@@ -1,0 +1,18 @@
+## gradle
+/.gradle
+/build
+
+## ForgeGradle
+/run
+
+## eclipse
+/.settings
+/.metadata
+/.classpath
+/.project
+/bin
+
+## intellij
+/out
+/.idea
+/atlassian-ide-plugin.xml

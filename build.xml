@@ -1,0 +1,70 @@
+<?xml version="1.0" ?>
+<project name="Botany" default="build">
+
+	<property file="build.properties" prefix="build"/>
+
+	<target name="clean">
+		<delete dir="${build.dir.gradle}\build\classes\main" />
+		<delete file="${build.dir.gradle}\src\main\java\mcmod.info" />
+		<delete dir ="${build.dir.temp}" />
+	</target>
+
+	<target name="increment_build_number">
+		<propertyfile file="build.properties">
+			<entry key="build_number" type="int" operation="+" default="1"/>
+		</propertyfile>
+	</target>
+
+	<target name="prep">
+		<mkdir dir="${build.dir.temp}" />
+
+		<copy todir="${build.dir.temp}">
+			<fileset dir="${build.dir.repo}\resources\" />
+		</copy>
+
+		<copy todir="${build.dir.gradle}\src\main\java">
+			<fileset dir="${build.dir.repo}\MODSRC\" />
+		</copy>
+	</target>
+
+	<target name="replace_tokens">
+		<replace dir="${build.dir.temp}" token="ANT:VERSION" value="${build.version}" />
+		<replace dir="${build.dir.temp}" token="ANT:BUILD" value="${build.build_number}" />
+
+		<replace dir="${build.dir.gradle}\src\main\java" token="ANT:VERSION" value="${build.version}" />
+		<replace dir="${build.dir.gradle}\src\main\java" token="ANT:BUILD" value="${build.build_number}" />
+	</target>
+
+	<target name="gradle_build">
+		<copy todir="${build.dir.gradle}" overwrite="true">
+			<fileset file="${build.dir.repo}\build.gradle"/>
+		</copy>
+
+		<exec dir="${build.dir.gradle}" executable="cmd" osfamily="windows">
+			<arg line="/c gradle build" />
+		</exec>
+
+		<exec dir="${build.dir.gradle}" executable="gradle" osfamily="unix">
+			<arg value="build" />
+		</exec>
+
+		<move file="${build.dir.gradle}\build\libs\modid-1.0.jar" tofile="${build.dir.output}\${build.mod_name}\${build.mod_name} ${build.version}-${build.build_number}.jar" />
+	</target>
+
+	<target name="inject_assets">
+		<jar update="true" destfile="${build.dir.output}\${build.mod_name}\${build.mod_name} ${build.version}-${build.build_number}.jar">
+			<fileset dir="${build.dir.temp}" excludes="**/psd/**" />
+		</jar>
+		<delete dir ="${build.dir.temp}" />
+	</target>
+
+	<target name="build">
+		<antcall target="clean" />
+		<antcall target="prep" />
+		<antcall target="replace_tokens" />
+		<antcall target="gradle_build" />
+		<antcall target="inject_assets" />
+		<antcall target="increment_build_number" />
+		<antcall target="clean" />
+	</target>
+</project>
