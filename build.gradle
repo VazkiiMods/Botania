@@ -11,10 +11,10 @@ buildscript {
     }
 }
 
-apply plugin: 'scala'
+apply plugin: 'forge'
 
 version = "1.0"
-group= "vazkii.botany" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group= "vazkii.botania" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "modid"
 
 minecraft {
@@ -23,7 +23,6 @@ minecraft {
 
 dependencies {
 	compile files (
-		'TCDEOBF.jar',
 		'mods/CodeChickenCore-dev 0.9.0.7.jar',
 		'mods/1.6.4/CodeChickenLib-dev-1.6.4-1.0.0.45.jar',
 		'mods/1.6.4/ForgeMultipart-dev-1.6.4-1.0.0.219.jar',
