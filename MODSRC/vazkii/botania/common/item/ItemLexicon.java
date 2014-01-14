@@ -11,6 +11,8 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.item.EnumRarity;
+import net.minecraft.item.ItemStack;
 import vazkii.botania.common.lib.LibItemIDs;
 import vazkii.botania.common.lib.LibItemNames;
 
@@ -20,6 +22,11 @@ public class ItemLexicon extends ItemMod {
 		super(LibItemIDs.idLexicon);
 		setMaxStackSize(1);
 		setUnlocalizedName(LibItemNames.LEXICON);
+	}
+	
+	@Override
+	public EnumRarity getRarity(ItemStack par1ItemStack) {
+		return EnumRarity.uncommon;
 	}
 
 }
