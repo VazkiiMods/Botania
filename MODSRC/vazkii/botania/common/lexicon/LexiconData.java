@@ -9,10 +9,12 @@
  * 
  * File Created @ [Jan 14, 2014, 9:12:15 PM (GMT)]
  */
-package vazkii.botania.common.page;
+package vazkii.botania.common.lexicon;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.LexiconCategory;
+import vazkii.botania.api.LexiconEntry;
+import vazkii.botania.common.lexicon.page.PageText;
 import vazkii.botania.common.lib.LibLexicon;
 
 public final class LexiconData {
@@ -32,7 +34,27 @@ public final class LexiconData {
 		BotaniaAPI.addCategory(categoryTools = new LexiconCategory(LibLexicon.CATEGORY_TOOLS));
 		BotaniaAPI.addCategory(categoryMisc = new LexiconCategory(LibLexicon.CATEGORY_MISC));
 
+		LexiconEntry entry;
 		
+		// BASICS ENTRIES
+		entry = new BLexiconEntry("world", categoryBasics);
+		entry.setLexiconPages(new PageText("0"), new PageText("1"));
+		
+		entry = new BLexiconEntry("basicConcepts", categoryBasics);
+		entry.setLexiconPages(new PageText("0"));
+		
+		entry = new BLexiconEntry("gettingStarted", categoryBasics);
+		entry.setLexiconPages(new PageText("0"));
+
+		// ENERGY ENTRIES
+		
+		// FLOWERS ENTRIES
+		
+		// DEVICES ENTRIES
+		
+		// TOOLS ENTRIES
+		
+		// MISC ENTRIES
 	}
 	
 }

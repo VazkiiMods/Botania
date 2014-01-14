@@ -9,7 +9,7 @@
  * 
  * File Created @ [Jan 14, 2014, 6:45:33 PM (GMT)]
  */
-package vazkii.botania.common.page;
+package vazkii.botania.common.lexicon.page;
 
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.page.LexiconPage;

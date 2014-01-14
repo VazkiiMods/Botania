@@ -13,7 +13,7 @@ package vazkii.botania.common.core.handler;
 
 import vazkii.botania.api.internal.IInternalMethodHandler;
 import vazkii.botania.api.page.LexiconPage;
-import vazkii.botania.common.page.PageText;
+import vazkii.botania.common.lexicon.page.PageText;
 
 public class InternalMethodHandler implements IInternalMethodHandler {
 

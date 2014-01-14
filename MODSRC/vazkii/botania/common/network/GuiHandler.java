@@ -11,10 +11,10 @@
  */
 package vazkii.botania.common.network;
 
-import vazkii.botania.client.gui.GuiLexiconIndex;
-import vazkii.botania.common.lib.LibGuiIDs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+import vazkii.botania.client.gui.GuiLexicon;
+import vazkii.botania.common.lib.LibGuiIDs;
 import cpw.mods.fml.common.network.IGuiHandler;
 
 public class GuiHandler implements IGuiHandler {
@@ -28,7 +28,7 @@ public class GuiHandler implements IGuiHandler {
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		switch(ID) {
 		case LibGuiIDs.LEXICON :
-			return new GuiLexiconIndex();
+			return new GuiLexicon();
 		}
 		
 		return null;

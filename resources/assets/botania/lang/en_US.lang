@@ -16,3 +16,8 @@ botania.category.flowers=Magical Flora
 botania.category.devices=Natural Apparatus
 botania.category.tools=Mystical Instruments
 botania.category.misc=Miscellaneous
+
+# LEXICON ENTRIES
+botania.entry.world=The World
+botania.entry.basicConcepts=Basic Concepts
+botania.entry.gettingStarted=Getting Started

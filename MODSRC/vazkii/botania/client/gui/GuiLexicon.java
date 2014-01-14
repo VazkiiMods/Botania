@@ -13,6 +13,7 @@ package vazkii.botania.client.gui;
 
 import java.util.List;
 
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -39,8 +40,8 @@ public class GuiLexicon extends GuiScreen {
 		left = width / 2 - guiWidth / 2;
 		top = height / 2 - guiHeight / 2;
 		
+		buttonList.clear();
 		if(isIndex()) {
-			buttonList.clear();
 			int x = 18;
 			for(int i = 0; i < 12; i++) {
 				int y = 16 + i * 12;
@@ -57,12 +58,26 @@ public class GuiLexicon extends GuiScreen {
 		drawTexturedModalRect(left, top, 0, 0, guiWidth, guiHeight);
 		drawCenteredString(fontRenderer, getTitle(), left + guiWidth / 2, top - 12, 0x00FF00);
 		
+		drawHeader();
+		
+		super.drawScreen(par1, par2, par3);
+	}
+	
+	void drawHeader() {
 		boolean unicode = fontRenderer.getUnicodeFlag();
 		fontRenderer.setUnicodeFlag(true);
 		fontRenderer.drawSplitString(StatCollector.translateToLocal("botania.gui.lexicon.header"), left + 15, top + 20, 110, 0);
 		fontRenderer.setUnicodeFlag(unicode);
-		
-		super.drawScreen(par1, par2, par3);
+	}
+	
+	@Override
+	protected void actionPerformed(GuiButton par1GuiButton) {
+		int i = par1GuiButton.id - 3;
+		List<LexiconCategory> categoryList = BotaniaAPI.getAllCategories();
+		LexiconCategory category = i >= categoryList.size() ? null : categoryList.get(i);
+
+		if(category != null)
+			mc.displayGuiScreen(new GuiLexiconIndex(category));
 	}
 	
 	String getTitle() {

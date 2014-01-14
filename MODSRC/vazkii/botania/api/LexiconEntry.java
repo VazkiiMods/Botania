@@ -31,6 +31,10 @@ public class LexiconEntry {
 		this.unlocalizedName = unlocalizedName;
 	}
 	
+	public String getUnlocalizedName() {
+		return unlocalizedName;
+	}
+	
 	/**
 	 * Sets what pages you want this entry to have.
 	 */

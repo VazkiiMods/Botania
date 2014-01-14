@@ -15,7 +15,7 @@ import vazkii.botania.api.internal.IGuiLexiconEntry;
 
 public abstract class LexiconPage {
 	
-	private final String unlocalizedName;
+	public String unlocalizedName;
 	
 	public LexiconPage(String unlocalizedName) {
 		this.unlocalizedName = unlocalizedName;
