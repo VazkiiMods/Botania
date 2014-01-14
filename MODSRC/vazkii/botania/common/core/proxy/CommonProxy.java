@@ -11,7 +11,9 @@
  */
 package vazkii.botania.common.core.proxy;
 
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.item.ModItems;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -20,6 +22,9 @@ public class CommonProxy {
 
 	public void preInit(FMLPreInitializationEvent event) {
 		ConfigHandler.loadConfig(event.getSuggestedConfigurationFile());
+		
+		ModBlocks.init();
+		ModItems.init();
 	}
 
 	public void init(FMLInitializationEvent event) {
