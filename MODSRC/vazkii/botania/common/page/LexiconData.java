@@ -19,13 +19,17 @@ public final class LexiconData {
 
 	public static LexiconCategory categoryBasics;
 	public static LexiconCategory categoryEnergy;
-	public static LexiconCategory categoryPlants;
+	public static LexiconCategory categoryFlowers;
+	public static LexiconCategory categoryDevices;
+	public static LexiconCategory categoryTools;
 	public static LexiconCategory categoryMisc;
 	
 	public static void init() {
 		BotaniaAPI.addCategory(categoryBasics = new LexiconCategory(LibLexicon.CATEGORY_BASICS));
 		BotaniaAPI.addCategory(categoryEnergy = new LexiconCategory(LibLexicon.CATEGORY_ENERGY));
-		BotaniaAPI.addCategory(categoryPlants = new LexiconCategory(LibLexicon.CATEGORY_PLANTS));
+		BotaniaAPI.addCategory(categoryFlowers = new LexiconCategory(LibLexicon.CATEGORY_FLOWERS));
+		BotaniaAPI.addCategory(categoryDevices = new LexiconCategory(LibLexicon.CATEGORY_DEVICES));
+		BotaniaAPI.addCategory(categoryTools = new LexiconCategory(LibLexicon.CATEGORY_TOOLS));
 		BotaniaAPI.addCategory(categoryMisc = new LexiconCategory(LibLexicon.CATEGORY_MISC));
 
 		

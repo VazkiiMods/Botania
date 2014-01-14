@@ -12,5 +12,7 @@ botania.gui.lexicon.header=Lexica Botania Index - Pick which category you would 
 # LEXICON CATEGORIES
 botania.category.basics=Basics
 botania.category.energy=Energy and Mana
-botania.category.plants=Magical Plants
+botania.category.flowers=Magical Flora
+botania.category.devices=Natural Apparatus
+botania.category.tools=Mystical Instruments
 botania.category.misc=Miscellaneous
