@@ -5,3 +5,12 @@ itemGroup.Botania=Botania
 
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania
+
+# GUI TEXT
+botania.gui.lexicon.header=Lexica Botania Index - Pick which category you would like to study:
+
+# LEXICON CATEGORIES
+botania.category.basics=Basics
+botania.category.energy=Energy and Mana
+botania.category.plants=Magical Plants
+botania.category.misc=Miscellaneous
