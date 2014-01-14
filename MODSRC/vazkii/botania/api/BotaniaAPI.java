@@ -12,17 +12,15 @@
 package vazkii.botania.api;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import vazkii.botania.api.internal.DummyMethodHandler;
 import vazkii.botania.api.internal.IInternalMethodHandler;
 
 public final class BotaniaAPI {
 
-	private static List<LexiconCategory> categories = new ArrayList();
-	private static List<LexiconEntry> allEntries = new ArrayList();
+	private static List<LexiconCategory> categories = new ArrayList<LexiconCategory>();
+	private static List<LexiconEntry> allEntries = new ArrayList<LexiconEntry>();
 	
 	/**
 	 * The internal method handler in use. Do not overwrite.

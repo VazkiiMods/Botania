@@ -22,7 +22,7 @@ import vazkii.botania.api.page.LexiconPage;
 public class LexiconEntry {
 	
 	public final String unlocalizedName;
-	public List<LexiconPage> pages = new ArrayList();
+	public List<LexiconPage> pages = new ArrayList<LexiconPage>();
 	
 	/**
 	 * @param unlocalizedName The unlocalized name of this entry. This will be localized by the client display.

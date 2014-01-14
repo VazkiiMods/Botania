@@ -12,7 +12,6 @@
 package vazkii.botania.api.page;
 
 import vazkii.botania.api.internal.IGuiLexiconEntry;
-import net.minecraft.client.gui.GuiScreen;
 
 public abstract class LexiconPage {
 	
