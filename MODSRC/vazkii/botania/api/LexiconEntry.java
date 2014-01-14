@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.entity.player.EntityPlayer;
 import vazkii.botania.api.page.LexiconPage;
 
 public class LexiconEntry {
@@ -32,6 +34,10 @@ public class LexiconEntry {
 	
 	public void addPage(LexiconPage page) {
 		pages.add(page);
+	}
+	
+	public boolean shouldBeDisplayed(GuiScreen screen, EntityPlayer player) {
+		return true;
 	}
 
 }

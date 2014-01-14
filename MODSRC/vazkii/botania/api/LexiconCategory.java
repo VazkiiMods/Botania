@@ -11,9 +11,13 @@
  */
 package vazkii.botania.api;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public final class LexiconCategory {
 
 	public final String tag;
+	public final List<LexiconEntry> entries = new ArrayList();
 	
 	public LexiconCategory(String tag) {
 		this.tag = tag;

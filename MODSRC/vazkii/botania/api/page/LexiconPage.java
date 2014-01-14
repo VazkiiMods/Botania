@@ -15,6 +15,15 @@ import net.minecraft.client.gui.GuiScreen;
 
 public abstract class LexiconPage {
 	
+	private final String unlocalizedName;
+	
+	public LexiconPage(String unlocalizedName) {
+		this.unlocalizedName = unlocalizedName;
+	}
+	
 	public abstract void renderScreen(GuiScreen gui, int x, int y);
-
+	
+	public String getUnlocalizedName() {
+		return unlocalizedName;
+	}
 }

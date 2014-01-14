@@ -12,11 +12,25 @@
 package vazkii.botania.api;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public final class BotaniaAPI {
 
-	public static List<LexiconCategory> categories = new ArrayList();
+	private static List<LexiconCategory> categories = new ArrayList();
+	private static List<LexiconEntry> allEntries = new ArrayList();
 	
+	public static void addCategory(LexiconCategory category) {
+		categories.add(category);
+	}
 	
+	public static List<LexiconCategory> getAllCategories() {
+		return categories;
+	}
+	
+	public static void addEntry(LexiconEntry entry, LexiconCategory category) {
+		allEntries.add(entry);
+		category.entries.add(entry);
+	}
 }
