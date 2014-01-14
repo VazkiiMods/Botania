@@ -21,21 +21,33 @@ import vazkii.botania.api.page.LexiconPage;
 
 public class LexiconEntry {
 	
-	public final String id;
+	public final String unlocalizedName;
 	public List<LexiconPage> pages = new ArrayList();
 	
-	public LexiconEntry(String id) {
-		this.id = id;
+	/**
+	 * @param unlocalizedName The unlocalized name of this entry. This will be localized by the client display.
+	 */
+	public LexiconEntry(String unlocalizedName) {
+		this.unlocalizedName = unlocalizedName;
 	}
 	
+	/**
+	 * Sets what pages you want this entry to have.
+	 */
 	public void setLexiconPages(LexiconPage... pages) {
 		this.pages.addAll(Arrays.asList(pages));
 	}
 	
+	/**
+	 * Adds a page to the list of pages.
+	 */
 	public void addPage(LexiconPage page) {
 		pages.add(page);
 	}
 	
+	/**
+	 * Should this entry be displayed in the list of entries?
+	 */
 	public boolean shouldBeDisplayed(GuiScreen screen, EntityPlayer player) {
 		return true;
 	}

@@ -21,6 +21,12 @@ public abstract class LexiconPage {
 		this.unlocalizedName = unlocalizedName;
 	}
 	
+	/**
+	 * Does the rendering for this page.
+	 * @param gui The active GuiScreen
+	 * @param x The leftmost part of the gui.
+	 * @param y The top part of the gui.
+	 */
 	public abstract void renderScreen(GuiScreen gui, int x, int y);
 	
 	public String getUnlocalizedName() {

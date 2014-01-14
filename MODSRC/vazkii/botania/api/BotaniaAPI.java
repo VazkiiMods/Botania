@@ -16,19 +16,37 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import vazkii.botania.api.internal.DummyMethodHandler;
+import vazkii.botania.api.internal.IInternalMethodHandler;
+
 public final class BotaniaAPI {
 
 	private static List<LexiconCategory> categories = new ArrayList();
 	private static List<LexiconEntry> allEntries = new ArrayList();
 	
+	/**
+	 * The internal method handler in use. Do not overwrite.
+	 * @see IInternalMethodHandler
+	 */
+	public static IInternalMethodHandler internalHandler = new DummyMethodHandler();
+	
+	/**
+	 * Adds a category to the list of registered categories to appear in the Lexicon.
+	 */
 	public static void addCategory(LexiconCategory category) {
 		categories.add(category);
 	}
 	
+	/**
+	 * Gets all registered categories.
+	 */
 	public static List<LexiconCategory> getAllCategories() {
 		return categories;
 	}
 	
+	/**
+	 * Registers a Lexicon Entry and adds it to the category passed in.
+	 */
 	public static void addEntry(LexiconEntry entry, LexiconCategory category) {
 		allEntries.add(entry);
 		category.entries.add(entry);
