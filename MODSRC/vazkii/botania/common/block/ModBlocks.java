@@ -11,7 +11,7 @@
  */
 package vazkii.botania.common.block;
 
-public class ModBlocks {
+public final class ModBlocks {
 
 	public static void init() {
 		

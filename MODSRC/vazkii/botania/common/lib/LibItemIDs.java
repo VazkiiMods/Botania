@@ -7,18 +7,12 @@
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
  * 
- * File Created @ [Jan 14, 2014, 5:17:47 PM (GMT)]
+ * File Created @ [Jan 14, 2014, 5:49:24 PM (GMT)]
  */
-package vazkii.botania.common.item;
+package vazkii.botania.common.lib;
 
-import net.minecraft.item.Item;
+public final class LibItemIDs {
 
-public final class ModItems {
-
-	public static Item lexicon;
-	
-	public static void init() {
-		lexicon = new ItemLexicon();
-	}
+	public static int idLexicon = 19555;
 	
 }

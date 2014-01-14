@@ -17,7 +17,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.Icon;
 import vazkii.botania.client.lib.LibResources;
 
-public class IconHelper {
+public final class IconHelper {
 
 	private static Icon emptyTexture;
 

@@ -7,18 +7,19 @@
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
  * 
- * File Created @ [Jan 14, 2014, 5:17:47 PM (GMT)]
+ * File Created @ [Jan 14, 2014, 5:53:00 PM (GMT)]
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.item.Item;
+import vazkii.botania.common.lib.LibItemIDs;
+import vazkii.botania.common.lib.LibItemNames;
 
-public final class ModItems {
+public class ItemLexicon extends ItemMod {
 
-	public static Item lexicon;
-	
-	public static void init() {
-		lexicon = new ItemLexicon();
+	public ItemLexicon() {
+		super(LibItemIDs.idLexicon);
+		setMaxStackSize(1);
+		setUnlocalizedName(LibItemNames.LEXICON);
 	}
-	
+
 }

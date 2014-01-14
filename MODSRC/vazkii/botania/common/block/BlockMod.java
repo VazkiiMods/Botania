@@ -16,6 +16,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.BotaniaCreativeTab;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -27,6 +28,12 @@ public class BlockMod extends Block {
 			setCreativeTab(BotaniaCreativeTab.INSTANCE);
 	}
 
+	@Override
+	public Block setUnlocalizedName(String par1Str) {
+		GameRegistry.registerBlock(this, par1Str);
+		return super.setUnlocalizedName(par1Str);
+	}
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister) {

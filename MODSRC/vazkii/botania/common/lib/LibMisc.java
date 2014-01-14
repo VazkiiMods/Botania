@@ -11,7 +11,7 @@
  */
 package vazkii.botania.common.lib;
 
-public class LibMisc {
+public final class LibMisc {
 
 	// Mod Constants
 	public static final String MOD_ID = "Botania";
