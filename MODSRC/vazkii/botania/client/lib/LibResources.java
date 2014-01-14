@@ -22,6 +22,8 @@ public final class LibResources {
 	public static final String PREFIX_MODEL = PREFIX_MOD + "textures/model/";
 
 	public static final String EMTPY_TEXTURE = "emptyTexture";
+
+	public static final String GUI_LEXICON = PREFIX_GUI + "lexicon.png";
 	
 	public static final String[] LANGS = new String[] {
 		"en_US"

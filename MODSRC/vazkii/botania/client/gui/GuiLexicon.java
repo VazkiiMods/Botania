@@ -11,8 +11,33 @@
  */
 package vazkii.botania.client.gui;
 
+import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.item.ModItems;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.util.ResourceLocation;
 
 public class GuiLexicon extends GuiScreen {
 
+	public static final ResourceLocation texture = new ResourceLocation(LibResources.GUI_LEXICON);
+	
+	int guiWidth = 146;
+	int guiHeight = 180;
+	int left, top;
+	
+	@Override
+	public void initGui() {
+		super.initGui();
+	}
+	
+	@Override
+	public void drawScreen(int par1, int par2, float par3) {
+		super.drawScreen(par1, par2, par3);
+		left = width / 2 - guiWidth / 2;
+		top = height / 2 - guiHeight / 2;
+		
+		mc.renderEngine.bindTexture(texture);
+		drawTexturedModalRect(left, top, 0, 0, guiWidth, guiHeight);
+		drawCenteredString(fontRenderer, ModItems.lexicon.getItemDisplayName(null), left + guiWidth / 2, top - 12, 0x00FF00);
+	}
+	
 }
