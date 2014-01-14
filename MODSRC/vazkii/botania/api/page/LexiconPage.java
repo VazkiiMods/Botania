@@ -11,6 +11,7 @@
  */
 package vazkii.botania.api.page;
 
+import vazkii.botania.api.internal.IGuiLexiconEntry;
 import net.minecraft.client.gui.GuiScreen;
 
 public abstract class LexiconPage {
@@ -27,7 +28,7 @@ public abstract class LexiconPage {
 	 * @param x The leftmost part of the gui.
 	 * @param y The top part of the gui.
 	 */
-	public abstract void renderScreen(GuiScreen gui, int x, int y);
+	public abstract void renderScreen(IGuiLexiconEntry gui, int x, int y);
 	
 	public String getUnlocalizedName() {
 		return unlocalizedName;

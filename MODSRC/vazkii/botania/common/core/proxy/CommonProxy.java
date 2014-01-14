@@ -11,16 +11,23 @@
  */
 package vazkii.botania.common.core.proxy;
 
+import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.core.handler.InternalMethodHandler;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.network.GuiHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
 
 public class CommonProxy {
 
 	public void preInit(FMLPreInitializationEvent event) {
+		BotaniaAPI.internalHandler = new InternalMethodHandler();
+		
 		ConfigHandler.loadConfig(event.getSuggestedConfigurationFile());
 		
 		ModBlocks.init();
@@ -28,7 +35,7 @@ public class CommonProxy {
 	}
 
 	public void init(FMLInitializationEvent event) {
-
+		NetworkRegistry.instance().registerGuiHandler(Botania.instance, new GuiHandler());
 	}
 
 	public void postInit(FMLPostInitializationEvent event) {

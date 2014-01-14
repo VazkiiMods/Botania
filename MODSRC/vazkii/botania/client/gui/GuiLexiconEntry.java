@@ -7,22 +7,12 @@
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
  * 
- * File Created @ [Jan 14, 2014, 6:45:33 PM (GMT)]
+ * File Created @ [Jan 14, 2014, 6:47:06 PM (GMT)]
  */
-package vazkii.botania.common.page;
+package vazkii.botania.client.gui;
 
 import vazkii.botania.api.internal.IGuiLexiconEntry;
-import vazkii.botania.api.page.LexiconPage;
 
-public class PageText extends LexiconPage {
-
-	public PageText(String unlocalizedName) {
-		super(unlocalizedName);
-	}
-
-	@Override
-	public void renderScreen(IGuiLexiconEntry gui, int x, int y) {
-		// TODO
-	}
+public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry {
 
 }

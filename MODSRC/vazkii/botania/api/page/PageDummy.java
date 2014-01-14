@@ -11,7 +11,7 @@
  */
 package vazkii.botania.api.page;
 
-import net.minecraft.client.gui.GuiScreen;
+import vazkii.botania.api.internal.IGuiLexiconEntry;
 
 /**
  * A dummy page. It does absolutely nothing and is only
@@ -25,7 +25,7 @@ public class PageDummy extends LexiconPage {
 	}
 
 	@Override
-	public void renderScreen(GuiScreen gui, int x, int y) {
+	public void renderScreen(IGuiLexiconEntry gui, int x, int y) {
 		// NO-OP
 	}
 
