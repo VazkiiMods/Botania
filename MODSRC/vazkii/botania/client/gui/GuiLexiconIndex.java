@@ -13,4 +13,9 @@ package vazkii.botania.client.gui;
 
 public class GuiLexiconIndex extends GuiLexicon {
 
+	@Override
+	public void drawScreen(int par1, int par2, float par3) {
+		super.drawScreen(par1, par2, par3);
+	}
+	
 }
