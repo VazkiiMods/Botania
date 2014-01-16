@@ -13,8 +13,8 @@ package vazkii.botania.client.gui;
 
 import java.util.List;
 
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.StatCollector;
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.LexiconCategory;
 import vazkii.botania.api.LexiconEntry;
 import vazkii.botania.client.gui.button.GuiButtonBack;
@@ -24,6 +24,7 @@ public class GuiLexiconIndex extends GuiLexicon {
 
 	LexiconCategory category;
 	String title;
+	int page = 0;
 	
 	public GuiLexiconIndex(LexiconCategory category) {
 		this.category = category;
@@ -55,6 +56,20 @@ public class GuiLexiconIndex extends GuiLexicon {
 			if(entry != null)
 				button.displayString = " " + StatCollector.translateToLocal(entry.getUnlocalizedName());
 			else button.displayString = "";
+		}
+	}
+	
+	@Override
+	protected void actionPerformed(GuiButton par1GuiButton) {
+		if(par1GuiButton.id == 12)
+			mc.displayGuiScreen(new GuiLexicon());
+		else {
+			int index = par1GuiButton.id + page * 12;
+			if(index >= category.entries.size())
+				return;
+			
+			LexiconEntry entry = category.entries.get(index);
+			mc.displayGuiScreen(new GuiLexiconEntry(entry, this));
 		}
 	}
 }

@@ -11,6 +11,8 @@
  */
 package vazkii.botania.api.internal;
 
+import vazkii.botania.api.LexiconEntry;
+
 /**
  * Internal interface for the Lexicon Entry GUI. This contains
  * everything that can be accessed from it. It's safe to cast
@@ -18,4 +20,14 @@ package vazkii.botania.api.internal;
  */
 public interface IGuiLexiconEntry {
 
+	/**
+	 * Gets the entry currently portrayed in this gui.
+	 */
+	public LexiconEntry getEntry();
+	
+	/**
+	 * Gets the current page the lexicon GUI is browsing.
+	 */
+	public int getPageOn();
+	
 }

@@ -73,6 +73,9 @@ public class GuiLexicon extends GuiScreen {
 	@Override
 	protected void actionPerformed(GuiButton par1GuiButton) {
 		int i = par1GuiButton.id - 3;
+		if(i < 0)
+			return;
+		
 		List<LexiconCategory> categoryList = BotaniaAPI.getAllCategories();
 		LexiconCategory category = i >= categoryList.size() ? null : categoryList.get(i);
 

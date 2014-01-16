@@ -41,7 +41,7 @@ public final class LexiconData {
 		entry.setLexiconPages(new PageText("0"), new PageText("1"));
 		
 		entry = new BLexiconEntry("basicConcepts", categoryBasics);
-		entry.setLexiconPages(new PageText("0"));
+		entry.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"));
 		
 		entry = new BLexiconEntry("gettingStarted", categoryBasics);
 		entry.setLexiconPages(new PageText("0"));
