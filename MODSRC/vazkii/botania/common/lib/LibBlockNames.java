@@ -7,18 +7,14 @@
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
  * 
- * File Created @ [Jan 14, 2014, 5:17:55 PM (GMT)]
+ * File Created @ [Jan 16, 2014, 5:55:03 PM (GMT)]
  */
-package vazkii.botania.common.block;
+package vazkii.botania.common.lib;
 
-import net.minecraft.block.Block;
+import vazkii.botania.client.lib.LibResources;
 
-public final class ModBlocks {
+public final class LibBlockNames {
 
-	public static Block flower;
-	
-	public static void init() {
-		flower = new BlockModFlower();
-	}
+	public static final String FLOWER = LibResources.PREFIX_MOD + "flower";
 	
 }

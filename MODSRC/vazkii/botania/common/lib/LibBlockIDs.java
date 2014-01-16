@@ -7,18 +7,12 @@
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
  * 
- * File Created @ [Jan 14, 2014, 5:17:55 PM (GMT)]
+ * File Created @ [Jan 16, 2014, 5:54:52 PM (GMT)]
  */
-package vazkii.botania.common.block;
+package vazkii.botania.common.lib;
 
-import net.minecraft.block.Block;
+public final class LibBlockIDs {
 
-public final class ModBlocks {
-
-	public static Block flower;
-	
-	public static void init() {
-		flower = new BlockModFlower();
-	}
+	public static int idFlower = 1955;
 	
 }

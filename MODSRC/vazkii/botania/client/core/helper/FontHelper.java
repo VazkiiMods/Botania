@@ -11,7 +11,7 @@
  */
 package vazkii.botania.client.core.helper;
 
-public class FontHelper {
+public final class FontHelper {
 
     public static boolean isFormatColor(char par0) {
         return par0 >= 48 && par0 <= 57 || par0 >= 97 && par0 <= 102 || par0 >= 65 && par0 <= 70;

@@ -14,6 +14,8 @@ package vazkii.botania.common.core.handler;
 import java.io.File;
 
 import net.minecraftforge.common.Configuration;
+import vazkii.botania.common.lib.LibBlockIDs;
+import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibItemIDs;
 import vazkii.botania.common.lib.LibItemNames;
 
@@ -27,6 +29,7 @@ public final class ConfigHandler {
 		config.load();
 		
 		// Block IDs
+		LibBlockIDs.idFlower = loadBlock(LibBlockNames.FLOWER, LibBlockIDs.idFlower);
 		
 		// Item IDs
 		LibItemIDs.idLexicon = loadItem(LibItemNames.LEXICON, LibItemIDs.idLexicon);

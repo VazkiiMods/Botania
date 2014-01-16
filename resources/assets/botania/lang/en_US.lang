@@ -2,6 +2,22 @@
 itemGroup.Botania=Botania
 
 # BLOCK NAMES
+tile.botania:flower0.name=Mystical White Flower
+tile.botania:flower1.name=Mystical Orange Flower
+tile.botania:flower2.name=Mystical Magenta Flower
+tile.botania:flower3.name=Mystical Light Blue Flower
+tile.botania:flower4.name=Mystical Yellow Flower
+tile.botania:flower5.name=Mystical Lime Flower
+tile.botania:flower6.name=Mystical Pink Flower
+tile.botania:flower7.name=Mystical Gray Flower
+tile.botania:flower8.name=Mystical Light Gray Flower
+tile.botania:flower9.name=Mystical Cyan Flower
+tile.botania:flower10.name=Mystical Purple Flower
+tile.botania:flower11.name=Mystical Blue Flower
+tile.botania:flower12.name=Mystical Brown Flower
+tile.botania:flower13.name=Mystical Green Flower
+tile.botania:flower14.name=Mystical Red Flower
+tile.botania:flower15.name=Mystical Black Flower
 
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania

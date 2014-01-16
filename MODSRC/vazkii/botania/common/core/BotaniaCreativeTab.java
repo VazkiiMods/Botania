@@ -17,6 +17,7 @@ import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -31,12 +32,14 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 	
 	@Override
 	public ItemStack getIconItemStack() {
-		return new ItemStack(ModItems.lexicon);
+		return new ItemStack(ModBlocks.flower);
 	}
 	
 	@Override
 	public void displayAllReleventItems(List list) {
 		this.list = list;
+		
+		addBlock(ModBlocks.flower);
 		
 		addItem(ModItems.lexicon);
 	}
