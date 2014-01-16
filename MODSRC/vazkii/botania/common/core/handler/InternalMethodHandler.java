@@ -13,6 +13,7 @@ package vazkii.botania.common.core.handler;
 
 import vazkii.botania.api.internal.IInternalMethodHandler;
 import vazkii.botania.api.page.LexiconPage;
+import vazkii.botania.common.lexicon.page.PageImage;
 import vazkii.botania.common.lexicon.page.PageText;
 
 public class InternalMethodHandler implements IInternalMethodHandler {
@@ -20,6 +21,11 @@ public class InternalMethodHandler implements IInternalMethodHandler {
 	@Override
 	public LexiconPage textPage(String key) {
 		return new PageText(key);
+	}
+	
+	@Override
+	public LexiconPage imagePage(String key, String resource) {
+		return new PageImage(key, resource);
 	}
 
 }

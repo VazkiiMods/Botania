@@ -31,16 +31,20 @@ public class PageText extends LexiconPage {
 
 	@Override
 	public void renderScreen(IGuiLexiconEntry gui, int mx, int my) {
-		FontRenderer renderer = Minecraft.getMinecraft().fontRenderer;
-		boolean unicode = renderer.getUnicodeFlag();
-		renderer.setUnicodeFlag(true);
-		String text = StatCollector.translateToLocal(getUnlocalizedName()).replaceAll("&", "\u00a7");
-		String[] textEntries = text.split("<br>");
-		
 		int width = gui.getWidth() - 30;
 		int x = gui.getLeft() + 16;
 		int y = gui.getTop();
 		
+		renderText(x, y, width, gui.getHeight(), getUnlocalizedName());
+	}
+	
+	public static void renderText(int x, int y, int width, int height, String unlocalizedText) {
+		FontRenderer renderer = Minecraft.getMinecraft().fontRenderer;
+		boolean unicode = renderer.getUnicodeFlag();
+		renderer.setUnicodeFlag(true);
+		String text = StatCollector.translateToLocal(unlocalizedText).replaceAll("&", "\u00a7");
+		String[] textEntries = text.split("<br>");
+
 		String lastFormat = "";
 		for(String s : textEntries) {
 			List<String> wrappedLines = new ArrayList();

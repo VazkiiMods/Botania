@@ -18,12 +18,15 @@ public final class LibResources {
 	public static final String PREFIX_LANG = "/assets/botania/lang/";
 
 	public static final String PREFIX_GUI = PREFIX_MOD + "textures/gui/";
+	public static final String PREFIX_ENTRIES = PREFIX_GUI + "entries/";
 	public static final String PREFIX_MISC = PREFIX_MOD + "textures/misc/";
 	public static final String PREFIX_MODEL = PREFIX_MOD + "textures/model/";
 
 	public static final String EMTPY_TEXTURE = "emptyTexture";
 
 	public static final String GUI_LEXICON = PREFIX_GUI + "lexicon.png";
+	
+	public static final String ENTRY_FLOWERS = PREFIX_ENTRIES + "flowers.png";
 	
 	public static final String[] LANGS = new String[] {
 		"en_US"

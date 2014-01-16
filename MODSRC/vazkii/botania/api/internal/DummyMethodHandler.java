@@ -21,6 +21,11 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 		return dummyPage(key);
 	}
 	
+	@Override
+	public LexiconPage imagePage(String key, String resource) {
+		return dummyPage(resource);
+	}
+	
 	private LexiconPage dummyPage(String key) {
 		return new PageDummy(key);
 	}

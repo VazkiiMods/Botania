@@ -14,6 +14,8 @@ package vazkii.botania.common.lexicon;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.LexiconCategory;
 import vazkii.botania.api.LexiconEntry;
+import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.lexicon.page.PageImage;
 import vazkii.botania.common.lexicon.page.PageText;
 import vazkii.botania.common.lib.LibLexicon;
 
@@ -38,10 +40,10 @@ public final class LexiconData {
 		
 		// BASICS ENTRIES
 		entry = new BLexiconEntry("world", categoryBasics);
-		entry.setLexiconPages(new PageText("0"), new PageText("1"));
+		entry.setLexiconPages(new PageText("0"), new PageText("1"), new PageImage("2", LibResources.ENTRY_FLOWERS));
 		
 		entry = new BLexiconEntry("basicConcepts", categoryBasics);
-		entry.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"));
+		entry.setLexiconPages(new PageText("0"), new PageText("1"));
 		
 		entry = new BLexiconEntry("gettingStarted", categoryBasics);
 		entry.setLexiconPages(new PageText("0"));

@@ -24,4 +24,6 @@ public interface IInternalMethodHandler {
 
 	public LexiconPage textPage(String key);
 	
+	public LexiconPage imagePage(String key, String resource);
+	
 }

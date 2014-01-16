@@ -34,7 +34,16 @@ botania.category.tools=Mystical Instruments
 botania.category.misc=Miscellaneous
 
 # LEXICON ENTRIES
+
+# - BASIC
+# -- THE WORLD
 botania.entry.world=The World
 botania.page.world0=The world is fun.<br>This line of text is very long so I can test if line wrap works fine, woo.<br>And this one is kinda long too. &eTesting colors. &cMore colors.
+botania.page.world1=This is a second page. There will be something here. Eventually.
+botania.page.world2=Flowers in the wild
+
+# -- BASIC CONCEPTS
 botania.entry.basicConcepts=Basic Concepts
+
+# -- GETTING STARTED
 botania.entry.gettingStarted=Getting Started
