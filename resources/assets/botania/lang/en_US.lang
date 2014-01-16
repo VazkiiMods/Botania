@@ -19,5 +19,6 @@ botania.category.misc=Miscellaneous
 
 # LEXICON ENTRIES
 botania.entry.world=The World
+botania.page.world0=The world is fun.<br>This line of text is very long so I can test if line wrap works fine, woo.<br>And this one is kinda long too. &eTesting colors. &cMore colors.
 botania.entry.basicConcepts=Basic Concepts
 botania.entry.gettingStarted=Getting Started

@@ -15,6 +15,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.StatCollector;
 import vazkii.botania.api.LexiconEntry;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
+import vazkii.botania.api.page.LexiconPage;
 import vazkii.botania.client.gui.button.GuiButtonBack;
 import vazkii.botania.client.gui.button.GuiButtonPage;
 
@@ -94,6 +95,29 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry {
 	@Override
 	public void drawScreen(int par1, int par2, float par3) {
 		super.drawScreen(par1, par2, par3);
+		
+		LexiconPage page = entry.pages.get(this.page);
+		page.renderScreen(this, par1, par2);
+	}
+
+	@Override
+	public int getLeft() {
+		return left;
+	}
+
+	@Override
+	public int getTop() {
+		return top;
+	}
+
+	@Override
+	public int getWidth() {
+		return guiWidth;
+	}
+
+	@Override
+	public int getHeight() {
+		return guiHeight;
 	}
 	
 }

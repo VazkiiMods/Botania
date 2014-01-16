@@ -24,10 +24,10 @@ public abstract class LexiconPage {
 	/**
 	 * Does the rendering for this page.
 	 * @param gui The active GuiScreen
-	 * @param x The leftmost part of the gui.
-	 * @param y The top part of the gui.
+	 * @param mx The mouse's relative X position.
+	 * @param my The mouse's relative Y position.
 	 */
-	public abstract void renderScreen(IGuiLexiconEntry gui, int x, int y);
+	public abstract void renderScreen(IGuiLexiconEntry gui, int mx, int my);
 	
 	public String getUnlocalizedName() {
 		return unlocalizedName;
