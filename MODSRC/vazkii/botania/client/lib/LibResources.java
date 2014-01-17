@@ -28,6 +28,10 @@ public final class LibResources {
 	
 	public static final String ENTRY_FLOWERS = PREFIX_ENTRIES + "flowers.png";
 	
+	public static final String MISC_PARTICLES = PREFIX_MISC + "particles.png";
+	public static final String MISC_WISP_LARGE = PREFIX_MISC + "wispLarge.png";
+	public static final String MISC_WISP_SMALL = PREFIX_MISC + "wispSmall.png";
+
 	public static final String[] LANGS = new String[] {
 		"en_US"
 	};
