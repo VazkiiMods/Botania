@@ -14,7 +14,7 @@ package vazkii.botania.common.lib;
 public final class LibLexicon {
 
 	public static final String CATEGORY_PREFIX = "botania.category.";
-	
+
 	public static final String CATEGORY_BASICS = CATEGORY_PREFIX + "basics";
 	public static final String CATEGORY_ENERGY = CATEGORY_PREFIX + "energy";
 	public static final String CATEGORY_FLOWERS = CATEGORY_PREFIX + "flowers";

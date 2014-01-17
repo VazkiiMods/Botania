@@ -31,7 +31,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class BlockModFlower extends BlockFlower {
 
 	Icon[] icons;
-	
+
 	protected BlockModFlower() {
 		super(LibBlockIDs.idFlower);
 		setUnlocalizedName(LibBlockNames.FLOWER);
@@ -39,19 +39,19 @@ public class BlockModFlower extends BlockFlower {
 		setStepSound(soundGrassFootstep);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 	}
-	
+
 	@Override
 	public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List par3List) {
 		for(int i = 0; i < 16; i++)
 			par3List.add(new ItemStack(par1, 1, i));
 	}
-	
+
 	@Override
 	public Block setUnlocalizedName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockModFlower.class, par1Str);
 		return super.setUnlocalizedName(par1Str);
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister) {
@@ -64,7 +64,7 @@ public class BlockModFlower extends BlockFlower {
 	public Icon getIcon(int par1, int par2) {
 		return icons[par2];
 	}
-	
+
 	@Override
 	public int damageDropped(int par1) {
 		return par1;

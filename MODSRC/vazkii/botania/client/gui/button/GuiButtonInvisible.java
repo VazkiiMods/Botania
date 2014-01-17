@@ -20,12 +20,12 @@ public class GuiButtonInvisible extends GuiButton {
 	public GuiButtonInvisible(int par1, int par2, int par3, int par4, int par5, String par6Str) {
 		super(par1, par2, par3, par4, par5, par6Str);
 	}
-	
+
 	@Override
 	public void drawButton(Minecraft par1Minecraft, int par2, int par3) {
-        field_82253_i = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
-        int k = getHoverState(field_82253_i);
-		
+		field_82253_i = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
+		int k = getHoverState(field_82253_i);
+
 		boolean unicode = par1Minecraft.fontRenderer.getUnicodeFlag();
 		par1Minecraft.fontRenderer.setUnicodeFlag(true);
 		par1Minecraft.fontRenderer.drawString((k == 2 ? EnumChatFormatting.BOLD : "") + displayString, xPosition/* + (k == 2 ? 5 : 0)*/, yPosition + (height - 8) / 2, 0);

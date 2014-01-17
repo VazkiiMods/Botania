@@ -33,7 +33,7 @@ public class BlockMod extends Block {
 		GameRegistry.registerBlock(this, par1Str);
 		return super.setUnlocalizedName(par1Str);
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister) {

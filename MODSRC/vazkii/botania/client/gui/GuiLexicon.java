@@ -29,17 +29,17 @@ import vazkii.botania.common.item.ModItems;
 public class GuiLexicon extends GuiScreen {
 
 	public static final ResourceLocation texture = new ResourceLocation(LibResources.GUI_LEXICON);
-	
+
 	int guiWidth = 146;
 	int guiHeight = 180;
 	int left, top;
-	
+
 	@Override
 	public void initGui() {
 		super.initGui();
 		left = width / 2 - guiWidth / 2;
 		top = height / 2 - guiHeight / 2;
-		
+
 		buttonList.clear();
 		if(isIndex()) {
 			int x = 18;
@@ -50,47 +50,47 @@ public class GuiLexicon extends GuiScreen {
 			populateIndex();
 		}
 	}
-	
+
 	@Override
-	public void drawScreen(int par1, int par2, float par3) {		
+	public void drawScreen(int par1, int par2, float par3) {
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		mc.renderEngine.bindTexture(texture);
 		drawTexturedModalRect(left, top, 0, 0, guiWidth, guiHeight);
 		drawCenteredString(fontRenderer, getTitle(), left + guiWidth / 2, top - 12, 0x00FF00);
-		
+
 		drawHeader();
-		
+
 		super.drawScreen(par1, par2, par3);
 	}
-	
+
 	void drawHeader() {
 		boolean unicode = fontRenderer.getUnicodeFlag();
 		fontRenderer.setUnicodeFlag(true);
 		fontRenderer.drawSplitString(StatCollector.translateToLocal("botania.gui.lexicon.header"), left + 15, top + 20, 110, 0);
 		fontRenderer.setUnicodeFlag(unicode);
 	}
-	
+
 	@Override
 	protected void actionPerformed(GuiButton par1GuiButton) {
 		int i = par1GuiButton.id - 3;
 		if(i < 0)
 			return;
-		
+
 		List<LexiconCategory> categoryList = BotaniaAPI.getAllCategories();
 		LexiconCategory category = i >= categoryList.size() ? null : categoryList.get(i);
 
 		if(category != null)
 			mc.displayGuiScreen(new GuiLexiconIndex(category));
 	}
-	
+
 	String getTitle() {
 		return ModItems.lexicon.getItemDisplayName(null);
 	}
-	
+
 	boolean isIndex() {
 		return true;
 	}
-	
+
 	void populateIndex() {
 		List<LexiconCategory> categoryList = BotaniaAPI.getAllCategories();
 		for(int i = 3; i < 12; i++) {
@@ -102,5 +102,5 @@ public class GuiLexicon extends GuiScreen {
 			else button.displayString = "";
 		}
 	}
-	
+
 }

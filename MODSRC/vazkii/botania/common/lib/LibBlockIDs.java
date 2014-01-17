@@ -14,5 +14,5 @@ package vazkii.botania.common.lib;
 public final class LibBlockIDs {
 
 	public static int idFlower = 1955;
-	
+
 }

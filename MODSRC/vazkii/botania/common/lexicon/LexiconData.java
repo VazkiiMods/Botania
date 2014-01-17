@@ -27,7 +27,7 @@ public final class LexiconData {
 	public static LexiconCategory categoryDevices;
 	public static LexiconCategory categoryTools;
 	public static LexiconCategory categoryMisc;
-	
+
 	public static void init() {
 		BotaniaAPI.addCategory(categoryBasics = new LexiconCategory(LibLexicon.CATEGORY_BASICS));
 		BotaniaAPI.addCategory(categoryEnergy = new LexiconCategory(LibLexicon.CATEGORY_ENERGY));
@@ -37,26 +37,26 @@ public final class LexiconData {
 		BotaniaAPI.addCategory(categoryMisc = new LexiconCategory(LibLexicon.CATEGORY_MISC));
 
 		LexiconEntry entry;
-		
+
 		// BASICS ENTRIES
 		entry = new BLexiconEntry("world", categoryBasics);
 		entry.setLexiconPages(new PageText("0"), new PageText("1"), new PageImage("2", LibResources.ENTRY_FLOWERS));
-		
+
 		entry = new BLexiconEntry("basicConcepts", categoryBasics);
 		entry.setLexiconPages(new PageText("0"), new PageText("1"));
-		
+
 		entry = new BLexiconEntry("gettingStarted", categoryBasics);
 		entry.setLexiconPages(new PageText("0"));
 
 		// ENERGY ENTRIES
-		
+
 		// FLOWERS ENTRIES
-		
+
 		// DEVICES ENTRIES
-		
+
 		// TOOLS ENTRIES
-		
+
 		// MISC ENTRIES
 	}
-	
+
 }

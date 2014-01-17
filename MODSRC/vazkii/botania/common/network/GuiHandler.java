@@ -30,7 +30,7 @@ public class GuiHandler implements IGuiHandler {
 		case LibGuiIDs.LEXICON :
 			return new GuiLexicon();
 		}
-		
+
 		return null;
 	}
 

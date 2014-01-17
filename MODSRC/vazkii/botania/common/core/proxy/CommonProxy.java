@@ -28,15 +28,15 @@ public class CommonProxy {
 
 	public void preInit(FMLPreInitializationEvent event) {
 		BotaniaAPI.internalHandler = new InternalMethodHandler();
-		
+
 		ConfigHandler.loadConfig(event.getSuggestedConfigurationFile());
-		
+
 		ModBlocks.init();
 		ModItems.init();
 		LexiconData.init();
 	}
 
-	public void init(FMLInitializationEvent event) {		
+	public void init(FMLInitializationEvent event) {
 		NetworkRegistry.instance().registerGuiHandler(Botania.instance, new GuiHandler());
 	}
 

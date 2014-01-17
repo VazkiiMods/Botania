@@ -25,7 +25,7 @@ public class GuiLexiconIndex extends GuiLexicon {
 	LexiconCategory category;
 	String title;
 	int page = 0;
-	
+
 	public GuiLexiconIndex(LexiconCategory category) {
 		this.category = category;
 		title = StatCollector.translateToLocal(category.getUnlocalizedName());
@@ -35,18 +35,18 @@ public class GuiLexiconIndex extends GuiLexicon {
 	void drawHeader() {
 		// NO-OP
 	}
-	
+
 	@Override
 	String getTitle() {
 		return title;
 	}
-	
+
 	@Override
 	public void initGui() {
 		super.initGui();
 		buttonList.add(new GuiButtonBack(12, left + guiWidth / 2 - 8, top + guiHeight + 2));
 	}
-	
+
 	@Override
 	void populateIndex() {
 		List<LexiconEntry> entryList = category.entries;
@@ -58,7 +58,7 @@ public class GuiLexiconIndex extends GuiLexicon {
 			else button.displayString = "";
 		}
 	}
-	
+
 	@Override
 	protected void actionPerformed(GuiButton par1GuiButton) {
 		if(par1GuiButton.id == 12)
@@ -67,7 +67,7 @@ public class GuiLexiconIndex extends GuiLexicon {
 			int index = par1GuiButton.id + page * 12;
 			if(index >= category.entries.size())
 				return;
-			
+
 			LexiconEntry entry = category.entries.get(index);
 			mc.displayGuiScreen(new GuiLexiconEntry(entry, this));
 		}

@@ -25,5 +25,5 @@ public class ItemBlockModFlower extends ItemBlockWithMetadata {
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
 		return super.getUnlocalizedName(par1ItemStack) + par1ItemStack.getItemDamage();
 	}
-	
+
 }

@@ -18,15 +18,15 @@ public final class LexiconCategory {
 
 	public final String unlocalizedName;
 	public final List<LexiconEntry> entries = new ArrayList<LexiconEntry>();
-	
+
 	/**
 	 * @param unlocalizedName The unlocalized name of this category. This will be localized by the client display.
 	 */
 	public LexiconCategory(String unlocalizedName) {
 		this.unlocalizedName = unlocalizedName;
 	}
-	
+
 	public String getUnlocalizedName() {
 		return unlocalizedName;
-	}	
+	}
 }

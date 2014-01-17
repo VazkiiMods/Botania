@@ -11,23 +11,24 @@
  */
 package vazkii.botania.client.gui.button;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiButton;
+
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.gui.GuiLexicon;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
 
 public class GuiButtonBack extends GuiButton {
 
 	public GuiButtonBack(int par1, int par2, int par3) {
 		super(par1, par2, par3, 18, 9, "");
 	}
-	
+
 	@Override
 	public void drawButton(Minecraft par1Minecraft, int par2, int par3) {
 		field_82253_i = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
-        int k = getHoverState(field_82253_i);
-		
+		int k = getHoverState(field_82253_i);
+
 		par1Minecraft.renderEngine.bindTexture(GuiLexicon.texture);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		drawTexturedModalRect(xPosition, yPosition, 36, k == 2 ? 180 : 189, 18, 9);

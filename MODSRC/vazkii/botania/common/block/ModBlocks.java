@@ -16,9 +16,9 @@ import net.minecraft.block.Block;
 public final class ModBlocks {
 
 	public static Block flower;
-	
+
 	public static void init() {
 		flower = new BlockModFlower();
 	}
-	
+
 }

@@ -22,22 +22,22 @@ public class BLexiconEntry extends LexiconEntry {
 		super(unlocalizedName);
 		BotaniaAPI.addEntry(this, category);
 	}
-	
+
 	@Override
 	public void setLexiconPages(LexiconPage... pages) {
 		for(LexiconPage page : pages)
 			page.unlocalizedName = "botania.page." + getLazyUnlocalizedName() + page.unlocalizedName;
-		
+
 		super.setLexiconPages(pages);
 	}
-	
+
 	@Override
 	public String getUnlocalizedName() {
 		return "botania.entry." + super.getUnlocalizedName();
 	}
-	
+
 	public String getLazyUnlocalizedName() {
 		return super.getUnlocalizedName();
 	}
-	
+
 }

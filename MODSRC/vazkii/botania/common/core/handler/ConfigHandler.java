@@ -25,15 +25,15 @@ public final class ConfigHandler {
 
 	public static void loadConfig(File configFile) {
 		config = new Configuration(configFile);
-		
+
 		config.load();
-		
+
 		// Block IDs
 		LibBlockIDs.idFlower = loadBlock(LibBlockNames.FLOWER, LibBlockIDs.idFlower);
-		
+
 		// Item IDs
 		LibItemIDs.idLexicon = loadItem(LibItemNames.LEXICON, LibItemIDs.idLexicon);
-		
+
 		config.save();
 	}
 

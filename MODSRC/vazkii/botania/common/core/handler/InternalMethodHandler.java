@@ -22,7 +22,7 @@ public class InternalMethodHandler implements IInternalMethodHandler {
 	public LexiconPage textPage(String key) {
 		return new PageText(key);
 	}
-	
+
 	@Override
 	public LexiconPage imagePage(String key, String resource) {
 		return new PageImage(key, resource);

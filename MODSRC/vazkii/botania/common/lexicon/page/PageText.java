@@ -16,7 +16,6 @@ import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
@@ -34,10 +33,10 @@ public class PageText extends LexiconPage {
 		int width = gui.getWidth() - 30;
 		int x = gui.getLeft() + 16;
 		int y = gui.getTop();
-		
+
 		renderText(x, y, width, gui.getHeight(), getUnlocalizedName());
 	}
-	
+
 	public static void renderText(int x, int y, int width, int height, String unlocalizedText) {
 		FontRenderer renderer = Minecraft.getMinecraft().fontRenderer;
 		boolean unicode = renderer.getUnicodeFlag();
@@ -49,35 +48,35 @@ public class PageText extends LexiconPage {
 		for(String s : textEntries) {
 			List<String> wrappedLines = new ArrayList();
 			String workingOn = "";
-			
+
 			int i = 0;
 			String[] tokens = s.split(" ");
 			for(String s1 : tokens) {
 				String format = FontHelper.getFormatFromString(s1);
 				if(MathHelper.stringNullOrLengthZero(format))
 					format = lastFormat;
-				
+
 				if(renderer.getStringWidth(workingOn + " " + s1) >= width) {
 					wrappedLines.add(workingOn);
 					workingOn = "";
 				}
 				workingOn = workingOn + format + " " + s1;
-				
+
 				if(i == tokens.length - 1)
 					wrappedLines.add(workingOn);
-					
+
 				++i;
 				lastFormat = format;
 			}
-			
+
 			for(String s1 : wrappedLines) {
 				y += 10;
 				renderer.drawString(s1, x, y, 0);
 			}
-			
+
 			y += 10;
 		}
-		
+
 		renderer.setUnicodeFlag(unicode);
 	}
 

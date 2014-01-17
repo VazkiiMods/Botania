@@ -27,13 +27,13 @@ public class ItemLexicon extends ItemMod {
 		setMaxStackSize(1);
 		setUnlocalizedName(LibItemNames.LEXICON);
 	}
-	
+
 	@Override
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
 		par3EntityPlayer.openGui(Botania.instance, LibGuiIDs.LEXICON, par2World, 0, 0, 0);
 		return par1ItemStack;
 	}
-	
+
 	@Override
 	public EnumRarity getRarity(ItemStack par1ItemStack) {
 		return EnumRarity.uncommon;

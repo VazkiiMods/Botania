@@ -43,7 +43,7 @@ public class FXSparkle extends EntityFX
 		particleMaxAge = 3*m;
 		multiplier=m;
 		noClip = false;
-		this.setSize(0.01F, 0.01F);
+		setSize(0.01F, 0.01F);
 		prevPosX = posX;
 		prevPosY = posY;
 		prevPosZ = posZ;
@@ -54,43 +54,43 @@ public class FXSparkle extends EntityFX
 		this(world, d, d1, d2, f, 0f, 0f, 0f, m);
 		currentColor = type;
 		switch (type) {
-		case 0: 
+		case 0:
 			particleRed=.75f + world.rand.nextFloat()*.25f;
 			particleGreen=.25f + world.rand.nextFloat()*.25f;
 			particleBlue=.75f + world.rand.nextFloat()*.25f;
 			break;
-		case 1: 
+		case 1:
 			particleRed=.5f + world.rand.nextFloat()*.3f;
 			particleGreen=.5f + world.rand.nextFloat()*.3f;
 			particleBlue=.2f;
 			break;
-		case 2: 
+		case 2:
 			particleRed=.2f;
 			particleGreen=.2f;
 			particleBlue=.7f + world.rand.nextFloat()*.3f;
 			break;
-		case 3: 
+		case 3:
 			particleRed=.2f;
 			particleGreen=.7f + world.rand.nextFloat()*.3f;
 			particleBlue=.2f;
 			break;
-		case 4: 
+		case 4:
 			particleRed=.7f + world.rand.nextFloat()*.3f;
 			particleGreen=.2f;
 			particleBlue=.2f;
 			break;
-		case 5: 
+		case 5:
 			blendmode=771;
 			particleRed= world.rand.nextFloat()*.1f;
 			particleGreen= world.rand.nextFloat()*.1f;
 			particleBlue= world.rand.nextFloat()*.1f;
 			break;
-		case 6: 
+		case 6:
 			particleRed= .8f+world.rand.nextFloat()*.2f;
 			particleGreen= .8f+world.rand.nextFloat()*.2f;
 			particleBlue= .8f+world.rand.nextFloat()*.2f;
 			break;
-		case 7: 
+		case 7:
 			particleRed=.2f;
 			particleGreen=.5f + world.rand.nextFloat()*.3f;
 			particleBlue=.6f + world.rand.nextFloat()*.3f;
@@ -113,6 +113,7 @@ public class FXSparkle extends EntityFX
 		motionZ = dz / particleMaxAge;
 	}
 
+	@Override
 	public void renderParticle(Tessellator tessellator, float f, float f1, float f2, float f3, float f4, float f5)
 	{
 
@@ -129,25 +130,25 @@ public class FXSparkle extends EntityFX
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.75F);
 		int part = particle + particleAge/multiplier;
 
-		float var8 = (float)(part % 8) / 8.0F;
+		float var8 = part % 8 / 8.0F;
 		float var9 = var8 + 0.0624375F*2;
-		float var10 = (float)(part / 8) / 8.0F;
+		float var10 = part / 8 / 8.0F;
 		float var11 = var10 + 0.0624375F*2;
-		float var12 = 0.1F * this.particleScale;
-		if (shrink) var12 *= ((particleMaxAge-particleAge+1)/(float)particleMaxAge);
-		float var13 = (float)(this.prevPosX + (this.posX - this.prevPosX) * (double)f - interpPosX);
-		float var14 = (float)(this.prevPosY + (this.posY - this.prevPosY) * (double)f - interpPosY);
-		float var15 = (float)(this.prevPosZ + (this.posZ - this.prevPosZ) * (double)f - interpPosZ);
+		float var12 = 0.1F * particleScale;
+		if (shrink) var12 *= (particleMaxAge-particleAge+1)/(float)particleMaxAge;
+		float var13 = (float)(prevPosX + (posX - prevPosX) * f - interpPosX);
+		float var14 = (float)(prevPosY + (posY - prevPosY) * f - interpPosY);
+		float var15 = (float)(prevPosZ + (posZ - prevPosZ) * f - interpPosZ);
 		float var16 = 1.0F;
 
 		tessellator.startDrawingQuads();
 		tessellator.setBrightness(0x0000f0);
 
-		tessellator.setColorRGBA_F(this.particleRed * var16, this.particleGreen * var16, this.particleBlue * var16, 1);
-		tessellator.addVertexWithUV((double)(var13 - f1 * var12 - f4 * var12), (double)(var14 - f2 * var12), (double)(var15 - f3 * var12 - f5 * var12), (double)var9, (double)var11);
-		tessellator.addVertexWithUV((double)(var13 - f1 * var12 + f4 * var12), (double)(var14 + f2 * var12), (double)(var15 - f3 * var12 + f5 * var12), (double)var9, (double)var10);
-		tessellator.addVertexWithUV((double)(var13 + f1 * var12 + f4 * var12), (double)(var14 + f2 * var12), (double)(var15 + f3 * var12 + f5 * var12), (double)var8, (double)var10);
-		tessellator.addVertexWithUV((double)(var13 + f1 * var12 - f4 * var12), (double)(var14 - f2 * var12), (double)(var15 + f3 * var12 - f5 * var12), (double)var8, (double)var11);
+		tessellator.setColorRGBA_F(particleRed * var16, particleGreen * var16, particleBlue * var16, 1);
+		tessellator.addVertexWithUV(var13 - f1 * var12 - f4 * var12, var14 - f2 * var12, var15 - f3 * var12 - f5 * var12, var9, var11);
+		tessellator.addVertexWithUV(var13 - f1 * var12 + f4 * var12, var14 + f2 * var12, var15 - f3 * var12 + f5 * var12, var9, var10);
+		tessellator.addVertexWithUV(var13 + f1 * var12 + f4 * var12, var14 + f2 * var12, var15 + f3 * var12 + f5 * var12, var8, var10);
+		tessellator.addVertexWithUV(var13 + f1 * var12 - f4 * var12, var14 - f2 * var12, var15 + f3 * var12 - f5 * var12, var8, var11);
 
 		tessellator.draw();
 
@@ -160,6 +161,7 @@ public class FXSparkle extends EntityFX
 
 	}
 
+	@Override
 	public void onUpdate()
 	{
 		//	 if (!leyLineEffect) {
@@ -184,8 +186,8 @@ public class FXSparkle extends EntityFX
 
 
 
-		motionY -= 0.040000000000000001D * (double)particleGravity;
-		if (noClip==false) pushOutOfBlocks(this.posX, (this.boundingBox.minY + this.boundingBox.maxY) / 2.0D, this.posZ);
+		motionY -= 0.040000000000000001D * particleGravity;
+		if (noClip==false) pushOutOfBlocks(posX, (boundingBox.minY + boundingBox.maxY) / 2.0D, posZ);
 		//     moveEntity(motionX, motionY, motionZ);
 		posX+=motionX;
 		posY+=motionY;
@@ -203,10 +205,10 @@ public class FXSparkle extends EntityFX
 
 		if (leyLineEffect) {
 
-			FXSparkle fx = new FXSparkle(worldObj, 
-					prevPosX+(worldObj.rand.nextFloat()-worldObj.rand.nextFloat())*.1f, 
-					prevPosY+(worldObj.rand.nextFloat()-worldObj.rand.nextFloat())*.1f, 
-					prevPosZ+(worldObj.rand.nextFloat()-worldObj.rand.nextFloat())*.1f, 
+			FXSparkle fx = new FXSparkle(worldObj,
+					prevPosX+(worldObj.rand.nextFloat()-worldObj.rand.nextFloat())*.1f,
+					prevPosY+(worldObj.rand.nextFloat()-worldObj.rand.nextFloat())*.1f,
+					prevPosZ+(worldObj.rand.nextFloat()-worldObj.rand.nextFloat())*.1f,
 					1f, currentColor, 3+worldObj.rand.nextInt(3));
 			fx.noClip=true;
 			FMLClientHandler.instance().getClient().effectRenderer.addEffect(fx);
@@ -217,23 +219,24 @@ public class FXSparkle extends EntityFX
 		particleGravity = value;
 	}
 
+	@Override
 	protected boolean pushOutOfBlocks(double par1, double par3, double par5)
 	{
 		int var7 = MathHelper.floor_double(par1);
 		int var8 = MathHelper.floor_double(par3);
 		int var9 = MathHelper.floor_double(par5);
-		double var10 = par1 - (double)var7;
-		double var12 = par3 - (double)var8;
-		double var14 = par5 - (double)var9;
+		double var10 = par1 - var7;
+		double var12 = par3 - var8;
+		double var14 = par5 - var9;
 
-		if (!this.worldObj.isAirBlock(var7, var8, var9))
+		if (!worldObj.isAirBlock(var7, var8, var9))
 		{
-			boolean var16 = !this.worldObj.isBlockNormalCube(var7 - 1, var8, var9);
-			boolean var17 = !this.worldObj.isBlockNormalCube(var7 + 1, var8, var9);
-			boolean var18 = !this.worldObj.isBlockNormalCube(var7, var8 - 1, var9);
-			boolean var19 = !this.worldObj.isBlockNormalCube(var7, var8 + 1, var9);
-			boolean var20 = !this.worldObj.isBlockNormalCube(var7, var8, var9 - 1);
-			boolean var21 = !this.worldObj.isBlockNormalCube(var7, var8, var9 + 1);
+			boolean var16 = !worldObj.isBlockNormalCube(var7 - 1, var8, var9);
+			boolean var17 = !worldObj.isBlockNormalCube(var7 + 1, var8, var9);
+			boolean var18 = !worldObj.isBlockNormalCube(var7, var8 - 1, var9);
+			boolean var19 = !worldObj.isBlockNormalCube(var7, var8 + 1, var9);
+			boolean var20 = !worldObj.isBlockNormalCube(var7, var8, var9 - 1);
+			boolean var21 = !worldObj.isBlockNormalCube(var7, var8, var9 + 1);
 			byte var22 = -1;
 			double var23 = 9999.0D;
 
@@ -273,42 +276,42 @@ public class FXSparkle extends EntityFX
 				var22 = 5;
 			}
 
-			float var25 = this.rand.nextFloat() * 0.05F + 0.025F;
-			float var26 = (this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F;
+			float var25 = rand.nextFloat() * 0.05F + 0.025F;
+			float var26 = (rand.nextFloat() - rand.nextFloat()) * 0.1F;
 
 			if (var22 == 0)
 			{
-				this.motionX = (double)(-var25);
+				motionX = -var25;
 				motionY=motionZ=var26;
 			}
 
 			if (var22 == 1)
 			{
-				this.motionX = (double)var25;
+				motionX = var25;
 				motionY=motionZ=var26;
 			}
 
 			if (var22 == 2)
 			{
-				this.motionY = (double)(-var25);
+				motionY = -var25;
 				motionX=motionZ=var26;
 			}
 
 			if (var22 == 3)
 			{
-				this.motionY = (double)var25;
+				motionY = var25;
 				motionX=motionZ=var26;
 			}
 
 			if (var22 == 4)
 			{
-				this.motionZ = (double)(-var25);
+				motionZ = -var25;
 				motionY=motionX=var26;
 			}
 
 			if (var22 == 5)
 			{
-				this.motionZ = (double)var25;
+				motionZ = var25;
 				motionY=motionX=var26;
 			}
 

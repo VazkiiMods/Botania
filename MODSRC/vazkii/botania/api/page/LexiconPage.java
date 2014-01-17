@@ -14,13 +14,13 @@ package vazkii.botania.api.page;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 
 public abstract class LexiconPage {
-	
+
 	public String unlocalizedName;
-	
+
 	public LexiconPage(String unlocalizedName) {
 		this.unlocalizedName = unlocalizedName;
 	}
-	
+
 	/**
 	 * Does the rendering for this page.
 	 * @param gui The active GuiScreen
@@ -28,7 +28,7 @@ public abstract class LexiconPage {
 	 * @param my The mouse's relative Y position.
 	 */
 	public abstract void renderScreen(IGuiLexiconEntry gui, int mx, int my);
-	
+
 	public String getUnlocalizedName() {
 		return unlocalizedName;
 	}

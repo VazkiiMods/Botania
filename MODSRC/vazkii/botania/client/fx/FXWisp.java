@@ -52,7 +52,7 @@ public class FXWisp extends EntityFX
 
 		moteHalfLife = particleMaxAge / 2;
 		noClip = false;
-		this.setSize(0.01F, 0.01F);
+		setSize(0.01F, 0.01F);
 		EntityLivingBase renderentity = FMLClientHandler.instance().getClient().renderViewEntity;
 		int visibleDistance = 50;
 		if (!FMLClientHandler.instance().getClient().gameSettings.fancyGraphics) visibleDistance=25;
@@ -68,43 +68,43 @@ public class FXWisp extends EntityFX
 		this(world, d, d1, d2, f, 0f, 0f, 0f);
 
 		switch (type) {
-		case 0: 
+		case 0:
 			particleRed=.75f + world.rand.nextFloat()*.25f;
 			particleGreen=.25f + world.rand.nextFloat()*.25f;
 			particleBlue=.75f + world.rand.nextFloat()*.25f;
 			break;
-		case 1: 
+		case 1:
 			particleRed=.5f + world.rand.nextFloat()*.3f;
 			particleGreen=.5f + world.rand.nextFloat()*.3f;
 			particleBlue=.2f;
 			break;
-		case 2: 
+		case 2:
 			particleRed=.2f;
 			particleGreen=.2f;
 			particleBlue=.7f + world.rand.nextFloat()*.3f;
 			break;
-		case 3: 
+		case 3:
 			particleRed=.2f;
 			particleGreen=.7f + world.rand.nextFloat()*.3f;
 			particleBlue=.2f;
 			break;
-		case 4: 
+		case 4:
 			particleRed=.7f + world.rand.nextFloat()*.3f;
 			particleGreen=.2f;
 			particleBlue=.2f;
 			break;
-		case 5: 
+		case 5:
 			blendmode=771;
 			particleRed= world.rand.nextFloat()*.1f;
 			particleGreen= world.rand.nextFloat()*.1f;
 			particleBlue= world.rand.nextFloat()*.1f;
 			break;
-		case 6: 
+		case 6:
 			particleRed= .8f+world.rand.nextFloat()*.2f;
 			particleGreen= .8f+world.rand.nextFloat()*.2f;
 			particleBlue= .8f+world.rand.nextFloat()*.2f;
 			break;
-		case 7: 
+		case 7:
 			particleRed=.7f + world.rand.nextFloat()*.3f;
 			particleGreen=.5f + world.rand.nextFloat()*.2f;
 			particleBlue=.3f + world.rand.nextFloat()*.1f;
@@ -143,6 +143,7 @@ public class FXWisp extends EntityFX
 		}
 	}
 
+	@Override
 	public void renderParticle(Tessellator tessellator, float f, float f1, float f2, float f3, float f4, float f5)
 	{
 
@@ -150,14 +151,14 @@ public class FXWisp extends EntityFX
 
 		float agescale = 0;
 		if (shrink) {
-			agescale = ((float)particleMaxAge-(float)particleAge) / (float)particleMaxAge;
+			agescale = ((float)particleMaxAge-(float)particleAge) / particleMaxAge;
 		} else {
 			agescale = (float)particleAge / (float)moteHalfLife;
 			if (agescale>1f) agescale = 2-agescale;
 		}
 
 
-		this.particleScale = moteParticleScale * agescale;
+		particleScale = moteParticleScale * agescale;
 
 		tessellator.draw();
 		GL11.glPushMatrix();
@@ -173,9 +174,9 @@ public class FXWisp extends EntityFX
 
 
 		float f10 = 0.5F * particleScale;
-		float f11 = (float)((prevPosX + (posX - prevPosX) * (double)f) - interpPosX);
-		float f12 = (float)((prevPosY + (posY - prevPosY) * (double)f) - interpPosY);
-		float f13 = (float)((prevPosZ + (posZ - prevPosZ) * (double)f) - interpPosZ);
+		float f11 = (float)(prevPosX + (posX - prevPosX) * f - interpPosX);
+		float f12 = (float)(prevPosY + (posY - prevPosY) * f - interpPosY);
+		float f13 = (float)(prevPosZ + (posZ - prevPosZ) * f - interpPosZ);
 
 		tessellator.startDrawingQuads();
 
@@ -183,9 +184,9 @@ public class FXWisp extends EntityFX
 
 		tessellator.setColorRGBA_F(particleRed, particleGreen, particleBlue, 0.5F);
 		tessellator.addVertexWithUV(f11 - f1 * f10 - f4 * f10, f12 - f2 * f10, f13 - f3 * f10 - f5 * f10, 0, 1);
-		tessellator.addVertexWithUV((f11 - f1 * f10) + f4 * f10, f12 + f2 * f10, (f13 - f3 * f10) + f5 * f10, 1, 1);
+		tessellator.addVertexWithUV(f11 - f1 * f10 + f4 * f10, f12 + f2 * f10, f13 - f3 * f10 + f5 * f10, 1, 1);
 		tessellator.addVertexWithUV(f11 + f1 * f10 + f4 * f10, f12 + f2 * f10, f13 + f3 * f10 + f5 * f10, 1, 0);
-		tessellator.addVertexWithUV((f11 + f1 * f10) - f4 * f10, f12 - f2 * f10, (f13 + f3 * f10) - f5 * f10, 0, 0);
+		tessellator.addVertexWithUV(f11 + f1 * f10 - f4 * f10, f12 - f2 * f10, f13 + f3 * f10 - f5 * f10, 0, 0);
 
 		tessellator.draw();
 
@@ -197,6 +198,7 @@ public class FXWisp extends EntityFX
 		tessellator.startDrawingQuads();
 	}
 
+	@Override
 	public void onUpdate()
 	{
 
@@ -215,7 +217,7 @@ public class FXWisp extends EntityFX
 		}
 
 
-		motionY -= 0.040000000000000001D * (double)particleGravity;
+		motionY -= 0.040000000000000001D * particleGravity;
 		//     moveEntity(motionX, motionY, motionZ);
 		posX+=motionX;
 		posY+=motionY;

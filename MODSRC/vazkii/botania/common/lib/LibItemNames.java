@@ -16,5 +16,5 @@ import vazkii.botania.client.lib.LibResources;
 public final class LibItemNames {
 
 	public static final String LEXICON = LibResources.PREFIX_MOD + "lexicon";
-	
+
 }

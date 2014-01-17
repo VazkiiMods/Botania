@@ -16,9 +16,9 @@ import net.minecraft.item.Item;
 public final class ModItems {
 
 	public static Item lexicon;
-	
+
 	public static void init() {
 		lexicon = new ItemLexicon();
 	}
-	
+
 }

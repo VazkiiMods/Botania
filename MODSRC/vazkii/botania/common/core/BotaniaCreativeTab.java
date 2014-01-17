@@ -25,25 +25,25 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 
 	public static BotaniaCreativeTab INSTANCE = new BotaniaCreativeTab();
 	List list;
-	
+
 	public BotaniaCreativeTab() {
 		super(LibMisc.MOD_ID);
 	}
-	
+
 	@Override
 	public ItemStack getIconItemStack() {
 		return new ItemStack(ModBlocks.flower);
 	}
-	
+
 	@Override
 	public void displayAllReleventItems(List list) {
 		this.list = list;
-		
+
 		addBlock(ModBlocks.flower);
-		
+
 		addItem(ModItems.lexicon);
 	}
-	
+
 	private void addItem(Item item) {
 		item.getSubItems(item.itemID, this, list);
 	}

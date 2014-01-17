@@ -16,5 +16,5 @@ import vazkii.botania.client.lib.LibResources;
 public final class LibBlockNames {
 
 	public static final String FLOWER = LibResources.PREFIX_MOD + "flower";
-	
+
 }
