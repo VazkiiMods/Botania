@@ -22,6 +22,7 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibOreDict;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public final class ModCrafingRecipes {
@@ -33,11 +34,11 @@ public final class ModCrafingRecipes {
 	public static void init() {
 		// Petal/Dye Recipes
 		for(int i = 0; i < 16; i++) 
-			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.petal, 2, i), new ItemStack(ModBlocks.flower, 1, i)); 
+			addShapelessOreDictRecipe(new ItemStack(ModItems.petal, 2, i), LibOreDict.FLOWER[i]); 
 		recipesPetals = BotaniaAPI.getLatestAddedRecipes(16);
 		
 		for(int i = 0; i < 16; i++)
-			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.dye, 1, i), new ItemStack(ModItems.petal, 1, i), new ItemStack(ModItems.pestleAndMortar)); 
+			addShapelessOreDictRecipe(new ItemStack(ModItems.dye, 1, i), LibOreDict.PETAL[i], LibOreDict.PESTLE_AND_MORTAR); 
 		recipesDyes = BotaniaAPI.getLatestAddedRecipes(16);
 		
 		addOreDictRecipe(new ItemStack(ModItems.pestleAndMortar), 

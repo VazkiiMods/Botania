@@ -100,6 +100,9 @@ public class PageCraftingRecipes extends LexiconPage {
 			iconY += 20;
 		}
 		
+		render.bindTexture(craftingOverlay);
+		GL11.glEnable(GL11.GL_BLEND);
+
 		if(oreDictRecipe) {
 			((GuiScreen) gui).drawTexturedModalRect(iconX, iconY, 240, 16, 16, 16);
 			
