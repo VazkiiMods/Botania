@@ -11,6 +11,9 @@
  */
 package vazkii.botania.api.internal;
 
+import java.util.List;
+
+import net.minecraft.item.crafting.IRecipe;
 import vazkii.botania.api.page.LexiconPage;
 
 /**
@@ -25,5 +28,9 @@ public interface IInternalMethodHandler {
 	public LexiconPage textPage(String key);
 
 	public LexiconPage imagePage(String key, String resource);
+
+	public LexiconPage recipesPage(String key, List<IRecipe> recipes);
+	
+	public LexiconPage recipePage(String key, IRecipe recipe);
 
 }

@@ -11,6 +11,9 @@
  */
 package vazkii.botania.api.internal;
 
+import java.util.List;
+
+import net.minecraft.item.crafting.IRecipe;
 import vazkii.botania.api.page.LexiconPage;
 import vazkii.botania.api.page.PageDummy;
 
@@ -23,11 +26,23 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 
 	@Override
 	public LexiconPage imagePage(String key, String resource) {
-		return dummyPage(resource);
+		return dummyPage(key);
 	}
+
+	@Override
+	public LexiconPage recipesPage(String key, List<IRecipe> recipes) {
+		return dummyPage(key);
+	}
+
+	@Override
+	public LexiconPage recipePage(String key, IRecipe recipe) {
+		return dummyPage(key);
+	}
+	
 
 	private LexiconPage dummyPage(String key) {
 		return new PageDummy(key);
 	}
+
 
 }

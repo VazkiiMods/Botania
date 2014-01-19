@@ -11,8 +11,6 @@
  */
 package vazkii.botania.common.lib;
 
-import net.minecraftforge.oredict.OreDictionary;
-
 public final class LibOreDict {
 
 	public static final String[] FLOWER = new String[] {

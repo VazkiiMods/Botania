@@ -14,6 +14,8 @@ package vazkii.botania.api;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.item.crafting.IRecipe;
 import vazkii.botania.api.internal.DummyMethodHandler;
 import vazkii.botania.api.internal.IInternalMethodHandler;
 
@@ -48,5 +50,21 @@ public final class BotaniaAPI {
 	public static void addEntry(LexiconEntry entry, LexiconCategory category) {
 		allEntries.add(entry);
 		category.entries.add(entry);
+	}
+	
+	/**
+	 * Gets the last recipe to have been added to the recipe list.
+	 */
+	public static IRecipe getLatestAddedRecipe() {
+		List<IRecipe> list = CraftingManager.getInstance().getRecipeList();
+		return list.get(list.size() - 1);
+	}
+	
+	/**
+	 * Gets the last x recipes added to the recipe list.
+	 */
+	public static List<IRecipe> getLatestAddedRecipes(int x) {
+		List<IRecipe> list = CraftingManager.getInstance().getRecipeList();
+		return list.subList(list.size() - 1 - x, list.size() - 1);
 	}
 }
