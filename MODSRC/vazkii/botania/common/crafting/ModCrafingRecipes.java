@@ -27,11 +27,16 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public final class ModCrafingRecipes {
 
+	public static IRecipe lexiconRecipe;
 	public static List<IRecipe> recipesPetals;
 	public static List<IRecipe> recipesDyes;
 	public static IRecipe recipePestleAndMortar;
 
 	public static void init() {
+		// Lexicon Recipe
+		addShapelessOreDictRecipe(new ItemStack(ModItems.lexicon), "treeSapling", Item.book);
+		lexiconRecipe = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Petal/Dye Recipes
 		for(int i = 0; i < 16; i++) 
 			addShapelessOreDictRecipe(new ItemStack(ModItems.petal, 2, i), LibOreDict.FLOWER[i]); 
@@ -41,6 +46,7 @@ public final class ModCrafingRecipes {
 			addShapelessOreDictRecipe(new ItemStack(ModItems.dye, 1, i), LibOreDict.PETAL[i], LibOreDict.PESTLE_AND_MORTAR); 
 		recipesDyes = BotaniaAPI.getLatestAddedRecipes(16);
 		
+		// Pestle and Mortar Recipe
 		addOreDictRecipe(new ItemStack(ModItems.pestleAndMortar), 
 			" S", "W ", "B ",
 			'S', "stickWood",
