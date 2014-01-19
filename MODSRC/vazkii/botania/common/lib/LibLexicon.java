@@ -21,5 +21,7 @@ public final class LibLexicon {
 	public static final String CATEGORY_DEVICES = CATEGORY_PREFIX + "devices";
 	public static final String CATEGORY_TOOLS = CATEGORY_PREFIX + "tools";
 	public static final String CATEGORY_MISC = CATEGORY_PREFIX + "misc";
+	
+	public static final String BASICS_FLOWERS = "flowers";
 
 }

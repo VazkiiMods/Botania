@@ -76,13 +76,13 @@ botania.category.misc=Miscellaneous
 
 # - BASIC
 # -- THE WORLD
-botania.entry.world=The World
-botania.page.world0=The world is fun.<br>This line of text is very long so I can test if line wrap works fine, woo.<br>And this one is kinda long too. &eTesting colors. &cMore colors.
-botania.page.world1=This is a second page. There will be something here. Eventually.
-botania.page.world2=Flowers in the wild
-botania.page.world3=Plucking petals off flowers
-botania.page.world4=Pestle and Mortar
-botania.page.world5=Grinding petals into dye
+botania.entry.flowers=Mystical Flowers
+botania.page.flowers0=Around the world, you may stumble upon a large variety of Mystical Flora. Spotting these doesn't take much work as the flowers themselves emit a fair amount of shine.<br>They come in a total of &416 &0different colors.  
+botania.page.flowers1=Flowers as far as the eye can see...
+botania.page.flowers2=These flowers can be plucked for &1Mystical Petals&0, that can be used for making magical instruments and plants alike.<br>These petals can also be crushed into &1Floral Dye&0, by the use of a &1Pestle and Mortar&0, which function much alike any mundane piece of dye.
+botania.page.flowers3=Plucking Petals off Flowers
+botania.page.flowers4=Crafting the &1Pestle and Mortar
+botania.page.flowers5=Grinding Petals into Dye
 
 # -- BASIC CONCEPTS
 botania.entry.basicConcepts=Basic Concepts

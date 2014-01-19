@@ -41,14 +41,8 @@ public final class LexiconData {
 		LexiconEntry entry;
 
 		// BASICS ENTRIES
-		entry = new BLexiconEntry("world", categoryBasics);
-		entry.setLexiconPages(new PageText("0"), new PageText("1"), new PageImage("2", LibResources.ENTRY_FLOWERS), new PageCraftingRecipes("3", ModCrafingRecipes.recipesPetals), new PageCraftingRecipes("4", ModCrafingRecipes.recipePestleAndMortar), new PageCraftingRecipes("5", ModCrafingRecipes.recipesDyes));
-
-		entry = new BLexiconEntry("basicConcepts", categoryBasics);
-		entry.setLexiconPages(new PageText("0"), new PageText("1"));
-
-		entry = new BLexiconEntry("gettingStarted", categoryBasics);
-		entry.setLexiconPages(new PageText("0"));
+		entry = new BLexiconEntry(LibLexicon.BASICS_FLOWERS, categoryBasics);
+		entry.setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_FLOWERS), new PageText("2"), new PageCraftingRecipes("3", ModCrafingRecipes.recipesPetals), new PageCraftingRecipes("4", ModCrafingRecipes.recipePestleAndMortar), new PageCraftingRecipes("5", ModCrafingRecipes.recipesDyes));
 
 		// ENERGY ENTRIES
 

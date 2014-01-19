@@ -18,6 +18,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
+import net.minecraft.util.StringUtils;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.page.LexiconPage;
 import vazkii.botania.client.core.helper.FontHelper;
@@ -30,9 +31,9 @@ public class PageText extends LexiconPage {
 
 	@Override
 	public void renderScreen(IGuiLexiconEntry gui, int mx, int my) {
-		int width = gui.getWidth() - 30;
+		int width = gui.getWidth() - 34;
 		int x = gui.getLeft() + 16;
-		int y = gui.getTop();
+		int y = gui.getTop() + 2;
 
 		renderText(x, y, width, gui.getHeight(), getUnlocalizedName());
 	}
@@ -45,6 +46,7 @@ public class PageText extends LexiconPage {
 		String[] textEntries = text.split("<br>");
 
 		String lastFormat = "";
+		String pendingFormat = "";
 		for(String s : textEntries) {
 			List<String> wrappedLines = new ArrayList();
 			String workingOn = "";
@@ -52,7 +54,21 @@ public class PageText extends LexiconPage {
 			int i = 0;
 			String[] tokens = s.split(" ");
 			for(String s1 : tokens) {
+				boolean skipPending = false;
 				String format = FontHelper.getFormatFromString(s1);
+					
+				if(!format.isEmpty() && s1.length() > 0 && s1.charAt(0) != '\u00a7') {
+					skipPending = true;
+					pendingFormat = format;
+					format = "";
+					s1 = StringUtils.stripControlCodes(s1);
+				}
+				
+				if(!pendingFormat.isEmpty() && !skipPending) {
+					format = pendingFormat;
+					pendingFormat = "";
+				}
+				
 				if(MathHelper.stringNullOrLengthZero(format))
 					format = lastFormat;
 
