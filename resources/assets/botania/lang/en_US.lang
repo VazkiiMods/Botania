@@ -1,5 +1,8 @@
 # MISC
 itemGroup.Botania=Botania
+botaniamisc.nextPage=Next Page
+botaniamisc.prevPage=Previous Page
+botaniamisc.back=Back
 
 # BLOCK NAMES
 tile.botania:flower0.name=Mystical White Flower
