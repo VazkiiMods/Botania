@@ -57,6 +57,8 @@ item.botania:dye12.name=Floral Brown Dye
 item.botania:dye13.name=Floral Green Dye
 item.botania:dye14.name=Floral Red Dye
 item.botania:dye15.name=Floral Black Dye
+item.botania:pestleAndMortar.name=Pestle and Mortar
+
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania Index - Pick which category you would like to study:
 
@@ -77,7 +79,8 @@ botania.page.world0=The world is fun.<br>This line of text is very long so I can
 botania.page.world1=This is a second page. There will be something here. Eventually.
 botania.page.world2=Flowers in the wild
 botania.page.world3=Plucking petals off flowers
-botania.page.world4=Grinding petals into dye
+botania.page.world4=Pestle and Mortar
+botania.page.world5=Grinding petals into dye
 
 # -- BASIC CONCEPTS
 botania.entry.basicConcepts=Basic Concepts

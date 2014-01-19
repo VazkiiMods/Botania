@@ -42,7 +42,7 @@ public final class LexiconData {
 
 		// BASICS ENTRIES
 		entry = new BLexiconEntry("world", categoryBasics);
-		entry.setLexiconPages(new PageText("0"), new PageText("1"), new PageImage("2", LibResources.ENTRY_FLOWERS), new PageCraftingRecipes("3", ModCrafingRecipes.recipesPetals), new PageCraftingRecipes("4", ModCrafingRecipes.recipesDyes));
+		entry.setLexiconPages(new PageText("0"), new PageText("1"), new PageImage("2", LibResources.ENTRY_FLOWERS), new PageCraftingRecipes("3", ModCrafingRecipes.recipesPetals), new PageCraftingRecipes("4", ModCrafingRecipes.recipePestleAndMortar), new PageCraftingRecipes("5", ModCrafingRecipes.recipesDyes));
 
 		entry = new BLexiconEntry("basicConcepts", categoryBasics);
 		entry.setLexiconPages(new PageText("0"), new PageText("1"));

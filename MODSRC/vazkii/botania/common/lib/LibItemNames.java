@@ -18,5 +18,6 @@ public final class LibItemNames {
 	public static final String LEXICON = LibResources.PREFIX_MOD + "lexicon";
 	public static final String PETAL = LibResources.PREFIX_MOD + "petal";
 	public static final String DYE = LibResources.PREFIX_MOD + "dye";
+	public static final String PESTLE_AND_MORTAR = LibResources.PREFIX_MOD + "pestleAndMortar";
 
 }

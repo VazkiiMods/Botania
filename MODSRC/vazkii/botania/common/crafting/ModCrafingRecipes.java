@@ -13,8 +13,12 @@ package vazkii.botania.common.crafting;
 
 import java.util.List;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
@@ -24,16 +28,32 @@ public final class ModCrafingRecipes {
 
 	public static List<IRecipe> recipesPetals;
 	public static List<IRecipe> recipesDyes;
+	public static IRecipe recipePestleAndMortar;
 
-	public static final void init() {
+	public static void init() {
 		// Petal/Dye Recipes
 		for(int i = 0; i < 16; i++) 
 			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.petal, 2, i), new ItemStack(ModBlocks.flower, 1, i)); 
 		recipesPetals = BotaniaAPI.getLatestAddedRecipes(16);
 		
 		for(int i = 0; i < 16; i++)
-			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.dye, 1, i), new ItemStack(ModItems.petal, 1, i)); 
+			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.dye, 1, i), new ItemStack(ModItems.petal, 1, i), new ItemStack(ModItems.pestleAndMortar)); 
 		recipesDyes = BotaniaAPI.getLatestAddedRecipes(16);
+		
+		addOreDictRecipe(new ItemStack(ModItems.pestleAndMortar), 
+			" S", "W ", "B ",
+			'S', "stickWood",
+			'W', "plankWood",
+			'B', Item.bowlEmpty);
+		recipePestleAndMortar = BotaniaAPI.getLatestAddedRecipe();
 
+	}
+	
+	private static void addOreDictRecipe(ItemStack output, Object... recipe) {
+		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(output, recipe));
+	}
+	
+	private static void addShapelessOreDictRecipe(ItemStack output, Object... recipe) {
+		CraftingManager.getInstance().getRecipeList().add(new ShapelessOreRecipe(output, recipe));
 	}
 }

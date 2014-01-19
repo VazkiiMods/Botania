@@ -26,4 +26,6 @@ public final class LibOreDict {
 	public static final String[] DYE = new String[] {
 		"dyeWhite", "dyeOrange", "dyeMagenta", "dyeLightBlue", "dyeYellow", "dyeLime", "dyePink", "dyeGray", "dyeLightGray", "dyeCyan", "dyePurple", "dyeBlue", "dyeBrown", "dyeGreen", "dyeRed", "dyeBlack", 
 	};
+	
+	public static final String PESTLE_AND_MORTAR = "pestleAndMortar";
 }

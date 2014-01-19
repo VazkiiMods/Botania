@@ -35,6 +35,7 @@ public final class ConfigHandler {
 		LibItemIDs.idLexicon = loadItem(LibItemNames.LEXICON, LibItemIDs.idLexicon);
 		LibItemIDs.idPetal = loadItem(LibItemNames.PETAL, LibItemIDs.idPetal);
 		LibItemIDs.idDye = loadItem(LibItemNames.DYE, LibItemIDs.idDye);
+		LibItemIDs.idPestleAndMortar = loadItem(LibItemNames.PESTLE_AND_MORTAR, LibItemIDs.idPestleAndMortar);
 
 		config.save();
 	}

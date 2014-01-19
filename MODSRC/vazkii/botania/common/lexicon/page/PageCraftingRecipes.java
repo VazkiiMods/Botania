@@ -11,10 +11,10 @@
  */
 package vazkii.botania.common.lexicon.page;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
@@ -29,6 +29,8 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.client.ForgeHooksClient;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import org.lwjgl.opengl.GL11;
 
@@ -36,6 +38,7 @@ import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.page.LexiconPage;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
+import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class PageCraftingRecipes extends LexiconPage {
 
@@ -110,6 +113,17 @@ public class PageCraftingRecipes extends LexiconPage {
 				for(int x = 0; x < shaped.recipeWidth; x++)
 					renderItemAtGridPos(gui, 1 + x, 1 + y, shaped.recipeItems[y * shaped.recipeWidth + x], true);
 
+		} else if(recipe instanceof ShapedOreRecipe) {
+			ShapedOreRecipe shaped = (ShapedOreRecipe) recipe;
+			int width = (Integer) ReflectionHelper.getPrivateValue(ShapedOreRecipe.class, shaped, 4);
+			int height = (Integer) ReflectionHelper.getPrivateValue(ShapedOreRecipe.class, shaped, 5);
+			
+			for(int y = 0; y < height; y++)
+				for(int x = 0; x < width; x++) {
+					Object input = shaped.getInput()[y * width + x];
+					if(input != null)
+						renderItemAtGridPos(gui, 1 + x, 1 + y, input instanceof ItemStack ? (ItemStack) input : ((ArrayList<ItemStack>) input).get(0), true);
+				}
 		} else if(recipe instanceof ShapelessRecipes) {
 			ShapelessRecipes shapeless = (ShapelessRecipes) recipe;
 
@@ -122,6 +136,22 @@ public class PageCraftingRecipes extends LexiconPage {
 							break drawGrid;
 
 						renderItemAtGridPos(gui, 1 + x, 1 + y, (ItemStack) shapeless.recipeItems.get(index), true);
+					}
+			}
+		} else if(recipe instanceof ShapelessOreRecipe) {
+			ShapelessOreRecipe shapeless = (ShapelessOreRecipe) recipe;
+
+			drawGrid : {
+				for(int y = 0; y < 3; y++)
+					for(int x = 0; x < 3; x++) {
+						int index = y * 3 + x;
+
+						if(index >= shapeless.getRecipeSize())
+							break drawGrid;
+
+						Object input = shapeless.getInput().get(index);
+						if(input != null)
+							renderItemAtGridPos(gui, 1 + x, 1 + y, input instanceof ItemStack ? (ItemStack) input : ((ArrayList<ItemStack>) input).get(0), true);
 					}
 			}
 		}
@@ -153,9 +183,11 @@ public class PageCraftingRecipes extends LexiconPage {
 
 		if(relativeMouseX >= xPos && relativeMouseY >= yPos && relativeMouseX <= xPos + 16 && relativeMouseY <= yPos + 16) {
 			tooltipStack = stack;
-			ItemStack containerStack = stack.getItem().getContainerItemStack(stack);
-			if(containerStack != null && containerStack.getItem() != null)
-				tooltipContainerStack = containerStack;
+			if(accountForContainer) {
+				ItemStack containerStack = stack.getItem().getContainerItemStack(stack);
+				if(containerStack != null && containerStack.getItem() != null)
+					tooltipContainerStack = containerStack;
+			}
 		}
 		
 		GL11.glDisable(GL11.GL_LIGHTING);

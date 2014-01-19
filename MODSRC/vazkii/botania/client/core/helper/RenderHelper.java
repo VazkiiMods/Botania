@@ -30,8 +30,8 @@ public final class RenderHelper {
 	}
 
 	public static void renderTooltipGreen(int x, int y, List<String> tooltipData) {
-		int color = 0x00a000ff;
-		int color2 = 0x001e0010;
+		int color = 0x5000a000;
+		int color2 = 0xf0001e00;
 
 		renderTooltip(x, y, tooltipData, color, color2);
 	}

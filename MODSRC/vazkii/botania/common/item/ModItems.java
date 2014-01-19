@@ -21,17 +21,21 @@ public final class ModItems {
 	public static Item lexicon;
 	public static Item petal;
 	public static Item dye;
+	public static Item pestleAndMortar;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
 		petal = new ItemPetal();		
 		dye = new ItemDye();
-		
+		pestleAndMortar = new ItemPestleAndMortar();
+
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal.itemID, 1, i));
 			OreDictionary.registerOre(LibOreDict.DYE[i], new ItemStack(dye.itemID, 1, i));
 		}
+		OreDictionary.registerOre(LibOreDict.PESTLE_AND_MORTAR, pestleAndMortar);
+
 	}
 
 }
