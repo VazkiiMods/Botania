@@ -21,7 +21,38 @@ tile.botania:flower15.name=Mystical Black Flower
 
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania
-
+item.botania:petal0.name=Mystical White Petal
+item.botania:petal1.name=Mystical Orange Petal
+item.botania:petal2.name=Mystical Magenta Petal
+item.botania:petal3.name=Mystical Light Blue Petal
+item.botania:petal4.name=Mystical Yellow Petal
+item.botania:petal5.name=Mystical Lime Petal
+item.botania:petal6.name=Mystical Pink Petal
+item.botania:petal7.name=Mystical Gray Petal
+item.botania:petal8.name=Mystical Light Gray Petal
+item.botania:petal9.name=Mystical Cyan Petal
+item.botania:petal10.name=Mystical Purple Petal
+item.botania:petal11.name=Mystical Blue Petal
+item.botania:petal12.name=Mystical Brown Petal
+item.botania:petal13.name=Mystical Green Petal
+item.botania:petal14.name=Mystical Red Petal
+item.botania:petal15.name=Mystical Black Petal
+item.botania:dye0.name=Floral White Dye
+item.botania:dye1.name=Floral Orange Dye
+item.botania:dye2.name=Floral Magenta Dye
+item.botania:dye3.name=Floral Light Blue Dye
+item.botania:dye4.name=Floral Yellow Dye
+item.botania:dye5.name=Floral Lime Dye
+item.botania:dye6.name=Floral Pink Dye
+item.botania:dye7.name=Floral Gray Dye
+item.botania:dye8.name=Floral Light Gray Dye
+item.botania:dye9.name=Floral Cyan Dye
+item.botania:dye10.name=Floral Purple Dye
+item.botania:dye11.name=Floral Blue Dye
+item.botania:dye12.name=Floral Brown Dye
+item.botania:dye13.name=Floral Green Dye
+item.botania:dye14.name=Floral Red Dye
+item.botania:dye15.name=Floral Black Dye
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania Index - Pick which category you would like to study:
 

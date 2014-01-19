@@ -33,6 +33,8 @@ public final class ConfigHandler {
 
 		// Item IDs
 		LibItemIDs.idLexicon = loadItem(LibItemNames.LEXICON, LibItemIDs.idLexicon);
+		LibItemIDs.idPetal = loadItem(LibItemNames.PETAL, LibItemIDs.idPetal);
+		LibItemIDs.idDye = loadItem(LibItemNames.DYE, LibItemIDs.idDye);
 
 		config.save();
 	}

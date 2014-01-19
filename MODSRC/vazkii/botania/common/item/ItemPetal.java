@@ -7,22 +7,16 @@
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
  * 
- * File Created @ [Jan 14, 2014, 5:17:47 PM (GMT)]
+ * File Created @ [Jan 19, 2014, 3:28:21 PM (GMT)]
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.item.Item;
+import vazkii.botania.common.lib.LibItemIDs;
+import vazkii.botania.common.lib.LibItemNames;
 
-public final class ModItems {
+public class ItemPetal extends Item16Colors {
 
-	public static Item lexicon;
-	public static Item petal;
-	public static Item dye;
-
-	public static void init() {
-		lexicon = new ItemLexicon();
-		petal = new ItemPetal();		
-		dye = new ItemDye();
+	public ItemPetal() {
+		super(LibItemIDs.idPetal, LibItemNames.PETAL);
 	}
-
 }

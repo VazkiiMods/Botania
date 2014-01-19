@@ -16,6 +16,7 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.InternalMethodHandler;
+import vazkii.botania.common.crafting.ModCrafingRecipes;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.network.GuiHandler;
@@ -38,6 +39,8 @@ public class CommonProxy {
 
 	public void init(FMLInitializationEvent event) {
 		NetworkRegistry.instance().registerGuiHandler(Botania.instance, new GuiHandler());
+		
+		ModCrafingRecipes.init();
 	}
 
 	public void postInit(FMLPostInitializationEvent event) {

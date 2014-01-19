@@ -39,9 +39,11 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 	public void displayAllReleventItems(List list) {
 		this.list = list;
 
-		addBlock(ModBlocks.flower);
-
 		addItem(ModItems.lexicon);
+		
+		addBlock(ModBlocks.flower);
+		addItem(ModItems.petal);
+		addItem(ModItems.dye);
 	}
 
 	private void addItem(Item item) {

@@ -14,5 +14,7 @@ package vazkii.botania.common.lib;
 public final class LibItemIDs {
 
 	public static int idLexicon = 19555;
+	public static int idPetal = 19556;
+	public static int idDye = 19557;
 
 }
