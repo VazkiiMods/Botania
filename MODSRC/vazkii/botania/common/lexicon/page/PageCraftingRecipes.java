@@ -49,6 +49,8 @@ public class PageCraftingRecipes extends LexiconPage {
 	int recipeAt = 0;
 
 	int relativeMouseX, relativeMouseY;
+	
+	boolean oreDictRecipe, shapelessRecipe;
 
 	ItemStack tooltipStack, tooltipContainerStack;
 
@@ -65,6 +67,7 @@ public class PageCraftingRecipes extends LexiconPage {
 	public void renderScreen(IGuiLexiconEntry gui, int mx, int my) {
 		relativeMouseX = mx;
 		relativeMouseY = my;
+		oreDictRecipe = shapelessRecipe = false;
 
 		TextureManager render = Minecraft.getMinecraft().renderEngine;
 		render.bindTexture(craftingOverlay);
@@ -73,7 +76,6 @@ public class PageCraftingRecipes extends LexiconPage {
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		((GuiScreen) gui).drawTexturedModalRect(gui.getLeft(), gui.getTop(), 0, 0, gui.getWidth(), gui.getHeight());
-		GL11.glDisable(GL11.GL_BLEND);
 
 		IRecipe recipe = recipes.get(recipeAt);
 		renderCraftingRecipe(gui, recipe);
@@ -84,14 +86,36 @@ public class PageCraftingRecipes extends LexiconPage {
 		int y = gui.getTop() + height - 40;
 		PageText.renderText(x, y, width, height, getUnlocalizedName());
 
+		GL11.glColor4f(1F, 1F, 1F, 1F);
+		render.bindTexture(craftingOverlay);
+		int iconX = gui.getLeft() + 115;
+		int iconY = gui.getTop() + 12;
+		
+		if(shapelessRecipe) {
+			((GuiScreen) gui).drawTexturedModalRect(iconX, iconY, 240, 0, 16, 16);
+
+			if(mx >= iconX && my >= iconY && mx < iconX + 16 && my < iconY + 16)
+				RenderHelper.renderTooltip(mx, my, Arrays.asList(StatCollector.translateToLocal("botaniamisc.shapeless")));
+
+			iconY += 20;
+		}
+		
+		if(oreDictRecipe) {
+			((GuiScreen) gui).drawTexturedModalRect(iconX, iconY, 240, 16, 16, 16);
+			
+			if(mx >= iconX && my >= iconY && mx < iconX + 16 && my < iconY + 16)
+			RenderHelper.renderTooltip(mx, my, Arrays.asList(StatCollector.translateToLocal("botaniamisc.oredict")));
+		}
+		
 		if(tooltipStack != null) {
 			List<String> tooltipData = tooltipStack.getTooltip(Minecraft.getMinecraft().thePlayer, false);
 
-			RenderHelper.renderTooltip(relativeMouseX, relativeMouseY, tooltipData);
+			RenderHelper.renderTooltip(mx, my, tooltipData);
 			if(tooltipContainerStack != null)
-				RenderHelper.renderTooltipGreen(relativeMouseX, relativeMouseY + 8 + tooltipData.size() * 11, Arrays.asList(EnumChatFormatting.AQUA + StatCollector.translateToLocal("botaniamisc.craftingContainer"), tooltipContainerStack.getDisplayName()));
+				RenderHelper.renderTooltipGreen(mx, my + 8 + tooltipData.size() * 11, Arrays.asList(EnumChatFormatting.AQUA + StatCollector.translateToLocal("botaniamisc.craftingContainer"), tooltipContainerStack.getDisplayName()));
 		}
 		tooltipStack = tooltipContainerStack = null;
+		GL11.glDisable(GL11.GL_BLEND);
 	}
 
 	@Override
@@ -112,7 +136,6 @@ public class PageCraftingRecipes extends LexiconPage {
 			for(int y = 0; y < shaped.recipeHeight; y++)
 				for(int x = 0; x < shaped.recipeWidth; x++)
 					renderItemAtGridPos(gui, 1 + x, 1 + y, shaped.recipeItems[y * shaped.recipeWidth + x], true);
-
 		} else if(recipe instanceof ShapedOreRecipe) {
 			ShapedOreRecipe shaped = (ShapedOreRecipe) recipe;
 			int width = (Integer) ReflectionHelper.getPrivateValue(ShapedOreRecipe.class, shaped, 4);
@@ -124,6 +147,8 @@ public class PageCraftingRecipes extends LexiconPage {
 					if(input != null)
 						renderItemAtGridPos(gui, 1 + x, 1 + y, input instanceof ItemStack ? (ItemStack) input : ((ArrayList<ItemStack>) input).get(0), true);
 				}
+			
+			oreDictRecipe = true;
 		} else if(recipe instanceof ShapelessRecipes) {
 			ShapelessRecipes shapeless = (ShapelessRecipes) recipe;
 
@@ -138,6 +163,8 @@ public class PageCraftingRecipes extends LexiconPage {
 						renderItemAtGridPos(gui, 1 + x, 1 + y, (ItemStack) shapeless.recipeItems.get(index), true);
 					}
 			}
+			
+			shapelessRecipe = true;
 		} else if(recipe instanceof ShapelessOreRecipe) {
 			ShapelessOreRecipe shapeless = (ShapelessOreRecipe) recipe;
 
@@ -154,6 +181,9 @@ public class PageCraftingRecipes extends LexiconPage {
 							renderItemAtGridPos(gui, 1 + x, 1 + y, input instanceof ItemStack ? (ItemStack) input : ((ArrayList<ItemStack>) input).get(0), true);
 					}
 			}
+			
+			shapelessRecipe = true;
+			oreDictRecipe = true;
 		}
 
 		renderItemAtGridPos(gui, 2, 0, recipe.getRecipeOutput(), false);

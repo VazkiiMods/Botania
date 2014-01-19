@@ -4,6 +4,8 @@ botaniamisc.nextPage=Next Page
 botaniamisc.prevPage=Previous Page
 botaniamisc.back=Back
 botaniamisc.craftingContainer=Returns on Crafting
+botaniamisc.shapeless=Shapeless Recipe
+botaniamisc.oredict=Ore Dictionary Recipe
 
 # BLOCK NAMES
 tile.botania:flower0.name=Mystical White Flower
