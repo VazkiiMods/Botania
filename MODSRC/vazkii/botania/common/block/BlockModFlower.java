@@ -12,14 +12,18 @@
 package vazkii.botania.common.block;
 
 import java.util.List;
+import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
+import net.minecraft.world.World;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockModFlower;
 import vazkii.botania.common.lib.LibBlockIDs;
@@ -37,6 +41,8 @@ public class BlockModFlower extends BlockFlower {
 		setUnlocalizedName(LibBlockNames.FLOWER);
 		setHardness(0F);
 		setStepSound(soundGrassFootstep);
+		setBlockBounds(0.3F, 0.0F, 0.3F, 0.8F, 1, 0.8F);
+		setTickRandomly(true);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 	}
 
@@ -68,5 +74,13 @@ public class BlockModFlower extends BlockFlower {
 	@Override
 	public int damageDropped(int par1) {
 		return par1;
+	}
+	
+	@Override
+	public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random) {
+		int meta = par1World.getBlockMetadata(par2, par3, par4);
+		float[] color = EntitySheep.fleeceColorTable[meta];
+		
+		Botania.proxy.sparkleFX(par1World, par2 + 0.3 + par5Random.nextFloat() * 0.5, par3 + 0.5 + par5Random.nextFloat() * 0.5, par4 + 0.3 + par5Random.nextFloat() * 0.5, color[0], color[1], color[2], par5Random.nextFloat(), 5);
 	}
 }

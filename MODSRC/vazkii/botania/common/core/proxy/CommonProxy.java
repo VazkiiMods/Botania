@@ -11,6 +11,7 @@
  */
 package vazkii.botania.common.core.proxy;
 
+import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
@@ -48,5 +49,8 @@ public class CommonProxy {
 
 	}
 
+	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {
+		// NO-OP
+	}
 
 }

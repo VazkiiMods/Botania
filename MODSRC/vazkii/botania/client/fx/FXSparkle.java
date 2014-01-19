@@ -29,17 +29,16 @@ public class FXSparkle extends EntityFX
 
 	public static final ResourceLocation particles = new ResourceLocation(LibResources.MISC_PARTICLES);
 
-	public FXSparkle(World world, double d, double d1, double d2,   float f, float f1, float f2, float f3, int m)
+	public FXSparkle(World world, double x, double y, double z, float size, float red, float green, float blue, int m)
 	{
-		super(world, d, d1, d2, 0.0D, 0.0D, 0.0D);
-		if(f1 == 0.0F) f1 = 1.0F;
+		super(world, x, y, z, 0.0D, 0.0D, 0.0D);
 
-		particleRed = f1;
-		particleGreen = f2;
-		particleBlue = f3;
+		particleRed = red;
+		particleGreen = green;
+		particleBlue = blue;
 		particleGravity=0;
 		motionX=motionY=motionZ=0;
-		particleScale *= f;
+		particleScale *= size;
 		particleMaxAge = 3*m;
 		multiplier=m;
 		noClip = false;

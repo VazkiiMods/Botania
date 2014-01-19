@@ -11,8 +11,16 @@
  */
 package vazkii.botania.client.core.proxy;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.world.World;
+import vazkii.botania.client.fx.FXSparkle;
 import vazkii.botania.common.core.proxy.CommonProxy;
 
 public class ClientProxy extends CommonProxy {
 
+	@Override
+	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {
+		FXSparkle sparkle = new FXSparkle(world, x, y, z, size, r, g, b, m);
+		Minecraft.getMinecraft().effectRenderer.addEffect(sparkle);
+	}
 }
