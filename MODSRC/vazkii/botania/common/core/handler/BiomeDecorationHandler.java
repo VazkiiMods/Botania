@@ -30,7 +30,7 @@ public class BiomeDecorationHandler {
 				int y = event.world.rand.nextInt(128);
 				int z = event.chunkZ + event.world.rand.nextInt(16) + 8;
 				
-				 for (int j = 0; j < 64; j++) {
+				 for (int j = 0; j < 96; j++) {
 			            int x1 = x + event.world.rand.nextInt(8) - event.world.rand.nextInt(8);
 			            int y1 = y + event.world.rand.nextInt(4) - event.world.rand.nextInt(4);
 			            int z1 = z + event.world.rand.nextInt(8) - event.world.rand.nextInt(8);
