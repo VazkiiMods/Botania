@@ -23,11 +23,8 @@ public class BiomeDecorationHandler {
 
 	@ForgeSubscribe(priority = EventPriority.LOWEST)
 	public void onWorldDecoration(DecorateBiomeEvent.Decorate event) {
-		System.out.println("do " + event.type);
-
 		if((event.getResult() == Result.ALLOW || event.getResult() == Result.DEFAULT) && event.type == EventType.FLOWERS)
 			for(int i = 0; i < 3; i++) {
-				System.out.println("do1");
 
 				int x = event.chunkX + event.world.rand.nextInt(16) + 8;
 				int y = event.world.rand.nextInt(128);
