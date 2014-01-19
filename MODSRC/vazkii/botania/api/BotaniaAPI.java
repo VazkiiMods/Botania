@@ -65,6 +65,10 @@ public final class BotaniaAPI {
 	 */
 	public static List<IRecipe> getLatestAddedRecipes(int x) {
 		List<IRecipe> list = CraftingManager.getInstance().getRecipeList();
-		return list.subList(list.size() - 1 - x, list.size() - 1);
+		List<IRecipe> newList = new ArrayList();
+		for(int i = (x - 1); i >= 0; i--)
+			newList.add(list.get(list.size() - 1 - i));
+		
+		return newList;
 	}
 }

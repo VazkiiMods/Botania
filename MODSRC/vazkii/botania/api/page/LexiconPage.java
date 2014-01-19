@@ -29,6 +29,13 @@ public abstract class LexiconPage {
 	 */
 	public abstract void renderScreen(IGuiLexiconEntry gui, int mx, int my);
 
+	/**
+	 * Called per update tick.
+	 */
+	public void updateScreen() {
+		// NO-OP
+	}
+	
 	public String getUnlocalizedName() {
 		return unlocalizedName;
 	}

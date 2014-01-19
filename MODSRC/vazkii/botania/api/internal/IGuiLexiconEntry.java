@@ -49,4 +49,9 @@ public interface IGuiLexiconEntry {
 	 * Gets the GUI's height
 	 */
 	public int getHeight();
+	
+	/**
+	 * Gets the GUI's Z level for rendering.
+	 */
+	public float getZLevel();
 }

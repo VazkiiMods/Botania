@@ -34,13 +34,14 @@ public class CommonProxy {
 
 		ModBlocks.init();
 		ModItems.init();
+		
+		ModCrafingRecipes.init();
+		
 		LexiconData.init();
 	}
 
 	public void init(FMLInitializationEvent event) {
 		NetworkRegistry.instance().registerGuiHandler(Botania.instance, new GuiHandler());
-		
-		ModCrafingRecipes.init();
 	}
 
 	public void postInit(FMLPostInitializationEvent event) {

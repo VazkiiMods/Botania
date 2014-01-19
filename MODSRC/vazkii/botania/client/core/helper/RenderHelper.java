@@ -26,9 +26,20 @@ public final class RenderHelper {
 		int color = 0x505000ff;
 		int color2 = 0xf0100010;
 
-		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-		net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
-		GL11.glDisable(GL11.GL_LIGHTING);
+		renderTooltip(x, y, tooltipData, color, color2);
+	}
+
+	public static void renderTooltipGreen(int x, int y, List<String> tooltipData) {
+		int color = 0x00a000ff;
+		int color2 = 0x001e0010;
+
+		renderTooltip(x, y, tooltipData, color, color2);
+	}
+	
+	public static void renderTooltip(int x, int y, List<String> tooltipData, int color, int color2) {
+		boolean lighting = GL11.glGetBoolean(GL11.GL_LIGHTING);
+		if(lighting)
+			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 		GL11.glDisable(GL11.GL_DEPTH_TEST);
 
 		if (!tooltipData.isEmpty()) {
@@ -65,6 +76,10 @@ public final class RenderHelper {
 				var7 += 10;
 			}
 		}
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+		if(!lighting)
+			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
+        GL11.glColor4f(1F, 1F, 1F, 1F);
 	}
 
 	public static void drawGradientRect(int par1, int par2, float z, int par3, int par4, int par5, int par6) {
@@ -95,5 +110,4 @@ public final class RenderHelper {
 		GL11.glEnable(GL11.GL_ALPHA_TEST);
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 	}
-
 }

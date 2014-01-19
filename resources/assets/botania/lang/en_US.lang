@@ -3,6 +3,7 @@ itemGroup.Botania=Botania
 botaniamisc.nextPage=Next Page
 botaniamisc.prevPage=Previous Page
 botaniamisc.back=Back
+botaniamisc.craftingContainer=Returns on Crafting
 
 # BLOCK NAMES
 tile.botania:flower0.name=Mystical White Flower
@@ -75,6 +76,8 @@ botania.entry.world=The World
 botania.page.world0=The world is fun.<br>This line of text is very long so I can test if line wrap works fine, woo.<br>And this one is kinda long too. &eTesting colors. &cMore colors.
 botania.page.world1=This is a second page. There will be something here. Eventually.
 botania.page.world2=Flowers in the wild
+botania.page.world3=Plucking petals off flowers
+botania.page.world4=Grinding petals into dye
 
 # -- BASIC CONCEPTS
 botania.entry.basicConcepts=Basic Concepts
