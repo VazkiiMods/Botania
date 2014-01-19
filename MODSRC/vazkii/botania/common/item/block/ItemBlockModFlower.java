@@ -11,9 +11,11 @@
  */
 package vazkii.botania.common.item.block;
 
+import vazkii.botania.common.lib.LibOreDict;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlockWithMetadata;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class ItemBlockModFlower extends ItemBlockWithMetadata {
 

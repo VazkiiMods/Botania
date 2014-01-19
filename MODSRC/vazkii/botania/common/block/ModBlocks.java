@@ -11,7 +11,10 @@
  */
 package vazkii.botania.common.block;
 
+import vazkii.botania.common.lib.LibOreDict;
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 
 public final class ModBlocks {
 
@@ -19,6 +22,9 @@ public final class ModBlocks {
 
 	public static void init() {
 		flower = new BlockModFlower();
+		
+		for(int i = 0; i < 16; i++)
+			OreDictionary.registerOre(LibOreDict.FLOWER[i], new ItemStack(flower.blockID, 1, i));
 	}
 
 }

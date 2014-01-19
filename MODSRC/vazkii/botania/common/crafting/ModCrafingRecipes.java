@@ -19,8 +19,10 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public final class ModCrafingRecipes {
 
 	public static final void init() {
-		// Petal Recipes
-		for(int i = 0; i < 16; i++)
+		// Petal/Dye Recipes
+		for(int i = 0; i < 16; i++) {
 			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.petal, 2, i), new ItemStack(ModBlocks.flower, 1, i)); 
+			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.dye, 1, i), new ItemStack(ModItems.petal, 1, i)); 
+		}
 	}
 }

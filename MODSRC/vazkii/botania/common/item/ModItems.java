@@ -11,7 +11,10 @@
  */
 package vazkii.botania.common.item;
 
+import vazkii.botania.common.lib.LibOreDict;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 
 public final class ModItems {
 
@@ -23,6 +26,12 @@ public final class ModItems {
 		lexicon = new ItemLexicon();
 		petal = new ItemPetal();		
 		dye = new ItemDye();
+		
+		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
+		for(int i = 0; i < 16; i++) {
+			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal.itemID, 1, i));
+			OreDictionary.registerOre(LibOreDict.DYE[i], new ItemStack(dye.itemID, 1, i));
+		}
 	}
 
 }
