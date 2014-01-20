@@ -22,6 +22,7 @@ import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.BotaniaCreativeTab;
@@ -44,6 +45,9 @@ public class BlockModFlower extends BlockFlower {
 		setBlockBounds(0.3F, 0.0F, 0.3F, 0.8F, 1, 0.8F);
 		setTickRandomly(true);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
+		
+		for(int i = 0; i < 16; i++)
+			MinecraftForge.addGrassPlant(this, i, 3);
 	}
 
 	@Override
