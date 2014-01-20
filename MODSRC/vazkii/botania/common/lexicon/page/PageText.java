@@ -61,7 +61,6 @@ public class PageText extends LexiconPage {
 					skipPending = true;
 					pendingFormat = format;
 					format = "";
-					s1 = StringUtils.stripControlCodes(s1);
 				}
 				
 				if(!pendingFormat.isEmpty() && !skipPending) {
