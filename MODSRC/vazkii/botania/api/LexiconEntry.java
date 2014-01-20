@@ -48,12 +48,4 @@ public class LexiconEntry {
 	public void addPage(LexiconPage page) {
 		pages.add(page);
 	}
-
-	/**
-	 * Should this entry be displayed in the list of entries?
-	 */
-	public boolean shouldBeDisplayed(GuiScreen screen, EntityPlayer player) {
-		return true;
-	}
-
 }

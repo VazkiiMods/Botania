@@ -11,6 +11,9 @@
  */
 package vazkii.botania.client.gui;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import net.minecraft.client.gui.GuiButton;
@@ -19,12 +22,17 @@ import vazkii.botania.api.LexiconCategory;
 import vazkii.botania.api.LexiconEntry;
 import vazkii.botania.client.gui.button.GuiButtonBack;
 import vazkii.botania.client.gui.button.GuiButtonInvisible;
+import vazkii.botania.client.gui.button.GuiButtonPage;
 
 public class GuiLexiconIndex extends GuiLexicon {
 
 	LexiconCategory category;
 	String title;
 	int page = 0;
+
+	GuiButton leftButton, rightButton;
+
+	List<LexiconEntry> entriesToDisplay = new ArrayList();
 
 	public GuiLexiconIndex(LexiconCategory category) {
 		this.category = category;
@@ -45,14 +53,29 @@ public class GuiLexiconIndex extends GuiLexicon {
 	public void initGui() {
 		super.initGui();
 		buttonList.add(new GuiButtonBack(12, left + guiWidth / 2 - 8, top + guiHeight + 2));
+		buttonList.add(leftButton = new GuiButtonPage(13, left, top + guiHeight - 10, false));
+		buttonList.add(rightButton = new GuiButtonPage(14, left + guiWidth - 18, top + guiHeight - 10, true));
+
+		entriesToDisplay.clear();
+		entriesToDisplay.addAll(category.entries);
+		Collections.sort(entriesToDisplay, new Comparator<LexiconEntry>() {
+
+			@Override
+			public int compare(LexiconEntry arg0, LexiconEntry arg1) {
+				return StatCollector.translateToLocal(arg0.getUnlocalizedName()).compareTo(StatCollector.translateToLocal(arg1.getUnlocalizedName()));
+			}
+
+		});
+		
+		updatePageButtons();
+		populateIndex();
 	}
 
 	@Override
 	void populateIndex() {
-		List<LexiconEntry> entryList = category.entries;
-		for(int i = 0; i < 12; i++) {
-			GuiButtonInvisible button = (GuiButtonInvisible) buttonList.get(i);
-			LexiconEntry entry = i >= entryList.size() ? null : entryList.get(i);
+		for(int i = page * 12; i < (page + 1) * 12; i++) {
+			GuiButtonInvisible button = (GuiButtonInvisible) buttonList.get(i - page * 12);
+			LexiconEntry entry = i >= entriesToDisplay.size() ? null : entriesToDisplay.get(i);
 			if(entry != null)
 				button.displayString = StatCollector.translateToLocal(entry.getUnlocalizedName());
 			else button.displayString = "";
@@ -61,15 +84,32 @@ public class GuiLexiconIndex extends GuiLexicon {
 
 	@Override
 	protected void actionPerformed(GuiButton par1GuiButton) {
-		if(par1GuiButton.id == 12)
+		switch(par1GuiButton.id) {
+		case 12 :
 			mc.displayGuiScreen(new GuiLexicon());
-		else {
+			break;
+		case 13 :
+			page--;
+			updatePageButtons();
+			populateIndex();
+			break;
+		case 14 :
+			page++;
+			updatePageButtons();
+			populateIndex();
+			break;
+		default :
 			int index = par1GuiButton.id + page * 12;
-			if(index >= category.entries.size())
+			if(index >= entriesToDisplay.size())
 				return;
 
-			LexiconEntry entry = category.entries.get(index);
+			LexiconEntry entry = entriesToDisplay.get(index);
 			mc.displayGuiScreen(new GuiLexiconEntry(entry, this));
 		}
+	}
+	
+	public void updatePageButtons() {
+		leftButton.enabled = page != 0;
+		rightButton.enabled = page < (entriesToDisplay.size() - 1) / 12;
 	}
 }
