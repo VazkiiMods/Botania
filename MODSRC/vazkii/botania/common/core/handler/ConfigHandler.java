@@ -36,7 +36,8 @@ public final class ConfigHandler {
 		LibItemIDs.idPetal = loadItem(LibItemNames.PETAL, LibItemIDs.idPetal);
 		LibItemIDs.idDye = loadItem(LibItemNames.DYE, LibItemIDs.idDye);
 		LibItemIDs.idPestleAndMortar = loadItem(LibItemNames.PESTLE_AND_MORTAR, LibItemIDs.idPestleAndMortar);
-
+		LibItemIDs.idTwigWand = loadItem(LibItemNames.TWIG_WAND, LibItemIDs.idTwigWand);
+		
 		config.save();
 	}
 

@@ -22,12 +22,14 @@ public final class ModItems {
 	public static Item petal;
 	public static Item dye;
 	public static Item pestleAndMortar;
+	public static Item twigWand;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
 		petal = new ItemPetal();		
 		dye = new ItemDye();
 		pestleAndMortar = new ItemPestleAndMortar();
+		twigWand = new ItemTwigWand();
 
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {

@@ -13,11 +13,13 @@ package vazkii.botania.common.lib;
 
 public final class LibOreDict {
 
+	public static final String LEXICON = "lexicaBotania";
+	public static final String PESTLE_AND_MORTAR = "pestleAndMortar";
+	public static final String TWIG_WAND = "twigWand";
+	
 	public static final String[] FLOWER = new String[] {
 		"mysticFlowerWhite", "mysticFlowerOrange", "mysticFlowerMagenta", "mysticFlowerLightBlue", "mysticFlowerYellow", "mysticFlowerLime", "mysticFlowerPink", "mysticFlowerGray", "mysticFlowerLightGray", "mysticFlowerCyan", "mysticFlowerPurple", "mysticFlowerBlue", "mysticFlowerBrown", "mysticFlowerGreen", "mysticFlowerRed", "mysticFlowerBlack", 
 	};
-	
-	public static final String LEXICON = "lexicaBotania";
 	
 	public static final String[] PETAL = new String[] {
 		"petalWhite", "petalOrange", "petalMagenta", "petalLightBlue", "petalYellow", "petalLime", "petalPink", "petalGray", "petalLightGray", "petalCyan", "petalPurple", "petalBlue", "petalBrown", "petalGreen", "petalRed", "petalBlack", 
@@ -26,6 +28,4 @@ public final class LibOreDict {
 	public static final String[] DYE = new String[] {
 		"dyeWhite", "dyeOrange", "dyeMagenta", "dyeLightBlue", "dyeYellow", "dyeLime", "dyePink", "dyeGray", "dyeLightGray", "dyeCyan", "dyePurple", "dyeBlue", "dyeBrown", "dyeGreen", "dyeRed", "dyeBlack", 
 	};
-	
-	public static final String PESTLE_AND_MORTAR = "pestleAndMortar";
 }

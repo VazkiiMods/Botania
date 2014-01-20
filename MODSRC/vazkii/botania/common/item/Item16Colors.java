@@ -41,7 +41,11 @@ public class Item16Colors extends ItemMod {
 	
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
-		return super.getUnlocalizedName(par1ItemStack) + par1ItemStack.getItemDamage();
+		return getUnlocalizedNameLazy(par1ItemStack) + par1ItemStack.getItemDamage();
+	}
+	
+	String getUnlocalizedNameLazy(ItemStack par1ItemStack) {
+		return super.getUnlocalizedName(par1ItemStack);
 	}
 	
 }

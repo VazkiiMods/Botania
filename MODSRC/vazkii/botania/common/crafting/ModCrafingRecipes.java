@@ -21,6 +21,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibOreDict;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -31,6 +32,7 @@ public final class ModCrafingRecipes {
 	public static List<IRecipe> recipesPetals;
 	public static List<IRecipe> recipesDyes;
 	public static IRecipe recipePestleAndMortar;
+	public static List<IRecipe> recipesTwigWand;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -53,6 +55,17 @@ public final class ModCrafingRecipes {
 			'W', "plankWood",
 			'B', Item.bowlEmpty);
 		recipePestleAndMortar = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Wand of the Forest Recipes
+		for(int i = 0; i < 16; i++)
+			for(int j = 0; j < 16; j++) {
+				addOreDictRecipe(ItemTwigWand.forColors(i, j), 
+				" AS", " SB", "S  ",
+				'A', LibOreDict.PETAL[i],
+				'B', LibOreDict.PETAL[j],
+				'S', "stickWood");
+			}
+		recipesTwigWand = BotaniaAPI.getLatestAddedRecipes(256);
 
 	}
 	
