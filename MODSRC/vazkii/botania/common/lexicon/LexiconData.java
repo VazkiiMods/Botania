@@ -29,6 +29,8 @@ public final class LexiconData {
 	public static LexiconCategory categoryDevices;
 	public static LexiconCategory categoryTools;
 	public static LexiconCategory categoryMisc;
+	
+	public static LexiconEntry flowers;
 
 	public static void init() {
 		BotaniaAPI.addCategory(categoryBasics = new LexiconCategory(LibLexicon.CATEGORY_BASICS));
@@ -38,11 +40,9 @@ public final class LexiconData {
 		BotaniaAPI.addCategory(categoryTools = new LexiconCategory(LibLexicon.CATEGORY_TOOLS));
 		BotaniaAPI.addCategory(categoryMisc = new LexiconCategory(LibLexicon.CATEGORY_MISC));
 
-		LexiconEntry entry;
-
 		// BASICS ENTRIES
-		entry = new BLexiconEntry(LibLexicon.BASICS_FLOWERS, categoryBasics);
-		entry.setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_FLOWERS), new PageText("2"), new PageCraftingRecipes("3", ModCrafingRecipes.recipesPetals), new PageCraftingRecipes("4", ModCrafingRecipes.recipePestleAndMortar), new PageCraftingRecipes("5", ModCrafingRecipes.recipesDyes));
+		flowers = new BLexiconEntry(LibLexicon.BASICS_FLOWERS, categoryBasics);
+		flowers.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_FLOWERS), new PageText("2"), new PageCraftingRecipes("3", ModCrafingRecipes.recipesPetals), new PageCraftingRecipes("4", ModCrafingRecipes.recipePestleAndMortar), new PageCraftingRecipes("5", ModCrafingRecipes.recipesDyes));
 
 		// ENERGY ENTRIES
 

@@ -14,6 +14,7 @@ package vazkii.botania.common.core.proxy;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.LexiconEntry;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -52,6 +53,10 @@ public class CommonProxy {
 
 	public void postInit(FMLPostInitializationEvent event) {
 
+	}
+	
+	public void setEntryToOpen(LexiconEntry entry) {
+		// NO-OP
 	}
 
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {

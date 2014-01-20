@@ -12,12 +12,22 @@
 package vazkii.botania.client.core.proxy;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.world.World;
+import vazkii.botania.api.LexiconEntry;
 import vazkii.botania.client.fx.FXSparkle;
+import vazkii.botania.client.gui.GuiLexicon;
+import vazkii.botania.client.gui.GuiLexiconEntry;
+import vazkii.botania.client.gui.GuiLexiconIndex;
 import vazkii.botania.common.core.proxy.CommonProxy;
 
 public class ClientProxy extends CommonProxy {
 
+	@Override
+	public void setEntryToOpen(LexiconEntry entry) {
+		GuiLexicon.currentOpenLexicon = new GuiLexiconEntry(entry, new GuiLexiconIndex(entry.category));
+	}
+	
 	@Override
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {
 		FXSparkle sparkle = new FXSparkle(world, x, y, z, size, r, g, b, m);

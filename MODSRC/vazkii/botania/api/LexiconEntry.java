@@ -21,21 +21,29 @@ import vazkii.botania.api.page.LexiconPage;
 public class LexiconEntry implements Comparable<LexiconEntry>{
 
 	public final String unlocalizedName;
+	public final LexiconCategory category;
+	
 	public List<LexiconPage> pages = new ArrayList<LexiconPage>();
 	private boolean priority = false;
 	
 	/**
 	 * @param unlocalizedName The unlocalized name of this entry. This will be localized by the client display.
 	 */
-	public LexiconEntry(String unlocalizedName) {
+	public LexiconEntry(String unlocalizedName, LexiconCategory category) {
 		this.unlocalizedName = unlocalizedName;
+		this.category = category;
 	}
 	
 	/**
 	 * Sets this page as prioritized, as in, will appear before others in the lexicon.
 	 */
-	public void setPriority() {
+	public LexiconEntry setPriority() {
 		priority = true;
+		return this;
+	}
+	
+	public boolean isPriority() {
+		return priority;
 	}
 
 	public String getUnlocalizedName() {
@@ -45,8 +53,9 @@ public class LexiconEntry implements Comparable<LexiconEntry>{
 	/**
 	 * Sets what pages you want this entry to have.
 	 */
-	public void setLexiconPages(LexiconPage... pages) {
+	public LexiconEntry setLexiconPages(LexiconPage... pages) {
 		this.pages.addAll(Arrays.asList(pages));
+		return this;
 	}
 
 	/**

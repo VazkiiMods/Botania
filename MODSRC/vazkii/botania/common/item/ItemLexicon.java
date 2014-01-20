@@ -11,10 +11,13 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import vazkii.botania.api.ILexiconable;
+import vazkii.botania.api.LexiconEntry;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibGuiIDs;
 import vazkii.botania.common.lib.LibItemIDs;
@@ -26,6 +29,22 @@ public class ItemLexicon extends ItemMod {
 		super(LibItemIDs.idLexicon);
 		setMaxStackSize(1);
 		setUnlocalizedName(LibItemNames.LEXICON);
+	}
+	
+	@Override
+	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
+		int id = par3World.getBlockId(par4, par5, par6);
+		Block block = Block.blocksList[id];
+		
+		if(block != null && block instanceof ILexiconable) {
+			LexiconEntry entry = ((ILexiconable) block).getEntry(par3World, par4, par5, par6, par2EntityPlayer, par1ItemStack);
+			if(entry != null) {
+				Botania.proxy.setEntryToOpen(entry);
+				par2EntityPlayer.openGui(Botania.instance, LibGuiIDs.LEXICON, par3World, 0, 0, 0);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override

@@ -19,16 +19,16 @@ import vazkii.botania.api.page.LexiconPage;
 public class BLexiconEntry extends LexiconEntry {
 
 	public BLexiconEntry(String unlocalizedName, LexiconCategory category) {
-		super(unlocalizedName);
+		super(unlocalizedName, category);
 		BotaniaAPI.addEntry(this, category);
 	}
 
 	@Override
-	public void setLexiconPages(LexiconPage... pages) {
+	public LexiconEntry setLexiconPages(LexiconPage... pages) {
 		for(LexiconPage page : pages)
 			page.unlocalizedName = "botania.page." + getLazyUnlocalizedName() + page.unlocalizedName;
 
-		super.setLexiconPages(pages);
+		return super.setLexiconPages(pages);
 	}
 
 	@Override

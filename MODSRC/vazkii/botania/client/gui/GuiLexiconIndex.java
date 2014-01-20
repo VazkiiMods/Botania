@@ -17,6 +17,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import vazkii.botania.api.LexiconCategory;
 import vazkii.botania.api.LexiconEntry;
@@ -70,7 +71,7 @@ public class GuiLexiconIndex extends GuiLexicon {
 			GuiButtonInvisible button = (GuiButtonInvisible) buttonList.get(i - page * 12);
 			LexiconEntry entry = i >= entriesToDisplay.size() ? null : entriesToDisplay.get(i);
 			if(entry != null)
-				button.displayString = StatCollector.translateToLocal(entry.getUnlocalizedName());
+				button.displayString = (entry.isPriority() ? EnumChatFormatting.ITALIC : "") + StatCollector.translateToLocal(entry.getUnlocalizedName());
 			else button.displayString = "";
 		}
 	}
