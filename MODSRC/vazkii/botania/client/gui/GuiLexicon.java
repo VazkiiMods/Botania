@@ -28,6 +28,8 @@ import vazkii.botania.common.item.ModItems;
 
 public class GuiLexicon extends GuiScreen {
 
+	public static GuiLexicon currentOpenLexicon = new GuiLexicon();
+	
 	public static final ResourceLocation texture = new ResourceLocation(LibResources.GUI_LEXICON);
 
 	int guiWidth = 146;
@@ -37,6 +39,8 @@ public class GuiLexicon extends GuiScreen {
 	@Override
 	public void initGui() {
 		super.initGui();
+		currentOpenLexicon = this;
+		
 		left = width / 2 - guiWidth / 2;
 		top = height / 2 - guiHeight / 2;
 
@@ -98,7 +102,7 @@ public class GuiLexicon extends GuiScreen {
 			GuiButtonInvisible button = (GuiButtonInvisible) buttonList.get(i);
 			LexiconCategory category = i_ >= categoryList.size() ? null : categoryList.get(i_);
 			if(category != null)
-				button.displayString = " " + StatCollector.translateToLocal(category.getUnlocalizedName());
+				button.displayString = StatCollector.translateToLocal(category.getUnlocalizedName());
 			else button.displayString = "";
 		}
 	}

@@ -28,7 +28,7 @@ public class GuiButtonInvisible extends GuiButton {
 
 		boolean unicode = par1Minecraft.fontRenderer.getUnicodeFlag();
 		par1Minecraft.fontRenderer.setUnicodeFlag(true);
-		par1Minecraft.fontRenderer.drawString((k == 2 ? EnumChatFormatting.BOLD : "") + displayString, xPosition/* + (k == 2 ? 5 : 0)*/, yPosition + (height - 8) / 2, 0);
+		par1Minecraft.fontRenderer.drawString(displayString, xPosition + (k == 2 ? 5 : 0), yPosition + (height - 8) / 2, 0);
 		par1Minecraft.fontRenderer.setUnicodeFlag(unicode);
 	}
 

@@ -54,7 +54,7 @@ public class GuiLexiconIndex extends GuiLexicon {
 			GuiButtonInvisible button = (GuiButtonInvisible) buttonList.get(i);
 			LexiconEntry entry = i >= entryList.size() ? null : entryList.get(i);
 			if(entry != null)
-				button.displayString = " " + StatCollector.translateToLocal(entry.getUnlocalizedName());
+				button.displayString = StatCollector.translateToLocal(entry.getUnlocalizedName());
 			else button.displayString = "";
 		}
 	}
