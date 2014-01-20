@@ -58,14 +58,7 @@ public class GuiLexiconIndex extends GuiLexicon {
 
 		entriesToDisplay.clear();
 		entriesToDisplay.addAll(category.entries);
-		Collections.sort(entriesToDisplay, new Comparator<LexiconEntry>() {
-
-			@Override
-			public int compare(LexiconEntry arg0, LexiconEntry arg1) {
-				return StatCollector.translateToLocal(arg0.getUnlocalizedName()).compareTo(StatCollector.translateToLocal(arg1.getUnlocalizedName()));
-			}
-
-		});
+		Collections.sort(entriesToDisplay);
 		
 		updatePageButtons();
 		populateIndex();

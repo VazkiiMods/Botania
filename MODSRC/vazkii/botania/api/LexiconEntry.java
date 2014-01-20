@@ -15,20 +15,27 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.StatCollector;
 import vazkii.botania.api.page.LexiconPage;
 
-public class LexiconEntry {
+public class LexiconEntry implements Comparable<LexiconEntry>{
 
 	public final String unlocalizedName;
 	public List<LexiconPage> pages = new ArrayList<LexiconPage>();
-
+	private boolean priority = false;
+	
 	/**
 	 * @param unlocalizedName The unlocalized name of this entry. This will be localized by the client display.
 	 */
 	public LexiconEntry(String unlocalizedName) {
 		this.unlocalizedName = unlocalizedName;
+	}
+	
+	/**
+	 * Sets this page as prioritized, as in, will appear before others in the lexicon.
+	 */
+	public void setPriority() {
+		priority = true;
 	}
 
 	public String getUnlocalizedName() {
@@ -47,5 +54,14 @@ public class LexiconEntry {
 	 */
 	public void addPage(LexiconPage page) {
 		pages.add(page);
+	}
+
+	public final String getNameForSorting() {
+		return (priority ? 0 : 1) + StatCollector.translateToLocal(getUnlocalizedName());
+	}
+
+	@Override
+	public int compareTo(LexiconEntry o) {
+		return getNameForSorting().compareTo(o.getNameForSorting());
 	}
 }
