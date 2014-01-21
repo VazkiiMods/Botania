@@ -15,13 +15,14 @@ import java.util.List;
 
 import cpw.mods.fml.common.network.PacketDispatcher;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class TileAltar extends TileSimpleInventory {
+public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 
 	public static final String TAG_HAS_WATER = "hasWater";
 	
@@ -97,6 +98,21 @@ public class TileAltar extends TileSimpleInventory {
 	
 	@Override
 	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
+		return false;
+	}
+
+	@Override
+	public int[] getAccessibleSlotsFromSide(int var1) {
+		return new int[0];
+	}
+
+	@Override
+	public boolean canInsertItem(int i, ItemStack itemstack, int j) {
+		return false;
+	}
+
+	@Override
+	public boolean canExtractItem(int i, ItemStack itemstack, int j) {
 		return false;
 	}
 	
