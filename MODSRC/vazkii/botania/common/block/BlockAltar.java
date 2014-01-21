@@ -11,7 +11,11 @@
  */
 package vazkii.botania.common.block;
 
+import cpw.mods.fml.common.network.PacketDispatcher;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import vazkii.botania.client.lib.LibRenderIDs;
@@ -26,6 +30,22 @@ public class BlockAltar extends BlockModContainer {
 		setHardness(3.5F);
 		setStepSound(soundStoneFootstep);
 		setUnlocalizedName(LibBlockNames.ALTAR);
+	}
+	
+	@Override
+	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
+		ItemStack stack = par5EntityPlayer.getCurrentEquippedItem();
+		TileAltar tile = (TileAltar) par1World.getBlockTileEntity(par2, par3, par4);
+		if(stack != null && stack.itemID == Item.bucketWater.itemID) {
+			if(!tile.hasWater) {
+				par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, new ItemStack(Item.bucketEmpty));
+				tile.hasWater = true;
+				PacketDispatcher.sendPacketToAllInDimension(tile.getDescriptionPacket(), par1World.provider.dimensionId);
+			}
+
+			return true;
+		}
+		return false;
 	}
 	
 	@Override

@@ -11,8 +11,23 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
-public class TileAltar extends TileEntity {
+public class TileAltar extends TileMod {
 
+	public static final String TAG_HAS_WATER = "hasWater";
+	
+	public boolean hasWater = false;
+	
+	@Override
+	public void writeCustomNBT(NBTTagCompound cmp) {
+		cmp.setBoolean(TAG_HAS_WATER, hasWater);
+	}
+	
+	@Override
+	public void readCustomNBT(NBTTagCompound cmp) {
+		hasWater = cmp.getBoolean(TAG_HAS_WATER);
+	}
+	
 }
