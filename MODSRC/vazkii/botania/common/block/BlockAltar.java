@@ -11,8 +11,9 @@
  */
 package vazkii.botania.common.block;
 
-import cpw.mods.fml.common.network.PacketDispatcher;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -22,6 +23,7 @@ import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.lib.LibBlockIDs;
 import vazkii.botania.common.lib.LibBlockNames;
+import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class BlockAltar extends BlockModContainer {
 
@@ -31,7 +33,17 @@ public class BlockAltar extends BlockModContainer {
 		setStepSound(soundStoneFootstep);
 		setUnlocalizedName(LibBlockNames.ALTAR);
 		
-		setBlockBounds(0F, 0F, 0F, 1F, 1F / 16F * 20F, 1F);
+		float f = 1F / 16F * 2F;
+		setBlockBounds(f, f, f, 1F - f, 1F / 16F * 20F, 1F - f);
+	}
+	
+	@Override
+	public void onEntityCollidedWithBlock(World par1World, int par2, int par3, int par4, Entity par5Entity) {
+		if(par5Entity instanceof EntityItem) {
+			TileAltar tile = (TileAltar) par1World.getBlockTileEntity(par2, par3, par4);
+			if(tile.collideEntityItem((EntityItem) par5Entity))				
+				PacketDispatcher.sendPacketToAllInDimension(tile.getDescriptionPacket(), par1World.provider.dimensionId);
+		}
 	}
 	
 	@Override

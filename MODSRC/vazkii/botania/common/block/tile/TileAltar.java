@@ -27,32 +27,40 @@ public class TileAltar extends TileSimpleInventory {
 	
 	public boolean hasWater = false;
 	
+	public boolean collideEntityItem(EntityItem item) {
+		if(!hasWater)
+			return false;
+
+		boolean didChange = false;
+
+		ItemStack stack = item.getEntityItem();
+		if(stack.itemID == ModItems.petal.itemID) {
+			if(getStackInSlot(getSizeInventory() - 1) != null)
+				return false;
+			
+			stack.stackSize--;
+			if(stack.stackSize == 0)
+				item.setDead();
+
+			for(int i = 0; i < getSizeInventory(); i++)
+				if(getStackInSlot(i) == null) {
+					setInventorySlotContents(i, new ItemStack(ModItems.petal.itemID, 1, stack.getItemDamage()));
+					didChange = true;
+					break;
+				}
+		}
+
+		return didChange;
+	}
+	
 	@Override
 	public void updateEntity() {
-		if(!hasWater)
-			return;
+		List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord + (1D / 16D * 20D), zCoord, xCoord + 1, yCoord + (1D / 16D * 21D), zCoord + 1));
 		
-		List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord + 1, zCoord, xCoord + 1, yCoord + 1.1, zCoord + 1));
 		boolean didChange = false;
 		
-		for(EntityItem item : items) {
-			if(getStackInSlot(getSizeInventory() - 1) != null)
-				break;
-			
-			ItemStack stack = item.getEntityItem();
-			if(stack.itemID == ModItems.petal.itemID) {
-				stack.stackSize--;
-				if(stack.stackSize == 0)
-					item.setDead();
-				
-				for(int i = 0; i < getSizeInventory(); i++)
-					if(getStackInSlot(i) == null) {
-						setInventorySlotContents(i, new ItemStack(ModItems.petal.itemID, 1, stack.getItemDamage()));
-						didChange = true;
-						break;
-					}
-			}
-		}
+		for(EntityItem item : items)
+			didChange = collideEntityItem(item) || didChange;
 		
 		if(didChange)
 			PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
