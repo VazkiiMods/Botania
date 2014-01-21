@@ -12,17 +12,38 @@
 package vazkii.botania.client.core.proxy;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.world.World;
 import vazkii.botania.api.LexiconEntry;
 import vazkii.botania.client.fx.FXSparkle;
 import vazkii.botania.client.gui.GuiLexicon;
 import vazkii.botania.client.gui.GuiLexiconEntry;
 import vazkii.botania.client.gui.GuiLexiconIndex;
+import vazkii.botania.client.lib.LibRenderIDs;
+import vazkii.botania.client.render.block.RenderAltar;
+import vazkii.botania.client.render.tile.RenderTileAltar;
+import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.core.proxy.CommonProxy;
+import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
 
 public class ClientProxy extends CommonProxy {
 
+	@Override
+	public void init(FMLInitializationEvent event) {
+		super.init(event);
+		
+		initRenderers();
+	}
+	
+	private void initRenderers() {
+		LibRenderIDs.idAltar = RenderingRegistry.getNextAvailableRenderId();
+		
+		RenderingRegistry.registerBlockHandler(new RenderAltar());
+		
+		ClientRegistry.bindTileEntitySpecialRenderer(TileAltar.class, new RenderTileAltar());
+	}
+	
 	@Override
 	public void setEntryToOpen(LexiconEntry entry) {
 		GuiLexicon.currentOpenLexicon = new GuiLexiconEntry(entry, new GuiLexiconIndex(entry.category));

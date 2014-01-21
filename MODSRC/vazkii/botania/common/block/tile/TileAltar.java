@@ -7,13 +7,12 @@
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
  * 
- * File Created @ [Jan 16, 2014, 5:54:52 PM (GMT)]
+ * File Created @ [Jan 21, 2014, 7:51:36 PM (GMT)]
  */
-package vazkii.botania.common.lib;
+package vazkii.botania.common.block.tile;
 
-public final class LibBlockIDs {
+import net.minecraft.tileentity.TileEntity;
 
-	public static int idFlower = 1955;
-	public static int idAltar = 1956;
+public class TileAltar extends TileEntity {
 
 }

@@ -11,20 +11,30 @@
  */
 package vazkii.botania.common.block;
 
-import vazkii.botania.common.lib.LibOreDict;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+import vazkii.botania.common.block.tile.TileAltar;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibOreDict;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public final class ModBlocks {
 
 	public static Block flower;
+	public static Block altar;
 
 	public static void init() {
 		flower = new BlockModFlower();
+		altar = new BlockAltar();
 		
 		for(int i = 0; i < 16; i++)
 			OreDictionary.registerOre(LibOreDict.FLOWER[i], new ItemStack(flower.blockID, 1, i));
+		
+		initTileEntities();
 	}
 
+	private static void initTileEntities() {
+		GameRegistry.registerTileEntity(TileAltar.class, LibBlockNames.ALTAR);
+	}
 }

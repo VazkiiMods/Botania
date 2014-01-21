@@ -18,9 +18,9 @@ public final class LibResources {
 	public static final String PREFIX_LANG = "/assets/botania/lang/";
 
 	public static final String PREFIX_GUI = PREFIX_MOD + "textures/gui/";
-	public static final String PREFIX_ENTRIES = PREFIX_GUI + "entries/";
-	public static final String PREFIX_MISC = PREFIX_MOD + "textures/misc/";
+	public static final String PREFIX_ENTRIES = PREFIX_GUI + "entries/";	
 	public static final String PREFIX_MODEL = PREFIX_MOD + "textures/model/";
+	public static final String PREFIX_MISC = PREFIX_MOD + "textures/misc/";
 
 	public static final String EMTPY_TEXTURE = "emptyTexture";
 
@@ -29,6 +29,8 @@ public final class LibResources {
 
 	public static final String ENTRY_FLOWERS = PREFIX_ENTRIES + "flowers.png";
 
+	public static final String MODEL_ALTAR = PREFIX_MODEL + "altar.png";
+	
 	public static final String MISC_PARTICLES = PREFIX_MISC + "particles.png";
 	public static final String MISC_WISP_LARGE = PREFIX_MISC + "wispLarge.png";
 	public static final String MISC_WISP_SMALL = PREFIX_MISC + "wispSmall.png";

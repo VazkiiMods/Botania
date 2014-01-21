@@ -7,13 +7,12 @@
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
  * 
- * File Created @ [Jan 16, 2014, 5:54:52 PM (GMT)]
+ * File Created @ [Jan 21, 2014, 8:03:06 PM (GMT)]
  */
-package vazkii.botania.common.lib;
+package vazkii.botania.client.lib;
 
-public final class LibBlockIDs {
+public final class LibRenderIDs {
 
-	public static int idFlower = 1955;
-	public static int idAltar = 1956;
-
+	public static int idAltar = -1;
+	
 }

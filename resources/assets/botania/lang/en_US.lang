@@ -24,6 +24,7 @@ tile.botania:flower12.name=Mystical Brown Flower
 tile.botania:flower13.name=Mystical Green Flower
 tile.botania:flower14.name=Mystical Red Flower
 tile.botania:flower15.name=Mystical Black Flower
+tile.botania:altar.name=Petal Apothecary
 
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania
