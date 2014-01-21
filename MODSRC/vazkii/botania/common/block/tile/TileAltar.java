@@ -11,23 +11,85 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
+import java.util.List;
 
-public class TileAltar extends TileMod {
+import cpw.mods.fml.common.network.PacketDispatcher;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.AxisAlignedBB;
+import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibBlockNames;
+
+public class TileAltar extends TileSimpleInventory {
 
 	public static final String TAG_HAS_WATER = "hasWater";
 	
 	public boolean hasWater = false;
 	
 	@Override
+	public void updateEntity() {
+		if(!hasWater)
+			return;
+		
+		List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord + 1, zCoord, xCoord + 1, yCoord + 1.1, zCoord + 1));
+		boolean didChange = false;
+		
+		for(EntityItem item : items) {
+			if(getStackInSlot(getSizeInventory() - 1) != null)
+				break;
+			
+			ItemStack stack = item.getEntityItem();
+			if(stack.itemID == ModItems.petal.itemID) {
+				stack.stackSize--;
+				if(stack.stackSize == 0)
+					item.setDead();
+				
+				for(int i = 0; i < getSizeInventory(); i++)
+					if(getStackInSlot(i) == null) {
+						setInventorySlotContents(i, new ItemStack(ModItems.petal.itemID, 1, stack.getItemDamage()));
+						didChange = true;
+						break;
+					}
+			}
+		}
+		
+		if(didChange)
+			PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
+	}
+	
+	@Override
 	public void writeCustomNBT(NBTTagCompound cmp) {
+		super.writeCustomNBT(cmp);
+		
 		cmp.setBoolean(TAG_HAS_WATER, hasWater);
 	}
 	
 	@Override
 	public void readCustomNBT(NBTTagCompound cmp) {
+		super.readCustomNBT(cmp);
+		
 		hasWater = cmp.getBoolean(TAG_HAS_WATER);
+	}
+
+	@Override
+	public String getInvName() {
+		return LibBlockNames.ALTAR;
+	}
+
+	@Override
+	public int getSizeInventory() {
+		return 16;
+	}
+	
+	@Override
+	public int getInventoryStackLimit() {
+		return 1;
+	}
+	
+	@Override
+	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
+		return false;
 	}
 	
 }

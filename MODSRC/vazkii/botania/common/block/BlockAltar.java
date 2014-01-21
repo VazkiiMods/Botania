@@ -30,6 +30,8 @@ public class BlockAltar extends BlockModContainer {
 		setHardness(3.5F);
 		setStepSound(soundStoneFootstep);
 		setUnlocalizedName(LibBlockNames.ALTAR);
+		
+		setBlockBounds(0F, 0F, 0F, 1F, 1F / 16F * 20F, 1F);
 	}
 	
 	@Override
