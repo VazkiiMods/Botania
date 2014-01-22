@@ -24,18 +24,23 @@ import vazkii.botania.common.lib.LibLexicon;
 public final class LexiconData {
 
 	public static LexiconCategory categoryBasics;
-	public static LexiconCategory categoryEnergy;
-	public static LexiconCategory categoryFlowers;
+	public static LexiconCategory categoryMana;
+	public static LexiconCategory categoryFunctionalFlowers;
+	public static LexiconCategory categoryGenerationFlowers;
 	public static LexiconCategory categoryDevices;
 	public static LexiconCategory categoryTools;
 	public static LexiconCategory categoryMisc;
-	
+
 	public static LexiconEntry flowers;
+	public static LexiconEntry apothecary;
+	public static LexiconEntry lexicon;
+	public static LexiconEntry wand;
 
 	public static void init() {
 		BotaniaAPI.addCategory(categoryBasics = new LexiconCategory(LibLexicon.CATEGORY_BASICS));
-		BotaniaAPI.addCategory(categoryEnergy = new LexiconCategory(LibLexicon.CATEGORY_ENERGY));
-		BotaniaAPI.addCategory(categoryFlowers = new LexiconCategory(LibLexicon.CATEGORY_FLOWERS));
+		BotaniaAPI.addCategory(categoryMana = new LexiconCategory(LibLexicon.CATEGORY_MANA));
+		BotaniaAPI.addCategory(categoryFunctionalFlowers = new LexiconCategory(LibLexicon.CATEGORY_FUNCTIONAL_FLOWERS));
+		BotaniaAPI.addCategory(categoryGenerationFlowers = new LexiconCategory(LibLexicon.CATEGORY_GENERATION_FLOWERS));
 		BotaniaAPI.addCategory(categoryDevices = new LexiconCategory(LibLexicon.CATEGORY_DEVICES));
 		BotaniaAPI.addCategory(categoryTools = new LexiconCategory(LibLexicon.CATEGORY_TOOLS));
 		BotaniaAPI.addCategory(categoryMisc = new LexiconCategory(LibLexicon.CATEGORY_MISC));
@@ -44,15 +49,14 @@ public final class LexiconData {
 		flowers = new BLexiconEntry(LibLexicon.BASICS_FLOWERS, categoryBasics);
 		flowers.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_FLOWERS), new PageText("2"), new PageCraftingRecipes("3", ModCrafingRecipes.recipesPetals), new PageCraftingRecipes("4", ModCrafingRecipes.recipePestleAndMortar), new PageCraftingRecipes("5", ModCrafingRecipes.recipesDyes));
 
-		// ENERGY ENTRIES
-
-		// FLOWERS ENTRIES
-
-		// DEVICES ENTRIES
-
-		// TOOLS ENTRIES
-
-		// MISC ENTRIES
+		apothecary = new BLexiconEntry(LibLexicon.BASICS_APOTHECARY, categoryBasics);
+		apothecary.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_APOTHECARY), new PageText("2"), new PageText("3"), new PageCraftingRecipes("4", ModCrafingRecipes.recipesApothecary)); 
+	
+		lexicon = new BLexiconEntry(LibLexicon.BASICS_LEXICON, categoryBasics);
+		lexicon.setPriority().setLexiconPages(new PageText("0"), new PageCraftingRecipes("1", ModCrafingRecipes.recipeLexicon));
+	
+		wand = new BLexiconEntry(LibLexicon.BASICS_WAND, categoryBasics);
+		wand.setPriority().setLexiconPages(new PageText("0"), new PageCraftingRecipes("1", ModCrafingRecipes.recipesTwigWand));
 	}
 
 }

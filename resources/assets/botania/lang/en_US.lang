@@ -68,8 +68,9 @@ botania.gui.lexicon.header=Lexica Botania Index - Pick which category you would 
 
 # LEXICON CATEGORIES
 botania.category.basics=Basics
-botania.category.energy=Energy and Mana
-botania.category.flowers=Magical Flora
+botania.category.mana=Mana Manipulation
+botania.category.functionalFlowers=Functional Flora
+botania.category.generationFlowers=Generating Flora
 botania.category.devices=Natural Apparatus
 botania.category.tools=Mystical Instruments
 botania.category.misc=Miscellaneous
@@ -77,17 +78,29 @@ botania.category.misc=Miscellaneous
 # LEXICON ENTRIES
 
 # - BASIC
-# -- THE WORLD
+# -- LEXICA BOTANIA
+botania.entry.lexicon=Lexica Botania
+botania.page.lexicon0=The &1Lexica Botania&0 is the repository of all knowledge for all botany related matters. But you probably knew that already.<br>All information is stored here, as expected. For convenience, if a block happens to have an entry in here, it can be right clicked with the Lexica Botania to open that entry.
+botania.page.lexicon1=Crafting the &1Lexica Botania&0.
+
+# -- MYSTICAL FLOWERS
 botania.entry.flowers=Mystical Flowers
 botania.page.flowers0=Around the world, you may stumble upon a large variety of Mystical Flora. Spotting these doesn't take much work as the flowers themselves emit a fair amount of shine.<br>They come in a total of &416 &0different colors.<br>It's also possible to grow these flowers using &1Bone Meal&0.
 botania.page.flowers1=Flowers as far as the eye can see...
 botania.page.flowers2=These flowers can be plucked for &1Mystical Petals&0, that can be used for making magical instruments and plants alike.<br>These petals can also be crushed into &1Floral Dye&0, by the use of a &1Pestle and Mortar&0, which function much alike any mundane piece of dye.
-botania.page.flowers3=Plucking Petals off Flowers
-botania.page.flowers4=Crafting the &1Pestle and Mortar
-botania.page.flowers5=Grinding Petals into Dye
+botania.page.flowers3=Plucking Petals off Flowers.
+botania.page.flowers4=Crafting the &1Pestle and Mortar&0.
+botania.page.flowers5=Grinding Petals into Dye.
 
-# -- BASIC CONCEPTS
-botania.entry.basicConcepts=Basic Concepts
+# -- PETAL APOTHECARY
+botania.entry.apothecary=Petal Apothecary
+botania.page.apothecary0=In order for a Botanist to create plantlife that can do it's bidding, one would need special means of infusing plants with mystical energy.<br>Luckilly, the &1Petal Apothecary&0 does just that.
+botania.page.apothecary1=The &1Petal Apothecary&0.
+botania.page.apothecary2=This block, when placed in the world and given some water (by use of a water bucket), will accept any &1Mystical Petals&0 thrown at it, releasing their energies.<br>Once one has set the correct petals in, throwing some &1Seeds&0 in will finalize the proccess.
+botania.page.apothecary3=Quite a few plants can be made using this method, for more information, read on the &4Functional Flora&0 and &4Generation Flora&0 sections of this Lexicon.
+botania.page.apothecary4=Crafting the &1Petal Apothecary&0.
 
-# -- GETTING STARTED
-botania.entry.gettingStarted=Getting Started
+# -- WAND OF THE FOREST
+botania.entry.wand=Wand of the Forest
+botania.page.wand0=The general multi use tool for a botanist is the &1Wand of the Forest&0.<br>This wand, made by, effectively, strapping a pair of &1Mystical Petals&0 of any color to a few &1Sticks&0 is required for a good amount of tasks.
+botania.page.wand1=The petals use determine the colors.

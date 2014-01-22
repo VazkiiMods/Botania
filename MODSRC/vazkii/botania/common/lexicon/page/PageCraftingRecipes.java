@@ -195,6 +195,10 @@ public class PageCraftingRecipes extends LexiconPage {
 	public void renderItemAtGridPos(IGuiLexiconEntry gui, int x, int y, ItemStack stack, boolean accountForContainer) {
 		if(stack == null || stack.getItem() == null)
 			return;
+		stack = stack.copy();
+		
+		if(stack.getItemDamage() == Short.MAX_VALUE)
+			stack.setItemDamage(0);
 
 		int xPos = gui.getLeft() + x * 29 + 7;
 		int yPos = gui.getTop() + y * 29 + 24 - (y == 0 ? 7 : 0);

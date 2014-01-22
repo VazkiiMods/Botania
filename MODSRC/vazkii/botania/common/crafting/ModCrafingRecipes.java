@@ -13,6 +13,7 @@ package vazkii.botania.common.crafting;
 
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
@@ -28,16 +29,17 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public final class ModCrafingRecipes {
 
-	public static IRecipe lexiconRecipe;
+	public static IRecipe recipeLexicon;
 	public static List<IRecipe> recipesPetals;
 	public static List<IRecipe> recipesDyes;
 	public static IRecipe recipePestleAndMortar;
 	public static List<IRecipe> recipesTwigWand;
+	public static List<IRecipe> recipesApothecary;
 
 	public static void init() {
 		// Lexicon Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lexicon), "treeSapling", Item.book);
-		lexiconRecipe = BotaniaAPI.getLatestAddedRecipe();
+		recipeLexicon = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Petal/Dye Recipes
 		for(int i = 0; i < 16; i++) 
@@ -66,7 +68,16 @@ public final class ModCrafingRecipes {
 				'S', "stickWood");
 			}
 		recipesTwigWand = BotaniaAPI.getLatestAddedRecipes(256);
-
+		
+		// Petal Apothecary Recipes
+		for(int i = 0; i < 16; i++)
+			addOreDictRecipe(new ItemStack(ModBlocks.altar), 
+				"SPS", " C ", "CCC",
+				'S', new ItemStack(Block.stoneSingleSlab, 1, 3),
+				'P', LibOreDict.PETAL[i],
+				'C', "cobblestone");
+		recipesApothecary = BotaniaAPI.getLatestAddedRecipes(16);
+		
 	}
 	
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {
