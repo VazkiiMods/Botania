@@ -14,15 +14,18 @@ package vazkii.botania.api;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import vazkii.botania.api.internal.DummyMethodHandler;
 import vazkii.botania.api.internal.IInternalMethodHandler;
+import vazkii.botania.api.internal.RecipePetals;
 
 public final class BotaniaAPI {
 
 	private static List<LexiconCategory> categories = new ArrayList<LexiconCategory>();
 	private static List<LexiconEntry> allEntries = new ArrayList<LexiconEntry>();
+	public static List<RecipePetals> petalRecipes = new ArrayList<RecipePetals>();
 
 	/**
 	 * The internal method handler in use. Do not overwrite.
@@ -30,6 +33,19 @@ public final class BotaniaAPI {
 	 */
 	public static IInternalMethodHandler internalHandler = new DummyMethodHandler();
 
+	/**
+	 * Registers a Petal Recipe.
+	 * @param output The ItemStack to craft.
+	 * @param colors The required metadata petals for this recipe to be accept.
+	 * Eg: 0, 0, 1 is White, White, Orange
+	 * @return The recipe created.
+	 */
+	public static RecipePetals registerPetalRecipe(ItemStack output, int... colors) {
+		RecipePetals recipe = new RecipePetals(output, colors);
+		petalRecipes.add(recipe);
+		return recipe;
+	}
+	
 	/**
 	 * Adds a category to the list of registered categories to appear in the Lexicon.
 	 */

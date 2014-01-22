@@ -16,9 +16,13 @@ import java.util.List;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraftforge.oredict.OreDictionary;
+import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.internal.RecipePetals;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
 
@@ -35,13 +39,18 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 		boolean didChange = false;
 
 		ItemStack stack = item.getEntityItem();
+		if(stack == null)
+			return false;
+		
 		if(stack.itemID == ModItems.petal.itemID) {
 			if(getStackInSlot(getSizeInventory() - 1) != null)
 				return false;
 			
-			stack.stackSize--;
-			if(stack.stackSize == 0)
-				item.setDead();
+			if(!worldObj.isRemote) {
+				stack.stackSize--;
+				if(stack.stackSize == 0)
+					item.setDead();
+			}
 
 			for(int i = 0; i < getSizeInventory(); i++)
 				if(getStackInSlot(i) == null) {
@@ -49,6 +58,25 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 					didChange = true;
 					break;
 				}
+		} else if(stack.itemID == Item.seeds.itemID) {
+			for(RecipePetals recipe : BotaniaAPI.petalRecipes) {
+				if(recipe.matches(this)) {
+					ItemStack output = recipe.getOutput().copy();
+					EntityItem outputItem = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, output);
+					worldObj.spawnEntityInWorld(outputItem);
+					for(int i = 0; i < getSizeInventory(); i++)
+						setInventorySlotContents(i, null);
+					
+					if(!worldObj.isRemote) {
+						stack.stackSize--;
+						if(stack.stackSize == 0)
+							item.setDead();
+					}
+
+					didChange = true;
+					break;
+				}
+			}
 		}
 
 		return didChange;
