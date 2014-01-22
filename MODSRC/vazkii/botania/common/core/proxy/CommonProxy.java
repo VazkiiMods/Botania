@@ -20,6 +20,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.BiomeDecorationHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.InternalMethodHandler;
+import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.crafting.ModCrafingRecipes;
 import vazkii.botania.common.crafting.ModPetalRecipes;
 import vazkii.botania.common.item.ModItems;
@@ -50,6 +51,7 @@ public class CommonProxy {
 		NetworkRegistry.instance().registerGuiHandler(Botania.instance, new GuiHandler());
 		
 		MinecraftForge.TERRAIN_GEN_BUS.register(new BiomeDecorationHandler());
+		MinecraftForge.EVENT_BUS.register(new ManaNetworkHandler());
 	}
 
 	public void postInit(FMLPostInitializationEvent event) {
