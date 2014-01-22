@@ -11,6 +11,7 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -18,6 +19,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.TileAltar;
@@ -60,6 +62,11 @@ public class BlockAltar extends BlockModContainer {
 			return true;
 		}
 		return false;
+	}
+	
+	@Override
+	public Icon getIcon(int par1, int par2) {
+		return Block.cobblestone.getIcon(par1, par2);
 	}
 	
 	@Override

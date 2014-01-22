@@ -13,18 +13,19 @@ package vazkii.botania.common.block.tile;
 
 import java.util.List;
 
-import cpw.mods.fml.common.network.PacketDispatcher;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.RecipePetals;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
+import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 
@@ -61,9 +62,6 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 		} else if(stack.itemID == Item.seeds.itemID) {
 			for(RecipePetals recipe : BotaniaAPI.petalRecipes) {
 				if(recipe.matches(this)) {
-					ItemStack output = recipe.getOutput().copy();
-					EntityItem outputItem = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, output);
-					worldObj.spawnEntityInWorld(outputItem);
 					for(int i = 0; i < getSizeInventory(); i++)
 						setInventorySlotContents(i, null);
 					
@@ -71,8 +69,14 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 						stack.stackSize--;
 						if(stack.stackSize == 0)
 							item.setDead();
+						
+						ItemStack output = recipe.getOutput().copy();
+						EntityItem outputItem = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, output);
+						worldObj.spawnEntityInWorld(outputItem);
 					}
 
+					craftingFanciness();
+					hasWater = false;
 					didChange = true;
 					break;
 				}
@@ -80,6 +84,16 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 		}
 
 		return didChange;
+	}
+	
+	public void craftingFanciness() {
+		worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.levelup", 1F, 1F);
+		for(int i = 0; i < 25; i++) {
+			float red = (float) Math.random();
+			float green = (float) Math.random();
+			float blue = (float) Math.random();
+			Botania.proxy.sparkleFX(worldObj, xCoord + 0.5 + (Math.random() * 0.4) - 0.2, yCoord + 1, zCoord + 0.5 + (Math.random() * 0.4) - 0.2, red, green, blue, (float) Math.random(), 10);
+		}
 	}
 	
 	@Override
@@ -93,6 +107,20 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 		
 		if(didChange)
 			PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
+		
+		for(int i = 0; i < getSizeInventory(); i++) {
+			ItemStack stackAt = getStackInSlot(i);
+			if(stackAt == null)
+				break;
+			
+			if(Math.random() >= 0.97) {
+				float[] color = EntitySheep.fleeceColorTable[stackAt.getItemDamage()];
+				float red = color[0];
+				float green = color[1];
+				float blue = color[2];
+				Botania.proxy.sparkleFX(worldObj, xCoord + 0.5 + (Math.random() * 0.4) - 0.2, yCoord + 1, zCoord + 0.5 + (Math.random() * 0.4) - 0.2, red, green, blue, (float) Math.random(), 10);
+			}
+		}
 	}
 	
 	@Override
