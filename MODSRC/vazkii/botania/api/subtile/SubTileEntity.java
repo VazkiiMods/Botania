@@ -35,13 +35,15 @@ public class SubTileEntity {
 	
 	/**
 	 * Writes some extra data to a network packet. This data is read
-	 * by readFromPacketNBT on the client that receives the packet. 
+	 * by readFromPacketNBT on the client that receives the packet.
+	 * Note: This method is also used to write to the world NBT.
 	 */
 	public void writeToPacketNBT(NBTTagCompound cmp) { }
 	
 	/**
 	 * Reads data from a network packet. This data is written by
-	 * writeToPacketNBT in the server.
+	 * writeToPacketNBT in the server. Note: This method is also used
+	 * to read from the world NBT.
 	 */
 	public void readFromPacketNBT(NBTTagCompound cmp) { }
 

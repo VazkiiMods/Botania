@@ -75,7 +75,7 @@ public abstract class TileSpecialFlower<T extends SubTileEntity> extends TileMod
 		if(subTile == null || !BotaniaAPI.getSubTileStringMapping(subTile.getClass()).equals(subTileName))
 			provideSubTile(subTileName);		
 		
-		subTile.readFromNBT(subCmp);
+		subTile.readFromPacketNBT(subCmp);
 	}
 	
 }
