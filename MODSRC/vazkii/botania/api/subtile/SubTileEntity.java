@@ -11,8 +11,12 @@
  */
 package vazkii.botania.api.subtile;
 
+import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Icon;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * A Sub-TileEntity, this is used for the flower system. Make sure to map subclasses
@@ -46,5 +50,13 @@ public class SubTileEntity {
 	 * to read from the world NBT.
 	 */
 	public void readFromPacketNBT(NBTTagCompound cmp) { }
+	
+	/**
+	 * Gets the icon for this SubTileEntity, this is a block icon.
+	 */
+	@SideOnly(Side.CLIENT)
+	public Icon getIcon() {
+		return Block.plantRed.getIcon(0, 0);
+	}
 
 }

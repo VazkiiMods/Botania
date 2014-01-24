@@ -12,7 +12,7 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Icon;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.subtile.SubTileEntity;
 
@@ -76,6 +76,10 @@ public abstract class TileSpecialFlower<T extends SubTileEntity> extends TileMod
 			provideSubTile(subTileName);		
 		
 		subTile.readFromPacketNBT(subCmp);
+	}
+	
+	public Icon getIcon() {
+		return subTile.getIcon();
 	}
 	
 }

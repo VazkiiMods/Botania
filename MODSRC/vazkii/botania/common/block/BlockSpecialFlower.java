@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 import vazkii.botania.api.ISpecialFlower;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 
-public abstract class BlockSpecialFlower<T extends TileEntity> extends BlockFlower implements ISpecialFlower, ITileEntityProvider {
+public class BlockSpecialFlower<T extends TileEntity> extends BlockFlower implements ISpecialFlower {
 
 	protected BlockSpecialFlower(int par1, String name) {
 		super(par1);
@@ -27,10 +27,13 @@ public abstract class BlockSpecialFlower<T extends TileEntity> extends BlockFlow
 		setStepSound(soundGrassFootstep);
 		setTickRandomly(true);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
+		isBlockContainer = true;
 	}
-	
+
 	@Override
-	public abstract T createNewTileEntity(World world);
+	public TileEntity createTileEntity(World world, int metadata) {
+		return super.createTileEntity(world, metadata);
+	}
 	
 	@Override
 	public void breakBlock(World par1World, int par2, int par3, int par4, int par5, int par6) {
