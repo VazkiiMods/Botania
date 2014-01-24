@@ -11,7 +11,8 @@
  */
 package vazkii.botania.api.subtile;
 
-import net.minecraft.world.World;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 
 /**
  * A Sub-TileEntity, this is used for the flower system. Make sure to map subclasses
@@ -20,10 +21,28 @@ import net.minecraft.world.World;
  */
 public class SubTileEntity {
 	
-	World worldObj;
+	TileEntity supertile;
 	
-	public void setWorld(World world) {
-		worldObj = world;
+	public void setSupertile(TileEntity tile) {
+		supertile = tile;
 	}
+	
+	public boolean canUpdate() { 
+		return false;
+	}
+	
+	public void onUpdate() { }
+	
+	/**
+	 * Writes some extra data to a network packet. This data is read
+	 * by readFromPacketNBT on the client that receives the packet. 
+	 */
+	public void writeToPacketNBT(NBTTagCompound cmp) { }
+	
+	/**
+	 * Reads data from a network packet. This data is written by
+	 * writeToPacketNBT in the server.
+	 */
+	public void readFromPacketNBT(NBTTagCompound cmp) { }
 
 }

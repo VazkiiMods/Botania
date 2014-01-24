@@ -20,13 +20,24 @@ import net.minecraft.item.crafting.IRecipe;
 import vazkii.botania.api.internal.DummyMethodHandler;
 import vazkii.botania.api.internal.IInternalMethodHandler;
 import vazkii.botania.api.internal.RecipePetals;
+import vazkii.botania.api.internal.SubTileDummy;
+import vazkii.botania.api.subtile.SubTileEntity;
+
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 
 public final class BotaniaAPI {
 
 	private static List<LexiconCategory> categories = new ArrayList<LexiconCategory>();
 	private static List<LexiconEntry> allEntries = new ArrayList<LexiconEntry>();
+	
 	public static List<RecipePetals> petalRecipes = new ArrayList<RecipePetals>();
-
+	
+	private static BiMap<String, Class<? extends SubTileEntity>> subTiles = HashBiMap.<String, Class<? extends SubTileEntity>> create();
+	static {
+		registerSubTile("", SubTileDummy.class);
+	}
+	
 	/**
 	 * The internal method handler in use. Do not overwrite.
 	 * @see IInternalMethodHandler
@@ -44,6 +55,10 @@ public final class BotaniaAPI {
 		RecipePetals recipe = new RecipePetals(output, colors);
 		petalRecipes.add(recipe);
 		return recipe;
+	}
+	
+	public static void registerSubTile(String key, Class<? extends SubTileEntity> subtileClass) {
+		subTiles.put(key, subtileClass);
 	}
 	
 	/**
@@ -86,5 +101,16 @@ public final class BotaniaAPI {
 			newList.add(list.get(list.size() - 1 - i));
 		
 		return newList;
+	}
+	
+	public static Class<? extends SubTileEntity> getSubTileMapping(String key) {
+		if(!subTiles.containsKey(key))
+			key = "";
+		
+		return subTiles.get(key);
+	}
+	
+	public static String getSubTileStringMapping(Class<? extends SubTileEntity> clazz) {
+		return subTiles.inverse().get(clazz);
 	}
 }
