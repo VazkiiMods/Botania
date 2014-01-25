@@ -25,6 +25,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.ILexiconable;
@@ -106,6 +107,12 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	@Override
 	public Icon getIcon(int par1, int par2) {
 		return Block.plantYellow.getIcon(0, 0);
+	}
+	
+	@Override
+	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
+		String name = ((TileSpecialFlower) world.getBlockTileEntity(x, y, z)).subTileName;
+		return ItemBlockSpecialFlower.ofType(name);
 	}
 	
 	public void breakBlock(World par1World, int par2, int par3, int par4, int par5, int par6) {
