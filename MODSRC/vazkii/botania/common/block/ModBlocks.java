@@ -23,6 +23,7 @@ public final class ModBlocks {
 
 	public static Block flower;
 	public static Block altar;
+	public static Block specialFlower;
 
 	public static void init() {
 		flower = new BlockModFlower();

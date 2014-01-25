@@ -12,10 +12,12 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.BlockFlower;
-import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Icon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.ISpecialFlower;
+import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 
 public class BlockSpecialFlower<T extends TileEntity> extends BlockFlower implements ISpecialFlower {
@@ -32,7 +34,12 @@ public class BlockSpecialFlower<T extends TileEntity> extends BlockFlower implem
 
 	@Override
 	public TileEntity createTileEntity(World world, int metadata) {
-		return super.createTileEntity(world, metadata);
+		return new TileSpecialFlower();
+	}
+	
+	@Override
+	public Icon getBlockTexture(IBlockAccess par1iBlockAccess, int par2, int par3, int par4, int par5) {
+		return ((TileSpecialFlower) par1iBlockAccess.getBlockTileEntity(par2, par3, par4)).getIcon();
 	}
 	
 	@Override
