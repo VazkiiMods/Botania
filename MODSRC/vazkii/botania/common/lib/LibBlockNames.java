@@ -18,6 +18,8 @@ public final class LibBlockNames {
 	public static final String FLOWER = LibResources.PREFIX_MOD + "flower";
 	public static final String ALTAR = LibResources.PREFIX_MOD + "altar";
 	public static final String SPECIAL_FLOWER = LibResources.PREFIX_MOD + "specialFlower";
+	public static final String SPREADER = LibResources.PREFIX_MOD + "spreader";
+	public static final String POOL = LibResources.PREFIX_MOD + "pool";
 
 	public static final String SPECIAL_FLOWER_PREFIX = FLOWER + ".";
 	

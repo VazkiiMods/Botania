@@ -23,8 +23,11 @@ import vazkii.botania.client.gui.GuiLexiconIndex;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.client.render.block.RenderAltar;
 import vazkii.botania.client.render.block.RenderSpecialFlower;
+import vazkii.botania.client.render.block.RenderSpreader;
 import vazkii.botania.client.render.tile.RenderTileAltar;
+import vazkii.botania.client.render.tile.RenderTileSpreader;
 import vazkii.botania.common.block.tile.TileAltar;
+import vazkii.botania.common.block.tile.TileSpreader;
 import vazkii.botania.common.core.proxy.CommonProxy;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -44,11 +47,15 @@ public class ClientProxy extends CommonProxy {
 	private void initRenderers() {
 		LibRenderIDs.idAltar = RenderingRegistry.getNextAvailableRenderId();
 		LibRenderIDs.idSpecialFlower = RenderingRegistry.getNextAvailableRenderId();
+		LibRenderIDs.idSpreader = RenderingRegistry.getNextAvailableRenderId();
+		LibRenderIDs.idPool = RenderingRegistry.getNextAvailableRenderId();
 
 		RenderingRegistry.registerBlockHandler(new RenderAltar());
 		RenderingRegistry.registerBlockHandler(new RenderSpecialFlower());
+		RenderingRegistry.registerBlockHandler(new RenderSpreader());
 
 		ClientRegistry.bindTileEntitySpecialRenderer(TileAltar.class, new RenderTileAltar());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileSpreader.class, new RenderTileSpreader());
 	}
 	
 	@Override

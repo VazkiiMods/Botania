@@ -15,5 +15,7 @@ public final class LibRenderIDs {
 
 	public static int idAltar = -1;
 	public static int idSpecialFlower = -1;
+	public static int idSpreader = -1;
+	public static int idPool = -1;
 
 }
