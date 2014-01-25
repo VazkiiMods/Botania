@@ -39,6 +39,11 @@ public final class ManaNetworkHandler {
 		else remove(map, event.tile);
 	}
 	
+	public void clear() {
+		manaPools.clear();
+		manaCollectors.clear();
+	}
+	
 	public TileEntity getClosestPool(ChunkCoordinates pos, int dimension, int limit) {
 		if(manaPools.containsKey(dimension))
 			return getClosest(manaPools.get(dimension), pos, limit);
@@ -90,5 +95,11 @@ public final class ManaNetworkHandler {
 		
 		if(!tiles.contains(tile))
 			tiles.add(tile);
+	}
+	
+	public int getAmount(Map<Integer, List<TileEntity>> map, int dim) {
+		if(!map.containsKey(dim))
+			return 0;
+		return map.get(dim).size();
 	}
 }

@@ -66,7 +66,6 @@ public class SubTileEntity {
 	@SideOnly(Side.CLIENT)
 	public Icon getIcon() {
 		Icon icon = BotaniaAPI.internalHandler.getSubTileIconForName(getUnlocalizedName());
-		System.out.println(icon);
 		return icon;
 	}
 

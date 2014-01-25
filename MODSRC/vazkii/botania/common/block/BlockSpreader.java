@@ -11,20 +11,22 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import vazkii.botania.api.IWandable;
+import vazkii.botania.client.core.handler.HUDHandler.IHUD;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.TileSpreader;
 import vazkii.botania.common.lib.LibBlockIDs;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockSpreader extends BlockModContainer implements IWandable {
+public class BlockSpreader extends BlockModContainer implements IWandable, IHUD {
 
 	protected BlockSpreader() {
 		super(LibBlockIDs.idSpreader, Material.wood);
@@ -55,12 +57,18 @@ public class BlockSpreader extends BlockModContainer implements IWandable {
 
 	@Override
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
-		return false;
+		((TileSpreader) world.getBlockTileEntity(x, y, z)).onWanded(player, stack);
+		return true;
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World world) {
 		return new TileSpreader();
+	}
+
+	@Override
+	public void renderHUD(Minecraft mc, ScaledResolution res, World world, int x, int y, int z) {
+		((TileSpreader) world.getBlockTileEntity(x, y, z)).renderHUD(mc, res);
 	}
 
 }

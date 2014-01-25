@@ -50,6 +50,14 @@ public class ItemTwigWand extends Item16Colors {
 	}
 	
 	@Override
+	public boolean shouldPassSneakingClickToBlock(World par2World, int par4, int par5, int par6) {
+		int id = par2World.getBlockId(par4, par5, par6);
+		if(Block.blocksList[id] instanceof IWandable)
+			return false;
+		return true;
+	}
+	
+	@Override
 	public void registerIcons(IconRegister par1IconRegister) {
 		icons = new Icon[3];
 		for(int i = 0; i < icons.length; i++)
