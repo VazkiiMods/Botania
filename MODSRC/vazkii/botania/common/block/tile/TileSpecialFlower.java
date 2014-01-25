@@ -16,20 +16,20 @@ import net.minecraft.util.Icon;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.subtile.SubTileEntity;
 
-public abstract class TileSpecialFlower<T extends SubTileEntity> extends TileMod {
+public class TileSpecialFlower extends TileMod {
 	
 	private static final String TAG_SUBTILE_NAME = "subTileName";
 	private static final String TAG_SUBTILE_CMP = "subTileCmp";
 	
 	String subTileName = "";
-	T subTile;
+	SubTileEntity subTile;
 	
 	public void setSubTile(String name) {
 		subTileName = name;
 		provideSubTile(subTileName);
 	}
 	
-	public void setSubTile(T tile) {
+	public void setSubTile(SubTileEntity tile) {
 		subTile = tile;
 	}
 	
@@ -38,7 +38,7 @@ public abstract class TileSpecialFlower<T extends SubTileEntity> extends TileMod
 		
 		Class<? extends SubTileEntity> tileClass = BotaniaAPI.getSubTileMapping(name);
 		try {
-			T tile = (T) tileClass.newInstance();
+			SubTileEntity tile = tileClass.newInstance();
 			setSubTile(tile);
 		} catch (Exception e) {
 			e.printStackTrace();
