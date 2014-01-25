@@ -13,9 +13,12 @@ package vazkii.botania.common.core.handler;
 
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.Icon;
 import vazkii.botania.api.internal.IInternalMethodHandler;
 import vazkii.botania.api.page.LexiconPage;
+import vazkii.botania.common.block.BlockSpecialFlower;
 import vazkii.botania.common.lexicon.page.PageCraftingRecipes;
 import vazkii.botania.common.lexicon.page.PageImage;
 import vazkii.botania.common.lexicon.page.PageText;
@@ -40,6 +43,12 @@ public class InternalMethodHandler implements IInternalMethodHandler {
 	@Override
 	public LexiconPage recipePage(String key, IRecipe recipe) {
 		return new PageCraftingRecipes(key, recipe);
+	}
+
+	@Override
+	public Icon getSubTileIconForName(String name) {
+		Icon icon = BlockSpecialFlower.icons.get(name);
+		return icon == null ? Block.plantRed.getIcon(0, 0) : icon;
 	}
 
 }

@@ -11,10 +11,10 @@
  */
 package vazkii.botania.api.subtile;
 
-import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
+import vazkii.botania.api.BotaniaAPI;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -56,7 +56,9 @@ public class SubTileEntity {
 	 */
 	@SideOnly(Side.CLIENT)
 	public Icon getIcon() {
-		return Block.plantRed.getIcon(0, 0);
+		Icon icon = BotaniaAPI.internalHandler.getSubTileIconForName(BotaniaAPI.getSubTileStringMapping(getClass()));
+		System.out.println(icon);
+		return icon;
 	}
 
 }

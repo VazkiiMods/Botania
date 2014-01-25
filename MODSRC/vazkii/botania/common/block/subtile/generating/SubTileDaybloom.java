@@ -7,14 +7,12 @@
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
  * 
- * File Created @ [Jan 16, 2014, 5:54:52 PM (GMT)]
+ * File Created @ [Jan 25, 2014, 3:09:35 PM (GMT)]
  */
-package vazkii.botania.common.lib;
+package vazkii.botania.common.block.subtile.generating;
 
-public final class LibBlockIDs {
+import vazkii.botania.common.block.subtile.SubTileGenerating;
 
-	public static int idFlower = 1955;
-	public static int idAltar = 1956;
-	public static int idSpecialFlower = 1957;
+public class SubTileDaybloom extends SubTileGenerating {
 
 }

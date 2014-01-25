@@ -14,14 +14,18 @@ package vazkii.botania.common.item.block;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
+import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibBlockNames;
+import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -29,31 +33,37 @@ public class ItemBlockSpecialFlower extends ItemBlock {
 
 	private static String TAG_TYPE = "type";
 	
-	@SideOnly(Side.CLIENT)
-	private static Map<String, Icon> iconsForType = new HashMap();
-	
 	public ItemBlockSpecialFlower(int par1) {
 		super(par1);
 	}
 	
 	@Override
+	public Icon getIconIndex(ItemStack stack) {
+		return BotaniaAPI.internalHandler.getSubTileIconForName(getType(stack));
+	}
+	
+	@Override
 	public Icon getIcon(ItemStack stack, int pass) {
-		String type = getType(stack);
-		if(!iconsForType.containsKey(type)) {
-			try {
-				SubTileEntity tile = BotaniaAPI.getSubTileMapping(type).newInstance();
-				iconsForType.put(type, tile.getIcon());
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
+		return getIconIndex(stack);
+	}
+	
+	@Override
+	public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata) {
+		boolean placed = super.placeBlockAt(stack, player, world, x, y, z, side, hitX, hitY, hitZ, metadata);
+		if(placed) {
+			String type = getType(stack);
+			TileSpecialFlower tile = (TileSpecialFlower) world.getBlockTileEntity(x, y, z);
+			tile.setSubTile(type);
+			if(!world.isRemote)
+				PacketDispatcher.sendPacketToAllInDimension(tile.getDescriptionPacket(), world.provider.dimensionId);
 		}
 		
-		return iconsForType.get(type);
+		return placed;
 	}
 	
 	@Override
 	public String getUnlocalizedName(ItemStack stack) {
-		return LibBlockNames.SPECIAL_FLOWER_PREFIX + getType(stack);
+		return "tile." + LibBlockNames.SPECIAL_FLOWER_PREFIX + getType(stack);
 	}
 	
 	public static String getType(ItemStack stack) {
@@ -62,7 +72,7 @@ public class ItemBlockSpecialFlower extends ItemBlock {
 
 	public static ItemStack ofType(String type) {
 		ItemStack stack = new ItemStack(ModBlocks.specialFlower);
-		ItemNBTHelper.setString(null, TAG_TYPE, type);
+		ItemNBTHelper.setString(stack, TAG_TYPE, type);
 		return stack;
 	}
 	

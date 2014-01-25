@@ -30,6 +30,8 @@ public final class ConfigHandler {
 
 		// Block IDs
 		LibBlockIDs.idFlower = loadBlock(LibBlockNames.FLOWER, LibBlockIDs.idFlower);
+		LibBlockIDs.idAltar = loadBlock(LibBlockNames.ALTAR, LibBlockIDs.idAltar);
+		LibBlockIDs.idSpecialFlower = loadBlock(LibBlockNames.SPECIAL_FLOWER, LibBlockIDs.idSpecialFlower);
 
 		// Item IDs
 		LibItemIDs.idLexicon = loadItem(LibItemNames.LEXICON, LibItemIDs.idLexicon);

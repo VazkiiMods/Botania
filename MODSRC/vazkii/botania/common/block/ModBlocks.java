@@ -14,7 +14,10 @@ package vazkii.botania.common.block;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.common.block.subtile.generating.SubTileDaybloom;
 import vazkii.botania.common.block.tile.TileAltar;
+import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibOreDict;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -28,6 +31,7 @@ public final class ModBlocks {
 	public static void init() {
 		flower = new BlockModFlower();
 		altar = new BlockAltar();
+		specialFlower = new BlockSpecialFlower();
 		
 		for(int i = 0; i < 16; i++)
 			OreDictionary.registerOre(LibOreDict.FLOWER[i], new ItemStack(flower.blockID, 1, i));
@@ -37,5 +41,8 @@ public final class ModBlocks {
 
 	private static void initTileEntities() {
 		GameRegistry.registerTileEntity(TileAltar.class, LibBlockNames.ALTAR);
+		GameRegistry.registerTileEntity(TileSpecialFlower.class, LibBlockNames.SPECIAL_FLOWER);
+		
+		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_DAYBLOOM, SubTileDaybloom.class);
 	}
 }

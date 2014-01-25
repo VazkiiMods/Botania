@@ -47,12 +47,13 @@ public class TileSpecialFlower extends TileMod {
 	
 	@Override
 	public void updateEntity() {
-		subTile.onUpdate();
+		if(subTile != null)
+			subTile.onUpdate();
 	}
 	
 	@Override
 	public boolean canUpdate() {
-		return subTile.canUpdate();
+		return subTile == null || subTile.canUpdate();
 	}
 	
 	@Override
@@ -69,11 +70,11 @@ public class TileSpecialFlower extends TileMod {
 	public void readCustomNBT(NBTTagCompound cmp) {
 		super.readCustomNBT(cmp);
 		
-		subTileName = cmp.getString(subTileName);
+		subTileName = cmp.getString(TAG_SUBTILE_NAME);
 		NBTTagCompound subCmp = cmp.getCompoundTag(TAG_SUBTILE_CMP);
 
 		if(subTile == null || !BotaniaAPI.getSubTileStringMapping(subTile.getClass()).equals(subTileName))
-			provideSubTile(subTileName);		
+			provideSubTile(subTileName);
 		
 		subTile.readFromPacketNBT(subCmp);
 	}

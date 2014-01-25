@@ -13,7 +13,9 @@ package vazkii.botania.api.internal;
 
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.Icon;
 import vazkii.botania.api.page.LexiconPage;
 import vazkii.botania.api.page.PageDummy;
 
@@ -38,10 +40,14 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	public LexiconPage recipePage(String key, IRecipe recipe) {
 		return dummyPage(key);
 	}
-	
 
 	private LexiconPage dummyPage(String key) {
 		return new PageDummy(key);
+	}
+
+	@Override
+	public Icon getSubTileIconForName(String name) {
+		return Block.plantRed.getIcon(0, 0);
 	}
 
 

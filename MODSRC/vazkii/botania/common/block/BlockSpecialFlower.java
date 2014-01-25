@@ -11,25 +11,63 @@
  */
 package vazkii.botania.common.block;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
+import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.ISpecialFlower;
+import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.core.BotaniaCreativeTab;
+import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
+import vazkii.botania.common.lib.LibBlockIDs;
+import vazkii.botania.common.lib.LibBlockNames;
+import cpw.mods.fml.common.registry.GameRegistry;
 
-public class BlockSpecialFlower<T extends TileEntity> extends BlockFlower implements ISpecialFlower {
+public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, ITileEntityProvider {
 
-	protected BlockSpecialFlower(int par1, String name) {
-		super(par1);
-		setUnlocalizedName(name);
+	public static Map<String, Icon> icons = new HashMap();
+	private static String[] subtypes = {
+		// Generating
+		LibBlockNames.SUBTILE_DAYBLOOM,
+			
+		// Functional
+	};
+	
+	protected BlockSpecialFlower() {
+		super(LibBlockIDs.idSpecialFlower);
+		setUnlocalizedName(LibBlockNames.SPECIAL_FLOWER);
 		setHardness(0F);
 		setStepSound(soundGrassFootstep);
 		setTickRandomly(true);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
-		isBlockContainer = true;
+	}
+	
+	@Override
+	public Block setUnlocalizedName(String par1Str) {
+		GameRegistry.registerBlock(this, ItemBlockSpecialFlower.class, par1Str);
+		return super.setUnlocalizedName(par1Str);
+	}
+	
+	@Override
+	public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List par3List) {
+		for(String s : subtypes)
+			par3List.add(ItemBlockSpecialFlower.ofType(s));
+	}
+	
+	@Override
+	public void registerIcons(IconRegister par1IconRegister) {
+		for(String s : subtypes)
+			icons.put(s, IconHelper.forName(par1IconRegister, s));
 	}
 
 	@Override
@@ -53,6 +91,11 @@ public class BlockSpecialFlower<T extends TileEntity> extends BlockFlower implem
 		super.onBlockEventReceived(par1World, par2, par3, par4, par5, par6);
 		TileEntity tileentity = par1World.getBlockTileEntity(par2, par3, par4);
 		return tileentity != null ? tileentity.receiveClientEvent(par5, par6) : false;
+	}
+
+	@Override
+	public TileEntity createNewTileEntity(World world) {
+		return null;
 	}
 
 }

@@ -25,6 +25,7 @@ tile.botania:flower13.name=Mystical Green Flower
 tile.botania:flower14.name=Mystical Red Flower
 tile.botania:flower15.name=Mystical Black Flower
 tile.botania:altar.name=Petal Apothecary
+tile.botania:flower.daybloom.name=Daybloom
 
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania
