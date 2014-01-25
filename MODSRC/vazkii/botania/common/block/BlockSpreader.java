@@ -11,10 +11,12 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import vazkii.botania.api.IWandable;
 import vazkii.botania.client.lib.LibRenderIDs;
@@ -39,6 +41,11 @@ public class BlockSpreader extends BlockModContainer implements IWandable {
 	@Override
 	public boolean renderAsNormalBlock() {
 		return false;
+	}
+	
+	@Override
+	public Icon getIcon(int par1, int par2) {
+		return ModBlocks.livingwood.getIcon(par1, par2);
 	}
 	
 	@Override

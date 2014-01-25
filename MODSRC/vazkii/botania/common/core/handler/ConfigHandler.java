@@ -32,6 +32,8 @@ public final class ConfigHandler {
 		LibBlockIDs.idFlower = loadBlock(LibBlockNames.FLOWER, LibBlockIDs.idFlower);
 		LibBlockIDs.idAltar = loadBlock(LibBlockNames.ALTAR, LibBlockIDs.idAltar);
 		LibBlockIDs.idSpecialFlower = loadBlock(LibBlockNames.SPECIAL_FLOWER, LibBlockIDs.idSpecialFlower);
+		LibBlockIDs.idLivingrock = loadBlock(LibBlockNames.LIVING_ROCK, LibBlockIDs.idLivingrock);
+		LibBlockIDs.idLivingwood = loadBlock(LibBlockNames.LIVING_WOOD, LibBlockIDs.idLivingwood);
 		LibBlockIDs.idSpreader = loadBlock(LibBlockNames.SPREADER, LibBlockIDs.idSpreader);
 		LibBlockIDs.idPool = loadBlock(LibBlockNames.POOL, LibBlockIDs.idPool);
 

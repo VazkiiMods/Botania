@@ -27,18 +27,24 @@ public final class ModBlocks {
 
 	public static Block flower;
 	public static Block altar;
+	public static Block livingrock;
+	public static Block livingwood;
 	public static Block specialFlower;
 	public static Block spreader;
 
 	public static void init() {
 		flower = new BlockModFlower();
 		altar = new BlockAltar();
+		livingrock = new BlockLivingrock();
+		livingwood = new BlockLivingwood();
 		specialFlower = new BlockSpecialFlower();
 		spreader = new BlockSpreader();
 		
 		for(int i = 0; i < 16; i++)
 			OreDictionary.registerOre(LibOreDict.FLOWER[i], new ItemStack(flower.blockID, 1, i));
-		
+		OreDictionary.registerOre(LibBlockNames.LIVING_ROCK, livingrock);
+		OreDictionary.registerOre(LibBlockNames.LIVING_WOOD, livingwood);
+
 		initTileEntities();
 	}
 
