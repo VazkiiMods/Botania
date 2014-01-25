@@ -27,6 +27,7 @@ import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.ILexiconable;
 import vazkii.botania.api.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockModFlower;

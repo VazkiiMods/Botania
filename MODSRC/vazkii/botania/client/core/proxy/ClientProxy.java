@@ -20,6 +20,7 @@ import vazkii.botania.client.gui.GuiLexiconEntry;
 import vazkii.botania.client.gui.GuiLexiconIndex;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.client.render.block.RenderAltar;
+import vazkii.botania.client.render.block.RenderSpecialFlower;
 import vazkii.botania.client.render.tile.RenderTileAltar;
 import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.core.proxy.CommonProxy;
@@ -38,9 +39,11 @@ public class ClientProxy extends CommonProxy {
 	
 	private void initRenderers() {
 		LibRenderIDs.idAltar = RenderingRegistry.getNextAvailableRenderId();
-		
+		LibRenderIDs.idSpecialFlower = RenderingRegistry.getNextAvailableRenderId();
+
 		RenderingRegistry.registerBlockHandler(new RenderAltar());
-		
+		RenderingRegistry.registerBlockHandler(new RenderSpecialFlower());
+
 		ClientRegistry.bindTileEntitySpecialRenderer(TileAltar.class, new RenderTileAltar());
 	}
 	

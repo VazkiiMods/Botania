@@ -26,6 +26,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.ISpecialFlower;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
@@ -50,6 +51,11 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 		setStepSound(soundGrassFootstep);
 		setTickRandomly(true);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
+	}
+	
+	@Override
+	public int getRenderType() {
+		return LibRenderIDs.idSpecialFlower;
 	}
 	
 	@Override

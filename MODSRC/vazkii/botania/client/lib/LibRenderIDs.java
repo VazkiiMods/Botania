@@ -14,5 +14,6 @@ package vazkii.botania.client.lib;
 public final class LibRenderIDs {
 
 	public static int idAltar = -1;
-	
+	public static int idSpecialFlower = -1;
+
 }
