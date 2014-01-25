@@ -34,6 +34,7 @@ public class TileSpecialFlower extends TileMod {
 	
 	public void setSubTile(SubTileEntity tile) {
 		subTile = tile;
+		subTile.setSupertile(this);
 	}
 	
 	private void provideSubTile(String name) {
