@@ -14,12 +14,14 @@ package vazkii.botania.common.block;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
@@ -51,6 +53,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 		setStepSound(soundGrassFootstep);
 		setTickRandomly(true);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
+		setBlockBounds(0.3F, 0.0F, 0.3F, 0.8F, 1, 0.8F);
 	}
 	
 	@Override
@@ -62,6 +65,16 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	public Block setUnlocalizedName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockSpecialFlower.class, par1Str);
 		return super.setUnlocalizedName(par1Str);
+	}
+
+	@Override
+	public int quantityDropped(Random par1Random) {
+		return 0;
+	}
+	
+	@Override
+	public int idDropped(int par1, Random par2Random, int par3) {
+		return 0;
 	}
 	
 	@Override
@@ -87,9 +100,14 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	}
 	
 	@Override
+	public Icon getIcon(int par1, int par2) {
+		return Block.plantYellow.getIcon(0, 0);
+	}
+	
 	public void breakBlock(World par1World, int par2, int par3, int par4, int par5, int par6) {
+		String name = ((TileSpecialFlower) par1World.getBlockTileEntity(par2, par3, par4)).subTileName;
+		dropBlockAsItem_do(par1World, par2, par3, par4, ItemBlockSpecialFlower.ofType(name));
 		super.breakBlock(par1World, par2, par3, par4, par5, par6);
-		par1World.removeBlockTileEntity(par2, par3, par4);
 	}
 	
 	@Override

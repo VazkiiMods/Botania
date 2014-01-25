@@ -21,7 +21,7 @@ public class TileSpecialFlower extends TileMod {
 	private static final String TAG_SUBTILE_NAME = "subTileName";
 	private static final String TAG_SUBTILE_CMP = "subTileCmp";
 	
-	String subTileName = "";
+	public String subTileName = "";
 	SubTileEntity subTile;
 	
 	public void setSubTile(String name) {
