@@ -21,12 +21,16 @@ import net.minecraft.block.BlockFlower;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import vazkii.botania.api.ILexiconable;
 import vazkii.botania.api.ISpecialFlower;
+import vazkii.botania.api.IWandable;
+import vazkii.botania.api.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
@@ -36,7 +40,7 @@ import vazkii.botania.common.lib.LibBlockIDs;
 import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, ITileEntityProvider {
+public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, ITileEntityProvider, IWandable, ILexiconable {
 
 	public static Map<String, Icon> icons = new HashMap();
 	private static String[] subtypes = {
@@ -120,6 +124,16 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	@Override
 	public TileEntity createNewTileEntity(World world) {
 		return null;
+	}
+
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return ((TileSpecialFlower) world.getBlockTileEntity(x, y, z)).getEntry();
+	}
+
+	@Override
+	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
+		return ((TileSpecialFlower) world.getBlockTileEntity(x, y, z)).onWanded(stack, player);
 	}
 
 }

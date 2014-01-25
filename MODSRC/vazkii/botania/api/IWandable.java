@@ -20,6 +20,6 @@ import net.minecraft.world.World;
  */
 public interface IWandable {
 	
-	public void onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side);
+	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side);
 
 }

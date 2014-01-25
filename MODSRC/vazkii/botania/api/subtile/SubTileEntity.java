@@ -11,10 +11,13 @@
  */
 package vazkii.botania.api.subtile;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.LexiconEntry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -25,7 +28,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  */
 public class SubTileEntity {
 	
-	TileEntity supertile;
+	protected TileEntity supertile;
 	
 	public void setSupertile(TileEntity tile) {
 		supertile = tile;
@@ -61,4 +64,17 @@ public class SubTileEntity {
 		return icon;
 	}
 
+	/**
+	 * Called when a Wand of the Forest is used on this sub tile.
+	 */
+	public boolean onWanded(EntityPlayer player, ItemStack wand) {
+		return false;
+	}
+	
+	/**
+	 * Gets which Lexicon Entry to open when this sub tile is right clicked with a lexicon.
+	 */
+	public LexiconEntry getEntry() {
+		return null;
+	}
 }

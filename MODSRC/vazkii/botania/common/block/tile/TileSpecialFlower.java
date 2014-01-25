@@ -11,9 +11,12 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Icon;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileEntity;
 
 public class TileSpecialFlower extends TileMod {
@@ -81,6 +84,14 @@ public class TileSpecialFlower extends TileMod {
 	
 	public Icon getIcon() {
 		return subTile.getIcon();
+	}
+	
+	public LexiconEntry getEntry() {
+		return subTile.getEntry();
+	}
+	
+	public boolean onWanded(ItemStack wand, EntityPlayer player) {
+		return subTile.onWanded(player, wand);
 	}
 	
 }
