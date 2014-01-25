@@ -13,7 +13,9 @@ package vazkii.botania.client.core.proxy;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.LexiconEntry;
+import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.fx.FXSparkle;
 import vazkii.botania.client.gui.GuiLexicon;
 import vazkii.botania.client.gui.GuiLexiconEntry;
@@ -33,6 +35,8 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
+		
+		MinecraftForge.EVENT_BUS.register(new HUDHandler());
 		
 		initRenderers();
 	}

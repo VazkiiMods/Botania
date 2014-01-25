@@ -11,6 +11,8 @@
  */
 package vazkii.botania.api.subtile;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -54,12 +56,16 @@ public class SubTileEntity {
 	 */
 	public void readFromPacketNBT(NBTTagCompound cmp) { }
 	
+	public String getUnlocalizedName() {
+		return BotaniaAPI.getSubTileStringMapping(getClass());
+	}
+	
 	/**
 	 * Gets the icon for this SubTileEntity, this is a block icon.
 	 */
 	@SideOnly(Side.CLIENT)
 	public Icon getIcon() {
-		Icon icon = BotaniaAPI.internalHandler.getSubTileIconForName(BotaniaAPI.getSubTileStringMapping(getClass()));
+		Icon icon = BotaniaAPI.internalHandler.getSubTileIconForName(getUnlocalizedName());
 		System.out.println(icon);
 		return icon;
 	}
@@ -76,5 +82,14 @@ public class SubTileEntity {
 	 */
 	public LexiconEntry getEntry() {
 		return null;
+	}
+	
+	/**
+	 * Called on the client when the block being pointed at is the one with this sub tile.
+	 * Used to render a HUD portraying some data from this sub tile.
+	 */
+	@SideOnly(Side.CLIENT)
+	public void renderHUD(Minecraft mc, ScaledResolution res) {
+		// NO-OP
 	}
 }

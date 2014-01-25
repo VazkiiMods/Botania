@@ -6,6 +6,12 @@ botaniamisc.back=Back
 botaniamisc.craftingContainer=Returns on Crafting
 botaniamisc.shapeless=Shapeless Recipe
 botaniamisc.oredict=Ore Dictionary Recipe
+botaniamisc.status0=Unknown Status
+botaniamisc.status1=Empty
+botaniamisc.status2=Mostly Empty
+botaniamisc.status3=Moderately Full
+botaniamisc.status4=Almost Full
+botaniamisc.status5=Full
 
 # BLOCK NAMES
 tile.botania:flower0.name=Mystical White Flower

@@ -19,6 +19,8 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -32,6 +34,7 @@ import vazkii.botania.api.ILexiconable;
 import vazkii.botania.api.ISpecialFlower;
 import vazkii.botania.api.IWandable;
 import vazkii.botania.api.LexiconEntry;
+import vazkii.botania.client.core.handler.HUDHandler.IHUD;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
@@ -41,7 +44,7 @@ import vazkii.botania.common.lib.LibBlockIDs;
 import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, ITileEntityProvider, IWandable, ILexiconable {
+public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, ITileEntityProvider, IWandable, ILexiconable, IHUD {
 
 	public static Map<String, Icon> icons = new HashMap();
 	private static String[] subtypes = {
@@ -141,6 +144,11 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	@Override
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
 		return ((TileSpecialFlower) world.getBlockTileEntity(x, y, z)).onWanded(stack, player);
+	}
+
+	@Override
+	public void renderHUD(Minecraft mc, ScaledResolution res, World world, int x, int y, int z) {
+		((TileSpecialFlower) world.getBlockTileEntity(x, y, z)).renderHUD(mc, res);
 	}
 
 }

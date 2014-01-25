@@ -15,4 +15,9 @@ import vazkii.botania.common.block.subtile.SubTileGenerating;
 
 public class SubTileDaybloom extends SubTileGenerating {
 
+	@Override
+	public int getColor() {
+		return 0xFFFF00;
+	}
+	
 }

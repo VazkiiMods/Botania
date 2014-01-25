@@ -11,6 +11,8 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -93,6 +95,10 @@ public class TileSpecialFlower extends TileMod {
 	
 	public boolean onWanded(ItemStack wand, EntityPlayer player) {
 		return subTile.onWanded(player, wand);
+	}
+	
+	public void renderHUD(Minecraft mc, ScaledResolution res) {
+		subTile.renderHUD(mc, res);
 	}
 	
 }
