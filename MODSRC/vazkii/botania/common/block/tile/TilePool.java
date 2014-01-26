@@ -71,10 +71,10 @@ public class TilePool extends TileSimpleInventory implements IManaPool {
 			added = true;
 		}
 		if(worldObj.isRemote) {
-			double particleChance = 1F - ((double) getCurrentMana() / (double) MAX_MANA);
+			double particleChance = 1F - ((double) getCurrentMana() / (double) MAX_MANA) * 0.25;
 			Color color = new Color(0x00C6FF);
 			if(Math.random() > particleChance)
-				Botania.proxy.sparkleFX(worldObj, xCoord + 0.3 + Math.random() * 0.5, yCoord + 0.6 + Math.random() * 0.25, zCoord + Math.random(), (float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F, (float) Math.random(), 5);
+				Botania.proxy.wispFX(worldObj, xCoord + 0.3 + Math.random() * 0.5, yCoord + 0.6 + Math.random() * 0.25, zCoord + Math.random(), (float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F, (float) Math.random() / 3F, (float) -Math.random() / 25F);
 		}
 	}
 
@@ -95,7 +95,7 @@ public class TilePool extends TileSimpleInventory implements IManaPool {
 		if(!worldObj.isRemote) {
 			NBTTagCompound nbttagcompound = new NBTTagCompound();
 			writeCustomNBT(nbttagcompound);
-			nbttagcompound.setInteger(TAG_KNOWN_MANA, mana);
+			nbttagcompound.setInteger(TAG_KNOWN_MANA, getCurrentMana());
 			PacketDispatcher.sendPacketToPlayer(new Packet132TileEntityData(xCoord, yCoord, zCoord, -999, nbttagcompound), (Player) player);
 		}
 		worldObj.playSoundAtEntity(player, "random.orb", 1F, 1F);

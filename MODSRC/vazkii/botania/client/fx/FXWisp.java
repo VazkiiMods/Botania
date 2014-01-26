@@ -36,17 +36,15 @@ public class FXWisp extends EntityFX
 
 	}
 
-	public FXWisp(World world, double d, double d1, double d2,  float f, float red, float green, float blue)
+	public FXWisp(World world, double d, double d1, double d2,  float size, float red, float green, float blue)
 	{
 		super(world, d, d1, d2, 0.0D, 0.0D, 0.0D);
-		if(red == 0.0F) red = 1.0F;
-
 		particleRed = red;
 		particleGreen = green;
 		particleBlue = blue;
 		particleGravity=0;
 		motionX=motionY=motionZ=0;
-		particleScale *= f;
+		particleScale *= size;
 		moteParticleScale = particleScale;
 		particleMaxAge = (int)(36D / (Math.random() * 0.3D + 0.7D));
 

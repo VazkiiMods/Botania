@@ -17,6 +17,7 @@ import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.LexiconEntry;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.fx.FXSparkle;
+import vazkii.botania.client.fx.FXWisp;
 import vazkii.botania.client.gui.GuiLexicon;
 import vazkii.botania.client.gui.GuiLexiconEntry;
 import vazkii.botania.client.gui.GuiLexiconIndex;
@@ -72,5 +73,12 @@ public class ClientProxy extends CommonProxy {
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {
 		FXSparkle sparkle = new FXSparkle(world, x, y, z, size, r, g, b, m);
 		Minecraft.getMinecraft().effectRenderer.addEffect(sparkle);
+	}
+	
+	@Override
+	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size, float gravity) {
+		FXWisp wisp = new FXWisp(world, x, y, z, size, r, g, b);
+		wisp.motionY = -gravity;
+		Minecraft.getMinecraft().effectRenderer.addEffect(wisp);
 	}
 }

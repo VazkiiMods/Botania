@@ -65,5 +65,13 @@ public class CommonProxy {
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {
 		// NO-OP
 	}
+	
+	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size) {
+		wispFX(world, x, y, z, r, g, b, size, 0F);
+	}
+	
+	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size, float gravity) {
+		// NO-OP
+	}
 
 }
