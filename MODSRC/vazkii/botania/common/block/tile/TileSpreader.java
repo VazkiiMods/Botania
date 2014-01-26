@@ -13,19 +13,24 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.Packet132TileEntityData;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
+import net.minecraft.util.Vec3;
+import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.internal.ManaNetworkEvent;
 import vazkii.botania.api.mana.IManaCollector;
+import vazkii.botania.client.core.helper.Vector3;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.item.ItemTwigWand;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 
@@ -109,10 +114,52 @@ public class TileSpreader extends TileMod implements IManaCollector {
 			}
 			worldObj.playSoundAtEntity(player, "random.orb", 1F, 1F);
 		} else {
-			rotationX = -player.rotationYaw;
-			rotationY = player.rotationPitch;
-			PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
+			MovingObjectPosition pos = raytraceFromEntity(worldObj, player, true, 5);
+			if(pos != null && pos.hitVec != null && !worldObj.isRemote) {
+				double x = pos.hitVec.xCoord - xCoord - 0.5;
+				double y = pos.hitVec.yCoord - yCoord - 0.5;
+				double z = pos.hitVec.zCoord - zCoord - 0.5;
+				
+				if(pos.sideHit != 0 && pos.sideHit != 1) {
+					Vector3 clickVector = new Vector3(x, 0, z);
+					Vector3 relative = new Vector3(-0.5, 0, 0);
+					double angle = Math.acos(clickVector.dotProduct(relative) / (relative.mag() * clickVector.mag())) * 180D / Math.PI;
+									
+					rotationX = (float) angle;
+					if(clickVector.z < 0)
+						rotationX = 360 - rotationX;
+				}
+
+				double angle = y * 180;
+								
+				rotationY = (float) angle;
+				
+				PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
+			}
 		}
+	}
+	
+	public static MovingObjectPosition raytraceFromEntity(World world, Entity player, boolean par3, double range) {
+		float f = 1.0F;
+		float f1 = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * f;
+		float f2 = player.prevRotationYaw + (player.rotationYaw - player.prevRotationYaw) * f;
+		double d0 = player.prevPosX + (player.posX - player.prevPosX) * f;
+		double d1 = player.prevPosY + (player.posY - player.prevPosY) * f;
+		if (!world.isRemote && player instanceof EntityPlayer)
+			d1 += 1.62D;
+		double d2 = player.prevPosZ + (player.posZ - player.prevPosZ) * f;
+		Vec3 vec3 = world.getWorldVec3Pool().getVecFromPool(d0, d1, d2);
+		float f3 = MathHelper.cos(-f2 * 0.017453292F - (float) Math.PI);
+		float f4 = MathHelper.sin(-f2 * 0.017453292F - (float) Math.PI);
+		float f5 = -MathHelper.cos(-f1 * 0.017453292F);
+		float f6 = MathHelper.sin(-f1 * 0.017453292F);
+		float f7 = f4 * f5;
+		float f8 = f3 * f5;
+		double d3 = range;
+		if (player instanceof EntityPlayerMP)
+			d3 = ((EntityPlayerMP) player).theItemInWorldManager.getBlockReachDistance();
+		Vec3 vec31 = vec3.addVector(f7 * d3, f6 * d3, f8 * d3);
+		return world.rayTraceBlocks_do_do(vec3, vec31, par3, !par3);
 	}
 
 	public void renderHUD(Minecraft mc, ScaledResolution res) {

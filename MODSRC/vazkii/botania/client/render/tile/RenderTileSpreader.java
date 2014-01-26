@@ -38,7 +38,7 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer {
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 
 		GL11.glTranslatef(0.5F, 1.5F, 0.5F);
-		GL11.glRotatef(spreader.rotationX, 0F, 1F, 0F);
+		GL11.glRotatef(spreader.rotationX + 90F, 0F, 1F, 0F);
 		GL11.glTranslatef(0F, -1F, 0F);
 		GL11.glRotatef(spreader.rotationY, 1F, 0F, 0F);
 		GL11.glTranslatef(0F, 1F, 0F);

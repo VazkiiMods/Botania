@@ -132,7 +132,7 @@ public class TilePool extends TileSimpleInventory implements IManaPool {
 
 	@Override
 	public int getCurrentMana() {
-		return 10000000; //mana;
+		return MAX_MANA;
 	}
 
 	@Override
@@ -149,7 +149,4 @@ public class TilePool extends TileSimpleInventory implements IManaPool {
 	public String getInvName() {
 		return LibBlockNames.POOL;
 	}
-
-	// TODO
-
 }
