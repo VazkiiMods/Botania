@@ -23,6 +23,7 @@ import vazkii.botania.common.core.handler.InternalMethodHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.crafting.ModCrafingRecipes;
 import vazkii.botania.common.crafting.ModPetalRecipes;
+import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.network.GuiHandler;
@@ -40,6 +41,7 @@ public class CommonProxy {
 
 		ModBlocks.init();
 		ModItems.init();
+		ModEntities.init();
 		
 		ModCrafingRecipes.init();
 		ModPetalRecipes.init();
@@ -63,6 +65,10 @@ public class CommonProxy {
 	}
 
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {
+		sparkleFX(world, x, y, z, r, g, b, size, m, false);
+	}
+	
+	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m, boolean fake) {
 		// NO-OP
 	}
 	
@@ -71,6 +77,10 @@ public class CommonProxy {
 	}
 	
 	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size, float gravity) {
+		wispFX(world, x, y, z, r, g, b, size, 0, -gravity, 0);
+	}
+	
+	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size, float motionx, float motiony, float motionz) {
 		// NO-OP
 	}
 

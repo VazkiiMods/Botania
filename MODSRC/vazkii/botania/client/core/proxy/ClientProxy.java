@@ -70,15 +70,19 @@ public class ClientProxy extends CommonProxy {
 	}
 	
 	@Override
-	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {
+	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m, boolean fake) {
 		FXSparkle sparkle = new FXSparkle(world, x, y, z, size, r, g, b, m);
+		sparkle.fake = fake;
 		Minecraft.getMinecraft().effectRenderer.addEffect(sparkle);
 	}
 	
 	@Override
-	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size, float gravity) {
+	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size, float motionx, float motiony, float motionz) {
 		FXWisp wisp = new FXWisp(world, x, y, z, size, r, g, b);
-		wisp.motionY = -gravity;
+		wisp.motionX = motionx;
+		wisp.motionY = motiony;
+		wisp.motionZ = motionz;
+
 		Minecraft.getMinecraft().effectRenderer.addEffect(wisp);
 	}
 }

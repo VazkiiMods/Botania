@@ -163,13 +163,6 @@ public class FXSparkle extends EntityFX
 	@Override
 	public void onUpdate()
 	{
-		//	 if (!leyLineEffect) {
-		//		 EntityLiving renderentity = FMLClientHandler.instance().getClient().renderViewEntity;
-		//		 int visibleDistance = 50;
-		//		 if (!FMLClientHandler.instance().getClient().gameSettings.fancyGraphics) visibleDistance=25;
-		//		 if (renderentity.getDistance(posX, posY, posZ)>visibleDistance) particleMaxAge=0;
-		//	 }
-
 		prevPosX = posX;
 		prevPosY = posY;
 		prevPosZ = posZ;
@@ -212,6 +205,9 @@ public class FXSparkle extends EntityFX
 			fx.noClip=true;
 			FMLClientHandler.instance().getClient().effectRenderer.addEffect(fx);
 		}
+		
+		 if(fake && particleAge > 1)
+             setDead();
 	}
 
 	public void setGravity(float value) {
@@ -322,6 +318,7 @@ public class FXSparkle extends EntityFX
 		}
 	}
 
+	public boolean fake = false;
 	public boolean leyLineEffect=false;
 	public int multiplier=2;
 	public boolean shrink=true;

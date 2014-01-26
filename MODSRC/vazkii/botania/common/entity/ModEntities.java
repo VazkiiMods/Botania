@@ -11,6 +11,14 @@
  */
 package vazkii.botania.common.entity;
 
+import vazkii.botania.common.Botania;
+import vazkii.botania.common.lib.LibEntityNames;
+import cpw.mods.fml.common.registry.EntityRegistry;
+
 public final class ModEntities {
 
+	public static void init() {
+		EntityRegistry.registerModEntity(EntityManaBurst.class, LibEntityNames.MANA_BURST, 0, Botania.instance, 64, 10, true);
+	}
+	
 }
