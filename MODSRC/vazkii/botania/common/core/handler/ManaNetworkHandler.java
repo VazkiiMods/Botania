@@ -97,6 +97,12 @@ public final class ManaNetworkHandler {
 			tiles.add(tile);
 	}
 	
+	public List<TileEntity> getAllInWorld(Map<Integer, List<TileEntity>> map, int dim) {
+		if(!map.containsKey(dim))
+			return new ArrayList();
+		return map.get(dim);
+	}
+	
 	public int getAmount(Map<Integer, List<TileEntity>> map, int dim) {
 		if(!map.containsKey(dim))
 			return 0;

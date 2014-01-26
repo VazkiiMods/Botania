@@ -63,6 +63,10 @@ public class CommonProxy {
 	public void setEntryToOpen(LexiconEntry entry) {
 		// NO-OP
 	}
+	
+	public void twigWandClientUpdate() {
+		
+	}
 
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {
 		sparkleFX(world, x, y, z, r, g, b, size, m, false);

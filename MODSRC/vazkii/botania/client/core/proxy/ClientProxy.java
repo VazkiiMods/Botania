@@ -12,9 +12,11 @@
 package vazkii.botania.client.core.proxy;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.LexiconEntry;
+import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.fx.FXSparkle;
 import vazkii.botania.client.fx.FXWisp;
@@ -32,6 +34,7 @@ import vazkii.botania.client.render.tile.RenderTileSpreader;
 import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.block.tile.TilePool;
 import vazkii.botania.common.block.tile.TileSpreader;
+import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.proxy.CommonProxy;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -70,10 +73,17 @@ public class ClientProxy extends CommonProxy {
 	}
 	
 	@Override
+	public void twigWandClientUpdate() {
+		for(TileEntity tile : ManaNetworkHandler.instance.getAllInWorld(ManaNetworkHandler.instance.manaCollectors, Minecraft.getMinecraft().thePlayer.dimension)) {
+			if(tile instanceof IManaCollector)
+				((IManaCollector) tile).onClientDisplayTick();
+		}
+	}
+	
+	@Override
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m, boolean fake) {
 		FXSparkle sparkle = new FXSparkle(world, x, y, z, size, r, g, b, m);
-		sparkle.fake = fake;
-//		sparkle.noClip = true;
+		sparkle.fake = sparkle.noClip = fake;
 		Minecraft.getMinecraft().effectRenderer.addEffect(sparkle);
 	}
 	

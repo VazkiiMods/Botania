@@ -33,7 +33,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class TilePool extends TileSimpleInventory implements IManaPool {
 
-	public static final int MAX_MANA = 10000000;
+	public static final int MAX_MANA = 1000000;
 
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_KNOWN_MANA = "knownMana";

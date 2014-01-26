@@ -31,6 +31,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.FakePlayer;
 import vazkii.botania.api.IWandable;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemIDs;
 import vazkii.botania.common.lib.LibItemNames;
@@ -62,6 +63,12 @@ public class ItemTwigWand extends Item16Colors {
 		if(Block.blocksList[id] instanceof IWandable)
 			return false;
 		return true;
+	}
+	
+	@Override
+	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
+		if(par3Entity instanceof EntityPlayer && ((EntityPlayer) par3Entity).getCurrentEquippedItem() == par1ItemStack)
+			Botania.proxy.twigWandClientUpdate();
 	}
 
 	@Override

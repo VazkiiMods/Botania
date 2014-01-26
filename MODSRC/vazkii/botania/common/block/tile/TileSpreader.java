@@ -25,11 +25,13 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.internal.ManaNetworkEvent;
 import vazkii.botania.api.mana.IManaCollector;
+import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.client.core.helper.Vector3;
 import vazkii.botania.common.block.ModBlocks;
@@ -49,7 +51,7 @@ public class TileSpreader extends TileMod implements IManaCollector {
 	int knownMana = -1;
 	public float rotationX, rotationY;
 	boolean added = false;
-	
+
 	IManaReceiver receiver = null;
 
 	@Override
@@ -80,7 +82,29 @@ public class TileSpreader extends TileMod implements IManaCollector {
 			ManaNetworkEvent.addCollector(this);
 			added = true;
 		}
-		tryShootBurst();
+		
+		boolean redstone = false;
+		
+		for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+			TileEntity tileAt = worldObj.getBlockTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ);
+			if(tileAt instanceof IManaPool) {
+				IManaPool pool = (IManaPool) tileAt;
+				int manaInPool = pool.getCurrentMana();
+				if(manaInPool > 0 && !isFull()) {
+					int manaMissing = MAX_MANA - mana;
+					int manaToRemove = Math.min(manaInPool, manaMissing);
+					pool.recieveMana(-manaToRemove);
+					recieveMana(manaToRemove);
+				}
+			}
+			
+			int redstoneSide = worldObj.getIndirectPowerLevelTo(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ, dir.ordinal());
+			if(redstoneSide > 0)
+				redstone = true;
+		}
+		
+		if(!redstone)
+			tryShootBurst();
 	}
 
 	@Override
@@ -98,6 +122,14 @@ public class TileSpreader extends TileMod implements IManaCollector {
 
 		if(cmp.hasKey(TAG_KNOWN_MANA))
 			knownMana = cmp.getInteger(TAG_KNOWN_MANA);
+		
+		if(worldObj.isRemote) {
+			EntityManaBurst fakeBurst = getBurst(true);
+			TileEntity receiver = fakeBurst.getCollidedTile(true);
+			if(receiver != null && receiver instanceof IManaReceiver)
+				this.receiver = (IManaReceiver) receiver;
+			else this.receiver = null;
+		}
 	}
 
 	@Override
@@ -125,12 +157,12 @@ public class TileSpreader extends TileMod implements IManaCollector {
 				double x = pos.hitVec.xCoord - xCoord - 0.5;
 				double y = pos.hitVec.yCoord - yCoord - 0.5;
 				double z = pos.hitVec.zCoord - zCoord - 0.5;
-				
+
 				if(pos.sideHit != 0 && pos.sideHit != 1) {
 					Vector3 clickVector = new Vector3(x, 0, z);
 					Vector3 relative = new Vector3(-0.5, 0, 0);
 					double angle = Math.acos(clickVector.dotProduct(relative) / (relative.mag() * clickVector.mag())) * 180D / Math.PI;
-									
+
 					rotationX = (float) angle;
 					if(clickVector.z < 0)
 						rotationX = 360 - rotationX;
@@ -139,13 +171,19 @@ public class TileSpreader extends TileMod implements IManaCollector {
 				double angle = y * 180;			
 				rotationY = (float) angle;
 				
+				EntityManaBurst fakeBurst = getBurst(true);
+				TileEntity receiver = fakeBurst.getCollidedTile(true);
+				if(receiver != null && receiver instanceof IManaReceiver)
+					this.receiver = (IManaReceiver) receiver;
+				else this.receiver = null;
+
 				PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
 			}
 		}
 	}
-	
+
 	public boolean canShootBurst = true;
-	
+
 	public void tryShootBurst() {
 		if(receiver == null) {
 			EntityManaBurst fakeBurst = getBurst(true);
@@ -153,14 +191,14 @@ public class TileSpreader extends TileMod implements IManaCollector {
 			if(receiver != null && receiver instanceof IManaReceiver)
 				this.receiver = (IManaReceiver) receiver;
 		}
-		
+
 		if(receiver != null) {
 			TileEntity tile = (TileEntity) receiver;
 			TileEntity tileAt = worldObj.getBlockTileEntity(tile.xCoord, tile.yCoord, tile.zCoord);
 			if(tileAt instanceof IManaReceiver)
 				receiver = (IManaReceiver) tileAt;
 			else receiver = null;
-			
+
 			if(receiver != null) {
 				if(canShootBurst && receiver.canRecieveManaFromBursts() && !receiver.isFull()) {
 					EntityManaBurst burst = getBurst(false);
@@ -173,33 +211,33 @@ public class TileSpreader extends TileMod implements IManaCollector {
 			}
 		}
 	}
-	
+
 	public EntityManaBurst getBurst(boolean fake) {
 		int color = 0x00FF00;
 		// Apply color changes here.
-		
+
 		EntityManaBurst burst = new EntityManaBurst(worldObj, this, fake, color);
-		
+
 		int maxMana = 160;
 		// Apply max mana changes here.
-		
+
 		int ticksBeforeManaLoss = 100;
 		// Apply ticks before mana loss changes here
-		
+
 		float manaLossPerTick = 4F;
 		// Apply mana loss per tick changes here
-		
+
 		if(getCurrentMana() >= maxMana || fake) {
 			burst.setMana(maxMana);
 			burst.setStartingMana(maxMana);
 			burst.setMinManaLoss(ticksBeforeManaLoss);
 			burst.setManaLossPerTick(manaLossPerTick);
-			
+
 			return burst;
 		}
 		return null;
 	}
-	
+
 	public static MovingObjectPosition raytraceFromEntity(World world, Entity player, boolean par3, double range) {
 		float f = 1.0F;
 		float f1 = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * f;
@@ -249,6 +287,7 @@ public class TileSpreader extends TileMod implements IManaCollector {
 
 	@Override
 	public void onClientDisplayTick() {
+		EntityManaBurst burst = getBurst(true);
+		burst.getCollidedTile(false);
 	}
-
 }
