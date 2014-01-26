@@ -130,8 +130,7 @@ public class TileSpreader extends TileMod implements IManaCollector {
 						rotationX = 360 - rotationX;
 				}
 
-				double angle = y * 180;
-								
+				double angle = y * 180;			
 				rotationY = (float) angle;
 				
 				PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
