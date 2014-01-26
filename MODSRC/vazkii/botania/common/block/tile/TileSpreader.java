@@ -31,6 +31,7 @@ import vazkii.botania.api.internal.ManaNetworkEvent;
 import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.client.core.helper.Vector3;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.entity.EntityManaBurst;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 
@@ -113,6 +114,8 @@ public class TileSpreader extends TileMod implements IManaCollector {
 				PacketDispatcher.sendPacketToPlayer(new Packet132TileEntityData(xCoord, yCoord, zCoord, -999, nbttagcompound), (Player) player);
 			}
 			worldObj.playSoundAtEntity(player, "random.orb", 1F, 1F);
+			if(!worldObj.isRemote)
+				worldObj.spawnEntityInWorld(new EntityManaBurst(worldObj, this, false, 0x00FF00));
 		} else {
 			MovingObjectPosition pos = raytraceFromEntity(worldObj, player, true, 5);
 			if(pos != null && pos.hitVec != null && !worldObj.isRemote) {

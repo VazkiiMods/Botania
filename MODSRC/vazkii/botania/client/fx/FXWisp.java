@@ -54,7 +54,7 @@ public class FXWisp extends EntityFX
 		EntityLivingBase renderentity = FMLClientHandler.instance().getClient().renderViewEntity;
 		int visibleDistance = 50;
 		if (!FMLClientHandler.instance().getClient().gameSettings.fancyGraphics) visibleDistance=25;
-		if (renderentity.getDistance(posX, posY, posZ)>visibleDistance) particleMaxAge=0;
+		if (renderentity == null || renderentity.getDistance(posX, posY, posZ)>visibleDistance) particleMaxAge=0;
 		prevPosX = posX;
 		prevPosY = posY;
 		prevPosZ = posZ;
