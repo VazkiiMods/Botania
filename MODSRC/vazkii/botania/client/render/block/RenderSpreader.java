@@ -29,7 +29,9 @@ public class RenderSpreader implements ISimpleBlockRenderingHandler {
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
 		GL11.glPushMatrix();
 		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
-		TileEntityRenderer.instance.renderTileEntityAt(new TileSpreader(), 0.0D, 0.0D, 0.0D, 0.0F);
+		TileSpreader spreader = new TileSpreader();
+		spreader.rotationX = -180F;
+		TileEntityRenderer.instance.renderTileEntityAt(spreader, 0.0D, 0.0D, 0.0D, 0.0F);
 		GL11.glPopMatrix();
 	}
 
