@@ -19,6 +19,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.Packet132TileEntityData;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
@@ -29,6 +30,7 @@ import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.internal.ManaNetworkEvent;
 import vazkii.botania.api.mana.IManaCollector;
+import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.client.core.helper.Vector3;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.entity.EntityManaBurst;
@@ -47,6 +49,8 @@ public class TileSpreader extends TileMod implements IManaCollector {
 	int knownMana = -1;
 	public float rotationX, rotationY;
 	boolean added = false;
+	
+	IManaReceiver receiver = null;
 
 	@Override
 	public boolean isFull() {
@@ -76,6 +80,7 @@ public class TileSpreader extends TileMod implements IManaCollector {
 			ManaNetworkEvent.addCollector(this);
 			added = true;
 		}
+		tryShootBurst();
 	}
 
 	@Override
@@ -97,7 +102,7 @@ public class TileSpreader extends TileMod implements IManaCollector {
 
 	@Override
 	public boolean canRecieveManaFromBursts() {
-		return true;
+		return !isFull();
 	}
 
 	@Override
@@ -114,8 +119,6 @@ public class TileSpreader extends TileMod implements IManaCollector {
 				PacketDispatcher.sendPacketToPlayer(new Packet132TileEntityData(xCoord, yCoord, zCoord, -999, nbttagcompound), (Player) player);
 			}
 			worldObj.playSoundAtEntity(player, "random.orb", 1F, 1F);
-			if(!worldObj.isRemote)
-				worldObj.spawnEntityInWorld(new EntityManaBurst(worldObj, this, false, 0x00FF00));
 		} else {
 			MovingObjectPosition pos = raytraceFromEntity(worldObj, player, true, 5);
 			if(pos != null && pos.hitVec != null && !worldObj.isRemote) {
@@ -139,6 +142,62 @@ public class TileSpreader extends TileMod implements IManaCollector {
 				PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
 			}
 		}
+	}
+	
+	public boolean canShootBurst = true;
+	
+	public void tryShootBurst() {
+		if(receiver == null) {
+			EntityManaBurst fakeBurst = getBurst(true);
+			TileEntity receiver = fakeBurst.getCollidedTile(true);
+			if(receiver != null && receiver instanceof IManaReceiver)
+				this.receiver = (IManaReceiver) receiver;
+		}
+		
+		if(receiver != null) {
+			TileEntity tile = (TileEntity) receiver;
+			TileEntity tileAt = worldObj.getBlockTileEntity(tile.xCoord, tile.yCoord, tile.zCoord);
+			if(tileAt instanceof IManaReceiver)
+				receiver = (IManaReceiver) tileAt;
+			else receiver = null;
+			
+			if(receiver != null) {
+				if(canShootBurst && receiver.canRecieveManaFromBursts() && !receiver.isFull()) {
+					EntityManaBurst burst = getBurst(false);
+					if(burst != null) {
+						mana -= burst.getMana();
+						worldObj.spawnEntityInWorld(burst);
+						canShootBurst = false;
+					}
+				}
+			}
+		}
+	}
+	
+	public EntityManaBurst getBurst(boolean fake) {
+		int color = 0x00FF00;
+		// Apply color changes here.
+		
+		EntityManaBurst burst = new EntityManaBurst(worldObj, this, fake, color);
+		
+		int maxMana = 160;
+		// Apply max mana changes here.
+		
+		int ticksBeforeManaLoss = 100;
+		// Apply ticks before mana loss changes here
+		
+		float manaLossPerTick = 4F;
+		// Apply mana loss per tick changes here
+		
+		if(getCurrentMana() >= maxMana || fake) {
+			burst.setMana(maxMana);
+			burst.setStartingMana(maxMana);
+			burst.setMinManaLoss(ticksBeforeManaLoss);
+			burst.setManaLossPerTick(manaLossPerTick);
+			
+			return burst;
+		}
+		return null;
 	}
 	
 	public static MovingObjectPosition raytraceFromEntity(World world, Entity player, boolean par3, double range) {
@@ -186,6 +245,10 @@ public class TileSpreader extends TileMod implements IManaCollector {
 		mc.fontRenderer.drawStringWithShadow(name, res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(name) / 2, res.getScaledHeight() / 2 + 10, color);
 		mc.fontRenderer.drawStringWithShadow(filling, res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(filling) / 2, res.getScaledHeight() / 2 + 20, color);
 		GL11.glDisable(GL11.GL_BLEND);
+	}
+
+	@Override
+	public void onClientDisplayTick() {
 	}
 
 }

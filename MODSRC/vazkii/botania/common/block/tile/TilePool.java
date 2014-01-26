@@ -132,7 +132,7 @@ public class TilePool extends TileSimpleInventory implements IManaPool {
 
 	@Override
 	public int getCurrentMana() {
-		return MAX_MANA;
+		return mana;
 	}
 
 	@Override
