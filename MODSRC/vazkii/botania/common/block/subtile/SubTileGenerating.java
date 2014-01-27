@@ -13,6 +13,7 @@ package vazkii.botania.common.block.subtile;
 
 import java.awt.Color;
 
+import cpw.mods.fml.common.network.PacketDispatcher;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
@@ -100,6 +101,7 @@ public class SubTileGenerating extends SubTileEntity {
 			if(!collector.isFull()) {
 				collector.recieveMana(mana);
 				mana = 0;
+				PacketDispatcher.sendPacketToAllInDimension(linkedCollector.getDescriptionPacket(), supertile.worldObj.provider.dimensionId);
 			}
 		}
 	}

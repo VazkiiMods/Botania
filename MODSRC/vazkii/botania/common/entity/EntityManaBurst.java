@@ -129,9 +129,7 @@ public class EntityManaBurst extends EntityThrowable {
 		int y = par1nbtTagCompound.getInteger(TAG_SPREADER_Y);
 		int z = par1nbtTagCompound.getInteger(TAG_SPREADER_Z);
 
-		TileEntity tile = worldObj.getBlockTileEntity(x, y, z);
-		if(tile != null && tile instanceof IManaCollector)
-			setBurstSourceCoords(x, y, z);
+		setBurstSourceCoords(x, y, z);
 	}
 
 	public void particles() {

@@ -137,13 +137,11 @@ public class TileSpreader extends TileMod implements IManaCollector {
 	@Override
 	public void writeToNBT(NBTTagCompound par1nbtTagCompound) {
 		super.writeToNBT(par1nbtTagCompound);
-		par1nbtTagCompound.setBoolean(TAG_CAN_SHOOT, canShootBurst);
 	}
 	
 	@Override
 	public void readFromNBT(NBTTagCompound par1nbtTagCompound) {
 		super.readFromNBT(par1nbtTagCompound);
-		canShootBurst = par1nbtTagCompound.getBoolean(TAG_CAN_SHOOT);
 	}
 
 	@Override
