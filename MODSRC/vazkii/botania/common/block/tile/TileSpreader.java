@@ -114,7 +114,6 @@ public class TileSpreader extends TileMod implements IManaCollector {
 		cmp.setInteger(TAG_MANA, mana);
 		cmp.setFloat(TAG_ROTATION_X, rotationX);
 		cmp.setFloat(TAG_ROTATION_Y, rotationY);
-		cmp.setBoolean(TAG_CAN_SHOOT, canShootBurst);
 	}
 
 	@Override
@@ -122,7 +121,6 @@ public class TileSpreader extends TileMod implements IManaCollector {
 		mana = cmp.getInteger(TAG_MANA);
 		rotationX = cmp.getFloat(TAG_ROTATION_X);
 		rotationY = cmp.getFloat(TAG_ROTATION_Y);
-		canShootBurst = cmp.getBoolean(TAG_CAN_SHOOT);
 
 		if(cmp.hasKey(TAG_KNOWN_MANA))
 			knownMana = cmp.getInteger(TAG_KNOWN_MANA);
@@ -134,6 +132,18 @@ public class TileSpreader extends TileMod implements IManaCollector {
 				this.receiver = (IManaReceiver) receiver;
 			else this.receiver = null;
 		}
+	}
+	
+	@Override
+	public void writeToNBT(NBTTagCompound par1nbtTagCompound) {
+		super.writeToNBT(par1nbtTagCompound);
+		par1nbtTagCompound.setBoolean(TAG_CAN_SHOOT, canShootBurst);
+	}
+	
+	@Override
+	public void readFromNBT(NBTTagCompound par1nbtTagCompound) {
+		super.readFromNBT(par1nbtTagCompound);
+		canShootBurst = par1nbtTagCompound.getBoolean(TAG_CAN_SHOOT);
 	}
 
 	@Override
@@ -210,6 +220,7 @@ public class TileSpreader extends TileMod implements IManaCollector {
 						mana -= burst.getMana();
 						worldObj.spawnEntityInWorld(burst);
 						canShootBurst = false;
+						PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
 					}
 				}
 			}
