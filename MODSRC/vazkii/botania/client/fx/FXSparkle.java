@@ -52,50 +52,6 @@ public class FXSparkle extends EntityFX
 	{
 		this(world, d, d1, d2, f, 0f, 0f, 0f, m);
 		currentColor = type;
-		switch (type) {
-		case 0:
-			particleRed=.75f + world.rand.nextFloat()*.25f;
-			particleGreen=.25f + world.rand.nextFloat()*.25f;
-			particleBlue=.75f + world.rand.nextFloat()*.25f;
-			break;
-		case 1:
-			particleRed=.5f + world.rand.nextFloat()*.3f;
-			particleGreen=.5f + world.rand.nextFloat()*.3f;
-			particleBlue=.2f;
-			break;
-		case 2:
-			particleRed=.2f;
-			particleGreen=.2f;
-			particleBlue=.7f + world.rand.nextFloat()*.3f;
-			break;
-		case 3:
-			particleRed=.2f;
-			particleGreen=.7f + world.rand.nextFloat()*.3f;
-			particleBlue=.2f;
-			break;
-		case 4:
-			particleRed=.7f + world.rand.nextFloat()*.3f;
-			particleGreen=.2f;
-			particleBlue=.2f;
-			break;
-		case 5:
-			blendmode=771;
-			particleRed= world.rand.nextFloat()*.1f;
-			particleGreen= world.rand.nextFloat()*.1f;
-			particleBlue= world.rand.nextFloat()*.1f;
-			break;
-		case 6:
-			particleRed= .8f+world.rand.nextFloat()*.2f;
-			particleGreen= .8f+world.rand.nextFloat()*.2f;
-			particleBlue= .8f+world.rand.nextFloat()*.2f;
-			break;
-		case 7:
-			particleRed=.2f;
-			particleGreen=.5f + world.rand.nextFloat()*.3f;
-			particleBlue=.6f + world.rand.nextFloat()*.3f;
-			break;
-		}
-
 	}
 
 	public FXSparkle(World world, double d, double d1, double d2, double x, double y, double z,
@@ -167,17 +123,8 @@ public class FXSparkle extends EntityFX
 		prevPosY = posY;
 		prevPosZ = posZ;
 
-		if (particleAge==0 && tinkle && worldObj.rand.nextInt(10)==0)
-			worldObj.playSoundAtEntity(this, "random.orb", 0.02F, 0.7F * ((worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.6F + 2F));
-
 		if (particleAge++ >= particleMaxAge)
-		{
-
 			setDead();
-		}
-
-
-
 		motionY -= 0.040000000000000001D * particleGravity;
 		if (noClip==false) pushOutOfBlocks(posX, (boundingBox.minY + boundingBox.maxY) / 2.0D, posZ);
 		//     moveEntity(motionX, motionY, motionZ);

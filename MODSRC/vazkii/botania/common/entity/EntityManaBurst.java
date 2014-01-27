@@ -21,6 +21,7 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileSpreader;
@@ -28,6 +29,13 @@ import vazkii.botania.common.block.tile.TileSpreader;
 public class EntityManaBurst extends EntityThrowable {
 
 	private static final String TAG_COLOR = "color";
+	private static final String TAG_MANA = "mana";
+	private static final String TAG_STARTING_MANA = "startingMana";
+	private static final String TAG_MIN_MANA_LOSS = "minManaLoss";
+	private static final String TAG_TICK_MANA_LOSS = "manaLossTick";
+	private static final String TAG_SPREADER_X = "spreaderX";
+	private static final String TAG_SPREADER_Y = "spreaderY";
+	private static final String TAG_SPREADER_Z = "spreaderZ";
 
 	boolean fake = false;
 
@@ -97,12 +105,33 @@ public class EntityManaBurst extends EntityThrowable {
 	public void writeEntityToNBT(NBTTagCompound par1nbtTagCompound) {
 		super.writeEntityToNBT(par1nbtTagCompound);
 		par1nbtTagCompound.setInteger(TAG_COLOR, getColor());
+		par1nbtTagCompound.setInteger(TAG_MANA, getMana());
+		par1nbtTagCompound.setInteger(TAG_STARTING_MANA, getStartingMana());
+		par1nbtTagCompound.setInteger(TAG_MIN_MANA_LOSS, getMinManaLoss());
+		par1nbtTagCompound.setFloat(TAG_TICK_MANA_LOSS, getManaLossPerTick());
+
+		ChunkCoordinates coords = getBurstSourceChunkCoordinates();
+		par1nbtTagCompound.setInteger(TAG_SPREADER_X, coords.posX);
+		par1nbtTagCompound.setInteger(TAG_SPREADER_Y, coords.posY);
+		par1nbtTagCompound.setInteger(TAG_SPREADER_Z, coords.posZ);
 	}
 
 	@Override
 	public void readEntityFromNBT(NBTTagCompound par1nbtTagCompound) {
 		super.readEntityFromNBT(par1nbtTagCompound);
 		setColor(par1nbtTagCompound.getInteger(TAG_COLOR));
+		setMana(par1nbtTagCompound.getInteger(TAG_MANA));
+		setStartingMana(par1nbtTagCompound.getInteger(TAG_STARTING_MANA));
+		setMinManaLoss(par1nbtTagCompound.getInteger(TAG_MIN_MANA_LOSS));
+		setManaLossPerTick(par1nbtTagCompound.getFloat(TAG_TICK_MANA_LOSS));
+
+		int x = par1nbtTagCompound.getInteger(TAG_SPREADER_X);
+		int y = par1nbtTagCompound.getInteger(TAG_SPREADER_Y);
+		int z = par1nbtTagCompound.getInteger(TAG_SPREADER_Z);
+
+		TileEntity tile = worldObj.getBlockTileEntity(x, y, z);
+		if(tile != null && tile instanceof IManaCollector)
+			setBurstSourceCoords(x, y, z);
 	}
 
 	public void particles() {

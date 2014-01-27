@@ -21,9 +21,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.StatCollector;
-
-import org.lwjgl.opengl.GL11;
-
 import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.client.core.handler.HUDHandler;
@@ -33,6 +30,11 @@ import vazkii.botania.common.core.handler.ManaNetworkHandler;
 public class SubTileGenerating extends SubTileEntity {
 
 	private static final String TAG_MANA = "mana";
+	
+	private static final String TAG_COLLECTOR_X = "collectorX";
+	private static final String TAG_COLLECTOR_Y = "collectorY";
+	private static final String TAG_COLLECTOR_Z = "collectorZ";
+
 	int mana;
 	
 	int sizeLastCheck = -1;
@@ -124,12 +126,30 @@ public class SubTileGenerating extends SubTileEntity {
 	
 	@Override
 	public void readFromPacketNBT(NBTTagCompound cmp) {
-		cmp.setInteger(TAG_MANA, mana);
+		mana = cmp.getInteger(TAG_MANA);
+		
+		int x = cmp.getInteger(TAG_COLLECTOR_X);
+		int y = cmp.getInteger(TAG_COLLECTOR_Y);
+		int z = cmp.getInteger(TAG_COLLECTOR_Z);
+		
+		if(supertile.worldObj != null) {
+			TileEntity tileAt = supertile.worldObj.getBlockTileEntity(x, y, z);
+			if(tileAt != null && tileAt instanceof IManaCollector)
+				linkedCollector = tileAt;
+		}
 	}
 	
 	@Override
 	public void writeToPacketNBT(NBTTagCompound cmp) {
-		mana = cmp.getInteger(TAG_MANA);
+		cmp.setInteger(TAG_MANA, mana);
+		
+		int x = linkedCollector == null ? 0 : linkedCollector.xCoord;
+		int y = linkedCollector == null ? -1 : linkedCollector.yCoord;
+		int z = linkedCollector == null ? 0 : linkedCollector.zCoord;
+
+		cmp.setInteger(TAG_COLLECTOR_X, x);
+		cmp.setInteger(TAG_COLLECTOR_Y, y);
+		cmp.setInteger(TAG_COLLECTOR_Z, z);
 	}
 	
 	@Override

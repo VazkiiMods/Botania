@@ -44,6 +44,7 @@ public class TileSpreader extends TileMod implements IManaCollector {
 
 	private static final int MAX_MANA = 1000;
 	private static final String TAG_MANA = "mana";
+	private static final String TAG_CAN_SHOOT = "canShoot";
 	private static final String TAG_KNOWN_MANA = "knownMana";
 	private static final String TAG_ROTATION_X = "rotationX";
 	private static final String TAG_ROTATION_Y = "rotationY";
@@ -113,6 +114,7 @@ public class TileSpreader extends TileMod implements IManaCollector {
 		cmp.setInteger(TAG_MANA, mana);
 		cmp.setFloat(TAG_ROTATION_X, rotationX);
 		cmp.setFloat(TAG_ROTATION_Y, rotationY);
+		cmp.setBoolean(TAG_CAN_SHOOT, canShootBurst);
 	}
 
 	@Override
@@ -120,6 +122,7 @@ public class TileSpreader extends TileMod implements IManaCollector {
 		mana = cmp.getInteger(TAG_MANA);
 		rotationX = cmp.getFloat(TAG_ROTATION_X);
 		rotationY = cmp.getFloat(TAG_ROTATION_Y);
+		canShootBurst = cmp.getBoolean(TAG_CAN_SHOOT);
 
 		if(cmp.hasKey(TAG_KNOWN_MANA))
 			knownMana = cmp.getInteger(TAG_KNOWN_MANA);
@@ -225,7 +228,7 @@ public class TileSpreader extends TileMod implements IManaCollector {
 		int ticksBeforeManaLoss = 100;
 		// Apply ticks before mana loss changes here
 
-		float manaLossPerTick = 4F;
+		float manaLossPerTick = 2F;
 		// Apply mana loss per tick changes here
 
 		if(getCurrentMana() >= maxMana || fake) {
@@ -270,7 +273,7 @@ public class TileSpreader extends TileMod implements IManaCollector {
 
 	@Override
 	public void onClientDisplayTick() {
-		if(worldObj != null) {
+		if(worldObj != null && worldObj.getWorldVec3Pool() != null) {
 			EntityManaBurst burst = getBurst(true);
 			burst.getCollidedTile(false);
 		}
