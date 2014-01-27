@@ -33,6 +33,7 @@ import vazkii.botania.api.internal.ManaNetworkEvent;
 import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.IManaReceiver;
+import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.helper.Vector3;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.entity.EntityManaBurst;
@@ -123,7 +124,7 @@ public class TileSpreader extends TileMod implements IManaCollector {
 		if(cmp.hasKey(TAG_KNOWN_MANA))
 			knownMana = cmp.getInteger(TAG_KNOWN_MANA);
 		
-		if(worldObj.isRemote) {
+		if(worldObj != null && worldObj.isRemote) {
 			EntityManaBurst fakeBurst = getBurst(true);
 			TileEntity receiver = fakeBurst.getCollidedTile(true);
 			if(receiver != null && receiver instanceof IManaReceiver)
@@ -263,31 +264,15 @@ public class TileSpreader extends TileMod implements IManaCollector {
 
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		String name = ModBlocks.spreader.getLocalizedName();
-		int type = 0;
-		if(knownMana >= 0) {
-			type = 1;
-			double percentage = (double) knownMana / (double) MAX_MANA * 100;
-			if(percentage == 100)
-				type = 5;
-			else if(percentage >= 75)
-				type = 4;
-			else if(percentage >= 50)
-				type = 3;
-			else if(percentage > 0)
-				type = 2;
-		}
-		String filling = StatCollector.translateToLocal("botaniamisc.status" + type);
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		int color = 0x66FFFFFF;
-		mc.fontRenderer.drawStringWithShadow(name, res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(name) / 2, res.getScaledHeight() / 2 + 10, color);
-		mc.fontRenderer.drawStringWithShadow(filling, res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(filling) / 2, res.getScaledHeight() / 2 + 20, color);
-		GL11.glDisable(GL11.GL_BLEND);
+		int color = 0x6600FF00;
+		HUDHandler.drawSimpleManaHUD(color, knownMana, MAX_MANA, name, res);
 	}
 
 	@Override
 	public void onClientDisplayTick() {
-		EntityManaBurst burst = getBurst(true);
-		burst.getCollidedTile(false);
+		if(worldObj != null) {
+			EntityManaBurst burst = getBurst(true);
+			burst.getCollidedTile(false);
+		}
 	}
 }

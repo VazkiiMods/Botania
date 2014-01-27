@@ -27,6 +27,7 @@ import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 import vazkii.botania.api.internal.ManaNetworkEvent;
 import vazkii.botania.api.mana.IManaPool;
+import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -103,26 +104,8 @@ public class TilePool extends TileSimpleInventory implements IManaPool {
 
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		String name = ModBlocks.pool.getLocalizedName();
-		int type = 0;
-		if(knownMana >= 0) {
-			type = 1;
-			double percentage = (double) knownMana / (double) MAX_MANA * 100;
-			if(percentage == 100)
-				type = 5;
-			else if(percentage >= 75)
-				type = 4;
-			else if(percentage >= 50)
-				type = 3;
-			else if(percentage > 0)
-				type = 2;
-		}
-		String filling = StatCollector.translateToLocal("botaniamisc.status" + type);
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		int color = 0x66FFFFFF;
-		mc.fontRenderer.drawStringWithShadow(name, res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(name) / 2, res.getScaledHeight() / 2 + 10, color);
-		mc.fontRenderer.drawStringWithShadow(filling, res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(filling) / 2, res.getScaledHeight() / 2 + 20, color);
-		GL11.glDisable(GL11.GL_BLEND);
+		int color = 0x660000FF;
+		HUDHandler.drawSimpleManaHUD(color, knownMana, MAX_MANA, name, res);
 	}
 
 	@Override
