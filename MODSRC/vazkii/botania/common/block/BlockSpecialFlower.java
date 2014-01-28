@@ -49,6 +49,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	public static Map<String, Icon> icons = new HashMap();
 	private static String[] subtypes = {
 		// Misc
+		LibBlockNames.SUBTILE_PUREDAISY,
 		
 		// Generating
 		LibBlockNames.SUBTILE_DAYBLOOM,

@@ -25,6 +25,8 @@ public final class LibBlockNames {
 
 	public static final String SPECIAL_FLOWER_PREFIX = FLOWER + ".";
 	
+	public static final String SUBTILE_PUREDAISY = "puredaisy";
+	
 	public static final String SUBTILE_DAYBLOOM = "daybloom";
 
 	public static final String SUBTILE_BELLETHORN = "bellethorn";
