@@ -122,6 +122,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 		return ItemBlockSpecialFlower.ofType(name);
 	}
 	
+	@Override
 	public void breakBlock(World par1World, int par2, int par3, int par4, int par5, int par6) {
 		String name = ((TileSpecialFlower) par1World.getBlockTileEntity(par2, par3, par4)).subTileName;
 		dropBlockAsItem_do(par1World, par2, par3, par4, ItemBlockSpecialFlower.ofType(name));

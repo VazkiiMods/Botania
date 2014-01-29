@@ -83,7 +83,7 @@ public class SubTilePureDaisy extends SubTileEntity {
 	public void readFromPacketNBT(NBTTagCompound cmp) {
 		positionAt = cmp.getInteger(TAG_POSITION);
 		
-		if(!supertile.worldObj.isRemote)
+		if(supertile.worldObj != null && !supertile.worldObj.isRemote)
 			for(int i = 0; i < ticksRemaining.length; i++)
 				ticksRemaining[i] = cmp.getInteger(TAG_TICKS_REMAINING + i);
 	}
