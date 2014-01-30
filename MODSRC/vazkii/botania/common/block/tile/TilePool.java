@@ -15,22 +15,21 @@ import java.awt.Color;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.Packet132TileEntityData;
-import net.minecraft.util.StatCollector;
-
-import org.lwjgl.opengl.GL11;
-
-import cpw.mods.fml.common.network.PacketDispatcher;
-import cpw.mods.fml.common.network.Player;
-import vazkii.botania.api.internal.ManaNetworkEvent;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaPool;
+import vazkii.botania.api.mana.ManaNetworkEvent;
+import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibBlockNames;
+import cpw.mods.fml.common.network.PacketDispatcher;
+import cpw.mods.fml.common.network.Player;
 
 public class TilePool extends TileSimpleInventory implements IManaPool {
 
@@ -65,6 +64,47 @@ public class TilePool extends TileSimpleInventory implements IManaPool {
 		ManaNetworkEvent.removePool(this);
 	}
 
+	public boolean collideEntityItem(EntityItem item) {
+		boolean didChange = false;
+		ItemStack stack = item.getEntityItem();
+		if(stack == null)
+			return false;
+		
+		for(RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes) {
+			if(recipe.matches(stack)) {
+				int mana = recipe.getManaToConsume();
+				if(getCurrentMana() >= mana) {
+					recieveMana(-mana);
+					stack.stackSize--;
+					if(stack.stackSize == 0)
+						item.setDead();
+					
+					if(!worldObj.isRemote) {
+						ItemStack output = recipe.getOutput().copy();
+						EntityItem outputItem = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, output);
+						worldObj.spawnEntityInWorld(outputItem);
+					}
+					craftingFanciness();
+					didChange = true;
+				}
+				
+				break;
+			}
+		}
+
+		return didChange;
+	}
+	
+	public void craftingFanciness() {
+		worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.levelup", 1F, 1F);
+		for(int i = 0; i < 25; i++) {
+			float red = (float) Math.random();
+			float green = (float) Math.random();
+			float blue = (float) Math.random();
+			Botania.proxy.sparkleFX(worldObj, xCoord + 0.5 + (Math.random() * 0.4) - 0.2, yCoord + 1, zCoord + 0.5 + (Math.random() * 0.4) - 0.2, red, green, blue, (float) Math.random(), 10);
+		}
+	}
+	
 	@Override
 	public void updateEntity() {
 		if(!added) {

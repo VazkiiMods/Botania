@@ -19,8 +19,9 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import vazkii.botania.api.internal.DummyMethodHandler;
 import vazkii.botania.api.internal.IInternalMethodHandler;
-import vazkii.botania.api.internal.RecipePetals;
 import vazkii.botania.api.internal.SubTileDummy;
+import vazkii.botania.api.recipe.RecipeManaInfusion;
+import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.subtile.SubTileEntity;
 
 import com.google.common.collect.BiMap;
@@ -32,7 +33,8 @@ public final class BotaniaAPI {
 	private static List<LexiconEntry> allEntries = new ArrayList<LexiconEntry>();
 	
 	public static List<RecipePetals> petalRecipes = new ArrayList<RecipePetals>();
-	
+	public static List<RecipeManaInfusion> manaInfusionRecipes = new ArrayList<RecipeManaInfusion>();
+
 	private static BiMap<String, Class<? extends SubTileEntity>> subTiles = HashBiMap.<String, Class<? extends SubTileEntity>> create();
 	static {
 		registerSubTile("", SubTileDummy.class);
@@ -54,6 +56,18 @@ public final class BotaniaAPI {
 	public static RecipePetals registerPetalRecipe(ItemStack output, int... colors) {
 		RecipePetals recipe = new RecipePetals(output, colors);
 		petalRecipes.add(recipe);
+		return recipe;
+	}
+	
+	/**
+	 * Registers a Mana Infusion Recipe (throw an item in a mana pool)
+	 * @param output The ItemStack to craft
+	 * @param input The input item, be it an ItemStack or an ore dictionary entry String.
+	 * @return The recipe created.
+	 */
+	public static RecipeManaInfusion registerManaInfusionRecipe(ItemStack output, Object input, int mana) {
+		RecipeManaInfusion recipe = new RecipeManaInfusion(output, input, mana);
+		manaInfusionRecipes.add(recipe);
 		return recipe;
 	}
 	

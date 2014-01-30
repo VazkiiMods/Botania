@@ -9,7 +9,7 @@
  * 
  * File Created @ [Jan 22, 2014, 5:04:30 PM (GMT)]
  */
-package vazkii.botania.api.internal;
+package vazkii.botania.api.mana;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.MinecraftForge;

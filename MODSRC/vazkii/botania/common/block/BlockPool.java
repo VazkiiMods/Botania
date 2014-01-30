@@ -14,6 +14,8 @@ package vazkii.botania.common.block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -25,6 +27,7 @@ import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.TilePool;
 import vazkii.botania.common.lib.LibBlockIDs;
 import vazkii.botania.common.lib.LibBlockNames;
+import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class BlockPool extends BlockModContainer implements IHUD, IWandable {
 
@@ -40,6 +43,15 @@ public class BlockPool extends BlockModContainer implements IHUD, IWandable {
 	@Override
 	public TileEntity createNewTileEntity(World world) {
 		return new TilePool();
+	}
+	
+	@Override
+	public void onEntityCollidedWithBlock(World par1World, int par2, int par3, int par4, Entity par5Entity) {
+		if(par5Entity instanceof EntityItem) {
+			TilePool tile = (TilePool) par1World.getBlockTileEntity(par2, par3, par4);
+			if(tile.collideEntityItem((EntityItem) par5Entity))				
+				PacketDispatcher.sendPacketToAllInDimension(tile.getDescriptionPacket(), par1World.provider.dimensionId);
+		}
 	}
 
 	@Override

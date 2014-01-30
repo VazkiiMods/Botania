@@ -14,7 +14,7 @@ package vazkii.botania.common.crafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.internal.RecipePetals;
+import vazkii.botania.api.recipe.RecipePetals;
 
 public final class ModPetalRecipes {
 

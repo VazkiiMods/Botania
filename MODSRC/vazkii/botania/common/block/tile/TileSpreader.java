@@ -29,10 +29,10 @@ import net.minecraftforge.common.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
-import vazkii.botania.api.internal.ManaNetworkEvent;
 import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.IManaReceiver;
+import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.helper.Vector3;
 import vazkii.botania.common.block.ModBlocks;

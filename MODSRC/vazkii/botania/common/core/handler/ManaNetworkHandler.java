@@ -19,9 +19,9 @@ import java.util.Map;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraftforge.event.ForgeSubscribe;
-import vazkii.botania.api.internal.ManaNetworkEvent;
-import vazkii.botania.api.internal.ManaNetworkEvent.Action;
-import vazkii.botania.api.internal.ManaNetworkEvent.ManaBlockType;
+import vazkii.botania.api.mana.ManaNetworkEvent;
+import vazkii.botania.api.mana.ManaNetworkEvent.Action;
+import vazkii.botania.api.mana.ManaNetworkEvent.ManaBlockType;
 import vazkii.botania.common.core.helper.MathHelper;
 
 public final class ManaNetworkHandler {
