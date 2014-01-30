@@ -20,5 +20,11 @@ public final class LibItemNames {
 	public static final String DYE = LibResources.PREFIX_MOD + "dye";
 	public static final String PESTLE_AND_MORTAR = LibResources.PREFIX_MOD + "pestleAndMortar";
 	public static final String TWIG_WAND = LibResources.PREFIX_MOD + "twigWand";
+	public static final String MANA_RESOURCE = LibResources.PREFIX_MOD + "manaResource";
 
+	public static final String[] MANA_RESOURCE_NAMES = new String[] {
+		LibResources.PREFIX_MOD + "manasteel",
+		LibResources.PREFIX_MOD + "manaPearl",
+		LibResources.PREFIX_MOD + "manaDiamond"
+	};
 }

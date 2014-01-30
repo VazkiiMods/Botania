@@ -43,7 +43,8 @@ public final class ConfigHandler {
 		LibItemIDs.idDye = loadItem(LibItemNames.DYE, LibItemIDs.idDye);
 		LibItemIDs.idPestleAndMortar = loadItem(LibItemNames.PESTLE_AND_MORTAR, LibItemIDs.idPestleAndMortar);
 		LibItemIDs.idTwigWand = loadItem(LibItemNames.TWIG_WAND, LibItemIDs.idTwigWand);
-		
+		LibItemIDs.idManaResource = loadItem(LibItemNames.MANA_RESOURCE, LibItemIDs.idManaResource);
+
 		config.save();
 	}
 

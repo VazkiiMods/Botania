@@ -18,7 +18,10 @@ public final class LibOreDict {
 	public static final String TWIG_WAND = "twigWand";
 	public static final String LIVING_ROCK = "livingrock";
 	public static final String LIVING_WOOD = "livingwood";
-	
+	public static final String MANA_STEEL = "ingotManasteel";
+	public static final String MANA_PEARL = "manaPearl";
+	public static final String MANA_DIAMOND = "manaDiamond";
+
 	public static final String[] FLOWER = new String[] {
 		"mysticFlowerWhite", "mysticFlowerOrange", "mysticFlowerMagenta", "mysticFlowerLightBlue", "mysticFlowerYellow", "mysticFlowerLime", "mysticFlowerPink", "mysticFlowerGray", "mysticFlowerLightGray", "mysticFlowerCyan", "mysticFlowerPurple", "mysticFlowerBlue", "mysticFlowerBrown", "mysticFlowerGreen", "mysticFlowerRed", "mysticFlowerBlack", 
 	};

@@ -46,6 +46,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.pestleAndMortar);
 		addItem(ModItems.dye);
 		addItem(ModItems.twigWand);
+		addItem(ModItems.manaResource);
 		
 		addBlock(ModBlocks.livingrock);
 		addBlock(ModBlocks.livingwood);

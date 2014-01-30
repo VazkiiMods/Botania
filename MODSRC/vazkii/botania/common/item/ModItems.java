@@ -23,6 +23,7 @@ public final class ModItems {
 	public static Item dye;
 	public static Item pestleAndMortar;
 	public static Item twigWand;
+	public static Item manaResource;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -30,6 +31,7 @@ public final class ModItems {
 		dye = new ItemDye();
 		pestleAndMortar = new ItemPestleAndMortar();
 		twigWand = new ItemTwigWand();
+		manaResource = new ItemManaResource();
 
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
@@ -37,7 +39,8 @@ public final class ModItems {
 			OreDictionary.registerOre(LibOreDict.DYE[i], new ItemStack(dye.itemID, 1, i));
 		}
 		OreDictionary.registerOre(LibOreDict.PESTLE_AND_MORTAR, pestleAndMortar);
-
+		OreDictionary.registerOre(LibOreDict.MANA_STEEL, new ItemStack(manaResource, 1, 0));
+		OreDictionary.registerOre(LibOreDict.MANA_PEARL, new ItemStack(manaResource, 1, 1));
+		OreDictionary.registerOre(LibOreDict.MANA_DIAMOND, new ItemStack(manaResource, 1, 1));
 	}
-
 }

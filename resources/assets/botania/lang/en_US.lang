@@ -76,6 +76,9 @@ item.botania:dye14.name=Floral Red Dye
 item.botania:dye15.name=Floral Black Dye
 item.botania:pestleAndMortar.name=Pestle and Mortar
 item.botania:twigWand.name=Wand of the Forest
+item.botania:manasteel.name=Manasteel Ingot
+item.botania:manaPearl.name=Mana Pearl
+item.botania:manaDiamond.name=Mana Diamond
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania Index - Pick which category you would like to study:
