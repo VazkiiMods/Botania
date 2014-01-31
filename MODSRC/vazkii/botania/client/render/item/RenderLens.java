@@ -13,6 +13,7 @@ package vazkii.botania.client.render.item;
 
 import java.awt.Color;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
@@ -102,13 +103,29 @@ public class RenderLens implements IItemRenderer {
 		icon = ItemLens.iconGlass;
 		GL11.glScalef(scale, scale, scale);
 		GL11.glTranslatef(0F, 0F, -0.5F);
-		render.renderIcon(0, 0, icon, 16, 16);
+		renderShinyLensIcon(icon);
 		GL11.glRotatef(180F, 0F, 1F, 0F);
 		GL11.glTranslatef(-16F, 0F, 0F);
-		render.renderIcon(0, 0, icon, 16, 16);
-
+		renderShinyLensIcon(icon);
+		
 		GL11.glDisable(GL11.GL_BLEND);
 		GL11.glPopMatrix();
+	}
+	
+	public static void renderShinyLensIcon(Icon icon) {
+		float par1 = 0;
+		float par2 = 0;
+		float par4 = 16;
+		float par5 = 16;
+		float zLevel = 0F;
+        Tessellator tessellator = Tessellator.instance;
+        tessellator.startDrawingQuads();
+        tessellator.setBrightness(240);
+        tessellator.addVertexWithUV((double)(par1 + 0), (double)(par2 + par5), (double)zLevel, (double)icon.getMinU(), (double)icon.getMaxV());
+        tessellator.addVertexWithUV((double)(par1 + par4), (double)(par2 + par5), (double)zLevel, (double)icon.getMaxU(), (double)icon.getMaxV());
+        tessellator.addVertexWithUV((double)(par1 + par4), (double)(par2 + 0), (double)zLevel, (double)icon.getMaxU(), (double)icon.getMinV());
+        tessellator.addVertexWithUV((double)(par1 + 0), (double)(par2 + 0), (double)zLevel, (double)icon.getMinU(), (double)icon.getMinV());
+        tessellator.draw();
 	}
 
 }
