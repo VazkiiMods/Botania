@@ -49,7 +49,7 @@ public class FXWisp extends EntityFX
 		particleMaxAge = (int)(36D / (Math.random() * 0.3D + 0.7D));
 
 		moteHalfLife = particleMaxAge / 2;
-		noClip = false;
+		noClip = true;
 		setSize(0.01F, 0.01F);
 		EntityLivingBase renderentity = FMLClientHandler.instance().getClient().renderViewEntity;
 		int visibleDistance = 50;
@@ -126,9 +126,7 @@ public class FXWisp extends EntityFX
 
 	}
 
-	public FXWisp(World world, double d, double d1, double d2, double x, double y, double z,
-			float f, float red, float green, float blue)
-	{
+	public FXWisp(World world, double d, double d1, double d2, double x, double y, double z, float f, float red, float green, float blue) {
 		this(world, d, d1, d2, f, red,green,blue);
 		if (particleMaxAge>0) {
 			double dx = x - posX;
@@ -142,11 +140,7 @@ public class FXWisp extends EntityFX
 	}
 
 	@Override
-	public void renderParticle(Tessellator tessellator, float f, float f1, float f2, float f3, float f4, float f5)
-	{
-
-
-
+	public void renderParticle(Tessellator tessellator, float f, float f1, float f2, float f3, float f4, float f5) {
 		float agescale = 0;
 		if (shrink) {
 			agescale = ((float)particleMaxAge-(float)particleAge) / particleMaxAge;
@@ -155,12 +149,10 @@ public class FXWisp extends EntityFX
 			if (agescale>1f) agescale = 2-agescale;
 		}
 
-
 		particleScale = moteParticleScale * agescale;
 
 		tessellator.draw();
 		GL11.glPushMatrix();
-
 
 		GL11.glDepthMask(false);
 		GL11.glEnable(3042);
@@ -170,16 +162,13 @@ public class FXWisp extends EntityFX
 
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.75F);
 
-
 		float f10 = 0.5F * particleScale;
 		float f11 = (float)(prevPosX + (posX - prevPosX) * f - interpPosX);
 		float f12 = (float)(prevPosY + (posY - prevPosY) * f - interpPosY);
 		float f13 = (float)(prevPosZ + (posZ - prevPosZ) * f - interpPosZ);
 
 		tessellator.startDrawingQuads();
-
-		tessellator.setBrightness(0x0000f0);
-
+		tessellator.setBrightness(240);
 		tessellator.setColorRGBA_F(particleRed, particleGreen, particleBlue, 0.5F);
 		tessellator.addVertexWithUV(f11 - f1 * f10 - f4 * f10, f12 - f2 * f10, f13 - f3 * f10 - f5 * f10, 0, 1);
 		tessellator.addVertexWithUV(f11 - f1 * f10 + f4 * f10, f12 + f2 * f10, f13 - f3 * f10 + f5 * f10, 1, 1);
@@ -197,49 +186,30 @@ public class FXWisp extends EntityFX
 	}
 
 	@Override
-	public void onUpdate()
-	{
-
-
+	public void onUpdate() {
 		prevPosX = posX;
 		prevPosY = posY;
 		prevPosZ = posZ;
 
-		if (particleAge==0 && tinkle && worldObj.rand.nextInt(3)==0)
-			worldObj.playSoundAtEntity(this, "random.orb", 0.02F, 0.5F * ((worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.6F + 2F));
-
 		if (particleAge++ >= particleMaxAge)
-		{
-
 			setDead();
-		}
 
-
-		motionY -= 0.040000000000000001D * particleGravity;
-		//     moveEntity(motionX, motionY, motionZ);
-		posX+=motionX;
-		posY+=motionY;
-		posZ+=motionZ;
+		motionY -= 0.04D * particleGravity;
+		posX += motionX;
+		posY += motionY;
+		posZ += motionZ;
 		motionX *= 0.98000001907348633D;
 		motionY *= 0.98000001907348633D;
 		motionZ *= 0.98000001907348633D;
-		if (onGround)
-		{
-			motionX *= 0.69999998807907104D;
-			motionZ *= 0.69999998807907104D;
-		}
-
-
-
 	}
 
 	public void setGravity(float value) {
 		particleGravity = value;
 	}
 
-	public boolean shrink=false;
+	public boolean shrink = false;
 	float moteParticleScale;
 	int moteHalfLife;
-	public boolean tinkle=false;
-	public int blendmode=1;
+	public boolean tinkle = false;
+	public int blendmode = 1;
 }

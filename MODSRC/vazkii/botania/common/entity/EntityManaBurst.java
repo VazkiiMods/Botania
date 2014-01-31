@@ -13,8 +13,8 @@ package vazkii.botania.common.entity;
 
 import java.awt.Color;
 
-import cpw.mods.fml.common.network.PacketDispatcher;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
@@ -22,10 +22,11 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaBurst;
-import vazkii.botania.api.mana.IManaCollector;
+import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileSpreader;
+import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
@@ -41,7 +42,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	
 	boolean fake = false;
 	
-	final int dataWatcherEntries = 9;
+	final int dataWatcherEntries = 10;
 	final int dataWatcherStart = 32 - dataWatcherEntries;
 
 	public EntityManaBurst(World world) {
@@ -51,6 +52,8 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			int j = dataWatcherStart + i;
 			if(i == 4 || i == 5)
 				dataWatcher.addObject(j, 0F);
+			else if(i == 9)
+				dataWatcher.addObject(j, new ItemStack(1, 0, 0));
 			else dataWatcher.addObject(j, 0);
 
 			dataWatcher.setObjectWatched(j);
@@ -77,6 +80,11 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
+		
+		ILens lens = getLensInstance();
+		if(lens != null)
+			lens.updateBurst(this, getSourceLens());
+
 		particles();
 
 		int mana = getMana();
@@ -138,7 +146,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	}
 
 	public void particles() {
-		if(!worldObj.isRemote || isDead)
+		if(worldObj.isRemote || isDead)
 			return;
 
 		Color color = new Color(getColor());
@@ -152,12 +160,13 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		if(fake) {
 			if(!noParticles)
 				Botania.proxy.sparkleFX(worldObj, posX, posY, posZ, r, g, b, 0.4F * size, 1, true);
-		} else
-			Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.2F * size, (float) -motionX * 0.01F, (float) -motionY * 0.01F, (float) -motionZ * 0.01F);
+		} else Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.2F * size, (float) -motionX * 0.01F, (float) -motionY * 0.01F, (float) -motionZ * 0.01F);
 	}
 
 	@Override
 	protected void onImpact(MovingObjectPosition movingobjectposition) {
+		boolean mana = false;
+		
 		if(movingobjectposition.entityHit == null) {
 			TileEntity tile = worldObj.getBlockTileEntity(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ);
 
@@ -167,6 +176,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 			if(tile == null || tile.xCoord != coords.posX || tile.yCoord != coords.posY || tile.zCoord != coords.posZ) {
 				if((!fake || noParticles) && !worldObj.isRemote && tile != null && tile instanceof IManaReceiver && ((IManaReceiver) tile).canRecieveManaFromBursts()) {
+					mana = true;
 					((IManaReceiver) tile).recieveMana(getMana());
 					PacketDispatcher.sendPacketToAllInDimension(tile.getDescriptionPacket(), worldObj.provider.dimensionId);
 				}
@@ -174,6 +184,10 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 				setDead();
 			}
 		}
+		
+		ILens lens = getLensInstance();
+		if(lens != null)
+			lens.collideBurst(this, movingobjectposition, mana, getSourceLens());
 	}
 
 	@Override
@@ -191,6 +205,12 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	@Override
 	protected float getGravityVelocity() {
 		return getGravity();
+	}
+	
+
+	@Override
+	public boolean isFake() {
+		return fake;
 	}
 
 	@Override
@@ -271,5 +291,23 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		dataWatcher.updateObject(coordsStart, x);
 		dataWatcher.updateObject(coordsStart + 1, y);
 		dataWatcher.updateObject(coordsStart + 2, z);
+	}
+
+	@Override
+	public ItemStack getSourceLens() {
+		return dataWatcher.getWatchableObjectItemStack(dataWatcherStart + 9);
+	}
+
+	@Override
+	public void setSourceLens(ItemStack lens) {
+		dataWatcher.updateObject(dataWatcherStart + 9, lens == null ? new ItemStack(1, 0, 0) : lens);
+	}
+	
+	public ILens getLensInstance() {
+		ItemStack lens = getSourceLens();
+		if(lens != null && lens.getItem() instanceof ILens)
+			return (ILens) lens.getItem();
+		
+		return null;
 	}
 }

@@ -95,6 +95,7 @@ item.botania:colorLens12.name=Brown Tinted Lens
 item.botania:colorLens13.name=Green Tinted Lens
 item.botania:colorLens14.name=Red Tinted Lens
 item.botania:colorLens15.name=Black Tinted Lens
+item.botania:rainbowLens.name=Rainbow Lens
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania Index - Pick which category you would like to study:

@@ -11,6 +11,7 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
@@ -86,7 +87,7 @@ public class TileSpecialFlower extends TileMod {
 	}
 	
 	public Icon getIcon() {
-		return subTile.getIcon();
+		return subTile == null ? Block.plantRed.getIcon(0, 0) : subTile.getIcon();
 	}
 	
 	public LexiconEntry getEntry() {

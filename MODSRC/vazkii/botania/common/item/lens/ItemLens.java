@@ -14,6 +14,9 @@ package vazkii.botania.common.item.lens;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
+import net.minecraft.util.MovingObjectPosition;
+import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.item.ItemMod;
@@ -48,6 +51,21 @@ public abstract class ItemLens extends ItemMod implements ILens {
 	@Override
 	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
 		return par2 == 1 ? getLensColor(par1ItemStack) : 0xFFFFFF;
+	}
+	
+	@Override
+	public void apply(ItemStack stack, BurstProperties props) {
+		// NO-OP
+	}
+	
+	@Override
+	public void collideBurst(IManaBurst burst, MovingObjectPosition pos, boolean isManaBlock, ItemStack stack) {
+		// NO-OP
+	}
+	
+	@Override
+	public void updateBurst(IManaBurst burst, ItemStack stack) {
+		// NO-OP
 	}
 	
 }

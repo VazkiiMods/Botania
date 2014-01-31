@@ -233,6 +233,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 		if(lens != null)
 			((ILens) lens.getItem()).apply(lens, props);
 		
+		burst.setSourceLens(lens);
 		if(getCurrentMana() >= props.maxMana || fake) {
 			burst.setColor(props.color);
 			burst.setMana(props.maxMana);

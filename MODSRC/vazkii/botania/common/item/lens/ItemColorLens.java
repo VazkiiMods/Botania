@@ -14,12 +14,14 @@ package vazkii.botania.common.item.lens;
 import java.awt.Color;
 import java.util.List;
 
+import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.common.lib.LibItemIDs;
 import vazkii.botania.common.lib.LibItemNames;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.MovingObjectPosition;
 
 public class ItemColorLens extends ItemLens {
 
@@ -51,6 +53,16 @@ public class ItemColorLens extends ItemLens {
 	@Override
 	public void apply(ItemStack stack, BurstProperties props) {
 		props.color = getLensColor(stack);
+	}
+
+	@Override
+	public void collideBurst(IManaBurst burst, MovingObjectPosition pos, boolean isManaBlock, ItemStack stack) {
+		// NO-OP
+	}
+
+	@Override
+	public void updateBurst(IManaBurst burst, ItemStack stack) {
+		// NO-OP
 	}
 
 }

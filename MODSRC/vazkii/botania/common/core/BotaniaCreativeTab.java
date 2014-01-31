@@ -54,6 +54,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		
 		addBlock(ModBlocks.spreader);
 		addItem(ModItems.colorLens);
+		addItem(ModItems.rainbowLens);
 		addBlock(ModBlocks.pool);
 		
 		addBlock(ModBlocks.specialFlower);
