@@ -25,7 +25,7 @@ import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.mana.ILens;
-import vazkii.botania.common.item.lens.ItemLens;
+import vazkii.botania.common.item.ItemLens;
 
 public class RenderLens implements IItemRenderer {
 
@@ -46,17 +46,19 @@ public class RenderLens implements IItemRenderer {
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
 		switch(type) {
 		case INVENTORY : {
-			Icon icon = item.getItem().getIconFromDamageForRenderPass(0, 0);
-			GL11.glColor4f(1F, 1F, 1F, 1F);
-			render.renderIcon(0, 0, icon, 16, 16);
+			int dmg = item.getItemDamage();
 
 			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			Color color = new Color(((ILens) item.getItem()).getLensColor(item));
 			GL11.glColor4ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue(), (byte) 255);
-			icon = item.getItem().getIconFromDamageForRenderPass(0, 1);
+			Icon icon = item.getItem().getIconFromDamageForRenderPass(dmg, 1);
 			render.renderIcon(0, 0, icon, 16, 16);
 			GL11.glDisable(GL11.GL_BLEND);
+			
+			icon = item.getItem().getIconFromDamageForRenderPass(dmg, 0);
+			GL11.glColor4f(1F, 1F, 1F, 1F);
+			render.renderIcon(0, 0, icon, 16, 16);
 			break;
 		}
 		case ENTITY : {
@@ -84,7 +86,8 @@ public class RenderLens implements IItemRenderer {
 	}
 	
 	public static void render(ItemStack item, int color_) {
-		Icon icon = item.getItem().getIconFromDamageForRenderPass(0, 0);
+		int dmg = item.getItemDamage();
+		Icon icon = item.getItem().getIconFromDamageForRenderPass(dmg, 0);
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();
 		float f2 = icon.getMinV();

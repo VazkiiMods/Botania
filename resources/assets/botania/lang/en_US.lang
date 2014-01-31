@@ -12,6 +12,26 @@ botaniamisc.status2=Mostly Empty
 botaniamisc.status3=Moderately Full
 botaniamisc.status4=Almost Full
 botaniamisc.status5=Full
+botaniamisc.color=%s Tinted
+
+# COLORS
+botania.color0=White
+botania.color1=Orange
+botania.color2=Magenta
+botania.color3=Light Blue
+botania.color4=Yellow
+botania.color5=Lime
+botania.color6=Pink
+botania.color7=Gray
+botania.color8=Light Gray
+botania.color9=Cyan
+botania.color10=Purple
+botania.color11=Blue
+botania.color12=Brown
+botania.color13=Green
+botania.color14=Red
+botania.color15=Black
+botania.color16=Rainbow
 
 # BLOCK NAMES
 tile.botania:flower0.name=Mystical White Flower
@@ -79,23 +99,15 @@ item.botania:twigWand.name=Wand of the Forest
 item.botania:manasteel.name=Manasteel Ingot
 item.botania:manaPearl.name=Mana Pearl
 item.botania:manaDiamond.name=Mana Diamond
-item.botania:colorLens0.name=White Tinted Lens
-item.botania:colorLens1.name=Orange Tinted Lens
-item.botania:colorLens2.name=Magenta Tinted Lens
-item.botania:colorLens3.name=Light Blue Tinted Lens
-item.botania:colorLens4.name=Yellow Tinted Lens
-item.botania:colorLens5.name=Lime Tinted Lens
-item.botania:colorLens6.name=Pink Tinted Lens
-item.botania:colorLens7.name=Gray Tinted Lens
-item.botania:colorLens8.name=Light Gray Tinted Lens
-item.botania:colorLens9.name=Cyan Tinted Lens
-item.botania:colorLens10.name=Purple Tinted Lens
-item.botania:colorLens11.name=Blue Tinted Lens
-item.botania:colorLens12.name=Brown Tinted Lens
-item.botania:colorLens13.name=Green Tinted Lens
-item.botania:colorLens14.name=Red Tinted Lens
-item.botania:colorLens15.name=Black Tinted Lens
-item.botania:rainbowLens.name=Rainbow Lens
+item.botania:lensNormal.name=Mana Lens
+item.botania:lensSpeed.name=Mana Lens: Velocity
+item.botania:lensPower.name=Mana Lens: Potency
+item.botania:lensTime.name=Mana Lens: Resistance
+item.botania:lensEfficiency.name=Mana Lens: Efficiency
+item.botania:lensBounce.name=Mana Lens: Bounce
+item.botania:lensGravity.name=Mana Lens: Gravity
+item.botania:lensMine.name=Mana Lens: Bore
+item.botania:lensDamage.name=Mana Lens: Damaging
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania Index - Pick which category you would like to study:

@@ -66,8 +66,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerBlockHandler(new RenderPool());
 		
 		RenderLens lensRender = new RenderLens();
-		MinecraftForgeClient.registerItemRenderer(ModItems.colorLens.itemID, lensRender);
-		MinecraftForgeClient.registerItemRenderer(ModItems.rainbowLens.itemID, lensRender);
+		MinecraftForgeClient.registerItemRenderer(ModItems.lens.itemID, lensRender);
 
 		ClientRegistry.bindTileEntitySpecialRenderer(TileAltar.class, new RenderTileAltar());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileSpreader.class, new RenderTileSpreader());

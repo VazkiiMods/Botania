@@ -14,8 +14,6 @@ package vazkii.botania.common.item;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
-import vazkii.botania.common.item.lens.ItemColorLens;
-import vazkii.botania.common.item.lens.ItemRainbowLens;
 import vazkii.botania.common.lib.LibOreDict;
 
 public final class ModItems {
@@ -26,8 +24,7 @@ public final class ModItems {
 	public static Item pestleAndMortar;
 	public static Item twigWand;
 	public static Item manaResource;
-	public static Item colorLens;
-	public static Item rainbowLens;
+	public static Item lens;
 	
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -36,8 +33,7 @@ public final class ModItems {
 		pestleAndMortar = new ItemPestleAndMortar();
 		twigWand = new ItemTwigWand();
 		manaResource = new ItemManaResource();
-		colorLens = new ItemColorLens();
-		rainbowLens = new ItemRainbowLens();
+		lens = new ItemLens();
 		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {

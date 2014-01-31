@@ -44,8 +44,7 @@ public final class ConfigHandler {
 		LibItemIDs.idPestleAndMortar = loadItem(LibItemNames.PESTLE_AND_MORTAR, LibItemIDs.idPestleAndMortar);
 		LibItemIDs.idTwigWand = loadItem(LibItemNames.TWIG_WAND, LibItemIDs.idTwigWand);
 		LibItemIDs.idManaResource = loadItem(LibItemNames.MANA_RESOURCE, LibItemIDs.idManaResource);
-		LibItemIDs.idColorLens = loadItem(LibItemNames.COLOR_LENS, LibItemIDs.idColorLens);
-		LibItemIDs.idRainbowLens = loadItem(LibItemNames.RAINBOW_LENS, LibItemIDs.idRainbowLens);
+		LibItemIDs.idLens = loadItem(LibItemNames.LENS, LibItemIDs.idLens);
 
 		config.save();
 	}
