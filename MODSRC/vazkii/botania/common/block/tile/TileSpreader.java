@@ -22,13 +22,11 @@ import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
-
-import org.lwjgl.opengl.GL11;
-
+import vazkii.botania.api.mana.BurstProperties;
+import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.IManaReceiver;
@@ -37,10 +35,11 @@ import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.helper.Vector3;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.entity.EntityManaBurst;
+import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 
-public class TileSpreader extends TileMod implements IManaCollector {
+public class TileSpreader extends TileSimpleInventory implements IManaCollector {
 
 	private static final int MAX_MANA = 1000;
 	private static final String TAG_MANA = "mana";
@@ -111,6 +110,7 @@ public class TileSpreader extends TileMod implements IManaCollector {
 
 	@Override
 	public void writeCustomNBT(NBTTagCompound cmp) {
+		super.writeCustomNBT(cmp);
 		cmp.setInteger(TAG_MANA, mana);
 		cmp.setFloat(TAG_ROTATION_X, rotationX);
 		cmp.setFloat(TAG_ROTATION_Y, rotationY);
@@ -118,6 +118,7 @@ public class TileSpreader extends TileMod implements IManaCollector {
 
 	@Override
 	public void readCustomNBT(NBTTagCompound cmp) {
+		super.readCustomNBT(cmp);
 		mana = cmp.getInteger(TAG_MANA);
 		rotationX = cmp.getFloat(TAG_ROTATION_X);
 		rotationY = cmp.getFloat(TAG_ROTATION_Y);
@@ -132,16 +133,6 @@ public class TileSpreader extends TileMod implements IManaCollector {
 				this.receiver = (IManaReceiver) receiver;
 			else this.receiver = null;
 		}
-	}
-	
-	@Override
-	public void writeToNBT(NBTTagCompound par1nbtTagCompound) {
-		super.writeToNBT(par1nbtTagCompound);
-	}
-	
-	@Override
-	public void readFromNBT(NBTTagCompound par1nbtTagCompound) {
-		super.readFromNBT(par1nbtTagCompound);
 	}
 
 	@Override
@@ -226,25 +217,24 @@ public class TileSpreader extends TileMod implements IManaCollector {
 	}
 
 	public EntityManaBurst getBurst(boolean fake) {
-		int color = 0x00FF00;
-		// Apply color changes here.
-
-		EntityManaBurst burst = new EntityManaBurst(worldObj, this, fake, color);
-
+		EntityManaBurst burst = new EntityManaBurst(worldObj, this, fake);
+		
 		int maxMana = 160;
-		// Apply max mana changes here.
-
+		int color = 0x00FF00;
 		int ticksBeforeManaLoss = 100;
-		// Apply ticks before mana loss changes here
-
 		float manaLossPerTick = 2F;
-		// Apply mana loss per tick changes here
-
-		if(getCurrentMana() >= maxMana || fake) {
-			burst.setMana(maxMana);
-			burst.setStartingMana(maxMana);
-			burst.setMinManaLoss(ticksBeforeManaLoss);
-			burst.setManaLossPerTick(manaLossPerTick);
+		BurstProperties props = new BurstProperties(maxMana, ticksBeforeManaLoss, manaLossPerTick, color);
+		
+		ItemStack lens = getStackInSlot(0);
+		if(lens != null)
+			((ILens) lens.getItem()).apply(lens, props);
+		
+		if(getCurrentMana() >= props.maxMana || fake) {
+			burst.setColor(props.color);
+			burst.setMana(props.maxMana);
+			burst.setStartingMana(props.maxMana);
+			burst.setMinManaLoss(props.ticksBeforeManaLoss);
+			burst.setManaLossPerTick(props.manaLossPerTick);
 
 			return burst;
 		}
@@ -286,5 +276,30 @@ public class TileSpreader extends TileMod implements IManaCollector {
 			EntityManaBurst burst = getBurst(true);
 			burst.getCollidedTile(false);
 		}
+	}
+
+	@Override
+	public int getSizeInventory() {
+		return 1;
+	}
+
+	@Override
+	public String getInvName() {
+		return LibBlockNames.SPREADER;
+	}
+	
+	@Override
+	public int getInventoryStackLimit() {
+		return 1;
+	}
+	
+	@Override
+	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
+		return itemstack.getItem() instanceof ILens;
+	}
+	
+	@Override
+	public void onInventoryChanged() {
+		PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
 	}
 }

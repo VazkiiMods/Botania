@@ -22,8 +22,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public interface ILens {
 	
 	@SideOnly(Side.CLIENT)
-	public Icon getRingIcon(ItemStack stack);
-
-	@SideOnly(Side.CLIENT)
 	public int getLensColor(ItemStack stack);
+	
+	public void apply(ItemStack stack, BurstProperties props);
 }

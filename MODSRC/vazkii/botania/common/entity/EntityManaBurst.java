@@ -52,7 +52,7 @@ public class EntityManaBurst extends EntityThrowable {
 		}
 	}
 
-	public EntityManaBurst(World par1World, TileSpreader spreader, boolean fake, int color) {
+	public EntityManaBurst(World par1World, TileSpreader spreader, boolean fake) {
 		this(par1World);
 		this.fake = fake;
 
@@ -65,8 +65,6 @@ public class EntityManaBurst extends EntityThrowable {
 		motionX = (MathHelper.sin(rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float) Math.PI) * f) / 2D;
 		motionZ = -(MathHelper.cos(rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float) Math.PI) * f) / 2D;
 		motionY = (MathHelper.sin((rotationPitch + func_70183_g()) / 180.0F * (float) Math.PI) * f) / 2D;
-
-		setColor(color);
 	}
 
 	float accumulatedManaLoss = 0;
@@ -188,11 +186,11 @@ public class EntityManaBurst extends EntityThrowable {
 		return 0F;
 	}
 
-	int getColor() {
+	public int getColor() {
 		return dataWatcher.getWatchableObjectInt(24);
 	}
 
-	void setColor(int color) {
+	public void setColor(int color) {
 		dataWatcher.updateObject(24, color);
 	}
 

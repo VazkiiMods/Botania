@@ -14,6 +14,7 @@ package vazkii.botania.common.item.lens;
 import java.awt.Color;
 import java.util.List;
 
+import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.common.lib.LibItemIDs;
 import vazkii.botania.common.lib.LibItemNames;
 import net.minecraft.creativetab.CreativeTabs;
@@ -45,6 +46,11 @@ public class ItemColorLens extends ItemLens {
 	public int getLensColor(ItemStack stack) {
 		float[] color = EntitySheep.fleeceColorTable[stack.getItemDamage()];
 		return new Color(color[0], color[1], color[2]).getRGB();
+	}
+
+	@Override
+	public void apply(ItemStack stack, BurstProperties props) {
+		props.color = getLensColor(stack);
 	}
 
 }

@@ -41,18 +41,13 @@ public abstract class ItemLens extends ItemMod implements ILens {
 	}
 	
 	@Override
-	public Icon getRingIcon(ItemStack stack) {
-		return iconRing;
-	}
-	
-	@Override
 	public Icon getIconFromDamageForRenderPass(int par1, int par2) {
-		return par2 == 1 ? iconRing : iconGlass;
+		return par2 == 0 ? iconRing : iconGlass;
 	}
 
 	@Override
 	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
-		return par2 == 0 ? getLensColor(par1ItemStack) : 0xFFFFFF;
+		return par2 == 1 ? getLensColor(par1ItemStack) : 0xFFFFFF;
 	}
 	
 }

@@ -23,9 +23,12 @@ import net.minecraftforge.client.IItemRenderer;
 
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.api.mana.ILens;
+import vazkii.botania.common.item.lens.ItemLens;
+
 public class RenderLens implements IItemRenderer {
 
-	RenderItem render = new RenderItem();
+	static RenderItem render = new RenderItem();
 	ItemRenderer renderer  = new ItemRenderer(Minecraft.getMinecraft());
 
 	@Override
@@ -42,15 +45,15 @@ public class RenderLens implements IItemRenderer {
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
 		switch(type) {
 		case INVENTORY : {
-			Icon icon = item.getItem().getIconFromDamageForRenderPass(0, 1);
+			Icon icon = item.getItem().getIconFromDamageForRenderPass(0, 0);
 			GL11.glColor4f(1F, 1F, 1F, 1F);
 			render.renderIcon(0, 0, icon, 16, 16);
 
 			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			Color color = new Color(item.getItem().getColorFromItemStack(item, 0));
+			Color color = new Color(((ILens) item.getItem()).getLensColor(item));
 			GL11.glColor4ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue(), (byte) 255);
-			icon = item.getItem().getIconFromDamageForRenderPass(0, 0);
+			icon = item.getItem().getIconFromDamageForRenderPass(0, 1);
 			render.renderIcon(0, 0, icon, 16, 16);
 			GL11.glDisable(GL11.GL_BLEND);
 			break;
@@ -58,44 +61,54 @@ public class RenderLens implements IItemRenderer {
 		case ENTITY : {
 			GL11.glPushMatrix();
 			GL11.glTranslatef(-0.5F, 0F, 0F);
-			render(item, false);
+			render(item);
 			GL11.glPopMatrix();
 			break;
 		}
 		case EQUIPPED : {
-			render(item, false);
+			render(item);
 			break;
 		}
 		case EQUIPPED_FIRST_PERSON : {
-			render(item, false);
+			render(item);
 			break;
 		}
 		default : break;
 		}
 	}
 	
-	public void render(ItemStack item, boolean inventory) {
-		Icon icon = item.getItem().getIconFromDamageForRenderPass(0, 1);
+	public static void render(ItemStack item) {
+		Color color = new Color(((ILens) item.getItem()).getLensColor(item));
+		render(item, color.getRGB());
+	}
+	
+	public static void render(ItemStack item, int color_) {
+		Icon icon = item.getItem().getIconFromDamageForRenderPass(0, 0);
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();
 		float f2 = icon.getMinV();
 		float f3 = icon.getMaxV();
-		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / (inventory ? 1F : 16F));
-		
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glDisable(GL11.GL_LIGHTING);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		icon = item.getItem().getIconFromDamageForRenderPass(0, 0);
 		float scale = 1F / 16F;
+		
+		GL11.glColor4f(1F, 1F, 1F, 1F);
+		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), scale);
+		
+		GL11.glPushMatrix();
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		Color color = new Color(color_);
+		GL11.glColor4ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue(), (byte) 255);
+
+		icon = ItemLens.iconGlass;
 		GL11.glScalef(scale, scale, scale);
 		GL11.glTranslatef(0F, 0F, -0.5F);
-		Color color = new Color(item.getItem().getColorFromItemStack(item, 0));
-		GL11.glColor4ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue(), (byte) 255);
 		render.renderIcon(0, 0, icon, 16, 16);
 		GL11.glRotatef(180F, 0F, 1F, 0F);
 		GL11.glTranslatef(-16F, 0F, 0F);
 		render.renderIcon(0, 0, icon, 16, 16);
+
 		GL11.glDisable(GL11.GL_BLEND);
+		GL11.glPopMatrix();
 	}
 
 }

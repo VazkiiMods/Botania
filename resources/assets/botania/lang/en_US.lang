@@ -79,6 +79,22 @@ item.botania:twigWand.name=Wand of the Forest
 item.botania:manasteel.name=Manasteel Ingot
 item.botania:manaPearl.name=Mana Pearl
 item.botania:manaDiamond.name=Mana Diamond
+item.botania:colorLens0.name=White Tinted Lens
+item.botania:colorLens1.name=Orange Tinted Lens
+item.botania:colorLens2.name=Magenta Tinted Lens
+item.botania:colorLens3.name=Light Blue Tinted Lens
+item.botania:colorLens4.name=Yellow Tinted Lens
+item.botania:colorLens5.name=Lime Tinted Lens
+item.botania:colorLens6.name=Pink Tinted Lens
+item.botania:colorLens7.name=Gray Tinted Lens
+item.botania:colorLens8.name=Light Gray Tinted Lens
+item.botania:colorLens9.name=Cyan Tinted Lens
+item.botania:colorLens10.name=Purple Tinted Lens
+item.botania:colorLens11.name=Blue Tinted Lens
+item.botania:colorLens12.name=Brown Tinted Lens
+item.botania:colorLens13.name=Green Tinted Lens
+item.botania:colorLens14.name=Red Tinted Lens
+item.botania:colorLens15.name=Black Tinted Lens
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania Index - Pick which category you would like to study:
