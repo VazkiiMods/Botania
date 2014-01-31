@@ -11,8 +11,11 @@
  */
 package vazkii.botania.common.block.tile;
 
+import org.lwjgl.opengl.GL11;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -268,6 +271,23 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 		String name = ModBlocks.spreader.getLocalizedName();
 		int color = 0x6600FF00;
 		HUDHandler.drawSimpleManaHUD(color, knownMana, MAX_MANA, name, res);
+		
+		ItemStack lens = getStackInSlot(0);
+		if(lens != null) {
+			GL11.glEnable(GL11.GL_BLEND);
+			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			String lensName = lens.getDisplayName();
+			int width = 16 + mc.fontRenderer.getStringWidth(lensName) / 2;
+			int x = res.getScaledWidth() / 2 - width;
+			int y = res.getScaledHeight() / 2 + 30;
+			
+			mc.fontRenderer.drawStringWithShadow(lensName, x + 20, y + 5, color);
+			new RenderItem().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, lens, x, y);
+			GL11.glDisable(GL11.GL_LIGHTING);
+			GL11.glDisable(GL11.GL_BLEND);
+		}
+
+		GL11.glColor4f(1F, 1F, 1F, 1F);
 	}
 
 	@Override

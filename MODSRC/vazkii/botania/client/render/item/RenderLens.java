@@ -107,9 +107,9 @@ public class RenderLens implements IItemRenderer {
 		GL11.glRotatef(180F, 0F, 1F, 0F);
 		GL11.glTranslatef(-16F, 0F, 0F);
 		renderShinyLensIcon(icon);
-		
-		GL11.glDisable(GL11.GL_BLEND);
 		GL11.glPopMatrix();
+		
+		GL11.glColor4f(1F, 1F, 1F, 1F);
 	}
 	
 	public static void renderShinyLensIcon(Icon icon) {
