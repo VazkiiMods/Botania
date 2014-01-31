@@ -169,13 +169,13 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 					Vector3 relative = new Vector3(-0.5, 0, 0);
 					double angle = Math.acos(clickVector.dotProduct(relative) / (relative.mag() * clickVector.mag())) * 180D / Math.PI;
 
-					rotationX = (float) angle;
+					rotationX = (float) angle + 180;
 					if(clickVector.z < 0)
 						rotationX = 360 - rotationX;
 				}
 
-				double angle = y * 180;			
-				rotationY = (float) angle;
+				double angle = y * 180;
+				rotationY = -(float) angle;
 				
 				EntityManaBurst fakeBurst = getBurst(true);
 				TileEntity receiver = fakeBurst.getCollidedTile(true);
@@ -282,12 +282,34 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 			String lensName = lens.getDisplayName();
 			int width = 16 + mc.fontRenderer.getStringWidth(lensName) / 2;
 			int x = res.getScaledWidth() / 2 - width;
-			int y = res.getScaledHeight() / 2 + 30;
+			int y = res.getScaledHeight() / 2 + 50;
 			
 			mc.fontRenderer.drawStringWithShadow(lensName, x + 20, y + 5, color);
+			GL11.glDisable(GL11.GL_DEPTH_TEST);
 			new RenderItem().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, lens, x, y);
+			GL11.glEnable(GL11.GL_DEPTH_TEST);
 			GL11.glDisable(GL11.GL_LIGHTING);
 			GL11.glDisable(GL11.GL_BLEND);
+		}
+		
+		if(receiver != null) {
+			TileEntity receiverTile = (TileEntity) receiver;
+			ItemStack recieverStack = new ItemStack(worldObj.getBlockId(receiverTile.xCoord, receiverTile.yCoord, receiverTile.zCoord), 1, receiverTile.getBlockMetadata());
+			if(lens != null) {
+				GL11.glEnable(GL11.GL_BLEND);
+				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+				String stackName = recieverStack.getDisplayName();
+				int width = 16 + mc.fontRenderer.getStringWidth(stackName) / 2;
+				int x = res.getScaledWidth() / 2 - width;
+				int y = res.getScaledHeight() / 2 + 30;
+				
+				mc.fontRenderer.drawStringWithShadow(stackName, x + 20, y + 5, color);
+				GL11.glDisable(GL11.GL_DEPTH_TEST);
+				new RenderItem().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, recieverStack, x, y);
+				GL11.glEnable(GL11.GL_DEPTH_TEST);
+				GL11.glDisable(GL11.GL_LIGHTING);
+				GL11.glDisable(GL11.GL_BLEND);
+			}
 		}
 
 		GL11.glColor4f(1F, 1F, 1F, 1F);

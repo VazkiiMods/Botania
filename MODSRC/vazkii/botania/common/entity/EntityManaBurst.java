@@ -79,23 +79,27 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 	@Override
 	public void onUpdate() {
-		super.onUpdate();
-		
-		ILens lens = getLensInstance();
-		if(lens != null)
-			lens.updateBurst(this, getSourceLens());
+		try {
+			super.onUpdate();
+			
+			ILens lens = getLensInstance();
+			if(lens != null)
+				lens.updateBurst(this, getSourceLens());
 
-		particles();
+			particles();
 
-		int mana = getMana();
-		if(ticksExisted >= getMinManaLoss()) {
-			accumulatedManaLoss += getManaLossPerTick();
-			int loss = (int) accumulatedManaLoss;
-			setMana(mana - loss);
-			accumulatedManaLoss -= loss;
+			int mana = getMana();
+			if(ticksExisted >= getMinManaLoss()) {
+				accumulatedManaLoss += getManaLossPerTick();
+				int loss = (int) accumulatedManaLoss;
+				setMana(mana - loss);
+				accumulatedManaLoss -= loss;
 
-			if(getMana() <= 0)
-				setDead();
+				if(getMana() <= 0)
+					setDead();
+			}
+		} catch(NullPointerException e) {
+			
 		}
 	}
 
