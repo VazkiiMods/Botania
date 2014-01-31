@@ -226,7 +226,8 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 		int color = 0x00FF00;
 		int ticksBeforeManaLoss = 100;
 		float manaLossPerTick = 2F;
-		BurstProperties props = new BurstProperties(maxMana, ticksBeforeManaLoss, manaLossPerTick, color);
+		float gravity = 0F;
+		BurstProperties props = new BurstProperties(maxMana, ticksBeforeManaLoss, manaLossPerTick, gravity, color);
 		
 		ItemStack lens = getStackInSlot(0);
 		if(lens != null)
@@ -238,6 +239,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 			burst.setStartingMana(props.maxMana);
 			burst.setMinManaLoss(props.ticksBeforeManaLoss);
 			burst.setManaLossPerTick(props.manaLossPerTick);
+			burst.setGravity(gravity);
 
 			return burst;
 		}

@@ -21,11 +21,13 @@ public final class BurstProperties {
 	public int ticksBeforeManaLoss;
 	public float manaLossPerTick;
 	public int color;
+	public float gravity;
 	
-	public BurstProperties(int maxMana, int ticksBeforeManaLoss, float manaLossPerTick, int color) {
+	public BurstProperties(int maxMana, int ticksBeforeManaLoss, float manaLossPerTick, float gravity, int color) {
 		this.maxMana = maxMana;
 		this.ticksBeforeManaLoss = ticksBeforeManaLoss;
 		this.manaLossPerTick = manaLossPerTick;
+		this.gravity = gravity;
 		this.color = color;
 	}
 	

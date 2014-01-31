@@ -25,4 +25,5 @@ public interface ILens {
 	public int getLensColor(ItemStack stack);
 	
 	public void apply(ItemStack stack, BurstProperties props);
+	
 }

@@ -21,12 +21,13 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileSpreader;
 
-public class EntityManaBurst extends EntityThrowable {
+public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 	private static final String TAG_COLOR = "color";
 	private static final String TAG_MANA = "mana";
@@ -36,15 +37,19 @@ public class EntityManaBurst extends EntityThrowable {
 	private static final String TAG_SPREADER_X = "spreaderX";
 	private static final String TAG_SPREADER_Y = "spreaderY";
 	private static final String TAG_SPREADER_Z = "spreaderZ";
-
+	private static final String TAG_GRAVITY = "gravity";
+	
 	boolean fake = false;
+	
+	final int dataWatcherEntries = 9;
+	final int dataWatcherStart = 32 - dataWatcherEntries;
 
 	public EntityManaBurst(World world) {
 		super(world);
 		setSize(0F, 0F);
-		for(int i = 0; i < 8; i++) {
-			int j = 24 + i;
-			if(j == 28)
+		for(int i = 0; i < dataWatcherEntries; i++) {
+			int j = dataWatcherStart + i;
+			if(i == 4 || i == 5)
 				dataWatcher.addObject(j, 0F);
 			else dataWatcher.addObject(j, 0);
 
@@ -107,6 +112,7 @@ public class EntityManaBurst extends EntityThrowable {
 		par1nbtTagCompound.setInteger(TAG_STARTING_MANA, getStartingMana());
 		par1nbtTagCompound.setInteger(TAG_MIN_MANA_LOSS, getMinManaLoss());
 		par1nbtTagCompound.setFloat(TAG_TICK_MANA_LOSS, getManaLossPerTick());
+		par1nbtTagCompound.setFloat(TAG_GRAVITY, getGravity());
 
 		ChunkCoordinates coords = getBurstSourceChunkCoordinates();
 		par1nbtTagCompound.setInteger(TAG_SPREADER_X, coords.posX);
@@ -122,7 +128,8 @@ public class EntityManaBurst extends EntityThrowable {
 		setStartingMana(par1nbtTagCompound.getInteger(TAG_STARTING_MANA));
 		setMinManaLoss(par1nbtTagCompound.getInteger(TAG_MIN_MANA_LOSS));
 		setManaLossPerTick(par1nbtTagCompound.getFloat(TAG_TICK_MANA_LOSS));
-
+		setGravity(par1nbtTagCompound.getFloat(TAG_GRAVITY));
+		
 		int x = par1nbtTagCompound.getInteger(TAG_SPREADER_X);
 		int y = par1nbtTagCompound.getInteger(TAG_SPREADER_Y);
 		int z = par1nbtTagCompound.getInteger(TAG_SPREADER_Z);
@@ -183,60 +190,86 @@ public class EntityManaBurst extends EntityThrowable {
 
 	@Override
 	protected float getGravityVelocity() {
-		return 0F;
+		return getGravity();
 	}
 
+	@Override
 	public int getColor() {
-		return dataWatcher.getWatchableObjectInt(24);
+		return dataWatcher.getWatchableObjectInt(dataWatcherStart);
 	}
 
+	@Override
 	public void setColor(int color) {
-		dataWatcher.updateObject(24, color);
+		dataWatcher.updateObject(dataWatcherStart, color);
 	}
 
+	@Override
 	public int getMana() {
-		return dataWatcher.getWatchableObjectInt(25);
+		return dataWatcher.getWatchableObjectInt(dataWatcherStart + 1);
 	}
 
+	@Override
 	public void setMana(int mana) {
-		dataWatcher.updateObject(25, mana);
+		dataWatcher.updateObject(dataWatcherStart + 1, mana);
 	}
 
+	@Override
 	public int getStartingMana() {
-		return dataWatcher.getWatchableObjectInt(26);
+		return dataWatcher.getWatchableObjectInt(dataWatcherStart + 2);
 	}
 
+	@Override
 	public void setStartingMana(int mana) {
-		dataWatcher.updateObject(26, mana);
+		dataWatcher.updateObject(dataWatcherStart + 2, mana);
 	}
 
+	@Override
 	public int getMinManaLoss() {
-		return dataWatcher.getWatchableObjectInt(27);
+		return dataWatcher.getWatchableObjectInt(dataWatcherStart + 3);
 	}
-
+	
+	@Override
 	public void setMinManaLoss(int minManaLoss) {
-		dataWatcher.updateObject(27, minManaLoss);
+		dataWatcher.updateObject(dataWatcherStart + 3, minManaLoss);
 	}
 
+	@Override
 	public float getManaLossPerTick() {
-		return dataWatcher.getWatchableObjectFloat(28);
+		return dataWatcher.getWatchableObjectFloat(dataWatcherStart + 4);
 	}
 
+	@Override
 	public void setManaLossPerTick(float mana) {
-		dataWatcher.updateObject(28, mana);
+		dataWatcher.updateObject(dataWatcherStart + 4, mana);
+	}
+	
+
+	@Override
+	public float getGravity() {
+		return dataWatcher.getWatchableObjectFloat(dataWatcherStart + 5);
 	}
 
+	@Override
+	public void setGravity(float gravity) {
+		dataWatcher.updateObject(dataWatcherStart + 5, gravity);
+	}
+
+	
+	final int coordsStart = dataWatcherStart + 6;
+	
+	@Override
 	public ChunkCoordinates getBurstSourceChunkCoordinates() {
-		int x = dataWatcher.getWatchableObjectInt(29);
-		int y = dataWatcher.getWatchableObjectInt(30);
-		int z = dataWatcher.getWatchableObjectInt(31);
+		int x = dataWatcher.getWatchableObjectInt(coordsStart);
+		int y = dataWatcher.getWatchableObjectInt(coordsStart + 1);
+		int z = dataWatcher.getWatchableObjectInt(coordsStart + 2);
 
 		return new ChunkCoordinates(x, y, z);
 	}
 
+	@Override
 	public void setBurstSourceCoords(int x, int y, int z) {
-		dataWatcher.updateObject(29, x);
-		dataWatcher.updateObject(30, y);
-		dataWatcher.updateObject(31, z);
+		dataWatcher.updateObject(coordsStart, x);
+		dataWatcher.updateObject(coordsStart + 1, y);
+		dataWatcher.updateObject(coordsStart + 2, z);
 	}
 }
