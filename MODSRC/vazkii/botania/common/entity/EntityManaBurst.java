@@ -40,6 +40,8 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	private static final String TAG_SPREADER_Z = "spreaderZ";
 	private static final String TAG_GRAVITY = "gravity";
 	
+	double lastXMotion, lastYMotion, lastZMotion;
+	
 	boolean fake = false;
 	
 	final int dataWatcherEntries = 10;
@@ -70,9 +72,9 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		rotationPitch = spreader.rotationY;
 
 		float f = 0.4F;
-		motionX = (MathHelper.sin(rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float) Math.PI) * f) / 2D;
-		motionZ = -(MathHelper.cos(rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float) Math.PI) * f) / 2D;
-		motionY = (MathHelper.sin((rotationPitch + func_70183_g()) / 180.0F * (float) Math.PI) * f) / 2D;
+		lastXMotion = motionX = (MathHelper.sin(rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float) Math.PI) * f) / 2D;
+		lastYMotion = motionZ = -(MathHelper.cos(rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float) Math.PI) * f) / 2D;
+		lastZMotion = motionY = (MathHelper.sin((rotationPitch + func_70183_g()) / 180.0F * (float) Math.PI) * f) / 2D;
 	}
 
 	float accumulatedManaLoss = 0;
@@ -80,6 +82,10 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	@Override
 	public void onUpdate() {
 		try {
+			motionX = lastXMotion;
+			motionY = lastYMotion;
+			motionZ = lastZMotion;
+			
 			super.onUpdate();
 			
 			ILens lens = getLensInstance();
@@ -98,8 +104,12 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 				if(getMana() <= 0)
 					setDead();
 			}
-		} catch(NullPointerException e) {
 			
+			lastXMotion = motionX;
+			lastYMotion = motionY;
+			lastZMotion = motionZ;
+		} catch(NullPointerException e) {
+			// Apparently this can happen on some weird occasions on clients.
 		}
 	}
 

@@ -101,7 +101,6 @@ public class SubTileGenerating extends SubTileEntity {
 			if(!collector.isFull()) {
 				collector.recieveMana(mana);
 				mana = 0;
-				PacketDispatcher.sendPacketToAllInDimension(linkedCollector.getDescriptionPacket(), supertile.worldObj.provider.dimensionId);
 			}
 		}
 	}

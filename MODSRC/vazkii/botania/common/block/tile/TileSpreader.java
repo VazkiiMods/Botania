@@ -46,7 +46,6 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 
 	private static final int MAX_MANA = 1000;
 	private static final String TAG_MANA = "mana";
-	private static final String TAG_CAN_SHOOT = "canShoot";
 	private static final String TAG_KNOWN_MANA = "knownMana";
 	private static final String TAG_ROTATION_X = "rotationX";
 	private static final String TAG_ROTATION_Y = "rotationY";
