@@ -12,18 +12,26 @@
 package vazkii.botania.common.entity;
 
 import java.awt.Color;
+import java.util.List;
 
+import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.IManaReceiver;
+import vazkii.botania.client.core.helper.Vector3;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileSpreader;
 import cpw.mods.fml.common.network.PacketDispatcher;
@@ -80,13 +88,106 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 	float accumulatedManaLoss = 0;
 
+	private int ticksInAir;
+
+	// Hacked code copied from super.onUpdate, to use Vector3 rather than the world vector pool
+	public void superUpdate() {
+		lastTickPosX = posX;
+		lastTickPosY = posY;
+		lastTickPosZ = posZ;
+		onEntityUpdate();
+
+		if(throwableShake > 0)
+			--throwableShake;
+
+		Vec3 vec3 = new Vector3(posX, posY, posZ).toVec3D();
+		Vec3 vec31 = new Vector3(posX + motionX, posY + motionY, posZ + motionZ).toVec3D();
+		MovingObjectPosition movingobjectposition = worldObj.clip(vec3, vec31);
+
+		if(movingobjectposition != null)
+			vec31 = new Vector3(movingobjectposition.hitVec.xCoord, movingobjectposition.hitVec.yCoord, movingobjectposition.hitVec.zCoord).toVec3D();
+
+		if(!worldObj.isRemote) {
+			Entity entity = null;
+			List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.addCoord(motionX, motionY, motionZ).expand(1.0D, 1.0D, 1.0D));
+			double d0 = 0.0D;
+			EntityLivingBase entitylivingbase = getThrower();
+
+			for(int j = 0; j < list.size(); ++j) {
+				Entity entity1 = (Entity)list.get(j);
+
+				if(entity1.canBeCollidedWith() && (entity1 != entitylivingbase || ticksInAir >= 5)) {
+					float f = 0.3F;
+					AxisAlignedBB axisalignedbb = entity1.boundingBox.expand((double)f, (double)f, (double)f);
+					MovingObjectPosition movingobjectposition1 = axisalignedbb.calculateIntercept(vec3, vec31);
+
+					if(movingobjectposition1 != null) {
+						double d1 = vec3.distanceTo(movingobjectposition1.hitVec);
+
+						if (d1 < d0 || d0 == 0.0D) {
+							entity = entity1;
+							d0 = d1;
+						}
+					}
+				}
+			}
+
+			if(entity != null)
+				movingobjectposition = new MovingObjectPosition(entity);
+		}
+
+		if(movingobjectposition != null) {
+			if(movingobjectposition.typeOfHit == EnumMovingObjectType.TILE && worldObj.getBlockId(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ) == Block.portal.blockID)
+				setInPortal();
+			else onImpact(movingobjectposition);
+		}
+
+		posX += motionX;
+		posY += motionY;
+		posZ += motionZ;
+		float f1 = MathHelper.sqrt_double(motionX * motionX + motionZ * motionZ);
+		rotationYaw = (float)(Math.atan2(motionX, motionZ) * 180.0D / Math.PI);
+
+		for(rotationPitch = (float)(Math.atan2(motionY, (double)f1) * 180.0D / Math.PI); rotationPitch - prevRotationPitch < -180.0F; prevRotationPitch -= 360.0F);
+
+		while(rotationPitch - prevRotationPitch >= 180.0F)
+			prevRotationPitch += 360.0F;
+
+		while(rotationYaw - prevRotationYaw < -180.0F)
+			prevRotationYaw -= 360.0F;
+
+		while(rotationYaw - prevRotationYaw >= 180.0F)
+			prevRotationYaw += 360.0F;
+
+		rotationPitch = prevRotationPitch + (rotationPitch - prevRotationPitch) * 0.2F;
+		rotationYaw = prevRotationYaw + (rotationYaw - prevRotationYaw) * 0.2F;
+		float f2 = 0.99F;
+		float f3 = getGravityVelocity();
+
+		if(isInWater()) {
+			for (int k = 0; k < 4; ++k)
+			{
+				float f4 = 0.25F;
+				worldObj.spawnParticle("bubble", posX - motionX * (double)f4, posY - motionY * (double)f4, posZ - motionZ * (double)f4, motionX, motionY, motionZ);
+			}
+
+			f2 = 0.8F;
+		}
+
+		motionX *= (double)f2;
+		motionY *= (double)f2;
+		motionZ *= (double)f2;
+		motionY -= (double)f3;
+		setPosition(posX, posY, posZ);
+	}
+
 	@Override
 	public void onUpdate() {
 		motionX = lastXMotion;
 		motionY = lastYMotion;
 		motionZ = lastZMotion;
 
-		super.onUpdate();
+		superUpdate();
 
 		ILens lens = getLensInstance();
 		if(lens != null)
