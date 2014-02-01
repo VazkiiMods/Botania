@@ -85,9 +85,9 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 			ManaNetworkEvent.addCollector(this);
 			added = true;
 		}
-		
+
 		boolean redstone = false;
-		
+
 		for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
 			TileEntity tileAt = worldObj.getBlockTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ);
 			if(tileAt instanceof IManaPool) {
@@ -100,12 +100,12 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 					recieveMana(manaToRemove);
 				}
 			}
-			
+
 			int redstoneSide = worldObj.getIndirectPowerLevelTo(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ, dir.ordinal());
 			if(redstoneSide > 0)
 				redstone = true;
 		}
-		
+
 		if(!redstone)
 			tryShootBurst();
 	}
@@ -127,7 +127,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 
 		if(cmp.hasKey(TAG_KNOWN_MANA))
 			knownMana = cmp.getInteger(TAG_KNOWN_MANA);
-		
+
 		if(worldObj != null && worldObj.isRemote) {
 			EntityManaBurst fakeBurst = getBurst(true);
 			TileEntity receiver = fakeBurst.getCollidedTile(true);
@@ -175,7 +175,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 
 				double angle = y * 180;
 				rotationY = -(float) angle;
-				
+
 				EntityManaBurst fakeBurst = getBurst(true);
 				TileEntity receiver = fakeBurst.getCollidedTile(true);
 				if(receiver != null && receiver instanceof IManaReceiver)
@@ -199,7 +199,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 
 		if(receiver != null) {
 			forceCheckReceiver();
-			
+
 			if(receiver != null) {
 				if(canShootBurst && receiver.canRecieveManaFromBursts() && !receiver.isFull()) {
 					EntityManaBurst burst = getBurst(false);
@@ -213,7 +213,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 			}
 		}
 	}
-	
+
 	public void forceCheckReceiver() {
 		EntityManaBurst fakeBurst = getBurst(true);
 		TileEntity receiver = fakeBurst.getCollidedTile(true);
@@ -224,19 +224,19 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 
 	public EntityManaBurst getBurst(boolean fake) {
 		EntityManaBurst burst = new EntityManaBurst(worldObj, this, fake);
-		
+
 		int maxMana = 160;
 		int color = 0x00FF00;
-		int ticksBeforeManaLoss = 100;
-		float manaLossPerTick = 2F;
+		int ticksBeforeManaLoss = 60;
+		float manaLossPerTick = 4F;
 		float motionModifier = 1F;
 		float gravity = 0F;
 		BurstProperties props = new BurstProperties(maxMana, ticksBeforeManaLoss, manaLossPerTick, gravity, motionModifier, color);
-		
+
 		ItemStack lens = getStackInSlot(0);
 		if(lens != null)
 			((ILens) lens.getItem()).apply(lens, props);
-		
+
 		burst.setSourceLens(lens);
 		if(getCurrentMana() >= props.maxMana || fake) {
 			burst.setColor(props.color);
@@ -279,7 +279,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 		String name = ModBlocks.spreader.getLocalizedName();
 		int color = 0x6600FF00;
 		HUDHandler.drawSimpleManaHUD(color, knownMana, MAX_MANA, name, res);
-		
+
 		ItemStack lens = getStackInSlot(0);
 		if(lens != null) {
 			GL11.glEnable(GL11.GL_BLEND);
@@ -288,7 +288,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 			int width = 16 + mc.fontRenderer.getStringWidth(lensName) / 2;
 			int x = res.getScaledWidth() / 2 - width;
 			int y = res.getScaledHeight() / 2 + 50;
-			
+
 			mc.fontRenderer.drawStringWithShadow(lensName, x + 20, y + 5, color);
 			GL11.glDisable(GL11.GL_DEPTH_TEST);
 			new RenderItem().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, lens, x, y);
@@ -296,25 +296,23 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 			GL11.glDisable(GL11.GL_LIGHTING);
 			GL11.glDisable(GL11.GL_BLEND);
 		}
-		
+
 		if(receiver != null) {
 			TileEntity receiverTile = (TileEntity) receiver;
 			ItemStack recieverStack = new ItemStack(worldObj.getBlockId(receiverTile.xCoord, receiverTile.yCoord, receiverTile.zCoord), 1, receiverTile.getBlockMetadata());
-			if(lens != null) {
-				GL11.glEnable(GL11.GL_BLEND);
-				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-				String stackName = recieverStack.getDisplayName();
-				int width = 16 + mc.fontRenderer.getStringWidth(stackName) / 2;
-				int x = res.getScaledWidth() / 2 - width;
-				int y = res.getScaledHeight() / 2 + 30;
-				
-				mc.fontRenderer.drawStringWithShadow(stackName, x + 20, y + 5, color);
-				GL11.glDisable(GL11.GL_DEPTH_TEST);
-				new RenderItem().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, recieverStack, x, y);
-				GL11.glEnable(GL11.GL_DEPTH_TEST);
-				GL11.glDisable(GL11.GL_LIGHTING);
-				GL11.glDisable(GL11.GL_BLEND);
-			}
+			GL11.glEnable(GL11.GL_BLEND);
+			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			String stackName = recieverStack.getDisplayName();
+			int width = 16 + mc.fontRenderer.getStringWidth(stackName) / 2;
+			int x = res.getScaledWidth() / 2 - width;
+			int y = res.getScaledHeight() / 2 + 30;
+
+			mc.fontRenderer.drawStringWithShadow(stackName, x + 20, y + 5, color);
+			GL11.glDisable(GL11.GL_DEPTH_TEST);
+			new RenderItem().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, recieverStack, x, y);
+			GL11.glEnable(GL11.GL_DEPTH_TEST);
+			GL11.glDisable(GL11.GL_LIGHTING);
+			GL11.glDisable(GL11.GL_BLEND);
 		}
 
 		GL11.glColor4f(1F, 1F, 1F, 1F);
@@ -322,7 +320,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 
 	@Override
 	public void onClientDisplayTick() {
-		if(worldObj != null && worldObj.getWorldVec3Pool() != null) {
+		if(worldObj != null) {
 			EntityManaBurst burst = getBurst(true);
 			burst.getCollidedTile(false);
 		}
@@ -337,17 +335,17 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 	public String getInvName() {
 		return LibBlockNames.SPREADER;
 	}
-	
+
 	@Override
 	public int getInventoryStackLimit() {
 		return 1;
 	}
-	
+
 	@Override
 	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
 		return itemstack.getItem() instanceof ILens;
 	}
-	
+
 	@Override
 	public void onInventoryChanged() {
 		forceCheckReceiver();

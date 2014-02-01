@@ -19,15 +19,19 @@ import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeDirection;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.client.core.helper.Vector3;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemIDs;
 import vazkii.botania.common.lib.LibItemNames;
@@ -109,20 +113,25 @@ public class ItemLens extends ItemMod implements ILens {
 		switch(stack.getItemDamage()) {
 		case 1 : { // Speed
 			props.motionModifier = 2F;
-			props.maxMana *= 0.75F;
-			props.ticksBeforeManaLoss *= 0.5F;
+			props.maxMana *= 0.5F;
+			props.ticksBeforeManaLoss /= 3F;
+			props.manaLossPerTick *= 2F;
 			break;
 		}
 		case 2 : { // Potency
 			props.maxMana *= 2;
+			props.motionModifier *= 0.85F;
+			props.manaLossPerTick *= 2F;
 			break;
 		}
 		case 3 : { // Resistance
-			props.ticksBeforeManaLoss *= 2;
+			props.ticksBeforeManaLoss *= 2.25;
+			props.motionModifier *= 0.8F;
 			break;
 		}
 		case 4 : { // Efficiency
-			props.manaLossPerTick /= 2F;
+			props.manaLossPerTick /= 5F;
+			props.ticksBeforeManaLoss *= 1.1F;
 			break;
 		}
 		case 6 : { // Gravity
@@ -134,7 +143,23 @@ public class ItemLens extends ItemMod implements ILens {
 	
 	@Override
 	public void collideBurst(IManaBurst burst, MovingObjectPosition pos, boolean isManaBlock, ItemStack stack) {
-		// NO-OP
+		switch(stack.getItemDamage()) {
+		case 5 : {
+			if(!isManaBlock && pos.entityHit == null) {
+				ChunkCoordinates coords = burst.getBurstSourceChunkCoordinates();
+				if(coords.posX != pos.blockX || coords.posY != pos.blockY || coords.posZ != pos.blockZ) {
+					EntityThrowable entity = (EntityThrowable) burst;
+					Vector3 currentMovementVec = new Vector3(entity.motionX, entity.motionY, entity.motionZ);
+					ForgeDirection dir = ForgeDirection.getOrientation(pos.sideHit);
+					Vector3 normalVector = new Vector3(dir.offsetX, dir.offsetY, dir.offsetZ).normalize();
+					Vector3 movementVec = normalVector.multiply(-2 * currentMovementVec.dotProduct(normalVector)).add(currentMovementVec);
+					
+					burst.setMotion(movementVec.x, movementVec.y, movementVec.z);
+					entity.isDead = false;
+				}
+			}
+		}
+		}
 	}
 	
 	@Override

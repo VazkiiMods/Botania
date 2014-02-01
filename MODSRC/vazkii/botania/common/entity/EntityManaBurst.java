@@ -161,23 +161,8 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 		rotationPitch = prevRotationPitch + (rotationPitch - prevRotationPitch) * 0.2F;
 		rotationYaw = prevRotationYaw + (rotationYaw - prevRotationYaw) * 0.2F;
-		float f2 = 0.99F;
 		float f3 = getGravityVelocity();
-
-		if(isInWater()) {
-			for (int k = 0; k < 4; ++k)
-			{
-				float f4 = 0.25F;
-				worldObj.spawnParticle("bubble", posX - motionX * (double)f4, posY - motionY * (double)f4, posZ - motionZ * (double)f4, motionX, motionY, motionZ);
-			}
-
-			f2 = 0.8F;
-		}
-
-		motionX *= (double)f2;
-		motionY *= (double)f2;
-		motionZ *= (double)f2;
-		motionY -= (double)f3;
+		motionY -= f3;
 		setPosition(posX, posY, posZ);
 	}
 
@@ -270,7 +255,11 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		int mana = getMana();
 		int maxMana = getStartingMana();
 		float size = (float) mana / (float) maxMana;
+		
 		if(fake) {
+			if(getMana() == getStartingMana())
+				size = 2F;
+				
 			if(!noParticles)
 				Botania.proxy.sparkleFX(worldObj, posX, posY, posZ, r, g, b, 0.4F * size, 1, true);
 		} else Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.2F * size, (float) -motionX * 0.01F, (float) -motionY * 0.01F, (float) -motionZ * 0.01F);
@@ -284,7 +273,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			TileEntity tile = worldObj.getBlockTileEntity(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ);
 
 			ChunkCoordinates coords = getBurstSourceChunkCoordinates();
-			if((!fake || noParticles) && tile != null && (tile.xCoord != coords.posX || tile.yCoord != coords.posY || tile.zCoord != coords.posZ))
+			if(tile != null && (tile.xCoord != coords.posX || tile.yCoord != coords.posY || tile.zCoord != coords.posZ))
 				collidedTile = tile;
 
 			if(tile == null || tile.xCoord != coords.posX || tile.yCoord != coords.posY || tile.zCoord != coords.posZ) {
