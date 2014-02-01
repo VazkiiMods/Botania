@@ -39,11 +39,11 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	private static final String TAG_SPREADER_Y = "spreaderY";
 	private static final String TAG_SPREADER_Z = "spreaderZ";
 	private static final String TAG_GRAVITY = "gravity";
-	
+
 	double lastXMotion, lastYMotion, lastZMotion;
-	
+
 	boolean fake = false;
-	
+
 	final int dataWatcherEntries = 10;
 	final int dataWatcherStart = 32 - dataWatcherEntries;
 
@@ -82,36 +82,32 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 	@Override
 	public void onUpdate() {
-		try {
-			motionX = lastXMotion;
-			motionY = lastYMotion;
-			motionZ = lastZMotion;
-			
-			super.onUpdate();
-			
-			ILens lens = getLensInstance();
-			if(lens != null)
-				lens.updateBurst(this, getSourceLens());
+		motionX = lastXMotion;
+		motionY = lastYMotion;
+		motionZ = lastZMotion;
 
-			particles();
+		super.onUpdate();
 
-			int mana = getMana();
-			if(ticksExisted >= getMinManaLoss()) {
-				accumulatedManaLoss += getManaLossPerTick();
-				int loss = (int) accumulatedManaLoss;
-				setMana(mana - loss);
-				accumulatedManaLoss -= loss;
+		ILens lens = getLensInstance();
+		if(lens != null)
+			lens.updateBurst(this, getSourceLens());
 
-				if(getMana() <= 0)
-					setDead();
-			}
-			
-			lastXMotion = motionX;
-			lastYMotion = motionY;
-			lastZMotion = motionZ;
-		} catch(NullPointerException e) {
-			// Apparently this can happen on some weird occasions on clients.
+		particles();
+
+		int mana = getMana();
+		if(ticksExisted >= getMinManaLoss()) {
+			accumulatedManaLoss += getManaLossPerTick();
+			int loss = (int) accumulatedManaLoss;
+			setMana(mana - loss);
+			accumulatedManaLoss -= loss;
+
+			if(getMana() <= 0)
+				setDead();
 		}
+
+		lastXMotion = motionX;
+		lastYMotion = motionY;
+		lastZMotion = motionZ;
 	}
 
 	TileEntity collidedTile = null;
@@ -124,6 +120,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			++ticksExisted;
 			onUpdate();
 		}
+
 		return collidedTile;
 	}
 
@@ -152,7 +149,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		setMinManaLoss(par1nbtTagCompound.getInteger(TAG_MIN_MANA_LOSS));
 		setManaLossPerTick(par1nbtTagCompound.getFloat(TAG_TICK_MANA_LOSS));
 		setGravity(par1nbtTagCompound.getFloat(TAG_GRAVITY));
-		
+
 		int x = par1nbtTagCompound.getInteger(TAG_SPREADER_X);
 		int y = par1nbtTagCompound.getInteger(TAG_SPREADER_Y);
 		int z = par1nbtTagCompound.getInteger(TAG_SPREADER_Z);
@@ -181,7 +178,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	@Override
 	protected void onImpact(MovingObjectPosition movingobjectposition) {
 		boolean mana = false;
-		
+
 		if(movingobjectposition.entityHit == null) {
 			TileEntity tile = worldObj.getBlockTileEntity(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ);
 
@@ -190,16 +187,16 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 				collidedTile = tile;
 
 			if(tile == null || tile.xCoord != coords.posX || tile.yCoord != coords.posY || tile.zCoord != coords.posZ) {
-				if((!fake || noParticles) && !worldObj.isRemote && tile != null && tile instanceof IManaReceiver && ((IManaReceiver) tile).canRecieveManaFromBursts()) {
+				if(!fake && !noParticles && !worldObj.isRemote && tile != null && tile instanceof IManaReceiver && ((IManaReceiver) tile).canRecieveManaFromBursts()) {
 					mana = true;
 					((IManaReceiver) tile).recieveMana(getMana());
 					PacketDispatcher.sendPacketToAllInDimension(tile.getDescriptionPacket(), worldObj.provider.dimensionId);
 				}
-				
+
 				setDead();
 			}
 		}
-		
+
 		ILens lens = getLensInstance();
 		if(lens != null)
 			lens.collideBurst(this, movingobjectposition, mana, getSourceLens());
@@ -221,7 +218,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	protected float getGravityVelocity() {
 		return getGravity();
 	}
-	
+
 	@Override
 	public boolean isFake() {
 		return fake;
@@ -261,7 +258,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	public int getMinManaLoss() {
 		return dataWatcher.getWatchableObjectInt(dataWatcherStart + 3);
 	}
-	
+
 	@Override
 	public void setMinManaLoss(int minManaLoss) {
 		dataWatcher.updateObject(dataWatcherStart + 3, minManaLoss);
@@ -276,7 +273,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	public void setManaLossPerTick(float mana) {
 		dataWatcher.updateObject(dataWatcherStart + 4, mana);
 	}
-	
+
 
 	@Override
 	public float getGravity() {
@@ -288,9 +285,9 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		dataWatcher.updateObject(dataWatcherStart + 5, gravity);
 	}
 
-	
+
 	final int coordsStart = dataWatcherStart + 6;
-	
+
 	@Override
 	public ChunkCoordinates getBurstSourceChunkCoordinates() {
 		int x = dataWatcher.getWatchableObjectInt(coordsStart);
@@ -316,12 +313,12 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	public void setSourceLens(ItemStack lens) {
 		dataWatcher.updateObject(dataWatcherStart + 9, lens == null ? new ItemStack(1, 0, 0) : lens);
 	}
-	
+
 	public ILens getLensInstance() {
 		ItemStack lens = getSourceLens();
 		if(lens != null && lens.getItem() instanceof ILens)
 			return (ILens) lens.getItem();
-		
+
 		return null;
 	}
 

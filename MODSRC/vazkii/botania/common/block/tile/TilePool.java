@@ -31,7 +31,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 
-public class TilePool extends TileSimpleInventory implements IManaPool {
+public class TilePool extends TileMod implements IManaPool {
 
 	public static final int MAX_MANA = 1000000;
 
@@ -156,20 +156,5 @@ public class TilePool extends TileSimpleInventory implements IManaPool {
 	@Override
 	public int getCurrentMana() {
 		return mana;
-	}
-
-	@Override
-	public int getSizeInventory() {
-		return 1;
-	}
-
-	@Override
-	public int getInventoryStackLimit() {
-		return 1;
-	}
-
-	@Override
-	public String getInvName() {
-		return LibBlockNames.POOL;
 	}
 }

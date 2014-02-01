@@ -198,17 +198,13 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 		}
 
 		if(receiver != null) {
-			TileEntity tile = (TileEntity) receiver;
-			TileEntity tileAt = worldObj.getBlockTileEntity(tile.xCoord, tile.yCoord, tile.zCoord);
-			if(tileAt instanceof IManaReceiver)
-				receiver = (IManaReceiver) tileAt;
-			else receiver = null;
-
+			forceCheckReceiver();
+			
 			if(receiver != null) {
 				if(canShootBurst && receiver.canRecieveManaFromBursts() && !receiver.isFull()) {
 					EntityManaBurst burst = getBurst(false);
 					if(burst != null) {
-						mana -= burst.getMana();
+						mana -= burst.getStartingMana();
 						worldObj.spawnEntityInWorld(burst);
 						canShootBurst = false;
 						PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
@@ -216,6 +212,14 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 				}
 			}
 		}
+	}
+	
+	public void forceCheckReceiver() {
+		EntityManaBurst fakeBurst = getBurst(true);
+		TileEntity receiver = fakeBurst.getCollidedTile(true);
+		if(receiver != null && receiver instanceof IManaReceiver)
+			this.receiver = (IManaReceiver) receiver;
+		else this.receiver = null;
 	}
 
 	public EntityManaBurst getBurst(boolean fake) {
@@ -346,6 +350,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 	
 	@Override
 	public void onInventoryChanged() {
+		forceCheckReceiver();
 		PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
 	}
 }

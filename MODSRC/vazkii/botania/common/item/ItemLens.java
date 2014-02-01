@@ -109,6 +109,8 @@ public class ItemLens extends ItemMod implements ILens {
 		switch(stack.getItemDamage()) {
 		case 1 : { // Speed
 			props.motionModifier = 2F;
+			props.maxMana *= 0.75F;
+			props.ticksBeforeManaLoss *= 0.5F;
 			break;
 		}
 		case 2 : { // Potency
@@ -124,7 +126,7 @@ public class ItemLens extends ItemMod implements ILens {
 			break;
 		}
 		case 6 : { // Gravity
-			props.gravity = 0.003F;
+			props.gravity = 0.0015F;
 			break;
 		}
 		}
@@ -137,7 +139,9 @@ public class ItemLens extends ItemMod implements ILens {
 	
 	@Override
 	public void updateBurst(IManaBurst burst, ItemStack stack) {
-		// NO-OP
+		int storedColor = getStoredColor(stack);
+		if(storedColor == 16)
+			burst.setColor(getLensColor(stack));
 	}
 
 	@Override
