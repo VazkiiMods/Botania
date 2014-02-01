@@ -105,6 +105,29 @@ public class ItemLens extends ItemMod implements ILens {
 		int storedColor = getStoredColor(stack);
 		if(storedColor != -1)
 			props.color = getLensColor(stack);
+		
+		switch(stack.getItemDamage()) {
+		case 1 : { // Speed
+			props.motionModifier = 2F;
+			break;
+		}
+		case 2 : { // Potency
+			props.maxMana *= 2;
+			break;
+		}
+		case 3 : { // Resistance
+			props.ticksBeforeManaLoss *= 2;
+			break;
+		}
+		case 4 : { // Efficiency
+			props.manaLossPerTick /= 2F;
+			break;
+		}
+		case 6 : { // Gravity
+			props.gravity = 0.003F;
+			break;
+		}
+		}
 	}
 	
 	@Override

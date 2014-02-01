@@ -72,9 +72,10 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		rotationPitch = spreader.rotationY;
 
 		float f = 0.4F;
-		lastXMotion = motionX = (MathHelper.sin(rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float) Math.PI) * f) / 2D;
-		lastYMotion = motionZ = -(MathHelper.cos(rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float) Math.PI) * f) / 2D;
-		lastZMotion = motionY = (MathHelper.sin((rotationPitch + func_70183_g()) / 180.0F * (float) Math.PI) * f) / 2D;
+		double mx = (MathHelper.sin(rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float) Math.PI) * f) / 2D;
+		double mz = -(MathHelper.cos(rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float) Math.PI) * f) / 2D;
+		double my = (MathHelper.sin((rotationPitch + func_70183_g()) / 180.0F * (float) Math.PI) * f) / 2D;
+		setMotion(mx, my, mz);
 	}
 
 	float accumulatedManaLoss = 0;
@@ -221,7 +222,6 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		return getGravity();
 	}
 	
-
 	@Override
 	public boolean isFake() {
 		return fake;
@@ -323,5 +323,15 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			return (ILens) lens.getItem();
 		
 		return null;
+	}
+
+	@Override
+	public void setMotion(double x, double y, double z) {
+		motionX = x;
+		motionY = y;
+		motionZ = z;
+		lastXMotion = motionX;
+		lastYMotion = motionY;
+		lastZMotion = motionZ;
 	}
 }

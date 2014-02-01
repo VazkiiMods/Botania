@@ -168,7 +168,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 					Vector3 relative = new Vector3(-0.5, 0, 0);
 					double angle = Math.acos(clickVector.dotProduct(relative) / (relative.mag() * clickVector.mag())) * 180D / Math.PI;
 
-					rotationX = (float) angle + 180;
+					rotationX = (float) angle + 180F;
 					if(clickVector.z < 0)
 						rotationX = 360 - rotationX;
 				}
@@ -225,8 +225,9 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 		int color = 0x00FF00;
 		int ticksBeforeManaLoss = 100;
 		float manaLossPerTick = 2F;
+		float motionModifier = 1F;
 		float gravity = 0F;
-		BurstProperties props = new BurstProperties(maxMana, ticksBeforeManaLoss, manaLossPerTick, gravity, color);
+		BurstProperties props = new BurstProperties(maxMana, ticksBeforeManaLoss, manaLossPerTick, gravity, motionModifier, color);
 		
 		ItemStack lens = getStackInSlot(0);
 		if(lens != null)
@@ -239,7 +240,8 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 			burst.setStartingMana(props.maxMana);
 			burst.setMinManaLoss(props.ticksBeforeManaLoss);
 			burst.setManaLossPerTick(props.manaLossPerTick);
-			burst.setGravity(gravity);
+			burst.setGravity(props.gravity);
+			burst.setMotion(burst.motionX * props.motionModifier, burst.motionY * props.motionModifier, burst.motionZ * props.motionModifier);
 
 			return burst;
 		}
