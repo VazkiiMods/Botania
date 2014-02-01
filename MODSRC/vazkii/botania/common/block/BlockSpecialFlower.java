@@ -11,6 +11,7 @@
  */
 package vazkii.botania.common.block;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -123,10 +124,22 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	}
 	
 	@Override
-	public void breakBlock(World par1World, int par2, int par3, int par4, int par5, int par6) {
-		String name = ((TileSpecialFlower) par1World.getBlockTileEntity(par2, par3, par4)).subTileName;
-		dropBlockAsItem_do(par1World, par2, par3, par4, ItemBlockSpecialFlower.ofType(name));
-		super.breakBlock(par1World, par2, par3, par4, par5, par6);
+	public void onBlockHarvested(World par1World, int par2, int par3, int par4, int par5, EntityPlayer par6EntityPlayer) {
+		if(!par6EntityPlayer.capabilities.isCreativeMode)
+			dropBlockAsItem(par1World, par2, par3, par4, par5, 0);
+	}
+	
+	@Override
+	public ArrayList<ItemStack> getBlockDropped(World world, int x, int y, int z, int metadata, int fortune) {
+		ArrayList<ItemStack> list = new ArrayList();
+		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		
+		if(tile != null) {
+			String name = ((TileSpecialFlower) tile).subTileName;
+			list.add(ItemBlockSpecialFlower.ofType(name));
+		}
+		
+		return list;
 	}
 	
 	@Override
