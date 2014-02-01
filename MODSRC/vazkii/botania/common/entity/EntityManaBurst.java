@@ -267,8 +267,6 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 	@Override
 	protected void onImpact(MovingObjectPosition movingobjectposition) {
-		boolean mana = false;
-
 		if(movingobjectposition.entityHit == null) {
 			TileEntity tile = worldObj.getBlockTileEntity(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ);
 
@@ -278,7 +276,6 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 			if(tile == null || tile.xCoord != coords.posX || tile.yCoord != coords.posY || tile.zCoord != coords.posZ) {
 				if(!fake && !noParticles && !worldObj.isRemote && tile != null && tile instanceof IManaReceiver && ((IManaReceiver) tile).canRecieveManaFromBursts()) {
-					mana = true;
 					((IManaReceiver) tile).recieveMana(getMana());
 					PacketDispatcher.sendPacketToAllInDimension(tile.getDescriptionPacket(), worldObj.provider.dimensionId);
 				}
@@ -289,7 +286,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 		ILens lens = getLensInstance();
 		if(lens != null)
-			lens.collideBurst(this, movingobjectposition, mana, getSourceLens());
+			lens.collideBurst(this, movingobjectposition, collidedTile != null && collidedTile instanceof IManaReceiver && ((IManaReceiver) collidedTile).canRecieveManaFromBursts(), getSourceLens());
 	}
 
 	@Override

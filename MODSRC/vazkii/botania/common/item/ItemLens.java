@@ -113,7 +113,7 @@ public class ItemLens extends ItemMod implements ILens {
 		switch(stack.getItemDamage()) {
 		case 1 : { // Speed
 			props.motionModifier = 2F;
-			props.maxMana *= 0.5F;
+			props.maxMana *= 0.75F;
 			props.ticksBeforeManaLoss /= 3F;
 			props.manaLossPerTick *= 2F;
 			break;
@@ -125,7 +125,7 @@ public class ItemLens extends ItemMod implements ILens {
 			break;
 		}
 		case 3 : { // Resistance
-			props.ticksBeforeManaLoss *= 2.25;
+			props.ticksBeforeManaLoss *= 2.25F;
 			props.motionModifier *= 0.8F;
 			break;
 		}
@@ -136,6 +136,7 @@ public class ItemLens extends ItemMod implements ILens {
 		}
 		case 6 : { // Gravity
 			props.gravity = 0.0015F;
+			props.ticksBeforeManaLoss *= 1.2F;
 			break;
 		}
 		}
@@ -144,7 +145,7 @@ public class ItemLens extends ItemMod implements ILens {
 	@Override
 	public void collideBurst(IManaBurst burst, MovingObjectPosition pos, boolean isManaBlock, ItemStack stack) {
 		switch(stack.getItemDamage()) {
-		case 5 : {
+		case 5 : { // Bounce
 			if(!isManaBlock && pos.entityHit == null) {
 				ChunkCoordinates coords = burst.getBurstSourceChunkCoordinates();
 				if(coords.posX != pos.blockX || coords.posY != pos.blockY || coords.posZ != pos.blockZ) {
