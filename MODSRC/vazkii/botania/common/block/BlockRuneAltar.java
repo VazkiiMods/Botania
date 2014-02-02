@@ -16,6 +16,7 @@ import java.util.Random;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -60,6 +61,17 @@ public class BlockRuneAltar extends BlockModContainer {
 			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
 	}
 
+	@Override
+	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
+		ItemStack stack = par5EntityPlayer.getCurrentEquippedItem();
+		if(stack != null) {
+			((TileRuneAltar) par1World.getBlockTileEntity(par2, par3, par4)).addItem(par5EntityPlayer, stack);
+			return true;
+		}
+			
+		return false;
+	}
+	
 	@Override
 	public void breakBlock(World par1World, int par2, int par3, int par4, int par5, int par6) {
 		TileSimpleInventory inv = (TileSimpleInventory) par1World.getBlockTileEntity(par2, par3, par4);

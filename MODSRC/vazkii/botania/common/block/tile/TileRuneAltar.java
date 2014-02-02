@@ -18,6 +18,8 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class TileRuneAltar extends TileSimpleInventory implements ISidedInventory {
 
+	public float[] angles = new float[getSizeInventory()];
+	
 	public void addItem(EntityPlayer player, ItemStack stack) {
 		for(int i = 0; i < getSizeInventory(); i++)
 			if(getStackInSlot(i) == null) {
@@ -25,10 +27,41 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 				stackToAdd.stackSize = 1;
 				setInventorySlotContents(i, stackToAdd);
 				
-				stack.stackSize--;
-				if(stack.stackSize == 0)
-					player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+				if(!player.capabilities.isCreativeMode) {
+					stack.stackSize--;
+					if(stack.stackSize == 0)
+						player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+				}
+
+				break;
 			}
+	}
+	
+	@Override
+	public void updateEntity() {
+		super.updateEntity();
+		
+		for(int i = 0; i < angles.length; i++)
+			angles[i]++;
+	}
+	
+	@Override
+	public void setInventorySlotContents(int i, ItemStack itemstack) {
+		super.setInventorySlotContents(i, itemstack);
+		updateRotationAngles();
+	}
+	
+	public void updateRotationAngles() {
+		int items = 0;
+		for(int i = 0; i < getSizeInventory(); i++)
+			if(getStackInSlot(i) == null)
+				break;
+			else items++;
+		
+		float anglePer = 360F / (float) items;
+		float totalAngle = 0F;
+		for(int i = 0; i < angles.length; i++)
+			angles[i] = (totalAngle += anglePer);
 	}
 	
 	@Override
