@@ -18,7 +18,7 @@ public final class LibResources {
 	public static final String PREFIX_LANG = "/assets/botania/lang/";
 
 	public static final String PREFIX_GUI = PREFIX_MOD + "textures/gui/";
-	public static final String PREFIX_ENTRIES = PREFIX_GUI + "entries/";	
+	public static final String PREFIX_ENTRIES = PREFIX_GUI + "entries/";
 	public static final String PREFIX_MODEL = PREFIX_MOD + "textures/model/";
 	public static final String PREFIX_MISC = PREFIX_MOD + "textures/misc/";
 

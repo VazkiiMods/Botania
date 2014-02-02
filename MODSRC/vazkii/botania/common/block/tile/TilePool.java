@@ -27,7 +27,6 @@ import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 
@@ -69,7 +68,7 @@ public class TilePool extends TileMod implements IManaPool {
 		ItemStack stack = item.getEntityItem();
 		if(stack == null)
 			return false;
-		
+
 		for(RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes) {
 			if(recipe.matches(stack)) {
 				int mana = recipe.getManaToConsume();
@@ -78,7 +77,7 @@ public class TilePool extends TileMod implements IManaPool {
 					stack.stackSize--;
 					if(stack.stackSize == 0)
 						item.setDead();
-					
+
 					if(!worldObj.isRemote) {
 						ItemStack output = recipe.getOutput().copy();
 						EntityItem outputItem = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, output);
@@ -87,24 +86,24 @@ public class TilePool extends TileMod implements IManaPool {
 					craftingFanciness();
 					didChange = true;
 				}
-				
+
 				break;
 			}
 		}
 
 		return didChange;
 	}
-	
+
 	public void craftingFanciness() {
 		worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.levelup", 1F, 1F);
 		for(int i = 0; i < 25; i++) {
 			float red = (float) Math.random();
 			float green = (float) Math.random();
 			float blue = (float) Math.random();
-			Botania.proxy.sparkleFX(worldObj, xCoord + 0.5 + (Math.random() * 0.4) - 0.2, yCoord + 1, zCoord + 0.5 + (Math.random() * 0.4) - 0.2, red, green, blue, (float) Math.random(), 10);
+			Botania.proxy.sparkleFX(worldObj, xCoord + 0.5 + Math.random() * 0.4 - 0.2, yCoord + 1, zCoord + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
 		}
 	}
-	
+
 	@Override
 	public void updateEntity() {
 		if(!added) {
@@ -112,10 +111,10 @@ public class TilePool extends TileMod implements IManaPool {
 			added = true;
 		}
 		if(worldObj.isRemote) {
-			double particleChance = 1F - ((double) getCurrentMana() / (double) MAX_MANA) * 0.25;
+			double particleChance = 1F - (double) getCurrentMana() / (double) MAX_MANA * 0.25;
 			Color color = new Color(0x00C6FF);
 			if(Math.random() > particleChance)
-				Botania.proxy.wispFX(worldObj, xCoord + 0.3 + Math.random() * 0.5, yCoord + 0.6 + Math.random() * 0.25, zCoord + Math.random(), (float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F, (float) Math.random() / 3F, (float) -Math.random() / 25F);
+				Botania.proxy.wispFX(worldObj, xCoord + 0.3 + Math.random() * 0.5, yCoord + 0.6 + Math.random() * 0.25, zCoord + Math.random(), color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random() / 3F, (float) -Math.random() / 25F);
 		}
 	}
 

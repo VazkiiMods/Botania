@@ -11,8 +11,6 @@
  */
 package vazkii.botania.common.block.subtile;
 
-import java.util.Arrays;
-
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -28,30 +26,30 @@ public class SubTilePureDaisy extends SubTileEntity {
 	private static final String TAG_TICKS_REMAINING = "ticksRemaining";
 
 	private static final int[][] POSITIONS = new int[][] {
-			{ -1, 0, -1 },
-			{ -1, 0, 0 },
-			{ -1, 0, 1 },
-			{ 0, 0, 1 },
-			{ 1, 0, 1 },
-			{ 1, 0, 0 },
-			{ 1, 0, -1 },
-			{ 0, 0, -1 },
+		{ -1, 0, -1 },
+		{ -1, 0, 0 },
+		{ -1, 0, 1 },
+		{ 0, 0, 1 },
+		{ 1, 0, 1 },
+		{ 1, 0, 0 },
+		{ 1, 0, -1 },
+		{ 0, 0, -1 },
 	};
-	
+
 	int positionAt = 0;
 	int[] ticksRemaining = new int[] { 200, 200, 200, 200, 200, 200, 200, 200 };
-	
+
 	@Override
 	public boolean canUpdate() {
 		return true;
 	}
-	
+
 	@Override
 	public void onUpdate() {
 		positionAt++;
 		if(positionAt == POSITIONS.length)
 			positionAt = 0;
-		
+
 		int[] acoords = POSITIONS[positionAt];
 		ChunkCoordinates coords = new ChunkCoordinates(supertile.xCoord + acoords[0], supertile.yCoord + acoords[1], supertile.zCoord + acoords[2]);
 		Block block = Block.blocksList[supertile.worldObj.getBlockId(coords.posX, coords.posY, coords.posZ)];
@@ -62,11 +60,11 @@ public class SubTilePureDaisy extends SubTileEntity {
 				ticksRemaining[positionAt] = ticksRemaining[positionAt] - 1;
 
 				Botania.proxy.sparkleFX(supertile.worldObj, coords.posX + Math.random(), coords.posY + Math.random(), coords.posZ + Math.random(), 1F, 1F, 1F, (float) Math.random(), 5);
-				
+
 				if(ticksRemaining[positionAt] <= 0) {
 					supertile.worldObj.setBlock(coords.posX, coords.posY, coords.posZ, output);
 					ticksRemaining[positionAt] = 200;
-					
+
 					for(int i = 0; i < 25; i++) {
 						double x = coords.posX + Math.random();
 						double y = coords.posY + Math.random() + 0.5;
@@ -78,16 +76,16 @@ public class SubTilePureDaisy extends SubTileEntity {
 			} else ticksRemaining[positionAt] = 200;
 		}
 	}
-	
+
 	@Override
 	public void readFromPacketNBT(NBTTagCompound cmp) {
 		positionAt = cmp.getInteger(TAG_POSITION);
-		
+
 		if(supertile.worldObj != null && !supertile.worldObj.isRemote)
 			for(int i = 0; i < ticksRemaining.length; i++)
 				ticksRemaining[i] = cmp.getInteger(TAG_TICKS_REMAINING + i);
 	}
-	
+
 	@Override
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		cmp.setInteger(TAG_POSITION, positionAt);

@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -237,7 +236,7 @@ public class ItemLens extends ItemMod implements ILens {
 
 		if(storedColor == 16) {
 			World world = Minecraft.getMinecraft().theWorld;
-			return world == null ? 0xFFFFFF : Color.HSBtoRGB((float) ((world.getTotalWorldTime() * 2) % 360) / 360F, 1F, 1F);
+			return world == null ? 0xFFFFFF : Color.HSBtoRGB(world.getTotalWorldTime() * 2 % 360 / 360F, 1F, 1F);
 		}
 
 		float[] color = EntitySheep.fleeceColorTable[storedColor];

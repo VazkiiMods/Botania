@@ -19,7 +19,7 @@ import net.minecraft.world.World;
  * Any block that implements this can be used with the Wand for the Forest for some purpose.
  */
 public interface IWandable {
-	
+
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side);
 
 }

@@ -12,9 +12,9 @@
 package vazkii.botania.common.core.handler;
 
 import net.minecraft.block.Block;
+import net.minecraftforge.event.Event.Result;
 import net.minecraftforge.event.EventPriority;
 import net.minecraftforge.event.ForgeSubscribe;
-import net.minecraftforge.event.Event.Result;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType;
 import vazkii.botania.common.block.ModBlocks;
@@ -29,15 +29,15 @@ public class BiomeDecorationHandler {
 				int x = event.chunkX + event.world.rand.nextInt(16) + 8;
 				int y = event.world.rand.nextInt(128);
 				int z = event.chunkZ + event.world.rand.nextInt(16) + 8;
-				
-				 for (int j = 0; j < 96; j++) {
-			            int x1 = x + event.world.rand.nextInt(8) - event.world.rand.nextInt(8);
-			            int y1 = y + event.world.rand.nextInt(4) - event.world.rand.nextInt(4);
-			            int z1 = z + event.world.rand.nextInt(8) - event.world.rand.nextInt(8);
-	
-			            if (event.world.isAirBlock(x1, y1, z1) && (!event.world.provider.hasNoSky || y1 < 127) && Block.blocksList[ModBlocks.flower.blockID].canBlockStay(event.world, x1, y1, z1))
-			            	event.world.setBlock(x1, y1, z1, ModBlocks.flower.blockID, event.world.rand.nextInt(16), 2);
-			        }
+
+				for (int j = 0; j < 96; j++) {
+					int x1 = x + event.world.rand.nextInt(8) - event.world.rand.nextInt(8);
+					int y1 = y + event.world.rand.nextInt(4) - event.world.rand.nextInt(4);
+					int z1 = z + event.world.rand.nextInt(8) - event.world.rand.nextInt(8);
+
+					if (event.world.isAirBlock(x1, y1, z1) && (!event.world.provider.hasNoSky || y1 < 127) && Block.blocksList[ModBlocks.flower.blockID].canBlockStay(event.world, x1, y1, z1))
+						event.world.setBlock(x1, y1, z1, ModBlocks.flower.blockID, event.world.rand.nextInt(16), 2);
+				}
 			}
 	}
 }

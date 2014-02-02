@@ -11,9 +11,9 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.block.material.Material;
 import vazkii.botania.common.lib.LibBlockIDs;
 import vazkii.botania.common.lib.LibBlockNames;
-import net.minecraft.block.material.Material;
 
 public class BlockLivingwood extends BlockMod {
 

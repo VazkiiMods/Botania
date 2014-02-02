@@ -44,12 +44,12 @@ public class BlockPool extends BlockModContainer implements IHUD, IWandable {
 	public TileEntity createNewTileEntity(World world) {
 		return new TilePool();
 	}
-	
+
 	@Override
 	public void onEntityCollidedWithBlock(World par1World, int par2, int par3, int par4, Entity par5Entity) {
 		if(par5Entity instanceof EntityItem) {
 			TilePool tile = (TilePool) par1World.getBlockTileEntity(par2, par3, par4);
-			if(tile.collideEntityItem((EntityItem) par5Entity))				
+			if(tile.collideEntityItem((EntityItem) par5Entity))
 				PacketDispatcher.sendPacketToAllInDimension(tile.getDescriptionPacket(), par1World.provider.dimensionId);
 		}
 	}

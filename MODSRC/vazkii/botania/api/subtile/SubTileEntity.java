@@ -29,37 +29,37 @@ import cpw.mods.fml.relauncher.SideOnly;
  * a no parameter constructor.
  */
 public class SubTileEntity {
-	
+
 	protected TileEntity supertile;
-	
+
 	public void setSupertile(TileEntity tile) {
 		supertile = tile;
 	}
-	
-	public boolean canUpdate() { 
+
+	public boolean canUpdate() {
 		return false;
 	}
-	
+
 	public void onUpdate() { }
-	
+
 	/**
 	 * Writes some extra data to a network packet. This data is read
 	 * by readFromPacketNBT on the client that receives the packet.
 	 * Note: This method is also used to write to the world NBT.
 	 */
 	public void writeToPacketNBT(NBTTagCompound cmp) { }
-	
+
 	/**
 	 * Reads data from a network packet. This data is written by
 	 * writeToPacketNBT in the server. Note: This method is also used
 	 * to read from the world NBT.
 	 */
 	public void readFromPacketNBT(NBTTagCompound cmp) { }
-	
+
 	public String getUnlocalizedName() {
 		return BotaniaAPI.getSubTileStringMapping(getClass());
 	}
-	
+
 	/**
 	 * Gets the icon for this SubTileEntity, this is a block icon.
 	 */
@@ -75,14 +75,14 @@ public class SubTileEntity {
 	public boolean onWanded(EntityPlayer player, ItemStack wand) {
 		return false;
 	}
-	
+
 	/**
 	 * Gets which Lexicon Entry to open when this sub tile is right clicked with a lexicon.
 	 */
 	public LexiconEntry getEntry() {
 		return null;
 	}
-	
+
 	/**
 	 * Called on the client when the block being pointed at is the one with this sub tile.
 	 * Used to render a HUD portraying some data from this sub tile.

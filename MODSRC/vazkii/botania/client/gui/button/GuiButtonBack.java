@@ -36,7 +36,7 @@ public class GuiButtonBack extends GuiButton {
 		par1Minecraft.renderEngine.bindTexture(GuiLexicon.texture);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		drawTexturedModalRect(xPosition, yPosition, 36, k == 2 ? 180 : 189, 18, 9);
-		
+
 		if(k == 2)
 			RenderHelper.renderTooltip(par2, par3, Arrays.asList(StatCollector.translateToLocal("botaniamisc.back")));
 	}

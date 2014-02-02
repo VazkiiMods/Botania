@@ -99,7 +99,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry {
 		LexiconPage page = entry.pages.get(this.page);
 		page.renderScreen(this, par1, par2);
 	}
-	
+
 	@Override
 	public void updateScreen() {
 		LexiconPage page = entry.pages.get(this.page);

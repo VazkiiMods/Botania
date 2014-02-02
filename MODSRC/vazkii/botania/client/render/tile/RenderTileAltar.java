@@ -41,7 +41,7 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float pticks) {
 		TileAltar altar = (TileAltar) tileentity;
-		
+
 		GL11.glPushMatrix();
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
@@ -64,7 +64,7 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 				if(altar.getStackInSlot(i) != null)
 					petals++;
 				else break;
-			
+
 			if(petals > 0) {
 				final float modifier = 6F;
 				final float rotationModifier = 0.25F;
@@ -98,29 +98,29 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 					GL11.glRotatef(deg, xRotate, yRotate, zRotate);
 					GL11.glTranslatef(-v, -v, -v);
 					v *= 2F;
-					
+
 					GL11.glColor4f(1F, 1F, 1F, 1F);
 
 					ItemStack stack = altar.getStackInSlot(i);
 					Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
 					Icon icon = stack.getItem().getIcon(stack, 0);
-	                if(icon != null) {
-	                	Color color = new Color(stack.getItem().getColorFromItemStack(stack, 0));
-	                	GL11.glColor3ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
-	                	float f = icon.getMinU();
-	                	float f1 = icon.getMaxU();
-	                	float f2 = icon.getMinV();
-	                	float f3 = icon.getMaxV();
-	                	ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
-	                	GL11.glColor3f(1F, 1F, 1F);
-	                }
-	                
+					if(icon != null) {
+						Color color = new Color(stack.getItem().getColorFromItemStack(stack, 0));
+						GL11.glColor3ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
+						float f = icon.getMinU();
+						float f1 = icon.getMaxU();
+						float f2 = icon.getMinV();
+						float f3 = icon.getMaxV();
+						ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+						GL11.glColor3f(1F, 1F, 1F);
+					}
+
 					GL11.glPopMatrix();
 				}
-				
+
 				GL11.glPopMatrix();
 			}
-			
+
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 
 			GL11.glEnable(GL11.GL_BLEND);

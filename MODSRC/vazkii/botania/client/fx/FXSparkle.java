@@ -152,9 +152,9 @@ public class FXSparkle extends EntityFX
 			fx.noClip=true;
 			FMLClientHandler.instance().getClient().effectRenderer.addEffect(fx);
 		}
-		
-		 if(fake && particleAge > 1)
-             setDead();
+
+		if(fake && particleAge > 1)
+			setDead();
 	}
 
 	public void setGravity(float value) {

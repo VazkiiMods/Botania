@@ -122,7 +122,7 @@ public final class ItemNBTHelper {
 		return verifyExistance(stack, tag) ? getNBT(stack).getDouble(tag) : defaultExpected;
 	}
 
-	 /** If nullifyOnFail is true it'll return null if it doesn't find any
+	/** If nullifyOnFail is true it'll return null if it doesn't find any
 	 * compounds, otherwise it'll return a new one. **/
 	public static NBTTagCompound getCompound(ItemStack stack, String tag, boolean nullifyOnFail) {
 		return verifyExistance(stack, tag) ? getNBT(stack).getCompoundTag(tag) : nullifyOnFail ? null : new NBTTagCompound();

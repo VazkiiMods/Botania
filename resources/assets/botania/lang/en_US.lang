@@ -108,6 +108,22 @@ item.botania:lensBounce.name=Mana Lens: Bounce
 item.botania:lensGravity.name=Mana Lens: Gravity
 item.botania:lensMine.name=Mana Lens: Bore
 item.botania:lensDamage.name=Mana Lens: Damaging
+item.botania:manaPetal0.name=White Mana Petal
+item.botania:manaPetal1.name=Orange Mana Petal
+item.botania:manaPetal2.name=Magenta Mana Petal
+item.botania:manaPetal3.name=Light Blue Mana Petal
+item.botania:manaPetal4.name=Yellow Mana Petal
+item.botania:manaPetal5.name=Lime Mana Petal
+item.botania:manaPetal6.name=Pink Mana Petal
+item.botania:manaPetal7.name=Gray Mana Petal
+item.botania:manaPetal8.name=Light Gray Mana Petal
+item.botania:manaPetal9.name=Cyan Mana Petal
+item.botania:manaPetal10.name=Purple Mana Petal
+item.botania:manaPetal11.name=Blue Mana Petal
+item.botania:manaPetal12.name=Brown Mana Petal
+item.botania:manaPetal13.name=Green Mana Petal
+item.botania:manaPetal14.name=Red Mana Petal
+item.botania:manaPetal15.name=Black Mana Petal
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania Index - Pick which category you would like to study:

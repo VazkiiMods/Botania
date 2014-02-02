@@ -21,31 +21,31 @@ public class RecipePetals {
 
 	ItemStack output;
 	List<Integer> colors = new ArrayList();
-	
+
 	public RecipePetals(ItemStack output, int... colors) {
 		this.output = output;
 		for(int c : colors)
 			this.colors.add(c);
 	}
-	
+
 	public boolean matches(IInventory inv) {
 		List<Integer> colorsMissing = new ArrayList(colors);
-		
+
 		for(int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
 			if(stack == null)
 				break;
-			
+
 			int color = stack.getItemDamage();
-			
+
 			if(!colorsMissing.contains(color))
 				return false;
 			colorsMissing.remove((Integer) color);
 		}
-		
+
 		return colorsMissing.isEmpty();
 	}
-	
+
 	public ItemStack getOutput() {
 		return output;
 	}

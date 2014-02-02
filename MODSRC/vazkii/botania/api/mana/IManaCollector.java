@@ -20,7 +20,7 @@ package vazkii.botania.api.mana;
  * - On the first tick of onUpdate(), call </i>ManaNetworkEvent.addCollector(this);<i>
  */
 public interface IManaCollector extends IManaReceiver {
-	
+
 	/**
 	 * Called every tick on the client case the player is holding a Wand of the Forest.
 	 */

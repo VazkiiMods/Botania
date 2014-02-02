@@ -25,5 +25,5 @@ public interface ILexiconable {
 	 * Gets the lexicon entry to open at this location. null works too.
 	 */
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon);
-	
+
 }

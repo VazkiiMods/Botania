@@ -18,7 +18,6 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.Tessellator;
 
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 
 public final class RenderHelper {
 
@@ -35,7 +34,7 @@ public final class RenderHelper {
 
 		renderTooltip(x, y, tooltipData, color, color2);
 	}
-	
+
 	public static void renderTooltip(int x, int y, List<String> tooltipData, int color, int color2) {
 		boolean lighting = GL11.glGetBoolean(GL11.GL_LIGHTING);
 		if(lighting)
@@ -76,10 +75,10 @@ public final class RenderHelper {
 				var7 += 10;
 			}
 		}
-        GL11.glEnable(GL11.GL_DEPTH_TEST);
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		if(!lighting)
 			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
-        GL11.glColor4f(1F, 1F, 1F, 1F);
+		GL11.glColor4f(1F, 1F, 1F, 1F);
 	}
 
 	public static void drawGradientRect(int par1, int par2, float z, int par3, int par4, int par5, int par6) {

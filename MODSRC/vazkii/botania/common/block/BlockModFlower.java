@@ -27,7 +27,6 @@ import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.ILexiconable;
 import vazkii.botania.api.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
-import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockModFlower;
@@ -50,7 +49,7 @@ public class BlockModFlower extends BlockFlower implements ILexiconable {
 		setBlockBounds(0.3F, 0.0F, 0.3F, 0.8F, 1, 0.8F);
 		setTickRandomly(true);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
-		
+
 		for(int i = 0; i < 16; i++)
 			MinecraftForge.addGrassPlant(this, i, 3);
 	}
@@ -84,12 +83,12 @@ public class BlockModFlower extends BlockFlower implements ILexiconable {
 	public int damageDropped(int par1) {
 		return par1;
 	}
-	
+
 	@Override
 	public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random) {
 		int meta = par1World.getBlockMetadata(par2, par3, par4);
 		float[] color = EntitySheep.fleeceColorTable[meta];
-		
+
 		Botania.proxy.sparkleFX(par1World, par2 + 0.3 + par5Random.nextFloat() * 0.5, par3 + 0.5 + par5Random.nextFloat() * 0.5, par4 + 0.3 + par5Random.nextFloat() * 0.5, color[0], color[1], color[2], par5Random.nextFloat(), 5);
 	}
 

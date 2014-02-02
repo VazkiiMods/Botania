@@ -48,12 +48,12 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
-		
+
 		MinecraftForge.EVENT_BUS.register(new HUDHandler());
-		
+
 		initRenderers();
 	}
-	
+
 	private void initRenderers() {
 		LibRenderIDs.idAltar = RenderingRegistry.getNextAvailableRenderId();
 		LibRenderIDs.idSpecialFlower = RenderingRegistry.getNextAvailableRenderId();
@@ -64,7 +64,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerBlockHandler(new RenderSpecialFlower());
 		RenderingRegistry.registerBlockHandler(new RenderSpreader());
 		RenderingRegistry.registerBlockHandler(new RenderPool());
-		
+
 		RenderLens lensRender = new RenderLens();
 		MinecraftForgeClient.registerItemRenderer(ModItems.lens.itemID, lensRender);
 
@@ -72,12 +72,12 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileSpreader.class, new RenderTileSpreader());
 		ClientRegistry.bindTileEntitySpecialRenderer(TilePool.class, new RenderTilePool());
 	}
-	
+
 	@Override
 	public void setEntryToOpen(LexiconEntry entry) {
 		GuiLexicon.currentOpenLexicon = new GuiLexiconEntry(entry, new GuiLexiconIndex(entry.category));
 	}
-	
+
 	@Override
 	public void twigWandClientUpdate() {
 		for(TileEntity tile : ManaNetworkHandler.instance.getAllInWorld(ManaNetworkHandler.instance.manaCollectors, Minecraft.getMinecraft().thePlayer.dimension)) {
@@ -85,14 +85,14 @@ public class ClientProxy extends CommonProxy {
 				((IManaCollector) tile).onClientDisplayTick();
 		}
 	}
-	
+
 	@Override
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m, boolean fake) {
 		FXSparkle sparkle = new FXSparkle(world, x, y, z, size, r, g, b, m);
 		sparkle.fake = sparkle.noClip = fake;
 		Minecraft.getMinecraft().effectRenderer.addEffect(sparkle);
 	}
-	
+
 	@Override
 	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size, float motionx, float motiony, float motionz) {
 		FXWisp wisp = new FXWisp(world, x, y, z, size, r, g, b);

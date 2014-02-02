@@ -23,26 +23,26 @@ import vazkii.botania.api.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileEntity;
 
 public class TileSpecialFlower extends TileMod {
-	
+
 	private static final String TAG_SUBTILE_NAME = "subTileName";
 	private static final String TAG_SUBTILE_CMP = "subTileCmp";
-	
+
 	public String subTileName = "";
 	SubTileEntity subTile;
-	
+
 	public void setSubTile(String name) {
 		subTileName = name;
 		provideSubTile(subTileName);
 	}
-	
+
 	public void setSubTile(SubTileEntity tile) {
 		subTile = tile;
 		subTile.setSupertile(this);
 	}
-	
+
 	private void provideSubTile(String name) {
 		subTileName = name;
-		
+
 		Class<? extends SubTileEntity> tileClass = BotaniaAPI.getSubTileMapping(name);
 		try {
 			SubTileEntity tile = tileClass.newInstance();
@@ -51,18 +51,18 @@ public class TileSpecialFlower extends TileMod {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public void updateEntity() {
 		if(subTile != null)
 			subTile.onUpdate();
 	}
-	
+
 	@Override
 	public boolean canUpdate() {
 		return subTile == null || subTile.canUpdate();
 	}
-	
+
 	@Override
 	public void writeCustomNBT(NBTTagCompound cmp) {
 		super.writeCustomNBT(cmp);
@@ -72,34 +72,34 @@ public class TileSpecialFlower extends TileMod {
 		cmp.setCompoundTag(TAG_SUBTILE_CMP, subCmp);
 		subTile.writeToPacketNBT(cmp);
 	}
-	
+
 	@Override
 	public void readCustomNBT(NBTTagCompound cmp) {
 		super.readCustomNBT(cmp);
-		
+
 		subTileName = cmp.getString(TAG_SUBTILE_NAME);
 		NBTTagCompound subCmp = cmp.getCompoundTag(TAG_SUBTILE_CMP);
 
 		if(subTile == null || !BotaniaAPI.getSubTileStringMapping(subTile.getClass()).equals(subTileName))
 			provideSubTile(subTileName);
-		
+
 		subTile.readFromPacketNBT(subCmp);
 	}
-	
+
 	public Icon getIcon() {
 		return subTile == null ? Block.plantRed.getIcon(0, 0) : subTile.getIcon();
 	}
-	
+
 	public LexiconEntry getEntry() {
 		return subTile.getEntry();
 	}
-	
+
 	public boolean onWanded(ItemStack wand, EntityPlayer player) {
 		return subTile.onWanded(player, wand);
 	}
-	
+
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		subTile.renderHUD(mc, res);
 	}
-	
+
 }

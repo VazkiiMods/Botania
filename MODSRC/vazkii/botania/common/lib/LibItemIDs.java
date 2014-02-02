@@ -20,5 +20,6 @@ public final class LibItemIDs {
 	public static int idTwigWand = 19559;
 	public static int idManaResource = 19560;
 	public static int idLens = 19562;
+	public static int idManaPetal = 19563;
 
 }

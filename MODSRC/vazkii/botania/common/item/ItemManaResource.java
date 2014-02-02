@@ -25,19 +25,19 @@ public class ItemManaResource extends ItemMod {
 
 	final int types = 3;
 	Icon[] icons;
-	
+
 	public ItemManaResource() {
 		super(LibItemIDs.idManaResource);
 		setUnlocalizedName(LibItemNames.MANA_RESOURCE);
 		setHasSubtypes(true);
 	}
-	
+
 	@Override
 	public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List) {
 		for(int i = 0; i < types; i++)
 			par3List.add(new ItemStack(par1, 1, i));
 	}
-	
+
 	@Override
 	public void registerIcons(IconRegister par1IconRegister) {
 		icons = new Icon[types];
@@ -49,7 +49,7 @@ public class ItemManaResource extends ItemMod {
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
 		return "item." + LibItemNames.MANA_RESOURCE_NAMES[Math.min(types - 1, par1ItemStack.getItemDamage())];
 	}
-	
+
 	@Override
 	public Icon getIconFromDamage(int par1) {
 		return icons[Math.min(icons.length - 1, par1)];

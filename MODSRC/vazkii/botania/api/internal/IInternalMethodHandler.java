@@ -31,9 +31,9 @@ public interface IInternalMethodHandler {
 	public LexiconPage imagePage(String key, String resource);
 
 	public LexiconPage recipesPage(String key, List<IRecipe> recipes);
-	
+
 	public LexiconPage recipePage(String key, IRecipe recipe);
-	
+
 	public Icon getSubTileIconForName(String name);
 
 }

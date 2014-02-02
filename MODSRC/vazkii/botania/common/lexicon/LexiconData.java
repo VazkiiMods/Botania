@@ -50,11 +50,11 @@ public final class LexiconData {
 		flowers.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_FLOWERS), new PageText("2"), new PageCraftingRecipes("3", ModCrafingRecipes.recipesPetals), new PageCraftingRecipes("4", ModCrafingRecipes.recipePestleAndMortar), new PageCraftingRecipes("5", ModCrafingRecipes.recipesDyes));
 
 		apothecary = new BLexiconEntry(LibLexicon.BASICS_APOTHECARY, categoryBasics);
-		apothecary.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_APOTHECARY), new PageText("2"), new PageText("3"), new PageCraftingRecipes("4", ModCrafingRecipes.recipesApothecary)); 
-	
+		apothecary.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_APOTHECARY), new PageText("2"), new PageText("3"), new PageCraftingRecipes("4", ModCrafingRecipes.recipesApothecary));
+
 		lexicon = new BLexiconEntry(LibLexicon.BASICS_LEXICON, categoryBasics);
 		lexicon.setPriority().setLexiconPages(new PageText("0"), new PageCraftingRecipes("1", ModCrafingRecipes.recipeLexicon));
-	
+
 		wand = new BLexiconEntry(LibLexicon.BASICS_WAND, categoryBasics);
 		wand.setPriority().setLexiconPages(new PageText("0"), new PageCraftingRecipes("1", ModCrafingRecipes.recipesTwigWand));
 	}

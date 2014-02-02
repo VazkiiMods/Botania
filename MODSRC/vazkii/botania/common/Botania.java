@@ -11,7 +11,6 @@
  */
 package vazkii.botania.common;
 
-import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.proxy.CommonProxy;
 import vazkii.botania.common.lib.LibMisc;
@@ -49,7 +48,7 @@ public class Botania {
 	public void postInit(FMLPostInitializationEvent event) {
 		proxy.postInit(event);
 	}
-	
+
 	@EventHandler
 	public void serverStopping(FMLServerStoppingEvent event) {
 		ManaNetworkHandler.instance.clear();

@@ -25,7 +25,6 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibOreDict;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 public final class ModCrafingRecipes {
 
@@ -40,50 +39,50 @@ public final class ModCrafingRecipes {
 		// Lexicon Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lexicon), "treeSapling", Item.book);
 		recipeLexicon = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Petal/Dye Recipes
-		for(int i = 0; i < 16; i++) 
-			addShapelessOreDictRecipe(new ItemStack(ModItems.petal, 2, i), LibOreDict.FLOWER[i]); 
-		recipesPetals = BotaniaAPI.getLatestAddedRecipes(16);
-		
 		for(int i = 0; i < 16; i++)
-			addShapelessOreDictRecipe(new ItemStack(ModItems.dye, 1, i), LibOreDict.PETAL[i], LibOreDict.PESTLE_AND_MORTAR); 
+			addShapelessOreDictRecipe(new ItemStack(ModItems.petal, 2, i), LibOreDict.FLOWER[i]);
+		recipesPetals = BotaniaAPI.getLatestAddedRecipes(16);
+
+		for(int i = 0; i < 16; i++)
+			addShapelessOreDictRecipe(new ItemStack(ModItems.dye, 1, i), LibOreDict.PETAL[i], LibOreDict.PESTLE_AND_MORTAR);
 		recipesDyes = BotaniaAPI.getLatestAddedRecipes(16);
-		
+
 		// Pestle and Mortar Recipe
-		addOreDictRecipe(new ItemStack(ModItems.pestleAndMortar), 
-			" S", "W ", "B ",
-			'S', "stickWood",
-			'W', "plankWood",
-			'B', Item.bowlEmpty);
+		addOreDictRecipe(new ItemStack(ModItems.pestleAndMortar),
+				" S", "W ", "B ",
+				'S', "stickWood",
+				'W', "plankWood",
+				'B', Item.bowlEmpty);
 		recipePestleAndMortar = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Wand of the Forest Recipes
 		for(int i = 0; i < 16; i++)
 			for(int j = 0; j < 16; j++) {
-				addOreDictRecipe(ItemTwigWand.forColors(i, j), 
-				" AS", " SB", "S  ",
-				'A', LibOreDict.PETAL[i],
-				'B', LibOreDict.PETAL[j],
-				'S', "stickWood");
+				addOreDictRecipe(ItemTwigWand.forColors(i, j),
+						" AS", " SB", "S  ",
+						'A', LibOreDict.PETAL[i],
+						'B', LibOreDict.PETAL[j],
+						'S', "stickWood");
 			}
 		recipesTwigWand = BotaniaAPI.getLatestAddedRecipes(256);
-		
+
 		// Petal Apothecary Recipes
 		for(int i = 0; i < 16; i++)
-			addOreDictRecipe(new ItemStack(ModBlocks.altar), 
-				"SPS", " C ", "CCC",
-				'S', new ItemStack(Block.stoneSingleSlab, 1, 3),
-				'P', LibOreDict.PETAL[i],
-				'C', "cobblestone");
+			addOreDictRecipe(new ItemStack(ModBlocks.altar),
+					"SPS", " C ", "CCC",
+					'S', new ItemStack(Block.stoneSingleSlab, 1, 3),
+					'P', LibOreDict.PETAL[i],
+					'C', "cobblestone");
 		recipesApothecary = BotaniaAPI.getLatestAddedRecipes(16);
-		
+
 	}
-	
+
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {
 		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(output, recipe));
 	}
-	
+
 	private static void addShapelessOreDictRecipe(ItemStack output, Object... recipe) {
 		CraftingManager.getInstance().getRecipeList().add(new ShapelessOreRecipe(output, recipe));
 	}

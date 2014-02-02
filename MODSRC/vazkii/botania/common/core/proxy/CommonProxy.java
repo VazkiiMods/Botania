@@ -43,7 +43,7 @@ public class CommonProxy {
 		ModBlocks.init();
 		ModItems.init();
 		ModEntities.init();
-		
+
 		ModCrafingRecipes.init();
 		ModPetalRecipes.init();
 		ModManaInfusionRecipes.init();
@@ -53,7 +53,7 @@ public class CommonProxy {
 
 	public void init(FMLInitializationEvent event) {
 		NetworkRegistry.instance().registerGuiHandler(Botania.instance, new GuiHandler());
-		
+
 		MinecraftForge.TERRAIN_GEN_BUS.register(new BiomeDecorationHandler());
 		MinecraftForge.EVENT_BUS.register(ManaNetworkHandler.instance);
 	}
@@ -61,31 +61,31 @@ public class CommonProxy {
 	public void postInit(FMLPostInitializationEvent event) {
 
 	}
-	
+
 	public void setEntryToOpen(LexiconEntry entry) {
 		// NO-OP
 	}
-	
+
 	public void twigWandClientUpdate() {
-		
+
 	}
 
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {
 		sparkleFX(world, x, y, z, r, g, b, size, m, false);
 	}
-	
+
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m, boolean fake) {
 		// NO-OP
 	}
-	
+
 	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size) {
 		wispFX(world, x, y, z, r, g, b, size, 0F);
 	}
-	
+
 	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size, float gravity) {
 		wispFX(world, x, y, z, r, g, b, size, 0, -gravity, 0);
 	}
-	
+
 	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size, float motionx, float motiony, float motionz) {
 		// NO-OP
 	}

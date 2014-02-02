@@ -31,7 +31,7 @@ public final class BotaniaAPI {
 
 	private static List<LexiconCategory> categories = new ArrayList<LexiconCategory>();
 	private static List<LexiconEntry> allEntries = new ArrayList<LexiconEntry>();
-	
+
 	public static List<RecipePetals> petalRecipes = new ArrayList<RecipePetals>();
 	public static List<RecipeManaInfusion> manaInfusionRecipes = new ArrayList<RecipeManaInfusion>();
 
@@ -39,7 +39,7 @@ public final class BotaniaAPI {
 	static {
 		registerSubTile("", SubTileDummy.class);
 	}
-	
+
 	/**
 	 * The internal method handler in use. Do not overwrite.
 	 * @see IInternalMethodHandler
@@ -58,7 +58,7 @@ public final class BotaniaAPI {
 		petalRecipes.add(recipe);
 		return recipe;
 	}
-	
+
 	/**
 	 * Registers a Mana Infusion Recipe (throw an item in a mana pool)
 	 * @param output The ItemStack to craft
@@ -70,11 +70,11 @@ public final class BotaniaAPI {
 		manaInfusionRecipes.add(recipe);
 		return recipe;
 	}
-	
+
 	public static void registerSubTile(String key, Class<? extends SubTileEntity> subtileClass) {
 		subTiles.put(key, subtileClass);
 	}
-	
+
 	/**
 	 * Adds a category to the list of registered categories to appear in the Lexicon.
 	 */
@@ -96,7 +96,7 @@ public final class BotaniaAPI {
 		allEntries.add(entry);
 		category.entries.add(entry);
 	}
-	
+
 	/**
 	 * Gets the last recipe to have been added to the recipe list.
 	 */
@@ -104,26 +104,26 @@ public final class BotaniaAPI {
 		List<IRecipe> list = CraftingManager.getInstance().getRecipeList();
 		return list.get(list.size() - 1);
 	}
-	
+
 	/**
 	 * Gets the last x recipes added to the recipe list.
 	 */
 	public static List<IRecipe> getLatestAddedRecipes(int x) {
 		List<IRecipe> list = CraftingManager.getInstance().getRecipeList();
 		List<IRecipe> newList = new ArrayList();
-		for(int i = (x - 1); i >= 0; i--)
+		for(int i = x - 1; i >= 0; i--)
 			newList.add(list.get(list.size() - 1 - i));
-		
+
 		return newList;
 	}
-	
+
 	public static Class<? extends SubTileEntity> getSubTileMapping(String key) {
 		if(!subTiles.containsKey(key))
 			key = "";
-		
+
 		return subTiles.get(key);
 	}
-	
+
 	public static String getSubTileStringMapping(Class<? extends SubTileEntity> clazz) {
 		return subTiles.inverse().get(clazz);
 	}

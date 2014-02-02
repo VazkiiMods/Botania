@@ -16,5 +16,5 @@ import vazkii.botania.client.lib.LibResources;
 public final class LibEntityNames {
 
 	public static final String MANA_BURST = LibResources.PREFIX_MOD + "manaBurst";
-	
+
 }

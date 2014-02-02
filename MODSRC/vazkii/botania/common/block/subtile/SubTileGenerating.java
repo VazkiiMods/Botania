@@ -13,7 +13,6 @@ package vazkii.botania.common.block.subtile;
 
 import java.awt.Color;
 
-import cpw.mods.fml.common.network.PacketDispatcher;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
@@ -31,48 +30,48 @@ import vazkii.botania.common.core.handler.ManaNetworkHandler;
 public class SubTileGenerating extends SubTileEntity {
 
 	private static final String TAG_MANA = "mana";
-	
+
 	private static final String TAG_COLLECTOR_X = "collectorX";
 	private static final String TAG_COLLECTOR_Y = "collectorY";
 	private static final String TAG_COLLECTOR_Z = "collectorZ";
 
 	int mana;
-	
+
 	int sizeLastCheck = -1;
 	TileEntity linkedCollector = null;
 	public int knownMana = -1;
-	
+
 	@Override
 	public boolean canUpdate() {
 		return true;
 	}
-	
+
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		
+
 		linkCollector();
-		
+
 		int delay = getDelayBetweenPassiveGeneration();
 		if(delay > 0 && supertile.worldObj.getWorldTime() % delay == 0)
 			addMana(1);
 		emptyManaIntoCollector();
-		
+
 		if(supertile.worldObj.isRemote) {
-			double particleChance = 1F - ((double) mana / (double) getMaxMana()) / 2F;
+			double particleChance = 1F - (double) mana / (double) getMaxMana() / 2F;
 			Color color = new Color(getColor());
 			if(Math.random() > particleChance)
-				Botania.proxy.sparkleFX(supertile.worldObj, supertile.xCoord + 0.3 + Math.random() * 0.5, supertile.yCoord + 0.5 + Math.random()  * 0.5, supertile.zCoord + 0.3 + Math.random() * 0.5, (float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F, (float) Math.random(), 5);
+				Botania.proxy.sparkleFX(supertile.worldObj, supertile.xCoord + 0.3 + Math.random() * 0.5, supertile.yCoord + 0.5 + Math.random()  * 0.5, supertile.zCoord + 0.3 + Math.random() * 0.5, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random(), 5);
 		}
 	}
-	
+
 	public void linkCollector() {
 		final int range = 6;
-		
+
 		boolean needsNew = false;
 		if(linkedCollector == null)
 			needsNew = true;
-		
+
 		if(!needsNew) {
 			TileEntity tileAt = supertile.worldObj.getBlockTileEntity(linkedCollector.xCoord, linkedCollector.yCoord, linkedCollector.zCoord);
 			if(!(tileAt instanceof IManaCollector)) {
@@ -80,7 +79,7 @@ public class SubTileGenerating extends SubTileEntity {
 				needsNew = true;
 			} else linkedCollector = tileAt;
 		}
-		
+
 		if(needsNew) {
 			int size = ManaNetworkHandler.instance.getAmount(ManaNetworkHandler.instance.manaCollectors, supertile.worldObj.provider.dimensionId);
 			if(size != sizeLastCheck) {
@@ -90,11 +89,11 @@ public class SubTileGenerating extends SubTileEntity {
 			}
 		}
 	}
-	
+
 	public void addMana(int mana) {
 		this.mana = Math.min(getMaxMana(), this.mana + mana);
 	}
-	
+
 	public void emptyManaIntoCollector() {
 		if(linkedCollector != null) {
 			IManaCollector collector = (IManaCollector) linkedCollector;
@@ -104,11 +103,11 @@ public class SubTileGenerating extends SubTileEntity {
 			}
 		}
 	}
-	
+
 	public int getDelayBetweenPassiveGeneration() {
 		return 30;
 	}
-	
+
 	@Override
 	public boolean onWanded(EntityPlayer player, ItemStack wand) {
 		knownMana = mana;
@@ -116,34 +115,34 @@ public class SubTileGenerating extends SubTileEntity {
 
 		return super.onWanded(player, wand);
 	}
-	
+
 	public int getMaxMana() {
 		return 20;
 	}
-	
+
 	public int getColor() {
 		return 0xFFFFFF;
 	}
-	
+
 	@Override
 	public void readFromPacketNBT(NBTTagCompound cmp) {
 		mana = cmp.getInteger(TAG_MANA);
-		
+
 		int x = cmp.getInteger(TAG_COLLECTOR_X);
 		int y = cmp.getInteger(TAG_COLLECTOR_Y);
 		int z = cmp.getInteger(TAG_COLLECTOR_Z);
-		
+
 		if(supertile.worldObj != null) {
 			TileEntity tileAt = supertile.worldObj.getBlockTileEntity(x, y, z);
 			if(tileAt != null && tileAt instanceof IManaCollector)
 				linkedCollector = tileAt;
 		}
 	}
-	
+
 	@Override
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		cmp.setInteger(TAG_MANA, mana);
-		
+
 		int x = linkedCollector == null ? 0 : linkedCollector.xCoord;
 		int y = linkedCollector == null ? -1 : linkedCollector.yCoord;
 		int z = linkedCollector == null ? 0 : linkedCollector.zCoord;
@@ -152,12 +151,12 @@ public class SubTileGenerating extends SubTileEntity {
 		cmp.setInteger(TAG_COLLECTOR_Y, y);
 		cmp.setInteger(TAG_COLLECTOR_Z, z);
 	}
-	
+
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		String name = StatCollector.translateToLocal("tile.botania:flower." + getUnlocalizedName() + ".name");
 		int color = 0x66000000 | getColor();
 		HUDHandler.drawSimpleManaHUD(color, knownMana, getMaxMana(), name, res);
 	}
-	
+
 }

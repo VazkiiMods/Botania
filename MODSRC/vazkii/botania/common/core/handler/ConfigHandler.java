@@ -45,6 +45,7 @@ public final class ConfigHandler {
 		LibItemIDs.idTwigWand = loadItem(LibItemNames.TWIG_WAND, LibItemIDs.idTwigWand);
 		LibItemIDs.idManaResource = loadItem(LibItemNames.MANA_RESOURCE, LibItemIDs.idManaResource);
 		LibItemIDs.idLens = loadItem(LibItemNames.LENS, LibItemIDs.idLens);
+		LibItemIDs.idManaPetal = loadItem(LibItemNames.MANA_PETAL, LibItemIDs.idManaPetal);
 
 		config.save();
 	}

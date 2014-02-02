@@ -33,7 +33,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_POOL);
 	private static final ModelPool model = new ModelPool();
 	RenderItem renderItem = new RenderItem();
-	
+
 	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f) {
 		TilePool pool = (TilePool) tileentity;
@@ -49,16 +49,16 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 		model.render();
 		GL11.glScalef(1F, -1F, -1F);
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		
+
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-		
+
 		float waterLevel = (float) pool.getCurrentMana() / (float) TilePool.MAX_MANA * 0.40F;
 		if(waterLevel > 0) {
 			float s = 1F / 256F * 14F;
 			float v = 1F / 8F;
 			float w = -v * 3.5F;
-			
-			GL11.glPushMatrix(); 
+
+			GL11.glPushMatrix();
 			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			GL11.glColor4f(1F, 1F, 1F, 1F);
@@ -71,14 +71,14 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 			float par4 = 16;
 			float par5 = 16;
 			float zLevel = 0F;
-	        Tessellator tessellator = Tessellator.instance;
-	        tessellator.startDrawingQuads();
-	        tessellator.setBrightness(240);
-	        tessellator.addVertexWithUV((double)(par1 + 0), (double)(par2 + par5), (double)zLevel, (double)par3Icon.getMinU(), (double)par3Icon.getMaxV());
-	        tessellator.addVertexWithUV((double)(par1 + par4), (double)(par2 + par5), (double)zLevel, (double)par3Icon.getMaxU(), (double)par3Icon.getMaxV());
-	        tessellator.addVertexWithUV((double)(par1 + par4), (double)(par2 + 0), (double)zLevel, (double)par3Icon.getMaxU(), (double)par3Icon.getMinV());
-	        tessellator.addVertexWithUV((double)(par1 + 0), (double)(par2 + 0), (double)zLevel, (double)par3Icon.getMinU(), (double)par3Icon.getMinV());
-	        tessellator.draw();
+			Tessellator tessellator = Tessellator.instance;
+			tessellator.startDrawingQuads();
+			tessellator.setBrightness(240);
+			tessellator.addVertexWithUV(par1 + 0, par2 + par5, zLevel, par3Icon.getMinU(), par3Icon.getMaxV());
+			tessellator.addVertexWithUV(par1 + par4, par2 + par5, zLevel, par3Icon.getMaxU(), par3Icon.getMaxV());
+			tessellator.addVertexWithUV(par1 + par4, par2 + 0, zLevel, par3Icon.getMaxU(), par3Icon.getMinV());
+			tessellator.addVertexWithUV(par1 + 0, par2 + 0, zLevel, par3Icon.getMinU(), par3Icon.getMinV());
+			tessellator.draw();
 			GL11.glDisable(GL11.GL_BLEND);
 			GL11.glPopMatrix();
 		}

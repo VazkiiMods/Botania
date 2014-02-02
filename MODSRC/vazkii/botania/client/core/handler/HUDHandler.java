@@ -39,7 +39,7 @@ public final class HUDHandler {
 			}
 		}
 	}
-	
+
 	public static void drawSimpleManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res) {
 		int type = 0;
 		if(mana >= 0) {
@@ -62,7 +62,7 @@ public final class HUDHandler {
 		mc.fontRenderer.drawStringWithShadow(filling, res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(filling) / 2, res.getScaledHeight() / 2 + 20, color);
 		GL11.glDisable(GL11.GL_BLEND);
 	}
-	
+
 	public interface IHUD {
 		public void renderHUD(Minecraft mc, ScaledResolution res, World world, int x, int y, int z);
 	}

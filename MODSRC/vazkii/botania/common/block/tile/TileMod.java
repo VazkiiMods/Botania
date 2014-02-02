@@ -40,7 +40,7 @@ public class TileMod extends TileEntity {
 	public void readCustomNBT(NBTTagCompound cmp) {
 		// NO-OP
 	}
-	
+
 	@Override
 	public Packet getDescriptionPacket() {
 		NBTTagCompound nbttagcompound = new NBTTagCompound();
@@ -54,5 +54,5 @@ public class TileMod extends TileEntity {
 		readCustomNBT(packet.data);
 		worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
 	}
-	
+
 }

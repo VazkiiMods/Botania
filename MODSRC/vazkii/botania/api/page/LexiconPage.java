@@ -35,7 +35,7 @@ public abstract class LexiconPage {
 	public void updateScreen() {
 		// NO-OP
 	}
-	
+
 	public String getUnlocalizedName() {
 		return unlocalizedName;
 	}

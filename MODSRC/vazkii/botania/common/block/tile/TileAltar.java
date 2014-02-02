@@ -30,9 +30,9 @@ import cpw.mods.fml.common.network.PacketDispatcher;
 public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 
 	public static final String TAG_HAS_WATER = "hasWater";
-	
+
 	public boolean hasWater = false;
-	
+
 	public boolean collideEntityItem(EntityItem item) {
 		if(!hasWater)
 			return false;
@@ -42,11 +42,11 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 		ItemStack stack = item.getEntityItem();
 		if(stack == null)
 			return false;
-		
+
 		if(stack.itemID == ModItems.petal.itemID) {
 			if(getStackInSlot(getSizeInventory() - 1) != null)
 				return false;
-			
+
 			if(!worldObj.isRemote) {
 				stack.stackSize--;
 				if(stack.stackSize == 0)
@@ -64,12 +64,12 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 				if(recipe.matches(this)) {
 					for(int i = 0; i < getSizeInventory(); i++)
 						setInventorySlotContents(i, null);
-					
+
 					if(!worldObj.isRemote) {
 						stack.stackSize--;
 						if(stack.stackSize == 0)
 							item.setDead();
-						
+
 						ItemStack output = recipe.getOutput().copy();
 						EntityItem outputItem = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, output);
 						worldObj.spawnEntityInWorld(outputItem);
@@ -85,55 +85,55 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 
 		return didChange;
 	}
-	
+
 	public void craftingFanciness() {
 		worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.levelup", 1F, 1F);
 		for(int i = 0; i < 25; i++) {
 			float red = (float) Math.random();
 			float green = (float) Math.random();
 			float blue = (float) Math.random();
-			Botania.proxy.sparkleFX(worldObj, xCoord + 0.5 + (Math.random() * 0.4) - 0.2, yCoord + 1, zCoord + 0.5 + (Math.random() * 0.4) - 0.2, red, green, blue, (float) Math.random(), 10);
+			Botania.proxy.sparkleFX(worldObj, xCoord + 0.5 + Math.random() * 0.4 - 0.2, yCoord + 1, zCoord + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
 		}
 	}
-	
+
 	@Override
 	public void updateEntity() {
-		List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord + (1D / 16D * 20D), zCoord, xCoord + 1, yCoord + (1D / 16D * 21D), zCoord + 1));
-		
+		List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord + 1D / 16D * 20D, zCoord, xCoord + 1, yCoord + 1D / 16D * 21D, zCoord + 1));
+
 		boolean didChange = false;
-		
+
 		for(EntityItem item : items)
 			didChange = collideEntityItem(item) || didChange;
-		
+
 		if(didChange)
 			PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
-		
+
 		for(int i = 0; i < getSizeInventory(); i++) {
 			ItemStack stackAt = getStackInSlot(i);
 			if(stackAt == null)
 				break;
-			
+
 			if(Math.random() >= 0.97) {
 				float[] color = EntitySheep.fleeceColorTable[stackAt.getItemDamage()];
 				float red = color[0];
 				float green = color[1];
 				float blue = color[2];
-				Botania.proxy.sparkleFX(worldObj, xCoord + 0.5 + (Math.random() * 0.4) - 0.2, yCoord + 1, zCoord + 0.5 + (Math.random() * 0.4) - 0.2, red, green, blue, (float) Math.random(), 10);
+				Botania.proxy.sparkleFX(worldObj, xCoord + 0.5 + Math.random() * 0.4 - 0.2, yCoord + 1, zCoord + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
 			}
 		}
 	}
-	
+
 	@Override
 	public void writeCustomNBT(NBTTagCompound cmp) {
 		super.writeCustomNBT(cmp);
-		
+
 		cmp.setBoolean(TAG_HAS_WATER, hasWater);
 	}
-	
+
 	@Override
 	public void readCustomNBT(NBTTagCompound cmp) {
 		super.readCustomNBT(cmp);
-		
+
 		hasWater = cmp.getBoolean(TAG_HAS_WATER);
 	}
 
@@ -146,12 +146,12 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 	public int getSizeInventory() {
 		return 16;
 	}
-	
+
 	@Override
 	public int getInventoryStackLimit() {
 		return 1;
 	}
-	
+
 	@Override
 	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
 		return false;
@@ -171,5 +171,5 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 	public boolean canExtractItem(int i, ItemStack itemstack, int j) {
 		return false;
 	}
-	
+
 }

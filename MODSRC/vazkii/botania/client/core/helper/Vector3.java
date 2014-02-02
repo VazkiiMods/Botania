@@ -15,16 +15,16 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Vec3;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-
-import net.minecraft.entity.Entity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Vec3;
 
 public class Vector3
 {
@@ -215,6 +215,7 @@ public class Vector3
 		return this;
 	}
 
+	@Override
 	public String toString()
 	{
 		MathContext cont = new MathContext(4, RoundingMode.HALF_UP);
@@ -275,7 +276,7 @@ public class Vector3
 
 	public boolean isAxial()
 	{
-		return x == 0 ? (y == 0 || z == 0) : (y == 0 && z == 0);
+		return x == 0 ? y == 0 || z == 0 : y == 0 && z == 0;
 	}
 
 	@SideOnly(Side.CLIENT)

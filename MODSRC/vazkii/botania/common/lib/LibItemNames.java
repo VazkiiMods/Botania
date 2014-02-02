@@ -22,6 +22,7 @@ public final class LibItemNames {
 	public static final String TWIG_WAND = LibResources.PREFIX_MOD + "twigWand";
 	public static final String MANA_RESOURCE = LibResources.PREFIX_MOD + "manaResource";
 	public static final String LENS = LibResources.PREFIX_MOD + "lens";
+	public static final String MANA_PETAL = LibResources.PREFIX_MOD + "manaPetal";
 
 	public static final String[] LENS_NAMES = new String[] {
 		LibResources.PREFIX_MOD + "lensNormal",
@@ -34,7 +35,7 @@ public final class LibItemNames {
 		LibResources.PREFIX_MOD + "lensMine",
 		LibResources.PREFIX_MOD + "lensDamage"
 	};
-	
+
 	public static final String[] MANA_RESOURCE_NAMES = new String[] {
 		LibResources.PREFIX_MOD + "manasteel",
 		LibResources.PREFIX_MOD + "manaPearl",

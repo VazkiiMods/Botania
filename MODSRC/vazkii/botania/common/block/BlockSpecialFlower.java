@@ -51,14 +51,14 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	private static String[] subtypes = {
 		// Misc
 		LibBlockNames.SUBTILE_PUREDAISY,
-		
+
 		// Generating
 		LibBlockNames.SUBTILE_DAYBLOOM,
-			
+
 		// Functional
 		LibBlockNames.SUBTILE_BELLETHORN,
 	};
-	
+
 	protected BlockSpecialFlower() {
 		super(LibBlockIDs.idSpecialFlower);
 		setUnlocalizedName(LibBlockNames.SPECIAL_FLOWER);
@@ -68,12 +68,12 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setBlockBounds(0.3F, 0.0F, 0.3F, 0.8F, 1, 0.8F);
 	}
-	
+
 	@Override
 	public int getRenderType() {
 		return LibRenderIDs.idSpecialFlower;
 	}
-	
+
 	@Override
 	public Block setUnlocalizedName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockSpecialFlower.class, par1Str);
@@ -84,18 +84,18 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	public int quantityDropped(Random par1Random) {
 		return 0;
 	}
-	
+
 	@Override
 	public int idDropped(int par1, Random par2Random, int par3) {
 		return 0;
 	}
-	
+
 	@Override
 	public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List par3List) {
 		for(String s : subtypes)
 			par3List.add(ItemBlockSpecialFlower.ofType(s));
 	}
-	
+
 	@Override
 	public void registerIcons(IconRegister par1IconRegister) {
 		for(String s : subtypes)
@@ -106,42 +106,42 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	public TileEntity createTileEntity(World world, int metadata) {
 		return new TileSpecialFlower();
 	}
-	
+
 	@Override
 	public Icon getBlockTexture(IBlockAccess par1iBlockAccess, int par2, int par3, int par4, int par5) {
 		return ((TileSpecialFlower) par1iBlockAccess.getBlockTileEntity(par2, par3, par4)).getIcon();
 	}
-	
+
 	@Override
 	public Icon getIcon(int par1, int par2) {
 		return Block.plantYellow.getIcon(0, 0);
 	}
-	
+
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
 		String name = ((TileSpecialFlower) world.getBlockTileEntity(x, y, z)).subTileName;
 		return ItemBlockSpecialFlower.ofType(name);
 	}
-	
+
 	@Override
 	public void onBlockHarvested(World par1World, int par2, int par3, int par4, int par5, EntityPlayer par6EntityPlayer) {
 		if(!par6EntityPlayer.capabilities.isCreativeMode)
 			dropBlockAsItem(par1World, par2, par3, par4, par5, 0);
 	}
-	
+
 	@Override
 	public ArrayList<ItemStack> getBlockDropped(World world, int x, int y, int z, int metadata, int fortune) {
 		ArrayList<ItemStack> list = new ArrayList();
 		TileEntity tile = world.getBlockTileEntity(x, y, z);
-		
+
 		if(tile != null) {
 			String name = ((TileSpecialFlower) tile).subTileName;
 			list.add(ItemBlockSpecialFlower.ofType(name));
 		}
-		
+
 		return list;
 	}
-	
+
 	@Override
 	public boolean onBlockEventReceived(World par1World, int par2, int par3, int par4, int par5, int par6) {
 		super.onBlockEventReceived(par1World, par2, par3, par4, par5, par6);

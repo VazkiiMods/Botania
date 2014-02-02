@@ -44,7 +44,7 @@ public final class ModBlocks {
 		specialFlower = new BlockSpecialFlower();
 		spreader = new BlockSpreader();
 		pool = new BlockPool();
-		
+
 		for(int i = 0; i < 16; i++)
 			OreDictionary.registerOre(LibOreDict.FLOWER[i], new ItemStack(flower.blockID, 1, i));
 		OreDictionary.registerOre(LibBlockNames.LIVING_ROCK, livingrock);
@@ -58,11 +58,11 @@ public final class ModBlocks {
 		GameRegistry.registerTileEntity(TileSpecialFlower.class, LibBlockNames.SPECIAL_FLOWER);
 		GameRegistry.registerTileEntity(TileSpreader.class, LibBlockNames.SPREADER);
 		GameRegistry.registerTileEntity(TilePool.class, LibBlockNames.POOL);
-		
+
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_DAYBLOOM, SubTileDaybloom.class);
-		
+
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_BELLETHORN, SubTileBellethorn.class);
 	}
 }

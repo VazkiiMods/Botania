@@ -13,7 +13,6 @@ package vazkii.botania.client.gui;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import net.minecraft.client.gui.GuiButton;
@@ -60,7 +59,7 @@ public class GuiLexiconIndex extends GuiLexicon {
 		entriesToDisplay.clear();
 		entriesToDisplay.addAll(category.entries);
 		Collections.sort(entriesToDisplay);
-		
+
 		updatePageButtons();
 		populateIndex();
 	}
@@ -101,7 +100,7 @@ public class GuiLexiconIndex extends GuiLexicon {
 			mc.displayGuiScreen(new GuiLexiconEntry(entry, this));
 		}
 	}
-	
+
 	public void updatePageButtons() {
 		leftButton.enabled = page != 0;
 		rightButton.enabled = page < (entriesToDisplay.size() - 1) / 12;

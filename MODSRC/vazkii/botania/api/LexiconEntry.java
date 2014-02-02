@@ -22,10 +22,10 @@ public class LexiconEntry implements Comparable<LexiconEntry>{
 
 	public final String unlocalizedName;
 	public final LexiconCategory category;
-	
+
 	public List<LexiconPage> pages = new ArrayList<LexiconPage>();
 	private boolean priority = false;
-	
+
 	/**
 	 * @param unlocalizedName The unlocalized name of this entry. This will be localized by the client display.
 	 */
@@ -33,7 +33,7 @@ public class LexiconEntry implements Comparable<LexiconEntry>{
 		this.unlocalizedName = unlocalizedName;
 		this.category = category;
 	}
-	
+
 	/**
 	 * Sets this page as prioritized, as in, will appear before others in the lexicon.
 	 */
@@ -41,7 +41,7 @@ public class LexiconEntry implements Comparable<LexiconEntry>{
 		priority = true;
 		return this;
 	}
-	
+
 	public boolean isPriority() {
 		return priority;
 	}

@@ -54,7 +54,7 @@ public class RenderLens implements IItemRenderer {
 			Icon icon = item.getItem().getIconFromDamageForRenderPass(dmg, 1);
 			render.renderIcon(0, 0, icon, 16, 16);
 			GL11.glDisable(GL11.GL_BLEND);
-			
+
 			icon = item.getItem().getIconFromDamageForRenderPass(dmg, 0);
 			GL11.glColor4f(1F, 1F, 1F, 1F);
 			render.renderIcon(0, 0, icon, 16, 16);
@@ -78,12 +78,12 @@ public class RenderLens implements IItemRenderer {
 		default : break;
 		}
 	}
-	
+
 	public static void render(ItemStack item) {
 		Color color = new Color(((ILens) item.getItem()).getLensColor(item));
 		render(item, color.getRGB());
 	}
-	
+
 	public static void render(ItemStack item, int color_) {
 		int dmg = item.getItemDamage();
 		Icon icon = item.getItem().getIconFromDamageForRenderPass(dmg, 0);
@@ -92,10 +92,10 @@ public class RenderLens implements IItemRenderer {
 		float f2 = icon.getMinV();
 		float f3 = icon.getMaxV();
 		float scale = 1F / 16F;
-		
+
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), scale);
-		
+
 		GL11.glPushMatrix();
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -111,25 +111,25 @@ public class RenderLens implements IItemRenderer {
 		GL11.glTranslatef(-16F, 0F, 0F);
 		renderShinyLensIcon(icon, shiny);
 		GL11.glPopMatrix();
-		
+
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 	}
-	
+
 	public static void renderShinyLensIcon(Icon icon, boolean shiny) {
 		float par1 = 0;
 		float par2 = 0;
 		float par4 = 16;
 		float par5 = 16;
 		float zLevel = 0F;
-        Tessellator tessellator = Tessellator.instance;
-        tessellator.startDrawingQuads();
-        if(shiny)
-        	tessellator.setBrightness(240);
-        tessellator.addVertexWithUV((double)(par1 + 0), (double)(par2 + par5), (double)zLevel, (double)icon.getMinU(), (double)icon.getMaxV());
-        tessellator.addVertexWithUV((double)(par1 + par4), (double)(par2 + par5), (double)zLevel, (double)icon.getMaxU(), (double)icon.getMaxV());
-        tessellator.addVertexWithUV((double)(par1 + par4), (double)(par2 + 0), (double)zLevel, (double)icon.getMaxU(), (double)icon.getMinV());
-        tessellator.addVertexWithUV((double)(par1 + 0), (double)(par2 + 0), (double)zLevel, (double)icon.getMinU(), (double)icon.getMinV());
-        tessellator.draw();
+		Tessellator tessellator = Tessellator.instance;
+		tessellator.startDrawingQuads();
+		if(shiny)
+			tessellator.setBrightness(240);
+		tessellator.addVertexWithUV(par1 + 0, par2 + par5, zLevel, icon.getMinU(), icon.getMaxV());
+		tessellator.addVertexWithUV(par1 + par4, par2 + par5, zLevel, icon.getMaxU(), icon.getMaxV());
+		tessellator.addVertexWithUV(par1 + par4, par2 + 0, zLevel, icon.getMaxU(), icon.getMinV());
+		tessellator.addVertexWithUV(par1 + 0, par2 + 0, zLevel, icon.getMinU(), icon.getMinV());
+		tessellator.draw();
 	}
 
 }

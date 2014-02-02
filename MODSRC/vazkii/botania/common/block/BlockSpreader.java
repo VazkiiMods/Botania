@@ -36,31 +36,31 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockSpreader extends BlockModContainer implements IWandable, IHUD {
 
 	Random random;
-	
+
 	protected BlockSpreader() {
 		super(LibBlockIDs.idSpreader, Material.wood);
 		setHardness(2.0F);
 		setStepSound(soundWoodFootstep);
 		setUnlocalizedName(LibBlockNames.SPREADER);
-		
+
 		random = new Random();
 	}
-	
+
 	@Override
 	public boolean isOpaqueCube() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean renderAsNormalBlock() {
 		return false;
 	}
-	
+
 	@Override
 	public Icon getIcon(int par1, int par2) {
 		return ModBlocks.livingwood.getIcon(par1, par2);
 	}
-	
+
 	@Override
 	public int getRenderType() {
 		return LibRenderIDs.idSpreader;
@@ -75,7 +75,7 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IHUD 
 
 		if(heldItem != null && heldItem.itemID == ModItems.twigWand.itemID)
 			return false;
-		
+
 		if(lens == null && isHeldItemLens) {
 			par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, null);
 			spreader.setInventorySlotContents(0, heldItem.copy());
@@ -87,49 +87,49 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IHUD 
 			spreader.setInventorySlotContents(0, null);
 			spreader.onInventoryChanged();
 		}
-		
+
 		return true;
 	}
-	
+
 	@Override
-    public void breakBlock(World par1World, int par2, int par3, int par4, int par5, int par6) {
-        TileSimpleInventory inv = (TileSimpleInventory) par1World.getBlockTileEntity(par2, par3, par4);
+	public void breakBlock(World par1World, int par2, int par3, int par4, int par5, int par6) {
+		TileSimpleInventory inv = (TileSimpleInventory) par1World.getBlockTileEntity(par2, par3, par4);
 
-        if (inv != null) {
-            for (int j1 = 0; j1 < inv.getSizeInventory(); ++j1) {
-                ItemStack itemstack = inv.getStackInSlot(j1);
+		if (inv != null) {
+			for (int j1 = 0; j1 < inv.getSizeInventory(); ++j1) {
+				ItemStack itemstack = inv.getStackInSlot(j1);
 
-                if (itemstack != null) {
-                    float f = random.nextFloat() * 0.8F + 0.1F;
-                    float f1 = random.nextFloat() * 0.8F + 0.1F;
-                    EntityItem entityitem;
+				if (itemstack != null) {
+					float f = random.nextFloat() * 0.8F + 0.1F;
+					float f1 = random.nextFloat() * 0.8F + 0.1F;
+					EntityItem entityitem;
 
-                    for (float f2 = random.nextFloat() * 0.8F + 0.1F; itemstack.stackSize > 0; par1World.spawnEntityInWorld(entityitem)) {
-                        int k1 = random.nextInt(21) + 10;
+					for (float f2 = random.nextFloat() * 0.8F + 0.1F; itemstack.stackSize > 0; par1World.spawnEntityInWorld(entityitem)) {
+						int k1 = random.nextInt(21) + 10;
 
-                        if (k1 > itemstack.stackSize)
-                            k1 = itemstack.stackSize;
+						if (k1 > itemstack.stackSize)
+							k1 = itemstack.stackSize;
 
-                        itemstack.stackSize -= k1;
-                        entityitem = new EntityItem(par1World, par2 + f, par3 + f1, par4 + f2, new ItemStack(itemstack.itemID, k1, itemstack.getItemDamage()));
-                        float f3 = 0.05F;
-                        entityitem.motionX = (float)random.nextGaussian() * f3;
-                        entityitem.motionY = (float)random.nextGaussian() * f3 + 0.2F;
-                        entityitem.motionZ = (float)random.nextGaussian() * f3;
+						itemstack.stackSize -= k1;
+						entityitem = new EntityItem(par1World, par2 + f, par3 + f1, par4 + f2, new ItemStack(itemstack.itemID, k1, itemstack.getItemDamage()));
+						float f3 = 0.05F;
+						entityitem.motionX = (float)random.nextGaussian() * f3;
+						entityitem.motionY = (float)random.nextGaussian() * f3 + 0.2F;
+						entityitem.motionZ = (float)random.nextGaussian() * f3;
 
-                        if (itemstack.hasTagCompound())
-                            entityitem.getEntityItem().setTagCompound((NBTTagCompound)itemstack.getTagCompound().copy());
-                    }
-                }
-            }
+						if (itemstack.hasTagCompound())
+							entityitem.getEntityItem().setTagCompound((NBTTagCompound)itemstack.getTagCompound().copy());
+					}
+				}
+			}
 
-            par1World.func_96440_m(par2, par3, par4, par5);
-        }
+			par1World.func_96440_m(par2, par3, par4, par5);
+		}
 
-        super.breakBlock(par1World, par2, par3, par4, par5, par6);
-    }
+		super.breakBlock(par1World, par2, par3, par4, par5, par6);
+	}
 
-	
+
 	@Override
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
 		((TileSpreader) world.getBlockTileEntity(x, y, z)).onWanded(player, stack);

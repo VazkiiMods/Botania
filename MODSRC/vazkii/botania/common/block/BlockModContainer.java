@@ -36,7 +36,7 @@ public abstract class BlockModContainer<T extends TileEntity> extends BlockConta
 		GameRegistry.registerBlock(this, par1Str);
 		return super.setUnlocalizedName(par1Str);
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister) {

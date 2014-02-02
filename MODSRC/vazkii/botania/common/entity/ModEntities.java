@@ -20,5 +20,5 @@ public final class ModEntities {
 	public static void init() {
 		EntityRegistry.registerModEntity(EntityManaBurst.class, LibEntityNames.MANA_BURST, 0, Botania.instance, 64, 10, true);
 	}
-	
+
 }

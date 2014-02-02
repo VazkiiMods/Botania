@@ -20,13 +20,13 @@ public class ManaNetworkEvent extends Event {
 	public final TileEntity tile;
 	public final ManaBlockType type;
 	public final Action action;
-	
+
 	public ManaNetworkEvent(TileEntity tile, ManaBlockType type, Action action) {
 		this.tile = tile;
 		this.type = type;
 		this.action = action;
 	}
-	
+
 	public static void addCollector(TileEntity tile) {
 		ManaNetworkEvent event = new ManaNetworkEvent(tile, ManaBlockType.COLLECTOR, Action.ADD);
 		MinecraftForge.EVENT_BUS.post(event);
@@ -36,21 +36,21 @@ public class ManaNetworkEvent extends Event {
 		ManaNetworkEvent event = new ManaNetworkEvent(tile, ManaBlockType.COLLECTOR, Action.REMOVE);
 		MinecraftForge.EVENT_BUS.post(event);
 	}
-	
+
 	public static void addPool(TileEntity tile) {
 		ManaNetworkEvent event = new ManaNetworkEvent(tile, ManaBlockType.POOL, Action.ADD);
 		MinecraftForge.EVENT_BUS.post(event);
 	}
-	
+
 	public static void removePool(TileEntity tile) {
 		ManaNetworkEvent event = new ManaNetworkEvent(tile, ManaBlockType.POOL, Action.ADD);
 		MinecraftForge.EVENT_BUS.post(event);
 	}
-	
+
 	public enum ManaBlockType {
 		POOL, COLLECTOR
 	}
-	
+
 	public enum Action {
 		REMOVE, ADD
 	}
