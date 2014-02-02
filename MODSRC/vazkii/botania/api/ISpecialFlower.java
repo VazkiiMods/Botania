@@ -11,6 +11,11 @@
  */
 package vazkii.botania.api;
 
+/**
+ * The special flowers in botania implement this. Used for cases where
+ * BlockFlower would be checked against, but isn't convenient for
+ * the special flowers with effects. For Azanor and Lycaon.
+ */
 public interface ISpecialFlower {
 
 }
