@@ -189,6 +189,8 @@ public class ItemLens extends ItemMod implements ILens {
 				if(!burst.hasAlreadyCollidedAt(x, y, z)) {
 					if(!burst.isFake() && !entity.worldObj.isRemote) {
 						world.setBlockToAir(x, y, z);
+						entity.worldObj.playAuxSFX(2001, x, y, z, id + (meta << 12));
+
 						for(ItemStack stack_ : items)
 							world.spawnEntityInWorld(new EntityItem(world, x + 0.5, y + 0.5, z + 0.5, stack_));
 					}
@@ -196,7 +198,7 @@ public class ItemLens extends ItemMod implements ILens {
 					if(!burst.isFake())
 						burst.setMana(mana - 64);
 				}
-				
+
 				dead = false;
 			}
 			break;
@@ -215,7 +217,7 @@ public class ItemLens extends ItemMod implements ILens {
 			}
 		}
 		}
-		
+
 		return dead;
 	}
 
