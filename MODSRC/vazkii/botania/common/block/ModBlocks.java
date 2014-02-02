@@ -20,6 +20,7 @@ import vazkii.botania.common.block.subtile.functional.SubTileBellethorn;
 import vazkii.botania.common.block.subtile.generating.SubTileDaybloom;
 import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.block.tile.TilePool;
+import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.block.tile.TileSpreader;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -35,6 +36,7 @@ public final class ModBlocks {
 	public static Block specialFlower;
 	public static Block spreader;
 	public static Block pool;
+	public static Block runeAltar;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -44,6 +46,7 @@ public final class ModBlocks {
 		specialFlower = new BlockSpecialFlower();
 		spreader = new BlockSpreader();
 		pool = new BlockPool();
+		runeAltar = new BlockRuneAltar();
 
 		for(int i = 0; i < 16; i++)
 			OreDictionary.registerOre(LibOreDict.FLOWER[i], new ItemStack(flower.blockID, 1, i));
@@ -58,6 +61,7 @@ public final class ModBlocks {
 		GameRegistry.registerTileEntity(TileSpecialFlower.class, LibBlockNames.SPECIAL_FLOWER);
 		GameRegistry.registerTileEntity(TileSpreader.class, LibBlockNames.SPREADER);
 		GameRegistry.registerTileEntity(TilePool.class, LibBlockNames.POOL);
+		GameRegistry.registerTileEntity(TileRuneAltar.class, LibBlockNames.RUNE_ALTAR);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 

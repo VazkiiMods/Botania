@@ -22,6 +22,7 @@ public final class LibBlockNames {
 	public static final String LIVING_WOOD = LibResources.PREFIX_MOD + "livingwood";
 	public static final String SPREADER = LibResources.PREFIX_MOD + "spreader";
 	public static final String POOL = LibResources.PREFIX_MOD + "pool";
+	public static final String RUNE_ALTAR = LibResources.PREFIX_MOD + "runeAltar";
 
 	public static final String SPECIAL_FLOWER_PREFIX = FLOWER + ".";
 

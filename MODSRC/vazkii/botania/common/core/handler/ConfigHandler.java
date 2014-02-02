@@ -36,6 +36,7 @@ public final class ConfigHandler {
 		LibBlockIDs.idLivingwood = loadBlock(LibBlockNames.LIVING_WOOD, LibBlockIDs.idLivingwood);
 		LibBlockIDs.idSpreader = loadBlock(LibBlockNames.SPREADER, LibBlockIDs.idSpreader);
 		LibBlockIDs.idPool = loadBlock(LibBlockNames.POOL, LibBlockIDs.idPool);
+		LibBlockIDs.idRuneAltar = loadBlock(LibBlockNames.RUNE_ALTAR, LibBlockIDs.idRuneAltar);
 
 		// Item IDs
 		LibItemIDs.idLexicon = loadItem(LibItemNames.LEXICON, LibItemIDs.idLexicon);

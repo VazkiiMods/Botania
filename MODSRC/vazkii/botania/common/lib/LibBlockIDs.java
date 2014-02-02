@@ -20,5 +20,6 @@ public final class LibBlockIDs {
 	public static int idLivingwood = 1959;
 	public static int idSpreader = 1960;
 	public static int idPool = 1961;
+	public static int idRuneAltar = 1962;
 
 }
