@@ -19,6 +19,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class TileRuneAltar extends TileSimpleInventory implements ISidedInventory {
 
 	public float[] angles = new float[getSizeInventory()];
+	boolean firstTick = true;
 	
 	public void addItem(EntityPlayer player, ItemStack stack) {
 		for(int i = 0; i < getSizeInventory(); i++)
@@ -40,6 +41,11 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
+		
+		if(firstTick) {
+			updateRotationAngles();
+			firstTick = false;
+		}
 		
 		for(int i = 0; i < angles.length; i++)
 			angles[i]++;

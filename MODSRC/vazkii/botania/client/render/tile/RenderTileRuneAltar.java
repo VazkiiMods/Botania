@@ -51,9 +51,9 @@ public class RenderTileRuneAltar extends TileEntitySpecialRenderer {
 		for(int i = 0; i < altar.getSizeInventory(); i++) {
 			GL11.glPushMatrix();		
 			GL11.glScalef(0.5F, 0.5F, 0.5F);
-			GL11.glTranslatef(1F, 1.5F, 1F);
+			GL11.glTranslatef(1F, 2.5F, 1F);
 			GL11.glRotatef(altar.angles[i], 0F, 1F, 0F);
-			GL11.glTranslatef(1.25F, 0F, 0.5F);
+			GL11.glTranslatef(2.25F, 0F, 0.5F);
 			GL11.glRotatef(90F, 0F, 1F, 0F);
 			GL11.glTranslated(0D, 0.1 * Math.sin((double) (tileentity.worldObj.getTotalWorldTime() + i * 10) / 5D), 0F);
 			ItemStack stack = altar.getStackInSlot(i);
