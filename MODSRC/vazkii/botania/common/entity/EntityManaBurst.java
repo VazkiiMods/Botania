@@ -12,6 +12,7 @@
 package vazkii.botania.common.entity;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
@@ -55,6 +56,8 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	final int dataWatcherEntries = 10;
 	final int dataWatcherStart = 32 - dataWatcherEntries;
 
+	List<String> alreadyCollidedAt = new ArrayList();
+	
 	public EntityManaBurst(World world) {
 		super(world);
 		setSize(0F, 0F);
@@ -267,6 +270,9 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 	@Override
 	protected void onImpact(MovingObjectPosition movingobjectposition) {
+		boolean collided = false;
+		boolean dead = false;
+		
 		if(movingobjectposition.entityHit == null) {
 			TileEntity tile = worldObj.getBlockTileEntity(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ);
 
@@ -280,13 +286,21 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 					PacketDispatcher.sendPacketToAllInDimension(tile.getDescriptionPacket(), worldObj.provider.dimensionId);
 				}
 
-				setDead();
+				dead = true;
 			}
+			
+			collided = true;
 		}
 
 		ILens lens = getLensInstance();
 		if(lens != null)
-			lens.collideBurst(this, movingobjectposition, collidedTile != null && collidedTile instanceof IManaReceiver && ((IManaReceiver) collidedTile).canRecieveManaFromBursts(), getSourceLens());
+			dead = lens.collideBurst(this, movingobjectposition, collidedTile != null && collidedTile instanceof IManaReceiver && ((IManaReceiver) collidedTile).canRecieveManaFromBursts(), dead, getSourceLens());
+	
+		if(collided && !hasAlreadyCollidedAt(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ))
+			alreadyCollidedAt.add(getCollisionLocString(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ));
+	
+		if(dead)
+			setDead();
 	}
 
 	@Override
@@ -417,5 +431,14 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		lastXMotion = motionX;
 		lastYMotion = motionY;
 		lastZMotion = motionZ;
+	}
+
+	@Override
+	public boolean hasAlreadyCollidedAt(int x, int y, int z) {
+		return alreadyCollidedAt.contains(getCollisionLocString(x, y, z));
+	}
+	
+	private String getCollisionLocString(int x, int y, int z) {
+		return x + ":" + y + ":" + z; 
 	}
 }
