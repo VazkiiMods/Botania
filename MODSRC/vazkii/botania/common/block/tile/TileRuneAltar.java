@@ -14,6 +14,8 @@ package vazkii.botania.common.block.tile;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
+import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibBlockNames;
 
 public class TileRuneAltar extends TileSimpleInventory implements ISidedInventory {
@@ -22,8 +24,11 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 	boolean firstTick = true;
 	
 	public void addItem(EntityPlayer player, ItemStack stack) {
+		boolean did = false;
+		
 		for(int i = 0; i < getSizeInventory(); i++)
 			if(getStackInSlot(i) == null) {
+				did = true;
 				ItemStack stackToAdd = stack.copy();
 				stackToAdd.stackSize = 1;
 				setInventorySlotContents(i, stackToAdd);
@@ -36,6 +41,12 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 
 				break;
 			}
+		
+		if(did) {
+			Vector3 vec = Vector3.fromTileEntityCenter(this);
+			Vector3 endVec = vec.copy().add(0, 2.5, 0);
+			Botania.proxy.lightningFX(worldObj, vec, endVec, 2F, 0x00948B, 0x00E4D7);
+		}
 	}
 	
 	@Override

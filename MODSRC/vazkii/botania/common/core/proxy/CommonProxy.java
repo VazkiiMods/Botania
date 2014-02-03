@@ -21,6 +21,7 @@ import vazkii.botania.common.core.handler.BiomeDecorationHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.InternalMethodHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
+import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.crafting.ModCrafingRecipes;
 import vazkii.botania.common.crafting.ModManaInfusionRecipes;
 import vazkii.botania.common.crafting.ModPetalRecipes;
@@ -87,6 +88,14 @@ public class CommonProxy {
 	}
 
 	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size, float motionx, float motiony, float motionz) {
+		// NO-OP
+	}
+	
+	public void lightningFX(World world, Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, int colorOuter, int colorInner) {
+		lightningFX(world, vectorStart, vectorEnd, ticksPerMeter, System.nanoTime(), colorOuter, colorInner);
+	}
+	
+	public void lightningFX(World world, Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
 		// NO-OP
 	}
 

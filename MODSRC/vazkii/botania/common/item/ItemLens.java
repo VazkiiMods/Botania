@@ -36,8 +36,8 @@ import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.client.core.helper.IconHelper;
-import vazkii.botania.client.core.helper.Vector3;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibItemIDs;
 import vazkii.botania.common.lib.LibItemNames;
 

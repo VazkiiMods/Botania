@@ -18,7 +18,9 @@ import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.LexiconEntry;
 import vazkii.botania.api.mana.IManaCollector;
+import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.HUDHandler;
+import vazkii.botania.client.core.handler.LightningHandler;
 import vazkii.botania.client.fx.FXSparkle;
 import vazkii.botania.client.fx.FXWisp;
 import vazkii.botania.client.gui.GuiLexicon;
@@ -39,11 +41,14 @@ import vazkii.botania.common.block.tile.TilePool;
 import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.block.tile.TileSpreader;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
+import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.core.proxy.CommonProxy;
 import vazkii.botania.common.item.ModItems;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.registry.TickRegistry;
+import cpw.mods.fml.relauncher.Side;
 
 public class ClientProxy extends CommonProxy {
 
@@ -51,7 +56,10 @@ public class ClientProxy extends CommonProxy {
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
 
+		TickRegistry.registerTickHandler(new ClientTickHandler(), Side.CLIENT);
+		
 		MinecraftForge.EVENT_BUS.register(new HUDHandler());
+		MinecraftForge.EVENT_BUS.register(new LightningHandler());
 
 		initRenderers();
 	}
@@ -104,5 +112,10 @@ public class ClientProxy extends CommonProxy {
 		wisp.motionZ = motionz;
 
 		Minecraft.getMinecraft().effectRenderer.addEffect(wisp);
+	}
+	
+	@Override
+	public void lightningFX(World world, Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
+		LightningHandler.spawnLightningBolt(world, vectorStart, vectorEnd, ticksPerMeter, seed, colorOuter, colorInner);
 	}
 }

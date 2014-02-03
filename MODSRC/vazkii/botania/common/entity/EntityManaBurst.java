@@ -32,9 +32,9 @@ import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.IManaReceiver;
-import vazkii.botania.client.core.helper.Vector3;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileSpreader;
+import vazkii.botania.common.core.helper.Vector3;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class EntityManaBurst extends EntityThrowable implements IManaBurst {
