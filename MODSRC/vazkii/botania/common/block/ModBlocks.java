@@ -37,6 +37,7 @@ public final class ModBlocks {
 	public static Block spreader;
 	public static Block pool;
 	public static Block runeAltar;
+	public static Block unstableBlock;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -47,6 +48,7 @@ public final class ModBlocks {
 		spreader = new BlockSpreader();
 		pool = new BlockPool();
 		runeAltar = new BlockRuneAltar();
+		unstableBlock = new BlockUnstable();
 
 		for(int i = 0; i < 16; i++)
 			OreDictionary.registerOre(LibOreDict.FLOWER[i], new ItemStack(flower.blockID, 1, i));

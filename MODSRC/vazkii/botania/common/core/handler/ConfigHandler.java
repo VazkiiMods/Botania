@@ -37,6 +37,7 @@ public final class ConfigHandler {
 		LibBlockIDs.idSpreader = loadBlock(LibBlockNames.SPREADER, LibBlockIDs.idSpreader);
 		LibBlockIDs.idPool = loadBlock(LibBlockNames.POOL, LibBlockIDs.idPool);
 		LibBlockIDs.idRuneAltar = loadBlock(LibBlockNames.RUNE_ALTAR, LibBlockIDs.idRuneAltar);
+		LibBlockIDs.idUnstableBlock = loadBlock(LibBlockNames.UNSTABLE_BLOCK, LibBlockIDs.idUnstableBlock);
 
 		// Item IDs
 		LibItemIDs.idLexicon = loadItem(LibItemNames.LEXICON, LibItemIDs.idLexicon);

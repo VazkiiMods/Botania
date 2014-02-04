@@ -29,7 +29,7 @@ import vazkii.botania.api.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.BotaniaCreativeTab;
-import vazkii.botania.common.item.block.ItemBlockModFlower;
+import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockIDs;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -62,7 +62,7 @@ public class BlockModFlower extends BlockFlower implements ILexiconable {
 
 	@Override
 	public Block setUnlocalizedName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockModFlower.class, par1Str);
+		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
 		return super.setUnlocalizedName(par1Str);
 	}
 

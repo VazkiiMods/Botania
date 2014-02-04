@@ -56,6 +56,22 @@ tile.botania:livingwood.name=Livingwood
 tile.botania:spreader.name=Mana Spreader
 tile.botania:pool.name=Mana Pool
 tile.botania:runeAltar.name=Runic Altar
+tile.botania:unstableBlock0.name=White Unstable Block
+tile.botania:unstableBlock1.name=Orange Unstable Block
+tile.botania:unstableBlock2.name=Magenta Unstable Block
+tile.botania:unstableBlock3.name=Light Blue Unstable Block
+tile.botania:unstableBlock4.name=Yellow Unstable Block
+tile.botania:unstableBlock5.name=Lime Unstable Block
+tile.botania:unstableBlock6.name=Pink Unstable Block
+tile.botania:unstableBlock7.name=Gray Unstable Block
+tile.botania:unstableBlock8.name=Light Gray Unstable Block
+tile.botania:unstableBlock9.name=Cyan Unstable Block
+tile.botania:unstableBlock10.name=Purple Unstable Block
+tile.botania:unstableBlock11.name=Blue Unstable Block
+tile.botania:unstableBlock12.name=Brown Unstable Block
+tile.botania:unstableBlock13.name=Green Unstable Block
+tile.botania:unstableBlock14.name=Red Unstable Block
+tile.botania:unstableBlock15.name=Black Unstable Block
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower

@@ -15,9 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlockWithMetadata;
 import net.minecraft.item.ItemStack;
 
-public class ItemBlockModFlower extends ItemBlockWithMetadata {
+public class ItemBlockWithMetadataAndName extends ItemBlockWithMetadata {
 
-	public ItemBlockModFlower(int par1, Block par2Block) {
+	public ItemBlockWithMetadataAndName(int par1, Block par2Block) {
 		super(par1, par2Block);
 	}
 
