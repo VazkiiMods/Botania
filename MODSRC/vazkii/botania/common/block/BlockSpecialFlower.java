@@ -33,9 +33,9 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.ILexiconable;
 import vazkii.botania.api.ISpecialFlower;
+import vazkii.botania.api.IWandHUD;
 import vazkii.botania.api.IWandable;
-import vazkii.botania.api.LexiconEntry;
-import vazkii.botania.client.core.handler.HUDHandler.IHUD;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
@@ -45,7 +45,7 @@ import vazkii.botania.common.lib.LibBlockIDs;
 import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, ITileEntityProvider, IWandable, ILexiconable, IHUD {
+public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvider, ISpecialFlower, IWandable, ILexiconable, IWandHUD {
 
 	public static Map<String, Icon> icons = new HashMap();
 	private static String[] subtypes = {

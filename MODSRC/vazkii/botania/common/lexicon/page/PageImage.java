@@ -19,7 +19,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.internal.IGuiLexiconEntry;
-import vazkii.botania.api.page.LexiconPage;
+import vazkii.botania.api.lexicon.LexiconPage;
 
 public class PageImage extends LexiconPage {
 

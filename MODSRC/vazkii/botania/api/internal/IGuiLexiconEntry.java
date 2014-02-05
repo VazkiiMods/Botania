@@ -11,7 +11,7 @@
  */
 package vazkii.botania.api.internal;
 
-import vazkii.botania.api.LexiconEntry;
+import vazkii.botania.api.lexicon.LexiconEntry;
 
 /**
  * Internal interface for the Lexicon Entry GUI. This contains

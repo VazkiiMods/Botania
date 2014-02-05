@@ -17,7 +17,7 @@ import net.minecraft.block.Block;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.Icon;
 import vazkii.botania.api.internal.IInternalMethodHandler;
-import vazkii.botania.api.page.LexiconPage;
+import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.common.block.BlockSpecialFlower;
 import vazkii.botania.common.lexicon.page.PageCraftingRecipes;
 import vazkii.botania.common.lexicon.page.PageImage;

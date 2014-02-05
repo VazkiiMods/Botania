@@ -16,8 +16,7 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.Icon;
-import vazkii.botania.api.page.LexiconPage;
-import vazkii.botania.api.page.PageDummy;
+import vazkii.botania.api.lexicon.LexiconPage;
 
 public class DummyMethodHandler implements IInternalMethodHandler {
 
@@ -42,7 +41,7 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	}
 
 	private LexiconPage dummyPage(String key) {
-		return new PageDummy(key);
+		return new DummyPage(key);
 	}
 
 	@Override

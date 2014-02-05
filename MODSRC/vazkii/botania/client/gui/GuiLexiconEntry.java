@@ -13,9 +13,9 @@ package vazkii.botania.client.gui;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.StatCollector;
-import vazkii.botania.api.LexiconEntry;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
-import vazkii.botania.api.page.LexiconPage;
+import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.client.gui.button.GuiButtonBack;
 import vazkii.botania.client.gui.button.GuiButtonPage;
 

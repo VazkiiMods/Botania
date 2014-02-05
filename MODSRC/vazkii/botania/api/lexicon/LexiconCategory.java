@@ -9,7 +9,7 @@
  * 
  * File Created @ [Jan 14, 2014, 6:23:47 PM (GMT)]
  */
-package vazkii.botania.api;
+package vazkii.botania.api.lexicon;
 
 import java.util.ArrayList;
 import java.util.List;

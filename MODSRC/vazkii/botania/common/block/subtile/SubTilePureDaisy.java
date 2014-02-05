@@ -16,7 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraftforge.oredict.OreDictionary;
-import vazkii.botania.api.subtile.SubTileEntity;
+import vazkii.botania.api.SubTileEntity;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 

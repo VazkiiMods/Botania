@@ -21,15 +21,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
+import vazkii.botania.api.IWandHUD;
 import vazkii.botania.api.IWandable;
-import vazkii.botania.client.core.handler.HUDHandler.IHUD;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.TilePool;
 import vazkii.botania.common.lib.LibBlockIDs;
 import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
-public class BlockPool extends BlockModContainer implements IHUD, IWandable {
+public class BlockPool extends BlockModContainer implements IWandHUD, IWandable {
 
 	protected BlockPool() {
 		super(LibBlockIDs.idPool, Material.rock);

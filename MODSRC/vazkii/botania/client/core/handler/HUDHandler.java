@@ -16,13 +16,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
-import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.event.ForgeSubscribe;
 
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.api.IWandHUD;
 import vazkii.botania.common.item.ModItems;
 
 public final class HUDHandler {
@@ -34,8 +34,8 @@ public final class HUDHandler {
 			MovingObjectPosition pos = mc.objectMouseOver;
 			if(pos != null && mc.thePlayer.getCurrentEquippedItem() != null && mc.thePlayer.getCurrentEquippedItem().itemID == ModItems.twigWand.itemID) {
 				int id = mc.theWorld.getBlockId(pos.blockX, pos.blockY, pos.blockZ);
-				if(Block.blocksList[id] != null && Block.blocksList[id] instanceof IHUD)
-					((IHUD) Block.blocksList[id]).renderHUD(mc, event.resolution, mc.theWorld, pos.blockX, pos.blockY, pos.blockZ);
+				if(Block.blocksList[id] != null && Block.blocksList[id] instanceof IWandHUD)
+					((IWandHUD) Block.blocksList[id]).renderHUD(mc, event.resolution, mc.theWorld, pos.blockX, pos.blockY, pos.blockZ);
 			}
 		}
 	}
@@ -61,9 +61,5 @@ public final class HUDHandler {
 		mc.fontRenderer.drawStringWithShadow(name, res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(name) / 2, res.getScaledHeight() / 2 + 10, color);
 		mc.fontRenderer.drawStringWithShadow(filling, res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(filling) / 2, res.getScaledHeight() / 2 + 20, color);
 		GL11.glDisable(GL11.GL_BLEND);
-	}
-
-	public interface IHUD {
-		public void renderHUD(Minecraft mc, ScaledResolution res, World world, int x, int y, int z);
 	}
 }

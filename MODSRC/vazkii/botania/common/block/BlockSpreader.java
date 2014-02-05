@@ -23,9 +23,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
+import vazkii.botania.api.IWandHUD;
 import vazkii.botania.api.IWandable;
 import vazkii.botania.api.mana.ILens;
-import vazkii.botania.client.core.handler.HUDHandler.IHUD;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.TileSpreader;
@@ -33,7 +33,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockIDs;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockSpreader extends BlockModContainer implements IWandable, IHUD {
+public class BlockSpreader extends BlockModContainer implements IWandable, IWandHUD {
 
 	Random random;
 

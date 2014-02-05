@@ -21,7 +21,7 @@ import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.LexiconCategory;
+import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.client.gui.button.GuiButtonInvisible;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.item.ModItems;

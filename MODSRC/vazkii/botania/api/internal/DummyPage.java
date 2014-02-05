@@ -9,18 +9,18 @@
  * 
  * File Created @ [Jan 14, 2014, 6:41:23 PM (GMT)]
  */
-package vazkii.botania.api.page;
+package vazkii.botania.api.internal;
 
-import vazkii.botania.api.internal.IGuiLexiconEntry;
+import vazkii.botania.api.lexicon.LexiconPage;
 
 /**
  * A dummy page. It does absolutely nothing and is only
  * existant to make sure everything goes right even if
  * Botania isn't loaded.
  */
-public class PageDummy extends LexiconPage {
+public class DummyPage extends LexiconPage {
 
-	public PageDummy(String unlocalizedName) {
+	public DummyPage(String unlocalizedName) {
 		super(unlocalizedName);
 	}
 

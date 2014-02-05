@@ -9,7 +9,7 @@
  * 
  * File Created @ [Jan 24, 2014, 3:59:06 PM (GMT)]
  */
-package vazkii.botania.api.subtile;
+package vazkii.botania.api;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -18,8 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.LexiconEntry;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

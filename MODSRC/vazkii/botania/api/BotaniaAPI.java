@@ -19,10 +19,11 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import vazkii.botania.api.internal.DummyMethodHandler;
 import vazkii.botania.api.internal.IInternalMethodHandler;
-import vazkii.botania.api.internal.SubTileDummy;
+import vazkii.botania.api.internal.DummySubTile;
+import vazkii.botania.api.lexicon.LexiconCategory;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
-import vazkii.botania.api.subtile.SubTileEntity;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
@@ -37,7 +38,7 @@ public final class BotaniaAPI {
 
 	private static BiMap<String, Class<? extends SubTileEntity>> subTiles = HashBiMap.<String, Class<? extends SubTileEntity>> create();
 	static {
-		registerSubTile("", SubTileDummy.class);
+		registerSubTile("", DummySubTile.class);
 	}
 
 	/**

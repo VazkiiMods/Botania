@@ -15,20 +15,19 @@ import java.awt.Color;
 import java.util.List;
 import java.util.Random;
 
-import cpw.mods.fml.common.registry.GameRegistry;
-import vazkii.botania.common.Botania;
-import vazkii.botania.common.core.helper.Vector3;
-import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
-import vazkii.botania.common.lib.LibBlockIDs;
-import vazkii.botania.common.lib.LibBlockNames;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
+import vazkii.botania.common.lib.LibBlockIDs;
+import vazkii.botania.common.lib.LibBlockNames;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class BlockUnstable extends BlockMod {
 

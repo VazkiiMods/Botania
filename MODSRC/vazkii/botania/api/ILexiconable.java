@@ -11,6 +11,7 @@
  */
 package vazkii.botania.api;
 
+import vazkii.botania.api.lexicon.LexiconEntry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;

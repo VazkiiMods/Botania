@@ -12,8 +12,8 @@
 package vazkii.botania.common.lexicon;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.LexiconCategory;
-import vazkii.botania.api.LexiconEntry;
+import vazkii.botania.api.lexicon.LexiconCategory;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.crafting.ModCrafingRecipes;
 import vazkii.botania.common.lexicon.page.PageCraftingRecipes;

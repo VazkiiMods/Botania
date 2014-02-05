@@ -15,7 +15,7 @@ import java.util.List;
 
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.Icon;
-import vazkii.botania.api.page.LexiconPage;
+import vazkii.botania.api.lexicon.LexiconPage;
 
 /**
  * Any methods that refer to internal methods in Botania are here.

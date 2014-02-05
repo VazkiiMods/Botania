@@ -9,14 +9,13 @@
  * 
  * File Created @ [Jan 14, 2014, 6:17:06 PM (GMT)]
  */
-package vazkii.botania.api;
+package vazkii.botania.api.lexicon;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.util.StatCollector;
-import vazkii.botania.api.page.LexiconPage;
 
 public class LexiconEntry implements Comparable<LexiconEntry>{
 
