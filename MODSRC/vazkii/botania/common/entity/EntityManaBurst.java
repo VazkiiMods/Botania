@@ -198,6 +198,11 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		lastYMotion = motionY;
 		lastZMotion = motionZ;
 	}
+	
+	@Override
+	public boolean handleWaterMovement() {
+		return false;
+	}
 
 	TileEntity collidedTile = null;
 	boolean noParticles = false;
