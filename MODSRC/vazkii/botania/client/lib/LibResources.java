@@ -24,6 +24,7 @@ public final class LibResources {
 
 	public static final String EMTPY_TEXTURE = "emptyTexture";
 
+	public static final String GUI_MANA_HUD = PREFIX_GUI + "manaHud.png";
 	public static final String GUI_LEXICON = PREFIX_GUI + "lexicon.png";
 	public static final String GUI_CRAFTING_OVERLAY = PREFIX_GUI + "craftingOverlay.png";
 

@@ -11,10 +11,13 @@
  */
 package vazkii.botania.client.core.handler;
 
+import java.awt.Color;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
@@ -23,10 +26,14 @@ import net.minecraftforge.event.ForgeSubscribe;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.IWandHUD;
+import vazkii.botania.client.core.helper.RenderHelper;
+import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.item.ModItems;
 
 public final class HUDHandler {
 
+	private static final ResourceLocation manaBar = new ResourceLocation(LibResources.GUI_MANA_HUD);
+	
 	@ForgeSubscribe
 	public void onDrawScreen(RenderGameOverlayEvent.Post event) {
 		if(event.type == ElementType.ALL) {
@@ -39,27 +46,38 @@ public final class HUDHandler {
 			}
 		}
 	}
-
 	public static void drawSimpleManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res) {
-		int type = 0;
-		if(mana >= 0) {
-			type = 1;
-			double percentage = (double) mana / (double) maxMana * 100;
-			if(percentage == 100)
-				type = 5;
-			else if(percentage >= 75)
-				type = 4;
-			else if(percentage >= 50)
-				type = 3;
-			else if(percentage > 0)
-				type = 2;
-		}
-		String filling = StatCollector.translateToLocal("botaniamisc.status" + type);
+//		String filling = StatCollector.translateToLocal("botaniamisc.status" + type);
+		
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		Minecraft mc = Minecraft.getMinecraft();
-		mc.fontRenderer.drawStringWithShadow(name, res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(name) / 2, res.getScaledHeight() / 2 + 10, color);
-		mc.fontRenderer.drawStringWithShadow(filling, res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(filling) / 2, res.getScaledHeight() / 2 + 20, color);
+		int x = res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(name) / 2;
+		int y = res.getScaledHeight() / 2 + 10;
+		
+		mc.fontRenderer.drawStringWithShadow(name, x, y, color);
+		
+		x = res.getScaledWidth() / 2 - 51;
+		y += 10;
+
+		GL11.glColor4f(1F, 1F, 1F, 0.5F);
+		mc.renderEngine.bindTexture(manaBar);
+		RenderHelper.drawTexturedModalRect(x, y, 0, 0, 0, 102, 5);
+		
+		int manaPercentage = Math.max(0, (int) ((double) mana / (double) maxMana * 100));
+		RenderHelper.drawTexturedModalRect(x + 1 + manaPercentage, y + 1, 0, 0, 5, 100 - manaPercentage, 3);
+		
+		Color color_ = new Color(color);
+		GL11.glColor4ub((byte) color_.getRed(), (byte) color_.getGreen(),(byte) color_.getBlue(), (byte) 127);
+		RenderHelper.drawTexturedModalRect(x + 1, y + 1, 0, 0, 5, manaPercentage, 3);
+
+		if(mana < 0) {
+			String text = StatCollector.translateToLocal("botaniamisc.statusUnknown");
+			x = res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(text) / 2;
+			y -= 1;
+			mc.fontRenderer.drawStringWithShadow(text, x, y, color);
+		}
+		
 		GL11.glDisable(GL11.GL_BLEND);
 	}
 }

@@ -138,7 +138,7 @@ public class TilePool extends TileMod implements IManaPool {
 			nbttagcompound.setInteger(TAG_KNOWN_MANA, getCurrentMana());
 			PacketDispatcher.sendPacketToPlayer(new Packet132TileEntityData(xCoord, yCoord, zCoord, -999, nbttagcompound), (Player) player);
 		}
-		worldObj.playSoundAtEntity(player, "random.orb", 1F, 1F);
+		worldObj.playSoundAtEntity(player, "random.orb", 0.11F, 1F);
 	}
 
 	public void renderHUD(Minecraft mc, ScaledResolution res) {

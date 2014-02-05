@@ -156,7 +156,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 				nbttagcompound.setInteger(TAG_KNOWN_MANA, mana);
 				PacketDispatcher.sendPacketToPlayer(new Packet132TileEntityData(xCoord, yCoord, zCoord, -999, nbttagcompound), (Player) player);
 			}
-			worldObj.playSoundAtEntity(player, "random.orb", 1F, 1F);
+			worldObj.playSoundAtEntity(player, "random.orb", 0.1F, 1F);
 		} else {
 			MovingObjectPosition pos = raytraceFromEntity(worldObj, player, true, 5);
 			if(pos != null && pos.hitVec != null && !worldObj.isRemote) {
@@ -309,9 +309,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 			int y = res.getScaledHeight() / 2 + 30;
 
 			mc.fontRenderer.drawStringWithShadow(stackName, x + 20, y + 5, color);
-			GL11.glDisable(GL11.GL_DEPTH_TEST);
 			new RenderItem().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, recieverStack, x, y);
-			GL11.glEnable(GL11.GL_DEPTH_TEST);
 			GL11.glDisable(GL11.GL_LIGHTING);
 			GL11.glDisable(GL11.GL_BLEND);
 		}
