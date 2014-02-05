@@ -11,6 +11,44 @@
  */
 package vazkii.botania.api.recipe;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+
 public class RecipeRuneAltar {
 
+	ItemStack output;
+	List<String> inputs = new ArrayList();
+	int mana;
+
+	public RecipeRuneAltar(ItemStack output, String... inputs) {
+		this.output = output;
+		for(String i : inputs)
+			this.inputs.add(i);
+	}
+
+	public boolean matches(IInventory inv) {
+		List<Integer> colorsMissing = new ArrayList(inputs);
+
+		for(int i = 0; i < inv.getSizeInventory(); i++) {
+			ItemStack stack = inv.getStackInSlot(i);
+			if(stack == null)
+				break;
+
+			int color = stack.getItemDamage();
+
+			if(!colorsMissing.contains(color))
+				return false;
+			colorsMissing.remove((Integer) color);
+		}
+
+		return colorsMissing.isEmpty();
+	}
+
+	public ItemStack getOutput() {
+		return output;
+	}
+	
 }
