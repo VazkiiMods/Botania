@@ -16,6 +16,7 @@ import java.util.List;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class RecipeRuneAltar {
 
@@ -23,32 +24,37 @@ public class RecipeRuneAltar {
 	List<String> inputs = new ArrayList();
 	int mana;
 
-	public RecipeRuneAltar(ItemStack output, String... inputs) {
+	public RecipeRuneAltar(ItemStack output, int mana, String... inputs) {
 		this.output = output;
 		for(String i : inputs)
 			this.inputs.add(i);
+		this.mana = mana;
 	}
 
 	public boolean matches(IInventory inv) {
-		List<Integer> colorsMissing = new ArrayList(inputs);
+		List<String> inputsMissing = new ArrayList(inputs);
 
 		for(int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
 			if(stack == null)
 				break;
 
-			int color = stack.getItemDamage();
+			String ore = OreDictionary.getOreName(OreDictionary.getOreID(stack));
 
-			if(!colorsMissing.contains(color))
+			if(!inputsMissing.contains(ore))
 				return false;
-			colorsMissing.remove((Integer) color);
+			inputsMissing.remove(ore);
 		}
 
-		return colorsMissing.isEmpty();
+		return inputsMissing.isEmpty();
 	}
 
 	public ItemStack getOutput() {
 		return output;
+	}
+	
+	public int getManaUsage() {
+		return mana;
 	}
 	
 }
