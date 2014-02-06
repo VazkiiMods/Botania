@@ -56,7 +56,7 @@ public final class ManaNetworkHandler {
 		return null;
 	}
 
-	private TileEntity getClosest(List<TileEntity> tiles, ChunkCoordinates pos, int limit) {
+	private synchronized TileEntity getClosest(List<TileEntity> tiles, ChunkCoordinates pos, int limit) {
 		float closest = Float.MAX_VALUE;
 		TileEntity closestTile = null;
 
@@ -74,7 +74,7 @@ public final class ManaNetworkHandler {
 		return closestTile;
 	}
 
-	private void remove(Map<Integer, List<TileEntity>> map, TileEntity tile) {
+	private synchronized void remove(Map<Integer, List<TileEntity>> map, TileEntity tile) {
 		int dim = tile.worldObj.provider.dimensionId;
 
 		if(!map.containsKey(dim))
@@ -84,7 +84,7 @@ public final class ManaNetworkHandler {
 		tiles.remove(tile);
 	}
 
-	private void add(Map<Integer, List<TileEntity>> map, TileEntity tile) {
+	private synchronized void add(Map<Integer, List<TileEntity>> map, TileEntity tile) {
 		int dim = tile.worldObj.provider.dimensionId;
 
 		List<TileEntity> tiles;
