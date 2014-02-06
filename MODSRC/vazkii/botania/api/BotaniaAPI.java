@@ -14,16 +14,19 @@ package vazkii.botania.api;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.text.html.HTMLDocument.RunElement;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import vazkii.botania.api.internal.DummyMethodHandler;
-import vazkii.botania.api.internal.IInternalMethodHandler;
 import vazkii.botania.api.internal.DummySubTile;
+import vazkii.botania.api.internal.IInternalMethodHandler;
 import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
+import vazkii.botania.api.recipe.RecipeRuneAltar;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
@@ -34,6 +37,7 @@ public final class BotaniaAPI {
 	private static List<LexiconEntry> allEntries = new ArrayList<LexiconEntry>();
 
 	public static List<RecipePetals> petalRecipes = new ArrayList<RecipePetals>();
+	public static List<RecipeRuneAltar> runeAltarRecipes = new ArrayList<RecipeRuneAltar>();
 	public static List<RecipeManaInfusion> manaInfusionRecipes = new ArrayList<RecipeManaInfusion>();
 
 	private static BiMap<String, Class<? extends SubTileEntity>> subTiles = HashBiMap.<String, Class<? extends SubTileEntity>> create();
@@ -57,6 +61,19 @@ public final class BotaniaAPI {
 	public static RecipePetals registerPetalRecipe(ItemStack output, int... colors) {
 		RecipePetals recipe = new RecipePetals(output, colors);
 		petalRecipes.add(recipe);
+		return recipe;
+	}
+	
+	/**
+	 * Registers a Rune Altar
+	 * @param output The ItemStack to craft.
+	 * @param mana The amount of mana required.
+	 * @param inputs The ore dictionary names of the items required for crafting.
+	 * @return The recipe created.
+	 */
+	public static RecipeRuneAltar registerRuneAltarRecipe(ItemStack output, int mana, String... inputs) {
+		RecipeRuneAltar recipe = new RecipeRuneAltar(output, mana, inputs);
+		runeAltarRecipes.add(recipe);
 		return recipe;
 	}
 

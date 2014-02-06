@@ -22,13 +22,14 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
+import vazkii.botania.api.IWandable;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.lib.LibBlockIDs;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockRuneAltar extends BlockModContainer {
+public class BlockRuneAltar extends BlockModContainer implements IWandable {
 
 	Random random;
 	Icon[] icons;
@@ -64,10 +65,8 @@ public class BlockRuneAltar extends BlockModContainer {
 	@Override
 	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
 		ItemStack stack = par5EntityPlayer.getCurrentEquippedItem();
-		if(stack != null) {
-			((TileRuneAltar) par1World.getBlockTileEntity(par2, par3, par4)).addItem(par5EntityPlayer, stack);
-			return true;
-		}
+		if(stack != null)
+			return ((TileRuneAltar) par1World.getBlockTileEntity(par2, par3, par4)).addItem(par5EntityPlayer, stack);
 			
 		return false;
 	}
@@ -118,6 +117,12 @@ public class BlockRuneAltar extends BlockModContainer {
 	@Override
 	public TileEntity createNewTileEntity(World world) {
 		return new TileRuneAltar();
+	}
+
+	@Override
+	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
+		((TileRuneAltar) world.getBlockTileEntity(x, y, z)).onWanded(player, stack);
+		return true;
 	}
 
 }

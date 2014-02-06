@@ -25,6 +25,7 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.crafting.ModCrafingRecipes;
 import vazkii.botania.common.crafting.ModManaInfusionRecipes;
 import vazkii.botania.common.crafting.ModPetalRecipes;
+import vazkii.botania.common.crafting.ModRuneRecipes;
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -47,6 +48,7 @@ public class CommonProxy {
 
 		ModCrafingRecipes.init();
 		ModPetalRecipes.init();
+		ModRuneRecipes.init();
 		ModManaInfusionRecipes.init();
 
 		LexiconData.init();

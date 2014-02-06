@@ -40,9 +40,10 @@ public class RecipeRuneAltar {
 				break;
 
 			String ore = OreDictionary.getOreName(OreDictionary.getOreID(stack));
-
+			
 			if(!inputsMissing.contains(ore))
-				return false;
+				return false;	
+			
 			inputsMissing.remove(ore);
 		}
 
