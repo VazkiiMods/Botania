@@ -1,0 +1,17 @@
+[
+{
+  "modid": "Botania",
+  "name": "Botania",
+  "description": "Botania is a mod that adds nature magic to Minecraft.",
+  "version": "ANT:VERSION-ANT:BUILD",
+  "mcversion": "1.6.4",
+  "logoFile": "assets/botania/textures/logo.png",
+  "url": "",
+  "updateUrl": "",
+  "authors": ["Vazkii"],
+  "credits": "Azanor, dylan4ever, MegaManki, mDiyo, Mikeemoo, ChickenBones",
+  "parent": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
