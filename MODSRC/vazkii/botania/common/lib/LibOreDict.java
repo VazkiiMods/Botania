@@ -37,4 +37,8 @@ public final class LibOreDict {
 	public static final String[] MANA_PETAL = new String[] {
 		"manaPetalWhite", "manaPetalOrange", "manaPetalMagenta", "manaPetalLightBlue", "manaPetalYellow", "manaPetalLime", "manaPetalPink", "manaPetalGray", "manaPetalLightGray", "manaPetalCyan", "manaPetalPurple", "manaPetalBlue", "manaPetalBrown", "manaPetalGreen", "manaPetalRed", "manaPetalBlack",
 	};
+	
+	public static final String[] RUNE = new String[] {
+		"runeWaterB", "runeFireB", "runeEarthB", "runeAirB", "runeSpringB", "runeSummerB", "runeAutumnB", "runeWinterB", "runeManaB", "runeLustB", "runeGluttonyB", "runeGreedB", "runeSlothB", "runeWrathB", "runeEnvyB", "runePrideB"
+	};
 }

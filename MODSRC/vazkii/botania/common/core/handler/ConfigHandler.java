@@ -48,6 +48,7 @@ public final class ConfigHandler {
 		LibItemIDs.idManaResource = loadItem(LibItemNames.MANA_RESOURCE, LibItemIDs.idManaResource);
 		LibItemIDs.idLens = loadItem(LibItemNames.LENS, LibItemIDs.idLens);
 		LibItemIDs.idManaPetal = loadItem(LibItemNames.MANA_PETAL, LibItemIDs.idManaPetal);
+		LibItemIDs.idRune = loadItem(LibItemNames.RUNE, LibItemIDs.idRune);
 
 		config.save();
 	}

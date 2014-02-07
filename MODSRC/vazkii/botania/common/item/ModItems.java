@@ -26,6 +26,7 @@ public final class ModItems {
 	public static Item manaResource;
 	public static Item lens;
 	public static Item manaPetal;
+	public static Item rune;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -36,12 +37,14 @@ public final class ModItems {
 		manaResource = new ItemManaResource();
 		lens = new ItemLens();
 		manaPetal = new ItemManaPetal();
+		rune = new ItemRune();
 		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal.itemID, 1, i));
 			OreDictionary.registerOre(LibOreDict.DYE[i], new ItemStack(dye.itemID, 1, i));
 			OreDictionary.registerOre(LibOreDict.MANA_PETAL[i], new ItemStack(manaPetal.itemID, 1, i));
+			OreDictionary.registerOre(LibOreDict.RUNE[i], new ItemStack(rune.itemID, 1, i));
 		}
 		OreDictionary.registerOre(LibOreDict.PESTLE_AND_MORTAR, pestleAndMortar);
 		OreDictionary.registerOre(LibOreDict.MANA_STEEL, new ItemStack(manaResource, 1, 0));

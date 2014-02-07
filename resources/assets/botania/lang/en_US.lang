@@ -138,6 +138,22 @@ item.botania:manaPetal12.name=Brown Mana Petal
 item.botania:manaPetal13.name=Green Mana Petal
 item.botania:manaPetal14.name=Red Mana Petal
 item.botania:manaPetal15.name=Black Mana Petal
+item.botania:rune0.name=Rune of Water
+item.botania:rune1.name=Rune of Fire
+item.botania:rune2.name=Rune of Earth
+item.botania:rune3.name=Rune of Air
+item.botania:rune4.name=Rune of Spring
+item.botania:rune5.name=Rune of Summer
+item.botania:rune6.name=Rune of Autumn
+item.botania:rune7.name=Rune of Winter
+item.botania:rune8.name=Rune of Mana
+item.botania:rune9.name=Rune of Lust
+item.botania:rune10.name=Rune of Gluttony
+item.botania:rune11.name=Rune of Greed
+item.botania:rune12.name=Rune of Sloth
+item.botania:rune13.name=Rune of Wrath
+item.botania:rune14.name=Rune of Envy
+item.botania:rune15.name=Rune of Pride
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania Index - Pick which category you would like to study:

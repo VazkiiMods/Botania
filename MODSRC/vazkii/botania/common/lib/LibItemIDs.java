@@ -21,5 +21,6 @@ public final class LibItemIDs {
 	public static int idManaResource = 19560;
 	public static int idLens = 19562;
 	public static int idManaPetal = 19563;
+	public static int idRune = 19564;
 
 }
