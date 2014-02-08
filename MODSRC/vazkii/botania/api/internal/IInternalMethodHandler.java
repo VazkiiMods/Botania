@@ -13,6 +13,7 @@ package vazkii.botania.api.internal;
 
 import java.util.List;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.Icon;
 import vazkii.botania.api.lexicon.LexiconPage;
@@ -48,6 +49,8 @@ public interface IInternalMethodHandler {
 	public LexiconPage manaInfusionRecipesPage(String key, List<RecipeManaInfusion> recipes);
 
 	public LexiconPage manaInfusionRecipePage(String key, RecipeManaInfusion recipe);
+	
+	public ItemStack getSubTileAsStack(String subTile);
 	
 	public Icon getSubTileIconForName(String name);
 

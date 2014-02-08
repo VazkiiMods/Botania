@@ -41,6 +41,7 @@ public final class LexiconData {
 	public static LexiconEntry apothecary;
 	public static LexiconEntry lexicon;
 	public static LexiconEntry wand;
+	public static LexiconEntry pureDaisy;
 	
 	public static LexiconEntry pool;
 
@@ -66,9 +67,12 @@ public final class LexiconData {
 		wand = new BLexiconEntry(LibLexicon.BASICS_WAND, categoryBasics);
 		wand.setPriority().setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipesTwigWand));
 		
+		pureDaisy = new BLexiconEntry(LibLexicon.BASICS_PURE_DAISY, categoryBasics);
+		pureDaisy.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_PURE_DAISY), new PagePetalRecipe("2", ModPetalRecipes.pureDaisyRecipe));
+		
 		// MANA ENTRIES
 		pool = new BLexiconEntry(LibLexicon.MANA_POOL, categoryMana);
-		pool.setPriority().setLexiconPages(new PageText("0"), new PageManaInfusionRecipe("1", ModManaInfusionRecipes.manaPetalRecipes), new PagePetalRecipe("2", ModPetalRecipes.testRecipe), new PageRuneRecipe("3", ModRuneRecipes.recipeDebug));
+		pool.setPriority().setLexiconPages(new PageText("0"), new PageManaInfusionRecipe("1", ModManaInfusionRecipes.manaPetalRecipes), new PagePetalRecipe("2", ModPetalRecipes.pureDaisyRecipe), new PageRuneRecipe("3", ModRuneRecipes.recipeDebug));
 	}
 
 }

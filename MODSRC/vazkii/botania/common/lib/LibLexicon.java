@@ -27,7 +27,8 @@ public final class LibLexicon {
 	public static final String BASICS_APOTHECARY = "apothecary";
 	public static final String BASICS_LEXICON = "lexicon";
 	public static final String BASICS_WAND = "wand";
-	
+	public static final String BASICS_PURE_DAISY = "pureDaisy";
+
 	public static final String MANA_POOL = "pool";
 
 }

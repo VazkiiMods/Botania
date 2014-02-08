@@ -17,8 +17,7 @@ public class MappableStackWrapper {
 
 	private ItemStack wrap;
 
-	public MappableStackWrapper(ItemStack toWrap)
-	{
+	public MappableStackWrapper(ItemStack toWrap) {
 		wrap = toWrap;
 	}
 
@@ -26,11 +25,11 @@ public class MappableStackWrapper {
 	public boolean equals(Object obj) {
 		if (!(obj instanceof MappableStackWrapper)) 
 			return false;
-		
+
 		MappableStackWrapper isw = (MappableStackWrapper) obj;
 		if (wrap.getHasSubtypes())
 			return isw.wrap.isItemEqual(wrap);
-		
+
 		else return isw.wrap == wrap;
 	}
 

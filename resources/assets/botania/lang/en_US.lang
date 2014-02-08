@@ -193,6 +193,12 @@ botania.page.apothecary2=This block, when placed in the world and given some wat
 botania.page.apothecary3=Quite a few plants can be made using this method, for more information, read on the &4Functional Flora&0 and &4Generation Flora&0 sections of this Lexicon.
 botania.page.apothecary4=Crafting the &1Petal Apothecary&0.
 
+# -- PURE DAISY
+botania.entry.pureDaisy=Pure Daisy
+botania.page.pureDaisy0=The &1Pure Daisy&0 is not only the most basic, but also the most important flower a Botanist can have.<br>This flower will purify any adjacent &1Wood&0 and &1Stone&0 blocks, as seen in the next page, into their purified counterparts, &1Livingwood&0 and &1Livingrock&0, which can be used for crafting.  
+botania.page.pureDaisy1=Just give it &4a minute&0 or so...
+botania.page.pureDaisy2=White is bright and pure
+
 # -- WAND OF THE FOREST
 botania.entry.wand=Wand of the Forest
 botania.page.wand0=The general multi use tool for a botanist is the &1Wand of the Forest&0.<br>This wand, made by, effectively, strapping a pair of &1Mystical Petals&0 of any color to a few &1Sticks&0 is required for a good amount of tasks.
