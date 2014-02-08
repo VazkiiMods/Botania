@@ -65,7 +65,8 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 		TileAltar tile = (TileAltar) par1World.getBlockTileEntity(par2, par3, par4);
 		if(stack != null && stack.itemID == Item.bucketWater.itemID) {
 			if(!tile.hasWater) {
-				par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, new ItemStack(Item.bucketEmpty));
+				if(!par5EntityPlayer.capabilities.isCreativeMode)
+					par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, new ItemStack(Item.bucketEmpty));
 				tile.hasWater = true;
 				PacketDispatcher.sendPacketToAllInDimension(tile.getDescriptionPacket(), par1World.provider.dimensionId);
 			}
