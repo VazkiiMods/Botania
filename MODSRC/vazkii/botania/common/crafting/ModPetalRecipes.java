@@ -7,7 +7,7 @@
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
  * 
- * File Created @ [Jan 22, 2014, 2:22:21 PM (GMT)]
+ * File Created @ [Jan 22], 2014], 2:22:21 PM (GMT)]
  */
 package vazkii.botania.common.crafting;
 
@@ -15,10 +15,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipePetals;
+import vazkii.botania.common.lib.LibOreDict;
 
 public final class ModPetalRecipes {
 
-	public static final int white = 0, orange = 1, magenta = 2, lightBlue = 3, yellow = 4, lime = 5, pink = 6, gray = 7, lightGray = 8, cyan = 9, purple = 10, blue = 11, brown = 12, green = 13, red = 14, black = 15;
+	public static final String white = LibOreDict.PETAL[0], orange = LibOreDict.PETAL[1], magenta = LibOreDict.PETAL[2], lightBlue = LibOreDict.PETAL[3], yellow = LibOreDict.PETAL[4], lime = LibOreDict.PETAL[5], pink = LibOreDict.PETAL[6], gray = LibOreDict.PETAL[7], lightGray = LibOreDict.PETAL[8], cyan = LibOreDict.PETAL[9], purple = LibOreDict.PETAL[10], blue = LibOreDict.PETAL[11], brown = LibOreDict.PETAL[12], green = LibOreDict.PETAL[13], red = LibOreDict.PETAL[14], black = LibOreDict.PETAL[15];
 
 	public static RecipePetals testRecipe;
 

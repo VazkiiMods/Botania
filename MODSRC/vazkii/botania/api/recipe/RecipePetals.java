@@ -14,36 +14,52 @@ package vazkii.botania.api.recipe;
 import java.util.ArrayList;
 import java.util.List;
 
+import vazkii.botania.api.internal.MappableStackWrapper;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class RecipePetals {
 
 	ItemStack output;
-	List<Integer> colors = new ArrayList();
+	List<Object> inputs;
 
-	public RecipePetals(ItemStack output, int... colors) {
+	public RecipePetals(ItemStack output, Object... inputs) {
 		this.output = output;
-		for(int c : colors)
-			this.colors.add(c);
+		
+		List<Object> inputsToSet = new ArrayList();
+		for(Object obj : inputs) {
+			if(obj instanceof String)
+				inputsToSet.add(obj);
+			else if(obj instanceof MappableStackWrapper)
+				inputsToSet.add(obj);
+			else if(obj instanceof ItemStack)
+				inputsToSet.add(new MappableStackWrapper((ItemStack) obj));
+			else throw new IllegalArgumentException("Invalid input");
+		}
+		
+		this.inputs = inputsToSet;
 	}
 
 	public boolean matches(IInventory inv) {
-		List<Integer> colorsMissing = new ArrayList(colors);
+		List<Object> inputsMissing = new ArrayList(inputs);
 
 		for(int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
 			if(stack == null)
 				break;
 
-			int color = stack.getItemDamage();
-
-			if(!colorsMissing.contains(color))
+			String oredict = OreDictionary.getOreName(OreDictionary.getOreID(stack));
+			
+			if(!inputsMissing.contains(stack) && !inputsMissing.contains(oredict))
 				return false;
-			colorsMissing.remove((Integer) color);
+			
+			if(inputsMissing.contains(stack))
+				inputsMissing.remove(stack);
+			else inputsMissing.remove(oredict);
 		}
 
-		return colorsMissing.isEmpty();
+		return inputsMissing.isEmpty();
 	}
 
 	public ItemStack getOutput() {

@@ -69,6 +69,24 @@ public class PageRecipe extends LexiconPage {
 		// NO-OP
 	}
 	
+	public void renderItemAtAngle(IGuiLexiconEntry gui, int angle, ItemStack stack) {
+		if(stack == null || stack.getItem() == null)
+			return;
+		stack = stack.copy();
+
+		if(stack.getItemDamage() == Short.MAX_VALUE)
+			stack.setItemDamage(0);
+
+		angle -= 90;
+		int xPos = gui.getLeft() + (int) (Math.cos(angle) * 12) + gui.getWidth() / 2;
+		int yPos = gui.getTop() + (int) (Math.sin(angle) * 12) + 25;
+		ItemStack stack1 = stack.copy();
+		if(stack1.getItemDamage() == -1)
+			stack1.setItemDamage(0);
+
+		renderItem(gui, xPos, yPos, stack1, false);
+	}
+	
 	public void renderItemAtGridPos(IGuiLexiconEntry gui, int x, int y, ItemStack stack, boolean accountForContainer) {
 		if(stack == null || stack.getItem() == null)
 			return;

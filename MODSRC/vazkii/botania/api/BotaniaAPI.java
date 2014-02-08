@@ -54,12 +54,12 @@ public final class BotaniaAPI {
 	/**
 	 * Registers a Petal Recipe.
 	 * @param output The ItemStack to craft.
-	 * @param colors The required metadata petals for this recipe to be accept.
-	 * Eg: 0, 0, 1 is White, White, Orange
+	 * @param inputs The objects for crafting. Can be ItemStack, MappableStackWrapper
+	 * or String (case for Ore Dictionary)
 	 * @return The recipe created.
 	 */
-	public static RecipePetals registerPetalRecipe(ItemStack output, int... colors) {
-		RecipePetals recipe = new RecipePetals(output, colors);
+	public static RecipePetals registerPetalRecipe(ItemStack output, Object... inputs) {
+		RecipePetals recipe = new RecipePetals(output, inputs);
 		petalRecipes.add(recipe);
 		return recipe;
 	}
@@ -67,11 +67,12 @@ public final class BotaniaAPI {
 	/**
 	 * Registers a Rune Altar
 	 * @param output The ItemStack to craft.
-	 * @param mana The amount of mana required.
-	 * @param inputs The ore dictionary names of the items required for crafting.
+	 * @param mana The amount of mana required. Don't go over 100000!
+	 * @param inputs The objects for crafting. Can be ItemStack, MappableStackWrapper
+	 * or String (case for Ore Dictionary)
 	 * @return The recipe created.
 	 */
-	public static RecipeRuneAltar registerRuneAltarRecipe(ItemStack output, int mana, String... inputs) {
+	public static RecipeRuneAltar registerRuneAltarRecipe(ItemStack output, int mana, Object... inputs) {
 		RecipeRuneAltar recipe = new RecipeRuneAltar(output, mana, inputs);
 		runeAltarRecipes.add(recipe);
 		return recipe;
@@ -81,6 +82,7 @@ public final class BotaniaAPI {
 	 * Registers a Mana Infusion Recipe (throw an item in a mana pool)
 	 * @param output The ItemStack to craft
 	 * @param input The input item, be it an ItemStack or an ore dictionary entry String.
+	 * @param mana The amount of mana required. Don't go over 100000!
 	 * @return The recipe created.
 	 */
 	public static RecipeManaInfusion registerManaInfusionRecipe(ItemStack output, Object input, int mana) {
