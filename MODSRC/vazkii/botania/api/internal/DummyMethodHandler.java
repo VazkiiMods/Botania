@@ -17,6 +17,9 @@ import net.minecraft.block.Block;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.Icon;
 import vazkii.botania.api.lexicon.LexiconPage;
+import vazkii.botania.api.recipe.RecipeManaInfusion;
+import vazkii.botania.api.recipe.RecipePetals;
+import vazkii.botania.api.recipe.RecipeRuneAltar;
 
 public class DummyMethodHandler implements IInternalMethodHandler {
 
@@ -31,14 +34,45 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	}
 
 	@Override
-	public LexiconPage recipesPage(String key, List<IRecipe> recipes) {
+	public LexiconPage craftingRecipesPage(String key, List<IRecipe> recipes) {
 		return dummyPage(key);
 	}
 
 	@Override
-	public LexiconPage recipePage(String key, IRecipe recipe) {
+	public LexiconPage craftingRecipePage(String key, IRecipe recipe) {
 		return dummyPage(key);
 	}
+
+	@Override
+	public LexiconPage petalRecipesPage(String key, List<RecipePetals> recipes) {
+		return dummyPage(key);
+	}
+
+	@Override
+	public LexiconPage petalRecipePage(String key, RecipePetals recipe) {
+		return dummyPage(key);
+	}
+
+	@Override
+	public LexiconPage runeRecipesPage(String key, List<RecipeRuneAltar> recipes) {
+		return dummyPage(key);
+	}
+
+	@Override
+	public LexiconPage runeRecipePage(String key, RecipeRuneAltar recipe) {
+		return dummyPage(key);
+	}
+
+	@Override
+	public LexiconPage manaInfusionRecipesPage(String key, List<RecipeManaInfusion> recipes) {
+		return dummyPage(key);
+	}
+
+	@Override
+	public LexiconPage manaInfusionRecipePage(String key, RecipeManaInfusion recipe) {
+		return dummyPage(key);
+	}
+	
 
 	private LexiconPage dummyPage(String key) {
 		return new DummyPage(key);

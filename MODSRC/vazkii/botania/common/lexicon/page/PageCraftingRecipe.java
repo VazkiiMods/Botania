@@ -40,7 +40,7 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 
-public class PageCraftingRecipes extends LexiconPage {
+public class PageCraftingRecipe extends LexiconPage {
 
 	private static final ResourceLocation craftingOverlay = new ResourceLocation(LibResources.GUI_CRAFTING_OVERLAY);
 
@@ -54,12 +54,12 @@ public class PageCraftingRecipes extends LexiconPage {
 
 	ItemStack tooltipStack, tooltipContainerStack;
 
-	public PageCraftingRecipes(String unlocalizedName, List<IRecipe> recipes) {
+	public PageCraftingRecipe(String unlocalizedName, List<IRecipe> recipes) {
 		super(unlocalizedName);
 		this.recipes = recipes;
 	}
 
-	public PageCraftingRecipes(String unlocalizedName, IRecipe recipe) {
+	public PageCraftingRecipe(String unlocalizedName, IRecipe recipe) {
 		this(unlocalizedName, Arrays.asList(recipe));
 	}
 

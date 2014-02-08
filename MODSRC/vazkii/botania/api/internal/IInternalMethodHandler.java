@@ -16,6 +16,9 @@ import java.util.List;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.Icon;
 import vazkii.botania.api.lexicon.LexiconPage;
+import vazkii.botania.api.recipe.RecipeManaInfusion;
+import vazkii.botania.api.recipe.RecipePetals;
+import vazkii.botania.api.recipe.RecipeRuneAltar;
 
 /**
  * Any methods that refer to internal methods in Botania are here.
@@ -30,10 +33,22 @@ public interface IInternalMethodHandler {
 
 	public LexiconPage imagePage(String key, String resource);
 
-	public LexiconPage recipesPage(String key, List<IRecipe> recipes);
+	public LexiconPage craftingRecipesPage(String key, List<IRecipe> recipes);
 
-	public LexiconPage recipePage(String key, IRecipe recipe);
+	public LexiconPage craftingRecipePage(String key, IRecipe recipe);
 
+	public LexiconPage petalRecipesPage(String key, List<RecipePetals> recipes);
+
+	public LexiconPage petalRecipePage(String key, RecipePetals recipe);
+	
+	public LexiconPage runeRecipesPage(String key, List<RecipeRuneAltar> recipes);
+
+	public LexiconPage runeRecipePage(String key, RecipeRuneAltar recipe);
+	
+	public LexiconPage manaInfusionRecipesPage(String key, List<RecipeManaInfusion> recipes);
+
+	public LexiconPage manaInfusionRecipePage(String key, RecipeManaInfusion recipe);
+	
 	public Icon getSubTileIconForName(String name);
 
 }

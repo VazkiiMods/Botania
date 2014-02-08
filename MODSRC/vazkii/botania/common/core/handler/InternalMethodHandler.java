@@ -18,8 +18,11 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.Icon;
 import vazkii.botania.api.internal.IInternalMethodHandler;
 import vazkii.botania.api.lexicon.LexiconPage;
+import vazkii.botania.api.recipe.RecipeManaInfusion;
+import vazkii.botania.api.recipe.RecipePetals;
+import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.common.block.BlockSpecialFlower;
-import vazkii.botania.common.lexicon.page.PageCraftingRecipes;
+import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
 import vazkii.botania.common.lexicon.page.PageImage;
 import vazkii.botania.common.lexicon.page.PageText;
 
@@ -36,13 +39,13 @@ public class InternalMethodHandler implements IInternalMethodHandler {
 	}
 
 	@Override
-	public LexiconPage recipesPage(String key, List<IRecipe> recipes) {
-		return new PageCraftingRecipes(key, recipes);
+	public LexiconPage craftingRecipesPage(String key, List<IRecipe> recipes) {
+		return new PageCraftingRecipe(key, recipes);
 	}
 
 	@Override
-	public LexiconPage recipePage(String key, IRecipe recipe) {
-		return new PageCraftingRecipes(key, recipe);
+	public LexiconPage craftingRecipePage(String key, IRecipe recipe) {
+		return new PageCraftingRecipe(key, recipe);
 	}
 
 	@Override
@@ -51,4 +54,33 @@ public class InternalMethodHandler implements IInternalMethodHandler {
 		return icon == null ? Block.plantRed.getIcon(0, 0) : icon;
 	}
 
+	@Override
+	public LexiconPage petalRecipesPage(String key, List<RecipePetals> recipes) {
+		return null;
+	}
+
+	@Override
+	public LexiconPage petalRecipePage(String key, RecipePetals recipe) {
+		return null;
+	}
+
+	@Override
+	public LexiconPage runeRecipesPage(String key, List<RecipeRuneAltar> recipes) {
+		return null;
+	}
+
+	@Override
+	public LexiconPage runeRecipePage(String key, RecipeRuneAltar recipe) {
+		return null;
+	}
+
+	@Override
+	public LexiconPage manaInfusionRecipesPage(String key, List<RecipeManaInfusion> recipes) {
+		return null;
+	}
+
+	@Override
+	public LexiconPage manaInfusionRecipePage(String key, RecipeManaInfusion recipe) {
+		return null;
+	}
 }
