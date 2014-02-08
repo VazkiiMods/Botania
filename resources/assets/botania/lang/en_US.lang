@@ -8,6 +8,7 @@ botaniamisc.shapeless=Shapeless Recipe
 botaniamisc.oredict=Ore Dictionary Recipe
 botaniamisc.statusUnknown=Unknown Status
 botaniamisc.color=%s Tinted
+botaniamisc.manaUsage=Mana Usage
 
 # COLORS
 botania.color0=White

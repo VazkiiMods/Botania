@@ -16,31 +16,25 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.internal.IGuiLexiconEntry;
-import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 
-public class PageCraftingRecipe extends LexiconPage {
+public class PageCraftingRecipe extends PageRecipe {
 
 	private static final ResourceLocation craftingOverlay = new ResourceLocation(LibResources.GUI_CRAFTING_OVERLAY);
 
@@ -48,11 +42,7 @@ public class PageCraftingRecipe extends LexiconPage {
 	int ticksElapsed = 0;
 	int recipeAt = 0;
 
-	int relativeMouseX, relativeMouseY;
-
 	boolean oreDictRecipe, shapelessRecipe;
-
-	ItemStack tooltipStack, tooltipContainerStack;
 
 	public PageCraftingRecipe(String unlocalizedName, List<IRecipe> recipes) {
 		super(unlocalizedName);
@@ -65,9 +55,16 @@ public class PageCraftingRecipe extends LexiconPage {
 
 	@Override
 	public void renderScreen(IGuiLexiconEntry gui, int mx, int my) {
-		relativeMouseX = mx;
-		relativeMouseY = my;
+		super.renderScreen(gui, mx, my);
+	}
+	
+	@Override
+	public void renderRecipe(IGuiLexiconEntry gui, int mx, int my) {
 		oreDictRecipe = shapelessRecipe = false;
+
+		IRecipe recipe = recipes.get(recipeAt);
+		renderCraftingRecipe(gui, recipe);
+		
 
 		TextureManager render = Minecraft.getMinecraft().renderEngine;
 		render.bindTexture(craftingOverlay);
@@ -77,20 +74,12 @@ public class PageCraftingRecipe extends LexiconPage {
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		((GuiScreen) gui).drawTexturedModalRect(gui.getLeft(), gui.getTop(), 0, 0, gui.getWidth(), gui.getHeight());
 
-		IRecipe recipe = recipes.get(recipeAt);
-		renderCraftingRecipe(gui, recipe);
-
-		int width = gui.getWidth() - 30;
-		int height = gui.getHeight();
-		int x = gui.getLeft() + 16;
-		int y = gui.getTop() + height - 40;
-		PageText.renderText(x, y, width, height, getUnlocalizedName());
-
-		GL11.glColor4f(1F, 1F, 1F, 1F);
-		render.bindTexture(craftingOverlay);
 		int iconX = gui.getLeft() + 115;
 		int iconY = gui.getTop() + 12;
 
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		
 		if(shapelessRecipe) {
 			((GuiScreen) gui).drawTexturedModalRect(iconX, iconY, 240, 0, 16, 16);
 
@@ -102,22 +91,13 @@ public class PageCraftingRecipe extends LexiconPage {
 
 		render.bindTexture(craftingOverlay);
 		GL11.glEnable(GL11.GL_BLEND);
-
+		
 		if(oreDictRecipe) {
 			((GuiScreen) gui).drawTexturedModalRect(iconX, iconY, 240, 16, 16, 16);
 
 			if(mx >= iconX && my >= iconY && mx < iconX + 16 && my < iconY + 16)
 				RenderHelper.renderTooltip(mx, my, Arrays.asList(StatCollector.translateToLocal("botaniamisc.oredict")));
 		}
-
-		if(tooltipStack != null) {
-			List<String> tooltipData = tooltipStack.getTooltip(Minecraft.getMinecraft().thePlayer, false);
-
-			RenderHelper.renderTooltip(mx, my, tooltipData);
-			if(tooltipContainerStack != null)
-				RenderHelper.renderTooltipGreen(mx, my + 8 + tooltipData.size() * 11, Arrays.asList(EnumChatFormatting.AQUA + StatCollector.translateToLocal("botaniamisc.craftingContainer"), tooltipContainerStack.getDisplayName()));
-		}
-		tooltipStack = tooltipContainerStack = null;
 		GL11.glDisable(GL11.GL_BLEND);
 	}
 
@@ -191,43 +171,4 @@ public class PageCraftingRecipe extends LexiconPage {
 
 		renderItemAtGridPos(gui, 2, 0, recipe.getRecipeOutput(), false);
 	}
-
-	public void renderItemAtGridPos(IGuiLexiconEntry gui, int x, int y, ItemStack stack, boolean accountForContainer) {
-		if(stack == null || stack.getItem() == null)
-			return;
-		stack = stack.copy();
-
-		if(stack.getItemDamage() == Short.MAX_VALUE)
-			stack.setItemDamage(0);
-
-		int xPos = gui.getLeft() + x * 29 + 7;
-		int yPos = gui.getTop() + y * 29 + 24 - (y == 0 ? 7 : 0);
-		ItemStack stack1 = stack.copy();
-		if(stack1.getItemDamage() == -1)
-			stack1.setItemDamage(0);
-
-		renderItem(gui, xPos, yPos, stack1, accountForContainer);
-	}
-
-	public void renderItem(IGuiLexiconEntry gui, int xPos, int yPos, ItemStack stack, boolean accountForContainer) {
-		RenderItem render = new RenderItem();
-		TextureManager renderEngine = Minecraft.getMinecraft().renderEngine;
-		FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
-
-		if(!ForgeHooksClient.renderInventoryItem(new RenderBlocks(), renderEngine, stack, render.renderWithColor, gui.getZLevel(), xPos, yPos))
-			render.renderItemIntoGUI(fontRenderer, renderEngine, stack, xPos, yPos);
-		render.renderItemOverlayIntoGUI(fontRenderer, renderEngine, stack, xPos, yPos);
-
-		if(relativeMouseX >= xPos && relativeMouseY >= yPos && relativeMouseX <= xPos + 16 && relativeMouseY <= yPos + 16) {
-			tooltipStack = stack;
-			if(accountForContainer) {
-				ItemStack containerStack = stack.getItem().getContainerItemStack(stack);
-				if(containerStack != null && containerStack.getItem() != null)
-					tooltipContainerStack = containerStack;
-			}
-		}
-
-		GL11.glDisable(GL11.GL_LIGHTING);
-	}
-
 }

@@ -16,6 +16,7 @@ import java.awt.Color;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -46,9 +47,8 @@ public final class HUDHandler {
 			}
 		}
 	}
+	
 	public static void drawSimpleManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res) {
-//		String filling = StatCollector.translateToLocal("botaniamisc.status" + type);
-		
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		Minecraft mc = Minecraft.getMinecraft();
@@ -59,17 +59,8 @@ public final class HUDHandler {
 		
 		x = res.getScaledWidth() / 2 - 51;
 		y += 10;
-
-		GL11.glColor4f(1F, 1F, 1F, 0.5F);
-		mc.renderEngine.bindTexture(manaBar);
-		RenderHelper.drawTexturedModalRect(x, y, 0, 0, 0, 102, 5);
 		
-		int manaPercentage = Math.max(0, (int) ((double) mana / (double) maxMana * 100));
-		RenderHelper.drawTexturedModalRect(x + 1 + manaPercentage, y + 1, 0, 0, 5, 100 - manaPercentage, 3);
-		
-		Color color_ = new Color(color);
-		GL11.glColor4ub((byte) color_.getRed(), (byte) color_.getGreen(),(byte) color_.getBlue(), (byte) 127);
-		RenderHelper.drawTexturedModalRect(x + 1, y + 1, 0, 0, 5, manaPercentage, 3);
+		renderManaBar(x, y, color, 0.5F, mana, maxMana);
 
 		if(mana < 0) {
 			String text = StatCollector.translateToLocal("botaniamisc.statusUnknown");
@@ -79,5 +70,20 @@ public final class HUDHandler {
 		}
 		
 		GL11.glDisable(GL11.GL_BLEND);
+	}
+	
+	public static void renderManaBar(int x, int y, int color, float alpha, int mana, int maxMana) {
+		Minecraft mc = Minecraft.getMinecraft();
+
+		GL11.glColor4f(1F, 1F, 1F, alpha);
+		mc.renderEngine.bindTexture(manaBar);
+		RenderHelper.drawTexturedModalRect(x, y, 0, 0, 0, 102, 5);
+		
+		int manaPercentage = Math.max(0, (int) ((double) mana / (double) maxMana * 100));
+		RenderHelper.drawTexturedModalRect(x + 1 + manaPercentage, y + 1, 0, 0, 5, 100 - manaPercentage, 3);
+		
+		Color color_ = new Color(color);
+		GL11.glColor4ub((byte) color_.getRed(), (byte) color_.getGreen(),(byte) color_.getBlue(), (byte) (255F * alpha));
+		RenderHelper.drawTexturedModalRect(x + 1, y + 1, 0, 0, 5, manaPercentage, 3);
 	}
 }
