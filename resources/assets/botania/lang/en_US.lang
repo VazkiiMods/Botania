@@ -203,3 +203,13 @@ botania.page.pureDaisy2=White is bright and pure
 botania.entry.wand=Wand of the Forest
 botania.page.wand0=The general multi use tool for a botanist is the &1Wand of the Forest&0.<br>This wand, made by, effectively, strapping a pair of &1Mystical Petals&0 of any color to a few &1Sticks&0 is required for a good amount of tasks.
 botania.page.wand1=The petals use determine the colors.
+
+# - MANA
+botania.entry.mIntro=Introduction to Mana
+botania.page.mIntro0=&4Mana&0 is an ethereal substance, in layman's terms, it's a form of &4mystical energy&0. It's sensorial existance is inconstant, and it's color depends on the environment it's put on.<br>Mastering &4Mana&0 is one of the most important skills a Botanist needs to master.
+botania.page.mIntro1=In order to create &4Mana&0, one would require a set of &4Generating Flowers&0 (read the respective section). This &4Mana&0 can be dispersed utilizing &1Mana Spreaders&0 and stored in &1Mana Pools&0. &4Mana&0 can be used for a myriad of different things, for starters, it can be used for &4Functional Flowers&0 (read the respective section).
+botania.page.mIntro2=To get started with mastering the art of &4Mana&0, one would start by learning how to use &1Dayblooms&0, &1Mana Spreaders&0 and &1Mana Pools&0.<br>These form a basic infrastructure for mana, which can be used for all sorts of purposes. Have a read at the &4Functional Flora&0 and &4Magical Apparatus&0 sections of this Lexicon. 
+
+# - FUNCTIONAL FLOWERS
+
+# - GENERATING FLOWERS

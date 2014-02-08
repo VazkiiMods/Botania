@@ -43,6 +43,7 @@ public final class LexiconData {
 	public static LexiconEntry wand;
 	public static LexiconEntry pureDaisy;
 	
+	public static LexiconEntry manaIntro;
 	public static LexiconEntry pool;
 
 	public static void init() {
@@ -71,8 +72,11 @@ public final class LexiconData {
 		pureDaisy.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_PURE_DAISY), new PagePetalRecipe("2", ModPetalRecipes.pureDaisyRecipe));
 		
 		// MANA ENTRIES
-		pool = new BLexiconEntry(LibLexicon.MANA_POOL, categoryMana);
-		pool.setPriority().setLexiconPages(new PageText("0"), new PageManaInfusionRecipe("1", ModManaInfusionRecipes.manaPetalRecipes), new PagePetalRecipe("2", ModPetalRecipes.pureDaisyRecipe), new PageRuneRecipe("3", ModRuneRecipes.recipeDebug));
+		manaIntro = new BLexiconEntry(LibLexicon.MANA_INTRO, categoryMana);
+		manaIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"));
+		
+//		pool = new BLexiconEntry(LibLexicon.MANA_POOL, categoryMana);
+//		pool.setPriority().setLexiconPages(new PageText("0"), new PageManaInfusionRecipe("1", ModManaInfusionRecipes.manaPetalRecipes), new PagePetalRecipe("2", ModPetalRecipes.pureDaisyRecipe), new PageRuneRecipe("3", ModRuneRecipes.recipeDebug));
 	}
 
 }

@@ -17,8 +17,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.SubTileEntity;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTilePureDaisy extends SubTileEntity {
 
@@ -91,5 +93,10 @@ public class SubTilePureDaisy extends SubTileEntity {
 		cmp.setInteger(TAG_POSITION, positionAt);
 		for(int i = 0; i < ticksRemaining.length; i++)
 			cmp.setInteger(TAG_TICKS_REMAINING + i, ticksRemaining[i]);
+	}
+	
+	@Override
+	public LexiconEntry getEntry() {
+		return LexiconData.pureDaisy;
 	}
 }

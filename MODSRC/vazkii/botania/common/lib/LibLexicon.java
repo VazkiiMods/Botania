@@ -29,6 +29,12 @@ public final class LibLexicon {
 	public static final String BASICS_WAND = "wand";
 	public static final String BASICS_PURE_DAISY = "pureDaisy";
 
+	public static final String MANA_INTRO = "mIntro";
 	public static final String MANA_POOL = "pool";
+	
+	public static final String FFLOWER_INTRO = "fIntro";
+
+	public static final String GFLOWER_INTRO = "gIntro";
+	public static final String FFLOWER_DAYBLOOM = "daybloom";
 
 }
