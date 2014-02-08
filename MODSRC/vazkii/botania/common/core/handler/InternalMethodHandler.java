@@ -85,7 +85,7 @@ public class InternalMethodHandler implements IInternalMethodHandler {
 	public ItemStack getSubTileAsStack(String subTile) {
 		return ItemBlockSpecialFlower.ofType(subTile);
 	}
-	
+
 	@Override
 	public LexiconPage manaInfusionRecipePage(String key, RecipeManaInfusion recipe) {
 		return null;

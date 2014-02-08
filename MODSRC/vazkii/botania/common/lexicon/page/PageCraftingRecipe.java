@@ -57,14 +57,14 @@ public class PageCraftingRecipe extends PageRecipe {
 	public void renderScreen(IGuiLexiconEntry gui, int mx, int my) {
 		super.renderScreen(gui, mx, my);
 	}
-	
+
 	@Override
 	public void renderRecipe(IGuiLexiconEntry gui, int mx, int my) {
 		oreDictRecipe = shapelessRecipe = false;
 
 		IRecipe recipe = recipes.get(recipeAt);
 		renderCraftingRecipe(gui, recipe);
-		
+
 
 		TextureManager render = Minecraft.getMinecraft().renderEngine;
 		render.bindTexture(craftingOverlay);
@@ -79,7 +79,7 @@ public class PageCraftingRecipe extends PageRecipe {
 
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		
+
 		if(shapelessRecipe) {
 			((GuiScreen) gui).drawTexturedModalRect(iconX, iconY, 240, 0, 16, 16);
 
@@ -91,7 +91,7 @@ public class PageCraftingRecipe extends PageRecipe {
 
 		render.bindTexture(craftingOverlay);
 		GL11.glEnable(GL11.GL_BLEND);
-		
+
 		if(oreDictRecipe) {
 			((GuiScreen) gui).drawTexturedModalRect(iconX, iconY, 240, 16, 16, 16);
 

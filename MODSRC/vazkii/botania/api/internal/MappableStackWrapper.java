@@ -23,7 +23,7 @@ public class MappableStackWrapper {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (!(obj instanceof MappableStackWrapper)) 
+		if (!(obj instanceof MappableStackWrapper))
 			return false;
 
 		MappableStackWrapper isw = (MappableStackWrapper) obj;

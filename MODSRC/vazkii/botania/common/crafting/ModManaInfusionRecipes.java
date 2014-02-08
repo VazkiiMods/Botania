@@ -18,7 +18,6 @@ import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibOreDict;
 
 public final class ModManaInfusionRecipes {
@@ -30,7 +29,7 @@ public final class ModManaInfusionRecipes {
 		manaPetalRecipes = new ArrayList();
 		for(int i = 0; i < 16; i++)
 			manaPetalRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPetal, 1, i), LibOreDict.PETAL[i], 1000));
-		
+
 		manasteelRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 0), "ingotIron", 5000);
 	}
 

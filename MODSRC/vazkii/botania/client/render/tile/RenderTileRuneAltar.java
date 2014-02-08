@@ -11,8 +11,6 @@
  */
 package vazkii.botania.client.render.tile;
 
-import static net.minecraftforge.client.IItemRenderer.ItemRenderType.ENTITY;
-
 import java.awt.Color;
 
 import net.minecraft.block.Block;
@@ -26,10 +24,6 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
-import net.minecraftforge.client.ForgeHooksClient;
-import net.minecraftforge.client.IItemRenderer;
-import net.minecraftforge.client.MinecraftForgeClient;
-import net.minecraftforge.client.IItemRenderer.ItemRenderType;
 
 import org.lwjgl.opengl.GL11;
 
@@ -49,13 +43,13 @@ public class RenderTileRuneAltar extends TileEntitySpecialRenderer {
 		GL11.glTranslated(x, y, z);
 
 		for(int i = 0; i < altar.getSizeInventory(); i++) {
-			GL11.glPushMatrix();		
+			GL11.glPushMatrix();
 			GL11.glScalef(0.5F, 0.5F, 0.5F);
 			GL11.glTranslatef(1F, 2.5F, 1F);
 			GL11.glRotatef(altar.angles[i], 0F, 1F, 0F);
 			GL11.glTranslatef(2.25F, 0F, 0.5F);
 			GL11.glRotatef(90F, 0F, 1F, 0F);
-			GL11.glTranslated(0D, 0.1 * Math.sin((double) (tileentity.worldObj.getTotalWorldTime() + i * 10) / 5D), 0F);
+			GL11.glTranslated(0D, 0.1 * Math.sin((tileentity.worldObj.getTotalWorldTime() + i * 10) / 5D), 0F);
 			ItemStack stack = altar.getStackInSlot(i);
 			Minecraft mc = Minecraft.getMinecraft();
 			if(stack != null) {

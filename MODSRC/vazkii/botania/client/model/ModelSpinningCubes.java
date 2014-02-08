@@ -66,10 +66,10 @@ public class ModelSpinningCubes extends ModelBase {
 			} else GL11.glColor4f(1F, 1F, 1F, 1F);
 
 			int light = 15728880;
-	        int lightmapX = light % 65536;
-	        int lightmapY = light / 65536;
+			int lightmapX = light % 65536;
+			int lightmapY = light / 65536;
 
-	        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
+			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
 			spinningCube.render(1F / 16F);
 
 			if(repeat < origRepeat)

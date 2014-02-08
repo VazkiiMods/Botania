@@ -11,10 +11,10 @@
  */
 package vazkii.botania.api;
 
-import vazkii.botania.api.lexicon.LexiconEntry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import vazkii.botania.api.lexicon.LexiconEntry;
 
 /**
  * Any block that implements this can be right clicked with

@@ -94,7 +94,7 @@ public class SubTilePureDaisy extends SubTileEntity {
 		for(int i = 0; i < ticksRemaining.length; i++)
 			cmp.setInteger(TAG_TICKS_REMAINING + i, ticksRemaining[i]);
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry() {
 		return LexiconData.pureDaisy;

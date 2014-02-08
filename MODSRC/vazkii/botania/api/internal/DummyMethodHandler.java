@@ -73,11 +73,11 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	public LexiconPage manaInfusionRecipePage(String key, RecipeManaInfusion recipe) {
 		return dummyPage(key);
 	}
-	
+
 	private LexiconPage dummyPage(String key) {
 		return new DummyPage(key);
 	}
-	
+
 	@Override
 	public ItemStack getSubTileAsStack(String subTile) {
 		return new ItemStack(1, 0, 0);

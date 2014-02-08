@@ -41,7 +41,7 @@ public class BlockRuneAltar extends BlockModContainer implements IWandable {
 		setResistance(10.0F);
 		setStepSound(soundStoneFootstep);
 		setUnlocalizedName(LibBlockNames.RUNE_ALTAR);
-		
+
 		random = new Random();
 	}
 
@@ -67,10 +67,10 @@ public class BlockRuneAltar extends BlockModContainer implements IWandable {
 		ItemStack stack = par5EntityPlayer.getCurrentEquippedItem();
 		if(stack != null)
 			return ((TileRuneAltar) par1World.getBlockTileEntity(par2, par3, par4)).addItem(par5EntityPlayer, stack);
-			
+
 		return false;
 	}
-	
+
 	@Override
 	public void breakBlock(World par1World, int par2, int par3, int par4, int par5, int par6) {
 		TileSimpleInventory inv = (TileSimpleInventory) par1World.getBlockTileEntity(par2, par3, par4);

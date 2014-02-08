@@ -276,12 +276,12 @@ public class Vector3
 			set(0, 0, 0);
 			return this;
 		}
-		
+
 		double m = dotProduct(b)/l;
 		set(b).multiply(m);
 		return this;
 	}
-	
+
 	public Vector3 rotate(double angle, Vector3 axis) {
 		Quat.aroundAxis(axis.copy().normalize(), angle).rotate(this);
 		return this;
@@ -291,7 +291,7 @@ public class Vector3
 	public boolean equals(Object o) {
 		if(!(o instanceof Vector3))
 			return false;
-		
+
 		Vector3 v = (Vector3)o;
 		return x == v.x && y == v.y && z == v.z;
 	}

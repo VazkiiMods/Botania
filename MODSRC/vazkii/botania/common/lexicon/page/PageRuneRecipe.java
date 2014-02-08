@@ -35,12 +35,12 @@ public class PageRuneRecipe extends PagePetalRecipe<RecipeRuneAltar> {
 	public PageRuneRecipe(String unlocalizedName, RecipeRuneAltar recipes) {
 		super(unlocalizedName, recipes);
 	}
-	
+
 	@Override
 	ItemStack getMiddleStack() {
 		return new ItemStack(ModBlocks.runeAltar);
 	}
-	
+
 	@Override
 	public void renderManaBar(IGuiLexiconEntry gui, RecipeRuneAltar recipe, int mx, int my) {
 		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
@@ -52,5 +52,5 @@ public class PageRuneRecipe extends PagePetalRecipe<RecipeRuneAltar> {
 		HUDHandler.renderManaBar(gui.getLeft() + gui.getWidth() / 2 - 50, gui.getTop() + 130, 0x0000FF, 0.75F, recipe.getManaUsage(), TilePool.MAX_MANA / 10);
 		GL11.glDisable(GL11.GL_BLEND);
 	}
-	
+
 }

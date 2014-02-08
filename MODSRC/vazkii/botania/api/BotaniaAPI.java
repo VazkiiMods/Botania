@@ -14,8 +14,6 @@ package vazkii.botania.api;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.text.html.HTMLDocument.RunElement;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
@@ -63,7 +61,7 @@ public final class BotaniaAPI {
 		petalRecipes.add(recipe);
 		return recipe;
 	}
-	
+
 	/**
 	 * Registers a Rune Altar
 	 * @param output The ItemStack to craft.

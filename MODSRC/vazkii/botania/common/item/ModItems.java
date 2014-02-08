@@ -38,7 +38,7 @@ public final class ModItems {
 		lens = new ItemLens();
 		manaPetal = new ItemManaPetal();
 		rune = new ItemRune();
-		
+
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal.itemID, 1, i));

@@ -33,7 +33,7 @@ public class RecipeManaInfusion {
 		String oredict = OreDictionary.getOreName(OreDictionary.getOreID(stack));
 		return oredict.equals(input);
 	}
-	
+
 	public Object getInput() {
 		return input;
 	}

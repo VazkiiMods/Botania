@@ -41,17 +41,17 @@ public interface IInternalMethodHandler {
 	public LexiconPage petalRecipesPage(String key, List<RecipePetals> recipes);
 
 	public LexiconPage petalRecipePage(String key, RecipePetals recipe);
-	
+
 	public LexiconPage runeRecipesPage(String key, List<RecipeRuneAltar> recipes);
 
 	public LexiconPage runeRecipePage(String key, RecipeRuneAltar recipe);
-	
+
 	public LexiconPage manaInfusionRecipesPage(String key, List<RecipeManaInfusion> recipes);
 
 	public LexiconPage manaInfusionRecipePage(String key, RecipeManaInfusion recipe);
-	
+
 	public ItemStack getSubTileAsStack(String subTile);
-	
+
 	public Icon getSubTileIconForName(String name);
 
 }

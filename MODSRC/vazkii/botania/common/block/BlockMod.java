@@ -34,7 +34,7 @@ public class BlockMod extends Block {
 			GameRegistry.registerBlock(this, par1Str);
 		return super.setUnlocalizedName(par1Str);
 	}
-	
+
 	protected boolean shouldRegisterInNameSet() {
 		return true;
 	}

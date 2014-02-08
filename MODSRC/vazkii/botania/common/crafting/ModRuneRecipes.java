@@ -19,9 +19,9 @@ import vazkii.botania.api.recipe.RecipeRuneAltar;
 public final class ModRuneRecipes {
 
 	public static RecipeRuneAltar recipeDebug;
-	
+
 	public static void init() {
 		recipeDebug = BotaniaAPI.registerRuneAltarRecipe(new ItemStack(Item.diamond), 1000, "ingotIron", "cobblestone", "plankWood", "ingotGold");
 	}
-	
+
 }

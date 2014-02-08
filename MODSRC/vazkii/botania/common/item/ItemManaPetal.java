@@ -11,22 +11,22 @@
  */
 package vazkii.botania.common.item;
 
-import vazkii.botania.common.lib.LibItemIDs;
-import vazkii.botania.common.lib.LibItemNames;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
+import vazkii.botania.common.lib.LibItemIDs;
+import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemManaPetal extends Item16Colors {
 
 	public ItemManaPetal() {
 		super(LibItemIDs.idManaPetal, LibItemNames.MANA_PETAL);
 	}
-	
+
 	@Override
 	public boolean hasEffect(ItemStack par1ItemStack, int pass) {
 		return true;
 	}
-	
+
 	@Override
 	public Icon getIconFromDamage(int par1) {
 		return ModItems.petal.getIconFromDamage(par1);

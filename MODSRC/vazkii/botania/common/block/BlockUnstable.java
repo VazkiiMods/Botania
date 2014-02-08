@@ -40,7 +40,7 @@ public class BlockUnstable extends BlockMod {
 		setUnlocalizedName(LibBlockNames.UNSTABLE_BLOCK);
 		setTickRandomly(true);
 	}
-	
+
 	@Override
 	public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List par3List) {
 		for(int i = 0; i < 16; i++)
@@ -52,28 +52,28 @@ public class BlockUnstable extends BlockMod {
 		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
 		return super.setUnlocalizedName(par1Str);
 	}
-	
+
 	@Override
 	protected boolean shouldRegisterInNameSet() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean renderAsNormalBlock() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean isOpaqueCube() {
 		return false;
 	}
-	
+
 	@Override
 	public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random) {
 		int color = getRenderColor(par1World.getBlockMetadata(par2, par3, par4));
 		int colorBright = new Color(color).brighter().getRGB();
 		int colorDark = new Color(color).darker().getRGB();
-		
+
 		Vector3 origVector = new Vector3(par2 + 0.5, par3 + 0.5, par4 + 0.5);
 		Vector3 endVector = origVector.copy().add(par1World.rand.nextDouble() * 2 - 1, par1World.rand.nextDouble() * 2 - 1, par1World.rand.nextDouble() * 2 - 1);
 		Botania.proxy.lightningFX(par1World, origVector, endVector, 5F, colorDark, colorBright);
@@ -83,13 +83,13 @@ public class BlockUnstable extends BlockMod {
 	public int damageDropped(int par1) {
 		return par1;
 	}
-	
+
 	@Override
 	public int getRenderColor(int par1) {
 		float[] color = EntitySheep.fleeceColorTable[par1];
 		return new Color(color[0], color[1], color[2]).getRGB();
 	}
-	
+
 	@Override
 	public int colorMultiplier(IBlockAccess par1iBlockAccess, int par2, int par3, int par4) {
 		return getRenderColor(par1iBlockAccess.getBlockMetadata(par2, par3, par4));

@@ -42,118 +42,118 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.helper.Vector3;
 
 public class LightningHandler {
-	
+
 	private static final ResourceLocation outsideResource = new ResourceLocation(LibResources.MISC_WISP_LARGE);
 	private static final ResourceLocation insideResource = new ResourceLocation(LibResources.MISC_WISP_SMALL);
 
-    static double interpPosX;
-    static double interpPosY;
-    static double interpPosZ;
-	
-    private static Vector3 getRelativeViewVector(Vector3 pos) {
-        Entity renderEntity = Minecraft.getMinecraft().renderViewEntity;
-        return new Vector3((float) renderEntity.posX - pos.x, (float) renderEntity.posY + renderEntity.getEyeHeight() - pos.y, (float) renderEntity.posZ - pos.z);
-    }
- 
-    @ForgeSubscribe
-    public void onRenderWorldLast(RenderWorldLastEvent event) {
-        float frame = event.partialTicks;
-        Entity entity = Minecraft.getMinecraft().thePlayer;
- 
-        interpPosX = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * frame;
-        interpPosY = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * frame;
-        interpPosZ = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * frame;
- 
-        GL11.glTranslated(-interpPosX, -interpPosY, -interpPosZ);
- 
-        Tessellator tessellator = Tessellator.instance;
- 
-        GL11.glDepthMask(false);
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
- 
-        TextureManager render = Minecraft.getMinecraft().renderEngine;
- 
-        render.bindTexture(outsideResource);
-        tessellator.startDrawingQuads();
-        tessellator.setBrightness(0xF000F0);
-        for (LightningBolt bolt : LightningBolt.boltlist)
-            renderBolt(bolt, tessellator, frame, ActiveRenderInfo.rotationX, ActiveRenderInfo.rotationXZ, ActiveRenderInfo.rotationZ, ActiveRenderInfo.rotationXY, 0, false);
-        tessellator.draw();
- 
-        render.bindTexture(insideResource);
-        tessellator.startDrawingQuads();
-        tessellator.setBrightness(0xF000F0);
-        for (LightningBolt bolt : LightningBolt.boltlist)
-            renderBolt(bolt, tessellator, frame, ActiveRenderInfo.rotationX, ActiveRenderInfo.rotationXZ, ActiveRenderInfo.rotationZ, ActiveRenderInfo.rotationXY, 1, true);
-        tessellator.draw();
- 
-        GL11.glDisable(GL11.GL_BLEND);
-        GL11.glDepthMask(true);
- 
-        GL11.glTranslated(interpPosX, interpPosY, interpPosZ);
-    }
-    
-    public static void spawnLightningBolt(World world, Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
+	static double interpPosX;
+	static double interpPosY;
+	static double interpPosZ;
+
+	private static Vector3 getRelativeViewVector(Vector3 pos) {
+		Entity renderEntity = Minecraft.getMinecraft().renderViewEntity;
+		return new Vector3((float) renderEntity.posX - pos.x, (float) renderEntity.posY + renderEntity.getEyeHeight() - pos.y, (float) renderEntity.posZ - pos.z);
+	}
+
+	@ForgeSubscribe
+	public void onRenderWorldLast(RenderWorldLastEvent event) {
+		float frame = event.partialTicks;
+		Entity entity = Minecraft.getMinecraft().thePlayer;
+
+		interpPosX = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * frame;
+		interpPosY = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * frame;
+		interpPosZ = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * frame;
+
+		GL11.glTranslated(-interpPosX, -interpPosY, -interpPosZ);
+
+		Tessellator tessellator = Tessellator.instance;
+
+		GL11.glDepthMask(false);
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+
+		TextureManager render = Minecraft.getMinecraft().renderEngine;
+
+		render.bindTexture(outsideResource);
+		tessellator.startDrawingQuads();
+		tessellator.setBrightness(0xF000F0);
+		for (LightningBolt bolt : LightningBolt.boltlist)
+			renderBolt(bolt, tessellator, frame, ActiveRenderInfo.rotationX, ActiveRenderInfo.rotationXZ, ActiveRenderInfo.rotationZ, ActiveRenderInfo.rotationXY, 0, false);
+		tessellator.draw();
+
+		render.bindTexture(insideResource);
+		tessellator.startDrawingQuads();
+		tessellator.setBrightness(0xF000F0);
+		for (LightningBolt bolt : LightningBolt.boltlist)
+			renderBolt(bolt, tessellator, frame, ActiveRenderInfo.rotationX, ActiveRenderInfo.rotationXZ, ActiveRenderInfo.rotationZ, ActiveRenderInfo.rotationXY, 1, true);
+		tessellator.draw();
+
+		GL11.glDisable(GL11.GL_BLEND);
+		GL11.glDepthMask(true);
+
+		GL11.glTranslated(interpPosX, interpPosY, interpPosZ);
+	}
+
+	public static void spawnLightningBolt(World world, Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
 		LightningBolt bolt = new LightningBolt(world, vectorStart, vectorEnd, ticksPerMeter, seed, colorOuter, colorInner);
 		bolt.defaultFractal();
 		bolt.finalizeBolt();
 		LightningBolt.boltlist.add(bolt);
 	}
- 
-    private void renderBolt(LightningBolt bolt, Tessellator tessellator, float partialframe, float cosyaw, float cospitch, float sinyaw, float cossinpitch, int pass, boolean inner) {
-        float boltage = bolt.particleAge < 0 ? 0 : (float) bolt.particleAge / (float) bolt.particleMaxAge;
-        float mainalpha = 1;
-        if(pass == 0)
-            mainalpha = (1 - boltage) * 0.4F;
-        else mainalpha = 1 - boltage * 0.5F;
- 
-        int expandTime = (int) (bolt.length * bolt.speed);
- 
-        int renderstart = (int) ((expandTime / 2 - bolt.particleMaxAge + bolt.particleAge) / (float) (expandTime / 2) * bolt.numsegments0);
-        int renderend = (int) ((bolt.particleAge + expandTime) / (float) expandTime * bolt.numsegments0);
- 
-        for(Segment rendersegment : bolt.segments) {
-            if(rendersegment.segmentno < renderstart || rendersegment.segmentno > renderend)
-                continue;
- 
-            Vector3 playervec = getRelativeViewVector(rendersegment.startpoint.point).multiply(-1);
- 
-            double width = 0.025F * (playervec.mag() / 5 + 1) * (1 + rendersegment.light) * 0.5F;
- 
-            Vector3 diff1 = playervec.copy().crossProduct(rendersegment.prevdiff).normalize().multiply(width / rendersegment.sinprev);
-            Vector3 diff2 = playervec.copy().crossProduct(rendersegment.nextdiff).normalize().multiply(width / rendersegment.sinnext);
- 
-            Vector3 startvec = rendersegment.startpoint.point;
-            Vector3 endvec = rendersegment.endpoint.point;
- 
-            tessellator.setColorRGBA_I(inner ? bolt.colorInner : bolt.colorOuter, (int) (mainalpha * rendersegment.light * 255));
- 
-            tessellator.addVertexWithUV(endvec.x - diff2.x, endvec.y - diff2.y, endvec.z - diff2.z, 0.5, 0);
-            tessellator.addVertexWithUV(startvec.x - diff1.x, startvec.y - diff1.y, startvec.z - diff1.z, 0.5, 0);
-            tessellator.addVertexWithUV(startvec.x + diff1.x, startvec.y + diff1.y, startvec.z + diff1.z, 0.5, 1);
-            tessellator.addVertexWithUV(endvec.x + diff2.x, endvec.y + diff2.y, endvec.z + diff2.z, 0.5, 1);
- 
-            if(rendersegment.next == null) {
-                Vector3 roundend = rendersegment.endpoint.point.copy().add(rendersegment.diff.copy().normalize().multiply(width));
- 
-                tessellator.addVertexWithUV(roundend.x - diff2.x, roundend.y - diff2.y, roundend.z - diff2.z, 0, 0);
-                tessellator.addVertexWithUV(endvec.x - diff2.x, endvec.y - diff2.y, endvec.z - diff2.z, 0.5, 0);
-                tessellator.addVertexWithUV(endvec.x + diff2.x, endvec.y + diff2.y, endvec.z + diff2.z, 0.5, 1);
-                tessellator.addVertexWithUV(roundend.x + diff2.x, roundend.y + diff2.y, roundend.z + diff2.z, 0, 1);
-            }
- 
-            if(rendersegment.prev == null) {
-                Vector3 roundend = rendersegment.startpoint.point.copy().subtract(rendersegment.diff.copy().normalize().multiply(width));
- 
-                tessellator.addVertexWithUV(startvec.x - diff1.x, startvec.y - diff1.y, startvec.z - diff1.z, 0.5, 0);
-                tessellator.addVertexWithUV(roundend.x - diff1.x, roundend.y - diff1.y, roundend.z - diff1.z, 0, 0);
-                tessellator.addVertexWithUV(roundend.x + diff1.x, roundend.y + diff1.y, roundend.z + diff1.z, 0, 1);
-                tessellator.addVertexWithUV(startvec.x + diff1.x, startvec.y + diff1.y, startvec.z + diff1.z, 0.5, 1);
-            }
-        }
-    }
- 
+
+	private void renderBolt(LightningBolt bolt, Tessellator tessellator, float partialframe, float cosyaw, float cospitch, float sinyaw, float cossinpitch, int pass, boolean inner) {
+		float boltage = bolt.particleAge < 0 ? 0 : (float) bolt.particleAge / (float) bolt.particleMaxAge;
+		float mainalpha = 1;
+		if(pass == 0)
+			mainalpha = (1 - boltage) * 0.4F;
+		else mainalpha = 1 - boltage * 0.5F;
+
+		int expandTime = (int) (bolt.length * bolt.speed);
+
+		int renderstart = (int) ((expandTime / 2 - bolt.particleMaxAge + bolt.particleAge) / (float) (expandTime / 2) * bolt.numsegments0);
+		int renderend = (int) ((bolt.particleAge + expandTime) / (float) expandTime * bolt.numsegments0);
+
+		for(Segment rendersegment : bolt.segments) {
+			if(rendersegment.segmentno < renderstart || rendersegment.segmentno > renderend)
+				continue;
+
+			Vector3 playervec = getRelativeViewVector(rendersegment.startpoint.point).multiply(-1);
+
+			double width = 0.025F * (playervec.mag() / 5 + 1) * (1 + rendersegment.light) * 0.5F;
+
+			Vector3 diff1 = playervec.copy().crossProduct(rendersegment.prevdiff).normalize().multiply(width / rendersegment.sinprev);
+			Vector3 diff2 = playervec.copy().crossProduct(rendersegment.nextdiff).normalize().multiply(width / rendersegment.sinnext);
+
+			Vector3 startvec = rendersegment.startpoint.point;
+			Vector3 endvec = rendersegment.endpoint.point;
+
+			tessellator.setColorRGBA_I(inner ? bolt.colorInner : bolt.colorOuter, (int) (mainalpha * rendersegment.light * 255));
+
+			tessellator.addVertexWithUV(endvec.x - diff2.x, endvec.y - diff2.y, endvec.z - diff2.z, 0.5, 0);
+			tessellator.addVertexWithUV(startvec.x - diff1.x, startvec.y - diff1.y, startvec.z - diff1.z, 0.5, 0);
+			tessellator.addVertexWithUV(startvec.x + diff1.x, startvec.y + diff1.y, startvec.z + diff1.z, 0.5, 1);
+			tessellator.addVertexWithUV(endvec.x + diff2.x, endvec.y + diff2.y, endvec.z + diff2.z, 0.5, 1);
+
+			if(rendersegment.next == null) {
+				Vector3 roundend = rendersegment.endpoint.point.copy().add(rendersegment.diff.copy().normalize().multiply(width));
+
+				tessellator.addVertexWithUV(roundend.x - diff2.x, roundend.y - diff2.y, roundend.z - diff2.z, 0, 0);
+				tessellator.addVertexWithUV(endvec.x - diff2.x, endvec.y - diff2.y, endvec.z - diff2.z, 0.5, 0);
+				tessellator.addVertexWithUV(endvec.x + diff2.x, endvec.y + diff2.y, endvec.z + diff2.z, 0.5, 1);
+				tessellator.addVertexWithUV(roundend.x + diff2.x, roundend.y + diff2.y, roundend.z + diff2.z, 0, 1);
+			}
+
+			if(rendersegment.prev == null) {
+				Vector3 roundend = rendersegment.startpoint.point.copy().subtract(rendersegment.diff.copy().normalize().multiply(width));
+
+				tessellator.addVertexWithUV(startvec.x - diff1.x, startvec.y - diff1.y, startvec.z - diff1.z, 0.5, 0);
+				tessellator.addVertexWithUV(roundend.x - diff1.x, roundend.y - diff1.y, roundend.z - diff1.z, 0, 0);
+				tessellator.addVertexWithUV(roundend.x + diff1.x, roundend.y + diff1.y, roundend.z + diff1.z, 0, 1);
+				tessellator.addVertexWithUV(startvec.x + diff1.x, startvec.y + diff1.y, startvec.z + diff1.z, 0.5, 1);
+			}
+		}
+	}
+
 	public static class LightningBolt {
 
 		public ArrayList<Segment> segments = new ArrayList<Segment>();

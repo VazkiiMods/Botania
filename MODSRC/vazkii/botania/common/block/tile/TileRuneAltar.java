@@ -38,7 +38,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 	public boolean addItem(EntityPlayer player, ItemStack stack) {
 		if(stack.itemID == ModItems.twigWand.itemID)
 			return false;
-		
+
 		boolean did = false;
 
 		for(int i = 0; i < getSizeInventory(); i++)
@@ -56,10 +56,10 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 
 				break;
 			}
-		
+
 		if(did)
 			PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
-		
+
 		return true;
 	}
 
@@ -120,10 +120,10 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 				break;
 			else items++;
 
-		float anglePer = 360F / (float) items;
+		float anglePer = 360F / items;
 		float totalAngle = 0F;
 		for(int i = 0; i < angles.length; i++)
-			angles[i] = (totalAngle += anglePer);
+			angles[i] = totalAngle += anglePer;
 	}
 
 	public void onWanded(EntityPlayer player, ItemStack wand) {
@@ -131,7 +131,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 
 		if(manaToGet > 0 && mana >= manaToGet) {
 			RecipeRuneAltar recipe = null;
-			
+
 			for(RecipeRuneAltar recipe_ : BotaniaAPI.runeAltarRecipes)
 				if(recipe_.matches(this)) {
 					recipe = recipe_;
@@ -140,12 +140,12 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 
 			List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1));
 			EntityItem livingrock = null;
-			for(EntityItem item : items) 
+			for(EntityItem item : items)
 				if(item.getEntityItem() != null && item.getEntityItem().itemID == ModBlocks.livingrock.blockID) {
 					livingrock = item;
 					break;
 				}
-			
+
 			if(livingrock != null) {
 				int mana = recipe.getManaUsage();
 				recieveMana(-mana);
@@ -154,15 +154,15 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 					EntityItem outputItem = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, output);
 					worldObj.spawnEntityInWorld(outputItem);
 				}
-				
+
 				for(int i = 0; i < getSizeInventory(); i++)
 					setInventorySlotContents(i, null);
 
-				ItemStack livingrockItem = livingrock.getEntityItem(); 
+				ItemStack livingrockItem = livingrock.getEntityItem();
 				livingrockItem.stackSize--;
 				if(livingrockItem.stackSize == 0)
 					livingrock.setDead();
-				
+
 				craftingFanciness();
 				updateRecipe();
 			}

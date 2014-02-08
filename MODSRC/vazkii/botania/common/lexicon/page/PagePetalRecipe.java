@@ -31,44 +31,44 @@ import vazkii.botania.common.block.ModBlocks;
 public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 
 	private static final ResourceLocation petalOverlay = new ResourceLocation(LibResources.GUI_PETAL_OVERLAY);
-	
+
 	List<T> recipes;
 	int ticksElapsed = 0;
 	int recipeAt = 0;
-	
+
 	public PagePetalRecipe(String unlocalizedName, List<T> recipes) {
 		super(unlocalizedName);
 		this.recipes = recipes;
 	}
-	
+
 	public PagePetalRecipe(String unlocalizedName, T recipe) {
 		this(unlocalizedName, Arrays.asList(recipe));
 	}
-	
+
 	@Override
 	public void renderRecipe(IGuiLexiconEntry gui, int mx, int my) {
 		T recipe = recipes.get(recipeAt);
 		TextureManager render = Minecraft.getMinecraft().renderEngine;
-		
+
 		renderItemAtGridPos(gui, 3, 0, recipe.getOutput(), false);
 		renderItemAtGridPos(gui, 2, 1, getMiddleStack(), false);
-		
+
 		List<Object> inputs = recipe.getInputs();
-		int degreePerInput = (int) (360F / (float) inputs.size());
+		int degreePerInput = (int) (360F / inputs.size());
 		int currentDegree = 0;
-		
+
 		for(Object obj : inputs) {
 			Object input = obj;
 			if(input instanceof String)
 				input = OreDictionary.getOres((String) input).get(0);
-			
+
 			renderItemAtAngle(gui, currentDegree, (ItemStack) input);
-			
+
 			currentDegree += degreePerInput;
 		}
 
 		renderManaBar(gui, recipe, mx, my);
-		
+
 		render.bindTexture(petalOverlay);
 
 		GL11.glEnable(GL11.GL_BLEND);
@@ -77,15 +77,15 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 		((GuiScreen) gui).drawTexturedModalRect(gui.getLeft(), gui.getTop(), 0, 0, gui.getWidth(), gui.getHeight());
 		GL11.glDisable(GL11.GL_BLEND);
 	}
-	
+
 	ItemStack getMiddleStack() {
 		return new ItemStack(ModBlocks.altar);
 	}
-	
+
 	public void renderManaBar(IGuiLexiconEntry gui, T recipe, int mx, int my) {
 		// NO-OP
 	}
-	
+
 	@Override
 	public void updateScreen() {
 		if(ticksElapsed % 20 == 0) {

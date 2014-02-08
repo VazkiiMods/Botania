@@ -16,12 +16,10 @@ import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.client.ForgeHooksClient;
@@ -36,7 +34,7 @@ public class PageRecipe extends LexiconPage {
 
 	int relativeMouseX, relativeMouseY;
 	ItemStack tooltipStack, tooltipContainerStack;
-	
+
 	public PageRecipe(String unlocalizedName) {
 		super(unlocalizedName);
 	}
@@ -47,13 +45,13 @@ public class PageRecipe extends LexiconPage {
 		relativeMouseY = my;
 
 		renderRecipe(gui, mx, my);
-		
+
 		int width = gui.getWidth() - 30;
 		int height = gui.getHeight();
 		int x = gui.getLeft() + 16;
 		int y = gui.getTop() + height - 40;
 		PageText.renderText(x, y, width, height, getUnlocalizedName());
-		
+
 		if(tooltipStack != null) {
 			List<String> tooltipData = tooltipStack.getTooltip(Minecraft.getMinecraft().thePlayer, false);
 
@@ -64,11 +62,11 @@ public class PageRecipe extends LexiconPage {
 		tooltipStack = tooltipContainerStack = null;
 		GL11.glDisable(GL11.GL_BLEND);
 	}
-	
+
 	public void renderRecipe(IGuiLexiconEntry gui, int mx, int my) {
 		// NO-OP
 	}
-	
+
 	public void renderItemAtAngle(IGuiLexiconEntry gui, int angle, ItemStack stack) {
 		if(stack == null || stack.getItem() == null)
 			return;
@@ -87,7 +85,7 @@ public class PageRecipe extends LexiconPage {
 
 		renderItem(gui, (int) xPos, (int) yPos, stack1, false);
 	}
-	
+
 	public void renderItemAtGridPos(IGuiLexiconEntry gui, int x, int y, ItemStack stack, boolean accountForContainer) {
 		if(stack == null || stack.getItem() == null)
 			return;
@@ -104,7 +102,7 @@ public class PageRecipe extends LexiconPage {
 
 		renderItem(gui, xPos, yPos, stack1, accountForContainer);
 	}
-	
+
 	public void renderItem(IGuiLexiconEntry gui, int xPos, int yPos, ItemStack stack, boolean accountForContainer) {
 		RenderItem render = new RenderItem();
 		TextureManager renderEngine = Minecraft.getMinecraft().renderEngine;
@@ -116,7 +114,7 @@ public class PageRecipe extends LexiconPage {
 			render.renderItemIntoGUI(fontRenderer, renderEngine, stack, xPos, yPos);
 		render.renderItemOverlayIntoGUI(fontRenderer, renderEngine, stack, xPos, yPos);
 		GL11.glTranslatef(0F, 0F, -200F);
-		
+
 		if(relativeMouseX >= xPos && relativeMouseY >= yPos && relativeMouseX <= xPos + 16 && relativeMouseY <= yPos + 16) {
 			tooltipStack = stack;
 			if(accountForContainer) {
@@ -128,5 +126,5 @@ public class PageRecipe extends LexiconPage {
 
 		GL11.glDisable(GL11.GL_LIGHTING);
 	}
-	
+
 }

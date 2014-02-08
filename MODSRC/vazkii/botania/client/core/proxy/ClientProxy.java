@@ -57,7 +57,7 @@ public class ClientProxy extends CommonProxy {
 		super.init(event);
 
 		TickRegistry.registerTickHandler(new ClientTickHandler(), Side.CLIENT);
-		
+
 		MinecraftForge.EVENT_BUS.register(new HUDHandler());
 		MinecraftForge.EVENT_BUS.register(new LightningHandler());
 
@@ -113,7 +113,7 @@ public class ClientProxy extends CommonProxy {
 
 		Minecraft.getMinecraft().effectRenderer.addEffect(wisp);
 	}
-	
+
 	@Override
 	public void lightningFX(World world, Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
 		LightningHandler.spawnLightningBolt(world, vectorStart, vectorEnd, ticksPerMeter, seed, colorOuter, colorInner);

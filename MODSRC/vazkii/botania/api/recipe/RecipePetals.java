@@ -14,10 +14,10 @@ package vazkii.botania.api.recipe;
 import java.util.ArrayList;
 import java.util.List;
 
-import vazkii.botania.api.internal.MappableStackWrapper;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+import vazkii.botania.api.internal.MappableStackWrapper;
 
 public class RecipePetals {
 
@@ -26,7 +26,7 @@ public class RecipePetals {
 
 	public RecipePetals(ItemStack output, Object... inputs) {
 		this.output = output;
-		
+
 		List<Object> inputsToSet = new ArrayList();
 		for(Object obj : inputs) {
 			if(obj instanceof String)
@@ -37,7 +37,7 @@ public class RecipePetals {
 				inputsToSet.add(new MappableStackWrapper((ItemStack) obj));
 			else throw new IllegalArgumentException("Invalid input");
 		}
-		
+
 		this.inputs = inputsToSet;
 	}
 
@@ -50,10 +50,10 @@ public class RecipePetals {
 				break;
 
 			String oredict = OreDictionary.getOreName(OreDictionary.getOreID(stack));
-			
+
 			if(!inputsMissing.contains(stack) && !inputsMissing.contains(oredict))
 				return false;
-			
+
 			if(inputsMissing.contains(stack))
 				inputsMissing.remove(stack);
 			else inputsMissing.remove(oredict);
@@ -61,7 +61,7 @@ public class RecipePetals {
 
 		return inputsMissing.isEmpty();
 	}
-	
+
 	public List<Object> getInputs() {
 		return new ArrayList(inputs);
 	}

@@ -24,20 +24,20 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemRune extends ItemMod {
 
 	Icon[] icons;
-	
+
 	public ItemRune() {
 		super(LibItemIDs.idRune);
 		setHasSubtypes(true);
 		setUnlocalizedName(LibItemNames.RUNE);
 	}
-	
+
 	@Override
 	public void registerIcons(IconRegister par1IconRegister) {
 		icons = new Icon[16];
 		for(int i = 0; i < icons.length; i++)
 			icons[i] = IconHelper.forItem(par1IconRegister, this, i);
 	}
-	
+
 	@Override
 	public Icon getIconFromDamage(int par1) {
 		return icons[Math.min(icons.length - 1, par1)];
@@ -57,5 +57,5 @@ public class ItemRune extends ItemMod {
 	String getUnlocalizedNameLazy(ItemStack par1ItemStack) {
 		return super.getUnlocalizedName(par1ItemStack);
 	}
-	
+
 }

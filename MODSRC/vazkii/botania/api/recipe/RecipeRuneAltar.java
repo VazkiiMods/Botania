@@ -23,9 +23,9 @@ public class RecipeRuneAltar extends RecipePetals {
 		this.output = output;
 		this.mana = mana;
 	}
-	
+
 	public int getManaUsage() {
 		return mana;
 	}
-	
+
 }

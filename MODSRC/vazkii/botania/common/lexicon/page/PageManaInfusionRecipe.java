@@ -35,34 +35,34 @@ import vazkii.botania.common.block.tile.TilePool;
 public class PageManaInfusionRecipe extends PageRecipe {
 
 	private static final ResourceLocation manaInfusionOverlay = new ResourceLocation(LibResources.GUI_MANA_INFUSION_OVERLAY);
-	
+
 	List<RecipeManaInfusion> recipes;
 	int ticksElapsed = 0;
 	int recipeAt = 0;
-	
+
 	public PageManaInfusionRecipe(String unlocalizedName, List<RecipeManaInfusion> recipes) {
 		super(unlocalizedName);
 		this.recipes = recipes;
 	}
-	
+
 	public PageManaInfusionRecipe(String unlocalizedName, RecipeManaInfusion recipe) {
 		this(unlocalizedName, Arrays.asList(recipe));
 	}
-	
+
 	@Override
 	public void renderRecipe(IGuiLexiconEntry gui, int mx, int my) {
 		RecipeManaInfusion recipe = recipes.get(recipeAt);
 		TextureManager render = Minecraft.getMinecraft().renderEngine;
 		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
-		
+
 		Object input = recipe.getInput();
 		if(input instanceof String)
 			input = OreDictionary.getOres((String) input).get(0);
-		
+
 		renderItemAtGridPos(gui, 1, 1, (ItemStack) input, false);
 		renderItemAtGridPos(gui, 2, 1, new ItemStack(ModBlocks.pool), false);
 		renderItemAtGridPos(gui, 3, 1, recipe.getOutput(), false);
-		
+
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		String manaUsage = StatCollector.translateToLocal("botaniamisc.manaUsage");
@@ -70,7 +70,7 @@ public class PageManaInfusionRecipe extends PageRecipe {
 
 		HUDHandler.renderManaBar(gui.getLeft() + gui.getWidth() / 2 - 50, gui.getTop() + 115, 0x0000FF, 0.75F, recipe.getManaToConsume(), TilePool.MAX_MANA / 10);
 		GL11.glDisable(GL11.GL_BLEND);
-		
+
 		render.bindTexture(manaInfusionOverlay);
 
 		GL11.glEnable(GL11.GL_BLEND);
@@ -79,7 +79,7 @@ public class PageManaInfusionRecipe extends PageRecipe {
 		((GuiScreen) gui).drawTexturedModalRect(gui.getLeft(), gui.getTop(), 0, 0, gui.getWidth(), gui.getHeight());
 		GL11.glDisable(GL11.GL_BLEND);
 	}
-	
+
 	@Override
 	public void updateScreen() {
 		if(ticksElapsed % 20 == 0) {
