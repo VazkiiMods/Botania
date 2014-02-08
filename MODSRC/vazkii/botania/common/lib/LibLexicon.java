@@ -30,6 +30,7 @@ public final class LibLexicon {
 	public static final String BASICS_PURE_DAISY = "pureDaisy";
 
 	public static final String MANA_INTRO = "mIntro";
+	public static final String MANA_SPREADER = "spreader";
 	public static final String MANA_POOL = "pool";
 	
 	public static final String FFLOWER_INTRO = "fIntro";

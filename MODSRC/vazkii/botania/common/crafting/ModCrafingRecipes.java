@@ -18,10 +18,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.item.ItemLens;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibOreDict;
@@ -34,6 +36,10 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipePestleAndMortar;
 	public static List<IRecipe> recipesTwigWand;
 	public static List<IRecipe> recipesApothecary;
+	public static List<IRecipe> recipesSpreader;
+	public static IRecipe recipeManaLens;
+	public static List<IRecipe> recipesLensDying;
+	public static IRecipe recipeRainbowLens;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -76,6 +82,37 @@ public final class ModCrafingRecipes {
 					'P', LibOreDict.PETAL[i],
 					'C', "cobblestone");
 		recipesApothecary = BotaniaAPI.getLatestAddedRecipes(16);
+
+		// Mana Spreader Recipes
+		for(int i = 0; i < 16; i++)
+			addOreDictRecipe(new ItemStack(ModBlocks.spreader),
+					"WWW", "GP ", "WWW",
+					'W', LibOreDict.LIVING_WOOD,
+					'P', LibOreDict.PETAL[i],
+					'G', "ingotGold");
+		recipesSpreader = BotaniaAPI.getLatestAddedRecipes(16);
+
+		// Mana Lens Recipe
+		addOreDictRecipe(new ItemStack(ModItems.lens),
+				" S ", "SGS", " S ",
+				'S', LibOreDict.MANA_STEEL,
+				'G', new ItemStack(Block.thinGlass));
+		recipeManaLens = BotaniaAPI.getLatestAddedRecipe();
+
+		// Mana Lens Dying Recipes
+		for(int j = 0; j < 16; j++)
+			addShapelessOreDictRecipe(ItemLens.setLensColor(new ItemStack(ModItems.lens), j), new ItemStack(ModItems.lens), LibOreDict.DYE[j]);
+		recipesLensDying = BotaniaAPI.getLatestAddedRecipes(16);
+
+		for(int i = 1; i < ItemLens.SUBTYPES; i++)
+			for(int j = 0; j < 16; j++)
+				addShapelessOreDictRecipe(ItemLens.setLensColor(new ItemStack(ModItems.lens, 1, i), j), new ItemStack(ModItems.lens, 1, i), LibOreDict.DYE[j]);
+
+		// Rainbow Lens Recipe
+		addShapelessOreDictRecipe(ItemLens.setLensColor(new ItemStack(ModItems.lens), 16), new ItemStack(ModItems.lens), LibOreDict.MANA_PEARL);
+		recipeRainbowLens = BotaniaAPI.getLatestAddedRecipe();
+		for(int i = 1; i < ItemLens.SUBTYPES; i++)
+			addShapelessOreDictRecipe(ItemLens.setLensColor(new ItemStack(ModItems.lens, 1, i), 16), new ItemStack(ModItems.lens, 1, i), LibOreDict.DYE[i]);
 
 	}
 

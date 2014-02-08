@@ -52,9 +52,10 @@ public final class ModBlocks {
 
 		for(int i = 0; i < 16; i++)
 			OreDictionary.registerOre(LibOreDict.FLOWER[i], new ItemStack(flower.blockID, 1, i));
-		OreDictionary.registerOre(LibBlockNames.LIVING_ROCK, livingrock);
-		OreDictionary.registerOre(LibBlockNames.LIVING_WOOD, livingwood);
-
+		
+		OreDictionary.registerOre(LibOreDict.LIVING_ROCK, livingrock);
+		OreDictionary.registerOre(LibOreDict.LIVING_WOOD, livingwood);
+		
 		initTileEntities();
 	}
 

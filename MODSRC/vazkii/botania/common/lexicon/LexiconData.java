@@ -16,14 +16,11 @@ import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.crafting.ModCrafingRecipes;
-import vazkii.botania.common.crafting.ModManaInfusionRecipes;
 import vazkii.botania.common.crafting.ModPetalRecipes;
-import vazkii.botania.common.crafting.ModRuneRecipes;
 import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
 import vazkii.botania.common.lexicon.page.PageImage;
-import vazkii.botania.common.lexicon.page.PageManaInfusionRecipe;
 import vazkii.botania.common.lexicon.page.PagePetalRecipe;
-import vazkii.botania.common.lexicon.page.PageRuneRecipe;
+import vazkii.botania.common.lexicon.page.PageRecipe;
 import vazkii.botania.common.lexicon.page.PageText;
 import vazkii.botania.common.lib.LibLexicon;
 
@@ -44,6 +41,7 @@ public final class LexiconData {
 	public static LexiconEntry pureDaisy;
 	
 	public static LexiconEntry manaIntro;
+	public static LexiconEntry spreader;
 	public static LexiconEntry pool;
 
 	public static void init() {
@@ -74,6 +72,9 @@ public final class LexiconData {
 		// MANA ENTRIES
 		manaIntro = new BLexiconEntry(LibLexicon.MANA_INTRO, categoryMana);
 		manaIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"));
+		
+		spreader = new BLexiconEntry(LibLexicon.MANA_SPREADER, categoryMana);
+		spreader.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_SPREADER), new PageText("2"), new PageText("3"), new PageText("4"), new PageCraftingRecipe("5", ModCrafingRecipes.recipesSpreader), new PageText("6"), new PageCraftingRecipe("7", ModCrafingRecipes.recipeManaLens), new PageCraftingRecipe("8", ModCrafingRecipes.recipesLensDying), new PageCraftingRecipe("9", ModCrafingRecipes.recipeRainbowLens));
 		
 //		pool = new BLexiconEntry(LibLexicon.MANA_POOL, categoryMana);
 //		pool.setPriority().setLexiconPages(new PageText("0"), new PageManaInfusionRecipe("1", ModManaInfusionRecipes.manaPetalRecipes), new PagePetalRecipe("2", ModPetalRecipes.pureDaisyRecipe), new PageRuneRecipe("3", ModRuneRecipes.recipeDebug));

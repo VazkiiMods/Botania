@@ -47,7 +47,7 @@ public class ItemLens extends ItemMod implements ILens {
 
 	public static Icon iconGlass;
 
-	final int subtypes = 9;
+	public static final int SUBTYPES = 9;
 	Icon[] ringIcons;
 
 	public ItemLens() {
@@ -61,14 +61,14 @@ public class ItemLens extends ItemMod implements ILens {
 	public void registerIcons(IconRegister par1IconRegister) {
 		iconGlass = IconHelper.forName(par1IconRegister, "lensInside");
 
-		ringIcons = new Icon[subtypes];
+		ringIcons = new Icon[SUBTYPES];
 		for(int i = 0; i < ringIcons.length; i++)
 			ringIcons[i] = IconHelper.forNameRaw(par1IconRegister, LibItemNames.LENS_NAMES[i]);
 	}
 
 	@Override
 	public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List) {
-		for(int i = 0; i < subtypes; i++) {
+		for(int i = 0; i < SUBTYPES; i++) {
 			for(int j = -1; j < 17; j++) {
 				ItemStack stack = new ItemStack(par1, 1, i);
 				setLensColor(stack, j);
@@ -84,7 +84,7 @@ public class ItemLens extends ItemMod implements ILens {
 
 	@Override
 	public Icon getIconFromDamageForRenderPass(int par1, int par2) {
-		return par2 == 0 ? ringIcons[Math.min(subtypes - 1, par1)] : iconGlass;
+		return par2 == 0 ? ringIcons[Math.min(SUBTYPES - 1, par1)] : iconGlass;
 	}
 
 	@Override
@@ -99,7 +99,7 @@ public class ItemLens extends ItemMod implements ILens {
 
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
-		return "item." + LibItemNames.LENS_NAMES[Math.min(subtypes - 1, par1ItemStack.getItemDamage())];
+		return "item." + LibItemNames.LENS_NAMES[Math.min(SUBTYPES - 1, par1ItemStack.getItemDamage())];
 	}
 
 	@Override
@@ -247,7 +247,8 @@ public class ItemLens extends ItemMod implements ILens {
 		return ItemNBTHelper.getInt(stack, TAG_COLOR, -1);
 	}
 
-	public void setLensColor(ItemStack stack, int color) {
+	public static ItemStack setLensColor(ItemStack stack, int color) {
 		ItemNBTHelper.setInt(stack, TAG_COLOR, color);
+		return stack;
 	}
 }

@@ -210,6 +210,18 @@ botania.page.mIntro0=&4Mana&0 is an ethereal substance, in layman's terms, it's 
 botania.page.mIntro1=In order to create &4Mana&0, one would require a set of &4Generating Flowers&0 (read the respective section). This &4Mana&0 can be dispersed utilizing &1Mana Spreaders&0 and stored in &1Mana Pools&0. &4Mana&0 can be used for a myriad of different things, for starters, it can be used for &4Functional Flowers&0 (read the respective section).
 botania.page.mIntro2=To get started with mastering the art of &4Mana&0, one would start by learning how to use &1Dayblooms&0, &1Mana Spreaders&0 and &1Mana Pools&0.<br>These form a basic infrastructure for mana, which can be used for all sorts of purposes. Have a read at the &4Functional Flora&0 and &4Magical Apparatus&0 sections of this Lexicon. 
 
+botania.entry.spreader=Mana Spreader
+botania.page.spreader0=The &1Mana Spreader&0 is the most inportant component in manipulating &4Mana&0.<br>This is the block that allows &4Mana&0 to travel from point A to point B. When this block is placed on the ground, it'll face one of 6 basic directions. By shift-right clicking it with a &1Wand of the Forest&0, one can orient it to the opposite of where it was clicked. 
+botania.page.spreader1=Holding a &1Wand of the Forest&0
+botania.page.spreader2=The &1Mana Spreader&0 has a small internal buffer of &4Mana&0, which will get filled by nearby &4Generating Flowers&0. This buffer can be viewed by looking at the &1Spreader&0 with a &1Wand of the Forest&0, as demonstrated in the last page. Note that the block needs to be right clicked to get accurate and adequate values.  
+botania.page.spreader3=Holding a &1Wand of the Forest&0 displays a beam which shows where the spreader is pointing at. Hovering over it shows the target.<br>If the target of the spreader is a block that can contain mana, and isn't full, the spreader will fire a &4Mana Burst&0, which will travel to the target, and pass the mana along to it.
+botania.page.spreader4=The spreader only fires one burst at once, it'll only fire another one when the last one hits the target.<br>Furthermore, the bursts also, after a small amount of time start suffering &4mana loss&0, this can be seen in the beam, as when this happens it becomes a lot thinner.
+botania.page.spreader5=Crafting the &1Mana Spreader&0
+botania.page.spreader6=In order to upgrade the potencial of the spreader, once can apply &1Mana Lenses&0. The very basic mana lens does absolutely nothing.<br>Lenses can be &4dyed&0 all the 16 colors of the spectrum, or combined with a &1Mana Pearl&0 to create a &1Rainbow Lens&0, these will change the color of the burst.
+botania.page.spreader7=The basic lens, it doesn't do anything...
+botania.page.spreader8=&4Dying&0 lenses!
+botania.page.spreader9=&1Rainbow Lens&0 all the way
+
 # - FUNCTIONAL FLOWERS
 
 # - GENERATING FLOWERS

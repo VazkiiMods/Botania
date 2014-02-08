@@ -33,6 +33,7 @@ public final class LibResources {
 	public static final String ENTRY_FLOWERS = PREFIX_ENTRIES + "flowers.png";
 	public static final String ENTRY_APOTHECARY = PREFIX_ENTRIES + "apothecary.png";
 	public static final String ENTRY_PURE_DAISY = PREFIX_ENTRIES + "pureDaisy.png";
+	public static final String ENTRY_SPREADER = PREFIX_ENTRIES + "spreader.png";
 
 	public static final String MODEL_ALTAR = PREFIX_MODEL + "altar.png";
 	public static final String MODEL_SPREADER = PREFIX_MODEL + "spreader.png";
