@@ -15,42 +15,75 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.oredict.OreDictionary;
+
+import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.recipe.RecipePetals;
+import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
 
-public class PagePetalRecipe extends PageRecipe {
+public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 
-	List<RecipePetals> recipes;
+	private static final ResourceLocation petalOverlay = new ResourceLocation(LibResources.GUI_PETAL_OVERLAY);
+	
+	List<T> recipes;
 	int ticksElapsed = 0;
 	int recipeAt = 0;
 	
-	public PagePetalRecipe(String unlocalizedName, List<RecipePetals> recipes) {
+	public PagePetalRecipe(String unlocalizedName, List<T> recipes) {
 		super(unlocalizedName);
 		this.recipes = recipes;
 	}
 	
-	public PagePetalRecipe(String unlocalizedName, RecipePetals recipe) {
+	public PagePetalRecipe(String unlocalizedName, T recipe) {
 		this(unlocalizedName, Arrays.asList(recipe));
 	}
 	
 	@Override
 	public void renderRecipe(IGuiLexiconEntry gui, int mx, int my) {
-		RecipePetals recipe = recipes.get(recipeAt);
+		T recipe = recipes.get(recipeAt);
+		TextureManager render = Minecraft.getMinecraft().renderEngine;
 		
-		renderItemAtGridPos(gui, 2, 0, recipe.getOutput(), false);
-		renderItemAtGridPos(gui, 2, 1, new ItemStack(ModBlocks.altar), false);
+		renderItemAtGridPos(gui, 3, 0, recipe.getOutput(), false);
+		renderItemAtGridPos(gui, 2, 1, getMiddleStack(), false);
 		
-//		GL11.glEnable(GL11.GL_BLEND);
-//		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-//		String manaUsage = StatCollector.translateToLocal("botaniamisc.manaUsage");
-//		font.drawString(manaUsage, gui.getLeft() + gui.getWidth() / 2 - font.getStringWidth(manaUsage) / 2, gui.getTop() + 105, 0x66000000);
-//
-//		HUDHandler.renderManaBar(gui.getLeft() + gui.getWidth() / 2 - 50, gui.getTop() + 115, 0x0000FF, 0.75F, recipe.getManaToConsume(), TilePool.MAX_MANA / 10);
-//		GL11.glDisable(GL11.GL_BLEND);
+		List<Object> inputs = recipe.getInputs();
+		int degreePerInput = (int) (360F / (float) inputs.size());
+		int currentDegree = 0;
+		
+		for(Object obj : inputs) {
+			Object input = obj;
+			if(input instanceof String)
+				input = OreDictionary.getOres((String) input).get(0);
+			
+			renderItemAtAngle(gui, currentDegree, (ItemStack) input);
+			
+			currentDegree += degreePerInput;
+		}
+
+		renderManaBar(gui, recipe, mx, my);
+		
+		render.bindTexture(petalOverlay);
+
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GL11.glColor4f(1F, 1F, 1F, 1F);
+		((GuiScreen) gui).drawTexturedModalRect(gui.getLeft(), gui.getTop(), 0, 0, gui.getWidth(), gui.getHeight());
+		GL11.glDisable(GL11.GL_BLEND);
+	}
+	
+	ItemStack getMiddleStack() {
+		return new ItemStack(ModBlocks.altar);
+	}
+	
+	public void renderManaBar(IGuiLexiconEntry gui, T recipe, int mx, int my) {
+		// NO-OP
 	}
 	
 	@Override

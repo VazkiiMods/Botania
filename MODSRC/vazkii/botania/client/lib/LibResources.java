@@ -28,6 +28,7 @@ public final class LibResources {
 	public static final String GUI_LEXICON = PREFIX_GUI + "lexicon.png";
 	public static final String GUI_CRAFTING_OVERLAY = PREFIX_GUI + "craftingOverlay.png";
 	public static final String GUI_MANA_INFUSION_OVERLAY = PREFIX_GUI + "manaInfusionOverlay.png";
+	public static final String GUI_PETAL_OVERLAY = PREFIX_GUI + "petalOverlay.png";
 
 	public static final String ENTRY_FLOWERS = PREFIX_ENTRIES + "flowers.png";
 	public static final String ENTRY_APOTHECARY = PREFIX_ENTRIES + "apothecary.png";

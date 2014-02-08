@@ -61,6 +61,10 @@ public class RecipePetals {
 
 		return inputsMissing.isEmpty();
 	}
+	
+	public List<Object> getInputs() {
+		return new ArrayList(inputs);
+	}
 
 	public ItemStack getOutput() {
 		return output;

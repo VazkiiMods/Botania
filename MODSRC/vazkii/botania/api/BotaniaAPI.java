@@ -55,7 +55,7 @@ public final class BotaniaAPI {
 	 * Registers a Petal Recipe.
 	 * @param output The ItemStack to craft.
 	 * @param inputs The objects for crafting. Can be ItemStack, MappableStackWrapper
-	 * or String (case for Ore Dictionary)
+	 * or String (case for Ore Dictionary). The array can't be larger than 16.
 	 * @return The recipe created.
 	 */
 	public static RecipePetals registerPetalRecipe(ItemStack output, Object... inputs) {
@@ -69,7 +69,7 @@ public final class BotaniaAPI {
 	 * @param output The ItemStack to craft.
 	 * @param mana The amount of mana required. Don't go over 100000!
 	 * @param inputs The objects for crafting. Can be ItemStack, MappableStackWrapper
-	 * or String (case for Ore Dictionary)
+	 * or String (case for Ore Dictionary). The array can't be larger than 16.
 	 * @return The recipe created.
 	 */
 	public static RecipeRuneAltar registerRuneAltarRecipe(ItemStack output, int mana, Object... inputs) {
