@@ -13,9 +13,11 @@ package vazkii.botania.common.block;
 
 import java.util.Random;
 
+import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -47,6 +49,33 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 		setUnlocalizedName(LibBlockNames.SPREADER);
 
 		random = new Random();
+	}
+
+	@Override
+	public void onBlockPlacedBy(World par1World, int par2, int par3, int par4, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack) {
+		int orientation = BlockPistonBase.determineOrientation(par1World, par2, par3, par4, par5EntityLivingBase);
+		TileSpreader spreader = (TileSpreader) par1World.getBlockTileEntity(par2, par3, par4);
+		System.out.println(orientation);
+		
+		switch(orientation) {
+		case 0:
+			spreader.rotationY = -90F;
+			break;
+		case 1:
+			spreader.rotationY = 90F;
+			break;
+		case 2:
+			spreader.rotationX = 270F;
+			break;
+		case 3:
+			spreader.rotationX = 90F;
+			break;
+		case 4:
+			break;
+		default:
+			spreader.rotationX = 180F;
+			break;
+		}
 	}
 
 	@Override
