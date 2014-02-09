@@ -75,8 +75,8 @@ public final class LexiconData {
 		spreader = new BLexiconEntry(LibLexicon.MANA_SPREADER, categoryMana);
 		spreader.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_SPREADER), new PageText("2"), new PageText("3"), new PageText("4"), new PageCraftingRecipe("5", ModCrafingRecipes.recipesSpreader), new PageText("6"), new PageCraftingRecipe("7", ModCrafingRecipes.recipeManaLens), new PageCraftingRecipe("8", ModCrafingRecipes.recipesLensDying), new PageCraftingRecipe("9", ModCrafingRecipes.recipeRainbowLens));
 
-		//		pool = new BLexiconEntry(LibLexicon.MANA_POOL, categoryMana);
-		//		pool.setPriority().setLexiconPages(new PageText("0"), new PageManaInfusionRecipe("1", ModManaInfusionRecipes.manaPetalRecipes), new PagePetalRecipe("2", ModPetalRecipes.pureDaisyRecipe), new PageRuneRecipe("3", ModRuneRecipes.recipeDebug));
+		pool = new BLexiconEntry(LibLexicon.MANA_POOL, categoryMana);
+		pool.setPriority().setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipePool));
 	}
 
 }

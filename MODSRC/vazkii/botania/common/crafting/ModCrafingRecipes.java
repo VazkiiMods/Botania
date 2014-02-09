@@ -39,7 +39,8 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeManaLens;
 	public static List<IRecipe> recipesLensDying;
 	public static IRecipe recipeRainbowLens;
-
+	public static IRecipe recipePool;
+	
 	public static void init() {
 		// Lexicon Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lexicon), "treeSapling", Item.book);
@@ -113,6 +114,10 @@ public final class ModCrafingRecipes {
 		for(int i = 1; i < ItemLens.SUBTYPES; i++)
 			addShapelessOreDictRecipe(ItemLens.setLensColor(new ItemStack(ModItems.lens, 1, i), 16), new ItemStack(ModItems.lens, 1, i), LibOreDict.DYE[i]);
 
+		addOreDictRecipe(new ItemStack(ModBlocks.pool),
+				"R R", "RRR",
+				'R', LibOreDict.LIVING_ROCK);
+		recipePool = BotaniaAPI.getLatestAddedRecipe();
 	}
 
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {

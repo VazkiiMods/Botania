@@ -205,11 +205,13 @@ botania.page.wand0=The general multi use tool for a botanist is the &1Wand of th
 botania.page.wand1=The petals use determine the colors.
 
 # - MANA
+# -- INTRODUCTION TO MANA
 botania.entry.mIntro=Introduction to Mana
 botania.page.mIntro0=&4Mana&0 is an ethereal substance, in layman's terms, it's a form of &4mystical energy&0. It's sensorial existance is inconstant, and it's color depends on the environment it's put on.<br>Mastering &4Mana&0 is one of the most important skills a Botanist needs to master.
 botania.page.mIntro1=In order to create &4Mana&0, one would require a set of &4Generating Flowers&0 (read the respective section). This &4Mana&0 can be dispersed utilizing &1Mana Spreaders&0 and stored in &1Mana Pools&0. &4Mana&0 can be used for a myriad of different things, for starters, it can be used for &4Functional Flowers&0 (read the respective section).
 botania.page.mIntro2=To get started with mastering the art of &4Mana&0, one would start by learning how to use &1Dayblooms&0, &1Mana Spreaders&0 and &1Mana Pools&0.<br>These form a basic infrastructure for mana, which can be used for all sorts of purposes. Have a read at the &4Functional Flora&0 and &4Magical Apparatus&0 sections of this Lexicon. 
 
+# -- MANA SPREADER
 botania.entry.spreader=Mana Spreader
 botania.page.spreader0=The &1Mana Spreader&0 is the most inportant component in manipulating &4Mana&0.<br>This is the block that allows &4Mana&0 to travel from point A to point B. When this block is placed on the ground, it'll face one of 6 basic directions. By shift-right clicking it with a &1Wand of the Forest&0, one can orient it to the opposite of where it was clicked. 
 botania.page.spreader1=Holding a &1Wand of the Forest&0
@@ -221,6 +223,10 @@ botania.page.spreader6=In order to upgrade the potencial of the spreader, once c
 botania.page.spreader7=The basic lens, it doesn't do anything...
 botania.page.spreader8=&4Dying&0 lenses!
 botania.page.spreader9=&1Rainbow Lens&0 all the way
+
+botania.entry.pool=Mana Pool
+botania.page.pool0=The &1Mana Pool&0 is, simply put, a storage of &4Mana&0.<br>Mana can be inserted into it by usage of a &1Mana Spreader&0, and any adjacent &1Mana Spreaders&0 will pull mana from it to increase their internal buffer automatically.<br>Any &4Functional Flowers&0 require a nearby &1Mana Pool&0 to draw power from.
+botania.page.pool1=Making the &1Mana Pool&0.
 
 # - FUNCTIONAL FLOWERS
 
