@@ -52,10 +52,12 @@ public class SubTileGenerating extends SubTileEntity {
 
 		linkCollector();
 
-		int delay = getDelayBetweenPassiveGeneration();
-		if(delay > 0 && supertile.worldObj.getWorldTime() % delay == 0)
-			addMana(1);
-		emptyManaIntoCollector();
+		if(canGeneratePassively()) {
+			int delay = getDelayBetweenPassiveGeneration();
+			if(delay > 0 && supertile.worldObj.getWorldTime() % delay == 0)
+				addMana(1);
+			emptyManaIntoCollector();
+		}
 
 		if(supertile.worldObj.isRemote) {
 			double particleChance = 1F - (double) mana / (double) getMaxMana() / 2F;
@@ -102,6 +104,11 @@ public class SubTileGenerating extends SubTileEntity {
 				mana = 0;
 			}
 		}
+	}
+	
+	public boolean canGeneratePassively() {
+		boolean rain = supertile.worldObj.getWorldChunkManager().getBiomeGenAt(supertile.xCoord, supertile.zCoord).getIntRainfall() > 0 && (supertile.worldObj.isRaining() || supertile.worldObj.isThundering());
+		return supertile.worldObj.isDaytime() && !rain && supertile.worldObj.canBlockSeeTheSky(supertile.xCoord, supertile.yCoord + 1, supertile.zCoord);
 	}
 
 	public int getDelayBetweenPassiveGeneration() {
