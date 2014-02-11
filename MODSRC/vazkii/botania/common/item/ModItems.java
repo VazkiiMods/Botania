@@ -54,5 +54,6 @@ public final class ModItems {
 		// Vanilla ores (because forge doesn't do this by default for some reason)
 		OreDictionary.registerOre("ingotIron", Item.ingotIron);
 		OreDictionary.registerOre("ingotGold", Item.ingotGold);
+		OreDictionary.registerOre("gemDiamond", Item.diamond);
 	}
 }

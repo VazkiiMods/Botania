@@ -32,6 +32,10 @@ public class MappableStackWrapper {
 
 		else return isw.wrap == wrap;
 	}
+	
+	public ItemStack getStack() {
+		return wrap;
+	}
 
 	@Override
 	public int hashCode() {

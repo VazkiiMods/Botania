@@ -16,10 +16,14 @@ import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.crafting.ModCrafingRecipes;
+import vazkii.botania.common.crafting.ModManaInfusionRecipes;
 import vazkii.botania.common.crafting.ModPetalRecipes;
+import vazkii.botania.common.crafting.ModRuneRecipes;
 import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
 import vazkii.botania.common.lexicon.page.PageImage;
+import vazkii.botania.common.lexicon.page.PageManaInfusionRecipe;
 import vazkii.botania.common.lexicon.page.PagePetalRecipe;
+import vazkii.botania.common.lexicon.page.PageRuneRecipe;
 import vazkii.botania.common.lexicon.page.PageText;
 import vazkii.botania.common.lib.LibLexicon;
 
@@ -38,6 +42,7 @@ public final class LexiconData {
 	public static LexiconEntry lexicon;
 	public static LexiconEntry wand;
 	public static LexiconEntry pureDaisy;
+	public static LexiconEntry runicAltar;
 
 	public static LexiconEntry manaIntro;
 	public static LexiconEntry spreader;
@@ -68,6 +73,11 @@ public final class LexiconData {
 		pureDaisy = new BLexiconEntry(LibLexicon.BASICS_PURE_DAISY, categoryBasics);
 		pureDaisy.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_PURE_DAISY), new PagePetalRecipe("2", ModPetalRecipes.pureDaisyRecipe));
 
+		runicAltar = new BLexiconEntry(LibLexicon.BASICS_RUNE_ALTAR, categoryBasics);
+		runicAltar.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCrafingRecipes.recipeRuneAltar), new PageText("3"), new PageRuneRecipe("4", ModRuneRecipes.recipeWaterRune), new PageRuneRecipe("5", ModRuneRecipes.recipeEarthRune), new PageRuneRecipe("6", ModRuneRecipes.recipeAirRune), new PageRuneRecipe("7", ModRuneRecipes.recipeFireRune),
+				new PageRuneRecipe("8", ModRuneRecipes.recipeSpringRune), new PageRuneRecipe("9", ModRuneRecipes.recipeSummerRune), new PageRuneRecipe("10", ModRuneRecipes.recipeAutumnRune), new PageRuneRecipe("11", ModRuneRecipes.recipeWinterRune),  new PageRuneRecipe("12", ModRuneRecipes.recipeManaRune),
+				new PageRuneRecipe("13", ModRuneRecipes.recipeLustRune), new PageRuneRecipe("14", ModRuneRecipes.recipeGluttonyRune), new PageRuneRecipe("15", ModRuneRecipes.recipeGreedRune), new PageRuneRecipe("16", ModRuneRecipes.recipeSlothRune), new PageRuneRecipe("17", ModRuneRecipes.recipeEnvyRune), new PageRuneRecipe("18", ModRuneRecipes.recipePrideRune));
+
 		// MANA ENTRIES
 		manaIntro = new BLexiconEntry(LibLexicon.MANA_INTRO, categoryMana);
 		manaIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"));
@@ -76,7 +86,7 @@ public final class LexiconData {
 		spreader.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_SPREADER), new PageText("2"), new PageText("3"), new PageText("4"), new PageCraftingRecipe("5", ModCrafingRecipes.recipesSpreader), new PageText("6"), new PageCraftingRecipe("7", ModCrafingRecipes.recipeManaLens), new PageCraftingRecipe("8", ModCrafingRecipes.recipesLensDying), new PageCraftingRecipe("9", ModCrafingRecipes.recipeRainbowLens));
 
 		pool = new BLexiconEntry(LibLexicon.MANA_POOL, categoryMana);
-		pool.setPriority().setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipePool));
+		pool.setPriority().setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipePool), new PageText("2"), new PageManaInfusionRecipe("3", ModManaInfusionRecipes.manasteelRecipe), new PageManaInfusionRecipe("4", ModManaInfusionRecipes.manaPearlRecipe), new PageManaInfusionRecipe("5", ModManaInfusionRecipes.manaDiamondRecipe), new PageManaInfusionRecipe("6", ModManaInfusionRecipes.manaPetalRecipes));
 	}
 
 }

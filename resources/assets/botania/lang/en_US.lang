@@ -204,6 +204,28 @@ botania.entry.wand=Wand of the Forest
 botania.page.wand0=The general multi use tool for a botanist is the &1Wand of the Forest&0.<br>This wand, made by, effectively, strapping a pair of &1Mystical Petals&0 of any color to a few &1Sticks&0 is required for a good amount of tasks.
 botania.page.wand1=The petals use determine the colors.
 
+# -- RUNIC ALTAR
+botania.entry.runeAltar=Runic Altar
+botania.page.runeAltar0=&1Runes&0 are extremely important components of complex magical devices or flora.<br>In order to create these, one would require a &1Runic Altar&0.<br>To utilize this &1Runic Altar&0, start by placing the components to the rune you want to create.
+botania.page.runeAltar1=Proceed by linking a &1Mana Spreader&0 to the altar, and right click it with a &1Wand of the Forest&0.<br>It should be apparent when the altar has received enough &4Mana&0, when that happens, just drop a piece of &1Livingrock&0 on top of it and use the wand on it again to collect your rune.
+botania.page.runeAltar2=Crafting the &1Runic Altar&0.
+botania.page.runeAltar3=A total of 16 &1Runes&0 exist.<br>The most basic and elementary runes are named after the &4Four Elements&0. The interemediate runes are named after the &4Four Seasons&0, and the most advanced runes are named after the &4Seven Deadly Sins&0. A separate &1Rune of Mana&0 also exists.
+botania.page.runeAltar4=The &1Rune of Water&0.
+botania.page.runeAltar5=The &1Rune of Fire&0.
+botania.page.runeAltar6=The &1Rune of Earth&0.
+botania.page.runeAltar7=The &1Rune of Air&0.
+botania.page.runeAltar8=The &1Rune of Spring&0.
+botania.page.runeAltar9=The &1Rune of Summer&0.
+botania.page.runeAltar10=The &1Rune of Autumn&0.
+botania.page.runeAltar11=The &1Rune of Winter&0.
+botania.page.runeAltar12=The &1Rune of Mana&0.
+botania.page.runeAltar13=The &1Rune of Lust&0.
+botania.page.runeAltar14=The &1Rune of Gluttony&0.
+botania.page.runeAltar15=The &1Rune of Greed&0.
+botania.page.runeAltar16=The &1Rune of Sloth&0.
+botania.page.runeAltar17=The &1Rune of Envy&0.
+botania.page.runeAltar18=The &1Rune of Pride&0.
+
 # - MANA
 # -- INTRODUCTION TO MANA
 botania.entry.mIntro=Introduction to Mana
@@ -227,6 +249,11 @@ botania.page.spreader9=&1Rainbow Lens&0 all the way
 botania.entry.pool=Mana Pool
 botania.page.pool0=The &1Mana Pool&0 is, simply put, a storage of &4Mana&0.<br>Mana can be inserted into it by usage of a &1Mana Spreader&0, and any adjacent &1Mana Spreaders&0 will pull mana from it to increase their internal buffer automatically.<br>Any &4Functional Flowers&0 require a nearby &1Mana Pool&0 to draw power from.
 botania.page.pool1=Making the &1Mana Pool&0.
+botania.page.pool2=Tossing in some resources into the Mana Pool will cause them to get infused with &4Mana&0, turning them into more powerful forms.<br>A few examples are &1Iron Ingots, Ender Pearls, Diamonds and Mystical Petals&0.
+botania.page.pool3=Infusing &1Manasteel&0
+botania.page.pool4=Infusing &1Mana Pearls&0
+botania.page.pool5=Infusing &1Mana Diamonds&0
+botania.page.pool6=Infusing &1Mana Petals&0
 
 # - FUNCTIONAL FLOWERS
 

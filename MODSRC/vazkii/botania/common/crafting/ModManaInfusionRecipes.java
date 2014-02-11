@@ -14,6 +14,7 @@ package vazkii.botania.common.crafting;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
@@ -24,13 +25,18 @@ public final class ModManaInfusionRecipes {
 
 	public static List<RecipeManaInfusion> manaPetalRecipes;
 	public static RecipeManaInfusion manasteelRecipe;
-
+	public static RecipeManaInfusion manaPearlRecipe;
+	public static RecipeManaInfusion manaDiamondRecipe;
+	
 	public static void init() {
 		manaPetalRecipes = new ArrayList();
 		for(int i = 0; i < 16; i++)
 			manaPetalRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPetal, 1, i), LibOreDict.PETAL[i], 1000));
 
 		manasteelRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 0), "ingotIron", 5000);
+		manaPearlRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 1), new ItemStack(Item.enderPearl), 10000);
+		manaDiamondRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 2), "gemDiamond", 25000);
+
 	}
 
 }
