@@ -48,6 +48,8 @@ public final class LexiconData {
 	public static LexiconEntry spreader;
 	public static LexiconEntry pool;
 
+	public static LexiconEntry functionalIntro;
+	
 	public static void init() {
 		BotaniaAPI.addCategory(categoryBasics = new LexiconCategory(LibLexicon.CATEGORY_BASICS));
 		BotaniaAPI.addCategory(categoryMana = new LexiconCategory(LibLexicon.CATEGORY_MANA));
@@ -87,6 +89,10 @@ public final class LexiconData {
 
 		pool = new BLexiconEntry(LibLexicon.MANA_POOL, categoryMana);
 		pool.setPriority().setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipePool), new PageText("2"), new PageManaInfusionRecipe("3", ModManaInfusionRecipes.manasteelRecipe), new PageManaInfusionRecipe("4", ModManaInfusionRecipes.manaPearlRecipe), new PageManaInfusionRecipe("5", ModManaInfusionRecipes.manaDiamondRecipe), new PageManaInfusionRecipe("6", ModManaInfusionRecipes.manaPetalRecipes));
+		
+		// FUNCTIONAL FLOWERS ENTRIES
+		functionalIntro = new BLexiconEntry(LibLexicon.FFLOWER_INTRO, categoryFunctionalFlowers);
+		functionalIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"));
 	}
 
 }
