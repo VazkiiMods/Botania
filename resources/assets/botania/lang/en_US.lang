@@ -187,7 +187,7 @@ botania.page.flowers5=Grinding Petals into Dye.
 
 # -- PETAL APOTHECARY
 botania.entry.apothecary=Petal Apothecary
-botania.page.apothecary0=In order for a Botanist to create plantlife that can do it's bidding, one would need special means of infusing plants with mystical energy.<br>Luckilly, the &1Petal Apothecary&0 does just that.
+botania.page.apothecary0=In order for a botanist to create plantlife that can do it's bidding, one would need special means of infusing plants with mystical energy.<br>Luckilly, the &1Petal Apothecary&0 does just that.
 botania.page.apothecary1=The &1Petal Apothecary&0.
 botania.page.apothecary2=This block, when placed in the world and given some water (by use of a water bucket), will accept any &1Mystical Petals&0 thrown at it, releasing their energies.<br>Once one has set the correct petals in, throwing some &1Seeds&0 in will finalize the proccess.
 botania.page.apothecary3=Quite a few plants can be made using this method, for more information, read on the &4Functional Flora&0 and &4Generation Flora&0 sections of this Lexicon.
@@ -195,7 +195,7 @@ botania.page.apothecary4=Crafting the &1Petal Apothecary&0.
 
 # -- PURE DAISY
 botania.entry.pureDaisy=Pure Daisy
-botania.page.pureDaisy0=The &1Pure Daisy&0 is not only the most basic, but also the most important flower a Botanist can have.<br>This flower will purify any adjacent &1Wood&0 and &1Stone&0 blocks, as seen in the next page, into their purified counterparts, &1Livingwood&0 and &1Livingrock&0, which can be used for crafting.  
+botania.page.pureDaisy0=The &1Pure Daisy&0 is not only the most basic, but also the most important flower a botanist can have.<br>This flower will purify any adjacent &1Wood&0 and &1Stone&0 blocks, as seen in the next page, into their purified counterparts, &1Livingwood&0 and &1Livingrock&0, which can be used for crafting.  
 botania.page.pureDaisy1=Just give it &4a minute&0 or so...
 botania.page.pureDaisy2=White is bright and pure
 
@@ -229,7 +229,7 @@ botania.page.runeAltar18=The &1Rune of Pride&0.
 # - MANA
 # -- INTRODUCTION TO MANA
 botania.entry.mIntro=Introduction to Mana
-botania.page.mIntro0=&4Mana&0 is an ethereal substance, in layman's terms, it's a form of &4mystical energy&0. It's sensorial existance is inconstant, and it's color depends on the environment it's put on.<br>Mastering &4Mana&0 is one of the most important skills a Botanist needs to master.
+botania.page.mIntro0=&4Mana&0 is an ethereal substance, in layman's terms, it's a form of &4mystical energy&0. It's sensorial existance is inconstant, and it's color depends on the environment it's put on.<br>Mastering &4Mana&0 is one of the most important skills a botanist needs to master.
 botania.page.mIntro1=In order to create &4Mana&0, one would require a set of &4Generating Flowers&0 (read the respective section). This &4Mana&0 can be dispersed utilizing &1Mana Spreaders&0 and stored in &1Mana Pools&0. &4Mana&0 can be used for a myriad of different things, for starters, it can be used for &4Functional Flowers&0 (read the respective section).
 botania.page.mIntro2=To get started with mastering the art of &4Mana&0, one would start by learning how to use &1Dayblooms&0, &1Mana Spreaders&0 and &1Mana Pools&0.<br>These form a basic infrastructure for mana, which can be used for all sorts of purposes. Have a read at the &4Functional Flora&0 and &4Magical Apparatus&0 sections of this Lexicon. 
 
