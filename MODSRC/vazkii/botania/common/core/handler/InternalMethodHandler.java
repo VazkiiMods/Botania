@@ -26,6 +26,9 @@ import vazkii.botania.common.block.BlockSpecialFlower;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
 import vazkii.botania.common.lexicon.page.PageImage;
+import vazkii.botania.common.lexicon.page.PageManaInfusionRecipe;
+import vazkii.botania.common.lexicon.page.PagePetalRecipe;
+import vazkii.botania.common.lexicon.page.PageRuneRecipe;
 import vazkii.botania.common.lexicon.page.PageText;
 
 public class InternalMethodHandler implements IInternalMethodHandler {
@@ -58,37 +61,38 @@ public class InternalMethodHandler implements IInternalMethodHandler {
 
 	@Override
 	public LexiconPage petalRecipesPage(String key, List<RecipePetals> recipes) {
-		return null;
+		return new PagePetalRecipe(key, recipes);
 	}
 
 	@Override
 	public LexiconPage petalRecipePage(String key, RecipePetals recipe) {
-		return null;
+		return new PagePetalRecipe(key, recipe);
 	}
 
 	@Override
 	public LexiconPage runeRecipesPage(String key, List<RecipeRuneAltar> recipes) {
-		return null;
+		return new PageRuneRecipe(key, recipes);
 	}
 
 	@Override
 	public LexiconPage runeRecipePage(String key, RecipeRuneAltar recipe) {
-		return null;
+		return new PageRuneRecipe(key, recipe);
 	}
 
 	@Override
 	public LexiconPage manaInfusionRecipesPage(String key, List<RecipeManaInfusion> recipes) {
-		return null;
-	}
-
-	@Override
-	public ItemStack getSubTileAsStack(String subTile) {
-		return ItemBlockSpecialFlower.ofType(subTile);
+		return new PageManaInfusionRecipe(key, recipes);
 	}
 
 	@Override
 	public LexiconPage manaInfusionRecipePage(String key, RecipeManaInfusion recipe) {
-		return null;
+		return new PageManaInfusionRecipe(key, recipe);
+	}
+	
+
+	@Override
+	public ItemStack getSubTileAsStack(String subTile) {
+		return ItemBlockSpecialFlower.ofType(subTile);
 	}
 
 }
