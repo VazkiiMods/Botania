@@ -21,15 +21,18 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
+import vazkii.botania.api.ILexiconable;
 import vazkii.botania.api.IWandHUD;
 import vazkii.botania.api.IWandable;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.TilePool;
+import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockIDs;
 import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
-public class BlockPool extends BlockModContainer implements IWandHUD, IWandable {
+public class BlockPool extends BlockModContainer implements IWandHUD, IWandable, ILexiconable {
 
 	protected BlockPool() {
 		super(LibBlockIDs.idPool, Material.rock);
@@ -83,5 +86,10 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable 
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
 		((TilePool) world.getBlockTileEntity(x, y, z)).onWanded(player, stack);
 		return true;
+	}
+
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return LexiconData.pool;
 	}
 }

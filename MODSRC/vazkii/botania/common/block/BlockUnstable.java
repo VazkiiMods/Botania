@@ -19,17 +19,21 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import vazkii.botania.api.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
+import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockIDs;
 import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class BlockUnstable extends BlockMod {
+public class BlockUnstable extends BlockMod implements ILexiconable {
 
 	public BlockUnstable() {
 		super(LibBlockIDs.idUnstableBlock, Material.iron);
@@ -93,6 +97,11 @@ public class BlockUnstable extends BlockMod {
 	@Override
 	public int colorMultiplier(IBlockAccess par1iBlockAccess, int par2, int par3, int par4) {
 		return getRenderColor(par1iBlockAccess.getBlockMetadata(par2, par3, par4));
+	}
+
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return LexiconData.unstableBlocks;
 	}
 
 }

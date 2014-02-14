@@ -17,7 +17,9 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.subtile.SubTileFunctional;
+import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileBellethorn extends SubTileFunctional {
 
@@ -50,6 +52,11 @@ public class SubTileBellethorn extends SubTileFunctional {
 				}
 			}
 		}
+	}
+	
+	@Override
+	public LexiconEntry getEntry() {
+		return LexiconData.bellethorne;
 	}
 
 }
