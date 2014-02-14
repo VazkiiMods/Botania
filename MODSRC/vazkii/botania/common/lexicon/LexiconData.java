@@ -50,6 +50,8 @@ public final class LexiconData {
 
 	public static LexiconEntry functionalIntro;
 	
+	public static LexiconEntry generatingIntro;
+	
 	public static void init() {
 		BotaniaAPI.addCategory(categoryBasics = new LexiconCategory(LibLexicon.CATEGORY_BASICS));
 		BotaniaAPI.addCategory(categoryMana = new LexiconCategory(LibLexicon.CATEGORY_MANA));
@@ -92,7 +94,11 @@ public final class LexiconData {
 		
 		// FUNCTIONAL FLOWERS ENTRIES
 		functionalIntro = new BLexiconEntry(LibLexicon.FFLOWER_INTRO, categoryFunctionalFlowers);
-		functionalIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"));
+		functionalIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"));
+		
+		// GENERATINg FLOWERS ENTRIES
+		generatingIntro = new BLexiconEntry(LibLexicon.GFLOWER_INTRO, categoryGenerationFlowers);
+		generatingIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"));
 	}
 
 }
