@@ -28,6 +28,7 @@ import vazkii.botania.api.internal.MappableStackWrapper;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.core.handler.ConfigHandler;
 
 public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 
@@ -56,7 +57,7 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 
 		List<Object> inputs = recipe.getInputs();
 		int degreePerInput = (int) (360F / inputs.size());
-		int currentDegree = 0;
+		int currentDegree = ConfigHandler.lexiconRotatingItems ? (int) Minecraft.getMinecraft().theWorld.getTotalWorldTime() * 2 : 0;
 
 		for(Object obj : inputs) {
 			Object input = obj;
