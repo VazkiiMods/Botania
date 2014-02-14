@@ -52,22 +52,22 @@ tile.botania:livingwood.name=Livingwood
 tile.botania:spreader.name=Mana Spreader
 tile.botania:pool.name=Mana Pool
 tile.botania:runeAltar.name=Runic Altar
-tile.botania:unstableBlock0.name=White Unstable Block
-tile.botania:unstableBlock1.name=Orange Unstable Block
-tile.botania:unstableBlock2.name=Magenta Unstable Block
-tile.botania:unstableBlock3.name=Light Blue Unstable Block
-tile.botania:unstableBlock4.name=Yellow Unstable Block
-tile.botania:unstableBlock5.name=Lime Unstable Block
-tile.botania:unstableBlock6.name=Pink Unstable Block
-tile.botania:unstableBlock7.name=Gray Unstable Block
-tile.botania:unstableBlock8.name=Light Gray Unstable Block
-tile.botania:unstableBlock9.name=Cyan Unstable Block
-tile.botania:unstableBlock10.name=Purple Unstable Block
-tile.botania:unstableBlock11.name=Blue Unstable Block
-tile.botania:unstableBlock12.name=Brown Unstable Block
-tile.botania:unstableBlock13.name=Green Unstable Block
-tile.botania:unstableBlock14.name=Red Unstable Block
-tile.botania:unstableBlock15.name=Black Unstable Block
+tile.botania:unstableBlock0.name=White Unstable Cube
+tile.botania:unstableBlock1.name=Orange Unstable Cube
+tile.botania:unstableBlock2.name=Magenta Unstable Cube
+tile.botania:unstableBlock3.name=Light Blue Unstable Cube
+tile.botania:unstableBlock4.name=Yellow Unstable Cube
+tile.botania:unstableBlock5.name=Lime Unstable Cube
+tile.botania:unstableBlock6.name=Pink Unstable Cube
+tile.botania:unstableBlock7.name=Gray Unstable Cube
+tile.botania:unstableBlock8.name=Light Gray Unstable Cube
+tile.botania:unstableBlock9.name=Cyan Unstable Cube
+tile.botania:unstableBlock10.name=Purple Unstable Cube
+tile.botania:unstableBlock11.name=Blue Unstable Cube
+tile.botania:unstableBlock12.name=Brown Unstable Cube
+tile.botania:unstableBlock13.name=Green Unstable Cube
+tile.botania:unstableBlock14.name=Red Unstable Cube
+tile.botania:unstableBlock15.name=Black Unstable Cube
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
@@ -319,3 +319,14 @@ botania.page.gIntro2=It is important to keep in mind that these flowers memorize
 botania.entry.daybloom=Daybloom
 botania.page.daybloom0=The &1Daybloom&0 is the most basic and rudimentary &4Generating Flower&0. Simply put, it preforms a modified photosythesis process, in order to transform sunlight into &4Mana&0.
 botania.page.daybloom1=Starting up a brand new day
+
+# - MAGICAL APPARATUS
+
+# - MYSTICAL INSTRUMENTS
+
+# - MISCLANEOUS
+# -- UNSTABLE CUBE
+botania.entry.unstableBlocks=Unstable Cubes
+botania.page.unstableBlocks0=Fiddling with highly powerful &4Mana&0 infused objects has lead to the creation of these strange cubes. They seem to emit some visual radiation in the form of colorful lightning, but it doesn't seem like it has any effects other than visual appeal.
+botania.page.unstableBlocks1=They look fancy
+botania.page.unstableBlocks2=And they come in all 16 colors

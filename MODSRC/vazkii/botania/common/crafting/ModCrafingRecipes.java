@@ -49,6 +49,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeLensGravity;
 	public static IRecipe recipeLensBore;
 	public static IRecipe recipeLensDamaging;
+	public static List<IRecipe> recipesUnstableBlocks;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -160,6 +161,15 @@ public final class ModCrafingRecipes {
 		
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 0, 8), new ItemStack(ModItems.lens), LibOreDict.RUNE[13]);
 		recipeLensDamaging = BotaniaAPI.getLatestAddedRecipe();
+	
+		// Unstable Block Recipes
+		for(int i = 0; i < 16; i++)
+			addOreDictRecipe(new ItemStack(ModBlocks.unstableBlock, 2, i), 
+				"OPO", "PMP", "OPO",
+				'O', new ItemStack(Block.obsidian),
+				'P', LibOreDict.PETAL[i],
+				'M', new ItemStack(Item.enderPearl));
+		recipesUnstableBlocks = BotaniaAPI.getLatestAddedRecipes(16);
 	}
 
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {

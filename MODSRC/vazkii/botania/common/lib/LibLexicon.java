@@ -47,5 +47,7 @@ public final class LibLexicon {
 
 	public static final String GFLOWER_INTRO = "gIntro";
 	public static final String GFLOWER_DAYBLOOM = "daybloom";
+	
+	public static final String MISC_UNSTABLE_BLOCKS = "unstableBlocks";
 
 }
