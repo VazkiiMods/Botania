@@ -228,7 +228,7 @@ botania.page.runeAltar18=The &1Rune of Pride&0.
 
 # - MANA
 # -- INTRODUCTION TO MANA
-botania.entry.mIntro=Introduction to Mana
+botania.entry.mIntro=An Introduction to Mana
 botania.page.mIntro0=&4Mana&0 is an ethereal substance, in layman's terms, it's a form of &4mystical energy&0. It's sensorial existance is inconstant, and it's color depends on the environment it's put on.<br>Mastering &4Mana&0 is one of the most important skills a botanist needs to master.
 botania.page.mIntro1=In order to create &4Mana&0, one would require a set of &4Generating Flowers&0 (read the respective section). This &4Mana&0 can be dispersed utilizing &1Mana Spreaders&0 and stored in &1Mana Pools&0. &4Mana&0 can be used for a myriad of different things, for starters, it can be used for &4Functional Flowers&0 (read the respective section).
 botania.page.mIntro2=To get started with mastering the art of &4Mana&0, one would start by learning how to use &1Dayblooms&0, &1Mana Spreaders&0 and &1Mana Pools&0.<br>These form a basic infrastructure for mana, which can be used for all sorts of purposes. Have a read at the &4Functional Flora&0 and &4Magical Apparatus&0 sections of this Lexicon. 
@@ -246,6 +246,7 @@ botania.page.spreader7=The basic lens, it doesn't do anything...
 botania.page.spreader8=&4Dying&0 lenses!
 botania.page.spreader9=&1Rainbow Lens&0 all the way
 
+# -- MANA POOL
 botania.entry.pool=Mana Pool
 botania.page.pool0=The &1Mana Pool&0 is, simply put, a storage of &4Mana&0.<br>Mana can be inserted into it by usage of a &1Mana Spreader&0, and any adjacent &1Mana Spreaders&0 will pull mana from it to increase their internal buffer automatically.<br>Any &4Functional Flowers&0 require a nearby &1Mana Pool&0 to draw power from.
 botania.page.pool1=Making the &1Mana Pool&0.
@@ -256,13 +257,25 @@ botania.page.pool5=Infusing &1Mana Diamonds&0
 botania.page.pool6=Infusing &1Mana Petals&0
 
 # - FUNCTIONAL FLOWERS
-botania.entry.fIntro=Introduction to Function
+# -- AN INTRODUCTION TO FUNCTION
+botania.entry.fIntro=An Introduction to Function
 botania.page.fIntro0=There's various places to put in use the &4Mana&0 a botanist generates, one of them is an assortment of &4Functional Flowers&0.<br>These flowers will drain &4Mana&0 from a nearby &1Mana Pool&0 into themselves, in order to do whatever task they were created for.<br>It's to note that these can't receive power directly through &1Mana Spreaders&0.
 botania.page.fIntro1=All &4Functional Flowers&0, alike the &4Generating Flowers&0 contain a small buffer of &4Mana&0.<br>Standard rules for &4Mana&0 reading apply, right clicking with a &1Wand of the Forest&0 will update the mana readings.
 botania.page.fIntro2=It is important to keep in mind that these flowers have a memory for which &1Mana Pool&0 they should pull &4Mana&0 out of. They'll only pull from the nearest pool present at the time of the flower being placed (or the closest placed afterward, if none was present), and none other, unless that one is removed.
 
+# -- BELLETHRONE
+botania.entry.bellethorne=Bellethorne
+botania.page.bellethorne0=The &1Bellethorne&0 is a malevelous flower. By utilizing &4Mana&0 it slowly inflicts harm in any living beings (save for &4players&0) around it.
+botania.page.bellethorne1=Every rose has its thorn
+
 # - GENERATING FLOWERS
-botania.entry.gIntro=Introduction to Generation
+# -- AN INTRODUCTION TO GENERATION
+botania.entry.gIntro=An Introduction to Generation
 botania.page.gIntro0=&4Generating Mana&0 should be at the top of the priorities for any botanist. Luckilly there's an array of &4Generating Flowers&0 willing to do the job.<br>These flowers, as their name shows, generate &4Mana&0, both passively and actively. Unless stated otherwise, all &4Generating Flowers&0 generate &4Mana&0 passively under certain circunstances.
 botania.page.gIntro1=All &4Generating Flowers&0, alike the &4Functional Flowers&0 contain a small buffer of &4Mana&0.<br>Standard rules for &4Mana&0 reading apply, right clicking with a &1Wand of the Forest&0 will update the mana readings.<br>This mana will be stored in the closest &1Mana Spreader&0 around.
 botania.page.gIntro2=It is important to keep in mind that these flowers have a memory for which &1Mana Spreader&0 they should put &4Mana&0 in. They'll only store into the nearest spreader present at the time of the flower being placed (or the closest placed afterward, if none was present), and none other, unless that one is removed.
+
+# -- DAYBLOOM
+botania.entry.daybloom=Daybloom
+botania.page.daybloom0=The &1Daybloom&0 is the most basic and rudimentary &4Generating Flower&0. Simply put, it preforms a modified photosythesis process, in order to transform sunlight into &4Mana&0.
+botania.page.daybloom1=Starting up a brand new day

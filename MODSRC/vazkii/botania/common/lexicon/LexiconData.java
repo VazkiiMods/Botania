@@ -49,8 +49,10 @@ public final class LexiconData {
 	public static LexiconEntry pool;
 
 	public static LexiconEntry functionalIntro;
+	public static LexiconEntry bellethorne;
 	
 	public static LexiconEntry generatingIntro;
+	public static LexiconEntry daybloom;
 	
 	public static void init() {
 		BotaniaAPI.addCategory(categoryBasics = new LexiconCategory(LibLexicon.CATEGORY_BASICS));
@@ -96,9 +98,15 @@ public final class LexiconData {
 		functionalIntro = new BLexiconEntry(LibLexicon.FFLOWER_INTRO, categoryFunctionalFlowers);
 		functionalIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"));
 		
-		// GENERATINg FLOWERS ENTRIES
+		bellethorne = new BLexiconEntry(LibLexicon.FFLOWER_BELLETHORNE, categoryFunctionalFlowers);
+		bellethorne.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.bellethorneRecipe));
+		
+		// GENERATING FLOWERS ENTRIES
 		generatingIntro = new BLexiconEntry(LibLexicon.GFLOWER_INTRO, categoryGenerationFlowers);
 		generatingIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"));
+		
+		daybloom = new BLexiconEntry(LibLexicon.GFLOWER_DAYBLOOM, categoryGenerationFlowers);
+		daybloom.setPriority().setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.daybloomRecipe));
 	}
 
 }
