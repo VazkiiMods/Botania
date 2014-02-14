@@ -256,6 +256,46 @@ botania.page.pool4=Infusing &1Mana Pearls&0
 botania.page.pool5=Infusing &1Mana Diamonds&0
 botania.page.pool6=Infusing &1Mana Petals&0
 
+# -- MANA LENS: VELOCITY
+botania.entry.lensVelocity=Mana Lens: Velocity
+botania.page.lensVelocity0=The &1Velocity Lens&0 will drastically increase the speed at which a &4Mana Burst&0 travels, but not only does the beam start to lose it's &4Mana&0 a lot faster, it can also carry a bit less.
+botania.page.lensVelocity1=Crafting the lens
+
+# -- MANA LENS: POTENCY
+botania.entry.lensPotency=Mana Lens: Potency
+botania.page.lensPotency0=The &1Potency Lens&0 will double the amount of &4Mana&0 a &4Mana Burst&0 can carry, however, the beam becomes slower and after it starts to lose mana it does so at a lot faster rate.
+botania.page.lensPotency1=Crafting the lens 
+
+# -- MANA LENS: RESISTANCE
+botania.entry.lensResistance=Mana Lens: Resistance
+botania.page.lensResistance0=The &1Resistance Lens&0 will significantly increase the amount of time the &4Mana Burst&0 can go without starting to lose &4Mana&0, but it makes it a a bit slower.
+botania.page.lensResistance1=Crafting the lens 
+
+# -- MANA LENS: EFFICIENCY
+botania.entry.lensEfficiency=Mana Lens: Efficiency
+botania.page.lensEfficiency0=The &1Efficiency Lens&0 will decrease the amount of time it takes for the &4Mana Burst&0 to start losing it's &4Mana&0, but when that happens, it does so at a lot slower rate.
+botania.page.lensEfficiency1=Crafting the lens 
+
+# -- MANA LENS: BOUNCE
+botania.entry.lensBounce=Mana Lens: Bounce
+botania.page.lensBounce0=The &1Bounce Lens&0 will allow the &4Mana Burst&0 to bounce off walls, rather than dissipating on a collision.
+botania.page.lensBounce1=Crafting the lens
+
+# -- MANA LENS: GRAVITY
+botania.entry.lensGravity=Mana Lens: Gravity
+botania.page.lensGravity0=The &1Gravity Lens&0 makes the &4Mana Burst&0 be attracted by the world's gravitational pull, thus movimenting in an arc. For compensation, it also slightly increases the time before &4Mana&0 loss starts to happen.
+botania.page.lensGravity1=Crafting the lens 
+
+# -- MANA LENS: BORE
+botania.entry.lensBore=Mana Lens: Bore
+botania.page.lensBore0=The &1Bore Lens&0 charges the &4Mana Burst&0 with the ability to break any blocks it comes into contact, draining it's own mana to do so. 
+botania.page.lensBore1=Crafting the lens 
+
+# -- MANA LENS: DAMAGING
+botania.entry.lensDamaging=Mana Lens: Damaging
+botania.page.lensDamaging0=The &1Damaging Lens&0 charges the &4Mana Burst&0 with the power to damage any living beings it comes across, draining it's own mana to do so.
+botania.page.lensDamaging1=Crafting the lens 
+
 # - FUNCTIONAL FLOWERS
 # -- AN INTRODUCTION TO FUNCTION
 botania.entry.fIntro=An Introduction to Function

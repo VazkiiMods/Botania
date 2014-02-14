@@ -41,7 +41,15 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeRainbowLens;
 	public static IRecipe recipePool;
 	public static IRecipe recipeRuneAltar;
-	
+	public static IRecipe recipeLensVelocity;
+	public static IRecipe recipeLensPotency;
+	public static IRecipe recipeLensResistance;
+	public static IRecipe recipeLensEfficiency;
+	public static IRecipe recipeLensBounce;
+	public static IRecipe recipeLensGravity;
+	public static IRecipe recipeLensBore;
+	public static IRecipe recipeLensDamaging;
+
 	public static void init() {
 		// Lexicon Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lexicon), "treeSapling", Item.book);
@@ -113,7 +121,7 @@ public final class ModCrafingRecipes {
 		addShapelessOreDictRecipe(ItemLens.setLensColor(new ItemStack(ModItems.lens), 16), new ItemStack(ModItems.lens), LibOreDict.MANA_PEARL);
 		recipeRainbowLens = BotaniaAPI.getLatestAddedRecipe();
 		for(int i = 1; i < ItemLens.SUBTYPES; i++)
-			addShapelessOreDictRecipe(ItemLens.setLensColor(new ItemStack(ModItems.lens, 1, i), 16), new ItemStack(ModItems.lens, 1, i), LibOreDict.DYE[i]);
+			addShapelessOreDictRecipe(ItemLens.setLensColor(new ItemStack(ModItems.lens, 1, i), 16), new ItemStack(ModItems.lens, 1, i), LibOreDict.MANA_PEARL);
 
 		// Mana Pool Recipe
 		addOreDictRecipe(new ItemStack(ModBlocks.pool),
@@ -127,6 +135,31 @@ public final class ModCrafingRecipes {
 				'S', LibOreDict.LIVING_ROCK,
 				'P', LibOreDict.MANA_PEARL);
 		recipeRuneAltar = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Lens Recipes
+		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 0, 1), new ItemStack(ModItems.lens), LibOreDict.RUNE[3]);
+		recipeLensVelocity = BotaniaAPI.getLatestAddedRecipe();
+		
+		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 0, 2), new ItemStack(ModItems.lens), LibOreDict.RUNE[1]);
+		recipeLensPotency = BotaniaAPI.getLatestAddedRecipe();
+		
+		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 0, 3), new ItemStack(ModItems.lens), LibOreDict.RUNE[2]);
+		recipeLensResistance = BotaniaAPI.getLatestAddedRecipe();
+		
+		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 0, 4), new ItemStack(ModItems.lens), LibOreDict.RUNE[0]);
+		recipeLensEfficiency = BotaniaAPI.getLatestAddedRecipe();
+		
+		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 0, 5), new ItemStack(ModItems.lens), LibOreDict.RUNE[5]);
+		recipeLensBounce = BotaniaAPI.getLatestAddedRecipe();
+		
+		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 0, 6), new ItemStack(ModItems.lens), LibOreDict.RUNE[7]);
+		recipeLensGravity = BotaniaAPI.getLatestAddedRecipe();
+		
+		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 0, 7), new ItemStack(ModItems.lens), LibOreDict.RUNE[11]);
+		recipeLensBore = BotaniaAPI.getLatestAddedRecipe();
+		
+		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 0, 8), new ItemStack(ModItems.lens), LibOreDict.RUNE[13]);
+		recipeLensDamaging = BotaniaAPI.getLatestAddedRecipe();
 	}
 
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {
