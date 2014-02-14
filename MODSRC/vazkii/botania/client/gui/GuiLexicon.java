@@ -86,6 +86,11 @@ public class GuiLexicon extends GuiScreen {
 		if(category != null)
 			mc.displayGuiScreen(new GuiLexiconIndex(category));
 	}
+	
+	@Override
+	public boolean doesGuiPauseGame() {
+		return false;
+	}
 
 	String getTitle() {
 		return ModItems.lexicon.getItemDisplayName(null);
