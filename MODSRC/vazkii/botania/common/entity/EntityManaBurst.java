@@ -172,7 +172,6 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 	@Override
 	public void onUpdate() {
-		updateMotion();
 		superUpdate();
 		
 		ILens lens = getLensInstance();
@@ -269,7 +268,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		float r = color.getRed() / 255F;
 		float g = color.getGreen() / 255F;
 		float b = color.getBlue() / 255F;
-
+		
 		int mana = getMana();
 		int maxMana = getStartingMana();
 		float size = (float) mana / (float) maxMana;
@@ -331,8 +330,24 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		if(collided && !hasAlreadyCollidedAt(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ))
 			alreadyCollidedAt.add(getCollisionLocString(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ));
 
-		if(dead)
+		if(dead) {
+			if(!fake) {
+				Color color = new Color(getColor());
+				float r = color.getRed() / 255F;
+				float g = color.getGreen() / 255F;
+				float b = color.getBlue() / 255F;
+				
+				int mana = getMana();
+				int maxMana = getStartingMana();
+				float size = (float) mana / (float) maxMana;
+
+				for(int i = 0; i < 12; i++)
+		 			Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.15F * size, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F);
+				Botania.proxy.sparkleFX(worldObj, (float) posX, (float) posY, (float) posZ, r, g, b, 3, 2);
+			}
+			
 			setDead();
+		}
 	}
 
 	@Override
@@ -462,15 +477,6 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		motionX = x;
 		motionY = y;
 		motionZ = z;
-//		dataWatcher.updateObject(motionStart, (float) x);
-//		dataWatcher.updateObject(motionStart + 1, (float) y);
-//		dataWatcher.updateObject(motionStart + 2, (float) z);
-	}
-	
-	private void updateMotion() {
-//		motionX = dataWatcher.getWatchableObjectFloat(motionStart);
-//		motionY = dataWatcher.getWatchableObjectFloat(motionStart + 1);
-//		motionZ = dataWatcher.getWatchableObjectFloat(motionStart + 2);
 	}
 
 	@Override
