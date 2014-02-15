@@ -29,6 +29,7 @@ import net.minecraftforge.client.ForgeHooksClient;
 
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.model.ModelSpinningCubes;
 import vazkii.botania.common.block.tile.TileRuneAltar;
 
@@ -89,12 +90,21 @@ public class RenderTileRuneAltar extends TileEntitySpecialRenderer {
 		}
 
 		GL11.glPushMatrix();
-		GL11.glTranslated(0.5, 1.8, 0.5);
+		GL11.glTranslatef(0.5F, 1.8F, 0.5F);
 		GL11.glRotatef(180F, 1F, 0F, 1F);
 		int repeat = 15;
 		cubes.renderSpinningCubes(2, repeat, repeat);
 		GL11.glPopMatrix();
-
+		
+		GL11.glTranslatef(0F, 1.2F, 2F);
+		float scale = altar.getTargetMana() == 0 ? 0 : (float) altar.getCurrentMana() / (float) altar.getTargetMana() / 75F;
+		
+		if(scale != 0) {
+			int seed = altar.xCoord ^ altar.yCoord ^ altar.zCoord;
+			GL11.glTranslatef(0.5F, 0.7F, 0.5F);
+			RenderHelper.renderStar(0x00E4D7, scale, scale, scale, seed);
+		}
+		
 		GL11.glPopMatrix();
 	}
 }

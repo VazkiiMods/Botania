@@ -17,6 +17,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaReceiver;
@@ -30,6 +31,8 @@ import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class TileRuneAltar extends TileSimpleInventory implements ISidedInventory, IManaReceiver {
 
+	private static final String TAG_MANA = "mana";
+	
 	public float[] angles = new float[getSizeInventory()];
 	boolean firstTick = true;
 	int manaToGet = 0;
@@ -87,6 +90,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 				Botania.proxy.lightningFX(worldObj, vec, endVec, 2F, 0x00948B, 0x00E4D7);
 			}
 		}
+		
 	}
 
 	@Override
@@ -180,7 +184,20 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 		}
 	}
 
-
+	@Override
+	public void writeCustomNBT(NBTTagCompound par1nbtTagCompound) {
+		super.writeCustomNBT(par1nbtTagCompound);
+		
+		par1nbtTagCompound.setInteger(TAG_MANA, mana);
+	}
+	
+	@Override
+	public void readCustomNBT(NBTTagCompound par1nbtTagCompound) {
+		super.readCustomNBT(par1nbtTagCompound);
+		
+		mana = par1nbtTagCompound.getInteger(TAG_MANA);
+	}
+	
 	@Override
 	public int getSizeInventory() {
 		return 16;
@@ -234,6 +251,10 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 	@Override
 	public boolean canRecieveManaFromBursts() {
 		return !isFull();
+	}
+	
+	public int getTargetMana() {
+		return manaToGet;
 	}
 
 }
