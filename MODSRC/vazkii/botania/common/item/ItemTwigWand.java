@@ -53,14 +53,6 @@ public class ItemTwigWand extends Item16Colors {
 	}
 
 	@Override
-	public boolean shouldPassSneakingClickToBlock(World par2World, int par4, int par5, int par6) {
-		int id = par2World.getBlockId(par4, par5, par6);
-		if(Block.blocksList[id] instanceof IWandable)
-			return false;
-		return true;
-	}
-
-	@Override
 	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
 		if(par3Entity instanceof EntityPlayer && ((EntityPlayer) par3Entity).getCurrentEquippedItem() == par1ItemStack)
 			Botania.proxy.twigWandClientUpdate();

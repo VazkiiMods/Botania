@@ -24,7 +24,6 @@ import net.minecraftforge.oredict.OreDictionary;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.internal.IGuiLexiconEntry;
-import vazkii.botania.api.internal.MappableStackWrapper;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
@@ -63,8 +62,6 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 			Object input = obj;
 			if(input instanceof String)
 				input = OreDictionary.getOres((String) input).get(0);
-			if(input instanceof MappableStackWrapper)
-				input = ((MappableStackWrapper) input).getStack();
 			
 			renderItemAtAngle(gui, currentDegree, (ItemStack) input);
 

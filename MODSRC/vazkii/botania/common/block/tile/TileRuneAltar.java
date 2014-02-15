@@ -128,16 +128,17 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 
 	public void onWanded(EntityPlayer player, ItemStack wand) {
 		updateRecipe();
+		
+		RecipeRuneAltar recipe = null;
 
+		for(RecipeRuneAltar recipe_ : BotaniaAPI.runeAltarRecipes) {
+			if(recipe_.matches(this)) {
+				recipe = recipe_;
+				break;
+			}
+		}
+		
 		if(manaToGet > 0 && mana >= manaToGet) {
-			RecipeRuneAltar recipe = null;
-
-			for(RecipeRuneAltar recipe_ : BotaniaAPI.runeAltarRecipes)
-				if(recipe_.matches(this)) {
-					recipe = recipe_;
-					break;
-				}
-
 			List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1));
 			EntityItem livingrock = null;
 			for(EntityItem item : items)

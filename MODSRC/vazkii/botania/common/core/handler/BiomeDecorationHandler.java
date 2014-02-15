@@ -25,7 +25,6 @@ public class BiomeDecorationHandler {
 	public void onWorldDecoration(DecorateBiomeEvent.Decorate event) {
 		if((event.getResult() == Result.ALLOW || event.getResult() == Result.DEFAULT) && event.type == EventType.FLOWERS)
 			for(int i = 0; i < 3; i++) {
-
 				int x = event.chunkX + event.world.rand.nextInt(16) + 8;
 				int y = event.world.rand.nextInt(128);
 				int z = event.chunkZ + event.world.rand.nextInt(16) + 8;
