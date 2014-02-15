@@ -18,9 +18,9 @@ import net.minecraft.item.ItemStack;
  * Have an Item implement this to allow it to be used in the Petal Apothecary.
  */
 public interface IFlowerComponent {
-	
+
 	public boolean canFit(ItemStack stack, IInventory apothecary);
-	
+
 	public int getParticleColor(ItemStack stack);
 
 }

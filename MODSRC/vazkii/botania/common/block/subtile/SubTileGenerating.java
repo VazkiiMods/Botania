@@ -105,7 +105,7 @@ public class SubTileGenerating extends SubTileEntity {
 			}
 		}
 	}
-	
+
 	public boolean canGeneratePassively() {
 		boolean rain = supertile.worldObj.getWorldChunkManager().getBiomeGenAt(supertile.xCoord, supertile.zCoord).getIntRainfall() > 0 && (supertile.worldObj.isRaining() || supertile.worldObj.isThundering());
 		return supertile.worldObj.isDaytime() && !rain && supertile.worldObj.canBlockSeeTheSky(supertile.xCoord, supertile.yCoord + 1, supertile.zCoord);

@@ -72,7 +72,7 @@ public class CommonProxy {
 	public void twigWandClientUpdate() {
 		// NO-OP
 	}
-	
+
 	public boolean isClientPlayingMultiplayer() {
 		return false;
 	}

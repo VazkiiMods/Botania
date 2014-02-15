@@ -88,7 +88,7 @@ public class InternalMethodHandler implements IInternalMethodHandler {
 	public LexiconPage manaInfusionRecipePage(String key, RecipeManaInfusion recipe) {
 		return new PageManaInfusionRecipe(key, recipe);
 	}
-	
+
 
 	@Override
 	public ItemStack getSubTileAsStack(String subTile) {

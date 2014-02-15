@@ -27,7 +27,7 @@ public final class ModManaInfusionRecipes {
 	public static RecipeManaInfusion manasteelRecipe;
 	public static RecipeManaInfusion manaPearlRecipe;
 	public static RecipeManaInfusion manaDiamondRecipe;
-	
+
 	public static void init() {
 		manaPetalRecipes = new ArrayList();
 		for(int i = 0; i < 16; i++)

@@ -46,7 +46,7 @@ public class ItemLexicon extends ItemMod {
 				}
 			}
 		}
-		
+
 		return false;
 	}
 

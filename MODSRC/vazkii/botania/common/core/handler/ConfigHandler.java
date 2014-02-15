@@ -23,18 +23,18 @@ import vazkii.botania.common.lib.LibItemNames;
 public final class ConfigHandler {
 
 	private static Configuration config;
-	
+
 	public static boolean lexiconRotatingItems = true;
 
 	public static void loadConfig(File configFile) {
 		config = new Configuration(configFile);
 
 		config.load();
-		
+
 		Property lexiconRotatingItemsProp = config.get(Configuration.CATEGORY_GENERAL, "lexicon.enable.rotatingItems", true);
 		lexiconRotatingItemsProp.comment = "Set to false to disable the rotating items in the petal and rune entries in the Lexica Botania.";
 		lexiconRotatingItems = lexiconRotatingItemsProp.getBoolean(true);
-		
+
 		// Block IDs
 		LibBlockIDs.idFlower = loadBlock(LibBlockNames.FLOWER, LibBlockIDs.idFlower);
 		LibBlockIDs.idAltar = loadBlock(LibBlockNames.ALTAR, LibBlockIDs.idAltar);

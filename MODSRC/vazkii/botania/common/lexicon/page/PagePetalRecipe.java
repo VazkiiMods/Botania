@@ -23,13 +23,13 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import org.lwjgl.opengl.GL11;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 
@@ -65,7 +65,7 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 			Object input = obj;
 			if(input instanceof String)
 				input = OreDictionary.getOres((String) input).get(0);
-			
+
 			renderItemAtAngle(gui, currentDegree, (ItemStack) input);
 
 			currentDegree += degreePerInput;

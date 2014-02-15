@@ -56,7 +56,7 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 		int orientation = BlockPistonBase.determineOrientation(par1World, par2, par3, par4, par5EntityLivingBase);
 		TileSpreader spreader = (TileSpreader) par1World.getBlockTileEntity(par2, par3, par4);
 		System.out.println(orientation);
-		
+
 		switch(orientation) {
 		case 0:
 			spreader.rotationY = -90F;

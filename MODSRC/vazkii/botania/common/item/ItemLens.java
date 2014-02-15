@@ -260,7 +260,7 @@ public class ItemLens extends ItemMod implements ILens {
 		int storedColor = getStoredColor(stack);
 		if(storedColor == 16 && !burst.isFake())
 			return ((EntityThrowable) burst).ticksExisted > 5;
-					
-		return true;
+
+			return true;
 	}
 }

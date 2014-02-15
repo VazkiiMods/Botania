@@ -58,12 +58,12 @@ public final class LexiconData {
 
 	public static LexiconEntry functionalIntro;
 	public static LexiconEntry bellethorne;
-	
+
 	public static LexiconEntry generatingIntro;
 	public static LexiconEntry daybloom;
-	
+
 	public static LexiconEntry unstableBlocks;
-	
+
 	public static void init() {
 		BotaniaAPI.addCategory(categoryBasics = new LexiconCategory(LibLexicon.CATEGORY_BASICS));
 		BotaniaAPI.addCategory(categoryMana = new LexiconCategory(LibLexicon.CATEGORY_MANA));
@@ -103,45 +103,45 @@ public final class LexiconData {
 
 		pool = new BLexiconEntry(LibLexicon.MANA_POOL, categoryMana);
 		pool.setPriority().setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipePool), new PageText("2"), new PageManaInfusionRecipe("3", ModManaInfusionRecipes.manasteelRecipe), new PageManaInfusionRecipe("4", ModManaInfusionRecipes.manaPearlRecipe), new PageManaInfusionRecipe("5", ModManaInfusionRecipes.manaDiamondRecipe), new PageManaInfusionRecipe("6", ModManaInfusionRecipes.manaPetalRecipes));
-		
+
 		lensVelocity = new BLexiconEntry(LibLexicon.MANA_LENS_VELOCITY, categoryMana);
 		lensVelocity.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLensVelocity));
-		
+
 		lensPotency = new BLexiconEntry(LibLexicon.MANA_LENS_POTENCY, categoryMana);
 		lensPotency.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLensPotency));
-		
+
 		lensResistance = new BLexiconEntry(LibLexicon.MANA_LENS_RESISTANCE, categoryMana);
 		lensResistance.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLensResistance));
-		
+
 		lensEfficiency = new BLexiconEntry(LibLexicon.MANA_LENS_EFFICIENCY, categoryMana);
 		lensEfficiency.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLensEfficiency));
-		
+
 		lensBounce = new BLexiconEntry(LibLexicon.MANA_LENS_BOUNCE, categoryMana);
 		lensBounce.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLensBounce));
-		
+
 		lensGravity = new BLexiconEntry(LibLexicon.MANA_LENS_GRAVITY, categoryMana);
 		lensGravity.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLensGravity));
-		
+
 		lensBore = new BLexiconEntry(LibLexicon.MANA_LENS_BORE, categoryMana);
 		lensBore.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLensBore));
-		
+
 		lensDamaging = new BLexiconEntry(LibLexicon.MANA_LENS_DAMAGING, categoryMana);
 		lensDamaging.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLensDamaging));
 
 		// FUNCTIONAL FLOWERS ENTRIES
 		functionalIntro = new BLexiconEntry(LibLexicon.FFLOWER_INTRO, categoryFunctionalFlowers);
 		functionalIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"));
-		
+
 		bellethorne = new BLexiconEntry(LibLexicon.FFLOWER_BELLETHORNE, categoryFunctionalFlowers);
 		bellethorne.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.bellethorneRecipe));
-		
+
 		// GENERATING FLOWERS ENTRIES
 		generatingIntro = new BLexiconEntry(LibLexicon.GFLOWER_INTRO, categoryGenerationFlowers);
 		generatingIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"));
-		
+
 		daybloom = new BLexiconEntry(LibLexicon.GFLOWER_DAYBLOOM, categoryGenerationFlowers);
 		daybloom.setPriority().setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.daybloomRecipe));
-		
+
 		// MISCLENAEOUS ENTRIES
 		unstableBlocks = new BLexiconEntry(LibLexicon.MISC_UNSTABLE_BLOCKS, categoryMisc);
 		unstableBlocks.setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_UNSTABLE_BLOCK), new PageCraftingRecipe("2", ModCrafingRecipes.recipesUnstableBlocks));

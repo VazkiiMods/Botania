@@ -173,7 +173,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	@Override
 	public void onUpdate() {
 		superUpdate();
-		
+
 		ILens lens = getLensInstance();
 		if(lens != null)
 			lens.updateBurst(this, getSourceLens());
@@ -227,7 +227,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		par1nbtTagCompound.setInteger(TAG_SPREADER_X, coords.posX);
 		par1nbtTagCompound.setInteger(TAG_SPREADER_Y, coords.posY);
 		par1nbtTagCompound.setInteger(TAG_SPREADER_Z, coords.posZ);
-		
+
 		par1nbtTagCompound.setDouble(TAG_LAST_MOTION_X, motionX);
 		par1nbtTagCompound.setDouble(TAG_LAST_MOTION_Y, motionY);
 		par1nbtTagCompound.setDouble(TAG_LAST_MOTION_Z, motionZ);
@@ -246,29 +246,29 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		int x = par1nbtTagCompound.getInteger(TAG_SPREADER_X);
 		int y = par1nbtTagCompound.getInteger(TAG_SPREADER_Y);
 		int z = par1nbtTagCompound.getInteger(TAG_SPREADER_Z);
-		
+
 		setBurstSourceCoords(x, y, z);
-		
+
 		double lastMotionX = par1nbtTagCompound.getDouble(TAG_LAST_MOTION_X);
 		double lastMotionY = par1nbtTagCompound.getDouble(TAG_LAST_MOTION_Y);
 		double lastMotionZ = par1nbtTagCompound.getDouble(TAG_LAST_MOTION_Z);
-		
+
 		setMotion(lastMotionX, lastMotionY, lastMotionZ);
 	}
 
 	public void particles() {
 		if(isDead || !worldObj.isRemote)
 			return;
-		
+
 		ILens lens = getLensInstance();
 		if(lens != null && !lens.doParticles(this, getSourceLens()))
 			return;
-		
+
 		Color color = new Color(getColor());
 		float r = color.getRed() / 255F;
 		float g = color.getGreen() / 255F;
 		float b = color.getBlue() / 255F;
-		
+
 		int mana = getMana();
 		int maxMana = getStartingMana();
 		float size = (float) mana / (float) maxMana;
@@ -285,14 +285,14 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			posZ += motionZ;
 
 			Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.2F * size, (float) -motionX * 0.01F, (float) -motionY * 0.01F, (float) -motionZ * 0.01F);
- 			Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.1F * size, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F);
-		
+			Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.1F * size, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F);
+
 			posX -= motionX / 2.0;
 			posY -= motionY / 2.0;
 			posZ -= motionZ / 2.0;
 
 			Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.2F * size, (float) -motionX * 0.01F, (float) -motionY * 0.01F, (float) -motionZ * 0.01F);
-		
+
 			posX -= motionX / 2.0;
 			posY -= motionY / 2.0;
 			posZ -= motionZ / 2.0;
@@ -336,16 +336,16 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 				float r = color.getRed() / 255F;
 				float g = color.getGreen() / 255F;
 				float b = color.getBlue() / 255F;
-				
+
 				int mana = getMana();
 				int maxMana = getStartingMana();
 				float size = (float) mana / (float) maxMana;
 
 				for(int i = 0; i < 12; i++)
-		 			Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.15F * size, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F);
+					Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.15F * size, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F);
 				Botania.proxy.sparkleFX(worldObj, (float) posX, (float) posY, (float) posZ, r, g, b, 3, 2);
 			}
-			
+
 			setDead();
 		}
 	}
@@ -451,7 +451,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		dataWatcher.updateObject(coordsStart + 1, y);
 		dataWatcher.updateObject(coordsStart + 2, z);
 	}
-	
+
 	@Override
 	public ItemStack getSourceLens() {
 		return dataWatcher.getWatchableObjectItemStack(dataWatcherStart + 9);
@@ -469,7 +469,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 		return null;
 	}
-	
+
 	final int motionStart = dataWatcherStart + 10;
 
 	@Override

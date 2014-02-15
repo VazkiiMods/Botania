@@ -32,7 +32,7 @@ import cpw.mods.fml.common.network.PacketDispatcher;
 public class TileRuneAltar extends TileSimpleInventory implements ISidedInventory, IManaReceiver {
 
 	private static final String TAG_MANA = "mana";
-	
+
 	public float[] angles = new float[getSizeInventory()];
 	boolean firstTick = true;
 	int manaToGet = 0;
@@ -90,7 +90,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 				Botania.proxy.lightningFX(worldObj, vec, endVec, 2F, 0x00948B, 0x00E4D7);
 			}
 		}
-		
+
 	}
 
 	@Override
@@ -132,7 +132,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 
 	public void onWanded(EntityPlayer player, ItemStack wand) {
 		updateRecipe();
-		
+
 		RecipeRuneAltar recipe = null;
 
 		for(RecipeRuneAltar recipe_ : BotaniaAPI.runeAltarRecipes) {
@@ -141,7 +141,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 				break;
 			}
 		}
-		
+
 		if(manaToGet > 0 && mana >= manaToGet) {
 			List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1));
 			EntityItem livingrock = null;
@@ -187,17 +187,17 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 	@Override
 	public void writeCustomNBT(NBTTagCompound par1nbtTagCompound) {
 		super.writeCustomNBT(par1nbtTagCompound);
-		
+
 		par1nbtTagCompound.setInteger(TAG_MANA, mana);
 	}
-	
+
 	@Override
 	public void readCustomNBT(NBTTagCompound par1nbtTagCompound) {
 		super.readCustomNBT(par1nbtTagCompound);
-		
+
 		mana = par1nbtTagCompound.getInteger(TAG_MANA);
 	}
-	
+
 	@Override
 	public int getSizeInventory() {
 		return 16;
@@ -252,7 +252,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 	public boolean canRecieveManaFromBursts() {
 		return !isFull();
 	}
-	
+
 	public int getTargetMana() {
 		return manaToGet;
 	}

@@ -43,11 +43,11 @@ public class RecipePetals {
 			ItemStack stack = inv.getStackInSlot(i);
 			if(stack == null)
 				break;
-			
+
 			String oredict = OreDictionary.getOreName(OreDictionary.getOreID(stack));
-			
+
 			int stackIndex = -1, oredictIndex = -1;
-			
+
 			for(int j = 0; j < inputsMissing.size(); j++) {
 				Object input = inputsMissing.get(j);
 				if(input instanceof String && input.equals(oredict)) {
@@ -58,17 +58,17 @@ public class RecipePetals {
 					break;
 				}
 			}
-			
+
 			if(stackIndex != -1)
 				inputsMissing.remove(stackIndex);
-			else if(oredictIndex != -1) 
+			else if(oredictIndex != -1)
 				inputsMissing.remove(oredictIndex);
 			else return false;
 		}
 
 		return inputsMissing.isEmpty();
 	}
-	
+
 	boolean simpleAreStacksEqual(ItemStack stack, ItemStack stack2) {
 		return stack.itemID == stack2.itemID && stack.getItemDamage() == stack2.getItemDamage();
 	}

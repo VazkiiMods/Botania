@@ -96,12 +96,12 @@ public class ClientProxy extends CommonProxy {
 				((IManaCollector) tile).onClientDisplayTick();
 		}
 	}
-	
+
 	@Override
 	public boolean isClientPlayingMultiplayer() {
 		return !Minecraft.getMinecraft().isIntegratedServerRunning();
 	}
-	
+
 	@Override
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m, boolean fake) {
 		FXSparkle sparkle = new FXSparkle(world, x, y, z, size, r, g, b, m);

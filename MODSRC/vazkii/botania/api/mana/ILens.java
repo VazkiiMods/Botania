@@ -43,7 +43,7 @@ public interface ILens {
 	 * This is called before the update is handled.
 	 */
 	public void updateBurst(IManaBurst burst, ItemStack stack);
-	
+
 	/**
 	 * Called when the mana burst should do it's particles. Return false to not
 	 * do any particles.

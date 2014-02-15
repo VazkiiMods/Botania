@@ -21,7 +21,7 @@ public class SubTileDaybloom extends SubTileGenerating {
 	public int getColor() {
 		return 0xFFFF00;
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry() {
 		return LexiconData.daybloom;

@@ -122,7 +122,7 @@ public final class RenderHelper {
 		tessellator.addVertexWithUV(par1 + 0, par2 + 0, z, (par3 + 0) * f, (par4 + 0) * f1);
 		tessellator.draw();
 	}
-	
+
 	public static void renderStar(int color, float xScale, float yScale, float zScale, long seed) {
 		Tessellator tessellator = Tessellator.instance;
 		net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
@@ -131,7 +131,7 @@ public final class RenderHelper {
 		if (ticks >= 100)
 			ticks = 200 - ticks - 1;
 
-		float f1 = (float) ticks / 200F;
+		float f1 = ticks / 200F;
 		float f2 = 0F;
 		if (f1 > 0.7F)
 			f2 = (f1 - 0.7F) / 0.2F;
@@ -147,7 +147,7 @@ public final class RenderHelper {
 		GL11.glDepthMask(false);
 		GL11.glTranslatef(0F, -1F, -2F);
 		GL11.glScalef(xScale, yScale, zScale);
-		
+
 		for (int i = 0; i < (f1 + f1 * f1) / 2F * 90F + 30F; i++) {
 			GL11.glRotatef(random.nextFloat() * 360F, 1F, 0F, 0F);
 			GL11.glRotatef(random.nextFloat() * 360F, 0F, 1F, 0F);

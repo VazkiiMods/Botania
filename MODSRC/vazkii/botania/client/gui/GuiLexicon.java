@@ -86,7 +86,7 @@ public class GuiLexicon extends GuiScreen {
 		if(category != null)
 			mc.displayGuiScreen(new GuiLexiconIndex(category));
 	}
-	
+
 	@Override
 	public boolean doesGuiPauseGame() {
 		return false;

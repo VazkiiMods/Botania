@@ -117,9 +117,9 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 
 			if(Math.random() >= 0.97) {
 				Color color = new Color(((IFlowerComponent) stackAt.getItem()).getParticleColor(stackAt));
-				float red = (float) color.getRed() / 255F;
-				float green = (float) color.getGreen() / 255F;
-				float blue = (float) color.getBlue() / 255F;
+				float red = color.getRed() / 255F;
+				float green = color.getGreen() / 255F;
+				float blue = color.getBlue() / 255F;
 				Botania.proxy.sparkleFX(worldObj, xCoord + 0.5 + Math.random() * 0.4 - 0.2, yCoord + 1, zCoord + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
 			}
 		}

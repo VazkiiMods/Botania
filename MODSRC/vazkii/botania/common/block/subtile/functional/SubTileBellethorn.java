@@ -53,7 +53,7 @@ public class SubTileBellethorn extends SubTileFunctional {
 			}
 		}
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry() {
 		return LexiconData.bellethorne;

@@ -129,46 +129,46 @@ public final class ModCrafingRecipes {
 				"R R", "RRR",
 				'R', LibOreDict.LIVING_ROCK);
 		recipePool = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Runic Altar Recipe
 		addOreDictRecipe(new ItemStack(ModBlocks.runeAltar),
 				"SSS", "SPS",
 				'S', LibOreDict.LIVING_ROCK,
 				'P', LibOreDict.MANA_PEARL);
 		recipeRuneAltar = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Lens Recipes
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 0, 1), new ItemStack(ModItems.lens), LibOreDict.RUNE[3]);
 		recipeLensVelocity = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 0, 2), new ItemStack(ModItems.lens), LibOreDict.RUNE[1]);
 		recipeLensPotency = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 0, 3), new ItemStack(ModItems.lens), LibOreDict.RUNE[2]);
 		recipeLensResistance = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 0, 4), new ItemStack(ModItems.lens), LibOreDict.RUNE[0]);
 		recipeLensEfficiency = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 0, 5), new ItemStack(ModItems.lens), LibOreDict.RUNE[5]);
 		recipeLensBounce = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 0, 6), new ItemStack(ModItems.lens), LibOreDict.RUNE[7]);
 		recipeLensGravity = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 0, 7), new ItemStack(ModItems.lens), LibOreDict.RUNE[11]);
 		recipeLensBore = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 0, 8), new ItemStack(ModItems.lens), LibOreDict.RUNE[13]);
 		recipeLensDamaging = BotaniaAPI.getLatestAddedRecipe();
-	
+
 		// Unstable Block Recipes
 		for(int i = 0; i < 16; i++)
-			addOreDictRecipe(new ItemStack(ModBlocks.unstableBlock, 2, i), 
-				"OPO", "PMP", "OPO",
-				'O', new ItemStack(Block.obsidian),
-				'P', LibOreDict.PETAL[i],
-				'M', new ItemStack(Item.enderPearl));
+			addOreDictRecipe(new ItemStack(ModBlocks.unstableBlock, 2, i),
+					"OPO", "PMP", "OPO",
+					'O', new ItemStack(Block.obsidian),
+					'P', LibOreDict.PETAL[i],
+					'M', new ItemStack(Item.enderPearl));
 		recipesUnstableBlocks = BotaniaAPI.getLatestAddedRecipes(16);
 	}
 

@@ -95,16 +95,16 @@ public class RenderTileRuneAltar extends TileEntitySpecialRenderer {
 		int repeat = 15;
 		cubes.renderSpinningCubes(2, repeat, repeat);
 		GL11.glPopMatrix();
-		
+
 		GL11.glTranslatef(0F, 1.2F, 2F);
 		float scale = altar.getTargetMana() == 0 ? 0 : (float) altar.getCurrentMana() / (float) altar.getTargetMana() / 75F;
-		
+
 		if(scale != 0) {
 			int seed = altar.xCoord ^ altar.yCoord ^ altar.zCoord;
 			GL11.glTranslatef(0.5F, 0.7F, 0.5F);
 			RenderHelper.renderStar(0x00E4D7, scale, scale, scale, seed);
 		}
-		
+
 		GL11.glPopMatrix();
 	}
 }
