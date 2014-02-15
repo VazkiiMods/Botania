@@ -254,4 +254,13 @@ public class ItemLens extends ItemMod implements ILens {
 		ItemNBTHelper.setInt(stack, TAG_COLOR, color);
 		return stack;
 	}
+
+	@Override
+	public boolean doParticles(IManaBurst burst, ItemStack stack) {
+		int storedColor = getStoredColor(stack);
+		if(storedColor == 16 && !burst.isFake())
+			return ((EntityThrowable) burst).ticksExisted > 5;
+					
+		return true;
+	}
 }

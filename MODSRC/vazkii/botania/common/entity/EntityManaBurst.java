@@ -54,14 +54,14 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 	boolean fake = false;
 
-	final int dataWatcherEntries = 13;
+	final int dataWatcherEntries = 10;
 	final int dataWatcherStart = 32 - dataWatcherEntries;
 
 	List<String> alreadyCollidedAt = new ArrayList();
 
 	public EntityManaBurst(World world) {
 		super(world);
-		setSize(0.25F, 0.25F);
+		setSize(0F, 0F);
 		for(int i = 0; i < dataWatcherEntries; i++) {
 			int j = dataWatcherStart + i;
 			if(i == 4 || i == 5 || i == 10 || i == 11 || i == 12)
@@ -174,7 +174,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	public void onUpdate() {
 		updateMotion();
 		superUpdate();
-
+		
 		ILens lens = getLensInstance();
 		if(lens != null)
 			lens.updateBurst(this, getSourceLens());
@@ -258,13 +258,12 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	}
 
 	public void particles() {
-		boolean mp = Botania.proxy.isClientPlayingMultiplayer();
-		
-		if(isDead)
+		if(isDead || !worldObj.isRemote)
 			return;
 		
-//		if(mp && !worldObj.isRemote)
-//			return;
+		ILens lens = getLensInstance();
+		if(lens != null && !lens.doParticles(this, getSourceLens()))
+			return;
 		
 		Color color = new Color(getColor());
 		float r = color.getRed() / 255F;
@@ -282,8 +281,22 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			if(!noParticles)
 				Botania.proxy.sparkleFX(worldObj, posX, posY, posZ, r, g, b, 0.4F * size, 1, true);
 		} else {
+			posX += motionX;
+			posY += motionY;
+			posZ += motionZ;
+
 			Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.2F * size, (float) -motionX * 0.01F, (float) -motionY * 0.01F, (float) -motionZ * 0.01F);
- 			Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.1F * size, (float) (Math.random() - 0.5F) * 0.08F, (float) (Math.random() - 0.5F) * 0.08F, (float) (Math.random() - 0.5F) * 0.08F);
+ 			Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.1F * size, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F);
+		
+			posX -= motionX / 2.0;
+			posY -= motionY / 2.0;
+			posZ -= motionZ / 2.0;
+
+			Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.2F * size, (float) -motionX * 0.01F, (float) -motionY * 0.01F, (float) -motionZ * 0.01F);
+		
+			posX -= motionX / 2.0;
+			posY -= motionY / 2.0;
+			posZ -= motionZ / 2.0;
 		}
 	}
 
@@ -449,15 +462,15 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		motionX = x;
 		motionY = y;
 		motionZ = z;
-		dataWatcher.updateObject(motionStart, (float) x);
-		dataWatcher.updateObject(motionStart + 1, (float) y);
-		dataWatcher.updateObject(motionStart + 2, (float) z);
+//		dataWatcher.updateObject(motionStart, (float) x);
+//		dataWatcher.updateObject(motionStart + 1, (float) y);
+//		dataWatcher.updateObject(motionStart + 2, (float) z);
 	}
 	
 	private void updateMotion() {
-		motionX = dataWatcher.getWatchableObjectFloat(motionStart);
-		motionY = dataWatcher.getWatchableObjectFloat(motionStart + 1);
-		motionZ = dataWatcher.getWatchableObjectFloat(motionStart + 2);
+//		motionX = dataWatcher.getWatchableObjectFloat(motionStart);
+//		motionY = dataWatcher.getWatchableObjectFloat(motionStart + 1);
+//		motionZ = dataWatcher.getWatchableObjectFloat(motionStart + 2);
 	}
 
 	@Override
