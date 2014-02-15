@@ -20,10 +20,12 @@ import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
+import net.minecraftforge.client.ForgeHooksClient;
 
 import org.lwjgl.opengl.GL11;
 
@@ -55,28 +57,32 @@ public class RenderTileRuneAltar extends TileEntitySpecialRenderer {
 			if(stack != null) {
 				mc.renderEngine.bindTexture(stack.getItem() instanceof ItemBlock ? TextureMap.locationBlocksTexture : TextureMap.locationItemsTexture);
 
-				if(stack.getItem() instanceof ItemBlock && RenderBlocks.renderItemIn3d(Block.blocksList[stack.itemID].getRenderType())) {
+				GL11.glScalef(2F, 2F, 2F);
+				if(!ForgeHooksClient.renderEntityItem(new EntityItem(altar.worldObj, altar.xCoord, altar.yCoord, altar.zCoord, stack), stack, 0F, 0F, altar.worldObj.rand, mc.renderEngine, new RenderBlocks())) {
 					GL11.glScalef(0.5F, 0.5F, 0.5F);
-					GL11.glTranslatef(1F, 1.1F, 0F);
-					new RenderBlocks().renderBlockAsItem(Block.blocksList[stack.itemID], stack.getItemDamage(), 1F);
-					GL11.glTranslatef(-1F, -1.1F, 0F);
-					GL11.glScalef(2F, 2F, 2F);
-				} else {
-					int renderPass = 0;
-					do {
-						Icon icon = stack.getItem().getIcon(stack, renderPass);
-						if(icon != null) {
-							Color color = new Color(stack.getItem().getColorFromItemStack(stack, renderPass));
-							GL11.glColor3ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
-							float f = icon.getMinU();
-							float f1 = icon.getMaxU();
-							float f2 = icon.getMinV();
-							float f3 = icon.getMaxV();
-							ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
-							GL11.glColor3f(1F, 1F, 1F);
-						}
-						renderPass++;
-					} while(renderPass < stack.getItem().getRenderPasses(stack.getItemDamage()));
+					if(stack.getItem() instanceof ItemBlock && RenderBlocks.renderItemIn3d(Block.blocksList[stack.itemID].getRenderType())) {
+						GL11.glScalef(0.5F, 0.5F, 0.5F);
+						GL11.glTranslatef(1F, 1.1F, 0F);
+						new RenderBlocks().renderBlockAsItem(Block.blocksList[stack.itemID], stack.getItemDamage(), 1F);
+						GL11.glTranslatef(-1F, -1.1F, 0F);
+						GL11.glScalef(2F, 2F, 2F);
+					} else {
+						int renderPass = 0;
+						do {
+							Icon icon = stack.getItem().getIcon(stack, renderPass);
+							if(icon != null) {
+								Color color = new Color(stack.getItem().getColorFromItemStack(stack, renderPass));
+								GL11.glColor3ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
+								float f = icon.getMinU();
+								float f1 = icon.getMaxU();
+								float f2 = icon.getMinV();
+								float f3 = icon.getMaxV();
+								ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+								GL11.glColor3f(1F, 1F, 1F);
+							}
+							renderPass++;
+						} while(renderPass < stack.getItem().getRenderPasses(stack.getItemDamage()));
+					}
 				}
 			}
 			GL11.glPopMatrix();
