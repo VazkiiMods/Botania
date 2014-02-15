@@ -26,6 +26,8 @@ import net.minecraftforge.client.ForgeHooksClient;
 
 import org.lwjgl.opengl.GL11;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -40,6 +42,7 @@ public class PageRecipe extends LexiconPage {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void renderScreen(IGuiLexiconEntry gui, int mx, int my) {
 		relativeMouseX = mx;
 		relativeMouseY = my;
@@ -63,10 +66,12 @@ public class PageRecipe extends LexiconPage {
 		GL11.glDisable(GL11.GL_BLEND);
 	}
 
+	@SideOnly(Side.CLIENT)
 	public void renderRecipe(IGuiLexiconEntry gui, int mx, int my) {
 		// NO-OP
 	}
 
+	@SideOnly(Side.CLIENT)
 	public void renderItemAtAngle(IGuiLexiconEntry gui, int angle, ItemStack stack) {
 		if(stack == null || stack.getItem() == null)
 			return;
@@ -86,6 +91,7 @@ public class PageRecipe extends LexiconPage {
 		renderItem(gui, (int) xPos, (int) yPos, stack1, false);
 	}
 
+	@SideOnly(Side.CLIENT)
 	public void renderItemAtGridPos(IGuiLexiconEntry gui, int x, int y, ItemStack stack, boolean accountForContainer) {
 		if(stack == null || stack.getItem() == null)
 			return;
@@ -103,6 +109,7 @@ public class PageRecipe extends LexiconPage {
 		renderItem(gui, xPos, yPos, stack1, accountForContainer);
 	}
 
+	@SideOnly(Side.CLIENT)
 	public void renderItem(IGuiLexiconEntry gui, int xPos, int yPos, ItemStack stack, boolean accountForContainer) {
 		RenderItem render = new RenderItem();
 		TextureManager renderEngine = Minecraft.getMinecraft().renderEngine;

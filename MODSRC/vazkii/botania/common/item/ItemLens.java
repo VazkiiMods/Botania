@@ -40,6 +40,8 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibItemIDs;
 import vazkii.botania.common.lib.LibItemNames;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemLens extends ItemMod implements ILens {
 
@@ -228,6 +230,7 @@ public class ItemLens extends ItemMod implements ILens {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public int getLensColor(ItemStack stack) {
 		int storedColor = getStoredColor(stack);
 

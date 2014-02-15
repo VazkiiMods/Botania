@@ -23,6 +23,8 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import org.lwjgl.opengl.GL11;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.client.lib.LibResources;
@@ -47,6 +49,7 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void renderRecipe(IGuiLexiconEntry gui, int mx, int my) {
 		T recipe = recipes.get(recipeAt);
 		TextureManager render = Minecraft.getMinecraft().renderEngine;
@@ -83,11 +86,13 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 		return new ItemStack(ModBlocks.altar);
 	}
 
+	@SideOnly(Side.CLIENT)
 	public void renderManaBar(IGuiLexiconEntry gui, T recipe, int mx, int my) {
 		// NO-OP
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void updateScreen() {
 		if(ticksElapsed % 20 == 0) {
 			recipeAt++;

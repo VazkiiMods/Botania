@@ -18,6 +18,8 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
 
@@ -31,6 +33,7 @@ public class PageImage extends LexiconPage {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void renderScreen(IGuiLexiconEntry gui, int mx, int my) {
 		TextureManager render = Minecraft.getMinecraft().renderEngine;
 		render.bindTexture(resource);

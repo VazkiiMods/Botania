@@ -33,6 +33,8 @@ import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import cpw.mods.fml.relauncher.ReflectionHelper;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class PageCraftingRecipe extends PageRecipe {
 
@@ -54,11 +56,7 @@ public class PageCraftingRecipe extends PageRecipe {
 	}
 
 	@Override
-	public void renderScreen(IGuiLexiconEntry gui, int mx, int my) {
-		super.renderScreen(gui, mx, my);
-	}
-
-	@Override
+	@SideOnly(Side.CLIENT)
 	public void renderRecipe(IGuiLexiconEntry gui, int mx, int my) {
 		oreDictRecipe = shapelessRecipe = false;
 
@@ -102,6 +100,7 @@ public class PageCraftingRecipe extends PageRecipe {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void updateScreen() {
 		if(ticksElapsed % 20 == 0) {
 			recipeAt++;
@@ -112,6 +111,7 @@ public class PageCraftingRecipe extends PageRecipe {
 		++ticksElapsed;
 	}
 
+	@SideOnly(Side.CLIENT)
 	public void renderCraftingRecipe(IGuiLexiconEntry gui, IRecipe recipe) {
 		if(recipe instanceof ShapedRecipes) {
 			ShapedRecipes shaped = (ShapedRecipes)recipe;

@@ -20,6 +20,8 @@ import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.client.core.handler.HUDHandler;
@@ -42,6 +44,7 @@ public class PageRuneRecipe extends PagePetalRecipe<RecipeRuneAltar> {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void renderManaBar(IGuiLexiconEntry gui, RecipeRuneAltar recipe, int mx, int my) {
 		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
 		GL11.glEnable(GL11.GL_BLEND);

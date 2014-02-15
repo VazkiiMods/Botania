@@ -14,6 +14,8 @@ package vazkii.botania.common.lexicon.page;
 import java.util.ArrayList;
 import java.util.List;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.MathHelper;
@@ -29,6 +31,7 @@ public class PageText extends LexiconPage {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void renderScreen(IGuiLexiconEntry gui, int mx, int my) {
 		int width = gui.getWidth() - 34;
 		int x = gui.getLeft() + 16;
@@ -37,6 +40,7 @@ public class PageText extends LexiconPage {
 		renderText(x, y, width, gui.getHeight(), getUnlocalizedName());
 	}
 
+	@SideOnly(Side.CLIENT)
 	public static void renderText(int x, int y, int width, int height, String unlocalizedText) {
 		FontRenderer renderer = Minecraft.getMinecraft().fontRenderer;
 		boolean unicode = renderer.getUnicodeFlag();

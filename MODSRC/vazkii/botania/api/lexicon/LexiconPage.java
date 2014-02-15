@@ -12,6 +12,8 @@
 package vazkii.botania.api.lexicon;
 
 import vazkii.botania.api.internal.IGuiLexiconEntry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class LexiconPage {
 
@@ -27,11 +29,13 @@ public abstract class LexiconPage {
 	 * @param mx The mouse's relative X position.
 	 * @param my The mouse's relative Y position.
 	 */
+	@SideOnly(Side.CLIENT)
 	public abstract void renderScreen(IGuiLexiconEntry gui, int mx, int my);
 
 	/**
 	 * Called per update tick.
 	 */
+	@SideOnly(Side.CLIENT)
 	public void updateScreen() {
 		// NO-OP
 	}

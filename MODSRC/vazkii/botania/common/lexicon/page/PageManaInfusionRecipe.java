@@ -25,6 +25,8 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import org.lwjgl.opengl.GL11;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.client.core.handler.HUDHandler;
@@ -50,6 +52,7 @@ public class PageManaInfusionRecipe extends PageRecipe {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void renderRecipe(IGuiLexiconEntry gui, int mx, int my) {
 		RecipeManaInfusion recipe = recipes.get(recipeAt);
 		TextureManager render = Minecraft.getMinecraft().renderEngine;
@@ -81,6 +84,7 @@ public class PageManaInfusionRecipe extends PageRecipe {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void updateScreen() {
 		if(ticksElapsed % 20 == 0) {
 			recipeAt++;
