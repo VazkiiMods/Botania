@@ -125,7 +125,6 @@ public final class RenderHelper {
 
 	public static void renderStar(int color, float xScale, float yScale, float zScale, long seed) {
 		Tessellator tessellator = Tessellator.instance;
-		net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
 		int ticks = (int) (Minecraft.getMinecraft().theWorld.getTotalWorldTime() % 200);
 		if (ticks >= 100)
