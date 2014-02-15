@@ -11,19 +11,19 @@
  */
 package vazkii.botania.common.block.tile;
 
+import java.awt.Color;
 import java.util.List;
 
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
@@ -43,7 +43,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 		if(stack == null)
 			return false;
 
-		if(stack.itemID == ModItems.petal.itemID) {
+		if(stack.getItem() instanceof IFlowerComponent) {
 			if(getStackInSlot(getSizeInventory() - 1) != null)
 				return false;
 
@@ -55,7 +55,9 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 
 			for(int i = 0; i < getSizeInventory(); i++)
 				if(getStackInSlot(i) == null) {
-					setInventorySlotContents(i, new ItemStack(ModItems.petal.itemID, 1, stack.getItemDamage()));
+					ItemStack stackToPut = stack.copy();
+					stackToPut.stackSize = 1;
+					setInventorySlotContents(i, stackToPut);
 					didChange = true;
 					break;
 				}
@@ -114,10 +116,10 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 				break;
 
 			if(Math.random() >= 0.97) {
-				float[] color = EntitySheep.fleeceColorTable[stackAt.getItemDamage()];
-				float red = color[0];
-				float green = color[1];
-				float blue = color[2];
+				Color color = new Color(((IFlowerComponent) stackAt.getItem()).getParticleColor(stackAt));
+				float red = (float) color.getRed() / 255F;
+				float green = (float) color.getGreen() / 255F;
+				float blue = (float) color.getBlue() / 255F;
 				Botania.proxy.sparkleFX(worldObj, xCoord + 0.5 + Math.random() * 0.4 - 0.2, yCoord + 1, zCoord + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
 			}
 		}

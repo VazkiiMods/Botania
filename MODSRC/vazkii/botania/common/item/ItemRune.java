@@ -15,13 +15,15 @@ import java.util.List;
 
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
+import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.lib.LibItemIDs;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemRune extends ItemMod {
+public class ItemRune extends ItemMod implements IFlowerComponent {
 
 	Icon[] icons;
 
@@ -56,6 +58,16 @@ public class ItemRune extends ItemMod {
 
 	String getUnlocalizedNameLazy(ItemStack par1ItemStack) {
 		return super.getUnlocalizedName(par1ItemStack);
+	}
+
+	@Override
+	public boolean canFit(ItemStack stack, IInventory apothecary) {
+		return true;
+	}
+
+	@Override
+	public int getParticleColor(ItemStack stack) {
+		return 0xA8A8A8;
 	}
 
 }
