@@ -81,7 +81,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 		// Update every tick.
 		recieveMana(0);
 
-		if(manaToGet > 0 && mana >= manaToGet) {
+		if(worldObj.isRemote && manaToGet > 0 && mana >= manaToGet) {
 			if(worldObj.rand.nextInt(20) == 0) {
 				worldObj.playSoundEffect(xCoord, yCoord, zCoord, "mob.creeper.live", 1F, 1F);
 
