@@ -35,7 +35,7 @@ public class SubTileGenerating extends SubTileEntity {
 	private static final String TAG_COLLECTOR_Y = "collectorY";
 	private static final String TAG_COLLECTOR_Z = "collectorZ";
 
-	int mana;
+	protected int mana;
 
 	int sizeLastCheck = -1;
 	TileEntity linkedCollector = null;

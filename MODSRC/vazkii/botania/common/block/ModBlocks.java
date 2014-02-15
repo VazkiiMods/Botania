@@ -18,6 +18,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.subtile.SubTilePureDaisy;
 import vazkii.botania.common.block.subtile.functional.SubTileBellethorn;
 import vazkii.botania.common.block.subtile.generating.SubTileDaybloom;
+import vazkii.botania.common.block.subtile.generating.SubTileEndoflame;
 import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.block.tile.TilePool;
 import vazkii.botania.common.block.tile.TileRuneAltar;
@@ -69,6 +70,7 @@ public final class ModBlocks {
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_DAYBLOOM, SubTileDaybloom.class);
+		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_ENDOFLAME, SubTileEndoflame.class);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_BELLETHORN, SubTileBellethorn.class);
 	}

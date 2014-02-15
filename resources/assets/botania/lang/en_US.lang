@@ -72,8 +72,13 @@ tile.botania:unstableBlock15.name=Black Unstable Cube
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
 tile.botania:flower.puredaisy.name=Pure Daisy
-tile.botania:flower.bellethorn.name=Bellethorne
+
+# - GENERATING
 tile.botania:flower.daybloom.name=Daybloom
+tile.botania:flower.endoflame.name=Endoflame
+
+# - FUNCTIONAL
+tile.botania:flower.bellethorn.name=Bellethorne
 
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania

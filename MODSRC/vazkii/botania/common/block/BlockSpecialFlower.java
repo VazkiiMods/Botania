@@ -54,6 +54,7 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 
 		// Generating
 		LibBlockNames.SUBTILE_DAYBLOOM,
+		LibBlockNames.SUBTILE_ENDOFLAME,
 
 		// Functional
 		LibBlockNames.SUBTILE_BELLETHORN,
