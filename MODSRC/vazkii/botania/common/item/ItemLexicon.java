@@ -33,17 +33,20 @@ public class ItemLexicon extends ItemMod {
 
 	@Override
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
-		int id = par3World.getBlockId(par4, par5, par6);
-		Block block = Block.blocksList[id];
+		if(par2EntityPlayer.isSneaking()) {
+			int id = par3World.getBlockId(par4, par5, par6);
+			Block block = Block.blocksList[id];
 
-		if(block != null && block instanceof ILexiconable) {
-			LexiconEntry entry = ((ILexiconable) block).getEntry(par3World, par4, par5, par6, par2EntityPlayer, par1ItemStack);
-			if(entry != null) {
-				Botania.proxy.setEntryToOpen(entry);
-				par2EntityPlayer.openGui(Botania.instance, LibGuiIDs.LEXICON, par3World, 0, 0, 0);
-				return true;
+			if(block != null && block instanceof ILexiconable) {
+				LexiconEntry entry = ((ILexiconable) block).getEntry(par3World, par4, par5, par6, par2EntityPlayer, par1ItemStack);
+				if(entry != null) {
+					Botania.proxy.setEntryToOpen(entry);
+					par2EntityPlayer.openGui(Botania.instance, LibGuiIDs.LEXICON, par3World, 0, 0, 0);
+					return true;
+				}
 			}
 		}
+		
 		return false;
 	}
 

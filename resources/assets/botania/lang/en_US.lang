@@ -173,7 +173,7 @@ botania.category.misc=Miscellaneous
 # - BASIC
 # -- LEXICA BOTANIA
 botania.entry.lexicon=Lexica Botania
-botania.page.lexicon0=The &1Lexica Botania&0 is the repository of all knowledge for all botany related matters. But you probably knew that already.<br>All information is stored here, as expected. For convenience, if a block happens to have an entry in here, it can be right clicked with the Lexica Botania to open that entry.
+botania.page.lexicon0=The &1Lexica Botania&0 is the repository of all knowledge for all botany related matters. But you probably knew that already.<br>All information is stored here, as expected. For convenience, if a block happens to have an entry, it can be shift-right clicked with the &1Lexica Botania&0 to open that entry.
 botania.page.lexicon1=Crafting the &1Lexica Botania&0.
 
 # -- MYSTICAL FLOWERS
