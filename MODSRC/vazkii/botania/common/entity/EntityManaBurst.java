@@ -48,22 +48,23 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	private static final String TAG_SPREADER_Y = "spreaderY";
 	private static final String TAG_SPREADER_Z = "spreaderZ";
 	private static final String TAG_GRAVITY = "gravity";
-
-	double lastXMotion, lastYMotion, lastZMotion;
+	private static final String TAG_LAST_MOTION_X = "lastMotionX";
+	private static final String TAG_LAST_MOTION_Y = "lastMotionY";
+	private static final String TAG_LAST_MOTION_Z = "lastMotionZ";
 
 	boolean fake = false;
 
-	final int dataWatcherEntries = 10;
+	final int dataWatcherEntries = 13;
 	final int dataWatcherStart = 32 - dataWatcherEntries;
 
 	List<String> alreadyCollidedAt = new ArrayList();
 
 	public EntityManaBurst(World world) {
 		super(world);
-		setSize(0F, 0F);
+		setSize(0.25F, 0.25F);
 		for(int i = 0; i < dataWatcherEntries; i++) {
 			int j = dataWatcherStart + i;
-			if(i == 4 || i == 5)
+			if(i == 4 || i == 5 || i == 10 || i == 11 || i == 12)
 				dataWatcher.addObject(j, 0F);
 			else if(i == 9)
 				dataWatcher.addObject(j, new ItemStack(1, 0, 0));
@@ -171,10 +172,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 	@Override
 	public void onUpdate() {
-		motionX = lastXMotion;
-		motionY = lastYMotion;
-		motionZ = lastZMotion;
-
+		updateMotion();
 		superUpdate();
 
 		ILens lens = getLensInstance();
@@ -194,9 +192,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 				setDead();
 		}
 
-		lastXMotion = motionX;
-		lastYMotion = motionY;
-		lastZMotion = motionZ;
+		setMotion(motionX, motionY, motionZ);
 	}
 
 	@Override
@@ -232,6 +228,10 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		par1nbtTagCompound.setInteger(TAG_SPREADER_X, coords.posX);
 		par1nbtTagCompound.setInteger(TAG_SPREADER_Y, coords.posY);
 		par1nbtTagCompound.setInteger(TAG_SPREADER_Z, coords.posZ);
+		
+		par1nbtTagCompound.setDouble(TAG_LAST_MOTION_X, motionX);
+		par1nbtTagCompound.setDouble(TAG_LAST_MOTION_Y, motionY);
+		par1nbtTagCompound.setDouble(TAG_LAST_MOTION_Z, motionZ);
 	}
 
 	@Override
@@ -247,14 +247,25 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		int x = par1nbtTagCompound.getInteger(TAG_SPREADER_X);
 		int y = par1nbtTagCompound.getInteger(TAG_SPREADER_Y);
 		int z = par1nbtTagCompound.getInteger(TAG_SPREADER_Z);
-
+		
 		setBurstSourceCoords(x, y, z);
+		
+		double lastMotionX = par1nbtTagCompound.getDouble(TAG_LAST_MOTION_X);
+		double lastMotionY = par1nbtTagCompound.getDouble(TAG_LAST_MOTION_Y);
+		double lastMotionZ = par1nbtTagCompound.getDouble(TAG_LAST_MOTION_Z);
+		
+		setMotion(lastMotionX, lastMotionY, lastMotionZ);
 	}
 
 	public void particles() {
-		if(worldObj.isRemote || isDead)
+		boolean mp = Botania.proxy.isClientPlayingMultiplayer();
+		
+		if(isDead)
 			return;
-
+		
+//		if(mp && !worldObj.isRemote)
+//			return;
+		
 		Color color = new Color(getColor());
 		float r = color.getRed() / 255F;
 		float g = color.getGreen() / 255F;
@@ -270,7 +281,10 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 			if(!noParticles)
 				Botania.proxy.sparkleFX(worldObj, posX, posY, posZ, r, g, b, 0.4F * size, 1, true);
-		} else Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.2F * size, (float) -motionX * 0.01F, (float) -motionY * 0.01F, (float) -motionZ * 0.01F);
+		} else {
+			Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.2F * size, (float) -motionX * 0.01F, (float) -motionY * 0.01F, (float) -motionZ * 0.01F);
+ 			Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.1F * size, (float) (Math.random() - 0.5F) * 0.08F, (float) (Math.random() - 0.5F) * 0.08F, (float) (Math.random() - 0.5F) * 0.08F);
+		}
 	}
 
 	@Override
@@ -409,7 +423,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		dataWatcher.updateObject(coordsStart + 1, y);
 		dataWatcher.updateObject(coordsStart + 2, z);
 	}
-
+	
 	@Override
 	public ItemStack getSourceLens() {
 		return dataWatcher.getWatchableObjectItemStack(dataWatcherStart + 9);
@@ -427,15 +441,23 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 		return null;
 	}
+	
+	final int motionStart = dataWatcherStart + 10;
 
 	@Override
 	public void setMotion(double x, double y, double z) {
 		motionX = x;
 		motionY = y;
 		motionZ = z;
-		lastXMotion = motionX;
-		lastYMotion = motionY;
-		lastZMotion = motionZ;
+		dataWatcher.updateObject(motionStart, (float) x);
+		dataWatcher.updateObject(motionStart + 1, (float) y);
+		dataWatcher.updateObject(motionStart + 2, (float) z);
+	}
+	
+	private void updateMotion() {
+		motionX = dataWatcher.getWatchableObjectFloat(motionStart);
+		motionY = dataWatcher.getWatchableObjectFloat(motionStart + 1);
+		motionZ = dataWatcher.getWatchableObjectFloat(motionStart + 2);
 	}
 
 	@Override
