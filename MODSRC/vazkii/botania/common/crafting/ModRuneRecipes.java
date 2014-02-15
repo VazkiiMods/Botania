@@ -44,7 +44,7 @@ public final class ModRuneRecipes {
 		final int costTier3 = 25000;
 		
 		recipeWaterRune = BotaniaAPI.registerRuneAltarRecipe(new ItemStack(ModItems.rune, 1, 0), costTier1, LibOreDict.MANA_STEEL, new ItemStack(Item.dyePowder, 1, 15), new ItemStack(Item.reed), new ItemStack(Item.fishRaw));
-		recipeEarthRune = BotaniaAPI.registerRuneAltarRecipe(new ItemStack(ModItems.rune, 1, 1), costTier1, LibOreDict.MANA_STEEL, "stone", new ItemStack(Block.dirt), new ItemStack(Block.mushroomCapBrown));
+		recipeEarthRune = BotaniaAPI.registerRuneAltarRecipe(new ItemStack(ModItems.rune, 1, 1), costTier1, LibOreDict.MANA_STEEL, "stone", new ItemStack(Block.dirt), new ItemStack(Block.mushroomBrown));
 		recipeAirRune = BotaniaAPI.registerRuneAltarRecipe(new ItemStack(ModItems.rune, 1, 2), costTier1, LibOreDict.MANA_STEEL, new ItemStack(Block.tallGrass), new ItemStack(Item.feather), new ItemStack(Item.carrot));
 		recipeFireRune = BotaniaAPI.registerRuneAltarRecipe(new ItemStack(ModItems.rune, 1, 3), costTier1, LibOreDict.MANA_STEEL, new ItemStack(Item.blazeRod), new ItemStack(Item.gunpowder), new ItemStack(Item.netherStalkSeeds));
 
