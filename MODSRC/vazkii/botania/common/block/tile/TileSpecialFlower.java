@@ -99,7 +99,8 @@ public class TileSpecialFlower extends TileMod {
 	}
 
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
-		subTile.renderHUD(mc, res);
+		if(subTile != null)
+			subTile.renderHUD(mc, res);
 	}
 
 }
