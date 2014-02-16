@@ -51,6 +51,11 @@ public class ItemTwigWand extends Item16Colors {
 			return ((IWandable) Block.blocksList[id]).onUsedByWand(par2EntityPlayer, par1ItemStack, par3World, par4, par5, par6, par7);
 		return false;
 	}
+	
+	@Override
+	public boolean isFull3D() {
+		return true;
+	}
 
 	@Override
 	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
