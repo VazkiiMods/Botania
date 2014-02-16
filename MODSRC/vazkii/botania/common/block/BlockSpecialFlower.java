@@ -60,6 +60,7 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 		// Functional
 		LibBlockNames.SUBTILE_BELLETHORN,
 		LibBlockNames.SUBTILE_HEISEI_DREAM,
+		LibBlockNames.SUBTILE_TIGERSEYE,
 	};
 
 	protected BlockSpecialFlower() {

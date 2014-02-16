@@ -21,4 +21,10 @@ public final class LibObfuscation {
 	
 	// EntityAIAttackOnCollide
 	public static final String[] CLASS_TARGET = new String[] { "classTarget", "field_75444_h", "g" };
+	
+	// EntityAIAvoidEntity
+	public static final String[] TARGET_ENTITY_CLASS = new String[] { "targetEntityClass", "field_75381_h", "i" };
+
+	// EntityCreeper
+	public static final String[] TIME_SINCE_IGNITED = new String[] {  "timeSinceIgnited", "field_70833_d", "bq" };
 }
