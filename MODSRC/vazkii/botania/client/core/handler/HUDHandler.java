@@ -68,7 +68,7 @@ public final class HUDHandler {
 		int x = res.getScaledWidth() / 2  + 8;
 		int y = res.getScaledHeight() / 2 - 4;
 
-		int color = 0x2200FF00;
+		int color = 0x6600FF00;
 
 		mc.fontRenderer.drawStringWithShadow(StatCollector.translateToLocal(entry.getUnlocalizedName()), x + 18, y, color);
 		mc.fontRenderer.drawStringWithShadow(StatCollector.translateToLocal("botaniamisc.shiftToRead"), x + 18, y + 11, color);
