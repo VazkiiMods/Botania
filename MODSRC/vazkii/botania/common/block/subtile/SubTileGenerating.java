@@ -55,7 +55,7 @@ public class SubTileGenerating extends SubTileEntity {
 		if(canGeneratePassively()) {
 			int delay = getDelayBetweenPassiveGeneration();
 			if(delay > 0 && supertile.worldObj.getWorldTime() % delay == 0)
-				addMana(1);
+				addMana(getValueForPassiveGeneration());
 			emptyManaIntoCollector();
 		}
 
@@ -113,6 +113,10 @@ public class SubTileGenerating extends SubTileEntity {
 
 	public int getDelayBetweenPassiveGeneration() {
 		return 30;
+	}
+	
+	public int getValueForPassiveGeneration() {
+		return 1;
 	}
 
 	@Override
