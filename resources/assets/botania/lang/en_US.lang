@@ -9,6 +9,7 @@ botaniamisc.oredict=Ore Dictionary Recipe
 botaniamisc.statusUnknown=Unknown Status
 botaniamisc.color=%s Tinted
 botaniamisc.manaUsage=Mana Usage
+botaniamisc.shiftToRead=Shift-right click to read more.
 
 # COLORS
 botania.color0=White
