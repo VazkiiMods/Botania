@@ -25,6 +25,7 @@ public final class ModPetalRecipes {
 	public static RecipePetals pureDaisyRecipe;
 
 	public static RecipePetals daybloomRecipe;
+	public static RecipePetals endoflameRecipe;
 
 	public static RecipePetals bellethorneRecipe;
 
@@ -32,7 +33,8 @@ public final class ModPetalRecipes {
 		pureDaisyRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_PUREDAISY), white, white, white, white);
 
 		daybloomRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_DAYBLOOM), yellow, yellow, orange, orange, lightBlue);
-
+		endoflameRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ENDOFLAME), brown, red, redMana, brownMana, lightGray);
+		
 		bellethorneRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_BELLETHORN), redMana, redMana, cyan, cyan, red);
 	}
 }

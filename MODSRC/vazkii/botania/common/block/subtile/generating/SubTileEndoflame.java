@@ -18,8 +18,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.AxisAlignedBB;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.subtile.SubTileGenerating;
+import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileEndoflame extends SubTileGenerating {
 
@@ -70,6 +72,11 @@ public class SubTileEndoflame extends SubTileGenerating {
 	@Override
 	public int getColor() {
 		return 0x785000;
+	}
+	
+	@Override
+	public LexiconEntry getEntry() {
+		return LexiconData.endoflame;
 	}
 
 	@Override

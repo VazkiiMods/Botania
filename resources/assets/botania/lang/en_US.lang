@@ -311,7 +311,7 @@ botania.page.fIntro2=It is important to keep in mind that these flowers memorize
 # -- BELLETHRONE
 botania.entry.bellethorne=Bellethorne
 botania.page.bellethorne0=The &1Bellethorne&0 is a malevelous flower. By utilizing &4Mana&0 it slowly inflicts harm in any living beings (save for &4players&0) around it.
-botania.page.bellethorne1=Every rose has its thorn
+botania.page.bellethorne1=&oEvery rose has its thorn&r.
 
 # - GENERATING FLOWERS
 # -- AN INTRODUCTION TO GENERATION
@@ -323,7 +323,12 @@ botania.page.gIntro2=It is important to keep in mind that these flowers memorize
 # -- DAYBLOOM
 botania.entry.daybloom=Daybloom
 botania.page.daybloom0=The &1Daybloom&0 is the most basic and rudimentary &4Generating Flower&0. Simply put, it preforms a modified photosythesis process, in order to transform sunlight into &4Mana&0.
-botania.page.daybloom1=Starting up a brand new day
+botania.page.daybloom1=&oStarting up a brand new day&r.
+
+# -- ENDOFLAME
+botania.entry.endoflame=Endoflame
+botania.page.endoflame0=While the &1Daybloom&0 is all well and good, a botanist requires more effective means of generating &4Mana&0.<br>The &1Endoflame&0 does that exactly, it will absorb any combustible items or blocks dropped on the nearby vacinity (albeit only one at a time) and burn through them to passively generate mana while the fuel lasts.
+botania.page.endoflame1=&oNot nitor&r.
 
 # - MAGICAL APPARATUS
 
