@@ -39,9 +39,9 @@ public class SubTileTigerseye extends SubTileFunctional {
 		final int range = 10;
 		final int rangeY = 4;
 		final int cost = 70;
-		
+
 		boolean shouldAfffect = mana >= cost;
-		
+
 		List<EntityLiving> entities = supertile.worldObj.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord - rangeY, supertile.zCoord - range, supertile.xCoord + range, supertile.yCoord + rangeY, supertile.zCoord + range));
 
 		for(EntityLiving entity : entities) {
@@ -53,16 +53,16 @@ public class SubTileTigerseye extends SubTileFunctional {
 				for(EntityAITaskEntry entry : entries) {
 					if(entry.action instanceof EntityAIAvoidEntity)
 						avoidsOcelots = messWithRunAwayAI((EntityAIAvoidEntity) entry.action) || avoidsOcelots;
-	
+
 					if(entry.action instanceof EntityAINearestAttackableTarget)
 						messWithGetTargetAI((EntityAINearestAttackableTarget) entry.action);
 				}
-			
+
 			if(entity instanceof EntityCreeper) {
 				ReflectionHelper.setPrivateValue(EntityCreeper.class, (EntityCreeper) entity, 2, LibObfuscation.TIME_SINCE_IGNITED);
 				entity.setAttackTarget(null);
 			}
-			
+
 			if(avoidsOcelots) {
 				mana -= cost;
 				PacketDispatcher.sendPacketToAllInDimension(supertile.getDescriptionPacket(), supertile.worldObj.provider.dimensionId);
@@ -94,9 +94,9 @@ public class SubTileTigerseye extends SubTileFunctional {
 		return 1000;
 	}
 
-		@Override
-		public LexiconEntry getEntry() {
-			return LexiconData.tigerseye;
-		}
+	@Override
+	public LexiconEntry getEntry() {
+		return LexiconData.tigerseye;
+	}
 
 }

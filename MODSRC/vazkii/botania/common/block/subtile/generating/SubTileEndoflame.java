@@ -13,7 +13,6 @@ package vazkii.botania.common.block.subtile.generating;
 
 import java.util.List;
 
-import cpw.mods.fml.common.network.PacketDispatcher;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -23,6 +22,7 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.subtile.SubTileGenerating;
 import vazkii.botania.common.lexicon.LexiconData;
+import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class SubTileEndoflame extends SubTileGenerating {
 
@@ -37,34 +37,34 @@ public class SubTileEndoflame extends SubTileGenerating {
 			if(mana < getMaxMana() && !supertile.worldObj.isRemote) {
 				final int range = 3;
 				boolean didSomething = false;
-				
+
 				List<EntityItem> items = supertile.worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord - range, supertile.zCoord - range, supertile.xCoord + range, supertile.yCoord + range, supertile.zCoord + range));
 				for(EntityItem item : items) {
 					if(item.delayBeforeCanPickup == 0 && !item.isDead) {
 						ItemStack stack = item.getEntityItem();
-						int burnTime = TileEntityFurnace.getItemBurnTime(stack); 
+						int burnTime = TileEntityFurnace.getItemBurnTime(stack);
 						if(burnTime > 0 && stack.stackSize > 0) {
 							this.burnTime = burnTime / 2;
 
 							stack.stackSize--;
 							if(stack.stackSize == 0)
 								item.setDead();
-							
+
 							didSomething = true;
 
 							break;
 						}
 					}
 				}
-				
+
 				if(didSomething)
 					PacketDispatcher.sendPacketToAllInDimension(supertile.getDescriptionPacket(), supertile.worldObj.provider.dimensionId);
 			}
 		} else {
-			Botania.proxy.wispFX(supertile.worldObj, (float) supertile.xCoord + 0.8, (float) supertile.yCoord + 0.5, (float) supertile.zCoord + 0.8, 0.7F, 0.05F, 0.05F, (float) Math.random() / 6, (float) -Math.random() / 60);
-			Botania.proxy.wispFX(supertile.worldObj, (float) supertile.xCoord + 0.8, (float) supertile.yCoord + 0.5, (float) supertile.zCoord + 0.2, 0.7F, 0.05F, 0.05F, (float) Math.random() / 6, (float) -Math.random() / 60);
-			Botania.proxy.wispFX(supertile.worldObj, (float) supertile.xCoord + 0.2, (float) supertile.yCoord + 0.5, (float) supertile.zCoord + 0.2, 0.7F, 0.05F, 0.05F, (float) Math.random() / 6, (float) -Math.random() / 60);
-			Botania.proxy.wispFX(supertile.worldObj, (float) supertile.xCoord + 0.2, (float) supertile.yCoord + 0.5, (float) supertile.zCoord + 0.8, 0.7F, 0.05F, 0.05F, (float) Math.random() / 6, (float) -Math.random() / 60);
+			Botania.proxy.wispFX(supertile.worldObj, supertile.xCoord + 0.8, supertile.yCoord + 0.5, supertile.zCoord + 0.8, 0.7F, 0.05F, 0.05F, (float) Math.random() / 6, (float) -Math.random() / 60);
+			Botania.proxy.wispFX(supertile.worldObj, supertile.xCoord + 0.8, supertile.yCoord + 0.5, supertile.zCoord + 0.2, 0.7F, 0.05F, 0.05F, (float) Math.random() / 6, (float) -Math.random() / 60);
+			Botania.proxy.wispFX(supertile.worldObj, supertile.xCoord + 0.2, supertile.yCoord + 0.5, supertile.zCoord + 0.2, 0.7F, 0.05F, 0.05F, (float) Math.random() / 6, (float) -Math.random() / 60);
+			Botania.proxy.wispFX(supertile.worldObj, supertile.xCoord + 0.2, supertile.yCoord + 0.5, supertile.zCoord + 0.8, 0.7F, 0.05F, 0.05F, (float) Math.random() / 6, (float) -Math.random() / 60);
 
 			burnTime--;
 		}

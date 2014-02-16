@@ -59,12 +59,12 @@ public class SubTileHeiseiDream extends SubTileFunctional {
 									messWithGetTargetAI((EntityAINearestAttackableTarget) entry.action);
 								else if(entry.action instanceof EntityAIAttackOnCollide)
 									messWithAttackOnCollideAI((EntityAIAttackOnCollide) entry.action);
-							
+
 							mana -= cost;
 							PacketDispatcher.sendPacketToAllInDimension(supertile.getDescriptionPacket(), supertile.worldObj.provider.dimensionId);
 							break;
 						}
-					}	
+					}
 				}
 			}
 	}
@@ -72,7 +72,7 @@ public class SubTileHeiseiDream extends SubTileFunctional {
 	private void messWithGetTargetAI(EntityAINearestAttackableTarget aiEntry) {
 		ReflectionHelper.setPrivateValue(EntityAINearestAttackableTarget.class, aiEntry, IMob.class, LibObfuscation.TARGET_CLASS);
 	}
-	
+
 	private void messWithAttackOnCollideAI(EntityAIAttackOnCollide aiEntry) {
 		ReflectionHelper.setPrivateValue(EntityAIAttackOnCollide.class, aiEntry, IMob.class, LibObfuscation.CLASS_TARGET);
 	}
@@ -86,7 +86,7 @@ public class SubTileHeiseiDream extends SubTileFunctional {
 	public int getMaxMana() {
 		return 1000;
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry() {
 		return LexiconData.heiseiDream;

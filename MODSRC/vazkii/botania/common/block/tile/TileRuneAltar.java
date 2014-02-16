@@ -74,7 +74,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 			updateRotationAngles();
 			firstTick = false;
 		}
-		
+
 
 		for(int i = 0; i < angles.length; i++)
 			angles[i]++;
