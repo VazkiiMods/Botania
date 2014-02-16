@@ -11,24 +11,30 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import cpw.mods.fml.common.network.PacketDispatcher;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.ai.EntityAIAttackOnCollide;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
+import net.minecraft.entity.ai.EntityAITaskEntry;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.util.AxisAlignedBB;
 import vazkii.botania.common.block.subtile.SubTileFunctional;
+import vazkii.botania.common.lib.LibObfuscation;
+import cpw.mods.fml.common.network.PacketDispatcher;
+import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class SubTileHeiseiDream extends SubTileFunctional {
 
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		
+
 		final int range = 5;
 		final int cost = 100;
-		
+
 		List<IMob> mobs = supertile.worldObj.getEntitiesWithinAABB(IMob.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord - range, supertile.zCoord - range, supertile.xCoord + range, supertile.yCoord + range, supertile.zCoord + range));
 		if(mobs.size() > 1 && mana >= cost)
 			for(IMob mob : mobs) {
@@ -39,10 +45,19 @@ public class SubTileHeiseiDream extends SubTileFunctional {
 						IMob newTarget;
 						do newTarget = mobs.get(supertile.worldObj.rand.nextInt(mobs.size()));
 						while(newTarget == mob);
-						
+
 						if(newTarget instanceof EntityLivingBase) {
 							entity.setAttackTarget((EntityLivingBase) newTarget);
-							System.out.println("target set "  + newTarget);
+
+							List<EntityAITaskEntry> entries = new ArrayList(entity.tasks.taskEntries);
+							entries.addAll(new ArrayList(entity.targetTasks.taskEntries));
+
+							for(EntityAITaskEntry entry : entries)
+								if(entry.action instanceof EntityAINearestAttackableTarget)
+									messWithGetTargetAI((EntityAINearestAttackableTarget) entry.action);
+								else if(entry.action instanceof EntityAIAttackOnCollide)
+									messWithAttackOnCollideAI((EntityAIAttackOnCollide) entry.action);
+							
 							mana -= cost;
 							PacketDispatcher.sendPacketToAllInDimension(supertile.getDescriptionPacket(), supertile.worldObj.provider.dimensionId);
 							break;
@@ -51,15 +66,23 @@ public class SubTileHeiseiDream extends SubTileFunctional {
 				}
 			}
 	}
+
+	private void messWithGetTargetAI(EntityAINearestAttackableTarget aiEntry) {
+		ReflectionHelper.setPrivateValue(EntityAINearestAttackableTarget.class, aiEntry, IMob.class, LibObfuscation.TARGET_CLASS);
+	}
 	
+	private void messWithAttackOnCollideAI(EntityAIAttackOnCollide aiEntry) {
+		ReflectionHelper.setPrivateValue(EntityAIAttackOnCollide.class, aiEntry, IMob.class, LibObfuscation.CLASS_TARGET);
+	}
+
 	@Override
 	public int getColor() {
 		return 0xFF219D;
 	}
-	
+
 	@Override
 	public int getMaxMana() {
 		return 1000;
 	}
-	
+
 }

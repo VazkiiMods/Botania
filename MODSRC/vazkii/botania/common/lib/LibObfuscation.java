@@ -14,9 +14,11 @@ package vazkii.botania.common.lib;
 public final class LibObfuscation {
 
 	// EffectRenderer
-	public static final String[] PARTICLE_TEXTURES = new String[] { "particleTextures", "b", "field_110737_b" };
+	public static final String[] PARTICLE_TEXTURES = new String[] { "particleTextures", "field_110737_b", "b" };
 
 	// EntityAINearestAttackableTarget
 	public static final String[] TARGET_CLASS = new String[] { "targetClass", "field_75307_b", "a" };
 	
+	// EntityAIAttackOnCollide
+	public static final String[] CLASS_TARGET = new String[] { "classTarget", "field_75444_h", "g" };
 }
