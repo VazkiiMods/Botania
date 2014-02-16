@@ -314,6 +314,11 @@ botania.entry.bellethorne=Bellethorne
 botania.page.bellethorne0=The &1Bellethorne&0 is a malevelous flower. By utilizing &4Mana&0 it slowly inflicts harm in any living beings (save for &4players&0) around it.
 botania.page.bellethorne1=&oEvery rose has its thorn&r.
 
+# -- HEISEI DREAM
+botania.entry.heiseiDream=Heisei Dream
+botania.page.heiseiDream0=The &1Heisei Dream&0 will awaken feelings of anger and revenge in any nearby &4mobs&0, turning them against eachother.
+botania.page.heiseiDream1=&oA pleasant era will murder people&r.
+
 # - GENERATING FLOWERS
 # -- AN INTRODUCTION TO GENERATION
 botania.entry.gIntro=An Introduction to Generation
