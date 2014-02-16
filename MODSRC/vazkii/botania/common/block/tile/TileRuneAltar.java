@@ -33,13 +33,11 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 
 	private static final String TAG_MANA = "mana";
 
-	public float[] angles = new float[getSizeInventory()];
-	boolean firstTick = true;
 	int manaToGet = 0;
 	int mana = 0;
 
 	public boolean addItem(EntityPlayer player, ItemStack stack) {
-		if(stack.itemID == ModItems.twigWand.itemID)
+		if(stack.itemID == ModItems.twigWand.itemID || stack.itemID == ModItems.lexicon.itemID  || manaToGet != 0)
 			return false;
 
 		boolean did = false;
@@ -70,15 +68,6 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 	public void updateEntity() {
 		super.updateEntity();
 
-		if(firstTick) {
-			updateRotationAngles();
-			firstTick = false;
-		}
-
-
-		for(int i = 0; i < angles.length; i++)
-			angles[i]++;
-
 		// Update every tick.
 		recieveMana(0);
 
@@ -92,12 +81,6 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 			}
 		}
 
-	}
-
-	@Override
-	public void setInventorySlotContents(int i, ItemStack itemstack) {
-		super.setInventorySlotContents(i, itemstack);
-		updateRotationAngles();
 	}
 
 	public void updateRecipe() {
@@ -116,19 +99,6 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 			worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.orb", 1F, 1F);
 			PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
 		}
-	}
-
-	public void updateRotationAngles() {
-		int items = 0;
-		for(int i = 0; i < getSizeInventory(); i++)
-			if(getStackInSlot(i) == null)
-				break;
-			else items++;
-
-		float anglePer = 360F / items;
-		float totalAngle = 0F;
-		for(int i = 0; i < angles.length; i++)
-			angles[i] = totalAngle += anglePer;
 	}
 
 	public void onWanded(EntityPlayer player, ItemStack wand) {

@@ -45,14 +45,26 @@ public class RenderTileRuneAltar extends TileEntitySpecialRenderer {
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		GL11.glTranslated(x, y, z);
 
+		int items = 0;
+		for(int i = 0; i < altar.getSizeInventory(); i++)
+			if(altar.getStackInSlot(i) == null)
+				break;
+			else items++;
+		float[] angles = new float[altar.getSizeInventory()];
+		
+		float anglePer = 360F / items;
+		float totalAngle = 0F;
+		for(int i = 0; i < angles.length; i++)
+			angles[i] = totalAngle += anglePer;
+
 		for(int i = 0; i < altar.getSizeInventory(); i++) {
 			GL11.glPushMatrix();
 			GL11.glScalef(0.5F, 0.5F, 0.5F);
 			GL11.glTranslatef(1F, 2.5F, 1F);
-			GL11.glRotatef(altar.angles[i], 0F, 1F, 0F);
+			GL11.glRotatef(angles[i] + altar.worldObj.getTotalWorldTime(), 0F, 1F, 0F);
 			GL11.glTranslatef(2.25F, 0F, 0.5F);
 			GL11.glRotatef(90F, 0F, 1F, 0F);
-			GL11.glTranslated(0D, 0.1 * Math.sin((tileentity.worldObj.getTotalWorldTime() + i * 10) / 5D), 0F);
+			GL11.glTranslated(0D, 0.15 * Math.sin((tileentity.worldObj.getTotalWorldTime() + i * 10) / 5D), 0F);
 			ItemStack stack = altar.getStackInSlot(i);
 			Minecraft mc = Minecraft.getMinecraft();
 			if(stack != null) {
