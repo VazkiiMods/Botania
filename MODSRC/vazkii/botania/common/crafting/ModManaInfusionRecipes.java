@@ -33,9 +33,9 @@ public final class ModManaInfusionRecipes {
 		for(int i = 0; i < 16; i++)
 			manaPetalRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPetal, 1, i), LibOreDict.PETAL[i], 1000));
 
-		manasteelRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 0), "ingotIron", 5000);
-		manaPearlRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 1), new ItemStack(Item.enderPearl), 10000);
-		manaDiamondRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 2), "gemDiamond", 25000);
+		manasteelRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 0), "ingotIron", 3000);
+		manaPearlRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 1), new ItemStack(Item.enderPearl), 6000);
+		manaDiamondRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 2), "gemDiamond", 10000);
 
 	}
 

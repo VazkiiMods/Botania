@@ -40,7 +40,7 @@ public final class ModCrafingRecipes {
 	public static List<IRecipe> recipesLensDying;
 	public static IRecipe recipeRainbowLens;
 	public static IRecipe recipePool;
-	public static IRecipe recipeRuneAltar;
+	public static List<IRecipe> recipesRuneAltar;
 	public static IRecipe recipeLensVelocity;
 	public static IRecipe recipeLensPotency;
 	public static IRecipe recipeLensResistance;
@@ -135,7 +135,11 @@ public final class ModCrafingRecipes {
 				"SSS", "SPS",
 				'S', LibOreDict.LIVING_ROCK,
 				'P', LibOreDict.MANA_PEARL);
-		recipeRuneAltar = BotaniaAPI.getLatestAddedRecipe();
+		addOreDictRecipe(new ItemStack(ModBlocks.runeAltar),
+				"SSS", "SDS",
+				'S', LibOreDict.LIVING_ROCK,
+				'D', LibOreDict.MANA_DIAMOND);
+		recipesRuneAltar = BotaniaAPI.getLatestAddedRecipes(2);
 
 		// Lens Recipes
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 0, 1), new ItemStack(ModItems.lens), LibOreDict.RUNE[3]);

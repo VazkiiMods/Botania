@@ -93,7 +93,7 @@ public final class LexiconData {
 		pureDaisy.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_PURE_DAISY), new PagePetalRecipe("2", ModPetalRecipes.pureDaisyRecipe));
 
 		runicAltar = new BLexiconEntry(LibLexicon.BASICS_RUNE_ALTAR, categoryBasics);
-		runicAltar.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCrafingRecipes.recipeRuneAltar), new PageText("3"), new PageRuneRecipe("4", ModRuneRecipes.recipeWaterRune), new PageRuneRecipe("5", ModRuneRecipes.recipeEarthRune), new PageRuneRecipe("6", ModRuneRecipes.recipeAirRune), new PageRuneRecipe("7", ModRuneRecipes.recipeFireRune),
+		runicAltar.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCrafingRecipes.recipesRuneAltar), new PageText("3"), new PageRuneRecipe("4", ModRuneRecipes.recipeWaterRune), new PageRuneRecipe("5", ModRuneRecipes.recipeEarthRune), new PageRuneRecipe("6", ModRuneRecipes.recipeAirRune), new PageRuneRecipe("7", ModRuneRecipes.recipeFireRune),
 				new PageRuneRecipe("8", ModRuneRecipes.recipeSpringRune), new PageRuneRecipe("9", ModRuneRecipes.recipeSummerRune), new PageRuneRecipe("10", ModRuneRecipes.recipeAutumnRune), new PageRuneRecipe("11", ModRuneRecipes.recipeWinterRune),  new PageRuneRecipe("12", ModRuneRecipes.recipeManaRune),
 				new PageRuneRecipe("13", ModRuneRecipes.recipeLustRune), new PageRuneRecipe("14", ModRuneRecipes.recipeGluttonyRune), new PageRuneRecipe("15", ModRuneRecipes.recipeGreedRune), new PageRuneRecipe("16", ModRuneRecipes.recipeSlothRune), new PageRuneRecipe("17", ModRuneRecipes.recipeEnvyRune), new PageRuneRecipe("18", ModRuneRecipes.recipePrideRune));
 
