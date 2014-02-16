@@ -320,6 +320,11 @@ botania.entry.heiseiDream=Heisei Dream
 botania.page.heiseiDream0=The &1Heisei Dream&0 will awaken feelings of anger and revenge in any nearby &4mobs&0, turning them against eachother.
 botania.page.heiseiDream1=&oA pleasant era will murder people&r.
 
+# -- TIGERSEYE
+botania.entry.tigerseye=Tigerseye
+botania.page.tigerseye0=It's a known fact that &4Creepers&0 are terrified of &4cats&0.<br>The &1Tigerseye&0 exploits that very weakness, by emiting a feline aura, petrifying any nearby &4Creepers&0, preventing them from exploding. It also has the effect of making them run away from &4players&0.
+botania.page.tigerseye1=&oRisin' up to the challenge of our rivals&r.
+
 # - GENERATING FLOWERS
 # -- AN INTRODUCTION TO GENERATION
 botania.entry.gIntro=An Introduction to Generation
