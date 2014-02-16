@@ -39,9 +39,9 @@ public final class ModRuneRecipes {
 	public static RecipeRuneAltar recipePrideRune;
 
 	public static void init() {
-		final int costTier1 = 5000;
-		final int costTier2 = 10000;
-		final int costTier3 = 25000;
+		final int costTier1 = 2500;
+		final int costTier2 = 4000;
+		final int costTier3 = 6000;
 
 		recipeWaterRune = BotaniaAPI.registerRuneAltarRecipe(new ItemStack(ModItems.rune, 1, 0), costTier1, LibOreDict.MANA_STEEL, new ItemStack(Item.dyePowder, 1, 15), new ItemStack(Item.reed), new ItemStack(Item.fishRaw));
 		recipeFireRune = BotaniaAPI.registerRuneAltarRecipe(new ItemStack(ModItems.rune, 1, 1), costTier1, LibOreDict.MANA_STEEL, new ItemStack(Item.blazeRod), new ItemStack(Item.gunpowder), new ItemStack(Item.netherStalkSeeds));
