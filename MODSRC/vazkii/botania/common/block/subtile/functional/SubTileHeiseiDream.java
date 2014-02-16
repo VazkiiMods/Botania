@@ -11,10 +11,47 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import java.util.List;
+
+import cpw.mods.fml.common.network.PacketDispatcher;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.IMob;
+import net.minecraft.util.AxisAlignedBB;
 import vazkii.botania.common.block.subtile.SubTileFunctional;
 
 public class SubTileHeiseiDream extends SubTileFunctional {
 
+	@Override
+	public void onUpdate() {
+		super.onUpdate();
+		
+		final int range = 5;
+		final int cost = 100;
+		
+		List<IMob> mobs = supertile.worldObj.getEntitiesWithinAABB(IMob.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord - range, supertile.zCoord - range, supertile.xCoord + range, supertile.yCoord + range, supertile.zCoord + range));
+		if(mobs.size() > 1 && mana >= cost)
+			for(IMob mob : mobs) {
+				if(mob instanceof EntityLiving) {
+					EntityLiving entity = (EntityLiving) mob;
+					EntityLivingBase target = entity.getAttackTarget();
+					if(target == null || !(target instanceof IMob)) {
+						IMob newTarget;
+						do newTarget = mobs.get(supertile.worldObj.rand.nextInt(mobs.size()));
+						while(newTarget == mob);
+						
+						if(newTarget instanceof EntityLivingBase) {
+							entity.setAttackTarget((EntityLivingBase) newTarget);
+							System.out.println("target set "  + newTarget);
+							mana -= cost;
+							PacketDispatcher.sendPacketToAllInDimension(supertile.getDescriptionPacket(), supertile.worldObj.provider.dimensionId);
+							break;
+						}
+					}	
+				}
+			}
+	}
+	
 	@Override
 	public int getColor() {
 		return 0xFF219D;

@@ -16,4 +16,7 @@ public final class LibObfuscation {
 	// EffectRenderer
 	public static final String[] PARTICLE_TEXTURES = new String[] { "particleTextures", "b", "field_110737_b" };
 
+	// EntityAINearestAttackableTarget
+	public static final String[] TARGET_CLASS = new String[] { "targetClass", "field_75307_b", "a" };
+	
 }
