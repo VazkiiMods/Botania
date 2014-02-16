@@ -11,6 +11,7 @@
  */
 package vazkii.botania.common.core.proxy;
 
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.BotaniaAPI;
@@ -72,9 +73,9 @@ public class CommonProxy {
 	public void twigWandClientUpdate() {
 		// NO-OP
 	}
-
-	public boolean isClientPlayingMultiplayer() {
-		return false;
+	
+	public long getWorldElapsedTicks() {
+		return MinecraftServer.getServer().worldServers[0].getTotalWorldTime();
 	}
 
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {

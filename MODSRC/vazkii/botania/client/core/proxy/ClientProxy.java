@@ -98,8 +98,8 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	@Override
-	public boolean isClientPlayingMultiplayer() {
-		return !Minecraft.getMinecraft().isIntegratedServerRunning();
+	public long getWorldElapsedTicks() {
+		return Minecraft.getMinecraft().theWorld == null ? 0 : Minecraft.getMinecraft().theWorld.getTotalWorldTime();
 	}
 
 	@Override

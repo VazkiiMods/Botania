@@ -36,6 +36,7 @@ import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibItemIDs;
@@ -236,10 +237,8 @@ public class ItemLens extends ItemMod implements ILens {
 		if(storedColor == -1)
 			return 0xFFFFFF;
 
-		if(storedColor == 16) {
-			World world = Minecraft.getMinecraft().theWorld;
-			return world == null ? 0xFFFFFF : Color.HSBtoRGB(world.getTotalWorldTime() * 2 % 360 / 360F, 1F, 1F);
-		}
+		if(storedColor == 16)
+			return Color.HSBtoRGB(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 1F, 1F);
 
 		float[] color = EntitySheep.fleeceColorTable[storedColor];
 		return new Color(color[0], color[1], color[2]).getRGB();
