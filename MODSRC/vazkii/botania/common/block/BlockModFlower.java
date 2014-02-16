@@ -39,7 +39,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockModFlower extends BlockFlower implements ILexiconable {
 
-	Icon[] icons;
+	public static Icon[] icons;
 
 	protected BlockModFlower() {
 		super(LibBlockIDs.idFlower);
@@ -69,7 +69,7 @@ public class BlockModFlower extends BlockFlower implements ILexiconable {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister) {
-		icons = new Icon[16];
+		icons = new Icon[17];
 		for(int i = 0; i < icons.length; i++)
 			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
 	}
