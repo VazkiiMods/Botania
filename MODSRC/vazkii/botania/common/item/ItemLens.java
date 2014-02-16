@@ -230,7 +230,6 @@ public class ItemLens extends ItemMod implements ILens {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public int getLensColor(ItemStack stack) {
 		int storedColor = getStoredColor(stack);
 
