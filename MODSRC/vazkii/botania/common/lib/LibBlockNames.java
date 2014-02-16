@@ -33,5 +33,6 @@ public final class LibBlockNames {
 	public static final String SUBTILE_ENDOFLAME = "endoflame";
 
 	public static final String SUBTILE_BELLETHORN = "bellethorn";
+	public static final String SUBTILE_HEISEI_DREAM = "heiseiDream";
 
 }
