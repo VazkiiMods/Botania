@@ -39,6 +39,7 @@ public final class LibResources {
 	public static final String MODEL_ALTAR = PREFIX_MODEL + "altar.png";
 	public static final String MODEL_SPREADER = PREFIX_MODEL + "spreader.png";
 	public static final String MODEL_POOL = PREFIX_MODEL + "pool.png";
+	public static final String MODEL_PYLON = PREFIX_MODEL + "pylon.png";
 
 	public static final String MISC_PARTICLES = PREFIX_MISC + "particles.png";
 	public static final String MISC_WISP_LARGE = PREFIX_MISC + "wispLarge.png";

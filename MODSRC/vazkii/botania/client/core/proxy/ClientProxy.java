@@ -34,10 +34,12 @@ import vazkii.botania.client.render.block.RenderSpreader;
 import vazkii.botania.client.render.item.RenderLens;
 import vazkii.botania.client.render.tile.RenderTileAltar;
 import vazkii.botania.client.render.tile.RenderTilePool;
+import vazkii.botania.client.render.tile.RenderTilePylon;
 import vazkii.botania.client.render.tile.RenderTileRuneAltar;
 import vazkii.botania.client.render.tile.RenderTileSpreader;
 import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.block.tile.TilePool;
+import vazkii.botania.common.block.tile.TilePylon;
 import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.block.tile.TileSpreader;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
@@ -82,6 +84,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileSpreader.class, new RenderTileSpreader());
 		ClientRegistry.bindTileEntitySpecialRenderer(TilePool.class, new RenderTilePool());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileRuneAltar.class, new RenderTileRuneAltar());
+		ClientRegistry.bindTileEntitySpecialRenderer(TilePylon.class, new RenderTilePylon());
 	}
 
 	@Override

@@ -22,5 +22,6 @@ public final class LibBlockIDs {
 	public static int idPool = 1961;
 	public static int idRuneAltar = 1962;
 	public static int idUnstableBlock = 1963;
+	public static int idPylon = 1964;
 
 }
