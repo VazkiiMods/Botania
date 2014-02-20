@@ -25,6 +25,7 @@ public final class LibBlockNames {
 	public static final String RUNE_ALTAR = LibResources.PREFIX_MOD + "runeAltar";
 	public static final String UNSTABLE_BLOCK = LibResources.PREFIX_MOD + "unstableBlock";
 	public static final String PYLON = LibResources.PREFIX_MOD + "pylon";
+	public static final String PISTON_RELAY = LibResources.PREFIX_MOD + "pistonRelay";
 
 	public static final String SPECIAL_FLOWER_PREFIX = FLOWER + ".";
 
