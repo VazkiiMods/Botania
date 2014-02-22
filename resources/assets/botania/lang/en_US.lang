@@ -69,6 +69,7 @@ tile.botania:unstableBlock12.name=Brown Unstable Cube
 tile.botania:unstableBlock13.name=Green Unstable Cube
 tile.botania:unstableBlock14.name=Red Unstable Cube
 tile.botania:unstableBlock15.name=Black Unstable Cube
+tile.botania:pistonRelay.name=Force Relay
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower

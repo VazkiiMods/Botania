@@ -48,6 +48,11 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 	}
 	
 	@Override
+	public boolean isOpaqueCube() {
+		return false;
+	}
+	
+	@Override
 	public void breakBlock(World par1World, int par2, int par3, int par4, int par5, int par6) {
 		mapCoords(par1World.provider.dimensionId, par2, par3, par4, 2);
 	}
@@ -97,6 +102,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 	@Override
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
 		InternalTickHandler.playerPositions.put(player.username, getCoordsAsString(world.provider.dimensionId, x, y, z));
+		// TODO Add drops
 		return true;
 	}
 	
