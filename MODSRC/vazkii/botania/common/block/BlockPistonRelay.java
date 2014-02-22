@@ -12,6 +12,7 @@
 package vazkii.botania.common.block;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -54,6 +55,11 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 	
 	@Override
 	public int idDropped(int par1, Random par2Random, int par3) {
+		return 0;
+	}
+	
+	@Override
+	public int quantityDropped(int meta, int fortune, Random random) {
 		return 0;
 	}
 	
@@ -111,8 +117,15 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 
 	@Override
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
-		InternalTickHandler.playerPositions.put(player.username, getCoordsAsString(world.provider.dimensionId, x, y, z));
-		// TODO Add drops
+		if(!player.isSneaking())
+			InternalTickHandler.playerPositions.put(player.username, getCoordsAsString(world.provider.dimensionId, x, y, z));
+		else {
+			dropBlockAsItem_do(world, x, y, z, new ItemStack(this));
+			world.setBlockToAir(x, y, z);
+			if(!world.isRemote)
+				world.playAuxSFX(2001, x, y , z, blockID);
+		}
+		
 		return true;
 	}
 	
