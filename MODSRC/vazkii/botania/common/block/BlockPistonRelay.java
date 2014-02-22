@@ -12,6 +12,7 @@
 package vazkii.botania.common.block;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
@@ -22,10 +23,17 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagString;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldSavedData;
 import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.ForgeSubscribe;
+import net.minecraftforge.event.world.WorldEvent;
 import vazkii.botania.api.IWandable;
 import vazkii.botania.common.lib.LibBlockIDs;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -39,7 +47,9 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 	public BlockPistonRelay() {
 		super(LibBlockIDs.idPistonRelay, Material.pumpkin);
 		setUnlocalizedName(LibBlockNames.PISTON_RELAY);
+		
 		TickRegistry.registerTickHandler(new InternalTickHandler(), Side.SERVER);
+		MinecraftForge.EVENT_BUS.register(this);
 	}
 	
 	@Override
@@ -106,6 +116,52 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 		return true;
 	}
 	
+	@ForgeSubscribe
+	public void onWorldLoad(WorldEvent.Load event) {
+		WorldData.get(event.world);
+	}
+	
+	public static class WorldData extends WorldSavedData {
+
+		private static final String ID = "PistonRelayPairs";
+		
+		public WorldData(String id) {
+			super(id);
+		}
+		
+		@Override
+		public void readFromNBT(NBTTagCompound nbttagcompound) {
+			InternalTickHandler.mappedPositions.clear();
+			
+			Collection<NBTBase> tags = nbttagcompound.getTags();
+			for(NBTBase tag : tags) {
+				if(tag instanceof NBTTagString) {
+					String key = tag.getName();
+					String value = ((NBTTagString) tag).data;
+					
+					InternalTickHandler.mappedPositions.put(key, value);
+				}
+			}
+		}
+		
+		@Override
+		public void writeToNBT(NBTTagCompound nbttagcompound) {
+			for(String s : InternalTickHandler.mappedPositions.keySet())
+				nbttagcompound.setString(s, InternalTickHandler.mappedPositions.get(s));
+		}
+		
+		public static WorldData get(World world) {
+			WorldData data = (WorldData) world.mapStorage.loadData(WorldData.class, ID);
+            
+            if (data == null) {
+                    data = new WorldData(ID);
+                    data.markDirty();
+                    world.mapStorage.setData(ID, data);
+            }
+            return data;
+    }
+	}
+	
 	public static class InternalTickHandler implements ITickHandler {
 
 		public static Map<String, String> playerPositions = new HashMap();
@@ -164,6 +220,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 							pos = mappedPositions.get(s);
 							mappedPositions.remove(s);
 							mappedPositions.put(newPos, pos);
+							WorldData.get(world).markDirty();
 						}
 					}
 				}

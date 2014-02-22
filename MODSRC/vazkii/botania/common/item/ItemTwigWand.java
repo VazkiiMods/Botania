@@ -28,6 +28,7 @@ import vazkii.botania.api.IWandable;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockPistonRelay;
+import vazkii.botania.common.block.BlockPistonRelay.WorldData;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemIDs;
 import vazkii.botania.common.lib.LibItemNames;
@@ -56,6 +57,7 @@ public class ItemTwigWand extends Item16Colors {
 			
 			BlockPistonRelay.InternalTickHandler.playerPositions.remove(par2EntityPlayer.username);
 			BlockPistonRelay.InternalTickHandler.mappedPositions.put(bindPos, currentPos);
+			BlockPistonRelay.WorldData.get(par3World).markDirty();
 		}
 			
 		return false;
