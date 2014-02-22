@@ -48,6 +48,9 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 	public BlockPistonRelay() {
 		super(LibBlockIDs.idPistonRelay, Material.pumpkin);
 		setUnlocalizedName(LibBlockNames.PISTON_RELAY);
+		setHardness(2F);
+		setResistance(10F);
+		setStepSound(soundMetalFootstep);
 		
 		TickRegistry.registerTickHandler(new InternalTickHandler(), Side.SERVER);
 		MinecraftForge.EVENT_BUS.register(this);
