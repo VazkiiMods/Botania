@@ -34,8 +34,8 @@ public class ModelPylon extends ModelBase {
 	ModelRenderer outside8;
 
 	public ModelPylon() {
-		textureWidth = 256;
-		textureHeight = 128;
+		textureWidth = 64;
+		textureHeight = 32;
 
 		crystal1 = new ModelRenderer(this, 0, 0);
 		crystal1.addBox(-1.5F, -7F, -1F, 3, 7, 2);
