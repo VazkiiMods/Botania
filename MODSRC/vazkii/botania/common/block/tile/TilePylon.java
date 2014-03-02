@@ -30,14 +30,21 @@ public class TilePylon extends TileEntity {
 			if(id == ModBlocks.flower.blockID) {
 				int meta = worldObj.getBlockMetadata(xCoord, yCoord - 1, zCoord);
 				float[] color = EntitySheep.fleeceColorTable[meta];
+				
+				if(worldObj.rand.nextInt(4) == 0)
+					Botania.proxy.sparkleFX(worldObj, centerBlock.x + (Math.random() - 0.5) * 0.5, centerBlock.y, centerBlock.z + (Math.random() - 0.5) * 0.5, color[0], color[1], color[2], (float) Math.random(), 8);
+				
 				Botania.proxy.wispFX(worldObj, xCoord + 0.5 + (Math.random() - 0.5) * 0.25, yCoord - 0.5, zCoord + 0.5 + (Math.random() - 0.5) * 0.25, color[0], color[1], color[2], (float) Math.random() / 3F, -0.04F);
-			
+				Botania.proxy.wispFX(worldObj, xCoord + 0.5 + (Math.random() - 0.5) * 0.125, yCoord + 1.5, zCoord + 0.5 + (Math.random() - 0.5) * 0.125, color[0], color[1], color[2], (float) Math.random() / 5F, -0.001F);
+
 				Vector3 ourCoords = Vector3.fromTileEntityCenter(this).add(0, 1 + (Math.random() - 0.5 * 0.25), 0);
 				Vector3 movementVector = centerBlock.sub(ourCoords).normalize().multiply(0.2);
 				Botania.proxy.wispFX(worldObj, xCoord + 0.5 + (Math.random() - 0.5) * 0.25, yCoord + 1.5, zCoord + 0.5 + (Math.random() - 0.5) * 0.25, color[0], color[1], color[2], (float) Math.random() / 8F, (float) movementVector.x, (float) movementVector.y, (float) movementVector.z);
-
 			}
 		}
+		
+		if(worldObj.rand.nextBoolean() && worldObj.isRemote)
+			Botania.proxy.sparkleFX(worldObj, xCoord + Math.random(), yCoord + Math.random() * 1.5, zCoord + Math.random(), 0.5F, 0.5F, 1F, (float) Math.random(), 2);
 	}
 	
 }
