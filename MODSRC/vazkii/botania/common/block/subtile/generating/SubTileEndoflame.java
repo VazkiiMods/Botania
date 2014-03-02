@@ -61,11 +61,8 @@ public class SubTileEndoflame extends SubTileGenerating {
 					PacketDispatcher.sendPacketToAllInDimension(supertile.getDescriptionPacket(), supertile.worldObj.provider.dimensionId);
 			}
 		} else {
-			Botania.proxy.wispFX(supertile.worldObj, supertile.xCoord + 0.8, supertile.yCoord + 0.5, supertile.zCoord + 0.8, 0.7F, 0.05F, 0.05F, (float) Math.random() / 6, (float) -Math.random() / 60);
-			Botania.proxy.wispFX(supertile.worldObj, supertile.xCoord + 0.8, supertile.yCoord + 0.5, supertile.zCoord + 0.2, 0.7F, 0.05F, 0.05F, (float) Math.random() / 6, (float) -Math.random() / 60);
-			Botania.proxy.wispFX(supertile.worldObj, supertile.xCoord + 0.2, supertile.yCoord + 0.5, supertile.zCoord + 0.2, 0.7F, 0.05F, 0.05F, (float) Math.random() / 6, (float) -Math.random() / 60);
-			Botania.proxy.wispFX(supertile.worldObj, supertile.xCoord + 0.2, supertile.yCoord + 0.5, supertile.zCoord + 0.8, 0.7F, 0.05F, 0.05F, (float) Math.random() / 6, (float) -Math.random() / 60);
-
+			if(supertile.worldObj.rand.nextInt(8) == 0)
+				Botania.proxy.wispFX(supertile.worldObj, supertile.xCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.yCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.zCoord + 0.5, 0.7F, 0.05F, 0.05F, (float) Math.random() / 6, (float) -Math.random() / 60);
 			burnTime--;
 		}
 	}
