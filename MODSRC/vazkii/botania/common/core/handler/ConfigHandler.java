@@ -25,6 +25,7 @@ public final class ConfigHandler {
 	private static Configuration config;
 
 	public static boolean lexiconRotatingItems = true;
+	public static boolean subtlePowerSystem = false;
 
 	public static void loadConfig(File configFile) {
 		config = new Configuration(configFile);
@@ -34,6 +35,10 @@ public final class ConfigHandler {
 		Property lexiconRotatingItemsProp = config.get(Configuration.CATEGORY_GENERAL, "lexicon.enable.rotatingItems", true);
 		lexiconRotatingItemsProp.comment = "Set to false to disable the rotating items in the petal and rune entries in the Lexica Botania.";
 		lexiconRotatingItems = lexiconRotatingItemsProp.getBoolean(true);
+		
+		Property subtlePowerSystemProp = config.get(Configuration.CATEGORY_GENERAL, "powerSystem.system", false);
+		subtlePowerSystemProp.comment = "Set to true to set the power system's particles to be a lot more subtle. Good for low-end systems, if the particles are causing lag.";
+		subtlePowerSystem = subtlePowerSystemProp.getBoolean(false);
 
 		// Block IDs
 		LibBlockIDs.idFlower = loadBlock(LibBlockNames.FLOWER, LibBlockIDs.idFlower);

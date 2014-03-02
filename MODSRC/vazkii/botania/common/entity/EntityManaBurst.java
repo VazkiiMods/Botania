@@ -34,6 +34,7 @@ import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileSpreader;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
@@ -280,22 +281,27 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			if(!noParticles)
 				Botania.proxy.sparkleFX(worldObj, posX, posY, posZ, r, g, b, 0.4F * size, 1, true);
 		} else {
-			posX += motionX;
-			posY += motionY;
-			posZ += motionZ;
+			if(ConfigHandler.subtlePowerSystem)
+				for(int i = 0; i < 1; i++)
+					Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.1F * size, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.01F);
+			else {
+				posX += motionX;
+				posY += motionY;
+				posZ += motionZ;
 
-			Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.2F * size, (float) -motionX * 0.01F, (float) -motionY * 0.01F, (float) -motionZ * 0.01F);
-			Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.1F * size, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F);
+				Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.2F * size, (float) -motionX * 0.01F, (float) -motionY * 0.01F, (float) -motionZ * 0.01F);
+				Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.1F * size, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F);
 
-			posX -= motionX / 2.0;
-			posY -= motionY / 2.0;
-			posZ -= motionZ / 2.0;
+				posX -= motionX / 2.0;
+				posY -= motionY / 2.0;
+				posZ -= motionZ / 2.0;
 
-			Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.2F * size, (float) -motionX * 0.01F, (float) -motionY * 0.01F, (float) -motionZ * 0.01F);
+				Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.2F * size, (float) -motionX * 0.01F, (float) -motionY * 0.01F, (float) -motionZ * 0.01F);
 
-			posX -= motionX / 2.0;
-			posY -= motionY / 2.0;
-			posZ -= motionZ / 2.0;
+				posX -= motionX / 2.0;
+				posY -= motionY / 2.0;
+				posZ -= motionZ / 2.0;
+			}
 		}
 	}
 
@@ -330,7 +336,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		if(collided && !hasAlreadyCollidedAt(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ))
 			alreadyCollidedAt.add(getCollisionLocString(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ));
 
-		if(dead) {
+		if(dead && !isDead) {
 			if(!fake) {
 				Color color = new Color(getColor());
 				float r = color.getRed() / 255F;
@@ -341,9 +347,10 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 				int maxMana = getStartingMana();
 				float size = (float) mana / (float) maxMana;
 
-				for(int i = 0; i < 12; i++)
-					Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.15F * size, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F);
-				Botania.proxy.sparkleFX(worldObj, (float) posX, (float) posY, (float) posZ, r, g, b, 3, 2);
+				if(!ConfigHandler.subtlePowerSystem)
+					for(int i = 0; i < 4; i++)
+						Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.15F * size, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F);
+				Botania.proxy.sparkleFX(worldObj, (float) posX, (float) posY, (float) posZ, r, g, b, 4, 2);
 			}
 
 			setDead();

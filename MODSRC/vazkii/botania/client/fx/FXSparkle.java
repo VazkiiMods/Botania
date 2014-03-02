@@ -126,7 +126,7 @@ public class FXSparkle extends EntityFX
 		if (particleAge++ >= particleMaxAge)
 			setDead();
 		motionY -= 0.040000000000000001D * particleGravity;
-		if (noClip==false) pushOutOfBlocks(posX, (boundingBox.minY + boundingBox.maxY) / 2.0D, posZ);
+		if (!noClip && !fake) pushOutOfBlocks(posX, (boundingBox.minY + boundingBox.maxY) / 2.0D, posZ);
 		//     moveEntity(motionX, motionY, motionZ);
 		posX+=motionX;
 		posY+=motionY;
