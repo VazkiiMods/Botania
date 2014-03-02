@@ -346,6 +346,11 @@ botania.page.endoflame0=While the &1Daybloom&0 is all well and good, a botanist 
 botania.page.endoflame1=&oNot nitor&r.
 
 # - MAGICAL APPARATUS
+# -- FORCE RELAY
+botania.entry.pistonRelay=Force Relay
+botania.page.pistonRelay0=It seems that infusing &1Pistons&0 with &4Mana&0 results in some interesting adverse effects.<br>This block tears the fabric of space, relaying any piston force applied to it to the block it's bound to.
+botania.page.pistonRelay1=To bind it to a block, right click it with a &1Wand of the Forest&0, and right click on the block you want to bind it to.<br>Furthermore, this block is highly unstable, and may create uncanny effects, care is to be taken, it is also resistant to glue.
+botania.page.pistonRelay2=Infusing a &1Piston&0 with &4Mana&0.
 
 # - MYSTICAL INSTRUMENTS
 

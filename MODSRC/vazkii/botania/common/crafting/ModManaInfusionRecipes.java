@@ -14,10 +14,12 @@ package vazkii.botania.common.crafting;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibOreDict;
 
@@ -27,6 +29,7 @@ public final class ModManaInfusionRecipes {
 	public static RecipeManaInfusion manasteelRecipe;
 	public static RecipeManaInfusion manaPearlRecipe;
 	public static RecipeManaInfusion manaDiamondRecipe;
+	public static RecipeManaInfusion pistonRelayRecipe;
 
 	public static void init() {
 		manaPetalRecipes = new ArrayList();
@@ -36,7 +39,7 @@ public final class ModManaInfusionRecipes {
 		manasteelRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 0), "ingotIron", 3000);
 		manaPearlRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 1), new ItemStack(Item.enderPearl), 6000);
 		manaDiamondRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 2), "gemDiamond", 10000);
-
+		pistonRelayRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.pistonRelay), new ItemStack(Block.pistonBase), 15000);
 	}
 
 }
