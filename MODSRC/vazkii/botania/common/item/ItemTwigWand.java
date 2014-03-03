@@ -28,7 +28,6 @@ import vazkii.botania.api.IWandable;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockPistonRelay;
-import vazkii.botania.common.block.BlockPistonRelay.WorldData;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemIDs;
 import vazkii.botania.common.lib.LibItemNames;
@@ -40,7 +39,6 @@ public class ItemTwigWand extends Item16Colors {
 	private static final String TAG_COLOR1 = "color1";
 	private static final String TAG_COLOR2 = "color2";
 
-
 	public ItemTwigWand() {
 		super(LibItemIDs.idTwigWand, LibItemNames.TWIG_WAND);
 		setMaxStackSize(1);
@@ -49,20 +47,24 @@ public class ItemTwigWand extends Item16Colors {
 	@Override
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
 		int id = par3World.getBlockId(par4, par5, par6);
-		if(Block.blocksList[id] instanceof IWandable)
-			return ((IWandable) Block.blocksList[id]).onUsedByWand(par2EntityPlayer, par1ItemStack, par3World, par4, par5, par6, par7);
-		else if(BlockPistonRelay.InternalTickHandler.playerPositions.containsKey(par2EntityPlayer.username)) {
+		if(Block.blocksList[id] instanceof IWandable) {
+			boolean wanded = ((IWandable) Block.blocksList[id]).onUsedByWand(par2EntityPlayer, par1ItemStack, par3World, par4, par5, par6, par7); 
+			if(wanded && par3World.isRemote)
+				par2EntityPlayer.swingItem();
+			return wanded;
+
+		} else if(BlockPistonRelay.InternalTickHandler.playerPositions.containsKey(par2EntityPlayer.username)) {
 			String bindPos = BlockPistonRelay.InternalTickHandler.playerPositions.get(par2EntityPlayer.username);
 			String currentPos = BlockPistonRelay.getCoordsAsString(par3World.provider.dimensionId, par4, par5, par6);
-			
+
 			BlockPistonRelay.InternalTickHandler.playerPositions.remove(par2EntityPlayer.username);
 			BlockPistonRelay.InternalTickHandler.mappedPositions.put(bindPos, currentPos);
 			BlockPistonRelay.WorldData.get(par3World).markDirty();
 		}
-			
+
 		return false;
 	}
-	
+
 	@Override
 	public boolean isFull3D() {
 		return true;
