@@ -44,7 +44,7 @@ public class EntitySignalFlare extends Entity {
 				playSound("random.fuse", 1F, 1F);
 			
 			int color = getColor();
-			if(color < 16) {
+			if(color < 16 && color >= 0) {
 				float[] colorArray = EntitySheep.fleeceColorTable[color];
 
 				Botania.proxy.setWispFXDistanceLimit(false);
