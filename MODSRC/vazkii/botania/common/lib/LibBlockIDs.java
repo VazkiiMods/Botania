@@ -24,5 +24,6 @@ public final class LibBlockIDs {
 	public static int idUnstableBlock = 1963;
 	public static int idPylon = 1964;
 	public static int idPistonRelay = 1965;
+	public static int idDistributor = 1966;
 
 }

@@ -57,9 +57,10 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.pylon);
 		addBlock(ModBlocks.unstableBlock);
 
+		addBlock(ModBlocks.pool);
+		addBlock(ModBlocks.distributor);
 		addBlock(ModBlocks.spreader);
 		addItem(ModItems.lens);
-		addBlock(ModBlocks.pool);
 	}
 
 	private void addItem(Item item) {

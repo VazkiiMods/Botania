@@ -44,6 +44,7 @@ public final class ModBlocks {
 	public static Block unstableBlock;
 	public static Block pylon;
 	public static Block pistonRelay;
+	public static Block distributor;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -57,6 +58,7 @@ public final class ModBlocks {
 		unstableBlock = new BlockUnstable();
 		pylon = new BlockPylon();
 		pistonRelay = new BlockPistonRelay();
+		distributor = new BlockDistributor();
 
 		for(int i = 0; i < 16; i++)
 			OreDictionary.registerOre(LibOreDict.FLOWER[i], new ItemStack(flower.blockID, 1, i));

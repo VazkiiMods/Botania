@@ -52,6 +52,7 @@ public final class ConfigHandler {
 		LibBlockIDs.idUnstableBlock = loadBlock(LibBlockNames.UNSTABLE_BLOCK, LibBlockIDs.idUnstableBlock);
 		LibBlockIDs.idPylon = loadBlock(LibBlockNames.PYLON, LibBlockIDs.idPylon);
 		LibBlockIDs.idPistonRelay = loadBlock(LibBlockNames.PISTON_RELAY, LibBlockIDs.idPistonRelay);
+		LibBlockIDs.idDistributor = loadBlock(LibBlockNames.DISTRIBUTOR, LibBlockIDs.idDistributor);
 
 		// Item IDs
 		LibItemIDs.idLexicon = loadItem(LibItemNames.LEXICON, LibItemIDs.idLexicon);
