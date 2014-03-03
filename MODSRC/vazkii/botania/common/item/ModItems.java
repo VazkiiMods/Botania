@@ -27,6 +27,7 @@ public final class ModItems {
 	public static Item lens;
 	public static Item manaPetal;
 	public static Item rune;
+	public static Item signalFlare;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -38,6 +39,7 @@ public final class ModItems {
 		lens = new ItemLens();
 		manaPetal = new ItemManaPetal();
 		rune = new ItemRune();
+		signalFlare = new ItemSignalFlare();
 
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {

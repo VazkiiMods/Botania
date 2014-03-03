@@ -18,7 +18,9 @@ import cpw.mods.fml.common.registry.EntityRegistry;
 public final class ModEntities {
 
 	public static void init() {
-		EntityRegistry.registerModEntity(EntityManaBurst.class, LibEntityNames.MANA_BURST, 0, Botania.instance, 64, 10, true);
+		int id = 0;
+		EntityRegistry.registerModEntity(EntityManaBurst.class, LibEntityNames.MANA_BURST, id++, Botania.instance, 64, 10, true);
+		EntityRegistry.registerModEntity(EntitySignalFlare.class, LibEntityNames.MANA_BURST, id++, Botania.instance, 256, 10, false);
 	}
 
 }
