@@ -376,7 +376,7 @@ botania.page.gIntro2=It is important to keep in mind that these flowers memorize
 
 # -- DAYBLOOM
 botania.entry.daybloom=Daybloom
-botania.page.daybloom0=The &1Daybloom&0 is the most basic and rudimentary &4Generating Flower&0. Simply put, it preforms a modified photosythesis process, in order to transform sunlight into &4Mana&0.
+botania.page.daybloom0=The &1Daybloom&0 is the most basic and rudimentary &4Generating Flower&0. Simply put, it preforms a modified photosythesis process, in order to transform sunlight into &4Mana&0.<br>The process is rather slow, you think half a dozen to ten of these should get the job done, for now.
 botania.page.daybloom1=&oStarting up a brand new day&r.
 
 # -- ENDOFLAME
