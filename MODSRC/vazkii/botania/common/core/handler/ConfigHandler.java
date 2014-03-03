@@ -53,6 +53,7 @@ public final class ConfigHandler {
 		LibBlockIDs.idPylon = loadBlock(LibBlockNames.PYLON, LibBlockIDs.idPylon);
 		LibBlockIDs.idPistonRelay = loadBlock(LibBlockNames.PISTON_RELAY, LibBlockIDs.idPistonRelay);
 		LibBlockIDs.idDistributor = loadBlock(LibBlockNames.DISTRIBUTOR, LibBlockIDs.idDistributor);
+		LibBlockIDs.idManaBeacon = loadBlock(LibBlockNames.MANA_BEACON, LibBlockIDs.idManaBeacon);
 
 		// Item IDs
 		LibItemIDs.idLexicon = loadItem(LibItemNames.LEXICON, LibItemIDs.idLexicon);

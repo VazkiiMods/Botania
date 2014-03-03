@@ -25,5 +25,6 @@ public final class LibBlockIDs {
 	public static int idPylon = 1964;
 	public static int idPistonRelay = 1965;
 	public static int idDistributor = 1966;
+	public static int idManaBeacon = 1967;
 
 }

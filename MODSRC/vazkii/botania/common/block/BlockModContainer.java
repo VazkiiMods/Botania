@@ -33,9 +33,15 @@ public abstract class BlockModContainer<T extends TileEntity> extends BlockConta
 
 	@Override
 	public Block setUnlocalizedName(String par1Str) {
-		GameRegistry.registerBlock(this, par1Str);
+		if(shouldRegisterInNameSet())
+			GameRegistry.registerBlock(this, par1Str);
 		return super.setUnlocalizedName(par1Str);
 	}
+
+	protected boolean shouldRegisterInNameSet() {
+		return true;
+	}
+
 
 	@Override
 	@SideOnly(Side.CLIENT)

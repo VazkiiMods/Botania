@@ -27,6 +27,7 @@ public final class LibBlockNames {
 	public static final String PYLON = LibResources.PREFIX_MOD + "pylon";
 	public static final String PISTON_RELAY = LibResources.PREFIX_MOD + "pistonRelay";
 	public static final String DISTRIBUTOR = LibResources.PREFIX_MOD + "distributor";
+	public static final String MANA_BEACON = LibResources.PREFIX_MOD + "manaBeacon";
 
 	public static final String SPECIAL_FLOWER_PREFIX = FLOWER + ".";
 

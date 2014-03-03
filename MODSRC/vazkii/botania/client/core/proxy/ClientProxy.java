@@ -115,13 +115,20 @@ public class ClientProxy extends CommonProxy {
 		Minecraft.getMinecraft().effectRenderer.addEffect(sparkle);
 	}
 
+	private static boolean distanceLimit = true;
+	
+	@Override
+	public void setWispFXDistanceLimit(boolean limit) {
+		distanceLimit = limit;
+	}
+	
 	@Override
 	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size, float motionx, float motiony, float motionz) {
-		FXWisp wisp = new FXWisp(world, x, y, z, size, r, g, b);
+		FXWisp wisp = new FXWisp(world, x, y, z, size, r, g, b, distanceLimit);
 		wisp.motionX = motionx;
 		wisp.motionY = motiony;
 		wisp.motionZ = motionz;
-
+		
 		Minecraft.getMinecraft().effectRenderer.addEffect(wisp);
 	}
 

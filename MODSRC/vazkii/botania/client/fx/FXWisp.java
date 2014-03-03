@@ -29,14 +29,7 @@ public class FXWisp extends EntityFX
 
 	public static final ResourceLocation particles = new ResourceLocation(LibResources.MISC_WISP_LARGE);
 
-
-	public FXWisp(World world, double d, double d1, double d2,  float f, float f1, float f2)
-	{
-		this(world, d, d1, d2, 1.0F, f, f1, f2);
-
-	}
-
-	public FXWisp(World world, double d, double d1, double d2,  float size, float red, float green, float blue)
+	public FXWisp(World world, double d, double d1, double d2,  float size, float red, float green, float blue, boolean distanceLimit)
 	{
 		super(world, d, d1, d2, 0.0D, 0.0D, 0.0D);
 		particleRed = red;
@@ -52,92 +45,18 @@ public class FXWisp extends EntityFX
 		noClip = true;
 		setSize(0.01F, 0.01F);
 		EntityLivingBase renderentity = FMLClientHandler.instance().getClient().renderViewEntity;
-		int visibleDistance = 50;
-		if (!FMLClientHandler.instance().getClient().gameSettings.fancyGraphics) visibleDistance=25;
-		if (renderentity == null || renderentity.getDistance(posX, posY, posZ)>visibleDistance) particleMaxAge=0;
+		
+		if(distanceLimit) {
+			int visibleDistance = 50;
+			if (!FMLClientHandler.instance().getClient().gameSettings.fancyGraphics) visibleDistance=25;
+			if (renderentity == null || renderentity.getDistance(posX, posY, posZ)>visibleDistance) particleMaxAge=0;
+		}
+		
 		prevPosX = posX;
 		prevPosY = posY;
 		prevPosZ = posZ;
 	}
 
-
-	public FXWisp(World world, double d, double d1, double d2, float f, int type)
-	{
-		this(world, d, d1, d2, f, 0f, 0f, 0f);
-
-		switch (type) {
-		case 0:
-			particleRed=.75f + world.rand.nextFloat()*.25f;
-			particleGreen=.25f + world.rand.nextFloat()*.25f;
-			particleBlue=.75f + world.rand.nextFloat()*.25f;
-			break;
-		case 1:
-			particleRed=.5f + world.rand.nextFloat()*.3f;
-			particleGreen=.5f + world.rand.nextFloat()*.3f;
-			particleBlue=.2f;
-			break;
-		case 2:
-			particleRed=.2f;
-			particleGreen=.2f;
-			particleBlue=.7f + world.rand.nextFloat()*.3f;
-			break;
-		case 3:
-			particleRed=.2f;
-			particleGreen=.7f + world.rand.nextFloat()*.3f;
-			particleBlue=.2f;
-			break;
-		case 4:
-			particleRed=.7f + world.rand.nextFloat()*.3f;
-			particleGreen=.2f;
-			particleBlue=.2f;
-			break;
-		case 5:
-			blendmode=771;
-			particleRed= world.rand.nextFloat()*.1f;
-			particleGreen= world.rand.nextFloat()*.1f;
-			particleBlue= world.rand.nextFloat()*.1f;
-			break;
-		case 6:
-			particleRed= .8f+world.rand.nextFloat()*.2f;
-			particleGreen= .8f+world.rand.nextFloat()*.2f;
-			particleBlue= .8f+world.rand.nextFloat()*.2f;
-			break;
-		case 7:
-			particleRed=.7f + world.rand.nextFloat()*.3f;
-			particleGreen=.5f + world.rand.nextFloat()*.2f;
-			particleBlue=.3f + world.rand.nextFloat()*.1f;
-			break;
-		}
-
-	}
-
-	public FXWisp(World world, double d, double d1, double d2, double x, double y, double z, float f, int type)
-	{
-		this(world, d, d1, d2, f, type);
-		if (particleMaxAge>0) {
-			double dx = x - posX;
-			double dy = y - posY;
-			double dz = z - posZ;
-
-			motionX = dx / particleMaxAge;
-			motionY = dy / particleMaxAge;
-			motionZ = dz / particleMaxAge;
-		}
-
-	}
-
-	public FXWisp(World world, double d, double d1, double d2, double x, double y, double z, float f, float red, float green, float blue) {
-		this(world, d, d1, d2, f, red,green,blue);
-		if (particleMaxAge>0) {
-			double dx = x - posX;
-			double dy = y - posY;
-			double dz = z - posZ;
-
-			motionX = dx / particleMaxAge;
-			motionY = dy / particleMaxAge;
-			motionZ = dz / particleMaxAge;
-		}
-	}
 
 	@Override
 	public void renderParticle(Tessellator tessellator, float f, float f1, float f2, float f3, float f4, float f5) {
@@ -207,6 +126,7 @@ public class FXWisp extends EntityFX
 		particleGravity = value;
 	}
 
+	public boolean distanceLimit = true;
 	public boolean shrink = false;
 	float moteParticleScale;
 	int moteHalfLife;
