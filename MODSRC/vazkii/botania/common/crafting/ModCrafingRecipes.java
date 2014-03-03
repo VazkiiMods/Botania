@@ -50,6 +50,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeLensBore;
 	public static IRecipe recipeLensDamaging;
 	public static List<IRecipe> recipesUnstableBlocks;
+	public static IRecipe recipePylon;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -174,6 +175,14 @@ public final class ModCrafingRecipes {
 					'P', LibOreDict.PETAL[i],
 					'M', new ItemStack(Item.enderPearl));
 		recipesUnstableBlocks = BotaniaAPI.getLatestAddedRecipes(16);
+		
+		// Mana Pylon Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.pylon), 
+				" G ", "MDM", " G ",
+				'G', "ingotGold",
+				'M', LibOreDict.MANA_STEEL,
+				'D', LibOreDict.MANA_DIAMOND);
+		recipePylon = BotaniaAPI.getLatestAddedRecipe();
 	}
 
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {

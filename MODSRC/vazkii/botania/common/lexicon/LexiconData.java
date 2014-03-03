@@ -66,6 +66,7 @@ public final class LexiconData {
 	public static LexiconEntry endoflame;
 	
 	public static LexiconEntry pistonRelay;
+	public static LexiconEntry pylon;
 
 	public static LexiconEntry unstableBlocks;
 
@@ -159,6 +160,9 @@ public final class LexiconData {
 		// DEVICES ENTRIES
 		pistonRelay = new BLexiconEntry(LibLexicon.DEVICE_PISTON_RELAY, categoryDevices);
 		pistonRelay.setLexiconPages(new PageText("0"), new PageText("1"), new PageManaInfusionRecipe("2", ModManaInfusionRecipes.pistonRelayRecipe));
+		
+		pylon = new BLexiconEntry(LibLexicon.DEVICE_PYLON, categoryDevices);
+		pylon.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipePylon));
 		
 		// MISCLENAEOUS ENTRIES
 		unstableBlocks = new BLexiconEntry(LibLexicon.MISC_UNSTABLE_BLOCKS, categoryMisc);

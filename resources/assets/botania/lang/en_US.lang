@@ -79,6 +79,7 @@ tile.botania:unstableBlock14.name=Red Unstable Cube
 tile.botania:unstableBlock15.name=Black Unstable Cube
 tile.botania:pistonRelay.name=Force Relay
 tile.botania:distributor.name=Mana Distributor
+tile.botania:pylon.name=Mana Pylon
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
@@ -360,6 +361,11 @@ botania.entry.pistonRelay=Force Relay
 botania.page.pistonRelay0=It seems that infusing &1Pistons&0 with &4Mana&0 results in some interesting adverse effects.<br>This block tears the fabric of space, relaying any piston force applied to it to the block it's bound to.
 botania.page.pistonRelay1=To bind it to a block, right click it with a &1Wand of the Forest&0, and right click on the block you want to bind it to.<br>Furthermore, this block is highly unstable, and may create uncanny effects, care is to be taken, it is also resistant to glue.
 botania.page.pistonRelay2=Infusing a &1Piston&0 with &4Mana&0.
+
+# -- MANA PYLON
+botania.entry.pylon=Mana Pylon
+botania.page.pylon0=A &1Mana Pylon&0 is a structure that can pull energies from the earth and use them to power enchanting processes.<br>For one, setting one adjanced to an &1Enchanting Table&0 as if it was a &1Bookshelf&0 will drastically increase the power it can convey, just 2 of these are enough for it to reach &4Level 30&0.
+botania.page.pylon1=&oYou must construct additional pylons!&r
 
 # - MYSTICAL INSTRUMENTS
 
