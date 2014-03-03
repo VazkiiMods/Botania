@@ -29,6 +29,7 @@ import vazkii.botania.client.gui.GuiLexiconIndex;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.client.render.block.RenderAltar;
 import vazkii.botania.client.render.block.RenderPool;
+import vazkii.botania.client.render.block.RenderPylon;
 import vazkii.botania.client.render.block.RenderSpecialFlower;
 import vazkii.botania.client.render.block.RenderSpreader;
 import vazkii.botania.client.render.item.RenderLens;
@@ -71,11 +72,13 @@ public class ClientProxy extends CommonProxy {
 		LibRenderIDs.idSpecialFlower = RenderingRegistry.getNextAvailableRenderId();
 		LibRenderIDs.idSpreader = RenderingRegistry.getNextAvailableRenderId();
 		LibRenderIDs.idPool = RenderingRegistry.getNextAvailableRenderId();
+		LibRenderIDs.idPylon = RenderingRegistry.getNextAvailableRenderId();
 
 		RenderingRegistry.registerBlockHandler(new RenderAltar());
 		RenderingRegistry.registerBlockHandler(new RenderSpecialFlower());
 		RenderingRegistry.registerBlockHandler(new RenderSpreader());
 		RenderingRegistry.registerBlockHandler(new RenderPool());
+		RenderingRegistry.registerBlockHandler(new RenderPylon());
 
 		RenderLens lensRender = new RenderLens();
 		MinecraftForgeClient.registerItemRenderer(ModItems.lens.itemID, lensRender);
