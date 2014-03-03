@@ -69,6 +69,7 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 		GL11.glTranslatef(0F, -0.09F, 0F);
 		model.renderCrystal();
 
+		GL11.glEnable(GL11.GL_CULL_FACE);
 		GL11.glPopMatrix();
 		
 		GL11.glScalef(1F, -1.5F, -1F);
