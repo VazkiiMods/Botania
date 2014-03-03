@@ -17,15 +17,20 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
+import net.minecraft.world.World;
+import vazkii.botania.api.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
+import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockIDs;
 import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class BlockLivingrock extends BlockMod {
+public class BlockLivingrock extends BlockMod implements ILexiconable {
 
 	private static final int TYPES = 5; 
 	Icon[] icons;
@@ -65,6 +70,11 @@ public class BlockLivingrock extends BlockMod {
 	@Override
 	public Icon getIcon(int par1, int par2) {
 		return icons[Math.min(TYPES - 1, par2)];
+	}
+
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return LexiconData.pureDaisy;
 	}
 
 }
