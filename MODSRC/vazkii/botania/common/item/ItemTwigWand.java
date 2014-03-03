@@ -60,6 +60,9 @@ public class ItemTwigWand extends Item16Colors {
 			BlockPistonRelay.InternalTickHandler.playerPositions.remove(par2EntityPlayer.username);
 			BlockPistonRelay.InternalTickHandler.mappedPositions.put(bindPos, currentPos);
 			BlockPistonRelay.WorldData.get(par3World).markDirty();
+			
+			if(par3World.isRemote)
+				par2EntityPlayer.swingItem();
 		}
 
 		return false;
