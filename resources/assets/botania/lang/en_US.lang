@@ -380,3 +380,15 @@ botania.entry.unstableBlocks=Unstable Cubes
 botania.page.unstableBlocks0=Fiddling with highly powerful &4Mana&0 infused objects has lead to the creation of these strange cubes. They seem to emit some visual radiation in the form of colorful lightning, but it doesn't seem like it has any effects other than visual appeal.
 botania.page.unstableBlocks1=They look fancy
 botania.page.unstableBlocks2=And they come in all 16 colors
+
+# -- DECORATIVE BLOCKS
+botania.entry.decorativeBlocks=Decorative Blocks
+botania.page.decorativeBlocks0=It's possible to turn blocks of &1Livingrock&0 and &1Livingwood&0 into decorative blocks. Each of them features 4 different decorative variations.<br>If &4ForgeMultipart&0 is enabled, these will work as &4Microblocks&0.
+botania.page.decorativeBlocks1=Livingrock bricks.
+botania.page.decorativeBlocks2=Mossing the bricks
+botania.page.decorativeBlocks3=Cracking the bricks
+botania.page.decorativeBlocks4=Framing the bricks
+botania.page.decorativeBlocks5=Turning wood into planks
+botania.page.decorativeBlocks6=Mossing the planks
+botania.page.decorativeBlocks7=Framing the planks
+botania.page.decorativeBlocks8=Pattern planks

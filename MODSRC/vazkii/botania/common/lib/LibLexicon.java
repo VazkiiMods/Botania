@@ -56,5 +56,6 @@ public final class LibLexicon {
 	public static final String DEVICE_PYLON = "pylon";
 
 	public static final String MISC_UNSTABLE_BLOCKS = "unstableBlocks";
+	public static final String MISC_DECORATIVE_BLOCKS = "decorativeBlocks";
 
 }

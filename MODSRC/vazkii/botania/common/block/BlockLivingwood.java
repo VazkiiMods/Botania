@@ -73,7 +73,8 @@ public class BlockLivingwood extends BlockMod implements ILexiconable {
 	
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
-		return LexiconData.pureDaisy;
+		int meta = world.getBlockMetadata(x, y, z);
+		return meta == 0 ? LexiconData.pureDaisy : LexiconData.decorativeBlocks;
 	}
 
 }

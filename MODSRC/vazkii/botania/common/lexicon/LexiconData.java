@@ -70,6 +70,7 @@ public final class LexiconData {
 	public static LexiconEntry pylon;
 
 	public static LexiconEntry unstableBlocks;
+	public static LexiconEntry decorativeBlocks;
 
 	public static void init() {
 		BotaniaAPI.addCategory(categoryBasics = new LexiconCategory(LibLexicon.CATEGORY_BASICS));
@@ -171,6 +172,9 @@ public final class LexiconData {
 		// MISCLENAEOUS ENTRIES
 		unstableBlocks = new BLexiconEntry(LibLexicon.MISC_UNSTABLE_BLOCKS, categoryMisc);
 		unstableBlocks.setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_UNSTABLE_BLOCK), new PageCraftingRecipe("2", ModCrafingRecipes.recipesUnstableBlocks));
-	}
 
+		decorativeBlocks = new BLexiconEntry(LibLexicon.MISC_DECORATIVE_BLOCKS, categoryMisc);
+		decorativeBlocks.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.livingrockDecorRecipe1), new PageCraftingRecipe("2", ModCrafingRecipes.livingrockDecorRecipe2), new PageCraftingRecipe("3", ModCrafingRecipes.livingrockDecorRecipe3), new PageCraftingRecipe("4", ModCrafingRecipes.livingrockDecorRecipe4),
+				new PageCraftingRecipe("5", ModCrafingRecipes.livingwoodDecorRecipe1), new PageCraftingRecipe("6", ModCrafingRecipes.livingwoodDecorRecipe2), new PageCraftingRecipe("7", ModCrafingRecipes.livingwoodDecorRecipe3), new PageCraftingRecipe("8", ModCrafingRecipes.livingwoodDecorRecipe4));
+	}
 }
