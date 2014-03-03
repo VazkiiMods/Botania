@@ -19,7 +19,7 @@ import vazkii.botania.common.core.helper.Vector3;
 
 public class TilePylon extends TileEntity {
 	
-	boolean activated = true; // TODO
+	boolean activated = false; // TODO
 	
 	@Override
 	public void updateEntity() {
