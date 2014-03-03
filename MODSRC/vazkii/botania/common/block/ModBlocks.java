@@ -30,6 +30,7 @@ import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.block.tile.TileSpreader;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibOreDict;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public final class ModBlocks {
@@ -68,6 +69,7 @@ public final class ModBlocks {
 		OreDictionary.registerOre(LibOreDict.LIVING_WOOD, livingwood);
 
 		initTileEntities();
+		registerMultiparts();
 	}
 
 	private static void initTileEntities() {
@@ -88,4 +90,16 @@ public final class ModBlocks {
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_HEISEI_DREAM, SubTileHeiseiDream.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_TIGERSEYE, SubTileTigerseye.class);
 	}
+	
+	private static void registerMultiparts() {
+		if(Loader.isModLoaded("ForgeMultipart")) {
+			try {
+				Class clazz = Class.forName("vazkii.botania.common.block.multipart.MultipartHandler");
+				clazz.newInstance();
+			} catch(Throwable e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 }

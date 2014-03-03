@@ -20,6 +20,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import vazkii.botania.api.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -70,6 +71,12 @@ public class BlockLivingrock extends BlockMod implements ILexiconable {
 	@Override
 	public Icon getIcon(int par1, int par2) {
 		return icons[Math.min(TYPES - 1, par2)];
+	}
+	
+	@Override
+	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
+		int meta = world.getBlockMetadata(x, y, z);
+		return new ItemStack(blockID, 1, meta);
 	}
 
 	@Override
