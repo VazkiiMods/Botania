@@ -33,6 +33,7 @@ public final class LibLexicon {
 	public static final String MANA_INTRO = "mIntro";
 	public static final String MANA_SPREADER = "spreader";
 	public static final String MANA_POOL = "pool";
+	public static final String MANA_DISTRIBUTOR = "distributor";
 	public static final String MANA_LENS_VELOCITY = "lensVelocity";
 	public static final String MANA_LENS_POTENCY = "lensPotency";
 	public static final String MANA_LENS_RESISTANCE = "lensResistance";

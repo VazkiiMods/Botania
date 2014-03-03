@@ -47,6 +47,7 @@ public final class LexiconData {
 	public static LexiconEntry manaIntro;
 	public static LexiconEntry spreader;
 	public static LexiconEntry pool;
+	public static LexiconEntry distributor;
 	public static LexiconEntry lensVelocity;
 	public static LexiconEntry lensPotency;
 	public static LexiconEntry lensResistance;
@@ -110,6 +111,9 @@ public final class LexiconData {
 		pool = new BLexiconEntry(LibLexicon.MANA_POOL, categoryMana);
 		pool.setPriority().setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipePool), new PageText("2"), new PageManaInfusionRecipe("3", ModManaInfusionRecipes.manasteelRecipe), new PageManaInfusionRecipe("4", ModManaInfusionRecipes.manaPearlRecipe), new PageManaInfusionRecipe("5", ModManaInfusionRecipes.manaDiamondRecipe), new PageManaInfusionRecipe("6", ModManaInfusionRecipes.manaPetalRecipes));
 
+		distributor = new BLexiconEntry(LibLexicon.MANA_DISTRIBUTOR, categoryMana);
+		distributor.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeDistributor));
+		
 		lensVelocity = new BLexiconEntry(LibLexicon.MANA_LENS_VELOCITY, categoryMana);
 		lensVelocity.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLensVelocity));
 

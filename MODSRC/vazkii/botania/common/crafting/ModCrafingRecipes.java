@@ -51,6 +51,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeLensDamaging;
 	public static List<IRecipe> recipesUnstableBlocks;
 	public static IRecipe recipePylon;
+	public static IRecipe recipeDistributor;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -183,6 +184,13 @@ public final class ModCrafingRecipes {
 				'M', LibOreDict.MANA_STEEL,
 				'D', LibOreDict.MANA_DIAMOND);
 		recipePylon = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Mana Distributor
+		addOreDictRecipe(new ItemStack(ModBlocks.distributor), 
+				"RRR", "S S", "RRR",
+				'R', LibOreDict.LIVING_ROCK,
+				'S', LibOreDict.MANA_STEEL);
+		recipeDistributor = BotaniaAPI.getLatestAddedRecipe();
 	}
 
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {

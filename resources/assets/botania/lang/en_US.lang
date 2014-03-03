@@ -276,6 +276,11 @@ botania.page.pool4=Infusing &1Mana Pearls&0
 botania.page.pool5=Infusing &1Mana Diamonds&0
 botania.page.pool6=Infusing &1Mana Petals&0
 
+# -- MANA DISTRIBUTOR
+botania.entry.distributor=Mana Distributor
+botania.page.distributor0=Any botanist will eventually reach a point where a single &1Mana Pool&0 setup is not enough.<br>The &1Mana Distributor&0 will fix all those issues. By placing it adjacently to a few &1Mana Pools&0 on it's sides, when it receives &4Mana&0 through &4Mana Bursts&0 it'll equally spread it to the adjacent pools. 
+botania.page.distributor1=Crafting the distributor
+
 # -- MANA LENS: VELOCITY
 botania.entry.lensVelocity=Mana Lens: Velocity
 botania.page.lensVelocity0=The &1Velocity Lens&0 will drastically increase the speed at which a &4Mana Burst&0 travels, but not only does the beam start to lose it's &4Mana&0 a lot faster, it can also carry a bit less.
