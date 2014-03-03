@@ -58,6 +58,7 @@ public final class LexiconData {
 	public static LexiconEntry lensDamaging;
 
 	public static LexiconEntry functionalIntro;
+	public static LexiconEntry jadedAmaranthus;
 	public static LexiconEntry bellethorne;
 	public static LexiconEntry heiseiDream;
 	public static LexiconEntry tigerseye;
@@ -143,6 +144,9 @@ public final class LexiconData {
 		functionalIntro = new BLexiconEntry(LibLexicon.FFLOWER_INTRO, categoryFunctionalFlowers);
 		functionalIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"));
 
+		jadedAmaranthus = new BLexiconEntry(LibLexicon.FFLOWER_JADED_AMARANTHUS, categoryFunctionalFlowers);
+		jadedAmaranthus.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.jadedAmaranthusRecipe));
+		
 		bellethorne = new BLexiconEntry(LibLexicon.FFLOWER_BELLETHORNE, categoryFunctionalFlowers);
 		bellethorne.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.bellethorneRecipe));
 

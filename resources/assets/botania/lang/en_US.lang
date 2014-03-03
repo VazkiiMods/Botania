@@ -347,6 +347,11 @@ botania.page.fIntro0=There are various places in which the &4Mana&0 a botanist g
 botania.page.fIntro1=All &4Functional Flowers&0, alike the &4Generating Flowers&0 contain a small buffer of &4Mana&0.<br>Standard rules for &4Mana&0 reading apply, right clicking with a &1Wand of the Forest&0 will update the mana readings.
 botania.page.fIntro2=It is important to keep in mind that these flowers memorize the &1Mana Pool&0 from which they should pull &4Mana&0 out of. They'll only pull from the nearest pool present at the time of the flower being placed (or the closest placed afterward, if none was present), and none other, unless that one is removed.
 
+# -- JADED AMARANTHUS
+botania.entry.jadedAmaranthus=Jaded Amaranthus
+botania.page.jadedAmaranthus0=Everyone likes flowers right? The &1Jaded Amaranthus&0 is made just for that purpose.<br>Feeding it with &4Mana&0 from &1Mana Pools&0 will have it quickly grow new &1Mystical Flowers&0 around it, in any spots it can.
+botania.page.jadedAmaranthus1=&oIt was this or clematis.&r
+
 # -- BELLETHRONE
 botania.entry.bellethorne=Bellethorne
 botania.page.bellethorne0=The &1Bellethorne&0 is a malevelous flower. By utilizing &4Mana&0 it slowly inflicts harm in any living beings (save for &4players&0) around it.
