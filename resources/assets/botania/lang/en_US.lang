@@ -80,6 +80,22 @@ tile.botania:unstableBlock15.name=Black Unstable Cube
 tile.botania:pistonRelay.name=Force Relay
 tile.botania:distributor.name=Mana Distributor
 tile.botania:pylon.name=Mana Pylon
+tile.botania:manaBeacon0.name=White Unstable Beacon
+tile.botania:manaBeacon1.name=Orange Unstable Beacon
+tile.botania:manaBeacon2.name=Magenta Unstable Beacon
+tile.botania:manaBeacon3.name=Light Blue Unstable Beacon
+tile.botania:manaBeacon4.name=Yellow Unstable Beacon
+tile.botania:manaBeacon5.name=Lime Unstable Beacon
+tile.botania:manaBeacon6.name=Pink Unstable Beacon
+tile.botania:manaBeacon7.name=Gray Unstable Beacon
+tile.botania:manaBeacon8.name=Light Gray Unstable Beacon
+tile.botania:manaBeacon9.name=Cyan Unstable Beacon
+tile.botania:manaBeacon10.name=Purple Unstable Beacon
+tile.botania:manaBeacon11.name=Blue Unstable Beacon
+tile.botania:manaBeacon12.name=Brown Unstable Beacon
+tile.botania:manaBeacon13.name=Green Unstable Beacon
+tile.botania:manaBeacon14.name=Red Unstable Beacon
+tile.botania:manaBeacon15.name=Black Unstable Beacon
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
@@ -380,6 +396,9 @@ botania.entry.unstableBlocks=Unstable Cubes
 botania.page.unstableBlocks0=Fiddling with highly powerful &4Mana&0 infused objects has lead to the creation of these strange cubes. They seem to emit some visual radiation in the form of colorful lightning, but it doesn't seem like it has any effects other than visual appeal.
 botania.page.unstableBlocks1=They look fancy
 botania.page.unstableBlocks2=And they come in all 16 colors
+botania.page.unstableBlocks3=You also found a way of creating a different version of these that releases an extremely larger amount of energy, this time in the form of a beam towards the sky that extends into a cloud of sorts. This one also seems to be disableable via a &4Redstone Signal&0, you call it &1Unstable Beacon&0, as it looks like one somehow.
+botania.page.unstableBlocks4=Fireworks?
+botania.page.unstableBlocks5=Combined entropy
 
 # -- DECORATIVE BLOCKS
 botania.entry.decorativeBlocks=Decorative Blocks
