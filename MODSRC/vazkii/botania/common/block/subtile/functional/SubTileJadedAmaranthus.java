@@ -11,26 +11,25 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import cpw.mods.fml.common.network.PacketDispatcher;
 import net.minecraft.block.Block;
-import net.minecraft.world.World;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.subtile.SubTileFunctional;
+import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class SubTileJadedAmaranthus extends SubTileFunctional {
 
 	private static final int COST = 100;
 	int cooldown = 0;
-	
+
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		
+
 		if(cooldown > 0) {
 			cooldown--;
 			return;
 		}
-		
+
 		if(mana >= COST && !supertile.worldObj.isRemote) {
 			int range = 4;
 			int x = supertile.xCoord - range + supertile.worldObj.rand.nextInt(range * 2 + 1);
@@ -43,27 +42,27 @@ public class SubTileJadedAmaranthus extends SubTileFunctional {
 					int color = supertile.worldObj.rand.nextInt(16);
 					if(ModBlocks.flower.canBlockStay(supertile.worldObj, x, y + 1, z))
 						supertile.worldObj.setBlock(x, y + 1, z, ModBlocks.flower.blockID, color, 1 | 2);
-					
+
 					mana -= COST;
 					PacketDispatcher.sendPacketToAllInDimension(supertile.getDescriptionPacket(), supertile.worldObj.provider.dimensionId);
 
 					cooldown = 30;
 					break;
 				}
-				
+
 				y--;
 			}
 		}
 	}
-	
+
 	@Override
 	public int getColor() {
 		return 0x961283;
 	}
-	
+
 	@Override
 	public int getMaxMana() {
 		return COST;
 	}
-	
+
 }

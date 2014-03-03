@@ -38,7 +38,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class BlockManaBeacon extends BlockModContainer implements ILexiconable {
 
 	Icon[] icons = new Icon[2];
-	
+
 	public BlockManaBeacon() {
 		super(LibBlockIDs.idManaBeacon, Material.iron);
 		setHardness(5.0F);
@@ -48,13 +48,13 @@ public class BlockManaBeacon extends BlockModContainer implements ILexiconable {
 		setBlockBounds(size, size, size, 1F - size, 1F - size, 1F - size);
 		setUnlocalizedName(LibBlockNames.MANA_BEACON);
 	}
-	
+
 	@Override
 	public void registerIcons(IconRegister par1IconRegister) {
 		for(int i = 0; i < 2; i++)
 			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
 	}
-	
+
 	@Override
 	public Icon getIcon(int par1, int par2) {
 		return icons[par1 == 1 ? 1 : 0];

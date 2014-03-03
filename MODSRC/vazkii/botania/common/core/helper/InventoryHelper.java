@@ -31,7 +31,7 @@ import net.minecraftforge.common.ForgeDirection;
 
 //From OpenBlocksLib: https://github.com/OpenMods/OpenModsLib
 public class InventoryHelper {
-	
+
 	public static void tryInsertStack(IInventory targetInventory, int slot, ItemStack stack, boolean canMerge) {
 		if(targetInventory.isItemValidForSlot(slot, stack)) {
 			ItemStack targetStack = targetInventory.getStackInSlot(slot);
@@ -76,7 +76,7 @@ public class InventoryHelper {
 			targetInventory = new GenericInventory("temporary.inventory", false, targetInventory.getSizeInventory());
 			((GenericInventory)targetInventory).copyFrom(inventory);
 		}
-		
+
 		int i = 0;
 		int[] attemptSlots = new int[0];
 
@@ -114,16 +114,16 @@ public class InventoryHelper {
 		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
 		if(tileEntity instanceof TileEntityChest) {
 			int chestId = world.getBlockId(x, y, z);
-			if(world.getBlockId(x - 1, y, z) == chestId) 
+			if(world.getBlockId(x - 1, y, z) == chestId)
 				return new InventoryLargeChest("Large chest", (IInventory)world.getBlockTileEntity(x - 1, y, z), (IInventory)tileEntity);
-			if(world.getBlockId(x + 1, y, z) == chestId) 
+			if(world.getBlockId(x + 1, y, z) == chestId)
 				return new InventoryLargeChest("Large chest", (IInventory)tileEntity, (IInventory)world.getBlockTileEntity(x + 1, y, z));
-			if(world.getBlockId(x, y, z - 1) == chestId) 
+			if(world.getBlockId(x, y, z - 1) == chestId)
 				return new InventoryLargeChest("Large chest", (IInventory)world.getBlockTileEntity(x, y, z - 1), (IInventory)tileEntity);
-			if(world.getBlockId(x, y, z + 1) == chestId) 
+			if(world.getBlockId(x, y, z + 1) == chestId)
 				return new InventoryLargeChest("Large chest", (IInventory)tileEntity, (IInventory)world.getBlockTileEntity(x, y, z + 1));
 		}
-		return (tileEntity instanceof IInventory)? (IInventory)tileEntity : null;
+		return tileEntity instanceof IInventory? (IInventory)tileEntity : null;
 	}
 
 	public static IInventory getInventory(World world, int x, int y, int z, ForgeDirection direction) {
@@ -153,8 +153,8 @@ public class InventoryHelper {
 
 		public GenericInventory(String name, boolean isInvNameLocalized, int size) {
 			this.isInvNameLocalized = isInvNameLocalized;
-			this.slotsCount = size;
-			this.inventoryTitle = name;
+			slotsCount = size;
+			inventoryTitle = name;
 			inventoryContents = new ItemStack[size];
 		}
 
@@ -171,7 +171,7 @@ public class InventoryHelper {
 					inventoryContents[par1] = null;
 					return itemstack;
 				}
-				
+
 				itemstack = inventoryContents[par1].splitStack(par2);
 				if(inventoryContents[par1].stackSize == 0)
 					inventoryContents[par1] = null;
@@ -207,15 +207,15 @@ public class InventoryHelper {
 
 		@Override
 		public ItemStack getStackInSlotOnClosing(int i) {
-			if(i >= inventoryContents.length) 
+			if(i >= inventoryContents.length)
 				return null;
-			
+
 			if(inventoryContents[i] != null) {
 				ItemStack itemstack = inventoryContents[i];
 				inventoryContents[i] = null;
 				return itemstack;
 			}
-			
+
 			return null;
 		}
 
@@ -249,7 +249,7 @@ public class InventoryHelper {
 		public void readFromNBT(NBTTagCompound tag) {
 			if(tag.hasKey("size"))
 				slotsCount = tag.getInteger("size");
-			
+
 			NBTTagList nbttaglist = tag.getTagList("Items");
 			inventoryContents = new ItemStack[slotsCount];
 			for(int i = 0; i < nbttaglist.tagCount(); i++) {

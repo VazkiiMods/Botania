@@ -187,50 +187,50 @@ public final class ModCrafingRecipes {
 					'P', LibOreDict.PETAL[i],
 					'M', new ItemStack(Item.enderPearl));
 		recipesUnstableBlocks = BotaniaAPI.getLatestAddedRecipes(16);
-		
+
 		// Mana Pylon Recipe
-		addOreDictRecipe(new ItemStack(ModBlocks.pylon), 
+		addOreDictRecipe(new ItemStack(ModBlocks.pylon),
 				" G ", "MDM", " G ",
 				'G', "ingotGold",
 				'M', LibOreDict.MANA_STEEL,
 				'D', LibOreDict.MANA_DIAMOND);
 		recipePylon = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Mana Distributor
-		addOreDictRecipe(new ItemStack(ModBlocks.distributor), 
+		addOreDictRecipe(new ItemStack(ModBlocks.distributor),
 				"RRR", "S S", "RRR",
 				'R', LibOreDict.LIVING_ROCK,
 				'S', LibOreDict.MANA_STEEL);
 		recipeDistributor = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Livingrock Decorative Blocks
-		addOreDictRecipe(new ItemStack(ModBlocks.livingrock, 4, 1), 
-				"RR", "RR", 
+		addOreDictRecipe(new ItemStack(ModBlocks.livingrock, 4, 1),
+				"RR", "RR",
 				'R', LibOreDict.LIVING_ROCK);
 		livingrockDecorRecipe1 = BotaniaAPI.getLatestAddedRecipe();
 		addShapelessOreDictRecipe(new ItemStack(ModBlocks.livingrock, 1, 2), new ItemStack(ModBlocks.livingrock, 1, 1), new ItemStack(Item.seeds));
 		livingrockDecorRecipe2 = BotaniaAPI.getLatestAddedRecipe();
 		addShapelessOreDictRecipe(new ItemStack(ModBlocks.livingrock, 2, 3), new ItemStack(ModBlocks.livingrock, 1, 1), "cobblestone");
 		livingrockDecorRecipe3 = BotaniaAPI.getLatestAddedRecipe();
-		addOreDictRecipe(new ItemStack(ModBlocks.livingrock, 4, 4), 
-				"RR", "RR", 
+		addOreDictRecipe(new ItemStack(ModBlocks.livingrock, 4, 4),
+				"RR", "RR",
 				'R', new ItemStack(ModBlocks.livingrock, 1, 1));
 		livingrockDecorRecipe4 = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Livingwood Decorative Blocks
 		addShapelessOreDictRecipe(new ItemStack(ModBlocks.livingwood, 4, 1), LibOreDict.LIVING_WOOD);
 		livingwoodDecorRecipe1 = BotaniaAPI.getLatestAddedRecipe();
 		addShapelessOreDictRecipe(new ItemStack(ModBlocks.livingwood, 1, 2), new ItemStack(ModBlocks.livingwood, 1, 1), new ItemStack(Item.seeds));
 		livingwoodDecorRecipe2 = BotaniaAPI.getLatestAddedRecipe();
-		addOreDictRecipe(new ItemStack(ModBlocks.livingwood, 4, 3), 
+		addOreDictRecipe(new ItemStack(ModBlocks.livingwood, 4, 3),
 				"WW", "WW",
 				'W', new ItemStack(ModBlocks.livingwood, 1, 1));
 		livingwoodDecorRecipe3 = BotaniaAPI.getLatestAddedRecipe();
-		addOreDictRecipe(new ItemStack(ModBlocks.livingwood, 4, 4), 
+		addOreDictRecipe(new ItemStack(ModBlocks.livingwood, 4, 4),
 				" W ", "W W", " W ",
 				'W', new ItemStack(ModBlocks.livingwood, 1, 1));
 		livingwoodDecorRecipe4 = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// MANA BEACON RECIPES
 		for(int i = 0; i < 16; i++)
 			addOreDictRecipe(new ItemStack(ModBlocks.manaBeacon, 1, i),
@@ -238,7 +238,7 @@ public final class ModCrafingRecipes {
 					'B', new ItemStack(ModBlocks.unstableBlock, 1, i),
 					'P', LibOreDict.MANA_PEARL);
 		recipesManaBeacons = BotaniaAPI.getLatestAddedRecipes(16);
-		
+
 		// SIGNAL FLARE RECIPES
 		for(int i = 0; i < 16; i++)
 			addOreDictRecipe(ItemSignalFlare.forColor(i),

@@ -39,7 +39,7 @@ public class ItemSignalFlare extends ItemMod {
 	Icon[] icons;
 
 	private static final String TAG_COLOR = "color";
-	
+
 	public ItemSignalFlare() {
 		super(LibItemIDs.idSignalFlare);
 		setMaxStackSize(1);
@@ -47,12 +47,12 @@ public class ItemSignalFlare extends ItemMod {
 		setMaxDamage(200);
 		setUnlocalizedName(LibItemNames.SIGNAL_FLARE);
 	}
-	
+
 	@Override
 	public boolean isFull3D() {
 		return true;
 	}
-	
+
 	@Override
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
 		if(par1ItemStack.getItemDamage() == 0) {
@@ -65,7 +65,7 @@ public class ItemSignalFlare extends ItemMod {
 				par2World.playSoundAtEntity(par3EntityPlayer, "random.explode", 40F, (1.0F + (par2World.rand.nextFloat() - par2World.rand.nextFloat()) * 0.2F) * 0.7F);
 
 				par2World.spawnEntityInWorld(flare);
-				
+
 				int range = 5;
 				List<EntityLivingBase> entities = par2World.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(par3EntityPlayer.posX - range, par3EntityPlayer.posY - range, par3EntityPlayer.posZ - range, par3EntityPlayer.posX + range, par3EntityPlayer.posY + range, par3EntityPlayer.posZ + range));
 				for(EntityLivingBase entity : entities)
@@ -74,7 +74,7 @@ public class ItemSignalFlare extends ItemMod {
 			}
 			par1ItemStack.damageItem(200, par3EntityPlayer);
 		}
-		
+
 		return par1ItemStack;
 	}
 
@@ -110,18 +110,18 @@ public class ItemSignalFlare extends ItemMod {
 		for(int i = 0; i < 16; i++)
 			par3List.add(forColor(i));
 	}
-	
+
 	@Override
 	public boolean requiresMultipleRenderPasses() {
 		return true;
 	}
-	
+
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
 		int storedColor = getColor(par1ItemStack);
 		par3List.add(String.format(StatCollector.translateToLocal("botaniamisc.flareColor"), StatCollector.translateToLocal("botania.color" + storedColor)));
 	}
-	
+
 	public static ItemStack forColor(int color) {
 		ItemStack stack = new ItemStack(ModItems.signalFlare);
 		ItemNBTHelper.setInt(stack, TAG_COLOR, color);

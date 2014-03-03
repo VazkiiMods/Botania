@@ -114,7 +114,7 @@ public class SubTileGenerating extends SubTileEntity {
 	public int getDelayBetweenPassiveGeneration() {
 		return 20;
 	}
-	
+
 	public int getValueForPassiveGeneration() {
 		return 1;
 	}

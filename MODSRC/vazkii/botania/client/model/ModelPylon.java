@@ -15,7 +15,7 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 
 public class ModelPylon extends ModelBase {
-	
+
 	ModelRenderer crystal1;
 	ModelRenderer crystal2;
 	ModelRenderer crystal3;

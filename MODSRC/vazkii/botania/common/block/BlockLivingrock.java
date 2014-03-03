@@ -33,7 +33,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public class BlockLivingrock extends BlockMod implements ILexiconable {
 
-	private static final int TYPES = 5; 
+	private static final int TYPES = 5;
 	Icon[] icons;
 
 	public BlockLivingrock() {
@@ -54,7 +54,7 @@ public class BlockLivingrock extends BlockMod implements ILexiconable {
 		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
 		return super.setUnlocalizedName(par1Str);
 	}
-	
+
 	@Override
 	public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List par3List) {
 		for(int i = 0; i < TYPES; i++)
@@ -72,7 +72,7 @@ public class BlockLivingrock extends BlockMod implements ILexiconable {
 	public Icon getIcon(int par1, int par2) {
 		return icons[Math.min(TYPES - 1, par2)];
 	}
-	
+
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
 		int meta = world.getBlockMetadata(x, y, z);

@@ -30,7 +30,7 @@ public class ClientTickHandler implements ITickHandler {
 	@Override
 	public void tickEnd(EnumSet<TickType> type, Object... tickData) {
 		LightningBolt.update();
-		
+
 		if(Minecraft.getMinecraft().theWorld == null)
 			ManaNetworkHandler.instance.clear();
 	}

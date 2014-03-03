@@ -65,7 +65,7 @@ public final class ModBlocks {
 		pistonRelay = new BlockPistonRelay();
 		distributor = new BlockDistributor();
 		manaBeacon = new BlockManaBeacon();
-		
+
 		for(int i = 0; i < 16; i++)
 			OreDictionary.registerOre(LibOreDict.FLOWER[i], new ItemStack(flower.blockID, 1, i));
 
@@ -96,7 +96,7 @@ public final class ModBlocks {
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_TIGERSEYE, SubTileTigerseye.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_JADED_AMARANTHUS, SubTileJadedAmaranthus.class);
 	}
-	
+
 	private static void registerMultiparts() {
 		if(Loader.isModLoaded("ForgeMultipart")) {
 			try {

@@ -51,7 +51,7 @@ public class RenderTileRuneAltar extends TileEntitySpecialRenderer {
 				break;
 			else items++;
 		float[] angles = new float[altar.getSizeInventory()];
-		
+
 		float anglePer = 360F / items;
 		float totalAngle = 0F;
 		for(int i = 0; i < angles.length; i++)

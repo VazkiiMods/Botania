@@ -18,7 +18,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
 import vazkii.botania.api.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -30,7 +29,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockDistributor extends BlockModContainer implements ILexiconable {
 
 	Icon iconSide, iconTop;
-	
+
 	protected BlockDistributor() {
 		super(LibBlockIDs.idDistributor, Material.rock);
 		setHardness(2.0F);
@@ -38,13 +37,13 @@ public class BlockDistributor extends BlockModContainer implements ILexiconable 
 		setStepSound(soundStoneFootstep);
 		setUnlocalizedName(LibBlockNames.DISTRIBUTOR);
 	}
-	
+
 	@Override
 	public void registerIcons(IconRegister par1IconRegister) {
 		iconTop = IconHelper.forBlock(par1IconRegister, this, 0);
 		iconSide = IconHelper.forBlock(par1IconRegister, this, 1);
 	}
-	
+
 	@Override
 	public Icon getIcon(int par1, int par2) {
 		return par1 == 0 ? ModBlocks.livingrock.getIcon(0, 0) : par1 == 1 ? iconTop : iconSide;
