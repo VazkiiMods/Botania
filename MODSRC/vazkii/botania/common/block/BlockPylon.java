@@ -54,6 +54,11 @@ public class BlockPylon extends BlockModContainer {
 	}
 
 	@Override
+	public float getEnchantPowerBonus(World world, int x, int y, int z) {
+		return 8;
+	}
+	
+	@Override
 	public TileEntity createNewTileEntity(World world) {
 		return new TilePylon();
 	}
