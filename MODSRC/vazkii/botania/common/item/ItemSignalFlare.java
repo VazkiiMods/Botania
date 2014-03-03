@@ -14,20 +14,25 @@ package vazkii.botania.common.item;
 import java.awt.Color;
 import java.util.List;
 
+import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.Icon;
+import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
 import vazkii.botania.client.core.helper.IconHelper;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntitySignalFlare;
 import vazkii.botania.common.lib.LibItemIDs;
 import vazkii.botania.common.lib.LibItemNames;
-import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.passive.EntitySheep;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
-import net.minecraft.world.World;
 
 public class ItemSignalFlare extends ItemMod {
 
@@ -60,9 +65,16 @@ public class ItemSignalFlare extends ItemMod {
 				par2World.playSoundAtEntity(par3EntityPlayer, "random.explode", 40F, (1.0F + (par2World.rand.nextFloat() - par2World.rand.nextFloat()) * 0.2F) * 0.7F);
 
 				par2World.spawnEntityInWorld(flare);
+				
+				int range = 5;
+				List<EntityLivingBase> entities = par2World.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(par3EntityPlayer.posX - range, par3EntityPlayer.posY - range, par3EntityPlayer.posZ - range, par3EntityPlayer.posX + range, par3EntityPlayer.posY + range, par3EntityPlayer.posZ + range));
+				for(EntityLivingBase entity : entities)
+					if(entity != par3EntityPlayer && (!(entity instanceof EntityPlayer) || MinecraftServer.getServer() == null || MinecraftServer.getServer().isPVPEnabled()))
+						entity.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 50, 5));
 			}
 			par1ItemStack.damageItem(200, par3EntityPlayer);
 		}
+		
 		return par1ItemStack;
 	}
 
@@ -102,6 +114,12 @@ public class ItemSignalFlare extends ItemMod {
 	@Override
 	public boolean requiresMultipleRenderPasses() {
 		return true;
+	}
+	
+	@Override
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+		int storedColor = getColor(par1ItemStack);
+		par3List.add(String.format(StatCollector.translateToLocal("botaniamisc.flareColor"), StatCollector.translateToLocal("botania.color" + storedColor)));
 	}
 	
 	public static ItemStack forColor(int color) {

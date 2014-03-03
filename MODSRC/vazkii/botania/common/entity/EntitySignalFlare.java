@@ -30,6 +30,7 @@ public class EntitySignalFlare extends Entity {
 
 	@Override
 	protected void entityInit() {
+		// NO-OP
 	}
 
 	@Override
@@ -39,6 +40,9 @@ public class EntitySignalFlare extends Entity {
 			setDead();
 
 		if(!isDead) {
+			if(ticksExisted % 10 == 0)
+				playSound("random.fuse", 1F, 1F);
+			
 			float[] color = EntitySheep.fleeceColorTable[getColor()];
 
 			Botania.proxy.setWispFXDistanceLimit(false);

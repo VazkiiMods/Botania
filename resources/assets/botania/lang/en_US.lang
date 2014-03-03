@@ -10,6 +10,7 @@ botaniamisc.statusUnknown=Unknown Status
 botaniamisc.color=%s Tinted
 botaniamisc.manaUsage=Mana Usage
 botaniamisc.shiftToRead=Shift-right click to read more.
+botaniamisc.flareColor=%s Rounds
 
 # COLORS
 botania.color0=White
@@ -190,6 +191,7 @@ item.botania:rune12.name=Rune of Sloth
 item.botania:rune13.name=Rune of Wrath
 item.botania:rune14.name=Rune of Envy
 item.botania:rune15.name=Rune of Pride
+item.botania:signalFlare.name=Signal Flare
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania Index - Pick which category you would like to study:
