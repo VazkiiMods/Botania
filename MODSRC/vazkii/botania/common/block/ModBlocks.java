@@ -22,6 +22,7 @@ import vazkii.botania.common.block.subtile.functional.SubTileTigerseye;
 import vazkii.botania.common.block.subtile.generating.SubTileDaybloom;
 import vazkii.botania.common.block.subtile.generating.SubTileEndoflame;
 import vazkii.botania.common.block.tile.TileAltar;
+import vazkii.botania.common.block.tile.TileDistributor;
 import vazkii.botania.common.block.tile.TilePool;
 import vazkii.botania.common.block.tile.TilePylon;
 import vazkii.botania.common.block.tile.TileRuneAltar;
@@ -76,6 +77,7 @@ public final class ModBlocks {
 		GameRegistry.registerTileEntity(TilePool.class, LibBlockNames.POOL);
 		GameRegistry.registerTileEntity(TileRuneAltar.class, LibBlockNames.RUNE_ALTAR);
 		GameRegistry.registerTileEntity(TilePylon.class, LibBlockNames.PYLON);
+		GameRegistry.registerTileEntity(TileDistributor.class, LibBlockNames.DISTRIBUTOR);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 
