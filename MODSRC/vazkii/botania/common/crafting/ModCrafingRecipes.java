@@ -23,6 +23,7 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ItemLens;
+import vazkii.botania.common.item.ItemSignalFlare;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibOreDict;
@@ -61,6 +62,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe livingwoodDecorRecipe3;
 	public static IRecipe livingwoodDecorRecipe4;
 	public static List<IRecipe> recipesManaBeacons;
+	public static List<IRecipe> recipesSignalFlares;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -231,11 +233,20 @@ public final class ModCrafingRecipes {
 		
 		// MANA BEACON RECIPES
 		for(int i = 0; i < 16; i++)
-			addOreDictRecipe(new ItemStack(ModBlocks.manaBeacon, 2, i),
+			addOreDictRecipe(new ItemStack(ModBlocks.manaBeacon, 1, i),
 					" B ", "BPB", " B ",
 					'B', new ItemStack(ModBlocks.unstableBlock, 1, i),
 					'P', LibOreDict.MANA_PEARL);
 		recipesManaBeacons = BotaniaAPI.getLatestAddedRecipes(16);
+		
+		// SIGNAL FLARE RECIPES
+		for(int i = 0; i < 16; i++)
+			addOreDictRecipe(ItemSignalFlare.forColor(i),
+					"I ", " B", "W ",
+					'B', new ItemStack(ModBlocks.manaBeacon, 1, i),
+					'I', "ingotIron",
+					'W', LibOreDict.LIVING_WOOD);
+		recipesSignalFlares = BotaniaAPI.getLatestAddedRecipes(16);
 	}
 
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {

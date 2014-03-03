@@ -401,6 +401,8 @@ botania.page.unstableBlocks2=And they come in all 16 colors
 botania.page.unstableBlocks3=You also found a way of creating a different version of these that releases an extremely larger amount of energy, this time in the form of a beam towards the sky that extends into a cloud of sorts. This one also seems to be disableable via a &4Redstone Signal&0, you call it &1Unstable Beacon&0, as it looks like one somehow.
 botania.page.unstableBlocks4=Fireworks?
 botania.page.unstableBlocks5=Combined entropy
+botania.page.unstableBlocks6=It's also possible, by using the &1Unstable Beacons&0, to turn them into a manageable and portable utility, in the form of the &1Signal Flare&0.<br>This gun of sorts shoots a colored round into the sky that lasts a few seconds, it also stuns any nearby enemies for just as long.
+botania.page.unstableBlocks7=&oShoot in case of titan.&r
 
 # -- DECORATIVE BLOCKS
 botania.entry.decorativeBlocks=Decorative Blocks

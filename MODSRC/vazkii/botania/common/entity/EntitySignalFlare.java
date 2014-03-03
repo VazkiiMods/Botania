@@ -57,12 +57,12 @@ public class EntitySignalFlare extends Entity {
 
 	@Override
 	protected void readEntityFromNBT(NBTTagCompound nbttagcompound) {
-		nbttagcompound.setInteger(COLOR_TAG, getColor());
+		setColor(nbttagcompound.getInteger(COLOR_TAG));
 	}
 
 	@Override
 	protected void writeEntityToNBT(NBTTagCompound nbttagcompound) {
-		setColor(nbttagcompound.getInteger(COLOR_TAG));
+		nbttagcompound.setInteger(COLOR_TAG, getColor());
 	}
 
 	public void setColor(int color) {
