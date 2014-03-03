@@ -12,7 +12,6 @@
 package vazkii.botania.common.block;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -35,7 +34,10 @@ import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.world.WorldEvent;
+import vazkii.botania.api.ILexiconable;
 import vazkii.botania.api.IWandable;
+import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockIDs;
 import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.ITickHandler;
@@ -43,7 +45,7 @@ import cpw.mods.fml.common.TickType;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
-public class BlockPistonRelay extends BlockMod implements IWandable {
+public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconable {
 
 	public BlockPistonRelay() {
 		super(LibBlockIDs.idPistonRelay, Material.pumpkin);
@@ -258,5 +260,10 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 			return LibBlockNames.PISTON_RELAY;
 		}
 		
+	}
+
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return LexiconData.pistonRelay;
 	}
 }
