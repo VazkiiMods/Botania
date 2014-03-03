@@ -223,8 +223,9 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 							int srcId = world.getBlockId(x, y, z);
 							int srcMeta = world.getBlockMetadata(x, y, z);
 							TileEntity tile = world.getBlockTileEntity(x, y, z);
+							Material mat = world.getBlockMaterial(x, y, z);
 							
-							if(tile == null && Block.blocksList[srcId] != null && !Block.blocksList[srcId].isAirBlock(world, x, y, z)) {
+							if(tile == null && mat.getMaterialMobility() == 0 && Block.blocksList[srcId] != null && !Block.blocksList[srcId].isAirBlock(world, x, y, z)) {
 								Material destMat = world.getBlockMaterial(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
 								if(world.isAirBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ) || destMat.isReplaceable()) {
 									world.setBlock(x, y, z, 0);
