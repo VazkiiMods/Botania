@@ -13,6 +13,8 @@ package vazkii.botania.common.block.multipart;
 
 import net.minecraft.block.Block;
 import vazkii.botania.common.block.ModBlocks;
+import codechicken.microblock.BlockMicroMaterial;
+import codechicken.microblock.MicroMaterialRegistry;
 
 public final class MultipartHandler {
 

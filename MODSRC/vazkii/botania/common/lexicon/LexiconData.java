@@ -66,7 +66,7 @@ public final class LexiconData {
 	public static LexiconEntry generatingIntro;
 	public static LexiconEntry daybloom;
 	public static LexiconEntry endoflame;
-    public static LexiconEntry hydroangeas;
+	public static LexiconEntry hydroangeas;
 
 	public static LexiconEntry pistonRelay;
 	public static LexiconEntry pylon;
@@ -167,8 +167,8 @@ public final class LexiconData {
 		endoflame = new BLexiconEntry(LibLexicon.GFLOWER_ENDOFLAME, categoryGenerationFlowers);
 		endoflame.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.endoflameRecipe));
 
-        hydroangeas = new BLexiconEntry(LibLexicon.GFLOWER_HYDROANGEAS, categoryGenerationFlowers);
-        hydroangeas.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.hydroangeasRecipe));
+		hydroangeas = new BLexiconEntry(LibLexicon.GFLOWER_HYDROANGEAS, categoryGenerationFlowers);
+		hydroangeas.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.hydroangeasRecipe));
 
 		// DEVICES ENTRIES
 		pistonRelay = new BLexiconEntry(LibLexicon.DEVICE_PISTON_RELAY, categoryDevices);

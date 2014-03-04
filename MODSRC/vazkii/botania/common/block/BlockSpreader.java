@@ -11,6 +11,8 @@
  */
 package vazkii.botania.common.block;
 
+import java.util.Random;
+
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -36,8 +38,6 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockIDs;
 import vazkii.botania.common.lib.LibBlockNames;
 
-import java.util.Random;
-
 public class BlockSpreader extends BlockModContainer implements IWandable, IWandHUD, ILexiconable {
 
 	Random random;
@@ -55,7 +55,6 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 	public void onBlockPlacedBy(World par1World, int par2, int par3, int par4, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack) {
 		int orientation = BlockPistonBase.determineOrientation(par1World, par2, par3, par4, par5EntityLivingBase);
 		TileSpreader spreader = (TileSpreader) par1World.getBlockTileEntity(par2, par3, par4);
-		//System.out.println(orientation);
 
 		switch(orientation) {
 		case 0:
