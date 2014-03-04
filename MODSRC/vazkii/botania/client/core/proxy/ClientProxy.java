@@ -11,6 +11,9 @@
  */
 package vazkii.botania.client.core.proxy;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -97,7 +100,8 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void twigWandClientUpdate() {
-		for(TileEntity tile : ManaNetworkHandler.instance.getAllInWorld(ManaNetworkHandler.instance.manaCollectors, Minecraft.getMinecraft().thePlayer.dimension)) {
+		List<TileEntity> list = new ArrayList(ManaNetworkHandler.instance.getAllInWorld(ManaNetworkHandler.instance.manaCollectors, Minecraft.getMinecraft().thePlayer.dimension));
+		for(TileEntity tile : list) {
 			if(tile instanceof IManaCollector)
 				((IManaCollector) tile).onClientDisplayTick();
 		}
