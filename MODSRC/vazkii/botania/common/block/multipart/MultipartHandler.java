@@ -27,8 +27,8 @@ public final class MultipartHandler {
 	}
 
 	private static void registerMultipart(Block block, int meta) {
-		//MicroMaterialRegistry.registerMaterial(new BlockMicroMaterial(block, meta), block.getUnlocalizedName() + (meta == 0 ? "" : "_" + meta));
-        //TODO remember to uncomment
+		MicroMaterialRegistry.registerMaterial(new BlockMicroMaterial(block, meta), block.getUnlocalizedName() + (meta == 0 ? "" : "_" + meta));
+
 	}
 
 }

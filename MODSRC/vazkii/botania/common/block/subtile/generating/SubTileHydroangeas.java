@@ -8,34 +8,32 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.subtile.SubTileGenerating;
 import vazkii.botania.common.lexicon.LexiconData;
 
-public class SubTileHydroangeas extends SubTileGenerating
-{
+public class SubTileHydroangeas extends SubTileGenerating {
 
     private static final String TAG_BURN_TIME = "burnTime";
     int burnTime = 0;
     int currentTime = 0;
 
     @Override
-    public void onUpdate()
-    {
+    public void onUpdate(){
         super.onUpdate();
 
         int range = 1;
 
         boolean didSomething = false;
 
-        if (burnTime == 0)
-        {
-            if (supertile.worldObj.getWorldTime() % 40L == 0)
-            {
-                if (mana < getMaxMana() && !supertile.worldObj.isRemote)
-                {
-                    for (int i = -range; i <= range; i++)
-                    {
-                        for (int j = -range; j <= range; j++)
-                        {
-                            if (supertile.worldObj.getBlockId(supertile.xCoord + i, supertile.yCoord, supertile.zCoord + j) == Block.waterStill.blockID && supertile.worldObj.getBlockMetadata(supertile.xCoord + i, supertile.yCoord, supertile.zCoord + j) == 0)
-                            {
+        if (burnTime == 0) {
+
+            if (supertile.worldObj.getWorldTime() % 40L == 0) {
+
+                if (mana < getMaxMana() && !supertile.worldObj.isRemote) {
+
+                    for (int i = -range; i <= range; i++) {
+
+                        for (int j = -range; j <= range; j++) {
+
+                            if (supertile.worldObj.getBlockId(supertile.xCoord + i, supertile.yCoord, supertile.zCoord + j) == Block.waterStill.blockID && supertile.worldObj.getBlockMetadata(supertile.xCoord + i, supertile.yCoord, supertile.zCoord + j) == 0) {
+
                                 supertile.worldObj.setBlockToAir(supertile.xCoord + i, supertile.yCoord, supertile.zCoord + j);
                                 didSomething = true;
                                 burnTime++;
@@ -62,20 +60,17 @@ public class SubTileHydroangeas extends SubTileGenerating
 
 
     @Override
-    public int getMaxMana()
-    {
+    public int getMaxMana() {
         return 150;
     }
 
     @Override
-    public int getValueForPassiveGeneration()
-    {
+    public int getValueForPassiveGeneration(){
         return 2;
     }
 
     @Override
-    public int getColor()
-    {
+    public int getColor(){
         if (burnTime > 0)
             return 0x532FE0;
         else
@@ -90,30 +85,26 @@ public class SubTileHydroangeas extends SubTileGenerating
     }
 
     @Override
-    public void writeToPacketNBT(NBTTagCompound cmp)
-    {
+    public void writeToPacketNBT(NBTTagCompound cmp){
         super.writeToPacketNBT(cmp);
 
         cmp.setInteger(TAG_BURN_TIME, burnTime);
     }
 
     @Override
-    public void readFromPacketNBT(NBTTagCompound cmp)
-    {
+    public void readFromPacketNBT(NBTTagCompound cmp){
         super.readFromPacketNBT(cmp);
 
         burnTime = cmp.getInteger(TAG_BURN_TIME);
     }
 
     @Override
-    public boolean canGeneratePassively()
-    {
+    public boolean canGeneratePassively(){
         return burnTime > 0;
     }
 
     @Override
-    public int getDelayBetweenPassiveGeneration()
-    {
+    public int getDelayBetweenPassiveGeneration(){
         return 2;
     }
 

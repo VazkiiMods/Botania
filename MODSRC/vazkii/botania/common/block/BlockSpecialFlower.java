@@ -51,13 +51,14 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 		// Generating
 		LibBlockNames.SUBTILE_DAYBLOOM,
 		LibBlockNames.SUBTILE_ENDOFLAME,
-        LibBlockNames.SUBTILE_HYDROANGEAS,
+            LibBlockNames.SUBTILE_HYDROANGEAS,
 
 		// Functional
 		LibBlockNames.SUBTILE_JADED_AMARANTHUS,
 		LibBlockNames.SUBTILE_BELLETHORN,
 		LibBlockNames.SUBTILE_HEISEI_DREAM,
 		LibBlockNames.SUBTILE_TIGERSEYE,
+
 	};
 
 	protected BlockSpecialFlower() {
