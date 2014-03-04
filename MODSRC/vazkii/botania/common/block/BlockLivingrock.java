@@ -48,6 +48,11 @@ public class BlockLivingrock extends BlockMod implements ILexiconable {
 	protected boolean shouldRegisterInNameSet() {
 		return false;
 	}
+	
+	@Override
+	public int damageDropped(int par1) {
+		return par1;
+	}
 
 	@Override
 	public Block setUnlocalizedName(String par1Str) {
