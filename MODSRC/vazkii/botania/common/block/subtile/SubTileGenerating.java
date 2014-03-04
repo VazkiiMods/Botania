@@ -38,7 +38,7 @@ public class SubTileGenerating extends SubTileEntity {
 	protected int mana;
 
 	int sizeLastCheck = -1;
-	TileEntity linkedCollector = null;
+	protected TileEntity linkedCollector = null;
 	public int knownMana = -1;
 
 	@Override
