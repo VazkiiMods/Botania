@@ -105,6 +105,7 @@ tile.botania:flower.puredaisy.name=Pure Daisy
 # - GENERATING
 tile.botania:flower.daybloom.name=Daybloom
 tile.botania:flower.endoflame.name=Endoflame
+tile.botania:flower.hydroangeas.name=Hydroangeas
 
 # - FUNCTIONAL
 tile.botania:flower.bellethorn.name=Bellethorne
@@ -383,6 +384,11 @@ botania.page.daybloom1=&oStarting up a brand new day&r.
 botania.entry.endoflame=Endoflame
 botania.page.endoflame0=While the &1Daybloom&0 is all well and good, a botanist requires more effective means of generating &4Mana&0.<br>The &1Endoflame&0 does that exactly, it will absorb any combustible items or blocks dropped on the nearby vacinity (albeit only one at a time) and burn through them to passively generate mana while the fuel lasts.
 botania.page.endoflame1=&oNot nitor&r.
+
+# -- Hydroangeas
+botania.entry.hydroangeas=Hydroangeas
+botania.page.hydroangeas0=While you can generate easy &4Mana&0 with the &1Daybloom&0, sometimes you need to create more energy without using any fuels...<br>The &1Hydroangeas&0 will devour adjacent water sources to create mana, it does have a cooldown timer though, so power can not be generated instantly.
+botania.page.hydroangeas1=&oAquatic Power&r.
 
 # - MAGICAL APPARATUS
 # -- FORCE RELAY

@@ -11,12 +11,7 @@
  */
 package vazkii.botania.common.block;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.ITileEntityProvider;
@@ -43,7 +38,8 @@ import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibBlockIDs;
 import vazkii.botania.common.lib.LibBlockNames;
-import cpw.mods.fml.common.registry.GameRegistry;
+
+import java.util.*;
 
 public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvider, ISpecialFlower, IWandable, ILexiconable, IWandHUD {
 
@@ -55,6 +51,7 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 		// Generating
 		LibBlockNames.SUBTILE_DAYBLOOM,
 		LibBlockNames.SUBTILE_ENDOFLAME,
+        LibBlockNames.SUBTILE_HYDROANGEAS,
 
 		// Functional
 		LibBlockNames.SUBTILE_JADED_AMARANTHUS,

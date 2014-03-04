@@ -13,8 +13,6 @@ package vazkii.botania.common.block.multipart;
 
 import net.minecraft.block.Block;
 import vazkii.botania.common.block.ModBlocks;
-import codechicken.microblock.BlockMicroMaterial;
-import codechicken.microblock.MicroMaterialRegistry;
 
 public final class MultipartHandler {
 
@@ -29,7 +27,8 @@ public final class MultipartHandler {
 	}
 
 	private static void registerMultipart(Block block, int meta) {
-		MicroMaterialRegistry.registerMaterial(new BlockMicroMaterial(block, meta), block.getUnlocalizedName() + (meta == 0 ? "" : "_" + meta));
+		//MicroMaterialRegistry.registerMaterial(new BlockMicroMaterial(block, meta), block.getUnlocalizedName() + (meta == 0 ? "" : "_" + meta));
+        //TODO remember to uncomment
 	}
 
 }
