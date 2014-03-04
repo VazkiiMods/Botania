@@ -74,11 +74,12 @@ public class TilePool extends TileMod implements IManaPool {
 				int mana = recipe.getManaToConsume();
 				if(getCurrentMana() >= mana) {
 					recieveMana(-mana);
-					stack.stackSize--;
-					if(stack.stackSize == 0)
-						item.setDead();
 
 					if(!worldObj.isRemote) {
+						stack.stackSize--;
+						if(stack.stackSize == 0)
+							item.setDead();
+						
 						ItemStack output = recipe.getOutput().copy();
 						EntityItem outputItem = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, output);
 						worldObj.spawnEntityInWorld(outputItem);
