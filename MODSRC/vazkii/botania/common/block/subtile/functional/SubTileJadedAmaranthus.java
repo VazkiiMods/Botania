@@ -12,8 +12,10 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.block.Block;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.subtile.SubTileFunctional;
+import vazkii.botania.common.lexicon.LexiconData;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class SubTileJadedAmaranthus extends SubTileFunctional {
@@ -60,6 +62,11 @@ public class SubTileJadedAmaranthus extends SubTileFunctional {
 		return 0x961283;
 	}
 
+	@Override
+	public LexiconEntry getEntry() {
+		return LexiconData.jadedAmaranthus;
+	}
+	
 	@Override
 	public int getMaxMana() {
 		return COST;
