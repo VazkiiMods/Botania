@@ -31,6 +31,7 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.ILens;
+import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileSpreader;
@@ -319,7 +320,11 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 			if(tile == null || tile.xCoord != coords.posX || tile.yCoord != coords.posY || tile.zCoord != coords.posZ) {
 				if(!fake && !noParticles && !worldObj.isRemote && tile != null && tile instanceof IManaReceiver && ((IManaReceiver) tile).canRecieveManaFromBursts()) {
-					((IManaReceiver) tile).recieveMana(getMana());
+					int mana = getMana();
+					if(tile instanceof IManaCollector)
+						mana *= ((IManaCollector) tile).getManaYieldMultiplier(this);
+					
+					((IManaReceiver) tile).recieveMana(mana);
 					PacketDispatcher.sendPacketToAllInDimension(tile.getDescriptionPacket(), worldObj.provider.dimensionId);
 				}
 

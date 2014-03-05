@@ -29,6 +29,7 @@ import net.minecraftforge.common.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.IManaCollector;
@@ -323,6 +324,11 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 			EntityManaBurst burst = getBurst(true);
 			burst.getCollidedTile(false);
 		}
+	}
+	
+	@Override
+	public float getManaYieldMultiplier(IManaBurst burst) {
+		return burst.getMana() < 16 ? 0F : 0.95F;
 	}
 
 	@Override
