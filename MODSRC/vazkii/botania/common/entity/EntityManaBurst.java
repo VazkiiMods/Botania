@@ -174,7 +174,9 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 	@Override
 	public void onUpdate() {
-		superUpdate();
+		if(fake)
+			superUpdate();
+		else super.onUpdate();
 
 		ILens lens = getLensInstance();
 		if(lens != null)
