@@ -112,6 +112,10 @@ public final class HUDHandler {
 		RenderHelper.drawTexturedModalRect(x, y, 0, 0, 0, 102, 5);
 
 		int manaPercentage = Math.max(0, (int) ((double) mana / (double) maxMana * 100));
+		
+		if(manaPercentage == 0 && mana > 0)
+			manaPercentage = 1;
+		
 		RenderHelper.drawTexturedModalRect(x + 1 + manaPercentage, y + 1, 0, 0, 5, 100 - manaPercentage, 3);
 
 		Color color_ = new Color(color);
