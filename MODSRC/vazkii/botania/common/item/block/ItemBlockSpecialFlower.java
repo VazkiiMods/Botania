@@ -11,10 +11,14 @@
  */
 package vazkii.botania.common.item.block;
 
+import java.util.List;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.Icon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.ModBlocks;
@@ -58,6 +62,14 @@ public class ItemBlockSpecialFlower extends ItemBlock {
 	@Override
 	public String getUnlocalizedName(ItemStack stack) {
 		return "tile." + LibBlockNames.SPECIAL_FLOWER_PREFIX + getType(stack);
+	}
+	
+	@Override
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+		String refUnlocalized = "tile." + LibBlockNames.SPECIAL_FLOWER_PREFIX + getType(par1ItemStack) + ".reference";
+		String refLocalized = StatCollector.translateToLocal(refUnlocalized);
+		if(!refLocalized.equals(refUnlocalized))
+			par3List.add(EnumChatFormatting.ITALIC + refLocalized);
 	}
 
 	public static String getType(ItemStack stack) {

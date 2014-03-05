@@ -102,17 +102,25 @@ tile.botania:manaVoid.name=Mana Void
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
 tile.botania:flower.puredaisy.name=Pure Daisy
+tile.botania:flower.puredaisy.reference=What color do you want to be?
 
 # - GENERATING
 tile.botania:flower.daybloom.name=Daybloom
+tile.botania:flower.daybloom.reference=A Sting of light
 tile.botania:flower.endoflame.name=Endoflame
+tile.botania:flower.endoflame.reference=An endotermic reaction
 tile.botania:flower.hydroangeas.name=Hydroangeas
+tile.botania:flower.hydroangeas.reference=Careful: Wet floor
 
 # - FUNCTIONAL
 tile.botania:flower.bellethorn.name=Bellethorne
+tile.botania:flower.bellethorn.reference=Just a paper cut
 tile.botania:flower.heiseiDream.name=Heisei Dream
+tile.botania:flower.heiseiDream.reference=Heisei heisei kowarete
 tile.botania:flower.tigerseye.name=Tigerseye
+tile.botania:flower.tigerseye.reference=The palmtop tiger
 tile.botania:flower.jadedAmaranthus.name=Jaded Amaranthus
+tile.botania:flower.jadedAmaranthus.reference=A couple died for this
 
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania
