@@ -26,6 +26,7 @@ import vazkii.botania.common.block.subtile.generating.SubTileHydroangeas;
 import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.block.tile.TileDistributor;
 import vazkii.botania.common.block.tile.TileManaBeacon;
+import vazkii.botania.common.block.tile.TileManaVoid;
 import vazkii.botania.common.block.tile.TilePool;
 import vazkii.botania.common.block.tile.TilePylon;
 import vazkii.botania.common.block.tile.TileRuneAltar;
@@ -51,6 +52,7 @@ public final class ModBlocks {
 	public static Block pistonRelay;
 	public static Block distributor;
 	public static Block manaBeacon;
+	public static Block manaVoid;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -66,6 +68,7 @@ public final class ModBlocks {
 		pistonRelay = new BlockPistonRelay();
 		distributor = new BlockDistributor();
 		manaBeacon = new BlockManaBeacon();
+		manaVoid = new BlockManaVoid();
 
 		for(int i = 0; i < 16; i++)
 			OreDictionary.registerOre(LibOreDict.FLOWER[i], new ItemStack(flower.blockID, 1, i));
@@ -86,6 +89,7 @@ public final class ModBlocks {
 		GameRegistry.registerTileEntity(TilePylon.class, LibBlockNames.PYLON);
 		GameRegistry.registerTileEntity(TileDistributor.class, LibBlockNames.DISTRIBUTOR);
 		GameRegistry.registerTileEntity(TileManaBeacon.class, LibBlockNames.MANA_BEACON);
+		GameRegistry.registerTileEntity(TileManaVoid.class, LibBlockNames.MANA_VOID);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 

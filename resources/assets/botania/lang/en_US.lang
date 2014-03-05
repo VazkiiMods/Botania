@@ -97,6 +97,7 @@ tile.botania:manaBeacon12.name=Brown Unstable Beacon
 tile.botania:manaBeacon13.name=Green Unstable Beacon
 tile.botania:manaBeacon14.name=Red Unstable Beacon
 tile.botania:manaBeacon15.name=Black Unstable Beacon
+tile.botania:manaVoid.name=Mana Void
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
@@ -300,6 +301,11 @@ botania.page.pool6=Infusing &1Mana Petals&0
 botania.entry.distributor=Mana Distributor
 botania.page.distributor0=Any botanist will eventually reach a point where a single &1Mana Pool&0 setup is not enough.<br>The &1Mana Distributor&0 will fix all those issues. By placing it adjacently to a few &1Mana Pools&0 on it's sides, when it receives &4Mana&0 through &4Mana Bursts&0 it'll equally spread it to the adjacent pools. 
 botania.page.distributor1=Crafting the distributor
+
+# -- MANA VOID
+botania.entry.manaVoid=Mana Void
+botania.page.manaVoid0=The &1Mana Void&0 is, in layman's terms, the grave for &4Mana&0. Any &4Mana&0 shot into this block will simply vanish into the void, never to be seen again.
+botania.page.manaVoid1=Crafting the void block
 
 # -- MANA LENS: VELOCITY
 botania.entry.lensVelocity=Mana Lens: Velocity

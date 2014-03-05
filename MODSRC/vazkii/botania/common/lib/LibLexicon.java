@@ -42,7 +42,8 @@ public final class LibLexicon {
 	public static final String MANA_LENS_GRAVITY = "lensGravity";
 	public static final String MANA_LENS_BORE = "lensBore";
 	public static final String MANA_LENS_DAMAGING = "lensDamaging";
-
+	public static final String MANA_VOID = "manaVoid";
+	
 	public static final String FFLOWER_INTRO = "fIntro";
 	public static final String FFLOWER_JADED_AMARANTHUS = "jadedAmaranthus";
 	public static final String FFLOWER_BELLETHORNE = "bellethorne";

@@ -48,6 +48,7 @@ public final class LexiconData {
 	public static LexiconEntry spreader;
 	public static LexiconEntry pool;
 	public static LexiconEntry distributor;
+	public static LexiconEntry manaVoid;
 	public static LexiconEntry lensVelocity;
 	public static LexiconEntry lensPotency;
 	public static LexiconEntry lensResistance;
@@ -141,6 +142,9 @@ public final class LexiconData {
 		lensDamaging = new BLexiconEntry(LibLexicon.MANA_LENS_DAMAGING, categoryMana);
 		lensDamaging.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLensDamaging));
 
+		manaVoid = new BLexiconEntry(LibLexicon.MANA_VOID, categoryMana);
+		manaVoid.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeManaVoid));
+		
 		// FUNCTIONAL FLOWERS ENTRIES
 		functionalIntro = new BLexiconEntry(LibLexicon.FFLOWER_INTRO, categoryFunctionalFlowers);
 		functionalIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"));

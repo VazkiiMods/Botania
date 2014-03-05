@@ -63,6 +63,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe livingwoodDecorRecipe4;
 	public static List<IRecipe> recipesManaBeacons;
 	public static List<IRecipe> recipesSignalFlares;
+	public static IRecipe recipeManaVoid;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -247,6 +248,13 @@ public final class ModCrafingRecipes {
 					'I', "ingotIron",
 					'W', LibOreDict.LIVING_WOOD);
 		recipesSignalFlares = BotaniaAPI.getLatestAddedRecipes(16);
+		
+		// MANA VOID RECIPE
+		addOreDictRecipe(new ItemStack(ModBlocks.manaVoid), 
+				"SSS", "O O", "SSS",
+				'S', LibOreDict.LIVING_ROCK,
+				'O', new ItemStack(Block.obsidian));
+		recipeManaVoid = BotaniaAPI.getLatestAddedRecipe();
 	}
 
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {
