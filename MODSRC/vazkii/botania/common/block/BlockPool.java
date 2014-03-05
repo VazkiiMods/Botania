@@ -76,6 +76,21 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 	public int getRenderType() {
 		return LibRenderIDs.idPool;
 	}
+	
+	@Override
+	public boolean hasComparatorInputOverride() {
+		return true;
+	}
+	
+	@Override
+	public int getComparatorInputOverride(World par1World, int par2, int par3, int par4, int par5) {
+		TilePool pool = (TilePool) par1World.getBlockTileEntity(par2, par3, par4);
+		int val = (int) ((double) pool.getCurrentMana() / (double) TilePool.MAX_MANA * 15.0);
+		if(pool.getCurrentMana() > 0)
+			val = Math.max(val, 1);
+		
+		return val; 
+	}
 
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res, World world, int x, int y, int z) {

@@ -49,6 +49,7 @@ public class TilePool extends TileMod implements IManaPool {
 	@Override
 	public void recieveMana(int mana) {
 		this.mana = Math.min(this.mana + mana, MAX_MANA);
+		worldObj.func_96440_m(xCoord, yCoord, zCoord, worldObj.getBlockId(xCoord, yCoord, zCoord));
 	}
 
 	@Override
