@@ -22,4 +22,10 @@ package vazkii.botania.api.mana;
  */
 public interface IManaPool extends IManaReceiver {
 
+	/**
+	 * Returns false if the mana pool is accepting power from other power items,
+	 * true if it's sending power into them.
+	 */
+	public boolean isOutputtingPower();
+	
 }

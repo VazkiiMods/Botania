@@ -153,6 +153,11 @@ public class TilePool extends TileMod implements IManaPool {
 	public boolean canRecieveManaFromBursts() {
 		return true;
 	}
+	
+	@Override
+	public boolean isOutputtingPower() {
+		return false; // TODO
+	}
 
 	@Override
 	public int getCurrentMana() {
