@@ -24,7 +24,6 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.ISpecialFlower;
 import vazkii.botania.api.SubTileEntity;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.subtile.generating.SubTileEndoflame;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibBlockNames;
