@@ -304,13 +304,16 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 			ItemStack recieverStack = new ItemStack(worldObj.getBlockId(receiverTile.xCoord, receiverTile.yCoord, receiverTile.zCoord), 1, receiverTile.getBlockMetadata());
 			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			String stackName = recieverStack.getDisplayName();
-			int width = 16 + mc.fontRenderer.getStringWidth(stackName) / 2;
-			int x = res.getScaledWidth() / 2 - width;
-			int y = res.getScaledHeight() / 2 + 30;
+			if(recieverStack != null && recieverStack.getItem() != null) {
+				String stackName = recieverStack.getDisplayName();
+				int width = 16 + mc.fontRenderer.getStringWidth(stackName) / 2;
+				int x = res.getScaledWidth() / 2 - width;
+				int y = res.getScaledHeight() / 2 + 30;
 
-			mc.fontRenderer.drawStringWithShadow(stackName, x + 20, y + 5, color);
-			new RenderItem().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, recieverStack, x, y);
+				mc.fontRenderer.drawStringWithShadow(stackName, x + 20, y + 5, color);
+				new RenderItem().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, recieverStack, x, y);
+			}
+
 			GL11.glDisable(GL11.GL_LIGHTING);
 			GL11.glDisable(GL11.GL_BLEND);
 		}
