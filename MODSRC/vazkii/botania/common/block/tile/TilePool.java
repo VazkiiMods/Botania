@@ -20,6 +20,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.Packet132TileEntityData;
+import net.minecraft.util.StatCollector;
+
+import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.ManaNetworkEvent;
@@ -36,6 +40,9 @@ public class TilePool extends TileMod implements IManaPool {
 
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_KNOWN_MANA = "knownMana";
+	private static final String TAG_OUTPUTTING = "outputting";
+	
+	boolean outputting = false;
 
 	int mana;
 	int knownMana = -1;
@@ -123,18 +130,23 @@ public class TilePool extends TileMod implements IManaPool {
 	@Override
 	public void writeCustomNBT(NBTTagCompound cmp) {
 		cmp.setInteger(TAG_MANA, mana);
+		cmp.setBoolean(TAG_OUTPUTTING, outputting);
 	}
 
 	@Override
 	public void readCustomNBT(NBTTagCompound cmp) {
 		mana = cmp.getInteger(TAG_MANA);
+		outputting = cmp.getBoolean(TAG_OUTPUTTING);
 
 		if(cmp.hasKey(TAG_KNOWN_MANA))
 			knownMana = cmp.getInteger(TAG_KNOWN_MANA);
 	}
 
 	public void onWanded(EntityPlayer player, ItemStack wand) {
-		if(!worldObj.isRemote) {
+		if(player.isSneaking()) {
+			outputting = !outputting;
+			PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
+		} else if(!worldObj.isRemote) {
 			NBTTagCompound nbttagcompound = new NBTTagCompound();
 			writeCustomNBT(nbttagcompound);
 			nbttagcompound.setInteger(TAG_KNOWN_MANA, getCurrentMana());
@@ -147,6 +159,14 @@ public class TilePool extends TileMod implements IManaPool {
 		String name = ModBlocks.pool.getLocalizedName();
 		int color = 0x660000FF;
 		HUDHandler.drawSimpleManaHUD(color, knownMana, MAX_MANA, name, res);
+		
+		String power = StatCollector.translateToLocal("botaniamisc." + (outputting ? "outputtingPower" : "inputtingPower"));
+		int x = res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(power) / 2;
+		int y = res.getScaledHeight() / 2 + 30;
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		mc.fontRenderer.drawStringWithShadow(power, x, y, color);
+		GL11.glDisable(GL11.GL_BLEND);
 	}
 
 	@Override
@@ -156,7 +176,7 @@ public class TilePool extends TileMod implements IManaPool {
 	
 	@Override
 	public boolean isOutputtingPower() {
-		return false; // TODO
+		return outputting;
 	}
 
 	@Override
