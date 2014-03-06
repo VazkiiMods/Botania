@@ -26,6 +26,8 @@ import net.minecraftforge.oredict.OreDictionary;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.internal.IGuiLexiconEntry;
+import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.lexicon.LexiconRecipeMappings;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.lib.LibResources;
@@ -49,6 +51,12 @@ public class PageManaInfusionRecipe extends PageRecipe {
 
 	public PageManaInfusionRecipe(String unlocalizedName, RecipeManaInfusion recipe) {
 		this(unlocalizedName, Arrays.asList(recipe));
+	}
+	
+	@Override
+	public void onPageAdded(LexiconEntry entry, int index) {
+		for(RecipeManaInfusion recipe : recipes)
+			LexiconRecipeMappings.map(recipe.getOutput(), entry, index);
 	}
 
 	@Override

@@ -21,15 +21,16 @@ import net.minecraft.util.Icon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.ISpecialFlower;
+import vazkii.botania.api.SubTileEntity;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.subtile.generating.SubTileEndoflame;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
-public class ItemBlockSpecialFlower extends ItemBlock {
-
-	private static String TAG_TYPE = "type";
+public class ItemBlockSpecialFlower extends ItemBlock implements ISpecialFlower {
 
 	public ItemBlockSpecialFlower(int par1) {
 		super(par1);
@@ -73,12 +74,12 @@ public class ItemBlockSpecialFlower extends ItemBlock {
 	}
 
 	public static String getType(ItemStack stack) {
-		return ItemNBTHelper.getString(stack, TAG_TYPE, "");
+		return ItemNBTHelper.getString(stack, SubTileEntity.TAG_TYPE, "");
 	}
 
 	public static ItemStack ofType(String type) {
 		ItemStack stack = new ItemStack(ModBlocks.specialFlower);
-		ItemNBTHelper.setString(stack, TAG_TYPE, type);
+		ItemNBTHelper.setString(stack, SubTileEntity.TAG_TYPE, type);
 		return stack;
 	}
 

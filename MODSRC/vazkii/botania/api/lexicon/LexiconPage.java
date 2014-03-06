@@ -39,6 +39,13 @@ public abstract class LexiconPage {
 	public void updateScreen() {
 		// NO-OP
 	}
+	
+	/**
+	 * Called when {@link LexiconEntry#setLexiconPages(LexiconPage...)} is called.
+	 */
+	public void onPageAdded(LexiconEntry entry, int index) {
+		// NO-OP
+	}
 
 	public String getUnlocalizedName() {
 		return unlocalizedName;

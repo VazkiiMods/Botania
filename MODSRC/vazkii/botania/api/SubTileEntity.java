@@ -30,6 +30,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class SubTileEntity {
 
 	protected TileEntity supertile;
+	
+	/** The Tag items should use to store which sub tile they are. **/
+	public static final String TAG_TYPE = "type";
 
 	public void setSupertile(TileEntity tile) {
 		supertile = tile;

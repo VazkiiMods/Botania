@@ -12,25 +12,27 @@
 package vazkii.botania.client.gui;
 
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.StatCollector;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.client.gui.button.GuiButtonBack;
+import vazkii.botania.client.gui.button.GuiButtonBackWithShift;
 import vazkii.botania.client.gui.button.GuiButtonPage;
 
 public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry {
 
-	int page = 0;
+	public int page = 0;
 	LexiconEntry entry;
-	GuiLexiconIndex index;
+	GuiScreen parent;
 	String title;
 
 	GuiButton leftButton, rightButton;
 
-	public GuiLexiconEntry(LexiconEntry entry, GuiLexiconIndex index) {
+	public GuiLexiconEntry(LexiconEntry entry, GuiScreen parent) {
 		this.entry = entry;
-		this.index = index;
+		this.parent = parent;
 
 		title = StatCollector.translateToLocal(entry.getUnlocalizedName());
 	}
@@ -39,7 +41,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry {
 	public void initGui() {
 		super.initGui();
 
-		buttonList.add(new GuiButtonBack(0, left + guiWidth / 2 - 8, top + guiHeight + 2));
+		buttonList.add(new GuiButtonBackWithShift(0, left + guiWidth / 2 - 8, top + guiHeight + 2));
 		buttonList.add(leftButton = new GuiButtonPage(1, left, top + guiHeight - 10, false));
 		buttonList.add(rightButton = new GuiButtonPage(2, left + guiWidth - 18, top + guiHeight - 10, true));
 
@@ -75,7 +77,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry {
 	protected void actionPerformed(GuiButton par1GuiButton) {
 		switch(par1GuiButton.id) {
 		case 0 :
-			mc.displayGuiScreen(index);
+			mc.displayGuiScreen(GuiScreen.isShiftKeyDown() ? new GuiLexicon() : parent);
 			break;
 		case 1 :
 			page--;

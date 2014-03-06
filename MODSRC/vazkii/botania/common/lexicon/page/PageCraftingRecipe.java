@@ -30,6 +30,8 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.internal.IGuiLexiconEntry;
+import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.lexicon.LexiconRecipeMappings;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import cpw.mods.fml.relauncher.ReflectionHelper;
@@ -53,6 +55,12 @@ public class PageCraftingRecipe extends PageRecipe {
 
 	public PageCraftingRecipe(String unlocalizedName, IRecipe recipe) {
 		this(unlocalizedName, Arrays.asList(recipe));
+	}
+	
+	@Override
+	public void onPageAdded(LexiconEntry entry, int index) {
+		for(IRecipe recipe : recipes)
+			LexiconRecipeMappings.map(recipe.getRecipeOutput(), entry, index);
 	}
 
 	@Override

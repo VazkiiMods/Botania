@@ -12,9 +12,11 @@
 package vazkii.botania.client.gui.button;
 
 import java.util.Arrays;
+import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
@@ -37,8 +39,14 @@ public class GuiButtonBack extends GuiButton {
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		drawTexturedModalRect(xPosition, yPosition, 36, k == 2 ? 180 : 189, 18, 9);
 
+		List<String> tooltip = getTooltip();
+		int tooltipY = (tooltip.size() - 1) * 10;
 		if(k == 2)
-			RenderHelper.renderTooltip(par2, par3, Arrays.asList(StatCollector.translateToLocal("botaniamisc.back")));
+			RenderHelper.renderTooltip(par2, par3 + tooltipY, tooltip);
+	}
+	
+	public List<String> getTooltip() {
+		return Arrays.asList(StatCollector.translateToLocal("botaniamisc.back"));
 	}
 
 }

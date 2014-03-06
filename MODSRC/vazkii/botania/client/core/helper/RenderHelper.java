@@ -29,6 +29,13 @@ public final class RenderHelper {
 		renderTooltip(x, y, tooltipData, color, color2);
 	}
 
+	public static void renderTooltipOrange(int x, int y, List<String> tooltipData) {
+		int color = 0x50a06600;
+		int color2 = 0xf01e1200;
+
+		renderTooltip(x, y, tooltipData, color, color2);
+	}
+	
 	public static void renderTooltipGreen(int x, int y, List<String> tooltipData) {
 		int color = 0x5000a000;
 		int color2 = 0xf0001e00;
@@ -40,7 +47,6 @@ public final class RenderHelper {
 		boolean lighting = GL11.glGetBoolean(GL11.GL_LIGHTING);
 		if(lighting)
 			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
-		GL11.glDisable(GL11.GL_DEPTH_TEST);
 
 		if (!tooltipData.isEmpty()) {
 			int var5 = 0;
@@ -68,6 +74,8 @@ public final class RenderHelper {
 			drawGradientRect(var6 + var5 + 2, var7 - 3 + 1, z, var6 + var5 + 3, var7 + var9 + 3 - 1, color, var12);
 			drawGradientRect(var6 - 3, var7 - 3, z, var6 + var5 + 3, var7 - 3 + 1, color, color);
 			drawGradientRect(var6 - 3, var7 + var9 + 2, z, var6 + var5 + 3, var7 + var9 + 3, var12, var12);
+			
+			GL11.glDisable(GL11.GL_DEPTH_TEST);
 			for (int var13 = 0; var13 < tooltipData.size(); ++var13) {
 				String var14 = tooltipData.get(var13);
 				fontRenderer.drawStringWithShadow(var14, var6, var7, -1);
@@ -75,8 +83,8 @@ public final class RenderHelper {
 					var7 += 2;
 				var7 += 10;
 			}
+			GL11.glEnable(GL11.GL_DEPTH_TEST);
 		}
-		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		if(!lighting)
 			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 		GL11.glColor4f(1F, 1F, 1F, 1F);

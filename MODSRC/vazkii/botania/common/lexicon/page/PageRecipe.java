@@ -16,6 +16,7 @@ import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureManager;
@@ -24,11 +25,15 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.client.ForgeHooksClient;
 
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
+import vazkii.botania.api.lexicon.LexiconRecipeMappings;
+import vazkii.botania.api.lexicon.LexiconRecipeMappings.EntryData;
 import vazkii.botania.client.core.helper.RenderHelper;
+import vazkii.botania.client.gui.GuiLexiconEntry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -36,6 +41,7 @@ public class PageRecipe extends LexiconPage {
 
 	int relativeMouseX, relativeMouseY;
 	ItemStack tooltipStack, tooltipContainerStack;
+	boolean tooltipEntry;
 
 	public PageRecipe(String unlocalizedName) {
 		super(unlocalizedName);
@@ -57,12 +63,21 @@ public class PageRecipe extends LexiconPage {
 
 		if(tooltipStack != null) {
 			List<String> tooltipData = tooltipStack.getTooltip(Minecraft.getMinecraft().thePlayer, false);
-
 			RenderHelper.renderTooltip(mx, my, tooltipData);
+
+			int tooltipY = 8 + tooltipData.size() * 11;
+			
+			if(tooltipEntry) {
+				RenderHelper.renderTooltipOrange(mx, my + tooltipY, Arrays.asList(EnumChatFormatting.GRAY + StatCollector.translateToLocal("botaniamisc.clickToRecipe")));
+				tooltipY += 18;
+			}
+			
 			if(tooltipContainerStack != null)
-				RenderHelper.renderTooltipGreen(mx, my + 8 + tooltipData.size() * 11, Arrays.asList(EnumChatFormatting.AQUA + StatCollector.translateToLocal("botaniamisc.craftingContainer"), tooltipContainerStack.getDisplayName()));
+				RenderHelper.renderTooltipGreen(mx, my + tooltipY, Arrays.asList(EnumChatFormatting.AQUA + StatCollector.translateToLocal("botaniamisc.craftingContainer"), tooltipContainerStack.getDisplayName()));
 		}
+		
 		tooltipStack = tooltipContainerStack = null;
+		tooltipEntry = false;
 		GL11.glDisable(GL11.GL_BLEND);
 	}
 
@@ -124,6 +139,19 @@ public class PageRecipe extends LexiconPage {
 
 		if(relativeMouseX >= xPos && relativeMouseY >= yPos && relativeMouseX <= xPos + 16 && relativeMouseY <= yPos + 16) {
 			tooltipStack = stack;
+			
+			EntryData data = LexiconRecipeMappings.getDataForStack(tooltipStack);
+			if(data != null && (data.entry != gui.getEntry() || data.page != gui.getPageOn())) {
+				tooltipEntry = true;
+				
+				if(Mouse.isButtonDown(0) && GuiScreen.isShiftKeyDown()) {
+					GuiLexiconEntry newGui = new GuiLexiconEntry(data.entry, (GuiScreen) gui);
+					newGui.page = data.page;
+					Minecraft.getMinecraft().displayGuiScreen(newGui);
+				}
+			}
+				
+			
 			if(accountForContainer) {
 				ItemStack containerStack = stack.getItem().getContainerItemStack(stack);
 				if(containerStack != null && containerStack.getItem() != null)
