@@ -25,6 +25,7 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
+import vazkii.botania.api.subtile.SubTileEntity;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;

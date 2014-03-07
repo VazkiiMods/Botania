@@ -22,7 +22,7 @@ import net.minecraft.entity.ai.EntityAITaskEntry;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.util.AxisAlignedBB;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.common.block.subtile.SubTileFunctional;
+import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibObfuscation;
 import cpw.mods.fml.common.network.PacketDispatcher;

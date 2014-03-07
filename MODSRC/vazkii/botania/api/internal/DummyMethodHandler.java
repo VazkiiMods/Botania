@@ -14,9 +14,11 @@ package vazkii.botania.api.internal;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.Icon;
+import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
@@ -88,5 +90,19 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 		return Block.plantRed.getIcon(0, 0);
 	}
 
+	@Override
+	public IManaNetwork getManaNetworkInstance() {
+		return DummyManaNetwork.instance;
+	}
+
+	@Override
+	public void drawSimpleManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res) {
+		// NO-OP
+	}
+
+	@Override
+	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {
+		// NO-OP
+	}
 
 }

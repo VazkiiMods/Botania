@@ -12,7 +12,7 @@
 package vazkii.botania.common.block.subtile.generating;
 
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.common.block.subtile.SubTileGenerating;
+import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileDaybloom extends SubTileGenerating {

@@ -17,7 +17,7 @@ import java.util.Map;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import vazkii.botania.api.ISpecialFlower;
-import vazkii.botania.api.SubTileEntity;
+import vazkii.botania.api.subtile.SubTileEntity;
 
 /**
  * This class contains mappings for which entry and page correspond to each
@@ -34,11 +34,11 @@ public final class LexiconRecipeMappings {
 	public static void map(ItemStack stack, LexiconEntry entry, int page, boolean force) {
 		EntryData data = new EntryData(entry, page);
 		String str = stackToString(stack);
-		
+
 		if(force || !mappings.containsKey(str))
 			mappings.put(str, data);
 	}
-	
+
 	public static void map(ItemStack stack, LexiconEntry entry, int page) {
 		map(stack, entry, page, false);
 	}

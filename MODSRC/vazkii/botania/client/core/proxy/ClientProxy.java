@@ -102,7 +102,7 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void twigWandClientUpdate() {
-		List<TileEntity> list = new ArrayList(ManaNetworkHandler.instance.getAllInWorld(ManaNetworkHandler.instance.manaCollectors, Minecraft.getMinecraft().thePlayer.dimension));
+		List<TileEntity> list = new ArrayList(ManaNetworkHandler.instance.getAllCollectorsInWorld(Minecraft.getMinecraft().theWorld.provider.dimensionId));
 		for(TileEntity tile : list) {
 			if(tile instanceof IManaCollector)
 				((IManaCollector) tile).onClientDisplayTick();

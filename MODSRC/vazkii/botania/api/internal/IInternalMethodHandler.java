@@ -13,13 +13,17 @@ package vazkii.botania.api.internal;
 
 import java.util.List;
 
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.Icon;
+import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * Any methods that refer to internal methods in Botania are here.
@@ -50,8 +54,15 @@ public interface IInternalMethodHandler {
 
 	public LexiconPage manaInfusionRecipePage(String key, RecipeManaInfusion recipe);
 
+	public IManaNetwork getManaNetworkInstance();
+
 	public ItemStack getSubTileAsStack(String subTile);
 
 	public Icon getSubTileIconForName(String name);
+
+	@SideOnly(Side.CLIENT)
+	public void drawSimpleManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res);
+
+	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m);
 
 }

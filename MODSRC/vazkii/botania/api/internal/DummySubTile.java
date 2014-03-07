@@ -11,7 +11,7 @@
  */
 package vazkii.botania.api.internal;
 
-import vazkii.botania.api.SubTileEntity;
+import vazkii.botania.api.subtile.SubTileEntity;
 
 public class DummySubTile extends SubTileEntity {
 

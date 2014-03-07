@@ -27,5 +27,5 @@ public interface IManaPool extends IManaReceiver {
 	 * true if it's sending power into them.
 	 */
 	public boolean isOutputtingPower();
-	
+
 }

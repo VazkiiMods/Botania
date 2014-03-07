@@ -19,17 +19,17 @@ import net.minecraft.tileentity.TileEntity;
  * contain mana.
  */
 public interface IManaItem {
-	
+
 	/**
 	 * Gets the amount of mana this item contains
 	 */
 	public int getMana(ItemStack stack);
-	
+
 	/**
 	 * Gets the max amount of mana this item can hold.
 	 */
 	public int getMaxMana(ItemStack stack);
-	
+
 	/**
 	 * Adds mana to this item.
 	 */
@@ -41,26 +41,26 @@ public interface IManaItem {
 	 * @see IManaPool#isOutputtingPower()
 	 */
 	public boolean canReceiveManaFromPool(ItemStack stack, TileEntity pool);
-	
+
 	/**
 	 * Can this item recieve mana from another item?
 	 * The getItem() of both stacks can be casted to IManaItem.
 	 */
 	public boolean canReceiveManaFromItem(ItemStack stack, ItemStack otherStack);
-		
+
 	/**
 	 * Can this item export mana to a mana Pool?
 	 * @param pool The pool it's exporting mana to, can be casted to IManaPool.
 	 * @see IManaPool#isOutputtingPower()
 	 */
 	public boolean canExportManaToPool(ItemStack stack,TileEntity pool);
-	
+
 	/**
 	 * Can this item export mana to another item?
 	 * The getItem() of both stacks can be casted to IManaItem.
 	 */
 	public boolean canExportManaToItem(ItemStack stack, ItemStack otherStack);
-	
+
 	/**
 	 * Should the mana in this item be prioritized over the mana in
 	 * other items? Generally set to false for generic containers

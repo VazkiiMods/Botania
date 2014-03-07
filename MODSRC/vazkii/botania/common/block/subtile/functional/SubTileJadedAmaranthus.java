@@ -13,8 +13,8 @@ package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.block.Block;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
 import cpw.mods.fml.common.network.PacketDispatcher;
 

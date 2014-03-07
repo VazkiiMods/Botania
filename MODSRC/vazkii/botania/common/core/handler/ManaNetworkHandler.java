@@ -19,12 +19,13 @@ import java.util.Map;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraftforge.event.ForgeSubscribe;
+import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.api.mana.ManaNetworkEvent.Action;
 import vazkii.botania.api.mana.ManaNetworkEvent.ManaBlockType;
 import vazkii.botania.common.core.helper.MathHelper;
 
-public final class ManaNetworkHandler {
+public final class ManaNetworkHandler implements IManaNetwork {
 
 	public static final ManaNetworkHandler instance = new ManaNetworkHandler();
 
@@ -39,17 +40,20 @@ public final class ManaNetworkHandler {
 		else remove(map, event.tile);
 	}
 
+	@Override
 	public void clear() {
 		manaPools.clear();
 		manaCollectors.clear();
 	}
 
+	@Override
 	public TileEntity getClosestPool(ChunkCoordinates pos, int dimension, int limit) {
 		if(manaPools.containsKey(dimension))
 			return getClosest(manaPools.get(dimension), pos, limit);
 		return null;
 	}
 
+	@Override
 	public TileEntity getClosestCollector(ChunkCoordinates pos, int dimension, int limit) {
 		if(manaCollectors.containsKey(dimension))
 			return getClosest(manaCollectors.get(dimension), pos, limit);
@@ -73,7 +77,7 @@ public final class ManaNetworkHandler {
 
 		return closestTile;
 	}
-
+	
 	private synchronized void remove(Map<Integer, List<TileEntity>> map, TileEntity tile) {
 		int dim = tile.worldObj.provider.dimensionId;
 
@@ -96,16 +100,20 @@ public final class ManaNetworkHandler {
 		if(!tiles.contains(tile))
 			tiles.add(tile);
 	}
-
-	public List<TileEntity> getAllInWorld(Map<Integer, List<TileEntity>> map, int dim) {
+	
+	@Override
+	public List<TileEntity> getAllCollectorsInWorld(int dim) {
+		return getAllInWorld(manaCollectors, dim);
+	}
+	
+	@Override
+	public List<TileEntity> getAllPoolsInWorld(int dim) {
+		return getAllInWorld(manaPools, dim);
+	}
+	
+	private List<TileEntity> getAllInWorld(Map<Integer, List<TileEntity>> map, int dim) {
 		if(!map.containsKey(dim))
 			return new ArrayList();
 		return map.get(dim);
-	}
-
-	public int getAmount(Map<Integer, List<TileEntity>> map, int dim) {
-		if(!map.containsKey(dim))
-			return 0;
-		return map.get(dim).size();
 	}
 }

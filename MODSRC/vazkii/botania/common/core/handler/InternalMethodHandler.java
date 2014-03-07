@@ -14,14 +14,19 @@ package vazkii.botania.common.core.handler;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.Icon;
+import net.minecraft.world.World;
 import vazkii.botania.api.internal.IInternalMethodHandler;
+import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
+import vazkii.botania.client.core.handler.HUDHandler;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockSpecialFlower;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
@@ -93,6 +98,21 @@ public class InternalMethodHandler implements IInternalMethodHandler {
 	@Override
 	public ItemStack getSubTileAsStack(String subTile) {
 		return ItemBlockSpecialFlower.ofType(subTile);
+	}
+
+	@Override
+	public IManaNetwork getManaNetworkInstance() {
+		return ManaNetworkHandler.instance;
+	}
+
+	@Override
+	public void drawSimpleManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res) {
+		HUDHandler.drawSimpleManaHUD(color, mana, maxMana, name, res);
+	}
+
+	@Override
+	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {
+		Botania.proxy.sparkleFX(world, x, y, z, r, g, b, size, m);
 	}
 
 }

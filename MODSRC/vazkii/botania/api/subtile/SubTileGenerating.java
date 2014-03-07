@@ -9,7 +9,7 @@
  * 
  * File Created @ [Jan 24, 2014, 8:03:36 PM (GMT)]
  */
-package vazkii.botania.common.block.subtile;
+package vazkii.botania.api.subtile;
 
 import java.awt.Color;
 
@@ -21,11 +21,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.StatCollector;
-import vazkii.botania.api.SubTileEntity;
+import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaCollector;
-import vazkii.botania.client.core.handler.HUDHandler;
-import vazkii.botania.common.Botania;
-import vazkii.botania.common.core.handler.ManaNetworkHandler;
 
 public class SubTileGenerating extends SubTileEntity {
 
@@ -63,7 +61,7 @@ public class SubTileGenerating extends SubTileEntity {
 			double particleChance = 1F - (double) mana / (double) getMaxMana() / 2F;
 			Color color = new Color(getColor());
 			if(Math.random() > particleChance)
-				Botania.proxy.sparkleFX(supertile.worldObj, supertile.xCoord + 0.3 + Math.random() * 0.5, supertile.yCoord + 0.5 + Math.random()  * 0.5, supertile.zCoord + 0.3 + Math.random() * 0.5, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random(), 5);
+				BotaniaAPI.internalHandler.sparkleFX(supertile.worldObj, supertile.xCoord + 0.3 + Math.random() * 0.5, supertile.yCoord + 0.5 + Math.random()  * 0.5, supertile.zCoord + 0.3 + Math.random() * 0.5, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random(), 5);
 		}
 	}
 
@@ -83,10 +81,11 @@ public class SubTileGenerating extends SubTileEntity {
 		}
 
 		if(needsNew) {
-			int size = ManaNetworkHandler.instance.getAmount(ManaNetworkHandler.instance.manaCollectors, supertile.worldObj.provider.dimensionId);
+			IManaNetwork network = BotaniaAPI.internalHandler.getManaNetworkInstance();
+			int size = network.getAllCollectorsInWorld(supertile.worldObj.provider.dimensionId).size();
 			if(size != sizeLastCheck) {
 				ChunkCoordinates coords = new ChunkCoordinates(supertile.xCoord, supertile.yCoord, supertile.zCoord);
-				linkedCollector = ManaNetworkHandler.instance.getClosestCollector(coords, supertile.worldObj.provider.dimensionId, range);
+				linkedCollector = network.getClosestCollector(coords, supertile.worldObj.provider.dimensionId, range);
 				sizeLastCheck = size;
 			}
 		}
@@ -167,7 +166,7 @@ public class SubTileGenerating extends SubTileEntity {
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		String name = StatCollector.translateToLocal("tile.botania:flower." + getUnlocalizedName() + ".name");
 		int color = 0x66000000 | getColor();
-		HUDHandler.drawSimpleManaHUD(color, knownMana, getMaxMana(), name, res);
+		BotaniaAPI.internalHandler.drawSimpleManaHUD(color, knownMana, getMaxMana(), name, res);
 	}
 
 }

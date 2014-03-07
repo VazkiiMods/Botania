@@ -19,8 +19,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Icon;
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.SubTileEntity;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.subtile.SubTileEntity;
 
 public class TileSpecialFlower extends TileMod {
 
