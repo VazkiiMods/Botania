@@ -16,7 +16,6 @@ import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
@@ -44,7 +43,7 @@ public class GuiButtonBack extends GuiButton {
 		if(k == 2)
 			RenderHelper.renderTooltip(par2, par3 + tooltipY, tooltip);
 	}
-	
+
 	public List<String> getTooltip() {
 		return Arrays.asList(StatCollector.translateToLocal("botaniamisc.back"));
 	}

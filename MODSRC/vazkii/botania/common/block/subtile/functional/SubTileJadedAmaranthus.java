@@ -66,7 +66,7 @@ public class SubTileJadedAmaranthus extends SubTileFunctional {
 	public LexiconEntry getEntry() {
 		return LexiconData.jadedAmaranthus;
 	}
-	
+
 	@Override
 	public int getMaxMana() {
 		return COST;

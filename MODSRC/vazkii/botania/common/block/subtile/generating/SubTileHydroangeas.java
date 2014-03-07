@@ -1,12 +1,12 @@
 package vazkii.botania.common.block.subtile.generating;
 
-import cpw.mods.fml.common.network.PacketDispatcher;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lexicon.LexiconData;
+import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class SubTileHydroangeas extends SubTileGenerating {
 

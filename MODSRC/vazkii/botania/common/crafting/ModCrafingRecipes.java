@@ -64,6 +64,7 @@ public final class ModCrafingRecipes {
 	public static List<IRecipe> recipesManaBeacons;
 	public static List<IRecipe> recipesSignalFlares;
 	public static IRecipe recipeManaVoid;
+	public static List<IRecipe> recipesManaTablet;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -232,7 +233,7 @@ public final class ModCrafingRecipes {
 				'W', new ItemStack(ModBlocks.livingwood, 1, 1));
 		livingwoodDecorRecipe4 = BotaniaAPI.getLatestAddedRecipe();
 
-		// MANA BEACON RECIPES
+		// Mana Beacon Recipe
 		for(int i = 0; i < 16; i++)
 			addOreDictRecipe(new ItemStack(ModBlocks.manaBeacon, 1, i),
 					" B ", "BPB", " B ",
@@ -240,7 +241,7 @@ public final class ModCrafingRecipes {
 					'P', LibOreDict.MANA_PEARL);
 		recipesManaBeacons = BotaniaAPI.getLatestAddedRecipes(16);
 
-		// SIGNAL FLARE RECIPES
+		// Signal Flare Recipe
 		for(int i = 0; i < 16; i++)
 			addOreDictRecipe(ItemSignalFlare.forColor(i),
 					"I ", " B", "W ",
@@ -248,13 +249,24 @@ public final class ModCrafingRecipes {
 					'I', "ingotIron",
 					'W', LibOreDict.LIVING_WOOD);
 		recipesSignalFlares = BotaniaAPI.getLatestAddedRecipes(16);
-		
-		// MANA VOID RECIPE
-		addOreDictRecipe(new ItemStack(ModBlocks.manaVoid), 
+
+		// Mana Void Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.manaVoid),
 				"SSS", "O O", "SSS",
 				'S', LibOreDict.LIVING_ROCK,
 				'O', new ItemStack(Block.obsidian));
 		recipeManaVoid = BotaniaAPI.getLatestAddedRecipe();
+
+		// Mana Tablet Recipe
+		addOreDictRecipe(new ItemStack(ModItems.manaTablet, 1, 10000),
+				"SSS", "SPS", "SSS",
+				'S', LibOreDict.LIVING_ROCK,
+				'P', LibOreDict.MANA_PEARL);
+		addOreDictRecipe(new ItemStack(ModItems.manaTablet, 1, 10000),
+				"SSS", "SDS", "SSS",
+				'S', LibOreDict.LIVING_ROCK,
+				'D', LibOreDict.MANA_DIAMOND);
+		recipesManaTablet = BotaniaAPI.getLatestAddedRecipes(2);
 	}
 
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {

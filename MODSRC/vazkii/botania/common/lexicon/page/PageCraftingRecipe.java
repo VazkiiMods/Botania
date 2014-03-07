@@ -56,7 +56,7 @@ public class PageCraftingRecipe extends PageRecipe {
 	public PageCraftingRecipe(String unlocalizedName, IRecipe recipe) {
 		this(unlocalizedName, Arrays.asList(recipe));
 	}
-	
+
 	@Override
 	public void onPageAdded(LexiconEntry entry, int index) {
 		for(IRecipe recipe : recipes)

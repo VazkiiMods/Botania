@@ -328,7 +328,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 			burst.getCollidedTile(false);
 		}
 	}
-	
+
 	@Override
 	public float getManaYieldMultiplier(IManaBurst burst) {
 		return burst.getMana() < 16 ? 0F : 0.95F;

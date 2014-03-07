@@ -49,7 +49,7 @@ public class SubTileEndoflame extends SubTileGenerating {
 								this.burnTime = burnTime / 2;
 
 								stack.stackSize--;
-								
+
 								if(stack.stackSize == 0)
 									item.setDead();
 
@@ -66,7 +66,7 @@ public class SubTileEndoflame extends SubTileGenerating {
 			} else {
 				if(supertile.worldObj.rand.nextInt(8) == 0)
 					Botania.proxy.wispFX(supertile.worldObj, supertile.xCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.yCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.zCoord + 0.5, 0.7F, 0.05F, 0.05F, (float) Math.random() / 6, (float) -Math.random() / 60);
-				
+
 				burnTime--;
 			}
 		}

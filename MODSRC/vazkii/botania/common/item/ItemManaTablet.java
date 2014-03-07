@@ -12,8 +12,10 @@
 package vazkii.botania.common.item;
 
 import java.awt.Color;
+import java.util.List;
 
 import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
@@ -26,33 +28,38 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemManaTablet extends ItemMod implements IManaItem {
 
 	Icon[] icons;
-	
+
 	private static final String TAG_MANA = "mana";
-	
+
 	public ItemManaTablet() {
 		super(LibItemIDs.idManaTablet);
 		setMaxStackSize(1);
 		setMaxDamage(1000);
 		setUnlocalizedName(LibItemNames.MANA_TABLET);
 	}
-	
+
+	@Override
+	public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List) {
+		par3List.add(new ItemStack(par1, 1, 10000));
+	}
+
 	@Override
 	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
 		float mana = getMana(par1ItemStack);
-		return par2 == 1 ? Color.HSBtoRGB(0.528F,  mana / (float) getMaxMana(par1ItemStack), 1F) : 0xFFFFFF;
+		return par2 == 1 ? Color.HSBtoRGB(0.528F,  mana / getMaxMana(par1ItemStack), 1F) : 0xFFFFFF;
 	}
-	
+
 	@Override
 	public int getDamage(ItemStack stack) {
 		float mana = getMana(stack);
-		return 1000 - (int) ((mana / (float) getMaxMana(stack)) * 1000);
+		return 1000 - (int) (mana / getMaxMana(stack) * 1000);
 	}
-	
+
 	@Override
 	public int getDisplayDamage(ItemStack stack) {
 		return getDamage(stack);
 	}
-	
+
 	@Override
 	public void registerIcons(IconRegister par1IconRegister) {
 		icons = new Icon[2];
@@ -69,7 +76,7 @@ public class ItemManaTablet extends ItemMod implements IManaItem {
 	public boolean requiresMultipleRenderPasses() {
 		return true;
 	}
-	
+
 	public static void setMana(ItemStack stack, int mana) {
 		ItemNBTHelper.setInt(stack, TAG_MANA, mana);
 	}
@@ -113,5 +120,5 @@ public class ItemManaTablet extends ItemMod implements IManaItem {
 	public boolean isPriorityItem(ItemStack stack) {
 		return false;
 	}
-	
+
 }

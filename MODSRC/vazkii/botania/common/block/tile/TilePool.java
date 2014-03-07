@@ -134,7 +134,7 @@ public class TilePool extends TileMod implements IManaPool {
 			ItemStack stack = item.getEntityItem();
 			if(stack != null && stack.getItem() instanceof IManaItem) {
 				IManaItem mana = (IManaItem) stack.getItem();
-				if((outputting && mana.canReceiveManaFromPool(stack, this)) || (!outputting && mana.canExportManaToPool(stack, this))) {
+				if(outputting && mana.canReceiveManaFromPool(stack, this) || !outputting && mana.canExportManaToPool(stack, this)) {
 					boolean didSomething = false;
 
 					if(outputting) {
@@ -192,7 +192,7 @@ public class TilePool extends TileMod implements IManaPool {
 			nbttagcompound.setInteger(TAG_KNOWN_MANA, getCurrentMana());
 			PacketDispatcher.sendPacketToPlayer(new Packet132TileEntityData(xCoord, yCoord, zCoord, -999, nbttagcompound), (Player) player);
 		}
-		
+
 		worldObj.playSoundAtEntity(player, "random.orb", 0.11F, 1F);
 	}
 

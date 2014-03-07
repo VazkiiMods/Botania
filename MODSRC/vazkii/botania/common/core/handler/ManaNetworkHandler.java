@@ -77,7 +77,7 @@ public final class ManaNetworkHandler implements IManaNetwork {
 
 		return closestTile;
 	}
-	
+
 	private synchronized void remove(Map<Integer, List<TileEntity>> map, TileEntity tile) {
 		int dim = tile.worldObj.provider.dimensionId;
 
@@ -100,17 +100,17 @@ public final class ManaNetworkHandler implements IManaNetwork {
 		if(!tiles.contains(tile))
 			tiles.add(tile);
 	}
-	
+
 	@Override
 	public List<TileEntity> getAllCollectorsInWorld(int dim) {
 		return getAllInWorld(manaCollectors, dim);
 	}
-	
+
 	@Override
 	public List<TileEntity> getAllPoolsInWorld(int dim) {
 		return getAllInWorld(manaPools, dim);
 	}
-	
+
 	private List<TileEntity> getAllInWorld(Map<Integer, List<TileEntity>> map, int dim) {
 		if(!map.containsKey(dim))
 			return new ArrayList();

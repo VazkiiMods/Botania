@@ -63,7 +63,7 @@ public class ItemBlockSpecialFlower extends ItemBlock implements ISpecialFlower 
 	public String getUnlocalizedName(ItemStack stack) {
 		return "tile." + LibBlockNames.SPECIAL_FLOWER_PREFIX + getType(stack);
 	}
-	
+
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
 		String refUnlocalized = "tile." + LibBlockNames.SPECIAL_FLOWER_PREFIX + getType(par1ItemStack) + ".reference";

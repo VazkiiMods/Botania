@@ -66,16 +66,16 @@ public class PageRecipe extends LexiconPage {
 			RenderHelper.renderTooltip(mx, my, tooltipData);
 
 			int tooltipY = 8 + tooltipData.size() * 11;
-			
+
 			if(tooltipEntry) {
 				RenderHelper.renderTooltipOrange(mx, my + tooltipY, Arrays.asList(EnumChatFormatting.GRAY + StatCollector.translateToLocal("botaniamisc.clickToRecipe")));
 				tooltipY += 18;
 			}
-			
+
 			if(tooltipContainerStack != null)
 				RenderHelper.renderTooltipGreen(mx, my + tooltipY, Arrays.asList(EnumChatFormatting.AQUA + StatCollector.translateToLocal("botaniamisc.craftingContainer"), tooltipContainerStack.getDisplayName()));
 		}
-		
+
 		tooltipStack = tooltipContainerStack = null;
 		tooltipEntry = false;
 		GL11.glDisable(GL11.GL_BLEND);
@@ -139,19 +139,19 @@ public class PageRecipe extends LexiconPage {
 
 		if(relativeMouseX >= xPos && relativeMouseY >= yPos && relativeMouseX <= xPos + 16 && relativeMouseY <= yPos + 16) {
 			tooltipStack = stack;
-			
+
 			EntryData data = LexiconRecipeMappings.getDataForStack(tooltipStack);
 			if(data != null && (data.entry != gui.getEntry() || data.page != gui.getPageOn())) {
 				tooltipEntry = true;
-				
+
 				if(Mouse.isButtonDown(0) && GuiScreen.isShiftKeyDown()) {
 					GuiLexiconEntry newGui = new GuiLexiconEntry(data.entry, (GuiScreen) gui);
 					newGui.page = data.page;
 					Minecraft.getMinecraft().displayGuiScreen(newGui);
 				}
 			}
-				
-			
+
+
 			if(accountForContainer) {
 				ItemStack containerStack = stack.getItem().getContainerItemStack(stack);
 				if(containerStack != null && containerStack.getItem() != null)

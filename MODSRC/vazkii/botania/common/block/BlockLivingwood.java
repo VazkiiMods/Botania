@@ -52,7 +52,7 @@ public class BlockLivingwood extends BlockMod implements ILexiconable {
 	public int damageDropped(int par1) {
 		return par1;
 	}
-	
+
 	@Override
 	public Block setUnlocalizedName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);

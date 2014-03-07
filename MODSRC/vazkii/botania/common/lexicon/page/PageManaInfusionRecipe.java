@@ -52,7 +52,7 @@ public class PageManaInfusionRecipe extends PageRecipe {
 	public PageManaInfusionRecipe(String unlocalizedName, RecipeManaInfusion recipe) {
 		this(unlocalizedName, Arrays.asList(recipe));
 	}
-	
+
 	@Override
 	public void onPageAdded(LexiconEntry entry, int index) {
 		for(RecipeManaInfusion recipe : recipes)

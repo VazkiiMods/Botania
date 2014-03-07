@@ -325,7 +325,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 					int mana = getMana();
 					if(tile instanceof IManaCollector)
 						mana *= ((IManaCollector) tile).getManaYieldMultiplier(this);
-					
+
 					((IManaReceiver) tile).recieveMana(mana);
 					PacketDispatcher.sendPacketToAllInDimension(tile.getDescriptionPacket(), worldObj.provider.dimensionId);
 				}

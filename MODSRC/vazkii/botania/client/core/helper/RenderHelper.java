@@ -35,7 +35,7 @@ public final class RenderHelper {
 
 		renderTooltip(x, y, tooltipData, color, color2);
 	}
-	
+
 	public static void renderTooltipGreen(int x, int y, List<String> tooltipData) {
 		int color = 0x5000a000;
 		int color2 = 0xf0001e00;
@@ -74,7 +74,7 @@ public final class RenderHelper {
 			drawGradientRect(var6 + var5 + 2, var7 - 3 + 1, z, var6 + var5 + 3, var7 + var9 + 3 - 1, color, var12);
 			drawGradientRect(var6 - 3, var7 - 3, z, var6 + var5 + 3, var7 - 3 + 1, color, color);
 			drawGradientRect(var6 - 3, var7 + var9 + 2, z, var6 + var5 + 3, var7 + var9 + 3, var12, var12);
-			
+
 			GL11.glDisable(GL11.GL_DEPTH_TEST);
 			for (int var13 = 0; var13 < tooltipData.size(); ++var13) {
 				String var14 = tooltipData.get(var13);

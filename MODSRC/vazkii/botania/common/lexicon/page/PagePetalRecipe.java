@@ -49,7 +49,7 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 	public PagePetalRecipe(String unlocalizedName, T recipe) {
 		this(unlocalizedName, Arrays.asList(recipe));
 	}
-	
+
 	@Override
 	public void onPageAdded(LexiconEntry entry, int index) {
 		for(T recipe : recipes)

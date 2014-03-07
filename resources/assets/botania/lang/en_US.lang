@@ -360,6 +360,12 @@ botania.entry.lensDamaging=Mana Lens: Damaging
 botania.page.lensDamaging0=The &1Damaging Lens&0 charges the &4Mana Burst&0 with the power to damage any living beings it comes across, draining it's own mana to do so.
 botania.page.lensDamaging1=Crafting the lens 
 
+# -- PORTABLE MANA TRANSPORT
+botania.entry.manaTransport=Portable Mana Transport
+botania.page.manaTransport0=While using &1Mana Spreaders&0 to transport &4Mana&0 around is all well and good, there is also a way of doing it in a different manner.<br>The &1Mana Tablet&0 is a portable object which can carry &4Mana&0 on itself.
+botania.page.manaTransport1=Tossing one of these on top of a &1Mana Pool&0 will allow for transport of &4Mana&0 between one and another.<br>Shift-right clicking the &1Mana Pool&0 with a &1Wand of the Forest&0 will change in which way the &4Mana&0 flows.
+botania.page.manaTransport2=This doesn't run android
+
 # - FUNCTIONAL FLOWERS
 # -- AN INTRODUCTION TO FUNCTION
 botania.entry.fIntro=An Introduction to Function
