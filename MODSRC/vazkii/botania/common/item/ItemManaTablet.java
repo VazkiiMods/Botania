@@ -39,13 +39,18 @@ public class ItemManaTablet extends ItemMod implements IManaItem {
 	@Override
 	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
 		float mana = getMana(par1ItemStack);
-		return par2 == 1 ? Color.HSBtoRGB(0.745F, mana == 0F ? 0 : (float) getMaxMana(par1ItemStack) / mana, 1F) : 0xFFFFFF;
+		return par2 == 1 ? Color.HSBtoRGB(0.528F,  mana / (float) getMaxMana(par1ItemStack), 1F) : 0xFFFFFF;
+	}
+	
+	@Override
+	public int getDamage(ItemStack stack) {
+		float mana = getMana(stack);
+		return 1000 - (int) ((mana / (float) getMaxMana(stack)) * 1000);
 	}
 	
 	@Override
 	public int getDisplayDamage(ItemStack stack) {
-		float mana = getMana(stack);
-		return (int) ((mana == 0F ? 0 : (float) getMaxMana(stack) / mana) * 1000);
+		return getDamage(stack);
 	}
 	
 	@Override
@@ -81,7 +86,7 @@ public class ItemManaTablet extends ItemMod implements IManaItem {
 
 	@Override
 	public void addMana(ItemStack stack, int mana) {
-		setMana(stack, Math.max(getMana(stack) + mana, getMaxMana(stack)));
+		setMana(stack, Math.min(getMana(stack) + mana, getMaxMana(stack)));
 	}
 
 	@Override

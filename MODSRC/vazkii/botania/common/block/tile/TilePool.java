@@ -12,6 +12,7 @@
 package vazkii.botania.common.block.tile;
 
 import java.awt.Color;
+import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -20,11 +21,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.Packet132TileEntityData;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
@@ -41,7 +44,7 @@ public class TilePool extends TileMod implements IManaPool {
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_KNOWN_MANA = "knownMana";
 	private static final String TAG_OUTPUTTING = "outputting";
-	
+
 	boolean outputting = false;
 
 	int mana;
@@ -87,7 +90,7 @@ public class TilePool extends TileMod implements IManaPool {
 						stack.stackSize--;
 						if(stack.stackSize == 0)
 							item.setDead();
-						
+
 						ItemStack output = recipe.getOutput().copy();
 						EntityItem outputItem = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, output);
 						worldObj.spawnEntityInWorld(outputItem);
@@ -120,10 +123,45 @@ public class TilePool extends TileMod implements IManaPool {
 			added = true;
 		}
 		if(worldObj.isRemote) {
-			double particleChance = 1F - (double) getCurrentMana() / (double) MAX_MANA * 0.25;
+			double particleChance = 1F - (double) getCurrentMana() / (double) MAX_MANA * 0.1;
 			Color color = new Color(0x00C6FF);
 			if(Math.random() > particleChance)
 				Botania.proxy.wispFX(worldObj, xCoord + 0.3 + Math.random() * 0.5, yCoord + 0.6 + Math.random() * 0.25, zCoord + Math.random(), color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random() / 3F, (float) -Math.random() / 25F);
+		}
+
+		List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1));
+		for(EntityItem item : items) {
+			ItemStack stack = item.getEntityItem();
+			if(stack != null && stack.getItem() instanceof IManaItem) {
+				IManaItem mana = (IManaItem) stack.getItem();
+				if((outputting && mana.canReceiveManaFromPool(stack, this)) || (!outputting && mana.canExportManaToPool(stack, this))) {
+					boolean didSomething = false;
+
+					if(outputting) {
+						if(this.mana > 0)
+							didSomething = true;
+
+						int manaVal = Math.min(1000, Math.min(this.mana, mana.getMaxMana(stack) - mana.getMana(stack)));
+						mana.addMana(stack, manaVal);
+						recieveMana(-manaVal);
+					} else {
+						if(mana.getMana(stack) > 0)
+							didSomething = true;
+
+						int manaVal = Math.min(1000, Math.min(MAX_MANA - this.mana, mana.getMana(stack)));
+						mana.addMana(stack, -manaVal);
+						recieveMana(manaVal);
+					}
+
+					if(didSomething) {
+						PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
+						if(worldObj.isRemote) {
+							Color color = new Color(0x00C6FF);
+							Botania.proxy.wispFX(worldObj, item.posX + Math.random() * 0.5 - 0.25, item.posY + Math.random() * 0.5 - (outputting ? 0.65 : 0.25), item.posZ + Math.random() * 0.5 - 0.25, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random() / 15F, (outputting ? -1F : 1) * (float) Math.random() / 25F);
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -146,12 +184,15 @@ public class TilePool extends TileMod implements IManaPool {
 		if(player.isSneaking()) {
 			outputting = !outputting;
 			PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
-		} else if(!worldObj.isRemote) {
+		}
+
+		if(!worldObj.isRemote) {
 			NBTTagCompound nbttagcompound = new NBTTagCompound();
 			writeCustomNBT(nbttagcompound);
 			nbttagcompound.setInteger(TAG_KNOWN_MANA, getCurrentMana());
 			PacketDispatcher.sendPacketToPlayer(new Packet132TileEntityData(xCoord, yCoord, zCoord, -999, nbttagcompound), (Player) player);
 		}
+		
 		worldObj.playSoundAtEntity(player, "random.orb", 0.11F, 1F);
 	}
 
@@ -159,7 +200,7 @@ public class TilePool extends TileMod implements IManaPool {
 		String name = ModBlocks.pool.getLocalizedName();
 		int color = 0x660000FF;
 		HUDHandler.drawSimpleManaHUD(color, knownMana, MAX_MANA, name, res);
-		
+
 		String power = StatCollector.translateToLocal("botaniamisc." + (outputting ? "outputtingPower" : "inputtingPower"));
 		int x = res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(power) / 2;
 		int y = res.getScaledHeight() / 2 + 30;
@@ -173,7 +214,7 @@ public class TilePool extends TileMod implements IManaPool {
 	public boolean canRecieveManaFromBursts() {
 		return true;
 	}
-	
+
 	@Override
 	public boolean isOutputtingPower() {
 		return outputting;
