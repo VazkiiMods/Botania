@@ -25,6 +25,9 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaCollector;
 
+/**
+ * The basic class for a Generating Flower.
+ */
 public class SubTileGenerating extends SubTileEntity {
 
 	private static final String TAG_MANA = "mana";

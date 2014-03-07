@@ -25,6 +25,9 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaPool;
 
+/**
+ * The basic class for a Functional Flower.
+ */
 public class SubTileFunctional extends SubTileEntity {
 
 	private static final String TAG_MANA = "mana";
