@@ -207,6 +207,7 @@ item.botania:rune13.name=Rune of Wrath
 item.botania:rune14.name=Rune of Envy
 item.botania:rune15.name=Rune of Pride
 item.botania:signalFlare.name=Signal Flare
+item.botania:manaTablet.name=Mana Tablet
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania Index - Pick which category you would like to study:

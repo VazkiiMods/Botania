@@ -25,6 +25,7 @@ public final class LibItemNames {
 	public static final String MANA_PETAL = LibResources.PREFIX_MOD + "manaPetal";
 	public static final String RUNE = LibResources.PREFIX_MOD + "rune";
 	public static final String SIGNAL_FLARE = LibResources.PREFIX_MOD + "signalFlare";
+	public static final String MANA_TABLET = LibResources.PREFIX_MOD + "manaTablet";
 
 	public static final String[] LENS_NAMES = new String[] {
 		LibResources.PREFIX_MOD + "lensNormal",
