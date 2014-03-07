@@ -66,6 +66,7 @@ public final class ConfigHandler {
 		LibItemIDs.idLens = loadItem(LibItemNames.LENS, LibItemIDs.idLens);
 		LibItemIDs.idManaPetal = loadItem(LibItemNames.MANA_PETAL, LibItemIDs.idManaPetal);
 		LibItemIDs.idRune = loadItem(LibItemNames.RUNE, LibItemIDs.idRune);
+		LibItemIDs.idSignalFlare = loadItem(LibItemNames.SIGNAL_FLARE, LibItemIDs.idSignalFlare);
 
 		config.save();
 	}
