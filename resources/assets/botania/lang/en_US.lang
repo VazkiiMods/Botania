@@ -15,6 +15,7 @@ botaniamisc.clickToIndex=Shift click for index
 botaniamisc.flareColor=%s Rounds
 botaniamisc.outputtingPower=Sparing Power to Items
 botaniamisc.inputtingPower=Accepting Power from Items
+botaniamisc.creative=Creative
 
 # COLORS
 botania.color0=White

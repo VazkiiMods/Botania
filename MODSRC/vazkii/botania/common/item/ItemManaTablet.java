@@ -16,9 +16,12 @@ import java.util.List;
 
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.Icon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -30,7 +33,10 @@ public class ItemManaTablet extends ItemMod implements IManaItem {
 
 	Icon[] icons;
 
+	private static final int MAX_MANA = 500000;
+	
 	private static final String TAG_MANA = "mana";
+	private static final String TAG_CREATIVE = "creative";
 
 	public ItemManaTablet() {
 		super(LibItemIDs.idManaTablet);
@@ -42,18 +48,27 @@ public class ItemManaTablet extends ItemMod implements IManaItem {
 	@Override
 	public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List) {
 		par3List.add(new ItemStack(par1, 1, 10000));
+		
+		ItemStack fullPower = new ItemStack(par1, 1, 1);
+		setMana(fullPower, MAX_MANA);
+		par3List.add(fullPower);
+		
+		ItemStack creative = new ItemStack(par1, 1, 0);
+		setMana(creative, MAX_MANA);
+		setStackCreative(creative);
+		par3List.add(creative);
 	}
 
 	@Override
 	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
 		float mana = getMana(par1ItemStack);
-		return par2 == 1 ? Color.HSBtoRGB(0.528F,  mana / getMaxMana(par1ItemStack), 1F) : 0xFFFFFF;
+		return par2 == 1 ? Color.HSBtoRGB(0.528F,  mana / MAX_MANA, 1F) : 0xFFFFFF;
 	}
 
 	@Override
 	public int getDamage(ItemStack stack) {
 		float mana = getMana(stack);
-		return 1000 - (int) (mana / getMaxMana(stack) * 1000);
+		return 1000 - (int) (mana / MAX_MANA * 1000);
 	}
 
 	@Override
@@ -74,6 +89,12 @@ public class ItemManaTablet extends ItemMod implements IManaItem {
 	}
 
 	@Override
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+		if(isStackCreative(par1ItemStack))
+			par3List.add(StatCollector.translateToLocal("botaniamisc.creative"));
+	}
+	
+	@Override
 	public boolean requiresMultipleRenderPasses() {
 		return true;
 	}
@@ -86,6 +107,14 @@ public class ItemManaTablet extends ItemMod implements IManaItem {
 	public static void setMana(ItemStack stack, int mana) {
 		ItemNBTHelper.setInt(stack, TAG_MANA, mana);
 	}
+	
+	public static void setStackCreative(ItemStack stack) {
+		ItemNBTHelper.setBoolean(stack, TAG_CREATIVE, true);
+	}
+	
+	public static boolean isStackCreative(ItemStack stack) {
+		return ItemNBTHelper.getBoolean(stack, TAG_CREATIVE, false);
+	}
 
 	@Override
 	public int getMana(ItemStack stack) {
@@ -94,12 +123,13 @@ public class ItemManaTablet extends ItemMod implements IManaItem {
 
 	@Override
 	public int getMaxMana(ItemStack stack) {
-		return 500000;
+		return isStackCreative(stack) ? MAX_MANA + 1000 : MAX_MANA;
 	}
 
 	@Override
 	public void addMana(ItemStack stack, int mana) {
-		setMana(stack, Math.min(getMana(stack) + mana, getMaxMana(stack)));
+		if(!isStackCreative(stack))
+			setMana(stack, Math.min(getMana(stack) + mana, MAX_MANA));
 	}
 
 	@Override
