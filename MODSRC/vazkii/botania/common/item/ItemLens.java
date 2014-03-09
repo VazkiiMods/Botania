@@ -47,7 +47,7 @@ public class ItemLens extends ItemMod implements ILens {
 
 	public static Icon iconGlass;
 
-	public static final int SUBTYPES = 9;
+	public static final int SUBTYPES = 10;
 	Icon[] ringIcons;
 
 	public ItemLens() {
@@ -213,6 +213,12 @@ public class ItemLens extends ItemMod implements ILens {
 							living.attackEntityFrom(DamageSource.magic, 1);
 					}
 				}
+			}
+		}
+		case 9 : { // Phantom
+			if(!isManaBlock) {
+				dead = false;
+				burst.setMinManaLoss(Math.max(0, burst.getMinManaLoss() - 4));
 			}
 		}
 		}
