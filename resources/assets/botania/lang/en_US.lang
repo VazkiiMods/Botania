@@ -10,8 +10,8 @@ botaniamisc.statusUnknown=Unknown Status
 botaniamisc.color=%s Tinted
 botaniamisc.manaUsage=Mana Usage
 botaniamisc.shiftToRead=Shift-right click to read more
-botaniamisc.clickToRecipe=Shift-right click to see recipe
-botaniamisc.clickToIndex=Shift-right click for index
+botaniamisc.clickToRecipe=Shift click to see recipe
+botaniamisc.clickToIndex=Shift click for index
 botaniamisc.flareColor=%s Rounds
 botaniamisc.outputtingPower=Sparing Power to Items
 botaniamisc.inputtingPower=Accepting Power from Items
@@ -259,7 +259,7 @@ botania.page.wand1=The petals use determine the colors.
 
 # -- RUNIC ALTAR
 botania.entry.runeAltar=Runic Altar
-botania.page.runeAltar0=&1Runes&0 are extremely important components of complex magical devices or flora.<br>In order to create these, one would require a &1Runic Altar&0.<br>To utilize this &1Runic Altar&0, start by placing the components to the rune you want to create.
+botania.page.runeAltar0=&1Runes&0 are extremely important components of complex magical devices or flora.<br>In order to create these, one would require a &1Runic Altar&0.<br>To utilize this &1Runic Altar&0, start by placing, via right click, the components to the rune you want to create.
 botania.page.runeAltar1=Proceed by linking a &1Mana Spreader&0 to the altar, and right click it with a &1Wand of the Forest&0.<br>It should be apparent when the altar has received enough &4Mana&0, when that happens, just drop a piece of &1Livingrock&0 on top of it and use the wand on it again to collect your rune.
 botania.page.runeAltar2=Crafting the &1Runic Altar&0.
 botania.page.runeAltar3=A total of 16 &1Runes&0 exist.<br>The most basic and elementary runes are named after the &4Four Elements&0. The interemediate runes are named after the &4Four Seasons&0, and the most advanced runes are named after the &4Seven Deadly Sins&0. A separate &1Rune of Mana&0 also exists.
@@ -385,7 +385,7 @@ botania.page.bellethorne1=&oEvery rose has its thorn&r.
 
 # -- HEISEI DREAM
 botania.entry.heiseiDream=Heisei Dream
-botania.page.heiseiDream0=The &1Heisei Dream&0 will awaken feelings of anger and revenge in any nearby &4mobs&0, turning them against eachother.
+botania.page.heiseiDream0=The &1Heisei Dream&0 will, by utilizing &4Mana&0, awaken feelings of anger and revenge in any nearby &4mobs&0, turning them against eachother.
 botania.page.heiseiDream1=&oA pleasant era will murder people&r.
 
 # -- TIGERSEYE
