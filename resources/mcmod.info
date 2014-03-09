@@ -8,7 +8,7 @@
   "logoFile": "assets/botania/textures/logo.png",
   "url": "http://www.vazkii.us",
   "updateUrl": "",
-  "authors": ["Vazkii"],
+  "authorList": ["Vazkii"],
   "credits": "Azanor, dylan4ever, wiiv, MegaManki, mDiyo, Mikeemoo, ChickenBones, cpw",
   "parent": "",
   "screenshots": [],
