@@ -19,6 +19,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
+import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -75,6 +76,11 @@ public class ItemManaTablet extends ItemMod implements IManaItem {
 	@Override
 	public boolean requiresMultipleRenderPasses() {
 		return true;
+	}
+	
+	@Override
+	public int getEntityLifespan(ItemStack itemStack, World world) {
+		return Integer.MAX_VALUE;
 	}
 
 	public static void setMana(ItemStack stack, int mana) {
