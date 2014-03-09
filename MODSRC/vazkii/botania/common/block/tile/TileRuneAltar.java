@@ -94,7 +94,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 				}
 			this.manaToGet = 0;
 		}
-
+		
 		if(manaToGet != this.manaToGet) {
 			worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.orb", 1F, 1F);
 			PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
@@ -113,7 +113,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 			}
 		}
 
-		if(manaToGet > 0 && mana >= manaToGet && !worldObj.isRemote) {
+		if(manaToGet > 0 && mana >= manaToGet) {
 			List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1));
 			EntityItem livingrock = null;
 			for(EntityItem item : items)
@@ -134,15 +134,18 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 				for(int i = 0; i < getSizeInventory(); i++)
 					setInventorySlotContents(i, null);
 
-				ItemStack livingrockItem = livingrock.getEntityItem();
-				livingrockItem.stackSize--;
-				if(livingrockItem.stackSize == 0)
-					livingrock.setDead();
+				if(!worldObj.isRemote) {
+					ItemStack livingrockItem = livingrock.getEntityItem();
+					livingrockItem.stackSize--;
+					if(livingrockItem.stackSize == 0)
+						livingrock.setDead();
+				}
 
 				craftingFanciness();
-				updateRecipe();
 			}
 		}
+		
+		updateRecipe();
 	}
 
 	public void craftingFanciness() {
