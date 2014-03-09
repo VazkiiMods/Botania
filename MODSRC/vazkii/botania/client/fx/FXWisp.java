@@ -24,19 +24,17 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.helper.ObfuscationHelper;
 import cpw.mods.fml.client.FMLClientHandler;
 
-public class FXWisp extends EntityFX
-{
+public class FXWisp extends EntityFX {
 
 	public static final ResourceLocation particles = new ResourceLocation(LibResources.MISC_WISP_LARGE);
 
-	public FXWisp(World world, double d, double d1, double d2,  float size, float red, float green, float blue, boolean distanceLimit)
-	{
+	public FXWisp(World world, double d, double d1, double d2,  float size, float red, float green, float blue, boolean distanceLimit) {
 		super(world, d, d1, d2, 0.0D, 0.0D, 0.0D);
 		particleRed = red;
 		particleGreen = green;
 		particleBlue = blue;
 		particleGravity=0;
-		motionX=motionY=motionZ=0;
+		motionX = motionY = motionZ = 0;
 		particleScale *= size;
 		moteParticleScale = particleScale;
 		particleMaxAge = (int)(28D / (Math.random() * 0.3D + 0.7D));
@@ -48,8 +46,11 @@ public class FXWisp extends EntityFX
 
 		if(distanceLimit) {
 			int visibleDistance = 50;
-			if (!FMLClientHandler.instance().getClient().gameSettings.fancyGraphics) visibleDistance=25;
-			if (renderentity == null || renderentity.getDistance(posX, posY, posZ)>visibleDistance) particleMaxAge=0;
+			if (!FMLClientHandler.instance().getClient().gameSettings.fancyGraphics) 
+				visibleDistance = 25;
+
+			if (renderentity == null || renderentity.getDistance(posX, posY, posZ) > visibleDistance)
+				particleMaxAge = 0;
 		}
 
 		prevPosX = posX;
@@ -57,16 +58,12 @@ public class FXWisp extends EntityFX
 		prevPosZ = posZ;
 	}
 
-
 	@Override
 	public void renderParticle(Tessellator tessellator, float f, float f1, float f2, float f3, float f4, float f5) {
 		float agescale = 0;
-		if (shrink) {
-			agescale = ((float)particleMaxAge-(float)particleAge) / particleMaxAge;
-		} else {
-			agescale = (float)particleAge / (float)moteHalfLife;
-			if (agescale>1f) agescale = 2-agescale;
-		}
+		agescale = (float)particleAge / (float) moteHalfLife;
+		if (agescale > 1F) 
+			agescale = 2 - agescale;
 
 		particleScale = moteParticleScale * agescale;
 
@@ -127,7 +124,6 @@ public class FXWisp extends EntityFX
 	}
 
 	public boolean distanceLimit = true;
-	public boolean shrink = false;
 	float moteParticleScale;
 	int moteHalfLife;
 	public boolean tinkle = false;

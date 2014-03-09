@@ -22,25 +22,22 @@ import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.helper.ObfuscationHelper;
-import cpw.mods.fml.client.FMLClientHandler;
 
-public class FXSparkle extends EntityFX
-{
+public class FXSparkle extends EntityFX {
 
 	public static final ResourceLocation particles = new ResourceLocation(LibResources.MISC_PARTICLES);
 
-	public FXSparkle(World world, double x, double y, double z, float size, float red, float green, float blue, int m)
-	{
+	public FXSparkle(World world, double x, double y, double z, float size, float red, float green, float blue, int m) {
 		super(world, x, y, z, 0.0D, 0.0D, 0.0D);
 
 		particleRed = red;
 		particleGreen = green;
 		particleBlue = blue;
-		particleGravity=0;
-		motionX=motionY=motionZ=0;
+		particleGravity = 0;
+		motionX = motionY = motionZ = 0;
 		particleScale *= size;
-		particleMaxAge = 3*m;
-		multiplier=m;
+		particleMaxAge = 3 * m;
+		multiplier = m;
 		noClip = false;
 		setSize(0.01F, 0.01F);
 		prevPosX = posX;
@@ -48,33 +45,10 @@ public class FXSparkle extends EntityFX
 		prevPosZ = posZ;
 	}
 
-	public FXSparkle(World world, double d, double d1, double d2, float f, int type, int m)
-	{
-		this(world, d, d1, d2, f, 0f, 0f, 0f, m);
-		currentColor = type;
-	}
-
-	public FXSparkle(World world, double d, double d1, double d2, double x, double y, double z,
-			float f, int type, int m)
-	{
-		this(world, d, d1, d2, f, type, m);
-
-		double dx = x - posX;
-		double dy = y - posY;
-		double dz = z - posZ;
-
-		motionX = dx / particleMaxAge;
-		motionY = dy / particleMaxAge;
-		motionZ = dz / particleMaxAge;
-	}
-
 	@Override
-	public void renderParticle(Tessellator tessellator, float f, float f1, float f2, float f3, float f4, float f5)
-	{
-
+	public void renderParticle(Tessellator tessellator, float f, float f1, float f2, float f3, float f4, float f5) {
 		tessellator.draw();
 		GL11.glPushMatrix();
-
 
 		GL11.glDepthMask(false);
 		GL11.glEnable(3042);
@@ -113,44 +87,35 @@ public class FXSparkle extends EntityFX
 		GL11.glPopMatrix();
 		Minecraft.getMinecraft().renderEngine.bindTexture(ObfuscationHelper.getParticleTexture());
 		tessellator.startDrawingQuads();
-
 	}
 
 	@Override
-	public void onUpdate()
-	{
+	public void onUpdate() {
 		prevPosX = posX;
 		prevPosY = posY;
 		prevPosZ = posZ;
 
 		if (particleAge++ >= particleMaxAge)
 			setDead();
-		motionY -= 0.040000000000000001D * particleGravity;
-		if (!noClip && !fake) pushOutOfBlocks(posX, (boundingBox.minY + boundingBox.maxY) / 2.0D, posZ);
-		//     moveEntity(motionX, motionY, motionZ);
-		posX+=motionX;
-		posY+=motionY;
-		posZ+=motionZ;
+
+		motionY -= 0.04D * particleGravity;
+
+		if (!noClip && !fake) 
+			pushOutOfBlocks(posX, (boundingBox.minY + boundingBox.maxY) / 2.0D, posZ);
+
+		posX += motionX;
+		posY += motionY;
+		posZ += motionZ;
+
 		if (slowdown) {
 			motionX *= 0.908000001907348633D;
 			motionY *= 0.908000001907348633D;
 			motionZ *= 0.908000001907348633D;
-			if (onGround)
-			{
+
+			if (onGround) {
 				motionX *= 0.69999998807907104D;
 				motionZ *= 0.69999998807907104D;
 			}
-		}
-
-		if (leyLineEffect) {
-
-			FXSparkle fx = new FXSparkle(worldObj,
-					prevPosX+(worldObj.rand.nextFloat()-worldObj.rand.nextFloat())*.1f,
-					prevPosY+(worldObj.rand.nextFloat()-worldObj.rand.nextFloat())*.1f,
-					prevPosZ+(worldObj.rand.nextFloat()-worldObj.rand.nextFloat())*.1f,
-					1f, currentColor, 3+worldObj.rand.nextInt(3));
-			fx.noClip=true;
-			FMLClientHandler.instance().getClient().effectRenderer.addEffect(fx);
 		}
 
 		if(fake && particleAge > 1)
@@ -162,8 +127,7 @@ public class FXSparkle extends EntityFX
 	}
 
 	@Override
-	protected boolean pushOutOfBlocks(double par1, double par3, double par5)
-	{
+	protected boolean pushOutOfBlocks(double par1, double par3, double par5) {
 		int var7 = MathHelper.floor_double(par1);
 		int var8 = MathHelper.floor_double(par3);
 		int var9 = MathHelper.floor_double(par5);
@@ -171,8 +135,7 @@ public class FXSparkle extends EntityFX
 		double var12 = par3 - var8;
 		double var14 = par5 - var9;
 
-		if (!worldObj.isAirBlock(var7, var8, var9))
-		{
+		if (!worldObj.isAirBlock(var7, var8, var9)) {
 			boolean var16 = !worldObj.isBlockNormalCube(var7 - 1, var8, var9);
 			boolean var17 = !worldObj.isBlockNormalCube(var7 + 1, var8, var9);
 			boolean var18 = !worldObj.isBlockNormalCube(var7, var8 - 1, var9);
@@ -182,38 +145,32 @@ public class FXSparkle extends EntityFX
 			byte var22 = -1;
 			double var23 = 9999.0D;
 
-			if (var16 && var10 < var23)
-			{
+			if (var16 && var10 < var23) {
 				var23 = var10;
 				var22 = 0;
 			}
 
-			if (var17 && 1.0D - var10 < var23)
-			{
+			if (var17 && 1.0D - var10 < var23) {
 				var23 = 1.0D - var10;
 				var22 = 1;
 			}
 
-			if (var18 && var12 < var23)
-			{
+			if (var18 && var12 < var23) {
 				var23 = var12;
 				var22 = 2;
 			}
 
-			if (var19 && 1.0D - var12 < var23)
-			{
+			if (var19 && 1.0D - var12 < var23) {
 				var23 = 1.0D - var12;
 				var22 = 3;
 			}
 
-			if (var20 && var14 < var23)
-			{
+			if (var20 && var14 < var23) {
 				var23 = var14;
 				var22 = 4;
 			}
 
-			if (var21 && 1.0D - var14 < var23)
-			{
+			if (var21 && 1.0D - var14 < var23) {
 				var23 = 1.0D - var14;
 				var22 = 5;
 			}
@@ -221,57 +178,46 @@ public class FXSparkle extends EntityFX
 			float var25 = rand.nextFloat() * 0.05F + 0.025F;
 			float var26 = (rand.nextFloat() - rand.nextFloat()) * 0.1F;
 
-			if (var22 == 0)
-			{
+			if (var22 == 0) {
 				motionX = -var25;
 				motionY=motionZ=var26;
 			}
 
-			if (var22 == 1)
-			{
+			if (var22 == 1) {
 				motionX = var25;
 				motionY=motionZ=var26;
 			}
 
-			if (var22 == 2)
-			{
+			if (var22 == 2) {
 				motionY = -var25;
 				motionX=motionZ=var26;
 			}
 
-			if (var22 == 3)
-			{
+			if (var22 == 3) {
 				motionY = var25;
 				motionX=motionZ=var26;
 			}
 
-			if (var22 == 4)
-			{
+			if (var22 == 4) {
 				motionZ = -var25;
 				motionY=motionX=var26;
 			}
 
-			if (var22 == 5)
-			{
+			if (var22 == 5) {
 				motionZ = var25;
 				motionY=motionX=var26;
 			}
 
 			return true;
-		}
-		else
-		{
-			return false;
-		}
+		} else return false;
 	}
 
 	public boolean fake = false;
-	public boolean leyLineEffect=false;
-	public int multiplier=2;
-	public boolean shrink=true;
-	public int particle=16;
-	public boolean tinkle=false;
-	public int blendmode=1;
-	public boolean slowdown=true;
-	public int currentColor=0;
+	public int multiplier = 2;
+	public boolean shrink = true;
+	public int particle = 16;
+	public boolean tinkle = false;
+	public int blendmode = 1;
+	public boolean slowdown = true;
+	public int currentColor = 0;
 }
