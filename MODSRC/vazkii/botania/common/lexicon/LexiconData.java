@@ -60,6 +60,7 @@ public final class LexiconData {
 	public static LexiconEntry lensGravity;
 	public static LexiconEntry lensBore;
 	public static LexiconEntry lensDamaging;
+	public static LexiconEntry lensPhantom;
 	public static LexiconEntry manaTransport;
 
 	public static LexiconEntry functionalIntro;
@@ -148,6 +149,9 @@ public final class LexiconData {
 		lensDamaging = new BLexiconEntry(LibLexicon.MANA_LENS_DAMAGING, categoryMana);
 		lensDamaging.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLensDamaging));
 
+		lensPhantom = new BLexiconEntry(LibLexicon.MANA_LENS_PHANTOM, categoryMana);
+		lensPhantom.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLensPhantom));
+		
 		manaVoid = new BLexiconEntry(LibLexicon.MANA_VOID, categoryMana);
 		manaVoid.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeManaVoid));
 

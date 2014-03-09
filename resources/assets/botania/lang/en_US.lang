@@ -360,7 +360,12 @@ botania.page.lensBore1=Crafting the lens
 # -- MANA LENS: DAMAGING
 botania.entry.lensDamaging=Mana Lens: Damaging
 botania.page.lensDamaging0=The &1Damaging Lens&0 charges the &4Mana Burst&0 with the power to damage any living beings it comes across, draining it's own mana to do so.
-botania.page.lensDamaging1=Crafting the lens 
+botania.page.lensDamaging1=Crafting the lens
+
+# -- MANA LENS: PHANTOM
+botania.entry.lensPhantom=Mana Lens: Phantom
+botania.page.lensPhantom0=By utilizing the spacetime continuum tearing properties of the &1Piston Relay&0, it's possible to make a lens that'll allow the &4Mana Burst&0 to pass through blocks. In doing so, the time it can stay without losing mana is decreased.
+botania.page.lensPhantom1=Crafting the lens
 
 # -- PORTABLE MANA TRANSPORT
 botania.entry.manaTransport=Portable Mana Transport
