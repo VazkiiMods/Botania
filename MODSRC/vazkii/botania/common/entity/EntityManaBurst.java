@@ -24,7 +24,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
@@ -108,7 +107,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 		Vec3 vec3 = new Vector3(posX, posY, posZ).toVec3D();
 		Vec3 vec31 = new Vector3(posX + motionX, posY + motionY, posZ + motionZ).toVec3D();
-		MovingObjectPosition movingobjectposition = worldObj.clip(vec3, vec31);
+		MovingObjectPosition movingobjectposition = clip(vec3, vec31);
 
 		if(movingobjectposition != null)
 			vec31 = new Vector3(movingobjectposition.hitVec.xCoord, movingobjectposition.hitVec.yCoord, movingobjectposition.hitVec.zCoord).toVec3D();
@@ -120,7 +119,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			EntityLivingBase entitylivingbase = getThrower();
 
 			for(int j = 0; j < list.size(); ++j) {
-				Entity entity1 = (Entity)list.get(j);
+				Entity entity1 = (Entity) list.get(j);
 
 				if(entity1.canBeCollidedWith() && (entity1 != entitylivingbase || ticksInAir >= 5)) {
 					float f = 0.3F;
@@ -142,11 +141,8 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 				movingobjectposition = new MovingObjectPosition(entity);
 		}
 
-		if(movingobjectposition != null) {
-			if(movingobjectposition.typeOfHit == EnumMovingObjectType.TILE && worldObj.getBlockId(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ) == Block.portal.blockID)
-				setInPortal();
-			else onImpact(movingobjectposition);
-		}
+		if(movingobjectposition != null)
+			onImpact(movingobjectposition);
 
 		posX += motionX;
 		posY += motionY;
@@ -170,6 +166,146 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		float f3 = getGravityVelocity();
 		motionY -= f3;
 		setPosition(posX, posY, posZ);
+	}
+
+	public MovingObjectPosition clip(Vec3 par1Vec3, Vec3 par2Vec3) {
+		boolean par3 = false;
+		boolean par4 = false;
+		if (!Double.isNaN(par1Vec3.xCoord) && !Double.isNaN(par1Vec3.yCoord) && !Double.isNaN(par1Vec3.zCoord)) {
+			if (!Double.isNaN(par2Vec3.xCoord) && !Double.isNaN(par2Vec3.yCoord) && !Double.isNaN(par2Vec3.zCoord)) {
+				int i = MathHelper.floor_double(par2Vec3.xCoord);
+				int j = MathHelper.floor_double(par2Vec3.yCoord);
+				int k = MathHelper.floor_double(par2Vec3.zCoord);
+				int l = MathHelper.floor_double(par1Vec3.xCoord);
+				int i1 = MathHelper.floor_double(par1Vec3.yCoord);
+				int j1 = MathHelper.floor_double(par1Vec3.zCoord);
+				int k1 = worldObj.getBlockId(l, i1, j1);
+				int l1 = worldObj.getBlockMetadata(l, i1, j1);
+				Block block = Block.blocksList[k1];
+
+				if (block != null && (!par4 || block == null || block.getCollisionBoundingBoxFromPool(worldObj, l, i1, j1) != null) && k1 > 0 && block.canCollideCheck(l1, par3)) {
+					MovingObjectPosition movingobjectposition = block.collisionRayTrace(worldObj, l, i1, j1, par1Vec3, par2Vec3);
+
+					if (movingobjectposition != null)
+						return movingobjectposition;
+				}
+
+				k1 = 200;
+
+				while (k1-- >= 0) {
+					if (Double.isNaN(par1Vec3.xCoord) || Double.isNaN(par1Vec3.yCoord) || Double.isNaN(par1Vec3.zCoord))
+						return null;
+
+					if (l == i && i1 == j && j1 == k)
+						return null;
+
+					boolean flag2 = true;
+					boolean flag3 = true;
+					boolean flag4 = true;
+					double d0 = 999.0D;
+					double d1 = 999.0D;
+					double d2 = 999.0D;
+
+					if (i > l)
+						d0 = (double)l + 1.0D;
+					else if (i < l)
+						d0 = (double)l + 0.0D;
+					else flag2 = false;
+
+					if (j > i1)
+						d1 = (double)i1 + 1.0D;
+					else if (j < i1)
+						d1 = (double)i1 + 0.0D;
+					else flag3 = false;
+
+					if (k > j1)
+						d2 = (double)j1 + 1.0D;
+					else if (k < j1)
+						d2 = (double)j1 + 0.0D;
+					else flag4 = false;
+
+					double d3 = 999.0D;
+					double d4 = 999.0D;
+					double d5 = 999.0D;
+					double d6 = par2Vec3.xCoord - par1Vec3.xCoord;
+					double d7 = par2Vec3.yCoord - par1Vec3.yCoord;
+					double d8 = par2Vec3.zCoord - par1Vec3.zCoord;
+
+					if (flag2)
+						d3 = (d0 - par1Vec3.xCoord) / d6;
+
+					if (flag3)
+						d4 = (d1 - par1Vec3.yCoord) / d7;
+
+					if (flag4)
+						d5 = (d2 - par1Vec3.zCoord) / d8;
+
+					byte b0;
+
+					if (d3 < d4 && d3 < d5) {
+						if (i > l)
+							b0 = 4;
+						else b0 = 5;
+
+						par1Vec3.xCoord = d0;
+						par1Vec3.yCoord += d7 * d3;
+						par1Vec3.zCoord += d8 * d3;
+					} else if (d4 < d5) {
+						if (j > i1)
+							b0 = 0;
+						else b0 = 1;
+
+						par1Vec3.xCoord += d6 * d4;
+						par1Vec3.yCoord = d1;
+						par1Vec3.zCoord += d8 * d4;
+					} else {
+						if (k > j1)
+							b0 = 2;
+						else b0 = 3;
+
+						par1Vec3.xCoord += d6 * d5;
+						par1Vec3.yCoord += d7 * d5;
+						par1Vec3.zCoord = d2;
+					}
+
+					Vec3 vec32 = new Vector3(par1Vec3.xCoord, par1Vec3.yCoord, par1Vec3.zCoord).toVec3D();
+					l = (int)(vec32.xCoord = (double)MathHelper.floor_double(par1Vec3.xCoord));
+
+					if (b0 == 5) {
+						--l;
+						++vec32.xCoord;
+					}
+
+					i1 = (int)(vec32.yCoord = (double)MathHelper.floor_double(par1Vec3.yCoord));
+
+					if (b0 == 1) {
+						--i1;
+						++vec32.yCoord;
+					}
+
+					j1 = (int)(vec32.zCoord = (double)MathHelper.floor_double(par1Vec3.zCoord));
+
+					if (b0 == 3) {
+						--j1;
+						++vec32.zCoord;
+					}
+
+					int i2 = worldObj.getBlockId(l, i1, j1);
+					int j2 = worldObj.getBlockMetadata(l, i1, j1);
+					Block block1 = Block.blocksList[i2];
+
+					if ((!par4 || block1 == null || block1.getCollisionBoundingBoxFromPool(worldObj, l, i1, j1) != null) && i2 > 0 && block1.canCollideCheck(j2, par3)) {
+						MovingObjectPosition movingobjectposition1 = block1.collisionRayTrace(worldObj, l, i1, j1, par1Vec3, par2Vec3);
+
+						if (movingobjectposition1 != null)
+							return movingobjectposition1;
+					}
+				}
+
+				return null;
+			}
+			else return null;
+		} else return null;
 	}
 
 	@Override
