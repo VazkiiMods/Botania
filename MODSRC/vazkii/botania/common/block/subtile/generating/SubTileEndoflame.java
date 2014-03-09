@@ -44,6 +44,9 @@ public class SubTileEndoflame extends SubTileGenerating {
 					for(EntityItem item : items) {
 						if(item.age >= 60 && !item.isDead) {
 							ItemStack stack = item.getEntityItem();
+							if(stack.getItem().hasContainerItem())
+								continue;
+							
 							int burnTime = stack == null || stack.itemID == ModBlocks.spreader.blockID ? 0 : TileEntityFurnace.getItemBurnTime(stack);
 							if(burnTime > 0 && stack.stackSize > 0) {
 								this.burnTime = burnTime / 2;

@@ -178,7 +178,7 @@ public final class LexiconData {
 		daybloom.setPriority().setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.daybloomRecipe));
 
 		endoflame = new BLexiconEntry(LibLexicon.GFLOWER_ENDOFLAME, categoryGenerationFlowers);
-		endoflame.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.endoflameRecipe));
+		endoflame.setLexiconPages(new PageText("0"), new PageText("1"), new PagePetalRecipe("2", ModPetalRecipes.endoflameRecipe));
 
 		hydroangeas = new BLexiconEntry(LibLexicon.GFLOWER_HYDROANGEAS, categoryGenerationFlowers);
 		hydroangeas.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.hydroangeasRecipe));

@@ -408,7 +408,8 @@ botania.page.daybloom1=&oStarting up a brand new day&r.
 # -- ENDOFLAME
 botania.entry.endoflame=Endoflame
 botania.page.endoflame0=While the &1Daybloom&0 is all well and good, a botanist requires more effective means of generating &4Mana&0.<br>The &1Endoflame&0 does that exactly, it will absorb any combustible items or blocks dropped on the nearby vacinity (albeit only one at a time) and burn through them to passively generate mana while the fuel lasts.
-botania.page.endoflame1=&oNot nitor&r.
+botania.page.endoflame1=There is a small caveat though, the &1Endoflame&0 will not burn anything that returns a bi-product, an example are &1Lava Buckets&0, that have empty &1Buckets&0 as a bi-product.
+botania.page.endoflame2=&oNot nitor&r.
 
 # -- HYDROANGEAS
 botania.entry.hydroangeas=Hydroangeas
