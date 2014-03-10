@@ -27,5 +27,6 @@ public final class LibBlockIDs {
 	public static int idDistributor = 1966;
 	public static int idManaBeacon = 1967;
 	public static int idManaVoid = 1968;
+	public static int idManaDetector = 1969;
 
 }

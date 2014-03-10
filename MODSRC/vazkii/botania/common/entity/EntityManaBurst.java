@@ -31,6 +31,7 @@ import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.IManaCollector;
+import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileSpreader;
@@ -461,6 +462,9 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		if(movingobjectposition.entityHit == null) {
 			TileEntity tile = worldObj.getBlockTileEntity(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ);
 
+			if(tile instanceof IManaCollisionGhost && ((IManaCollisionGhost) tile).isGhost())
+				return;
+			
 			ChunkCoordinates coords = getBurstSourceChunkCoordinates();
 			if(tile != null && (tile.xCoord != coords.posX || tile.yCoord != coords.posY || tile.zCoord != coords.posZ))
 				collidedTile = tile;

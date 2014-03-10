@@ -29,6 +29,7 @@ public final class LibBlockNames {
 	public static final String DISTRIBUTOR = LibResources.PREFIX_MOD + "distributor";
 	public static final String MANA_BEACON = LibResources.PREFIX_MOD + "manaBeacon";
 	public static final String MANA_VOID = LibResources.PREFIX_MOD + "manaVoid";
+	public static final String MANA_DETECTOR = LibResources.PREFIX_MOD + "manaDetector";
 
 	public static final String SPECIAL_FLOWER_PREFIX = FLOWER + ".";
 
