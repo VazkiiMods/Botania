@@ -66,6 +66,7 @@ public final class ModCrafingRecipes {
 	public static List<IRecipe> recipesSignalFlares;
 	public static IRecipe recipeManaVoid;
 	public static List<IRecipe> recipesManaTablet;
+	public static IRecipe recipeManaDetector;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -271,6 +272,14 @@ public final class ModCrafingRecipes {
 				'S', LibOreDict.LIVING_ROCK,
 				'D', LibOreDict.MANA_DIAMOND);
 		recipesManaTablet = BotaniaAPI.getLatestAddedRecipes(2);
+		
+		// Mana Detector Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.manaDetector), 
+				"RSR", "SCS", "RSR",
+				'R', new ItemStack(Item.redstone),
+				'C', new ItemStack(Item.comparator),
+				'S', LibOreDict.LIVING_ROCK);
+		recipeManaDetector = BotaniaAPI.getLatestAddedRecipe();
 	}
 
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {

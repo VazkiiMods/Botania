@@ -13,16 +13,21 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import vazkii.botania.api.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.tile.TileManaDetector;
+import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockIDs;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockManaDetector extends BlockModContainer {
+public class BlockManaDetector extends BlockModContainer implements ILexiconable {
 
 	Icon[] icons;
 	
@@ -59,6 +64,11 @@ public class BlockManaDetector extends BlockModContainer {
 	@Override
 	public TileEntity createNewTileEntity(World world) {
 		return new TileManaDetector();
+	}
+
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return LexiconData.manaDetector;
 	}
 
 }
