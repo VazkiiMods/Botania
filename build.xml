@@ -2,6 +2,7 @@
 <project name="Botany" default="build">
 
 	<property file="build.properties" prefix="build"/>
+	<property file="ftp.properties" prefix="ftp"/>
 
 	<target name="clean">
 		<delete dir="${build.dir.gradle}\build\classes\main" />
@@ -59,6 +60,13 @@
 		<delete dir ="${build.dir.temp}" />
 	</target>
 
+	<target name="upload">		
+		<ftp action="mkdir" server="${ftp.host}" remotedir="/${build.mod_name}/files" userid="${ftp.user}" password="${ftp.pass}" verbose="yes" depends="yes" />
+		<ftp action="send" server="${ftp.host}" remotedir="/${build.mod_name}/files" userid="${ftp.user}" password="${ftp.pass}" verbose="yes" depends="yes">
+			<fileset file="${build.dir.output}\${build.mod_name}\${build.mod_name} ${build.version}-${build.build_number}.jar" />
+		</ftp>
+	</target>
+
 	<target name="build">
 		<antcall target="clean" />
 		<antcall target="prep" />
@@ -66,6 +74,7 @@
 		<antcall target="gradle_build" />
 		<antcall target="inject_assets" />
 		<antcall target="increment_build_number" />
+		<antcall target="upload" />
 		<antcall target="clean" />
 	</target>
 </project>

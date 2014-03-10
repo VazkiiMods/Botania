@@ -16,3 +16,6 @@
 /out
 /.idea
 /atlassian-ide-plugin.xml
+
+## Private Stuffs
+/ftp.properties
