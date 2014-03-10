@@ -1,0 +1,59 @@
+/**
+ * This class was created by <Vazkii>. It's distributed as
+ * part of the Botania Mod. Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ * 
+ * Botania is Open Source and distributed under a
+ * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
+ * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * 
+ * File Created @ [Mar 10, 2014, 9:44:02 PM (GMT)]
+ */
+package vazkii.botania.common.block.subtile.generating;
+
+import net.minecraft.block.Block;
+import vazkii.botania.common.Botania;
+
+public class SubTileThermalily extends SubTileHydroangeas {
+
+	@Override
+	public int getColor(){
+		return 0xD03C00;
+	}
+
+//	@Override
+//	public LexiconEntry getEntry() {
+//		return LexiconData.hydroangeas;
+//	}
+	
+	@Override
+	public void doBurnParticles() {
+		Botania.proxy.wispFX(supertile.worldObj, supertile.xCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.yCoord + 0.9 + Math.random() * 0.2 - 0.1, supertile.zCoord + 0.5, 0.7F, 0.05F, 0.05F, (float) Math.random() / 6, (float) -Math.random() / 60);
+	}
+	
+	@Override
+	public int getIdToSearchFor() {
+		return Block.lavaStill.blockID;
+	}
+	
+	@Override
+	public int getDelayBetweenPassiveGeneration() {
+		return 1;
+	}
+	
+	@Override
+	public int getBurnTime() {
+		return 5000;
+	}
+	
+	@Override
+	public int getValueForPassiveGeneration() {
+		return 5;
+	}
+	
+	@Override
+	public int getMaxMana() {
+		return 250;
+	}
+	
+}

@@ -1,3 +1,14 @@
+/**
+ * This class was created by <Pokefenn>. It's distributed as
+ * part of the Botania Mod. Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ * 
+ * Botania is Open Source and distributed under a
+ * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
+ * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * 
+ * File Created @ [? (GMT)]
+ */
 package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.block.Block;
@@ -27,10 +38,10 @@ public class SubTileHydroangeas extends SubTileGenerating {
 				if (mana < getMaxMana() && !supertile.worldObj.isRemote)
 					for (int i = -range; i <= range; i++)
 						for (int j = -range; j <= range; j++) {
-							if (supertile.worldObj.getBlockId(supertile.xCoord + i, supertile.yCoord, supertile.zCoord + j) == Block.waterStill.blockID && supertile.worldObj.getBlockMetadata(supertile.xCoord + i, supertile.yCoord, supertile.zCoord + j) == 0) {
+							if (supertile.worldObj.getBlockId(supertile.xCoord + i, supertile.yCoord, supertile.zCoord + j) == getIdToSearchFor() && supertile.worldObj.getBlockMetadata(supertile.xCoord + i, supertile.yCoord, supertile.zCoord + j) == 0) {
 								supertile.worldObj.setBlockToAir(supertile.xCoord + i, supertile.yCoord, supertile.zCoord + j);
 								didSomething = true;
-								burnTime += 10;
+								burnTime += getBurnTime();
 
 								break;
 
@@ -41,12 +52,23 @@ public class SubTileHydroangeas extends SubTileGenerating {
 					PacketDispatcher.sendPacketToAllInDimension(supertile.getDescriptionPacket(), supertile.worldObj.provider.dimensionId);
 			}
 		} else {
-			if (supertile.worldObj.rand.nextInt(8) == 0)
-				Botania.proxy.wispFX(supertile.worldObj, supertile.xCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.yCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.zCoord + 0.5, 0.05F, 0.05F, 0.7F, (float) Math.random() / 6, (float) -Math.random() / 60);
+			if(supertile.worldObj.rand.nextInt(8) == 0)
+				doBurnParticles();
 			burnTime--;
 		}
 	}
+	
+	public void doBurnParticles() {
+		Botania.proxy.wispFX(supertile.worldObj, supertile.xCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.yCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.zCoord + 0.5, 0.05F, 0.05F, 0.7F, (float) Math.random() / 6, (float) -Math.random() / 60);
+	}
 
+	public int getIdToSearchFor() {
+		return Block.waterStill.blockID;
+	}
+	
+	public int getBurnTime() {
+		return 10;
+	}
 
 	@Override
 	public int getMaxMana() {

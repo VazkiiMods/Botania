@@ -117,6 +117,8 @@ tile.botania:flower.endoflame.name=Endoflame
 tile.botania:flower.endoflame.reference=An endotermic reaction
 tile.botania:flower.hydroangeas.name=Hydroangeas
 tile.botania:flower.hydroangeas.reference=Careful: Wet floor
+tile.botania:flower.thermalily.name=Thermalily
+tile.botania:flower.thermalily.reference=A Scarlet Rose indeed
 
 # - FUNCTIONAL
 tile.botania:flower.bellethorn.name=Bellethorne
