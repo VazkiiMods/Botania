@@ -431,6 +431,11 @@ botania.entry.hydroangeas=Hydroangeas
 botania.page.hydroangeas0=While you can generate easy &4Mana&0 with the &1Daybloom&0, sometimes you need to create more energy without using any fuels...<br>The &1Hydroangeas&0 will devour adjacent water sources to create mana, it does have a cooldown timer though, so power can not be generated instantly.
 botania.page.hydroangeas1=&oAquatic Power&r.
 
+# -- THERMALILY
+botania.entry.thermalily=Thermalily
+botania.page.thermalily0=There comes a point where slow generating power, like the &1Hydroangeas&0 or the &1Endoflame&0 is not enough. An answer to that is the &1Thermalily&0, which works similarly to the &1Hydroangeas&0, except with &1Lava&0. Care should be taken with this flower, as it generates power at an extremely fast speed.
+botania.page.thermalily1=&oLily ought to know&r.
+
 # - MAGICAL APPARATUS
 # -- FORCE RELAY
 botania.entry.pistonRelay=Force Relay

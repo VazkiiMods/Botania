@@ -63,17 +63,18 @@ public final class LexiconData {
 	public static LexiconEntry lensPhantom;
 	public static LexiconEntry manaTransport;
 	public static LexiconEntry manaDetector;
-
+	
 	public static LexiconEntry functionalIntro;
 	public static LexiconEntry jadedAmaranthus;
 	public static LexiconEntry bellethorne;
 	public static LexiconEntry heiseiDream;
 	public static LexiconEntry tigerseye;
-
+	
 	public static LexiconEntry generatingIntro;
 	public static LexiconEntry daybloom;
 	public static LexiconEntry endoflame;
 	public static LexiconEntry hydroangeas;
+	public static LexiconEntry thermalily;
 
 	public static LexiconEntry pistonRelay;
 	public static LexiconEntry pylon;
@@ -191,6 +192,9 @@ public final class LexiconData {
 		hydroangeas = new BLexiconEntry(LibLexicon.GFLOWER_HYDROANGEAS, categoryGenerationFlowers);
 		hydroangeas.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.hydroangeasRecipe));
 
+		thermalily = new BLexiconEntry(LibLexicon.GFLOWER_THERMALILY, categoryGenerationFlowers);
+		thermalily.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.thermalilyRecipe));
+		
 		// DEVICES ENTRIES
 		pistonRelay = new BLexiconEntry(LibLexicon.DEVICE_PISTON_RELAY, categoryDevices);
 		pistonRelay.setLexiconPages(new PageText("0"), new PageText("1"), new PageManaInfusionRecipe("2", ModManaInfusionRecipes.pistonRelayRecipe));

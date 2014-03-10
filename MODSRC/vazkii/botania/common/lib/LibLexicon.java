@@ -57,6 +57,7 @@ public final class LibLexicon {
 	public static final String GFLOWER_DAYBLOOM = "daybloom";
 	public static final String GFLOWER_ENDOFLAME = "endoflame";
 	public static final String GFLOWER_HYDROANGEAS = "hydroangeas";
+	public static final String GFLOWER_THERMALILY = "thermalily";
 
 	public static final String DEVICE_PISTON_RELAY = "pistonRelay";
 	public static final String DEVICE_PYLON = "pylon";

@@ -12,7 +12,9 @@
 package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.block.Block;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileThermalily extends SubTileHydroangeas {
 
@@ -21,10 +23,10 @@ public class SubTileThermalily extends SubTileHydroangeas {
 		return 0xD03C00;
 	}
 
-//	@Override
-//	public LexiconEntry getEntry() {
-//		return LexiconData.hydroangeas;
-//	}
+	@Override
+	public LexiconEntry getEntry() {
+		return LexiconData.thermalily;
+	}
 	
 	@Override
 	public void doBurnParticles() {
