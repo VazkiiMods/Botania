@@ -59,6 +59,8 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	final int dataWatcherStart = 32 - dataWatcherEntries;
 
 	List<String> alreadyCollidedAt = new ArrayList();
+	
+	boolean fullManaLastTick = true;
 
 	public EntityManaBurst(World world) {
 		super(world);
@@ -318,8 +320,6 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		if(lens != null)
 			lens.updateBurst(this, getSourceLens());
 
-		particles();
-
 		int mana = getMana();
 		if(ticksExisted >= getMinManaLoss()) {
 			accumulatedManaLoss += getManaLossPerTick();
@@ -330,8 +330,12 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			if(getMana() <= 0)
 				setDead();
 		}
+		
+		particles();
 
 		setMotion(motionX, motionY, motionZ);
+		
+		fullManaLastTick = getMana() == getStartingMana();
 	}
 
 	@Override
@@ -349,6 +353,9 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			++ticksExisted;
 			onUpdate();
 		}
+		
+		if(fake)
+			incrementFakeParticleTick();
 
 		return collidedTile;
 	}
@@ -416,8 +423,10 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		if(fake) {
 			if(getMana() == getStartingMana())
 				size = 2F;
+			else if(fullManaLastTick)
+				size = 4F;
 
-			if(!noParticles)
+			if(!noParticles && shouldDoFakeParticles())
 				Botania.proxy.sparkleFX(worldObj, posX, posY, posZ, r, g, b, 0.4F * size, 1, true);
 		} else {
 			if(ConfigHandler.subtlePowerSystem)
@@ -509,7 +518,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			TileEntity tile = worldObj.getBlockTileEntity(coords.posX, coords.posY, coords.posZ);
 			if(tile != null && tile instanceof TileSpreader)
 				((TileSpreader) tile).canShootBurst = true;
-		}
+		} else setDeathTicksForFakeParticle();
 	}
 
 	@Override
@@ -636,5 +645,31 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 	private String getCollisionLocString(int x, int y, int z) {
 		return x + ":" + y + ":" + z;
+	}
+	
+	private boolean shouldDoFakeParticles() {
+		ChunkCoordinates coords = getBurstSourceChunkCoordinates();
+		TileEntity tile = worldObj.getBlockTileEntity(coords.posX, coords.posY, coords.posZ);
+		if(tile != null && tile instanceof TileSpreader)
+			return (getMana() != getStartingMana() && fullManaLastTick) || Math.abs(((TileSpreader) tile).burstParticleTick - ticksExisted) < 3;
+		return false;
+	}
+	
+	private void incrementFakeParticleTick() {
+		ChunkCoordinates coords = getBurstSourceChunkCoordinates();
+		TileEntity tile = worldObj.getBlockTileEntity(coords.posX, coords.posY, coords.posZ);
+		if(tile != null && tile instanceof TileSpreader) {
+			TileSpreader spreader = (TileSpreader) tile;
+			spreader.burstParticleTick += 2;
+			if(spreader.lastBurstDeathTick != -1 && spreader.burstParticleTick > spreader.lastBurstDeathTick)
+				spreader.burstParticleTick = 0;
+		}
+	}
+	
+	private void setDeathTicksForFakeParticle() {
+		ChunkCoordinates coords = getBurstSourceChunkCoordinates();
+		TileEntity tile = worldObj.getBlockTileEntity(coords.posX, coords.posY, coords.posZ);
+		if(tile != null && tile instanceof TileSpreader)
+			((TileSpreader) tile).lastBurstDeathTick = ticksExisted;
 	}
 }

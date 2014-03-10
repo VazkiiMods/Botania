@@ -58,7 +58,10 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 	boolean added = false;
 
 	IManaReceiver receiver = null;
-
+	
+	public int lastBurstDeathTick = -1;
+	public int burstParticleTick = 0;
+	
 	@Override
 	public boolean isFull() {
 		return mana >= MAX_MANA;
