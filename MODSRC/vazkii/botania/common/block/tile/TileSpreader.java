@@ -209,8 +209,11 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 				if(canShootBurst && receiver.canRecieveManaFromBursts() && !receiver.isFull()) {
 					EntityManaBurst burst = getBurst(false);
 					if(burst != null) {
-						mana -= burst.getStartingMana();
-						worldObj.spawnEntityInWorld(burst);
+						if(!worldObj.isRemote) {
+							mana -= burst.getStartingMana();
+							worldObj.spawnEntityInWorld(burst);
+						}
+
 						canShootBurst = false;
 						PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
 					}
