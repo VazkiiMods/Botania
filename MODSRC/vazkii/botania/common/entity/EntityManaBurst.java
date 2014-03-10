@@ -648,6 +648,9 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	}
 	
 	private boolean shouldDoFakeParticles() {
+		if(ConfigHandler.staticWandBeam)
+			return true;
+		
 		ChunkCoordinates coords = getBurstSourceChunkCoordinates();
 		TileEntity tile = worldObj.getBlockTileEntity(coords.posX, coords.posY, coords.posZ);
 		if(tile != null && tile instanceof TileSpreader)

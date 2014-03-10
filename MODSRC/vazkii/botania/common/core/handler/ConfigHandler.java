@@ -26,6 +26,7 @@ public final class ConfigHandler {
 
 	public static boolean lexiconRotatingItems = true;
 	public static boolean subtlePowerSystem = false;
+	public static boolean staticWandBeam = false;
 
 	public static void loadConfig(File configFile) {
 		config = new Configuration(configFile);
@@ -39,6 +40,10 @@ public final class ConfigHandler {
 		Property subtlePowerSystemProp = config.get(Configuration.CATEGORY_GENERAL, "powerSystem.subtle", false);
 		subtlePowerSystemProp.comment = "Set to true to set the power system's particles to be a lot more subtle. Good for low-end systems, if the particles are causing lag.";
 		subtlePowerSystem = subtlePowerSystemProp.getBoolean(false);
+		
+		Property staticWandBeamProp = config.get(Configuration.CATEGORY_GENERAL, "wandBeam.static", false);
+		staticWandBeamProp.comment = "Set to true to use a static wand beam that shows every single position of the burst, similar to the way it used to work on old botania versions. Warning: Disabled by default because it may be laggy.";
+		staticWandBeam = staticWandBeamProp.getBoolean(false);
 
 		// Block IDs
 		LibBlockIDs.idFlower = loadBlock(LibBlockNames.FLOWER, LibBlockIDs.idFlower);
