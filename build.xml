@@ -65,6 +65,9 @@
 		<ftp action="send" server="${ftp.host}" remotedir="/${build.mod_name}/files" userid="${ftp.user}" password="${ftp.pass}" verbose="yes" depends="yes">
 			<fileset file="${build.dir.output}\${build.mod_name}\${build.mod_name} ${build.version}-${build.build_number}.jar" />
 		</ftp>
+		<ftp action="send" server="${ftp.host}" remotedir="/${build.mod_name}" userid="${ftp.user}" password="${ftp.pass}" verbose="yes" depends="yes">
+			<fileset file="${build.dir.repo}web/changelog.html" />
+		</ftp>
 	</target>
 
 	<target name="build">
