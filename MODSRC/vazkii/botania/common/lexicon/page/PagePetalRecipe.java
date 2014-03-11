@@ -67,7 +67,7 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 
 		List<Object> inputs = recipe.getInputs();
 		int degreePerInput = (int) (360F / inputs.size());
-		int currentDegree = ConfigHandler.lexiconRotatingItems ? (int) Minecraft.getMinecraft().theWorld.getTotalWorldTime() * 2 : 0;
+		int currentDegree = ConfigHandler.lexiconRotatingItems ? (int) Minecraft.getMinecraft().theWorld.getTotalWorldTime() : 0;
 
 		for(Object obj : inputs) {
 			Object input = obj;
