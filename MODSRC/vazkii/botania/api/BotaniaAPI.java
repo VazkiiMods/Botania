@@ -12,7 +12,9 @@
 package vazkii.botania.api;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
@@ -40,8 +42,42 @@ public final class BotaniaAPI {
 	public static List<RecipeManaInfusion> manaInfusionRecipes = new ArrayList<RecipeManaInfusion>();
 
 	private static BiMap<String, Class<? extends SubTileEntity>> subTiles = HashBiMap.<String, Class<? extends SubTileEntity>> create();
+	
+	private static Map<String, Integer> oreWeights = new HashMap();
+	
 	static {
 		registerSubTile("", DummySubTile.class);
+		
+		addOreWeight("oreAluminum", 615); // Tinkers' Construct
+		addOreWeight("oreAmber", 160); // Thaumcraft
+		addOreWeight("oreApatite", 270); // Forestry
+		addOreWeight("oreBlueTopaz", 235); // Ars Magica
+		addOreWeight("oreCertusQuartz", 235); // Applied Energistics
+		addOreWeight("oreChimerite", 270); // Ars Magica
+		addOreWeight("oreCinnabar", 170); // Thaumcraft
+		addOreWeight("oreCoal", 2645); // Vanilla
+		addOreWeight("oreCopper", 600); // IC2, Thermal Expansion, Tinkers' Construct, etc.
+		addOreWeight("oreDiamond", 65); // Vanilla
+		addOreWeight("oreEmerald", 50); // Vanilla
+		addOreWeight("oreFzDarkIron", 60); // Factorization
+		addOreWeight("oreGold", 165); // Vanilla
+		addOreWeight("oreInfusedAir", 45); // Thaumcraft
+		addOreWeight("oreInfusedEarth", 45); // Thaumcraft
+		addOreWeight("oreInfusedEntropy", 45); // Thaumcraft
+		addOreWeight("oreInfusedFire", 45); // Thaumcraft
+		addOreWeight("oreInfusedOrder", 45); // Thaumcraft
+		addOreWeight("oreInfusedWater", 45); // Thaumcraft
+		addOreWeight("oreIron", 1500); // Vanilla
+		addOreWeight("oreLapis", 55); // Vanilla
+		addOreWeight("oreLead", 335); // IC2, Thermal Expansion, Factorization, etc.
+		addOreWeight("oreNickel", 70); // Thermal Expansion
+		addOreWeight("orePeridot", 70); // Project RED
+		addOreWeight("oreRedstone", 365); // Vanilla
+		addOreWeight("oreRuby", 70); // Project RED
+		addOreWeight("oreSapphire", 70); // Project RED
+		addOreWeight("oreSilver", 400); // Thermal Expansion, Factorization, etc.
+		addOreWeight("oreSulfur", 105); // Railcraft
+		addOreWeight("oreTin", 505); // IC2, Thermal Expansion, etc.
 	}
 
 	/**
@@ -115,7 +151,22 @@ public final class BotaniaAPI {
 		allEntries.add(entry);
 		category.entries.add(entry);
 	}
+	
+	/**
+	 * Maps an ore (ore dictionary key) to it's weight on the world generation. This
+	 * is used for the Orechid flower. Check the static block in the BotaniaAPI class
+	 * to get the weights for the vanilla blocks.<br>
+	 * Alternatively get the values with the OreDetector mod:<br>
+	 * https://gist.github.com/Vazkii/9493322
+	 */
+	public static void addOreWeight(String ore, int weight) {
+		oreWeights.put(ore, weight);
+	}
 
+	public static int getOreWeight(String ore) {
+		return oreWeights.get(ore);
+	}
+	
 	/**
 	 * Gets the last recipe to have been added to the recipe list.
 	 */
