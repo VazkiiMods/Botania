@@ -11,15 +11,20 @@
  */
 package vazkii.botania.common.block;
 
+import java.util.List;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.ILexiconable;
+import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.tile.TileManaDetector;
@@ -59,6 +64,12 @@ public class BlockManaDetector extends BlockModContainer implements ILexiconable
 	@Override
 	public int isProvidingWeakPower(IBlockAccess par1iBlockAccess, int par2, int par3, int par4, int par5) {
 		return par1iBlockAccess.getBlockMetadata(par2, par3, par4) != 0 ? 15 : 0;
+	}
+	
+	@Override
+	public void addCollisionBoxesToList(World par1World, int par2, int par3, int par4, AxisAlignedBB par5AxisAlignedBB, List par6List, Entity par7Entity) {
+		if(par7Entity != null && !(par7Entity instanceof IManaBurst))
+			super.addCollisionBoxesToList(par1World, par2, par3, par4, par5AxisAlignedBB, par6List, par7Entity);
 	}
 
 	@Override
