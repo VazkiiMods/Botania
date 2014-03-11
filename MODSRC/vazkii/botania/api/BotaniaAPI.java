@@ -43,7 +43,7 @@ public final class BotaniaAPI {
 
 	private static BiMap<String, Class<? extends SubTileEntity>> subTiles = HashBiMap.<String, Class<? extends SubTileEntity>> create();
 	
-	private static Map<String, Integer> oreWeights = new HashMap();
+	private static Map<String, Integer> oreWeights = new HashMap<String, Integer>();
 	
 	static {
 		registerSubTile("", DummySubTile.class);
@@ -78,6 +78,8 @@ public final class BotaniaAPI {
 		addOreWeight("oreSilver", 400); // Thermal Expansion, Factorization, etc.
 		addOreWeight("oreSulfur", 105); // Railcraft
 		addOreWeight("oreTin", 505); // IC2, Thermal Expansion, etc.
+		addOreWeight("oreUranium", 110); // IC2
+		addOreWeight("oreVinteum", 395); // Ars Magica
 	}
 
 	/**
