@@ -44,5 +44,6 @@ public final class LibBlockNames {
 	public static final String SUBTILE_HEISEI_DREAM = "heiseiDream";
 	public static final String SUBTILE_TIGERSEYE = "tigerseye";
 	public static final String SUBTILE_JADED_AMARANTHUS = "jadedAmaranthus";
+	public static final String SUBTILE_ORECHID = "orechid";
 
 }

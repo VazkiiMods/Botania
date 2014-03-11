@@ -43,7 +43,7 @@ public final class BotaniaAPI {
 
 	private static BiMap<String, Class<? extends SubTileEntity>> subTiles = HashBiMap.<String, Class<? extends SubTileEntity>> create();
 	
-	private static Map<String, Integer> oreWeights = new HashMap<String, Integer>();
+	public static Map<String, Integer> oreWeights = new HashMap<String, Integer>();
 	
 	static {
 		registerSubTile("", DummySubTile.class);

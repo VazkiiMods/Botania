@@ -129,6 +129,8 @@ tile.botania:flower.tigerseye.name=Tigerseye
 tile.botania:flower.tigerseye.reference=The palmtop tiger
 tile.botania:flower.jadedAmaranthus.name=Jaded Amaranthus
 tile.botania:flower.jadedAmaranthus.reference=A couple died for this
+tile.botania:flower.orechid.name=Orechid
+tile.botania:flower.orechid.reference=I seed what you did there
 
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania

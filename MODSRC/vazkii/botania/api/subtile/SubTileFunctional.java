@@ -90,7 +90,7 @@ public class SubTileFunctional extends SubTileEntity {
 			int size = network.getAllPoolsInWorld(supertile.worldObj.provider.dimensionId).size();
 			if(size != sizeLastCheck) {
 				ChunkCoordinates coords = new ChunkCoordinates(supertile.xCoord, supertile.yCoord, supertile.zCoord);
-				linkedPool =network.getClosestPool(coords, supertile.worldObj.provider.dimensionId, range);
+				linkedPool = network.getClosestPool(coords, supertile.worldObj.provider.dimensionId, range);
 				sizeLastCheck = size;
 			}
 		}
