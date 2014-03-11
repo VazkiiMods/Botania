@@ -33,7 +33,7 @@ public class SubtileOrechid extends SubTileFunctional {
 	public void onUpdate() {
 		super.onUpdate();
 		
-		if(!supertile.worldObj.isRemote && mana >= COST && supertile.worldObj.getTotalWorldTime() % 5 == 0) {
+		if(!supertile.worldObj.isRemote && mana >= COST && supertile.worldObj.getTotalWorldTime() % 100 == 0) {
 			ChunkCoordinates coords = getCoordsToPut();
 			if(coords != null) {
 				ItemStack stack = getOreToPut();
