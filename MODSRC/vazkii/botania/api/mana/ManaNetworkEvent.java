@@ -43,7 +43,7 @@ public class ManaNetworkEvent extends Event {
 	}
 
 	public static void removePool(TileEntity tile) {
-		ManaNetworkEvent event = new ManaNetworkEvent(tile, ManaBlockType.POOL, Action.ADD);
+		ManaNetworkEvent event = new ManaNetworkEvent(tile, ManaBlockType.POOL, Action.REMOVE);
 		MinecraftForge.EVENT_BUS.post(event);
 	}
 
