@@ -27,13 +27,14 @@ public final class ModPetalRecipes {
 
 	public static RecipePetals daybloomRecipe;
 	public static RecipePetals endoflameRecipe;
-
+	public static RecipePetals hydroangeasRecipe;
+	public static RecipePetals thermalilyRecipe;
+	
 	public static RecipePetals jadedAmaranthusRecipe;
 	public static RecipePetals bellethorneRecipe;
 	public static RecipePetals heiseiDreamRecipe;
 	public static RecipePetals tigerseyeRecipe;
-	public static RecipePetals hydroangeasRecipe;
-	public static RecipePetals thermalilyRecipe;
+	public static RecipePetals orechidRecipe;
 
 	public static void init() {
 		pureDaisyRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_PUREDAISY), white, white, white, white);
@@ -47,6 +48,6 @@ public final class ModPetalRecipes {
 		bellethorneRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_BELLETHORN), redMana, redMana, cyan, cyan, red);
 		heiseiDreamRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_HEISEI_DREAM), purpleMana, pinkMana, magentaMana, purple, pink, magenta, runeWrath);
 		tigerseyeRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_TIGERSEYE), yellow, brownMana, orangeMana, lime, runeAutumn);
-
+		orechidRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ORECHID), gray, grayMana, lightGray, lightGrayMana, lightBlue, yellow, green, red, runePride, runeSloth);
 	}
 }

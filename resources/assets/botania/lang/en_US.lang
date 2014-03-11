@@ -410,6 +410,11 @@ botania.entry.tigerseye=Tigerseye
 botania.page.tigerseye0=It's a known fact that &4Creepers&0 are terrified of &4cats&0.<br>The &1Tigerseye&0 exploits that very weakness, by emiting a feline aura, petrifying any nearby &4Creepers&0, preventing them from exploding. It also has the effect of making them run away from &4players&0.
 botania.page.tigerseye1=&oRisin' up to the challenge of our rivals&r.
 
+# -- ORECHID
+botania.entry.orechid=Orechid
+botania.page.orechid0=While going mining is all good, a renewable means of getting ore is due. The &1Orechid&0 will use (a massive amount of) &4Mana&0 to generate &4ores&0 in nearby &1Stone&0 blocks.<br>The ores it generates are random, but seem to be biased towards more common ores rather than rarer ones.
+botania.page.orechid1=&oLizbeth would like this flower&r.
+
 # - GENERATING FLOWERS
 # -- AN INTRODUCTION TO GENERATION
 botania.entry.gIntro=An Introduction to Generation

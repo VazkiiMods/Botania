@@ -69,7 +69,8 @@ public final class LexiconData {
 	public static LexiconEntry bellethorne;
 	public static LexiconEntry heiseiDream;
 	public static LexiconEntry tigerseye;
-	
+	public static LexiconEntry orechid;
+
 	public static LexiconEntry generatingIntro;
 	public static LexiconEntry daybloom;
 	public static LexiconEntry endoflame;
@@ -179,6 +180,9 @@ public final class LexiconData {
 		tigerseye = new BLexiconEntry(LibLexicon.FFLOWER_TIGERSEYE, categoryFunctionalFlowers);
 		tigerseye.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.tigerseyeRecipe));
 
+		orechid = new BLexiconEntry(LibLexicon.FFLOWER_ORECHID, categoryFunctionalFlowers);
+		orechid.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.orechidRecipe));
+		
 		// GENERATING FLOWERS ENTRIES
 		generatingIntro = new BLexiconEntry(LibLexicon.GFLOWER_INTRO, categoryGenerationFlowers);
 		generatingIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"));
