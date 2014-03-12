@@ -86,6 +86,9 @@ public final class ModBlocks {
 		
 		// Vanilla ores (because forge doesn't do this by default for some reason)
 		OreDictionary.registerOre("oreCoal", Block.oreCoal);
+		
+		Block.blocksList[Block.snow.blockID] = null;
+		new BlockSnowNew(Block.snow.blockID).setHardness(0.1F).setStepSound(Block.soundSnowFootstep).setUnlocalizedName("snow").setLightOpacity(0).setTextureName("snow");
 	}
 
 	private static void initTileEntities() {

@@ -27,6 +27,7 @@ import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
@@ -77,6 +78,11 @@ public class BlockModFlower extends BlockFlower implements ILexiconable {
 	@Override
 	public Icon getIcon(int par1, int par2) {
 		return icons[par2];
+	}
+	
+	@Override
+	public int getRenderType() {
+		return LibRenderIDs.idSpecialFlower;
 	}
 
 	@Override
