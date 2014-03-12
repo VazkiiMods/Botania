@@ -48,38 +48,48 @@ public final class BotaniaAPI {
 	static {
 		registerSubTile("", DummySubTile.class);
 		
-		addOreWeight("oreAluminum", 615); // Tinkers' Construct
-		addOreWeight("oreAmber", 160); // Thaumcraft
-		addOreWeight("oreApatite", 270); // Forestry
-		addOreWeight("oreBlueTopaz", 235); // Ars Magica
-		addOreWeight("oreCertusQuartz", 235); // Applied Energistics
-		addOreWeight("oreChimerite", 270); // Ars Magica
-		addOreWeight("oreCinnabar", 170); // Thaumcraft
-		addOreWeight("oreCoal", 2645); // Vanilla
-		addOreWeight("oreCopper", 600); // IC2, Thermal Expansion, Tinkers' Construct, etc.
-		addOreWeight("oreDiamond", 65); // Vanilla
-		addOreWeight("oreEmerald", 50); // Vanilla
-		addOreWeight("oreFzDarkIron", 60); // Factorization
-		addOreWeight("oreGold", 165); // Vanilla
-		addOreWeight("oreInfusedAir", 45); // Thaumcraft
-		addOreWeight("oreInfusedEarth", 45); // Thaumcraft
-		addOreWeight("oreInfusedEntropy", 45); // Thaumcraft
-		addOreWeight("oreInfusedFire", 45); // Thaumcraft
-		addOreWeight("oreInfusedOrder", 45); // Thaumcraft
-		addOreWeight("oreInfusedWater", 45); // Thaumcraft
-		addOreWeight("oreIron", 1500); // Vanilla
-		addOreWeight("oreLapis", 55); // Vanilla
-		addOreWeight("oreLead", 335); // IC2, Thermal Expansion, Factorization, etc.
-		addOreWeight("oreNickel", 70); // Thermal Expansion
-		addOreWeight("orePeridot", 70); // Project RED
-		addOreWeight("oreRedstone", 365); // Vanilla
-		addOreWeight("oreRuby", 70); // Project RED
-		addOreWeight("oreSapphire", 70); // Project RED
-		addOreWeight("oreSilver", 400); // Thermal Expansion, Factorization, etc.
-		addOreWeight("oreSulfur", 105); // Railcraft
-		addOreWeight("oreTin", 505); // IC2, Thermal Expansion, etc.
-		addOreWeight("oreUranium", 110); // IC2
-		addOreWeight("oreVinteum", 395); // Ars Magica
+		addOreWeight("oreAluminum", 3940); // Tinkers' Construct
+		addOreWeight("oreAmber", 2075); // Thaumcraft
+		addOreWeight("oreApatite", 1595); // Forestry
+		addOreWeight("oreBlueTopaz", 3195); // Ars Magica
+		addOreWeight("oreCassiterite", 1634); // GregTech
+		addOreWeight("oreCertusQuartz", 3975); // Applied Energistics
+		addOreWeight("oreChimerite", 3970); // Ars Magica
+		addOreWeight("oreCinnabar",  2585); // Thaumcraft
+		addOreWeight("oreCoal", 46525); // Vanilla
+		addOreWeight("oreCooperite", 5); // GregTech
+		addOreWeight("oreCopper", 8325); // IC2, Thermal Expansion, Tinkers' Construct, etc.
+		addOreWeight("oreDarkIron", 1700); // Factorization
+		addOreWeight("oreDiamond", 1265); // Vanilla
+		addOreWeight("oreEmerald", 780); // Vanilla
+		addOreWeight("oreEmery", 415); // GregTech
+		addOreWeight("oreGalena", 1000);
+		addOreWeight("oreGold", 2970); // Vanilla
+		addOreWeight("oreInfusedAir", 925); // Thaumcraft
+		addOreWeight("oreInfusedEarth", 925); // Thaumcraft
+		addOreWeight("oreInfusedEntropy", 925); // Thaumcraft
+		addOreWeight("oreInfusedFire", 925); // Thaumcraft
+		addOreWeight("oreInfusedOrder", 925); // Thaumcraft
+		addOreWeight("oreInfusedWater", 925); // Thaumcraft
+		addOreWeight("oreIridium", 30); // GregTech
+		addOreWeight("oreIron", 20665); // Vanilla
+		addOreWeight("oreLapis", 1285); // Vanilla
+		addOreWeight("oreLead", 7985); // IC2, Thermal Expansion, Factorization, etc.
+		addOreWeight("oreMCropsEssence", 3085); // Magical Crops
+		addOreWeight("oreNickel", 2275); // Thermal Expansion
+		addOreWeight("oreOlivine", 1100); // Project RED
+		addOreWeight("oreRedstone", 6885); // Vanilla
+		addOreWeight("oreRuby", 1100); // Project RED
+		addOreWeight("oreSapphire", 1100); // Project RED
+		addOreWeight("oreSilver", 6300); // Thermal Expansion, Factorization, etc.
+		addOreWeight("oreSphalerite", 25); // GregTech
+		addOreWeight("oreSulfur", 1105); // Railcraft
+		addOreWeight("oreTetrahedrite", 4040); // GregTech
+		addOreWeight("oreTin", 9450); // IC2, Thermal Expansion, etc.
+		addOreWeight("oreTungstate", 20); // GregTech
+		addOreWeight("oreUranium", 1337); // IC2
+		addOreWeight("oreVinteum", 5925); // Ars Magica
+		addOreWeight("oreYellorite", 3520); // Big Reactors
 	}
 
 	/**
