@@ -14,6 +14,7 @@ package vazkii.botania.client.core.proxy;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -51,6 +52,7 @@ import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.core.proxy.CommonProxy;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibBlockIDs;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -80,7 +82,7 @@ public class ClientProxy extends CommonProxy {
 		LibRenderIDs.idPylon = RenderingRegistry.getNextAvailableRenderId();
 
 		RenderingRegistry.registerBlockHandler(new RenderAltar());
-		RenderingRegistry.registerBlockHandler(new RenderSpecialFlower());
+		RenderingRegistry.registerBlockHandler(new RenderSpecialFlower(LibRenderIDs.idSpecialFlower));
 		RenderingRegistry.registerBlockHandler(new RenderSpreader());
 		RenderingRegistry.registerBlockHandler(new RenderPool());
 		RenderingRegistry.registerBlockHandler(new RenderPylon());

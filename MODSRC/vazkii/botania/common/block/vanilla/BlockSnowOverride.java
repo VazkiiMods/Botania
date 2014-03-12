@@ -9,16 +9,16 @@
  * 
  * File Created @ [Mar 12, 2014, 4:08:35 PM (GMT)]
  */
-package vazkii.botania.common.block;
+package vazkii.botania.common.block.vanilla;
 
 import net.minecraft.block.BlockSnow;
 import net.minecraft.world.IBlockAccess;
 
-public class BlockSnowNew extends BlockSnow {
+public class BlockSnowOverride extends BlockSnow {
 
 	public static int forcedMeta = -1;
 	
-	protected BlockSnowNew(int par1) {
+	public BlockSnowOverride(int par1) {
 		super(par1);
 	}
 	

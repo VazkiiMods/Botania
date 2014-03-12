@@ -35,6 +35,8 @@ import vazkii.botania.common.block.tile.TilePylon;
 import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.block.tile.TileSpreader;
+import vazkii.botania.common.block.vanilla.BlockFlowerOverride;
+import vazkii.botania.common.block.vanilla.BlockSnowOverride;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibOreDict;
 import cpw.mods.fml.common.Loader;
@@ -83,12 +85,17 @@ public final class ModBlocks {
 
 		initTileEntities();
 		registerMultiparts();
-		
+
 		// Vanilla ores (because forge doesn't do this by default for some reason)
 		OreDictionary.registerOre("oreCoal", Block.oreCoal);
-		
+
 		Block.blocksList[Block.snow.blockID] = null;
-		new BlockSnowNew(Block.snow.blockID).setHardness(0.1F).setStepSound(Block.soundSnowFootstep).setUnlocalizedName("snow").setLightOpacity(0).setTextureName("snow");
+		Block.blocksList[Block.plantRed.blockID] = null;
+		Block.blocksList[Block.plantYellow.blockID] = null;
+
+		new BlockSnowOverride(Block.snow.blockID).setHardness(0.1F).setStepSound(Block.soundSnowFootstep).setUnlocalizedName("snow").setLightOpacity(0).setTextureName("snow");
+		new BlockFlowerOverride(Block.plantRed.blockID).setHardness(0F).setStepSound(Block.soundGrassFootstep).setUnlocalizedName("flower").setTextureName("flower_dandelion");
+		new BlockFlowerOverride(Block.plantYellow.blockID).setHardness(0F).setStepSound(Block.soundGrassFootstep).setUnlocalizedName("rose").setTextureName("flower_rose");
 	}
 
 	private static void initTileEntities() {

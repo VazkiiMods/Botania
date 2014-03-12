@@ -19,11 +19,17 @@ import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.ForgeDirection;
 import vazkii.botania.client.lib.LibRenderIDs;
-import vazkii.botania.common.block.BlockSnowNew;
+import vazkii.botania.common.block.vanilla.BlockSnowOverride;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class RenderSpecialFlower implements ISimpleBlockRenderingHandler {
 
+	int id;
+	
+	public RenderSpecialFlower(int id) {
+		this.id = id;
+	}
+	
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
 		// NO-OP
@@ -75,7 +81,7 @@ public class RenderSpecialFlower implements ISimpleBlockRenderingHandler {
 			}
 
 		if(snow >= 0) {
-			BlockSnowNew.forcedMeta = snow;
+			BlockSnowOverride.forcedMeta = snow;
 			render.renderBlockByRenderType(Block.blocksList[Block.snow.blockID], par2, par3, par4);
  		}
 		
@@ -123,7 +129,7 @@ public class RenderSpecialFlower implements ISimpleBlockRenderingHandler {
 
 	@Override
 	public int getRenderId() {
-		return LibRenderIDs.idSpecialFlower;
+		return id;
 	}
 
 }
