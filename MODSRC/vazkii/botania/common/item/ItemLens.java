@@ -24,6 +24,7 @@ import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Icon;
@@ -34,9 +35,11 @@ import net.minecraftforge.common.ForgeDirection;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
+import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibItemIDs;
 import vazkii.botania.common.lib.LibItemNames;
@@ -69,7 +72,7 @@ public class ItemLens extends ItemMod implements ILens {
 	@Override
 	public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List) {
 		for(int i = 0; i < SUBTYPES; i++)
-				par3List.add(new ItemStack(par1, 1, i));
+			par3List.add(new ItemStack(par1, 1, i));
 	}
 
 	@Override
@@ -226,6 +229,61 @@ public class ItemLens extends ItemMod implements ILens {
 		int storedColor = getStoredColor(stack);
 		if(storedColor == 16)
 			burst.setColor(getLensColor(stack));
+
+		EntityThrowable entity = (EntityThrowable) burst;
+
+		boolean magnetized = entity.getEntityData().hasKey("Botania:Magnetized");
+		switch(stack.getItemDamage()) {
+		case 10 : { // Magnetizing
+			int x = (int) entity.posX;
+			int y = (int) entity.posY;
+			int z = (int) entity.posZ;
+			int range = 3;
+
+			magnetize : {
+				for(int i = -range; i < range; i++)
+					for(int j = -range; j < range; j++)
+						for(int k = -range; k < range; k++)
+							if(entity.worldObj.getBlockTileEntity(i + x, j + y, k + z) instanceof IManaReceiver) {
+								TileEntity tile = entity.worldObj.getBlockTileEntity(i + x, j + y, k + z);
+								
+								if(magnetized) {
+									int magX = entity.getEntityData().getInteger("Botania:MagnetizedX");
+									int magY = entity.getEntityData().getInteger("Botania:MagnetizedY");
+									int magZ = entity.getEntityData().getInteger("Botania:MagnetizedZ");
+									if(tile.xCoord != magX || tile.yCoord != magY || tile.zCoord != magZ)
+										continue;
+								}
+								
+								IManaReceiver receiver = (IManaReceiver) tile;
+
+								ChunkCoordinates srcCoords = burst.getBurstSourceChunkCoordinates();
+
+								if(MathHelper.pointDistanceSpace(tile.xCoord, tile.yCoord, tile.zCoord, srcCoords.posX, srcCoords.posY, srcCoords.posZ) > 3 && receiver.canRecieveManaFromBursts() && !receiver.isFull()) {
+									Vector3 burstVec = Vector3.fromEntity(entity);
+									Vector3 tileVec = Vector3.fromTileEntityCenter(tile).add(0, -0.1, 0);
+									Vector3 motionVec = new Vector3(entity.motionX, entity.motionY, entity.motionZ);
+
+									Vector3 normalMotionVec = motionVec.copy().normalize(); 
+									Vector3 magnetVec = tileVec.sub(burstVec).normalize();
+									Vector3 differenceVec = normalMotionVec.sub(magnetVec).multiply(motionVec.mag() * 0.1);
+
+									Vector3 finalMotionVec = motionVec.sub(differenceVec);
+									if(!magnetized) {
+										finalMotionVec.multiply(0.75);
+										entity.getEntityData().setBoolean("Botania:Magnetized", true);
+										entity.getEntityData().setInteger("Botania:MagnetizedX", tile.xCoord);
+										entity.getEntityData().setInteger("Botania:MagnetizedY", tile.yCoord);
+										entity.getEntityData().setInteger("Botania:MagnetizedZ", tile.zCoord);
+									}
+									
+									burst.setMotion(finalMotionVec.x, finalMotionVec.y, finalMotionVec.z);
+									break magnetize;
+								}
+							}
+			}
+		}
+		}
 	}
 
 	@Override
