@@ -68,13 +68,8 @@ public class ItemLens extends ItemMod implements ILens {
 
 	@Override
 	public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List) {
-		for(int i = 0; i < SUBTYPES; i++) {
-			for(int j = -1; j < 17; j++) {
-				ItemStack stack = new ItemStack(par1, 1, i);
-				setLensColor(stack, j);
-				par3List.add(stack);
-			}
-		}
+		for(int i = 0; i < SUBTYPES; i++)
+				par3List.add(new ItemStack(par1, 1, i));
 	}
 
 	@Override
