@@ -18,8 +18,8 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.ForgeDirection;
-import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.vanilla.BlockSnowOverride;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class RenderSpecialFlower implements ISimpleBlockRenderingHandler {
@@ -66,24 +66,26 @@ public class RenderSpecialFlower implements ISimpleBlockRenderingHandler {
 
 		drawCrossedSquares(blockAccess, par1Block, par2, par3, par4, d0, d1, d2, 1.0F, render);
 		
-		int snow = -1;
-		boolean foundSnow = false;
-		
-		ForgeDirection[] directions = new ForgeDirection[] {
-				ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST
-		};
-		
-		for(ForgeDirection dir : directions)
-			if(blockAccess.getBlockId(par2 + dir.offsetX, par3 + dir.offsetY, par4 + dir.offsetZ) == Block.snow.blockID) {
-				int meta = blockAccess.getBlockMetadata(par2 + dir.offsetX, par3 + dir.offsetY, par4 + dir.offsetZ);
-				snow = foundSnow ? Math.min(snow, meta) : meta;
-				foundSnow = true;
-			}
+		if(ConfigHandler.overrideVanillaBlocks) {
+			int snow = -1;
+			boolean foundSnow = false;
+			
+			ForgeDirection[] directions = new ForgeDirection[] {
+					ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST
+			};
+			
+			for(ForgeDirection dir : directions)
+				if(blockAccess.getBlockId(par2 + dir.offsetX, par3 + dir.offsetY, par4 + dir.offsetZ) == Block.snow.blockID) {
+					int meta = blockAccess.getBlockMetadata(par2 + dir.offsetX, par3 + dir.offsetY, par4 + dir.offsetZ);
+					snow = foundSnow ? Math.min(snow, meta) : meta;
+					foundSnow = true;
+				}
 
-		if(snow >= 0) {
-			BlockSnowOverride.forcedMeta = snow;
-			render.renderBlockByRenderType(Block.blocksList[Block.snow.blockID], par2, par3, par4);
- 		}
+			if(snow >= 0) {
+				BlockSnowOverride.forcedMeta = snow;
+				render.renderBlockByRenderType(Block.blocksList[Block.snow.blockID], par2, par3, par4);
+	 		}
+		}
 		
 		return true;
 	}

@@ -27,6 +27,7 @@ public final class ConfigHandler {
 	public static boolean lexiconRotatingItems = true;
 	public static boolean subtlePowerSystem = false;
 	public static boolean staticWandBeam = false;
+	public static boolean overrideVanillaBlocks = true;
 
 	public static void loadConfig(File configFile) {
 		config = new Configuration(configFile);
@@ -44,6 +45,10 @@ public final class ConfigHandler {
 		Property staticWandBeamProp = config.get(Configuration.CATEGORY_GENERAL, "wandBeam.static", false);
 		staticWandBeamProp.comment = "Set to true to use a static wand beam that shows every single position of the burst, similar to the way it used to work on old botania versions. Warning: Disabled by default because it may be laggy.";
 		staticWandBeam = staticWandBeamProp.getBoolean(false);
+		
+		Property overrideVanillaBlocksProp = config.get(Configuration.CATEGORY_GENERAL, "override.vanillaBlocks", true);
+		overrideVanillaBlocksProp.comment = "Set to false to remove the overriding of vanilla blocks (snow, red and yellow flowers). Setting this to false will remove the snow on flowers tweak.";
+		overrideVanillaBlocks = overrideVanillaBlocksProp.getBoolean(true);
 
 		// Block IDs
 		LibBlockIDs.idFlower = loadBlock(LibBlockNames.FLOWER, LibBlockIDs.idFlower);
