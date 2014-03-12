@@ -47,7 +47,7 @@ public class ItemLens extends ItemMod implements ILens {
 
 	public static Icon iconGlass;
 
-	public static final int SUBTYPES = 10;
+	public static final int SUBTYPES = 14;
 	Icon[] ringIcons;
 
 	public ItemLens() {
