@@ -219,8 +219,14 @@ public class ItemLens extends ItemMod implements ILens {
 				burst.setMinManaLoss(Math.max(0, burst.getMinManaLoss() - 4));
 			}
 		}
+		case 11 : { // Explosive
+			if(!burst.isFake()) {
+				ChunkCoordinates coords = burst.getBurstSourceChunkCoordinates();
+				if(!entity.worldObj.isRemote && pos.entityHit == null && !isManaBlock && (pos.blockX != coords.posX || pos.blockY != coords.posY || pos.blockZ != coords.posZ))
+					entity.worldObj.createExplosion(entity, entity.posX, entity.posY, entity.posZ, (float) burst.getMana() / 100F, true); 
+			} else dead = false;
 		}
-
+		}
 		return dead;
 	}
 
