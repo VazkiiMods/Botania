@@ -25,17 +25,17 @@ public class BiomeDecorationHandler {
 	public void onWorldDecoration(DecorateBiomeEvent.Decorate event) {
 		if((event.getResult() == Result.ALLOW || event.getResult() == Result.DEFAULT) && event.type == EventType.FLOWERS)
 			for(int i = 0; i < 3; i++) {
-				int x = event.chunkX + event.world.rand.nextInt(16) + 8;
-				int y = event.world.rand.nextInt(128);
-				int z = event.chunkZ + event.world.rand.nextInt(16) + 8;
+				int x = event.chunkX + event.rand.nextInt(16) + 8;
+				int z = event.chunkZ + event.rand.nextInt(16) + 8;
+				int y = event.world.getTopSolidOrLiquidBlock(x, z);
 
-				for (int j = 0; j < 96; j++) {
-					int x1 = x + event.world.rand.nextInt(8) - event.world.rand.nextInt(8);
-					int y1 = y + event.world.rand.nextInt(4) - event.world.rand.nextInt(4);
-					int z1 = z + event.world.rand.nextInt(8) - event.world.rand.nextInt(8);
+				for (int j = 0; j < 32; j++) {
+					int x1 = x + event.rand.nextInt(8) - event.rand.nextInt(8);
+					int y1 = y + event.rand.nextInt(4) - event.rand.nextInt(4);
+					int z1 = z + event.rand.nextInt(8) - event.rand.nextInt(8);
 
 					if (event.world.isAirBlock(x1, y1, z1) && (!event.world.provider.hasNoSky || y1 < 127) && Block.blocksList[ModBlocks.flower.blockID].canBlockStay(event.world, x1, y1, z1))
-						event.world.setBlock(x1, y1, z1, ModBlocks.flower.blockID, event.world.rand.nextInt(16), 2);
+						event.world.setBlock(x1, y1, z1, ModBlocks.flower.blockID, event.rand.nextInt(16), 2);
 				}
 			}
 	}
