@@ -28,7 +28,7 @@ public class BlockManaVoid extends BlockModContainer implements ILexiconable {
 	protected BlockManaVoid() {
 		super(LibBlockIDs.idManaVoid, Material.rock);
 		setHardness(2.0F);
-		setResistance(10.0F);
+		setResistance(2000F);
 		setStepSound(soundStoneFootstep);
 		setUnlocalizedName(LibBlockNames.MANA_VOID);
 	}
