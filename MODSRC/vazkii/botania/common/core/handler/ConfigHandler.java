@@ -79,6 +79,7 @@ public final class ConfigHandler {
 		LibItemIDs.idRune = loadItem(LibItemNames.RUNE, LibItemIDs.idRune);
 		LibItemIDs.idSignalFlare = loadItem(LibItemNames.SIGNAL_FLARE, LibItemIDs.idSignalFlare);
 		LibItemIDs.idManaTablet = loadItem(LibItemNames.MANA_TABLET, LibItemIDs.idManaTablet);
+		LibItemIDs.idManaGun = loadItem(LibItemNames.MANA_GUN, LibItemIDs.idManaGun);
 
 		config.save();
 	}
