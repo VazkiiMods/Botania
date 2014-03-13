@@ -67,7 +67,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.manaVoid);
 		addBlock(ModBlocks.manaDetector);
 		addBlock(ModBlocks.spreader);
-		addItem(ModItems.manaBlaster);
+		addItem(ModItems.manaGun);
 		addItem(ModItems.lens);
 	}
 
