@@ -16,6 +16,7 @@ botaniamisc.flareColor=%s Rounds
 botaniamisc.outputtingPower=Sparing Power to Items
 botaniamisc.inputtingPower=Accepting Power from Items
 botaniamisc.creative=Creative
+botaniamisc.invFull=Your inventory is full.
 
 # COLORS
 botania.color0=White
@@ -217,6 +218,7 @@ item.botania:rune14.name=Rune of Envy
 item.botania:rune15.name=Rune of Pride
 item.botania:signalFlare.name=Signal Flare
 item.botania:manaTablet.name=Mana Tablet
+item.botania:manaGun.name=Mana Blaster
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania Index - Pick which category you would like to study:
@@ -468,6 +470,12 @@ botania.page.pylon0=A &1Mana Pylon&0 is a structure that can pull energies from 
 botania.page.pylon1=&oYou must construct additional pylons!&r
 
 # - MYSTICAL INSTRUMENTS
+# -- MANA BLASTER
+botania.entry.manaBlaster=Mana Blaster
+botania.page.manaBlaster0=The &1Mana Blaster&0 is like a portable &1Mana Spreader&0, while shaped like a pistol for easy handling, it's not exactly a firearm, as much as it is just a portable spreader.<br>By utilizing &4Mana&0 from &4Mana carrying items&0 in the holder's inventory, it can shoot a mana burst when one is looking at.
+botania.page.manaBlaster1=This burst is a bit different from the one fired from speaders, as it's faster, but carries only three quarters of the mana a spreader burst would. There's also a short cooldown period after firing the blaster until another burst can be shot.
+botania.page.manaBlaster2=&1Mana Lenses&0 also function with the blaster, to attach one to it, put them side by side on a crafting table, to remove it, simply shift-right click the blaster.
+botania.page.manaBlaster3=Crafting the blaster
 
 # - MISCLANEOUS
 # -- UNSTABLE CUBE

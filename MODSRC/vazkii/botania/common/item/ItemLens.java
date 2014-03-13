@@ -190,10 +190,8 @@ public class ItemLens extends ItemMod implements ILens {
 
 						for(ItemStack stack_ : items)
 							world.spawnEntityInWorld(new EntityItem(world, x + 0.5, y + 0.5, z + 0.5, stack_));
+						burst.setMana(mana - 16);
 					}
-
-					if(!burst.isFake())
-						burst.setMana(mana - 64);
 				}
 
 				dead = false;
@@ -206,7 +204,7 @@ public class ItemLens extends ItemMod implements ILens {
 				if(living.hurtTime == 0) {
 					int mana = burst.getMana();
 					if(mana >= 32) {
-						burst.setMana(mana - 32);
+						burst.setMana(mana - 16);
 						if(!burst.isFake() && !entity.worldObj.isRemote)
 							living.attackEntityFrom(DamageSource.magic, 1);
 					}
@@ -219,11 +217,11 @@ public class ItemLens extends ItemMod implements ILens {
 				burst.setMinManaLoss(Math.max(0, burst.getMinManaLoss() - 4));
 			}
 		}
-		case 11 : { // Explosive
+		case 11 : { // Entropic
 			if(!burst.isFake()) {
 				ChunkCoordinates coords = burst.getBurstSourceChunkCoordinates();
 				if(!entity.worldObj.isRemote && pos.entityHit == null && !isManaBlock && (pos.blockX != coords.posX || pos.blockY != coords.posY || pos.blockZ != coords.posZ))
-					entity.worldObj.createExplosion(entity, entity.posX, entity.posY, entity.posZ, (float) burst.getMana() / 100F, true); 
+					entity.worldObj.createExplosion(entity, entity.posX, entity.posY, entity.posZ, (float) burst.getMana() / 50F, true); 
 			} else dead = false;
 		}
 		}

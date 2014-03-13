@@ -231,7 +231,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 	}
 
 	public EntityManaBurst getBurst(boolean fake) {
-		EntityManaBurst burst = new EntityManaBurst(worldObj, this, fake);
+		EntityManaBurst burst = new EntityManaBurst(this, fake);
 
 		int maxMana = 160;
 		int color = 0x00FF00;

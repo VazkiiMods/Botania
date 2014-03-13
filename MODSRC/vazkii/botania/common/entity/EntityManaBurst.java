@@ -18,6 +18,7 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -60,7 +61,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	final int dataWatcherStart = 32 - dataWatcherEntries;
 
 	List<String> alreadyCollidedAt = new ArrayList();
-	
+
 	boolean fullManaLastTick = true;
 
 	public EntityManaBurst(World world) {
@@ -78,8 +79,8 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		}
 	}
 
-	public EntityManaBurst(World par1World, TileSpreader spreader, boolean fake) {
-		this(par1World);
+	public EntityManaBurst(TileSpreader spreader, boolean fake) {
+		this(spreader.worldObj);
 		this.fake = fake;
 
 		setBurstSourceCoords(spreader.xCoord, spreader.yCoord, spreader.zCoord);
@@ -87,6 +88,25 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		rotationYaw = -(spreader.rotationX + 90F);
 		rotationPitch = spreader.rotationY;
 
+		float f = 0.4F;
+		double mx = MathHelper.sin(rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float) Math.PI) * f / 2D;
+		double mz = -(MathHelper.cos(rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float) Math.PI) * f) / 2D;
+		double my = MathHelper.sin((rotationPitch + func_70183_g()) / 180.0F * (float) Math.PI) * f / 2D;
+		setMotion(mx, my, mz);
+	}
+
+	public EntityManaBurst(EntityPlayer player) {
+		this(player.worldObj);
+
+		setBurstSourceCoords(0, -1, 0);
+		setLocationAndAngles(player.posX, player.posY + player.getEyeHeight(), player.posZ, player.rotationYaw + 180, -player.rotationPitch);
+
+		posX -= (double)(MathHelper.cos((rotationYaw + 180) / 180.0F * (float) Math.PI) * 0.16F);
+		posY -= 0.10000000149011612D;
+		posZ -= (double)(MathHelper.sin((rotationYaw + 180) / 180.0F * (float) Math.PI) * 0.16F);
+
+		setPosition(posX, posY, posZ);
+		yOffset = 0.0F;
 		float f = 0.4F;
 		double mx = MathHelper.sin(rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float) Math.PI) * f / 2D;
 		double mz = -(MathHelper.cos(rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float) Math.PI) * f) / 2D;
@@ -331,11 +351,11 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			if(getMana() <= 0)
 				setDead();
 		}
-		
+
 		particles();
 
 		setMotion(motionX, motionY, motionZ);
-		
+
 		fullManaLastTick = getMana() == getStartingMana();
 	}
 
@@ -354,7 +374,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			++ticksExisted;
 			onUpdate();
 		}
-		
+
 		if(fake)
 			incrementFakeParticleTick();
 
@@ -464,7 +484,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 			if(tile instanceof IManaCollisionGhost && ((IManaCollisionGhost) tile).isGhost())
 				return;
-			
+
 			ChunkCoordinates coords = getBurstSourceChunkCoordinates();
 			if(tile != null && (tile.xCoord != coords.posX || tile.yCoord != coords.posY || tile.zCoord != coords.posZ))
 				collidedTile = tile;
@@ -650,18 +670,18 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	private String getCollisionLocString(int x, int y, int z) {
 		return x + ":" + y + ":" + z;
 	}
-	
+
 	private boolean shouldDoFakeParticles() {
 		if(ConfigHandler.staticWandBeam)
 			return true;
-		
+
 		ChunkCoordinates coords = getBurstSourceChunkCoordinates();
 		TileEntity tile = worldObj.getBlockTileEntity(coords.posX, coords.posY, coords.posZ);
 		if(tile != null && tile instanceof TileSpreader)
 			return (getMana() != getStartingMana() && fullManaLastTick) || Math.abs(((TileSpreader) tile).burstParticleTick - ticksExisted) < 3;
 		return false;
 	}
-	
+
 	private void incrementFakeParticleTick() {
 		ChunkCoordinates coords = getBurstSourceChunkCoordinates();
 		TileEntity tile = worldObj.getBlockTileEntity(coords.posX, coords.posY, coords.posZ);
@@ -672,7 +692,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 				spreader.burstParticleTick = 0;
 		}
 	}
-	
+
 	private void setDeathTicksForFakeParticle() {
 		ChunkCoordinates coords = getBurstSourceChunkCoordinates();
 		TileEntity tile = worldObj.getBlockTileEntity(coords.posX, coords.posY, coords.posZ);

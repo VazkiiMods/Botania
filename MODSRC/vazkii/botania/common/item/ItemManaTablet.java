@@ -151,10 +151,4 @@ public class ItemManaTablet extends ItemMod implements IManaItem {
 	public boolean canExportManaToItem(ItemStack stack, ItemStack otherStack) {
 		return true;
 	}
-
-	@Override
-	public boolean isPriorityItem(ItemStack stack) {
-		return false;
-	}
-
 }

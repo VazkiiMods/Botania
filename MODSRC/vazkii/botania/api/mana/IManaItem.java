@@ -61,10 +61,4 @@ public interface IManaItem {
 	 */
 	public boolean canExportManaToItem(ItemStack stack, ItemStack otherStack);
 
-	/**
-	 * Should the mana in this item be prioritized over the mana in
-	 * other items? Generally set to false for generic containers
-	 * and true for tools and the like.
-	 */
-	public boolean isPriorityItem(ItemStack stack);
 }
