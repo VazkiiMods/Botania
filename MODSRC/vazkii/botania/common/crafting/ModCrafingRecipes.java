@@ -161,37 +161,37 @@ public final class ModCrafingRecipes {
 		recipesRuneAltar = BotaniaAPI.getLatestAddedRecipes(2);
 
 		// Lens Recipes
-		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 0, 1), new ItemStack(ModItems.lens), LibOreDict.RUNE[3]);
+		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 1, 1), new ItemStack(ModItems.lens), LibOreDict.RUNE[3]);
 		recipeLensVelocity = BotaniaAPI.getLatestAddedRecipe();
 
-		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 0, 2), new ItemStack(ModItems.lens), LibOreDict.RUNE[1]);
+		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 1, 2), new ItemStack(ModItems.lens), LibOreDict.RUNE[1]);
 		recipeLensPotency = BotaniaAPI.getLatestAddedRecipe();
 
-		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 0, 3), new ItemStack(ModItems.lens), LibOreDict.RUNE[2]);
+		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 1, 3), new ItemStack(ModItems.lens), LibOreDict.RUNE[2]);
 		recipeLensResistance = BotaniaAPI.getLatestAddedRecipe();
 
-		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 0, 4), new ItemStack(ModItems.lens), LibOreDict.RUNE[0]);
+		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 1, 4), new ItemStack(ModItems.lens), LibOreDict.RUNE[0]);
 		recipeLensEfficiency = BotaniaAPI.getLatestAddedRecipe();
 
-		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 0, 5), new ItemStack(ModItems.lens), LibOreDict.RUNE[5]);
+		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 1, 5), new ItemStack(ModItems.lens), LibOreDict.RUNE[5]);
 		recipeLensBounce = BotaniaAPI.getLatestAddedRecipe();
 
-		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 0, 6), new ItemStack(ModItems.lens), LibOreDict.RUNE[7]);
+		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 1, 6), new ItemStack(ModItems.lens), LibOreDict.RUNE[7]);
 		recipeLensGravity = BotaniaAPI.getLatestAddedRecipe();
 
-		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 0, 7), new ItemStack(ModItems.lens), LibOreDict.RUNE[11]);
+		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 1, 7), new ItemStack(ModItems.lens), LibOreDict.RUNE[11]);
 		recipeLensBore = BotaniaAPI.getLatestAddedRecipe();
 
-		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 0, 8), new ItemStack(ModItems.lens), LibOreDict.RUNE[13]);
+		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 1, 8), new ItemStack(ModItems.lens), LibOreDict.RUNE[13]);
 		recipeLensDamaging = BotaniaAPI.getLatestAddedRecipe();
 
-		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 0, 9), new ItemStack(ModItems.lens), new ItemStack(ModBlocks.pistonRelay));
+		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 1, 9), new ItemStack(ModItems.lens), new ItemStack(ModBlocks.pistonRelay));
 		recipeLensPhantom = BotaniaAPI.getLatestAddedRecipe();
 
-		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 0, 10), new ItemStack(ModItems.lens), "ingotIron", "ingotGold");
+		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 1, 10), new ItemStack(ModItems.lens), "ingotIron", "ingotGold");
 		recipeLensMagnet = BotaniaAPI.getLatestAddedRecipe();
 		
-		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 0, 11), new ItemStack(ModItems.lens), LibOreDict.RUNE[14]);
+		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 1, 11), new ItemStack(ModItems.lens), LibOreDict.RUNE[14]);
 		recipeLensExplosive = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Unstable Block Recipes
