@@ -183,8 +183,6 @@ item.botania:lensDamage.name=Mana Lens: Damaging
 item.botania:lensPhantom.name=Mana Lens: Phantom
 item.botania:lensMagnet.name=Mana Lens: Magnetizing
 item.botania:lensExplosive.name=Mana Lens: Entropic
-item.botania:lensDivergent.name=Mana Lens: Divergent
-item.botania:lensConvergent.name=Mana Lens: Convergent
 item.botania:manaPetal0.name=White Mana Petal
 item.botania:manaPetal1.name=Orange Mana Petal
 item.botania:manaPetal2.name=Magenta Mana Petal
@@ -375,6 +373,16 @@ botania.page.lensDamaging1=Crafting the lens
 botania.entry.lensPhantom=Mana Lens: Phantom
 botania.page.lensPhantom0=By utilizing the spacetime continuum tearing properties of the &1Piston Relay&0, it's possible to make a lens that'll allow the &4Mana Burst&0 to pass through blocks. In doing so, the time it can stay without losing mana is decreased.
 botania.page.lensPhantom1=Crafting the lens
+
+# -- MANA LENS: MAGNETIZING
+botania.entry.lensMagnet=Mana Lens: Magnetizing
+botania.page.lensMagnet0=The &1Magnetizing Lens&0, as it's name states, allows the &4Mana Burst&0 to magnetize, or home in, on any nearby blocks that can receive &4Mana&0. Doing so slightly decreases the speed of the burst.
+botania.page.lensMagnet1=Crafting the lens
+
+# -- MANA LENS: ENTROPIC
+botania.entry.lensExplosive=Mana Lens: Entropic
+botania.page.lensExplosive0=The &1Entropic Lens&0 imbues the &4Mana Burst&0 with entropy, causing it to release it's energy in the form of an explosion, case it collides against something that can't receive &4Mana&0.
+botania.page.lensExplosive1=Crafting the lens
 
 # -- PORTABLE MANA TRANSPORT
 botania.entry.manaTransport=Portable Mana Transport

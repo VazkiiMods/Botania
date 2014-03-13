@@ -61,6 +61,8 @@ public final class LexiconData {
 	public static LexiconEntry lensBore;
 	public static LexiconEntry lensDamaging;
 	public static LexiconEntry lensPhantom;
+	public static LexiconEntry lensMagnet;
+	public static LexiconEntry lensExplosive;
 	public static LexiconEntry manaTransport;
 	public static LexiconEntry manaDetector;
 	
@@ -154,6 +156,12 @@ public final class LexiconData {
 
 		lensPhantom = new BLexiconEntry(LibLexicon.MANA_LENS_PHANTOM, categoryMana);
 		lensPhantom.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLensPhantom));
+		
+		lensMagnet = new BLexiconEntry(LibLexicon.MANA_LENS_MAGNET, categoryMana);
+		lensMagnet.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLensMagnet));
+		
+		lensExplosive = new BLexiconEntry(LibLexicon.MANA_LENS_EXPLOSIVE, categoryMana);
+		lensExplosive.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLensExplosive));
 		
 		manaVoid = new BLexiconEntry(LibLexicon.MANA_VOID, categoryMana);
 		manaVoid.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeManaVoid));

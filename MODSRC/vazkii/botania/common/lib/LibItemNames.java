@@ -40,8 +40,6 @@ public final class LibItemNames {
 		LibResources.PREFIX_MOD + "lensPhantom",
 		LibResources.PREFIX_MOD + "lensMagnet",
 		LibResources.PREFIX_MOD + "lensExplosive",
-		LibResources.PREFIX_MOD + "lensConvergent",
-		LibResources.PREFIX_MOD + "lensDivergent"
 	};
 
 	public static final String[] MANA_RESOURCE_NAMES = new String[] {

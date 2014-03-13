@@ -51,6 +51,8 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeLensBore;
 	public static IRecipe recipeLensDamaging;
 	public static IRecipe recipeLensPhantom;
+	public static IRecipe recipeLensMagnet;
+	public static IRecipe recipeLensExplosive;
 	public static List<IRecipe> recipesUnstableBlocks;
 	public static IRecipe recipePylon;
 	public static IRecipe recipeDistributor;
@@ -186,6 +188,12 @@ public final class ModCrafingRecipes {
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 0, 9), new ItemStack(ModItems.lens), new ItemStack(ModBlocks.pistonRelay));
 		recipeLensPhantom = BotaniaAPI.getLatestAddedRecipe();
 
+		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 0, 10), new ItemStack(ModItems.lens), "ingotIron", "ingotGold");
+		recipeLensMagnet = BotaniaAPI.getLatestAddedRecipe();
+		
+		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 0, 11), new ItemStack(ModItems.lens), LibOreDict.RUNE[14]);
+		recipeLensExplosive = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Unstable Block Recipes
 		for(int i = 0; i < 16; i++)
 			addOreDictRecipe(new ItemStack(ModBlocks.unstableBlock, 2, i),
