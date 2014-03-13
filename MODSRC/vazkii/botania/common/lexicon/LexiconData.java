@@ -81,6 +81,8 @@ public final class LexiconData {
 
 	public static LexiconEntry pistonRelay;
 	public static LexiconEntry pylon;
+	
+	public static LexiconEntry manaBlaster;
 
 	public static LexiconEntry unstableBlocks;
 	public static LexiconEntry decorativeBlocks;
@@ -214,6 +216,10 @@ public final class LexiconData {
 		pylon = new BLexiconEntry(LibLexicon.DEVICE_PYLON, categoryDevices);
 		pylon.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipePylon));
 
+		// TOOLS ENTRIES
+		manaBlaster = new BLexiconEntry(LibLexicon.TOOL_MANA_BLASTER, categoryTools);
+		manaBlaster.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCrafingRecipes.recipeManaBlaster));
+		
 		// MISCLENAEOUS ENTRIES
 		unstableBlocks = new BLexiconEntry(LibLexicon.MISC_UNSTABLE_BLOCKS, categoryMisc);
 		unstableBlocks.setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_UNSTABLE_BLOCK), new PageCraftingRecipe("2", ModCrafingRecipes.recipesUnstableBlocks), new PageText("3"), new PageImage("4", LibResources.ENTRY_UNSTABLE_BEACON), new PageCraftingRecipe("5", ModCrafingRecipes.recipesManaBeacons), new PageText("6"), new PageCraftingRecipe("7", ModCrafingRecipes.recipesSignalFlares));

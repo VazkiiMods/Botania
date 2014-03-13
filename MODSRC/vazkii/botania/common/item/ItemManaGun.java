@@ -13,13 +13,11 @@ package vazkii.botania.common.item;
 
 import java.util.List;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
@@ -29,6 +27,7 @@ import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.item.recipe.ManaGunLensRecipe;
 import vazkii.botania.common.lib.LibItemIDs;
 import vazkii.botania.common.lib.LibItemNames;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ItemManaGun extends ItemMod {
 
@@ -134,7 +133,6 @@ public class ItemManaGun extends ItemMod {
 		}
 		return null;
 	}
-
 
 	@Override
 	public boolean isFull3D() {
