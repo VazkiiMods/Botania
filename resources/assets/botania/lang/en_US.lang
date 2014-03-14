@@ -132,6 +132,8 @@ tile.botania:flower.jadedAmaranthus.name=Jaded Amaranthus
 tile.botania:flower.jadedAmaranthus.reference=A couple died for this
 tile.botania:flower.orechid.name=Orechid
 tile.botania:flower.orechid.reference=I seed what you did there
+tile.botania:flower.fallenKanade.name=Fallen Kanade
+tile.botania:flower.fallenKanade.reference=I'm not an Angel
 
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania
@@ -428,6 +430,11 @@ botania.page.tigerseye1=&oRisin' up to the challenge of our rivals&r.
 botania.entry.orechid=Orechid
 botania.page.orechid0=While going mining is all good, a renewable means of getting ore is due. The &1Orechid&0 will use (a massive amount of) &4Mana&0 to generate &4ores&0 in nearby &1Stone&0 blocks.<br>The ores it generates are random, but seem to be biased towards more common ores rather than rarer ones.
 botania.page.orechid1=&oLizbeth would like this flower&r.
+
+# -- FALLEN KANADE
+botania.entry.fallenKanade=Fallen Kanade
+botania.page.fallenKanade0=The &1Fallen Kanade&0 is a flower with angelic properties, it'll use &4Mana&0 from nearby &4Mana Pools&0 in order to apply a regeneration effect to any &4players&0 nearby.
+botania.page.fallenKanade1=&oHand Sonic, version four&r.
 
 # - GENERATING FLOWERS
 # -- AN INTRODUCTION TO GENERATION

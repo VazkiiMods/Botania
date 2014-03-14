@@ -55,6 +55,7 @@ public final class LibLexicon {
 	public static final String FFLOWER_HEISEI_DREAM = "heiseiDream";
 	public static final String FFLOWER_TIGERSEYE = "tigerseye";
 	public static final String FFLOWER_ORECHID = "orechid";
+	public static final String FFLOWER_FALLEN_KANADE = "fallenKanade";
 
 	public static final String GFLOWER_INTRO = "gIntro";
 	public static final String GFLOWER_DAYBLOOM = "daybloom";
