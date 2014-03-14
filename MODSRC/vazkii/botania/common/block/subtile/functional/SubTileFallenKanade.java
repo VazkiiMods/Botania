@@ -18,7 +18,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileFallenKanade extends SubTileFunctional {
 
@@ -47,6 +49,11 @@ public class SubTileFallenKanade extends SubTileFunctional {
 	@Override
 	public int getMaxMana() {
 		return 60;
+	}
+	
+	@Override
+	public LexiconEntry getEntry() {
+		return LexiconData.fallenKanade;
 	}
 	
 }

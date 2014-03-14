@@ -23,7 +23,9 @@ import net.minecraft.util.WeightedRandom;
 import net.minecraft.util.WeightedRandomItem;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubtileOrechid extends SubTileFunctional {
 
@@ -91,6 +93,11 @@ public class SubtileOrechid extends SubTileFunctional {
 	@Override
 	public int getMaxMana() {
 		return COST;
+	}
+
+	@Override
+	public LexiconEntry getEntry() {
+		return LexiconData.orechid;
 	}
 	
 	private static class StringRandomItem extends WeightedRandomItem {
