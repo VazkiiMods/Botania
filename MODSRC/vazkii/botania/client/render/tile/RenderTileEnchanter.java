@@ -29,6 +29,8 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer {
 
 	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f) {
+		float alphaMod = 1F;
+		
 		GL11.glPushMatrix();
 		GL11.glTranslated(d0, d1, d2);
 		GL11.glRotated(90F, 1F, 0F, 0F);
@@ -36,7 +38,7 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer {
 
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GL11.glColor4f(0.6F + (float) ((Math.cos((double) tileentity.worldObj.getTotalWorldTime() / 6D) + 1D) / 5D), 0.1F, 0.9F, (float) ((Math.sin((double) tileentity.worldObj.getTotalWorldTime() / 8D) + 1D) / 5D + 0.4D));
+		GL11.glColor4f(0.6F + (float) ((Math.cos((double) tileentity.worldObj.getTotalWorldTime() / 6D) + 1D) / 5D), 0.1F, 0.9F, (float) ((Math.sin((double) tileentity.worldObj.getTotalWorldTime() / 8D) + 1D) / 5D + 0.4D) * alphaMod);
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 		renderIcon(0, 0, BlockEnchanter.overlay, 5, 5, 240);
 		GL11.glDisable(GL11.GL_BLEND);

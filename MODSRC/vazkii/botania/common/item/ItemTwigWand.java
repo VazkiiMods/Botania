@@ -28,6 +28,8 @@ import vazkii.botania.api.IWandable;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockPistonRelay;
+import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemIDs;
 import vazkii.botania.common.lib.LibItemNames;
@@ -47,7 +49,24 @@ public class ItemTwigWand extends Item16Colors {
 	@Override
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
 		int id = par3World.getBlockId(par4, par5, par6);
-		if(Block.blocksList[id] instanceof IWandable) {
+		if(id == Block.blockLapis.blockID) {
+			int meta = -1;
+			if(TileEnchanter.canEnchanterExist(par3World, par4, par5, par6, 0))
+				meta = 0;
+			else if(TileEnchanter.canEnchanterExist(par3World, par4, par5, par6, 1))
+				meta = 1;
+			
+			if(meta != -1 && !par3World.isRemote) {
+				par3World.setBlock(par4, par5, par6, ModBlocks.enchanter.blockID, meta, 1 | 2);
+				par3World.playSoundEffect(par4, par5, par6, "random.levelup", 0.5F, 1F);
+				for(int i = 0; i < 25; i++) {
+					float red = (float) Math.random();
+					float green = (float) Math.random();
+					float blue = (float) Math.random();
+					Botania.proxy.sparkleFX(par3World, par4 + 0.5 + Math.random() * 0.4 - 0.2, par5 + 1, par6 + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
+				}
+			}
+		} else if(Block.blocksList[id] instanceof IWandable) {
 			boolean wanded = ((IWandable) Block.blocksList[id]).onUsedByWand(par2EntityPlayer, par1ItemStack, par3World, par4, par5, par6, par7);
 			if(wanded && par3World.isRemote)
 				par2EntityPlayer.swingItem();
