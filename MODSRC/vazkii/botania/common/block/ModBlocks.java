@@ -61,6 +61,7 @@ public final class ModBlocks {
 	public static Block manaBeacon;
 	public static Block manaVoid;
 	public static Block manaDetector;
+	public static Block enchanter;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -78,6 +79,7 @@ public final class ModBlocks {
 		manaBeacon = new BlockManaBeacon();
 		manaVoid = new BlockManaVoid();
 		manaDetector = new BlockManaDetector();
+		enchanter = new BlockEnchanter();
 
 		for(int i = 0; i < 16; i++)
 			OreDictionary.registerOre(LibOreDict.FLOWER[i], new ItemStack(flower.blockID, 1, i));

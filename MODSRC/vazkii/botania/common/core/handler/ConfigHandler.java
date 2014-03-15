@@ -66,6 +66,7 @@ public final class ConfigHandler {
 		LibBlockIDs.idManaBeacon = loadBlock(LibBlockNames.MANA_BEACON, LibBlockIDs.idManaBeacon);
 		LibBlockIDs.idManaVoid = loadBlock(LibBlockNames.MANA_VOID, LibBlockIDs.idManaVoid);
 		LibBlockIDs.idManaDetector = loadBlock(LibBlockNames.MANA_DETECTOR, LibBlockIDs.idManaDetector);
+		LibBlockIDs.idEnchanter = loadBlock(LibBlockNames.ENCHANTER, LibBlockIDs.idEnchanter);
 
 		// Item IDs
 		LibItemIDs.idLexicon = loadItem(LibItemNames.LEXICON, LibItemIDs.idLexicon);
