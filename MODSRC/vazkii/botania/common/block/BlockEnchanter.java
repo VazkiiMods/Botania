@@ -11,17 +11,23 @@
  */
 package vazkii.botania.common.block;
 
+import java.util.Random;
+
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
+import vazkii.botania.api.IWandable;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.lib.LibBlockIDs;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockEnchanter extends BlockModContainer {
+public class BlockEnchanter extends BlockModContainer implements IWandable {
 
 	public static Icon overlay;
 	
@@ -42,6 +48,39 @@ public class BlockEnchanter extends BlockModContainer {
 	@Override
 	public TileEntity createNewTileEntity(World world) {
 		return new TileEnchanter();
+	}
+	
+	@Override
+	public int idDropped(int par1, Random par2Random, int par3) {
+		return Block.blockLapis.blockID;
+	}
+	
+	@Override
+	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
+		if(!par1World.isRemote) {
+			TileEnchanter enchanter = (TileEnchanter) par1World.getBlockTileEntity(par2, par3, par4);
+			ItemStack stack = par5EntityPlayer.getCurrentEquippedItem();
+			boolean stackEnchantable = stack != null && stack.isItemEnchantable() && stack.stackSize == 1;
+			
+			if(enchanter.itemToEnchant == null && stackEnchantable) {
+				enchanter.itemToEnchant = stack.copy();
+				par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, null);
+				enchanter.sync();
+			} else if(enchanter.itemToEnchant != null && enchanter.stage != 0) {
+				if(par5EntityPlayer.inventory.addItemStackToInventory(enchanter.itemToEnchant.copy())) {
+					enchanter.itemToEnchant = null;
+					enchanter.sync();
+				} else par5EntityPlayer.addChatMessage("botaniamisc.invFull");
+			}
+		}
+		
+		return true;
+	}
+
+	@Override
+	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
+		((TileEnchanter) world.getBlockTileEntity(x, y, z)).onWanded(player, stack);
+		return true;
 	}
 
 }
