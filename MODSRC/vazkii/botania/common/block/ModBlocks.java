@@ -28,6 +28,7 @@ import vazkii.botania.common.block.subtile.generating.SubTileHydroangeas;
 import vazkii.botania.common.block.subtile.generating.SubTileThermalily;
 import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.block.tile.TileDistributor;
+import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.block.tile.TileManaBeacon;
 import vazkii.botania.common.block.tile.TileManaDetector;
 import vazkii.botania.common.block.tile.TileManaVoid;
@@ -115,6 +116,7 @@ public final class ModBlocks {
 		GameRegistry.registerTileEntity(TileManaBeacon.class, LibBlockNames.MANA_BEACON);
 		GameRegistry.registerTileEntity(TileManaVoid.class, LibBlockNames.MANA_VOID);
 		GameRegistry.registerTileEntity(TileManaDetector.class, LibBlockNames.MANA_DETECTOR);
+		GameRegistry.registerTileEntity(TileEnchanter.class, LibBlockNames.ENCHANTER);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 

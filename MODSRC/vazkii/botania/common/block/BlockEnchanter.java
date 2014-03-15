@@ -11,18 +11,37 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Icon;
+import net.minecraft.world.World;
+import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.lib.LibBlockIDs;
 import vazkii.botania.common.lib.LibBlockNames;
-import net.minecraft.block.material.Material;
 
-public class BlockEnchanter extends BlockMod {
+public class BlockEnchanter extends BlockModContainer {
 
+	public static Icon overlay;
+	
 	public BlockEnchanter() {
 		super(LibBlockIDs.idEnchanter, Material.rock);
 		setHardness(3.0F);
 		setResistance(5.0F);
 		setStepSound(soundStoneFootstep);
 		setUnlocalizedName(LibBlockNames.ENCHANTER);
+	}
+	
+	@Override
+	public void registerIcons(IconRegister par1IconRegister) {
+		super.registerIcons(par1IconRegister);
+		overlay = IconHelper.forBlock(par1IconRegister, this, "Overlay");
+	}
+
+	@Override
+	public TileEntity createNewTileEntity(World world) {
+		return new TileEnchanter();
 	}
 
 }
