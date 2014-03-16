@@ -56,7 +56,6 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.altar);
 		addBlock(ModBlocks.runeAltar);
 		addBlock(ModBlocks.pylon);
-		addBlock(ModBlocks.enchanter);
 		addBlock(ModBlocks.pistonRelay);
 		addBlock(ModBlocks.unstableBlock);
 		addBlock(ModBlocks.manaBeacon);
