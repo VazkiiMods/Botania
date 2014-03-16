@@ -70,6 +70,8 @@ public class ItemTwigWand extends Item16Colors {
 			boolean wanded = ((IWandable) Block.blocksList[id]).onUsedByWand(par2EntityPlayer, par1ItemStack, par3World, par4, par5, par6, par7);
 			if(wanded && par3World.isRemote)
 				par2EntityPlayer.swingItem();
+			else par3World.playSoundEffect(par4, par5, par6, "random.orb", 0.5F, 1F);
+			
 			return wanded;
 
 		} else if(BlockPistonRelay.InternalTickHandler.playerPositions.containsKey(par2EntityPlayer.username)) {
