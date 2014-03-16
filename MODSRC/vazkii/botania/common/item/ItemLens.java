@@ -203,10 +203,10 @@ public class ItemLens extends ItemMod implements ILens {
 				EntityLivingBase living = (EntityLivingBase) pos.entityHit;
 				if(living.hurtTime == 0) {
 					int mana = burst.getMana();
-					if(mana >= 32) {
+					if(mana >= 16) {
 						burst.setMana(mana - 16);
 						if(!burst.isFake() && !entity.worldObj.isRemote)
-							living.attackEntityFrom(DamageSource.magic, 1);
+							living.attackEntityFrom(DamageSource.magic, 2);
 					}
 				}
 			}
