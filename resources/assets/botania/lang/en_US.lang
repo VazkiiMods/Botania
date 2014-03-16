@@ -122,6 +122,8 @@ tile.botania:flower.hydroangeas.name=Hydroangeas
 tile.botania:flower.hydroangeas.reference=Careful: Wet floor
 tile.botania:flower.thermalily.name=Thermalily
 tile.botania:flower.thermalily.reference=A Scarlet Rose indeed
+tile.botania:flower.nightshade.name=Nightshade
+tile.botania:flower.nightshade.reference=Ghastly signature
 
 # - FUNCTIONAL
 tile.botania:flower.bellethorn.name=Bellethorne
