@@ -675,7 +675,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		ChunkCoordinates coords = getBurstSourceChunkCoordinates();
 		TileEntity tile = worldObj.getBlockTileEntity(coords.posX, coords.posY, coords.posZ);
 		if(tile != null && tile instanceof TileSpreader)
-			return (getMana() != getStartingMana() && fullManaLastTick) || Math.abs(((TileSpreader) tile).burstParticleTick - ticksExisted) < 3;
+			return (getMana() != getStartingMana() && fullManaLastTick) || Math.abs(((TileSpreader) tile).burstParticleTick - ticksExisted) < 4;
 		return false;
 	}
 

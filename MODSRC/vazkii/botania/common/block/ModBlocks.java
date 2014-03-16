@@ -37,6 +37,7 @@ import vazkii.botania.common.block.tile.TilePylon;
 import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.block.tile.TileSpreader;
+import vazkii.botania.common.block.tile.TileTurntable;
 import vazkii.botania.common.block.vanilla.BlockFlowerOverride;
 import vazkii.botania.common.block.vanilla.BlockSnowOverride;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -63,6 +64,7 @@ public final class ModBlocks {
 	public static Block manaVoid;
 	public static Block manaDetector;
 	public static Block enchanter;
+	public static Block turntable;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -81,6 +83,7 @@ public final class ModBlocks {
 		manaVoid = new BlockManaVoid();
 		manaDetector = new BlockManaDetector();
 		enchanter = new BlockEnchanter();
+		turntable = new BlockTurntable();
 
 		for(int i = 0; i < 16; i++)
 			OreDictionary.registerOre(LibOreDict.FLOWER[i], new ItemStack(flower.blockID, 1, i));
@@ -117,6 +120,7 @@ public final class ModBlocks {
 		GameRegistry.registerTileEntity(TileManaVoid.class, LibBlockNames.MANA_VOID);
 		GameRegistry.registerTileEntity(TileManaDetector.class, LibBlockNames.MANA_DETECTOR);
 		GameRegistry.registerTileEntity(TileEnchanter.class, LibBlockNames.ENCHANTER);
+		GameRegistry.registerTileEntity(TileTurntable.class, LibBlockNames.TURNTABLE);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 

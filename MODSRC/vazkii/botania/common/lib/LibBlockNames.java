@@ -31,6 +31,7 @@ public final class LibBlockNames {
 	public static final String MANA_VOID = LibResources.PREFIX_MOD + "manaVoid";
 	public static final String MANA_DETECTOR = LibResources.PREFIX_MOD + "manaDetector";
 	public static final String ENCHANTER = LibResources.PREFIX_MOD + "enchanter";
+	public static final String TURNTABLE = LibResources.PREFIX_MOD + "turntable";
 
 	public static final String SPECIAL_FLOWER_PREFIX = FLOWER + ".";
 

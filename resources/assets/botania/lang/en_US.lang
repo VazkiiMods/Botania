@@ -106,6 +106,7 @@ tile.botania:manaBeacon15.name=Black Unstable Beacon
 tile.botania:manaVoid.name=Mana Void
 tile.botania:manaDetector.name=Mana Detector
 tile.botania:enchanter.name=Mana Enchanter
+tile.botania:turntable.name=Spreader Turntable
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
