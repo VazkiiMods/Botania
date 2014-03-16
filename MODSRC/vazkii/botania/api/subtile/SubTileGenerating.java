@@ -13,6 +13,7 @@ package vazkii.botania.api.subtile;
 
 import java.awt.Color;
 
+import cpw.mods.fml.common.network.PacketDispatcher;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
@@ -52,11 +53,14 @@ public class SubTileGenerating extends SubTileEntity {
 		super.onUpdate();
 
 		linkCollector();
-
+		
 		if(canGeneratePassively()) {
 			int delay = getDelayBetweenPassiveGeneration();
-			if(delay > 0 && supertile.worldObj.getWorldTime() % delay == 0)
+			if(delay > 0 && supertile.worldObj.getWorldTime() % delay == 0) {
+				if(shouldSyncPassiveGeneration())
+					PacketDispatcher.sendPacketToAllInDimension(supertile.getDescriptionPacket(), supertile.worldObj.provider.dimensionId);
 				addMana(getValueForPassiveGeneration());
+			}
 			emptyManaIntoCollector();
 		}
 
@@ -107,10 +111,14 @@ public class SubTileGenerating extends SubTileEntity {
 			}
 		}
 	}
+	
+	public boolean shouldSyncPassiveGeneration() {
+		return false;
+	}
 
 	public boolean canGeneratePassively() {
 		boolean rain = supertile.worldObj.getWorldChunkManager().getBiomeGenAt(supertile.xCoord, supertile.zCoord).getIntRainfall() > 0 && (supertile.worldObj.isRaining() || supertile.worldObj.isThundering());
-		return supertile.worldObj.isDaytime() && !rain && supertile.worldObj.canBlockSeeTheSky(supertile.xCoord, supertile.yCoord + 1, supertile.zCoord);
+		return !supertile.worldObj.isRemote && supertile.worldObj.isDaytime() && !rain && supertile.worldObj.canBlockSeeTheSky(supertile.xCoord, supertile.yCoord + 1, supertile.zCoord);
 	}
 
 	public int getDelayBetweenPassiveGeneration() {
@@ -123,6 +131,9 @@ public class SubTileGenerating extends SubTileEntity {
 
 	@Override
 	public boolean onWanded(EntityPlayer player, ItemStack wand) {
+		if(!player.worldObj.isRemote)
+			PacketDispatcher.sendPacketToAllInDimension(supertile.getDescriptionPacket(), supertile.worldObj.provider.dimensionId);
+		
 		knownMana = mana;
 		player.worldObj.playSoundAtEntity(player, "random.orb", 0.1F, 1F);
 

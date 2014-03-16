@@ -21,6 +21,11 @@ public class SubTileDaybloom extends SubTileGenerating {
 	public int getColor() {
 		return 0xFFFF00;
 	}
+	
+	@Override
+	public boolean shouldSyncPassiveGeneration() {
+		return true;
+	}
 
 	@Override
 	public LexiconEntry getEntry() {
