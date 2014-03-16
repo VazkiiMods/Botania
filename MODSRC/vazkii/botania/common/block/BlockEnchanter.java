@@ -75,7 +75,7 @@ public class BlockEnchanter extends BlockModContainer implements IWandable {
 		if(stack != null && stack.itemID == ModItems.twigWand.itemID)
 			return false;
 
-		boolean stackEnchantable = stack != null && stack.isItemEnchantable() && stack.stackSize == 1;
+		boolean stackEnchantable = stack != null && stack.isItemEnchantable() && stack.stackSize == 1 && stack.getItem().getItemEnchantability() > 0;
 
 		if(enchanter.itemToEnchant == null) {
 			if(stackEnchantable) {

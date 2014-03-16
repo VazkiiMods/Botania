@@ -49,6 +49,8 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer {
 				item = new EntityItem(enchanter.worldObj, enchanter.xCoord, enchanter.yCoord + 1, enchanter.zCoord, enchanter.itemToEnchant);
 			
 			item.age = (int) tileentity.worldObj.getTotalWorldTime();
+			item.setEntityItemStack(enchanter.itemToEnchant);
+			
 			GL11.glColor4f(1F, 1F, 1F, 1F);
 			GL11.glTranslatef(0.5F, 1.25F, 0.5F);
 			((Render) RenderManager.instance.entityRenderMap.get(EntityItem.class)).doRender(item, d0, d1, d2, 1F, f);
