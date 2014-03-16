@@ -71,7 +71,7 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 	};
 
 	public void onWanded(EntityPlayer player, ItemStack wand) {
-		if(stage != 0 || itemToEnchant == null)
+		if(stage != 0 || itemToEnchant == null || !itemToEnchant.isItemEnchantable())
 			return;
 
 		List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord - 2, yCoord, zCoord - 2, xCoord + 3, yCoord + 1, zCoord + 3));
@@ -87,8 +87,6 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 						short id = enchant.getShort("id");
 						if(isEnchantmentValid(id)) {
 							advanceStage();
-							System.out.println("do");
-//							worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.orb", 1F, 1F);
 							return;
 						}
 					}
