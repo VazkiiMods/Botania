@@ -24,21 +24,23 @@ import net.minecraft.world.World;
 import vazkii.botania.api.IWandable;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.tile.TileEnchanter;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockIDs;
 import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockEnchanter extends BlockModContainer implements IWandable {
 
 	public static Icon overlay;
-	
+
 	public BlockEnchanter() {
 		super(LibBlockIDs.idEnchanter, Material.rock);
 		setHardness(3.0F);
 		setResistance(5.0F);
+		setLightValue(1.0F);
 		setStepSound(soundStoneFootstep);
 		setUnlocalizedName(LibBlockNames.ENCHANTER);
 	}
-	
+
 	@Override
 	public void registerIcons(IconRegister par1IconRegister) {
 		super.registerIcons(par1IconRegister);
@@ -49,31 +51,40 @@ public class BlockEnchanter extends BlockModContainer implements IWandable {
 	public TileEntity createNewTileEntity(World world) {
 		return new TileEnchanter();
 	}
-	
+
 	@Override
 	public int idDropped(int par1, Random par2Random, int par3) {
 		return Block.blockLapis.blockID;
 	}
-	
+
+	@Override
+	public boolean isOpaqueCube() {
+		return false;
+	}
+
 	@Override
 	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
-		if(!par1World.isRemote) {
-			TileEnchanter enchanter = (TileEnchanter) par1World.getBlockTileEntity(par2, par3, par4);
-			ItemStack stack = par5EntityPlayer.getCurrentEquippedItem();
-			boolean stackEnchantable = stack != null && stack.isItemEnchantable() && stack.stackSize == 1;
-			
-			if(enchanter.itemToEnchant == null && stackEnchantable) {
+		TileEnchanter enchanter = (TileEnchanter) par1World.getBlockTileEntity(par2, par3, par4);
+		ItemStack stack = par5EntityPlayer.getCurrentEquippedItem();
+		if(stack != null && stack.itemID == ModItems.twigWand.itemID)
+			return false;
+
+		boolean stackEnchantable = stack != null && stack.isItemEnchantable() && stack.stackSize == 1;
+
+		if(enchanter.itemToEnchant == null) {
+			if(stackEnchantable) {
 				enchanter.itemToEnchant = stack.copy();
 				par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, null);
 				enchanter.sync();
-			} else if(enchanter.itemToEnchant != null && enchanter.stage != 0) {
-				if(par5EntityPlayer.inventory.addItemStackToInventory(enchanter.itemToEnchant.copy())) {
-					enchanter.itemToEnchant = null;
-					enchanter.sync();
-				} else par5EntityPlayer.addChatMessage("botaniamisc.invFull");
 			}
+		} else if(enchanter.stage == 0) {
+			if(par5EntityPlayer.inventory.addItemStackToInventory(enchanter.itemToEnchant.copy())) {
+				System.out.println("did");
+				enchanter.itemToEnchant = null;
+				enchanter.sync();
+			} else par5EntityPlayer.addChatMessage("botaniamisc.invFull");
 		}
-		
+
 		return true;
 	}
 
