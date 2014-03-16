@@ -477,6 +477,20 @@ botania.entry.pylon=Mana Pylon
 botania.page.pylon0=A &1Mana Pylon&0 is a structure that can pull energies from the earth and use them to power enchanting processes.<br>For one, setting one adjanced to an &1Enchanting Table&0 as if it was a &1Bookshelf&0 will drastically increase the power it can convey, just 2 of these are enough for it to reach &4Level 30&0.
 botania.page.pylon1=&oYou must construct additional pylons!&r
 
+# -- MANA ENCHANTING
+botania.entry.manaEnchanting=Enchanting with Mana
+botania.page.manaEnchanting0=By utilizing the magical power emited from &1Mana Pylons&0, a structure that can enchant items with books without consuming them can be created, called the &1Mana Enchanteer&0.<br>Constructing one of these requires a fair amount of space and materials alike.
+botania.page.manaEnchanting1=To construct the &1Mana Enchanter&0, one requires, as well as fair amount of space, 17 &1Obsidian&0 blocks, 10 &1Mystical Flowers&0 of any color, 6 &1Mana Pylons&0 and a &1Lapis Lazuli Block&0.<br>The instructions on how to assemble this structure are in the following pages.
+botania.page.manaEnchanting2=Start by making an &1Obsidian&0 circle.
+botania.page.manaEnchanting3=Put &1Mana Pylons&0 1 block in the air where marked.
+botania.page.manaEnchanting4=Put flowers under the pylons and in the center
+botania.page.manaEnchanting5=Place a &1Lapis Lazuli Block&0 in the center.
+botania.page.manaEnchanting6=After the construct is done, right click the Lapis block with a &1Wand of the Forest&0 and the enchanter should form.<br>In order to utilize the enchanter, one would place (via right click) the item to be enchanted in the enchanter itself and drop &1Enchanted Books&0 inside the circle around it.
+botania.page.manaEnchanting7=Items that are already enchanted can't be placed in the enchanter.<br>To start the enchanting, right click the enchanter with a &1Wand of the Forest&0. It'll scan the books around, and once it's done, a spell circle of sorts will appear around it, indicating the books can be safely picked up again.
+botania.page.manaEnchanting8=After the enchanting begins, the enchanter will require &4Mana&0.<br>It can be fed via one of two ways, either via &4Mana Bursts&0 or nearby &1Mana Pools&0, the later being much faster, but a bit less efficient, as a small portion of the mana is lost.
+botania.page.manaEnchanting9=When enough &4Mana&0 is gathered, the enchanting process will finalize, and the enchantments will be applied to the item.<br>The amount of &4Mana&0 required depends on the rarity of the enchantments being applied, their level, and the total amount of enchantments.
+botania.page.manaEnchanting10=During the enchanting process, the item can not be removed, but it can after the process has been completed.<br>Note that if at any point, any component of the construct is removed, it'll revert to it's original &1Lapis Lazuli Block&0 form.
+
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
 botania.entry.manaBlaster=Mana Blaster

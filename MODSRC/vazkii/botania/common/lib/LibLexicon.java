@@ -65,6 +65,7 @@ public final class LibLexicon {
 
 	public static final String DEVICE_PISTON_RELAY = "pistonRelay";
 	public static final String DEVICE_PYLON = "pylon";
+	public static final String DEVICE_MANA_ENCHANTING = "manaEnchanting";
 
 	public static final String TOOL_MANA_BLASTER = "manaBlaster";
 	

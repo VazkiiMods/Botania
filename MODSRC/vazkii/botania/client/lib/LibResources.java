@@ -36,6 +36,10 @@ public final class LibResources {
 	public static final String ENTRY_SPREADER = PREFIX_ENTRIES + "spreader.png";
 	public static final String ENTRY_UNSTABLE_BLOCK = PREFIX_ENTRIES + "unstableBlock.png";
 	public static final String ENTRY_UNSTABLE_BEACON = PREFIX_ENTRIES + "unstableBeacon.png";
+	public static final String ENTRY_ENCHANTER0 = PREFIX_ENTRIES + "enchanter0.png";
+	public static final String ENTRY_ENCHANTER1 = PREFIX_ENTRIES + "enchanter1.png";
+	public static final String ENTRY_ENCHANTER2 = PREFIX_ENTRIES + "enchanter2.png";
+	public static final String ENTRY_ENCHANTER3 = PREFIX_ENTRIES + "enchanter3.png";
 
 	public static final String MODEL_ALTAR = PREFIX_MODEL + "altar.png";
 	public static final String MODEL_SPREADER = PREFIX_MODEL + "spreader.png";
