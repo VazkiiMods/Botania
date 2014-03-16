@@ -87,7 +87,8 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 						short id = enchant.getShort("id");
 						if(isEnchantmentValid(id)) {
 							advanceStage();
-							worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.orb", 1F, 1F);
+							System.out.println("do");
+//							worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.orb", 1F, 1F);
 							return;
 						}
 					}
@@ -98,8 +99,21 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 
 	@Override
 	public void updateEntity() {
-		if(!canEnchanterExist(worldObj, xCoord, yCoord, zCoord, getBlockMetadata()))
+		if(!canEnchanterExist(worldObj, xCoord, yCoord, zCoord, getBlockMetadata())) {
+			for(int[] pylon : PYLON_LOCATIONS[getBlockMetadata()]) {
+				TilePylon pylonTile = (TilePylon) worldObj.getBlockTileEntity(xCoord + pylon[0], yCoord + pylon[1], zCoord + pylon[2]);
+				if(pylonTile != null)
+					pylonTile.activated = false;
+			}
 			worldObj.setBlock(xCoord, yCoord, zCoord, Block.blockLapis.blockID, 0, 1 | 2);
+			for(int i = 0; i < 50; i++) {
+				float red = (float) Math.random();
+				float green = (float) Math.random();
+				float blue = (float) Math.random();
+				Botania.proxy.wispFX(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, red, green, blue, (float) Math.random() * 0.15F + 0.15F, (float) (Math.random() - 0.5F) * 0.25F, (float) (Math.random() - 0.5F) * 0.25F, (float) (Math.random() - 0.5F) * 0.25F);
+			}
+			worldObj.playSoundEffect(xCoord, yCoord, zCoord, "mob.blaze.breathe", 0.5F, 10F);
+		}
 
 		switch(stage) {
 		case 1 : { // Get books
@@ -120,6 +134,7 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 								short enchantLvl = enchant.getShort("lvl");
 								if(!hasEnchantAlready(enchantId)) {
 									this.enchants.add(new EnchantmentData(enchantId, enchantLvl));
+									worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.orb", 1F, 1F);
 									addedEnch = true;
 									break;
 								}
@@ -139,10 +154,12 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 		case 2 : { // Get Mana
 			for(int[] pylon : PYLON_LOCATIONS[getBlockMetadata()]) {
 				TilePylon pylonTile = (TilePylon) worldObj.getBlockTileEntity(xCoord + pylon[0], yCoord + pylon[1], zCoord + pylon[2]);
-				pylonTile.activated = true;
-				pylonTile.centerX = xCoord;
-				pylonTile.centerY = yCoord;
-				pylonTile.centerZ = zCoord;
+				if(pylonTile != null) {
+					pylonTile.activated = true;
+					pylonTile.centerX = xCoord;
+					pylonTile.centerY = yCoord;
+					pylonTile.centerZ = zCoord;
+				}
 			}
 			
 			if(manaRequired == -1) {
