@@ -14,13 +14,11 @@ package vazkii.botania.common.block.tile;
 import java.util.ArrayList;
 import java.util.List;
 
-import cpw.mods.fml.common.network.PacketDispatcher;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemEnchantedBook;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -31,6 +29,7 @@ import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
+import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class TileEnchanter extends TileMod implements IManaReceiver {
 
@@ -138,8 +137,13 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 			break;
 		}
 		case 2 : { // Get Mana
-			for(int[] pylon : PYLON_LOCATIONS[getBlockMetadata()])
-				((TilePylon) worldObj.getBlockTileEntity(xCoord + pylon[0], yCoord + pylon[1], zCoord + pylon[2])).activated = true;
+			for(int[] pylon : PYLON_LOCATIONS[getBlockMetadata()]) {
+				TilePylon pylonTile = (TilePylon) worldObj.getBlockTileEntity(xCoord + pylon[0], yCoord + pylon[1], zCoord + pylon[2]);
+				pylonTile.activated = true;
+				pylonTile.centerX = xCoord;
+				pylonTile.centerY = yCoord;
+				pylonTile.centerZ = zCoord;
+			}
 			
 			if(manaRequired == -1) {
 				manaRequired = 0;

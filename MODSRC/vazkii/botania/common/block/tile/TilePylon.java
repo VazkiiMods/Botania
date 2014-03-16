@@ -20,11 +20,12 @@ import vazkii.botania.common.core.helper.Vector3;
 public class TilePylon extends TileEntity {
 
 	boolean activated = false;
+	int centerX, centerY, centerZ;
 
 	@Override
 	public void updateEntity() {
 		if(activated && worldObj.isRemote) {
-			Vector3 centerBlock = new Vector3(272.5, 72.75 + (Math.random() - 0.5 * 0.25), -144.5);
+			Vector3 centerBlock = new Vector3(centerX + 0.5, centerY + 0.75 + (Math.random() - 0.5 * 0.25), centerZ + 0.5);
 
 			int id = worldObj.getBlockId(xCoord, yCoord - 1, zCoord);
 			if(id == ModBlocks.flower.blockID) {
