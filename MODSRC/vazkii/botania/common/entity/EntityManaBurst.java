@@ -187,6 +187,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		rotationPitch = prevRotationPitch + (rotationPitch - prevRotationPitch) * 0.2F;
 		rotationYaw = prevRotationYaw + (rotationYaw - prevRotationYaw) * 0.2F;
 		float f3 = getGravityVelocity();
+
 		motionY -= f3;
 		setPosition(posX, posY, posZ);
 	}
@@ -333,9 +334,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 	@Override
 	public void onUpdate() {
-		if(fake)
-			superUpdate();
-		else super.onUpdate();
+		superUpdate();
 
 		ILens lens = getLensInstance();
 		if(lens != null)
@@ -605,7 +604,6 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		dataWatcher.updateObject(dataWatcherStart + 4, mana);
 	}
 
-
 	@Override
 	public float getGravity() {
 		return dataWatcher.getWatchableObjectFloat(dataWatcherStart + 5);
@@ -615,7 +613,6 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	public void setGravity(float gravity) {
 		dataWatcher.updateObject(dataWatcherStart + 5, gravity);
 	}
-
 
 	final int coordsStart = dataWatcherStart + 6;
 
