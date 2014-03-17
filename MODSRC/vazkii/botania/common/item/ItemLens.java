@@ -49,6 +49,10 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemLens extends ItemMod implements ILens {
 
+	private static final int NORMAL = 0, SPEED = 1, POWER = 2, TIME = 3, EFFICIENCY = 4,
+			BOUNCE = 5, GRAVITY = 6, MINE = 7, DAMAGE = 8, PHANTOM = 9, 
+			MAGNET = 10, EXPLOSIVE = 11;
+	
 	private static final String TAG_COLOR = "color";
 	private static final String TAG_COMPOSITE_LENS = "compositeLens";
 
@@ -133,30 +137,30 @@ public class ItemLens extends ItemMod implements ILens {
 			props.color = getLensColor(stack);
 		
 		switch(stack.getItemDamage()) {
-		case 1 : { // Speed
+		case SPEED : {
 			props.motionModifier *= 2F;
 			props.maxMana *= 0.75F;
 			props.ticksBeforeManaLoss /= 3F;
 			props.manaLossPerTick *= 2F;
 			break;
 		}
-		case 2 : { // Potency
+		case POWER : {
 			props.maxMana *= 2;
 			props.motionModifier *= 0.85F;
 			props.manaLossPerTick *= 2F;
 			break;
 		}
-		case 3 : { // Resistance
+		case TIME : {
 			props.ticksBeforeManaLoss *= 2.25F;
 			props.motionModifier *= 0.8F;
 			break;
 		}
-		case 4 : { // Efficiency
+		case EFFICIENCY : {
 			props.manaLossPerTick /= 5F;
 			props.ticksBeforeManaLoss *= 1.1F;
 			break;
 		}
-		case 6 : { // Gravity
+		case GRAVITY : {
 			props.gravity = 0.0015F;
 			props.ticksBeforeManaLoss *= 1.2F;
 			break;
@@ -173,7 +177,7 @@ public class ItemLens extends ItemMod implements ILens {
 		EntityThrowable entity = (EntityThrowable) burst;
 
 		switch(stack.getItemDamage()) {
-		case 5 : { // Bounce
+		case BOUNCE : {
 			if(!isManaBlock && pos.entityHit == null) {
 				ChunkCoordinates coords = burst.getBurstSourceChunkCoordinates();
 				if(coords.posX != pos.blockX || coords.posY != pos.blockY || coords.posZ != pos.blockZ) {
@@ -188,7 +192,7 @@ public class ItemLens extends ItemMod implements ILens {
 			}
 			break;
 		}
-		case 7 : { // Bore
+		case MINE : {
 			World world = entity.worldObj;
 			int x = pos.blockX;
 			int y = pos.blockY;
@@ -221,7 +225,7 @@ public class ItemLens extends ItemMod implements ILens {
 			}
 			break;
 		}
-		case 8 : { // Damaging
+		case DAMAGE : {
 			if(pos.entityHit != null && pos.entityHit instanceof EntityLivingBase) {
 				EntityLivingBase living = (EntityLivingBase) pos.entityHit;
 				if(living.hurtTime == 0) {
@@ -234,13 +238,13 @@ public class ItemLens extends ItemMod implements ILens {
 				}
 			}
 		}
-		case 9 : { // Phantom
+		case PHANTOM : {
 			if(!isManaBlock) {
 				dead = false;
 				burst.setMinManaLoss(Math.max(0, burst.getMinManaLoss() - 4));
 			}
 		}
-		case 11 : { // Entropic
+		case EXPLOSIVE : { 
 			if(!burst.isFake()) {
 				ChunkCoordinates coords = burst.getBurstSourceChunkCoordinates();
 				if(!entity.worldObj.isRemote && pos.entityHit == null && !isManaBlock && (pos.blockX != coords.posX || pos.blockY != coords.posY || pos.blockZ != coords.posZ))
@@ -266,7 +270,7 @@ public class ItemLens extends ItemMod implements ILens {
 
 		boolean magnetized = entity.getEntityData().hasKey("Botania:Magnetized");
 		switch(stack.getItemDamage()) {
-		case 10 : { // Magnetizing
+		case MAGNET : {
 			int x = (int) entity.posX;
 			int y = (int) entity.posY;
 			int z = (int) entity.posZ;
