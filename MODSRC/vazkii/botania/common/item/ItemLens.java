@@ -111,21 +111,30 @@ public class ItemLens extends ItemMod implements ILens {
 		int storedColor = getStoredColor(par1ItemStack);
 		if(storedColor != -1)
 			par3List.add(String.format(StatCollector.translateToLocal("botaniamisc.color"), StatCollector.translateToLocal("botania.color" + storedColor)));
-
-		ItemStack compositeLens = getCompositeLens(par1ItemStack);
-		if(compositeLens != null)
-			par3List.add(String.format(StatCollector.translateToLocal("botaniamisc.compositeLens"), compositeLens.getDisplayName()));
 	}
+	
 
+	public String getItemShortTermName(ItemStack stack) {
+		return StatCollector.translateToLocal(stack.getUnlocalizedName() + ".short");
+	}
+	
+	@Override
+	public String getItemDisplayName(ItemStack stack) {
+		ItemStack compositeLens = getCompositeLens(stack);
+		if(compositeLens == null)
+			return super.getItemDisplayName(stack);
+		return String.format(StatCollector.translateToLocal("item.botania:compositeLens.name"), getItemShortTermName(stack), getItemShortTermName(compositeLens));
+	}
+	
 	@Override
 	public void apply(ItemStack stack, BurstProperties props) {
 		int storedColor = getStoredColor(stack);
 		if(storedColor != -1)
 			props.color = getLensColor(stack);
-
+		
 		switch(stack.getItemDamage()) {
 		case 1 : { // Speed
-			props.motionModifier = 2F;
+			props.motionModifier *= 2F;
 			props.maxMana *= 0.75F;
 			props.ticksBeforeManaLoss /= 3F;
 			props.manaLossPerTick *= 2F;
@@ -153,6 +162,10 @@ public class ItemLens extends ItemMod implements ILens {
 			break;
 		}
 		}
+		
+		ItemStack compositeLens = getCompositeLens(stack);
+		if(compositeLens != null && compositeLens.getItem() instanceof ILens)
+			((ILens) compositeLens.getItem()).apply(compositeLens, props);
 	}
 
 	@Override
@@ -188,7 +201,7 @@ public class ItemLens extends ItemMod implements ILens {
 			int mana = burst.getMana();
 
 			ChunkCoordinates coords = burst.getBurstSourceChunkCoordinates();
-			if((coords.posX != x || coords.posY != y || coords.posZ != z) && !isManaBlock && block != null && hardness != -1 && hardness < 50F && (burst.isFake() || mana >= 64)) {
+			if((coords.posX != x || coords.posY != y || coords.posZ != z) && !isManaBlock && block != null && hardness != -1 && hardness < 50F && (burst.isFake() || mana >= 24)) {
 				List<ItemStack> items = new ArrayList();
 
 				items.addAll(block.getBlockDropped(world, x, y, z, meta, 0));
@@ -200,7 +213,7 @@ public class ItemLens extends ItemMod implements ILens {
 
 						for(ItemStack stack_ : items)
 							world.spawnEntityInWorld(new EntityItem(world, x + 0.5, y + 0.5, z + 0.5, stack_));
-						burst.setMana(mana - 16);
+						burst.setMana(mana - 24);
 					}
 				}
 
@@ -235,6 +248,11 @@ public class ItemLens extends ItemMod implements ILens {
 			} else dead = false;
 		}
 		}
+		
+		ItemStack compositeLens = getCompositeLens(stack);
+		if(compositeLens != null && compositeLens.getItem() instanceof ILens)
+			dead = ((ILens) compositeLens.getItem()).collideBurst(burst, pos, isManaBlock, dead, compositeLens);
+		
 		return dead;
 	}
 
@@ -298,6 +316,10 @@ public class ItemLens extends ItemMod implements ILens {
 			}
 		}
 		}
+		
+		ItemStack compositeLens = getCompositeLens(stack);
+		if(compositeLens != null && compositeLens.getItem() instanceof ILens)
+			((ILens) compositeLens.getItem()).updateBurst(burst, compositeLens);
 	}
 
 	@Override
@@ -335,6 +357,9 @@ public class ItemLens extends ItemMod implements ILens {
 	// TODO
 	@Override
 	public boolean canCombineLenses(ItemStack sourceLens, ItemStack compositeLens) {
+		if(sourceLens.getItemDamage() == compositeLens.getItemDamage())
+			return false;
+		
 		return true;
 	}
 	
