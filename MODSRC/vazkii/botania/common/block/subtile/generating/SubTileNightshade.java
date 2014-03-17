@@ -11,6 +11,9 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
+import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.common.lexicon.LexiconData;
+
 public class SubTileNightshade extends SubTileDaybloom {
 	
 	@Override
@@ -27,6 +30,11 @@ public class SubTileNightshade extends SubTileDaybloom {
 	@Override
 	public int getColor() {
 		return 0x3D2A90;
+	}
+	
+	@Override
+	public LexiconEntry getEntry() {
+		return LexiconData.nightshade;
 	}
 
 }

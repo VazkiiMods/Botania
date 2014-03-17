@@ -452,6 +452,11 @@ botania.entry.daybloom=Daybloom
 botania.page.daybloom0=The &1Daybloom&0 is the most basic and rudimentary &4Generating Flower&0. Simply put, it preforms a modified photosythesis process, in order to transform sunlight into &4Mana&0.<br>The process is rather slow, you think half a dozen to ten of these should get the job done, for now.
 botania.page.daybloom1=&oStarting up a brand new day&r.
 
+# -- NIGHTSHADE
+botania.entry.nightshade=Nightshade
+botania.page.nightshade0=The &1Nightshade&0 is the dark counterpart of the &1Daybloom&0, as it generates &4Mana&0 passively in any situation the &1Daybloom&0 can not, albeit at half the speed.
+botania.page.nightshade1=&oThe shadow of the day&r.
+
 # -- ENDOFLAME
 botania.entry.endoflame=Endoflame
 botania.page.endoflame0=While the &1Daybloom&0 is all well and good, a botanist requires more effective means of generating &4Mana&0.<br>The &1Endoflame&0 does that exactly, it will absorb any combustible items or blocks dropped on the nearby vacinity (albeit only one at a time) and burn through them to passively generate mana while the fuel lasts.
@@ -493,6 +498,11 @@ botania.page.manaEnchanting7=Items that are already enchanted can't be placed in
 botania.page.manaEnchanting8=After the enchanting begins, the enchanter will require &4Mana&0.<br>It can be fed via one of two ways, either via &4Mana Bursts&0 or nearby &1Mana Pools&0, the later being much faster, but a bit less efficient, as a small portion of the mana is lost.
 botania.page.manaEnchanting9=When enough &4Mana&0 is gathered, the enchanting process will finalize, and the enchantments will be applied to the item.<br>The amount of &4Mana&0 required depends on the rarity of the enchantments being applied, their level, and the total amount of enchantments.
 botania.page.manaEnchanting10=During the enchanting process, the item can not be removed, but it can after the process has been completed.<br>Note that if at any point, any component of the construct is removed, it'll revert to it's original &1Lapis Lazuli Block&0 form.
+
+# -- SPREADER TURNTABLE
+botania.entry.turntable=Spreader Turntable
+botania.page.turntable0=The &1Spreader Turntable&0, as it's name implies, can turn &1Mana Spreaders&0 around and around. Placing a spreader above the turntable will rotate it, given that a redstone signal isn't applied.<br>To change the speed of the turntable, right click with a &1Wand of the Forest&0, shift-right clicking will invert the movement.
+botania.page.turntable1=Spin spin spin spin
 
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER

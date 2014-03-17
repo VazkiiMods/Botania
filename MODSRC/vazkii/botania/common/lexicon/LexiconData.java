@@ -76,6 +76,7 @@ public final class LexiconData {
 
 	public static LexiconEntry generatingIntro;
 	public static LexiconEntry daybloom;
+	public static LexiconEntry nightshade;
 	public static LexiconEntry endoflame;
 	public static LexiconEntry hydroangeas;
 	public static LexiconEntry thermalily;
@@ -83,6 +84,7 @@ public final class LexiconData {
 	public static LexiconEntry pistonRelay;
 	public static LexiconEntry pylon;
 	public static LexiconEntry manaEnchanting;
+	public static LexiconEntry turntable;
 
 	public static LexiconEntry manaBlaster;
 
@@ -205,6 +207,9 @@ public final class LexiconData {
 		daybloom = new BLexiconEntry(LibLexicon.GFLOWER_DAYBLOOM, categoryGenerationFlowers);
 		daybloom.setPriority().setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.daybloomRecipe));
 
+		nightshade = new BLexiconEntry(LibLexicon.GFLOWER_NIGHTSHADE, categoryGenerationFlowers);
+		nightshade.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.nightshadeRecipe));
+		
 		endoflame = new BLexiconEntry(LibLexicon.GFLOWER_ENDOFLAME, categoryGenerationFlowers);
 		endoflame.setLexiconPages(new PageText("0"), new PageText("1"), new PagePetalRecipe("2", ModPetalRecipes.endoflameRecipe));
 
@@ -225,6 +230,9 @@ public final class LexiconData {
 		manaEnchanting.setLexiconPages(new PageText("0"), new PageText("1"), 
 				new PageImage("2", LibResources.ENTRY_ENCHANTER0), new PageImage("3", LibResources.ENTRY_ENCHANTER1), new PageImage("4", LibResources.ENTRY_ENCHANTER2), new PageImage("5", LibResources.ENTRY_ENCHANTER3),
 				new PageText("6"), new PageText("7"), new PageText("8"), new PageText("9"), new PageText("10"));
+		
+		turntable = new BLexiconEntry(LibLexicon.DEVICE_TURNTABLE, categoryDevices);
+		turntable.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeTurntable));
 		
 		// TOOLS ENTRIES
 		manaBlaster = new BLexiconEntry(LibLexicon.TOOL_MANA_BLASTER, categoryTools);

@@ -70,6 +70,7 @@ public final class ModCrafingRecipes {
 	public static List<IRecipe> recipesManaTablet;
 	public static IRecipe recipeManaDetector;
 	public static IRecipe recipeManaBlaster;
+	public static IRecipe recipeTurntable;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -299,6 +300,13 @@ public final class ModCrafingRecipes {
 				'T', new ItemStack(Block.tnt),
 				'W', LibOreDict.LIVING_WOOD);
 		recipeManaBlaster = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Spreader Turntable Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.turntable), 
+				"WWW", "WPW", "WWW",
+				'W', LibOreDict.LIVING_WOOD,
+				'P', Block.pistonStickyBase);
+		recipeTurntable = BotaniaAPI.getLatestAddedRecipe();
 	}
 
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {

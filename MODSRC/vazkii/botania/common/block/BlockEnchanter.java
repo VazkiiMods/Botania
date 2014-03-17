@@ -23,15 +23,18 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
+import vazkii.botania.api.ILexiconable;
 import vazkii.botania.api.IWandable;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockIDs;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockEnchanter extends BlockModContainer implements IWandable {
+public class BlockEnchanter extends BlockModContainer implements IWandable, ILexiconable {
 
 	Random random;
 	public static Icon overlay;
@@ -131,6 +134,11 @@ public class BlockEnchanter extends BlockModContainer implements IWandable {
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
 		((TileEnchanter) world.getBlockTileEntity(x, y, z)).onWanded(player, stack);
 		return true;
+	}
+
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return LexiconData.manaEnchanting;
 	}
 
 }
