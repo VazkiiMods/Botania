@@ -321,4 +321,20 @@ public class ItemLens extends ItemMod implements ILens {
 
 			return true;
 	}
+
+	// TODO
+	@Override
+	public boolean canCombineLenses(ItemStack sourceLens, ItemStack compositeLens) {
+		return false;
+	}
+
+	@Override
+	public ItemStack getCompositeLens(ItemStack stack) {
+		return null;
+	}
+
+	@Override
+	public ItemStack setCompositeLens(ItemStack sourceLens, ItemStack compositeLens) {
+		return null;
+	}
 }
