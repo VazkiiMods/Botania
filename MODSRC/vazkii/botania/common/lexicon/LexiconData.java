@@ -65,6 +65,7 @@ public final class LexiconData {
 	public static LexiconEntry lensExplosive;
 	public static LexiconEntry manaTransport;
 	public static LexiconEntry manaDetector;
+	public static LexiconEntry compositeLens;
 	
 	public static LexiconEntry functionalIntro;
 	public static LexiconEntry jadedAmaranthus;
@@ -177,6 +178,9 @@ public final class LexiconData {
 
 		manaDetector = new BLexiconEntry(LibLexicon.MANA_DETECTOR, categoryMana);
 		manaDetector.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeManaDetector));
+		
+		compositeLens = new BLexiconEntry(LibLexicon.MANA_COMPOSITE_LENS, categoryMana);
+		compositeLens.setLexiconPages(new PageText("0"));
 		
 		// FUNCTIONAL FLOWERS ENTRIES
 		functionalIntro = new BLexiconEntry(LibLexicon.FFLOWER_INTRO, categoryFunctionalFlowers);

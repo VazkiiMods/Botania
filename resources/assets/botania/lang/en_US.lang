@@ -416,6 +416,10 @@ botania.entry.manaDetector=Mana Detector
 botania.page.manaDetector0=A device like the &1Mana Detector&0 is capable to detect when a &4Mana Burst&0 starts flowing through it (the burst doesn't dissipate on collision with this block) and provide a redstone signal when that is the case.
 botania.page.manaDetector1=Crafting the detector
 
+# -- COMPOSITE MANA LENSES
+botania.entry.compositeLens=Composite Mana Lenses
+botania.page.compositeLens0=Having a single &1Mana Lens&0 in a spreader just isn't enough at some times. By combining two lenses with a &1Slimeball&0 in a crafting table, it's possible to unite them into one.<br>The first lens used determines the visual appeal of the lens. It's to note that some combinations will not work, and that two lenses of the same type can't be stacked.
+
 # - FUNCTIONAL FLOWERS
 # -- AN INTRODUCTION TO FUNCTION
 botania.entry.fIntro=An Introduction to Function

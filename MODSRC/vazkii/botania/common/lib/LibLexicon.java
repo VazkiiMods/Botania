@@ -48,6 +48,7 @@ public final class LibLexicon {
 	public static final String MANA_VOID = "manaVoid";
 	public static final String MANA_TRANSPORT = "manaTransport";
 	public static final String MANA_DETECTOR = "manaDetector";
+	public static final String MANA_COMPOSITE_LENS = "compositeLens";
 
 	public static final String FFLOWER_INTRO = "fIntro";
 	public static final String FFLOWER_JADED_AMARANTHUS = "jadedAmaranthus";
