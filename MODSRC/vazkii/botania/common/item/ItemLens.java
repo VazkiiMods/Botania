@@ -15,6 +15,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -24,6 +25,7 @@ import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.DamageSource;
@@ -41,12 +43,14 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.item.recipe.CompositeLensRecipe;
 import vazkii.botania.common.lib.LibItemIDs;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemLens extends ItemMod implements ILens {
 
 	private static final String TAG_COLOR = "color";
+	private static final String TAG_COMPOSITE_LENS = "compositeLens";
 
 	public static Icon iconGlass;
 
@@ -58,6 +62,8 @@ public class ItemLens extends ItemMod implements ILens {
 		setUnlocalizedName(LibItemNames.LENS);
 		setMaxStackSize(1);
 		setHasSubtypes(true);
+
+		GameRegistry.addRecipe(new CompositeLensRecipe());
 	}
 
 	@Override
@@ -105,6 +111,10 @@ public class ItemLens extends ItemMod implements ILens {
 		int storedColor = getStoredColor(par1ItemStack);
 		if(storedColor != -1)
 			par3List.add(String.format(StatCollector.translateToLocal("botaniamisc.color"), StatCollector.translateToLocal("botania.color" + storedColor)));
+
+		ItemStack compositeLens = getCompositeLens(par1ItemStack);
+		if(compositeLens != null)
+			par3List.add(String.format(StatCollector.translateToLocal("botaniamisc.compositeLens"), compositeLens.getDisplayName()));
 	}
 
 	@Override
@@ -325,16 +335,22 @@ public class ItemLens extends ItemMod implements ILens {
 	// TODO
 	@Override
 	public boolean canCombineLenses(ItemStack sourceLens, ItemStack compositeLens) {
-		return false;
+		return true;
 	}
-
+	
 	@Override
 	public ItemStack getCompositeLens(ItemStack stack) {
-		return null;
+		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_COMPOSITE_LENS, false);
+		ItemStack lens = ItemStack.loadItemStackFromNBT(cmp);
+		return lens;
 	}
 
 	@Override
 	public ItemStack setCompositeLens(ItemStack sourceLens, ItemStack compositeLens) {
-		return null;
+		NBTTagCompound cmp = new NBTTagCompound();
+		compositeLens.writeToNBT(cmp);
+		ItemNBTHelper.setCompound(sourceLens, TAG_COMPOSITE_LENS, cmp);
+		
+		return sourceLens;
 	}
 }

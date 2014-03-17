@@ -17,6 +17,7 @@ botaniamisc.outputtingPower=Sparing Power to Items
 botaniamisc.inputtingPower=Accepting Power from Items
 botaniamisc.creative=Creative
 botaniamisc.invFull=Your inventory is full.
+botaniamisc.compositeLens=Composite with %s
 
 # COLORS
 botania.color0=White
