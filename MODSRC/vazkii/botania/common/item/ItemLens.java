@@ -13,9 +13,10 @@ package vazkii.botania.common.item;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -46,12 +47,23 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.recipe.CompositeLensRecipe;
 import vazkii.botania.common.lib.LibItemIDs;
 import vazkii.botania.common.lib.LibItemNames;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ItemLens extends ItemMod implements ILens {
 
 	private static final int NORMAL = 0, SPEED = 1, POWER = 2, TIME = 3, EFFICIENCY = 4,
 			BOUNCE = 5, GRAVITY = 6, MINE = 7, DAMAGE = 8, PHANTOM = 9, 
 			MAGNET = 10, EXPLOSIVE = 11;
+
+	private static final Map<Integer, List<Integer>> blacklist = new HashMap(); 
+
+	static {
+		blacklistLenses(POWER, EXPLOSIVE);
+		blacklistLenses(GRAVITY, MAGNET);
+		blacklistLenses(PHANTOM, MINE);
+		blacklistLenses(PHANTOM, EXPLOSIVE);
+		blacklistLenses(PHANTOM, BOUNCE);
+	}
 	
 	private static final String TAG_COLOR = "color";
 	private static final String TAG_COMPOSITE_LENS = "compositeLens";
@@ -243,6 +255,7 @@ public class ItemLens extends ItemMod implements ILens {
 				dead = false;
 				burst.setMinManaLoss(Math.max(0, burst.getMinManaLoss() - 4));
 			}
+			break;
 		}
 		case EXPLOSIVE : { 
 			if(!burst.isFake()) {
@@ -251,6 +264,7 @@ public class ItemLens extends ItemMod implements ILens {
 					entity.worldObj.createExplosion(entity, entity.posX, entity.posY, entity.posZ, (float) burst.getMana() / 50F, true); 
 			} else dead = false;
 		}
+			break;
 		}
 		
 		ItemStack compositeLens = getCompositeLens(stack);
@@ -357,11 +371,36 @@ public class ItemLens extends ItemMod implements ILens {
 
 			return true;
 	}
+	
+	public static void blacklistLenses(int lens1, int lens2) {
+		blacklistLenses(lens1, lens2, true);
+	}
+	
+	public static void blacklistLenses(int lens1, int lens2, boolean recursive) {
+		if(!blacklist.containsKey(lens1))
+			blacklist.put(lens1, new ArrayList());
+		blacklist.get(lens1).add(lens2);
+		
+		if(recursive)
+			blacklistLenses(lens2, lens1, false);
+	}
+	
+	public static boolean isBlacklisted(int lens1, int lens2) {
+		if(!blacklist.containsKey(lens1))
+			return false;
+		
+		return blacklist.get(lens1).contains(lens2);
+	}
 
-	// TODO
 	@Override
 	public boolean canCombineLenses(ItemStack sourceLens, ItemStack compositeLens) {
 		if(sourceLens.getItemDamage() == compositeLens.getItemDamage())
+			return false;
+		
+		if(sourceLens.getItemDamage() == NORMAL || compositeLens.getItemDamage() == NORMAL)
+			return false;
+		
+		if(isBlacklisted(sourceLens.getItemDamage(), compositeLens.getItemDamage()))
 			return false;
 		
 		return true;
