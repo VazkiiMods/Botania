@@ -125,6 +125,8 @@ tile.botania:flower.thermalily.name=Thermalily
 tile.botania:flower.thermalily.reference=A Scarlet Rose indeed
 tile.botania:flower.nightshade.name=Nightshade
 tile.botania:flower.nightshade.reference=Ghastly signature
+tile.botania:flower.arcanerose.name=Rosa Arcana
+tile.botania:flower.arcanerose.reference=Ten blue orbs in the corner
 
 # - FUNCTIONAL
 tile.botania:flower.bellethorn.name=Bellethorne
