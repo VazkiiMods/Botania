@@ -461,6 +461,11 @@ botania.entry.fallenKanade=Fallen Kanade
 botania.page.fallenKanade0=The &1Fallen Kanade&0 is a flower with angelic properties, it'll use &4Mana&0 from nearby &4Mana Pools&0 in order to apply a regeneration effect to any &4players&0 nearby.
 botania.page.fallenKanade1=&oHand Sonic, version four&r.
 
+# -- EXOFLAME
+botania.entry.exoflame=Exoflame
+botania.page.exoflame0=Unlike it's generating counterpart, the &1Exoflame&0 utilizes &4Mana&0 with means to generate heat.<br>Any &1Furnaces&0 nearby to the &1Exoflame&0 will be fueled, and given an efficiency boost, for the cost of some &4Mana&0.
+botania.page.exoflame1=&oBut we should be going nowhere fast&r.
+
 # - GENERATING FLOWERS
 # -- AN INTRODUCTION TO GENERATION
 botania.entry.gIntro=An Introduction to Generation
