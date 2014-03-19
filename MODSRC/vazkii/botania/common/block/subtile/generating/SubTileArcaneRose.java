@@ -16,8 +16,10 @@ import java.util.List;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.core.helper.ExperienceHelper;
+import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileArcaneRose extends SubTileGenerating {
 
@@ -30,7 +32,7 @@ public class SubTileArcaneRose extends SubTileGenerating {
 		
 		List<EntityPlayer> players = supertile.worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - 1, supertile.yCoord, supertile.zCoord - 1, supertile.xCoord + 2, supertile.yCoord + 1, supertile.zCoord + 2));
 		for(EntityPlayer player : players)
-			if(ExperienceHelper.getPlayerXP(player) >= 1) {
+			if(ExperienceHelper.getPlayerXP(player) >= 1 && player.onGround) {
 				ExperienceHelper.drainPlayerXP(player, 1);
 				mana += 10;
 				PacketDispatcher.sendPacketToAllInDimension(supertile.getDescriptionPacket(), supertile.worldObj.provider.dimensionId);
@@ -47,4 +49,10 @@ public class SubTileArcaneRose extends SubTileGenerating {
 	public int getMaxMana() {
 		return 200;
 	}
+	
+	@Override
+	public LexiconEntry getEntry() {
+		return LexiconData.arcaneRose;
+	}
+	
 }
