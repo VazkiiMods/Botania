@@ -20,6 +20,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraftforge.fluids.FluidRegistry;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.api.recipe.RecipePetals;
@@ -34,14 +35,19 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 	public boolean hasWater = false;
 
 	public boolean collideEntityItem(EntityItem item) {
-		if(!hasWater)
-			return false;
-
-		boolean didChange = false;
-
 		ItemStack stack = item.getEntityItem();
 		if(stack == null)
 			return false;
+		
+		if(!hasWater) {
+			if(stack.itemID == Item.bucketWater.itemID) {
+				hasWater = true;
+				stack.itemID = Item.bucketEmpty.itemID;
+				PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
+			} else return false;
+		}
+		
+		boolean didChange = false;
 
 		if(stack.getItem() instanceof IFlowerComponent) {
 			if(getStackInSlot(getSizeInventory() - 1) != null)

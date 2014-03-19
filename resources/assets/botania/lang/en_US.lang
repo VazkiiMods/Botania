@@ -274,7 +274,7 @@ botania.page.flowers5=Grinding Petals into Dye.
 botania.entry.apothecary=Petal Apothecary
 botania.page.apothecary0=In order for a botanist to create plantlife that can do it's bidding, one would need special means of infusing plants with mystical energy.<br>Luckilly, the &1Petal Apothecary&0 does just that.
 botania.page.apothecary1=The &1Petal Apothecary&0.
-botania.page.apothecary2=This block, when placed in the world and given some water (by use of a water bucket), will accept any &1Mystical Petals&0 thrown at it, releasing their energies.<br>Once one has set the correct petals in, throwing some &1Seeds&0 in will finalize the proccess.
+botania.page.apothecary2=This block, when placed in the world and given some water (by use of a &1Water Bucket&0), will accept any &1Mystical Petals&0 thrown at it, releasing their energies.<br>Once one has set the correct petals in, throwing some &1Seeds&0 in will finalize the proccess.<br>Tossing in the full bucket will also fill the recepient with water.
 botania.page.apothecary3=Quite a few plants can be made using this method, for more information, read on the &4Functional Flora&0 and &4Generation Flora&0 sections of this Lexicon.
 botania.page.apothecary4=Crafting the &1Petal Apothecary&0.
 
