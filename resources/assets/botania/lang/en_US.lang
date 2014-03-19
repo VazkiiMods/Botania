@@ -118,7 +118,7 @@ tile.botania:flower.puredaisy.reference=What color do you want to be?
 tile.botania:flower.daybloom.name=Daybloom
 tile.botania:flower.daybloom.reference=A Sting of light
 tile.botania:flower.endoflame.name=Endoflame
-tile.botania:flower.endoflame.reference=An endotermic reaction
+tile.botania:flower.endoflame.reference=An endothermic reaction
 tile.botania:flower.hydroangeas.name=Hydroangeas
 tile.botania:flower.hydroangeas.reference=Careful: Wet floor
 tile.botania:flower.thermalily.name=Thermalily
@@ -141,6 +141,8 @@ tile.botania:flower.orechid.name=Orechid
 tile.botania:flower.orechid.reference=I seed what you did there
 tile.botania:flower.fallenKanade.name=Fallen Kanade
 tile.botania:flower.fallenKanade.reference=I'm not an Angel
+tile.botania:flower.exoflame.name=Exoflame
+tile.botania:flower.exoflame.reference=An exothermic reaction
 
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania

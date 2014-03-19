@@ -17,6 +17,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.subtile.SubTilePureDaisy;
 import vazkii.botania.common.block.subtile.functional.SubTileBellethorn;
+import vazkii.botania.common.block.subtile.functional.SubTileExoflame;
 import vazkii.botania.common.block.subtile.functional.SubTileFallenKanade;
 import vazkii.botania.common.block.subtile.functional.SubTileHeiseiDream;
 import vazkii.botania.common.block.subtile.functional.SubTileJadedAmaranthus;
@@ -139,6 +140,7 @@ public final class ModBlocks {
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_JADED_AMARANTHUS, SubTileJadedAmaranthus.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_ORECHID, SubtileOrechid.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_FALLEN_KANADE, SubTileFallenKanade.class);
+		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_EXOFLAME, SubTileExoflame.class);
 	}
 
 	private static void registerMultiparts() {
