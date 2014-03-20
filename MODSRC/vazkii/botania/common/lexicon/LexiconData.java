@@ -75,6 +75,7 @@ public final class LexiconData {
 	public static LexiconEntry orechid;
 	public static LexiconEntry fallenKanade;
 	public static LexiconEntry exoflame;
+	public static LexiconEntry agricarnation;
 
 	public static LexiconEntry generatingIntro;
 	public static LexiconEntry daybloom;
@@ -208,6 +209,9 @@ public final class LexiconData {
 		
 		exoflame = new BLexiconEntry(LibLexicon.FFLOWER_EXOFLAME, categoryFunctionalFlowers);
 		exoflame.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.exoflameRecipe));
+		
+		agricarnation = new BLexiconEntry(LibLexicon.FFLOWER_AGRICARNATION, categoryFunctionalFlowers);
+		agricarnation.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.agricarnationRecipe));
 		
 		// GENERATING FLOWERS ENTRIES
 		generatingIntro = new BLexiconEntry(LibLexicon.GFLOWER_INTRO, categoryGenerationFlowers);

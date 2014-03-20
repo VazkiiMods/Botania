@@ -39,6 +39,7 @@ public final class ModPetalRecipes {
 	public static RecipePetals orechidRecipe;
 	public static RecipePetals fallenKanadeRecipe;
 	public static RecipePetals exoflameRecipe;
+	public static RecipePetals agricarnationRecipe;
 
 	public static void init() {
 		pureDaisyRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_PUREDAISY), white, white, white, white);
@@ -57,5 +58,6 @@ public final class ModPetalRecipes {
 		orechidRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ORECHID), gray, grayMana, lightGray, lightGrayMana, lightBlue, yellow, green, red, runePride, runeSloth);
 		fallenKanadeRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_FALLEN_KANADE), white, whiteMana, whiteMana, yellowMana, orangeMana, brownMana, runeSpring);
 		exoflameRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_EXOFLAME), red, redMana, redMana, gray, lightGray, runeFire, runeSummer);
+		agricarnationRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_AGRICARNATION), redMana, yellow, greenMana, lime, lime, limeMana, runeSpring);
 	}
 }

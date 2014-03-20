@@ -468,6 +468,11 @@ botania.entry.exoflame=Exoflame
 botania.page.exoflame0=Unlike it's generating counterpart, the &1Exoflame&0 utilizes &4Mana&0 with means to generate heat.<br>Any &1Furnaces&0 nearby to the &1Exoflame&0 will be fueled, and given an efficiency boost, for the cost of some &4Mana&0.
 botania.page.exoflame1=&oBut we should be going nowhere fast&r.
 
+# -- AGRICARNATION
+botania.entry.agricarnation=Agricarnation
+botania.page.agricarnation0=The slow growth of crops is always a problem to feed the masses. The &1Agricarnation&0 is a flower that turns &4Mana&0 into a type of natural fertilizer, causing nearby plantlife to grow at a faster rate.
+botania.page.agricarnation1=&0Grandola Vila Morena&r...
+
 # - GENERATING FLOWERS
 # -- AN INTRODUCTION TO GENERATION
 botania.entry.gIntro=An Introduction to Generation
