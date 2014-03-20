@@ -27,7 +27,7 @@ public class CompositeLensRecipe implements IRecipe {
 		boolean foundLens = false;
 		boolean foundSecondLens = false;
 		boolean foundSlimeball = false;
-		
+
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
 			if(stack != null) {
@@ -48,7 +48,7 @@ public class CompositeLensRecipe implements IRecipe {
 	public ItemStack getCraftingResult(InventoryCrafting var1) {
 		ItemStack lens = null;
 		ItemStack secondLens = null;
-		
+
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
 			if(stack != null) {
@@ -63,10 +63,10 @@ public class CompositeLensRecipe implements IRecipe {
 			ILens lensItem = (ILens) lens.getItem();
 			if(secondLens == null || !lensItem.canCombineLenses(lens, secondLens) || lensItem.getCompositeLens(lens) != null || lensItem.getCompositeLens(secondLens) != null)
 				return null;
-			
+
 			ItemStack lensCopy = lens.copy();
 			((ItemLens) ModItems.lens).setCompositeLens(lensCopy, secondLens);
-			
+
 			return lensCopy;
 		}
 

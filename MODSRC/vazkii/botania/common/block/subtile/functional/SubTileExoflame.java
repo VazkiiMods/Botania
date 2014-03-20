@@ -17,17 +17,16 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import vazkii.botania.api.subtile.SubTileFunctional;
-import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class SubTileExoflame extends SubTileFunctional {
 
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		
+
 		int range = 5;
 		int rangeY = 2;
-		
+
 		fireFurnaces : {
 			for(int i = -range + 1; i < range; i++)
 				for(int j = -rangeY; j < rangeY; j++)
@@ -35,7 +34,7 @@ public class SubTileExoflame extends SubTileFunctional {
 						int x = supertile.xCoord + i;
 						int y = supertile.yCoord + j;
 						int z = supertile.zCoord + k;
-						
+
 						TileEntity tile = supertile.worldObj.getBlockTileEntity(x, y, z);
 						if(tile != null && tile instanceof TileEntityFurnace) {
 							TileEntityFurnace furnace = (TileEntityFurnace) tile;
@@ -48,9 +47,9 @@ public class SubTileExoflame extends SubTileFunctional {
 								}
 								if(supertile.worldObj.getTotalWorldTime() % 2 == 0)
 									furnace.furnaceCookTime = Math.min(199, furnace.furnaceCookTime + 1);
-								
+
 								mana -= 2;
-								
+
 								if(mana == 0)
 									break fireFurnaces;
 							}
@@ -58,36 +57,36 @@ public class SubTileExoflame extends SubTileFunctional {
 					}
 		}
 	}
-	
-    public boolean canFurnaceSmelt(TileEntityFurnace furnace){
-        if(furnace.getStackInSlot(0) == null)
-            return false;
-        else {
-            ItemStack itemstack = FurnaceRecipes.smelting().getSmeltingResult(furnace.getStackInSlot(0));
-            
-            if(itemstack == null) 
-            	return false;
-            
-            if(furnace.getStackInSlot(2) == null) 
-            	return true;
-            
-            if(!furnace.getStackInSlot(2).isItemEqual(itemstack)) 
-            	return false;
-            
-            int result = furnace.getStackInSlot(2).stackSize + itemstack.stackSize;
-            return result <= 64 && result <= itemstack.getMaxStackSize();
-        }
-    }
 
-	
+	public boolean canFurnaceSmelt(TileEntityFurnace furnace){
+		if(furnace.getStackInSlot(0) == null)
+			return false;
+		else {
+			ItemStack itemstack = FurnaceRecipes.smelting().getSmeltingResult(furnace.getStackInSlot(0));
+
+			if(itemstack == null)
+				return false;
+
+			if(furnace.getStackInSlot(2) == null)
+				return true;
+
+			if(!furnace.getStackInSlot(2).isItemEqual(itemstack))
+				return false;
+
+			int result = furnace.getStackInSlot(2).stackSize + itemstack.stackSize;
+			return result <= 64 && result <= itemstack.getMaxStackSize();
+		}
+	}
+
+
 	@Override
 	public int getMaxMana() {
 		return 300;
 	}
-	
+
 	@Override
 	public int getColor() {
 		return 0x661600;
 	}
-	
+
 }

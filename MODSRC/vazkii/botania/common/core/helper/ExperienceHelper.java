@@ -35,7 +35,7 @@ public class ExperienceHelper {
 	public static int getExperienceForLevel(int level) {
 		if (level == 0)
 			return 0;
-		
+
 		if (level > 0 && level < 16)
 			return level * 17;
 		else if (level > 15 && level < 31)

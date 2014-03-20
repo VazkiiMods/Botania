@@ -94,7 +94,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 				}
 			this.manaToGet = 0;
 		}
-		
+
 		if(manaToGet != this.manaToGet) {
 			worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.orb", 1F, 1F);
 			PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
@@ -144,7 +144,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 				craftingFanciness();
 			}
 		}
-		
+
 		updateRecipe();
 	}
 

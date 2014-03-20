@@ -101,9 +101,9 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		setBurstSourceCoords(0, -1, 0);
 		setLocationAndAngles(player.posX, player.posY + player.getEyeHeight(), player.posZ, player.rotationYaw + 180, -player.rotationPitch);
 
-		posX -= (double)(MathHelper.cos((rotationYaw + 180) / 180.0F * (float) Math.PI) * 0.16F);
+		posX -= MathHelper.cos((rotationYaw + 180) / 180.0F * (float) Math.PI) * 0.16F;
 		posY -= 0.10000000149011612D;
-		posZ -= (double)(MathHelper.sin((rotationYaw + 180) / 180.0F * (float) Math.PI) * 0.16F);
+		posZ -= MathHelper.sin((rotationYaw + 180) / 180.0F * (float) Math.PI) * 0.16F;
 
 		setPosition(posX, posY, posZ);
 		yOffset = 0.0F;
@@ -231,21 +231,21 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 					double d2 = 999.0D;
 
 					if (i > l)
-						d0 = (double)l + 1.0D;
+						d0 = l + 1.0D;
 					else if (i < l)
-						d0 = (double)l + 0.0D;
+						d0 = l + 0.0D;
 					else flag2 = false;
 
 					if (j > i1)
-						d1 = (double)i1 + 1.0D;
+						d1 = i1 + 1.0D;
 					else if (j < i1)
-						d1 = (double)i1 + 0.0D;
+						d1 = i1 + 0.0D;
 					else flag3 = false;
 
 					if (k > j1)
-						d2 = (double)j1 + 1.0D;
+						d2 = j1 + 1.0D;
 					else if (k < j1)
-						d2 = (double)j1 + 0.0D;
+						d2 = j1 + 0.0D;
 					else flag4 = false;
 
 					double d3 = 999.0D;
@@ -293,21 +293,21 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 					}
 
 					Vec3 vec32 = new Vector3(par1Vec3.xCoord, par1Vec3.yCoord, par1Vec3.zCoord).toVec3D();
-					l = (int)(vec32.xCoord = (double)MathHelper.floor_double(par1Vec3.xCoord));
+					l = (int)(vec32.xCoord = MathHelper.floor_double(par1Vec3.xCoord));
 
 					if (b0 == 5) {
 						--l;
 						++vec32.xCoord;
 					}
 
-					i1 = (int)(vec32.yCoord = (double)MathHelper.floor_double(par1Vec3.yCoord));
+					i1 = (int)(vec32.yCoord = MathHelper.floor_double(par1Vec3.yCoord));
 
 					if (b0 == 1) {
 						--i1;
 						++vec32.yCoord;
 					}
 
-					j1 = (int)(vec32.zCoord = (double)MathHelper.floor_double(par1Vec3.zCoord));
+					j1 = (int)(vec32.zCoord = MathHelper.floor_double(par1Vec3.zCoord));
 
 					if (b0 == 3) {
 						--j1;
@@ -675,7 +675,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		ChunkCoordinates coords = getBurstSourceChunkCoordinates();
 		TileEntity tile = worldObj.getBlockTileEntity(coords.posX, coords.posY, coords.posZ);
 		if(tile != null && tile instanceof TileSpreader)
-			return (getMana() != getStartingMana() && fullManaLastTick) || Math.abs(((TileSpreader) tile).burstParticleTick - ticksExisted) < 4;
+			return getMana() != getStartingMana() && fullManaLastTick || Math.abs(((TileSpreader) tile).burstParticleTick - ticksExisted) < 4;
 		return false;
 	}
 

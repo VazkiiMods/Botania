@@ -18,5 +18,5 @@ package vazkii.botania.api.mana;
 public interface IManaCollisionGhost {
 
 	public boolean isGhost();
-	
+
 }

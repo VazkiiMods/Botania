@@ -42,12 +42,12 @@ public final class BotaniaAPI {
 	public static List<RecipeManaInfusion> manaInfusionRecipes = new ArrayList<RecipeManaInfusion>();
 
 	private static BiMap<String, Class<? extends SubTileEntity>> subTiles = HashBiMap.<String, Class<? extends SubTileEntity>> create();
-	
+
 	public static Map<String, Integer> oreWeights = new HashMap<String, Integer>();
-	
+
 	static {
 		registerSubTile("", DummySubTile.class);
-		
+
 		addOreWeight("oreAluminum", 3940); // Tinkers' Construct
 		addOreWeight("oreAmber", 2075); // Thaumcraft
 		addOreWeight("oreApatite", 1595); // Forestry
@@ -163,7 +163,7 @@ public final class BotaniaAPI {
 		allEntries.add(entry);
 		category.entries.add(entry);
 	}
-	
+
 	/**
 	 * Maps an ore (ore dictionary key) to it's weight on the world generation. This
 	 * is used for the Orechid flower. Check the static block in the BotaniaAPI class
@@ -178,7 +178,7 @@ public final class BotaniaAPI {
 	public static int getOreWeight(String ore) {
 		return oreWeights.get(ore);
 	}
-	
+
 	/**
 	 * Gets the last recipe to have been added to the recipe list.
 	 */

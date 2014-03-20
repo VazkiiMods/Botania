@@ -25,11 +25,11 @@ import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 public class RenderSpecialFlower implements ISimpleBlockRenderingHandler {
 
 	int id;
-	
+
 	public RenderSpecialFlower(int id) {
 		this.id = id;
 	}
-	
+
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
 		// NO-OP
@@ -65,15 +65,15 @@ public class RenderSpecialFlower implements ISimpleBlockRenderingHandler {
 		double d2 = par4;
 
 		drawCrossedSquares(blockAccess, par1Block, par2, par3, par4, d0, d1, d2, 1.0F, render);
-		
+
 		if(ConfigHandler.overrideVanillaBlocks) {
 			int snow = -1;
 			boolean foundSnow = false;
-			
+
 			ForgeDirection[] directions = new ForgeDirection[] {
 					ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST
 			};
-			
+
 			for(ForgeDirection dir : directions)
 				if(blockAccess.getBlockId(par2 + dir.offsetX, par3 + dir.offsetY, par4 + dir.offsetZ) == Block.snow.blockID) {
 					int meta = blockAccess.getBlockMetadata(par2 + dir.offsetX, par3 + dir.offsetY, par4 + dir.offsetZ);
@@ -84,9 +84,9 @@ public class RenderSpecialFlower implements ISimpleBlockRenderingHandler {
 			if(snow >= 0) {
 				BlockSnowOverride.forcedMeta = snow;
 				render.renderBlockByRenderType(Block.blocksList[Block.snow.blockID], par2, par3, par4);
-	 		}
+			}
 		}
-		
+
 		return true;
 	}
 

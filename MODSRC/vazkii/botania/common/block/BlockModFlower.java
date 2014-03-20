@@ -79,7 +79,7 @@ public class BlockModFlower extends BlockFlower implements ILexiconable {
 	public Icon getIcon(int par1, int par2) {
 		return icons[par2];
 	}
-	
+
 	@Override
 	public int getRenderType() {
 		return LibRenderIDs.idSpecialFlower;

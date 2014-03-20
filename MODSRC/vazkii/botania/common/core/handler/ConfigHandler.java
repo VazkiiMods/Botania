@@ -41,11 +41,11 @@ public final class ConfigHandler {
 		Property subtlePowerSystemProp = config.get(Configuration.CATEGORY_GENERAL, "powerSystem.subtle", false);
 		subtlePowerSystemProp.comment = "Set to true to set the power system's particles to be a lot more subtle. Good for low-end systems, if the particles are causing lag.";
 		subtlePowerSystem = subtlePowerSystemProp.getBoolean(false);
-		
+
 		Property staticWandBeamProp = config.get(Configuration.CATEGORY_GENERAL, "wandBeam.static", false);
 		staticWandBeamProp.comment = "Set to true to use a static wand beam that shows every single position of the burst, similar to the way it used to work on old botania versions. Warning: Disabled by default because it may be laggy.";
 		staticWandBeam = staticWandBeamProp.getBoolean(false);
-		
+
 		Property overrideVanillaBlocksProp = config.get(Configuration.CATEGORY_GENERAL, "override.vanillaBlocks", true);
 		overrideVanillaBlocksProp.comment = "Set to false to remove the overriding of vanilla blocks (snow, red and yellow flowers). Setting this to false will remove the snow on flowers tweak.";
 		overrideVanillaBlocks = overrideVanillaBlocksProp.getBoolean(true);

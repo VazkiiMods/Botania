@@ -26,7 +26,7 @@ public class TileManaDetector extends TileMod implements IManaCollisionGhost {
 				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, expectedMeta, 1 | 2);
 		}
 	}
-	
+
 	@Override
 	public boolean isGhost() {
 		return true;

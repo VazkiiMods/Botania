@@ -111,24 +111,24 @@ public class InventoryHelper {
 	}
 
 	public static int testInventoryInsertion(IInventory inventory, ItemStack item, ForgeDirection side) {
-		if (item == null || item.stackSize == 0) 
+		if (item == null || item.stackSize == 0)
 			return 0;
 		item = item.copy();
-		
-		if (inventory == null) 
+
+		if (inventory == null)
 			return 0;
-		
+
 		int slotCount = inventory.getSizeInventory();
 
 		int itemSizeCounter = item.stackSize;
 		for (int i = 0; i < slotCount && itemSizeCounter > 0; i++) {
-			if (!inventory.isItemValidForSlot(i, item)) 
+			if (!inventory.isItemValidForSlot(i, item))
 				continue;
-			
+
 			if(side != ForgeDirection.UNKNOWN && inventory instanceof ISidedInventory)
 				if(!((ISidedInventory)inventory).canInsertItem(i, item, side.ordinal()))
 					continue;
-			
+
 			ItemStack inventorySlot = inventory.getStackInSlot(i);
 			if (inventorySlot == null)
 				itemSizeCounter -= Math.min(Math.min(itemSizeCounter, inventory.getInventoryStackLimit()), item.getMaxStackSize());
@@ -141,10 +141,10 @@ public class InventoryHelper {
 			itemSizeCounter = Math.max(itemSizeCounter, 0);
 			return item.stackSize - itemSizeCounter;
 		}
-		
+
 		return 0;
 	}
-	
+
 	public static IInventory getInventory(World world, int x, int y, int z) {
 		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
 		if(tileEntity instanceof TileEntityChest) {

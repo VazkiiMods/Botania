@@ -46,7 +46,7 @@ public class FXWisp extends EntityFX {
 
 		if(distanceLimit) {
 			int visibleDistance = 50;
-			if (!FMLClientHandler.instance().getClient().gameSettings.fancyGraphics) 
+			if (!FMLClientHandler.instance().getClient().gameSettings.fancyGraphics)
 				visibleDistance = 25;
 
 			if (renderentity == null || renderentity.getDistance(posX, posY, posZ) > visibleDistance)
@@ -62,7 +62,7 @@ public class FXWisp extends EntityFX {
 	public void renderParticle(Tessellator tessellator, float f, float f1, float f2, float f3, float f4, float f5) {
 		float agescale = 0;
 		agescale = (float)particleAge / (float) moteHalfLife;
-		if (agescale > 1F) 
+		if (agescale > 1F)
 			agescale = 2 - agescale;
 
 		particleScale = moteParticleScale * agescale;

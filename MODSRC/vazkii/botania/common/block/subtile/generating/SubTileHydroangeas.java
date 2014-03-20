@@ -57,7 +57,7 @@ public class SubTileHydroangeas extends SubTileGenerating {
 			burnTime--;
 		}
 	}
-	
+
 	public void doBurnParticles() {
 		Botania.proxy.wispFX(supertile.worldObj, supertile.xCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.yCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.zCoord + 0.5, 0.05F, 0.05F, 0.7F, (float) Math.random() / 6, (float) -Math.random() / 60);
 	}
@@ -65,7 +65,7 @@ public class SubTileHydroangeas extends SubTileGenerating {
 	public int getIdToSearchFor() {
 		return Block.waterStill.blockID;
 	}
-	
+
 	public int getBurnTime() {
 		return 10;
 	}

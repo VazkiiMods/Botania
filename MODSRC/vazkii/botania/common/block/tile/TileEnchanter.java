@@ -43,7 +43,7 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 
 	public int stage = 0;
 	public int stageTicks = 0;
-	
+
 	public int stage3EndTicks = 0;
 
 	int manaRequired = -1;
@@ -61,13 +61,13 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 		{ -2, -1, 0 }, { -2, -1, 1 }, { -2, -1, -1 }
 	};
 
-	private static final int[][][] PYLON_LOCATIONS = new int[][][] { 
-		{ { -5, 1, 0 }, { 5, 1, 0 }, { -4, 1, 3 }, { 4, 1, 3 }, { -4, 1, -3 }, { 4, 1, -3 } }, 
+	private static final int[][][] PYLON_LOCATIONS = new int[][][] {
+		{ { -5, 1, 0 }, { 5, 1, 0 }, { -4, 1, 3 }, { 4, 1, 3 }, { -4, 1, -3 }, { 4, 1, -3 } },
 		{ { 0, 1, -5 }, { 0, 1, 5 }, { 3, 1, -4 }, { 3, 1, 4 }, { -3, 1, -4 }, { -3, 1, 4 } }
 	};
 
 	private static final int[][] FLOWER_LOCATIONS = new int[][] {
-		{ -1, 0, -1 }, { 1, 0, -1 }, { -1, 0, 1 }, { 1, 0, 1 } 
+		{ -1, 0, -1 }, { 1, 0, -1 }, { -1, 0, 1 }, { 1, 0, 1 }
 	};
 
 	public void onWanded(EntityPlayer player, ItemStack wand) {
@@ -159,18 +159,18 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 					pylonTile.centerZ = zCoord;
 				}
 			}
-			
+
 			if(manaRequired == -1) {
 				manaRequired = 0;
 				for(EnchantmentData data : enchants) {
 					Enchantment ench = Enchantment.enchantmentsList[data.enchant];
-					manaRequired += (int) (3000F * ((15 - ench.getWeight()) * 1.45F) * ((3F + (data.level * data.level)) * 0.25F) * (0.9F + enchants.size() * 0.05F));
+					manaRequired += (int) (3000F * ((15 - ench.getWeight()) * 1.45F) * ((3F + data.level * data.level) * 0.25F) * (0.9F + enchants.size() * 0.05F));
 				}
 			} else if(mana >= manaRequired) {
 				manaRequired = 0;
 				for(int[] pylon : PYLON_LOCATIONS[getBlockMetadata()])
 					((TilePylon) worldObj.getBlockTileEntity(xCoord + pylon[0], yCoord + pylon[1], zCoord + pylon[2])).activated = false;
-				
+
 				advanceStage();
 			} else {
 				getManaFromPools : {
@@ -186,12 +186,12 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 								PacketDispatcher.sendPacketToAllInDimension(tile.getDescriptionPacket(), worldObj.provider.dimensionId);
 								sync();
 							}
-							
+
 							if(mana >= manaRequired)
 								break getManaFromPools;
 						}
 					}
-				}
+			}
 			}
 
 			break;
@@ -224,7 +224,7 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 
 	public void advanceStage() {
 		stage++;
-		
+
 		if(stage == 4)
 			stage3EndTicks = stageTicks;
 		else if(stage == 5) {
@@ -258,7 +258,7 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 
 	@Override
 	public void recieveMana(int mana) {
-		this.mana = Math.min(manaRequired, this.mana + mana); 
+		this.mana = Math.min(manaRequired, this.mana + mana);
 	}
 
 	@Override
@@ -341,7 +341,7 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 				return false;
 
 		for(int[] pylon : PYLON_LOCATIONS[meta])
-			if(world.getBlockId(pylon[0] + x, pylon[1] + y, pylon[2] + z) != ModBlocks.pylon.blockID || 
+			if(world.getBlockId(pylon[0] + x, pylon[1] + y, pylon[2] + z) != ModBlocks.pylon.blockID ||
 			world.getBlockId(pylon[0] + x, pylon[1] + y - 1, pylon[2] + z) != ModBlocks.flower.blockID)
 				return false;
 

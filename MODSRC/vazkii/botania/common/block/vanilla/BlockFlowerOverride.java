@@ -11,15 +11,15 @@
  */
 package vazkii.botania.common.block.vanilla;
 
-import vazkii.botania.client.lib.LibRenderIDs;
 import net.minecraft.block.BlockFlower;
+import vazkii.botania.client.lib.LibRenderIDs;
 
 public class BlockFlowerOverride extends BlockFlower {
 
 	public BlockFlowerOverride(int par1) {
 		super(par1);
 	}
-	
+
 	@Override
 	public int getRenderType() {
 		return LibRenderIDs.idSpecialFlower;

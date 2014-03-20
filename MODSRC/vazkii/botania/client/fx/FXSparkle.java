@@ -100,7 +100,7 @@ public class FXSparkle extends EntityFX {
 
 		motionY -= 0.04D * particleGravity;
 
-		if (!noClip && !fake) 
+		if (!noClip && !fake)
 			pushOutOfBlocks(posX, (boundingBox.minY + boundingBox.maxY) / 2.0D, posZ);
 
 		posX += motionX;

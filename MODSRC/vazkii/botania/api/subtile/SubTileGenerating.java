@@ -13,7 +13,6 @@ package vazkii.botania.api.subtile;
 
 import java.awt.Color;
 
-import cpw.mods.fml.common.network.PacketDispatcher;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,6 +24,7 @@ import net.minecraft.util.StatCollector;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaCollector;
+import cpw.mods.fml.common.network.PacketDispatcher;
 
 /**
  * The basic class for a Generating Flower.
@@ -53,7 +53,7 @@ public class SubTileGenerating extends SubTileEntity {
 		super.onUpdate();
 
 		linkCollector();
-		
+
 		if(canGeneratePassively()) {
 			int delay = getDelayBetweenPassiveGeneration();
 			if(delay > 0 && supertile.worldObj.getWorldTime() % delay == 0) {
@@ -111,7 +111,7 @@ public class SubTileGenerating extends SubTileEntity {
 			}
 		}
 	}
-	
+
 	public boolean shouldSyncPassiveGeneration() {
 		return false;
 	}
@@ -133,7 +133,7 @@ public class SubTileGenerating extends SubTileEntity {
 	public boolean onWanded(EntityPlayer player, ItemStack wand) {
 		if(!player.worldObj.isRemote)
 			PacketDispatcher.sendPacketToAllInDimension(supertile.getDescriptionPacket(), supertile.worldObj.provider.dimensionId);
-		
+
 		knownMana = mana;
 		player.worldObj.playSoundAtEntity(player, "random.orb", 0.1F, 1F);
 

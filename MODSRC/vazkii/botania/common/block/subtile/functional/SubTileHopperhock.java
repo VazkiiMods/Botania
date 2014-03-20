@@ -39,7 +39,7 @@ import cpw.mods.fml.common.network.PacketDispatcher;
 public class SubTileHopperhock extends SubTileFunctional {
 
 	private static final String TAG_FILTER_TYPE = "filterType";
-	
+
 	int filterType = 0;
 
 	private static final ForgeDirection[] VALID_DIRS = new ForgeDirection[] {
@@ -51,7 +51,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 		super.onUpdate();
 
 		boolean pulledAny = false;
-		int range = mana > 0 ? 6 : 3; 
+		int range = mana > 0 ? 6 : 3;
 
 		int x = supertile.xCoord;
 		int y = supertile.yCoord;
@@ -82,11 +82,11 @@ public class SubTileHopperhock extends SubTileFunctional {
 
 					if(canAccept) {
 						boolean priority = !filter.isEmpty();
-						
+
 						setInv : {
 							if(priorityInv && !priority)
 								break setInv;
-							
+
 							invToPutItemIn = inv;
 							priorityInv = priority;
 							sideToPutItemIn = dir.getOpposite();
@@ -162,36 +162,36 @@ public class SubTileHopperhock extends SubTileFunctional {
 
 		return filter;
 	}
-	
+
 	@Override
 	public boolean onWanded(EntityPlayer player, ItemStack wand) {
 		if(player.isSneaking()) {
 			filterType = filterType == 2 ? 0 : filterType + 1;
 			PacketDispatcher.sendPacketToAllInDimension(supertile.getDescriptionPacket(), supertile.worldObj.provider.dimensionId);
-			
+
 			return true;
 		}
 		else return super.onWanded(player, wand);
 	}
-	
+
 	@Override
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		super.writeToPacketNBT(cmp);
-		
+
 		cmp.setInteger(TAG_FILTER_TYPE, filterType);
 	}
-	
+
 	@Override
 	public void readFromPacketNBT(NBTTagCompound cmp) {
 		super.readFromPacketNBT(cmp);
-		
+
 		filterType = cmp.getInteger(TAG_FILTER_TYPE);
 	}
-	
+
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		super.renderHUD(mc, res);
-		
+
 		int color = 0x66000000 | getColor();
 		String filter = StatCollector.translateToLocal("botaniamisc.filter" + filterType);
 		GL11.glEnable(GL11.GL_BLEND);

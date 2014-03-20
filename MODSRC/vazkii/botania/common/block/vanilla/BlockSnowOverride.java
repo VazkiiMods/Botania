@@ -17,13 +17,13 @@ import net.minecraft.world.IBlockAccess;
 public class BlockSnowOverride extends BlockSnow {
 
 	public static int forcedMeta = -1;
-	
+
 	public BlockSnowOverride(int par1) {
 		super(par1);
 	}
-	
+
 	@Override
-    public void setBlockBoundsBasedOnState(IBlockAccess par1IBlockAccess, int par2, int par3, int par4) {
+	public void setBlockBoundsBasedOnState(IBlockAccess par1IBlockAccess, int par2, int par3, int par4) {
 		if(forcedMeta != -1) {
 			setBlockBoundsForSnowDepth(forcedMeta);
 			forcedMeta = -1;

@@ -24,7 +24,7 @@ public class ManaGunLensRecipe implements IRecipe {
 	public boolean matches(InventoryCrafting var1, World var2) {
 		boolean foundLens = false;
 		boolean foundGun = false;
-		
+
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
 			if(stack != null) {
@@ -45,7 +45,7 @@ public class ManaGunLensRecipe implements IRecipe {
 	public ItemStack getCraftingResult(InventoryCrafting var1) {
 		ItemStack lens = null;
 		ItemStack gun = null;
-		
+
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
 			if(stack != null) {
@@ -58,10 +58,10 @@ public class ManaGunLensRecipe implements IRecipe {
 
 		if(lens == null || gun == null)
 			return null;
-		
+
 		ItemStack gunCopy = gun.copy();
 		ItemManaGun.setLens(gunCopy, lens);
-		
+
 		return gunCopy;
 	}
 

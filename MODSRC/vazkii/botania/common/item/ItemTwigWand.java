@@ -55,7 +55,7 @@ public class ItemTwigWand extends Item16Colors {
 				meta = 0;
 			else if(TileEnchanter.canEnchanterExist(par3World, par4, par5, par6, 1))
 				meta = 1;
-			
+
 			if(meta != -1 && !par3World.isRemote) {
 				par3World.setBlock(par4, par5, par6, ModBlocks.enchanter.blockID, meta, 1 | 2);
 				par3World.playSoundEffect(par4, par5, par6, "random.levelup", 0.5F, 0.6F);
@@ -63,11 +63,11 @@ public class ItemTwigWand extends Item16Colors {
 					float red = (float) Math.random();
 					float green = (float) Math.random();
 					float blue = (float) Math.random();
-					
+
 					double x = (Math.random() - 0.5) * 6;
 					double y = (Math.random() - 0.5) * 6;
 					double z = (Math.random() - 0.5) * 6;
-					
+
 					float velMul = 0.07F;
 
 					Botania.proxy.wispFX(par3World, par4 + 0.5 + x, par5 + 0.5 + y, par6 + 0.5 + z, red, green, blue, (float) Math.random() * 0.15F + 0.15F, (float) -x * velMul, (float) -y * velMul, (float) -z * velMul);
@@ -77,7 +77,7 @@ public class ItemTwigWand extends Item16Colors {
 			boolean wanded = ((IWandable) Block.blocksList[id]).onUsedByWand(par2EntityPlayer, par1ItemStack, par3World, par4, par5, par6, par7);
 			if(wanded && par3World.isRemote)
 				par2EntityPlayer.swingItem();
-			
+
 			return wanded;
 
 		} else if(BlockPistonRelay.InternalTickHandler.playerPositions.containsKey(par2EntityPlayer.username)) {

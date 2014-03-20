@@ -27,35 +27,35 @@ public class SubTileThermalily extends SubTileHydroangeas {
 	public LexiconEntry getEntry() {
 		return LexiconData.thermalily;
 	}
-	
+
 	@Override
 	public void doBurnParticles() {
 		Botania.proxy.wispFX(supertile.worldObj, supertile.xCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.yCoord + 0.9 + Math.random() * 0.2 - 0.1, supertile.zCoord + 0.5, 0.7F, 0.05F, 0.05F, (float) Math.random() / 6, (float) -Math.random() / 60);
 	}
-	
+
 	@Override
 	public int getIdToSearchFor() {
 		return Block.lavaStill.blockID;
 	}
-	
+
 	@Override
 	public int getDelayBetweenPassiveGeneration() {
 		return 1;
 	}
-	
+
 	@Override
 	public int getBurnTime() {
 		return 5000;
 	}
-	
+
 	@Override
 	public int getValueForPassiveGeneration() {
 		return 5;
 	}
-	
+
 	@Override
 	public int getMaxMana() {
 		return 250;
 	}
-	
+
 }

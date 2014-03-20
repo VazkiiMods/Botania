@@ -192,10 +192,10 @@ public final class ModCrafingRecipes {
 
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 1, 10), new ItemStack(ModItems.lens), "ingotIron", "ingotGold");
 		recipeLensMagnet = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 1, 11), new ItemStack(ModItems.lens), LibOreDict.RUNE[14]);
 		recipeLensExplosive = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Unstable Block Recipes
 		for(int i = 0; i < 16; i++)
 			addOreDictRecipe(new ItemStack(ModBlocks.unstableBlock, 2, i),
@@ -282,17 +282,17 @@ public final class ModCrafingRecipes {
 				'S', LibOreDict.LIVING_ROCK,
 				'D', LibOreDict.MANA_DIAMOND);
 		recipesManaTablet = BotaniaAPI.getLatestAddedRecipes(2);
-		
+
 		// Mana Detector Recipe
-		addOreDictRecipe(new ItemStack(ModBlocks.manaDetector), 
+		addOreDictRecipe(new ItemStack(ModBlocks.manaDetector),
 				"RSR", "SCS", "RSR",
 				'R', new ItemStack(Item.redstone),
 				'C', new ItemStack(Item.comparator),
 				'S', LibOreDict.LIVING_ROCK);
 		recipeManaDetector = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Mana Blaster Recipe
-		addOreDictRecipe(new ItemStack(ModItems.manaGun), 
+		addOreDictRecipe(new ItemStack(ModItems.manaGun),
 				"SMD", " WT", "  W",
 				'S', new ItemStack(ModBlocks.spreader),
 				'M', LibOreDict.RUNE[8],
@@ -300,9 +300,9 @@ public final class ModCrafingRecipes {
 				'T', new ItemStack(Block.tnt),
 				'W', LibOreDict.LIVING_WOOD);
 		recipeManaBlaster = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Spreader Turntable Recipe
-		addOreDictRecipe(new ItemStack(ModBlocks.turntable), 
+		addOreDictRecipe(new ItemStack(ModBlocks.turntable),
 				"WWW", "WPW", "WWW",
 				'W', LibOreDict.LIVING_WOOD,
 				'P', Block.pistonStickyBase);

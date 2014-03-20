@@ -33,14 +33,14 @@ public class ItemManaGun extends ItemMod {
 
 	private static final String TAG_LENS = "lens";
 	private static final int COOLDOWN = 30;
-	
+
 	public ItemManaGun() {
 		super(LibItemIDs.idManaGun);
 		setMaxDamage(COOLDOWN);
 		setMaxStackSize(1);
 		setNoRepair();
 		setUnlocalizedName(LibItemNames.MANA_GUN);
-		
+
 		GameRegistry.addRecipe(new ManaGunLensRecipe());
 	}
 
@@ -67,7 +67,7 @@ public class ItemManaGun extends ItemMod {
 				else setLens(par1ItemStack, null);
 			}
 		}
-	
+
 		return par1ItemStack;
 	}
 
@@ -86,7 +86,7 @@ public class ItemManaGun extends ItemMod {
 		if(lens != null)
 			((ILens) lens.getItem()).apply(lens, props);
 
-		
+
 		burst.setSourceLens(lens);
 		if(ManaItemHandler.requestManaExact(stack, player, props.maxMana, false)) {
 			burst.setColor(props.color);
@@ -101,7 +101,7 @@ public class ItemManaGun extends ItemMod {
 		}
 		return null;
 	}
-	
+
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
 		ItemStack lens = getLens(par1ItemStack);
@@ -111,20 +111,20 @@ public class ItemManaGun extends ItemMod {
 				par3List.addAll(tooltip.subList(1, tooltip.size()));
 		}
 	}
-	
+
 	@Override
 	public String getItemDisplayName(ItemStack par1ItemStack) {
 		ItemStack lens = getLens(par1ItemStack);
 		return super.getItemDisplayName(par1ItemStack) + (lens == null ? "" : " (" + EnumChatFormatting.GREEN + lens.getDisplayName() + EnumChatFormatting.RESET + ")");
 	}
-	
+
 	public static void setLens(ItemStack stack, ItemStack lens) {
 		NBTTagCompound cmp = new NBTTagCompound();
 		if(lens != null)
 			lens.writeToNBT(cmp);
 		ItemNBTHelper.setCompound(stack, TAG_LENS, cmp);
 	}
-	
+
 	public static ItemStack getLens(ItemStack stack) {
 		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_LENS, true);
 		if(cmp != null) {

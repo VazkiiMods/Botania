@@ -33,7 +33,7 @@ public class ItemManaTablet extends ItemMod implements IManaItem {
 	Icon[] icons;
 
 	private static final int MAX_MANA = 500000;
-	
+
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_CREATIVE = "creative";
 
@@ -47,11 +47,11 @@ public class ItemManaTablet extends ItemMod implements IManaItem {
 	@Override
 	public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List) {
 		par3List.add(new ItemStack(par1, 1, 10000));
-		
+
 		ItemStack fullPower = new ItemStack(par1, 1, 1);
 		setMana(fullPower, MAX_MANA);
 		par3List.add(fullPower);
-		
+
 		ItemStack creative = new ItemStack(par1, 1, 0);
 		setMana(creative, MAX_MANA);
 		setStackCreative(creative);
@@ -92,12 +92,12 @@ public class ItemManaTablet extends ItemMod implements IManaItem {
 		if(isStackCreative(par1ItemStack))
 			par3List.add(StatCollector.translateToLocal("botaniamisc.creative"));
 	}
-	
+
 	@Override
 	public boolean requiresMultipleRenderPasses() {
 		return true;
 	}
-	
+
 	@Override
 	public int getEntityLifespan(ItemStack itemStack, World world) {
 		return Integer.MAX_VALUE;
@@ -106,11 +106,11 @@ public class ItemManaTablet extends ItemMod implements IManaItem {
 	public static void setMana(ItemStack stack, int mana) {
 		ItemNBTHelper.setInt(stack, TAG_MANA, mana);
 	}
-	
+
 	public static void setStackCreative(ItemStack stack) {
 		ItemNBTHelper.setBoolean(stack, TAG_CREATIVE, true);
 	}
-	
+
 	public static boolean isStackCreative(ItemStack stack) {
 		return ItemNBTHelper.getBoolean(stack, TAG_CREATIVE, false);
 	}

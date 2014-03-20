@@ -33,21 +33,21 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockTurntable extends BlockModContainer implements IWandable, IWandHUD, ILexiconable {
 
 	Icon[] icons;
-	
+
 	protected BlockTurntable() {
 		super(LibBlockIDs.idTurntable, Material.wood);
 		setHardness(2.0F);
 		setStepSound(soundWoodFootstep);
 		setUnlocalizedName(LibBlockNames.TURNTABLE);
 	}
-	
+
 	@Override
 	public void registerIcons(IconRegister par1IconRegister) {
 		icons = new Icon[2];
 		for(int i = 0; i < icons.length; i++)
 			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
 	}
-	
+
 	@Override
 	public Icon getIcon(int par1, int par2) {
 		return par1 == 1 ? icons[0] : icons[1];

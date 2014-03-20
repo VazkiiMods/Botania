@@ -35,7 +35,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockManaDetector extends BlockModContainer implements ILexiconable {
 
 	Icon[] icons;
-	
+
 	protected BlockManaDetector() {
 		super(LibBlockIDs.idManaDetector, Material.rock);
 		setHardness(2.0F);
@@ -43,29 +43,29 @@ public class BlockManaDetector extends BlockModContainer implements ILexiconable
 		setStepSound(soundStoneFootstep);
 		setUnlocalizedName(LibBlockNames.MANA_DETECTOR);
 	}
-	
+
 	@Override
 	public void registerIcons(IconRegister par1IconRegister) {
 		icons = new Icon[2];
 		for(int i = 0; i < icons.length; i++)
 			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
 	}
-	
+
 	@Override
 	public Icon getIcon(int par1, int par2) {
 		return icons[Math.min(icons.length - 1, par2)];
 	}
-	
+
 	@Override
 	public boolean canProvidePower() {
 		return true;
 	}
-	
+
 	@Override
 	public int isProvidingWeakPower(IBlockAccess par1iBlockAccess, int par2, int par3, int par4, int par5) {
 		return par1iBlockAccess.getBlockMetadata(par2, par3, par4) != 0 ? 15 : 0;
 	}
-	
+
 	@Override
 	public void addCollisionBoxesToList(World par1World, int par2, int par3, int par4, AxisAlignedBB par5AxisAlignedBB, List par6List, Entity par7Entity) {
 		if(par7Entity != null && !(par7Entity instanceof IManaBurst))

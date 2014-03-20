@@ -52,10 +52,10 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class ItemLens extends ItemMod implements ILens {
 
 	private static final int NORMAL = 0, SPEED = 1, POWER = 2, TIME = 3, EFFICIENCY = 4,
-			BOUNCE = 5, GRAVITY = 6, MINE = 7, DAMAGE = 8, PHANTOM = 9, 
+			BOUNCE = 5, GRAVITY = 6, MINE = 7, DAMAGE = 8, PHANTOM = 9,
 			MAGNET = 10, EXPLOSIVE = 11;
 
-	private static final Map<Integer, List<Integer>> blacklist = new HashMap(); 
+	private static final Map<Integer, List<Integer>> blacklist = new HashMap();
 
 	static {
 		blacklistLenses(POWER, EXPLOSIVE);
@@ -64,7 +64,7 @@ public class ItemLens extends ItemMod implements ILens {
 		blacklistLenses(PHANTOM, EXPLOSIVE);
 		blacklistLenses(PHANTOM, BOUNCE);
 	}
-	
+
 	private static final String TAG_COLOR = "color";
 	private static final String TAG_COMPOSITE_LENS = "compositeLens";
 
@@ -128,12 +128,12 @@ public class ItemLens extends ItemMod implements ILens {
 		if(storedColor != -1)
 			par3List.add(String.format(StatCollector.translateToLocal("botaniamisc.color"), StatCollector.translateToLocal("botania.color" + storedColor)));
 	}
-	
+
 
 	public String getItemShortTermName(ItemStack stack) {
 		return StatCollector.translateToLocal(stack.getUnlocalizedName() + ".short");
 	}
-	
+
 	@Override
 	public String getItemDisplayName(ItemStack stack) {
 		ItemStack compositeLens = getCompositeLens(stack);
@@ -141,13 +141,13 @@ public class ItemLens extends ItemMod implements ILens {
 			return super.getItemDisplayName(stack);
 		return String.format(StatCollector.translateToLocal("item.botania:compositeLens.name"), getItemShortTermName(stack), getItemShortTermName(compositeLens));
 	}
-	
+
 	@Override
 	public void apply(ItemStack stack, BurstProperties props) {
 		int storedColor = getStoredColor(stack);
 		if(storedColor != -1)
 			props.color = getLensColor(stack);
-		
+
 		switch(stack.getItemDamage()) {
 		case SPEED : {
 			props.motionModifier *= 2F;
@@ -178,7 +178,7 @@ public class ItemLens extends ItemMod implements ILens {
 			break;
 		}
 		}
-		
+
 		ItemStack compositeLens = getCompositeLens(stack);
 		if(compositeLens != null && compositeLens.getItem() instanceof ILens)
 			((ILens) compositeLens.getItem()).apply(compositeLens, props);
@@ -257,20 +257,20 @@ public class ItemLens extends ItemMod implements ILens {
 			}
 			break;
 		}
-		case EXPLOSIVE : { 
+		case EXPLOSIVE : {
 			if(!burst.isFake()) {
 				ChunkCoordinates coords = burst.getBurstSourceChunkCoordinates();
 				if(!entity.worldObj.isRemote && pos.entityHit == null && !isManaBlock && (pos.blockX != coords.posX || pos.blockY != coords.posY || pos.blockZ != coords.posZ))
-					entity.worldObj.createExplosion(entity, entity.posX, entity.posY, entity.posZ, (float) burst.getMana() / 50F, true); 
+					entity.worldObj.createExplosion(entity, entity.posX, entity.posY, entity.posZ, burst.getMana() / 50F, true);
 			} else dead = false;
 		}
-			break;
+		break;
 		}
-		
+
 		ItemStack compositeLens = getCompositeLens(stack);
 		if(compositeLens != null && compositeLens.getItem() instanceof ILens)
 			dead = ((ILens) compositeLens.getItem()).collideBurst(burst, pos, isManaBlock, dead, compositeLens);
-		
+
 		return dead;
 	}
 
@@ -296,7 +296,7 @@ public class ItemLens extends ItemMod implements ILens {
 						for(int k = -range; k < range; k++)
 							if(entity.worldObj.getBlockTileEntity(i + x, j + y, k + z) instanceof IManaReceiver) {
 								TileEntity tile = entity.worldObj.getBlockTileEntity(i + x, j + y, k + z);
-								
+
 								if(magnetized) {
 									int magX = entity.getEntityData().getInteger("Botania:MagnetizedX");
 									int magY = entity.getEntityData().getInteger("Botania:MagnetizedY");
@@ -304,7 +304,7 @@ public class ItemLens extends ItemMod implements ILens {
 									if(tile.xCoord != magX || tile.yCoord != magY || tile.zCoord != magZ)
 										continue;
 								}
-								
+
 								IManaReceiver receiver = (IManaReceiver) tile;
 
 								ChunkCoordinates srcCoords = burst.getBurstSourceChunkCoordinates();
@@ -314,7 +314,7 @@ public class ItemLens extends ItemMod implements ILens {
 									Vector3 tileVec = Vector3.fromTileEntityCenter(tile).add(0, -0.1, 0);
 									Vector3 motionVec = new Vector3(entity.motionX, entity.motionY, entity.motionZ);
 
-									Vector3 normalMotionVec = motionVec.copy().normalize(); 
+									Vector3 normalMotionVec = motionVec.copy().normalize();
 									Vector3 magnetVec = tileVec.sub(burstVec).normalize();
 									Vector3 differenceVec = normalMotionVec.sub(magnetVec).multiply(motionVec.mag() * 0.1);
 
@@ -326,7 +326,7 @@ public class ItemLens extends ItemMod implements ILens {
 										entity.getEntityData().setInteger("Botania:MagnetizedY", tile.yCoord);
 										entity.getEntityData().setInteger("Botania:MagnetizedZ", tile.zCoord);
 									}
-									
+
 									burst.setMotion(finalMotionVec.x, finalMotionVec.y, finalMotionVec.z);
 									break magnetize;
 								}
@@ -334,7 +334,7 @@ public class ItemLens extends ItemMod implements ILens {
 			}
 		}
 		}
-		
+
 		ItemStack compositeLens = getCompositeLens(stack);
 		if(compositeLens != null && compositeLens.getItem() instanceof ILens)
 			((ILens) compositeLens.getItem()).updateBurst(burst, compositeLens);
@@ -371,24 +371,24 @@ public class ItemLens extends ItemMod implements ILens {
 
 			return true;
 	}
-	
+
 	public static void blacklistLenses(int lens1, int lens2) {
 		blacklistLenses(lens1, lens2, true);
 	}
-	
+
 	public static void blacklistLenses(int lens1, int lens2, boolean recursive) {
 		if(!blacklist.containsKey(lens1))
 			blacklist.put(lens1, new ArrayList());
 		blacklist.get(lens1).add(lens2);
-		
+
 		if(recursive)
 			blacklistLenses(lens2, lens1, false);
 	}
-	
+
 	public static boolean isBlacklisted(int lens1, int lens2) {
 		if(!blacklist.containsKey(lens1))
 			return false;
-		
+
 		return blacklist.get(lens1).contains(lens2);
 	}
 
@@ -396,16 +396,16 @@ public class ItemLens extends ItemMod implements ILens {
 	public boolean canCombineLenses(ItemStack sourceLens, ItemStack compositeLens) {
 		if(sourceLens.getItemDamage() == compositeLens.getItemDamage())
 			return false;
-		
+
 		if(sourceLens.getItemDamage() == NORMAL || compositeLens.getItemDamage() == NORMAL)
 			return false;
-		
+
 		if(isBlacklisted(sourceLens.getItemDamage(), compositeLens.getItemDamage()))
 			return false;
-		
+
 		return true;
 	}
-	
+
 	@Override
 	public ItemStack getCompositeLens(ItemStack stack) {
 		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_COMPOSITE_LENS, false);
@@ -418,7 +418,7 @@ public class ItemLens extends ItemMod implements ILens {
 		NBTTagCompound cmp = new NBTTagCompound();
 		compositeLens.writeToNBT(cmp);
 		ItemNBTHelper.setCompound(sourceLens, TAG_COMPOSITE_LENS, cmp);
-		
+
 		return sourceLens;
 	}
 }

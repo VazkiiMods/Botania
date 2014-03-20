@@ -75,7 +75,7 @@ public final class LibLexicon {
 	public static final String DEVICE_TURNTABLE = "turntable";
 
 	public static final String TOOL_MANA_BLASTER = "manaBlaster";
-	
+
 	public static final String MISC_UNSTABLE_BLOCKS = "unstableBlocks";
 	public static final String MISC_DECORATIVE_BLOCKS = "decorativeBlocks";
 

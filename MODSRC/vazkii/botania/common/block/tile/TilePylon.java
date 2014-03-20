@@ -29,7 +29,7 @@ public class TilePylon extends TileEntity {
 				activated = false;
 				return;
 			}
-			
+
 			Vector3 centerBlock = new Vector3(centerX + 0.5, centerY + 0.75 + (Math.random() - 0.5 * 0.25), centerZ + 0.5);
 
 			int id = worldObj.getBlockId(xCoord, yCoord - 1, zCoord);

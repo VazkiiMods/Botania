@@ -20,5 +20,5 @@ import net.minecraft.item.ItemStack;
 public interface IRecipeKeyProvider {
 
 	public String getKey(ItemStack stack);
-	
+
 }

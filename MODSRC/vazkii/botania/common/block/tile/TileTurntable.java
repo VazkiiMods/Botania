@@ -11,12 +11,6 @@
  */
 package vazkii.botania.common.block.tile;
 
-import org.lwjgl.opengl.GL11;
-
-import cpw.mods.fml.common.network.PacketDispatcher;
-import vazkii.botania.api.mana.IManaPool;
-import vazkii.botania.client.core.handler.HUDHandler;
-import vazkii.botania.common.block.ModBlocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,17 +18,20 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.ForgeDirection;
+
+import org.lwjgl.opengl.GL11;
+
+import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class TileTurntable extends TileMod {
 
 	private static final String TAG_SPEED = "speed";
 	private static final String TAG_BACKWARDS = "backwards";
-	
+
 	int speed = 1;
 	boolean backwards = false;
-	
+
 	@Override
 	public void updateEntity() {
 		boolean redstone = false;
@@ -44,37 +41,37 @@ public class TileTurntable extends TileMod {
 			if(redstoneSide > 0)
 				redstone = true;
 		}
-		
+
 		if(!redstone) {
 			TileEntity tile = worldObj.getBlockTileEntity(xCoord, yCoord + 1, zCoord);
 			if(tile instanceof TileSpreader) {
 				TileSpreader spreader = (TileSpreader) tile;
-				spreader.rotationX += (speed * (backwards ? -1 : 1));
+				spreader.rotationX += speed * (backwards ? -1 : 1);
 				if(spreader.rotationX >= 360F)
 					spreader.rotationX -= 360F;
 			}
 		}
 	}
-	
+
 	@Override
 	public void writeCustomNBT(NBTTagCompound cmp) {
 		cmp.setInteger(TAG_SPEED, speed);
 		cmp.setBoolean(TAG_BACKWARDS, backwards);
 	}
-	
+
 	@Override
 	public void readCustomNBT(NBTTagCompound cmp) {
 		speed = cmp.getInteger(TAG_SPEED);
 		backwards = cmp.getBoolean(TAG_BACKWARDS);
 	}
-	
+
 	public void onWanded(EntityPlayer player, ItemStack wand) {
 		if(player.isSneaking())
 			backwards = !backwards;
 		else speed = speed == 6 ? 1 : speed + 1;
 		PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
 	}
-	
+
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		int color = 0xAA006600;
 
@@ -82,7 +79,7 @@ public class TileTurntable extends TileMod {
 		String speed = EnumChatFormatting.BOLD + "";
 		for(int i = 0; i < this.speed; i++)
 			speed = speed + motion;
-		
+
 		int x = res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(speed) / 2;
 		int y = res.getScaledHeight() / 2 - 15;
 		GL11.glEnable(GL11.GL_BLEND);
