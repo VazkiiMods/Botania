@@ -22,6 +22,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.ISpecialFlower;
+import vazkii.botania.api.lexicon.IRecipeKeyProvider;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
@@ -29,7 +30,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
-public class ItemBlockSpecialFlower extends ItemBlock implements ISpecialFlower {
+public class ItemBlockSpecialFlower extends ItemBlock implements IRecipeKeyProvider {
 
 	public ItemBlockSpecialFlower(int par1) {
 		super(par1);
@@ -80,6 +81,11 @@ public class ItemBlockSpecialFlower extends ItemBlock implements ISpecialFlower 
 		ItemStack stack = new ItemStack(ModBlocks.specialFlower);
 		ItemNBTHelper.setString(stack, SubTileEntity.TAG_TYPE, type);
 		return stack;
+	}
+
+	@Override
+	public String getKey(ItemStack stack) {
+		return getType(stack);
 	}
 
 }

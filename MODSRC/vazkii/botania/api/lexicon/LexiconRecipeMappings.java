@@ -15,9 +15,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import vazkii.botania.api.ISpecialFlower;
-import vazkii.botania.api.subtile.SubTileEntity;
 
 /**
  * This class contains mappings for which entry and page correspond to each
@@ -49,11 +46,8 @@ public final class LexiconRecipeMappings {
 	}
 
 	public static String stackToString(ItemStack stack) {
-		if(stack.hasTagCompound() && stack.getItem() instanceof ISpecialFlower) {
-			NBTTagCompound cmp = stack.getTagCompound();
-			if(cmp.hasKey(SubTileEntity.TAG_TYPE))
-				return cmp.getString(SubTileEntity.TAG_TYPE);
-		}
+		if(stack.hasTagCompound() && stack.getItem() instanceof IRecipeKeyProvider)
+			return ((IRecipeKeyProvider) stack.getItem()).getKey(stack);
 
 		return stack.itemID + ":" + stack.getItemDamage();
 	}
