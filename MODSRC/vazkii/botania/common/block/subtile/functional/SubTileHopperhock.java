@@ -30,8 +30,10 @@ import net.minecraftforge.common.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.core.helper.InventoryHelper;
+import vazkii.botania.common.lexicon.LexiconData;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class SubTileHopperhock extends SubTileFunctional {
@@ -199,7 +201,11 @@ public class SubTileHopperhock extends SubTileFunctional {
 
 		mc.fontRenderer.drawStringWithShadow(filter, x, y, color);
 		GL11.glDisable(GL11.GL_BLEND);
-		
+	}
+
+	@Override
+	public LexiconEntry getEntry() {
+		return LexiconData.hopperhock;
 	}
 
 	@Override
