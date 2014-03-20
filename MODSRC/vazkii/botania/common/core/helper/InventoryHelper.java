@@ -1,5 +1,5 @@
 /**
- * This class was created by <Mikeemoo/boq>. It's distributed as
+ * This class was created by <Mikeemoo/boq/nevercast>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
@@ -110,6 +110,41 @@ public class InventoryHelper {
 		}
 	}
 
+	public static int testInventoryInsertion(IInventory inventory, ItemStack item, ForgeDirection side) {
+		if (item == null || item.stackSize == 0) 
+			return 0;
+		item = item.copy();
+		
+		if (inventory == null) 
+			return 0;
+		
+		int slotCount = inventory.getSizeInventory();
+
+		int itemSizeCounter = item.stackSize;
+		for (int i = 0; i < slotCount && itemSizeCounter > 0; i++) {
+			if (!inventory.isItemValidForSlot(i, item)) 
+				continue;
+			
+			if(side != ForgeDirection.UNKNOWN && inventory instanceof ISidedInventory)
+				if(!((ISidedInventory)inventory).canInsertItem(i, item, side.ordinal()))
+					continue;
+			
+			ItemStack inventorySlot = inventory.getStackInSlot(i);
+			if (inventorySlot == null)
+				itemSizeCounter -= Math.min(Math.min(itemSizeCounter, inventory.getInventoryStackLimit()), item.getMaxStackSize());
+			else if (areMergeCandidates(item, inventorySlot)) {
+				int space = inventorySlot.getMaxStackSize() - inventorySlot.stackSize;
+				itemSizeCounter -= Math.min(itemSizeCounter, space);
+			}
+		}
+		if (itemSizeCounter != item.stackSize) {
+			itemSizeCounter = Math.max(itemSizeCounter, 0);
+			return item.stackSize - itemSizeCounter;
+		}
+		
+		return 0;
+	}
+	
 	public static IInventory getInventory(World world, int x, int y, int z) {
 		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
 		if(tileEntity instanceof TileEntityChest) {
@@ -123,7 +158,7 @@ public class InventoryHelper {
 			if(world.getBlockId(x, y, z + 1) == chestId)
 				return new InventoryLargeChest("Large chest", (IInventory)tileEntity, (IInventory)world.getBlockTileEntity(x, y, z + 1));
 		}
-		return tileEntity instanceof IInventory? (IInventory)tileEntity : null;
+		return tileEntity instanceof IInventory ? (IInventory)tileEntity : null;
 	}
 
 	public static IInventory getInventory(World world, int x, int y, int z, ForgeDirection direction) {
