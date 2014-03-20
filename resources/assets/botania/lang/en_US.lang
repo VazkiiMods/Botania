@@ -143,6 +143,8 @@ tile.botania:flower.fallenKanade.name=Fallen Kanade
 tile.botania:flower.fallenKanade.reference=I'm not an Angel
 tile.botania:flower.exoflame.name=Exoflame
 tile.botania:flower.exoflame.reference=An exothermic reaction
+tile.botania:flower.agricarnation.name=Agricarnation
+tile.botania:flower.agricarnation.reference=Wear on the 25th of april
 
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania
