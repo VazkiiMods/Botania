@@ -21,7 +21,6 @@ import net.minecraft.util.Icon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.ISpecialFlower;
 import vazkii.botania.api.lexicon.IRecipeKeyProvider;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.common.block.ModBlocks;

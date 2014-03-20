@@ -52,5 +52,6 @@ public final class LibBlockNames {
 	public static final String SUBTILE_FALLEN_KANADE = "fallenKanade";
 	public static final String SUBTILE_EXOFLAME = "exoflame";
 	public static final String SUBTILE_AGRICARNATION = "agricarnation";
+	public static final String SUBTILE_HOPPERHOCK = "hopperhock";
 
 }

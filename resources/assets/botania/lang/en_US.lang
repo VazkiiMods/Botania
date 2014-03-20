@@ -145,6 +145,8 @@ tile.botania:flower.exoflame.name=Exoflame
 tile.botania:flower.exoflame.reference=An exothermic reaction
 tile.botania:flower.agricarnation.name=Agricarnation
 tile.botania:flower.agricarnation.reference=Wear on the 25th of april
+tile.botania.flower.hopperhock.name=Hopperhock
+tile.botamia.flower.hopperhock.reference=It all funnels into it
 
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania
