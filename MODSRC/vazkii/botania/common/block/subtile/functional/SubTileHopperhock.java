@@ -14,20 +14,30 @@ package vazkii.botania.common.block.subtile.functional;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityItemFrame;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryLargeChest;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.ForgeDirection;
+
+import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.core.helper.InventoryHelper;
+import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class SubTileHopperhock extends SubTileFunctional {
 
+	private static final String TAG_FILTER_TYPE = "filterType";
+	
 	int filterType = 0;
 
 	private static final ForgeDirection[] VALID_DIRS = new ForgeDirection[] {
@@ -149,6 +159,47 @@ public class SubTileHopperhock extends SubTileFunctional {
 		}
 
 		return filter;
+	}
+	
+	@Override
+	public boolean onWanded(EntityPlayer player, ItemStack wand) {
+		if(player.isSneaking()) {
+			filterType = filterType == 2 ? 0 : filterType + 1;
+			PacketDispatcher.sendPacketToAllInDimension(supertile.getDescriptionPacket(), supertile.worldObj.provider.dimensionId);
+			
+			return true;
+		}
+		else return super.onWanded(player, wand);
+	}
+	
+	@Override
+	public void writeToPacketNBT(NBTTagCompound cmp) {
+		super.writeToPacketNBT(cmp);
+		
+		cmp.setInteger(TAG_FILTER_TYPE, filterType);
+	}
+	
+	@Override
+	public void readFromPacketNBT(NBTTagCompound cmp) {
+		super.readFromPacketNBT(cmp);
+		
+		filterType = cmp.getInteger(TAG_FILTER_TYPE);
+	}
+	
+	@Override
+	public void renderHUD(Minecraft mc, ScaledResolution res) {
+		super.renderHUD(mc, res);
+		
+		int color = 0x66000000 | getColor();
+		String filter = StatCollector.translateToLocal("botaniamisc.filter" + filterType);
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		int x = res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(filter) / 2;
+		int y = res.getScaledHeight() / 2 + 30;
+
+		mc.fontRenderer.drawStringWithShadow(filter, x, y, color);
+		GL11.glDisable(GL11.GL_BLEND);
+		
 	}
 
 	@Override
