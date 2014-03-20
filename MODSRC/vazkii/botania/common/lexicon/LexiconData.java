@@ -76,6 +76,7 @@ public final class LexiconData {
 	public static LexiconEntry fallenKanade;
 	public static LexiconEntry exoflame;
 	public static LexiconEntry agricarnation;
+	public static LexiconEntry hopperhock;
 
 	public static LexiconEntry generatingIntro;
 	public static LexiconEntry daybloom;
@@ -212,6 +213,9 @@ public final class LexiconData {
 		
 		agricarnation = new BLexiconEntry(LibLexicon.FFLOWER_AGRICARNATION, categoryFunctionalFlowers);
 		agricarnation.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.agricarnationRecipe));
+		
+		hopperhock = new BLexiconEntry(LibLexicon.FFLOWER_HOPPERHOCK, categoryFunctionalFlowers);
+		hopperhock.setLexiconPages(new PageText("0"), new PageText("1"), new PagePetalRecipe("2", ModPetalRecipes.hopperhockRecipe));
 		
 		// GENERATING FLOWERS ENTRIES
 		generatingIntro = new BLexiconEntry(LibLexicon.GFLOWER_INTRO, categoryGenerationFlowers);

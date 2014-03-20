@@ -149,7 +149,7 @@ tile.botania:flower.exoflame.reference=An exothermic reaction
 tile.botania:flower.agricarnation.name=Agricarnation
 tile.botania:flower.agricarnation.reference=Wear on the 25th of april
 tile.botania:flower.hopperhock.name=Hopperhock
-tile.botamia:flower.hopperhock.reference=It all funnels into it
+tile.botania:flower.hopperhock.reference=It all funnels into it
 
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania
@@ -477,6 +477,12 @@ botania.page.exoflame1=&oBut we should be going nowhere fast&r.
 botania.entry.agricarnation=Agricarnation
 botania.page.agricarnation0=The slow growth of crops is always a problem to feed the masses. The &1Agricarnation&0 is a flower that turns &4Mana&0 into a type of natural fertilizer, causing nearby plantlife to grow at a faster rate.
 botania.page.agricarnation1=&0Grandola Vila Morena&r...
+
+# -- HOPPERHOCK
+botania.entry.hopperhock=Hopperhock
+botania.page.hopperhock0=The &1Hopperhock&0 will pick up items around it. Giving it &4Mana&0 is optional, but it'll increase it's range.<br>Items picked up will be put in adjacent inventories (e.g. &1Chests&0). Placing &1Item Frames&0 in any of the inventories will specify which items can or can't go in them.
+botania.page.hopperhock1=Any inventory which has no &1Item Frame&0 adjacent to it can accept any items, but labeled inventories will take priority.<br>The rule using to sort items can be changed by shift-right clicking the flower with a &1Wand of the Forest&0.
+botania.page.hopperhock2=&0I guess I'll be talking my loli and leaving&r.
 
 # - GENERATING FLOWERS
 # -- AN INTRODUCTION TO GENERATION

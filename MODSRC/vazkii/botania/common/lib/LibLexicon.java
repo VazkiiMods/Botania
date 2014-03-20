@@ -59,6 +59,7 @@ public final class LibLexicon {
 	public static final String FFLOWER_FALLEN_KANADE = "fallenKanade";
 	public static final String FFLOWER_EXOFLAME = "exoflame";
 	public static final String FFLOWER_AGRICARNATION = "agricarnation";
+	public static final String FFLOWER_HOPPERHOCK = "hopperhock";
 
 	public static final String GFLOWER_INTRO = "gIntro";
 	public static final String GFLOWER_DAYBLOOM = "daybloom";
