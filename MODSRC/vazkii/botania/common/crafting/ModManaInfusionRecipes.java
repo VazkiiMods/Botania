@@ -30,6 +30,7 @@ public final class ModManaInfusionRecipes {
 	public static RecipeManaInfusion manaPearlRecipe;
 	public static RecipeManaInfusion manaDiamondRecipe;
 	public static RecipeManaInfusion pistonRelayRecipe;
+	public static RecipeManaInfusion manaCookieRecipe;
 
 	public static void init() {
 		manaPetalRecipes = new ArrayList();
@@ -40,6 +41,7 @@ public final class ModManaInfusionRecipes {
 		manaPearlRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 1), new ItemStack(Item.enderPearl), 6000);
 		manaDiamondRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 2), "gemDiamond", 10000);
 		pistonRelayRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.pistonRelay), new ItemStack(Block.pistonBase), 15000);
+		manaCookieRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaCookie), new ItemStack(Item.cookie), 20000);
 	}
 
 }

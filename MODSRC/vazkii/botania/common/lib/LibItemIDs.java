@@ -25,5 +25,6 @@ public final class LibItemIDs {
 	public static int idSignalFlare = 19565;
 	public static int idManaTablet = 19566;
 	public static int idManaGun = 19567;
+	public static int idManaCookie = 19568;
 
 }

@@ -249,6 +249,7 @@ item.botania:signalFlare.name=Signal Flare
 item.botania:manaTablet.name=Mana Tablet
 item.botania:manaGun.name=Mana Blaster
 item.botania:compositeLens.name=Composite Mana Lens: %s %s
+item.botania:manaCookie.name=Mana Cookie
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania Index - Pick which category you would like to study:
@@ -350,6 +351,7 @@ botania.page.pool3=Infusing &1Manasteel&0
 botania.page.pool4=Infusing &1Mana Pearls&0
 botania.page.pool5=Infusing &1Mana Diamonds&0
 botania.page.pool6=Infusing &1Mana Petals&0
+botania.page.pool7=&1Mana Cookies&0 feed you pretty well.
 
 # -- MANA DISTRIBUTOR
 botania.entry.distributor=Mana Distributor

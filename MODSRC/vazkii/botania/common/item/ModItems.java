@@ -30,6 +30,7 @@ public final class ModItems {
 	public static Item signalFlare;
 	public static Item manaTablet;
 	public static Item manaGun;
+	public static Item manaCookie;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -44,7 +45,8 @@ public final class ModItems {
 		signalFlare = new ItemSignalFlare();
 		manaTablet = new ItemManaTablet();
 		manaGun = new ItemManaGun();
-
+		manaCookie = new ItemManaCookie();
+		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal.itemID, 1, i));
