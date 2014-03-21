@@ -41,6 +41,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 		if(!hasWater) {
 			if(stack.itemID == Item.bucketWater.itemID) {
 				hasWater = true;
+				worldObj.func_96440_m(xCoord, yCoord, zCoord, worldObj.getBlockId(xCoord, yCoord, zCoord));
 				stack.itemID = Item.bucketEmpty.itemID;
 				PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
 			} else return false;
@@ -84,6 +85,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 
 					craftingFanciness();
 					hasWater = false;
+					worldObj.func_96440_m(xCoord, yCoord, zCoord, worldObj.getBlockId(xCoord, yCoord, zCoord));
 					didChange = true;
 					break;
 				}

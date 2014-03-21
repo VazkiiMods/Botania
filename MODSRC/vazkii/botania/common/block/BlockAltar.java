@@ -68,6 +68,7 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 				if(!par5EntityPlayer.capabilities.isCreativeMode)
 					par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, new ItemStack(Item.bucketEmpty));
 				tile.hasWater = true;
+				par1World.func_96440_m(par2, par3, par4, blockID);
 				PacketDispatcher.sendPacketToAllInDimension(tile.getDescriptionPacket(), par1World.provider.dimensionId);
 			}
 
@@ -139,6 +140,16 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 		super.breakBlock(par1World, par2, par3, par4, par5, par6);
 	}
 
+	@Override
+	public boolean hasComparatorInputOverride() {
+		return true;
+	}
+	
+	public int getComparatorInputOverride(World par1World, int par2, int par3, int par4, int par5) {
+		TileAltar altar = (TileAltar) par1World.getBlockTileEntity(par2, par3, par4);
+		return altar.hasWater ? 15 : 0;
+	}
+	
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.apothecary;
