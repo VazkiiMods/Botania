@@ -12,6 +12,7 @@
 package vazkii.botania.common.block.vanilla;
 
 import net.minecraft.block.BlockSnow;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.world.IBlockAccess;
 
 public class BlockSnowOverride extends BlockSnow {
@@ -22,6 +23,12 @@ public class BlockSnowOverride extends BlockSnow {
 		super(par1);
 	}
 
+	@Override
+	public void registerIcons(IconRegister par1IconRegister) {
+		super.registerIcons(par1IconRegister);
+		snow.registerIcons(par1IconRegister);
+	}
+	
 	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess par1IBlockAccess, int par2, int par3, int par4) {
 		if(forcedMeta != -1) {

@@ -11,13 +11,22 @@
  */
 package vazkii.botania.common.block.vanilla;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
 import vazkii.botania.client.lib.LibRenderIDs;
 
 public class BlockFlowerOverride extends BlockFlower {
 
-	public BlockFlowerOverride(int par1) {
-		super(par1);
+	Block original;
+	
+	public BlockFlowerOverride(Block original) {
+		super(original.blockID);
+		this.original = original;
+	}
+	
+	public void registerIcons(net.minecraft.client.renderer.texture.IconRegister par1IconRegister) {
+		super.registerIcons(par1IconRegister);
+		original.registerIcons(par1IconRegister);
 	}
 
 	@Override

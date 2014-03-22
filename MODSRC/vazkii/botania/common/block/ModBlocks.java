@@ -108,8 +108,8 @@ public final class ModBlocks {
 			Block.blocksList[Block.plantYellow.blockID] = null;
 
 			new BlockSnowOverride(Block.snow.blockID).setHardness(0.1F).setStepSound(Block.soundSnowFootstep).setUnlocalizedName("snow").setLightOpacity(0).setTextureName("snow");
-			new BlockFlowerOverride(Block.plantRed.blockID).setHardness(0F).setStepSound(Block.soundGrassFootstep).setUnlocalizedName("rose").setTextureName("flower_rose");
-			new BlockFlowerOverride(Block.plantYellow.blockID).setHardness(0F).setStepSound(Block.soundGrassFootstep).setUnlocalizedName("flower").setTextureName("flower_dandelion");
+			new BlockFlowerOverride(Block.plantRed).setHardness(0F).setStepSound(Block.soundGrassFootstep).setUnlocalizedName("rose").setTextureName("flower_rose");
+			new BlockFlowerOverride(Block.plantYellow).setHardness(0F).setStepSound(Block.soundGrassFootstep).setUnlocalizedName("flower").setTextureName("flower_dandelion");
 		}
 	}
 
