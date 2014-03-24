@@ -17,12 +17,14 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.Icon;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.ITileBound;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileEntity;
 
-public class TileSpecialFlower extends TileMod {
+public class TileSpecialFlower extends TileMod implements ITileBound {
 
 	private static final String TAG_SUBTILE_NAME = "subTileName";
 	private static final String TAG_SUBTILE_CMP = "subTileCmp";
@@ -103,4 +105,10 @@ public class TileSpecialFlower extends TileMod {
 			subTile.renderHUD(mc, res);
 	}
 
+	@Override
+	public ChunkCoordinates getBinding() {
+		if(subTile == null)
+			return null;
+		return subTile.getBinding();
+	}
 }

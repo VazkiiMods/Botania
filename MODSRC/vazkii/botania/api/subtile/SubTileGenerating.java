@@ -184,6 +184,13 @@ public class SubTileGenerating extends SubTileEntity {
 		cmp.setInteger(TAG_COLLECTOR_Y, y);
 		cmp.setInteger(TAG_COLLECTOR_Z, z);
 	}
+	
+	@Override
+	public ChunkCoordinates getBinding() {
+		if(linkedCollector == null)
+			return null;
+		return new ChunkCoordinates(linkedCollector.xCoord, linkedCollector.yCoord, linkedCollector.zCoord);
+	}
 
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res) {

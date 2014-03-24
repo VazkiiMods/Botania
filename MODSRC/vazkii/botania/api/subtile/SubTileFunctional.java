@@ -151,6 +151,13 @@ public class SubTileFunctional extends SubTileEntity {
 		cmp.setInteger(TAG_POOL_Y, y);
 		cmp.setInteger(TAG_POOL_Z, z);
 	}
+	
+	@Override
+	public ChunkCoordinates getBinding() {
+		if(linkedPool == null)
+			return null;
+		return new ChunkCoordinates(linkedPool.xCoord, linkedPool.yCoord, linkedPool.zCoord);
+	}
 
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res) {

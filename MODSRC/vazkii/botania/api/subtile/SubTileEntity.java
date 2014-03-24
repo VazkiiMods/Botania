@@ -17,6 +17,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.Icon;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -86,6 +87,15 @@ public class SubTileEntity {
 		return null;
 	}
 
+	/**
+	 * Gets the block coordinates this is bound to, for use with the wireframe render
+	 * when the sub tile is being hovered with a wand of the forest.
+	 */
+	@SideOnly(Side.CLIENT)
+	public ChunkCoordinates getBinding() {
+		return null;
+	}
+	
 	/**
 	 * Called on the client when the block being pointed at is the one with this sub tile.
 	 * Used to render a HUD portraying some data from this sub tile.

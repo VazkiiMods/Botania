@@ -68,7 +68,7 @@ public final class BoundTileRenderer {
 		GL11.glPushMatrix();
 		GL11.glTranslated(pos.posX - RenderManager.renderPosX, pos.posY - RenderManager.renderPosY, pos.posZ - RenderManager.renderPosZ + 1);
 		Color colorRGB = new Color(color);
-		GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 0xFF);
+		GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 255);
 		
 		World world = Minecraft.getMinecraft().theWorld;
 		Block block = Block.blocksList[world.getBlockId(pos.posX, pos.posY, pos.posZ)];
@@ -83,6 +83,12 @@ public final class BoundTileRenderer {
 			
 			GL11.glTranslated(axis.minX, axis.minY, axis.minZ);
 			GL11.glScaled(axis.maxX - axis.minX, axis.maxY - axis.minY, axis.maxZ - axis.minZ);
+			
+			GL11.glLineWidth(1F);
+			renderBlockOutline();
+			
+			GL11.glLineWidth(4F);
+			GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 64);
 			renderBlockOutline();
 		}
 		GL11.glPopMatrix();
@@ -92,7 +98,6 @@ public final class BoundTileRenderer {
 		Tessellator tessellator = Tessellator.instance;
 
 		tessellator.startDrawing(GL11.GL_LINES);
-		GL11.glLineWidth(1F);
 		tessellator.addVertex(0, 0, 0);
 		tessellator.addVertex(0, 1, 0);
 		tessellator.addVertex(0, 1, 0);
