@@ -23,6 +23,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
@@ -31,6 +32,7 @@ import net.minecraftforge.common.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.api.ITileBound;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
@@ -47,7 +49,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 
-public class TileSpreader extends TileSimpleInventory implements IManaCollector {
+public class TileSpreader extends TileSimpleInventory implements IManaCollector, ITileBound {
 
 	private static final int MAX_MANA = 1000;
 	private static final String TAG_MANA = "mana";
@@ -368,5 +370,14 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 	public void onInventoryChanged() {
 		checkForReceiver();
 		PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
+	}
+
+	@Override
+	public ChunkCoordinates getBinding() {
+		if(receiver == null)
+			return null;
+		
+		TileEntity tile = (TileEntity) receiver;
+		return new ChunkCoordinates(tile.xCoord, tile.yCoord, tile.zCoord);
 	}
 }

@@ -11,16 +11,12 @@
  */
 package vazkii.botania.client.core.proxy;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.client.Minecraft;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.mana.IManaCollector;
+import vazkii.botania.client.core.handler.BoundTileRenderer;
 import vazkii.botania.client.core.handler.CapeHandler;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.HUDHandler;
@@ -49,7 +45,7 @@ import vazkii.botania.common.block.tile.TilePool;
 import vazkii.botania.common.block.tile.TilePylon;
 import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.block.tile.TileSpreader;
-import vazkii.botania.common.core.handler.ManaNetworkHandler;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.core.proxy.CommonProxy;
 import vazkii.botania.common.item.ModItems;
@@ -70,6 +66,8 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new HUDHandler());
 		MinecraftForge.EVENT_BUS.register(new LightningHandler());
 		MinecraftForge.EVENT_BUS.register(new CapeHandler());
+		if(ConfigHandler.boundBlockWireframe)
+			MinecraftForge.EVENT_BUS.register(new BoundTileRenderer());
 
 		initRenderers();
 	}

@@ -28,6 +28,8 @@ public final class ConfigHandler {
 	public static boolean subtlePowerSystem = false;
 	public static boolean staticWandBeam = false;
 	public static boolean overrideVanillaBlocks = true;
+	public static boolean boundBlockWireframe = true;
+	
 	public static int flowerQuantity = 3;
 	public static int flowerDensity = 32;
 
@@ -52,11 +54,14 @@ public final class ConfigHandler {
 		overrideVanillaBlocksProp.comment = "Set to false to remove the overriding of vanilla blocks (snow, red and yellow flowers). Setting this to false will remove the snow on flowers tweak.";
 		overrideVanillaBlocks = overrideVanillaBlocksProp.getBoolean(true);
 
+		Property boundBlockWireframeProp = config.get(Configuration.CATEGORY_GENERAL, "boundBlock.wireframe.enabled", true);
+		boundBlockWireframeProp.comment = "Set to false to disable the wireframe when looking a block bound to something (spreaders, flowers, etc).";
+		boundBlockWireframe = boundBlockWireframeProp.getBoolean(true);
+		
 		Property propFlowerQuantity = config.get(Configuration.CATEGORY_GENERAL, "worldgen.flower.quantity", 3);
 		flowerQuantity = propFlowerQuantity.getInt(3);
 		Property propFlowerDensity = config.get(Configuration.CATEGORY_GENERAL, "worldgen.flower.density", 32);
 		flowerQuantity = propFlowerDensity.getInt(32);
-		
 		
 		// Block IDs
 		LibBlockIDs.idFlower = loadBlock(LibBlockNames.FLOWER, LibBlockIDs.idFlower);
