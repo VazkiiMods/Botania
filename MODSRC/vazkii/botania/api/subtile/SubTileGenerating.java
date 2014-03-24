@@ -24,6 +24,7 @@ import net.minecraft.util.StatCollector;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaCollector;
+import vazkii.botania.api.mana.IManaPool;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
 /**
@@ -42,6 +43,8 @@ public class SubTileGenerating extends SubTileEntity {
 	int sizeLastCheck = -1;
 	protected TileEntity linkedCollector = null;
 	public int knownMana = -1;
+
+	ChunkCoordinates cachedCollectorCoordinates = null;
 
 	@Override
 	public boolean canUpdate() {
@@ -76,8 +79,18 @@ public class SubTileGenerating extends SubTileEntity {
 		final int range = 6;
 
 		boolean needsNew = false;
-		if(linkedCollector == null)
+		if(linkedCollector == null) {
 			needsNew = true;
+
+			if(cachedCollectorCoordinates != null) {
+				TileEntity tileAt = supertile.worldObj.getBlockTileEntity(cachedCollectorCoordinates.posX, cachedCollectorCoordinates.posY, cachedCollectorCoordinates.posZ);
+				if(tileAt != null && tileAt instanceof IManaCollector) {
+					linkedCollector = tileAt;
+					needsNew = false;
+				}
+				cachedCollectorCoordinates = null;
+			}
+		}
 
 		if(!needsNew) {
 			TileEntity tileAt = supertile.worldObj.getBlockTileEntity(linkedCollector.xCoord, linkedCollector.yCoord, linkedCollector.zCoord);
@@ -156,11 +169,7 @@ public class SubTileGenerating extends SubTileEntity {
 		int y = cmp.getInteger(TAG_COLLECTOR_Y);
 		int z = cmp.getInteger(TAG_COLLECTOR_Z);
 
-		if(supertile.worldObj != null) {
-			TileEntity tileAt = supertile.worldObj.getBlockTileEntity(x, y, z);
-			if(tileAt != null && tileAt instanceof IManaCollector)
-				linkedCollector = tileAt;
-		}
+		cachedCollectorCoordinates = new ChunkCoordinates(x, y, z);
 	}
 
 	@Override
