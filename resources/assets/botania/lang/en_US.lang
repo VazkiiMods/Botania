@@ -361,7 +361,7 @@ botania.page.distributor1=Crafting the distributor
 
 # -- MANA VOID
 botania.entry.manaVoid=Mana Void
-botania.page.manaVoid0=The &1Mana Void&0 is, in layman's terms, the grave for &4Mana&0. Any &4Mana&0 shot into this block will simply vanish into the void, never to be seen again.
+botania.page.manaVoid0=The &1Mana Void&0 is, in layman's terms, the grave for &4Mana&0. Any &4Mana&0 shot into this block will simply vanish into the void, never to be seen again.<br>Placing one of these under a &1Mana Pool&0 allows the pool to always accept &4Mana&0, but disposing any it can't hold.
 botania.page.manaVoid1=Crafting the void block
 
 # -- MANA LENS: VELOCITY

@@ -53,13 +53,17 @@ public class TilePool extends TileMod implements IManaPool {
 
 	@Override
 	public boolean isFull() {
-		return mana >= MAX_MANA;
+		int idBelow = worldObj.getBlockId(xCoord, yCoord - 1, zCoord);
+		return idBelow != ModBlocks.manaVoid.blockID && mana >= MAX_MANA;
 	}
 
 	@Override
 	public void recieveMana(int mana) {
+		boolean full = this.mana >= MAX_MANA;
+		
 		this.mana = Math.min(this.mana + mana, MAX_MANA);
-		worldObj.func_96440_m(xCoord, yCoord, zCoord, worldObj.getBlockId(xCoord, yCoord, zCoord));
+		if(!full)
+			worldObj.func_96440_m(xCoord, yCoord, zCoord, worldObj.getBlockId(xCoord, yCoord, zCoord));
 	}
 
 	@Override

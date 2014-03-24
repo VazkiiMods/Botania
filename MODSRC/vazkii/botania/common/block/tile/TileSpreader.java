@@ -225,7 +225,6 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	public void checkForReceiver() {
-		System.out.println("check");
 		EntityManaBurst fakeBurst = getBurst(true);
 		fakeBurst.setScanBeam();
 		TileEntity receiver = fakeBurst.getCollidedTile(true);
