@@ -34,7 +34,7 @@ public class SubTileFallenKanade extends SubTileFunctional {
 		List<EntityPlayer> players = supertile.worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord - range, supertile.zCoord - range, supertile.xCoord + range, supertile.yCoord + range, supertile.zCoord + range));
 		for(EntityPlayer player : players) {
 			if(player.getActivePotionEffect(Potion.regeneration) == null && mana >= cost) {
-				player.addPotionEffect(new PotionEffect(Potion.regeneration.id, 40, 0));
+				player.addPotionEffect(new PotionEffect(Potion.regeneration.id, 100, 1));
 				mana -= cost;
 				PacketDispatcher.sendPacketToAllInDimension(supertile.getDescriptionPacket(), supertile.worldObj.provider.dimensionId);
 			}
