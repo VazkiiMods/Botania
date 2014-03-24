@@ -11,6 +11,8 @@
  */
 package vazkii.botania.common.block.tile;
 
+import java.util.List;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -40,6 +42,7 @@ import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityManaBurst;
+import vazkii.botania.common.entity.EntityManaBurst.PositionProperties;
 import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
@@ -59,8 +62,11 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 
 	IManaReceiver receiver = null;
 
+	public boolean canShootBurst = true;
 	public int lastBurstDeathTick = -1;
 	public int burstParticleTick = 0;
+
+	List<PositionProperties> lastTentativeBurst;
 
 	@Override
 	public boolean isFull() {
@@ -111,6 +117,9 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 				redstone = true;
 		}
 
+		if(needsNewBurstSimulation())
+			checkForReceiver();
+
 		if(!redstone)
 			tryShootBurst();
 	}
@@ -132,14 +141,6 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 
 		if(cmp.hasKey(TAG_KNOWN_MANA))
 			knownMana = cmp.getInteger(TAG_KNOWN_MANA);
-
-		if(worldObj != null && worldObj.isRemote) {
-			EntityManaBurst fakeBurst = getBurst(true);
-			TileEntity receiver = fakeBurst.getCollidedTile(true);
-			if(receiver != null && receiver instanceof IManaReceiver)
-				this.receiver = (IManaReceiver) receiver;
-			else this.receiver = null;
-		}
 	}
 
 	@Override
@@ -187,47 +188,50 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 					this.receiver = (IManaReceiver) receiver;
 				else this.receiver = null;
 
+				checkForReceiver();
 				PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
 			}
 		}
 	}
 
-	public boolean canShootBurst = true;
+	private boolean needsNewBurstSimulation() {
+		if(lastTentativeBurst == null)
+			return true;
+
+		for(PositionProperties props : lastTentativeBurst)
+			if(!props.contentsEqual(worldObj))
+				return true;
+
+		return false;
+	}
 
 	public void tryShootBurst() {
-		if(receiver == null) {
-			EntityManaBurst fakeBurst = getBurst(true);
-			TileEntity receiver = fakeBurst.getCollidedTile(true);
-			if(receiver != null && receiver instanceof IManaReceiver)
-				this.receiver = (IManaReceiver) receiver;
-		}
-
 		if(receiver != null) {
-			forceCheckReceiver();
-
-			if(receiver != null) {
-				if(canShootBurst && receiver.canRecieveManaFromBursts() && !receiver.isFull()) {
-					EntityManaBurst burst = getBurst(false);
-					if(burst != null) {
-						if(!worldObj.isRemote) {
-							mana -= burst.getStartingMana();
-							worldObj.spawnEntityInWorld(burst);
-						}
-
-						canShootBurst = false;
-						PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
+			if(canShootBurst && receiver.canRecieveManaFromBursts() && !receiver.isFull()) {
+				EntityManaBurst burst = getBurst(false);
+				if(burst != null) {
+					if(!worldObj.isRemote) {
+						mana -= burst.getStartingMana();
+						worldObj.spawnEntityInWorld(burst);
 					}
+
+					canShootBurst = false;
+					PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
 				}
 			}
 		}
 	}
 
-	public void forceCheckReceiver() {
+	public void checkForReceiver() {
+		System.out.println("check");
 		EntityManaBurst fakeBurst = getBurst(true);
+		fakeBurst.setScanBeam();
 		TileEntity receiver = fakeBurst.getCollidedTile(true);
+
 		if(receiver != null && receiver instanceof IManaReceiver)
 			this.receiver = (IManaReceiver) receiver;
 		else this.receiver = null;
+		lastTentativeBurst = fakeBurst.propsList;
 	}
 
 	public EntityManaBurst getBurst(boolean fake) {
@@ -362,7 +366,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector 
 
 	@Override
 	public void onInventoryChanged() {
-		forceCheckReceiver();
+		checkForReceiver();
 		PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
 	}
 }

@@ -63,6 +63,9 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	List<String> alreadyCollidedAt = new ArrayList();
 
 	boolean fullManaLastTick = true;
+	
+	boolean scanBeam = false;
+	public List<PositionProperties> propsList = new ArrayList();
 
 	public EntityManaBurst(World world) {
 		super(world);
@@ -356,6 +359,17 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		setMotion(motionX, motionY, motionZ);
 
 		fullManaLastTick = getMana() == getStartingMana();
+		
+		if(scanBeam) {
+			PositionProperties props = new PositionProperties(this);
+			if(propsList.isEmpty())
+				propsList.add(props);
+			else {
+				PositionProperties lastProps = propsList.get(propsList.size() - 1);
+				if(!props.coordsEqual(lastProps))
+					propsList.add(props);
+			}
+		}
 	}
 
 	@Override
@@ -553,6 +567,10 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	public boolean isFake() {
 		return fake;
 	}
+	
+	public void setScanBeam() {
+		scanBeam = true;
+	}
 
 	@Override
 	public int getColor() {
@@ -695,5 +713,30 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		TileEntity tile = worldObj.getBlockTileEntity(coords.posX, coords.posY, coords.posZ);
 		if(tile != null && tile instanceof TileSpreader)
 			((TileSpreader) tile).lastBurstDeathTick = ticksExisted;
+	}
+	
+	public static class PositionProperties {
+		
+		public final ChunkCoordinates coords;
+		public final int id; int meta;
+		
+		public PositionProperties(Entity entity) {
+			int x = (int) entity.posX;
+			int y = (int) entity.posY;
+			int z = (int) entity.posZ;
+			coords = new ChunkCoordinates(x, y, z);
+			id = entity.worldObj.getBlockId(x, y, z);
+			meta = entity.worldObj.getBlockMetadata(x, y, z);
+		}
+		
+		public boolean coordsEqual(PositionProperties props) {
+			return coords.equals(props.coords);
+		}
+		
+		public boolean contentsEqual(World world) {
+			int id = world.getBlockId(coords.posX, coords.posY, coords.posZ);
+			int meta = world.getBlockMetadata(coords.posX, coords.posY, coords.posZ);
+			return id == this.id && meta == this.meta;
+		}
 	}
 }
