@@ -21,6 +21,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -33,7 +34,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public class BlockLivingwood extends BlockMod implements ILexiconable {
 
-	private static final int TYPES = 5;
+	private static final int TYPES = 6;
 	Icon[] icons;
 
 	public BlockLivingwood() {
@@ -81,6 +82,11 @@ public class BlockLivingwood extends BlockMod implements ILexiconable {
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
 		int meta = world.getBlockMetadata(x, y, z);
 		return new ItemStack(blockID, 1, meta);
+	}
+	
+	@Override
+	public int getLightValue(IBlockAccess world, int x, int y, int z) {
+		return world.getBlockMetadata(x, y, z) == 5 ? 12 : 0;
 	}
 
 	@Override

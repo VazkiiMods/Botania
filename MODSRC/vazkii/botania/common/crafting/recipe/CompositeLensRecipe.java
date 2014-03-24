@@ -7,64 +7,71 @@
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
  * 
- * File Created @ [Mar 13, 2014, 8:01:14 PM (GMT)]
+ * File Created @ [Mar 17, 2014, 8:30:41 PM (GMT)]
  */
-package vazkii.botania.common.item.recipe;
+package vazkii.botania.common.crafting.recipe;
 
 import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.ILens;
-import vazkii.botania.common.item.ItemManaGun;
+import vazkii.botania.common.item.ItemLens;
+import vazkii.botania.common.item.ModItems;
 
-public class ManaGunLensRecipe implements IRecipe {
+public class CompositeLensRecipe implements IRecipe {
 
 	@Override
 	public boolean matches(InventoryCrafting var1, World var2) {
 		boolean foundLens = false;
-		boolean foundGun = false;
+		boolean foundSecondLens = false;
+		boolean foundSlimeball = false;
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
 			if(stack != null) {
-				if(stack.getItem() instanceof ItemManaGun && ItemManaGun.getLens(stack) == null)
-					foundGun = true;
-
-				else if(stack.getItem() instanceof ILens)
-					foundLens = true;
-
+				if(stack.getItem() instanceof ILens && !foundSecondLens) {
+					if(foundLens)
+						foundSecondLens = true;
+					else foundLens = true;
+				} else if(stack.itemID == Item.slimeBall.itemID)
+					foundSlimeball = true;
 				else return false; // Found an invalid item, breaking the recipe
 			}
 		}
 
-		return foundLens && foundGun;
+		return foundSecondLens && foundSlimeball;
 	}
 
 	@Override
 	public ItemStack getCraftingResult(InventoryCrafting var1) {
 		ItemStack lens = null;
-		ItemStack gun = null;
+		ItemStack secondLens = null;
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
 			if(stack != null) {
-				if(stack.getItem() instanceof ItemManaGun)
-					gun = stack;
-				else if(stack.getItem() instanceof ILens)
-					lens = stack;
+				if(stack.getItem() instanceof ILens)
+					if(lens == null)
+						lens = stack;
+					else secondLens = stack;
 			}
 		}
 
-		if(lens == null || gun == null)
-			return null;
+		if(lens.getItem() instanceof ILens) {
+			ILens lensItem = (ILens) lens.getItem();
+			if(secondLens == null || !lensItem.canCombineLenses(lens, secondLens) || lensItem.getCompositeLens(lens) != null || lensItem.getCompositeLens(secondLens) != null)
+				return null;
 
-		ItemStack gunCopy = gun.copy();
-		ItemManaGun.setLens(gunCopy, lens);
+			ItemStack lensCopy = lens.copy();
+			((ItemLens) ModItems.lens).setCompositeLens(lensCopy, secondLens);
 
-		return gunCopy;
+			return lensCopy;
+		}
+
+		return null;
 	}
-
 
 	@Override
 	public int getRecipeSize() {
@@ -75,5 +82,4 @@ public class ManaGunLensRecipe implements IRecipe {
 	public ItemStack getRecipeOutput() {
 		return null;
 	}
-
 }

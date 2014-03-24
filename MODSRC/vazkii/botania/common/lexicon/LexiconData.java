@@ -264,6 +264,6 @@ public final class LexiconData {
 
 		decorativeBlocks = new BLexiconEntry(LibLexicon.MISC_DECORATIVE_BLOCKS, categoryMisc);
 		decorativeBlocks.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.livingrockDecorRecipe1), new PageCraftingRecipe("2", ModCrafingRecipes.livingrockDecorRecipe2), new PageCraftingRecipe("3", ModCrafingRecipes.livingrockDecorRecipe3), new PageCraftingRecipe("4", ModCrafingRecipes.livingrockDecorRecipe4),
-				new PageCraftingRecipe("5", ModCrafingRecipes.livingwoodDecorRecipe1), new PageCraftingRecipe("6", ModCrafingRecipes.livingwoodDecorRecipe2), new PageCraftingRecipe("7", ModCrafingRecipes.livingwoodDecorRecipe3), new PageCraftingRecipe("8", ModCrafingRecipes.livingwoodDecorRecipe4));
+				new PageCraftingRecipe("5", ModCrafingRecipes.livingwoodDecorRecipe1), new PageCraftingRecipe("6", ModCrafingRecipes.livingwoodDecorRecipe2), new PageCraftingRecipe("7", ModCrafingRecipes.livingwoodDecorRecipe3), new PageCraftingRecipe("8", ModCrafingRecipes.livingwoodDecorRecipe4), new PageCraftingRecipe("9", ModCrafingRecipes.livingwoodDecorRecipe5));
 	}
 }

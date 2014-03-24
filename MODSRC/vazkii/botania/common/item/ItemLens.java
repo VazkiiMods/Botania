@@ -44,7 +44,7 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
-import vazkii.botania.common.item.recipe.CompositeLensRecipe;
+import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
 import vazkii.botania.common.lib.LibItemIDs;
 import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.common.registry.GameRegistry;

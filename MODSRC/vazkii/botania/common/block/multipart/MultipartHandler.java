@@ -20,7 +20,7 @@ public final class MultipartHandler {
 
 	public MultipartHandler() {
 		registerMultipartMetadataLine(ModBlocks.livingrock, 4);
-		registerMultipartMetadataLine(ModBlocks.livingwood, 4);
+		registerMultipartMetadataLine(ModBlocks.livingwood, 5);
 	}
 
 	private static void registerMultipartMetadataLine(Block block, int maxMeta) {

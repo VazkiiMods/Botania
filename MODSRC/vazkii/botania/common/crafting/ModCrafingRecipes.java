@@ -26,6 +26,7 @@ import vazkii.botania.common.item.ItemLens;
 import vazkii.botania.common.item.ItemSignalFlare;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibBlockIDs;
 import vazkii.botania.common.lib.LibOreDict;
 
 public final class ModCrafingRecipes {
@@ -64,6 +65,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe livingwoodDecorRecipe2;
 	public static IRecipe livingwoodDecorRecipe3;
 	public static IRecipe livingwoodDecorRecipe4;
+	public static IRecipe livingwoodDecorRecipe5;
 	public static List<IRecipe> recipesManaBeacons;
 	public static List<IRecipe> recipesSignalFlares;
 	public static IRecipe recipeManaVoid;
@@ -247,7 +249,10 @@ public final class ModCrafingRecipes {
 				" W ", "W W", " W ",
 				'W', new ItemStack(ModBlocks.livingwood, 1, 1));
 		livingwoodDecorRecipe4 = BotaniaAPI.getLatestAddedRecipe();
-
+		addShapelessOreDictRecipe(new ItemStack(ModBlocks.livingwood, 1, 5), 
+				LibOreDict.LIVING_WOOD, new ItemStack(Item.glowstone));
+		livingwoodDecorRecipe5 = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Mana Beacon Recipe
 		for(int i = 0; i < 16; i++)
 			addOreDictRecipe(new ItemStack(ModBlocks.manaBeacon, 1, i),
