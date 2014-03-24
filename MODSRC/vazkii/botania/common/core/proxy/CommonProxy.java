@@ -70,10 +70,6 @@ public class CommonProxy {
 		// NO-OP
 	}
 
-	public void twigWandClientUpdate() {
-		// NO-OP
-	}
-
 	public long getWorldElapsedTicks() {
 		return MinecraftServer.getServer().worldServers[0].getTotalWorldTime();
 	}

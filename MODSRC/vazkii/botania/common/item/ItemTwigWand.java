@@ -101,12 +101,6 @@ public class ItemTwigWand extends Item16Colors {
 	}
 
 	@Override
-	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
-		if(par3Entity instanceof EntityPlayer && ((EntityPlayer) par3Entity).getCurrentEquippedItem() == par1ItemStack)
-			Botania.proxy.twigWandClientUpdate();
-	}
-
-	@Override
 	public void registerIcons(IconRegister par1IconRegister) {
 		icons = new Icon[3];
 		for(int i = 0; i < icons.length; i++)

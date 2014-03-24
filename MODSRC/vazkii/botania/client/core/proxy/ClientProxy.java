@@ -104,15 +104,6 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	@Override
-	public void twigWandClientUpdate() {
-		List<TileEntity> list = new ArrayList(ManaNetworkHandler.instance.getAllCollectorsInWorld(Minecraft.getMinecraft().theWorld.provider.dimensionId));
-		for(TileEntity tile : list) {
-			if(tile instanceof IManaCollector)
-				((IManaCollector) tile).onClientDisplayTick();
-		}
-	}
-
-	@Override
 	public long getWorldElapsedTicks() {
 		return Minecraft.getMinecraft().theWorld == null ? 0 : Minecraft.getMinecraft().theWorld.getTotalWorldTime();
 	}

@@ -11,11 +11,19 @@
  */
 package vazkii.botania.client.core.handler;
 
+import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.List;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.client.core.handler.LightningHandler.LightningBolt;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
+import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.lib.LibMisc;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
@@ -33,6 +41,21 @@ public class ClientTickHandler implements ITickHandler {
 
 		if(Minecraft.getMinecraft().theWorld == null)
 			ManaNetworkHandler.instance.clear();
+
+		GuiScreen gui = Minecraft.getMinecraft().currentScreen;
+		if(gui == null || !gui.doesGuiPauseGame()) {
+			EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+			if(player != null) {
+				ItemStack stack = player.getCurrentEquippedItem();
+				if(stack != null && stack.getItem() instanceof ItemTwigWand) {
+					List<TileEntity> list = new ArrayList(ManaNetworkHandler.instance.getAllCollectorsInWorld(Minecraft.getMinecraft().theWorld.provider.dimensionId));
+					for(TileEntity tile : list) {
+						if(tile instanceof IManaCollector)
+							((IManaCollector) tile).onClientDisplayTick();
+					}
+				}
+			}
+		}
 	}
 
 	@Override
