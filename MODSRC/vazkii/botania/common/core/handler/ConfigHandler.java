@@ -29,7 +29,8 @@ public final class ConfigHandler {
 	public static boolean staticWandBeam = false;
 	public static boolean overrideVanillaBlocks = true;
 	public static boolean boundBlockWireframe = true;
-	
+	public static boolean lexicon3dModel = true;
+
 	public static int flowerQuantity = 3;
 	public static int flowerDensity = 32;
 
@@ -57,6 +58,10 @@ public final class ConfigHandler {
 		Property boundBlockWireframeProp = config.get(Configuration.CATEGORY_GENERAL, "boundBlock.wireframe.enabled", true);
 		boundBlockWireframeProp.comment = "Set to false to disable the wireframe when looking a block bound to something (spreaders, flowers, etc).";
 		boundBlockWireframe = boundBlockWireframeProp.getBoolean(true);
+		
+		Property lexicon3dModelProp = config.get(Configuration.CATEGORY_GENERAL, "lexicon.render.3D", true);
+		lexicon3dModelProp.comment = "Set to false to disabled the animated 3D render for the lexica botania";
+		lexicon3dModel = lexicon3dModelProp.getBoolean(true);
 		
 		Property propFlowerQuantity = config.get(Configuration.CATEGORY_GENERAL, "worldgen.flower.quantity", 3);
 		flowerQuantity = propFlowerQuantity.getInt(3);

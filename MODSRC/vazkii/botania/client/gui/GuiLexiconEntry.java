@@ -17,6 +17,7 @@ import net.minecraft.util.StatCollector;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
+import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.gui.button.GuiButtonBackWithShift;
 import vazkii.botania.client.gui.button.GuiButtonPage;
 
@@ -77,12 +78,15 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry {
 		switch(par1GuiButton.id) {
 		case 0 :
 			mc.displayGuiScreen(GuiScreen.isShiftKeyDown() ? new GuiLexicon() : parent);
+			ClientTickHandler.notifyPageChange();
 			break;
 		case 1 :
 			page--;
+			ClientTickHandler.notifyPageChange();
 			break;
 		case 2 :
 			page++;
+			ClientTickHandler.notifyPageChange();
 			break;
 		}
 		updatePageButtons();

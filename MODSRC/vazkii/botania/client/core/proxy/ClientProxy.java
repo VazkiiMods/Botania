@@ -33,6 +33,7 @@ import vazkii.botania.client.render.block.RenderPylon;
 import vazkii.botania.client.render.block.RenderSpecialFlower;
 import vazkii.botania.client.render.block.RenderSpreader;
 import vazkii.botania.client.render.item.RenderLens;
+import vazkii.botania.client.render.item.RenderLexicon;
 import vazkii.botania.client.render.tile.RenderTileAltar;
 import vazkii.botania.client.render.tile.RenderTileEnchanter;
 import vazkii.botania.client.render.tile.RenderTilePool;
@@ -85,9 +86,10 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerBlockHandler(new RenderPool());
 		RenderingRegistry.registerBlockHandler(new RenderPylon());
 
-		RenderLens lensRender = new RenderLens();
-		MinecraftForgeClient.registerItemRenderer(ModItems.lens.itemID, lensRender);
-
+		MinecraftForgeClient.registerItemRenderer(ModItems.lens.itemID, new RenderLens());
+		if(ConfigHandler.lexicon3dModel)
+			MinecraftForgeClient.registerItemRenderer(ModItems.lexicon.itemID, new RenderLexicon());
+		
 		ClientRegistry.bindTileEntitySpecialRenderer(TileAltar.class, new RenderTileAltar());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileSpreader.class, new RenderTileSpreader());
 		ClientRegistry.bindTileEntitySpecialRenderer(TilePool.class, new RenderTilePool());

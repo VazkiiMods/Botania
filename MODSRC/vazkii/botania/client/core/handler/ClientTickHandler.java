@@ -22,6 +22,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.client.core.handler.LightningHandler.LightningBolt;
+import vazkii.botania.client.gui.GuiLexicon;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.lib.LibMisc;
@@ -29,6 +30,9 @@ import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 
 public class ClientTickHandler implements ITickHandler {
+
+	public static int ticksWithLexicaOpen = 0;
+	public static int pageFlipTicks = 0;
 
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData) {
@@ -56,6 +60,28 @@ public class ClientTickHandler implements ITickHandler {
 				}
 			}
 		}
+
+		int ticksToOpen = 10;
+		if(gui instanceof GuiLexicon) {
+			if(ticksWithLexicaOpen < 0)
+				ticksWithLexicaOpen = 0;
+			if(ticksWithLexicaOpen < ticksToOpen)
+				ticksWithLexicaOpen++;
+			if(pageFlipTicks > 0)
+				pageFlipTicks--;
+		} else {
+			pageFlipTicks = 0;
+			if(ticksWithLexicaOpen > 0) {
+				if(ticksWithLexicaOpen > ticksToOpen)
+					ticksWithLexicaOpen = ticksToOpen;
+				ticksWithLexicaOpen--;
+			}
+		}
+	}
+	
+	public static void notifyPageChange() {
+		if(pageFlipTicks == 0)
+			pageFlipTicks = 5;
 	}
 
 	@Override

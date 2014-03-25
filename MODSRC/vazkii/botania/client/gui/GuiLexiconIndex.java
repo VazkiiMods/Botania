@@ -20,6 +20,7 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.gui.button.GuiButtonBack;
 import vazkii.botania.client.gui.button.GuiButtonInvisible;
 import vazkii.botania.client.gui.button.GuiButtonPage;
@@ -80,16 +81,19 @@ public class GuiLexiconIndex extends GuiLexicon {
 		switch(par1GuiButton.id) {
 		case 12 :
 			mc.displayGuiScreen(new GuiLexicon());
+			ClientTickHandler.notifyPageChange();
 			break;
 		case 13 :
 			page--;
 			updatePageButtons();
 			populateIndex();
+			ClientTickHandler.notifyPageChange();
 			break;
 		case 14 :
 			page++;
 			updatePageButtons();
 			populateIndex();
+			ClientTickHandler.notifyPageChange();
 			break;
 		default :
 			int index = par1GuiButton.id + page * 12;
@@ -98,6 +102,7 @@ public class GuiLexiconIndex extends GuiLexicon {
 
 			LexiconEntry entry = entriesToDisplay.get(index);
 			mc.displayGuiScreen(new GuiLexiconEntry(entry, this));
+			ClientTickHandler.notifyPageChange();
 		}
 	}
 

@@ -22,6 +22,7 @@ import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconCategory;
+import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.gui.button.GuiButtonInvisible;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.item.ModItems;
@@ -83,8 +84,10 @@ public class GuiLexicon extends GuiScreen {
 		List<LexiconCategory> categoryList = BotaniaAPI.getAllCategories();
 		LexiconCategory category = i >= categoryList.size() ? null : categoryList.get(i);
 
-		if(category != null)
+		if(category != null) {
 			mc.displayGuiScreen(new GuiLexiconIndex(category));
+			ClientTickHandler.notifyPageChange();
+		}
 	}
 
 	@Override
