@@ -78,7 +78,7 @@ public class SubTileFunctional extends SubTileEntity {
 		boolean needsNew = false;
 		if(linkedPool == null) {
 			needsNew = true;
-			
+
 			if(cachedPoolCoordinates != null) {
 				TileEntity tileAt = supertile.worldObj.getBlockTileEntity(cachedPoolCoordinates.posX, cachedPoolCoordinates.posY, cachedPoolCoordinates.posZ);
 				if(tileAt != null && tileAt instanceof IManaPool) {
@@ -151,7 +151,7 @@ public class SubTileFunctional extends SubTileEntity {
 		cmp.setInteger(TAG_POOL_Y, y);
 		cmp.setInteger(TAG_POOL_Z, z);
 	}
-	
+
 	@Override
 	public ChunkCoordinates getBinding() {
 		if(linkedPool == null)

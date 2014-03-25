@@ -89,7 +89,7 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForgeClient.registerItemRenderer(ModItems.lens.itemID, new RenderLens());
 		if(ConfigHandler.lexicon3dModel)
 			MinecraftForgeClient.registerItemRenderer(ModItems.lexicon.itemID, new RenderLexicon());
-		
+
 		ClientRegistry.bindTileEntitySpecialRenderer(TileAltar.class, new RenderTileAltar());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileSpreader.class, new RenderTileSpreader());
 		ClientRegistry.bindTileEntitySpecialRenderer(TilePool.class, new RenderTilePool());

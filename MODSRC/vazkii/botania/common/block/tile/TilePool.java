@@ -60,7 +60,7 @@ public class TilePool extends TileMod implements IManaPool {
 	@Override
 	public void recieveMana(int mana) {
 		boolean full = this.mana >= MAX_MANA;
-		
+
 		this.mana = Math.min(this.mana + mana, MAX_MANA);
 		if(!full)
 			worldObj.func_96440_m(xCoord, yCoord, zCoord, worldObj.getBlockId(xCoord, yCoord, zCoord));

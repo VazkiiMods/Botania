@@ -144,12 +144,13 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 	public boolean hasComparatorInputOverride() {
 		return true;
 	}
-	
+
+	@Override
 	public int getComparatorInputOverride(World par1World, int par2, int par3, int par4, int par5) {
 		TileAltar altar = (TileAltar) par1World.getBlockTileEntity(par2, par3, par4);
 		return altar.hasWater ? 15 : 0;
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.apothecary;

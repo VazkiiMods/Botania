@@ -11,15 +11,16 @@
  */
 package vazkii.botania.client.render.item;
 
-import org.lwjgl.opengl.GL11;
-
-import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.lib.LibResources;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBook;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
+
+import org.lwjgl.opengl.GL11;
+
+import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.lib.LibResources;
 
 public class RenderLexicon implements IItemRenderer {
 
@@ -49,8 +50,8 @@ public class RenderLexicon implements IItemRenderer {
 		GL11.glRotatef(95F + ticks * 5, 0F, 1F, 0F);
 		GL11.glRotatef(ticks * 2.5F, 0F, 0F, 1F);
 		GL11.glScalef(0.9F, 0.9F, 0.9F);
-		opening = (float) ticks / 12F;
-		pageFlip = (float) ClientTickHandler.pageFlipTicks / 5F;
+		opening = ticks / 12F;
+		pageFlip = ClientTickHandler.pageFlipTicks / 5F;
 
 		model.render(null, 0F, 0F, pageFlip, opening, 0F, 1F / 16F);
 

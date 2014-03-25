@@ -95,7 +95,7 @@ public class SubTileEntity {
 	public ChunkCoordinates getBinding() {
 		return null;
 	}
-	
+
 	/**
 	 * Called on the client when the block being pointed at is the one with this sub tile.
 	 * Used to render a HUD portraying some data from this sub tile.

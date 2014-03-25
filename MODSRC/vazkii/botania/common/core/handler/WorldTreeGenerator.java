@@ -53,7 +53,7 @@ public class WorldTreeGenerator {
 		for(int i = 0; i < mul; i++)
 			for(int j = 0; j < mul; j++) {
 				int meta = world.rand.nextInt(4) == 0 ? 5 : 0;
-				int angle = ((y - j) * mul) % 360;
+				int angle = (y - j) * mul % 360;
 
 				generateRingVal(radius - i - 3, angle, id, meta);
 				generateRingVal(radius - i - 3, angle + 180, id, meta);
@@ -64,7 +64,7 @@ public class WorldTreeGenerator {
 		for(int i = 0; i < mul; i++)
 			for(int j = 0; j < mul; j++) {
 				int meta = world.rand.nextInt(20) == 0 ? 5 : 0;
-				int angle = ((y - j) * mul) % 360;
+				int angle = (y - j) * mul % 360;
 				generateRingVal(radius + i - 1, angle + 90, id, meta);
 				generateRingVal(radius + i - 1, angle + 270, id, meta);
 			}

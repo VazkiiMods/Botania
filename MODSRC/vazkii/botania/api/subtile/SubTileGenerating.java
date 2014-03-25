@@ -24,7 +24,6 @@ import net.minecraft.util.StatCollector;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaCollector;
-import vazkii.botania.api.mana.IManaPool;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
 /**
@@ -184,7 +183,7 @@ public class SubTileGenerating extends SubTileEntity {
 		cmp.setInteger(TAG_COLLECTOR_Y, y);
 		cmp.setInteger(TAG_COLLECTOR_Z, z);
 	}
-	
+
 	@Override
 	public ChunkCoordinates getBinding() {
 		if(linkedCollector == null)

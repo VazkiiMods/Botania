@@ -58,16 +58,16 @@ public final class ConfigHandler {
 		Property boundBlockWireframeProp = config.get(Configuration.CATEGORY_GENERAL, "boundBlock.wireframe.enabled", true);
 		boundBlockWireframeProp.comment = "Set to false to disable the wireframe when looking a block bound to something (spreaders, flowers, etc).";
 		boundBlockWireframe = boundBlockWireframeProp.getBoolean(true);
-		
+
 		Property lexicon3dModelProp = config.get(Configuration.CATEGORY_GENERAL, "lexicon.render.3D", true);
 		lexicon3dModelProp.comment = "Set to false to disabled the animated 3D render for the lexica botania";
 		lexicon3dModel = lexicon3dModelProp.getBoolean(true);
-		
+
 		Property propFlowerQuantity = config.get(Configuration.CATEGORY_GENERAL, "worldgen.flower.quantity", 3);
 		flowerQuantity = propFlowerQuantity.getInt(3);
 		Property propFlowerDensity = config.get(Configuration.CATEGORY_GENERAL, "worldgen.flower.density", 32);
 		flowerDensity = propFlowerDensity.getInt(32);
-		
+
 		// Block IDs
 		LibBlockIDs.idFlower = loadBlock(LibBlockNames.FLOWER, LibBlockIDs.idFlower);
 		LibBlockIDs.idAltar = loadBlock(LibBlockNames.ALTAR, LibBlockIDs.idAltar);

@@ -63,7 +63,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	List<String> alreadyCollidedAt = new ArrayList();
 
 	boolean fullManaLastTick = true;
-	
+
 	boolean scanBeam = false;
 	public List<PositionProperties> propsList = new ArrayList();
 
@@ -359,7 +359,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		setMotion(motionX, motionY, motionZ);
 
 		fullManaLastTick = getMana() == getStartingMana();
-		
+
 		if(scanBeam) {
 			PositionProperties props = new PositionProperties(this);
 			if(propsList.isEmpty())
@@ -567,7 +567,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	public boolean isFake() {
 		return fake;
 	}
-	
+
 	public void setScanBeam() {
 		scanBeam = true;
 	}
@@ -714,12 +714,12 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		if(tile != null && tile instanceof TileSpreader)
 			((TileSpreader) tile).lastBurstDeathTick = ticksExisted;
 	}
-	
+
 	public static class PositionProperties {
-		
+
 		public final ChunkCoordinates coords;
 		public final int id; int meta;
-		
+
 		public PositionProperties(Entity entity) {
 			int x = (int) entity.posX;
 			int y = (int) entity.posY;
@@ -728,11 +728,11 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			id = entity.worldObj.getBlockId(x, y, z);
 			meta = entity.worldObj.getBlockMetadata(x, y, z);
 		}
-		
+
 		public boolean coordsEqual(PositionProperties props) {
 			return coords.equals(props.coords);
 		}
-		
+
 		public boolean contentsEqual(World world) {
 			int id = world.getBlockId(coords.posX, coords.posY, coords.posZ);
 			int meta = world.getBlockMetadata(coords.posX, coords.posY, coords.posZ);

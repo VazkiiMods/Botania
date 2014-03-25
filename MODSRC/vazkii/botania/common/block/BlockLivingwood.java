@@ -83,7 +83,7 @@ public class BlockLivingwood extends BlockMod implements ILexiconable {
 		int meta = world.getBlockMetadata(x, y, z);
 		return new ItemStack(blockID, 1, meta);
 	}
-	
+
 	@Override
 	public int getLightValue(IBlockAccess world, int x, int y, int z) {
 		return world.getBlockMetadata(x, y, z) == 5 ? 12 : 0;

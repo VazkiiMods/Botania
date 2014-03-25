@@ -46,7 +46,7 @@ public final class ModItems {
 		manaTablet = new ItemManaTablet();
 		manaGun = new ItemManaGun();
 		manaCookie = new ItemManaCookie();
-		
+
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal.itemID, 1, i));

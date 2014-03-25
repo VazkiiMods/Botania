@@ -375,7 +375,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	public ChunkCoordinates getBinding() {
 		if(receiver == null)
 			return null;
-		
+
 		TileEntity tile = (TileEntity) receiver;
 		return new ChunkCoordinates(tile.xCoord, tile.yCoord, tile.zCoord);
 	}

@@ -28,7 +28,7 @@ public class BlockSnowOverride extends BlockSnow {
 		super.registerIcons(par1IconRegister);
 		snow.registerIcons(par1IconRegister);
 	}
-	
+
 	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess par1IBlockAccess, int par2, int par3, int par4) {
 		if(forcedMeta != -1) {

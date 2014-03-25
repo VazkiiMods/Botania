@@ -53,11 +53,11 @@ public final class BoundTileRenderer {
 				if(tile != null && tile instanceof ITileBound) {
 					ChunkCoordinates coords = ((ITileBound) tile).getBinding();
 					if(coords != null)
-						renderBlockOutlineAt(coords, Color.HSBtoRGB((float) (world.getTotalWorldTime() % 200) / 200F, 0.6F, 1F));
+						renderBlockOutlineAt(coords, Color.HSBtoRGB(world.getTotalWorldTime() % 200 / 200F, 0.6F, 1F));
 				}
 			}
 		}
-		
+
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glDisable(GL11.GL_BLEND);
@@ -69,7 +69,7 @@ public final class BoundTileRenderer {
 		GL11.glTranslated(pos.posX - RenderManager.renderPosX, pos.posY - RenderManager.renderPosY, pos.posZ - RenderManager.renderPosZ + 1);
 		Color colorRGB = new Color(color);
 		GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 255);
-		
+
 		World world = Minecraft.getMinecraft().theWorld;
 		Block block = Block.blocksList[world.getBlockId(pos.posX, pos.posY, pos.posZ)];
 		if(block != null) {
@@ -80,13 +80,13 @@ public final class BoundTileRenderer {
 			axis.maxY -= pos.posY;
 			axis.minZ -= pos.posZ;
 			axis.maxZ -= pos.posZ;
-			
+
 			GL11.glTranslated(axis.minX, axis.minY, axis.minZ);
 			GL11.glScaled(axis.maxX - axis.minX, axis.maxY - axis.minY, axis.maxZ - axis.minZ);
-			
+
 			GL11.glLineWidth(1F);
 			renderBlockOutline();
-			
+
 			GL11.glLineWidth(4F);
 			GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 64);
 			renderBlockOutline();

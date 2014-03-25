@@ -21,11 +21,11 @@ import cpw.mods.fml.relauncher.SideOnly;
  * over with a Wand of the Forest.
  */
 public interface ITileBound {
-	
+
 	/**
 	 * Gets where this block is bound to, can return null.
 	 */
 	@SideOnly(Side.CLIENT)
 	public ChunkCoordinates getBinding();
-	
+
 }

@@ -78,7 +78,7 @@ public class ClientTickHandler implements ITickHandler {
 			}
 		}
 	}
-	
+
 	public static void notifyPageChange() {
 		if(pageFlipTicks == 0)
 			pageFlipTicks = 5;
