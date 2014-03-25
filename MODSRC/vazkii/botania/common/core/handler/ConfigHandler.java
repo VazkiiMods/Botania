@@ -61,7 +61,7 @@ public final class ConfigHandler {
 		Property propFlowerQuantity = config.get(Configuration.CATEGORY_GENERAL, "worldgen.flower.quantity", 3);
 		flowerQuantity = propFlowerQuantity.getInt(3);
 		Property propFlowerDensity = config.get(Configuration.CATEGORY_GENERAL, "worldgen.flower.density", 32);
-		flowerQuantity = propFlowerDensity.getInt(32);
+		flowerDensity = propFlowerDensity.getInt(32);
 		
 		// Block IDs
 		LibBlockIDs.idFlower = loadBlock(LibBlockNames.FLOWER, LibBlockIDs.idFlower);
