@@ -23,7 +23,6 @@ public class SubTileNightshade extends SubTileDaybloom {
 
 	@Override
 	public boolean canGeneratePassively() {
-		System.out.println(!super.canGeneratePassively());
 		return !super.canGeneratePassively();
 	}
 
