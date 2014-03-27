@@ -1,0 +1,131 @@
+beta 16
+*Fixed a typo in the config which lead to insane amounts of flowers in newly generated worlds.
+*Gave a little makeover to the Lexica Botania, you'll notice it.
+beta 15
+*Added a new decorating Livingwood variant.
+*Added config options for flower generation. Cmat me TPPI.
+*Added wireframes for blocks with bindings.
+*Fixed crash with LiteLoader.
+*Fixed flowers losing which collectors and pools they're bound to in world load, any old flowers need to be broken and replaced, though.
+*Fixed the Fallen Kanade giving you JUST enough regeneration time for it not to kick in. Also made it regeneration II.
+*Having a Mana Void under a Mana Pool makes the pool accept mana and dispose of any extra now.
+*The Mana Spreader now takes a list of all positions and blocks visited by the scan beam and checks against that before doing another simulation, on layman's terms, fixed mana spreaders eating tickrate.
+beta 14
+*Overriden vanilla blocks now relay the registerIcons call to the original block, should fix issues with mods that depend on them losing their textures (e.g. Witchery).
+beta 13
+*Added Mana Cookies, nom.
+*Fixed a bunch of gramatical issues in the lexica (Mierzen)
+*The Petal Apothecary can now output to comparators.
+beta 12
+*Added Composite Lenses.
+*Added Mana Tablet creative version.
+*Added recipe for Earth Rune using a Red Mushroom
+*Added some new functional flowers: Orechid, Fallen Kanade, Exoflame, Agricarnation and Hopperhock.
+*Added some new generating flowers: Thermalily, Nightshade and Rosa Arcana.
+*Added the Mana Blaster.
+*Added the Mana Detector.
+*Added the Mana Enchanter.
+*Added the Mana Lenses: Phantom, Entropic and Magnetizing.
+*Added the Spreader Turntable.
+*Botania and vanilla flowers now have visual snow under them if there's snow on any side. Makes snow biomes much more pleasing.
+*Changed quite a few things with the API.
+*Changed the Hydroangeas and Endoflame textures.
+*Changed the cost for the Jaded Amaranthus and the Hydroanges, crafting wise. They're more expensive now.
+*Clipping checks for the Mana Burst entity are now handled internally, might fix some crashes.
+*Endoflames will no longer absorb items with container item data (eg Lava Buckets)
+*Fixed Dayblooms producing mana even at night.
+*Fixed Mana Pools never getting removed from the mana network, causing functional flowers trying to bind to pools that don't exist and never getting any mana.
+*Fixed Rune Altar pulling in mana even after the recipe has been concluded.
+*Fixed bursts with a Gravity lens having different arcs in prevision and reality.
+*Fixed crafting Mana Lenses outputting size 0 stacks.
+*Fixed some ambiguity in the Lexica Botania regarding some items (Heisei Dream and Rune Altar).
+*Fixed the Mana Spreader shooting a client only burst in singleplayer, having it shoot twice as much as it should.
+*Fixed tpyos.
+*Items in the petal and rune crafting pages of the Lexica Botania spin slower now, if enabled.
+*Made the Damaging lens more powerful.
+*Mana Lenses no longer display their dyed versions in the creative inventory, too much clutter.
+*Mana Tablets dropped on the ground won't ever despawn.
+*Normalized the sound for the functional flowers mana reading to be the same volume as other mana blocks.
+*Rebalanced the cost for tier 3 runes.
+*Redid the way flower generation works, it's much less sporadic and random and much more uniform over parts of the world.
+*Right clicking on Force Relays now has a sound effect.
+*The Mana Void now resists explosions as much as obsidian does.
+*The Petal Apothecary can now get water from dropped water buckets in item form.
+*The client prediction beam now has a larger than normal point that always displays, indicating where mana loss starts to happen.
+*The client prediction beam with the Wand of the Forest is no longer continuous, but rather, a moving lance. This effectively removes the lag caused by it on a large scale. There's a config option to use the continuous beam instead.
+*Tweaked the costs and power for some lenses.
+beta 11
+*Added some null checks to the client HUD for the Spreader, fixes a weird crash.
+*Added functionaility to the Lexica Botania to redirect to other entries when clicking an item, in order to see it's recipe.
+*Shift clicking the back button in the Lexica Botania now goes back to the index, regardless of where one would be.
+*Documented the fact that there is mana loss for the spreaders.
+*API Rework for SubTileEntities and the Mana Network classes. SubTileGenerating and SubTileFunctional are now available API side, as well as all the methods from the Mana Network (getClosestCollector/Pool, getAllCollectors/Pools).
+*Fixed the Signal Flare ID not being configurable.
+*Added the Mana Tablet item.
+beta 10
+*Added Hydroangeas. (Pokefenn)
+*Added the Mana Void.
+*Bound the lexicon entry for the Jaded Amaranthus to the block.
+*Fixed a ConcurrentModificationException just waiting to happen with the Wand of the Forest.
+*Fixed Livingwood and Livingrock blocks dropping the wrong metadata value.
+*Fixed a typo in the config. (May need to set subtle power system to true again after you install this version if you had it on)
+*Fixed Endoflames eating full stacks of items.
+*Endoflames will now only burn items if they have somewhere to output the power.
+*Endoflames will now wait 1 second after the item can be picked up to burn it.
+*Endoflames no longer burn Mana Spreaders, ever.
+*Mana Spreaders now lose 5% of mana put into it by other spreaders. This change is done to combat infinite lenght transportation with no power loss or adverse effects.
+*Added the Force Relay to the mod's creative tab, forgot it last patch :p
+*Added comparator support to Mana Pools.
+*Added a check to the Mana HUD to display at least one pixel of colored bar if there's ANY mana at all in the block.
+*Tweaked the super update call on the Mana Burst. Should fix some potential issues or crashes with vector pool sizes.
+*All crafted flowers now have some flavor text.
+beta 9
+*Fixed Livingwood and Livingrock blocks having 0 stack size in creative.
+*Fixed Mana Pools double dipping for resources.
+beta 8
+*Added the Forge Relay, Mana Pylon, Unstable Beacon, Signal Flare, Mana Distributor and Jaded Amaranthus.
+*Endoflame particles are a lot more subtle and a lot less resource intensive.
+*Tweaked the look of the Mana Bursts a bit, also added a config option to reduce the density of those.
+*Added a bunch of decorative blocks (with forge multipart support).
+*Added an alt recipe for the runic altar that uses a mana diamond.
+*Tweaked the Daybloom's values a bit and added a hint to the lexicon entry.
+beta 7
+*Fixed a client crash when breaking flowers with a wand in hand.
+*Runes take less time to make now.
+*More recipe balance changes.
+*Fixed the Rune of Wrath not being in the lexicon.
+*The mana network gets cleared when there's no world loaded. Fixes "phantom beams" in multiplayer.
+*The rune altar calculates positions during the render now, fixes weird multiplayer stacking.
+beta 6
+*Fixed a server crash when putting lens in a spreader.
+*Endoflame now generates at twice the speed.
+*Changed the lexicon's HUD to be a bit more opaque.
+*The Wand of the Forest is now Full 3D.
+*Rebalanced some recipes.
+*Fixed a critical issue where the flowers wouldn't write to NBT (or packets) properly.
+beta 5
+*Minor texture changes.
+*Fixed the Rune Altar not working in singleplayer (lol).
+*All special flowers have the same breaking particles now.
+*Added 3 new flowers.
+*Added a HUD to when a block that can be looked up in the lexicon is being hovered.
+beta 4
+*The mod works in multiplayer now, or it should, at least.
+*Fixed the earth rune using mushroom blocks (the ones in giant mushrooms).
+*Fixed the rune recipes being out of order.
+*Fixed not being able to craft Bellethrone.
+*Looking up something via world right click now requires the player to be sneaking.
+*Fancified a bunch of things.
+alpha 3
+*Fixed the Rune Altar not accepting any recipes.
+*Fixed the recipes for runes being out of order.
+alpha 2
+*Documented all the things in the lexicon.
+*All the blocks/items have recipes now, you can play it in survival
+*Petal Apothecary no longer removes water buckets in creative
+*Mana Spreader now faces one of 6 directions when placed
+*Daybloom only produces during daytime
+*Bellethorne has an interval between activation
+*The Lexicon GUI doesn't pause the game
+alpha 1
+*Initial realese.
