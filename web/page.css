@@ -42,7 +42,10 @@ html {
 
 .carousel {
   height: 500px;
+  width: 970px;
   margin-top: -18px;
+  left: 50%;
+  margin-left: -485px;
 }
 
 .carousel-caption {

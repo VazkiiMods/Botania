@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<project name="Botany" default="build">
+<project name="Botania" default="build">
 
 	<property file="build.properties" prefix="build"/>
 	<property file="ftp.properties" prefix="ftp"/>
@@ -15,6 +15,7 @@
 		<propertyfile file="build.properties">
 			<entry key="build_number" type="int" operation="+" default="1"/>
 		</propertyfile>
+		<concat destfile="${build.dir.repo}\web\versions.ini" append="true" fixlastline="true">${line.separator}${build.version}-${build.build_number}=${build.mc_version}</concat>
 	</target>
 
 	<target name="prep">
@@ -67,6 +68,7 @@
 		</ftp>
 		<ftp action="send" server="${ftp.host}" remotedir="/${build.mod_name}" userid="${ftp.user}" password="${ftp.pass}" verbose="yes" depends="yes">
 			<fileset file="${build.dir.repo}web/changelog.txt" />
+			<fileset file="${build.dir.repo}web/versions.ini" />
 		</ftp>
 	</target>
 

@@ -38,6 +38,7 @@
 					$files = scandir('files/');
 					natsort($files);
 					$files = array_reverse($files);
+					$versions = parse_ini_file('versions.ini');
 					$first = true;
 					$total_dls = 0;
 					$downloads_str = '';
@@ -52,6 +53,7 @@
 														
 							$file_version = substr($file, strlen('Botania '));
 							$version_name = substr($file_version, 0, strlen($file_version) - strlen('.jar'));
+							$mc_version = $versions[$version_name];
 							
 							$dls_txt = 'Downloads';
 							if($dls == 1)
@@ -62,7 +64,7 @@
 								$cl_button_type = '';
 							}
 							
-							$downloads_str .= "<a href='dl.php?file=$file' class='btn $button_type btn-success dl'><b>$file</b></a> <a href='changelog.php#$version_name' class='btn $cl_button_type btn-info'><b>Changelog</b></a> <a href='dl.php?file=$file' class='btn $cl_button_type btn-warning dl-counter'><b>$dls</b> $dls_txt</a>";
+							$downloads_str .= "<a href='dl.php?file=$file' class='btn $button_type btn-success dl'><b>$file</b></a> <a href='changelog.php#$version_name' class='btn $cl_button_type btn-info'><b>Changelog</b></a> <a class='btn $cl_button_type btn-danger dl-counter'>Minecraft <b>$mc_version</b></a> <a href='dl.php?file=$file' class='btn $cl_button_type btn-warning dl-counter'><b>$dls</b> $dls_txt</a>";
 							
 							if($first) {
 								$downloads_str .= '<br><br><hr><font size="5">Old Versions</font><br><br>';
