@@ -15,6 +15,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -47,6 +48,11 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 		setBlockBounds(f, f, f, 1F - f, 1F / 16F * 20F, 1F - f);
 
 		random = new Random();
+	}
+	
+	@Override
+	public void registerBlockIcons(IIconRegister par1IconRegister) {
+		// NO-OP
 	}
 
 	@Override

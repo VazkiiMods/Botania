@@ -12,6 +12,7 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -35,6 +36,11 @@ public class BlockPylon extends BlockModContainer implements ILexiconable {
 
 		float f = 1F / 16F * 2F;
 		setBlockBounds(f, 0F, f, 1F - f, 1F / 16F * 21F, 1F - f);
+	}
+	
+	@Override
+	public void registerBlockIcons(IIconRegister par1IconRegister) {
+		// NO-OP
 	}
 
 	@Override

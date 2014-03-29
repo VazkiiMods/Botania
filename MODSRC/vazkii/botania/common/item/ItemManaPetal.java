@@ -11,6 +11,7 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -21,6 +22,11 @@ public class ItemManaPetal extends Item16Colors implements IFlowerComponent {
 
 	public ItemManaPetal() {
 		super(LibItemNames.MANA_PETAL);
+	}
+	
+	@Override
+	public void registerIcons(IIconRegister par1IconRegister) {
+		// NO-OP
 	}
 
 	@Override
