@@ -96,9 +96,6 @@ public final class ModBlocks {
 
 		initTileEntities();
 		registerMultiparts();
-
-		// Vanilla ores (because forge doesn't do this by default for some reason)
-		OreDictionary.registerOre("oreCoal", Blocks.coal_ore);
 	}
 
 	private static void initTileEntities() {
