@@ -29,6 +29,6 @@ public final class LibObfuscation {
 	public static final String[] TIME_SINCE_IGNITED = new String[] {  "timeSinceIgnited", "field_70833_d", "bq" };
 
 	// ThreadDownloadImageData
-	public static final String[] TEXTURE_UPLOADED = new String[] { "textureUploaded", "field_110559_g", "g" };
-	public static final String[] BUFFERED_IMAGE = new String[] { "bufferedImage", "field_110560_d", "d" };
+	public static final String[] TEXTURE_UPLOADED = new String[] { "textureUploaded", "field_110559_g", "i" };
+	public static final String[] BUFFERED_IMAGE = new String[] { "bufferedImage", "field_110560_d", "g" };
 }
