@@ -24,7 +24,6 @@ import net.minecraft.util.StatCollector;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaCollector;
-import cpw.mods.fml.common.network.PacketDispatcher;
 
 /**
  * The basic class for a Generating Flower.
@@ -58,19 +57,19 @@ public class SubTileGenerating extends SubTileEntity {
 
 		if(canGeneratePassively()) {
 			int delay = getDelayBetweenPassiveGeneration();
-			if(delay > 0 && supertile.worldObj.getWorldTime() % delay == 0) {
+			if(delay > 0 && supertile.getWorldObj().getWorldTime() % delay == 0) {
 				if(shouldSyncPassiveGeneration())
-					PacketDispatcher.sendPacketToAllInDimension(supertile.getDescriptionPacket(), supertile.worldObj.provider.dimensionId);
+					sync();
 				addMana(getValueForPassiveGeneration());
 			}
 			emptyManaIntoCollector();
 		}
 
-		if(supertile.worldObj.isRemote) {
+		if(supertile.getWorldObj().isRemote) {
 			double particleChance = 1F - (double) mana / (double) getMaxMana() / 2F;
 			Color color = new Color(getColor());
 			if(Math.random() > particleChance)
-				BotaniaAPI.internalHandler.sparkleFX(supertile.worldObj, supertile.xCoord + 0.3 + Math.random() * 0.5, supertile.yCoord + 0.5 + Math.random()  * 0.5, supertile.zCoord + 0.3 + Math.random() * 0.5, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random(), 5);
+				BotaniaAPI.internalHandler.sparkleFX(supertile.getWorldObj(), supertile.xCoord + 0.3 + Math.random() * 0.5, supertile.yCoord + 0.5 + Math.random()  * 0.5, supertile.zCoord + 0.3 + Math.random() * 0.5, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random(), 5);
 		}
 	}
 
@@ -82,7 +81,7 @@ public class SubTileGenerating extends SubTileEntity {
 			needsNew = true;
 
 			if(cachedCollectorCoordinates != null) {
-				TileEntity tileAt = supertile.worldObj.getBlockTileEntity(cachedCollectorCoordinates.posX, cachedCollectorCoordinates.posY, cachedCollectorCoordinates.posZ);
+				TileEntity tileAt = supertile.getWorldObj().getTileEntity(cachedCollectorCoordinates.posX, cachedCollectorCoordinates.posY, cachedCollectorCoordinates.posZ);
 				if(tileAt != null && tileAt instanceof IManaCollector) {
 					linkedCollector = tileAt;
 					needsNew = false;
@@ -92,7 +91,7 @@ public class SubTileGenerating extends SubTileEntity {
 		}
 
 		if(!needsNew) {
-			TileEntity tileAt = supertile.worldObj.getBlockTileEntity(linkedCollector.xCoord, linkedCollector.yCoord, linkedCollector.zCoord);
+			TileEntity tileAt = supertile.getWorldObj().getTileEntity(linkedCollector.xCoord, linkedCollector.yCoord, linkedCollector.zCoord);
 			if(!(tileAt instanceof IManaCollector)) {
 				linkedCollector = null;
 				needsNew = true;
@@ -101,10 +100,10 @@ public class SubTileGenerating extends SubTileEntity {
 
 		if(needsNew) {
 			IManaNetwork network = BotaniaAPI.internalHandler.getManaNetworkInstance();
-			int size = network.getAllCollectorsInWorld(supertile.worldObj.provider.dimensionId).size();
+			int size = network.getAllCollectorsInWorld(supertile.getWorldObj().provider.dimensionId).size();
 			if(size != sizeLastCheck) {
 				ChunkCoordinates coords = new ChunkCoordinates(supertile.xCoord, supertile.yCoord, supertile.zCoord);
-				linkedCollector = network.getClosestCollector(coords, supertile.worldObj.provider.dimensionId, range);
+				linkedCollector = network.getClosestCollector(coords, supertile.getWorldObj().provider.dimensionId, range);
 				sizeLastCheck = size;
 			}
 		}
@@ -129,8 +128,8 @@ public class SubTileGenerating extends SubTileEntity {
 	}
 
 	public boolean canGeneratePassively() {
-		boolean rain = supertile.worldObj.getWorldChunkManager().getBiomeGenAt(supertile.xCoord, supertile.zCoord).getIntRainfall() > 0 && (supertile.worldObj.isRaining() || supertile.worldObj.isThundering());
-		return !supertile.worldObj.isRemote && supertile.worldObj.isDaytime() && !rain && supertile.worldObj.canBlockSeeTheSky(supertile.xCoord, supertile.yCoord + 1, supertile.zCoord);
+		boolean rain = supertile.getWorldObj().getWorldChunkManager().getBiomeGenAt(supertile.xCoord, supertile.zCoord).getIntRainfall() > 0 && (supertile.getWorldObj().isRaining() || supertile.getWorldObj().isThundering());
+		return !supertile.getWorldObj().isRemote && supertile.getWorldObj().isDaytime() && !rain && supertile.getWorldObj().canBlockSeeTheSky(supertile.xCoord, supertile.yCoord + 1, supertile.zCoord);
 	}
 
 	public int getDelayBetweenPassiveGeneration() {
@@ -144,7 +143,7 @@ public class SubTileGenerating extends SubTileEntity {
 	@Override
 	public boolean onWanded(EntityPlayer player, ItemStack wand) {
 		if(!player.worldObj.isRemote)
-			PacketDispatcher.sendPacketToAllInDimension(supertile.getDescriptionPacket(), supertile.worldObj.provider.dimensionId);
+			sync();
 
 		knownMana = mana;
 		player.worldObj.playSoundAtEntity(player, "random.orb", 0.1F, 1F);

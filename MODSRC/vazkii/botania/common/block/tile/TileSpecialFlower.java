@@ -15,10 +15,11 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.ITileBound;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -71,7 +72,7 @@ public class TileSpecialFlower extends TileMod implements ITileBound {
 
 		cmp.setString(TAG_SUBTILE_NAME, subTileName);
 		NBTTagCompound subCmp = new NBTTagCompound();
-		cmp.setCompoundTag(TAG_SUBTILE_CMP, subCmp);
+		cmp.setTag(TAG_SUBTILE_CMP, subCmp);
 		subTile.writeToPacketNBT(subCmp);
 	}
 
@@ -88,8 +89,8 @@ public class TileSpecialFlower extends TileMod implements ITileBound {
 		subTile.readFromPacketNBT(subCmp);
 	}
 
-	public Icon getIcon() {
-		return subTile == null ? Block.plantRed.getIcon(0, 0) : subTile.getIcon();
+	public IIcon getIcon() {
+		return subTile == null ? Blocks.red_flower.getIcon(0, 0) : subTile.getIcon();
 	}
 
 	public LexiconEntry getEntry() {

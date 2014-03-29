@@ -11,13 +11,12 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.potion.Potion;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.BotaniaCreativeTab;
-import vazkii.botania.common.lib.LibItemIDs;
 import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -26,7 +25,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemManaCookie extends ItemFood {
 
 	public ItemManaCookie() {
-		super(LibItemIDs.idManaCookie, 0, 0.1F, false);
+		super(0, 0.1F, false);
 		setPotionEffect(Potion.field_76443_y.id, 1,  0, 1F);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setUnlocalizedName(LibItemNames.MANA_COOKIE);
@@ -40,7 +39,7 @@ public class ItemManaCookie extends ItemFood {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister par1IconRegister) {
+	public void registerIcons(IIconRegister par1IconRegister) {
 		itemIcon = IconHelper.forItem(par1IconRegister, this);
 	}
 

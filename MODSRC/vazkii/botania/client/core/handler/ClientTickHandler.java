@@ -26,55 +26,54 @@ import vazkii.botania.client.gui.GuiLexicon;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.lib.LibMisc;
-import cpw.mods.fml.common.ITickHandler;
-import cpw.mods.fml.common.TickType;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.Phase;
+import cpw.mods.fml.common.gameevent.TickEvent.Type;
 
-public class ClientTickHandler implements ITickHandler {
+public class ClientTickHandler {
 
 	public static int ticksWithLexicaOpen = 0;
 	public static int pageFlipTicks = 0;
 
-	@Override
-	public void tickStart(EnumSet<TickType> type, Object... tickData) {
-		// NO-OP
-	}
+	@SubscribeEvent
+	public void tickEnd(ClientTickEvent event) {
+		if(event.phase == Phase.END && event.type == Type.CLIENT) {
+			LightningBolt.update();
 
-	@Override
-	public void tickEnd(EnumSet<TickType> type, Object... tickData) {
-		LightningBolt.update();
+			if(Minecraft.getMinecraft().theWorld == null)
+				ManaNetworkHandler.instance.clear();
 
-		if(Minecraft.getMinecraft().theWorld == null)
-			ManaNetworkHandler.instance.clear();
-
-		GuiScreen gui = Minecraft.getMinecraft().currentScreen;
-		if(gui == null || !gui.doesGuiPauseGame()) {
-			EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-			if(player != null) {
-				ItemStack stack = player.getCurrentEquippedItem();
-				if(stack != null && stack.getItem() instanceof ItemTwigWand) {
-					List<TileEntity> list = new ArrayList(ManaNetworkHandler.instance.getAllCollectorsInWorld(Minecraft.getMinecraft().theWorld.provider.dimensionId));
-					for(TileEntity tile : list) {
-						if(tile instanceof IManaCollector)
-							((IManaCollector) tile).onClientDisplayTick();
+			GuiScreen gui = Minecraft.getMinecraft().currentScreen;
+			if(gui == null || !gui.doesGuiPauseGame()) {
+				EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+				if(player != null) {
+					ItemStack stack = player.getCurrentEquippedItem();
+					if(stack != null && stack.getItem() instanceof ItemTwigWand) {
+						List<TileEntity> list = new ArrayList(ManaNetworkHandler.instance.getAllCollectorsInWorld(Minecraft.getMinecraft().theWorld.provider.dimensionId));
+						for(TileEntity tile : list) {
+							if(tile instanceof IManaCollector)
+								((IManaCollector) tile).onClientDisplayTick();
+						}
 					}
 				}
 			}
-		}
 
-		int ticksToOpen = 10;
-		if(gui instanceof GuiLexicon) {
-			if(ticksWithLexicaOpen < 0)
-				ticksWithLexicaOpen = 0;
-			if(ticksWithLexicaOpen < ticksToOpen)
-				ticksWithLexicaOpen++;
-			if(pageFlipTicks > 0)
-				pageFlipTicks--;
-		} else {
-			pageFlipTicks = 0;
-			if(ticksWithLexicaOpen > 0) {
-				if(ticksWithLexicaOpen > ticksToOpen)
-					ticksWithLexicaOpen = ticksToOpen;
-				ticksWithLexicaOpen--;
+			int ticksToOpen = 10;
+			if(gui instanceof GuiLexicon) {
+				if(ticksWithLexicaOpen < 0)
+					ticksWithLexicaOpen = 0;
+				if(ticksWithLexicaOpen < ticksToOpen)
+					ticksWithLexicaOpen++;
+				if(pageFlipTicks > 0)
+					pageFlipTicks--;
+			} else {
+				pageFlipTicks = 0;
+				if(ticksWithLexicaOpen > 0) {
+					if(ticksWithLexicaOpen > ticksToOpen)
+						ticksWithLexicaOpen = ticksToOpen;
+					ticksWithLexicaOpen--;
+				}
 			}
 		}
 	}
@@ -82,16 +81,6 @@ public class ClientTickHandler implements ITickHandler {
 	public static void notifyPageChange() {
 		if(pageFlipTicks == 0)
 			pageFlipTicks = 5;
-	}
-
-	@Override
-	public EnumSet<TickType> ticks() {
-		return EnumSet.of(TickType.CLIENT);
-	}
-
-	@Override
-	public String getLabel() {
-		return LibMisc.MOD_ID;
 	}
 
 }

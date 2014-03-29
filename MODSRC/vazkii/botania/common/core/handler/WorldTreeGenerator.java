@@ -11,6 +11,7 @@
  */
 package vazkii.botania.common.core.handler;
 
+import net.minecraft.block.Block;
 import net.minecraft.world.World;
 import vazkii.botania.common.block.ModBlocks;
 
@@ -38,7 +39,7 @@ public class WorldTreeGenerator {
 	}
 
 	public void generateRing(int yoff, int radius) {
-		int id = ModBlocks.livingwood.blockID;
+		Block block = ModBlocks.livingwood;
 		y = yoff;
 
 		for(int i = 0; i < 360; i++) {
@@ -46,7 +47,7 @@ public class WorldTreeGenerator {
 				continue;
 
 			int meta = world.rand.nextInt(200) == 0 ? 5 : 0;
-			generateRingVal(radius, i, id, meta);
+			generateRingVal(radius, i, block, meta);
 		}
 
 		int mul = 4;
@@ -55,8 +56,8 @@ public class WorldTreeGenerator {
 				int meta = world.rand.nextInt(4) == 0 ? 5 : 0;
 				int angle = (y - j) * mul % 360;
 
-				generateRingVal(radius - i - 3, angle, id, meta);
-				generateRingVal(radius - i - 3, angle + 180, id, meta);
+				generateRingVal(radius - i - 3, angle, block, meta);
+				generateRingVal(radius - i - 3, angle + 180, block, meta);
 			}
 
 		mul = 3;
@@ -65,25 +66,25 @@ public class WorldTreeGenerator {
 			for(int j = 0; j < mul; j++) {
 				int meta = world.rand.nextInt(20) == 0 ? 5 : 0;
 				int angle = (y - j) * mul % 360;
-				generateRingVal(radius + i - 1, angle + 90, id, meta);
-				generateRingVal(radius + i - 1, angle + 270, id, meta);
+				generateRingVal(radius + i - 1, angle + 90, block, meta);
+				generateRingVal(radius + i - 1, angle + 270, block, meta);
 			}
 	}
 
-	public void generateRingVal(int radius, int angle, int blockid, int meta) {
+	public void generateRingVal(int radius, int angle, Block block, int meta) {
 		int nx = (int) (Math.cos(angle * Math.PI / 180D) * radius);
 		int nz = (int) (Math.sin(angle * Math.PI / 180D) * radius);
 
 		if(x != nx || z != nz) {
 			x = nx;
 			z = nz;
-			place(srcx + x, srcy + y, srcz + z, blockid, meta);
+			place(srcx + x, srcy + y, srcz + z, block, meta);
 		}
 	}
 
 
-	public void place(int x, int y, int z, int id, int meta) {
-		world.setBlock(x, y, z, id, meta, 2);
+	public void place(int x, int y, int z, Block block, int meta) {
+		world.setBlock(x, y, z, block, meta, 2);
 		blocksPlaced++;
 	}
 }

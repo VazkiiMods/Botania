@@ -13,11 +13,11 @@ package vazkii.botania.api.internal;
 
 import java.util.List;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
@@ -82,12 +82,12 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 
 	@Override
 	public ItemStack getSubTileAsStack(String subTile) {
-		return new ItemStack(1, 0, 0);
+		return new ItemStack(Blocks.stone, 0, 0);
 	}
 
 	@Override
-	public Icon getSubTileIconForName(String name) {
-		return Block.plantRed.getIcon(0, 0);
+	public IIcon getSubTileIconForName(String name) {
+		return Blocks.red_flower.getIcon(0, 0);
 	}
 
 	@Override

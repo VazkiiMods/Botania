@@ -13,14 +13,15 @@ package vazkii.botania.common.block;
 
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.ILexiconable;
@@ -29,30 +30,29 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.tile.TileManaDetector;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibBlockIDs;
 import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockManaDetector extends BlockModContainer implements ILexiconable {
 
-	Icon[] icons;
+	IIcon[] icons;
 
 	protected BlockManaDetector() {
-		super(LibBlockIDs.idManaDetector, Material.rock);
+		super(Material.rock);
 		setHardness(2.0F);
 		setResistance(10.0F);
-		setStepSound(soundStoneFootstep);
-		setUnlocalizedName(LibBlockNames.MANA_DETECTOR);
+		setStepSound(Block.soundTypeStone);
+		setBlockName(LibBlockNames.MANA_DETECTOR);
 	}
 
 	@Override
-	public void registerIcons(IconRegister par1IconRegister) {
-		icons = new Icon[2];
+	public void registerBlockIcons(IIconRegister par1IconRegister) {
+		icons = new IIcon[2];
 		for(int i = 0; i < icons.length; i++)
 			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
 	}
 
 	@Override
-	public Icon getIcon(int par1, int par2) {
+	public IIcon getIcon(int par1, int par2) {
 		return icons[Math.min(icons.length - 1, par2)];
 	}
 
@@ -73,7 +73,7 @@ public class BlockManaDetector extends BlockModContainer implements ILexiconable
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world) {
+	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileManaDetector();
 	}
 

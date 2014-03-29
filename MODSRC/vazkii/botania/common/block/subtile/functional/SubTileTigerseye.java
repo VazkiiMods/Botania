@@ -17,7 +17,7 @@ import java.util.List;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.ai.EntityAITaskEntry;
+import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.passive.EntityOcelot;
@@ -27,7 +27,6 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibObfuscation;
-import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class SubTileTigerseye extends SubTileFunctional {
@@ -42,7 +41,7 @@ public class SubTileTigerseye extends SubTileFunctional {
 
 		boolean shouldAfffect = mana >= cost;
 
-		List<EntityLiving> entities = supertile.worldObj.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord - rangeY, supertile.zCoord - range, supertile.xCoord + range, supertile.yCoord + rangeY, supertile.zCoord + range));
+		List<EntityLiving> entities = supertile.getWorldObj().getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord - rangeY, supertile.zCoord - range, supertile.xCoord + range, supertile.yCoord + rangeY, supertile.zCoord + range));
 
 		for(EntityLiving entity : entities) {
 			List<EntityAITaskEntry> entries = new ArrayList(entity.tasks.taskEntries);
@@ -65,7 +64,7 @@ public class SubTileTigerseye extends SubTileFunctional {
 
 			if(avoidsOcelots) {
 				mana -= cost;
-				PacketDispatcher.sendPacketToAllInDimension(supertile.getDescriptionPacket(), supertile.worldObj.provider.dimensionId);
+				sync();
 				shouldAfffect = false;
 			}
 		}

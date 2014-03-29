@@ -11,16 +11,20 @@
  */
 package vazkii.botania.common.block.tile;
 
+import ibxm.Player;
+
 import java.awt.Color;
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.packet.Packet132TileEntityData;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.StatCollector;
 
@@ -34,8 +38,6 @@ import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
-import cpw.mods.fml.common.network.PacketDispatcher;
-import cpw.mods.fml.common.network.Player;
 
 public class TilePool extends TileMod implements IManaPool {
 
@@ -53,8 +55,8 @@ public class TilePool extends TileMod implements IManaPool {
 
 	@Override
 	public boolean isFull() {
-		int idBelow = worldObj.getBlockId(xCoord, yCoord - 1, zCoord);
-		return idBelow != ModBlocks.manaVoid.blockID && mana >= MAX_MANA;
+		Block blockBelow = worldObj.getBlock(xCoord, yCoord - 1, zCoord);
+		return blockBelow != ModBlocks.manaVoid && mana >= MAX_MANA;
 	}
 
 	@Override
@@ -63,7 +65,7 @@ public class TilePool extends TileMod implements IManaPool {
 
 		this.mana = Math.min(this.mana + mana, MAX_MANA);
 		if(!full)
-			worldObj.func_96440_m(xCoord, yCoord, zCoord, worldObj.getBlockId(xCoord, yCoord, zCoord));
+			worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 	}
 
 	@Override
@@ -158,7 +160,7 @@ public class TilePool extends TileMod implements IManaPool {
 					}
 
 					if(didSomething) {
-						PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
+						worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 						if(worldObj.isRemote) {
 							Color color = new Color(0x00C6FF);
 							Botania.proxy.wispFX(worldObj, item.posX + Math.random() * 0.5 - 0.25, item.posY + Math.random() * 0.5 - (outputting ? 0.65 : 0.25), item.posZ + Math.random() * 0.5 - 0.25, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random() / 15F, (outputting ? -1F : 1) * (float) Math.random() / 25F);
@@ -187,14 +189,15 @@ public class TilePool extends TileMod implements IManaPool {
 	public void onWanded(EntityPlayer player, ItemStack wand) {
 		if(player.isSneaking()) {
 			outputting = !outputting;
-			PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
+			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 		}
 
 		if(!worldObj.isRemote) {
 			NBTTagCompound nbttagcompound = new NBTTagCompound();
 			writeCustomNBT(nbttagcompound);
 			nbttagcompound.setInteger(TAG_KNOWN_MANA, getCurrentMana());
-			PacketDispatcher.sendPacketToPlayer(new Packet132TileEntityData(xCoord, yCoord, zCoord, -999, nbttagcompound), (Player) player);
+			if(player instanceof EntityPlayerMP)
+				((EntityPlayerMP) player).playerNetServerHandler.sendPacket(new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, -999, nbttagcompound));
 		}
 
 		worldObj.playSoundAtEntity(player, "random.orb", 0.11F, 1F);

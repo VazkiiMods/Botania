@@ -14,11 +14,11 @@ package vazkii.botania.common.block.tile;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -29,7 +29,6 @@ import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
-import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class TileEnchanter extends TileMod implements IManaReceiver {
 
@@ -80,10 +79,10 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 		if(count > 0 && !worldObj.isRemote) {
 			for(EntityItem entity : items) {
 				ItemStack item = entity.getEntityItem();
-				if(item.itemID == Item.enchantedBook.itemID) {
-					NBTTagList enchants = Item.enchantedBook.func_92110_g(item);
+				if(item.getItem() == Items.enchanted_book) {
+					NBTTagList enchants = Items.enchanted_book.func_92110_g(item);
 					if(enchants != null && enchants.tagCount() > 0) {
-						NBTTagCompound enchant = (NBTTagCompound) enchants.tagAt(0);
+						NBTTagCompound enchant = (NBTTagCompound) enchants.getCompoundTagAt(0);
 						short id = enchant.getShort("id");
 						if(isEnchantmentValid(id)) {
 							advanceStage();
@@ -99,11 +98,11 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 	public void updateEntity() {
 		if(!canEnchanterExist(worldObj, xCoord, yCoord, zCoord, getBlockMetadata())) {
 			for(int[] pylon : PYLON_LOCATIONS[getBlockMetadata()]) {
-				TilePylon pylonTile = (TilePylon) worldObj.getBlockTileEntity(xCoord + pylon[0], yCoord + pylon[1], zCoord + pylon[2]);
+				TilePylon pylonTile = (TilePylon) worldObj.getTileEntity(xCoord + pylon[0], yCoord + pylon[1], zCoord + pylon[2]);
 				if(pylonTile != null)
 					pylonTile.activated = false;
 			}
-			worldObj.setBlock(xCoord, yCoord, zCoord, Block.blockLapis.blockID, 0, 1 | 2);
+			worldObj.setBlock(xCoord, yCoord, zCoord, Blocks.lapis_block, 0, 1 | 2);
 			for(int i = 0; i < 50; i++) {
 				float red = (float) Math.random();
 				float green = (float) Math.random();
@@ -123,11 +122,11 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 				if(count > 0 && !worldObj.isRemote) {
 					for(EntityItem entity : items) {
 						ItemStack item = entity.getEntityItem();
-						if(item.itemID == Item.enchantedBook.itemID) {
+						if(item.getItem() == Items.enchanted_book) {
 							// XXX - This needs to be rewritten for the new book enchanting in 1.7
-							NBTTagList enchants = Item.enchantedBook.func_92110_g(item);
+							NBTTagList enchants = Items.enchanted_book.func_92110_g(item);
 							if(enchants != null && enchants.tagCount() > 0) {
-								NBTTagCompound enchant = (NBTTagCompound) enchants.tagAt(0);
+								NBTTagCompound enchant = (NBTTagCompound) enchants.getCompoundTagAt(0);
 								short enchantId = enchant.getShort("id");
 								short enchantLvl = enchant.getShort("lvl");
 								if(!hasEnchantAlready(enchantId)) {
@@ -151,7 +150,7 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 		}
 		case 2 : { // Get Mana
 			for(int[] pylon : PYLON_LOCATIONS[getBlockMetadata()]) {
-				TilePylon pylonTile = (TilePylon) worldObj.getBlockTileEntity(xCoord + pylon[0], yCoord + pylon[1], zCoord + pylon[2]);
+				TilePylon pylonTile = (TilePylon) worldObj.getTileEntity(xCoord + pylon[0], yCoord + pylon[1], zCoord + pylon[2]);
 				if(pylonTile != null) {
 					pylonTile.activated = true;
 					pylonTile.centerX = xCoord;
@@ -169,21 +168,20 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 			} else if(mana >= manaRequired) {
 				manaRequired = 0;
 				for(int[] pylon : PYLON_LOCATIONS[getBlockMetadata()])
-					((TilePylon) worldObj.getBlockTileEntity(xCoord + pylon[0], yCoord + pylon[1], zCoord + pylon[2])).activated = false;
+					((TilePylon) worldObj.getTileEntity(xCoord + pylon[0], yCoord + pylon[1], zCoord + pylon[2])).activated = false;
 
 				advanceStage();
 			} else {
 				getManaFromPools : {
 				for(int i = -4; i < 5; i++)
 					for(int j = -4; j < 5; j++) {
-						TileEntity tile = worldObj.getBlockTileEntity(xCoord + i, yCoord, zCoord + j);
+						TileEntity tile = worldObj.getTileEntity(xCoord + i, yCoord, zCoord + j);
 						if(tile instanceof IManaPool) {
 							IManaPool pool = (IManaPool) tile;
 							int manaToRemove = Math.min(pool.getCurrentMana(), Math.min(1000, manaRequired - mana + 1));
 							if(!worldObj.isRemote) {
 								pool.recieveMana(-manaToRemove);
 								recieveMana((int) (manaToRemove * 0.9));
-								PacketDispatcher.sendPacketToAllInDimension(tile.getDescriptionPacket(), worldObj.provider.dimensionId);
 								sync();
 							}
 
@@ -267,7 +265,7 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 	}
 
 	public void sync() {
-		PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
+		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 	}
 
 	@Override
@@ -281,7 +279,7 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 		NBTTagCompound itemCmp = new NBTTagCompound();
 		if(itemToEnchant != null)
 			itemToEnchant.writeToNBT(itemCmp);
-		cmp.setCompoundTag(TAG_ITEM, itemCmp);
+		cmp.setTag(TAG_ITEM, itemCmp);
 
 		String enchStr = "";
 		for(EnchantmentData data : enchants)
@@ -337,16 +335,16 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 
 	public static boolean canEnchanterExist(World world, int x, int y, int z, int meta) {
 		for(int[] obsidian : OBSIDIAN_LOCATIONS)
-			if(world.getBlockId(obsidian[0] + x, obsidian[1] + y, obsidian[2] + z) != Block.obsidian.blockID)
+			if(world.getBlock(obsidian[0] + x, obsidian[1] + y, obsidian[2] + z) != Blocks.obsidian)
 				return false;
 
 		for(int[] pylon : PYLON_LOCATIONS[meta])
-			if(world.getBlockId(pylon[0] + x, pylon[1] + y, pylon[2] + z) != ModBlocks.pylon.blockID ||
-			world.getBlockId(pylon[0] + x, pylon[1] + y - 1, pylon[2] + z) != ModBlocks.flower.blockID)
+			if(world.getBlock(pylon[0] + x, pylon[1] + y, pylon[2] + z) != ModBlocks.pylon ||
+			world.getBlock(pylon[0] + x, pylon[1] + y - 1, pylon[2] + z) != ModBlocks.flower)
 				return false;
 
 		for(int[] flower : FLOWER_LOCATIONS)
-			if(world.getBlockId(flower[0] + x, flower[1] + y, flower[2] + z) != ModBlocks.flower.blockID)
+			if(world.getBlock(flower[0] + x, flower[1] + y, flower[2] + z) != ModBlocks.flower)
 				return false;
 
 		return true;

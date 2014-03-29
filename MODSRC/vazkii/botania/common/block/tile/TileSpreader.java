@@ -21,14 +21,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.packet.Packet132TileEntityData;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
@@ -46,8 +46,6 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.entity.EntityManaBurst.PositionProperties;
 import vazkii.botania.common.lib.LibBlockNames;
-import cpw.mods.fml.common.network.PacketDispatcher;
-import cpw.mods.fml.common.network.Player;
 
 public class TileSpreader extends TileSimpleInventory implements IManaCollector, ITileBound {
 
@@ -102,7 +100,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		boolean redstone = false;
 
 		for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-			TileEntity tileAt = worldObj.getBlockTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ);
+			TileEntity tileAt = worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ);
 			if(tileAt instanceof IManaPool) {
 				IManaPool pool = (IManaPool) tileAt;
 				int manaInPool = pool.getCurrentMana();
@@ -161,7 +159,8 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 				NBTTagCompound nbttagcompound = new NBTTagCompound();
 				writeCustomNBT(nbttagcompound);
 				nbttagcompound.setInteger(TAG_KNOWN_MANA, mana);
-				PacketDispatcher.sendPacketToPlayer(new Packet132TileEntityData(xCoord, yCoord, zCoord, -999, nbttagcompound), (Player) player);
+				if(player instanceof EntityPlayerMP)
+					((EntityPlayerMP) player).playerNetServerHandler.sendPacket(new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, -999, nbttagcompound));
 			}
 			worldObj.playSoundAtEntity(player, "random.orb", 0.1F, 1F);
 		} else {
@@ -191,7 +190,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 				else this.receiver = null;
 
 				checkForReceiver();
-				PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
+				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 			}
 		}
 	}
@@ -218,7 +217,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 					}
 
 					canShootBurst = false;
-					PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
+					worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 				}
 			}
 		}
@@ -285,7 +284,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		if (player instanceof EntityPlayerMP)
 			d3 = ((EntityPlayerMP) player).theItemInWorldManager.getBlockReachDistance();
 		Vec3 vec31 = vec3.addVector(f7 * d3, f6 * d3, f8 * d3);
-		return world.rayTraceBlocks_do_do(vec3, vec31, par3, !par3);
+		return world.func_147447_a(vec3, vec31, par3, !par3, par3);
 	}
 
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
@@ -312,7 +311,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 		if(receiver != null) {
 			TileEntity receiverTile = (TileEntity) receiver;
-			ItemStack recieverStack = new ItemStack(worldObj.getBlockId(receiverTile.xCoord, receiverTile.yCoord, receiverTile.zCoord), 1, receiverTile.getBlockMetadata());
+			ItemStack recieverStack = new ItemStack(worldObj.getBlock(receiverTile.xCoord, receiverTile.yCoord, receiverTile.zCoord), 1, receiverTile.getBlockMetadata());
 			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			if(recieverStack != null && recieverStack.getItem() != null) {
@@ -351,7 +350,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	@Override
-	public String getInvName() {
+	public String getInventoryName() {
 		return LibBlockNames.SPREADER;
 	}
 
@@ -366,11 +365,11 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	@Override
-	public void onInventoryChanged() {
+	public void markDirty() {
 		checkForReceiver();
-		PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
+		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 	}
-
+	
 	@Override
 	public ChunkCoordinates getBinding() {
 		if(receiver == null)

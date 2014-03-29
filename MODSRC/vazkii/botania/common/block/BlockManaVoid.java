@@ -11,6 +11,7 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -20,21 +21,20 @@ import vazkii.botania.api.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.tile.TileManaVoid;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibBlockIDs;
 import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockManaVoid extends BlockModContainer implements ILexiconable {
 
 	protected BlockManaVoid() {
-		super(LibBlockIDs.idManaVoid, Material.rock);
+		super(Material.rock);
 		setHardness(2.0F);
 		setResistance(2000F);
-		setStepSound(soundStoneFootstep);
-		setUnlocalizedName(LibBlockNames.MANA_VOID);
+		setStepSound(Block.soundTypeStone);
+		setBlockName(LibBlockNames.MANA_VOID);
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world) {
+	public TileEntity createNewTileEntity(World world, int id) {
 		return new TileManaVoid();
 	}
 

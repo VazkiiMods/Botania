@@ -18,11 +18,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
-
-import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class TileTurntable extends TileMod {
 
@@ -43,7 +41,7 @@ public class TileTurntable extends TileMod {
 		}
 
 		if(!redstone) {
-			TileEntity tile = worldObj.getBlockTileEntity(xCoord, yCoord + 1, zCoord);
+			TileEntity tile = worldObj.getTileEntity(xCoord, yCoord + 1, zCoord);
 			if(tile instanceof TileSpreader) {
 				TileSpreader spreader = (TileSpreader) tile;
 				spreader.rotationX += speed * (backwards ? -1 : 1);
@@ -69,7 +67,7 @@ public class TileTurntable extends TileMod {
 		if(player.isSneaking())
 			backwards = !backwards;
 		else speed = speed == 6 ? 1 : speed + 1;
-		PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
+		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 	}
 
 	public void renderHUD(Minecraft mc, ScaledResolution res) {

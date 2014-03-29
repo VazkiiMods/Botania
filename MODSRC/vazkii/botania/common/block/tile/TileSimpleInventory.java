@@ -23,10 +23,10 @@ public abstract class TileSimpleInventory extends TileMod implements IInventory 
 
 	@Override
 	public void readCustomNBT(NBTTagCompound par1NBTTagCompound) {
-		NBTTagList var2 = par1NBTTagCompound.getTagList("Items");
+		NBTTagList var2 = par1NBTTagCompound.getTagList("Items", 10);
 		inventorySlots = new ItemStack[getSizeInventory()];
 		for (int var3 = 0; var3 < var2.tagCount(); ++var3) {
-			NBTTagCompound var4 = (NBTTagCompound)var2.tagAt(var3);
+			NBTTagCompound var4 = (NBTTagCompound) var2.getCompoundTagAt(var3);
 			byte var5 = var4.getByte("Slot");
 			if (var5 >= 0 && var5 < inventorySlots.length)
 				inventorySlots[var5] = ItemStack.loadItemStackFromNBT(var4);
@@ -85,32 +85,32 @@ public abstract class TileSimpleInventory extends TileMod implements IInventory 
 	}
 
 	@Override
-	public boolean isInvNameLocalized() {
-		return false;
-	}
-
-	@Override
 	public int getInventoryStackLimit() {
 		return 64;
 	}
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
-		return worldObj.getBlockTileEntity(xCoord, yCoord, zCoord) != this ? false : entityplayer.getDistanceSq(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D) <= 64;
-	}
-
-	@Override
-	public void openChest() {
-		// NO-OP
-	}
-
-	@Override
-	public void closeChest() {
-		// NO-OP
+		return worldObj.getTileEntity(xCoord, yCoord, zCoord) != this ? false : entityplayer.getDistanceSq(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D) <= 64;
 	}
 
 	@Override
 	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
 		return true;
+	}
+
+	@Override
+	public boolean hasCustomInventoryName() {
+		return false;
+	}
+
+	@Override
+	public void openInventory() {
+		// NO-OP
+	}
+
+	@Override
+	public void closeInventory() {
+		// NO-OP
 	}
 }

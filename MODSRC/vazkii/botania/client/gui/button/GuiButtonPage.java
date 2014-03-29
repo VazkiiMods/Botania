@@ -34,8 +34,8 @@ public class GuiButtonPage extends GuiButton {
 	@Override
 	public void drawButton(Minecraft par1Minecraft, int par2, int par3) {
 		if(enabled) {
-			field_82253_i = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
-			int k = getHoverState(field_82253_i);
+			field_146123_n = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
+			int k = getHoverState(field_146123_n);
 
 			par1Minecraft.renderEngine.bindTexture(GuiLexicon.texture);
 			GL11.glColor4f(1F, 1F, 1F, 1F);

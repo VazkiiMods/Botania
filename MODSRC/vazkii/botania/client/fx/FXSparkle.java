@@ -126,7 +126,6 @@ public class FXSparkle extends EntityFX {
 		particleGravity = value;
 	}
 
-	@Override
 	protected boolean pushOutOfBlocks(double par1, double par3, double par5) {
 		int var7 = MathHelper.floor_double(par1);
 		int var8 = MathHelper.floor_double(par3);
@@ -136,12 +135,12 @@ public class FXSparkle extends EntityFX {
 		double var14 = par5 - var9;
 
 		if (!worldObj.isAirBlock(var7, var8, var9)) {
-			boolean var16 = !worldObj.isBlockNormalCube(var7 - 1, var8, var9);
-			boolean var17 = !worldObj.isBlockNormalCube(var7 + 1, var8, var9);
-			boolean var18 = !worldObj.isBlockNormalCube(var7, var8 - 1, var9);
-			boolean var19 = !worldObj.isBlockNormalCube(var7, var8 + 1, var9);
-			boolean var20 = !worldObj.isBlockNormalCube(var7, var8, var9 - 1);
-			boolean var21 = !worldObj.isBlockNormalCube(var7, var8, var9 + 1);
+			boolean var16 = !worldObj.isBlockNormalCubeDefault(var7 - 1, var8, var9, false);
+			boolean var17 = !worldObj.isBlockNormalCubeDefault(var7 + 1, var8, var9, false);
+			boolean var18 = !worldObj.isBlockNormalCubeDefault(var7, var8 - 1, var9, false);
+			boolean var19 = !worldObj.isBlockNormalCubeDefault(var7, var8 + 1, var9, false);
+			boolean var20 = !worldObj.isBlockNormalCubeDefault(var7, var8, var9 - 1, false);
+			boolean var21 = !worldObj.isBlockNormalCubeDefault(var7, var8, var9 + 1, false);
 			byte var22 = -1;
 			double var23 = 9999.0D;
 

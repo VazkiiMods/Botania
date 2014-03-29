@@ -12,7 +12,7 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.entity.passive.EntitySheep;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.common.Botania;
 
 public class TileManaBeacon extends TileMod {

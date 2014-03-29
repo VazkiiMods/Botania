@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -27,7 +28,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 
 //From OpenBlocksLib: https://github.com/OpenMods/OpenModsLib
 public class InventoryHelper {
@@ -146,17 +147,17 @@ public class InventoryHelper {
 	}
 
 	public static IInventory getInventory(World world, int x, int y, int z) {
-		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+		TileEntity tileEntity = world.getTileEntity(x, y, z);
 		if(tileEntity instanceof TileEntityChest) {
-			int chestId = world.getBlockId(x, y, z);
-			if(world.getBlockId(x - 1, y, z) == chestId)
-				return new InventoryLargeChest("Large chest", (IInventory)world.getBlockTileEntity(x - 1, y, z), (IInventory)tileEntity);
-			if(world.getBlockId(x + 1, y, z) == chestId)
-				return new InventoryLargeChest("Large chest", (IInventory)tileEntity, (IInventory)world.getBlockTileEntity(x + 1, y, z));
-			if(world.getBlockId(x, y, z - 1) == chestId)
-				return new InventoryLargeChest("Large chest", (IInventory)world.getBlockTileEntity(x, y, z - 1), (IInventory)tileEntity);
-			if(world.getBlockId(x, y, z + 1) == chestId)
-				return new InventoryLargeChest("Large chest", (IInventory)tileEntity, (IInventory)world.getBlockTileEntity(x, y, z + 1));
+			Block chestBlock = world.getBlock(x, y, z);
+			if(world.getBlock(x - 1, y, z) == chestBlock)
+				return new InventoryLargeChest("Large chest", (IInventory)world.getTileEntity(x - 1, y, z), (IInventory)tileEntity);
+			if(world.getBlock(x + 1, y, z) == chestBlock)
+				return new InventoryLargeChest("Large chest", (IInventory)tileEntity, (IInventory)world.getTileEntity(x + 1, y, z));
+			if(world.getBlock(x, y, z - 1) == chestBlock)
+				return new InventoryLargeChest("Large chest", (IInventory)world.getTileEntity(x, y, z - 1), (IInventory)tileEntity);
+			if(world.getBlock(x, y, z + 1) == chestBlock)
+				return new InventoryLargeChest("Large chest", (IInventory)tileEntity, (IInventory)world.getTileEntity(x, y, z + 1));
 		}
 		return tileEntity instanceof IInventory ? (IInventory)tileEntity : null;
 	}
@@ -174,7 +175,7 @@ public class InventoryHelper {
 	public static IInventory getInventory(IInventory inventory) {
 		if(inventory instanceof TileEntityChest) {
 			TileEntity te = (TileEntity)inventory;
-			return getInventory(te.worldObj, te.xCoord, te.yCoord, te.zCoord);
+			return getInventory(te.getWorldObj(), te.xCoord, te.yCoord, te.zCoord);
 		}
 		return inventory;
 	}
@@ -192,9 +193,6 @@ public class InventoryHelper {
 			inventoryTitle = name;
 			inventoryContents = new ItemStack[size];
 		}
-
-		@Override
-		public void closeChest() { }
 
 		@Override
 		public ItemStack decrStackSize(int par1, int par2) {
@@ -219,11 +217,6 @@ public class InventoryHelper {
 		@Override
 		public int getInventoryStackLimit() {
 			return 64;
-		}
-
-		@Override
-		public String getInvName() {
-			return inventoryTitle;
 		}
 
 		@Override
@@ -254,11 +247,6 @@ public class InventoryHelper {
 			return null;
 		}
 
-		@Override
-		public boolean isInvNameLocalized() {
-			return isInvNameLocalized;
-		}
-
 		public boolean isItem(int slot, Item item) {
 			return inventoryContents[slot] != null && inventoryContents[slot].getItem() == item;
 		}
@@ -273,9 +261,6 @@ public class InventoryHelper {
 			return true;
 		}
 
-		@Override
-		public void openChest() { }
-
 		public void clearAndSetSlotCount(int amount) {
 			slotsCount = amount;
 			inventoryContents = new ItemStack[amount];
@@ -285,10 +270,10 @@ public class InventoryHelper {
 			if(tag.hasKey("size"))
 				slotsCount = tag.getInteger("size");
 
-			NBTTagList nbttaglist = tag.getTagList("Items");
+			NBTTagList nbttaglist = tag.getTagList("Items", 10);
 			inventoryContents = new ItemStack[slotsCount];
 			for(int i = 0; i < nbttaglist.tagCount(); i++) {
-				NBTTagCompound stacktag = (NBTTagCompound)nbttaglist.tagAt(i);
+				NBTTagCompound stacktag = (NBTTagCompound)nbttaglist.getCompoundTagAt(i);
 				int j = stacktag.getByte("Slot");
 				if(j >= 0 && j < inventoryContents.length)
 					inventoryContents[j] = ItemStack.loadItemStackFromNBT(stacktag);
@@ -317,9 +302,6 @@ public class InventoryHelper {
 			tag.setTag("Items", nbttaglist);
 		}
 
-		@Override
-		public void onInventoryChanged() { }
-
 		public void copyFrom(IInventory inventory) {
 			for(int i = 0; i < inventory.getSizeInventory(); i++)
 				if(i < getSizeInventory()) {
@@ -333,5 +315,24 @@ public class InventoryHelper {
 		public List<ItemStack> contents() {
 			return Arrays.asList(inventoryContents);
 		}
+
+		@Override
+		public String getInventoryName() {
+			return null;
+		}
+
+		@Override
+		public boolean hasCustomInventoryName() {
+			return false;
+		}
+
+		@Override
+		public void markDirty() { }
+
+		@Override
+		public void openInventory() { }
+
+		@Override
+		public void closeInventory() { }
 	}
 }

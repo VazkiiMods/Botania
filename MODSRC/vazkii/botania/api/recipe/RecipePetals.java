@@ -70,7 +70,7 @@ public class RecipePetals {
 	}
 
 	boolean simpleAreStacksEqual(ItemStack stack, ItemStack stack2) {
-		return stack.itemID == stack2.itemID && stack.getItemDamage() == stack2.getItemDamage();
+		return stack.getItem() == stack2.getItem() && stack.getItemDamage() == stack2.getItemDamage();
 	}
 
 	public List<Object> getInputs() {

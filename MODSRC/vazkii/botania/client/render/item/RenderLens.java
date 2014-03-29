@@ -18,7 +18,7 @@ import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraftforge.client.IItemRenderer;
 
 import org.lwjgl.opengl.GL11;
@@ -51,7 +51,7 @@ public class RenderLens implements IItemRenderer {
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			Color color = new Color(((ILens) item.getItem()).getLensColor(item));
 			GL11.glColor4ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue(), (byte) 255);
-			Icon icon = item.getItem().getIconFromDamageForRenderPass(dmg, 1);
+			IIcon icon = item.getItem().getIconFromDamageForRenderPass(dmg, 1);
 			render.renderIcon(0, 0, icon, 16, 16);
 			GL11.glDisable(GL11.GL_BLEND);
 
@@ -86,7 +86,7 @@ public class RenderLens implements IItemRenderer {
 
 	public static void render(ItemStack item, int color_) {
 		int dmg = item.getItemDamage();
-		Icon icon = item.getItem().getIconFromDamageForRenderPass(dmg, 0);
+		IIcon icon = item.getItem().getIconFromDamageForRenderPass(dmg, 0);
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();
 		float f2 = icon.getMinV();
@@ -115,7 +115,7 @@ public class RenderLens implements IItemRenderer {
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 	}
 
-	public static void renderShinyLensIcon(Icon icon, boolean shiny) {
+	public static void renderShinyLensIcon(IIcon icon, boolean shiny) {
 		float par1 = 0;
 		float par2 = 0;
 		float par4 = 16;

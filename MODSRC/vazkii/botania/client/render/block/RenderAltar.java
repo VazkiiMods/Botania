@@ -13,7 +13,7 @@ package vazkii.botania.client.render.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.world.IBlockAccess;
 
 import org.lwjgl.opengl.GL11;
@@ -29,7 +29,7 @@ public class RenderAltar implements ISimpleBlockRenderingHandler {
 		GL11.glPushMatrix();
 		GL11.glTranslatef(-0.5F, -0.6F, -0.5F);
 		GL11.glScalef(0.9F, 0.9F, 0.9F);
-		TileEntityRenderer.instance.renderTileEntityAt(new TileAltar(), 0.0D, 0.0D, 0.0D, 0.0F);
+		TileEntityRendererDispatcher.instance.renderTileEntityAt(new TileAltar(), 0.0D, 0.0D, 0.0D, 0.0F);
 		GL11.glPopMatrix();
 	}
 
@@ -39,12 +39,12 @@ public class RenderAltar implements ISimpleBlockRenderingHandler {
 	}
 
 	@Override
-	public boolean shouldRender3DInInventory() {
-		return true;
+	public int getRenderId() {
+		return LibRenderIDs.idAltar;
 	}
 
 	@Override
-	public int getRenderId() {
-		return LibRenderIDs.idAltar;
+	public boolean shouldRender3DInInventory(int modelId) {
+		return true;
 	}
 }

@@ -16,12 +16,13 @@ import java.util.List;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class Item16Colors extends ItemMod {
 
-	public Item16Colors(int par1, String name) {
-		super(par1);
+	public Item16Colors(String name) {
+		super();
 		setHasSubtypes(true);
 		setUnlocalizedName(name);
 	}
@@ -33,9 +34,9 @@ public class Item16Colors extends ItemMod {
 	}
 
 	@Override
-	public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List) {
+	public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List par3List) {
 		for(int i = 0; i < 16; i++)
-			par3List.add(new ItemStack(par1, 1, i));
+			par3List.add(new ItemStack(item, 1, i));
 	}
 
 	@Override

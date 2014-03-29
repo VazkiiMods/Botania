@@ -20,6 +20,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -29,32 +30,31 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibBlockIDs;
 import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class BlockUnstable extends BlockMod implements ILexiconable {
 
 	public BlockUnstable() {
-		super(LibBlockIDs.idUnstableBlock, Material.iron);
+		super(Material.iron);
 		setHardness(5.0F);
 		setResistance(10.0F);
-		setStepSound(soundMetalFootstep);
+		setStepSound(soundTypeMetal);
 		setBlockBounds(0.25F, 0.25F, 0.25F, 0.75F, 0.75F, 0.75F);
-		setUnlocalizedName(LibBlockNames.UNSTABLE_BLOCK);
+		setBlockName(LibBlockNames.UNSTABLE_BLOCK);
 		setTickRandomly(true);
 	}
 
 	@Override
-	public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List par3List) {
+	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
 		for(int i = 0; i < 16; i++)
 			par3List.add(new ItemStack(par1, 1, i));
 	}
 
 	@Override
-	public Block setUnlocalizedName(String par1Str) {
+	public Block setBlockName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setUnlocalizedName(par1Str);
+		return super.setBlockName(par1Str);
 	}
 
 	@Override

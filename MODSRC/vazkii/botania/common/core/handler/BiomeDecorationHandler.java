@@ -12,16 +12,16 @@
 package vazkii.botania.common.core.handler;
 
 import net.minecraft.block.Block;
-import net.minecraftforge.event.Event.Result;
-import net.minecraftforge.event.EventPriority;
-import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType;
 import vazkii.botania.common.block.ModBlocks;
+import cpw.mods.fml.common.eventhandler.Event.Result;
+import cpw.mods.fml.common.eventhandler.EventPriority;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class BiomeDecorationHandler {
 
-	@ForgeSubscribe(priority = EventPriority.LOWEST)
+	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void onWorldDecoration(DecorateBiomeEvent.Decorate event) {
 		if((event.getResult() == Result.ALLOW || event.getResult() == Result.DEFAULT) && event.type == EventType.FLOWERS)
 			for(int i = 0; i < ConfigHandler.flowerQuantity; i++) {
@@ -34,8 +34,8 @@ public class BiomeDecorationHandler {
 					int y1 = y + event.rand.nextInt(4) - event.rand.nextInt(4);
 					int z1 = z + event.rand.nextInt(8) - event.rand.nextInt(8);
 
-					if (event.world.isAirBlock(x1, y1, z1) && (!event.world.provider.hasNoSky || y1 < 127) && Block.blocksList[ModBlocks.flower.blockID].canBlockStay(event.world, x1, y1, z1))
-						event.world.setBlock(x1, y1, z1, ModBlocks.flower.blockID, event.rand.nextInt(16), 2);
+					if (event.world.isAirBlock(x1, y1, z1) && (!event.world.provider.hasNoSky || y1 < 127) && ModBlocks.flower.canBlockStay(event.world, x1, y1, z1))
+						event.world.setBlock(x1, y1, z1, ModBlocks.flower, event.rand.nextInt(16), 2);
 				}
 			}
 	}

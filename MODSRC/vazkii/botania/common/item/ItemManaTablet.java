@@ -14,23 +14,23 @@ package vazkii.botania.common.item;
 import java.awt.Color;
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.lib.LibItemIDs;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemManaTablet extends ItemMod implements IManaItem {
 
-	Icon[] icons;
+	IIcon[] icons;
 
 	private static final int MAX_MANA = 500000;
 
@@ -38,14 +38,14 @@ public class ItemManaTablet extends ItemMod implements IManaItem {
 	private static final String TAG_CREATIVE = "creative";
 
 	public ItemManaTablet() {
-		super(LibItemIDs.idManaTablet);
+		super();
 		setMaxStackSize(1);
 		setMaxDamage(1000);
 		setUnlocalizedName(LibItemNames.MANA_TABLET);
 	}
 
 	@Override
-	public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List) {
+	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
 		par3List.add(new ItemStack(par1, 1, 10000));
 
 		ItemStack fullPower = new ItemStack(par1, 1, 1);
@@ -76,14 +76,14 @@ public class ItemManaTablet extends ItemMod implements IManaItem {
 	}
 
 	@Override
-	public void registerIcons(IconRegister par1IconRegister) {
-		icons = new Icon[2];
+	public void registerIcons(IIconRegister par1IconRegister) {
+		icons = new IIcon[2];
 		for(int i = 0; i < icons.length; i++)
 			icons[i] = IconHelper.forItem(par1IconRegister, this, i);
 	}
 
 	@Override
-	public Icon getIcon(ItemStack stack, int pass) {
+	public IIcon getIcon(ItemStack stack, int pass) {
 		return icons[Math.min(1, pass)];
 	}
 

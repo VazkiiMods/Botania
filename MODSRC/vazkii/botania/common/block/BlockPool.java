@@ -19,7 +19,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.ILexiconable;
 import vazkii.botania.api.IWandHUD;
@@ -28,32 +28,30 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.TilePool;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibBlockIDs;
 import vazkii.botania.common.lib.LibBlockNames;
-import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class BlockPool extends BlockModContainer implements IWandHUD, IWandable, ILexiconable {
 
 	protected BlockPool() {
-		super(LibBlockIDs.idPool, Material.rock);
+		super(Material.rock);
 		setHardness(2.0F);
 		setResistance(10.0F);
-		setStepSound(soundStoneFootstep);
-		setUnlocalizedName(LibBlockNames.POOL);
+		setStepSound(soundTypeStone);
+		setBlockName(LibBlockNames.POOL);
 		setBlockBounds(0F, 0F, 0F, 1F, 0.5F, 1F);
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world) {
+	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TilePool();
 	}
 
 	@Override
 	public void onEntityCollidedWithBlock(World par1World, int par2, int par3, int par4, Entity par5Entity) {
 		if(par5Entity instanceof EntityItem) {
-			TilePool tile = (TilePool) par1World.getBlockTileEntity(par2, par3, par4);
+			TilePool tile = (TilePool) par1World.getTileEntity(par2, par3, par4);
 			if(tile.collideEntityItem((EntityItem) par5Entity))
-				PacketDispatcher.sendPacketToAllInDimension(tile.getDescriptionPacket(), par1World.provider.dimensionId);
+				par1World.markBlockForUpdate(par2, par3, par4);
 		}
 	}
 
@@ -68,7 +66,7 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 	}
 
 	@Override
-	public Icon getIcon(int par1, int par2) {
+	public IIcon getIcon(int par1, int par2) {
 		return ModBlocks.livingrock.getIcon(par1, par2);
 	}
 
@@ -84,7 +82,7 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 
 	@Override
 	public int getComparatorInputOverride(World par1World, int par2, int par3, int par4, int par5) {
-		TilePool pool = (TilePool) par1World.getBlockTileEntity(par2, par3, par4);
+		TilePool pool = (TilePool) par1World.getTileEntity(par2, par3, par4);
 		int val = (int) ((double) pool.getCurrentMana() / (double) TilePool.MAX_MANA * 15.0);
 		if(pool.getCurrentMana() > 0)
 			val = Math.max(val, 1);
@@ -94,12 +92,12 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res, World world, int x, int y, int z) {
-		((TilePool) world.getBlockTileEntity(x, y, z)).renderHUD(mc, res);
+		((TilePool) world.getTileEntity(x, y, z)).renderHUD(mc, res);
 	}
 
 	@Override
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
-		((TilePool) world.getBlockTileEntity(x, y, z)).onWanded(player, stack);
+		((TilePool) world.getTileEntity(x, y, z)).onWanded(player, stack);
 		return true;
 	}
 

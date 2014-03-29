@@ -17,6 +17,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.BurstProperties;
@@ -25,7 +26,6 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.recipe.ManaGunLensRecipe;
 import vazkii.botania.common.entity.EntityManaBurst;
-import vazkii.botania.common.lib.LibItemIDs;
 import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -35,7 +35,7 @@ public class ItemManaGun extends ItemMod {
 	private static final int COOLDOWN = 30;
 
 	public ItemManaGun() {
-		super(LibItemIDs.idManaGun);
+		super();
 		setMaxDamage(COOLDOWN);
 		setMaxStackSize(1);
 		setNoRepair();
@@ -63,7 +63,7 @@ public class ItemManaGun extends ItemMod {
 			ItemStack lens = getLens(par1ItemStack);
 			if(lens != null) {
 				if(!par3EntityPlayer.inventory.addItemStackToInventory(lens.copy()))
-					par3EntityPlayer.addChatMessage("botaniamisc.invFull");
+					par3EntityPlayer.addChatMessage(new ChatComponentTranslation("botaniamisc.invFull"));
 				else setLens(par1ItemStack, null);
 			}
 		}
@@ -113,9 +113,9 @@ public class ItemManaGun extends ItemMod {
 	}
 
 	@Override
-	public String getItemDisplayName(ItemStack par1ItemStack) {
+	public String getItemStackDisplayName(ItemStack par1ItemStack) {
 		ItemStack lens = getLens(par1ItemStack);
-		return super.getItemDisplayName(par1ItemStack) + (lens == null ? "" : " (" + EnumChatFormatting.GREEN + lens.getDisplayName() + EnumChatFormatting.RESET + ")");
+		return super.getItemStackDisplayName(par1ItemStack) + (lens == null ? "" : " (" + EnumChatFormatting.GREEN + lens.getDisplayName() + EnumChatFormatting.RESET + ")");
 	}
 
 	public static void setLens(ItemStack stack, ItemStack lens) {

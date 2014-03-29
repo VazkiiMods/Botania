@@ -16,13 +16,14 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.ILexiconable;
@@ -31,45 +32,45 @@ import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.tile.TileManaBeacon;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibBlockIDs;
 import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class BlockManaBeacon extends BlockModContainer implements ILexiconable {
 
-	Icon[] icons = new Icon[2];
+	IIcon[] icons;
 
 	public BlockManaBeacon() {
-		super(LibBlockIDs.idManaBeacon, Material.iron);
+		super(Material.iron);
 		setHardness(5.0F);
 		setResistance(10.0F);
-		setStepSound(soundMetalFootstep);
+		setStepSound(soundTypeMetal);
 		float size = 3F / 16F;
 		setBlockBounds(size, size, size, 1F - size, 1F - size, 1F - size);
-		setUnlocalizedName(LibBlockNames.MANA_BEACON);
+		setBlockName(LibBlockNames.MANA_BEACON);
 	}
 
 	@Override
-	public void registerIcons(IconRegister par1IconRegister) {
+	public void registerBlockIcons(IIconRegister par1IconRegister) {
+		icons = new IIcon[2];
 		for(int i = 0; i < 2; i++)
 			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
 	}
 
 	@Override
-	public Icon getIcon(int par1, int par2) {
+	public IIcon getIcon(int par1, int par2) {
 		return icons[par1 == 1 ? 1 : 0];
 	}
 
 	@Override
-	public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List par3List) {
+	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
 		for(int i = 0; i < 16; i++)
 			par3List.add(new ItemStack(par1, 1, i));
 	}
 
 	@Override
-	public Block setUnlocalizedName(String par1Str) {
+	public Block setBlockName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setUnlocalizedName(par1Str);
+		return super.setBlockName(par1Str);
 	}
 
 	@Override
@@ -109,7 +110,7 @@ public class BlockManaBeacon extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world) {
+	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileManaBeacon();
 	}
 }

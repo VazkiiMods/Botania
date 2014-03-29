@@ -11,6 +11,7 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -49,10 +50,10 @@ public final class ModItems {
 
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
-			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal.itemID, 1, i));
-			OreDictionary.registerOre(LibOreDict.DYE[i], new ItemStack(dye.itemID, 1, i));
-			OreDictionary.registerOre(LibOreDict.MANA_PETAL[i], new ItemStack(manaPetal.itemID, 1, i));
-			OreDictionary.registerOre(LibOreDict.RUNE[i], new ItemStack(rune.itemID, 1, i));
+			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));
+			OreDictionary.registerOre(LibOreDict.DYE[i], new ItemStack(dye, 1, i));
+			OreDictionary.registerOre(LibOreDict.MANA_PETAL[i], new ItemStack(manaPetal, 1, i));
+			OreDictionary.registerOre(LibOreDict.RUNE[i], new ItemStack(rune, 1, i));
 		}
 		OreDictionary.registerOre(LibOreDict.PESTLE_AND_MORTAR, pestleAndMortar);
 		OreDictionary.registerOre(LibOreDict.MANA_STEEL, new ItemStack(manaResource, 1, 0));
@@ -60,8 +61,8 @@ public final class ModItems {
 		OreDictionary.registerOre(LibOreDict.MANA_DIAMOND, new ItemStack(manaResource, 1, 2));
 
 		// Vanilla ores (because forge doesn't do this by default for some reason)
-		OreDictionary.registerOre("ingotIron", Item.ingotIron);
-		OreDictionary.registerOre("ingotGold", Item.ingotGold);
-		OreDictionary.registerOre("gemDiamond", Item.diamond);
+		OreDictionary.registerOre("ingotIron", Items.iron_ingot);
+		OreDictionary.registerOre("ingotGold", Items.gold_ingot);
+		OreDictionary.registerOre("gemDiamond", Items.diamond);
 	}
 }

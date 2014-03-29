@@ -40,8 +40,8 @@ public class SubTileBellethorn extends SubTileFunctional {
 		final int range = 6;
 		final int manaToUse = 16;
 
-		if(supertile.worldObj.getTotalWorldTime() % 15 == 0) {
-			List<EntityLivingBase> entities = supertile.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord, supertile.zCoord - range, supertile.xCoord + range, supertile.yCoord + 1, supertile.zCoord + range));
+		if(supertile.getWorldObj().getTotalWorldTime() % 15 == 0) {
+			List<EntityLivingBase> entities = supertile.getWorldObj().getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord, supertile.zCoord - range, supertile.xCoord + range, supertile.yCoord + 1, supertile.zCoord + range));
 			for(EntityLivingBase entity : entities) {
 				if(entity instanceof EntityPlayer)
 					continue;

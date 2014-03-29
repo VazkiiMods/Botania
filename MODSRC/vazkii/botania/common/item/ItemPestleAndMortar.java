@@ -11,13 +11,12 @@
  */
 package vazkii.botania.common.item;
 
-import vazkii.botania.common.lib.LibItemIDs;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemPestleAndMortar extends ItemMod {
 
 	public ItemPestleAndMortar() {
-		super(LibItemIDs.idPestleAndMortar);
+		super();
 		setMaxStackSize(1);
 		setContainerItem(this);
 		setUnlocalizedName(LibItemNames.PESTLE_AND_MORTAR);

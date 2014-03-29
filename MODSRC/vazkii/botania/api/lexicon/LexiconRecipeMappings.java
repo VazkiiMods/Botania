@@ -49,7 +49,7 @@ public final class LexiconRecipeMappings {
 		if(stack.hasTagCompound() && stack.getItem() instanceof IRecipeKeyProvider)
 			return ((IRecipeKeyProvider) stack.getItem()).getKey(stack);
 
-		return stack.itemID + ":" + stack.getItemDamage();
+		return stack.getUnlocalizedName() + "~" + stack.getItemDamage();
 	}
 
 	public static class EntryData {

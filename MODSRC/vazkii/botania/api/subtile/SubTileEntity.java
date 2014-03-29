@@ -18,7 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import cpw.mods.fml.relauncher.Side;
@@ -60,6 +60,10 @@ public class SubTileEntity {
 	 */
 	public void readFromPacketNBT(NBTTagCompound cmp) { }
 
+	public void sync() {
+		 supertile.getWorldObj().markBlockForUpdate(supertile.xCoord, supertile.yCoord, supertile.zCoord);
+	}
+	
 	public String getUnlocalizedName() {
 		return BotaniaAPI.getSubTileStringMapping(getClass());
 	}
@@ -68,9 +72,8 @@ public class SubTileEntity {
 	 * Gets the icon for this SubTileEntity, this is a block icon.
 	 */
 	@SideOnly(Side.CLIENT)
-	public Icon getIcon() {
-		Icon icon = BotaniaAPI.internalHandler.getSubTileIconForName(getUnlocalizedName());
-		return icon;
+	public IIcon getIcon() {
+		return BotaniaAPI.internalHandler.getSubTileIconForName(getUnlocalizedName());
 	}
 
 	/**

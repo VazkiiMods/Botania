@@ -34,6 +34,12 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 	public ItemStack getIconItemStack() {
 		return new ItemStack(ModBlocks.flower);
 	}
+	
+
+	@Override
+	public Item getTabIconItem() {
+		return getIconItemStack().getItem();
+	}
 
 	@Override
 	public void displayAllReleventItems(List list) {
@@ -74,11 +80,12 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 	}
 
 	private void addItem(Item item) {
-		item.getSubItems(item.itemID, this, list);
+		item.getSubItems(item, this, list);
 	}
 
 	private void addBlock(Block block) {
-		block.getSubBlocks(block.blockID, this, list);
+		ItemStack stack = new ItemStack(block);
+		block.getSubBlocks(stack.getItem(), this, list);
 	}
 
 }

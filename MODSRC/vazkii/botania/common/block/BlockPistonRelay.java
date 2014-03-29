@@ -22,6 +22,7 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -30,37 +31,35 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSavedData;
-import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.ForgeSubscribe;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.world.WorldEvent;
 import vazkii.botania.api.ILexiconable;
 import vazkii.botania.api.IWandable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibBlockIDs;
 import vazkii.botania.common.lib.LibBlockNames;
-import cpw.mods.fml.common.ITickHandler;
-import cpw.mods.fml.common.TickType;
-import cpw.mods.fml.common.registry.TickRegistry;
-import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.Phase;
+import cpw.mods.fml.common.gameevent.TickEvent.Type;
 
 public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconable {
 
+	public static Map<String, String> playerPositions = new HashMap();
+	public static Map<String, String> mappedPositions = new HashMap();
+
+	static List<String> removeThese = new ArrayList();
+	static Map<String, Integer> coordsToCheck = new HashMap();
+
 	public BlockPistonRelay() {
-		super(LibBlockIDs.idPistonRelay, Material.pumpkin);
-		setUnlocalizedName(LibBlockNames.PISTON_RELAY);
+		super(Material.gourd);
+		setBlockName(LibBlockNames.PISTON_RELAY);
 		setHardness(2F);
 		setResistance(10F);
-		setStepSound(soundMetalFootstep);
+		setStepSound(soundTypeMetal);
 
-		TickRegistry.registerTickHandler(new InternalTickHandler(), Side.SERVER);
 		MinecraftForge.EVENT_BUS.register(this);
-	}
-
-	@Override
-	public int idDropped(int par1, Random par2Random, int par3) {
-		return 0;
 	}
 
 	@Override
@@ -74,7 +73,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 	}
 
 	@Override
-	public void breakBlock(World par1World, int par2, int par3, int par4, int par5, int par6) {
+	public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6) {
 		mapCoords(par1World.provider.dimensionId, par2, par3, par4, 2);
 	}
 
@@ -83,30 +82,30 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 	}
 
 	static void mapCoords(int world, int x, int y, int z, int time) {
-		InternalTickHandler.coordsToCheck.put(getCoordsAsString(world, x, y, z), time);
+		coordsToCheck.put(getCoordsAsString(world, x, y, z), time);
 	}
 
 	static void decrCoords(String key) {
 		int time = getTimeInCoords(key);
 
 		if(time <= 0)
-			InternalTickHandler.removeThese.add(key);
-		else InternalTickHandler.coordsToCheck.put(key, time - 1);
+			removeThese.add(key);
+		else coordsToCheck.put(key, time - 1);
 	}
 
 	static int getTimeInCoords(String key) {
-		return InternalTickHandler.coordsToCheck.get(key);
+		return coordsToCheck.get(key);
 	}
 
-	static int getBlockIDAt(String key) {
+	static Block getBlockAt(String key) {
 		MinecraftServer server = MinecraftServer.getServer();
 		if(server == null)
-			return 0;
+			return Blocks.air;
 
 		String[] tokens = key.split(":");
 		int worldId = Integer.parseInt(tokens[0]), x = Integer.parseInt(tokens[1]), y = Integer.parseInt(tokens[2]), z = Integer.parseInt(tokens[3]);
 		World world = server.worldServerForDimension(worldId);
-		return world.getBlockId(x, y, z);
+		return world.getBlock(x, y, z);
 	}
 
 	static int getBlockMetaAt(String key) {
@@ -123,19 +122,19 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 	@Override
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
 		if(!player.isSneaking()) {
-			InternalTickHandler.playerPositions.put(player.username, getCoordsAsString(world.provider.dimensionId, x, y, z));
+			playerPositions.put(player.getCommandSenderName(), getCoordsAsString(world.provider.dimensionId, x, y, z));
 			world.playSoundEffect(x, y, z, "random.orb", 0.5F, 1F);
 		} else {
-			dropBlockAsItem_do(world, x, y, z, new ItemStack(this));
+			dropBlockAsItem(world, x, y, z, new ItemStack(this));
 			world.setBlockToAir(x, y, z);
 			if(!world.isRemote)
-				world.playAuxSFX(2001, x, y , z, blockID);
+				world.playAuxSFX(2001, x, y , z, Block.getIdFromBlock(this));
 		}
 
 		return true;
 	}
 
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void onWorldLoad(WorldEvent.Load event) {
 		WorldData.get(event.world);
 	}
@@ -150,23 +149,23 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 
 		@Override
 		public void readFromNBT(NBTTagCompound nbttagcompound) {
-			InternalTickHandler.mappedPositions.clear();
+			mappedPositions.clear();
 
-			Collection<NBTBase> tags = nbttagcompound.getTags();
-			for(NBTBase tag : tags) {
+			Collection<String> tags = nbttagcompound.func_150296_c();
+			for(String key : tags) {
+				NBTBase tag = nbttagcompound.getTag(key);
 				if(tag instanceof NBTTagString) {
-					String key = tag.getName();
-					String value = ((NBTTagString) tag).data;
+					String value = ((NBTTagString) tag).func_150285_a_();
 
-					InternalTickHandler.mappedPositions.put(key, value);
+					mappedPositions.put(key, value);
 				}
 			}
 		}
 
 		@Override
 		public void writeToNBT(NBTTagCompound nbttagcompound) {
-			for(String s : InternalTickHandler.mappedPositions.keySet())
-				nbttagcompound.setString(s, InternalTickHandler.mappedPositions.get(s));
+			for(String s : mappedPositions.keySet())
+				nbttagcompound.setString(s, mappedPositions.get(s));
 		}
 
 		public static WorldData get(World world) {
@@ -181,26 +180,14 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 		}
 	}
 
-	public static class InternalTickHandler implements ITickHandler {
-
-		public static Map<String, String> playerPositions = new HashMap();
-		public static Map<String, String> mappedPositions = new HashMap();
-
-		static List<String> removeThese = new ArrayList();
-		static Map<String, Integer> coordsToCheck = new HashMap();
-
-		@Override
-		public void tickStart(EnumSet<TickType> type, Object... tickData) {
-			// NO-OP
-		}
-
-		@Override
-		public void tickEnd(EnumSet<TickType> type, Object... tickData) {
+	@SubscribeEvent
+	public void tickEnd(TickEvent event) {
+		if(event.type == Type.SERVER && event.phase == Phase.END)
 			for(String s : coordsToCheck.keySet()) {
-				int id = getBlockIDAt(s);
+				Block block = getBlockAt(s);
 				decrCoords(s);
 
-				if(id == 36) {
+				if(block == Blocks.piston_extension) {
 					int meta = getBlockMetaAt(s);
 					ForgeDirection dir = ForgeDirection.getOrientation(meta & ~8);
 
@@ -213,7 +200,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 							String[] tokens = s.split(":");
 							int worldId = Integer.parseInt(tokens[0]), x = Integer.parseInt(tokens[1]), y = Integer.parseInt(tokens[2]), z = Integer.parseInt(tokens[3]);
 							World world = server.worldServerForDimension(worldId);
-							world.setBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ, ModBlocks.pistonRelay.blockID);
+							world.setBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ, ModBlocks.pistonRelay);
 							newPos = getCoordsAsString(world.provider.dimensionId, x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
 						}
 
@@ -223,16 +210,16 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 							int worldId = Integer.parseInt(tokens[0]), x = Integer.parseInt(tokens[1]), y = Integer.parseInt(tokens[2]), z = Integer.parseInt(tokens[3]);
 							World world = server.worldServerForDimension(worldId);
 
-							int srcId = world.getBlockId(x, y, z);
+							Block srcBlock = world.getBlock(x, y, z);
 							int srcMeta = world.getBlockMetadata(x, y, z);
-							TileEntity tile = world.getBlockTileEntity(x, y, z);
-							Material mat = world.getBlockMaterial(x, y, z);
+							TileEntity tile = world.getTileEntity(x, y, z);
+							Material mat = srcBlock.getMaterial();
 
-							if(tile == null && mat.getMaterialMobility() == 0 && Block.blocksList[srcId] != null && !Block.blocksList[srcId].isAirBlock(world, x, y, z)) {
-								Material destMat = world.getBlockMaterial(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
+							if(tile == null && mat.getMaterialMobility() == 0 && !srcBlock.isAir(world, x, y, z)) {
+								Material destMat = world.getBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ).getMaterial();
 								if(world.isAirBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ) || destMat.isReplaceable()) {
-									world.setBlock(x, y, z, 0);
-									world.setBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ, srcId, srcMeta, 1 | 2);
+									world.setBlock(x, y, z, Blocks.air);
+									world.setBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ, srcBlock, srcMeta, 1 | 2);
 									mappedPositions.put(s, getCoordsAsString(world.provider.dimensionId, x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ));
 								}
 							}
@@ -246,21 +233,9 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 				}
 			}
 
-			for(String s : removeThese)
-				coordsToCheck.remove(s);
-			removeThese.clear();
-		}
-
-		@Override
-		public EnumSet<TickType> ticks() {
-			return EnumSet.of(TickType.SERVER);
-		}
-
-		@Override
-		public String getLabel() {
-			return LibBlockNames.PISTON_RELAY;
-		}
-
+		for(String s : removeThese)
+			coordsToCheck.remove(s);
+		removeThese.clear();
 	}
 
 	@Override

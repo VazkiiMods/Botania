@@ -16,7 +16,7 @@ import java.util.List;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
@@ -58,7 +58,7 @@ public interface IInternalMethodHandler {
 
 	public ItemStack getSubTileAsStack(String subTile);
 
-	public Icon getSubTileIconForName(String name);
+	public IIcon getSubTileIconForName(String name);
 
 	@SideOnly(Side.CLIENT)
 	public void drawSimpleManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res);

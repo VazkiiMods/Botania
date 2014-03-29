@@ -28,15 +28,14 @@ import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
-import net.minecraftforge.event.ForgeSubscribe;
 
 import org.lwjgl.opengl.GL11;
 
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.client.core.handler.LightningHandler.LightningBolt.Segment;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.helper.Vector3;
@@ -55,7 +54,7 @@ public class LightningHandler {
 		return new Vector3((float) renderEntity.posX - pos.x, (float) renderEntity.posY + renderEntity.getEyeHeight() - pos.y, (float) renderEntity.posZ - pos.z);
 	}
 
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void onRenderWorldLast(RenderWorldLastEvent event) {
 		float frame = event.partialTicks;
 		Entity entity = Minecraft.getMinecraft().thePlayer;
@@ -394,18 +393,18 @@ public class LightningHandler {
 		}
 
 		private float rayTraceResistance(Vector3 start, Vector3 end, float prevresistance) {
-			MovingObjectPosition mop = world.clip(start.toVec3D(), end.toVec3D());
+			MovingObjectPosition mop = world.rayTraceBlocks(start.toVec3D(), end.toVec3D());
 
 			if(mop == null)
 				return prevresistance;
 
-			if(mop.typeOfHit == EnumMovingObjectType.TILE) {
-				int blockID = world.getBlockId(mop.blockX, mop.blockY, mop.blockZ);
+			if(mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+				Block block = world.getBlock(mop.blockX, mop.blockY, mop.blockZ);
 
 				if(world.isAirBlock(mop.blockX, mop.blockY, mop.blockZ))
 					return prevresistance;
 
-				return prevresistance + (Block.blocksList[blockID].getExplosionResistance(source) + 0.3F);
+				return prevresistance + block.getExplosionResistance(source) + 0.3F;
 			} else return prevresistance;
 		}
 

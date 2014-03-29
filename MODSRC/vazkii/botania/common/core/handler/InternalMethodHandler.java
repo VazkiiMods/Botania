@@ -13,11 +13,11 @@ package vazkii.botania.common.core.handler;
 
 import java.util.List;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.IInternalMethodHandler;
 import vazkii.botania.api.internal.IManaNetwork;
@@ -59,9 +59,9 @@ public class InternalMethodHandler implements IInternalMethodHandler {
 	}
 
 	@Override
-	public Icon getSubTileIconForName(String name) {
-		Icon icon = BlockSpecialFlower.icons.get(name);
-		return icon == null ? Block.plantRed.getIcon(0, 0) : icon;
+	public IIcon getSubTileIconForName(String name) {
+		IIcon icon = BlockSpecialFlower.icons.get(name);
+		return icon == null ? Blocks.red_flower.getIcon(0, 0) : icon;
 	}
 
 	@Override

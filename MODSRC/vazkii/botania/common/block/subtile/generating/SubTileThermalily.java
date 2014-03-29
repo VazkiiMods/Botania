@@ -12,6 +12,7 @@
 package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -30,12 +31,12 @@ public class SubTileThermalily extends SubTileHydroangeas {
 
 	@Override
 	public void doBurnParticles() {
-		Botania.proxy.wispFX(supertile.worldObj, supertile.xCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.yCoord + 0.9 + Math.random() * 0.2 - 0.1, supertile.zCoord + 0.5, 0.7F, 0.05F, 0.05F, (float) Math.random() / 6, (float) -Math.random() / 60);
+		Botania.proxy.wispFX(supertile.getWorldObj(), supertile.xCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.yCoord + 0.9 + Math.random() * 0.2 - 0.1, supertile.zCoord + 0.5, 0.7F, 0.05F, 0.05F, (float) Math.random() / 6, (float) -Math.random() / 60);
 	}
 
 	@Override
-	public int getIdToSearchFor() {
-		return Block.lavaStill.blockID;
+	public Block getBlockToSearchFor() {
+		return Blocks.lava;
 	}
 
 	@Override

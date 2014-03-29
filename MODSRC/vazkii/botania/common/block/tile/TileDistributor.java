@@ -15,10 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.IManaReceiver;
-import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class TileDistributor extends TileMod implements IManaReceiver {
 
@@ -32,7 +31,7 @@ public class TileDistributor extends TileMod implements IManaReceiver {
 	public void updateEntity() {
 		validPools.clear();
 		for(ForgeDirection dir : DIRECTIONS) {
-			TileEntity tileAt = worldObj.getBlockTileEntity(xCoord + dir.offsetX, yCoord, zCoord + dir.offsetZ);
+			TileEntity tileAt = worldObj.getTileEntity(xCoord + dir.offsetX, yCoord, zCoord + dir.offsetZ);
 			if(tileAt != null && tileAt instanceof IManaPool) {
 				IManaReceiver receiver = (IManaReceiver) tileAt;
 				if(!receiver.isFull())
@@ -58,7 +57,8 @@ public class TileDistributor extends TileMod implements IManaReceiver {
 			int manaForEach = mana / tiles;
 			for(IManaReceiver pool : validPools) {
 				pool.recieveMana(manaForEach);
-				PacketDispatcher.sendPacketToAllInDimension(((TileEntity) pool).getDescriptionPacket(), worldObj.provider.dimensionId);
+				TileEntity tile = (TileEntity) pool;
+				worldObj.markBlockForUpdate(tile.xCoord, tile.yCoord, tile.zCoord);
 			}
 		}
 	}

@@ -25,16 +25,16 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
-import net.minecraftforge.event.ForgeSubscribe;
 
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.ITileBound;
 import vazkii.botania.common.item.ItemTwigWand;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public final class BoundTileRenderer {
 
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void onWorldRenderLast(RenderWorldLastEvent event) {
 		GL11.glPushMatrix();
 		GL11.glDisable(GL11.GL_DEPTH_TEST);
@@ -49,7 +49,7 @@ public final class BoundTileRenderer {
 		if(stack != null && stack.getItem() instanceof ItemTwigWand) {
 			MovingObjectPosition pos = Minecraft.getMinecraft().objectMouseOver;
 			if(pos != null) {
-				TileEntity tile = world.getBlockTileEntity(pos.blockX, pos.blockY, pos.blockZ);
+				TileEntity tile = world.getTileEntity(pos.blockX, pos.blockY, pos.blockZ);
 				if(tile != null && tile instanceof ITileBound) {
 					ChunkCoordinates coords = ((ITileBound) tile).getBinding();
 					if(coords != null)
@@ -71,7 +71,7 @@ public final class BoundTileRenderer {
 		GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 255);
 
 		World world = Minecraft.getMinecraft().theWorld;
-		Block block = Block.blocksList[world.getBlockId(pos.posX, pos.posY, pos.posZ)];
+		Block block = world.getBlock(pos.posX, pos.posY, pos.posZ);
 		if(block != null) {
 			AxisAlignedBB axis = block.getSelectedBoundingBoxFromPool(world, pos.posX, pos.posY, pos.posZ);
 			axis.minX -= pos.posX;

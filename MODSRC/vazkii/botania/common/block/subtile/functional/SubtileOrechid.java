@@ -16,16 +16,15 @@ import java.util.Collection;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.WeightedRandom;
-import net.minecraft.util.WeightedRandomItem;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
-import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class SubtileOrechid extends SubTileFunctional {
 
@@ -35,26 +34,26 @@ public class SubtileOrechid extends SubTileFunctional {
 	public void onUpdate() {
 		super.onUpdate();
 
-		if(!supertile.worldObj.isRemote && mana >= COST && supertile.worldObj.getTotalWorldTime() % 100 == 0) {
+		if(!supertile.getWorldObj().isRemote && mana >= COST && supertile.getWorldObj().getTotalWorldTime() % 100 == 0) {
 			ChunkCoordinates coords = getCoordsToPut();
 			if(coords != null) {
 				ItemStack stack = getOreToPut();
 				if(stack != null) {
-					supertile.worldObj.setBlock(coords.posX, coords.posY, coords.posZ, stack.itemID, stack.getItemDamage(), 1 | 2);
+					supertile.getWorldObj().setBlock(coords.posX, coords.posY, coords.posZ, Block.getBlockFromItem(stack.getItem()), stack.getItemDamage(), 1 | 2);
 
 					mana -= COST;
-					PacketDispatcher.sendPacketToAllInDimension(supertile.getDescriptionPacket(), supertile.worldObj.provider.dimensionId);
+					sync();
 				}
 			}
 		}
 	}
 
 	public ItemStack getOreToPut() {
-		Collection<WeightedRandomItem> values = new ArrayList();
+		Collection<WeightedRandom.Item> values = new ArrayList();
 		for(String s : BotaniaAPI.oreWeights.keySet())
 			values.add(new StringRandomItem(BotaniaAPI.oreWeights.get(s), s));
 
-		String ore = ((StringRandomItem) WeightedRandom.getRandomItem(supertile.worldObj.rand, values)).s;
+		String ore = ((StringRandomItem) WeightedRandom.getRandomItem(supertile.getWorldObj().rand, values)).s;
 
 		List<ItemStack> ores = OreDictionary.getOres(ore);
 		if(ores.isEmpty())
@@ -74,15 +73,14 @@ public class SubtileOrechid extends SubTileFunctional {
 					int x = supertile.xCoord + i;
 					int y = supertile.yCoord + j;
 					int z = supertile.zCoord + k;
-					int id = supertile.worldObj.getBlockId(x, y, z);
-					Block block = Block.blocksList[id];
-					if(block != null && block.isGenMineableReplaceable(supertile.worldObj, x, y, z, Block.stone.blockID))
+					Block block = supertile.getWorldObj().getBlock(x, y, z);
+					if(block != null && block.isReplaceableOreGen(supertile.getWorldObj(), x, y, z, Blocks.stone))
 						possibleCoords.add(new ChunkCoordinates(x, y, z));
 				}
 
 		if(possibleCoords.isEmpty())
 			return null;
-		return possibleCoords.get(supertile.worldObj.rand.nextInt(possibleCoords.size()));
+		return possibleCoords.get(supertile.getWorldObj().rand.nextInt(possibleCoords.size()));
 	}
 
 	@Override
@@ -100,7 +98,7 @@ public class SubtileOrechid extends SubTileFunctional {
 		return LexiconData.orechid;
 	}
 
-	private static class StringRandomItem extends WeightedRandomItem {
+	private static class StringRandomItem extends WeightedRandom.Item {
 
 		public String s;
 

@@ -13,7 +13,7 @@ package vazkii.botania.api.mana;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.Event;
+import cpw.mods.fml.common.eventhandler.Event;
 
 public class ManaNetworkEvent extends Event {
 

@@ -13,7 +13,7 @@ package vazkii.botania.client.render.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.world.IBlockAccess;
 
 import org.lwjgl.opengl.GL11;
@@ -28,7 +28,7 @@ public class RenderPylon implements ISimpleBlockRenderingHandler {
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
 		GL11.glPushMatrix();
 		GL11.glTranslatef(-0.5F, -0.7F, -0.5F);
-		TileEntityRenderer.instance.renderTileEntityAt(new TilePylon(), 0.0D, 0.0D, 0.0D, 0.0F);
+		TileEntityRendererDispatcher.instance.renderTileEntityAt(new TilePylon(), 0.0D, 0.0D, 0.0D, 0.0F);
 		GL11.glPopMatrix();
 	}
 
@@ -38,13 +38,13 @@ public class RenderPylon implements ISimpleBlockRenderingHandler {
 	}
 
 	@Override
-	public boolean shouldRender3DInInventory() {
-		return true;
+	public int getRenderId() {
+		return LibRenderIDs.idPylon;
 	}
 
 	@Override
-	public int getRenderId() {
-		return LibRenderIDs.idPylon;
+	public boolean shouldRender3DInInventory(int modelId) {
+		return true;
 	}
 
 }

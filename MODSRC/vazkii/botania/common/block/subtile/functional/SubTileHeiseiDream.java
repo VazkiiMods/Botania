@@ -18,14 +18,13 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIAttackOnCollide;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.ai.EntityAITaskEntry;
+import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.util.AxisAlignedBB;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibObfuscation;
-import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class SubTileHeiseiDream extends SubTileFunctional {
@@ -37,7 +36,7 @@ public class SubTileHeiseiDream extends SubTileFunctional {
 		final int range = 5;
 		final int cost = 100;
 
-		List<IMob> mobs = supertile.worldObj.getEntitiesWithinAABB(IMob.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord - range, supertile.zCoord - range, supertile.xCoord + range, supertile.yCoord + range, supertile.zCoord + range));
+		List<IMob> mobs = supertile.getWorldObj().getEntitiesWithinAABB(IMob.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord - range, supertile.zCoord - range, supertile.xCoord + range, supertile.yCoord + range, supertile.zCoord + range));
 		if(mobs.size() > 1 && mana >= cost)
 			for(IMob mob : mobs) {
 				if(mob instanceof EntityLiving) {
@@ -45,7 +44,7 @@ public class SubTileHeiseiDream extends SubTileFunctional {
 					EntityLivingBase target = entity.getAttackTarget();
 					if(target == null || !(target instanceof IMob)) {
 						IMob newTarget;
-						do newTarget = mobs.get(supertile.worldObj.rand.nextInt(mobs.size()));
+						do newTarget = mobs.get(supertile.getWorldObj().rand.nextInt(mobs.size()));
 						while(newTarget == mob);
 
 						if(newTarget instanceof EntityLivingBase) {
@@ -61,7 +60,7 @@ public class SubTileHeiseiDream extends SubTileFunctional {
 									messWithAttackOnCollideAI((EntityAIAttackOnCollide) entry.action);
 
 							mana -= cost;
-							PacketDispatcher.sendPacketToAllInDimension(supertile.getDescriptionPacket(), supertile.worldObj.provider.dimensionId);
+							sync();
 							break;
 						}
 					}

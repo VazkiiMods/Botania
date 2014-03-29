@@ -11,7 +11,7 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.BotaniaCreativeTab;
@@ -21,8 +21,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemMod extends Item {
 
-	public ItemMod(int par1) {
-		super(par1);
+	public ItemMod() {
+		super();
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 	}
 
@@ -34,7 +34,7 @@ public class ItemMod extends Item {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister par1IconRegister) {
+	public void registerIcons(IIconRegister par1IconRegister) {
 		itemIcon = IconHelper.forItem(par1IconRegister, this);
 	}
 }

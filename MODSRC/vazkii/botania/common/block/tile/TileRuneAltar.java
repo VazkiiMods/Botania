@@ -16,6 +16,7 @@ import java.util.List;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
@@ -27,7 +28,6 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
-import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class TileRuneAltar extends TileSimpleInventory implements ISidedInventory, IManaReceiver {
 
@@ -37,7 +37,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 	int mana = 0;
 
 	public boolean addItem(EntityPlayer player, ItemStack stack) {
-		if(stack.itemID == ModItems.twigWand.itemID || stack.itemID == ModItems.lexicon.itemID  || manaToGet != 0)
+		if(stack.getItem() == ModItems.twigWand || stack.getItem() == ModItems.lexicon  || manaToGet != 0)
 			return false;
 
 		boolean did = false;
@@ -59,7 +59,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 			}
 
 		if(did)
-			PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
+			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 
 		return true;
 	}
@@ -97,7 +97,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 
 		if(manaToGet != this.manaToGet) {
 			worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.orb", 1F, 1F);
-			PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
+			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 		}
 	}
 
@@ -117,7 +117,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 			List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1));
 			EntityItem livingrock = null;
 			for(EntityItem item : items)
-				if(item.getEntityItem() != null && item.getEntityItem().itemID == ModBlocks.livingrock.blockID) {
+				if(item.getEntityItem() != null && item.getEntityItem().getItem() == Item.getItemFromBlock(ModBlocks.livingrock)) {
 					livingrock = item;
 					break;
 				}
@@ -178,7 +178,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 	}
 
 	@Override
-	public String getInvName() {
+	public String getInventoryName() {
 		return LibBlockNames.RUNE_ALTAR;
 	}
 

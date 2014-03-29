@@ -23,7 +23,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
-import net.minecraftforge.event.ForgeSubscribe;
 
 import org.lwjgl.opengl.GL11;
 
@@ -33,27 +32,28 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.item.ModItems;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public final class HUDHandler {
 
 	private static final ResourceLocation manaBar = new ResourceLocation(LibResources.GUI_MANA_HUD);
 	private static final RenderItem itemRender = new RenderItem();
 
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void onDrawScreen(RenderGameOverlayEvent.Post event) {
 		if(event.type == ElementType.ALL) {
 			Minecraft mc = Minecraft.getMinecraft();
 			MovingObjectPosition pos = mc.objectMouseOver;
-			if(pos != null && mc.thePlayer.getCurrentEquippedItem() != null && mc.thePlayer.getCurrentEquippedItem().itemID == ModItems.twigWand.itemID) {
-				int id = mc.theWorld.getBlockId(pos.blockX, pos.blockY, pos.blockZ);
-				if(Block.blocksList[id] != null && Block.blocksList[id] instanceof IWandHUD)
-					((IWandHUD) Block.blocksList[id]).renderHUD(mc, event.resolution, mc.theWorld, pos.blockX, pos.blockY, pos.blockZ);
+			if(pos != null && mc.thePlayer.getCurrentEquippedItem() != null && mc.thePlayer.getCurrentEquippedItem().getItem() == ModItems.twigWand) {
+				Block block = mc.theWorld.getBlock(pos.blockX, pos.blockY, pos.blockZ);
+				if(block instanceof IWandHUD)
+					((IWandHUD) block).renderHUD(mc, event.resolution, mc.theWorld, pos.blockX, pos.blockY, pos.blockZ);
 			}
 
-			else if(pos != null && mc.thePlayer.getCurrentEquippedItem() != null && mc.thePlayer.getCurrentEquippedItem().itemID == ModItems.lexicon.itemID) {
-				int id = mc.theWorld.getBlockId(pos.blockX, pos.blockY, pos.blockZ);
-				if(Block.blocksList[id] != null && Block.blocksList[id] instanceof ILexiconable) {
-					LexiconEntry entry = ((ILexiconable) Block.blocksList[id]).getEntry(mc.theWorld, pos.blockX, pos.blockY, pos.blockZ, mc.thePlayer, mc.thePlayer.getCurrentEquippedItem());
+			else if(pos != null && mc.thePlayer.getCurrentEquippedItem() != null && mc.thePlayer.getCurrentEquippedItem().getItem() == ModItems.lexicon) {
+				Block block = mc.theWorld.getBlock(pos.blockX, pos.blockY, pos.blockZ);
+				if(block instanceof ILexiconable) {
+					LexiconEntry entry = ((ILexiconable) block).getEntry(mc.theWorld, pos.blockX, pos.blockY, pos.blockZ, mc.thePlayer, mc.thePlayer.getCurrentEquippedItem());
 					if(entry != null)
 						drawLexiconGUI(entry, event.resolution);
 				}

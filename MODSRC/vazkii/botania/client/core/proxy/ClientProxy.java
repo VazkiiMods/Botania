@@ -53,7 +53,6 @@ import vazkii.botania.common.item.ModItems;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
 public class ClientProxy extends CommonProxy {
@@ -62,8 +61,7 @@ public class ClientProxy extends CommonProxy {
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
 
-		TickRegistry.registerTickHandler(new ClientTickHandler(), Side.CLIENT);
-
+		MinecraftForge.EVENT_BUS.register(new ClientTickHandler());
 		MinecraftForge.EVENT_BUS.register(new HUDHandler());
 		MinecraftForge.EVENT_BUS.register(new LightningHandler());
 		MinecraftForge.EVENT_BUS.register(new CapeHandler());
@@ -86,9 +84,9 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerBlockHandler(new RenderPool());
 		RenderingRegistry.registerBlockHandler(new RenderPylon());
 
-		MinecraftForgeClient.registerItemRenderer(ModItems.lens.itemID, new RenderLens());
+		MinecraftForgeClient.registerItemRenderer(ModItems.lens, new RenderLens());
 		if(ConfigHandler.lexicon3dModel)
-			MinecraftForgeClient.registerItemRenderer(ModItems.lexicon.itemID, new RenderLexicon());
+			MinecraftForgeClient.registerItemRenderer(ModItems.lexicon, new RenderLexicon());
 
 		ClientRegistry.bindTileEntitySpecialRenderer(TileAltar.class, new RenderTileAltar());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileSpreader.class, new RenderTileSpreader());

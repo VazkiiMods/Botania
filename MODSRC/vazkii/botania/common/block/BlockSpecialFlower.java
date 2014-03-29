@@ -22,12 +22,13 @@ import net.minecraft.block.BlockFlower;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -41,13 +42,13 @@ import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
-import vazkii.botania.common.lib.LibBlockIDs;
 import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvider, ISpecialFlower, IWandable, ILexiconable, IWandHUD {
 
-	public static Map<String, Icon> icons = new HashMap();
+	public static Map<String, IIcon> icons = new HashMap();
+	
 	private static String[] subtypes = {
 		// Misc
 		LibBlockNames.SUBTILE_PUREDAISY,
@@ -73,10 +74,10 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 	};
 
 	protected BlockSpecialFlower() {
-		super(LibBlockIDs.idSpecialFlower);
-		setUnlocalizedName(LibBlockNames.SPECIAL_FLOWER);
+		super(0);
+		setBlockName(LibBlockNames.SPECIAL_FLOWER);
 		setHardness(0F);
-		setStepSound(soundGrassFootstep);
+		setStepSound(soundTypeGrass);
 		setTickRandomly(true);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setBlockBounds(0.3F, 0.0F, 0.3F, 0.8F, 1, 0.8F);
@@ -88,9 +89,9 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 	}
 
 	@Override
-	public Block setUnlocalizedName(String par1Str) {
+	public Block setBlockName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockSpecialFlower.class, par1Str);
-		return super.setUnlocalizedName(par1Str);
+		return super.setBlockName(par1Str);
 	}
 
 	@Override
@@ -99,40 +100,30 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 	}
 
 	@Override
-	public int idDropped(int par1, Random par2Random, int par3) {
-		return 0;
-	}
-
-	@Override
-	public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List par3List) {
+	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
 		for(String s : subtypes)
 			par3List.add(ItemBlockSpecialFlower.ofType(s));
 	}
 
 	@Override
-	public void registerIcons(IconRegister par1IconRegister) {
+	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		for(String s : subtypes)
 			icons.put(s, IconHelper.forName(par1IconRegister, s));
 	}
 
 	@Override
-	public TileEntity createTileEntity(World world, int metadata) {
-		return new TileSpecialFlower();
+	public IIcon getIcon(IBlockAccess par1iBlockAccess, int par2, int par3, int par4, int par5) {
+		return ((TileSpecialFlower) par1iBlockAccess.getTileEntity(par2, par3, par4)).getIcon();
 	}
 
 	@Override
-	public Icon getBlockTexture(IBlockAccess par1iBlockAccess, int par2, int par3, int par4, int par5) {
-		return ((TileSpecialFlower) par1iBlockAccess.getBlockTileEntity(par2, par3, par4)).getIcon();
-	}
-
-	@Override
-	public Icon getIcon(int par1, int par2) {
+	public IIcon getIcon(int par1, int par2) {
 		return BlockModFlower.icons[16];
 	}
 
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
-		String name = ((TileSpecialFlower) world.getBlockTileEntity(x, y, z)).subTileName;
+		String name = ((TileSpecialFlower) world.getTileEntity(x, y, z)).subTileName;
 		return ItemBlockSpecialFlower.ofType(name);
 	}
 
@@ -143,9 +134,9 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 	}
 
 	@Override
-	public ArrayList<ItemStack> getBlockDropped(World world, int x, int y, int z, int metadata, int fortune) {
+	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
 		ArrayList<ItemStack> list = new ArrayList();
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		TileEntity tile = world.getTileEntity(x, y, z);
 
 		if(tile != null) {
 			String name = ((TileSpecialFlower) tile).subTileName;
@@ -158,28 +149,28 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 	@Override
 	public boolean onBlockEventReceived(World par1World, int par2, int par3, int par4, int par5, int par6) {
 		super.onBlockEventReceived(par1World, par2, par3, par4, par5, par6);
-		TileEntity tileentity = par1World.getBlockTileEntity(par2, par3, par4);
+		TileEntity tileentity = par1World.getTileEntity(par2, par3, par4);
 		return tileentity != null ? tileentity.receiveClientEvent(par5, par6) : false;
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world) {
-		return null;
+	public TileEntity createNewTileEntity(World world, int meta) {
+		return new TileSpecialFlower();
 	}
 
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
-		return ((TileSpecialFlower) world.getBlockTileEntity(x, y, z)).getEntry();
+		return ((TileSpecialFlower) world.getTileEntity(x, y, z)).getEntry();
 	}
 
 	@Override
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
-		return ((TileSpecialFlower) world.getBlockTileEntity(x, y, z)).onWanded(stack, player);
+		return ((TileSpecialFlower) world.getTileEntity(x, y, z)).onWanded(stack, player);
 	}
 
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res, World world, int x, int y, int z) {
-		((TileSpecialFlower) world.getBlockTileEntity(x, y, z)).renderHUD(mc, res);
+		((TileSpecialFlower) world.getTileEntity(x, y, z)).renderHUD(mc, res);
 	}
 
 }

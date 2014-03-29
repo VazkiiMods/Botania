@@ -12,6 +12,7 @@
 package vazkii.botania.common.block.subtile;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChunkCoordinates;
@@ -54,17 +55,17 @@ public class SubTilePureDaisy extends SubTileEntity {
 
 		int[] acoords = POSITIONS[positionAt];
 		ChunkCoordinates coords = new ChunkCoordinates(supertile.xCoord + acoords[0], supertile.yCoord + acoords[1], supertile.zCoord + acoords[2]);
-		Block block = Block.blocksList[supertile.worldObj.getBlockId(coords.posX, coords.posY, coords.posZ)];
-		if(block != null) {
-			String oredict = OreDictionary.getOreName(OreDictionary.getOreID(new ItemStack(block, 1, supertile.worldObj.getBlockMetadata(coords.posX, coords.posY, coords.posZ))));
-			int output = oredict.equals("stone") ? ModBlocks.livingrock.blockID : oredict.endsWith("logWood") ? ModBlocks.livingwood.blockID : 0;
-			if(output != 0) {
+		Block block =supertile.getWorldObj().getBlock(coords.posX, coords.posY, coords.posZ);
+		if(block != Blocks.air) {
+			String oredict = OreDictionary.getOreName(OreDictionary.getOreID(new ItemStack(block, 1, supertile.getWorldObj().getBlockMetadata(coords.posX, coords.posY, coords.posZ))));
+			Block output = oredict.equals("stone") ? ModBlocks.livingrock : oredict.endsWith("logWood") ? ModBlocks.livingwood : null;
+			if(output != null) {
 				ticksRemaining[positionAt] = ticksRemaining[positionAt] - 1;
 
-				Botania.proxy.sparkleFX(supertile.worldObj, coords.posX + Math.random(), coords.posY + Math.random(), coords.posZ + Math.random(), 1F, 1F, 1F, (float) Math.random(), 5);
+				Botania.proxy.sparkleFX(supertile.getWorldObj(), coords.posX + Math.random(), coords.posY + Math.random(), coords.posZ + Math.random(), 1F, 1F, 1F, (float) Math.random(), 5);
 
 				if(ticksRemaining[positionAt] <= 0) {
-					supertile.worldObj.setBlock(coords.posX, coords.posY, coords.posZ, output);
+					supertile.getWorldObj().setBlock(coords.posX, coords.posY, coords.posZ, output);
 					ticksRemaining[positionAt] = 200;
 
 					for(int i = 0; i < 25; i++) {
@@ -72,7 +73,7 @@ public class SubTilePureDaisy extends SubTileEntity {
 						double y = coords.posY + Math.random() + 0.5;
 						double z = coords.posZ + Math.random();
 
-						Botania.proxy.wispFX(supertile.worldObj, x, y, z, 1F, 1F, 1F, (float) Math.random() / 2F);
+						Botania.proxy.wispFX(supertile.getWorldObj(), x, y, z, 1F, 1F, 1F, (float) Math.random() / 2F);
 					}
 				}
 			} else ticksRemaining[positionAt] = 200;
@@ -83,7 +84,7 @@ public class SubTilePureDaisy extends SubTileEntity {
 	public void readFromPacketNBT(NBTTagCompound cmp) {
 		positionAt = cmp.getInteger(TAG_POSITION);
 
-		if(supertile.worldObj != null && !supertile.worldObj.isRemote)
+		if(supertile.getWorldObj() != null && !supertile.getWorldObj().isRemote)
 			for(int i = 0; i < ticksRemaining.length; i++)
 				ticksRemaining[i] = cmp.getInteger(TAG_TICKS_REMAINING + i);
 	}

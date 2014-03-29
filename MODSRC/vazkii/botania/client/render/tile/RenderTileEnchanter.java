@@ -20,7 +20,7 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 
 import org.lwjgl.opengl.GL11;
 
@@ -46,9 +46,9 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer {
 
 		if(enchanter.itemToEnchant != null) {
 			if(item == null)
-				item = new EntityItem(enchanter.worldObj, enchanter.xCoord, enchanter.yCoord + 1, enchanter.zCoord, enchanter.itemToEnchant);
+				item = new EntityItem(enchanter.getWorldObj(), enchanter.xCoord, enchanter.yCoord + 1, enchanter.zCoord, enchanter.itemToEnchant);
 
-			item.age = (int) tileentity.worldObj.getTotalWorldTime();
+			item.age = (int) tileentity.getWorldObj().getTotalWorldTime();
 			item.setEntityItemStack(enchanter.itemToEnchant);
 
 			GL11.glColor4f(1F, 1F, 1F, 1F);
@@ -67,7 +67,7 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer {
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GL11.glDisable(GL11.GL_LIGHTING);
-		GL11.glColor4f(0.6F + (float) ((Math.cos(enchanter.worldObj.getTotalWorldTime() / 6D) + 1D) / 5D), 0.1F, 0.9F, (float) ((Math.sin(enchanter.worldObj.getTotalWorldTime() / 8D) + 1D) / 5D + 0.4D) * alphaMod);
+		GL11.glColor4f(0.6F + (float) ((Math.cos(enchanter.getWorldObj().getTotalWorldTime() / 6D) + 1D) / 5D), 0.1F, 0.9F, (float) ((Math.sin(enchanter.getWorldObj().getTotalWorldTime() / 8D) + 1D) / 5D + 0.4D) * alphaMod);
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 
@@ -91,7 +91,7 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer {
 		GL11.glPopMatrix();
 	}
 
-	public void renderIcon(int par1, int par2, Icon par3Icon, int par4, int par5, int brightness) {
+	public void renderIcon(int par1, int par2, IIcon par3Icon, int par4, int par5, int brightness) {
 		Tessellator tessellator = Tessellator.instance;
 		tessellator.startDrawingQuads();
 		tessellator.setBrightness(brightness);

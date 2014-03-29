@@ -11,36 +11,35 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.TilePylon;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibBlockIDs;
 import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockPylon extends BlockModContainer implements ILexiconable {
 
 	public BlockPylon() {
-		super(LibBlockIDs.idPylon, Material.iron);
+		super(Material.iron);
 		setHardness(5.5F);
-		setStepSound(soundStoneFootstep);
-		setUnlocalizedName(LibBlockNames.PYLON);
+		setStepSound(soundTypeMetal);
+		setBlockName(LibBlockNames.PYLON);
 
 		float f = 1F / 16F * 2F;
 		setBlockBounds(f, 0F, f, 1F - f, 1F / 16F * 21F, 1F - f);
 	}
 
 	@Override
-	public Icon getIcon(int par1, int par2) {
-		return Block.blockDiamond.getIcon(par1, par2);
+	public IIcon getIcon(int par1, int par2) {
+		return Blocks.diamond_block.getIcon(par1, par2);
 	}
 
 	@Override
@@ -64,7 +63,7 @@ public class BlockPylon extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world) {
+	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TilePylon();
 	}
 

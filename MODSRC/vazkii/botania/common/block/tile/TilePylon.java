@@ -11,6 +11,7 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.tileentity.TileEntity;
 import vazkii.botania.common.Botania;
@@ -25,15 +26,15 @@ public class TilePylon extends TileEntity {
 	@Override
 	public void updateEntity() {
 		if(activated && worldObj.isRemote) {
-			if(worldObj.getBlockId(centerX, centerY, centerZ) != ModBlocks.enchanter.blockID) {
+			if(worldObj.getBlock(centerX, centerY, centerZ) != ModBlocks.enchanter) {
 				activated = false;
 				return;
 			}
 
 			Vector3 centerBlock = new Vector3(centerX + 0.5, centerY + 0.75 + (Math.random() - 0.5 * 0.25), centerZ + 0.5);
 
-			int id = worldObj.getBlockId(xCoord, yCoord - 1, zCoord);
-			if(id == ModBlocks.flower.blockID) {
+			Block block = worldObj.getBlock(xCoord, yCoord - 1, zCoord);
+			if(block == ModBlocks.flower) {
 				int meta = worldObj.getBlockMetadata(xCoord, yCoord - 1, zCoord);
 				float[] color = EntitySheep.fleeceColorTable[meta];
 

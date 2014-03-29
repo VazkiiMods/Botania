@@ -61,7 +61,7 @@ public class GuiLexicon extends GuiScreen {
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		mc.renderEngine.bindTexture(texture);
 		drawTexturedModalRect(left, top, 0, 0, guiWidth, guiHeight);
-		drawCenteredString(fontRenderer, getTitle(), left + guiWidth / 2, top - 12, 0x00FF00);
+		drawCenteredString(fontRendererObj, getTitle(), left + guiWidth / 2, top - 12, 0x00FF00);
 
 		drawHeader();
 
@@ -69,10 +69,10 @@ public class GuiLexicon extends GuiScreen {
 	}
 
 	void drawHeader() {
-		boolean unicode = fontRenderer.getUnicodeFlag();
-		fontRenderer.setUnicodeFlag(true);
-		fontRenderer.drawSplitString(StatCollector.translateToLocal("botania.gui.lexicon.header"), left + 15, top + 20, 110, 0);
-		fontRenderer.setUnicodeFlag(unicode);
+		boolean unicode = fontRendererObj.getUnicodeFlag();
+		fontRendererObj.setUnicodeFlag(true);
+		fontRendererObj.drawSplitString(StatCollector.translateToLocal("botania.gui.lexicon.header"), left + 15, top + 20, 110, 0);
+		fontRendererObj.setUnicodeFlag(unicode);
 	}
 
 	@Override
@@ -96,7 +96,7 @@ public class GuiLexicon extends GuiScreen {
 	}
 
 	String getTitle() {
-		return ModItems.lexicon.getItemDisplayName(null);
+		return ModItems.lexicon.getItemStackDisplayName(null);
 	}
 
 	boolean isIndex() {

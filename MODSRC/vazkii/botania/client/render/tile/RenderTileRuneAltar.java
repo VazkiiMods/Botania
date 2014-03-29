@@ -24,7 +24,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraftforge.client.ForgeHooksClient;
 
 import org.lwjgl.opengl.GL11;
@@ -36,6 +36,7 @@ import vazkii.botania.common.block.tile.TileRuneAltar;
 public class RenderTileRuneAltar extends TileEntitySpecialRenderer {
 
 	ModelSpinningCubes cubes = new ModelSpinningCubes();
+	RenderBlocks renderBlocks = new RenderBlocks();
 
 	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double x, double y, double z, float partticks) {
@@ -61,28 +62,28 @@ public class RenderTileRuneAltar extends TileEntitySpecialRenderer {
 			GL11.glPushMatrix();
 			GL11.glScalef(0.5F, 0.5F, 0.5F);
 			GL11.glTranslatef(1F, 2.5F, 1F);
-			GL11.glRotatef(angles[i] + altar.worldObj.getTotalWorldTime(), 0F, 1F, 0F);
+			GL11.glRotatef(angles[i] + altar.getWorldObj().getTotalWorldTime(), 0F, 1F, 0F);
 			GL11.glTranslatef(2.25F, 0F, 0.5F);
 			GL11.glRotatef(90F, 0F, 1F, 0F);
-			GL11.glTranslated(0D, 0.15 * Math.sin((tileentity.worldObj.getTotalWorldTime() + i * 10) / 5D), 0F);
+			GL11.glTranslated(0D, 0.15 * Math.sin((tileentity.getWorldObj().getTotalWorldTime() + i * 10) / 5D), 0F);
 			ItemStack stack = altar.getStackInSlot(i);
 			Minecraft mc = Minecraft.getMinecraft();
 			if(stack != null) {
 				mc.renderEngine.bindTexture(stack.getItem() instanceof ItemBlock ? TextureMap.locationBlocksTexture : TextureMap.locationItemsTexture);
 
 				GL11.glScalef(2F, 2F, 2F);
-				if(!ForgeHooksClient.renderEntityItem(new EntityItem(altar.worldObj, altar.xCoord, altar.yCoord, altar.zCoord, stack), stack, 0F, 0F, altar.worldObj.rand, mc.renderEngine, new RenderBlocks())) {
+				if(!ForgeHooksClient.renderEntityItem(new EntityItem(altar.getWorldObj(), altar.xCoord, altar.yCoord, altar.zCoord, stack), stack, 0F, 0F, altar.getWorldObj().rand, mc.renderEngine, renderBlocks, 1)) {
 					GL11.glScalef(0.5F, 0.5F, 0.5F);
-					if(stack.getItem() instanceof ItemBlock && RenderBlocks.renderItemIn3d(Block.blocksList[stack.itemID].getRenderType())) {
+					if(stack.getItem() instanceof ItemBlock && RenderBlocks.renderItemIn3d(Block.getBlockFromItem(stack.getItem()).getRenderType())) {
 						GL11.glScalef(0.5F, 0.5F, 0.5F);
 						GL11.glTranslatef(1F, 1.1F, 0F);
-						new RenderBlocks().renderBlockAsItem(Block.blocksList[stack.itemID], stack.getItemDamage(), 1F);
+						renderBlocks.renderBlockAsItem(Block.getBlockFromItem(stack.getItem()), stack.getItemDamage(), 1F);
 						GL11.glTranslatef(-1F, -1.1F, 0F);
 						GL11.glScalef(2F, 2F, 2F);
 					} else {
 						int renderPass = 0;
 						do {
-							Icon icon = stack.getItem().getIcon(stack, renderPass);
+							IIcon icon = stack.getItem().getIcon(stack, renderPass);
 							if(icon != null) {
 								Color color = new Color(stack.getItem().getColorFromItemStack(stack, renderPass));
 								GL11.glColor3ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());

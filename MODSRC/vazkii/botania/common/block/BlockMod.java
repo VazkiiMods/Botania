@@ -13,7 +13,7 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -22,17 +22,17 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockMod extends Block {
 
-	public BlockMod(int par1, Material par2Material) {
-		super(par1, par2Material);
+	public BlockMod(Material par2Material) {
+		super(par2Material);
 		if(registerInCreative())
 			setCreativeTab(BotaniaCreativeTab.INSTANCE);
 	}
 
 	@Override
-	public Block setUnlocalizedName(String par1Str) {
+	public Block setBlockName(String par1Str) {
 		if(shouldRegisterInNameSet())
 			GameRegistry.registerBlock(this, par1Str);
-		return super.setUnlocalizedName(par1Str);
+		return super.setBlockName(par1Str);
 	}
 
 	protected boolean shouldRegisterInNameSet() {
@@ -41,7 +41,7 @@ public class BlockMod extends Block {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister par1IconRegister) {
+	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		blockIcon = IconHelper.forBlock(par1IconRegister, this);
 	}
 

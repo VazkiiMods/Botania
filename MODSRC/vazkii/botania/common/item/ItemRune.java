@@ -13,40 +13,40 @@ package vazkii.botania.common.item;
 
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.client.core.helper.IconHelper;
-import vazkii.botania.common.lib.LibItemIDs;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemRune extends ItemMod implements IFlowerComponent {
 
-	Icon[] icons;
+	IIcon[] icons;
 
 	public ItemRune() {
-		super(LibItemIDs.idRune);
+		super();
 		setHasSubtypes(true);
 		setUnlocalizedName(LibItemNames.RUNE);
 	}
 
 	@Override
-	public void registerIcons(IconRegister par1IconRegister) {
-		icons = new Icon[16];
+	public void registerIcons(IIconRegister par1IconRegister) {
+		icons = new IIcon[16];
 		for(int i = 0; i < icons.length; i++)
 			icons[i] = IconHelper.forItem(par1IconRegister, this, i);
 	}
 
 	@Override
-	public Icon getIconFromDamage(int par1) {
+	public IIcon getIconFromDamage(int par1) {
 		return icons[Math.min(icons.length - 1, par1)];
 	}
 
 	@Override
-	public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List) {
+	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
 		for(int i = 0; i < 16; i++)
 			par3List.add(new ItemStack(par1, 1, i));
 	}

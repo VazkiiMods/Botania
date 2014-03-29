@@ -13,34 +13,34 @@ package vazkii.botania.common.item;
 
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import vazkii.botania.client.core.helper.IconHelper;
-import vazkii.botania.common.lib.LibItemIDs;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemManaResource extends ItemMod {
 
 	final int types = 3;
-	Icon[] icons;
+	IIcon[] icons;
 
 	public ItemManaResource() {
-		super(LibItemIDs.idManaResource);
+		super();
 		setUnlocalizedName(LibItemNames.MANA_RESOURCE);
 		setHasSubtypes(true);
 	}
 
 	@Override
-	public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List) {
+	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
 		for(int i = 0; i < types; i++)
 			par3List.add(new ItemStack(par1, 1, i));
 	}
 
 	@Override
-	public void registerIcons(IconRegister par1IconRegister) {
-		icons = new Icon[types];
+	public void registerIcons(IIconRegister par1IconRegister) {
+		icons = new IIcon[types];
 		for(int i = 0; i < icons.length; i++)
 			icons[i] = IconHelper.forNameRaw(par1IconRegister, LibItemNames.MANA_RESOURCE_NAMES[i]);
 	}
@@ -51,7 +51,7 @@ public class ItemManaResource extends ItemMod {
 	}
 
 	@Override
-	public Icon getIconFromDamage(int par1) {
+	public IIcon getIconFromDamage(int par1) {
 		return icons[Math.min(icons.length - 1, par1)];
 	}
 }

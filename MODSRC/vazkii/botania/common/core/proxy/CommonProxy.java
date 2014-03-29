@@ -56,7 +56,7 @@ public class CommonProxy {
 	}
 
 	public void init(FMLInitializationEvent event) {
-		NetworkRegistry.instance().registerGuiHandler(Botania.instance, new GuiHandler());
+		NetworkRegistry.INSTANCE.registerGuiHandler(Botania.instance, new GuiHandler());
 
 		MinecraftForge.TERRAIN_GEN_BUS.register(new BiomeDecorationHandler());
 		MinecraftForge.EVENT_BUS.register(ManaNetworkHandler.instance);

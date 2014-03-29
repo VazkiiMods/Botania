@@ -12,11 +12,11 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lexicon.LexiconData;
-import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class SubTileJadedAmaranthus extends SubTileFunctional {
 
@@ -32,22 +32,22 @@ public class SubTileJadedAmaranthus extends SubTileFunctional {
 			return;
 		}
 
-		if(mana >= COST && !supertile.worldObj.isRemote) {
+		if(mana >= COST && !supertile.getWorldObj().isRemote) {
 			int range = 4;
-			int x = supertile.xCoord - range + supertile.worldObj.rand.nextInt(range * 2 + 1);
+			int x = supertile.xCoord - range + supertile.getWorldObj().rand.nextInt(range * 2 + 1);
 			int y = supertile.yCoord + range;
-			int z = supertile.zCoord - range + supertile.worldObj.rand.nextInt(range * 2 + 1);
+			int z = supertile.zCoord - range + supertile.getWorldObj().rand.nextInt(range * 2 + 1);
 
 			for(int i = 0; i < range * 2; i++) {
-				int blockID = supertile.worldObj.getBlockId(x, y, z);
-				if((blockID == Block.grass.blockID || blockID == Block.dirt.blockID || blockID == Block.tilledField.blockID) && supertile.worldObj.isAirBlock(x, y + 1, z)) {
-					int color = supertile.worldObj.rand.nextInt(16);
-					if(ModBlocks.flower.canBlockStay(supertile.worldObj, x, y + 1, z))
-						supertile.worldObj.setBlock(x, y + 1, z, ModBlocks.flower.blockID, color, 1 | 2);
+				Block block = supertile.getWorldObj().getBlock(x, y, z);
+				if((block == Blocks.grass || block == Blocks.dirt || block == Blocks.farmland) && supertile.getWorldObj().isAirBlock(x, y + 1, z)) {
+					int color = supertile.getWorldObj().rand.nextInt(16);
+					if(ModBlocks.flower.canBlockStay(supertile.getWorldObj(), x, y + 1, z))
+						supertile.getWorldObj().setBlock(x, y + 1, z, ModBlocks.flower, color, 1 | 2);
 
 					mana -= COST;
-					PacketDispatcher.sendPacketToAllInDimension(supertile.getDescriptionPacket(), supertile.worldObj.provider.dimensionId);
-
+					sync();
+					
 					cooldown = 30;
 					break;
 				}

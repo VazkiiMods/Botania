@@ -20,13 +20,12 @@ import vazkii.botania.api.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibGuiIDs;
-import vazkii.botania.common.lib.LibItemIDs;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemLexicon extends ItemMod {
 
 	public ItemLexicon() {
-		super(LibItemIDs.idLexicon);
+		super();
 		setMaxStackSize(1);
 		setUnlocalizedName(LibItemNames.LEXICON);
 	}
@@ -34,8 +33,7 @@ public class ItemLexicon extends ItemMod {
 	@Override
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
 		if(par2EntityPlayer.isSneaking()) {
-			int id = par3World.getBlockId(par4, par5, par6);
-			Block block = Block.blocksList[id];
+			Block block = par3World.getBlock(par4, par5, par6);
 
 			if(block != null && block instanceof ILexiconable) {
 				LexiconEntry entry = ((ILexiconable) block).getEntry(par3World, par4, par5, par6, par2EntityPlayer, par1ItemStack);

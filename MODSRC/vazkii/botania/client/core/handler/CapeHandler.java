@@ -20,11 +20,11 @@ import javax.imageio.ImageIO;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.ThreadDownloadImageData;
 import net.minecraftforge.client.event.RenderPlayerEvent;
-import net.minecraftforge.event.ForgeSubscribe;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibObfuscation;
 import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class CapeHandler {
@@ -37,12 +37,12 @@ public class CapeHandler {
 		instance = this;
 	}
 
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void onPreRenderSpecials (RenderPlayerEvent.Specials.Pre event) {
 		if(Loader.isModLoaded("shadersmod"))
 			return;
 
-		if(event.entityPlayer instanceof AbstractClientPlayer && (event.entityPlayer.username.equals("Vazkii") || event.entityPlayer.username.equals("Lizbeth"))) {
+		if(event.entityPlayer instanceof AbstractClientPlayer && (event.entityPlayer.getCommandSenderName().equals("Vazkii"))) {
 			AbstractClientPlayer abstractClientPlayer = (AbstractClientPlayer) event.entityPlayer;
 
 			if (!capePlayers.contains(abstractClientPlayer)) {

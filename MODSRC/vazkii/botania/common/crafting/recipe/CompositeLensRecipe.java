@@ -11,8 +11,8 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
+import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
@@ -35,7 +35,7 @@ public class CompositeLensRecipe implements IRecipe {
 					if(foundLens)
 						foundSecondLens = true;
 					else foundLens = true;
-				} else if(stack.itemID == Item.slimeBall.itemID)
+				} else if(stack.getItem() == Items.slime_ball)
 					foundSlimeball = true;
 				else return false; // Found an invalid item, breaking the recipe
 			}

@@ -15,6 +15,7 @@ import java.awt.Color;
 import java.util.List;
 
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -25,7 +26,6 @@ import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibBlockNames;
-import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 
@@ -39,11 +39,11 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 			return false;
 
 		if(!hasWater) {
-			if(stack.itemID == Item.bucketWater.itemID) {
+			if(stack.getItem() == Items.water_bucket) {
 				hasWater = true;
-				worldObj.func_96440_m(xCoord, yCoord, zCoord, worldObj.getBlockId(xCoord, yCoord, zCoord));
-				stack.itemID = Item.bucketEmpty.itemID;
-				PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
+				worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
+				stack.func_150996_a(Items.bucket); // Set item
+				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 			} else return false;
 		}
 
@@ -67,7 +67,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 					didChange = true;
 					break;
 				}
-		} else if(stack.itemID == Item.seeds.itemID) {
+		} else if(stack.getItem() == Items.wheat_seeds) {
 			for(RecipePetals recipe : BotaniaAPI.petalRecipes) {
 				if(recipe.matches(this)) {
 					for(int i = 0; i < getSizeInventory(); i++)
@@ -85,7 +85,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 
 					craftingFanciness();
 					hasWater = false;
-					worldObj.func_96440_m(xCoord, yCoord, zCoord, worldObj.getBlockId(xCoord, yCoord, zCoord));
+					worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 					didChange = true;
 					break;
 				}
@@ -115,7 +115,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 			didChange = collideEntityItem(item) || didChange;
 
 		if(didChange)
-			PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
+			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 
 		for(int i = 0; i < getSizeInventory(); i++) {
 			ItemStack stackAt = getStackInSlot(i);
@@ -147,7 +147,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 	}
 
 	@Override
-	public String getInvName() {
+	public String getInventoryName() {
 		return LibBlockNames.ALTAR;
 	}
 

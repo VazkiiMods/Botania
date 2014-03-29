@@ -14,34 +14,34 @@ package vazkii.botania.common.item;
 import java.awt.Color;
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntitySignalFlare;
-import vazkii.botania.common.lib.LibItemIDs;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemSignalFlare extends ItemMod {
 
-	Icon[] icons;
+	IIcon[] icons;
 
 	private static final String TAG_COLOR = "color";
 
 	public ItemSignalFlare() {
-		super(LibItemIDs.idSignalFlare);
+		super();
 		setMaxStackSize(1);
 		setNoRepair();
 		setMaxDamage(200);
@@ -85,14 +85,14 @@ public class ItemSignalFlare extends ItemMod {
 	}
 
 	@Override
-	public void registerIcons(IconRegister par1IconRegister) {
-		icons = new Icon[2];
+	public void registerIcons(IIconRegister par1IconRegister) {
+		icons = new IIcon[2];
 		for(int i = 0; i < icons.length; i++)
 			icons[i] = IconHelper.forItem(par1IconRegister, this, i);
 	}
 
 	@Override
-	public Icon getIcon(ItemStack stack, int pass) {
+	public IIcon getIcon(ItemStack stack, int pass) {
 		return icons[Math.min(1, pass)];
 	}
 
@@ -106,7 +106,7 @@ public class ItemSignalFlare extends ItemMod {
 	}
 
 	@Override
-	public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List) {
+	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
 		for(int i = 0; i < 16; i++)
 			par3List.add(forColor(i));
 	}

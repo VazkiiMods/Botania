@@ -11,13 +11,12 @@
  */
 package vazkii.botania.common.item;
 
-import vazkii.botania.common.lib.LibItemIDs;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemDye extends Item16Colors {
 
 	public ItemDye() {
-		super(LibItemIDs.idDye, LibItemNames.DYE);
+		super(LibItemNames.DYE);
 	}
 
 }

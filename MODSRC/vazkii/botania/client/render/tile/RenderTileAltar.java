@@ -20,9 +20,10 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
@@ -103,7 +104,7 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 
 					ItemStack stack = altar.getStackInSlot(i);
 					Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
-					Icon icon = stack.getItem().getIcon(stack, 0);
+					IIcon icon = stack.getItem().getIcon(stack, 0);
 					if(icon != null) {
 						Color color = new Color(stack.getItem().getColorFromItemStack(stack, 0));
 						GL11.glColor3ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
@@ -129,7 +130,7 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 			GL11.glTranslatef(w, -0.3F, w);
 			GL11.glRotatef(90F, 1F, 0F, 0F);
 			GL11.glScalef(s, s, s);
-			renderItem.renderIcon(0, 0, Block.waterStill.getIcon(0, 0), 16, 16);
+			renderItem.renderIcon(0, 0, Blocks.water.getIcon(0, 0), 16, 16);
 			GL11.glDisable(GL11.GL_BLEND);
 			GL11.glPopMatrix();
 		}

@@ -13,14 +13,15 @@ package vazkii.botania.common.block;
 
 import java.util.Random;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.ILexiconable;
 import vazkii.botania.api.IWandable;
@@ -29,21 +30,20 @@ import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibBlockIDs;
 import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockRuneAltar extends BlockModContainer implements IWandable, ILexiconable {
 
 	Random random;
-	Icon[] icons;
+	IIcon[] icons;
 
 	public BlockRuneAltar() {
-		super(LibBlockIDs.idRuneAltar, Material.rock);
+		super(Material.rock);
 		setBlockBounds(0F, 0F, 0F, 1F, 0.75F, 1F);
 		setHardness(2.0F);
 		setResistance(10.0F);
-		setStepSound(soundStoneFootstep);
-		setUnlocalizedName(LibBlockNames.RUNE_ALTAR);
+		setStepSound(soundTypeStone);
+		setBlockName(LibBlockNames.RUNE_ALTAR);
 
 		random = new Random();
 	}
@@ -59,8 +59,8 @@ public class BlockRuneAltar extends BlockModContainer implements IWandable, ILex
 	}
 
 	@Override
-	public void registerIcons(IconRegister par1IconRegister) {
-		icons = new Icon[3];
+	public void registerBlockIcons(IIconRegister par1IconRegister) {
+		icons = new IIcon[3];
 		for(int i = 0; i < icons.length; i++)
 			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
 	}
@@ -69,14 +69,14 @@ public class BlockRuneAltar extends BlockModContainer implements IWandable, ILex
 	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
 		ItemStack stack = par5EntityPlayer.getCurrentEquippedItem();
 		if(stack != null)
-			return ((TileRuneAltar) par1World.getBlockTileEntity(par2, par3, par4)).addItem(par5EntityPlayer, stack);
+			return ((TileRuneAltar) par1World.getTileEntity(par2, par3, par4)).addItem(par5EntityPlayer, stack);
 
 		return false;
 	}
 
 	@Override
-	public void breakBlock(World par1World, int par2, int par3, int par4, int par5, int par6) {
-		TileSimpleInventory inv = (TileSimpleInventory) par1World.getBlockTileEntity(par2, par3, par4);
+	public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6) {
+		TileSimpleInventory inv = (TileSimpleInventory) par1World.getTileEntity(par2, par3, par4);
 
 		if (inv != null) {
 			for (int j1 = 0; j1 < inv.getSizeInventory(); ++j1) {
@@ -94,7 +94,7 @@ public class BlockRuneAltar extends BlockModContainer implements IWandable, ILex
 							k1 = itemstack.stackSize;
 
 						itemstack.stackSize -= k1;
-						entityitem = new EntityItem(par1World, par2 + f, par3 + f1, par4 + f2, new ItemStack(itemstack.itemID, k1, itemstack.getItemDamage()));
+						entityitem = new EntityItem(par1World, par2 + f, par3 + f1, par4 + f2, new ItemStack(itemstack.getItem(), k1, itemstack.getItemDamage()));
 						float f3 = 0.05F;
 						entityitem.motionX = (float)random.nextGaussian() * f3;
 						entityitem.motionY = (float)random.nextGaussian() * f3 + 0.2F;
@@ -106,25 +106,25 @@ public class BlockRuneAltar extends BlockModContainer implements IWandable, ILex
 				}
 			}
 
-			par1World.func_96440_m(par2, par3, par4, par5);
+			par1World.func_147453_f(par2, par3, par4, par5);
 		}
 
 		super.breakBlock(par1World, par2, par3, par4, par5, par6);
 	}
 
 	@Override
-	public Icon getIcon(int par1, int par2) {
+	public IIcon getIcon(int par1, int par2) {
 		return icons[Math.min(2, par1)];
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world) {
+	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileRuneAltar();
 	}
 
 	@Override
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
-		((TileRuneAltar) world.getBlockTileEntity(x, y, z)).onWanded(player, stack);
+		((TileRuneAltar) world.getTileEntity(x, y, z)).onWanded(player, stack);
 		return true;
 	}
 

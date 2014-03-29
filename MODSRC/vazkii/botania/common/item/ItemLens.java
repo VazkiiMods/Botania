@@ -18,23 +18,24 @@ import java.util.List;
 import java.util.Map;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
@@ -45,7 +46,6 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
-import vazkii.botania.common.lib.LibItemIDs;
 import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -68,13 +68,13 @@ public class ItemLens extends ItemMod implements ILens {
 	private static final String TAG_COLOR = "color";
 	private static final String TAG_COMPOSITE_LENS = "compositeLens";
 
-	public static Icon iconGlass;
+	public static IIcon iconGlass;
 
 	public static final int SUBTYPES = 12;
-	Icon[] ringIcons;
+	IIcon[] ringIcons;
 
 	public ItemLens() {
-		super(LibItemIDs.idLens);
+		super();
 		setUnlocalizedName(LibItemNames.LENS);
 		setMaxStackSize(1);
 		setHasSubtypes(true);
@@ -83,16 +83,16 @@ public class ItemLens extends ItemMod implements ILens {
 	}
 
 	@Override
-	public void registerIcons(IconRegister par1IconRegister) {
+	public void registerIcons(IIconRegister par1IconRegister) {
 		iconGlass = IconHelper.forName(par1IconRegister, "lensInside");
 
-		ringIcons = new Icon[SUBTYPES];
+		ringIcons = new IIcon[SUBTYPES];
 		for(int i = 0; i < ringIcons.length; i++)
 			ringIcons[i] = IconHelper.forNameRaw(par1IconRegister, LibItemNames.LENS_NAMES[i]);
 	}
 
 	@Override
-	public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List) {
+	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
 		for(int i = 0; i < SUBTYPES; i++)
 			par3List.add(new ItemStack(par1, 1, i));
 	}
@@ -103,12 +103,12 @@ public class ItemLens extends ItemMod implements ILens {
 	}
 
 	@Override
-	public Icon getIconFromDamageForRenderPass(int par1, int par2) {
+	public IIcon getIconFromDamageForRenderPass(int par1, int par2) {
 		return par2 == 0 ? ringIcons[Math.min(SUBTYPES - 1, par1)] : iconGlass;
 	}
 
 	@Override
-	public Icon getIconFromDamage(int par1) {
+	public IIcon getIconFromDamage(int par1) {
 		return getIconFromDamageForRenderPass(par1, 0);
 	}
 
@@ -135,10 +135,10 @@ public class ItemLens extends ItemMod implements ILens {
 	}
 
 	@Override
-	public String getItemDisplayName(ItemStack stack) {
+	public String getItemStackDisplayName(ItemStack stack) {
 		ItemStack compositeLens = getCompositeLens(stack);
 		if(compositeLens == null)
-			return super.getItemDisplayName(stack);
+			return super.getItemStackDisplayName(stack);
 		return String.format(StatCollector.translateToLocal("item.botania:compositeLens.name"), getItemShortTermName(stack), getItemShortTermName(compositeLens));
 	}
 
@@ -209,10 +209,9 @@ public class ItemLens extends ItemMod implements ILens {
 			int x = pos.blockX;
 			int y = pos.blockY;
 			int z = pos.blockZ;
-			int id = world.getBlockId(x, y, z);
+			Block block = world.getBlock(x, y, z);
 
 			int meta = world.getBlockMetadata(x, y, z);
-			Block block = Block.blocksList[id];
 			float hardness = block.getBlockHardness(world, x, y, z);
 			int mana = burst.getMana();
 
@@ -220,12 +219,12 @@ public class ItemLens extends ItemMod implements ILens {
 			if((coords.posX != x || coords.posY != y || coords.posZ != z) && !isManaBlock && block != null && hardness != -1 && hardness < 50F && (burst.isFake() || mana >= 24)) {
 				List<ItemStack> items = new ArrayList();
 
-				items.addAll(block.getBlockDropped(world, x, y, z, meta, 0));
+				items.addAll(block.getDrops(world, x, y, z, meta, 0));
 
 				if(!burst.hasAlreadyCollidedAt(x, y, z)) {
 					if(!burst.isFake() && !entity.worldObj.isRemote) {
 						world.setBlockToAir(x, y, z);
-						entity.worldObj.playAuxSFX(2001, x, y, z, id + (meta << 12));
+						entity.worldObj.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
 
 						for(ItemStack stack_ : items)
 							world.spawnEntityInWorld(new EntityItem(world, x + 0.5, y + 0.5, z + 0.5, stack_));
@@ -294,8 +293,8 @@ public class ItemLens extends ItemMod implements ILens {
 				for(int i = -range; i < range; i++)
 					for(int j = -range; j < range; j++)
 						for(int k = -range; k < range; k++)
-							if(entity.worldObj.getBlockTileEntity(i + x, j + y, k + z) instanceof IManaReceiver) {
-								TileEntity tile = entity.worldObj.getBlockTileEntity(i + x, j + y, k + z);
+							if(entity.worldObj.getTileEntity(i + x, j + y, k + z) instanceof IManaReceiver) {
+								TileEntity tile = entity.worldObj.getTileEntity(i + x, j + y, k + z);
 
 								if(magnetized) {
 									int magX = entity.getEntityData().getInteger("Botania:MagnetizedX");

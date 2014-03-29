@@ -38,7 +38,7 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
-		int worldTime = (int) (tileentity.worldObj == null ? 0 : tileentity.worldObj.getTotalWorldTime());
+		int worldTime = (int) (tileentity.getWorldObj() == null ? 0 : tileentity.getWorldObj().getTotalWorldTime());
 
 		if(tileentity != null)
 			worldTime += new Random(tileentity.xCoord ^ tileentity.yCoord ^ tileentity.zCoord).nextInt(360);

@@ -11,14 +11,14 @@
  */
 package vazkii.botania.client.render.tile;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
@@ -67,7 +67,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 			GL11.glScalef(s, s, s);
 			float par1 = 0;
 			float par2 = 0;
-			Icon par3Icon = Block.waterStill.getIcon(0, 0);
+			IIcon par3Icon = Blocks.water.getIcon(0, 0);
 			float par4 = 16;
 			float par5 = 16;
 			float zLevel = 0F;

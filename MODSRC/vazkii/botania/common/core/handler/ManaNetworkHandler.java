@@ -18,12 +18,12 @@ import java.util.Map;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
-import net.minecraftforge.event.ForgeSubscribe;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.api.mana.ManaNetworkEvent.Action;
 import vazkii.botania.api.mana.ManaNetworkEvent.ManaBlockType;
 import vazkii.botania.common.core.helper.MathHelper;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public final class ManaNetworkHandler implements IManaNetwork {
 
@@ -32,7 +32,7 @@ public final class ManaNetworkHandler implements IManaNetwork {
 	public Map<Integer, List<TileEntity>> manaPools = new HashMap();
 	public Map<Integer, List<TileEntity>> manaCollectors = new HashMap();
 
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void onNetworkEvent(ManaNetworkEvent event) {
 		Map<Integer, List<TileEntity>> map = event.type == ManaBlockType.COLLECTOR ? manaCollectors : manaPools;
 		if(event.action == Action.ADD)
@@ -79,7 +79,7 @@ public final class ManaNetworkHandler implements IManaNetwork {
 	}
 
 	private synchronized void remove(Map<Integer, List<TileEntity>> map, TileEntity tile) {
-		int dim = tile.worldObj.provider.dimensionId;
+		int dim = tile.getWorldObj().provider.dimensionId;
 
 		if(!map.containsKey(dim))
 			return;
@@ -89,7 +89,7 @@ public final class ManaNetworkHandler implements IManaNetwork {
 	}
 
 	private synchronized void add(Map<Integer, List<TileEntity>> map, TileEntity tile) {
-		int dim = tile.worldObj.provider.dimensionId;
+		int dim = tile.getWorldObj().provider.dimensionId;
 
 		List<TileEntity> tiles;
 		if(!map.containsKey(dim))

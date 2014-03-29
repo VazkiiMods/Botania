@@ -14,7 +14,7 @@ package vazkii.botania.common.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -25,27 +25,26 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class BlockModContainer<T extends TileEntity> extends BlockContainer {
 
-	protected BlockModContainer(int par1, Material par2Material) {
-		super(par1, par2Material);
+	protected BlockModContainer(Material par2Material) {
+		super(par2Material);
 		if(registerInCreative())
 			setCreativeTab(BotaniaCreativeTab.INSTANCE);
 	}
 
 	@Override
-	public Block setUnlocalizedName(String par1Str) {
+	public Block setBlockName(String par1Str) {
 		if(shouldRegisterInNameSet())
 			GameRegistry.registerBlock(this, par1Str);
-		return super.setUnlocalizedName(par1Str);
+		return super.setBlockName(par1Str);
 	}
 
 	protected boolean shouldRegisterInNameSet() {
 		return true;
 	}
 
-
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister par1IconRegister) {
+	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		blockIcon = IconHelper.forBlock(par1IconRegister, this);
 	}
 
@@ -54,6 +53,6 @@ public abstract class BlockModContainer<T extends TileEntity> extends BlockConta
 	}
 
 	@Override
-	public abstract T createNewTileEntity(World world);
+	public abstract T createNewTileEntity(World world, int meta);
 
 }

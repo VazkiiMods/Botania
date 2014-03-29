@@ -12,9 +12,9 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.Packet132TileEntityData;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 
 public class TileMod extends TileEntity {
@@ -45,14 +45,14 @@ public class TileMod extends TileEntity {
 	public Packet getDescriptionPacket() {
 		NBTTagCompound nbttagcompound = new NBTTagCompound();
 		writeCustomNBT(nbttagcompound);
-		return new Packet132TileEntityData(xCoord, yCoord, zCoord, -999, nbttagcompound);
+		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, -999, nbttagcompound);
 	}
 
 	@Override
-	public void onDataPacket(INetworkManager manager, Packet132TileEntityData packet) {
-		super.onDataPacket(manager, packet);
-		readCustomNBT(packet.data);
-		worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet) {
+		super.onDataPacket(net, packet);
+		readCustomNBT(packet.func_148857_g());
+		worldObj.func_147479_m(xCoord, yCoord, zCoord); // Mark block for render update
 	}
 
 }

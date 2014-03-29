@@ -12,6 +12,7 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
@@ -43,9 +44,6 @@ import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.block.tile.TileSpreader;
 import vazkii.botania.common.block.tile.TileTurntable;
-import vazkii.botania.common.block.vanilla.BlockFlowerOverride;
-import vazkii.botania.common.block.vanilla.BlockSnowOverride;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibOreDict;
 import cpw.mods.fml.common.Loader;
@@ -91,7 +89,7 @@ public final class ModBlocks {
 		turntable = new BlockTurntable();
 
 		for(int i = 0; i < 16; i++)
-			OreDictionary.registerOre(LibOreDict.FLOWER[i], new ItemStack(flower.blockID, 1, i));
+			OreDictionary.registerOre(LibOreDict.FLOWER[i], new ItemStack(flower, 1, i));
 
 		OreDictionary.registerOre(LibOreDict.LIVING_ROCK, livingrock);
 		OreDictionary.registerOre(LibOreDict.LIVING_WOOD, livingwood);
@@ -100,17 +98,7 @@ public final class ModBlocks {
 		registerMultiparts();
 
 		// Vanilla ores (because forge doesn't do this by default for some reason)
-		OreDictionary.registerOre("oreCoal", Block.oreCoal);
-
-		if(ConfigHandler.overrideVanillaBlocks) {
-			Block.blocksList[Block.snow.blockID] = null;
-			Block.blocksList[Block.plantRed.blockID] = null;
-			Block.blocksList[Block.plantYellow.blockID] = null;
-
-			new BlockSnowOverride(Block.snow.blockID).setHardness(0.1F).setStepSound(Block.soundSnowFootstep).setUnlocalizedName("snow").setLightOpacity(0).setTextureName("snow");
-			new BlockFlowerOverride(Block.plantRed).setHardness(0F).setStepSound(Block.soundGrassFootstep).setUnlocalizedName("rose").setTextureName("flower_rose");
-			new BlockFlowerOverride(Block.plantYellow).setHardness(0F).setStepSound(Block.soundGrassFootstep).setUnlocalizedName("flower").setTextureName("flower_dandelion");
-		}
+		OreDictionary.registerOre("oreCoal", Blocks.coal_ore);
 	}
 
 	private static void initTileEntities() {

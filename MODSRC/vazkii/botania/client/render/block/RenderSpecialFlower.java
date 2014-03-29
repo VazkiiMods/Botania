@@ -15,11 +15,8 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.common.ForgeDirection;
-import vazkii.botania.common.block.vanilla.BlockSnowOverride;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class RenderSpecialFlower implements ISimpleBlockRenderingHandler {
@@ -66,27 +63,6 @@ public class RenderSpecialFlower implements ISimpleBlockRenderingHandler {
 
 		drawCrossedSquares(blockAccess, par1Block, par2, par3, par4, d0, d1, d2, 1.0F, render);
 
-		if(ConfigHandler.overrideVanillaBlocks) {
-			int snow = -1;
-			boolean foundSnow = false;
-
-			ForgeDirection[] directions = new ForgeDirection[] {
-					ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST
-			};
-
-			for(ForgeDirection dir : directions)
-				if(blockAccess.getBlockId(par2 + dir.offsetX, par3 + dir.offsetY, par4 + dir.offsetZ) == Block.snow.blockID) {
-					int meta = blockAccess.getBlockMetadata(par2 + dir.offsetX, par3 + dir.offsetY, par4 + dir.offsetZ);
-					snow = foundSnow ? Math.min(snow, meta) : meta;
-					foundSnow = true;
-				}
-
-			if(snow >= 0) {
-				BlockSnowOverride.forcedMeta = snow;
-				render.renderBlockByRenderType(Block.blocksList[Block.snow.blockID], par2, par3, par4);
-			}
-		}
-
 		return true;
 	}
 
@@ -95,7 +71,7 @@ public class RenderSpecialFlower implements ISimpleBlockRenderingHandler {
 		Tessellator tessellator = Tessellator.instance;
 
 		// Only change here, to use xyz rather than side/meta
-		Icon icon = render.getBlockIcon(par1Block, blockAccess, x, y, z, 0);
+		IIcon icon = render.getBlockIcon(par1Block, blockAccess, x, y, z, 0);
 
 		double d3 = icon.getMinU();
 		double d4 = icon.getMinV();
@@ -125,13 +101,13 @@ public class RenderSpecialFlower implements ISimpleBlockRenderingHandler {
 	}
 
 	@Override
-	public boolean shouldRender3DInInventory() {
-		return false;
+	public int getRenderId() {
+		return id;
 	}
 
 	@Override
-	public int getRenderId() {
-		return id;
+	public boolean shouldRender3DInInventory(int modelId) {
+		return false;
 	}
 
 }

@@ -13,11 +13,12 @@ package vazkii.botania.common.item.block;
 
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
@@ -27,21 +28,20 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibBlockNames;
-import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class ItemBlockSpecialFlower extends ItemBlock implements IRecipeKeyProvider {
 
-	public ItemBlockSpecialFlower(int par1) {
-		super(par1);
+	public ItemBlockSpecialFlower(Block block1) {
+		super(block1);
 	}
 
 	@Override
-	public Icon getIconIndex(ItemStack stack) {
+	public IIcon getIconIndex(ItemStack stack) {
 		return BotaniaAPI.internalHandler.getSubTileIconForName(getType(stack));
 	}
 
 	@Override
-	public Icon getIcon(ItemStack stack, int pass) {
+	public IIcon getIcon(ItemStack stack, int pass) {
 		return getIconIndex(stack);
 	}
 
@@ -50,10 +50,10 @@ public class ItemBlockSpecialFlower extends ItemBlock implements IRecipeKeyProvi
 		boolean placed = super.placeBlockAt(stack, player, world, x, y, z, side, hitX, hitY, hitZ, metadata);
 		if(placed) {
 			String type = getType(stack);
-			TileSpecialFlower tile = (TileSpecialFlower) world.getBlockTileEntity(x, y, z);
+			TileSpecialFlower tile = (TileSpecialFlower) world.getTileEntity(x, y, z);
 			tile.setSubTile(type);
 			if(!world.isRemote)
-				PacketDispatcher.sendPacketToAllInDimension(tile.getDescriptionPacket(), world.provider.dimensionId);
+				world.markBlockForUpdate(x, y, z);
 		}
 
 		return placed;

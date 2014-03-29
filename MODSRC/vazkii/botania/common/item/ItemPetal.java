@@ -14,13 +14,12 @@ package vazkii.botania.common.item;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.recipe.IFlowerComponent;
-import vazkii.botania.common.lib.LibItemIDs;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemPetal extends Item16Colors implements IFlowerComponent {
 
 	public ItemPetal() {
-		super(LibItemIDs.idPetal, LibItemNames.PETAL);
+		super(LibItemNames.PETAL);
 	}
 
 	@Override

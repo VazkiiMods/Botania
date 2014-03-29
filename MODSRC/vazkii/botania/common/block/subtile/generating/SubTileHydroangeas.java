@@ -12,12 +12,12 @@
 package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lexicon.LexiconData;
-import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class SubTileHydroangeas extends SubTileGenerating {
 
@@ -33,13 +33,13 @@ public class SubTileHydroangeas extends SubTileGenerating {
 
 		boolean didSomething = false;
 
-		if (burnTime == 0) {
-			if (supertile.worldObj.getWorldTime() % 40L == 0) {
-				if (mana < getMaxMana() && !supertile.worldObj.isRemote)
-					for (int i = -range; i <= range; i++)
-						for (int j = -range; j <= range; j++) {
-							if (supertile.worldObj.getBlockId(supertile.xCoord + i, supertile.yCoord, supertile.zCoord + j) == getIdToSearchFor() && supertile.worldObj.getBlockMetadata(supertile.xCoord + i, supertile.yCoord, supertile.zCoord + j) == 0) {
-								supertile.worldObj.setBlockToAir(supertile.xCoord + i, supertile.yCoord, supertile.zCoord + j);
+		if(burnTime == 0) {
+			if(supertile.getWorldObj().getWorldTime() % 40L == 0) {
+				if(mana < getMaxMana() && !supertile.getWorldObj().isRemote)
+					for(int i = -range; i <= range; i++)
+						for(int j = -range; j <= range; j++) {
+							if(supertile.getWorldObj().getBlock(supertile.xCoord + i, supertile.yCoord, supertile.zCoord + j) == getBlockToSearchFor() && supertile.getWorldObj().getBlockMetadata(supertile.xCoord + i, supertile.yCoord, supertile.zCoord + j) == 0) {
+								supertile.getWorldObj().setBlockToAir(supertile.xCoord + i, supertile.yCoord, supertile.zCoord + j);
 								didSomething = true;
 								burnTime += getBurnTime();
 
@@ -48,22 +48,22 @@ public class SubTileHydroangeas extends SubTileGenerating {
 							}
 						}
 
-				if (didSomething)
-					PacketDispatcher.sendPacketToAllInDimension(supertile.getDescriptionPacket(), supertile.worldObj.provider.dimensionId);
+				if(didSomething)
+					sync();
 			}
 		} else {
-			if(supertile.worldObj.rand.nextInt(8) == 0)
+			if(supertile.getWorldObj().rand.nextInt(8) == 0)
 				doBurnParticles();
 			burnTime--;
 		}
 	}
 
 	public void doBurnParticles() {
-		Botania.proxy.wispFX(supertile.worldObj, supertile.xCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.yCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.zCoord + 0.5, 0.05F, 0.05F, 0.7F, (float) Math.random() / 6, (float) -Math.random() / 60);
+		Botania.proxy.wispFX(supertile.getWorldObj(), supertile.xCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.yCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.zCoord + 0.5, 0.05F, 0.05F, 0.7F, (float) Math.random() / 6, (float) -Math.random() / 60);
 	}
 
-	public int getIdToSearchFor() {
-		return Block.waterStill.blockID;
+	public Block getBlockToSearchFor() {
+		return Blocks.water;
 	}
 
 	public int getBurnTime() {

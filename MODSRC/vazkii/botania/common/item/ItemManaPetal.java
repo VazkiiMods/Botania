@@ -13,15 +13,14 @@ package vazkii.botania.common.item;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import vazkii.botania.api.recipe.IFlowerComponent;
-import vazkii.botania.common.lib.LibItemIDs;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemManaPetal extends Item16Colors implements IFlowerComponent {
 
 	public ItemManaPetal() {
-		super(LibItemIDs.idManaPetal, LibItemNames.MANA_PETAL);
+		super(LibItemNames.MANA_PETAL);
 	}
 
 	@Override
@@ -30,7 +29,7 @@ public class ItemManaPetal extends Item16Colors implements IFlowerComponent {
 	}
 
 	@Override
-	public Icon getIconFromDamage(int par1) {
+	public IIcon getIconFromDamage(int par1) {
 		return ModItems.petal.getIconFromDamage(par1);
 	}
 
