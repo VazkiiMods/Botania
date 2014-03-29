@@ -396,12 +396,12 @@ botania.page.lensGravity1=Crafting the lens
 
 # -- MANA LENS: BORE
 botania.entry.lensBore=Mana Lens: Bore
-botania.page.lensBore0=The &1Bore Lens&0 charges the &4Mana Burst&0 with the ability to break any blocks it comes into contact with, draining its own mana to do so. 
+botania.page.lensBore0=The &1Bore Lens&0 charges the &4Mana Burst&0 with the ability to break any blocks it comes into contact with, draining its own mana to do so.<br>Since this relies on the detection abilities of a &1Mana Spreader&0, it won't fire at just anything, as it needs a &4Mana&0 receving block in the end.
 botania.page.lensBore1=Crafting the lens 
 
 # -- MANA LENS: DAMAGING
 botania.entry.lensDamaging=Mana Lens: Damaging
-botania.page.lensDamaging0=The &1Damaging Lens&0 charges the &4Mana Burst&0 with the power to damage any living beings it comes across, draining its own mana to do so.
+botania.page.lensDamaging0=The &1Damaging Lens&0 charges the &4Mana Burst&0 with the power to damage any living beings it comes across, draining its own mana to do so.<br>Since this relies on the detection abilities of a &1Mana Spreader&0, it won't fire at just anything, as it needs a &4Mana&0 receving block in the end.
 botania.page.lensDamaging1=Crafting the lens
 
 # -- MANA LENS: PHANTOM
@@ -416,7 +416,7 @@ botania.page.lensMagnet1=Crafting the lens
 
 # -- MANA LENS: ENTROPIC
 botania.entry.lensExplosive=Mana Lens: Entropic
-botania.page.lensExplosive0=The &1Entropic Lens&0 imbues the &4Mana Burst&0 with entropy, causing it to release its energy in the form of an explosion when it collides against something that can't receive &4Mana&0.
+botania.page.lensExplosive0=The &1Entropic Lens&0 imbues the &4Mana Burst&0 with entropy, causing it to release its energy in the form of an explosion when it collides against something that can't receive &4Mana&0.<br>Since this relies on the detection abilities of a &1Mana Spreader&0, it won't fire at just anything, as it needs a &4Mana&0 receving block in the end.
 botania.page.lensExplosive1=Crafting the lens
 
 # -- PORTABLE MANA TRANSPORT
@@ -548,7 +548,7 @@ botania.page.manaEnchanting5=Place a &1Lapis Lazuli Block&0 in the center.
 botania.page.manaEnchanting6=After the construct is done, right click the Lapis block with a &1Wand of the Forest&0 and the enchanter should form.<br>In order to utilize the enchanter, one would place (via right click) the item to be enchanted in the enchanter itself and drop &1Enchanted Books&0 inside the circle around it.
 botania.page.manaEnchanting7=Items that are already enchanted can't be placed in the enchanter.<br>To start the enchanting, right click the enchanter with a &1Wand of the Forest&0. It'll scan the books around, and once it's done, a spell circle of sorts will appear around it, indicating the books can be safely picked up again.
 botania.page.manaEnchanting8=After the enchanting begins, the enchanter will require &4Mana&0.<br>It can be fed via one of two ways, either via &4Mana Bursts&0 or nearby &1Mana Pools&0, the later being much faster, but a bit less efficient, as a small portion of the mana is lost.
-botania.page.manaEnchanting9=When enough &4Mana&0 is gathered, the enchanting process will finalize, and the enchantments will be applied to the item.<br>The amount of &4Mana&0 required depends on the rarity of the enchantments being applied, their level, and the total amount of enchantments.
+botania.page.manaEnchanting9=When enough &4Mana&0 is gathered, the enchanting process will finalize, and the enchantments will be applied to the item.<br>The amount of &4Mana&0 required depends on the rarity of the enchantments being applied, their level, and the total amount of enchantments.<br>If any book has more than one enchantment, only the first will be accounted for.
 botania.page.manaEnchanting10=During the enchanting process, the item can not be removed, but it can after the process has been completed.<br>Note that if at any point, any component of the construct is removed, it'll revert to it's original &1Lapis Lazuli Block&0 form.
 
 # -- SPREADER TURNTABLE
