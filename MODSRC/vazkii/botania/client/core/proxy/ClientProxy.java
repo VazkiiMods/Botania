@@ -52,6 +52,7 @@ import vazkii.botania.common.core.proxy.CommonProxy;
 import vazkii.botania.common.item.ModItems;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.relauncher.Side;
 
@@ -61,7 +62,7 @@ public class ClientProxy extends CommonProxy {
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
 
-		MinecraftForge.EVENT_BUS.register(new ClientTickHandler());
+		FMLCommonHandler.instance().bus().register(new ClientTickHandler());
 		MinecraftForge.EVENT_BUS.register(new HUDHandler());
 		MinecraftForge.EVENT_BUS.register(new LightningHandler());
 		MinecraftForge.EVENT_BUS.register(new CapeHandler());
