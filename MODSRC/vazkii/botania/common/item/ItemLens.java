@@ -104,7 +104,7 @@ public class ItemLens extends ItemMod implements ILens {
 
 	@Override
 	public IIcon getIconFromDamageForRenderPass(int par1, int par2) {
-		return par2 == 0 ? ringIcons[Math.min(SUBTYPES - 1, par1)] : iconGlass;
+		return par2 == 1 ? ringIcons[Math.min(SUBTYPES - 1, par1)] : iconGlass;
 	}
 
 	@Override
@@ -114,7 +114,7 @@ public class ItemLens extends ItemMod implements ILens {
 
 	@Override
 	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
-		return par2 == 1 ? getLensColor(par1ItemStack) : 0xFFFFFF;
+		return par2 == 0 ? getLensColor(par1ItemStack) : 0xFFFFFF;
 	}
 
 	@Override

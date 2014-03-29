@@ -15,6 +15,7 @@ import java.awt.Color;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
@@ -33,7 +34,7 @@ public class RenderLens implements IItemRenderer {
 
 	@Override
 	public boolean handleRenderType(ItemStack item, ItemRenderType type) {
-		return true;
+		return type != ItemRenderType.INVENTORY;
 	}
 
 	@Override
@@ -44,22 +45,6 @@ public class RenderLens implements IItemRenderer {
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
 		switch(type) {
-		case INVENTORY : {
-			int dmg = item.getItemDamage();
-
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			Color color = new Color(((ILens) item.getItem()).getLensColor(item));
-			GL11.glColor4ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue(), (byte) 255);
-			IIcon icon = item.getItem().getIconFromDamageForRenderPass(dmg, 1);
-			render.renderIcon(0, 0, icon, 16, 16);
-			GL11.glDisable(GL11.GL_BLEND);
-
-			icon = item.getItem().getIconFromDamageForRenderPass(dmg, 0);
-			GL11.glColor4f(1F, 1F, 1F, 1F);
-			render.renderIcon(0, 0, icon, 16, 16);
-			break;
-		}
 		case ENTITY : {
 			GL11.glPushMatrix();
 			GL11.glTranslatef(-0.5F, 0F, 0F);
@@ -86,7 +71,7 @@ public class RenderLens implements IItemRenderer {
 
 	public static void render(ItemStack item, int color_) {
 		int dmg = item.getItemDamage();
-		IIcon icon = item.getItem().getIconFromDamageForRenderPass(dmg, 0);
+		IIcon icon = item.getItem().getIconFromDamageForRenderPass(dmg, 1);
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();
 		float f2 = icon.getMinV();
@@ -110,6 +95,7 @@ public class RenderLens implements IItemRenderer {
 		GL11.glRotatef(180F, 0F, 1F, 0F);
 		GL11.glTranslatef(-16F, 0F, 0F);
 		renderShinyLensIcon(icon, shiny);
+		GL11.glDisable(GL11.GL_BLEND);
 		GL11.glPopMatrix();
 
 		GL11.glColor4f(1F, 1F, 1F, 1F);
