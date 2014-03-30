@@ -11,6 +11,7 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.item.ItemStack;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemPestleAndMortar extends ItemMod {
@@ -20,6 +21,11 @@ public class ItemPestleAndMortar extends ItemMod {
 		setMaxStackSize(1);
 		setContainerItem(this);
 		setUnlocalizedName(LibItemNames.PESTLE_AND_MORTAR);
+	}
+	
+	@Override
+	public boolean doesContainerItemLeaveCraftingGrid(ItemStack par1ItemStack) {
+		return false;
 	}
 
 }

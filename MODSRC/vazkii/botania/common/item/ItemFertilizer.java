@@ -38,7 +38,7 @@ public class ItemFertilizer extends ItemMod {
 			
 			for(int i = -range; i < (range + 1); i++)
 				for(int j = -range; j < (range + 1); j++) {
-					for(int k = 2; k >= 0; k--) {
+					for(int k = 2; k >= -2; k--) {
 						int x = par4 + i + 1;
 						int y = par5 + k + 1;
 						int z = par6 + j + 1;
@@ -68,5 +68,4 @@ public class ItemFertilizer extends ItemMod {
 		
 		return true;
 	}
-	
 }

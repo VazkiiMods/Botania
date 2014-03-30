@@ -13,6 +13,7 @@ package vazkii.botania.common.crafting;
 
 import java.util.List;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -74,7 +75,9 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeManaDetector;
 	public static IRecipe recipeManaBlaster;
 	public static IRecipe recipeTurntable;
-
+	public static IRecipe recipeFertilizerPowder;
+	public static IRecipe recipeFerilizerDye;
+	
 	public static void init() {
 		// Lexicon Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lexicon), "treeSapling", Items.book);
@@ -313,6 +316,12 @@ public final class ModCrafingRecipes {
 				'W', LibOreDict.LIVING_WOOD,
 				'P', Blocks.sticky_piston);
 		recipeTurntable = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Fertilizer Recipes
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.fertilizer), new ItemStack(Items.dye, 1, 15), new ItemStack(ModItems.dye, 1, -1), new ItemStack(ModItems.dye, 1, -1), new ItemStack(ModItems.dye, 1, -1), new ItemStack(ModItems.dye, 1, -1));
+		recipeFertilizerPowder = BotaniaAPI.getLatestAddedRecipe();
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.fertilizer), new ItemStack(Items.dye, 1, 15), new ItemStack(Items.dye, 1, 11), new ItemStack(Items.dye, 1, 11), new ItemStack(Items.dye, 1, 1), new ItemStack(Items.dye, 1, 1));
+		recipeFerilizerDye = BotaniaAPI.getLatestAddedRecipe();
 	}
 
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {

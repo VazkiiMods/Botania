@@ -275,12 +275,15 @@ botania.page.lexicon1=Crafting the &1Lexica Botania&0.
 
 # -- MYSTICAL FLOWERS
 botania.entry.flowers=Mystical Flowers
-botania.page.flowers0=Around the world, you may stumble upon a large variety of Mystical Flora. Spotting these doesn't take much work as the flowers themselves emit a fair amount of shine.<br>They come in a total of &416 &0different colors.<br>It's also possible to grow these flowers using &1Bone Meal&0.
+botania.page.flowers0=Around the world, you may stumble upon a large variety of Mystical Flora. Spotting these doesn't take much work as the flowers themselves emit a fair amount of shine.<br>They come in a total of &416 &0different colors.<br>It's also possible to grow these flowers using &1Floral Fertlizer&0 (read on).
 botania.page.flowers1=Flowers as far as the eye can see...
-botania.page.flowers2=These flowers can be plucked for &1Mystical Petals&0, that can be used for making magical instruments and plants alike.<br>These petals can also be crushed into &1Floral Power&0, by the use of a &1Pestle and Mortar&0, which functions much alike any mundane piece of dye.
+botania.page.flowers2=These flowers can be plucked for &1Mystical Petals&0, that can be used for making magical instruments and plants alike.<br>These petals can also be crushed into &1Floral Powder&0, by the use of a &1Pestle and Mortar&0, which functions much alike any mundane piece of dye.
 botania.page.flowers3=Plucking Petals off Flowers.
 botania.page.flowers4=Crafting the &1Pestle and Mortar&0.
 botania.page.flowers5=Grinding Petals into Powder.
+botania.page.flowers6=By mixing the &1Floral Powder&0 with some &1Bone Meal&0, it's possible to create a different type of fertilizer. The &1Floral Fertlizer&0 will grow a small amount of &1Mystical Flowers&0 in the nearby vacinity, if you ever run low on them.
+botania.page.flowers7=Making fertilizer (any powder colors work)
+botania.page.flowers8=Using typical flower substances also works
 
 # -- PETAL APOTHECARY
 botania.entry.apothecary=Petal Apothecary

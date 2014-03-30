@@ -107,7 +107,8 @@ public final class LexiconData {
 
 		// BASICS ENTRIES
 		flowers = new BLexiconEntry(LibLexicon.BASICS_FLOWERS, categoryBasics);
-		flowers.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_FLOWERS), new PageText("2"), new PageCraftingRecipe("3", ModCrafingRecipes.recipesPetals), new PageCraftingRecipe("4", ModCrafingRecipes.recipePestleAndMortar), new PageCraftingRecipe("5", ModCrafingRecipes.recipesDyes));
+		flowers.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_FLOWERS), new PageText("2"), new PageCraftingRecipe("3", ModCrafingRecipes.recipesPetals), new PageCraftingRecipe("4", ModCrafingRecipes.recipePestleAndMortar), new PageCraftingRecipe("5", ModCrafingRecipes.recipesDyes),
+				new PageText("6"), new PageCraftingRecipe("7", ModCrafingRecipes.recipeFertilizerPowder), new PageCraftingRecipe("8", ModCrafingRecipes.recipeFerilizerDye));
 
 		apothecary = new BLexiconEntry(LibLexicon.BASICS_APOTHECARY, categoryBasics);
 		apothecary.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_APOTHECARY), new PageText("2"), new PageText("3"), new PageCraftingRecipe("4", ModCrafingRecipes.recipesApothecary));
