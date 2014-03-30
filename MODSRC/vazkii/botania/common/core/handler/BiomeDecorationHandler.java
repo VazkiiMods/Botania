@@ -34,7 +34,7 @@ public class BiomeDecorationHandler {
 					int y1 = y + event.rand.nextInt(4) - event.rand.nextInt(4);
 					int z1 = z + event.rand.nextInt(8) - event.rand.nextInt(8);
 
-					if (event.world.isAirBlock(x1, y1, z1) && (!event.world.provider.hasNoSky || y1 < 127) && ModBlocks.flower.canBlockStay(event.world, x1, y1, z1))
+					if(event.world.isAirBlock(x1, y1, z1) && (!event.world.provider.hasNoSky || y1 < 127) && ModBlocks.flower.canBlockStay(event.world, x1, y1, z1))
 						event.world.setBlock(x1, y1, z1, ModBlocks.flower, event.rand.nextInt(16), 2);
 				}
 			}
