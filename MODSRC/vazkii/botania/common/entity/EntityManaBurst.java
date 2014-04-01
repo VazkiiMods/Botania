@@ -720,7 +720,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		public final int meta;
 
 		public PositionProperties(Entity entity) {
-			int x = (int) entity.posX;
+			int x = (int) entity.posX - 1;
 			int y = (int) entity.posY;
 			int z = (int) entity.posZ;
 			coords = new ChunkCoordinates(x, y, z);

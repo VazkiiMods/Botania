@@ -52,6 +52,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	private static final int MAX_MANA = 1000;
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_KNOWN_MANA = "knownMana";
+	private static final String TAG_REQUEST_UPDATE = "requestUpdate";
 	private static final String TAG_ROTATION_X = "rotationX";
 	private static final String TAG_ROTATION_Y = "rotationY";
 
@@ -59,7 +60,8 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	int knownMana = -1;
 	public float rotationX, rotationY;
 	boolean added = false;
-
+	boolean requestsClientUpdate = false;
+	
 	IManaReceiver receiver = null;
 
 	public boolean canShootBurst = true;
@@ -130,6 +132,8 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		cmp.setInteger(TAG_MANA, mana);
 		cmp.setFloat(TAG_ROTATION_X, rotationX);
 		cmp.setFloat(TAG_ROTATION_Y, rotationY);
+		cmp.setBoolean(TAG_REQUEST_UPDATE, requestsClientUpdate);
+		requestsClientUpdate = false;
 	}
 
 	@Override
@@ -138,6 +142,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		mana = cmp.getInteger(TAG_MANA);
 		rotationX = cmp.getFloat(TAG_ROTATION_X);
 		rotationY = cmp.getFloat(TAG_ROTATION_Y);
+		requestsClientUpdate = cmp.getBoolean(TAG_REQUEST_UPDATE);
 
 		if(cmp.hasKey(TAG_KNOWN_MANA))
 			knownMana = cmp.getInteger(TAG_KNOWN_MANA);
@@ -183,13 +188,8 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 				double angle = y * 180;
 				rotationY = -(float) angle;
 
-				EntityManaBurst fakeBurst = getBurst(true);
-				TileEntity receiver = fakeBurst.getCollidedTile(true);
-				if(receiver != null && receiver instanceof IManaReceiver)
-					this.receiver = (IManaReceiver) receiver;
-				else this.receiver = null;
-
 				checkForReceiver();
+				requestsClientUpdate = true;
 				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 			}
 		}
@@ -199,6 +199,11 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		if(lastTentativeBurst == null)
 			return true;
 
+		if(requestsClientUpdate) {
+			requestsClientUpdate = false;
+			return true;
+		}
+		
 		for(PositionProperties props : lastTentativeBurst)
 			if(!props.contentsEqual(worldObj))
 				return true;
