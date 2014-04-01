@@ -151,4 +151,9 @@ public class ModelPylonOld extends ModelBase implements IPylonModel {
 		model.rotateAngleZ = z;
 	}
 
+	@Override
+	public void renderGems() {
+		// NO-OP
+	}
+
 }

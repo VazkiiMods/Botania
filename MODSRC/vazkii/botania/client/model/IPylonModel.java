@@ -15,5 +15,6 @@ public interface IPylonModel {
 
 	public void renderCrystal();
 	public void renderRing();
+	public void renderGems();
 	
 }

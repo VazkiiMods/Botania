@@ -33,6 +33,12 @@ public class ModelPylon implements IPylonModel {
 
 	@Override
 	public void renderRing() {
-		model.renderAllExcept("Crystal");
+		model.renderAllExcept("Crystal", "Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04");
+	}
+	
+	@Override
+	public void renderGems() {
+		for(int i = 1; i < 5; i++)
+			model.renderPart("Ring_Gem0" + i);
 	}
 }

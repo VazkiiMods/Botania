@@ -39,59 +39,71 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float pticks) {
 		if(model == null)
 			model = ConfigHandler.oldPylonModel ? new ModelPylonOld() : new ModelPylon();
+
+			GL11.glPushMatrix();
+			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+			GL11.glEnable(GL11.GL_BLEND);
+			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			GL11.glColor4f(1F, 1F, 1F, 1F);
+			Minecraft.getMinecraft().renderEngine.bindTexture(ConfigHandler.oldPylonModel ? textureOld : texture);
+			int worldTime = (int) (tileentity.getWorldObj() == null ? 0 : tileentity.getWorldObj().getTotalWorldTime());
+
+			if(tileentity != null)
+				worldTime += new Random(tileentity.xCoord ^ tileentity.yCoord ^ tileentity.zCoord).nextInt(360);
+
+			if(ConfigHandler.oldPylonModel) {
+				GL11.glTranslated(d0 + 0.5, d1 + 2.2, d2 + 0.5);
+				GL11.glScalef(1F, -1.5F, -1F);
+			} else {
+				GL11.glTranslated(d0 + 0.2, d1 + 0.05, d2 + 0.8);
+				GL11.glScalef(0.6F, 0.6F, 0.6F);
+			}
+
+			int light = 15728880;
+			int lightmapX = light % 65536;
+			int lightmapY = light / 65536;
+
+			GL11.glPushMatrix();
+			if(!ConfigHandler.oldPylonModel)
+				GL11.glTranslatef(0.5F, 0F, -0.5F);
+			GL11.glRotatef(worldTime * 1.5F, 0F, 1F, 0F);
+			if(!ConfigHandler.oldPylonModel)
+				GL11.glTranslatef(-0.5F, 0F, 0.5F);
+
+			model.renderRing();
+			GL11.glTranslated(0D, Math.sin(worldTime / 20D) / 20 - 0.025, 0D);
+			model.renderGems();
+			GL11.glPopMatrix();
+
+			GL11.glPushMatrix();
+			GL11.glTranslated(0D, Math.sin(worldTime / 20D) / 17.5, 0D);
 			
-		GL11.glPushMatrix();
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
-		Minecraft.getMinecraft().renderEngine.bindTexture(ConfigHandler.oldPylonModel ? textureOld : texture);
-		int worldTime = (int) (tileentity.getWorldObj() == null ? 0 : tileentity.getWorldObj().getTotalWorldTime());
+			if(!ConfigHandler.oldPylonModel)
+				GL11.glTranslatef(0.5F, 0F, -0.5F);
+			
+			GL11.glRotatef(-worldTime, 0F, 1F, 0F);
+			if(!ConfigHandler.oldPylonModel)
+				GL11.glTranslatef(-0.5F, 0F, 0.5F);
 
-		if(tileentity != null)
-			worldTime += new Random(tileentity.xCoord ^ tileentity.yCoord ^ tileentity.zCoord).nextInt(360);
 
-		GL11.glTranslated(d0 + 0.2, d1 + 0.05, d2 + 0.8);
-		GL11.glScalef(0.6F, 0.6F, 0.6F);
+			GL11.glDisable(GL11.GL_CULL_FACE);
+			model.renderCrystal();
 
-		int light = 15728880;
-		int lightmapX = light % 65536;
-		int lightmapY = light / 65536;
+			GL11.glColor4f(1F, 1F, 1F, 1F);
+			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
+			double alpha = (Math.sin(worldTime / 20D) / 2D + 0.5) / (ConfigHandler.oldPylonModel ? 1D : 2D);
+			GL11.glColor4d(1D, 1D, 1D, alpha + 0.183F);
+			GL11.glScalef(1.1F, 1.1F, 1.1F);
+			if(!ConfigHandler.oldPylonModel)
+				GL11.glTranslatef(-0.05F, -0.1F, 0.05F);
+			else GL11.glTranslatef(0F, -0.09F, 0F);
+			model.renderCrystal();
+			GL11.glEnable(GL11.GL_CULL_FACE);
+			GL11.glPopMatrix();
 
-		GL11.glPushMatrix();
-		if(!ConfigHandler.oldPylonModel)
-			GL11.glTranslatef(0.5F, 0F, -0.5F);
-		GL11.glRotatef(worldTime * 1.5F, 0F, 1F, 0F);
-		if(!ConfigHandler.oldPylonModel)
-			GL11.glTranslatef(-0.5F, 0F, 0.5F);
-
-		model.renderRing();
-		GL11.glPopMatrix();
-
-		GL11.glPushMatrix();
-		GL11.glTranslated(0D, Math.sin(worldTime / 20D) / 17.5, 0D);
-		if(!ConfigHandler.oldPylonModel)
-			GL11.glTranslatef(0.5F, 0F, -0.5F);
-		GL11.glRotatef(-worldTime, 0F, 1F, 0F);
-		if(!ConfigHandler.oldPylonModel)
-			GL11.glTranslatef(-0.5F, 0F, 0.5F);
-		GL11.glDisable(GL11.GL_CULL_FACE);
-		model.renderCrystal();
-
-		GL11.glColor4f(1F, 1F, 1F, 1F);
-		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
-		double alpha = Math.sin(worldTime / 20D) / 2D + 0.5;
-		GL11.glColor4d(1D, 1D, 1D, alpha + 0.183F);
-		GL11.glScalef(1.1F, 1.1F, 1.1F);
-		GL11.glTranslatef(-0.05F, -0.1F, 0.05F);
-		model.renderCrystal();
-
-		GL11.glEnable(GL11.GL_CULL_FACE);
-		GL11.glPopMatrix();
-
-		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		GL11.glPopMatrix();
+			GL11.glDisable(GL11.GL_BLEND);
+			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+			GL11.glPopMatrix();
 	}
 
 
