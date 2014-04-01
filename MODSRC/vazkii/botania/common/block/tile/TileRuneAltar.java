@@ -12,6 +12,7 @@
 package vazkii.botania.common.block.tile;
 
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -35,7 +36,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 
 	int manaToGet = 0;
 	int mana = 0;
-
+	
 	public boolean addItem(EntityPlayer player, ItemStack stack) {
 		if(stack.getItem() == ModItems.twigWand || stack.getItem() == ModItems.lexicon  || manaToGet != 0)
 			return false;

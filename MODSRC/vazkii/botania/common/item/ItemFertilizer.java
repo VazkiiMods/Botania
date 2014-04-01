@@ -36,8 +36,8 @@ public class ItemFertilizer extends ItemMod {
 		if(!par3World.isRemote) {
 			List<ChunkCoordinates> validCoords = new ArrayList();
 			
-			for(int i = -range; i < (range + 1); i++)
-				for(int j = -range; j < (range + 1); j++) {
+			for(int i = -range - 1; i < range; i++)
+				for(int j = -range - 1; j < range; j++) {
 					for(int k = 2; k >= -2; k--) {
 						int x = par4 + i + 1;
 						int y = par5 + k + 1;

@@ -28,16 +28,16 @@ public class FXWisp extends EntityFX {
 
 	public static final ResourceLocation particles = new ResourceLocation(LibResources.MISC_WISP_LARGE);
 
-	public FXWisp(World world, double d, double d1, double d2,  float size, float red, float green, float blue, boolean distanceLimit) {
+	public FXWisp(World world, double d, double d1, double d2,  float size, float red, float green, float blue, boolean distanceLimit, float maxAgeMul) {
 		super(world, d, d1, d2, 0.0D, 0.0D, 0.0D);
 		particleRed = red;
 		particleGreen = green;
 		particleBlue = blue;
-		particleGravity=0;
+		particleGravity = 0;
 		motionX = motionY = motionZ = 0;
 		particleScale *= size;
 		moteParticleScale = particleScale;
-		particleMaxAge = (int)(28D / (Math.random() * 0.3D + 0.7D));
+		particleMaxAge = (int)(28D / (Math.random() * 0.3D + 0.7D) * maxAgeMul);
 
 		moteHalfLife = particleMaxAge / 2;
 		noClip = true;

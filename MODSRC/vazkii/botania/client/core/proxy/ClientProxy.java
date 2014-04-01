@@ -122,8 +122,8 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	@Override
-	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size, float motionx, float motiony, float motionz) {
-		FXWisp wisp = new FXWisp(world, x, y, z, size, r, g, b, distanceLimit);
+	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size, float motionx, float motiony, float motionz, float maxAgeMul) {
+		FXWisp wisp = new FXWisp(world, x, y, z, size, r, g, b, distanceLimit, maxAgeMul);
 		wisp.motionX = motionx;
 		wisp.motionY = motiony;
 		wisp.motionZ = motionz;
