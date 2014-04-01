@@ -1,3 +1,7 @@
+beta 18
+*Fixed Mana Spreaders being all sorts of wrong, blame 1.7.
+*Added a new Pylon model (you can still use the old one from the config file if you want).
+*Changed the radius of the Floral Fertilizer.
 beta 17
 *<b>Updated the mod to 1.7.2</b>
 *Added Floral Fertilizer.
