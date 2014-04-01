@@ -21,7 +21,8 @@ public final class LibResources {
 	public static final String PREFIX_ENTRIES = PREFIX_GUI + "entries/";
 	public static final String PREFIX_MODEL = PREFIX_MOD + "textures/model/";
 	public static final String PREFIX_MISC = PREFIX_MOD + "textures/misc/";
-
+	public static final String PREFIX_OBJ_MODEL = PREFIX_MOD + "model/";
+	
 	public static final String EMTPY_TEXTURE = "emptyTexture";
 
 	public static final String GUI_MANA_HUD = PREFIX_GUI + "manaHud.png";
@@ -44,6 +45,7 @@ public final class LibResources {
 	public static final String MODEL_ALTAR = PREFIX_MODEL + "altar.png";
 	public static final String MODEL_SPREADER = PREFIX_MODEL + "spreader.png";
 	public static final String MODEL_POOL = PREFIX_MODEL + "pool.png";
+	public static final String MODEL_PYLON_OLD = PREFIX_MODEL + "pylonOld.png";
 	public static final String MODEL_PYLON = PREFIX_MODEL + "pylon.png";
 	public static final String MODEL_LEXICA = PREFIX_MODEL + "lexica.png";
 	public static final String MODEL_CAPE = "/assets/botania/textures/model/cape.png";
@@ -52,6 +54,8 @@ public final class LibResources {
 	public static final String MISC_WISP_LARGE = PREFIX_MISC + "wispLarge.png";
 	public static final String MISC_WISP_SMALL = PREFIX_MISC + "wispSmall.png";
 
+	public static final String OBJ_MODEL_PYLON = PREFIX_OBJ_MODEL + "pylon.obj";
+	
 	public static final String[] LANGS = new String[] {
 		"en_US"
 	};
