@@ -47,6 +47,7 @@ public class TileTurntable extends TileMod {
 				spreader.rotationX += speed * (backwards ? -1 : 1);
 				if(spreader.rotationX >= 360F)
 					spreader.rotationX -= 360F;
+				spreader.checkForReceiver();
 			}
 		}
 	}
