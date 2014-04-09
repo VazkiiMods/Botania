@@ -1,5 +1,5 @@
 uniform sampler2D bgl_RenderedTexture;
-uniform int time;
+uniform int time; // Passed in, see ShaderHelper.java
 
 void main() {
     vec4 color = vec4(0);
