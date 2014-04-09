@@ -91,9 +91,11 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 			model.renderCrystal();
 
 			GL11.glColor4f(1F, 1F, 1F, 1F);
-			//			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
-			//			double alpha = (Math.sin(worldTime / 20D) / 2D + 0.5) / (ConfigHandler.oldPylonModel ? 1D : 2D);
-			//			GL11.glColor4d(1D, 1D, 1D, alpha + 0.183F);
+			if(!ConfigHandler.useShaders) {
+				OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
+				double alpha = (Math.sin(worldTime / 20D) / 2D + 0.5) / (ConfigHandler.oldPylonModel ? 1D : 2D);
+				GL11.glColor4d(1D, 1D, 1D, alpha + 0.183F);
+			}
 
 			GL11.glScalef(1.1F, 1.1F, 1.1F);
 			if(!ConfigHandler.oldPylonModel)
