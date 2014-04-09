@@ -23,7 +23,7 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemManaResource extends ItemMod {
 
-	final int types = 3;
+	final int types = 4;
 	IIcon[] icons;
 
 	public ItemManaResource() {

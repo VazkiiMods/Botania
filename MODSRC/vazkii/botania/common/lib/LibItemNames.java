@@ -48,6 +48,7 @@ public final class LibItemNames {
 	public static final String[] MANA_RESOURCE_NAMES = new String[] {
 		LibResources.PREFIX_MOD + "manasteel",
 		LibResources.PREFIX_MOD + "manaPearl",
-		LibResources.PREFIX_MOD + "manaDiamond"
+		LibResources.PREFIX_MOD + "manaDiamond",
+		LibResources.PREFIX_MOD + "livingwoodTwig"
 	};
 }

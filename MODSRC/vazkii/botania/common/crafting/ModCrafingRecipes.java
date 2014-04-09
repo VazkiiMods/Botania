@@ -77,6 +77,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeTurntable;
 	public static IRecipe recipeFertilizerPowder;
 	public static IRecipe recipeFerilizerDye;
+	public static IRecipe livingwoodTwigRecipe;
 	
 	public static void init() {
 		// Lexicon Recipe
@@ -322,6 +323,11 @@ public final class ModCrafingRecipes {
 		recipeFertilizerPowder = BotaniaAPI.getLatestAddedRecipe();
 		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.fertilizer), new ItemStack(Items.dye, 1, 15), new ItemStack(Items.dye, 1, 11), new ItemStack(Items.dye, 1, 11), new ItemStack(Items.dye, 1, 1), new ItemStack(Items.dye, 1, 1));
 		recipeFerilizerDye = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Livingwood Twig Recipe
+		addOreDictRecipe(new ItemStack(ModItems.manaResource, 1, 3), 
+				"W", "W",
+				'W', LibOreDict.LIVING_WOOD);
 	}
 
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {
