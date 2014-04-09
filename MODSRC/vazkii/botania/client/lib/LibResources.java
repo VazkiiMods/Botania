@@ -16,6 +16,7 @@ public final class LibResources {
 	public static final String PREFIX_MOD = "botania:";
 
 	public static final String PREFIX_LANG = "/assets/botania/lang/";
+	public static final String PREFIX_SHADER = "/assets/botania/shader/";
 
 	public static final String PREFIX_GUI = PREFIX_MOD + "textures/gui/";
 	public static final String PREFIX_ENTRIES = PREFIX_GUI + "entries/";
@@ -56,6 +57,8 @@ public final class LibResources {
 
 	public static final String OBJ_MODEL_PYLON = PREFIX_OBJ_MODEL + "pylon.obj";
 	
+	public static final String SHADER_PYLON_GLOW_FRAG = PREFIX_SHADER + "pylonGlow.frag";
+
 	public static final String[] LANGS = new String[] {
 		"en_US"
 	};

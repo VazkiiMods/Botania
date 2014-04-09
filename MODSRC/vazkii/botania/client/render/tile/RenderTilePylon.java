@@ -22,6 +22,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.IPylonModel;
 import vazkii.botania.client.model.ModelPylon;
@@ -77,10 +78,10 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 
 			GL11.glPushMatrix();
 			GL11.glTranslated(0D, Math.sin(worldTime / 20D) / 17.5, 0D);
-			
+
 			if(!ConfigHandler.oldPylonModel)
 				GL11.glTranslatef(0.5F, 0F, -0.5F);
-			
+
 			GL11.glRotatef(-worldTime, 0F, 1F, 0F);
 			if(!ConfigHandler.oldPylonModel)
 				GL11.glTranslatef(-0.5F, 0F, 0.5F);
@@ -90,14 +91,19 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 			model.renderCrystal();
 
 			GL11.glColor4f(1F, 1F, 1F, 1F);
-			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
-			double alpha = (Math.sin(worldTime / 20D) / 2D + 0.5) / (ConfigHandler.oldPylonModel ? 1D : 2D);
-			GL11.glColor4d(1D, 1D, 1D, alpha + 0.183F);
+			//			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
+			//			double alpha = (Math.sin(worldTime / 20D) / 2D + 0.5) / (ConfigHandler.oldPylonModel ? 1D : 2D);
+			//			GL11.glColor4d(1D, 1D, 1D, alpha + 0.183F);
+
 			GL11.glScalef(1.1F, 1.1F, 1.1F);
 			if(!ConfigHandler.oldPylonModel)
 				GL11.glTranslatef(-0.05F, -0.1F, 0.05F);
 			else GL11.glTranslatef(0F, -0.09F, 0F);
+
+			ShaderHelper.useShader(ShaderHelper.pylonGlow);
 			model.renderCrystal();
+			ShaderHelper.releaseShader();
+
 			GL11.glEnable(GL11.GL_CULL_FACE);
 			GL11.glPopMatrix();
 

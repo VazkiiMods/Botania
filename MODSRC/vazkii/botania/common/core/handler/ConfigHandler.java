@@ -26,6 +26,7 @@ public final class ConfigHandler {
 	public static boolean boundBlockWireframe = true;
 	public static boolean lexicon3dModel = true;
 	public static boolean oldPylonModel = false;
+	public static boolean useShaders = false;
 
 	public static int flowerQuantity = 3;
 	public static int flowerDensity = 32;
@@ -52,6 +53,9 @@ public final class ConfigHandler {
 
 		desc = "Set to true to use the old (non-.obj, pre beta18) pylon model";
 		oldPylonModel = loadPropBool("pylonModel.old", desc, false);
+		
+		desc = "Set to false to disable the use of shaders for some of the mod's renders.";
+		useShaders = loadPropBool("shaders.enabled", desc, true);
 		
 		flowerQuantity = loadPropInt("worldgen.flower.quantity", null, 3);
 		flowerDensity = loadPropInt("worldgen.flower.density", null, 32);

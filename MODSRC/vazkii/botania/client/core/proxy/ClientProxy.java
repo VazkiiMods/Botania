@@ -21,6 +21,7 @@ import vazkii.botania.client.core.handler.CapeHandler;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.handler.LightningHandler;
+import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.fx.FXSparkle;
 import vazkii.botania.client.fx.FXWisp;
 import vazkii.botania.client.gui.GuiLexicon;
@@ -95,6 +96,8 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileRuneAltar.class, new RenderTileRuneAltar());
 		ClientRegistry.bindTileEntitySpecialRenderer(TilePylon.class, new RenderTilePylon());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEnchanter.class, new RenderTileEnchanter());
+		
+		ShaderHelper.initShaders();
 	}
 
 	@Override

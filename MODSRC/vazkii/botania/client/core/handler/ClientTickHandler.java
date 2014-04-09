@@ -35,6 +35,7 @@ public class ClientTickHandler {
 
 	public static int ticksWithLexicaOpen = 0;
 	public static int pageFlipTicks = 0;
+	public static int ticksInGame = 0;
 
 	@SubscribeEvent
 	public void tickEnd(ClientTickEvent event) {
@@ -46,6 +47,8 @@ public class ClientTickHandler {
 
 			GuiScreen gui = Minecraft.getMinecraft().currentScreen;
 			if(gui == null || !gui.doesGuiPauseGame()) {
+				ticksInGame++;
+				
 				EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 				if(player != null) {
 					ItemStack stack = player.getCurrentEquippedItem();
