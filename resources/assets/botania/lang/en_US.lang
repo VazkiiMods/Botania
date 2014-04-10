@@ -252,7 +252,9 @@ item.botania:manaGun.name=Mana Blaster
 item.botania:compositeLens.name=Composite Mana Lens: %s %s
 item.botania:manaCookie.name=Mana Cookie
 item.botania:fertilizer.name=Floral Fertilizer
-item.botania:grassSeeds.name=Pasture Seeds
+item.botania:grassSeeds0.name=Pasture Seeds
+item.botania:grassSeeds1.name=Boreal Seeds
+item.botania:grassSeeds2.name=Infection Seeds
 item.botania:livingwoodTwig.name=Livingwood Twig
 item.botania:timeRod.name=Rod of Flowing Time
 
@@ -573,8 +575,10 @@ botania.page.manaBlaster3=Crafting the blaster
 
 # -- PASTURE SEEDS
 botania.entry.grassSeeds=Pasture Seeds
-botania.page.grassSeeds0=Watching grass spread is seldom a fun activity. By infusing some &1Tall Grass&0 with &4Mana&0, it's possible to create &1Pasture Seeds&0, which will grow grass in any barren area, via a simple right click on dirt.
-botania.page.grassSeeds1=Creating the seeds
+botania.page.grassSeeds0=Watching grass spread is seldom a fun activity. By infusing some &1Tall Grass&0 with &4Mana&0, it's possible to create &1Pasture Seeds&0, which will grow grass in any barren area, via a simple right click on dirt.<br>Other types of folliage can also be grown, such a &1Podzol&0 or &1Mycellium&0 with alternate seeds.
+botania.page.grassSeeds1=&1Pasture Seeds&0 for grass
+botania.page.grassSeeds2=&1Boreal Seeds&0 for podzol
+botania.page.grassSeeds3=&1Infection Seeds&0 for mycellium
 
 # - MISCLANEOUS
 # -- UNSTABLE CUBE

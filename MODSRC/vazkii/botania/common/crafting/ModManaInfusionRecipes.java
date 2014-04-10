@@ -33,6 +33,8 @@ public final class ModManaInfusionRecipes {
 	public static RecipeManaInfusion pistonRelayRecipe;
 	public static RecipeManaInfusion manaCookieRecipe;
 	public static RecipeManaInfusion grassSeedsRecipe;
+	public static RecipeManaInfusion podzolSeedsRecipe;
+	public static List<RecipeManaInfusion> mycelSeedsRecipes;
 
 	public static void init() {
 		manaPetalRecipes = new ArrayList();
@@ -45,6 +47,11 @@ public final class ModManaInfusionRecipes {
 		pistonRelayRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.pistonRelay), new ItemStack(Blocks.piston), 15000);
 		manaCookieRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaCookie), new ItemStack(Items.cookie), 20000);
 		grassSeedsRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.grassSeeds), new ItemStack(Blocks.tallgrass, 1, 1), 2500);
+		podzolSeedsRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.grassSeeds, 1, 1), new ItemStack(Blocks.tallgrass), 2500);
+	
+		mycelSeedsRecipes = new ArrayList();
+		mycelSeedsRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.grassSeeds, 1, 2), new ItemStack(Blocks.red_mushroom), 6500));
+		mycelSeedsRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.grassSeeds, 1, 2), new ItemStack(Blocks.brown_mushroom), 6500));
 	}
 
 }
