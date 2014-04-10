@@ -570,6 +570,11 @@ botania.page.manaBlaster1=This burst is a bit different from the one fired from 
 botania.page.manaBlaster2=&1Mana Lenses&0 also function with the blaster, to attach one to it, put them side by side on a crafting table, to remove it, simply shift-right click the blaster.
 botania.page.manaBlaster3=Crafting the blaster
 
+# -- PASTURE SEEDS
+botania.entry.grassSeeds=Pasture Seeds
+botania.page.grassSeeds0=Watching grass spread is seldom a fun activity. By infusing some &1Tall Grass&0 with &4Mana&0, it's possible to create &1Pasture Seeds&0, which will grow grass in any barren area, via a simple right click on dirt.
+botania.page.grassSeeds1=Creating the seeds
+
 # - MISCLANEOUS
 # -- UNSTABLE CUBE
 botania.entry.unstableBlocks=Unstable Cubes
