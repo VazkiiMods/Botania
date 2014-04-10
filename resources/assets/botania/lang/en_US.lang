@@ -254,6 +254,7 @@ item.botania:manaCookie.name=Mana Cookie
 item.botania:fertilizer.name=Floral Fertilizer
 item.botania:grassSeeds.name=Pasture Seeds
 item.botania:livingwoodTwig.name=Livingwood Twig
+item.botania:timeRod.name=Rod of Flowing Time
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania Index - Pick which category you would like to study:

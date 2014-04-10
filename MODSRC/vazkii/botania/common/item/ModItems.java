@@ -34,6 +34,7 @@ public final class ModItems {
 	public static Item manaCookie;
 	public static Item fertilizer;
 	public static Item grassSeeds;
+	public static Item timeRod;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -51,6 +52,7 @@ public final class ModItems {
 		manaCookie = new ItemManaCookie();
 		fertilizer = new ItemFertilizer();
 		grassSeeds = new ItemGrassSeeds();
+		timeRod = new ItemTimeRod();
 
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {

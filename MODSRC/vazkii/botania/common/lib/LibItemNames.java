@@ -30,6 +30,7 @@ public final class LibItemNames {
 	public static final String MANA_COOKIE = LibResources.PREFIX_MOD + "manaCookie";
 	public static final String FERTILIZER = LibResources.PREFIX_MOD + "fertilizer";
 	public static final String GRASS_SEEDS = LibResources.PREFIX_MOD + "grassSeeds";
+	public static final String TIME_ROD = LibResources.PREFIX_MOD + "timeRod";
 
 	public static final String[] LENS_NAMES = new String[] {
 		LibResources.PREFIX_MOD + "lensNormal",
