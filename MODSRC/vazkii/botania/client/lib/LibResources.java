@@ -57,8 +57,8 @@ public final class LibResources {
 
 	public static final String OBJ_MODEL_PYLON = PREFIX_OBJ_MODEL + "pylon.obj";
 	
-	public static final String SHADER_PYLON_GLOW_FRAG = PREFIX_SHADER + "pylonGlow.frag";
-	public static final String SHADER_ENCHANTER_RUNE_FRAG = PREFIX_SHADER + "enchanterRune.frag";
+	public static final String SHADER_PYLON_GLOW_FRAG = PREFIX_SHADER + "pylon_glow.frag";
+	public static final String SHADER_ENCHANTER_RUNE_FRAG = PREFIX_SHADER + "enchanter_rune.frag";
 
 	public static final String[] LANGS = new String[] {
 		"en_US"
