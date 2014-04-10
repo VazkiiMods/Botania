@@ -62,7 +62,7 @@ public final class ShaderHelper {
 	}
 	
 	
-	private static boolean useShaders() {
+	public static boolean useShaders() {
 		return ConfigHandler.useShaders && OpenGlHelper.shadersSupported;
 	}
 	

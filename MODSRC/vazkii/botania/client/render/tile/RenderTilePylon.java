@@ -87,7 +87,7 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 			model.renderCrystal();
 
 			GL11.glColor4f(1F, 1F, 1F, 1F);
-			if(!ConfigHandler.useShaders) {
+			if(!ShaderHelper.useShaders()) {
 				int light = 15728880;
 				int lightmapX = light % 65536;
 				int lightmapY = light / 65536;
