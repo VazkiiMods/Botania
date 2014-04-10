@@ -61,6 +61,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 			GL11.glPushMatrix();
 			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			GL11.glDisable(GL11.GL_ALPHA_TEST);
 			GL11.glColor4f(1F, 1F, 1F, 1F);
 			GL11.glTranslatef(w, -1F - (0.43F - waterLevel), w);
 			GL11.glRotatef(90F, 1F, 0F, 0F);
@@ -79,6 +80,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 			tessellator.addVertexWithUV(par1 + par4, par2 + 0, zLevel, par3Icon.getMaxU(), par3Icon.getMinV());
 			tessellator.addVertexWithUV(par1 + 0, par2 + 0, zLevel, par3Icon.getMinU(), par3Icon.getMinV());
 			tessellator.draw();
+			GL11.glEnable(GL11.GL_ALPHA_TEST);
 			GL11.glDisable(GL11.GL_BLEND);
 			GL11.glPopMatrix();
 		}

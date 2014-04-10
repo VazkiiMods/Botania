@@ -126,11 +126,13 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 
 			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			GL11.glDisable(GL11.GL_ALPHA_TEST);
 			GL11.glColor4f(1F, 1F, 1F, 0.7F);
 			GL11.glTranslatef(w, -0.3F, w);
 			GL11.glRotatef(90F, 1F, 0F, 0F);
 			GL11.glScalef(s, s, s);
 			renderItem.renderIcon(0, 0, Blocks.water.getIcon(0, 0), 16, 16);
+			GL11.glEnable(GL11.GL_ALPHA_TEST);
 			GL11.glDisable(GL11.GL_BLEND);
 			GL11.glPopMatrix();
 		}

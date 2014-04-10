@@ -102,6 +102,7 @@ public class RenderTileRuneAltar extends TileEntitySpecialRenderer {
 			GL11.glPopMatrix();
 		}
 
+		GL11.glDisable(GL11.GL_ALPHA_TEST);
 		GL11.glPushMatrix();
 		GL11.glTranslatef(0.5F, 1.8F, 0.5F);
 		GL11.glRotatef(180F, 1F, 0F, 1F);
@@ -117,6 +118,7 @@ public class RenderTileRuneAltar extends TileEntitySpecialRenderer {
 			GL11.glTranslatef(0.5F, 0.7F, 0.5F);
 			RenderHelper.renderStar(0x00E4D7, scale, scale, scale, seed);
 		}
+		GL11.glEnable(GL11.GL_ALPHA_TEST);
 
 		GL11.glPopMatrix();
 	}
