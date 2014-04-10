@@ -12,6 +12,7 @@
 package vazkii.botania.client.render.tile;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -24,8 +25,10 @@ import net.minecraft.util.IIcon;
 
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.block.BlockEnchanter;
 import vazkii.botania.common.block.tile.TileEnchanter;
+import vazkii.botania.common.core.handler.ConfigHandler;
 
 public class RenderTileEnchanter extends TileEntitySpecialRenderer {
 
@@ -57,7 +60,6 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer {
 			GL11.glTranslatef(-0.5F, -1.25F, -0.5F);
 		}
 
-
 		GL11.glPushMatrix();
 		GL11.glTranslated(d0, d1, d2);
 
@@ -66,8 +68,18 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer {
 
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GL11.glDisable(GL11.GL_LIGHTING);
-		GL11.glColor4f(0.6F + (float) ((Math.cos(enchanter.getWorldObj().getTotalWorldTime() / 6D) + 1D) / 5D), 0.1F, 0.9F, (float) ((Math.sin(enchanter.getWorldObj().getTotalWorldTime() / 8D) + 1D) / 5D + 0.4D) * alphaMod);
+		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GL11.glDisable(GL11.GL_ALPHA_TEST);
+		float alpha = (float) ((Math.sin(enchanter.getWorldObj().getTotalWorldTime() / 8D) + 1D) / 5D + 0.4D) * alphaMod;
+		if(ConfigHandler.useShaders)
+			GL11.glColor4f(1F, 1F, 1F, alpha);
+		else {
+			int light = 15728880;
+			int lightmapX = light % 65536;
+			int lightmapY = light / 65536;
+			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
+			GL11.glColor4f(0.6F + (float) ((Math.cos(enchanter.getWorldObj().getTotalWorldTime() / 6D) + 1D) / 5D), 0.1F, 0.9F, alpha);
+		}
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 
@@ -83,10 +95,12 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer {
 			GL11.glTranslatef(-2.5F, -2.5F, 0F);
 		}
 
+		ShaderHelper.useShader(ShaderHelper.enchanterRune);
 		renderIcon(0, 0, BlockEnchanter.overlay, 5, 5, 240);
-
+		ShaderHelper.releaseShader();
+		
+		GL11.glEnable(GL11.GL_ALPHA_TEST);
 		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glEnable(GL11.GL_LIGHTING);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		GL11.glPopMatrix();
 	}

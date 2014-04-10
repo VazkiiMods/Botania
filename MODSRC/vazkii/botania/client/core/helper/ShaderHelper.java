@@ -35,12 +35,14 @@ public final class ShaderHelper {
 	private static final int FRAG = ARBFragmentShader.GL_FRAGMENT_SHADER_ARB;
 
 	public static int pylonGlow = 0;
-	
+	public static int enchanterRune = 0;
+
 	public static void initShaders() {
 		if(!useShaders())
 			return;
 		
 		pylonGlow = createProgram(null, LibResources.SHADER_PYLON_GLOW_FRAG);
+		enchanterRune = createProgram(null, LibResources.SHADER_ENCHANTER_RUNE_FRAG);
 	}
 
 	public static void useShader(int shader) {
