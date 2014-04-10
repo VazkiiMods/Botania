@@ -20,7 +20,7 @@ public final class ConfigHandler {
 
 	private static Configuration config;
 
-	public static boolean useShaders = false;
+	public static boolean useShaders = true;
 	public static boolean lexiconRotatingItems = true;
 	public static boolean subtlePowerSystem = false;
 	public static boolean staticWandBeam = false;
