@@ -60,10 +60,6 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 				GL11.glScalef(0.6F, 0.6F, 0.6F);
 			}
 
-			int light = 15728880;
-			int lightmapX = light % 65536;
-			int lightmapY = light / 65536;
-
 			GL11.glPushMatrix();
 			if(!ConfigHandler.oldPylonModel)
 				GL11.glTranslatef(0.5F, 0F, -0.5F);
@@ -92,11 +88,15 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 
 			GL11.glColor4f(1F, 1F, 1F, 1F);
 			if(!ConfigHandler.useShaders) {
+				int light = 15728880;
+				int lightmapX = light % 65536;
+				int lightmapY = light / 65536;
 				OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
-				double alpha = (Math.sin(worldTime / 20D) / 2D + 0.5) / (ConfigHandler.oldPylonModel ? 1D : 2D);
-				GL11.glColor4d(1D, 1D, 1D, alpha + 0.183F);
+				float alpha = (float) ((Math.sin(worldTime / 20D) / 2D + 0.5) / (ConfigHandler.oldPylonModel ? 1D : 2D));
+				GL11.glColor4f(1F, 1F, 1F, alpha + 0.183F);
 			}
 
+			GL11.glDisable(GL11.GL_ALPHA_TEST);
 			GL11.glScalef(1.1F, 1.1F, 1.1F);
 			if(!ConfigHandler.oldPylonModel)
 				GL11.glTranslatef(-0.05F, -0.1F, 0.05F);
@@ -106,6 +106,7 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 			model.renderCrystal();
 			ShaderHelper.releaseShader();
 
+			GL11.glEnable(GL11.GL_ALPHA_TEST);
 			GL11.glEnable(GL11.GL_CULL_FACE);
 			GL11.glPopMatrix();
 
