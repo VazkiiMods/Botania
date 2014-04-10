@@ -252,6 +252,7 @@ item.botania:manaGun.name=Mana Blaster
 item.botania:compositeLens.name=Composite Mana Lens: %s %s
 item.botania:manaCookie.name=Mana Cookie
 item.botania:fertilizer.name=Floral Fertilizer
+item.botania:grassSeeds.name=Pasture Seeds
 item.botania:livingwoodTwig.name=Livingwood Twig
 
 # GUI TEXT
