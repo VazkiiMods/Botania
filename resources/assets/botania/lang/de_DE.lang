@@ -252,6 +252,7 @@ item.botania:manaGun.name=Mana-Blaster
 item.botania:compositeLens.name=Verbundmanalinse: %s %s
 item.botania:manaCookie.name=Manakeks
 item.botania:fertilizer.name=Blumendünger
+item.botania:livingwoodTwig.name=Lebeholzzweig
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania Index - Wähle, welche Kategorie du studieren möchtest:
