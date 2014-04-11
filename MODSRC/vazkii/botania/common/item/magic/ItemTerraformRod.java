@@ -11,6 +11,16 @@
  */
 package vazkii.botania.common.item.magic;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 
@@ -21,5 +31,87 @@ public class ItemTerraformRod extends ItemMod  {
 		setMaxStackSize(1);
 		setUnlocalizedName(LibItemNames.TERRAFORM_ROD);
 	}
+
+	@Override
+	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+		if(!par2World.isRemote)
+			terraform(par1ItemStack, par2World, par3EntityPlayer);
+		
+		return par1ItemStack;
+	}
 	
+	public void terraform(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+		int range = 16;
+
+		int xCenter = (int) par3EntityPlayer.posX;
+		int yCenter = (int) par3EntityPlayer.posY - 1;
+		int zCenter = (int) par3EntityPlayer.posZ;
+
+		int yStart = yCenter + range;
+		
+		List<CoordsWithBlock> blocks = new ArrayList();
+
+		for(int i = -range; i < range + 1; i++)
+			for(int j = -range; j < range + 1; j++) {
+				int k = 0;
+				while(true) {
+					if(yStart + k < 0)
+						break;
+
+					int x = xCenter + i;
+					int y = yStart + k;
+					int z = zCenter + j;
+
+					Block block = par2World.getBlock(x, y, z);
+					if(block == Blocks.grass || block == Blocks.dirt || block == Blocks.stone || block == Blocks.sand || block == Blocks.gravel) {
+						boolean hasAir = false;
+						List<ChunkCoordinates> airBlocks = new ArrayList();
+
+						ForgeDirection[] dirs = new ForgeDirection[] {
+								ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST
+						};
+						
+						for(ForgeDirection dir : dirs) {
+							int x_ = x + dir.offsetX;
+							int y_ = y + dir.offsetY;
+							int z_ = z + dir.offsetZ;
+
+							if(par2World.getBlock(x_, y_, z_).isAir(par2World, x_, y_, z_)) {
+								airBlocks.add(new ChunkCoordinates(x_, y_, z_));
+								hasAir = true;
+								break;
+							}
+						}
+
+						if(hasAir) {
+							if(y > yCenter)
+								blocks.add(new CoordsWithBlock(x, y, z, Blocks.air));
+							else for(ChunkCoordinates coords : airBlocks) {
+								if(par2World.getBlock(coords.posX, coords.posY - 1, coords.posZ) != Blocks.air)
+									blocks.add(new CoordsWithBlock(coords.posX, coords.posY, coords.posZ, Blocks.dirt));
+							}
+						}
+
+						break;
+					}
+
+					--k;
+				}
+			}
+		
+		for(CoordsWithBlock block : blocks)
+			par2World.setBlock(block.posX, block.posY, block.posZ, block.block);
+	}
+	
+	class CoordsWithBlock extends ChunkCoordinates {
+		
+		final Block block;
+		
+		public CoordsWithBlock(int x, int y, int z, Block block) {
+			super(x, y, z);
+			this.block = block;
+		}
+		
+	}
+
 }

@@ -137,7 +137,6 @@ public class ItemGrassSeeds extends ItemMod {
 		return swapper;
 	}
 	
-	
 	private static BlockSwapper swapperFromMeta(World world, int x, int y, int z, int meta) {
 		switch(meta) {
 			case 1 : return new BlockSwapper(world, new ChunkCoordinates(x, y, z),  Blocks.dirt, 2);
@@ -197,7 +196,6 @@ public class ItemGrassSeeds extends ItemMod {
 					}
 				}
 
-			
 			if(ticksExisted >= 80)
 				list.remove(this);
 		}
