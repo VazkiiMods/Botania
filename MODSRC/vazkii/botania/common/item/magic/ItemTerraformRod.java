@@ -101,7 +101,6 @@ public class ItemTerraformRod extends ItemMod  {
 							if(block_.isAir(par2World, x_, y_, z_) || block_.isReplaceable(par2World, x_, y_, z_) || (block_ instanceof BlockFlower && !(block_ instanceof ISpecialFlower))) {
 								airBlocks.add(new ChunkCoordinates(x_, y_, z_));
 								hasAir = true;
-								break;
 							}
 						}
 
