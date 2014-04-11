@@ -38,7 +38,7 @@ public class ItemTerraformRod extends ItemMod  {
 		setMaxStackSize(1);
 		setUnlocalizedName(LibItemNames.TERRAFORM_ROD);
 	}
-	
+
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
 		return EnumAction.bow;
@@ -48,7 +48,7 @@ public class ItemTerraformRod extends ItemMod  {
 	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
 		return 72000;
 	}
-	
+
 	@Override
 	public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {
 		if(count != getMaxItemUseDuration(stack) && count % 10 == 0)
@@ -67,7 +67,7 @@ public class ItemTerraformRod extends ItemMod  {
 		int xCenter = (int) par3EntityPlayer.posX;
 		int yCenter = (int) par3EntityPlayer.posY - (par2World.isRemote ? 2 : 1);
 		int zCenter = (int) par3EntityPlayer.posZ;
-		
+
 		int yStart = yCenter + range;
 
 		List<CoordsWithBlock> blocks = new ArrayList();
@@ -125,9 +125,12 @@ public class ItemTerraformRod extends ItemMod  {
 			if(!par2World.isRemote)
 				for(CoordsWithBlock block : blocks)
 					par2World.setBlock(block.posX, block.posY, block.posZ, block.block);
-			
-			for(int i = 0; i < 120; i++)
-				Botania.proxy.sparkleFX(par2World, xCenter - range + range * 2 * Math.random(), yCenter + 2 + (Math.random() - 0.5) * 2, zCenter - range + range * 2 * Math.random(), 0.35F, 0.2F, 0.05F, 2F, 5);
+
+			if(!blocks.isEmpty()) {
+				par2World.playSoundAtEntity(par3EntityPlayer, "step.sand", 1F, 0.4F);
+				for(int i = 0; i < 120; i++)
+					Botania.proxy.sparkleFX(par2World, xCenter - range + range * 2 * Math.random(), yCenter + 2 + (Math.random() - 0.5) * 2, zCenter - range + range * 2 * Math.random(), 0.35F, 0.2F, 0.05F, 2F, 5);
+			}
 		}
 	}
 
