@@ -123,7 +123,6 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 					for(EntityItem entity : items) {
 						ItemStack item = entity.getEntityItem();
 						if(item.getItem() == Items.enchanted_book) {
-							// XXX - This needs to be rewritten for the new book enchanting in 1.7
 							NBTTagList enchants = Items.enchanted_book.func_92110_g(item);
 							if(enchants != null && enchants.tagCount() > 0) {
 								NBTTagCompound enchant = (NBTTagCompound) enchants.getCompoundTagAt(0);
