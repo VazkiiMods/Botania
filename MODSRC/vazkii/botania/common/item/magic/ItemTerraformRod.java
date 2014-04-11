@@ -126,7 +126,8 @@ public class ItemTerraformRod extends ItemMod {
 					par2World.setBlock(block.posX, block.posY, block.posZ, block.block);
 
 			if(!blocks.isEmpty()) {
-				par2World.playSoundAtEntity(par3EntityPlayer, "step.sand", 1F, 0.4F);
+				for(int i = 0; i < 10; i++)
+					par2World.playSoundAtEntity(par3EntityPlayer, "step.sand", 1F, 0.4F);
 				for(int i = 0; i < 120; i++)
 					Botania.proxy.sparkleFX(par2World, xCenter - range + range * 2 * Math.random(), yCenter + 2 + (Math.random() - 0.5) * 2, zCenter - range + range * 2 * Math.random(), 0.35F, 0.2F, 0.05F, 2F, 5);
 			}
