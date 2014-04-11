@@ -29,7 +29,7 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemTerraformRod extends ItemMod  {
+public class ItemTerraformRod extends ItemMod {
 
 	private static final int COST_PER = 55;
 
@@ -98,7 +98,7 @@ public class ItemTerraformRod extends ItemMod  {
 							int z_ = z + dir.offsetZ;
 
 							Block block_ = par2World.getBlock(x_, y_, z_); 
-							if(block_.isAir(par2World, x_, y_, z_) || block_.isReplaceable(par2World, x_, y_, z_) || (block_ instanceof BlockFlower && !(block_ instanceof ISpecialFlower))) {
+							if(block_.isAir(par2World, x_, y_, z_) || block_.isReplaceable(par2World, x_, y_, z_) || (block_ instanceof BlockFlower && !(block_ instanceof ISpecialFlower)) || block_ == Blocks.double_plant) {
 								airBlocks.add(new ChunkCoordinates(x_, y_, z_));
 								hasAir = true;
 							}
