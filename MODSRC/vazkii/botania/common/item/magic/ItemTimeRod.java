@@ -9,12 +9,13 @@
  * 
  * File Created @ [Apr 10, 2014, 6:46:03 PM (GMT)]
  */
-package vazkii.botania.common.item;
+package vazkii.botania.common.item.magic;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemTimeRod extends ItemMod {

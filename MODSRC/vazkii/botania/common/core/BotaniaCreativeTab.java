@@ -60,6 +60,10 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.manaCookie);
 		addItem(ModItems.rune);
 
+		addItem(ModItems.dirtRod);
+		addItem(ModItems.terraformRod);
+		addItem(ModItems.timeRod);
+		
 		addBlock(ModBlocks.livingrock);
 		addBlock(ModBlocks.livingwood);
 		addBlock(ModBlocks.altar);
@@ -69,7 +73,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.unstableBlock);
 		addBlock(ModBlocks.manaBeacon);
 		addItem(ModItems.signalFlare);
-
+		
 		addItem(ModItems.manaTablet);
 		addBlock(ModBlocks.pool);
 		addBlock(ModBlocks.distributor);

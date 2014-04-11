@@ -15,6 +15,9 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+import vazkii.botania.common.item.magic.ItemDirtRod;
+import vazkii.botania.common.item.magic.ItemTerraformRod;
+import vazkii.botania.common.item.magic.ItemTimeRod;
 import vazkii.botania.common.lib.LibOreDict;
 
 public final class ModItems {
@@ -35,6 +38,8 @@ public final class ModItems {
 	public static Item fertilizer;
 	public static Item grassSeeds;
 	public static Item timeRod;
+	public static Item dirtRod;
+	public static Item terraformRod;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -53,6 +58,8 @@ public final class ModItems {
 		fertilizer = new ItemFertilizer();
 		grassSeeds = new ItemGrassSeeds();
 		timeRod = new ItemTimeRod();
+		dirtRod = new ItemDirtRod();
+		terraformRod = new ItemTerraformRod();
 
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
