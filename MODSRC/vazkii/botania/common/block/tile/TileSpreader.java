@@ -258,7 +258,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		EntityManaBurst burst = new EntityManaBurst(this, fake);
 
 		int maxMana = 160;
-		int color = isRedstone() ? 0xFF0000 : 0x00FF00;
+		int color = isRedstone() ? 0xFF2020 : 0x20FF20;
 		int ticksBeforeManaLoss = 60;
 		float manaLossPerTick = 4F;
 		float motionModifier = 1F;
