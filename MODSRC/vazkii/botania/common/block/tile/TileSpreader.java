@@ -224,7 +224,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 	public void tryShootBurst() {
 		if(receiver != null || isRedstone()) {
-			if(isRedstone() || (canShootBurst && receiver.canRecieveManaFromBursts() && !receiver.isFull())) {
+			if(canShootBurst && (isRedstone() || (receiver.canRecieveManaFromBursts() && !receiver.isFull()))) {
 				EntityManaBurst burst = getBurst(false);
 				if(burst != null) {
 					if(!worldObj.isRemote) {

@@ -66,6 +66,7 @@ public final class LexiconData {
 	public static LexiconEntry manaTransport;
 	public static LexiconEntry manaDetector;
 	public static LexiconEntry compositeLens;
+	public static LexiconEntry redstoneSpreader;
 
 	public static LexiconEntry functionalIntro;
 	public static LexiconEntry jadedAmaranthus;
@@ -190,6 +191,9 @@ public final class LexiconData {
 		compositeLens = new BLexiconEntry(LibLexicon.MANA_COMPOSITE_LENS, categoryMana);
 		compositeLens.setLexiconPages(new PageText("0"));
 
+		redstoneSpreader = new BLexiconEntry(LibLexicon.MANA_REDSTONE_SPREADER, categoryMana);
+		redstoneSpreader.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.redstoneSpreaderRecipe));
+		
 		// FUNCTIONAL FLOWERS ENTRIES
 		functionalIntro = new BLexiconEntry(LibLexicon.FFLOWER_INTRO, categoryFunctionalFlowers);
 		functionalIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"));

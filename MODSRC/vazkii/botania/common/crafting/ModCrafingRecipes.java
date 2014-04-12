@@ -80,6 +80,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe livingwoodTwigRecipe;
 	public static IRecipe dirtRodRecipe;
 	public static IRecipe terraformRodRecipe;
+	public static IRecipe redstoneSpreaderRecipe;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -351,6 +352,11 @@ public final class ModCrafingRecipes {
 				'M', LibOreDict.RUNE[5],
 				'A', LibOreDict.RUNE[6]);
 		terraformRodRecipe = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Redstone Mana Spreader Recipe
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.spreader, 1, 1), 
+				new ItemStack(ModBlocks.spreader), new ItemStack(Items.redstone));
+		redstoneSpreaderRecipe = BotaniaAPI.getLatestAddedRecipe();
 	}
 
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {
