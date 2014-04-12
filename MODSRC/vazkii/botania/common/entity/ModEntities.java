@@ -20,7 +20,7 @@ public final class ModEntities {
 	public static void init() {
 		int id = 0;
 		EntityRegistry.registerModEntity(EntityManaBurst.class, LibEntityNames.MANA_BURST, id++, Botania.instance, 64, 10, true);
-		EntityRegistry.registerModEntity(EntitySignalFlare.class, LibEntityNames.MANA_BURST, id++, Botania.instance, 2048, 10, false);
+		EntityRegistry.registerModEntity(EntitySignalFlare.class, LibEntityNames.SIGNAL_FLARE, id++, Botania.instance, 2048, 10, false);
 	}
 
 }
