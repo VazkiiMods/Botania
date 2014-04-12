@@ -11,17 +11,22 @@
  */
 package vazkii.botania.common.block;
 
+import java.util.List;
 import java.util.Random;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -36,6 +41,7 @@ import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.TileSpreader;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
@@ -51,6 +57,17 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 
 		random = new Random();
 	}
+	
+	@Override
+	protected boolean shouldRegisterInNameSet() {
+		return false;
+	}
+
+	@Override
+	public Block setBlockName(String par1Str) {
+		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
+		return super.setBlockName(par1Str);
+	}
 
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
@@ -58,10 +75,17 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 	}
 	
 	@Override
+	public void getSubBlocks(Item par1, CreativeTabs par2, List par3) {
+		for(int i = 0; i < 2; i++)
+			par3.add(new ItemStack(par1, 1, i));
+	}
+	
+	@Override
 	public void onBlockPlacedBy(World par1World, int par2, int par3, int par4, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack) {
 		int orientation = BlockPistonBase.determineOrientation(par1World, par2, par3, par4, par5EntityLivingBase);
 		TileSpreader spreader = (TileSpreader) par1World.getTileEntity(par2, par3, par4);
-
+		par1World.setBlockMetadataWithNotify(par2, par3, par4, par6ItemStack.getItemDamage() & 1, 1 | 2);
+		
 		switch(orientation) {
 		case 0:
 			spreader.rotationY = -90F;
@@ -82,7 +106,12 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 			break;
 		}
 	}
-
+	
+	@Override
+	public int damageDropped(int par1) {
+		return par1;
+	}
+	
 	@Override
 	public boolean isOpaqueCube() {
 		return false;
@@ -110,8 +139,9 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 		ItemStack heldItem = par5EntityPlayer.getCurrentEquippedItem();
 		boolean isHeldItemLens = heldItem != null && heldItem.getItem() instanceof ILens;
 
-		if(heldItem != null && heldItem.getItem() == ModItems.twigWand)
-			return false;
+		if(heldItem != null)
+			if(heldItem.getItem() == ModItems.twigWand)
+				return false;
 
 		if(lens == null && isHeldItemLens) {
 			par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, null);

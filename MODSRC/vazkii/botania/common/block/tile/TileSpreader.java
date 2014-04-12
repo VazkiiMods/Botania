@@ -26,6 +26,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -56,20 +57,23 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	private static final String TAG_ROTATION_X = "rotationX";
 	private static final String TAG_ROTATION_Y = "rotationY";
 
+	public static boolean staticRedstone = false;
+	
 	int mana;
 	int knownMana = -1;
 	public float rotationX, rotationY;
 	boolean added = false;
 	boolean requestsClientUpdate = false;
-	
+
 	IManaReceiver receiver = null;
 
+	boolean redstoneLastTick = false; 
 	public boolean canShootBurst = true;
 	public int lastBurstDeathTick = -1;
 	public int burstParticleTick = 0;
 
 	List<PositionProperties> lastTentativeBurst;
-
+	
 	@Override
 	public boolean isFull() {
 		return mana >= MAX_MANA;
@@ -122,8 +126,15 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		if(needsNewBurstSimulation())
 			checkForReceiver();
 
-		if(!redstone)
+		boolean shouldShoot = !redstone;
+		
+		if(isRedstone())
+			shouldShoot = redstone && !redstoneLastTick;
+		
+		if(shouldShoot)
 			tryShootBurst();
+		
+		redstoneLastTick = redstone;
 	}
 
 	@Override
@@ -203,7 +214,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			requestsClientUpdate = false;
 			return true;
 		}
-		
+
 		for(PositionProperties props : lastTentativeBurst)
 			if(!props.contentsEqual(worldObj))
 				return true;
@@ -212,8 +223,8 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	public void tryShootBurst() {
-		if(receiver != null) {
-			if(canShootBurst && receiver.canRecieveManaFromBursts() && !receiver.isFull()) {
+		if(receiver != null || isRedstone()) {
+			if(isRedstone() || (canShootBurst && receiver.canRecieveManaFromBursts() && !receiver.isFull())) {
 				EntityManaBurst burst = getBurst(false);
 				if(burst != null) {
 					if(!worldObj.isRemote) {
@@ -226,6 +237,10 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 				}
 			}
 		}
+	}
+	
+	public boolean isRedstone() {
+		return worldObj == null ? staticRedstone : (getBlockMetadata() & 1) == 1;
 	}
 
 	public void checkForReceiver() {
@@ -243,7 +258,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		EntityManaBurst burst = new EntityManaBurst(this, fake);
 
 		int maxMana = 160;
-		int color = 0x00FF00;
+		int color = isRedstone() ? 0xFF0000 : 0x00FF00;
 		int ticksBeforeManaLoss = 60;
 		float manaLossPerTick = 4F;
 		float motionModifier = 1F;
@@ -293,8 +308,8 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
-		String name = ModBlocks.spreader.getLocalizedName();
-		int color = 0x6600FF00;
+		String name = StatCollector.translateToLocal(new ItemStack(ModBlocks.spreader, 1, getBlockMetadata()).getUnlocalizedName() + ".name");
+		int color = isRedstone() ? 0x66FF0000 : 0x6600FF00;
 		HUDHandler.drawSimpleManaHUD(color, knownMana, MAX_MANA, name, res);
 
 		ItemStack lens = getStackInSlot(0);
@@ -374,7 +389,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		checkForReceiver();
 		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 	}
-	
+
 	@Override
 	public ChunkCoordinates getBinding() {
 		if(receiver == null)
