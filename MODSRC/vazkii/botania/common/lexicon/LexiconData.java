@@ -192,7 +192,7 @@ public final class LexiconData {
 		compositeLens.setLexiconPages(new PageText("0"));
 
 		redstoneSpreader = new BLexiconEntry(LibLexicon.MANA_REDSTONE_SPREADER, categoryMana);
-		redstoneSpreader.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.redstoneSpreaderRecipe));
+		redstoneSpreader.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeRedstoneSpreader));
 		
 		// FUNCTIONAL FLOWERS ENTRIES
 		functionalIntro = new BLexiconEntry(LibLexicon.FFLOWER_INTRO, categoryFunctionalFlowers);
@@ -270,17 +270,17 @@ public final class LexiconData {
 		grassSeeds.setLexiconPages(new PageText("0"), new PageManaInfusionRecipe("1", ModManaInfusionRecipes.grassSeedsRecipe), new PageManaInfusionRecipe("2", ModManaInfusionRecipes.podzolSeedsRecipe), new PageManaInfusionRecipe("3", ModManaInfusionRecipes.mycelSeedsRecipes));
 		
 		dirtRod = new BLexiconEntry(LibLexicon.TOOL_DIRT_ROD, categoryTools);
-		dirtRod.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.dirtRodRecipe));
+		dirtRod.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeDirtRod));
 		
 		terraformRod = new BLexiconEntry(LibLexicon.TOOL_TERRAFORM_ROD, categoryTools);
-		terraformRod.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCrafingRecipes.terraformRodRecipe));
+		terraformRod.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCrafingRecipes.recipeTerraformRod));
 		
 		// MISCLENAEOUS ENTRIES
 		unstableBlocks = new BLexiconEntry(LibLexicon.MISC_UNSTABLE_BLOCKS, categoryMisc);
 		unstableBlocks.setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_UNSTABLE_BLOCK), new PageCraftingRecipe("2", ModCrafingRecipes.recipesUnstableBlocks), new PageText("3"), new PageImage("4", LibResources.ENTRY_UNSTABLE_BEACON), new PageCraftingRecipe("5", ModCrafingRecipes.recipesManaBeacons), new PageText("6"), new PageCraftingRecipe("7", ModCrafingRecipes.recipesSignalFlares));
 
 		decorativeBlocks = new BLexiconEntry(LibLexicon.MISC_DECORATIVE_BLOCKS, categoryMisc);
-		decorativeBlocks.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.livingrockDecorRecipe1), new PageCraftingRecipe("2", ModCrafingRecipes.livingrockDecorRecipe2), new PageCraftingRecipe("3", ModCrafingRecipes.livingrockDecorRecipe3), new PageCraftingRecipe("4", ModCrafingRecipes.livingrockDecorRecipe4),
-				new PageCraftingRecipe("5", ModCrafingRecipes.livingwoodDecorRecipe1), new PageCraftingRecipe("6", ModCrafingRecipes.livingwoodDecorRecipe2), new PageCraftingRecipe("7", ModCrafingRecipes.livingwoodDecorRecipe3), new PageCraftingRecipe("8", ModCrafingRecipes.livingwoodDecorRecipe4), new PageCraftingRecipe("9", ModCrafingRecipes.livingwoodDecorRecipe5));
+		decorativeBlocks.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLivingrockDecor1), new PageCraftingRecipe("2", ModCrafingRecipes.recipeLivingrockDecor2), new PageCraftingRecipe("3", ModCrafingRecipes.recipeLivingrockDecor3), new PageCraftingRecipe("4", ModCrafingRecipes.recipeLivingrockDecor4),
+				new PageCraftingRecipe("5", ModCrafingRecipes.recipeLivingwoodDecor1), new PageCraftingRecipe("6", ModCrafingRecipes.recipeLivingwoodDecor2), new PageCraftingRecipe("7", ModCrafingRecipes.recipeLivingwoodDecor3), new PageCraftingRecipe("8", ModCrafingRecipes.recipeLivingwoodDecor4), new PageCraftingRecipe("9", ModCrafingRecipes.recipeLivingwoodDecor5));
 	}
 }
