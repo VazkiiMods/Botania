@@ -78,7 +78,9 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeFertilizerPowder;
 	public static IRecipe recipeFerilizerDye;
 	public static IRecipe livingwoodTwigRecipe;
-	
+	public static IRecipe dirtRodRecipe;
+	public static IRecipe terraformRodRecipe;
+
 	public static void init() {
 		// Lexicon Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lexicon), "treeSapling", Items.book);
@@ -328,6 +330,27 @@ public final class ModCrafingRecipes {
 		addOreDictRecipe(new ItemStack(ModItems.manaResource, 1, 3), 
 				"W", "W",
 				'W', LibOreDict.LIVING_WOOD);
+		livingwoodTwigRecipe = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Rod of the Lands Recipe
+		addOreDictRecipe(new ItemStack(ModItems.dirtRod), 
+				"  D", " T ", "E  ",
+				'D', new ItemStack(Blocks.dirt),
+				'T', LibOreDict.LIVINGWOOD_TWIG,
+				'E', LibOreDict.RUNE[2]);
+		dirtRodRecipe = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Terra Firma Rod Recipe
+		addOreDictRecipe(new ItemStack(ModItems.terraformRod), 
+				" WD", "ARS", "GM ",
+				'D', LibOreDict.MANA_DIAMOND,
+				'R', new ItemStack(ModItems.dirtRod),
+				'G', new ItemStack(ModItems.grassSeeds),
+				'W', LibOreDict.RUNE[7],
+				'S', LibOreDict.RUNE[4],
+				'M', LibOreDict.RUNE[5],
+				'A', LibOreDict.RUNE[6]);
+		terraformRodRecipe = BotaniaAPI.getLatestAddedRecipe();
 	}
 
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {
