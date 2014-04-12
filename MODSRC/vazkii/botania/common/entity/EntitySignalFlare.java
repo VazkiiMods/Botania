@@ -41,7 +41,7 @@ public class EntitySignalFlare extends Entity {
 
 		if(!isDead) {
 			if(ticksExisted % 10 == 0)
-				playSound("random.fuse", 1F, 1F);
+				playSound("creeper.primed", 1F, 1F);
 
 			int color = getColor();
 			if(color < 16 && color >= 0) {
