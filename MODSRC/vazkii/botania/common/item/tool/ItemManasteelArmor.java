@@ -11,6 +11,7 @@
  */
 package vazkii.botania.common.item.tool;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibResources;
@@ -28,13 +29,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.ISpecialArmor;
 import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
+import net.minecraftforge.common.util.EnumHelper;
 
 public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor {
 
 	private static final int MANA_PER_DAMAGE = 70;
 	
 	public ItemManasteelArmor(int type, String name) {
-		super(ArmorMaterial.IRON, 0, type);
+		super(BotaniaAPI.mansteelArmorMaterial, 0, type);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setUnlocalizedName(name);
 	}
@@ -63,7 +65,6 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor {
 
 	@Override
 	public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot) {
-		System.out.println(damage);
 		int manaToRequest = damage * MANA_PER_DAMAGE;
 		int manaRequested = entity instanceof EntityPlayer ? ManaItemHandler.requestMana(stack, (EntityPlayer) entity, manaToRequest, true) : 0;
 		
