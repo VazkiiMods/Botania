@@ -77,7 +77,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeTurntable;
 	public static IRecipe recipeFertilizerPowder;
 	public static IRecipe recipeFerilizerDye;
-	public static IRecipe recipeLivingwoodTwig; // TODO
+	public static IRecipe recipeLivingwoodTwig;
 	public static IRecipe recipeDirtRod;
 	public static IRecipe recipeTerraformRod;
 	public static IRecipe recipeRedstoneSpreader;

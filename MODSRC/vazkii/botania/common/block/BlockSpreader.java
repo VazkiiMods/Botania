@@ -215,7 +215,8 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
-		return LexiconData.spreader;
+		int meta = world.getBlockMetadata(x, y, z);
+		return meta == 0 ? LexiconData.spreader : LexiconData.redstoneSpreader;
 	}
 
 }

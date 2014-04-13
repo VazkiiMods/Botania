@@ -306,7 +306,8 @@ botania.page.apothecary4=Crafting the &1Petal Apothecary&0.
 botania.entry.pureDaisy=Pure Daisy
 botania.page.pureDaisy0=The &1Pure Daisy&0 is not only the most basic, but also the most important flower a botanist can have.<br>This flower will purify any adjacent &1Wood&0 and &1Stone&0 blocks, as seen on the next page, into their purified counterparts, &1Livingwood&0 and &1Livingrock&0, which can be used for crafting.  
 botania.page.pureDaisy1=Just give it &4a minute&0 or so...
-botania.page.pureDaisy2=White is bright and pure
+botania.page.pureDaisy2=&1Livingwood&0 can be turned into twigs
+botania.page.pureDaisy3=White is bright and pure
 
 # -- WAND OF THE FOREST
 botania.entry.wand=Wand of the Forest
