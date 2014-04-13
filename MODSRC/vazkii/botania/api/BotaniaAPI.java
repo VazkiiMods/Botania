@@ -49,7 +49,7 @@ public final class BotaniaAPI {
 	public static Map<String, Integer> oreWeights = new HashMap<String, Integer>();
 
 	public static ArmorMaterial manasteelArmorMaterial = EnumHelper.addArmorMaterial("MANASTEEL", 16, new int[]{ 2, 6, 5, 2 }, 18);
-//	public static ToolMaterial a
+	public static ToolMaterial manasteelToolMaterial = EnumHelper.addToolMaterial("MANASTEEL", 3, 300, 6.2F, 2F, 20);
 
 	static {
 		registerSubTile("", DummySubTile.class);
@@ -69,7 +69,7 @@ public final class BotaniaAPI {
 		addOreWeight("oreDiamond", 1265); // Vanilla
 		addOreWeight("oreEmerald", 780); // Vanilla
 		addOreWeight("oreEmery", 415); // GregTech
-		addOreWeight("oreGalena", 1000);
+		addOreWeight("oreGalena", 1000); // Factorization
 		addOreWeight("oreGold", 2970); // Vanilla
 		addOreWeight("oreInfusedAir", 925); // Thaumcraft
 		addOreWeight("oreInfusedEarth", 925); // Thaumcraft

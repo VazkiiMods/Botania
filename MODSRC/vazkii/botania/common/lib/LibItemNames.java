@@ -38,6 +38,11 @@ public final class LibItemNames {
 	public static final String MANASTEEL_CHEST = LibResources.PREFIX_MOD + "manasteelChest";
 	public static final String MANASTEEL_LEGS = LibResources.PREFIX_MOD + "manasteelLegs";
 	public static final String MANASTEEL_BOOTS = LibResources.PREFIX_MOD + "manasteelBoots";
+	public static final String MANASTEEL_PICK = LibResources.PREFIX_MOD + "manasteelPick";
+	public static final String MANASTEEL_SHOVEL = LibResources.PREFIX_MOD + "manasteelShovel";
+	public static final String MANASTEEL_AXE = LibResources.PREFIX_MOD + "manasteelAxe";
+	public static final String MANASTEEL_SWORD = LibResources.PREFIX_MOD + "manasteelSword";
+	public static final String MANASTEEL_SHEARS = LibResources.PREFIX_MOD + "manasteelShears";
 
 	public static final String[] LENS_NAMES = new String[] {
 		LibResources.PREFIX_MOD + "lensNormal",

@@ -265,6 +265,11 @@ item.botania:manasteelHelm.name=Manasteel Helm
 item.botania:manasteelChest.name=Manasteel Breastplate
 item.botania:manasteelLegs.name=Manasteel Platelegs
 item.botania:manasteelBoots.name=Manasteel Boots
+item.botania:manasteelPick.name=Manasteel Pick
+item.botania:manasteelShovel.name=Manasteel Spade
+item.botania:manasteelAxe.name=Manasteel Hatchet
+item.botania:manasteelSword.name=Manasteel Blade
+item.botania:manasteelShears.name=Manasteel Clippers
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania Index - Pick which category you would like to study:

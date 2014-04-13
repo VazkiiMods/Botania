@@ -65,12 +65,7 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor {
 
 	@Override
 	public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot) {
-		int manaToRequest = damage * MANA_PER_DAMAGE;
-		int manaRequested = entity instanceof EntityPlayer ? ManaItemHandler.requestMana(stack, (EntityPlayer) entity, manaToRequest, true) : 0;
-		
-		int finalDamage = damage - manaRequested / MANA_PER_DAMAGE;
-		if(finalDamage > 0)
-			stack.damageItem(finalDamage, entity);
+		ManasteelToolCommons.damageItem(stack, damage, entity, MANA_PER_DAMAGE);
 	}
 	
 	@Override

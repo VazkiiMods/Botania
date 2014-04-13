@@ -19,6 +19,11 @@ import vazkii.botania.common.item.magic.ItemDirtRod;
 import vazkii.botania.common.item.magic.ItemTerraformRod;
 import vazkii.botania.common.item.magic.ItemTimeRod;
 import vazkii.botania.common.item.tool.ItemManasteelArmor;
+import vazkii.botania.common.item.tool.ItemManasteelAxe;
+import vazkii.botania.common.item.tool.ItemManasteelPick;
+import vazkii.botania.common.item.tool.ItemManasteelShears;
+import vazkii.botania.common.item.tool.ItemManasteelShovel;
+import vazkii.botania.common.item.tool.ItemManasteelSword;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibOreDict;
 
@@ -47,6 +52,11 @@ public final class ModItems {
 	public static Item manasteelChest;
 	public static Item manasteelLegs;
 	public static Item manasteelBoots;
+	public static Item manasteelPick;
+	public static Item manasteelShovel;
+	public static Item manasteelAxe;
+	public static Item manasteelSword;
+	public static Item manasteelShears;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -72,7 +82,12 @@ public final class ModItems {
 		manasteelChest = new ItemManasteelArmor(1, LibItemNames.MANASTEEL_CHEST);
 		manasteelLegs = new ItemManasteelArmor(2, LibItemNames.MANASTEEL_LEGS);
 		manasteelBoots = new ItemManasteelArmor(3, LibItemNames.MANASTEEL_BOOTS);
-
+		manasteelPick = new ItemManasteelPick();
+		manasteelShovel = new ItemManasteelShovel();
+		manasteelAxe = new ItemManasteelAxe();
+		manasteelSword = new ItemManasteelSword();
+		manasteelShears = new ItemManasteelShears();
+		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));
