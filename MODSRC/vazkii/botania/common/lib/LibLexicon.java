@@ -79,6 +79,7 @@ public final class LibLexicon {
 	public static final String TOOL_GRASS_SEEDS = "grassSeeds";
 	public static final String TOOL_DIRT_ROD = "dirtRod";
 	public static final String TOOL_TERRAFORM_ROD = "terraformRod";
+	public static final String TOOL_MANASTEEL_GEAR = "manaGear";
 
 	public static final String MISC_UNSTABLE_BLOCKS = "unstableBlocks";
 	public static final String MISC_DECORATIVE_BLOCKS = "decorativeBlocks";

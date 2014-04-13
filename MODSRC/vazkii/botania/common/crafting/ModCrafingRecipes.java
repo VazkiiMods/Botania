@@ -82,6 +82,15 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeTerraformRod;
 	public static IRecipe recipeRedstoneSpreader;
 	public static IRecipe recipeManaMirror;
+	public static IRecipe recipeManasteelHelm;
+	public static IRecipe recipeManasteelChest;
+	public static IRecipe recipeManasteelLegs;
+	public static IRecipe recipeManasteelBoots;
+	public static IRecipe recipeManasteelPick;
+	public static IRecipe recipeManasteelShovel;
+	public static IRecipe recipeManasteelAxe;
+	public static IRecipe recipeManasteelShears;
+	public static IRecipe recipeManasteelSword;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -367,6 +376,48 @@ public final class ModCrafingRecipes {
 				'S', LibOreDict.LIVINGWOOD_TWIG,
 				'T', new ItemStack(ModItems.manaTablet, 1, -1));
 		recipeManaMirror = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Mana Armor & Tools Recipes
+		addOreDictRecipe(new ItemStack(ModItems.manasteelHelm), 
+				"SSS", "S S",
+				'S', LibOreDict.MANA_STEEL);
+		recipeManasteelHelm = BotaniaAPI.getLatestAddedRecipe();
+		addOreDictRecipe(new ItemStack(ModItems.manasteelChest), 
+				"S S", "SSS", "SSS",
+				'S', LibOreDict.MANA_STEEL);
+		recipeManasteelChest = BotaniaAPI.getLatestAddedRecipe();
+		addOreDictRecipe(new ItemStack(ModItems.manasteelLegs), 
+				"SSS", "S S", "S S",
+				'S', LibOreDict.MANA_STEEL);
+		recipeManasteelLegs = BotaniaAPI.getLatestAddedRecipe();
+		addOreDictRecipe(new ItemStack(ModItems.manasteelBoots), 
+				"S S", "S S",
+				'S', LibOreDict.MANA_STEEL);
+		recipeManasteelBoots = BotaniaAPI.getLatestAddedRecipe();
+		addOreDictRecipe(new ItemStack(ModItems.manasteelPick), 
+				"SSS", " T ", " T ",
+				'S', LibOreDict.MANA_STEEL,
+				'T', LibOreDict.LIVINGWOOD_TWIG);
+		recipeManasteelPick = BotaniaAPI.getLatestAddedRecipe();
+		addOreDictRecipe(new ItemStack(ModItems.manasteelShovel), 
+				"S", "T", "T",
+				'S', LibOreDict.MANA_STEEL,
+				'T', LibOreDict.LIVINGWOOD_TWIG);
+		recipeManasteelShovel = BotaniaAPI.getLatestAddedRecipe();
+		addOreDictRecipe(new ItemStack(ModItems.manasteelAxe), 
+				"SS", "TS", "T ",
+				'S', LibOreDict.MANA_STEEL,
+				'T', LibOreDict.LIVINGWOOD_TWIG);
+		recipeManasteelAxe = BotaniaAPI.getLatestAddedRecipe();
+		addOreDictRecipe(new ItemStack(ModItems.manasteelSword), 
+				"S", "S", "T",
+				'S', LibOreDict.MANA_STEEL,
+				'T', LibOreDict.LIVINGWOOD_TWIG);
+		recipeManasteelSword = BotaniaAPI.getLatestAddedRecipe();
+		addOreDictRecipe(new ItemStack(ModItems.manasteelShears), 
+				"S ", " S",
+				'S', LibOreDict.MANA_STEEL);
+		recipeManasteelShears = BotaniaAPI.getLatestAddedRecipe();
 	}
 
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {

@@ -613,6 +613,19 @@ botania.page.terraformRod1=This rod, will, at the cost of some &4Mana&0 from you
 botania.page.terraformRod2=Note that blocks removed by the rod are non-recuperable. The terrain will adapt to the changes as best as it can, up to a distance limit, to avoid cuts in hills and the like, for this, the flattening will work in the terrain's natural look.
 botania.page.terraformRod3=Quite a justicar
 
+# -- MANASTEEL EQUIPMENT
+botania.entry.manaGear=Manasteel Equipment
+botania.page.manaGear0=&1Manasteel&0, alike other metals, can be shaped into tools and armor alike.<br>Tools or armor crafted from this material will share their properties with &1Iron&0, albeit somewhat superior in enchantability and durability. Whenever a &1Manasteel&0 item is to take damage, if there's &4Mana&0 available in the inventory (such as a &1Mana Tablet&0), it'll use that instead.
+botania.page.manaGear1=The &1Manasteel Pick&0
+botania.page.manaGear2=The &1Manasteel Shovel&0
+botania.page.manaGear3=The &1Manasteel Axe&0
+botania.page.manaGear4=The &1Manasteel Shears&0
+botania.page.manaGear5=The &1Manasteel Sword&0
+botania.page.manaGear6=The &1Manasteel Helmet&0
+botania.page.manaGear7=The &1Manasteel Chestplate&0
+botania.page.manaGear8=The &1Manasteel Leggings&0
+botania.page.manaGear9=The &1Manasteel Boots&0
+
 # - MISCLANEOUS
 # -- UNSTABLE CUBE
 botania.entry.unstableBlocks=Unstable Cubes
