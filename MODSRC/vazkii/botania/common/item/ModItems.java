@@ -17,13 +17,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.common.item.magic.ItemDirtRod;
 import vazkii.botania.common.item.magic.ItemTerraformRod;
-import vazkii.botania.common.item.tool.ItemManasteelArmor;
 import vazkii.botania.common.item.tool.ItemManasteelAxe;
 import vazkii.botania.common.item.tool.ItemManasteelPick;
 import vazkii.botania.common.item.tool.ItemManasteelShears;
 import vazkii.botania.common.item.tool.ItemManasteelShovel;
 import vazkii.botania.common.item.tool.ItemManasteelSword;
-import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.item.tool.armor.ItemManasteelBoots;
+import vazkii.botania.common.item.tool.armor.ItemManasteelChest;
+import vazkii.botania.common.item.tool.armor.ItemManasteelHelm;
+import vazkii.botania.common.item.tool.armor.ItemManasteelLegs;
 import vazkii.botania.common.lib.LibOreDict;
 
 public final class ModItems {
@@ -43,7 +45,6 @@ public final class ModItems {
 	public static Item manaCookie;
 	public static Item fertilizer;
 	public static Item grassSeeds;
-	public static Item timeRod;
 	public static Item dirtRod;
 	public static Item terraformRod;
 	public static Item manaMirror;
@@ -76,10 +77,10 @@ public final class ModItems {
 		dirtRod = new ItemDirtRod();
 		terraformRod = new ItemTerraformRod();
 		manaMirror = new ItemManaMirror();
-		manasteelHelm = new ItemManasteelArmor(0, LibItemNames.MANASTEEL_HELM);
-		manasteelChest = new ItemManasteelArmor(1, LibItemNames.MANASTEEL_CHEST);
-		manasteelLegs = new ItemManasteelArmor(2, LibItemNames.MANASTEEL_LEGS);
-		manasteelBoots = new ItemManasteelArmor(3, LibItemNames.MANASTEEL_BOOTS);
+		manasteelHelm = new ItemManasteelHelm();
+		manasteelChest = new ItemManasteelChest();
+		manasteelLegs = new ItemManasteelLegs();
+		manasteelBoots = new ItemManasteelBoots();
 		manasteelPick = new ItemManasteelPick();
 		manasteelShovel = new ItemManasteelShovel();
 		manasteelAxe = new ItemManasteelAxe();
