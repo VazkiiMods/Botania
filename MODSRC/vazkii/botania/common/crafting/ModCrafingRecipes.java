@@ -77,10 +77,11 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeTurntable;
 	public static IRecipe recipeFertilizerPowder;
 	public static IRecipe recipeFerilizerDye;
-	public static IRecipe recipeLivingwoodTwig;
+	public static IRecipe recipeLivingwoodTwig; // TODO
 	public static IRecipe recipeDirtRod;
 	public static IRecipe recipeTerraformRod;
 	public static IRecipe recipeRedstoneSpreader;
+	public static IRecipe recipeManaMirror;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -357,6 +358,15 @@ public final class ModCrafingRecipes {
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.spreader, 1, 1), 
 				new ItemStack(ModBlocks.spreader), new ItemStack(Items.redstone));
 		recipeRedstoneSpreader = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Mana Miror Recipe
+		addOreDictRecipe(new ItemStack(ModItems.manaMirror), 
+				" PR", " SP", "T  ",
+				'P', LibOreDict.MANA_PEARL,
+				'R', LibOreDict.LIVING_ROCK,
+				'S', LibOreDict.LIVINGWOOD_TWIG,
+				'T', new ItemStack(ModItems.manaTablet, 1, -1));
+		recipeManaMirror = BotaniaAPI.getLatestAddedRecipe();
 	}
 
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {

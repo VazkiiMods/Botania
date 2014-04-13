@@ -183,7 +183,8 @@ public final class LexiconData {
 		manaVoid.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeManaVoid));
 
 		manaTransport = new BLexiconEntry(LibLexicon.MANA_TRANSPORT, categoryMana);
-		manaTransport.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCrafingRecipes.recipesManaTablet));
+		manaTransport.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCrafingRecipes.recipesManaTablet),
+				new PageText("3"), new PageCraftingRecipe("4", ModCrafingRecipes.recipeManaMirror));
 
 		manaDetector = new BLexiconEntry(LibLexicon.MANA_DETECTOR, categoryMana);
 		manaDetector.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeManaDetector));
