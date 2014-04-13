@@ -257,7 +257,7 @@ item.botania:grassSeeds0.name=Pasture Seeds
 item.botania:grassSeeds1.name=Boreal Seeds
 item.botania:grassSeeds2.name=Infection Seeds
 item.botania:livingwoodTwig.name=Livingwood Twig
-item.botania:timeRod.name=Rod of Flowing Time
+item.botania:timeRod.name=Rod of Flowing Time [NYI]
 item.botania:dirtRod.name=Rod of the Lands
 item.botania:terraformRod.name=Terra Firma Rod
 
