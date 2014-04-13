@@ -18,6 +18,8 @@ import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.common.item.magic.ItemDirtRod;
 import vazkii.botania.common.item.magic.ItemTerraformRod;
 import vazkii.botania.common.item.magic.ItemTimeRod;
+import vazkii.botania.common.item.tool.ItemManasteelArmor;
+import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibOreDict;
 
 public final class ModItems {
@@ -41,6 +43,10 @@ public final class ModItems {
 	public static Item dirtRod;
 	public static Item terraformRod;
 	public static Item manaMirror;
+	public static Item manasteelHelm;
+	public static Item manasteelChest;
+	public static Item manasteelLegs;
+	public static Item manasteelBoots;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -62,6 +68,10 @@ public final class ModItems {
 		dirtRod = new ItemDirtRod();
 		terraformRod = new ItemTerraformRod();
 		manaMirror = new ItemManaMirror();
+		manasteelHelm = new ItemManasteelArmor(0, LibItemNames.MANASTEEL_HELM);
+		manasteelChest = new ItemManasteelArmor(1, LibItemNames.MANASTEEL_CHEST);
+		manasteelLegs = new ItemManasteelArmor(2, LibItemNames.MANASTEEL_LEGS);
+		manasteelBoots = new ItemManasteelArmor(3, LibItemNames.MANASTEEL_BOOTS);
 
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {

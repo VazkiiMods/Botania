@@ -50,6 +50,9 @@ public final class LibResources {
 	public static final String MODEL_PYLON_OLD = PREFIX_MODEL + "pylonOld.png";
 	public static final String MODEL_PYLON = PREFIX_MODEL + "pylon.png";
 	public static final String MODEL_LEXICA = PREFIX_MODEL + "lexica.png";
+	public static final String MODEL_MANASTEEL_0 = PREFIX_MODEL + "manasteel0.png";
+	public static final String MODEL_MANASTEEL_1 = PREFIX_MODEL + "manasteel1.png";
+	
 	public static final String MODEL_CAPE = "/assets/botania/textures/model/cape.png";
 
 	public static final String MISC_PARTICLES = PREFIX_MISC + "particles.png";

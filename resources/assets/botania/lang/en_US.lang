@@ -261,6 +261,10 @@ item.botania:timeRod.name=Rod of Flowing Time [NYI]
 item.botania:dirtRod.name=Rod of the Lands
 item.botania:terraformRod.name=Terra Firma Rod
 item.botania:manaMirror.name=Mana Mirror
+item.botania:manasteelHelm.name=Manasteel Helm
+item.botania:manasteelChest.name=Manasteel Breastplate
+item.botania:manasteelLegs.name=Manasteel Platelegs
+item.botania:manasteelBoots.name=Manasteel Boots
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania Index - Pick which category you would like to study:

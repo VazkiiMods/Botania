@@ -34,6 +34,10 @@ public final class LibItemNames {
 	public static final String DIRT_ROD = LibResources.PREFIX_MOD + "dirtRod";
 	public static final String TERRAFORM_ROD = LibResources.PREFIX_MOD + "terraformRod";
 	public static final String MANA_MIRROR = LibResources.PREFIX_MOD + "manaMirror";
+	public static final String MANASTEEL_HELM = LibResources.PREFIX_MOD + "manasteelHelm";
+	public static final String MANASTEEL_CHEST = LibResources.PREFIX_MOD + "manasteelChest";
+	public static final String MANASTEEL_LEGS = LibResources.PREFIX_MOD + "manasteelLegs";
+	public static final String MANASTEEL_BOOTS = LibResources.PREFIX_MOD + "manasteelBoots";
 
 	public static final String[] LENS_NAMES = new String[] {
 		LibResources.PREFIX_MOD + "lensNormal",
