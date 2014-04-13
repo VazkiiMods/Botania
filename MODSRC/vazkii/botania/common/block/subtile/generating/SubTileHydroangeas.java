@@ -77,7 +77,7 @@ public class SubTileHydroangeas extends SubTileGenerating {
 
 	@Override
 	public int getValueForPassiveGeneration(){
-		return 2;
+		return 1;
 	}
 
 	@Override
