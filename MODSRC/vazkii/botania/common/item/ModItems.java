@@ -40,6 +40,7 @@ public final class ModItems {
 	public static Item timeRod;
 	public static Item dirtRod;
 	public static Item terraformRod;
+	public static Item manaMirror;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -60,6 +61,7 @@ public final class ModItems {
 		timeRod = new ItemTimeRod();
 		dirtRod = new ItemDirtRod();
 		terraformRod = new ItemTerraformRod();
+		manaMirror = new ItemManaMirror();
 
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {

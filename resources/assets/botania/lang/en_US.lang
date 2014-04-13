@@ -260,6 +260,7 @@ item.botania:livingwoodTwig.name=Livingwood Twig
 item.botania:timeRod.name=Rod of Flowing Time [NYI]
 item.botania:dirtRod.name=Rod of the Lands
 item.botania:terraformRod.name=Terra Firma Rod
+item.botania:manaMirror.name=Mana Mirror
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania Index - Pick which category you would like to study:
