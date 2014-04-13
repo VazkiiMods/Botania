@@ -17,7 +17,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.common.item.magic.ItemDirtRod;
 import vazkii.botania.common.item.magic.ItemTerraformRod;
-import vazkii.botania.common.item.magic.ItemTimeRod;
 import vazkii.botania.common.item.tool.ItemManasteelArmor;
 import vazkii.botania.common.item.tool.ItemManasteelAxe;
 import vazkii.botania.common.item.tool.ItemManasteelPick;
@@ -74,7 +73,6 @@ public final class ModItems {
 		manaCookie = new ItemManaCookie();
 		fertilizer = new ItemFertilizer();
 		grassSeeds = new ItemGrassSeeds();
-		timeRod = new ItemTimeRod();
 		dirtRod = new ItemDirtRod();
 		terraformRod = new ItemTerraformRod();
 		manaMirror = new ItemManaMirror();
