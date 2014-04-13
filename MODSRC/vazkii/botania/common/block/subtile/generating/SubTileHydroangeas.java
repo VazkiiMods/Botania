@@ -76,11 +76,6 @@ public class SubTileHydroangeas extends SubTileGenerating {
 	}
 
 	@Override
-	public int getValueForPassiveGeneration(){
-		return 1;
-	}
-
-	@Override
 	public int getColor(){
 		return 0x532FE0;
 	}
@@ -111,7 +106,7 @@ public class SubTileHydroangeas extends SubTileGenerating {
 
 	@Override
 	public int getDelayBetweenPassiveGeneration() {
-		return 2;
+		return 4;
 	}
 
 }
