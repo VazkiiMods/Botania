@@ -16,8 +16,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.common.util.EnumHelper;
@@ -47,8 +48,9 @@ public final class BotaniaAPI {
 
 	public static Map<String, Integer> oreWeights = new HashMap<String, Integer>();
 
-	public static ArmorMaterial mansteelArmorMaterial = EnumHelper.addArmorMaterial("MANASTEEL", 16, new int[]{ 2, 6, 5, 2 }, 18);
-	
+	public static ArmorMaterial manasteelArmorMaterial = EnumHelper.addArmorMaterial("MANASTEEL", 16, new int[]{ 2, 6, 5, 2 }, 18);
+//	public static ToolMaterial a
+
 	static {
 		registerSubTile("", DummySubTile.class);
 
