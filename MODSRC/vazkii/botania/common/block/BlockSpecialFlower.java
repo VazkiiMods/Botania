@@ -70,7 +70,9 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 		LibBlockNames.SUBTILE_FALLEN_KANADE,
 		LibBlockNames.SUBTILE_EXOFLAME,
 		LibBlockNames.SUBTILE_AGRICARNATION,
-		LibBlockNames.SUBTILE_HOPPERHOCK
+		LibBlockNames.SUBTILE_HOPPERHOCK,
+		LibBlockNames.SUBTILE_TANGLEBERRIE,
+		LibBlockNames.SUBTILE_JIYUULIA
 	};
 
 	protected BlockSpecialFlower() {

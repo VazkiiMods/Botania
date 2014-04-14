@@ -24,6 +24,8 @@ import vazkii.botania.common.block.subtile.functional.SubTileFallenKanade;
 import vazkii.botania.common.block.subtile.functional.SubTileHeiseiDream;
 import vazkii.botania.common.block.subtile.functional.SubTileHopperhock;
 import vazkii.botania.common.block.subtile.functional.SubTileJadedAmaranthus;
+import vazkii.botania.common.block.subtile.functional.SubTileJiyuulia;
+import vazkii.botania.common.block.subtile.functional.SubTileTangleberrie;
 import vazkii.botania.common.block.subtile.functional.SubTileTigerseye;
 import vazkii.botania.common.block.subtile.functional.SubtileOrechid;
 import vazkii.botania.common.block.subtile.generating.SubTileArcaneRose;
@@ -130,6 +132,8 @@ public final class ModBlocks {
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_EXOFLAME, SubTileExoflame.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_AGRICARNATION, SubTileAgricarnation.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_HOPPERHOCK, SubTileHopperhock.class);
+		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_TANGLEBERRIE, SubTileTangleberrie.class);
+		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_JIYUULIA, SubTileJiyuulia.class);
 	}
 
 	private static void registerMultiparts() {

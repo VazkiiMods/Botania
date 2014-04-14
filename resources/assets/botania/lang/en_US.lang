@@ -152,6 +152,12 @@ tile.botania:flower.agricarnation.name=Agricarnation
 tile.botania:flower.agricarnation.reference=Wear on the 25th of april
 tile.botania:flower.hopperhock.name=Hopperhock
 tile.botania:flower.hopperhock.reference=It all funnels into it
+tile.botania:flower.tangleberrie.name=Tangleberrie
+tile.botania:flower.tangleberrie.reference=No frying pans allowed
+tile.botania:flower.jiyuulia.name=Jiyuulia
+tile.botania:flower.jiyuulia.reference=Flugel der Freiheit
+# TRANSLATE THAT VEXATOS
+
 
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania
