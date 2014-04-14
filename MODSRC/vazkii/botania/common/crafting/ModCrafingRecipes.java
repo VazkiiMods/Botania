@@ -376,10 +376,11 @@ public final class ModCrafingRecipes {
 		
 		// Mana Miror Recipe
 		addOreDictRecipe(new ItemStack(ModItems.manaMirror), 
-				" PR", " SP", "T  ",
+				" PR", " SI", "T  ",
 				'P', LibOreDict.MANA_PEARL,
 				'R', LibOreDict.LIVING_ROCK,
 				'S', LibOreDict.LIVINGWOOD_TWIG,
+				'I', LibOreDict.TERRA_STEEL,
 				'T', new ItemStack(ModItems.manaTablet, 1, -1));
 		recipeManaMirror = BotaniaAPI.getLatestAddedRecipe();
 		
