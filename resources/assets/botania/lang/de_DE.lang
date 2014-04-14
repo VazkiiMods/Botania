@@ -70,7 +70,8 @@ tile.botania:livingwood2.name=Bemooste Lebeholzbretter
 tile.botania:livingwood3.name=Gerahmtes Lebeholz
 tile.botania:livingwood4.name=Schnittgerahmtes Lebeholz
 tile.botania:livingwood5.name=Schimmerndes Lebeholz
-tile.botania:spreader.name=Mana-Verbreiter
+tile.botania:spreader0.name=Manaverbreiter
+tile.botania:spreader1.name=Redstone-Manaverbreiter
 tile.botania:pool.name=Mana-Pool
 tile.botania:runeAltar.name=Runenaltar
 tile.botania:unstableBlock0.name=Weißer Instabiler Würfel
@@ -90,7 +91,7 @@ tile.botania:unstableBlock13.name=Grüner Instabiler Würfel
 tile.botania:unstableBlock14.name=Roter Instabiler Würfel
 tile.botania:unstableBlock15.name=Schwarzer Instabiler Würfel
 tile.botania:pistonRelay.name=Kraftrelais
-tile.botania:distributor.name=Mana-Verteiler
+tile.botania:distributor.name=Manaverteiler
 tile.botania:pylon.name=Manapylon
 tile.botania:manaBeacon0.name=Weißes Instabiles Leuchtfeuer
 tile.botania:manaBeacon1.name=Oranges Instabiles Leuchtfeuer
@@ -108,9 +109,9 @@ tile.botania:manaBeacon12.name=Braunes Instabiles Leuchtfeuer
 tile.botania:manaBeacon13.name=Grünes Instabiles Leuchtfeuer
 tile.botania:manaBeacon14.name=Rotes Instabiles Leuchtfeuer
 tile.botania:manaBeacon15.name=Schwarzes Instabiles Leuchtfeuer
-tile.botania:manaVoid.name=Mana-Leere
-tile.botania:manaDetector.name=Mana-Detektor
-tile.botania:enchanter.name=Mana-Verzauberer
+tile.botania:manaVoid.name=Manaleere
+tile.botania:manaDetector.name=Mandetektor
+tile.botania:enchanter.name=Manaverzauberer
 tile.botania:turntable.name=Verbreiter-Drehscheibe
 
 # FLOWER NAMES
@@ -252,7 +253,23 @@ item.botania:manaGun.name=Mana-Blaster
 item.botania:compositeLens.name=Verbundmanalinse: %s %s
 item.botania:manaCookie.name=Manakeks
 item.botania:fertilizer.name=Blumendünger
+item.botania:grassSeeds0.name=Weidesamen
+item.botania:grassSeeds1.name=Boreale Samen
+item.botania:grassSeeds2.name=Infektionssamen
 item.botania:livingwoodTwig.name=Lebeholzzweig
+item.botania:dirtRod.name=Stab der Böden
+item.botania:terraformRod.name=Terrafirmastab
+item.botania:manaMirror.name=Manaspiegel
+item.botania:manasteelHelm.name=Manastahlhelm
+item.botania:manasteelChest.name=Manastahlbrustpanzer
+item.botania:manasteelLegs.name=Manastahlbeinschutz
+item.botania:manasteelBoots.name=Manastahlstiefel
+item.botania:manasteelPick.name=Manastahlspitzhacke
+item.botania:manasteelShovel.name=Manastahlschaufel
+item.botania:manasteelAxe.name=Manastahlaxt
+item.botania:manasteelSword.name=Manastahlschwert
+item.botania:manasteelShears.name=Manastahlschere
+item.botania:grassHorn.name=Horn der Wildnis
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania Index - Wähle, welche Kategorie du studieren möchtest:
@@ -297,8 +314,9 @@ botania.page.apothecary4=Crafting the &1Petal Apothecary&0.
 # -- PURE DAISY
 botania.entry.pureDaisy=Reines Gänseblümchen
 botania.page.pureDaisy0=The &1Pure Daisy&0 is not only the most basic, but also the most important flower a botanist can have.<br>This flower will purify any adjacent &1Wood&0 and &1Stone&0 blocks, as seen on the next page, into their purified counterparts, &1Livingwood&0 and &1Livingrock&0, which can be used for crafting.  
-botania.page.pureDaisy1=Just give it &4a minute&0 or so...
-botania.page.pureDaisy2=White is bright and pure
+botania.page.pureDaisy1=Gib ihr einfach &4eine Munute&0 oder so...
+botania.page.pureDaisy2=&1Lebeholz&0 kann zu Zweigen gemacht werden
+botania.page.pureDaisy3=Weiß ist hell und rein
 
 # -- WAND OF THE FOREST
 botania.entry.wand=Stab des Waldes
@@ -336,7 +354,7 @@ botania.page.mIntro1=In order to create &4Mana&0, one would require a set of &4G
 botania.page.mIntro2=To get started with mastering the art of &4Mana&0, one would start by learning how to use &1Dayblooms&0, &1Mana Spreaders&0 and &1Mana Pools&0.<br>These form a basic infrastructure for mana, which can be used for all sorts of purposes. Have a read at the &4Functional Flora&0 and &4Magical Apparatus&0 sections of this Lexicon. 
 
 # -- MANA SPREADER
-botania.entry.spreader=Mana-Verbreiter
+botania.entry.spreader=Manaverbreiter
 botania.page.spreader0=The &1Mana Spreader&0 is the most important component in manipulating &4Mana&0.<br>This is the block that allows &4Mana&0 to travel from point A to point B. When this block is placed on the ground, it'll face one of 6 basic directions. By shift-right clicking it with a &1Wand of the Forest&0, one can orient it to the opposite of where it was clicked. 
 botania.page.spreader1=Holding a &1Wand of the Forest&0
 botania.page.spreader2=The &1Mana Spreader&0 has a small internal buffer of &4Mana&0, which will get filled by nearby &4Generating Flowers&0. This buffer can be viewed by looking at the &1Spreader&0 with a &1Wand of the Forest&0, as demonstrated in the last page.<br>Note that the block needs to be right clicked with a wand to get accurate and adequate values.  
@@ -360,12 +378,12 @@ botania.page.pool6=Infusing &1Mana Petals&0
 botania.page.pool7=&1Mana Cookies&0 feed you pretty well.
 
 # -- MANA DISTRIBUTOR
-botania.entry.distributor=Mana-Verteiler
+botania.entry.distributor=Manaverteiler
 botania.page.distributor0=Any botanist will eventually reach a point where a single &1Mana Pool&0 setup is not enough.<br>The &1Mana Distributor&0 will fix all those issues. By placing it adjacently to a few &1Mana Pools&0 on its sides, when it receives &4Mana&0 through &4Mana Bursts&0 it'll equally spread it to the adjacent pools. 
 botania.page.distributor1=Crafting the distributor
 
 # -- MANA VOID
-botania.entry.manaVoid=Mana-Leere
+botania.entry.manaVoid=Manaleere
 botania.page.manaVoid0=The &1Mana Void&0 is, in layman's terms, the grave for &4Mana&0. Any &4Mana&0 shot into this block will simply vanish into the void, never to be seen again.<br>Placing one of these under a &1Mana Pool&0 allows the pool to always accept &4Mana&0, but disposing any it can't hold.
 botania.page.manaVoid1=Crafting the void block
 
@@ -429,15 +447,22 @@ botania.entry.manaTransport=Tragbares Transportieren von Mana
 botania.page.manaTransport0=While using &1Mana Spreaders&0 to transport &4Mana&0 around is all well and good, there is also a way of doing it in a different manner.<br>The &1Mana Tablet&0 is a portable object which can carry &4Mana&0 on itself.
 botania.page.manaTransport1=Tossing one of these on top of a &1Mana Pool&0 will allow for transport of &4Mana&0 between one and another.<br>Shift-right clicking the &1Mana Pool&0 with a &1Wand of the Forest&0 will change in which way the &4Mana&0 flows.<br>Lastly, unlike normal items, these will never despawn when dropped on the floor.
 botania.page.manaTransport2=This doesn't run android
+botania.page.manaTransport3=It's also possible to indirectly access the &4Mana&0 reserves of a &1Mana Pool&0, through using a &1Mana Mirror&0, items will pull out of the pool itself.<br>To bind a mirror to a pool, one would simply &4shift right-click&0 a pool with the mirror.<br>The mirror can't put mana in or take mana out of pools in any other way.
+botania.page.manaTransport4=Spieglein, Spieglein an der Wand...
 
 # -- MANA DETECTOR
-botania.entry.manaDetector=Mana-Detektor
+botania.entry.manaDetector=Manadetektor
 botania.page.manaDetector0=A device like the &1Mana Detector&0 is capable to detect when a &4Mana Burst&0 starts flowing through it (the burst doesn't dissipate on collision with this block) and provide a redstone signal when that is the case.
 botania.page.manaDetector1=Crafting the detector
 
 # -- COMPOSITE MANA LENSES
 botania.entry.compositeLens=Verbundmanalinse
 botania.page.compositeLens0=Having a single &1Mana Lens&0 in a spreader just isn't enough sometimes. By combining two lenses with a &1Slimeball&0 in a crafting table, it's possible to unite them into one, and keep the effects of both.<br>The first lens used determines the visuals (texture and color). It's to note that some combinations will not work, and that two lenses of the same type can't be stacked.
+
+# -- REDSTONE MANA SPREADER
+botania.entry.redstoneSpreader=Redstone-Manaverbreiter
+botania.page.redstoneSpreader0=By combining a &1Mana Spreader&0 with a piece of &1Redstone&0, it's possible to create a &1Redstone Mana Spreader&0, which fires only when given a &4Redstone signal&0, regardless of having a block in the end to put the mana or not.<br>It's to keep in note that this doesn't let the spreader shoot a burst until the last one dissipates or is absorbed.
+botania.page.redstoneSpreader1=Just add redstone
 
 # - FUNCTIONAL FLOWERS
 # -- AN INTRODUCTION TO FUNCTION
@@ -568,6 +593,43 @@ botania.page.manaBlaster0=The &1Mana Blaster&0 is like a portable &1Mana Spreade
 botania.page.manaBlaster1=This burst is a bit different from the one fired from speaders, as it's faster, but carries only three quarters of the mana a spreader burst would. There's also a short cooldown period after firing the blaster until another burst can be shot.
 botania.page.manaBlaster2=&1Mana Lenses&0 also function with the blaster, to attach one to it, put them side by side on a crafting table, to remove it, simply shift-right click the blaster.
 botania.page.manaBlaster3=Crafting the blaster
+
+# -- PASTURE SEEDS
+botania.entry.grassSeeds=Weidesamen
+botania.page.grassSeeds0=Watching grass spread is seldom a fun activity. By infusing some &1Tall Grass&0 with &4Mana&0, it's possible to create &1Pasture Seeds&0, which will grow grass in any barren area, via a simple right click on dirt.<br>Other types of folliage can also be grown, such a &1Podzol&0 or &1Mycellium&0 with alternate seeds.
+botania.page.grassSeeds1=&1Weidesamen&0 für Gras
+botania.page.grassSeeds2=&1Boreale Samen&0 für Podsol
+botania.page.grassSeeds3=&1Infektionssamen&0 für Myzel
+
+# -- ROD THE LANDS
+botania.entry.dirtRod=Stab der Böden
+botania.page.dirtRod0=The &1Rod of the Lands&0 is a rather simpleton tool, by utilizing &4Mana&0 from your inventory (via a &1Mana Tablet&0 or others), it can materialize and place a &1Dirt&0 block down.
+botania.page.dirtRod1=Ziemlich dreckig
+
+# -- TERRA FIRMA ROD
+botania.entry.terraformRod=Terrafirmastab
+botania.page.terraformRod0=While digging away at dirt with a shovel is definitely functional, flattening huge tracts of land can get somewhat tortuous at times.<br>By utilizing the &1Terra Firma Rod&0, it's possible to terraform in a quick and enviromental friendly manner.
+botania.page.terraformRod1=This rod, will, at the cost of some &4Mana&0 from your inventory, flatten the land to the level you are standing. For this to happen, charge it by &4holding right-click&0 and, slowly but surely, the nearby terrain will be flattened to your level, either by placing &1Dirt&0 or by removing blocks.
+botania.page.terraformRod2=Note that blocks removed by the rod are non-recuperable. The terrain will adapt to the changes as best as it can, up to a distance limit, to avoid cuts in hills and the like, for this, the flattening will work in the terrain's natural look.
+botania.page.terraformRod3=Quite a justicar
+
+# -- MANASTEEL EQUIPMENT
+botania.entry.manaGear=Manastahl-Equipment
+botania.page.manaGear0=&1Manasteel&0, alike other metals, can be shaped into tools and armor alike.<br>Tools or armor crafted from this material will share their properties with &1Iron&0, albeit somewhat superior in enchantability and durability. Whenever a &1Manasteel&0 item is to take damage, if there's &4Mana&0 available in the inventory (such as a &1Mana Tablet&0), it'll use that instead.
+botania.page.manaGear1=Die &1Manastahlspitzhacke&0
+botania.page.manaGear2=Die &1Manastahlschaufel&0
+botania.page.manaGear3=Die &1Manastahlaxt&0
+botania.page.manaGear4=Die &1Manastahlschere&0
+botania.page.manaGear5=Das &1Manastahlschwert&0
+botania.page.manaGear6=Der &1Manastahlhelm&0
+botania.page.manaGear7=Der &1Manastahlbrustpanzer&0
+botania.page.manaGear8=Der &1Manastahlbeinschutz&0
+botania.page.manaGear9=Die &1Manastahlstiefel&0
+
+# -- Horn of the Wild
+botania.entry.grassHorn=Horn der Wildnis
+botania.page.grassHorn0=Clearing out &1Tall Grass&0 by hand can definitely be a nuisance.<br>Simply blowing the &1Horn of the Wild&0 will quickly cause any nearby vegetation to uproot, leaving behind drops as if it had been broken by hand.
+botania.page.grassHorn1=Crafting the horn
 
 # - MISCLANEOUS
 # -- UNSTABLE CUBE
