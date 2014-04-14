@@ -37,7 +37,11 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor {
 	private static final int MANA_PER_DAMAGE = 70;
 	
 	public ItemManasteelArmor(int type, String name) {
-		super(BotaniaAPI.manasteelArmorMaterial, 0, type);
+		this(type, name, BotaniaAPI.manasteelArmorMaterial);
+	}
+	
+	public ItemManasteelArmor(int type, String name, ArmorMaterial mat) {
+		super(mat, 0, type);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setUnlocalizedName(name);
 	}

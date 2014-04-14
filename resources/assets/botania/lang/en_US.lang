@@ -270,6 +270,11 @@ item.botania:manasteelAxe.name=Manasteel Axe
 item.botania:manasteelSword.name=Manasteel Sword
 item.botania:manasteelShears.name=Manasteel Shears
 item.botania:grassHorn.name=Horn of the Wild
+item.botania:terrasteel.name=Terrasteel Ingot
+item.botania:terrasteelHelm.name=Terrasteel Helmet
+item.botania:terrasteelChest.name=Terrasteel Chestplate
+item.botania:terrasteelLegs.name=Terrasteel Leggings
+item.botania:terrasteelBoots.name=Terrasteel Boots
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania Index - Pick which category you would like to study:

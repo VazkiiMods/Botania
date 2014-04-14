@@ -43,6 +43,10 @@ public final class LibItemNames {
 	public static final String MANASTEEL_SWORD = LibResources.PREFIX_MOD + "manasteelSword";
 	public static final String MANASTEEL_SHEARS = LibResources.PREFIX_MOD + "manasteelShears";
 	public static final String GRASS_HORN = LibResources.PREFIX_MOD + "grassHorn";
+	public static final String TERRASTEEL_HELM = LibResources.PREFIX_MOD + "terrasteelHelm";
+	public static final String TERRASTEEL_CHEST = LibResources.PREFIX_MOD + "terrasteelChest";
+	public static final String TERRASTEEL_LEGS = LibResources.PREFIX_MOD + "terrasteelLegs";
+	public static final String TERRASTEEL_BOOTS = LibResources.PREFIX_MOD + "terrasteelBoots";
 
 	public static final String[] LENS_NAMES = new String[] {
 		LibResources.PREFIX_MOD + "lensNormal",
@@ -63,6 +67,7 @@ public final class LibItemNames {
 		LibResources.PREFIX_MOD + "manasteel",
 		LibResources.PREFIX_MOD + "manaPearl",
 		LibResources.PREFIX_MOD + "manaDiamond",
-		LibResources.PREFIX_MOD + "livingwoodTwig"
+		LibResources.PREFIX_MOD + "livingwoodTwig",
+		LibResources.PREFIX_MOD + "terrasteel"
 	};
 }

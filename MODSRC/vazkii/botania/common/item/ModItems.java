@@ -24,6 +24,10 @@ import vazkii.botania.common.item.tool.armor.ItemManasteelBoots;
 import vazkii.botania.common.item.tool.armor.ItemManasteelChest;
 import vazkii.botania.common.item.tool.armor.ItemManasteelHelm;
 import vazkii.botania.common.item.tool.armor.ItemManasteelLegs;
+import vazkii.botania.common.item.tool.armor.ItemTerrasteelBoots;
+import vazkii.botania.common.item.tool.armor.ItemTerrasteelChest;
+import vazkii.botania.common.item.tool.armor.ItemTerrasteelHelm;
+import vazkii.botania.common.item.tool.armor.ItemTerrasteelLegs;
 import vazkii.botania.common.lib.LibOreDict;
 
 public final class ModItems {
@@ -45,6 +49,7 @@ public final class ModItems {
 	public static Item grassSeeds;
 	public static Item dirtRod;
 	public static Item terraformRod;
+	public static Item grassHorn;
 	public static Item manaMirror;
 	public static Item manasteelHelm;
 	public static Item manasteelChest;
@@ -55,7 +60,10 @@ public final class ModItems {
 	public static Item manasteelAxe;
 	public static Item manasteelSword;
 	public static Item manasteelShears;
-	public static Item grassHorn;
+	public static Item terrasteelHelm;
+	public static Item terrasteelChest;
+	public static Item terrasteelLegs;
+	public static Item terrasteelBoots;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -75,6 +83,7 @@ public final class ModItems {
 		grassSeeds = new ItemGrassSeeds();
 		dirtRod = new ItemDirtRod();
 		terraformRod = new ItemTerraformRod();
+		grassHorn = new ItemGrassHorn();
 		manaMirror = new ItemManaMirror();
 		manasteelHelm = new ItemManasteelHelm();
 		manasteelChest = new ItemManasteelChest();
@@ -85,7 +94,10 @@ public final class ModItems {
 		manasteelAxe = new ItemManasteelAxe();
 		manasteelSword = new ItemManasteelSword();
 		manasteelShears = new ItemManasteelShears();
-		grassHorn = new ItemGrassHorn();
+		terrasteelHelm = new ItemTerrasteelHelm();
+		terrasteelChest = new ItemTerrasteelChest();
+		terrasteelLegs = new ItemTerrasteelLegs();
+		terrasteelBoots = new ItemTerrasteelBoots();
 		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
