@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockBush;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -492,8 +493,9 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 		if(movingobjectposition.entityHit == null) {
 			TileEntity tile = worldObj.getTileEntity(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ);
-			
-			if(tile instanceof IManaCollisionGhost && ((IManaCollisionGhost) tile).isGhost())
+			Block block = worldObj.getBlock(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ);
+
+			if((tile instanceof IManaCollisionGhost && ((IManaCollisionGhost) tile).isGhost()) || block instanceof BlockBush)
 				return;
 
 			ChunkCoordinates coords = getBurstSourceChunkCoordinates();
