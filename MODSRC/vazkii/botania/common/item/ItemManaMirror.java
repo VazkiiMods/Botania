@@ -76,6 +76,11 @@ public class ItemManaMirror extends ItemMod implements IManaItem {
 	public IIcon getIcon(ItemStack stack, int pass) {
 		return icons[Math.min(1, pass)];
 	}
+	
+	@Override
+	public boolean isFull3D() {
+		return true;
+	}
 
 	@Override
 	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {

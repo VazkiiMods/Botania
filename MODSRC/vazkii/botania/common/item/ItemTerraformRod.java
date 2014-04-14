@@ -132,6 +132,11 @@ public class ItemTerraformRod extends ItemMod {
 			}
 		}
 	}
+	
+	@Override
+	public boolean isFull3D() {
+		return true;
+	}
 
 	class CoordsWithBlock extends ChunkCoordinates {
 
