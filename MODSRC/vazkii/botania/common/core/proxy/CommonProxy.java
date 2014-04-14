@@ -19,9 +19,11 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.BiomeDecorationHandler;
+import vazkii.botania.common.core.handler.CommonTickHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.InternalMethodHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
+import vazkii.botania.common.core.handler.TerrasteelCraftingHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.crafting.ModCrafingRecipes;
 import vazkii.botania.common.crafting.ModManaInfusionRecipes;
@@ -31,6 +33,7 @@ import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.network.GuiHandler;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -60,6 +63,8 @@ public class CommonProxy {
 
 		MinecraftForge.TERRAIN_GEN_BUS.register(new BiomeDecorationHandler());
 		MinecraftForge.EVENT_BUS.register(ManaNetworkHandler.instance);
+		
+		FMLCommonHandler.instance().bus().register(new CommonTickHandler());
 	}
 
 	public void postInit(FMLPostInitializationEvent event) {
