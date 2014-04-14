@@ -91,6 +91,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeManasteelAxe;
 	public static IRecipe recipeManasteelShears;
 	public static IRecipe recipeManasteelSword;
+	public static IRecipe recipeGrassHorn;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -418,6 +419,13 @@ public final class ModCrafingRecipes {
 				"S ", " S",
 				'S', LibOreDict.MANA_STEEL);
 		recipeManasteelShears = BotaniaAPI.getLatestAddedRecipe();
+		
+		// HORN OF THE WILD RECIPE
+		addOreDictRecipe(new ItemStack(ModItems.grassHorn), 
+				" W ", "WSW", "WW ",
+				'W', LibOreDict.LIVING_WOOD,
+				'S', new ItemStack(ModItems.grassSeeds));
+		recipeGrassHorn = BotaniaAPI.getLatestAddedRecipe();
 	}
 
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {

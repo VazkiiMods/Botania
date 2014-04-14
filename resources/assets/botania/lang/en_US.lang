@@ -626,6 +626,11 @@ botania.page.manaGear7=The &1Manasteel Chestplate&0
 botania.page.manaGear8=The &1Manasteel Leggings&0
 botania.page.manaGear9=The &1Manasteel Boots&0
 
+# -- Horn of the Wild
+botania.entry.grassHorn=Horn of the Wild
+botania.page.grassHorn0=Clearing out &1Tall Grass&0 by hand can definitely be a nuisance.<br>Simply blowing the &1Horn of the Wild&0 will quickly cause any nearby vegetation to uproot, leaving behind drops as if it had been broken by hand.
+botania.page.grassHorn1=Crafting the horn
+
 # - MISCLANEOUS
 # -- UNSTABLE CUBE
 botania.entry.unstableBlocks=Unstable Cubes

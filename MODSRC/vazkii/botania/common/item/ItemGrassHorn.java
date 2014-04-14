@@ -24,6 +24,7 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
+import vazkii.botania.api.ISpecialFlower;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemGrassHorn extends ItemMod {
@@ -52,7 +53,7 @@ public class ItemGrassHorn extends ItemMod {
 
 	@Override
 	public void onUsingTick(ItemStack stack, EntityPlayer player, int time) {
-		if(time != getMaxItemUseDuration(stack) && time % 10 == 0) {
+		if(time != getMaxItemUseDuration(stack) && time % 5 == 0) {
 			Random rand = new Random((int) player.posX ^ (int) player.posZ);
 			int range = 12;
 			List<ChunkCoordinates> coords = new ArrayList();
@@ -64,13 +65,14 @@ public class ItemGrassHorn extends ItemMod {
 						int y = (int) player.posY + k;
 						int z = (int) player.posZ + j;
 
-						if(player.worldObj.getBlock(x, y, z) instanceof BlockBush)
+						Block block = player.worldObj.getBlock(x, y, z);
+						if(block instanceof BlockBush && !(block instanceof ISpecialFlower))
 							coords.add(new ChunkCoordinates(x, y, z));
 					}
 
 			Collections.shuffle(coords, rand);
 
-			int count = Math.min(coords.size(), 45);
+			int count = Math.min(coords.size(), 32);
 			for(int i = 0; i < count; i++) {
 				ChunkCoordinates currCoords = coords.get(i);
 				List<ItemStack> items = new ArrayList();
@@ -91,5 +93,4 @@ public class ItemGrassHorn extends ItemMod {
 		if(!player.worldObj.isRemote)
 			player.worldObj.playSoundAtEntity(player, "note.bassattack", 1F, 0.001F);
 	}
-
 }
