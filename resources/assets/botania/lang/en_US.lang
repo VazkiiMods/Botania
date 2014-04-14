@@ -650,6 +650,11 @@ botania.page.terrasteelArmor2=The &1Terrasteel Chestplate&0
 botania.page.terrasteelArmor3=The &1Terrasteel Leggings&0
 botania.page.terrasteelArmor4=The &1Terrasteel Boots&0
 
+# -- TERRA BLADE
+botania.entry.terraSword=Terra Blade
+botania.page.terraSword0=The &1Terra Blade&0, crafted from &1Terrasteel Ingots&0, is a sword infused with natural strength. Not only does it par with a &1Diamond Sword&0 in terms of strength and it uses &4Mana&0 from the inventory like &1Manasteel Tools&0, but when it's swinged, there's a chance for it to create a beam that will deal as much damage as a melee hit.
+botania.page.terraSword1=No Broken Hero Sword
+
 # - MISCLANEOUS
 # -- UNSTABLE CUBE
 botania.entry.unstableBlocks=Unstable Cubes

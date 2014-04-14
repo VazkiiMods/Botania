@@ -83,7 +83,8 @@ public final class LibLexicon {
 	public static final String TOOL_MANASTEEL_GEAR = "manaGear";
 	public static final String TOOL_TERRASTEEL_ARMOR = "terrasteelArmor";
 	public static final String TOOL_GRASS_HORN = "grassHorn";
-
+	public static final String TOOL_TERRA_SWORD = "terraSword";
+	
 	public static final String MISC_UNSTABLE_BLOCKS = "unstableBlocks";
 	public static final String MISC_DECORATIVE_BLOCKS = "decorativeBlocks";
 

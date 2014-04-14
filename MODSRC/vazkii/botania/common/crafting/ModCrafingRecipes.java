@@ -96,6 +96,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeTerrasteelChest;
 	public static IRecipe recipeTerrasteelLegs;
 	public static IRecipe recipeTerrasteelBoots;
+	public static IRecipe recipeTerraSword;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -448,6 +449,13 @@ public final class ModCrafingRecipes {
 				"S S", "S S",
 				'S', LibOreDict.TERRA_STEEL);
 		recipeTerrasteelBoots = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Terra Blade Recipe
+		addOreDictRecipe(new ItemStack(ModItems.terraSword), 
+				"I", "I", "S",
+				'I', LibOreDict.TERRA_STEEL,
+				'S', LibOreDict.LIVINGWOOD_TWIG);
+		recipeTerraSword = BotaniaAPI.getLatestAddedRecipe();
 	}
 
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {

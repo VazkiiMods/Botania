@@ -101,6 +101,7 @@ public final class LexiconData {
 	public static LexiconEntry manasteelGear;
 	public static LexiconEntry terrasteelArmor;
 	public static LexiconEntry grassHorn;
+	public static LexiconEntry terraBlade;
 
 	public static LexiconEntry unstableBlocks;
 	public static LexiconEntry decorativeBlocks;
@@ -289,11 +290,14 @@ public final class LexiconData {
 				new PageCraftingRecipe("4", ModCrafingRecipes.recipeManasteelShears), new PageCraftingRecipe("5", ModCrafingRecipes.recipeManasteelSword),
 				new PageCraftingRecipe("6", ModCrafingRecipes.recipeManasteelHelm), new PageCraftingRecipe("7", ModCrafingRecipes.recipeManasteelChest), new PageCraftingRecipe("8", ModCrafingRecipes.recipeManasteelLegs), new PageCraftingRecipe("9", ModCrafingRecipes.recipeManasteelBoots));
 		
-		grassSeeds = new BLexiconEntry(LibLexicon.TOOL_GRASS_HORN, categoryTools);
-		grassSeeds.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeGrassHorn));
-		
 		terrasteelArmor = new BLexiconEntry(LibLexicon.TOOL_TERRASTEEL_ARMOR, categoryTools);
 		terrasteelArmor.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeTerrasteelHelm), new PageCraftingRecipe("2", ModCrafingRecipes.recipeTerrasteelChest), new PageCraftingRecipe("3", ModCrafingRecipes.recipeTerrasteelLegs), new PageCraftingRecipe("4", ModCrafingRecipes.recipeTerrasteelBoots));
+		
+		grassHorn = new BLexiconEntry(LibLexicon.TOOL_GRASS_HORN, categoryTools);
+		grassHorn.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeGrassHorn));
+		
+		terraBlade = new BLexiconEntry(LibLexicon.TOOL_TERRA_SWORD, categoryTools);
+		terraBlade.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeTerraSword));
 		
 		// MISCLENAEOUS ENTRIES
 		unstableBlocks = new BLexiconEntry(LibLexicon.MISC_UNSTABLE_BLOCKS, categoryMisc);
