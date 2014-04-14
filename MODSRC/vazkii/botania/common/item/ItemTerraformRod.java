@@ -9,7 +9,7 @@
  * 
  * File Created @ [Apr 11, 2014, 2:56:39 PM (GMT)]
  */
-package vazkii.botania.common.item.magic;
+package vazkii.botania.common.item;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.ISpecialFlower;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemTerraformRod extends ItemMod {

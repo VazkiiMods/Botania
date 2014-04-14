@@ -9,9 +9,8 @@
  * 
  * File Created @ [Apr 11, 2014, 2:57:30 PM (GMT)]
  */
-package vazkii.botania.common.item.magic;
+package vazkii.botania.common.item;
 
-import vazkii.botania.common.item.ItemMod;
 
 public class ItemGrassHorn extends ItemMod {
 

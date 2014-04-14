@@ -15,8 +15,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
-import vazkii.botania.common.item.magic.ItemDirtRod;
-import vazkii.botania.common.item.magic.ItemTerraformRod;
 import vazkii.botania.common.item.tool.ItemManasteelAxe;
 import vazkii.botania.common.item.tool.ItemManasteelPick;
 import vazkii.botania.common.item.tool.ItemManasteelShears;

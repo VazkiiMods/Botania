@@ -9,7 +9,7 @@
  * 
  * File Created @ [Apr 11, 2014, 2:53:41 PM (GMT)]
  */
-package vazkii.botania.common.item.magic;
+package vazkii.botania.common.item;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -19,7 +19,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemDirtRod extends ItemMod {
