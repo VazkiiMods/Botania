@@ -323,7 +323,7 @@ public final class ModCrafingRecipes {
 		// Mana Blaster Recipe
 		addOreDictRecipe(new ItemStack(ModItems.manaGun),
 				"SMD", " WT", "  W",
-				'S', new ItemStack(ModBlocks.spreader),
+				'S', new ItemStack(ModBlocks.spreader, 1, 1),
 				'M', LibOreDict.RUNE[8],
 				'D', LibOreDict.MANA_DIAMOND,
 				'T', new ItemStack(Blocks.tnt),
@@ -359,8 +359,8 @@ public final class ModCrafingRecipes {
 		
 		// Terra Firma Rod Recipe
 		addOreDictRecipe(new ItemStack(ModItems.terraformRod), 
-				" WD", "ARS", "GM ",
-				'D', LibOreDict.MANA_DIAMOND,
+				" WT", "ARS", "GM ",
+				'T', LibOreDict.TERRA_STEEL,
 				'R', new ItemStack(ModItems.dirtRod),
 				'G', new ItemStack(ModItems.grassSeeds),
 				'W', LibOreDict.RUNE[7],
