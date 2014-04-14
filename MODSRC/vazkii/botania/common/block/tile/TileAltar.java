@@ -57,16 +57,16 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 				stack.stackSize--;
 				if(stack.stackSize == 0)
 					item.setDead();
-			}
 
-			for(int i = 0; i < getSizeInventory(); i++)
-				if(getStackInSlot(i) == null) {
-					ItemStack stackToPut = stack.copy();
-					stackToPut.stackSize = 1;
-					setInventorySlotContents(i, stackToPut);
-					didChange = true;
-					break;
-				}
+				for(int i = 0; i < getSizeInventory(); i++)
+					if(getStackInSlot(i) == null) {
+						ItemStack stackToPut = stack.copy();
+						stackToPut.stackSize = 1;
+						setInventorySlotContents(i, stackToPut);
+						didChange = true;
+						break;
+					}
+			}
 		} else if(stack.getItem() == Items.wheat_seeds) {
 			for(RecipePetals recipe : BotaniaAPI.petalRecipes) {
 				if(recipe.matches(this)) {
