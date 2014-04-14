@@ -20,6 +20,7 @@ import vazkii.botania.common.item.tool.ItemManasteelPick;
 import vazkii.botania.common.item.tool.ItemManasteelShears;
 import vazkii.botania.common.item.tool.ItemManasteelShovel;
 import vazkii.botania.common.item.tool.ItemManasteelSword;
+import vazkii.botania.common.item.tool.ItemTerraSword;
 import vazkii.botania.common.item.tool.armor.ItemManasteelBoots;
 import vazkii.botania.common.item.tool.armor.ItemManasteelChest;
 import vazkii.botania.common.item.tool.armor.ItemManasteelHelm;
@@ -64,6 +65,7 @@ public final class ModItems {
 	public static Item terrasteelChest;
 	public static Item terrasteelLegs;
 	public static Item terrasteelBoots;
+	public static Item terraSword;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -98,6 +100,7 @@ public final class ModItems {
 		terrasteelChest = new ItemTerrasteelChest();
 		terrasteelLegs = new ItemTerrasteelLegs();
 		terrasteelBoots = new ItemTerrasteelBoots();
+		terraSword = new ItemTerraSword();
 		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {

@@ -29,14 +29,18 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemManasteelSword extends ItemSword {
 
-	private static final int MANA_PER_DAMAGE = 50;
+	static final int MANA_PER_DAMAGE = 51;
 
 	IIcon elucidatorIcon;
 
 	public ItemManasteelSword() {
-		super(BotaniaAPI.manasteelToolMaterial);
+		this(BotaniaAPI.manasteelToolMaterial, LibItemNames.MANASTEEL_SWORD);
+	}
+	
+	public ItemManasteelSword(ToolMaterial mat, String name) {
+		super(mat);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
-		setUnlocalizedName(LibItemNames.MANASTEEL_SWORD);
+		setUnlocalizedName(name);
 	}
 
 	@Override
