@@ -20,42 +20,17 @@ import cpw.mods.fml.relauncher.SideOnly;
 /**
  * Have an Item implement this to be counted as a lens for the mana spreader.
  */
-public interface ILens {
+public interface ILens extends ILensEffect {
 
 	@SideOnly(Side.CLIENT)
 	public int getLensColor(ItemStack stack);
-
-	/**
-	 * Called when a mana spreader that has this focus shoots a burst. This is where
-	 * you change the properties of the burst.
-	 */
-	public void apply(ItemStack stack, BurstProperties props);
-
-	/**
-	 * Called when a mana burst fired from a mana spreader with this focus collides against
-	 * any block. This is called after the collision is handled.
-	 * @return True to kill the burst. False to keep it alive.
-	 */
-	public boolean collideBurst(IManaBurst burst, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack);
-
-	/**
-	 * Called when a mana burst fired from a mana spreader with this focus is updated.
-	 * This is called before the update is handled.
-	 */
-	public void updateBurst(IManaBurst burst, ItemStack stack);
-
-	/**
-	 * Called when the mana burst should do it's particles. Return false to not
-	 * do any particles.
-	 */
-	public boolean doParticles(IManaBurst burst, ItemStack stack);
 
 	/**
 	 * Can the source lens be combined with the composite lens? This is called
 	 * for both the ILens instance of ItemStack.getItem() of sourceLens and compositeLens.
 	 */
 	public boolean canCombineLenses(ItemStack sourceLens, ItemStack compositeLens);
-
+	
 	/**
 	 * Gets the composite lens in the stack passed in, return null for none.
 	 */

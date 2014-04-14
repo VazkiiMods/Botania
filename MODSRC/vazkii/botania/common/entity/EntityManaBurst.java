@@ -31,7 +31,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaBurst;
-import vazkii.botania.api.mana.ILens;
+import vazkii.botania.api.mana.ILensEffect;
 import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.mana.IManaReceiver;
@@ -337,7 +337,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	public void onUpdate() {
 		superUpdate();
 
-		ILens lens = getLensInstance();
+		ILensEffect lens = getLensInstance();
 		if(lens != null)
 			lens.updateBurst(this, getSourceLens());
 
@@ -439,7 +439,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		if(isDead || !worldObj.isRemote)
 			return;
 
-		ILens lens = getLensInstance();
+		ILensEffect lens = getLensInstance();
 		if(lens != null && !lens.doParticles(this, getSourceLens()))
 			return;
 
@@ -516,7 +516,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			collided = true;
 		}
 
-		ILens lens = getLensInstance();
+		ILensEffect lens = getLensInstance();
 		if(lens != null)
 			dead = lens.collideBurst(this, movingobjectposition, collidedTile != null && collidedTile instanceof IManaReceiver && ((IManaReceiver) collidedTile).canRecieveManaFromBursts(), dead, getSourceLens());
 
@@ -658,10 +658,10 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		dataWatcher.updateObject(dataWatcherStart + 9, lens == null ? new ItemStack(Blocks.stone, 0, 0) : lens);
 	}
 
-	public ILens getLensInstance() {
+	public ILensEffect getLensInstance() {
 		ItemStack lens = getSourceLens();
-		if(lens != null && lens.getItem() instanceof ILens)
-			return (ILens) lens.getItem();
+		if(lens != null && lens.getItem() instanceof ILensEffect)
+			return (ILensEffect) lens.getItem();
 
 		return null;
 	}
