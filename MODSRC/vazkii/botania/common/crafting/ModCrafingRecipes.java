@@ -92,6 +92,10 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeManasteelShears;
 	public static IRecipe recipeManasteelSword;
 	public static IRecipe recipeGrassHorn;
+	public static IRecipe recipeTerrasteelHelm;
+	public static IRecipe recipeTerrasteelChest;
+	public static IRecipe recipeTerrasteelLegs;
+	public static IRecipe recipeTerrasteelBoots;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -420,12 +424,30 @@ public final class ModCrafingRecipes {
 				'S', LibOreDict.MANA_STEEL);
 		recipeManasteelShears = BotaniaAPI.getLatestAddedRecipe();
 		
-		// HORN OF THE WILD RECIPE
+		// Horn of the Wild Recipe
 		addOreDictRecipe(new ItemStack(ModItems.grassHorn), 
 				" W ", "WSW", "WW ",
 				'W', LibOreDict.LIVING_WOOD,
 				'S', new ItemStack(ModItems.grassSeeds));
 		recipeGrassHorn = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Terrasteel Armor Recipes
+		addOreDictRecipe(new ItemStack(ModItems.terrasteelHelm), 
+				"SSS", "S S",
+				'S', LibOreDict.TERRA_STEEL);
+		recipeTerrasteelHelm = BotaniaAPI.getLatestAddedRecipe();
+		addOreDictRecipe(new ItemStack(ModItems.terrasteelChest), 
+				"S S", "SSS", "SSS",
+				'S', LibOreDict.TERRA_STEEL);
+		recipeTerrasteelChest = BotaniaAPI.getLatestAddedRecipe();
+		addOreDictRecipe(new ItemStack(ModItems.terrasteelLegs), 
+				"SSS", "S S", "S S",
+				'S', LibOreDict.TERRA_STEEL);
+		recipeTerrasteelLegs = BotaniaAPI.getLatestAddedRecipe();
+		addOreDictRecipe(new ItemStack(ModItems.terrasteelBoots), 
+				"S S", "S S",
+				'S', LibOreDict.TERRA_STEEL);
+		recipeTerrasteelBoots = BotaniaAPI.getLatestAddedRecipe();
 	}
 
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {

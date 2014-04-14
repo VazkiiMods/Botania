@@ -351,6 +351,11 @@ botania.page.runeAltar17=The &1Rune of Wrath&0.
 botania.page.runeAltar18=The &1Rune of Envy&0.
 botania.page.runeAltar19=The &1Rune of Pride&0.
 
+# -- TERRASTEEL
+botania.entry.terrasteel=Terrasteel
+botania.page.terrasteel0=&1Terrasteel&0 is a powerful metal infused with the magic of nature.<br>Creating this metal proves to not be a short order, in order to create it, toss a &1Manasteel Ingot&0, a &1Mana Pearl&0 and a &1Mana Diamond&0 on top of an &4Active &1Beacon&0. A &1Mana Pool&0 must be present nearby, being at least half full. The infusion will create a single &1Terrasteel Ingot&0.
+botania.page.terrasteel1=Creating Terrasteel
+
 # - MANA
 # -- INTRODUCTION TO MANA
 botania.entry.mIntro=An Introduction to Mana
@@ -631,10 +636,18 @@ botania.page.manaGear7=The &1Manasteel Chestplate&0
 botania.page.manaGear8=The &1Manasteel Leggings&0
 botania.page.manaGear9=The &1Manasteel Boots&0
 
-# -- Horn of the Wild
+# -- HORN OF THE WILD
 botania.entry.grassHorn=Horn of the Wild
 botania.page.grassHorn0=Clearing out &1Tall Grass&0 by hand can definitely be a nuisance.<br>Simply blowing the &1Horn of the Wild&0 will quickly cause any nearby vegetation to uproot, leaving behind drops as if it had been broken by hand.
 botania.page.grassHorn1=Crafting the horn
+
+# -- TERRASTEEL ARMOR
+botania.entry.terrasteelArmor=Terrasteel Armor
+botania.page.terrasteelArmor0=Armor made out of &1Terrasteel&0, much alike the &1Manasteel&0 counterpart, can utilize &4Mana&0 from the inventory instead of taking damage.<br>This armor, however, has properties more alike &1Diamond&0 instead of &1Iron&0 and increases the wearer's health when worn.
+botania.page.terrasteelArmor1=The &1Terrasteel Helmet&0
+botania.page.terrasteelArmor2=The &1Terrasteel Chestplate&0
+botania.page.terrasteelArmor3=The &1Terrasteel Leggings&0
+botania.page.terrasteelArmor4=The &1Terrasteel Boots&0
 
 # - MISCLANEOUS
 # -- UNSTABLE CUBE

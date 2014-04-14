@@ -27,6 +27,7 @@ import vazkii.botania.common.lexicon.page.PageImage;
 import vazkii.botania.common.lexicon.page.PageManaInfusionRecipe;
 import vazkii.botania.common.lexicon.page.PagePetalRecipe;
 import vazkii.botania.common.lexicon.page.PageRuneRecipe;
+import vazkii.botania.common.lexicon.page.PageTerrasteel;
 import vazkii.botania.common.lexicon.page.PageText;
 import vazkii.botania.common.lib.LibLexicon;
 
@@ -46,6 +47,7 @@ public final class LexiconData {
 	public static LexiconEntry wand;
 	public static LexiconEntry pureDaisy;
 	public static LexiconEntry runicAltar;
+	public static LexiconEntry terrasteel;
 
 	public static LexiconEntry manaIntro;
 	public static LexiconEntry spreader;
@@ -97,6 +99,7 @@ public final class LexiconData {
 	public static LexiconEntry dirtRod;
 	public static LexiconEntry terraformRod;
 	public static LexiconEntry manasteelGear;
+	public static LexiconEntry terrasteelArmor;
 	public static LexiconEntry grassHorn;
 
 	public static LexiconEntry unstableBlocks;
@@ -135,6 +138,9 @@ public final class LexiconData {
 				new PageRuneRecipe("8", ModRuneRecipes.recipeSpringRune), new PageRuneRecipe("9", ModRuneRecipes.recipeSummerRune), new PageRuneRecipe("10", ModRuneRecipes.recipeAutumnRune), new PageRuneRecipe("11", ModRuneRecipes.recipeWinterRune),  new PageRuneRecipe("12", ModRuneRecipes.recipeManaRune),
 				new PageRuneRecipe("13", ModRuneRecipes.recipeLustRune), new PageRuneRecipe("14", ModRuneRecipes.recipeGluttonyRune), new PageRuneRecipe("15", ModRuneRecipes.recipeGreedRune), new PageRuneRecipe("16", ModRuneRecipes.recipeSlothRune), new PageRuneRecipe("17", ModRuneRecipes.recipeWrathRune), new PageRuneRecipe("18", ModRuneRecipes.recipeEnvyRune), new PageRuneRecipe("19", ModRuneRecipes.recipePrideRune));
 
+		terrasteel = new BLexiconEntry(LibLexicon.BASICS_TERRASTEEL, categoryBasics);
+		terrasteel.setLexiconPages(new PageText("0"), new PageTerrasteel("1"));
+		
 		// MANA ENTRIES
 		manaIntro = new BLexiconEntry(LibLexicon.MANA_INTRO, categoryMana);
 		manaIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"));
@@ -285,6 +291,9 @@ public final class LexiconData {
 		
 		grassSeeds = new BLexiconEntry(LibLexicon.TOOL_GRASS_HORN, categoryTools);
 		grassSeeds.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeGrassHorn));
+		
+		terrasteelArmor = new BLexiconEntry(LibLexicon.TOOL_TERRASTEEL_ARMOR, categoryTools);
+		terrasteelArmor.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeTerrasteelHelm), new PageCraftingRecipe("2", ModCrafingRecipes.recipeTerrasteelChest), new PageCraftingRecipe("3", ModCrafingRecipes.recipeTerrasteelLegs), new PageCraftingRecipe("4", ModCrafingRecipes.recipeTerrasteelBoots));
 		
 		// MISCLENAEOUS ENTRIES
 		unstableBlocks = new BLexiconEntry(LibLexicon.MISC_UNSTABLE_BLOCKS, categoryMisc);

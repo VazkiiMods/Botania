@@ -29,6 +29,7 @@ public final class LibLexicon {
 	public static final String BASICS_WAND = "wand";
 	public static final String BASICS_PURE_DAISY = "pureDaisy";
 	public static final String BASICS_RUNE_ALTAR = "runeAltar";
+	public static final String BASICS_TERRASTEEL = "terrasteel";
 
 	public static final String MANA_INTRO = "mIntro";
 	public static final String MANA_SPREADER = "spreader";
@@ -80,6 +81,7 @@ public final class LibLexicon {
 	public static final String TOOL_DIRT_ROD = "dirtRod";
 	public static final String TOOL_TERRAFORM_ROD = "terraformRod";
 	public static final String TOOL_MANASTEEL_GEAR = "manaGear";
+	public static final String TOOL_TERRASTEEL_ARMOR = "terrasteelArmor";
 	public static final String TOOL_GRASS_HORN = "grassHorn";
 
 	public static final String MISC_UNSTABLE_BLOCKS = "unstableBlocks";
