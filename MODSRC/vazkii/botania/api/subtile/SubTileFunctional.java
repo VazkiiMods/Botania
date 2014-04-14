@@ -73,7 +73,7 @@ public class SubTileFunctional extends SubTileEntity {
 	}
 
 	public void linkPool() {
-		final int range = 6;
+		final int range = 10;
 
 		boolean needsNew = false;
 		if(linkedPool == null) {

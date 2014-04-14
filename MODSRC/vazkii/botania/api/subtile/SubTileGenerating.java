@@ -74,7 +74,7 @@ public class SubTileGenerating extends SubTileEntity {
 	}
 
 	public void linkCollector() {
-		final int range = 6;
+		final int range = 4;
 
 		boolean needsNew = false;
 		if(linkedCollector == null) {
