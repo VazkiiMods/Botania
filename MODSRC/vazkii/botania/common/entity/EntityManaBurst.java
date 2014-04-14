@@ -492,7 +492,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 		if(movingobjectposition.entityHit == null) {
 			TileEntity tile = worldObj.getTileEntity(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ);
-
+			
 			if(tile instanceof IManaCollisionGhost && ((IManaCollisionGhost) tile).isGhost())
 				return;
 
@@ -720,7 +720,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		public final int meta;
 
 		public PositionProperties(Entity entity) {
-			int x = (int) entity.posX - 1;
+			int x = (int) entity.posX;
 			int y = (int) entity.posY;
 			int z = (int) entity.posZ;
 			coords = new ChunkCoordinates(x, y, z);

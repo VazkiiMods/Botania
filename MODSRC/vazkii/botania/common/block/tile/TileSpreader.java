@@ -64,6 +64,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	public float rotationX, rotationY;
 	boolean added = false;
 	boolean requestsClientUpdate = false;
+	boolean hasReceivedInitialPacket = false;
 
 	IManaReceiver receiver = null;
 
@@ -157,6 +158,9 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 		if(cmp.hasKey(TAG_KNOWN_MANA))
 			knownMana = cmp.getInteger(TAG_KNOWN_MANA);
+		
+		if(worldObj != null && worldObj.isRemote)
+			hasReceivedInitialPacket = true;
 	}
 
 	@Override
@@ -207,6 +211,9 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	private boolean needsNewBurstSimulation() {
+		if(worldObj.isRemote && !hasReceivedInitialPacket)
+			return false;
+		
 		if(lastTentativeBurst == null)
 			return true;
 
