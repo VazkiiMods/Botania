@@ -75,7 +75,7 @@ public class ItemManaGun extends ItemMod {
 		EntityManaBurst burst = new EntityManaBurst(player);
 
 		int maxMana = 120;
-		int color = 0x00FF00;
+		int color = 0x20FF20;
 		int ticksBeforeManaLoss = 60;
 		float manaLossPerTick = 4F;
 		float motionModifier = 5F;
