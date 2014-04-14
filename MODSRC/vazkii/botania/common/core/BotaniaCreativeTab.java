@@ -35,7 +35,6 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		return new ItemStack(ModBlocks.flower);
 	}
 	
-
 	@Override
 	public Item getTabIconItem() {
 		return getIconItemStack().getItem();
@@ -62,7 +61,8 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 
 		addItem(ModItems.dirtRod);
 		addItem(ModItems.terraformRod);
-		
+		addItem(ModItems.grassHorn);
+
 		addBlock(ModBlocks.livingrock);
 		addBlock(ModBlocks.livingwood);
 		addBlock(ModBlocks.altar);

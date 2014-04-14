@@ -269,6 +269,7 @@ item.botania:manasteelShovel.name=Manasteel Shovel
 item.botania:manasteelAxe.name=Manasteel Axe
 item.botania:manasteelSword.name=Manasteel Sword
 item.botania:manasteelShears.name=Manasteel Shears
+item.botania:grassHorn.name=Horn of the Wild
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania Index - Pick which category you would like to study:

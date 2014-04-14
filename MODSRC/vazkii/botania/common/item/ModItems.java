@@ -55,6 +55,7 @@ public final class ModItems {
 	public static Item manasteelAxe;
 	public static Item manasteelSword;
 	public static Item manasteelShears;
+	public static Item grassHorn;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -84,6 +85,7 @@ public final class ModItems {
 		manasteelAxe = new ItemManasteelAxe();
 		manasteelSword = new ItemManasteelSword();
 		manasteelShears = new ItemManasteelShears();
+		grassHorn = new ItemGrassHorn();
 		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {

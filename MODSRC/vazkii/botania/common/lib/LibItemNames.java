@@ -42,6 +42,7 @@ public final class LibItemNames {
 	public static final String MANASTEEL_AXE = LibResources.PREFIX_MOD + "manasteelAxe";
 	public static final String MANASTEEL_SWORD = LibResources.PREFIX_MOD + "manasteelSword";
 	public static final String MANASTEEL_SHEARS = LibResources.PREFIX_MOD + "manasteelShears";
+	public static final String GRASS_HORN = LibResources.PREFIX_MOD + "grassHorn";
 
 	public static final String[] LENS_NAMES = new String[] {
 		LibResources.PREFIX_MOD + "lensNormal",
