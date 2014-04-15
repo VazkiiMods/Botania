@@ -45,9 +45,9 @@
 					
 					foreach($files as $file)
 						if(strlen($file) > 2) {
-							$dls = get_dls($file);
-							$total_dls += intval($dls);
-							$dls = number_format($dls);
+							$dls_num = get_dls($file);
+							$total_dls += intval($dls_num);
+							$dls = number_format($dls_num);
 							$button_type = 'old-dl';
 							$cl_button_type = 'btn-sm';
 														
@@ -56,7 +56,7 @@
 							$mc_version = $versions[$version_name];
 							
 							$dls_txt = 'Downloads';
-							if($dls == 1)
+							if($dls_num == 1)
 								$dls_txt = 'Download';
 							
 							if($first) {
