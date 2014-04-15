@@ -23,21 +23,6 @@ public class ItemManaPetal extends Item16Colors implements IFlowerComponent {
 	public ItemManaPetal() {
 		super(LibItemNames.MANA_PETAL);
 	}
-	
-	@Override
-	public void registerIcons(IIconRegister par1IconRegister) {
-		// NO-OP
-	}
-
-	@Override
-	public boolean hasEffect(ItemStack par1ItemStack, int pass) {
-		return true;
-	}
-
-	@Override
-	public IIcon getIconFromDamage(int par1) {
-		return ModItems.petal.getIconFromDamage(par1);
-	}
 
 	@Override
 	public boolean canFit(ItemStack stack, IInventory apothecary) {
