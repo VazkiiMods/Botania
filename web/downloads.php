@@ -56,7 +56,9 @@
 							$mc_version = $versions[$version_name];
 							
 							$dls_txt = 'Downloads';
-							if($dls_num == 1)
+							if($dls_num == 0)
+								$dls_txt = 'Downloads :(';
+							elseif($dls_num == 1)
 								$dls_txt = 'Download';
 							
 							if($first) {
