@@ -80,6 +80,8 @@ public final class LexiconData {
 	public static LexiconEntry exoflame;
 	public static LexiconEntry agricarnation;
 	public static LexiconEntry hopperhock;
+	public static LexiconEntry tangleberrie;
+	public static LexiconEntry jiyuulia;
 
 	public static LexiconEntry generatingIntro;
 	public static LexiconEntry daybloom;
@@ -234,6 +236,12 @@ public final class LexiconData {
 
 		hopperhock = new BLexiconEntry(LibLexicon.FFLOWER_HOPPERHOCK, categoryFunctionalFlowers);
 		hopperhock.setLexiconPages(new PageText("0"), new PageText("1"), new PagePetalRecipe("2", ModPetalRecipes.hopperhockRecipe));
+
+		tangleberrie = new BLexiconEntry(LibLexicon.FFLOWER_TANGLEBERRIE, categoryFunctionalFlowers);
+		tangleberrie.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.tangleberrieRecipe));
+
+		jiyuulia = new BLexiconEntry(LibLexicon.FFLOWER_JIYUULIA, categoryFunctionalFlowers);
+		jiyuulia.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.jiyuuliaRecipe));
 
 		// GENERATING FLOWERS ENTRIES
 		generatingIntro = new BLexiconEntry(LibLexicon.GFLOWER_INTRO, categoryGenerationFlowers);

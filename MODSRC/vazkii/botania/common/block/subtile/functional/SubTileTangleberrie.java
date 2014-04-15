@@ -17,10 +17,12 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileTangleberrie extends SubTileFunctional {
 
@@ -83,6 +85,11 @@ public class SubTileTangleberrie extends SubTileFunctional {
 	@Override
 	public int getMaxMana() {
 		return 20;
+	}
+	
+	@Override
+	public LexiconEntry getEntry() {
+		return LexiconData.tangleberrie;
 	}
 
 }

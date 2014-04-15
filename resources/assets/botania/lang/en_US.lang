@@ -158,7 +158,6 @@ tile.botania:flower.jiyuulia.name=Jiyuulia
 tile.botania:flower.jiyuulia.reference=Flugel der Freiheit
 # TRANSLATE THAT VEXATOS
 
-
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania
 item.botania:petal0.name=Mystical White Petal
@@ -526,13 +525,23 @@ botania.page.exoflame1=&oBut we should be going nowhere fast&r.
 # -- AGRICARNATION
 botania.entry.agricarnation=Agricarnation
 botania.page.agricarnation0=The slow growth of crops is always a problem to feed the masses. The &1Agricarnation&0 is a flower that turns &4Mana&0 into a type of natural fertilizer, causing nearby plantlife to grow at a faster rate.
-botania.page.agricarnation1=&0Grandola Vila Morena&r...
+botania.page.agricarnation1=&oGrandola Vila Morena&r...
 
 # -- HOPPERHOCK
 botania.entry.hopperhock=Hopperhock
 botania.page.hopperhock0=The &1Hopperhock&0 will pick up items around it. Giving it &4Mana&0 is optional, but it'll increase it's range.<br>Items picked up will be put in adjacent inventories (e.g. &1Chests&0). Placing &1Item Frames&0 in any of the inventories will specify which items can or can't go in them.
 botania.page.hopperhock1=Any inventory which has no &1Item Frame&0 adjacent to it can accept any items, but labeled inventories will take priority.<br>The rule using to sort items can be changed by shift-right clicking the flower with a &1Wand of the Forest&0.
-botania.page.hopperhock2=&0I guess I'll be talking my loli and leaving&r.
+botania.page.hopperhock2=&oI guess I'll be talking my loli and leaving&r.
+
+# -- TANGLEBERRIE
+botania.entry.tangleberrie=Tangleberrie
+botania.page.tangleberrie0=The &1Tangleberrie&0 is a flower that, at the cost of a small amount of &4Mana&0, will keep any nearby animals or monsters within a circle ward, preventing them from getting out. 
+botania.page.tangleberrie1=&oTangled, brave and frozen&r.
+
+# -- JIYUULIA
+botania.entry.jiyuulia=Jiyuulia
+botania.page.jiyuulia0=The &1Jiyuulia&0 is a flower that, at the cost of a small amount of &4Mana&0, will keep any nearby animals or monsters at bay, protecting a circular area from them getting in.
+botania.page.jiyuulia1=&oKeep out, please&r.
 
 # - GENERATING FLOWERS
 # -- AN INTRODUCTION TO GENERATION

@@ -17,10 +17,12 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileJiyuulia extends SubTileTangleberrie {
 
@@ -44,5 +46,9 @@ public class SubTileJiyuulia extends SubTileTangleberrie {
 		return 0xBD9ACA;
 	}
 	
+	@Override
+	public LexiconEntry getEntry() {
+		return LexiconData.jiyuulia;
+	}
 	
 }
