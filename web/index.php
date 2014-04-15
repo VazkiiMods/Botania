@@ -45,7 +45,7 @@
 					  <div class="container">
 						<div class="carousel-caption">
 						  <h1>Beautifully Presented</h1>
-						  <p>Decorate your worlds with colors. Botania generates a total of <b>sixteen</b> new flowers, all of these are used both for decoration and crafting. As a bonus, they also look great under snow!</p>
+						  <p>Decorate your worlds with colors. Botania generates a total of <b>sixteen</b> new flowers, all of these are used both for decoration and crafting. As a bonus, they have shiny particles and can be used for dying.</p>
 						  <p><a class="btn btn-lg btn-success" href="./downloads.php" role="button">Download Now</a></p>
 						</div>
 					  </div>
@@ -115,7 +115,7 @@
 			<div class="row featurette">
 				<div class="col-md-7">
 					<h2 class="featurette-heading">Not convinced yet? <span class="text-muted">Check out some videos.</span></h2>
-					<p class="lead youtube"><iframe src="//www.youtube.com/embed/R_guPNeorHM" frameborder="0" allowfullscreen></iframe><iframe src="//www.youtube.com/embed/ZvObm2pZ2XY" frameborder="0" allowfullscreen></iframe><iframe src="//www.youtube.com/embed/mgxS7GRFYbY" frameborder="0" allowfullscreen></iframe></p>
+					<p class="lead youtube"><iframe src="//www.youtube.com/embed/Id_gS5eoRmI" frameborder="0" allowfullscreen></iframe><iframe src="//www.youtube.com/embed/T-0ZVlLd1MY" frameborder="0" allowfullscreen></iframe><iframe src="//www.youtube.com/embed/mgxS7GRFYbY" frameborder="0" allowfullscreen></iframe></p>
 					</div>
 				</div>
 			</div>
