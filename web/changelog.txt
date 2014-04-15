@@ -1,3 +1,27 @@
+beta 19
+*Added Mana Mirrors.
+*Added Manasteel tools and armor.
+*Added Pasture, Boreal and Infection Seeds.
+*Added Redstone Mana Spreaders.
+*Added Terrasteel, Terrasteel armor and the Terra Blade.
+*Added the Horn of the Wild.
+*Added the Rod of the Lands and the Terra Firma Rod.
+*Added two new functional flowers, the Jiyuulia and the Tangleberrie.
+*Changed some textures (Mana Spreader, Mana Pool, Livingrock, All Livingrock bricks, Mana Petals).
+*Drastically cut the speed of the Hydroangeas.
+*Fixed Mana Spreaders being awfully broken in some axis and conditions, gotta love what 1.7 did.
+*Fixed Signal Flares using a sound that had been removed with 1.7.
+*Fixed a bug caused by 1.7 where transparent objects would randomly cease to render.
+*Fixed the Signal Flare fuse entity being under the same ID as the mana burst, and playing "ssssss" sounds when the world loads even if you had none around.
+*Fixed the visual bug in multiplayer with placing petals in the apothecary.
+*Fixed turntables not registering the new receiver.
+*Increased the max distance of functional flowers to the pools from 6 to 10 blocks.
+*Lowered the frequency of particles on regular (worldgen) mystical flowers and added a config option for it.
+*Lowered the max distance of generating flowers to the spreaders from 6 to 4 blocks.
+*Lowered the total amount of mana a Thermalily produces per lava block.
+*Mana Bursts now travel through tall grass and flowers like they weren't there.
+*Some renders (Mana Pylon, Mana Enchanter, Mana Pool) now utilize shaders and look a lot better than before thanks to that, this can be turned off in the config.
+*Untinted mana bursts now have a bit of a lighter color.
 beta 18
 *Fixed Mana Spreaders being all sorts of wrong, blame 1.7.
 *Added a new Pylon model (you can still use the old one from the config file if you want).
