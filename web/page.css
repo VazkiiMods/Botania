@@ -24,6 +24,10 @@ html {
   height: 80px;
 }
 
+.navbar-brand-container:hover {
+  background-color: #05510e;
+}
+
 .nav {
   margin-left: 20px;
   margin-top: 30px;
@@ -34,6 +38,13 @@ html {
 .navbar-inverse .navbar-nav > .active > a:focus {
   background-color: #04410e;
   box-shadow: 0px -2px 8px #04410e;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+.header-btn:hover {
+  background-color: #05510e;
+  box-shadow: 0px -2px 8px #05510e;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.3);
 }
 
 .content {
@@ -95,6 +106,11 @@ iframe {
   box-shadow: -1px 0px 20px 2px #000000;
 }
 
+.total-dls {
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.3);
+  font-size: 26px;
+}
+
 .dl {
 	width: 220px;
 }
@@ -118,8 +134,28 @@ iframe {
   box-shadow: 0px 0px 25px #19ac46 inset, 0px 0px 25px #19ac46;
 }
 
-#footer > a {
+.footer > a {
   text-decoration:none;
+}
+
+.hide-footer-btn {
+  position: fixed;
+  bottom: 15px;
+  left: calc(75% + 2px);
+  color: #04410e;
+}
+
+.hide-footer-btn > a {
+  text-decoration:none;
+  color: #04410e;
+}
+
+.hide-footer-btn > a:hover {
+  color: #08810e;
+}
+
+#footer-tooltip  {
+  display: none;
 }
 
 .padded {

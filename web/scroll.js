@@ -1,8 +1,3 @@
-$(function() {
-	var hash = document.location.hash.substring(1);
-    $('html, body').animate({ scrollTop: $("#" + hash + "-fake").offset().top - 100 }, 1000);
-});
-
 $(".hashlink").click(function() {
 	var hash = $(this).text();
 	

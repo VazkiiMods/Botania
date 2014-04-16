@@ -7,28 +7,7 @@
 	</head>
 
 	<body>
-		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-		  <div class="container">
-			<div class="navbar-header">
-			  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			  </button>
-			  <a class="navbar-brand" href="#">
-				<img src="img/logo.png" class="shaded"/>
-			  </a>
-			</div>
-			<div class="collapse navbar-collapse">
-			  <ul class="nav navbar-nav">
-				<li class="active"><a href="./index.php">Home</a></li>
-				<li><a href="./downloads.php">Downloads</a></li>
-				<li><a href="./changelog.php">Changelog</a></li>
-			  </ul>
-			</div>
-		  </div>
-		</div>
+		<?php include 'incl/header.php'; ?>
 		
 		<div class="container">
 		<div class="content">
@@ -121,17 +100,10 @@
 			</div>
 		</div>	
 		
-		<div id="footer">
-			<a href="https://twitter.com/Vazkii"><img class="padded" src="img/twitter.png" title="@Vazkii on Twitter"></img>
-			<a href="http://www.patreon.com/Vazkii"><img class="padded" src="img/patreon.png" title="Support me on Patreon"></img>
-			<a href="https://github.com/Vazkii/Botania"><img class="padded" src="img/github.png" title="Botania is Open Source and available on Github!"></img>
-			<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB"><img class="padded" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" title="Botania is licensed under a CC 3.0 BY-NC-SA license"></img></a>
-			<a href="http://www.minecraftforum.net/topic/2440071-"><img class="padded" src="img/mcf.png" title="Discuss Botania on the MinecraftForums thread"></img>
-			<a href="http://forum.feed-the-beast.com/threads/.41662"><img class="padded" src="img/ftb.png" title="Discuss Botania on the FeedTheBeast thread"></img>
-			<a href="http://webchat.esper.net/?channels=vazkii"><img class="padded" src="img/irc.png" title="Discuss Botania on IRC (#vazkii on EsperNet)"></img>
-		</div>
-
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+		<script src="jquery_cookie.min.js"></script>
+		<script> $(function() { $('#header-btn-home').addClass('active'); }); </script>
+		<?php include 'incl/footer.php'; ?>
 	</body>
 </html>
