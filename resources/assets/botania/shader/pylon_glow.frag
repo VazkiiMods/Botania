@@ -12,5 +12,5 @@ void main() {
     float brightness = sin(time / 20.0) * 0.5 + 0.5 + 0.15;
     float alpha = sin(time / 30.0) * 0.5 + 0.5 + 0.35;
     
-    gl_FragColor = vec4((pow(color, 2) * 0.0005 * brightness + texture2D(bgl_RenderedTexture, texcoord)).rgb, alpha);
+    gl_FragColor = vec4(color * color * 0.0005 * brightness + texture2D(bgl_RenderedTexture, texcoord)).rgb, alpha);
 }
