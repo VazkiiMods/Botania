@@ -1,3 +1,9 @@
+beta 20
+*Added more blocks to the list of valid Terra Firma Rod blocks (Sandstone, Mycellium, Hardened Clay, etc)
+*Changed the Terra Blade texture to look a bit better in hand.
+*Implemented IWireframeAABBProvider and added a null check to the wireframe render.
+*Removed usage of the GLSL pow function, for lower end GPU support with shaders.
+*Renamed Infection Seeds to Infestation Spores
 beta 19
 *Added Mana Mirrors.
 *Added Manasteel tools and armor.
