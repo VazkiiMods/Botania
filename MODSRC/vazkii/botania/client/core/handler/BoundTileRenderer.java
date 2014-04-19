@@ -29,6 +29,7 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.ITileBound;
+import vazkii.botania.api.IWireframeAABBProvider;
 import vazkii.botania.common.item.ItemTwigWand;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
@@ -73,7 +74,12 @@ public final class BoundTileRenderer {
 		World world = Minecraft.getMinecraft().theWorld;
 		Block block = world.getBlock(pos.posX, pos.posY, pos.posZ);
 		if(block != null) {
-			AxisAlignedBB axis = block.getSelectedBoundingBoxFromPool(world, pos.posX, pos.posY, pos.posZ);
+			AxisAlignedBB axis;
+			
+			if(block instanceof IWireframeAABBProvider)
+				axis = ((IWireframeAABBProvider) block).getWireframeAABB(world, pos.posX, pos.posY, pos.posZ);
+			else axis = block.getSelectedBoundingBoxFromPool(world, pos.posX, pos.posY, pos.posZ);
+			
 			axis.minX -= pos.posX;
 			axis.maxX -= pos.posX;
 			axis.minY -= pos.posY;
