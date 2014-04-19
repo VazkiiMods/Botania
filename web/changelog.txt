@@ -1,3 +1,7 @@
+beta 21
+*Damaging lenses now do more damage and don't hurt players.
+*Fixed pylon_glow.frag not compiling and causing issues with the pylon renderer.
+*Fixed the Terra Firma Rod not working at all since beta 20, it's what I get for "quick fixing". Sorry!
 beta 20
 *Added more blocks to the list of valid Terra Firma Rod blocks (Sandstone, Mycellium, Hardened Clay, etc)
 *Changed the Terra Blade texture to look a bit better in hand.
