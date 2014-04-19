@@ -95,7 +95,7 @@ public class ItemTerraformRod extends ItemMod {
 					int z = zCenter + j;
 					
 					Block block = par2World.getBlock(x, y, z);
-					if(blocks.contains(block)) {
+					if(validBlocks.contains(block)) {
 						boolean hasAir = false;
 						List<ChunkCoordinates> airBlocks = new ArrayList();
 
