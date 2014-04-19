@@ -32,6 +32,18 @@ public class ItemTerraformRod extends ItemMod {
 
 	private static final int COST_PER = 55;
 
+	static final List<Block> validBlocks = new ArrayList() {{
+		add(Blocks.stone);
+		add(Blocks.dirt);
+		add(Blocks.grass);
+		add(Blocks.sand);
+		add(Blocks.gravel);
+		add(Blocks.hardened_clay);
+		add(Blocks.snow_layer);
+		add(Blocks.mycelium);
+		add(Blocks.sandstone);
+	}};
+	
 	public ItemTerraformRod() {
 		super();
 		setMaxStackSize(1);
@@ -81,9 +93,9 @@ public class ItemTerraformRod extends ItemMod {
 					int x = xCenter + i;
 					int y = yStart + k;
 					int z = zCenter + j;
-
+					
 					Block block = par2World.getBlock(x, y, z);
-					if(block == Blocks.grass || block == Blocks.dirt || block == Blocks.stone || block == Blocks.sand || block == Blocks.gravel) {
+					if(blocks.contains(block)) {
 						boolean hasAir = false;
 						List<ChunkCoordinates> airBlocks = new ArrayList();
 
