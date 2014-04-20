@@ -2,21 +2,16 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under a
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
- * 
+ *
  * File Created @ [Jan 22, 2014, 7:06:38 PM (GMT)]
  */
 package vazkii.botania.common.block;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.ITileEntityProvider;
@@ -43,136 +38,120 @@ import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
-import cpw.mods.fml.common.registry.GameRegistry;
+
+import java.util.*;
 
 public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvider, ISpecialFlower, IWandable, ILexiconable, IWandHUD {
 
-	public static Map<String, IIcon> icons = new HashMap();
-	
-	private static String[] subtypes = {
-		// Misc
-		LibBlockNames.SUBTILE_PUREDAISY,
+    public static Map<String, IIcon> icons = new HashMap();
 
-		// Generating
-		LibBlockNames.SUBTILE_DAYBLOOM,
-		LibBlockNames.SUBTILE_NIGHTSHADE,
-		LibBlockNames.SUBTILE_ENDOFLAME,
-		LibBlockNames.SUBTILE_HYDROANGEAS,
-		LibBlockNames.SUBTILE_THERMALILY,
-		LibBlockNames.SUBTILE_ARCANE_ROSE,
+    private static String[] subtypes = {
+            // Misc
+            LibBlockNames.SUBTILE_PUREDAISY,
 
-		// Functional
-		LibBlockNames.SUBTILE_JADED_AMARANTHUS,
-		LibBlockNames.SUBTILE_BELLETHORN,
-		LibBlockNames.SUBTILE_HEISEI_DREAM,
-		LibBlockNames.SUBTILE_TIGERSEYE,
-		LibBlockNames.SUBTILE_ORECHID,
-		LibBlockNames.SUBTILE_FALLEN_KANADE,
-		LibBlockNames.SUBTILE_EXOFLAME,
-		LibBlockNames.SUBTILE_AGRICARNATION,
-		LibBlockNames.SUBTILE_HOPPERHOCK,
-		LibBlockNames.SUBTILE_TANGLEBERRIE,
-		LibBlockNames.SUBTILE_JIYUULIA
-	};
+            // Generating
+            LibBlockNames.SUBTILE_DAYBLOOM, LibBlockNames.SUBTILE_NIGHTSHADE, LibBlockNames.SUBTILE_ENDOFLAME, LibBlockNames.SUBTILE_HYDROANGEAS, LibBlockNames.SUBTILE_THERMALILY, LibBlockNames.SUBTILE_ARCANE_ROSE,
 
-	protected BlockSpecialFlower() {
-		super(0);
-		setBlockName(LibBlockNames.SPECIAL_FLOWER);
-		setHardness(0F);
-		setStepSound(soundTypeGrass);
-		setTickRandomly(true);
-		setCreativeTab(BotaniaCreativeTab.INSTANCE);
-		setBlockBounds(0.3F, 0.0F, 0.3F, 0.8F, 1, 0.8F);
-	}
+            // Functional
+            LibBlockNames.SUBTILE_JADED_AMARANTHUS, LibBlockNames.SUBTILE_BELLETHORN, LibBlockNames.SUBTILE_HEISEI_DREAM, LibBlockNames.SUBTILE_TIGERSEYE, LibBlockNames.SUBTILE_ORECHID, LibBlockNames.SUBTILE_FALLEN_KANADE, LibBlockNames.SUBTILE_EXOFLAME, LibBlockNames.SUBTILE_AGRICARNATION, LibBlockNames.SUBTILE_HOPPERHOCK, LibBlockNames.SUBTILE_TANGLEBERRIE, LibBlockNames.SUBTILE_JIYUULIA};
 
-	@Override
-	public int getRenderType() {
-		return LibRenderIDs.idSpecialFlower;
-	}
+    protected BlockSpecialFlower() {
+        super(0);
+        setBlockName(LibBlockNames.SPECIAL_FLOWER);
+        setHardness(0F);
+        setStepSound(soundTypeGrass);
+        setTickRandomly(true);
+        setCreativeTab(BotaniaCreativeTab.INSTANCE);
+        setBlockBounds(0.3F, 0.0F, 0.3F, 0.8F, 1, 0.8F);
+    }
 
-	@Override
-	public Block setBlockName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockSpecialFlower.class, par1Str);
-		return super.setBlockName(par1Str);
-	}
+    @Override
+    public int getRenderType() {
+        return LibRenderIDs.idSpecialFlower;
+    }
 
-	@Override
-	public int quantityDropped(Random par1Random) {
-		return 0;
-	}
+    @Override
+    public Block setBlockName(String par1Str) {
+        GameRegistry.registerBlock(this, ItemBlockSpecialFlower.class, par1Str);
+        return super.setBlockName(par1Str);
+    }
 
-	@Override
-	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
-		for(String s : subtypes)
-			par3List.add(ItemBlockSpecialFlower.ofType(s));
-	}
+    @Override
+    public int quantityDropped(Random par1Random) {
+        return 0;
+    }
 
-	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		for(String s : subtypes)
-			icons.put(s, IconHelper.forName(par1IconRegister, s));
-	}
+    @Override
+    public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
+        for(String s : subtypes)
+            par3List.add(ItemBlockSpecialFlower.ofType(s));
+    }
 
-	@Override
-	public IIcon getIcon(IBlockAccess par1iBlockAccess, int par2, int par3, int par4, int par5) {
-		return ((TileSpecialFlower) par1iBlockAccess.getTileEntity(par2, par3, par4)).getIcon();
-	}
+    @Override
+    public void registerBlockIcons(IIconRegister par1IconRegister) {
+        for(String s : subtypes)
+            icons.put(s, IconHelper.forName(par1IconRegister, s));
+    }
 
-	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return BlockModFlower.icons[16];
-	}
+    @Override
+    public IIcon getIcon(IBlockAccess par1iBlockAccess, int par2, int par3, int par4, int par5) {
+        return ((TileSpecialFlower) par1iBlockAccess.getTileEntity(par2, par3, par4)).getIcon();
+    }
 
-	@Override
-	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
-		String name = ((TileSpecialFlower) world.getTileEntity(x, y, z)).subTileName;
-		return ItemBlockSpecialFlower.ofType(name);
-	}
+    @Override
+    public IIcon getIcon(int par1, int par2) {
+        return BlockModFlower.icons[16];
+    }
 
-	@Override
-	public void onBlockHarvested(World par1World, int par2, int par3, int par4, int par5, EntityPlayer par6EntityPlayer) {
-		if(!par6EntityPlayer.capabilities.isCreativeMode)
-			dropBlockAsItem(par1World, par2, par3, par4, par5, 0);
-	}
+    @Override
+    public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
+        String name = ((TileSpecialFlower) world.getTileEntity(x, y, z)).subTileName;
+        return ItemBlockSpecialFlower.ofType(name);
+    }
 
-	@Override
-	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
-		ArrayList<ItemStack> list = new ArrayList();
-		TileEntity tile = world.getTileEntity(x, y, z);
+    @Override
+    public void onBlockHarvested(World par1World, int par2, int par3, int par4, int par5, EntityPlayer par6EntityPlayer) {
+        if(!par6EntityPlayer.capabilities.isCreativeMode) dropBlockAsItem(par1World, par2, par3, par4, par5, 0);
+    }
 
-		if(tile != null) {
-			String name = ((TileSpecialFlower) tile).subTileName;
-			list.add(ItemBlockSpecialFlower.ofType(name));
-		}
+    @Override
+    public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
+        ArrayList<ItemStack> list = new ArrayList();
+        TileEntity tile = world.getTileEntity(x, y, z);
 
-		return list;
-	}
+        if(tile != null) {
+            String name = ((TileSpecialFlower) tile).subTileName;
+            list.add(ItemBlockSpecialFlower.ofType(name));
+        }
 
-	@Override
-	public boolean onBlockEventReceived(World par1World, int par2, int par3, int par4, int par5, int par6) {
-		super.onBlockEventReceived(par1World, par2, par3, par4, par5, par6);
-		TileEntity tileentity = par1World.getTileEntity(par2, par3, par4);
-		return tileentity != null ? tileentity.receiveClientEvent(par5, par6) : false;
-	}
+        return list;
+    }
 
-	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
-		return new TileSpecialFlower();
-	}
+    @Override
+    public boolean onBlockEventReceived(World par1World, int par2, int par3, int par4, int par5, int par6) {
+        super.onBlockEventReceived(par1World, par2, par3, par4, par5, par6);
+        TileEntity tileentity = par1World.getTileEntity(par2, par3, par4);
+        return tileentity != null ? tileentity.receiveClientEvent(par5, par6) : false;
+    }
 
-	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
-		return ((TileSpecialFlower) world.getTileEntity(x, y, z)).getEntry();
-	}
+    @Override
+    public TileEntity createNewTileEntity(World world, int meta) {
+        return new TileSpecialFlower();
+    }
 
-	@Override
-	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
-		return ((TileSpecialFlower) world.getTileEntity(x, y, z)).onWanded(stack, player);
-	}
+    @Override
+    public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+        return ((TileSpecialFlower) world.getTileEntity(x, y, z)).getEntry();
+    }
 
-	@Override
-	public void renderHUD(Minecraft mc, ScaledResolution res, World world, int x, int y, int z) {
-		((TileSpecialFlower) world.getTileEntity(x, y, z)).renderHUD(mc, res);
-	}
+    @Override
+    public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
+        return ((TileSpecialFlower) world.getTileEntity(x, y, z)).onWanded(stack, player);
+    }
+
+    @Override
+    public void renderHUD(Minecraft mc, ScaledResolution res, World world, int x, int y, int z) {
+        ((TileSpecialFlower) world.getTileEntity(x, y, z)).renderHUD(mc, res);
+    }
 
 }

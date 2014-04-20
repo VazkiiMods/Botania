@@ -2,18 +2,16 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under a
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
- * 
+ *
  * File Created @ [Mar 3, 2014, 4:53:59 PM (GMT)]
  */
 package vazkii.botania.common.block;
 
-import java.awt.Color;
-import java.util.List;
-
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -33,84 +31,86 @@ import vazkii.botania.common.block.tile.TileManaBeacon;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-import cpw.mods.fml.common.registry.GameRegistry;
+
+import java.awt.*;
+import java.util.List;
 
 public class BlockManaBeacon extends BlockModContainer implements ILexiconable {
 
-	IIcon[] icons;
+    IIcon[] icons;
 
-	public BlockManaBeacon() {
-		super(Material.iron);
-		setHardness(5.0F);
-		setResistance(10.0F);
-		setStepSound(soundTypeMetal);
-		float size = 3F / 16F;
-		setBlockBounds(size, size, size, 1F - size, 1F - size, 1F - size);
-		setBlockName(LibBlockNames.MANA_BEACON);
-	}
+    public BlockManaBeacon() {
+        super(Material.iron);
+        setHardness(5.0F);
+        setResistance(10.0F);
+        setStepSound(soundTypeMetal);
+        float size = 3F / 16F;
+        setBlockBounds(size, size, size, 1F - size, 1F - size, 1F - size);
+        setBlockName(LibBlockNames.MANA_BEACON);
+    }
 
-	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[2];
-		for(int i = 0; i < 2; i++)
-			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
-	}
+    @Override
+    public void registerBlockIcons(IIconRegister par1IconRegister) {
+        icons = new IIcon[2];
+        for(int i = 0; i < 2; i++)
+            icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
+    }
 
-	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return icons[par1 == 1 ? 1 : 0];
-	}
+    @Override
+    public IIcon getIcon(int par1, int par2) {
+        return icons[par1 == 1 ? 1 : 0];
+    }
 
-	@Override
-	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
-		for(int i = 0; i < 16; i++)
-			par3List.add(new ItemStack(par1, 1, i));
-	}
+    @Override
+    public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
+        for(int i = 0; i < 16; i++)
+            par3List.add(new ItemStack(par1, 1, i));
+    }
 
-	@Override
-	public Block setBlockName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setBlockName(par1Str);
-	}
+    @Override
+    public Block setBlockName(String par1Str) {
+        GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
+        return super.setBlockName(par1Str);
+    }
 
-	@Override
-	protected boolean shouldRegisterInNameSet() {
-		return false;
-	}
+    @Override
+    protected boolean shouldRegisterInNameSet() {
+        return false;
+    }
 
-	@Override
-	public boolean renderAsNormalBlock() {
-		return false;
-	}
+    @Override
+    public boolean renderAsNormalBlock() {
+        return false;
+    }
 
-	@Override
-	public boolean isOpaqueCube() {
-		return false;
-	}
+    @Override
+    public boolean isOpaqueCube() {
+        return false;
+    }
 
-	@Override
-	public int damageDropped(int par1) {
-		return par1;
-	}
+    @Override
+    public int damageDropped(int par1) {
+        return par1;
+    }
 
-	@Override
-	public int getRenderColor(int par1) {
-		float[] color = EntitySheep.fleeceColorTable[par1];
-		return new Color(color[0], color[1], color[2]).getRGB();
-	}
+    @Override
+    public int getRenderColor(int par1) {
+        float[] color = EntitySheep.fleeceColorTable[par1];
+        return new Color(color[0], color[1], color[2]).getRGB();
+    }
 
-	@Override
-	public int colorMultiplier(IBlockAccess par1iBlockAccess, int par2, int par3, int par4) {
-		return getRenderColor(par1iBlockAccess.getBlockMetadata(par2, par3, par4));
-	}
+    @Override
+    public int colorMultiplier(IBlockAccess par1iBlockAccess, int par2, int par3, int par4) {
+        return getRenderColor(par1iBlockAccess.getBlockMetadata(par2, par3, par4));
+    }
 
-	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
-		return LexiconData.unstableBlocks;
-	}
+    @Override
+    public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+        return LexiconData.unstableBlocks;
+    }
 
-	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
-		return new TileManaBeacon();
-	}
+    @Override
+    public TileEntity createNewTileEntity(World world, int meta) {
+        return new TileManaBeacon();
+    }
 }

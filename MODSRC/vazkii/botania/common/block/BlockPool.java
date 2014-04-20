@@ -2,11 +2,11 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under a
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
- * 
+ *
  * File Created @ [Jan 26, 2014, 12:22:58 AM (GMT)]
  */
 package vazkii.botania.common.block;
@@ -33,82 +33,80 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockPool extends BlockModContainer implements IWandHUD, IWandable, ILexiconable {
 
-	protected BlockPool() {
-		super(Material.rock);
-		setHardness(2.0F);
-		setResistance(10.0F);
-		setStepSound(soundTypeStone);
-		setBlockName(LibBlockNames.POOL);
-		setBlockBounds(0F, 0F, 0F, 1F, 0.5F, 1F);
-	}
-	
-	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		// NO-OP
-	}
+    protected BlockPool() {
+        super(Material.rock);
+        setHardness(2.0F);
+        setResistance(10.0F);
+        setStepSound(soundTypeStone);
+        setBlockName(LibBlockNames.POOL);
+        setBlockBounds(0F, 0F, 0F, 1F, 0.5F, 1F);
+    }
 
-	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
-		return new TilePool();
-	}
+    @Override
+    public void registerBlockIcons(IIconRegister par1IconRegister) {
+        // NO-OP
+    }
 
-	@Override
-	public void onEntityCollidedWithBlock(World par1World, int par2, int par3, int par4, Entity par5Entity) {
-		if(par5Entity instanceof EntityItem) {
-			TilePool tile = (TilePool) par1World.getTileEntity(par2, par3, par4);
-			if(tile.collideEntityItem((EntityItem) par5Entity))
-				par1World.markBlockForUpdate(par2, par3, par4);
-		}
-	}
+    @Override
+    public TileEntity createNewTileEntity(World world, int meta) {
+        return new TilePool();
+    }
 
-	@Override
-	public boolean isOpaqueCube() {
-		return false;
-	}
+    @Override
+    public void onEntityCollidedWithBlock(World par1World, int par2, int par3, int par4, Entity par5Entity) {
+        if(par5Entity instanceof EntityItem) {
+            TilePool tile = (TilePool) par1World.getTileEntity(par2, par3, par4);
+            if(tile.collideEntityItem((EntityItem) par5Entity)) par1World.markBlockForUpdate(par2, par3, par4);
+        }
+    }
 
-	@Override
-	public boolean renderAsNormalBlock() {
-		return false;
-	}
+    @Override
+    public boolean isOpaqueCube() {
+        return false;
+    }
 
-	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return ModBlocks.livingrock.getIcon(par1, par2);
-	}
+    @Override
+    public boolean renderAsNormalBlock() {
+        return false;
+    }
 
-	@Override
-	public int getRenderType() {
-		return LibRenderIDs.idPool;
-	}
+    @Override
+    public IIcon getIcon(int par1, int par2) {
+        return ModBlocks.livingrock.getIcon(par1, par2);
+    }
 
-	@Override
-	public boolean hasComparatorInputOverride() {
-		return true;
-	}
+    @Override
+    public int getRenderType() {
+        return LibRenderIDs.idPool;
+    }
 
-	@Override
-	public int getComparatorInputOverride(World par1World, int par2, int par3, int par4, int par5) {
-		TilePool pool = (TilePool) par1World.getTileEntity(par2, par3, par4);
-		int val = (int) ((double) pool.getCurrentMana() / (double) TilePool.MAX_MANA * 15.0);
-		if(pool.getCurrentMana() > 0)
-			val = Math.max(val, 1);
+    @Override
+    public boolean hasComparatorInputOverride() {
+        return true;
+    }
 
-		return val;
-	}
+    @Override
+    public int getComparatorInputOverride(World par1World, int par2, int par3, int par4, int par5) {
+        TilePool pool = (TilePool) par1World.getTileEntity(par2, par3, par4);
+        int val = (int) ((double) pool.getCurrentMana() / (double) TilePool.MAX_MANA * 15.0);
+        if(pool.getCurrentMana() > 0) val = Math.max(val, 1);
 
-	@Override
-	public void renderHUD(Minecraft mc, ScaledResolution res, World world, int x, int y, int z) {
-		((TilePool) world.getTileEntity(x, y, z)).renderHUD(mc, res);
-	}
+        return val;
+    }
 
-	@Override
-	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
-		((TilePool) world.getTileEntity(x, y, z)).onWanded(player, stack);
-		return true;
-	}
+    @Override
+    public void renderHUD(Minecraft mc, ScaledResolution res, World world, int x, int y, int z) {
+        ((TilePool) world.getTileEntity(x, y, z)).renderHUD(mc, res);
+    }
 
-	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
-		return LexiconData.pool;
-	}
+    @Override
+    public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
+        ((TilePool) world.getTileEntity(x, y, z)).onWanded(player, stack);
+        return true;
+    }
+
+    @Override
+    public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+        return LexiconData.pool;
+    }
 }
