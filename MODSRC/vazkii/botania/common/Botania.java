@@ -2,11 +2,11 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- *
+ * 
  * Botania is Open Source and distributed under a
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
- *
+ * 
  * File Created @ [Jan 13, 2014, 6:32:39 PM (GMT)]
  */
 package vazkii.botania.common;
@@ -26,29 +26,29 @@ import vazkii.botania.common.lib.LibMisc;
 @Mod(modid = LibMisc.MOD_ID, name = LibMisc.MOD_NAME, version = LibMisc.VERSION)
 public class Botania {
 
-    @Instance(LibMisc.MOD_ID)
-    public static Botania instance;
+	@Instance(LibMisc.MOD_ID)
+	public static Botania instance;
 
-    @SidedProxy(serverSide = LibMisc.PROXY_COMMON, clientSide = LibMisc.PROXY_CLIENT)
-    public static CommonProxy proxy;
+	@SidedProxy(serverSide = LibMisc.PROXY_COMMON, clientSide = LibMisc.PROXY_CLIENT)
+	public static CommonProxy proxy;
 
-    @EventHandler
-    public void preInit(FMLPreInitializationEvent event) {
-        proxy.preInit(event);
-    }
+	@EventHandler
+	public void preInit(FMLPreInitializationEvent event) {
+		proxy.preInit(event);
+	}
 
-    @EventHandler
-    public void init(FMLInitializationEvent event) {
-        proxy.init(event);
-    }
+	@EventHandler
+	public void init(FMLInitializationEvent event) {
+		proxy.init(event);
+	}
 
-    @EventHandler
-    public void postInit(FMLPostInitializationEvent event) {
-        proxy.postInit(event);
-    }
+	@EventHandler
+	public void postInit(FMLPostInitializationEvent event) {
+		proxy.postInit(event);
+	}
 
-    @EventHandler
-    public void serverStopping(FMLServerStoppingEvent event) {
-        ManaNetworkHandler.instance.clear();
-    }
+	@EventHandler
+	public void serverStopping(FMLServerStoppingEvent event) {
+		ManaNetworkHandler.instance.clear();
+	}
 }

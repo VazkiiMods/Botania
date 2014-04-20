@@ -2,11 +2,11 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- *
+ * 
  * Botania is Open Source and distributed under a
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
- *
+ * 
  * File Created @ [Feb 2, 2014, 6:31:19 PM (GMT)]
  */
 package vazkii.botania.common.block.tile;
@@ -31,205 +31,204 @@ import java.util.List;
 
 public class TileRuneAltar extends TileSimpleInventory implements ISidedInventory, IManaReceiver {
 
-    private static final String TAG_MANA = "mana";
+	private static final String TAG_MANA = "mana";
 
-    int manaToGet = 0;
-    int mana = 0;
+	int manaToGet = 0;
+	int mana = 0;
+	
+	public boolean addItem(EntityPlayer player, ItemStack stack) {
+		if(stack.getItem() == ModItems.twigWand || stack.getItem() == ModItems.lexicon  || manaToGet != 0)
+			return false;
 
-    public boolean addItem(EntityPlayer player, ItemStack stack) {
-        if (stack.getItem() == ModItems.twigWand || stack.getItem() == ModItems.lexicon || manaToGet != 0)
-            return false;
+		boolean did = false;
 
-        boolean did = false;
+		for(int i = 0; i < getSizeInventory(); i++)
+			if(getStackInSlot(i) == null) {
+				did = true;
+				ItemStack stackToAdd = stack.copy();
+				stackToAdd.stackSize = 1;
+				setInventorySlotContents(i, stackToAdd);
 
-        for (int i = 0; i < getSizeInventory(); i++)
-            if (getStackInSlot(i) == null) {
-                did = true;
-                ItemStack stackToAdd = stack.copy();
-                stackToAdd.stackSize = 1;
-                setInventorySlotContents(i, stackToAdd);
+				if(!player.capabilities.isCreativeMode) {
+					stack.stackSize--;
+					if(stack.stackSize == 0)
+						player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+				}
 
-                if (!player.capabilities.isCreativeMode) {
-                    stack.stackSize--;
-                    if (stack.stackSize == 0)
-                        player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
-                }
+				break;
+			}
 
-                break;
-            }
+		if(did)
+			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 
-        if (did)
-            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+		return true;
+	}
 
-        return true;
-    }
+	@Override
+	public void updateEntity() {
+		super.updateEntity();
 
-    @Override
-    public void updateEntity() {
-        super.updateEntity();
+		// Update every tick.
+		recieveMana(0);
 
-        // Update every tick.
-        recieveMana(0);
+		if(worldObj.isRemote && manaToGet > 0 && mana >= manaToGet) {
+			if(worldObj.rand.nextInt(20) == 0) {
+				worldObj.playSoundEffect(xCoord, yCoord, zCoord, "mob.creeper.live", 1F, 1F);
 
-        if (worldObj.isRemote && manaToGet > 0 && mana >= manaToGet) {
-            if (worldObj.rand.nextInt(20) == 0) {
-                worldObj.playSoundEffect(xCoord, yCoord, zCoord, "mob.creeper.live", 1F, 1F);
+				Vector3 vec = Vector3.fromTileEntityCenter(this);
+				Vector3 endVec = vec.copy().add(0, 2.5, 0);
+				Botania.proxy.lightningFX(worldObj, vec, endVec, 2F, 0x00948B, 0x00E4D7);
+			}
+		}
 
-                Vector3 vec = Vector3.fromTileEntityCenter(this);
-                Vector3 endVec = vec.copy().add(0, 2.5, 0);
-                Botania.proxy.lightningFX(worldObj, vec, endVec, 2F, 0x00948B, 0x00E4D7);
-            }
-        }
+	}
 
-    }
+	public void updateRecipe() {
+		int manaToGet = this.manaToGet;
 
-    public void updateRecipe() {
-        int manaToGet = this.manaToGet;
+		getMana : {
+			for(RecipeRuneAltar recipe : BotaniaAPI.runeAltarRecipes)
+				if(recipe.matches(this)) {
+					this.manaToGet = recipe.getManaUsage();
+					break getMana;
+				}
+			this.manaToGet = 0;
+		}
 
-        getMana:
-        {
-            for (RecipeRuneAltar recipe : BotaniaAPI.runeAltarRecipes)
-                if (recipe.matches(this)) {
-                    this.manaToGet = recipe.getManaUsage();
-                    break getMana;
-                }
-            this.manaToGet = 0;
-        }
+		if(manaToGet != this.manaToGet) {
+			worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.orb", 1F, 1F);
+			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+		}
+	}
 
-        if (manaToGet != this.manaToGet) {
-            worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.orb", 1F, 1F);
-            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-        }
-    }
+	public void onWanded(EntityPlayer player, ItemStack wand) {
+		updateRecipe();
 
-    public void onWanded(EntityPlayer player, ItemStack wand) {
-        updateRecipe();
+		RecipeRuneAltar recipe = null;
 
-        RecipeRuneAltar recipe = null;
+		for(RecipeRuneAltar recipe_ : BotaniaAPI.runeAltarRecipes) {
+			if(recipe_.matches(this)) {
+				recipe = recipe_;
+				break;
+			}
+		}
 
-        for (RecipeRuneAltar recipe_ : BotaniaAPI.runeAltarRecipes) {
-            if (recipe_.matches(this)) {
-                recipe = recipe_;
-                break;
-            }
-        }
+		if(manaToGet > 0 && mana >= manaToGet) {
+			List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1));
+			EntityItem livingrock = null;
+			for(EntityItem item : items)
+				if(item.getEntityItem() != null && item.getEntityItem().getItem() == Item.getItemFromBlock(ModBlocks.livingrock)) {
+					livingrock = item;
+					break;
+				}
 
-        if (manaToGet > 0 && mana >= manaToGet) {
-            List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1));
-            EntityItem livingrock = null;
-            for (EntityItem item : items)
-                if (item.getEntityItem() != null && item.getEntityItem().getItem() == Item.getItemFromBlock(ModBlocks.livingrock)) {
-                    livingrock = item;
-                    break;
-                }
+			if(livingrock != null) {
+				int mana = recipe.getManaUsage();
+				recieveMana(-mana);
+				if(!worldObj.isRemote) {
+					ItemStack output = recipe.getOutput().copy();
+					EntityItem outputItem = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, output);
+					worldObj.spawnEntityInWorld(outputItem);
+				}
 
-            if (livingrock != null) {
-                int mana = recipe.getManaUsage();
-                recieveMana(-mana);
-                if (!worldObj.isRemote) {
-                    ItemStack output = recipe.getOutput().copy();
-                    EntityItem outputItem = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, output);
-                    worldObj.spawnEntityInWorld(outputItem);
-                }
+				for(int i = 0; i < getSizeInventory(); i++)
+					setInventorySlotContents(i, null);
 
-                for (int i = 0; i < getSizeInventory(); i++)
-                    setInventorySlotContents(i, null);
+				if(!worldObj.isRemote) {
+					ItemStack livingrockItem = livingrock.getEntityItem();
+					livingrockItem.stackSize--;
+					if(livingrockItem.stackSize == 0)
+						livingrock.setDead();
+				}
 
-                if (!worldObj.isRemote) {
-                    ItemStack livingrockItem = livingrock.getEntityItem();
-                    livingrockItem.stackSize--;
-                    if (livingrockItem.stackSize == 0)
-                        livingrock.setDead();
-                }
+				craftingFanciness();
+			}
+		}
 
-                craftingFanciness();
-            }
-        }
+		updateRecipe();
+	}
 
-        updateRecipe();
-    }
+	public void craftingFanciness() {
+		worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.levelup", 1F, 1F);
+		for(int i = 0; i < 25; i++) {
+			float red = (float) Math.random();
+			float green = (float) Math.random();
+			float blue = (float) Math.random();
+			Botania.proxy.sparkleFX(worldObj, xCoord + 0.5 + Math.random() * 0.4 - 0.2, yCoord + 1, zCoord + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
+		}
+	}
 
-    public void craftingFanciness() {
-        worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.levelup", 1F, 1F);
-        for (int i = 0; i < 25; i++) {
-            float red = (float) Math.random();
-            float green = (float) Math.random();
-            float blue = (float) Math.random();
-            Botania.proxy.sparkleFX(worldObj, xCoord + 0.5 + Math.random() * 0.4 - 0.2, yCoord + 1, zCoord + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
-        }
-    }
+	@Override
+	public void writeCustomNBT(NBTTagCompound par1nbtTagCompound) {
+		super.writeCustomNBT(par1nbtTagCompound);
 
-    @Override
-    public void writeCustomNBT(NBTTagCompound par1nbtTagCompound) {
-        super.writeCustomNBT(par1nbtTagCompound);
+		par1nbtTagCompound.setInteger(TAG_MANA, mana);
+	}
 
-        par1nbtTagCompound.setInteger(TAG_MANA, mana);
-    }
+	@Override
+	public void readCustomNBT(NBTTagCompound par1nbtTagCompound) {
+		super.readCustomNBT(par1nbtTagCompound);
 
-    @Override
-    public void readCustomNBT(NBTTagCompound par1nbtTagCompound) {
-        super.readCustomNBT(par1nbtTagCompound);
+		mana = par1nbtTagCompound.getInteger(TAG_MANA);
+	}
 
-        mana = par1nbtTagCompound.getInteger(TAG_MANA);
-    }
+	@Override
+	public int getSizeInventory() {
+		return 16;
+	}
 
-    @Override
-    public int getSizeInventory() {
-        return 16;
-    }
+	@Override
+	public String getInventoryName() {
+		return LibBlockNames.RUNE_ALTAR;
+	}
 
-    @Override
-    public String getInventoryName() {
-        return LibBlockNames.RUNE_ALTAR;
-    }
+	@Override
+	public int getInventoryStackLimit() {
+		return 1;
+	}
 
-    @Override
-    public int getInventoryStackLimit() {
-        return 1;
-    }
+	@Override
+	public int[] getAccessibleSlotsFromSide(int var1) {
+		int accessibleSlot = -1;
+		for(int i = 0; i < getSizeInventory(); i++)
+			if(getStackInSlot(i) != null)
+				accessibleSlot = i;
 
-    @Override
-    public int[] getAccessibleSlotsFromSide(int var1) {
-        int accessibleSlot = -1;
-        for (int i = 0; i < getSizeInventory(); i++)
-            if (getStackInSlot(i) != null)
-                accessibleSlot = i;
+		return accessibleSlot == -1 ? new int[0] : new int[] { accessibleSlot };
+	}
 
-        return accessibleSlot == -1 ? new int[0] : new int[]{accessibleSlot};
-    }
+	@Override
+	public boolean canInsertItem(int i, ItemStack itemstack, int j) {
+		return true;
+	}
 
-    @Override
-    public boolean canInsertItem(int i, ItemStack itemstack, int j) {
-        return true;
-    }
+	@Override
+	public boolean canExtractItem(int i, ItemStack itemstack, int j) {
+		return false;
+	}
 
-    @Override
-    public boolean canExtractItem(int i, ItemStack itemstack, int j) {
-        return false;
-    }
+	@Override
+	public int getCurrentMana() {
+		return mana;
+	}
 
-    @Override
-    public int getCurrentMana() {
-        return mana;
-    }
+	@Override
+	public boolean isFull() {
+		return mana >= manaToGet;
+	}
 
-    @Override
-    public boolean isFull() {
-        return mana >= manaToGet;
-    }
+	@Override
+	public void recieveMana(int mana) {
+		this.mana = Math.min(this.mana + mana, manaToGet);
+	}
 
-    @Override
-    public void recieveMana(int mana) {
-        this.mana = Math.min(this.mana + mana, manaToGet);
-    }
+	@Override
+	public boolean canRecieveManaFromBursts() {
+		return !isFull();
+	}
 
-    @Override
-    public boolean canRecieveManaFromBursts() {
-        return !isFull();
-    }
-
-    public int getTargetMana() {
-        return manaToGet;
-    }
+	public int getTargetMana() {
+		return manaToGet;
+	}
 
 }

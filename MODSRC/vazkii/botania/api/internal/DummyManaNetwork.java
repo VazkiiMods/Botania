@@ -2,11 +2,11 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- *
+ * 
  * Botania is Open Source and distributed under a
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
- *
+ * 
  * File Created @ [Mar 7, 2014, 3:47:43 PM (GMT)]
  */
 package vazkii.botania.api.internal;
@@ -19,31 +19,31 @@ import java.util.List;
 
 public class DummyManaNetwork implements IManaNetwork {
 
-    public static final DummyManaNetwork instance = new DummyManaNetwork();
+	public static final DummyManaNetwork instance = new DummyManaNetwork();
 
-    @Override
-    public void clear() {
-        // NO-OP
-    }
+	@Override
+	public void clear() {
+		// NO-OP
+	}
 
-    @Override
-    public TileEntity getClosestPool(ChunkCoordinates pos, int dimension, int limit) {
-        return null;
-    }
+	@Override
+	public TileEntity getClosestPool(ChunkCoordinates pos, int dimension, int limit) {
+		return null;
+	}
 
-    @Override
-    public TileEntity getClosestCollector(ChunkCoordinates pos, int dimension, int limit) {
-        return null;
-    }
+	@Override
+	public TileEntity getClosestCollector(ChunkCoordinates pos, int dimension, int limit) {
+		return null;
+	}
 
-    @Override
-    public List<TileEntity> getAllCollectorsInWorld(int dim) {
-        return new ArrayList();
-    }
+	@Override
+	public List<TileEntity> getAllCollectorsInWorld(int dim) {
+		return new ArrayList();
+	}
 
-    @Override
-    public List<TileEntity> getAllPoolsInWorld(int dim) {
-        return new ArrayList();
-    }
+	@Override
+	public List<TileEntity> getAllPoolsInWorld(int dim) {
+		return new ArrayList();
+	}
 
 }

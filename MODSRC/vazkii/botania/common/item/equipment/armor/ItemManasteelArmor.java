@@ -2,11 +2,11 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- *
+ * 
  * Botania is Open Source and distributed under a
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
- *
+ * 
  * File Created @ [Apr 13, 2014, 6:38:21 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.armor;
@@ -31,48 +31,48 @@ import vazkii.botania.common.item.equipment.tool.ManasteelToolCommons;
 
 public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor {
 
-    private static final int MANA_PER_DAMAGE = 70;
+	private static final int MANA_PER_DAMAGE = 70;
+	
+	public ItemManasteelArmor(int type, String name) {
+		this(type, name, BotaniaAPI.manasteelArmorMaterial);
+	}
+	
+	public ItemManasteelArmor(int type, String name, ArmorMaterial mat) {
+		super(mat, 0, type);
+		setCreativeTab(BotaniaCreativeTab.INSTANCE);
+		setUnlocalizedName(name);
+	}
 
-    public ItemManasteelArmor(int type, String name) {
-        this(type, name, BotaniaAPI.manasteelArmorMaterial);
-    }
+	@Override
+	public Item setUnlocalizedName(String par1Str) {
+		GameRegistry.registerItem(this, par1Str);
+		return super.setUnlocalizedName(par1Str);
+	}
 
-    public ItemManasteelArmor(int type, String name, ArmorMaterial mat) {
-        super(mat, 0, type);
-        setCreativeTab(BotaniaCreativeTab.INSTANCE);
-        setUnlocalizedName(name);
-    }
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void registerIcons(IIconRegister par1IconRegister) {
+		itemIcon = IconHelper.forItem(par1IconRegister, this);
+	}
 
-    @Override
-    public Item setUnlocalizedName(String par1Str) {
-        GameRegistry.registerItem(this, par1Str);
-        return super.setUnlocalizedName(par1Str);
-    }
+	@Override
+	public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot) {
+		return new ArmorProperties(0, damageReduceAmount / 25D, armor.getMaxDamage() + 1 - armor.getItemDamage());
+	}
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void registerIcons(IIconRegister par1IconRegister) {
-        itemIcon = IconHelper.forItem(par1IconRegister, this);
-    }
+	@Override
+	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
+		return damageReduceAmount;
+	}
 
-    @Override
-    public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot) {
-        return new ArmorProperties(0, damageReduceAmount / 25D, armor.getMaxDamage() + 1 - armor.getItemDamage());
-    }
-
-    @Override
-    public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
-        return damageReduceAmount;
-    }
-
-    @Override
-    public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot) {
-        ManasteelToolCommons.damageItem(stack, damage, entity, MANA_PER_DAMAGE);
-    }
-
-    @Override
-    public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
-        return slot == 2 ? LibResources.MODEL_MANASTEEL_1 : LibResources.MODEL_MANASTEEL_0;
-    }
+	@Override
+	public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot) {
+		ManasteelToolCommons.damageItem(stack, damage, entity, MANA_PER_DAMAGE);
+	}
+	
+	@Override
+	public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
+		return slot == 2 ? LibResources.MODEL_MANASTEEL_1 : LibResources.MODEL_MANASTEEL_0;
+	}
 
 }

@@ -2,11 +2,11 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- *
+ * 
  * Botania is Open Source and distributed under a
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
- *
+ * 
  * File Created @ [Feb 18, 2014, 10:20:06 PM (GMT)]
  */
 package vazkii.botania.client.render.block;
@@ -22,27 +22,27 @@ import vazkii.botania.common.block.tile.TilePylon;
 
 public class RenderPylon implements ISimpleBlockRenderingHandler {
 
-    @Override
-    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
-        GL11.glPushMatrix();
-        GL11.glTranslatef(-0.5F, -0.7F, -0.5F);
-        TileEntityRendererDispatcher.instance.renderTileEntityAt(new TilePylon(), 0.0D, 0.0D, 0.0D, 0.0F);
-        GL11.glPopMatrix();
-    }
+	@Override
+	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
+		GL11.glPushMatrix();
+		GL11.glTranslatef(-0.5F, -0.7F, -0.5F);
+		TileEntityRendererDispatcher.instance.renderTileEntityAt(new TilePylon(), 0.0D, 0.0D, 0.0D, 0.0F);
+		GL11.glPopMatrix();
+	}
 
-    @Override
-    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
-        return false;
-    }
+	@Override
+	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
+		return false;
+	}
 
-    @Override
-    public int getRenderId() {
-        return LibRenderIDs.idPylon;
-    }
+	@Override
+	public int getRenderId() {
+		return LibRenderIDs.idPylon;
+	}
 
-    @Override
-    public boolean shouldRender3DInInventory(int modelId) {
-        return true;
-    }
+	@Override
+	public boolean shouldRender3DInInventory(int modelId) {
+		return true;
+	}
 
 }
