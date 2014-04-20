@@ -11,6 +11,9 @@
  */
 package vazkii.botania.common.block.tile;
 
+import java.util.List;
+import java.util.concurrent.Callable;
+
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -26,8 +29,6 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
-
-import java.util.List;
 
 public class TileRuneAltar extends TileSimpleInventory implements ISidedInventory, IManaReceiver {
 

@@ -11,6 +11,8 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import java.util.List;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
@@ -18,8 +20,6 @@ import net.minecraft.util.DamageSource;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
-
-import java.util.List;
 
 public class SubTileBellethorn extends SubTileFunctional {
 

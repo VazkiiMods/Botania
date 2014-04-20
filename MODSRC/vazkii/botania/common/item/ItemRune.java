@@ -11,6 +11,8 @@
  */
 package vazkii.botania.common.item;
 
+import java.util.List;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.inventory.IInventory;
@@ -20,8 +22,6 @@ import net.minecraft.util.IIcon;
 import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.lib.LibItemNames;
-
-import java.util.List;
 
 public class ItemRune extends ItemMod implements IFlowerComponent {
 

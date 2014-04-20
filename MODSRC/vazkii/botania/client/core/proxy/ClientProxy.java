@@ -11,16 +11,16 @@
  */
 package vazkii.botania.client.core.proxy;
 
-import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.client.core.handler.*;
+import vazkii.botania.client.core.handler.BoundTileRenderer;
+import vazkii.botania.client.core.handler.CapeHandler;
+import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.core.handler.HUDHandler;
+import vazkii.botania.client.core.handler.LightningHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.fx.FXSparkle;
 import vazkii.botania.client.fx.FXWisp;
@@ -28,15 +28,34 @@ import vazkii.botania.client.gui.GuiLexicon;
 import vazkii.botania.client.gui.GuiLexiconEntry;
 import vazkii.botania.client.gui.GuiLexiconIndex;
 import vazkii.botania.client.lib.LibRenderIDs;
-import vazkii.botania.client.render.block.*;
+import vazkii.botania.client.render.block.RenderAltar;
+import vazkii.botania.client.render.block.RenderPool;
+import vazkii.botania.client.render.block.RenderPylon;
+import vazkii.botania.client.render.block.RenderSpecialFlower;
+import vazkii.botania.client.render.block.RenderSpreader;
 import vazkii.botania.client.render.item.RenderLens;
 import vazkii.botania.client.render.item.RenderLexicon;
-import vazkii.botania.client.render.tile.*;
-import vazkii.botania.common.block.tile.*;
+import vazkii.botania.client.render.tile.RenderTileAltar;
+import vazkii.botania.client.render.tile.RenderTileEnchanter;
+import vazkii.botania.client.render.tile.RenderTilePool;
+import vazkii.botania.client.render.tile.RenderTilePylon;
+import vazkii.botania.client.render.tile.RenderTileRuneAltar;
+import vazkii.botania.client.render.tile.RenderTileSpreader;
+import vazkii.botania.common.block.tile.TileAltar;
+import vazkii.botania.common.block.tile.TileEnchanter;
+import vazkii.botania.common.block.tile.TilePool;
+import vazkii.botania.common.block.tile.TilePylon;
+import vazkii.botania.common.block.tile.TileRuneAltar;
+import vazkii.botania.common.block.tile.TileSpreader;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.core.proxy.CommonProxy;
 import vazkii.botania.common.item.ModItems;
+import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.relauncher.Side;
 
 public class ClientProxy extends CommonProxy {
 

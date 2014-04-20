@@ -11,6 +11,8 @@
  */
 package vazkii.botania.api.internal;
 
+import java.util.List;
+
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -21,8 +23,6 @@ import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
-
-import java.util.List;
 
 public class DummyMethodHandler implements IInternalMethodHandler {
 

@@ -11,6 +11,9 @@
  */
 package vazkii.botania.common.item;
 
+import java.awt.Color;
+import java.util.List;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -30,9 +33,6 @@ import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntitySignalFlare;
 import vazkii.botania.common.lib.LibItemNames;
-
-import java.awt.*;
-import java.util.List;
 
 public class ItemSignalFlare extends ItemMod {
 

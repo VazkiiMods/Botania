@@ -11,6 +11,8 @@
  */
 package vazkii.botania.common.block;
 
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -29,8 +31,6 @@ import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.tile.TileManaDetector;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-
-import java.util.List;
 
 public class BlockManaDetector extends BlockModContainer implements ILexiconable {
 

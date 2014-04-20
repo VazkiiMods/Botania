@@ -11,6 +11,9 @@
  */
 package vazkii.botania.client.render.tile;
 
+import java.awt.Color;
+
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
@@ -22,13 +25,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
+
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelAltar;
 import vazkii.botania.common.block.tile.TileAltar;
-
-import java.awt.*;
 
 public class RenderTileAltar extends TileEntitySpecialRenderer {
 

@@ -11,6 +11,9 @@
  */
 package vazkii.botania.common.item;
 
+import java.awt.Color;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -30,9 +33,6 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
-
-import java.awt.*;
-import java.util.List;
 
 public class ItemTwigWand extends Item16Colors {
 

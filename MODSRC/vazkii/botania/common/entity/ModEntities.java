@@ -11,9 +11,9 @@
  */
 package vazkii.botania.common.entity;
 
-import cpw.mods.fml.common.registry.EntityRegistry;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibEntityNames;
+import cpw.mods.fml.common.registry.EntityRegistry;
 
 public final class ModEntities {
 

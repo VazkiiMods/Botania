@@ -11,10 +11,10 @@
  */
 package vazkii.botania.common.core.helper;
 
-import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.common.lib.LibObfuscation;
+import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class ObfuscationHelper {
 

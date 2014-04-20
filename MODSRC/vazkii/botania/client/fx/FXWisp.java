@@ -11,16 +11,18 @@
  */
 package vazkii.botania.client.fx;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+
 import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.helper.ObfuscationHelper;
+import cpw.mods.fml.client.FMLClientHandler;
 
 public class FXWisp extends EntityFX {
 

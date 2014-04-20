@@ -11,7 +11,8 @@
  */
 package vazkii.botania.client.core.handler;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import java.awt.Color;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
@@ -24,12 +25,13 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
+
 import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.api.ITileBound;
 import vazkii.botania.api.IWireframeAABBProvider;
 import vazkii.botania.common.item.ItemTwigWand;
-
-import java.awt.*;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public final class BoundTileRenderer {
 

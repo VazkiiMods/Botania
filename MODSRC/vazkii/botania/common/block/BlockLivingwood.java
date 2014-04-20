@@ -11,7 +11,10 @@
  */
 package vazkii.botania.common.block;
 
-import cpw.mods.fml.common.registry.GameRegistry;
+import java.util.List;
+
+import javax.swing.Icon;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -29,8 +32,7 @@ import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-
-import java.util.List;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class BlockLivingwood extends BlockMod implements ILexiconable {
 

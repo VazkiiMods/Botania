@@ -11,6 +11,8 @@
  */
 package vazkii.botania.common.block;
 
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -32,8 +34,6 @@ import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-
-import java.util.Random;
 
 public class BlockEnchanter extends BlockModContainer implements IWandable, ILexiconable {
 

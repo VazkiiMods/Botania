@@ -11,13 +11,13 @@
  */
 package vazkii.botania.common.item;
 
+import java.awt.Color;
+import java.util.List;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-
-import java.awt.*;
-import java.util.List;
 
 public class Item16Colors extends ItemMod {
 

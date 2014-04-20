@@ -11,11 +11,11 @@
  */
 package vazkii.botania.api.internal;
 
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChunkCoordinates;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChunkCoordinates;
 
 public class DummyManaNetwork implements IManaNetwork {
 

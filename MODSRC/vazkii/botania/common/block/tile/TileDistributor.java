@@ -11,13 +11,13 @@
  */
 package vazkii.botania.common.block.tile;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.IManaReceiver;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TileDistributor extends TileMod implements IManaReceiver {
 

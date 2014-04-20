@@ -14,6 +14,8 @@ package vazkii.botania.client.model;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
+import net.minecraftforge.client.model.obj.GroupObject;
+import net.minecraftforge.client.model.obj.WavefrontObject;
 import vazkii.botania.client.lib.LibResources;
 
 public class ModelPylon implements IPylonModel {

@@ -11,9 +11,9 @@
  */
 package vazkii.botania.api.lexicon;
 
+import vazkii.botania.api.internal.IGuiLexiconEntry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import vazkii.botania.api.internal.IGuiLexiconEntry;
 
 public abstract class LexiconPage {
 

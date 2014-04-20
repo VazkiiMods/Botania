@@ -11,20 +11,23 @@
  */
 package vazkii.botania.client.core.helper;
 
-import cpw.mods.fml.common.FMLLog;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 import net.minecraft.client.renderer.OpenGlHelper;
+
 import org.apache.logging.log4j.Level;
 import org.lwjgl.opengl.ARBFragmentShader;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.ARBVertexShader;
 import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ConfigHandler;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import cpw.mods.fml.common.FMLLog;
+import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
 
 public final class ShaderHelper {
 

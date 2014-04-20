@@ -11,11 +11,11 @@
  */
 package vazkii.botania.client.gui.button;
 
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
-
 import java.util.Arrays;
 import java.util.List;
+
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
 
 public class GuiButtonBackWithShift extends GuiButtonBack {
 

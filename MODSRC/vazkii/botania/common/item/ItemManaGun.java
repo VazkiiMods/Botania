@@ -11,7 +11,8 @@
  */
 package vazkii.botania.common.item;
 
-import cpw.mods.fml.common.registry.GameRegistry;
+import java.util.List;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -26,8 +27,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.recipe.ManaGunLensRecipe;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.lib.LibItemNames;
-
-import java.util.List;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ItemManaGun extends ItemMod {
 

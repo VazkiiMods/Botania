@@ -11,6 +11,8 @@
  */
 package vazkii.botania.api.subtile;
 
+import java.awt.Color;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,8 +24,6 @@ import net.minecraft.util.StatCollector;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaPool;
-
-import java.awt.*;
 
 /**
  * The basic class for a Functional Flower.

@@ -11,9 +11,9 @@
  */
 package vazkii.botania.api;
 
+import net.minecraft.util.ChunkCoordinates;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.util.ChunkCoordinates;
 
 /**
  * Any TileEntity that implements this is technically bound

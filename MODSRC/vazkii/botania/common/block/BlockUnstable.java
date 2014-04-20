@@ -11,7 +11,10 @@
  */
 package vazkii.botania.common.block;
 
-import cpw.mods.fml.common.registry.GameRegistry;
+import java.awt.Color;
+import java.util.List;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -28,10 +31,7 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-
-import java.awt.*;
-import java.util.List;
-import java.util.Random;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class BlockUnstable extends BlockMod implements ILexiconable {
 

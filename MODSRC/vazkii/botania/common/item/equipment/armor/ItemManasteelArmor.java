@@ -11,6 +11,12 @@
  */
 package vazkii.botania.common.item.equipment.armor;
 
+import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.core.BotaniaCreativeTab;
+import vazkii.botania.common.item.equipment.tool.ManasteelToolCommons;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -23,11 +29,8 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.ISpecialArmor;
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.client.core.helper.IconHelper;
-import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.core.BotaniaCreativeTab;
-import vazkii.botania.common.item.equipment.tool.ManasteelToolCommons;
+import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
+import net.minecraftforge.common.util.EnumHelper;
 
 public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor {
 

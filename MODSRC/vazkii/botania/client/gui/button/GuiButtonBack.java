@@ -11,15 +11,17 @@
  */
 package vazkii.botania.client.gui.button;
 
+import java.util.Arrays;
+import java.util.List;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.StatCollector;
+
 import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.GuiLexicon;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class GuiButtonBack extends GuiButton {
 

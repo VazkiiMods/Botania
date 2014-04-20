@@ -11,10 +11,10 @@
  */
 package vazkii.botania.api.internal;
 
+import java.util.List;
+
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
-
-import java.util.List;
 
 /**
  * A basic interface for a world's Mana Network.

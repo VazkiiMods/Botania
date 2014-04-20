@@ -11,10 +11,10 @@
  */
 package vazkii.botania.api.lexicon;
 
-import net.minecraft.item.ItemStack;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import net.minecraft.item.ItemStack;
 
 /**
  * This class contains mappings for which entry and page correspond to each

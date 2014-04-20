@@ -11,6 +11,11 @@
  */
 package vazkii.botania.common.item;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.entity.item.EntityItem;
@@ -21,11 +26,6 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 import vazkii.botania.api.ISpecialFlower;
 import vazkii.botania.common.lib.LibItemNames;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
 
 public class ItemGrassHorn extends ItemMod {
 

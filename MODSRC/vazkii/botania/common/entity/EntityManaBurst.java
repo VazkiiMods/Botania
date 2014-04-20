@@ -11,6 +11,10 @@
  */
 package vazkii.botania.common.entity;
 
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.entity.Entity;
@@ -21,7 +25,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.ILensEffect;
@@ -32,10 +40,6 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileSpreader;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 

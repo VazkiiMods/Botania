@@ -11,18 +11,45 @@
  */
 package vazkii.botania.common.block;
 
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.subtile.SubTilePureDaisy;
-import vazkii.botania.common.block.subtile.functional.*;
-import vazkii.botania.common.block.subtile.generating.*;
-import vazkii.botania.common.block.tile.*;
+import vazkii.botania.common.block.subtile.functional.SubTileAgricarnation;
+import vazkii.botania.common.block.subtile.functional.SubTileBellethorn;
+import vazkii.botania.common.block.subtile.functional.SubTileExoflame;
+import vazkii.botania.common.block.subtile.functional.SubTileFallenKanade;
+import vazkii.botania.common.block.subtile.functional.SubTileHeiseiDream;
+import vazkii.botania.common.block.subtile.functional.SubTileHopperhock;
+import vazkii.botania.common.block.subtile.functional.SubTileJadedAmaranthus;
+import vazkii.botania.common.block.subtile.functional.SubTileJiyuulia;
+import vazkii.botania.common.block.subtile.functional.SubTileTangleberrie;
+import vazkii.botania.common.block.subtile.functional.SubTileTigerseye;
+import vazkii.botania.common.block.subtile.functional.SubtileOrechid;
+import vazkii.botania.common.block.subtile.generating.SubTileArcaneRose;
+import vazkii.botania.common.block.subtile.generating.SubTileDaybloom;
+import vazkii.botania.common.block.subtile.generating.SubTileEndoflame;
+import vazkii.botania.common.block.subtile.generating.SubTileHydroangeas;
+import vazkii.botania.common.block.subtile.generating.SubTileNightshade;
+import vazkii.botania.common.block.subtile.generating.SubTileThermalily;
+import vazkii.botania.common.block.tile.TileAltar;
+import vazkii.botania.common.block.tile.TileDistributor;
+import vazkii.botania.common.block.tile.TileEnchanter;
+import vazkii.botania.common.block.tile.TileManaBeacon;
+import vazkii.botania.common.block.tile.TileManaDetector;
+import vazkii.botania.common.block.tile.TileManaVoid;
+import vazkii.botania.common.block.tile.TilePool;
+import vazkii.botania.common.block.tile.TilePylon;
+import vazkii.botania.common.block.tile.TileRuneAltar;
+import vazkii.botania.common.block.tile.TileSpecialFlower;
+import vazkii.botania.common.block.tile.TileSpreader;
+import vazkii.botania.common.block.tile.TileTurntable;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibOreDict;
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public final class ModBlocks {
 

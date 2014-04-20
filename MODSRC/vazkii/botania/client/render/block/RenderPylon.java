@@ -11,14 +11,16 @@
  */
 package vazkii.botania.client.render.block;
 
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.world.IBlockAccess;
+
 import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.TilePylon;
+import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class RenderPylon implements ISimpleBlockRenderingHandler {
 

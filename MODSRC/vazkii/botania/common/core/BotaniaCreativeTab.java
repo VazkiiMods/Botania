@@ -11,6 +11,8 @@
  */
 package vazkii.botania.common.core;
 
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -18,8 +20,6 @@ import net.minecraft.item.ItemStack;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
-
-import java.util.List;
 
 public final class BotaniaCreativeTab extends CreativeTabs {
 
@@ -45,7 +45,6 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		this.list = list;
 
 		addItem(ModItems.lexicon);
-		addItem(ModItems.test);
 
 		addBlock(ModBlocks.flower);
 		addBlock(ModBlocks.specialFlower);

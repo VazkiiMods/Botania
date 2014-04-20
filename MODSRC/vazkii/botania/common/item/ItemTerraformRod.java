@@ -11,6 +11,9 @@
  */
 package vazkii.botania.common.item;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,9 +27,6 @@ import vazkii.botania.api.ISpecialFlower;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibItemNames;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ItemTerraformRod extends ItemMod {
 
