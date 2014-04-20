@@ -2,11 +2,11 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under a
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
- * 
+ *
  * File Created @ [Jan 13, 2014, 7:46:05 PM (GMT)]
  */
 package vazkii.botania.client.core.proxy;
@@ -40,83 +40,83 @@ import vazkii.botania.common.item.ModItems;
 
 public class ClientProxy extends CommonProxy {
 
-	@Override
-	public void init(FMLInitializationEvent event) {
-		super.init(event);
+    @Override
+    public void init(FMLInitializationEvent event) {
+        super.init(event);
 
-		FMLCommonHandler.instance().bus().register(new ClientTickHandler());
-		MinecraftForge.EVENT_BUS.register(new HUDHandler());
-		MinecraftForge.EVENT_BUS.register(new LightningHandler());
-		MinecraftForge.EVENT_BUS.register(new CapeHandler());
-		if(ConfigHandler.boundBlockWireframe)
-			MinecraftForge.EVENT_BUS.register(new BoundTileRenderer());
+        FMLCommonHandler.instance().bus().register(new ClientTickHandler());
+        MinecraftForge.EVENT_BUS.register(new HUDHandler());
+        MinecraftForge.EVENT_BUS.register(new LightningHandler());
+        MinecraftForge.EVENT_BUS.register(new CapeHandler());
+        if (ConfigHandler.boundBlockWireframe)
+            MinecraftForge.EVENT_BUS.register(new BoundTileRenderer());
 
-		initRenderers();
-	}
+        initRenderers();
+    }
 
-	private void initRenderers() {
-		LibRenderIDs.idAltar = RenderingRegistry.getNextAvailableRenderId();
-		LibRenderIDs.idSpecialFlower = RenderingRegistry.getNextAvailableRenderId();
-		LibRenderIDs.idSpreader = RenderingRegistry.getNextAvailableRenderId();
-		LibRenderIDs.idPool = RenderingRegistry.getNextAvailableRenderId();
-		LibRenderIDs.idPylon = RenderingRegistry.getNextAvailableRenderId();
+    private void initRenderers() {
+        LibRenderIDs.idAltar = RenderingRegistry.getNextAvailableRenderId();
+        LibRenderIDs.idSpecialFlower = RenderingRegistry.getNextAvailableRenderId();
+        LibRenderIDs.idSpreader = RenderingRegistry.getNextAvailableRenderId();
+        LibRenderIDs.idPool = RenderingRegistry.getNextAvailableRenderId();
+        LibRenderIDs.idPylon = RenderingRegistry.getNextAvailableRenderId();
 
-		RenderingRegistry.registerBlockHandler(new RenderAltar());
-		RenderingRegistry.registerBlockHandler(new RenderSpecialFlower(LibRenderIDs.idSpecialFlower));
-		RenderingRegistry.registerBlockHandler(new RenderSpreader());
-		RenderingRegistry.registerBlockHandler(new RenderPool());
-		RenderingRegistry.registerBlockHandler(new RenderPylon());
+        RenderingRegistry.registerBlockHandler(new RenderAltar());
+        RenderingRegistry.registerBlockHandler(new RenderSpecialFlower(LibRenderIDs.idSpecialFlower));
+        RenderingRegistry.registerBlockHandler(new RenderSpreader());
+        RenderingRegistry.registerBlockHandler(new RenderPool());
+        RenderingRegistry.registerBlockHandler(new RenderPylon());
 
-		MinecraftForgeClient.registerItemRenderer(ModItems.lens, new RenderLens());
-		if(ConfigHandler.lexicon3dModel)
-			MinecraftForgeClient.registerItemRenderer(ModItems.lexicon, new RenderLexicon());
+        MinecraftForgeClient.registerItemRenderer(ModItems.lens, new RenderLens());
+        if (ConfigHandler.lexicon3dModel)
+            MinecraftForgeClient.registerItemRenderer(ModItems.lexicon, new RenderLexicon());
 
-		ClientRegistry.bindTileEntitySpecialRenderer(TileAltar.class, new RenderTileAltar());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileSpreader.class, new RenderTileSpreader());
-		ClientRegistry.bindTileEntitySpecialRenderer(TilePool.class, new RenderTilePool());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileRuneAltar.class, new RenderTileRuneAltar());
-		ClientRegistry.bindTileEntitySpecialRenderer(TilePylon.class, new RenderTilePylon());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEnchanter.class, new RenderTileEnchanter());
-		
-		ShaderHelper.initShaders();
-	}
+        ClientRegistry.bindTileEntitySpecialRenderer(TileAltar.class, new RenderTileAltar());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileSpreader.class, new RenderTileSpreader());
+        ClientRegistry.bindTileEntitySpecialRenderer(TilePool.class, new RenderTilePool());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileRuneAltar.class, new RenderTileRuneAltar());
+        ClientRegistry.bindTileEntitySpecialRenderer(TilePylon.class, new RenderTilePylon());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEnchanter.class, new RenderTileEnchanter());
 
-	@Override
-	public void setEntryToOpen(LexiconEntry entry) {
-		GuiLexicon.currentOpenLexicon = new GuiLexiconEntry(entry, new GuiLexiconIndex(entry.category));
-	}
+        ShaderHelper.initShaders();
+    }
 
-	@Override
-	public long getWorldElapsedTicks() {
-		return Minecraft.getMinecraft().theWorld == null ? 0 : Minecraft.getMinecraft().theWorld.getTotalWorldTime();
-	}
+    @Override
+    public void setEntryToOpen(LexiconEntry entry) {
+        GuiLexicon.currentOpenLexicon = new GuiLexiconEntry(entry, new GuiLexiconIndex(entry.category));
+    }
 
-	@Override
-	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m, boolean fake) {
-		FXSparkle sparkle = new FXSparkle(world, x, y, z, size, r, g, b, m);
-		sparkle.fake = sparkle.noClip = fake;
-		Minecraft.getMinecraft().effectRenderer.addEffect(sparkle);
-	}
+    @Override
+    public long getWorldElapsedTicks() {
+        return Minecraft.getMinecraft().theWorld == null ? 0 : Minecraft.getMinecraft().theWorld.getTotalWorldTime();
+    }
 
-	private static boolean distanceLimit = true;
+    @Override
+    public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m, boolean fake) {
+        FXSparkle sparkle = new FXSparkle(world, x, y, z, size, r, g, b, m);
+        sparkle.fake = sparkle.noClip = fake;
+        Minecraft.getMinecraft().effectRenderer.addEffect(sparkle);
+    }
 
-	@Override
-	public void setWispFXDistanceLimit(boolean limit) {
-		distanceLimit = limit;
-	}
+    private static boolean distanceLimit = true;
 
-	@Override
-	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size, float motionx, float motiony, float motionz, float maxAgeMul) {
-		FXWisp wisp = new FXWisp(world, x, y, z, size, r, g, b, distanceLimit, maxAgeMul);
-		wisp.motionX = motionx;
-		wisp.motionY = motiony;
-		wisp.motionZ = motionz;
+    @Override
+    public void setWispFXDistanceLimit(boolean limit) {
+        distanceLimit = limit;
+    }
 
-		Minecraft.getMinecraft().effectRenderer.addEffect(wisp);
-	}
+    @Override
+    public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size, float motionx, float motiony, float motionz, float maxAgeMul) {
+        FXWisp wisp = new FXWisp(world, x, y, z, size, r, g, b, distanceLimit, maxAgeMul);
+        wisp.motionX = motionx;
+        wisp.motionY = motiony;
+        wisp.motionZ = motionz;
 
-	@Override
-	public void lightningFX(World world, Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
-		LightningHandler.spawnLightningBolt(world, vectorStart, vectorEnd, ticksPerMeter, seed, colorOuter, colorInner);
-	}
+        Minecraft.getMinecraft().effectRenderer.addEffect(wisp);
+    }
+
+    @Override
+    public void lightningFX(World world, Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
+        LightningHandler.spawnLightningBolt(world, vectorStart, vectorEnd, ticksPerMeter, seed, colorOuter, colorInner);
+    }
 }

@@ -2,11 +2,11 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under a
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
- * 
+ *
  * File Created @ [Jan 25, 2014, 10:04:25 PM (GMT)]
  */
 package vazkii.botania.common.block;
@@ -34,65 +34,65 @@ import java.util.List;
 
 public class BlockLivingwood extends BlockMod implements ILexiconable {
 
-	private static final int TYPES = 6;
-	IIcon[] icons;
+    private static final int TYPES = 6;
+    IIcon[] icons;
 
-	public BlockLivingwood() {
-		super( Material.wood);
-		setHardness(2.0F);
-		setStepSound(soundTypeWood);
-		setBlockName(LibBlockNames.LIVING_WOOD);
-	}
+    public BlockLivingwood() {
+        super(Material.wood);
+        setHardness(2.0F);
+        setStepSound(soundTypeWood);
+        setBlockName(LibBlockNames.LIVING_WOOD);
+    }
 
-	@Override
-	protected boolean shouldRegisterInNameSet() {
-		return false;
-	}
+    @Override
+    protected boolean shouldRegisterInNameSet() {
+        return false;
+    }
 
-	@Override
-	public int damageDropped(int par1) {
-		return par1;
-	}
+    @Override
+    public int damageDropped(int par1) {
+        return par1;
+    }
 
-	@Override
-	public Block setBlockName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setBlockName(par1Str);
-	}
+    @Override
+    public Block setBlockName(String par1Str) {
+        GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
+        return super.setBlockName(par1Str);
+    }
 
-	@Override
-	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
-		for(int i = 0; i < TYPES; i++)
-			par3List.add(new ItemStack(par1, 1, i));
-	}
+    @Override
+    public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
+        for (int i = 0; i < TYPES; i++)
+            par3List.add(new ItemStack(par1, 1, i));
+    }
 
-	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[TYPES];
-		for(int i = 0; i < TYPES; i++)
-			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
-	}
+    @Override
+    public void registerBlockIcons(IIconRegister par1IconRegister) {
+        icons = new IIcon[TYPES];
+        for (int i = 0; i < TYPES; i++)
+            icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
+    }
 
-	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return icons[Math.min(TYPES - 1, par2)];
-	}
+    @Override
+    public IIcon getIcon(int par1, int par2) {
+        return icons[Math.min(TYPES - 1, par2)];
+    }
 
-	@Override
-	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
-		int meta = world.getBlockMetadata(x, y, z);
-		return new ItemStack(this, 1, meta);
-	}
+    @Override
+    public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
+        int meta = world.getBlockMetadata(x, y, z);
+        return new ItemStack(this, 1, meta);
+    }
 
-	@Override
-	public int getLightValue(IBlockAccess world, int x, int y, int z) {
-		return world.getBlockMetadata(x, y, z) == 5 ? 12 : 0;
-	}
+    @Override
+    public int getLightValue(IBlockAccess world, int x, int y, int z) {
+        return world.getBlockMetadata(x, y, z) == 5 ? 12 : 0;
+    }
 
-	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
-		int meta = world.getBlockMetadata(x, y, z);
-		return meta == 0 ? LexiconData.pureDaisy : LexiconData.decorativeBlocks;
-	}
+    @Override
+    public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+        int meta = world.getBlockMetadata(x, y, z);
+        return meta == 0 ? LexiconData.pureDaisy : LexiconData.decorativeBlocks;
+    }
 
 }

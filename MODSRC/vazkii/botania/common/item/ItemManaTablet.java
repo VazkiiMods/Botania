@@ -2,11 +2,11 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under a
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
- * 
+ *
  * File Created @ [Mar 7, 2014, 7:06:20 PM (GMT)]
  */
 package vazkii.botania.common.item;
@@ -30,124 +30,124 @@ import java.util.List;
 
 public class ItemManaTablet extends ItemMod implements IManaItem {
 
-	IIcon[] icons;
+    IIcon[] icons;
 
-	private static final int MAX_MANA = 500000;
+    private static final int MAX_MANA = 500000;
 
-	private static final String TAG_MANA = "mana";
-	private static final String TAG_CREATIVE = "creative";
+    private static final String TAG_MANA = "mana";
+    private static final String TAG_CREATIVE = "creative";
 
-	public ItemManaTablet() {
-		super();
-		setMaxStackSize(1);
-		setMaxDamage(1000);
-		setUnlocalizedName(LibItemNames.MANA_TABLET);
-	}
+    public ItemManaTablet() {
+        super();
+        setMaxStackSize(1);
+        setMaxDamage(1000);
+        setUnlocalizedName(LibItemNames.MANA_TABLET);
+    }
 
-	@Override
-	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
-		par3List.add(new ItemStack(par1, 1, 10000));
+    @Override
+    public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
+        par3List.add(new ItemStack(par1, 1, 10000));
 
-		ItemStack fullPower = new ItemStack(par1, 1, 1);
-		setMana(fullPower, MAX_MANA);
-		par3List.add(fullPower);
+        ItemStack fullPower = new ItemStack(par1, 1, 1);
+        setMana(fullPower, MAX_MANA);
+        par3List.add(fullPower);
 
-		ItemStack creative = new ItemStack(par1, 1, 0);
-		setMana(creative, MAX_MANA);
-		setStackCreative(creative);
-		par3List.add(creative);
-	}
+        ItemStack creative = new ItemStack(par1, 1, 0);
+        setMana(creative, MAX_MANA);
+        setStackCreative(creative);
+        par3List.add(creative);
+    }
 
-	@Override
-	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
-		float mana = getMana(par1ItemStack);
-		return par2 == 1 ? Color.HSBtoRGB(0.528F,  mana / MAX_MANA, 1F) : 0xFFFFFF;
-	}
+    @Override
+    public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
+        float mana = getMana(par1ItemStack);
+        return par2 == 1 ? Color.HSBtoRGB(0.528F, mana / MAX_MANA, 1F) : 0xFFFFFF;
+    }
 
-	@Override
-	public int getDamage(ItemStack stack) {
-		float mana = getMana(stack);
-		return 1000 - (int) (mana / MAX_MANA * 1000);
-	}
+    @Override
+    public int getDamage(ItemStack stack) {
+        float mana = getMana(stack);
+        return 1000 - (int) (mana / MAX_MANA * 1000);
+    }
 
-	@Override
-	public int getDisplayDamage(ItemStack stack) {
-		return getDamage(stack);
-	}
+    @Override
+    public int getDisplayDamage(ItemStack stack) {
+        return getDamage(stack);
+    }
 
-	@Override
-	public void registerIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[2];
-		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forItem(par1IconRegister, this, i);
-	}
+    @Override
+    public void registerIcons(IIconRegister par1IconRegister) {
+        icons = new IIcon[2];
+        for (int i = 0; i < icons.length; i++)
+            icons[i] = IconHelper.forItem(par1IconRegister, this, i);
+    }
 
-	@Override
-	public IIcon getIcon(ItemStack stack, int pass) {
-		return icons[Math.min(1, pass)];
-	}
+    @Override
+    public IIcon getIcon(ItemStack stack, int pass) {
+        return icons[Math.min(1, pass)];
+    }
 
-	@Override
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		if(isStackCreative(par1ItemStack))
-			par3List.add(StatCollector.translateToLocal("botaniamisc.creative"));
-	}
+    @Override
+    public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+        if (isStackCreative(par1ItemStack))
+            par3List.add(StatCollector.translateToLocal("botaniamisc.creative"));
+    }
 
-	@Override
-	public boolean requiresMultipleRenderPasses() {
-		return true;
-	}
+    @Override
+    public boolean requiresMultipleRenderPasses() {
+        return true;
+    }
 
-	@Override
-	public int getEntityLifespan(ItemStack itemStack, World world) {
-		return Integer.MAX_VALUE;
-	}
+    @Override
+    public int getEntityLifespan(ItemStack itemStack, World world) {
+        return Integer.MAX_VALUE;
+    }
 
-	public static void setMana(ItemStack stack, int mana) {
-		ItemNBTHelper.setInt(stack, TAG_MANA, mana);
-	}
+    public static void setMana(ItemStack stack, int mana) {
+        ItemNBTHelper.setInt(stack, TAG_MANA, mana);
+    }
 
-	public static void setStackCreative(ItemStack stack) {
-		ItemNBTHelper.setBoolean(stack, TAG_CREATIVE, true);
-	}
+    public static void setStackCreative(ItemStack stack) {
+        ItemNBTHelper.setBoolean(stack, TAG_CREATIVE, true);
+    }
 
-	public static boolean isStackCreative(ItemStack stack) {
-		return ItemNBTHelper.getBoolean(stack, TAG_CREATIVE, false);
-	}
+    public static boolean isStackCreative(ItemStack stack) {
+        return ItemNBTHelper.getBoolean(stack, TAG_CREATIVE, false);
+    }
 
-	@Override
-	public int getMana(ItemStack stack) {
-		return ItemNBTHelper.getInt(stack, TAG_MANA, 0);
-	}
+    @Override
+    public int getMana(ItemStack stack) {
+        return ItemNBTHelper.getInt(stack, TAG_MANA, 0);
+    }
 
-	@Override
-	public int getMaxMana(ItemStack stack) {
-		return isStackCreative(stack) ? MAX_MANA + 1000 : MAX_MANA;
-	}
+    @Override
+    public int getMaxMana(ItemStack stack) {
+        return isStackCreative(stack) ? MAX_MANA + 1000 : MAX_MANA;
+    }
 
-	@Override
-	public void addMana(ItemStack stack, int mana) {
-		if(!isStackCreative(stack))
-			setMana(stack, Math.min(getMana(stack) + mana, MAX_MANA));
-	}
+    @Override
+    public void addMana(ItemStack stack, int mana) {
+        if (!isStackCreative(stack))
+            setMana(stack, Math.min(getMana(stack) + mana, MAX_MANA));
+    }
 
-	@Override
-	public boolean canReceiveManaFromPool(ItemStack stack, TileEntity pool) {
-		return true;
-	}
+    @Override
+    public boolean canReceiveManaFromPool(ItemStack stack, TileEntity pool) {
+        return true;
+    }
 
-	@Override
-	public boolean canReceiveManaFromItem(ItemStack stack, ItemStack otherStack) {
-		return false;
-	}
+    @Override
+    public boolean canReceiveManaFromItem(ItemStack stack, ItemStack otherStack) {
+        return false;
+    }
 
-	@Override
-	public boolean canExportManaToPool(ItemStack stack, TileEntity pool) {
-		return true;
-	}
+    @Override
+    public boolean canExportManaToPool(ItemStack stack, TileEntity pool) {
+        return true;
+    }
 
-	@Override
-	public boolean canExportManaToItem(ItemStack stack, ItemStack otherStack) {
-		return true;
-	}
+    @Override
+    public boolean canExportManaToItem(ItemStack stack, ItemStack otherStack) {
+        return true;
+    }
 }

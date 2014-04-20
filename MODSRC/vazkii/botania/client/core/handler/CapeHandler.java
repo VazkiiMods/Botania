@@ -2,11 +2,11 @@
  * This class was created by <The TConstruct Team>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under a
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
- * 
+ *
  * File Created @ [? (GMT)]
  */
 package vazkii.botania.client.core.handler;
@@ -28,50 +28,50 @@ import java.util.ArrayList;
 
 public class CapeHandler {
 
-	private ArrayList<AbstractClientPlayer> capePlayers = new ArrayList<AbstractClientPlayer>();
+    private ArrayList<AbstractClientPlayer> capePlayers = new ArrayList<AbstractClientPlayer>();
 
-	public static CapeHandler instance;
+    public static CapeHandler instance;
 
-	public CapeHandler() {
-		instance = this;
-	}
+    public CapeHandler() {
+        instance = this;
+    }
 
-	@SubscribeEvent
-	public void onPreRenderSpecials (RenderPlayerEvent.Specials.Pre event) {
-		if(Loader.isModLoaded("shadersmod"))
-			return;
+    @SubscribeEvent
+    public void onPreRenderSpecials(RenderPlayerEvent.Specials.Pre event) {
+        if (Loader.isModLoaded("shadersmod"))
+            return;
 
-		if(event.entityPlayer instanceof AbstractClientPlayer && (event.entityPlayer.getCommandSenderName().equals("Vazkii"))) {
-			AbstractClientPlayer abstractClientPlayer = (AbstractClientPlayer) event.entityPlayer;
+        if (event.entityPlayer instanceof AbstractClientPlayer && (event.entityPlayer.getCommandSenderName().equals("Vazkii"))) {
+            AbstractClientPlayer abstractClientPlayer = (AbstractClientPlayer) event.entityPlayer;
 
-			if (!capePlayers.contains(abstractClientPlayer)) {
-				ReflectionHelper.setPrivateValue(ThreadDownloadImageData.class, abstractClientPlayer.getTextureCape(), false, LibObfuscation.TEXTURE_UPLOADED);
-				new Thread(new CloakThread(abstractClientPlayer)).start();
-				event.renderCape = true;
-			}
-		}
-	}
+            if (!capePlayers.contains(abstractClientPlayer)) {
+                ReflectionHelper.setPrivateValue(ThreadDownloadImageData.class, abstractClientPlayer.getTextureCape(), false, LibObfuscation.TEXTURE_UPLOADED);
+                new Thread(new CloakThread(abstractClientPlayer)).start();
+                event.renderCape = true;
+            }
+        }
+    }
 
-	private class CloakThread implements Runnable {
+    private class CloakThread implements Runnable {
 
-		AbstractClientPlayer abstractClientPlayer;
+        AbstractClientPlayer abstractClientPlayer;
 
-		public CloakThread(AbstractClientPlayer player) {
-			abstractClientPlayer = player;
-		}
+        public CloakThread(AbstractClientPlayer player) {
+            abstractClientPlayer = player;
+        }
 
-		@Override
-		public void run() {
-			try {
-				BufferedImage bo = ImageIO.read(Botania.class.getResourceAsStream(LibResources.MODEL_CAPE));
-				ReflectionHelper.setPrivateValue(ThreadDownloadImageData.class, abstractClientPlayer.getTextureCape(), bo, LibObfuscation.BUFFERED_IMAGE);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
+        @Override
+        public void run() {
+            try {
+                BufferedImage bo = ImageIO.read(Botania.class.getResourceAsStream(LibResources.MODEL_CAPE));
+                ReflectionHelper.setPrivateValue(ThreadDownloadImageData.class, abstractClientPlayer.getTextureCape(), bo, LibObfuscation.BUFFERED_IMAGE);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
-	public void refreshCapes() {
-		capePlayers.clear();
-	}
+    public void refreshCapes() {
+        capePlayers.clear();
+    }
 }
