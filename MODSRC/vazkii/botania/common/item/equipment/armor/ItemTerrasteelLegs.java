@@ -7,21 +7,21 @@
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
  * 
- * File Created @ [Apr 14, 2014, 3:13:36 PM (GMT)]
+ * File Created @ [Apr 14, 2014, 3:13:49 PM (GMT)]
  */
-package vazkii.botania.common.item.armor;
+package vazkii.botania.common.item.equipment.armor;
 
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemTerrasteelChest extends ItemTerrasteeelArmor {
+public class ItemTerrasteelLegs extends ItemTerrasteeelArmor {
 
-	public ItemTerrasteelChest() {
-		super(1, LibItemNames.TERRASTEEL_CHEST);
+	public ItemTerrasteelLegs() {
+		super(2, LibItemNames.TERRASTEEL_LEGS);
 	}
 
 	@Override
 	int getHealthBoost() {
-		return 6;
+		return 5;
 	}
-
+	
 }

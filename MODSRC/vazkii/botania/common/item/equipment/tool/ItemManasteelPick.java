@@ -9,7 +9,7 @@
  * 
  * File Created @ [Apr 13, 2014, 7:05:58 PM (GMT)]
  */
-package vazkii.botania.common.item.tool;
+package vazkii.botania.common.item.equipment.tool;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;

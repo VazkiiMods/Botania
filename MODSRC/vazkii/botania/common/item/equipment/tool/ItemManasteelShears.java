@@ -9,7 +9,7 @@
  * 
  * File Created @ [Apr 13, 2014, 7:28:35 PM (GMT)]
  */
-package vazkii.botania.common.item.tool;
+package vazkii.botania.common.item.equipment.tool;
 
 import java.util.ArrayList;
 import java.util.Random;

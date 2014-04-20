@@ -9,14 +9,14 @@
  * 
  * File Created @ [Apr 13, 2014, 6:38:21 PM (GMT)]
  */
-package vazkii.botania.common.item.armor;
+package vazkii.botania.common.item.equipment.armor;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.BotaniaCreativeTab;
-import vazkii.botania.common.item.tool.ManasteelToolCommons;
+import vazkii.botania.common.item.equipment.tool.ManasteelToolCommons;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

@@ -7,16 +7,16 @@
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
  * 
- * File Created @ [Apr 13, 2014, 10:22:24 PM (GMT)]
+ * File Created @ [Apr 13, 2014, 10:23:28 PM (GMT)]
  */
-package vazkii.botania.common.item.armor;
+package vazkii.botania.common.item.equipment.armor;
 
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemManasteelHelm extends ItemManasteelArmor {
+public class ItemManasteelLegs extends ItemManasteelArmor {
 
-	public ItemManasteelHelm() {
-		super(0, LibItemNames.MANASTEEL_HELM);
+	public ItemManasteelLegs() {
+		super(2, LibItemNames.MANASTEEL_LEGS);
 	}
 
 }

@@ -9,7 +9,7 @@
  * 
  * File Created @ [Apr 14, 2014, 7:34:56 PM (GMT)]
  */
-package vazkii.botania.common.item.tool;
+package vazkii.botania.common.item.equipment.tool;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
