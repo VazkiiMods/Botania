@@ -63,7 +63,7 @@ public final class ModBlocks {
         enchanter = new BlockEnchanter();
         turntable = new BlockTurntable();
 
-        for(int i = 0; i < 16; i++)
+        for (int i = 0; i < 16; i++)
             OreDictionary.registerOre(LibOreDict.FLOWER[i], new ItemStack(flower, 1, i));
 
         OreDictionary.registerOre(LibOreDict.LIVING_ROCK, livingrock);
@@ -110,11 +110,11 @@ public final class ModBlocks {
     }
 
     private static void registerMultiparts() {
-        if(Loader.isModLoaded("ForgeMultipart")) {
+        if (Loader.isModLoaded("ForgeMultipart")) {
             try {
                 Class clazz = Class.forName("vazkii.botania.common.block.multipart.MultipartHandler");
                 clazz.newInstance();
-            } catch(Throwable e) {
+            } catch (Throwable e) {
                 e.printStackTrace();
             }
         }

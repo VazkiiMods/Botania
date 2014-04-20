@@ -52,7 +52,7 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer {
         GL11.glScalef(1F, -1F, -1F);
         ItemStack stack = spreader.getStackInSlot(0);
 
-        if(stack != null) {
+        if (stack != null) {
             Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
             ILens lens = (ILens) stack.getItem();
             GL11.glPushMatrix();

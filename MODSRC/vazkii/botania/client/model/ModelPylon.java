@@ -36,7 +36,7 @@ public class ModelPylon implements IPylonModel {
 
     @Override
     public void renderGems() {
-        for(int i = 1; i < 5; i++)
+        for (int i = 1; i < 5; i++)
             model.renderPart("Ring_Gem0" + i);
     }
 }

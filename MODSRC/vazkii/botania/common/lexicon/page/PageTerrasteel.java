@@ -33,7 +33,9 @@ public class PageTerrasteel extends PageRecipe {
     int ticksElapsed = 0;
     int index = 0;
 
-    static final Block[] blocks = new Block[]{Blocks.iron_block, Blocks.gold_block, Blocks.emerald_block, Blocks.diamond_block};
+    static final Block[] blocks = new Block[]{
+            Blocks.iron_block, Blocks.gold_block, Blocks.emerald_block, Blocks.diamond_block
+    };
 
     public PageTerrasteel(String unlocalizedName) {
         super(unlocalizedName);
@@ -84,10 +86,11 @@ public class PageTerrasteel extends PageRecipe {
     @Override
     @SideOnly(Side.CLIENT)
     public void updateScreen() {
-        if(ticksElapsed % 20 == 0) {
+        if (ticksElapsed % 20 == 0) {
             index++;
 
-            if(index == blocks.length) index = 0;
+            if (index == blocks.length)
+                index = 0;
         }
         ++ticksElapsed;
     }

@@ -37,12 +37,15 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer {
         TileEnchanter enchanter = (TileEnchanter) tileentity;
         float alphaMod = 0F;
 
-        if(enchanter.stage == 2) alphaMod = Math.min(20, enchanter.stageTicks) / 20F;
-        else if(enchanter.stage == 4) alphaMod = (20 - enchanter.stageTicks) / 20F;
-        else if(enchanter.stage > 2) alphaMod = 1F;
+        if (enchanter.stage == 2)
+            alphaMod = Math.min(20, enchanter.stageTicks) / 20F;
+        else if (enchanter.stage == 4)
+            alphaMod = (20 - enchanter.stageTicks) / 20F;
+        else if (enchanter.stage > 2)
+            alphaMod = 1F;
 
-        if(enchanter.itemToEnchant != null) {
-            if(item == null)
+        if (enchanter.itemToEnchant != null) {
+            if (item == null)
                 item = new EntityItem(enchanter.getWorldObj(), enchanter.xCoord, enchanter.yCoord + 1, enchanter.zCoord, enchanter.itemToEnchant);
 
             item.age = (int) tileentity.getWorldObj().getTotalWorldTime();
@@ -65,7 +68,8 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer {
         GL11.glColor4f(1F, 1F, 1F, 1F);
         GL11.glDisable(GL11.GL_ALPHA_TEST);
         float alpha = (float) ((Math.sin(enchanter.getWorldObj().getTotalWorldTime() / 8D) + 1D) / 5D + 0.4D) * alphaMod;
-        if(ShaderHelper.useShaders()) GL11.glColor4f(1F, 1F, 1F, alpha);
+        if (ShaderHelper.useShaders())
+            GL11.glColor4f(1F, 1F, 1F, alpha);
         else {
             int light = 15728880;
             int lightmapX = light % 65536;
@@ -76,7 +80,7 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer {
 
         Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 
-        if(enchanter.stage == 3 || enchanter.stage == 4) {
+        if (enchanter.stage == 3 || enchanter.stage == 4) {
             int ticks = enchanter.stageTicks + enchanter.stage3EndTicks;
             int angle = ticks * 2;
             float yTranslation = Math.min(20, ticks) / 20F * 1.15F;

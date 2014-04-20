@@ -33,10 +33,10 @@ public final class TerrasteelCraftingHandler {
 
     public static void onEntityUpdate(EntityItem item) {
         ItemStack stack = item.getEntityItem();
-        if(stack != null && stack.getItem() == ModItems.manaResource && stack.getItemDamage() == 0) {
+        if (stack != null && stack.getItem() == ModItems.manaResource && stack.getItemDamage() == 0) {
             int time = validateCraftingItem(item);
 
-            if(time != -1) {
+            if (time != -1) {
                 doParticles(item, time);
 
                 getManaFromPools:
@@ -45,15 +45,15 @@ public final class TerrasteelCraftingHandler {
                     int y = (int) item.posY;
                     int z = (int) item.posZ;
 
-                    for(int i = -4; i < 5; i++)
-                        for(int j = -4; j < 5; j++)
-                            for(int k = -4; k < 5; k++) {
+                    for (int i = -4; i < 5; i++)
+                        for (int j = -4; j < 5; j++)
+                            for (int k = -4; k < 5; k++) {
                                 TileEntity tile = item.worldObj.getTileEntity(x + i, y + j, z + k);
 
-                                if(tile instanceof IManaPool) {
+                                if (tile instanceof IManaPool) {
                                     IManaPool pool = (IManaPool) tile;
 
-                                    if(!item.worldObj.isRemote && pool.getCurrentMana() >= MANA_PER_TICK) {
+                                    if (!item.worldObj.isRemote && pool.getCurrentMana() >= MANA_PER_TICK) {
                                         pool.recieveMana(-MANA_PER_TICK);
                                         item.worldObj.markBlockForUpdate(tile.xCoord, tile.yCoord, tile.zCoord);
                                         incrementCraftingTime(item, time);
@@ -71,29 +71,32 @@ public final class TerrasteelCraftingHandler {
         int y = (int) item.posY;
         int z = (int) item.posZ;
 
-        if(item.worldObj.getBlock(x, y - 1, z) != Blocks.beacon) return -1;
+        if (item.worldObj.getBlock(x, y - 1, z) != Blocks.beacon)
+            return -1;
 
         TileEntityBeacon beacon = (TileEntityBeacon) item.worldObj.getTileEntity(x, y - 1, z);
-        if(beacon.getLevels() <= 0) return -1;
+        if (beacon.getLevels() <= 0)
+            return -1;
 
         List<EntityItem> items = item.worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1));
 
         EntityItem diamond = null;
         EntityItem pearl = null;
 
-        for(EntityItem otherItem : items) {
-            if(otherItem == item) continue;
+        for (EntityItem otherItem : items) {
+            if (otherItem == item)
+                continue;
 
             ItemStack stack = otherItem.getEntityItem();
-            if(stack.getItem() == ModItems.manaResource) {
+            if (stack.getItem() == ModItems.manaResource) {
                 int meta = stack.getItemDamage();
-                if(meta == 1) {
-                    if(pearl == null) {
+                if (meta == 1) {
+                    if (pearl == null) {
                         pearl = otherItem;
                         continue;
                     } else return -1;
-                } else if(meta == 2) {
-                    if(diamond == null) {
+                } else if (meta == 2) {
+                    if (diamond == null) {
                         diamond = otherItem;
                         continue;
                     } else return -1;
@@ -101,9 +104,9 @@ public final class TerrasteelCraftingHandler {
             } else return -1;
         }
 
-        if(diamond != null && pearl != null) {
+        if (diamond != null && pearl != null) {
             int time = getTimeInCrafting(item);
-            if(time > 0) {
+            if (time > 0) {
                 diamond.delayBeforeCanPickup = 1;
                 diamond.age = 0;
                 pearl.delayBeforeCanPickup = 1;
@@ -123,8 +126,12 @@ public final class TerrasteelCraftingHandler {
     }
 
     static void doParticles(EntityItem item, int ticks) {
-        if(item.worldObj.isRemote) {
-            float[][] colors = new float[][]{{0F, 0F, 1F}, {0F, 0.5F, 0.5F}, {0F, 1F, 0F},};
+        if (item.worldObj.isRemote) {
+            float[][] colors = new float[][]{
+                    {0F, 0F, 1F},
+                    {0F, 0.5F, 0.5F},
+                    {0F, 1F, 0F},
+            };
 
             int totalSpiritCount = 3;
             double tickIncrement = 360D / totalSpiritCount;
@@ -135,7 +142,7 @@ public final class TerrasteelCraftingHandler {
             double r = Math.sin((double) (ticks - TIME) / 10D) * 2;
             double g = Math.sin(wticks * Math.PI / 180 * 0.55);
 
-            for(int i = 0; i < totalSpiritCount; i++) {
+            for (int i = 0; i < totalSpiritCount; i++) {
                 double x = (int) item.posX + Math.sin(wticks * Math.PI / 180) * r + 0.5;
                 double y = (int) item.posY + 0.25;
                 double z = (int) item.posZ + Math.cos(wticks * Math.PI / 180) * r + 0.5;
@@ -145,15 +152,18 @@ public final class TerrasteelCraftingHandler {
                 Botania.proxy.wispFX(item.worldObj, x, y, z, colorsfx[0], colorsfx[1], colorsfx[2], 0.85F, (float) g * 0.05F, 0.25F);
                 Botania.proxy.wispFX(item.worldObj, x, y, z, colorsfx[0], colorsfx[1], colorsfx[2], (float) Math.random() * 0.1F + 0.1F, (float) (Math.random() - 0.5) * 0.05F, (float) (Math.random() - 0.5) * 0.05F, (float) (Math.random() - 0.5) * 0.05F, 0.9F);
 
-                if(ticks == TIME) for(int j = 0; j < 15; j++)
-                    Botania.proxy.wispFX(item.worldObj, item.posX, item.posY, item.posZ, colorsfx[0], colorsfx[1], colorsfx[2], (float) Math.random() * 0.15F + 0.15F, (float) (Math.random() - 0.5F) * 0.125F, (float) (Math.random() - 0.5F) * 0.125F, (float) (Math.random() - 0.5F) * 0.125F);
+                if (ticks == TIME)
+                    for (int j = 0; j < 15; j++)
+                        Botania.proxy.wispFX(item.worldObj, item.posX, item.posY, item.posZ, colorsfx[0], colorsfx[1], colorsfx[2], (float) Math.random() * 0.15F + 0.15F, (float) (Math.random() - 0.5F) * 0.125F, (float) (Math.random() - 0.5F) * 0.125F, (float) (Math.random() - 0.5F) * 0.125F);
             }
-            if(ticks == TIME) item.worldObj.playSoundAtEntity(item, "random.levelup", 1F, 1F);
+            if (ticks == TIME)
+                item.worldObj.playSoundAtEntity(item, "random.levelup", 1F, 1F);
         }
     }
 
     static void incrementCraftingTime(EntityItem item, int time) {
-        if(time >= TIME) finalizeCraftingRecipe(item);
+        if (time >= TIME)
+            finalizeCraftingRecipe(item);
 
         else {
             ItemStack stack = item.getEntityItem();
@@ -167,8 +177,9 @@ public final class TerrasteelCraftingHandler {
         int z = (int) item.posZ;
 
         List<EntityItem> items = item.worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1));
-        for(EntityItem otherItem : items)
-            if(otherItem != item) otherItem.setDead();
+        for (EntityItem otherItem : items)
+            if (otherItem != item)
+                otherItem.setDead();
             else item.setEntityItemStack(new ItemStack(ModItems.manaResource, 1, 4));
     }
 

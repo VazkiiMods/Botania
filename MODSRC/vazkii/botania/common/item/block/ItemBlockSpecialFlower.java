@@ -48,11 +48,12 @@ public class ItemBlockSpecialFlower extends ItemBlock implements IRecipeKeyProvi
     @Override
     public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata) {
         boolean placed = super.placeBlockAt(stack, player, world, x, y, z, side, hitX, hitY, hitZ, metadata);
-        if(placed) {
+        if (placed) {
             String type = getType(stack);
             TileSpecialFlower tile = (TileSpecialFlower) world.getTileEntity(x, y, z);
             tile.setSubTile(type);
-            if(!world.isRemote) world.markBlockForUpdate(x, y, z);
+            if (!world.isRemote)
+                world.markBlockForUpdate(x, y, z);
         }
 
         return placed;
@@ -67,7 +68,8 @@ public class ItemBlockSpecialFlower extends ItemBlock implements IRecipeKeyProvi
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
         String refUnlocalized = "tile." + LibBlockNames.SPECIAL_FLOWER_PREFIX + getType(par1ItemStack) + ".reference";
         String refLocalized = StatCollector.translateToLocal(refUnlocalized);
-        if(!refLocalized.equals(refUnlocalized)) par3List.add(EnumChatFormatting.ITALIC + refLocalized);
+        if (!refLocalized.equals(refUnlocalized))
+            par3List.add(EnumChatFormatting.ITALIC + refLocalized);
     }
 
     public static String getType(ItemStack stack) {

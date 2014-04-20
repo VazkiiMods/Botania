@@ -35,7 +35,8 @@ public final class ManaNetworkHandler implements IManaNetwork {
     @SubscribeEvent
     public void onNetworkEvent(ManaNetworkEvent event) {
         Map<Integer, List<TileEntity>> map = event.type == ManaBlockType.COLLECTOR ? manaCollectors : manaPools;
-        if(event.action == Action.ADD) add(map, event.tile);
+        if (event.action == Action.ADD)
+            add(map, event.tile);
         else remove(map, event.tile);
     }
 
@@ -47,13 +48,15 @@ public final class ManaNetworkHandler implements IManaNetwork {
 
     @Override
     public TileEntity getClosestPool(ChunkCoordinates pos, int dimension, int limit) {
-        if(manaPools.containsKey(dimension)) return getClosest(manaPools.get(dimension), pos, limit);
+        if (manaPools.containsKey(dimension))
+            return getClosest(manaPools.get(dimension), pos, limit);
         return null;
     }
 
     @Override
     public TileEntity getClosestCollector(ChunkCoordinates pos, int dimension, int limit) {
-        if(manaCollectors.containsKey(dimension)) return getClosest(manaCollectors.get(dimension), pos, limit);
+        if (manaCollectors.containsKey(dimension))
+            return getClosest(manaCollectors.get(dimension), pos, limit);
         return null;
     }
 
@@ -61,11 +64,12 @@ public final class ManaNetworkHandler implements IManaNetwork {
         float closest = Float.MAX_VALUE;
         TileEntity closestTile = null;
 
-        for(TileEntity tile : tiles) {
+        for (TileEntity tile : tiles) {
             float distance = MathHelper.pointDistanceSpace(tile.xCoord, tile.yCoord, tile.zCoord, pos.posX, pos.posY, pos.posZ);
-            if(distance > limit) continue;
+            if (distance > limit)
+                continue;
 
-            if(distance < closest) {
+            if (distance < closest) {
                 closest = distance;
                 closestTile = tile;
             }
@@ -77,7 +81,8 @@ public final class ManaNetworkHandler implements IManaNetwork {
     private synchronized void remove(Map<Integer, List<TileEntity>> map, TileEntity tile) {
         int dim = tile.getWorldObj().provider.dimensionId;
 
-        if(!map.containsKey(dim)) return;
+        if (!map.containsKey(dim))
+            return;
 
         List<TileEntity> tiles = map.get(dim);
         tiles.remove(tile);
@@ -87,11 +92,13 @@ public final class ManaNetworkHandler implements IManaNetwork {
         int dim = tile.getWorldObj().provider.dimensionId;
 
         List<TileEntity> tiles;
-        if(!map.containsKey(dim)) map.put(dim, new ArrayList());
+        if (!map.containsKey(dim))
+            map.put(dim, new ArrayList());
 
         tiles = map.get(dim);
 
-        if(!tiles.contains(tile)) tiles.add(tile);
+        if (!tiles.contains(tile))
+            tiles.add(tile);
     }
 
     @Override
@@ -105,7 +112,8 @@ public final class ManaNetworkHandler implements IManaNetwork {
     }
 
     private List<TileEntity> getAllInWorld(Map<Integer, List<TileEntity>> map, int dim) {
-        if(!map.containsKey(dim)) return new ArrayList();
+        if (!map.containsKey(dim))
+            return new ArrayList();
         return map.get(dim);
     }
 }

@@ -69,14 +69,14 @@ public class LightningHandler {
         render.bindTexture(outsideResource);
         tessellator.startDrawingQuads();
         tessellator.setBrightness(0xF000F0);
-        for(LightningBolt bolt : LightningBolt.boltlist)
+        for (LightningBolt bolt : LightningBolt.boltlist)
             renderBolt(bolt, tessellator, frame, ActiveRenderInfo.rotationX, ActiveRenderInfo.rotationXZ, ActiveRenderInfo.rotationZ, ActiveRenderInfo.rotationXY, 0, false);
         tessellator.draw();
 
         render.bindTexture(insideResource);
         tessellator.startDrawingQuads();
         tessellator.setBrightness(0xF000F0);
-        for(LightningBolt bolt : LightningBolt.boltlist)
+        for (LightningBolt bolt : LightningBolt.boltlist)
             renderBolt(bolt, tessellator, frame, ActiveRenderInfo.rotationX, ActiveRenderInfo.rotationXZ, ActiveRenderInfo.rotationZ, ActiveRenderInfo.rotationXY, 1, true);
         tessellator.draw();
 
@@ -96,7 +96,8 @@ public class LightningHandler {
     private void renderBolt(LightningBolt bolt, Tessellator tessellator, float partialframe, float cosyaw, float cospitch, float sinyaw, float cossinpitch, int pass, boolean inner) {
         float boltage = bolt.particleAge < 0 ? 0 : (float) bolt.particleAge / (float) bolt.particleMaxAge;
         float mainalpha = 1;
-        if(pass == 0) mainalpha = (1 - boltage) * 0.4F;
+        if (pass == 0)
+            mainalpha = (1 - boltage) * 0.4F;
         else mainalpha = 1 - boltage * 0.5F;
 
         int expandTime = (int) (bolt.length * bolt.speed);
@@ -104,8 +105,9 @@ public class LightningHandler {
         int renderstart = (int) ((expandTime / 2 - bolt.particleMaxAge + bolt.particleAge) / (float) (expandTime / 2) * bolt.numsegments0);
         int renderend = (int) ((bolt.particleAge + expandTime) / (float) expandTime * bolt.numsegments0);
 
-        for(Segment rendersegment : bolt.segments) {
-            if(rendersegment.segmentno < renderstart || rendersegment.segmentno > renderend) continue;
+        for (Segment rendersegment : bolt.segments) {
+            if (rendersegment.segmentno < renderstart || rendersegment.segmentno > renderend)
+                continue;
 
             Vector3 playervec = getRelativeViewVector(rendersegment.startpoint.point).multiply(-1);
 
@@ -124,7 +126,7 @@ public class LightningHandler {
             tessellator.addVertexWithUV(startvec.x + diff1.x, startvec.y + diff1.y, startvec.z + diff1.z, 0.5, 1);
             tessellator.addVertexWithUV(endvec.x + diff2.x, endvec.y + diff2.y, endvec.z + diff2.z, 0.5, 1);
 
-            if(rendersegment.next == null) {
+            if (rendersegment.next == null) {
                 Vector3 roundend = rendersegment.endpoint.point.copy().add(rendersegment.diff.copy().normalize().multiply(width));
 
                 tessellator.addVertexWithUV(roundend.x - diff2.x, roundend.y - diff2.y, roundend.z - diff2.z, 0, 0);
@@ -133,7 +135,7 @@ public class LightningHandler {
                 tessellator.addVertexWithUV(roundend.x + diff2.x, roundend.y + diff2.y, roundend.z + diff2.z, 0, 1);
             }
 
-            if(rendersegment.prev == null) {
+            if (rendersegment.prev == null) {
                 Vector3 roundend = rendersegment.startpoint.point.copy().subtract(rendersegment.diff.copy().normalize().multiply(width));
 
                 tessellator.addVertexWithUV(startvec.x - diff1.x, startvec.y - diff1.y, startvec.z - diff1.z, 0.5, 0);
@@ -196,7 +198,8 @@ public class LightningHandler {
             @Override
             public int compare(Segment o1, Segment o2) {
                 int comp = Integer.valueOf(o1.splitno).compareTo(o2.splitno);
-                if(comp == 0) return Integer.valueOf(o1.segmentno).compareTo(o2.segmentno);
+                if (comp == 0)
+                    return Integer.valueOf(o1.segmentno).compareTo(o2.segmentno);
                 else return comp;
             }
         }
@@ -228,7 +231,7 @@ public class LightningHandler {
             }
 
             public void calcEndDiffs() {
-                if(prev != null) {
+                if (prev != null) {
                     Vector3 prevdiffnorm = prev.diff.copy().normalize();
                     Vector3 thisdiffnorm = diff.copy().normalize();
 
@@ -239,7 +242,7 @@ public class LightningHandler {
                     sinprev = 1;
                 }
 
-                if(next != null) {
+                if (next != null) {
                     Vector3 nextdiffnorm = next.diff.copy().normalize();
                     Vector3 thisdiffnorm = diff.copy().normalize();
 
@@ -314,14 +317,15 @@ public class LightningHandler {
         }
 
         public void fractal(int splits, double amount, double splitchance, double splitlength, double splitangle) {
-            if(finalized) return;
+            if (finalized)
+                return;
 
             ArrayList<Segment> oldsegments = segments;
             segments = new ArrayList<Segment>();
 
             Segment prev = null;
 
-            for(Segment segment : oldsegments) {
+            for (Segment segment : oldsegments) {
                 prev = segment.prev;
 
                 Vector3 subsegment = segment.diff.copy().multiply(1F / splits);
@@ -332,7 +336,7 @@ public class LightningHandler {
                 newpoints[0] = segment.startpoint;
                 newpoints[splits] = segment.endpoint;
 
-                for(int i = 1; i < splits; i++) {
+                for (int i = 1; i < splits; i++) {
                     Vector3 randoff = segment.diff.copy().perpendicular().normalize().rotate(rand.nextFloat() * 360, segment.diff);
                     randoff.multiply((rand.nextFloat() - 0.5F) * amount * 2);
 
@@ -341,12 +345,13 @@ public class LightningHandler {
                     newpoints[i] = new BoltPoint(basepoint, randoff);
                 }
 
-                for(int i = 0; i < splits; i++) {
+                for (int i = 0; i < splits; i++) {
                     Segment next = new Segment(newpoints[i], newpoints[i + 1], segment.light, segment.segmentno * splits + i, segment.splitno);
                     next.prev = prev;
-                    if(prev != null) prev.next = next;
+                    if (prev != null)
+                        prev.next = next;
 
-                    if(i != 0 && rand.nextFloat() < splitchance) {
+                    if (i != 0 && rand.nextFloat() < splitchance) {
                         Vector3 splitrot = next.diff.copy().xCrossProduct().rotate(rand.nextFloat() * 360, next.diff);
                         Vector3 diff = next.diff.copy().rotate((rand.nextFloat() * 0.66F + 0.33F) * splitangle, splitrot).multiply(splitlength);
 
@@ -363,7 +368,8 @@ public class LightningHandler {
                     segments.add(next);
                 }
 
-                if(segment.next != null) segment.next.prev = prev;
+                if (segment.next != null)
+                    segment.next.prev = prev;
             }
 
             numsegments0 *= splits;
@@ -382,12 +388,14 @@ public class LightningHandler {
         private float rayTraceResistance(Vector3 start, Vector3 end, float prevresistance) {
             MovingObjectPosition mop = world.rayTraceBlocks(start.toVec3D(), end.toVec3D());
 
-            if(mop == null) return prevresistance;
+            if (mop == null)
+                return prevresistance;
 
-            if(mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+            if (mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
                 Block block = world.getBlock(mop.blockX, mop.blockY, mop.blockZ);
 
-                if(world.isAirBlock(mop.blockX, mop.blockY, mop.blockZ)) return prevresistance;
+                if (world.isAirBlock(mop.blockX, mop.blockY, mop.blockZ))
+                    return prevresistance;
 
                 return prevresistance + block.getExplosionResistance(source) + 0.3F;
             } else return prevresistance;
@@ -402,15 +410,16 @@ public class LightningHandler {
             int lastactiveseg = 0;// unterminated
             float splitresistance = 0;
 
-            for(Segment segment : segments) {
-                if(segment.splitno > lastsplitcalc) {
+            for (Segment segment : segments) {
+                if (segment.splitno > lastsplitcalc) {
                     lastactivesegment.put(lastsplitcalc, lastactiveseg);
                     lastsplitcalc = segment.splitno;
                     lastactiveseg = lastactivesegment.get(splitparents.get(segment.splitno));
                     splitresistance = lastactiveseg < segment.segmentno ? 50 : 0;
                 }
 
-                if(splitresistance >= 40 * segment.light) continue;
+                if (splitresistance >= 40 * segment.light)
+                    continue;
 
                 splitresistance = rayTraceResistance(segment.startpoint.point, segment.endpoint.point, splitresistance);
                 lastactiveseg = segment.segmentno;
@@ -419,20 +428,22 @@ public class LightningHandler {
 
             lastsplitcalc = 0;
             lastactiveseg = lastactivesegment.get(0);
-            for(Iterator<Segment> iterator = segments.iterator(); iterator.hasNext(); ) {
+            for (Iterator<Segment> iterator = segments.iterator(); iterator.hasNext(); ) {
                 Segment segment = iterator.next();
-                if(lastsplitcalc != segment.splitno) {
+                if (lastsplitcalc != segment.splitno) {
                     lastsplitcalc = segment.splitno;
                     lastactiveseg = lastactivesegment.get(segment.splitno);
                 }
 
-                if(segment.segmentno > lastactiveseg) iterator.remove();
+                if (segment.segmentno > lastactiveseg)
+                    iterator.remove();
                 segment.calcEndDiffs();
             }
         }
 
         public void finalizeBolt() {
-            if(finalized) return;
+            if (finalized)
+                return;
             finalized = true;
 
             calculateCollisionAndDiffs();
@@ -445,16 +456,18 @@ public class LightningHandler {
         public void onUpdate() {
             particleAge++;
 
-            if(particleAge >= particleMaxAge) isDead = true;
+            if (particleAge >= particleMaxAge)
+                isDead = true;
         }
 
         // Called in ClientTickHandler
         public static void update() {
-            for(Iterator<LightningBolt> iterator = boltlist.iterator(); iterator.hasNext(); ) {
+            for (Iterator<LightningBolt> iterator = boltlist.iterator(); iterator.hasNext(); ) {
                 LightningBolt bolt = iterator.next();
 
                 bolt.onUpdate();
-                if(bolt.isDead) iterator.remove();
+                if (bolt.isDead)
+                    iterator.remove();
             }
         }
     }

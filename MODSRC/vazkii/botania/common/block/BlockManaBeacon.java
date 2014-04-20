@@ -52,7 +52,7 @@ public class BlockManaBeacon extends BlockModContainer implements ILexiconable {
     @Override
     public void registerBlockIcons(IIconRegister par1IconRegister) {
         icons = new IIcon[2];
-        for(int i = 0; i < 2; i++)
+        for (int i = 0; i < 2; i++)
             icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
     }
 
@@ -63,7 +63,7 @@ public class BlockManaBeacon extends BlockModContainer implements ILexiconable {
 
     @Override
     public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
-        for(int i = 0; i < 16; i++)
+        for (int i = 0; i < 16; i++)
             par3List.add(new ItemStack(par1, 1, i));
     }
 

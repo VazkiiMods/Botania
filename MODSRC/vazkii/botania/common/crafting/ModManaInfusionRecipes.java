@@ -37,7 +37,7 @@ public final class ModManaInfusionRecipes {
 
     public static void init() {
         manaPetalRecipes = new ArrayList();
-        for(int i = 0; i < 16; i++)
+        for (int i = 0; i < 16; i++)
             manaPetalRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPetal, 1, i), LibOreDict.PETAL[i], 1000));
 
         manasteelRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 0), "ingotIron", 3000);

@@ -36,7 +36,8 @@ public final class ShaderHelper {
     public static int manaPool = 0;
 
     public static void initShaders() {
-        if(!useShaders()) return;
+        if (!useShaders())
+            return;
 
         pylonGlow = createProgram(null, LibResources.SHADER_PYLON_GLOW_FRAG);
         enchanterRune = createProgram(null, LibResources.SHADER_ENCHANTER_RUNE_FRAG);
@@ -44,11 +45,12 @@ public final class ShaderHelper {
     }
 
     public static void useShader(int shader) {
-        if(!useShaders()) return;
+        if (!useShaders())
+            return;
 
         ARBShaderObjects.glUseProgramObjectARB(shader);
 
-        if(shader != 0) {
+        if (shader != 0) {
             int time = ARBShaderObjects.glGetUniformLocationARB(shader, "time");
             ARBShaderObjects.glUniform1iARB(time, ClientTickHandler.ticksInGame);
         }
@@ -67,23 +69,28 @@ public final class ShaderHelper {
 
     private static int createProgram(String vert, String frag) {
         int vertId = 0, fragId = 0, program = 0;
-        if(vert != null) vertId = createShader(vert, VERT);
-        if(frag != null) fragId = createShader(frag, FRAG);
+        if (vert != null)
+            vertId = createShader(vert, VERT);
+        if (frag != null)
+            fragId = createShader(frag, FRAG);
 
         program = ARBShaderObjects.glCreateProgramObjectARB();
-        if(program == 0) return 0;
+        if (program == 0)
+            return 0;
 
-        if(vert != null) ARBShaderObjects.glAttachObjectARB(program, vertId);
-        if(frag != null) ARBShaderObjects.glAttachObjectARB(program, fragId);
+        if (vert != null)
+            ARBShaderObjects.glAttachObjectARB(program, vertId);
+        if (frag != null)
+            ARBShaderObjects.glAttachObjectARB(program, fragId);
 
         ARBShaderObjects.glLinkProgramARB(program);
-        if(ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_LINK_STATUS_ARB) == GL11.GL_FALSE) {
+        if (ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_LINK_STATUS_ARB) == GL11.GL_FALSE) {
             FMLLog.log(Level.ERROR, getLogInfo(program));
             return 0;
         }
 
         ARBShaderObjects.glValidateProgramARB(program);
-        if(ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_VALIDATE_STATUS_ARB) == GL11.GL_FALSE) {
+        if (ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_VALIDATE_STATUS_ARB) == GL11.GL_FALSE) {
             FMLLog.log(Level.ERROR, getLogInfo(program));
             return 0;
         }
@@ -96,16 +103,17 @@ public final class ShaderHelper {
         try {
             shader = ARBShaderObjects.glCreateShaderObjectARB(shaderType);
 
-            if(shader == 0) return 0;
+            if (shader == 0)
+                return 0;
 
             ARBShaderObjects.glShaderSourceARB(shader, readFileAsString(filename));
             ARBShaderObjects.glCompileShaderARB(shader);
 
-            if(ARBShaderObjects.glGetObjectParameteriARB(shader, ARBShaderObjects.GL_OBJECT_COMPILE_STATUS_ARB) == GL11.GL_FALSE)
+            if (ARBShaderObjects.glGetObjectParameteriARB(shader, ARBShaderObjects.GL_OBJECT_COMPILE_STATUS_ARB) == GL11.GL_FALSE)
                 throw new RuntimeException("Error creating shader: " + getLogInfo(shader));
 
             return shader;
-        } catch(Exception e) {
+        } catch (Exception e) {
             ARBShaderObjects.glDeleteObjectARB(shader);
             e.printStackTrace();
             return -1;
@@ -122,7 +130,8 @@ public final class ShaderHelper {
         Exception exception = null;
         BufferedReader reader;
 
-        if(in == null) return "";
+        if (in == null)
+            return "";
 
         try {
             reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
@@ -130,30 +139,35 @@ public final class ShaderHelper {
             Exception innerExc = null;
             try {
                 String line;
-                while((line = reader.readLine()) != null) source.append(line).append('\n');
-            } catch(Exception exc) {
+                while ((line = reader.readLine()) != null)
+                    source.append(line).append('\n');
+            } catch (Exception exc) {
                 exception = exc;
             } finally {
                 try {
                     reader.close();
-                } catch(Exception exc) {
-                    if(innerExc == null) innerExc = exc;
+                } catch (Exception exc) {
+                    if (innerExc == null)
+                        innerExc = exc;
                     else exc.printStackTrace();
                 }
             }
 
-            if(innerExc != null) throw innerExc;
-        } catch(Exception exc) {
+            if (innerExc != null)
+                throw innerExc;
+        } catch (Exception exc) {
             exception = exc;
         } finally {
             try {
                 in.close();
-            } catch(Exception exc) {
-                if(exception == null) exception = exc;
+            } catch (Exception exc) {
+                if (exception == null)
+                    exception = exc;
                 else exc.printStackTrace();
             }
 
-            if(exception != null) throw exception;
+            if (exception != null)
+                throw exception;
         }
 
         return source.toString();

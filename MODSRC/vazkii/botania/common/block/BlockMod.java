@@ -24,12 +24,14 @@ public class BlockMod extends Block {
 
     public BlockMod(Material par2Material) {
         super(par2Material);
-        if(registerInCreative()) setCreativeTab(BotaniaCreativeTab.INSTANCE);
+        if (registerInCreative())
+            setCreativeTab(BotaniaCreativeTab.INSTANCE);
     }
 
     @Override
     public Block setBlockName(String par1Str) {
-        if(shouldRegisterInNameSet()) GameRegistry.registerBlock(this, par1Str);
+        if (shouldRegisterInNameSet())
+            GameRegistry.registerBlock(this, par1Str);
         return super.setBlockName(par1Str);
     }
 

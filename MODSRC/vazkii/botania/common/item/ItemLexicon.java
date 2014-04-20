@@ -32,12 +32,12 @@ public class ItemLexicon extends ItemMod {
 
     @Override
     public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
-        if(par2EntityPlayer.isSneaking()) {
+        if (par2EntityPlayer.isSneaking()) {
             Block block = par3World.getBlock(par4, par5, par6);
 
-            if(block != null && block instanceof ILexiconable) {
+            if (block != null && block instanceof ILexiconable) {
                 LexiconEntry entry = ((ILexiconable) block).getEntry(par3World, par4, par5, par6, par2EntityPlayer, par1ItemStack);
-                if(entry != null) {
+                if (entry != null) {
                     Botania.proxy.setEntryToOpen(entry);
                     par2EntityPlayer.openGui(Botania.instance, LibGuiIDs.LEXICON, par3World, 0, 0, 0);
                     return true;

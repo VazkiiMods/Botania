@@ -67,10 +67,10 @@ public class GuiLexiconIndex extends GuiLexicon {
 
     @Override
     void populateIndex() {
-        for(int i = page * 12; i < (page + 1) * 12; i++) {
+        for (int i = page * 12; i < (page + 1) * 12; i++) {
             GuiButtonInvisible button = (GuiButtonInvisible) buttonList.get(i - page * 12);
             LexiconEntry entry = i >= entriesToDisplay.size() ? null : entriesToDisplay.get(i);
-            if(entry != null)
+            if (entry != null)
                 button.displayString = (entry.isPriority() ? EnumChatFormatting.ITALIC : "") + StatCollector.translateToLocal(entry.getUnlocalizedName());
             else button.displayString = "";
         }
@@ -78,7 +78,7 @@ public class GuiLexiconIndex extends GuiLexicon {
 
     @Override
     protected void actionPerformed(GuiButton par1GuiButton) {
-        switch(par1GuiButton.id) {
+        switch (par1GuiButton.id) {
             case 12:
                 mc.displayGuiScreen(new GuiLexicon());
                 ClientTickHandler.notifyPageChange();
@@ -97,7 +97,8 @@ public class GuiLexiconIndex extends GuiLexicon {
                 break;
             default:
                 int index = par1GuiButton.id + page * 12;
-                if(index >= entriesToDisplay.size()) return;
+                if (index >= entriesToDisplay.size())
+                    return;
 
                 LexiconEntry entry = entriesToDisplay.get(index);
                 mc.displayGuiScreen(new GuiLexiconEntry(entry, this));

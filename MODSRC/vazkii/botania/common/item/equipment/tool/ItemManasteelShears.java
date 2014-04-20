@@ -56,15 +56,16 @@ public class ItemManasteelShears extends ItemShears {
 
     @Override
     public boolean itemInteractionForEntity(ItemStack itemstack, EntityPlayer player, EntityLivingBase entity) {
-        if(entity.worldObj.isRemote) return false;
+        if (entity.worldObj.isRemote)
+            return false;
 
-        if(entity instanceof IShearable) {
+        if (entity instanceof IShearable) {
             IShearable target = (IShearable) entity;
-            if(target.isShearable(itemstack, entity.worldObj, (int) entity.posX, (int) entity.posY, (int) entity.posZ)) {
+            if (target.isShearable(itemstack, entity.worldObj, (int) entity.posX, (int) entity.posY, (int) entity.posZ)) {
                 ArrayList<ItemStack> drops = target.onSheared(itemstack, entity.worldObj, (int) entity.posX, (int) entity.posY, (int) entity.posZ, EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, itemstack));
 
                 Random rand = new Random();
-                for(ItemStack stack : drops) {
+                for (ItemStack stack : drops) {
                     EntityItem ent = entity.entityDropItem(stack, 1.0F);
                     ent.motionY += rand.nextFloat() * 0.05F;
                     ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
@@ -82,16 +83,17 @@ public class ItemManasteelShears extends ItemShears {
 
     @Override
     public boolean onBlockStartBreak(ItemStack itemstack, int x, int y, int z, EntityPlayer player) {
-        if(player.worldObj.isRemote) return false;
+        if (player.worldObj.isRemote)
+            return false;
 
         Block block = player.worldObj.getBlock(x, y, z);
-        if(block instanceof IShearable) {
+        if (block instanceof IShearable) {
             IShearable target = (IShearable) block;
-            if(target.isShearable(itemstack, player.worldObj, x, y, z)) {
+            if (target.isShearable(itemstack, player.worldObj, x, y, z)) {
                 ArrayList<ItemStack> drops = target.onSheared(itemstack, player.worldObj, x, y, z, EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, itemstack));
                 Random rand = new Random();
 
-                for(ItemStack stack : drops) {
+                for (ItemStack stack : drops) {
                     float f = 0.7F;
                     double d = rand.nextFloat() * f + (1D - f) * 0.5;
                     double d1 = rand.nextFloat() * f + (1D - f) * 0.5;

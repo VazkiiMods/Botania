@@ -40,7 +40,9 @@ public class SubTileHopperhock extends SubTileFunctional {
 
     int filterType = 0;
 
-    private static final ForgeDirection[] VALID_DIRS = new ForgeDirection[]{ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST};
+    private static final ForgeDirection[] VALID_DIRS = new ForgeDirection[]{
+            ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST
+    };
 
     @Override
     public void onUpdate() {
@@ -54,8 +56,9 @@ public class SubTileHopperhock extends SubTileFunctional {
         int z = supertile.zCoord;
 
         List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x - range, y - 3, z - range, x + range + 1, y + 3, z + range + 1));
-        for(EntityItem item : items) {
-            if(item.age < 60) continue;
+        for (EntityItem item : items) {
+            if (item.age < 60)
+                continue;
 
             ItemStack stack = item.getEntityItem();
 
@@ -63,24 +66,25 @@ public class SubTileHopperhock extends SubTileFunctional {
             ForgeDirection sideToPutItemIn = ForgeDirection.UNKNOWN;
             boolean priorityInv = false;
 
-            for(ForgeDirection dir : VALID_DIRS) {
+            for (ForgeDirection dir : VALID_DIRS) {
                 int x_ = x + dir.offsetX;
                 int y_ = y + dir.offsetY;
                 int z_ = z + dir.offsetZ;
 
                 IInventory inv = InventoryHelper.getInventory(supertile.getWorldObj(), x_, y_, z_);
-                if(inv != null) {
+                if (inv != null) {
                     List<ItemStack> filter = getFilterForInventory(inv, x_, y_, z_, true);
                     boolean canAccept = canAcceptItem(stack, filter, filterType);
                     int stackSize = InventoryHelper.testInventoryInsertion(inv, stack, dir);
                     canAccept &= stackSize == stack.stackSize;
 
-                    if(canAccept) {
+                    if (canAccept) {
                         boolean priority = !filter.isEmpty();
 
                         setInv:
                         {
-                            if(priorityInv && !priority) break setInv;
+                            if (priorityInv && !priority)
+                                break setInv;
 
                             invToPutItemIn = inv;
                             priorityInv = priority;
@@ -90,28 +94,33 @@ public class SubTileHopperhock extends SubTileFunctional {
                 }
             }
 
-            if(invToPutItemIn != null) {
+            if (invToPutItemIn != null) {
                 InventoryHelper.insertItemIntoInventory(invToPutItemIn, stack.copy(), sideToPutItemIn, -1);
-                if(!supertile.getWorldObj().isRemote) item.setDead();
+                if (!supertile.getWorldObj().isRemote)
+                    item.setDead();
                 pulledAny = true;
                 break;
             }
         }
 
-        if(pulledAny && mana > 1) mana--;
+        if (pulledAny && mana > 1)
+            mana--;
     }
 
     public boolean canAcceptItem(ItemStack stack, List<ItemStack> filter, int filterType) {
-        if(stack == null) return false;
+        if (stack == null)
+            return false;
 
-        if(filter.isEmpty()) return true;
+        if (filter.isEmpty())
+            return true;
 
-        switch(filterType) {
+        switch (filterType) {
             case 0: { // Accept items in frames only
-                for(ItemStack filterEntry : filter) {
-                    if(filterEntry == null) continue;
+                for (ItemStack filterEntry : filter) {
+                    if (filterEntry == null)
+                        continue;
 
-                    if(stack.isItemEqual(filterEntry) && ItemStack.areItemStackTagsEqual(filterEntry, stack))
+                    if (stack.isItemEqual(filterEntry) && ItemStack.areItemStackTagsEqual(filterEntry, stack))
                         return true;
                 }
 
@@ -127,24 +136,28 @@ public class SubTileHopperhock extends SubTileFunctional {
     public List<ItemStack> getFilterForInventory(IInventory inv, int x, int y, int z, boolean recursiveForDoubleChests) {
         List<ItemStack> filter = new ArrayList();
 
-        if(recursiveForDoubleChests) {
+        if (recursiveForDoubleChests) {
             TileEntity tileEntity = supertile.getWorldObj().getTileEntity(x, y, z);
             Block chest = supertile.getWorldObj().getBlock(x, y, z);
 
-            if(tileEntity instanceof TileEntityChest) for(ForgeDirection dir : VALID_DIRS)
-                if(supertile.getWorldObj().getBlock(x + dir.offsetX, y, z + dir.offsetZ) == chest) {
-                    filter.addAll(getFilterForInventory((IInventory) supertile.getWorldObj().getTileEntity(x + dir.offsetX, y, z + dir.offsetZ), x + dir.offsetX, y, z + dir.offsetZ, false));
-                    break;
-                }
+            if (tileEntity instanceof TileEntityChest)
+                for (ForgeDirection dir : VALID_DIRS)
+                    if (supertile.getWorldObj().getBlock(x + dir.offsetX, y, z + dir.offsetZ) == chest) {
+                        filter.addAll(getFilterForInventory((IInventory) supertile.getWorldObj().getTileEntity(x + dir.offsetX, y, z + dir.offsetZ), x + dir.offsetX, y, z + dir.offsetZ, false));
+                        break;
+                    }
         }
 
-        final int[] orientationToDir = new int[]{3, 4, 2, 5};
+        final int[] orientationToDir = new int[]{
+                3, 4, 2, 5
+        };
 
-        for(ForgeDirection dir : VALID_DIRS) {
+        for (ForgeDirection dir : VALID_DIRS) {
             List<EntityItemFrame> frames = supertile.getWorldObj().getEntitiesWithinAABB(EntityItemFrame.class, AxisAlignedBB.getBoundingBox(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ, x + dir.offsetX + 1, y + dir.offsetY + 1, z + dir.offsetZ + 1));
-            for(EntityItemFrame frame : frames) {
+            for (EntityItemFrame frame : frames) {
                 int orientation = frame.hangingDirection;
-                if(orientationToDir[orientation] == dir.ordinal()) filter.add(frame.getDisplayedItem());
+                if (orientationToDir[orientation] == dir.ordinal())
+                    filter.add(frame.getDisplayedItem());
             }
         }
 
@@ -153,7 +166,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 
     @Override
     public boolean onWanded(EntityPlayer player, ItemStack wand) {
-        if(player.isSneaking()) {
+        if (player.isSneaking()) {
             filterType = filterType == 2 ? 0 : filterType + 1;
             sync();
 

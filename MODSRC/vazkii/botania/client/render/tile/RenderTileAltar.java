@@ -51,18 +51,19 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
         GL11.glScalef(1F, -1F, -1F);
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 
-        if(altar.hasWater) {
+        if (altar.hasWater) {
             GL11.glPushMatrix();
             float s = 1F / 256F * 10F;
             float v = 1F / 8F;
             float w = -v * 2.5F;
 
             int petals = 0;
-            for(int i = 0; i < altar.getSizeInventory(); i++)
-                if(altar.getStackInSlot(i) != null) petals++;
+            for (int i = 0; i < altar.getSizeInventory(); i++)
+                if (altar.getStackInSlot(i) != null)
+                    petals++;
                 else break;
 
-            if(petals > 0) {
+            if (petals > 0) {
                 final float modifier = 6F;
                 final float rotationModifier = 0.25F;
                 final float radiusBase = 1.2F;
@@ -74,7 +75,7 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
                 GL11.glPushMatrix();
                 GL11.glTranslatef(-0.05F, -0.5F, 0F);
                 GL11.glScalef(v, v, v);
-                for(int i = 0; i < petals; i++) {
+                for (int i = 0; i < petals; i++) {
                     float offset = offsetPerPetal * i;
                     float deg = (int) (ticks / rotationModifier % 360F + offset);
                     float rad = deg * (float) Math.PI / 180F;
@@ -101,7 +102,7 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
                     ItemStack stack = altar.getStackInSlot(i);
                     Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
                     IIcon icon = stack.getItem().getIcon(stack, 0);
-                    if(icon != null) {
+                    if (icon != null) {
                         Color color = new Color(stack.getItem().getColorFromItemStack(stack, 0));
                         GL11.glColor3ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
                         float f = icon.getMinU();

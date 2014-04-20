@@ -78,7 +78,7 @@ public class ItemManaTablet extends ItemMod implements IManaItem {
     @Override
     public void registerIcons(IIconRegister par1IconRegister) {
         icons = new IIcon[2];
-        for(int i = 0; i < icons.length; i++)
+        for (int i = 0; i < icons.length; i++)
             icons[i] = IconHelper.forItem(par1IconRegister, this, i);
     }
 
@@ -89,7 +89,8 @@ public class ItemManaTablet extends ItemMod implements IManaItem {
 
     @Override
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-        if(isStackCreative(par1ItemStack)) par3List.add(StatCollector.translateToLocal("botaniamisc.creative"));
+        if (isStackCreative(par1ItemStack))
+            par3List.add(StatCollector.translateToLocal("botaniamisc.creative"));
     }
 
     @Override
@@ -126,7 +127,8 @@ public class ItemManaTablet extends ItemMod implements IManaItem {
 
     @Override
     public void addMana(ItemStack stack, int mana) {
-        if(!isStackCreative(stack)) setMana(stack, Math.min(getMana(stack) + mana, MAX_MANA));
+        if (!isStackCreative(stack))
+            setMana(stack, Math.min(getMana(stack) + mana, MAX_MANA));
     }
 
     @Override

@@ -36,7 +36,8 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 
     @Override
     public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float pticks) {
-        if(model == null) model = ConfigHandler.oldPylonModel ? new ModelPylonOld() : new ModelPylon();
+        if (model == null)
+            model = ConfigHandler.oldPylonModel ? new ModelPylonOld() : new ModelPylon();
 
         GL11.glPushMatrix();
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
@@ -46,10 +47,10 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
         Minecraft.getMinecraft().renderEngine.bindTexture(ConfigHandler.oldPylonModel ? textureOld : texture);
         int worldTime = (int) (tileentity.getWorldObj() == null ? 0 : tileentity.getWorldObj().getTotalWorldTime());
 
-        if(tileentity != null)
+        if (tileentity != null)
             worldTime += new Random(tileentity.xCoord ^ tileentity.yCoord ^ tileentity.zCoord).nextInt(360);
 
-        if(ConfigHandler.oldPylonModel) {
+        if (ConfigHandler.oldPylonModel) {
             GL11.glTranslated(d0 + 0.5, d1 + 2.2, d2 + 0.5);
             GL11.glScalef(1F, -1.5F, -1F);
         } else {
@@ -58,9 +59,11 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
         }
 
         GL11.glPushMatrix();
-        if(!ConfigHandler.oldPylonModel) GL11.glTranslatef(0.5F, 0F, -0.5F);
+        if (!ConfigHandler.oldPylonModel)
+            GL11.glTranslatef(0.5F, 0F, -0.5F);
         GL11.glRotatef(worldTime * 1.5F, 0F, 1F, 0F);
-        if(!ConfigHandler.oldPylonModel) GL11.glTranslatef(-0.5F, 0F, 0.5F);
+        if (!ConfigHandler.oldPylonModel)
+            GL11.glTranslatef(-0.5F, 0F, 0.5F);
 
         model.renderRing();
         GL11.glTranslated(0D, Math.sin(worldTime / 20D) / 20 - 0.025, 0D);
@@ -70,17 +73,19 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
         GL11.glPushMatrix();
         GL11.glTranslated(0D, Math.sin(worldTime / 20D) / 17.5, 0D);
 
-        if(!ConfigHandler.oldPylonModel) GL11.glTranslatef(0.5F, 0F, -0.5F);
+        if (!ConfigHandler.oldPylonModel)
+            GL11.glTranslatef(0.5F, 0F, -0.5F);
 
         GL11.glRotatef(-worldTime, 0F, 1F, 0F);
-        if(!ConfigHandler.oldPylonModel) GL11.glTranslatef(-0.5F, 0F, 0.5F);
+        if (!ConfigHandler.oldPylonModel)
+            GL11.glTranslatef(-0.5F, 0F, 0.5F);
 
 
         GL11.glDisable(GL11.GL_CULL_FACE);
         model.renderCrystal();
 
         GL11.glColor4f(1F, 1F, 1F, 1F);
-        if(!ShaderHelper.useShaders()) {
+        if (!ShaderHelper.useShaders()) {
             int light = 15728880;
             int lightmapX = light % 65536;
             int lightmapY = light / 65536;
@@ -91,7 +96,8 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 
         GL11.glDisable(GL11.GL_ALPHA_TEST);
         GL11.glScalef(1.1F, 1.1F, 1.1F);
-        if(!ConfigHandler.oldPylonModel) GL11.glTranslatef(-0.05F, -0.1F, 0.05F);
+        if (!ConfigHandler.oldPylonModel)
+            GL11.glTranslatef(-0.05F, -0.1F, 0.05F);
         else GL11.glTranslatef(0F, -0.09F, 0F);
 
         ShaderHelper.useShader(ShaderHelper.pylonGlow);

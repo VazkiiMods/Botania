@@ -26,7 +26,7 @@ public class GuiHandler implements IGuiHandler {
 
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        switch(ID) {
+        switch (ID) {
             case LibGuiIDs.LEXICON:
                 return GuiLexicon.currentOpenLexicon;
         }

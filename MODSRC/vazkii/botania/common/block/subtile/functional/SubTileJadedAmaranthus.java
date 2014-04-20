@@ -27,22 +27,22 @@ public class SubTileJadedAmaranthus extends SubTileFunctional {
     public void onUpdate() {
         super.onUpdate();
 
-        if(cooldown > 0) {
+        if (cooldown > 0) {
             cooldown--;
             return;
         }
 
-        if(mana >= COST && !supertile.getWorldObj().isRemote) {
+        if (mana >= COST && !supertile.getWorldObj().isRemote) {
             int range = 4;
             int x = supertile.xCoord - range + supertile.getWorldObj().rand.nextInt(range * 2 + 1);
             int y = supertile.yCoord + range;
             int z = supertile.zCoord - range + supertile.getWorldObj().rand.nextInt(range * 2 + 1);
 
-            for(int i = 0; i < range * 2; i++) {
+            for (int i = 0; i < range * 2; i++) {
                 Block block = supertile.getWorldObj().getBlock(x, y, z);
-                if((block == Blocks.grass || block == Blocks.dirt || block == Blocks.farmland) && supertile.getWorldObj().isAirBlock(x, y + 1, z)) {
+                if ((block == Blocks.grass || block == Blocks.dirt || block == Blocks.farmland) && supertile.getWorldObj().isAirBlock(x, y + 1, z)) {
                     int color = supertile.getWorldObj().rand.nextInt(16);
-                    if(ModBlocks.flower.canBlockStay(supertile.getWorldObj(), x, y + 1, z))
+                    if (ModBlocks.flower.canBlockStay(supertile.getWorldObj(), x, y + 1, z))
                         supertile.getWorldObj().setBlock(x, y + 1, z, ModBlocks.flower, color, 1 | 2);
 
                     mana -= COST;

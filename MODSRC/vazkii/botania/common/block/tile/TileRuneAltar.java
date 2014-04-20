@@ -37,27 +37,29 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
     int mana = 0;
 
     public boolean addItem(EntityPlayer player, ItemStack stack) {
-        if(stack.getItem() == ModItems.twigWand || stack.getItem() == ModItems.lexicon || manaToGet != 0) return false;
+        if (stack.getItem() == ModItems.twigWand || stack.getItem() == ModItems.lexicon || manaToGet != 0)
+            return false;
 
         boolean did = false;
 
-        for(int i = 0; i < getSizeInventory(); i++)
-            if(getStackInSlot(i) == null) {
+        for (int i = 0; i < getSizeInventory(); i++)
+            if (getStackInSlot(i) == null) {
                 did = true;
                 ItemStack stackToAdd = stack.copy();
                 stackToAdd.stackSize = 1;
                 setInventorySlotContents(i, stackToAdd);
 
-                if(!player.capabilities.isCreativeMode) {
+                if (!player.capabilities.isCreativeMode) {
                     stack.stackSize--;
-                    if(stack.stackSize == 0)
+                    if (stack.stackSize == 0)
                         player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
                 }
 
                 break;
             }
 
-        if(did) worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        if (did)
+            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 
         return true;
     }
@@ -69,8 +71,8 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
         // Update every tick.
         recieveMana(0);
 
-        if(worldObj.isRemote && manaToGet > 0 && mana >= manaToGet) {
-            if(worldObj.rand.nextInt(20) == 0) {
+        if (worldObj.isRemote && manaToGet > 0 && mana >= manaToGet) {
+            if (worldObj.rand.nextInt(20) == 0) {
                 worldObj.playSoundEffect(xCoord, yCoord, zCoord, "mob.creeper.live", 1F, 1F);
 
                 Vector3 vec = Vector3.fromTileEntityCenter(this);
@@ -86,15 +88,15 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 
         getMana:
         {
-            for(RecipeRuneAltar recipe : BotaniaAPI.runeAltarRecipes)
-                if(recipe.matches(this)) {
+            for (RecipeRuneAltar recipe : BotaniaAPI.runeAltarRecipes)
+                if (recipe.matches(this)) {
                     this.manaToGet = recipe.getManaUsage();
                     break getMana;
                 }
             this.manaToGet = 0;
         }
 
-        if(manaToGet != this.manaToGet) {
+        if (manaToGet != this.manaToGet) {
             worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.orb", 1F, 1F);
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         }
@@ -105,38 +107,39 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 
         RecipeRuneAltar recipe = null;
 
-        for(RecipeRuneAltar recipe_ : BotaniaAPI.runeAltarRecipes) {
-            if(recipe_.matches(this)) {
+        for (RecipeRuneAltar recipe_ : BotaniaAPI.runeAltarRecipes) {
+            if (recipe_.matches(this)) {
                 recipe = recipe_;
                 break;
             }
         }
 
-        if(manaToGet > 0 && mana >= manaToGet) {
+        if (manaToGet > 0 && mana >= manaToGet) {
             List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1));
             EntityItem livingrock = null;
-            for(EntityItem item : items)
-                if(item.getEntityItem() != null && item.getEntityItem().getItem() == Item.getItemFromBlock(ModBlocks.livingrock)) {
+            for (EntityItem item : items)
+                if (item.getEntityItem() != null && item.getEntityItem().getItem() == Item.getItemFromBlock(ModBlocks.livingrock)) {
                     livingrock = item;
                     break;
                 }
 
-            if(livingrock != null) {
+            if (livingrock != null) {
                 int mana = recipe.getManaUsage();
                 recieveMana(-mana);
-                if(!worldObj.isRemote) {
+                if (!worldObj.isRemote) {
                     ItemStack output = recipe.getOutput().copy();
                     EntityItem outputItem = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, output);
                     worldObj.spawnEntityInWorld(outputItem);
                 }
 
-                for(int i = 0; i < getSizeInventory(); i++)
+                for (int i = 0; i < getSizeInventory(); i++)
                     setInventorySlotContents(i, null);
 
-                if(!worldObj.isRemote) {
+                if (!worldObj.isRemote) {
                     ItemStack livingrockItem = livingrock.getEntityItem();
                     livingrockItem.stackSize--;
-                    if(livingrockItem.stackSize == 0) livingrock.setDead();
+                    if (livingrockItem.stackSize == 0)
+                        livingrock.setDead();
                 }
 
                 craftingFanciness();
@@ -148,7 +151,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 
     public void craftingFanciness() {
         worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.levelup", 1F, 1F);
-        for(int i = 0; i < 25; i++) {
+        for (int i = 0; i < 25; i++) {
             float red = (float) Math.random();
             float green = (float) Math.random();
             float blue = (float) Math.random();
@@ -188,8 +191,9 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
     @Override
     public int[] getAccessibleSlotsFromSide(int var1) {
         int accessibleSlot = -1;
-        for(int i = 0; i < getSizeInventory(); i++)
-            if(getStackInSlot(i) != null) accessibleSlot = i;
+        for (int i = 0; i < getSizeInventory(); i++)
+            if (getStackInSlot(i) != null)
+                accessibleSlot = i;
 
         return accessibleSlot == -1 ? new int[0] : new int[]{accessibleSlot};
     }

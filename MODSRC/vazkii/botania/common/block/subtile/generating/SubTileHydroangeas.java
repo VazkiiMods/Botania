@@ -33,24 +33,27 @@ public class SubTileHydroangeas extends SubTileGenerating {
 
         boolean didSomething = false;
 
-        if(burnTime == 0) {
-            if(supertile.getWorldObj().getWorldTime() % 40L == 0) {
-                if(mana < getMaxMana() && !supertile.getWorldObj().isRemote) for(int i = -range; i <= range; i++)
-                    for(int j = -range; j <= range; j++) {
-                        if(supertile.getWorldObj().getBlock(supertile.xCoord + i, supertile.yCoord, supertile.zCoord + j) == getBlockToSearchFor() && supertile.getWorldObj().getBlockMetadata(supertile.xCoord + i, supertile.yCoord, supertile.zCoord + j) == 0) {
-                            supertile.getWorldObj().setBlockToAir(supertile.xCoord + i, supertile.yCoord, supertile.zCoord + j);
-                            didSomething = true;
-                            burnTime += getBurnTime();
+        if (burnTime == 0) {
+            if (supertile.getWorldObj().getWorldTime() % 40L == 0) {
+                if (mana < getMaxMana() && !supertile.getWorldObj().isRemote)
+                    for (int i = -range; i <= range; i++)
+                        for (int j = -range; j <= range; j++) {
+                            if (supertile.getWorldObj().getBlock(supertile.xCoord + i, supertile.yCoord, supertile.zCoord + j) == getBlockToSearchFor() && supertile.getWorldObj().getBlockMetadata(supertile.xCoord + i, supertile.yCoord, supertile.zCoord + j) == 0) {
+                                supertile.getWorldObj().setBlockToAir(supertile.xCoord + i, supertile.yCoord, supertile.zCoord + j);
+                                didSomething = true;
+                                burnTime += getBurnTime();
 
-                            break;
+                                break;
 
+                            }
                         }
-                    }
 
-                if(didSomething) sync();
+                if (didSomething)
+                    sync();
             }
         } else {
-            if(supertile.getWorldObj().rand.nextInt(8) == 0) doBurnParticles();
+            if (supertile.getWorldObj().rand.nextInt(8) == 0)
+                doBurnParticles();
             burnTime--;
         }
     }

@@ -50,7 +50,7 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 
     @Override
     public void onPageAdded(LexiconEntry entry, int index) {
-        for(T recipe : recipes)
+        for (T recipe : recipes)
             LexiconRecipeMappings.map(recipe.getOutput(), entry, index);
     }
 
@@ -67,9 +67,10 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
         int degreePerInput = (int) (360F / inputs.size());
         int currentDegree = ConfigHandler.lexiconRotatingItems ? (int) Minecraft.getMinecraft().theWorld.getTotalWorldTime() : 0;
 
-        for(Object obj : inputs) {
+        for (Object obj : inputs) {
             Object input = obj;
-            if(input instanceof String) input = OreDictionary.getOres((String) input).get(0);
+            if (input instanceof String)
+                input = OreDictionary.getOres((String) input).get(0);
 
             renderItemAtAngle(gui, currentDegree, (ItemStack) input);
 
@@ -99,10 +100,11 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
     @Override
     @SideOnly(Side.CLIENT)
     public void updateScreen() {
-        if(ticksElapsed % 20 == 0) {
+        if (ticksElapsed % 20 == 0) {
             recipeAt++;
 
-            if(recipeAt == recipes.size()) recipeAt = 0;
+            if (recipeAt == recipes.size())
+                recipeAt = 0;
         }
         ++ticksElapsed;
     }

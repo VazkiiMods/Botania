@@ -67,7 +67,7 @@ public class ItemManaMirror extends ItemMod implements IManaItem {
     @Override
     public void registerIcons(IIconRegister par1IconRegister) {
         icons = new IIcon[2];
-        for(int i = 0; i < icons.length; i++)
+        for (int i = 0; i < icons.length; i++)
             icons[i] = IconHelper.forItem(par1IconRegister, this, i);
     }
 
@@ -84,8 +84,8 @@ public class ItemManaMirror extends ItemMod implements IManaItem {
     @Override
     public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
         IManaPool pool = getManaPool(par1ItemStack);
-        if(!(pool instanceof DummyPool)) {
-            if(pool == null) {
+        if (!(pool instanceof DummyPool)) {
+            if (pool == null) {
                 bindPool(par1ItemStack, null);
                 setManaForDisplay(par1ItemStack, 0);
             } else setManaForDisplay(par1ItemStack, pool.getCurrentMana());
@@ -94,9 +94,9 @@ public class ItemManaMirror extends ItemMod implements IManaItem {
 
     @Override
     public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
-        if(par2EntityPlayer.isSneaking() && !par3World.isRemote) {
+        if (par2EntityPlayer.isSneaking() && !par3World.isRemote) {
             TileEntity tile = par3World.getTileEntity(par4, par5, par6);
-            if(tile != null && tile instanceof IManaPool) {
+            if (tile != null && tile instanceof IManaPool) {
                 bindPool(par1ItemStack, tile);
                 par3World.playSoundAtEntity(par2EntityPlayer, "random.orb", 1F, 1F);
                 return true;
@@ -109,7 +109,7 @@ public class ItemManaMirror extends ItemMod implements IManaItem {
     @Override
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
         ChunkCoordinates coords = getPoolCoords(par1ItemStack);
-        if(coords.posY != -1) {
+        if (coords.posY != -1) {
             par3List.add("X: " + coords.posX);
             par3List.add("Y: " + coords.posY);
             par3List.add("Z: " + coords.posZ);
@@ -143,7 +143,8 @@ public class ItemManaMirror extends ItemMod implements IManaItem {
     @Override
     public void addMana(ItemStack stack, int mana) {
         IManaPool pool = getManaPool(stack);
-        if(pool != null) pool.recieveMana(mana);
+        if (pool != null)
+            pool.recieveMana(mana);
     }
 
     public void bindPool(ItemStack stack, TileEntity pool) {
@@ -166,15 +167,18 @@ public class ItemManaMirror extends ItemMod implements IManaItem {
 
     public IManaPool getManaPool(ItemStack stack) {
         MinecraftServer server = MinecraftServer.getServer();
-        if(server == null) return new DummyPool();
+        if (server == null)
+            return new DummyPool();
 
         ChunkCoordinates coords = getPoolCoords(stack);
-        if(coords.posY == -1) return null;
+        if (coords.posY == -1)
+            return null;
 
         int dim = getDimension(stack);
-        if(server.worldServers.length > dim && server.worldServers[dim] != null) {
+        if (server.worldServers.length > dim && server.worldServers[dim] != null) {
             TileEntity tile = server.worldServers[dim].getTileEntity(coords.posX, coords.posY, coords.posZ);
-            if(tile != null && tile instanceof IManaPool) return (IManaPool) tile;
+            if (tile != null && tile instanceof IManaPool)
+                return (IManaPool) tile;
         }
 
         return null;

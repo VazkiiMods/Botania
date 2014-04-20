@@ -45,17 +45,18 @@ public class RenderTileRuneAltar extends TileEntitySpecialRenderer {
         GL11.glTranslated(x, y, z);
 
         int items = 0;
-        for(int i = 0; i < altar.getSizeInventory(); i++)
-            if(altar.getStackInSlot(i) == null) break;
+        for (int i = 0; i < altar.getSizeInventory(); i++)
+            if (altar.getStackInSlot(i) == null)
+                break;
             else items++;
         float[] angles = new float[altar.getSizeInventory()];
 
         float anglePer = 360F / items;
         float totalAngle = 0F;
-        for(int i = 0; i < angles.length; i++)
+        for (int i = 0; i < angles.length; i++)
             angles[i] = totalAngle += anglePer;
 
-        for(int i = 0; i < altar.getSizeInventory(); i++) {
+        for (int i = 0; i < altar.getSizeInventory(); i++) {
             GL11.glPushMatrix();
             GL11.glScalef(0.5F, 0.5F, 0.5F);
             GL11.glTranslatef(1F, 2.5F, 1F);
@@ -65,13 +66,13 @@ public class RenderTileRuneAltar extends TileEntitySpecialRenderer {
             GL11.glTranslated(0D, 0.15 * Math.sin((tileentity.getWorldObj().getTotalWorldTime() + i * 10) / 5D), 0F);
             ItemStack stack = altar.getStackInSlot(i);
             Minecraft mc = Minecraft.getMinecraft();
-            if(stack != null) {
+            if (stack != null) {
                 mc.renderEngine.bindTexture(stack.getItem() instanceof ItemBlock ? TextureMap.locationBlocksTexture : TextureMap.locationItemsTexture);
 
                 GL11.glScalef(2F, 2F, 2F);
-                if(!ForgeHooksClient.renderEntityItem(new EntityItem(altar.getWorldObj(), altar.xCoord, altar.yCoord, altar.zCoord, stack), stack, 0F, 0F, altar.getWorldObj().rand, mc.renderEngine, renderBlocks, 1)) {
+                if (!ForgeHooksClient.renderEntityItem(new EntityItem(altar.getWorldObj(), altar.xCoord, altar.yCoord, altar.zCoord, stack), stack, 0F, 0F, altar.getWorldObj().rand, mc.renderEngine, renderBlocks, 1)) {
                     GL11.glScalef(0.5F, 0.5F, 0.5F);
-                    if(stack.getItem() instanceof ItemBlock && RenderBlocks.renderItemIn3d(Block.getBlockFromItem(stack.getItem()).getRenderType())) {
+                    if (stack.getItem() instanceof ItemBlock && RenderBlocks.renderItemIn3d(Block.getBlockFromItem(stack.getItem()).getRenderType())) {
                         GL11.glScalef(0.5F, 0.5F, 0.5F);
                         GL11.glTranslatef(1F, 1.1F, 0F);
                         renderBlocks.renderBlockAsItem(Block.getBlockFromItem(stack.getItem()), stack.getItemDamage(), 1F);
@@ -81,7 +82,7 @@ public class RenderTileRuneAltar extends TileEntitySpecialRenderer {
                         int renderPass = 0;
                         do {
                             IIcon icon = stack.getItem().getIcon(stack, renderPass);
-                            if(icon != null) {
+                            if (icon != null) {
                                 Color color = new Color(stack.getItem().getColorFromItemStack(stack, renderPass));
                                 GL11.glColor3ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
                                 float f = icon.getMinU();
@@ -92,7 +93,7 @@ public class RenderTileRuneAltar extends TileEntitySpecialRenderer {
                                 GL11.glColor3f(1F, 1F, 1F);
                             }
                             renderPass++;
-                        } while(renderPass < stack.getItem().getRenderPasses(stack.getItemDamage()));
+                        } while (renderPass < stack.getItem().getRenderPasses(stack.getItemDamage()));
                     }
                 }
             }
@@ -110,7 +111,7 @@ public class RenderTileRuneAltar extends TileEntitySpecialRenderer {
         GL11.glTranslatef(0F, 1.2F, 2F);
         float scale = altar.getTargetMana() == 0 ? 0 : (float) altar.getCurrentMana() / (float) altar.getTargetMana() / 75F;
 
-        if(scale != 0) {
+        if (scale != 0) {
             int seed = altar.xCoord ^ altar.yCoord ^ altar.zCoord;
             GL11.glTranslatef(0.5F, 0.7F, 0.5F);
             RenderHelper.renderStar(0x00E4D7, scale, scale, scale, seed);

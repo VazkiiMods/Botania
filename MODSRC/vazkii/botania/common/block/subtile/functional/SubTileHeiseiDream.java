@@ -37,33 +37,35 @@ public class SubTileHeiseiDream extends SubTileFunctional {
         final int cost = 100;
 
         List<IMob> mobs = supertile.getWorldObj().getEntitiesWithinAABB(IMob.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord - range, supertile.zCoord - range, supertile.xCoord + range, supertile.yCoord + range, supertile.zCoord + range));
-        if(mobs.size() > 1 && mana >= cost) for(IMob mob : mobs) {
-            if(mob instanceof EntityLiving) {
-                EntityLiving entity = (EntityLiving) mob;
-                EntityLivingBase target = entity.getAttackTarget();
-                if(target == null || !(target instanceof IMob)) {
-                    IMob newTarget;
-                    do newTarget = mobs.get(supertile.getWorldObj().rand.nextInt(mobs.size())); while(newTarget == mob);
+        if (mobs.size() > 1 && mana >= cost)
+            for (IMob mob : mobs) {
+                if (mob instanceof EntityLiving) {
+                    EntityLiving entity = (EntityLiving) mob;
+                    EntityLivingBase target = entity.getAttackTarget();
+                    if (target == null || !(target instanceof IMob)) {
+                        IMob newTarget;
+                        do newTarget = mobs.get(supertile.getWorldObj().rand.nextInt(mobs.size()));
+                        while (newTarget == mob);
 
-                    if(newTarget instanceof EntityLivingBase) {
-                        entity.setAttackTarget((EntityLivingBase) newTarget);
+                        if (newTarget instanceof EntityLivingBase) {
+                            entity.setAttackTarget((EntityLivingBase) newTarget);
 
-                        List<EntityAITaskEntry> entries = new ArrayList(entity.tasks.taskEntries);
-                        entries.addAll(new ArrayList(entity.targetTasks.taskEntries));
+                            List<EntityAITaskEntry> entries = new ArrayList(entity.tasks.taskEntries);
+                            entries.addAll(new ArrayList(entity.targetTasks.taskEntries));
 
-                        for(EntityAITaskEntry entry : entries)
-                            if(entry.action instanceof EntityAINearestAttackableTarget)
-                                messWithGetTargetAI((EntityAINearestAttackableTarget) entry.action);
-                            else if(entry.action instanceof EntityAIAttackOnCollide)
-                                messWithAttackOnCollideAI((EntityAIAttackOnCollide) entry.action);
+                            for (EntityAITaskEntry entry : entries)
+                                if (entry.action instanceof EntityAINearestAttackableTarget)
+                                    messWithGetTargetAI((EntityAINearestAttackableTarget) entry.action);
+                                else if (entry.action instanceof EntityAIAttackOnCollide)
+                                    messWithAttackOnCollideAI((EntityAIAttackOnCollide) entry.action);
 
-                        mana -= cost;
-                        sync();
-                        break;
+                            mana -= cost;
+                            sync();
+                            break;
+                        }
                     }
                 }
             }
-        }
     }
 
     private void messWithGetTargetAI(EntityAINearestAttackableTarget aiEntry) {

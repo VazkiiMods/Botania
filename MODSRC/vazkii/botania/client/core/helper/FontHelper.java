@@ -26,12 +26,14 @@ public final class FontHelper {
         int i = -1;
         int j = par0Str.length();
 
-        while((i = par0Str.indexOf(167, i + 1)) != -1) {
-            if(i < j - 1) {
+        while ((i = par0Str.indexOf(167, i + 1)) != -1) {
+            if (i < j - 1) {
                 char c0 = par0Str.charAt(i + 1);
 
-                if(isFormatColor(c0)) s1 = "\u00a7" + c0;
-                else if(isFormatSpecial(c0)) s1 = s1 + "\u00a7" + c0;
+                if (isFormatColor(c0))
+                    s1 = "\u00a7" + c0;
+                else if (isFormatSpecial(c0))
+                    s1 = s1 + "\u00a7" + c0;
             }
         }
 

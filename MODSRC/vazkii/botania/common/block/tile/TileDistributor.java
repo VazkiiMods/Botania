@@ -23,16 +23,19 @@ public class TileDistributor extends TileMod implements IManaReceiver {
 
     List<IManaReceiver> validPools = new ArrayList();
 
-    static final ForgeDirection[] DIRECTIONS = new ForgeDirection[]{ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST};
+    static final ForgeDirection[] DIRECTIONS = new ForgeDirection[]{
+            ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST
+    };
 
     @Override
     public void updateEntity() {
         validPools.clear();
-        for(ForgeDirection dir : DIRECTIONS) {
+        for (ForgeDirection dir : DIRECTIONS) {
             TileEntity tileAt = worldObj.getTileEntity(xCoord + dir.offsetX, yCoord, zCoord + dir.offsetZ);
-            if(tileAt != null && tileAt instanceof IManaPool) {
+            if (tileAt != null && tileAt instanceof IManaPool) {
                 IManaReceiver receiver = (IManaReceiver) tileAt;
-                if(!receiver.isFull()) validPools.add(receiver);
+                if (!receiver.isFull())
+                    validPools.add(receiver);
             }
         }
     }
@@ -50,9 +53,9 @@ public class TileDistributor extends TileMod implements IManaReceiver {
     @Override
     public void recieveMana(int mana) {
         int tiles = validPools.size();
-        if(tiles != 0) {
+        if (tiles != 0) {
             int manaForEach = mana / tiles;
-            for(IManaReceiver pool : validPools) {
+            for (IManaReceiver pool : validPools) {
                 pool.recieveMana(manaForEach);
                 TileEntity tile = (TileEntity) pool;
                 worldObj.markBlockForUpdate(tile.xCoord, tile.yCoord, tile.zCoord);

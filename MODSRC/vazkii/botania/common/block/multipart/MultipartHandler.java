@@ -22,7 +22,7 @@ public final class MultipartHandler {
     }
 
     private static void registerMultipartMetadataLine(Block block, int maxMeta) {
-        for(int i = 0; i < maxMeta; i++)
+        for (int i = 0; i < maxMeta; i++)
             registerMultipart(block, i);
     }
 

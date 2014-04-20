@@ -25,12 +25,14 @@ public class ManaGunLensRecipe implements IRecipe {
         boolean foundLens = false;
         boolean foundGun = false;
 
-        for(int i = 0; i < var1.getSizeInventory(); i++) {
+        for (int i = 0; i < var1.getSizeInventory(); i++) {
             ItemStack stack = var1.getStackInSlot(i);
-            if(stack != null) {
-                if(stack.getItem() instanceof ItemManaGun && ItemManaGun.getLens(stack) == null) foundGun = true;
+            if (stack != null) {
+                if (stack.getItem() instanceof ItemManaGun && ItemManaGun.getLens(stack) == null)
+                    foundGun = true;
 
-                else if(stack.getItem() instanceof ILens) foundLens = true;
+                else if (stack.getItem() instanceof ILens)
+                    foundLens = true;
 
                 else return false; // Found an invalid item, breaking the recipe
             }
@@ -44,15 +46,18 @@ public class ManaGunLensRecipe implements IRecipe {
         ItemStack lens = null;
         ItemStack gun = null;
 
-        for(int i = 0; i < var1.getSizeInventory(); i++) {
+        for (int i = 0; i < var1.getSizeInventory(); i++) {
             ItemStack stack = var1.getStackInSlot(i);
-            if(stack != null) {
-                if(stack.getItem() instanceof ItemManaGun) gun = stack;
-                else if(stack.getItem() instanceof ILens) lens = stack;
+            if (stack != null) {
+                if (stack.getItem() instanceof ItemManaGun)
+                    gun = stack;
+                else if (stack.getItem() instanceof ILens)
+                    lens = stack;
             }
         }
 
-        if(lens == null || gun == null) return null;
+        if (lens == null || gun == null)
+            return null;
 
         ItemStack gunCopy = gun.copy();
         ItemManaGun.setLens(gunCopy, lens);

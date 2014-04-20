@@ -50,42 +50,44 @@ public class PageText extends LexiconPage {
 
         String lastFormat = "";
         String pendingFormat = "";
-        for(String s : textEntries) {
+        for (String s : textEntries) {
             List<String> wrappedLines = new ArrayList();
             String workingOn = "";
 
             int i = 0;
             String[] tokens = s.split(" ");
-            for(String s1 : tokens) {
+            for (String s1 : tokens) {
                 boolean skipPending = false;
                 String format = FontHelper.getFormatFromString(s1);
 
-                if(!format.isEmpty() && s1.length() > 0 && s1.charAt(0) != '\u00a7') {
+                if (!format.isEmpty() && s1.length() > 0 && s1.charAt(0) != '\u00a7') {
                     skipPending = true;
                     pendingFormat = format;
                     format = "";
                 }
 
-                if(!pendingFormat.isEmpty() && !skipPending) {
+                if (!pendingFormat.isEmpty() && !skipPending) {
                     format = pendingFormat;
                     pendingFormat = "";
                 }
 
-                if(MathHelper.stringNullOrLengthZero(format)) format = lastFormat;
+                if (MathHelper.stringNullOrLengthZero(format))
+                    format = lastFormat;
 
-                if(renderer.getStringWidth(workingOn + " " + s1) >= width) {
+                if (renderer.getStringWidth(workingOn + " " + s1) >= width) {
                     wrappedLines.add(workingOn);
                     workingOn = "";
                 }
                 workingOn = workingOn + format + " " + s1;
 
-                if(i == tokens.length - 1) wrappedLines.add(workingOn);
+                if (i == tokens.length - 1)
+                    wrappedLines.add(workingOn);
 
                 ++i;
                 lastFormat = format;
             }
 
-            for(String s1 : wrappedLines) {
+            for (String s1 : wrappedLines) {
                 y += 10;
                 renderer.drawString(s1, x, y, 0);
             }

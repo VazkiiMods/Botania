@@ -38,7 +38,8 @@ public class GuiButtonBack extends GuiButton {
 
         List<String> tooltip = getTooltip();
         int tooltipY = (tooltip.size() - 1) * 10;
-        if(k == 2) RenderHelper.renderTooltip(par2, par3 + tooltipY, tooltip);
+        if (k == 2)
+            RenderHelper.renderTooltip(par2, par3 + tooltipY, tooltip);
     }
 
     public List<String> getTooltip() {

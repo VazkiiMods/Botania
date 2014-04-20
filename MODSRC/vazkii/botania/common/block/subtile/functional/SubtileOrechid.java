@@ -34,11 +34,11 @@ public class SubtileOrechid extends SubTileFunctional {
     public void onUpdate() {
         super.onUpdate();
 
-        if(!supertile.getWorldObj().isRemote && mana >= COST && supertile.getWorldObj().getTotalWorldTime() % 100 == 0) {
+        if (!supertile.getWorldObj().isRemote && mana >= COST && supertile.getWorldObj().getTotalWorldTime() % 100 == 0) {
             ChunkCoordinates coords = getCoordsToPut();
-            if(coords != null) {
+            if (coords != null) {
                 ItemStack stack = getOreToPut();
-                if(stack != null) {
+                if (stack != null) {
                     supertile.getWorldObj().setBlock(coords.posX, coords.posY, coords.posZ, Block.getBlockFromItem(stack.getItem()), stack.getItemDamage(), 1 | 2);
 
                     mana -= COST;
@@ -50,13 +50,14 @@ public class SubtileOrechid extends SubTileFunctional {
 
     public ItemStack getOreToPut() {
         Collection<WeightedRandom.Item> values = new ArrayList();
-        for(String s : BotaniaAPI.oreWeights.keySet())
+        for (String s : BotaniaAPI.oreWeights.keySet())
             values.add(new StringRandomItem(BotaniaAPI.oreWeights.get(s), s));
 
         String ore = ((StringRandomItem) WeightedRandom.getRandomItem(supertile.getWorldObj().rand, values)).s;
 
         List<ItemStack> ores = OreDictionary.getOres(ore);
-        if(ores.isEmpty()) return getOreToPut();
+        if (ores.isEmpty())
+            return getOreToPut();
 
         return ores.get(0);
     }
@@ -66,18 +67,19 @@ public class SubtileOrechid extends SubTileFunctional {
         int range = 5;
         int rangeY = 3;
 
-        for(int i = -range; i < range; i++)
-            for(int j = -rangeY; j < rangeY; j++)
-                for(int k = -range; k < range; k++) {
+        for (int i = -range; i < range; i++)
+            for (int j = -rangeY; j < rangeY; j++)
+                for (int k = -range; k < range; k++) {
                     int x = supertile.xCoord + i;
                     int y = supertile.yCoord + j;
                     int z = supertile.zCoord + k;
                     Block block = supertile.getWorldObj().getBlock(x, y, z);
-                    if(block != null && block.isReplaceableOreGen(supertile.getWorldObj(), x, y, z, Blocks.stone))
+                    if (block != null && block.isReplaceableOreGen(supertile.getWorldObj(), x, y, z, Blocks.stone))
                         possibleCoords.add(new ChunkCoordinates(x, y, z));
                 }
 
-        if(possibleCoords.isEmpty()) return null;
+        if (possibleCoords.isEmpty())
+            return null;
         return possibleCoords.get(supertile.getWorldObj().rand.nextInt(possibleCoords.size()));
     }
 

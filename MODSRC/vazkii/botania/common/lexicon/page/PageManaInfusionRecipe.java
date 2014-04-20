@@ -53,7 +53,7 @@ public class PageManaInfusionRecipe extends PageRecipe {
 
     @Override
     public void onPageAdded(LexiconEntry entry, int index) {
-        for(RecipeManaInfusion recipe : recipes)
+        for (RecipeManaInfusion recipe : recipes)
             LexiconRecipeMappings.map(recipe.getOutput(), entry, index);
     }
 
@@ -65,7 +65,8 @@ public class PageManaInfusionRecipe extends PageRecipe {
         FontRenderer font = Minecraft.getMinecraft().fontRenderer;
 
         Object input = recipe.getInput();
-        if(input instanceof String) input = OreDictionary.getOres((String) input).get(0);
+        if (input instanceof String)
+            input = OreDictionary.getOres((String) input).get(0);
 
         renderItemAtGridPos(gui, 1, 1, (ItemStack) input, false);
         renderItemAtGridPos(gui, 2, 1, new ItemStack(ModBlocks.pool), false);
@@ -91,10 +92,11 @@ public class PageManaInfusionRecipe extends PageRecipe {
     @Override
     @SideOnly(Side.CLIENT)
     public void updateScreen() {
-        if(ticksElapsed % 20 == 0) {
+        if (ticksElapsed % 20 == 0) {
             recipeAt++;
 
-            if(recipeAt == recipes.size()) recipeAt = 0;
+            if (recipeAt == recipes.size())
+                recipeAt = 0;
         }
         ++ticksElapsed;
     }

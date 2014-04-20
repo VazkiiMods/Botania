@@ -41,7 +41,7 @@ public class ModelSpinningCubes extends ModelBase {
 
         GL11.glPushMatrix();
         GL11.glTranslatef(-0.025F, 0.85F, -0.025F);
-        for(int i = 0; i < cubes; i++) {
+        for (int i = 0; i < cubes; i++) {
             float offset = offsetPerCube * i;
             float deg = (int) (ticks / rotationModifier % 360F + offset);
             float rad = deg * (float) Math.PI / 180F;
@@ -58,7 +58,7 @@ public class ModelSpinningCubes extends ModelBase {
             float zRotate = (float) Math.cos(ticks * rotationModifier) / 2F;
 
             GL11.glRotatef(deg, xRotate, yRotate, zRotate);
-            if(repeat < origRepeat) {
+            if (repeat < origRepeat) {
                 GL11.glColor4f(1F, 1F, 1F, 0.2F);
                 GL11.glEnable(GL11.GL_BLEND);
                 GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -71,7 +71,8 @@ public class ModelSpinningCubes extends ModelBase {
             OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
             spinningCube.render(1F / 16F);
 
-            if(repeat < origRepeat) GL11.glDisable(GL11.GL_BLEND);
+            if (repeat < origRepeat)
+                GL11.glDisable(GL11.GL_BLEND);
 
             GL11.glPopMatrix();
         }
@@ -79,7 +80,8 @@ public class ModelSpinningCubes extends ModelBase {
 
         GL11.glEnable(GL11.GL_TEXTURE_2D);
 
-        if(repeat != 0) renderSpinningCubes(cubes, repeat - 1, origRepeat);
+        if (repeat != 0)
+            renderSpinningCubes(cubes, repeat - 1, origRepeat);
     }
 
 }

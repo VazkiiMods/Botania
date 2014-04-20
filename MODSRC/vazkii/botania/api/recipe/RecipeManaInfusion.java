@@ -27,7 +27,8 @@ public class RecipeManaInfusion {
     }
 
     public boolean matches(ItemStack stack) {
-        if(input instanceof ItemStack) return stack.isItemEqual((ItemStack) input);
+        if (input instanceof ItemStack)
+            return stack.isItemEqual((ItemStack) input);
 
         String oredict = OreDictionary.getOreName(OreDictionary.getOreID(stack));
         return oredict.equals(input);

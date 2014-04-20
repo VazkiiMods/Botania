@@ -23,7 +23,8 @@ public final class MathHelper {
         Vector3 entityVector = Vector3.fromEntityCenter(entity);
         Vector3 finalVector = originalPosVector.copy().subtract(entityVector);
 
-        if(finalVector.mag() > 1) finalVector.normalize();
+        if (finalVector.mag() > 1)
+            finalVector.normalize();
 
         entity.motionX = finalVector.x * modifier;
         entity.motionY = finalVector.y * modifier;

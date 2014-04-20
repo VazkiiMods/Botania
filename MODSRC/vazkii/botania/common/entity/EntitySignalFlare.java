@@ -36,20 +36,22 @@ public class EntitySignalFlare extends Entity {
     @Override
     public void onEntityUpdate() {
         super.onEntityUpdate();
-        if(ticksExisted++ >= 100) setDead();
+        if (ticksExisted++ >= 100)
+            setDead();
 
-        if(!isDead) {
-            if(ticksExisted % 10 == 0) playSound("creeper.primed", 1F, 1F);
+        if (!isDead) {
+            if (ticksExisted % 10 == 0)
+                playSound("creeper.primed", 1F, 1F);
 
             int color = getColor();
-            if(color < 16 && color >= 0) {
+            if (color < 16 && color >= 0) {
                 float[] colorArray = EntitySheep.fleeceColorTable[color];
 
                 Botania.proxy.setWispFXDistanceLimit(false);
-                for(int i = 0; i < 3; i++)
+                for (int i = 0; i < 3; i++)
                     Botania.proxy.wispFX(worldObj, posX, posY, posZ + 0.5, colorArray[0], colorArray[1], colorArray[2], (float) Math.random() * 5 + 1F, (float) (Math.random() - 0.5F), 10F * (float) Math.sqrt(256F / (256F - (float) posY)), (float) (Math.random() - 0.5F));
 
-                for(int i = 0; i < 4; i++)
+                for (int i = 0; i < 4; i++)
                     Botania.proxy.wispFX(worldObj, posX + 0.5, 256, posZ + 0.5, colorArray[0], colorArray[1], colorArray[2], (float) Math.random() * 15 + 8F, (float) (Math.random() - 0.5F) * 8F, 0F, (float) (Math.random() - 0.5F) * 8F);
                 Botania.proxy.setWispFXDistanceLimit(true);
             }

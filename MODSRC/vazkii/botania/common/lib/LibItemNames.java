@@ -50,7 +50,26 @@ public final class LibItemNames {
     public static final String TERRA_SWORD = LibResources.PREFIX_MOD + "terraSword";
     public static final String TEST = LibResources.PREFIX_MOD + "ring";
 
-    public static final String[] LENS_NAMES = new String[]{LibResources.PREFIX_MOD + "lensNormal", LibResources.PREFIX_MOD + "lensSpeed", LibResources.PREFIX_MOD + "lensPower", LibResources.PREFIX_MOD + "lensTime", LibResources.PREFIX_MOD + "lensEfficiency", LibResources.PREFIX_MOD + "lensBounce", LibResources.PREFIX_MOD + "lensGravity", LibResources.PREFIX_MOD + "lensMine", LibResources.PREFIX_MOD + "lensDamage", LibResources.PREFIX_MOD + "lensPhantom", LibResources.PREFIX_MOD + "lensMagnet", LibResources.PREFIX_MOD + "lensExplosive"};
+    public static final String[] LENS_NAMES = new String[]{
+            LibResources.PREFIX_MOD + "lensNormal",
+            LibResources.PREFIX_MOD + "lensSpeed",
+            LibResources.PREFIX_MOD + "lensPower",
+            LibResources.PREFIX_MOD + "lensTime",
+            LibResources.PREFIX_MOD + "lensEfficiency",
+            LibResources.PREFIX_MOD + "lensBounce",
+            LibResources.PREFIX_MOD + "lensGravity",
+            LibResources.PREFIX_MOD + "lensMine",
+            LibResources.PREFIX_MOD + "lensDamage",
+            LibResources.PREFIX_MOD + "lensPhantom",
+            LibResources.PREFIX_MOD + "lensMagnet",
+            LibResources.PREFIX_MOD + "lensExplosive"
+    };
 
-    public static final String[] MANA_RESOURCE_NAMES = new String[]{LibResources.PREFIX_MOD + "manasteel", LibResources.PREFIX_MOD + "manaPearl", LibResources.PREFIX_MOD + "manaDiamond", LibResources.PREFIX_MOD + "livingwoodTwig", LibResources.PREFIX_MOD + "terrasteel"};
+    public static final String[] MANA_RESOURCE_NAMES = new String[]{
+            LibResources.PREFIX_MOD + "manasteel",
+            LibResources.PREFIX_MOD + "manaPearl",
+            LibResources.PREFIX_MOD + "manaDiamond",
+            LibResources.PREFIX_MOD + "livingwoodTwig",
+            LibResources.PREFIX_MOD + "terrasteel"
+    };
 }

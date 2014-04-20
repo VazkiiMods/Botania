@@ -39,18 +39,19 @@ public final class HUDHandler {
 
     @SubscribeEvent
     public void onDrawScreen(RenderGameOverlayEvent.Post event) {
-        if(event.type == ElementType.ALL) {
+        if (event.type == ElementType.ALL) {
             Minecraft mc = Minecraft.getMinecraft();
             MovingObjectPosition pos = mc.objectMouseOver;
-            if(pos != null && mc.thePlayer.getCurrentEquippedItem() != null && mc.thePlayer.getCurrentEquippedItem().getItem() == ModItems.twigWand) {
+            if (pos != null && mc.thePlayer.getCurrentEquippedItem() != null && mc.thePlayer.getCurrentEquippedItem().getItem() == ModItems.twigWand) {
                 Block block = mc.theWorld.getBlock(pos.blockX, pos.blockY, pos.blockZ);
-                if(block instanceof IWandHUD)
+                if (block instanceof IWandHUD)
                     ((IWandHUD) block).renderHUD(mc, event.resolution, mc.theWorld, pos.blockX, pos.blockY, pos.blockZ);
-            } else if(pos != null && mc.thePlayer.getCurrentEquippedItem() != null && mc.thePlayer.getCurrentEquippedItem().getItem() == ModItems.lexicon) {
+            } else if (pos != null && mc.thePlayer.getCurrentEquippedItem() != null && mc.thePlayer.getCurrentEquippedItem().getItem() == ModItems.lexicon) {
                 Block block = mc.theWorld.getBlock(pos.blockX, pos.blockY, pos.blockZ);
-                if(block instanceof ILexiconable) {
+                if (block instanceof ILexiconable) {
                     LexiconEntry entry = ((ILexiconable) block).getEntry(mc.theWorld, pos.blockX, pos.blockY, pos.blockZ, mc.thePlayer, mc.thePlayer.getCurrentEquippedItem());
-                    if(entry != null) drawLexiconGUI(entry, event.resolution);
+                    if (entry != null)
+                        drawLexiconGUI(entry, event.resolution);
                 }
             }
         }
@@ -89,7 +90,7 @@ public final class HUDHandler {
 
         renderManaBar(x, y, color, 0.5F, mana, maxMana);
 
-        if(mana < 0) {
+        if (mana < 0) {
             String text = StatCollector.translateToLocal("botaniamisc.statusUnknown");
             x = res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(text) / 2;
             y -= 1;
@@ -108,7 +109,8 @@ public final class HUDHandler {
 
         int manaPercentage = Math.max(0, (int) ((double) mana / (double) maxMana * 100));
 
-        if(manaPercentage == 0 && mana > 0) manaPercentage = 1;
+        if (manaPercentage == 0 && mana > 0)
+            manaPercentage = 1;
 
         RenderHelper.drawTexturedModalRect(x + 1 + manaPercentage, y + 1, 0, 0, 5, 100 - manaPercentage, 3);
 

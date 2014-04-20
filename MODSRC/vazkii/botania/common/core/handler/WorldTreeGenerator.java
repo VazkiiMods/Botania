@@ -32,7 +32,7 @@ public class WorldTreeGenerator {
     }
 
     public void generate() {
-        for(int i = 0; i < 116; i++)
+        for (int i = 0; i < 116; i++)
             generateRing(i, (int) Math.sqrt(256 - (Math.min(i, 64) - 5) * 2));
 
         System.out.println("Blocks Placed: " + blocksPlaced);
@@ -42,16 +42,17 @@ public class WorldTreeGenerator {
         Block block = ModBlocks.livingwood;
         y = yoff;
 
-        for(int i = 0; i < 360; i++) {
-            if(i % 90 == 0) continue;
+        for (int i = 0; i < 360; i++) {
+            if (i % 90 == 0)
+                continue;
 
             int meta = world.rand.nextInt(200) == 0 ? 5 : 0;
             generateRingVal(radius, i, block, meta);
         }
 
         int mul = 4;
-        for(int i = 0; i < mul; i++)
-            for(int j = 0; j < mul; j++) {
+        for (int i = 0; i < mul; i++)
+            for (int j = 0; j < mul; j++) {
                 int meta = world.rand.nextInt(4) == 0 ? 5 : 0;
                 int angle = (y - j) * mul % 360;
 
@@ -61,8 +62,8 @@ public class WorldTreeGenerator {
 
         mul = 3;
 
-        for(int i = 0; i < mul; i++)
-            for(int j = 0; j < mul; j++) {
+        for (int i = 0; i < mul; i++)
+            for (int j = 0; j < mul; j++) {
                 int meta = world.rand.nextInt(20) == 0 ? 5 : 0;
                 int angle = (y - j) * mul % 360;
                 generateRingVal(radius + i - 1, angle + 90, block, meta);
@@ -74,7 +75,7 @@ public class WorldTreeGenerator {
         int nx = (int) (Math.cos(angle * Math.PI / 180D) * radius);
         int nz = (int) (Math.sin(angle * Math.PI / 180D) * radius);
 
-        if(x != nx || z != nz) {
+        if (x != nx || z != nz) {
             x = nx;
             z = nz;
             place(srcx + x, srcy + y, srcz + z, block, meta);

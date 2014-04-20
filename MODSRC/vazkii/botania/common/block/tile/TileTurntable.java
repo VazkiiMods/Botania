@@ -33,17 +33,19 @@ public class TileTurntable extends TileMod {
     public void updateEntity() {
         boolean redstone = false;
 
-        for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+        for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
             int redstoneSide = worldObj.getIndirectPowerLevelTo(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ, dir.ordinal());
-            if(redstoneSide > 0) redstone = true;
+            if (redstoneSide > 0)
+                redstone = true;
         }
 
-        if(!redstone) {
+        if (!redstone) {
             TileEntity tile = worldObj.getTileEntity(xCoord, yCoord + 1, zCoord);
-            if(tile instanceof TileSpreader) {
+            if (tile instanceof TileSpreader) {
                 TileSpreader spreader = (TileSpreader) tile;
                 spreader.rotationX += speed * (backwards ? -1 : 1);
-                if(spreader.rotationX >= 360F) spreader.rotationX -= 360F;
+                if (spreader.rotationX >= 360F)
+                    spreader.rotationX -= 360F;
                 spreader.checkForReceiver();
             }
         }
@@ -62,7 +64,8 @@ public class TileTurntable extends TileMod {
     }
 
     public void onWanded(EntityPlayer player, ItemStack wand) {
-        if(player.isSneaking()) backwards = !backwards;
+        if (player.isSneaking())
+            backwards = !backwards;
         else speed = speed == 6 ? 1 : speed + 1;
         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
@@ -72,7 +75,7 @@ public class TileTurntable extends TileMod {
 
         char motion = backwards ? '<' : '>';
         String speed = EnumChatFormatting.BOLD + "";
-        for(int i = 0; i < this.speed; i++)
+        for (int i = 0; i < this.speed; i++)
             speed = speed + motion;
 
         int x = res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(speed) / 2;
