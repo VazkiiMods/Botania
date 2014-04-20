@@ -45,6 +45,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		this.list = list;
 
 		addItem(ModItems.lexicon);
+		addItem(ModItems.test);
 
 		addBlock(ModBlocks.flower);
 		addBlock(ModBlocks.specialFlower);

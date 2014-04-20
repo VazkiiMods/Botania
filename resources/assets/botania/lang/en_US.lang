@@ -41,6 +41,13 @@ botania.color14=Red
 botania.color15=Black
 botania.color16=Rainbow
 
+# BAUBLE TOOLTIPS
+botania.baubletype.amulet=Equippable in the &aAmulet&7 slot
+botania.baubletype.ring=Equippable in the &aRing&7 slot
+botania.baubletype.belt=Equippable in the &aBelt&7 slot
+botania.baubletooltip=Press &b%key%&7 to open the Baubles menu
+botania.baubleinfo=Hold &bSHIFT&7 for more info
+
 # BLOCK NAMES
 tile.botania:flower0.name=Mystical White Flower
 tile.botania:flower1.name=Mystical Orange Flower
