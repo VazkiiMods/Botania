@@ -9,7 +9,7 @@
  * 
  * File Created @ [Apr 14, 2014, 2:58:13 PM (GMT)]
  */
-package vazkii.botania.common.item.tool.armor;
+package vazkii.botania.common.item.armor;
 
 import java.util.UUID;
 

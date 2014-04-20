@@ -9,7 +9,7 @@
  * 
  * File Created @ [Apr 14, 2014, 3:13:05 PM (GMT)]
  */
-package vazkii.botania.common.item.tool.armor;
+package vazkii.botania.common.item.armor;
 
 import vazkii.botania.common.lib.LibItemNames;
 

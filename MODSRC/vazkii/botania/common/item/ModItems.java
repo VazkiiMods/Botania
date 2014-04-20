@@ -15,20 +15,20 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+import vazkii.botania.common.item.armor.ItemManasteelBoots;
+import vazkii.botania.common.item.armor.ItemManasteelChest;
+import vazkii.botania.common.item.armor.ItemManasteelHelm;
+import vazkii.botania.common.item.armor.ItemManasteelLegs;
+import vazkii.botania.common.item.armor.ItemTerrasteelBoots;
+import vazkii.botania.common.item.armor.ItemTerrasteelChest;
+import vazkii.botania.common.item.armor.ItemTerrasteelHelm;
+import vazkii.botania.common.item.armor.ItemTerrasteelLegs;
 import vazkii.botania.common.item.tool.ItemManasteelAxe;
 import vazkii.botania.common.item.tool.ItemManasteelPick;
 import vazkii.botania.common.item.tool.ItemManasteelShears;
 import vazkii.botania.common.item.tool.ItemManasteelShovel;
 import vazkii.botania.common.item.tool.ItemManasteelSword;
 import vazkii.botania.common.item.tool.ItemTerraSword;
-import vazkii.botania.common.item.tool.armor.ItemManasteelBoots;
-import vazkii.botania.common.item.tool.armor.ItemManasteelChest;
-import vazkii.botania.common.item.tool.armor.ItemManasteelHelm;
-import vazkii.botania.common.item.tool.armor.ItemManasteelLegs;
-import vazkii.botania.common.item.tool.armor.ItemTerrasteelBoots;
-import vazkii.botania.common.item.tool.armor.ItemTerrasteelChest;
-import vazkii.botania.common.item.tool.armor.ItemTerrasteelHelm;
-import vazkii.botania.common.item.tool.armor.ItemTerrasteelLegs;
 import vazkii.botania.common.lib.LibOreDict;
 
 public final class ModItems {
