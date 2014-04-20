@@ -33,20 +33,16 @@ public class ExperienceHelper {
     }
 
     public static int getExperienceForLevel(int level) {
-        if (level == 0)
-            return 0;
+        if(level == 0) return 0;
 
-        if (level > 0 && level < 16)
-            return level * 17;
-        else if (level > 15 && level < 31)
-            return (int) (1.5 * level * level - 29.5 * level + 360);
-        else
-            return (int) (3.5 * level * level - 151.5 * level + 2220);
+        if(level > 0 && level < 16) return level * 17;
+        else if(level > 15 && level < 31) return (int) (1.5 * level * level - 29.5 * level + 360);
+        else return (int) (3.5 * level * level - 151.5 * level + 2220);
     }
 
     public static int getLevelForExperience(int experience) {
         int i = 0;
-        while (getExperienceForLevel(i) <= experience) {
+        while(getExperienceForLevel(i) <= experience) {
             i++;
         }
         return i - 1;

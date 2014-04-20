@@ -34,27 +34,25 @@ public class SubTileEndoflame extends SubTileGenerating {
     public void onUpdate() {
         super.onUpdate();
 
-        if (linkedCollector != null) {
-            if (burnTime == 0) {
-                if (mana < getMaxMana() && !supertile.getWorldObj().isRemote) {
+        if(linkedCollector != null) {
+            if(burnTime == 0) {
+                if(mana < getMaxMana() && !supertile.getWorldObj().isRemote) {
                     final int range = 3;
                     boolean didSomething = false;
 
                     List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord - range, supertile.zCoord - range, supertile.xCoord + range, supertile.yCoord + range, supertile.zCoord + range));
-                    for (EntityItem item : items) {
-                        if (item.age >= 60 && !item.isDead) {
+                    for(EntityItem item : items) {
+                        if(item.age >= 60 && !item.isDead) {
                             ItemStack stack = item.getEntityItem();
-                            if (stack.getItem().hasContainerItem(stack))
-                                continue;
+                            if(stack.getItem().hasContainerItem(stack)) continue;
 
                             int burnTime = stack == null || stack.getItem() == Item.getItemFromBlock(ModBlocks.spreader) ? 0 : TileEntityFurnace.getItemBurnTime(stack);
-                            if (burnTime > 0 && stack.stackSize > 0) {
+                            if(burnTime > 0 && stack.stackSize > 0) {
                                 this.burnTime = burnTime / 2;
 
                                 stack.stackSize--;
 
-                                if (stack.stackSize == 0)
-                                    item.setDead();
+                                if(stack.stackSize == 0) item.setDead();
 
                                 didSomething = true;
 
@@ -63,11 +61,10 @@ public class SubTileEndoflame extends SubTileGenerating {
                         }
                     }
 
-                    if (didSomething)
-                        sync();
+                    if(didSomething) sync();
                 }
             } else {
-                if (supertile.getWorldObj().rand.nextInt(8) == 0)
+                if(supertile.getWorldObj().rand.nextInt(8) == 0)
                     Botania.proxy.wispFX(supertile.getWorldObj(), supertile.xCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.yCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.zCoord + 0.5, 0.7F, 0.05F, 0.05F, (float) Math.random() / 6, (float) -Math.random() / 60);
 
                 burnTime--;

@@ -94,7 +94,7 @@ public final class ModItems {
         test = new ItemSimpleRing();
 
         OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
-        for (int i = 0; i < 16; i++) {
+        for(int i = 0; i < 16; i++) {
             OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));
             OreDictionary.registerOre(LibOreDict.DYE[i], new ItemStack(dye, 1, i));
             OreDictionary.registerOre(LibOreDict.MANA_PETAL[i], new ItemStack(manaPetal, 1, i));

@@ -34,13 +34,13 @@ import java.util.Set;
 public class InventoryHelper {
 
     public static void tryInsertStack(IInventory targetInventory, int slot, ItemStack stack, boolean canMerge) {
-        if (targetInventory.isItemValidForSlot(slot, stack)) {
+        if(targetInventory.isItemValidForSlot(slot, stack)) {
             ItemStack targetStack = targetInventory.getStackInSlot(slot);
-            if (targetStack == null) {
+            if(targetStack == null) {
                 targetInventory.setInventorySlotContents(slot, stack.copy());
                 stack.stackSize = 0;
-            } else if (canMerge) {
-                if (targetInventory.isItemValidForSlot(slot, stack) && areMergeCandidates(stack, targetStack)) {
+            } else if(canMerge) {
+                if(targetInventory.isItemValidForSlot(slot, stack) && areMergeCandidates(stack, targetStack)) {
                     int space = targetStack.getMaxStackSize() - targetStack.stackSize;
                     int mergeAmount = Math.min(space, stack.stackSize);
                     ItemStack copy = targetStack.copy();
@@ -69,11 +69,11 @@ public class InventoryHelper {
     }
 
     public static void insertItemIntoInventory(IInventory inventory, ItemStack stack, ForgeDirection side, int intoSlot, boolean doMove, boolean canStack) {
-        if (stack == null) return;
+        if(stack == null) return;
 
         IInventory targetInventory = inventory;
 
-        if (!doMove) {
+        if(!doMove) {
             targetInventory = new GenericInventory("temporary.inventory", false, targetInventory.getSizeInventory());
             ((GenericInventory) targetInventory).copyFrom(inventory);
         }
@@ -81,27 +81,25 @@ public class InventoryHelper {
         int i = 0;
         int[] attemptSlots = new int[0];
 
-        if (inventory instanceof ISidedInventory && side != ForgeDirection.UNKNOWN) {
+        if(inventory instanceof ISidedInventory && side != ForgeDirection.UNKNOWN) {
             attemptSlots = ((ISidedInventory) inventory).getAccessibleSlotsFromSide(side.ordinal());
-            if (attemptSlots == null)
-                attemptSlots = new int[0];
+            if(attemptSlots == null) attemptSlots = new int[0];
         } else {
             attemptSlots = new int[inventory.getSizeInventory()];
-            for (int a = 0; a < inventory.getSizeInventory(); a++)
+            for(int a = 0; a < inventory.getSizeInventory(); a++)
                 attemptSlots[a] = a;
         }
-        if (intoSlot > -1) {
+        if(intoSlot > -1) {
             Set<Integer> x = new HashSet<Integer>();
-            for (int attemptedSlot : attemptSlots)
+            for(int attemptedSlot : attemptSlots)
                 x.add(attemptedSlot);
 
-            if (x.contains(intoSlot))
-                attemptSlots = new int[]{intoSlot};
+            if(x.contains(intoSlot)) attemptSlots = new int[]{intoSlot};
             else attemptSlots = new int[0];
         }
-        while (stack.stackSize > 0 && i < attemptSlots.length) {
-            if (side != ForgeDirection.UNKNOWN && inventory instanceof ISidedInventory)
-                if (!((ISidedInventory) inventory).canInsertItem(intoSlot, stack, side.ordinal())) {
+        while(stack.stackSize > 0 && i < attemptSlots.length) {
+            if(side != ForgeDirection.UNKNOWN && inventory instanceof ISidedInventory)
+                if(!((ISidedInventory) inventory).canInsertItem(intoSlot, stack, side.ordinal())) {
                     i++;
                     continue;
                 }
@@ -112,33 +110,29 @@ public class InventoryHelper {
     }
 
     public static int testInventoryInsertion(IInventory inventory, ItemStack item, ForgeDirection side) {
-        if (item == null || item.stackSize == 0)
-            return 0;
+        if(item == null || item.stackSize == 0) return 0;
         item = item.copy();
 
-        if (inventory == null)
-            return 0;
+        if(inventory == null) return 0;
 
         int slotCount = inventory.getSizeInventory();
 
         int itemSizeCounter = item.stackSize;
-        for (int i = 0; i < slotCount && itemSizeCounter > 0; i++) {
-            if (!inventory.isItemValidForSlot(i, item))
-                continue;
+        for(int i = 0; i < slotCount && itemSizeCounter > 0; i++) {
+            if(!inventory.isItemValidForSlot(i, item)) continue;
 
-            if (side != ForgeDirection.UNKNOWN && inventory instanceof ISidedInventory)
-                if (!((ISidedInventory) inventory).canInsertItem(i, item, side.ordinal()))
-                    continue;
+            if(side != ForgeDirection.UNKNOWN && inventory instanceof ISidedInventory)
+                if(!((ISidedInventory) inventory).canInsertItem(i, item, side.ordinal())) continue;
 
             ItemStack inventorySlot = inventory.getStackInSlot(i);
-            if (inventorySlot == null)
+            if(inventorySlot == null)
                 itemSizeCounter -= Math.min(Math.min(itemSizeCounter, inventory.getInventoryStackLimit()), item.getMaxStackSize());
-            else if (areMergeCandidates(item, inventorySlot)) {
+            else if(areMergeCandidates(item, inventorySlot)) {
                 int space = inventorySlot.getMaxStackSize() - inventorySlot.stackSize;
                 itemSizeCounter -= Math.min(itemSizeCounter, space);
             }
         }
-        if (itemSizeCounter != item.stackSize) {
+        if(itemSizeCounter != item.stackSize) {
             itemSizeCounter = Math.max(itemSizeCounter, 0);
             return item.stackSize - itemSizeCounter;
         }
@@ -148,22 +142,22 @@ public class InventoryHelper {
 
     public static IInventory getInventory(World world, int x, int y, int z) {
         TileEntity tileEntity = world.getTileEntity(x, y, z);
-        if (tileEntity instanceof TileEntityChest) {
+        if(tileEntity instanceof TileEntityChest) {
             Block chestBlock = world.getBlock(x, y, z);
-            if (world.getBlock(x - 1, y, z) == chestBlock)
+            if(world.getBlock(x - 1, y, z) == chestBlock)
                 return new InventoryLargeChest("Large chest", (IInventory) world.getTileEntity(x - 1, y, z), (IInventory) tileEntity);
-            if (world.getBlock(x + 1, y, z) == chestBlock)
+            if(world.getBlock(x + 1, y, z) == chestBlock)
                 return new InventoryLargeChest("Large chest", (IInventory) tileEntity, (IInventory) world.getTileEntity(x + 1, y, z));
-            if (world.getBlock(x, y, z - 1) == chestBlock)
+            if(world.getBlock(x, y, z - 1) == chestBlock)
                 return new InventoryLargeChest("Large chest", (IInventory) world.getTileEntity(x, y, z - 1), (IInventory) tileEntity);
-            if (world.getBlock(x, y, z + 1) == chestBlock)
+            if(world.getBlock(x, y, z + 1) == chestBlock)
                 return new InventoryLargeChest("Large chest", (IInventory) tileEntity, (IInventory) world.getTileEntity(x, y, z + 1));
         }
         return tileEntity instanceof IInventory ? (IInventory) tileEntity : null;
     }
 
     public static IInventory getInventory(World world, int x, int y, int z, ForgeDirection direction) {
-        if (direction != null && direction != ForgeDirection.UNKNOWN) {
+        if(direction != null && direction != ForgeDirection.UNKNOWN) {
             x += direction.offsetX;
             y += direction.offsetY;
             z += direction.offsetZ;
@@ -173,7 +167,7 @@ public class InventoryHelper {
     }
 
     public static IInventory getInventory(IInventory inventory) {
-        if (inventory instanceof TileEntityChest) {
+        if(inventory instanceof TileEntityChest) {
             TileEntity te = (TileEntity) inventory;
             return getInventory(te.getWorldObj(), te.xCoord, te.yCoord, te.zCoord);
         }
@@ -196,18 +190,17 @@ public class InventoryHelper {
 
         @Override
         public ItemStack decrStackSize(int par1, int par2) {
-            if (inventoryContents[par1] != null) {
+            if(inventoryContents[par1] != null) {
                 ItemStack itemstack;
 
-                if (inventoryContents[par1].stackSize <= par2) {
+                if(inventoryContents[par1].stackSize <= par2) {
                     itemstack = inventoryContents[par1];
                     inventoryContents[par1] = null;
                     return itemstack;
                 }
 
                 itemstack = inventoryContents[par1].splitStack(par2);
-                if (inventoryContents[par1].stackSize == 0)
-                    inventoryContents[par1] = null;
+                if(inventoryContents[par1].stackSize == 0) inventoryContents[par1] = null;
 
                 return itemstack;
             }
@@ -235,10 +228,9 @@ public class InventoryHelper {
 
         @Override
         public ItemStack getStackInSlotOnClosing(int i) {
-            if (i >= inventoryContents.length)
-                return null;
+            if(i >= inventoryContents.length) return null;
 
-            if (inventoryContents[i] != null) {
+            if(inventoryContents[i] != null) {
                 ItemStack itemstack = inventoryContents[i];
                 inventoryContents[i] = null;
                 return itemstack;
@@ -267,15 +259,14 @@ public class InventoryHelper {
         }
 
         public void readFromNBT(NBTTagCompound tag) {
-            if (tag.hasKey("size"))
-                slotsCount = tag.getInteger("size");
+            if(tag.hasKey("size")) slotsCount = tag.getInteger("size");
 
             NBTTagList nbttaglist = tag.getTagList("Items", 10);
             inventoryContents = new ItemStack[slotsCount];
-            for (int i = 0; i < nbttaglist.tagCount(); i++) {
+            for(int i = 0; i < nbttaglist.tagCount(); i++) {
                 NBTTagCompound stacktag = (NBTTagCompound) nbttaglist.getCompoundTagAt(i);
                 int j = stacktag.getByte("Slot");
-                if (j >= 0 && j < inventoryContents.length)
+                if(j >= 0 && j < inventoryContents.length)
                     inventoryContents[j] = ItemStack.loadItemStackFromNBT(stacktag);
             }
         }
@@ -284,15 +275,15 @@ public class InventoryHelper {
         public void setInventorySlotContents(int i, ItemStack itemstack) {
             inventoryContents[i] = itemstack;
 
-            if (itemstack != null && itemstack.stackSize > getInventoryStackLimit())
+            if(itemstack != null && itemstack.stackSize > getInventoryStackLimit())
                 itemstack.stackSize = getInventoryStackLimit();
         }
 
         public void writeToNBT(NBTTagCompound tag) {
             tag.setInteger("size", getSizeInventory());
             NBTTagList nbttaglist = new NBTTagList();
-            for (int i = 0; i < inventoryContents.length; i++) {
-                if (inventoryContents[i] != null) {
+            for(int i = 0; i < inventoryContents.length; i++) {
+                if(inventoryContents[i] != null) {
                     NBTTagCompound stacktag = new NBTTagCompound();
                     stacktag.setByte("Slot", (byte) i);
                     inventoryContents[i].writeToNBT(stacktag);
@@ -303,11 +294,10 @@ public class InventoryHelper {
         }
 
         public void copyFrom(IInventory inventory) {
-            for (int i = 0; i < inventory.getSizeInventory(); i++)
-                if (i < getSizeInventory()) {
+            for(int i = 0; i < inventory.getSizeInventory(); i++)
+                if(i < getSizeInventory()) {
                     ItemStack stack = inventory.getStackInSlot(i);
-                    if (stack != null)
-                        setInventorySlotContents(i, stack.copy());
+                    if(stack != null) setInventorySlotContents(i, stack.copy());
                     else setInventorySlotContents(i, null);
                 }
         }

@@ -33,9 +33,9 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 
     @Override
     public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
-        if (par3Entity instanceof EntityPlayer) {
+        if(par3Entity instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) par3Entity;
-            if (player.getCurrentEquippedItem() == par1ItemStack && player.swingProgress == 0.16666667F && !par2World.isRemote && par2World.rand.nextInt(2) == 0) {
+            if(player.getCurrentEquippedItem() == par1ItemStack && player.swingProgress == 0.16666667F && !par2World.isRemote && par2World.rand.nextInt(2) == 0) {
                 EntityManaBurst burst = getBurst(player, par1ItemStack);
                 par2World.spawnEntityInWorld(burst);
                 ManasteelToolCommons.damageItem(par1ItemStack, 1, player, MANA_PER_DAMAGE);
@@ -69,15 +69,15 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
     @Override
     public boolean collideBurst(IManaBurst burst, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
         Entity entity = (Entity) burst;
-        if (pos.entityHit != null && pos.entityHit instanceof EntityLivingBase && !(pos.entityHit instanceof EntityPlayer)) {
+        if(pos.entityHit != null && pos.entityHit instanceof EntityLivingBase && !(pos.entityHit instanceof EntityPlayer)) {
             EntityLivingBase living = (EntityLivingBase) pos.entityHit;
-            if (living.hurtTime == 0) {
+            if(living.hurtTime == 0) {
                 int cost = MANA_PER_DAMAGE / 3;
                 int mana = burst.getMana();
-                if (mana >= cost) {
+                if(mana >= cost) {
                     burst.setMana(mana - cost);
                     float damage = 4F + BotaniaAPI.terrasteelToolMaterial.getDamageVsEntity();
-                    if (!burst.isFake() && !entity.worldObj.isRemote)
+                    if(!burst.isFake() && !entity.worldObj.isRemote)
                         living.attackEntityFrom(DamageSource.magic, damage);
                 }
             }

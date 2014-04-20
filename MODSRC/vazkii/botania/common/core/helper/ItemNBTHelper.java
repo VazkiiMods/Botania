@@ -32,8 +32,7 @@ public final class ItemNBTHelper {
      * compound *
      */
     public static void initNBT(ItemStack stack) {
-        if (!detectNBT(stack))
-            injectNBT(stack, new NBTTagCompound());
+        if(!detectNBT(stack)) injectNBT(stack, new NBTTagCompound());
     }
 
     /**
@@ -84,7 +83,7 @@ public final class ItemNBTHelper {
     }
 
     public static void setCompound(ItemStack stack, String tag, NBTTagCompound cmp) {
-        if (!tag.equalsIgnoreCase("ench")) // not override the enchantments
+        if(!tag.equalsIgnoreCase("ench")) // not override the enchantments
             getNBT(stack).setTag(tag, cmp);
     }
 

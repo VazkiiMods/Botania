@@ -62,14 +62,14 @@ public class BlockLivingrock extends BlockMod implements ILexiconable {
 
     @Override
     public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
-        for (int i = 0; i < TYPES; i++)
+        for(int i = 0; i < TYPES; i++)
             par3List.add(new ItemStack(par1, 1, i));
     }
 
     @Override
     public void registerBlockIcons(IIconRegister par1IconRegister) {
         icons = new IIcon[TYPES];
-        for (int i = 0; i < TYPES; i++)
+        for(int i = 0; i < TYPES; i++)
             icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
     }
 

@@ -62,7 +62,7 @@ public class FXSparkle extends EntityFX {
         float var10 = part / 8 / 8.0F;
         float var11 = var10 + 0.0624375F * 2;
         float var12 = 0.1F * particleScale;
-        if (shrink) var12 *= (particleMaxAge - particleAge + 1) / (float) particleMaxAge;
+        if(shrink) var12 *= (particleMaxAge - particleAge + 1) / (float) particleMaxAge;
         float var13 = (float) (prevPosX + (posX - prevPosX) * f - interpPosX);
         float var14 = (float) (prevPosY + (posY - prevPosY) * f - interpPosY);
         float var15 = (float) (prevPosZ + (posZ - prevPosZ) * f - interpPosZ);
@@ -93,31 +93,28 @@ public class FXSparkle extends EntityFX {
         prevPosY = posY;
         prevPosZ = posZ;
 
-        if (particleAge++ >= particleMaxAge)
-            setDead();
+        if(particleAge++ >= particleMaxAge) setDead();
 
         motionY -= 0.04D * particleGravity;
 
-        if (!noClip && !fake)
-            pushOutOfBlocks(posX, (boundingBox.minY + boundingBox.maxY) / 2.0D, posZ);
+        if(!noClip && !fake) pushOutOfBlocks(posX, (boundingBox.minY + boundingBox.maxY) / 2.0D, posZ);
 
         posX += motionX;
         posY += motionY;
         posZ += motionZ;
 
-        if (slowdown) {
+        if(slowdown) {
             motionX *= 0.908000001907348633D;
             motionY *= 0.908000001907348633D;
             motionZ *= 0.908000001907348633D;
 
-            if (onGround) {
+            if(onGround) {
                 motionX *= 0.69999998807907104D;
                 motionZ *= 0.69999998807907104D;
             }
         }
 
-        if (fake && particleAge > 1)
-            setDead();
+        if(fake && particleAge > 1) setDead();
     }
 
     public void setGravity(float value) {
@@ -132,7 +129,7 @@ public class FXSparkle extends EntityFX {
         double var12 = par3 - var8;
         double var14 = par5 - var9;
 
-        if (!worldObj.isAirBlock(var7, var8, var9)) {
+        if(!worldObj.isAirBlock(var7, var8, var9)) {
             boolean var16 = !worldObj.isBlockNormalCubeDefault(var7 - 1, var8, var9, false);
             boolean var17 = !worldObj.isBlockNormalCubeDefault(var7 + 1, var8, var9, false);
             boolean var18 = !worldObj.isBlockNormalCubeDefault(var7, var8 - 1, var9, false);
@@ -142,32 +139,32 @@ public class FXSparkle extends EntityFX {
             byte var22 = -1;
             double var23 = 9999.0D;
 
-            if (var16 && var10 < var23) {
+            if(var16 && var10 < var23) {
                 var23 = var10;
                 var22 = 0;
             }
 
-            if (var17 && 1.0D - var10 < var23) {
+            if(var17 && 1.0D - var10 < var23) {
                 var23 = 1.0D - var10;
                 var22 = 1;
             }
 
-            if (var18 && var12 < var23) {
+            if(var18 && var12 < var23) {
                 var23 = var12;
                 var22 = 2;
             }
 
-            if (var19 && 1.0D - var12 < var23) {
+            if(var19 && 1.0D - var12 < var23) {
                 var23 = 1.0D - var12;
                 var22 = 3;
             }
 
-            if (var20 && var14 < var23) {
+            if(var20 && var14 < var23) {
                 var23 = var14;
                 var22 = 4;
             }
 
-            if (var21 && 1.0D - var14 < var23) {
+            if(var21 && 1.0D - var14 < var23) {
                 var23 = 1.0D - var14;
                 var22 = 5;
             }
@@ -175,32 +172,32 @@ public class FXSparkle extends EntityFX {
             float var25 = rand.nextFloat() * 0.05F + 0.025F;
             float var26 = (rand.nextFloat() - rand.nextFloat()) * 0.1F;
 
-            if (var22 == 0) {
+            if(var22 == 0) {
                 motionX = -var25;
                 motionY = motionZ = var26;
             }
 
-            if (var22 == 1) {
+            if(var22 == 1) {
                 motionX = var25;
                 motionY = motionZ = var26;
             }
 
-            if (var22 == 2) {
+            if(var22 == 2) {
                 motionY = -var25;
                 motionX = motionZ = var26;
             }
 
-            if (var22 == 3) {
+            if(var22 == 3) {
                 motionY = var25;
                 motionX = motionZ = var26;
             }
 
-            if (var22 == 4) {
+            if(var22 == 4) {
                 motionZ = -var25;
                 motionY = motionX = var26;
             }
 
-            if (var22 == 5) {
+            if(var22 == 5) {
                 motionZ = var25;
                 motionY = motionX = var26;
             }

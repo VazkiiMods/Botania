@@ -83,7 +83,7 @@ public class Quat {
 
     public void normalize() {
         double d = mag();
-        if (d == 0.0D) {
+        if(d == 0.0D) {
             return;
         } else {
             d = 1.0D / d;

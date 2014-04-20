@@ -56,7 +56,7 @@ public class ItemManasteelPick extends ItemPickaxe {
 
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int x, int y, int z, EntityLivingBase entity) {
-        if (block.getBlockHardness(world, x, y, z) != 0F)
+        if(block.getBlockHardness(world, x, y, z) != 0F)
             ManasteelToolCommons.damageItem(stack, 1, entity, MANA_PER_DAMAGE);
 
         return true;

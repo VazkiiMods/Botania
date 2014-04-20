@@ -48,8 +48,7 @@ public class ClientProxy extends CommonProxy {
         MinecraftForge.EVENT_BUS.register(new HUDHandler());
         MinecraftForge.EVENT_BUS.register(new LightningHandler());
         MinecraftForge.EVENT_BUS.register(new CapeHandler());
-        if (ConfigHandler.boundBlockWireframe)
-            MinecraftForge.EVENT_BUS.register(new BoundTileRenderer());
+        if(ConfigHandler.boundBlockWireframe) MinecraftForge.EVENT_BUS.register(new BoundTileRenderer());
 
         initRenderers();
     }
@@ -68,7 +67,7 @@ public class ClientProxy extends CommonProxy {
         RenderingRegistry.registerBlockHandler(new RenderPylon());
 
         MinecraftForgeClient.registerItemRenderer(ModItems.lens, new RenderLens());
-        if (ConfigHandler.lexicon3dModel)
+        if(ConfigHandler.lexicon3dModel)
             MinecraftForgeClient.registerItemRenderer(ModItems.lexicon, new RenderLexicon());
 
         ClientRegistry.bindTileEntitySpecialRenderer(TileAltar.class, new RenderTileAltar());

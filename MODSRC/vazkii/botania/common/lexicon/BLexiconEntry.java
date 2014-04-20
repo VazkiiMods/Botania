@@ -25,7 +25,7 @@ public class BLexiconEntry extends LexiconEntry {
 
     @Override
     public LexiconEntry setLexiconPages(LexiconPage... pages) {
-        for (LexiconPage page : pages)
+        for(LexiconPage page : pages)
             page.unlocalizedName = "botania.page." + getLazyUnlocalizedName() + page.unlocalizedName;
 
         return super.setLexiconPages(pages);

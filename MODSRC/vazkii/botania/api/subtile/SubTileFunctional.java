@@ -55,7 +55,7 @@ public class SubTileFunctional extends SubTileEntity {
 
         linkPool();
 
-        if (linkedPool != null) {
+        if(linkedPool != null) {
             IManaPool pool = (IManaPool) linkedPool;
             int manaInPool = pool.getCurrentMana();
             int manaMissing = getMaxMana() - mana;
@@ -64,10 +64,10 @@ public class SubTileFunctional extends SubTileEntity {
             addMana(manaToRemove);
         }
 
-        if (supertile.getWorldObj().isRemote) {
+        if(supertile.getWorldObj().isRemote) {
             double particleChance = 1F - (double) mana / (double) getMaxMana() / 2F;
             Color color = new Color(getColor());
-            if (Math.random() > particleChance)
+            if(Math.random() > particleChance)
                 BotaniaAPI.internalHandler.sparkleFX(supertile.getWorldObj(), supertile.xCoord + 0.3 + Math.random() * 0.5, supertile.yCoord + 0.5 + Math.random() * 0.5, supertile.zCoord + 0.3 + Math.random() * 0.5, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random(), 5);
         }
     }
@@ -76,12 +76,12 @@ public class SubTileFunctional extends SubTileEntity {
         final int range = 10;
 
         boolean needsNew = false;
-        if (linkedPool == null) {
+        if(linkedPool == null) {
             needsNew = true;
 
-            if (cachedPoolCoordinates != null) {
+            if(cachedPoolCoordinates != null) {
                 TileEntity tileAt = supertile.getWorldObj().getTileEntity(cachedPoolCoordinates.posX, cachedPoolCoordinates.posY, cachedPoolCoordinates.posZ);
-                if (tileAt != null && tileAt instanceof IManaPool) {
+                if(tileAt != null && tileAt instanceof IManaPool) {
                     linkedPool = tileAt;
                     needsNew = false;
                 }
@@ -89,18 +89,18 @@ public class SubTileFunctional extends SubTileEntity {
             }
         }
 
-        if (!needsNew) {
+        if(!needsNew) {
             TileEntity tileAt = supertile.getWorldObj().getTileEntity(linkedPool.xCoord, linkedPool.yCoord, linkedPool.zCoord);
-            if (!(tileAt instanceof IManaPool)) {
+            if(!(tileAt instanceof IManaPool)) {
                 linkedPool = null;
                 needsNew = true;
             } else linkedPool = tileAt;
         }
 
-        if (needsNew) {
+        if(needsNew) {
             IManaNetwork network = BotaniaAPI.internalHandler.getManaNetworkInstance();
             int size = network.getAllPoolsInWorld(supertile.getWorldObj().provider.dimensionId).size();
-            if (size != sizeLastCheck) {
+            if(size != sizeLastCheck) {
                 ChunkCoordinates coords = new ChunkCoordinates(supertile.xCoord, supertile.yCoord, supertile.zCoord);
                 linkedPool = network.getClosestPool(coords, supertile.getWorldObj().provider.dimensionId, range);
                 sizeLastCheck = size;
@@ -154,8 +154,7 @@ public class SubTileFunctional extends SubTileEntity {
 
     @Override
     public ChunkCoordinates getBinding() {
-        if (linkedPool == null)
-            return null;
+        if(linkedPool == null) return null;
         return new ChunkCoordinates(linkedPool.xCoord, linkedPool.yCoord, linkedPool.zCoord);
     }
 

@@ -52,7 +52,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
         Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 
         float waterLevel = (float) pool.getCurrentMana() / (float) TilePool.MAX_MANA * 0.40F;
-        if (waterLevel > 0) {
+        if(waterLevel > 0) {
             float s = 1F / 256F * 14F;
             float v = 1F / 8F;
             float w = -v * 3.5F;

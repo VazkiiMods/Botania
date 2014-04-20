@@ -19,16 +19,9 @@ public class TileSpiritShrine extends TileMod {
 
     @Override
     public void updateEntity() {
-        if (worldObj.isRemote) {
-            if (ticks >= 40) {
-                float[][] colors = new float[][]{
-                        {0F, 0.25F, 1F},
-                        {1F, 0F, 0.2F},
-                        {0F, 1F, 0.25F},
-                        {1F, 1F, 0.25F},
-                        {1F, 0.25F, 1F},
-                        {0.25F, 1F, 1F}
-                };
+        if(worldObj.isRemote) {
+            if(ticks >= 40) {
+                float[][] colors = new float[][]{{0F, 0.25F, 1F}, {1F, 0F, 0.2F}, {0F, 1F, 0.25F}, {1F, 1F, 0.25F}, {1F, 0.25F, 1F}, {0.25F, 1F, 1F}};
 
                 int totalSpiritCount = 6;
                 double tickIncrement = 360D / totalSpiritCount;
@@ -37,13 +30,13 @@ public class TileSpiritShrine extends TileMod {
                 int existTicks = liftTicks * 2;
                 int lowerTicks = existTicks + liftTicks;
 
-                if (ticks < lowerTicks) {
+                if(ticks < lowerTicks) {
                     int speed = 5;
                     double wticks = ticks * speed - tickIncrement;
                     double r = Math.sin((ticks >= liftTicks ? (ticks - liftTicks) * speed - tickIncrement : -tickIncrement) * Math.PI / 180 * 0.75) + 1 * 1.25 + 0.5;
                     double g = Math.sin(wticks * Math.PI / 180 * 0.55);
 
-                    for (int i = 0; i < totalSpiritCount; i++) {
+                    for(int i = 0; i < totalSpiritCount; i++) {
                         double x = xCoord + Math.sin(wticks * Math.PI / 180) * r + 0.5;
                         double y = yCoord + ((ticks > existTicks ? 40 - (double) (ticks - existTicks) : Math.min(80 + 40 * i, ticks) - 40 * (i + 1)) * 0.1);
                         double z = zCoord + Math.cos(wticks * Math.PI / 180) * r + 0.5;

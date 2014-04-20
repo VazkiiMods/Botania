@@ -55,9 +55,8 @@ public class ItemSignalFlare extends ItemMod {
 
     @Override
     public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-        if (par1ItemStack.getItemDamage() == 0) {
-            if (par2World.isRemote)
-                par3EntityPlayer.swingItem();
+        if(par1ItemStack.getItemDamage() == 0) {
+            if(par2World.isRemote) par3EntityPlayer.swingItem();
             else {
                 EntitySignalFlare flare = new EntitySignalFlare(par2World);
                 flare.setPosition(par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ);
@@ -68,8 +67,8 @@ public class ItemSignalFlare extends ItemMod {
 
                 int range = 5;
                 List<EntityLivingBase> entities = par2World.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(par3EntityPlayer.posX - range, par3EntityPlayer.posY - range, par3EntityPlayer.posZ - range, par3EntityPlayer.posX + range, par3EntityPlayer.posY + range, par3EntityPlayer.posZ + range));
-                for (EntityLivingBase entity : entities)
-                    if (entity != par3EntityPlayer && (!(entity instanceof EntityPlayer) || MinecraftServer.getServer() == null || MinecraftServer.getServer().isPVPEnabled()))
+                for(EntityLivingBase entity : entities)
+                    if(entity != par3EntityPlayer && (!(entity instanceof EntityPlayer) || MinecraftServer.getServer() == null || MinecraftServer.getServer().isPVPEnabled()))
                         entity.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 50, 5));
             }
             par1ItemStack.damageItem(200, par3EntityPlayer);
@@ -80,14 +79,13 @@ public class ItemSignalFlare extends ItemMod {
 
     @Override
     public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
-        if (par1ItemStack.isItemDamaged())
-            par1ItemStack.setItemDamage(par1ItemStack.getItemDamage() - 1);
+        if(par1ItemStack.isItemDamaged()) par1ItemStack.setItemDamage(par1ItemStack.getItemDamage() - 1);
     }
 
     @Override
     public void registerIcons(IIconRegister par1IconRegister) {
         icons = new IIcon[2];
-        for (int i = 0; i < icons.length; i++)
+        for(int i = 0; i < icons.length; i++)
             icons[i] = IconHelper.forItem(par1IconRegister, this, i);
     }
 
@@ -98,8 +96,7 @@ public class ItemSignalFlare extends ItemMod {
 
     @Override
     public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
-        if (par2 == 0)
-            return 0xFFFFFF;
+        if(par2 == 0) return 0xFFFFFF;
 
         float[] color = EntitySheep.fleeceColorTable[getColor(par1ItemStack)];
         return new Color(color[0], color[1], color[2]).getRGB();
@@ -107,7 +104,7 @@ public class ItemSignalFlare extends ItemMod {
 
     @Override
     public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
-        for (int i = 0; i < 16; i++)
+        for(int i = 0; i < 16; i++)
             par3List.add(forColor(i));
     }
 

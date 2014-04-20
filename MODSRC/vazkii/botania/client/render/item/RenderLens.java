@@ -41,7 +41,7 @@ public class RenderLens implements IItemRenderer {
 
     @Override
     public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
-        switch (type) {
+        switch(type) {
             case ENTITY: {
                 GL11.glPushMatrix();
                 GL11.glTranslatef(-0.5F, 0F, 0F);
@@ -107,8 +107,7 @@ public class RenderLens implements IItemRenderer {
         float zLevel = 0F;
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();
-        if (shiny)
-            tessellator.setBrightness(240);
+        if(shiny) tessellator.setBrightness(240);
         tessellator.addVertexWithUV(par1 + 0, par2 + par5, zLevel, icon.getMinU(), icon.getMaxV());
         tessellator.addVertexWithUV(par1 + par4, par2 + par5, zLevel, icon.getMaxU(), icon.getMaxV());
         tessellator.addVertexWithUV(par1 + par4, par2 + 0, zLevel, icon.getMaxU(), icon.getMinV());

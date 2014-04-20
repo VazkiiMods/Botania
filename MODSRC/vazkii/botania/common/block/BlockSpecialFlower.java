@@ -50,26 +50,10 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
             LibBlockNames.SUBTILE_PUREDAISY,
 
             // Generating
-            LibBlockNames.SUBTILE_DAYBLOOM,
-            LibBlockNames.SUBTILE_NIGHTSHADE,
-            LibBlockNames.SUBTILE_ENDOFLAME,
-            LibBlockNames.SUBTILE_HYDROANGEAS,
-            LibBlockNames.SUBTILE_THERMALILY,
-            LibBlockNames.SUBTILE_ARCANE_ROSE,
+            LibBlockNames.SUBTILE_DAYBLOOM, LibBlockNames.SUBTILE_NIGHTSHADE, LibBlockNames.SUBTILE_ENDOFLAME, LibBlockNames.SUBTILE_HYDROANGEAS, LibBlockNames.SUBTILE_THERMALILY, LibBlockNames.SUBTILE_ARCANE_ROSE,
 
             // Functional
-            LibBlockNames.SUBTILE_JADED_AMARANTHUS,
-            LibBlockNames.SUBTILE_BELLETHORN,
-            LibBlockNames.SUBTILE_HEISEI_DREAM,
-            LibBlockNames.SUBTILE_TIGERSEYE,
-            LibBlockNames.SUBTILE_ORECHID,
-            LibBlockNames.SUBTILE_FALLEN_KANADE,
-            LibBlockNames.SUBTILE_EXOFLAME,
-            LibBlockNames.SUBTILE_AGRICARNATION,
-            LibBlockNames.SUBTILE_HOPPERHOCK,
-            LibBlockNames.SUBTILE_TANGLEBERRIE,
-            LibBlockNames.SUBTILE_JIYUULIA
-    };
+            LibBlockNames.SUBTILE_JADED_AMARANTHUS, LibBlockNames.SUBTILE_BELLETHORN, LibBlockNames.SUBTILE_HEISEI_DREAM, LibBlockNames.SUBTILE_TIGERSEYE, LibBlockNames.SUBTILE_ORECHID, LibBlockNames.SUBTILE_FALLEN_KANADE, LibBlockNames.SUBTILE_EXOFLAME, LibBlockNames.SUBTILE_AGRICARNATION, LibBlockNames.SUBTILE_HOPPERHOCK, LibBlockNames.SUBTILE_TANGLEBERRIE, LibBlockNames.SUBTILE_JIYUULIA};
 
     protected BlockSpecialFlower() {
         super(0);
@@ -99,13 +83,13 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 
     @Override
     public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
-        for (String s : subtypes)
+        for(String s : subtypes)
             par3List.add(ItemBlockSpecialFlower.ofType(s));
     }
 
     @Override
     public void registerBlockIcons(IIconRegister par1IconRegister) {
-        for (String s : subtypes)
+        for(String s : subtypes)
             icons.put(s, IconHelper.forName(par1IconRegister, s));
     }
 
@@ -127,8 +111,7 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 
     @Override
     public void onBlockHarvested(World par1World, int par2, int par3, int par4, int par5, EntityPlayer par6EntityPlayer) {
-        if (!par6EntityPlayer.capabilities.isCreativeMode)
-            dropBlockAsItem(par1World, par2, par3, par4, par5, 0);
+        if(!par6EntityPlayer.capabilities.isCreativeMode) dropBlockAsItem(par1World, par2, par3, par4, par5, 0);
     }
 
     @Override
@@ -136,7 +119,7 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
         ArrayList<ItemStack> list = new ArrayList();
         TileEntity tile = world.getTileEntity(x, y, z);
 
-        if (tile != null) {
+        if(tile != null) {
             String name = ((TileSpecialFlower) tile).subTileName;
             list.add(ItemBlockSpecialFlower.ofType(name));
         }

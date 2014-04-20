@@ -54,7 +54,7 @@ public class BlockModFlower extends BlockFlower implements ILexiconable {
 
     @Override
     public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
-        for (int i = 0; i < 16; i++)
+        for(int i = 0; i < 16; i++)
             par3List.add(new ItemStack(par1, 1, i));
     }
 
@@ -68,7 +68,7 @@ public class BlockModFlower extends BlockFlower implements ILexiconable {
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister par1IconRegister) {
         icons = new IIcon[17];
-        for (int i = 0; i < icons.length; i++)
+        for(int i = 0; i < icons.length; i++)
             icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
     }
 
@@ -92,7 +92,7 @@ public class BlockModFlower extends BlockFlower implements ILexiconable {
         int meta = par1World.getBlockMetadata(par2, par3, par4);
         float[] color = EntitySheep.fleeceColorTable[meta];
 
-        if (par5Random.nextDouble() < ConfigHandler.flowerParticleFrequency)
+        if(par5Random.nextDouble() < ConfigHandler.flowerParticleFrequency)
             Botania.proxy.sparkleFX(par1World, par2 + 0.3 + par5Random.nextFloat() * 0.5, par3 + 0.5 + par5Random.nextFloat() * 0.5, par4 + 0.3 + par5Random.nextFloat() * 0.5, color[0], color[1], color[2], par5Random.nextFloat(), 5);
     }
 

@@ -57,10 +57,9 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 
     @Override
     public void onEntityCollidedWithBlock(World par1World, int par2, int par3, int par4, Entity par5Entity) {
-        if (par5Entity instanceof EntityItem) {
+        if(par5Entity instanceof EntityItem) {
             TileAltar tile = (TileAltar) par1World.getTileEntity(par2, par3, par4);
-            if (tile.collideEntityItem((EntityItem) par5Entity))
-                par1World.markBlockForUpdate(par2, par3, par4);
+            if(tile.collideEntityItem((EntityItem) par5Entity)) par1World.markBlockForUpdate(par2, par3, par4);
         }
     }
 
@@ -68,9 +67,9 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
     public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
         ItemStack stack = par5EntityPlayer.getCurrentEquippedItem();
         TileAltar tile = (TileAltar) par1World.getTileEntity(par2, par3, par4);
-        if (stack != null && stack.getItem() == Items.water_bucket) {
-            if (!tile.hasWater) {
-                if (!par5EntityPlayer.capabilities.isCreativeMode)
+        if(stack != null && stack.getItem() == Items.water_bucket) {
+            if(!tile.hasWater) {
+                if(!par5EntityPlayer.capabilities.isCreativeMode)
                     par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, new ItemStack(Items.bucket));
                 tile.hasWater = true;
                 par1World.func_147453_f(par2, par3, par4, this);
@@ -111,20 +110,19 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
     public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6) {
         TileSimpleInventory inv = (TileSimpleInventory) par1World.getTileEntity(par2, par3, par4);
 
-        if (inv != null) {
-            for (int j1 = 0; j1 < inv.getSizeInventory(); ++j1) {
+        if(inv != null) {
+            for(int j1 = 0; j1 < inv.getSizeInventory(); ++j1) {
                 ItemStack itemstack = inv.getStackInSlot(j1);
 
-                if (itemstack != null) {
+                if(itemstack != null) {
                     float f = random.nextFloat() * 0.8F + 0.1F;
                     float f1 = random.nextFloat() * 0.8F + 0.1F;
                     EntityItem entityitem;
 
-                    for (float f2 = random.nextFloat() * 0.8F + 0.1F; itemstack.stackSize > 0; par1World.spawnEntityInWorld(entityitem)) {
+                    for(float f2 = random.nextFloat() * 0.8F + 0.1F; itemstack.stackSize > 0; par1World.spawnEntityInWorld(entityitem)) {
                         int k1 = random.nextInt(21) + 10;
 
-                        if (k1 > itemstack.stackSize)
-                            k1 = itemstack.stackSize;
+                        if(k1 > itemstack.stackSize) k1 = itemstack.stackSize;
 
                         itemstack.stackSize -= k1;
                         entityitem = new EntityItem(par1World, par2 + f, par3 + f1, par4 + f2, new ItemStack(itemstack.getItem(), k1, itemstack.getItemDamage()));
@@ -133,7 +131,7 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
                         entityitem.motionY = (float) random.nextGaussian() * f3 + 0.2F;
                         entityitem.motionZ = (float) random.nextGaussian() * f3;
 
-                        if (itemstack.hasTagCompound())
+                        if(itemstack.hasTagCompound())
                             entityitem.getEntityItem().setTagCompound((NBTTagCompound) itemstack.getTagCompound().copy());
                     }
                 }

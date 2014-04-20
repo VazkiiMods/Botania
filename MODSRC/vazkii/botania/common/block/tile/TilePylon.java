@@ -25,8 +25,8 @@ public class TilePylon extends TileEntity {
 
     @Override
     public void updateEntity() {
-        if (activated && worldObj.isRemote) {
-            if (worldObj.getBlock(centerX, centerY, centerZ) != ModBlocks.enchanter) {
+        if(activated && worldObj.isRemote) {
+            if(worldObj.getBlock(centerX, centerY, centerZ) != ModBlocks.enchanter) {
                 activated = false;
                 return;
             }
@@ -34,11 +34,11 @@ public class TilePylon extends TileEntity {
             Vector3 centerBlock = new Vector3(centerX + 0.5, centerY + 0.75 + (Math.random() - 0.5 * 0.25), centerZ + 0.5);
 
             Block block = worldObj.getBlock(xCoord, yCoord - 1, zCoord);
-            if (block == ModBlocks.flower) {
+            if(block == ModBlocks.flower) {
                 int meta = worldObj.getBlockMetadata(xCoord, yCoord - 1, zCoord);
                 float[] color = EntitySheep.fleeceColorTable[meta];
 
-                if (worldObj.rand.nextInt(4) == 0)
+                if(worldObj.rand.nextInt(4) == 0)
                     Botania.proxy.sparkleFX(worldObj, centerBlock.x + (Math.random() - 0.5) * 0.5, centerBlock.y, centerBlock.z + (Math.random() - 0.5) * 0.5, color[0], color[1], color[2], (float) Math.random(), 8);
 
                 Botania.proxy.wispFX(worldObj, xCoord + 0.5 + (Math.random() - 0.5) * 0.25, yCoord - 0.5, zCoord + 0.5 + (Math.random() - 0.5) * 0.25, color[0], color[1], color[2], (float) Math.random() / 3F, -0.04F);
@@ -50,7 +50,7 @@ public class TilePylon extends TileEntity {
             }
         }
 
-        if (worldObj.rand.nextBoolean() && worldObj.isRemote)
+        if(worldObj.rand.nextBoolean() && worldObj.isRemote)
             Botania.proxy.sparkleFX(worldObj, xCoord + Math.random(), yCoord + Math.random() * 1.5, zCoord + Math.random(), 0.5F, 0.5F, 1F, (float) Math.random(), 2);
     }
 

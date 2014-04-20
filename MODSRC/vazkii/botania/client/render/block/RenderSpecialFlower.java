@@ -47,7 +47,7 @@ public class RenderSpecialFlower implements ISimpleBlockRenderingHandler {
         float f2 = (l >> 8 & 255) / 255.0F;
         float f3 = (l & 255) / 255.0F;
 
-        if (EntityRenderer.anaglyphEnable) {
+        if(EntityRenderer.anaglyphEnable) {
             float f4 = (f1 * 30.0F + f2 * 59.0F + f3 * 11.0F) / 100.0F;
             float f5 = (f1 * 30.0F + f2 * 70.0F) / 100.0F;
             float f6 = (f1 * 30.0F + f3 * 70.0F) / 100.0F;

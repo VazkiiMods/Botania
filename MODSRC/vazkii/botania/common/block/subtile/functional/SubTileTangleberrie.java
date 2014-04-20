@@ -29,7 +29,7 @@ public class SubTileTangleberrie extends SubTileFunctional {
     public void onUpdate() {
         super.onUpdate();
 
-        if (mana > 0) {
+        if(mana > 0) {
             double x1 = supertile.xCoord + 0.5;
             double y1 = supertile.yCoord + 0.5;
             double z1 = supertile.zCoord + 0.5;
@@ -40,9 +40,8 @@ public class SubTileTangleberrie extends SubTileFunctional {
             AxisAlignedBB boundingBox = AxisAlignedBB.getBoundingBox(x1 - range, y1 - range, z1 - range, x1 + range, y1 + range, z1 + range);
             List<EntityLivingBase> entities = supertile.getWorldObj().getEntitiesWithinAABB(EntityLivingBase.class, boundingBox);
 
-            for (EntityLivingBase entity : entities) {
-                if (entity instanceof EntityPlayer)
-                    continue;
+            for(EntityLivingBase entity : entities) {
+                if(entity instanceof EntityPlayer) continue;
 
                 double x2 = entity.posX;
                 double y2 = entity.posY;
@@ -50,14 +49,14 @@ public class SubTileTangleberrie extends SubTileFunctional {
 
                 float distance = MathHelper.pointDistanceSpace(x1, y1, z1, x2, y2, z2);
 
-                if (distance > maxDist && distance < range) {
+                if(distance > maxDist && distance < range) {
                     MathHelper.setEntityMotionFromVector(entity, new Vector3(x1, y1, z1), getMotionVelocity());
-                    if (supertile.getWorldObj().rand.nextInt(3) == 0)
+                    if(supertile.getWorldObj().rand.nextInt(3) == 0)
                         Botania.proxy.sparkleFX(supertile.getWorldObj(), x2 + Math.random() * entity.width, y2 + Math.random() * entity.height, z2 + Math.random() * entity.width, 0.5F, 0.5F, 0.5F, 1F, 3);
                 }
             }
 
-            if (supertile.getWorldObj().getTotalWorldTime() % 4 == 0) {
+            if(supertile.getWorldObj().getTotalWorldTime() % 4 == 0) {
                 mana--;
                 sync();
             }

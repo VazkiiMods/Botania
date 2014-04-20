@@ -54,10 +54,9 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 
     @Override
     public void onEntityCollidedWithBlock(World par1World, int par2, int par3, int par4, Entity par5Entity) {
-        if (par5Entity instanceof EntityItem) {
+        if(par5Entity instanceof EntityItem) {
             TilePool tile = (TilePool) par1World.getTileEntity(par2, par3, par4);
-            if (tile.collideEntityItem((EntityItem) par5Entity))
-                par1World.markBlockForUpdate(par2, par3, par4);
+            if(tile.collideEntityItem((EntityItem) par5Entity)) par1World.markBlockForUpdate(par2, par3, par4);
         }
     }
 
@@ -90,8 +89,7 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
     public int getComparatorInputOverride(World par1World, int par2, int par3, int par4, int par5) {
         TilePool pool = (TilePool) par1World.getTileEntity(par2, par3, par4);
         int val = (int) ((double) pool.getCurrentMana() / (double) TilePool.MAX_MANA * 15.0);
-        if (pool.getCurrentMana() > 0)
-            val = Math.max(val, 1);
+        if(pool.getCurrentMana() > 0) val = Math.max(val, 1);
 
         return val;
     }

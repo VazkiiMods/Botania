@@ -55,20 +55,19 @@ public class SubTileGenerating extends SubTileEntity {
 
         linkCollector();
 
-        if (canGeneratePassively()) {
+        if(canGeneratePassively()) {
             int delay = getDelayBetweenPassiveGeneration();
-            if (delay > 0 && supertile.getWorldObj().getWorldTime() % delay == 0) {
-                if (shouldSyncPassiveGeneration())
-                    sync();
+            if(delay > 0 && supertile.getWorldObj().getWorldTime() % delay == 0) {
+                if(shouldSyncPassiveGeneration()) sync();
                 addMana(getValueForPassiveGeneration());
             }
             emptyManaIntoCollector();
         }
 
-        if (supertile.getWorldObj().isRemote) {
+        if(supertile.getWorldObj().isRemote) {
             double particleChance = 1F - (double) mana / (double) getMaxMana() / 2F;
             Color color = new Color(getColor());
-            if (Math.random() > particleChance)
+            if(Math.random() > particleChance)
                 BotaniaAPI.internalHandler.sparkleFX(supertile.getWorldObj(), supertile.xCoord + 0.3 + Math.random() * 0.5, supertile.yCoord + 0.5 + Math.random() * 0.5, supertile.zCoord + 0.3 + Math.random() * 0.5, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random(), 5);
         }
     }
@@ -77,12 +76,12 @@ public class SubTileGenerating extends SubTileEntity {
         final int range = 4;
 
         boolean needsNew = false;
-        if (linkedCollector == null) {
+        if(linkedCollector == null) {
             needsNew = true;
 
-            if (cachedCollectorCoordinates != null) {
+            if(cachedCollectorCoordinates != null) {
                 TileEntity tileAt = supertile.getWorldObj().getTileEntity(cachedCollectorCoordinates.posX, cachedCollectorCoordinates.posY, cachedCollectorCoordinates.posZ);
-                if (tileAt != null && tileAt instanceof IManaCollector) {
+                if(tileAt != null && tileAt instanceof IManaCollector) {
                     linkedCollector = tileAt;
                     needsNew = false;
                 }
@@ -90,18 +89,18 @@ public class SubTileGenerating extends SubTileEntity {
             }
         }
 
-        if (!needsNew) {
+        if(!needsNew) {
             TileEntity tileAt = supertile.getWorldObj().getTileEntity(linkedCollector.xCoord, linkedCollector.yCoord, linkedCollector.zCoord);
-            if (!(tileAt instanceof IManaCollector)) {
+            if(!(tileAt instanceof IManaCollector)) {
                 linkedCollector = null;
                 needsNew = true;
             } else linkedCollector = tileAt;
         }
 
-        if (needsNew) {
+        if(needsNew) {
             IManaNetwork network = BotaniaAPI.internalHandler.getManaNetworkInstance();
             int size = network.getAllCollectorsInWorld(supertile.getWorldObj().provider.dimensionId).size();
-            if (size != sizeLastCheck) {
+            if(size != sizeLastCheck) {
                 ChunkCoordinates coords = new ChunkCoordinates(supertile.xCoord, supertile.yCoord, supertile.zCoord);
                 linkedCollector = network.getClosestCollector(coords, supertile.getWorldObj().provider.dimensionId, range);
                 sizeLastCheck = size;
@@ -114,9 +113,9 @@ public class SubTileGenerating extends SubTileEntity {
     }
 
     public void emptyManaIntoCollector() {
-        if (linkedCollector != null) {
+        if(linkedCollector != null) {
             IManaCollector collector = (IManaCollector) linkedCollector;
-            if (!collector.isFull()) {
+            if(!collector.isFull()) {
                 collector.recieveMana(mana);
                 mana = 0;
             }
@@ -142,8 +141,7 @@ public class SubTileGenerating extends SubTileEntity {
 
     @Override
     public boolean onWanded(EntityPlayer player, ItemStack wand) {
-        if (!player.worldObj.isRemote)
-            sync();
+        if(!player.worldObj.isRemote) sync();
 
         knownMana = mana;
         player.worldObj.playSoundAtEntity(player, "random.orb", 0.1F, 1F);
@@ -185,8 +183,7 @@ public class SubTileGenerating extends SubTileEntity {
 
     @Override
     public ChunkCoordinates getBinding() {
-        if (linkedCollector == null)
-            return null;
+        if(linkedCollector == null) return null;
         return new ChunkCoordinates(linkedCollector.xCoord, linkedCollector.yCoord, linkedCollector.zCoord);
     }
 

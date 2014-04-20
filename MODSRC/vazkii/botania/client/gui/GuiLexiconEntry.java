@@ -75,7 +75,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry {
 
     @Override
     protected void actionPerformed(GuiButton par1GuiButton) {
-        switch (par1GuiButton.id) {
+        switch(par1GuiButton.id) {
             case 0:
                 mc.displayGuiScreen(GuiScreen.isShiftKeyDown() ? new GuiLexicon() : parent);
                 ClientTickHandler.notifyPageChange();

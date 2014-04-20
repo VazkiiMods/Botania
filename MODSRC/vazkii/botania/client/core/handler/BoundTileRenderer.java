@@ -45,13 +45,13 @@ public final class BoundTileRenderer {
         EntityPlayer player = Minecraft.getMinecraft().thePlayer;
         World world = player.worldObj;
         ItemStack stack = player.getCurrentEquippedItem();
-        if (stack != null && stack.getItem() instanceof ItemTwigWand) {
+        if(stack != null && stack.getItem() instanceof ItemTwigWand) {
             MovingObjectPosition pos = Minecraft.getMinecraft().objectMouseOver;
-            if (pos != null) {
+            if(pos != null) {
                 TileEntity tile = world.getTileEntity(pos.blockX, pos.blockY, pos.blockZ);
-                if (tile != null && tile instanceof ITileBound) {
+                if(tile != null && tile instanceof ITileBound) {
                     ChunkCoordinates coords = ((ITileBound) tile).getBinding();
-                    if (coords != null)
+                    if(coords != null)
                         renderBlockOutlineAt(coords, Color.HSBtoRGB(world.getTotalWorldTime() % 200 / 200F, 0.6F, 1F));
                 }
             }
@@ -73,15 +73,14 @@ public final class BoundTileRenderer {
         Block block = world.getBlock(pos.posX, pos.posY, pos.posZ);
         drawWireframe:
         {
-            if (block != null) {
+            if(block != null) {
                 AxisAlignedBB axis;
 
-                if (block instanceof IWireframeAABBProvider)
+                if(block instanceof IWireframeAABBProvider)
                     axis = ((IWireframeAABBProvider) block).getWireframeAABB(world, pos.posX, pos.posY, pos.posZ);
                 else axis = block.getSelectedBoundingBoxFromPool(world, pos.posX, pos.posY, pos.posZ);
 
-                if (axis == null)
-                    break drawWireframe;
+                if(axis == null) break drawWireframe;
 
                 axis.minX -= pos.posX;
                 axis.maxX -= pos.posX;

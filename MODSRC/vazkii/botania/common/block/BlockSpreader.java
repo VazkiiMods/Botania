@@ -75,7 +75,7 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 
     @Override
     public void getSubBlocks(Item par1, CreativeTabs par2, List par3) {
-        for (int i = 0; i < 2; i++)
+        for(int i = 0; i < 2; i++)
             par3.add(new ItemStack(par1, 1, i));
     }
 
@@ -85,7 +85,7 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
         TileSpreader spreader = (TileSpreader) par1World.getTileEntity(par2, par3, par4);
         par1World.setBlockMetadataWithNotify(par2, par3, par4, par6ItemStack.getItemDamage() & 1, 1 | 2);
 
-        switch (orientation) {
+        switch(orientation) {
             case 0:
                 spreader.rotationY = -90F;
                 break;
@@ -138,17 +138,15 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
         ItemStack heldItem = par5EntityPlayer.getCurrentEquippedItem();
         boolean isHeldItemLens = heldItem != null && heldItem.getItem() instanceof ILens;
 
-        if (heldItem != null)
-            if (heldItem.getItem() == ModItems.twigWand)
-                return false;
+        if(heldItem != null) if(heldItem.getItem() == ModItems.twigWand) return false;
 
-        if (lens == null && isHeldItemLens) {
+        if(lens == null && isHeldItemLens) {
             par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, null);
             spreader.setInventorySlotContents(0, heldItem.copy());
             spreader.markDirty();
-        } else if (lens != null) {
+        } else if(lens != null) {
             ItemStack add = lens.copy();
-            if (!par5EntityPlayer.inventory.addItemStackToInventory(add))
+            if(!par5EntityPlayer.inventory.addItemStackToInventory(add))
                 par5EntityPlayer.dropPlayerItemWithRandomChoice(add, false);
             spreader.setInventorySlotContents(0, null);
             spreader.markDirty();
@@ -161,20 +159,19 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
     public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6) {
         TileSimpleInventory inv = (TileSimpleInventory) par1World.getTileEntity(par2, par3, par4);
 
-        if (inv != null) {
-            for (int j1 = 0; j1 < inv.getSizeInventory(); ++j1) {
+        if(inv != null) {
+            for(int j1 = 0; j1 < inv.getSizeInventory(); ++j1) {
                 ItemStack itemstack = inv.getStackInSlot(j1);
 
-                if (itemstack != null) {
+                if(itemstack != null) {
                     float f = random.nextFloat() * 0.8F + 0.1F;
                     float f1 = random.nextFloat() * 0.8F + 0.1F;
                     EntityItem entityitem;
 
-                    for (float f2 = random.nextFloat() * 0.8F + 0.1F; itemstack.stackSize > 0; par1World.spawnEntityInWorld(entityitem)) {
+                    for(float f2 = random.nextFloat() * 0.8F + 0.1F; itemstack.stackSize > 0; par1World.spawnEntityInWorld(entityitem)) {
                         int k1 = random.nextInt(21) + 10;
 
-                        if (k1 > itemstack.stackSize)
-                            k1 = itemstack.stackSize;
+                        if(k1 > itemstack.stackSize) k1 = itemstack.stackSize;
 
                         itemstack.stackSize -= k1;
                         entityitem = new EntityItem(par1World, par2 + f, par3 + f1, par4 + f2, new ItemStack(itemstack.getItem(), k1, itemstack.getItemDamage()));
@@ -183,7 +180,7 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
                         entityitem.motionY = (float) random.nextGaussian() * f3 + 0.2F;
                         entityitem.motionZ = (float) random.nextGaussian() * f3;
 
-                        if (itemstack.hasTagCompound())
+                        if(itemstack.hasTagCompound())
                             entityitem.getEntityItem().setTagCompound((NBTTagCompound) itemstack.getTagCompound().copy());
                     }
                 }

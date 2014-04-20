@@ -23,8 +23,7 @@ public final class ManasteelToolCommons {
         int manaRequested = entity instanceof EntityPlayer ? ManaItemHandler.requestMana(stack, (EntityPlayer) entity, manaToRequest, true) : 0;
 
         int finalDamage = dmg - manaRequested / manaPerDamage;
-        if (finalDamage > 0)
-            stack.damageItem(finalDamage, entity);
+        if(finalDamage > 0) stack.damageItem(finalDamage, entity);
     }
 
 }

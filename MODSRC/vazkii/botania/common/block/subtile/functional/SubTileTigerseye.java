@@ -43,26 +43,25 @@ public class SubTileTigerseye extends SubTileFunctional {
 
         List<EntityLiving> entities = supertile.getWorldObj().getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord - rangeY, supertile.zCoord - range, supertile.xCoord + range, supertile.yCoord + rangeY, supertile.zCoord + range));
 
-        for (EntityLiving entity : entities) {
+        for(EntityLiving entity : entities) {
             List<EntityAITaskEntry> entries = new ArrayList(entity.tasks.taskEntries);
             entries.addAll(new ArrayList(entity.targetTasks.taskEntries));
 
             boolean avoidsOcelots = false;
-            if (shouldAfffect)
-                for (EntityAITaskEntry entry : entries) {
-                    if (entry.action instanceof EntityAIAvoidEntity)
-                        avoidsOcelots = messWithRunAwayAI((EntityAIAvoidEntity) entry.action) || avoidsOcelots;
+            if(shouldAfffect) for(EntityAITaskEntry entry : entries) {
+                if(entry.action instanceof EntityAIAvoidEntity)
+                    avoidsOcelots = messWithRunAwayAI((EntityAIAvoidEntity) entry.action) || avoidsOcelots;
 
-                    if (entry.action instanceof EntityAINearestAttackableTarget)
-                        messWithGetTargetAI((EntityAINearestAttackableTarget) entry.action);
-                }
+                if(entry.action instanceof EntityAINearestAttackableTarget)
+                    messWithGetTargetAI((EntityAINearestAttackableTarget) entry.action);
+            }
 
-            if (entity instanceof EntityCreeper) {
+            if(entity instanceof EntityCreeper) {
                 ReflectionHelper.setPrivateValue(EntityCreeper.class, (EntityCreeper) entity, 2, LibObfuscation.TIME_SINCE_IGNITED);
                 entity.setAttackTarget(null);
             }
 
-            if (avoidsOcelots) {
+            if(avoidsOcelots) {
                 mana -= cost;
                 sync();
                 shouldAfffect = false;
@@ -71,7 +70,7 @@ public class SubTileTigerseye extends SubTileFunctional {
     }
 
     private boolean messWithRunAwayAI(EntityAIAvoidEntity aiEntry) {
-        if (ReflectionHelper.getPrivateValue(EntityAIAvoidEntity.class, aiEntry, LibObfuscation.TARGET_ENTITY_CLASS) == EntityOcelot.class) {
+        if(ReflectionHelper.getPrivateValue(EntityAIAvoidEntity.class, aiEntry, LibObfuscation.TARGET_ENTITY_CLASS) == EntityOcelot.class) {
             ReflectionHelper.setPrivateValue(EntityAIAvoidEntity.class, aiEntry, EntityPlayer.class, LibObfuscation.TARGET_ENTITY_CLASS);
             return true;
         }
@@ -79,7 +78,7 @@ public class SubTileTigerseye extends SubTileFunctional {
     }
 
     private void messWithGetTargetAI(EntityAINearestAttackableTarget aiEntry) {
-        if (ReflectionHelper.getPrivateValue(EntityAINearestAttackableTarget.class, aiEntry, LibObfuscation.TARGET_CLASS) == EntityPlayer.class)
+        if(ReflectionHelper.getPrivateValue(EntityAINearestAttackableTarget.class, aiEntry, LibObfuscation.TARGET_CLASS) == EntityPlayer.class)
             ReflectionHelper.setPrivateValue(EntityAINearestAttackableTarget.class, aiEntry, EntityEnderCrystal.class, LibObfuscation.TARGET_CLASS); // Something random that won't be around
     }
 

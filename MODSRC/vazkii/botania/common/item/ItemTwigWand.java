@@ -49,17 +49,15 @@ public class ItemTwigWand extends Item16Colors {
     @Override
     public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
         Block block = par3World.getBlock(par4, par5, par6);
-        if (block == Blocks.lapis_block) {
+        if(block == Blocks.lapis_block) {
             int meta = -1;
-            if (TileEnchanter.canEnchanterExist(par3World, par4, par5, par6, 0))
-                meta = 0;
-            else if (TileEnchanter.canEnchanterExist(par3World, par4, par5, par6, 1))
-                meta = 1;
+            if(TileEnchanter.canEnchanterExist(par3World, par4, par5, par6, 0)) meta = 0;
+            else if(TileEnchanter.canEnchanterExist(par3World, par4, par5, par6, 1)) meta = 1;
 
-            if (meta != -1 && !par3World.isRemote) {
+            if(meta != -1 && !par3World.isRemote) {
                 par3World.setBlock(par4, par5, par6, ModBlocks.enchanter, meta, 1 | 2);
                 par3World.playSoundEffect(par4, par5, par6, "random.levelup", 0.5F, 0.6F);
-                for (int i = 0; i < 50; i++) {
+                for(int i = 0; i < 50; i++) {
                     float red = (float) Math.random();
                     float green = (float) Math.random();
                     float blue = (float) Math.random();
@@ -73,14 +71,13 @@ public class ItemTwigWand extends Item16Colors {
                     Botania.proxy.wispFX(par3World, par4 + 0.5 + x, par5 + 0.5 + y, par6 + 0.5 + z, red, green, blue, (float) Math.random() * 0.15F + 0.15F, (float) -x * velMul, (float) -y * velMul, (float) -z * velMul);
                 }
             }
-        } else if (block instanceof IWandable) {
+        } else if(block instanceof IWandable) {
             boolean wanded = ((IWandable) block).onUsedByWand(par2EntityPlayer, par1ItemStack, par3World, par4, par5, par6, par7);
-            if (wanded && par3World.isRemote)
-                par2EntityPlayer.swingItem();
+            if(wanded && par3World.isRemote) par2EntityPlayer.swingItem();
 
             return wanded;
 
-        } else if (BlockPistonRelay.playerPositions.containsKey(par2EntityPlayer.getCommandSenderName())) {
+        } else if(BlockPistonRelay.playerPositions.containsKey(par2EntityPlayer.getCommandSenderName())) {
             String bindPos = BlockPistonRelay.playerPositions.get(par2EntityPlayer.getCommandSenderName());
             String currentPos = BlockPistonRelay.getCoordsAsString(par3World.provider.dimensionId, par4, par5, par6);
 
@@ -88,8 +85,7 @@ public class ItemTwigWand extends Item16Colors {
             BlockPistonRelay.mappedPositions.put(bindPos, currentPos);
             BlockPistonRelay.WorldData.get(par3World).markDirty();
 
-            if (par3World.isRemote)
-                par2EntityPlayer.swingItem();
+            if(par3World.isRemote) par2EntityPlayer.swingItem();
         }
 
         return false;
@@ -103,7 +99,7 @@ public class ItemTwigWand extends Item16Colors {
     @Override
     public void registerIcons(IIconRegister par1IconRegister) {
         icons = new IIcon[3];
-        for (int i = 0; i < icons.length; i++)
+        for(int i = 0; i < icons.length; i++)
             icons[i] = IconHelper.forItem(par1IconRegister, this, i);
     }
 
@@ -114,8 +110,7 @@ public class ItemTwigWand extends Item16Colors {
 
     @Override
     public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
-        if (par2 == 0)
-            return 0xFFFFFF;
+        if(par2 == 0) return 0xFFFFFF;
 
         float[] color = EntitySheep.fleeceColorTable[par2 == 1 ? getColor1(par1ItemStack) : getColor2(par1ItemStack)];
         return new Color(color[0], color[1], color[2]).getRGB();
@@ -133,7 +128,7 @@ public class ItemTwigWand extends Item16Colors {
 
     @Override
     public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
-        for (int i = 0; i < 16; i++)
+        for(int i = 0; i < 16; i++)
             par3List.add(forColors(i, i));
     }
 

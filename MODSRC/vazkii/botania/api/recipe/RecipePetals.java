@@ -27,9 +27,8 @@ public class RecipePetals {
         this.output = output;
 
         List<Object> inputsToSet = new ArrayList();
-        for (Object obj : inputs) {
-            if (obj instanceof String || obj instanceof ItemStack)
-                inputsToSet.add(obj);
+        for(Object obj : inputs) {
+            if(obj instanceof String || obj instanceof ItemStack) inputsToSet.add(obj);
             else throw new IllegalArgumentException("Invalid input");
         }
 
@@ -39,30 +38,27 @@ public class RecipePetals {
     public boolean matches(IInventory inv) {
         List<Object> inputsMissing = new ArrayList(inputs);
 
-        for (int i = 0; i < inv.getSizeInventory(); i++) {
+        for(int i = 0; i < inv.getSizeInventory(); i++) {
             ItemStack stack = inv.getStackInSlot(i);
-            if (stack == null)
-                break;
+            if(stack == null) break;
 
             String oredict = OreDictionary.getOreName(OreDictionary.getOreID(stack));
 
             int stackIndex = -1, oredictIndex = -1;
 
-            for (int j = 0; j < inputsMissing.size(); j++) {
+            for(int j = 0; j < inputsMissing.size(); j++) {
                 Object input = inputsMissing.get(j);
-                if (input instanceof String && input.equals(oredict)) {
+                if(input instanceof String && input.equals(oredict)) {
                     oredictIndex = j;
                     break;
-                } else if (input instanceof ItemStack && simpleAreStacksEqual((ItemStack) input, stack)) {
+                } else if(input instanceof ItemStack && simpleAreStacksEqual((ItemStack) input, stack)) {
                     stackIndex = j;
                     break;
                 }
             }
 
-            if (stackIndex != -1)
-                inputsMissing.remove(stackIndex);
-            else if (oredictIndex != -1)
-                inputsMissing.remove(oredictIndex);
+            if(stackIndex != -1) inputsMissing.remove(stackIndex);
+            else if(oredictIndex != -1) inputsMissing.remove(oredictIndex);
             else return false;
         }
 

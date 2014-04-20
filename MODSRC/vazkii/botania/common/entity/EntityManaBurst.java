@@ -67,12 +67,10 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
     public EntityManaBurst(World world) {
         super(world);
         setSize(0F, 0F);
-        for (int i = 0; i < dataWatcherEntries; i++) {
+        for(int i = 0; i < dataWatcherEntries; i++) {
             int j = dataWatcherStart + i;
-            if (i == 4 || i == 5 || i == 10 || i == 11 || i == 12)
-                dataWatcher.addObject(j, 0F);
-            else if (i == 9)
-                dataWatcher.addObject(j, new ItemStack(Blocks.stone, 0, 0));
+            if(i == 4 || i == 5 || i == 10 || i == 11 || i == 12) dataWatcher.addObject(j, 0F);
+            else if(i == 9) dataWatcher.addObject(j, new ItemStack(Blocks.stone, 0, 0));
             else dataWatcher.addObject(j, 0);
 
             dataWatcher.setObjectWatched(j);
@@ -125,34 +123,33 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
         lastTickPosZ = posZ;
         onEntityUpdate();
 
-        if (throwableShake > 0)
-            --throwableShake;
+        if(throwableShake > 0) --throwableShake;
 
         Vec3 vec3 = new Vector3(posX, posY, posZ).toVec3D();
         Vec3 vec31 = new Vector3(posX + motionX, posY + motionY, posZ + motionZ).toVec3D();
         MovingObjectPosition movingobjectposition = clip(vec3, vec31);
 
-        if (movingobjectposition != null)
+        if(movingobjectposition != null)
             vec31 = new Vector3(movingobjectposition.hitVec.xCoord, movingobjectposition.hitVec.yCoord, movingobjectposition.hitVec.zCoord).toVec3D();
 
-        if (!worldObj.isRemote) {
+        if(!worldObj.isRemote) {
             Entity entity = null;
             List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.addCoord(motionX, motionY, motionZ).expand(1.0D, 1.0D, 1.0D));
             double d0 = 0.0D;
             EntityLivingBase entitylivingbase = getThrower();
 
-            for (int j = 0; j < list.size(); ++j) {
+            for(int j = 0; j < list.size(); ++j) {
                 Entity entity1 = (Entity) list.get(j);
 
-                if (entity1.canBeCollidedWith() && (entity1 != entitylivingbase || ticksInAir >= 5)) {
+                if(entity1.canBeCollidedWith() && (entity1 != entitylivingbase || ticksInAir >= 5)) {
                     float f = 0.3F;
                     AxisAlignedBB axisalignedbb = entity1.boundingBox.expand(f, f, f);
                     MovingObjectPosition movingobjectposition1 = axisalignedbb.calculateIntercept(vec3, vec31);
 
-                    if (movingobjectposition1 != null) {
+                    if(movingobjectposition1 != null) {
                         double d1 = vec3.distanceTo(movingobjectposition1.hitVec);
 
-                        if (d1 < d0 || d0 == 0.0D) {
+                        if(d1 < d0 || d0 == 0.0D) {
                             entity = entity1;
                             d0 = d1;
                         }
@@ -160,12 +157,10 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
                 }
             }
 
-            if (entity != null)
-                movingobjectposition = new MovingObjectPosition(entity);
+            if(entity != null) movingobjectposition = new MovingObjectPosition(entity);
         }
 
-        if (movingobjectposition != null)
-            onImpact(movingobjectposition);
+        if(movingobjectposition != null) onImpact(movingobjectposition);
 
         posX += motionX;
         posY += motionY;
@@ -173,17 +168,14 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
         float f1 = MathHelper.sqrt_double(motionX * motionX + motionZ * motionZ);
         rotationYaw = (float) (Math.atan2(motionX, motionZ) * 180.0D / Math.PI);
 
-        for (rotationPitch = (float) (Math.atan2(motionY, f1) * 180.0D / Math.PI); rotationPitch - prevRotationPitch < -180.0F; prevRotationPitch -= 360.0F)
+        for(rotationPitch = (float) (Math.atan2(motionY, f1) * 180.0D / Math.PI); rotationPitch - prevRotationPitch < -180.0F; prevRotationPitch -= 360.0F)
             ;
 
-        while (rotationPitch - prevRotationPitch >= 180.0F)
-            prevRotationPitch += 360.0F;
+        while(rotationPitch - prevRotationPitch >= 180.0F) prevRotationPitch += 360.0F;
 
-        while (rotationYaw - prevRotationYaw < -180.0F)
-            prevRotationYaw -= 360.0F;
+        while(rotationYaw - prevRotationYaw < -180.0F) prevRotationYaw -= 360.0F;
 
-        while (rotationYaw - prevRotationYaw >= 180.0F)
-            prevRotationYaw += 360.0F;
+        while(rotationYaw - prevRotationYaw >= 180.0F) prevRotationYaw += 360.0F;
 
         rotationPitch = prevRotationPitch + (rotationPitch - prevRotationPitch) * 0.2F;
         rotationYaw = prevRotationYaw + (rotationYaw - prevRotationYaw) * 0.2F;
@@ -196,8 +188,8 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
     public MovingObjectPosition clip(Vec3 par1Vec3, Vec3 par2Vec3) {
         boolean par3 = false;
         boolean par4 = false;
-        if (!Double.isNaN(par1Vec3.xCoord) && !Double.isNaN(par1Vec3.yCoord) && !Double.isNaN(par1Vec3.zCoord)) {
-            if (!Double.isNaN(par2Vec3.xCoord) && !Double.isNaN(par2Vec3.yCoord) && !Double.isNaN(par2Vec3.zCoord)) {
+        if(!Double.isNaN(par1Vec3.xCoord) && !Double.isNaN(par1Vec3.yCoord) && !Double.isNaN(par1Vec3.zCoord)) {
+            if(!Double.isNaN(par2Vec3.xCoord) && !Double.isNaN(par2Vec3.yCoord) && !Double.isNaN(par2Vec3.zCoord)) {
                 int i = MathHelper.floor_double(par2Vec3.xCoord);
                 int j = MathHelper.floor_double(par2Vec3.yCoord);
                 int k = MathHelper.floor_double(par2Vec3.zCoord);
@@ -207,21 +199,19 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
                 Block block = worldObj.getBlock(l, i1, j1);
                 int l1 = worldObj.getBlockMetadata(l, i1, j1);
 
-                if (block != null && (!par4 || block == null || block.getCollisionBoundingBoxFromPool(worldObj, l, i1, j1) != null) && block != Blocks.air && block.canCollideCheck(l1, par3)) {
+                if(block != null && (!par4 || block == null || block.getCollisionBoundingBoxFromPool(worldObj, l, i1, j1) != null) && block != Blocks.air && block.canCollideCheck(l1, par3)) {
                     MovingObjectPosition movingobjectposition = block.collisionRayTrace(worldObj, l, i1, j1, par1Vec3, par2Vec3);
 
-                    if (movingobjectposition != null)
-                        return movingobjectposition;
+                    if(movingobjectposition != null) return movingobjectposition;
                 }
 
                 int k1 = 200;
 
-                while (k1-- >= 0) {
-                    if (Double.isNaN(par1Vec3.xCoord) || Double.isNaN(par1Vec3.yCoord) || Double.isNaN(par1Vec3.zCoord))
+                while(k1-- >= 0) {
+                    if(Double.isNaN(par1Vec3.xCoord) || Double.isNaN(par1Vec3.yCoord) || Double.isNaN(par1Vec3.zCoord))
                         return null;
 
-                    if (l == i && i1 == j && j1 == k)
-                        return null;
+                    if(l == i && i1 == j && j1 == k) return null;
 
                     boolean flag2 = true;
                     boolean flag3 = true;
@@ -230,22 +220,16 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
                     double d1 = 999.0D;
                     double d2 = 999.0D;
 
-                    if (i > l)
-                        d0 = l + 1.0D;
-                    else if (i < l)
-                        d0 = l + 0.0D;
+                    if(i > l) d0 = l + 1.0D;
+                    else if(i < l) d0 = l + 0.0D;
                     else flag2 = false;
 
-                    if (j > i1)
-                        d1 = i1 + 1.0D;
-                    else if (j < i1)
-                        d1 = i1 + 0.0D;
+                    if(j > i1) d1 = i1 + 1.0D;
+                    else if(j < i1) d1 = i1 + 0.0D;
                     else flag3 = false;
 
-                    if (k > j1)
-                        d2 = j1 + 1.0D;
-                    else if (k < j1)
-                        d2 = j1 + 0.0D;
+                    if(k > j1) d2 = j1 + 1.0D;
+                    else if(k < j1) d2 = j1 + 0.0D;
                     else flag4 = false;
 
                     double d3 = 999.0D;
@@ -255,36 +239,30 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
                     double d7 = par2Vec3.yCoord - par1Vec3.yCoord;
                     double d8 = par2Vec3.zCoord - par1Vec3.zCoord;
 
-                    if (flag2)
-                        d3 = (d0 - par1Vec3.xCoord) / d6;
+                    if(flag2) d3 = (d0 - par1Vec3.xCoord) / d6;
 
-                    if (flag3)
-                        d4 = (d1 - par1Vec3.yCoord) / d7;
+                    if(flag3) d4 = (d1 - par1Vec3.yCoord) / d7;
 
-                    if (flag4)
-                        d5 = (d2 - par1Vec3.zCoord) / d8;
+                    if(flag4) d5 = (d2 - par1Vec3.zCoord) / d8;
 
                     byte b0;
 
-                    if (d3 < d4 && d3 < d5) {
-                        if (i > l)
-                            b0 = 4;
+                    if(d3 < d4 && d3 < d5) {
+                        if(i > l) b0 = 4;
                         else b0 = 5;
 
                         par1Vec3.xCoord = d0;
                         par1Vec3.yCoord += d7 * d3;
                         par1Vec3.zCoord += d8 * d3;
-                    } else if (d4 < d5) {
-                        if (j > i1)
-                            b0 = 0;
+                    } else if(d4 < d5) {
+                        if(j > i1) b0 = 0;
                         else b0 = 1;
 
                         par1Vec3.xCoord += d6 * d4;
                         par1Vec3.yCoord = d1;
                         par1Vec3.zCoord += d8 * d4;
                     } else {
-                        if (k > j1)
-                            b0 = 2;
+                        if(k > j1) b0 = 2;
                         else b0 = 3;
 
                         par1Vec3.xCoord += d6 * d5;
@@ -295,21 +273,21 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
                     Vec3 vec32 = new Vector3(par1Vec3.xCoord, par1Vec3.yCoord, par1Vec3.zCoord).toVec3D();
                     l = (int) (vec32.xCoord = MathHelper.floor_double(par1Vec3.xCoord));
 
-                    if (b0 == 5) {
+                    if(b0 == 5) {
                         --l;
                         ++vec32.xCoord;
                     }
 
                     i1 = (int) (vec32.yCoord = MathHelper.floor_double(par1Vec3.yCoord));
 
-                    if (b0 == 1) {
+                    if(b0 == 1) {
                         --i1;
                         ++vec32.yCoord;
                     }
 
                     j1 = (int) (vec32.zCoord = MathHelper.floor_double(par1Vec3.zCoord));
 
-                    if (b0 == 3) {
+                    if(b0 == 3) {
                         --j1;
                         ++vec32.zCoord;
                     }
@@ -317,11 +295,10 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
                     Block block1 = worldObj.getBlock(l, i1, j1);
                     int j2 = worldObj.getBlockMetadata(l, i1, j1);
 
-                    if ((!par4 || block1 == null || block1.getCollisionBoundingBoxFromPool(worldObj, l, i1, j1) != null) && block1 != Blocks.air && block1.canCollideCheck(j2, par3)) {
+                    if((!par4 || block1 == null || block1.getCollisionBoundingBoxFromPool(worldObj, l, i1, j1) != null) && block1 != Blocks.air && block1.canCollideCheck(j2, par3)) {
                         MovingObjectPosition movingobjectposition1 = block1.collisionRayTrace(worldObj, l, i1, j1, par1Vec3, par2Vec3);
 
-                        if (movingobjectposition1 != null)
-                            return movingobjectposition1;
+                        if(movingobjectposition1 != null) return movingobjectposition1;
                     }
                 }
 
@@ -335,18 +312,16 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
         superUpdate();
 
         ILensEffect lens = getLensInstance();
-        if (lens != null)
-            lens.updateBurst(this, getSourceLens());
+        if(lens != null) lens.updateBurst(this, getSourceLens());
 
         int mana = getMana();
-        if (ticksExisted >= getMinManaLoss()) {
+        if(ticksExisted >= getMinManaLoss()) {
             accumulatedManaLoss += getManaLossPerTick();
             int loss = (int) accumulatedManaLoss;
             setMana(mana - loss);
             accumulatedManaLoss -= loss;
 
-            if (getMana() <= 0)
-                setDead();
+            if(getMana() <= 0) setDead();
         }
 
         particles();
@@ -355,14 +330,12 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
         fullManaLastTick = getMana() == getStartingMana();
 
-        if (scanBeam) {
+        if(scanBeam) {
             PositionProperties props = new PositionProperties(this);
-            if (propsList.isEmpty())
-                propsList.add(props);
+            if(propsList.isEmpty()) propsList.add(props);
             else {
                 PositionProperties lastProps = propsList.get(propsList.size() - 1);
-                if (!props.coordsEqual(lastProps))
-                    propsList.add(props);
+                if(!props.coordsEqual(lastProps)) propsList.add(props);
             }
         }
     }
@@ -378,13 +351,12 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
     public TileEntity getCollidedTile(boolean noParticles) {
         this.noParticles = noParticles;
 
-        while (!isDead) {
+        while(!isDead) {
             ++ticksExisted;
             onUpdate();
         }
 
-        if (fake)
-            incrementFakeParticleTick();
+        if(fake) incrementFakeParticleTick();
 
         return collidedTile;
     }
@@ -433,12 +405,10 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
     }
 
     public void particles() {
-        if (isDead || !worldObj.isRemote)
-            return;
+        if(isDead || !worldObj.isRemote) return;
 
         ILensEffect lens = getLensInstance();
-        if (lens != null && !lens.doParticles(this, getSourceLens()))
-            return;
+        if(lens != null && !lens.doParticles(this, getSourceLens())) return;
 
         Color color = new Color(getColor());
         float r = color.getRed() / 255F;
@@ -449,18 +419,15 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
         int maxMana = getStartingMana();
         float size = (float) mana / (float) maxMana;
 
-        if (fake) {
-            if (getMana() == getStartingMana())
-                size = 2F;
-            else if (fullManaLastTick)
-                size = 4F;
+        if(fake) {
+            if(getMana() == getStartingMana()) size = 2F;
+            else if(fullManaLastTick) size = 4F;
 
-            if (!noParticles && shouldDoFakeParticles())
+            if(!noParticles && shouldDoFakeParticles())
                 Botania.proxy.sparkleFX(worldObj, posX, posY, posZ, r, g, b, 0.4F * size, 1, true);
         } else {
-            if (ConfigHandler.subtlePowerSystem)
-                for (int i = 0; i < 1; i++)
-                    Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.1F * size, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.01F);
+            if(ConfigHandler.subtlePowerSystem) for(int i = 0; i < 1; i++)
+                Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.1F * size, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.01F);
             else {
                 posX += motionX;
                 posY += motionY;
@@ -487,22 +454,21 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
         boolean collided = false;
         boolean dead = false;
 
-        if (movingobjectposition.entityHit == null) {
+        if(movingobjectposition.entityHit == null) {
             TileEntity tile = worldObj.getTileEntity(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ);
             Block block = worldObj.getBlock(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ);
 
-            if ((tile instanceof IManaCollisionGhost && ((IManaCollisionGhost) tile).isGhost()) || block instanceof BlockBush)
+            if((tile instanceof IManaCollisionGhost && ((IManaCollisionGhost) tile).isGhost()) || block instanceof BlockBush)
                 return;
 
             ChunkCoordinates coords = getBurstSourceChunkCoordinates();
-            if (tile != null && (tile.xCoord != coords.posX || tile.yCoord != coords.posY || tile.zCoord != coords.posZ))
+            if(tile != null && (tile.xCoord != coords.posX || tile.yCoord != coords.posY || tile.zCoord != coords.posZ))
                 collidedTile = tile;
 
-            if (tile == null || tile.xCoord != coords.posX || tile.yCoord != coords.posY || tile.zCoord != coords.posZ) {
-                if (!fake && !noParticles && !worldObj.isRemote && tile != null && tile instanceof IManaReceiver && ((IManaReceiver) tile).canRecieveManaFromBursts()) {
+            if(tile == null || tile.xCoord != coords.posX || tile.yCoord != coords.posY || tile.zCoord != coords.posZ) {
+                if(!fake && !noParticles && !worldObj.isRemote && tile != null && tile instanceof IManaReceiver && ((IManaReceiver) tile).canRecieveManaFromBursts()) {
                     int mana = getMana();
-                    if (tile instanceof IManaCollector)
-                        mana *= ((IManaCollector) tile).getManaYieldMultiplier(this);
+                    if(tile instanceof IManaCollector) mana *= ((IManaCollector) tile).getManaYieldMultiplier(this);
 
                     ((IManaReceiver) tile).recieveMana(mana);
                     worldObj.markBlockForUpdate(tile.xCoord, tile.yCoord, tile.zCoord);
@@ -515,14 +481,14 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
         }
 
         ILensEffect lens = getLensInstance();
-        if (lens != null)
+        if(lens != null)
             dead = lens.collideBurst(this, movingobjectposition, collidedTile != null && collidedTile instanceof IManaReceiver && ((IManaReceiver) collidedTile).canRecieveManaFromBursts(), dead, getSourceLens());
 
-        if (collided && !hasAlreadyCollidedAt(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ))
+        if(collided && !hasAlreadyCollidedAt(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ))
             alreadyCollidedAt.add(getCollisionLocString(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ));
 
-        if (dead && !isDead) {
-            if (!fake) {
+        if(dead && !isDead) {
+            if(!fake) {
                 Color color = new Color(getColor());
                 float r = color.getRed() / 255F;
                 float g = color.getGreen() / 255F;
@@ -532,9 +498,8 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
                 int maxMana = getStartingMana();
                 float size = (float) mana / (float) maxMana;
 
-                if (!ConfigHandler.subtlePowerSystem)
-                    for (int i = 0; i < 4; i++)
-                        Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.15F * size, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F);
+                if(!ConfigHandler.subtlePowerSystem) for(int i = 0; i < 4; i++)
+                    Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.15F * size, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F);
                 Botania.proxy.sparkleFX(worldObj, (float) posX, (float) posY, (float) posZ, r, g, b, 4, 2);
             }
 
@@ -546,11 +511,10 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
     public void setDead() {
         super.setDead();
 
-        if (!fake) {
+        if(!fake) {
             ChunkCoordinates coords = getBurstSourceChunkCoordinates();
             TileEntity tile = worldObj.getTileEntity(coords.posX, coords.posY, coords.posZ);
-            if (tile != null && tile instanceof TileSpreader)
-                ((TileSpreader) tile).canShootBurst = true;
+            if(tile != null && tile instanceof TileSpreader) ((TileSpreader) tile).canShootBurst = true;
         } else setDeathTicksForFakeParticle();
     }
 
@@ -658,8 +622,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
     public ILensEffect getLensInstance() {
         ItemStack lens = getSourceLens();
-        if (lens != null && lens.getItem() instanceof ILensEffect)
-            return (ILensEffect) lens.getItem();
+        if(lens != null && lens.getItem() instanceof ILensEffect) return (ILensEffect) lens.getItem();
 
         return null;
     }
@@ -683,12 +646,11 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
     }
 
     private boolean shouldDoFakeParticles() {
-        if (ConfigHandler.staticWandBeam)
-            return true;
+        if(ConfigHandler.staticWandBeam) return true;
 
         ChunkCoordinates coords = getBurstSourceChunkCoordinates();
         TileEntity tile = worldObj.getTileEntity(coords.posX, coords.posY, coords.posZ);
-        if (tile != null && tile instanceof TileSpreader)
+        if(tile != null && tile instanceof TileSpreader)
             return getMana() != getStartingMana() && fullManaLastTick || Math.abs(((TileSpreader) tile).burstParticleTick - ticksExisted) < 4;
         return false;
     }
@@ -696,10 +658,10 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
     private void incrementFakeParticleTick() {
         ChunkCoordinates coords = getBurstSourceChunkCoordinates();
         TileEntity tile = worldObj.getTileEntity(coords.posX, coords.posY, coords.posZ);
-        if (tile != null && tile instanceof TileSpreader) {
+        if(tile != null && tile instanceof TileSpreader) {
             TileSpreader spreader = (TileSpreader) tile;
             spreader.burstParticleTick += 2;
-            if (spreader.lastBurstDeathTick != -1 && spreader.burstParticleTick > spreader.lastBurstDeathTick)
+            if(spreader.lastBurstDeathTick != -1 && spreader.burstParticleTick > spreader.lastBurstDeathTick)
                 spreader.burstParticleTick = 0;
         }
     }
@@ -707,8 +669,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
     private void setDeathTicksForFakeParticle() {
         ChunkCoordinates coords = getBurstSourceChunkCoordinates();
         TileEntity tile = worldObj.getTileEntity(coords.posX, coords.posY, coords.posZ);
-        if (tile != null && tile instanceof TileSpreader)
-            ((TileSpreader) tile).lastBurstDeathTick = ticksExisted;
+        if(tile != null && tile instanceof TileSpreader) ((TileSpreader) tile).lastBurstDeathTick = ticksExisted;
     }
 
     public static class PositionProperties {

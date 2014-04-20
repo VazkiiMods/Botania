@@ -32,8 +32,7 @@ public final class LexiconRecipeMappings {
         EntryData data = new EntryData(entry, page);
         String str = stackToString(stack);
 
-        if (force || !mappings.containsKey(str))
-            mappings.put(str, data);
+        if(force || !mappings.containsKey(str)) mappings.put(str, data);
     }
 
     public static void map(ItemStack stack, LexiconEntry entry, int page) {
@@ -46,7 +45,7 @@ public final class LexiconRecipeMappings {
     }
 
     public static String stackToString(ItemStack stack) {
-        if (stack.hasTagCompound() && stack.getItem() instanceof IRecipeKeyProvider)
+        if(stack.hasTagCompound() && stack.getItem() instanceof IRecipeKeyProvider)
             return ((IRecipeKeyProvider) stack.getItem()).getKey(stack);
 
         return stack.getUnlocalizedName() + "~" + stack.getItemDamage();

@@ -34,11 +34,10 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 
     public boolean collideEntityItem(EntityItem item) {
         ItemStack stack = item.getEntityItem();
-        if (stack == null)
-            return false;
+        if(stack == null) return false;
 
-        if (!hasWater) {
-            if (stack.getItem() == Items.water_bucket) {
+        if(!hasWater) {
+            if(stack.getItem() == Items.water_bucket) {
                 hasWater = true;
                 worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
                 stack.func_150996_a(Items.bucket); // Set item
@@ -48,17 +47,15 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 
         boolean didChange = false;
 
-        if (stack.getItem() instanceof IFlowerComponent) {
-            if (getStackInSlot(getSizeInventory() - 1) != null)
-                return false;
+        if(stack.getItem() instanceof IFlowerComponent) {
+            if(getStackInSlot(getSizeInventory() - 1) != null) return false;
 
-            if (!worldObj.isRemote) {
+            if(!worldObj.isRemote) {
                 stack.stackSize--;
-                if (stack.stackSize == 0)
-                    item.setDead();
+                if(stack.stackSize == 0) item.setDead();
 
-                for (int i = 0; i < getSizeInventory(); i++)
-                    if (getStackInSlot(i) == null) {
+                for(int i = 0; i < getSizeInventory(); i++)
+                    if(getStackInSlot(i) == null) {
                         ItemStack stackToPut = stack.copy();
                         stackToPut.stackSize = 1;
                         setInventorySlotContents(i, stackToPut);
@@ -66,16 +63,15 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
                         break;
                     }
             }
-        } else if (stack.getItem() == Items.wheat_seeds) {
-            for (RecipePetals recipe : BotaniaAPI.petalRecipes) {
-                if (recipe.matches(this)) {
-                    for (int i = 0; i < getSizeInventory(); i++)
+        } else if(stack.getItem() == Items.wheat_seeds) {
+            for(RecipePetals recipe : BotaniaAPI.petalRecipes) {
+                if(recipe.matches(this)) {
+                    for(int i = 0; i < getSizeInventory(); i++)
                         setInventorySlotContents(i, null);
 
-                    if (!worldObj.isRemote) {
+                    if(!worldObj.isRemote) {
                         stack.stackSize--;
-                        if (stack.stackSize == 0)
-                            item.setDead();
+                        if(stack.stackSize == 0) item.setDead();
 
                         ItemStack output = recipe.getOutput().copy();
                         EntityItem outputItem = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, output);
@@ -96,7 +92,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 
     public void craftingFanciness() {
         worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.levelup", 1F, 1F);
-        for (int i = 0; i < 25; i++) {
+        for(int i = 0; i < 25; i++) {
             float red = (float) Math.random();
             float green = (float) Math.random();
             float blue = (float) Math.random();
@@ -110,18 +106,16 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 
         boolean didChange = false;
 
-        for (EntityItem item : items)
+        for(EntityItem item : items)
             didChange = collideEntityItem(item) || didChange;
 
-        if (didChange)
-            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        if(didChange) worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 
-        for (int i = 0; i < getSizeInventory(); i++) {
+        for(int i = 0; i < getSizeInventory(); i++) {
             ItemStack stackAt = getStackInSlot(i);
-            if (stackAt == null)
-                break;
+            if(stackAt == null) break;
 
-            if (Math.random() >= 0.97) {
+            if(Math.random() >= 0.97) {
                 Color color = new Color(((IFlowerComponent) stackAt.getItem()).getParticleColor(stackAt));
                 float red = color.getRed() / 255F;
                 float green = color.getGreen() / 255F;

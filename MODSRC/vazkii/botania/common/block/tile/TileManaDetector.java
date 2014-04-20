@@ -19,11 +19,10 @@ public class TileManaDetector extends TileMod implements IManaCollisionGhost {
 
     @Override
     public void updateEntity() {
-        if (!worldObj.isRemote) {
+        if(!worldObj.isRemote) {
             int meta = getBlockMetadata();
             int expectedMeta = worldObj.getEntitiesWithinAABB(IManaBurst.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1)).size() != 0 ? 1 : 0;
-            if (meta != expectedMeta)
-                worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, expectedMeta, 1 | 2);
+            if(meta != expectedMeta) worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, expectedMeta, 1 | 2);
         }
     }
 

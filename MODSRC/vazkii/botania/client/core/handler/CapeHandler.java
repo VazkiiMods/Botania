@@ -38,13 +38,12 @@ public class CapeHandler {
 
     @SubscribeEvent
     public void onPreRenderSpecials(RenderPlayerEvent.Specials.Pre event) {
-        if (Loader.isModLoaded("shadersmod"))
-            return;
+        if(Loader.isModLoaded("shadersmod")) return;
 
-        if (event.entityPlayer instanceof AbstractClientPlayer && (event.entityPlayer.getCommandSenderName().equals("Vazkii"))) {
+        if(event.entityPlayer instanceof AbstractClientPlayer && (event.entityPlayer.getCommandSenderName().equals("Vazkii"))) {
             AbstractClientPlayer abstractClientPlayer = (AbstractClientPlayer) event.entityPlayer;
 
-            if (!capePlayers.contains(abstractClientPlayer)) {
+            if(!capePlayers.contains(abstractClientPlayer)) {
                 ReflectionHelper.setPrivateValue(ThreadDownloadImageData.class, abstractClientPlayer.getTextureCape(), false, LibObfuscation.TEXTURE_UPLOADED);
                 new Thread(new CloakThread(abstractClientPlayer)).start();
                 event.renderCape = true;
@@ -65,7 +64,7 @@ public class CapeHandler {
             try {
                 BufferedImage bo = ImageIO.read(Botania.class.getResourceAsStream(LibResources.MODEL_CAPE));
                 ReflectionHelper.setPrivateValue(ThreadDownloadImageData.class, abstractClientPlayer.getTextureCape(), bo, LibObfuscation.BUFFERED_IMAGE);
-            } catch (IOException e) {
+            } catch(IOException e) {
                 e.printStackTrace();
             }
         }

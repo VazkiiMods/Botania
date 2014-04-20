@@ -49,15 +49,14 @@ public class TileSpecialFlower extends TileMod implements ITileBound {
         try {
             SubTileEntity tile = tileClass.newInstance();
             setSubTile(tile);
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
     public void updateEntity() {
-        if (subTile != null)
-            subTile.onUpdate();
+        if(subTile != null) subTile.onUpdate();
     }
 
     @Override
@@ -82,7 +81,7 @@ public class TileSpecialFlower extends TileMod implements ITileBound {
         subTileName = cmp.getString(TAG_SUBTILE_NAME);
         NBTTagCompound subCmp = cmp.getCompoundTag(TAG_SUBTILE_CMP);
 
-        if (subTile == null || !BotaniaAPI.getSubTileStringMapping(subTile.getClass()).equals(subTileName))
+        if(subTile == null || !BotaniaAPI.getSubTileStringMapping(subTile.getClass()).equals(subTileName))
             provideSubTile(subTileName);
 
         subTile.readFromPacketNBT(subCmp);
@@ -101,14 +100,12 @@ public class TileSpecialFlower extends TileMod implements ITileBound {
     }
 
     public void renderHUD(Minecraft mc, ScaledResolution res) {
-        if (subTile != null)
-            subTile.renderHUD(mc, res);
+        if(subTile != null) subTile.renderHUD(mc, res);
     }
 
     @Override
     public ChunkCoordinates getBinding() {
-        if (subTile == null)
-            return null;
+        if(subTile == null) return null;
         return subTile.getBinding();
     }
 }

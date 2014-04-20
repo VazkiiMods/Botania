@@ -205,15 +205,14 @@ public final class BotaniaAPI {
     public static List<IRecipe> getLatestAddedRecipes(int x) {
         List<IRecipe> list = CraftingManager.getInstance().getRecipeList();
         List<IRecipe> newList = new ArrayList();
-        for (int i = x - 1; i >= 0; i--)
+        for(int i = x - 1; i >= 0; i--)
             newList.add(list.get(list.size() - 1 - i));
 
         return newList;
     }
 
     public static Class<? extends SubTileEntity> getSubTileMapping(String key) {
-        if (!subTiles.containsKey(key))
-            key = "";
+        if(!subTiles.containsKey(key)) key = "";
 
         return subTiles.get(key);
     }

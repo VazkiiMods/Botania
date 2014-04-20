@@ -37,42 +37,36 @@ public class ClientTickHandler {
 
     @SubscribeEvent
     public void tickEnd(ClientTickEvent event) {
-        if (event.phase == Phase.END && event.type == Type.CLIENT) {
+        if(event.phase == Phase.END && event.type == Type.CLIENT) {
             LightningBolt.update();
 
-            if (Minecraft.getMinecraft().theWorld == null)
-                ManaNetworkHandler.instance.clear();
+            if(Minecraft.getMinecraft().theWorld == null) ManaNetworkHandler.instance.clear();
 
             GuiScreen gui = Minecraft.getMinecraft().currentScreen;
-            if (gui == null || !gui.doesGuiPauseGame()) {
+            if(gui == null || !gui.doesGuiPauseGame()) {
                 ticksInGame++;
 
                 EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-                if (player != null) {
+                if(player != null) {
                     ItemStack stack = player.getCurrentEquippedItem();
-                    if (stack != null && stack.getItem() instanceof ItemTwigWand) {
+                    if(stack != null && stack.getItem() instanceof ItemTwigWand) {
                         List<TileEntity> list = new ArrayList(ManaNetworkHandler.instance.getAllCollectorsInWorld(Minecraft.getMinecraft().theWorld.provider.dimensionId));
-                        for (TileEntity tile : list) {
-                            if (tile instanceof IManaCollector)
-                                ((IManaCollector) tile).onClientDisplayTick();
+                        for(TileEntity tile : list) {
+                            if(tile instanceof IManaCollector) ((IManaCollector) tile).onClientDisplayTick();
                         }
                     }
                 }
             }
 
             int ticksToOpen = 10;
-            if (gui instanceof GuiLexicon) {
-                if (ticksWithLexicaOpen < 0)
-                    ticksWithLexicaOpen = 0;
-                if (ticksWithLexicaOpen < ticksToOpen)
-                    ticksWithLexicaOpen++;
-                if (pageFlipTicks > 0)
-                    pageFlipTicks--;
+            if(gui instanceof GuiLexicon) {
+                if(ticksWithLexicaOpen < 0) ticksWithLexicaOpen = 0;
+                if(ticksWithLexicaOpen < ticksToOpen) ticksWithLexicaOpen++;
+                if(pageFlipTicks > 0) pageFlipTicks--;
             } else {
                 pageFlipTicks = 0;
-                if (ticksWithLexicaOpen > 0) {
-                    if (ticksWithLexicaOpen > ticksToOpen)
-                        ticksWithLexicaOpen = ticksToOpen;
+                if(ticksWithLexicaOpen > 0) {
+                    if(ticksWithLexicaOpen > ticksToOpen) ticksWithLexicaOpen = ticksToOpen;
                     ticksWithLexicaOpen--;
                 }
             }
@@ -80,8 +74,7 @@ public class ClientTickHandler {
     }
 
     public static void notifyPageChange() {
-        if (pageFlipTicks == 0)
-            pageFlipTicks = 5;
+        if(pageFlipTicks == 0) pageFlipTicks = 5;
     }
 
 }

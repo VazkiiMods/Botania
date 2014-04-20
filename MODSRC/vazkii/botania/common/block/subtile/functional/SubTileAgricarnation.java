@@ -23,18 +23,17 @@ public class SubTileAgricarnation extends SubTileFunctional {
     public void onUpdate() {
         super.onUpdate();
 
-        if (supertile.getWorldObj().getTotalWorldTime() % 3 == 0) {
+        if(supertile.getWorldObj().getTotalWorldTime() % 3 == 0) {
             int range = 5;
             int x = supertile.xCoord + supertile.getWorldObj().rand.nextInt(range * 2 + 1) - range;
             int z = supertile.zCoord + supertile.getWorldObj().rand.nextInt(range * 2 + 1) - range;
 
-            for (int i = 4; i > -2; i--) {
+            for(int i = 4; i > -2; i--) {
                 int y = supertile.yCoord + i;
 
-                if (supertile.getWorldObj().isAirBlock(x, y, z))
-                    continue;
+                if(supertile.getWorldObj().isAirBlock(x, y, z)) continue;
 
-                if (isPlant(x, y, z) && mana > 5) {
+                if(isPlant(x, y, z) && mana > 5) {
                     Block block = supertile.getWorldObj().getBlock(x, y, z);
                     mana -= 5;
                     supertile.getWorldObj().scheduleBlockUpdate(x, y, z, block, 1);
@@ -45,7 +44,7 @@ public class SubTileAgricarnation extends SubTileFunctional {
 
     boolean isPlant(int x, int y, int z) {
         Block block = supertile.getWorldObj().getBlock(x, y, z);
-        if (block == Blocks.grass || block == Blocks.leaves || block == Blocks.leaves2 || block instanceof BlockBush)
+        if(block == Blocks.grass || block == Blocks.leaves || block == Blocks.leaves2 || block instanceof BlockBush)
             return false;
 
         Material mat = block.getMaterial();

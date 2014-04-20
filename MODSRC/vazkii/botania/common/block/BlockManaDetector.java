@@ -47,7 +47,7 @@ public class BlockManaDetector extends BlockModContainer implements ILexiconable
     @Override
     public void registerBlockIcons(IIconRegister par1IconRegister) {
         icons = new IIcon[2];
-        for (int i = 0; i < icons.length; i++)
+        for(int i = 0; i < icons.length; i++)
             icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
     }
 
@@ -68,7 +68,7 @@ public class BlockManaDetector extends BlockModContainer implements ILexiconable
 
     @Override
     public void addCollisionBoxesToList(World par1World, int par2, int par3, int par4, AxisAlignedBB par5AxisAlignedBB, List par6List, Entity par7Entity) {
-        if (par7Entity != null && !(par7Entity instanceof IManaBurst))
+        if(par7Entity != null && !(par7Entity instanceof IManaBurst))
             super.addCollisionBoxesToList(par1World, par2, par3, par4, par5AxisAlignedBB, par6List, par7Entity);
     }
 

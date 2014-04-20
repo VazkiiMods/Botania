@@ -28,15 +28,13 @@ public class CompositeLensRecipe implements IRecipe {
         boolean foundSecondLens = false;
         boolean foundSlimeball = false;
 
-        for (int i = 0; i < var1.getSizeInventory(); i++) {
+        for(int i = 0; i < var1.getSizeInventory(); i++) {
             ItemStack stack = var1.getStackInSlot(i);
-            if (stack != null) {
-                if (stack.getItem() instanceof ILens && !foundSecondLens) {
-                    if (foundLens)
-                        foundSecondLens = true;
+            if(stack != null) {
+                if(stack.getItem() instanceof ILens && !foundSecondLens) {
+                    if(foundLens) foundSecondLens = true;
                     else foundLens = true;
-                } else if (stack.getItem() == Items.slime_ball)
-                    foundSlimeball = true;
+                } else if(stack.getItem() == Items.slime_ball) foundSlimeball = true;
                 else return false; // Found an invalid item, breaking the recipe
             }
         }
@@ -49,19 +47,17 @@ public class CompositeLensRecipe implements IRecipe {
         ItemStack lens = null;
         ItemStack secondLens = null;
 
-        for (int i = 0; i < var1.getSizeInventory(); i++) {
+        for(int i = 0; i < var1.getSizeInventory(); i++) {
             ItemStack stack = var1.getStackInSlot(i);
-            if (stack != null) {
-                if (stack.getItem() instanceof ILens)
-                    if (lens == null)
-                        lens = stack;
-                    else secondLens = stack;
+            if(stack != null) {
+                if(stack.getItem() instanceof ILens) if(lens == null) lens = stack;
+                else secondLens = stack;
             }
         }
 
-        if (lens.getItem() instanceof ILens) {
+        if(lens.getItem() instanceof ILens) {
             ILens lensItem = (ILens) lens.getItem();
-            if (secondLens == null || !lensItem.canCombineLenses(lens, secondLens) || lensItem.getCompositeLens(lens) != null || lensItem.getCompositeLens(secondLens) != null)
+            if(secondLens == null || !lensItem.canCombineLenses(lens, secondLens) || lensItem.getCompositeLens(lens) != null || lensItem.getCompositeLens(secondLens) != null)
                 return null;
 
             ItemStack lensCopy = lens.copy();

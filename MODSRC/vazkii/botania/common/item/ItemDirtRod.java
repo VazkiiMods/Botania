@@ -32,14 +32,14 @@ public class ItemDirtRod extends ItemMod {
 
     @Override
     public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
-        if (ManaItemHandler.requestManaExact(par1ItemStack, par2EntityPlayer, COST, false)) {
+        if(ManaItemHandler.requestManaExact(par1ItemStack, par2EntityPlayer, COST, false)) {
             ItemStack stackToPlace = new ItemStack(Blocks.dirt);
             stackToPlace.tryPlaceItemIntoWorld(par2EntityPlayer, par3World, par4, par5, par6, par7, par8, par9, par10);
 
-            if (stackToPlace.stackSize == 0) {
+            if(stackToPlace.stackSize == 0) {
                 ManaItemHandler.requestManaExact(par1ItemStack, par2EntityPlayer, COST, true);
                 ForgeDirection dir = ForgeDirection.getOrientation(par7);
-                for (int i = 0; i < 6; i++)
+                for(int i = 0; i < 6; i++)
                     Botania.proxy.sparkleFX(par3World, par4 + dir.offsetX + Math.random(), par5 + dir.offsetY + Math.random(), par6 + dir.offsetZ + Math.random(), 0.35F, 0.2F, 0.05F, 1F, 5);
             }
         }

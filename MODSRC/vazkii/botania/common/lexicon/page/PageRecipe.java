@@ -59,18 +59,18 @@ public class PageRecipe extends LexiconPage {
         int y = gui.getTop() + height - 40;
         PageText.renderText(x, y, width, height, getUnlocalizedName());
 
-        if (tooltipStack != null) {
+        if(tooltipStack != null) {
             List<String> tooltipData = tooltipStack.getTooltip(Minecraft.getMinecraft().thePlayer, false);
             RenderHelper.renderTooltip(mx, my, tooltipData);
 
             int tooltipY = 8 + tooltipData.size() * 11;
 
-            if (tooltipEntry) {
+            if(tooltipEntry) {
                 RenderHelper.renderTooltipOrange(mx, my + tooltipY, Arrays.asList(EnumChatFormatting.GRAY + StatCollector.translateToLocal("botaniamisc.clickToRecipe")));
                 tooltipY += 18;
             }
 
-            if (tooltipContainerStack != null)
+            if(tooltipContainerStack != null)
                 RenderHelper.renderTooltipGreen(mx, my + tooltipY, Arrays.asList(EnumChatFormatting.AQUA + StatCollector.translateToLocal("botaniamisc.craftingContainer"), tooltipContainerStack.getDisplayName()));
         }
 
@@ -86,38 +86,32 @@ public class PageRecipe extends LexiconPage {
 
     @SideOnly(Side.CLIENT)
     public void renderItemAtAngle(IGuiLexiconEntry gui, int angle, ItemStack stack) {
-        if (stack == null || stack.getItem() == null)
-            return;
+        if(stack == null || stack.getItem() == null) return;
         stack = stack.copy();
 
-        if (stack.getItemDamage() == Short.MAX_VALUE)
-            stack.setItemDamage(0);
+        if(stack.getItemDamage() == Short.MAX_VALUE) stack.setItemDamage(0);
 
         angle -= 90;
         int radius = 32;
         double xPos = gui.getLeft() + Math.cos(angle * Math.PI / 180D) * radius + gui.getWidth() / 2 - 8;
         double yPos = gui.getTop() + Math.sin(angle * Math.PI / 180D) * radius + 53;
         ItemStack stack1 = stack.copy();
-        if (stack1.getItemDamage() == -1)
-            stack1.setItemDamage(0);
+        if(stack1.getItemDamage() == -1) stack1.setItemDamage(0);
 
         renderItem(gui, (int) xPos, (int) yPos, stack1, false);
     }
 
     @SideOnly(Side.CLIENT)
     public void renderItemAtGridPos(IGuiLexiconEntry gui, int x, int y, ItemStack stack, boolean accountForContainer) {
-        if (stack == null || stack.getItem() == null)
-            return;
+        if(stack == null || stack.getItem() == null) return;
         stack = stack.copy();
 
-        if (stack.getItemDamage() == Short.MAX_VALUE)
-            stack.setItemDamage(0);
+        if(stack.getItemDamage() == Short.MAX_VALUE) stack.setItemDamage(0);
 
         int xPos = gui.getLeft() + x * 29 + 7 + (y == 0 && x == 3 ? 10 : 0);
         int yPos = gui.getTop() + y * 29 + 24 - (y == 0 ? 7 : 0);
         ItemStack stack1 = stack.copy();
-        if (stack1.getItemDamage() == -1)
-            stack1.setItemDamage(0);
+        if(stack1.getItemDamage() == -1) stack1.setItemDamage(0);
 
         renderItem(gui, xPos, yPos, stack1, accountForContainer);
     }
@@ -130,19 +124,19 @@ public class PageRecipe extends LexiconPage {
 
         // Translations required so the glint doesn't merge with the book texture
         GL11.glTranslatef(0F, 0F, 200F);
-        if (!ForgeHooksClient.renderInventoryItem(new RenderBlocks(), renderEngine, stack, render.renderWithColor, gui.getZLevel(), xPos, yPos))
+        if(!ForgeHooksClient.renderInventoryItem(new RenderBlocks(), renderEngine, stack, render.renderWithColor, gui.getZLevel(), xPos, yPos))
             render.renderItemIntoGUI(fontRenderer, renderEngine, stack, xPos, yPos);
         render.renderItemOverlayIntoGUI(fontRenderer, renderEngine, stack, xPos, yPos);
         GL11.glTranslatef(0F, 0F, -200F);
 
-        if (relativeMouseX >= xPos && relativeMouseY >= yPos && relativeMouseX <= xPos + 16 && relativeMouseY <= yPos + 16) {
+        if(relativeMouseX >= xPos && relativeMouseY >= yPos && relativeMouseX <= xPos + 16 && relativeMouseY <= yPos + 16) {
             tooltipStack = stack;
 
             EntryData data = LexiconRecipeMappings.getDataForStack(tooltipStack);
-            if (data != null && (data.entry != gui.getEntry() || data.page != gui.getPageOn())) {
+            if(data != null && (data.entry != gui.getEntry() || data.page != gui.getPageOn())) {
                 tooltipEntry = true;
 
-                if (Mouse.isButtonDown(0) && GuiScreen.isShiftKeyDown()) {
+                if(Mouse.isButtonDown(0) && GuiScreen.isShiftKeyDown()) {
                     GuiLexiconEntry newGui = new GuiLexiconEntry(data.entry, (GuiScreen) gui);
                     newGui.page = data.page;
                     Minecraft.getMinecraft().displayGuiScreen(newGui);
@@ -150,10 +144,9 @@ public class PageRecipe extends LexiconPage {
             }
 
 
-            if (accountForContainer) {
+            if(accountForContainer) {
                 ItemStack containerStack = stack.getItem().getContainerItem(stack);
-                if (containerStack != null && containerStack.getItem() != null)
-                    tooltipContainerStack = containerStack;
+                if(containerStack != null && containerStack.getItem() != null) tooltipContainerStack = containerStack;
             }
         }
 

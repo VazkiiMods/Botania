@@ -44,9 +44,9 @@ public class GuiLexicon extends GuiScreen {
         top = height / 2 - guiHeight / 2;
 
         buttonList.clear();
-        if (isIndex()) {
+        if(isIndex()) {
             int x = 18;
-            for (int i = 0; i < 12; i++) {
+            for(int i = 0; i < 12; i++) {
                 int y = 16 + i * 12;
                 buttonList.add(new GuiButtonInvisible(i, left + x, top + y, 110, 10, ""));
             }
@@ -76,13 +76,12 @@ public class GuiLexicon extends GuiScreen {
     @Override
     protected void actionPerformed(GuiButton par1GuiButton) {
         int i = par1GuiButton.id - 3;
-        if (i < 0)
-            return;
+        if(i < 0) return;
 
         List<LexiconCategory> categoryList = BotaniaAPI.getAllCategories();
         LexiconCategory category = i >= categoryList.size() ? null : categoryList.get(i);
 
-        if (category != null) {
+        if(category != null) {
             mc.displayGuiScreen(new GuiLexiconIndex(category));
             ClientTickHandler.notifyPageChange();
         }
@@ -103,12 +102,11 @@ public class GuiLexicon extends GuiScreen {
 
     void populateIndex() {
         List<LexiconCategory> categoryList = BotaniaAPI.getAllCategories();
-        for (int i = 3; i < 12; i++) {
+        for(int i = 3; i < 12; i++) {
             int i_ = i - 3;
             GuiButtonInvisible button = (GuiButtonInvisible) buttonList.get(i);
             LexiconCategory category = i_ >= categoryList.size() ? null : categoryList.get(i_);
-            if (category != null)
-                button.displayString = StatCollector.translateToLocal(category.getUnlocalizedName());
+            if(category != null) button.displayString = StatCollector.translateToLocal(category.getUnlocalizedName());
             else button.displayString = "";
         }
     }

@@ -47,9 +47,7 @@ import java.util.Map;
 
 public class ItemLens extends ItemMod implements ILens {
 
-    private static final int NORMAL = 0, SPEED = 1, POWER = 2, TIME = 3, EFFICIENCY = 4,
-            BOUNCE = 5, GRAVITY = 6, MINE = 7, DAMAGE = 8, PHANTOM = 9,
-            MAGNET = 10, EXPLOSIVE = 11;
+    private static final int NORMAL = 0, SPEED = 1, POWER = 2, TIME = 3, EFFICIENCY = 4, BOUNCE = 5, GRAVITY = 6, MINE = 7, DAMAGE = 8, PHANTOM = 9, MAGNET = 10, EXPLOSIVE = 11;
 
     private static final Map<Integer, List<Integer>> blacklist = new HashMap();
 
@@ -83,13 +81,13 @@ public class ItemLens extends ItemMod implements ILens {
         iconGlass = IconHelper.forName(par1IconRegister, "lensInside");
 
         ringIcons = new IIcon[SUBTYPES];
-        for (int i = 0; i < ringIcons.length; i++)
+        for(int i = 0; i < ringIcons.length; i++)
             ringIcons[i] = IconHelper.forNameRaw(par1IconRegister, LibItemNames.LENS_NAMES[i]);
     }
 
     @Override
     public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
-        for (int i = 0; i < SUBTYPES; i++)
+        for(int i = 0; i < SUBTYPES; i++)
             par3List.add(new ItemStack(par1, 1, i));
     }
 
@@ -121,7 +119,7 @@ public class ItemLens extends ItemMod implements ILens {
     @Override
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
         int storedColor = getStoredColor(par1ItemStack);
-        if (storedColor != -1)
+        if(storedColor != -1)
             par3List.add(String.format(StatCollector.translateToLocal("botaniamisc.color"), StatCollector.translateToLocal("botania.color" + storedColor)));
     }
 
@@ -133,18 +131,16 @@ public class ItemLens extends ItemMod implements ILens {
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
         ItemStack compositeLens = getCompositeLens(stack);
-        if (compositeLens == null)
-            return super.getItemStackDisplayName(stack);
+        if(compositeLens == null) return super.getItemStackDisplayName(stack);
         return String.format(StatCollector.translateToLocal("item.botania:compositeLens.name"), getItemShortTermName(stack), getItemShortTermName(compositeLens));
     }
 
     @Override
     public void apply(ItemStack stack, BurstProperties props) {
         int storedColor = getStoredColor(stack);
-        if (storedColor != -1)
-            props.color = getLensColor(stack);
+        if(storedColor != -1) props.color = getLensColor(stack);
 
-        switch (stack.getItemDamage()) {
+        switch(stack.getItemDamage()) {
             case SPEED: {
                 props.motionModifier *= 2F;
                 props.maxMana *= 0.75F;
@@ -176,7 +172,7 @@ public class ItemLens extends ItemMod implements ILens {
         }
 
         ItemStack compositeLens = getCompositeLens(stack);
-        if (compositeLens != null && compositeLens.getItem() instanceof ILens)
+        if(compositeLens != null && compositeLens.getItem() instanceof ILens)
             ((ILens) compositeLens.getItem()).apply(compositeLens, props);
     }
 
@@ -184,11 +180,11 @@ public class ItemLens extends ItemMod implements ILens {
     public boolean collideBurst(IManaBurst burst, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
         EntityThrowable entity = (EntityThrowable) burst;
 
-        switch (stack.getItemDamage()) {
+        switch(stack.getItemDamage()) {
             case BOUNCE: {
-                if (!isManaBlock && pos.entityHit == null) {
+                if(!isManaBlock && pos.entityHit == null) {
                     ChunkCoordinates coords = burst.getBurstSourceChunkCoordinates();
-                    if (coords.posX != pos.blockX || coords.posY != pos.blockY || coords.posZ != pos.blockZ) {
+                    if(coords.posX != pos.blockX || coords.posY != pos.blockY || coords.posZ != pos.blockZ) {
                         Vector3 currentMovementVec = new Vector3(entity.motionX, entity.motionY, entity.motionZ);
                         ForgeDirection dir = ForgeDirection.getOrientation(pos.sideHit);
                         Vector3 normalVector = new Vector3(dir.offsetX, dir.offsetY, dir.offsetZ).normalize();
@@ -212,17 +208,17 @@ public class ItemLens extends ItemMod implements ILens {
                 int mana = burst.getMana();
 
                 ChunkCoordinates coords = burst.getBurstSourceChunkCoordinates();
-                if ((coords.posX != x || coords.posY != y || coords.posZ != z) && !isManaBlock && block != null && hardness != -1 && hardness < 50F && (burst.isFake() || mana >= 24)) {
+                if((coords.posX != x || coords.posY != y || coords.posZ != z) && !isManaBlock && block != null && hardness != -1 && hardness < 50F && (burst.isFake() || mana >= 24)) {
                     List<ItemStack> items = new ArrayList();
 
                     items.addAll(block.getDrops(world, x, y, z, meta, 0));
 
-                    if (!burst.hasAlreadyCollidedAt(x, y, z)) {
-                        if (!burst.isFake() && !entity.worldObj.isRemote) {
+                    if(!burst.hasAlreadyCollidedAt(x, y, z)) {
+                        if(!burst.isFake() && !entity.worldObj.isRemote) {
                             world.setBlockToAir(x, y, z);
                             entity.worldObj.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
 
-                            for (ItemStack stack_ : items)
+                            for(ItemStack stack_ : items)
                                 world.spawnEntityInWorld(new EntityItem(world, x + 0.5, y + 0.5, z + 0.5, stack_));
                             burst.setMana(mana - 24);
                         }
@@ -233,29 +229,29 @@ public class ItemLens extends ItemMod implements ILens {
                 break;
             }
             case DAMAGE: {
-                if (pos.entityHit != null && pos.entityHit instanceof EntityLivingBase && !(pos.entityHit instanceof EntityPlayer)) {
+                if(pos.entityHit != null && pos.entityHit instanceof EntityLivingBase && !(pos.entityHit instanceof EntityPlayer)) {
                     EntityLivingBase living = (EntityLivingBase) pos.entityHit;
-                    if (living.hurtTime == 0) {
+                    if(living.hurtTime == 0) {
                         int mana = burst.getMana();
-                        if (mana >= 16) {
+                        if(mana >= 16) {
                             burst.setMana(mana - 16);
-                            if (!burst.isFake() && !entity.worldObj.isRemote)
+                            if(!burst.isFake() && !entity.worldObj.isRemote)
                                 living.attackEntityFrom(DamageSource.magic, 4);
                         }
                     }
                 }
             }
             case PHANTOM: {
-                if (!isManaBlock) {
+                if(!isManaBlock) {
                     dead = false;
                     burst.setMinManaLoss(Math.max(0, burst.getMinManaLoss() - 4));
                 }
                 break;
             }
             case EXPLOSIVE: {
-                if (!burst.isFake()) {
+                if(!burst.isFake()) {
                     ChunkCoordinates coords = burst.getBurstSourceChunkCoordinates();
-                    if (!entity.worldObj.isRemote && pos.entityHit == null && !isManaBlock && (pos.blockX != coords.posX || pos.blockY != coords.posY || pos.blockZ != coords.posZ))
+                    if(!entity.worldObj.isRemote && pos.entityHit == null && !isManaBlock && (pos.blockX != coords.posX || pos.blockY != coords.posY || pos.blockZ != coords.posZ))
                         entity.worldObj.createExplosion(entity, entity.posX, entity.posY, entity.posZ, burst.getMana() / 50F, true);
                 } else dead = false;
             }
@@ -263,7 +259,7 @@ public class ItemLens extends ItemMod implements ILens {
         }
 
         ItemStack compositeLens = getCompositeLens(stack);
-        if (compositeLens != null && compositeLens.getItem() instanceof ILens)
+        if(compositeLens != null && compositeLens.getItem() instanceof ILens)
             dead = ((ILens) compositeLens.getItem()).collideBurst(burst, pos, isManaBlock, dead, compositeLens);
 
         return dead;
@@ -272,13 +268,12 @@ public class ItemLens extends ItemMod implements ILens {
     @Override
     public void updateBurst(IManaBurst burst, ItemStack stack) {
         int storedColor = getStoredColor(stack);
-        if (storedColor == 16)
-            burst.setColor(getLensColor(stack));
+        if(storedColor == 16) burst.setColor(getLensColor(stack));
 
         EntityThrowable entity = (EntityThrowable) burst;
 
         boolean magnetized = entity.getEntityData().hasKey("Botania:Magnetized");
-        switch (stack.getItemDamage()) {
+        switch(stack.getItemDamage()) {
             case MAGNET: {
                 int x = (int) entity.posX;
                 int y = (int) entity.posY;
@@ -287,25 +282,24 @@ public class ItemLens extends ItemMod implements ILens {
 
                 magnetize:
                 {
-                    for (int i = -range; i < range; i++)
-                        for (int j = -range; j < range; j++)
-                            for (int k = -range; k < range; k++)
-                                if (entity.worldObj.getTileEntity(i + x, j + y, k + z) instanceof IManaReceiver) {
+                    for(int i = -range; i < range; i++)
+                        for(int j = -range; j < range; j++)
+                            for(int k = -range; k < range; k++)
+                                if(entity.worldObj.getTileEntity(i + x, j + y, k + z) instanceof IManaReceiver) {
                                     TileEntity tile = entity.worldObj.getTileEntity(i + x, j + y, k + z);
 
-                                    if (magnetized) {
+                                    if(magnetized) {
                                         int magX = entity.getEntityData().getInteger("Botania:MagnetizedX");
                                         int magY = entity.getEntityData().getInteger("Botania:MagnetizedY");
                                         int magZ = entity.getEntityData().getInteger("Botania:MagnetizedZ");
-                                        if (tile.xCoord != magX || tile.yCoord != magY || tile.zCoord != magZ)
-                                            continue;
+                                        if(tile.xCoord != magX || tile.yCoord != magY || tile.zCoord != magZ) continue;
                                     }
 
                                     IManaReceiver receiver = (IManaReceiver) tile;
 
                                     ChunkCoordinates srcCoords = burst.getBurstSourceChunkCoordinates();
 
-                                    if (MathHelper.pointDistanceSpace(tile.xCoord, tile.yCoord, tile.zCoord, srcCoords.posX, srcCoords.posY, srcCoords.posZ) > 3 && receiver.canRecieveManaFromBursts() && !receiver.isFull()) {
+                                    if(MathHelper.pointDistanceSpace(tile.xCoord, tile.yCoord, tile.zCoord, srcCoords.posX, srcCoords.posY, srcCoords.posZ) > 3 && receiver.canRecieveManaFromBursts() && !receiver.isFull()) {
                                         Vector3 burstVec = Vector3.fromEntity(entity);
                                         Vector3 tileVec = Vector3.fromTileEntityCenter(tile).add(0, -0.1, 0);
                                         Vector3 motionVec = new Vector3(entity.motionX, entity.motionY, entity.motionZ);
@@ -315,7 +309,7 @@ public class ItemLens extends ItemMod implements ILens {
                                         Vector3 differenceVec = normalMotionVec.sub(magnetVec).multiply(motionVec.mag() * 0.1);
 
                                         Vector3 finalMotionVec = motionVec.sub(differenceVec);
-                                        if (!magnetized) {
+                                        if(!magnetized) {
                                             finalMotionVec.multiply(0.75);
                                             entity.getEntityData().setBoolean("Botania:Magnetized", true);
                                             entity.getEntityData().setInteger("Botania:MagnetizedX", tile.xCoord);
@@ -332,7 +326,7 @@ public class ItemLens extends ItemMod implements ILens {
         }
 
         ItemStack compositeLens = getCompositeLens(stack);
-        if (compositeLens != null && compositeLens.getItem() instanceof ILens)
+        if(compositeLens != null && compositeLens.getItem() instanceof ILens)
             ((ILens) compositeLens.getItem()).updateBurst(burst, compositeLens);
     }
 
@@ -340,11 +334,9 @@ public class ItemLens extends ItemMod implements ILens {
     public int getLensColor(ItemStack stack) {
         int storedColor = getStoredColor(stack);
 
-        if (storedColor == -1)
-            return 0xFFFFFF;
+        if(storedColor == -1) return 0xFFFFFF;
 
-        if (storedColor == 16)
-            return Color.HSBtoRGB(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 1F, 1F);
+        if(storedColor == 16) return Color.HSBtoRGB(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 1F, 1F);
 
         float[] color = EntitySheep.fleeceColorTable[storedColor];
         return new Color(color[0], color[1], color[2]).getRGB();
@@ -362,8 +354,7 @@ public class ItemLens extends ItemMod implements ILens {
     @Override
     public boolean doParticles(IManaBurst burst, ItemStack stack) {
         int storedColor = getStoredColor(stack);
-        if (storedColor == 16 && !burst.isFake())
-            return ((EntityThrowable) burst).ticksExisted > 5;
+        if(storedColor == 16 && !burst.isFake()) return ((EntityThrowable) burst).ticksExisted > 5;
 
         return true;
     }
@@ -373,31 +364,25 @@ public class ItemLens extends ItemMod implements ILens {
     }
 
     public static void blacklistLenses(int lens1, int lens2, boolean recursive) {
-        if (!blacklist.containsKey(lens1))
-            blacklist.put(lens1, new ArrayList());
+        if(!blacklist.containsKey(lens1)) blacklist.put(lens1, new ArrayList());
         blacklist.get(lens1).add(lens2);
 
-        if (recursive)
-            blacklistLenses(lens2, lens1, false);
+        if(recursive) blacklistLenses(lens2, lens1, false);
     }
 
     public static boolean isBlacklisted(int lens1, int lens2) {
-        if (!blacklist.containsKey(lens1))
-            return false;
+        if(!blacklist.containsKey(lens1)) return false;
 
         return blacklist.get(lens1).contains(lens2);
     }
 
     @Override
     public boolean canCombineLenses(ItemStack sourceLens, ItemStack compositeLens) {
-        if (sourceLens.getItemDamage() == compositeLens.getItemDamage())
-            return false;
+        if(sourceLens.getItemDamage() == compositeLens.getItemDamage()) return false;
 
-        if (sourceLens.getItemDamage() == NORMAL || compositeLens.getItemDamage() == NORMAL)
-            return false;
+        if(sourceLens.getItemDamage() == NORMAL || compositeLens.getItemDamage() == NORMAL) return false;
 
-        if (isBlacklisted(sourceLens.getItemDamage(), compositeLens.getItemDamage()))
-            return false;
+        if(isBlacklisted(sourceLens.getItemDamage(), compositeLens.getItemDamage())) return false;
 
         return true;
     }

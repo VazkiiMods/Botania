@@ -46,23 +46,23 @@ public class ItemManaGun extends ItemMod {
 
     @Override
     public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-        if (!par3EntityPlayer.isSneaking()) {
-            if (par1ItemStack.getItemDamage() == 0) {
+        if(!par3EntityPlayer.isSneaking()) {
+            if(par1ItemStack.getItemDamage() == 0) {
                 EntityManaBurst burst = getBurst(par3EntityPlayer, par1ItemStack);
-                if (burst != null && ManaItemHandler.requestManaExact(par1ItemStack, par3EntityPlayer, burst.getMana(), true)) {
-                    if (!par2World.isRemote) {
+                if(burst != null && ManaItemHandler.requestManaExact(par1ItemStack, par3EntityPlayer, burst.getMana(), true)) {
+                    if(!par2World.isRemote) {
                         par2World.playSoundAtEntity(par3EntityPlayer, "random.explode", 0.9F, 3F);
                         par2World.spawnEntityInWorld(burst);
                     } else par3EntityPlayer.swingItem();
                     par1ItemStack.setItemDamage(COOLDOWN);
-                } else if (!par2World.isRemote)
+                } else if(!par2World.isRemote)
                     par2World.playSoundAtEntity(par3EntityPlayer, "random.click", 0.6F, (1.0F + (par2World.rand.nextFloat() - par2World.rand.nextFloat()) * 0.2F) * 0.7F);
 
             }
         } else {
             ItemStack lens = getLens(par1ItemStack);
-            if (lens != null) {
-                if (!par3EntityPlayer.inventory.addItemStackToInventory(lens.copy()))
+            if(lens != null) {
+                if(!par3EntityPlayer.inventory.addItemStackToInventory(lens.copy()))
                     par3EntityPlayer.addChatMessage(new ChatComponentTranslation("botaniamisc.invFull"));
                 else setLens(par1ItemStack, null);
             }
@@ -83,12 +83,11 @@ public class ItemManaGun extends ItemMod {
         BurstProperties props = new BurstProperties(maxMana, ticksBeforeManaLoss, manaLossPerTick, gravity, motionModifier, color);
 
         ItemStack lens = getLens(stack);
-        if (lens != null)
-            ((ILens) lens.getItem()).apply(lens, props);
+        if(lens != null) ((ILens) lens.getItem()).apply(lens, props);
 
 
         burst.setSourceLens(lens);
-        if (ManaItemHandler.requestManaExact(stack, player, props.maxMana, false)) {
+        if(ManaItemHandler.requestManaExact(stack, player, props.maxMana, false)) {
             burst.setColor(props.color);
             burst.setMana(props.maxMana);
             burst.setStartingMana(props.maxMana);
@@ -105,10 +104,9 @@ public class ItemManaGun extends ItemMod {
     @Override
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
         ItemStack lens = getLens(par1ItemStack);
-        if (lens != null) {
+        if(lens != null) {
             List<String> tooltip = lens.getTooltip(par2EntityPlayer, false);
-            if (tooltip.size() > 1)
-                par3List.addAll(tooltip.subList(1, tooltip.size()));
+            if(tooltip.size() > 1) par3List.addAll(tooltip.subList(1, tooltip.size()));
         }
     }
 
@@ -120,14 +118,13 @@ public class ItemManaGun extends ItemMod {
 
     public static void setLens(ItemStack stack, ItemStack lens) {
         NBTTagCompound cmp = new NBTTagCompound();
-        if (lens != null)
-            lens.writeToNBT(cmp);
+        if(lens != null) lens.writeToNBT(cmp);
         ItemNBTHelper.setCompound(stack, TAG_LENS, cmp);
     }
 
     public static ItemStack getLens(ItemStack stack) {
         NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_LENS, true);
-        if (cmp != null) {
+        if(cmp != null) {
             ItemStack lens = ItemStack.loadItemStackFromNBT(cmp);
             return lens;
         }
@@ -141,7 +138,6 @@ public class ItemManaGun extends ItemMod {
 
     @Override
     public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
-        if (par1ItemStack.isItemDamaged())
-            par1ItemStack.setItemDamage(par1ItemStack.getItemDamage() - 1);
+        if(par1ItemStack.isItemDamaged()) par1ItemStack.setItemDamage(par1ItemStack.getItemDamage() - 1);
     }
 }
