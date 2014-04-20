@@ -92,7 +92,8 @@ public abstract class ItemBauble extends ItemMod implements IBauble {
 
     @Override
     public void onEquipped(ItemStack stack, EntityLivingBase player) {
-        if(!player.worldObj.isRemote) player.worldObj.playSoundAtEntity(player, "random.orb", 0.1F, 1.3F);
+        if(!player.worldObj.isRemote) 
+        	player.worldObj.playSoundAtEntity(player, "random.orb", 0.1F, 1.3F);
     }
 
     @Override
