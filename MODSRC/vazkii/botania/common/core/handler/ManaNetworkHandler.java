@@ -11,11 +11,7 @@
  */
 package vazkii.botania.common.core.handler;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import vazkii.botania.api.internal.IManaNetwork;
@@ -23,7 +19,11 @@ import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.api.mana.ManaNetworkEvent.Action;
 import vazkii.botania.api.mana.ManaNetworkEvent.ManaBlockType;
 import vazkii.botania.common.core.helper.MathHelper;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public final class ManaNetworkHandler implements IManaNetwork {
 

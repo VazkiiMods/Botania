@@ -11,8 +11,7 @@
  */
 package vazkii.botania.client.core.handler;
 
-import java.awt.Color;
-
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -23,16 +22,15 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
-
 import org.lwjgl.opengl.GL11;
-
 import vazkii.botania.api.ILexiconable;
 import vazkii.botania.api.IWandHUD;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.item.ModItems;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
+import java.awt.*;
 
 public final class HUDHandler {
 

@@ -22,13 +22,7 @@ import vazkii.botania.common.crafting.ModCrafingRecipes;
 import vazkii.botania.common.crafting.ModManaInfusionRecipes;
 import vazkii.botania.common.crafting.ModPetalRecipes;
 import vazkii.botania.common.crafting.ModRuneRecipes;
-import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
-import vazkii.botania.common.lexicon.page.PageImage;
-import vazkii.botania.common.lexicon.page.PageManaInfusionRecipe;
-import vazkii.botania.common.lexicon.page.PagePetalRecipe;
-import vazkii.botania.common.lexicon.page.PageRuneRecipe;
-import vazkii.botania.common.lexicon.page.PageTerrasteel;
-import vazkii.botania.common.lexicon.page.PageText;
+import vazkii.botania.common.lexicon.page.*;
 import vazkii.botania.common.lib.LibLexicon;
 
 public final class LexiconData {

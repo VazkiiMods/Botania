@@ -11,9 +11,6 @@
  */
 package vazkii.botania.common.block.tile;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,6 +26,9 @@ import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TileEnchanter extends TileMod implements IManaReceiver {
 

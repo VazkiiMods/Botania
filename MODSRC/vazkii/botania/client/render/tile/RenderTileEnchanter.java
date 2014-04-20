@@ -22,13 +22,10 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
-
 import org.lwjgl.opengl.GL11;
-
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.block.BlockEnchanter;
 import vazkii.botania.common.block.tile.TileEnchanter;
-import vazkii.botania.common.core.handler.ConfigHandler;
 
 public class RenderTileEnchanter extends TileEntitySpecialRenderer {
 

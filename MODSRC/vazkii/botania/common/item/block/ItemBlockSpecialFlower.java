@@ -11,8 +11,6 @@
  */
 package vazkii.botania.common.item.block;
 
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
@@ -28,6 +26,8 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibBlockNames;
+
+import java.util.List;
 
 public class ItemBlockSpecialFlower extends ItemBlock implements IRecipeKeyProvider {
 

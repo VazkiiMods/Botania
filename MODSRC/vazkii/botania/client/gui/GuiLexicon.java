@@ -11,21 +11,19 @@
  */
 package vazkii.botania.client.gui;
 
-import java.util.List;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-
 import org.lwjgl.opengl.GL11;
-
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.gui.button.GuiButtonInvisible;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.item.ModItems;
+
+import java.util.List;
 
 public class GuiLexicon extends GuiScreen {
 

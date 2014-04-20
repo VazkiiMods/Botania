@@ -11,10 +11,6 @@
  */
 package vazkii.botania.client.gui;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
@@ -24,6 +20,10 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.gui.button.GuiButtonBack;
 import vazkii.botania.client.gui.button.GuiButtonInvisible;
 import vazkii.botania.client.gui.button.GuiButtonPage;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class GuiLexiconIndex extends GuiLexicon {
 

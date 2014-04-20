@@ -11,8 +11,8 @@
  */
 package vazkii.botania.client.core.handler;
 
-import vazkii.botania.client.lib.LibResources;
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import vazkii.botania.client.lib.LibResources;
 
 public final class LocalizationHandler {
 

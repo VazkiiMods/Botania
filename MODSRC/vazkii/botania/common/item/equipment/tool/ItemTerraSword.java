@@ -21,9 +21,7 @@ import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
-import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.ILensEffect;
-import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.lib.LibItemNames;
 

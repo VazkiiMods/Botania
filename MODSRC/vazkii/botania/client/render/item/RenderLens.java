@@ -11,21 +11,18 @@
  */
 package vazkii.botania.client.render.item;
 
-import java.awt.Color;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.client.IItemRenderer;
-
 import org.lwjgl.opengl.GL11;
-
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.common.item.ItemLens;
+
+import java.awt.*;
 
 public class RenderLens implements IItemRenderer {
 

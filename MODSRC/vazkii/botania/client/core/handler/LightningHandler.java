@@ -11,14 +11,7 @@
  */
 package vazkii.botania.client.core.handler;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Random;
-import java.util.concurrent.ConcurrentLinkedQueue;
-
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ActiveRenderInfo;
@@ -32,13 +25,13 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
-
 import org.lwjgl.opengl.GL11;
-
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.client.core.handler.LightningHandler.LightningBolt.Segment;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.helper.Vector3;
+
+import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class LightningHandler {
 

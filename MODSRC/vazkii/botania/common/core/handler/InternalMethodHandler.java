@@ -11,8 +11,6 @@
  */
 package vazkii.botania.common.core.handler;
 
-import java.util.List;
-
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -29,12 +27,9 @@ import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockSpecialFlower;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
-import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
-import vazkii.botania.common.lexicon.page.PageImage;
-import vazkii.botania.common.lexicon.page.PageManaInfusionRecipe;
-import vazkii.botania.common.lexicon.page.PagePetalRecipe;
-import vazkii.botania.common.lexicon.page.PageRuneRecipe;
-import vazkii.botania.common.lexicon.page.PageText;
+import vazkii.botania.common.lexicon.page.*;
+
+import java.util.List;
 
 public class InternalMethodHandler implements IInternalMethodHandler {
 

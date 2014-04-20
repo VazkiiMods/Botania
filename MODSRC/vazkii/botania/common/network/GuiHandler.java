@@ -11,11 +11,11 @@
  */
 package vazkii.botania.common.network;
 
+import cpw.mods.fml.common.network.IGuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import vazkii.botania.client.gui.GuiLexicon;
 import vazkii.botania.common.lib.LibGuiIDs;
-import cpw.mods.fml.common.network.IGuiHandler;
 
 public class GuiHandler implements IGuiHandler {
 

@@ -11,13 +11,9 @@
  */
 package vazkii.botania.common.block.tile;
 
-import java.awt.Color;
-import java.util.List;
-
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
@@ -26,6 +22,9 @@ import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibBlockNames;
+
+import java.awt.*;
+import java.util.List;
 
 public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 

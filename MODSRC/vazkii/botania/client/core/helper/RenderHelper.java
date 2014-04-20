@@ -11,14 +11,13 @@
  */
 package vazkii.botania.client.core.helper;
 
-import java.util.List;
-import java.util.Random;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.Tessellator;
-
 import org.lwjgl.opengl.GL11;
+
+import java.util.List;
+import java.util.Random;
 
 public final class RenderHelper {
 

@@ -11,12 +11,6 @@
  */
 package vazkii.botania.common.item.equipment.tool;
 
-import java.util.ArrayList;
-import java.util.Random;
-
-import vazkii.botania.client.core.helper.IconHelper;
-import vazkii.botania.common.core.BotaniaCreativeTab;
-import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -32,6 +26,12 @@ import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraftforge.common.IShearable;
+import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.common.core.BotaniaCreativeTab;
+import vazkii.botania.common.lib.LibItemNames;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 public class ItemManasteelShears extends ItemShears {
 

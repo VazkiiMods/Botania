@@ -11,8 +11,6 @@
  */
 package vazkii.botania.client.render.tile;
 
-import java.awt.Color;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -26,12 +24,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.client.ForgeHooksClient;
-
 import org.lwjgl.opengl.GL11;
-
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.model.ModelSpinningCubes;
 import vazkii.botania.common.block.tile.TileRuneAltar;
+
+import java.awt.*;
 
 public class RenderTileRuneAltar extends TileEntitySpecialRenderer {
 

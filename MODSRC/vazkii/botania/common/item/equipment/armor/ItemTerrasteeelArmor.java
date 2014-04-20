@@ -11,8 +11,8 @@
  */
 package vazkii.botania.common.item.equipment.armor;
 
-import java.util.UUID;
-
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -20,8 +20,7 @@ import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.LibResources;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
+import java.util.UUID;
 
 public class ItemTerrasteeelArmor extends ItemManasteelArmor {
 
