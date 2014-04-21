@@ -39,6 +39,7 @@ public final class LexiconData {
 	public static LexiconCategory categoryGenerationFlowers;
 	public static LexiconCategory categoryDevices;
 	public static LexiconCategory categoryTools;
+	public static LexiconCategory categoryBaubles;
 	public static LexiconCategory categoryMisc;
 
 	public static LexiconEntry flowers;
@@ -105,6 +106,8 @@ public final class LexiconData {
 	public static LexiconEntry grassHorn;
 	public static LexiconEntry terraBlade;
 
+	public static LexiconEntry tinyPlanet;
+
 	public static LexiconEntry unstableBlocks;
 	public static LexiconEntry decorativeBlocks;
 
@@ -115,6 +118,7 @@ public final class LexiconData {
 		BotaniaAPI.addCategory(categoryGenerationFlowers = new LexiconCategory(LibLexicon.CATEGORY_GENERATION_FLOWERS));
 		BotaniaAPI.addCategory(categoryDevices = new LexiconCategory(LibLexicon.CATEGORY_DEVICES));
 		BotaniaAPI.addCategory(categoryTools = new LexiconCategory(LibLexicon.CATEGORY_TOOLS));
+		BotaniaAPI.addCategory(categoryBaubles = new LexiconCategory(LibLexicon.CATEGORY_BAUBLES));
 		BotaniaAPI.addCategory(categoryMisc = new LexiconCategory(LibLexicon.CATEGORY_MISC));
 
 		// BASICS ENTRIES
@@ -306,6 +310,10 @@ public final class LexiconData {
 		
 		terraBlade = new BLexiconEntry(LibLexicon.TOOL_TERRA_SWORD, categoryTools);
 		terraBlade.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeTerraSword));
+		
+		// BAUBLES ENTRIES
+		tinyPlanet = new BLexiconEntry(LibLexicon.BAUBLE_TINY_PLANET, categoryBaubles);
+		tinyPlanet.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeTinyPlanet));
 		
 		// MISCLENAEOUS ENTRIES
 		unstableBlocks = new BLexiconEntry(LibLexicon.MISC_UNSTABLE_BLOCKS, categoryMisc);

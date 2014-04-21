@@ -300,6 +300,7 @@ botania.category.functionalFlowers=Functional Flora
 botania.category.generationFlowers=Generating Flora
 botania.category.devices=Natural Apparatus
 botania.category.tools=Mystical Instruments
+botania.category.baubles=Baubles and Acessories
 botania.category.misc=Miscellaneous
 
 # LEXICON ENTRIES
@@ -677,6 +678,12 @@ botania.page.terrasteelArmor4=The &1Terrasteel Boots&0
 botania.entry.terraSword=Terra Blade
 botania.page.terraSword0=The &1Terra Blade&0, crafted from &1Terrasteel Ingots&0, is a sword infused with natural strength. Not only does it par with a &1Diamond Sword&0 in terms of strength and it uses &4Mana&0 from the inventory like &1Manasteel Tools&0, but when it's swinged, there's a chance for it to create a beam that will deal as much damage as a melee hit.
 botania.page.terraSword1=No Broken Hero Sword
+
+# - BAUBLES
+# -- TINY PLANET
+botania.entry.tinyPlanet=Tiny Planet
+botania.page.tinyPlanet0=The &1Tiny Planet&0 is a bauble with gravitational proprieties, while equipped, the &1Tiny Planet&0 will pull any nearby &4Mana Bursts&0 towards the wearer, having them orbit around him or her. 
+botania.page.tinyPlanet1=Clearly from rebirth
 
 # - MISCLANEOUS
 # -- UNSTABLE CUBE

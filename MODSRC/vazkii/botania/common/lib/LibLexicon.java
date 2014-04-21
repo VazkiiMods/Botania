@@ -21,6 +21,7 @@ public final class LibLexicon {
 	public static final String CATEGORY_GENERATION_FLOWERS = CATEGORY_PREFIX + "generationFlowers";
 	public static final String CATEGORY_DEVICES = CATEGORY_PREFIX + "devices";
 	public static final String CATEGORY_TOOLS = CATEGORY_PREFIX + "tools";
+	public static final String CATEGORY_BAUBLES = CATEGORY_PREFIX + "baubles";
 	public static final String CATEGORY_MISC = CATEGORY_PREFIX + "misc";
 
 	public static final String BASICS_FLOWERS = "flowers";
@@ -86,6 +87,8 @@ public final class LibLexicon {
 	public static final String TOOL_TERRASTEEL_ARMOR = "terrasteelArmor";
 	public static final String TOOL_GRASS_HORN = "grassHorn";
 	public static final String TOOL_TERRA_SWORD = "terraSword";
+	
+	public static final String BAUBLE_TINY_PLANET = "tinyPlanet";
 	
 	public static final String MISC_UNSTABLE_BLOCKS = "unstableBlocks";
 	public static final String MISC_DECORATIVE_BLOCKS = "decorativeBlocks";
