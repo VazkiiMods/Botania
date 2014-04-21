@@ -44,6 +44,8 @@ public class PageRecipe extends LexiconPage {
 	ItemStack tooltipStack, tooltipContainerStack;
 	boolean tooltipEntry;
 
+	static boolean mouseDownLastTick = false;
+	
 	public PageRecipe(String unlocalizedName) {
 		super(unlocalizedName);
 	}
@@ -91,6 +93,7 @@ public class PageRecipe extends LexiconPage {
 		tooltipStack = tooltipContainerStack = null;
 		tooltipEntry = false;
 		GL11.glDisable(GL11.GL_BLEND);
+		mouseDownLastTick = Mouse.isButtonDown(0);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -141,6 +144,7 @@ public class PageRecipe extends LexiconPage {
 		RenderItem render = new RenderItem();
 		TextureManager renderEngine = Minecraft.getMinecraft().renderEngine;
 		FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
+		boolean mouseDown = Mouse.isButtonDown(0);
 
 		// Translations required so the glint doesn't merge with the book texture
 		GL11.glTranslatef(0F, 0F, 200F);
@@ -156,7 +160,7 @@ public class PageRecipe extends LexiconPage {
 			if(data != null && (data.entry != gui.getEntry() || data.page != gui.getPageOn())) {
 				tooltipEntry = true;
 
-				if(Mouse.isButtonDown(0) && GuiScreen.isShiftKeyDown()) {
+				if(!mouseDownLastTick && mouseDown && GuiScreen.isShiftKeyDown()) {
 					GuiLexiconEntry newGui = new GuiLexiconEntry(data.entry, (GuiScreen) gui);
 					newGui.page = data.page;
 					Minecraft.getMinecraft().displayGuiScreen(newGui);
