@@ -11,6 +11,7 @@
  */
 package vazkii.botania.common.lexicon.page;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -63,7 +64,18 @@ public class PageRecipe extends LexiconPage {
 
 		if(tooltipStack != null) {
 			List<String> tooltipData = tooltipStack.getTooltip(Minecraft.getMinecraft().thePlayer, false);
-			RenderHelper.renderTooltip(mx, my, tooltipData);
+			List<String> parsedTooltip = new ArrayList();
+			boolean first = true;
+			
+			for(String s : tooltipData) {
+				String s_ = s;
+				if(!first)
+					s_ = EnumChatFormatting.GRAY + s;
+				parsedTooltip.add(s_);
+				first = false;
+			}
+			
+			RenderHelper.renderTooltip(mx, my, parsedTooltip);
 
 			int tooltipY = 8 + tooltipData.size() * 11;
 
