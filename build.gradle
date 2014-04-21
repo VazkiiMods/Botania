@@ -25,6 +25,13 @@ minecraft {
     version = "1.7.2-10.12.0.1024"
     assetDir = "eclipse/assets"
 }
+
+dependencies {
+	compile files (
+		'Baubles-debof.jar',
+	)
+}
+
 processResources
 {
     // replace stuff in mcmod.info, nothing else
