@@ -128,7 +128,7 @@ public final class ModCrafingRecipes {
 						" AS", " SB", "S  ",
 						'A', LibOreDict.PETAL[i],
 						'B', LibOreDict.PETAL[j],
-						'S', "stickWood");
+						'S', LibOreDict.LIVINGWOOD_TWIG);
 			}
 		recipesTwigWand = BotaniaAPI.getLatestAddedRecipes(256);
 
