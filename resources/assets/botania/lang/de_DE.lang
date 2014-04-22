@@ -41,6 +41,13 @@ botania.color14=Rot
 botania.color15=Schwarz
 botania.color16=Regenbogenfarben
 
+# BAUBLE TOOLTIPS
+botania.baubletype.amulet=Ausrüstbar im &aAmulett&7-Slot
+botania.baubletype.ring=Ausrüstbar im &aRing&7-Slot
+botania.baubletype.belt=Ausrüstbar im &aGürtel&7-Slot
+botania.baubletooltip=Drücke &b%key%&7, um das Baubles-Menü zu öffnen
+botania.baubleinfo=Halte &bSHIFT&7 für mehr Info
+
 # BLOCK NAMES
 tile.botania:flower0.name=Mystische Weiße Blume
 tile.botania:flower1.name=Mystische Orange Blume
@@ -152,6 +159,11 @@ tile.botania:flower.agricarnation.name=Agricaryophylle
 tile.botania:flower.agricarnation.reference=Jetzt wird geackert
 tile.botania:flower.hopperhock.name=Trichterkraut
 tile.botania:flower.hopperhock.reference=Es wurde mir eingetrichtert
+tile.botania:flower.tangleberrie.name=Wirrbeere
+tile.botania:flower.tangleberrie.reference=Hübsches Gefängnis
+tile.botania:flower.jiyuulia.name=Bannbeere
+tile.botania:flower.jiyuulia.reference=Kraftfeldartig
+# TRANSLATE THAT VEXATOS
 
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania
@@ -255,7 +267,7 @@ item.botania:manaCookie.name=Manakeks
 item.botania:fertilizer.name=Blumendünger
 item.botania:grassSeeds0.name=Weidesamen
 item.botania:grassSeeds1.name=Boreale Samen
-item.botania:grassSeeds2.name=Infektionssamen
+item.botania:grassSeeds2.name=Seuchensamen
 item.botania:livingwoodTwig.name=Lebeholzzweig
 item.botania:dirtRod.name=Stab der Böden
 item.botania:terraformRod.name=Terrafirmastab
@@ -270,6 +282,13 @@ item.botania:manasteelAxe.name=Manastahlaxt
 item.botania:manasteelSword.name=Manastahlschwert
 item.botania:manasteelShears.name=Manastahlschere
 item.botania:grassHorn.name=Horn der Wildnis
+item.botania:terrasteel.name=Terrastahlbarren
+item.botania:terrasteelHelm.name=Terrastahlhelm
+item.botania:terrasteelChest.name=Terrastahlbrustpanzer
+item.botania:terrasteelLegs.name=Terrastahlbeinschutz
+item.botania:terrasteelBoots.name=Terrastahlstiefel
+item.botania:terraSword.name=Terraklinge
+item.botania:tinyPlanet.name=Winziger Planet
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania Index - Wähle, welche Kategorie du studieren möchtest:
@@ -281,6 +300,7 @@ botania.category.functionalFlowers=Funktionelle Flora
 botania.category.generationFlowers=Generierende Flora
 botania.category.devices=Natürlicher Apparat
 botania.category.tools=Mystische Instumente
+botania.category.baubles=Krimskrams und Accessoires
 botania.category.misc=Verschiedenes
 
 # LEXICON ENTRIES
@@ -345,6 +365,11 @@ botania.page.runeAltar16=Die &1Rune der Trägheit&0.
 botania.page.runeAltar17=Die &1Rune des Zorns&0.
 botania.page.runeAltar18=Die &1Rune des Neides&0.
 botania.page.runeAltar19=Die &1Rune des Hochmuts&0.
+
+# -- TERRASTEEL
+botania.entry.terrasteel=Terrastahl
+botania.page.terrasteel0=&1Terrasteel&0 is a powerful metal infused with the magic of nature.<br>Creating this metal proves to not be a short order, in order to create it, toss a &1Manasteel Ingot&0, a &1Mana Pearl&0 and a &1Mana Diamond&0 on top of an &4Active &1Beacon&0. A &1Mana Pool&0 must be present nearby, being at least half full. The infusion will create a single &1Terrasteel Ingot&0.
+botania.page.terrasteel1=Creating Terrasteel
 
 # - MANA
 # -- INTRODUCTION TO MANA
@@ -515,7 +540,17 @@ botania.page.agricarnation1=&0Grandola Vila Morena&r...
 botania.entry.hopperhock=Trichterkraut
 botania.page.hopperhock0=The &1Hopperhock&0 will pick up items around it. Giving it &4Mana&0 is optional, but it'll increase it's range.<br>Items picked up will be put in adjacent inventories (e.g. &1Chests&0). Placing &1Item Frames&0 in any of the inventories will specify which items can or can't go in them.
 botania.page.hopperhock1=Any inventory which has no &1Item Frame&0 adjacent to it can accept any items, but labeled inventories will take priority.<br>The rule using to sort items can be changed by shift-right clicking the flower with a &1Wand of the Forest&0.
-botania.page.hopperhock2=&0I guess I'll be talking my loli and leaving&r.
+botania.page.hopperhock2=&oI guess I'll be talking my loli and leaving&r.
+
+# -- TANGLEBERRIE
+botania.entry.tangleberrie=Wirrbeere
+botania.page.tangleberrie0=The &1Tangleberrie&0 is a flower that, at the cost of a small amount of &4Mana&0, will keep any nearby animals or monsters within a circle ward, preventing them from getting out. 
+botania.page.tangleberrie1=&oTangled, brave and frozen&r.
+
+# -- JIYUULIA
+botania.entry.jiyuulia=Bannbeere
+botania.page.jiyuulia0=The &1Jiyuulia&0 is a flower that, at the cost of a small amount of &4Mana&0, will keep any nearby animals or monsters at bay, protecting a circular area from them getting in.
+botania.page.jiyuulia1=&oKeep out, please&r.
 
 # - GENERATING FLOWERS
 # -- AN INTRODUCTION TO GENERATION
@@ -599,7 +634,7 @@ botania.entry.grassSeeds=Weidesamen
 botania.page.grassSeeds0=Watching grass spread is seldom a fun activity. By infusing some &1Tall Grass&0 with &4Mana&0, it's possible to create &1Pasture Seeds&0, which will grow grass in any barren area, via a simple right click on dirt.<br>Other types of folliage can also be grown, such a &1Podzol&0 or &1Mycellium&0 with alternate seeds.
 botania.page.grassSeeds1=&1Weidesamen&0 für Gras
 botania.page.grassSeeds2=&1Boreale Samen&0 für Podsol
-botania.page.grassSeeds3=&1Infektionssamen&0 für Myzel
+botania.page.grassSeeds3=&1Seuchensamen&0 für Myzel
 
 # -- ROD THE LANDS
 botania.entry.dirtRod=Stab der Böden
@@ -626,10 +661,29 @@ botania.page.manaGear7=Der &1Manastahlbrustpanzer&0
 botania.page.manaGear8=Der &1Manastahlbeinschutz&0
 botania.page.manaGear9=Die &1Manastahlstiefel&0
 
-# -- Horn of the Wild
+# -- HORN OF THE WILD
 botania.entry.grassHorn=Horn der Wildnis
 botania.page.grassHorn0=Clearing out &1Tall Grass&0 by hand can definitely be a nuisance.<br>Simply blowing the &1Horn of the Wild&0 will quickly cause any nearby vegetation to uproot, leaving behind drops as if it had been broken by hand.
 botania.page.grassHorn1=Crafting the horn
+
+# -- TERRASTEEL ARMOR
+botania.entry.terrasteelArmor=Terrastahlrüstung
+botania.page.terrasteelArmor0=Armor made out of &1Terrasteel&0, much alike the &1Manasteel&0 counterpart, can utilize &4Mana&0 from the inventory instead of taking damage.<br>This armor, however, has properties more alike &1Diamond&0 instead of &1Iron&0 and increases the wearer's health when worn.
+botania.page.terrasteelArmor1=Der &1Terrastahlhelmt&0
+botania.page.terrasteelArmor2=Der &1Terrastahlbrustpanzer&0
+botania.page.terrasteelArmor3=Der &1Terrastahlbeinschutz&0
+botania.page.terrasteelArmor4=Die &1Terrastahlstiefel&0
+
+# -- TERRA BLADE
+botania.entry.terraSword=Terraklinge
+botania.page.terraSword0=The &1Terra Blade&0, crafted from &1Terrasteel Ingots&0, is a sword infused with natural strength. Not only does it par with a &1Diamond Sword&0 in terms of strength and it uses &4Mana&0 from the inventory like &1Manasteel Tools&0, but when it's swinged, there's a chance for it to create a beam that will deal as much damage as a melee hit.
+botania.page.terraSword1=No Broken Hero Sword
+
+# - BAUBLES
+# -- TINY PLANET
+botania.entry.tinyPlanet=Winziger Planet
+botania.page.tinyPlanet0=The &1Tiny Planet&0 is a bauble with gravitational proprieties, while equipped, the &1Tiny Planet&0 will pull any nearby &4Mana Bursts&0 towards the wearer, having them orbit around him or her. 
+botania.page.tinyPlanet1=Clearly from rebirth
 
 # - MISCLANEOUS
 # -- UNSTABLE CUBE
