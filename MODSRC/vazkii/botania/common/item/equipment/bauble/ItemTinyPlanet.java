@@ -45,14 +45,14 @@ public class ItemTinyPlanet extends ItemBauble {
 			IManaBurst burst = (IManaBurst) entity;
 			int orbitTime = getEntityOrbitTime(entity);
 			if(orbitTime == 0)
-				burst.setMinManaLoss(burst.getMinManaLoss() * 4);
+				burst.setMinManaLoss(burst.getMinManaLoss() * 2);
 				
 			float radius = (float) (Math.max(40, orbitTime) - 40) / 40F + 1F;
 			int angle = orbitTime % 360;
 			
-			float xTarget = (float) ((int) player.posX - 0.5F + Math.cos((angle * 10) * Math.PI / 180F) * radius);
+			float xTarget = (float) (player.posX + Math.cos((angle * 10) * Math.PI / 180F) * radius);
 			float yTarget = (float) player.posY + 1.2F;
-			float zTarget = (float) ((int) player.posZ + 0.5F + Math.sin((angle * 10) * Math.PI / 180F) * radius);
+			float zTarget = (float) (player.posZ + Math.sin((angle * 10) * Math.PI / 180F) * radius);
 			if(player.worldObj.isRemote)
 				yTarget -= 1.62F;
 			
