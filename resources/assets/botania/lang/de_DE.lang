@@ -340,8 +340,8 @@ botania.page.pureDaisy3=Weiß ist hell und rein
 
 # -- WAND OF THE FOREST
 botania.entry.wand=Stab des Waldes
-botania.page.wand0=The general multi-use tool for a botanist is the &1Wand of the Forest&0.<br>This wand, made by, effectively, strapping a pair of &1Mystical Petals&0 of any color to a few &1Sticks&0, is required for a good amount of tasks.
-botania.page.wand1=The petals used determine the colors of the wand.
+botania.page.wand0=The general multi-use tool for a botanist is the &1Wand of the Forest&0.<br>This wand, made by, effectively, strapping a pair of &1Mystical Petals&0 of any color to a few &1Livingwood Twigs&0, is required for a good amount of tasks.
+botania.page.wand1=The petals used determine the colors of the wand
 
 # -- RUNIC ALTAR
 botania.entry.runeAltar=Runenaltar
