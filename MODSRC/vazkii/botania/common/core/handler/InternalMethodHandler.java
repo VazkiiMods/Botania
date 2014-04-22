@@ -13,7 +13,6 @@ package vazkii.botania.common.core.handler;
 
 import java.util.List;
 
-import baubles.api.BaublesApi;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -38,6 +37,7 @@ import vazkii.botania.common.lexicon.page.PageManaInfusionRecipe;
 import vazkii.botania.common.lexicon.page.PagePetalRecipe;
 import vazkii.botania.common.lexicon.page.PageRuneRecipe;
 import vazkii.botania.common.lexicon.page.PageText;
+import baubles.common.lib.PlayerHandler;
 
 public class InternalMethodHandler implements IInternalMethodHandler {
 
@@ -110,7 +110,7 @@ public class InternalMethodHandler implements IInternalMethodHandler {
 	
 	@Override
 	public IInventory getBaublesInventory(EntityPlayer player) {
-		return BaublesApi.getBaubles(player);
+		return PlayerHandler.getPlayerBaubles(player);
 	}
 
 	@Override
