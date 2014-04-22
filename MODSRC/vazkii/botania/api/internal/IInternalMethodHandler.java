@@ -14,6 +14,8 @@ package vazkii.botania.api.internal;
 import java.util.List;
 
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.IIcon;
@@ -60,6 +62,8 @@ public interface IInternalMethodHandler {
 
 	public IIcon getSubTileIconForName(String name);
 
+	public IInventory getBaublesInventory(EntityPlayer player);
+	
 	@SideOnly(Side.CLIENT)
 	public void drawSimpleManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res);
 

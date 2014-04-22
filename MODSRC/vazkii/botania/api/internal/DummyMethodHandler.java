@@ -14,7 +14,9 @@ package vazkii.botania.api.internal;
 import java.util.List;
 
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.IIcon;
@@ -103,6 +105,11 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	@Override
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {
 		// NO-OP
+	}
+
+	@Override
+	public IInventory getBaublesInventory(EntityPlayer player) {
+		return null;
 	}
 
 }

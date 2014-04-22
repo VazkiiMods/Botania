@@ -11,8 +11,13 @@
  */
 package vazkii.botania.api.mana;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import vazkii.botania.api.BotaniaAPI;
 
 public final class ManaItemHandler {
 
@@ -28,7 +33,17 @@ public final class ManaItemHandler {
 		if(stack == null)
 			return 0;
 
-		for(ItemStack stackInSlot : player.inventory.mainInventory) {
+		IInventory mainInv = player.inventory;
+		IInventory baublesInv = BotaniaAPI.internalHandler.getBaublesInventory(player);
+
+		List<ItemStack> stacks = new ArrayList();
+		int size = mainInv.getSizeInventory();
+		if(baublesInv != null)
+			size += baublesInv.getSizeInventory();
+
+		for(int i = 0; i < size; i++) {
+			IInventory inv = i >= mainInv.getSizeInventory() ? baublesInv : mainInv;
+			ItemStack stackInSlot = inv.getStackInSlot(i);
 			if(stackInSlot == stack)
 				continue;
 
@@ -63,7 +78,17 @@ public final class ManaItemHandler {
 		if(stack == null)
 			return false;
 
-		for(ItemStack stackInSlot : player.inventory.mainInventory) {
+		IInventory mainInv = player.inventory;
+		IInventory baublesInv = BotaniaAPI.internalHandler.getBaublesInventory(player);
+
+		List<ItemStack> stacks = new ArrayList();
+		int size = mainInv.getSizeInventory();
+		if(baublesInv != null)
+			size += baublesInv.getSizeInventory();
+
+		for(int i = 0; i < size; i++) {
+			IInventory inv = i >= mainInv.getSizeInventory() ? baublesInv : mainInv;
+			ItemStack stackInSlot = inv.getStackInSlot(i);
 			if(stackInSlot == stack)
 				continue;
 

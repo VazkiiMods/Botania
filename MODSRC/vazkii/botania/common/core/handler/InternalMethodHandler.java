@@ -13,8 +13,11 @@ package vazkii.botania.common.core.handler;
 
 import java.util.List;
 
+import baubles.api.BaublesApi;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.IIcon;
@@ -103,6 +106,11 @@ public class InternalMethodHandler implements IInternalMethodHandler {
 	@Override
 	public IManaNetwork getManaNetworkInstance() {
 		return ManaNetworkHandler.instance;
+	}
+	
+	@Override
+	public IInventory getBaublesInventory(EntityPlayer player) {
+		return BaublesApi.getBaubles(player);
 	}
 
 	@Override
