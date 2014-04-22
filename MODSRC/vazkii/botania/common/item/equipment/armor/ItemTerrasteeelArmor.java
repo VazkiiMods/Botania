@@ -19,6 +19,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.item.ModItems;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
@@ -43,6 +44,11 @@ public class ItemTerrasteeelArmor extends ItemManasteelArmor {
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
 		return slot == 2 ? LibResources.MODEL_TERRASTEEL_1 : LibResources.MODEL_TERRASTEEL_0;
+	}
+	
+	@Override
+	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
+		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 4 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
 	}
 
 }

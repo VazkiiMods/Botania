@@ -16,6 +16,7 @@ import java.util.Random;
 
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.BotaniaCreativeTab;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -108,7 +109,12 @@ public class ItemManasteelShears extends ItemShears {
 				player.addStat(StatList.mineBlockStatArray[Block.getIdFromBlock(block)], 1);
 			}
 		}
+		
 		return false;
 	}
 
+	@Override
+	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
+		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 0 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
+	}
 }

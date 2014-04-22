@@ -25,6 +25,7 @@ import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.ILensEffect;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.entity.EntityManaBurst;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
@@ -95,6 +96,11 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 	@Override
 	public boolean doParticles(IManaBurst burst, ItemStack stack) {
 		return true;
+	}
+	
+	@Override
+	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
+		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 4 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
 	}
 
 }

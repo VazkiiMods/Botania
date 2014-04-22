@@ -16,6 +16,7 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.BotaniaCreativeTab;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ManasteelToolCommons;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -35,11 +36,11 @@ import net.minecraftforge.common.util.EnumHelper;
 public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor {
 
 	private static final int MANA_PER_DAMAGE = 70;
-	
+
 	public ItemManasteelArmor(int type, String name) {
 		this(type, name, BotaniaAPI.manasteelArmorMaterial);
 	}
-	
+
 	public ItemManasteelArmor(int type, String name, ArmorMaterial mat) {
 		super(mat, 0, type);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
@@ -72,10 +73,15 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor {
 	public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot) {
 		ManasteelToolCommons.damageItem(stack, damage, entity, MANA_PER_DAMAGE);
 	}
-	
+
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
 		return slot == 2 ? LibResources.MODEL_MANASTEEL_1 : LibResources.MODEL_MANASTEEL_0;
+	}
+
+	@Override
+	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
+		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 0 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
 	}
 
 }

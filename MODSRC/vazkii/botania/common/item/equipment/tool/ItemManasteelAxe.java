@@ -21,6 +21,7 @@ import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.BotaniaCreativeTab;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -60,6 +61,11 @@ public class ItemManasteelAxe extends ItemAxe {
 			ManasteelToolCommons.damageItem(stack, 1, entity, MANA_PER_DAMAGE);
 
 		return true;
+	}
+	
+	@Override
+	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
+		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 0 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
 	}
 	
 }
