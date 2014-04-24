@@ -107,6 +107,8 @@ public final class LexiconData {
 	public static LexiconEntry terraBlade;
 
 	public static LexiconEntry tinyPlanet;
+	public static LexiconEntry manaRing;
+	public static LexiconEntry auraRing;
 
 	public static LexiconEntry unstableBlocks;
 	public static LexiconEntry decorativeBlocks;
@@ -314,6 +316,12 @@ public final class LexiconData {
 		// BAUBLES ENTRIES
 		tinyPlanet = new BLexiconEntry(LibLexicon.BAUBLE_TINY_PLANET, categoryBaubles);
 		tinyPlanet.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeTinyPlanet));
+		
+		manaRing = new BLexiconEntry(LibLexicon.BAUBLE_MANA_RING, categoryBaubles);
+		manaRing.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeManaRing), new PageCraftingRecipe("2", ModCrafingRecipes.recipeGreaterManaRing));
+		
+		auraRing = new BLexiconEntry(LibLexicon.BAUBLE_AURA_RING, categoryBaubles);
+		auraRing.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeAuraRing), new PageCraftingRecipe("2", ModCrafingRecipes.recipeGreaterAuraRing));
 		
 		// MISCLENAEOUS ENTRIES
 		unstableBlocks = new BLexiconEntry(LibLexicon.MISC_UNSTABLE_BLOCKS, categoryMisc);

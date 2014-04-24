@@ -24,12 +24,17 @@ import baubles.api.BaubleType;
 
 public class ItemManaRing extends ItemBauble implements IManaItem {
 
-	private static final int MAX_MANA = 500000;
+	protected static final int MAX_MANA = 500000;
 
 	private static final String TAG_MANA = "mana";
 	
 	public ItemManaRing() {
-		super(LibItemNames.MANA_RING);
+		this(LibItemNames.MANA_RING);
+		setMaxDamage(1000);
+	}
+	
+	public ItemManaRing(String name) {
+		super(name);
 		setMaxDamage(1000);
 	}
 
@@ -46,7 +51,7 @@ public class ItemManaRing extends ItemBauble implements IManaItem {
 	@Override
 	public int getDamage(ItemStack stack) {
 		float mana = getMana(stack);
-		return 1000 - (int) (mana / MAX_MANA * 1000);
+		return 1000 - (int) (mana / getMaxMana(stack) * 1000);
 	}
 
 	@Override
@@ -70,7 +75,7 @@ public class ItemManaRing extends ItemBauble implements IManaItem {
 
 	@Override
 	public void addMana(ItemStack stack, int mana) {
-		setMana(stack, Math.min(getMana(stack) + mana, MAX_MANA));
+		setMana(stack, Math.min(getMana(stack) + mana, getMaxMana(stack)));
 	}
 
 	@Override

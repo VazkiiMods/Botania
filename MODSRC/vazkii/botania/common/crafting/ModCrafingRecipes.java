@@ -98,6 +98,10 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeTerrasteelBoots;
 	public static IRecipe recipeTerraSword;
 	public static IRecipe recipeTinyPlanet;
+	public static IRecipe recipeManaRing;
+	public static IRecipe recipeAuraRing;
+	public static IRecipe recipeGreaterManaRing;
+	public static IRecipe recipeGreaterAuraRing;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -466,6 +470,34 @@ public final class ModCrafingRecipes {
 				'L', LibOreDict.LIVING_ROCK,
 				'P', LibOreDict.MANA_PEARL);
 		recipeTinyPlanet = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Mana Band Recipe
+		addOreDictRecipe(new ItemStack(ModItems.manaRing), 
+				"TI ", "I I", " I ",
+				'T', new ItemStack(ModItems.manaTablet),
+				'I', LibOreDict.MANA_STEEL);
+		recipeManaRing = BotaniaAPI.getLatestAddedRecipe();
+
+		// Aura Band Recipe
+		addOreDictRecipe(new ItemStack(ModItems.auraRing), 
+				"RI ", "I I", " I ",
+				'R', LibOreDict.RUNE[8],
+				'I', LibOreDict.MANA_STEEL);
+		recipeAuraRing = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Greater Mana Band Recipe
+		addOreDictRecipe(new ItemStack(ModItems.manaRingGreater), 
+				"IRI",
+				'I', LibOreDict.TERRA_STEEL,
+				'R', new ItemStack(ModItems.manaRing));
+		recipeGreaterManaRing = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Greater Aura Band Recipe
+		addOreDictRecipe(new ItemStack(ModItems.auraRingGreater), 
+				"IRI",
+				'I', LibOreDict.TERRA_STEEL,
+				'R', new ItemStack(ModItems.auraRing));
+		recipeGreaterAuraRing = BotaniaAPI.getLatestAddedRecipe();
 	}
 
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {

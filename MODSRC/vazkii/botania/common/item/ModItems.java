@@ -24,6 +24,8 @@ import vazkii.botania.common.item.equipment.armor.ItemTerrasteelChest;
 import vazkii.botania.common.item.equipment.armor.ItemTerrasteelHelm;
 import vazkii.botania.common.item.equipment.armor.ItemTerrasteelLegs;
 import vazkii.botania.common.item.equipment.bauble.ItemAuraRing;
+import vazkii.botania.common.item.equipment.bauble.ItemGreaterAuraRing;
+import vazkii.botania.common.item.equipment.bauble.ItemGreaterManaRing;
 import vazkii.botania.common.item.equipment.bauble.ItemManaRing;
 import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
 import vazkii.botania.common.item.equipment.tool.ItemManasteelAxe;
@@ -72,7 +74,9 @@ public final class ModItems {
 	public static Item tinyPlanet;
 	public static Item manaRing;
 	public static Item auraRing;
-
+	public static Item manaRingGreater;
+	public static Item auraRingGreater;
+	
 	public static void init() {
 		lexicon = new ItemLexicon();
 		petal = new ItemPetal();
@@ -110,6 +114,8 @@ public final class ModItems {
 		tinyPlanet = new ItemTinyPlanet();
 		manaRing = new ItemManaRing();
 		auraRing = new ItemAuraRing();
+		manaRingGreater = new ItemGreaterManaRing();
+		auraRingGreater = new ItemGreaterAuraRing();
 
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {

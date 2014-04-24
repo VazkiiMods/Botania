@@ -291,6 +291,8 @@ item.botania:terraSword.name=Terra Blade
 item.botania:tinyPlanet.name=Tiny Planet
 item.botania:manaRing.name=Band of Mana
 item.botania:auraRing.name=Band of Aura
+item.botania:manaRingGreater.name=Greater Band of Mana
+item.botania:auraRingGreater.name=Greater Band of Aura
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania Index - Pick which category you would like to study:
@@ -684,8 +686,20 @@ botania.page.terraSword1=No Broken Hero Sword
 # - BAUBLES
 # -- TINY PLANET
 botania.entry.tinyPlanet=Tiny Planet
-botania.page.tinyPlanet0=The &1Tiny Planet&0 is a bauble with gravitational proprieties, while equipped, the &1Tiny Planet&0 will pull any nearby &4Mana Bursts&0 towards the wearer, having them orbit around him or her. 
+botania.page.tinyPlanet0=The &1Tiny Planet&0 is a &4Bauble&0 with gravitational proprieties, while equipped, the &1Tiny Planet&0 will pull any nearby &4Mana Bursts&0 towards the wearer, having them orbit around him or her. 
 botania.page.tinyPlanet1=Clearly from rebirth
+
+# -- BAND OF MANA
+botania.entry.manaRing=Band of Mana
+botania.page.manaRing0=Combining a &1Mana Tablet&0 with some &1Manasteel&0 creates an easilly worn &4Ring&0, that functions exactly similar to the tablet used to make it, but can be worn as a &4Bauble&0.<br>Using some &1Terrasteel&0 allows for an upgrade, which lets it store about four times as much &4Mana&0.
+botania.page.manaRing1=Creating the ring
+botania.page.manaRing2=Upgrading the ring
+
+# -- BAND OF AURA
+botania.entry.auraRing=Band of Aura
+botania.page.auraRing0=The &1Band of Aura&0 is a bit of a deviation from the typical &1Band of Mana&0, in which, instead of storing &4Mana&0, it slowly, while equipped, creates it and stores it into &4Mana&0 containing items in the wearer's inventory.<br>Using some &1Terrasteel&0 allows for an upgrade, which lets it generate &4Mana&0 at a significantly faster rate.
+botania.page.auraRing1=Creating the ring
+botania.page.auraRing2=Upgrading the ring
 
 # - MISCLANEOUS
 # -- UNSTABLE CUBE
