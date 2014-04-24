@@ -293,6 +293,7 @@ item.botania:manaRing.name=Band of Mana
 item.botania:auraRing.name=Band of Aura
 item.botania:manaRingGreater.name=Greater Band of Mana
 item.botania:auraRingGreater.name=Greater Band of Aura
+item.botania:travelBelt.name=Soujourner's Sash
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania Index - Pick which category you would like to study:
@@ -706,6 +707,11 @@ botania.entry.auraRing=Band of Aura
 botania.page.auraRing0=The &1Band of Aura&0 is a bit of a deviation from the typical &1Band of Mana&0, in which, instead of storing &4Mana&0, it slowly, while equipped, creates it and stores it into &4Mana&0 containing items in the wearer's inventory.<br>Using some &1Terrasteel&0 allows for an upgrade, which lets it generate &4Mana&0 at a significantly faster rate.
 botania.page.auraRing1=Creating the ring
 botania.page.auraRing2=Upgrading the ring
+
+# -- SOUJOURNER'S SASH
+botania.entry.travelBelt=Soujourner's Sash
+botania.page.travelBelt0=(todo)
+botania.page.travelBelt1=...everell
 
 # - MISCLANEOUS
 # -- UNSTABLE CUBE

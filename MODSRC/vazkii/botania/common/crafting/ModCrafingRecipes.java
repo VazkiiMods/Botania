@@ -102,6 +102,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeAuraRing;
 	public static IRecipe recipeGreaterManaRing;
 	public static IRecipe recipeGreaterAuraRing;
+	public static IRecipe recipeTravelBelt;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -498,6 +499,15 @@ public final class ModCrafingRecipes {
 				'I', LibOreDict.TERRA_STEEL,
 				'R', new ItemStack(ModItems.auraRing));
 		recipeGreaterAuraRing = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Soujourner's Belt Recipe
+		addOreDictRecipe(new ItemStack(ModItems.travelBelt), 
+				"EL ", "L L", "SLA",
+				'E', LibOreDict.RUNE[2],
+				'A', LibOreDict.RUNE[3],
+				'S', LibOreDict.MANA_STEEL,
+				'L', new ItemStack(Items.leather));
+		recipeTravelBelt = BotaniaAPI.getLatestAddedRecipe();
 	}
 
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {

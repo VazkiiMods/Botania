@@ -92,6 +92,7 @@ public final class LibLexicon {
 	public static final String BAUBLE_TINY_PLANET = "tinyPlanet";
 	public static final String BAUBLE_MANA_RING = "manaRing";
 	public static final String BAUBLE_AURA_RING = "auraRing";
+	public static final String BAUBLE_TRAVEL_BELT = "travelBelt";
 
 	public static final String MISC_UNSTABLE_BLOCKS = "unstableBlocks";
 	public static final String MISC_DECORATIVE_BLOCKS = "decorativeBlocks";

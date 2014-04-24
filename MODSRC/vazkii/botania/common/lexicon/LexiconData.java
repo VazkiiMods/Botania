@@ -110,6 +110,7 @@ public final class LexiconData {
 	public static LexiconEntry tinyPlanet;
 	public static LexiconEntry manaRing;
 	public static LexiconEntry auraRing;
+	public static LexiconEntry travelBelt;
 
 	public static LexiconEntry unstableBlocks;
 	public static LexiconEntry decorativeBlocks;
@@ -326,6 +327,9 @@ public final class LexiconData {
 		
 		auraRing = new BLexiconEntry(LibLexicon.BAUBLE_AURA_RING, categoryBaubles);
 		auraRing.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeAuraRing), new PageCraftingRecipe("2", ModCrafingRecipes.recipeGreaterAuraRing));
+		
+		travelBelt = new BLexiconEntry(LibLexicon.BAUBLE_TRAVEL_BELT, categoryBaubles);
+		travelBelt.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeTravelBelt));
 		
 		// MISCLENAEOUS ENTRIES
 		unstableBlocks = new BLexiconEntry(LibLexicon.MISC_UNSTABLE_BLOCKS, categoryMisc);
