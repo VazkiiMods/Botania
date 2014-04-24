@@ -24,7 +24,7 @@ import baubles.api.BaubleType;
 
 public class ItemManaRing extends ItemBauble implements IManaItem {
 
-	private static final int MAX_MANA = 50000;
+	private static final int MAX_MANA = 500000;
 
 	private static final String TAG_MANA = "mana";
 	

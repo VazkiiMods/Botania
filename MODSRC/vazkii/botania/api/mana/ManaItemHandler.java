@@ -22,8 +22,7 @@ import vazkii.botania.api.BotaniaAPI;
 public final class ManaItemHandler {
 
 	/**
-	 * Requests mana from items in a given player's inventory. Note that stack.getItem()
-	 * must be instanceof IManaItem.
+	 * Requests mana from items in a given player's inventory.
 	 * @param manaToGet How much mana is to be requested, if less mana exists than this amount,
 	 * the amount of mana existent will be returned instead, if you want exact values use requestManaExact.
 	 * @param remove If true, the mana will be removed from the target item. Set to false to just check.
@@ -70,7 +69,6 @@ public final class ManaItemHandler {
 
 	/**
 	 * Requests an exact amount of mana from items in a given player's inventory.
-	 * Note that stack.getItem() must be instanceof IManaItem.
 	 * @param manaToGet How much mana is to be requested, if less mana exists than this amount,
 	 * false will be returned instead, and nothing will happen.
 	 * @param remove If true, the mana will be removed from the target item. Set to false to just check.
@@ -82,7 +80,6 @@ public final class ManaItemHandler {
 
 		IInventory mainInv = player.inventory;
 		IInventory baublesInv = BotaniaAPI.internalHandler.getBaublesInventory(player);
-		System.out.println(baublesInv);
 
 		List<ItemStack> stacks = new ArrayList();
 		int invSize = mainInv.getSizeInventory();
@@ -113,5 +110,99 @@ public final class ManaItemHandler {
 
 		return false;
 	}
+	
+	/**
+	 * Dispatches mana to items in a given player's inventory. Note that this method
+	 * does not automatically remove mana from the item which is exporting.
+	 * @param manaToSend How much mana is to be sent.
+	 * @param remove If true, the mana will be added from the target item. Set to false to just check.
+	 * @return The amount of mana actually sent.
+	 */
+	public static int dispatchMana(ItemStack stack, EntityPlayer player, int manaToSend, boolean add) {
+		if(stack == null)
+			return 0;
 
+		IInventory mainInv = player.inventory;
+		IInventory baublesInv = BotaniaAPI.internalHandler.getBaublesInventory(player);
+		
+		List<ItemStack> stacks = new ArrayList();
+		int invSize = mainInv.getSizeInventory();
+		int size = invSize;
+		if(baublesInv != null)
+			size += baublesInv.getSizeInventory();
+
+		for(int i = 0; i < size; i++) {
+			boolean useBaubles = i >= invSize;
+			IInventory inv = useBaubles ? baublesInv : mainInv;
+			ItemStack stackInSlot = inv.getStackInSlot(i - (useBaubles ? invSize : 0));
+			if(stackInSlot == stack)
+				continue;
+
+			if(stackInSlot != null && stackInSlot.getItem() instanceof IManaItem) {
+				IManaItem manaItemSlot = (IManaItem) stackInSlot.getItem();
+				
+				if(manaItemSlot.canReceiveManaFromItem(stackInSlot, stack)) {
+					if(stack.getItem() instanceof IManaItem && !((IManaItem) stack.getItem()).canExportManaToItem(stack, stackInSlot))
+						continue;
+					
+					int received = 0;
+					if(manaItemSlot.getMana(stackInSlot) + manaToSend <= manaItemSlot.getMaxMana(stackInSlot))
+						received = manaToSend;
+					else received = manaToSend - (manaItemSlot.getMana(stackInSlot) + manaToSend - manaItemSlot.getMaxMana(stackInSlot));
+					
+
+					if(add)
+						manaItemSlot.addMana(stackInSlot, manaToSend);
+
+					return received;
+				}
+			}
+		}
+
+		return 0;
+	}
+	
+	/**
+	 * Dispatches an exact amount of mana to items in a given player's inventory. Note that this method
+	 * does not automatically remove mana from the item which is exporting.
+	 * @param manaToSend How much mana is to be sent.
+	 * @param remove If true, the mana will be added from the target item. Set to false to just check.
+	 * @return If an item received the mana sent.
+	 */
+	public static boolean dispatchManaExact(ItemStack stack, EntityPlayer player, int manaToSend, boolean add) {
+		if(stack == null)
+			return false;
+
+		IInventory mainInv = player.inventory;
+		IInventory baublesInv = BotaniaAPI.internalHandler.getBaublesInventory(player);
+		
+		List<ItemStack> stacks = new ArrayList();
+		int invSize = mainInv.getSizeInventory();
+		int size = invSize;
+		if(baublesInv != null)
+			size += baublesInv.getSizeInventory();
+
+		for(int i = 0; i < size; i++) {
+			boolean useBaubles = i >= invSize;
+			IInventory inv = useBaubles ? baublesInv : mainInv;
+			ItemStack stackInSlot = inv.getStackInSlot(i - (useBaubles ? invSize : 0));
+			if(stackInSlot == stack)
+				continue;
+
+			if(stackInSlot != null && stackInSlot.getItem() instanceof IManaItem) {
+				IManaItem manaItemSlot = (IManaItem) stackInSlot.getItem();
+				if(manaItemSlot.getMana(stackInSlot) + manaToSend <= manaItemSlot.getMaxMana(stackInSlot) && manaItemSlot.canReceiveManaFromItem(stackInSlot, stack)) {
+					if(stack.getItem() instanceof IManaItem && !((IManaItem) stack.getItem()).canExportManaToItem(stack, stackInSlot))
+						continue;
+
+					if(add)
+						manaItemSlot.addMana(stackInSlot, manaToSend);
+
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
 }

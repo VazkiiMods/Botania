@@ -44,7 +44,6 @@ public interface IManaItem {
 
 	/**
 	 * Can this item recieve mana from another item?
-	 * The getItem() of both stacks can be casted to IManaItem.
 	 */
 	public boolean canReceiveManaFromItem(ItemStack stack, ItemStack otherStack);
 
@@ -57,7 +56,6 @@ public interface IManaItem {
 
 	/**
 	 * Can this item export mana to another item?
-	 * The getItem() of both stacks can be casted to IManaItem.
 	 */
 	public boolean canExportManaToItem(ItemStack stack, ItemStack otherStack);
 
