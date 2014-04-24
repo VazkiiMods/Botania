@@ -376,7 +376,7 @@ botania.page.terrasteel0=&1Terrasteel&0 is a powerful metal infused with the mag
 botania.page.terrasteel1=Creating Terrasteel
 
 # - MANA
-# -- INTRODUCTION TO MANA
+# -- AN INTRODUCTION TO MANA
 botania.entry.mIntro=An Introduction to Mana
 botania.page.mIntro0=&4Mana&0 is an ethereal substance. In layman's terms, it is a form of &4mystical energy&0. Its sensorial existance is inconstant, and its color depends on the environment its put in.<br>Mastering &4Mana&0 is one of the most important skills a botanist needs to master.
 botania.page.mIntro1=In order to create &4Mana&0, one would require a set of &4Generating Flowers&0 (read the respective section). This &4Mana&0 can be dispersed by utilizing &1Mana Spreaders&0 and stored in &1Mana Pools&0. &4Mana&0 can be used for a myriad of different things. For starters, it can be used for &4Functional Flowers&0 (read the respective section).
@@ -684,6 +684,12 @@ botania.page.terraSword0=The &1Terra Blade&0, crafted from &1Terrasteel Ingots&0
 botania.page.terraSword1=No Broken Hero Sword
 
 # - BAUBLES
+# -- AN INTRODUCTION TO BAUBLES
+botania.entry.bIntro=An Introduction to Baubles
+botania.page.bIntro0=&4Baubles&0, also commonly refered to as &4Trinkets&0 or &4Charms&0 are pieces of equipment which offer all sorts of different effects, when worn.<br>To equip them, one can press the &4B&0 (configurable) key. There's four slots, one &4Amulet&0 slot, two &4Ring&0 slots and one &4Belt&0 slot.
+botania.page.bIntro1=The &4Baubles Screen&0
+botania.page.bIntro2=It's to note that, if &4Thaumcraft&0 or any other mod that uses the baubles sytem is installed, this inventory will be shared between the various mods. 
+
 # -- TINY PLANET
 botania.entry.tinyPlanet=Tiny Planet
 botania.page.tinyPlanet0=The &1Tiny Planet&0 is a &4Bauble&0 with gravitational proprieties, while equipped, the &1Tiny Planet&0 will pull any nearby &4Mana Bursts&0 towards the wearer, having them orbit around him or her. 

@@ -106,6 +106,7 @@ public final class LexiconData {
 	public static LexiconEntry grassHorn;
 	public static LexiconEntry terraBlade;
 
+	public static LexiconEntry baublesIntro;
 	public static LexiconEntry tinyPlanet;
 	public static LexiconEntry manaRing;
 	public static LexiconEntry auraRing;
@@ -314,6 +315,9 @@ public final class LexiconData {
 		terraBlade.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeTerraSword));
 		
 		// BAUBLES ENTRIES
+		baublesIntro = new BLexiconEntry(LibLexicon.BAUBLE_INTRO, categoryBaubles);
+		baublesIntro.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_BAUBLES), new PageText("2"));
+		
 		tinyPlanet = new BLexiconEntry(LibLexicon.BAUBLE_TINY_PLANET, categoryBaubles);
 		tinyPlanet.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeTinyPlanet));
 		
