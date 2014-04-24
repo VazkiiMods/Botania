@@ -138,7 +138,7 @@ public class ItemManaTablet extends ItemMod implements IManaItem {
 
 	@Override
 	public boolean canReceiveManaFromItem(ItemStack stack, ItemStack otherStack) {
-		return false;
+		return true;
 	}
 
 	@Override

@@ -289,6 +289,7 @@ item.botania:terrasteelLegs.name=Terrasteel Leggings
 item.botania:terrasteelBoots.name=Terrasteel Boots
 item.botania:terraSword.name=Terra Blade
 item.botania:tinyPlanet.name=Tiny Planet
+item.botnaia:manaRing.name=Band of Mana
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania Index - Pick which category you would like to study:

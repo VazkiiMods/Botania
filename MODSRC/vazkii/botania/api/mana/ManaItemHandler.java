@@ -37,13 +37,15 @@ public final class ManaItemHandler {
 		IInventory baublesInv = BotaniaAPI.internalHandler.getBaublesInventory(player);
 
 		List<ItemStack> stacks = new ArrayList();
-		int size = mainInv.getSizeInventory();
+		int invSize = mainInv.getSizeInventory();
+		int size = invSize;
 		if(baublesInv != null)
 			size += baublesInv.getSizeInventory();
 
 		for(int i = 0; i < size; i++) {
-			IInventory inv = i >= mainInv.getSizeInventory() ? baublesInv : mainInv;
-			ItemStack stackInSlot = inv.getStackInSlot(i);
+			boolean useBaubles = i >= invSize;
+			IInventory inv = useBaubles ? baublesInv : mainInv;
+			ItemStack stackInSlot = inv.getStackInSlot(i - (useBaubles ? invSize : 0));
 			if(stackInSlot == stack)
 				continue;
 
@@ -80,15 +82,18 @@ public final class ManaItemHandler {
 
 		IInventory mainInv = player.inventory;
 		IInventory baublesInv = BotaniaAPI.internalHandler.getBaublesInventory(player);
+		System.out.println(baublesInv);
 
 		List<ItemStack> stacks = new ArrayList();
-		int size = mainInv.getSizeInventory();
+		int invSize = mainInv.getSizeInventory();
+		int size = invSize;
 		if(baublesInv != null)
 			size += baublesInv.getSizeInventory();
 
 		for(int i = 0; i < size; i++) {
-			IInventory inv = i >= mainInv.getSizeInventory() ? baublesInv : mainInv;
-			ItemStack stackInSlot = inv.getStackInSlot(i);
+			boolean useBaubles = i >= invSize;
+			IInventory inv = useBaubles ? baublesInv : mainInv;
+			ItemStack stackInSlot = inv.getStackInSlot(i - (useBaubles ? invSize : 0));
 			if(stackInSlot == stack)
 				continue;
 

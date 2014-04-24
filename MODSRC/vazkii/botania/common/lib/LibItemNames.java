@@ -49,7 +49,9 @@ public final class LibItemNames {
 	public static final String TERRASTEEL_BOOTS = LibResources.PREFIX_MOD + "terrasteelBoots";
 	public static final String TERRA_SWORD = LibResources.PREFIX_MOD + "terraSword";
 	public static final String TINY_PLANET = LibResources.PREFIX_MOD + "tinyPlanet";
-
+	public static final String MANA_RING = LibResources.PREFIX_MOD + "manaRing";
+	public static final String AURA_RING = LibResources.PREFIX_MOD + "auraRing";
+	
 	public static final String[] LENS_NAMES = new String[] {
 		LibResources.PREFIX_MOD + "lensNormal",
 		LibResources.PREFIX_MOD + "lensSpeed",
