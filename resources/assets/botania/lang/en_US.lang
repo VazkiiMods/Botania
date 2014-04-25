@@ -710,7 +710,7 @@ botania.page.auraRing2=Upgrading the ring
 
 # -- SOUJOURNER'S SASH
 botania.entry.travelBelt=Soujourner's Sash
-botania.page.travelBelt0=(todo)
+botania.page.travelBelt0=Traversing terrain sometimes proves to be a hassle. The &1Soujourner's Sash&0 can be equipped in the &4Belt&0 slot, and when worn will increase the movement speed, jump height and resistance to fall damage of the wearer.<br>Lastly, if not sneaking, it also allows the wearer to walk over 1 block high gaps without jumping with ease.
 botania.page.travelBelt1=...everell
 
 # - MISCLANEOUS

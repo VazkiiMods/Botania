@@ -39,6 +39,7 @@ public class ItemTinyPlanet extends ItemBauble {
 	
 	@Override
 	public void onWornTick(ItemStack stack, EntityLivingBase player) {
+		super.onWornTick(stack, player);
 		int range = 8;
 		List<Entity> entities = player.worldObj.getEntitiesWithinAABB(IManaBurst.class, AxisAlignedBB.getBoundingBox(player.posX - range, player.posY - range, player.posZ - range, player.posX + range, player.posY + range, player.posZ + range));
 		for(Entity entity : entities) {

@@ -91,18 +91,24 @@ public abstract class ItemBauble extends ItemMod implements IBauble {
     }
 
     @Override
+    public void onWornTick(ItemStack stack, EntityLivingBase player) {
+		if(player.ticksExisted == 1)
+			onEquippedOrLoadedIntoWorld(stack, player);
+    }
+    
+    @Override
     public void onEquipped(ItemStack stack, EntityLivingBase player) {
         if(!player.worldObj.isRemote) 
         	player.worldObj.playSoundAtEntity(player, "random.orb", 0.1F, 1.3F);
+        onEquippedOrLoadedIntoWorld(stack, player);
+    }
+    
+    public void onEquippedOrLoadedIntoWorld(ItemStack stack, EntityLivingBase player) {
+    	// NO-OP
     }
 
     @Override
     public void onUnequipped(ItemStack stack, EntityLivingBase player) {
-        // NO-OP
-    }
-
-    @Override
-    public void onWornTick(ItemStack stack, EntityLivingBase player) {
         // NO-OP
     }
 

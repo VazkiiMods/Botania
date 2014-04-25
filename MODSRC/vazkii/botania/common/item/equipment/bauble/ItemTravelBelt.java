@@ -11,19 +11,64 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import vazkii.botania.common.lib.LibItemNames;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
+import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
+import baubles.common.lib.PlayerHandler;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class ItemTravelBelt extends ItemBauble {
 
 	public ItemTravelBelt() {
 		super(LibItemNames.TRAVEL_BELT);
+		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	@Override
 	public BaubleType getBaubleType(ItemStack itemstack) {
 		return BaubleType.BELT;
+	}
+	
+	@Override
+	public void onWornTick(ItemStack stack, EntityLivingBase entity) {
+		super.onWornTick(stack, entity);
+		if(entity instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) entity;
+			if((player.onGround || player.capabilities.isFlying) && player.moveForward > 0F)
+				player.moveFlying(0F, 1F, player.capabilities.isFlying ? 0.035F : 0.07F);
+			
+			if(player.isSneaking())
+				player.stepHeight = 0.50001F; // Not 0.5F because that is the default
+			else if(player.stepHeight == 0.50001F)
+				player.stepHeight = 1F;
+		}
+	}
+	
+	@SubscribeEvent
+	public void onPlayerJump(LivingJumpEvent event) {
+		if(event.entityLiving instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) event.entityLiving;
+			ItemStack belt = PlayerHandler.getPlayerBaubles(player).getStackInSlot(3);
+
+			if(belt != null && belt.getItem() == this) {
+				 player.motionY += 0.2;
+				 player.fallDistance = -1F;
+			}
+		}
+	}
+	
+	@Override
+	public void onEquippedOrLoadedIntoWorld(ItemStack stack, EntityLivingBase player) {
+		player.stepHeight = 1F;
+	}
+	
+	@Override
+	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
+		player.stepHeight = 0.5F;
 	}
 
 }
