@@ -54,6 +54,8 @@ public final class LibItemNames {
 	public static final String MANA_RING_GREATER = LibResources.PREFIX_MOD + "manaRingGreater";
 	public static final String AURA_RING_GREATER = LibResources.PREFIX_MOD + "auraRingGreater";
 	public static final String TRAVEL_BELT = LibResources.PREFIX_MOD + "travelBelt";
+	public static final String KNOCKBACK_BELT = LibResources.PREFIX_MOD + "knockbackBelt";
+	public static final String ICE_PENDANT = LibResources.PREFIX_MOD + "icePendant";
 
 	public static final String[] LENS_NAMES = new String[] {
 		LibResources.PREFIX_MOD + "lensNormal",
