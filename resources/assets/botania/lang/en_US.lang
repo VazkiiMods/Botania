@@ -294,7 +294,7 @@ item.botania:auraRing.name=Band of Aura
 item.botania:manaRingGreater.name=Greater Band of Mana
 item.botania:auraRingGreater.name=Greater Band of Aura
 item.botania:travelBelt.name=Soujourner's Sash
-item.botania:knockbackBelt.name=Tectonic Gridle
+item.botania:knockbackBelt.name=Tectonic Girdle
 item.botania:icePendant.name=Snowflake Pendant
 
 # GUI TEXT
@@ -714,6 +714,11 @@ botania.page.auraRing2=Upgrading the ring
 botania.entry.travelBelt=Soujourner's Sash
 botania.page.travelBelt0=Traversing terrain sometimes proves to be a hassle. The &1Soujourner's Sash&0 can be equipped in the &4Belt&0 slot, and when worn will increase the movement speed, jump height and resistance to fall damage of the wearer.<br>Lastly, if not sneaking, it also allows the wearer to walk over 1 block high gaps without jumping with ease.
 botania.page.travelBelt1=...everell
+
+# -- TECTONIC GIRDLE
+botania.entry.knockbackBelt=Tectonic Girdle
+botania.page.knockbackBelt0=By harnessing the forces of tectonic movement, the &1Tectonic Girdle&0, when worn, will negate any &4Knockback&0 applied to the wearer by outside attacks.
+botania.page.knockbackBelt1=Don't... move
 
 # -- SNOWFLAKE PENDANT
 botania.entry.icePendant=Snowflake Pendant

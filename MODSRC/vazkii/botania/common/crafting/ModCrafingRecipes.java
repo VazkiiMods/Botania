@@ -511,6 +511,15 @@ public final class ModCrafingRecipes {
 				'L', new ItemStack(Items.leather));
 		recipeTravelBelt = BotaniaAPI.getLatestAddedRecipe();
 		
+		// Tectonic Girdle Recipe
+		addOreDictRecipe(new ItemStack(ModItems.knockbackBelt),
+				"AL ", "L L", "SLE",
+				'E', LibOreDict.RUNE[2],
+				'A', LibOreDict.RUNE[1],
+				'S', LibOreDict.MANA_STEEL,
+				'L', new ItemStack(Items.leather));
+		recipeKnocbackBelt = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Snowflake Pendant Recipe
 		addOreDictRecipe(new ItemStack(ModItems.icePendant), 
 				"WS ", "S S", "MSR",
