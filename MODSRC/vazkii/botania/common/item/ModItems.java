@@ -27,6 +27,7 @@ import vazkii.botania.common.item.equipment.bauble.ItemAuraRing;
 import vazkii.botania.common.item.equipment.bauble.ItemGreaterAuraRing;
 import vazkii.botania.common.item.equipment.bauble.ItemGreaterManaRing;
 import vazkii.botania.common.item.equipment.bauble.ItemIcePendant;
+import vazkii.botania.common.item.equipment.bauble.ItemKnockbackBelt;
 import vazkii.botania.common.item.equipment.bauble.ItemManaRing;
 import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
 import vazkii.botania.common.item.equipment.bauble.ItemTravelBelt;
@@ -122,6 +123,7 @@ public final class ModItems {
 		manaRingGreater = new ItemGreaterManaRing();
 		auraRingGreater = new ItemGreaterAuraRing();
 		travelBelt = new ItemTravelBelt();
+		knockbackBelt = new ItemKnockbackBelt();
 		icePendant = new ItemIcePendant();
 
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);

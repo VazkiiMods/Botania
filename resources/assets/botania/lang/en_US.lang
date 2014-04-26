@@ -294,6 +294,7 @@ item.botania:auraRing.name=Band of Aura
 item.botania:manaRingGreater.name=Greater Band of Mana
 item.botania:auraRingGreater.name=Greater Band of Aura
 item.botania:travelBelt.name=Soujourner's Sash
+item.botania:knockbackBelt.name=Tectonic Gridle
 item.botania:icePendant.name=Snowflake Pendant
 
 # GUI TEXT
