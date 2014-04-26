@@ -93,7 +93,9 @@ public final class LibLexicon {
 	public static final String BAUBLE_MANA_RING = "manaRing";
 	public static final String BAUBLE_AURA_RING = "auraRing";
 	public static final String BAUBLE_TRAVEL_BELT = "travelBelt";
-
+	public static final String BAUBLE_KNOCKBACK_BELT = "knockbackBelt";
+	public static final String BAUBLE_ICE_PENDANT = "icePendant";
+	
 	public static final String MISC_UNSTABLE_BLOCKS = "unstableBlocks";
 	public static final String MISC_DECORATIVE_BLOCKS = "decorativeBlocks";
 

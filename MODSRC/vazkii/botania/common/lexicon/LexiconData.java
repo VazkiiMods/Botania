@@ -111,6 +111,8 @@ public final class LexiconData {
 	public static LexiconEntry manaRing;
 	public static LexiconEntry auraRing;
 	public static LexiconEntry travelBelt;
+	public static LexiconEntry knockbacklBelt;
+	public static LexiconEntry icePendant;
 
 	public static LexiconEntry unstableBlocks;
 	public static LexiconEntry decorativeBlocks;
@@ -330,6 +332,9 @@ public final class LexiconData {
 		
 		travelBelt = new BLexiconEntry(LibLexicon.BAUBLE_TRAVEL_BELT, categoryBaubles);
 		travelBelt.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeTravelBelt));
+		
+		icePendant = new BLexiconEntry(LibLexicon.BAUBLE_ICE_PENDANT, categoryBaubles);
+		icePendant.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeIcePendant));
 		
 		// MISCLENAEOUS ENTRIES
 		unstableBlocks = new BLexiconEntry(LibLexicon.MISC_UNSTABLE_BLOCKS, categoryMisc);
