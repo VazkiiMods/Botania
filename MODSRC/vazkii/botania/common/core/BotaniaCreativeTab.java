@@ -93,7 +93,9 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.auraRing);
 		addItem(ModItems.manaRingGreater);
 		addItem(ModItems.auraRingGreater);
-		
+		addItem(ModItems.travelBelt);
+		addItem(ModItems.icePendant);
+
 		addItem(ModItems.manaTablet);
 		addItem(ModItems.manaMirror);
 		addBlock(ModBlocks.pool);

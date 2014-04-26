@@ -294,6 +294,7 @@ item.botania:auraRing.name=Band of Aura
 item.botania:manaRingGreater.name=Greater Band of Mana
 item.botania:auraRingGreater.name=Greater Band of Aura
 item.botania:travelBelt.name=Soujourner's Sash
+item.botania:icePendant.name=Snowflake Pendant
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania Index - Pick which category you would like to study:
