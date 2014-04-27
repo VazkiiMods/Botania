@@ -114,6 +114,7 @@ public final class LexiconData {
 	public static LexiconEntry knockbacklBelt;
 	public static LexiconEntry icePendant;
 	public static LexiconEntry lavaPendant;
+	public static LexiconEntry goldLaurel;
 
 	public static LexiconEntry unstableBlocks;
 	public static LexiconEntry decorativeBlocks;
@@ -342,6 +343,9 @@ public final class LexiconData {
 		
 		lavaPendant = new BLexiconEntry(LibLexicon.BAUBLE_LAVA_PENDANT, categoryBaubles);
 		lavaPendant.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLavaPendant));
+		
+		goldLaurel = new BLexiconEntry(LibLexicon.BAUBLE_GOLDEN_LAUREL, categoryBaubles);
+		goldLaurel.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeGoldenLaurel));
 		
 		// MISCLENAEOUS ENTRIES
 		unstableBlocks = new BLexiconEntry(LibLexicon.MISC_UNSTABLE_BLOCKS, categoryMisc);

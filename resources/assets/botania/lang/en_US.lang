@@ -739,6 +739,11 @@ botania.entry.lavaPendant=Pyroclast Pendant
 botania.page.lavaPendant0=The &1Pyroclast Pendant&0 is a &4Bauble&0 that absorbs any heat, while it's worn, the wearer becomes completely imprevious to any &4Fire&0 or &4Lava&0 damage.
 botania.page.lavaPendant1=Some people don't want to watch the world burn
 
+# -- GOLDEN LAUREL CROWN
+botania.entry.goldenLaurel=Golden Laurel Crown
+botania.page.goldenLaurel0=One of the uses for &1Essence of Eternal Life&0 is to, of course, grant a layer of immortability to one that uses it, while wearing a &1Golden Laurel Crown&0, if the wearer were to die, the crown will shatter, regenerating all of their health and giving them a short period of invincibility.
+botania.page.goldenLaurel1=Given the theme, probably Viridi
+
 # - MISCLANEOUS
 # -- UNSTABLE CUBE
 botania.entry.unstableBlocks=Unstable Cubes

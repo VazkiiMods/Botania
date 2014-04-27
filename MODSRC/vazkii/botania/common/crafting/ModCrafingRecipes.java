@@ -107,6 +107,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeIcePendant;
 	public static IRecipe recipeLavaPendant;
 	public static IRecipe recipeLifeEssence;
+	public static IRecipe recipeGoldenLaurel;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -543,6 +544,14 @@ public final class ModCrafingRecipes {
 		// Essence of Eternal Life Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.manaResource, 12, 5), LibOreDict.TERRA_STEEL, new ItemStack(Items.nether_star), new ItemStack(Items.blaze_powder));
 		recipeLifeEssence = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Golden Laurel Crown Recipe
+		addOreDictRecipe(new ItemStack(ModItems.goldLaurel), 
+				"E E", "LGL", "LLL",
+				'G', "ingotGold",
+				'L', "treeLeaves",
+				'E', LibOreDict.LIFE_ESSENCE);
+		recipeGoldenLaurel = BotaniaAPI.getLatestAddedRecipe();
 	}
 
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {
