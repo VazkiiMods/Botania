@@ -105,6 +105,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeTravelBelt;
 	public static IRecipe recipeKnocbackBelt;
 	public static IRecipe recipeIcePendant;
+	public static IRecipe recipeLavaPendant;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -528,6 +529,15 @@ public final class ModCrafingRecipes {
 				'R', LibOreDict.RUNE[0],
 				'W', LibOreDict.RUNE[7]);
 		recipeIcePendant = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Pyroclast Pendant Recipe
+		addOreDictRecipe(new ItemStack(ModItems.lavaPendant), 
+				"MS ", "S S", "DSF",
+				'S', new ItemStack(Items.string),
+				'D', LibOreDict.MANA_DIAMOND,
+				'M', LibOreDict.RUNE[5],
+				'F', LibOreDict.RUNE[1]);
+		recipeLavaPendant = BotaniaAPI.getLatestAddedRecipe();
 	}
 
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {
