@@ -36,7 +36,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 
 	private static final ModelPool model = new ModelPool();
 	RenderItem renderItem = new RenderItem();
-	
+
 	public static boolean forceAllMana = false;
 
 	@Override
@@ -48,7 +48,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		GL11.glTranslated(d0, d1, d2);
 		boolean inf = tileentity.getWorldObj() == null ? forceAllMana : tileentity.getBlockMetadata() == 1;
-		
+
 		Minecraft.getMinecraft().renderEngine.bindTexture(inf ? textureInf : texture);
 
 		GL11.glTranslatef(0.5F, 1.5F, 0.5F);
@@ -90,7 +90,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 			tessellator.addVertexWithUV(par1 + par4, par2 + par5, zLevel, par3Icon.getMaxU(), par3Icon.getMaxV());
 			tessellator.addVertexWithUV(par1 + par4, par2 + 0, zLevel, par3Icon.getMaxU(), par3Icon.getMinV());
 			tessellator.addVertexWithUV(par1 + 0, par2 + 0, zLevel, par3Icon.getMinU(), par3Icon.getMinV());
-			
+
 			ShaderHelper.useShader(ShaderHelper.manaPool);
 			tessellator.draw();
 			ShaderHelper.releaseShader();

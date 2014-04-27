@@ -42,7 +42,7 @@ public class CapeHandler {
 		if(Loader.isModLoaded("shadersmod"))
 			return;
 
-		if(event.entityPlayer instanceof AbstractClientPlayer && (event.entityPlayer.getCommandSenderName().equals("Vazkii"))) {
+		if(event.entityPlayer instanceof AbstractClientPlayer && event.entityPlayer.getCommandSenderName().equals("Vazkii")) {
 			AbstractClientPlayer abstractClientPlayer = (AbstractClientPlayer) event.entityPlayer;
 
 			if (!capePlayers.contains(abstractClientPlayer)) {

@@ -24,17 +24,17 @@ public class ItemLavaPendant extends ItemBauble {
 	public ItemLavaPendant() {
 		super(LibItemNames.LAVA_PENDANT);
 	}
-	
+
 	@Override
 	public void onEquippedOrLoadedIntoWorld(ItemStack stack, EntityLivingBase player) {
 		setImmunity(player, true);
 	}
-	
+
 	@Override
 	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
 		setImmunity(player, false);
 	}
-	
+
 	private void setImmunity(Entity entity, boolean immune) {
 		ReflectionHelper.setPrivateValue(Entity.class, entity, immune, LibObfuscation.IS_IMMUNE_TO_FIRE);
 	}

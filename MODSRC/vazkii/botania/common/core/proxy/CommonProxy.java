@@ -23,7 +23,6 @@ import vazkii.botania.common.core.handler.CommonTickHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.InternalMethodHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
-import vazkii.botania.common.core.handler.TerrasteelCraftingHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.crafting.ModCrafingRecipes;
 import vazkii.botania.common.crafting.ModManaInfusionRecipes;
@@ -63,7 +62,7 @@ public class CommonProxy {
 
 		MinecraftForge.TERRAIN_GEN_BUS.register(new BiomeDecorationHandler());
 		MinecraftForge.EVENT_BUS.register(ManaNetworkHandler.instance);
-		
+
 		FMLCommonHandler.instance().bus().register(new CommonTickHandler());
 	}
 
@@ -98,7 +97,7 @@ public class CommonProxy {
 	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size, float gravity) {
 		wispFX(world, x, y, z, r, gravity, b, size, gravity, 1F);
 	}
-	
+
 	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size, float gravity, float maxAgeMul) {
 		wispFX(world, x, y, z, r, g, b, size, 0, -gravity, 0, maxAgeMul);
 	}
@@ -106,7 +105,7 @@ public class CommonProxy {
 	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size, float motionx, float motiony, float motionz) {
 		wispFX(world, x, y, z, r, g, b, size, motionx, motiony, motionz, 1F);
 	}
-	
+
 	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size, float motionx, float motiony, float motionz, float maxAgeMul) {
 		// NO-OP
 	}

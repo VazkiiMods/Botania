@@ -48,7 +48,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvider, ISpecialFlower, IWandable, ILexiconable, IWandHUD {
 
 	public static Map<String, IIcon> icons = new HashMap();
-	
+
 	private static String[] subtypes = {
 		// Misc
 		LibBlockNames.SUBTILE_PUREDAISY,

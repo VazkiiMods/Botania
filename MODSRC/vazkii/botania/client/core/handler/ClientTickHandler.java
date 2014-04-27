@@ -12,7 +12,6 @@
 package vazkii.botania.client.core.handler;
 
 import java.util.ArrayList;
-import java.util.EnumSet;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
@@ -25,7 +24,6 @@ import vazkii.botania.client.core.handler.LightningHandler.LightningBolt;
 import vazkii.botania.client.gui.GuiLexicon;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.item.ItemTwigWand;
-import vazkii.botania.common.lib.LibMisc;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
@@ -48,7 +46,7 @@ public class ClientTickHandler {
 			GuiScreen gui = Minecraft.getMinecraft().currentScreen;
 			if(gui == null || !gui.doesGuiPauseGame()) {
 				ticksInGame++;
-				
+
 				EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 				if(player != null) {
 					ItemStack stack = player.getCurrentEquippedItem();

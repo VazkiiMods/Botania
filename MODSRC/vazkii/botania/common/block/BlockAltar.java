@@ -49,7 +49,7 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 
 		random = new Random();
 	}
-	
+
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		// NO-OP

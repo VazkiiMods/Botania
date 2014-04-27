@@ -61,9 +61,9 @@ public class SubTileEntity {
 	public void readFromPacketNBT(NBTTagCompound cmp) { }
 
 	public void sync() {
-		 supertile.getWorldObj().markBlockForUpdate(supertile.xCoord, supertile.yCoord, supertile.zCoord);
+		supertile.getWorldObj().markBlockForUpdate(supertile.xCoord, supertile.yCoord, supertile.zCoord);
 	}
-	
+
 	public String getUnlocalizedName() {
 		return BotaniaAPI.getSubTileStringMapping(getClass());
 	}

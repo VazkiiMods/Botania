@@ -14,7 +14,6 @@ package vazkii.botania.common.item;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
@@ -29,13 +28,13 @@ public class ItemFertilizer extends ItemMod {
 		super();
 		setUnlocalizedName(LibItemNames.FERTILIZER);
 	}
-	
+
 	@Override
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
 		final int range = 3;
 		if(!par3World.isRemote) {
 			List<ChunkCoordinates> validCoords = new ArrayList();
-			
+
 			for(int i = -range - 1; i < range; i++)
 				for(int j = -range - 1; j < range; j++) {
 					for(int k = 2; k >= -2; k--) {
@@ -46,7 +45,7 @@ public class ItemFertilizer extends ItemMod {
 							validCoords.add(new ChunkCoordinates(x, y, z));
 					}
 				}
-			
+
 			int flowerCount = Math.min(validCoords.size(), par3World.rand.nextBoolean() ? 2 : 3);
 			for(int i = 0; i < flowerCount; i++) {
 				ChunkCoordinates coords = validCoords.get(par3World.rand.nextInt(validCoords.size()));
@@ -65,7 +64,7 @@ public class ItemFertilizer extends ItemMod {
 				Botania.proxy.wispFX(par3World, x, y, z, red, green, blue, 0.15F + (float) Math.random() * 0.25F, -(float) Math.random() * 0.1F - 0.05F);
 			}
 		}
-		
+
 		return true;
 	}
 }

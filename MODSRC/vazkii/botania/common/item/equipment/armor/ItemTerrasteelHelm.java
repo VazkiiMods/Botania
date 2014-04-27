@@ -18,7 +18,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteeelArmor {
 	public ItemTerrasteelHelm() {
 		super(0, LibItemNames.TERRASTEEL_HELM);
 	}
-	
+
 	@Override
 	int getHealthBoost() {
 		return 5;

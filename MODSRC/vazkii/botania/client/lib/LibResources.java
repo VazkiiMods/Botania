@@ -23,7 +23,7 @@ public final class LibResources {
 	public static final String PREFIX_MODEL = PREFIX_MOD + "textures/model/";
 	public static final String PREFIX_MISC = PREFIX_MOD + "textures/misc/";
 	public static final String PREFIX_OBJ_MODEL = PREFIX_MOD + "model/";
-	
+
 	public static final String EMTPY_TEXTURE = "emptyTexture";
 
 	public static final String GUI_MANA_HUD = PREFIX_GUI + "manaHud.png";
@@ -57,7 +57,7 @@ public final class LibResources {
 	public static final String MODEL_MANASTEEL_1 = PREFIX_MODEL + "manasteel1.png";
 	public static final String MODEL_TERRASTEEL_0 = PREFIX_MODEL + "terrasteel0.png";
 	public static final String MODEL_TERRASTEEL_1 = PREFIX_MODEL + "terrasteel1.png";
-	
+
 	public static final String MODEL_CAPE = "/assets/botania/textures/model/cape.png";
 
 	public static final String MISC_PARTICLES = PREFIX_MISC + "particles.png";
@@ -65,7 +65,7 @@ public final class LibResources {
 	public static final String MISC_WISP_SMALL = PREFIX_MISC + "wispSmall.png";
 
 	public static final String OBJ_MODEL_PYLON = PREFIX_OBJ_MODEL + "pylon.obj";
-	
+
 	public static final String SHADER_PYLON_GLOW_FRAG = PREFIX_SHADER + "pylon_glow.frag";
 	public static final String SHADER_ENCHANTER_RUNE_FRAG = PREFIX_SHADER + "enchanter_rune.frag";
 	public static final String SHADER_MANA_POOL_FRAG = PREFIX_SHADER + "mana_pool.frag";

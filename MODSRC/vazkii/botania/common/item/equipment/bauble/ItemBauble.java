@@ -12,7 +12,6 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import java.util.List;
-import java.util.Set;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
@@ -33,83 +32,83 @@ import baubles.common.lib.PlayerHandler;
 
 public abstract class ItemBauble extends ItemMod implements IBauble {
 
-    public ItemBauble(String name) {
-        super();
-        setMaxStackSize(1);
-        setUnlocalizedName(name);
-    }
+	public ItemBauble(String name) {
+		super();
+		setMaxStackSize(1);
+		setUnlocalizedName(name);
+	}
 
-    @Override
-    public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-        if(!par2World.isRemote) {
-            InventoryBaubles baubles = PlayerHandler.getPlayerBaubles(par3EntityPlayer);
-            for(int i = 0; i < baubles.getSizeInventory(); i++)
-                if(baubles.getStackInSlot(i) == null && baubles.isItemValidForSlot(i, par1ItemStack)) {
-                    baubles.setInventorySlotContents(i, par1ItemStack.copy());
-                    if(!par3EntityPlayer.capabilities.isCreativeMode)
-                        par3EntityPlayer.inventory.setInventorySlotContents(par3EntityPlayer.inventory.currentItem, null);
+	@Override
+	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+		if(!par2World.isRemote) {
+			InventoryBaubles baubles = PlayerHandler.getPlayerBaubles(par3EntityPlayer);
+			for(int i = 0; i < baubles.getSizeInventory(); i++)
+				if(baubles.getStackInSlot(i) == null && baubles.isItemValidForSlot(i, par1ItemStack)) {
+					baubles.setInventorySlotContents(i, par1ItemStack.copy());
+					if(!par3EntityPlayer.capabilities.isCreativeMode)
+						par3EntityPlayer.inventory.setInventorySlotContents(par3EntityPlayer.inventory.currentItem, null);
 
-                    onEquipped(par1ItemStack, par3EntityPlayer);
-                    break;
-                }
-        }
+					onEquipped(par1ItemStack, par3EntityPlayer);
+					break;
+				}
+		}
 
-        return par1ItemStack;
-    }
+		return par1ItemStack;
+	}
 
-    @Override
-    public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-        BaubleType type = getBaubleType(par1ItemStack);
-        if(GuiScreen.isShiftKeyDown()) {
-            addStringToTooltip(StatCollector.translateToLocal("botania.baubletype." + type.name().toLowerCase()), par3List);
-            
-            KeyBinding key = null;
-            KeyBinding[] keys = Minecraft.getMinecraft().gameSettings.keyBindings;
-            for(KeyBinding otherKey : keys)
-            	if(otherKey.getKeyDescription().equals("Baubles Inventory")) {
-            		key = otherKey;
-            		break;
-            	}
-            
-            if(key != null)
-            	addStringToTooltip(StatCollector.translateToLocal("botania.baubletooltip").replaceAll("%key%", Keyboard.getKeyName(key.getKeyCode())), par3List);
-        } else addStringToTooltip(StatCollector.translateToLocal("botania.baubleinfo"), par3List);
-    }
-    
-    private void addStringToTooltip(String s, List<String> tooltip) {
-    	tooltip.add(s.replaceAll("&", "\u00a7"));
-    }
+	@Override
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+		BaubleType type = getBaubleType(par1ItemStack);
+		if(GuiScreen.isShiftKeyDown()) {
+			addStringToTooltip(StatCollector.translateToLocal("botania.baubletype." + type.name().toLowerCase()), par3List);
 
-    @Override
-    public boolean canEquip(ItemStack stack, EntityLivingBase player) {
-        return true;
-    }
+			KeyBinding key = null;
+			KeyBinding[] keys = Minecraft.getMinecraft().gameSettings.keyBindings;
+			for(KeyBinding otherKey : keys)
+				if(otherKey.getKeyDescription().equals("Baubles Inventory")) {
+					key = otherKey;
+					break;
+				}
 
-    @Override
-    public boolean canUnequip(ItemStack stack, EntityLivingBase player) {
-        return true;
-    }
+			if(key != null)
+				addStringToTooltip(StatCollector.translateToLocal("botania.baubletooltip").replaceAll("%key%", Keyboard.getKeyName(key.getKeyCode())), par3List);
+		} else addStringToTooltip(StatCollector.translateToLocal("botania.baubleinfo"), par3List);
+	}
 
-    @Override
-    public void onWornTick(ItemStack stack, EntityLivingBase player) {
+	private void addStringToTooltip(String s, List<String> tooltip) {
+		tooltip.add(s.replaceAll("&", "\u00a7"));
+	}
+
+	@Override
+	public boolean canEquip(ItemStack stack, EntityLivingBase player) {
+		return true;
+	}
+
+	@Override
+	public boolean canUnequip(ItemStack stack, EntityLivingBase player) {
+		return true;
+	}
+
+	@Override
+	public void onWornTick(ItemStack stack, EntityLivingBase player) {
 		if(player.ticksExisted == 1)
 			onEquippedOrLoadedIntoWorld(stack, player);
-    }
-    
-    @Override
-    public void onEquipped(ItemStack stack, EntityLivingBase player) {
-        if(!player.worldObj.isRemote) 
-        	player.worldObj.playSoundAtEntity(player, "random.orb", 0.1F, 1.3F);
-        onEquippedOrLoadedIntoWorld(stack, player);
-    }
-    
-    public void onEquippedOrLoadedIntoWorld(ItemStack stack, EntityLivingBase player) {
-    	// NO-OP
-    }
+	}
 
-    @Override
-    public void onUnequipped(ItemStack stack, EntityLivingBase player) {
-        // NO-OP
-    }
+	@Override
+	public void onEquipped(ItemStack stack, EntityLivingBase player) {
+		if(!player.worldObj.isRemote)
+			player.worldObj.playSoundAtEntity(player, "random.orb", 0.1F, 1.3F);
+		onEquippedOrLoadedIntoWorld(stack, player);
+	}
+
+	public void onEquippedOrLoadedIntoWorld(ItemStack stack, EntityLivingBase player) {
+		// NO-OP
+	}
+
+	@Override
+	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
+		// NO-OP
+	}
 
 }

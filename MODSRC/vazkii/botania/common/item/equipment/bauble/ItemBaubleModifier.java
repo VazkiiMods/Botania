@@ -11,10 +11,7 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import java.util.UUID;
-
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.item.ItemStack;
 
@@ -29,17 +26,17 @@ public abstract class ItemBaubleModifier extends ItemBauble {
 		super(name);
 		fillModifiers(attributes);
 	}
-	
+
 	@Override
 	public void onEquippedOrLoadedIntoWorld(ItemStack stack, EntityLivingBase player) {
 		player.getAttributeMap().applyAttributeModifiers(attributes);
 	}
-	
+
 	@Override
 	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
 		player.getAttributeMap().removeAttributeModifiers(attributes);
 	}
-	
+
 	abstract void fillModifiers(Multimap<String, AttributeModifier> attributes);
 
 }

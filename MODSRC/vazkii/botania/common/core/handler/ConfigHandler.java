@@ -37,13 +37,13 @@ public final class ConfigHandler {
 
 		config.load();
 		String desc;
-		
+
 		desc = "Set to false to disable the use of shaders for some of the mod's renders.";
 		useShaders = loadPropBool("shaders.enabled", desc, useShaders);
-		
+
 		desc = "Set to false to disable the rotating items in the petal and rune entries in the Lexica Botania.";
 		lexiconRotatingItems = loadPropBool("lexicon.enable.rotatingItems", desc, lexiconRotatingItems);
-		
+
 		desc = "Set to true to set the power system's particles to be a lot more subtle. Good for low-end systems, if the particles are causing lag.";
 		subtlePowerSystem = loadPropBool("powerSystem.subtle", desc, subtlePowerSystem);
 
@@ -58,13 +58,13 @@ public final class ConfigHandler {
 
 		desc = "Set to true to use the old (non-.obj, pre beta18) pylon model";
 		oldPylonModel = loadPropBool("pylonModel.old", desc, oldPylonModel);
-		
+
 		desc = "The frequency in which particles spawn from normal (worldgen) mystical flowers";
 		flowerParticleFrequency = loadPropDouble("flowerParticles.frequency", desc, flowerParticleFrequency);
-		
+
 		flowerQuantity = loadPropInt("worldgen.flower.quantity", null, 3);
 		flowerDensity = loadPropInt("worldgen.flower.density", null, 32);
-		
+
 		config.save();
 	}
 
@@ -73,13 +73,13 @@ public final class ConfigHandler {
 		prop.comment = desc;
 		return prop.getInt(default_);
 	}
-	
+
 	public static double loadPropDouble(String propName, String desc, double default_) {
 		Property prop = config.get(Configuration.CATEGORY_GENERAL, propName, default_);
 		prop.comment = desc;
 		return prop.getDouble(default_);
 	}
-	
+
 	public static boolean loadPropBool(String propName, String desc, boolean default_) {
 		Property prop = config.get(Configuration.CATEGORY_GENERAL, propName, default_);
 		prop.comment = desc;

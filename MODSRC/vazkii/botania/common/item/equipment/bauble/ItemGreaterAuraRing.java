@@ -23,7 +23,7 @@ public class ItemGreaterAuraRing extends ItemBauble {
 	public ItemGreaterAuraRing() {
 		super(LibItemNames.AURA_RING_GREATER);
 	}
-	
+
 	@Override
 	public void onWornTick(ItemStack stack, EntityLivingBase player) {
 		super.onWornTick(stack, player);

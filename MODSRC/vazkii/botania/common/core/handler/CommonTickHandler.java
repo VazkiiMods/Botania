@@ -36,7 +36,7 @@ public final class CommonTickHandler {
 					TerrasteelCraftingHandler.onEntityUpdate((EntityItem) entity);
 		}
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public void onTick(ClientTickEvent event) {
@@ -51,5 +51,5 @@ public final class CommonTickHandler {
 
 		}
 	}
-	
+
 }

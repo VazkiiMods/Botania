@@ -82,7 +82,7 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 				if(item.getItem() == Items.enchanted_book) {
 					NBTTagList enchants = Items.enchanted_book.func_92110_g(item);
 					if(enchants != null && enchants.tagCount() > 0) {
-						NBTTagCompound enchant = (NBTTagCompound) enchants.getCompoundTagAt(0);
+						NBTTagCompound enchant = enchants.getCompoundTagAt(0);
 						short id = enchant.getShort("id");
 						if(isEnchantmentValid(id)) {
 							advanceStage();
@@ -125,7 +125,7 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 						if(item.getItem() == Items.enchanted_book) {
 							NBTTagList enchants = Items.enchanted_book.func_92110_g(item);
 							if(enchants != null && enchants.tagCount() > 0) {
-								NBTTagCompound enchant = (NBTTagCompound) enchants.getCompoundTagAt(0);
+								NBTTagCompound enchant = enchants.getCompoundTagAt(0);
 								short enchantId = enchant.getShort("id");
 								short enchantLvl = enchant.getShort("lvl");
 								if(!hasEnchantAlready(enchantId)) {

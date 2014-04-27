@@ -107,7 +107,7 @@ public class InternalMethodHandler implements IInternalMethodHandler {
 	public IManaNetwork getManaNetworkInstance() {
 		return ManaNetworkHandler.instance;
 	}
-	
+
 	@Override
 	public IInventory getBaublesInventory(EntityPlayer player) {
 		return PlayerHandler.getPlayerBaubles(player);

@@ -27,7 +27,6 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
 
 public final class ShaderHelper {
 
@@ -41,7 +40,7 @@ public final class ShaderHelper {
 	public static void initShaders() {
 		if(!useShaders())
 			return;
-		
+
 		pylonGlow = createProgram(null, LibResources.SHADER_PYLON_GLOW_FRAG);
 		enchanterRune = createProgram(null, LibResources.SHADER_ENCHANTER_RUNE_FRAG);
 		manaPool = createProgram(null, LibResources.SHADER_MANA_POOL_FRAG);
@@ -50,9 +49,9 @@ public final class ShaderHelper {
 	public static void useShader(int shader) {
 		if(!useShaders())
 			return;
-		
+
 		ARBShaderObjects.glUseProgramObjectARB(shader);
-		
+
 		if(shader != 0) {
 			int time = ARBShaderObjects.glGetUniformLocationARB(shader, "time");
 			ARBShaderObjects.glUniform1iARB(time, ClientTickHandler.ticksInGame);
@@ -62,11 +61,11 @@ public final class ShaderHelper {
 	public static void releaseShader() {
 		useShader(0);
 	}
-	
+
 	public static boolean useShaders() {
 		return ConfigHandler.useShaders && OpenGlHelper.shadersSupported;
 	}
-	
+
 	// Most of the code taken from the LWJGL wiki
 	// http://lwjgl.org/wiki/index.php?title=GLSL_Shaders_with_LWJGL
 
@@ -91,13 +90,13 @@ public final class ShaderHelper {
 			FMLLog.log(Level.ERROR, getLogInfo(program));
 			return 0;
 		}
-		
+
 		ARBShaderObjects.glValidateProgramARB(program);
 		if (ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_VALIDATE_STATUS_ARB) == GL11.GL_FALSE) {
 			FMLLog.log(Level.ERROR, getLogInfo(program));
 			return 0;
 		}
-		
+
 		return program;
 	}
 
@@ -136,7 +135,7 @@ public final class ShaderHelper {
 
 		if(in == null)
 			return "";
-		
+
 		try {
 			reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
 

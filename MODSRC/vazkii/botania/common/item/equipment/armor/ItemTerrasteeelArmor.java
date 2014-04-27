@@ -29,23 +29,23 @@ public class ItemTerrasteeelArmor extends ItemManasteelArmor {
 	public ItemTerrasteeelArmor(int type, String name) {
 		super(type, name, BotaniaAPI.terrasteelArmorMaterial);
 	}
-	
+
 	int getHealthBoost() {
 		return 0;
 	}
-	
+
 	@Override
 	public Multimap getItemAttributeModifiers() {
 		Multimap map = HashMultimap.create();
 		map.put(SharedMonsterAttributes.maxHealth.getAttributeUnlocalizedName(), new AttributeModifier(new UUID(171328 /** Random number **/, armorType), "Armor modifier" + armorType, getHealthBoost(), 0));
 		return map;
 	}
-	
+
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
 		return slot == 2 ? LibResources.MODEL_TERRASTEEL_1 : LibResources.MODEL_TERRASTEEL_0;
 	}
-	
+
 	@Override
 	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
 		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 4 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);

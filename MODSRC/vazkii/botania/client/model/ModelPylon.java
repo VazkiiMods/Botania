@@ -14,18 +14,16 @@ package vazkii.botania.client.model;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
-import net.minecraftforge.client.model.obj.GroupObject;
-import net.minecraftforge.client.model.obj.WavefrontObject;
 import vazkii.botania.client.lib.LibResources;
 
 public class ModelPylon implements IPylonModel {
 
 	private IModelCustom model;
-	
+
 	public ModelPylon() {
 		model = AdvancedModelLoader.loadModel(new ResourceLocation(LibResources.OBJ_MODEL_PYLON));
 	}
-	
+
 	@Override
 	public void renderCrystal() {
 		model.renderPart("Crystal");
@@ -35,7 +33,7 @@ public class ModelPylon implements IPylonModel {
 	public void renderRing() {
 		model.renderAllExcept("Crystal", "Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04");
 	}
-	
+
 	@Override
 	public void renderGems() {
 		for(int i = 1; i < 5; i++)

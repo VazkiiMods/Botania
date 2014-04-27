@@ -28,7 +28,6 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.block.BlockEnchanter;
 import vazkii.botania.common.block.tile.TileEnchanter;
-import vazkii.botania.common.core.handler.ConfigHandler;
 
 public class RenderTileEnchanter extends TileEntitySpecialRenderer {
 
@@ -98,7 +97,7 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer {
 		ShaderHelper.useShader(ShaderHelper.enchanterRune);
 		renderIcon(0, 0, BlockEnchanter.overlay, 5, 5, 240);
 		ShaderHelper.releaseShader();
-		
+
 		GL11.glEnable(GL11.GL_ALPHA_TEST);
 		GL11.glDisable(GL11.GL_BLEND);
 		GL11.glColor4f(1F, 1F, 1F, 1F);

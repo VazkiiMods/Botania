@@ -16,7 +16,6 @@ import java.util.List;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.Botania;
@@ -37,56 +36,56 @@ public class SubTileTangleberrie extends SubTileFunctional {
 
 			double maxDist = getMaxDistance();
 			double range = getRange();
-			
+
 			AxisAlignedBB boundingBox = AxisAlignedBB.getBoundingBox(x1 - range, y1 - range, z1 - range, x1 + range, y1 + range, z1 + range);
 			List<EntityLivingBase> entities = supertile.getWorldObj().getEntitiesWithinAABB(EntityLivingBase.class, boundingBox);
 
 			for(EntityLivingBase entity : entities) {
 				if(entity instanceof EntityPlayer)
 					continue;
-				
+
 				double x2 = entity.posX;
 				double y2 = entity.posY;
 				double z2 = entity.posZ;
 
 				float distance = MathHelper.pointDistanceSpace(x1, y1, z1, x2, y2, z2);
-				
+
 				if(distance > maxDist && distance < range) {
 					MathHelper.setEntityMotionFromVector(entity, new Vector3(x1, y1, z1), getMotionVelocity());
 					if(supertile.getWorldObj().rand.nextInt(3) == 0)
 						Botania.proxy.sparkleFX(supertile.getWorldObj(), x2 + Math.random() * entity.width, y2 + Math.random() * entity.height, z2 + Math.random() * entity.width, 0.5F, 0.5F, 0.5F, 1F, 3);
 				}
 			}
-			
+
 			if(supertile.getWorldObj().getTotalWorldTime() % 4 == 0) {
 				mana--;
 				sync();
 			}
 		}
 	}
-	
+
 	double getMaxDistance() {
 		return 6;
 	}
-	
+
 	double getRange() {
 		return 7;
 	}
-	
+
 	float getMotionVelocity() {
 		return 0.05F;
 	}
-	
+
 	@Override
 	public int getColor() {
 		return 0x4B797C;
 	}
-	
+
 	@Override
 	public int getMaxMana() {
 		return 20;
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry() {
 		return LexiconData.tangleberrie;

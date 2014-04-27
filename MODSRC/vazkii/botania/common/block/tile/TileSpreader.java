@@ -58,7 +58,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	private static final String TAG_ROTATION_Y = "rotationY";
 
 	public static boolean staticRedstone = false;
-	
+
 	int mana;
 	int knownMana = -1;
 	public float rotationX, rotationY;
@@ -68,13 +68,13 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 	IManaReceiver receiver = null;
 
-	boolean redstoneLastTick = false; 
+	boolean redstoneLastTick = false;
 	public boolean canShootBurst = true;
 	public int lastBurstDeathTick = -1;
 	public int burstParticleTick = 0;
 
 	List<PositionProperties> lastTentativeBurst;
-	
+
 	@Override
 	public boolean isFull() {
 		return mana >= MAX_MANA;
@@ -128,13 +128,13 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			checkForReceiver();
 
 		boolean shouldShoot = !redstone;
-		
+
 		if(isRedstone())
 			shouldShoot = redstone && !redstoneLastTick;
-		
+
 		if(shouldShoot)
 			tryShootBurst();
-		
+
 		redstoneLastTick = redstone;
 	}
 
@@ -158,7 +158,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 		if(cmp.hasKey(TAG_KNOWN_MANA))
 			knownMana = cmp.getInteger(TAG_KNOWN_MANA);
-		
+
 		if(worldObj != null && worldObj.isRemote)
 			hasReceivedInitialPacket = true;
 	}
@@ -213,7 +213,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	private boolean needsNewBurstSimulation() {
 		if(worldObj.isRemote && !hasReceivedInitialPacket)
 			return false;
-		
+
 		if(lastTentativeBurst == null)
 			return true;
 
@@ -231,7 +231,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 	public void tryShootBurst() {
 		if(receiver != null || isRedstone()) {
-			if(canShootBurst && (isRedstone() || (receiver.canRecieveManaFromBursts() && !receiver.isFull()))) {
+			if(canShootBurst && (isRedstone() || receiver.canRecieveManaFromBursts() && !receiver.isFull())) {
 				EntityManaBurst burst = getBurst(false);
 				if(burst != null) {
 					if(!worldObj.isRemote) {
@@ -245,7 +245,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			}
 		}
 	}
-	
+
 	public boolean isRedstone() {
 		return worldObj == null ? staticRedstone : (getBlockMetadata() & 1) == 1;
 	}

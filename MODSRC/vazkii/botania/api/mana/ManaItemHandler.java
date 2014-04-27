@@ -12,7 +12,6 @@
 package vazkii.botania.api.mana;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -35,7 +34,7 @@ public final class ManaItemHandler {
 		IInventory mainInv = player.inventory;
 		IInventory baublesInv = BotaniaAPI.internalHandler.getBaublesInventory(player);
 
-		List<ItemStack> stacks = new ArrayList();
+		new ArrayList();
 		int invSize = mainInv.getSizeInventory();
 		int size = invSize;
 		if(baublesInv != null)
@@ -81,7 +80,7 @@ public final class ManaItemHandler {
 		IInventory mainInv = player.inventory;
 		IInventory baublesInv = BotaniaAPI.internalHandler.getBaublesInventory(player);
 
-		List<ItemStack> stacks = new ArrayList();
+		new ArrayList();
 		int invSize = mainInv.getSizeInventory();
 		int size = invSize;
 		if(baublesInv != null)
@@ -110,7 +109,7 @@ public final class ManaItemHandler {
 
 		return false;
 	}
-	
+
 	/**
 	 * Dispatches mana to items in a given player's inventory. Note that this method
 	 * does not automatically remove mana from the item which is exporting.
@@ -124,8 +123,8 @@ public final class ManaItemHandler {
 
 		IInventory mainInv = player.inventory;
 		IInventory baublesInv = BotaniaAPI.internalHandler.getBaublesInventory(player);
-		
-		List<ItemStack> stacks = new ArrayList();
+
+		new ArrayList();
 		int invSize = mainInv.getSizeInventory();
 		int size = invSize;
 		if(baublesInv != null)
@@ -140,16 +139,16 @@ public final class ManaItemHandler {
 
 			if(stackInSlot != null && stackInSlot.getItem() instanceof IManaItem) {
 				IManaItem manaItemSlot = (IManaItem) stackInSlot.getItem();
-				
+
 				if(manaItemSlot.canReceiveManaFromItem(stackInSlot, stack)) {
 					if(stack.getItem() instanceof IManaItem && !((IManaItem) stack.getItem()).canExportManaToItem(stack, stackInSlot))
 						continue;
-					
+
 					int received = 0;
 					if(manaItemSlot.getMana(stackInSlot) + manaToSend <= manaItemSlot.getMaxMana(stackInSlot))
 						received = manaToSend;
 					else received = manaToSend - (manaItemSlot.getMana(stackInSlot) + manaToSend - manaItemSlot.getMaxMana(stackInSlot));
-					
+
 
 					if(add)
 						manaItemSlot.addMana(stackInSlot, manaToSend);
@@ -161,7 +160,7 @@ public final class ManaItemHandler {
 
 		return 0;
 	}
-	
+
 	/**
 	 * Dispatches an exact amount of mana to items in a given player's inventory. Note that this method
 	 * does not automatically remove mana from the item which is exporting.
@@ -175,8 +174,8 @@ public final class ManaItemHandler {
 
 		IInventory mainInv = player.inventory;
 		IInventory baublesInv = BotaniaAPI.internalHandler.getBaublesInventory(player);
-		
-		List<ItemStack> stacks = new ArrayList();
+
+		new ArrayList();
 		int invSize = mainInv.getSizeInventory();
 		int size = invSize;
 		if(baublesInv != null)

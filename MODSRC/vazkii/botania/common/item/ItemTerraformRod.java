@@ -32,7 +32,9 @@ public class ItemTerraformRod extends ItemMod {
 
 	private static final int COST_PER = 55;
 
-	static final List<Block> validBlocks = new ArrayList() {{
+	static final List<Block> validBlocks = new ArrayList() {private static final long serialVersionUID = 1378413169035169782L;
+
+	{
 		add(Blocks.stone);
 		add(Blocks.dirt);
 		add(Blocks.grass);
@@ -43,7 +45,7 @@ public class ItemTerraformRod extends ItemMod {
 		add(Blocks.mycelium);
 		add(Blocks.sandstone);
 	}};
-	
+
 	public ItemTerraformRod() {
 		super();
 		setMaxStackSize(1);
@@ -93,7 +95,7 @@ public class ItemTerraformRod extends ItemMod {
 					int x = xCenter + i;
 					int y = yStart + k;
 					int z = zCenter + j;
-					
+
 					Block block = par2World.getBlock(x, y, z);
 					if(validBlocks.contains(block)) {
 						boolean hasAir = false;
@@ -108,8 +110,8 @@ public class ItemTerraformRod extends ItemMod {
 							int y_ = y + dir.offsetY;
 							int z_ = z + dir.offsetZ;
 
-							Block block_ = par2World.getBlock(x_, y_, z_); 
-							if(block_.isAir(par2World, x_, y_, z_) || block_.isReplaceable(par2World, x_, y_, z_) || (block_ instanceof BlockFlower && !(block_ instanceof ISpecialFlower)) || block_ == Blocks.double_plant) {
+							Block block_ = par2World.getBlock(x_, y_, z_);
+							if(block_.isAir(par2World, x_, y_, z_) || block_.isReplaceable(par2World, x_, y_, z_) || block_ instanceof BlockFlower && !(block_ instanceof ISpecialFlower) || block_ == Blocks.double_plant) {
 								airBlocks.add(new ChunkCoordinates(x_, y_, z_));
 								hasAir = true;
 							}
@@ -144,7 +146,7 @@ public class ItemTerraformRod extends ItemMod {
 			}
 		}
 	}
-	
+
 	@Override
 	public boolean isFull3D() {
 		return true;

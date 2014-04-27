@@ -18,7 +18,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.MovementInput;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibItemNames;
@@ -27,7 +26,7 @@ import baubles.api.BaubleType;
 public class ItemTinyPlanet extends ItemBauble {
 
 	private static final String TAG_ORBIT = "orbit";
-	
+
 	public ItemTinyPlanet() {
 		super(LibItemNames.TINY_PLANET);
 	}
@@ -36,7 +35,7 @@ public class ItemTinyPlanet extends ItemBauble {
 	public BaubleType getBaubleType(ItemStack itemstack) {
 		return BaubleType.AMULET;
 	}
-	
+
 	@Override
 	public void onWornTick(ItemStack stack, EntityLivingBase player) {
 		super.onWornTick(stack, player);
@@ -47,33 +46,33 @@ public class ItemTinyPlanet extends ItemBauble {
 			int orbitTime = getEntityOrbitTime(entity);
 			if(orbitTime == 0)
 				burst.setMinManaLoss(burst.getMinManaLoss() * 3);
-				
-			float radius = (float) (Math.max(40, orbitTime) - 40) / 40F + 1.5F;
+
+			float radius = (Math.max(40, orbitTime) - 40) / 40F + 1.5F;
 			int angle = orbitTime % 360;
-			
-			float xTarget = (float) (player.posX + Math.cos((angle * 10) * Math.PI / 180F) * radius);
+
+			float xTarget = (float) (player.posX + Math.cos(angle * 10 * Math.PI / 180F) * radius);
 			float yTarget = (float) player.posY + 1.2F;
-			float zTarget = (float) (player.posZ + Math.sin((angle * 10) * Math.PI / 180F) * radius);
+			float zTarget = (float) (player.posZ + Math.sin(angle * 10 * Math.PI / 180F) * radius);
 			if(player.worldObj.isRemote)
 				yTarget -= 1.62F;
-			
+
 			Vector3 targetVec = new Vector3(xTarget, yTarget, zTarget);
 			Vector3 currentVec = new Vector3(entity.posX, entity.posY, entity.posZ);
 			Vector3 moveVector = targetVec.copy().sub(currentVec);
-			
+
 			burst.setMotion(moveVector.x, moveVector.y, moveVector.z);
-			
+
 			incrementOrbitTime(entity);
 		}
 	}
-	
+
 	public int getEntityOrbitTime(Entity entity) {
 		NBTTagCompound cmp = entity.getEntityData();
 		if(cmp.hasKey(TAG_ORBIT))
 			return cmp.getInteger(TAG_ORBIT);
 		else return 0;
 	}
-	
+
 	public void incrementOrbitTime(Entity entity) {
 		NBTTagCompound cmp = entity.getEntityData();
 		int time = getEntityOrbitTime(entity);

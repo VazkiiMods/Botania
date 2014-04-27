@@ -23,5 +23,5 @@ public class ItemTerrasteelLegs extends ItemTerrasteeelArmor {
 	int getHealthBoost() {
 		return 5;
 	}
-	
+
 }

@@ -14,13 +14,6 @@ package vazkii.botania.common.item.equipment.tool;
 import java.util.ArrayList;
 import java.util.Random;
 
-import vazkii.botania.client.core.helper.IconHelper;
-import vazkii.botania.common.core.BotaniaCreativeTab;
-import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibItemNames;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.enchantment.Enchantment;
@@ -33,11 +26,18 @@ import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraftforge.common.IShearable;
+import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.common.core.BotaniaCreativeTab;
+import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibItemNames;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemManasteelShears extends ItemShears {
 
 	private static final int MANA_PER_DAMAGE = 30;
-	
+
 	public ItemManasteelShears() {
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setUnlocalizedName(LibItemNames.MANASTEEL_SHEARS);
@@ -54,12 +54,12 @@ public class ItemManasteelShears extends ItemShears {
 	public void registerIcons(IIconRegister par1IconRegister) {
 		itemIcon = IconHelper.forItem(par1IconRegister, this);
 	}
-	
+
 	@Override
 	public boolean itemInteractionForEntity(ItemStack itemstack, EntityPlayer player, EntityLivingBase entity) {
 		if(entity.worldObj.isRemote)
 			return false;
-		
+
 		if(entity instanceof IShearable) {
 			IShearable target = (IShearable)entity;
 			if(target.isShearable(itemstack, entity.worldObj, (int) entity.posX, (int) entity.posY, (int) entity.posZ)) {
@@ -72,13 +72,13 @@ public class ItemManasteelShears extends ItemShears {
 					ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
 					ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
 				}
-				
+
 				ManasteelToolCommons.damageItem(itemstack, 1, player, MANA_PER_DAMAGE);
 			}
-			
+
 			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -99,7 +99,7 @@ public class ItemManasteelShears extends ItemShears {
 					double d  = rand.nextFloat() * f + (1D - f) * 0.5;
 					double d1 = rand.nextFloat() * f + (1D - f) * 0.5;
 					double d2 = rand.nextFloat() * f + (1D - f) * 0.5;
-					
+
 					EntityItem entityitem = new EntityItem(player.worldObj, x + d, y + d1, z + d2, stack);
 					entityitem.delayBeforeCanPickup = 10;
 					player.worldObj.spawnEntityInWorld(entityitem);
@@ -109,7 +109,7 @@ public class ItemManasteelShears extends ItemShears {
 				player.addStat(StatList.mineBlockStatArray[Block.getIdFromBlock(block)], 1);
 			}
 		}
-		
+
 		return false;
 	}
 

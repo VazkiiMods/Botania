@@ -13,14 +13,12 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import java.util.UUID;
 
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
 
-import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
 public class ItemKnockbackBelt extends ItemBaubleModifier {

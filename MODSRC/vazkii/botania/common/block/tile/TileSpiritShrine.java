@@ -16,7 +16,7 @@ import vazkii.botania.common.Botania;
 public class TileSpiritShrine extends TileMod {
 
 	int ticks;
-	
+
 	@Override
 	public void updateEntity() {
 		if(worldObj.isRemote) {
@@ -29,14 +29,14 @@ public class TileSpiritShrine extends TileMod {
 						{ 1F, 0.25F, 1F },
 						{ 0.25F, 1F, 1F }
 				};
-				
+
 				int totalSpiritCount = 6;
 				double tickIncrement = 360D / totalSpiritCount;
-				
+
 				int liftTicks = 40 * (totalSpiritCount + 1);
 				int existTicks = liftTicks * 2;
 				int lowerTicks = existTicks + liftTicks;
-				
+
 				if(ticks < lowerTicks) {
 					int speed = 5;
 					double wticks = ticks * speed - tickIncrement;
@@ -45,7 +45,7 @@ public class TileSpiritShrine extends TileMod {
 
 					for(int i = 0; i < totalSpiritCount; i++) {
 						double x = xCoord + Math.sin(wticks * Math.PI / 180) * r + 0.5;
-						double y = yCoord + ((ticks > existTicks ? 40 - (double) (ticks - existTicks) : Math.min(80 + 40 * i, ticks) - 40 * (i + 1)) * 0.1);
+						double y = yCoord + (ticks > existTicks ? 40 - (double) (ticks - existTicks) : Math.min(80 + 40 * i, ticks) - 40 * (i + 1)) * 0.1;
 						double z = zCoord + Math.cos(wticks * Math.PI / 180) * r + 0.5;
 
 						wticks += tickIncrement;
@@ -55,9 +55,9 @@ public class TileSpiritShrine extends TileMod {
 					}
 				}
 			}
-			
+
 			++ticks;
 		}
 	}
-	
+
 }

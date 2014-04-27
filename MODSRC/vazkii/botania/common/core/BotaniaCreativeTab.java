@@ -34,7 +34,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 	public ItemStack getIconItemStack() {
 		return new ItemStack(ModBlocks.flower);
 	}
-	
+
 	@Override
 	public Item getTabIconItem() {
 		return getIconItemStack().getItem();
@@ -72,7 +72,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.unstableBlock);
 		addBlock(ModBlocks.manaBeacon);
 		addItem(ModItems.signalFlare);
-		
+
 		addItem(ModItems.manasteelPick);
 		addItem(ModItems.manasteelShovel);
 		addItem(ModItems.manasteelAxe);
@@ -87,7 +87,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.terrasteelChest);
 		addItem(ModItems.terrasteelLegs);
 		addItem(ModItems.terrasteelBoots);
-		
+
 		addItem(ModItems.tinyPlanet);
 		addItem(ModItems.manaRing);
 		addItem(ModItems.auraRing);

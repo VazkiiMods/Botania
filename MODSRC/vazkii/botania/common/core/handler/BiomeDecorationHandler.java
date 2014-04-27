@@ -11,7 +11,6 @@
  */
 package vazkii.botania.common.core.handler;
 
-import net.minecraft.block.Block;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType;
 import vazkii.botania.common.block.ModBlocks;

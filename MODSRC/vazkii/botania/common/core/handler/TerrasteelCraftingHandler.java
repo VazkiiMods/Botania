@@ -16,24 +16,20 @@ import java.util.List;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityBeacon;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraftforge.event.entity.EntityEvent;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TilePool;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public final class TerrasteelCraftingHandler {
 
 	private static final String TAG_TIME = "Botania-CraftingTime";
 	private static final int TIME = 100;
-	private static final int MANA_PER_TICK = (int) ((TilePool.MAX_MANA / 2 / TIME) * 0.9);
+	private static final int MANA_PER_TICK = (int) (TilePool.MAX_MANA / 2 / TIME * 0.9);
 
 	public static void onEntityUpdate(EntityItem item) {
 		ItemStack stack = item.getEntityItem();
@@ -81,7 +77,7 @@ public final class TerrasteelCraftingHandler {
 		if(beacon.getLevels() <= 0)
 			return -1;
 
-		List<EntityItem> items = item.worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1)); 
+		List<EntityItem> items = item.worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1));
 
 		EntityItem diamond = null;
 		EntityItem pearl = null;
@@ -95,7 +91,7 @@ public final class TerrasteelCraftingHandler {
 				int meta = stack.getItemDamage();
 				if(meta == 1) {
 					if(pearl == null) {
-						pearl = otherItem; 
+						pearl = otherItem;
 						continue;
 					} else return -1;
 				} else if(meta == 2) {
@@ -142,7 +138,7 @@ public final class TerrasteelCraftingHandler {
 			int speed = 5;
 			double wticks = ticks * speed - tickIncrement;
 
-			double r = Math.sin((double) (ticks - TIME) / 10D) * 2;
+			double r = Math.sin((ticks - TIME) / 10D) * 2;
 			double g = Math.sin(wticks * Math.PI / 180 * 0.55);
 
 			for(int i = 0; i < totalSpiritCount; i++) {
@@ -179,7 +175,7 @@ public final class TerrasteelCraftingHandler {
 		int y = (int) item.posY;
 		int z = (int) item.posZ;
 
-		List<EntityItem> items = item.worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1)); 
+		List<EntityItem> items = item.worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1));
 		for(EntityItem otherItem : items)
 			if(otherItem != item)
 				otherItem.setDead();

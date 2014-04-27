@@ -168,7 +168,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 		if(player.isSneaking()) {
 			filterType = filterType == 2 ? 0 : filterType + 1;
 			sync();
-			
+
 			return true;
 		}
 		else return super.onWanded(player, wand);

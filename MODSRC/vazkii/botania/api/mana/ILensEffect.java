@@ -45,5 +45,5 @@ public interface ILensEffect {
 	 * do any particles.
 	 */
 	public boolean doParticles(IManaBurst burst, ItemStack stack);
-	
+
 }

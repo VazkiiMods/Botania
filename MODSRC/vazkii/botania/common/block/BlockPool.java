@@ -13,7 +13,6 @@ package vazkii.botania.common.block;
 
 import java.util.List;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -35,9 +34,9 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.TilePool;
 import vazkii.botania.common.item.block.ItemBlockPool;
-import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class BlockPool extends BlockModContainer implements IWandHUD, IWandable, ILexiconable {
 
@@ -49,7 +48,7 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 		setBlockName(LibBlockNames.POOL);
 		setBlockBounds(0F, 0F, 0F, 1F, 0.5F, 1F);
 	}
-	
+
 	@Override
 	protected boolean shouldRegisterInNameSet() {
 		return false;
@@ -60,12 +59,12 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 		GameRegistry.registerBlock(this, ItemBlockPool.class, par1Str);
 		return super.setBlockName(par1Str);
 	}
-	
+
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		// NO-OP
 	}
-	
+
 	@Override
 	public void getSubBlocks(Item par1, CreativeTabs par2, List par3) {
 		for(int i = 0; i < 2; i++)

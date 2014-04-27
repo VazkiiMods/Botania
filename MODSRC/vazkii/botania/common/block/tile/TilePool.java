@@ -11,8 +11,6 @@
  */
 package vazkii.botania.common.block.tile;
 
-import ibxm.Player;
-
 import java.awt.Color;
 import java.util.List;
 

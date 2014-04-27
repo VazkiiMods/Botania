@@ -63,7 +63,7 @@ public interface IInternalMethodHandler {
 	public IIcon getSubTileIconForName(String name);
 
 	public IInventory getBaublesInventory(EntityPlayer player);
-	
+
 	@SideOnly(Side.CLIENT)
 	public void drawSimpleManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res);
 

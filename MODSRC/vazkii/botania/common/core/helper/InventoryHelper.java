@@ -273,7 +273,7 @@ public class InventoryHelper {
 			NBTTagList nbttaglist = tag.getTagList("Items", 10);
 			inventoryContents = new ItemStack[slotsCount];
 			for(int i = 0; i < nbttaglist.tagCount(); i++) {
-				NBTTagCompound stacktag = (NBTTagCompound)nbttaglist.getCompoundTagAt(i);
+				NBTTagCompound stacktag = nbttaglist.getCompoundTagAt(i);
 				int j = stacktag.getByte("Slot");
 				if(j >= 0 && j < inventoryContents.length)
 					inventoryContents[j] = ItemStack.loadItemStackFromNBT(stacktag);

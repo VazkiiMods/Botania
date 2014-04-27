@@ -40,23 +40,23 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemGrassSeeds extends ItemMod {
 
 	private static Map<Integer, List<BlockSwapper>> blockSwappers = new HashMap();
-	
+
 	private static final int types = 3;
 	IIcon[] icons;
-	
+
 	public ItemGrassSeeds() {
 		super();
 		setUnlocalizedName(LibItemNames.GRASS_SEEDS);
 		setHasSubtypes(true);
 		FMLCommonHandler.instance().bus().register(this);
 	}
-	
+
 	@Override
 	public void getSubItems(Item par1, CreativeTabs par2, List par3) {
 		for(int i = 0; i < types; i++)
 			par3.add(new ItemStack(par1, 1, i));
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister par1IconRegister) {
@@ -70,25 +70,25 @@ public class ItemGrassSeeds extends ItemMod {
 	public IIcon getIconFromDamage(int par1) {
 		return icons[Math.min(icons.length - 1, par1)];
 	}
-	
+
 	@Override
 	public String getUnlocalizedName(ItemStack stack) {
 		return super.getUnlocalizedName() + stack.getItemDamage();
 	}
-	
+
 	@Override
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
 		Block block = par3World.getBlock(par4, par5, par6);
 		int bmeta = par3World.getBlockMetadata(par4, par5, par6);
-		
+
 		if(block == Blocks.dirt && bmeta == 0) {
 			int meta = par1ItemStack.getItemDamage();
-			
+
 			BlockSwapper swapper = addBlockSwapper(par3World, par4, par5, par6, meta);
 			par3World.setBlock(par4, par5, par6, swapper.blockToSet, swapper.metaToSet, 1 | 2);
 			for(int i = 0; i < 50; i++) {
 				double x = (Math.random() - 0.5) * 3;
-				double y = (Math.random() - 0.5) + 1;
+				double y = Math.random() - 0.5 + 1;
 				double z = (Math.random() - 0.5) * 3;
 
 				float r = 0F;
@@ -103,7 +103,7 @@ public class ItemGrassSeeds extends ItemMod {
 					g = 0F;
 					b = 0.33F;
 				}
-				
+
 				float velMul = 0.025F;
 
 				Botania.proxy.wispFX(par3World, par4 + 0.5 + x, par5 + 0.5 + y, par6 + 0.5 + z, r, g, b, (float) Math.random() * 0.15F + 0.15F, (float) -x * velMul, (float) -y * velMul, (float) -z * velMul);
@@ -111,10 +111,10 @@ public class ItemGrassSeeds extends ItemMod {
 
 			par1ItemStack.stackSize--;
 		}
-			
+
 		return true;
 	}
-	
+
 	@SubscribeEvent
 	public void onTickEnd(TickEvent.WorldTickEvent event) {
 		if(event.phase == Phase.END) {
@@ -122,7 +122,7 @@ public class ItemGrassSeeds extends ItemMod {
 			if(blockSwappers.containsKey(dim)) {
 				List<BlockSwapper> swappers = blockSwappers.get(dim);
 				List<BlockSwapper> swappersSafe = new ArrayList(swappers);
-				
+
 				for(BlockSwapper s : swappersSafe)
 					s.tick(swappers);
 			}
@@ -131,25 +131,25 @@ public class ItemGrassSeeds extends ItemMod {
 
 	private static BlockSwapper addBlockSwapper(World world, int x, int y, int z, int meta) {
 		BlockSwapper swapper = swapperFromMeta(world, x, y, z, meta);
-		
+
 		int dim = world.provider.dimensionId;
 		if(!blockSwappers.containsKey(dim))
 			blockSwappers.put(dim, new ArrayList());
 		blockSwappers.get(dim).add(swapper);
-		
+
 		return swapper;
 	}
-	
+
 	private static BlockSwapper swapperFromMeta(World world, int x, int y, int z, int meta) {
 		switch(meta) {
-			case 1 : return new BlockSwapper(world, new ChunkCoordinates(x, y, z),  Blocks.dirt, 2);
-			case 2 : return new BlockSwapper(world, new ChunkCoordinates(x, y, z),  Blocks.mycelium, 0);
-			default : return new BlockSwapper(world, new ChunkCoordinates(x, y, z),  Blocks.grass, 0);
+		case 1 : return new BlockSwapper(world, new ChunkCoordinates(x, y, z),  Blocks.dirt, 2);
+		case 2 : return new BlockSwapper(world, new ChunkCoordinates(x, y, z),  Blocks.mycelium, 0);
+		default : return new BlockSwapper(world, new ChunkCoordinates(x, y, z),  Blocks.grass, 0);
 		}
 	}
-	
+
 	private static class BlockSwapper {
-		
+
 		final World world;
 		final Random rand;
 		final Block blockToSet;
@@ -157,7 +157,7 @@ public class ItemGrassSeeds extends ItemMod {
 
 		ChunkCoordinates startCoords;
 		int ticksExisted = 0;
-		
+
 		BlockSwapper(World world, ChunkCoordinates coords, Block block, int meta) {
 			this.world = world;
 			blockToSet = block;
@@ -165,10 +165,10 @@ public class ItemGrassSeeds extends ItemMod {
 			rand = new Random(coords.posX ^ coords.posY ^ coords.posZ);
 			startCoords = coords;
 		}
-		
+
 		void tick(List<BlockSwapper> list) {
 			++ticksExisted;
-			
+
 			int range = 3;
 			for(int i = -range; i < range + 1; i++)
 				for(int j = -range; j < range + 1; j++) {
@@ -177,7 +177,7 @@ public class ItemGrassSeeds extends ItemMod {
 					int z = startCoords.posZ + j;
 					Block block = world.getBlock(x, y, z);
 					int meta = world.getBlockMetadata(x, y, z);
-					
+
 					if(block == blockToSet && meta == metaToSet) {
 						if(ticksExisted % 20 == 0) {
 							List<ChunkCoordinates> validCoords = new ArrayList();
@@ -190,7 +190,7 @@ public class ItemGrassSeeds extends ItemMod {
 									if(block1 == Blocks.dirt && meta1 == 0)
 										validCoords.add(new ChunkCoordinates(x1, y, z1));
 								}
-							
+
 							if(!validCoords.isEmpty() && !world.isRemote) {
 								ChunkCoordinates coords = validCoords.get(rand.nextInt(validCoords.size()));
 								world.setBlock(coords.posX, coords.posY, coords.posZ, blockToSet, metaToSet, 1 | 2);
@@ -203,5 +203,5 @@ public class ItemGrassSeeds extends ItemMod {
 				list.remove(this);
 		}
 	}
-	
+
 }

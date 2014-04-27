@@ -27,12 +27,12 @@ public class ItemManaRing extends ItemBauble implements IManaItem {
 	protected static final int MAX_MANA = 500000;
 
 	private static final String TAG_MANA = "mana";
-	
+
 	public ItemManaRing() {
 		this(LibItemNames.MANA_RING);
 		setMaxDamage(1000);
 	}
-	
+
 	public ItemManaRing(String name) {
 		super(name);
 		setMaxDamage(1000);
@@ -42,12 +42,12 @@ public class ItemManaRing extends ItemBauble implements IManaItem {
 	public BaubleType getBaubleType(ItemStack itemstack) {
 		return BaubleType.RING;
 	}
-	
+
 	@Override
 	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
 		par3List.add(new ItemStack(par1, 1, 10000));
 	}
-	
+
 	@Override
 	public int getDamage(ItemStack stack) {
 		float mana = getMana(stack);
@@ -58,7 +58,7 @@ public class ItemManaRing extends ItemBauble implements IManaItem {
 	public int getDisplayDamage(ItemStack stack) {
 		return getDamage(stack);
 	}
-	
+
 	public static void setMana(ItemStack stack, int mana) {
 		ItemNBTHelper.setInt(stack, TAG_MANA, mana);
 	}

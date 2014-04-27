@@ -45,7 +45,7 @@ public class PageRecipe extends LexiconPage {
 	boolean tooltipEntry;
 
 	static boolean mouseDownLastTick = false;
-	
+
 	public PageRecipe(String unlocalizedName) {
 		super(unlocalizedName);
 	}
@@ -68,7 +68,7 @@ public class PageRecipe extends LexiconPage {
 			List<String> tooltipData = tooltipStack.getTooltip(Minecraft.getMinecraft().thePlayer, false);
 			List<String> parsedTooltip = new ArrayList();
 			boolean first = true;
-			
+
 			for(String s : tooltipData) {
 				String s_ = s;
 				if(!first)
@@ -76,7 +76,7 @@ public class PageRecipe extends LexiconPage {
 				parsedTooltip.add(s_);
 				first = false;
 			}
-			
+
 			RenderHelper.renderTooltip(mx, my, parsedTooltip);
 
 			int tooltipY = 8 + tooltipData.size() * 11;

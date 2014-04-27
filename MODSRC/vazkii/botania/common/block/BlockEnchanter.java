@@ -66,7 +66,7 @@ public class BlockEnchanter extends BlockModContainer implements IWandable, ILex
 	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
 		return Item.getItemFromBlock(Blocks.lapis_block);
 	}
-	
+
 	@Override
 	public boolean isOpaqueCube() {
 		return false;

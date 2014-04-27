@@ -155,7 +155,7 @@ public final class LexiconData {
 
 		terrasteel = new BLexiconEntry(LibLexicon.BASICS_TERRASTEEL, categoryBasics);
 		terrasteel.setLexiconPages(new PageText("0"), new PageTerrasteel("1"), new PageText("2"), new PageCraftingRecipe("3", ModCrafingRecipes.recipeLifeEssence));
-		
+
 		// MANA ENTRIES
 		manaIntro = new BLexiconEntry(LibLexicon.MANA_INTRO, categoryMana);
 		manaIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"));
@@ -217,7 +217,7 @@ public final class LexiconData {
 
 		redstoneSpreader = new BLexiconEntry(LibLexicon.MANA_REDSTONE_SPREADER, categoryMana);
 		redstoneSpreader.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeRedstoneSpreader));
-		
+
 		// FUNCTIONAL FLOWERS ENTRIES
 		functionalIntro = new BLexiconEntry(LibLexicon.FFLOWER_INTRO, categoryFunctionalFlowers);
 		functionalIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"));
@@ -298,55 +298,55 @@ public final class LexiconData {
 
 		grassSeeds = new BLexiconEntry(LibLexicon.TOOL_GRASS_SEEDS, categoryTools);
 		grassSeeds.setLexiconPages(new PageText("0"), new PageManaInfusionRecipe("1", ModManaInfusionRecipes.grassSeedsRecipe), new PageManaInfusionRecipe("2", ModManaInfusionRecipes.podzolSeedsRecipe), new PageManaInfusionRecipe("3", ModManaInfusionRecipes.mycelSeedsRecipes));
-		
+
 		dirtRod = new BLexiconEntry(LibLexicon.TOOL_DIRT_ROD, categoryTools);
 		dirtRod.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeDirtRod));
-		
+
 		terraformRod = new BLexiconEntry(LibLexicon.TOOL_TERRAFORM_ROD, categoryTools);
 		terraformRod.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCrafingRecipes.recipeTerraformRod));
-		
+
 		manasteelGear = new BLexiconEntry(LibLexicon.TOOL_MANASTEEL_GEAR, categoryTools);
-		manasteelGear.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeManasteelPick), new PageCraftingRecipe("2", ModCrafingRecipes.recipeManasteelShovel), new PageCraftingRecipe("3", ModCrafingRecipes.recipeManasteelAxe), 
+		manasteelGear.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeManasteelPick), new PageCraftingRecipe("2", ModCrafingRecipes.recipeManasteelShovel), new PageCraftingRecipe("3", ModCrafingRecipes.recipeManasteelAxe),
 				new PageCraftingRecipe("4", ModCrafingRecipes.recipeManasteelShears), new PageCraftingRecipe("5", ModCrafingRecipes.recipeManasteelSword),
 				new PageCraftingRecipe("6", ModCrafingRecipes.recipeManasteelHelm), new PageCraftingRecipe("7", ModCrafingRecipes.recipeManasteelChest), new PageCraftingRecipe("8", ModCrafingRecipes.recipeManasteelLegs), new PageCraftingRecipe("9", ModCrafingRecipes.recipeManasteelBoots));
-		
+
 		terrasteelArmor = new BLexiconEntry(LibLexicon.TOOL_TERRASTEEL_ARMOR, categoryTools);
 		terrasteelArmor.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeTerrasteelHelm), new PageCraftingRecipe("2", ModCrafingRecipes.recipeTerrasteelChest), new PageCraftingRecipe("3", ModCrafingRecipes.recipeTerrasteelLegs), new PageCraftingRecipe("4", ModCrafingRecipes.recipeTerrasteelBoots));
-		
+
 		grassHorn = new BLexiconEntry(LibLexicon.TOOL_GRASS_HORN, categoryTools);
 		grassHorn.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeGrassHorn));
-		
+
 		terraBlade = new BLexiconEntry(LibLexicon.TOOL_TERRA_SWORD, categoryTools);
 		terraBlade.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeTerraSword));
-		
+
 		// BAUBLES ENTRIES
 		baublesIntro = new BLexiconEntry(LibLexicon.BAUBLE_INTRO, categoryBaubles);
 		baublesIntro.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_BAUBLES), new PageText("2"));
-		
+
 		tinyPlanet = new BLexiconEntry(LibLexicon.BAUBLE_TINY_PLANET, categoryBaubles);
 		tinyPlanet.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeTinyPlanet));
-		
+
 		manaRing = new BLexiconEntry(LibLexicon.BAUBLE_MANA_RING, categoryBaubles);
 		manaRing.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeManaRing), new PageCraftingRecipe("2", ModCrafingRecipes.recipeGreaterManaRing));
-		
+
 		auraRing = new BLexiconEntry(LibLexicon.BAUBLE_AURA_RING, categoryBaubles);
 		auraRing.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeAuraRing), new PageCraftingRecipe("2", ModCrafingRecipes.recipeGreaterAuraRing));
-		
+
 		travelBelt = new BLexiconEntry(LibLexicon.BAUBLE_TRAVEL_BELT, categoryBaubles);
 		travelBelt.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeTravelBelt));
-		
+
 		knockbacklBelt = new BLexiconEntry(LibLexicon.BAUBLE_KNOCKBACK_BELT, categoryBaubles);
 		knockbacklBelt.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeKnocbackBelt));
-		
+
 		icePendant = new BLexiconEntry(LibLexicon.BAUBLE_ICE_PENDANT, categoryBaubles);
 		icePendant.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeIcePendant));
-		
+
 		lavaPendant = new BLexiconEntry(LibLexicon.BAUBLE_LAVA_PENDANT, categoryBaubles);
 		lavaPendant.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLavaPendant));
-		
+
 		goldLaurel = new BLexiconEntry(LibLexicon.BAUBLE_GOLDEN_LAUREL, categoryBaubles);
 		goldLaurel.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeGoldenLaurel));
-		
+
 		// MISCLENAEOUS ENTRIES
 		unstableBlocks = new BLexiconEntry(LibLexicon.MISC_UNSTABLE_BLOCKS, categoryMisc);
 		unstableBlocks.setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_UNSTABLE_BLOCK), new PageCraftingRecipe("2", ModCrafingRecipes.recipesUnstableBlocks), new PageText("3"), new PageImage("4", LibResources.ENTRY_UNSTABLE_BEACON), new PageCraftingRecipe("5", ModCrafingRecipes.recipesManaBeacons), new PageText("6"), new PageCraftingRecipe("7", ModCrafingRecipes.recipesSignalFlares));

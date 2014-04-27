@@ -32,7 +32,7 @@ public class ItemTravelBelt extends ItemBauble {
 	public BaubleType getBaubleType(ItemStack itemstack) {
 		return BaubleType.BELT;
 	}
-	
+
 	@Override
 	public void onWornTick(ItemStack stack, EntityLivingBase entity) {
 		super.onWornTick(stack, entity);
@@ -40,14 +40,14 @@ public class ItemTravelBelt extends ItemBauble {
 			EntityPlayer player = (EntityPlayer) entity;
 			if((player.onGround || player.capabilities.isFlying) && player.moveForward > 0F)
 				player.moveFlying(0F, 1F, player.capabilities.isFlying ? 0.035F : 0.07F);
-			
+
 			if(player.isSneaking())
 				player.stepHeight = 0.50001F; // Not 0.5F because that is the default
 			else if(player.stepHeight == 0.50001F)
 				player.stepHeight = 1F;
 		}
 	}
-	
+
 	@SubscribeEvent
 	public void onPlayerJump(LivingJumpEvent event) {
 		if(event.entityLiving instanceof EntityPlayer) {
@@ -55,17 +55,17 @@ public class ItemTravelBelt extends ItemBauble {
 			ItemStack belt = PlayerHandler.getPlayerBaubles(player).getStackInSlot(3);
 
 			if(belt != null && belt.getItem() == this) {
-				 player.motionY += 0.2;
-				 player.fallDistance = -1F;
+				player.motionY += 0.2;
+				player.fallDistance = -1F;
 			}
 		}
 	}
-	
+
 	@Override
 	public void onEquippedOrLoadedIntoWorld(ItemStack stack, EntityLivingBase player) {
 		player.stepHeight = 1F;
 	}
-	
+
 	@Override
 	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
 		player.stepHeight = 0.5F;

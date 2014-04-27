@@ -42,24 +42,24 @@ public class ItemIcePendant extends ItemBauble {
 	@Override
 	public void onWornTick(ItemStack stack, EntityLivingBase entity) {
 		super.onWornTick(stack, entity);
-		
+
 		if(entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entity;
-			
+
 			if(!player.worldObj.isRemote)
 				tickIceRemovers(player);
-			
+
 			if(!player.isSneaking() && !player.isInsideOfMaterial(Material.water)) {
 				int x = (int) player.posX;
 				int y = (int) player.posY - (player.isInWater() ? 0 : 1) - (player.worldObj.isRemote ? 1 : 0);
 				int z = (int) player.posZ;
-				
+
 				int range = 3;
 				for(int i = -range - 1; i < range; i++)
 					for(int j = -range; j < range + 1; j++) {
 						int x1 = x + i;
 						int z1 = z + j;
-						
+
 						addIceBlock(player, new ChunkCoordinates(x1, y, z1));
 					}
 			}
@@ -74,7 +74,7 @@ public class ItemIcePendant extends ItemBauble {
 		List<IceRemover> ice = playerIceBlocks.get(user);
 		if(player.worldObj.getBlock(coords.posX, coords.posY, coords.posZ) == Blocks.water) {
 			player.worldObj.setBlock(coords.posX, coords.posY, coords.posZ, Blocks.ice);
-			
+
 			if(!player.worldObj.isRemote)
 				ice.add(new IceRemover(coords));
 		}
@@ -91,7 +91,7 @@ public class ItemIcePendant extends ItemBauble {
 	}
 
 	class IceRemover {
-		
+
 		int time = 30;
 		final ChunkCoordinates coords;
 

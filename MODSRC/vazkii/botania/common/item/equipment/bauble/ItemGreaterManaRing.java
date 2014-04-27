@@ -17,14 +17,14 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemGreaterManaRing extends ItemManaRing {
 
 	private static final int MAX_MANA = ItemManaRing.MAX_MANA * 4;
-	
+
 	public ItemGreaterManaRing() {
 		super(LibItemNames.MANA_RING_GREATER);
 	}
-	
+
 	@Override
 	public int getMaxMana(ItemStack stack) {
 		return MAX_MANA;
 	}
-	
+
 }

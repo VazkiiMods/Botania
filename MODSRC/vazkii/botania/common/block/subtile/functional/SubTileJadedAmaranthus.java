@@ -47,7 +47,7 @@ public class SubTileJadedAmaranthus extends SubTileFunctional {
 
 					mana -= COST;
 					sync();
-					
+
 					cooldown = 30;
 					break;
 				}

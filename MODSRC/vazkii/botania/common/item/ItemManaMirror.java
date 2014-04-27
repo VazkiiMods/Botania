@@ -22,7 +22,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaPool;
@@ -76,7 +75,7 @@ public class ItemManaMirror extends ItemMod implements IManaItem {
 	public IIcon getIcon(ItemStack stack, int pass) {
 		return icons[Math.min(1, pass)];
 	}
-	
+
 	@Override
 	public boolean isFull3D() {
 		return true;
@@ -92,7 +91,7 @@ public class ItemManaMirror extends ItemMod implements IManaItem {
 			} else setManaForDisplay(par1ItemStack, pool.getCurrentMana());
 		}
 	}
-	
+
 	@Override
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
 		if(par2EntityPlayer.isSneaking() && !par3World.isRemote) {
@@ -103,10 +102,10 @@ public class ItemManaMirror extends ItemMod implements IManaItem {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
 		ChunkCoordinates coords = getPoolCoords(par1ItemStack);
@@ -127,11 +126,11 @@ public class ItemManaMirror extends ItemMod implements IManaItem {
 		IManaPool pool = getManaPool(stack);
 		return pool == null ? 0 : pool.getCurrentMana();
 	}
-	
+
 	public int getManaForDisplay(ItemStack stack) {
 		return ItemNBTHelper.getInt(stack, TAG_MANA_VISUAL, 0);
 	}
-	
+
 	public void setManaForDisplay(ItemStack stack, int mana) {
 		ItemNBTHelper.setInt(stack, TAG_MANA_VISUAL, mana);
 	}
@@ -147,41 +146,41 @@ public class ItemManaMirror extends ItemMod implements IManaItem {
 		if(pool != null)
 			pool.recieveMana(mana);
 	}
-	
+
 	public void bindPool(ItemStack stack, TileEntity pool) {
 		ItemNBTHelper.setInt(stack, TAG_POS_X, pool == null ? 0 : pool.xCoord);
 		ItemNBTHelper.setInt(stack, TAG_POS_Y, pool == null ? -1 : pool.yCoord);
 		ItemNBTHelper.setInt(stack, TAG_POS_Z, pool == null ? 0 : pool.zCoord);
 		ItemNBTHelper.setInt(stack, TAG_DIM, pool == null ? 0 : pool.getWorldObj().provider.dimensionId);
 	}
-	
+
 	public ChunkCoordinates getPoolCoords(ItemStack stack) {
 		int x = ItemNBTHelper.getInt(stack, TAG_POS_X, 0);
 		int y = ItemNBTHelper.getInt(stack, TAG_POS_Y, -1);
 		int z = ItemNBTHelper.getInt(stack, TAG_POS_Z, 0);
 		return new ChunkCoordinates(x, y, z);
 	}
-	
+
 	public int getDimension(ItemStack stack) {
 		return ItemNBTHelper.getInt(stack, TAG_DIM, 0);
 	}
-	
+
 	public IManaPool getManaPool(ItemStack stack) {
 		MinecraftServer server = MinecraftServer.getServer();
 		if(server == null)
 			return new DummyPool();
-		
+
 		ChunkCoordinates coords = getPoolCoords(stack);
 		if(coords.posY == -1)
 			return null;
-		
+
 		int dim = getDimension(stack);
 		if(server.worldServers.length > dim && server.worldServers[dim] != null) {
 			TileEntity tile = server.worldServers[dim].getTileEntity(coords.posX, coords.posY, coords.posZ);
 			if(tile != null && tile instanceof IManaPool)
 				return (IManaPool) tile;
 		}
-		
+
 		return null;
 	}
 
@@ -204,7 +203,7 @@ public class ItemManaMirror extends ItemMod implements IManaItem {
 	public boolean canExportManaToItem(ItemStack stack, ItemStack otherStack) {
 		return true;
 	}
-	
+
 	private static class DummyPool implements IManaPool {
 
 		@Override
@@ -231,7 +230,7 @@ public class ItemManaMirror extends ItemMod implements IManaItem {
 		public boolean isOutputtingPower() {
 			return false;
 		}
-		
+
 	}
 
 }

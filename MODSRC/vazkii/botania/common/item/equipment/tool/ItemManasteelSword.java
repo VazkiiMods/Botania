@@ -37,7 +37,7 @@ public class ItemManasteelSword extends ItemSword {
 	public ItemManasteelSword() {
 		this(BotaniaAPI.manasteelToolMaterial, LibItemNames.MANASTEEL_SWORD);
 	}
-	
+
 	public ItemManasteelSword(ToolMaterial mat, String name) {
 		super(mat);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
@@ -67,7 +67,7 @@ public class ItemManasteelSword extends ItemSword {
 	public IIcon getIconIndex(ItemStack par1ItemStack) {
 		return par1ItemStack.getDisplayName().equals("The Elucidator") ? elucidatorIcon : super.getIconIndex(par1ItemStack);
 	}
-	
+
 	@Override
 	public IIcon getIcon(ItemStack stack, int pass) {
 		return getIconIndex(stack);
@@ -80,7 +80,7 @@ public class ItemManasteelSword extends ItemSword {
 
 		return true;
 	}
-	
+
 	@Override
 	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
 		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 0 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);

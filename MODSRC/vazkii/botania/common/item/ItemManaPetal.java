@@ -11,10 +11,8 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.common.lib.LibItemNames;
 

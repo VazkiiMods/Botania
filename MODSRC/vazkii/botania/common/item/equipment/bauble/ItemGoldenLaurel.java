@@ -30,7 +30,7 @@ public class ItemGoldenLaurel extends ItemBauble {
 		super(LibItemNames.GOLDEN_LAUREL);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
-	
+
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void onPlayerDeath(LivingDeathEvent event) {
 		if(event.entity instanceof EntityPlayer) {

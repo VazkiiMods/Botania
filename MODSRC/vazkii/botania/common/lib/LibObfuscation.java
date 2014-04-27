@@ -31,7 +31,7 @@ public final class LibObfuscation {
 	// ThreadDownloadImageData
 	public static final String[] TEXTURE_UPLOADED = new String[] { "textureUploaded", "field_110559_g", "i" };
 	public static final String[] BUFFERED_IMAGE = new String[] { "bufferedImage", "field_110560_d", "g" };
-	
+
 	// Entity
 	public static final String[] IS_IMMUNE_TO_FIRE = new String[] { "isImmuneToFire", "field_70178_ae", "ag" };
 }

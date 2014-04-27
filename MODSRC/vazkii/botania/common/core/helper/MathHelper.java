@@ -30,5 +30,5 @@ public final class MathHelper {
 		entity.motionY = finalVector.y * modifier;
 		entity.motionZ = finalVector.z * modifier;
 	}
-	
+
 }

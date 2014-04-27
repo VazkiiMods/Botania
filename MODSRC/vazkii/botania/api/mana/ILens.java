@@ -12,8 +12,6 @@
 package vazkii.botania.api.mana;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.MovingObjectPosition;
-import vazkii.botania.api.internal.IManaBurst;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -30,7 +28,7 @@ public interface ILens extends ILensEffect {
 	 * for both the ILens instance of ItemStack.getItem() of sourceLens and compositeLens.
 	 */
 	public boolean canCombineLenses(ItemStack sourceLens, ItemStack compositeLens);
-	
+
 	/**
 	 * Gets the composite lens in the stack passed in, return null for none.
 	 */
