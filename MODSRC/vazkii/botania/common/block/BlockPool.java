@@ -11,13 +11,19 @@
  */
 package vazkii.botania.common.block;
 
+import java.util.List;
+
+import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
@@ -28,6 +34,8 @@ import vazkii.botania.api.IWandable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.TilePool;
+import vazkii.botania.common.item.block.ItemBlockPool;
+import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
@@ -43,8 +51,25 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 	}
 	
 	@Override
+	protected boolean shouldRegisterInNameSet() {
+		return false;
+	}
+
+	@Override
+	public Block setBlockName(String par1Str) {
+		GameRegistry.registerBlock(this, ItemBlockPool.class, par1Str);
+		return super.setBlockName(par1Str);
+	}
+	
+	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		// NO-OP
+	}
+	
+	@Override
+	public void getSubBlocks(Item par1, CreativeTabs par2, List par3) {
+		for(int i = 0; i < 2; i++)
+			par3.add(new ItemStack(par1, 1, i));
 	}
 
 	@Override

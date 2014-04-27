@@ -19,6 +19,7 @@ import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.lib.LibRenderIDs;
+import vazkii.botania.client.render.tile.RenderTilePool;
 import vazkii.botania.common.block.tile.TilePool;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
@@ -28,6 +29,8 @@ public class RenderPool implements ISimpleBlockRenderingHandler {
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
 		GL11.glPushMatrix();
 		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
+		if(metadata == 1)
+			RenderTilePool.forceAllMana = true;
 		TileEntityRendererDispatcher.instance.renderTileEntityAt(new TilePool(), 0.0D, 0.0D, 0.0D, 0.0F);
 		GL11.glPopMatrix();
 	}

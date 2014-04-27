@@ -32,8 +32,12 @@ import vazkii.botania.common.block.tile.TilePool;
 public class RenderTilePool extends TileEntitySpecialRenderer {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_POOL);
+	private static final ResourceLocation textureInf = new ResourceLocation(LibResources.MODEL_INFINITE_POOL);
+
 	private static final ModelPool model = new ModelPool();
 	RenderItem renderItem = new RenderItem();
+	
+	public static boolean forceAllMana = false;
 
 	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f) {
@@ -43,7 +47,9 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		GL11.glTranslated(d0, d1, d2);
-		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
+		boolean inf = tileentity.getWorldObj() == null ? forceAllMana : tileentity.getBlockMetadata() == 1;
+		
+		Minecraft.getMinecraft().renderEngine.bindTexture(inf ? textureInf : texture);
 
 		GL11.glTranslatef(0.5F, 1.5F, 0.5F);
 		GL11.glScalef(1F, -1F, -1F);
@@ -53,7 +59,11 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 
-		float waterLevel = (float) pool.getCurrentMana() / (float) TilePool.MAX_MANA * 0.40F;
+		float waterLevel = (float) pool.getCurrentMana() / (float) TilePool.MAX_MANA * 0.4F;
+		if(forceAllMana) {
+			waterLevel = 0.4F;
+			forceAllMana = false;
+		}
 		if(waterLevel > 0) {
 			float s = 1F / 256F * 14F;
 			float v = 1F / 8F;

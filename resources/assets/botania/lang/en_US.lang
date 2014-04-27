@@ -21,6 +21,8 @@ botaniamisc.compositeLens=Composite with %s
 botaniamisc.filter0=Pickup only items in Frames
 botaniamisc.filter1=Pickup only items not in Frames
 botaniamisc.filter2=Pickup any items
+botaniamisc.creativePool0=Creative Mana Pool, has infinite Mana
+botaniamisc.creativePool1=Worthy of an Egoist
 
 # COLORS
 botania.color0=White
@@ -79,7 +81,8 @@ tile.botania:livingwood4.name=Pattern Framed Livingwood
 tile.botania:livingwood5.name=Glimmering Livingwood
 tile.botania:spreader0.name=Mana Spreader
 tile.botania:spreader1.name=Redstone Mana Spreader
-tile.botania:pool.name=Mana Pool
+tile.botania:pool0.name=Mana Pool
+tile.botania:pool1.name=The Everlasting Guilty Pool
 tile.botania:runeAltar.name=Runic Altar
 tile.botania:unstableBlock0.name=White Unstable Cube
 tile.botania:unstableBlock1.name=Orange Unstable Cube

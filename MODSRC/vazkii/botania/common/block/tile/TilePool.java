@@ -56,14 +56,14 @@ public class TilePool extends TileMod implements IManaPool {
 	@Override
 	public boolean isFull() {
 		Block blockBelow = worldObj.getBlock(xCoord, yCoord - 1, zCoord);
-		return blockBelow != ModBlocks.manaVoid && mana >= MAX_MANA;
+		return blockBelow != ModBlocks.manaVoid && getCurrentMana() >= MAX_MANA;
 	}
 
 	@Override
 	public void recieveMana(int mana) {
-		boolean full = this.mana >= MAX_MANA;
+		boolean full = getCurrentMana() >= MAX_MANA;
 
-		this.mana = Math.min(this.mana + mana, MAX_MANA);
+		this.mana = Math.min(getCurrentMana() + mana, MAX_MANA);
 		if(!full)
 			worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 	}
@@ -144,17 +144,17 @@ public class TilePool extends TileMod implements IManaPool {
 					boolean didSomething = false;
 
 					if(outputting) {
-						if(this.mana > 0)
+						if(getCurrentMana() > 0)
 							didSomething = true;
 
-						int manaVal = Math.min(1000, Math.min(this.mana, mana.getMaxMana(stack) - mana.getMana(stack)));
+						int manaVal = Math.min(1000, Math.min(getCurrentMana(), mana.getMaxMana(stack) - mana.getMana(stack)));
 						mana.addMana(stack, manaVal);
 						recieveMana(-manaVal);
 					} else {
 						if(mana.getMana(stack) > 0)
 							didSomething = true;
 
-						int manaVal = Math.min(1000, Math.min(MAX_MANA - this.mana, mana.getMana(stack)));
+						int manaVal = Math.min(1000, Math.min(MAX_MANA - getCurrentMana(), mana.getMana(stack)));
 						mana.addMana(stack, -manaVal);
 						recieveMana(manaVal);
 					}
@@ -204,7 +204,7 @@ public class TilePool extends TileMod implements IManaPool {
 	}
 
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
-		String name = ModBlocks.pool.getLocalizedName();
+		String name = StatCollector.translateToLocal(new ItemStack(ModBlocks.pool, 1, getBlockMetadata()).getUnlocalizedName() + ".name");
 		int color = 0x660000FF;
 		HUDHandler.drawSimpleManaHUD(color, knownMana, MAX_MANA, name, res);
 
@@ -229,6 +229,6 @@ public class TilePool extends TileMod implements IManaPool {
 
 	@Override
 	public int getCurrentMana() {
-		return mana;
+		return worldObj != null && getBlockMetadata() == 1 ? MAX_MANA : mana;
 	}
 }
