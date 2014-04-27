@@ -547,7 +547,7 @@ public final class ModCrafingRecipes {
 		
 		// Golden Laurel Crown Recipe
 		addOreDictRecipe(new ItemStack(ModItems.goldLaurel), 
-				"E E", "LGL", "LLL",
+				"G G", "LEL", "LLL",
 				'G', "ingotGold",
 				'L', "treeLeaves",
 				'E', LibOreDict.LIFE_ESSENCE);
