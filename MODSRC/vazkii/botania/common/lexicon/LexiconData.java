@@ -153,7 +153,7 @@ public final class LexiconData {
 				new PageRuneRecipe("13", ModRuneRecipes.recipeLustRune), new PageRuneRecipe("14", ModRuneRecipes.recipeGluttonyRune), new PageRuneRecipe("15", ModRuneRecipes.recipeGreedRune), new PageRuneRecipe("16", ModRuneRecipes.recipeSlothRune), new PageRuneRecipe("17", ModRuneRecipes.recipeWrathRune), new PageRuneRecipe("18", ModRuneRecipes.recipeEnvyRune), new PageRuneRecipe("19", ModRuneRecipes.recipePrideRune));
 
 		terrasteel = new BLexiconEntry(LibLexicon.BASICS_TERRASTEEL, categoryBasics);
-		terrasteel.setLexiconPages(new PageText("0"), new PageTerrasteel("1"));
+		terrasteel.setLexiconPages(new PageText("0"), new PageTerrasteel("1"), new PageText("2"), new PageCraftingRecipe("3", ModCrafingRecipes.recipeLifeEssence));
 		
 		// MANA ENTRIES
 		manaIntro = new BLexiconEntry(LibLexicon.MANA_INTRO, categoryMana);

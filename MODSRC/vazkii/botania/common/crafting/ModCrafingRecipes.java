@@ -106,6 +106,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeKnocbackBelt;
 	public static IRecipe recipeIcePendant;
 	public static IRecipe recipeLavaPendant;
+	public static IRecipe recipeLifeEssence;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -538,6 +539,10 @@ public final class ModCrafingRecipes {
 				'M', LibOreDict.RUNE[5],
 				'F', LibOreDict.RUNE[1]);
 		recipeLavaPendant = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Essence of Eternal Life Recipe
+		addShapelessOreDictRecipe(new ItemStack(ModItems.manaResource, 12, 5), LibOreDict.TERRA_STEEL, new ItemStack(Items.nether_star), new ItemStack(Items.blaze_powder));
+		recipeLifeEssence = BotaniaAPI.getLatestAddedRecipe();
 	}
 
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {

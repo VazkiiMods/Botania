@@ -142,6 +142,7 @@ public final class ModItems {
 		OreDictionary.registerOre(LibOreDict.MANA_DIAMOND, new ItemStack(manaResource, 1, 2));
 		OreDictionary.registerOre(LibOreDict.LIVINGWOOD_TWIG, new ItemStack(manaResource, 1, 3));
 		OreDictionary.registerOre(LibOreDict.TERRA_STEEL, new ItemStack(manaResource, 1, 4));
+		OreDictionary.registerOre(LibOreDict.LIFE_ESSENCE, new ItemStack(manaResource, 1, 5));
 
 		// Vanilla ores (because forge doesn't do this by default for some reason)
 		OreDictionary.registerOre("ingotIron", Items.iron_ingot);

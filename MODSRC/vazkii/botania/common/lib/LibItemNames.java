@@ -78,6 +78,7 @@ public final class LibItemNames {
 		LibResources.PREFIX_MOD + "manaPearl",
 		LibResources.PREFIX_MOD + "manaDiamond",
 		LibResources.PREFIX_MOD + "livingwoodTwig",
-		LibResources.PREFIX_MOD + "terrasteel"
+		LibResources.PREFIX_MOD + "terrasteel",
+		LibResources.PREFIX_MOD + "lifeEssence"
 	};
 }
