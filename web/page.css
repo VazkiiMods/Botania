@@ -159,7 +159,13 @@ iframe {
 }
 
 .padded {
-	margin-left: 20px;
-	margin-right: 20px;
-	border: none;
+  margin-left: 20px;
+  margin-right: 20px;
+  border: none;
+}
+
+.warning-txt {
+  color: #aa0000;
+  font-weight: bold;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.3);
 }

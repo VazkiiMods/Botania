@@ -62,7 +62,7 @@
 						}
 					
 					$total_dl_str = number_format($total_dls);
-					print("<div class='total-dls'><span class='glyphicon glyphicon-star'></span> Botania has been downloaded a total of <b>$total_dl_str</b> times.</div>Botania is under a Creative Commons BY-NC-SA License, more info (for modpacks and other purposes) can be found in the footer.<br><br><font size='5'>Latest Download</font><br>");
+					print("<div class='total-dls'><span class='glyphicon glyphicon-star'></span> Botania has been downloaded a total of <b>$total_dl_str</b> times.</div>Botania is under a Creative Commons BY-NC-SA License, more info (for modpacks and other purposes) can be found in the footer.<br><span class='warning-txt'>Note that as of beta-22, Botania requires the <a href='http://www.minecraftforum.net/topic/2535073-'>Baubles API</a>. If you have Thaumcraft installed, though, this is downloaded automatically.</span><br><br><font size='5'>Latest Download</font><br>");
 					print($downloads_str);
 				?>
 			</div>

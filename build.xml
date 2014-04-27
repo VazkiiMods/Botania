@@ -72,6 +72,12 @@
 		</ftp>
 	</target>
 
+	<target name="deploy_website">
+		<ftp action="send" server="${ftp.host}" remotedir="/${build.mod_name}" userid="${ftp.user}" password="${ftp.pass}" verbose="yes" depends="yes">
+			<fileset dir="${build.dir.repo}web" />
+		</ftp>
+	</target>
+	
 	<target name="build">
 		<antcall target="clean" />
 		<antcall target="prep" />
