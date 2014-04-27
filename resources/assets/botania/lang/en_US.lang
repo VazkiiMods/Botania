@@ -296,6 +296,7 @@ item.botania:auraRingGreater.name=Greater Band of Aura
 item.botania:travelBelt.name=Soujourner's Sash
 item.botania:knockbackBelt.name=Tectonic Girdle
 item.botania:icePendant.name=Snowflake Pendant
+item.botania:lavaPendant.name=Pyroclast Pendant
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania Index - Pick which category you would like to study:
