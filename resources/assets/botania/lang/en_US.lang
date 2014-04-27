@@ -23,6 +23,7 @@ botaniamisc.filter1=Pickup only items not in Frames
 botaniamisc.filter2=Pickup any items
 botaniamisc.creativePool0=Creative Mana Pool, has infinite Mana
 botaniamisc.creativePool1=Worthy of an Egoist
+botaniamisc.savedByLaurel=Your Golden Laurel Crown shatters, as it saves you from death.
 
 # COLORS
 botania.color0=White
@@ -301,6 +302,7 @@ item.botania:knockbackBelt.name=Tectonic Girdle
 item.botania:icePendant.name=Snowflake Pendant
 item.botania:lavaPendant.name=Pyroclast Pendant
 item.botania:lifeEssence.name=Essence of Eternal Life
+item.botania:goldenLaurel.name=Golden Laurel Crown
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania Index - Pick which category you would like to study:
@@ -383,7 +385,7 @@ botania.entry.terrasteel=Terrasteel
 botania.page.terrasteel0=&1Terrasteel&0 is a powerful metal infused with the magic of nature.<br>Creating this metal proves to not be a short order, in order to create it, toss a &1Manasteel Ingot&0, a &1Mana Pearl&0 and a &1Mana Diamond&0 on top of an &4Active &1Beacon&0. A &1Mana Pool&0 must be present nearby, being at least half full. The infusion will create a single &1Terrasteel Ingot&0.
 botania.page.terrasteel1=Creating &1Terrasteel&0
 botania.page.terrasteel2=By combining the &1Terrasteel&0 with a &1Nether Star&0 and &1Blaze Powder&0, it's possible to artificially create a small extract of &1Essence of Eternal Life&0, a very powerful component in the creation of magical flora and natural instruments.
-botania.page.terrasteel3=An extract of &1Essence of Eternal Life&0
+botania.page.terrasteel3=These come not from Kyubey
 
 # - MANA
 # -- AN INTRODUCTION TO MANA
