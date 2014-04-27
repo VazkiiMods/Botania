@@ -1,3 +1,14 @@
+beta 22
+*Added a failsafe for the Manasteel Ingot recipe with IC2 installed.
+*Added a new "Baubles and Accessories" tab to the lexica and a bunch of stuff to it.
+*Added Baubles API integration, Baubles is now required. 
+*Added Essence of Eternal Life.
+*Added The Everlasting Guilty Pool (infinite Mana Pool for creative, totally not a GC reference)
+*Fixed looking up the recipe for some items going some levels lower and showing the recipe for one of the components, e.g. runes.
+*Fixed the tooltip text for the items in the lexica botania always being in white rather than gray.
+*Manasteel and Terrasteel tools can now be repaired in the vanilla anvil.
+*Some texture changes.
+*The Wand of the Forest is crafted with Livingwood sticks now.
 beta 21
 *Damaging lenses now do more damage and don't hurt players.
 *Fixed pylon_glow.frag not compiling and causing issues with the pylon renderer.
