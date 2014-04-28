@@ -347,7 +347,7 @@ public final class ModCrafingRecipes {
 		recipeTurntable = BotaniaAPI.getLatestAddedRecipe();
 
 		// Fertilizer Recipes
-		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.fertilizer), new ItemStack(Items.dye, 1, 15), new ItemStack(ModItems.dye, 1, -1), new ItemStack(ModItems.dye, 1, -1), new ItemStack(ModItems.dye, 1, -1), new ItemStack(ModItems.dye, 1, -1));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.fertilizer), new ItemStack(Items.dye, 1, 15), new ItemStack(ModItems.dye, 1, Short.MAX_VALUE), new ItemStack(ModItems.dye, 1, Short.MAX_VALUE), new ItemStack(ModItems.dye, 1, Short.MAX_VALUE), new ItemStack(ModItems.dye, 1, Short.MAX_VALUE));
 		recipeFertilizerPowder = BotaniaAPI.getLatestAddedRecipe();
 		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.fertilizer), new ItemStack(Items.dye, 1, 15), new ItemStack(Items.dye, 1, 11), new ItemStack(Items.dye, 1, 11), new ItemStack(Items.dye, 1, 1), new ItemStack(Items.dye, 1, 1));
 		recipeFerilizerDye = BotaniaAPI.getLatestAddedRecipe();
@@ -390,7 +390,7 @@ public final class ModCrafingRecipes {
 				'R', LibOreDict.LIVING_ROCK,
 				'S', LibOreDict.LIVINGWOOD_TWIG,
 				'I', LibOreDict.TERRA_STEEL,
-				'T', new ItemStack(ModItems.manaTablet, 1, -1));
+				'T', new ItemStack(ModItems.manaTablet, 1, Short.MAX_VALUE));
 		recipeManaMirror = BotaniaAPI.getLatestAddedRecipe();
 
 		// Mana Armor & Tools Recipes
