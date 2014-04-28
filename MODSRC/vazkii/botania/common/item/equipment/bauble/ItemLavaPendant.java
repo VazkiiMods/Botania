@@ -26,7 +26,7 @@ public class ItemLavaPendant extends ItemBauble {
 	}
 
 	@Override
-	public void onEquippedOrLoadedIntoWorld(ItemStack stack, EntityLivingBase player) {
+	public void onWornTick(ItemStack stack, EntityLivingBase player) {
 		setImmunity(player, true);
 	}
 
