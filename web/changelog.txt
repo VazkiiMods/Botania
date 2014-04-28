@@ -1,3 +1,7 @@
+beta 23
+*Fixed Mana Mirror and Floral Fertilizer recipes not taking any metadata.
+*Fixed Pyroclast Pendant losing fire resistance on dimension change.
+*<i>If you still can't craft Manasteel with IC2 installed, update to 2.2.1.470.</i>
 beta 22
 *Added a failsafe for the Manasteel Ingot recipe with IC2 installed.
 *Added a new "Baubles and Accessories" tab to the lexica and a bunch of stuff to it.
