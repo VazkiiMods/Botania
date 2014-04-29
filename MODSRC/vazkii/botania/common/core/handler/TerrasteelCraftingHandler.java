@@ -38,7 +38,9 @@ public final class TerrasteelCraftingHandler {
 
 			if(time != -1) {
 				doParticles(item, time);
-
+				if(time == TIME)
+					item.worldObj.playSoundAtEntity(item, "random.levelup", 1F, 1F);
+				
 				getManaFromPools : {
 					int x = (int) item.posX;
 					int y = (int) item.posY;
@@ -66,7 +68,7 @@ public final class TerrasteelCraftingHandler {
 	}
 
 	static int validateCraftingItem(EntityItem item) {
-		int x = (int) item.posX;
+		int x = (int) item.posX - 1;
 		int y = (int) item.posY;
 		int z = (int) item.posZ;
 
@@ -126,12 +128,6 @@ public final class TerrasteelCraftingHandler {
 
 	static void doParticles(EntityItem item, int ticks) {
 		if(item.worldObj.isRemote) {
-			float[][] colors = new float[][] {
-					{ 0F, 0F, 1F },
-					{ 0F, 0.5F, 0.5F },
-					{ 0F, 1F, 0F },
-			};
-
 			int totalSpiritCount = 3;
 			double tickIncrement = 360D / totalSpiritCount;
 
@@ -142,12 +138,14 @@ public final class TerrasteelCraftingHandler {
 			double g = Math.sin(wticks * Math.PI / 180 * 0.55);
 
 			for(int i = 0; i < totalSpiritCount; i++) {
-				double x = (int) item.posX + Math.sin(wticks * Math.PI / 180) * r + 0.5;
+				double x = (int) item.posX + Math.sin(wticks * Math.PI / 180) * r - 0.5;
 				double y = (int) item.posY + 0.25;
 				double z = (int) item.posZ + Math.cos(wticks * Math.PI / 180) * r + 0.5;
 
 				wticks += tickIncrement;
-				float[] colorsfx = colors[i >= colors.length ? 0 : i];
+				float[] colorsfx = new float[] {
+						0F, (float) ticks / (float) TIME, 1F - (float) ticks / (float) TIME
+				};
 				Botania.proxy.wispFX(item.worldObj, x, y, z, colorsfx[0], colorsfx[1], colorsfx[2], 0.85F, (float)g * 0.05F, 0.25F);
 				Botania.proxy.wispFX(item.worldObj, x, y, z, colorsfx[0], colorsfx[1], colorsfx[2], (float) Math.random() * 0.1F + 0.1F, (float) (Math.random() - 0.5) * 0.05F, (float) (Math.random() - 0.5) * 0.05F, (float) (Math.random() - 0.5) * 0.05F, 0.9F);
 
@@ -155,8 +153,6 @@ public final class TerrasteelCraftingHandler {
 					for(int j = 0; j < 15; j++)
 						Botania.proxy.wispFX(item.worldObj, item.posX, item.posY, item.posZ, colorsfx[0], colorsfx[1], colorsfx[2], (float) Math.random() * 0.15F + 0.15F, (float) (Math.random() - 0.5F) * 0.125F, (float) (Math.random() - 0.5F) * 0.125F, (float) (Math.random() - 0.5F) * 0.125F);
 			}
-			if(ticks == TIME)
-				item.worldObj.playSoundAtEntity(item, "random.levelup", 1F, 1F);
 		}
 	}
 
@@ -171,7 +167,7 @@ public final class TerrasteelCraftingHandler {
 	}
 
 	static void finalizeCraftingRecipe(EntityItem item) {
-		int x = (int) item.posX;
+		int x = (int) item.posX - 1;
 		int y = (int) item.posY;
 		int z = (int) item.posZ;
 
