@@ -1,3 +1,11 @@
+beta 24
+*Buffed the range of generating flowers back to 6 blocks.
+*Changed the way the checking for the mana infusion recipes work, this hopefully fixes IC2 woes.
+*Fixed Terrasteel crafting having been broken by newer versions of forge, also made it fancier.
+*The Bellethorne now deals four times more damage, but requires more mana.
+*The Fallen Kanade now has lower range and is more expensive, but applies Regeneration IV.
+*The Orechid now has some particles and sound when it places a block.
+*<i>I swear to God, if this version does not fix manasteel with IC2 installed I'm going to punch a cat.</i>
 beta 23
 *Fixed Mana Mirror and Floral Fertilizer recipes not taking any metadata.
 *Fixed Pyroclast Pendant losing fire resistance on dimension change.
