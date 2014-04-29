@@ -27,13 +27,13 @@ public class SubTileFallenKanade extends SubTileFunctional {
 	public void onUpdate() {
 		super.onUpdate();
 
-		final int range = 5;
-		final int cost = 20;
+		final int range = 3;
+		final int cost = 60;
 
 		List<EntityPlayer> players = supertile.getWorldObj().getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord - range, supertile.zCoord - range, supertile.xCoord + range, supertile.yCoord + range, supertile.zCoord + range));
 		for(EntityPlayer player : players) {
 			if(player.getActivePotionEffect(Potion.regeneration) == null && mana >= cost) {
-				player.addPotionEffect(new PotionEffect(Potion.regeneration.id, 100, 1));
+				player.addPotionEffect(new PotionEffect(Potion.regeneration.id, 60, 3));
 				mana -= cost;
 				sync();
 			}
@@ -47,7 +47,7 @@ public class SubTileFallenKanade extends SubTileFunctional {
 
 	@Override
 	public int getMaxMana() {
-		return 60;
+		return 240;
 	}
 
 	@Override
