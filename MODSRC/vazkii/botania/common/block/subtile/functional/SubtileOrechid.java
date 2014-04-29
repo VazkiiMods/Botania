@@ -39,8 +39,11 @@ public class SubtileOrechid extends SubTileFunctional {
 			if(coords != null) {
 				ItemStack stack = getOreToPut();
 				if(stack != null) {
-					supertile.getWorldObj().setBlock(coords.posX, coords.posY, coords.posZ, Block.getBlockFromItem(stack.getItem()), stack.getItemDamage(), 1 | 2);
-
+					Block block = Block.getBlockFromItem(stack.getItem());
+					int meta = stack.getItemDamage();
+					supertile.getWorldObj().setBlock(coords.posX, coords.posY, coords.posZ, block, meta, 1 | 2);
+					supertile.getWorldObj().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(block) + (meta << 12));
+					
 					mana -= COST;
 					sync();
 				}
