@@ -95,7 +95,7 @@ public class CommonProxy {
 	}
 
 	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size, float gravity) {
-		wispFX(world, x, y, z, r, gravity, b, size, gravity, 1F);
+		wispFX(world, x, y, z, r, g, b, size, gravity, 1F);
 	}
 
 	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size, float gravity, float maxAgeMul) {
