@@ -34,7 +34,7 @@ public final class TerrasteelCraftingHandler {
 	public static void onEntityUpdate(EntityItem item) {
 		ItemStack stack = item.getEntityItem();
 		if(stack != null && stack.getItem() == ModItems.manaResource && stack.getItemDamage() == 0) {
-			int time = validateCraftingItem(item);
+			int time = validateCraftingItem(item, true);
 
 			if(time != -1) {
 				doParticles(item, time);
@@ -67,8 +67,16 @@ public final class TerrasteelCraftingHandler {
 		}
 	}
 
-	static int validateCraftingItem(EntityItem item) {
-		int x = (int) item.posX - 1;
+	static int validateCraftingItem(EntityItem item, boolean recursive) {
+		if(recursive) { 
+			item.posX--;
+			int firstVal = validateCraftingItem(item, false);
+			item.posX++;
+			if(firstVal > -1)
+				return firstVal;
+		}
+		
+		int x = (int) item.posX;
 		int y = (int) item.posY;
 		int z = (int) item.posZ;
 
@@ -158,7 +166,7 @@ public final class TerrasteelCraftingHandler {
 
 	static void incrementCraftingTime(EntityItem item, int time) {
 		if(time >= TIME)
-			finalizeCraftingRecipe(item);
+			finalizeCraftingRecipe(item, true);
 
 		else {
 			ItemStack stack = item.getEntityItem();
@@ -166,8 +174,14 @@ public final class TerrasteelCraftingHandler {
 		}
 	}
 
-	static void finalizeCraftingRecipe(EntityItem item) {
-		int x = (int) item.posX - 1;
+	static void finalizeCraftingRecipe(EntityItem item, boolean recursive) {
+		if(recursive) {
+			item.posX--;
+			finalizeCraftingRecipe(item, false);
+			item.posX++;
+		}
+		
+		int x = (int) item.posX;
 		int y = (int) item.posY;
 		int z = (int) item.posZ;
 
