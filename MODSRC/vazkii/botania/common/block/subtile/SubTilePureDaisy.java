@@ -55,7 +55,7 @@ public class SubTilePureDaisy extends SubTileEntity {
 
 		int[] acoords = POSITIONS[positionAt];
 		ChunkCoordinates coords = new ChunkCoordinates(supertile.xCoord + acoords[0], supertile.yCoord + acoords[1], supertile.zCoord + acoords[2]);
-		Block block =supertile.getWorldObj().getBlock(coords.posX, coords.posY, coords.posZ);
+		Block block = supertile.getWorldObj().getBlock(coords.posX, coords.posY, coords.posZ);
 		if(block != Blocks.air) {
 			String oredict = OreDictionary.getOreName(OreDictionary.getOreID(new ItemStack(block, 1, supertile.getWorldObj().getBlockMetadata(coords.posX, coords.posY, coords.posZ))));
 			Block output = oredict.equals("stone") ? ModBlocks.livingrock : oredict.endsWith("logWood") ? ModBlocks.livingwood : null;
@@ -75,6 +75,7 @@ public class SubTilePureDaisy extends SubTileEntity {
 
 						Botania.proxy.wispFX(supertile.getWorldObj(), x, y, z, 1F, 1F, 1F, (float) Math.random() / 2F);
 					}
+					supertile.getWorldObj().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(block) + (supertile.getWorldObj().getBlockMetadata(coords.posX, coords.posY, coords.posZ) << 12));
 				}
 			} else ticksRemaining[positionAt] = 200;
 		}

@@ -13,6 +13,7 @@ package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
+import net.minecraft.block.BlockCrops;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import vazkii.botania.api.subtile.SubTileFunctional;
@@ -35,9 +36,12 @@ public class SubTileAgricarnation extends SubTileFunctional {
 					continue;
 
 				if(isPlant(x, y, z) && mana > 5) {
-					Block block  = supertile.getWorldObj().getBlock(x, y, z);
+					Block block = supertile.getWorldObj().getBlock(x, y, z);
 					mana -= 5;
 					supertile.getWorldObj().scheduleBlockUpdate(x, y, z, block, 1);
+					supertile.getWorldObj().playAuxSFX(2005, x, y, z, 6 + supertile.getWorldObj().rand.nextInt(4));
+
+					break;
 				}
 			}
 		}
@@ -45,7 +49,7 @@ public class SubTileAgricarnation extends SubTileFunctional {
 
 	boolean isPlant(int x, int y, int z) {
 		Block block = supertile.getWorldObj().getBlock(x, y, z);
-		if(block == Blocks.grass || block == Blocks.leaves || block == Blocks.leaves2 || block instanceof BlockBush)
+		if(block == Blocks.grass || block == Blocks.leaves || block == Blocks.leaves2 || (block instanceof BlockBush && !(block instanceof BlockCrops)))
 			return false;
 
 		Material mat = block.getMaterial();

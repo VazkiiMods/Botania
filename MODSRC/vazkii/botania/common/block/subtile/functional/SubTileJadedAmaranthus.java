@@ -40,10 +40,12 @@ public class SubTileJadedAmaranthus extends SubTileFunctional {
 
 			for(int i = 0; i < range * 2; i++) {
 				Block block = supertile.getWorldObj().getBlock(x, y, z);
-				if((block == Blocks.grass || block == Blocks.dirt || block == Blocks.farmland) && supertile.getWorldObj().isAirBlock(x, y + 1, z)) {
+				if((block == Blocks.grass || block == Blocks.dirt || block == Blocks.farmland) && (supertile.getWorldObj().isAirBlock(x, y + 1, z) || supertile.getWorldObj().getBlock(x, y + 1, z).isReplaceable(supertile.getWorldObj(), x, y + 1, z))) {
 					int color = supertile.getWorldObj().rand.nextInt(16);
-					if(ModBlocks.flower.canBlockStay(supertile.getWorldObj(), x, y + 1, z))
+					if(ModBlocks.flower.canBlockStay(supertile.getWorldObj(), x, y + 1, z)) {
+						supertile.getWorldObj().playAuxSFX(2001, x, y + 1, z, Block.getIdFromBlock(ModBlocks.flower) + (color << 12));
 						supertile.getWorldObj().setBlock(x, y + 1, z, ModBlocks.flower, color, 1 | 2);
+					}
 
 					mana -= COST;
 					sync();
