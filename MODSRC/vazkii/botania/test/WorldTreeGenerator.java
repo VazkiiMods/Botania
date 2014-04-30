@@ -9,7 +9,7 @@
  * 
  * File Created @ [Mar 22, 2014, 4:43:32 PM (GMT)]
  */
-package vazkii.botania.common.core.handler;
+package vazkii.botania.test;
 
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
