@@ -45,6 +45,7 @@ public class Botania {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		proxy.postInit(event);
+//		Corruption.init();
 	}
 
 	@EventHandler
