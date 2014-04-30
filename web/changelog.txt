@@ -1,3 +1,10 @@
+beta 25
+*Added some particles and/or sound to the Jaded Amaranthus and the Agricarnation.
+*Fixed a typo that caused some particles (pure daisy, mana pool, etc) to display in the wrong color.
+*Fixed the creative mana pool giving a regular one with pick block (middle click).
+*Force double checking with recurion for Terrasteel crafting, this should make it always work, there was some weird issue with position syncing, which caused it to not work on some cases.
+*The Agricarnation now grows normal crops (Wheat, Potatos, Carrots) fine, this broke in 1.7.
+*The Jaded Amaranthus can now place flowers on snow covered blocks.
 beta 24
 *Buffed the range of generating flowers back to 6 blocks.
 *Changed the way the checking for the mana infusion recipes work, this hopefully fixes IC2 woes.
