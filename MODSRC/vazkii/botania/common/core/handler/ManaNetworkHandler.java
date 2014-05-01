@@ -80,12 +80,12 @@ public final class ManaNetworkHandler implements IManaNetwork {
 	}
 
 	private synchronized void remove(Map<World, List<TileEntity>> map, TileEntity tile) {
-		int dim = tile.getWorldObj().provider.dimensionId;
+		World world = tile.getWorldObj();
 
-		if(!map.containsKey(dim))
+		if(!map.containsKey(world))
 			return;
 
-		List<TileEntity> tiles = map.get(dim);
+		List<TileEntity> tiles = map.get(world);
 		tiles.remove(tile);
 	}
 
