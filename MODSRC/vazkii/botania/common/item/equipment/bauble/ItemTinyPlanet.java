@@ -18,6 +18,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibItemNames;
@@ -39,8 +40,19 @@ public class ItemTinyPlanet extends ItemBauble {
 	@Override
 	public void onWornTick(ItemStack stack, EntityLivingBase player) {
 		super.onWornTick(stack, player);
+
+		double x = player.posX;
+		double y = player.posY + 1.2F;
+		double z = player.posZ;
+		if(player.worldObj.isRemote)
+			y -= 1.62F;
+		
+		applyEffect(player.worldObj, x, y, z);
+	}
+	
+	public static void applyEffect(World world, double x, double y, double z) {
 		int range = 8;
-		List<Entity> entities = player.worldObj.getEntitiesWithinAABB(IManaBurst.class, AxisAlignedBB.getBoundingBox(player.posX - range, player.posY - range, player.posZ - range, player.posX + range, player.posY + range, player.posZ + range));
+		List<Entity> entities = world.getEntitiesWithinAABB(IManaBurst.class, AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range, y + range, z + range));
 		for(Entity entity : entities) {
 			IManaBurst burst = (IManaBurst) entity;
 			int orbitTime = getEntityOrbitTime(entity);
@@ -50,11 +62,9 @@ public class ItemTinyPlanet extends ItemBauble {
 			float radius = (Math.max(40, orbitTime) - 40) / 40F + 1.5F;
 			int angle = orbitTime % 360;
 
-			float xTarget = (float) (player.posX + Math.cos(angle * 10 * Math.PI / 180F) * radius);
-			float yTarget = (float) player.posY + 1.2F;
-			float zTarget = (float) (player.posZ + Math.sin(angle * 10 * Math.PI / 180F) * radius);
-			if(player.worldObj.isRemote)
-				yTarget -= 1.62F;
+			float xTarget = (float) (x + Math.cos(angle * 10 * Math.PI / 180F) * radius);
+			float yTarget = (float) y;
+			float zTarget = (float) (z + Math.sin(angle * 10 * Math.PI / 180F) * radius);
 
 			Vector3 targetVec = new Vector3(xTarget, yTarget, zTarget);
 			Vector3 currentVec = new Vector3(entity.posX, entity.posY, entity.posZ);
@@ -66,14 +76,14 @@ public class ItemTinyPlanet extends ItemBauble {
 		}
 	}
 
-	public int getEntityOrbitTime(Entity entity) {
+	public static int getEntityOrbitTime(Entity entity) {
 		NBTTagCompound cmp = entity.getEntityData();
 		if(cmp.hasKey(TAG_ORBIT))
 			return cmp.getInteger(TAG_ORBIT);
 		else return 0;
 	}
 
-	public void incrementOrbitTime(Entity entity) {
+	public static void incrementOrbitTime(Entity entity) {
 		NBTTagCompound cmp = entity.getEntityData();
 		int time = getEntityOrbitTime(entity);
 		cmp.setInteger(TAG_ORBIT, time + 1);

@@ -123,7 +123,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			if(redstoneSide > 0)
 				redstone = true;
 		}
-
+		
 		if(needsNewBurstSimulation())
 			checkForReceiver();
 
