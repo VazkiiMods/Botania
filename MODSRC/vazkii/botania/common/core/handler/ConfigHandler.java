@@ -28,7 +28,7 @@ public final class ConfigHandler {
 	public static boolean lexicon3dModel = true;
 	public static boolean oldPylonModel = false;
 	public static double flowerParticleFrequency = 0.75F;
-	public static int spreaderPositionShift = 1;
+	public static int spreaderPositionShift = 0;
 
 	public static int flowerQuantity = 3;
 	public static int flowerDensity = 32;

@@ -17,6 +17,7 @@ public final class LibMisc {
 	public static final String MOD_ID = "Botania";
 	public static final String MOD_NAME = MOD_ID;
 	public static final String VERSION = "ANT:VERSION-ANT:BUILD";
+	public static final String DEPENDENCIES = "required-after:Forge@[10.12.0.1065,);";
 
 	// Network Contants
 	public static final String NETWORK_CHANNEL = MOD_ID;
