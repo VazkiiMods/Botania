@@ -17,6 +17,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
+import net.minecraft.block.BlockLeaves;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -495,7 +496,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			TileEntity tile = worldObj.getTileEntity(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ);
 			Block block = worldObj.getBlock(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ);
 
-			if(tile instanceof IManaCollisionGhost && ((IManaCollisionGhost) tile).isGhost() || block instanceof BlockBush)
+			if(tile instanceof IManaCollisionGhost && ((IManaCollisionGhost) tile).isGhost() || block instanceof BlockBush || block instanceof BlockLeaves)
 				return;
 
 			ChunkCoordinates coords = getBurstSourceChunkCoordinates();
@@ -735,8 +736,8 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		}
 
 		public boolean contentsEqual(World world) {
-			Block block = world.getBlock(coords.posX, coords.posY, coords.posZ);
-			int meta = world.getBlockMetadata(coords.posX, coords.posY, coords.posZ);
+			Block block = world.getBlock(coords.posX - 1, coords.posY, coords.posZ);
+			int meta = world.getBlockMetadata(coords.posX - 1, coords.posY, coords.posZ);
 			return block == this.block && meta == this.meta;
 		}
 	}
