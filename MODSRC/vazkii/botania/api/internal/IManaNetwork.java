@@ -15,6 +15,7 @@ import java.util.List;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.world.World;
 
 /**
  * A basic interface for a world's Mana Network.
@@ -37,7 +38,7 @@ public interface IManaNetwork {
 	 * @param limit The maximum distance the closest block can be, if the closest block
 	 * is farther away than that, null will be returned instead.
 	 */
-	public TileEntity getClosestCollector(ChunkCoordinates pos, int dim, int limit);
+	public TileEntity getClosestCollector(ChunkCoordinates pos, World world, int limit);
 
 	/**
 	 * Gets the closest Mana Pool in the network to the Chunk Coordinates passed in,
@@ -48,19 +49,19 @@ public interface IManaNetwork {
 	 * @param limit The maximum distance the closest block can be, if the closest block
 	 * is farther away than that, null will be returned instead.
 	 */
-	public TileEntity getClosestPool(ChunkCoordinates pos, int dim, int limit);
+	public TileEntity getClosestPool(ChunkCoordinates pos, World world, int limit);
 
 	/**
 	 * Gets the list of all Mana Collectors (eg. Mana Spreader) in the dimension
 	 * passed in. Note that this is the actual list and not a copy, make sure to
 	 * clone the list if you intend to change it in any way.
 	 */
-	public List<TileEntity> getAllCollectorsInWorld(int dim);
+	public List<TileEntity> getAllCollectorsInWorld(World world);
 
 	/**
 	 * Gets the list of all Mana Pools in the dimension passed in. Note that this
 	 * is the actual list and not a copy, make sure to clone the list if you intend
 	 * to change it in any way.
 	 */
-	public List<TileEntity> getAllPoolsInWorld(int dim);
+	public List<TileEntity> getAllPoolsInWorld(World world);
 }

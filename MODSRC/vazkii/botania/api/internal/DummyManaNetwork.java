@@ -16,6 +16,7 @@ import java.util.List;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.world.World;
 
 public class DummyManaNetwork implements IManaNetwork {
 
@@ -27,22 +28,22 @@ public class DummyManaNetwork implements IManaNetwork {
 	}
 
 	@Override
-	public TileEntity getClosestPool(ChunkCoordinates pos, int dimension, int limit) {
+	public TileEntity getClosestPool(ChunkCoordinates pos, World world, int limit) {
 		return null;
 	}
 
 	@Override
-	public TileEntity getClosestCollector(ChunkCoordinates pos, int dimension, int limit) {
+	public TileEntity getClosestCollector(ChunkCoordinates pos, World world, int limit) {
 		return null;
 	}
 
 	@Override
-	public List<TileEntity> getAllCollectorsInWorld(int dim) {
+	public List<TileEntity> getAllCollectorsInWorld(World world) {
 		return new ArrayList();
 	}
 
 	@Override
-	public List<TileEntity> getAllPoolsInWorld(int dim) {
+	public List<TileEntity> getAllPoolsInWorld(World world) {
 		return new ArrayList();
 	}
 

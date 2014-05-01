@@ -12,12 +12,13 @@
 package vazkii.botania.common.core.handler;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.WeakHashMap;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.api.mana.ManaNetworkEvent.Action;
@@ -29,12 +30,12 @@ public final class ManaNetworkHandler implements IManaNetwork {
 
 	public static final ManaNetworkHandler instance = new ManaNetworkHandler();
 
-	public Map<Integer, List<TileEntity>> manaPools = new HashMap();
-	public Map<Integer, List<TileEntity>> manaCollectors = new HashMap();
+	public WeakHashMap<World, List<TileEntity>> manaPools = new WeakHashMap();
+	public WeakHashMap<World, List<TileEntity>> manaCollectors = new WeakHashMap();
 
 	@SubscribeEvent
 	public void onNetworkEvent(ManaNetworkEvent event) {
-		Map<Integer, List<TileEntity>> map = event.type == ManaBlockType.COLLECTOR ? manaCollectors : manaPools;
+		Map<World, List<TileEntity>> map = event.type == ManaBlockType.COLLECTOR ? manaCollectors : manaPools;
 		if(event.action == Action.ADD)
 			add(map, event.tile);
 		else remove(map, event.tile);
@@ -47,16 +48,16 @@ public final class ManaNetworkHandler implements IManaNetwork {
 	}
 
 	@Override
-	public TileEntity getClosestPool(ChunkCoordinates pos, int dimension, int limit) {
-		if(manaPools.containsKey(dimension))
-			return getClosest(manaPools.get(dimension), pos, limit);
+	public TileEntity getClosestPool(ChunkCoordinates pos, World world, int limit) {
+		if(manaPools.containsKey(world))
+			return getClosest(manaPools.get(world), pos, limit);
 		return null;
 	}
 
 	@Override
-	public TileEntity getClosestCollector(ChunkCoordinates pos, int dimension, int limit) {
-		if(manaCollectors.containsKey(dimension))
-			return getClosest(manaCollectors.get(dimension), pos, limit);
+	public TileEntity getClosestCollector(ChunkCoordinates pos, World world, int limit) {
+		if(manaCollectors.containsKey(world))
+			return getClosest(manaCollectors.get(world), pos, limit);
 		return null;
 	}
 
@@ -78,7 +79,7 @@ public final class ManaNetworkHandler implements IManaNetwork {
 		return closestTile;
 	}
 
-	private synchronized void remove(Map<Integer, List<TileEntity>> map, TileEntity tile) {
+	private synchronized void remove(Map<World, List<TileEntity>> map, TileEntity tile) {
 		int dim = tile.getWorldObj().provider.dimensionId;
 
 		if(!map.containsKey(dim))
@@ -88,32 +89,33 @@ public final class ManaNetworkHandler implements IManaNetwork {
 		tiles.remove(tile);
 	}
 
-	private synchronized void add(Map<Integer, List<TileEntity>> map, TileEntity tile) {
-		int dim = tile.getWorldObj().provider.dimensionId;
+	private synchronized void add(Map<World, List<TileEntity>> map, TileEntity tile) {
+		World world = tile.getWorldObj();
 
 		List<TileEntity> tiles;
-		if(!map.containsKey(dim))
-			map.put(dim, new ArrayList());
+		if(!map.containsKey(world))
+			map.put(world, new ArrayList());
 
-		tiles = map.get(dim);
+		tiles = map.get(world);
 
 		if(!tiles.contains(tile))
 			tiles.add(tile);
 	}
 
 	@Override
-	public List<TileEntity> getAllCollectorsInWorld(int dim) {
-		return getAllInWorld(manaCollectors, dim);
+	public List<TileEntity> getAllCollectorsInWorld(World world) {
+		return getAllInWorld(manaCollectors, world);
 	}
 
 	@Override
-	public List<TileEntity> getAllPoolsInWorld(int dim) {
-		return getAllInWorld(manaPools, dim);
+	public List<TileEntity> getAllPoolsInWorld(World world) {
+		return getAllInWorld(manaPools, world);
 	}
 
-	private List<TileEntity> getAllInWorld(Map<Integer, List<TileEntity>> map, int dim) {
-		if(!map.containsKey(dim))
+	private List<TileEntity> getAllInWorld(Map<World, List<TileEntity>> map, World world) {
+		if(!map.containsKey(world))
 			return new ArrayList();
-		return map.get(dim);
+		
+		return map.get(world);
 	}
 }
