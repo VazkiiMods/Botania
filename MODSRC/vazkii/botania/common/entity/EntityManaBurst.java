@@ -736,8 +736,8 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		}
 
 		public boolean contentsEqual(World world) {
-			Block block = world.getBlock(coords.posX - 1, coords.posY, coords.posZ);
-			int meta = world.getBlockMetadata(coords.posX - 1, coords.posY, coords.posZ);
+			Block block = world.getBlock(coords.posX - ConfigHandler.spreaderPositionShift, coords.posY, coords.posZ);
+			int meta = world.getBlockMetadata(coords.posX - ConfigHandler.spreaderPositionShift, coords.posY, coords.posZ);
 			return block == this.block && meta == this.meta;
 		}
 	}
