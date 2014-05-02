@@ -42,11 +42,11 @@ public class RecipeManaInfusion {
 
 		return false;
 	}
-	
+
 	public void setAlchemy(boolean alchemy) {
 		isAlchemy = alchemy;
 	}
-	
+
 	public boolean isAlchemy() {
 		return isAlchemy;
 	}

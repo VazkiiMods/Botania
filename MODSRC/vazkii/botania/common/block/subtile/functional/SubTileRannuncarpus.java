@@ -38,7 +38,7 @@ import cpw.mods.fml.relauncher.ReflectionHelper;
 public class SubTileRannuncarpus extends SubTileFunctional {
 
 	int cooldown = 0;
-	
+
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
@@ -48,14 +48,14 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 		}
 
 		BlockData filter = getUnderlyingBlock();
-		
+
 		boolean scanned = false;
 		List<ChunkCoordinates> validPositions = new ArrayList();
-		
+
 		int range = 2;
 		int rangePlace = mana > 0 ? 8 : 6;
 		int rangePlaceY = 6;
-		
+
 		int x = supertile.xCoord;
 		int y = supertile.yCoord;
 		int z = supertile.zCoord;
@@ -64,7 +64,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 		for(EntityItem item : items) {
 			if(item.age < 60)
 				continue;
-			
+
 			ItemStack stack = item.getEntityItem();
 			Item stackItem = stack.getItem();
 			if(stackItem instanceof ItemBlock || stackItem instanceof ItemReed) {
@@ -76,35 +76,35 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 								int yp = y + j;
 								int zp = z + l;
 								Block blockAbove = supertile.getWorldObj().getBlock(xp, yp + 1, zp);
-								
+
 								if(filter.equals(supertile.getWorldObj(), xp, yp, zp) && (blockAbove.isAir(supertile.getWorldObj(), xp, yp + 1, zp) || blockAbove.isReplaceable(supertile.getWorldObj(), xp, yp + 1, zp)))
 									validPositions.add(new ChunkCoordinates(xp, yp + 1, zp));
 							}
-					
+
 					scanned = true;
 				}
-				
-			
+
+
 				if(!validPositions.isEmpty() && !supertile.getWorldObj().isRemote) {
 					Block blockToPlace = null;
 					if(stackItem instanceof ItemBlock)
 						blockToPlace = ((ItemBlock) stackItem).field_150939_a;
 					else if(stackItem instanceof ItemReed)
 						blockToPlace = ReflectionHelper.getPrivateValue(ItemReed.class, (ItemReed) stackItem, LibObfuscation.REED_ITEM);
-					
+
 					if(blockToPlace != null) {
 						ChunkCoordinates coords = validPositions.get(supertile.getWorldObj().rand.nextInt(validPositions.size()));
 						if(blockToPlace.canPlaceBlockAt(supertile.getWorldObj(), coords.posX, coords.posY, coords.posZ)) {
 							supertile.getWorldObj().setBlock(coords.posX, coords.posY, coords.posZ, blockToPlace, stack.getItemDamage(), 1 | 2);
 							supertile.getWorldObj().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(blockToPlace) + (stack.getItemDamage() << 12));
 							validPositions.remove(coords);
-							
+
 							if(!supertile.getWorldObj().isRemote) {
 								stack.stackSize--;
 								if(stack.stackSize == 0)
 									item.setDead();
 							}
-							
+
 							cooldown = 10;
 							if(mana > 1)
 								mana--;
@@ -115,17 +115,17 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 			}
 		}
 	}
-	
+
 	public BlockData getUnderlyingBlock() {
 		return new BlockData(supertile.getWorldObj(), supertile.xCoord, supertile.yCoord - 2, supertile.zCoord);
 	}
-	
+
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		super.renderHUD(mc, res);
-		
+
 		BlockData filter = getUnderlyingBlock();
-		ItemStack recieverStack = new ItemStack(Item.getItemFromBlock(filter.block), 1, filter.meta); 
+		ItemStack recieverStack = new ItemStack(Item.getItemFromBlock(filter.block), 1, filter.meta);
 		int color = 0x66000000 | getColor();
 
 		GL11.glEnable(GL11.GL_BLEND);
@@ -143,40 +143,40 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 		GL11.glDisable(GL11.GL_LIGHTING);
 		GL11.glDisable(GL11.GL_BLEND);
 	}
-	
+
 	@Override
 	public int getMaxMana() {
 		return 20;
 	}
-	
+
 	@Override
 	public int getColor() {
 		return 0xFFB27F;
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry() {
 		return LexiconData.rannuncarpus;
 	}
-	
+
 	static class BlockData {
-		
+
 		Block block;
 		int meta;
-		
+
 		public BlockData(World world, int x, int y, int z) {
 			block = world.getBlock(x, y, z);
 			meta = world.getBlockMetadata(x, y, z);
 		}
-		
+
 		public boolean equals(BlockData data) {
 			return block == data.block && meta == data.meta;
 		}
-		
+
 		public boolean equals(World world, int x, int y, int z) {
 			return equals(new BlockData(world, x, y, z));
 		}
-		
+
 	}
-	
+
 }

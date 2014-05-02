@@ -115,7 +115,7 @@ public final class ManaNetworkHandler implements IManaNetwork {
 	private List<TileEntity> getAllInWorld(Map<World, List<TileEntity>> map, World world) {
 		if(!map.containsKey(world))
 			return new ArrayList();
-		
+
 		return map.get(world);
 	}
 }

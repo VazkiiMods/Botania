@@ -43,7 +43,7 @@ public class SubtileOrechid extends SubTileFunctional {
 					int meta = stack.getItemDamage();
 					supertile.getWorldObj().setBlock(coords.posX, coords.posY, coords.posZ, block, meta, 1 | 2);
 					supertile.getWorldObj().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(block) + (meta << 12));
-					
+
 					mana -= COST;
 					sync();
 				}

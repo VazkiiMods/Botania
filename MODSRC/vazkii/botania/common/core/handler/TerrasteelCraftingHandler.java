@@ -40,7 +40,7 @@ public final class TerrasteelCraftingHandler {
 				doParticles(item, time);
 				if(time == TIME)
 					item.worldObj.playSoundAtEntity(item, "random.levelup", 1F, 1F);
-				
+
 				getManaFromPools : {
 					int x = (int) item.posX;
 					int y = (int) item.posY;
@@ -68,14 +68,14 @@ public final class TerrasteelCraftingHandler {
 	}
 
 	static int validateCraftingItem(EntityItem item, boolean recursive) {
-		if(recursive) { 
+		if(recursive) {
 			item.posX--;
 			int firstVal = validateCraftingItem(item, false);
 			item.posX++;
 			if(firstVal > -1)
 				return firstVal;
 		}
-		
+
 		int x = (int) item.posX;
 		int y = (int) item.posY;
 		int z = (int) item.posZ;
@@ -180,7 +180,7 @@ public final class TerrasteelCraftingHandler {
 			finalizeCraftingRecipe(item, false);
 			item.posX++;
 		}
-		
+
 		int x = (int) item.posX;
 		int y = (int) item.posY;
 		int z = (int) item.posZ;

@@ -105,7 +105,7 @@ public class PageRecipe extends LexiconPage {
 	public void renderItemAtAngle(IGuiLexiconEntry gui, int angle, ItemStack stack) {
 		if(stack == null || stack.getItem() == null)
 			return;
-		
+
 		ItemStack workStack = stack.copy();
 
 		if(workStack.getItemDamage() == Short.MAX_VALUE || workStack.getItemDamage() == -1)

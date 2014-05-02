@@ -11,7 +11,6 @@
  */
 package vazkii.botania.common.crafting;
 
-import net.minecraft.item.ItemSpade;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;

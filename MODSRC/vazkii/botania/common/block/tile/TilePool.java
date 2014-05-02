@@ -83,7 +83,7 @@ public class TilePool extends TileMod implements IManaPool {
 	public boolean collideEntityItem(EntityItem item) {
 		if(craftCooldown > 0)
 			return false;
-		
+
 		boolean didChange = false;
 		ItemStack stack = item.getEntityItem();
 		if(stack == null)
@@ -104,7 +104,7 @@ public class TilePool extends TileMod implements IManaPool {
 						EntityItem outputItem = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, output);
 						worldObj.spawnEntityInWorld(outputItem);
 					}
-					
+
 					craftCooldown = 20;
 					craftingFanciness();
 					didChange = true;
@@ -139,9 +139,9 @@ public class TilePool extends TileMod implements IManaPool {
 			if(Math.random() > particleChance)
 				Botania.proxy.wispFX(worldObj, xCoord + 0.3 + Math.random() * 0.5, yCoord + 0.6 + Math.random() * 0.25, zCoord + Math.random(), color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random() / 3F, (float) -Math.random() / 25F);
 		}
-		
+
 		alchemy = worldObj.getBlock(xCoord, yCoord - 1, zCoord) == ModBlocks.alchemyCatalyst;
-		
+
 		if(craftCooldown > 0)
 			craftCooldown--;
 		List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1));

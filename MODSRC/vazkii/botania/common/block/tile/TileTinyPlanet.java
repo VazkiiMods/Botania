@@ -25,5 +25,5 @@ public class TileTinyPlanet extends TileMod implements IManaCollisionGhost {
 	public boolean isGhost() {
 		return true;
 	}
-	
+
 }

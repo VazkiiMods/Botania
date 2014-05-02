@@ -11,11 +11,6 @@
  */
 package vazkii.botania.common.block;
 
-import vazkii.botania.api.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.client.core.helper.IconHelper;
-import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibBlockNames;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -23,11 +18,16 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import vazkii.botania.api.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockAlchemyCatalyst extends BlockMod implements ILexiconable {
 
 	IIcon[] icons;
-	
+
 	public BlockAlchemyCatalyst() {
 		super(Material.rock);
 		setHardness(2.0F);
@@ -42,7 +42,7 @@ public class BlockAlchemyCatalyst extends BlockMod implements ILexiconable {
 		for(int i = 0; i < icons.length; i++)
 			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
 	}
-	
+
 	@Override
 	public IIcon getIcon(int par1, int par2) {
 		return icons[Math.min(2, par1)];
@@ -52,5 +52,5 @@ public class BlockAlchemyCatalyst extends BlockMod implements ILexiconable {
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.alchemy;
 	}
-	
+
 }

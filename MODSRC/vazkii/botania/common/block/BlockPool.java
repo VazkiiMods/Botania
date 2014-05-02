@@ -64,7 +64,7 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		// NO-OP
 	}
-	
+
 	@Override
 	public int damageDropped(int par1) {
 		return par1;

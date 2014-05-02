@@ -146,7 +146,7 @@ public final class BotaniaAPI {
 		manaInfusionRecipes.add(recipe);
 		return recipe;
 	}
-	
+
 	/**
 	 * Register a Mana Infusion Recipe and flags it as an Alchemy recipe (requires an
 	 * Alchemy Catalyst below the pool).

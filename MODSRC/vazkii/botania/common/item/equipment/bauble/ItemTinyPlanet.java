@@ -46,10 +46,10 @@ public class ItemTinyPlanet extends ItemBauble {
 		double z = player.posZ;
 		if(player.worldObj.isRemote)
 			y -= 1.62F;
-		
+
 		applyEffect(player.worldObj, x, y, z);
 	}
-	
+
 	public static void applyEffect(World world, double x, double y, double z) {
 		int range = 8;
 		List<Entity> entities = world.getEntitiesWithinAABB(IManaBurst.class, AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range, y + range, z + range));

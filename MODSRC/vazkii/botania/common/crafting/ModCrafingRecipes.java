@@ -552,16 +552,16 @@ public final class ModCrafingRecipes {
 				'L', "treeLeaves",
 				'E', LibOreDict.LIFE_ESSENCE);
 		recipeGoldenLaurel = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Tiny Planet Block Recipe
-		addOreDictRecipe(new ItemStack(ModBlocks.tinyPlanet), 
+		addOreDictRecipe(new ItemStack(ModBlocks.tinyPlanet),
 				"SSS", "SPS", "SSS",
 				'S', "stone",
 				'P', ModItems.tinyPlanet);
 		recipeTinyPlanetBlock = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Alchemy Catalyst Recipe
-		addOreDictRecipe(new ItemStack(ModBlocks.alchemyCatalyst), 
+		addOreDictRecipe(new ItemStack(ModBlocks.alchemyCatalyst),
 				"SGS", "BPB", "SGS",
 				'S', LibOreDict.LIVING_ROCK,
 				'G', "ingotGold",
