@@ -14,9 +14,6 @@ package vazkii.botania.common.block.subtile.functional;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.lwjgl.opengl.GL11;
-
-import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -26,13 +23,17 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemReed;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
+
+import org.lwjgl.opengl.GL11;
+
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileFunctional;
-import vazkii.botania.common.core.helper.ObfuscationHelper;
+import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibObfuscation;
+import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class SubTileRannuncarpus extends SubTileFunctional {
 
@@ -151,6 +152,11 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 	@Override
 	public int getColor() {
 		return 0xFFB27F;
+	}
+	
+	@Override
+	public LexiconEntry getEntry() {
+		return LexiconData.rannuncarpus;
 	}
 	
 	static class BlockData {

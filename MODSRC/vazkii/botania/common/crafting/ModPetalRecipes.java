@@ -11,6 +11,7 @@
  */
 package vazkii.botania.common.crafting;
 
+import net.minecraft.item.ItemSpade;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
@@ -43,6 +44,7 @@ public final class ModPetalRecipes {
 	public static RecipePetals hopperhockRecipe;
 	public static RecipePetals tangleberrieRecipe;
 	public static RecipePetals jiyuuliaRecipe;
+	public static RecipePetals rannuncarpusRecipe;
 
 	public static void init() {
 		pureDaisyRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_PUREDAISY), white, white, white, white);
@@ -65,5 +67,6 @@ public final class ModPetalRecipes {
 		hopperhockRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_HOPPERHOCK), gray, grayMana, lightGray, lightGrayMana, runeAir);
 		tangleberrieRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_TANGLEBERRIE), grayMana, lightGrayMana, cyanMana, cyan, runeAir, runeEarth);
 		jiyuuliaRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_JIYUULIA), pinkMana, purpleMana, lightGrayMana, pink, runeWater, runeAir);
+		rannuncarpusRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_RANNUNCARPUS), orangeMana, orangeMana, orange, yellow, runeEarth, red, redMana);
 	}
 }

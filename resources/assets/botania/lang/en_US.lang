@@ -571,6 +571,12 @@ botania.entry.jiyuulia=Jiyuulia
 botania.page.jiyuulia0=The &1Jiyuulia&0 is a flower that, at the cost of a small amount of &4Mana&0, will keep any nearby animals or monsters at bay, protecting a circular area from them getting in.
 botania.page.jiyuulia1=&oKeep out, please&r.
 
+# -- RANNUNCARPUS
+botania.entry.rannuncarpus=Rannuncarpus
+botania.page.rannuncarpus0=Quite a handy flower indeed, the &1Rannuncarpus&0 will pick up any nearby blocks in dropped item form and place them in the world nearby. It, however, only places the blocks thrown at it on top of a specific block, to specify this block, place it right below the soil the flower is resting on.
+botania.page.rannuncarpus1=Block items, such as &1Sugar Cane&0 will also work, but, much alike any other blocks, will only be placed in a location where they normally would be able to be placed.<br>Lastly, giving &4Mana&0 to the flower is optional, but it increases it's range.
+botania.page.rannuncarpus2=&oNeed a hand&r?
+
 # - GENERATING FLOWERS
 # -- AN INTRODUCTION TO GENERATION
 botania.entry.gIntro=An Introduction to Generation
@@ -745,7 +751,7 @@ botania.page.lavaPendant1=Hanako could have used one of these
 
 # -- GOLDEN LAUREL CROWN
 botania.entry.goldenLaurel=Golden Laurel Crown
-botania.page.goldenLaurel0=One of the uses for &1Essence of Eternal Life&0 is to, of course, grant a layer of immortability to one that uses it, while wearing a &1Golden Laurel Crown&0, if the wearer were to die, the crown will shatter, regenerating all of their health and giving them a short period of invincibility.
+botania.page.goldenLaurel0=One of the uses for &1Essence of Eternal Life&0 is to, of course, grant a layer of immortality to one that uses it, while wearing a &1Golden Laurel Crown&0, if the wearer were to die, the crown will shatter, regenerating all of their health and giving them a short period of invincibility.
 botania.page.goldenLaurel1=Given the theme, probably Viridi
 
 # - MISCLANEOUS
