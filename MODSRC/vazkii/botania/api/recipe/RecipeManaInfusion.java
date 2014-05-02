@@ -21,6 +21,7 @@ public class RecipeManaInfusion {
 	ItemStack output;
 	Object input;
 	int mana;
+	boolean isAlchemy = false;
 
 	public RecipeManaInfusion(ItemStack output, Object input, int mana) {
 		this.output = output;
@@ -40,6 +41,14 @@ public class RecipeManaInfusion {
 		}
 
 		return false;
+	}
+	
+	public void setAlchemy(boolean alchemy) {
+		isAlchemy = alchemy;
+	}
+	
+	public boolean isAlchemy() {
+		return isAlchemy;
 	}
 
 	public Object getInput() {

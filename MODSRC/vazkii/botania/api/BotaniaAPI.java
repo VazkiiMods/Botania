@@ -146,6 +146,12 @@ public final class BotaniaAPI {
 		manaInfusionRecipes.add(recipe);
 		return recipe;
 	}
+	
+	public static RecipeManaInfusion registerManaAlchemyRecipe(ItemStack output, Object input, int mana) {
+		RecipeManaInfusion recipe = registerManaInfusionRecipe(output, input, mana);
+		recipe.setAlchemy(true);
+		return recipe;
+	}
 
 	public static void registerSubTile(String key, Class<? extends SubTileEntity> subtileClass) {
 		subTiles.put(key, subtileClass);

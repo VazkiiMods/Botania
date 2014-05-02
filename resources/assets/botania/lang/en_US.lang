@@ -125,6 +125,7 @@ tile.botania:manaDetector.name=Mana Detector
 tile.botania:enchanter.name=Mana Enchanter
 tile.botania:turntable.name=Spreader Turntable
 tile.botania:tinyPlanetBlock.name=Tiny Planet
+tile.botania:alchemyCatalyst.name=Alchemy Catalyst
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
