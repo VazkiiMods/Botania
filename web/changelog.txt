@@ -1,3 +1,15 @@
+beta 26
+*Added the Alchemical Catalyst and some recipes to make use of it.
+*Added the Rannuncarpus, a new functional flower that can place blocks.
+*Changed internals of the Mana Network to use weak world references, thus preventing world leaks through TileEntities that are not invalidated before being removed. In theory, this should also fix flowers sometimes losing their bindings to spreaders or pools.
+*Fixed a weird crash relating to metadata on colored items.
+*Fixed Mana Spreaders being broken once again.
+*Made the mod dependant on Forge 1056 or later due to inconsistencies in old versions and internals of the mod.
+*Some tests are available for curious minds on github under /vazkii/botania/test
+*Special flowers now emit less particles (even when full on mana).
+*The Mana Pool now has a small cooldown between crafting items, it also plays a less obnoxious sound.
+*The Tiny Planet can now be turned into a block and placed in world.
+*<i>For any Katawa Shoujo fans reading this, check the Pyroclast Pendant entry to see how horrible of a person I am :'D</i>
 beta 25
 *Added some particles and/or sound to the Jaded Amaranthus and the Agricarnation.
 *Fixed a typo that caused some particles (pure daisy, mana pool, etc) to display in the wrong color.

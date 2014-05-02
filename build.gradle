@@ -11,7 +11,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.1-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
     }
 }
 
@@ -22,7 +22,7 @@ group= "vazkii.botania" // http://maven.apache.org/guides/mini/guide-naming-conv
 archivesBaseName = "modid"
 
 minecraft {
-    version = "1.7.2-10.12.0.1024"
+    version = "1.7.2-10.12.1.1065"
     assetDir = "eclipse/assets"
 }
 
