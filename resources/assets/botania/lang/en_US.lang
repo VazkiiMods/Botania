@@ -647,6 +647,27 @@ botania.entry.turntable=Spreader Turntable
 botania.page.turntable0=The &1Spreader Turntable&0, as it's name implies, can turn &1Mana Spreaders&0 around and around. Placing a spreader above the turntable will rotate it, given that a redstone signal isn't applied.<br>To change the speed of the turntable, right click with a &1Wand of the Forest&0, shift-right clicking will invert the movement.
 botania.page.turntable1=Spin spin spin spin
 
+# -- BOTANICAL ALCHEMY
+botania.entry.manaAlchemy=Alchemising with Mana
+botania.page.manaAlchemy0=&4Mana&0 is an extremely volatile substance, to a point that it's complete properties and abilities are unknown.<br>One of them is known, though, by attaching an &1Alchemy Catalyst&0, created with a mixture of otherworldly materials to the bottom of a &1Mana Pool&0, it enables the pool to perform &4Alchemy&0.
+botania.page.manaAlchemy1=Creating the &1Catalyst&0
+botania.page.manaAlchemy2=&1Rotten Flesh&0 to &1Leather&0
+botania.page.manaAlchemy3=Various types of &1Wood&0
+botania.page.manaAlchemy4=Various types of &1Saplings&0
+botania.page.manaAlchemy5=Breaking down &1Glowstone Blocks&0
+botania.page.manaAlchemy6=Breaking down &1Quartz Blocks&0
+botania.page.manaAlchemy7=Creating &1Chiseled Stone Bricks&0
+botania.page.manaAlchemy8=Further freezing &1Snow&0 into &1Ice&0
+botania.page.manaAlchemy9=Converting between &1Vines&0 and &1Lilypads&0
+botania.page.manaAlchemy10=Various breeds of &1Fish&0
+botania.page.manaAlchemy11=Transmuting &1Seeds&0 and &1Crops&0
+botania.page.manaAlchemy12=Purifying &1Poisonous Potatos&0
+botania.page.manaAlchemy13=Conjuring &1Nether Wart&0
+botania.page.manaAlchemy14=Converting between &1Gunpowder&0 and &1Flint&0
+botania.page.manaAlchemy15=Making &1Name Tags&0
+botania.page.manaAlchemy16=Creating &1Ender Pearls&0
+botania.page.manaAlchemy17=Breaking &1Cobblestone&0 into &1Sand&0
+
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
 botania.entry.manaBlaster=Mana Blaster

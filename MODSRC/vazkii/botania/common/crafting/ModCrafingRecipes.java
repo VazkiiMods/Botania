@@ -107,6 +107,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeLifeEssence;
 	public static IRecipe recipeGoldenLaurel;
 	public static IRecipe recipeTinyPlanetBlock;
+	public static IRecipe recipeAlchemyCatalyst;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -558,6 +559,15 @@ public final class ModCrafingRecipes {
 				'S', "stone",
 				'P', ModItems.tinyPlanet);
 		recipeTinyPlanetBlock = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Alchemy Catalyst Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.alchemyCatalyst), 
+				"SGS", "BPB", "SGS",
+				'S', LibOreDict.LIVING_ROCK,
+				'G', "ingotGold",
+				'B', new ItemStack(Items.brewing_stand),
+				'P', LibOreDict.MANA_PEARL);
+		recipeAlchemyCatalyst = BotaniaAPI.getLatestAddedRecipe();
 	}
 
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {
