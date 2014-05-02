@@ -28,7 +28,7 @@ public final class ConfigHandler {
 	public static boolean lexicon3dModel = true;
 	public static boolean oldPylonModel = false;
 	public static double flowerParticleFrequency = 0.75F;
-	public static int spreaderPositionShift = 0;
+	public static int spreaderPositionShift = 1;
 
 	public static int flowerQuantity = 3;
 	public static int flowerDensity = 32;
@@ -63,7 +63,7 @@ public final class ConfigHandler {
 		desc = "The frequency in which particles spawn from normal (worldgen) mystical flowers";
 		flowerParticleFrequency = loadPropDouble("flowerParticles.frequency", desc, flowerParticleFrequency);
 		
-		desc = "If Mana Spreaders do not work, try setting this to 0. It's a current workaround of a weird issue in this version.";
+		desc = "Do not ever touch this value if not asked to. Possible symptoms of doing so include your head turning backwards, the appearance of Titans near the walls or you being trapped in a game of Sword Art Online.";
 		spreaderPositionShift = loadPropInt("spreader.posShift", desc, spreaderPositionShift);
 
 		flowerQuantity = loadPropInt("worldgen.flower.quantity", null, 3);
