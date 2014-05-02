@@ -106,6 +106,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeLavaPendant;
 	public static IRecipe recipeLifeEssence;
 	public static IRecipe recipeGoldenLaurel;
+	public static IRecipe recipeTinyPlanetBlock;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -550,6 +551,13 @@ public final class ModCrafingRecipes {
 				'L', "treeLeaves",
 				'E', LibOreDict.LIFE_ESSENCE);
 		recipeGoldenLaurel = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Tiny Planet Block Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.tinyPlanet), 
+				"SSS", "SPS", "SSS",
+				'S', "stone",
+				'P', ModItems.tinyPlanet);
+		recipeTinyPlanetBlock = BotaniaAPI.getLatestAddedRecipe();
 	}
 
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {

@@ -11,13 +11,18 @@
  */
 package vazkii.botania.common.block;
 
+import vazkii.botania.api.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.tile.TileTinyPlanet;
+import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockTinyPlanet extends BlockModContainer {
+public class BlockTinyPlanet extends BlockModContainer implements ILexiconable {
 
 	protected BlockTinyPlanet() {
 		super(Material.rock);
@@ -28,12 +33,7 @@ public class BlockTinyPlanet extends BlockModContainer {
 		setBlockBounds(size, size, size, 1F - size, 1F - size, 1F - size);
 		setBlockName(LibBlockNames.TINY_PLANET);
 	}
-	
-	@Override
-	boolean registerInCreative() {
-		return false;
-	}
-	
+
 	@Override
 	public boolean renderAsNormalBlock() {
 		return false;
@@ -47,6 +47,11 @@ public class BlockTinyPlanet extends BlockModContainer {
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileTinyPlanet();
+	}
+
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return LexiconData.tinyPlanet;
 	}
 	
 }
