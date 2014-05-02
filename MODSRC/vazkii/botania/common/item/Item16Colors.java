@@ -29,6 +29,9 @@ public class Item16Colors extends ItemMod {
 
 	@Override
 	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
+		if(par1ItemStack.getItemDamage() >= EntitySheep.fleeceColorTable.length)
+			return 0xFFFFFF;
+		
 		float[] color = EntitySheep.fleeceColorTable[par1ItemStack.getItemDamage()];
 		return new Color(color[0], color[1], color[2]).getRGB();
 	}
