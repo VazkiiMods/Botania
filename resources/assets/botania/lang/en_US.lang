@@ -169,6 +169,8 @@ tile.botania:flower.tangleberrie.reference=No frying pans allowed
 tile.botania:flower.jiyuulia.name=Jiyuulia
 tile.botania:flower.jiyuulia.reference=Flügel der Freiheit
 # TRANSLATE THAT VEXATOS
+tile.botania:flower.rannuncarpus.name=Rannuncarpus
+tile.botania:flower.rannuncarpus.reference=That's handy
 
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania
