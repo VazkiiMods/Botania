@@ -147,6 +147,11 @@ public final class BotaniaAPI {
 		return recipe;
 	}
 	
+	/**
+	 * Register a Mana Infusion Recipe and flags it as an Alchemy recipe (requires an
+	 * Alchemy Catalyst below the pool).
+	 * @see BotaniaAPI#registerManaInfusionRecipe
+	 */
 	public static RecipeManaInfusion registerManaAlchemyRecipe(ItemStack output, Object input, int mana) {
 		RecipeManaInfusion recipe = registerManaInfusionRecipe(output, input, mana);
 		recipe.setAlchemy(true);

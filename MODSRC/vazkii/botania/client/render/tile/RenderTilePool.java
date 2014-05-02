@@ -91,6 +91,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 			tessellator.addVertexWithUV(par1 + par4, par2 + 0, zLevel, par3Icon.getMaxU(), par3Icon.getMinV());
 			tessellator.addVertexWithUV(par1 + 0, par2 + 0, zLevel, par3Icon.getMinU(), par3Icon.getMinV());
 
+			ShaderHelper.initShaders();
 			ShaderHelper.useShader(ShaderHelper.manaPool);
 			tessellator.draw();
 			ShaderHelper.releaseShader();

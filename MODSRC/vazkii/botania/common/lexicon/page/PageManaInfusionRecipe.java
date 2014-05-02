@@ -73,6 +73,8 @@ public class PageManaInfusionRecipe extends PageRecipe {
 		renderItemAtGridPos(gui, 1, 1, (ItemStack) input, false);
 		renderItemAtGridPos(gui, 2, 1, new ItemStack(ModBlocks.pool), false);
 		renderItemAtGridPos(gui, 3, 1, recipe.getOutput(), false);
+		if(recipe.isAlchemy())
+			renderItemAtGridPos(gui, 1, 2, new ItemStack(ModBlocks.alchemyCatalyst), false);
 
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);

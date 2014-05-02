@@ -46,6 +46,7 @@ public class TilePool extends TileMod implements IManaPool {
 	private static final String TAG_OUTPUTTING = "outputting";
 
 	boolean outputting = false;
+	public boolean alchemy = false;
 
 	int mana;
 	int knownMana = -1;
@@ -89,7 +90,7 @@ public class TilePool extends TileMod implements IManaPool {
 			return false;
 
 		for(RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes) {
-			if(recipe.matches(stack)) {
+			if(recipe.matches(stack) && (!recipe.isAlchemy() || alchemy)) {
 				int mana = recipe.getManaToConsume();
 				if(getCurrentMana() >= mana) {
 					recieveMana(-mana);
@@ -138,6 +139,8 @@ public class TilePool extends TileMod implements IManaPool {
 			if(Math.random() > particleChance)
 				Botania.proxy.wispFX(worldObj, xCoord + 0.3 + Math.random() * 0.5, yCoord + 0.6 + Math.random() * 0.25, zCoord + Math.random(), color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random() / 3F, (float) -Math.random() / 25F);
 		}
+		
+		alchemy = worldObj.getBlock(xCoord, yCoord - 1, zCoord) == ModBlocks.alchemyCatalyst;
 		
 		if(craftCooldown > 0)
 			craftCooldown--;
