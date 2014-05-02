@@ -1,3 +1,5 @@
+beta 27
+*Fixed a massive memory leak with shaders.
 beta 26
 *Added the Alchemical Catalyst and some recipes to make use of it.
 *Added the Rannuncarpus, a new functional flower that can place blocks.
