@@ -65,7 +65,7 @@ public class SubTileFunctional extends SubTileEntity {
 		}
 
 		if(supertile.getWorldObj().isRemote) {
-			double particleChance = 1F - (double) mana / (double) getMaxMana() / 2F;
+			double particleChance = 1F - (double) mana / (double) getMaxMana() / 3.5F;
 			Color color = new Color(getColor());
 			if(Math.random() > particleChance)
 				BotaniaAPI.internalHandler.sparkleFX(supertile.getWorldObj(), supertile.xCoord + 0.3 + Math.random() * 0.5, supertile.yCoord + 0.5 + Math.random()  * 0.5, supertile.zCoord + 0.3 + Math.random() * 0.5, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random(), 5);
