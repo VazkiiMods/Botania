@@ -176,7 +176,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		if(cmp.hasKey(TAG_KNOWN_MANA))
 			knownMana = cmp.getInteger(TAG_KNOWN_MANA);
 
-		if(requestsClientUpdate) {
+		if(requestsClientUpdate && worldObj != null) {
 			int x = cmp.getInteger(TAG_FORCE_CLIENT_BINDING_X);
 			int y = cmp.getInteger(TAG_FORCE_CLIENT_BINDING_Y);
 			int z = cmp.getInteger(TAG_FORCE_CLIENT_BINDING_Z);
