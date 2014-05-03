@@ -1,3 +1,7 @@
+beta 28
+*Fixed spreaders sometimes erroring on load.
+*Removed the example mod forge comes with from the package.
+*The Mana Blaster now has a color correspondent to the lens it has.
 beta 27
 *Fixed a massive memory leak with shaders.
 beta 26
