@@ -11,18 +11,24 @@
  */
 package vazkii.botania.common.item;
 
+import java.awt.Color;
 import java.util.List;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.recipe.ManaGunLensRecipe;
 import vazkii.botania.common.entity.EntityManaBurst;
@@ -34,6 +40,8 @@ public class ItemManaGun extends ItemMod {
 	private static final String TAG_LENS = "lens";
 	private static final int COOLDOWN = 30;
 
+	IIcon[] icons;
+	
 	public ItemManaGun() {
 		super();
 		setMaxDamage(COOLDOWN);
@@ -48,7 +56,7 @@ public class ItemManaGun extends ItemMod {
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
 		if(!par3EntityPlayer.isSneaking()) {
 			if(par1ItemStack.getItemDamage() == 0) {
-				EntityManaBurst burst = getBurst(par3EntityPlayer, par1ItemStack);
+				EntityManaBurst burst = getBurst(par3EntityPlayer, par1ItemStack, true);
 				if(burst != null && ManaItemHandler.requestManaExact(par1ItemStack, par3EntityPlayer, burst.getMana(), true)) {
 					if(!par2World.isRemote) {
 						par2World.playSoundAtEntity(par3EntityPlayer, "random.explode", 0.9F, 3F);
@@ -70,8 +78,34 @@ public class ItemManaGun extends ItemMod {
 
 		return par1ItemStack;
 	}
+	
+	@Override
+	public void registerIcons(IIconRegister par1IconRegister) {
+		icons = new IIcon[2];
+		for(int i = 0; i < icons.length; i++)
+			icons[i] = IconHelper.forItem(par1IconRegister, this, i);
+	}
+	
+	 @Override
+	public boolean requiresMultipleRenderPasses() {
+		return true;
+	}
 
-	public EntityManaBurst getBurst(EntityPlayer player, ItemStack stack) {
+	@Override
+	public IIcon getIcon(ItemStack stack, int pass) {
+		return icons[Math.min(1, pass)];
+	}
+
+	@Override
+	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
+		if(par2 == 0)
+			return 0xFFFFFF;
+
+		EntityManaBurst burst = getBurst(Minecraft.getMinecraft().thePlayer, par1ItemStack, false);
+		return burst == null ? 0x20FF20 : burst.getColor();
+	}
+
+	public EntityManaBurst getBurst(EntityPlayer player, ItemStack stack, boolean request) {
 		EntityManaBurst burst = new EntityManaBurst(player);
 
 		int maxMana = 120;
@@ -88,7 +122,7 @@ public class ItemManaGun extends ItemMod {
 
 
 		burst.setSourceLens(lens);
-		if(ManaItemHandler.requestManaExact(stack, player, props.maxMana, false)) {
+		if(!request || ManaItemHandler.requestManaExact(stack, player, props.maxMana, false)) {
 			burst.setColor(props.color);
 			burst.setMana(props.maxMana);
 			burst.setStartingMana(props.maxMana);
