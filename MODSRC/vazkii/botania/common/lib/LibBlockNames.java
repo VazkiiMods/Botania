@@ -34,6 +34,7 @@ public final class LibBlockNames {
 	public static final String TURNTABLE = LibResources.PREFIX_MOD + "turntable";
 	public static final String TINY_PLANET = LibResources.PREFIX_MOD + "tinyPlanetBlock";
 	public static final String ALCHEMY_CATALYST = LibResources.PREFIX_MOD + "alchemyCatalyst";
+	public static final String OPEN_CRATE = LibResources.PREFIX_MOD + "openCrate";
 
 	public static final String SPECIAL_FLOWER_PREFIX = FLOWER + ".";
 

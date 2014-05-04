@@ -34,7 +34,6 @@ import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import cpw.mods.fml.relauncher.Side;
 
 public class ItemManaGun extends ItemMod {
 

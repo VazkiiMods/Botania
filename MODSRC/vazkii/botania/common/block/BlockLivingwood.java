@@ -38,7 +38,7 @@ public class BlockLivingwood extends BlockMod implements ILexiconable {
 	IIcon[] icons;
 
 	public BlockLivingwood() {
-		super( Material.wood);
+		super(Material.wood);
 		setHardness(2.0F);
 		setStepSound(soundTypeWood);
 		setBlockName(LibBlockNames.LIVING_WOOD);
