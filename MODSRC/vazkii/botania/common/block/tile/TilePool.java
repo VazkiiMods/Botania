@@ -102,6 +102,7 @@ public class TilePool extends TileMod implements IManaPool {
 
 						ItemStack output = recipe.getOutput().copy();
 						EntityItem outputItem = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, output);
+						outputItem.age = 55;
 						worldObj.spawnEntityInWorld(outputItem);
 					}
 
