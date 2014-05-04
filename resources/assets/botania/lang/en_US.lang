@@ -669,6 +669,11 @@ botania.page.manaAlchemy15=Making &1Name Tags&0
 botania.page.manaAlchemy16=Creating &1Ender Pearls&0
 botania.page.manaAlchemy17=Breaking &1Cobblestone&0 into &1Sand&0
 
+# -- OPEN CRATE
+botania.entry.openCrate=Open Crate
+botania.page.openCrate0=Sometimes devices like &1Droppers&0 or &1Dispensers&0 aren't precise or fast enough. A simple solution is to make a crate and punch a hole in the bottom.<br>Yeah, it's that simple. The &1Open Crate&0 accepts items from &1Hoppers&0 or any other means of inserting items, and obviously, drops them directly below it.
+botania.page.openCrate1=A super crate box
+
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
 botania.entry.manaBlaster=Mana Blaster

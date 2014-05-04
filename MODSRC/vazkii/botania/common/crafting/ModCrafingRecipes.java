@@ -108,6 +108,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeGoldenLaurel;
 	public static IRecipe recipeTinyPlanetBlock;
 	public static IRecipe recipeAlchemyCatalyst;
+	public static IRecipe recipeOpenCrate;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -568,6 +569,12 @@ public final class ModCrafingRecipes {
 				'B', new ItemStack(Items.brewing_stand),
 				'P', LibOreDict.MANA_PEARL);
 		recipeAlchemyCatalyst = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Open Crate Recipe
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.openCrate), 
+				"WWW", "W W", "W W",
+				'W', new ItemStack(ModBlocks.livingwood, 1, 1));
+		recipeOpenCrate = BotaniaAPI.getLatestAddedRecipe();
 	}
 
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {

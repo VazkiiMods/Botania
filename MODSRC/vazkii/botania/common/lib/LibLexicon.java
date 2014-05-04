@@ -80,6 +80,7 @@ public final class LibLexicon {
 	public static final String DEVICE_MANA_ENCHANTING = "manaEnchanting";
 	public static final String DEVICE_TURNTABLE = "turntable";
 	public static final String DEVICE_ALCHEMY = "manaAlchemy";
+	public static final String DEVICE_OPEN_CRATE = "openCrate";
 
 	public static final String TOOL_MANA_BLASTER = "manaBlaster";
 	public static final String TOOL_GRASS_SEEDS = "grassSeeds";
