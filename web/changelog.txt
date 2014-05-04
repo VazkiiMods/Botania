@@ -1,3 +1,7 @@
+beta 29
+*Added the Open Crate.
+*Fixed dedicated servers crashing on startup.
+*The Mana Pool now spawns items that can be picked up by a Hopperhock before the pool crafts with them again.
 beta 28
 *Fixed spreaders sometimes erroring on load.
 *Removed the example mod forge comes with from the package.
