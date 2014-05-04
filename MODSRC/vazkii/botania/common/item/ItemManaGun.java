@@ -41,7 +41,7 @@ public class ItemManaGun extends ItemMod {
 	private static final int COOLDOWN = 30;
 
 	IIcon[] icons;
-	
+
 	public ItemManaGun() {
 		super();
 		setMaxDamage(COOLDOWN);
@@ -78,15 +78,15 @@ public class ItemManaGun extends ItemMod {
 
 		return par1ItemStack;
 	}
-	
+
 	@Override
 	public void registerIcons(IIconRegister par1IconRegister) {
 		icons = new IIcon[2];
 		for(int i = 0; i < icons.length; i++)
 			icons[i] = IconHelper.forItem(par1IconRegister, this, i);
 	}
-	
-	 @Override
+
+	@Override
 	public boolean requiresMultipleRenderPasses() {
 		return true;
 	}

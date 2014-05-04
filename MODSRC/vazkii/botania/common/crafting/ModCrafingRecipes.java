@@ -569,9 +569,9 @@ public final class ModCrafingRecipes {
 				'B', new ItemStack(Items.brewing_stand),
 				'P', LibOreDict.MANA_PEARL);
 		recipeAlchemyCatalyst = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Open Crate Recipe
-		GameRegistry.addRecipe(new ItemStack(ModBlocks.openCrate), 
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.openCrate),
 				"WWW", "W W", "W W",
 				'W', new ItemStack(ModBlocks.livingwood, 1, 1));
 		recipeOpenCrate = BotaniaAPI.getLatestAddedRecipe();

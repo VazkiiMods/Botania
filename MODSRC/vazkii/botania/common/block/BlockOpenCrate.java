@@ -17,7 +17,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -29,20 +28,20 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockOpenCrate extends BlockModContainer implements ILexiconable {
 
 	IIcon iconBottom;
-	
+
 	public BlockOpenCrate() {
 		super(Material.wood);
 		setHardness(2.0F);
 		setStepSound(soundTypeWood);
 		setBlockName(LibBlockNames.OPEN_CRATE);
 	}
-	
+
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		blockIcon = IconHelper.forBlock(par1IconRegister, this, 0);
 		iconBottom = IconHelper.forBlock(par1IconRegister, this, 1);
 	}
-	
+
 	@Override
 	public IIcon getIcon(int side, int meta) {
 		return side == 0 ? iconBottom : blockIcon;
@@ -57,5 +56,5 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable {
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.openCrate;
 	}
-	
+
 }

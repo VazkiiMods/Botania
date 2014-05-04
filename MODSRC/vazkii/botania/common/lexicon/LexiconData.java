@@ -308,7 +308,7 @@ public final class LexiconData {
 
 		openCrate = new BLexiconEntry(LibLexicon.DEVICE_OPEN_CRATE, categoryDevices);
 		openCrate.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeOpenCrate));
-		
+
 		// TOOLS ENTRIES
 		manaBlaster = new BLexiconEntry(LibLexicon.TOOL_MANA_BLASTER, categoryTools);
 		manaBlaster.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCrafingRecipes.recipeManaBlaster));

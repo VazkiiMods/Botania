@@ -11,13 +11,10 @@
  */
 package vazkii.botania.common.block.tile;
 
-import vazkii.botania.common.lib.LibBlockNames;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
+import vazkii.botania.common.lib.LibBlockNames;
 
 public class TileOpenCrate extends TileSimpleInventory {
 
@@ -30,7 +27,7 @@ public class TileOpenCrate extends TileSimpleInventory {
 	public String getInventoryName() {
 		return LibBlockNames.OPEN_CRATE;
 	}
-	
+
 	@Override
 	public void updateEntity() {
 		Block blockBelow = worldObj.getBlock(xCoord, yCoord - 1, zCoord);
