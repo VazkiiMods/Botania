@@ -75,6 +75,7 @@ public final class ModBlocks {
 	public static Block tinyPlanet;
 	public static Block alchemyCatalyst;
 	public static Block openCrate;
+	public static Block forestEye;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -97,6 +98,7 @@ public final class ModBlocks {
 		tinyPlanet = new BlockTinyPlanet();
 		alchemyCatalyst = new BlockAlchemyCatalyst();
 		openCrate = new BlockOpenCrate();
+		forestEye = new BlockForestEye();
 
 		for(int i = 0; i < 16; i++)
 			OreDictionary.registerOre(LibOreDict.FLOWER[i], new ItemStack(flower, 1, i));
