@@ -723,9 +723,9 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		public final int meta;
 
 		public PositionProperties(Entity entity) {
-			int x = (int) entity.posX;
-			int y = (int) entity.posY;
-			int z = (int) entity.posZ;
+			int x = (int) MathHelper.floor_double(entity.posX);
+			int y = (int) MathHelper.floor_double(entity.posY);
+			int z = (int) MathHelper.floor_double(entity.posZ);
 			coords = new ChunkCoordinates(x, y, z);
 			block = entity.worldObj.getBlock(x, y, z);
 			meta = entity.worldObj.getBlockMetadata(x, y, z);
@@ -736,8 +736,8 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		}
 
 		public boolean contentsEqual(World world) {
-			Block block = world.getBlock(coords.posX - ConfigHandler.spreaderPositionShift, coords.posY, coords.posZ);
-			int meta = world.getBlockMetadata(coords.posX - ConfigHandler.spreaderPositionShift, coords.posY, coords.posZ);
+			Block block = world.getBlock(coords.posX , coords.posY, coords.posZ);
+			int meta = world.getBlockMetadata(coords.posX, coords.posY, coords.posZ);
 			return block == this.block && meta == this.meta;
 		}
 	}

@@ -19,6 +19,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityBeacon;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.MathHelper;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TilePool;
@@ -34,7 +35,7 @@ public final class TerrasteelCraftingHandler {
 	public static void onEntityUpdate(EntityItem item) {
 		ItemStack stack = item.getEntityItem();
 		if(stack != null && stack.getItem() == ModItems.manaResource && stack.getItemDamage() == 0) {
-			int time = validateCraftingItem(item, true);
+			int time = validateCraftingItem(item);
 
 			if(time != -1) {
 				doParticles(item, time);
@@ -42,9 +43,9 @@ public final class TerrasteelCraftingHandler {
 					item.worldObj.playSoundAtEntity(item, "random.levelup", 1F, 1F);
 
 				getManaFromPools : {
-					int x = (int) item.posX;
-					int y = (int) item.posY;
-					int z = (int) item.posZ;
+					int x = (int) MathHelper.floor_double(item.posX);
+					int y = (int) MathHelper.floor_double(item.posY);
+					int z = (int) MathHelper.floor_double(item.posZ);
 
 					for(int i = -4; i < 5; i++)
 						for(int j = -4; j < 5; j++)
@@ -67,18 +68,10 @@ public final class TerrasteelCraftingHandler {
 		}
 	}
 
-	static int validateCraftingItem(EntityItem item, boolean recursive) {
-		if(recursive) {
-			item.posX--;
-			int firstVal = validateCraftingItem(item, false);
-			item.posX++;
-			if(firstVal > -1)
-				return firstVal;
-		}
-
-		int x = (int) item.posX;
-		int y = (int) item.posY;
-		int z = (int) item.posZ;
+	static int validateCraftingItem(EntityItem item) {
+		int x = (int) MathHelper.floor_double(item.posX);
+		int y = (int) MathHelper.floor_double(item.posY);
+		int z = (int) MathHelper.floor_double(item.posZ);
 
 		if(item.worldObj.getBlock(x, y - 1, z) != Blocks.beacon)
 			return -1;
@@ -166,7 +159,7 @@ public final class TerrasteelCraftingHandler {
 
 	static void incrementCraftingTime(EntityItem item, int time) {
 		if(time >= TIME)
-			finalizeCraftingRecipe(item, true);
+			finalizeCraftingRecipe(item);
 
 		else {
 			ItemStack stack = item.getEntityItem();
@@ -174,16 +167,10 @@ public final class TerrasteelCraftingHandler {
 		}
 	}
 
-	static void finalizeCraftingRecipe(EntityItem item, boolean recursive) {
-		if(recursive) {
-			item.posX--;
-			finalizeCraftingRecipe(item, false);
-			item.posX++;
-		}
-
-		int x = (int) item.posX;
-		int y = (int) item.posY;
-		int z = (int) item.posZ;
+	static void finalizeCraftingRecipe(EntityItem item) {
+		int x = (int) MathHelper.floor_double(item.posX);
+		int y = (int) MathHelper.floor_double(item.posY);
+		int z = (int) MathHelper.floor_double(item.posZ);
 
 		List<EntityItem> items = item.worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1));
 		for(EntityItem otherItem : items)
