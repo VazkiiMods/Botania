@@ -62,8 +62,8 @@ public class SubTileGenerating extends SubTileEntity {
 					sync();
 				addMana(getValueForPassiveGeneration());
 			}
-			emptyManaIntoCollector();
 		}
+		emptyManaIntoCollector();
 
 		if(supertile.getWorldObj().isRemote) {
 			double particleChance = 1F - (double) mana / (double) getMaxMana() / 3.5F;
