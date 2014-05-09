@@ -34,7 +34,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 
 	public boolean collideEntityItem(EntityItem item) {
 		ItemStack stack = item.getEntityItem();
-		if(stack == null)
+		if(stack == null || item.isDead)
 			return false;
 
 		if(!hasWater) {
