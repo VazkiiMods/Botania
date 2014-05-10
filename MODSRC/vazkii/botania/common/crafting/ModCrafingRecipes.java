@@ -109,6 +109,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeTinyPlanetBlock;
 	public static IRecipe recipeAlchemyCatalyst;
 	public static IRecipe recipeOpenCrate;
+	public static IRecipe recipeForestEye;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -575,6 +576,14 @@ public final class ModCrafingRecipes {
 				"WWW", "W W", "W W",
 				'W', new ItemStack(ModBlocks.livingwood, 1, 1));
 		recipeOpenCrate = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Eye of the Ancients Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.forestEye), 
+				"MSM", "SES", "MSM",
+				'M', LibOreDict.MANA_STEEL,
+				'S', LibOreDict.LIVING_ROCK,
+				'E', new ItemStack(Items.ender_eye));
+		recipeForestEye = BotaniaAPI.getLatestAddedRecipe();
 	}
 
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {
