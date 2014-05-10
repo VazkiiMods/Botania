@@ -1,3 +1,9 @@
+beta 30
+*Added an alchemy recipe to convert redstone to glowstone.
+*Added the Eye of the Ancients.
+*Finally, once and for all, fixed the bug that has been plaguing the mod ever single 1.7 came out. Mana Spreaders and Terrasteel crafting will now both function regardless of the X and Z coordinates being positive or negative. <i>You have no idea how good it feels to get that one out of my shoulders.</i>
+*Fixed a dupe with the petal apothecary.
+*Fixed some generating flora stopping to output power to spreaders if they (the flowers) ever got full.
 beta 29
 *Added the Open Crate.
 *Fixed dedicated servers crashing on startup.
