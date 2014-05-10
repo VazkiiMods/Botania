@@ -723,9 +723,9 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		public final int meta;
 
 		public PositionProperties(Entity entity) {
-			int x = (int) MathHelper.floor_double(entity.posX);
-			int y = (int) MathHelper.floor_double(entity.posY);
-			int z = (int) MathHelper.floor_double(entity.posZ);
+			int x = MathHelper.floor_double(entity.posX);
+			int y = MathHelper.floor_double(entity.posY);
+			int z = MathHelper.floor_double(entity.posZ);
 			coords = new ChunkCoordinates(x, y, z);
 			block = entity.worldObj.getBlock(x, y, z);
 			meta = entity.worldObj.getBlockMetadata(x, y, z);

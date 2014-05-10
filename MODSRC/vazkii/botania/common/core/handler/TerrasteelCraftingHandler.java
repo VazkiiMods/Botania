@@ -43,9 +43,9 @@ public final class TerrasteelCraftingHandler {
 					item.worldObj.playSoundAtEntity(item, "random.levelup", 1F, 1F);
 
 				getManaFromPools : {
-					int x = (int) MathHelper.floor_double(item.posX);
-					int y = (int) MathHelper.floor_double(item.posY);
-					int z = (int) MathHelper.floor_double(item.posZ);
+					int x = MathHelper.floor_double(item.posX);
+					int y = MathHelper.floor_double(item.posY);
+					int z = MathHelper.floor_double(item.posZ);
 
 					for(int i = -4; i < 5; i++)
 						for(int j = -4; j < 5; j++)
@@ -69,9 +69,9 @@ public final class TerrasteelCraftingHandler {
 	}
 
 	static int validateCraftingItem(EntityItem item) {
-		int x = (int) MathHelper.floor_double(item.posX);
-		int y = (int) MathHelper.floor_double(item.posY);
-		int z = (int) MathHelper.floor_double(item.posZ);
+		int x = MathHelper.floor_double(item.posX);
+		int y = MathHelper.floor_double(item.posY);
+		int z = MathHelper.floor_double(item.posZ);
 
 		if(item.worldObj.getBlock(x, y - 1, z) != Blocks.beacon)
 			return -1;
@@ -168,9 +168,9 @@ public final class TerrasteelCraftingHandler {
 	}
 
 	static void finalizeCraftingRecipe(EntityItem item) {
-		int x = (int) MathHelper.floor_double(item.posX);
-		int y = (int) MathHelper.floor_double(item.posY);
-		int z = (int) MathHelper.floor_double(item.posZ);
+		int x = MathHelper.floor_double(item.posX);
+		int y = MathHelper.floor_double(item.posY);
+		int z = MathHelper.floor_double(item.posZ);
 
 		List<EntityItem> items = item.worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1));
 		for(EntityItem otherItem : items)

@@ -28,7 +28,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockForestEye extends BlockModContainer implements ILexiconable {
 
 	IIcon[] icons;
-	
+
 	public BlockForestEye() {
 		super(Material.iron);
 		setHardness(5.0F);
@@ -49,7 +49,7 @@ public class BlockForestEye extends BlockModContainer implements ILexiconable {
 	public IIcon getIcon(int par1, int par2) {
 		return icons[Math.min(icons.length - 1, par1)];
 	}
-	
+
 	@Override
 	public boolean renderAsNormalBlock() {
 		return false;
@@ -59,12 +59,12 @@ public class BlockForestEye extends BlockModContainer implements ILexiconable {
 	public boolean isOpaqueCube() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean hasComparatorInputOverride() {
 		return true;
 	}
-	
+
 	@Override
 	public int getComparatorInputOverride(World par1World, int par2, int par3, int par4, int par5) {
 		TileForestEye eye = (TileForestEye) par1World.getTileEntity(par2, par3, par4);

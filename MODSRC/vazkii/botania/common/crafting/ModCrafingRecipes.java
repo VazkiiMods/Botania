@@ -576,9 +576,9 @@ public final class ModCrafingRecipes {
 				"WWW", "W W", "W W",
 				'W', new ItemStack(ModBlocks.livingwood, 1, 1));
 		recipeOpenCrate = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Eye of the Ancients Recipe
-		addOreDictRecipe(new ItemStack(ModBlocks.forestEye), 
+		addOreDictRecipe(new ItemStack(ModBlocks.forestEye),
 				"MSM", "SES", "MSM",
 				'M', LibOreDict.MANA_STEEL,
 				'S', LibOreDict.LIVING_ROCK,

@@ -84,7 +84,7 @@ public final class ModManaAlchemyRecipes {
 
 		nameTagRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.name_tag), new ItemStack(Items.writable_book), 16000);
 		enderPearlRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.ender_pearl, 2), new ItemStack(Items.ghast_tear), 28000);
-		
+
 		redstoneToGlowstoneRecipes = new ArrayList();
 		redstoneToGlowstoneRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.redstone), new ItemStack(Items.glowstone_dust), 300));
 		redstoneToGlowstoneRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.glowstone_dust), new ItemStack(Items.redstone), 300));
