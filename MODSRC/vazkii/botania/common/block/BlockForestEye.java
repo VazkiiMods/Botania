@@ -11,14 +11,16 @@
  */
 package vazkii.botania.common.block;
 
-import vazkii.botania.client.core.helper.IconHelper;
-import vazkii.botania.common.lib.LibBlockNames;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.world.World;
+import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.common.block.tile.TileForestEye;
+import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockForestEye extends BlockMod {
+public class BlockForestEye extends BlockModContainer {
 
 	IIcon[] icons;
 	
@@ -51,6 +53,22 @@ public class BlockForestEye extends BlockMod {
 	@Override
 	public boolean isOpaqueCube() {
 		return false;
+	}
+	
+	@Override
+	public boolean hasComparatorInputOverride() {
+		return true;
+	}
+	
+	@Override
+	public int getComparatorInputOverride(World par1World, int par2, int par3, int par4, int par5) {
+		TileForestEye eye = (TileForestEye) par1World.getTileEntity(par2, par3, par4);
+		return Math.min(15, Math.max(0, eye.entities - 1));
+	}
+
+	@Override
+	public TileEntity createNewTileEntity(World world, int meta) {
+		return new TileForestEye();
 	}
 
 }
