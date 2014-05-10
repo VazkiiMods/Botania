@@ -52,7 +52,6 @@ public class TileMod extends TileEntity {
 	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet) {
 		super.onDataPacket(net, packet);
 		readCustomNBT(packet.func_148857_g());
-		worldObj.func_147479_m(xCoord, yCoord, zCoord); // Mark block for render update
 	}
 
 }
