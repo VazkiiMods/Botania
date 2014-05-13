@@ -108,7 +108,6 @@ public final class ModBlocks {
 		OreDictionary.registerOre(LibOreDict.LIVING_WOOD, livingwood);
 
 		initTileEntities();
-		registerMultiparts();
 	}
 
 	private static void initTileEntities() {
@@ -149,17 +148,6 @@ public final class ModBlocks {
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_TANGLEBERRIE, SubTileTangleberrie.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_JIYUULIA, SubTileJiyuulia.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_RANNUNCARPUS, SubTileRannuncarpus.class);
-	}
-
-	private static void registerMultiparts() {
-		if(Loader.isModLoaded("ForgeMultipart")) {
-			try {
-				Class clazz = Class.forName("vazkii.botania.common.block.multipart.MultipartHandler");
-				clazz.newInstance();
-			} catch(Throwable e) {
-				e.printStackTrace();
-			}
-		}
 	}
 
 }

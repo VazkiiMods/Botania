@@ -804,7 +804,7 @@ botania.page.unstableBlocks7=Shoot in case of titan
 
 # -- DECORATIVE BLOCKS
 botania.entry.decorativeBlocks=Decorative Blocks
-botania.page.decorativeBlocks0=It's possible to turn blocks of &1Livingrock&0 and &1Livingwood&0 into decorative blocks. Each of them features 4 different decorative variations.<br>If &4ForgeMultipart&0 is enabled, these will work as &4Microblocks&0.
+botania.page.decorativeBlocks0=It's possible to turn blocks of &1Livingrock&0 and &1Livingwood&0 into decorative blocks. Each of them features 4 different decorative variations.
 botania.page.decorativeBlocks1=Livingrock bricks.
 botania.page.decorativeBlocks2=Mossing the bricks
 botania.page.decorativeBlocks3=Cracking the bricks
