@@ -39,10 +39,13 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 
 		if(!hasWater) {
 			if(stack.getItem() == Items.water_bucket) {
-				hasWater = true;
-				worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
-				stack.func_150996_a(Items.bucket); // Set item
-				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+				if(!worldObj.isRemote)
+				{
+					hasWater = true;
+					worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
+					stack.func_150996_a(Items.bucket); // Set item
+					worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+				}
 			} else return false;
 		}
 
