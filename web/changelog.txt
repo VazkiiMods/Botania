@@ -1,3 +1,10 @@
+beta 31
+*Fixed Botania Tile Entities requesting client world rerenderers.
+*Fixed a dupe with the Hoppperhock and Rannuncarpus flowers.
+*Fixed moar tpyos.
+*Fixed some misinformation regarding the Eye of the Ancients' lexicon entry.
+*Fixed the Petal Apothecary sometimes taking dropped water buckets and not filling up. (hea3ven)
+*Removed native ForgeMultipart support. You can still add the blocks in the config. It was disabled since the 1.7 port anyway.
 beta 30
 *Added an alchemy recipe to convert redstone to glowstone.
 *Added the Eye of the Ancients.
