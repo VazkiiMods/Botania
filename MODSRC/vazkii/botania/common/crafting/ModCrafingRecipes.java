@@ -584,6 +584,16 @@ public final class ModCrafingRecipes {
 				'S', LibOreDict.LIVING_ROCK,
 				'E', new ItemStack(Items.ender_eye));
 		recipeForestEye = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Mana and Terrasteel Block Recipes
+		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0), 
+				"III", "III", "III",
+				'I', LibOreDict.MANA_STEEL);
+		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 1), 
+				"III", "III", "III",
+				'I', LibOreDict.TERRA_STEEL);
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manaResource, 9, 0), new ItemStack(ModBlocks.storage, 1, 0));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manaResource, 9, 4), new ItemStack(ModBlocks.storage, 1, 1));
 	}
 
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {

@@ -26,7 +26,7 @@ import vazkii.botania.common.lib.LibOreDict;
 public final class ModManaInfusionRecipes {
 
 	public static List<RecipeManaInfusion> manaPetalRecipes;
-	public static RecipeManaInfusion manasteelRecipe;
+	public static List<RecipeManaInfusion> manasteelRecipes;
 	public static RecipeManaInfusion manaPearlRecipe;
 	public static RecipeManaInfusion manaDiamondRecipe;
 	public static RecipeManaInfusion pistonRelayRecipe;
@@ -40,7 +40,10 @@ public final class ModManaInfusionRecipes {
 		for(int i = 0; i < 16; i++)
 			manaPetalRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPetal, 1, i), LibOreDict.PETAL[i], 1000));
 
-		manasteelRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 0), "ingotIron", 3000);
+		manasteelRecipes = new ArrayList();
+		manasteelRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 0), "ingotIron", 3000));
+		manasteelRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.storage, 1, 0), new ItemStack(Blocks.iron_block), 30000));
+
 		manaPearlRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 1), new ItemStack(Items.ender_pearl), 6000);
 		manaDiamondRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 2), "gemDiamond", 10000);
 		pistonRelayRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.pistonRelay), new ItemStack(Blocks.piston), 15000);
