@@ -67,6 +67,7 @@ public final class LibLexicon {
 	public static final String FFLOWER_TANGLEBERRIE = "tangleberrie";
 	public static final String FFLOWER_JIYUULIA = "jiyuulia";
 	public static final String FFLOWER_RANNUNCARPUS = "rannuncarpus";
+	public static final String FFLOWER_HYACIDUS = "hyacidus";
 
 	public static final String GFLOWER_INTRO = "gIntro";
 	public static final String GFLOWER_DAYBLOOM = "daybloom";

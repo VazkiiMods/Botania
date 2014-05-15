@@ -591,6 +591,11 @@ botania.page.rannuncarpus0=Quite a handy flower indeed, the &1Rannuncarpus&0 wil
 botania.page.rannuncarpus1=Block items, such as &1Sugar Cane&0 will also work, but, much alike any other blocks, will only be placed in a location where they normally would be able to be placed.<br>Lastly, giving &4Mana&0 to the flower is optional, but it increases it's range.
 botania.page.rannuncarpus2=&oNeed a hand&r?
 
+# -- HYACIDUS
+botania.entry.hyacidus=Hyacidus
+botania.page.hyacidus0=For some reason, poison does not kill. The &1Hyacidus&0, to that, can be used to poison any nearby mobs, bringing them to their knees for a one hit kill after a bit.
+botania.page.hyacidus1=&oSteel is immune&r.
+
 # - GENERATING FLOWERS
 # -- AN INTRODUCTION TO GENERATION
 botania.entry.gIntro=An Introduction to Generation
