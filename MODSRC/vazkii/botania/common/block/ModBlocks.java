@@ -23,6 +23,7 @@ import vazkii.botania.common.block.subtile.functional.SubTileExoflame;
 import vazkii.botania.common.block.subtile.functional.SubTileFallenKanade;
 import vazkii.botania.common.block.subtile.functional.SubTileHeiseiDream;
 import vazkii.botania.common.block.subtile.functional.SubTileHopperhock;
+import vazkii.botania.common.block.subtile.functional.SubTileHyacidus;
 import vazkii.botania.common.block.subtile.functional.SubTileJadedAmaranthus;
 import vazkii.botania.common.block.subtile.functional.SubTileJiyuulia;
 import vazkii.botania.common.block.subtile.functional.SubTileRannuncarpus;
@@ -151,6 +152,7 @@ public final class ModBlocks {
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_TANGLEBERRIE, SubTileTangleberrie.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_JIYUULIA, SubTileJiyuulia.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_RANNUNCARPUS, SubTileRannuncarpus.class);
+		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_HYACIDUS, SubTileHyacidus.class);
 	}
 
 }

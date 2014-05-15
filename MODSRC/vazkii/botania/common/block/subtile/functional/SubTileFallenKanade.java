@@ -35,7 +35,6 @@ public class SubTileFallenKanade extends SubTileFunctional {
 			if(player.getActivePotionEffect(Potion.regeneration) == null && mana >= cost) {
 				player.addPotionEffect(new PotionEffect(Potion.regeneration.id, 60, 3));
 				mana -= cost;
-				sync();
 			}
 		}
 	}

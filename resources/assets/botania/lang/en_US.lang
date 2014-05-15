@@ -178,6 +178,8 @@ tile.botania:flower.jiyuulia.reference=Flügel der Freiheit
 # TRANSLATE THAT VEXATOS
 tile.botania:flower.rannuncarpus.name=Rannuncarpus
 tile.botania:flower.rannuncarpus.reference=That's handy
+tile.botania:flower.hyacidus.name=Hyacidus
+tile.botania:flower.hyacidus.reference=If you don't walk, it doesn't hurt
 
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania
