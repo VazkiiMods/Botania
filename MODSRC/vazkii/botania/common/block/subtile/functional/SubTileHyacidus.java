@@ -27,6 +27,9 @@ public class SubTileHyacidus extends SubTileFunctional {
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
+		
+		if(redstoneSignal > 0)
+			return;
 
 		final int range = 6;
 		final int cost = 20;
@@ -40,6 +43,11 @@ public class SubTileHyacidus extends SubTileFunctional {
 		}
 	}
 
+	@Override
+	public boolean acceptsRedstone() {
+		return true;
+	}
+	
 	@Override
 	public int getColor() {
 		return 0x8B438F;

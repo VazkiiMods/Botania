@@ -21,6 +21,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.server.ForgeTimeTracker;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaPool;
@@ -37,7 +39,9 @@ public class SubTileFunctional extends SubTileEntity {
 	private static final String TAG_POOL_Z = "poolZ";
 
 	public int mana;
-
+	
+	public int redstoneSignal = 0;
+	
 	int sizeLastCheck = -1;
 	TileEntity linkedPool = null;
 	public int knownMana = -1;
@@ -47,6 +51,13 @@ public class SubTileFunctional extends SubTileEntity {
 	@Override
 	public boolean canUpdate() {
 		return true;
+	}
+	
+	/**
+	 * If set to true, redstoneSignal will be updated every tick.
+	 */
+	public boolean acceptsRedstone() {
+		return false;
 	}
 
 	@Override
@@ -62,6 +73,14 @@ public class SubTileFunctional extends SubTileEntity {
 			int manaToRemove = Math.min(manaMissing, manaInPool);
 			pool.recieveMana(-manaToRemove);
 			addMana(manaToRemove);
+		}
+		
+		if(acceptsRedstone()) {
+			redstoneSignal = 0;
+			for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+				int redstoneSide = supertile.getWorldObj().getIndirectPowerLevelTo(supertile.xCoord + dir.offsetX, supertile.yCoord + dir.offsetY, supertile.zCoord + dir.offsetZ, dir.ordinal());
+				redstoneSignal = Math.max(redstoneSignal, redstoneSide);
+			}
 		}
 
 		if(supertile.getWorldObj().isRemote) {

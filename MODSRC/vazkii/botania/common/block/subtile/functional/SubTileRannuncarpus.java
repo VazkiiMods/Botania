@@ -37,78 +37,76 @@ import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class SubTileRannuncarpus extends SubTileFunctional {
 
-	int cooldown = 0;
-
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		if(cooldown > 0) {
-			cooldown--;
+		
+		if(redstoneSignal > 0)
 			return;
-		}
 
-		BlockData filter = getUnderlyingBlock();
+		if(supertile.getWorldObj().getTotalWorldTime() % 10 == 0) {
+			BlockData filter = getUnderlyingBlock();
 
-		boolean scanned = false;
-		List<ChunkCoordinates> validPositions = new ArrayList();
+			boolean scanned = false;
+			List<ChunkCoordinates> validPositions = new ArrayList();
 
-		int range = 2;
-		int rangePlace = mana > 0 ? 8 : 6;
-		int rangePlaceY = 6;
+			int range = 2;
+			int rangePlace = mana > 0 ? 8 : 6;
+			int rangePlaceY = 6;
 
-		int x = supertile.xCoord;
-		int y = supertile.yCoord;
-		int z = supertile.zCoord;
+			int x = supertile.xCoord;
+			int y = supertile.yCoord;
+			int z = supertile.zCoord;
 
-		List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x - range, y - 3, z - range, x + range + 1, y + 3, z + range + 1));
-		for(EntityItem item : items) {
-			if(item.age < 60 || item.isDead)
-				continue;
+			List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x - range, y - 3, z - range, x + range + 1, y + 3, z + range + 1));
+			for(EntityItem item : items) {
+				if(item.age < 60 || item.isDead)
+					continue;
 
-			ItemStack stack = item.getEntityItem();
-			Item stackItem = stack.getItem();
-			if(stackItem instanceof ItemBlock || stackItem instanceof ItemReed) {
-				if(!scanned) {
-					for(int i = -rangePlace; i < rangePlace; i++)
-						for(int j = -rangePlaceY; j < rangePlaceY; j++)
-							for(int l = -rangePlace; l < rangePlace; l++) {
-								int xp = x + i;
-								int yp = y + j;
-								int zp = z + l;
-								Block blockAbove = supertile.getWorldObj().getBlock(xp, yp + 1, zp);
+				ItemStack stack = item.getEntityItem();
+				Item stackItem = stack.getItem();
+				if(stackItem instanceof ItemBlock || stackItem instanceof ItemReed) {
+					if(!scanned) {
+						for(int i = -rangePlace; i < rangePlace; i++)
+							for(int j = -rangePlaceY; j < rangePlaceY; j++)
+								for(int l = -rangePlace; l < rangePlace; l++) {
+									int xp = x + i;
+									int yp = y + j;
+									int zp = z + l;
+									Block blockAbove = supertile.getWorldObj().getBlock(xp, yp + 1, zp);
 
-								if(filter.equals(supertile.getWorldObj(), xp, yp, zp) && (blockAbove.isAir(supertile.getWorldObj(), xp, yp + 1, zp) || blockAbove.isReplaceable(supertile.getWorldObj(), xp, yp + 1, zp)))
-									validPositions.add(new ChunkCoordinates(xp, yp + 1, zp));
+									if(filter.equals(supertile.getWorldObj(), xp, yp, zp) && (blockAbove.isAir(supertile.getWorldObj(), xp, yp + 1, zp) || blockAbove.isReplaceable(supertile.getWorldObj(), xp, yp + 1, zp)))
+										validPositions.add(new ChunkCoordinates(xp, yp + 1, zp));
+								}
+
+						scanned = true;
+					}
+
+
+					if(!validPositions.isEmpty() && !supertile.getWorldObj().isRemote) {
+						Block blockToPlace = null;
+						if(stackItem instanceof ItemBlock)
+							blockToPlace = ((ItemBlock) stackItem).field_150939_a;
+						else if(stackItem instanceof ItemReed)
+							blockToPlace = ReflectionHelper.getPrivateValue(ItemReed.class, (ItemReed) stackItem, LibObfuscation.REED_ITEM);
+
+						if(blockToPlace != null) {
+							ChunkCoordinates coords = validPositions.get(supertile.getWorldObj().rand.nextInt(validPositions.size()));
+							if(blockToPlace.canPlaceBlockAt(supertile.getWorldObj(), coords.posX, coords.posY, coords.posZ)) {
+								supertile.getWorldObj().setBlock(coords.posX, coords.posY, coords.posZ, blockToPlace, stack.getItemDamage(), 1 | 2);
+								supertile.getWorldObj().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(blockToPlace) + (stack.getItemDamage() << 12));
+								validPositions.remove(coords);
+
+								if(!supertile.getWorldObj().isRemote) {
+									stack.stackSize--;
+									if(stack.stackSize == 0)
+										item.setDead();
+								}
+
+								if(mana > 1)
+									mana--;
+								return;
 							}
-
-					scanned = true;
-				}
-
-
-				if(!validPositions.isEmpty() && !supertile.getWorldObj().isRemote) {
-					Block blockToPlace = null;
-					if(stackItem instanceof ItemBlock)
-						blockToPlace = ((ItemBlock) stackItem).field_150939_a;
-					else if(stackItem instanceof ItemReed)
-						blockToPlace = ReflectionHelper.getPrivateValue(ItemReed.class, (ItemReed) stackItem, LibObfuscation.REED_ITEM);
-
-					if(blockToPlace != null) {
-						ChunkCoordinates coords = validPositions.get(supertile.getWorldObj().rand.nextInt(validPositions.size()));
-						if(blockToPlace.canPlaceBlockAt(supertile.getWorldObj(), coords.posX, coords.posY, coords.posZ)) {
-							supertile.getWorldObj().setBlock(coords.posX, coords.posY, coords.posZ, blockToPlace, stack.getItemDamage(), 1 | 2);
-							supertile.getWorldObj().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(blockToPlace) + (stack.getItemDamage() << 12));
-							validPositions.remove(coords);
-
-							if(!supertile.getWorldObj().isRemote) {
-								stack.stackSize--;
-								if(stack.stackSize == 0)
-									item.setDead();
-							}
-
-							cooldown = 10;
-							if(mana > 1)
-								mana--;
-							return;
 						}
 					}
 				}
@@ -120,6 +118,11 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 		return new BlockData(supertile.getWorldObj(), supertile.xCoord, supertile.yCoord - 2, supertile.zCoord);
 	}
 
+	@Override
+	public boolean acceptsRedstone() {
+		return true;
+	}
+	
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		super.renderHUD(mc, res);

@@ -21,18 +21,15 @@ import vazkii.botania.common.lexicon.LexiconData;
 public class SubTileJadedAmaranthus extends SubTileFunctional {
 
 	private static final int COST = 100;
-	int cooldown = 0;
 
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
 
-		if(cooldown > 0) {
-			cooldown--;
+		if(redstoneSignal > 0)
 			return;
-		}
 
-		if(mana >= COST && !supertile.getWorldObj().isRemote) {
+		if(mana >= COST && !supertile.getWorldObj().isRemote && supertile.getWorldObj().getTotalWorldTime() % 30 == 0) {
 			int range = 4;
 			int x = supertile.xCoord - range + supertile.getWorldObj().rand.nextInt(range * 2 + 1);
 			int y = supertile.yCoord + range;
@@ -50,13 +47,17 @@ public class SubTileJadedAmaranthus extends SubTileFunctional {
 					mana -= COST;
 					sync();
 
-					cooldown = 30;
 					break;
 				}
 
 				y--;
 			}
 		}
+	}
+	
+	@Override
+	public boolean acceptsRedstone() {
+		return true;
 	}
 
 	@Override

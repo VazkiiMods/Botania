@@ -38,6 +38,9 @@ public class SubTileBellethorn extends SubTileFunctional {
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
+		
+		if(redstoneSignal > 0)
+			return;
 
 		final int range = 6;
 		final int manaToUse = getManaCost();
@@ -57,6 +60,11 @@ public class SubTileBellethorn extends SubTileFunctional {
 				}
 			}
 		}
+	}
+	
+	@Override
+	public boolean acceptsRedstone() {
+		return true;
 	}
 	
 	public int getManaCost() {
