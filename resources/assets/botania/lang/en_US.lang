@@ -149,6 +149,8 @@ tile.botania:flower.nightshade.name=Nightshade
 tile.botania:flower.nightshade.reference=Ghastly signature
 tile.botania:flower.arcanerose.name=Rosa Arcana
 tile.botania:flower.arcanerose.reference=Ten blue orbs in the corner
+tile.botania:flower.munchdew.name=Munchdew
+tile.botania:flower.munchdew.reference=Nommy nommy
 
 # - FUNCTIONAL
 tile.botania:flower.bellethorn.name=Bellethorne

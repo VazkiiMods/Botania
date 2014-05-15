@@ -60,6 +60,7 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 		LibBlockNames.SUBTILE_HYDROANGEAS,
 		LibBlockNames.SUBTILE_THERMALILY,
 		LibBlockNames.SUBTILE_ARCANE_ROSE,
+		LibBlockNames.SUBTILE_MUNCHDEW,
 
 		// Functional
 		LibBlockNames.SUBTILE_JADED_AMARANTHUS,
