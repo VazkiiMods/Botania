@@ -601,6 +601,11 @@ botania.entry.hyacidus=Hyacidus
 botania.page.hyacidus0=For some reason, poison does not kill. The &1Hyacidus&0, to that, can be used to poison any nearby mobs, bringing them to their knees for a one hit kill after a bit.
 botania.page.hyacidus1=&oSteel is immune&r.
 
+# -- POLLIDISIAC
+botania.entry.pollidisiac=Pollidisiac
+botania.page.pollidisiac0=Animals love eating, that's all they seem to do, really. An interesting behaviour they show is that they only seem to want to eat things that are fed to them.<br>The &1Pollidisiac&0 will simply do that, at the cost of some mana, any appropriate nearby food items (&1Wheat&0, &1Carrots&0, etc) will be fed to the animals, putting them in a &obetter mood&r.
+botania.page.pollidisiac1=Hell's Kitchen
+
 # - GENERATING FLOWERS
 # -- AN INTRODUCTION TO GENERATION
 botania.entry.gIntro=An Introduction to Generation

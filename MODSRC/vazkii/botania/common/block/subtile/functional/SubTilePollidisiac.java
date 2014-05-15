@@ -17,7 +17,9 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibObfuscation;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 
@@ -40,7 +42,7 @@ public class SubTilePollidisiac extends SubTileFunctional {
 				int love = ReflectionHelper.getPrivateValue(EntityAnimal.class, animal, LibObfuscation.IN_LOVE);
 				if(animal.getGrowingAge() == 0 && love <= 0) {
 					for(EntityItem item : items) {
-						if(item.isDead || item.age < 60)
+						if(item.age < 60 || item.isDead)
 							continue;
 						
 						ItemStack stack = item.getEntityItem();
@@ -71,4 +73,8 @@ public class SubTilePollidisiac extends SubTileFunctional {
 		return 0xCF4919;
 	}
 	
+	@Override
+	public LexiconEntry getEntry() {
+		return LexiconData.pollidisiac;
+	}
 }

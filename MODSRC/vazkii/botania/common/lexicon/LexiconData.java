@@ -87,6 +87,7 @@ public final class LexiconData {
 	public static LexiconEntry jiyuulia;
 	public static LexiconEntry rannuncarpus;
 	public static LexiconEntry hyacidus;
+	public static LexiconEntry pollidisiac;
 
 	public static LexiconEntry generatingIntro;
 	public static LexiconEntry daybloom;
@@ -270,6 +271,9 @@ public final class LexiconData {
 
 		hyacidus = new BLexiconEntry(LibLexicon.FFLOWER_HYACIDUS, categoryFunctionalFlowers);
 		hyacidus.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.hyacidusRecipe));
+		
+		pollidisiac = new BLexiconEntry(LibLexicon.FFLOWER_POLLIDISIAC, categoryFunctionalFlowers);
+		pollidisiac.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.pollidisiacRecipe));
 		
 		// GENERATING FLOWERS ENTRIES
 		generatingIntro = new BLexiconEntry(LibLexicon.GFLOWER_INTRO, categoryGenerationFlowers);
