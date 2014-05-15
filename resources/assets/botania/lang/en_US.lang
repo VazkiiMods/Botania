@@ -315,6 +315,7 @@ item.botania:icePendant.name=Snowflake Pendant
 item.botania:lavaPendant.name=Pyroclast Pendant
 item.botania:lifeEssence.name=Essence of Eternal Life
 item.botania:goldenLaurel.name=Golden Laurel Crown
+item.botania:redstoneRoot.name=Redstone Root
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania Index - Pick which category you would like to study:
@@ -523,6 +524,8 @@ botania.entry.fIntro=An Introduction to Function
 botania.page.fIntro0=There are various places in which the &4Mana&0 a botanist generates can be put to use, one of them is an assortment of &4Functional Flowers&0.<br>These flowers will drain &4Mana&0 from a nearby &1Mana Pool&0 into themselves, in order to do whatever task they were created for.<br>It's to note that these can't receive power directly through &1Mana Spreaders&0.
 botania.page.fIntro1=All &4Functional Flowers&0, alike the &4Generating Flowers&0 contain a small buffer of &4Mana&0.<br>Standard rules for &4Mana&0 reading apply, right clicking with a &1Wand of the Forest&0 will update the mana readings.
 botania.page.fIntro2=It is important to keep in mind that these flowers memorize the &1Mana Pool&0 from which they should pull &4Mana&0 out of. They'll only pull from the nearest pool present at the time of the flower being placed (or the closest placed afterward, if none was present), and none other, unless that one is removed.
+botania.page.fIntro3=Lastly, some functional flowers utilize a &1Redstone Root&0 in their creation. If they do, the flower's effect can be toggled with a redstone signal.
+botania.page.fIntro4=&1Redstone Root&0 for Redstone Control
 
 # -- JADED AMARANTHUS
 botania.entry.jadedAmaranthus=Jaded Amaranthus

@@ -110,6 +110,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeAlchemyCatalyst;
 	public static IRecipe recipeOpenCrate;
 	public static IRecipe recipeForestEye;
+	public static IRecipe recipeRedstoneRoot;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -584,6 +585,10 @@ public final class ModCrafingRecipes {
 				'S', LibOreDict.LIVING_ROCK,
 				'E', new ItemStack(Items.ender_eye));
 		recipeForestEye = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Redstone Root Recipe
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manaResource, 1, 6), new ItemStack(Items.redstone), new ItemStack(Blocks.tallgrass, 1, 1));
+		recipeRedstoneRoot = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0), 

@@ -15,15 +15,17 @@ import java.util.List;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemManaResource extends ItemMod {
+public class ItemManaResource extends ItemMod implements IFlowerComponent {
 
-	final int types = 6;
+	final int types = 7;
 	IIcon[] icons;
 
 	public ItemManaResource() {
@@ -53,5 +55,15 @@ public class ItemManaResource extends ItemMod {
 	@Override
 	public IIcon getIconFromDamage(int par1) {
 		return icons[Math.min(icons.length - 1, par1)];
+	}
+
+	@Override
+	public boolean canFit(ItemStack stack, IInventory apothecary) {
+		return stack.getItemDamage() == 6;
+	}
+
+	@Override
+	public int getParticleColor(ItemStack stack) {
+		return 0x9b0000;
 	}
 }
