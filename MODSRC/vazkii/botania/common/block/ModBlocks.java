@@ -18,6 +18,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.subtile.SubTilePureDaisy;
 import vazkii.botania.common.block.subtile.functional.SubTileAgricarnation;
 import vazkii.botania.common.block.subtile.functional.SubTileBellethorn;
+import vazkii.botania.common.block.subtile.functional.SubTileDreadthorn;
 import vazkii.botania.common.block.subtile.functional.SubTileExoflame;
 import vazkii.botania.common.block.subtile.functional.SubTileFallenKanade;
 import vazkii.botania.common.block.subtile.functional.SubTileHeiseiDream;
@@ -51,7 +52,6 @@ import vazkii.botania.common.block.tile.TileTinyPlanet;
 import vazkii.botania.common.block.tile.TileTurntable;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibOreDict;
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public final class ModBlocks {
@@ -139,6 +139,7 @@ public final class ModBlocks {
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_ARCANE_ROSE, SubTileArcaneRose.class);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_BELLETHORN, SubTileBellethorn.class);
+		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_DREADTHORN, SubTileDreadthorn.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_HEISEI_DREAM, SubTileHeiseiDream.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_TIGERSEYE, SubTileTigerseye.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_JADED_AMARANTHUS, SubTileJadedAmaranthus.class);

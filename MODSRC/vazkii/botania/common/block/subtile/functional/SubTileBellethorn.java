@@ -13,6 +13,8 @@ package vazkii.botania.common.block.subtile.functional;
 
 import java.util.List;
 
+import net.minecraft.command.IEntitySelector;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
@@ -38,20 +40,38 @@ public class SubTileBellethorn extends SubTileFunctional {
 		super.onUpdate();
 
 		final int range = 6;
-		final int manaToUse = 24;
+		final int manaToUse = getManaCost();
 
-		if(supertile.getWorldObj().getTotalWorldTime() % 15 == 0) {
+		if(supertile.getWorldObj().getTotalWorldTime() % 5 == 0) {
 			List<EntityLivingBase> entities = supertile.getWorldObj().getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord, supertile.zCoord - range, supertile.xCoord + range, supertile.yCoord + 1, supertile.zCoord + range));
+			IEntitySelector selector = getSelector();
+			
 			for(EntityLivingBase entity : entities) {
-				if(entity instanceof EntityPlayer)
+				if(!selector.isEntityApplicable(entity))
 					continue;
-
+				
 				if(entity.hurtTime == 0 && mana >= manaToUse) {
 					entity.attackEntityFrom(DamageSource.magic, 4);
 					mana -= manaToUse;
+					break;
 				}
 			}
 		}
+	}
+	
+	public int getManaCost() {
+		return 24;
+	}
+	
+	public IEntitySelector getSelector() {
+		return new IEntitySelector() {
+			
+			@Override
+			public boolean isEntityApplicable(Entity entity) {
+				return !(entity instanceof EntityPlayer);
+			}
+			
+		};
 	}
 
 	@Override
