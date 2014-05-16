@@ -72,7 +72,9 @@ public class TileSpecialFlower extends TileMod implements ITileBound {
 		cmp.setString(TAG_SUBTILE_NAME, subTileName);
 		NBTTagCompound subCmp = new NBTTagCompound();
 		cmp.setTag(TAG_SUBTILE_CMP, subCmp);
-		subTile.writeToPacketNBT(subCmp);
+		
+		if(subTile != null)
+			subTile.writeToPacketNBT(subCmp);
 	}
 
 	@Override
@@ -85,7 +87,8 @@ public class TileSpecialFlower extends TileMod implements ITileBound {
 		if(subTile == null || !BotaniaAPI.getSubTileStringMapping(subTile.getClass()).equals(subTileName))
 			provideSubTile(subTileName);
 
-		subTile.readFromPacketNBT(subCmp);
+		if(subTile != null)
+			subTile.readFromPacketNBT(subCmp);
 	}
 
 	public IIcon getIcon() {
