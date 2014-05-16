@@ -633,8 +633,8 @@ botania.page.endoflame2=&oNot nitor&r.
 
 # -- HYDROANGEAS
 botania.entry.hydroangeas=Hydroangeas
-botania.page.hydroangeas0=While you can generate easy &4Mana&0 with the &1Daybloom&0, sometimes you need to create more energy without using any fuels...<br>The &1Hydroangeas&0 will devour adjacent water sources to create mana, it does have a cooldown timer though, so power can not be generated instantly.
-botania.page.hydroangeas1=&oAquatic Power&r.
+botania.page.hydroangeas0=While passive &4Mana&0 generation can be easilly achieved through &1Dayblooms&0, different means of doing so might come in handy. The &1Hydroangeas&0 will suck up any &1Still Water&0 in a 3x3 area around it, on the same height, creating &4Mana&0 from it.<br>It also seems to function faster during &4Rain&0, who'd have thought?
+botania.page.hydroangeas1=&oFrom some Hyperdimension&r?
 
 # -- THERMALILY
 botania.entry.thermalily=Thermalily
