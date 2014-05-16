@@ -53,44 +53,47 @@ public class ItemGrassHorn extends ItemMod {
 
 	@Override
 	public void onUsingTick(ItemStack stack, EntityPlayer player, int time) {
-		if(time != getMaxItemUseDuration(stack) && time % 5 == 0) {
-			Random rand = new Random((int) player.posX ^ (int) player.posZ);
-			int range = 12;
-			List<ChunkCoordinates> coords = new ArrayList();
-
-			for(int i = -range; i < range + 1; i++)
-				for(int j = -range; j < range + 1; j++)
-					for(int k = -3; k < 4; k++) {
-						int x = (int) player.posX + i;
-						int y = (int) player.posY + k;
-						int z = (int) player.posZ + j;
-
-						Block block = player.worldObj.getBlock(x, y, z);
-						if(block instanceof BlockBush && !(block instanceof ISpecialFlower))
-							coords.add(new ChunkCoordinates(x, y, z));
-					}
-
-			Collections.shuffle(coords, rand);
-
-			int count = Math.min(coords.size(), 32);
-			for(int i = 0; i < count; i++) {
-				ChunkCoordinates currCoords = coords.get(i);
-				List<ItemStack> items = new ArrayList();
-				Block block = player.worldObj.getBlock(currCoords.posX, currCoords.posY, currCoords.posZ);
-				int meta = player.worldObj.getBlockMetadata(currCoords.posX, currCoords.posY, currCoords.posZ);
-				items.addAll(block.getDrops(player.worldObj, currCoords.posX, currCoords.posY, currCoords.posZ, meta, 0));
-
-				if(!player.worldObj.isRemote) {
-					player.worldObj.setBlockToAir(currCoords.posX, currCoords.posY, currCoords.posZ);
-					player.worldObj.playAuxSFX(2001, currCoords.posX, currCoords.posY, currCoords.posZ, Block.getIdFromBlock(block) + (meta << 12));
-
-					for(ItemStack stack_ : items)
-						player.worldObj.spawnEntityInWorld(new EntityItem(player.worldObj, currCoords.posX + 0.5, currCoords.posY + 0.5, currCoords.posZ + 0.5, stack_));
-				}
-			}
-		}
+		if(time != getMaxItemUseDuration(stack) && time % 5 == 0)
+			breakGrass(player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
 
 		if(!player.worldObj.isRemote)
 			player.worldObj.playSoundAtEntity(player, "note.bassattack", 1F, 0.001F);
+	}
+	
+	public static void breakGrass(World world, int srcx, int srcy, int srcz) {
+		Random rand = new Random((int) srcx ^ (int) srcy ^ (int) srcz);
+		int range = 12;
+		List<ChunkCoordinates> coords = new ArrayList();
+
+		for(int i = -range; i < range + 1; i++)
+			for(int j = -range; j < range + 1; j++)
+				for(int k = -3; k < 4; k++) {
+					int x = srcx + i;
+					int y = srcy + k;
+					int z = srcz + j;
+
+					Block block = world.getBlock(x, y, z);
+					if(block instanceof BlockBush && !(block instanceof ISpecialFlower))
+						coords.add(new ChunkCoordinates(x, y, z));
+				}
+
+		Collections.shuffle(coords, rand);
+
+		int count = Math.min(coords.size(), 32);
+		for(int i = 0; i < count; i++) {
+			ChunkCoordinates currCoords = coords.get(i);
+			List<ItemStack> items = new ArrayList();
+			Block block = world.getBlock(currCoords.posX, currCoords.posY, currCoords.posZ);
+			int meta = world.getBlockMetadata(currCoords.posX, currCoords.posY, currCoords.posZ);
+			items.addAll(block.getDrops(world, currCoords.posX, currCoords.posY, currCoords.posZ, meta, 0));
+
+			if(!world.isRemote) {
+				world.setBlockToAir(currCoords.posX, currCoords.posY, currCoords.posZ);
+				world.playAuxSFX(2001, currCoords.posX, currCoords.posY, currCoords.posZ, Block.getIdFromBlock(block) + (meta << 12));
+
+				for(ItemStack stack_ : items)
+					world.spawnEntityInWorld(new EntityItem(world, currCoords.posX + 0.5, currCoords.posY + 0.5, currCoords.posZ + 0.5, stack_));
+			}
+		}
 	}
 }

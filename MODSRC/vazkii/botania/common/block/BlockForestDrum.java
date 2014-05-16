@@ -18,6 +18,7 @@ import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.common.item.ItemGrassHorn;
 import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockForestDrum extends BlockMod implements IManaTrigger {
@@ -57,7 +58,12 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger {
 
 	@Override
 	public void onBurstCollision(IManaBurst burst, World world, int x, int y, int z) {
-		System.out.println("collide! " + world.isRemote);
+		ItemGrassHorn.breakGrass(world, x, y, z);
+		if(!world.isRemote)
+			for(int i = 0; i < 10; i++)
+				world.playSoundEffect(x, y, z, "note.bd", 1F, 1F);
+		else world.spawnParticle("note", x + 0.5, y + 1.2, z + 0.5D, 1.0 / 24.0, 0, 0);
+
 	}
 	
 }
