@@ -34,6 +34,7 @@ import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.client.core.handler.HUDHandler;
+import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 
@@ -217,7 +218,7 @@ public class TilePool extends TileMod implements IManaPool {
 	}
 
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
-		String name = StatCollector.translateToLocal(new ItemStack(ModBlocks.pool, 1, getBlockMetadata()).getUnlocalizedName() + ".name");
+		String name = StatCollector.translateToLocal(new ItemStack(ModBlocks.pool, 1, getBlockMetadata()).getUnlocalizedName().replaceAll("tile.", "tile." + LibResources.PREFIX_MOD) + ".name");
 		int color = 0x660000FF;
 		HUDHandler.drawSimpleManaHUD(color, knownMana, MAX_MANA, name, res);
 

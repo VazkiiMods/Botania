@@ -42,6 +42,7 @@ import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.api.wand.ITileBound;
 import vazkii.botania.client.core.handler.HUDHandler;
+import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityManaBurst;
@@ -342,7 +343,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
-		String name = StatCollector.translateToLocal(new ItemStack(ModBlocks.spreader, 1, getBlockMetadata()).getUnlocalizedName() + ".name");
+		String name = StatCollector.translateToLocal(new ItemStack(ModBlocks.spreader, 1, getBlockMetadata()).getUnlocalizedName().replaceAll("tile.", "tile." + LibResources.PREFIX_MOD) + ".name");
 		int color = isRedstone() ? 0x66FF0000 : 0x6600FF00;
 		HUDHandler.drawSimpleManaHUD(color, knownMana, MAX_MANA, name, res);
 
