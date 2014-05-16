@@ -33,7 +33,6 @@ public final class AliasHandler {
 	public static void onMissingMappings(FMLMissingMappingsEvent event) {
 		List<MissingMapping> mappings = event.get();
 		for(MissingMapping mapping : mappings) {
-			FMLLog.getLogger().log(Level.INFO, String.format("[Botania] Found an old mapping - %s, remapping.", mapping.name));
 			String name = mapping.name.substring(LibResources.PREFIX_MOD.length() * 2);
 
 			if(mapping.type == Type.ITEM)
@@ -58,9 +57,7 @@ public final class AliasHandler {
 			if(i.getUnlocalizedName().substring("item.".length()).equals(name))
 				return i;
 		}
-
-		System.out.println("WOOOOOOOOOOOOOOOOOOW WE FOUND A NULL");
-		System.out.println("NULL: " + name);
+		
 		return null;
 	}
 
@@ -70,10 +67,7 @@ public final class AliasHandler {
 			if(b.getUnlocalizedName().substring("tile.".length()).equals(name))
 				return b;
 		}
-
-		System.out.println("WOOOOOOOOOOOOOOOOOOW WE FOUND A NULL");
-		System.out.println("NULL: " + name);
+		
 		return null;
 	}
-
 }
