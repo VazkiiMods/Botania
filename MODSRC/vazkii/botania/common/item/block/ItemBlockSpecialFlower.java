@@ -15,7 +15,6 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
@@ -24,12 +23,13 @@ import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.IRecipeKeyProvider;
 import vazkii.botania.api.subtile.SubTileEntity;
+import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class ItemBlockSpecialFlower extends ItemBlock implements IRecipeKeyProvider {
+public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyProvider {
 
 	public ItemBlockSpecialFlower(Block block1) {
 		super(block1);
@@ -66,7 +66,7 @@ public class ItemBlockSpecialFlower extends ItemBlock implements IRecipeKeyProvi
 
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		String refUnlocalized = "tile." + LibBlockNames.SPECIAL_FLOWER_PREFIX + getType(par1ItemStack) + ".reference";
+		String refUnlocalized = "tile." + LibResources.PREFIX_MOD + LibBlockNames.SPECIAL_FLOWER_PREFIX + getType(par1ItemStack) + ".reference";
 		String refLocalized = StatCollector.translateToLocal(refUnlocalized);
 		if(!refLocalized.equals(refUnlocalized))
 			par3List.add(EnumChatFormatting.ITALIC + refLocalized);

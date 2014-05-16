@@ -24,12 +24,8 @@ public final class IconHelper {
 		return ir.registerIcon(LibResources.PREFIX_MOD + name);
 	}
 
-	public static IIcon forNameRaw(IIconRegister ir, String name) {
-		return ir.registerIcon(name);
-	}
-
 	public static IIcon forBlock(IIconRegister ir, Block block) {
-		return forNameRaw(ir, block.getUnlocalizedName().replaceAll("tile.", ""));
+		return forName(ir, block.getUnlocalizedName().replaceAll("tile.", ""));
 	}
 
 	public static IIcon forBlock(IIconRegister ir, Block block, int i) {
@@ -37,11 +33,11 @@ public final class IconHelper {
 	}
 
 	public static IIcon forBlock(IIconRegister ir, Block block, String s) {
-		return forNameRaw(ir, block.getUnlocalizedName().replaceAll("tile.", "") + s);
+		return forName(ir, block.getUnlocalizedName().replaceAll("tile.", "") + s);
 	}
 
 	public static IIcon forItem(IIconRegister ir, Item item) {
-		return forNameRaw(ir, item.getUnlocalizedName().replaceAll("item.", ""));
+		return forName(ir, item.getUnlocalizedName().replaceAll("item.", ""));
 	}
 
 	public static IIcon forItem(IIconRegister ir, Item item, int i) {
@@ -49,7 +45,7 @@ public final class IconHelper {
 	}
 
 	public static IIcon forItem(IIconRegister ir, Item item, String s) {
-		return forNameRaw(ir, item.getUnlocalizedName().replaceAll("item.", "") + s);
+		return forName(ir, item.getUnlocalizedName().replaceAll("item.", "") + s);
 	}
 
 }

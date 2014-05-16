@@ -88,7 +88,7 @@ public class ItemLens extends ItemMod implements ILens {
 
 		ringIcons = new IIcon[SUBTYPES];
 		for(int i = 0; i < ringIcons.length; i++)
-			ringIcons[i] = IconHelper.forNameRaw(par1IconRegister, LibItemNames.LENS_NAMES[i]);
+			ringIcons[i] = IconHelper.forName(par1IconRegister, LibItemNames.LENS_NAMES[i]);
 	}
 
 	@Override

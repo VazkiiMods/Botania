@@ -15,28 +15,28 @@ import vazkii.botania.client.lib.LibResources;
 
 public final class LibBlockNames {
 
-	public static final String FLOWER = LibResources.PREFIX_MOD + "flower";
-	public static final String ALTAR = LibResources.PREFIX_MOD + "altar";
-	public static final String SPECIAL_FLOWER = LibResources.PREFIX_MOD + "specialFlower";
-	public static final String LIVING_ROCK = LibResources.PREFIX_MOD + "livingrock";
-	public static final String LIVING_WOOD = LibResources.PREFIX_MOD + "livingwood";
-	public static final String SPREADER = LibResources.PREFIX_MOD + "spreader";
-	public static final String POOL = LibResources.PREFIX_MOD + "pool";
-	public static final String RUNE_ALTAR = LibResources.PREFIX_MOD + "runeAltar";
-	public static final String UNSTABLE_BLOCK = LibResources.PREFIX_MOD + "unstableBlock";
-	public static final String PYLON = LibResources.PREFIX_MOD + "pylon";
-	public static final String PISTON_RELAY = LibResources.PREFIX_MOD + "pistonRelay";
-	public static final String DISTRIBUTOR = LibResources.PREFIX_MOD + "distributor";
-	public static final String MANA_BEACON = LibResources.PREFIX_MOD + "manaBeacon";
-	public static final String MANA_VOID = LibResources.PREFIX_MOD + "manaVoid";
-	public static final String MANA_DETECTOR = LibResources.PREFIX_MOD + "manaDetector";
-	public static final String ENCHANTER = LibResources.PREFIX_MOD + "enchanter";
-	public static final String TURNTABLE = LibResources.PREFIX_MOD + "turntable";
-	public static final String TINY_PLANET = LibResources.PREFIX_MOD + "tinyPlanetBlock";
-	public static final String ALCHEMY_CATALYST = LibResources.PREFIX_MOD + "alchemyCatalyst";
-	public static final String OPEN_CRATE = LibResources.PREFIX_MOD + "openCrate";
-	public static final String FOREST_EYE = LibResources.PREFIX_MOD + "forestEye";
-	public static final String STORAGE = LibResources.PREFIX_MOD + "storage";
+	public static final String FLOWER = "flower";
+	public static final String ALTAR = "altar";
+	public static final String SPECIAL_FLOWER = "specialFlower";
+	public static final String LIVING_ROCK = "livingrock";
+	public static final String LIVING_WOOD = "livingwood";
+	public static final String SPREADER = "spreader";
+	public static final String POOL = "pool";
+	public static final String RUNE_ALTAR = "runeAltar";
+	public static final String UNSTABLE_BLOCK = "unstableBlock";
+	public static final String PYLON = "pylon";
+	public static final String PISTON_RELAY = "pistonRelay";
+	public static final String DISTRIBUTOR = "distributor";
+	public static final String MANA_BEACON = "manaBeacon";
+	public static final String MANA_VOID = "manaVoid";
+	public static final String MANA_DETECTOR = "manaDetector";
+	public static final String ENCHANTER = "enchanter";
+	public static final String TURNTABLE = "turntable";
+	public static final String TINY_PLANET = "tinyPlanetBlock";
+	public static final String ALCHEMY_CATALYST = "alchemyCatalyst";
+	public static final String OPEN_CRATE = "openCrate";
+	public static final String FOREST_EYE = "forestEye";
+	public static final String STORAGE = "storage";
 
 	public static final String SPECIAL_FLOWER_PREFIX = FLOWER + ".";
 

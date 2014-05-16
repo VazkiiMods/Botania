@@ -14,8 +14,10 @@ package vazkii.botania.common.item;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -35,6 +37,11 @@ public class ItemManaCookie extends ItemFood {
 	public Item setUnlocalizedName(String par1Str) {
 		GameRegistry.registerItem(this, par1Str);
 		return super.setUnlocalizedName(par1Str);
+	}
+	
+	@Override
+	public String getUnlocalizedNameInefficiently(ItemStack par1ItemStack) {
+		return super.getUnlocalizedNameInefficiently(par1ItemStack).replaceAll("item.", "item." + LibResources.PREFIX_MOD);
 	}
 
 	@Override

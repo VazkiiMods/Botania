@@ -44,7 +44,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent {
 	public void registerIcons(IIconRegister par1IconRegister) {
 		icons = new IIcon[types];
 		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forNameRaw(par1IconRegister, LibItemNames.MANA_RESOURCE_NAMES[i]);
+			icons[i] = IconHelper.forName(par1IconRegister, LibItemNames.MANA_RESOURCE_NAMES[i]);
 	}
 
 	@Override

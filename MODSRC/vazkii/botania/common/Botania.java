@@ -11,6 +11,7 @@
  */
 package vazkii.botania.common;
 
+import vazkii.botania.common.core.handler.AliasHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.proxy.CommonProxy;
 import vazkii.botania.common.lib.LibMisc;
@@ -19,6 +20,7 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLMissingMappingsEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
@@ -45,11 +47,15 @@ public class Botania {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		proxy.postInit(event);
-		//		Corruption.init();
 	}
 
 	@EventHandler
 	public void serverStopping(FMLServerStoppingEvent event) {
 		ManaNetworkHandler.instance.clear();
+	}
+	
+	@EventHandler
+	public void missingMappings(FMLMissingMappingsEvent event) {
+		AliasHandler.onMissingMappings(event);
 	}
 }

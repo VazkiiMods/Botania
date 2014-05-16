@@ -19,6 +19,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.BotaniaCreativeTab;
+import vazkii.botania.common.item.block.ItemBlockMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -34,7 +35,7 @@ public abstract class BlockModContainer<T extends TileEntity> extends BlockConta
 	@Override
 	public Block setBlockName(String par1Str) {
 		if(shouldRegisterInNameSet())
-			GameRegistry.registerBlock(this, par1Str);
+			GameRegistry.registerBlock(this, ItemBlockMod.class, par1Str);
 		return super.setBlockName(par1Str);
 	}
 

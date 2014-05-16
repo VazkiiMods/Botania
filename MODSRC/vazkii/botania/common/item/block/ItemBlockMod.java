@@ -7,29 +7,24 @@
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
  * 
- * File Created @ [Jan 16, 2014, 5:54:06 PM (GMT)]
+ * File Created @ [May 16, 2014, 7:00:36 PM (GMT)]
  */
 package vazkii.botania.common.item.block;
 
 import vazkii.botania.client.lib.LibResources;
 import net.minecraft.block.Block;
-import net.minecraft.item.ItemBlockWithMetadata;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
-public class ItemBlockWithMetadataAndName extends ItemBlockWithMetadata {
+public class ItemBlockMod extends ItemBlock {
 
-	public ItemBlockWithMetadataAndName(Block par2Block) {
-		super(par2Block, par2Block);
+	public ItemBlockMod(Block block) {
+		super(block);
 	}
 	
 	@Override
 	public String getUnlocalizedNameInefficiently(ItemStack par1ItemStack) {
 		return super.getUnlocalizedNameInefficiently(par1ItemStack).replaceAll("tile.", "tile." + LibResources.PREFIX_MOD);
-	}
-
-	@Override
-	public String getUnlocalizedName(ItemStack par1ItemStack) {
-		return super.getUnlocalizedName(par1ItemStack) + par1ItemStack.getItemDamage();
 	}
 
 }
