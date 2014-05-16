@@ -53,7 +53,7 @@ public class SubTilePollidisiac extends SubTileFunctional {
 							
 							mana -= manaCost;
 							
-							ReflectionHelper.setPrivateValue(EntityAnimal.class, animal, 800, LibObfuscation.IN_LOVE);
+							ReflectionHelper.setPrivateValue(EntityAnimal.class, animal, 1200, LibObfuscation.IN_LOVE);
 							animal.setTarget(null);
 							supertile.getWorldObj().setEntityState(animal, (byte)18);
 						}
