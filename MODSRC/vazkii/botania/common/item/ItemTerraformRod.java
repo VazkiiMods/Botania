@@ -23,8 +23,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import vazkii.botania.api.ISpecialFlower;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibItemNames;
 

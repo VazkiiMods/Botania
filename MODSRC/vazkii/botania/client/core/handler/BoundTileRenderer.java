@@ -28,8 +28,8 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 
 import org.lwjgl.opengl.GL11;
 
-import vazkii.botania.api.ITileBound;
-import vazkii.botania.api.IWireframeAABBProvider;
+import vazkii.botania.api.wand.ITileBound;
+import vazkii.botania.api.wand.IWireframeAABBProvider;
 import vazkii.botania.common.item.ItemTwigWand;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 

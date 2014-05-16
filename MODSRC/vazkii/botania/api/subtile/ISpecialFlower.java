@@ -9,7 +9,7 @@
  * 
  * File Created @ [Jan 22, 2014, 7:12:28 PM (GMT)]
  */
-package vazkii.botania.api;
+package vazkii.botania.api.subtile;
 
 /**
  * The special flowers in botania implement this. Used for cases where

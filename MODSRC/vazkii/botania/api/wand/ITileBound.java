@@ -9,7 +9,7 @@
  * 
  * File Created @ [Mar 24, 2014, 6:47:53 PM (GMT)]
  */
-package vazkii.botania.api;
+package vazkii.botania.api.wand;
 
 import net.minecraft.util.ChunkCoordinates;
 import cpw.mods.fml.relauncher.Side;

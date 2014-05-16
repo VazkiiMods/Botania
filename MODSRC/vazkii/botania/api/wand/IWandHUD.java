@@ -9,7 +9,7 @@
  * 
  * File Created @ [Feb 5, 2014, 1:34:44 PM (GMT)]
  */
-package vazkii.botania.api;
+package vazkii.botania.api.wand;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;

@@ -24,7 +24,7 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
-import vazkii.botania.api.ISpecialFlower;
+import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemGrassHorn extends ItemMod {

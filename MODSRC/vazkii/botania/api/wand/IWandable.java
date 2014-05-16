@@ -7,24 +7,19 @@
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
  * 
- * File Created @ [Jan 20, 2014, 7:05:44 PM (GMT)]
+ * File Created @ [Jan 22, 2014, 5:12:53 PM (GMT)]
  */
-package vazkii.botania.api;
+package vazkii.botania.api.wand;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import vazkii.botania.api.lexicon.LexiconEntry;
 
 /**
- * Any block that implements this can be right clicked with
- * a Lexica Botania to open a entry page.
+ * Any block that implements this can be used with the Wand for the Forest for some purpose.
  */
-public interface ILexiconable {
+public interface IWandable {
 
-	/**
-	 * Gets the lexicon entry to open at this location. null works too.
-	 */
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon);
+	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side);
 
 }

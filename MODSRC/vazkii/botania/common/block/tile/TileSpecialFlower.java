@@ -20,9 +20,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.IIcon;
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.ITileBound;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileEntity;
+import vazkii.botania.api.wand.ITileBound;
 
 public class TileSpecialFlower extends TileMod implements ITileBound {
 

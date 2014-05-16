@@ -9,7 +9,7 @@
  * 
  * File Created @ [Apr 19, 2014, 7:23:59 PM (GMT)]
  */
-package vazkii.botania.api;
+package vazkii.botania.api.wand;
 
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
