@@ -13,15 +13,20 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.lexicon.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.item.ItemGrassHorn;
+import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockForestDrum extends BlockMod implements IManaTrigger {
+public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexiconable {
 
 	IIcon iconBases, iconFaces;
 	
@@ -64,6 +69,11 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger {
 				world.playSoundEffect(x, y, z, "note.bd", 1F, 1F);
 		else world.spawnParticle("note", x + 0.5, y + 1.2, z + 0.5D, 1.0 / 24.0, 0, 0);
 
+	}
+
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return LexiconData.forestDrum;
 	}
 	
 }
