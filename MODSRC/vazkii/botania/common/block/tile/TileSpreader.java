@@ -74,7 +74,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	IManaReceiver receiver = null;
 	IManaReceiver receiverLastTick = null;
 
-	boolean redstoneLastTick = false;
+	boolean redstoneLastTick = true;
 	public boolean canShootBurst = true;
 	public int lastBurstDeathTick = -1;
 	public int burstParticleTick = 0;
