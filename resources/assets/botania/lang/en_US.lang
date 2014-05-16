@@ -377,7 +377,7 @@ botania.page.wand1=The petals used determine the colors of the wand
 
 # -- RUNIC ALTAR
 botania.entry.runeAltar=Runic Altar
-botania.page.runeAltar0=&1Runes&0 are extremely important components of complex magical devices or flora.<br>In order to create these, one would require a &1Runic Altar&0.<br>To utilize this &1Runic Altar&0, start by placing, via right click, the components to the rune you want to create.
+botania.page.runeAltar0=&1Runes&0 are extremely important components of complex magical devices or flora.<br>In order to create these, one would require a &1Runic Altar&0.<br>To utilize this &1Runic Altar&0, start by placing, via either a right click or simply tossing, the components to the rune you want to create.
 botania.page.runeAltar1=Proceed by linking a &1Mana Spreader&0 to the altar, and right click it with a &1Wand of the Forest&0.<br>It should be apparent when the altar has received enough &4Mana&0. When that happens, just drop a piece of &1Livingrock&0 on top of it and use the wand on it again to collect your rune.
 botania.page.runeAltar2=Crafting the &1Runic Altar&0.
 botania.page.runeAltar3=A total of 16 &1Runes&0 exist.<br>The most basic and elementary runes are named after the &4Four Elements&0. The intermediate runes are named after the &4Four Seasons&0, and the most advanced runes are named after the &4Seven Deadly Sins&0. A separate &1Rune of Mana&0 also exists.

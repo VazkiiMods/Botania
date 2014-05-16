@@ -37,7 +37,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 	int mana = 0;
 
 	public boolean addItem(EntityPlayer player, ItemStack stack) {
-		if(stack.getItem() == ModItems.twigWand || stack.getItem() == ModItems.lexicon  || manaToGet != 0)
+		if(stack.getItem() == ModItems.twigWand || stack.getItem() == ModItems.lexicon || manaToGet != 0)
 			return false;
 
 		boolean did = false;
@@ -49,9 +49,9 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 				stackToAdd.stackSize = 1;
 				setInventorySlotContents(i, stackToAdd);
 
-				if(!player.capabilities.isCreativeMode) {
+				if(player == null || !player.capabilities.isCreativeMode) {
 					stack.stackSize--;
-					if(stack.stackSize == 0)
+					if(stack.stackSize == 0 && player != null)
 						player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
 				}
 
@@ -71,6 +71,17 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 		// Update every tick.
 		recieveMana(0);
 
+		if(!worldObj.isRemote) {
+			List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1));
+			for(EntityItem item : items)
+				if(!item.isDead && item.getEntityItem() != null && item.getEntityItem().getItem() != Item.getItemFromBlock(ModBlocks.livingrock)) {
+					ItemStack stack = item.getEntityItem();
+					if(addItem(null, stack) && stack.stackSize == 0)
+						item.setDead();
+				}
+		}
+		
+		
 		if(worldObj.isRemote && manaToGet > 0 && mana >= manaToGet) {
 			if(worldObj.rand.nextInt(20) == 0) {
 				worldObj.playSoundEffect(xCoord, yCoord, zCoord, "mob.creeper.live", 1F, 1F);
@@ -80,7 +91,6 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 				Botania.proxy.lightningFX(worldObj, vec, endVec, 2F, 0x00948B, 0x00E4D7);
 			}
 		}
-
 	}
 
 	public void updateRecipe() {
@@ -117,7 +127,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 			List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1));
 			EntityItem livingrock = null;
 			for(EntityItem item : items)
-				if(item.getEntityItem() != null && item.getEntityItem().getItem() == Item.getItemFromBlock(ModBlocks.livingrock)) {
+				if(!item.isDead && item.getEntityItem() != null && item.getEntityItem().getItem() == Item.getItemFromBlock(ModBlocks.livingrock)) {
 					livingrock = item;
 					break;
 				}
