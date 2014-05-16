@@ -122,6 +122,9 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 
 	@Override
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
+		if(player == null)
+			return false;
+		
 		if(!player.isSneaking()) {
 			playerPositions.put(player.getCommandSenderName(), getCoordsAsString(world.provider.dimensionId, x, y, z));
 			world.playSoundEffect(x, y, z, "random.orb", 0.5F, 1F);

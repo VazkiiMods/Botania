@@ -133,6 +133,9 @@ public class SubTileFunctional extends SubTileEntity {
 
 	@Override
 	public boolean onWanded(EntityPlayer player, ItemStack wand) {
+		if(player == null)
+			return false;
+		
 		knownMana = mana;
 		player.worldObj.playSoundAtEntity(player, "random.orb", 0.1F, 1F);
 

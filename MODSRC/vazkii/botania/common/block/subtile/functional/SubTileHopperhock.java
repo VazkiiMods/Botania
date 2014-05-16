@@ -173,6 +173,9 @@ public class SubTileHopperhock extends SubTileFunctional {
 	
 	@Override
 	public boolean onWanded(EntityPlayer player, ItemStack wand) {
+		if(player == null)
+			return false;
+		
 		if(player.isSneaking()) {
 			filterType = filterType == 2 ? 0 : filterType + 1;
 			sync();

@@ -20,6 +20,10 @@ import net.minecraft.world.World;
  */
 public interface IWandable {
 
+	/**
+	 * Called when the item is used by a wand. Note that the player parameter can be null
+	 * if this function is called from a dispenser.
+	 */
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side);
 
 }

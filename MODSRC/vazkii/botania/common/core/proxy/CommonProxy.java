@@ -69,7 +69,7 @@ public class CommonProxy {
 	}
 
 	public void postInit(FMLPostInitializationEvent event) {
-
+		ModBlocks.addDispenserBehaviours();
 	}
 
 	public void setEntryToOpen(LexiconEntry entry) {

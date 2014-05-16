@@ -855,3 +855,7 @@ botania.page.decorativeBlocks6=Mossing the planks
 botania.page.decorativeBlocks7=Framing the planks
 botania.page.decorativeBlocks8=Pattern planks
 botania.page.decorativeBlocks9=Glimmering livingwood
+
+# -- DISPENSER TWEAKS
+botania.entry.dispenserTweaks=Dispenser Tweaks
+botania.page.dispenserTweaks0=&1Dispensers&0, among their normal abilities, can also plant all sorts of crops, from &1Seeds&0, &1Potatos&0 or &1Carrots&0 to even &1Nether Wart&0. The crop is planted in the block right in front of the dispenser.<br>The &1Dispensers&0 can also use the &1Wand of the Forest&0 for some specific tasks such as triggering a &1Runic Altar&0.

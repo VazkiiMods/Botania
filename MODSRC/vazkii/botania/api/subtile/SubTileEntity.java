@@ -77,7 +77,8 @@ public class SubTileEntity {
 	}
 
 	/**
-	 * Called when a Wand of the Forest is used on this sub tile.
+	 * Called when a Wand of the Forest is used on this sub tile. Note that the
+	 * player parameter can be null if this is called from a dispenser.
 	 */
 	public boolean onWanded(EntityPlayer player, ItemStack wand) {
 		return false;

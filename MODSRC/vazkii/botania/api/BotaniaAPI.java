@@ -16,6 +16,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
@@ -48,6 +52,8 @@ public final class BotaniaAPI {
 
 	public static Map<String, Integer> oreWeights = new HashMap<String, Integer>();
 
+	public static Map<Item, Block> seeds = new HashMap();
+	
 	public static ArmorMaterial manasteelArmorMaterial = EnumHelper.addArmorMaterial("MANASTEEL", 16, new int[] { 2, 6, 5, 2 }, 18);
 	public static ToolMaterial manasteelToolMaterial = EnumHelper.addToolMaterial("MANASTEEL", 3, 300, 6.2F, 2F, 20);
 
@@ -99,6 +105,13 @@ public final class BotaniaAPI {
 		addOreWeight("oreUranium", 1337); // IC2
 		addOreWeight("oreVinteum", 5925); // Ars Magica
 		addOreWeight("oreYellorite", 3520); // Big Reactors
+		
+		addSeed(Items.wheat_seeds, Blocks.wheat);
+		addSeed(Items.potato, Blocks.potatoes);
+		addSeed(Items.carrot, Blocks.carrots);
+		addSeed(Items.nether_wart, Blocks.nether_wart);
+		addSeed(Items.pumpkin_seeds, Blocks.pumpkin_stem);
+		addSeed(Items.melon_seeds, Blocks.melon_stem);
 	}
 
 	/**
@@ -197,6 +210,14 @@ public final class BotaniaAPI {
 
 	public static int getOreWeight(String ore) {
 		return oreWeights.get(ore);
+	}
+	
+	/**
+	 * Allows an item to be counted as a seed. Any item in this list can be
+	 * dispensed by a dispenser, the block is the block to be placed. 
+	 */
+	public static void addSeed(Item item, Block block) {
+		seeds.put(item, block);
 	}
 
 	/**
