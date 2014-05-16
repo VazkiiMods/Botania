@@ -18,22 +18,21 @@ import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.client.ForgeHooksClient;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.api.lexicon.LexiconRecipeMappings;
 import vazkii.botania.api.lexicon.LexiconRecipeMappings.EntryData;
-import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.GuiLexiconEntry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -77,17 +76,17 @@ public class PageRecipe extends LexiconPage {
 				first = false;
 			}
 
-			RenderHelper.renderTooltip(mx, my, parsedTooltip);
+			vazkii.botania.client.core.helper.RenderHelper.renderTooltip(mx, my, parsedTooltip);
 
 			int tooltipY = 8 + tooltipData.size() * 11;
 
 			if(tooltipEntry) {
-				RenderHelper.renderTooltipOrange(mx, my + tooltipY, Arrays.asList(EnumChatFormatting.GRAY + StatCollector.translateToLocal("botaniamisc.clickToRecipe")));
+				vazkii.botania.client.core.helper.RenderHelper.renderTooltipOrange(mx, my + tooltipY, Arrays.asList(EnumChatFormatting.GRAY + StatCollector.translateToLocal("botaniamisc.clickToRecipe")));
 				tooltipY += 18;
 			}
 
 			if(tooltipContainerStack != null)
-				RenderHelper.renderTooltipGreen(mx, my + tooltipY, Arrays.asList(EnumChatFormatting.AQUA + StatCollector.translateToLocal("botaniamisc.craftingContainer"), tooltipContainerStack.getDisplayName()));
+				vazkii.botania.client.core.helper.RenderHelper.renderTooltipGreen(mx, my + tooltipY, Arrays.asList(EnumChatFormatting.AQUA + StatCollector.translateToLocal("botaniamisc.craftingContainer"), tooltipContainerStack.getDisplayName()));
 		}
 
 		tooltipStack = tooltipContainerStack = null;
@@ -144,13 +143,16 @@ public class PageRecipe extends LexiconPage {
 		FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
 		boolean mouseDown = Mouse.isButtonDown(0);
 
-		// Translations required so the glint doesn't merge with the book texture
-		GL11.glTranslatef(0F, 0F, 200F);
-		if(!ForgeHooksClient.renderInventoryItem(new RenderBlocks(), renderEngine, stack, render.renderWithColor, gui.getZLevel(), xPos, yPos))
-			render.renderItemIntoGUI(fontRenderer, renderEngine, stack, xPos, yPos);
-		render.renderItemOverlayIntoGUI(fontRenderer, renderEngine, stack, xPos, yPos);
-		GL11.glTranslatef(0F, 0F, -200F);
-
+        GL11.glPushMatrix();
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        RenderHelper.enableGUIStandardItemLighting();
+        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        render.renderItemAndEffectIntoGUI(Minecraft.getMinecraft().fontRenderer, Minecraft.getMinecraft().getTextureManager(), stack, xPos, yPos);
+        RenderHelper.disableStandardItemLighting();
+        GL11.glPopMatrix();
+		
 		if(relativeMouseX >= xPos && relativeMouseY >= yPos && relativeMouseX <= xPos + 16 && relativeMouseY <= yPos + 16) {
 			tooltipStack = stack;
 
