@@ -37,6 +37,7 @@ public final class LibBlockNames {
 	public static final String OPEN_CRATE = "openCrate";
 	public static final String FOREST_EYE = "forestEye";
 	public static final String STORAGE = "storage";
+	public static final String FOREST_DRUM = "forestDrum";
 
 	public static final String SPECIAL_FLOWER_PREFIX = FLOWER + ".";
 

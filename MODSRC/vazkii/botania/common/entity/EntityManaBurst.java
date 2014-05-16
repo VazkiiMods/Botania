@@ -37,6 +37,7 @@ import vazkii.botania.api.mana.ILensEffect;
 import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.mana.IManaReceiver;
+import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileSpreader;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -513,6 +514,9 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 					worldObj.markBlockForUpdate(tile.xCoord, tile.yCoord, tile.zCoord);
 				}
 
+				if(block instanceof IManaTrigger)
+					((IManaTrigger) block).onBurstCollision(this, worldObj, movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ);
+				
 				dead = true;
 			}
 

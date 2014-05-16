@@ -130,6 +130,7 @@ tile.botania:openCrate.name=Open Crate
 tile.botania:forestEye.name=Eye of the Ancients
 tile.botania:storage0.name=Block of Manasteel
 tile.botania:storage1.name=Block of Terrasteel
+tile.botania:forestDrum.name=Drum of the Wild
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
