@@ -646,6 +646,11 @@ botania.entry.arcanerose=Rosa Arcana
 botania.page.arcanerose0=&4Experience Points&0 are a form of magic of sorts. The &1Rosa Arcana&0 can tap into it and absorb the experience of players on the ground around it, turning it into &1Mana&0. 
 botania.page.arcanerose1=&oGo have a drink, it might take a bit&r.
 
+# -- MUNCHDEW
+botania.entry.munchdew=Munchdew
+botania.page.munchdew0=Generating the form of natural energy that is &4Mana&0 should be a pretty good process when done via other living materials. By using the &1Munchdew&0, any &1Leaves&0 near the flower will get munched up and convereted into &4Mana&0.<br>It's to note that, though, no saplings or any other items will be dropped from the leaves.
+botania.page.munchdew1=&oItadakimasu&r!
+
 # - MAGICAL APPARATUS
 # -- FORCE RELAY
 botania.entry.pistonRelay=Force Relay

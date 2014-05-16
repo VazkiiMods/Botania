@@ -96,6 +96,7 @@ public final class LexiconData {
 	public static LexiconEntry hydroangeas;
 	public static LexiconEntry thermalily;
 	public static LexiconEntry arcaneRose;
+	public static LexiconEntry munchdew;
 
 	public static LexiconEntry pistonRelay;
 	public static LexiconEntry pylon;
@@ -297,6 +298,9 @@ public final class LexiconData {
 		arcaneRose = new BLexiconEntry(LibLexicon.GFLOWER_ARCANE_ROSE, categoryGenerationFlowers);
 		arcaneRose.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.arcaneRoseRecipe));
 
+		munchdew = new BLexiconEntry(LibLexicon.GFLOWER_MUNCHDEW, categoryGenerationFlowers);
+		munchdew.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.munchdewRecipe));
+		
 		// DEVICES ENTRIES
 		pistonRelay = new BLexiconEntry(LibLexicon.DEVICE_PISTON_RELAY, categoryDevices);
 		pistonRelay.setLexiconPages(new PageText("0"), new PageText("1"), new PageManaInfusionRecipe("2", ModManaInfusionRecipes.pistonRelayRecipe));

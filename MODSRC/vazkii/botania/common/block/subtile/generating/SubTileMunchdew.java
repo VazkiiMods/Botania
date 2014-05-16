@@ -19,7 +19,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraftforge.common.util.ForgeDirection;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileGenerating;
+import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileMunchdew extends SubTileGenerating {
 
@@ -78,5 +80,10 @@ public class SubTileMunchdew extends SubTileGenerating {
 	@Override
 	public int getMaxMana() {
 		return 200;
+	}
+	
+	@Override
+	public LexiconEntry getEntry() {
+		return LexiconData.munchdew;
 	}
 }
