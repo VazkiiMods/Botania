@@ -111,6 +111,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeOpenCrate;
 	public static IRecipe recipeForestEye;
 	public static IRecipe recipeRedstoneRoot;
+	public static IRecipe recipeForestDrum;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -589,6 +590,14 @@ public final class ModCrafingRecipes {
 		// Redstone Root Recipe
 		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manaResource, 1, 6), new ItemStack(Items.redstone), new ItemStack(Blocks.tallgrass, 1, 1));
 		recipeRedstoneRoot = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Drum of the Wild Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.forestDrum), 
+				"WLW", "WHW", "WLW",
+				'W', LibOreDict.LIVING_WOOD,
+				'L', new ItemStack(Items.leather),
+				'H', new ItemStack(ModItems.grassHorn));
+		recipeForestDrum = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0), 
