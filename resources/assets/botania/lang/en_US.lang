@@ -185,6 +185,8 @@ tile.botania:flower.hyacidus.name=Hyacidus
 tile.botania:flower.hyacidus.reference=If you don't walk, it doesn't hurt
 tile.botania:flower.pollidisiac.name=Pollidisiac
 tile.botania:flower.pollidisiac.reference=Birds and bees
+tile.botania:flower.clayconia.name=Clayconia
+tile.botania:flower.clayconia.reference=Rupees not included
 
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania

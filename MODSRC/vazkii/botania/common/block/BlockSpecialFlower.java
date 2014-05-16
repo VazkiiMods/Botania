@@ -49,7 +49,7 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 
 	public static Map<String, IIcon> icons = new HashMap();
 
-	private static String[] subtypes = {
+	private static String[] subtypes = new String[] {
 		// Misc
 		LibBlockNames.SUBTILE_PUREDAISY,
 
@@ -77,7 +77,8 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 		LibBlockNames.SUBTILE_TANGLEBERRIE,
 		LibBlockNames.SUBTILE_JIYUULIA,
 		LibBlockNames.SUBTILE_HYACIDUS,
-		LibBlockNames.SUBTILE_POLLIDISIAC
+		LibBlockNames.SUBTILE_POLLIDISIAC,
+		LibBlockNames.SUBTILE_CLAYCONIA
 	};
 
 	protected BlockSpecialFlower() {
