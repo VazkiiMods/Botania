@@ -15,6 +15,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -36,7 +38,10 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
 		if(par3Entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) par3Entity;
-			if(player.getCurrentEquippedItem() == par1ItemStack && player.swingProgress == 0.16666667F && !par2World.isRemote && par2World.rand.nextInt(2) == 0) {
+			PotionEffect haste = player.getActivePotionEffect(Potion.digSpeed);
+			float check = haste == null ? 0.16666667F : haste.getAmplifier() == 1 ? 0.5F : 0.4F;
+			
+			if(player.getCurrentEquippedItem() == par1ItemStack && player.swingProgress == check && !par2World.isRemote && par2World.rand.nextInt(2) == 0) {
 				EntityManaBurst burst = getBurst(player, par1ItemStack);
 				par2World.spawnEntityInWorld(burst);
 				ManasteelToolCommons.damageItem(par1ItemStack, 1, player, MANA_PER_DAMAGE);
