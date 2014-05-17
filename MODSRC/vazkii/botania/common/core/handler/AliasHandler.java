@@ -11,21 +11,13 @@
  */
 package vazkii.botania.common.core.handler;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
-import org.apache.logging.log4j.Level;
-
 import net.minecraft.block.Block;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.item.ModItems;
-import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.event.FMLMissingMappingsEvent;
 import cpw.mods.fml.common.event.FMLMissingMappingsEvent.MissingMapping;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.registry.GameRegistry.Type;
 
 public final class AliasHandler {
@@ -57,7 +49,7 @@ public final class AliasHandler {
 			if(i.getUnlocalizedName().substring("item.".length()).equals(name))
 				return i;
 		}
-		
+
 		return null;
 	}
 
@@ -67,7 +59,7 @@ public final class AliasHandler {
 			if(b.getUnlocalizedName().substring("tile.".length()).equals(name))
 				return b;
 		}
-		
+
 		return null;
 	}
 }

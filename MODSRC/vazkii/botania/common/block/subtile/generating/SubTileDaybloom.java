@@ -21,7 +21,7 @@ public class SubTileDaybloom extends SubTileGenerating {
 	public int getColor() {
 		return 0xFFFF00;
 	}
-	
+
 	@Override
 	public boolean canGeneratePassively() {
 		boolean rain = supertile.getWorldObj().getWorldChunkManager().getBiomeGenAt(supertile.xCoord, supertile.zCoord).getIntRainfall() > 0 && (supertile.getWorldObj().isRaining() || supertile.getWorldObj().isThundering());

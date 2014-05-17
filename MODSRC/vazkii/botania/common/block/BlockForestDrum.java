@@ -29,17 +29,17 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexiconable {
 
 	IIcon iconBases, iconFaces;
-	
+
 	public BlockForestDrum() {
 		super(Material.wood);
 		float f = 1F / 16F;
 		setBlockBounds(f * 3, 0F, f * 3, 1F - f * 3, 1F - f * 2, 1F - f * 3);
-		
+
 		setHardness(2.0F);
 		setStepSound(soundTypeWood);
 		setBlockName(LibBlockNames.FOREST_DRUM);
 	}
-	
+
 	@Override
 	public boolean renderAsNormalBlock() {
 		return false;
@@ -49,13 +49,13 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 	public boolean isOpaqueCube() {
 		return false;
 	}
-	
+
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		iconBases = IconHelper.forBlock(par1IconRegister, this, 0);
 		iconFaces = IconHelper.forBlock(par1IconRegister, this, 1);
 	}
-	
+
 	@Override
 	public IIcon getIcon(int side, int meta) {
 		return side < 2 ? iconBases : iconFaces;
@@ -75,5 +75,5 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.forestDrum;
 	}
-	
+
 }

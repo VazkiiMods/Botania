@@ -53,7 +53,7 @@ public final class BotaniaAPI {
 	public static Map<String, Integer> oreWeights = new HashMap<String, Integer>();
 
 	public static Map<Item, Block> seeds = new HashMap();
-	
+
 	public static ArmorMaterial manasteelArmorMaterial = EnumHelper.addArmorMaterial("MANASTEEL", 16, new int[] { 2, 6, 5, 2 }, 18);
 	public static ToolMaterial manasteelToolMaterial = EnumHelper.addToolMaterial("MANASTEEL", 3, 300, 6.2F, 2F, 20);
 
@@ -105,7 +105,7 @@ public final class BotaniaAPI {
 		addOreWeight("oreUranium", 1337); // IC2
 		addOreWeight("oreVinteum", 5925); // Ars Magica
 		addOreWeight("oreYellorite", 3520); // Big Reactors
-		
+
 		addSeed(Items.wheat_seeds, Blocks.wheat);
 		addSeed(Items.potato, Blocks.potatoes);
 		addSeed(Items.carrot, Blocks.carrots);
@@ -211,10 +211,10 @@ public final class BotaniaAPI {
 	public static int getOreWeight(String ore) {
 		return oreWeights.get(ore);
 	}
-	
+
 	/**
 	 * Allows an item to be counted as a seed. Any item in this list can be
-	 * dispensed by a dispenser, the block is the block to be placed. 
+	 * dispensed by a dispenser, the block is the block to be placed.
 	 */
 	public static void addSeed(Item item, Block block) {
 		seeds.put(item, block);

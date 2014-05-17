@@ -122,13 +122,13 @@ public final class ModBlocks {
 
 		initTileEntities();
 	}
-	
+
 	public static void addDispenserBehaviours() {
 		for(Item seed : BotaniaAPI.seeds.keySet())
 			BlockDispenser.dispenseBehaviorRegistry.putObject(seed, new BehaviourSeeds(BotaniaAPI.seeds.get(seed)));
 		BlockDispenser.dispenseBehaviorRegistry.putObject(ModItems.twigWand, new BehaviourWand());
 	}
-	
+
 	private static void initTileEntities() {
 		GameRegistry.registerTileEntity(TileAltar.class, LibBlockNames.ALTAR);
 		GameRegistry.registerTileEntity(TileSpecialFlower.class, LibBlockNames.SPECIAL_FLOWER);

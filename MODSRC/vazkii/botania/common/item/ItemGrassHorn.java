@@ -59,9 +59,9 @@ public class ItemGrassHorn extends ItemMod {
 		if(!player.worldObj.isRemote)
 			player.worldObj.playSoundAtEntity(player, "note.bassattack", 1F, 0.001F);
 	}
-	
+
 	public static void breakGrass(World world, int srcx, int srcy, int srcz) {
-		Random rand = new Random((int) srcx ^ (int) srcy ^ (int) srcz);
+		Random rand = new Random(srcx ^ srcy ^ srcz);
 		int range = 12;
 		List<ChunkCoordinates> coords = new ArrayList();
 

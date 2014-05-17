@@ -54,7 +54,7 @@ public class SubTileJadedAmaranthus extends SubTileFunctional {
 			}
 		}
 	}
-	
+
 	@Override
 	public boolean acceptsRedstone() {
 		return true;

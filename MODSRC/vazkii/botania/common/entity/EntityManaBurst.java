@@ -516,7 +516,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 				if(!isFake() && block instanceof IManaTrigger)
 					((IManaTrigger) block).onBurstCollision(this, worldObj, movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ);
-				
+
 				dead = true;
 			}
 

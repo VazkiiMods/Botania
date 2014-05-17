@@ -43,7 +43,7 @@ public class ItemManasteelShovel extends ItemSpade {
 		GameRegistry.registerItem(this, par1Str);
 		return super.setUnlocalizedName(par1Str);
 	}
-	
+
 	@Override
 	public String getUnlocalizedNameInefficiently(ItemStack par1ItemStack) {
 		return super.getUnlocalizedNameInefficiently(par1ItemStack).replaceAll("item.", "item." + LibResources.PREFIX_MOD);

@@ -11,7 +11,6 @@
  */
 package vazkii.botania.common.lib;
 
-import vazkii.botania.client.lib.LibResources;
 
 public final class LibBlockNames {
 

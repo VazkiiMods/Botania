@@ -27,7 +27,7 @@ public class SubTileHyacidus extends SubTileFunctional {
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		
+
 		if(redstoneSignal > 0)
 			return;
 
@@ -47,7 +47,7 @@ public class SubTileHyacidus extends SubTileFunctional {
 	public boolean acceptsRedstone() {
 		return true;
 	}
-	
+
 	@Override
 	public int getColor() {
 		return 0x8B438F;
@@ -57,10 +57,10 @@ public class SubTileHyacidus extends SubTileFunctional {
 	public int getMaxMana() {
 		return 180;
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry() {
 		return LexiconData.hyacidus;
 	}
-	
+
 }

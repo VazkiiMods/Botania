@@ -26,11 +26,11 @@ public class ItemWaterRing extends ItemBauble {
 	public ItemWaterRing() {
 		super(LibItemNames.WATER_RING);
 	}
-	
+
 	@Override
 	public void onWornTick(ItemStack stack, EntityLivingBase player) {
 		super.onWornTick(stack, player);
-		
+
 		if(player.isInsideOfMaterial(Material.water)) {
 			double motionX = player.motionX * 1.2;
 			double motionY = player.motionY * 1.2;
@@ -46,28 +46,28 @@ public class ItemWaterRing extends ItemBauble {
 				player.motionY = motionY;
 			if(changeZ)
 				player.motionZ = motionZ;
-			
+
 			PotionEffect effect = player.getActivePotionEffect(Potion.nightVision);
 			if(effect == null) {
 				PotionEffect neweffect = new PotionEffect(Potion.nightVision.id, Integer.MAX_VALUE, -42, true);
 				neweffect.setPotionDurationMax(true);
 				player.addPotionEffect(neweffect);
 			}
-			
+
 			if(player.getAir() == 1 && player instanceof EntityPlayer) {
 				int mana = ManaItemHandler.requestMana(stack, (EntityPlayer) player, 300, true);
 				player.setAir(mana);
 			}
 		} else onUnequipped(stack, player);
 	}
-	
+
 	@Override
 	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
 		PotionEffect effect = player.getActivePotionEffect(Potion.nightVision);
 		if(effect != null && effect.getAmplifier() == -42)
 			player.removePotionEffect(Potion.nightVision.id);
 	}
-	
+
 	@Override
 	public BaubleType getBaubleType(ItemStack arg0) {
 		return BaubleType.RING;

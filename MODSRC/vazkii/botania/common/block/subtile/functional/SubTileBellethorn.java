@@ -38,7 +38,7 @@ public class SubTileBellethorn extends SubTileFunctional {
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		
+
 		if(redstoneSignal > 0)
 			return;
 
@@ -48,11 +48,11 @@ public class SubTileBellethorn extends SubTileFunctional {
 		if(supertile.getWorldObj().getTotalWorldTime() % 5 == 0) {
 			List<EntityLivingBase> entities = supertile.getWorldObj().getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord, supertile.zCoord - range, supertile.xCoord + range, supertile.yCoord + 1, supertile.zCoord + range));
 			IEntitySelector selector = getSelector();
-			
+
 			for(EntityLivingBase entity : entities) {
 				if(!selector.isEntityApplicable(entity))
 					continue;
-				
+
 				if(entity.hurtTime == 0 && mana >= manaToUse) {
 					entity.attackEntityFrom(DamageSource.magic, 4);
 					mana -= manaToUse;
@@ -61,24 +61,24 @@ public class SubTileBellethorn extends SubTileFunctional {
 			}
 		}
 	}
-	
+
 	@Override
 	public boolean acceptsRedstone() {
 		return true;
 	}
-	
+
 	public int getManaCost() {
 		return 24;
 	}
-	
+
 	public IEntitySelector getSelector() {
 		return new IEntitySelector() {
-			
+
 			@Override
 			public boolean isEntityApplicable(Entity entity) {
 				return !(entity instanceof EntityPlayer);
 			}
-			
+
 		};
 	}
 

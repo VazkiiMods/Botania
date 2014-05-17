@@ -589,48 +589,48 @@ public final class ModCrafingRecipes {
 				'S', LibOreDict.LIVING_ROCK,
 				'E', new ItemStack(Items.ender_eye));
 		recipeForestEye = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Redstone Root Recipe
 		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manaResource, 1, 6), new ItemStack(Items.redstone), new ItemStack(Blocks.tallgrass, 1, 1));
 		recipeRedstoneRoot = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Drum of the Wild Recipe
-		addOreDictRecipe(new ItemStack(ModBlocks.forestDrum), 
+		addOreDictRecipe(new ItemStack(ModBlocks.forestDrum),
 				"WLW", "WHW", "WLW",
 				'W', LibOreDict.LIVING_WOOD,
 				'L', new ItemStack(Items.leather),
 				'H', new ItemStack(ModItems.grassHorn));
 		recipeForestDrum = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Ring of Chordata Recipe
-		addOreDictRecipe(new ItemStack(ModItems.waterRing), 
+		addOreDictRecipe(new ItemStack(ModItems.waterRing),
 				"WMP", "M M", "SM ",
 				'W', LibOreDict.RUNE[0],
 				'M', LibOreDict.MANA_STEEL,
 				'P', new ItemStack(Items.fish, 1, 3),
 				'S', new ItemStack(Items.fish, 1, 1));
 		recipeWaterRing = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Ring of the Mantle Recipe
-		addOreDictRecipe(new ItemStack(ModItems.miningRing), 
+		addOreDictRecipe(new ItemStack(ModItems.miningRing),
 				"EMP", "M M", " M ",
 				'E', LibOreDict.RUNE[2],
 				'M', LibOreDict.MANA_STEEL,
 				'P', new ItemStack(Items.golden_pickaxe));
 		recipeMiningRing = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Ring of Magnetization Recipe
-		addOreDictRecipe(new ItemStack(ModItems.magnetRing), 
+		addOreDictRecipe(new ItemStack(ModItems.magnetRing),
 				"LM ", "M M", " M ",
 				'L', new ItemStack(ModItems.lens, 1, 10),
 				'M', LibOreDict.MANA_STEEL);
 		recipeMagnetRing = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Mana and Terrasteel Block Recipes
-		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0), 
+		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",
 				'I', LibOreDict.MANA_STEEL);
-		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 1), 
+		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 1),
 				"III", "III", "III",
 				'I', LibOreDict.TERRA_STEEL);
 		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manaResource, 9, 0), new ItemStack(ModBlocks.storage, 1, 0));

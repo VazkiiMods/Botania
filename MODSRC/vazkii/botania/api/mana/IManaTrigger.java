@@ -18,7 +18,7 @@ import vazkii.botania.api.internal.IManaBurst;
  * Have a block implement this class to make it do something when a mana burst collides with it.
  */
 public interface IManaTrigger {
-	
+
 	public void onBurstCollision(IManaBurst burst, World world, int x, int y, int z);
 
 }

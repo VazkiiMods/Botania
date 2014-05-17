@@ -40,7 +40,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		
+
 		if(redstoneSignal > 0)
 			return;
 
@@ -122,7 +122,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 	public boolean acceptsRedstone() {
 		return true;
 	}
-	
+
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		super.renderHUD(mc, res);

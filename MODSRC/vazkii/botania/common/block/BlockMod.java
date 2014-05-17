@@ -35,7 +35,7 @@ public class BlockMod extends Block {
 			GameRegistry.registerBlock(this, ItemBlockMod.class, par1Str);
 		return super.setBlockName(par1Str);
 	}
-	
+
 	protected boolean shouldRegisterInNameSet() {
 		return true;
 	}

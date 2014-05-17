@@ -28,13 +28,13 @@ public class SubTileMunchdew extends SubTileGenerating {
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		
+
 		int manaPerLeaf = 16;
 		if(getMaxMana() - mana >= manaPerLeaf && !supertile.getWorldObj().isRemote && supertile.getWorldObj().getTotalWorldTime() % 4 == 0) {
 			List<ChunkCoordinates> coords = new ArrayList();
 			int range = 8;
 			int rangeY = 16;
-			
+
 			int x = supertile.xCoord;
 			int y = supertile.yCoord;
 			int z = supertile.zCoord;
@@ -53,15 +53,15 @@ public class SubTileMunchdew extends SubTileGenerating {
 									exposed = true;
 									break;
 								}
-							
+
 							if(exposed)
 								coords.add(new ChunkCoordinates(xp, yp, zp));
 						}
 					}
-			
+
 			if(coords.isEmpty())
 				return;
-			
+
 			Collections.shuffle(coords);
 			ChunkCoordinates breakCoords = coords.get(0);
 			Block block = supertile.getWorldObj().getBlock(breakCoords.posX, breakCoords.posY, breakCoords.posZ);
@@ -71,17 +71,17 @@ public class SubTileMunchdew extends SubTileGenerating {
 			mana += manaPerLeaf;
 		}
 	}
-	
+
 	@Override
 	public int getColor() {
 		return 0x79C42F;
 	}
-	
+
 	@Override
 	public int getMaxMana() {
 		return 200;
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry() {
 		return LexiconData.munchdew;

@@ -13,7 +13,6 @@ package vazkii.botania.common.item.block;
 
 import java.util.List;
 
-import vazkii.botania.client.lib.LibResources;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -24,7 +23,7 @@ public class ItemBlockPool extends ItemBlockWithMetadataAndName {
 	public ItemBlockPool(Block par2Block) {
 		super(par2Block);
 	}
-	
+
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
 		if(par1ItemStack.getItemDamage() == 1)

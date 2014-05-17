@@ -11,11 +11,11 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.common.lexicon.LexiconData;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityAnimal;
+import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileDreadthorn extends SubTileBellethorn {
 
@@ -23,7 +23,7 @@ public class SubTileDreadthorn extends SubTileBellethorn {
 	public int getColor() {
 		return 0x260B45;
 	}
-	
+
 	@Override
 	public IEntitySelector getSelector() {
 		return new IEntitySelector() {
@@ -32,18 +32,18 @@ public class SubTileDreadthorn extends SubTileBellethorn {
 			public boolean isEntityApplicable(Entity var1) {
 				return var1 instanceof EntityAnimal && ((EntityAnimal) var1).getGrowingAge() == 0;
 			}
-			
+
 		};
 	}
-	
+
 	@Override
 	public int getManaCost() {
 		return 30;
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry() {
 		return LexiconData.dreadthorne;
 	}
-	
+
 }

@@ -200,7 +200,7 @@ public class TilePool extends TileMod implements IManaPool {
 	public void onWanded(EntityPlayer player, ItemStack wand) {
 		if(player == null)
 			return;
-		
+
 		if(player.isSneaking()) {
 			outputting = !outputting;
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);

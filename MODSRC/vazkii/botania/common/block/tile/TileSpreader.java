@@ -206,7 +206,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	public void onWanded(EntityPlayer player, ItemStack wand) {
 		if(player == null)
 			return;
-		
+
 		if(!player.isSneaking()) {
 			if(!worldObj.isRemote) {
 				NBTTagCompound nbttagcompound = new NBTTagCompound();

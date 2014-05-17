@@ -22,7 +22,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.server.ForgeTimeTracker;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaPool;
@@ -39,9 +38,9 @@ public class SubTileFunctional extends SubTileEntity {
 	private static final String TAG_POOL_Z = "poolZ";
 
 	public int mana;
-	
+
 	public int redstoneSignal = 0;
-	
+
 	int sizeLastCheck = -1;
 	TileEntity linkedPool = null;
 	public int knownMana = -1;
@@ -52,7 +51,7 @@ public class SubTileFunctional extends SubTileEntity {
 	public boolean canUpdate() {
 		return true;
 	}
-	
+
 	/**
 	 * If set to true, redstoneSignal will be updated every tick.
 	 */
@@ -74,7 +73,7 @@ public class SubTileFunctional extends SubTileEntity {
 			pool.recieveMana(-manaToRemove);
 			addMana(manaToRemove);
 		}
-		
+
 		if(acceptsRedstone()) {
 			redstoneSignal = 0;
 			for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
@@ -135,7 +134,7 @@ public class SubTileFunctional extends SubTileEntity {
 	public boolean onWanded(EntityPlayer player, ItemStack wand) {
 		if(player == null)
 			return false;
-		
+
 		knownMana = mana;
 		player.worldObj.playSoundAtEntity(player, "random.orb", 0.1F, 1F);
 

@@ -37,7 +37,7 @@ public final class LibObfuscation {
 
 	// ItemReed
 	public static final String[] REED_ITEM = new String[] { "field_150935_a", "a" };
-	
+
 	// EntityAnimal
 	public static final String[] IN_LOVE = new String[] { "inLove", "field_70881_d", "bp" };
 }

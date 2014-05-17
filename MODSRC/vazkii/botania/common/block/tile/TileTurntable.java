@@ -67,7 +67,7 @@ public class TileTurntable extends TileMod {
 	public void onWanded(EntityPlayer player, ItemStack wand) {
 		if(player == null)
 			return;
-		
+
 		if(player.isSneaking())
 			backwards = !backwards;
 		else speed = speed == 6 ? 1 : speed + 1;

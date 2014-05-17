@@ -13,9 +13,6 @@ package vazkii.botania.common.block;
 
 import java.util.List;
 
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -32,13 +29,16 @@ import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockStorage extends BlockMod implements ILexiconable {
 
 	private static final int SUBTYPES = 2;
-	
+
 	IIcon[] icons;
-	
+
 	public BlockStorage() {
 		super(Material.iron);
 		setHardness(3F);
@@ -46,13 +46,13 @@ public class BlockStorage extends BlockMod implements ILexiconable {
 		setStepSound(soundTypeMetal);
 		setBlockName(LibBlockNames.STORAGE);
 	}
-	
+
 	@Override
 	public void getSubBlocks(Item par1, CreativeTabs par2, List par3) {
 		for(int i = 0; i < SUBTYPES; i++)
 			par3.add(new ItemStack(par1, 1, i));
 	}
-	
+
 	@Override
 	public Block setBlockName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
@@ -63,7 +63,7 @@ public class BlockStorage extends BlockMod implements ILexiconable {
 	protected boolean shouldRegisterInNameSet() {
 		return false;
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
@@ -76,7 +76,7 @@ public class BlockStorage extends BlockMod implements ILexiconable {
 	public IIcon getIcon(int par1, int par2) {
 		return icons[Math.min(icons.length - 1, par2)];
 	}
-	
+
 	@Override
 	public boolean isBeaconBase(IBlockAccess worldObj, int x, int y, int z, int beaconX, int beaconY, int beaconZ) {
 		return true;
@@ -87,5 +87,5 @@ public class BlockStorage extends BlockMod implements ILexiconable {
 		int meta = world.getBlockMetadata(x, y, z);
 		return meta == 0 ? LexiconData.pool : LexiconData.terrasteel;
 	}
-	
+
 }

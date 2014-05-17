@@ -11,17 +11,17 @@
  */
 package vazkii.botania.common.item.block;
 
-import vazkii.botania.client.lib.LibResources;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlockWithMetadata;
 import net.minecraft.item.ItemStack;
+import vazkii.botania.client.lib.LibResources;
 
 public class ItemBlockWithMetadataAndName extends ItemBlockWithMetadata {
 
 	public ItemBlockWithMetadataAndName(Block par2Block) {
 		super(par2Block, par2Block);
 	}
-	
+
 	@Override
 	public String getUnlocalizedNameInefficiently(ItemStack par1ItemStack) {
 		return super.getUnlocalizedNameInefficiently(par1ItemStack).replaceAll("tile.", "tile." + LibResources.PREFIX_MOD);

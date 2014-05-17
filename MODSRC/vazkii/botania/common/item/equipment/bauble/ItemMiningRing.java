@@ -11,13 +11,11 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.world.World;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
@@ -27,28 +25,28 @@ public class ItemMiningRing extends ItemBauble {
 	public ItemMiningRing() {
 		super(LibItemNames.MINING_RING);
 	}
-	
+
 	@Override
 	public void onWornTick(ItemStack stack, EntityLivingBase player) {
 		super.onWornTick(stack, player);
-		
+
 		if(player instanceof EntityPlayer && !player.worldObj.isRemote) {
 			int manaCost = 5;
 			boolean hasMana = ManaItemHandler.requestManaExact(stack, (EntityPlayer) player, manaCost, false);
-			if(!hasMana) 
+			if(!hasMana)
 				onUnequipped(stack, player);
 			else {
 				if(player.getActivePotionEffect(Potion.digSpeed) != null)
 					player.removePotionEffect(Potion.digSpeed.id);
-				
+
 				player.addPotionEffect(new PotionEffect(Potion.digSpeed.id, Integer.MAX_VALUE, 1, true));
 			}
-			
+
 			if(player.swingProgress == 0.25F)
 				ManaItemHandler.requestManaExact(stack, (EntityPlayer) player, manaCost, true);
 		}
 	}
-	
+
 	@Override
 	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
 		PotionEffect effect = player.getActivePotionEffect(Potion.digSpeed);

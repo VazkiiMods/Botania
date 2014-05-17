@@ -143,7 +143,7 @@ public class SubTileGenerating extends SubTileEntity {
 	public boolean onWanded(EntityPlayer player, ItemStack wand) {
 		if(player == null)
 			return false;
-		
+
 		if(!player.worldObj.isRemote)
 			sync();
 

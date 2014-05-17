@@ -53,7 +53,7 @@ public class Botania {
 	public void serverStopping(FMLServerStoppingEvent event) {
 		ManaNetworkHandler.instance.clear();
 	}
-	
+
 	@EventHandler
 	public void missingMappings(FMLMissingMappingsEvent event) {
 		AliasHandler.onMissingMappings(event);

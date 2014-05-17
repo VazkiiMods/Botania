@@ -33,7 +33,7 @@ public class SubtileOrechid extends SubTileFunctional {
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		
+
 		if(redstoneSignal > 0)
 			return;
 
@@ -88,7 +88,7 @@ public class SubtileOrechid extends SubTileFunctional {
 			return null;
 		return possibleCoords.get(supertile.getWorldObj().rand.nextInt(possibleCoords.size()));
 	}
-	
+
 	@Override
 	public boolean acceptsRedstone() {
 		return true;

@@ -52,7 +52,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 
 		if(redstoneSignal > 0)
 			return;
-		
+
 		boolean pulledAny = false;
 		int range = mana > 0 ? 6 : 3;
 
@@ -170,12 +170,12 @@ public class SubTileHopperhock extends SubTileFunctional {
 	public boolean acceptsRedstone() {
 		return true;
 	}
-	
+
 	@Override
 	public boolean onWanded(EntityPlayer player, ItemStack wand) {
 		if(player == null)
 			return false;
-		
+
 		if(player.isSneaking()) {
 			filterType = filterType == 2 ? 0 : filterType + 1;
 			sync();

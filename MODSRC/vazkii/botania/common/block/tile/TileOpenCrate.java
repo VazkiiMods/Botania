@@ -14,9 +14,7 @@ package vazkii.botania.common.block.tile;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
-import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.common.lib.LibBlockNames;
 
 public class TileOpenCrate extends TileSimpleInventory {
@@ -39,7 +37,7 @@ public class TileOpenCrate extends TileSimpleInventory {
 			if(redstoneSide > 0)
 				redstone = true;
 		}
-		
+
 		Block blockBelow = worldObj.getBlock(xCoord, yCoord - 1, zCoord);
 		if(blockBelow.isAir(worldObj, xCoord, yCoord - 1, zCoord)) {
 			ItemStack stack = getStackInSlot(0);
@@ -48,10 +46,10 @@ public class TileOpenCrate extends TileSimpleInventory {
 				item.motionX = 0;
 				item.motionY = 0;
 				item.motionZ = 0;
-				
+
 				if(redstone)
 					item.age = -200;
-				
+
 				setInventorySlotContents(0, null);
 				if(!worldObj.isRemote)
 					worldObj.spawnEntityInWorld(item);

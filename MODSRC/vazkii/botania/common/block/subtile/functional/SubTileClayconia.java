@@ -29,7 +29,7 @@ public class SubTileClayconia extends SubTileFunctional {
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		
+
 		if(!supertile.getWorldObj().isRemote && supertile.getWorldObj().getTotalWorldTime() % 5 == 0) {
 			int manaCost = 80;
 			if(mana >= manaCost) {
@@ -44,7 +44,7 @@ public class SubTileClayconia extends SubTileFunctional {
 			}
 		}
 	}
-	
+
 	public ChunkCoordinates getCoordsToPut() {
 		List<ChunkCoordinates> possibleCoords = new ArrayList();
 		int range = 5;
@@ -65,20 +65,20 @@ public class SubTileClayconia extends SubTileFunctional {
 			return null;
 		return possibleCoords.get(supertile.getWorldObj().rand.nextInt(possibleCoords.size()));
 	}
-	
+
 	@Override
 	public int getColor() {
 		return 0x7B8792;
 	}
-	
+
 	@Override
 	public int getMaxMana() {
 		return 640;
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry() {
 		return LexiconData.clayconia;
 	}
-	
+
 }

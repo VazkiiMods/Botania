@@ -40,7 +40,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 			EntityPlayer player = (EntityPlayer) par3Entity;
 			PotionEffect haste = player.getActivePotionEffect(Potion.digSpeed);
 			float check = haste == null ? 0.16666667F : haste.getAmplifier() == 1 ? 0.5F : 0.4F;
-			
+
 			if(player.getCurrentEquippedItem() == par1ItemStack && player.swingProgress == check && !par2World.isRemote && par2World.rand.nextInt(2) == 0) {
 				EntityManaBurst burst = getBurst(player, par1ItemStack);
 				par2World.spawnEntityInWorld(burst);

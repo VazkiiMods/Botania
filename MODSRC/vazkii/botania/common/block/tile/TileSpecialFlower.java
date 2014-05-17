@@ -72,7 +72,7 @@ public class TileSpecialFlower extends TileMod implements ITileBound {
 		cmp.setString(TAG_SUBTILE_NAME, subTileName);
 		NBTTagCompound subCmp = new NBTTagCompound();
 		cmp.setTag(TAG_SUBTILE_CMP, subCmp);
-		
+
 		if(subTile != null)
 			subTile.writeToPacketNBT(subCmp);
 	}
