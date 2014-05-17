@@ -1,3 +1,28 @@
+beta 32
+*Added a new Generating Flower, the Munchdew.
+*Added a system to remap item/blocks keys into the new format, no more console spam regarding invalid prefixes.
+*Added Manasteel and Terrasteel blocks, Manasteel Blocks can be crafted directly by throwing Iron Blocks in the Mana Pool.
+*Added new Functional Flowers: Dreadthorne, Pollidisiac, Hyacidus and Clayconia.
+*Added some dispenser behaviours, dispensers can now use the wand of the forest and plant all sorts of seeds.
+*Added some new rings, Ring of Chordata, Ring of the Mantle and Ring of Magnetization.
+*Added the Redstone Root, a crafting component that allows redstone control of Functional Flowers.
+*Changed the rune textures from gag icons to actual symbols and japanese characters.
+*Fixed a rare crash that happened randomly when a flower is placed.
+*Fixed blocks in the lexicon not rendering with the proper shading. (duke605)
+*Fixed redstone mana spreaders firing a mana burst once if loaded into the world with a redstone current.
+*Fixed Runes of Air and Winter not being craftable with colored carpet or wool.
+*Fixed some generating flowers acting like Dayblooms in which they'd generate mana passively.
+*Fixed the Orechid's range being 1 higher in the negative direction than the positive direction.
+*Fixed the Terra Blade not working when the player has the Haste effect.
+*Nerfed the Fallen Kanade, lower range, higher cost, weaker regen.
+*Removed the Miner's Ring from Baubles in order to allow for the Ring of the Mantle to actually be a thing.
+*Rewrote the Hydroangeas' lexicon entry to not be so terrible <i>Points at Pokefenn</i>.
+*The Bellethorne now hurts mobs one at a time, but faster.
+*The Hydroangeas now function faster during rain.
+*The Open Crate now puts a cooldown on items before they can be picked up by flowers if given a redstone signal.
+*The Runic Altar now accepts items tossed in.
+*[API] Added IManaTrigger.
+*[API] Moved some classes around.
 beta 31
 *Fixed Botania Tile Entities requesting client world rerenderers.
 *Fixed a dupe with the Hoppperhock and Rannuncarpus flowers.
