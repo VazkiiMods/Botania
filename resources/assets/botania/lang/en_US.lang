@@ -609,7 +609,12 @@ botania.page.hyacidus1=&oSteel is immune&r.
 # -- POLLIDISIAC
 botania.entry.pollidisiac=Pollidisiac
 botania.page.pollidisiac0=Animals love eating, that's all they seem to do, really. An interesting behaviour they show is that they only seem to want to eat things that are fed to them.<br>The &1Pollidisiac&0 will simply do that, at the cost of some mana, any appropriate nearby food items (&1Wheat&0, &1Carrots&0, etc) will be fed to the animals, putting them in a &obetter mood&r.
-botania.page.pollidisiac1=Hell's Kitchen
+botania.page.pollidisiac1=&oHell's Kitchen&r.
+
+# -- CLAYCONIA
+botania.entry.clayconia=Clayconia
+botania.page.clayconia0=The &1Clayconia&0 is a simple flower, in essence. All it does is moisten nearby &1Sand&0, turning it into &1Clay&0, this process uses a decent amount of &4Mana&0, but nothing too insane.
+botania.page.clayconia1=&oWhat a killer joke&r.
 
 # - GENERATING FLOWERS
 # -- AN INTRODUCTION TO GENERATION

@@ -20,7 +20,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileClayconia extends SubTileFunctional {
 
@@ -72,6 +74,11 @@ public class SubTileClayconia extends SubTileFunctional {
 	@Override
 	public int getMaxMana() {
 		return 640;
+	}
+	
+	@Override
+	public LexiconEntry getEntry() {
+		return LexiconData.clayconia;
 	}
 	
 }
