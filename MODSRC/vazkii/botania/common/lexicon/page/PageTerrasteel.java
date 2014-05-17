@@ -24,6 +24,7 @@ import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconRecipeMappings;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -36,7 +37,7 @@ public class PageTerrasteel extends PageRecipe {
 	int index = 0;
 
 	static final Block[] blocks = new Block[] {
-		Blocks.iron_block, Blocks.gold_block, Blocks.emerald_block, Blocks.diamond_block
+		Blocks.iron_block, Blocks.gold_block, Blocks.emerald_block, Blocks.diamond_block, ModBlocks.storage
 	};
 
 	public PageTerrasteel(String unlocalizedName) {
