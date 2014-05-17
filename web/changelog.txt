@@ -1,3 +1,5 @@
+beta 33
+*Added alternative names to Tile Entity names, fixes any tile entities (most flowers included) getting corrupted when updating from beta 31 to beta 32.
 beta 32
 *Added a new Generating Flower, the Munchdew.
 *Added a system to remap item/blocks keys into the new format, no more console spam regarding invalid prefixes.
