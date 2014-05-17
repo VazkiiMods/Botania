@@ -15,8 +15,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.dispenser.BehaviourSeeds;
 import vazkii.botania.common.block.dispenser.BehaviourWand;
 import vazkii.botania.common.block.subtile.SubTilePureDaisy;
@@ -130,21 +132,21 @@ public final class ModBlocks {
 	}
 
 	private static void initTileEntities() {
-		GameRegistry.registerTileEntity(TileAltar.class, LibBlockNames.ALTAR);
-		GameRegistry.registerTileEntity(TileSpecialFlower.class, LibBlockNames.SPECIAL_FLOWER);
-		GameRegistry.registerTileEntity(TileSpreader.class, LibBlockNames.SPREADER);
-		GameRegistry.registerTileEntity(TilePool.class, LibBlockNames.POOL);
-		GameRegistry.registerTileEntity(TileRuneAltar.class, LibBlockNames.RUNE_ALTAR);
-		GameRegistry.registerTileEntity(TilePylon.class, LibBlockNames.PYLON);
-		GameRegistry.registerTileEntity(TileDistributor.class, LibBlockNames.DISTRIBUTOR);
-		GameRegistry.registerTileEntity(TileManaBeacon.class, LibBlockNames.MANA_BEACON);
-		GameRegistry.registerTileEntity(TileManaVoid.class, LibBlockNames.MANA_VOID);
-		GameRegistry.registerTileEntity(TileManaDetector.class, LibBlockNames.MANA_DETECTOR);
-		GameRegistry.registerTileEntity(TileEnchanter.class, LibBlockNames.ENCHANTER);
-		GameRegistry.registerTileEntity(TileTurntable.class, LibBlockNames.TURNTABLE);
-		GameRegistry.registerTileEntity(TileTinyPlanet.class, LibBlockNames.TINY_PLANET);
-		GameRegistry.registerTileEntity(TileOpenCrate.class, LibBlockNames.OPEN_CRATE);
-		GameRegistry.registerTileEntity(TileForestEye.class, LibBlockNames.FOREST_EYE);
+		registerTile(TileAltar.class, LibBlockNames.ALTAR);
+		registerTile(TileSpecialFlower.class, LibBlockNames.SPECIAL_FLOWER);
+		registerTile(TileSpreader.class, LibBlockNames.SPREADER);
+		registerTile(TilePool.class, LibBlockNames.POOL);
+		registerTile(TileRuneAltar.class, LibBlockNames.RUNE_ALTAR);
+		registerTile(TilePylon.class, LibBlockNames.PYLON);
+		registerTile(TileDistributor.class, LibBlockNames.DISTRIBUTOR);
+		registerTile(TileManaBeacon.class, LibBlockNames.MANA_BEACON);
+		registerTile(TileManaVoid.class, LibBlockNames.MANA_VOID);
+		registerTile(TileManaDetector.class, LibBlockNames.MANA_DETECTOR);
+		registerTile(TileEnchanter.class, LibBlockNames.ENCHANTER);
+		registerTile(TileTurntable.class, LibBlockNames.TURNTABLE);
+		registerTile(TileTinyPlanet.class, LibBlockNames.TINY_PLANET);
+		registerTile(TileOpenCrate.class, LibBlockNames.OPEN_CRATE);
+		registerTile(TileForestEye.class, LibBlockNames.FOREST_EYE);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 
@@ -172,6 +174,10 @@ public final class ModBlocks {
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_HYACIDUS, SubTileHyacidus.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_POLLIDISIAC, SubTilePollidisiac.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_CLAYCONIA, SubTileClayconia.class);
+	}
+	
+	private static void registerTile(Class<? extends TileEntity> clazz, String key) {
+		GameRegistry.registerTileEntityWithAlternatives(clazz, key, LibResources.PREFIX_MOD + key);
 	}
 
 }
