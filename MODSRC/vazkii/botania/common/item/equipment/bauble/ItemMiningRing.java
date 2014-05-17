@@ -44,9 +44,8 @@ public class ItemMiningRing extends ItemBauble {
 				player.addPotionEffect(new PotionEffect(Potion.digSpeed.id, Integer.MAX_VALUE, 1, true));
 			}
 			
-			if(player.swingProgress == 0.25F) {
+			if(player.swingProgress == 0.25F)
 				ManaItemHandler.requestManaExact(stack, (EntityPlayer) player, manaCost, true);
-			}
 		}
 	}
 	

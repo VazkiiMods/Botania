@@ -739,7 +739,7 @@ botania.entry.manaBlaster=Mana Blaster
 botania.page.manaBlaster0=The &1Mana Blaster&0 is like a portable &1Mana Spreader&0, while shaped like a pistol for easy handling, it's not exactly a firearm, as much as it is just a portable spreader.<br>By utilizing &4Mana&0 from &4Mana carrying items&0 in the holder's inventory, it can shoot a mana burst when one is looking at.
 botania.page.manaBlaster1=This burst is a bit different from the one fired from speaders, as it's faster, but carries only three quarters of the mana a spreader burst would. There's also a short cooldown period after firing the blaster until another burst can be shot.
 botania.page.manaBlaster2=&1Mana Lenses&0 also function with the blaster, to attach one to it, put them side by side on a crafting table, to remove it, simply shift-right click the blaster.
-botania.page.manaBlaster3=Crafting the blaster
+botania.page.manaBlaster3=We need more dakka
 
 # -- PASTURE SEEDS
 botania.entry.grassSeeds=Pasture Seeds
@@ -840,6 +840,21 @@ botania.page.lavaPendant1=Hanako could have used one of these
 botania.entry.goldenLaurel=Golden Laurel Crown
 botania.page.goldenLaurel0=One of the uses for &1Essence of Eternal Life&0 is to, of course, grant a layer of immortality to one that uses it, while wearing a &1Golden Laurel Crown&0, if the wearer were to die, the crown will shatter, regenerating all of their health and giving them a short period of invincibility.
 botania.page.goldenLaurel1=Given the theme, probably Viridi
+
+# -- RING OF CHORDATA
+botania.entry.waterRing=Ring of Chordata
+botania.page.waterRing0=The &1Ring of Chordata&0 allows the wearer to swim like a fish. While it's equipped, the wearer is bestowed with the ability to accelarate to a decent speed while underwater. It also gives the wearer good sight underwater and, if &4Mana&0 is present, at the cost of some of it, the ability to breathe indefinitely.
+botania.page.waterRing1=Go swim with the fishes
+
+# -- RING OF THE MANTLE
+botania.entry.miningRing=Ring of the Mantle
+botania.page.miningRing0=The &1Ring of the Mantle&0 allows one to mine faster, while equipped and &4Mana&0 is present in the inventory, it'll give a &4Haste&0 effect to the wearer. Some &4Mana&0 is used while the wearer swings their arm or equipped item, be it for attacking, mining or just flailing.
+botania.page.miningRing1=Diggy diggy hole
+
+# -- RING OF MAGNETIZATION
+botania.entry.magnetRing=Ring of Magnetization
+botania.page.magnetRing0=By turning a &1Magnetizing Lens&0 into a wearable ring, one can use it to magnetize nearby items.<br>While equipped, this ring will make any nearby items magnetize towards the wearer, case they aren't sneaking.
+botania.page.magnetRing1=How do they work?
 
 # - MISCLANEOUS
 # -- UNSTABLE CUBE

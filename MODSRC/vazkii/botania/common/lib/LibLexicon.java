@@ -107,6 +107,9 @@ public final class LibLexicon {
 	public static final String BAUBLE_ICE_PENDANT = "icePendant";
 	public static final String BAUBLE_LAVA_PENDANT = "lavaPendant";
 	public static final String BAUBLE_GOLDEN_LAUREL = "goldenLaurel";
+	public static final String BAUBLE_WATER_RING = "waterRing";
+	public static final String BAUBLE_MINING_RING = "miningRing";
+	public static final String BAUBLE_MAGNET_RING = "magnetRing";
 
 	public static final String MISC_UNSTABLE_BLOCKS = "unstableBlocks";
 	public static final String MISC_DECORATIVE_BLOCKS = "decorativeBlocks";

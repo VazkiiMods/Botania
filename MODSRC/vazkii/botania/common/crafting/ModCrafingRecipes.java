@@ -112,6 +112,9 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeForestEye;
 	public static IRecipe recipeRedstoneRoot;
 	public static IRecipe recipeForestDrum;
+	public static IRecipe recipeWaterRing;
+	public static IRecipe recipeMiningRing;
+	public static IRecipe recipeMagnetRing;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -598,6 +601,30 @@ public final class ModCrafingRecipes {
 				'L', new ItemStack(Items.leather),
 				'H', new ItemStack(ModItems.grassHorn));
 		recipeForestDrum = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Ring of Chordata Recipe
+		addOreDictRecipe(new ItemStack(ModItems.waterRing), 
+				"WMP", "M M", "SM ",
+				'W', LibOreDict.RUNE[0],
+				'M', LibOreDict.MANA_STEEL,
+				'P', new ItemStack(Items.fish, 1, 3),
+				'S', new ItemStack(Items.fish, 1, 1));
+		recipeWaterRing = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Ring of the Mantle Recipe
+		addOreDictRecipe(new ItemStack(ModItems.miningRing), 
+				"EMP", "M M", " M ",
+				'E', LibOreDict.RUNE[2],
+				'M', LibOreDict.MANA_STEEL,
+				'P', new ItemStack(Items.golden_pickaxe));
+		recipeMiningRing = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Ring of Magnetization Recipe
+		addOreDictRecipe(new ItemStack(ModItems.magnetRing), 
+				"LM ", "M M", " M ",
+				'L', new ItemStack(ModItems.lens, 1, 10),
+				'M', LibOreDict.MANA_STEEL);
+		recipeMagnetRing = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0), 
