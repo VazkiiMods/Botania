@@ -58,6 +58,9 @@ public final class LibItemNames {
 	public static final String ICE_PENDANT = "icePendant";
 	public static final String LAVA_PENDANT = "lavaPendant";
 	public static final String GOLDEN_LAUREL = "goldenLaurel";
+	public static final String MAGNET_RING = "magnetRing";
+	public static final String WATER_RING = "waterRing";
+	public static final String MINING_RING = "miningRing";
 
 	public static final String[] LENS_NAMES = new String[] {
 		"lensNormal",

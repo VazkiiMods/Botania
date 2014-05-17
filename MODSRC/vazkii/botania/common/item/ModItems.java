@@ -30,9 +30,12 @@ import vazkii.botania.common.item.equipment.bauble.ItemGreaterManaRing;
 import vazkii.botania.common.item.equipment.bauble.ItemIcePendant;
 import vazkii.botania.common.item.equipment.bauble.ItemKnockbackBelt;
 import vazkii.botania.common.item.equipment.bauble.ItemLavaPendant;
+import vazkii.botania.common.item.equipment.bauble.ItemMagnetRing;
 import vazkii.botania.common.item.equipment.bauble.ItemManaRing;
+import vazkii.botania.common.item.equipment.bauble.ItemMiningRing;
 import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
 import vazkii.botania.common.item.equipment.bauble.ItemTravelBelt;
+import vazkii.botania.common.item.equipment.bauble.ItemWaterRing;
 import vazkii.botania.common.item.equipment.tool.ItemManasteelAxe;
 import vazkii.botania.common.item.equipment.tool.ItemManasteelPick;
 import vazkii.botania.common.item.equipment.tool.ItemManasteelShears;
@@ -86,6 +89,9 @@ public final class ModItems {
 	public static Item icePendant;
 	public static Item lavaPendant;
 	public static Item goldLaurel;
+	public static Item magnetRing;
+	public static Item waterRing;
+	public static Item miningRing;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -131,6 +137,9 @@ public final class ModItems {
 		icePendant = new ItemIcePendant();
 		lavaPendant = new ItemLavaPendant();
 		goldLaurel = new ItemGoldenLaurel();
+		magnetRing = new ItemMagnetRing();
+		waterRing = new ItemWaterRing();
+		miningRing = new ItemMiningRing();
 
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {

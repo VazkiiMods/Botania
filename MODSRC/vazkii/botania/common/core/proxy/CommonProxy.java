@@ -11,6 +11,12 @@
  */
 package vazkii.botania.common.core.proxy;
 
+import java.util.List;
+
+import baubles.common.Baubles;
+import baubles.common.Config;
+import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -70,6 +76,13 @@ public class CommonProxy {
 
 	public void postInit(FMLPostInitializationEvent event) {
 		ModBlocks.addDispenserBehaviours();
+		
+		List<IRecipe> recipes = CraftingManager.getInstance().getRecipeList();
+		for(IRecipe recipe : recipes)
+			if(recipe.getRecipeOutput() != null && recipe.getRecipeOutput().getItem() == Config.itemRing) {
+				recipes.remove(recipe);
+				break;
+			}
 	}
 
 	public void setEntryToOpen(LexiconEntry entry) {

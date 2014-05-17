@@ -323,6 +323,9 @@ item.botania:lavaPendant.name=Pyroclast Pendant
 item.botania:lifeEssence.name=Essence of Eternal Life
 item.botania:goldenLaurel.name=Golden Laurel Crown
 item.botania:redstoneRoot.name=Redstone Root
+item.botania:magnetRing.name=Ring of Magnetization
+item.botania:waterRing.name=Ring of Chordata
+item.botania:miningRing.name=Ring of the Mantle
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania Index - Pick which category you would like to study:
