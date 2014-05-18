@@ -717,7 +717,7 @@ botania.page.manaAlchemy18=Breaking &1Cobblestone&0 into &1Sand&0
 
 # -- EYE OF THE ANCIENTS
 botania.entry.forestEye=Eye of the Ancients
-botania.page.forestEye0=As the Ancients who used to watch over the world always looked for the living beings on it, this block, the &1Eye of the Ancients&0 will do just that.<br>By attaching a &1Comparator&0 next to it, it'll send out a redstone signal equivalent to the amount of animals it can find.
+botania.page.forestEye0=As the Ancients who used to watch over the world always looked for the living beings on it, this block, the &1Eye of the Ancients&0, will do just that.<br>By attaching a &1Comparator&0 next to it, it'll send out a redstone signal equivalent to the amount of animals it can find.
 botania.page.forestEye1=The counting only starts at 2, so, with 2 animals around, it'd output a signal of strength 1, with 3 animals, of strength 2 and so on.<br>Lastly, the time has worn down the sight of the Ancients, so this block can only see animals in about 6 blocks in any direction.
 botania.page.forestEye2=Now you see me...
 
