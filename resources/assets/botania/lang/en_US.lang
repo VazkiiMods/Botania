@@ -133,7 +133,7 @@ tile.botania:storage1.name=Block of Terrasteel
 tile.botania:forestDrum.name=Drum of the Wild
 
 # FLOWER NAMES
-tile.botania:flower..name=Botania Flower
+tile.botania:flower.name=Botania Flower
 tile.botania:flower.puredaisy.name=Pure Daisy
 tile.botania:flower.puredaisy.reference=What color do you want to be?
 
