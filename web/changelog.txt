@@ -1,3 +1,7 @@
+beta 34
+*Changed Ring Textures.
+*Fixed a crash with illegal blocks around the pure daisy.
+*Fixed a crash with non-lens items in the mana spreader.
 beta 33
 *Added alternative names to Tile Entity names, fixes any tile entities (most flowers included) getting corrupted when updating from beta 31 to beta 32.
 beta 32
