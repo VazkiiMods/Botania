@@ -792,16 +792,17 @@ botania.page.terraSword0=The &1Terra Blade&0, crafted from &1Terrasteel Ingots&0
 botania.page.terraSword1=No Broken Hero Sword
 
 # - BAUBLES
-# -- TINY PLANET
 # -- AN INTRODUCTION TO BAUBLES
 botania.entry.bIntro=Eine Einführung in Accessoires
 botania.page.bIntro0=&4Baubles&0, also commonly refered to as &4Trinkets&0 or &4Charms&0 are pieces of equipment which offer all sorts of different effects, when worn.<br>To equip them, one can press the &4B&0 (configurable) key. There's four slots, one &4Amulet&0 slot, two &4Ring&0 slots and one &4Belt&0 slot.
 botania.page.bIntro1=The &4Baubles Screen&0
 botania.page.bIntro2=It's to note that, if &4Thaumcraft&0 or any other mod that uses the baubles sytem is installed, this inventory will be shared between the various mods. 
 
+# -- TINY PLANET
 botania.entry.tinyPlanet=Winziger Planet
 botania.page.tinyPlanet0=The &1Tiny Planet&0 is a bauble with gravitational proprieties, while equipped, the &1Tiny Planet&0 will pull any nearby &4Mana Bursts&0 towards the wearer, having them orbit around him or her. 
 botania.page.tinyPlanet1=Clearly from rebirth
+botania.page.tinyPlanet2=Planetarischer als Pluto
 
 # -- BAND OF MANA
 botania.entry.manaRing=Manaband
