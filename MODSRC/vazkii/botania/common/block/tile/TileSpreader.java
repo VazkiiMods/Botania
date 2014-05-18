@@ -36,6 +36,7 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
+import vazkii.botania.api.mana.ILensEffect;
 import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.IManaReceiver;
@@ -301,8 +302,8 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		BurstProperties props = new BurstProperties(maxMana, ticksBeforeManaLoss, manaLossPerTick, gravity, motionModifier, color);
 
 		ItemStack lens = getStackInSlot(0);
-		if(lens != null)
-			((ILens) lens.getItem()).apply(lens, props);
+		if(lens != null && lens.getItem() instanceof ILensEffect)
+			((ILensEffect) lens.getItem()).apply(lens, props);
 
 		burst.setSourceLens(lens);
 		if(getCurrentMana() >= props.maxMana || fake) {
