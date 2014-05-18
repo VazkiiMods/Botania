@@ -133,7 +133,7 @@ tile.botania:storage1.name=Terrastahlblock
 tile.botania:forestDrum.name=Trommel der Wildnis
 
 # FLOWER NAMES
-tile.botania:flower.name=Botania-Blume
+tile.botania:flower..name=Botania-Blume
 tile.botania:flower.puredaisy.name=Reines Gänseblümchen
 tile.botania:flower.puredaisy.reference=Welche Farbe möchtest du haben?
 
