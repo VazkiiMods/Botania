@@ -24,6 +24,7 @@ botaniamisc.filter2=Pickup any items
 botaniamisc.creativePool0=Creative Mana Pool, has infinite Mana
 botaniamisc.creativePool1=Worthy of an Egoist
 botaniamisc.savedByLaurel=Your Golden Laurel Crown shatters, as it saves you from death.
+botaniamisc.toolRank=%s&7 Rank
 
 # COLORS
 botania.color0=White
@@ -43,6 +44,14 @@ botania.color13=Green
 botania.color14=Red
 botania.color15=Black
 botania.color16=Rainbow
+
+# -- RANKS
+botania.rank0=&cD
+botania.rank1=&eC
+botania.rank2=&bB
+botania.rank3=&aA
+botania.rank4=&dS
+botania.rank5=&6SS
 
 # BAUBLE TOOLTIPS
 botania.baubletype.amulet=Equippable in the &aAmulet&7 slot
