@@ -60,6 +60,7 @@ public final class LibItemNames {
 	public static final String MAGNET_RING = "magnetRing";
 	public static final String WATER_RING = "waterRing";
 	public static final String MINING_RING = "miningRing";
+	public static final String TERRA_PICK = "terraPick";
 
 	public static final String[] LENS_NAMES = new String[] {
 		"lensNormal",

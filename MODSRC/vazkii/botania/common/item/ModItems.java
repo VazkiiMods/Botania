@@ -41,6 +41,7 @@ import vazkii.botania.common.item.equipment.tool.ItemManasteelPick;
 import vazkii.botania.common.item.equipment.tool.ItemManasteelShears;
 import vazkii.botania.common.item.equipment.tool.ItemManasteelShovel;
 import vazkii.botania.common.item.equipment.tool.ItemManasteelSword;
+import vazkii.botania.common.item.equipment.tool.ItemTerraPick;
 import vazkii.botania.common.item.equipment.tool.ItemTerraSword;
 import vazkii.botania.common.lib.LibOreDict;
 
@@ -92,6 +93,7 @@ public final class ModItems {
 	public static Item magnetRing;
 	public static Item waterRing;
 	public static Item miningRing;
+	public static Item terraPick;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -140,6 +142,7 @@ public final class ModItems {
 		magnetRing = new ItemMagnetRing();
 		waterRing = new ItemWaterRing();
 		miningRing = new ItemMiningRing();
+		terraPick = new ItemTerraPick();
 
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {

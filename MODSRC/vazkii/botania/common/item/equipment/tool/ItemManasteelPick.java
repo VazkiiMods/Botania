@@ -33,9 +33,13 @@ public class ItemManasteelPick extends ItemPickaxe {
 	private static final int MANA_PER_DAMAGE = 60;
 
 	public ItemManasteelPick() {
-		super(BotaniaAPI.manasteelToolMaterial);
+		this(BotaniaAPI.manasteelToolMaterial, LibItemNames.MANASTEEL_PICK);
+	}
+	
+	public ItemManasteelPick(ToolMaterial mat, String name) {
+		super(mat);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
-		setUnlocalizedName(LibItemNames.MANASTEEL_PICK);
+		setUnlocalizedName(name);
 	}
 
 	@Override
