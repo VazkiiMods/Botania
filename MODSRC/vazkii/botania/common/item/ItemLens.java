@@ -39,6 +39,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
+import vazkii.botania.api.mana.IManaBlock;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
@@ -210,13 +211,14 @@ public class ItemLens extends ItemMod implements ILens {
 			int y = pos.blockY;
 			int z = pos.blockZ;
 			Block block = world.getBlock(x, y, z);
+			TileEntity tile = world.getTileEntity(x, y, z);
 
 			int meta = world.getBlockMetadata(x, y, z);
 			float hardness = block.getBlockHardness(world, x, y, z);
 			int mana = burst.getMana();
 
 			ChunkCoordinates coords = burst.getBurstSourceChunkCoordinates();
-			if((coords.posX != x || coords.posY != y || coords.posZ != z) && !isManaBlock && block != null && hardness != -1 && hardness < 50F && (burst.isFake() || mana >= 24)) {
+			if((coords.posX != x || coords.posY != y || coords.posZ != z) && !(tile instanceof IManaBlock) && block != null && hardness != -1 && hardness < 50F && (burst.isFake() || mana >= 24)) {
 				List<ItemStack> items = new ArrayList();
 
 				items.addAll(block.getDrops(world, x, y, z, meta, 0));
