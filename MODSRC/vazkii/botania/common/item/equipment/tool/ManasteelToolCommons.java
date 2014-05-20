@@ -30,7 +30,6 @@ import vazkii.botania.api.mana.ManaItemHandler;
 
 public final class ManasteelToolCommons {
 
-
 	public static void damageItem(ItemStack stack, int dmg, EntityLivingBase entity, int manaPerDamage) {
 		int manaToRequest = dmg * manaPerDamage;
 		int manaRequested = entity instanceof EntityPlayer ? ManaItemHandler.requestMana(stack, (EntityPlayer) entity, manaToRequest, true) : 0;

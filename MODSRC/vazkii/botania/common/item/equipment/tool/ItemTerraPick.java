@@ -19,6 +19,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -76,10 +77,25 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem {
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+		int mana = getMana(par1ItemStack);
 		int level = getLevel(par1ItemStack);
+		
 		if(level != 0)
-			ItemNBTHelper.setBoolean(par1ItemStack, TAG_ENABLED, !isEnabled(par1ItemStack));
+			setEnabled(par1ItemStack, !isEnabled(par1ItemStack));
+			
 		return par1ItemStack;
+	}
+	
+	@Override
+	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
+		if(isEnabled(par1ItemStack)) {
+			int mana = getMana(par1ItemStack);
+			int level = getLevel(par1ItemStack);
+			
+			if(level == 0)
+				setEnabled(par1ItemStack, false);
+			else addMana(par1ItemStack, -level);
+		}
 	}
 
 	@Override
@@ -114,6 +130,11 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem {
 
 		return false;
 	}
+	
+	@Override
+	public int getEntityLifespan(ItemStack itemStack, World world) {
+		return Integer.MAX_VALUE;
+	}
 
 	@Override
 	public void registerIcons(IIconRegister par1IconRegister) {
@@ -143,6 +164,10 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem {
 	boolean isEnabled(ItemStack stack) {
 		return ItemNBTHelper.getBoolean(stack, TAG_ENABLED, false);
 	}
+	
+	void setEnabled(ItemStack stack, boolean enabled) {
+		ItemNBTHelper.setBoolean(stack, TAG_ENABLED, enabled);
+	}
 
 	public static void setMana(ItemStack stack, int mana) {
 		ItemNBTHelper.setInt(stack, TAG_MANA, mana);
@@ -155,11 +180,10 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem {
 
 	public int getLevel(ItemStack stack) {
 		int mana = getMana(stack);
-		for(int i = 0; i < LEVELS.length; i++) {
-			if(mana > LEVELS[i])
-				continue;
-			return i;
-		}
+		for(int i = LEVELS.length - 1; i > 0; i--)
+			if(mana >= LEVELS[i])
+				return i;
+
 		return 0;
 	}
 
