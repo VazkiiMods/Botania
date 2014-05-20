@@ -12,6 +12,7 @@
 package vazkii.botania.common.block;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +33,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.ISpecialFlower;
@@ -49,37 +51,39 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 
 	public static Map<String, IIcon> icons = new HashMap();
 
-	private static String[] subtypes = new String[] {
-		// Misc
-		LibBlockNames.SUBTILE_PUREDAISY,
+	static {
+		BotaniaAPI.subtilesForCreativeMenu.addAll(Arrays.asList(new String[] {
+				// Misc
+				LibBlockNames.SUBTILE_PUREDAISY,
 
-		// Generating
-		LibBlockNames.SUBTILE_DAYBLOOM,
-		LibBlockNames.SUBTILE_NIGHTSHADE,
-		LibBlockNames.SUBTILE_ENDOFLAME,
-		LibBlockNames.SUBTILE_HYDROANGEAS,
-		LibBlockNames.SUBTILE_THERMALILY,
-		LibBlockNames.SUBTILE_ARCANE_ROSE,
-		LibBlockNames.SUBTILE_MUNCHDEW,
+				// Generating
+				LibBlockNames.SUBTILE_DAYBLOOM,
+				LibBlockNames.SUBTILE_NIGHTSHADE,
+				LibBlockNames.SUBTILE_ENDOFLAME,
+				LibBlockNames.SUBTILE_HYDROANGEAS,
+				LibBlockNames.SUBTILE_THERMALILY,
+				LibBlockNames.SUBTILE_ARCANE_ROSE,
+				LibBlockNames.SUBTILE_MUNCHDEW,
 
-		// Functional
-		LibBlockNames.SUBTILE_JADED_AMARANTHUS,
-		LibBlockNames.SUBTILE_BELLETHORN,
-		LibBlockNames.SUBTILE_DREADTHORN,
-		LibBlockNames.SUBTILE_HEISEI_DREAM,
-		LibBlockNames.SUBTILE_TIGERSEYE,
-		LibBlockNames.SUBTILE_ORECHID,
-		LibBlockNames.SUBTILE_FALLEN_KANADE,
-		LibBlockNames.SUBTILE_EXOFLAME,
-		LibBlockNames.SUBTILE_AGRICARNATION,
-		LibBlockNames.SUBTILE_HOPPERHOCK,
-		LibBlockNames.SUBTILE_RANNUNCARPUS,
-		LibBlockNames.SUBTILE_TANGLEBERRIE,
-		LibBlockNames.SUBTILE_JIYUULIA,
-		LibBlockNames.SUBTILE_HYACIDUS,
-		LibBlockNames.SUBTILE_POLLIDISIAC,
-		LibBlockNames.SUBTILE_CLAYCONIA
-	};
+				// Functional
+				LibBlockNames.SUBTILE_JADED_AMARANTHUS,
+				LibBlockNames.SUBTILE_BELLETHORN,
+				LibBlockNames.SUBTILE_DREADTHORN,
+				LibBlockNames.SUBTILE_HEISEI_DREAM,
+				LibBlockNames.SUBTILE_TIGERSEYE,
+				LibBlockNames.SUBTILE_ORECHID,
+				LibBlockNames.SUBTILE_FALLEN_KANADE,
+				LibBlockNames.SUBTILE_EXOFLAME,
+				LibBlockNames.SUBTILE_AGRICARNATION,
+				LibBlockNames.SUBTILE_HOPPERHOCK,
+				LibBlockNames.SUBTILE_RANNUNCARPUS,
+				LibBlockNames.SUBTILE_TANGLEBERRIE,
+				LibBlockNames.SUBTILE_JIYUULIA,
+				LibBlockNames.SUBTILE_HYACIDUS,
+				LibBlockNames.SUBTILE_POLLIDISIAC,
+				LibBlockNames.SUBTILE_CLAYCONIA
+		}));
+	}
 
 	protected BlockSpecialFlower() {
 		super(0);
@@ -109,13 +113,13 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 
 	@Override
 	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
-		for(String s : subtypes)
+		for(String s : BotaniaAPI.subtilesForCreativeMenu)
 			par3List.add(ItemBlockSpecialFlower.ofType(s));
 	}
 
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		for(String s : subtypes)
+		for(String s : BotaniaAPI.subtilesForCreativeMenu)
 			icons.put(s, IconHelper.forName(par1IconRegister, s));
 	}
 

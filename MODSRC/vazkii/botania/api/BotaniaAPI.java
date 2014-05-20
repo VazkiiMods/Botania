@@ -13,8 +13,10 @@ package vazkii.botania.api;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -49,7 +51,8 @@ public final class BotaniaAPI {
 	public static List<RecipeManaInfusion> manaInfusionRecipes = new ArrayList<RecipeManaInfusion>();
 
 	private static BiMap<String, Class<? extends SubTileEntity>> subTiles = HashBiMap.<String, Class<? extends SubTileEntity>> create();
-
+	public static Set<String> subtilesForCreativeMenu = new LinkedHashSet();
+	
 	public static Map<String, Integer> oreWeights = new HashMap<String, Integer>();
 
 	public static Map<Item, Block> seeds = new HashMap();
@@ -171,8 +174,19 @@ public final class BotaniaAPI {
 		return recipe;
 	}
 
+	/**
+	 * Registers a SubTileEntity, a new special flower. Look in the subtile package of the API.
+	 */
 	public static void registerSubTile(String key, Class<? extends SubTileEntity> subtileClass) {
 		subTiles.put(key, subtileClass);
+	}
+	
+	/**
+	 * Adds the key for a SubTileEntity into the creative menu. This goes into the
+	 * subtilesForCreativeMenu Set.
+	 */
+	public static void addSubTileToCreativeMenu(String key) {
+		subtilesForCreativeMenu.add(key);
 	}
 
 	/**
