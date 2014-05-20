@@ -11,19 +11,35 @@
  */
 package vazkii.botania.common.item.equipment.tool;
 
+import java.awt.Color;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemTerraPick extends ItemManasteelPick {
 
+	private static final String TAG_ENABLED = "enabled";
+	
 	IIcon iconTool, iconOverlay;
 	
 	public ItemTerraPick() {
 		super(BotaniaAPI.terrasteelToolMaterial, LibItemNames.TERRA_PICK);
+	}
+	
+	@Override
+	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+		ItemNBTHelper.setBoolean(par1ItemStack, TAG_ENABLED, !isEnabled(par1ItemStack));
+		return par1ItemStack;
 	}
 	
 	@Override
@@ -39,11 +55,20 @@ public class ItemTerraPick extends ItemManasteelPick {
 	
 	@Override
 	public IIcon getIcon(ItemStack stack, int pass) {
-		return pass == 2 && isEnabled(stack) ? iconOverlay : iconTool;
+		return pass == 1 && isEnabled(stack) ? iconOverlay : iconTool;
 	}
 
+	@Override
+	@SideOnly(Side.CLIENT)
+	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
+		if(par2 == 0 || !isEnabled(par1ItemStack))
+			return 0xFFFFFF;
+		
+		return Color.HSBtoRGB(0.375F, (float) Math.min(1F, (Math.sin((double) System.currentTimeMillis() / 200D) * 0.5 + 1F)), 1F);
+	}
+	
 	boolean isEnabled(ItemStack stack) {
-		return false; // TODO
+		return ItemNBTHelper.getBoolean(stack, TAG_ENABLED, false);
 	}
 	
 }
