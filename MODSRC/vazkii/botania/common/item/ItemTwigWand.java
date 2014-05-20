@@ -156,11 +156,11 @@ public class ItemTwigWand extends Item16Colors {
 	}
 
 	public static int getColor1(ItemStack stack) {
-		return ItemNBTHelper.getInt(stack, TAG_COLOR1, 0xFFFFFF);
+		return ItemNBTHelper.getInt(stack, TAG_COLOR1, 0);
 	}
 
 	public static int getColor2(ItemStack stack) {
-		return ItemNBTHelper.getInt(stack, TAG_COLOR2, 0xFFFFFF);
+		return ItemNBTHelper.getInt(stack, TAG_COLOR2, 0);
 	}
 
 }
