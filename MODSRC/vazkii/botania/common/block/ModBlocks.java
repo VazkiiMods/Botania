@@ -177,7 +177,7 @@ public final class ModBlocks {
 	}
 	
 	private static void registerTile(Class<? extends TileEntity> clazz, String key) {
-		GameRegistry.registerTileEntityWithAlternatives(clazz, key, LibResources.PREFIX_MOD + key);
+		GameRegistry.registerTileEntityWithAlternatives(clazz, LibResources.PREFIX_MOD + key, key);
 	}
 
 }
