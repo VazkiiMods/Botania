@@ -17,6 +17,7 @@ import net.minecraft.block.BlockCrops;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.common.core.handler.ConfigHandler;
 
 public class SubTileAgricarnation extends SubTileFunctional {
 
@@ -39,7 +40,8 @@ public class SubTileAgricarnation extends SubTileFunctional {
 					Block block = supertile.getWorldObj().getBlock(x, y, z);
 					mana -= 5;
 					supertile.getWorldObj().scheduleBlockUpdate(x, y, z, block, 1);
-					supertile.getWorldObj().playAuxSFX(2005, x, y, z, 6 + supertile.getWorldObj().rand.nextInt(4));
+					if(ConfigHandler.blockBreakParticles)
+						supertile.getWorldObj().playAuxSFX(2005, x, y, z, 6 + supertile.getWorldObj().rand.nextInt(4));
 
 					break;
 				}

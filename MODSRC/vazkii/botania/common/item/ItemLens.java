@@ -43,6 +43,7 @@ import vazkii.botania.api.mana.IManaBlock;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
@@ -226,7 +227,8 @@ public class ItemLens extends ItemMod implements ILens {
 				if(!burst.hasAlreadyCollidedAt(x, y, z)) {
 					if(!burst.isFake() && !entity.worldObj.isRemote) {
 						world.setBlockToAir(x, y, z);
-						entity.worldObj.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
+						if(ConfigHandler.blockBreakParticles)
+							entity.worldObj.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
 
 						for(ItemStack stack_ : items)
 							world.spawnEntityInWorld(new EntityItem(world, x + 0.5, y + 0.5, z + 0.5, stack_));

@@ -28,6 +28,9 @@ public final class ConfigHandler {
 	public static boolean lexicon3dModel = true;
 	public static boolean oldPylonModel = false;
 	public static double flowerParticleFrequency = 0.75F;
+	public static boolean blockBreakParticles = true;
+	public static boolean blockBreakParticlesTool = true;
+
 	public static int spreaderPositionShift = 1;
 
 	public static int flowerQuantity = 3;
@@ -63,6 +66,12 @@ public final class ConfigHandler {
 		desc = "The frequency in which particles spawn from normal (worldgen) mystical flowers";
 		flowerParticleFrequency = loadPropDouble("flowerParticles.frequency", desc, flowerParticleFrequency);
 
+		desc = "Set to false to remove the block breaking particles from the flowers and other items in the mod.";
+		blockBreakParticles = loadPropBool("blockBreakingParticles.enabled", desc, blockBreakParticles);
+		
+		desc = "Set to false to remove the block breaking particles from the Mana Shatterer, as there can be a good amount in higher levels.";
+		blockBreakParticlesTool = loadPropBool("blockBreakingParticlesTool.enabled", desc, blockBreakParticlesTool);
+		
 		desc = "Do not ever touch this value if not asked to. Possible symptoms of doing so include your head turning backwards, the appearance of Titans near the walls or you being trapped in a game of Sword Art Online.";
 		spreaderPositionShift = loadPropInt("spreader.posShift", desc, spreaderPositionShift);
 

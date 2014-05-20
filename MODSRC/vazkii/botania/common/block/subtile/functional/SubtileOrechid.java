@@ -24,6 +24,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubtileOrechid extends SubTileFunctional {
@@ -45,7 +46,8 @@ public class SubtileOrechid extends SubTileFunctional {
 					Block block = Block.getBlockFromItem(stack.getItem());
 					int meta = stack.getItemDamage();
 					supertile.getWorldObj().setBlock(coords.posX, coords.posY, coords.posZ, block, meta, 1 | 2);
-					supertile.getWorldObj().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(block) + (meta << 12));
+					if(ConfigHandler.blockBreakParticles)
+						supertile.getWorldObj().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(block) + (meta << 12));
 
 					mana -= COST;
 					sync();

@@ -21,6 +21,7 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileGenerating;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileMunchdew extends SubTileGenerating {
@@ -67,7 +68,8 @@ public class SubTileMunchdew extends SubTileGenerating {
 			Block block = supertile.getWorldObj().getBlock(breakCoords.posX, breakCoords.posY, breakCoords.posZ);
 			int meta = supertile.getWorldObj().getBlockMetadata(breakCoords.posX, breakCoords.posY, breakCoords.posZ);
 			supertile.getWorldObj().setBlockToAir(breakCoords.posX, breakCoords.posY, breakCoords.posZ);
-			supertile.getWorldObj().playAuxSFX(2001, breakCoords.posX, breakCoords.posY, breakCoords.posZ, Block.getIdFromBlock(block) + (meta << 12));
+			if(ConfigHandler.blockBreakParticles)
+				supertile.getWorldObj().playAuxSFX(2001, breakCoords.posX, breakCoords.posY, breakCoords.posZ, Block.getIdFromBlock(block) + (meta << 12));
 			mana += manaPerLeaf;
 		}
 	}

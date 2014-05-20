@@ -25,6 +25,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 import vazkii.botania.api.subtile.ISpecialFlower;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemGrassHorn extends ItemMod {
@@ -89,7 +90,8 @@ public class ItemGrassHorn extends ItemMod {
 
 			if(!world.isRemote) {
 				world.setBlockToAir(currCoords.posX, currCoords.posY, currCoords.posZ);
-				world.playAuxSFX(2001, currCoords.posX, currCoords.posY, currCoords.posZ, Block.getIdFromBlock(block) + (meta << 12));
+				if(ConfigHandler.blockBreakParticles)
+					world.playAuxSFX(2001, currCoords.posX, currCoords.posY, currCoords.posZ, Block.getIdFromBlock(block) + (meta << 12));
 
 				for(ItemStack stack_ : items)
 					world.spawnEntityInWorld(new EntityItem(world, currCoords.posX + 0.5, currCoords.posY + 0.5, currCoords.posZ + 0.5, stack_));

@@ -22,6 +22,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileClayconia extends SubTileFunctional {
@@ -36,7 +37,8 @@ public class SubTileClayconia extends SubTileFunctional {
 				ChunkCoordinates coords = getCoordsToPut();
 				if(coords != null) {
 					supertile.getWorldObj().setBlockToAir(coords.posX, coords.posY, coords.posZ);
-					supertile.getWorldObj().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(Blocks.sand));
+					if(ConfigHandler.blockBreakParticles)
+						supertile.getWorldObj().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(Blocks.sand));
 					EntityItem item = new EntityItem(supertile.getWorldObj(), coords.posX + 0.5, coords.posY + 0.5, coords.posZ + 0.5, new ItemStack(Items.clay_ball));
 					supertile.getWorldObj().spawnEntityInWorld(item);
 					mana -= manaCost;

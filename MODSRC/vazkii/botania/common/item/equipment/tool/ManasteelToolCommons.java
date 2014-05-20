@@ -27,6 +27,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.common.core.handler.ConfigHandler;
 
 public final class ManasteelToolCommons {
 
@@ -84,7 +85,8 @@ public final class ManasteelToolCommons {
 				blk.onBlockHarvested(world, x, y, z, localMeta, player);
 			} else world.setBlockToAir(x, y, z);
 			
-			world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(blk) + (meta << 12));
+			if(ConfigHandler.blockBreakParticles && ConfigHandler.blockBreakParticlesTool)
+				world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(blk) + (meta << 12));
 		}
 	}
 

@@ -22,6 +22,7 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTilePureDaisy extends SubTileEntity {
@@ -78,7 +79,8 @@ public class SubTilePureDaisy extends SubTileEntity {
 
 							Botania.proxy.wispFX(supertile.getWorldObj(), x, y, z, 1F, 1F, 1F, (float) Math.random() / 2F);
 						}
-						supertile.getWorldObj().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(block) + (supertile.getWorldObj().getBlockMetadata(coords.posX, coords.posY, coords.posZ) << 12));
+						if(ConfigHandler.blockBreakParticles)
+							supertile.getWorldObj().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(block) + (supertile.getWorldObj().getBlockMetadata(coords.posX, coords.posY, coords.posZ) << 12));
 					}
 				} else ticksRemaining[positionAt] = 200;
 			}
