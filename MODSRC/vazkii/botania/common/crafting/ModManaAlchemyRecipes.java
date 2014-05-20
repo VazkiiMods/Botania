@@ -36,6 +36,7 @@ public final class ModManaAlchemyRecipes {
 	public static RecipeManaInfusion netherWartRecipe;
 	public static List<RecipeManaInfusion> gunpowderAndFlintRecipes;
 	public static RecipeManaInfusion nameTagRecipe;
+	public static RecipeManaInfusion stringRecipe;
 	public static RecipeManaInfusion enderPearlRecipe;
 	public static List<RecipeManaInfusion> redstoneToGlowstoneRecipes;
 	public static RecipeManaInfusion sandRecipe;
@@ -69,11 +70,12 @@ public final class ModManaAlchemyRecipes {
 			fishRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.fish, 1, i == 3 ? 0 : i + 1), new ItemStack(Items.fish, 1, i), 200));
 
 		cropRecipes = new ArrayList();
-		cropRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.wheat_seeds), new ItemStack(Items.pumpkin_seeds), 6000));
+		cropRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.wheat_seeds), new ItemStack(Items.dye, 1, 3), 6000));
 		cropRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.potato), new ItemStack(Items.wheat), 6000));
 		cropRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.carrot), new ItemStack(Items.potato), 6000));
 		cropRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.melon_seeds), new ItemStack(Items.carrot), 6000));
 		cropRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.pumpkin_seeds), new ItemStack(Items.melon_seeds), 6000));
+		cropRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.dye, 1, 3), new ItemStack(Items.pumpkin_seeds), 6000));
 
 		potatoRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.potato), new ItemStack(Items.poisonous_potato), 1200);
 		netherWartRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.nether_wart), new ItemStack(Items.blaze_rod), 4000);
@@ -83,6 +85,7 @@ public final class ModManaAlchemyRecipes {
 		gunpowderAndFlintRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.gunpowder), new ItemStack(Items.flint), 4000));
 
 		nameTagRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.name_tag), new ItemStack(Items.writable_book), 16000);
+		stringRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.string, 1, 3), new ItemStack(Blocks.wool, 1, -1), 100);
 		enderPearlRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.ender_pearl, 2), new ItemStack(Items.ghast_tear), 28000);
 
 		redstoneToGlowstoneRecipes = new ArrayList();
