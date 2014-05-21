@@ -98,9 +98,9 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 	public void updateEntity() {
 		if(!canEnchanterExist(worldObj, xCoord, yCoord, zCoord, getBlockMetadata())) {
 			for(int[] pylon : PYLON_LOCATIONS[getBlockMetadata()]) {
-				TilePylon pylonTile = (TilePylon) worldObj.getTileEntity(xCoord + pylon[0], yCoord + pylon[1], zCoord + pylon[2]);
-				if(pylonTile != null)
-					pylonTile.activated = false;
+				TileEntity tile = worldObj.getTileEntity(xCoord + pylon[0], yCoord + pylon[1], zCoord + pylon[2]);
+				if(tile != null && tile instanceof TilePylon)
+					((TilePylon) tile).activated = false;
 			}
 			worldObj.setBlock(xCoord, yCoord, zCoord, Blocks.lapis_block, 0, 1 | 2);
 			for(int i = 0; i < 50; i++) {
