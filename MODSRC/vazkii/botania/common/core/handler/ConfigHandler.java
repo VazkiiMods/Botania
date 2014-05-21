@@ -68,10 +68,10 @@ public final class ConfigHandler {
 
 		desc = "Set to false to remove the block breaking particles from the flowers and other items in the mod.";
 		blockBreakParticles = loadPropBool("blockBreakingParticles.enabled", desc, blockBreakParticles);
-		
+
 		desc = "Set to false to remove the block breaking particles from the Mana Shatterer, as there can be a good amount in higher levels.";
 		blockBreakParticlesTool = loadPropBool("blockBreakingParticlesTool.enabled", desc, blockBreakParticlesTool);
-		
+
 		desc = "Do not ever touch this value if not asked to. Possible symptoms of doing so include your head turning backwards, the appearance of Titans near the walls or you being trapped in a game of Sword Art Online.";
 		spreaderPositionShift = loadPropInt("spreader.posShift", desc, spreaderPositionShift);
 

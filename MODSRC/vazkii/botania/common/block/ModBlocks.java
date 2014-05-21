@@ -175,7 +175,7 @@ public final class ModBlocks {
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_POLLIDISIAC, SubTilePollidisiac.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_CLAYCONIA, SubTileClayconia.class);
 	}
-	
+
 	private static void registerTile(Class<? extends TileEntity> clazz, String key) {
 		GameRegistry.registerTileEntityWithAlternatives(clazz, LibResources.PREFIX_MOD + key, key);
 	}

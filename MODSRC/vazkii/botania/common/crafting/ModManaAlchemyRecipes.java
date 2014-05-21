@@ -85,11 +85,11 @@ public final class ModManaAlchemyRecipes {
 		gunpowderAndFlintRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.gunpowder), new ItemStack(Items.flint), 4000));
 
 		nameTagRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.name_tag), new ItemStack(Items.writable_book), 16000);
-		
+
 		stringRecipes = new ArrayList();
 		for(int i = 0; i < 16; i++)
 			stringRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.string, 3, 1), new ItemStack(Blocks.wool, 1, i), 100));
-		
+
 		enderPearlRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.ender_pearl, 2), new ItemStack(Items.ghast_tear), 28000);
 
 		redstoneToGlowstoneRecipes = new ArrayList();

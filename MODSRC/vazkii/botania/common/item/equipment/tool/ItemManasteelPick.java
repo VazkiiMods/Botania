@@ -35,7 +35,7 @@ public class ItemManasteelPick extends ItemPickaxe {
 	public ItemManasteelPick() {
 		this(BotaniaAPI.manasteelToolMaterial, LibItemNames.MANASTEEL_PICK);
 	}
-	
+
 	public ItemManasteelPick(ToolMaterial mat, String name) {
 		super(mat);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);

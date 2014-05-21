@@ -12,7 +12,6 @@
 package vazkii.botania.common.item.equipment.tool;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -70,7 +69,7 @@ public final class ManasteelToolCommons {
 
 		Material mat = world.getBlock(x, y, z).getMaterial();
 		if(blk != null && !blk.isAir(world, x, y, z) && blk.getPlayerRelativeBlockHardness(player, world, x, y, z) != 0) {
-			List<ItemStack> items = new ArrayList();
+			new ArrayList();
 
 			if(!blk.canHarvestBlock(player, meta) || !isRightMaterial(mat, materialsListing))
 				return;
@@ -79,12 +78,12 @@ public final class ManasteelToolCommons {
 				int localMeta = world.getBlockMetadata(x, y, z);
 				if (blk.removedByPlayer(world, player, x, y, z))
 					blk.onBlockDestroyedByPlayer(world, x, y, z, localMeta);
-				
+
 				damageItem(stack, 1, player, 80);
 				blk.harvestBlock(world, player, x, y, z, localMeta);
 				blk.onBlockHarvested(world, x, y, z, localMeta, player);
 			} else world.setBlockToAir(x, y, z);
-			
+
 			if(ConfigHandler.blockBreakParticles && ConfigHandler.blockBreakParticlesTool)
 				world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(blk) + (meta << 12));
 		}

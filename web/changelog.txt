@@ -1,3 +1,14 @@
+beta 35
+*Added a config option to remove block breaking particles.
+*Added some new alchemy recipes - Cocoa Beans in the crop rotation and Wool to String.
+*Added the Terra Shatterer, a new tool that increases power with the amount of mana you give it.
+*Fixed a crash with the Wand of the Forest when placing it in a block from a mod that does not sync NBT tags (eg. Blood Magic).
+*Fixed a small visual issue with Unstable Beacons displaying particles under the block.
+*Lowered the amount of particles Unstable Beacons emit, they no longer eat your FPS as much.
+*Mana spreaders with the bore lens will no longer break other full pools or spreaders.
+*Swapped the aliases of the Tile Entities to prevent tiles with the same name from other mods conflicting, this comes with no backwards compatibility issues, you're fine.
+*The magnetizing ring now pulls items to the center of the player, not the corner.
+*[API] Added a LinkedHashSet for the SubTileEntity keys to be displayed on the creative menu for the getSubBlocks call for BlockSpecialFlower.
 beta 34
 *Changed Ring Textures.
 *Fixed a crash with illegal blocks around the pure daisy.

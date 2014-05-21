@@ -628,13 +628,13 @@ public final class ModCrafingRecipes {
 		recipeMagnetRing = BotaniaAPI.getLatestAddedRecipe();
 
 		// Terra Shatterer Recipe
-		addOreDictRecipe(new ItemStack(ModItems.terraPick), 
+		addOreDictRecipe(new ItemStack(ModItems.terraPick),
 				"ITI", "ILI", " L ",
 				'T', new ItemStack(ModItems.manaTablet, 1, -1),
 				'I', LibOreDict.TERRA_STEEL,
 				'L', LibOreDict.LIVINGWOOD_TWIG);
 		recipeTerraPick = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",

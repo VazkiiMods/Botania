@@ -52,7 +52,7 @@ public final class BotaniaAPI {
 
 	private static BiMap<String, Class<? extends SubTileEntity>> subTiles = HashBiMap.<String, Class<? extends SubTileEntity>> create();
 	public static Set<String> subtilesForCreativeMenu = new LinkedHashSet();
-	
+
 	public static Map<String, Integer> oreWeights = new HashMap<String, Integer>();
 
 	public static Map<Item, Block> seeds = new HashMap();
@@ -180,7 +180,7 @@ public final class BotaniaAPI {
 	public static void registerSubTile(String key, Class<? extends SubTileEntity> subtileClass) {
 		subTiles.put(key, subtileClass);
 	}
-	
+
 	/**
 	 * Adds the key for a SubTileEntity into the creative menu. This goes into the
 	 * subtilesForCreativeMenu Set.

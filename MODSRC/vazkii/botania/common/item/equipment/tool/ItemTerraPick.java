@@ -14,14 +14,12 @@ package vazkii.botania.common.item.equipment.tool;
 import java.awt.Color;
 import java.util.List;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -33,8 +31,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.client.core.helper.IconHelper;
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.relauncher.Side;
@@ -52,7 +48,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem {
 	private static final int[] LEVELS = new int[] {
 		0, 10000, 1000000, 10000000, 100000000, 1000000000
 	};
-	
+
 	private static final int[] CREATIVE_MANA = new int[] {
 		10000 - 1, 1000000 - 1, 10000000 - 1, 100000000 - 1, 1000000000 - 1, MAX_MANA
 	};
@@ -81,24 +77,24 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem {
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		int mana = getMana(par1ItemStack);
+		getMana(par1ItemStack);
 		int level = getLevel(par1ItemStack);
-		
+
 		if(level != 0) {
 			setEnabled(par1ItemStack, !isEnabled(par1ItemStack));
 			if(!par2World.isRemote)
 				par2World.playSoundAtEntity(par3EntityPlayer, "random.orb", 0.5F, 0.4F);
 		}
-			
+
 		return par1ItemStack;
 	}
-	
+
 	@Override
 	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
 		if(isEnabled(par1ItemStack)) {
-			int mana = getMana(par1ItemStack);
+			getMana(par1ItemStack);
 			int level = getLevel(par1ItemStack);
-			
+
 			if(level == 0)
 				setEnabled(par1ItemStack, false);
 			else addMana(par1ItemStack, -level);
@@ -137,7 +133,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem {
 
 		return false;
 	}
-	
+
 	@Override
 	public int getEntityLifespan(ItemStack itemStack, World world) {
 		return Integer.MAX_VALUE;
@@ -165,13 +161,13 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem {
 		if(par2 == 0 || !isEnabled(par1ItemStack))
 			return 0xFFFFFF;
 
-		return Color.HSBtoRGB(0.375F, (float) Math.min(1F, (Math.sin((double) System.currentTimeMillis() / 200D) * 0.5 + 1F)), 1F);
+		return Color.HSBtoRGB(0.375F, (float) Math.min(1F, Math.sin(System.currentTimeMillis() / 200D) * 0.5 + 1F), 1F);
 	}
 
 	boolean isEnabled(ItemStack stack) {
 		return ItemNBTHelper.getBoolean(stack, TAG_ENABLED, false);
 	}
-	
+
 	void setEnabled(ItemStack stack, boolean enabled) {
 		ItemNBTHelper.setBoolean(stack, TAG_ENABLED, enabled);
 	}
