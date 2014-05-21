@@ -1,3 +1,7 @@
+beta 36
+*Added an extra little bit of info to the Terra Shatterer's entry.
+*Fixed the Jaded Amaranthus being able to place flowers in running water, basically creating instant farms.
+*Fixed the Terra Shatterer not breaking blocks when enabled. <i>This is what I get for coding at 1AM.</i>
 beta 35
 *Added a config option to remove block breaking particles.
 *Added some new alchemy recipes - Cocoa Beans in the crop rotation and Wool to String.
