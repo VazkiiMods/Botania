@@ -116,6 +116,7 @@ public final class LexiconData {
 	public static LexiconEntry terrasteelArmor;
 	public static LexiconEntry grassHorn;
 	public static LexiconEntry terraBlade;
+	public static LexiconEntry terraPick;
 
 	public static LexiconEntry baublesIntro;
 	public static LexiconEntry tinyPlanet;
@@ -369,6 +370,9 @@ public final class LexiconData {
 		terraBlade = new BLexiconEntry(LibLexicon.TOOL_TERRA_SWORD, categoryTools);
 		terraBlade.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeTerraSword));
 
+		terraPick = new BLexiconEntry(LibLexicon.TOOL_TERRA_PICK, categoryTools);
+		terraPick.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageText("3"), new PageText("4"), new PageCraftingRecipe("5", ModCrafingRecipes.recipeTerraPick));
+		
 		// BAUBLES ENTRIES
 		baublesIntro = new BLexiconEntry(LibLexicon.BAUBLE_INTRO, categoryBaubles);
 		baublesIntro.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_BAUBLES), new PageText("2"));

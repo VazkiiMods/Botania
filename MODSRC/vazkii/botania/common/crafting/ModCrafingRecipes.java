@@ -115,6 +115,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeWaterRing;
 	public static IRecipe recipeMiningRing;
 	public static IRecipe recipeMagnetRing;
+	public static IRecipe recipeTerraPick;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -626,6 +627,14 @@ public final class ModCrafingRecipes {
 				'M', LibOreDict.MANA_STEEL);
 		recipeMagnetRing = BotaniaAPI.getLatestAddedRecipe();
 
+		// Terra Shatterer Recipe
+		addOreDictRecipe(new ItemStack(ModItems.terraPick), 
+				"ITI", "ILI", " L ",
+				'T', new ItemStack(ModItems.manaTablet, 1, -1),
+				'I', LibOreDict.TERRA_STEEL,
+				'L', LibOreDict.LIVINGWOOD_TWIG);
+		recipeTerraPick = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",

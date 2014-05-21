@@ -45,12 +45,16 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem {
 	private static final String TAG_ENABLED = "enabled";
 	private static final String TAG_MANA = "mana";
 
-	private static final int MAX_MANA = 1000000000;
+	private static final int MAX_MANA = 2000000000;
 
 	private static final Material[] MATERIALS = new Material[] { Material.rock, Material.iron, Material.ice, Material.glass, Material.piston, Material.anvil, Material.grass, Material.ground, Material.sand, Material.snow, Material.craftedSnow, Material.clay };
 
 	private static final int[] LEVELS = new int[] {
 		0, 10000, 1000000, 10000000, 100000000, 1000000000
+	};
+	
+	private static final int[] CREATIVE_MANA = new int[] {
+		10000 - 1, 1000000 - 1, 10000000 - 1, 100000000 - 1, 1000000000 - 1, MAX_MANA
 	};
 
 	IIcon iconTool, iconOverlay;
@@ -61,9 +65,9 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem {
 
 	@Override
 	public void getSubItems(Item item, CreativeTabs tab, List list) {
-		for(int level : LEVELS) {
+		for(int mana : CREATIVE_MANA) {
 			ItemStack stack = new ItemStack(item);
-			setMana(stack, level);
+			setMana(stack, mana);
 			list.add(stack);
 		}
 	}
@@ -80,8 +84,11 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem {
 		int mana = getMana(par1ItemStack);
 		int level = getLevel(par1ItemStack);
 		
-		if(level != 0)
+		if(level != 0) {
 			setEnabled(par1ItemStack, !isEnabled(par1ItemStack));
+			if(!par2World.isRemote)
+				par2World.playSoundAtEntity(par3EntityPlayer, "random.orb", 0.5F, 0.4F);
+		}
 			
 		return par1ItemStack;
 	}
