@@ -17,6 +17,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
@@ -58,6 +59,11 @@ public class ItemManaRing extends ItemBauble implements IManaItem {
 	public int getDisplayDamage(ItemStack stack) {
 		return getDamage(stack);
 	}
+	
+	@Override
+	public int getEntityLifespan(ItemStack itemStack, World world) {
+		return Integer.MAX_VALUE;
+	}
 
 	public static void setMana(ItemStack stack, int mana) {
 		ItemNBTHelper.setInt(stack, TAG_MANA, mana);
@@ -76,6 +82,7 @@ public class ItemManaRing extends ItemBauble implements IManaItem {
 	@Override
 	public void addMana(ItemStack stack, int mana) {
 		setMana(stack, Math.min(getMana(stack) + mana, getMaxMana(stack)));
+		stack.setItemDamage(getDamage(stack));
 	}
 
 	@Override
