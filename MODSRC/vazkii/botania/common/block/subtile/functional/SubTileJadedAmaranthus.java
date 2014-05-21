@@ -12,6 +12,7 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileFunctional;
@@ -38,7 +39,8 @@ public class SubTileJadedAmaranthus extends SubTileFunctional {
 
 			for(int i = 0; i < range * 2; i++) {
 				Block block = supertile.getWorldObj().getBlock(x, y, z);
-				if((block == Blocks.grass || block == Blocks.dirt || block == Blocks.farmland) && (supertile.getWorldObj().isAirBlock(x, y + 1, z) || supertile.getWorldObj().getBlock(x, y + 1, z).isReplaceable(supertile.getWorldObj(), x, y + 1, z))) {
+				Block blockAbove = supertile.getWorldObj().getBlock(x, y + 1, z);
+				if((block == Blocks.grass || block == Blocks.dirt || block == Blocks.farmland) && (supertile.getWorldObj().isAirBlock(x, y + 1, z) || (blockAbove.isReplaceable(supertile.getWorldObj(), x, y + 1, z) && blockAbove.getMaterial() != Material.water))) {
 					int color = supertile.getWorldObj().rand.nextInt(16);
 					if(ModBlocks.flower.canBlockStay(supertile.getWorldObj(), x, y + 1, z)) {
 						if(ConfigHandler.blockBreakParticles)
