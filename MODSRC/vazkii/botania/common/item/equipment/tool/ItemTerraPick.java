@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -92,12 +93,13 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem {
 	@Override
 	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
 		if(isEnabled(par1ItemStack)) {
-			getMana(par1ItemStack);
 			int level = getLevel(par1ItemStack);
 
+			System.out.println(level);
 			if(level == 0)
 				setEnabled(par1ItemStack, false);
-			else addMana(par1ItemStack, -level);
+			else if(par3Entity instanceof EntityPlayer && !((EntityPlayer) par3Entity).isSwingInProgress)
+				addMana(par1ItemStack, -level);
 		}
 	}
 
