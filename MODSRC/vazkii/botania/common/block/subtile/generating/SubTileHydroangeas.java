@@ -45,15 +45,16 @@ public class SubTileHydroangeas extends SubTileGenerating {
 					System.out.println(randomInt);
 					if(randomInt == 0)
 						positions[0] = supertile.xCoord;
-					if(randomInt == 1)
+					else if(randomInt == 1)
 						positions[0] = supertile.xCoord + 1;
-					if(randomInt == 2)
+					else if(randomInt == 2)
 						positions[0] = supertile.xCoord - 1;
+					
 					if(randomInt2 == 0)
 						positions[1] = supertile.zCoord;
-					if(randomInt2 == 1)
+					else if(randomInt2 == 1)
 						positions[1] = supertile.zCoord + 1;
-					if(randomInt2 == 2)
+					else if(randomInt2 == 2)
 						positions[1] = supertile.zCoord - 1;
 
 					if(supertile.getWorldObj().getBlock(positions[0], supertile.yCoord, positions[1]) == getBlockToSearchFor() && supertile.getWorldObj().getBlockMetadata(positions[0], supertile.yCoord, positions[1]) == 0) {
