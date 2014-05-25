@@ -105,4 +105,9 @@ public class ItemManaRing extends ItemBauble implements IManaItem {
 		return true;
 	}
 
+	@Override
+	public boolean isNoExport(ItemStack stack) {
+		return false;
+	}
+
 }

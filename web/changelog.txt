@@ -1,3 +1,7 @@
+beta 37
+*Fixed a crash with the Mana Enchanter with invalid blocks around.
+*Fixed the Band of Mana despawning like normal items.
+*Fixed the Band of Mana not having a damage bar.
 beta 36
 *Added an extra little bit of info to the Terra Shatterer's entry.
 *Fixed the Jaded Amaranthus being able to place flowers in running water, basically creating instant farms.

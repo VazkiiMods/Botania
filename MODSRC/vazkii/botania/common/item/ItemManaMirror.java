@@ -233,4 +233,9 @@ public class ItemManaMirror extends ItemMod implements IManaItem {
 
 	}
 
+	@Override
+	public boolean isNoExport(ItemStack stack) {
+		return false;
+	}
+
 }

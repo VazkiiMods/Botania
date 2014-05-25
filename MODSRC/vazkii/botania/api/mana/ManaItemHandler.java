@@ -34,7 +34,6 @@ public final class ManaItemHandler {
 		IInventory mainInv = player.inventory;
 		IInventory baublesInv = BotaniaAPI.internalHandler.getBaublesInventory(player);
 
-		new ArrayList();
 		int invSize = mainInv.getSizeInventory();
 		int size = invSize;
 		if(baublesInv != null)
@@ -80,7 +79,6 @@ public final class ManaItemHandler {
 		IInventory mainInv = player.inventory;
 		IInventory baublesInv = BotaniaAPI.internalHandler.getBaublesInventory(player);
 
-		new ArrayList();
 		int invSize = mainInv.getSizeInventory();
 		int size = invSize;
 		if(baublesInv != null)
@@ -124,7 +122,6 @@ public final class ManaItemHandler {
 		IInventory mainInv = player.inventory;
 		IInventory baublesInv = BotaniaAPI.internalHandler.getBaublesInventory(player);
 
-		new ArrayList();
 		int invSize = mainInv.getSizeInventory();
 		int size = invSize;
 		if(baublesInv != null)
@@ -175,7 +172,6 @@ public final class ManaItemHandler {
 		IInventory mainInv = player.inventory;
 		IInventory baublesInv = BotaniaAPI.internalHandler.getBaublesInventory(player);
 
-		new ArrayList();
 		int invSize = mainInv.getSizeInventory();
 		int size = invSize;
 		if(baublesInv != null)

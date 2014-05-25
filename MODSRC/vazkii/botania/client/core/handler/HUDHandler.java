@@ -17,6 +17,9 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
@@ -28,10 +31,14 @@ import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.mana.ICreativeManaProvider;
+import vazkii.botania.api.mana.IManaItem;
+import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.item.ModItems;
+import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public final class HUDHandler {
@@ -58,7 +65,75 @@ public final class HUDHandler {
 						drawLexiconGUI(entry, event.resolution);
 				}
 			}
+		} else if(event.type == ElementType.EXPERIENCE) {
+			EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+			int totalMana = 0;
+			int totalMaxMana = 0;
+			boolean anyRequest = false;
+			boolean creative = false;
+
+			IInventory mainInv = player.inventory;
+			IInventory baublesInv = PlayerHandler.getPlayerBaubles(player);
+
+			int invSize = mainInv.getSizeInventory();
+			int size = invSize;
+			if(baublesInv != null)
+				size += baublesInv.getSizeInventory();
+
+			for(int i = 0; i < size; i++) {
+				boolean useBaubles = i >= invSize;
+				IInventory inv = useBaubles ? baublesInv : mainInv;
+				ItemStack stack = inv.getStackInSlot(i - (useBaubles ? invSize : 0));
+				
+				if(stack != null) {
+					Item item = stack.getItem();
+					if(item instanceof IManaUsingItem)
+						anyRequest = anyRequest || ((IManaUsingItem) item).usesMana(stack);
+
+					if(item instanceof IManaItem) {
+						if(!((IManaItem) item).isNoExport(stack)) {
+							totalMana += ((IManaItem) item).getMana(stack);
+							totalMaxMana += ((IManaItem) item).getMaxMana(stack);
+						}
+					}
+					
+					if(item instanceof ICreativeManaProvider && ((ICreativeManaProvider) item).isCreative(stack))
+						creative = true;
+				}
+			}
+			
+			if(anyRequest)
+				renderManaInvBar(event.resolution, creative, totalMana, totalMaxMana);
 		}
+	}
+
+	private void renderManaInvBar(ScaledResolution res, boolean hasCreative, int totalMana, int totalMaxMana) {
+		int width = 182;
+		int x = res.getScaledWidth() / 2 - width / 2;
+		int y = res.getScaledHeight() - 29;
+		
+		if(!hasCreative) {
+			if(totalMaxMana == 0)
+				width = 0;
+			else width *= ((double) totalMana / (double) totalMaxMana);
+		}
+
+		if(width == 0) {
+			if(totalMana > 0)
+				width = 1;
+			else return;
+		}
+		
+		Minecraft mc = Minecraft.getMinecraft();
+
+		Color color = new Color(Color.HSBtoRGB(0.55F, (float) Math.min(1F, Math.sin(System.currentTimeMillis() / 200D) * 0.5 + 1F), 1F));
+		GL11.glColor4ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue(), (byte) (255 - color.getRed()));
+		mc.renderEngine.bindTexture(manaBar);
+		
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		RenderHelper.drawTexturedModalRect(x, y, 0, 0, 251, width, 5);
+		GL11.glDisable(GL11.GL_BLEND);
 	}
 
 	private void drawLexiconGUI(LexiconEntry entry, ScaledResolution res) {

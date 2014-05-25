@@ -58,5 +58,10 @@ public interface IManaItem {
 	 * Can this item export mana to another item?
 	 */
 	public boolean canExportManaToItem(ItemStack stack, ItemStack otherStack);
+	
+	/**
+	 * If this item simply does not export mana in any have, set this to true.
+	 */
+	public boolean isNoExport(ItemStack stack);
 
 }

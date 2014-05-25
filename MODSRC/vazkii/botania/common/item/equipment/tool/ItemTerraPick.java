@@ -95,7 +95,6 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem {
 		if(isEnabled(par1ItemStack)) {
 			int level = getLevel(par1ItemStack);
 
-			System.out.println(level);
 			if(level == 0)
 				setEnabled(par1ItemStack, false);
 			else if(par3Entity instanceof EntityPlayer && !((EntityPlayer) par3Entity).isSwingInProgress)
@@ -220,6 +219,11 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem {
 	@Override
 	public boolean canExportManaToItem(ItemStack stack, ItemStack otherStack) {
 		return false;
+	}
+
+	@Override
+	public boolean isNoExport(ItemStack stack) {
+		return true;
 	}
 
 }
