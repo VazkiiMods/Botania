@@ -193,6 +193,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 
 				if(block == Blocks.piston_extension) {
 					int meta = getBlockMetaAt(s);
+					boolean sticky = (meta & 8) == 8;
 					ForgeDirection dir = ForgeDirection.getOrientation(meta & ~8);
 
 					MinecraftServer server = MinecraftServer.getServer();
@@ -219,7 +220,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 							TileEntity tile = world.getTileEntity(x, y, z);
 							Material mat = srcBlock.getMaterial();
 
-							if(tile == null && mat.getMaterialMobility() == 0 && !srcBlock.isAir(world, x, y, z)) {
+							if(!sticky && tile == null && mat.getMaterialMobility() == 0 && !srcBlock.isAir(world, x, y, z)) {
 								Material destMat = world.getBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ).getMaterial();
 								if(world.isAirBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ) || destMat.isReplaceable()) {
 									world.setBlock(x, y, z, Blocks.air);
