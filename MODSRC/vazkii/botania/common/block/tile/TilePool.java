@@ -146,6 +146,7 @@ public class TilePool extends TileMod implements IManaPool {
 
 		if(craftCooldown > 0)
 			craftCooldown--;
+		
 		List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1));
 		for(EntityItem item : items) {
 			ItemStack stack = item.getEntityItem();
@@ -158,16 +159,20 @@ public class TilePool extends TileMod implements IManaPool {
 						if(getCurrentMana() > 0)
 							didSomething = true;
 
-						int manaVal = Math.min(1000, Math.min(getCurrentMana(), mana.getMaxMana(stack) - mana.getMana(stack)));
-						mana.addMana(stack, manaVal);
-						recieveMana(-manaVal);
+						if(!worldObj.isRemote) {
+							int manaVal = Math.min(1000, Math.min(getCurrentMana(), mana.getMaxMana(stack) - mana.getMana(stack)));
+							mana.addMana(stack, manaVal);
+							recieveMana(-manaVal);
+						}
 					} else {
 						if(mana.getMana(stack) > 0)
 							didSomething = true;
 
-						int manaVal = Math.min(1000, Math.min(MAX_MANA - getCurrentMana(), mana.getMana(stack)));
-						mana.addMana(stack, -manaVal);
-						recieveMana(manaVal);
+						if(!worldObj.isRemote) {
+							int manaVal = Math.min(1000, Math.min(MAX_MANA - getCurrentMana(), mana.getMana(stack)));
+							mana.addMana(stack, -manaVal);
+							recieveMana(manaVal);
+						}
 					}
 
 					if(didSomething) {
