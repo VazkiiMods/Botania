@@ -16,11 +16,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
 
-public class ItemMiningRing extends ItemBauble {
+public class ItemMiningRing extends ItemBauble implements IManaUsingItem {
 
 	public ItemMiningRing() {
 		super(LibItemNames.MINING_RING);
@@ -57,6 +58,11 @@ public class ItemMiningRing extends ItemBauble {
 	@Override
 	public BaubleType getBaubleType(ItemStack arg0) {
 		return BaubleType.RING;
+	}
+
+	@Override
+	public boolean usesMana(ItemStack stack) {
+		return true;
 	}
 
 }

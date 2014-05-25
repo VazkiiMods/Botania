@@ -25,6 +25,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
+import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -35,7 +36,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemManaGun extends ItemMod {
+public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
 	private static final String TAG_LENS = "lens";
 	private static final int COOLDOWN = 30;
@@ -178,5 +179,10 @@ public class ItemManaGun extends ItemMod {
 	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
 		if(par1ItemStack.isItemDamaged())
 			par1ItemStack.setItemDamage(par1ItemStack.getItemDamage() - 1);
+	}
+
+	@Override
+	public boolean usesMana(ItemStack stack) {
+		return true;
 	}
 }

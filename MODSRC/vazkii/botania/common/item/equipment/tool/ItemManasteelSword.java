@@ -20,6 +20,7 @@ import net.minecraft.item.ItemSword;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.BotaniaCreativeTab;
@@ -29,7 +30,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemManasteelSword extends ItemSword {
+public class ItemManasteelSword extends ItemSword implements IManaUsingItem {
 
 	static final int MANA_PER_DAMAGE = 51;
 
@@ -90,6 +91,11 @@ public class ItemManasteelSword extends ItemSword {
 	@Override
 	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
 		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 0 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
+	}
+
+	@Override
+	public boolean usesMana(ItemStack stack) {
+		return true;
 	}
 
 }

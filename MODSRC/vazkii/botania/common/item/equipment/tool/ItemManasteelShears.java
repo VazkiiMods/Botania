@@ -26,6 +26,7 @@ import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraftforge.common.IShearable;
+import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.BotaniaCreativeTab;
@@ -35,7 +36,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemManasteelShears extends ItemShears {
+public class ItemManasteelShears extends ItemShears implements IManaUsingItem {
 
 	private static final int MANA_PER_DAMAGE = 30;
 
@@ -122,5 +123,10 @@ public class ItemManasteelShears extends ItemShears {
 	@Override
 	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
 		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 0 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
+	}
+
+	@Override
+	public boolean usesMana(ItemStack stack) {
+		return true;
 	}
 }

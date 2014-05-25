@@ -23,18 +23,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemTerraformRod extends ItemMod {
+public class ItemTerraformRod extends ItemMod implements IManaUsingItem {
 
 	private static final int COST_PER = 55;
 
-	static final List<Block> validBlocks = new ArrayList() {private static final long serialVersionUID = 1378413169035169782L;
-
-	{
+	static final List<Block> validBlocks = new ArrayList() {{
 		add(Blocks.stone);
 		add(Blocks.dirt);
 		add(Blocks.grass);
@@ -161,6 +160,11 @@ public class ItemTerraformRod extends ItemMod {
 			this.block = block;
 		}
 
+	}
+
+	@Override
+	public boolean usesMana(ItemStack stack) {
+		return true;
 	}
 
 }
