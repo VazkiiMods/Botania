@@ -336,6 +336,7 @@ item.botania:magnetRing.name=Ring of Magnetization
 item.botania:waterRing.name=Ring of Chordata
 item.botania:miningRing.name=Ring of the Mantle
 item.botania:terraPick.name=Terra Shatterer
+item.botania:divaCharm.name=Charm of the Diva
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania Index - Pick which category you would like to study:

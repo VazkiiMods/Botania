@@ -41,38 +41,44 @@ public class SubTileHeiseiDream extends SubTileFunctional {
 			for(IMob mob : mobs) {
 				if(mob instanceof EntityLiving) {
 					EntityLiving entity = (EntityLiving) mob;
-					EntityLivingBase target = entity.getAttackTarget();
-					if(target == null || !(target instanceof IMob)) {
-						IMob newTarget;
-						do newTarget = mobs.get(supertile.getWorldObj().rand.nextInt(mobs.size()));
-						while(newTarget == mob);
+					brainwashEntity(entity, mobs);
 
-						if(newTarget instanceof EntityLivingBase) {
-							entity.setAttackTarget((EntityLivingBase) newTarget);
+					mana -= cost;
+					sync();
+					break;
 
-							List<EntityAITaskEntry> entries = new ArrayList(entity.tasks.taskEntries);
-							entries.addAll(new ArrayList(entity.targetTasks.taskEntries));
-
-							for(EntityAITaskEntry entry : entries)
-								if(entry.action instanceof EntityAINearestAttackableTarget)
-									messWithGetTargetAI((EntityAINearestAttackableTarget) entry.action);
-								else if(entry.action instanceof EntityAIAttackOnCollide)
-									messWithAttackOnCollideAI((EntityAIAttackOnCollide) entry.action);
-
-							mana -= cost;
-							sync();
-							break;
-						}
-					}
 				}
 			}
 	}
 
-	private void messWithGetTargetAI(EntityAINearestAttackableTarget aiEntry) {
-		ReflectionHelper.setPrivateValue(EntityAINearestAttackableTarget.class, aiEntry, IMob.class, LibObfuscation.TARGET_CLASS);
+	public static void brainwashEntity(EntityLiving entity, List<IMob> mobs) {
+		EntityLivingBase target = entity.getAttackTarget();
+		if(target == null || !(target instanceof IMob)) {
+			IMob newTarget;
+			do newTarget = mobs.get(entity.worldObj.rand.nextInt(mobs.size()));
+			while(newTarget == entity);
+
+			if(newTarget instanceof EntityLiving) {
+				entity.setAttackTarget((EntityLiving) newTarget);
+
+				List<EntityAITaskEntry> entries = new ArrayList(entity.tasks.taskEntries);
+				entries.addAll(new ArrayList(entity.targetTasks.taskEntries));
+
+				for(EntityAITaskEntry entry : entries)
+					if(entry.action instanceof EntityAINearestAttackableTarget)
+						messWithGetTargetAI((EntityAINearestAttackableTarget) entry.action, (EntityLiving) newTarget);
+					else if(entry.action instanceof EntityAIAttackOnCollide)
+						messWithAttackOnCollideAI((EntityAIAttackOnCollide) entry.action);
+			}
+		}
 	}
 
-	private void messWithAttackOnCollideAI(EntityAIAttackOnCollide aiEntry) {
+	private static void messWithGetTargetAI(EntityAINearestAttackableTarget aiEntry, EntityLivingBase target) {
+		ReflectionHelper.setPrivateValue(EntityAINearestAttackableTarget.class, aiEntry, IMob.class, LibObfuscation.TARGET_CLASS);
+		ReflectionHelper.setPrivateValue(EntityAINearestAttackableTarget.class, aiEntry, target, LibObfuscation.TARGET_ENTITY);
+	}
+
+	private static void messWithAttackOnCollideAI(EntityAIAttackOnCollide aiEntry) {
 		ReflectionHelper.setPrivateValue(EntityAIAttackOnCollide.class, aiEntry, IMob.class, LibObfuscation.CLASS_TARGET);
 	}
 
