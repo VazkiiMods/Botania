@@ -59,7 +59,7 @@ public class ItemTinyPlanet extends ItemBauble {
 			if(orbitTime == 0)
 				burst.setMinManaLoss(burst.getMinManaLoss() * 3);
 
-			float radius = (Math.max(40, orbitTime) - 40) / 40F + 1.5F;
+			float radius = Math.min(7.5F, (Math.max(40, orbitTime) - 40) / 40F + 1.5F);
 			int angle = orbitTime % 360;
 
 			float xTarget = (float) (x + Math.cos(angle * 10 * Math.PI / 180F) * radius);
