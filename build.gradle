@@ -9,6 +9,11 @@ buildscript {
             name = "sonatype"
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
         }
+        
+//        maven {
+//        	name = "BintrayJCenter"
+//        	url = "us.carrclan.david.gradle:gradle-site-plugin:"
+//        }
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
@@ -16,20 +21,43 @@ buildscript {
 }
 
 apply plugin: 'forge'
+//apply plugin: 'site'
+apply plugin: 'maven'
 
-version = "1.0"
-group= "vazkii.botania" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "modid"
+ext.configFile = file "build.properties"
+
+configFile.withReader {
+    def prop = new Properties()
+    prop.load(it)
+    project.ext.config = new ConfigSlurper().parse prop
+}
+
+ext.remote = file "remote.properties"
+
+remote.withReader {
+	def prop = new Properties()
+	prop.load(it)
+	project.ext.remote = new ConfigSlurper().parse prop
+}
+
+version = "${config.mod_version}.${config.build_number}"
+group= "${config.group}" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "${config.name}"
 
 minecraft {
-    version = "1.7.2-10.12.1.1065"
+    version = "${config.minecraft_version}-${config.forge_version}"
     assetDir = "eclipse/assets"
 }
 
-dependencies {
-	compile files (
-		'libs/Baubles-deobf.jar'
-	)
+sourceSets {
+	main {
+		java {
+			srcDir 'MODSRC'
+		}
+		resources {
+			srcDir 'resources'
+		}
+	}
 }
 
 processResources
@@ -46,14 +74,46 @@ processResources
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
-	
+
 	task deobfJar(type: Jar) {
 		from(sourceSets.main.output)
+		from(sourceSets.main.allSource)
 			classifier = 'deobf'	
-			
+
 	}
-	
+
+	task apiJar(type: Jar) {
+		from (sourceSets.main.allSource) {
+			include "vazkii/botania/api/"
+		}
+
+		classifier = 'api'
+
+	}
+
 	artifacts {
-		archives deobfJar		
-	}   
+		archives deobfJar
+		archives apiJar
+	}
+}
+
+configurations {
+	deployerJars
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	deployerJars "org.apache.maven.wagon:wagon-ftp:2.2"
+}
+
+uploadArchives {
+	repositories.mavenDeployer {
+	configuration = configurations.deployerJars
+		repository(url: "${remote.repo}") {
+			authentication(userName: "${remote.username}", password: "${remote.password}")
+		}
+	}
 }
