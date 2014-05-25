@@ -503,7 +503,7 @@ botania.page.lensDamaging1=Crafting the lens
 
 # -- MANA LENS: PHANTOM
 botania.entry.lensPhantom=Mana Lens: Phantom
-botania.page.lensPhantom0=By utilizing the spacetime continuum tearing properties of the &1Piston Relay&0, it's possible to make a lens that'll allow the &4Mana Burst&0 to pass through blocks. In doing so, the time it can stay without losing mana is decreased.
+botania.page.lensPhantom0=By utilizing the spacetime continuum tearing properties of the &1Force Relay&0, it's possible to make a lens that'll allow the &4Mana Burst&0 to pass through blocks. In doing so, the time it can stay without losing mana is decreased.
 botania.page.lensPhantom1=Crafting the lens
 
 # -- MANA LENS: MAGNETIZING
@@ -676,7 +676,7 @@ botania.page.munchdew1=&oItadakimasu&r!
 # -- FORCE RELAY
 botania.entry.pistonRelay=Force Relay
 botania.page.pistonRelay0=It seems that infusing &1Pistons&0 with &4Mana&0 results in some interesting adverse effects.<br>This block tears the fabric of space, relaying any piston force applied to it to the block it's bound to.
-botania.page.pistonRelay1=To bind it to a block, right click it with a &1Wand of the Forest&0, and right click on the block you want to bind it to.<br>Furthermore, this block is highly unstable, and may create uncanny effects, care is to be taken, it is also resistant to glue.
+botania.page.pistonRelay1=To bind it to a block, right click it with a &1Wand of the Forest&0, and right click on the block you want to bind it to.<br>Furthermore, this block is highly unstable, and may create uncanny effects, care is to be taken, it is also resistant to glue, both in pulling and pushing. This allows for a "frame" like setup.
 botania.page.pistonRelay2=Infusing a &1Piston&0 with &4Mana&0.
 
 # -- MANA PYLON
