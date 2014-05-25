@@ -32,8 +32,6 @@ public class SubTileHydroangeas extends SubTileGenerating {
 
 		boolean didSomething = false;
 
-		System.out.println(burnTime);
-
 		if(burnTime == 0) {
 			if(supertile.getWorldObj().getWorldTime() % 40L == 0)
 				if(mana < getMaxMana() && !supertile.getWorldObj().isRemote) {
@@ -41,8 +39,7 @@ public class SubTileHydroangeas extends SubTileGenerating {
 					int randomInt = random.nextInt(3);
 					int randomInt2 = random.nextInt(3);
 					int randomBoolean = random.nextBoolean() ? 1 : -1;
-					int[] positions = new int[]{supertile.xCoord + randomBoolean, supertile.zCoord + random.nextInt(1)};
-					System.out.println(randomInt);
+					int[] positions = new int[] {supertile.xCoord + randomBoolean, supertile.zCoord + random.nextInt(1) };
 					if(randomInt == 0)
 						positions[0] = supertile.xCoord;
 					else if(randomInt == 1)
