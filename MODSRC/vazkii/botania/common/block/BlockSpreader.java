@@ -28,6 +28,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -35,6 +36,7 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
+import vazkii.botania.api.wand.IWireframeAABBProvider;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.TileSpreader;
@@ -44,7 +46,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class BlockSpreader extends BlockModContainer implements IWandable, IWandHUD, ILexiconable {
+public class BlockSpreader extends BlockModContainer implements IWandable, IWandHUD, ILexiconable, IWireframeAABBProvider {
 
 	Random random;
 
@@ -216,6 +218,12 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		int meta = world.getBlockMetadata(x, y, z);
 		return meta == 0 ? LexiconData.spreader : LexiconData.redstoneSpreader;
+	}
+
+	@Override
+	public AxisAlignedBB getWireframeAABB(World world, int x, int y, int z) {
+		float f = 1F / 16F;
+		return AxisAlignedBB.getBoundingBox(x + f, y + f, z - f, x + 1 - f, y + 1 - f, z + 1 - 3 * f);
 	}
 
 }
