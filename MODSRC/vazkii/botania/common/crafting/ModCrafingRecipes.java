@@ -21,11 +21,14 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.common.block.BlockSpecialFlower;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ItemLens;
 import vazkii.botania.common.item.ItemSignalFlare;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
+import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibOreDict;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -116,6 +119,8 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeMiningRing;
 	public static IRecipe recipeMagnetRing;
 	public static IRecipe recipeTerraPick;
+	public static IRecipe recipeDivaCharm;
+	public static IRecipe recipeFlightTiara;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -635,6 +640,23 @@ public final class ModCrafingRecipes {
 				'L', LibOreDict.LIVINGWOOD_TWIG);
 		recipeTerraPick = BotaniaAPI.getLatestAddedRecipe();
 
+		// Charm of the Diva Recipe
+		addOreDictRecipe(new ItemStack(ModItems.divaCharm), 
+				"LGP", " HG", " GL",
+				'L', LibOreDict.LIFE_ESSENCE,
+				'G', "ingotGold",
+				'H', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_HEISEI_DREAM),
+				'P', new ItemStack(ModItems.tinyPlanet));
+		recipeDivaCharm = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Flugel Tiara Recipe
+		addOreDictRecipe(new ItemStack(ModItems.flightTiara), 
+				"LLL", "ILI", "FIF",
+				'L', LibOreDict.LIFE_ESSENCE,
+				'I', "ingotIron",
+				'F', new ItemStack(Items.feather));
+		recipeFlightTiara = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",

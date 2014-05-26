@@ -878,6 +878,16 @@ botania.entry.magnetRing=Ring of Magnetization
 botania.page.magnetRing0=By turning a &1Magnetizing Lens&0 into a wearable ring, one can use it to magnetize nearby items.<br>While equipped, this ring will make any nearby items magnetize towards the wearer, case they aren't sneaking.
 botania.page.magnetRing1=How do they work?
 
+# -- CHARM OF THE DIVA
+botania.entry.divaCharm=Charm of the Diva
+botania.page.divaCharm0=The &1Charm of the Diva&0 blesses the wearer with the ability to have any attacked mob follow the attacker's will, and, case there are any nearby enemies, go after them instead. This process, of course, requires a bit of &4Mana&0 from the wearer's inventory in order to function.
+botania.page.divaCharm1=You shall not disrespect Big Sister
+
+# -- FLUGEL TIARA
+botania.entry.flightTiara=Flügel Tiara
+botania.page.flightTiara0=The &4Flügel&0 were once a dominant species in the lands, now they're but a race past extinct, once created as godslayers, who possessed the ability of flight.<br>The usage of &1Essence of Eternal Life&0 allows for a small replica of their power, in the form of the &1Flügel Tiara&0, which, at the cost of &4Mana&0 allows for flight.
+botania.page.flightTiara1=Forty thousand books from another world
+
 # - MISCLANEOUS
 # -- UNSTABLE CUBE
 botania.entry.unstableBlocks=Unstable Cubes

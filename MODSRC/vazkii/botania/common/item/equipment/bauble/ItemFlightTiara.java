@@ -18,7 +18,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
 import baubles.common.lib.PlayerHandler;
@@ -26,11 +28,11 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
 
-public class ItemFlightTiara extends ItemBauble {
+public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 	public static List<String> playersWithFlight = new ArrayList();
-	private static final int COST = 20;
-	
+	private static final int COST = 50;
+
 	public ItemFlightTiara() {
 		super(LibItemNames.FLIGHT_TIARA);
 		MinecraftForge.EVENT_BUS.register(this);
@@ -51,8 +53,17 @@ public class ItemFlightTiara extends ItemBauble {
 			if(playersWithFlight.contains(playerStr(player))) {
 				if(shouldPlayerHaveFlight(player)) {
 					player.capabilities.allowFlying = true;
-					if(player.capabilities.isFlying)
-						ManaItemHandler.requestManaExact(armor, player, COST, true);
+					if(player.capabilities.isFlying) {
+						if(!player.worldObj.isRemote)
+							ManaItemHandler.requestManaExact(armor, player, COST, true);
+						else if(Math.abs(player.motionX) > 0.1 || Math.abs(player.motionZ) > 0.1) {
+							double x = event.entityLiving.posX - 0.5;
+							double y = event.entityLiving.posY - 1.7;
+							double z = event.entityLiving.posZ - 0.5;
+							for(int i = 0; i < 3; i++)
+								Botania.proxy.sparkleFX(event.entityLiving.worldObj, x + Math.random() * event.entityLiving.width, y + Math.random() * 0.4, z + Math.random() * event.entityLiving.width, 1F, 1F, 1F, 2F * (float) Math.random(), 20);
+						}
+					}
 				} else {
 					if(!player.capabilities.isCreativeMode) {
 						player.capabilities.allowFlying = false;
@@ -67,7 +78,7 @@ public class ItemFlightTiara extends ItemBauble {
 			}
 		}
 	}
-	
+
 	@SubscribeEvent
 	public void playerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
 		String username = event.player.getGameProfile().getName();
@@ -82,6 +93,11 @@ public class ItemFlightTiara extends ItemBauble {
 	private boolean shouldPlayerHaveFlight(EntityPlayer player) {
 		ItemStack armor = PlayerHandler.getPlayerBaubles(player).getStackInSlot(0);
 		return armor != null && armor.getItem() == this && ManaItemHandler.requestManaExact(armor, player, COST, false);
+	}
+
+	@Override
+	public boolean usesMana(ItemStack stack) {
+		return true;
 	}
 
 

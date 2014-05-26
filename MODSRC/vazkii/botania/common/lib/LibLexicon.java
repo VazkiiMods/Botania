@@ -111,6 +111,8 @@ public final class LibLexicon {
 	public static final String BAUBLE_WATER_RING = "waterRing";
 	public static final String BAUBLE_MINING_RING = "miningRing";
 	public static final String BAUBLE_MAGNET_RING = "magnetRing";
+	public static final String BAUBLE_DIVA_CHARM = "divaCharm";
+	public static final String BAUBLE_FLIGHT_TIARA = "flightTiara";
 
 	public static final String MISC_UNSTABLE_BLOCKS = "unstableBlocks";
 	public static final String MISC_DECORATIVE_BLOCKS = "decorativeBlocks";

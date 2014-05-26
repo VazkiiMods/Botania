@@ -130,6 +130,8 @@ public final class LexiconData {
 	public static LexiconEntry waterRing;
 	public static LexiconEntry miningRing;
 	public static LexiconEntry magnetRing;
+	public static LexiconEntry divaCharm;
+	public static LexiconEntry flightTiara;
 
 	public static LexiconEntry unstableBlocks;
 	public static LexiconEntry decorativeBlocks;
@@ -410,6 +412,12 @@ public final class LexiconData {
 		magnetRing = new BLexiconEntry(LibLexicon.BAUBLE_MAGNET_RING, categoryBaubles);
 		magnetRing.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeMagnetRing));
 
+		divaCharm = new BLexiconEntry(LibLexicon.BAUBLE_DIVA_CHARM, categoryBaubles);
+		divaCharm.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeDivaCharm));
+		
+		flightTiara = new BLexiconEntry(LibLexicon.BAUBLE_FLIGHT_TIARA, categoryBaubles);
+		flightTiara.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeFlightTiara));
+		
 		// MISCLENAEOUS ENTRIES
 		unstableBlocks = new BLexiconEntry(LibLexicon.MISC_UNSTABLE_BLOCKS, categoryMisc);
 		unstableBlocks.setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_UNSTABLE_BLOCK), new PageCraftingRecipe("2", ModCrafingRecipes.recipesUnstableBlocks), new PageText("3"), new PageImage("4", LibResources.ENTRY_UNSTABLE_BEACON), new PageCraftingRecipe("5", ModCrafingRecipes.recipesManaBeacons), new PageText("6"), new PageCraftingRecipe("7", ModCrafingRecipes.recipesSignalFlares));
