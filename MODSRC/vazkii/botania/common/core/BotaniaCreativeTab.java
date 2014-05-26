@@ -108,6 +108,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.lavaPendant);
 		addItem(ModItems.goldLaurel);
 		addItem(ModItems.divaCharm);
+		addItem(ModItems.flightTiara);
 
 		addItem(ModItems.manaTablet);
 		addItem(ModItems.manaMirror);
