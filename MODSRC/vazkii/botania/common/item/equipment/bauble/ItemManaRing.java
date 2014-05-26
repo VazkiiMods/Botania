@@ -59,7 +59,7 @@ public class ItemManaRing extends ItemBauble implements IManaItem {
 	public int getDisplayDamage(ItemStack stack) {
 		return getDamage(stack);
 	}
-	
+
 	@Override
 	public int getEntityLifespan(ItemStack itemStack, World world) {
 		return Integer.MAX_VALUE;

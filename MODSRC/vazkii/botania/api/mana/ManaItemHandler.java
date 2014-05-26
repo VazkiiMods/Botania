@@ -11,8 +11,6 @@
  */
 package vazkii.botania.api.mana;
 
-import java.util.ArrayList;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;

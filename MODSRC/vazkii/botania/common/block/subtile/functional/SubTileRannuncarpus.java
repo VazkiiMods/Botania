@@ -94,7 +94,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 						if(blockToPlace != null) {
 							if(blockToPlace instanceof ISpecialFlower)
 								return;
-							
+
 							ChunkCoordinates coords = validPositions.get(supertile.getWorldObj().rand.nextInt(validPositions.size()));
 							if(blockToPlace.canPlaceBlockAt(supertile.getWorldObj(), coords.posX, coords.posY, coords.posZ)) {
 								supertile.getWorldObj().setBlock(coords.posX, coords.posY, coords.posZ, blockToPlace, stack.getItemDamage(), 1 | 2);

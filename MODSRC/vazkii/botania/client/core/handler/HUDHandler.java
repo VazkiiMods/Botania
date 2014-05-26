@@ -84,7 +84,7 @@ public final class HUDHandler {
 				boolean useBaubles = i >= invSize;
 				IInventory inv = useBaubles ? baublesInv : mainInv;
 				ItemStack stack = inv.getStackInSlot(i - (useBaubles ? invSize : 0));
-				
+
 				if(stack != null) {
 					Item item = stack.getItem();
 					if(item instanceof IManaUsingItem)
@@ -96,12 +96,12 @@ public final class HUDHandler {
 							totalMaxMana += ((IManaItem) item).getMaxMana(stack);
 						}
 					}
-					
+
 					if(item instanceof ICreativeManaProvider && ((ICreativeManaProvider) item).isCreative(stack))
 						creative = true;
 				}
 			}
-			
+
 			if(anyRequest)
 				renderManaInvBar(event.resolution, creative, totalMana, totalMaxMana);
 		}
@@ -111,11 +111,11 @@ public final class HUDHandler {
 		int width = 182;
 		int x = res.getScaledWidth() / 2 - width / 2;
 		int y = res.getScaledHeight() - 29;
-		
+
 		if(!hasCreative) {
 			if(totalMaxMana == 0)
 				width = 0;
-			else width *= ((double) totalMana / (double) totalMaxMana);
+			else width *= (double) totalMana / (double) totalMaxMana;
 		}
 
 		if(width == 0) {
@@ -123,13 +123,13 @@ public final class HUDHandler {
 				width = 1;
 			else return;
 		}
-		
+
 		Minecraft mc = Minecraft.getMinecraft();
 
 		Color color = new Color(Color.HSBtoRGB(0.55F, (float) Math.min(1F, Math.sin(System.currentTimeMillis() / 200D) * 0.5 + 1F), 1F));
 		GL11.glColor4ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue(), (byte) (255 - color.getRed()));
 		mc.renderEngine.bindTexture(manaBar);
-		
+
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		RenderHelper.drawTexturedModalRect(x, y, 0, 0, 251, width, 5);

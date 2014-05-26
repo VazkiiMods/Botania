@@ -11,6 +11,8 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
@@ -18,8 +20,6 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lexicon.LexiconData;
-
-import java.util.Random;
 
 public class SubTileHydroangeas extends SubTileGenerating {
 
@@ -46,7 +46,7 @@ public class SubTileHydroangeas extends SubTileGenerating {
 						positions[0] = supertile.xCoord + 1;
 					else if(randomInt == 2)
 						positions[0] = supertile.xCoord - 1;
-					
+
 					if(randomInt2 == 0)
 						positions[1] = supertile.zCoord;
 					else if(randomInt2 == 1)

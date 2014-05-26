@@ -21,7 +21,6 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.block.BlockSpecialFlower;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ItemLens;
 import vazkii.botania.common.item.ItemSignalFlare;
@@ -641,22 +640,22 @@ public final class ModCrafingRecipes {
 		recipeTerraPick = BotaniaAPI.getLatestAddedRecipe();
 
 		// Charm of the Diva Recipe
-		addOreDictRecipe(new ItemStack(ModItems.divaCharm), 
+		addOreDictRecipe(new ItemStack(ModItems.divaCharm),
 				"LGP", " HG", " GL",
 				'L', LibOreDict.LIFE_ESSENCE,
 				'G', "ingotGold",
 				'H', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_HEISEI_DREAM),
 				'P', new ItemStack(ModItems.tinyPlanet));
 		recipeDivaCharm = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Flugel Tiara Recipe
-		addOreDictRecipe(new ItemStack(ModItems.flightTiara), 
+		addOreDictRecipe(new ItemStack(ModItems.flightTiara),
 				"LLL", "ILI", "FIF",
 				'L', LibOreDict.LIFE_ESSENCE,
 				'I', "ingotIron",
 				'F', new ItemStack(Items.feather));
 		recipeFlightTiara = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",

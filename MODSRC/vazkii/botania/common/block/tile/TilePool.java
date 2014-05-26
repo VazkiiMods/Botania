@@ -146,7 +146,7 @@ public class TilePool extends TileMod implements IManaPool {
 
 		if(craftCooldown > 0)
 			craftCooldown--;
-		
+
 		List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1));
 		for(EntityItem item : items) {
 			ItemStack stack = item.getEntityItem();

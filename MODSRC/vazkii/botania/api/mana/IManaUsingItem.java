@@ -20,7 +20,7 @@ import net.minecraft.item.ItemStack;
  * this interface, a mana bar will be rendered.
  */
 public interface IManaUsingItem {
-	
+
 	public boolean usesMana(ItemStack stack);
 
 }

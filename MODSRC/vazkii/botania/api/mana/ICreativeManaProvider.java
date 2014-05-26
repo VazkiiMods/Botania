@@ -14,12 +14,12 @@ package vazkii.botania.api.mana;
 import net.minecraft.item.ItemStack;
 
 /**
- * Have an item implement this to flag it as an infinite 
+ * Have an item implement this to flag it as an infinite
  * mana source for the purposes of the HUD rendered when
  * an IManaUserItem implementing item is present.
  */
 public interface ICreativeManaProvider {
-	
+
 	public boolean isCreative(ItemStack stack);
 
 }
