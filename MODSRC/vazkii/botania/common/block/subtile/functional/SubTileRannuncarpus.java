@@ -30,6 +30,7 @@ import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -90,8 +91,10 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 							blockToPlace = ((ItemBlock) stackItem).field_150939_a;
 						else if(stackItem instanceof ItemReed)
 							blockToPlace = ReflectionHelper.getPrivateValue(ItemReed.class, (ItemReed) stackItem, LibObfuscation.REED_ITEM);
-
 						if(blockToPlace != null) {
+							if(blockToPlace instanceof ISpecialFlower)
+								return;
+							
 							ChunkCoordinates coords = validPositions.get(supertile.getWorldObj().rand.nextInt(validPositions.size()));
 							if(blockToPlace.canPlaceBlockAt(supertile.getWorldObj(), coords.posX, coords.posY, coords.posZ)) {
 								supertile.getWorldObj().setBlock(coords.posX, coords.posY, coords.posZ, blockToPlace, stack.getItemDamage(), 1 | 2);
