@@ -143,8 +143,11 @@ public class ItemManaMirror extends ItemMod implements IManaItem {
 	@Override
 	public void addMana(ItemStack stack, int mana) {
 		IManaPool pool = getManaPool(stack);
-		if(pool != null)
+		if(pool != null) {
 			pool.recieveMana(mana);
+			TileEntity tile = (TileEntity) pool;
+			tile.getWorldObj().func_147453_f(tile.xCoord, tile.yCoord, tile.zCoord, tile.getWorldObj().getBlock(tile.xCoord, tile.yCoord, tile.zCoord));
+		}
 	}
 
 	public void bindPool(ItemStack stack, TileEntity pool) {
