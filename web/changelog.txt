@@ -1,3 +1,18 @@
+beta 38
+*Added a Mana Bar display above the XP bar when there's items in the inventory that use mana.
+*Added two new Baubles, the Charm of the Diva and the Flügel Tiara.
+*Changed how Hydroangeas pick water, it's more random over a set pattern now. (Pokefenn)
+*Fixed a mana dupe regarding mana storing items.
+*Fixed pages in the Lexica Botania not showing stack sizes.
+*Fixed the Mana Mirror not updating the pool properly in the client side.
+*Fixed the Terra Shatterer having a debug print.
+*Force Relays will not push the block they're bound to if pushed by a sticky piston. Remote Controlled Frames anybody?
+*The Rannuncarpus will no longer place technical flowers at all, it was placing them as the placeholder.
+*The Terra Shatterer can no longer receive mana from bands of aura.
+*The Tiny Planet now has a limit on how far it can orbit bursts.
+*Tweaked the wireframe bounding box of the spreader when a flower bound to it is hovered with a wand.
+*[API] Added IManaUser and IManaCreativeItem.
+*[API] Added isNoExport(ItemStack) to IManaItem
 beta 37
 *Fixed a crash with the Mana Enchanter with invalid blocks around.
 *Fixed the Band of Mana despawning like normal items.
