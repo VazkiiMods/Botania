@@ -60,8 +60,9 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 							double x = event.entityLiving.posX - 0.5;
 							double y = event.entityLiving.posY - 1.7;
 							double z = event.entityLiving.posZ - 0.5;
+							float pink = player.getGameProfile().getName().equals("Vazkii") ? (float) Math.random() * 0.75F + 0.25F : 0F;
 							for(int i = 0; i < 3; i++)
-								Botania.proxy.sparkleFX(event.entityLiving.worldObj, x + Math.random() * event.entityLiving.width, y + Math.random() * 0.4, z + Math.random() * event.entityLiving.width, 1F, 1F, 1F, 2F * (float) Math.random(), 20);
+								Botania.proxy.sparkleFX(event.entityLiving.worldObj, x + Math.random() * event.entityLiving.width, y + Math.random() * 0.4, z + Math.random() * event.entityLiving.width, 1F,  1F - pink, 1F, 2F * (float) Math.random(), 20);
 						}
 					}
 				} else {
@@ -76,6 +77,8 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 				playersWithFlight.add(playerStr(player));
 				player.capabilities.allowFlying = true;
 			}
+			
+			if(player.capabilities.isFlying) {
 		}
 	}
 
