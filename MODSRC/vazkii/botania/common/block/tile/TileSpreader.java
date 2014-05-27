@@ -118,12 +118,14 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			TileEntity tileAt = worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ);
 			if(tileAt instanceof IManaPool) {
 				IManaPool pool = (IManaPool) tileAt;
-				int manaInPool = pool.getCurrentMana();
-				if(manaInPool > 0 && !isFull()) {
-					int manaMissing = MAX_MANA - mana;
-					int manaToRemove = Math.min(manaInPool, manaMissing);
-					pool.recieveMana(-manaToRemove);
-					recieveMana(manaToRemove);
+				if(pool != receiver) {
+					int manaInPool = pool.getCurrentMana();
+					if(manaInPool > 0 && !isFull()) {
+						int manaMissing = MAX_MANA - mana;
+						int manaToRemove = Math.min(manaInPool, manaMissing);
+						pool.recieveMana(-manaToRemove);
+						recieveMana(manaToRemove);
+					}
 				}
 			}
 
