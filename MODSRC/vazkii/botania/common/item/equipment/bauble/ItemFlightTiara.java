@@ -77,8 +77,6 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 				playersWithFlight.add(playerStr(player));
 				player.capabilities.allowFlying = true;
 			}
-			
-			if(player.capabilities.isFlying) {
 		}
 	}
 
