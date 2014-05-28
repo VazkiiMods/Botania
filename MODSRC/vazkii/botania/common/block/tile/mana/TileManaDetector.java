@@ -9,11 +9,12 @@
  * 
  * File Created @ [Mar 10, 2014, 7:55:12 PM (GMT)]
  */
-package vazkii.botania.common.block.tile;
+package vazkii.botania.common.block.tile.mana;
 
 import net.minecraft.util.AxisAlignedBB;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaCollisionGhost;
+import vazkii.botania.common.block.tile.TileMod;
 
 public class TileManaDetector extends TileMod implements IManaCollisionGhost {
 

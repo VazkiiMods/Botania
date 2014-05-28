@@ -25,7 +25,7 @@ import vazkii.botania.api.mana.ILens;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelSpreader;
 import vazkii.botania.client.render.item.RenderLens;
-import vazkii.botania.common.block.tile.TileSpreader;
+import vazkii.botania.common.block.tile.mana.TileSpreader;
 
 public class RenderTileSpreader extends TileEntitySpecialRenderer {
 

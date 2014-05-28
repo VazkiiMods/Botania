@@ -28,7 +28,7 @@ import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
-import vazkii.botania.common.block.tile.TileManaDetector;
+import vazkii.botania.common.block.tile.mana.TileManaDetector;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 

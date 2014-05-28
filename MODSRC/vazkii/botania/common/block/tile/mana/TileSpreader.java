@@ -9,7 +9,7 @@
  * 
  * File Created @ [Jan 25, 2014, 9:40:57 PM (GMT)]
  */
-package vazkii.botania.common.block.tile;
+package vazkii.botania.common.block.tile.mana;
 
 import java.util.List;
 
@@ -45,6 +45,7 @@ import vazkii.botania.api.wand.ITileBound;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.entity.EntityManaBurst.PositionProperties;

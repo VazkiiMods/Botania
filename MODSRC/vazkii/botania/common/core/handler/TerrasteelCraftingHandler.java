@@ -22,7 +22,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.block.tile.TilePool;
+import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
 

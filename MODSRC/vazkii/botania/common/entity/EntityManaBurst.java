@@ -39,7 +39,7 @@ import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.block.tile.TileSpreader;
+import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
 

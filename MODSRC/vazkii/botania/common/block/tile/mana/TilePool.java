@@ -9,7 +9,7 @@
  * 
  * File Created @ [Jan 26, 2014, 12:23:55 AM (GMT)]
  */
-package vazkii.botania.common.block.tile;
+package vazkii.botania.common.block.tile.mana;
 
 import java.awt.Color;
 import java.util.List;
@@ -37,6 +37,7 @@ import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.tile.TileMod;
 
 public class TilePool extends TileMod implements IManaPool {
 

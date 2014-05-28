@@ -9,9 +9,10 @@
  * 
  * File Created @ [Mar 5, 2014, 12:59:27 AM (GMT)]
  */
-package vazkii.botania.common.block.tile;
+package vazkii.botania.common.block.tile.mana;
 
 import vazkii.botania.api.mana.IManaReceiver;
+import vazkii.botania.common.block.tile.TileMod;
 
 public class TileManaVoid extends TileMod implements IManaReceiver {
 

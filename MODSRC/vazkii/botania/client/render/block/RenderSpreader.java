@@ -19,7 +19,7 @@ import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.lib.LibRenderIDs;
-import vazkii.botania.common.block.tile.TileSpreader;
+import vazkii.botania.common.block.tile.mana.TileSpreader;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class RenderSpreader implements ISimpleBlockRenderingHandler {

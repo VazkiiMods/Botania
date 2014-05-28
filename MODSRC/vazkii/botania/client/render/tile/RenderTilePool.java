@@ -27,7 +27,7 @@ import org.lwjgl.opengl.GL12;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelPool;
-import vazkii.botania.common.block.tile.TilePool;
+import vazkii.botania.common.block.tile.mana.TilePool;
 
 public class RenderTilePool extends TileEntitySpecialRenderer {
 

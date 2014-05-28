@@ -9,7 +9,7 @@
  * 
  * File Created @ [Mar 16, 2014, 10:15:05 PM (GMT)]
  */
-package vazkii.botania.common.block.tile;
+package vazkii.botania.common.block.tile.mana;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -21,6 +21,8 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
+
+import vazkii.botania.common.block.tile.TileMod;
 
 public class TileTurntable extends TileMod {
 
