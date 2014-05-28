@@ -242,6 +242,11 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 			Botania.proxy.sparkleFX(worldObj, xCoord + 0.5 + Math.random() * 0.4 - 0.2, yCoord + 1, zCoord + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
 		}
 	}
+	
+	@Override
+	public AxisAlignedBB getRenderBoundingBox() {
+		return INFINITE_EXTENT_AABB;
+	}
 
 	@Override
 	public int getCurrentMana() {

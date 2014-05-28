@@ -36,7 +36,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 	int manaToGet = 0;
 	int mana = 0;
 	int cooldown = 0;
-	
+
 	public boolean addItem(EntityPlayer player, ItemStack stack) {
 		if(cooldown > 0 || stack.getItem() == ModItems.twigWand || stack.getItem() == ModItems.lexicon || manaToGet != 0)
 			return false;
@@ -92,7 +92,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 				Botania.proxy.lightningFX(worldObj, vec, endVec, 2F, 0x00948B, 0x00E4D7);
 			}
 		}
-		
+
 		if(cooldown > 0) {
 			cooldown--;
 			Botania.proxy.wispFX(getWorldObj(), xCoord + Math.random(), yCoord + 0.8, zCoord + Math.random(), 0.2F, 0.2F, 0.2F, 0.2F, -0.025F);
@@ -195,6 +195,11 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 		return 16;
 	}
 
+	@Override
+	public AxisAlignedBB getRenderBoundingBox() {
+		return INFINITE_EXTENT_AABB;
+	}
+	
 	@Override
 	public String getInventoryName() {
 		return LibBlockNames.RUNE_ALTAR;
