@@ -1,3 +1,7 @@
+beta 39
+*Added pink.
+*I'm literally hitler.
+*Mana Spreaders will no longer fire into the pool they're bound to.
 beta 38
 *Added a Mana Bar display above the XP bar when there's items in the inventory that use mana.
 *Added two new Baubles, the Charm of the Diva and the Flügel Tiara.
