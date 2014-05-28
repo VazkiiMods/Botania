@@ -35,9 +35,15 @@ public class RecipeManaInfusion {
 
 		if(input instanceof String) {
 			List<ItemStack> validStacks = OreDictionary.getOres((String) input);
-			for(ItemStack stack_ : validStacks)
-				if(stack.isItemEqual(stack_))
+
+			for(ItemStack ostack : validStacks) {
+				ItemStack cstack = ostack.copy();
+				if(cstack.getItemDamage() == Short.MAX_VALUE)
+					cstack.setItemDamage(stack.getItemDamage());
+
+				if(stack.isItemEqual(cstack))
 					return true;
+			}
 		}
 
 		return false;
