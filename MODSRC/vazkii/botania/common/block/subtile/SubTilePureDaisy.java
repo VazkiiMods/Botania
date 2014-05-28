@@ -61,8 +61,8 @@ public class SubTilePureDaisy extends SubTileEntity {
 		if(block != Blocks.air) {
 			Item item = Item.getItemFromBlock(block);
 			if(item != null) {
-				String oredict = OreDictionary.getOreName(OreDictionary.getOreID(new ItemStack(item, 1, supertile.getWorldObj().getBlockMetadata(coords.posX, coords.posY, coords.posZ))));
-				Block output = oredict.equals("stone") ? ModBlocks.livingrock : oredict.endsWith("logWood") ? ModBlocks.livingwood : null;
+				ItemStack stack = new ItemStack(item, 1, supertile.getWorldObj().getBlockMetadata(coords.posX, coords.posY, coords.posZ));
+				Block output = isOreDict(stack, "stone") ? ModBlocks.livingrock : isOreDict(stack, "logWood") ? ModBlocks.livingwood : null;
 				if(output != null) {
 					ticksRemaining[positionAt] = ticksRemaining[positionAt] - 1;
 
@@ -85,6 +85,19 @@ public class SubTilePureDaisy extends SubTileEntity {
 				} else ticksRemaining[positionAt] = 200;
 			}
 		}
+	}
+	
+	private boolean isOreDict(ItemStack stack, String entry) {
+		for(ItemStack ostack : OreDictionary.getOres(entry)) {
+			ItemStack cstack = ostack.copy();
+			if(cstack.getItemDamage() == Short.MAX_VALUE)
+				cstack.setItemDamage(stack.getItemDamage());
+
+			if(stack.isItemEqual(cstack))
+				return true;
+		}
+
+		return false;
 	}
 
 	@Override
