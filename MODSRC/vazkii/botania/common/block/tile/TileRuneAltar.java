@@ -35,9 +35,10 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 
 	int manaToGet = 0;
 	int mana = 0;
-
+	int cooldown = 0;
+	
 	public boolean addItem(EntityPlayer player, ItemStack stack) {
-		if(stack.getItem() == ModItems.twigWand || stack.getItem() == ModItems.lexicon || manaToGet != 0)
+		if(cooldown > 0 || stack.getItem() == ModItems.twigWand || stack.getItem() == ModItems.lexicon || manaToGet != 0)
 			return false;
 
 		boolean did = false;
@@ -91,6 +92,12 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 				Botania.proxy.lightningFX(worldObj, vec, endVec, 2F, 0x00948B, 0x00E4D7);
 			}
 		}
+		
+		if(cooldown > 0) {
+			cooldown--;
+			Botania.proxy.wispFX(getWorldObj(), xCoord + Math.random(), yCoord + 0.8, zCoord + Math.random(), 0.2F, 0.2F, 0.2F, 0.2F, -0.025F);
+		}
+
 	}
 
 	public void updateRecipe() {
@@ -139,6 +146,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 					ItemStack output = recipe.getOutput().copy();
 					EntityItem outputItem = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, output);
 					worldObj.spawnEntityInWorld(outputItem);
+					cooldown = 60;
 				}
 
 				for(int i = 0; i < getSizeInventory(); i++)
