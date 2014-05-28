@@ -69,6 +69,10 @@ public final class TerrasteelCraftingHandler {
 	}
 
 	static int validateCraftingItem(EntityItem item) {
+		ItemStack estack = item.getEntityItem();
+		if(estack.stackSize != 1)
+			return -1;
+		
 		int x = MathHelper.floor_double(item.posX);
 		int y = MathHelper.floor_double(item.posY);
 		int z = MathHelper.floor_double(item.posZ);
@@ -90,7 +94,7 @@ public final class TerrasteelCraftingHandler {
 				continue;
 
 			ItemStack stack = otherItem.getEntityItem();
-			if(stack.getItem() == ModItems.manaResource) {
+			if(stack.getItem() == ModItems.manaResource && stack.stackSize == 1) {
 				int meta = stack.getItemDamage();
 				if(meta == 1) {
 					if(pearl == null) {
@@ -139,7 +143,7 @@ public final class TerrasteelCraftingHandler {
 			double g = Math.sin(wticks * Math.PI / 180 * 0.55);
 
 			for(int i = 0; i < totalSpiritCount; i++) {
-				double x = (int) item.posX + Math.sin(wticks * Math.PI / 180) * r - 0.5;
+				double x = (int) item.posX + Math.sin(wticks * Math.PI / 180) * r + 0.5;
 				double y = (int) item.posY + 0.25;
 				double z = (int) item.posZ + Math.cos(wticks * Math.PI / 180) * r + 0.5;
 
