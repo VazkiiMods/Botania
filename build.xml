@@ -16,6 +16,7 @@
 			<entry key="build_number" type="int" operation="+" default="1"/>
 		</propertyfile>
 		<concat destfile="${build.dir.repo}\web\versions.ini" append="true" fixlastline="true">${line.separator}${build.version}-${build.build_number}=${build.mc_version}</concat>
+		<echo file="${build.dir.repo}\versioning\${build.mc_version}.txt">${build.build_number}</echo>
 	</target>
 
 	<target name="prep">
