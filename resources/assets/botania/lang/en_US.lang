@@ -196,6 +196,8 @@ tile.botania:flower.pollidisiac.name=Pollidisiac
 tile.botania:flower.pollidisiac.reference=Birds and bees
 tile.botania:flower.clayconia.name=Clayconia
 tile.botania:flower.clayconia.reference=Rupees not included
+tile.botania:flower.loonium.name=Loonium
+tile.botania:flower.loonium.reference=Hold it up above your head
 
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania

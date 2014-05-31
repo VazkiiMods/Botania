@@ -66,4 +66,5 @@ public final class LibBlockNames {
 	public static final String SUBTILE_HYACIDUS = "hyacidus";
 	public static final String SUBTILE_POLLIDISIAC = "pollidisiac";
 	public static final String SUBTILE_CLAYCONIA = "clayconia";
+	public static final String SUBTILE_LOONIUM = "loonium";
 }
