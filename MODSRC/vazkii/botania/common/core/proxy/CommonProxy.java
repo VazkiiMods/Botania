@@ -28,6 +28,7 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.InternalMethodHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.core.version.CommandDownloadLatest;
 import vazkii.botania.common.crafting.ModCrafingRecipes;
 import vazkii.botania.common.crafting.ModManaAlchemyRecipes;
 import vazkii.botania.common.crafting.ModManaInfusionRecipes;
@@ -42,6 +43,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 
 public class CommonProxy {
@@ -82,6 +84,10 @@ public class CommonProxy {
 				recipes.remove(recipe);
 				break;
 			}
+	}
+	
+	public void serverStarting(FMLServerStartingEvent event) {
+		event.registerServerCommand(new CommandDownloadLatest());
 	}
 
 	public void setEntryToOpen(LexiconEntry entry) {

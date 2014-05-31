@@ -12,6 +12,12 @@
 package vazkii.botania.common.core.version;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.ChatStyle;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.IChatComponent;
+import net.minecraft.util.StatCollector;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
@@ -23,6 +29,9 @@ public final class VersionChecker {
 	public static String onlineVersion = "";
 	public static boolean triedToWarnPlayer = false;
 	
+	public static boolean startedDownload = false;
+	public static boolean downloadedFile = false;
+	
 	public void init() {
 		new ThreadVersionChecker();
 		FMLCommonHandler.instance().bus().register(this);
@@ -32,7 +41,16 @@ public final class VersionChecker {
 	public void onTick(ClientTickEvent event) {
 		if(doneChecking && event.phase == Phase.END && Minecraft.getMinecraft().thePlayer != null && !triedToWarnPlayer) {
 			if(!onlineVersion.isEmpty()) {
-				// TODO
+				EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+				int onlineBuild = Integer.parseInt(onlineVersion.split("-")[1]);
+				int clientBuild = 39;//LibMisc.BUILD.contains("ANT") ? Integer.MAX_VALUE : Integer.parseInt(LibMisc.BUILD); TODO
+				if(onlineBuild > clientBuild) {
+					player.addChatComponentMessage(new ChatComponentTranslation("botania.versioning.flavour" + player.worldObj.rand.nextInt(16)).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.LIGHT_PURPLE)));
+					player.addChatComponentMessage(new ChatComponentTranslation("botania.versioning.outdated", clientBuild, onlineBuild));
+				
+					IChatComponent component = IChatComponent.Serializer.func_150699_a(StatCollector.translateToLocal("botania.versioning.updateMessage").replaceAll("%version%", onlineVersion));
+					player.addChatComponentMessage(component);
+				}
 			}
 			
 			triedToWarnPlayer = true;

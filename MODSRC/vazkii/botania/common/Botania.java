@@ -23,6 +23,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLMissingMappingsEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 
 @Mod(modid = LibMisc.MOD_ID, name = LibMisc.MOD_NAME, version = LibMisc.VERSION, dependencies = LibMisc.DEPENDENCIES)
@@ -50,10 +51,15 @@ public class Botania {
 	}
 
 	@EventHandler
+	public void serverStarting(FMLServerStartingEvent event) {
+		proxy.serverStarting(event);
+	}
+	
+	@EventHandler
 	public void serverStopping(FMLServerStoppingEvent event) {
 		ManaNetworkHandler.instance.clear();
 	}
-
+	
 	@EventHandler
 	public void missingMappings(FMLMissingMappingsEvent event) {
 		AliasHandler.onMissingMappings(event);

@@ -54,7 +54,29 @@ botania.rank4=&dS
 botania.rank5=&6SS
 
 # -- VERSION CHECKING
-botania.versioning.doneDownloading=Finished downloading file: %s, took %i seconds. Reload your game to update.
+botania.versioning.flavour0=NANI SORE!? BOTANIA IS OUTDATED!?
+botania.versioning.flavour1=What do you mean Botania is outdated, you ignorant fool?
+botania.versioning.flavour2=It's not like Botania wants to be outdated, b-b-BAKA!
+botania.versioning.flavour3=Beam me up Scotty. We got a new Botania version.
+botania.versioning.flavour4=The Botania update asks if you have you accepted Vazkii as your lord and saviour.
+botania.versioning.flavour5=Hey, a Botania update, that's rare, isn't it?
+botania.versioning.flavour6=What does the scouter say about the Botania update?
+botania.versioning.flavour7=Oi mate, there's a new Botania update. Why am I australian?
+botania.versioning.flavour8=Because having a life is too mainstream, here's a Botania update.
+botania.versioning.flavour9=Thank you based Botania update.
+botania.versioning.flavour10=Two hundred updates, that's why they call me Mister Fahrenheit.
+botania.versioning.flavour11=Perry the Platypus, I present to you, Botania-update-inator.
+botania.versioning.flavour12=Botania updated. #hoennconfirmed
+botania.versioning.flavour13=You activated my Trap Card! I play Botania Update!
+botania.versioning.flavour14=Let's play a drinking game. have a drink every time Botania updates.
+botania.versioning.flavour15=Pay no attention to the Botania update behind the curtain.
+botania.versioning.outdated=You are running Botania build %s, the latest is build %s.
+botania.versioning.updateMessage=["Click for... [",{"text":"Download","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Click this to automatically download the latest version","color":"green"}},"clickEvent":{"action":"run_command","value":"/botania-download-latest %version%"}},"] [",{"text":"Website","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Click this to go to the mod's website","color":"green"}},"clickEvent":{"action":"open_url","value":"http://vazkii.us/mod/Botania/downloads.php"}},"] [",{"text":"Changelog","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Click this to go to the version's Changelog","color":"green"}},"clickEvent":{"action":"open_url","value":"http://vazkii.us/mod/Botania/changelog.php#%version%"}},"]"]
+botania.versioning.startingDownload=Starting download of %s. Please do not remove your hard disk.
+botania.versioning.doneDownloading=Finished downloading %s. Reload your game to update.
+botania.versioning.downloadedAlready=You already downloaded the latest version. Reload your game to update.
+botania.versioning.downloadingAlready=The update is already downloading, give it some time, will you?
+botania.versioning.error=Woah! It seems like something went wrong while trying to download the Botania update. Check your FML log for more info.
 
 # BAUBLE TOOLTIPS
 botania.baubletype.amulet=Equippable in the &aAmulet&7 slot
