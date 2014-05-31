@@ -58,6 +58,11 @@ public class BlockStorage extends BlockMod implements ILexiconable {
 		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
 		return super.setBlockName(par1Str);
 	}
+	
+	@Override
+	public int damageDropped(int meta) {
+		return meta;
+	}
 
 	@Override
 	protected boolean shouldRegisterInNameSet() {

@@ -16,7 +16,9 @@ import java.util.Random;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.ChestGenHooks;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileLoonuim extends SubTileFunctional {
 	
@@ -39,6 +41,16 @@ public class SubTileLoonuim extends SubTileFunctional {
 			mana -= COST;
 			sync();
 		}
+	}
+	
+	@Override
+	public int getColor() {
+		return 0x274A00;
+	}
+	
+	@Override
+	public LexiconEntry getEntry() {
+		return LexiconData.loonium;
 	}
 	
 	@Override
