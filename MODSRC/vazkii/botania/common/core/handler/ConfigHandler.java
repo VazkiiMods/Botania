@@ -31,6 +31,7 @@ public final class ConfigHandler {
 	public static boolean blockBreakParticles = true;
 	public static boolean blockBreakParticlesTool = true;
 
+	public static boolean versionCheckEnabled = true;
 	public static int spreaderPositionShift = 1;
 
 	public static int flowerQuantity = 3;
@@ -72,6 +73,9 @@ public final class ConfigHandler {
 		desc = "Set to false to remove the block breaking particles from the Mana Shatterer, as there can be a good amount in higher levels.";
 		blockBreakParticlesTool = loadPropBool("blockBreakingParticlesTool.enabled", desc, blockBreakParticlesTool);
 
+		desc = "Set to false to disable checking and alerting when new Botania versions come out.";
+		versionCheckEnabled = loadPropBool("versionChecking.enabled", desc, versionCheckEnabled);
+		
 		desc = "Do not ever touch this value if not asked to. Possible symptoms of doing so include your head turning backwards, the appearance of Titans near the walls or you being trapped in a game of Sword Art Online.";
 		spreaderPositionShift = loadPropInt("spreader.posShift", desc, spreaderPositionShift);
 
