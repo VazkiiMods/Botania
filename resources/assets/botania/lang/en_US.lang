@@ -633,6 +633,11 @@ botania.entry.clayconia=Clayconia
 botania.page.clayconia0=The &1Clayconia&0 is a simple flower, in essence. All it does is moisten nearby &1Sand&0, turning it into &1Clay&0, this process uses a decent amount of &4Mana&0, but nothing too insane.
 botania.page.clayconia1=&oWhat a killer joke&r.
 
+# -- LOONIUM
+botania.entry.loonium=Loonium
+botania.page.loonium0=Any weary adventurer knows that &4Dungeons&0 can hold valuable goodies. The &1Loonium&0 can, at the use of an extreme amount of &4Mana&0, materialize these items and drop them in the nearby vacinity.
+botania.page.loonium1=&oTank Tank Heal Tank&r!
+
 # - GENERATING FLOWERS
 # -- AN INTRODUCTION TO GENERATION
 botania.entry.gIntro=An Introduction to Generation

@@ -89,6 +89,7 @@ public final class LexiconData {
 	public static LexiconEntry hyacidus;
 	public static LexiconEntry pollidisiac;
 	public static LexiconEntry clayconia;
+	public static LexiconEntry loonium;
 
 	public static LexiconEntry generatingIntro;
 	public static LexiconEntry daybloom;
@@ -288,6 +289,9 @@ public final class LexiconData {
 		clayconia = new BLexiconEntry(LibLexicon.FFLOWER_CLAYCONIA, categoryFunctionalFlowers);
 		clayconia.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.clayconiaRecipe));
 
+		loonium = new BLexiconEntry(LibLexicon.FFLOWER_LOONIUM, categoryFunctionalFlowers);
+		loonium.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.looniumRecipe));
+		
 		// GENERATING FLOWERS ENTRIES
 		generatingIntro = new BLexiconEntry(LibLexicon.GFLOWER_INTRO, categoryGenerationFlowers);
 		generatingIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"));

@@ -70,6 +70,7 @@ public final class LibLexicon {
 	public static final String FFLOWER_HYACIDUS = "hyacidus";
 	public static final String FFLOWER_POLLIDISIAC = "pollidisiac";
 	public static final String FFLOWER_CLAYCONIA = "clayconia";
+	public static final String FFLOWER_LOONIUM = "loonium";
 
 	public static final String GFLOWER_INTRO = "gIntro";
 	public static final String GFLOWER_DAYBLOOM = "daybloom";
