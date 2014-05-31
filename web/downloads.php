@@ -33,7 +33,7 @@
 							$cl_button_type = 'btn-sm';
 														
 							$file_version = substr($file, strlen('Botania '));
-							$version_name = substr($file_version, 0, strlen($file_version) - strlen('.jar'));
+							$version_name = str_replace('.', '-', substr($file_version, 0, strlen($file_version) - strlen('.jar')));
 							$mc_version = $versions[$version_name];
 							
 							$dls_txt = 'Downloads';

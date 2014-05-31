@@ -16,6 +16,9 @@
 		<li id="header-btn-home" class="header-btn"><a href="./index.php">Home</a></li>
 		<li id="header-btn-downloads" class="header-btn"><a href="./downloads.php">Downloads</a></li>
 		<li id="header-btn-changelog" class="header-btn"><a href="./changelog.php">Changelog</a></li>
+		<li id="header-btn-faq" class="header-btn"><a href="./faq.php">FAQ</a></li>
+		<li id="header-btn-credits" class="header-btn"><a href="./credits.php">Credits</a></li>
+		<li id="header-btn-back" class="header-btn"><a href="http://vazkii.us">Back to vazkii.us</a></li>
 	  </ul>
 	</div>
   </div>

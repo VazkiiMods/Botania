@@ -1,3 +1,12 @@
+beta 40
+*Fixed crafting Terrasteel with more than one item at once using up all of them.
+*Fixed incorrect particle positions for Terrasteel crafting.
+*Fixed the Agricarnation trying to fertilize wood blocks (Fences for example).
+*Fixed the Ring of Chordata disconnecting players in SMP.
+*Fixed the Runic Altar and Mana Enchanter not rendering at some angles.
+*Reworked the ore dictionary check for petal and rune recipes, should fix them not working with some mods.
+*Reworked the ore dictionary check for the Pure Daisy, petal and rune, should fix it not working with some mods.
+*The Runic Altar now has a cooldown, this should prevent newly crafted runes getting stuck in it.
 beta 39
 *Added pink.
 *I'm literally hitler.
