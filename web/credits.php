@@ -16,6 +16,8 @@
 				<b>Auric245524</b> for the armor textures.<br>
 				<b>Azanor</b> for letting me use his particles from Thaumcraft and for making the Baubles API.<br>
 				<b>ChickenBones</b> for the lightning effects from WRCBE.<br>
+				<b>cpw and Player</b> for help with some internals.<br>
+				<b>dylan4ever</b> for a bunch of texture work.<br>
 				<b>Flaxbeard</b> for texture work when dylan isn't available.<br>
 				<b>Haighyorkie</b> for being a goldfish and always being supportive with making videos to show off the mod.<br>
 				<b>Le_Alchemist</b> for providing many hours of shameless fun.<br>
@@ -24,8 +26,6 @@
 				<b>Pokefenn</b> for the Hydroangeas and breaking all the things, every single time.<br>
 				<b>Rorax</b> for the Pylon model.<br>
 				<b>The TConstruct and OpenBlocks teams</b> for code snippets I took from their repositories<br>
-				<b>cpw and Player</b> for help with some internals.<br>
-				<b>dylan4ever</b> for a bunch of texture work.<br>
 				<b>wiiv</b> for the old Pylon model and the Terra Blade texture.<br>
 			</div>
 		</div>
