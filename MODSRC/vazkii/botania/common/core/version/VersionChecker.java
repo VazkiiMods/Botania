@@ -18,6 +18,7 @@ import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.StatCollector;
+import vazkii.botania.common.lib.LibMisc;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
@@ -43,7 +44,7 @@ public final class VersionChecker {
 			if(!onlineVersion.isEmpty()) {
 				EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 				int onlineBuild = Integer.parseInt(onlineVersion.split("-")[1]);
-				int clientBuild = 39;//LibMisc.BUILD.contains("ANT") ? Integer.MAX_VALUE : Integer.parseInt(LibMisc.BUILD); TODO
+				int clientBuild = LibMisc.BUILD.contains("ANT") ? Integer.MAX_VALUE : Integer.parseInt(LibMisc.BUILD);
 				if(onlineBuild > clientBuild) {
 					player.addChatComponentMessage(new ChatComponentTranslation("botania.versioning.flavour" + player.worldObj.rand.nextInt(16)).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.LIGHT_PURPLE)));
 					player.addChatComponentMessage(new ChatComponentTranslation("botania.versioning.outdated", clientBuild, onlineBuild));

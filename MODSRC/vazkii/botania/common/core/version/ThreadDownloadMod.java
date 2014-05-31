@@ -24,9 +24,6 @@ import net.minecraft.util.EnumChatFormatting;
 import vazkii.botania.common.Botania;
 import cpw.mods.fml.common.FMLCommonHandler;
 
-/**
- * @author Vazkii, TheWhiteWolves
- */
 public class ThreadDownloadMod extends Thread {
 
 	String fileName;
