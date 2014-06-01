@@ -3,19 +3,6 @@
 
 	<property file="build.properties" prefix="build"/>
 	<property file="ftp.properties" prefix="ftp"/>
-
-	<macrodef name="git">
-		<attribute name="command" />
-		<attribute name="dir" default="" />
-		<element name="args" optional="true" />
-		<sequential>
-			<echo message="git @{command}" />
-			<exec executable="git" dir="@{dir}">
-				<arg value="@{command}" />
-				<args/>
-			</exec>
-		</sequential>
-	</macrodef>
 	
 	<target name="clean">
 		<delete dir="${build.dir.gradle}\build\classes\main" />
@@ -85,20 +72,6 @@
 			<fileset file="${build.dir.repo}web/versions.ini" />
 		</ftp>
 	</target>
-
-	<target name="commit_build">
-		<git command="add">
-			<args>
-				<arg value="." />
-			</args>
-		</git>
-		<git command="commit">
-			<args>
-				<arg value="-am Build ${build.build_number}" />
-			</args>
-		</git>
-		<git command="push" />
-	</target>
 	
 	<target name="deploy_website">
 		<ftp action="send" server="${ftp.host}" remotedir="/${build.mod_name}" userid="${ftp.user}" password="${ftp.pass}" verbose="yes" depends="yes">
@@ -113,8 +86,7 @@
 		<antcall target="gradle_build" />
 		<antcall target="inject_assets" />
 		<antcall target="increment_build_number" />
-		<antcall target="upload" />
 		<antcall target="clean" />
-		<antcall target="commit_build" />
+		<antcall target="upload" />
 	</target>
 </project>
