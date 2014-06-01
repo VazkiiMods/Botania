@@ -52,7 +52,7 @@ public class ThreadDownloadMod extends Thread {
 
 			VersionChecker.startedDownload = true;
 			
-			String domain = "localhost/xampp";
+			String domain = "vazkii.us"; // "localhost/xampp";
 			String base = "http://" + domain + "/mod/Botania/";
 			String file = fileName.replaceAll(" ", "%20");
 			URL url = new URL(base + "dl.php?file=" + file);
