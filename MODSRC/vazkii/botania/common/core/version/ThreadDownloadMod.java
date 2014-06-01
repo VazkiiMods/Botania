@@ -11,6 +11,7 @@
  */
 package vazkii.botania.common.core.version;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -51,7 +52,7 @@ public class ThreadDownloadMod extends Thread {
 
 			VersionChecker.startedDownload = true;
 			
-			String domain = "vazkii.us"; // "localhost/xampp";
+			String domain = "localhost/xampp";
 			String base = "http://" + domain + "/mod/Botania/";
 			String file = fileName.replaceAll(" ", "%20");
 			URL url = new URL(base + "dl.php?file=" + file);
@@ -63,14 +64,9 @@ public class ThreadDownloadMod extends Thread {
 			url = new URL(base + "files/" + file);
 			webReader = url.openStream();
 
-
 			File dir = new File(".", "mods");
 			File f = new File(dir, fileName);
 			f.createNewFile();
-
-			File botaniaFile = FMLCommonHandler.instance().findContainerFor(Botania.instance).getSource();
-			if(!botaniaFile.isDirectory())
-				botaniaFile.deleteOnExit();
 
 			FileOutputStream outputStream = new FileOutputStream(f.getAbsolutePath());
 
@@ -83,6 +79,7 @@ public class ThreadDownloadMod extends Thread {
 			if(Minecraft.getMinecraft().thePlayer != null) 
 				Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentTranslation("botania.versioning.doneDownloading", fileName).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.GREEN)));
 
+			Desktop.getDesktop().open(dir);
 			VersionChecker.downloadedFile = true;
 
 			outputStream.close();
