@@ -21,6 +21,9 @@
 				<b>There's too many flowers! How do I lower the amount?</b><br>
 				I like how many flowers there are by default, so I'm not changing that. You can lower the frequency (how often they spawn) and the density (how many spawn at once for each "patch") in the config.<br><br>
 				
+				<b>My Mana Pool's Mana isn't changing, I got a few Dayblooms producing and the bar doesn't move, what's wrong?</b><br>
+				The Mana Pool holds a lot of mana. Dayblooms produce a very little amount of it, so you probably won't even notice the difference in the bar. Go get some better flowers like Endoflames.<br><br>
+				
 				<b>I found a bug, how do I report it?</b><br>
 				I made a <a href="http://vazkii.us/br101/">website</a> to teach people how to report bugs, read what's on there and then go report it on the <a href="https://github.com/Vazkii/Botania/issues">issue tracker</a>.<br><br>
 				
