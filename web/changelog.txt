@@ -4,7 +4,7 @@ r1.0 41
 *Botania now features the best version checker ever (tm), it can be disabled in the config, it lets you download the mod from inside the game, it even removes your old one so all you need to do is restart the game and you have it updated. It also comes with cool flavour messages.
 *Fixed terrasteel blocks dropping manasteel blocks.
 *Nerfed the thermalily, a lot. Go get creative and not rely on lava power now.
-*<i>The mod is finally out of Beta! Rejoice!</b>
+*<i>The mod is finally out of Beta! Rejoice!</i>
 beta 40
 *Fixed crafting Terrasteel with more than one item at once using up all of them.
 *Fixed incorrect particle positions for Terrasteel crafting.
