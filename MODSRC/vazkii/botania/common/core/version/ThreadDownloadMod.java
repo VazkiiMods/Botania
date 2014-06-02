@@ -61,6 +61,7 @@ public class ThreadDownloadMod extends Thread {
 				url.openStream(); // Add to DL Counter
 			} catch(IOException e) { }
 
+			sleep(2000);
 			url = new URL(base + "files/" + file);
 			webReader = url.openStream();
 

@@ -76,7 +76,7 @@ botania.versioning.startingDownload=Starting download of %s. Please do not remov
 botania.versioning.doneDownloading=Finished downloading %s. Reload your game to update.
 botania.versioning.downloadedAlready=You already downloaded the latest version. Close your game, delete the old version from your mods folder and load it again to update!
 botania.versioning.downloadingAlready=The update is already downloading, give it some time, will you?
-botania.versioning.error=Woah! It seems like something went wrong while trying to download the Botania update. Check your FML log for more info.
+botania.versioning.error=Woah! It seems like something went wrong while trying to download the Botania update. Is vazkii.us down?
 
 # BAUBLE TOOLTIPS
 botania.baubletype.amulet=Equippable in the &aAmulet&7 slot
