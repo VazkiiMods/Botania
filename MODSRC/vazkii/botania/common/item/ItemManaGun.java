@@ -62,7 +62,12 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 					if(!par2World.isRemote) {
 						par2World.playSoundAtEntity(par3EntityPlayer, "random.explode", 0.9F, 3F);
 						par2World.spawnEntityInWorld(burst);
-					} else par3EntityPlayer.swingItem();
+					} else {
+						par3EntityPlayer.swingItem();
+						par3EntityPlayer.motionX -= burst.motionX * 0.1;
+						par3EntityPlayer.motionY -= burst.motionY * 0.3;
+						par3EntityPlayer.motionZ -= burst.motionZ * 0.1;
+					}
 					par1ItemStack.setItemDamage(COOLDOWN);
 				} else if(!par2World.isRemote)
 					par2World.playSoundAtEntity(par3EntityPlayer, "random.click", 0.6F, (1.0F + (par2World.rand.nextFloat() - par2World.rand.nextFloat()) * 0.2F) * 0.7F);
