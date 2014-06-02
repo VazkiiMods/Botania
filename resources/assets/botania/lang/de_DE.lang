@@ -24,6 +24,7 @@ botaniamisc.filter2=Alle Items aufsammeln
 botaniamisc.creativePool0=Kreatives Manabecken, hat unendlich Mana
 botaniamisc.creativePool1=Eines Egoisten würdig
 botaniamisc.savedByLaurel=Dein goldener Lorbeerkranz zersplitterte, als er dich vor dem Tod rettete.
+botaniamisc.toolRank=%s&7-Rang
 
 # COLORS
 botania.color0=Weiß
@@ -43,6 +44,39 @@ botania.color13=Grün
 botania.color14=Rot
 botania.color15=Schwarz
 botania.color16=Regenbogenfarben
+
+# -- RANKS
+botania.rank0=&cD
+botania.rank1=&eC
+botania.rank2=&bB
+botania.rank3=&aA
+botania.rank4=&dS
+botania.rank5=&6SS
+
+# -- VERSION CHECKING
+botania.versioning.flavour0=WAS ZUM!? BOTANIA IST NICHT AKTUALISIERT!?
+botania.versioning.flavour1=Willst dur mir weismachen, dass du Botania noch nicht aktualisiert hast, du ignoranter Trottel?
+botania.versioning.flavour2=Als würde Botania wollen, nicht aktualiert zu werden!
+botania.versioning.flavour3=Beam mich hoch, Scotty. Wir haben eine neue Botania-Version.
+botania.versioning.flavour4=Das Botania-Update fragt, of du Vazkii als deinen Herren und Erlöser akzeptiert hast.
+botania.versioning.flavour5=Hey, ein Botania-Update, welch ein seltener Anblick, stimmt's?
+botania.versioning.flavour6=Du wirst es nicht glauben, aber hier ist es: Ein neues Botania-Update!
+botania.versioning.flavour7=Ach ja, noch ein neues Botania-Update. Wunderbar.
+botania.versioning.flavour8=Ein Leben zu haben ist zu Mainstream, hier hast du ein Botania-Update.
+botania.versioning.flavour9=Hey! Rate mal, was ich für dich habe! Richtig, ein Botania-Update!
+botania.versioning.flavour10=Two hundred updates, that's why they call me Mister Fahrenheit.
+botania.versioning.flavour11=Perry das Schnabeltier, ich präsentiere dir: Den Botania-Update-inator!
+botania.versioning.flavour12=Botania hat ein Update. #hoennconfirmed
+botania.versioning.flavour13=Du hast meine Fallenkarte aktiviert! Ich spiele das Botania-Update!
+botania.versioning.flavour14=Wie wäre es mit 'nem Trinkspiel: Für jedes Mal, wenn Botania ein Update hat, trink einen.
+botania.versioning.flavour15=Ein Botania-Update? Das halte ich für ein Gerücht.
+botania.versioning.outdated=Du verwendest Botania Build %s, der neueste ist Build %s.
+botania.versioning.updateMessage=["Klicken für... [",{"text":"Download","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Klicke hierauf, um automatisch die neueste Version herunterzuladen","color":"green"}},"clickEvent":{"action":"run_command","value":"/botania-download-latest %version%"}},"] [",{"text":"Website","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Klicke hierauf, um zur Website der Mod zu gelangen","color":"green"}},"clickEvent":{"action":"open_url","value":"http://vazkii.us/mod/Botania/downloads.php"}},"] [",{"text":"Changelog","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Klicke hierauf, um zum Changelog der Version zu gelangen","color":"green"}},"clickEvent":{"action":"open_url","value":"http://vazkii.us/mod/Botania/changelog.php#%version%"}},"]"]
+botania.versioning.startingDownload=Starte Download von %s. Bitte entferne deine Festplatte nicht.
+botania.versioning.doneDownloading=Download von %s beendet. Starte das Spiel neu, um zu updaten.
+botania.versioning.downloadedAlready=Du hast bereits die neueste Version installiert. Schließe das Spiel, lösche die alte Konfigurationsdatei aus deinem Mods-Ordner und lade das Spiel neu, um zu updaten!
+botania.versioning.downloadingAlready=Das Update wird bereits heruntergeladen, gib ihm etwas Zeit, okay?
+botania.versioning.error=Woah! Anscheinend ist etwas schiefgelaufen, während das Botania-Update heruntergeladen wurde. Prüfe deine FML-Logdatei für mehr Informationen.
 
 # BAUBLE TOOLTIPS
 botania.baubletype.amulet=Ausrüstbar im &aAmulett&7-Slot
@@ -187,6 +221,8 @@ tile.botania:flower.pollidisiac.name=Pollidisie
 tile.botania:flower.pollidisiac.reference=Immer nur das Eine
 tile.botania:flower.clayconia.name=Helehmie
 tile.botania:flower.clayconia.reference=Welch eine Wonne
+tile.botania:flower.loonium.name=Beutner
+tile.botania:flower.loonium.reference=Ich bin reich!
 
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania
@@ -326,6 +362,9 @@ item.botania:redstoneRoot.name=Redstone-Wurzel
 item.botania:magnetRing.name=Ring des Magnetismus
 item.botania:waterRing.name=Ring der Ozeane
 item.botania:miningRing.name=Ring des Erdmantels
+item.botania:terraPick.name=Terra-Brecher
+item.botania:divaCharm.name=Talisman der Diva
+item.botania:flightTiara.name=Flügel-Tiara
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania Index - Wähle, welche Kategorie du studieren möchtest:
@@ -619,6 +658,11 @@ botania.entry.clayconia=Helehmie
 botania.page.clayconia0=The &1Clayconia&0 is a simple flower, in essence. All it does is moisten nearby &1Sand&0, turning it into &1Clay&0, this process uses a decent amount of &4Mana&0, but nothing too insane.
 botania.page.clayconia1=&oWhat a killer joke&r.
 
+# -- LOONIUM
+botania.entry.loonium=Beutner
+botania.page.loonium0=Any weary adventurer knows that &4Dungeons&0 can hold valuable goodies. The &1Loonium&0 can, at the use of an extreme amount of &4Mana&0, materialize these items and drop them in the nearby vacinity.
+botania.page.loonium1=&oTank Tank Heal Tank&r!
+
 # - GENERATING FLOWERS
 # -- AN INTRODUCTION TO GENERATION
 botania.entry.gIntro=Eine Einführung in Generierung
@@ -711,9 +755,10 @@ botania.page.manaAlchemy12=Reinigung von &1Giftigen Kartoffeln&0
 botania.page.manaAlchemy13=Beschwörung von &1Netherwarzen&0
 botania.page.manaAlchemy14=Verwandlung zwischen &1Schwarzpulver&0 und &1Feuerstein&0
 botania.page.manaAlchemy15=Herstellung von &1Namensschildern&0
-botania.page.manaAlchemy16=Kreation von &1Enderperlen&0
-botania.page.manaAlchemy17=Verwandlung zwischen &1Glowstone&0 und &1Redstone&0
-botania.page.manaAlchemy18=Zersetzung von &1Pflasterstein&0 zu &1Sand&0
+botania.page.manaAlchemy16=Teilung von &1Wolle&0 in &1Fäden&0
+botania.page.manaAlchemy17=Kreation von &1Enderperlen&0
+botania.page.manaAlchemy18=Verwandlung zwischen &1Glowstone&0 und &1Redstone&0
+botania.page.manaAlchemy19=Zersetzung von &1Pflasterstein&0 zu &1Sand&0
 
 # -- EYE OF THE ANCIENTS
 botania.entry.forestEye=Auge der Ältesten
@@ -791,6 +836,15 @@ botania.entry.terraSword=Terraklinge
 botania.page.terraSword0=The &1Terra Blade&0, crafted from &1Terrasteel Ingots&0, is a sword infused with natural strength. Not only does it par with a &1Diamond Sword&0 in terms of strength and it uses &4Mana&0 from the inventory like &1Manasteel Tools&0, but when it's swinged, there's a chance for it to create a beam that will deal as much damage as a melee hit.
 botania.page.terraSword1=No Broken Hero Sword
 
+# -- TERRA SHATTERER
+botania.entry.terraPick=Terra-Brecher
+botania.page.terraPick0=The &1Terra Shatterer&0 is a tool that can amass insane quantities of mana on itself, due to the amount of &1Terrasteel&0 required for it's creation.<br>The tool functions very much like a &1Mana Tablet&0 by which it can amass &4Mana&0 by being tossed on a &1Mana Pool&0, it can't give the &4Mana&0 back, though, so it doesn't function as a storage method.
+botania.page.terraPick1=The amount of &4Mana&0 stored on the tool defines it's &4Rank&0. Ranks go as follows: &4D&0, &4C&0, &4B&0, &4A&0, &4S&0, &4SS&0. &4D&0 being the default rank.<br>The amount of &4Mana&0 required to advance from rank to rank increases as the rank does. To advance from &4D&0 to &4C&0, for example, it requires just a few seconds of exposition to a &1Mana Pool&0.
+botania.page.terraPick2=To advance from rank &4C&0 to rank &4B&0, a full &1Mana Pool&0 is required, and the cost increases by a tenfold per rank from there on in, all the way to &4SS&0.<br>The rank of the tool does not change it's speed, but instead, it increases the power of it's &4Active Ability&0.<br>Toggling the tool's ability can be done via right click.
+botania.page.terraPick3=While the tool is active, it enables it to break blocks in an extended area. At rank &4C&0 it's a small column, which increases to a square at rank &4B&0, that gets larger trough the ranks. It's to note that the rank &4D&0 tool does not have the active ability.<br>Having the tool active consumes &4Mana&0 from it's storage passively, even if not being used to mine.
+botania.page.terraPick4=Lastly, the tool takes damage for every single block broken, so a good supply of &4Mana&0 in the wielder's inventory is a must for the higher ranks, as the tool does function like normal &1Manasteel Tools&0, in which it'll use &4Mana&0 instead of actually taking damage, given it's made of &1Terrasteel&0.<br>It also won't despawn like regular dropped items.
+botania.page.terraPick5=Stronger than a Gastrea
+
 # - BAUBLES
 # -- AN INTRODUCTION TO BAUBLES
 botania.entry.bIntro=Eine Einführung in Accessoires
@@ -855,6 +909,16 @@ botania.page.miningRing1=Diggy diggy hole
 botania.entry.magnetRing=Ring des Magnetismus
 botania.page.magnetRing0=By turning a &1Magnetizing Lens&0 into a wearable ring, one can use it to magnetize nearby items.<br>While equipped, this ring will make any nearby items magnetize towards the wearer, case they aren't sneaking.
 botania.page.magnetRing1=How do they work?
+
+# -- CHARM OF THE DIVA
+botania.entry.divaCharm=Talisman der Diva
+botania.page.divaCharm0=The &1Charm of the Diva&0 blesses the wearer with the ability to have any attacked mob follow the attacker's will, and, case there are any nearby enemies, go after them instead. This process, of course, requires a bit of &4Mana&0 from the wearer's inventory in order to function.
+botania.page.divaCharm1=You shall not disrespect Big Sister
+
+# -- FLUGEL TIARA
+botania.entry.flightTiara=Flügel-Tiara
+botania.page.flightTiara0=The &4Flügel&0 were once a dominant species in the lands, now they're but a race past extinct, once created as godslayers, who possessed the ability of flight.<br>The usage of &1Essence of Eternal Life&0 allows for a small replica of their power, in the form of the &1Flügel Tiara&0, which, at the cost of &4Mana&0 allows for flight.
+botania.page.flightTiara1=Forty thousand books from another world
 
 # - MISCLANEOUS
 # -- UNSTABLE CUBE
