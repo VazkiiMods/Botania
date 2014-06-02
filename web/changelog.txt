@@ -1,3 +1,6 @@
+r1.0 43
+*Fixed the auto downloader blocking your IP from my website for an hour instead of downloading a file because of a stupid coding mistake.
+*<i>I'm an insufferable twat that should die off in a pit. I hate everything.</i>
 r1.0 42
 *Added a slimeball alchemy recipe.
 *Added Glimmering Flowers, which are basically normal flowers but shiny.
