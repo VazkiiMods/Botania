@@ -91,6 +91,7 @@ public final class ModBlocks {
 	public static Block forestEye;
 	public static Block storage;
 	public static Block forestDrum;
+	public static Block shinyFlower;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -116,6 +117,7 @@ public final class ModBlocks {
 		forestEye = new BlockForestEye();
 		storage = new BlockStorage();
 		forestDrum = new BlockForestDrum();
+		shinyFlower = new BlockShinyFlower();
 
 		for(int i = 0; i < 16; i++)
 			OreDictionary.registerOre(LibOreDict.FLOWER[i], new ItemStack(flower, 1, i));

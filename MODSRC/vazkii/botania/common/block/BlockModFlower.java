@@ -43,14 +43,19 @@ public class BlockModFlower extends BlockFlower implements ILexiconable {
 	public static IIcon[] icons;
 
 	protected BlockModFlower() {
+		this(LibBlockNames.FLOWER);
+	}
+	
+	protected BlockModFlower(String name) {
 		super(0);
-		setBlockName(LibBlockNames.FLOWER);
+		setBlockName(name);
 		setHardness(0F);
 		setStepSound(soundTypeGrass);
 		setBlockBounds(0.3F, 0.0F, 0.3F, 0.8F, 1, 0.8F);
 		setTickRandomly(true);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 	}
+
 
 	@Override
 	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {

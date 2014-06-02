@@ -137,6 +137,7 @@ public final class LexiconData {
 	public static LexiconEntry unstableBlocks;
 	public static LexiconEntry decorativeBlocks;
 	public static LexiconEntry dispenserTweaks;
+	public static LexiconEntry shinyFlowers;
 
 	public static void init() {
 		BotaniaAPI.addCategory(categoryBasics = new LexiconCategory(LibLexicon.CATEGORY_BASICS));
@@ -432,5 +433,8 @@ public final class LexiconData {
 
 		dispenserTweaks = new BLexiconEntry(LibLexicon.MISC_DISPENSER_TWEAKS, categoryMisc);
 		dispenserTweaks.setLexiconPages(new PageText("0"));
+		
+		shinyFlowers = new BLexiconEntry(LibLexicon.MISC_SHINY_FLOWERS, categoryMisc);
+		shinyFlowers.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipesShinyFlowers));
 	}
 }

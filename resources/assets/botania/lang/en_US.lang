@@ -165,6 +165,22 @@ tile.botania:forestEye.name=Eye of the Ancients
 tile.botania:storage0.name=Block of Manasteel
 tile.botania:storage1.name=Block of Terrasteel
 tile.botania:forestDrum.name=Drum of the Wild
+tile.botania:shinyFlower0.name=Glimmering White Flower
+tile.botania:shinyFlower1.name=Glimmering Orange Flower
+tile.botania:shinyFlower2.name=Glimmering Magenta Flower
+tile.botania:shinyFlower3.name=Glimmering Light Blue Flower
+tile.botania:shinyFlower4.name=Glimmering Yellow Flower
+tile.botania:shinyFlower5.name=Glimmering Lime Flower
+tile.botania:shinyFlower6.name=Glimmering Pink Flower
+tile.botania:shinyFlower7.name=Glimmering Gray Flower
+tile.botania:shinyFlower8.name=Glimmering Light Gray Flower
+tile.botania:shinyFlower9.name=Glimmering Cyan Flower
+tile.botania:shinyFlower10.name=Glimmering Purple Flower
+tile.botania:shinyFlower11.name=Glimmering Blue Flower
+tile.botania:shinyFlower12.name=Glimmering Brown Flower
+tile.botania:shinyFlower13.name=Glimmering Green Flower
+tile.botania:shinyFlower14.name=Glimmering Red Flower
+tile.botania:shinyFlower15.name=Glimmering Black Flower
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
@@ -949,3 +965,8 @@ botania.page.decorativeBlocks9=Glimmering livingwood
 # -- DISPENSER TWEAKS
 botania.entry.dispenserTweaks=Dispenser Tweaks
 botania.page.dispenserTweaks0=&1Dispensers&0, among their normal abilities, can also plant all sorts of crops, from &1Seeds&0, &1Potatos&0 or &1Carrots&0 to even &1Nether Wart&0. The crop is planted in the block right in front of the dispenser.<br>The &1Dispensers&0 can also use the &1Wand of the Forest&0 for some specific tasks such as triggering a &1Runic Altar&0.
+
+# -- GLIMMERING FLOWERS
+botania.entry.shinyFlowers=Glimmering Flowers
+botania.page.shinyFlowers0=By combining your typical &1Mystical Flowers&0 with some &1Glowstone Dust&0, you can make them sparkle even brighter, and emit actual physical light, of the same brightness as a &1Glowstone Block&0.
+botania.page.shinyFlowers1=Pretty Pretty Shiny Shiny

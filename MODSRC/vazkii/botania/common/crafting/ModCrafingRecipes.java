@@ -11,6 +11,7 @@
  */
 package vazkii.botania.common.crafting;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.init.Blocks;
@@ -120,6 +121,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeTerraPick;
 	public static IRecipe recipeDivaCharm;
 	public static IRecipe recipeFlightTiara;
+	public static List<IRecipe> recipesShinyFlowers;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -656,6 +658,11 @@ public final class ModCrafingRecipes {
 				'F', new ItemStack(Items.feather));
 		recipeFlightTiara = BotaniaAPI.getLatestAddedRecipe();
 
+		// Glimmering Flowers Recipes
+		for(int i = 0; i < 16; i++)
+			addShapelessOreDictRecipe(new ItemStack(ModBlocks.shinyFlower, 1, i), new ItemStack(Items.glowstone_dust), new ItemStack(Items.glowstone_dust), LibOreDict.FLOWER[i]);
+		recipesShinyFlowers = BotaniaAPI.getLatestAddedRecipes(16);
+		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",
