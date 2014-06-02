@@ -644,7 +644,7 @@ public final class ModCrafingRecipes {
 				"LGP", " HG", " GL",
 				'L', LibOreDict.LIFE_ESSENCE,
 				'G', "ingotGold",
-				'H', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_HEISEI_DREAM),
+				'H', LibOreDict.RUNE[15],
 				'P', new ItemStack(ModItems.tinyPlanet));
 		recipeDivaCharm = BotaniaAPI.getLatestAddedRecipe();
 
