@@ -1,3 +1,9 @@
+r1.0 42
+*Added a slimeball alchemy recipe.
+*Added Glimmering Flowers, which are basically normal flowers but shiny.
+*Changed the recipes for the Loonium and the Charm of the Diva. Particularly, the last one was able to be crafted with any flower.
+*Special (non-worldgen) flowers now won't break in one click.
+*The Mana Blaster now gives some recoil. <i>such real much next gen very dakka wow</i>
 r1.0 41
 *Added a new functional flower, the Loonium.
 *Anything with "seed" in it's name is now useable in the Petal Apothecary.
