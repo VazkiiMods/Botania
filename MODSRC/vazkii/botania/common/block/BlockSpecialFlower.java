@@ -89,7 +89,7 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 	protected BlockSpecialFlower() {
 		super(0);
 		setBlockName(LibBlockNames.SPECIAL_FLOWER);
-		setHardness(0F);
+		setHardness(0.1F);
 		setStepSound(soundTypeGrass);
 		setTickRandomly(true);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
