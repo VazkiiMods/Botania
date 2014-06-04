@@ -19,6 +19,8 @@ import net.minecraft.util.EnumChatFormatting;
 
 public class CommandDownloadLatest extends CommandBase {
 
+	private static final boolean ENABLED = false;
+	
 	@Override
 	public String getCommandName() {
 		return "botania-download-latest";
@@ -31,7 +33,10 @@ public class CommandDownloadLatest extends CommandBase {
 
 	@Override
 	public void processCommand(ICommandSender var1, String[] var2) {
-		if(var2.length == 1)
+		if(!ENABLED)
+			var1.addChatMessage(new ChatComponentTranslation("botania.versioning.disabled").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
+
+		else if(var2.length == 1)
 			if(VersionChecker.downloadedFile)
 				var1.addChatMessage(new ChatComponentTranslation("botania.versioning.downloadedAlready").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
 			else if(VersionChecker.startedDownload)
