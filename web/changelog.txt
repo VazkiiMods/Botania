@@ -1,3 +1,8 @@
+r1.0 44
+*Fixed a mana dupe with mana pools and hoppers below them.
+*Fixed mana containing items being able to be repaired in an anvil.
+*Fixed the mana alchmey page being wrongly localized.
+*The Mana Enchanter can be constructed with Glimmering Flowers now.
 r1.0 43
 *Fixed the auto downloader blocking your IP from my website for an hour instead of downloading a file because of a stupid coding mistake.
 *<i>I'm an insufferable twat that should die off in a pit. I hate everything.</i>
