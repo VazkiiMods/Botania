@@ -43,6 +43,7 @@ public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaP
 		setMaxStackSize(1);
 		setMaxDamage(1000);
 		setUnlocalizedName(LibItemNames.MANA_TABLET);
+		setNoRepair();
 	}
 
 	@Override
