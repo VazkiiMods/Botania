@@ -1,3 +1,5 @@
+r1.0 45
+*Temporarilly removed the auto downloader, the reason can be found <a href="http://www.minecraftforum.net/topic/2440071-botania-an-innovative-natural-magic-themed-tech-mod-not-in-beta-any-more/page__st__420#entry31815845">here</a>.
 r1.0 44
 *Fixed a mana dupe with mana pools and hoppers below them.
 *Fixed mana containing items being able to be repaired in an anvil.
