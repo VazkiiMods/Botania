@@ -14,6 +14,7 @@ package vazkii.botania.common.block.tile;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -347,9 +348,12 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 			world.getBlock(pylon[0] + x, pylon[1] + y - 1, pylon[2] + z) != ModBlocks.flower)
 				return false;
 
-		for(int[] flower : FLOWER_LOCATIONS)
-			if(world.getBlock(flower[0] + x, flower[1] + y, flower[2] + z) != ModBlocks.flower)
+		for(int[] flower : FLOWER_LOCATIONS) {
+			Block block = world.getBlock(flower[0] + x, flower[1] + y, flower[2] + z);
+			if(block != ModBlocks.flower && block != ModBlocks.shinyFlower)
 				return false;
+		}
+
 
 		return true;
 	}
