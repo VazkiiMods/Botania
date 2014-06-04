@@ -58,7 +58,7 @@ public class ThreadDownloadMod extends Thread {
 			URL url = new URL(base + "dl.php?file=" + file);
 
 			try {
-				url.openStream().close();; // Add to DL Counter
+				url.openStream().close(); // Add to DL Counter
 			} catch(IOException e) { }
 
 			url = new URL(base + "files/" + file);
