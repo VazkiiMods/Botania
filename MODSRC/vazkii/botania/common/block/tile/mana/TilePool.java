@@ -83,7 +83,7 @@ public class TilePool extends TileMod implements IManaPool {
 	}
 
 	public boolean collideEntityItem(EntityItem item) {
-		if(craftCooldown > 0)
+		if(craftCooldown > 0 || item.isDead)
 			return false;
 
 		boolean didChange = false;
@@ -150,6 +150,9 @@ public class TilePool extends TileMod implements IManaPool {
 
 		List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1));
 		for(EntityItem item : items) {
+			if(item.isDead)
+				continue;
+			
 			ItemStack stack = item.getEntityItem();
 			if(stack != null && stack.getItem() instanceof IManaItem) {
 				IManaItem mana = (IManaItem) stack.getItem();
