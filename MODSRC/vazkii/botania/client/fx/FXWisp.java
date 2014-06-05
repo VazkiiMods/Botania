@@ -26,9 +26,12 @@ import cpw.mods.fml.client.FMLClientHandler;
 
 public class FXWisp extends EntityFX {
 
-	public static final ResourceLocation particles = new ResourceLocation(LibResources.MISC_WISP_LARGE);
+	public static final ResourceLocation particles = new ResourceLocation(
+			LibResources.MISC_WISP_LARGE);
 
-	public FXWisp(World world, double d, double d1, double d2,  float size, float red, float green, float blue, boolean distanceLimit, float maxAgeMul) {
+	public FXWisp(World world, double d, double d1, double d2, float size,
+			float red, float green, float blue, boolean distanceLimit,
+			float maxAgeMul) {
 		super(world, d, d1, d2, 0.0D, 0.0D, 0.0D);
 		particleRed = red;
 		particleGreen = green;
@@ -37,19 +40,20 @@ public class FXWisp extends EntityFX {
 		motionX = motionY = motionZ = 0;
 		particleScale *= size;
 		moteParticleScale = particleScale;
-		particleMaxAge = (int)(28D / (Math.random() * 0.3D + 0.7D) * maxAgeMul);
+		particleMaxAge = (int) (28D / (Math.random() * 0.3D + 0.7D) * maxAgeMul);
 
 		moteHalfLife = particleMaxAge / 2;
 		noClip = true;
 		setSize(0.01F, 0.01F);
 		EntityLivingBase renderentity = FMLClientHandler.instance().getClient().renderViewEntity;
 
-		if(distanceLimit) {
+		if (distanceLimit) {
 			int visibleDistance = 50;
 			if (!FMLClientHandler.instance().getClient().gameSettings.fancyGraphics)
 				visibleDistance = 25;
 
-			if (renderentity == null || renderentity.getDistance(posX, posY, posZ) > visibleDistance)
+			if (renderentity == null
+					|| renderentity.getDistance(posX, posY, posZ) > visibleDistance)
 				particleMaxAge = 0;
 		}
 
@@ -59,11 +63,12 @@ public class FXWisp extends EntityFX {
 	}
 
 	@Override
-	public void renderParticle(Tessellator tessellator, float f, float f1, float f2, float f3, float f4, float f5) {
-        if(Minecraft.getMinecraft().gameSettings.particleSetting ==2)
-            return;
-        float agescale = 0;
-		agescale = (float)particleAge / (float) moteHalfLife;
+	public void renderParticle(Tessellator tessellator, float f, float f1,
+			float f2, float f3, float f4, float f5) {
+		if (Minecraft.getMinecraft().gameSettings.particleSetting == 2)
+			return;
+		float agescale = 0;
+		agescale = (float) particleAge / (float) moteHalfLife;
 		if (agescale > 1F)
 			agescale = 2 - agescale;
 
@@ -81,17 +86,22 @@ public class FXWisp extends EntityFX {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.75F);
 
 		float f10 = 0.5F * particleScale;
-		float f11 = (float)(prevPosX + (posX - prevPosX) * f - interpPosX);
-		float f12 = (float)(prevPosY + (posY - prevPosY) * f - interpPosY);
-		float f13 = (float)(prevPosZ + (posZ - prevPosZ) * f - interpPosZ);
+		float f11 = (float) (prevPosX + (posX - prevPosX) * f - interpPosX);
+		float f12 = (float) (prevPosY + (posY - prevPosY) * f - interpPosY);
+		float f13 = (float) (prevPosZ + (posZ - prevPosZ) * f - interpPosZ);
 
 		tessellator.startDrawingQuads();
 		tessellator.setBrightness(240);
-		tessellator.setColorRGBA_F(particleRed, particleGreen, particleBlue, 0.5F);
-		tessellator.addVertexWithUV(f11 - f1 * f10 - f4 * f10, f12 - f2 * f10, f13 - f3 * f10 - f5 * f10, 0, 1);
-		tessellator.addVertexWithUV(f11 - f1 * f10 + f4 * f10, f12 + f2 * f10, f13 - f3 * f10 + f5 * f10, 1, 1);
-		tessellator.addVertexWithUV(f11 + f1 * f10 + f4 * f10, f12 + f2 * f10, f13 + f3 * f10 + f5 * f10, 1, 0);
-		tessellator.addVertexWithUV(f11 + f1 * f10 - f4 * f10, f12 - f2 * f10, f13 + f3 * f10 - f5 * f10, 0, 0);
+		tessellator.setColorRGBA_F(particleRed, particleGreen, particleBlue,
+				0.5F);
+		tessellator.addVertexWithUV(f11 - f1 * f10 - f4 * f10, f12 - f2 * f10,
+				f13 - f3 * f10 - f5 * f10, 0, 1);
+		tessellator.addVertexWithUV(f11 - f1 * f10 + f4 * f10, f12 + f2 * f10,
+				f13 - f3 * f10 + f5 * f10, 1, 1);
+		tessellator.addVertexWithUV(f11 + f1 * f10 + f4 * f10, f12 + f2 * f10,
+				f13 + f3 * f10 + f5 * f10, 1, 0);
+		tessellator.addVertexWithUV(f11 + f1 * f10 - f4 * f10, f12 - f2 * f10,
+				f13 + f3 * f10 - f5 * f10, 0, 0);
 
 		tessellator.draw();
 
@@ -99,7 +109,8 @@ public class FXWisp extends EntityFX {
 		GL11.glDepthMask(true);
 
 		GL11.glPopMatrix();
-		Minecraft.getMinecraft().renderEngine.bindTexture(ObfuscationHelper.getParticleTexture());
+		Minecraft.getMinecraft().renderEngine.bindTexture(ObfuscationHelper
+				.getParticleTexture());
 		tessellator.startDrawingQuads();
 	}
 
