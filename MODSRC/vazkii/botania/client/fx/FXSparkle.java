@@ -25,9 +25,11 @@ import vazkii.botania.common.core.helper.ObfuscationHelper;
 
 public class FXSparkle extends EntityFX {
 
-	public static final ResourceLocation particles = new ResourceLocation(LibResources.MISC_PARTICLES);
+	public static final ResourceLocation particles = new ResourceLocation(
+			LibResources.MISC_PARTICLES);
 
-	public FXSparkle(World world, double x, double y, double z, float size, float red, float green, float blue, int m) {
+	public FXSparkle(World world, double x, double y, double z, float size,
+			float red, float green, float blue, int m) {
 		super(world, x, y, z, 0.0D, 0.0D, 0.0D);
 
 		particleRed = red;
@@ -46,7 +48,10 @@ public class FXSparkle extends EntityFX {
 	}
 
 	@Override
-	public void renderParticle(Tessellator tessellator, float f, float f1, float f2, float f3, float f4, float f5) {
+	public void renderParticle(Tessellator tessellator, float f, float f1,
+			float f2, float f3, float f4, float f5) {
+		if (Minecraft.getMinecraft().gameSettings.particleSetting == 2)
+			return;
 		tessellator.draw();
 		GL11.glPushMatrix();
 
@@ -57,27 +62,34 @@ public class FXSparkle extends EntityFX {
 		Minecraft.getMinecraft().renderEngine.bindTexture(particles);
 
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.75F);
-		int part = particle + particleAge/multiplier;
+		int part = particle + particleAge / multiplier;
 
 		float var8 = part % 8 / 8.0F;
-		float var9 = var8 + 0.0624375F*2;
+		float var9 = var8 + 0.0624375F * 2;
 		float var10 = part / 8 / 8.0F;
-		float var11 = var10 + 0.0624375F*2;
+		float var11 = var10 + 0.0624375F * 2;
 		float var12 = 0.1F * particleScale;
-		if (shrink) var12 *= (particleMaxAge-particleAge+1)/(float)particleMaxAge;
-		float var13 = (float)(prevPosX + (posX - prevPosX) * f - interpPosX);
-		float var14 = (float)(prevPosY + (posY - prevPosY) * f - interpPosY);
-		float var15 = (float)(prevPosZ + (posZ - prevPosZ) * f - interpPosZ);
+		if (shrink)
+			var12 *= (particleMaxAge - particleAge + 1)
+					/ (float) particleMaxAge;
+		float var13 = (float) (prevPosX + (posX - prevPosX) * f - interpPosX);
+		float var14 = (float) (prevPosY + (posY - prevPosY) * f - interpPosY);
+		float var15 = (float) (prevPosZ + (posZ - prevPosZ) * f - interpPosZ);
 		float var16 = 1.0F;
 
 		tessellator.startDrawingQuads();
 		tessellator.setBrightness(0x0000f0);
 
-		tessellator.setColorRGBA_F(particleRed * var16, particleGreen * var16, particleBlue * var16, 1);
-		tessellator.addVertexWithUV(var13 - f1 * var12 - f4 * var12, var14 - f2 * var12, var15 - f3 * var12 - f5 * var12, var9, var11);
-		tessellator.addVertexWithUV(var13 - f1 * var12 + f4 * var12, var14 + f2 * var12, var15 - f3 * var12 + f5 * var12, var9, var10);
-		tessellator.addVertexWithUV(var13 + f1 * var12 + f4 * var12, var14 + f2 * var12, var15 + f3 * var12 + f5 * var12, var8, var10);
-		tessellator.addVertexWithUV(var13 + f1 * var12 - f4 * var12, var14 - f2 * var12, var15 + f3 * var12 - f5 * var12, var8, var11);
+		tessellator.setColorRGBA_F(particleRed * var16, particleGreen * var16,
+				particleBlue * var16, 1);
+		tessellator.addVertexWithUV(var13 - f1 * var12 - f4 * var12, var14 - f2
+				* var12, var15 - f3 * var12 - f5 * var12, var9, var11);
+		tessellator.addVertexWithUV(var13 - f1 * var12 + f4 * var12, var14 + f2
+				* var12, var15 - f3 * var12 + f5 * var12, var9, var10);
+		tessellator.addVertexWithUV(var13 + f1 * var12 + f4 * var12, var14 + f2
+				* var12, var15 + f3 * var12 + f5 * var12, var8, var10);
+		tessellator.addVertexWithUV(var13 + f1 * var12 - f4 * var12, var14 - f2
+				* var12, var15 + f3 * var12 - f5 * var12, var8, var11);
 
 		tessellator.draw();
 
@@ -85,7 +97,8 @@ public class FXSparkle extends EntityFX {
 		GL11.glDepthMask(true);
 
 		GL11.glPopMatrix();
-		Minecraft.getMinecraft().renderEngine.bindTexture(ObfuscationHelper.getParticleTexture());
+		Minecraft.getMinecraft().renderEngine.bindTexture(ObfuscationHelper
+				.getParticleTexture());
 		tessellator.startDrawingQuads();
 	}
 
@@ -101,7 +114,8 @@ public class FXSparkle extends EntityFX {
 		motionY -= 0.04D * particleGravity;
 
 		if (!noClip && !fake)
-			pushOutOfBlocks(posX, (boundingBox.minY + boundingBox.maxY) / 2.0D, posZ);
+			pushOutOfBlocks(posX, (boundingBox.minY + boundingBox.maxY) / 2.0D,
+					posZ);
 
 		posX += motionX;
 		posY += motionY;
@@ -118,7 +132,7 @@ public class FXSparkle extends EntityFX {
 			}
 		}
 
-		if(fake && particleAge > 1)
+		if (fake && particleAge > 1)
 			setDead();
 	}
 
@@ -135,12 +149,18 @@ public class FXSparkle extends EntityFX {
 		double var14 = par5 - var9;
 
 		if (!worldObj.isAirBlock(var7, var8, var9)) {
-			boolean var16 = !worldObj.isBlockNormalCubeDefault(var7 - 1, var8, var9, false);
-			boolean var17 = !worldObj.isBlockNormalCubeDefault(var7 + 1, var8, var9, false);
-			boolean var18 = !worldObj.isBlockNormalCubeDefault(var7, var8 - 1, var9, false);
-			boolean var19 = !worldObj.isBlockNormalCubeDefault(var7, var8 + 1, var9, false);
-			boolean var20 = !worldObj.isBlockNormalCubeDefault(var7, var8, var9 - 1, false);
-			boolean var21 = !worldObj.isBlockNormalCubeDefault(var7, var8, var9 + 1, false);
+			boolean var16 = !worldObj.isBlockNormalCubeDefault(var7 - 1, var8,
+					var9, false);
+			boolean var17 = !worldObj.isBlockNormalCubeDefault(var7 + 1, var8,
+					var9, false);
+			boolean var18 = !worldObj.isBlockNormalCubeDefault(var7, var8 - 1,
+					var9, false);
+			boolean var19 = !worldObj.isBlockNormalCubeDefault(var7, var8 + 1,
+					var9, false);
+			boolean var20 = !worldObj.isBlockNormalCubeDefault(var7, var8,
+					var9 - 1, false);
+			boolean var21 = !worldObj.isBlockNormalCubeDefault(var7, var8,
+					var9 + 1, false);
 			byte var22 = -1;
 			double var23 = 9999.0D;
 
@@ -179,36 +199,37 @@ public class FXSparkle extends EntityFX {
 
 			if (var22 == 0) {
 				motionX = -var25;
-				motionY=motionZ=var26;
+				motionY = motionZ = var26;
 			}
 
 			if (var22 == 1) {
 				motionX = var25;
-				motionY=motionZ=var26;
+				motionY = motionZ = var26;
 			}
 
 			if (var22 == 2) {
 				motionY = -var25;
-				motionX=motionZ=var26;
+				motionX = motionZ = var26;
 			}
 
 			if (var22 == 3) {
 				motionY = var25;
-				motionX=motionZ=var26;
+				motionX = motionZ = var26;
 			}
 
 			if (var22 == 4) {
 				motionZ = -var25;
-				motionY=motionX=var26;
+				motionY = motionX = var26;
 			}
 
 			if (var22 == 5) {
 				motionZ = var25;
-				motionY=motionX=var26;
+				motionY = motionX = var26;
 			}
 
 			return true;
-		} else return false;
+		} else
+			return false;
 	}
 
 	public boolean fake = false;
