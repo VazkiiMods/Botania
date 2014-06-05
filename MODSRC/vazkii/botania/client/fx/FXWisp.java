@@ -60,7 +60,9 @@ public class FXWisp extends EntityFX {
 
 	@Override
 	public void renderParticle(Tessellator tessellator, float f, float f1, float f2, float f3, float f4, float f5) {
-		float agescale = 0;
+        if(Minecraft.getMinecraft().gameSettings.particleSetting ==2)
+            return;
+        float agescale = 0;
 		agescale = (float)particleAge / (float) moteHalfLife;
 		if (agescale > 1F)
 			agescale = 2 - agescale;

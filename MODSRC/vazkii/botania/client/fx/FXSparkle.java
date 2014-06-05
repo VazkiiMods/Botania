@@ -47,7 +47,9 @@ public class FXSparkle extends EntityFX {
 
 	@Override
 	public void renderParticle(Tessellator tessellator, float f, float f1, float f2, float f3, float f4, float f5) {
-		tessellator.draw();
+		if(Minecraft.getMinecraft().gameSettings.particleSetting ==2)
+            return;
+        tessellator.draw();
 		GL11.glPushMatrix();
 
 		GL11.glDepthMask(false);
