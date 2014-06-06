@@ -689,12 +689,13 @@ botania.page.gIntro2=It is important to keep in mind that these flowers memorize
 
 # -- DAYBLOOM
 botania.entry.daybloom=Daybloom
-botania.page.daybloom0=The &1Daybloom&0 is the most basic and rudimentary &4Generating Flower&0. Simply put, it preforms a modified photosythesis process, in order to transform sunlight into &4Mana&0.<br>The process is rather slow, you think half a dozen to ten of these should get the job done, for now.
-botania.page.daybloom1=&oStarting up a brand new day&r.
+botania.page.daybloom0=The &1Daybloom&0 is the most basic and rudimentary &4Generating Flower&0. Simply put, it preforms a modified photosythesis process, in order to transform sunlight into &4Mana&0.<br>The process is rather slow, about ten or a dozen of these should get the job done, for now.
+botania.page.daybloom1=An interesting thing to take in note is that these flowers tend to compete among themselves for what sunlight hits an area, thus having any others adjacent to it on any of the four cardinal directions will result in diminshing returns of &4Mana&0 production.
+botania.page.daybloom2=&oStarting up a brand new day&r.
 
 # -- NIGHTSHADE
 botania.entry.nightshade=Nightshade
-botania.page.nightshade0=The &1Nightshade&0 is the dark counterpart of the &1Daybloom&0, as it generates &4Mana&0 passively in any situation the &1Daybloom&0 can not, albeit at half the speed.
+botania.page.nightshade0=The &1Nightshade&0 is the dark counterpart of the &1Daybloom&0, as it generates &4Mana&0 passively in any situation the &1Daybloom&0 can not, albeit at half the speed.<br>Similarly to their shining counterpart, they suffer diminishing returns from having any adjacent.
 botania.page.nightshade1=&oThe shadow of the day&r.
 
 # -- ENDOFLAME

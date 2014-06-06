@@ -23,7 +23,7 @@ public class SubTileNightshade extends SubTileDaybloom {
 
 	@Override
 	public boolean canGeneratePassively() {
-		return !super.canGeneratePassively();
+		return !super.canGeneratePassively() && !supertile.getWorldObj().isDaytime();
 	}
 
 	@Override

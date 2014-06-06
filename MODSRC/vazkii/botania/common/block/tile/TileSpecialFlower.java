@@ -31,6 +31,10 @@ public class TileSpecialFlower extends TileMod implements ITileBound {
 
 	public String subTileName = "";
 	SubTileEntity subTile;
+	
+	public SubTileEntity getSubTile() {
+		return subTile;
+	}
 
 	public void setSubTile(String name) {
 		subTileName = name;
