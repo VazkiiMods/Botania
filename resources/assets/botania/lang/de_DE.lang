@@ -60,7 +60,7 @@ botania.versioning.flavour2=Als würde Botania wollen, nicht aktualiert zu werde
 botania.versioning.flavour3=Beam mich hoch, Scotty. Wir haben eine neue Botania-Version.
 botania.versioning.flavour4=Das Botania-Update fragt, of du Vazkii als deinen Herren und Erlöser akzeptiert hast.
 botania.versioning.flavour5=Hey, ein Botania-Update, welch ein seltener Anblick, stimmt's?
-botania.versioning.flavour6=Du wirst es nicht glauben, aber hier ist es: Ein neues Botania-Update!
+botania.versioning.flavour6="Dieses Botania-Update übersteigt mein Fassungsvermögen." - "Was sagst du?" - "Droggelbecher."
 botania.versioning.flavour7=Ach ja, noch ein neues Botania-Update. Wunderbar.
 botania.versioning.flavour8=Ein Leben zu haben ist zu Mainstream, hier hast du ein Botania-Update.
 botania.versioning.flavour9=Hey! Rate mal, was ich für dich habe! Richtig, ein Botania-Update!
@@ -69,14 +69,15 @@ botania.versioning.flavour11=Perry das Schnabeltier, ich präsentiere dir: Den B
 botania.versioning.flavour12=Botania hat ein Update. #hoennconfirmed
 botania.versioning.flavour13=Du hast meine Fallenkarte aktiviert! Ich spiele das Botania-Update!
 botania.versioning.flavour14=Wie wäre es mit 'nem Trinkspiel: Für jedes Mal, wenn Botania ein Update hat, trink einen.
-botania.versioning.flavour15=Ein Botania-Update? Das halte ich für ein Gerücht.
+botania.versioning.flavour15=Ein Botania-Update? Du bist ein wahres Glücksknilz.
 botania.versioning.outdated=Du verwendest Botania Build %s, der neueste ist Build %s.
 botania.versioning.updateMessage=["Klicken für... [",{"text":"Download","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Klicke hierauf, um automatisch die neueste Version herunterzuladen","color":"green"}},"clickEvent":{"action":"run_command","value":"/botania-download-latest %version%"}},"] [",{"text":"Website","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Klicke hierauf, um zur Website der Mod zu gelangen","color":"green"}},"clickEvent":{"action":"open_url","value":"http://vazkii.us/mod/Botania/downloads.php"}},"] [",{"text":"Changelog","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Klicke hierauf, um zum Changelog der Version zu gelangen","color":"green"}},"clickEvent":{"action":"open_url","value":"http://vazkii.us/mod/Botania/changelog.php#%version%"}},"]"]
 botania.versioning.startingDownload=Starte Download von %s. Bitte entferne deine Festplatte nicht.
 botania.versioning.doneDownloading=Download von %s beendet. Starte das Spiel neu, um zu updaten.
 botania.versioning.downloadedAlready=Du hast bereits die neueste Version installiert. Schließe das Spiel, lösche die alte Konfigurationsdatei aus deinem Mods-Ordner und lade das Spiel neu, um zu updaten!
 botania.versioning.downloadingAlready=Das Update wird bereits heruntergeladen, gib ihm etwas Zeit, okay?
-botania.versioning.error=Woah! Anscheinend ist etwas schiefgelaufen, während das Botania-Update heruntergeladen wurde. Prüfe deine FML-Logdatei für mehr Informationen.
+botania.versioning.error=Woah! Anscheinend ist etwas schiefgelaufen, während das Botania-Update heruntergeladen wurde. Ist vazkii.us nicht verfügbar?
+botania.versioning.disabled=Sorry. Dieses Feature ist momentan wegen Server-Host-Problemen deaktiviert, es sollte jedoch bald wieder zurück sein.
 
 # BAUBLE TOOLTIPS
 botania.baubletype.amulet=Ausrüstbar im &aAmulett&7-Slot
@@ -165,6 +166,22 @@ tile.botania:forestEye.name=Auge der Ältesten
 tile.botania:storage0.name=Manastahlblock
 tile.botania:storage1.name=Terrastahlblock
 tile.botania:forestDrum.name=Trommel der Wildnis
+tile.botania:shinyFlower0.name=Schimmernde Weiße Blume
+tile.botania:shinyFlower1.name=Schimmernde Orange Blume
+tile.botania:shinyFlower2.name=Schimmernde Magentafarbene Blume
+tile.botania:shinyFlower3.name=Schimmernde Hellblaue Blume
+tile.botania:shinyFlower4.name=Schimmernde Gelbe Blume
+tile.botania:shinyFlower5.name=Schimmernde Hellgrüne Blume
+tile.botania:shinyFlower6.name=Schimmernde Pinke Blume
+tile.botania:shinyFlower7.name=Schimmernde Graue Blume
+tile.botania:shinyFlower8.name=Schimmernde Hellgraue Blume
+tile.botania:shinyFlower9.name=Schimmernde Türkise Blume
+tile.botania:shinyFlower10.name=Schimmernde Violette Blume
+tile.botania:shinyFlower11.name=Schimmernde Blaue Blume
+tile.botania:shinyFlower12.name=Schimmernde Braune Blume
+tile.botania:shinyFlower13.name=Schimmernde Grüne Blume
+tile.botania:shinyFlower14.name=Schimmernde Rote Blume
+tile.botania:shinyFlower15.name=Schimmernde Schwarze Blume
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania-Blume
@@ -756,6 +773,7 @@ botania.page.manaAlchemy13=Beschwörung von &1Netherwarzen&0
 botania.page.manaAlchemy14=Verwandlung zwischen &1Schwarzpulver&0 und &1Feuerstein&0
 botania.page.manaAlchemy15=Herstellung von &1Namensschildern&0
 botania.page.manaAlchemy16=Teilung von &1Wolle&0 in &1Fäden&0
+botania.page.manaAlchemy17=Erschaffen von &1Schleimbällen&0
 botania.page.manaAlchemy17=Kreation von &1Enderperlen&0
 botania.page.manaAlchemy18=Verwandlung zwischen &1Glowstone&0 und &1Redstone&0
 botania.page.manaAlchemy19=Zersetzung von &1Pflasterstein&0 zu &1Sand&0
@@ -948,3 +966,8 @@ botania.page.decorativeBlocks9=Schimmerndes Lebeholz
 # -- DISPENSER TWEAKS
 botania.entry.dispenserTweaks=Dispenser-Änderungen
 botania.page.dispenserTweaks0=&1Dispensers&0, among their normal abilities, can also plant all sorts of crops, from &1Seeds&0, &1Potatos&0 or &1Carrots&0 to even &1Nether Wart&0. The crop is planted in the block right in front of the dispenser.<br>The &1Dispensers&0 can also use the &1Wand of the Forest&0 for some specific tasks such as triggering a &1Runic Altar&0.
+
+# -- GLIMMERING FLOWERS
+botania.entry.shinyFlowers=Schimmernde Blumen
+botania.page.shinyFlowers0=By combining your typical &1Mystical Flowers&0 with some &1Glowstone Dust&0, you can make them sparkle even brighter, and emit actual physical light, of the same brightness as a &1Glowstone Block&0.
+botania.page.shinyFlowers1=Pretty Pretty Shiny Shiny
