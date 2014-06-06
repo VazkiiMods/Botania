@@ -187,7 +187,8 @@ tile.botania:shinyFlower15.name=Glimmering Black Flower
 tile.botania:flower..name=Botania Flower
 tile.botania:flower.puredaisy.name=Pure Daisy
 tile.botania:flower.puredaisy.reference=What color do you want to be?
-
+tile.botania:flower.manastar.name=Manastar
+tile.botania:flower.manastar.reference=Wish upon a star
 # - GENERATING
 tile.botania:flower.daybloom.name=Daybloom
 tile.botania:flower.daybloom.reference=A Sting of light

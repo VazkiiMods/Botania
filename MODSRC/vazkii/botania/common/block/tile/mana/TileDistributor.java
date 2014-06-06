@@ -19,19 +19,16 @@ import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.block.tile.TileMod;
+import vazkii.botania.common.lib.LibMisc;
 
 public class TileDistributor extends TileMod implements IManaReceiver {
 
 	List<IManaReceiver> validPools = new ArrayList();
 
-	static final ForgeDirection[] DIRECTIONS = new ForgeDirection[] {
-		ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST
-	};
-
 	@Override
 	public void updateEntity() {
 		validPools.clear();
-		for(ForgeDirection dir : DIRECTIONS) {
+		for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) {
 			TileEntity tileAt = worldObj.getTileEntity(xCoord + dir.offsetX, yCoord, zCoord + dir.offsetZ);
 			if(tileAt != null && tileAt instanceof IManaPool) {
 				IManaReceiver receiver = (IManaReceiver) tileAt;

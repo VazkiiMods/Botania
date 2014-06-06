@@ -17,13 +17,10 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileDaybloom extends SubTileGenerating {
 
-	private static final ForgeDirection[] CARDINAL_DIRECTIONS = new ForgeDirection[] {
-		ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST
-	};
-	
 	@Override
 	public int getColor() {
 		return 0xFFFF00;
@@ -42,7 +39,7 @@ public class SubTileDaybloom extends SubTileGenerating {
 	
 	public int getSurroundingFlowers() {
 		int flowers = 0;
-		for(ForgeDirection dir : CARDINAL_DIRECTIONS) {
+		for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) {
 			TileEntity tile = supertile.getWorldObj().getTileEntity(supertile.xCoord + dir.offsetX, supertile.yCoord, supertile.zCoord + dir.offsetZ);
 			if(tile != null && tile instanceof TileSpecialFlower) {
 				TileSpecialFlower flower = (TileSpecialFlower) tile;

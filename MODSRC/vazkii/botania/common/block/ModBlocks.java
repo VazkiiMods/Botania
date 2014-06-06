@@ -21,6 +21,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.dispenser.BehaviourSeeds;
 import vazkii.botania.common.block.dispenser.BehaviourWand;
+import vazkii.botania.common.block.subtile.SubTileManastar;
 import vazkii.botania.common.block.subtile.SubTilePureDaisy;
 import vazkii.botania.common.block.subtile.functional.SubTileAgricarnation;
 import vazkii.botania.common.block.subtile.functional.SubTileBellethorn;
@@ -152,6 +153,7 @@ public final class ModBlocks {
 		registerTile(TileForestEye.class, LibBlockNames.FOREST_EYE);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
+		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MANASTAR, SubTileManastar.class);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_DAYBLOOM, SubTileDaybloom.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_ENDOFLAME, SubTileEndoflame.class);

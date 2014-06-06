@@ -35,16 +35,13 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileHopperhock extends SubTileFunctional {
 
 	private static final String TAG_FILTER_TYPE = "filterType";
 
 	int filterType = 0;
-
-	private static final ForgeDirection[] VALID_DIRS = new ForgeDirection[] {
-		ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST
-	};
 
 	@Override
 	public void onUpdate() {
@@ -71,7 +68,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 			ForgeDirection sideToPutItemIn = ForgeDirection.UNKNOWN;
 			boolean priorityInv = false;
 
-			for(ForgeDirection dir : VALID_DIRS) {
+			for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) {
 				int x_ = x + dir.offsetX;
 				int y_ = y + dir.offsetY;
 				int z_ = z + dir.offsetZ;
@@ -143,7 +140,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 			Block chest = supertile.getWorldObj().getBlock(x, y, z);
 
 			if(tileEntity instanceof TileEntityChest)
-				for(ForgeDirection dir : VALID_DIRS)
+				for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS)
 					if(supertile.getWorldObj().getBlock(x + dir.offsetX, y, z + dir.offsetZ) == chest) {
 						filter.addAll(getFilterForInventory((IInventory) supertile.getWorldObj().getTileEntity(x + dir.offsetX, y, z + dir.offsetZ), x + dir.offsetX, y, z + dir.offsetZ, false));
 						break;
@@ -154,7 +151,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 				3, 4, 2, 5
 		};
 
-		for(ForgeDirection dir : VALID_DIRS) {
+		for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) {
 			List<EntityItemFrame> frames = supertile.getWorldObj().getEntitiesWithinAABB(EntityItemFrame.class, AxisAlignedBB.getBoundingBox(x+ dir.offsetX, y + dir.offsetY, z + dir.offsetZ, x + dir.offsetX + 1, y + dir.offsetY + 1, z + dir.offsetZ + 1));
 			for(EntityItemFrame frame : frames) {
 				int orientation = frame.hangingDirection;

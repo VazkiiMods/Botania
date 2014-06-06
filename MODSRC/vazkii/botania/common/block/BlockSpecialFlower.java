@@ -55,6 +55,7 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 		BotaniaAPI.subtilesForCreativeMenu.addAll(Arrays.asList(new String[] {
 				// Misc
 				LibBlockNames.SUBTILE_PUREDAISY,
+				LibBlockNames.SUBTILE_MANASTAR,
 
 				// Generating
 				LibBlockNames.SUBTILE_DAYBLOOM,

@@ -28,6 +28,7 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 
 public class ItemTerraformRod extends ItemMod implements IManaUsingItem {
 
@@ -102,11 +103,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem {
 						boolean hasAir = false;
 						List<ChunkCoordinates> airBlocks = new ArrayList();
 
-						final ForgeDirection[] dirs = new ForgeDirection[] {
-								ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST
-						};
-
-						for(ForgeDirection dir : dirs) {
+						for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) {
 							int x_ = x + dir.offsetX;
 							int y_ = y + dir.offsetY;
 							int z_ = z + dir.offsetZ;
