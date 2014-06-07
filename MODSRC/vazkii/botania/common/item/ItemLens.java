@@ -133,7 +133,7 @@ public class ItemLens extends ItemMod implements ILens {
 
 
 	public String getItemShortTermName(ItemStack stack) {
-		return StatCollector.translateToLocal(stack.getUnlocalizedName() + ".short");
+		return StatCollector.translateToLocal(stack.getUnlocalizedName().replaceAll("item.", "item.botania:") + ".short");
 	}
 
 	@Override
