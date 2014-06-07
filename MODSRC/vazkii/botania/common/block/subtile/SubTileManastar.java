@@ -13,9 +13,11 @@ package vazkii.botania.common.block.subtile;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileManastar extends SubTileEntity {
@@ -43,6 +45,11 @@ public class SubTileManastar extends SubTileEntity {
 
 		if(supertile.getWorldObj().getTotalWorldTime() % 60 == 0)
 			manaLastTick = mana;
+	}
+	
+	@Override
+	public LexiconEntry getEntry() {
+		return LexiconData.manastar;
 	}
 	
 }

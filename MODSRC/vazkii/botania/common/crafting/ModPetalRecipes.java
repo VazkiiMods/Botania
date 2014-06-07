@@ -25,6 +25,7 @@ public final class ModPetalRecipes {
 	public static final String redstoneRoot = LibOreDict.REDSTONE_ROOT;
 
 	public static RecipePetals pureDaisyRecipe;
+	public static RecipePetals manastarRecipe;
 
 	public static RecipePetals daybloomRecipe;
 	public static RecipePetals nightshadeRecipe;
@@ -54,7 +55,8 @@ public final class ModPetalRecipes {
 
 	public static void init() {
 		pureDaisyRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_PUREDAISY), white, white, white, white);
-
+		manastarRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_MANASTAR), lightBlueMana, greenMana, redMana, cyanMana);
+		
 		daybloomRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_DAYBLOOM), yellow, yellow, orange, lightBlue);
 		nightshadeRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_NIGHTSHADE), black, black, purple, gray);
 		endoflameRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ENDOFLAME), brown, red, redMana, brownMana, lightGray);
