@@ -190,13 +190,14 @@ tile.botania:flower.puredaisy.name=Pure Daisy
 tile.botania:flower.puredaisy.reference=What color do you want to be?
 tile.botania:flower.manastar.name=Manastar
 tile.botania:flower.manastar.reference=Wish upon a star
+
 # - GENERATING
 tile.botania:flower.daybloom.name=Daybloom
 tile.botania:flower.daybloom.reference=A Sting of light
 tile.botania:flower.endoflame.name=Endoflame
-tile.botania:flower.endoflame.reference=An endothermic reaction
+tile.botania:flower.endoflame.reference=A flame like Shana
 tile.botania:flower.hydroangeas.name=Hydroangeas
-tile.botania:flower.hydroangeas.reference=Careful: Wet floor
+tile.botania:flower.hydroangeas.reference=Just friendly crustaceans
 tile.botania:flower.thermalily.name=Thermalily
 tile.botania:flower.thermalily.reference=A Scarlet Rose indeed
 tile.botania:flower.nightshade.name=Nightshade
@@ -204,7 +205,7 @@ tile.botania:flower.nightshade.reference=Ghastly signature
 tile.botania:flower.arcanerose.name=Rosa Arcana
 tile.botania:flower.arcanerose.reference=Ten blue orbs in the corner
 tile.botania:flower.munchdew.name=Munchdew
-tile.botania:flower.munchdew.reference=Nommy nommy
+tile.botania:flower.munchdew.reference=Nommy nommy the art teacher
 
 # - FUNCTIONAL
 tile.botania:flower.bellethorn.name=Bellethorne
@@ -222,7 +223,7 @@ tile.botania:flower.orechid.reference=I seed what you did there
 tile.botania:flower.fallenKanade.name=Fallen Kanade
 tile.botania:flower.fallenKanade.reference=I'm not an Angel
 tile.botania:flower.exoflame.name=Exoflame
-tile.botania:flower.exoflame.reference=An exothermic reaction
+tile.botania:flower.exoflame.reference=Wearing her black ribbons
 tile.botania:flower.agricarnation.name=Agricarnation
 tile.botania:flower.agricarnation.reference=Wear on the 25th of april
 tile.botania:flower.hopperhock.name=Hopperhock
@@ -231,7 +232,6 @@ tile.botania:flower.tangleberrie.name=Tangleberrie
 tile.botania:flower.tangleberrie.reference=No frying pans allowed
 tile.botania:flower.jiyuulia.name=Jiyuulia
 tile.botania:flower.jiyuulia.reference=Flügel der Freiheit
-# TRANSLATE THAT VEXATOS
 tile.botania:flower.rannuncarpus.name=Rannuncarpus
 tile.botania:flower.rannuncarpus.reference=That's handy
 tile.botania:flower.hyacidus.name=Hyacidus
