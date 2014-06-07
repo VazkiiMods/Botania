@@ -81,7 +81,7 @@ public abstract class BlockCamo extends BlockModContainer<TileCamo> {
 				}
 			}
 
-			if(doChange) {
+			if(doChange && currentStack.getItem() != null) {
 				int metadata = currentStack.getItemDamage();
 				if(block instanceof BlockDirectional) {
 					switch (par6) {
