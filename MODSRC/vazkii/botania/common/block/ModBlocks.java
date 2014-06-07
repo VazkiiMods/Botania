@@ -52,6 +52,7 @@ import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.block.tile.TileForestEye;
 import vazkii.botania.common.block.tile.TileManaBeacon;
 import vazkii.botania.common.block.tile.TileOpenCrate;
+import vazkii.botania.common.block.tile.TilePlatform;
 import vazkii.botania.common.block.tile.TilePylon;
 import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
@@ -93,6 +94,7 @@ public final class ModBlocks {
 	public static Block storage;
 	public static Block forestDrum;
 	public static Block shinyFlower;
+	public static Block platform;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -119,6 +121,7 @@ public final class ModBlocks {
 		storage = new BlockStorage();
 		forestDrum = new BlockForestDrum();
 		shinyFlower = new BlockShinyFlower();
+		platform = new BlockPlatform();
 
 		for(int i = 0; i < 16; i++)
 			OreDictionary.registerOre(LibOreDict.FLOWER[i], new ItemStack(flower, 1, i));
@@ -151,6 +154,7 @@ public final class ModBlocks {
 		registerTile(TileTinyPlanet.class, LibBlockNames.TINY_PLANET);
 		registerTile(TileOpenCrate.class, LibBlockNames.OPEN_CRATE);
 		registerTile(TileForestEye.class, LibBlockNames.FOREST_EYE);
+		registerTile(TilePlatform.class, LibBlockNames.PLATFORM);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MANASTAR, SubTileManastar.class);

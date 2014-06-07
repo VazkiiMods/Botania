@@ -182,6 +182,7 @@ tile.botania:shinyFlower12.name=Glimmering Brown Flower
 tile.botania:shinyFlower13.name=Glimmering Green Flower
 tile.botania:shinyFlower14.name=Glimmering Red Flower
 tile.botania:shinyFlower15.name=Glimmering Black Flower
+tile.botania:platform.name=Abtruse Platform
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
