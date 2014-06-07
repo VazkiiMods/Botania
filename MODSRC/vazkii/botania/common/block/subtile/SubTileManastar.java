@@ -36,12 +36,13 @@ public class SubTileManastar extends SubTileEntity {
 				mana += ((IManaPool) tile).getCurrentMana();
 		}
 
-		if(manaLastTick != -1 && mana != manaLastTick) {
+		if(manaLastTick != -1 && mana != manaLastTick && Math.random() > 0.6) {
 			boolean more = mana > manaLastTick;
-			Botania.proxy.wispFX(supertile.getWorldObj(), supertile.xCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.yCoord + 0.75 + Math.random() * 0.2 - 0.1, supertile.zCoord + 0.5, more ? 0.05F : 1F, 0.05F, more ? 1F : 0.05F, (float) Math.random() / 5, (float) -Math.random() / 30);
+			Botania.proxy.wispFX(supertile.getWorldObj(), supertile.xCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.yCoord + 0.75 + Math.random() * 0.2 - 0.1, supertile.zCoord + 0.5, more ? 0.05F : 1F, 0.05F, more ? 1F : 0.05F, (float) Math.random() / 7, (float) -Math.random() / 50);
 		}
 
-		manaLastTick = mana;
+		if(supertile.getWorldObj().getTotalWorldTime() % 60 == 0)
+			manaLastTick = mana;
 	}
 	
 }
