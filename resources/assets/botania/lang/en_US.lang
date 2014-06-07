@@ -186,6 +186,9 @@ tile.botania:platform.name=Abtruse Platform
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
+# ^ This is the placeholder name for when no flower type is detected
+# The two dots are not a typo
+
 tile.botania:flower.puredaisy.name=Pure Daisy
 tile.botania:flower.puredaisy.reference=What color do you want to be?
 tile.botania:flower.manastar.name=Manastar
@@ -206,6 +209,8 @@ tile.botania:flower.arcanerose.name=Rosa Arcana
 tile.botania:flower.arcanerose.reference=Ten blue orbs in the corner
 tile.botania:flower.munchdew.name=Munchdew
 tile.botania:flower.munchdew.reference=Nommy nommy the art teacher
+tile.botania:flower.entropinnyum.name=Entropinnyum
+tile.botania:flower.entropinnyum.reference=Magical girls are an option
 
 # - FUNCTIONAL
 tile.botania:flower.bellethorn.name=Bellethorne
