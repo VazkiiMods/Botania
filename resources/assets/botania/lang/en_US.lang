@@ -804,6 +804,11 @@ botania.page.forestDrum0=The &1Drum of the Wild&0 is, in layman's terms, the per
 botania.page.forestDrum1=It's to note that the drum does not store mana, hence, in order to trigger it, a &1Redstone Mana Spreader&0 or a &1Mana Blaster&0 is required.
 botania.page.forestDrum2=But if you close your eyes...
 
+# -- ABTRUSE PLATFORM
+botania.entry.platform=Abtruse Platform
+botania.page.platform0=By laying &1Livingwood&0 on a very specific format it's possible to create a platform of sorts, that only has a physical body for whoever is on top of it and isn't sneaking. For anyone else, it's like it's not there. &4Mana Bursts&0 will always travel through it without any trouble.<br>It's also possible to camouflage this block as any other simple block by simply right clicking it.
+botania.page.platform1=It would be Etheral but the name was taken
+
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
 botania.entry.manaBlaster=Mana Blaster

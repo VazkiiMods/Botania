@@ -109,6 +109,7 @@ public final class LexiconData {
 	public static LexiconEntry openCrate;
 	public static LexiconEntry forestEye;
 	public static LexiconEntry forestDrum;
+	public static LexiconEntry platform;
 
 	public static LexiconEntry manaBlaster;
 	public static LexiconEntry grassSeeds;
@@ -354,6 +355,9 @@ public final class LexiconData {
 		forestDrum = new BLexiconEntry(LibLexicon.DEVICE_FOREST_DRUM, categoryDevices);
 		forestDrum.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCrafingRecipes.recipeForestDrum));
 
+		platform = new BLexiconEntry(LibLexicon.DEVICE_PLATFORM, categoryDevices);
+		platform.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipePlatform));
+		
 		// TOOLS ENTRIES
 		manaBlaster = new BLexiconEntry(LibLexicon.TOOL_MANA_BLASTER, categoryTools);
 		manaBlaster.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCrafingRecipes.recipeManaBlaster));

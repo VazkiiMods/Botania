@@ -17,14 +17,18 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import vazkii.botania.api.lexicon.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.tile.TileCamo;
 import vazkii.botania.common.block.tile.TilePlatform;
+import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockPlatform extends BlockCamo {
+public class BlockPlatform extends BlockCamo implements ILexiconable {
 
 	public BlockPlatform() {
 		super(Material.wood);
@@ -43,6 +47,11 @@ public class BlockPlatform extends BlockCamo {
 	@Override
 	public TileCamo createNewTileEntity(World world, int meta) {
 		return new TilePlatform();
+	}
+
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return LexiconData.platform;
 	}
 
 }

@@ -122,6 +122,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeDivaCharm;
 	public static IRecipe recipeFlightTiara;
 	public static List<IRecipe> recipesShinyFlowers;
+	public static IRecipe recipePlatform;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -662,6 +663,14 @@ public final class ModCrafingRecipes {
 		for(int i = 0; i < 16; i++)
 			addShapelessOreDictRecipe(new ItemStack(ModBlocks.shinyFlower, 1, i), new ItemStack(Items.glowstone_dust), new ItemStack(Items.glowstone_dust), LibOreDict.FLOWER[i]);
 		recipesShinyFlowers = BotaniaAPI.getLatestAddedRecipes(16);
+		
+		// Abtruse Platform Recipe
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.platform), 
+				"343", "0 0",
+				'0', new ItemStack(ModBlocks.livingwood, 0, 0),
+				'3', new ItemStack(ModBlocks.livingwood, 0, 3),
+				'4', new ItemStack(ModBlocks.livingwood, 0, 4));
+		recipePlatform = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
