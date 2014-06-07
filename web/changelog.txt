@@ -1,3 +1,8 @@
+r1.0 46
+*Added the Abtruse Platform, a block to help you get around. <i>Totally not a copy paste from Thaumic Tinkerer, nope.</i>
+*Added the Manastar flower (under the Mana Manipulation section), which lets you measure if you're getting a profit or loss of mana.
+*Droped the nerfhammer on Dayblooms and Nightshades. To start off, they're a bit slower by default now. They also suffer diminshing returns from having any flowers of the same type adjacent. Go get creative with better mana generation methods now.
+*Moar references!
 r1.0 45
 *Temporarilly removed the auto downloader, the reason can be found <a href="http://www.minecraftforum.net/topic/2440071-botania-an-innovative-natural-magic-themed-tech-mod-not-in-beta-any-more/page__st__420#entry31815845">here</a>.
 r1.0 44
