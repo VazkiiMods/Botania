@@ -26,6 +26,7 @@ import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibBlockNames;
 
@@ -66,10 +67,12 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		String refUnlocalized = "tile." + LibResources.PREFIX_MOD + LibBlockNames.SPECIAL_FLOWER_PREFIX + getType(par1ItemStack) + ".reference";
-		String refLocalized = StatCollector.translateToLocal(refUnlocalized);
-		if(!refLocalized.equals(refUnlocalized))
-			par3List.add(EnumChatFormatting.ITALIC + refLocalized);
+		if(ConfigHandler.referencesEnabled) {
+			String refUnlocalized = "tile." + LibResources.PREFIX_MOD + LibBlockNames.SPECIAL_FLOWER_PREFIX + getType(par1ItemStack) + ".reference";
+			String refLocalized = StatCollector.translateToLocal(refUnlocalized);
+			if(!refLocalized.equals(refUnlocalized))
+				par3List.add(EnumChatFormatting.ITALIC + refLocalized);
+		}
 	}
 
 	public static String getType(ItemStack stack) {

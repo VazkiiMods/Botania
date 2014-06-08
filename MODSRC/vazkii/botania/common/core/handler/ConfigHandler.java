@@ -30,6 +30,7 @@ public final class ConfigHandler {
 	public static double flowerParticleFrequency = 0.75F;
 	public static boolean blockBreakParticles = true;
 	public static boolean blockBreakParticlesTool = true;
+	public static boolean referencesEnabled = true;
 
 	public static boolean versionCheckEnabled = true;
 	public static int spreaderPositionShift = 1;
@@ -73,6 +74,9 @@ public final class ConfigHandler {
 		desc = "Set to false to remove the block breaking particles from the Mana Shatterer, as there can be a good amount in higher levels.";
 		blockBreakParticlesTool = loadPropBool("blockBreakingParticlesTool.enabled", desc, blockBreakParticlesTool);
 
+		desc = "Set to false to disable the references in flower tooltips. (You monster D:)";
+		referencesEnabled = loadPropBool("references.enabled", desc, referencesEnabled);
+		
 		desc = "Set to false to disable checking and alerting when new Botania versions come out.";
 		versionCheckEnabled = loadPropBool("versionChecking.enabled", desc, versionCheckEnabled);
 		
