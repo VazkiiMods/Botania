@@ -13,7 +13,9 @@ package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCake;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileGenerating;
+import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileKekimurus extends SubTileGenerating {
 
@@ -37,6 +39,7 @@ public class SubTileKekimurus extends SubTileGenerating {
 							if(meta == 6)
 								supertile.getWorldObj().setBlockToAir(x, y, z);
 							else supertile.getWorldObj().setBlockMetadataWithNotify(x, y, z, meta, 1 | 2);
+							
 							supertile.getWorldObj().playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
 							this.mana += mana;
 							sync();
@@ -44,6 +47,11 @@ public class SubTileKekimurus extends SubTileGenerating {
 						}
 					}
 		}
+	}
+	
+	@Override
+	public LexiconEntry getEntry() {
+		return LexiconData.kekimurus;
 	}
 
 	@Override
