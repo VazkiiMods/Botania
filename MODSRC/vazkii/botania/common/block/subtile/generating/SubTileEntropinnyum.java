@@ -15,7 +15,11 @@ import java.util.List;
 
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.util.AxisAlignedBB;
+import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileGenerating;
+import vazkii.botania.common.Botania;
+import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileEntropinnyum extends SubTileGenerating {
 
@@ -24,7 +28,7 @@ public class SubTileEntropinnyum extends SubTileGenerating {
 		super.onUpdate();
 
 		if(mana == 0) {
-			int range = 16;
+			int range = 12;
 			List<EntityTNTPrimed> tnts = supertile.getWorldObj().getEntitiesWithinAABB(EntityTNTPrimed.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord - range, supertile.zCoord - range, supertile.xCoord + range + 1, supertile.yCoord + range + 1, supertile.zCoord + range + 1));
 			for(EntityTNTPrimed tnt : tnts) {
 				if(tnt.fuse == 1 && !tnt.isDead) {
@@ -35,6 +39,9 @@ public class SubTileEntropinnyum extends SubTileGenerating {
 						sync();
 					}
 
+					for(int i = 0; i < 50; i++)
+						Botania.proxy.sparkleFX(tnt.worldObj, tnt.posX + Math.random() * 4 - 2, tnt.posY + Math.random() * 4 - 2, tnt.posZ + Math.random() * 4 - 2, 1F, (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, (float) (Math.random() * 0.65F + 1.25F), 12);
+						
 					supertile.getWorldObj().spawnParticle("hugeexplosion", tnt.posX, tnt.posY, tnt.posZ, 1D, 0D, 0D);
 					return;
 				}
@@ -50,6 +57,11 @@ public class SubTileEntropinnyum extends SubTileGenerating {
 	@Override
 	public int getMaxMana() {
 		return 6500;
+	}
+	
+	@Override
+	public LexiconEntry getEntry() {
+		return LexiconData.entropinnyum;
 	}
 
 }
