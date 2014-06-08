@@ -437,4 +437,9 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		TileEntity tile = (TileEntity) receiver;
 		return new ChunkCoordinates(tile.xCoord, tile.yCoord, tile.zCoord);
 	}
+
+	@Override
+	public int getMaxMana() {
+		return MAX_MANA;
+	}
 }
