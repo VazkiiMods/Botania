@@ -394,6 +394,7 @@ item.botania:flightTiara.name=Flügel Tiara
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania Index - Pick which category you would like to study:
+botania.gui.lexicon.wip=(This entry is a Work In Progress. It's not even it's final form)
 
 # LEXICON CATEGORIES
 botania.category.basics=Basics
@@ -403,6 +404,7 @@ botania.category.generationFlowers=Generating Flora
 botania.category.devices=Natural Apparatus
 botania.category.tools=Mystical Instruments
 botania.category.baubles=Baubles and Acessories
+botania.category.alfhomancy=Alfhomancy
 botania.category.misc=Miscellaneous
 
 # LEXICON ENTRIES
@@ -967,6 +969,10 @@ botania.page.divaCharm1=You shall not disrespect Big Sister
 botania.entry.flightTiara=Flügel Tiara
 botania.page.flightTiara0=The &4Flügel&0 were once a dominant species in the lands, now they're but a race past extinct, once created as godslayers, who possessed the ability of flight.<br>The usage of &1Essence of Eternal Life&0 allows for a small replica of their power, in the form of the &1Flügel Tiara&0, which, at the cost of &4Mana&0 allows for flight.
 botania.page.flightTiara1=Forty thousand books from another world
+
+# -- ALFHOMANCY
+botania.entry.aIntro=The Portal to Alfheim
+botania.page.aIntro0=Once, in olden times, &4Elves&0 used to share the world with us &4Minecrafters&0. Due to unknown events, they have been banished back to their own world, &4Alfheim&0.<br>Experimentation has been done in atempt to bridge the gap between the two worlds but not much has been found thus far.
 
 # - MISCLANEOUS
 # -- UNSTABLE CUBE

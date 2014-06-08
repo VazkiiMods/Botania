@@ -41,6 +41,7 @@ public final class LexiconData {
 	public static LexiconCategory categoryDevices;
 	public static LexiconCategory categoryTools;
 	public static LexiconCategory categoryBaubles;
+	public static LexiconCategory categoryAlfhomancy;
 	public static LexiconCategory categoryMisc;
 
 	public static LexiconEntry flowers;
@@ -138,6 +139,8 @@ public final class LexiconData {
 	public static LexiconEntry divaCharm;
 	public static LexiconEntry flightTiara;
 
+	public static LexiconEntry alfhomancyIntro;
+	
 	public static LexiconEntry unstableBlocks;
 	public static LexiconEntry decorativeBlocks;
 	public static LexiconEntry dispenserTweaks;
@@ -151,6 +154,7 @@ public final class LexiconData {
 		BotaniaAPI.addCategory(categoryDevices = new LexiconCategory(LibLexicon.CATEGORY_DEVICES));
 		BotaniaAPI.addCategory(categoryTools = new LexiconCategory(LibLexicon.CATEGORY_TOOLS));
 		BotaniaAPI.addCategory(categoryBaubles = new LexiconCategory(LibLexicon.CATEGORY_BAUBLES));
+		BotaniaAPI.addCategory(categoryAlfhomancy = new LexiconCategory(LibLexicon.CATEGORY_ALFHOMANCY));
 		BotaniaAPI.addCategory(categoryMisc = new LexiconCategory(LibLexicon.CATEGORY_MISC));
 
 		// BASICS ENTRIES
@@ -439,6 +443,10 @@ public final class LexiconData {
 		flightTiara = new BLexiconEntry(LibLexicon.BAUBLE_FLIGHT_TIARA, categoryBaubles);
 		flightTiara.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeFlightTiara));
 
+		// ALFHOMANCY ENTRIES
+		alfhomancyIntro = new WIPLexiconEntry(LibLexicon.ALF_INTRO, categoryAlfhomancy);
+		alfhomancyIntro.setLexiconPages(new PageText("0"));
+		
 		// MISCLENAEOUS ENTRIES
 		unstableBlocks = new BLexiconEntry(LibLexicon.MISC_UNSTABLE_BLOCKS, categoryMisc);
 		unstableBlocks.setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_UNSTABLE_BLOCK), new PageCraftingRecipe("2", ModCrafingRecipes.recipesUnstableBlocks), new PageText("3"), new PageImage("4", LibResources.ENTRY_UNSTABLE_BEACON), new PageCraftingRecipe("5", ModCrafingRecipes.recipesManaBeacons), new PageText("6"), new PageCraftingRecipe("7", ModCrafingRecipes.recipesSignalFlares));

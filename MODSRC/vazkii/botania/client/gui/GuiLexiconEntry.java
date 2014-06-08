@@ -15,6 +15,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.StatCollector;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
+import vazkii.botania.api.lexicon.IAddonEntry;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -27,6 +28,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry {
 	LexiconEntry entry;
 	GuiScreen parent;
 	String title;
+	String subtitle;
 
 	GuiButton leftButton, rightButton;
 
@@ -35,6 +37,9 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry {
 		this.parent = parent;
 
 		title = StatCollector.translateToLocal(entry.getUnlocalizedName());
+		if(entry instanceof IAddonEntry)
+			subtitle = StatCollector.translateToLocal(((IAddonEntry) entry).getSubtitle());
+		else subtitle = null;
 	}
 
 	@Override
@@ -72,7 +77,12 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry {
 	String getTitle() {
 		return String.format("%s (%s/%s)", title, page + 1, entry.pages.size());
 	}
-
+	
+	@Override
+	String getSubtitle() {
+		return subtitle;
+	}
+	
 	@Override
 	protected void actionPerformed(GuiButton par1GuiButton) {
 		switch(par1GuiButton.id) {

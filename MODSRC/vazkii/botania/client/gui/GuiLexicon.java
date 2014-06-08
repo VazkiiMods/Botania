@@ -61,8 +61,14 @@ public class GuiLexicon extends GuiScreen {
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		mc.renderEngine.bindTexture(texture);
 		drawTexturedModalRect(left, top, 0, 0, guiWidth, guiHeight);
-		drawCenteredString(fontRendererObj, getTitle(), left + guiWidth / 2, top - 12, 0x00FF00);
-
+		drawCenteredString(fontRendererObj, getTitle(), left + guiWidth / 2, top - getTitleHeight(), 0x00FF00);
+		String subtitle = getSubtitle();
+		if(subtitle != null) {
+			GL11.glScalef(0.5F, 0.5F, 1F);
+			drawCenteredString(fontRendererObj, subtitle, left * 2 + guiWidth, (top - getTitleHeight() + 10) * 2, 0x00FF00);
+			GL11.glScalef(2F, 2F, 1F);
+		}
+		
 		drawHeader();
 
 		super.drawScreen(par1, par2, par3);
@@ -98,7 +104,15 @@ public class GuiLexicon extends GuiScreen {
 	String getTitle() {
 		return ModItems.lexicon.getItemStackDisplayName(null);
 	}
+	
+	String getSubtitle() {
+		return null;
+	}
 
+	int getTitleHeight() {
+		return getSubtitle() == null ? 12 : 16;
+	}
+	
 	boolean isIndex() {
 		return true;
 	}

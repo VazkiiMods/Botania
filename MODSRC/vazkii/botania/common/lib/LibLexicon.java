@@ -22,6 +22,7 @@ public final class LibLexicon {
 	public static final String CATEGORY_DEVICES = CATEGORY_PREFIX + "devices";
 	public static final String CATEGORY_TOOLS = CATEGORY_PREFIX + "tools";
 	public static final String CATEGORY_BAUBLES = CATEGORY_PREFIX + "baubles";
+	public static final String CATEGORY_ALFHOMANCY = CATEGORY_PREFIX + "alfhomancy";
 	public static final String CATEGORY_MISC = CATEGORY_PREFIX + "misc";
 
 	public static final String BASICS_FLOWERS = "flowers";
@@ -118,6 +119,8 @@ public final class LibLexicon {
 	public static final String BAUBLE_MAGNET_RING = "magnetRing";
 	public static final String BAUBLE_DIVA_CHARM = "divaCharm";
 	public static final String BAUBLE_FLIGHT_TIARA = "flightTiara";
+
+	public static final String ALF_INTRO = "aIntro";
 
 	public static final String MISC_UNSTABLE_BLOCKS = "unstableBlocks";
 	public static final String MISC_DECORATIVE_BLOCKS = "decorativeBlocks";
