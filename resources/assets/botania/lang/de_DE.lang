@@ -182,11 +182,17 @@ tile.botania:shinyFlower12.name=Schimmernde Braune Blume
 tile.botania:shinyFlower13.name=Schimmernde Grüne Blume
 tile.botania:shinyFlower14.name=Schimmernde Rote Blume
 tile.botania:shinyFlower15.name=Schimmernde Schwarze Blume
+tile.botania:platform.name=Schimmerplattform
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania-Blume
+# ^ This is the placeholder name for when no flower type is detected
+# The two dots are not a typo
+
 tile.botania:flower.puredaisy.name=Reines Gänseblümchen
 tile.botania:flower.puredaisy.reference=Welche Farbe möchtest du haben?
+tile.botania:flower.manastar.name=Manastern
+tile.botania:flower.manastar.reference=Wünsch dir was
 
 # - GENERATING
 tile.botania:flower.daybloom.name=Tagesblüte
@@ -203,6 +209,8 @@ tile.botania:flower.arcanerose.name=Rosa Arcana
 tile.botania:flower.arcanerose.reference=Erfahrung ist wichtig
 tile.botania:flower.munchdew.name=Mampftau
 tile.botania:flower.munchdew.reference=Mhm. Lecker.
+tile.botania:flower.entropinnyum.name=Entropinnyum
+tile.botania:flower.entropinnyum.reference=Weit hinein
 
 # - FUNCTIONAL
 tile.botania:flower.bellethorn.name=Belldorn
@@ -229,7 +237,6 @@ tile.botania:flower.tangleberrie.name=Wirrbeere
 tile.botania:flower.tangleberrie.reference=Hübsches Gefängnis
 tile.botania:flower.jiyuulia.name=Bannbeere
 tile.botania:flower.jiyuulia.reference=Kraftfeldartig
-# TRANSLATE THAT VEXATOS
 tile.botania:flower.rannuncarpus.name=Rannawurzel
 tile.botania:flower.rannuncarpus.reference=Wie praktisch.
 tile.botania:flower.hyacidus.name=Cyazinthe
@@ -584,6 +591,11 @@ botania.entry.redstoneSpreader=Redstone-Manaverbreiter
 botania.page.redstoneSpreader0=By combining a &1Mana Spreader&0 with a piece of &1Redstone&0, it's possible to create a &1Redstone Mana Spreader&0, which fires only when given a &4Redstone signal&0, regardless of having a block in the end to put the mana or not.<br>It's to keep in note that this doesn't let the spreader shoot a burst until the last one dissipates or is absorbed.
 botania.page.redstoneSpreader1=Just add redstone
 
+# -- MANASTAR
+botania.entry.manastar=Manastern
+botania.page.manastar0=The imprecise measurements of the &1Wand of the Forest&0 sometimes won't cut it for telling if you're turning a profit or loss in your &1Mana Pools&0.<br>Creating a &1Manastar&0 and placing it next to your pools will have it shine red if there's a loss or blue if there's a profit. The measurement happens every few seconds.
+botania.page.manastar1=&rI'm a shooting star leaping through the skies&r.
+
 # - FUNCTIONAL FLOWERS
 # -- AN INTRODUCTION TO FUNCTION
 botania.entry.fIntro=Eine Einführung in Funktion
@@ -689,12 +701,13 @@ botania.page.gIntro2=It is important to keep in mind that these flowers memorize
 
 # -- DAYBLOOM
 botania.entry.daybloom=Tagesblüte
-botania.page.daybloom0=The &1Daybloom&0 is the most basic and rudimentary &4Generating Flower&0. Simply put, it preforms a modified photosythesis process, in order to transform sunlight into &4Mana&0.<br>The process is rather slow, you think half a dozen to ten of these should get the job done, for now.
-botania.page.daybloom1=&oStarting up a brand new day&r.
+botania.page.daybloom0=The &1Daybloom&0 is the most basic and rudimentary &4Generating Flower&0. Simply put, it preforms a modified photosythesis process, in order to transform sunlight into &4Mana&0.<br>The process is rather slow, about ten or a dozen of these should get the job done, for now.
+botania.page.daybloom1=An interesting thing to take in note is that these flowers tend to compete among themselves for what sunlight hits an area, thus having any others adjacent to it on any of the four cardinal directions will result in diminshing returns of &4Mana&0 production.
+botania.page.daybloom2=&oStarting up a brand new day&r.
 
 # -- NIGHTSHADE
 botania.entry.nightshade=Nachtschatten
-botania.page.nightshade0=The &1Nightshade&0 is the dark counterpart of the &1Daybloom&0, as it generates &4Mana&0 passively in any situation the &1Daybloom&0 can not, albeit at half the speed.
+botania.page.nightshade0=The &1Nightshade&0 is the dark counterpart of the &1Daybloom&0, as it generates &4Mana&0 passively in any situation the &1Daybloom&0 can not, albeit at half the speed.<br>Similarly to their shining counterpart, they suffer diminishing returns from having any adjacent.
 botania.page.nightshade1=&oThe shadow of the day&r.
 
 # -- ENDOFLAME
@@ -795,6 +808,11 @@ botania.entry.forestDrum=Trommel der Wildnis
 botania.page.forestDrum0=The &1Drum of the Wild&0 is, in layman's terms, the percussion counterpart of the &1Horn of the Wild&0. It serves the exact same purpose as the handheld horn, but is placed in world.<br>To trigger a beat and break nearby folliage, one would fire a &4Mana Burst&0 at the drum.
 botania.page.forestDrum1=It's to note that the drum does not store mana, hence, in order to trigger it, a &1Redstone Mana Spreader&0 or a &1Mana Blaster&0 is required.
 botania.page.forestDrum2=But if you close your eyes...
+
+# -- ABTRUSE PLATFORM
+botania.entry.platform=Schimmerplattform
+botania.page.platform0=By laying &1Livingwood&0 on a very specific format it's possible to create a platform of sorts, that only has a physical body for whoever is on top of it and isn't sneaking. For anyone else, it's like it's not there. &4Mana Bursts&0 will always travel through it without any trouble.<br>It's also possible to camouflage this block as any other simple block by simply right clicking it.
+botania.page.platform1=It would be Etheral but the name was taken
 
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
