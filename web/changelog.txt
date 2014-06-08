@@ -1,3 +1,12 @@
+r1.0 47
+*Added a config option to disable the references in the flowers' tooltips. <i>Though, be warned, I hate you if you do <3</i>
+*Added a tease for (redacted).
+*Added two new generating flowers, the Entropinnyum and the Kekimurus. <i>Help, I'm running out of names :c</i>
+*Buffed the output of the Rosa Arcana.
+*Fixed Composite lenses not being localized.
+*Fixed a crash with right clicking the Abtruse Platform with an empty hand.
+*Fixed generating flowers outputting ALL their power to spreaders even if they can't take all of it. <i><b>Warning</b>: This change modifies API files SubTileGenerating.java and IManaCollector.java.</i>
+*[API] Added IAddonEntry for subtitle support on entries, mostly to prevent the whole [TT] or the like thing in Thaumcraft addons.
 r1.0 46
 *Added the Abtruse Platform, a block to help you get around. <i>Totally not a copy paste from Thaumic Tinkerer, nope.</i>
 *Added the Manastar flower (under the Mana Manipulation section), which lets you measure if you're getting a profit or loss of mana.
