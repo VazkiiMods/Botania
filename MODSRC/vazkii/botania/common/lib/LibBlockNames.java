@@ -39,6 +39,7 @@ public final class LibBlockNames {
 	public static final String FOREST_DRUM = "forestDrum";
 	public static final String SHINY_FLOWER = "shinyFlower";
 	public static final String PLATFORM = "platform";
+	public static final String ALF_PORTAL = "alfheimPortal";
 
 	public static final String SPECIAL_FLOWER_PREFIX = FLOWER + ".";
 
