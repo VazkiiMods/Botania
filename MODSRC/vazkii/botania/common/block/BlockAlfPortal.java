@@ -17,6 +17,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -29,6 +30,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockAlfPortal extends BlockModContainer implements IWandable, ILexiconable {
 
 	IIcon iconOff, iconOn;
+	public static IIcon portalTex;
 	
 	public BlockAlfPortal() {
 		super(Material.wood);
@@ -41,6 +43,7 @@ public class BlockAlfPortal extends BlockModContainer implements IWandable, ILex
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		iconOff = IconHelper.forBlock(par1IconRegister, this, 0);
 		iconOn = IconHelper.forBlock(par1IconRegister, this, 1);
+		portalTex = IconHelper.forBlock(par1IconRegister, this, "Inside");
 	}
 	
 	@Override
@@ -61,6 +64,11 @@ public class BlockAlfPortal extends BlockModContainer implements IWandable, ILex
 	@Override
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
 		return ((TileAlfPortal) world.getTileEntity(x, y, z)).onWanded();
+	}
+	
+	@Override
+	public int getLightValue(IBlockAccess world, int x, int y, int z) {
+		return world.getBlockMetadata(x, y, z) != 0 ? 0 : 15;
 	}
 	
 }
