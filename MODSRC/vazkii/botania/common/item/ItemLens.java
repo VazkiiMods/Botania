@@ -29,6 +29,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.IIcon;
@@ -36,6 +37,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
@@ -240,19 +242,6 @@ public class ItemLens extends ItemMod implements ILens {
 			}
 			break;
 		}
-		case DAMAGE : {
-			if(pos.entityHit != null && pos.entityHit instanceof EntityLivingBase && !(pos.entityHit instanceof EntityPlayer)) {
-				EntityLivingBase living = (EntityLivingBase) pos.entityHit;
-				if(living.hurtTime == 0) {
-					int mana = burst.getMana();
-					if(mana >= 16) {
-						burst.setMana(mana - 16);
-						if(!burst.isFake() && !entity.worldObj.isRemote)
-							living.attackEntityFrom(DamageSource.magic, 4);
-					}
-				}
-			}
-		}
 		case PHANTOM : {
 			if(!isManaBlock) {
 				dead = false;
@@ -287,6 +276,25 @@ public class ItemLens extends ItemMod implements ILens {
 
 		boolean magnetized = entity.getEntityData().hasKey("Botania:Magnetized");
 		switch(stack.getItemDamage()) {
+		case DAMAGE : {
+			AxisAlignedBB axis = AxisAlignedBB.getBoundingBox(entity.posX, entity.posY, entity.posZ, entity.lastTickPosX, entity.lastTickPosY, entity.lastTickPosZ);
+			List<EntityLivingBase> entities = entity.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, axis);
+			for(EntityLivingBase living : entities) {
+				if(living instanceof EntityPlayer)
+					continue;
+
+				if(living.hurtTime == 0) {
+					int mana = burst.getMana();
+					if(mana >= 16) {
+						burst.setMana(mana - 16);
+						if(!burst.isFake() && !entity.worldObj.isRemote)
+							living.attackEntityFrom(DamageSource.magic, 4);
+						break;
+					}
+				}
+			}	
+			break;
+		}
 		case MAGNET : {
 			int x = (int) entity.posX;
 			int y = (int) entity.posY;

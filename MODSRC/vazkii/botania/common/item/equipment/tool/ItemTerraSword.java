@@ -11,12 +11,16 @@
  */
 package vazkii.botania.common.item.equipment.tool;
 
+import java.util.List;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -53,7 +57,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 	public EntityManaBurst getBurst(EntityPlayer player, ItemStack stack) {
 		EntityManaBurst burst = new EntityManaBurst(player);
 
-		float motionModifier = 5F;
+		float motionModifier = 7F;
 
 		burst.setColor(0x20FF20);
 		burst.setMana(MANA_PER_DAMAGE);
@@ -74,26 +78,32 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 
 	@Override
 	public boolean collideBurst(IManaBurst burst, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
-		Entity entity = (Entity) burst;
-		if(pos.entityHit != null && pos.entityHit instanceof EntityLivingBase && !(pos.entityHit instanceof EntityPlayer)) {
-			EntityLivingBase living = (EntityLivingBase) pos.entityHit;
+		return dead;
+	}
+
+	@Override
+	public void updateBurst(IManaBurst burst, ItemStack stack) {
+		EntityThrowable entity = (EntityThrowable) burst;
+		AxisAlignedBB axis = AxisAlignedBB.getBoundingBox(entity.posX, entity.posY, entity.posZ, entity.lastTickPosX, entity.lastTickPosY, entity.lastTickPosZ);
+		List<EntityLivingBase> entities = entity.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, axis);
+		for(EntityLivingBase living : entities) {
+			if(living instanceof EntityPlayer)
+				continue;
+
 			if(living.hurtTime == 0) {
 				int cost = MANA_PER_DAMAGE / 3;
 				int mana = burst.getMana();
 				if(mana >= cost) {
 					burst.setMana(mana - cost);
 					float damage = 4F + BotaniaAPI.terrasteelToolMaterial.getDamageVsEntity();
-					if(!burst.isFake() && !entity.worldObj.isRemote)
+					if(!burst.isFake() && !entity.worldObj.isRemote) {
 						living.attackEntityFrom(DamageSource.magic, damage);
+						entity.setDead();
+						break;
+					}
 				}
 			}
-		}
-		return dead;
-	}
-
-	@Override
-	public void updateBurst(IManaBurst burst, ItemStack stack) {
-		// NO-OP
+	 	}	
 	}
 
 	@Override
