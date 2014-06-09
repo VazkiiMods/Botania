@@ -1,3 +1,6 @@
+r1.0 48
+*Fixed Generating Flowers never outputting any mana whatsoever to spreaders.
+*<i>*sigh*</i>
 r1.0 47
 *Added a config option to disable the references in the flowers' tooltips. <i>Though, be warned, I hate you if you do <3</i>
 *Added a tease for (redacted).
