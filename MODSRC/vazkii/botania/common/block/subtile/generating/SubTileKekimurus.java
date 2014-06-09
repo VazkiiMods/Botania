@@ -30,9 +30,9 @@ public class SubTileKekimurus extends SubTileGenerating {
 			for(int i = 0; i < range * 2 + 1; i++)
 				for(int j = 0; j < range * 2 + 1; j++)
 					for(int k = 0; k < range * 2 + 1; k++) {
-						int x = supertile.xCoord + i;
-						int y = supertile.yCoord + j;
-						int z = supertile.zCoord + k;
+						int x = supertile.xCoord + i - range;
+						int y = supertile.yCoord + k - range;
+						int z = supertile.zCoord + k - range;
 						Block block = supertile.getWorldObj().getBlock(x, y, z);
 						if(block instanceof BlockCake) {
 							int meta = supertile.getWorldObj().getBlockMetadata(x, y, z) + 1;
