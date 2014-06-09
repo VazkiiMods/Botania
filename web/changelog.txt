@@ -3,7 +3,7 @@ r1.0 48
 *<i>*sigh*</i>
 r1.0 47
 *Added a config option to disable the references in the flowers' tooltips. <i>Though, be warned, I hate you if you do <3</i>
-*Added a tease for (redacted).
+*Added a tease for <span class="censored">----------</span>.
 *Added two new generating flowers, the Entropinnyum and the Kekimurus. <i>Help, I'm running out of names :c</i>
 *Buffed the output of the Rosa Arcana.
 *Fixed Composite lenses not being localized.

@@ -1,6 +1,9 @@
+const censorChars = 'abcdefghijklmnopkrstuvwxyz';
 var animating = false;
 
 $(function() {
+	setInterval(changeCensor, 100);
+
 	var remove = $.cookie('show-footer');
 	if(remove === 'true') {
 		$('#footer').css( { bottom: '-50px' } );
@@ -48,3 +51,16 @@ $(".hashlink").click(function() {
 		$('html, body').animate({  scrollTop: 0 }, 500);
 	else $('html, body').animate({ scrollTop: $("#" + hash + "-fake").offset().top - 100 }, 1000);
 });
+
+function changeCensor() {
+	$('.censored').each(function() {
+		$(this).text(randomStr($(this).text().length));
+	});
+}
+
+function randomStr(length) {
+	var str = '';
+	for(var i = 0; i < length; i++)
+		str += censorChars.charAt(Math.floor(Math.random() * censorChars.length));
+	return str;
+}
