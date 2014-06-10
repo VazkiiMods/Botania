@@ -35,6 +35,8 @@ public final class ConfigHandler {
 	public static boolean versionCheckEnabled = true;
 	public static int spreaderPositionShift = 1;
 
+	public static boolean fallenKanadeEnabled = true;
+
 	public static int flowerQuantity = 3;
 	public static int flowerDensity = 32;
 
@@ -83,6 +85,9 @@ public final class ConfigHandler {
 		desc = "Do not ever touch this value if not asked to. Possible symptoms of doing so include your head turning backwards, the appearance of Titans near the walls or you being trapped in a game of Sword Art Online.";
 		spreaderPositionShift = loadPropInt("spreader.posShift", desc, spreaderPositionShift);
 
+		desc = "Set to false to disable the Fallen Kanade flower (gives Regeneration). This config option is here for those using Blood Magic. Note: Turning this off will not remove ones already in the world, it'll simply prevent the crafting.";
+		fallenKanadeEnabled = loadPropBool("fallenKanade.enabled", desc, fallenKanadeEnabled);
+		
 		desc = "The quanity of flower patches to generate in the world, defaults to 3, the lower the number the less patches geenrate.";
 		flowerQuantity = loadPropInt("worldgen.flower.quantity", desc, 3);
 		
