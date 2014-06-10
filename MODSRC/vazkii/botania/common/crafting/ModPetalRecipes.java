@@ -11,8 +11,14 @@
  */
 package vazkii.botania.common.crafting;
 
+import java.util.Arrays;
+
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemSkull;
+import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipePetals;
+import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibOreDict;
@@ -86,5 +92,11 @@ public final class ModPetalRecipes {
 		pollidisiacRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_POLLIDISIAC), orange, orangeMana, red, redMana, pink, pinkMana, runeLust, runeFire);
 		clayconiaRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_CLAYCONIA), gray, lightGray, lightGrayMana, lightGrayMana, grayMana, cyan, runeEarth);
 		looniumRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_LOONIUM), green, green, greenMana, greenMana, gray, grayMana, runeSloth, runeGluttony, runeEnvy, redstoneRoot);
+	
+		ItemStack stack = new ItemStack(Items.skull, 1, 3);
+		ItemNBTHelper.setString(stack, "SkullOwner", "Vazkii");
+		Object[] inputs = new Object[16];
+		Arrays.fill(inputs, pink);
+		BotaniaAPI.registerPetalRecipe(stack, inputs);
 	}
 }
