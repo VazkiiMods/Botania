@@ -45,7 +45,7 @@ botania.color14=Rot
 botania.color15=Schwarz
 botania.color16=Regenbogenfarben
 
-# -- RANKS
+# RANKS
 botania.rank0=&cD
 botania.rank1=&eC
 botania.rank2=&bB
@@ -53,7 +53,7 @@ botania.rank3=&aA
 botania.rank4=&dS
 botania.rank5=&6SS
 
-# -- VERSION CHECKING
+# VERSION CHECKING
 botania.versioning.flavour0=WAS ZUM!? BOTANIA IST NICHT AKTUALISIERT!?
 botania.versioning.flavour1=Willst dur mir weismachen, dass du Botania noch nicht aktualisiert hast, du ignoranter Trottel?
 botania.versioning.flavour2=Als würde Botania wollen, nicht aktualiert zu werden!
@@ -183,6 +183,7 @@ tile.botania:shinyFlower13.name=Schimmernde Grüne Blume
 tile.botania:shinyFlower14.name=Schimmernde Rote Blume
 tile.botania:shinyFlower15.name=Schimmernde Schwarze Blume
 tile.botania:platform.name=Schimmerplattform
+tile.botania:alfheimPortal.name=Weltenbaumextrakt
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania-Blume
@@ -210,7 +211,7 @@ tile.botania:flower.arcanerose.reference=Erfahrung ist wichtig
 tile.botania:flower.munchdew.name=Mampftau
 tile.botania:flower.munchdew.reference=Mhm. Lecker.
 tile.botania:flower.entropinnyum.name=Entropinnyum
-tile.botania:flower.entropinnyum.reference=Weit hinein
+tile.botania:flower.entropinnyum.reference=ZERSTÖRUNG!...Doch nicht
 tile.botania:flower.kekimurus.name=Kekimurus
 tile.botania:flower.kekimurus.reference=Zu finden in jeder Konditorei
 
