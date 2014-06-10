@@ -123,6 +123,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeFlightTiara;
 	public static List<IRecipe> recipesShinyFlowers;
 	public static IRecipe recipePlatform;
+	public static IRecipe recipeEnderDagger;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -671,6 +672,14 @@ public final class ModCrafingRecipes {
 				'3', new ItemStack(ModBlocks.livingwood, 0, 3),
 				'4', new ItemStack(ModBlocks.livingwood, 0, 4));
 		recipePlatform = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Soulscribe Recipe
+		addOreDictRecipe(new ItemStack(ModItems.enderDagger), 
+				"P", "S", "T",
+				'P', LibOreDict.MANA_PEARL,
+				'S', LibOreDict.MANA_STEEL,
+				'T', LibOreDict.LIVINGWOOD_TWIG);
+		recipeEnderDagger = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

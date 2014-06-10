@@ -38,6 +38,7 @@ import vazkii.botania.common.item.equipment.bauble.ItemMiningRing;
 import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
 import vazkii.botania.common.item.equipment.bauble.ItemTravelBelt;
 import vazkii.botania.common.item.equipment.bauble.ItemWaterRing;
+import vazkii.botania.common.item.equipment.tool.ItemEnderDagger;
 import vazkii.botania.common.item.equipment.tool.ItemManasteelAxe;
 import vazkii.botania.common.item.equipment.tool.ItemManasteelPick;
 import vazkii.botania.common.item.equipment.tool.ItemManasteelShears;
@@ -98,6 +99,7 @@ public final class ModItems {
 	public static Item terraPick;
 	public static Item divaCharm;
 	public static Item flightTiara;
+	public static Item enderDagger;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -149,7 +151,8 @@ public final class ModItems {
 		terraPick = new ItemTerraPick();
 		divaCharm = new ItemDivaCharm();
 		flightTiara = new ItemFlightTiara();
-
+		enderDagger	= new ItemEnderDagger();
+		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));

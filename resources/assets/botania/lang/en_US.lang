@@ -393,6 +393,7 @@ item.botania:miningRing.name=Ring of the Mantle
 item.botania:terraPick.name=Terra Shatterer
 item.botania:divaCharm.name=Charm of the Diva
 item.botania:flightTiara.name=Flügel Tiara
+item.botania:enderDagger.name=Soulscribe
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania Index - Pick which category you would like to study:
@@ -896,6 +897,12 @@ botania.page.terraPick2=To advance from rank &4C&0 to rank &4B&0, a full &1Mana 
 botania.page.terraPick3=While the tool is active, it enables it to break blocks in an extended area. At rank &4C&0 it's a small column, which increases to a square at rank &4B&0, that gets larger trough the ranks. It's to note that the rank &4D&0 tool does not have the active ability.<br>Having the tool active consumes &4Mana&0 from it's storage passively, even if not being used to mine.
 botania.page.terraPick4=Lastly, the tool takes damage for every single block broken, so a good supply of &4Mana&0 in the wielder's inventory is a must for the higher ranks, as the tool does function like normal &1Manasteel Tools&0, in which it'll use &4Mana&0 instead of actually taking damage, given it's made of &1Terrasteel&0.<br>It also won't despawn like regular dropped items.
 botania.page.terraPick5=Stronger than a Gastrea
+
+# -- SOULSCRIBE
+botania.entry.enderDagger=Soulscribe
+botania.page.enderDagger0=Those &4Endermen&0. They're the second more pesky thing since &4Creepers&0. I swear, the person who came up with them must have taken a &onotch&r too much of their drink.<br>However, by infusing a standard dagger with some of their energy, one can create the &1Soulscribe&0, a dagger that tears through &1Endermen&0 as if they were butter.
+botania.page.enderDagger1=Due of the type of infusion, though, the dagger only lasts for a few kills, and the energy that radiates from it prevents the &1Manasteel&0 from gathering &4Mana&0 to avoid damage, like typical tools would. Still, all in the name of killing those monsters.
+botania.page.enderDagger2=Strike my Soul
 
 # - BAUBLES
 # -- AN INTRODUCTION TO BAUBLES

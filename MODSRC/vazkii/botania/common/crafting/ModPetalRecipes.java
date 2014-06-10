@@ -14,7 +14,6 @@ package vazkii.botania.common.crafting;
 import java.util.Arrays;
 
 import net.minecraft.init.Items;
-import net.minecraft.item.ItemSkull;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipePetals;

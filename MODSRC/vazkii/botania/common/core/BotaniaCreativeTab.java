@@ -85,6 +85,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.manasteelAxe);
 		addItem(ModItems.manasteelShears);
 		addItem(ModItems.manasteelSword);
+		addItem(ModItems.enderDagger);
 		addItem(ModItems.manasteelHelm);
 		addItem(ModItems.manasteelChest);
 		addItem(ModItems.manasteelLegs);

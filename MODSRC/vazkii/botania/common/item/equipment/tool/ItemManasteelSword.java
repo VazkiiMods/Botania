@@ -66,7 +66,8 @@ public class ItemManasteelSword extends ItemSword implements IManaUsingItem {
 
 	@Override
 	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase) {
-		ManasteelToolCommons.damageItem(par1ItemStack, 1, par3EntityLivingBase, MANA_PER_DAMAGE);
+		if(usesMana(par1ItemStack))
+			ManasteelToolCommons.damageItem(par1ItemStack, 1, par3EntityLivingBase, MANA_PER_DAMAGE);
 		return true;
 	}
 
@@ -82,7 +83,7 @@ public class ItemManasteelSword extends ItemSword implements IManaUsingItem {
 
 	@Override
 	public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int x, int y, int z, EntityLivingBase entity) {
-		if (block.getBlockHardness(world, x, y, z) != 0F)
+		if(usesMana(stack) && block.getBlockHardness(world, x, y, z) != 0F)
 			ManasteelToolCommons.damageItem(stack, 1, entity, MANA_PER_DAMAGE);
 
 		return true;
@@ -97,5 +98,5 @@ public class ItemManasteelSword extends ItemSword implements IManaUsingItem {
 	public boolean usesMana(ItemStack stack) {
 		return true;
 	}
-
+	
 }
