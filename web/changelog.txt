@@ -1,3 +1,8 @@
+r1.0 49
+*Artificially increased the accuracy of the Damaging Lens and Terra Blade.
+*Commented the flower quantity and density config options.
+*Fixed the Kekimurus eating only from the south east.
+*Some behind the scenes work on <a href="http://gfycat.com/DarkUnhealthyEthiopianwolf"><span class="censored">----------</span></a>.
 r1.0 48
 *Fixed Generating Flowers never outputting any mana whatsoever to spreaders.
 *<i>*sigh*</i>

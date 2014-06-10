@@ -52,6 +52,8 @@ public final class LibResources {
 	public static final String MODEL_INFINITE_POOL = PREFIX_MODEL + "infinitePool.png";
 	public static final String MODEL_PYLON_OLD = PREFIX_MODEL + "pylonOld.png";
 	public static final String MODEL_PYLON = PREFIX_MODEL + "pylon.png";
+	public static final String MODEL_PYLON_GREEN_OLD = PREFIX_MODEL + "pylonOld1.png";
+	public static final String MODEL_PYLON_GREEN = PREFIX_MODEL + "pylon1.png";
 	public static final String MODEL_LEXICA = PREFIX_MODEL + "lexica.png";
 	public static final String MODEL_MANASTEEL_0 = PREFIX_MODEL + "manasteel0.png";
 	public static final String MODEL_MANASTEEL_1 = PREFIX_MODEL + "manasteel1.png";

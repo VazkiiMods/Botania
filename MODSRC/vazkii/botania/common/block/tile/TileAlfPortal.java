@@ -13,6 +13,7 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import vazkii.botania.api.BotaniaAPI;
@@ -21,7 +22,7 @@ import vazkii.botania.common.block.ModBlocks;
 
 import com.google.common.base.Function;
 
-public class TileAlfPortal extends TileEntity {
+public class TileAlfPortal extends TileMod {
 
 	private static final int[][] LIVINGWOOD_POSITIONS = {
 		{ -1, 0, 0}, { 1, 0, 0}, { -2, 1, 0}, { 2, 1, 0}, { -2, 3, 0}, { 2, 3, 0}, { -1, 4, 0}, { 1, 4, 0}
@@ -42,6 +43,8 @@ public class TileAlfPortal extends TileEntity {
 	private static final int[][] AIR_POSITIONS = {
 		{ -1, 1, 0 }, { 0, 1, 0 }, { 1, 1, 0 },	{ -1, 2, 0 }, { 0, 2, 0 }, { 1, 2, 0 },	{ -1, 3, 0 }, { 0, 3, 0 }, { 1, 3, 0 }
 	};
+	
+	private static final String TAG_TICKS_OPEN = "ticksOpen";
 	
 	public int ticksOpen = 0;
 	
@@ -109,6 +112,16 @@ public class TileAlfPortal extends TileEntity {
 		return false;
 	}
 	
+	@Override
+	public void writeCustomNBT(NBTTagCompound cmp) {
+		cmp.setInteger(TAG_TICKS_OPEN, ticksOpen);
+	}
+	
+	@Override
+	public void readCustomNBT(NBTTagCompound cmp) {
+		ticksOpen = cmp.getInteger(TAG_TICKS_OPEN);
+	}
+	
 	private int getValidMetadata() {
 		if(checkConverter(null))
 			return 1;
@@ -130,12 +143,34 @@ public class TileAlfPortal extends TileEntity {
 			return false;
 		if(!check2DArray(GLIMMERING_LIVINGWOOD_POSITIONS, ModBlocks.livingwood, 5, converters))
 			return false;
-		if(!check2DArray(PYLON_POSITIONS, ModBlocks.pylon, 0, converters))
+		if(!check2DArray(PYLON_POSITIONS, ModBlocks.pylon, 1, converters))
 			return false;
 		if(!check2DArray(POOL_POSITIONS, ModBlocks.pool, -1, converters))
 			return false;
 		
+		lightPylons(converters);
 		return true;
+	}
+	
+	private void lightPylons(Function<int[], int[]>... converters) {
+		if(ticksOpen < 50)
+			return;
+		
+		for(int[] pos : PYLON_POSITIONS) {
+			for(Function<int[], int[]> f : converters)
+				if(f != null)
+					pos = f.apply(pos);
+			
+			TileEntity tile = worldObj.getTileEntity(xCoord + pos[0], yCoord + pos[1], zCoord + pos[2]);
+			if(tile instanceof TilePylon) {
+				TilePylon pylon = (TilePylon) tile;
+				pylon.activated = true;
+				pylon.centerX = xCoord;
+				pylon.centerY = yCoord;
+				pylon.centerZ = zCoord;
+			}
+		}
+
 	}
 	
 	private boolean check2DArray(int[][] positions, Block block, int meta, Function<int[], int[]>... converters) {

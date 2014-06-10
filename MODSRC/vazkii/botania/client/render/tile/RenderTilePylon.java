@@ -34,7 +34,11 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 	private static final ResourceLocation textureOld = new ResourceLocation(LibResources.MODEL_PYLON_OLD);
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_PYLON);
 
+	private static final ResourceLocation textureGreenOld = new ResourceLocation(LibResources.MODEL_PYLON_GREEN_OLD);
+	private static final ResourceLocation textureGreen = new ResourceLocation(LibResources.MODEL_PYLON_GREEN);
+	
 	IPylonModel model;
+	public static boolean green = false;
 
 	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float pticks) {
@@ -46,7 +50,10 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			GL11.glColor4f(1F, 1F, 1F, 1F);
-			Minecraft.getMinecraft().renderEngine.bindTexture(ConfigHandler.oldPylonModel ? textureOld : texture);
+			if(tileentity.getWorldObj() != null)
+				green = tileentity.getBlockMetadata() == 1;
+			
+			Minecraft.getMinecraft().renderEngine.bindTexture(ConfigHandler.oldPylonModel ? green ? textureGreenOld : textureOld : green ? textureGreen : texture);
 			int worldTime = (int) (tileentity.getWorldObj() == null ? 0 : tileentity.getWorldObj().getTotalWorldTime());
 
 			if(tileentity != null)
@@ -56,21 +63,24 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 				GL11.glTranslated(d0 + 0.5, d1 + 2.2, d2 + 0.5);
 				GL11.glScalef(1F, -1.5F, -1F);
 			} else {
-				GL11.glTranslated(d0 + 0.2, d1 + 0.05, d2 + 0.8);
-				GL11.glScalef(0.6F, 0.6F, 0.6F);
+				GL11.glTranslated(d0 + 0.2 + (green ? -0.1 : 0), d1 + 0.05, d2 + 0.8 + (green ? 0.1 : 0));
+				float scale = green ? 0.8F : 0.6F;
+				GL11.glScalef(scale, 0.6F, scale);
 			}
 
-			GL11.glPushMatrix();
-			if(!ConfigHandler.oldPylonModel)
-				GL11.glTranslatef(0.5F, 0F, -0.5F);
-			GL11.glRotatef(worldTime * 1.5F, 0F, 1F, 0F);
-			if(!ConfigHandler.oldPylonModel)
-				GL11.glTranslatef(-0.5F, 0F, 0.5F);
+			if(!green) {
+				GL11.glPushMatrix();
+				if(!ConfigHandler.oldPylonModel)
+					GL11.glTranslatef(0.5F, 0F, -0.5F);
+				GL11.glRotatef(worldTime * 1.5F, 0F, 1F, 0F);
+				if(!ConfigHandler.oldPylonModel)
+					GL11.glTranslatef(-0.5F, 0F, 0.5F);
 
-			model.renderRing();
-			GL11.glTranslated(0D, Math.sin(worldTime / 20D) / 20 - 0.025, 0D);
-			model.renderGems();
-			GL11.glPopMatrix();
+				model.renderRing();
+				GL11.glTranslated(0D, Math.sin(worldTime / 20D) / 20 - 0.025, 0D);
+				model.renderGems();
+				GL11.glPopMatrix();	
+			}
 
 			GL11.glPushMatrix();
 			GL11.glTranslated(0D, Math.sin(worldTime / 20D) / 17.5, 0D);

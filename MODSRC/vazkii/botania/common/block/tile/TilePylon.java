@@ -11,6 +11,8 @@
  */
 package vazkii.botania.common.block.tile;
 
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.tileentity.TileEntity;
@@ -25,33 +27,57 @@ public class TilePylon extends TileEntity {
 
 	@Override
 	public void updateEntity() {
+		int meta = getBlockMetadata();
+
 		if(activated && worldObj.isRemote) {
-			if(worldObj.getBlock(centerX, centerY, centerZ) != ModBlocks.enchanter) {
+			if(worldObj.getBlock(centerX, centerY, centerZ) != getBlockForMeta() || (meta != 0 && worldObj.getBlockMetadata(centerX, centerY, centerZ) == 0)) {
 				activated = false;
 				return;
 			}
 
 			Vector3 centerBlock = new Vector3(centerX + 0.5, centerY + 0.75 + (Math.random() - 0.5 * 0.25), centerZ + 0.5);
 
-			Block block = worldObj.getBlock(xCoord, yCoord - 1, zCoord);
-			if(block == ModBlocks.flower) {
-				int meta = worldObj.getBlockMetadata(xCoord, yCoord - 1, zCoord);
-				float[] color = EntitySheep.fleeceColorTable[meta];
-
-				if(worldObj.rand.nextInt(4) == 0)
-					Botania.proxy.sparkleFX(worldObj, centerBlock.x + (Math.random() - 0.5) * 0.5, centerBlock.y, centerBlock.z + (Math.random() - 0.5) * 0.5, color[0], color[1], color[2], (float) Math.random(), 8);
-
-				Botania.proxy.wispFX(worldObj, xCoord + 0.5 + (Math.random() - 0.5) * 0.25, yCoord - 0.5, zCoord + 0.5 + (Math.random() - 0.5) * 0.25, color[0], color[1], color[2], (float) Math.random() / 3F, -0.04F);
-				Botania.proxy.wispFX(worldObj, xCoord + 0.5 + (Math.random() - 0.5) * 0.125, yCoord + 1.5, zCoord + 0.5 + (Math.random() - 0.5) * 0.125, color[0], color[1], color[2], (float) Math.random() / 5F, -0.001F);
-
+			if(meta == 1) {
+				double worldTime = (int) worldObj.getTotalWorldTime();
+				worldTime += new Random(xCoord ^ yCoord ^ zCoord).nextInt(1000);
+				worldTime /= 5;
+				
+				float r = 0.75F + (float) Math.random() * 0.05F;
+				double x = xCoord + 0.5 + Math.cos(worldTime) * r;
+				double z = zCoord + 0.5 + Math.sin(worldTime) * r;
+				
+				Vector3 ourCoords = new Vector3(x, yCoord + 0.25, z);
+				Vector3 target = centerBlock.sub(new Vector3(0, 0.5, 0));
+				Vector3 movementVector = centerBlock.sub(ourCoords).normalize().multiply(0.2);
+				
+				Botania.proxy.wispFX(worldObj, x, yCoord + 0.25, z, (float) Math.random() * 0.25F, 0.75F + (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, 0.25F + (float) Math.random() * 0.1F, -0.075F - (float) Math.random() * 0.015F);
+				if(worldObj.rand.nextInt(3) == 0)
+					Botania.proxy.wispFX(worldObj, x, yCoord + 0.25, z, (float) Math.random() * 0.25F, 0.75F + (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, 0.25F + (float) Math.random() * 0.1F, (float) movementVector.x, (float) movementVector.y, (float) movementVector.z);
+			} else {
 				Vector3 ourCoords = Vector3.fromTileEntityCenter(this).add(0, 1 + (Math.random() - 0.5 * 0.25), 0);
 				Vector3 movementVector = centerBlock.sub(ourCoords).normalize().multiply(0.2);
-				Botania.proxy.wispFX(worldObj, xCoord + 0.5 + (Math.random() - 0.5) * 0.25, yCoord + 1.5, zCoord + 0.5 + (Math.random() - 0.5) * 0.25, color[0], color[1], color[2], (float) Math.random() / 8F, (float) movementVector.x, (float) movementVector.y, (float) movementVector.z);
+				
+				Block block = worldObj.getBlock(xCoord, yCoord - 1, zCoord);
+				if(block == ModBlocks.flower) {
+					int fmeta = worldObj.getBlockMetadata(xCoord, yCoord - 1, zCoord);
+					float[] color = EntitySheep.fleeceColorTable[fmeta];
+
+					if(worldObj.rand.nextInt(4) == 0)
+						Botania.proxy.sparkleFX(worldObj, centerBlock.x + (Math.random() - 0.5) * 0.5, centerBlock.y, centerBlock.z + (Math.random() - 0.5) * 0.5, color[0], color[1], color[2], (float) Math.random(), 8);
+
+					Botania.proxy.wispFX(worldObj, xCoord + 0.5 + (Math.random() - 0.5) * 0.25, yCoord - 0.5, zCoord + 0.5 + (Math.random() - 0.5) * 0.25, color[0], color[1], color[2], (float) Math.random() / 3F, -0.04F);
+					Botania.proxy.wispFX(worldObj, xCoord + 0.5 + (Math.random() - 0.5) * 0.125, yCoord + 1.5, zCoord + 0.5 + (Math.random() - 0.5) * 0.125, color[0], color[1], color[2], (float) Math.random() / 5F, -0.001F);
+					Botania.proxy.wispFX(worldObj, xCoord + 0.5 + (Math.random() - 0.5) * 0.25, yCoord + 1.5, zCoord + 0.5 + (Math.random() - 0.5) * 0.25, color[0], color[1], color[2], (float) Math.random() / 8F, (float) movementVector.x, (float) movementVector.y, (float) movementVector.z);
+				}
 			}
 		}
 
 		if(worldObj.rand.nextBoolean() && worldObj.isRemote)
-			Botania.proxy.sparkleFX(worldObj, xCoord + Math.random(), yCoord + Math.random() * 1.5, zCoord + Math.random(), 0.5F, 0.5F, 1F, (float) Math.random(), 2);
+			Botania.proxy.sparkleFX(worldObj, xCoord + Math.random(), yCoord + Math.random() * 1.5, zCoord + Math.random(), 0.5F, meta == 1 ? 1F : 0.5F, meta == 1 ? 0.5F : 1F, (float) Math.random(), 2);
+	}
+	
+	private Block getBlockForMeta() {
+		return getBlockMetadata() == 0 ? ModBlocks.enchanter : ModBlocks.alfPortal;
 	}
 
 }

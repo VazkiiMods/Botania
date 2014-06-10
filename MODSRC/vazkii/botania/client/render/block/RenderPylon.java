@@ -19,6 +19,7 @@ import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.lib.LibRenderIDs;
+import vazkii.botania.client.render.tile.RenderTilePylon;
 import vazkii.botania.common.block.tile.TilePylon;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
@@ -28,6 +29,7 @@ public class RenderPylon implements ISimpleBlockRenderingHandler {
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
 		GL11.glPushMatrix();
 		GL11.glTranslatef(-0.5F, -0.7F, -0.5F);
+		RenderTilePylon.green = metadata == 1;
 		TileEntityRendererDispatcher.instance.renderTileEntityAt(new TilePylon(), 0.0D, 0.0D, 0.0D, 0.0F);
 		GL11.glPopMatrix();
 	}
