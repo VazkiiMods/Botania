@@ -25,6 +25,13 @@ botaniamisc.creativePool0=Creative Mana Pool, has infinite Mana
 botaniamisc.creativePool1=Worthy of an Egoist
 botaniamisc.savedByLaurel=Your Golden Laurel Crown shatters, as it saves you from death.
 botaniamisc.toolRank=%s&7 Rank
+botaniamisc.edition=%s Edition
+# ^ Leave this empty for no edition display
+botaniamisc.devEdition=Writer's
+botaniamisc.lexiconcover0=Your guide to all
+botaniamisc.lexiconcover1=Botanical needs
+botaniamisc.lexiconcover2=From Bestselling author
+botaniamisc.lexiconcover3=Lizbeth "Vazkii" Rika
 
 # COLORS
 botania.color0=White
@@ -426,7 +433,7 @@ item.botania:quartz3.name=Lavender Quartz
 item.botania:quartz4.name=Redquartz
 
 # GUI TEXT
-botania.gui.lexicon.header=Lexica Botania Index - Pick which category you would like to study:
+botania.gui.lexicon.header=Lexica Botania, %s Edition's Index - Pick which category you would like to study:
 botania.gui.lexicon.wip=(This entry is a Work In Progress. It's not even it's final form)
 
 # LEXICON CATEGORIES

@@ -11,16 +11,21 @@
  */
 package vazkii.botania.common.item;
 
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lib.LibGuiIDs;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 
 public class ItemLexicon extends ItemMod {
 
@@ -46,6 +51,19 @@ public class ItemLexicon extends ItemMod {
 		}
 
 		return false;
+	}
+
+	@Override
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+		String edition = String.format(StatCollector.translateToLocal("botaniamisc.edition"), getEdition());
+		if(!edition.isEmpty())
+			par3List.add(edition);
+	}
+	
+	public static String getEdition() {
+		String version = LibMisc.BUILD;
+		int build = version.contains("ANT") ? 0 : Integer.parseInt(version);
+		return build == 0 ? StatCollector.translateToLocal("botaniamisc.devEdition") : MathHelper.numberToOrdinal(build);
 	}
 
 	@Override

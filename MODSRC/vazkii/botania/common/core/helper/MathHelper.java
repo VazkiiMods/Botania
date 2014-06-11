@@ -30,5 +30,10 @@ public final class MathHelper {
 		entity.motionY = finalVector.y * modifier;
 		entity.motionZ = finalVector.z * modifier;
 	}
+	
+	private static final String[] ORDINAL_SUFFIXES = new String[]{ "th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th" };
+	public static String numberToOrdinal(int i) {
+	    return i % 100 == 11 || i % 100 == 12 || i % 100 == 13 ? i + "th" : i + ORDINAL_SUFFIXES[i % 10];
+	}
 
 }

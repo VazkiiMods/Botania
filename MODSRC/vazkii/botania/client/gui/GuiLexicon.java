@@ -13,6 +13,7 @@ package vazkii.botania.client.gui;
 
 import java.util.List;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
@@ -25,6 +26,7 @@ import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.gui.button.GuiButtonInvisible;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;
 
 public class GuiLexicon extends GuiScreen {
@@ -33,6 +35,7 @@ public class GuiLexicon extends GuiScreen {
 
 	public static final ResourceLocation texture = new ResourceLocation(LibResources.GUI_LEXICON);
 
+	String title;
 	int guiWidth = 146;
 	int guiHeight = 180;
 	int left, top;
@@ -40,6 +43,7 @@ public class GuiLexicon extends GuiScreen {
 	@Override
 	public void initGui() {
 		super.initGui();
+		title = Minecraft.getMinecraft().thePlayer.getCurrentEquippedItem().getDisplayName();
 		currentOpenLexicon = this;
 
 		left = width / 2 - guiWidth / 2;
@@ -77,7 +81,7 @@ public class GuiLexicon extends GuiScreen {
 	void drawHeader() {
 		boolean unicode = fontRendererObj.getUnicodeFlag();
 		fontRendererObj.setUnicodeFlag(true);
-		fontRendererObj.drawSplitString(StatCollector.translateToLocal("botania.gui.lexicon.header"), left + 15, top + 20, 110, 0);
+		fontRendererObj.drawSplitString(String.format(StatCollector.translateToLocal("botania.gui.lexicon.header"), ItemLexicon.getEdition()), left + 18, top + 14, 110, 0);
 		fontRendererObj.setUnicodeFlag(unicode);
 	}
 
@@ -102,7 +106,7 @@ public class GuiLexicon extends GuiScreen {
 	}
 
 	String getTitle() {
-		return ModItems.lexicon.getItemStackDisplayName(null);
+		return title;
 	}
 
 	String getSubtitle() {

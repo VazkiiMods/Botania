@@ -12,15 +12,20 @@
 package vazkii.botania.client.render.item;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.model.ModelBook;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.client.IItemRenderer;
 
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.item.ItemLexicon;
+import vazkii.botania.common.item.ModItems;
 
 public class RenderLexicon implements IItemRenderer {
 
@@ -47,13 +52,44 @@ public class RenderLexicon implements IItemRenderer {
 
 		int ticks = ClientTickHandler.ticksWithLexicaOpen;
 		GL11.glTranslatef(0.3F + 0.02F * ticks, 0.475F + 0.01F * ticks, -0.2F - 0.01F * ticks);
-		GL11.glRotatef(95F + ticks * 5, 0F, 1F, 0F);
+		GL11.glRotatef(87.5F + ticks * 5, 0F, 1F, 0F);
 		GL11.glRotatef(ticks * 2.5F, 0F, 0F, 1F);
 		GL11.glScalef(0.9F, 0.9F, 0.9F);
 		opening = ticks / 12F;
 		pageFlip = ClientTickHandler.pageFlipTicks / 5F;
 
 		model.render(null, 0F, 0F, pageFlip, opening, 0F, 1F / 16F);
+		if(ticks < 3) {
+			FontRenderer font = Minecraft.getMinecraft().fontRenderer;
+			GL11.glRotatef(180F, 0F, 0F, 0F);
+			GL11.glTranslatef(-0.3F, -0.2F, 0.07F);
+			GL11.glScalef(0.0035F, 0.0035F, 0.0035F);
+			String title = ModItems.lexicon.getItemStackDisplayName(null);
+			if(Minecraft.getMinecraft().thePlayer.getCurrentEquippedItem() != null)
+				title = Minecraft.getMinecraft().thePlayer.getCurrentEquippedItem().getDisplayName();
+			font.drawString(title, 0, 0, 0xD69700);
+			GL11.glTranslatef(0F, 10F, 0F);
+			GL11.glScalef(0.6F, 0.6F, 0.6F);
+			font.drawString(EnumChatFormatting.ITALIC + "" + EnumChatFormatting.BOLD + String.format(StatCollector.translateToLocal("botaniamisc.edition"), ItemLexicon.getEdition()), 0, 0, 0xA07100);
+			
+			GL11.glTranslatef(0F, 15F, 0F);
+			font.drawString(StatCollector.translateToLocal("botaniamisc.lexiconcover0"), 0, 0, 0x79ff92);
+			
+			GL11.glTranslatef(0F, 10F, 0F);
+			font.drawString(EnumChatFormatting.UNDERLINE + StatCollector.translateToLocal("botaniamisc.lexiconcover1"), 0, 0, 0x79ff92);
+
+			GL11.glTranslatef(0F, 25F, 0F);
+			GL11.glPushMatrix();
+			GL11.glScalef(6F, 6F, 6F);
+			GL11.glTranslatef(5F, -0.3F, 0F);
+			font.drawString(EnumChatFormatting.BOLD + "~", 0, 0, 0x002206);
+			GL11.glPopMatrix();
+			
+			GL11.glTranslatef(0F, 25F, 0F);
+			font.drawString(StatCollector.translateToLocal("botaniamisc.lexiconcover2"), 0, 0, 0x79ff92);
+			GL11.glTranslatef(0F, 10F, 0F);
+			font.drawString(EnumChatFormatting.ITALIC + StatCollector.translateToLocal("botaniamisc.lexiconcover3"), 0, 0, 0x79ff92);
+		}		
 
 		GL11.glPopMatrix();
 	}
