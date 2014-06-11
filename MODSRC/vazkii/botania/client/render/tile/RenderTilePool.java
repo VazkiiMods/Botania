@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
@@ -53,7 +54,11 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 
 		GL11.glTranslatef(0.5F, 1.5F, 0.5F);
 		GL11.glScalef(1F, -1F, -1F);
+		int color = pool.color;
+		float[] acolor = EntitySheep.fleeceColorTable[color];
+		GL11.glColor3f(acolor[0], acolor[1], acolor[2]);
 		model.render();
+		GL11.glColor3f(1F, 1F, 1F);
 		GL11.glScalef(1F, -1F, -1F);
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 

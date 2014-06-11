@@ -38,6 +38,7 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileMod;
+import vazkii.botania.common.item.ModItems;
 
 public class TilePool extends TileMod implements IManaPool {
 
@@ -46,10 +47,12 @@ public class TilePool extends TileMod implements IManaPool {
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_KNOWN_MANA = "knownMana";
 	private static final String TAG_OUTPUTTING = "outputting";
+	private static final String TAG_COLOR = "color";
 
 	boolean outputting = false;
 	public boolean alchemy = false;
 
+	public int color = 0;
 	int mana;
 	int knownMana = -1;
 	int craftCooldown = 20;
@@ -90,6 +93,17 @@ public class TilePool extends TileMod implements IManaPool {
 		ItemStack stack = item.getEntityItem();
 		if(stack == null)
 			return false;
+		
+		if(stack.getItem() == ModItems.dye && !worldObj.isRemote) {
+			int meta = stack.getItemDamage();
+			if(meta != color) {
+				color = meta;
+				stack.stackSize--;
+				if(stack.stackSize == 0)
+					item.setDead();
+				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+			}
+		}
 
 		for(RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes) {
 			if(recipe.matches(stack) && (!recipe.isAlchemy() || alchemy)) {
@@ -195,12 +209,14 @@ public class TilePool extends TileMod implements IManaPool {
 	public void writeCustomNBT(NBTTagCompound cmp) {
 		cmp.setInteger(TAG_MANA, mana);
 		cmp.setBoolean(TAG_OUTPUTTING, outputting);
+		cmp.setInteger(TAG_COLOR, color);
 	}
 
 	@Override
 	public void readCustomNBT(NBTTagCompound cmp) {
 		mana = cmp.getInteger(TAG_MANA);
 		outputting = cmp.getBoolean(TAG_OUTPUTTING);
+		color = cmp.getInteger(TAG_COLOR);
 
 		if(cmp.hasKey(TAG_KNOWN_MANA))
 			knownMana = cmp.getInteger(TAG_KNOWN_MANA);
