@@ -37,7 +37,6 @@ public class ItemEnderDagger extends ItemManasteelSword {
 	
 	@Override
 	public void registerIcons(IIconRegister par1IconRegister) {
-		super.registerIcons(par1IconRegister);
 		iconFront = IconHelper.forItem(par1IconRegister, this, 0);
 		iconOverlay = IconHelper.forItem(par1IconRegister, this, 1);
 	}
