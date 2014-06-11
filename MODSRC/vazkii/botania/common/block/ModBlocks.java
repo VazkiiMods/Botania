@@ -21,6 +21,9 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.dispenser.BehaviourSeeds;
 import vazkii.botania.common.block.dispenser.BehaviourWand;
+import vazkii.botania.common.block.quartz.BlockSpecialQuartz;
+import vazkii.botania.common.block.quartz.BlockSpecialQuartzSlab;
+import vazkii.botania.common.block.quartz.BlockSpecialQuartzStairs;
 import vazkii.botania.common.block.subtile.SubTileManastar;
 import vazkii.botania.common.block.subtile.SubTilePureDaisy;
 import vazkii.botania.common.block.subtile.functional.SubTileAgricarnation;
@@ -100,6 +103,27 @@ public final class ModBlocks {
 	public static Block platform;
 	public static Block alfPortal;
 
+	public static Block darkQuartz;
+	public static Block darkQuartzSlab;
+	public static Block darkQuartzSlabFull;
+	public static Block darkQuartzStairs;
+	public static Block manaQuartz;
+	public static Block manaQuartzSlab;
+	public static Block manaQuartzSlabFull;
+	public static Block manaQuartzStairs;
+	public static Block blazeQuartz;
+	public static Block blazeQuartzSlab;
+	public static Block blazeQuartzSlabFull;
+	public static Block blazeQuartzStairs;
+	public static Block lavenderQuartz;
+	public static Block lavenderQuartzSlab;
+	public static Block lavenderQuartzSlabFull;
+	public static Block lavenderQuartzStairs;
+	public static Block redQuartz;
+	public static Block redQuartzSlab;
+	public static Block redQuartzSlabFull;
+	public static Block redQuartzStairs;
+	
 	public static void init() {
 		flower = new BlockModFlower();
 		altar = new BlockAltar();
@@ -127,7 +151,39 @@ public final class ModBlocks {
 		shinyFlower = new BlockShinyFlower();
 		platform = new BlockPlatform();
 		alfPortal = new BlockAlfPortal();
-
+		
+		darkQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_DARK);
+		darkQuartzSlab = new BlockSpecialQuartzSlab(darkQuartz, false);
+		darkQuartzSlabFull = new BlockSpecialQuartzSlab(darkQuartz, true);
+		darkQuartzStairs = new BlockSpecialQuartzStairs(darkQuartz);
+		manaQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_MANA);
+		manaQuartzSlab = new BlockSpecialQuartzSlab(manaQuartz, false);
+		manaQuartzSlabFull = new BlockSpecialQuartzSlab(manaQuartz, true);
+		manaQuartzStairs = new BlockSpecialQuartzStairs(manaQuartz);
+		blazeQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_BLAZE);
+		blazeQuartzSlab = new BlockSpecialQuartzSlab(blazeQuartz, false);
+		blazeQuartzSlabFull = new BlockSpecialQuartzSlab(blazeQuartz, true);
+		blazeQuartzStairs = new BlockSpecialQuartzStairs(blazeQuartz);
+		lavenderQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_LAVENDER);
+		lavenderQuartzSlab = new BlockSpecialQuartzSlab(lavenderQuartz, false);
+		lavenderQuartzSlabFull = new BlockSpecialQuartzSlab(lavenderQuartz, true);
+		lavenderQuartzStairs = new BlockSpecialQuartzStairs(lavenderQuartz);
+		redQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_RED);
+		redQuartzSlab = new BlockSpecialQuartzSlab(redQuartz, false);
+		redQuartzSlabFull = new BlockSpecialQuartzSlab(redQuartz, true);
+		redQuartzStairs = new BlockSpecialQuartzStairs(redQuartz);
+		
+		((BlockSpecialQuartzSlab) darkQuartzSlab).register();
+		((BlockSpecialQuartzSlab) darkQuartzSlabFull).register();
+		((BlockSpecialQuartzSlab) manaQuartzSlab).register();
+		((BlockSpecialQuartzSlab) manaQuartzSlabFull).register();
+		((BlockSpecialQuartzSlab) blazeQuartzSlab).register();
+		((BlockSpecialQuartzSlab) blazeQuartzSlabFull).register();
+		((BlockSpecialQuartzSlab) lavenderQuartzSlab).register();
+		((BlockSpecialQuartzSlab) lavenderQuartzSlabFull).register();
+		((BlockSpecialQuartzSlab) redQuartzSlab).register();
+		((BlockSpecialQuartzSlab) redQuartzSlabFull).register();
+		
 		for(int i = 0; i < 16; i++)
 			OreDictionary.registerOre(LibOreDict.FLOWER[i], new ItemStack(flower, 1, i));
 

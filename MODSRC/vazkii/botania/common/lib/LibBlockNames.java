@@ -73,4 +73,10 @@ public final class LibBlockNames {
 	public static final String SUBTILE_POLLIDISIAC = "pollidisiac";
 	public static final String SUBTILE_CLAYCONIA = "clayconia";
 	public static final String SUBTILE_LOONIUM = "loonium";
+	
+	public static final String QUARTZ_DARK = "Dark";
+	public static final String QUARTZ_MANA = "Mana";
+	public static final String QUARTZ_BLAZE = "Blaze";
+	public static final String QUARTZ_LAVENDER = "Lavender";
+	public static final String QUARTZ_RED = "Red";
 }
