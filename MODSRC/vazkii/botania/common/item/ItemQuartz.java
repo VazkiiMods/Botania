@@ -19,6 +19,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemQuartz extends ItemMod {
@@ -33,7 +34,7 @@ public class ItemQuartz extends ItemMod {
 
 	@Override
 	public void getSubItems(Item item, CreativeTabs tab, List list) {
-		for(int i = 0; i < SUBTYPES; i++)
+		for(int i = ConfigHandler.darkQuartzEnabled ? 0 : 1; i < SUBTYPES; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
 

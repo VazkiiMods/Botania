@@ -36,6 +36,7 @@ public final class ConfigHandler {
 	public static int spreaderPositionShift = 1;
 
 	public static boolean fallenKanadeEnabled = true;
+	public static boolean darkQuartzEnabled = true;
 
 	public static int flowerQuantity = 3;
 	public static int flowerDensity = 32;
@@ -88,6 +89,9 @@ public final class ConfigHandler {
 		desc = "Set to false to disable the Fallen Kanade flower (gives Regeneration). This config option is here for those using Blood Magic. Note: Turning this off will not remove ones already in the world, it'll simply prevent the crafting.";
 		fallenKanadeEnabled = loadPropBool("fallenKanade.enabled", desc, fallenKanadeEnabled);
 
+		desc = "Set to false to disable the Smokey Quartz blocks. This config option is here for those using Thaumic Tinkerer";
+		darkQuartzEnabled = loadPropBool("darkQuartz.enabled", desc, darkQuartzEnabled);
+		
 		desc = "The quanity of flower patches to generate in the world, defaults to 3, the lower the number the less patches geenrate.";
 		flowerQuantity = loadPropInt("worldgen.flower.quantity", desc, 3);
 

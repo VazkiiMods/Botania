@@ -69,6 +69,7 @@ import vazkii.botania.common.block.tile.mana.TileManaVoid;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.block.tile.mana.TileTurntable;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibOreDict;
@@ -152,10 +153,13 @@ public final class ModBlocks {
 		platform = new BlockPlatform();
 		alfPortal = new BlockAlfPortal();
 
-		darkQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_DARK);
-		darkQuartzSlab = new BlockSpecialQuartzSlab(darkQuartz, false);
-		darkQuartzSlabFull = new BlockSpecialQuartzSlab(darkQuartz, true);
-		darkQuartzStairs = new BlockSpecialQuartzStairs(darkQuartz);
+		if(ConfigHandler.darkQuartzEnabled) {
+			darkQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_DARK);
+			darkQuartzSlab = new BlockSpecialQuartzSlab(darkQuartz, false);
+			darkQuartzSlabFull = new BlockSpecialQuartzSlab(darkQuartz, true);
+			darkQuartzStairs = new BlockSpecialQuartzStairs(darkQuartz);
+		}
+		
 		manaQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_MANA);
 		manaQuartzSlab = new BlockSpecialQuartzSlab(manaQuartz, false);
 		manaQuartzSlabFull = new BlockSpecialQuartzSlab(manaQuartz, true);
@@ -173,8 +177,10 @@ public final class ModBlocks {
 		redQuartzSlabFull = new BlockSpecialQuartzSlab(redQuartz, true);
 		redQuartzStairs = new BlockSpecialQuartzStairs(redQuartz);
 
-		((BlockSpecialQuartzSlab) darkQuartzSlab).register();
-		((BlockSpecialQuartzSlab) darkQuartzSlabFull).register();
+		if(ConfigHandler.darkQuartzEnabled) {
+			((BlockSpecialQuartzSlab) darkQuartzSlab).register();
+			((BlockSpecialQuartzSlab) darkQuartzSlabFull).register();
+		}
 		((BlockSpecialQuartzSlab) manaQuartzSlab).register();
 		((BlockSpecialQuartzSlab) manaQuartzSlabFull).register();
 		((BlockSpecialQuartzSlab) blazeQuartzSlab).register();

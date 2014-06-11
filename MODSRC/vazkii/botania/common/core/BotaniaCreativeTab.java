@@ -18,6 +18,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -81,9 +82,12 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.signalFlare);
 
 		addItem(ModItems.quartz);
-		addBlock(ModBlocks.darkQuartz);
-		addBlock(ModBlocks.darkQuartzSlab);
-		addBlock(ModBlocks.darkQuartzStairs);
+		if(ConfigHandler.darkQuartzEnabled) {
+			addBlock(ModBlocks.darkQuartz);
+			addBlock(ModBlocks.darkQuartzSlab);
+			addBlock(ModBlocks.darkQuartzStairs);
+		}
+
 		addBlock(ModBlocks.manaQuartz);
 		addBlock(ModBlocks.manaQuartzSlab);
 		addBlock(ModBlocks.manaQuartzStairs);
