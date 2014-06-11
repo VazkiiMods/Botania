@@ -97,7 +97,7 @@ public class SubTileFunctional extends SubTileEntity {
 		if(linkedPool == null) {
 			needsNew = true;
 
-			if(cachedPoolCoordinates != null) {
+			if(cachedPoolCoordinates != null && supertile.getWorldObj().blockExists(cachedPoolCoordinates.posX, cachedPoolCoordinates.posY, cachedPoolCoordinates.posZ)) {
 				TileEntity tileAt = supertile.getWorldObj().getTileEntity(cachedPoolCoordinates.posX, cachedPoolCoordinates.posY, cachedPoolCoordinates.posZ);
 				if(tileAt != null && tileAt instanceof IManaPool) {
 					linkedPool = tileAt;
