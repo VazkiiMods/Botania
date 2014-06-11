@@ -1,3 +1,12 @@
+r1.0 50
+*Added a config option to disable the Fallen Kanade, for Blood Magic users.
+*Added an alchemy recipe to turn slimeballs back into cactus. Basiscally the same as the other one, just backwards.
+*Added some checks to the Rod of the Lands to prevent players from suffocating themselves with it.
+*Added some new quartz types (might have gone overboard), find them in the Decorative Blocks entry under Miscellaneous.
+*Added the Soulscribe, a weapon to kill Endermen.
+*Some more work on <a href="http://gfycat.com/ShamefulGlitteringCentipede"><span class="censored">----------</span></a>.
+*<i>I wonder what happens if I throw sixteen pink petals in an apothecary...</i>
+*<i>I apologize for any possible issues in this patch, as I stayed up till 3 to finish it :')</i>
 r1.0 49
 *Artificially increased the accuracy of the Damaging Lens and Terra Blade.
 *Commented the flower quantity and density config options.
