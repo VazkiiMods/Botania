@@ -1,3 +1,8 @@
+r1.0 52
+*Added sound effects to the Petal Apothecary.
+*Re-enabled the ingame downloader for new versions. Many thanks to Scottwears for providing web hosting that actually lets me do this :)
+*Shift right clicking a Petal Apothecary or Runic Altar with an empty hand now removes the last item put in.
+*Throwing a piece of Floral Powder in a Mana Pool now colors it.
 r1.0 51
 *Added a config to disable Smokey Quartz for TT users.
 *Added fancy versioning to the Lexica Botania.
