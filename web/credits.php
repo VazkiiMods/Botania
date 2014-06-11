@@ -25,7 +25,8 @@
 				<b>MegaManki</b> for the mod's logo.<br>
 				<b>Pokefenn</b> for the Hydroangeas and breaking all the things, every single time.<br>
 				<b>Rorax</b> for the Pylon model.<br>
-				<b>The TConstruct and OpenBlocks teams</b> for code snippets I took from their repositories<br>
+				<b>ScottWears</b> for hosting my website<br>
+				<b>The TConstruct and OpenBlocks teams</b> for code snippets I took from their repositories.<br>
 				<b>wiiv</b> for the old Pylon model and the Terra Blade texture.<br>
 			</div>
 		</div>
