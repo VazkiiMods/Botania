@@ -62,6 +62,13 @@
 		<delete dir ="${build.dir.temp}" />
 	</target>
 
+	<target name="forgecraft">
+		<delete>
+			<fileset dir="${build.dir.forgecraft}" includes="${build.mod_name} *" />
+		</delete>
+		<copy file="${build.dir.output}\${build.mod_name}\${build.mod_name} ${build.version}-${build.build_number}.jar" todir="${build.dir.forgecraft}" />
+	</target>
+	
 	<target name="upload">		
 		<ftp action="mkdir" server="${ftp.host}" remotedir="/${build.mod_name}/files" userid="${ftp.user}" password="${ftp.pass}" verbose="yes" depends="yes" />
 		<ftp action="send" server="${ftp.host}" remotedir="/${build.mod_name}/files" userid="${ftp.user}" password="${ftp.pass}" verbose="yes" depends="yes">
@@ -87,6 +94,7 @@
 		<antcall target="inject_assets" />
 		<antcall target="increment_build_number" />
 		<antcall target="clean" />
+		<antcall target="forgecraft" />
 		<antcall target="upload" />
 	</target>
 </project>
