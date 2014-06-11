@@ -64,7 +64,7 @@
 
 	<target name="forgecraft">
 		<delete>
-			<fileset dir="${build.dir.forgecraft}" includes="${build.mod_name} *" />
+			<fileset dir="${build.dir.forgecraft}" includes="**/${build.mod_name}*" />
 		</delete>
 		<copy file="${build.dir.output}\${build.mod_name}\${build.mod_name} ${build.version}-${build.build_number}.jar" todir="${build.dir.forgecraft}" />
 	</target>
