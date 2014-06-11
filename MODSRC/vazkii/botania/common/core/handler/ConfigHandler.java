@@ -98,7 +98,8 @@ public final class ConfigHandler {
 		desc = "The density of each flower patch generataed, defaults to 32, the lower the number, the less each patch will have.";
 		flowerDensity = loadPropInt("worldgen.flower.density", desc, 32);
 
-		config.save();
+		if(config.hasChanged())
+			config.save();
 	}
 
 	public static int loadPropInt(String propName, String desc, int default_) {
