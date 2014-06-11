@@ -33,7 +33,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 
 	private static final String TAG_MANA = "mana";
 
-	int manaToGet = 0;
+	public int manaToGet = 0;
 	int mana = 0;
 	int cooldown = 0;
 
@@ -227,7 +227,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 
 	@Override
 	public boolean canExtractItem(int i, ItemStack itemstack, int j) {
-		return false;
+		return mana == 0;
 	}
 
 	@Override

@@ -473,7 +473,7 @@ botania.entry.apothecary=Petal Apothecary
 botania.page.apothecary0=In order for a botanist to create plantlife that can do it's bidding, one would need special means of infusing plants with mystical energy.<br>Luckilly, the &1Petal Apothecary&0 does just that.
 botania.page.apothecary1=The &1Petal Apothecary&0.
 botania.page.apothecary2=This block, when placed in the world and given some water (by use of a &1Water Bucket&0), will accept any &1Mystical Petals&0 thrown at it, releasing their energies.<br>Once one has set the correct petals in, throwing some &1Seeds&0 in will finalize the proccess.<br>Tossing in the full bucket will also fill the recipient with water.
-botania.page.apothecary3=Quite a few plants can be made using this method, for more information, read on the &4Functional Flora&0 and &4Generation Flora&0 sections of this Lexicon.
+botania.page.apothecary3=Quite a few plants can be made using this method, for more information, read on the &4Functional Flora&0 and &4Generation Flora&0 sections of this Lexicon.<br>Last but not least, shift-right clicking the &1Petal Apothecary&0 with an empty hand will remove the last item thrown in.
 botania.page.apothecary4=Crafting the &1Petal Apothecary&0.
 
 # -- PURE DAISY
@@ -494,6 +494,7 @@ botania.page.runeAltar0=&1Runes&0 are extremely important components of complex 
 botania.page.runeAltar1=Proceed by linking a &1Mana Spreader&0 to the altar, and right click it with a &1Wand of the Forest&0.<br>It should be apparent when the altar has received enough &4Mana&0. When that happens, just drop a piece of &1Livingrock&0 on top of it and use the wand on it again to collect your rune.
 botania.page.runeAltar2=Crafting the &1Runic Altar&0.
 botania.page.runeAltar3=A total of 16 &1Runes&0 exist.<br>The most basic and elementary runes are named after the &4Four Elements&0. The intermediate runes are named after the &4Four Seasons&0, and the most advanced runes are named after the &4Seven Deadly Sins&0. A separate &1Rune of Mana&0 also exists.
+botania.page.runeAltar20=Last but not least, sneaking and right-clicking the &1Runic Altar&0 with an empty hand while it's not accepting mana will remove the last item put into it.
 botania.page.runeAltar4=The &1Rune of Water&0.
 botania.page.runeAltar5=The &1Rune of Earth&0.
 botania.page.runeAltar6=The &1Rune of Air&0.

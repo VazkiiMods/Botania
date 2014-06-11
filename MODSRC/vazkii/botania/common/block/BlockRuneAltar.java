@@ -67,10 +67,26 @@ public class BlockRuneAltar extends BlockModContainer implements IWandable, ILex
 
 	@Override
 	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
-		ItemStack stack = par5EntityPlayer.getCurrentEquippedItem();
-		if(stack != null)
-			return ((TileRuneAltar) par1World.getTileEntity(par2, par3, par4)).addItem(par5EntityPlayer, stack);
+		if(par5EntityPlayer.isSneaking()) {
+			TileRuneAltar altar = (TileRuneAltar) par1World.getTileEntity(par2, par3, par4);
 
+			if(altar.manaToGet == 0)			
+				for(int i = altar.getSizeInventory() - 1; i >= 0; i--) {
+					ItemStack stackAt = altar.getStackInSlot(i);
+					if(stackAt != null) {
+						ItemStack copy = stackAt.copy();
+						if(!par5EntityPlayer.inventory.addItemStackToInventory(copy))
+							par5EntityPlayer.dropPlayerItemWithRandomChoice(copy, false);
+						altar.setInventorySlotContents(i, null);
+						par1World.func_147453_f(par2, par3, par4, this);
+						break;
+					}
+				}
+		} else {
+			ItemStack stack = par5EntityPlayer.getCurrentEquippedItem();
+			if(stack != null)
+				return ((TileRuneAltar) par1World.getTileEntity(par2, par3, par4)).addItem(par5EntityPlayer, stack);
+		}
 		return false;
 	}
 

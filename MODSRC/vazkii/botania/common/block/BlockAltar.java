@@ -68,17 +68,33 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
 		ItemStack stack = par5EntityPlayer.getCurrentEquippedItem();
 		TileAltar tile = (TileAltar) par1World.getTileEntity(par2, par3, par4);
-		if(stack != null && stack.getItem() == Items.water_bucket) {
-			if(!tile.hasWater) {
-				if(!par5EntityPlayer.capabilities.isCreativeMode)
-					par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, new ItemStack(Items.bucket));
-				tile.hasWater = true;
-				par1World.func_147453_f(par2, par3, par4, this);
-				par1World.markBlockForUpdate(par2, par3, par4);
+		
+		if(par5EntityPlayer.isSneaking()) {
+			for(int i = tile.getSizeInventory() - 1; i >= 0; i--) {
+				ItemStack stackAt = tile.getStackInSlot(i);
+				if(stackAt != null) {
+					ItemStack copy = stackAt.copy();
+					if(!par5EntityPlayer.inventory.addItemStackToInventory(copy))
+						par5EntityPlayer.dropPlayerItemWithRandomChoice(copy, false);
+					tile.setInventorySlotContents(i, null);
+					par1World.func_147453_f(par2, par3, par4, this);
+					break;
+				}
 			}
+		} else {
+			if(stack != null && stack.getItem() == Items.water_bucket) {
+				if(!tile.hasWater) {
+					if(!par5EntityPlayer.capabilities.isCreativeMode)
+						par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, new ItemStack(Items.bucket));
+					tile.hasWater = true;
+					par1World.func_147453_f(par2, par3, par4, this);
+					par1World.markBlockForUpdate(par2, par3, par4);
+				}
 
-			return true;
+				return true;
+			}
 		}
+		
 		return false;
 	}
 
