@@ -12,12 +12,18 @@
 package vazkii.botania.common.block.quartz;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import vazkii.botania.api.lexicon.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockMod;
+import vazkii.botania.common.lexicon.LexiconData;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStairs;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 
-public class BlockSpecialQuartzStairs extends BlockStairs {
+public class BlockSpecialQuartzStairs extends BlockStairs implements ILexiconable {
 
 	public BlockSpecialQuartzStairs(Block source) {
 		super(source, 0);
@@ -29,5 +35,10 @@ public class BlockSpecialQuartzStairs extends BlockStairs {
 	public Block setBlockName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockMod.class, par1Str);
 		return super.setBlockName(par1Str);
+	}
+
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return LexiconData.decorativeBlocks;
 	}
 }

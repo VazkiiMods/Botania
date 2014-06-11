@@ -100,6 +100,7 @@ public final class ModItems {
 	public static Item divaCharm;
 	public static Item flightTiara;
 	public static Item enderDagger;
+	public static Item quartz;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -152,7 +153,8 @@ public final class ModItems {
 		divaCharm = new ItemDivaCharm();
 		flightTiara = new ItemFlightTiara();
 		enderDagger	= new ItemEnderDagger();
-		
+		quartz = new ItemQuartz();
+
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));

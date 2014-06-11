@@ -68,6 +68,19 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 
 		addBlock(ModBlocks.livingrock);
 		addBlock(ModBlocks.livingwood);
+		addBlock(ModBlocks.openCrate);
+		addBlock(ModBlocks.platform);
+		addBlock(ModBlocks.alfPortal);
+		addBlock(ModBlocks.altar);
+		addBlock(ModBlocks.runeAltar);
+		addBlock(ModBlocks.pylon);
+		addBlock(ModBlocks.pistonRelay);
+		addBlock(ModBlocks.shinyFlower);
+		addBlock(ModBlocks.unstableBlock);
+		addBlock(ModBlocks.manaBeacon);
+		addItem(ModItems.signalFlare);
+		
+		addItem(ModItems.quartz);
 		addBlock(ModBlocks.darkQuartz);
 		addBlock(ModBlocks.darkQuartzSlab);
 		addBlock(ModBlocks.darkQuartzStairs);
@@ -83,18 +96,6 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.redQuartz);
 		addBlock(ModBlocks.redQuartzSlab);
 		addBlock(ModBlocks.redQuartzStairs);
-		
-		addBlock(ModBlocks.openCrate);
-		addBlock(ModBlocks.platform);
-		addBlock(ModBlocks.alfPortal);
-		addBlock(ModBlocks.altar);
-		addBlock(ModBlocks.runeAltar);
-		addBlock(ModBlocks.pylon);
-		addBlock(ModBlocks.pistonRelay);
-		addBlock(ModBlocks.shinyFlower);
-		addBlock(ModBlocks.unstableBlock);
-		addBlock(ModBlocks.manaBeacon);
-		addItem(ModItems.signalFlare);
 
 		addItem(ModItems.manasteelPick);
 		addItem(ModItems.manasteelShovel);

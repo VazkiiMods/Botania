@@ -63,6 +63,7 @@ public final class LibItemNames {
 	public static final String DIVA_CHARM = "divaCharm";
 	public static final String FLIGHT_TIARA = "flightTiara";
 	public static final String ENDER_DAGGER = "enderDagger";
+	public static final String QUARTZ = "quartz";
 
 	public static final String[] LENS_NAMES = new String[] {
 		"lensNormal",

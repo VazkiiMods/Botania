@@ -19,6 +19,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
+import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.item.ModItems;
 
 public final class ModManaAlchemyRecipes {
 
@@ -26,7 +28,7 @@ public final class ModManaAlchemyRecipes {
 	public static List<RecipeManaInfusion> woodRecipes;
 	public static List<RecipeManaInfusion> saplingRecipes;
 	public static RecipeManaInfusion glowstoneDustRecipe;
-	public static RecipeManaInfusion netherQuartzRecipe;
+	public static List<RecipeManaInfusion> quartzRecipes;
 	public static RecipeManaInfusion chiseledBrickRecipe;
 	public static RecipeManaInfusion iceRecipe;
 	public static List<RecipeManaInfusion> swampFolliageRecipes;
@@ -58,7 +60,14 @@ public final class ModManaAlchemyRecipes {
 			saplingRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.sapling, 1, i == 5 ? 0 : i + 1), new ItemStack(Blocks.sapling, 1, i), 120));
 
 		glowstoneDustRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.glowstone_dust, 4), new ItemStack(Blocks.glowstone), 25);
-		netherQuartzRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.quartz, 4), new ItemStack(Blocks.quartz_block), 25);
+		quartzRecipes = new ArrayList();
+		quartzRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.quartz, 4), new ItemStack(Blocks.quartz_block), 25));
+		quartzRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(ModItems.quartz, 4, 0), new ItemStack(ModBlocks.darkQuartz), 25));
+		quartzRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(ModItems.quartz, 4, 1), new ItemStack(ModBlocks.manaQuartz), 25));
+		quartzRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(ModItems.quartz, 4, 2), new ItemStack(ModBlocks.blazeQuartz), 25));
+		quartzRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(ModItems.quartz, 4, 3), new ItemStack(ModBlocks.lavenderQuartz), 25));
+		quartzRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(ModItems.quartz, 4, 4), new ItemStack(ModBlocks.redQuartz), 25));
+
 		chiseledBrickRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.stonebrick, 1, 3), new ItemStack(Blocks.stonebrick), 150);
 		iceRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.ice), new ItemStack(Blocks.snow), 2250);
 

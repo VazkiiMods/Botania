@@ -17,18 +17,22 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import vazkii.botania.api.lexicon.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.item.block.quartz.ItemBlockSpecialQuartz;
+import vazkii.botania.common.lexicon.LexiconData;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockSpecialQuartz extends BlockMod {
+public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
 
 	private final String[] iconNames; 
 	public final String type;
@@ -140,5 +144,10 @@ public class BlockSpecialQuartz extends BlockMod {
 		specialQuartzTopIcon = IconHelper.forName(par1IconRegister, "block"  + type + "Quartz1");
 		chiseledSpecialQuartzIcon = IconHelper.forName(par1IconRegister, "chiseled" + type + "Quartz1");
 		pillarSpecialQuartzIcon = IconHelper.forName(par1IconRegister, "pillar" + type + "Quartz1");
+	}
+
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return LexiconData.decorativeBlocks;
 	}
 }
