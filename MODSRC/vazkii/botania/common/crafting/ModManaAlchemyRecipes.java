@@ -39,7 +39,7 @@ public final class ModManaAlchemyRecipes {
 	public static List<RecipeManaInfusion> gunpowderAndFlintRecipes;
 	public static RecipeManaInfusion nameTagRecipe;
 	public static List<RecipeManaInfusion> stringRecipes;
-	public static RecipeManaInfusion slimeballRecipe;
+	public static List<RecipeManaInfusion> slimeballCactusRecipes;
 	public static RecipeManaInfusion enderPearlRecipe;
 	public static List<RecipeManaInfusion> redstoneToGlowstoneRecipes;
 	public static RecipeManaInfusion sandRecipe;
@@ -100,7 +100,10 @@ public final class ModManaAlchemyRecipes {
 		for(int i = 0; i < 16; i++)
 			stringRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.string, 3, 1), new ItemStack(Blocks.wool, 1, i), 100));
 
-		slimeballRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.slime_ball, 1), new ItemStack(Blocks.cactus), 1200);
+		slimeballCactusRecipes = new ArrayList();
+		slimeballCactusRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.slime_ball, 1), new ItemStack(Blocks.cactus), 1200));
+		slimeballCactusRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.cactus, 1), new ItemStack(Items.slime_ball), 1200));
+
 		enderPearlRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.ender_pearl, 2), new ItemStack(Items.ghast_tear), 28000);
 
 		redstoneToGlowstoneRecipes = new ArrayList();
