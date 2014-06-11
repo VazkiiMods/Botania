@@ -168,7 +168,7 @@ public final class LexiconData {
 		apothecary.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_APOTHECARY), new PageText("2"), new PageText("3"), new PageCraftingRecipe("4", ModCrafingRecipes.recipesApothecary));
 
 		lexicon = new BLexiconEntry(LibLexicon.BASICS_LEXICON, categoryBasics);
-		lexicon.setPriority().setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLexicon));
+		lexicon.setPriority().setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLexicon), new PageText("2"));
 
 		wand = new BLexiconEntry(LibLexicon.BASICS_WAND, categoryBasics);
 		wand.setPriority().setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipesTwigWand));

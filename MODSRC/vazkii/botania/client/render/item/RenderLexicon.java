@@ -67,7 +67,7 @@ public class RenderLexicon implements IItemRenderer {
 			String title = ModItems.lexicon.getItemStackDisplayName(null);
 			if(Minecraft.getMinecraft().thePlayer.getCurrentEquippedItem() != null)
 				title = Minecraft.getMinecraft().thePlayer.getCurrentEquippedItem().getDisplayName();
-			font.drawString(title, 0, 0, 0xD69700);
+			font.drawString(font.trimStringToWidth(title, 80), 0, 0, 0xD69700);
 			GL11.glTranslatef(0F, 10F, 0F);
 			GL11.glScalef(0.6F, 0.6F, 0.6F);
 			font.drawString(EnumChatFormatting.ITALIC + "" + EnumChatFormatting.BOLD + String.format(StatCollector.translateToLocal("botaniamisc.edition"), ItemLexicon.getEdition()), 0, 0, 0xA07100);
