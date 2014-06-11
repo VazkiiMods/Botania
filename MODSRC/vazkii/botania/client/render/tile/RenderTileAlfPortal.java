@@ -11,24 +11,17 @@
  */
 package vazkii.botania.client.render.tile;
 
-import org.lwjgl.opengl.GL11;
-
-import vazkii.botania.client.core.helper.ShaderHelper;
-import vazkii.botania.common.block.BlockAlfPortal;
-import vazkii.botania.common.block.BlockEnchanter;
-import vazkii.botania.common.block.tile.TileAlfPortal;
-import vazkii.botania.common.block.tile.TileEnchanter;
-import net.minecraft.block.BlockPortal;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+
+import org.lwjgl.opengl.GL11;
+
+import vazkii.botania.common.block.BlockAlfPortal;
+import vazkii.botania.common.block.tile.TileAlfPortal;
 
 public class RenderTileAlfPortal extends TileEntitySpecialRenderer {
 
@@ -38,7 +31,7 @@ public class RenderTileAlfPortal extends TileEntitySpecialRenderer {
 		int meta = portal.getBlockMetadata();
 		if(meta == 0)
 			return;
-		
+
 		GL11.glPushMatrix();
 		GL11.glTranslated(d0, d1, d2);
 		GL11.glTranslatef(-1F, 1F, 0.25F);
@@ -47,7 +40,7 @@ public class RenderTileAlfPortal extends TileEntitySpecialRenderer {
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		GL11.glDisable(GL11.GL_ALPHA_TEST);
-		float alpha = (float) Math.min(1F, ((Math.sin(portal.getWorldObj().getTotalWorldTime() / 8D) + 1D) / 7D + 0.6D)) * ((float) Math.min(60, portal.ticksOpen) / 60F);
+		float alpha = (float) Math.min(1F, (Math.sin(portal.getWorldObj().getTotalWorldTime() / 8D) + 1D) / 7D + 0.6D) * (Math.min(60, portal.ticksOpen) / 60F);
 		GL11.glColor4f(1F, 1F, 1F, alpha);
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
@@ -56,7 +49,7 @@ public class RenderTileAlfPortal extends TileEntitySpecialRenderer {
 			GL11.glTranslatef(1.25F, 0F, 1.75F);
 			GL11.glRotatef(90F, 0F, 1F, 0F);
 		}
-		
+
 		renderIcon(0, 0, BlockAlfPortal.portalTex, 3, 3, 240);
 		if(meta == 2) {
 			GL11.glTranslated(0F, 0F, 0.5F);

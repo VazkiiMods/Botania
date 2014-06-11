@@ -54,12 +54,12 @@ public class Botania {
 	public void serverStarting(FMLServerStartingEvent event) {
 		proxy.serverStarting(event);
 	}
-	
+
 	@EventHandler
 	public void serverStopping(FMLServerStoppingEvent event) {
 		ManaNetworkHandler.instance.clear();
 	}
-	
+
 	@EventHandler
 	public void missingMappings(FMLMissingMappingsEvent event) {
 		AliasHandler.onMissingMappings(event);

@@ -31,21 +31,21 @@ public class BlockAlfPortal extends BlockModContainer implements IWandable, ILex
 
 	IIcon iconOff, iconOn;
 	public static IIcon portalTex;
-	
+
 	public BlockAlfPortal() {
 		super(Material.wood);
 		setHardness(10F);
 		setStepSound(soundTypeWood);
 		setBlockName(LibBlockNames.ALF_PORTAL);
 	}
-	
+
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		iconOff = IconHelper.forBlock(par1IconRegister, this, 0);
 		iconOn = IconHelper.forBlock(par1IconRegister, this, 1);
 		portalTex = IconHelper.forBlock(par1IconRegister, this, "Inside");
 	}
-	
+
 	@Override
 	public IIcon getIcon(int side, int meta) {
 		return meta == 0 ? iconOff : iconOn;
@@ -65,10 +65,10 @@ public class BlockAlfPortal extends BlockModContainer implements IWandable, ILex
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
 		return ((TileAlfPortal) world.getTileEntity(x, y, z)).onWanded();
 	}
-	
+
 	@Override
 	public int getLightValue(IBlockAccess world, int x, int y, int z) {
 		return world.getBlockMetadata(x, y, z) == 0 ? 0 : 15;
 	}
-	
+
 }

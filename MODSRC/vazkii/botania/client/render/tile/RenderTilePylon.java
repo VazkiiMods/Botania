@@ -36,7 +36,7 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 
 	private static final ResourceLocation textureGreenOld = new ResourceLocation(LibResources.MODEL_PYLON_GREEN_OLD);
 	private static final ResourceLocation textureGreen = new ResourceLocation(LibResources.MODEL_PYLON_GREEN);
-	
+
 	IPylonModel model;
 	public static boolean green = false;
 
@@ -52,7 +52,7 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 			GL11.glColor4f(1F, 1F, 1F, 1F);
 			if(tileentity.getWorldObj() != null)
 				green = tileentity.getBlockMetadata() == 1;
-			
+
 			Minecraft.getMinecraft().renderEngine.bindTexture(ConfigHandler.oldPylonModel ? green ? textureGreenOld : textureOld : green ? textureGreen : texture);
 			int worldTime = (int) (tileentity.getWorldObj() == null ? 0 : tileentity.getWorldObj().getTotalWorldTime());
 
@@ -79,7 +79,7 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 				model.renderRing();
 				GL11.glTranslated(0D, Math.sin(worldTime / 20D) / 20 - 0.025, 0D);
 				model.renderGems();
-				GL11.glPopMatrix();	
+				GL11.glPopMatrix();
 			}
 
 			GL11.glPushMatrix();

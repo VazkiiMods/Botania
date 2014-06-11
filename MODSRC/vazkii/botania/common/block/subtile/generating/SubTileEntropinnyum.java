@@ -15,7 +15,6 @@ import java.util.List;
 
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.util.AxisAlignedBB;
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.Botania;
@@ -41,7 +40,7 @@ public class SubTileEntropinnyum extends SubTileGenerating {
 
 					for(int i = 0; i < 50; i++)
 						Botania.proxy.sparkleFX(tnt.worldObj, tnt.posX + Math.random() * 4 - 2, tnt.posY + Math.random() * 4 - 2, tnt.posZ + Math.random() * 4 - 2, 1F, (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, (float) (Math.random() * 0.65F + 1.25F), 12);
-						
+
 					supertile.getWorldObj().spawnParticle("hugeexplosion", tnt.posX, tnt.posY, tnt.posZ, 1D, 0D, 0D);
 					return;
 				}
@@ -58,7 +57,7 @@ public class SubTileEntropinnyum extends SubTileGenerating {
 	public int getMaxMana() {
 		return 6500;
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry() {
 		return LexiconData.entropinnyum;

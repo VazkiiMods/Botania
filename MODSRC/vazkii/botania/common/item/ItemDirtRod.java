@@ -38,11 +38,11 @@ public class ItemDirtRod extends ItemMod implements IManaUsingItem {
 		if(ManaItemHandler.requestManaExact(par1ItemStack, par2EntityPlayer, COST, false)) {
 			ForgeDirection dir = ForgeDirection.getOrientation(par7);
 			int entities = par3World.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(par4 + dir.offsetX, par5 + dir.offsetY, par6 + dir.offsetZ, par4 + dir.offsetX + 1, par5 + dir.offsetY + 1, par6 + dir.offsetZ + 1)).size();
-			
+
 			if(entities == 0) {
 				ItemStack stackToPlace = new ItemStack(Blocks.dirt);
 				stackToPlace.tryPlaceItemIntoWorld(par2EntityPlayer, par3World, par4, par5, par6, par7, par8, par9, par10);
-					
+
 				if(stackToPlace.stackSize == 0) {
 					ManaItemHandler.requestManaExact(par1ItemStack, par2EntityPlayer, COST, true);
 					for(int i = 0; i < 6; i++)

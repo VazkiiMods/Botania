@@ -27,10 +27,8 @@ import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.BotaniaCreativeTab;
-import vazkii.botania.common.item.block.ItemBlockMod;
 import vazkii.botania.common.item.block.quartz.ItemBlockSpecialQuartzSlab;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -64,11 +62,11 @@ public class BlockSpecialQuartzSlab extends BlockSlab implements ILexiconable {
 			return (BlockSlab) ModBlocks.lavenderQuartzSlabFull;
 		if(source == ModBlocks.redQuartz)
 			return (BlockSlab) ModBlocks.redQuartzSlabFull;
-		
+
 		System.out.println("none");
 		return this;
 	}
-	
+
 	public BlockSlab getSingleBlock() {
 		if(source == ModBlocks.darkQuartz)
 			return (BlockSlab) ModBlocks.darkQuartzSlab;
@@ -80,11 +78,11 @@ public class BlockSpecialQuartzSlab extends BlockSlab implements ILexiconable {
 			return (BlockSlab) ModBlocks.lavenderQuartzSlab;
 		if(source == ModBlocks.redQuartz)
 			return (BlockSlab) ModBlocks.redQuartzSlab;
-		
+
 		System.out.println("none");
 		return this;
 	}
-	
+
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
 		return new ItemStack(getSingleBlock());
@@ -93,7 +91,7 @@ public class BlockSpecialQuartzSlab extends BlockSlab implements ILexiconable {
 	public void register() {
 		GameRegistry.registerBlock(this, ItemBlockSpecialQuartzSlab.class, name);
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int par1, int par2) {

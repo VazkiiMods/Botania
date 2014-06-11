@@ -26,20 +26,20 @@ public class BlockShinyFlower extends BlockModFlower {
 		super(LibBlockNames.SHINY_FLOWER);
 		setLightLevel(1F);
 	}
-	
+
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		// NO-OP
 	}
-	
+
 	@Override
 	public IIcon getIcon(int par1, int par2) {
 		return ModBlocks.flower.getIcon(par1, par2);
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.shinyFlowers;
 	}
-	
+
 }

@@ -29,15 +29,15 @@ public final class VersionChecker {
 	public static boolean doneChecking = false;
 	public static String onlineVersion = "";
 	public static boolean triedToWarnPlayer = false;
-	
+
 	public static boolean startedDownload = false;
 	public static boolean downloadedFile = false;
-	
+
 	public void init() {
 		new ThreadVersionChecker();
 		FMLCommonHandler.instance().bus().register(this);
 	}
-	
+
 	@SubscribeEvent
 	public void onTick(ClientTickEvent event) {
 		if(doneChecking && event.phase == Phase.END && Minecraft.getMinecraft().thePlayer != null && !triedToWarnPlayer) {
@@ -48,14 +48,14 @@ public final class VersionChecker {
 				if(onlineBuild > clientBuild) {
 					player.addChatComponentMessage(new ChatComponentTranslation("botania.versioning.flavour" + player.worldObj.rand.nextInt(16)).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.LIGHT_PURPLE)));
 					player.addChatComponentMessage(new ChatComponentTranslation("botania.versioning.outdated", clientBuild, onlineBuild));
-				
+
 					IChatComponent component = IChatComponent.Serializer.func_150699_a(StatCollector.translateToLocal("botania.versioning.updateMessage").replaceAll("%version%", onlineVersion));
 					player.addChatComponentMessage(component);
 				}
 			}
-			
+
 			triedToWarnPlayer = true;
 		}
 	}
-	
+
 }

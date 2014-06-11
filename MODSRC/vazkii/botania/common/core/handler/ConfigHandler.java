@@ -78,19 +78,19 @@ public final class ConfigHandler {
 
 		desc = "Set to false to disable the references in flower tooltips. (You monster D:)";
 		referencesEnabled = loadPropBool("references.enabled", desc, referencesEnabled);
-		
+
 		desc = "Set to false to disable checking and alerting when new Botania versions come out.";
 		versionCheckEnabled = loadPropBool("versionChecking.enabled", desc, versionCheckEnabled);
-		
+
 		desc = "Do not ever touch this value if not asked to. Possible symptoms of doing so include your head turning backwards, the appearance of Titans near the walls or you being trapped in a game of Sword Art Online.";
 		spreaderPositionShift = loadPropInt("spreader.posShift", desc, spreaderPositionShift);
 
 		desc = "Set to false to disable the Fallen Kanade flower (gives Regeneration). This config option is here for those using Blood Magic. Note: Turning this off will not remove ones already in the world, it'll simply prevent the crafting.";
 		fallenKanadeEnabled = loadPropBool("fallenKanade.enabled", desc, fallenKanadeEnabled);
-		
+
 		desc = "The quanity of flower patches to generate in the world, defaults to 3, the lower the number the less patches geenrate.";
 		flowerQuantity = loadPropInt("worldgen.flower.quantity", desc, 3);
-		
+
 		desc = "The density of each flower patch generataed, defaults to 32, the lower the number, the less each patch will have.";
 		flowerDensity = loadPropInt("worldgen.flower.density", desc, 32);
 

@@ -23,16 +23,16 @@ import vazkii.botania.common.lib.LibMisc;
 public class SubTileManastar extends SubTileEntity {
 
 	int manaLastTick = -1;
-	
+
 	@Override
 	public boolean canUpdate() {
 		return true;
 	}
-	
+
 	@Override
 	public void onUpdate() {
 		int mana = 0;
-		for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) { 
+		for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) {
 			TileEntity tile = supertile.getWorldObj().getTileEntity(supertile.xCoord + dir.offsetX, supertile.yCoord, supertile.zCoord + dir.offsetZ);
 			if(tile instanceof IManaPool)
 				mana += ((IManaPool) tile).getCurrentMana();
@@ -46,10 +46,10 @@ public class SubTileManastar extends SubTileEntity {
 		if(supertile.getWorldObj().getTotalWorldTime() % 60 == 0)
 			manaLastTick = mana;
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry() {
 		return LexiconData.manastar;
 	}
-	
+
 }

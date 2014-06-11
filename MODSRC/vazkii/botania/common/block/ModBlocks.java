@@ -123,7 +123,7 @@ public final class ModBlocks {
 	public static Block redQuartzSlab;
 	public static Block redQuartzSlabFull;
 	public static Block redQuartzStairs;
-	
+
 	public static void init() {
 		flower = new BlockModFlower();
 		altar = new BlockAltar();
@@ -151,7 +151,7 @@ public final class ModBlocks {
 		shinyFlower = new BlockShinyFlower();
 		platform = new BlockPlatform();
 		alfPortal = new BlockAlfPortal();
-		
+
 		darkQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_DARK);
 		darkQuartzSlab = new BlockSpecialQuartzSlab(darkQuartz, false);
 		darkQuartzSlabFull = new BlockSpecialQuartzSlab(darkQuartz, true);
@@ -172,7 +172,7 @@ public final class ModBlocks {
 		redQuartzSlab = new BlockSpecialQuartzSlab(redQuartz, false);
 		redQuartzSlabFull = new BlockSpecialQuartzSlab(redQuartz, true);
 		redQuartzStairs = new BlockSpecialQuartzStairs(redQuartz);
-		
+
 		((BlockSpecialQuartzSlab) darkQuartzSlab).register();
 		((BlockSpecialQuartzSlab) darkQuartzSlabFull).register();
 		((BlockSpecialQuartzSlab) manaQuartzSlab).register();
@@ -183,7 +183,7 @@ public final class ModBlocks {
 		((BlockSpecialQuartzSlab) lavenderQuartzSlabFull).register();
 		((BlockSpecialQuartzSlab) redQuartzSlab).register();
 		((BlockSpecialQuartzSlab) redQuartzSlabFull).register();
-		
+
 		for(int i = 0; i < 16; i++)
 			OreDictionary.registerOre(LibOreDict.FLOWER[i], new ItemStack(flower, 1, i));
 

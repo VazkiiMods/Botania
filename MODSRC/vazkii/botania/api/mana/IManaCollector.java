@@ -34,7 +34,7 @@ public interface IManaCollector extends IManaReceiver {
 	 * dissipated.
 	 */
 	public float getManaYieldMultiplier(IManaBurst burst);
-	
+
 	/**
 	 * Gets the maximum amount of mana this collector can have.
 	 */

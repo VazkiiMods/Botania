@@ -52,14 +52,12 @@ import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.core.proxy.CommonProxy;
-import vazkii.botania.common.core.version.CommandDownloadLatest;
 import vazkii.botania.common.core.version.VersionChecker;
 import vazkii.botania.common.item.ModItems;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
 
 public class ClientProxy extends CommonProxy {
 
@@ -75,7 +73,7 @@ public class ClientProxy extends CommonProxy {
 			MinecraftForge.EVENT_BUS.register(new BoundTileRenderer());
 		if(ConfigHandler.versionCheckEnabled)
 			new VersionChecker().init();
-			
+
 		initRenderers();
 	}
 
@@ -106,7 +104,7 @@ public class ClientProxy extends CommonProxy {
 
 		ShaderHelper.initShaders();
 	}
-	
+
 	@Override
 	public void setEntryToOpen(LexiconEntry entry) {
 		GuiLexicon.currentOpenLexicon = new GuiLexiconEntry(entry, new GuiLexiconIndex(entry.category));

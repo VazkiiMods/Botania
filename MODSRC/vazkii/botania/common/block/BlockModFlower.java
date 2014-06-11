@@ -45,7 +45,7 @@ public class BlockModFlower extends BlockFlower implements ILexiconable {
 	protected BlockModFlower() {
 		this(LibBlockNames.FLOWER);
 	}
-	
+
 	protected BlockModFlower(String name) {
 		super(0);
 		setBlockName(name);

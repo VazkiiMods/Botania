@@ -68,7 +68,7 @@ public class GuiLexicon extends GuiScreen {
 			drawCenteredString(fontRendererObj, subtitle, left * 2 + guiWidth, (top - getTitleHeight() + 10) * 2, 0x00FF00);
 			GL11.glScalef(2F, 2F, 1F);
 		}
-		
+
 		drawHeader();
 
 		super.drawScreen(par1, par2, par3);
@@ -104,7 +104,7 @@ public class GuiLexicon extends GuiScreen {
 	String getTitle() {
 		return ModItems.lexicon.getItemStackDisplayName(null);
 	}
-	
+
 	String getSubtitle() {
 		return null;
 	}
@@ -112,7 +112,7 @@ public class GuiLexicon extends GuiScreen {
 	int getTitleHeight() {
 		return getSubtitle() == null ? 12 : 16;
 	}
-	
+
 	boolean isIndex() {
 		return true;
 	}

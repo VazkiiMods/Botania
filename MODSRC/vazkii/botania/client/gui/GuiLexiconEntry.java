@@ -77,12 +77,12 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry {
 	String getTitle() {
 		return String.format("%s (%s/%s)", title, page + 1, entry.pages.size());
 	}
-	
+
 	@Override
 	String getSubtitle() {
 		return subtitle;
 	}
-	
+
 	@Override
 	protected void actionPerformed(GuiButton par1GuiButton) {
 		switch(par1GuiButton.id) {

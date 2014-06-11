@@ -16,7 +16,6 @@ import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
 
 public class TileCamo extends TileMod {
 
@@ -31,6 +30,7 @@ public class TileCamo extends TileMod {
 		return false;
 	}
 
+	@Override
 	public void writeCustomNBT(NBTTagCompound cmp) {
 		if(camo!=null) {
 			cmp.setString(TAG_CAMO, Block.blockRegistry.getNameForObject(camo));
@@ -38,6 +38,7 @@ public class TileCamo extends TileMod {
 		}
 	}
 
+	@Override
 	public void readCustomNBT(NBTTagCompound cmp) {
 		camo = Block.getBlockFromName(cmp.getString(TAG_CAMO));
 		camoMeta = cmp.getInteger(TAG_CAMO_META);

@@ -15,7 +15,6 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemMultiTexture;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.common.block.quartz.BlockSpecialQuartz;
-import vazkii.botania.common.lib.LibBlockNames;
 
 public class ItemBlockSpecialQuartz extends ItemMultiTexture {
 

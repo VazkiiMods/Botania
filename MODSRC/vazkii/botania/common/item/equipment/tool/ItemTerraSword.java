@@ -103,7 +103,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 					}
 				}
 			}
-	 	}	
+		}
 	}
 
 	@Override

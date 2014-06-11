@@ -13,8 +13,6 @@ package vazkii.botania.common.item.equipment.tool;
 
 import java.awt.Color;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityEnderman;
@@ -29,28 +27,28 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemEnderDagger extends ItemManasteelSword {
 
 	IIcon iconFront, iconOverlay;
-	
+
 	public ItemEnderDagger() {
 		super(BotaniaAPI.manasteelToolMaterial, LibItemNames.ENDER_DAGGER);
 		setMaxDamage(69); // What you looking at?
 	}
-	
+
 	@Override
 	public void registerIcons(IIconRegister par1IconRegister) {
 		iconFront = IconHelper.forItem(par1IconRegister, this, 0);
 		iconOverlay = IconHelper.forItem(par1IconRegister, this, 1);
 	}
-	
+
 	@Override
 	public boolean requiresMultipleRenderPasses() {
 		return true;
 	}
-	
+
 	@Override
 	public IIcon getIcon(ItemStack stack, int pass) {
 		return pass == 0 ? iconFront : iconOverlay;
 	}
-	
+
 	@Override
 	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
 		if(par2 == 0)
@@ -58,17 +56,17 @@ public class ItemEnderDagger extends ItemManasteelSword {
 
 		return Color.HSBtoRGB(0.75F, 1F, 1.5F - (float) Math.min(1F, Math.sin(System.currentTimeMillis() / 100D) * 0.5 + 1.2F));
 	}
-	
+
 	@Override
 	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase) {
 		if(par2EntityLivingBase instanceof EntityEnderman && par3EntityLivingBase instanceof EntityPlayer)
 			par2EntityLivingBase.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) par3EntityLivingBase), 20);
 		return true;
 	}
-	
+
 	@Override
 	public boolean usesMana(ItemStack stack) {
 		return false;
 	}
-	
+
 }

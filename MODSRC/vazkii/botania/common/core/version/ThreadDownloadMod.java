@@ -22,8 +22,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
-import vazkii.botania.common.Botania;
-import cpw.mods.fml.common.FMLCommonHandler;
 
 public class ThreadDownloadMod extends Thread {
 
@@ -47,11 +45,11 @@ public class ThreadDownloadMod extends Thread {
 	@Override
 	public void run() {
 		try {
-			if(Minecraft.getMinecraft().thePlayer != null) 
+			if(Minecraft.getMinecraft().thePlayer != null)
 				Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentTranslation("botania.versioning.startingDownload", fileName).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.GOLD)));
 
 			VersionChecker.startedDownload = true;
-			
+
 			String domain = "vazkii.us"; // "localhost/xampp";
 			String base = "http://" + domain + "/mod/Botania/";
 			String file = fileName.replaceAll(" ", "%20");
@@ -76,7 +74,7 @@ public class ThreadDownloadMod extends Thread {
 				totalBytesDownloaded += bytesJustDownloaded;
 			}
 
-			if(Minecraft.getMinecraft().thePlayer != null) 
+			if(Minecraft.getMinecraft().thePlayer != null)
 				Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentTranslation("botania.versioning.doneDownloading", fileName).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.GREEN)));
 
 			Desktop.getDesktop().open(dir);

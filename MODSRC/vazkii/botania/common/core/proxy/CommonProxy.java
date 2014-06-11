@@ -85,7 +85,7 @@ public class CommonProxy {
 				break;
 			}
 	}
-	
+
 	public void serverStarting(FMLServerStartingEvent event) {
 		event.registerServerCommand(new CommandDownloadLatest());
 	}

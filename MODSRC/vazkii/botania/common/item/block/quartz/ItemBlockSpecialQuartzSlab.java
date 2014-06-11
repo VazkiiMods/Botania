@@ -21,10 +21,10 @@ public class ItemBlockSpecialQuartzSlab extends ItemSlab {
 	public ItemBlockSpecialQuartzSlab(Block par1) {
 		super(par1, ((BlockSpecialQuartzSlab)par1).getSingleBlock(), ((BlockSpecialQuartzSlab)par1).getFullBlock(), false);
 	}
-	
+
 	@Override
-    public String getUnlocalizedName(ItemStack par1ItemStack) {
-        return field_150939_a.getUnlocalizedName().replaceAll("tile.", "tile.botania:");
-    }
+	public String getUnlocalizedName(ItemStack par1ItemStack) {
+		return field_150939_a.getUnlocalizedName().replaceAll("tile.", "tile.botania:");
+	}
 
 }

@@ -199,7 +199,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 	public AxisAlignedBB getRenderBoundingBox() {
 		return INFINITE_EXTENT_AABB;
 	}
-	
+
 	@Override
 	public String getInventoryName() {
 		return LibBlockNames.RUNE_ALTAR;

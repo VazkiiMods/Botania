@@ -34,7 +34,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
 
-	private final String[] iconNames; 
+	private final String[] iconNames;
 	public final String type;
 	private IIcon[] specialQuartzIcons;
 	private IIcon chiseledSpecialQuartzIcon;
@@ -56,15 +56,16 @@ public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
 		return super.setBlockName(par1Str);
 	}
 
+	@Override
 	protected boolean shouldRegisterInNameSet() {
 		return false;
 	}
 
 	public String[] getNames() {
 		return new String[] {
-			"tile.botania:block" + type + "Quartz", 
-			"tile.botania:chiseled" + type + "Quartz", 
-			"tile.botania:pillar" + type + "Quartz", 
+				"tile.botania:block" + type + "Quartz",
+				"tile.botania:chiseled" + type + "Quartz",
+				"tile.botania:pillar" + type + "Quartz",
 		};
 	}
 

@@ -64,7 +64,7 @@ public final class ModPetalRecipes {
 	public static void init() {
 		pureDaisyRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_PUREDAISY), white, white, white, white);
 		manastarRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_MANASTAR), lightBlueMana, greenMana, redMana, cyanMana);
-		
+
 		daybloomRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_DAYBLOOM), yellow, yellow, orange, lightBlue);
 		nightshadeRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_NIGHTSHADE), black, black, purple, gray);
 		endoflameRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ENDOFLAME), brown, red, redMana, brownMana, lightGray);
@@ -74,7 +74,7 @@ public final class ModPetalRecipes {
 		munchdewRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_MUNCHDEW), lime, limeMana, green, red, redMana, white, whiteMana, runeGluttony);
 		entropinnyumRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ENTROPINNYUM), red, redMana, gray, grayMana, white, whiteMana, runeWrath, runeFire);
 		kekimurusRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_KEKIMURUS), white, whiteMana, orangeMana, brownMana, brownMana, orange, runeGluttony);
-		
+
 		jadedAmaranthusRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_JADED_AMARANTHUS), purpleMana, purpleMana, lime, purple, green, runeSpring, redstoneRoot);
 		bellethorneRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_BELLETHORN), redMana, redMana, cyan, cyan, red, redstoneRoot);
 		dreadthorneRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_DREADTHORN), blackMana, purpleMana, cyan, cyan, black, purple, redstoneRoot);
@@ -93,7 +93,7 @@ public final class ModPetalRecipes {
 		pollidisiacRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_POLLIDISIAC), orange, orangeMana, red, redMana, pink, pinkMana, runeLust, runeFire);
 		clayconiaRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_CLAYCONIA), gray, lightGray, lightGrayMana, lightGrayMana, grayMana, cyan, runeEarth);
 		looniumRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_LOONIUM), green, green, greenMana, greenMana, gray, grayMana, runeSloth, runeGluttony, runeEnvy, redstoneRoot);
-	
+
 		ItemStack stack = new ItemStack(Items.skull, 1, 3);
 		ItemNBTHelper.setString(stack, "SkullOwner", "Vazkii");
 		Object[] inputs = new Object[16];

@@ -72,7 +72,7 @@ public final class TerrasteelCraftingHandler {
 		ItemStack estack = item.getEntityItem();
 		if(estack.stackSize != 1)
 			return -1;
-		
+
 		int x = MathHelper.floor_double(item.posX);
 		int y = MathHelper.floor_double(item.posY);
 		int z = MathHelper.floor_double(item.posZ);

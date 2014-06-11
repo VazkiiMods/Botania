@@ -28,7 +28,7 @@ public final class LibMisc {
 	// Proxy Constants
 	public static final String PROXY_COMMON = "vazkii.botania.common.core.proxy.CommonProxy";
 	public static final String PROXY_CLIENT = "vazkii.botania.client.core.proxy.ClientProxy";
-	
+
 	public static final ForgeDirection[] CARDINAL_DIRECTIONS = new ForgeDirection[] {
 		ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST
 	};

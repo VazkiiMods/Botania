@@ -79,7 +79,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.unstableBlock);
 		addBlock(ModBlocks.manaBeacon);
 		addItem(ModItems.signalFlare);
-		
+
 		addItem(ModItems.quartz);
 		addBlock(ModBlocks.darkQuartz);
 		addBlock(ModBlocks.darkQuartzSlab);

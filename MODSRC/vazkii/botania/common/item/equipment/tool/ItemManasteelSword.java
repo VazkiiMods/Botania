@@ -98,5 +98,5 @@ public class ItemManasteelSword extends ItemSword implements IManaUsingItem {
 	public boolean usesMana(ItemStack stack) {
 		return true;
 	}
-	
+
 }

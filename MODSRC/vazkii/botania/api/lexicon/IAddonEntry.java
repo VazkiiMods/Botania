@@ -25,5 +25,5 @@ public interface IAddonEntry {
 	 * return something like "(This Entry is provided by the Botanic Tinkerer addon)".
 	 */
 	public String getSubtitle();
-	
+
 }

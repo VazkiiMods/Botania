@@ -20,7 +20,7 @@ import net.minecraft.util.EnumChatFormatting;
 public class CommandDownloadLatest extends CommandBase {
 
 	private static final boolean ENABLED = false;
-	
+
 	@Override
 	public String getCommandName() {
 		return "botania-download-latest";

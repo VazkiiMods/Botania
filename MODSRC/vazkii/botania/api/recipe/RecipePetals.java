@@ -44,7 +44,7 @@ public class RecipePetals {
 			if(stack == null)
 				break;
 
-			String oredict = OreDictionary.getOreName(OreDictionary.getOreID(stack));
+			OreDictionary.getOreName(OreDictionary.getOreID(stack));
 
 			int stackIndex = -1, oredictIndex = -1;
 
@@ -57,7 +57,7 @@ public class RecipePetals {
 						ItemStack cstack = ostack.copy();
 						if(cstack.getItemDamage() == Short.MAX_VALUE)
 							cstack.setItemDamage(stack.getItemDamage());
-						
+
 						if(stack.isItemEqual(cstack)) {
 							oredictIndex = j;
 							found = true;
@@ -65,7 +65,7 @@ public class RecipePetals {
 						}
 					}
 
-					
+
 					if(found)
 						break;
 				} else if(input instanceof ItemStack && simpleAreStacksEqual((ItemStack) input, stack)) {

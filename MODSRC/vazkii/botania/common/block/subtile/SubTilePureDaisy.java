@@ -86,7 +86,7 @@ public class SubTilePureDaisy extends SubTileEntity {
 			}
 		}
 	}
-	
+
 	private boolean isOreDict(ItemStack stack, String entry) {
 		for(ItemStack ostack : OreDictionary.getOres(entry)) {
 			ItemStack cstack = ostack.copy();

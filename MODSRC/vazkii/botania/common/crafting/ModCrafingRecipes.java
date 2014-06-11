@@ -669,7 +669,7 @@ public final class ModCrafingRecipes {
 		recipesShinyFlowers = BotaniaAPI.getLatestAddedRecipes(16);
 
 		// Abtruse Platform Recipe
-		GameRegistry.addRecipe(new ItemStack(ModBlocks.platform), 
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.platform),
 				"343", "0 0",
 				'0', new ItemStack(ModBlocks.livingwood, 0, 0),
 				'3', new ItemStack(ModBlocks.livingwood, 0, 3),
@@ -677,7 +677,7 @@ public final class ModCrafingRecipes {
 		recipePlatform = BotaniaAPI.getLatestAddedRecipe();
 
 		// Soulscribe Recipe
-		addOreDictRecipe(new ItemStack(ModItems.enderDagger), 
+		addOreDictRecipe(new ItemStack(ModItems.enderDagger),
 				"P", "S", "T",
 				'P', LibOreDict.MANA_PEARL,
 				'S', LibOreDict.MANA_STEEL,
@@ -688,7 +688,7 @@ public final class ModCrafingRecipes {
 		recipeDarkQuartz = addQuartzRecipes(0, Items.coal, ModBlocks.darkQuartz, ModBlocks.darkQuartzStairs, ModBlocks.darkQuartzSlab);
 		addQuartzRecipes(1, null, ModBlocks.manaQuartz, ModBlocks.manaQuartzStairs, ModBlocks.manaQuartzSlab);
 		recipeBlazeQuartz = addQuartzRecipes(2, Items.blaze_powder, ModBlocks.blazeQuartz, ModBlocks.blazeQuartzStairs, ModBlocks.blazeQuartzSlab);
-		
+
 		GameRegistry.addRecipe(new ItemStack(ModItems.quartz, 8, 3),
 				"QQQ", "QCQ", "QQQ",
 				'Q', Items.quartz,

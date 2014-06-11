@@ -142,7 +142,7 @@ public final class LexiconData {
 	public static LexiconEntry flightTiara;
 
 	public static LexiconEntry alfhomancyIntro;
-	
+
 	public static LexiconEntry unstableBlocks;
 	public static LexiconEntry decorativeBlocks;
 	public static LexiconEntry dispenserTweaks;
@@ -250,7 +250,7 @@ public final class LexiconData {
 
 		manastar = new BLexiconEntry(LibLexicon.MANA_MANASTAR, categoryMana);
 		manastar.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.manastarRecipe));
-		
+
 		// FUNCTIONAL FLOWERS ENTRIES
 		functionalIntro = new BLexiconEntry(LibLexicon.FFLOWER_INTRO, categoryFunctionalFlowers);
 		functionalIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageText("3"), new PageCraftingRecipe("4", ModCrafingRecipes.recipeRedstoneRoot));
@@ -307,7 +307,7 @@ public final class LexiconData {
 
 		loonium = new BLexiconEntry(LibLexicon.FFLOWER_LOONIUM, categoryFunctionalFlowers);
 		loonium.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.looniumRecipe));
-		
+
 		// GENERATING FLOWERS ENTRIES
 		generatingIntro = new BLexiconEntry(LibLexicon.GFLOWER_INTRO, categoryGenerationFlowers);
 		generatingIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"));
@@ -335,10 +335,10 @@ public final class LexiconData {
 
 		entropinnyum = new BLexiconEntry(LibLexicon.GFLOWER_ENTROPINNYUM, categoryGenerationFlowers);
 		entropinnyum.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.entropinnyumRecipe));
-		
+
 		kekimurus = new BLexiconEntry(LibLexicon.GFLOWER_KEKIMURUS, categoryGenerationFlowers);
 		kekimurus.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.kekimurusRecipe));
-		
+
 		// DEVICES ENTRIES
 		pistonRelay = new BLexiconEntry(LibLexicon.DEVICE_PISTON_RELAY, categoryDevices);
 		pistonRelay.setLexiconPages(new PageText("0"), new PageText("1"), new PageManaInfusionRecipe("2", ModManaInfusionRecipes.pistonRelayRecipe));
@@ -373,7 +373,7 @@ public final class LexiconData {
 
 		platform = new BLexiconEntry(LibLexicon.DEVICE_PLATFORM, categoryDevices);
 		platform.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipePlatform));
-		
+
 		// TOOLS ENTRIES
 		manaBlaster = new BLexiconEntry(LibLexicon.TOOL_MANA_BLASTER, categoryTools);
 		manaBlaster.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCrafingRecipes.recipeManaBlaster));
@@ -406,7 +406,7 @@ public final class LexiconData {
 
 		enderDagger = new BLexiconEntry(LibLexicon.TOOL_ENDER_DAGGER, categoryTools);
 		enderDagger.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCrafingRecipes.recipeEnderDagger));
-		
+
 		// BAUBLES ENTRIES
 		baublesIntro = new BLexiconEntry(LibLexicon.BAUBLE_INTRO, categoryBaubles);
 		baublesIntro.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_BAUBLES), new PageText("2"));
@@ -453,7 +453,7 @@ public final class LexiconData {
 		// ALFHOMANCY ENTRIES
 		alfhomancyIntro = new WIPLexiconEntry(LibLexicon.ALF_INTRO, categoryAlfhomancy);
 		alfhomancyIntro.setLexiconPages(new PageText("0"));
-		
+
 		// MISCLENAEOUS ENTRIES
 		unstableBlocks = new BLexiconEntry(LibLexicon.MISC_UNSTABLE_BLOCKS, categoryMisc);
 		unstableBlocks.setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_UNSTABLE_BLOCK), new PageCraftingRecipe("2", ModCrafingRecipes.recipesUnstableBlocks), new PageText("3"), new PageImage("4", LibResources.ENTRY_UNSTABLE_BEACON), new PageCraftingRecipe("5", ModCrafingRecipes.recipesManaBeacons), new PageText("6"), new PageCraftingRecipe("7", ModCrafingRecipes.recipesSignalFlares));
@@ -465,7 +465,7 @@ public final class LexiconData {
 
 		dispenserTweaks = new BLexiconEntry(LibLexicon.MISC_DISPENSER_TWEAKS, categoryMisc);
 		dispenserTweaks.setLexiconPages(new PageText("0"));
-		
+
 		shinyFlowers = new BLexiconEntry(LibLexicon.MISC_SHINY_FLOWERS, categoryMisc);
 		shinyFlowers.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipesShinyFlowers));
 	}

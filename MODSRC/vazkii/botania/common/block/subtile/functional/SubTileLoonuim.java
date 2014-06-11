@@ -21,9 +21,9 @@ import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileLoonuim extends SubTileFunctional {
-	
+
 	private static final int COST = 20000;
-	
+
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
@@ -34,33 +34,33 @@ public class SubTileLoonuim extends SubTileFunctional {
 			entity.motionX = 0;
 			entity.motionY = 0;
 			entity.motionZ = 0;
-			
+
 			if(!supertile.getWorldObj().isRemote)
 				supertile.getWorldObj().spawnEntityInWorld(entity);
-			
+
 			mana -= COST;
 			sync();
 		}
 	}
-	
+
 	@Override
 	public int getColor() {
 		return 0x274A00;
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry() {
 		return LexiconData.loonium;
 	}
-	
+
 	@Override
 	public int getMaxMana() {
 		return COST;
 	}
-	
+
 	@Override
 	public boolean acceptsRedstone() {
 		return true;
 	}
-	
+
 }

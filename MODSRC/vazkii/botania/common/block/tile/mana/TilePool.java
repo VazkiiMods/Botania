@@ -152,7 +152,7 @@ public class TilePool extends TileMod implements IManaPool {
 		for(EntityItem item : items) {
 			if(item.isDead)
 				continue;
-			
+
 			ItemStack stack = item.getEntityItem();
 			if(stack != null && stack.getItem() instanceof IManaItem) {
 				IManaItem mana = (IManaItem) stack.getItem();

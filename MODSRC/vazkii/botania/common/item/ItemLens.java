@@ -37,7 +37,6 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
@@ -292,7 +291,7 @@ public class ItemLens extends ItemMod implements ILens {
 						break;
 					}
 				}
-			}	
+			}
 			break;
 		}
 		case MAGNET : {
