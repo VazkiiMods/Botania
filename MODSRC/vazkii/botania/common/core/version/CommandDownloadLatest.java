@@ -19,7 +19,7 @@ import net.minecraft.util.EnumChatFormatting;
 
 public class CommandDownloadLatest extends CommandBase {
 
-	private static final boolean ENABLED = false;
+	private static final boolean ENABLED = true;
 
 	@Override
 	public String getCommandName() {
