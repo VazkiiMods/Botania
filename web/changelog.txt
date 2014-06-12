@@ -1,3 +1,5 @@
+r1.0 53
+*Fixed compatibility with the latest forge versions with ore dictionary changes. <b>The mod now requires forge 1117 at minimum</b>.
 r1.0 52
 *Added sound effects to the Petal Apothecary.
 *Re-enabled the ingame downloader for new versions. Many thanks to Scottwears for providing web hosting that actually lets me do this :)
