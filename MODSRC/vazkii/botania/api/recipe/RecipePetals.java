@@ -44,8 +44,6 @@ public class RecipePetals {
 			if(stack == null)
 				break;
 
-			OreDictionary.getOreName(OreDictionary.getOreID(stack));
-
 			int stackIndex = -1, oredictIndex = -1;
 
 			for(int j = 0; j < inputsMissing.size(); j++) {
