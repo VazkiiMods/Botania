@@ -25,7 +25,7 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemManaResource extends ItemMod implements IFlowerComponent {
 
-	final int types = 7;
+	final int types = 10;
 	IIcon[] icons;
 
 	public ItemManaResource() {
@@ -59,7 +59,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent {
 
 	@Override
 	public boolean canFit(ItemStack stack, IInventory apothecary) {
-		return stack.getItemDamage() == 6;
+		return stack.getItemDamage() == 6 || stack.getItemDamage() == 8;
 	}
 
 	@Override

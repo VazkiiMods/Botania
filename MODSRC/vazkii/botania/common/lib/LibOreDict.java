@@ -25,7 +25,11 @@ public final class LibOreDict {
 	public static final String TERRA_STEEL = "ingotTerrasteel";
 	public static final String LIFE_ESSENCE = "eternalLifeEssence";
 	public static final String REDSTONE_ROOT = "redstoneRoot";
-
+	public static final String DREAM_WOOD = "dreamwood";
+	public static final String ELEMENTIUM = "ingotElvenElementium";
+	public static final String PIXIE_DUST = "elvenPixieDust";
+	public static final String DRAGONSTONE = "elvenDragonstone";
+	
 	public static final String[] FLOWER = new String[] {
 		"mysticFlowerWhite", "mysticFlowerOrange", "mysticFlowerMagenta", "mysticFlowerLightBlue", "mysticFlowerYellow", "mysticFlowerLime", "mysticFlowerPink", "mysticFlowerGray", "mysticFlowerLightGray", "mysticFlowerCyan", "mysticFlowerPurple", "mysticFlowerBlue", "mysticFlowerBrown", "mysticFlowerGreen", "mysticFlowerRed", "mysticFlowerBlack",
 	};

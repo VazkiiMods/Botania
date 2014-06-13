@@ -81,6 +81,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.manaBeacon);
 		addItem(ModItems.signalFlare);
 
+		addBlock(ModBlocks.dreamwood);
 		addItem(ModItems.quartz);
 		if(ConfigHandler.darkQuartzEnabled) {
 			addBlock(ModBlocks.darkQuartz);

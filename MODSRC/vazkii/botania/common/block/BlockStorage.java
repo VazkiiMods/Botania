@@ -35,7 +35,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockStorage extends BlockMod implements ILexiconable {
 
-	private static final int SUBTYPES = 2;
+	private static final int SUBTYPES = 3;
 
 	IIcon[] icons;
 

@@ -173,6 +173,7 @@ tile.botania:openCrate.name=Open Crate
 tile.botania:forestEye.name=Eye of the Ancients
 tile.botania:storage0.name=Block of Manasteel
 tile.botania:storage1.name=Block of Terrasteel
+tile.botania:storage2.name=Block of Elementium
 tile.botania:forestDrum.name=Drum of the Wild
 tile.botania:shinyFlower0.name=Glimmering White Flower
 tile.botania:shinyFlower1.name=Glimmering Orange Flower
@@ -217,6 +218,12 @@ tile.botania:chiseledRedQuartz.name=Chiseled Redquartz Block
 tile.botania:pillarRedQuartz.name=Pillar Redquartz Block
 tile.botania:quartzSlabRedHalf.name=Redquartz Slab
 tile.botania:quartzStairsRed.name=Redquartz Stairs
+tile.botania:dreamwood0.name=Dreamwood
+tile.botania:dreamwood1.name=Dreamwood Planks
+tile.botania:dreamwood2.name=Mossy Dreamwood Planks
+tile.botania:dreamwood3.name=Framed Dreamwood
+tile.botania:dreamwood4.name=Pattern Framed Dreamwood
+tile.botania:dreamwood5.name=Glimmering Dreamwood
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
@@ -431,6 +438,9 @@ item.botania:quartz1.name=Mana Quartz
 item.botania:quartz2.name=Blaze Quartz
 item.botania:quartz3.name=Lavender Quartz
 item.botania:quartz4.name=Redquartz
+item.botania:elementium.name=Elementium Ingot
+item.botania:pixieDust.name=Pixie Dust
+item.botania:dragonstone.name=Dragonstone
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania, %s Edition's Index - Pick which category you would like to study:

@@ -87,6 +87,9 @@ public final class LibItemNames {
 		"livingwoodTwig",
 		"terrasteel",
 		"lifeEssence",
-		"redstoneRoot"
+		"redstoneRoot",
+		"elementium",
+		"pixieDust",
+		"dragonstone"
 	};
 }

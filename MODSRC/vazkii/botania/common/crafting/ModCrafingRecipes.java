@@ -719,6 +719,9 @@ public final class ModCrafingRecipes {
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 1),
 				"III", "III", "III",
 				'I', LibOreDict.TERRA_STEEL);
+		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 2),
+				"III", "III", "III",
+				'I', LibOreDict.ELEMENTIUM);
 		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manaResource, 9, 0), new ItemStack(ModBlocks.storage, 1, 0));
 		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manaResource, 9, 4), new ItemStack(ModBlocks.storage, 1, 1));
 	}

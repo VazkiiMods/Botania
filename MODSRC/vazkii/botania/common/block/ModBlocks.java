@@ -103,7 +103,8 @@ public final class ModBlocks {
 	public static Block shinyFlower;
 	public static Block platform;
 	public static Block alfPortal;
-
+	public static Block dreamwood;
+	
 	public static Block darkQuartz;
 	public static Block darkQuartzSlab;
 	public static Block darkQuartzSlabFull;
@@ -152,6 +153,7 @@ public final class ModBlocks {
 		shinyFlower = new BlockShinyFlower();
 		platform = new BlockPlatform();
 		alfPortal = new BlockAlfPortal();
+		dreamwood = new BlockDreamwood();
 
 		if(ConfigHandler.darkQuartzEnabled) {
 			darkQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_DARK);
@@ -195,6 +197,7 @@ public final class ModBlocks {
 
 		OreDictionary.registerOre(LibOreDict.LIVING_ROCK, livingrock);
 		OreDictionary.registerOre(LibOreDict.LIVING_WOOD, livingwood);
+		OreDictionary.registerOre(LibOreDict.DREAM_WOOD, dreamwood);
 
 		initTileEntities();
 	}
