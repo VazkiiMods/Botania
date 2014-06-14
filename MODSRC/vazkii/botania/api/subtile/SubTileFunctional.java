@@ -63,7 +63,8 @@ public class SubTileFunctional extends SubTileEntity {
 	public void onUpdate() {
 		super.onUpdate();
 
-		linkPool();
+		if(!supertile.getWorldObj().isRemote || cachedPoolCoordinates != null)
+			linkPool();
 
 		if(linkedPool != null) {
 			IManaPool pool = (IManaPool) linkedPool;
@@ -101,6 +102,7 @@ public class SubTileFunctional extends SubTileEntity {
 				TileEntity tileAt = supertile.getWorldObj().getTileEntity(cachedPoolCoordinates.posX, cachedPoolCoordinates.posY, cachedPoolCoordinates.posZ);
 				if(tileAt != null && tileAt instanceof IManaPool) {
 					linkedPool = tileAt;
+					sync();
 					needsNew = false;
 				}
 				cachedPoolCoordinates = null;
@@ -121,6 +123,7 @@ public class SubTileFunctional extends SubTileEntity {
 			if(size != sizeLastCheck) {
 				ChunkCoordinates coords = new ChunkCoordinates(supertile.xCoord, supertile.yCoord, supertile.zCoord);
 				linkedPool = network.getClosestPool(coords, supertile.getWorldObj(), range);
+				sync();
 				sizeLastCheck = size;
 			}
 		}

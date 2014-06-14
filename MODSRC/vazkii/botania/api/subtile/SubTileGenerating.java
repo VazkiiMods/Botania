@@ -54,7 +54,8 @@ public class SubTileGenerating extends SubTileEntity {
 	public void onUpdate() {
 		super.onUpdate();
 		
-		linkCollector();
+		if(!supertile.getWorldObj().isRemote || cachedCollectorCoordinates != null)
+			linkCollector();
 
 		if(canGeneratePassively()) {
 			int delay = getDelayBetweenPassiveGeneration();
@@ -85,6 +86,7 @@ public class SubTileGenerating extends SubTileEntity {
 				TileEntity tileAt = supertile.getWorldObj().getTileEntity(cachedCollectorCoordinates.posX, cachedCollectorCoordinates.posY, cachedCollectorCoordinates.posZ);
 				if(tileAt != null && tileAt instanceof IManaCollector) {
 					linkedCollector = tileAt;
+					sync();
 					needsNew = false;
 				}
 				cachedCollectorCoordinates = null;
@@ -106,6 +108,7 @@ public class SubTileGenerating extends SubTileEntity {
 				ChunkCoordinates coords = new ChunkCoordinates(supertile.xCoord, supertile.yCoord, supertile.zCoord);
 				linkedCollector = network.getClosestCollector(coords, supertile.getWorldObj(), range);
 				sizeLastCheck = size;
+				sync();
 			}
 		}
 	}
