@@ -108,7 +108,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 	@Override
 	public void updateEntity() {
-		if(!added) {
+		if(!worldObj.isRemote && !added) {
 			ManaNetworkEvent.addCollector(this);
 			added = true;
 		}
