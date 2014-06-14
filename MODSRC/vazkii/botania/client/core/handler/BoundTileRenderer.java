@@ -28,6 +28,7 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.api.wand.ICoordBoundItem;
 import vazkii.botania.api.wand.ITileBound;
 import vazkii.botania.api.wand.IWireframeAABBProvider;
 import vazkii.botania.common.item.ItemTwigWand;
@@ -47,16 +48,10 @@ public final class BoundTileRenderer {
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 		World world = player.worldObj;
 		ItemStack stack = player.getCurrentEquippedItem();
-		if(stack != null && stack.getItem() instanceof ItemTwigWand) {
-			MovingObjectPosition pos = Minecraft.getMinecraft().objectMouseOver;
-			if(pos != null) {
-				TileEntity tile = world.getTileEntity(pos.blockX, pos.blockY, pos.blockZ);
-				if(tile != null && tile instanceof ITileBound) {
-					ChunkCoordinates coords = ((ITileBound) tile).getBinding();
-					if(coords != null)
-						renderBlockOutlineAt(coords, Color.HSBtoRGB(world.getTotalWorldTime() % 200 / 200F, 0.6F, 1F));
-				}
-			}
+		if(stack != null && stack.getItem() instanceof ICoordBoundItem) {
+			ChunkCoordinates coords = ((ICoordBoundItem) stack.getItem()).getBinding(stack);
+			if(coords != null)
+				renderBlockOutlineAt(coords, Color.HSBtoRGB(world.getTotalWorldTime() % 200 / 200F, 0.6F, 1F));
 		}
 
 		GL11.glEnable(GL11.GL_DEPTH_TEST);

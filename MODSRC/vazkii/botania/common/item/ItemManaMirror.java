@@ -25,12 +25,13 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaPool;
+import vazkii.botania.api.wand.ICoordBoundItem;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemManaMirror extends ItemMod implements IManaItem {
+public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundItem {
 
 	IIcon[] icons;
 
@@ -105,16 +106,6 @@ public class ItemManaMirror extends ItemMod implements IManaItem {
 		}
 
 		return false;
-	}
-
-	@Override
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		ChunkCoordinates coords = getPoolCoords(par1ItemStack);
-		if(coords.posY != -1) {
-			par3List.add("X: " + coords.posX);
-			par3List.add("Y: " + coords.posY);
-			par3List.add("Z: " + coords.posZ);
-		}
 	}
 
 	@Override
@@ -240,6 +231,11 @@ public class ItemManaMirror extends ItemMod implements IManaItem {
 	@Override
 	public boolean isNoExport(ItemStack stack) {
 		return false;
+	}
+
+	@Override
+	public ChunkCoordinates getBinding(ItemStack stack) {
+		return getPoolCoords(stack);
 	}
 
 }

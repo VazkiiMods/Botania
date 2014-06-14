@@ -15,6 +15,7 @@ import java.awt.Color;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.passive.EntitySheep;
@@ -23,8 +24,13 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+import vazkii.botania.api.wand.ICoordBoundItem;
+import vazkii.botania.api.wand.ITileBound;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
@@ -34,7 +40,7 @@ import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemTwigWand extends Item16Colors {
+public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 
 	IIcon[] icons;
 
@@ -161,6 +167,19 @@ public class ItemTwigWand extends Item16Colors {
 
 	public static int getColor2(ItemStack stack) {
 		return ItemNBTHelper.getInt(stack, TAG_COLOR2, 0);
+	}
+
+	@Override
+	public ChunkCoordinates getBinding(ItemStack stack) {
+		MovingObjectPosition pos = Minecraft.getMinecraft().objectMouseOver;
+		if(pos != null) {
+			TileEntity tile = Minecraft.getMinecraft().theWorld.getTileEntity(pos.blockX, pos.blockY, pos.blockZ);
+			if(tile != null && tile instanceof ITileBound) {
+				ChunkCoordinates coords = ((ITileBound) tile).getBinding();
+				return coords;
+			}
+		}
+		return null;
 	}
 
 }
