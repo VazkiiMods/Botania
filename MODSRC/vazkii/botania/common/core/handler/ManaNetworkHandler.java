@@ -25,11 +25,16 @@ import vazkii.botania.api.mana.ManaNetworkEvent.Action;
 import vazkii.botania.api.mana.ManaNetworkEvent.ManaBlockType;
 import vazkii.botania.common.core.helper.MathHelper;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public final class ManaNetworkHandler implements IManaNetwork {
 
 	public static final ManaNetworkHandler instance = new ManaNetworkHandler();
 
+	@SideOnly(Side.CLIENT)
+	public static WeakHashMap<World, List<TileEntity>> clientCollectors = new WeakHashMap();
+	
 	public WeakHashMap<World, List<TileEntity>> manaPools = new WeakHashMap();
 	public WeakHashMap<World, List<TileEntity>> manaCollectors = new WeakHashMap();
 
@@ -101,10 +106,30 @@ public final class ManaNetworkHandler implements IManaNetwork {
 		if(!tiles.contains(tile))
 			tiles.add(tile);
 	}
+	
+	@SideOnly(Side.CLIENT)
+	public static void addClientCollector(TileEntity tile) {
+		World world = tile.getWorldObj();
+		Map<World, List<TileEntity>> map = clientCollectors;
+		
+		List<TileEntity> tiles;
+		if(!map.containsKey(world))
+			map.put(world, new ArrayList());
+
+		tiles = map.get(world);
+
+		if(!tiles.contains(tile))
+			tiles.add(tile);
+	}
 
 	@Override
 	public List<TileEntity> getAllCollectorsInWorld(World world) {
 		return getAllInWorld(manaCollectors, world);
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public List<TileEntity> getAllClientCollectorsInWorld(World world) {
+		return getAllInWorld(clientCollectors, world);
 	}
 
 	@Override

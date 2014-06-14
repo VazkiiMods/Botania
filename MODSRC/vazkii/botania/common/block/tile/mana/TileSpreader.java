@@ -44,6 +44,7 @@ import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.api.wand.ITileBound;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.core.helper.Vector3;
@@ -108,11 +109,13 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 	@Override
 	public void updateEntity() {
-		if(!worldObj.isRemote && !added) {
+		boolean added = this.added;
+		if(!worldObj.isRemote && !this.added) {
 			ManaNetworkEvent.addCollector(this);
-			added = true;
-		}
-
+			this.added = true;
+		} else if(worldObj.isRemote && !added)
+			Botania.proxy.addClientCollector(this);
+		
 		boolean redstone = false;
 
 		for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {

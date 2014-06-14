@@ -51,7 +51,7 @@ public class ClientTickHandler {
 				if(player != null) {
 					ItemStack stack = player.getCurrentEquippedItem();
 					if(stack != null && stack.getItem() instanceof ItemTwigWand) {
-						List<TileEntity> list = new ArrayList(ManaNetworkHandler.instance.getAllCollectorsInWorld(Minecraft.getMinecraft().theWorld));
+						List<TileEntity> list = new ArrayList(ManaNetworkHandler.instance.getAllClientCollectorsInWorld(Minecraft.getMinecraft().theWorld));
 						for(TileEntity tile : list) {
 							if(tile instanceof IManaCollector)
 								((IManaCollector) tile).onClientDisplayTick();
