@@ -6,7 +6,7 @@
 		dl_mod($_GET['file']);
 
 	function dl_mod($mod) {
-		if(strlen($mod) > 0 && file_exists("files/$mod") && strpos($mod, "/") !== false) {
+		if(strlen($mod) > 0 && file_exists("files/$mod") && strpos($mod, "/") === false) {
 			increment_dl_counter($mod);
 			header("Location: files/$mod");
 		} else echo("Hm, doesn't seem like that file exists :( <br><a href='./'>Back</a>");
