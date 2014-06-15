@@ -72,7 +72,7 @@ public class ItemIcePendant extends ItemBauble {
 			playerIceBlocks.put(user, new ArrayList());
 
 		List<IceRemover> ice = playerIceBlocks.get(user);
-		if(player.worldObj.getBlock(coords.posX, coords.posY, coords.posZ) == Blocks.water) {
+		if(player.worldObj.getBlock(coords.posX, coords.posY, coords.posZ) == Blocks.water && player.worldObj.getBlockMetadata(coords.posX, coords.posY, coords.posZ) == 0) {
 			player.worldObj.setBlock(coords.posX, coords.posY, coords.posZ, Blocks.ice);
 
 			if(!player.worldObj.isRemote)
