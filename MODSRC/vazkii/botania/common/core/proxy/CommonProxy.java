@@ -16,7 +16,6 @@ import java.util.List;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.BotaniaAPI;
@@ -92,10 +91,6 @@ public class CommonProxy {
 	}
 
 	public void setEntryToOpen(LexiconEntry entry) {
-		// NO-OP
-	}
-	
-	public void addClientCollector(TileEntity tile) {
 		// NO-OP
 	}
 

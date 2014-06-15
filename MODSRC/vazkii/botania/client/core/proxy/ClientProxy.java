@@ -12,7 +12,6 @@
 package vazkii.botania.client.core.proxy;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
@@ -51,7 +50,6 @@ import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.core.proxy.CommonProxy;
 import vazkii.botania.common.core.version.VersionChecker;
@@ -110,11 +108,6 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void setEntryToOpen(LexiconEntry entry) {
 		GuiLexicon.currentOpenLexicon = new GuiLexiconEntry(entry, new GuiLexiconIndex(entry.category));
-	}
-	
-	@Override
-	public void addClientCollector(TileEntity tile) {
-		ManaNetworkHandler.addClientCollector(tile);
 	}
 
 	@Override
