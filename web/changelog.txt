@@ -1,7 +1,3 @@
-r1.0 55
-*Added some sanity checking to the flowers' connection code to reflect the changes in 54, be it for Spreaders or Pools. In theory, this ought to fix the bug where flowers lose their binding upon relog. I can't exactly tell you if that is the case though, because this issue is completely sporadic and nigh-on impossible to reproduce with consistency. <i><b>Warning</b>: This change modifies API files SubTileGenerating.java and SubTileFunctional.java. Third time's the charm, right? Please be so.</i>
-*Mana Mirrors no longer show their binding in the tooltip, but rather in world.
-*[API] Added ICoordBoundItem.
 r1.0 54
 *Added some checks to the adding of mana spreaders and mana pools to the world. In theory, this ought to fix the bug where flowers lose their binding upon relog. I can't exactly tell you if that is the case though, because this issue is completely sporadic and nigh-on impossible to reproduce with consistency. <i>Deja vu, I hate this bug.</i>
 *Added some new items that don't do anything yet, don't mind them, I just happened to have them done before I pushed this update.
