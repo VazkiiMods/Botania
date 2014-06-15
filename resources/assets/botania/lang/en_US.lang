@@ -752,7 +752,7 @@ botania.page.loonium1=&oTank Tank Heal Tank&r!
 # - GENERATING FLOWERS
 # -- AN INTRODUCTION TO GENERATION
 botania.entry.gIntro=An Introduction to Generation
-botania.page.gIntro0=&4Generating Mana&0 should be at the top of the priorities for any botanist. Luckilly there's an array of &4Generating Flowers&0 willing to do the job.<br>These flowers, as their name shows, generate &4Mana&0, both passively and actively. Unless stated otherwise, all &4Generating Flowers&0 generate &4Mana&0 passively under certain circunstances.
+botania.page.gIntro0=&4Generating Mana&0 should be at the top of the priorities for any botanist. Luckily there's an array of &4Generating Flowers&0 willing to do the job.<br>These flowers, as their name shows, generate &4Mana&0, both passively and actively. Unless stated otherwise, all &4Generating Flowers&0 generate &4Mana&0 passively under certain circunstances.
 botania.page.gIntro1=All &4Generating Flowers&0, alike the &4Functional Flowers&0 contain a small buffer of &4Mana&0.<br>Standard rules for &4Mana&0 reading apply, right clicking with a &1Wand of the Forest&0 will update the mana readings.<br>This mana will be stored in the closest &1Mana Spreader&0 around.
 botania.page.gIntro2=It is important to keep in mind that these flowers memorize the &1Mana Spreader&0 into which they should put &4Mana&0 into. They'll only store into the nearest spreader present at the time of the flower being placed (or the closest placed afterward, if none was present), and none other, unless that one is removed.
 
