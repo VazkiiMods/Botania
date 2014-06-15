@@ -40,10 +40,11 @@ public class GuiLexicon extends GuiScreen {
 	int guiWidth = 146;
 	int guiHeight = 180;
 	int left, top;
-	
+
 	@Override
 	public void initGui() {
 		super.initGui();
+
 		title = Minecraft.getMinecraft().thePlayer.getCurrentEquippedItem().getDisplayName();
 		currentOpenLexicon = this;
 
