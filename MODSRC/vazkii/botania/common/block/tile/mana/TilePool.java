@@ -146,11 +146,10 @@ public class TilePool extends TileMod implements IManaPool {
 
 	@Override
 	public void updateEntity() {
-		if(!worldObj.isRemote && !added) {
+		if(!added) {
 			ManaNetworkEvent.addPool(this);
 			added = true;
 		}
-		
 		if(worldObj.isRemote) {
 			double particleChance = 1F - (double) getCurrentMana() / (double) MAX_MANA * 0.1;
 			Color color = new Color(0x00C6FF);
