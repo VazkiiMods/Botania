@@ -474,7 +474,7 @@ botania.page.flowers2=These flowers can be plucked for &1Mystical Petals&0, that
 botania.page.flowers3=Plucking Petals off Flowers.
 botania.page.flowers4=Crafting the &1Pestle and Mortar&0.
 botania.page.flowers5=Grinding Petals into Powder.
-botania.page.flowers6=By mixing the &1Floral Powder&0 with some &1Bone Meal&0, it's possible to create a different type of fertilizer. The &1Floral Fertlizer&0 will grow a small amount of &1Mystical Flowers&0 in the nearby vacinity, if you ever run low on them.
+botania.page.flowers6=By mixing the &1Floral Powder&0 with some &1Bone Meal&0, it's possible to create a different type of fertilizer. The &1Floral Fertlizer&0 will grow a small amount of &1Mystical Flowers&0 in the nearby vicinity, if you ever run low on them.
 botania.page.flowers7=Making fertilizer (any powder colors work)
 botania.page.flowers8=Using typical flower substances also works
 
@@ -532,7 +532,7 @@ botania.page.terrasteel3=These come not from Kyubey
 # - MANA
 # -- AN INTRODUCTION TO MANA
 botania.entry.mIntro=An Introduction to Mana
-botania.page.mIntro0=&4Mana&0 is an ethereal substance. In layman's terms, it is a form of &4mystical energy&0. Its sensorial existance is inconstant, and its color depends on the environment its put in.<br>Mastering &4Mana&0 is one of the most important skills a botanist needs to master.
+botania.page.mIntro0=&4Mana&0 is an ethereal substance. In layman's terms, it is a form of &4mystical energy&0. Its sensorial existence is inconstant, and its color depends on the environment its put in.<br>Mastering &4Mana&0 is one of the most important skills a botanist needs to master.
 botania.page.mIntro1=In order to create &4Mana&0, one would require a set of &4Generating Flowers&0 (read the respective section). This &4Mana&0 can be dispersed by utilizing &1Mana Spreaders&0 and stored in &1Mana Pools&0. &4Mana&0 can be used for a myriad of different things. For starters, it can be used for &4Functional Flowers&0 (read the respective section).
 botania.page.mIntro2=To get started with mastering the art of &4Mana&0, one would start by learning how to use &1Dayblooms&0, &1Mana Spreaders&0 and &1Mana Pools&0.<br>These form a basic infrastructure for mana, which can be used for all sorts of purposes. Have a read at the &4Functional Flora&0 and &4Magical Apparatus&0 sections of this Lexicon. 
 
@@ -752,7 +752,7 @@ botania.page.loonium1=&oTank Tank Heal Tank&r!
 # - GENERATING FLOWERS
 # -- AN INTRODUCTION TO GENERATION
 botania.entry.gIntro=An Introduction to Generation
-botania.page.gIntro0=&4Generating Mana&0 should be at the top of the priorities for any botanist. Luckilly there's an array of &4Generating Flowers&0 willing to do the job.<br>These flowers, as their name shows, generate &4Mana&0, both passively and actively. Unless stated otherwise, all &4Generating Flowers&0 generate &4Mana&0 passively under certain circunstances.
+botania.page.gIntro0=&4Generating Mana&0 should be at the top of the priorities for any botanist. Luckily there's an array of &4Generating Flowers&0 willing to do the job.<br>These flowers, as their name shows, generate &4Mana&0, both passively and actively. Unless stated otherwise, all &4Generating Flowers&0 generate &4Mana&0 passively under certain circunstances.
 botania.page.gIntro1=All &4Generating Flowers&0, alike the &4Functional Flowers&0 contain a small buffer of &4Mana&0.<br>Standard rules for &4Mana&0 reading apply, right clicking with a &1Wand of the Forest&0 will update the mana readings.<br>This mana will be stored in the closest &1Mana Spreader&0 around.
 botania.page.gIntro2=It is important to keep in mind that these flowers memorize the &1Mana Spreader&0 into which they should put &4Mana&0 into. They'll only store into the nearest spreader present at the time of the flower being placed (or the closest placed afterward, if none was present), and none other, unless that one is removed.
 
