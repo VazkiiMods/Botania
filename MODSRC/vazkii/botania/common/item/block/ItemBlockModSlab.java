@@ -7,23 +7,24 @@
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
  * 
- * File Created @ [Jun 11, 2014, 1:13:36 AM (GMT)]
+ * File Created @ [Jun 11, 2014, 1:16:59 AM (GMT)]
  */
-package vazkii.botania.common.item.block.quartz;
+package vazkii.botania.common.item.block;
 
 import net.minecraft.block.Block;
-import net.minecraft.item.ItemMultiTexture;
+import net.minecraft.item.ItemSlab;
 import net.minecraft.item.ItemStack;
-import vazkii.botania.common.block.quartz.BlockSpecialQuartz;
+import vazkii.botania.common.block.decor.slabs.BlockModSlab;
 
-public class ItemBlockSpecialQuartz extends ItemMultiTexture {
+public class ItemBlockModSlab extends ItemSlab {
 
-	public ItemBlockSpecialQuartz(Block par1) {
-		super(par1, par1, new String[]{ "" });
+	public ItemBlockModSlab(Block par1) {
+		super(par1, ((BlockModSlab)par1).getSingleBlock(), ((BlockModSlab)par1).getFullBlock(), false);
 	}
 
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
-		return par1ItemStack.getItemDamage() >= 3 ? "" : ((BlockSpecialQuartz) field_150939_a).getNames()[par1ItemStack.getItemDamage()];
+		return field_150939_a.getUnlocalizedName().replaceAll("tile.", "tile.botania:");
 	}
+
 }

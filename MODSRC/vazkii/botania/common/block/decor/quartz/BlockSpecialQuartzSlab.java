@@ -9,7 +9,7 @@
  * 
  * File Created @ [Jun 11, 2014, 1:08:28 AM (GMT)]
  */
-package vazkii.botania.common.block.quartz;
+package vazkii.botania.common.block.decor.quartz;
 
 import java.util.Random;
 
@@ -23,34 +23,27 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
-import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.core.BotaniaCreativeTab;
-import vazkii.botania.common.item.block.quartz.ItemBlockSpecialQuartzSlab;
+import vazkii.botania.common.block.decor.slabs.BlockModSlab;
+import vazkii.botania.common.item.block.ItemBlockModSlab;
 import vazkii.botania.common.lexicon.LexiconData;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockSpecialQuartzSlab extends BlockSlab implements ILexiconable {
+public class BlockSpecialQuartzSlab extends BlockModSlab {
 
 	Block source;
-	String name;
 
 	public BlockSpecialQuartzSlab(Block source, boolean par2) {
-		super(par2, Material.rock);
+		super(par2, Material.rock, "quartzSlab" + ((BlockSpecialQuartz) source).type + (par2 ? "Full" : "Half"));
 		setHardness(0.8F);
 		setResistance(10F);
-		name = "quartzSlab" + ((BlockSpecialQuartz) source).type + (par2 ? "Full" : "Half");
 		this.source = source;
-		setBlockName(name);
-		if(!par2) {
-			setLightOpacity(0);
-			setCreativeTab(BotaniaCreativeTab.INSTANCE);
-		}
 	}
 
+	@Override
 	public BlockSlab getFullBlock() {
 		if(source == ModBlocks.darkQuartz)
 			return (BlockSlab) ModBlocks.darkQuartzSlabFull;
@@ -67,6 +60,7 @@ public class BlockSpecialQuartzSlab extends BlockSlab implements ILexiconable {
 		return this;
 	}
 
+	@Override
 	public BlockSlab getSingleBlock() {
 		if(source == ModBlocks.darkQuartz)
 			return (BlockSlab) ModBlocks.darkQuartzSlab;
@@ -88,10 +82,6 @@ public class BlockSpecialQuartzSlab extends BlockSlab implements ILexiconable {
 		return new ItemStack(getSingleBlock());
 	}
 
-	public void register() {
-		GameRegistry.registerBlock(this, ItemBlockSpecialQuartzSlab.class, name);
-	}
-
 	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int par1, int par2) {
@@ -106,11 +96,6 @@ public class BlockSpecialQuartzSlab extends BlockSlab implements ILexiconable {
 	@Override
 	public ItemStack createStackedBlock(int par1) {
 		return new ItemStack(getSingleBlock());
-	}
-
-	@Override
-	public String func_150002_b(int i) {
-		return "tile.botania:" + name;
 	}
 
 	@Override

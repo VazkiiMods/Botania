@@ -9,7 +9,7 @@
  * 
  * File Created @ [Jun 11, 2014, 1:05:32 AM (GMT)]
  */
-package vazkii.botania.common.block.quartz;
+package vazkii.botania.common.block.decor.quartz;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.BlockMod;
-import vazkii.botania.common.item.block.quartz.ItemBlockSpecialQuartz;
+import vazkii.botania.common.item.block.ItemBlockSpecialQuartz;
 import vazkii.botania.common.lexicon.LexiconData;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;

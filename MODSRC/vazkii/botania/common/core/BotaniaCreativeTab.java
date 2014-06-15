@@ -82,6 +82,20 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.signalFlare);
 
 		addBlock(ModBlocks.dreamwood);
+		
+		addBlock(ModBlocks.livingwoodStairs);
+		addBlock(ModBlocks.livingwoodSlab);
+		addBlock(ModBlocks.livingwoodPlankStairs);
+		addBlock(ModBlocks.livingwoodPlankSlab);
+		addBlock(ModBlocks.livingrockStairs);
+		addBlock(ModBlocks.livingrockSlab);
+		addBlock(ModBlocks.livingrockBrickStairs);
+		addBlock(ModBlocks.livingrockBrickSlab);
+		addBlock(ModBlocks.dreamwoodStairs);
+		addBlock(ModBlocks.dreamwoodSlab);
+		addBlock(ModBlocks.dreamwoodPlankStairs);
+		addBlock(ModBlocks.dreamwoodPlankSlab);
+		
 		addItem(ModItems.quartz);
 		if(ConfigHandler.darkQuartzEnabled) {
 			addBlock(ModBlocks.darkQuartz);

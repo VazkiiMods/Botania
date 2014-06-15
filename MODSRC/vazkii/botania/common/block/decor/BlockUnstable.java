@@ -7,58 +7,43 @@
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
  * 
- * File Created @ [Mar 3, 2014, 4:53:59 PM (GMT)]
+ * File Created @ [Feb 4, 2014, 6:00:44 PM (GMT)]
  */
-package vazkii.botania.common.block;
+package vazkii.botania.common.block.decor;
 
 import java.awt.Color;
 import java.util.List;
+import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.client.core.helper.IconHelper;
-import vazkii.botania.common.block.tile.TileManaBeacon;
+import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.BlockMod;
+import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class BlockManaBeacon extends BlockModContainer implements ILexiconable {
+public class BlockUnstable extends BlockMod implements ILexiconable {
 
-	IIcon[] icons;
-
-	public BlockManaBeacon() {
+	public BlockUnstable() {
 		super(Material.iron);
 		setHardness(5.0F);
 		setResistance(10.0F);
 		setStepSound(soundTypeMetal);
-		float size = 3F / 16F;
-		setBlockBounds(size, size, size, 1F - size, 1F - size, 1F - size);
-		setBlockName(LibBlockNames.MANA_BEACON);
-	}
-
-	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[2];
-		for(int i = 0; i < 2; i++)
-			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
-	}
-
-	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return icons[par1 == 1 ? 1 : 0];
+		setBlockBounds(0.25F, 0.25F, 0.25F, 0.75F, 0.75F, 0.75F);
+		setBlockName(LibBlockNames.UNSTABLE_BLOCK);
+		setTickRandomly(true);
 	}
 
 	@Override
@@ -89,6 +74,17 @@ public class BlockManaBeacon extends BlockModContainer implements ILexiconable {
 	}
 
 	@Override
+	public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random) {
+		int color = getRenderColor(par1World.getBlockMetadata(par2, par3, par4));
+		int colorBright = new Color(color).brighter().getRGB();
+		int colorDark = new Color(color).darker().getRGB();
+
+		Vector3 origVector = new Vector3(par2 + 0.5, par3 + 0.5, par4 + 0.5);
+		Vector3 endVector = origVector.copy().add(par1World.rand.nextDouble() * 2 - 1, par1World.rand.nextDouble() * 2 - 1, par1World.rand.nextDouble() * 2 - 1);
+		Botania.proxy.lightningFX(par1World, origVector, endVector, 5F, colorDark, colorBright);
+	}
+
+	@Override
 	public int damageDropped(int par1) {
 		return par1;
 	}
@@ -109,8 +105,4 @@ public class BlockManaBeacon extends BlockModContainer implements ILexiconable {
 		return LexiconData.unstableBlocks;
 	}
 
-	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
-		return new TileManaBeacon();
-	}
 }

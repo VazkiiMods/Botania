@@ -724,27 +724,37 @@ public final class ModCrafingRecipes {
 				'I', LibOreDict.ELEMENTIUM);
 		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manaResource, 9, 0), new ItemStack(ModBlocks.storage, 1, 0));
 		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manaResource, 9, 4), new ItemStack(ModBlocks.storage, 1, 1));
+		addStairsAndSlabs(ModBlocks.livingwood, 0, ModBlocks.livingwoodStairs, ModBlocks.livingwoodSlab);
+		addStairsAndSlabs(ModBlocks.livingwood, 1, ModBlocks.livingwoodPlankStairs, ModBlocks.livingwoodPlankSlab);
+		addStairsAndSlabs(ModBlocks.livingrock, 0, ModBlocks.livingrockStairs, ModBlocks.livingrockSlab);
+		addStairsAndSlabs(ModBlocks.livingrock, 1, ModBlocks.livingrockBrickStairs, ModBlocks.livingrockBrickSlab);
+		addStairsAndSlabs(ModBlocks.dreamwood, 0, ModBlocks.dreamwoodStairs, ModBlocks.dreamwoodSlab);
+		addStairsAndSlabs(ModBlocks.dreamwood, 1, ModBlocks.dreamwoodPlankStairs, ModBlocks.dreamwoodPlankSlab);
+	}
+	
+	private static void addStairsAndSlabs(Block block, int meta, Block stairs, Block slab) {
+		GameRegistry.addRecipe(new ItemStack(slab, 6),
+				"QQQ",
+				'Q', new ItemStack(block, 1, meta));
+		GameRegistry.addRecipe(new ItemStack(stairs, 4),
+				"  Q", " QQ", "QQQ",
+				'Q', new ItemStack(block, 1, meta));
+		GameRegistry.addRecipe(new ItemStack(stairs, 4),
+				"Q  ", "QQ ", "QQQ",
+				'Q', new ItemStack(block, 1, meta));
 	}
 
 	private static IRecipe addQuartzRecipes(int meta, Item req, Block block, Block stairs, Block slab) {
 		GameRegistry.addRecipe(new ItemStack(block),
 				"QQ", "QQ",
 				'Q', new ItemStack(ModItems.quartz, 1, meta));
-		GameRegistry.addRecipe(new ItemStack(slab, 6),
-				"QQQ",
-				'Q', block);
 		GameRegistry.addRecipe(new ItemStack(block, 2, 2),
 				"Q", "Q",
 				'Q', block);
 		GameRegistry.addRecipe(new ItemStack(block, 1, 1),
 				"Q", "Q",
 				'Q', slab);
-		GameRegistry.addRecipe(new ItemStack(stairs, 4),
-				"  Q", " QQ", "QQQ",
-				'Q', block);
-		GameRegistry.addRecipe(new ItemStack(stairs, 4),
-				"Q  ", "QQ ", "QQQ",
-				'Q', block);
+		addStairsAndSlabs(block, meta, stairs, slab);
 
 		if(req != null) {
 			if(req == Items.coal)

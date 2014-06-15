@@ -19,11 +19,27 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.block.decor.BlockManaBeacon;
+import vazkii.botania.common.block.decor.BlockShinyFlower;
+import vazkii.botania.common.block.decor.BlockUnstable;
+import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartz;
+import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartzSlab;
+import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartzStairs;
+import vazkii.botania.common.block.decor.slabs.BlockModSlab;
+import vazkii.botania.common.block.decor.slabs.living.BlockDreamwoodPlankSlab;
+import vazkii.botania.common.block.decor.slabs.living.BlockDreamwoodSlab;
+import vazkii.botania.common.block.decor.slabs.living.BlockLivingrockBrickSlab;
+import vazkii.botania.common.block.decor.slabs.living.BlockLivingrockSlab;
+import vazkii.botania.common.block.decor.slabs.living.BlockLivingwoodPlankSlab;
+import vazkii.botania.common.block.decor.slabs.living.BlockLivingwoodSlab;
+import vazkii.botania.common.block.decor.stairs.living.BlockDreamwoodPlankStairs;
+import vazkii.botania.common.block.decor.stairs.living.BlockDreamwoodStairs;
+import vazkii.botania.common.block.decor.stairs.living.BlockLivingrockBrickStairs;
+import vazkii.botania.common.block.decor.stairs.living.BlockLivingrockStairs;
+import vazkii.botania.common.block.decor.stairs.living.BlockLivingwoodPlankStairs;
+import vazkii.botania.common.block.decor.stairs.living.BlockLivingwoodStairs;
 import vazkii.botania.common.block.dispenser.BehaviourSeeds;
 import vazkii.botania.common.block.dispenser.BehaviourWand;
-import vazkii.botania.common.block.quartz.BlockSpecialQuartz;
-import vazkii.botania.common.block.quartz.BlockSpecialQuartzSlab;
-import vazkii.botania.common.block.quartz.BlockSpecialQuartzStairs;
 import vazkii.botania.common.block.subtile.SubTileManastar;
 import vazkii.botania.common.block.subtile.SubTilePureDaisy;
 import vazkii.botania.common.block.subtile.functional.SubTileAgricarnation;
@@ -105,6 +121,25 @@ public final class ModBlocks {
 	public static Block alfPortal;
 	public static Block dreamwood;
 	
+	public static Block livingwoodStairs;
+	public static Block livingwoodSlab;
+	public static Block livingwoodSlabFull;
+	public static Block livingwoodPlankStairs;
+	public static Block livingwoodPlankSlab;
+	public static Block livingwoodPlankSlabFull;
+	public static Block livingrockStairs;
+	public static Block livingrockSlab;
+	public static Block livingrockSlabFull;
+	public static Block livingrockBrickStairs;
+	public static Block livingrockBrickSlab;
+	public static Block livingrockBrickSlabFull;
+	public static Block dreamwoodStairs;
+	public static Block dreamwoodSlab;
+	public static Block dreamwoodSlabFull;
+	public static Block dreamwoodPlankStairs;
+	public static Block dreamwoodPlankSlab;
+	public static Block dreamwoodPlankSlabFull;
+
 	public static Block darkQuartz;
 	public static Block darkQuartzSlab;
 	public static Block darkQuartzSlabFull;
@@ -154,7 +189,26 @@ public final class ModBlocks {
 		platform = new BlockPlatform();
 		alfPortal = new BlockAlfPortal();
 		dreamwood = new BlockDreamwood();
-
+		
+		livingwoodStairs = new BlockLivingwoodStairs();
+		livingwoodSlab = new BlockLivingwoodSlab(false);
+		livingwoodSlabFull = new BlockLivingwoodSlab(true);
+		livingwoodPlankStairs = new BlockLivingwoodPlankStairs();
+		livingwoodPlankSlab = new BlockLivingwoodPlankSlab(false);
+		livingwoodPlankSlabFull = new BlockLivingwoodPlankSlab(true);
+		livingrockStairs = new BlockLivingrockStairs();
+		livingrockSlab = new BlockLivingrockSlab(false);
+		livingrockSlabFull = new BlockLivingrockSlab(true);
+		livingrockBrickStairs = new BlockLivingrockBrickStairs();
+		livingrockBrickSlab = new BlockLivingrockBrickSlab(false);
+		livingrockBrickSlabFull = new BlockLivingrockBrickSlab(true);
+		dreamwoodStairs = new BlockDreamwoodStairs();
+		dreamwoodSlab = new BlockDreamwoodSlab(false);
+		dreamwoodSlabFull = new BlockDreamwoodSlab(true);
+		dreamwoodPlankStairs = new BlockDreamwoodPlankStairs();
+		dreamwoodPlankSlab = new BlockDreamwoodPlankSlab(false);
+		dreamwoodPlankSlabFull = new BlockDreamwoodPlankSlab(true);
+		
 		if(ConfigHandler.darkQuartzEnabled) {
 			darkQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_DARK);
 			darkQuartzSlab = new BlockSpecialQuartzSlab(darkQuartz, false);
@@ -180,18 +234,31 @@ public final class ModBlocks {
 		redQuartzStairs = new BlockSpecialQuartzStairs(redQuartz);
 
 		if(ConfigHandler.darkQuartzEnabled) {
-			((BlockSpecialQuartzSlab) darkQuartzSlab).register();
-			((BlockSpecialQuartzSlab) darkQuartzSlabFull).register();
+			((BlockModSlab) darkQuartzSlab).register();
+			((BlockModSlab) darkQuartzSlabFull).register();
 		}
-		((BlockSpecialQuartzSlab) manaQuartzSlab).register();
-		((BlockSpecialQuartzSlab) manaQuartzSlabFull).register();
-		((BlockSpecialQuartzSlab) blazeQuartzSlab).register();
-		((BlockSpecialQuartzSlab) blazeQuartzSlabFull).register();
-		((BlockSpecialQuartzSlab) lavenderQuartzSlab).register();
-		((BlockSpecialQuartzSlab) lavenderQuartzSlabFull).register();
-		((BlockSpecialQuartzSlab) redQuartzSlab).register();
-		((BlockSpecialQuartzSlab) redQuartzSlabFull).register();
-
+		((BlockModSlab) manaQuartzSlab).register();
+		((BlockModSlab) manaQuartzSlabFull).register();
+		((BlockModSlab) blazeQuartzSlab).register();
+		((BlockModSlab) blazeQuartzSlabFull).register();
+		((BlockModSlab) lavenderQuartzSlab).register();
+		((BlockModSlab) lavenderQuartzSlabFull).register();
+		((BlockModSlab) redQuartzSlab).register();
+		((BlockModSlab) redQuartzSlabFull).register();
+		
+		((BlockModSlab) livingwoodSlab).register();
+		((BlockModSlab) livingwoodSlabFull).register();
+		((BlockModSlab) livingwoodPlankSlab).register();
+		((BlockModSlab) livingwoodPlankSlabFull).register();
+		((BlockModSlab) livingrockSlab).register();
+		((BlockModSlab) livingrockSlabFull).register();
+		((BlockModSlab) livingrockBrickSlab).register();
+		((BlockModSlab) livingrockBrickSlabFull).register();
+		((BlockModSlab) dreamwoodSlab).register();
+		((BlockModSlab) dreamwoodSlabFull).register();
+		((BlockModSlab) dreamwoodPlankSlab).register();
+		((BlockModSlab) dreamwoodPlankSlabFull).register();
+		
 		for(int i = 0; i < 16; i++)
 			OreDictionary.registerOre(LibOreDict.FLOWER[i], new ItemStack(flower, 1, i));
 

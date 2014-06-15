@@ -231,6 +231,18 @@ tile.botania:dreamwood2.name=Mossy Dreamwood Planks
 tile.botania:dreamwood3.name=Framed Dreamwood
 tile.botania:dreamwood4.name=Pattern Framed Dreamwood
 tile.botania:dreamwood5.name=Glimmering Dreamwood
+tile.botania:livingwood0Stairs.name=Livingwood Stairs
+tile.botania:livingwood0Slab.name=Livingwood Slab
+tile.botania:livingwood1Stairs.name=Livingwood Plank Stairs
+tile.botania:livingwood1Slab.name=Livingwood Plank Slab
+tile.botania:livingrock0Stairs.name=Livingrock Stairs
+tile.botania:livingrock0Slab.name=Livingrock Slab
+tile.botania:livingrock1Stairs.name=Livingrock Brick Stairs
+tile.botania:livingrock1Slab.name=Livingrock Brick Slab
+tile.botania:dreamwood0Stairs.name=Dreamwood Stairs
+tile.botania:dreamwood0Slab.name=Dreamwood Slab
+tile.botania:dreamwood1Stairs.name=Dreamwood Plank Stairs
+tile.botania:dreamwood1Slab.name=Dreamwood Plank Slab
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
