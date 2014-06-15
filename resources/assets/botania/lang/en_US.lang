@@ -32,6 +32,7 @@ botaniamisc.lexiconcover0=Your guide to all
 botaniamisc.lexiconcover1=Botanical needs
 botaniamisc.lexiconcover2=From Bestselling author
 botaniamisc.lexiconcover3=Lizbeth "Vazkii" Rika
+botaniamisc.lexiconcover4=Edited by BevoLJ
 botaniamisc.shiftinfo=Hold &bSHIFT&7 for more info
 botaniamisc.knowledgeTypesSingular=Contains %s School of Knowledge
 botaniamisc.knowledgeTypesPlural=Contains %s Schools of Knowledge 
@@ -82,7 +83,7 @@ botania.versioning.flavour10=Two hundred updates, that's why they call me Mister
 botania.versioning.flavour11=Perry the Platypus, I present to you, Botania-update-inator.
 botania.versioning.flavour12=Botania updated. #hoennconfirmed
 botania.versioning.flavour13=You activated my Trap Card! I play Botania Update!
-botania.versioning.flavour14=Let's play a drinking game. have a drink every time Botania updates.
+botania.versioning.flavour14=Let's play a drinking game, have a drink every time Botania updates. *hic*
 botania.versioning.flavour15=Pay no attention to the Botania update behind the curtain.
 botania.versioning.outdated=You are running Botania build %s, the latest is build %s.
 botania.versioning.updateMessage=["Click for... [",{"text":"Download","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Click this to automatically download the latest version","color":"green"}},"clickEvent":{"action":"run_command","value":"/botania-download-latest %version%"}},"] [",{"text":"Website","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Click this to go to the mod's website","color":"green"}},"clickEvent":{"action":"open_url","value":"http://vazkii.us/mod/Botania/downloads.php"}},"] [",{"text":"Changelog","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Click this to go to the version's Changelog","color":"green"}},"clickEvent":{"action":"open_url","value":"http://vazkii.us/mod/Botania/changelog.php#%version%"}},"]"]
@@ -299,6 +300,7 @@ tile.botania:flower.loonium.reference=Hold it up above your head
 
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania
+item.botania:lexicon.bevo=Lexica Botnia
 item.botania:petal0.name=Mystical White Petal
 item.botania:petal1.name=Mystical Orange Petal
 item.botania:petal2.name=Mystical Magenta Petal
