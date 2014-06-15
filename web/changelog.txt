@@ -1,3 +1,8 @@
+r1.0 57
+*Fixed moar tpyos (CatDany)
+*Fixed server crash.
+*Mana Spreaders can now be <a href="http://gfycat.com/EmotionalDisloyalCanary">remotely oriented</a> to a block rather than just by holding right click. There's some kinks to it, this is the best I can do.
+*Reworked mana network internals to, hopefully, fix the issue of flowers disconnecting once and for all. <i>Crosses fingers</i>
 r1.0 56
 *Fixed Mana Spreaders not showing the prediction beam, another thing broken by 54...
 r1.0 55
