@@ -142,6 +142,7 @@ public final class LexiconData {
 	public static LexiconEntry flightTiara;
 
 	public static LexiconEntry alfhomancyIntro;
+	public static LexiconEntry elvenResources;
 
 	public static LexiconEntry unstableBlocks;
 	public static LexiconEntry decorativeBlocks;
@@ -454,6 +455,9 @@ public final class LexiconData {
 		alfhomancyIntro = new WIPLexiconEntry(LibLexicon.ALF_INTRO, categoryAlfhomancy);
 		alfhomancyIntro.setLexiconPages(new PageText("0"));
 
+		elvenResources = new ALexiconEntry(LibLexicon.ALF_RESOURCES, categoryAlfhomancy);
+		elvenResources.setLexiconPages(new PageText("0"));
+		
 		// MISCLENAEOUS ENTRIES
 		unstableBlocks = new BLexiconEntry(LibLexicon.MISC_UNSTABLE_BLOCKS, categoryMisc);
 		unstableBlocks.setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_UNSTABLE_BLOCK), new PageCraftingRecipe("2", ModCrafingRecipes.recipesUnstableBlocks), new PageText("3"), new PageImage("4", LibResources.ENTRY_UNSTABLE_BEACON), new PageCraftingRecipe("5", ModCrafingRecipes.recipesManaBeacons), new PageText("6"), new PageCraftingRecipe("7", ModCrafingRecipes.recipesSignalFlares));

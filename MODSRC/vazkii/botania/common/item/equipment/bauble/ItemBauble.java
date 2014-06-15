@@ -72,7 +72,7 @@ public abstract class ItemBauble extends ItemMod implements IBauble {
 
 			if(key != null)
 				addStringToTooltip(StatCollector.translateToLocal("botania.baubletooltip").replaceAll("%key%", Keyboard.getKeyName(key.getKeyCode())), par3List);
-		} else addStringToTooltip(StatCollector.translateToLocal("botania.baubleinfo"), par3List);
+		} else addStringToTooltip(StatCollector.translateToLocal("botaniamisc.shiftinfo"), par3List);
 	}
 
 	private void addStringToTooltip(String s, List<String> tooltip) {

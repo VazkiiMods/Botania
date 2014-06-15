@@ -11,24 +11,40 @@
  */
 package vazkii.botania.common.item;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.lwjgl.input.Keyboard;
+
+import baubles.api.BaubleType;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.lexicon.ILexiconable;
+import vazkii.botania.api.lexicon.KnowledgeType;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lib.LibGuiIDs;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 
-public class ItemLexicon extends ItemMod {
+public class ItemLexicon extends ItemMod implements ILexicon {
 
+	private static final String TAG_KNOWLEDGE_PREFIX = "knowledge.";
+	
 	public ItemLexicon() {
 		super();
 		setMaxStackSize(1);
@@ -52,12 +68,43 @@ public class ItemLexicon extends ItemMod {
 
 		return false;
 	}
+	
+	@Override
+	public void getSubItems(Item item, CreativeTabs tab, List list) {
+		list.add(new ItemStack(item));
+		ItemStack creative = new ItemStack(item);
+		for(String s : BotaniaAPI.knowledgeTypes.keySet()) {
+			KnowledgeType type = BotaniaAPI.knowledgeTypes.get(s);
+			unlockKnowledge(creative, type);
+		}
+		list.add(creative);
+	}
 
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		String edition = String.format(StatCollector.translateToLocal("botaniamisc.edition"), getEdition());
-		if(!edition.isEmpty())
-			par3List.add(edition);
+		if(GuiScreen.isShiftKeyDown()) {
+			String edition = EnumChatFormatting.GOLD + String.format(StatCollector.translateToLocal("botaniamisc.edition"), getEdition());
+			if(!edition.isEmpty())
+				par3List.add(edition);
+			
+			List<KnowledgeType> typesKnown = new ArrayList();
+			for(String s : BotaniaAPI.knowledgeTypes.keySet()) {
+				KnowledgeType type = BotaniaAPI.knowledgeTypes.get(s);
+				if(isKnowledgeUnlocked(par1ItemStack, type))
+					typesKnown.add(type);
+			}
+			
+			String format = typesKnown.size() == 1 ? "botaniamisc.knowledgeTypesSingular" : "botaniamisc.knowledgeTypesPlural";
+			addStringToTooltip(String.format(StatCollector.translateToLocal(format), typesKnown.size()), par3List);
+			
+			for(KnowledgeType type : typesKnown)
+				addStringToTooltip(" \u2022 " + StatCollector.translateToLocal(type.getUnlocalizedName()), par3List);
+			
+		} else addStringToTooltip(StatCollector.translateToLocal("botaniamisc.shiftinfo"), par3List);
+	}
+
+	private void addStringToTooltip(String s, List<String> tooltip) {
+		tooltip.add(s.replaceAll("&", "\u00a7"));
 	}
 	
 	public static String getEdition() {
@@ -75,6 +122,16 @@ public class ItemLexicon extends ItemMod {
 	@Override
 	public EnumRarity getRarity(ItemStack par1ItemStack) {
 		return EnumRarity.uncommon;
+	}
+
+	@Override
+	public boolean isKnowledgeUnlocked(ItemStack stack, KnowledgeType knowledge) {
+		return knowledge.autoUnlock || ItemNBTHelper.getBoolean(stack, TAG_KNOWLEDGE_PREFIX + knowledge.id, false);
+	}
+
+	@Override
+	public void unlockKnowledge(ItemStack stack, KnowledgeType knowledge) {
+		ItemNBTHelper.setBoolean(stack, TAG_KNOWLEDGE_PREFIX + knowledge.id, true);
 	}
 
 }

@@ -16,6 +16,7 @@ import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
@@ -27,11 +28,11 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.gui.button.GuiButtonInvisible;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.item.ItemLexicon;
-import vazkii.botania.common.item.ModItems;
 
 public class GuiLexicon extends GuiScreen {
 
 	public static GuiLexicon currentOpenLexicon = new GuiLexicon();
+	public static ItemStack stackUsed;
 
 	public static final ResourceLocation texture = new ResourceLocation(LibResources.GUI_LEXICON);
 
@@ -39,7 +40,7 @@ public class GuiLexicon extends GuiScreen {
 	int guiWidth = 146;
 	int guiHeight = 180;
 	int left, top;
-
+	
 	@Override
 	public void initGui() {
 		super.initGui();

@@ -13,6 +13,7 @@ package vazkii.botania.common.network;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.client.gui.GuiLexicon;
 import vazkii.botania.common.lib.LibGuiIDs;
 import cpw.mods.fml.common.network.IGuiHandler;
@@ -27,8 +28,13 @@ public class GuiHandler implements IGuiHandler {
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		switch(ID) {
-		case LibGuiIDs.LEXICON :
-			return GuiLexicon.currentOpenLexicon;
+		case LibGuiIDs.LEXICON : {
+				GuiLexicon lex = GuiLexicon.currentOpenLexicon;
+				lex.stackUsed = player.getCurrentEquippedItem();
+				if(lex.stackUsed == null || !(lex.stackUsed.getItem() instanceof ILexicon))
+					return null;
+				return lex;
+			}
 		}
 
 		return null;

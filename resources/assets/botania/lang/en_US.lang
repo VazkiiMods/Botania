@@ -32,6 +32,9 @@ botaniamisc.lexiconcover0=Your guide to all
 botaniamisc.lexiconcover1=Botanical needs
 botaniamisc.lexiconcover2=From Bestselling author
 botaniamisc.lexiconcover3=Lizbeth "Vazkii" Rika
+botaniamisc.shiftinfo=Hold &bSHIFT&7 for more info
+botaniamisc.knowledgeTypesSingular=Contains %s School of Knowledge
+botaniamisc.knowledgeTypesPlural=Contains %s Schools of Knowledge 
 
 # COLORS
 botania.color0=White
@@ -59,6 +62,10 @@ botania.rank2=&bB
 botania.rank3=&aA
 botania.rank4=&dS
 botania.rank5=&6SS
+
+# KNOWLEDGE
+botania.knowledge.minecraft=Minecraftian Knowledge
+botania.knowledge.alfheim=&aElven&7 Knowledge
 
 # VERSION CHECKING
 botania.versioning.flavour0=NANI SORE!? BOTANIA IS OUTDATED!?
@@ -91,7 +98,6 @@ botania.baubletype.amulet=Equippable in the &aAmulet&7 slot
 botania.baubletype.ring=Equippable in the &aRing&7 slot
 botania.baubletype.belt=Equippable in the &aBelt&7 slot
 botania.baubletooltip=Press &b%key%&7 to open the Baubles menu
-botania.baubleinfo=Hold &bSHIFT&7 for more info
 
 # BLOCK NAMES
 tile.botania:flower0.name=Mystical White Flower
@@ -1033,6 +1039,9 @@ botania.page.flightTiara1=Forty thousand books from another world
 # -- ALFHOMANCY
 botania.entry.aIntro=The Portal to Alfheim
 botania.page.aIntro0=Once, in olden times, &4Elves&0 used to share the world with us &4Minecrafters&0. Due to unknown events, they have been banished back to their own world, &4Alfheim&0.<br>Experimentation has been done in atempt to bridge the gap between the two worlds but not much has been found thus far.
+
+botania.entry.elfResources=The Resources of Alfheim
+botania.page.elfResources0=WIP
 
 # - MISCLANEOUS
 # -- UNSTABLE CUBE

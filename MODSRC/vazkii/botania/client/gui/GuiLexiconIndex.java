@@ -18,6 +18,7 @@ import java.util.List;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
+import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -58,7 +59,11 @@ public class GuiLexiconIndex extends GuiLexicon {
 		buttonList.add(rightButton = new GuiButtonPage(14, left + guiWidth - 18, top + guiHeight - 10, true));
 
 		entriesToDisplay.clear();
-		entriesToDisplay.addAll(category.entries);
+		ILexicon lex = (ILexicon) stackUsed.getItem();
+		for(LexiconEntry entry : category.entries) {
+			if(lex.isKnowledgeUnlocked(stackUsed, entry.getKnowledgeType()))
+				entriesToDisplay.add(entry);
+		}
 		Collections.sort(entriesToDisplay);
 
 		updatePageButtons();
@@ -71,7 +76,7 @@ public class GuiLexiconIndex extends GuiLexicon {
 			GuiButtonInvisible button = (GuiButtonInvisible) buttonList.get(i - page * 12);
 			LexiconEntry entry = i >= entriesToDisplay.size() ? null : entriesToDisplay.get(i);
 			if(entry != null)
-				button.displayString = (entry.isPriority() ? EnumChatFormatting.ITALIC : "") + StatCollector.translateToLocal(entry.getUnlocalizedName());
+				button.displayString = entry.getKnowledgeType().color + "" + (entry.isPriority() ? EnumChatFormatting.ITALIC : "") + StatCollector.translateToLocal(entry.getUnlocalizedName());
 			else button.displayString = "";
 		}
 	}

@@ -27,10 +27,12 @@ import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.util.EnumHelper;
 import vazkii.botania.api.internal.DummyMethodHandler;
 import vazkii.botania.api.internal.DummySubTile;
 import vazkii.botania.api.internal.IInternalMethodHandler;
+import vazkii.botania.api.lexicon.KnowledgeType;
 import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
@@ -46,6 +48,8 @@ public final class BotaniaAPI {
 	private static List<LexiconCategory> categories = new ArrayList<LexiconCategory>();
 	private static List<LexiconEntry> allEntries = new ArrayList<LexiconEntry>();
 
+	public static Map<String, KnowledgeType> knowledgeTypes = new HashMap<String, KnowledgeType>();
+	
 	public static List<RecipePetals> petalRecipes = new ArrayList<RecipePetals>();
 	public static List<RecipeRuneAltar> runeAltarRecipes = new ArrayList<RecipeRuneAltar>();
 	public static List<RecipeManaInfusion> manaInfusionRecipes = new ArrayList<RecipeManaInfusion>();
@@ -63,8 +67,13 @@ public final class BotaniaAPI {
 	public static ArmorMaterial terrasteelArmorMaterial = EnumHelper.addArmorMaterial("TERRASTEEL", 34, new int[] {3, 8, 6, 3}, 26);
 	public static ToolMaterial terrasteelToolMaterial = EnumHelper.addToolMaterial("TERRASTEEL", 3, 2300, 9F, 3F, 26);
 
+	public static KnowledgeType basicKnowledge, elvenKnowledge;
+	
 	static {
 		registerSubTile("", DummySubTile.class);
+
+		basicKnowledge = registerKnowledgeType("minecraft", EnumChatFormatting.RESET, true);
+		elvenKnowledge = registerKnowledgeType("alfheim", EnumChatFormatting.DARK_GREEN, false);
 
 		addOreWeight("oreAluminum", 3940); // Tinkers' Construct
 		addOreWeight("oreAmber", 2075); // Thaumcraft
@@ -123,6 +132,18 @@ public final class BotaniaAPI {
 	 */
 	public static IInternalMethodHandler internalHandler = new DummyMethodHandler();
 
+	
+	/**
+	 * Registers a new Knowledge Type.
+	 * @param id The ID for this knowledge type.
+	 * @param color The color to display this knowledge type as.
+	 */
+	public static KnowledgeType registerKnowledgeType(String id, EnumChatFormatting color, boolean autoUnlock) {
+		KnowledgeType type = new KnowledgeType(id, color, autoUnlock);
+		knowledgeTypes.put(id, type);
+		return type;
+	}
+	
 	/**
 	 * Registers a Petal Recipe.
 	 * @param output The ItemStack to craft.
