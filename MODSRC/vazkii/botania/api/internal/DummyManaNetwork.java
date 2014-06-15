@@ -17,6 +17,7 @@ import java.util.List;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
+import vazkii.botania.api.mana.TileSignature;
 
 public class DummyManaNetwork implements IManaNetwork {
 
@@ -38,12 +39,12 @@ public class DummyManaNetwork implements IManaNetwork {
 	}
 
 	@Override
-	public List<TileEntity> getAllCollectorsInWorld(World world) {
+	public List<TileSignature> getAllCollectorsInWorld(World world) {
 		return new ArrayList();
 	}
 
 	@Override
-	public List<TileEntity> getAllPoolsInWorld(World world) {
+	public List<TileSignature> getAllPoolsInWorld(World world) {
 		return new ArrayList();
 	}
 

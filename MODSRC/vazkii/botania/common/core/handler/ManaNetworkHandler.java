@@ -23,6 +23,7 @@ import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.api.mana.ManaNetworkEvent.Action;
 import vazkii.botania.api.mana.ManaNetworkEvent.ManaBlockType;
+import vazkii.botania.api.mana.TileSignature;
 import vazkii.botania.common.core.helper.MathHelper;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
@@ -30,12 +31,12 @@ public final class ManaNetworkHandler implements IManaNetwork {
 
 	public static final ManaNetworkHandler instance = new ManaNetworkHandler();
 
-	public WeakHashMap<World, List<TileEntity>> manaPools = new WeakHashMap();
-	public WeakHashMap<World, List<TileEntity>> manaCollectors = new WeakHashMap();
+	public WeakHashMap<World, List<TileSignature>> manaPools = new WeakHashMap();
+	public WeakHashMap<World, List<TileSignature>> manaCollectors = new WeakHashMap();
 
 	@SubscribeEvent
 	public void onNetworkEvent(ManaNetworkEvent event) {
-		Map<World, List<TileEntity>> map = event.type == ManaBlockType.COLLECTOR ? manaCollectors : manaPools;
+		Map<World, List<TileSignature>> map = event.type == ManaBlockType.COLLECTOR ? manaCollectors : manaPools;
 		if(event.action == Action.ADD)
 			add(map, event.tile);
 		else remove(map, event.tile);
@@ -50,22 +51,26 @@ public final class ManaNetworkHandler implements IManaNetwork {
 	@Override
 	public TileEntity getClosestPool(ChunkCoordinates pos, World world, int limit) {
 		if(manaPools.containsKey(world))
-			return getClosest(manaPools.get(world), pos, limit);
+			return getClosest(manaPools.get(world), pos, world.isRemote, limit);
 		return null;
 	}
 
 	@Override
 	public TileEntity getClosestCollector(ChunkCoordinates pos, World world, int limit) {
 		if(manaCollectors.containsKey(world))
-			return getClosest(manaCollectors.get(world), pos, limit);
+			return getClosest(manaCollectors.get(world), pos, world.isRemote, limit);
 		return null;
 	}
 
-	private synchronized TileEntity getClosest(List<TileEntity> tiles, ChunkCoordinates pos, int limit) {
+	private synchronized TileEntity getClosest(List<TileSignature> tiles, ChunkCoordinates pos, boolean remoteCheck, int limit) {
 		float closest = Float.MAX_VALUE;
 		TileEntity closestTile = null;
 
-		for(TileEntity tile : tiles) {
+		for(TileSignature sig : tiles) {
+			if(sig.remoteWorld != remoteCheck)
+				continue;
+			
+			TileEntity tile = sig.tile;
 			float distance = MathHelper.pointDistanceSpace(tile.xCoord, tile.yCoord, tile.zCoord, pos.posX, pos.posY, pos.posZ);
 			if(distance > limit)
 				continue;
@@ -79,43 +84,49 @@ public final class ManaNetworkHandler implements IManaNetwork {
 		return closestTile;
 	}
 
-	private synchronized void remove(Map<World, List<TileEntity>> map, TileEntity tile) {
+	private synchronized void remove(Map<World, List<TileSignature>> map, TileEntity tile) {
 		World world = tile.getWorldObj();
 
 		if(!map.containsKey(world))
 			return;
 
-		List<TileEntity> tiles = map.get(world);
-		tiles.remove(tile);
+		List<TileSignature> sigs = map.get(world);
+		for(TileSignature sig : sigs)
+			if(sig.tile.equals(tile)) {
+				sigs.remove(sig);
+				break;
+			}
 	}
 
-	private synchronized void add(Map<World, List<TileEntity>> map, TileEntity tile) {
+	private synchronized void add(Map<World, List<TileSignature>> map, TileEntity tile) {
 		World world = tile.getWorldObj();
 
-		List<TileEntity> tiles;
+		List<TileSignature> tiles;
 		if(!map.containsKey(world))
 			map.put(world, new ArrayList());
 
 		tiles = map.get(world);
 
 		if(!tiles.contains(tile))
-			tiles.add(tile);
+			tiles.add(new TileSignature(tile, tile.getWorldObj().isRemote));
 	}
 
 	@Override
-	public List<TileEntity> getAllCollectorsInWorld(World world) {
+	public List<TileSignature> getAllCollectorsInWorld(World world) {
 		return getAllInWorld(manaCollectors, world);
 	}
 
 	@Override
-	public List<TileEntity> getAllPoolsInWorld(World world) {
+	public List<TileSignature> getAllPoolsInWorld(World world) {
 		return getAllInWorld(manaPools, world);
 	}
 
-	private List<TileEntity> getAllInWorld(Map<World, List<TileEntity>> map, World world) {
+	private List<TileSignature> getAllInWorld(Map<World, List<TileSignature>> map, World world) {
 		if(!map.containsKey(world))
 			return new ArrayList();
 
 		return map.get(world);
 	}
+	
+
 }

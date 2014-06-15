@@ -16,6 +16,7 @@ import java.util.List;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
+import vazkii.botania.api.mana.TileSignature;
 
 /**
  * A basic interface for a world's Mana Network.
@@ -56,12 +57,12 @@ public interface IManaNetwork {
 	 * passed in. Note that this is the actual list and not a copy, make sure to
 	 * clone the list if you intend to change it in any way.
 	 */
-	public List<TileEntity> getAllCollectorsInWorld(World world);
+	public List<TileSignature> getAllCollectorsInWorld(World world);
 
 	/**
 	 * Gets the list of all Mana Pools in the dimension passed in. Note that this
 	 * is the actual list and not a copy, make sure to clone the list if you intend
 	 * to change it in any way.
 	 */
-	public List<TileEntity> getAllPoolsInWorld(World world);
+	public List<TileSignature> getAllPoolsInWorld(World world);
 }

@@ -20,6 +20,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import vazkii.botania.api.mana.IManaCollector;
+import vazkii.botania.api.mana.TileSignature;
 import vazkii.botania.client.core.handler.LightningHandler.LightningBolt;
 import vazkii.botania.client.gui.GuiLexicon;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
@@ -51,8 +52,12 @@ public class ClientTickHandler {
 				if(player != null) {
 					ItemStack stack = player.getCurrentEquippedItem();
 					if(stack != null && stack.getItem() instanceof ItemTwigWand) {
-						List<TileEntity> list = new ArrayList(ManaNetworkHandler.instance.getAllCollectorsInWorld(Minecraft.getMinecraft().theWorld));
-						for(TileEntity tile : list) {
+						List<TileSignature> list = new ArrayList(ManaNetworkHandler.instance.getAllCollectorsInWorld(Minecraft.getMinecraft().theWorld));
+						for(TileSignature sig : list) {
+							if(!sig.remoteWorld)
+								continue;
+							
+							TileEntity tile = sig.tile;
 							if(tile instanceof IManaCollector)
 								((IManaCollector) tile).onClientDisplayTick();
 						}
