@@ -59,7 +59,10 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	private static final String TAG_REQUEST_UPDATE = "requestUpdate";
 	private static final String TAG_ROTATION_X = "rotationX";
 	private static final String TAG_ROTATION_Y = "rotationY";
-
+	private static final String TAG_ROTATION_TICKS = "rotationTicks";
+	private static final String TAG_TICK_ROTATION_X = "tickRotationX";
+	private static final String TAG_TICK_ROTATION_Y = "tickRotationY";
+	
 	private static final String TAG_FORCE_CLIENT_BINDING_X = "forceClientBindingX";
 	private static final String TAG_FORCE_CLIENT_BINDING_Y = "forceClientBindingY";
 	private static final String TAG_FORCE_CLIENT_BINDING_Z = "forceClientBindingZ";
@@ -81,6 +84,9 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	public boolean canShootBurst = true;
 	public int lastBurstDeathTick = -1;
 	public int burstParticleTick = 0;
+	
+	public int rotationTicks = 0;
+	public float tickRotationX, tickRotationY;
 
 	List<PositionProperties> lastTentativeBurst;
 
@@ -111,6 +117,16 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		if(!added) {
 			ManaNetworkEvent.addCollector(this);
 			added = true;
+		}
+		
+		if(rotationTicks > 0) {
+			rotationX += tickRotationX;
+			rotationY += tickRotationY;
+
+			if(rotationTicks == 1)
+				checkForReceiver();
+			
+			rotationTicks--;
 		}
 
 		boolean redstone = false;
@@ -166,7 +182,10 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		cmp.setInteger(TAG_FORCE_CLIENT_BINDING_X, receiver == null ? 0 : ((TileEntity) receiver).xCoord);
 		cmp.setInteger(TAG_FORCE_CLIENT_BINDING_Y, receiver == null ? -1 : ((TileEntity) receiver).yCoord);
 		cmp.setInteger(TAG_FORCE_CLIENT_BINDING_Z, receiver == null ? 0 : ((TileEntity) receiver).zCoord);
-
+		cmp.setInteger(TAG_ROTATION_TICKS, rotationTicks);
+		cmp.setFloat(TAG_TICK_ROTATION_X, tickRotationX);
+		cmp.setFloat(TAG_TICK_ROTATION_Y, tickRotationY);
+		
 		requestsClientUpdate = false;
 	}
 
@@ -177,6 +196,9 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		rotationX = cmp.getFloat(TAG_ROTATION_X);
 		rotationY = cmp.getFloat(TAG_ROTATION_Y);
 		requestsClientUpdate = cmp.getBoolean(TAG_REQUEST_UPDATE);
+		rotationTicks = cmp.getInteger(TAG_ROTATION_TICKS);
+		tickRotationX = cmp.getFloat(TAG_TICK_ROTATION_X);
+		tickRotationY = cmp.getFloat(TAG_TICK_ROTATION_Y);
 
 		if(cmp.hasKey(TAG_KNOWN_MANA))
 			knownMana = cmp.getInteger(TAG_KNOWN_MANA);
