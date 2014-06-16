@@ -100,11 +100,11 @@ public class TileSpecialFlower extends TileMod implements ITileBound {
 	}
 
 	public LexiconEntry getEntry() {
-		return subTile.getEntry();
+		return subTile == null ? null : subTile.getEntry();
 	}
 
 	public boolean onWanded(ItemStack wand, EntityPlayer player) {
-		return subTile.onWanded(player, wand);
+		return subTile == null ? false : subTile.onWanded(player, wand);
 	}
 
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
