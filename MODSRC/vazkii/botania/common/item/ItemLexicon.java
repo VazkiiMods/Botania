@@ -34,6 +34,7 @@ import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.KnowledgeType;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
@@ -41,7 +42,7 @@ import vazkii.botania.common.lib.LibGuiIDs;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 
-public class ItemLexicon extends ItemMod implements ILexicon {
+public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 
 	private static final String TAG_KNOWLEDGE_PREFIX = "knowledge.";
 	
@@ -132,6 +133,11 @@ public class ItemLexicon extends ItemMod implements ILexicon {
 	@Override
 	public void unlockKnowledge(ItemStack stack, KnowledgeType knowledge) {
 		ItemNBTHelper.setBoolean(stack, TAG_KNOWLEDGE_PREFIX + knowledge.id, true);
+	}
+
+	@Override
+	public boolean isElvenItem(ItemStack stack) {
+		return isKnowledgeUnlocked(stack, BotaniaAPI.elvenKnowledge);
 	}
 
 }

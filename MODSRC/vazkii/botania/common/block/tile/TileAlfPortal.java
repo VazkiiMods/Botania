@@ -11,11 +11,19 @@
  */
 package vazkii.botania.common.block.tile;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.block.Block;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.lexicon.ILexicon;
+import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
@@ -45,8 +53,14 @@ public class TileAlfPortal extends TileMod {
 	};
 
 	private static final String TAG_TICKS_OPEN = "ticksOpen";
-
+	private static final String TAG_TICKS_SINCE_LAST_ITEM = "ticksSinceLastItem";
+	private static final String TAG_STACK_COUNT = "stackCount";
+	private static final String TAG_STACK = "portalStack";
+	
+	List<ItemStack> stacksIn = new ArrayList();
+	
 	public int ticksOpen = 0;
+	int ticksSinceLastItem = 0;
 	private boolean closeNow = false;
 
 	private static final Function<int[], int[]> CONVERTER_X_Z = new Function<int[], int[]>() {
@@ -56,10 +70,10 @@ public class TileAlfPortal extends TileMod {
 		}
 	};
 
-	private static final Function<float[], float[]> CONVERTER_X_Z_FLOAT = new Function<float[], float[]>() {
+	private static final Function<double[], double[]> CONVERTER_X_Z_FP = new Function<double[], double[]>() {
 		@Override
-		public float[] apply(float[] input) {
-			return new float[] { input[2], input[1], input[0] };
+		public double[] apply(double[] input) {
+			return new double[] { input[2], input[1], input[0] };
 		}
 	};
 
@@ -79,8 +93,33 @@ public class TileAlfPortal extends TileMod {
 		}
 
 		ticksOpen++;
-		if(ticksOpen > 60)
+		
+		if(ticksOpen > 60) {
+			ticksSinceLastItem++;
 			blockParticle(meta);
+
+			AxisAlignedBB aabb = getPortalAABB();
+			List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, aabb);
+			if(!worldObj.isRemote)
+				for(EntityItem item : items) {
+					if(item.isDead)
+						continue;
+
+					ItemStack stack = item.getEntityItem();
+					if(stack != null && (!(stack.getItem() instanceof IElvenItem) || !((IElvenItem) stack.getItem()).isElvenItem(stack))) {
+						item.setDead();
+						addItem(stack);
+						ticksSinceLastItem = 0;
+					}
+				}
+			
+			if(ticksSinceLastItem >= 20) {
+				if(!worldObj.isRemote)
+					resolveRecipes();
+				
+				ticksSinceLastItem = 0;
+			}
+		}
 
 		int newMeta = getValidMetadata();
 		if(closeNow) {
@@ -98,11 +137,11 @@ public class TileAlfPortal extends TileMod {
 
 	private void blockParticle(int meta) {
 		int i = worldObj.rand.nextInt(AIR_POSITIONS.length);
-		float[] pos = new float[] {
+		double[] pos = new double[] {
 				AIR_POSITIONS[i][0] + 0.5F, AIR_POSITIONS[i][1] + 0.5F, AIR_POSITIONS[i][2] + 0.5F
 		};
 		if(meta == 2)
-			pos = CONVERTER_X_Z_FLOAT.apply(pos);
+			pos = CONVERTER_X_Z_FP.apply(pos);
 
 		float motionMul = 0.2F;
 		Botania.proxy.wispFX(getWorldObj(), xCoord + pos[0], yCoord + pos[1], zCoord + pos[2], (float) (Math.random() * 0.25F), (float) (Math.random() * 0.5F + 0.5F), (float) (Math.random() * 0.25F), (float) (Math.random() * 0.15F + 0.1F), (float) (Math.random() - 0.5F) * motionMul, (float) (Math.random() - 0.5F) * motionMul, (float) (Math.random() - 0.5F) * motionMul);
@@ -126,14 +165,79 @@ public class TileAlfPortal extends TileMod {
 		return false;
 	}
 
+	AxisAlignedBB getPortalAABB() {
+		AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(xCoord - 1, yCoord + 1, zCoord, xCoord + 2, yCoord + 4, zCoord + 1);
+		if(getBlockMetadata() == 2)
+			aabb = AxisAlignedBB.getBoundingBox(xCoord, yCoord + 1, zCoord - 1, xCoord + 1, yCoord + 4, zCoord + 2);
+			
+		return aabb;
+	}
+
+	void addItem(ItemStack stack) {
+		int size = stack.stackSize;
+		stack.stackSize = 1;
+		for(int i = 0; i < size; i++)
+			stacksIn.add(stack.copy());
+	}
+
+	void resolveRecipes() {
+		int i = 0;
+		for(ItemStack stack : stacksIn) {
+			if(stack.getItem() instanceof ILexicon) {
+				((ILexicon) stack.getItem()).unlockKnowledge(stack, BotaniaAPI.elvenKnowledge);
+				spawnItem(stack);
+				stacksIn.remove(i);
+				return;
+			}
+			i++;
+		}
+
+		
+		// Handle recipe registry here
+	}
+
+	void spawnItem(ItemStack stack) {
+		EntityItem item = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, stack);
+		worldObj.spawnEntityInWorld(item);
+	}
+	
+	@Override
+	public void writeToNBT(NBTTagCompound cmp) {
+		super.writeToNBT(cmp);
+		
+		cmp.setInteger(TAG_STACK_COUNT, stacksIn.size());
+		int i = 0;
+		for(ItemStack stack : stacksIn) {
+			NBTTagCompound stackcmp = new NBTTagCompound();
+			stack.writeToNBT(stackcmp);
+			cmp.setTag(TAG_STACK + i, stackcmp);
+			i++;
+		}
+	}
+	
+	@Override
+	public void readFromNBT(NBTTagCompound cmp) {
+		super.readFromNBT(cmp);
+		
+		int count = cmp.getInteger(TAG_STACK_COUNT);
+		stacksIn.clear();
+		for(int i = 0; i < count; i++) {
+			NBTTagCompound stackcmp = cmp.getCompoundTag(TAG_STACK + i);
+			ItemStack stack = ItemStack.loadItemStackFromNBT(stackcmp);
+			stacksIn.add(stack);
+		}
+	}
+	
 	@Override
 	public void writeCustomNBT(NBTTagCompound cmp) {
 		cmp.setInteger(TAG_TICKS_OPEN, ticksOpen);
+		cmp.setInteger(TAG_TICKS_SINCE_LAST_ITEM, ticksSinceLastItem);
 	}
 
 	@Override
 	public void readCustomNBT(NBTTagCompound cmp) {
 		ticksOpen = cmp.getInteger(TAG_TICKS_OPEN);
+		ticksSinceLastItem = cmp.getInteger(TAG_TICKS_SINCE_LAST_ITEM);
 	}
 
 	private int getValidMetadata() {

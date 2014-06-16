@@ -19,11 +19,12 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemManaResource extends ItemMod implements IFlowerComponent {
+public class ItemManaResource extends ItemMod implements IFlowerComponent, IElvenItem {
 
 	final int types = 10;
 	IIcon[] icons;
@@ -59,11 +60,18 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent {
 
 	@Override
 	public boolean canFit(ItemStack stack, IInventory apothecary) {
-		return stack.getItemDamage() == 6 || stack.getItemDamage() == 8;
+		int meta = stack.getItemDamage();
+		return meta == 6 || meta == 8;
 	}
 
 	@Override
 	public int getParticleColor(ItemStack stack) {
 		return 0x9b0000;
+	}
+
+	@Override
+	public boolean isElvenItem(ItemStack stack) {
+		int meta = stack.getItemDamage();
+		return meta == 7 || meta == 8 || meta == 9;
 	}
 }
