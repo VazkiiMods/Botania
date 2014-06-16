@@ -117,15 +117,17 @@ public class SubTileHopperhock extends SubTileFunctional {
 
 		switch(filterType) {
 		case 0 : { // Accept items in frames only
+			boolean anyFilter = false;
 			for(ItemStack filterEntry : filter) {
 				if(filterEntry == null)
 					continue;
-
+				anyFilter = true;
+				
 				if(stack.isItemEqual(filterEntry) && ItemStack.areItemStackTagsEqual(filterEntry, stack))
 					return true;
 			}
 
-			return false;
+			return !anyFilter;
 		}
 		case 1 : return !canAcceptItem(stack, filter, 0); // Accept items not in frames only
 		default : return true; // Accept all items

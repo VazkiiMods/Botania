@@ -11,11 +11,13 @@
  */
 package vazkii.botania.common.core.helper;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import vazkii.botania.common.block.tile.TileSimpleInventory;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -112,17 +114,30 @@ public class InventoryHelper {
 	}
 
 	public static int testInventoryInsertion(IInventory inventory, ItemStack item, ForgeDirection side) {
-		if (item == null || item.stackSize == 0)
+		if(item == null || item.stackSize == 0)
 			return 0;
 		item = item.copy();
 
-		if (inventory == null)
+		if(inventory == null)
 			return 0;
 
 		int slotCount = inventory.getSizeInventory();
 
 		int itemSizeCounter = item.stackSize;
-		for (int i = 0; i < slotCount && itemSizeCounter > 0; i++) {
+		int[] availableSlots = new int[0];
+		
+		if(inventory instanceof ISidedInventory)
+			availableSlots = ((ISidedInventory) inventory).getAccessibleSlotsFromSide(side.ordinal());
+		else {
+			availableSlots = new int[slotCount];
+			for(int i = 0; i < slotCount; i++)
+				availableSlots[i] = i;
+		}
+		
+		for(int i : availableSlots) {
+			if(itemSizeCounter <= 0)
+				break;
+			
 			if (!inventory.isItemValidForSlot(i, item))
 				continue;
 
@@ -131,14 +146,15 @@ public class InventoryHelper {
 					continue;
 
 			ItemStack inventorySlot = inventory.getStackInSlot(i);
-			if (inventorySlot == null)
+			if(inventorySlot == null)
 				itemSizeCounter -= Math.min(Math.min(itemSizeCounter, inventory.getInventoryStackLimit()), item.getMaxStackSize());
-			else if (areMergeCandidates(item, inventorySlot)) {
+			else if(areMergeCandidates(item, inventorySlot)) {
 				int space = inventorySlot.getMaxStackSize() - inventorySlot.stackSize;
 				itemSizeCounter -= Math.min(itemSizeCounter, space);
 			}
 		}
-		if (itemSizeCounter != item.stackSize) {
+		
+		if(itemSizeCounter != item.stackSize) {
 			itemSizeCounter = Math.max(itemSizeCounter, 0);
 			return item.stackSize - itemSizeCounter;
 		}
