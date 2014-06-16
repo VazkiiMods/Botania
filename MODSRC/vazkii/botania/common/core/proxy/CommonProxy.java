@@ -30,6 +30,7 @@ import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.core.version.CommandDownloadLatest;
 import vazkii.botania.common.crafting.ModCrafingRecipes;
+import vazkii.botania.common.crafting.ModElvenTradeRecipes;
 import vazkii.botania.common.crafting.ModManaAlchemyRecipes;
 import vazkii.botania.common.crafting.ModManaInfusionRecipes;
 import vazkii.botania.common.crafting.ModPetalRecipes;
@@ -62,6 +63,7 @@ public class CommonProxy {
 		ModRuneRecipes.init();
 		ModManaInfusionRecipes.init();
 		ModManaAlchemyRecipes.init();
+		ModElvenTradeRecipes.init();
 
 		LexiconData.init();
 	}

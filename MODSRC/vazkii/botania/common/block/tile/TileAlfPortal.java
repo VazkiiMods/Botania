@@ -24,6 +24,7 @@ import net.minecraft.util.AxisAlignedBB;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.recipe.IElvenItem;
+import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
@@ -116,8 +117,6 @@ public class TileAlfPortal extends TileMod {
 			if(ticksSinceLastItem >= 20) {
 				if(!worldObj.isRemote)
 					resolveRecipes();
-				
-				ticksSinceLastItem = 0;
 			}
 		}
 
@@ -155,11 +154,6 @@ public class TileAlfPortal extends TileMod {
 				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, newMeta, 1 | 2);
 				return true;
 			}
-		} else {
-			worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 0, 1 | 2);
-			for(int i = 0; i < 36; i++)
-				blockParticle(meta);
-			return true;
 		}
 
 		return false;
@@ -192,13 +186,19 @@ public class TileAlfPortal extends TileMod {
 			i++;
 		}
 
-		
-		// Handle recipe registry here
+		for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes) {
+			if(recipe.matches(stacksIn, false)) {
+				recipe.matches(stacksIn, true);
+				spawnItem(recipe.getOutput().copy());
+				break;
+			}
+		}
 	}
 
 	void spawnItem(ItemStack stack) {
 		EntityItem item = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, stack);
 		worldObj.spawnEntityInWorld(item);
+		ticksSinceLastItem = 0;
 	}
 	
 	@Override

@@ -35,6 +35,7 @@ import vazkii.botania.api.internal.IInternalMethodHandler;
 import vazkii.botania.api.lexicon.KnowledgeType;
 import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
@@ -53,6 +54,7 @@ public final class BotaniaAPI {
 	public static List<RecipePetals> petalRecipes = new ArrayList<RecipePetals>();
 	public static List<RecipeRuneAltar> runeAltarRecipes = new ArrayList<RecipeRuneAltar>();
 	public static List<RecipeManaInfusion> manaInfusionRecipes = new ArrayList<RecipeManaInfusion>();
+	public static List<RecipeElvenTrade> elvenTradeRecipes = new ArrayList<RecipeElvenTrade>();
 
 	private static BiMap<String, Class<? extends SubTileEntity>> subTiles = HashBiMap.<String, Class<? extends SubTileEntity>> create();
 	public static Set<String> subtilesForCreativeMenu = new LinkedHashSet();
@@ -192,6 +194,18 @@ public final class BotaniaAPI {
 	public static RecipeManaInfusion registerManaAlchemyRecipe(ItemStack output, Object input, int mana) {
 		RecipeManaInfusion recipe = registerManaInfusionRecipe(output, input, mana);
 		recipe.setAlchemy(true);
+		return recipe;
+	}
+	
+	/**
+	 * Registers a Elven Trade recipe (throw an item in an Alfheim Portal).
+	 * @param output The ItemStack to return.
+	 * @param inputs The items required, can be ItemStack or ore dictionary entry string.
+	 * @return The recipe created.
+	 */
+	public static RecipeElvenTrade registerElvenTradeRecipe(ItemStack output, Object... inputs) {
+		RecipeElvenTrade recipe = new RecipeElvenTrade(output, inputs);
+		elvenTradeRecipes.add(recipe);
 		return recipe;
 	}
 
