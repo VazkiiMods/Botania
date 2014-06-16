@@ -73,7 +73,7 @@ public class BlockPylon extends BlockModContainer implements ILexiconable {
 
 	@Override
 	public IIcon getIcon(int par1, int par2) {
-		return Blocks.diamond_block.getIcon(par1, par2);
+		return par2 == 0 ? Blocks.diamond_block.getIcon(0, 0) : ModBlocks.storage.getIcon(0, 1);
 	}
 
 	@Override
@@ -93,7 +93,7 @@ public class BlockPylon extends BlockModContainer implements ILexiconable {
 
 	@Override
 	public float getEnchantPowerBonus(World world, int x, int y, int z) {
-		return 8;
+		return world.getBlockMetadata(x, y, z) == 0 ? 8 : 15;
 	}
 
 	@Override
@@ -103,6 +103,6 @@ public class BlockPylon extends BlockModContainer implements ILexiconable {
 
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
-		return LexiconData.pylon;
+		return world.getBlockMetadata(x, y, z) == 0 ? LexiconData.pylon : LexiconData.alfhomancyIntro;
 	}
 }

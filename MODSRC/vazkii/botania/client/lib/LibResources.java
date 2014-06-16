@@ -44,6 +44,11 @@ public final class LibResources {
 	public static final String ENTRY_ENCHANTER2 = PREFIX_ENTRIES + "enchanter2.png";
 	public static final String ENTRY_ENCHANTER3 = PREFIX_ENTRIES + "enchanter3.png";
 	public static final String ENTRY_BAUBLES = PREFIX_ENTRIES + "baubles.png";
+	public static final String ENTRY_PORTAL0 = PREFIX_ENTRIES + "portal0.png";
+	public static final String ENTRY_PORTAL1 = PREFIX_ENTRIES + "portal1.png";
+	public static final String ENTRY_PORTAL2 = PREFIX_ENTRIES + "portal2.png";
+	public static final String ENTRY_PORTAL3 = PREFIX_ENTRIES + "portal3.png";
+	public static final String ENTRY_PORTAL4 = PREFIX_ENTRIES + "portal4.png";
 
 	public static final String MODEL_ALTAR = PREFIX_MODEL + "altar.png";
 	public static final String MODEL_SPREADER = PREFIX_MODEL + "spreader.png";

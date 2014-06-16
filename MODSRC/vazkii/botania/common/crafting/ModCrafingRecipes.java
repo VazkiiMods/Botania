@@ -128,6 +128,8 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeBlazeQuartz;
 	public static List<IRecipe> recipesLavenderQuartz;
 	public static IRecipe recipeRedQuartz;
+	public static IRecipe recipeAlfPortal;
+	public static IRecipe recipeNaturaPylon;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -712,6 +714,17 @@ public final class ModCrafingRecipes {
 
 		recipeRedQuartz = addQuartzRecipes(4, Items.redstone, ModBlocks.redQuartz, ModBlocks.redQuartzStairs, ModBlocks.redQuartzSlab);
 
+		// Alfheim Portal Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.alfPortal), 
+				"WWW", "WTW", "WWW",
+				'W', LibOreDict.LIVING_WOOD,
+				'T', LibOreDict.TERRA_STEEL);
+		recipeAlfPortal = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Natura Pylon Recipe
+		addShapelessOreDictRecipe(new ItemStack(ModBlocks.pylon, 1, 1), ModBlocks.pylon, LibOreDict.LIFE_ESSENCE, LibOreDict.LIFE_ESSENCE);
+		recipeNaturaPylon = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",
@@ -724,6 +737,9 @@ public final class ModCrafingRecipes {
 				'I', LibOreDict.ELEMENTIUM);
 		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manaResource, 9, 0), new ItemStack(ModBlocks.storage, 1, 0));
 		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manaResource, 9, 4), new ItemStack(ModBlocks.storage, 1, 1));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manaResource, 9, 7), new ItemStack(ModBlocks.storage, 1, 2));
+
+		// Slab & Stair Recipes
 		addStairsAndSlabs(ModBlocks.livingwood, 0, ModBlocks.livingwoodStairs, ModBlocks.livingwoodSlab);
 		addStairsAndSlabs(ModBlocks.livingwood, 1, ModBlocks.livingwoodPlankStairs, ModBlocks.livingwoodPlankSlab);
 		addStairsAndSlabs(ModBlocks.livingrock, 0, ModBlocks.livingrockStairs, ModBlocks.livingrockSlab);

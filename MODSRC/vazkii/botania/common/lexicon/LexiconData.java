@@ -452,8 +452,10 @@ public final class LexiconData {
 		flightTiara.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeFlightTiara));
 
 		// ALFHOMANCY ENTRIES
-		alfhomancyIntro = new WIPLexiconEntry(LibLexicon.ALF_INTRO, categoryAlfhomancy);
-		alfhomancyIntro.setLexiconPages(new PageText("0"));
+		alfhomancyIntro = new BLexiconEntry(LibLexicon.ALF_INTRO, categoryAlfhomancy);
+		alfhomancyIntro.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCrafingRecipes.recipeAlfPortal), new PageCraftingRecipe("3", ModCrafingRecipes.recipeNaturaPylon),
+				new PageImage("4", LibResources.ENTRY_PORTAL0), new PageImage("5", LibResources.ENTRY_PORTAL1), new PageImage("6", LibResources.ENTRY_PORTAL2), new PageImage("7", LibResources.ENTRY_PORTAL3), 
+				new PageImage("8", LibResources.ENTRY_PORTAL4), new PageText("9"), new PageText("10"), new PageText("11"));
 
 		elvenResources = new ALexiconEntry(LibLexicon.ALF_RESOURCES, categoryAlfhomancy);
 		elvenResources.setLexiconPages(new PageText("0"));
