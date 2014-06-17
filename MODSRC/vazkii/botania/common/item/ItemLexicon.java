@@ -38,6 +38,7 @@ import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
+import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibGuiIDs;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -45,7 +46,8 @@ import vazkii.botania.common.lib.LibMisc;
 public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 
 	private static final String TAG_KNOWLEDGE_PREFIX = "knowledge.";
-	
+	private static final String TAG_FORCED_MESSAGE = "forcedMessage";
+
 	public ItemLexicon() {
 		super();
 		setMaxStackSize(1);
@@ -116,6 +118,10 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+		if(isMessageForced(par1ItemStack)) {
+			Botania.proxy.setEntryToOpen(LexiconData.elvenMessage);
+			forceMessage(par1ItemStack, false);
+		}
 		par3EntityPlayer.openGui(Botania.instance, LibGuiIDs.LEXICON, par2World, 0, 0, 0);
 		return par1ItemStack;
 	}
@@ -133,6 +139,14 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	@Override
 	public void unlockKnowledge(ItemStack stack, KnowledgeType knowledge) {
 		ItemNBTHelper.setBoolean(stack, TAG_KNOWLEDGE_PREFIX + knowledge.id, true);
+	}
+	
+	public static void forceMessage(ItemStack stack, boolean forced) {
+		ItemNBTHelper.setBoolean(stack, TAG_FORCED_MESSAGE, forced);
+	}
+	
+	public static boolean isMessageForced(ItemStack stack) {
+		return ItemNBTHelper.getBoolean(stack, TAG_FORCED_MESSAGE, false);
 	}
 
 	@Override

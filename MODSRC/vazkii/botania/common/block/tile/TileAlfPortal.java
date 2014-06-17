@@ -28,6 +28,7 @@ import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.item.ItemLexicon;
 
 import com.google.common.base.Function;
 
@@ -179,6 +180,7 @@ public class TileAlfPortal extends TileMod {
 		for(ItemStack stack : stacksIn) {
 			if(stack.getItem() instanceof ILexicon) {
 				((ILexicon) stack.getItem()).unlockKnowledge(stack, BotaniaAPI.elvenKnowledge);
+				ItemLexicon.forceMessage(stack, true);
 				spawnItem(stack);
 				stacksIn.remove(i);
 				return;

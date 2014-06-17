@@ -122,6 +122,7 @@ public final class LibLexicon {
 	public static final String BAUBLE_FLIGHT_TIARA = "flightTiara";
 
 	public static final String ALF_INTRO = "aIntro";
+	public static final String ALF_MESSAGE = "elfMessage";
 	public static final String ALF_RESOURCES = "elfResources";
 
 	public static final String MISC_UNSTABLE_BLOCKS = "unstableBlocks";

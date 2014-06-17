@@ -1065,6 +1065,12 @@ botania.page.aIntro9=To open up the portal, simply right click the core with a &
 botania.page.aIntro10=The amount of &4Mana&0 required to open up the portal is orders of magnitude higher than that to keep it maintained, thus closing the portal to prevent &4Mana&0 loss is a poor strategy.<br>Furthermore, the link isn't strong enough to allow living beings to go through it, but it seems that &4items&0 can.
 botania.page.aIntro11=The amount of information about &1Alfheim&0 stored in this lexicon is resumed to this entry alone, perhaps &4letting the Elves have a look at it&0 might prove beneficial.
 
+# -- A MESSAGE FROM ELVEN GARDE
+botania.entry.elfMessage=A Message from Elven Garde
+botania.page.elfMessage0=
+# ^ This is blank on purpose
+botania.page.elfMessage1=WIP
+
 # -- THE RESOURCES OF ALFHEIM
 botania.entry.elfResources=The Resources of Alfheim
 botania.page.elfResources0=WIP

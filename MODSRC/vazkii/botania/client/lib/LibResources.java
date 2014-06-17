@@ -49,6 +49,7 @@ public final class LibResources {
 	public static final String ENTRY_PORTAL2 = PREFIX_ENTRIES + "portal2.png";
 	public static final String ENTRY_PORTAL3 = PREFIX_ENTRIES + "portal3.png";
 	public static final String ENTRY_PORTAL4 = PREFIX_ENTRIES + "portal4.png";
+	public static final String ENTRY_ELVEN_GARDE = PREFIX_ENTRIES + "elvenGarde.png";
 
 	public static final String MODEL_ALTAR = PREFIX_MODEL + "altar.png";
 	public static final String MODEL_SPREADER = PREFIX_MODEL + "spreader.png";
