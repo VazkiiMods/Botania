@@ -155,17 +155,20 @@ public class GuiLexicon extends GuiScreen {
 
 	public void handleBookmark(GuiButton par1GuiButton) {
 		int i = par1GuiButton.id - BOOKMARK_START;
-		if(i == bookmarks.size() && !bookmarks.contains(this))
-			bookmarks.add(this);
-		else {
+		if(i == bookmarks.size()) {
+			if(!bookmarks.contains(this))
+				bookmarks.add(this);
+		} else {
 			if(isShiftKeyDown())
 				bookmarks.remove(i);
 			else {
 				GuiLexicon bookmark = bookmarks.get(i);
-				if(bookmark instanceof IParented && bookmark != this)
-					((IParented) bookmark).setParent(this);
 				Minecraft.getMinecraft().displayGuiScreen(bookmark);
-				ClientTickHandler.notifyPageChange();
+				if(!bookmark.getTitle().equals(getTitle())) {
+					if(bookmark instanceof IParented)
+						((IParented) bookmark).setParent(this);
+					ClientTickHandler.notifyPageChange();
+				}
 			}
 		}
 		
@@ -222,7 +225,12 @@ public class GuiLexicon extends GuiScreen {
 		buttonList.removeAll(remove);
 		
 		int len = bookmarks.size();
-		boolean addEnabled = len < 10 && this instanceof IParented;
+		boolean thisExists = false;
+		for(GuiLexicon lex : bookmarks)
+			if(lex.getTitle().equals(getTitle()))
+				thisExists = true;
+		
+		boolean addEnabled = len < 10 && this instanceof IParented && !thisExists;
 		for(int i = 0; i < len + (addEnabled ? 1 : 0); i++) {
 			boolean isAdd = i == bookmarks.size();
 			GuiLexicon gui = isAdd ? null : bookmarks.get(i);
