@@ -32,6 +32,7 @@ public class ItemEnderDagger extends ItemManasteelSword {
 	public ItemEnderDagger() {
 		super(BotaniaAPI.manasteelToolMaterial, LibItemNames.ENDER_DAGGER);
 		setMaxDamage(69); // What you looking at?
+		setNoRepair();
 	}
 
 	@Override
