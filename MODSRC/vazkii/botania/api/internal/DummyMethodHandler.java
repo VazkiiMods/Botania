@@ -22,6 +22,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconPage;
+import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
@@ -75,6 +76,16 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 
 	@Override
 	public LexiconPage manaInfusionRecipePage(String key, RecipeManaInfusion recipe) {
+		return dummyPage(key);
+	}
+	
+	@Override
+	public LexiconPage elvenTradePage(String key, List<RecipeElvenTrade> recipes) {
+		return dummyPage(key);
+	}
+
+	@Override
+	public LexiconPage elvenTradesPage(String key, RecipeElvenTrade recipe) {
 		return dummyPage(key);
 	}
 

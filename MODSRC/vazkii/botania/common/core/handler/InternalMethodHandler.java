@@ -24,6 +24,7 @@ import net.minecraft.world.World;
 import vazkii.botania.api.internal.IInternalMethodHandler;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.lexicon.LexiconPage;
+import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
@@ -32,6 +33,7 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockSpecialFlower;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
+import vazkii.botania.common.lexicon.page.PageElvenRecipe;
 import vazkii.botania.common.lexicon.page.PageImage;
 import vazkii.botania.common.lexicon.page.PageManaInfusionRecipe;
 import vazkii.botania.common.lexicon.page.PagePetalRecipe;
@@ -97,7 +99,16 @@ public class InternalMethodHandler implements IInternalMethodHandler {
 		return new PageManaInfusionRecipe(key, recipe);
 	}
 
+	@Override
+	public LexiconPage elvenTradePage(String key, List<RecipeElvenTrade> recipes) {
+		return new PageElvenRecipe(key, recipes);
+	}
 
+	@Override
+	public LexiconPage elvenTradesPage(String key, RecipeElvenTrade recipe) {
+		return new PageElvenRecipe(key, recipe);
+	}
+	
 	@Override
 	public ItemStack getSubTileAsStack(String subTile) {
 		return ItemBlockSpecialFlower.ofType(subTile);

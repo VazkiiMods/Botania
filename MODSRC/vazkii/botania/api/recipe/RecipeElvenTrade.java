@@ -27,7 +27,7 @@ public class RecipeElvenTrade {
 
 	public boolean matches(List<ItemStack> stacks, boolean remove) {
 		List<Object> inputsMissing = new ArrayList(inputs);
-		List<Integer> indexesToRemove = new ArrayList();
+		List<ItemStack> stacksToRemove = new ArrayList();
 		
 		int i = 0;
 		for(ItemStack stack : stacks) {
@@ -51,8 +51,8 @@ public class RecipeElvenTrade {
 							cstack.setItemDamage(stack.getItemDamage());
 
 						if(stack.isItemEqual(cstack)) {
-							if(!indexesToRemove.contains(i))
-								indexesToRemove.add(i);
+							if(!stacksToRemove.contains(stack))
+								stacksToRemove.add(stack);
 							oredictIndex = j;
 							found = true;
 							break;
@@ -75,7 +75,7 @@ public class RecipeElvenTrade {
 		}
 		
 		if(remove)
-			for(int r : indexesToRemove)
+			for(ItemStack r : stacksToRemove)
 				stacks.remove(r);
 
 		return inputsMissing.isEmpty();

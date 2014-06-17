@@ -21,6 +21,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconPage;
+import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
@@ -56,6 +57,10 @@ public interface IInternalMethodHandler {
 
 	public LexiconPage manaInfusionRecipePage(String key, RecipeManaInfusion recipe);
 
+	public LexiconPage elvenTradePage(String key, List<RecipeElvenTrade> recipes);
+
+	public LexiconPage elvenTradesPage(String key, RecipeElvenTrade recipe);
+	
 	public IManaNetwork getManaNetworkInstance();
 
 	public ItemStack getSubTileAsStack(String subTile);

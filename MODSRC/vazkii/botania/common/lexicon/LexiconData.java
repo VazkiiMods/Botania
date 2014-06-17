@@ -461,10 +461,10 @@ public final class LexiconData {
 				new PageImage("8", LibResources.ENTRY_PORTAL4), new PageText("9"), new PageText("10"), new PageText("11"));
 
 		elvenMessage = new ALexiconEntry(LibLexicon.ALF_MESSAGE, categoryAlfhomancy);
-		elvenMessage.setPriority().setLexiconPages(new PageImage("0", LibResources.ENTRY_ELVEN_GARDE), new PageText("1"));
+		elvenMessage.setPriority().setLexiconPages(new PageImage("0", LibResources.ENTRY_ELVEN_GARDE), new PageText("1"), new PageText("2"), new PageText("3"), new PageText("4"), new PageText("5"), new PageText("6"));
 		
 		elvenResources = new ALexiconEntry(LibLexicon.ALF_RESOURCES, categoryAlfhomancy);
-		elvenResources.setPriority().setLexiconPages(new PageText("0"), new PageElvenRecipe("1", ModElvenTradeRecipes.elementiumRecipe));
+		elvenResources.setPriority().setLexiconPages(new PageText("0"), new PageElvenRecipe("1", ModElvenTradeRecipes.dreamwoodRecipe), new PageElvenRecipe("2", ModElvenTradeRecipes.elementiumRecipe), new PageElvenRecipe("3", ModElvenTradeRecipes.pixieDustRecipe), new PageElvenRecipe("3", ModElvenTradeRecipes.dragonstoneRecipe));
 		
 		// MISCLENAEOUS ENTRIES
 		unstableBlocks = new BLexiconEntry(LibLexicon.MISC_UNSTABLE_BLOCKS, categoryMisc);

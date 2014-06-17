@@ -1073,12 +1073,20 @@ botania.page.aIntro11=The amount of information about &1Alfheim&0 stored in this
 botania.entry.elfMessage=A Message from Elven Garde
 botania.page.elfMessage0=
 # ^ This is blank on purpose
-botania.page.elfMessage1=WIP
+botania.page.elfMessage1=&oGreetings. We noticed that our portal was opened via a link from another world. That's rather shocking news indeed. We thank you very much for providing us with a repository of the knowledge from your world, as to keep us up to date to what happened since we left it, it's been a while since then, indeed.
+botania.page.elfMessage2=&oAfter some discussion with the high council of Elven Garde, we have decided to coppoerate with you. You see, reading through your "Lexica Botania" has shown us a good amount of resources from your world that we would be extremely keen as to get our hands on, as these are non-existant in our lands.
+botania.page.elfMessage3=&oThe link you have managed to extablish is rather weak, no living beings will be able to go through, as you already know. However, there's a positive side to this, the link strikes the farbic of time of both our worlds in a way where it doesn't keep them in sync, that's the reason why you received your book back so quickly.
+botania.page.elfMessage4=&oWhen it comes to Mana and other magical energies, we are plenty stocked on them, so worry not about the portal closing on our end. Let's put this in prospect, in order for the advance of both our civilizations, we vow to accept a given set of resources from your world we lack in ours in trade for resources you lack in yours.
+botania.page.elfMessage5=&oWe have taken the liberty of asigning our best scribes to put together a great set of knowledge from our world we're willing to share, you can find it in your lexicon just as you'd find knowledge from yours. We hope you find it enlightening and that it encourages you to invest in our materials.
+botania.page.elfMessage6=&oLast but not least, do take in note that if you decide to send something we have not vouched to trade for, we will assume it as a gift and keep it for ourselves, just as a forewarning. We look forward to exchanging resources with you.<br>Best Regards, the High Council of Elven Garde.
 
 # -- THE RESOURCES OF ALFHEIM
 botania.entry.elfResources=The Resources of Alfheim
-botania.page.elfResources0=WIP
-botania.page.elfResources1=Trading for &1Elementium&0
+botania.page.elfResources0=&4Alfheim&0 contains a very varied amount of exquisite resources. Sadly though, most of them are extremely scarce and hard to come by due to competition between the various clans. The elves are interested in trading some materials, such as &1Dreamwood&0, &1Elementium&0, &1Pixie Dust&0 or &1Dragonstone&0, resources native to their lands. 
+botania.page.elfResources1=Trading for &1Dreamwood&0
+botania.page.elfResources2=Trading for &1Elementium&0
+botania.page.elfResources3=Trading for &1Pixie Dust&0
+botania.page.elfResources4=Trading for &1Dragonstone&0
 
 # - MISCLANEOUS
 # -- UNSTABLE CUBE
