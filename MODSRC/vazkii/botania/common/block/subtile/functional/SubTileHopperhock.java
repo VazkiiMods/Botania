@@ -51,7 +51,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 			return;
 
 		boolean pulledAny = false;
-		int range = mana > 0 ? 6 : 3;
+		int range = mana > 0 ? 10 : 6;
 
 		int x = supertile.xCoord;
 		int y = supertile.yCoord;
