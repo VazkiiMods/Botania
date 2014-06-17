@@ -105,15 +105,8 @@ public class GuiLexicon extends GuiScreen {
 			x += l / 2;
 			fontOff = 2;
 		}
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GL11.glColor4f(0F, 0F, 0F, 0.25F);
+		
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
-		drawTexturedModalRect(x + l / 2 + 4, y, 54, 180, 6, 11);
-		if(drawLeft)
-			drawTexturedModalRect(x - l / 2 - 9, y, 61, 180, 6, 11);
-		for(int i = 0; i < l + 6; i++)
-			drawTexturedModalRect(x - l / 2 - 3 + i, y, 60, 180, 1, 11);
 
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		drawTexturedModalRect(x + l / 2 + 3, y - 1, 54, 180, 6, 11);
@@ -121,7 +114,6 @@ public class GuiLexicon extends GuiScreen {
 			drawTexturedModalRect(x - l / 2 - 9, y - 1, 61, 180, 6, 11);
 		for(int i = 0; i < l + 6; i++)
 			drawTexturedModalRect(x - l / 2 - 3 + i, y - 1, 60, 180, 1, 11);
-		GL11.glDisable(GL11.GL_BLEND);
 
 		font.drawString(s, x - l / 2 + fontOff, y, 0x111111, false);
 		font.setUnicodeFlag(unicode);
