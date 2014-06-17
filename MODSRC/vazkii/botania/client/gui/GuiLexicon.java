@@ -111,9 +111,9 @@ public class GuiLexicon extends GuiScreen {
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 		drawTexturedModalRect(x + l / 2 + 4, y, 54, 180, 6, 11);
 		if(drawLeft)
-			drawTexturedModalRect(x - l / 2 - 8, y, 61, 180, 6, 11);
+			drawTexturedModalRect(x - l / 2 - 9, y, 61, 180, 6, 11);
 		for(int i = 0; i < l + 6; i++)
-			drawTexturedModalRect(x - l / 2 - 2 + i, y, 60, 180, 1, 11);
+			drawTexturedModalRect(x - l / 2 - 3 + i, y, 60, 180, 1, 11);
 
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		drawTexturedModalRect(x + l / 2 + 3, y - 1, 54, 180, 6, 11);
