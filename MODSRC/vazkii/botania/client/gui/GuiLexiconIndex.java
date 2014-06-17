@@ -26,19 +26,21 @@ import vazkii.botania.client.gui.button.GuiButtonBack;
 import vazkii.botania.client.gui.button.GuiButtonInvisible;
 import vazkii.botania.client.gui.button.GuiButtonPage;
 
-public class GuiLexiconIndex extends GuiLexicon {
+public class GuiLexiconIndex extends GuiLexicon implements IParented {
 
 	LexiconCategory category;
 	String title;
 	int page = 0;
 
 	GuiButton leftButton, rightButton;
+	GuiLexicon parent;
 
 	List<LexiconEntry> entriesToDisplay = new ArrayList();
 
 	public GuiLexiconIndex(LexiconCategory category) {
 		this.category = category;
 		title = StatCollector.translateToLocal(category.getUnlocalizedName());
+		parent = new GuiLexicon();
 	}
 
 	@Override
@@ -83,36 +85,44 @@ public class GuiLexiconIndex extends GuiLexicon {
 
 	@Override
 	protected void actionPerformed(GuiButton par1GuiButton) {
-		switch(par1GuiButton.id) {
-		case 12 :
-			mc.displayGuiScreen(new GuiLexicon());
-			ClientTickHandler.notifyPageChange();
-			break;
-		case 13 :
-			page--;
-			updatePageButtons();
-			populateIndex();
-			ClientTickHandler.notifyPageChange();
-			break;
-		case 14 :
-			page++;
-			updatePageButtons();
-			populateIndex();
-			ClientTickHandler.notifyPageChange();
-			break;
-		default :
-			int index = par1GuiButton.id + page * 12;
-			if(index >= entriesToDisplay.size())
-				return;
+		if(par1GuiButton.id >= BOOKMARK_START) 
+			handleBookmark(par1GuiButton);
+		else
+			switch(par1GuiButton.id) {
+			case 12 :
+				mc.displayGuiScreen(parent);
+				ClientTickHandler.notifyPageChange();
+				break;
+			case 13 :
+				page--;
+				updatePageButtons();
+				populateIndex();
+				ClientTickHandler.notifyPageChange();
+				break;
+			case 14 :
+				page++;
+				updatePageButtons();
+				populateIndex();
+				ClientTickHandler.notifyPageChange();
+				break;
+			default :
+				int index = par1GuiButton.id + page * 12;
+				if(index >= entriesToDisplay.size())
+					return;
 
-			LexiconEntry entry = entriesToDisplay.get(index);
-			mc.displayGuiScreen(new GuiLexiconEntry(entry, this));
-			ClientTickHandler.notifyPageChange();
-		}
+				LexiconEntry entry = entriesToDisplay.get(index);
+				mc.displayGuiScreen(new GuiLexiconEntry(entry, this));
+				ClientTickHandler.notifyPageChange();
+			}
 	}
 
 	public void updatePageButtons() {
 		leftButton.enabled = page != 0;
 		rightButton.enabled = page < (entriesToDisplay.size() - 1) / 12;
+	}
+
+	@Override
+	public void setParent(GuiLexicon gui) {
+		parent = gui;
 	}
 }

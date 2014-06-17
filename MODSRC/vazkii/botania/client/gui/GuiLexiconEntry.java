@@ -13,6 +13,7 @@ package vazkii.botania.client.gui;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.IAddonEntry;
@@ -22,7 +23,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.gui.button.GuiButtonBackWithShift;
 import vazkii.botania.client.gui.button.GuiButtonPage;
 
-public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry {
+public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IParented {
 
 	public int page = 0;
 	LexiconEntry entry;
@@ -75,7 +76,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry {
 
 	@Override
 	String getTitle() {
-		return String.format("%s (%s/%s)", title, page + 1, entry.pages.size());
+		return String.format("%s " + EnumChatFormatting.ITALIC + "(%s/%s)", title, page + 1, entry.pages.size());
 	}
 
 	@Override
@@ -85,20 +86,23 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry {
 
 	@Override
 	protected void actionPerformed(GuiButton par1GuiButton) {
-		switch(par1GuiButton.id) {
-		case 0 :
-			mc.displayGuiScreen(GuiScreen.isShiftKeyDown() ? new GuiLexicon() : parent);
-			ClientTickHandler.notifyPageChange();
-			break;
-		case 1 :
-			page--;
-			ClientTickHandler.notifyPageChange();
-			break;
-		case 2 :
-			page++;
-			ClientTickHandler.notifyPageChange();
-			break;
-		}
+		if(par1GuiButton.id >= BOOKMARK_START) 
+			handleBookmark(par1GuiButton);
+		else
+			switch(par1GuiButton.id) {
+			case 0 :
+				mc.displayGuiScreen(GuiScreen.isShiftKeyDown() ? new GuiLexicon() : parent);
+				ClientTickHandler.notifyPageChange();
+				break;
+			case 1 :
+				page--;
+				ClientTickHandler.notifyPageChange();
+				break;
+			case 2 :
+				page++;
+				ClientTickHandler.notifyPageChange();
+				break;
+			}
 		updatePageButtons();
 	}
 
@@ -144,6 +148,11 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry {
 	@Override
 	public float getZLevel() {
 		return zLevel;
+	}
+
+	@Override
+	public void setParent(GuiLexicon gui) {
+		parent = gui;
 	}
 
 }
