@@ -23,6 +23,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.IIcon;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemEnderDagger extends ItemManasteelSword {

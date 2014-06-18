@@ -30,6 +30,7 @@ import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILensEffect;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
@@ -48,7 +49,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 			if(player.getCurrentEquippedItem() == par1ItemStack && player.swingProgress == check && !par2World.isRemote && par2World.rand.nextInt(2) == 0) {
 				EntityManaBurst burst = getBurst(player, par1ItemStack);
 				par2World.spawnEntityInWorld(burst);
-				ManasteelToolCommons.damageItem(par1ItemStack, 1, player, MANA_PER_DAMAGE);
+				ToolCommons.damageItem(par1ItemStack, 1, player, MANA_PER_DAMAGE);
 				par2World.playSoundAtEntity(player, "random.levelup", 1F, 1.4F);
 			}
 		}

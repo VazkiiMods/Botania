@@ -1,4 +1,4 @@
-package vazkii.botania.common.item.equipment.tool;
+package vazkii.botania.common.item.equipment.tool.elementium;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
@@ -10,6 +10,8 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.common.item.equipment.tool.ToolCommons;
+import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelShovel;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemElementiumShovel extends ItemManasteelShovel {
@@ -24,9 +26,9 @@ public class ItemElementiumShovel extends ItemManasteelShovel {
 	public boolean onBlockStartBreak(ItemStack stack, int x, int y, int z, EntityPlayer player) {
 		World world = player.worldObj;
 		Material mat = world.getBlock(x, y, z).getMaterial();
-		if (!ManasteelToolCommons.isRightMaterial(mat, materialsShovel))
+		if (!ToolCommons.isRightMaterial(mat, materialsShovel))
 			return false;
-		MovingObjectPosition block = ManasteelToolCommons.raytraceFromEntity(world, player, true, 4.5);
+		MovingObjectPosition block = ToolCommons.raytraceFromEntity(world, player, true, 4.5);
 		if (block == null)
 			return false;
 
@@ -36,7 +38,7 @@ public class ItemElementiumShovel extends ItemManasteelShovel {
 
 		Block blk = world.getBlock(x, y, z);
 		if(blk instanceof BlockFalling)
-			ManasteelToolCommons.removeBlocksInIteration(player, stack, world, x, y, z, 0, -12, 0, 1, 12, 1, blk, materialsShovel, silk, fortune);
+			ToolCommons.removeBlocksInIteration(player, stack, world, x, y, z, 0, -12, 0, 1, 12, 1, blk, materialsShovel, silk, fortune);
 		
 		return false;
 	}

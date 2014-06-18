@@ -9,7 +9,7 @@
  * 
  * File Created @ [Apr 13, 2014, 7:28:35 PM (GMT)]
  */
-package vazkii.botania.common.item.equipment.tool;
+package vazkii.botania.common.item.equipment.tool.manasteel;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -31,6 +31,7 @@ import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -84,7 +85,7 @@ public class ItemManasteelShears extends ItemShears implements IManaUsingItem {
 					ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
 				}
 
-				ManasteelToolCommons.damageItem(itemstack, 1, player, MANA_PER_DAMAGE);
+				ToolCommons.damageItem(itemstack, 1, player, MANA_PER_DAMAGE);
 			}
 
 			return true;
@@ -116,7 +117,7 @@ public class ItemManasteelShears extends ItemShears implements IManaUsingItem {
 					player.worldObj.spawnEntityInWorld(entityitem);
 				}
 
-				ManasteelToolCommons.damageItem(itemstack, 1, player, MANA_PER_DAMAGE);
+				ToolCommons.damageItem(itemstack, 1, player, MANA_PER_DAMAGE);
 				player.addStat(StatList.mineBlockStatArray[Block.getIdFromBlock(block)], 1);
 			}
 		}

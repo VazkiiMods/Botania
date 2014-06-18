@@ -7,16 +7,17 @@
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
  * 
- * File Created @ [Apr 13, 2014, 7:05:58 PM (GMT)]
+ * File Created @ [Apr 13, 2014, 7:14:54 PM (GMT)]
  */
-package vazkii.botania.common.item.equipment.tool;
+package vazkii.botania.common.item.equipment.tool.manasteel;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemPickaxe;
+import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -24,20 +25,21 @@ import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemManasteelPick extends ItemPickaxe implements IManaUsingItem {
+public class ItemManasteelShovel extends ItemSpade implements IManaUsingItem {
 
 	private static final int MANA_PER_DAMAGE = 60;
 
-	public ItemManasteelPick() {
-		this(BotaniaAPI.manasteelToolMaterial, LibItemNames.MANASTEEL_PICK);
+	public ItemManasteelShovel() {
+		this(BotaniaAPI.manasteelToolMaterial, LibItemNames.MANASTEEL_SHOVEL);
 	}
 
-	public ItemManasteelPick(ToolMaterial mat, String name) {
+	public ItemManasteelShovel(ToolMaterial mat, String name) {
 		super(mat);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setUnlocalizedName(name);
@@ -62,14 +64,14 @@ public class ItemManasteelPick extends ItemPickaxe implements IManaUsingItem {
 
 	@Override
 	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase) {
-		ManasteelToolCommons.damageItem(par1ItemStack, 1, par3EntityLivingBase, MANA_PER_DAMAGE);
+		ToolCommons.damageItem(par1ItemStack, 1, par3EntityLivingBase, MANA_PER_DAMAGE);
 		return true;
 	}
 
 	@Override
 	public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int x, int y, int z, EntityLivingBase entity) {
-		if(block.getBlockHardness(world, x, y, z) != 0F)
-			ManasteelToolCommons.damageItem(stack, 1, entity, MANA_PER_DAMAGE);
+		if (block.getBlockHardness(world, x, y, z) != 0F)
+			ToolCommons.damageItem(stack, 1, entity, MANA_PER_DAMAGE);
 
 		return true;
 	}

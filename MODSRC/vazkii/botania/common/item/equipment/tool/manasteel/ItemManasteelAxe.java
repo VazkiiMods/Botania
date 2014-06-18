@@ -9,7 +9,7 @@
  * 
  * File Created @ [Apr 13, 2014, 7:15:39 PM (GMT)]
  */
-package vazkii.botania.common.item.equipment.tool;
+package vazkii.botania.common.item.equipment.tool.manasteel;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -25,6 +25,7 @@ import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -63,14 +64,14 @@ public class ItemManasteelAxe extends ItemAxe implements IManaUsingItem {
 
 	@Override
 	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase) {
-		ManasteelToolCommons.damageItem(par1ItemStack, 1, par3EntityLivingBase, MANA_PER_DAMAGE);
+		ToolCommons.damageItem(par1ItemStack, 1, par3EntityLivingBase, MANA_PER_DAMAGE);
 		return true;
 	}
 
 	@Override
 	public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int x, int y, int z, EntityLivingBase entity) {
 		if (block.getBlockHardness(world, x, y, z) != 0F)
-			ManasteelToolCommons.damageItem(stack, 1, entity, MANA_PER_DAMAGE);
+			ToolCommons.damageItem(stack, 1, entity, MANA_PER_DAMAGE);
 
 		return true;
 	}

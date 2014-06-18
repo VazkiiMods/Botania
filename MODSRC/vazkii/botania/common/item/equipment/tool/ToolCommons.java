@@ -28,7 +28,7 @@ import net.minecraft.world.World;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
-public final class ManasteelToolCommons {
+public final class ToolCommons {
 
 	public static void damageItem(ItemStack stack, int dmg, EntityLivingBase entity, int manaPerDamage) {
 		int manaToRequest = dmg * manaPerDamage;

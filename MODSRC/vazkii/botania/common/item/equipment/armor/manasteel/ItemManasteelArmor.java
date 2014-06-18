@@ -26,7 +26,7 @@ import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.equipment.tool.ManasteelToolCommons;
+import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -74,7 +74,7 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 
 	@Override
 	public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot) {
-		ManasteelToolCommons.damageItem(stack, damage, entity, MANA_PER_DAMAGE);
+		ToolCommons.damageItem(stack, damage, entity, MANA_PER_DAMAGE);
 	}
 
 	@Override

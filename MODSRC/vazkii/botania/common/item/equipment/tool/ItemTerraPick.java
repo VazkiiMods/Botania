@@ -34,6 +34,7 @@ import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.equipment.bauble.ItemAuraRing;
 import vazkii.botania.common.item.equipment.bauble.ItemGreaterAuraRing;
+import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelPick;
 import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -110,10 +111,10 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem {
 
 		World world = player.worldObj;
 		Material mat = world.getBlock(x, y, z).getMaterial();
-		if(!ManasteelToolCommons.isRightMaterial(mat, MATERIALS))
+		if(!ToolCommons.isRightMaterial(mat, MATERIALS))
 			return false;
 
-		MovingObjectPosition block = ManasteelToolCommons.raytraceFromEntity(world, player, true, 4.5);
+		MovingObjectPosition block = ToolCommons.raytraceFromEntity(world, player, true, 4.5);
 		if(block == null)
 			return false;
 
@@ -131,7 +132,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem {
 		if(range == 0 && level != 1)
 			return false;
 
-		ManasteelToolCommons.removeBlocksInIteration(player, stack, world, x, y, z, doX ? -range : 0, doY ? -1 : 0, doZ ? -range : 0, doX ? range + 1 : 1, doY ? rangeY * 2 : 1, doZ ? range + 1 : 1, null, MATERIALS, silk, fortune);
+		ToolCommons.removeBlocksInIteration(player, stack, world, x, y, z, doX ? -range : 0, doY ? -1 : 0, doZ ? -range : 0, doX ? range + 1 : 1, doY ? rangeY * 2 : 1, doZ ? range + 1 : 1, null, MATERIALS, silk, fortune);
 
 		return false;
 	}
