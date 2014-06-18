@@ -39,7 +39,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemManasteelShears extends ItemShears implements IManaUsingItem {
 
-	private static final int MANA_PER_DAMAGE = 30;
+	public static final int MANA_PER_DAMAGE = 30;
 
 	public ItemManasteelShears() {
 		this(LibItemNames.MANASTEEL_SHEARS);
