@@ -36,7 +36,7 @@ public class ItemElementiumAxe extends ItemManasteelAxe {
 			ItemStack weapon = ((EntityPlayer) event.source.getEntity()).getCurrentEquippedItem();
 			if(weapon != null && weapon.getItem() == this) {
 				Random rand = event.entity.worldObj.rand;
-				int looting = EnchantmentHelper.getEnchantmentLevel(Enchantment.looting.effectId, weapon);
+				int looting = EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, weapon);
 				
 				if(event.entityLiving instanceof EntitySkeleton && rand.nextInt(26) <= (3 + looting))
 					addDrop(event, new ItemStack(Items.skull, 1, ((EntitySkeleton)event.entityLiving).getSkeletonType()));
