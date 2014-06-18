@@ -4,10 +4,11 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.core.handler.PixieHandler.IPixieSpawner;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 
-public class ItemElementiumArmor extends ItemManasteelArmor {
+public abstract class ItemElementiumArmor extends ItemManasteelArmor implements IPixieSpawner {
 
 	public ItemElementiumArmor(int type, String name) {
 		super(type, name, BotaniaAPI.elementiumArmorMaterial);
