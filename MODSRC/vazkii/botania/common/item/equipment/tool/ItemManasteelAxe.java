@@ -17,6 +17,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -34,9 +35,13 @@ public class ItemManasteelAxe extends ItemAxe implements IManaUsingItem {
 	private static final int MANA_PER_DAMAGE = 60;
 
 	public ItemManasteelAxe() {
-		super(BotaniaAPI.manasteelToolMaterial);
+		this(BotaniaAPI.manasteelToolMaterial, LibItemNames.MANASTEEL_AXE);
+	}
+
+	public ItemManasteelAxe(ToolMaterial mat, String name) {
+		super(mat);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
-		setUnlocalizedName(LibItemNames.MANASTEEL_AXE);
+		setUnlocalizedName(name);
 	}
 
 	@Override

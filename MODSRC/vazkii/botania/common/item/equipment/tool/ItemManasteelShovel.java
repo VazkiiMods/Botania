@@ -17,6 +17,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -34,9 +35,13 @@ public class ItemManasteelShovel extends ItemSpade implements IManaUsingItem {
 	private static final int MANA_PER_DAMAGE = 60;
 
 	public ItemManasteelShovel() {
-		super(BotaniaAPI.manasteelToolMaterial);
+		this(BotaniaAPI.manasteelToolMaterial, LibItemNames.MANASTEEL_SHOVEL);
+	}
+
+	public ItemManasteelShovel(ToolMaterial mat, String name) {
+		super(mat);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
-		setUnlocalizedName(LibItemNames.MANASTEEL_SHOVEL);
+		setUnlocalizedName(name);
 	}
 
 	@Override

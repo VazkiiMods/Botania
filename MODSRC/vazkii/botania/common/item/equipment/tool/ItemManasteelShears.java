@@ -41,8 +41,12 @@ public class ItemManasteelShears extends ItemShears implements IManaUsingItem {
 	private static final int MANA_PER_DAMAGE = 30;
 
 	public ItemManasteelShears() {
+		this(LibItemNames.MANASTEEL_SHEARS);
+	}
+	
+	public ItemManasteelShears(String name) {
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
-		setUnlocalizedName(LibItemNames.MANASTEEL_SHEARS);
+		setUnlocalizedName(name);
 	}
 
 	@Override

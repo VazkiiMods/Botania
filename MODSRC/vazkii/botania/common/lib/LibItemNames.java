@@ -65,6 +65,15 @@ public final class LibItemNames {
 	public static final String ENDER_DAGGER = "enderDagger";
 	public static final String QUARTZ = "quartz";
 	public static final String WATER_ROD = "waterRod";
+	public static final String ELEMENTIUM_HELM = "elementiumHelm";
+	public static final String ELEMENTIUM_CHEST = "elementiumChest";
+	public static final String ELEMENTIUM_LEGS = "elementiumLegs";
+	public static final String ELEMENTIUM_BOOTS = "elementiumBoots";
+	public static final String ELEMENTIUM_PICK = "elementiumPick";
+	public static final String ELEMENTIUM_SHOVEL = "elementiumShovel";
+	public static final String ELEMENTIUM_AXE = "elementiumAxe";
+	public static final String ELEMENTIUM_SWORD = "elementiumSword";
+	public static final String ELEMENTIUM_SHEARS = "elementiumShears";
 
 	public static final String[] LENS_NAMES = new String[] {
 		"lensNormal",

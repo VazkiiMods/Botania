@@ -9,7 +9,7 @@
  * 
  * File Created @ [Apr 13, 2014, 6:38:21 PM (GMT)]
  */
-package vazkii.botania.common.item.equipment.armor;
+package vazkii.botania.common.item.equipment.armor.manasteel;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;

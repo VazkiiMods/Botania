@@ -11,18 +11,21 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
-import vazkii.botania.common.item.equipment.armor.ItemManasteelBoots;
-import vazkii.botania.common.item.equipment.armor.ItemManasteelChest;
-import vazkii.botania.common.item.equipment.armor.ItemManasteelHelm;
-import vazkii.botania.common.item.equipment.armor.ItemManasteelLegs;
-import vazkii.botania.common.item.equipment.armor.ItemTerrasteelBoots;
-import vazkii.botania.common.item.equipment.armor.ItemTerrasteelChest;
-import vazkii.botania.common.item.equipment.armor.ItemTerrasteelHelm;
-import vazkii.botania.common.item.equipment.armor.ItemTerrasteelLegs;
+import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumBoots;
+import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumChest;
+import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumHelm;
+import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumLegs;
+import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelBoots;
+import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelChest;
+import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelHelm;
+import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelLegs;
+import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelBoots;
+import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelChest;
+import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
+import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelLegs;
 import vazkii.botania.common.item.equipment.bauble.ItemAuraRing;
 import vazkii.botania.common.item.equipment.bauble.ItemDivaCharm;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
@@ -38,6 +41,11 @@ import vazkii.botania.common.item.equipment.bauble.ItemMiningRing;
 import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
 import vazkii.botania.common.item.equipment.bauble.ItemTravelBelt;
 import vazkii.botania.common.item.equipment.bauble.ItemWaterRing;
+import vazkii.botania.common.item.equipment.tool.ItemElementiumAxe;
+import vazkii.botania.common.item.equipment.tool.ItemElementiumPick;
+import vazkii.botania.common.item.equipment.tool.ItemElementiumShears;
+import vazkii.botania.common.item.equipment.tool.ItemElementiumShovel;
+import vazkii.botania.common.item.equipment.tool.ItemElementiumSword;
 import vazkii.botania.common.item.equipment.tool.ItemEnderDagger;
 import vazkii.botania.common.item.equipment.tool.ItemManasteelAxe;
 import vazkii.botania.common.item.equipment.tool.ItemManasteelPick;
@@ -102,6 +110,15 @@ public final class ModItems {
 	public static Item enderDagger;
 	public static Item quartz;
 	public static Item waterRod;
+	public static Item elementiumHelm;
+	public static Item elementiumChest;
+	public static Item elementiumLegs;
+	public static Item elementiumBoots;
+	public static Item elementiumPick;
+	public static Item elementiumShovel;
+	public static Item elementiumAxe;
+	public static Item elementiumSword;
+	public static Item elementiumShears;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -156,6 +173,15 @@ public final class ModItems {
 		enderDagger	= new ItemEnderDagger();
 		quartz = new ItemQuartz();
 		waterRod = new ItemWaterRod();
+		elementiumHelm = new ItemElementiumHelm();
+		elementiumChest = new ItemElementiumChest();
+		elementiumLegs = new ItemElementiumLegs();
+		elementiumBoots = new ItemElementiumBoots();
+		elementiumPick = new ItemElementiumPick();
+		elementiumShovel = new ItemElementiumShovel();
+		elementiumAxe = new ItemElementiumAxe();
+		elementiumSword = new ItemElementiumSword();
+		elementiumShears = new ItemElementiumShears();
 
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {

@@ -132,7 +132,16 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.terrasteelChest);
 		addItem(ModItems.terrasteelLegs);
 		addItem(ModItems.terrasteelBoots);
-
+		addItem(ModItems.elementiumPick);
+		addItem(ModItems.elementiumShovel);
+		addItem(ModItems.elementiumAxe);
+		addItem(ModItems.elementiumShears);
+		addItem(ModItems.elementiumSword);
+		addItem(ModItems.elementiumHelm);
+		addItem(ModItems.elementiumChest);
+		addItem(ModItems.elementiumLegs);
+		addItem(ModItems.elementiumBoots);
+		
 		addItem(ModItems.tinyPlanet);
 		addBlock(ModBlocks.tinyPlanet);
 		addItem(ModItems.manaRing);

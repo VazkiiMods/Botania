@@ -9,7 +9,7 @@
  * 
  * File Created @ [Apr 14, 2014, 2:58:13 PM (GMT)]
  */
-package vazkii.botania.common.item.equipment.armor;
+package vazkii.botania.common.item.equipment.armor.terrasteel;
 
 import java.util.UUID;
 
@@ -20,6 +20,7 @@ import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;

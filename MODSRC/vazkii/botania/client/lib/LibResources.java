@@ -66,7 +66,9 @@ public final class LibResources {
 	public static final String MODEL_MANASTEEL_1 = PREFIX_MODEL + "manasteel1.png";
 	public static final String MODEL_TERRASTEEL_0 = PREFIX_MODEL + "terrasteel0.png";
 	public static final String MODEL_TERRASTEEL_1 = PREFIX_MODEL + "terrasteel1.png";
-
+	public static final String MODEL_ELEMENTIUM_0 = PREFIX_MODEL + "elementium0.png";
+	public static final String MODEL_ELEMENTIUM_1 = PREFIX_MODEL + "elementium1.png";
+	
 	public static final String MODEL_CAPE = "/assets/botania/textures/model/cape.png";
 
 	public static final String MISC_PARTICLES = PREFIX_MISC + "particles.png";
