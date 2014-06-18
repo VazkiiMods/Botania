@@ -127,6 +127,7 @@ public final class LexiconData {
 	public static LexiconEntry terraBlade;
 	public static LexiconEntry terraPick;
 	public static LexiconEntry enderDagger;
+	public static LexiconEntry waterRod;
 
 	public static LexiconEntry baublesIntro;
 	public static LexiconEntry tinyPlanet;
@@ -411,6 +412,9 @@ public final class LexiconData {
 		enderDagger = new BLexiconEntry(LibLexicon.TOOL_ENDER_DAGGER, categoryTools);
 		enderDagger.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCrafingRecipes.recipeEnderDagger));
 
+		waterRod = new BLexiconEntry(LibLexicon.TOOL_WATER_ROD, categoryTools);
+		waterRod.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeWaterRod));
+		
 		// BAUBLES ENTRIES
 		baublesIntro = new BLexiconEntry(LibLexicon.BAUBLE_INTRO, categoryBaubles);
 		baublesIntro.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_BAUBLES), new PageText("2"));
@@ -464,7 +468,7 @@ public final class LexiconData {
 		elvenMessage.setPriority().setLexiconPages(new PageImage("0", LibResources.ENTRY_ELVEN_GARDE), new PageText("1"), new PageText("2"), new PageText("3"), new PageText("4"), new PageText("5"), new PageText("6"));
 		
 		elvenResources = new ALexiconEntry(LibLexicon.ALF_RESOURCES, categoryAlfhomancy);
-		elvenResources.setPriority().setLexiconPages(new PageText("0"), new PageElvenRecipe("1", ModElvenTradeRecipes.dreamwoodRecipe), new PageElvenRecipe("2", ModElvenTradeRecipes.elementiumRecipe), new PageElvenRecipe("3", ModElvenTradeRecipes.pixieDustRecipe), new PageElvenRecipe("3", ModElvenTradeRecipes.dragonstoneRecipe));
+		elvenResources.setPriority().setLexiconPages(new PageText("0"), new PageElvenRecipe("1", ModElvenTradeRecipes.dreamwoodRecipe), new PageElvenRecipe("2", ModElvenTradeRecipes.elementiumRecipe), new PageElvenRecipe("3", ModElvenTradeRecipes.pixieDustRecipe), new PageElvenRecipe("4", ModElvenTradeRecipes.dragonstoneRecipe));
 		
 		// MISCLENAEOUS ENTRIES
 		unstableBlocks = new BLexiconEntry(LibLexicon.MISC_UNSTABLE_BLOCKS, categoryMisc);

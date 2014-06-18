@@ -21,6 +21,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -28,9 +29,12 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
+import vazkii.botania.common.item.ItemWaterRod;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
@@ -67,7 +71,7 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
 		ItemStack stack = par5EntityPlayer.getCurrentEquippedItem();
 		TileAltar tile = (TileAltar) par1World.getTileEntity(par2, par3, par4);
-		
+
 		if(par5EntityPlayer.isSneaking()) {
 			for(int i = tile.getSizeInventory() - 1; i >= 0; i--) {
 				ItemStack stackAt = tile.getStackInSlot(i);
@@ -81,10 +85,13 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 				}
 			}
 		} else {
-			if(stack != null && stack.getItem() == Items.water_bucket) {
+			if(stack != null && (stack.getItem() == Items.water_bucket || (stack.getItem() == ModItems.waterRod && ManaItemHandler.requestManaExact(stack, par5EntityPlayer, ItemWaterRod.COST, false)))) {
 				if(!tile.hasWater) {
-					if(!par5EntityPlayer.capabilities.isCreativeMode)
+					if(stack.getItem() == ModItems.waterRod)
+						ManaItemHandler.requestManaExact(stack, par5EntityPlayer, ItemWaterRod.COST, true);
+					else if(!par5EntityPlayer.capabilities.isCreativeMode)
 						par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, new ItemStack(Items.bucket));
+					
 					tile.hasWater = true;
 					par1World.func_147453_f(par2, par3, par4, this);
 					par1World.markBlockForUpdate(par2, par3, par4);
@@ -93,7 +100,7 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
 

@@ -130,6 +130,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeRedQuartz;
 	public static IRecipe recipeAlfPortal;
 	public static IRecipe recipeNaturaPylon;
+	public static IRecipe recipeWaterRod;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -724,6 +725,14 @@ public final class ModCrafingRecipes {
 		// Natura Pylon Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModBlocks.pylon, 1, 1), ModBlocks.pylon, LibOreDict.LIFE_ESSENCE, LibOreDict.LIFE_ESSENCE);
 		recipeNaturaPylon = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Rod of the Seas Recipe
+		addOreDictRecipe(new ItemStack(ModItems.waterRod), 
+				"  B", " T ", "R  ",
+				'B', new ItemStack(Items.potionitem),
+				'T', LibOreDict.LIVINGWOOD_TWIG,
+				'R', LibOreDict.RUNE[0]);
+		recipeWaterRod = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

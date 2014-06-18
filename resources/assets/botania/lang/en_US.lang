@@ -465,6 +465,7 @@ item.botania:quartz4.name=Redquartz
 item.botania:elementium.name=Elementium Ingot
 item.botania:pixieDust.name=Pixie Dust
 item.botania:dragonstone.name=Dragonstone
+item.botania:waterRod.name=Rod of the Seas
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania, %s Edition's Index - Pick which category you would like to study:
@@ -978,6 +979,11 @@ botania.entry.enderDagger=Soulscribe
 botania.page.enderDagger0=Those &4Endermen&0. They're the second more pesky thing since &4Creepers&0. I swear, the person who came up with them must have taken a &onotch&r too much of their drink.<br>However, by infusing a standard dagger with some of their energy, one can create the &1Soulscribe&0, a dagger that tears through &1Endermen&0 as if they were butter.
 botania.page.enderDagger1=Due of the type of infusion, though, the dagger only lasts for a few kills, and the energy that radiates from it prevents the &1Manasteel&0 from gathering &4Mana&0 to avoid damage, like typical tools would. Still, all in the name of killing those monsters.
 botania.page.enderDagger2=Strike my Soul
+
+# -- ROD OF THE SEAS
+botania.entry.waterRod=Rod of the Seas
+botania.page.waterRod0=Similarly to it's land counterpart, the &1Rod of the Seas&0 will, at the cost of some &4Mana&0, place down a &1Water&0 block wherever it's used on. Furthermore, it can also be used to refil a &1Petal Apothecary&0.
+botania.page.waterRod1=Keep the Earth clean, it isn't Uranus
 
 # - BAUBLES
 # -- AN INTRODUCTION TO BAUBLES
