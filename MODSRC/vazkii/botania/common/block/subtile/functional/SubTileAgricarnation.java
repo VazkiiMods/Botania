@@ -56,7 +56,7 @@ public class SubTileAgricarnation extends SubTileFunctional {
 			return false;
 
 		Material mat = block.getMaterial();
-		return mat != null && (mat == Material.plants || mat == Material.cactus || mat == Material.grass || mat == Material.leaves || mat == Material.vine || mat == Material.gourd);
+		return mat != null && (mat == Material.plants || mat == Material.cactus || mat == Material.grass || mat == Material.leaves || mat == Material.gourd);
 	}
 
 	@Override
