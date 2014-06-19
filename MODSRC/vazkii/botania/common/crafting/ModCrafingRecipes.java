@@ -140,6 +140,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeElementiumAxe;
 	public static IRecipe recipeElementiumShears;
 	public static IRecipe recipeElementiumSword;
+	public static IRecipe recipeOpenBucket;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -784,6 +785,12 @@ public final class ModCrafingRecipes {
 				"S ", " S",
 				'S', LibOreDict.ELEMENTIUM);
 		recipeElementiumShears = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Extrapolated Bucket Recipe
+		addOreDictRecipe(new ItemStack(ModItems.openBucket), 
+				"E E", " E ",
+				'E', LibOreDict.ELEMENTIUM);
+		recipeOpenBucket = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

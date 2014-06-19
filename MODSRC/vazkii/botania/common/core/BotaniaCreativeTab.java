@@ -62,6 +62,8 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.rune);
 
 		addItem(ModItems.dirtRod);
+		addItem(ModItems.waterRod);
+		addItem(ModItems.openBucket);
 		addItem(ModItems.terraformRod);
 		addItem(ModItems.grassHorn);
 		addBlock(ModBlocks.forestDrum);

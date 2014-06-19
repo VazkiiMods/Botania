@@ -491,6 +491,7 @@ item.botania:elementiumShovel.name=Elementium Shovel
 item.botania:elementiumAxe.name=Elementium Axe
 item.botania:elementiumSword.name=Elementium Sword
 item.botania:elementiumShears.name=Elementium Shears
+item.botania:openBucket.name=Extrapolated Bucket
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania, %s Edition's Index - Pick which category you would like to study:
@@ -1028,6 +1029,11 @@ botania.page.elfGear12=The &1Elementium Helmet&0
 botania.page.elfGear13=The &1Elementium Chestplate&0
 botania.page.elfGear14=The &1Elementium Leggings&0
 botania.page.elfGear15=The &1Elementium Boots&0
+
+# -- EXTRAPOLATED BUCKET
+botania.entry.openBucket=Extrapolated Bucket
+botania.page.openBucket0=By creating a bucket out of &1Elementium&0 one seems to notice an interesting feature. The liquids acquired by it simply vanish into the ether, never to be seen again. This seems like a great clean up tool.
+botania.page.openBucket1=Geeks...
 
 # - BAUBLES
 # -- AN INTRODUCTION TO BAUBLES

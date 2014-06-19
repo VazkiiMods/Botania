@@ -129,6 +129,7 @@ public final class LexiconData {
 	public static LexiconEntry enderDagger;
 	public static LexiconEntry waterRod;
 	public static LexiconEntry elfGear;
+	public static LexiconEntry openBucket;
 
 	public static LexiconEntry baublesIntro;
 	public static LexiconEntry tinyPlanet;
@@ -420,6 +421,9 @@ public final class LexiconData {
 		elfGear.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCrafingRecipes.recipeElementiumPick), new PageText("4"), new PageCraftingRecipe("5", ModCrafingRecipes.recipeElementiumShovel),
 				new PageText("6"), new PageCraftingRecipe("7", ModCrafingRecipes.recipeElementiumAxe), new PageText("8"), new PageCraftingRecipe("9", ModCrafingRecipes.recipeElementiumShears), new PageText("10"), new PageCraftingRecipe("11", ModCrafingRecipes.recipeElementiumSword),
 				new PageCraftingRecipe("12", ModCrafingRecipes.recipeElementiumHelm), new PageCraftingRecipe("13", ModCrafingRecipes.recipeElementiumChest), new PageCraftingRecipe("14", ModCrafingRecipes.recipeElementiumLegs), new PageCraftingRecipe("15", ModCrafingRecipes.recipeElementiumBoots));
+		
+		openBucket = new ALexiconEntry(LibLexicon.TOOL_OPEN_BUCKET, categoryTools);
+		openBucket.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeOpenBucket));
 		
 		// BAUBLES ENTRIES
 		baublesIntro = new BLexiconEntry(LibLexicon.BAUBLE_INTRO, categoryBaubles);
