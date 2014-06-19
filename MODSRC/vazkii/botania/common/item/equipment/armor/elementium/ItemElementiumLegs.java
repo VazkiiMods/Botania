@@ -11,7 +11,7 @@ public class ItemElementiumLegs extends ItemElementiumArmor {
 	
 	@Override
 	public float getPixieChance(ItemStack stack) {
-		return 0.072916666666666666666666666666669F;
+		return 7F / (25F / 24F) * 1.5F;
 	}
 
 }

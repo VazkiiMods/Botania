@@ -27,6 +27,7 @@ import vazkii.botania.common.core.handler.CommonTickHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.InternalMethodHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
+import vazkii.botania.common.core.handler.PixieHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.core.version.CommandDownloadLatest;
 import vazkii.botania.common.crafting.ModCrafingRecipes;
@@ -73,6 +74,7 @@ public class CommonProxy {
 
 		MinecraftForge.TERRAIN_GEN_BUS.register(new BiomeDecorationHandler());
 		MinecraftForge.EVENT_BUS.register(ManaNetworkHandler.instance);
+		MinecraftForge.EVENT_BUS.register(new PixieHandler());
 
 		FMLCommonHandler.instance().bus().register(new CommonTickHandler());
 	}
