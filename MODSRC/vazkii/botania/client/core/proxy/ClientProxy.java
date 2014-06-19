@@ -33,6 +33,7 @@ import vazkii.botania.client.render.block.RenderPool;
 import vazkii.botania.client.render.block.RenderPylon;
 import vazkii.botania.client.render.block.RenderSpecialFlower;
 import vazkii.botania.client.render.block.RenderSpreader;
+import vazkii.botania.client.render.entity.RenderPixie;
 import vazkii.botania.client.render.item.RenderLens;
 import vazkii.botania.client.render.item.RenderLexicon;
 import vazkii.botania.client.render.tile.RenderTileAlfPortal;
@@ -53,6 +54,7 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.core.proxy.CommonProxy;
 import vazkii.botania.common.core.version.VersionChecker;
+import vazkii.botania.common.entity.EntityPixie;
 import vazkii.botania.common.item.ModItems;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -101,7 +103,9 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TilePylon.class, new RenderTilePylon());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEnchanter.class, new RenderTileEnchanter());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileAlfPortal.class, new RenderTileAlfPortal());
-
+		
+		RenderingRegistry.registerEntityRenderingHandler(EntityPixie.class, new RenderPixie());
+		
 		ShaderHelper.initShaders();
 	}
 

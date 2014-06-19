@@ -17,5 +17,6 @@ public final class LibEntityNames {
 
 	public static final String MANA_BURST = LibResources.PREFIX_MOD + "manaBurst";
 	public static final String SIGNAL_FLARE = LibResources.PREFIX_MOD + "signalFlare";
+	public static final String PIXIE = LibResources.PREFIX_MOD + "pixie";
 
 }
