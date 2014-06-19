@@ -131,6 +131,15 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeAlfPortal;
 	public static IRecipe recipeNaturaPylon;
 	public static IRecipe recipeWaterRod;
+	public static IRecipe recipeElementiumHelm;
+	public static IRecipe recipeElementiumChest;
+	public static IRecipe recipeElementiumLegs;
+	public static IRecipe recipeElementiumBoots;
+	public static IRecipe recipeElementiumPick;
+	public static IRecipe recipeElementiumShovel;
+	public static IRecipe recipeElementiumAxe;
+	public static IRecipe recipeElementiumShears;
+	public static IRecipe recipeElementiumSword;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -733,6 +742,48 @@ public final class ModCrafingRecipes {
 				'T', LibOreDict.LIVINGWOOD_TWIG,
 				'R', LibOreDict.RUNE[0]);
 		recipeWaterRod = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Elementium Armor & Tools Recipes
+		addOreDictRecipe(new ItemStack(ModItems.elementiumHelm),
+				"SSS", "S S",
+				'S', LibOreDict.ELEMENTIUM);
+		recipeElementiumHelm = BotaniaAPI.getLatestAddedRecipe();
+		addOreDictRecipe(new ItemStack(ModItems.elementiumChest),
+				"S S", "SSS", "SSS",
+				'S', LibOreDict.ELEMENTIUM);
+		recipeElementiumChest = BotaniaAPI.getLatestAddedRecipe();
+		addOreDictRecipe(new ItemStack(ModItems.elementiumLegs),
+				"SSS", "S S", "S S",
+				'S', LibOreDict.ELEMENTIUM);
+		recipeElementiumLegs = BotaniaAPI.getLatestAddedRecipe();
+		addOreDictRecipe(new ItemStack(ModItems.elementiumBoots),
+				"S S", "S S",
+				'S', LibOreDict.ELEMENTIUM);
+		recipeElementiumBoots = BotaniaAPI.getLatestAddedRecipe();
+		addOreDictRecipe(new ItemStack(ModItems.elementiumPick),
+				"SSS", " T ", " T ",
+				'S', LibOreDict.ELEMENTIUM,
+				'T', LibOreDict.LIVINGWOOD_TWIG);
+		recipeElementiumPick = BotaniaAPI.getLatestAddedRecipe();
+		addOreDictRecipe(new ItemStack(ModItems.elementiumShovel),
+				"S", "T", "T",
+				'S', LibOreDict.ELEMENTIUM,
+				'T', LibOreDict.LIVINGWOOD_TWIG);
+		recipeElementiumShovel = BotaniaAPI.getLatestAddedRecipe();
+		addOreDictRecipe(new ItemStack(ModItems.elementiumAxe),
+				"SS", "TS", "T ",
+				'S', LibOreDict.ELEMENTIUM,
+				'T', LibOreDict.LIVINGWOOD_TWIG);
+		recipeElementiumAxe = BotaniaAPI.getLatestAddedRecipe();
+		addOreDictRecipe(new ItemStack(ModItems.elementiumSword),
+				"S", "S", "T",
+				'S', LibOreDict.ELEMENTIUM,
+				'T', LibOreDict.LIVINGWOOD_TWIG);
+		recipeElementiumSword = BotaniaAPI.getLatestAddedRecipe();
+		addOreDictRecipe(new ItemStack(ModItems.elementiumShears),
+				"S ", " S",
+				'S', LibOreDict.ELEMENTIUM);
+		recipeElementiumShears = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
