@@ -1062,6 +1062,12 @@ botania.entry.spawnerMover=Life Aggregator
 botania.page.spawnerMover0=By arranging &1Dragonstone&0, &1Elementium&0 and &1Essence of Eternal Life&0 in a specific pattern, one can create a device that can contain the curious energies of a &1Monster Spawner&0 and materialize it in another point in space.<br>It's to note that the device will shatter after being used once.
 botania.page.spawnerMover1=We got the spawner, but this isn't a won run yet
 
+# -- ROD OF BIFROST
+botania.entry.rainbowRod=Rod of Bifrost
+botania.page.rainbowRod0=&4Bifrost&0, the rainbow bridge that reaches between the world and the realm of the gods.<br>While this item, the &1Rod of Bifrost&0 doesn't exactly do that, it allows the holder, via a right click and at the cost of some &4Mana&0, to create a rainbow bridge in the direction he or she is looking at.
+botania.page.rainbowRod1=This bridge extends as far as a hundred blocks, and will vanish after about fifteen seconds.<br>Only one bridge can be created for any given &1Rod of Bifrost&0 at a time, as soon as the old bridge vanishes, a new one can be created.
+botania.page.rainbowRod2=Going my way!! Cut open a path and go!
+
 # - BAUBLES
 # -- AN INTRODUCTION TO BAUBLES
 botania.entry.bIntro=An Introduction to Baubles

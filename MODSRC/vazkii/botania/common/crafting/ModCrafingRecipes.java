@@ -145,6 +145,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeSpawnerMover;
 	public static IRecipe recipePixieRing;
 	public static IRecipe recipeSuperTravelBelt;
+	public static IRecipe recipeRainbowRod;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -827,6 +828,14 @@ public final class ModCrafingRecipes {
 				'L', LibOreDict.LIFE_ESSENCE,
 				'S', new ItemStack(ModItems.travelBelt));
 		recipeSuperTravelBelt = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Rod of Bifrost Recipe
+		addOreDictRecipe(new ItemStack(ModItems.rainbowRod), 
+				" PD", " EP", "E  ",
+				'P', LibOreDict.PIXIE_DUST,
+				'E', LibOreDict.ELEMENTIUM,
+				'D', LibOreDict.DRAGONSTONE);
+		recipeRainbowRod = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
