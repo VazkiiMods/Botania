@@ -105,6 +105,10 @@ botania.versioning.flavour28=BotaniaWow! You'll say wow every time! As seen on y
 botania.versioning.flavour29=Just update it, update it, update it, update it! No one wants to be outdated! 
 botania.versioning.flavour30=Botania used Update! It's super effective! 
 botania.versioning.flavour31=A new Botania update is available, now 20% cooler.
+botania.versioning.flavour32=Congratulations! You're the 100,000th Botania player with an outdated version, click HERE for a free iPad!
+botania.versioning.flavour33=Before you update your Botania version, would you like to install the ask toolbar?
+botania.versioning.flavour34=She'll be updating 'round the mountain when she comes, (when she updates).
+botania.versioning.flavour35=Would you become a Magical Girl for a Botania Update?
 botania.versioning.outdated=You are running Botania build %s, the latest is build %s.
 botania.versioning.updateMessage=["Click for... [",{"text":"Download","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Click this to automatically download the latest version","color":"green"}},"clickEvent":{"action":"run_command","value":"/botania-download-latest %version%"}},"] [",{"text":"Website","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Click this to go to the mod's website","color":"green"}},"clickEvent":{"action":"open_url","value":"http://vazkii.us/mod/Botania/downloads.php"}},"] [",{"text":"Changelog","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Click this to go to the version's Changelog","color":"green"}},"clickEvent":{"action":"open_url","value":"http://vazkii.us/mod/Botania/changelog.php#%version%"}},"]"]
 botania.versioning.startingDownload=Starting download of %s. Please do not remove your hard disk.
@@ -933,6 +937,19 @@ botania.page.forestDrum2=But if you close your eyes...
 botania.entry.platform=Abstruse Platform
 botania.page.platform0=By laying &1Livingwood&0 on a very specific format it's possible to create a platform of sorts, that only has a physical body for whoever is on top of it and isn't sneaking. For anyone else, it's like it's not there. &4Mana Bursts&0 will always travel through it without any trouble.<br>It's also possible to camouflage this block as any other simple block by simply right clicking it.
 botania.page.platform1=It would be Ethereal but the name was taken
+
+# -- CONJURING WITH MANA
+botania.entry.manaConjuration=Conjuring with Mana
+botania.page.manaConjuration0=Similar to the ability to &4Alchemise with Mana&0, a catalyst also exists for &4Conjuration&0, the magic of materializing resources from magical energy only. The mechanism works in a similar way to the &1Alchemy Catalyst&0 where one tosses an item into the pool with the catalyst below.
+botania.page.manaConjuration1=Creating the catalyst
+botania.page.manaConjuration2=Conjuring &1Redstone&0
+botania.page.manaConjuration3=Conjuring &1Glowstone&0
+botania.page.manaConjuration4=Conjuring &1Quartz&0
+botania.page.manaConjuration5=Conjuring &1Coal&0
+botania.page.manaConjuration6=Conjuring &1Snow&0
+botania.page.manaConjuration7=Conjuring &1Netherrack&0
+botania.page.manaConjuration8=Conjuring &1Soul Sand&0
+botania.page.manaConjuration9=Conjuring &1Gravel&0
 
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
