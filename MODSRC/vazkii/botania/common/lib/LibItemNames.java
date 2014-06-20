@@ -78,6 +78,7 @@ public final class LibItemNames {
 	public static final String SPAWNER_MOVER = "spawnerMover";
 	public static final String PIXIE_RING = "pixieRing";
 	public static final String SUPER_TRAVEL_BELT = "superTravelBelt";
+	public static final String RAINBOW_ROD = "rainbowRod";
 
 	public static final String[] LENS_NAMES = new String[] {
 		"lensNormal",

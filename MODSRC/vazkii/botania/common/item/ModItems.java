@@ -125,6 +125,7 @@ public final class ModItems {
 	public static Item spawnerMover;
 	public static Item pixieRing;
 	public static Item superTravelBelt;
+	public static Item rainbowRod;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -192,6 +193,7 @@ public final class ModItems {
 		spawnerMover = new ItemSpawnerMover();
 		pixieRing = new ItemPixieRing();
 		superTravelBelt = new ItemSuperTravelBelt();
+		rainbowRod = new ItemRainbowRod();
 		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {

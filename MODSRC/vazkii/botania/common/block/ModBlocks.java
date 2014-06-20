@@ -70,6 +70,7 @@ import vazkii.botania.common.block.subtile.generating.SubTileNightshade;
 import vazkii.botania.common.block.subtile.generating.SubTileThermalily;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.block.tile.TileAltar;
+import vazkii.botania.common.block.tile.TileBifrost;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.block.tile.TileForestEye;
 import vazkii.botania.common.block.tile.TileManaBeacon;
@@ -121,6 +122,7 @@ public final class ModBlocks {
 	public static Block alfPortal;
 	public static Block dreamwood;
 	public static Block conjurationCatalyst;
+	public static Block bifrost;
 
 	public static Block livingwoodStairs;
 	public static Block livingwoodSlab;
@@ -191,7 +193,8 @@ public final class ModBlocks {
 		alfPortal = new BlockAlfPortal();
 		dreamwood = new BlockDreamwood();
 		conjurationCatalyst = new BlockConjurationCatalyst();
-
+		bifrost = new BlockBifrost();
+		
 		livingwoodStairs = new BlockLivingwoodStairs();
 		livingwoodSlab = new BlockLivingwoodSlab(false);
 		livingwoodSlabFull = new BlockLivingwoodSlab(true);
@@ -295,6 +298,7 @@ public final class ModBlocks {
 		registerTile(TileForestEye.class, LibBlockNames.FOREST_EYE);
 		registerTile(TilePlatform.class, LibBlockNames.PLATFORM);
 		registerTile(TileAlfPortal.class, LibBlockNames.ALF_PORTAL);
+		registerTile(TileBifrost.class, LibBlockNames.BIFROST);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MANASTAR, SubTileManastar.class);
