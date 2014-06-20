@@ -57,7 +57,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 		int y = supertile.yCoord;
 		int z = supertile.zCoord;
 
-		List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x - range, y - 3, z - range, x + range + 1, y + 3, z + range + 1));
+		List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range + 1, y + range, z + range + 1));
 		for(EntityItem item : items) {
 			if(item.age < 60 || item.isDead)
 				continue;
