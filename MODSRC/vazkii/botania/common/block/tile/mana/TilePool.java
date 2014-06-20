@@ -51,6 +51,7 @@ public class TilePool extends TileMod implements IManaPool {
 
 	boolean outputting = false;
 	public boolean alchemy = false;
+	public boolean conjuration = false;
 
 	public int color = 0;
 	int mana;
@@ -106,7 +107,7 @@ public class TilePool extends TileMod implements IManaPool {
 		}
 
 		for(RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes) {
-			if(recipe.matches(stack) && (!recipe.isAlchemy() || alchemy)) {
+			if(recipe.matches(stack) && (!recipe.isAlchemy() || alchemy) && (!recipe.isConjuration() || conjuration)) {
 				int mana = recipe.getManaToConsume();
 				if(getCurrentMana() >= mana) {
 					recieveMana(-mana);
@@ -158,6 +159,7 @@ public class TilePool extends TileMod implements IManaPool {
 		}
 
 		alchemy = worldObj.getBlock(xCoord, yCoord - 1, zCoord) == ModBlocks.alchemyCatalyst;
+		conjuration = worldObj.getBlock(xCoord, yCoord - 1, zCoord) == ModBlocks.conjurationCatalyst;
 
 		if(craftCooldown > 0)
 			craftCooldown--;

@@ -201,6 +201,17 @@ public final class BotaniaAPI {
 	}
 	
 	/**
+	 * Register a Mana Infusion Recipe and flags it as an Conjuration recipe (requires a
+	 * Conjuration Catalyst below the pool).
+	 * @see BotaniaAPI#registerManaInfusionRecipe
+	 */
+	public static RecipeManaInfusion registerManaConjurationRecipe(ItemStack output, Object input, int mana) {
+		RecipeManaInfusion recipe = registerManaInfusionRecipe(output, input, mana);
+		recipe.setConjuration(true);
+		return recipe;
+	}
+	
+	/**
 	 * Registers a Elven Trade recipe (throw an item in an Alfheim Portal).
 	 * @param output The ItemStack to return.
 	 * @param inputs The items required, can be ItemStack or ore dictionary entry string.

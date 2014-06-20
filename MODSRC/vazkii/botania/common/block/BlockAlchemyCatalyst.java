@@ -29,11 +29,15 @@ public class BlockAlchemyCatalyst extends BlockMod implements ILexiconable {
 	IIcon[] icons;
 
 	public BlockAlchemyCatalyst() {
+		this(LibBlockNames.ALCHEMY_CATALYST);
+	}
+	
+	public BlockAlchemyCatalyst(String name) {
 		super(Material.rock);
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setStepSound(Block.soundTypeStone);
-		setBlockName(LibBlockNames.ALCHEMY_CATALYST);
+		setBlockName(name);
 	}
 
 	@Override

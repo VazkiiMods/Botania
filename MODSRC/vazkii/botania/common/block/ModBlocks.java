@@ -120,7 +120,8 @@ public final class ModBlocks {
 	public static Block platform;
 	public static Block alfPortal;
 	public static Block dreamwood;
-	
+	public static Block conjurationCatalyst;
+
 	public static Block livingwoodStairs;
 	public static Block livingwoodSlab;
 	public static Block livingwoodSlabFull;
@@ -189,7 +190,8 @@ public final class ModBlocks {
 		platform = new BlockPlatform();
 		alfPortal = new BlockAlfPortal();
 		dreamwood = new BlockDreamwood();
-		
+		conjurationCatalyst = new BlockConjurationCatalyst();
+
 		livingwoodStairs = new BlockLivingwoodStairs();
 		livingwoodSlab = new BlockLivingwoodSlab(false);
 		livingwoodSlabFull = new BlockLivingwoodSlab(true);

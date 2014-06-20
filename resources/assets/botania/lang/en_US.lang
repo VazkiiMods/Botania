@@ -263,6 +263,7 @@ tile.botania:dreamwood0Stairs.name=Dreamwood Stairs
 tile.botania:dreamwood0Slab.name=Dreamwood Slab
 tile.botania:dreamwood1Stairs.name=Dreamwood Plank Stairs
 tile.botania:dreamwood1Slab.name=Dreamwood Plank Slab
+tile.botania:conjurationCatalyst.name=Conjuration Catalyst
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower

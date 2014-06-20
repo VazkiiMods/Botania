@@ -41,7 +41,8 @@ public final class LibBlockNames {
 	public static final String PLATFORM = "platform";
 	public static final String ALF_PORTAL = "alfheimPortal";
 	public static final String DREAM_WOOD = "dreamwood";
-	
+	public static final String CONJURATION_CATALYST = "conjurationCatalyst";
+
 	public static final String SPECIAL_FLOWER_PREFIX = FLOWER + ".";
 
 	public static final String SUBTILE_PUREDAISY = "puredaisy";
