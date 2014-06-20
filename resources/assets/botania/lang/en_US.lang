@@ -497,6 +497,7 @@ item.botania:elementiumAxe.name=Elementium Axe
 item.botania:elementiumSword.name=Elementium Sword
 item.botania:elementiumShears.name=Elementium Shears
 item.botania:openBucket.name=Extrapolated Bucket
+item.botania:spawnerMover.name=Life Aggregator
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania, %s Edition's Index - Pick which category you would like to study:

@@ -120,6 +120,7 @@ public final class ModItems {
 	public static Item elementiumSword;
 	public static Item elementiumShears;
 	public static Item openBucket;
+	public static Item spawnerMover;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -184,7 +185,8 @@ public final class ModItems {
 		elementiumSword = new ItemElementiumSword();
 		elementiumShears = new ItemElementiumShears();
 		openBucket = new ItemOpenBucket();
-
+		spawnerMover = new ItemSpawnerMover();
+		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));

@@ -75,6 +75,7 @@ public final class LibItemNames {
 	public static final String ELEMENTIUM_SWORD = "elementiumSword";
 	public static final String ELEMENTIUM_SHEARS = "elementiumShears";
 	public static final String OPEN_BUCKET = "openBucket";
+	public static final String SPAWNER_MOVER = "spawnerMover";
 
 	public static final String[] LENS_NAMES = new String[] {
 		"lensNormal",
