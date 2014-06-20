@@ -498,6 +498,8 @@ item.botania:elementiumSword.name=Elementium Sword
 item.botania:elementiumShears.name=Elementium Shears
 item.botania:openBucket.name=Extrapolated Bucket
 item.botania:spawnerMover.name=Life Aggregator
+item.botania:pixieRing.name=Great Fairy Ring
+item.botania:superTravelBelt.name=Globetrotter's Sash
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania, %s Edition's Index - Pick which category you would like to study:
@@ -1134,6 +1136,17 @@ botania.entry.flightTiara=Flügel Tiara
 botania.page.flightTiara0=The &4Flügel&0 were once a dominant species in the lands, now they're but a race past extinct, once created as godslayers, who possessed the ability of flight.<br>The usage of &1Essence of Eternal Life&0 allows for a small replica of their power, in the form of the &1Flügel Tiara&0, which, at the cost of &4Mana&0 allows for flight.
 botania.page.flightTiara1=Forty thousand books from another world
 
+# -- GREAT FAIRY RING
+botania.entry.pixieRing=Great Fairy Ring
+botania.page.pixieRing0=This ring works alongside the &1Elementium Armor&0, insight in the powers of it is advised before using this ring. When worn, the &1Great Fairy Ring&0 will increase the chance for a &4Pixie&0 to spawn when the wearer is hit, this still holds true case no &1Elementium Armor&0 is equipped.
+botania.page.pixieRing1=We got square heads, big pointy caps
+
+# -- GLOBETROTTER'S SASH
+botania.entry.superTravelBelt=Globetrotter's Sash
+botania.page.superTravelBelt0=The &1Globetrotter's Sash&0 is, in layman's terms, an upgrade to then &1Soujourner's Sash&0, by using &1Essence of Eternal Life&0 and some Elven resources, this new belt allows the wearer to reach incredible speeds to which the &1Soujourner's Sash&0 doesn't stand a chance.
+botania.page.superTravelBelt1=No time for guessing, follow my plan instead
+
+# - ALFHOMANCY
 # -- THE PORTAL TO ALFHEIM
 botania.entry.aIntro=The Portal to Alfheim
 botania.page.aIntro0=Once, in olden times, &4Elves&0 used to share the world with us &4Minecrafters&0. Due to unknown events, they have been banished back to their own world, &4Alfheim&0.<br>Experimentation has been done in atempt to bridge the gap between the two worlds, and means of creating a portal that does just that have been devised.

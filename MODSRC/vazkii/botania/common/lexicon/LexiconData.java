@@ -148,7 +148,9 @@ public final class LexiconData {
 	public static LexiconEntry magnetRing;
 	public static LexiconEntry divaCharm;
 	public static LexiconEntry flightTiara;
-
+	public static LexiconEntry pixieRing;
+	public static LexiconEntry superTravelBelt;
+	
 	public static LexiconEntry alfhomancyIntro;
 	public static LexiconEntry elvenMessage;
 	public static LexiconEntry elvenResources;
@@ -480,6 +482,12 @@ public final class LexiconData {
 		flightTiara = new BLexiconEntry(LibLexicon.BAUBLE_FLIGHT_TIARA, categoryBaubles);
 		flightTiara.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeFlightTiara));
 
+		pixieRing = new ALexiconEntry(LibLexicon.BAUBLE_PIXIE_RING, categoryBaubles);
+		pixieRing.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipePixieRing));
+		
+		superTravelBelt = new ALexiconEntry(LibLexicon.BAUBLE_SUPER_TRAVEL_BELT, categoryBaubles);
+		superTravelBelt.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeSuperTravelBelt));
+		
 		// ALFHOMANCY ENTRIES
 		alfhomancyIntro = new BLexiconEntry(LibLexicon.ALF_INTRO, categoryAlfhomancy);
 		alfhomancyIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCrafingRecipes.recipeAlfPortal), new PageCraftingRecipe("3", ModCrafingRecipes.recipeNaturaPylon),

@@ -23,8 +23,15 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class ItemTravelBelt extends ItemBauble {
 
+	final float speed;
+	
 	public ItemTravelBelt() {
-		super(LibItemNames.TRAVEL_BELT);
+		this(LibItemNames.TRAVEL_BELT, 0.035F);
+	}
+	
+	public ItemTravelBelt(String name, float speed) {
+		super(name);
+		this.speed = speed;
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 
@@ -36,10 +43,11 @@ public class ItemTravelBelt extends ItemBauble {
 	@Override
 	public void onWornTick(ItemStack stack, EntityLivingBase entity) {
 		super.onWornTick(stack, entity);
+		
 		if(entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entity;
 			if((player.onGround || player.capabilities.isFlying) && player.moveForward > 0F)
-				player.moveFlying(0F, 1F, player.capabilities.isFlying ? 0.035F : 0.07F);
+				player.moveFlying(0F, 1F, player.capabilities.isFlying ? speed : speed * 2);
 
 			if(player.isSneaking())
 				player.stepHeight = 0.50001F; // Not 0.5F because that is the default

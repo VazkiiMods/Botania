@@ -40,18 +40,16 @@ public abstract class ItemBauble extends ItemMod implements IBauble {
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		if(!par2World.isRemote) {
-			InventoryBaubles baubles = PlayerHandler.getPlayerBaubles(par3EntityPlayer);
-			for(int i = 0; i < baubles.getSizeInventory(); i++)
-				if(baubles.getStackInSlot(i) == null && baubles.isItemValidForSlot(i, par1ItemStack)) {
-					baubles.setInventorySlotContents(i, par1ItemStack.copy());
-					if(!par3EntityPlayer.capabilities.isCreativeMode)
-						par3EntityPlayer.inventory.setInventorySlotContents(par3EntityPlayer.inventory.currentItem, null);
+		InventoryBaubles baubles = PlayerHandler.getPlayerBaubles(par3EntityPlayer);
+		for(int i = 0; i < baubles.getSizeInventory(); i++)
+			if(baubles.getStackInSlot(i) == null && baubles.isItemValidForSlot(i, par1ItemStack)) {
+				baubles.setInventorySlotContents(i, par1ItemStack.copy());
+				if(!par3EntityPlayer.capabilities.isCreativeMode)
+					par3EntityPlayer.inventory.setInventorySlotContents(par3EntityPlayer.inventory.currentItem, null);
 
-					onEquipped(par1ItemStack, par3EntityPlayer);
-					break;
-				}
-		}
+				onEquipped(par1ItemStack, par3EntityPlayer);
+				break;
+			}
 
 		return par1ItemStack;
 	}
@@ -99,6 +97,7 @@ public abstract class ItemBauble extends ItemMod implements IBauble {
 	public void onEquipped(ItemStack stack, EntityLivingBase player) {
 		if(!player.worldObj.isRemote)
 			player.worldObj.playSoundAtEntity(player, "random.orb", 0.1F, 1.3F);
+
 		onEquippedOrLoadedIntoWorld(stack, player);
 	}
 

@@ -143,6 +143,8 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeOpenBucket;
 	public static IRecipe recipeConjurationCatalyst;
 	public static IRecipe recipeSpawnerMover;
+	public static IRecipe recipePixieRing;
+	public static IRecipe recipeSuperTravelBelt;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -810,6 +812,21 @@ public final class ModCrafingRecipes {
 				'I', LibOreDict.ELEMENTIUM,
 				'D', LibOreDict.DRAGONSTONE);
 		recipeSpawnerMover = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Great Fairy Ring Recipe
+		addOreDictRecipe(new ItemStack(ModItems.pixieRing), 
+				"DE ", "E E", " E ",
+				'D', LibOreDict.PIXIE_DUST,
+				'E', LibOreDict.ELEMENTIUM);
+		recipePixieRing = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Globetrotter's Sash Recipe
+		addOreDictRecipe(new ItemStack(ModItems.superTravelBelt), 
+				"E  ", " S ", "L E",
+				'E', LibOreDict.ELEMENTIUM,
+				'L', LibOreDict.LIFE_ESSENCE,
+				'S', new ItemStack(ModItems.travelBelt));
+		recipeSuperTravelBelt = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

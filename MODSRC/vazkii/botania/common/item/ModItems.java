@@ -38,6 +38,8 @@ import vazkii.botania.common.item.equipment.bauble.ItemLavaPendant;
 import vazkii.botania.common.item.equipment.bauble.ItemMagnetRing;
 import vazkii.botania.common.item.equipment.bauble.ItemManaRing;
 import vazkii.botania.common.item.equipment.bauble.ItemMiningRing;
+import vazkii.botania.common.item.equipment.bauble.ItemPixieRing;
+import vazkii.botania.common.item.equipment.bauble.ItemSuperTravelBelt;
 import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
 import vazkii.botania.common.item.equipment.bauble.ItemTravelBelt;
 import vazkii.botania.common.item.equipment.bauble.ItemWaterRing;
@@ -121,6 +123,8 @@ public final class ModItems {
 	public static Item elementiumShears;
 	public static Item openBucket;
 	public static Item spawnerMover;
+	public static Item pixieRing;
+	public static Item superTravelBelt;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -186,6 +190,8 @@ public final class ModItems {
 		elementiumShears = new ItemElementiumShears();
 		openBucket = new ItemOpenBucket();
 		spawnerMover = new ItemSpawnerMover();
+		pixieRing = new ItemPixieRing();
+		superTravelBelt = new ItemSuperTravelBelt();
 		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {

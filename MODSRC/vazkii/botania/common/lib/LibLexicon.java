@@ -125,6 +125,8 @@ public final class LibLexicon {
 	public static final String BAUBLE_MAGNET_RING = "magnetRing";
 	public static final String BAUBLE_DIVA_CHARM = "divaCharm";
 	public static final String BAUBLE_FLIGHT_TIARA = "flightTiara";
+	public static final String BAUBLE_PIXIE_RING = "pixieRing";
+	public static final String BAUBLE_SUPER_TRAVEL_BELT = "superTravelBelt";
 
 	public static final String ALF_INTRO = "aIntro";
 	public static final String ALF_MESSAGE = "elfMessage";
