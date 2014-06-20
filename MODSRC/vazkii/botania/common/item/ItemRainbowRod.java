@@ -28,7 +28,7 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemRainbowRod extends ItemMod implements IManaUsingItem {
 
 	private static final int MANA_COST = 750;
-	private static final int TIME = 200;
+	private static final int TIME = 300;
 
 	public ItemRainbowRod() {
 		setMaxDamage(TIME);
