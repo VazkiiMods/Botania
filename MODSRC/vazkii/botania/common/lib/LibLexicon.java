@@ -109,6 +109,7 @@ public final class LibLexicon {
 	public static final String TOOL_WATER_ROD = "waterRod";
 	public static final String TOOL_ELF_GEAR = "elfGear";
 	public static final String TOOL_OPEN_BUCKET = "openBucket";
+	public static final String TOOL_SPAWNER_MOVER = "spawnerMover";
 
 	public static final String BAUBLE_INTRO = "bIntro";
 	public static final String BAUBLE_TINY_PLANET = "tinyPlanet";

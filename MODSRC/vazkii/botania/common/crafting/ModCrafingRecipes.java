@@ -142,6 +142,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeElementiumSword;
 	public static IRecipe recipeOpenBucket;
 	public static IRecipe recipeConjurationCatalyst;
+	public static IRecipe recipeSpawnerMover;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -801,6 +802,14 @@ public final class ModCrafingRecipes {
 				'B',LibOreDict.PIXIE_DUST,
 				'P', new ItemStack(ModBlocks.alchemyCatalyst));
 		recipeConjurationCatalyst = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Life Aggregator Recipe
+		addOreDictRecipe(new ItemStack(ModItems.spawnerMover), 
+				"EIE", "IDI", "EIE",
+				'E', LibOreDict.LIFE_ESSENCE,
+				'I', LibOreDict.ELEMENTIUM,
+				'D', LibOreDict.DRAGONSTONE);
+		recipeSpawnerMover = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
