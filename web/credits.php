@@ -13,6 +13,7 @@
 				<font size="6">Botania Credits</font><br>
 				No project is done with only one member, Botania is no exception, here's the cast of people to thank!<br><br>
 				<b>All of my <a href="http://www.patreon.com/Vazkii">Patrons</a> and Donators</b> for being extremely kind as to support me every month with their own income.<br>
+				<b>Adubbz</b> for the Pixie model and render from Biomes O Plenty.<br>
 				<b>Auric245524</b> for the armor textures.<br>
 				<b>Azanor</b> for letting me use his particles from Thaumcraft and for making the Baubles API.<br>
 				<b>ChickenBones</b> for the lightning effects from WRCBE.<br>
@@ -24,6 +25,7 @@
 				<b>MCPBot</b> for always being there for my obfuscation woes.<br>
 				<b>MegaManki</b> for the mod's logo.<br>
 				<b>Pokefenn</b> for the Hydroangeas and breaking all the things, every single time.<br>
+				<b>PowerCrystals</b> for the code for the spawner mover.<br>
 				<b>Rorax</b> for the Pylon model.<br>
 				<b>ScottWears</b> for hosting my website<br>
 				<b>The TConstruct and OpenBlocks teams</b> for code snippets I took from their repositories.<br>
