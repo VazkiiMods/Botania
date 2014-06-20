@@ -11,6 +11,11 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockConjurationCatalyst extends BlockAlchemyCatalyst {
@@ -19,4 +24,8 @@ public class BlockConjurationCatalyst extends BlockAlchemyCatalyst {
 		super(LibBlockNames.CONJURATION_CATALYST);
 	}
 	
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return LexiconData.conjurationCatalyst;
+	}
 }
