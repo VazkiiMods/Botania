@@ -47,7 +47,7 @@ public class ItemFertilizer extends ItemMod {
 					}
 				}
 
-			int flowerCount = Math.min(validCoords.size(), par3World.rand.nextBoolean() ? 2 : 3);
+			int flowerCount = Math.min(validCoords.size(), par3World.rand.nextBoolean() ? 3 : 4);
 			for(int i = 0; i < flowerCount; i++) {
 				ChunkCoordinates coords = validCoords.get(par3World.rand.nextInt(validCoords.size()));
 				validCoords.remove(coords);
