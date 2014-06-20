@@ -146,6 +146,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipePixieRing;
 	public static IRecipe recipeSuperTravelBelt;
 	public static IRecipe recipeRainbowRod;
+	public static IRecipe recipeSpectralPlatform;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -687,7 +688,7 @@ public final class ModCrafingRecipes {
 			addShapelessOreDictRecipe(new ItemStack(ModBlocks.shinyFlower, 1, i), new ItemStack(Items.glowstone_dust), new ItemStack(Items.glowstone_dust), LibOreDict.FLOWER[i]);
 		recipesShinyFlowers = BotaniaAPI.getLatestAddedRecipes(16);
 
-		// Abtruse Platform Recipe
+		// Abstruse Platform Recipe
 		GameRegistry.addRecipe(new ItemStack(ModBlocks.platform),
 				"343", "0 0",
 				'0', new ItemStack(ModBlocks.livingwood, 0, 0),
@@ -836,6 +837,14 @@ public final class ModCrafingRecipes {
 				'E', LibOreDict.ELEMENTIUM,
 				'D', LibOreDict.DRAGONSTONE);
 		recipeRainbowRod = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Spectral Platform Recipe
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.platform, 1, 1),
+				"343", "0 0",
+				'0', new ItemStack(ModBlocks.dreamwood, 0, 0),
+				'3', new ItemStack(ModBlocks.dreamwood, 0, 3),
+				'4', new ItemStack(ModBlocks.dreamwood, 0, 4));
+		recipeSpectralPlatform = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

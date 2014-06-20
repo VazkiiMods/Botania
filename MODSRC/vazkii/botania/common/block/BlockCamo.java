@@ -138,7 +138,7 @@ public abstract class BlockCamo extends BlockModContainer<TileCamo> {
 	}
 
 	public IIcon getIconFromSideAfterCheck(TileEntity tile, int meta, int side) {
-		return blockIcon;
+		return getIcon(side, meta);
 	}
 
 }

@@ -118,7 +118,8 @@ public final class LexiconData {
 	public static LexiconEntry forestDrum;
 	public static LexiconEntry platform;
 	public static LexiconEntry conjurationCatalyst;
-
+	public static LexiconEntry spectralPlatform;
+	
 	public static LexiconEntry manaBlaster;
 	public static LexiconEntry grassSeeds;
 	public static LexiconEntry dirtRod;
@@ -391,7 +392,8 @@ public final class LexiconData {
 		conjurationCatalyst.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeConjurationCatalyst), new PageManaInfusionRecipe("2", ModManaConjurationRecipes.redstoneRecipe), new PageManaInfusionRecipe("3", ModManaConjurationRecipes.glowstoneRecipe), new PageManaInfusionRecipe("4", ModManaConjurationRecipes.quartzRecipe), 
 		new PageManaInfusionRecipe("5", ModManaConjurationRecipes.coalRecipe), new PageManaInfusionRecipe("6", ModManaConjurationRecipes.snowballRecipe), new PageManaInfusionRecipe("7", ModManaConjurationRecipes.netherrackRecipe), new PageManaInfusionRecipe("8", ModManaConjurationRecipes.soulSandRecipe), new PageManaInfusionRecipe("9", ModManaConjurationRecipes.gravelRecipe));
 		
-		
+		spectralPlatform = new ALexiconEntry(LibLexicon.DEVICE_SPECTRAL_PLATFORM, categoryDevices);
+		spectralPlatform.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeSpectralPlatform));
 		
 		// TOOLS ENTRIES
 		manaBlaster = new BLexiconEntry(LibLexicon.TOOL_MANA_BLASTER, categoryTools);

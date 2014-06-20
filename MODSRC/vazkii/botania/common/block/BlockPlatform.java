@@ -15,20 +15,29 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.tile.TileCamo;
 import vazkii.botania.common.block.tile.TilePlatform;
+import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class BlockPlatform extends BlockCamo implements ILexiconable {
 
+	IIcon[] icons;
+	
 	public BlockPlatform() {
 		super(Material.wood);
 		setHardness(2.0F);
@@ -36,10 +45,44 @@ public class BlockPlatform extends BlockCamo implements ILexiconable {
 		setStepSound(Block.soundTypeWood);
 		setBlockName(LibBlockNames.PLATFORM);
 	}
+	
+	@Override
+	protected boolean shouldRegisterInNameSet() {
+		return false;
+	}
+	
+	@Override
+	public int damageDropped(int par1) {
+		return par1;
+	}
 
 	@Override
+	public Block setBlockName(String par1Str) {
+		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
+		return super.setBlockName(par1Str);
+	}
+
+	@Override
+	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
+		for(int i = 0; i < 2; i++)
+			par3List.add(new ItemStack(par1, 1, i));
+	}
+
+	@Override
+	public void registerBlockIcons(IIconRegister par1IconRegister) {
+		icons = new IIcon[2];
+		for(int i = 0; i < 2; i++)
+			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
+	}
+
+	@Override
+	public IIcon getIcon(int par1, int par2) {
+		return icons[Math.min(2 - 1, par2)];
+	}
+	
+	@Override
 	public void addCollisionBoxesToList(World par1World, int par2, int par3, int par4, AxisAlignedBB par5AxisAlignedBB, List par6List, Entity par7Entity) {
-		if(par7Entity != null && par7Entity.posY > par3 + (par7Entity instanceof EntityPlayer ? 2 : 0) && (!(par7Entity instanceof EntityPlayer) || !par7Entity.isSneaking()))
+		if(par1World.getBlockMetadata(par2, par3, par4) == 0 && par7Entity != null && par7Entity.posY > par3 + (par7Entity instanceof EntityPlayer ? 2 : 0) && (!(par7Entity instanceof EntityPlayer) || !par7Entity.isSneaking()))
 			super.addCollisionBoxesToList(par1World, par2, par3, par4, par5AxisAlignedBB, par6List, par7Entity);
 	}
 
@@ -50,7 +93,7 @@ public class BlockPlatform extends BlockCamo implements ILexiconable {
 
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
-		return LexiconData.platform;
+		return world.getBlockMetadata(x, y, z) == 0 ? LexiconData.platform : LexiconData.spectralPlatform;
 	}
 
 }

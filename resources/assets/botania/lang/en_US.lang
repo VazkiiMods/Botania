@@ -222,7 +222,8 @@ tile.botania:shinyFlower12.name=Glimmering Brown Flower
 tile.botania:shinyFlower13.name=Glimmering Green Flower
 tile.botania:shinyFlower14.name=Glimmering Red Flower
 tile.botania:shinyFlower15.name=Glimmering Black Flower
-tile.botania:platform.name=Abstruse Platform
+tile.botania:platform0.name=Abstruse Platform
+tile.botania:platform1.name=Spectral Platform
 tile.botania:alfheimPortal.name=Elven Gateway Core
 tile.botania:blockDarkQuartz.name=Block of Smokey Quartz
 tile.botania:chiseledDarkQuartz.name=Chiseled Smokey Quartz Block
@@ -954,6 +955,11 @@ botania.page.manaConjuration6=Conjuring &1Snow&0
 botania.page.manaConjuration7=Conjuring &1Netherrack&0
 botania.page.manaConjuration8=Conjuring &1Soul Sand&0
 botania.page.manaConjuration9=Conjuring &1Gravel&0
+
+# -- SPECTRAL PLATFORM
+botania.entry.spectralPlatform=Spectral Platform
+botania.page.spectralPlatform0=The &1Spectral Platform&0 isn't more than an &1Abstruse Platform&0 with no physical body whatsoever. Whereas the &1Abstruse Platform&0 would have a physical body in some cases, the &1Spectral Platform&0 lets anything go through it, regardless of their position.
+botania.page.spectralPlatform1=This reminds me of a Puzzle
 
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
