@@ -45,6 +45,7 @@ import vazkii.botania.common.block.subtile.SubTilePureDaisy;
 import vazkii.botania.common.block.subtile.functional.SubTileAgricarnation;
 import vazkii.botania.common.block.subtile.functional.SubTileBellethorn;
 import vazkii.botania.common.block.subtile.functional.SubTileClayconia;
+import vazkii.botania.common.block.subtile.functional.SubTileDaffomill;
 import vazkii.botania.common.block.subtile.functional.SubTileDreadthorn;
 import vazkii.botania.common.block.subtile.functional.SubTileExoflame;
 import vazkii.botania.common.block.subtile.functional.SubTileFallenKanade;
@@ -330,6 +331,7 @@ public final class ModBlocks {
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_POLLIDISIAC, SubTilePollidisiac.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_CLAYCONIA, SubTileClayconia.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_LOONIUM, SubTileLoonuim.class);
+		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_DAFFOMILL, SubTileDaffomill.class);
 	}
 
 	private static void registerTile(Class<? extends TileEntity> clazz, String key) {

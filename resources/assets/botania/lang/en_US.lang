@@ -336,6 +336,8 @@ tile.botania:flower.clayconia.name=Clayconia
 tile.botania:flower.clayconia.reference=Rupees not included
 tile.botania:flower.loonium.name=Loonium
 tile.botania:flower.loonium.reference=Hold it up above your head
+tile.botania:flower.daffomill.name=Daffomill
+tile.botania:flower.daffomill.reference=Cook's Assistant
 
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania
