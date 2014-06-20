@@ -77,6 +77,7 @@ public final class LexiconData {
 	public static LexiconEntry compositeLens;
 	public static LexiconEntry redstoneSpreader;
 	public static LexiconEntry manastar;
+	public static LexiconEntry dreamwoodSpreader;
 
 	public static LexiconEntry functionalIntro;
 	public static LexiconEntry jadedAmaranthus;
@@ -265,6 +266,9 @@ public final class LexiconData {
 		manastar = new BLexiconEntry(LibLexicon.MANA_MANASTAR, categoryMana);
 		manastar.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.manastarRecipe));
 
+		dreamwoodSpreader = new ALexiconEntry(LibLexicon.MANA_DREAMWOOD_SPREADER, categoryMana);
+		dreamwoodSpreader.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipesDreamwoodSpreader));
+		
 		// FUNCTIONAL FLOWERS ENTRIES
 		functionalIntro = new BLexiconEntry(LibLexicon.FFLOWER_INTRO, categoryFunctionalFlowers);
 		functionalIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageText("3"), new PageCraftingRecipe("4", ModCrafingRecipes.recipeRedstoneRoot));

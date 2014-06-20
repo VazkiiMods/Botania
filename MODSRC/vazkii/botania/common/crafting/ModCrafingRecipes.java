@@ -147,6 +147,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeSuperTravelBelt;
 	public static IRecipe recipeRainbowRod;
 	public static IRecipe recipeSpectralPlatform;
+	public static List<IRecipe> recipesDreamwoodSpreader;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -845,6 +846,15 @@ public final class ModCrafingRecipes {
 				'3', new ItemStack(ModBlocks.dreamwood, 0, 3),
 				'4', new ItemStack(ModBlocks.dreamwood, 0, 4));
 		recipeSpectralPlatform = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Elven Mana Spreader Recipes
+		for(int i = 0; i < 16; i++)
+			addOreDictRecipe(new ItemStack(ModBlocks.spreader, 1, 2),
+					"WWW", "EP ", "WWW",
+					'W', LibOreDict.DREAM_WOOD,
+					'P', LibOreDict.MANA_PETAL[i],
+					'E', LibOreDict.ELEMENTIUM);
+		recipesDreamwoodSpreader = BotaniaAPI.getLatestAddedRecipes(16);
 		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

@@ -55,6 +55,7 @@ public final class LibResources {
 	public static final String MODEL_ALTAR = PREFIX_MODEL + "altar.png";
 	public static final String MODEL_SPREADER = PREFIX_MODEL + "spreader.png";
 	public static final String MODEL_SPREADER_REDSTONE = PREFIX_MODEL + "spreaderRedstone.png";
+	public static final String MODEL_SPREADER_DREAMWOOD = PREFIX_MODEL + "spreaderDreamwood.png";
 	public static final String MODEL_POOL = PREFIX_MODEL + "pool.png";
 	public static final String MODEL_INFINITE_POOL = PREFIX_MODEL + "infinitePool.png";
 	public static final String MODEL_PYLON_OLD = PREFIX_MODEL + "pylonOld.png";

@@ -31,6 +31,7 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_SPREADER);
 	private static final ResourceLocation textureRs = new ResourceLocation(LibResources.MODEL_SPREADER_REDSTONE);
+	private static final ResourceLocation textureDw = new ResourceLocation(LibResources.MODEL_SPREADER_DREAMWOOD);
 
 	private static final ModelSpreader model = new ModelSpreader();
 
@@ -48,7 +49,7 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer {
 		GL11.glRotatef(spreader.rotationY, 1F, 0F, 0F);
 		GL11.glTranslatef(0F, 1F, 0F);
 
-		Minecraft.getMinecraft().renderEngine.bindTexture(spreader.isRedstone() ? textureRs : texture);
+		Minecraft.getMinecraft().renderEngine.bindTexture(spreader.isRedstone() ? textureRs : spreader.isDreamwood() ? textureDw : texture);
 		GL11.glScalef(1F, -1F, -1F);
 		model.render();
 		GL11.glScalef(1F, -1F, -1F);

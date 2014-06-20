@@ -77,7 +77,7 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 
 	@Override
 	public void getSubBlocks(Item par1, CreativeTabs par2, List par3) {
-		for(int i = 0; i < 2; i++)
+		for(int i = 0; i < 3; i++)
 			par3.add(new ItemStack(par1, 1, i));
 	}
 
@@ -85,7 +85,7 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 	public void onBlockPlacedBy(World par1World, int par2, int par3, int par4, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack) {
 		int orientation = BlockPistonBase.determineOrientation(par1World, par2, par3, par4, par5EntityLivingBase);
 		TileSpreader spreader = (TileSpreader) par1World.getTileEntity(par2, par3, par4);
-		par1World.setBlockMetadataWithNotify(par2, par3, par4, par6ItemStack.getItemDamage() & 1, 1 | 2);
+		par1World.setBlockMetadataWithNotify(par2, par3, par4, par6ItemStack.getItemDamage(), 1 | 2);
 
 		switch(orientation) {
 		case 0:
@@ -217,7 +217,7 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		int meta = world.getBlockMetadata(x, y, z);
-		return meta == 0 ? LexiconData.spreader : LexiconData.redstoneSpreader;
+		return meta == 0 ? LexiconData.spreader : meta == 1 ? LexiconData.redstoneSpreader : LexiconData.dreamwoodSpreader;
 	}
 
 	@Override

@@ -68,6 +68,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	private static final String TAG_FORCE_CLIENT_BINDING_Z = "forceClientBindingZ";
 
 	public static boolean staticRedstone = false;
+	public static boolean staticDreamwood = false;
 
 	int mana;
 	int knownMana = -1;
@@ -301,7 +302,11 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	public boolean isRedstone() {
-		return worldObj == null ? staticRedstone : (getBlockMetadata() & 1) == 1;
+		return worldObj == null ? staticRedstone : getBlockMetadata() == 1;
+	}
+	
+	public boolean isDreamwood() {
+		return worldObj == null ? staticDreamwood : getBlockMetadata() == 2;
 	}
 
 	public void checkForReceiver() {
@@ -318,11 +323,12 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	public EntityManaBurst getBurst(boolean fake) {
 		EntityManaBurst burst = new EntityManaBurst(this, fake);
 
-		int maxMana = 160;
-		int color = isRedstone() ? 0xFF2020 : 0x20FF20;
-		int ticksBeforeManaLoss = 60;
+		boolean dreamwood = isDreamwood();
+		int maxMana = dreamwood ? 240 : 160;
+		int color = isRedstone() ? 0xFF2020 : dreamwood ? 0xFF45C4 : 0x20FF20;
+		int ticksBeforeManaLoss = dreamwood ? 80 : 60;
 		float manaLossPerTick = 4F;
-		float motionModifier = 1F;
+		float motionModifier = dreamwood ? 1.25F : 1F;
 		float gravity = 0F;
 		BurstProperties props = new BurstProperties(maxMana, ticksBeforeManaLoss, manaLossPerTick, gravity, motionModifier, color);
 
@@ -370,7 +376,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		String name = StatCollector.translateToLocal(new ItemStack(ModBlocks.spreader, 1, getBlockMetadata()).getUnlocalizedName().replaceAll("tile.", "tile." + LibResources.PREFIX_MOD) + ".name");
-		int color = isRedstone() ? 0x66FF0000 : 0x6600FF00;
+		int color = isRedstone() ? 0x66FF0000 : isDreamwood() ? 0x66FF00AE :  0x6600FF00;
 		HUDHandler.drawSimpleManaHUD(color, knownMana, MAX_MANA, name, res);
 
 		ItemStack lens = getStackInSlot(0);

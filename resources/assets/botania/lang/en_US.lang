@@ -155,6 +155,7 @@ tile.botania:livingwood4.name=Pattern Framed Livingwood
 tile.botania:livingwood5.name=Glimmering Livingwood
 tile.botania:spreader0.name=Mana Spreader
 tile.botania:spreader1.name=Redstone Mana Spreader
+tile.botania:spreader2.name=Elven Mana Spreader
 tile.botania:pool0.name=Mana Pool
 tile.botania:pool1.name=The Everlasting Guilty Pool
 tile.botania:runeAltar.name=Runic Altar
@@ -714,6 +715,11 @@ botania.page.redstoneSpreader1=Just add redstone
 botania.entry.manastar=Manastar
 botania.page.manastar0=The imprecise measurements of the &1Wand of the Forest&0 sometimes won't cut it for telling if you're turning a profit or loss in your &1Mana Pools&0.<br>Creating a &1Manastar&0 and placing it next to your pools will have it shine red if there's a loss or blue if there's a profit. The measurement happens every few seconds.
 botania.page.manastar1=&rI'm a shooting star leaping through the skies&r.
+
+# -- ELVEN MANA SPREADER
+botania.entry.dreamwoodSpreader=Elven Mana Spreader
+botania.page.dreamwoodSpreader0=Simply put, &1Dreamwood&0 conducts &4Mana&0 better than &1Livingwood&0. Add in some adjustments like &1Elementium&0 or &1Mana Petals&0 and what you get is a &1Mana Spreader&0 that can conduct more &4Mana&0, faster and for more time without &4Mana loss&0.<br>On the negative side, it can't be turned into a &1Redstone Mana Spreader&0.
+botania.page.dreamwoodSpreader1=Better spreaders, that's it
 
 # - FUNCTIONAL FLOWERS
 # -- AN INTRODUCTION TO FUNCTION
