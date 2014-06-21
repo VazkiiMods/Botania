@@ -1,3 +1,7 @@
+r1.1 60
+*Fixed Dreamwood variants not being craftable, which in turn prevented the Spectral Platform from being craftable too.
+*Fixed the Elementium Shears dropping ghost wool items.
+*Some small accuracy changes to the letter entry, because I no English.
 r1.1 59
 *Fixed Daffomill entry typo.
 *Fixed posh quartz variants (chiseled, pillar) not being craftable.
