@@ -24,7 +24,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibItemNames;
@@ -33,25 +32,25 @@ public class ItemSpawnerMover extends ItemMod {
 
 	public static final String TAG_SPAWNER = "spawner";
 	private static final String TAG_PLACE_DELAY = "placeDelay";
-	
+
 	IIcon iconNormal, iconSpawner;
-	
+
 	public ItemSpawnerMover() {
 		setUnlocalizedName(LibItemNames.SPAWNER_MOVER);
 		setMaxStackSize(1);
 	}
-	
+
 	@Override
 	public void registerIcons(IIconRegister par1IconRegister) {
 		iconNormal = IconHelper.forItem(par1IconRegister, this, 0);
 		iconSpawner = IconHelper.forItem(par1IconRegister, this, 1);
 	}
-	
+
 	@Override
 	public IIcon getIcon(ItemStack stack, int pass) {
 		return getIconIndex(stack);
 	}
-	
+
 	@Override
 	public IIcon getIconIndex(ItemStack par1ItemStack) {
 		return hasData(par1ItemStack) ? iconSpawner : iconNormal;
@@ -65,7 +64,7 @@ public class ItemSpawnerMover extends ItemMod {
 			if(tag.hasKey("EntityId"))
 				return tag;
 		}
-		
+
 		return null;
 	}
 
@@ -73,7 +72,7 @@ public class ItemSpawnerMover extends ItemMod {
 		NBTTagCompound tag = getSpawnerTag(stack);
 		if(tag != null)
 			return tag.getString("EntityId");
-		
+
 		return null;
 	}
 
@@ -172,7 +171,7 @@ public class ItemSpawnerMover extends ItemMod {
 				player.renderBrokenItemStack(itemstack);
 				for(int i = 0; i < 60; i++)
 					Botania.proxy.sparkleFX(world, x + Math.random(), y + Math.random(), z + Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.45F + 0.2F * (float) Math.random(), 6);
-				
+
 				--itemstack.stackSize;
 			}
 
@@ -199,7 +198,7 @@ public class ItemSpawnerMover extends ItemMod {
 			te.readFromNBT(tag);
 			world.markBlockForUpdate(x, y, z);
 		}
-		
+
 		return true;
 	}
 }

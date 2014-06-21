@@ -67,20 +67,20 @@ public class RenderLexicon implements IItemRenderer {
 			boolean bevo = Minecraft.getMinecraft().thePlayer.getCommandSenderName().equals("BevoLJ");
 			String title = ModItems.lexicon.getItemStackDisplayName(null);
 			String origTitle = title;
-			
+
 			if(Minecraft.getMinecraft().thePlayer.getCurrentEquippedItem() != null)
 				title = Minecraft.getMinecraft().thePlayer.getCurrentEquippedItem().getDisplayName();
 			if(title.equals(origTitle) && bevo)
 				title = StatCollector.translateToLocal("item.botania:lexicon.bevo");
-			
+
 			font.drawString(font.trimStringToWidth(title, 80), 0, 0, 0xD69700);
 			GL11.glTranslatef(0F, 10F, 0F);
 			GL11.glScalef(0.6F, 0.6F, 0.6F);
 			font.drawString(EnumChatFormatting.ITALIC + "" + EnumChatFormatting.BOLD + String.format(StatCollector.translateToLocal("botaniamisc.edition"), ItemLexicon.getEdition()), 0, 0, 0xA07100);
-			
+
 			GL11.glTranslatef(0F, 15F, 0F);
 			font.drawString(StatCollector.translateToLocal("botaniamisc.lexiconcover0"), 0, 0, 0x79ff92);
-			
+
 			GL11.glTranslatef(0F, 10F, 0F);
 			font.drawString(EnumChatFormatting.UNDERLINE + StatCollector.translateToLocal("botaniamisc.lexiconcover1"), 0, 0, 0x79ff92);
 
@@ -90,7 +90,7 @@ public class RenderLexicon implements IItemRenderer {
 			GL11.glTranslatef(5F, -0.3F, 0F);
 			font.drawString(EnumChatFormatting.BOLD + "~", 0, 0, 0x002206);
 			GL11.glPopMatrix();
-			
+
 			GL11.glTranslatef(0F, 25F, 0F);
 			font.drawString(StatCollector.translateToLocal("botaniamisc.lexiconcover2"), 0, 0, 0x79ff92);
 			GL11.glTranslatef(0F, 10F, 0F);
@@ -99,7 +99,7 @@ public class RenderLexicon implements IItemRenderer {
 				GL11.glTranslatef(0F, 10F, 0F);
 				font.drawString(StatCollector.translateToLocal("botaniamisc.lexiconcover4"), 0, 0, 0x79ff92);
 			}
-		}		
+		}
 
 		GL11.glPopMatrix();
 	}

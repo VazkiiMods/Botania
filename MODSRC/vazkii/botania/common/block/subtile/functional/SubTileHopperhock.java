@@ -122,7 +122,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 				if(filterEntry == null)
 					continue;
 				anyFilter = true;
-				
+
 				if(stack.isItemEqual(filterEntry) && ItemStack.areItemStackTagsEqual(filterEntry, stack))
 					return true;
 			}

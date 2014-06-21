@@ -13,7 +13,7 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor implements 
 	public ItemElementiumArmor(int type, String name) {
 		super(type, name, BotaniaAPI.elementiumArmorMaterial);
 	}
-	
+
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
 		return slot == 2 ? LibResources.MODEL_ELEMENTIUM_1 : LibResources.MODEL_ELEMENTIUM_0;

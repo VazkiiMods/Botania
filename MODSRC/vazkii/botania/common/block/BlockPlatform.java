@@ -37,7 +37,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class BlockPlatform extends BlockCamo implements ILexiconable {
 
 	IIcon[] icons;
-	
+
 	public BlockPlatform() {
 		super(Material.wood);
 		setHardness(2.0F);
@@ -45,12 +45,12 @@ public class BlockPlatform extends BlockCamo implements ILexiconable {
 		setStepSound(Block.soundTypeWood);
 		setBlockName(LibBlockNames.PLATFORM);
 	}
-	
+
 	@Override
 	protected boolean shouldRegisterInNameSet() {
 		return false;
 	}
-	
+
 	@Override
 	public int damageDropped(int par1) {
 		return par1;
@@ -79,7 +79,7 @@ public class BlockPlatform extends BlockCamo implements ILexiconable {
 	public IIcon getIcon(int par1, int par2) {
 		return icons[Math.min(2 - 1, par2)];
 	}
-	
+
 	@Override
 	public void addCollisionBoxesToList(World par1World, int par2, int par3, int par4, AxisAlignedBB par5AxisAlignedBB, List par6List, Entity par7Entity) {
 		if(par1World.getBlockMetadata(par2, par3, par4) == 0 && par7Entity != null && par7Entity.posY > par3 + (par7Entity instanceof EntityPlayer ? 2 : 0) && (!(par7Entity instanceof EntityPlayer) || !par7Entity.isSneaking()))

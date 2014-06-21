@@ -14,7 +14,6 @@ package vazkii.botania.common.item;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -35,24 +34,24 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem {
 		setUnlocalizedName(LibItemNames.RAINBOW_ROD);
 		setMaxStackSize(1);
 	}
-	
+
 	@Override
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
 		if(!par2World.isRemote && par1ItemStack.getItemDamage() == 0 && ManaItemHandler.requestManaExact(par1ItemStack, par3EntityPlayer, MANA_COST, false)) {
 			Block place = ModBlocks.bifrost;
 			Vector3 vector = new Vector3(par3EntityPlayer.getLookVec()).normalize();
-			
+
 			double x = par3EntityPlayer.posX;
 			double y = par3EntityPlayer.posY;
 			double z = par3EntityPlayer.posZ;
-			
+
 			double lx = 0;
 			double ly = -1;
 			double lz = 0;
-			
+
 			int count = 0;
-			
-			while(count < 100 && (((int) lx == (int) x && (int) ly == (int) y && (int) lz == (int) z) || par2World.getBlock((int) x, (int) y, (int) z).isAir(par2World, (int) x, (int) y, (int) z)) || par2World.getBlock((int) x, (int) y, (int) z) == place) {
+
+			while(count < 100 && ((int) lx == (int) x && (int) ly == (int) y && (int) lz == (int) z || par2World.getBlock((int) x, (int) y, (int) z).isAir(par2World, (int) x, (int) y, (int) z)) || par2World.getBlock((int) x, (int) y, (int) z) == place) {
 				for(int i = -2; i < 1; i++)
 					for(int j = -2; j < 1; j++)
 						if(par2World.getBlock((int) x + i, (int) y, (int) z + j).isAir(par2World, (int) x + i, (int) y, (int) z + j) || par2World.getBlock((int) x + i, (int) y, (int) z + j) == place) {
@@ -62,33 +61,33 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem {
 								Botania.proxy.sparkleFX(par2World, tile.xCoord + Math.random(), tile.yCoord + Math.random(), tile.zCoord + Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.45F + 0.2F * (float) Math.random(), 6);
 							tile.ticks = TIME;
 						}
-				
+
 				lx = x;
 				ly = y;
 				lz = z;
-				
+
 				x += vector.x;
 				y += vector.y;
 				z += vector.z;
 				count++;
 			}
-			
+
 			if(count > 0) {
 				par2World.playSoundAtEntity(par3EntityPlayer, "random.levelup", 0.5F, 0.25F);
 				ManaItemHandler.requestManaExact(par1ItemStack, par3EntityPlayer, MANA_COST, false);
 				par1ItemStack.setItemDamage(TIME);
 			}
 		}
-		
+
 		return par1ItemStack;
 	}
-	
+
 	@Override
 	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
 		if(par1ItemStack.isItemDamaged())
 			par1ItemStack.setItemDamage(par1ItemStack.getItemDamage() - 1);
 	}
-	
+
 	@Override
 	public boolean isFull3D() {
 		return true;
@@ -98,5 +97,5 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem {
 	public boolean usesMana(ItemStack stack) {
 		return true;
 	}
-	
+
 }

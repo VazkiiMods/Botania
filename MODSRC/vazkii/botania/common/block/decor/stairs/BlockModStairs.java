@@ -1,6 +1,5 @@
 package vazkii.botania.common.block.decor.stairs;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -8,10 +7,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartz;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockMod;
 import vazkii.botania.common.lexicon.LexiconData;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class BlockModStairs extends BlockStairs implements ILexiconable {
 
@@ -31,5 +30,5 @@ public class BlockModStairs extends BlockStairs implements ILexiconable {
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.decorativeBlocks;
 	}
-	
+
 }

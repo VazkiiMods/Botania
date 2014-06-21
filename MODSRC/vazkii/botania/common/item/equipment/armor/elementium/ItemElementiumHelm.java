@@ -13,5 +13,5 @@ public class ItemElementiumHelm extends ItemElementiumArmor {
 	public float getPixieChance(ItemStack stack) {
 		return 5F / (25F / 24F) * 1.5F;
 	}
-	
+
 }

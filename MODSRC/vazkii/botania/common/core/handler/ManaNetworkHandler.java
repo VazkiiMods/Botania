@@ -69,7 +69,7 @@ public final class ManaNetworkHandler implements IManaNetwork {
 		for(TileSignature sig : tiles) {
 			if(sig.remoteWorld != remoteCheck)
 				continue;
-			
+
 			TileEntity tile = sig.tile;
 			float distance = MathHelper.pointDistanceSpace(tile.xCoord, tile.yCoord, tile.zCoord, pos.posX, pos.posY, pos.posZ);
 			if(distance > limit)
@@ -127,6 +127,6 @@ public final class ManaNetworkHandler implements IManaNetwork {
 
 		return map.get(world);
 	}
-	
+
 
 }

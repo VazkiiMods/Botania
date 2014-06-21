@@ -733,24 +733,24 @@ public final class ModCrafingRecipes {
 		recipeRedQuartz = addQuartzRecipes(4, Items.redstone, ModBlocks.redQuartz, ModBlocks.redQuartzStairs, ModBlocks.redQuartzSlab);
 
 		// Alfheim Portal Recipe
-		addOreDictRecipe(new ItemStack(ModBlocks.alfPortal), 
+		addOreDictRecipe(new ItemStack(ModBlocks.alfPortal),
 				"WWW", "WTW", "WWW",
 				'W', LibOreDict.LIVING_WOOD,
 				'T', LibOreDict.TERRA_STEEL);
 		recipeAlfPortal = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Natura Pylon Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModBlocks.pylon, 1, 1), ModBlocks.pylon, LibOreDict.LIFE_ESSENCE, LibOreDict.LIFE_ESSENCE);
 		recipeNaturaPylon = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Rod of the Seas Recipe
-		addOreDictRecipe(new ItemStack(ModItems.waterRod), 
+		addOreDictRecipe(new ItemStack(ModItems.waterRod),
 				"  B", " T ", "R  ",
 				'B', new ItemStack(Items.potionitem),
 				'T', LibOreDict.LIVINGWOOD_TWIG,
 				'R', LibOreDict.RUNE[0]);
 		recipeWaterRod = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Elementium Armor & Tools Recipes
 		addOreDictRecipe(new ItemStack(ModItems.elementiumHelm),
 				"SSS", "S S",
@@ -792,9 +792,9 @@ public final class ModCrafingRecipes {
 				"S ", " S",
 				'S', LibOreDict.ELEMENTIUM);
 		recipeElementiumShears = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Extrapolated Bucket Recipe
-		addOreDictRecipe(new ItemStack(ModItems.openBucket), 
+		addOreDictRecipe(new ItemStack(ModItems.openBucket),
 				"E E", " E ",
 				'E', LibOreDict.ELEMENTIUM);
 		recipeOpenBucket = BotaniaAPI.getLatestAddedRecipe();
@@ -807,38 +807,38 @@ public final class ModCrafingRecipes {
 				'B',LibOreDict.PIXIE_DUST,
 				'P', new ItemStack(ModBlocks.alchemyCatalyst));
 		recipeConjurationCatalyst = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Life Aggregator Recipe
-		addOreDictRecipe(new ItemStack(ModItems.spawnerMover), 
+		addOreDictRecipe(new ItemStack(ModItems.spawnerMover),
 				"EIE", "IDI", "EIE",
 				'E', LibOreDict.LIFE_ESSENCE,
 				'I', LibOreDict.ELEMENTIUM,
 				'D', LibOreDict.DRAGONSTONE);
 		recipeSpawnerMover = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Great Fairy Ring Recipe
-		addOreDictRecipe(new ItemStack(ModItems.pixieRing), 
+		addOreDictRecipe(new ItemStack(ModItems.pixieRing),
 				"DE ", "E E", " E ",
 				'D', LibOreDict.PIXIE_DUST,
 				'E', LibOreDict.ELEMENTIUM);
 		recipePixieRing = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Globetrotter's Sash Recipe
-		addOreDictRecipe(new ItemStack(ModItems.superTravelBelt), 
+		addOreDictRecipe(new ItemStack(ModItems.superTravelBelt),
 				"E  ", " S ", "L E",
 				'E', LibOreDict.ELEMENTIUM,
 				'L', LibOreDict.LIFE_ESSENCE,
 				'S', new ItemStack(ModItems.travelBelt));
 		recipeSuperTravelBelt = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Rod of Bifrost Recipe
-		addOreDictRecipe(new ItemStack(ModItems.rainbowRod), 
+		addOreDictRecipe(new ItemStack(ModItems.rainbowRod),
 				" PD", " EP", "E  ",
 				'P', LibOreDict.PIXIE_DUST,
 				'E', LibOreDict.ELEMENTIUM,
 				'D', LibOreDict.DRAGONSTONE);
 		recipeRainbowRod = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Spectral Platform Recipe
 		GameRegistry.addRecipe(new ItemStack(ModBlocks.platform, 1, 1),
 				"343", "0 0",
@@ -846,7 +846,7 @@ public final class ModCrafingRecipes {
 				'3', new ItemStack(ModBlocks.dreamwood, 0, 3),
 				'4', new ItemStack(ModBlocks.dreamwood, 0, 4));
 		recipeSpectralPlatform = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Elven Mana Spreader Recipes
 		for(int i = 0; i < 16; i++)
 			addOreDictRecipe(new ItemStack(ModBlocks.spreader, 1, 2),
@@ -855,7 +855,7 @@ public final class ModCrafingRecipes {
 					'P', LibOreDict.MANA_PETAL[i],
 					'E', LibOreDict.ELEMENTIUM);
 		recipesDreamwoodSpreader = BotaniaAPI.getLatestAddedRecipes(16);
-		
+
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",
@@ -878,7 +878,7 @@ public final class ModCrafingRecipes {
 		addStairsAndSlabs(ModBlocks.dreamwood, 0, ModBlocks.dreamwoodStairs, ModBlocks.dreamwoodSlab);
 		addStairsAndSlabs(ModBlocks.dreamwood, 1, ModBlocks.dreamwoodPlankStairs, ModBlocks.dreamwoodPlankSlab);
 	}
-	
+
 	private static void addStairsAndSlabs(Block block, int meta, Block stairs, Block slab) {
 		GameRegistry.addRecipe(new ItemStack(slab, 6),
 				"QQQ",

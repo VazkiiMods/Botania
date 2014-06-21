@@ -12,7 +12,6 @@
 package vazkii.botania.common.item;
 
 import java.awt.Color;
-import java.util.List;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;

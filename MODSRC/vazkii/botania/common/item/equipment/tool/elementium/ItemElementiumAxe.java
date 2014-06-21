@@ -2,7 +2,6 @@ package vazkii.botania.common.item.equipment.tool.elementium;
 
 import java.util.Random;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.item.EntityItem;
@@ -26,10 +25,10 @@ public class ItemElementiumAxe extends ItemManasteelAxe {
 		super(BotaniaAPI.elementiumToolMaterial, LibItemNames.ELEMENTIUM_AXE);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
-	
+
 	// Thanks to SpitefulFox for the drop rates
 	// https://github.com/SpitefulFox/ForbiddenMagic/blob/master/src/com/spiteful/forbidden/FMEventHandler.java
-	
+
 	@SubscribeEvent
 	public void onEntityDrops(LivingDropsEvent event) {
 		if(event.recentlyHit && event.source.getEntity() != null && event.source.getEntity() instanceof EntityPlayer) {
@@ -37,14 +36,14 @@ public class ItemElementiumAxe extends ItemManasteelAxe {
 			if(weapon != null && weapon.getItem() == this) {
 				Random rand = event.entity.worldObj.rand;
 				int looting = EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, weapon);
-				
-				if(event.entityLiving instanceof EntitySkeleton && rand.nextInt(26) <= (3 + looting))
+
+				if(event.entityLiving instanceof EntitySkeleton && rand.nextInt(26) <= 3 + looting)
 					addDrop(event, new ItemStack(Items.skull, 1, ((EntitySkeleton)event.entityLiving).getSkeletonType()));
-				else if(event.entityLiving instanceof EntityZombie && rand.nextInt(26) <= (2 + 2 * looting))
+				else if(event.entityLiving instanceof EntityZombie && rand.nextInt(26) <= 2 + 2 * looting)
 					addDrop(event, new ItemStack(Items.skull, 1, 2));
-				else if(event.entityLiving instanceof EntityCreeper && rand.nextInt(26) <= (2 + 2 * looting))
+				else if(event.entityLiving instanceof EntityCreeper && rand.nextInt(26) <= 2 + 2 * looting)
 					addDrop(event, new ItemStack(Items.skull, 1, 4));
-				else if(event.entityLiving instanceof EntityPlayer && rand.nextInt(11) <= (1 + looting)) {
+				else if(event.entityLiving instanceof EntityPlayer && rand.nextInt(11) <= 1 + looting) {
 					ItemStack head = new ItemStack(Items.skull, 1, 3);
 					NBTTagCompound nametag = new NBTTagCompound();
 					nametag.setString("SkullOwner", ((EntityPlayer)event.entityLiving).getCommandSenderName());
@@ -54,11 +53,11 @@ public class ItemElementiumAxe extends ItemManasteelAxe {
 			}
 		}
 	}
-	
+
 	private void addDrop(LivingDropsEvent event, ItemStack drop) {
 		EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, drop);
 		entityitem.delayBeforeCanPickup = 10;
 		event.drops.add(entityitem);
 	}
-	
+
 }

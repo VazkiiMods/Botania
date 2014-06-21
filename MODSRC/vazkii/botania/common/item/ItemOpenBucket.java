@@ -11,18 +11,12 @@
  */
 package vazkii.botania.common.item;
 
-import vazkii.botania.common.lib.LibItemNames;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.FillBucketEvent;
-import cpw.mods.fml.common.eventhandler.Event;
+import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemOpenBucket extends ItemMod {
 
@@ -30,7 +24,7 @@ public class ItemOpenBucket extends ItemMod {
 		setMaxStackSize(1);
 		setUnlocalizedName(LibItemNames.OPEN_BUCKET);
 	}
-	
+
 	@Override
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
 		MovingObjectPosition movingobjectposition = getMovingObjectPositionFromPlayer(par2World, par3EntityPlayer, true);

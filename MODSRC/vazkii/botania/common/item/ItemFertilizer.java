@@ -20,7 +20,6 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.entity.EntityPixie;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemFertilizer extends ItemMod {

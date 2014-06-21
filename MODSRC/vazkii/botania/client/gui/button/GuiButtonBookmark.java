@@ -13,11 +13,11 @@ import vazkii.botania.client.gui.GuiLexicon;
 public class GuiButtonBookmark extends GuiButton {
 
 	GuiLexicon gui = new GuiLexicon();
-	
+
 	public GuiButtonBookmark(int par1, int par2, int par3, GuiLexicon gui, String str) {
 		super(par1, par2, par3, gui.bookmarkWidth(str) + 5, 11, str);
 	}
-	
+
 	@Override
 	public void drawButton(Minecraft mc, int par2, int par3) {
 		gui.drawBookmark(xPosition, yPosition, displayString, false);
@@ -32,7 +32,7 @@ public class GuiButtonBookmark extends GuiButton {
 			tooltip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("botaniamisc.clickToSee"));
 			tooltip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("botaniamisc.shiftToRemove"));
 		}
-		
+
 		int tooltipY = (tooltip.size() + 1) * 5;
 		if(k == 2)
 			RenderHelper.renderTooltip(par2, par3 + tooltipY, tooltip);

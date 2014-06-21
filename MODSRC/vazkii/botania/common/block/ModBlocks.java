@@ -195,7 +195,7 @@ public final class ModBlocks {
 		dreamwood = new BlockDreamwood();
 		conjurationCatalyst = new BlockConjurationCatalyst();
 		bifrost = new BlockBifrost();
-		
+
 		livingwoodStairs = new BlockLivingwoodStairs();
 		livingwoodSlab = new BlockLivingwoodSlab(false);
 		livingwoodSlabFull = new BlockLivingwoodSlab(true);
@@ -214,14 +214,14 @@ public final class ModBlocks {
 		dreamwoodPlankStairs = new BlockDreamwoodPlankStairs();
 		dreamwoodPlankSlab = new BlockDreamwoodPlankSlab(false);
 		dreamwoodPlankSlabFull = new BlockDreamwoodPlankSlab(true);
-		
+
 		if(ConfigHandler.darkQuartzEnabled) {
 			darkQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_DARK);
 			darkQuartzSlab = new BlockSpecialQuartzSlab(darkQuartz, false);
 			darkQuartzSlabFull = new BlockSpecialQuartzSlab(darkQuartz, true);
 			darkQuartzStairs = new BlockSpecialQuartzStairs(darkQuartz);
 		}
-		
+
 		manaQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_MANA);
 		manaQuartzSlab = new BlockSpecialQuartzSlab(manaQuartz, false);
 		manaQuartzSlabFull = new BlockSpecialQuartzSlab(manaQuartz, true);
@@ -251,7 +251,7 @@ public final class ModBlocks {
 		((BlockModSlab) lavenderQuartzSlabFull).register();
 		((BlockModSlab) redQuartzSlab).register();
 		((BlockModSlab) redQuartzSlabFull).register();
-		
+
 		((BlockModSlab) livingwoodSlab).register();
 		((BlockModSlab) livingwoodSlabFull).register();
 		((BlockModSlab) livingwoodPlankSlab).register();
@@ -264,7 +264,7 @@ public final class ModBlocks {
 		((BlockModSlab) dreamwoodSlabFull).register();
 		((BlockModSlab) dreamwoodPlankSlab).register();
 		((BlockModSlab) dreamwoodPlankSlabFull).register();
-		
+
 		for(int i = 0; i < 16; i++)
 			OreDictionary.registerOre(LibOreDict.FLOWER[i], new ItemStack(flower, 1, i));
 

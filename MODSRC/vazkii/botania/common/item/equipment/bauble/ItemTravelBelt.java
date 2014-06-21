@@ -24,11 +24,11 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 public class ItemTravelBelt extends ItemBauble {
 
 	final float speed;
-	
+
 	public ItemTravelBelt() {
 		this(LibItemNames.TRAVEL_BELT, 0.035F);
 	}
-	
+
 	public ItemTravelBelt(String name, float speed) {
 		super(name);
 		this.speed = speed;
@@ -43,7 +43,7 @@ public class ItemTravelBelt extends ItemBauble {
 	@Override
 	public void onWornTick(ItemStack stack, EntityLivingBase entity) {
 		super.onWornTick(stack, entity);
-		
+
 		if(entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entity;
 			if((player.onGround || player.capabilities.isFlying) && player.moveForward > 0F)

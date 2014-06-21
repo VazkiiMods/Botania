@@ -2,29 +2,27 @@ package vazkii.botania.common.block.decor.slabs;
 
 import java.util.Random;
 
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockModSlab;
 import vazkii.botania.common.lexicon.LexiconData;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class BlockModSlab extends BlockSlab implements ILexiconable {
 
 	String name;
-	
+
 	public BlockModSlab(boolean full, Material mat, String name) {
 		super(full, mat);
 		this.name = name;
@@ -34,7 +32,7 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable {
 			setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		}
 	}
-	
+
 	public abstract BlockSlab getFullBlock();
 
 	public abstract BlockSlab getSingleBlock();
@@ -59,7 +57,7 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable {
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		// NO-OP
 	}
-	
+
 	public void register() {
 		GameRegistry.registerBlock(this, ItemBlockModSlab.class, name);
 	}

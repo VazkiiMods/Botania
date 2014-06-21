@@ -40,7 +40,7 @@ public class BlockLivingwood extends BlockMod implements ILexiconable {
 	public BlockLivingwood() {
 		this(LibBlockNames.LIVING_WOOD);
 	}
-	
+
 	public BlockLivingwood(String name) {
 		super(Material.wood);
 		setHardness(2.0F);
@@ -52,7 +52,7 @@ public class BlockLivingwood extends BlockMod implements ILexiconable {
 	protected boolean shouldRegisterInNameSet() {
 		return false;
 	}
-	
+
 	@Override
 	public int damageDropped(int par1) {
 		return par1;
@@ -63,11 +63,11 @@ public class BlockLivingwood extends BlockMod implements ILexiconable {
 		register(par1Str);
 		return super.setBlockName(par1Str);
 	}
-	
+
 	void register(String name) {
 		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, name);
 	}
-	
+
 	@Override
 	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
 		for(int i = 0; i < TYPES; i++)

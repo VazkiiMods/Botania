@@ -44,7 +44,7 @@ public class ItemManasteelShears extends ItemShears implements IManaUsingItem {
 	public ItemManasteelShears() {
 		this(LibItemNames.MANASTEEL_SHEARS);
 	}
-	
+
 	public ItemManasteelShears(String name) {
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setUnlocalizedName(name);

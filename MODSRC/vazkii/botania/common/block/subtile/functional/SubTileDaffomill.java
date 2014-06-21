@@ -31,20 +31,20 @@ public class SubTileDaffomill extends SubTileFunctional {
 
 	int windTicks = 0;
 	int orientation = 0;
-	
+
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		
+
 		ForgeDirection dir = ForgeDirection.getOrientation(orientation + 2);
 		if(supertile.getWorldObj().rand.nextInt(4) == 0)
 			Botania.proxy.wispFX(supertile.getWorldObj(), supertile.xCoord + Math.random(), supertile.yCoord + Math.random(), supertile.zCoord + Math.random(), 0.05F, 0.05F, 0.05F, 0.25F + (float) Math.random() * 0.15F, dir.offsetX * 0.1F, dir.offsetY * 0.1F, dir.offsetZ * 0.1F);
-	
+
 		if(windTicks == 0 && mana > 0) {
 			windTicks = 20;
 			mana--;
 		}
-		
+
 		if(windTicks > 0 && redstoneSignal == 0) {
 			int x = supertile.xCoord;
 			int y = supertile.yCoord;
@@ -52,35 +52,35 @@ public class SubTileDaffomill extends SubTileFunctional {
 			int w = 2;
 			int h = 3;
 			int l = 16;
-			
+
 			AxisAlignedBB axis = null;
 			switch(orientation) {
-				case 0 : 
-					axis = AxisAlignedBB.getBoundingBox(x - w, y - h, z - l, x + w + 1, y + h, z);
-					break;
-				case 1 :
-					axis = AxisAlignedBB.getBoundingBox(x - w, y - h, z + 1, x + w + 1, y + h, z + l + 1);
-					break;
-				case 2 :
-					axis = AxisAlignedBB.getBoundingBox(x - l, y - h, z - w, x, y + h, z + w + 1);
-					break;
-				case 3 :
-					axis = AxisAlignedBB.getBoundingBox(x + 1, y - h, z - w, x + l + 1, y + h, z + w + 1);
+			case 0 :
+				axis = AxisAlignedBB.getBoundingBox(x - w, y - h, z - l, x + w + 1, y + h, z);
+				break;
+			case 1 :
+				axis = AxisAlignedBB.getBoundingBox(x - w, y - h, z + 1, x + w + 1, y + h, z + l + 1);
+				break;
+			case 2 :
+				axis = AxisAlignedBB.getBoundingBox(x - l, y - h, z - w, x, y + h, z + w + 1);
+				break;
+			case 3 :
+				axis = AxisAlignedBB.getBoundingBox(x + 1, y - h, z - w, x + l + 1, y + h, z + w + 1);
 			}
-			
+
 			if(axis != null) {
 				List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, axis);
 				for(EntityItem item : items) {
-					item.motionX += (double) dir.offsetX * 0.05;
-					item.motionY += (double) dir.offsetY * 0.05;
-					item.motionZ += (double) dir.offsetZ * 0.05;
+					item.motionX += dir.offsetX * 0.05;
+					item.motionY += dir.offsetY * 0.05;
+					item.motionZ += dir.offsetZ * 0.05;
 				}
 			}
-			
+
 			windTicks--;
 		}
 	}
-	
+
 	@Override
 	public boolean onWanded(EntityPlayer player, ItemStack wand) {
 		if(player == null)
@@ -94,36 +94,36 @@ public class SubTileDaffomill extends SubTileFunctional {
 		}
 		else return super.onWanded(player, wand);
 	}
-	
+
 	@Override
 	public int getColor() {
 		return 0xD8BA00;
 	}
-	
+
 	@Override
 	public int getMaxMana() {
 		return 100;
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry() {
 		return LexiconData.daffomill;
 	}
-	
+
 	@Override
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		super.writeToPacketNBT(cmp);
-		
+
 		cmp.setInteger(TAG_ORIENTATION, orientation);
 		cmp.setInteger(TAG_WIND_TICKS, windTicks);
 	}
-	
+
 	@Override
 	public void readFromPacketNBT(NBTTagCompound cmp) {
 		super.readFromPacketNBT(cmp);
-		
+
 		orientation = cmp.getInteger(TAG_ORIENTATION);
 		windTicks = cmp.getInteger(TAG_WIND_TICKS);
 	}
-	
+
 }

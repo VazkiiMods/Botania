@@ -16,7 +16,6 @@ import java.awt.Color;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -53,7 +52,7 @@ public class SubTileGenerating extends SubTileEntity {
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		
+
 		linkCollector();
 
 		if(canGeneratePassively()) {

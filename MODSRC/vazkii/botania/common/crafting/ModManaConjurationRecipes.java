@@ -38,5 +38,5 @@ public class ModManaConjurationRecipes {
 		soulSandRecipe = BotaniaAPI.registerManaConjurationRecipe(new ItemStack(Blocks.soul_sand, 2), new ItemStack(Blocks.soul_sand), 1500);
 		gravelRecipe = BotaniaAPI.registerManaConjurationRecipe(new ItemStack(Blocks.gravel, 2), new ItemStack(Blocks.gravel), 720);
 	}
-	
+
 }

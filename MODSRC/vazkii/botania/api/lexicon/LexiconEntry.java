@@ -15,15 +15,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.Botania;
 import net.minecraft.util.StatCollector;
+import vazkii.botania.api.BotaniaAPI;
 
 public class LexiconEntry implements Comparable<LexiconEntry> {
 
 	public final String unlocalizedName;
 	public final LexiconCategory category;
-	
+
 	private KnowledgeType type = BotaniaAPI.basicKnowledge;
 
 	public List<LexiconPage> pages = new ArrayList<LexiconPage>();
@@ -44,7 +43,7 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 		priority = true;
 		return this;
 	}
-	
+
 	/**
 	 * Sets the Knowledge type of this entry.
 	 */
@@ -52,7 +51,7 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 		this.type = type;
 		return this;
 	}
-	
+
 	public KnowledgeType getKnowledgeType() {
 		return type;
 	}

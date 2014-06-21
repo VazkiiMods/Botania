@@ -19,19 +19,15 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.wand.ICoordBoundItem;
-import vazkii.botania.api.wand.ITileBound;
 import vazkii.botania.api.wand.IWireframeAABBProvider;
-import vazkii.botania.common.item.ItemTwigWand;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public final class BoundTileRenderer {

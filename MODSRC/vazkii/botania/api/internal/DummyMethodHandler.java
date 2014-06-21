@@ -78,7 +78,7 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	public LexiconPage manaInfusionRecipePage(String key, RecipeManaInfusion recipe) {
 		return dummyPage(key);
 	}
-	
+
 	@Override
 	public LexiconPage elvenTradePage(String key, List<RecipeElvenTrade> recipes) {
 		return dummyPage(key);

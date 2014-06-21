@@ -70,7 +70,7 @@ public class BlockRuneAltar extends BlockModContainer implements IWandable, ILex
 		if(par5EntityPlayer.isSneaking()) {
 			TileRuneAltar altar = (TileRuneAltar) par1World.getTileEntity(par2, par3, par4);
 
-			if(altar.manaToGet == 0)			
+			if(altar.manaToGet == 0)
 				for(int i = altar.getSizeInventory() - 1; i >= 0; i--) {
 					ItemStack stackAt = altar.getStackInSlot(i);
 					if(stackAt != null) {

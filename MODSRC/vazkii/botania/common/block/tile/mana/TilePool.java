@@ -94,7 +94,7 @@ public class TilePool extends TileMod implements IManaPool {
 		ItemStack stack = item.getEntityItem();
 		if(stack == null)
 			return false;
-		
+
 		if(stack.getItem() == ModItems.dye && !worldObj.isRemote) {
 			int meta = stack.getItemDamage();
 			if(meta != color) {

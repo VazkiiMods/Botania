@@ -23,7 +23,7 @@ public class BlockConjurationCatalyst extends BlockAlchemyCatalyst {
 	public BlockConjurationCatalyst() {
 		super(LibBlockNames.CONJURATION_CATALYST);
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.conjurationCatalyst;

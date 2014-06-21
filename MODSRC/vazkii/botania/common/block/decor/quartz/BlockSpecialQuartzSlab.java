@@ -26,9 +26,7 @@ import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.slabs.BlockModSlab;
-import vazkii.botania.common.item.block.ItemBlockModSlab;
 import vazkii.botania.common.lexicon.LexiconData;
-import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

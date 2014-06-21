@@ -11,23 +11,19 @@
  */
 package vazkii.botania.common.entity;
 
-import vazkii.botania.common.Botania;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.MathHelper;
-import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
+import vazkii.botania.common.Botania;
 
 public class EntityPixie extends EntityFlyingCreature {
 
 	EntityPlayer player = null;
 	float damage = 0;
-	
+
 	public EntityPixie(World world) {
-		super(world); 
+		super(world);
 		setSize(1.0F, 1.0F);
 	}
 
@@ -36,7 +32,7 @@ public class EntityPixie extends EntityFlyingCreature {
 		this.player = player;
 		this.damage = damage;
 	}
-	
+
 	@Override
 	protected void updateEntityActionState() {
 		EntityLivingBase target = getAttackTarget();
@@ -59,7 +55,7 @@ public class EntityPixie extends EntityFlyingCreature {
 				die();
 			}
 		}
-		
+
 		renderYawOffset = rotationYaw = -((float)Math.atan2(motionX, motionZ)) * 180.0F / (float)Math.PI;
 	}
 
@@ -77,7 +73,7 @@ public class EntityPixie extends EntityFlyingCreature {
 
 	public void die() {
 		setDead();
-		
+
 		if(worldObj.isRemote)
 			for(int i = 0; i < 12; i++)
 				Botania.proxy.sparkleFX(worldObj, posX + (Math.random() - 0.5) * 0.25, posY + 0.5  + (Math.random() - 0.5) * 0.25, posZ + (Math.random() - 0.5) * 0.25, 1F, 0.25F, 0.9F, 1F + (float) Math.random() * 0.25F, 5);

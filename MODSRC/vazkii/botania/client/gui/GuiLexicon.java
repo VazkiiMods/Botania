@@ -66,7 +66,7 @@ public class GuiLexicon extends GuiScreen {
 				buttonList.add(new GuiButtonInvisible(i, left + x, top + y, 110, 10, ""));
 			}
 			populateIndex();
-		}			
+		}
 		populateBookmarks();
 	}
 
@@ -89,7 +89,7 @@ public class GuiLexicon extends GuiScreen {
 			populateBookmarks();
 			bookmarksNeedPopulation = false;
 		}
-		
+
 		super.drawScreen(par1, par2, par3);
 	}
 
@@ -100,12 +100,12 @@ public class GuiLexicon extends GuiScreen {
 		font.setUnicodeFlag(true);
 		int l = font.getStringWidth(s.trim());
 		int fontOff = 0;
-		
+
 		if(!drawLeft) {
 			x += l / 2;
 			fontOff = 2;
 		}
-		
+
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 
 		GL11.glColor4f(1F, 1F, 1F, 1F);
@@ -128,7 +128,7 @@ public class GuiLexicon extends GuiScreen {
 
 	@Override
 	protected void actionPerformed(GuiButton par1GuiButton) {
-		if(par1GuiButton.id >= BOOKMARK_START) 
+		if(par1GuiButton.id >= BOOKMARK_START)
 			handleBookmark(par1GuiButton);
 		else {
 			int i = par1GuiButton.id - 3;
@@ -163,10 +163,10 @@ public class GuiLexicon extends GuiScreen {
 				}
 			}
 		}
-		
+
 		bookmarksNeedPopulation = true;
 	}
-	
+
 	@Override
 	public boolean doesGuiPauseGame() {
 		return false;
@@ -215,13 +215,13 @@ public class GuiLexicon extends GuiScreen {
 			if(button.id >= BOOKMARK_START)
 				remove.add(button);
 		buttonList.removeAll(remove);
-		
+
 		int len = bookmarks.size();
 		boolean thisExists = false;
 		for(GuiLexicon lex : bookmarks)
 			if(lex.getTitle().equals(getTitle()))
 				thisExists = true;
-		
+
 		boolean addEnabled = len < 10 && this instanceof IParented && !thisExists;
 		for(int i = 0; i < len + (addEnabled ? 1 : 0); i++) {
 			boolean isAdd = i == bookmarks.size();

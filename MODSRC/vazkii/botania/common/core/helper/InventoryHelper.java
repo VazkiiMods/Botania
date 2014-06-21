@@ -11,13 +11,11 @@
  */
 package vazkii.botania.common.core.helper;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import vazkii.botania.common.block.tile.TileSimpleInventory;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -125,7 +123,7 @@ public class InventoryHelper {
 
 		int itemSizeCounter = item.stackSize;
 		int[] availableSlots = new int[0];
-		
+
 		if(inventory instanceof ISidedInventory)
 			availableSlots = ((ISidedInventory) inventory).getAccessibleSlotsFromSide(side.ordinal());
 		else {
@@ -133,11 +131,11 @@ public class InventoryHelper {
 			for(int i = 0; i < slotCount; i++)
 				availableSlots[i] = i;
 		}
-		
+
 		for(int i : availableSlots) {
 			if(itemSizeCounter <= 0)
 				break;
-			
+
 			if (!inventory.isItemValidForSlot(i, item))
 				continue;
 
@@ -153,7 +151,7 @@ public class InventoryHelper {
 				itemSizeCounter -= Math.min(itemSizeCounter, space);
 			}
 		}
-		
+
 		if(itemSizeCounter != item.stackSize) {
 			itemSizeCounter = Math.max(itemSizeCounter, 0);
 			return item.stackSize - itemSizeCounter;

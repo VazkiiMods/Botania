@@ -194,7 +194,7 @@ public final class ModItems {
 		pixieRing = new ItemPixieRing();
 		superTravelBelt = new ItemSuperTravelBelt();
 		rainbowRod = new ItemRainbowRod();
-		
+
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));

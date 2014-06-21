@@ -14,8 +14,6 @@ package vazkii.botania.common.item;
 import java.awt.Color;
 import java.util.List;
 
-import org.lwjgl.Sys;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -90,11 +88,11 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 					rotation = (float) (diffVec.angle(rotVec) * 180F / Math.PI);
 					if(par5 < boundSpreader.posY)
 						rotation = -rotation;
-					
+
 					float rotationYTick = rotation / ticks;
 					spreader.tickRotationY = rotationYTick;
 				}
-				
+
 				par3World.markBlockForUpdate(boundSpreader.posX, boundSpreader.posY, boundSpreader.posZ);
 				return true;
 			} else setBoundSpreader(par1ItemStack, 0, -1, 0);

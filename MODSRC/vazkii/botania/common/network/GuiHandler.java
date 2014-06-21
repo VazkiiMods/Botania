@@ -29,12 +29,12 @@ public class GuiHandler implements IGuiHandler {
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		switch(ID) {
 		case LibGuiIDs.LEXICON : {
-				GuiLexicon lex = GuiLexicon.currentOpenLexicon;
-				lex.stackUsed = player.getCurrentEquippedItem();
-				if(lex.stackUsed == null || !(lex.stackUsed.getItem() instanceof ILexicon))
-					return null;
-				return lex;
-			}
+			GuiLexicon lex = GuiLexicon.currentOpenLexicon;
+			GuiLexicon.stackUsed = player.getCurrentEquippedItem();
+			if(GuiLexicon.stackUsed == null || !(GuiLexicon.stackUsed.getItem() instanceof ILexicon))
+				return null;
+			return lex;
+		}
 		}
 
 		return null;

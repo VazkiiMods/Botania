@@ -12,7 +12,6 @@
 package vazkii.botania.test;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import vazkii.botania.common.block.ModBlocks;
 
@@ -43,8 +42,6 @@ public class WorldTreeGenerator {
 
 	public void generateRing(int yoff, int radius) {
 		Block block = ModBlocks.dreamwood;
-		Block leaves = Blocks.leaves2;
-
 		y = yoff;
 
 		for(int i = 0; i < 720; i++) {

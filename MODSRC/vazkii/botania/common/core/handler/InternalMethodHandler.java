@@ -108,7 +108,7 @@ public class InternalMethodHandler implements IInternalMethodHandler {
 	public LexiconPage elvenTradesPage(String key, RecipeElvenTrade recipe) {
 		return new PageElvenRecipe(key, recipe);
 	}
-	
+
 	@Override
 	public ItemStack getSubTileAsStack(String subTile) {
 		return ItemBlockSpecialFlower.ofType(subTile);

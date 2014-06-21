@@ -21,7 +21,6 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -85,13 +84,13 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 				}
 			}
 		} else {
-			if(stack != null && (stack.getItem() == Items.water_bucket || (stack.getItem() == ModItems.waterRod && ManaItemHandler.requestManaExact(stack, par5EntityPlayer, ItemWaterRod.COST, false)))) {
+			if(stack != null && (stack.getItem() == Items.water_bucket || stack.getItem() == ModItems.waterRod && ManaItemHandler.requestManaExact(stack, par5EntityPlayer, ItemWaterRod.COST, false))) {
 				if(!tile.hasWater) {
 					if(stack.getItem() == ModItems.waterRod)
 						ManaItemHandler.requestManaExact(stack, par5EntityPlayer, ItemWaterRod.COST, true);
 					else if(!par5EntityPlayer.capabilities.isCreativeMode)
 						par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, new ItemStack(Items.bucket));
-					
+
 					tile.hasWater = true;
 					par1World.func_147453_f(par2, par3, par4, this);
 					par1World.markBlockForUpdate(par2, par3, par4);

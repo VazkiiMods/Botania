@@ -1,10 +1,8 @@
 package vazkii.botania.common.block;
 
-import net.minecraft.block.Block;
-import cpw.mods.fml.common.registry.GameRegistry;
 import vazkii.botania.common.item.block.ItemBlockDreamwood;
-import vazkii.botania.common.item.block.ItemBlockPool;
 import vazkii.botania.common.lib.LibBlockNames;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class BlockDreamwood extends BlockLivingwood {
 

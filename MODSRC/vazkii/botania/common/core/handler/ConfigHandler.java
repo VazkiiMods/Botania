@@ -91,7 +91,7 @@ public final class ConfigHandler {
 
 		desc = "Set to false to disable the Smokey Quartz blocks. This config option is here for those using Thaumic Tinkerer";
 		darkQuartzEnabled = loadPropBool("darkQuartz.enabled", desc, darkQuartzEnabled);
-		
+
 		desc = "The quanity of flower patches to generate in the world, defaults to 3, the lower the number the less patches geenrate.";
 		flowerQuantity = loadPropInt("worldgen.flower.quantity", desc, 3);
 

@@ -62,5 +62,5 @@ public class ItemDirtRod extends ItemMod implements IManaUsingItem {
 	public boolean usesMana(ItemStack stack) {
 		return true;
 	}
-	
+
 }

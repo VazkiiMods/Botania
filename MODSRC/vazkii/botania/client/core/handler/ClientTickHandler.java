@@ -56,7 +56,7 @@ public class ClientTickHandler {
 						for(TileSignature sig : list) {
 							if(!sig.remoteWorld)
 								continue;
-							
+
 							TileEntity tile = sig.tile;
 							if(tile instanceof IManaCollector)
 								((IManaCollector) tile).onClientDisplayTick();

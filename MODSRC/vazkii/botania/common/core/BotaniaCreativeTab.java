@@ -86,7 +86,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.signalFlare);
 
 		addBlock(ModBlocks.dreamwood);
-		
+
 		addBlock(ModBlocks.livingwoodStairs);
 		addBlock(ModBlocks.livingwoodSlab);
 		addBlock(ModBlocks.livingwoodPlankStairs);
@@ -99,7 +99,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.dreamwoodSlab);
 		addBlock(ModBlocks.dreamwoodPlankStairs);
 		addBlock(ModBlocks.dreamwoodPlankSlab);
-		
+
 		addItem(ModItems.quartz);
 		if(ConfigHandler.darkQuartzEnabled) {
 			addBlock(ModBlocks.darkQuartz);
@@ -145,7 +145,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.elementiumChest);
 		addItem(ModItems.elementiumLegs);
 		addItem(ModItems.elementiumBoots);
-		
+
 		addItem(ModItems.tinyPlanet);
 		addBlock(ModBlocks.tinyPlanet);
 		addItem(ModItems.manaRing);

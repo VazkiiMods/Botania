@@ -15,9 +15,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Facing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.common.block.tile.TileBifrost;
@@ -43,12 +41,12 @@ public class BlockBifrost extends BlockModContainer {
 		return false;
 	}
 
-    public boolean shouldSideBeRendered1(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int p_149646_5_) {
-        Block block = p_149646_1_.getBlock(p_149646_2_, p_149646_3_, p_149646_4_);
+	public boolean shouldSideBeRendered1(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int p_149646_5_) {
+		Block block = p_149646_1_.getBlock(p_149646_2_, p_149646_3_, p_149646_4_);
 
-        return block == this ? false : super.shouldSideBeRendered(p_149646_1_, p_149646_2_, p_149646_3_, p_149646_4_, p_149646_5_);
-    }
-	
+		return block == this ? false : super.shouldSideBeRendered(p_149646_1_, p_149646_2_, p_149646_3_, p_149646_4_, p_149646_5_);
+	}
+
 	@Override
 	public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int p_149646_5_) {
 		return shouldSideBeRendered1(p_149646_1_, p_149646_2_, p_149646_3_, p_149646_4_, 1 - p_149646_5_);

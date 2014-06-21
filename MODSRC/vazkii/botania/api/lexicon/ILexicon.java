@@ -12,10 +12,10 @@ public interface ILexicon {
 	 * BotaniaAPI.
 	 */
 	public boolean isKnowledgeUnlocked(ItemStack stack, KnowledgeType knowledge);
-	
+
 	/**
 	 * Unlocks a specfic type of knowledge.
 	 */
 	public void unlockKnowledge(ItemStack stack, KnowledgeType knowledge);
-	
+
 }

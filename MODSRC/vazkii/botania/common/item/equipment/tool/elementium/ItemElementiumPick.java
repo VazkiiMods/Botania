@@ -15,7 +15,9 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class ItemElementiumPick extends ItemManasteelPick {
 
-	static final List<Block> validBlocks = new ArrayList() {{
+	static final List<Block> validBlocks = new ArrayList() {private static final long serialVersionUID = 2265395319423142758L;
+
+	{
 		add(Blocks.dirt);
 		add(Blocks.sand);
 		add(Blocks.gravel);

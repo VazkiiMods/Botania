@@ -17,7 +17,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class EntityFlyingCreature extends EntityAmbientCreature {
-	
+
 	public EntityFlyingCreature(World par1World) {
 		super(par1World);
 	}

@@ -50,7 +50,7 @@ public final class BotaniaAPI {
 	private static List<LexiconEntry> allEntries = new ArrayList<LexiconEntry>();
 
 	public static Map<String, KnowledgeType> knowledgeTypes = new HashMap<String, KnowledgeType>();
-	
+
 	public static List<RecipePetals> petalRecipes = new ArrayList<RecipePetals>();
 	public static List<RecipeRuneAltar> runeAltarRecipes = new ArrayList<RecipeRuneAltar>();
 	public static List<RecipeManaInfusion> manaInfusionRecipes = new ArrayList<RecipeManaInfusion>();
@@ -68,12 +68,12 @@ public final class BotaniaAPI {
 
 	public static ArmorMaterial elementiumArmorMaterial = EnumHelper.addArmorMaterial("B_ELEMENTIUM", 18, new int[] { 2, 6, 5, 2 }, 18);
 	public static ToolMaterial elementiumToolMaterial = EnumHelper.addToolMaterial("B_ELEMENTIUM", 3, 720, 6.2F, 2F, 20);
-	
+
 	public static ArmorMaterial terrasteelArmorMaterial = EnumHelper.addArmorMaterial("TERRASTEEL", 34, new int[] {3, 8, 6, 3}, 26);
 	public static ToolMaterial terrasteelToolMaterial = EnumHelper.addToolMaterial("TERRASTEEL", 3, 2300, 9F, 3F, 26);
 
 	public static KnowledgeType basicKnowledge, elvenKnowledge;
-	
+
 	static {
 		registerSubTile("", DummySubTile.class);
 
@@ -137,7 +137,7 @@ public final class BotaniaAPI {
 	 */
 	public static IInternalMethodHandler internalHandler = new DummyMethodHandler();
 
-	
+
 	/**
 	 * Registers a new Knowledge Type.
 	 * @param id The ID for this knowledge type.
@@ -148,7 +148,7 @@ public final class BotaniaAPI {
 		knowledgeTypes.put(id, type);
 		return type;
 	}
-	
+
 	/**
 	 * Registers a Petal Recipe.
 	 * @param output The ItemStack to craft.
@@ -199,7 +199,7 @@ public final class BotaniaAPI {
 		recipe.setAlchemy(true);
 		return recipe;
 	}
-	
+
 	/**
 	 * Register a Mana Infusion Recipe and flags it as an Conjuration recipe (requires a
 	 * Conjuration Catalyst below the pool).
@@ -210,7 +210,7 @@ public final class BotaniaAPI {
 		recipe.setConjuration(true);
 		return recipe;
 	}
-	
+
 	/**
 	 * Registers a Elven Trade recipe (throw an item in an Alfheim Portal).
 	 * @param output The ItemStack to return.

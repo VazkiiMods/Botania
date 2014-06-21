@@ -60,7 +60,7 @@ public interface IInternalMethodHandler {
 	public LexiconPage elvenTradePage(String key, List<RecipeElvenTrade> recipes);
 
 	public LexiconPage elvenTradesPage(String key, RecipeElvenTrade recipe);
-	
+
 	public IManaNetwork getManaNetworkInstance();
 
 	public ItemStack getSubTileAsStack(String subTile);

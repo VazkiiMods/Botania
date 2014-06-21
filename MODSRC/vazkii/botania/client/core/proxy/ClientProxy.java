@@ -103,9 +103,9 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TilePylon.class, new RenderTilePylon());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEnchanter.class, new RenderTileEnchanter());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileAlfPortal.class, new RenderTileAlfPortal());
-		
+
 		RenderingRegistry.registerEntityRenderingHandler(EntityPixie.class, new RenderPixie());
-		
+
 		ShaderHelper.initShaders();
 	}
 

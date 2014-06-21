@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
  * must implement this or it'll just go back in.
  */
 public interface IElvenItem {
-	
+
 	public boolean isElvenItem(ItemStack stack);
 
 }

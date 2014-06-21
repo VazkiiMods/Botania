@@ -3,12 +3,11 @@ package vazkii.botania.api.recipe;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class RecipeElvenTrade {
-	
+
 	ItemStack output;
 	List<Object> inputs;
 
@@ -28,11 +27,9 @@ public class RecipeElvenTrade {
 	public boolean matches(List<ItemStack> stacks, boolean remove) {
 		List<Object> inputsMissing = new ArrayList(inputs);
 		List<ItemStack> stacksToRemove = new ArrayList();
-		
-		int i = 0;
+
 		for(ItemStack stack : stacks) {
 			if(stack == null) {
-				i++;
 				continue;
 			}
 			if(inputsMissing.isEmpty())
@@ -71,9 +68,8 @@ public class RecipeElvenTrade {
 				inputsMissing.remove(stackIndex);
 			else if(oredictIndex != -1)
 				inputsMissing.remove(oredictIndex);
-			i++;
 		}
-		
+
 		if(remove)
 			for(ItemStack r : stacksToRemove)
 				stacks.remove(r);

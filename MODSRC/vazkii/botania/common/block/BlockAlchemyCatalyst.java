@@ -31,7 +31,7 @@ public class BlockAlchemyCatalyst extends BlockMod implements ILexiconable {
 	public BlockAlchemyCatalyst() {
 		this(LibBlockNames.ALCHEMY_CATALYST);
 	}
-	
+
 	public BlockAlchemyCatalyst(String name) {
 		super(Material.rock);
 		setHardness(2.0F);

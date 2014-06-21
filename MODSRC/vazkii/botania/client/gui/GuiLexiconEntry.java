@@ -11,12 +11,13 @@
  */
 package vazkii.botania.client.gui;
 
-import org.lwjgl.input.Mouse;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
+
+import org.lwjgl.input.Mouse;
+
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.IAddonEntry;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -88,7 +89,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 
 	@Override
 	protected void actionPerformed(GuiButton par1GuiButton) {
-		if(par1GuiButton.id >= BOOKMARK_START) 
+		if(par1GuiButton.id >= BOOKMARK_START)
 			handleBookmark(par1GuiButton);
 		else
 			switch(par1GuiButton.id) {
@@ -156,14 +157,14 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	public void setParent(GuiLexicon gui) {
 		parent = gui;
 	}
-	
+
 	int fx = 0;
 	boolean swiped = false;
 
 	@Override
 	protected void mouseClickMove(int x, int y, int button, long time) {
 		if(button == 0 && Math.abs(x - fx) > 100 && mc.gameSettings.touchscreen && !swiped) {
-			double swipe = (double) (x - fx) / Math.max(1, (double) time);
+			double swipe = (x - fx) / Math.max(1, (double) time);
 			if(swipe < 0.5) {
 				nextPage();
 				swiped = true;
@@ -173,34 +174,34 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 			}
 		}
 	}
-	
+
 	@Override
 	protected void mouseClicked(int par1, int par2, int par3) {
 		super.mouseClicked(par1, par2, par3);
-		
+
 		fx = par1;
 		if(par3 == 1)
 			back();
 	}
-	
+
 	@Override
 	public void handleMouseInput() {
 		super.handleMouseInput();
-		
+
 		if(Mouse.getEventButton() == 0)
 			swiped = false;
-		
-        int w = Mouse.getEventDWheel();
-        if(w < 0)
-        	nextPage();
-        else if(w > 0)
-        	prevPage();
+
+		int w = Mouse.getEventDWheel();
+		if(w < 0)
+			nextPage();
+		else if(w > 0)
+			prevPage();
 	}
-	
+
 	@Override
 	protected void keyTyped(char par1, int par2) {
 		if(par2 == 203 || par2 == 200 || par2 == 201) // Left, Up, Page Up
-			prevPage();
+		prevPage();
 		else if(par2 == 205 || par2 == 208 || par2 == 209) // Right, Down Page Down
 			nextPage();
 		else if(par2 == 14) // Backspace
@@ -209,20 +210,20 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 			mc.displayGuiScreen(new GuiLexicon());
 			ClientTickHandler.notifyPageChange();
 		}
-		
+
 		super.keyTyped(par1, par2);
 	}
-	
+
 	void back() {
 		if(backButton.enabled)
 			actionPerformed(backButton);
 	}
-	
+
 	void nextPage() {
 		if(rightButton.enabled)
 			actionPerformed(rightButton);
 	}
-	
+
 	void prevPage() {
 		if(leftButton.enabled)
 			actionPerformed(leftButton);

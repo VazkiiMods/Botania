@@ -14,13 +14,8 @@ package vazkii.botania.common.item;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.lwjgl.input.Keyboard;
-
-import baubles.api.BaubleType;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
@@ -71,7 +66,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 
 		return false;
 	}
-	
+
 	@Override
 	public void getSubItems(Item item, CreativeTabs tab, List list) {
 		list.add(new ItemStack(item));
@@ -89,27 +84,27 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 			String edition = EnumChatFormatting.GOLD + String.format(StatCollector.translateToLocal("botaniamisc.edition"), getEdition());
 			if(!edition.isEmpty())
 				par3List.add(edition);
-			
+
 			List<KnowledgeType> typesKnown = new ArrayList();
 			for(String s : BotaniaAPI.knowledgeTypes.keySet()) {
 				KnowledgeType type = BotaniaAPI.knowledgeTypes.get(s);
 				if(isKnowledgeUnlocked(par1ItemStack, type))
 					typesKnown.add(type);
 			}
-			
+
 			String format = typesKnown.size() == 1 ? "botaniamisc.knowledgeTypesSingular" : "botaniamisc.knowledgeTypesPlural";
 			addStringToTooltip(String.format(StatCollector.translateToLocal(format), typesKnown.size()), par3List);
-			
+
 			for(KnowledgeType type : typesKnown)
 				addStringToTooltip(" \u2022 " + StatCollector.translateToLocal(type.getUnlocalizedName()), par3List);
-			
+
 		} else addStringToTooltip(StatCollector.translateToLocal("botaniamisc.shiftinfo"), par3List);
 	}
 
 	private void addStringToTooltip(String s, List<String> tooltip) {
 		tooltip.add(s.replaceAll("&", "\u00a7"));
 	}
-	
+
 	public static String getEdition() {
 		String version = LibMisc.BUILD;
 		int build = version.contains("ANT") ? 0 : Integer.parseInt(version);
@@ -140,11 +135,11 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	public void unlockKnowledge(ItemStack stack, KnowledgeType knowledge) {
 		ItemNBTHelper.setBoolean(stack, TAG_KNOWLEDGE_PREFIX + knowledge.id, true);
 	}
-	
+
 	public static void forceMessage(ItemStack stack, boolean forced) {
 		ItemNBTHelper.setBoolean(stack, TAG_FORCED_MESSAGE, forced);
 	}
-	
+
 	public static boolean isMessageForced(ItemStack stack) {
 		return ItemNBTHelper.getBoolean(stack, TAG_FORCED_MESSAGE, false);
 	}

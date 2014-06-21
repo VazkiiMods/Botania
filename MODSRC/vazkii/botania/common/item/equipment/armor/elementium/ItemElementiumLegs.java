@@ -8,7 +8,7 @@ public class ItemElementiumLegs extends ItemElementiumArmor {
 	public ItemElementiumLegs() {
 		super(2, LibItemNames.ELEMENTIUM_LEGS);
 	}
-	
+
 	@Override
 	public float getPixieChance(ItemStack stack) {
 		return 7F / (25F / 24F) * 1.5F;

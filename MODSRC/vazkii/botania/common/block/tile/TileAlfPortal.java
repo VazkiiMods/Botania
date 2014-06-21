@@ -58,9 +58,9 @@ public class TileAlfPortal extends TileMod {
 	private static final String TAG_TICKS_SINCE_LAST_ITEM = "ticksSinceLastItem";
 	private static final String TAG_STACK_COUNT = "stackCount";
 	private static final String TAG_STACK = "portalStack";
-	
+
 	List<ItemStack> stacksIn = new ArrayList();
-	
+
 	public int ticksOpen = 0;
 	int ticksSinceLastItem = 0;
 	private boolean closeNow = false;
@@ -95,7 +95,7 @@ public class TileAlfPortal extends TileMod {
 		}
 
 		ticksOpen++;
-		
+
 		if(ticksOpen > 60) {
 			ticksSinceLastItem++;
 			blockParticle(meta);
@@ -114,7 +114,7 @@ public class TileAlfPortal extends TileMod {
 						ticksSinceLastItem = 0;
 					}
 				}
-			
+
 			if(ticksSinceLastItem >= 20) {
 				if(!worldObj.isRemote)
 					resolveRecipes();
@@ -164,7 +164,7 @@ public class TileAlfPortal extends TileMod {
 		AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(xCoord - 1, yCoord + 1, zCoord, xCoord + 2, yCoord + 4, zCoord + 1);
 		if(getBlockMetadata() == 2)
 			aabb = AxisAlignedBB.getBoundingBox(xCoord, yCoord + 1, zCoord - 1, xCoord + 1, yCoord + 4, zCoord + 2);
-			
+
 		return aabb;
 	}
 
@@ -202,11 +202,11 @@ public class TileAlfPortal extends TileMod {
 		worldObj.spawnEntityInWorld(item);
 		ticksSinceLastItem = 0;
 	}
-	
+
 	@Override
 	public void writeToNBT(NBTTagCompound cmp) {
 		super.writeToNBT(cmp);
-		
+
 		cmp.setInteger(TAG_STACK_COUNT, stacksIn.size());
 		int i = 0;
 		for(ItemStack stack : stacksIn) {
@@ -216,11 +216,11 @@ public class TileAlfPortal extends TileMod {
 			i++;
 		}
 	}
-	
+
 	@Override
 	public void readFromNBT(NBTTagCompound cmp) {
 		super.readFromNBT(cmp);
-		
+
 		int count = cmp.getInteger(TAG_STACK_COUNT);
 		stacksIn.clear();
 		for(int i = 0; i < count; i++) {
@@ -229,7 +229,7 @@ public class TileAlfPortal extends TileMod {
 			stacksIn.add(stack);
 		}
 	}
-	
+
 	@Override
 	public void writeCustomNBT(NBTTagCompound cmp) {
 		cmp.setInteger(TAG_TICKS_OPEN, ticksOpen);

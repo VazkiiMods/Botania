@@ -14,5 +14,5 @@ public interface ICoordBoundItem {
 
 	@SideOnly(Side.CLIENT)
 	public ChunkCoordinates getBinding(ItemStack stack);
-	
+
 }

@@ -1,6 +1,5 @@
 package vazkii.botania.common.block.decor.slabs.living;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.slabs.BlockLivingSlab;

@@ -34,7 +34,9 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem {
 
 	private static final int COST_PER = 55;
 
-	static final List<Block> validBlocks = new ArrayList() {{
+	static final List<Block> validBlocks = new ArrayList() {private static final long serialVersionUID = 1378413169035169782L;
+
+	{
 		add(Blocks.stone);
 		add(Blocks.dirt);
 		add(Blocks.grass);

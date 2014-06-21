@@ -62,7 +62,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	private static final String TAG_ROTATION_TICKS = "rotationTicks";
 	private static final String TAG_TICK_ROTATION_X = "tickRotationX";
 	private static final String TAG_TICK_ROTATION_Y = "tickRotationY";
-	
+
 	private static final String TAG_FORCE_CLIENT_BINDING_X = "forceClientBindingX";
 	private static final String TAG_FORCE_CLIENT_BINDING_Y = "forceClientBindingY";
 	private static final String TAG_FORCE_CLIENT_BINDING_Z = "forceClientBindingZ";
@@ -85,7 +85,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	public boolean canShootBurst = true;
 	public int lastBurstDeathTick = -1;
 	public int burstParticleTick = 0;
-	
+
 	public int rotationTicks = 0;
 	public float tickRotationX, tickRotationY;
 
@@ -119,14 +119,14 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			ManaNetworkEvent.addCollector(this);
 			added = true;
 		}
-		
+
 		if(rotationTicks > 0) {
 			rotationX += tickRotationX;
 			rotationY += tickRotationY;
 
 			if(rotationTicks == 1)
 				checkForReceiver();
-			
+
 			rotationTicks--;
 		}
 
@@ -186,7 +186,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		cmp.setInteger(TAG_ROTATION_TICKS, rotationTicks);
 		cmp.setFloat(TAG_TICK_ROTATION_X, tickRotationX);
 		cmp.setFloat(TAG_TICK_ROTATION_Y, tickRotationY);
-		
+
 		requestsClientUpdate = false;
 	}
 
@@ -304,7 +304,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	public boolean isRedstone() {
 		return worldObj == null ? staticRedstone : getBlockMetadata() == 1;
 	}
-	
+
 	public boolean isDreamwood() {
 		return worldObj == null ? staticDreamwood : getBlockMetadata() == 2;
 	}

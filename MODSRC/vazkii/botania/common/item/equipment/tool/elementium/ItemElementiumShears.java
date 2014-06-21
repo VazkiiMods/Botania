@@ -33,7 +33,7 @@ public class ItemElementiumShears extends ItemManasteelShears {
 	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
 		return 72000;
 	}
-	
+
 	@Override
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
 		par3EntityPlayer.setItemInUse(par1ItemStack, getMaxItemUseDuration(par1ItemStack));

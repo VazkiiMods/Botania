@@ -27,7 +27,7 @@ import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 public final class VersionChecker {
 
 	private static final int FLAVOUR_MESSAGES = 36;
-	
+
 	public static boolean doneChecking = false;
 	public static String onlineVersion = "";
 	public static boolean triedToWarnPlayer = false;
