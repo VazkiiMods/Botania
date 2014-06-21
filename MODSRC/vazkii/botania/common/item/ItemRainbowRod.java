@@ -57,10 +57,11 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem {
 						if(par2World.getBlock((int) x + i, (int) y, (int) z + j).isAir(par2World, (int) x + i, (int) y, (int) z + j) || par2World.getBlock((int) x + i, (int) y, (int) z + j) == place) {
 							par2World.setBlock((int) x + i, (int) y, (int) z + j, place);
 							TileBifrost tile = (TileBifrost) par2World.getTileEntity((int) x + i, (int) y, (int) z + j);
-							if(tile != null)
+							if(tile != null) {
 								for(int k = 0; k < 4; k++)
 									Botania.proxy.sparkleFX(par2World, tile.xCoord + Math.random(), tile.yCoord + Math.random(), tile.zCoord + Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.45F + 0.2F * (float) Math.random(), 6);
-							tile.ticks = TIME;
+								tile.ticks = TIME;
+							}
 						}
 
 				lx = x;
