@@ -819,6 +819,11 @@ botania.entry.loonium=Loonium
 botania.page.loonium0=Any weary adventurer knows that &4Dungeons&0 can hold valuable goodies. The &1Loonium&0 can, at the use of an extreme amount of &4Mana&0, materialize these items and drop them in the nearby vacinity.
 botania.page.loonium1=&oTank Tank Heal Tank&r!
 
+# -- DAFFOMILL
+botania.entry.daffomill=Daffomill
+botania.page.daffomill0=The &1Daffodill&0 works as a fan of sorts. It pushes, at the cost of a small amount of &4Mana&0, any items found in front of it.<br>Shift-right clicking it with a &1Wand of the Forest&0 changes the orientation. Where it's currently facing can be seen via the subtle wind particles it emits.
+botania.page.daffomill1=&oWind Turbines? I'm a big fan&r.
+
 # - GENERATING FLOWERS
 # -- AN INTRODUCTION TO GENERATION
 botania.entry.gIntro=An Introduction to Generation

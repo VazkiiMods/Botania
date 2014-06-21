@@ -19,8 +19,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.util.ForgeDirection;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileDaffomill extends SubTileFunctional {
 
@@ -43,7 +45,7 @@ public class SubTileDaffomill extends SubTileFunctional {
 			mana--;
 		}
 		
-		if(windTicks > 0) {
+		if(windTicks > 0 && redstoneSignal == 0) {
 			int x = supertile.xCoord;
 			int y = supertile.yCoord;
 			int z = supertile.zCoord;
@@ -101,6 +103,11 @@ public class SubTileDaffomill extends SubTileFunctional {
 	@Override
 	public int getMaxMana() {
 		return 100;
+	}
+	
+	@Override
+	public LexiconEntry getEntry() {
+		return LexiconData.daffomill;
 	}
 	
 	@Override
