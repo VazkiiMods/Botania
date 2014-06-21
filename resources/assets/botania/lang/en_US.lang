@@ -1203,9 +1203,10 @@ botania.page.elfMessage6=&oLast but not least, do take in note that if you decid
 botania.entry.elfResources=The Resources of Alfheim
 botania.page.elfResources0=&4Alfheim&0 contains a very varied amount of exquisite resources. Sadly though, most of them are extremely scarce and hard to come by due to competition between the various clans. The elves are interested in trading some materials, such as &1Dreamwood&0, &1Elementium&0, &1Pixie Dust&0 or &1Dragonstone&0, resources native to their lands. 
 botania.page.elfResources1=Trading for &1Dreamwood&0
-botania.page.elfResources2=Trading for &1Elementium&0
-botania.page.elfResources3=Trading for &1Pixie Dust&0
-botania.page.elfResources4=Trading for &1Dragonstone&0
+botania.page.elfResources2=&1Dreamwood&0, similarly to &1Livingwood&0 can be turned into various &4Decorative Blocks&0, have a look through the &4Decorative Blocks&0 entry under &4Miscelaneous&0 for the recipes.
+botania.page.elfResources3=Trading for &1Elementium&0
+botania.page.elfResources4=Trading for &1Pixie Dust&0
+botania.page.elfResources5=Trading for &1Dragonstone&0
 
 # - MISCLANEOUS
 # -- UNSTABLE CUBE

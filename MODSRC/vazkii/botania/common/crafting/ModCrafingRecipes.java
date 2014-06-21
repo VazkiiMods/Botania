@@ -324,10 +324,20 @@ public final class ModCrafingRecipes {
 				" W ", "W W", " W ",
 				'W', new ItemStack(ModBlocks.livingwood, 1, 1));
 		recipeLivingwoodDecor4 = BotaniaAPI.getLatestAddedRecipe();
-		addShapelessOreDictRecipe(new ItemStack(ModBlocks.livingwood, 1, 5),
-				LibOreDict.LIVING_WOOD, new ItemStack(Items.glowstone_dust));
+		addShapelessOreDictRecipe(new ItemStack(ModBlocks.livingwood, 1, 5), LibOreDict.LIVING_WOOD, new ItemStack(Items.glowstone_dust));
 		recipeLivingwoodDecor5 = BotaniaAPI.getLatestAddedRecipe();
 
+		// Dreamwood Decorative Blocks
+		addShapelessOreDictRecipe(new ItemStack(ModBlocks.dreamwood, 4, 1), LibOreDict.DREAM_WOOD);
+		addShapelessOreDictRecipe(new ItemStack(ModBlocks.dreamwood, 1, 2), new ItemStack(ModBlocks.dreamwood, 1, 1), new ItemStack(Items.wheat_seeds));
+		addOreDictRecipe(new ItemStack(ModBlocks.dreamwood, 4, 3),
+				"WW", "WW",
+				'W', new ItemStack(ModBlocks.dreamwood, 1, 1));
+		addOreDictRecipe(new ItemStack(ModBlocks.dreamwood, 4, 4),
+				" W ", "W W", " W ",
+				'W', new ItemStack(ModBlocks.dreamwood, 1, 1));
+		addShapelessOreDictRecipe(new ItemStack(ModBlocks.dreamwood, 1, 5), LibOreDict.DREAM_WOOD, new ItemStack(Items.glowstone_dust));
+		
 		// Mana Beacon Recipe
 		for(int i = 0; i < 16; i++)
 			addOreDictRecipe(new ItemStack(ModBlocks.manaBeacon, 1, i),
