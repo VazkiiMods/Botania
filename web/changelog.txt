@@ -1,3 +1,28 @@
+r1.1 58
+*<b>Added Alfhomancy</b> and lots of new <i>funky</i> items and blocks to go with it. <i>Cool beans.</i>
+*Added 20 new update messages, gotta find em all.
+*Added a little easter egg if you're Bevo. ;)
+*Added some checks to the special flowers' code, to prevent potential crashes (mostly in multiplayer).
+*Added some new textures for ingots, armor, shears, soulscribe, redstone spreader.
+*Added the Daffomill, a new functional flower that moves things with wind.
+*Added the Rod of the Seas, a water counterpart to the Rod of the Lands.
+*Added the ability to unlock new types of knowledge to the Lexica Botania.
+*Added utility controls to the Lexica Botania. You can now navigate through the pages with the cursor keys, pgup/pgdn, mouse wheel and swiping left/right with touchscreen mode enabled. Pressing backspace or clicking the right mouse button takes you back. Pressing the home key takes you to the main index.
+*Buffed the range of the Hopperhock. <i>I apologize in advance if this causes your perfectly sized systems to conflict :(</i>
+*Fixed Hopperhocks ignoring ISidedInventory for checking if there's space.
+*Fixed Hopperhocks never putting any items in an inventory with an empty frame.
+*Fixed String acquired from mana alchemy being metadata 1 and not being usable in most recipes.
+*Fixed baubles that do effects on being equipped (such as the Soujourner's Sash) not working if they're equipped via right clicking in the hotbar.
+*Fixed the Abstruse Platform being typoed as "Abtruse Platform".
+*Fixed the Agricarnation not working with saplings.
+*Fixed the Agricarnation trying to fertilize Vines.
+*Fixed the Soulscribe being unbreakable.
+*Removed the warning in the Thermalily's entry saying it produces a lot of power, as it's been nerfed a lot since it was introduced :p
+*Small makeover to the Lexica Botania, it no longer has weird green floating text in the top now, but a fancier header instead.
+*The Floral Fertilizer now spawns one more flower than before at all times.
+*The Snowflake Pendant now only freezes water source blocks.
+*You can now add up to 10 bookmarks to the Lexica Botania that allow you to go back to any entry.
+*[API] Major changes, adaptation is required.
 r1.0 57
 *Fixed moar tpyos (CatDany)
 *Fixed server crash.
