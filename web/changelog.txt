@@ -1,3 +1,13 @@
+r1.1 61
+*Added Elven Quartz, it's like the other quartz variants but green and acquired by throwing quartz in the portal.
+*Added some better instructions to the Mana Spreader entry regarding Mana Spreader unbinding and rotation. 
+*Added the ability to mass trade Manasteel to the elves via blocks.
+*Fixed all the Botania stairs having improper lighting.
+*Fixed the Conjuration Catalyst not working with quartz because of the Mana Quartz recipe.
+*Fixed the Kekimurus not eating from all sides.
+*The Flugel Tiara is now under Elven Knowledge.
+*The Ring of Chordata no longer gives a speed boost when the player is flying.
+*The Wand of the Forest can rotate blocks now. This should work with all vanilla blocks and any mod blocks that use the forge rotation hook (Block.rotateBlock).
 r1.1 60
 *Fixed Dreamwood variants not being craftable, which in turn prevented the Spectral Platform from being craftable too.
 *Fixed the Elementium Shears dropping ghost wool items.
