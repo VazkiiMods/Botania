@@ -901,7 +901,7 @@ public final class ModCrafingRecipes {
 		GameRegistry.addRecipe(new ItemStack(block, 1, 1),
 				"Q", "Q",
 				'Q', slab);
-		addStairsAndSlabs(block, meta, stairs, slab);
+		addStairsAndSlabs(block, 0, stairs, slab);
 
 		if(req != null) {
 			if(req == Items.coal)
