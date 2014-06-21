@@ -1,3 +1,7 @@
+r1.1 59
+*Fixed Daffomill entry typo.
+*Fixed posh quartz variants (chiseled, pillar) not being craftable.
+*The Bifrost blocks no longer explode into particles when they expire, that was causing lagspikes on large structures.
 r1.1 58
 *<b>Added Alfhomancy</b> and lots of new <i>funky</i> items and blocks to go with it. <i>Cool beans.</i>
 *Added 20 new update messages, gotta find em all.
