@@ -42,6 +42,9 @@ public class ItemElementiumShears extends ItemManasteelShears {
 
 	@Override
 	public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {
+		if(player.worldObj.isRemote)
+			return;
+
 		if(count != getMaxItemUseDuration(stack) && count % 5 == 0) {
 			int range = 12;
 			List<IShearable> sheep = player.worldObj.getEntitiesWithinAABB(IShearable.class, AxisAlignedBB.getBoundingBox(player.posX - range, player.posY - range, player.posZ - range, player.posX + range, player.posY + range, player.posZ + range));
@@ -58,6 +61,7 @@ public class ItemElementiumShears extends ItemManasteelShears {
 							ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
 							ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
 						}
+						
 						ToolCommons.damageItem(stack, 1, player, MANA_PER_DAMAGE);
 						break;
 					}
