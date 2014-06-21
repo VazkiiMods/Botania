@@ -821,7 +821,7 @@ botania.page.loonium1=&oTank Tank Heal Tank&r!
 
 # -- DAFFOMILL
 botania.entry.daffomill=Daffomill
-botania.page.daffomill0=The &1Daffodill&0 works as a fan of sorts. It pushes, at the cost of a small amount of &4Mana&0, any items found in front of it.<br>Shift-right clicking it with a &1Wand of the Forest&0 changes the orientation. Where it's currently facing can be seen via the subtle wind particles it emits.
+botania.page.daffomill0=The &1Daffomill&0 works as a fan of sorts. It pushes, at the cost of a small amount of &4Mana&0, any items found in front of it.<br>Shift-right clicking it with a &1Wand of the Forest&0 changes the orientation. Where it's currently facing can be seen via the subtle wind particles it emits.
 botania.page.daffomill1=&oWind Turbines? I'm a big fan&r.
 
 # - GENERATING FLOWERS
