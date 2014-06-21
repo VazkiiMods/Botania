@@ -51,14 +51,15 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem {
 
 			int count = 0;
 
-			while(count < 100 && ((int) lx == (int) x && (int) ly == (int) y && (int) lz == (int) z || par2World.getBlock((int) x, (int) y, (int) z).isAir(par2World, (int) x, (int) y, (int) z)) || par2World.getBlock((int) x, (int) y, (int) z) == place) {
+			while(count < 100 && ((int) lx == (int) x && (int) ly == (int) y && (int) lz == (int) z) || count < 4 || par2World.getBlock((int) x, (int) y, (int) z).isAir(par2World, (int) x, (int) y, (int) z) || par2World.getBlock((int) x, (int) y, (int) z) == place) {
 				for(int i = -2; i < 1; i++)
 					for(int j = -2; j < 1; j++)
 						if(par2World.getBlock((int) x + i, (int) y, (int) z + j).isAir(par2World, (int) x + i, (int) y, (int) z + j) || par2World.getBlock((int) x + i, (int) y, (int) z + j) == place) {
 							par2World.setBlock((int) x + i, (int) y, (int) z + j, place);
 							TileBifrost tile = (TileBifrost) par2World.getTileEntity((int) x + i, (int) y, (int) z + j);
-							for(int k = 0; k < 4; k++)
-								Botania.proxy.sparkleFX(par2World, tile.xCoord + Math.random(), tile.yCoord + Math.random(), tile.zCoord + Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.45F + 0.2F * (float) Math.random(), 6);
+							if(tile != null)
+								for(int k = 0; k < 4; k++)
+									Botania.proxy.sparkleFX(par2World, tile.xCoord + Math.random(), tile.yCoord + Math.random(), tile.zCoord + Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.45F + 0.2F * (float) Math.random(), 6);
 							tile.ticks = TIME;
 						}
 
