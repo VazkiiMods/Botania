@@ -207,7 +207,7 @@ public final class LexiconData {
 		manaIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"));
 
 		spreader = new BLexiconEntry(LibLexicon.MANA_SPREADER, categoryMana);
-		spreader.setPriority().setLexiconPages(new PageText("0"), new PageText("10"), new PageImage("1", LibResources.ENTRY_SPREADER), new PageText("2"), new PageText("3"), new PageText("4"), new PageCraftingRecipe("5", ModCrafingRecipes.recipesSpreader), new PageText("6"), new PageCraftingRecipe("7", ModCrafingRecipes.recipeManaLens), new PageCraftingRecipe("8", ModCrafingRecipes.recipesLensDying), new PageCraftingRecipe("9", ModCrafingRecipes.recipeRainbowLens));
+		spreader.setPriority().setLexiconPages(new PageText("0"), new PageText("10"), new PageText("11"), new PageImage("1", LibResources.ENTRY_SPREADER), new PageText("2"), new PageText("3"), new PageText("4"), new PageCraftingRecipe("5", ModCrafingRecipes.recipesSpreader), new PageText("6"), new PageCraftingRecipe("7", ModCrafingRecipes.recipeManaLens), new PageCraftingRecipe("8", ModCrafingRecipes.recipesLensDying), new PageCraftingRecipe("9", ModCrafingRecipes.recipeRainbowLens));
 
 		pool = new BLexiconEntry(LibLexicon.MANA_POOL, categoryMana);
 		pool.setPriority().setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipePool), new PageText("2"), new PageText("8"), new PageManaInfusionRecipe("3", ModManaInfusionRecipes.manasteelRecipes), new PageManaInfusionRecipe("4", ModManaInfusionRecipes.manaPearlRecipe), new PageManaInfusionRecipe("5", ModManaInfusionRecipes.manaDiamondRecipe), new PageManaInfusionRecipe("6", ModManaInfusionRecipes.manaPetalRecipes), new PageManaInfusionRecipe("7", ModManaInfusionRecipes.manaCookieRecipe));
