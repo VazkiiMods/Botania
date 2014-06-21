@@ -63,9 +63,9 @@ public class CommonProxy {
 		ModCrafingRecipes.init();
 		ModPetalRecipes.init();
 		ModRuneRecipes.init();
-		ModManaInfusionRecipes.init();
 		ModManaAlchemyRecipes.init();
 		ModManaConjurationRecipes.init();
+		ModManaInfusionRecipes.init();
 		ModElvenTradeRecipes.init();
 
 		LexiconData.init();
