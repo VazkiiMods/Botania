@@ -41,6 +41,9 @@ public class ItemWaterRing extends ItemBauble implements IManaUsingItem {
 			boolean changeY = Math.min(1.3, Math.abs(motionY)) == Math.abs(motionY);
 			boolean changeZ = Math.min(1.3, Math.abs(motionZ)) == Math.abs(motionZ);
 
+			if(player instanceof EntityPlayer && ((EntityPlayer) player).capabilities.isFlying)
+				changeX = changeY = changeZ = false;
+			
 			if(changeX)
 				player.motionX = motionX;
 			if(changeY)
