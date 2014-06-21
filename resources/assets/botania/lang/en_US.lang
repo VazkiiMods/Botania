@@ -251,6 +251,11 @@ tile.botania:chiseledRedQuartz.name=Chiseled Redquartz Block
 tile.botania:pillarRedQuartz.name=Pillar Redquartz Block
 tile.botania:quartzSlabRedHalf.name=Redquartz Slab
 tile.botania:quartzStairsRed.name=Redquartz Stairs
+tile.botania:blockElfQuartz.name=Block of Elven Quartz
+tile.botania:chiseledElfQuartz.name=Chiseled Elven Quartz Block
+tile.botania:pillarElfQuartz.name=Pillar Elven Quartz Block
+tile.botania:quartzSlabElfHalf.name=Elven Quartz Slab
+tile.botania:quartzStairsElf.name=Elven Quartz Stairs
 tile.botania:dreamwood0.name=Dreamwood
 tile.botania:dreamwood1.name=Dreamwood Planks
 tile.botania:dreamwood2.name=Mossy Dreamwood Planks
@@ -487,6 +492,7 @@ item.botania:quartz1.name=Mana Quartz
 item.botania:quartz2.name=Blaze Quartz
 item.botania:quartz3.name=Lavender Quartz
 item.botania:quartz4.name=Redquartz
+item.botania:quartz5.name=Elven Quartz
 item.botania:elementium.name=Elementium Ingot
 item.botania:pixieDust.name=Pixie Dust
 item.botania:dragonstone.name=Dragonstone
@@ -1208,6 +1214,8 @@ botania.page.elfResources2=&1Dreamwood&0, similarly to &1Livingwood&0 can be tur
 botania.page.elfResources3=Trading for &1Elementium&0
 botania.page.elfResources4=Trading for &1Pixie Dust&0
 botania.page.elfResources5=Trading for &1Dragonstone&0
+botania.page.elfResources6=The &1Elves&0 are also quite keen on the white posh block from the &4Nether&0, &1Nether Quartz&0, the ones they have on their world are tinted green. This quartz works just like any other quartz, be it normal &1Nether Quartz&0 or any of the decorative variants you can find on the &4Decorative Blocks&0 entry under &4Miscelaneous&0.
+botania.page.elfResources7=Trading for &1Elven Quartz&0
 
 # - MISCLANEOUS
 # -- UNSTABLE CUBE

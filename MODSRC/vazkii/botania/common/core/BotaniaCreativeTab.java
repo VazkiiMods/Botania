@@ -119,7 +119,10 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.redQuartz);
 		addBlock(ModBlocks.redQuartzSlab);
 		addBlock(ModBlocks.redQuartzStairs);
-
+		addBlock(ModBlocks.elfQuartz);
+		addBlock(ModBlocks.elfQuartzSlab);
+		addBlock(ModBlocks.elfQuartzStairs);
+		
 		addItem(ModItems.manasteelPick);
 		addItem(ModItems.manasteelShovel);
 		addItem(ModItems.manasteelAxe);

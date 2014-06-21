@@ -1,5 +1,6 @@
 package vazkii.botania.common.crafting;
 
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
@@ -13,12 +14,14 @@ public class ModElvenTradeRecipes {
 	public static RecipeElvenTrade elementiumRecipe;
 	public static RecipeElvenTrade pixieDustRecipe;
 	public static RecipeElvenTrade dragonstoneRecipe;
+	public static RecipeElvenTrade elvenQuartzRecipe;
 
 	public static void init() {
 		dreamwoodRecipe = BotaniaAPI.registerElvenTradeRecipe(new ItemStack(ModBlocks.dreamwood), LibOreDict.LIVING_WOOD);
 		elementiumRecipe = BotaniaAPI.registerElvenTradeRecipe(new ItemStack(ModItems.manaResource, 1, 7), LibOreDict.MANA_STEEL, LibOreDict.MANA_STEEL);
 		pixieDustRecipe = BotaniaAPI.registerElvenTradeRecipe(new ItemStack(ModItems.manaResource, 1, 8), LibOreDict.MANA_PEARL);
 		dragonstoneRecipe = BotaniaAPI.registerElvenTradeRecipe(new ItemStack(ModItems.manaResource, 1, 9), LibOreDict.MANA_DIAMOND);
+		elvenQuartzRecipe = BotaniaAPI.registerElvenTradeRecipe(new ItemStack(ModItems.quartz, 1, 5), new ItemStack(Items.quartz));
 	}
 
 }

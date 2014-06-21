@@ -24,7 +24,7 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemQuartz extends ItemMod {
 
-	private static final int SUBTYPES = 5;
+	private static final int SUBTYPES = 6;
 	IIcon[] icons;
 
 	public ItemQuartz() {

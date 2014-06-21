@@ -53,8 +53,9 @@ public class BlockSpecialQuartzSlab extends BlockModSlab {
 			return (BlockSlab) ModBlocks.lavenderQuartzSlabFull;
 		if(source == ModBlocks.redQuartz)
 			return (BlockSlab) ModBlocks.redQuartzSlabFull;
-
-		System.out.println("none");
+		if(source == ModBlocks.elfQuartz)
+			return (BlockSlab) ModBlocks.elfQuartzSlabFull;
+		
 		return this;
 	}
 
@@ -70,8 +71,9 @@ public class BlockSpecialQuartzSlab extends BlockModSlab {
 			return (BlockSlab) ModBlocks.lavenderQuartzSlab;
 		if(source == ModBlocks.redQuartz)
 			return (BlockSlab) ModBlocks.redQuartzSlab;
+		if(source == ModBlocks.elfQuartz)
+			return (BlockSlab) ModBlocks.elfQuartzSlab;
 
-		System.out.println("none");
 		return this;
 	}
 
@@ -104,7 +106,7 @@ public class BlockSpecialQuartzSlab extends BlockModSlab {
 
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
-		return LexiconData.decorativeBlocks;
+		return this == ModBlocks.elfQuartzSlab ? LexiconData.elvenResources : LexiconData.decorativeBlocks;
 	}
 
 }

@@ -164,7 +164,11 @@ public final class ModBlocks {
 	public static Block redQuartzSlab;
 	public static Block redQuartzSlabFull;
 	public static Block redQuartzStairs;
-
+	public static Block elfQuartz;
+	public static Block elfQuartzSlab;
+	public static Block elfQuartzSlabFull;
+	public static Block elfQuartzStairs;
+	
 	public static void init() {
 		flower = new BlockModFlower();
 		altar = new BlockAltar();
@@ -238,7 +242,11 @@ public final class ModBlocks {
 		redQuartzSlab = new BlockSpecialQuartzSlab(redQuartz, false);
 		redQuartzSlabFull = new BlockSpecialQuartzSlab(redQuartz, true);
 		redQuartzStairs = new BlockSpecialQuartzStairs(redQuartz);
-
+		elfQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_ELF);
+		elfQuartzSlab = new BlockSpecialQuartzSlab(elfQuartz, false);
+		elfQuartzSlabFull = new BlockSpecialQuartzSlab(elfQuartz, true);
+		elfQuartzStairs = new BlockSpecialQuartzStairs(elfQuartz);
+		
 		if(ConfigHandler.darkQuartzEnabled) {
 			((BlockModSlab) darkQuartzSlab).register();
 			((BlockModSlab) darkQuartzSlabFull).register();
@@ -251,7 +259,9 @@ public final class ModBlocks {
 		((BlockModSlab) lavenderQuartzSlabFull).register();
 		((BlockModSlab) redQuartzSlab).register();
 		((BlockModSlab) redQuartzSlabFull).register();
-
+		((BlockModSlab) elfQuartzSlab).register();
+		((BlockModSlab) elfQuartzSlabFull).register();
+		
 		((BlockModSlab) livingwoodSlab).register();
 		((BlockModSlab) livingwoodSlabFull).register();
 		((BlockModSlab) livingwoodPlankSlab).register();
