@@ -18,6 +18,7 @@ public class BlockModStairs extends BlockStairs implements ILexiconable {
 		super(source, meta);
 		setBlockName(name);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
+		useNeighborBrightness = true;
 	}
 
 	@Override
