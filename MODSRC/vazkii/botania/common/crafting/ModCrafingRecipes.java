@@ -741,6 +741,7 @@ public final class ModCrafingRecipes {
 		addQuartzRecipes(3, null, ModBlocks.lavenderQuartz, ModBlocks.lavenderQuartzStairs, ModBlocks.lavenderQuartzSlab);
 
 		recipeRedQuartz = addQuartzRecipes(4, Items.redstone, ModBlocks.redQuartz, ModBlocks.redQuartzStairs, ModBlocks.redQuartzSlab);
+		addQuartzRecipes(5, null, ModBlocks.elfQuartz, ModBlocks.elfQuartzStairs, ModBlocks.elfQuartzSlab);
 
 		// Alfheim Portal Recipe
 		addOreDictRecipe(new ItemStack(ModBlocks.alfPortal),
