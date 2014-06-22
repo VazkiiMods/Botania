@@ -59,6 +59,8 @@ public class RecipeElvenTrade {
 					if(found)
 						break;
 				} else if(input instanceof ItemStack && simpleAreStacksEqual((ItemStack) input, stack)) {
+					if(!stacksToRemove.contains(stack))
+						stacksToRemove.add(stack);
 					stackIndex = j;
 					break;
 				}

@@ -18,11 +18,12 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemQuartz extends ItemMod {
+public class ItemQuartz extends ItemMod implements IElvenItem {
 
 	private static final int SUBTYPES = 6;
 	IIcon[] icons;
@@ -57,5 +58,10 @@ public class ItemQuartz extends ItemMod {
 
 	String getUnlocalizedNameLazy(ItemStack par1ItemStack) {
 		return super.getUnlocalizedName(par1ItemStack);
+	}
+
+	@Override
+	public boolean isElvenItem(ItemStack stack) {
+		return stack.getItemDamage() == 5;
 	}
 }
