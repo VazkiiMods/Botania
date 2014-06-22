@@ -1,3 +1,6 @@
+r1.1 62
+*Fixed a dupe with the Alfheim portal involving Manasteel Blocks.
+*Fixed Elven Quartz recipes being borked.
 r1.1 61
 *Added Elven Quartz, it's like the other quartz variants but green and acquired by throwing quartz in the portal.
 *Added some better instructions to the Mana Spreader entry regarding Mana Spreader unbinding and rotation. 
