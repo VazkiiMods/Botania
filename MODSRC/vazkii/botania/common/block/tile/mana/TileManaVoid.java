@@ -17,6 +17,11 @@ import vazkii.botania.common.block.tile.TileMod;
 public class TileManaVoid extends TileMod implements IManaReceiver {
 
 	@Override
+	public boolean canUpdate() {
+		return false;
+	}
+	
+	@Override
 	public int getCurrentMana() {
 		return 0;
 	}
