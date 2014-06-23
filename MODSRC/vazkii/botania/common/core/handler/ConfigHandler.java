@@ -34,6 +34,7 @@ public final class ConfigHandler {
 
 	public static boolean versionCheckEnabled = true;
 	public static int spreaderPositionShift = 1;
+	public static boolean flowerForceCheck = true;
 
 	public static boolean fallenKanadeEnabled = true;
 	public static boolean darkQuartzEnabled = true;
@@ -86,6 +87,9 @@ public final class ConfigHandler {
 		desc = "Do not ever touch this value if not asked to. Possible symptoms of doing so include your head turning backwards, the appearance of Titans near the walls or you being trapped in a game of Sword Art Online.";
 		spreaderPositionShift = loadPropInt("spreader.posShift", desc, spreaderPositionShift);
 
+		desc = "Turn off ONLY IF you're on an extremely large world with an exhagerated count of Mana Spreaders/Mana Pools and are experiencing TPS lag. This toggles whether flowers are strict with their checking for connecting to pools/spreaders or just check whenever possible.";
+		flowerForceCheck = loadPropBool("flower.forceCheck", desc, flowerForceCheck);
+		
 		desc = "Set to false to disable the Fallen Kanade flower (gives Regeneration). This config option is here for those using Blood Magic. Note: Turning this off will not remove ones already in the world, it'll simply prevent the crafting.";
 		fallenKanadeEnabled = loadPropBool("fallenKanade.enabled", desc, fallenKanadeEnabled);
 

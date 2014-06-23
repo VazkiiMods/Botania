@@ -118,7 +118,7 @@ public class SubTileFunctional extends SubTileEntity {
 		if(needsNew) {
 			IManaNetwork network = BotaniaAPI.internalHandler.getManaNetworkInstance();
 			int size = network.getAllPoolsInWorld(supertile.getWorldObj()).size();
-			if(size != sizeLastCheck) {
+			if(BotaniaAPI.internalHandler.shouldForceCheck() || size != sizeLastCheck) {
 				ChunkCoordinates coords = new ChunkCoordinates(supertile.xCoord, supertile.yCoord, supertile.zCoord);
 				linkedPool = network.getClosestPool(coords, supertile.getWorldObj(), range);
 				sizeLastCheck = size;

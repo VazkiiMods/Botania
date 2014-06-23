@@ -134,4 +134,9 @@ public class InternalMethodHandler implements IInternalMethodHandler {
 		Botania.proxy.sparkleFX(world, x, y, z, r, g, b, size, m);
 	}
 
+	@Override
+	public boolean shouldForceCheck() {
+		return ConfigHandler.flowerForceCheck;
+	}
+
 }

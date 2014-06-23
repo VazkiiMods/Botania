@@ -123,4 +123,8 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 		return null;
 	}
 
+	@Override
+	public boolean shouldForceCheck() {
+		return true;
+	}
 }

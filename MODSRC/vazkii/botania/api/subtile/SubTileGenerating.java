@@ -101,7 +101,7 @@ public class SubTileGenerating extends SubTileEntity {
 		if(needsNew) {
 			IManaNetwork network = BotaniaAPI.internalHandler.getManaNetworkInstance();
 			int size = network.getAllCollectorsInWorld(supertile.getWorldObj()).size();
-			if(size != sizeLastCheck) {
+			if(BotaniaAPI.internalHandler.shouldForceCheck() || size != sizeLastCheck) {
 				ChunkCoordinates coords = new ChunkCoordinates(supertile.xCoord, supertile.yCoord, supertile.zCoord);
 				linkedCollector = network.getClosestCollector(coords, supertile.getWorldObj(), range);
 				sizeLastCheck = size;

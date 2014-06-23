@@ -67,6 +67,8 @@ public interface IInternalMethodHandler {
 
 	public IIcon getSubTileIconForName(String name);
 
+	public boolean shouldForceCheck();
+	
 	public IInventory getBaublesInventory(EntityPlayer player);
 
 	@SideOnly(Side.CLIENT)
