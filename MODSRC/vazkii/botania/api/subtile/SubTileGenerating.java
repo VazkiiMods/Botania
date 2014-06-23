@@ -116,7 +116,7 @@ public class SubTileGenerating extends SubTileEntity {
 	public void emptyManaIntoCollector() {
 		if(linkedCollector != null) {
 			IManaCollector collector = (IManaCollector) linkedCollector;
-			if(!collector.isFull()) {
+			if(!collector.isFull() && mana > 0) {
 				int manaval = Math.min(mana, collector.getMaxMana() - collector.getCurrentMana());
 				mana -= manaval;
 				collector.recieveMana(manaval);
