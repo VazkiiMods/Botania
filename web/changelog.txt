@@ -1,3 +1,7 @@
+r1.1 63
+*Fixed generating flowers in the corners of chunks (and in general) causing lots of unnecessary chunk updates.
+*Fixed lack of canUpdate() override on TileManaVoid, in theory this shouldn't impact performance unless you somehow had hundreds of them, but it fixes MCPC+ complaining. <i>/shrug.</i>
+*Flowers now force checks if they're not bound, this should, once again, in theory, fix flowers unbinding from pools/spreaders. <i>/sigh</i>
 r1.1 62
 *Fixed a dupe with the Alfheim portal involving Manasteel Blocks.
 *Fixed Elven Quartz recipes being borked.
