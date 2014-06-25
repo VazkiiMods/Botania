@@ -59,22 +59,11 @@ public final class LexiconData {
 	public static LexiconEntry manaIntro;
 	public static LexiconEntry spreader;
 	public static LexiconEntry pool;
+	public static LexiconEntry lenses;
 	public static LexiconEntry distributor;
 	public static LexiconEntry manaVoid;
-	public static LexiconEntry lensVelocity;
-	public static LexiconEntry lensPotency;
-	public static LexiconEntry lensResistance;
-	public static LexiconEntry lensEfficiency;
-	public static LexiconEntry lensBounce;
-	public static LexiconEntry lensGravity;
-	public static LexiconEntry lensBore;
-	public static LexiconEntry lensDamaging;
-	public static LexiconEntry lensPhantom;
-	public static LexiconEntry lensMagnet;
-	public static LexiconEntry lensExplosive;
 	public static LexiconEntry manaTransport;
 	public static LexiconEntry manaDetector;
-	public static LexiconEntry compositeLens;
 	public static LexiconEntry redstoneSpreader;
 	public static LexiconEntry manastar;
 	public static LexiconEntry dreamwoodSpreader;
@@ -184,7 +173,7 @@ public final class LexiconData {
 		apothecary.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_APOTHECARY), new PageText("2"), new PageText("3"), new PageCraftingRecipe("4", ModCrafingRecipes.recipesApothecary));
 
 		lexicon = new BLexiconEntry(LibLexicon.BASICS_LEXICON, categoryBasics);
-		lexicon.setPriority().setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLexicon), new PageText("2"));
+		lexicon.setPriority().setLexiconPages(new PageText("0"), new PageText("3"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLexicon), new PageText("2"));
 
 		wand = new BLexiconEntry(LibLexicon.BASICS_WAND, categoryBasics);
 		wand.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCrafingRecipes.recipesTwigWand));
@@ -207,46 +196,27 @@ public final class LexiconData {
 		manaIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"));
 
 		spreader = new BLexiconEntry(LibLexicon.MANA_SPREADER, categoryMana);
-		spreader.setPriority().setLexiconPages(new PageText("0"), new PageText("10"), new PageText("11"), new PageImage("1", LibResources.ENTRY_SPREADER), new PageText("2"), new PageText("3"), new PageText("4"), new PageCraftingRecipe("5", ModCrafingRecipes.recipesSpreader), new PageText("6"), new PageCraftingRecipe("7", ModCrafingRecipes.recipeManaLens), new PageCraftingRecipe("8", ModCrafingRecipes.recipesLensDying), new PageCraftingRecipe("9", ModCrafingRecipes.recipeRainbowLens));
+		spreader.setPriority().setLexiconPages(new PageText("0"), new PageText("10"), new PageText("11"), new PageImage("1", LibResources.ENTRY_SPREADER), new PageText("2"), new PageText("3"), new PageText("4"), new PageCraftingRecipe("5", ModCrafingRecipes.recipesSpreader));
 
 		pool = new BLexiconEntry(LibLexicon.MANA_POOL, categoryMana);
 		pool.setPriority().setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipePool), new PageText("2"), new PageText("8"), new PageManaInfusionRecipe("3", ModManaInfusionRecipes.manasteelRecipes), new PageManaInfusionRecipe("4", ModManaInfusionRecipes.manaPearlRecipe), new PageManaInfusionRecipe("5", ModManaInfusionRecipes.manaDiamondRecipe), new PageManaInfusionRecipe("6", ModManaInfusionRecipes.manaPetalRecipes), new PageManaInfusionRecipe("7", ModManaInfusionRecipes.manaCookieRecipe));
 
+		lenses = new BLexiconEntry(LibLexicon.MANA_LENSES, categoryMana);
+		lenses.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeManaLens), new PageCraftingRecipe("2", ModCrafingRecipes.recipesLensDying), new PageCraftingRecipe("3", ModCrafingRecipes.recipeRainbowLens), new PageText("4"), new PageText("5"), 
+				new PageText("6"), new PageCraftingRecipe("7", ModCrafingRecipes.recipeLensVelocity),
+				new PageText("8"), new PageCraftingRecipe("9", ModCrafingRecipes.recipeLensPotency),
+				new PageText("10"), new PageCraftingRecipe("11", ModCrafingRecipes.recipeLensResistance),
+				new PageText("12"), new PageCraftingRecipe("13", ModCrafingRecipes.recipeLensEfficiency),
+				new PageText("14"), new PageCraftingRecipe("15", ModCrafingRecipes.recipeLensBounce),
+				new PageText("16"), new PageCraftingRecipe("17", ModCrafingRecipes.recipeLensGravity),
+				new PageText("18"), new PageCraftingRecipe("19", ModCrafingRecipes.recipeLensBore),
+				new PageText("20"), new PageCraftingRecipe("21", ModCrafingRecipes.recipeLensDamaging),
+				new PageText("22"), new PageCraftingRecipe("23", ModCrafingRecipes.recipeLensPhantom),
+				new PageText("24"), new PageCraftingRecipe("25", ModCrafingRecipes.recipeLensMagnet),
+				new PageText("26"), new PageCraftingRecipe("27", ModCrafingRecipes.recipeLensExplosive));
+		
 		distributor = new BLexiconEntry(LibLexicon.MANA_DISTRIBUTOR, categoryMana);
 		distributor.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeDistributor));
-
-		lensVelocity = new BLexiconEntry(LibLexicon.MANA_LENS_VELOCITY, categoryMana);
-		lensVelocity.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLensVelocity));
-
-		lensPotency = new BLexiconEntry(LibLexicon.MANA_LENS_POTENCY, categoryMana);
-		lensPotency.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLensPotency));
-
-		lensResistance = new BLexiconEntry(LibLexicon.MANA_LENS_RESISTANCE, categoryMana);
-		lensResistance.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLensResistance));
-
-		lensEfficiency = new BLexiconEntry(LibLexicon.MANA_LENS_EFFICIENCY, categoryMana);
-		lensEfficiency.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLensEfficiency));
-
-		lensBounce = new BLexiconEntry(LibLexicon.MANA_LENS_BOUNCE, categoryMana);
-		lensBounce.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLensBounce));
-
-		lensGravity = new BLexiconEntry(LibLexicon.MANA_LENS_GRAVITY, categoryMana);
-		lensGravity.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLensGravity));
-
-		lensBore = new BLexiconEntry(LibLexicon.MANA_LENS_BORE, categoryMana);
-		lensBore.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLensBore));
-
-		lensDamaging = new BLexiconEntry(LibLexicon.MANA_LENS_DAMAGING, categoryMana);
-		lensDamaging.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLensDamaging));
-
-		lensPhantom = new BLexiconEntry(LibLexicon.MANA_LENS_PHANTOM, categoryMana);
-		lensPhantom.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLensPhantom));
-
-		lensMagnet = new BLexiconEntry(LibLexicon.MANA_LENS_MAGNET, categoryMana);
-		lensMagnet.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLensMagnet));
-
-		lensExplosive = new BLexiconEntry(LibLexicon.MANA_LENS_EXPLOSIVE, categoryMana);
-		lensExplosive.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLensExplosive));
 
 		manaVoid = new BLexiconEntry(LibLexicon.MANA_VOID, categoryMana);
 		manaVoid.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeManaVoid));
@@ -257,9 +227,6 @@ public final class LexiconData {
 
 		manaDetector = new BLexiconEntry(LibLexicon.MANA_DETECTOR, categoryMana);
 		manaDetector.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeManaDetector));
-
-		compositeLens = new BLexiconEntry(LibLexicon.MANA_COMPOSITE_LENS, categoryMana);
-		compositeLens.setLexiconPages(new PageText("0"));
 
 		redstoneSpreader = new BLexiconEntry(LibLexicon.MANA_REDSTONE_SPREADER, categoryMana);
 		redstoneSpreader.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeRedstoneSpreader));
