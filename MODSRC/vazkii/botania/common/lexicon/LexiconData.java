@@ -126,6 +126,7 @@ public final class LexiconData {
 	public static LexiconEntry openBucket;
 	public static LexiconEntry spawnerMover;
 	public static LexiconEntry rainbowRod;
+	public static LexiconEntry tornadoRod;
 
 	public static LexiconEntry baublesIntro;
 	public static LexiconEntry tinyPlanet;
@@ -420,6 +421,9 @@ public final class LexiconData {
 		rainbowRod = new ALexiconEntry(LibLexicon.TOOL_RAINBOW_ROD, categoryTools);
 		rainbowRod.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCrafingRecipes.recipeRainbowRod));
 
+		tornadoRod = new BLexiconEntry(LibLexicon.TOOL_TORNADO_ROD, categoryTools);
+		tornadoRod.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeTornadoRod));
+		
 		// BAUBLES ENTRIES
 		baublesIntro = new BLexiconEntry(LibLexicon.BAUBLE_INTRO, categoryBaubles);
 		baublesIntro.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_BAUBLES), new PageText("2"));

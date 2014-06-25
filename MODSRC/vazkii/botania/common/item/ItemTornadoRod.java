@@ -19,6 +19,7 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -29,7 +30,8 @@ public class ItemTornadoRod extends ItemMod {
 
 	private static final int FLY_TIME = 20;
 	private static final int FALL_MULTIPLIER = 3;
-
+	private static final int COST = 350;
+	
 	private static final String TAG_FLYING = "flying";
 
 	IIcon iconIdle, iconFlying;
@@ -60,9 +62,15 @@ public class ItemTornadoRod extends ItemMod {
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		par3EntityPlayer.setItemInUse(par1ItemStack, getMaxItemUseDuration(par1ItemStack));
-		if(par1ItemStack.getItemDamage() == 0)
-			setFlying(par1ItemStack, true);
+		int meta = par1ItemStack.getItemDamage();
+		if(meta != 0 || ManaItemHandler.requestManaExact(par1ItemStack, par3EntityPlayer, COST, false)) {
+			par3EntityPlayer.setItemInUse(par1ItemStack, getMaxItemUseDuration(par1ItemStack));
+			if(meta == 0) {
+				setFlying(par1ItemStack, true);
+				ManaItemHandler.requestManaExact(par1ItemStack, par3EntityPlayer, COST, true);
+			}
+		}
+
 
 		return par1ItemStack;
 	}

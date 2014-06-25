@@ -1065,6 +1065,11 @@ botania.page.rainbowRod0=&4Bifrost&0, the rainbow bridge that reaches between th
 botania.page.rainbowRod1=This bridge extends as far as a hundred blocks, and will vanish after about fifteen seconds.<br>Only one bridge can be created for any given &1Rod of Bifrost&0 at a time, as soon as the old bridge vanishes, a new one can be created.
 botania.page.rainbowRod2=Going my way!! Cut open a path and go!
 
+# -- ROD OF THE SKIES
+botania.entry.tornadoRod=Rod of the Skies
+botania.page.tornadoRod0=The &1Rod of the Skies&0 is a magical instrument with the ability to propel one in the air at fast velocity for the cost of some &4Mana&0.<br>To do so, one would simply hold it like a bow and watch as their momentum increases.<br>The rod takes a small amount of time to recharge, but during that time it'll block any fall damage, keeping the user safe.
+botania.page.tornadoRod1=A treasure from Lorule
+
 # - BAUBLES
 # -- AN INTRODUCTION TO BAUBLES
 botania.entry.bIntro=An Introduction to Baubles

@@ -148,6 +148,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeRainbowRod;
 	public static IRecipe recipeSpectralPlatform;
 	public static List<IRecipe> recipesDreamwoodSpreader;
+	public static IRecipe recipeTornadoRod;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -867,6 +868,14 @@ public final class ModCrafingRecipes {
 					'E', LibOreDict.ELEMENTIUM);
 		recipesDreamwoodSpreader = BotaniaAPI.getLatestAddedRecipes(16);
 
+		// Rod of the Skies Recipe
+		addOreDictRecipe(new ItemStack(ModItems.tornadoRod),
+				"  F", " T ", "R  ",
+				'F', new ItemStack(Items.feather),
+				'T', LibOreDict.LIVINGWOOD_TWIG,
+				'R', LibOreDict.RUNE[3]);
+		recipeTornadoRod = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",
