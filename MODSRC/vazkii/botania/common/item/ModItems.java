@@ -127,6 +127,7 @@ public final class ModItems {
 	public static Item superTravelBelt;
 	public static Item rainbowRod;
 	public static Item tornadoRod;
+	public static Item fireRod;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -196,7 +197,8 @@ public final class ModItems {
 		superTravelBelt = new ItemSuperTravelBelt();
 		rainbowRod = new ItemRainbowRod();
 		tornadoRod = new ItemTornadoRod();
-		
+		fireRod = new ItemFireRod();
+
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));

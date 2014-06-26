@@ -512,6 +512,7 @@ item.botania:pixieRing.name=Great Fairy Ring
 item.botania:superTravelBelt.name=Globetrotter's Sash
 item.botania:rainbowRod.name=Rod of Bifrost
 item.botania:tornadoRod.name=Rod of the Skies
+item.botania:fireRod.name=Rod of the Hells
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania, %s Edition's Index - Pick which category you would like to study:
