@@ -513,6 +513,8 @@ item.botania:superTravelBelt.name=Globetrotter's Sash
 item.botania:rainbowRod.name=Rod of Bifrost
 item.botania:tornadoRod.name=Rod of the Skies
 item.botania:fireRod.name=Rod of the Hells
+item.botania:vineBall.name=Vine Ball
+item.botania:slingshot.name=Livingwood Slingshot
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania, %s Edition's Index - Pick which category you would like to study:

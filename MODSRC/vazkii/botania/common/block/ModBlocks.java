@@ -124,6 +124,7 @@ public final class ModBlocks {
 	public static Block dreamwood;
 	public static Block conjurationCatalyst;
 	public static Block bifrost;
+	public static Block solidVines;
 
 	public static Block livingwoodStairs;
 	public static Block livingwoodSlab;
@@ -199,7 +200,8 @@ public final class ModBlocks {
 		dreamwood = new BlockDreamwood();
 		conjurationCatalyst = new BlockConjurationCatalyst();
 		bifrost = new BlockBifrost();
-
+		solidVines = new BlockSolidVines();
+		
 		livingwoodStairs = new BlockLivingwoodStairs();
 		livingwoodSlab = new BlockLivingwoodSlab(false);
 		livingwoodSlabFull = new BlockLivingwoodSlab(true);

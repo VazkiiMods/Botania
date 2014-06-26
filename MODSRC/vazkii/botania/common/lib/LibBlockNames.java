@@ -43,6 +43,7 @@ public final class LibBlockNames {
 	public static final String DREAM_WOOD = "dreamwood";
 	public static final String CONJURATION_CATALYST = "conjurationCatalyst";
 	public static final String BIFROST = "bifrost";
+	public static final String SOLID_VINE = "solidVine";
 
 	public static final String SPECIAL_FLOWER_PREFIX = FLOWER + ".";
 

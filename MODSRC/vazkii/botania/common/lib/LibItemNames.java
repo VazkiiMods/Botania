@@ -81,6 +81,8 @@ public final class LibItemNames {
 	public static final String RAINBOW_ROD = "rainbowRod";
 	public static final String TORNADO_ROD = "tornadoRod";
 	public static final String FIRE_ROD = "fireRod";
+	public static final String VINE_BALL = "vineBall";
+	public static final String SLINGSHOT = "slingshot";
 
 	public static final String[] LENS_NAMES = new String[] {
 		"lensNormal",

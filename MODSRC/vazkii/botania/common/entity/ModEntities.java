@@ -23,6 +23,7 @@ public final class ModEntities {
 		EntityRegistry.registerModEntity(EntitySignalFlare.class, LibEntityNames.SIGNAL_FLARE, id++, Botania.instance, 2048, 10, false);
 		EntityRegistry.registerModEntity(EntityPixie.class, LibEntityNames.PIXIE, id++, Botania.instance, 16, 3, true);
 		EntityRegistry.registerModEntity(EntityFlameRing.class, LibEntityNames.FLAME_RING, id++, Botania.instance, 32, 40, false);
+		EntityRegistry.registerModEntity(EntityVineBall.class, LibEntityNames.VINE_BALL, id++, Botania.instance, 64, 10, true);
 	}
 
 }
