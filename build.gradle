@@ -22,7 +22,7 @@ group= "vazkii.botania" // http://maven.apache.org/guides/mini/guide-naming-conv
 archivesBaseName = "modid"
 
 minecraft {
-    version = "1.7.2-10.12.1.1117"
+    version = "1.7.2-10.12.2.1147"
     assetDir = "eclipse/assets"
 }
 

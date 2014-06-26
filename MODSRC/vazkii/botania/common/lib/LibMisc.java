@@ -20,7 +20,7 @@ public final class LibMisc {
 	public static final String MOD_NAME = MOD_ID;
 	public static final String BUILD = "ANT:BUILD";
 	public static final String VERSION = "ANT:VERSION-" + BUILD;
-	public static final String DEPENDENCIES = "required-after:Forge@[10.12.0.1117,);";
+	public static final String DEPENDENCIES = "required-after:Forge@[10.12.2.1147,);";
 
 	// Network Contants
 	public static final String NETWORK_CHANNEL = MOD_ID;
