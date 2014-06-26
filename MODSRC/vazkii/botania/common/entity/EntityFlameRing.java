@@ -15,9 +15,7 @@ package vazkii.botania.common.entity;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
@@ -28,16 +26,10 @@ import vazkii.botania.common.core.helper.MathHelper;
 
 public class EntityFlameRing extends Entity {
 
-	String summoner;
-
 	public EntityFlameRing(World world) {
 		super(world);
 	}
 
-	public EntityFlameRing(World world, String summoner) {
-		super(world);
-		this.summoner = summoner;
-	}
 
 	@Override
 	protected void entityInit() {
@@ -84,13 +76,13 @@ public class EntityFlameRing extends Entity {
 
 		if(ticksExisted > 45) {
 			AxisAlignedBB boundingBox = AxisAlignedBB.getBoundingBox(posX, posY, posZ, posX, posY, posZ).expand(radius, radius, radius);
-			List<EntityLivingBase> entities = worldObj.getEntitiesWithinAABB(EntityLiving.class, boundingBox);
+			List<EntityLivingBase> entities = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, boundingBox);
 
 			if(entities.isEmpty())
 				return;
 
 			for(EntityLivingBase entity : entities) {
-				if(entity == null || (entity instanceof EntityPlayer && ((EntityPlayer)entity).getCommandSenderName().equals(summoner)) || MathHelper.pointDistancePlane(posX, posY, entity.posX, entity.posY) > radius)
+				if(entity == null || MathHelper.pointDistancePlane(posX, posY, entity.posX, entity.posY) > radius)
 					continue;
 
 				entity.setFire(4);
@@ -99,17 +91,19 @@ public class EntityFlameRing extends Entity {
 	}
 
 	@Override
-	protected void readEntityFromNBT(NBTTagCompound var1) {
-		summoner = var1.getString("summoner");
+	public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
+		return false;
 	}
+
+
+	@Override
+	protected void readEntityFromNBT(NBTTagCompound var1) {
+		// NO-OP
+	}
+
 
 	@Override
 	protected void writeEntityToNBT(NBTTagCompound var1) {
-		var1.setString("summoner", summoner);
-	}
-
-	@Override
-	public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
-		return false;
+		// NO-OP
 	}
 }
