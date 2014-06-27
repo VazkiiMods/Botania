@@ -84,7 +84,7 @@ public final class ToolCommons {
 				blk.onBlockHarvested(world, x, y, z, localMeta, player);
 			} else world.setBlockToAir(x, y, z);
 
-			if(ConfigHandler.blockBreakParticles && ConfigHandler.blockBreakParticlesTool)
+			if(ConfigHandler.blockBreakParticles && ConfigHandler.blockBreakParticlesTool && !world.isRemote)
 				world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(blk) + (meta << 12));
 		}
 	}
