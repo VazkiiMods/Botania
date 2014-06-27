@@ -62,7 +62,7 @@ public class EntityPixie extends EntityFlyingCreature {
 	public void onEntityUpdate() {
 		super.onEntityUpdate();
 
-		if(ticksExisted > 100)
+		if(getAttackTarget() == null && ticksExisted > 100)
 			die();
 
 		if(worldObj.isRemote)
@@ -78,4 +78,9 @@ public class EntityPixie extends EntityFlyingCreature {
 				Botania.proxy.sparkleFX(worldObj, posX + (Math.random() - 0.5) * 0.25, posY + 0.5  + (Math.random() - 0.5) * 0.25, posZ + (Math.random() - 0.5) * 0.25, 1F, 0.25F, 0.9F, 1F + (float) Math.random() * 0.25F, 5);
 	}
 
+	@Override
+	protected boolean canDespawn() {
+		return false;
+	}
+	
 }
