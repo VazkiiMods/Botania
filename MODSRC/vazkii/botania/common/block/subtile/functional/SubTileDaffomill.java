@@ -80,6 +80,11 @@ public class SubTileDaffomill extends SubTileFunctional {
 			windTicks--;
 		}
 	}
+	
+	@Override
+	public boolean acceptsRedstone() {
+		return true;
+	}
 
 	@Override
 	public boolean onWanded(EntityPlayer player, ItemStack wand) {
