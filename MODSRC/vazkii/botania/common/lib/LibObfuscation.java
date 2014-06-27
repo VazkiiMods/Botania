@@ -41,8 +41,8 @@ public final class LibObfuscation {
 
 	// EntityAnimal
 	public static final String[] IN_LOVE = new String[] { "inLove", "field_70881_d", "bp" };
-	
+
 	// EntityPlayer
 	public static final String[] ITEM_IN_USE = new String[] { "itemInUse", "field_71074_e", "f" };
-	
+
 }

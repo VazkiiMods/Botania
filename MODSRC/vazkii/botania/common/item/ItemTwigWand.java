@@ -65,7 +65,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
 		Block block = par3World.getBlock(par4, par5, par6);
 		ChunkCoordinates boundSpreader = getBoundSpreader(par1ItemStack);
-		
+
 		if(boundSpreader.posY != -1 && par2EntityPlayer.isSneaking() && !par3World.isRemote && (boundSpreader.posX != par4 || boundSpreader.posY != par5 || boundSpreader.posZ != par6)) {
 			TileEntity tile = par3World.getTileEntity(boundSpreader.posX, boundSpreader.posY, boundSpreader.posZ);
 			if(tile instanceof TileSpreader) {

@@ -23,7 +23,7 @@ public class ItemFireRod extends ItemMod {
 
 	private static final int COST = 900;
 	private static final int COOLDOWN = 1200;
-	
+
 	public ItemFireRod() {
 		setUnlocalizedName(LibItemNames.FIRE_ROD);
 		setMaxStackSize(1);
@@ -36,7 +36,7 @@ public class ItemFireRod extends ItemMod {
 			EntityFlameRing entity = new EntityFlameRing(player.worldObj);
 			entity.setPosition(x + 0.5, y + 1, z + 0.5);
 			player.worldObj.spawnEntityInWorld(entity);
-			
+
 			par1ItemStack.setItemDamage(COOLDOWN);
 			ManaItemHandler.requestManaExact(par1ItemStack, player, COST, true);
 			par3World.playSoundAtEntity(player, "mob.blaze.breathe", 1F, 1F);
@@ -44,16 +44,16 @@ public class ItemFireRod extends ItemMod {
 
 		return true;
 	}
-	
+
 	@Override
 	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
 		if(par1ItemStack.isItemDamaged())
 			par1ItemStack.setItemDamage(par1ItemStack.getItemDamage() - 1);
 	}
-	
+
 	@Override
 	public boolean isFull3D() {
 		return true;
 	}
-	
+
 }

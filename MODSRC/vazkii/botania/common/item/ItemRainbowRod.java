@@ -51,10 +51,10 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem {
 
 			int count = 0;
 
-			while(count < 100 && ((int) lx == (int) x && (int) ly == (int) y && (int) lz == (int) z) || count < 4 || par2World.getBlock((int) x, (int) y, (int) z).isAir(par2World, (int) x, (int) y, (int) z) || par2World.getBlock((int) x, (int) y, (int) z) == place) {
+			while(count < 100 && (int) lx == (int) x && (int) ly == (int) y && (int) lz == (int) z || count < 4 || par2World.getBlock((int) x, (int) y, (int) z).isAir(par2World, (int) x, (int) y, (int) z) || par2World.getBlock((int) x, (int) y, (int) z) == place) {
 				if(y >= 256 || y <= 0)
 					break;
-				
+
 				for(int i = -2; i < 1; i++)
 					for(int j = -2; j < 1; j++)
 						if(par2World.getBlock((int) x + i, (int) y, (int) z + j).isAir(par2World, (int) x + i, (int) y, (int) z + j) || par2World.getBlock((int) x + i, (int) y, (int) z + j) == place) {

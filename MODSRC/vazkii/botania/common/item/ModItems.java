@@ -204,7 +204,7 @@ public final class ModItems {
 		vineBall = new ItemVineBall();
 		slingshot = new ItemSlingshot();
 		manaBottle = new ItemBottledMana();
-		
+
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));

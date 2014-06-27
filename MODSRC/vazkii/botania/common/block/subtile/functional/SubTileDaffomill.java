@@ -80,7 +80,7 @@ public class SubTileDaffomill extends SubTileFunctional {
 			windTicks--;
 		}
 	}
-	
+
 	@Override
 	public boolean acceptsRedstone() {
 		return true;

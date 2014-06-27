@@ -25,7 +25,7 @@ public class BlockSpecialQuartzStairs extends BlockModStairs {
 	public BlockSpecialQuartzStairs(Block source) {
 		super(source, 0, "quartzStairs" + ((BlockSpecialQuartz) source).type);
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return this == ModBlocks.elfQuartzStairs ? LexiconData.elvenResources : super.getEntry(world, x, y, z, player, lexicon);

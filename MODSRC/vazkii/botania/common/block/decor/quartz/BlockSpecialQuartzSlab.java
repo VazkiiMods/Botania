@@ -55,7 +55,7 @@ public class BlockSpecialQuartzSlab extends BlockModSlab {
 			return (BlockSlab) ModBlocks.redQuartzSlabFull;
 		if(source == ModBlocks.elfQuartz)
 			return (BlockSlab) ModBlocks.elfQuartzSlabFull;
-		
+
 		return this;
 	}
 

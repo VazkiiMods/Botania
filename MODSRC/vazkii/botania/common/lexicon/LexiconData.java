@@ -205,7 +205,7 @@ public final class LexiconData {
 		pool.setPriority().setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipePool), new PageText("2"), new PageText("8"), new PageManaInfusionRecipe("3", ModManaInfusionRecipes.manasteelRecipes), new PageManaInfusionRecipe("4", ModManaInfusionRecipes.manaPearlRecipe), new PageManaInfusionRecipe("5", ModManaInfusionRecipes.manaDiamondRecipe), new PageManaInfusionRecipe("6", ModManaInfusionRecipes.manaPetalRecipes), new PageManaInfusionRecipe("7", ModManaInfusionRecipes.manaCookieRecipe));
 
 		lenses = new BLexiconEntry(LibLexicon.MANA_LENSES, categoryMana);
-		lenses.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeManaLens), new PageCraftingRecipe("2", ModCrafingRecipes.recipesLensDying), new PageCraftingRecipe("3", ModCrafingRecipes.recipeRainbowLens), new PageText("4"), new PageText("5"), 
+		lenses.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeManaLens), new PageCraftingRecipe("2", ModCrafingRecipes.recipesLensDying), new PageCraftingRecipe("3", ModCrafingRecipes.recipeRainbowLens), new PageText("4"), new PageText("5"),
 				new PageText("6"), new PageCraftingRecipe("7", ModCrafingRecipes.recipeLensVelocity),
 				new PageText("8"), new PageCraftingRecipe("9", ModCrafingRecipes.recipeLensPotency),
 				new PageText("10"), new PageCraftingRecipe("11", ModCrafingRecipes.recipeLensResistance),
@@ -217,7 +217,7 @@ public final class LexiconData {
 				new PageText("22"), new PageCraftingRecipe("23", ModCrafingRecipes.recipeLensPhantom),
 				new PageText("24"), new PageCraftingRecipe("25", ModCrafingRecipes.recipeLensMagnet),
 				new PageText("26"), new PageCraftingRecipe("27", ModCrafingRecipes.recipeLensExplosive));
-		
+
 		distributor = new BLexiconEntry(LibLexicon.MANA_DISTRIBUTOR, categoryMana);
 		distributor.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeDistributor));
 
@@ -425,13 +425,13 @@ public final class LexiconData {
 
 		tornadoRod = new BLexiconEntry(LibLexicon.TOOL_TORNADO_ROD, categoryTools);
 		tornadoRod.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeTornadoRod));
-		
+
 		fireRod = new BLexiconEntry(LibLexicon.TOOL_FIRE_ROD, categoryTools);
 		fireRod.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeFireRod));
-		
+
 		vineBall = new BLexiconEntry(LibLexicon.TOOL_VINE_BALL, categoryTools);
 		vineBall.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCrafingRecipes.recipeVineBall), new PageCraftingRecipe("3", ModCrafingRecipes.recipeSlingshot));
-		
+
 		// BAUBLES ENTRIES
 		baublesIntro = new BLexiconEntry(LibLexicon.BAUBLE_INTRO, categoryBaubles);
 		baublesIntro.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_BAUBLES), new PageText("2"));

@@ -24,7 +24,7 @@ import vazkii.botania.client.model.ModelPixie;
 import vazkii.botania.common.entity.EntityPixie;
 
 public class RenderPixie extends RenderLiving {
-	
+
 	public RenderPixie() {
 		super(new ModelPixie(), 0.25F);
 		setRenderPassModel(new ModelPixie());

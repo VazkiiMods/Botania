@@ -39,7 +39,7 @@ public class EntityFlameRing extends Entity {
 	@Override
 	public void onEntityUpdate() {
 		super.onEntityUpdate();
-		
+
 		float radius = 5F;
 		float renderRadius = (float) (radius - Math.random());
 
@@ -47,14 +47,14 @@ public class EntityFlameRing extends Entity {
 			float a = i;
 			if(a % 2 == 0)
 				a = 45 + a;
-			
+
 			if(worldObj.rand.nextInt(ticksExisted < 90 ? 8 : 20) == 0) {
-				float rad = (float) ((a * 4) * Math.PI / 180F);
+				float rad = (float) (a * 4 * Math.PI / 180F);
 				double x = Math.cos(rad) * renderRadius;
 				double z = Math.sin(rad) * renderRadius;
-				
+
 				Botania.proxy.wispFX(worldObj, posX + x, posY - 0.2, posZ + z, 1F, (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, 0.65F + (float) Math.random() * 0.45F, (float) (Math.random() - 0.5F) * 0.15F, 0.055F + (float) Math.random() * 0.025F, (float) (Math.random() - 0.5F) * 0.15F);
-				
+
 				float gs = (float) Math.random() * 0.15F;
 				float smokeRadius = (float) (renderRadius - Math.random() * renderRadius * 0.9);
 				x = Math.cos(rad) * smokeRadius;
@@ -62,7 +62,7 @@ public class EntityFlameRing extends Entity {
 				Botania.proxy.wispFX(worldObj, posX + x, posY - 0.2, posZ + z, gs, gs, gs, 0.65F + (float) Math.random() * 0.45F, -0.155F - (float) Math.random() * 0.025F);
 			}
 		}
-		
+
 		if(worldObj.rand.nextInt(20) == 0)
 			worldObj.playSoundAtEntity(this, "fire.fire", 1F, 1F);
 

@@ -20,7 +20,7 @@ public class TileManaVoid extends TileMod implements IManaReceiver {
 	public boolean canUpdate() {
 		return false;
 	}
-	
+
 	@Override
 	public int getCurrentMana() {
 		return 0;

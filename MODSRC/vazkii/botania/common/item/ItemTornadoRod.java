@@ -11,7 +11,6 @@
  */
 package vazkii.botania.common.item;
 
-import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,13 +24,14 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibObfuscation;
+import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class ItemTornadoRod extends ItemMod {
 
 	private static final int FLY_TIME = 20;
 	private static final int FALL_MULTIPLIER = 3;
 	private static final int COST = 350;
-	
+
 	private static final String TAG_FLYING = "flying";
 
 	IIcon iconIdle, iconFlying;
@@ -47,14 +47,14 @@ public class ItemTornadoRod extends ItemMod {
 		if(par3Entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) par3Entity;
 			ItemStack itemInUse = ReflectionHelper.getPrivateValue(EntityPlayer.class, player, LibObfuscation.ITEM_IN_USE);
-			boolean damaged = par1ItemStack.getItemDamage() > 0; 
-			
+			boolean damaged = par1ItemStack.getItemDamage() > 0;
+
 			if(itemInUse != par1ItemStack) {
 				if(damaged)
 					par1ItemStack.setItemDamage(par1ItemStack.getItemDamage() - 1);
 				setFlying(par1ItemStack, false);
 			}
-			
+
 			if(damaged)
 				player.fallDistance = 0;
 		}
@@ -130,7 +130,7 @@ public class ItemTornadoRod extends ItemMod {
 	public void setFlying(ItemStack stack, boolean flying) {
 		ItemNBTHelper.setBoolean(stack, TAG_FLYING, flying);
 	}
-	
+
 	@Override
 	public boolean isFull3D() {
 		return true;

@@ -11,19 +11,12 @@
  */
 package vazkii.botania.common.item;
 
-import vazkii.botania.common.entity.EntityVineBall;
-import vazkii.botania.common.lib.LibItemNames;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.ArrowLooseEvent;
-import net.minecraftforge.event.entity.player.ArrowNockEvent;
+import vazkii.botania.common.entity.EntityVineBall;
+import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemSlingshot extends ItemMod {
 
@@ -31,18 +24,18 @@ public class ItemSlingshot extends ItemMod {
 		setMaxStackSize(1);
 		setUnlocalizedName(LibItemNames.SLINGSHOT);
 	}
-	
+
 	@Override
 	public void onPlayerStoppedUsing(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, int par4) {
 		int j = getMaxItemUseDuration(par1ItemStack) - par4;
 
 		if(par3EntityPlayer.capabilities.isCreativeMode || par3EntityPlayer.inventory.hasItem(ModItems.vineBall)) {
-			float f = (float)j / 20.0F;
+			float f = j / 20.0F;
 			f = (f * f + f * 2.0F) / 3.0F;
 
 			if(f < 1F)
 				return;
-				
+
 			if(!par3EntityPlayer.capabilities.isCreativeMode)
 				par3EntityPlayer.inventory.consumeInventoryItem(ModItems.vineBall);
 
@@ -74,7 +67,7 @@ public class ItemSlingshot extends ItemMod {
 	@Override
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
 		if(par3EntityPlayer.capabilities.isCreativeMode || par3EntityPlayer.inventory.hasItem(ModItems.vineBall))
-			par3EntityPlayer.setItemInUse(par1ItemStack, this.getMaxItemUseDuration(par1ItemStack));
+			par3EntityPlayer.setItemInUse(par1ItemStack, getMaxItemUseDuration(par1ItemStack));
 
 		return par1ItemStack;
 	}

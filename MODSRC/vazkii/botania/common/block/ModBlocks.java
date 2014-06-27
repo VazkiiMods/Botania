@@ -169,7 +169,7 @@ public final class ModBlocks {
 	public static Block elfQuartzSlab;
 	public static Block elfQuartzSlabFull;
 	public static Block elfQuartzStairs;
-	
+
 	public static void init() {
 		flower = new BlockModFlower();
 		altar = new BlockAltar();
@@ -201,7 +201,7 @@ public final class ModBlocks {
 		conjurationCatalyst = new BlockConjurationCatalyst();
 		bifrost = new BlockBifrost();
 		solidVines = new BlockSolidVines();
-		
+
 		livingwoodStairs = new BlockLivingwoodStairs();
 		livingwoodSlab = new BlockLivingwoodSlab(false);
 		livingwoodSlabFull = new BlockLivingwoodSlab(true);
@@ -248,7 +248,7 @@ public final class ModBlocks {
 		elfQuartzSlab = new BlockSpecialQuartzSlab(elfQuartz, false);
 		elfQuartzSlabFull = new BlockSpecialQuartzSlab(elfQuartz, true);
 		elfQuartzStairs = new BlockSpecialQuartzStairs(elfQuartz);
-		
+
 		if(ConfigHandler.darkQuartzEnabled) {
 			((BlockModSlab) darkQuartzSlab).register();
 			((BlockModSlab) darkQuartzSlabFull).register();
@@ -263,7 +263,7 @@ public final class ModBlocks {
 		((BlockModSlab) redQuartzSlabFull).register();
 		((BlockModSlab) elfQuartzSlab).register();
 		((BlockModSlab) elfQuartzSlabFull).register();
-		
+
 		((BlockModSlab) livingwoodSlab).register();
 		((BlockModSlab) livingwoodSlabFull).register();
 		((BlockModSlab) livingwoodPlankSlab).register();

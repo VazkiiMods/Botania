@@ -341,7 +341,7 @@ public final class ModCrafingRecipes {
 				" W ", "W W", " W ",
 				'W', new ItemStack(ModBlocks.dreamwood, 1, 1));
 		addShapelessOreDictRecipe(new ItemStack(ModBlocks.dreamwood, 1, 5), LibOreDict.DREAM_WOOD, new ItemStack(Items.glowstone_dust));
-		
+
 		// Mana Beacon Recipe
 		for(int i = 0; i < 16; i++)
 			addOreDictRecipe(new ItemStack(ModBlocks.manaBeacon, 1, i),
@@ -878,7 +878,7 @@ public final class ModCrafingRecipes {
 				'T', LibOreDict.LIVINGWOOD_TWIG,
 				'R', LibOreDict.RUNE[3]);
 		recipeTornadoRod = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Rod of the Hells Recipe
 		addOreDictRecipe(new ItemStack(ModItems.fireRod),
 				"  F", " T ", "R  ",
@@ -886,20 +886,20 @@ public final class ModCrafingRecipes {
 				'T', LibOreDict.LIVINGWOOD_TWIG,
 				'R', LibOreDict.RUNE[1]);
 		recipeFireRod = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Vine Ball Recipe
-		addOreDictRecipe(new ItemStack(ModItems.vineBall), 
+		addOreDictRecipe(new ItemStack(ModItems.vineBall),
 				"VVV", "VVV", "VVV",
 				'V', new ItemStack(Blocks.vine));
 		recipeVineBall = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Livingwood Slingshot Recipe
-		addOreDictRecipe(new ItemStack(ModItems.slingshot), 
+		addOreDictRecipe(new ItemStack(ModItems.slingshot),
 				" TA", " TT", "T  ",
 				'T', LibOreDict.LIVINGWOOD_TWIG,
 				'A', LibOreDict.RUNE[3]);
 		recipeSlingshot = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",

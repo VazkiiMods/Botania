@@ -61,7 +61,7 @@ public class ItemElementiumShears extends ItemManasteelShears {
 							ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
 							ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
 						}
-						
+
 						ToolCommons.damageItem(stack, 1, player, MANA_PER_DAMAGE);
 						break;
 					}

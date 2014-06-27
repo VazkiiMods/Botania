@@ -229,14 +229,14 @@ public class GuiLexicon extends GuiScreen {
 			buttonList.add(new GuiButtonBookmark(BOOKMARK_START + i, left + 138, top + 18 + 14 * i, gui == null ? this : gui, gui == null ? "+" : gui.getTitle()));
 		}
 	}
-	
+
 	@Override
 	protected void keyTyped(char par1, int par2) {
 		if(mc.gameSettings.keyBindInventory.getKeyCode() == par2) {
 			mc.displayGuiScreen(null);
 			mc.setIngameFocus();
 		}
-		
+
 		super.keyTyped(par1, par2);
 	}
 

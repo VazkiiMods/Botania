@@ -11,9 +11,6 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import net.minecraft.block.Block;
@@ -33,7 +30,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityPixie;
@@ -59,7 +55,7 @@ public class ItemBottledMana extends ItemMod {
 		}
 		case 1 : { // Water
 			if(!player.worldObj.isRemote)
-				player.worldObj.setBlock((int) MathHelper.floor_double(player.posX), (int) MathHelper.floor_double(player.posY), (int) MathHelper.floor_double(player.posZ), Blocks.flowing_water);
+				player.worldObj.setBlock(MathHelper.floor_double(player.posX), MathHelper.floor_double(player.posY), MathHelper.floor_double(player.posZ), Blocks.flowing_water);
 			break;
 		}
 		case 2 : { // Set on Fire
@@ -103,9 +99,9 @@ public class ItemBottledMana extends ItemMod {
 			break;
 		}
 		case 9 : { // Highest Possible
-			int x = (int) MathHelper.floor_double(player.posX);
-			int y = (int) MathHelper.floor_double(player.posY);
-			int z = (int) MathHelper.floor_double(player.posZ);
+			int x = MathHelper.floor_double(player.posX);
+			MathHelper.floor_double(player.posY);
+			int z = MathHelper.floor_double(player.posZ);
 			for(int i = 256; i > 0; i--) {
 				Block block = player.worldObj.getBlock(x, i, z);
 				if(!block.isAir(player.worldObj, x, i, z)) {
@@ -120,7 +116,7 @@ public class ItemBottledMana extends ItemMod {
 			break;
 		}
 		case 10 : { // HYPERSPEEEEEED
-			player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 60, 200)); 
+			player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 60, 200));
 			break;
 		}
 		case 11 : { // Night Vision
@@ -142,7 +138,7 @@ public class ItemBottledMana extends ItemMod {
 					if(entity != player && (!(entity instanceof EntityPlayer) || MinecraftServer.getServer() == null || MinecraftServer.getServer().isPVPEnabled()))
 						entity.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 50, 5));
 			}
-			
+
 			break;
 		}
 		case 13 : { // Pixie Friend

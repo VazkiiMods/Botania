@@ -26,7 +26,7 @@ public class EntityVineBall extends EntityThrowable {
 		dataWatcher.addObject(30, 0F);
 		dataWatcher.setObjectWatched(30);
 	}
-	
+
 	public EntityVineBall(EntityPlayer player, boolean gravity) {
 		super(player.worldObj, player);
 		dataWatcher.addObject(30, gravity ? 0.03F : 0F);
@@ -38,9 +38,9 @@ public class EntityVineBall extends EntityThrowable {
 		if(var1 != null) {
 			int meta = var1.sideHit;
 			int[] metaPlace = new int[] {
-				1, 4, 8, 2
+					1, 4, 8, 2
 			};
-			
+
 			if(meta > 1 && meta < 6) {
 				ForgeDirection dir = ForgeDirection.getOrientation(meta);
 				int x = var1.blockX + dir.offsetX;
@@ -57,10 +57,10 @@ public class EntityVineBall extends EntityThrowable {
 			}
 
 		}
-		
+
 		setDead();
 	}
-	
+
 	@Override
 	protected float getGravityVelocity() {
 		return dataWatcher.getWatchableObjectFloat(30);

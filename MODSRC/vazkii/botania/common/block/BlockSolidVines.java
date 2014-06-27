@@ -17,7 +17,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -35,12 +34,12 @@ public class BlockSolidVines extends BlockVine implements ILexiconable {
 		setHardness(0.5F);
 		setStepSound(soundTypeGrass);
 		setBlockTextureName("vine");
-        setCreativeTab(null);
+		setCreativeTab(null);
 	}
-	
+
 	@Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World p_149668_1_, int p_149668_2_, int p_149668_3_, int p_149668_4_) {
-		return AxisAlignedBB.getBoundingBox((double)p_149668_2_ + this.minX, (double)p_149668_3_ + this.minY, (double)p_149668_4_ + this.minZ, (double)p_149668_2_ + this.maxX, (double)p_149668_3_ + this.maxY, (double)p_149668_4_ + this.maxZ);
+		return AxisAlignedBB.getBoundingBox(p_149668_2_ + minX, p_149668_3_ + minY, p_149668_4_ + minZ, p_149668_2_ + maxX, p_149668_3_ + maxY, p_149668_4_ + maxZ);
 	}
 
 	@Override
@@ -48,12 +47,12 @@ public class BlockSolidVines extends BlockVine implements ILexiconable {
 		GameRegistry.registerBlock(this, ItemBlockMod.class, par1Str);
 		return super.setBlockName(par1Str);
 	}
-	
+
 	@Override
 	public boolean isShearable(ItemStack item, IBlockAccess world, int x, int y, int z) {
 		return false;
 	}
-	
+
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
 		return new ItemStack(Blocks.vine);

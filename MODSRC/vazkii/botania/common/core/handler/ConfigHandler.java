@@ -13,9 +13,9 @@ package vazkii.botania.common.core.handler;
 
 import java.io.File;
 
-import vazkii.botania.common.lib.LibMisc;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
+import vazkii.botania.common.lib.LibMisc;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -51,10 +51,10 @@ public final class ConfigHandler {
 
 		config.load();
 		load();
-		
+
 		FMLCommonHandler.instance().bus().register(new ChangeListener());
 	}
-	
+
 	public static void load() {
 		String desc;
 

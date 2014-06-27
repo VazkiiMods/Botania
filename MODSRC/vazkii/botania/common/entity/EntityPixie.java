@@ -82,5 +82,5 @@ public class EntityPixie extends EntityFlyingCreature {
 	protected boolean canDespawn() {
 		return false;
 	}
-	
+
 }
