@@ -158,7 +158,7 @@ public class ItemBottledMana extends ItemMod {
 			player.addPotionEffect(new PotionEffect(Potion.blindness.id, 160, 0));
 			break;
 		}
-		case 15 : {
+		case 15 : { // Drop own Head
 			player.attackEntityFrom(DamageSource.magic, player.getHealth() - 1);
 			ItemStack stack = new ItemStack(Items.skull, 1, 3);
 			ItemNBTHelper.setString(stack, "SkullOwner", player.getCommandSenderName());
