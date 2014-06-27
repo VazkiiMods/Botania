@@ -1,3 +1,8 @@
+r1.1 65
+*Fixed the Alfheim portal renderer flickering when in the presence of a Beacon.
+*Fixed the Mana Bottle always doing the same effect.
+*Fixed the Terra Shatterer doubling up on block particles and sound while in multiplayer.
+*Removed Vector Pool references to ensure 1.7.10 compatibility.
 r1.1 64
 *Added an explanation to the lexica as to why some entries are in italics for a better start.
 *Added better textures for Rings and Shears. <i>They don't look like penises now. Dammit reddit.</i>
