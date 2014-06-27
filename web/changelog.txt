@@ -1,3 +1,18 @@
+r1.1 64
+*Added an explanation to the lexica as to why some entries are in italics for a better start.
+*Added better textures for Rings and Shears. <i>They don't look like penises now. Dammit reddit.</i>
+*Added Ingame Configs using the new forge config system. You can access them via the Mods menu. <b>Botania now requires forge 1147 at least for this.</b>
+*Added Mana in a Bottle. What does it do? How do you get it? Who knows.
+*Added two new rods, the Rod of the Skies and the Rod of the Hells.
+*Added Vine Balls and a Slingshot for them.
+*Changed the Botania creative tab's icon to the Lexica Botania.
+*Fixed a major Bauble dupe where equipping a bauble via right click would create a fully functional duplicate.
+*Fixed Pixies spamming your console with their target.
+*Fixed the Daffomill not being controllable with redstone.
+*Fixed the inventory key not closing the Lexica Botania GUIs.
+*Removed all the entries for Mana Lenses and squashed them in one fat entry.
+*Renamed the Basics section to "Basics and Mechanics" for better understanding.
+*<i>I stayed up till 4:20 (no joke intended, for real, I did) to finish this update, it might spontaneously combust. You have been warned.</i>
 r1.1 63
 *Fixed generating flowers in the corners of chunks (and in general) causing lots of unnecessary chunk updates.
 *Fixed lack of canUpdate() override on TileManaVoid, in theory this shouldn't impact performance unless you somehow had hundreds of them, but it fixes MCPC+ complaining. <i>/shrug.</i>
