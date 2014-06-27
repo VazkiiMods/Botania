@@ -9,7 +9,7 @@
  * 
  * File Created @ [Jan 14, 2014, 8:34:01 PM (GMT)]
  */
-package vazkii.botania.client.gui.button;
+package vazkii.botania.client.gui.lexicon.button;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;

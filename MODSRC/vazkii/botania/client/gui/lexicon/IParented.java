@@ -1,4 +1,4 @@
-package vazkii.botania.client.gui;
+package vazkii.botania.client.gui.lexicon;
 
 public interface IParented {
 

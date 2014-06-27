@@ -1,4 +1,4 @@
-package vazkii.botania.client.gui.button;
+package vazkii.botania.client.gui.lexicon.button;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.client.gui.GuiLexicon;
+import vazkii.botania.client.gui.lexicon.GuiLexicon;
 
 public class GuiButtonBookmark extends GuiButton {
 

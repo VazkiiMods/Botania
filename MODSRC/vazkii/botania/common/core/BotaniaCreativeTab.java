@@ -33,7 +33,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 
 	@Override
 	public ItemStack getIconItemStack() {
-		return new ItemStack(ModBlocks.flower);
+		return new ItemStack(ModItems.lexicon);
 	}
 
 	@Override

@@ -13,12 +13,16 @@ package vazkii.botania.common.core.handler;
 
 import java.io.File;
 
+import vazkii.botania.common.lib.LibMisc;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
+import cpw.mods.fml.client.event.ConfigChangedEvent;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public final class ConfigHandler {
 
-	private static Configuration config;
+	public static Configuration config;
 
 	public static boolean useShaders = true;
 	public static boolean lexiconRotatingItems = true;
@@ -46,6 +50,12 @@ public final class ConfigHandler {
 		config = new Configuration(configFile);
 
 		config.load();
+		load();
+		
+		FMLCommonHandler.instance().bus().register(new ChangeListener());
+	}
+	
+	public static void load() {
 		String desc;
 
 		desc = "Set to false to disable the use of shaders for some of the mod's renders.";
@@ -89,7 +99,7 @@ public final class ConfigHandler {
 
 		desc = "Turn off ONLY IF you're on an extremely large world with an exhagerated count of Mana Spreaders/Mana Pools and are experiencing TPS lag. This toggles whether flowers are strict with their checking for connecting to pools/spreaders or just check whenever possible.";
 		flowerForceCheck = loadPropBool("flower.forceCheck", desc, flowerForceCheck);
-		
+
 		desc = "Set to false to disable the Fallen Kanade flower (gives Regeneration). This config option is here for those using Blood Magic. Note: Turning this off will not remove ones already in the world, it'll simply prevent the crafting.";
 		fallenKanadeEnabled = loadPropBool("fallenKanade.enabled", desc, fallenKanadeEnabled);
 
@@ -122,5 +132,15 @@ public final class ConfigHandler {
 		Property prop = config.get(Configuration.CATEGORY_GENERAL, propName, default_);
 		prop.comment = desc;
 		return prop.getBoolean(default_);
+	}
+
+	public static class ChangeListener {
+
+		@SubscribeEvent
+		public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent eventArgs) {
+			if(eventArgs.modID.equals(LibMisc.MOD_ID))
+				load();
+		}
+
 	}
 }

@@ -9,7 +9,7 @@
  * 
  * File Created @ [Jan 14, 2014, 6:48:05 PM (GMT)]
  */
-package vazkii.botania.client.gui;
+package vazkii.botania.client.gui.lexicon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +27,8 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.gui.button.GuiButtonBookmark;
-import vazkii.botania.client.gui.button.GuiButtonInvisible;
+import vazkii.botania.client.gui.lexicon.button.GuiButtonBookmark;
+import vazkii.botania.client.gui.lexicon.button.GuiButtonInvisible;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.item.ItemLexicon;
 

@@ -72,6 +72,26 @@ botania.rank5=&6SS
 botania.knowledge.minecraft=Minecraftian Knowledge
 botania.knowledge.alfheim=&aElven&7 Knowledge
 
+# CONFIGURATION
+blockBreakingParticles.enabled=Block Break Particles
+blockBreakingParticlesTool.enabled=Tool Block Break Particles
+boundBlock.wireframe.enabled=Bound Block Wireframe
+darkQuartz.enabled=Enable Smokey Quatrz
+fallenKanade.enabled=Enable Fallen Kanade
+flower.forceCheck=Flower Force Checking
+flowerParticles.frequency=Flower Particle Frequency
+lexicon.enable.rotatingItems=Lexicon Rotating Items
+lexicon.render.3D=3D Lexicon Render
+powerSystem.subtle=Use Subtle Power System
+pylonModel.old=Use Old Pylon Model
+references.enabled=Enable Tooltip References
+shaders.enabled=Enable Shader Usage
+spreader.posShift=Spreader Pos Shift
+versionChecking.enabled=Enable Version Checking
+wandBeam.static=Enable Static Wand Beam
+worldgen.flower.density=Worldgen Flower Density
+worldgen.flower.quantity=Worldgen Flower Quantity
+
 # VERSION CHECKING
 botania.versioning.flavour0=NANI SORE!? BOTANIA IS OUTDATED!?
 botania.versioning.flavour1=What do you mean Botania is outdated, you ignorant fool?

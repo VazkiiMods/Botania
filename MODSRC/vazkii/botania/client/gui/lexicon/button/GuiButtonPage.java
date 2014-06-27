@@ -9,7 +9,7 @@
  * 
  * File Created @ [Jan 16, 2014, 4:52:06 PM (GMT)]
  */
-package vazkii.botania.client.gui.button;
+package vazkii.botania.client.gui.lexicon.button;
 
 import java.util.Arrays;
 
@@ -20,7 +20,7 @@ import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.client.gui.GuiLexicon;
+import vazkii.botania.client.gui.lexicon.GuiLexicon;
 
 public class GuiButtonPage extends GuiButton {
 

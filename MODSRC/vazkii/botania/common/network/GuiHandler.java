@@ -14,7 +14,7 @@ package vazkii.botania.common.network;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexicon;
-import vazkii.botania.client.gui.GuiLexicon;
+import vazkii.botania.client.gui.lexicon.GuiLexicon;
 import vazkii.botania.common.lib.LibGuiIDs;
 import cpw.mods.fml.common.network.IGuiHandler;
 

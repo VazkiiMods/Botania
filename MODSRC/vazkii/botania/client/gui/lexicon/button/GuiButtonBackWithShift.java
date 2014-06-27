@@ -9,7 +9,7 @@
  * 
  * File Created @ [Mar 6, 2014, 6:35:32 PM (GMT)]
  */
-package vazkii.botania.client.gui.button;
+package vazkii.botania.client.gui.lexicon.button;
 
 import java.util.Arrays;
 import java.util.List;
