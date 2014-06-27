@@ -40,6 +40,7 @@ public class RenderTileAlfPortal extends TileEntitySpecialRenderer {
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		GL11.glDisable(GL11.GL_ALPHA_TEST);
+		GL11.glEnable(GL11.GL_CULL_FACE);
 		float alpha = (float) Math.min(1F, (Math.sin(portal.getWorldObj().getTotalWorldTime() / 8D) + 1D) / 7D + 0.6D) * (Math.min(60, portal.ticksOpen) / 60F);
 		GL11.glColor4f(1F, 1F, 1F, alpha);
 
@@ -66,6 +67,7 @@ public class RenderTileAlfPortal extends TileEntitySpecialRenderer {
 			GL11.glTranslated(0F, 0F, -0.5F);
 		}
 
+		GL11.glDisable(GL11.GL_CULL_FACE);
 		GL11.glEnable(GL11.GL_ALPHA_TEST);
 		GL11.glDisable(GL11.GL_BLEND);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
