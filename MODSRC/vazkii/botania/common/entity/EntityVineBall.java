@@ -21,15 +21,16 @@ import vazkii.botania.common.block.ModBlocks;
 
 public class EntityVineBall extends EntityThrowable {
 
-	boolean gravity = true;
-	
 	public EntityVineBall(World par1World) {
 		super(par1World);
+		dataWatcher.addObject(30, 0F);
+		dataWatcher.setObjectWatched(30);
 	}
 	
 	public EntityVineBall(EntityPlayer player, boolean gravity) {
 		super(player.worldObj, player);
-		this.gravity = gravity;
+		dataWatcher.addObject(30, gravity ? 0.03F : 0F);
+		dataWatcher.setObjectWatched(30);
 	}
 
 	@Override
@@ -62,7 +63,7 @@ public class EntityVineBall extends EntityThrowable {
 	
 	@Override
 	protected float getGravityVelocity() {
-		return gravity ? super.getGravityVelocity() : 0F;
+		return dataWatcher.getWatchableObjectFloat(30);
 	}
 
 }

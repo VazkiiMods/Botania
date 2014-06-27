@@ -201,7 +201,8 @@ public final class ModItems {
 		tornadoRod = new ItemTornadoRod();
 		fireRod = new ItemFireRod();
 		vineBall = new ItemVineBall();
-
+		slingshot = new ItemSlingshot();
+		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));

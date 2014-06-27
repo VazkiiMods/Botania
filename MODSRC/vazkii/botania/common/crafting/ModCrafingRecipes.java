@@ -150,6 +150,8 @@ public final class ModCrafingRecipes {
 	public static List<IRecipe> recipesDreamwoodSpreader;
 	public static IRecipe recipeTornadoRod;
 	public static IRecipe recipeFireRod;
+	public static IRecipe recipeVineBall;
+	public static IRecipe recipeSlingshot;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -879,11 +881,24 @@ public final class ModCrafingRecipes {
 		
 		// Rod of the Hells Recipe
 		addOreDictRecipe(new ItemStack(ModItems.fireRod),
-				"  R", " T ", "R  ",
+				"  F", " T ", "R  ",
 				'F', new ItemStack(Items.blaze_powder),
 				'T', LibOreDict.LIVINGWOOD_TWIG,
 				'R', LibOreDict.RUNE[1]);
 		recipeFireRod = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Vine Ball Recipe
+		addOreDictRecipe(new ItemStack(ModItems.vineBall), 
+				"VVV", "VVV", "VVV",
+				'V', new ItemStack(Blocks.vine));
+		recipeVineBall = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Livingwood Slingshot Recipe
+		addOreDictRecipe(new ItemStack(ModItems.slingshot), 
+				" TA", " TT", "T  ",
+				'T', LibOreDict.LIVINGWOOD_TWIG,
+				'A', LibOreDict.RUNE[3]);
+		recipeSlingshot = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

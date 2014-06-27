@@ -128,6 +128,7 @@ public final class LexiconData {
 	public static LexiconEntry rainbowRod;
 	public static LexiconEntry tornadoRod;
 	public static LexiconEntry fireRod;
+	public static LexiconEntry vineBall;
 
 	public static LexiconEntry baublesIntro;
 	public static LexiconEntry tinyPlanet;
@@ -427,6 +428,9 @@ public final class LexiconData {
 		
 		fireRod = new BLexiconEntry(LibLexicon.TOOL_FIRE_ROD, categoryTools);
 		fireRod.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeFireRod));
+		
+		vineBall = new BLexiconEntry(LibLexicon.TOOL_VINE_BALL, categoryTools);
+		vineBall.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCrafingRecipes.recipeVineBall), new PageCraftingRecipe("3", ModCrafingRecipes.recipeSlingshot));
 		
 		// BAUBLES ENTRIES
 		baublesIntro = new BLexiconEntry(LibLexicon.BAUBLE_INTRO, categoryBaubles);
