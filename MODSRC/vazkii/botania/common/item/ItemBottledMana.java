@@ -12,6 +12,7 @@
 package vazkii.botania.common.item;
 
 import java.util.List;
+import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -59,7 +60,8 @@ public class ItemBottledMana extends ItemMod {
 			break;
 		}
 		case 2 : { // Set on Fire
-			player.setFire(4);
+			if(!player.worldObj.isRemote)
+				player.setFire(4);
 			break;
 		}
 		case 3 : { // Mini Explosion
@@ -68,26 +70,30 @@ public class ItemBottledMana extends ItemMod {
 			break;
 		}
 		case 4 : { // Mega Jump
+			if(!player.worldObj.isRemote)
+				player.addPotionEffect(new PotionEffect(Potion.resistance.id, 300, 5));
 			player.motionY = 6;
-			player.addPotionEffect(new PotionEffect(Potion.resistance.id, 200, 5));
 			break;
 		}
 		case 5 : { // Randomly set HP
-			player.setHealth(player.worldObj.rand.nextInt(19) + 1);
+			if(!player.worldObj.isRemote)
+				player.setHealth(player.worldObj.rand.nextInt(19) + 1);
 			break;
 		}
 		case 6 : { // Lots O' Hearts
-			player.addPotionEffect(new PotionEffect(Potion.field_76444_x.id, 20 * 60 * 2, 9));
+			if(!player.worldObj.isRemote)
+				player.addPotionEffect(new PotionEffect(Potion.field_76444_x.id, 20 * 60 * 2, 9));
 			break;
 		}
 		case 7 : { // All your inventory is belong to us
-			for(int i = 0; i < player.inventory.getSizeInventory(); i++)
-				if(i != player.inventory.currentItem) {
-					ItemStack stackAt = player.inventory.getStackInSlot(i);
-					if(stackAt != null)
-						player.dropPlayerItemWithRandomChoice(stackAt, true);
-					player.inventory.setInventorySlotContents(i, null);
-				}
+			if(!player.worldObj.isRemote)
+				for(int i = 0; i < player.inventory.getSizeInventory(); i++)
+					if(i != player.inventory.currentItem) {
+						ItemStack stackAt = player.inventory.getStackInSlot(i);
+						if(stackAt != null)
+							player.dropPlayerItemWithRandomChoice(stackAt, true);
+						player.inventory.setInventorySlotContents(i, null);
+					}
 
 			break;
 		}
@@ -116,11 +122,13 @@ public class ItemBottledMana extends ItemMod {
 			break;
 		}
 		case 10 : { // HYPERSPEEEEEED
-			player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 60, 200));
+			if(!player.worldObj.isRemote)
+				player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 60, 200));
 			break;
 		}
 		case 11 : { // Night Vision
-			player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 6000, 0));
+			if(!player.worldObj.isRemote)
+				player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 6000, 0));
 			break;
 		}
 		case 12 : { // Flare
@@ -150,22 +158,28 @@ public class ItemBottledMana extends ItemMod {
 			break;
 		}
 		case 14 : { // Nausea + Blindness :3
-			player.addPotionEffect(new PotionEffect(Potion.confusion.id, 160, 3));
-			player.addPotionEffect(new PotionEffect(Potion.blindness.id, 160, 0));
+			if(!player.worldObj.isRemote) {
+				player.addPotionEffect(new PotionEffect(Potion.confusion.id, 160, 3));
+				player.addPotionEffect(new PotionEffect(Potion.blindness.id, 160, 0));
+			}
+
 			break;
 		}
 		case 15 : { // Drop own Head
-			player.attackEntityFrom(DamageSource.magic, player.getHealth() - 1);
-			ItemStack stack = new ItemStack(Items.skull, 1, 3);
-			ItemNBTHelper.setString(stack, "SkullOwner", player.getCommandSenderName());
-			player.dropPlayerItemWithRandomChoice(stack, true);
+			if(!player.worldObj.isRemote) {
+				player.attackEntityFrom(DamageSource.magic, player.getHealth() - 1);
+				ItemStack stack = new ItemStack(Items.skull, 1, 3);
+				ItemNBTHelper.setString(stack, "SkullOwner", player.getCommandSenderName());
+				player.dropPlayerItemWithRandomChoice(stack, true);
+			}
 			break;
 		}
 		}
 	}
 
 	public void randomEffect(EntityPlayer player) {
-		effect(player, 15);
+		int rand = (int) (player.worldObj.getTotalWorldTime() + (player.worldObj.isRemote ? 1 : 0)) % 16;
+		effect(player, rand);
 	}
 
 	@Override
