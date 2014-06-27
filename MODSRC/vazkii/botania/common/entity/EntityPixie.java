@@ -36,7 +36,6 @@ public class EntityPixie extends EntityFlyingCreature {
 	@Override
 	protected void updateEntityActionState() {
 		EntityLivingBase target = getAttackTarget();
-		System.out.println(target);
 		if(target != null) {
 			double d0 = target.posX + target.width / 2 - posX;
 			double d1 = target.posY + target.height / 2 - posY;
