@@ -1,3 +1,9 @@
+r1.1 66
+*Added Prismarine. Just like the one in the 1.8 snapshots but won't corrupt your world, yeah!
+*Fixed Elven Quartz Blocks not being able to be broken back using the alchemy catalyst.
+*Petals can now be buried via right clicking and emit particles when done so.
+*Tossing Vines in a Petal Apothecary causes it to get an overgrown look. This is visual only.
+*Updated a bunch of textures.
 r1.1 65
 *Fixed the Alfheim portal renderer flickering when in the presence of a Beacon.
 *Fixed the Mana Bottle always doing the same effect.
