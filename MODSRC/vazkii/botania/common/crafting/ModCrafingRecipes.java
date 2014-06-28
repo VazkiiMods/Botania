@@ -152,6 +152,10 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeFireRod;
 	public static IRecipe recipeVineBall;
 	public static IRecipe recipeSlingshot;
+	public static IRecipe recipePrismarine;
+	public static IRecipe recipePrismarineBrick;
+	public static IRecipe recipeDarkPrismarine;
+	public static IRecipe recipeSeaLamp;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -900,6 +904,34 @@ public final class ModCrafingRecipes {
 				'A', LibOreDict.RUNE[3]);
 		recipeSlingshot = BotaniaAPI.getLatestAddedRecipe();
 
+		// Prismarine Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.prismarine, 1, 0), 
+				" S ", "SBS", " S ",
+				'S', LibOreDict.PRISMARINE_SHARD,
+				'B', "cobblestone");
+		recipePrismarine = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Prismarine Brick Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.prismarine, 1, 1), 
+				" S ", "SBS", " S ",
+				'S', LibOreDict.PRISMARINE_SHARD,
+				'B', new ItemStack(Blocks.stonebrick));
+		recipePrismarineBrick = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Dark Prismarine Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.prismarine, 1, 2), 
+				" S ", "SBS", " S ",
+				'S', LibOreDict.PRISMARINE_SHARD,
+				'B', new ItemStack(Blocks.nether_brick));
+		recipeDarkPrismarine = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Sea Lantern Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.seaLamp),
+				" S ", "SBS", " S ",
+				'S', LibOreDict.PRISMARINE_SHARD,
+				'B', new ItemStack(Blocks.glowstone));
+		recipeSeaLamp = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",

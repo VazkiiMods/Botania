@@ -45,6 +45,8 @@ public final class LibBlockNames {
 	public static final String BIFROST = "bifrost";
 	public static final String SOLID_VINE = "solidVine";
 	public static final String BURIED_PETALS = "buriedPetals";
+	public static final String PRISMARINE = "prismarine";
+	public static final String SEA_LAMP = "seaLamp";
 
 	public static final String SPECIAL_FLOWER_PREFIX = FLOWER + ".";
 

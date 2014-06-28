@@ -32,12 +32,18 @@ import vazkii.botania.common.block.decor.slabs.living.BlockLivingrockBrickSlab;
 import vazkii.botania.common.block.decor.slabs.living.BlockLivingrockSlab;
 import vazkii.botania.common.block.decor.slabs.living.BlockLivingwoodPlankSlab;
 import vazkii.botania.common.block.decor.slabs.living.BlockLivingwoodSlab;
+import vazkii.botania.common.block.decor.slabs.prismarine.BlockDarkPrismarineSlab;
+import vazkii.botania.common.block.decor.slabs.prismarine.BlockPrismarineBrickSlab;
+import vazkii.botania.common.block.decor.slabs.prismarine.BlockPrismarineSlab;
 import vazkii.botania.common.block.decor.stairs.living.BlockDreamwoodPlankStairs;
 import vazkii.botania.common.block.decor.stairs.living.BlockDreamwoodStairs;
 import vazkii.botania.common.block.decor.stairs.living.BlockLivingrockBrickStairs;
 import vazkii.botania.common.block.decor.stairs.living.BlockLivingrockStairs;
 import vazkii.botania.common.block.decor.stairs.living.BlockLivingwoodPlankStairs;
 import vazkii.botania.common.block.decor.stairs.living.BlockLivingwoodStairs;
+import vazkii.botania.common.block.decor.stairs.prismarine.BlockDarkPrismarineStairs;
+import vazkii.botania.common.block.decor.stairs.prismarine.BlockPrismarineBrickStairs;
+import vazkii.botania.common.block.decor.stairs.prismarine.BlockPrismarineStairs;
 import vazkii.botania.common.block.dispenser.BehaviourSeeds;
 import vazkii.botania.common.block.dispenser.BehaviourWand;
 import vazkii.botania.common.block.subtile.SubTileManastar;
@@ -126,6 +132,8 @@ public final class ModBlocks {
 	public static Block bifrost;
 	public static Block solidVines;
 	public static Block buriedPetals;
+	public static Block prismarine;
+	public static Block seaLamp;
 
 	public static Block livingwoodStairs;
 	public static Block livingwoodSlab;
@@ -145,7 +153,17 @@ public final class ModBlocks {
 	public static Block dreamwoodPlankStairs;
 	public static Block dreamwoodPlankSlab;
 	public static Block dreamwoodPlankSlabFull;
-
+	
+	public static Block prismarineStairs;
+	public static Block prismarineSlab;
+	public static Block prismarineSlabFull;
+	public static Block prismarineBrickStairs;
+	public static Block prismarineBrickSlab;
+	public static Block prismarineBrickSlabFull;
+	public static Block darkPrismarineStairs;
+	public static Block darkPrismarineSlab;
+	public static Block darkPrismarineSlabFull;
+	
 	public static Block darkQuartz;
 	public static Block darkQuartzSlab;
 	public static Block darkQuartzSlabFull;
@@ -203,7 +221,9 @@ public final class ModBlocks {
 		bifrost = new BlockBifrost();
 		solidVines = new BlockSolidVines();
 		buriedPetals = new BlockBuriedPetals();
-
+		prismarine = new BlockPrismarine();
+		seaLamp = new BlockSeaLamp();
+		
 		livingwoodStairs = new BlockLivingwoodStairs();
 		livingwoodSlab = new BlockLivingwoodSlab(false);
 		livingwoodSlabFull = new BlockLivingwoodSlab(true);
@@ -222,7 +242,17 @@ public final class ModBlocks {
 		dreamwoodPlankStairs = new BlockDreamwoodPlankStairs();
 		dreamwoodPlankSlab = new BlockDreamwoodPlankSlab(false);
 		dreamwoodPlankSlabFull = new BlockDreamwoodPlankSlab(true);
-
+		
+		prismarineStairs = new BlockPrismarineStairs();
+		prismarineSlab = new BlockPrismarineSlab(false);
+		prismarineSlabFull = new BlockPrismarineSlab(true);
+		prismarineBrickStairs = new BlockPrismarineBrickStairs();
+		prismarineBrickSlab = new BlockPrismarineBrickSlab(false);
+		prismarineBrickSlabFull = new BlockPrismarineBrickSlab(true);
+		darkPrismarineStairs = new BlockDarkPrismarineStairs();
+		darkPrismarineSlab = new BlockDarkPrismarineSlab(false);
+		darkPrismarineSlabFull = new BlockDarkPrismarineSlab(true);
+		
 		if(ConfigHandler.darkQuartzEnabled) {
 			darkQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_DARK);
 			darkQuartzSlab = new BlockSpecialQuartzSlab(darkQuartz, false);
@@ -278,7 +308,13 @@ public final class ModBlocks {
 		((BlockModSlab) dreamwoodSlabFull).register();
 		((BlockModSlab) dreamwoodPlankSlab).register();
 		((BlockModSlab) dreamwoodPlankSlabFull).register();
-
+		((BlockModSlab) prismarineSlab).register();
+		((BlockModSlab) prismarineSlabFull).register();
+		((BlockModSlab) prismarineBrickSlab).register();
+		((BlockModSlab) prismarineBrickSlabFull).register();
+		((BlockModSlab) darkPrismarineSlab).register();
+		((BlockModSlab) darkPrismarineSlabFull).register();
+		
 		for(int i = 0; i < 16; i++)
 			OreDictionary.registerOre(LibOreDict.FLOWER[i], new ItemStack(flower, 1, i));
 

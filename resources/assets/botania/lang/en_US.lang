@@ -295,6 +295,16 @@ tile.botania:dreamwood0Slab.name=Dreamwood Slab
 tile.botania:dreamwood1Stairs.name=Dreamwood Plank Stairs
 tile.botania:dreamwood1Slab.name=Dreamwood Plank Slab
 tile.botania:conjurationCatalyst.name=Conjuration Catalyst
+tile.botania:prismarine0.name=Prismarine
+tile.botania:prismarine1.name=Prismarine Bricks
+tile.botania:prismarine2.name=Dark Prismarine
+tile.botania:prismarine0Stairs.name=Prismarine Stairs
+tile.botania:prismarine0Slab.name=Prismarine Slab
+tile.botania:prismarine1Stairs.name=Prismarine Brick Stairs
+tile.botania:prismarine1Slab.name=Prismarine Brick Slab
+tile.botania:prismarine2Stairs.name=Dark Prismarine Stairs
+tile.botania:prismarine2Slab.name=Dark Prismarine Slab
+tile.botania:seaLamp.name=Sea Lantern
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
@@ -536,6 +546,7 @@ item.botania:fireRod.name=Rod of the Hells
 item.botania:vineBall.name=Vine Ball
 item.botania:slingshot.name=Livingwood Slingshot
 item.botania:manaBottle.name=Mana in a Bottle
+item.botania:prismarineShard.name=Prismarine Shard
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania, %s Edition's Index - Pick which category you would like to study:
@@ -1268,3 +1279,13 @@ botania.page.dispenserTweaks0=&1Dispensers&0, among their normal abilities, can 
 botania.entry.shinyFlowers=Glimmering Flowers
 botania.page.shinyFlowers0=By combining your typical &1Mystical Flowers&0 with some &1Glowstone Dust&0, you can make them sparkle even brighter, and emit actual physical light, of the same brightness as a &1Glowstone Block&0.
 botania.page.shinyFlowers1=Pretty Pretty Shiny Shiny
+
+# -- PRISMARINE
+botania.entry.prismarine=Prismarine
+botania.page.prismarine0=&1Prismarine&0 is an interesting component and building block. Some scholars even go as far as to say it comes from &4the future&0.<br>To create it, one requires an &1Alchemy Catalyst&0. Simply tossing some &1Nether Quartz&0 into a &1Mana Pool&0 with the catalyst attached to it will get some of this material.
+botania.page.prismarine1=There's various building blocks that can be created using the &1Prismarine Shards&0, to which all but the &1Sea Lantern&0 can be turned into their &1Stair&0 and &1Slab&0 variants.
+botania.page.prismarine2=Creating &1Prismarine Shards&0
+botania.page.prismarine3=Crafting &1Prismarine&0
+botania.page.prismarine4=Crafting &1Prismarine Bricks&0
+botania.page.prismarine5=Crafting &1Dark Prismarine&0
+botania.page.prismarine6=Crafting the &1Sea Lantern&0

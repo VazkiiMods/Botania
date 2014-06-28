@@ -26,7 +26,7 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemManaResource extends ItemMod implements IFlowerComponent, IElvenItem {
 
-	final int types = 10;
+	final int types = 11;
 	IIcon[] icons;
 
 	public ItemManaResource() {

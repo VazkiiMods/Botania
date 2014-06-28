@@ -133,5 +133,6 @@ public final class LibLexicon {
 	public static final String MISC_DECORATIVE_BLOCKS = "decorativeBlocks";
 	public static final String MISC_DISPENSER_TWEAKS = "dispenserTweaks";
 	public static final String MISC_SHINY_FLOWERS = "shinyFlowers";
+	public static final String MISC_PRISMARINE = "prismarine";
 
 }

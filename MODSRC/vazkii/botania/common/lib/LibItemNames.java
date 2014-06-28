@@ -110,6 +110,7 @@ public final class LibItemNames {
 		"redstoneRoot",
 		"elementium",
 		"pixieDust",
-		"dragonstone"
+		"dragonstone",
+		"prismarineShard"
 	};
 }

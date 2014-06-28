@@ -223,5 +223,6 @@ public final class ModItems {
 		OreDictionary.registerOre(LibOreDict.ELEMENTIUM, new ItemStack(manaResource, 1, 7));
 		OreDictionary.registerOre(LibOreDict.PIXIE_DUST, new ItemStack(manaResource, 1, 8));
 		OreDictionary.registerOre(LibOreDict.DRAGONSTONE, new ItemStack(manaResource, 1, 9));
+		OreDictionary.registerOre(LibOreDict.PRISMARINE_SHARD, new ItemStack(manaResource, 1, 10));
 	}
 }
