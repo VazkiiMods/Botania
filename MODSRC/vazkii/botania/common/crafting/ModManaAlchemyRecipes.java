@@ -67,6 +67,7 @@ public final class ModManaAlchemyRecipes {
 		quartzRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(ModItems.quartz, 4, 2), new ItemStack(ModBlocks.blazeQuartz), 25));
 		quartzRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(ModItems.quartz, 4, 3), new ItemStack(ModBlocks.lavenderQuartz), 25));
 		quartzRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(ModItems.quartz, 4, 4), new ItemStack(ModBlocks.redQuartz), 25));
+		quartzRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(ModItems.quartz, 4, 5), new ItemStack(ModBlocks.elfQuartz), 25));
 
 		chiseledBrickRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.stonebrick, 1, 3), new ItemStack(Blocks.stonebrick), 150);
 		iceRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.ice), new ItemStack(Blocks.snow), 2250);
