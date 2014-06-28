@@ -122,10 +122,19 @@ public class ClientProxy extends CommonProxy {
 		return Minecraft.getMinecraft().theWorld == null ? 0 : Minecraft.getMinecraft().theWorld.getTotalWorldTime();
 	}
 
+	private static boolean noclipEnabled = false;
+	
+	@Override
+	public void setSparkleFXNoClip(boolean noclip) {
+		noclipEnabled = noclip;
+	}
+	
 	@Override
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m, boolean fake) {
 		FXSparkle sparkle = new FXSparkle(world, x, y, z, size, r, g, b, m);
 		sparkle.fake = sparkle.noClip = fake;
+		if(noclipEnabled)
+			sparkle.noClip = true;
 		Minecraft.getMinecraft().effectRenderer.addEffect(sparkle);
 	}
 

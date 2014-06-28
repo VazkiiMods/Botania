@@ -125,6 +125,7 @@ public final class ModBlocks {
 	public static Block conjurationCatalyst;
 	public static Block bifrost;
 	public static Block solidVines;
+	public static Block buriedPetals;
 
 	public static Block livingwoodStairs;
 	public static Block livingwoodSlab;
@@ -201,6 +202,7 @@ public final class ModBlocks {
 		conjurationCatalyst = new BlockConjurationCatalyst();
 		bifrost = new BlockBifrost();
 		solidVines = new BlockSolidVines();
+		buriedPetals = new BlockBuriedPetals();
 
 		livingwoodStairs = new BlockLivingwoodStairs();
 		livingwoodSlab = new BlockLivingwoodSlab(false);

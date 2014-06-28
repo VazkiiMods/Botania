@@ -53,9 +53,12 @@ public class BlockModFlower extends BlockFlower implements ILexiconable {
 		setStepSound(soundTypeGrass);
 		setBlockBounds(0.3F, 0.0F, 0.3F, 0.8F, 1, 0.8F);
 		setTickRandomly(true);
-		setCreativeTab(BotaniaCreativeTab.INSTANCE);
+		setCreativeTab(registerInCreative() ? BotaniaCreativeTab.INSTANCE : null);
 	}
 
+	boolean registerInCreative() {
+		return true;
+	}
 
 	@Override
 	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
