@@ -14,7 +14,7 @@ public class BlockPrismarineSlab extends BlockLivingSlab {
 	public BlockPrismarineSlab(boolean full) {
 		this(full, 0);
 	}
-	
+
 	public BlockPrismarineSlab(boolean full, int meta) {
 		super(full, ModBlocks.prismarine, meta);
 		setHardness(2.0F);
@@ -31,7 +31,7 @@ public class BlockPrismarineSlab extends BlockLivingSlab {
 	public BlockSlab getSingleBlock() {
 		return (BlockSlab) ModBlocks.prismarineSlab;
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.prismarine;

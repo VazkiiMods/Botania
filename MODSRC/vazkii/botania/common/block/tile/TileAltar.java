@@ -51,7 +51,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 			}
 		}
-		
+
 		if(!hasWater) {
 			if(stack.getItem() == Items.water_bucket && !worldObj.isRemote) {
 				hasWater = true;
@@ -60,7 +60,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 			} else return false;
 		}
-		
+
 		boolean didChange = false;
 
 		if(stack.getItem() instanceof IFlowerComponent) {

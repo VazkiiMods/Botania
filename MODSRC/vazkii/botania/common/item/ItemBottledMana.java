@@ -12,7 +12,6 @@
 package vazkii.botania.common.item;
 
 import java.util.List;
-import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;

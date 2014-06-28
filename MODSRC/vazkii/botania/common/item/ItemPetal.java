@@ -33,12 +33,12 @@ public class ItemPetal extends Item16Colors implements IFlowerComponent {
 		if(stackToPlace.stackSize == 0) {
 			if(!par2EntityPlayer.capabilities.isCreativeMode)
 				par1ItemStack.stackSize--;
-			
+
 			return true;
 		}
 		return false;
 	}
-	
+
 	@Override
 	public boolean canFit(ItemStack stack, IInventory apothecary) {
 		return true;

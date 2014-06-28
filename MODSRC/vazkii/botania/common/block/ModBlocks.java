@@ -153,7 +153,7 @@ public final class ModBlocks {
 	public static Block dreamwoodPlankStairs;
 	public static Block dreamwoodPlankSlab;
 	public static Block dreamwoodPlankSlabFull;
-	
+
 	public static Block prismarineStairs;
 	public static Block prismarineSlab;
 	public static Block prismarineSlabFull;
@@ -163,7 +163,7 @@ public final class ModBlocks {
 	public static Block darkPrismarineStairs;
 	public static Block darkPrismarineSlab;
 	public static Block darkPrismarineSlabFull;
-	
+
 	public static Block darkQuartz;
 	public static Block darkQuartzSlab;
 	public static Block darkQuartzSlabFull;
@@ -223,7 +223,7 @@ public final class ModBlocks {
 		buriedPetals = new BlockBuriedPetals();
 		prismarine = new BlockPrismarine();
 		seaLamp = new BlockSeaLamp();
-		
+
 		livingwoodStairs = new BlockLivingwoodStairs();
 		livingwoodSlab = new BlockLivingwoodSlab(false);
 		livingwoodSlabFull = new BlockLivingwoodSlab(true);
@@ -242,7 +242,7 @@ public final class ModBlocks {
 		dreamwoodPlankStairs = new BlockDreamwoodPlankStairs();
 		dreamwoodPlankSlab = new BlockDreamwoodPlankSlab(false);
 		dreamwoodPlankSlabFull = new BlockDreamwoodPlankSlab(true);
-		
+
 		prismarineStairs = new BlockPrismarineStairs();
 		prismarineSlab = new BlockPrismarineSlab(false);
 		prismarineSlabFull = new BlockPrismarineSlab(true);
@@ -252,7 +252,7 @@ public final class ModBlocks {
 		darkPrismarineStairs = new BlockDarkPrismarineStairs();
 		darkPrismarineSlab = new BlockDarkPrismarineSlab(false);
 		darkPrismarineSlabFull = new BlockDarkPrismarineSlab(true);
-		
+
 		if(ConfigHandler.darkQuartzEnabled) {
 			darkQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_DARK);
 			darkQuartzSlab = new BlockSpecialQuartzSlab(darkQuartz, false);
@@ -314,7 +314,7 @@ public final class ModBlocks {
 		((BlockModSlab) prismarineBrickSlabFull).register();
 		((BlockModSlab) darkPrismarineSlab).register();
 		((BlockModSlab) darkPrismarineSlabFull).register();
-		
+
 		for(int i = 0; i < 16; i++)
 			OreDictionary.registerOre(LibOreDict.FLOWER[i], new ItemStack(flower, 1, i));
 

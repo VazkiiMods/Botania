@@ -90,7 +90,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.signalFlare);
 
 		addBlock(ModBlocks.dreamwood);
-		
+
 		addBlock(ModBlocks.prismarine);
 		addBlock(ModBlocks.seaLamp);
 		addBlock(ModBlocks.prismarineStairs);
@@ -99,7 +99,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.prismarineBrickSlab);
 		addBlock(ModBlocks.darkPrismarineStairs);
 		addBlock(ModBlocks.darkPrismarineSlab);
-		
+
 		addBlock(ModBlocks.livingwoodStairs);
 		addBlock(ModBlocks.livingwoodSlab);
 		addBlock(ModBlocks.livingwoodPlankStairs);

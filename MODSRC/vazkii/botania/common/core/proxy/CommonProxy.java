@@ -103,11 +103,11 @@ public class CommonProxy {
 	public long getWorldElapsedTicks() {
 		return MinecraftServer.getServer().worldServers[0].getTotalWorldTime();
 	}
-	
+
 	public void setSparkleFXNoClip(boolean noclip) {
 		// NO-OP
 	}
-	
+
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {
 		sparkleFX(world, x, y, z, r, g, b, size, m, false);
 	}

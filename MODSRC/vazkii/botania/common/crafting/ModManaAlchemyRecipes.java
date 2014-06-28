@@ -113,7 +113,7 @@ public final class ModManaAlchemyRecipes {
 		redstoneToGlowstoneRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.glowstone_dust), new ItemStack(Items.redstone), 300));
 
 		sandRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.sand), new ItemStack(Blocks.cobblestone), 50);
-		
+
 		prismarineRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(ModItems.manaResource, 1, 10), new ItemStack(Items.quartz), 200);
 	}
 }

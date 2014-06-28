@@ -36,7 +36,7 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_ALTAR);
 	private static final ResourceLocation textureMossy = new ResourceLocation(LibResources.MODEL_ALTAR_MOSSY);
-	
+
 	ModelAltar model = new ModelAltar();
 	RenderItem renderItem = new RenderItem();
 
