@@ -35,6 +35,8 @@ import vazkii.botania.common.block.tile.TileAltar;
 public class RenderTileAltar extends TileEntitySpecialRenderer {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_ALTAR);
+	private static final ResourceLocation textureMossy = new ResourceLocation(LibResources.MODEL_ALTAR_MOSSY);
+	
 	ModelAltar model = new ModelAltar();
 	RenderItem renderItem = new RenderItem();
 
@@ -45,7 +47,7 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 		GL11.glPushMatrix();
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
-		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
+		Minecraft.getMinecraft().renderEngine.bindTexture(altar.isMossy ? textureMossy : texture);
 
 		GL11.glTranslated(d0 + 0.5, d1 + 1.5, d2 + 0.5);
 		GL11.glScalef(1F, -1F, -1F);

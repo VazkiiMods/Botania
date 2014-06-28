@@ -15,8 +15,10 @@ import java.awt.Color;
 import java.util.List;
 
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
@@ -29,14 +31,27 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 
 	public static final String TAG_HAS_WATER = "hasWater";
+	public static final String TAG_IS_MOSSY = "isMossy";
 
 	public boolean hasWater = false;
+	public boolean isMossy = false;
 
 	public boolean collideEntityItem(EntityItem item) {
 		ItemStack stack = item.getEntityItem();
 		if(stack == null || item.isDead)
 			return false;
 
+		if(!isMossy) {
+			if(stack.getItem() == Item.getItemFromBlock(Blocks.vine) && !worldObj.isRemote) {
+				isMossy = true;
+				worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
+				stack.stackSize--;
+				if(stack.stackSize == 0)
+					item.setDead();
+				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+			}
+		}
+		
 		if(!hasWater) {
 			if(stack.getItem() == Items.water_bucket && !worldObj.isRemote) {
 				hasWater = true;
@@ -45,7 +60,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 			} else return false;
 		}
-
+		
 		boolean didChange = false;
 
 		if(stack.getItem() instanceof IFlowerComponent) {
@@ -139,6 +154,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 		super.writeCustomNBT(cmp);
 
 		cmp.setBoolean(TAG_HAS_WATER, hasWater);
+		cmp.setBoolean(TAG_IS_MOSSY, isMossy);
 	}
 
 	@Override
@@ -146,6 +162,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 		super.readCustomNBT(cmp);
 
 		hasWater = cmp.getBoolean(TAG_HAS_WATER);
+		isMossy = cmp.getBoolean(TAG_IS_MOSSY);
 	}
 
 	@Override
