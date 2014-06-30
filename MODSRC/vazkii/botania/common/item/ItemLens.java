@@ -64,7 +64,7 @@ public class ItemLens extends ItemMod implements ILens {
 
 	private static final int NORMAL = 0, SPEED = 1, POWER = 2, TIME = 3, EFFICIENCY = 4,
 			BOUNCE = 5, GRAVITY = 6, MINE = 7, DAMAGE = 8, PHANTOM = 9,
-			MAGNET = 10, EXPLOSIVE = 11, INFLUENCE = 12;
+			MAGNET = 10, EXPLOSIVE = 11, INFLUENCE = 12, WEIGHT = 13;
 
 	private static final Map<Integer, List<Integer>> blacklist = new HashMap();
 
@@ -74,6 +74,10 @@ public class ItemLens extends ItemMod implements ILens {
 		blacklistLenses(PHANTOM, MINE);
 		blacklistLenses(PHANTOM, EXPLOSIVE);
 		blacklistLenses(PHANTOM, BOUNCE);
+		blacklistLenses(PHANTOM, WEIGHT);
+		blacklistLenses(EXPLOSIVE, MINE);
+		blacklistLenses(EXPLOSIVE, WEIGHT);
+		blacklistLenses(MINE, WEIGHT);
 	}
 
 	private static final String TAG_COLOR = "color";
@@ -81,7 +85,7 @@ public class ItemLens extends ItemMod implements ILens {
 
 	public static IIcon iconGlass;
 
-	public static final int SUBTYPES = 13;
+	public static final int SUBTYPES = 14;
 	IIcon[] ringIcons;
 
 	public ItemLens() {
@@ -263,8 +267,20 @@ public class ItemLens extends ItemMod implements ILens {
 				if(!entity.worldObj.isRemote && pos.entityHit == null && !isManaBlock && (pos.blockX != coords.posX || pos.blockY != coords.posY || pos.blockZ != coords.posZ))
 					entity.worldObj.createExplosion(entity, entity.posX, entity.posY, entity.posZ, burst.getMana() / 50F, true);
 			} else dead = false;
+			break;
 		}
-		break;
+		case WEIGHT : {
+			if(!burst.isFake()) {
+				int x = pos.blockX;
+				int y = pos.blockY;
+				int z = pos.blockZ;
+				if(entity.worldObj.getBlock(x, y - 1, z).isAir(entity.worldObj, x, y - 1, z)) {
+					EntityFallingBlock falling = new EntityFallingBlock(entity.worldObj, x + 0.5, y + 0.5, z + 0.5, entity.worldObj.getBlock(x, y, z), entity.worldObj.getBlockMetadata(x, y, z));
+					if(!entity.worldObj.isRemote)
+						entity.worldObj.spawnEntityInWorld(falling);
+				}
+			}
+		}
 		}
 
 		ItemStack compositeLens = getCompositeLens(stack);
