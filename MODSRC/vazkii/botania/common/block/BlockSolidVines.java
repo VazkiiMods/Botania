@@ -38,8 +38,9 @@ public class BlockSolidVines extends BlockVine implements ILexiconable {
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World p_149668_1_, int p_149668_2_, int p_149668_3_, int p_149668_4_) {
-		return AxisAlignedBB.getBoundingBox(p_149668_2_ + minX, p_149668_3_ + minY, p_149668_4_ + minZ, p_149668_2_ + maxX, p_149668_3_ + maxY, p_149668_4_ + maxZ);
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World w, int x, int y, int z) {
+		setBlockBoundsBasedOnState(w, x, y, z);
+		return AxisAlignedBB.getBoundingBox(x + minX, y + minY, z + minZ, x + maxX, y + maxY, z + maxZ);
 	}
 
 	@Override
