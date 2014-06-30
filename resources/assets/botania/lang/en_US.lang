@@ -712,6 +712,10 @@ botania.page.lens24=The &1Magnetizing Lens&0, as its name states, allows the &4M
 botania.page.lens25=Crafting the lens
 botania.page.lens26=The &1Entropic Lens&0 imbues the &4Mana Burst&0 with entropy, causing it to release its energy in the form of an explosion when it collides against something that can't receive &4Mana&0.<br>Since this relies on the detection abilities of a &1Mana Spreader&0, it won't fire at just anything, as it needs a &4Mana&0 receving block in the end.
 botania.page.lens27=Crafting the lens
+botania.page.lens28=The &1Influence Lens&0 allows the &4Mana Burst&0 to have influence over any nearby &4dropped items&0, &4experience orbs&0 and even &4falling blocks&0, having them move in the exact same vector of motion as the burst itself.
+botania.page.lens29=Crafting the lens
+botania.page.lens30=The &1Weight Lens&0 carries a strong burden on the &4Mana Burst&0, making any block hit by it, if there doesn't happen to be a block below it, to fall, similarly to how &1Sand&0 and &1Gravel&0 do.
+botania.page.lens31=Crafting the lens
 
 # -- PORTABLE MANA TRANSPORT
 botania.entry.manaTransport=Portable Mana Transport

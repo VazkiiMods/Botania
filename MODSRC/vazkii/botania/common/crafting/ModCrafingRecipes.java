@@ -156,6 +156,8 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipePrismarineBrick;
 	public static IRecipe recipeDarkPrismarine;
 	public static IRecipe recipeSeaLamp;
+	public static IRecipe recipeLensInfluence;
+	public static IRecipe recipeLensWeight;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -932,6 +934,22 @@ public final class ModCrafingRecipes {
 				'B', new ItemStack(Blocks.glowstone));
 		recipeSeaLamp = BotaniaAPI.getLatestAddedRecipe();
 
+		// Influence Lens Recipe
+		addOreDictRecipe(new ItemStack(ModItems.lens, 1, 12), 
+				"PRP", "PLP", "PPP",
+				'P', LibOreDict.PRISMARINE_SHARD,
+				'R', LibOreDict.RUNE[3],
+				'L', new ItemStack(ModItems.lens));
+		recipeLensInfluence = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Weight Lens Recipe
+		addOreDictRecipe(new ItemStack(ModItems.lens, 1, 13), 
+				"PPP", "PLP", "PRP",
+				'P', LibOreDict.PRISMARINE_SHARD,
+				'R', LibOreDict.RUNE[0],
+				'L', new ItemStack(ModItems.lens));
+		recipeLensWeight = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",
