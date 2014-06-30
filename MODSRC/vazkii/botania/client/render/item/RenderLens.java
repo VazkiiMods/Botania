@@ -82,6 +82,7 @@ public class RenderLens implements IItemRenderer {
 
 		GL11.glPushMatrix();
 		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glEnable(GL11.GL_CULL_FACE);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		Color color = new Color(color_);
 		GL11.glColor4ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue(), (byte) 255);
@@ -94,6 +95,7 @@ public class RenderLens implements IItemRenderer {
 		GL11.glRotatef(180F, 0F, 1F, 0F);
 		GL11.glTranslatef(-16F, 0F, 0F);
 		renderShinyLensIcon(icon, shiny);
+		GL11.glDisable(GL11.GL_CULL_FACE);
 		GL11.glDisable(GL11.GL_BLEND);
 		GL11.glPopMatrix();
 
