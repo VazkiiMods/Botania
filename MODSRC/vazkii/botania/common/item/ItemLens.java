@@ -20,10 +20,14 @@ import java.util.Map;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -51,6 +55,8 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
+import vazkii.botania.common.entity.EntityManaBurst;
+import vazkii.botania.common.entity.EntityPixie;
 import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -58,7 +64,7 @@ public class ItemLens extends ItemMod implements ILens {
 
 	private static final int NORMAL = 0, SPEED = 1, POWER = 2, TIME = 3, EFFICIENCY = 4,
 			BOUNCE = 5, GRAVITY = 6, MINE = 7, DAMAGE = 8, PHANTOM = 9,
-			MAGNET = 10, EXPLOSIVE = 11;
+			MAGNET = 10, EXPLOSIVE = 11, INFLUENCE = 12;
 
 	private static final Map<Integer, List<Integer>> blacklist = new HashMap();
 
@@ -75,7 +81,7 @@ public class ItemLens extends ItemMod implements ILens {
 
 	public static IIcon iconGlass;
 
-	public static final int SUBTYPES = 12;
+	public static final int SUBTYPES = 13;
 	IIcon[] ringIcons;
 
 	public ItemLens() {
@@ -345,6 +351,23 @@ public class ItemLens extends ItemMod implements ILens {
 								}
 							}
 			}
+			break;
+		}
+		case INFLUENCE : {
+			double range = 3.5;
+			List<Entity> movables = entity.worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(entity.posX - range, entity.posY - range, entity.posZ - range, entity.posX + range, entity.posY + range, entity.posZ + range));
+			movables.addAll(entity.worldObj.getEntitiesWithinAABB(EntityXPOrb.class, AxisAlignedBB.getBoundingBox(entity.posX - range, entity.posY - range, entity.posZ - range, entity.posX + range, entity.posY + range, entity.posZ + range)));
+			movables.addAll(entity.worldObj.getEntitiesWithinAABB(EntityManaBurst.class, AxisAlignedBB.getBoundingBox(entity.posX - range, entity.posY - range, entity.posZ - range, entity.posX + range, entity.posY + range, entity.posZ + range)));
+			movables.addAll(entity.worldObj.getEntitiesWithinAABB(EntityArrow.class, AxisAlignedBB.getBoundingBox(entity.posX - range, entity.posY - range, entity.posZ - range, entity.posX + range, entity.posY + range, entity.posZ + range)));
+			movables.addAll(entity.worldObj.getEntitiesWithinAABB(EntityFallingBlock.class, AxisAlignedBB.getBoundingBox(entity.posX - range, entity.posY - range, entity.posZ - range, entity.posX + range, entity.posY + range, entity.posZ + range)));
+
+			for(Entity movable : movables) {
+				movable.motionX = entity.motionX;
+				movable.motionY = entity.motionY;
+				movable.motionZ = entity.motionZ;
+			}
+			
+			break;
 		}
 		}
 
