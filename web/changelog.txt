@@ -1,3 +1,8 @@
+r1.1 68
+*Fixed Mana Lenses displaying weird on item frames.
+*Fixed the Weight lens being able to move Tile Entities and unbreaking blocks like bedrock.
+*Removed examplemod. Again. <i>aflsdjxfnsdxkhdoxu</i>
+*Tweaked the lens entry text a bit.
 r1.1 67
 *Added a config option to disable elf portal particles.
 *Added two new Mana Lenses, the Influence and the Weight lens.
