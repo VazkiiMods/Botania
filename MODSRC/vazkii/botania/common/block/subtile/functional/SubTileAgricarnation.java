@@ -26,7 +26,7 @@ public class SubTileAgricarnation extends SubTileFunctional {
 	public void onUpdate() {
 		super.onUpdate();
 
-		if(supertile.getWorldObj().getTotalWorldTime() % 3 == 0) {
+		if(supertile.getWorldObj().getTotalWorldTime() % 6 == 0) {
 			int range = 5;
 			int x = supertile.xCoord + supertile.getWorldObj().rand.nextInt(range * 2 + 1) - range;
 			int z = supertile.zCoord + supertile.getWorldObj().rand.nextInt(range * 2 + 1) - range;
