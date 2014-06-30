@@ -274,8 +274,10 @@ public class ItemLens extends ItemMod implements ILens {
 				int x = pos.blockX;
 				int y = pos.blockY;
 				int z = pos.blockZ;
-				if(entity.worldObj.getBlock(x, y - 1, z).isAir(entity.worldObj, x, y - 1, z)) {
-					EntityFallingBlock falling = new EntityFallingBlock(entity.worldObj, x + 0.5, y + 0.5, z + 0.5, entity.worldObj.getBlock(x, y, z), entity.worldObj.getBlockMetadata(x, y, z));
+				Block block = entity.worldObj.getBlock(x, y, z);
+				Block blockBelow = entity.worldObj.getBlock(x, y - 1, z);
+				if(blockBelow.isAir(entity.worldObj, x, y - 1, z) && block.getBlockHardness(entity.worldObj, x, y, z) != -1 && entity.worldObj.getTileEntity(x, y, z) == null) {
+					EntityFallingBlock falling = new EntityFallingBlock(entity.worldObj, x + 0.5, y + 0.5, z + 0.5, block, entity.worldObj.getBlockMetadata(x, y, z));
 					if(!entity.worldObj.isRemote)
 						entity.worldObj.spawnEntityInWorld(falling);
 				}
