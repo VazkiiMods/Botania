@@ -47,6 +47,8 @@ public class RenderLens implements IItemRenderer {
 		case ENTITY : {
 			GL11.glPushMatrix();
 			GL11.glTranslatef(-0.5F, 0F, 0F);
+			if(item.isOnItemFrame())
+				GL11.glTranslatef(0F, -0.3F, 0.01F);
 			render(item);
 			GL11.glPopMatrix();
 			break;
