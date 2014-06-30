@@ -1,3 +1,11 @@
+r1.1 67
+*Added a config option to disable elf portal particles.
+*Fixed lens z-fighting when on a spreader.
+*Fixed Solid Vines being iffy in multiplayer.
+*Fixed some improbable lens combinations being possible (like bore+entropy).
+*Fixed the Forge Recipe Sorter complaining about non registered botania recipes.
+*Nerfed the Agricarnation. Sorry :<
+*The Terra Firma Rod now uses ore dictionary names rather than block references.
 r1.1 66
 *Added Prismarine. Just like the one in the 1.8 snapshots but won't corrupt your world, yeah!
 *Fixed Elven Quartz Blocks not being able to be broken back using the alchemy catalyst.
