@@ -13,6 +13,7 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -321,6 +322,15 @@ public final class ModBlocks {
 		OreDictionary.registerOre(LibOreDict.LIVING_ROCK, livingrock);
 		OreDictionary.registerOre(LibOreDict.LIVING_WOOD, livingwood);
 		OreDictionary.registerOre(LibOreDict.DREAM_WOOD, dreamwood);
+
+		// Vanilla OreDict entries
+		OreDictionary.registerOre("dirt", Blocks.dirt);
+		OreDictionary.registerOre("grass", Blocks.grass);
+		OreDictionary.registerOre("sand", Blocks.sand);
+		OreDictionary.registerOre("gravel", Blocks.gravel);
+		OreDictionary.registerOre("hardenedClay", new ItemStack(Blocks.hardened_clay, 1, OreDictionary.WILDCARD_VALUE));
+		OreDictionary.registerOre("snowLayer", Blocks.snow_layer);
+		OreDictionary.registerOre("mycelium", Blocks.mycelium);
 
 		initTileEntities();
 	}
