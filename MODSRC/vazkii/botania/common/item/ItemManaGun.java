@@ -23,6 +23,8 @@ import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.RecipeSorter;
+import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -51,6 +53,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 		setUnlocalizedName(LibItemNames.MANA_GUN);
 
 		GameRegistry.addRecipe(new ManaGunLensRecipe());
+		RecipeSorter.register("botania:manaGunLens", ManaGunLensRecipe.class, Category.SHAPELESS, "");
 	}
 
 	@Override
