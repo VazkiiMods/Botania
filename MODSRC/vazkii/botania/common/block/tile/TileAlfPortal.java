@@ -28,6 +28,7 @@ import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ItemLexicon;
 
 import com.google.common.base.Function;
@@ -98,7 +99,8 @@ public class TileAlfPortal extends TileMod {
 
 		if(ticksOpen > 60) {
 			ticksSinceLastItem++;
-			blockParticle(meta);
+			if(ConfigHandler.elfPortalParticlesEnabled)
+				blockParticle(meta);
 
 			AxisAlignedBB aabb = getPortalAABB();
 			List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, aabb);

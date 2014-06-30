@@ -84,6 +84,7 @@ lexicon.enable.rotatingItems=Lexicon Rotating Items
 lexicon.render.3D=3D Lexicon Render
 powerSystem.subtle=Use Subtle Power System
 pylonModel.old=Use Old Pylon Model
+elfPortal.particles.enabled=Enable Portal Particles
 references.enabled=Enable Tooltip References
 shaders.enabled=Enable Shader Usage
 spreader.posShift=Spreader Pos Shift
