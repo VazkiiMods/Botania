@@ -1,5 +1,6 @@
 r1.1 67
 *Added a config option to disable elf portal particles.
+*Added two new Mana Lenses, the Influence and the Weight lens.
 *Fixed lens z-fighting when on a spreader.
 *Fixed Solid Vines being iffy in multiplayer.
 *Fixed some improbable lens combinations being possible (like bore+entropy).
