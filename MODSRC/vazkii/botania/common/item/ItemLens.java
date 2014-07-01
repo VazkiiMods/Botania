@@ -322,7 +322,7 @@ public class ItemLens extends ItemMod implements ILens {
 									coordsFound.add(coords_);
 							}
 						}
-					} while(!coordsFound.isEmpty());
+					} while(!coordsFound.isEmpty() && coordsToPaint.size() < 1000);
 					
 					for(ChunkCoordinates coords : coordsToPaint)
 						entity.worldObj.setBlockMetadataWithNotify(coords.posX, coords.posY, coords.posZ, storedColor, 2);
