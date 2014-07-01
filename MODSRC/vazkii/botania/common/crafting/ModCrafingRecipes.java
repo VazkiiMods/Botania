@@ -971,6 +971,9 @@ public final class ModCrafingRecipes {
 		addStairsAndSlabs(ModBlocks.livingrock, 1, ModBlocks.livingrockBrickStairs, ModBlocks.livingrockBrickSlab);
 		addStairsAndSlabs(ModBlocks.dreamwood, 0, ModBlocks.dreamwoodStairs, ModBlocks.dreamwoodSlab);
 		addStairsAndSlabs(ModBlocks.dreamwood, 1, ModBlocks.dreamwoodPlankStairs, ModBlocks.dreamwoodPlankSlab);
+		addStairsAndSlabs(ModBlocks.prismarine, 0, ModBlocks.prismarineStairs, ModBlocks.prismarineSlab);
+		addStairsAndSlabs(ModBlocks.prismarine, 1, ModBlocks.prismarineBrickStairs, ModBlocks.prismarineBrickSlab);
+		addStairsAndSlabs(ModBlocks.prismarine, 2, ModBlocks.darkPrismarineStairs, ModBlocks.darkPrismarineSlab);
 	}
 
 	private static void addStairsAndSlabs(Block block, int meta, Block stairs, Block slab) {
