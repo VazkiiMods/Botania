@@ -1,3 +1,10 @@
+r1.1 69
+*Added a new lens (that requires elven knowledge), the Paintslinger Lens.
+*Changed the Pixie Dust texture to be pink to match the other elven resources and the pixie mob texture. <i>You were waiting for it, confess.</i>
+*Changed the text when hovering over a mana pool from "Accepting/Sparing Power" to "Accepting/Sparing Mana", to keep things concise.
+*Fixed Prismarine slabs and stairs not having recipes.
+*Right clicking on a piece of wool/carpet with Floral Powder now dyes it.
+*The Terra Shatterer can no longer receive mana from Aura Bands. Fixes Terra Shatterers not being able to break blocks if one is equipped.
 r1.1 68
 *Fixed Mana Lenses displaying weird on item frames.
 *Fixed the Weight lens being able to move Tile Entities and unbreaking blocks like bedrock.
