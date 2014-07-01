@@ -158,6 +158,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeSeaLamp;
 	public static IRecipe recipeLensInfluence;
 	public static IRecipe recipeLensWeight;
+	public static IRecipe recipeLensPaint;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -949,6 +950,14 @@ public final class ModCrafingRecipes {
 				'R', LibOreDict.RUNE[0],
 				'L', new ItemStack(ModItems.lens));
 		recipeLensWeight = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Paint Lens Recipe
+		addOreDictRecipe(new ItemStack(ModItems.lens, 1, 14), 
+				" E ", "WLW", " E ",
+				'E', LibOreDict.ELEMENTIUM,
+				'W', new ItemStack(Blocks.wool, 1, Short.MAX_VALUE),
+				'L', new ItemStack(ModItems.lens));
+		recipeLensPaint = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

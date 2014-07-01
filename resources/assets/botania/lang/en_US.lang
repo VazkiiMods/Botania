@@ -442,6 +442,8 @@ item.botania:lensInfluence.name=Mana Lens: Influence
 item.botania:lensInfluence.short=Influence
 item.botania:lensWeight.name=Mana Lens: Weight
 item.botania:lensWeight.short=Weight
+item.botania:lensPaint.name=Mana Lens: Paintslinger
+item.botania:lensPaint.short=Paintslinger
 item.botania:manaPetal0.name=White Mana Petal
 item.botania:manaPetal1.name=Orange Mana Petal
 item.botania:manaPetal2.name=Magenta Mana Petal
@@ -744,6 +746,11 @@ botania.page.manastar1=&rI'm a shooting star leaping through the skies&r.
 botania.entry.dreamwoodSpreader=Elven Mana Spreader
 botania.page.dreamwoodSpreader0=Simply put, &1Dreamwood&0 conducts &4Mana&0 better than &1Livingwood&0. Add in some adjustments like &1Elementium&0 or &1Mana Petals&0 and what you get is a &1Mana Spreader&0 that can conduct more &4Mana&0, faster and for more time without &4Mana loss&0.<br>On the negative side, it can't be turned into a &1Redstone Mana Spreader&0.
 botania.page.dreamwoodSpreader1=Better spreaders, that's it
+
+# -- PAINTSLINGER LENS
+botania.entry.paintLens=Paintslinger Lens
+botania.page.paintLens0=The &4Elves&0 are one crafty bunch. This lens is somewhat unique in comparison to the other lenses. The &1Paintslinger Lens&0 needs to be dyed one of the 16 colors of the spectrum to function. When it hits a colorable block (&1Wool, Stained Clay or Glass&0...) it'll turn any blocks connected, of the same type and color, into the color of the &4Mana Burst&0 itself.
+botania.page.paintLens1=A M'AIDER Stranded Girl
 
 # - FUNCTIONAL FLOWERS
 # -- AN INTRODUCTION TO FUNCTION

@@ -45,6 +45,7 @@ public final class LibLexicon {
 	public static final String MANA_REDSTONE_SPREADER = "redstoneSpreader";
 	public static final String MANA_MANASTAR = "manastar";
 	public static final String MANA_DREAMWOOD_SPREADER = "dreamwoodSpreader";
+	public static final String MANA_PAINT_LENS = "paintLens";
 
 	public static final String FFLOWER_INTRO = "fIntro";
 	public static final String FFLOWER_JADED_AMARANTHUS = "jadedAmaranthus";

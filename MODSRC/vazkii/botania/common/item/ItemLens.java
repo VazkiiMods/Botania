@@ -29,6 +29,7 @@ import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -56,7 +57,6 @@ import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
 import vazkii.botania.common.entity.EntityManaBurst;
-import vazkii.botania.common.entity.EntityPixie;
 import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -64,7 +64,7 @@ public class ItemLens extends ItemMod implements ILens {
 
 	private static final int NORMAL = 0, SPEED = 1, POWER = 2, TIME = 3, EFFICIENCY = 4,
 			BOUNCE = 5, GRAVITY = 6, MINE = 7, DAMAGE = 8, PHANTOM = 9,
-			MAGNET = 10, EXPLOSIVE = 11, INFLUENCE = 12, WEIGHT = 13;
+			MAGNET = 10, EXPLOSIVE = 11, INFLUENCE = 12, WEIGHT = 13, PAINT = 14;
 
 	private static final Map<Integer, List<Integer>> blacklist = new HashMap();
 
@@ -78,14 +78,26 @@ public class ItemLens extends ItemMod implements ILens {
 		blacklistLenses(EXPLOSIVE, MINE);
 		blacklistLenses(EXPLOSIVE, WEIGHT);
 		blacklistLenses(MINE, WEIGHT);
+		blacklistLenses(PAINT, MINE);
+		blacklistLenses(PAINT, EXPLOSIVE);
+		blacklistLenses(PAINT, WEIGHT);
+		blacklistLenses(PAINT, PHANTOM);
 	}
+
+	private static final List<Block> paintableBlocks = new ArrayList() {{
+		add(Blocks.stained_glass);
+		add(Blocks.stained_glass_pane);
+		add(Blocks.stained_hardened_clay);
+		add(Blocks.wool);
+	}
+	};
 
 	private static final String TAG_COLOR = "color";
 	private static final String TAG_COMPOSITE_LENS = "compositeLens";
 
 	public static IIcon iconGlass;
 
-	public static final int SUBTYPES = 14;
+	public static final int SUBTYPES = 15;
 	IIcon[] ringIcons;
 
 	public ItemLens() {
@@ -282,6 +294,41 @@ public class ItemLens extends ItemMod implements ILens {
 						entity.worldObj.spawnEntityInWorld(falling);
 				}
 			}
+			break;
+		}
+		case PAINT : {
+			int storedColor = getStoredColor(stack);
+			if(!burst.isFake() && storedColor > -1 && storedColor < 16) {
+				Block block = entity.worldObj.getBlock(pos.blockX, pos.blockY, pos.blockZ);
+				if(paintableBlocks.contains(block)) {
+					int meta = entity.worldObj.getBlockMetadata(pos.blockX, pos.blockY, pos.blockZ);
+					List<ChunkCoordinates> coordsToPaint = new ArrayList();
+					List<ChunkCoordinates> coordsFound = new ArrayList();
+
+					ChunkCoordinates theseCoords = new ChunkCoordinates(pos.blockX, pos.blockY, pos.blockZ);
+					coordsFound.add(theseCoords);
+					
+					do {
+						List<ChunkCoordinates> iterCoords = new ArrayList(coordsFound);
+						for(ChunkCoordinates coords : iterCoords) {
+							coordsFound.remove(coords);
+							coordsToPaint.add(coords);
+							
+							for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+								Block block_ = entity.worldObj.getBlock(coords.posX + dir.offsetX, coords.posY + dir.offsetY, coords.posZ + dir.offsetZ);
+								int meta_ = entity.worldObj.getBlockMetadata(coords.posX + dir.offsetX, coords.posY + dir.offsetY, coords.posZ + dir.offsetZ);
+								ChunkCoordinates coords_ = new ChunkCoordinates(coords.posX + dir.offsetX, coords.posY + dir.offsetY, coords.posZ + dir.offsetZ);
+								if(block_ == block && meta_ == meta && !coordsFound.contains(coords_) && !coordsToPaint.contains(coords_))
+									coordsFound.add(coords_);
+							}
+						}
+					} while(!coordsFound.isEmpty());
+					
+					for(ChunkCoordinates coords : coordsToPaint)
+						entity.worldObj.setBlockMetadataWithNotify(coords.posX, coords.posY, coords.posZ, storedColor, 2);
+				}
+			}
+			break;
 		}
 		}
 
@@ -384,7 +431,7 @@ public class ItemLens extends ItemMod implements ILens {
 				movable.motionY = entity.motionY;
 				movable.motionZ = entity.motionZ;
 			}
-			
+
 			break;
 		}
 		}
