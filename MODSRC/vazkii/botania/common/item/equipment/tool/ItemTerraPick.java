@@ -210,7 +210,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem {
 
 	@Override
 	public boolean canReceiveManaFromItem(ItemStack stack, ItemStack otherStack) {
-		return !(stack.getItem() instanceof ItemAuraRing) && !(stack.getItem() instanceof ItemGreaterAuraRing);
+		return !(otherStack.getItem() instanceof ItemAuraRing) && !(otherStack.getItem() instanceof ItemGreaterAuraRing);
 	}
 
 	@Override
