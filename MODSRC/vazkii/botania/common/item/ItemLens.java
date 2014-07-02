@@ -330,7 +330,7 @@ public class ItemLens extends ItemMod implements ILens {
 
 						if(metaThere != placeColor) {
 							entity.worldObj.setBlockMetadataWithNotify(coords.posX, coords.posY, coords.posZ, placeColor, 2);
-							float[] color = EntitySheep.fleeceColorTable[storedColor];
+							float[] color = EntitySheep.fleeceColorTable[placeColor];
 							float r = color[0];
 							float g = color[1];
 							float b = color[2];
