@@ -11,6 +11,8 @@
  */
 package vazkii.botania.common.block;
 
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockVine;
 import net.minecraft.entity.player.EntityPlayer;
@@ -41,6 +43,11 @@ public class BlockSolidVines extends BlockVine implements ILexiconable {
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World w, int x, int y, int z) {
 		setBlockBoundsBasedOnState(w, x, y, z);
 		return AxisAlignedBB.getBoundingBox(x + minX, y + minY, z + minZ, x + maxX, y + maxY, z + maxZ);
+	}
+	
+	@Override
+	public void updateTick(World p_149674_1_, int p_149674_2_, int p_149674_3_, int p_149674_4_, Random p_149674_5_) {
+		// NO-OP
 	}
 
 	@Override
