@@ -36,6 +36,7 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.handler.LightningHandler.LightningBolt.Segment;
+import vazkii.botania.client.fx.ParticleRenderDispatcher;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.helper.Vector3;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -56,6 +57,8 @@ public class LightningHandler {
 
 	@SubscribeEvent
 	public void onRenderWorldLast(RenderWorldLastEvent event) {
+		ParticleRenderDispatcher.dispatch();
+		
 		float frame = event.partialTicks;
 		Entity entity = Minecraft.getMinecraft().thePlayer;
 

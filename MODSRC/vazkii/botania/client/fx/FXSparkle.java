@@ -11,6 +11,10 @@
  */
 package vazkii.botania.client.fx;
 
+import java.util.ArrayDeque;
+import java.util.PriorityQueue;
+import java.util.Queue;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.Tessellator;
@@ -21,12 +25,21 @@ import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.core.helper.ObfuscationHelper;
 
 public class FXSparkle extends EntityFX {
 
 	public static final ResourceLocation particles = new ResourceLocation(LibResources.MISC_PARTICLES);
 
+	public static Queue<FXSparkle> queuedRenders = new ArrayDeque();
+	
+	// Queue values
+	float f;
+	float f1;
+	float f2; 
+	float f3; 
+	float f4; 
+	float f5;
+	
 	public FXSparkle(World world, double x, double y, double z, float size, float red, float green, float blue, int m) {
 		super(world, x, y, z, 0.0D, 0.0D, 0.0D);
 
@@ -44,19 +57,20 @@ public class FXSparkle extends EntityFX {
 		prevPosY = posY;
 		prevPosZ = posZ;
 	}
-
-	@Override
-	public void renderParticle(Tessellator tessellator, float f, float f1, float f2, float f3, float f4, float f5) {
-		tessellator.draw();
-		GL11.glPushMatrix();
-
-		GL11.glDepthMask(false);
-		GL11.glEnable(3042);
-		GL11.glBlendFunc(770, blendmode);
-
-		Minecraft.getMinecraft().renderEngine.bindTexture(particles);
-
+	
+	public static void dispatchQueuedRenders(Tessellator tessellator) {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.75F);
+		Minecraft.getMinecraft().renderEngine.bindTexture(particles);
+		
+		tessellator.startDrawingQuads();
+		for(FXSparkle sparkle : queuedRenders)
+			sparkle.renderQueued(tessellator);
+		tessellator.draw();
+		
+		queuedRenders.clear();
+	}
+
+	private void renderQueued(Tessellator tessellator) {
 		int part = particle + particleAge/multiplier;
 
 		float var8 = part % 8 / 8.0F;
@@ -70,7 +84,6 @@ public class FXSparkle extends EntityFX {
 		float var15 = (float)(prevPosZ + (posZ - prevPosZ) * f - interpPosZ);
 		float var16 = 1.0F;
 
-		tessellator.startDrawingQuads();
 		tessellator.setBrightness(0x0000f0);
 
 		tessellator.setColorRGBA_F(particleRed * var16, particleGreen * var16, particleBlue * var16, 1);
@@ -79,14 +92,18 @@ public class FXSparkle extends EntityFX {
 		tessellator.addVertexWithUV(var13 + f1 * var12 + f4 * var12, var14 + f2 * var12, var15 + f3 * var12 + f5 * var12, var8, var10);
 		tessellator.addVertexWithUV(var13 + f1 * var12 - f4 * var12, var14 - f2 * var12, var15 + f3 * var12 - f5 * var12, var8, var11);
 
-		tessellator.draw();
+	}
+	
+	@Override
+	public void renderParticle(Tessellator tessellator, float f, float f1, float f2, float f3, float f4, float f5) {
+		this.f = f;
+		this.f1 = f1;
+		this.f2 = f2;
+		this.f3 = f3;
+		this.f4 = f4;
+		this.f5 = f5;
 
-		GL11.glDisable(3042);
-		GL11.glDepthMask(true);
-
-		GL11.glPopMatrix();
-		Minecraft.getMinecraft().renderEngine.bindTexture(ObfuscationHelper.getParticleTexture());
-		tessellator.startDrawingQuads();
+		queuedRenders.add(this);
 	}
 
 	@Override
@@ -216,7 +233,6 @@ public class FXSparkle extends EntityFX {
 	public boolean shrink = true;
 	public int particle = 16;
 	public boolean tinkle = false;
-	public int blendmode = 1;
 	public boolean slowdown = true;
 	public int currentColor = 0;
 }
