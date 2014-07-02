@@ -25,6 +25,8 @@ import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.core.helper.ObfuscationHelper;
 
 public class FXSparkle extends EntityFX {
 
@@ -60,7 +62,7 @@ public class FXSparkle extends EntityFX {
 	
 	public static void dispatchQueuedRenders(Tessellator tessellator) {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.75F);
-		Minecraft.getMinecraft().renderEngine.bindTexture(particles);
+		Minecraft.getMinecraft().renderEngine.bindTexture(ConfigHandler.matrixMode ? ObfuscationHelper.getParticleTexture() : particles);
 		
 		tessellator.startDrawingQuads();
 		for(FXSparkle sparkle : queuedRenders)
