@@ -1,3 +1,6 @@
+r1.1 70
+*<b>Massively optimized the particle render code.</b> Botania particles will no longer kill your fps. In doing this they also render properly over water now, so that's neat. <i>Yo Azanor, you should do this too for nitor.</i>
+*Added <a href="https://twitter.com/Vazkii/status/484136285251309568">Matrix Mode</a> as a config option. This was a visual glitch I got while changing the particle code that I decided to leave in because it was funny.
 r1.1 69
 *Added a new lens (that requires elven knowledge), the Paintslinger Lens.
 *Changed the Pixie Dust texture to be pink to match the other elven resources and the pixie mob texture. <i>You were waiting for it, confess.</i>
