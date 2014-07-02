@@ -11,10 +11,13 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
+import java.awt.Color;
+
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileGenerating;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
@@ -43,8 +46,18 @@ public class SubTileDaybloom extends SubTileGenerating {
 			TileEntity tile = supertile.getWorldObj().getTileEntity(supertile.xCoord + dir.offsetX, supertile.yCoord, supertile.zCoord + dir.offsetZ);
 			if(tile != null && tile instanceof TileSpecialFlower) {
 				TileSpecialFlower flower = (TileSpecialFlower) tile;
-				if(flower.getSubTile() != null && flower.getSubTile().getClass() == getClass())
+				if(flower.getSubTile() != null && flower.getSubTile().getClass() == getClass()) {
 					flowers++;
+					
+					Color color = new Color(getColor());
+					float r = (float) color.getRed() / 255F;
+					float g = (float) color.getGreen() / 255F;
+					float b = (float) color.getBlue() / 255F;
+
+					float m = 0.045F;
+					if(supertile.getWorldObj().getTotalWorldTime() % 10 == 0)
+						Botania.proxy.wispFX(supertile.getWorldObj(), supertile.xCoord + 0.5, supertile.yCoord + 0.05, supertile.zCoord + 0.5, r, g, b, 0.1F, dir.offsetX * m, dir.offsetY * m, dir.offsetZ * m);
+				}
 			}
 		}
 
