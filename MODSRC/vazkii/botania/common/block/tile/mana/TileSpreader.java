@@ -46,6 +46,7 @@ import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
+import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.entity.EntityManaBurst.PositionProperties;
@@ -73,7 +74,6 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	int mana;
 	int knownMana = -1;
 	public float rotationX, rotationY;
-	boolean added = false;
 
 	boolean requestsClientUpdate = false;
 	boolean hasReceivedInitialPacket = false;
@@ -115,10 +115,8 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 	@Override
 	public void updateEntity() {
-		if(!added) {
+		if(!ManaNetworkHandler.instance.isCollectorIn(this))
 			ManaNetworkEvent.addCollector(this);
-			added = true;
-		}
 
 		if(rotationTicks > 0) {
 			rotationX += tickRotationX;

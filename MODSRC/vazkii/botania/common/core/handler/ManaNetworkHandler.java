@@ -61,6 +61,26 @@ public final class ManaNetworkHandler implements IManaNetwork {
 			return getClosest(manaCollectors.get(world), pos, world.isRemote, limit);
 		return null;
 	}
+	
+	public boolean isCollectorIn(TileEntity tile) {
+		return isIn(tile, manaCollectors);
+	}
+	
+	public boolean isPoolIn(TileEntity tile) {
+		return isIn(tile, manaPools);
+	}
+	
+	private synchronized boolean isIn(TileEntity tile, Map<World, List<TileSignature>> map) {
+		List<TileSignature> list = map.get(tile.getWorldObj());
+		if(list == null)
+			return false;
+		
+		for(TileSignature sig : list)
+			if(sig.tile == tile)
+				return true;
+		
+		return false;
+	}
 
 	private synchronized TileEntity getClosest(List<TileSignature> tiles, ChunkCoordinates pos, boolean remoteCheck, int limit) {
 		float closest = Float.MAX_VALUE;

@@ -38,6 +38,7 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileMod;
+import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.item.ModItems;
 
 public class TilePool extends TileMod implements IManaPool {
@@ -57,7 +58,6 @@ public class TilePool extends TileMod implements IManaPool {
 	int mana;
 	int knownMana = -1;
 	int craftCooldown = 20;
-	boolean added = false;
 
 	@Override
 	public boolean isFull() {
@@ -147,10 +147,9 @@ public class TilePool extends TileMod implements IManaPool {
 
 	@Override
 	public void updateEntity() {
-		if(!added) {
+		if(!ManaNetworkHandler.instance.isPoolIn(this))
 			ManaNetworkEvent.addPool(this);
-			added = true;
-		}
+		
 		if(worldObj.isRemote) {
 			double particleChance = 1F - (double) getCurrentMana() / (double) MAX_MANA * 0.1;
 			Color color = new Color(0x00C6FF);
