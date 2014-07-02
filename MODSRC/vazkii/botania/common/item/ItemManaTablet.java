@@ -37,6 +37,7 @@ public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaP
 
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_CREATIVE = "creative";
+	private static final String TAG_ONE_USE = "oneUse";
 
 	public ItemManaTablet() {
 		super();
@@ -135,7 +136,7 @@ public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaP
 
 	@Override
 	public boolean canReceiveManaFromPool(ItemStack stack, TileEntity pool) {
-		return true;
+		return !ItemNBTHelper.getBoolean(stack, TAG_ONE_USE, false);
 	}
 
 	@Override
