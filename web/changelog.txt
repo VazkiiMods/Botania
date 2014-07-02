@@ -1,3 +1,11 @@
+r1.1 72
+*Added a "Mana Pool Cap before Voiding" NBT tag for mapmakers.
+*Added a "One use Mana Tablet" NBT tag for mapmakers.
+*Added a bunch of NBT tags to the Mana Spreader for mapmakers to be able to customize the properties of the mana burst the spreader fires.
+*Fixed Boreal Seeds being uncraftable.
+*Fixed Crash with rainbow tinted paintslinger lens.
+*Fixed Livingrock and Livingrock Brick Slabs' drops being swapped.
+*Fixed rainbow tinted paintslinger lenses changing the blocks' colors twice.
 r1.1 71
 *Added a visual representation of Daybloom/Nightshade diminishing returns.
 *Fixed an exploit with Mana Spreaders that allowed them to function at twice the speed if one was to log out while a burst was still in the world.
