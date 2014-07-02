@@ -11,6 +11,7 @@
  */
 package vazkii.botania.common.item;
 
+import java.awt.Color;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
@@ -29,6 +30,7 @@ import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.recipe.ManaGunLensRecipe;
@@ -112,7 +114,12 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 			return 0xFFFFFF;
 
 		EntityManaBurst burst = getBurst(Minecraft.getMinecraft().thePlayer, par1ItemStack, false);
-		return burst == null ? 0x20FF20 : burst.getColor();
+		Color color = new Color(burst == null ? 0x20FF20 : burst.getColor());
+		
+		float mul = (float) (Math.sin((double) ClientTickHandler.ticksInGame / 5) * 0.15F);
+		int c = (int) (255 * mul);
+		
+		return new Color(Math.max(0, Math.min(255, color.getRed() + c)), Math.max(0, Math.min(255, color.getGreen() + c)), Math.max(0, Math.min(255, color.getBlue() + c))).getRGB();
 	}
 
 	public EntityManaBurst getBurst(EntityPlayer player, ItemStack stack, boolean request) {
