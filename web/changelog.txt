@@ -1,3 +1,18 @@
+r1.1 71
+*Added a visual representation of Daybloom/Nightshade diminishing returns.
+*Fixed an exploit with Mana Spreaders that allowed them to function at twice the speed if one was to log out while a burst was still in the world.
+*Fixed the block breaking particles of the creative mana pool being of the Livingrock Bricks.
+*Having a Mana Void or any Catalyst below the Mana Pool changes it's texture.
+*Mana Pools and Spreaders now add themselves back to the mana network case they get removed for whatever reason. <i>If this change doesn't fix the whole "flowers sometimes unbind from spreaders/pools" issue once and for all I'm punching a loli.</i>
+*The Mana Blaster now has a subtle flicker effect on it's texture.
+*The Mana Detector now emits some red particles while it's emiting a redstone signal.
+*The Mana Spreader's render now has an animated crystal inside rather than a static one. Very subtle change, you can see if you look inside.
+*The Mana Void now emits some dark sparkle particles if a mana burst collides with it.
+*The Paintslinger lens can now use the Rainbow color <i>>:D</i>
+*The Paintslinger lens now has particles on collision.
+*Vines grown through Vine Balls will no longer grow.
+*[API] Added IClientManaHandler and IPoolOverlayProvider.
+*[API] Increased apiVersion to 2.
 r1.1 70
 *<b>Massively optimized the particle render code.</b> Botania particles will no longer kill your fps. In doing this they also render properly over water now, so that's neat. <i>Yo Azanor, you should do this too for nitor.</i>
 *Added <a href="https://twitter.com/Vazkii/status/484136285251309568">Matrix Mode</a> as a config option. This was a visual glitch I got while changing the particle code that I decided to leave in because it was funny.
