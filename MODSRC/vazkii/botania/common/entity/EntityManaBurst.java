@@ -33,6 +33,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.mana.IClientManaHandler;
 import vazkii.botania.api.mana.ILensEffect;
 import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.IManaCollisionGhost;
@@ -505,7 +506,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 				collidedTile = tile;
 
 			if(tile == null || tile.xCoord != coords.posX || tile.yCoord != coords.posY || tile.zCoord != coords.posZ) {
-				if(!fake && !noParticles && !worldObj.isRemote && tile != null && tile instanceof IManaReceiver && ((IManaReceiver) tile).canRecieveManaFromBursts()) {
+				if(!fake && !noParticles && (!worldObj.isRemote || tile instanceof IClientManaHandler) && tile != null && tile instanceof IManaReceiver && ((IManaReceiver) tile).canRecieveManaFromBursts()) {
 					int mana = getMana();
 					if(tile instanceof IManaCollector)
 						mana *= ((IManaCollector) tile).getManaYieldMultiplier(this);

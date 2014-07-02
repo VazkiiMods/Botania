@@ -11,10 +11,11 @@
  */
 package vazkii.botania.common.block.tile.mana;
 
-import vazkii.botania.api.mana.IManaReceiver;
+import vazkii.botania.api.mana.IClientManaHandler;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileMod;
 
-public class TileManaVoid extends TileMod implements IManaReceiver {
+public class TileManaVoid extends TileMod implements IClientManaHandler {
 
 	@Override
 	public boolean canUpdate() {
@@ -33,7 +34,9 @@ public class TileManaVoid extends TileMod implements IManaReceiver {
 
 	@Override
 	public void recieveMana(int mana) {
-		// All your mana is belong to the void
+		if(mana > 0)
+			for(int i = 0; i < 10; i++)
+				Botania.proxy.sparkleFX(getWorldObj(), xCoord + Math.random(), yCoord + Math.random(), zCoord + Math.random(), 0.2F, 0.2F, 0.2F, 0.7F + 0.5F * (float) Math.random(), 5);
 	}
 
 	@Override
