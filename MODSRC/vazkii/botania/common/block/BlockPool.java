@@ -118,7 +118,7 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 	@Override
 	public int getComparatorInputOverride(World par1World, int par2, int par3, int par4, int par5) {
 		TilePool pool = (TilePool) par1World.getTileEntity(par2, par3, par4);
-		int val = (int) ((double) pool.getCurrentMana() / (double) TilePool.MAX_MANA * 15.0);
+		int val = (int) ((double) pool.getCurrentMana() / (double) pool.manaCap * 15.0);
 		if(pool.getCurrentMana() > 0)
 			val = Math.max(val, 1);
 

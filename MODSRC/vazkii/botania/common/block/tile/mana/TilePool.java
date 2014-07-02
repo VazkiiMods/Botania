@@ -49,6 +49,7 @@ public class TilePool extends TileMod implements IManaPool {
 	private static final String TAG_KNOWN_MANA = "knownMana";
 	private static final String TAG_OUTPUTTING = "outputting";
 	private static final String TAG_COLOR = "color";
+	private static final String TAG_MANA_CAP = "manaCap";
 
 	boolean outputting = false;
 	public boolean alchemy = false;
@@ -58,18 +59,19 @@ public class TilePool extends TileMod implements IManaPool {
 	int mana;
 	int knownMana = -1;
 	int craftCooldown = 20;
+	public int manaCap = MAX_MANA;
 
 	@Override
 	public boolean isFull() {
 		Block blockBelow = worldObj.getBlock(xCoord, yCoord - 1, zCoord);
-		return blockBelow != ModBlocks.manaVoid && getCurrentMana() >= MAX_MANA;
+		return blockBelow != ModBlocks.manaVoid && getCurrentMana() >= manaCap;
 	}
 
 	@Override
 	public void recieveMana(int mana) {
-		boolean full = getCurrentMana() >= MAX_MANA;
+		boolean full = getCurrentMana() >= manaCap;
 
-		this.mana = Math.min(getCurrentMana() + mana, MAX_MANA);
+		this.mana = Math.min(getCurrentMana() + mana, manaCap);
 		if(!full)
 			worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 	}
@@ -211,6 +213,7 @@ public class TilePool extends TileMod implements IManaPool {
 		cmp.setInteger(TAG_MANA, mana);
 		cmp.setBoolean(TAG_OUTPUTTING, outputting);
 		cmp.setInteger(TAG_COLOR, color);
+		cmp.setInteger(TAG_MANA_CAP, manaCap);
 	}
 
 	@Override
@@ -218,7 +221,8 @@ public class TilePool extends TileMod implements IManaPool {
 		mana = cmp.getInteger(TAG_MANA);
 		outputting = cmp.getBoolean(TAG_OUTPUTTING);
 		color = cmp.getInteger(TAG_COLOR);
-
+		manaCap = cmp.getInteger(TAG_MANA_CAP);
+		
 		if(cmp.hasKey(TAG_KNOWN_MANA))
 			knownMana = cmp.getInteger(TAG_KNOWN_MANA);
 	}
