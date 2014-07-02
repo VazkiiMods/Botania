@@ -102,7 +102,7 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 
 	@Override
 	public IIcon getIcon(int par1, int par2) {
-		return ModBlocks.livingrock.getIcon(par1, par2);
+		return ModBlocks.livingrock.getIcon(par1, 0);
 	}
 
 	@Override

@@ -20,11 +20,12 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.mana.IPoolOverlayProvider;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockAlchemyCatalyst extends BlockMod implements ILexiconable {
+public class BlockAlchemyCatalyst extends BlockMod implements ILexiconable, IPoolOverlayProvider {
 
 	IIcon[] icons;
 
@@ -42,7 +43,7 @@ public class BlockAlchemyCatalyst extends BlockMod implements ILexiconable {
 
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[3];
+		icons = new IIcon[4];
 		for(int i = 0; i < icons.length; i++)
 			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
 	}
@@ -55,6 +56,11 @@ public class BlockAlchemyCatalyst extends BlockMod implements ILexiconable {
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.alchemy;
+	}
+
+	@Override
+	public IIcon getIcon(World world, int x, int y, int z) {
+		return icons[3];
 	}
 
 }

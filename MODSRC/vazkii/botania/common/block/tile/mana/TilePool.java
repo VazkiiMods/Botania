@@ -154,7 +154,7 @@ public class TilePool extends TileMod implements IManaPool {
 			double particleChance = 1F - (double) getCurrentMana() / (double) MAX_MANA * 0.1;
 			Color color = new Color(0x00C6FF);
 			if(Math.random() > particleChance)
-				Botania.proxy.wispFX(worldObj, xCoord + 0.3 + Math.random() * 0.5, yCoord + 0.6 + Math.random() * 0.25, zCoord + Math.random(), color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random() / 3F, (float) -Math.random() / 25F);
+				Botania.proxy.wispFX(worldObj, xCoord + 0.3 + Math.random() * 0.5, yCoord + 0.6 + Math.random() * 0.25, zCoord + Math.random(), color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random() / 3F, (float) -Math.random() / 25F, 2F);
 		}
 
 		alchemy = worldObj.getBlock(xCoord, yCoord - 1, zCoord) == ModBlocks.alchemyCatalyst;
@@ -198,7 +198,7 @@ public class TilePool extends TileMod implements IManaPool {
 						worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 						if(worldObj.isRemote) {
 							Color color = new Color(0x00C6FF);
-							Botania.proxy.wispFX(worldObj, item.posX + Math.random() * 0.5 - 0.25, item.posY + Math.random() * 0.5 - (outputting ? 0.65 : 0.25), item.posZ + Math.random() * 0.5 - 0.25, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random() / 15F, (outputting ? -1F : 1) * (float) Math.random() / 25F);
+							Botania.proxy.wispFX(worldObj, item.posX + Math.random() * 0.5 - 0.25, item.posY + Math.random() * 0.5 - (outputting ? 0.65 : 0.25), item.posZ + Math.random() * 0.5 - 0.25, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random() / 15F, (outputting ? -1F : 1) * (float) Math.random() / 25F, 0.1F);
 						}
 					}
 				}

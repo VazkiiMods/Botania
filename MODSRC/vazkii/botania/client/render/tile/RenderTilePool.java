@@ -11,6 +11,7 @@
  */
 package vazkii.botania.client.render.tile;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -25,6 +26,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import vazkii.botania.api.mana.IPoolOverlayProvider;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelPool;
@@ -69,11 +71,36 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 			waterLevel = 0.4F;
 			forceAllMana = false;
 		}
+		
+		float s = 1F / 16F;
+		float v = 1F / 8F;
+		float w = -v * 3.5F;
+		
+		if(pool.getWorldObj() != null) {
+			Block below = pool.getWorldObj().getBlock(pool.xCoord, pool.yCoord - 1, pool.zCoord);
+			if(below instanceof IPoolOverlayProvider) {
+				IIcon overlay = ((IPoolOverlayProvider) below).getIcon(pool.getWorldObj(), pool.xCoord, pool.yCoord - 1, pool.zCoord);
+				if(overlay != null) {
+					GL11.glPushMatrix();
+					GL11.glEnable(GL11.GL_BLEND);
+					GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+					GL11.glDisable(GL11.GL_ALPHA_TEST);
+					GL11.glColor4f(1F, 1F, 1F, (float) ((Math.sin((double) pool.getWorldObj().getTotalWorldTime() / 20.0) + 1) * 0.3 + 0.2));
+					GL11.glTranslatef(-0.5F, -1F - 0.43F, -0.5F);
+					GL11.glRotatef(90F, 1F, 0F, 0F);
+					GL11.glScalef(s, s, s);
+					
+					renderIcon(0, 0, overlay, 16, 16, 240);
+					
+					GL11.glEnable(GL11.GL_ALPHA_TEST);
+					GL11.glDisable(GL11.GL_BLEND);
+					GL11.glPopMatrix();
+				}
+			}
+		}
+		
 		if(waterLevel > 0) {
-			float s = 1F / 256F * 14F;
-			float v = 1F / 8F;
-			float w = -v * 3.5F;
-
+			s = 1F / 256F * 14F;
 			GL11.glPushMatrix();
 			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -82,28 +109,29 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 			GL11.glTranslatef(w, -1F - (0.43F - waterLevel), w);
 			GL11.glRotatef(90F, 1F, 0F, 0F);
 			GL11.glScalef(s, s, s);
-			float par1 = 0;
-			float par2 = 0;
-			IIcon par3Icon = Blocks.water.getIcon(0, 0);
-			float par4 = 16;
-			float par5 = 16;
-			float zLevel = 0F;
-			Tessellator tessellator = Tessellator.instance;
-			tessellator.startDrawingQuads();
-			tessellator.setBrightness(240);
-			tessellator.addVertexWithUV(par1 + 0, par2 + par5, zLevel, par3Icon.getMinU(), par3Icon.getMaxV());
-			tessellator.addVertexWithUV(par1 + par4, par2 + par5, zLevel, par3Icon.getMaxU(), par3Icon.getMaxV());
-			tessellator.addVertexWithUV(par1 + par4, par2 + 0, zLevel, par3Icon.getMaxU(), par3Icon.getMinV());
-			tessellator.addVertexWithUV(par1 + 0, par2 + 0, zLevel, par3Icon.getMinU(), par3Icon.getMinV());
-
+			
+			IIcon waterIcon = Blocks.water.getIcon(0, 0);
+			
 			ShaderHelper.useShader(ShaderHelper.manaPool);
-			tessellator.draw();
+			renderIcon(0, 0, waterIcon, 16, 16, 240);
 			ShaderHelper.releaseShader();
+			
 			GL11.glEnable(GL11.GL_ALPHA_TEST);
 			GL11.glDisable(GL11.GL_BLEND);
 			GL11.glPopMatrix();
 		}
 		GL11.glPopMatrix();
+	}
+	
+	public void renderIcon(int par1, int par2, IIcon par3Icon, int par4, int par5, int brightness) {
+		Tessellator tessellator = Tessellator.instance;
+		tessellator.startDrawingQuads();
+		tessellator.setBrightness(brightness);
+		tessellator.addVertexWithUV(par1 + 0, par2 + par5, 0, par3Icon.getMinU(), par3Icon.getMaxV());
+		tessellator.addVertexWithUV(par1 + par4, par2 + par5, 0, par3Icon.getMaxU(), par3Icon.getMaxV());
+		tessellator.addVertexWithUV(par1 + par4, par2 + 0, 0, par3Icon.getMaxU(), par3Icon.getMinV());
+		tessellator.addVertexWithUV(par1 + 0, par2 + 0, 0, par3Icon.getMinU(), par3Icon.getMinV());
+		tessellator.draw();
 	}
 
 }
