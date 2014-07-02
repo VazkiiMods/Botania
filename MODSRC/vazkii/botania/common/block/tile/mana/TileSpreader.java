@@ -68,6 +68,23 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	private static final String TAG_FORCE_CLIENT_BINDING_Y = "forceClientBindingY";
 	private static final String TAG_FORCE_CLIENT_BINDING_Z = "forceClientBindingZ";
 
+	// Map Maker Tags
+	private static final String TAG_MAPMAKER_OVERRIDE = "mapmakerOverrideEnabled";
+	private static final String TAG_FORCED_COLOR = "mmForcedColor";
+	private static final String TAG_FORCED_MANA_PAYLOAD = "mmForcedManaPayload";
+	private static final String TAG_FORCED_TICKS_BEFORE_MANA_LOSS = "mmForcedTicksBeforeManaLoss";
+	private static final String TAG_FORCED_MANA_LOSS_PER_TICK = "mmForcedManaLossPerTick";
+	private static final String TAG_FORCED_GRAVITY = "mmForcedGravity";
+	private static final String TAG_FORCED_VELOCITY_MULTIPLIER = "mmForcedVelocityMultiplier";
+
+	private boolean mapmakerOverride = false;
+	private int mmForcedColor = 0x20FF20;
+	private int mmForcedManaPayload = 160;
+	private int mmForcedTicksBeforeManaLoss = 60;
+	private float mmForcedManaLossPerTick = 4F;
+	private float mmForcedGravity = 0F;
+	private float mmForcedVelocityMultiplier = 1F;
+	
 	public static boolean staticRedstone = false;
 	public static boolean staticDreamwood = false;
 
@@ -184,6 +201,14 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		cmp.setInteger(TAG_ROTATION_TICKS, rotationTicks);
 		cmp.setFloat(TAG_TICK_ROTATION_X, tickRotationX);
 		cmp.setFloat(TAG_TICK_ROTATION_Y, tickRotationY);
+		
+		cmp.setBoolean(TAG_MAPMAKER_OVERRIDE, mapmakerOverride);
+		cmp.setInteger(TAG_FORCED_COLOR, mmForcedColor);
+		cmp.setInteger(TAG_FORCED_MANA_PAYLOAD, mmForcedManaPayload);
+		cmp.setInteger(TAG_FORCED_TICKS_BEFORE_MANA_LOSS, mmForcedTicksBeforeManaLoss);
+		cmp.setFloat(TAG_FORCED_MANA_LOSS_PER_TICK, mmForcedManaLossPerTick);
+		cmp.setFloat(TAG_FORCED_GRAVITY, mmForcedGravity);
+		cmp.setFloat(TAG_FORCED_VELOCITY_MULTIPLIER, mmForcedVelocityMultiplier);
 
 		requestsClientUpdate = false;
 	}
@@ -198,6 +223,14 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		rotationTicks = cmp.getInteger(TAG_ROTATION_TICKS);
 		tickRotationX = cmp.getFloat(TAG_TICK_ROTATION_X);
 		tickRotationY = cmp.getFloat(TAG_TICK_ROTATION_Y);
+		
+		mapmakerOverride = cmp.getBoolean(TAG_MAPMAKER_OVERRIDE);
+		mmForcedColor = cmp.getInteger(TAG_FORCED_COLOR);
+		mmForcedManaPayload = cmp.getInteger(TAG_FORCED_MANA_PAYLOAD);
+		mmForcedTicksBeforeManaLoss = cmp.getInteger(TAG_FORCED_TICKS_BEFORE_MANA_LOSS);
+		mmForcedManaLossPerTick = cmp.getFloat(TAG_FORCED_MANA_LOSS_PER_TICK);
+		mmForcedGravity = cmp.getFloat(TAG_FORCED_GRAVITY);
+		mmForcedVelocityMultiplier = cmp.getFloat(TAG_FORCED_VELOCITY_MULTIPLIER);
 
 		if(cmp.hasKey(TAG_KNOWN_MANA))
 			knownMana = cmp.getInteger(TAG_KNOWN_MANA);
@@ -336,13 +369,23 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 		burst.setSourceLens(lens);
 		if(getCurrentMana() >= props.maxMana || fake) {
-			burst.setColor(props.color);
-			burst.setMana(props.maxMana);
-			burst.setStartingMana(props.maxMana);
-			burst.setMinManaLoss(props.ticksBeforeManaLoss);
-			burst.setManaLossPerTick(props.manaLossPerTick);
-			burst.setGravity(props.gravity);
-			burst.setMotion(burst.motionX * props.motionModifier, burst.motionY * props.motionModifier, burst.motionZ * props.motionModifier);
+			if(mapmakerOverride) {
+				burst.setColor(mmForcedColor);
+				burst.setMana(mmForcedManaPayload);
+				burst.setStartingMana(mmForcedManaPayload);
+				burst.setMinManaLoss(mmForcedTicksBeforeManaLoss);
+				burst.setManaLossPerTick(mmForcedManaLossPerTick);
+				burst.setGravity(mmForcedGravity);
+				burst.setMotion(burst.motionX * mmForcedVelocityMultiplier, burst.motionY * mmForcedVelocityMultiplier, burst.motionZ * mmForcedVelocityMultiplier);
+			} else {
+				burst.setColor(props.color);
+				burst.setMana(props.maxMana);
+				burst.setStartingMana(props.maxMana);
+				burst.setMinManaLoss(props.ticksBeforeManaLoss);
+				burst.setManaLossPerTick(props.manaLossPerTick);
+				burst.setGravity(props.gravity);
+				burst.setMotion(burst.motionX * props.motionModifier, burst.motionY * props.motionModifier, burst.motionZ * props.motionModifier);
+			}
 
 			return burst;
 		}
