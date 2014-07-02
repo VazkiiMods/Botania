@@ -15,12 +15,12 @@ public class BlockLivingrockBrickSlab extends BlockLivingSlab {
 
 	@Override
 	public BlockSlab getFullBlock() {
-		return (BlockSlab) ModBlocks.livingrockSlabFull;
+		return (BlockSlab) ModBlocks.livingrockBrickSlabFull;
 	}
 
 	@Override
 	public BlockSlab getSingleBlock() {
-		return (BlockSlab) ModBlocks.livingrockSlab;
+		return (BlockSlab) ModBlocks.livingrockBrickSlab;
 	}
 
 }
