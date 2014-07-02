@@ -52,6 +52,13 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer {
 		Minecraft.getMinecraft().renderEngine.bindTexture(spreader.isRedstone() ? textureRs : spreader.isDreamwood() ? textureDw : texture);
 		GL11.glScalef(1F, -1F, -1F);
 		model.render();
+		
+		GL11.glPushMatrix();
+		long worldTicks = tileentity.getWorldObj() == null ? 0 : tileentity.getWorldObj().getTotalWorldTime();
+		GL11.glRotatef(worldTicks % 360, 0F, 1F, 0F);
+		GL11.glTranslatef(0F, (float) Math.sin((double) worldTicks / 20.0) * 0.05F, 0F);
+		model.renderCube();
+		GL11.glPopMatrix();
 		GL11.glScalef(1F, -1F, -1F);
 		ItemStack stack = spreader.getStackInSlot(0);
 

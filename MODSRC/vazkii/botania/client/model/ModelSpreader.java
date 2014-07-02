@@ -84,6 +84,10 @@ public class ModelSpreader extends ModelBase {
 		cubeHole2.render(f);
 		cubeHole3.render(f);
 		cubeHole4.render(f);
+	}
+	
+	public void renderCube() {
+		float f = 1F / 16F;
 		cubeInside.render(f);
 	}
 }
