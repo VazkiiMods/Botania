@@ -221,7 +221,8 @@ public class TilePool extends TileMod implements IManaPool {
 		mana = cmp.getInteger(TAG_MANA);
 		outputting = cmp.getBoolean(TAG_OUTPUTTING);
 		color = cmp.getInteger(TAG_COLOR);
-		manaCap = cmp.getInteger(TAG_MANA_CAP);
+		if(cmp.hasKey(TAG_MANA_CAP))
+			manaCap = cmp.getInteger(TAG_MANA_CAP);
 		
 		if(cmp.hasKey(TAG_KNOWN_MANA))
 			knownMana = cmp.getInteger(TAG_KNOWN_MANA);
