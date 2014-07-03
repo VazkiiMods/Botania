@@ -1,3 +1,5 @@
+r1.1 73
+*Fixed Mana Pools that were placed before the build 72 update being drained of all their mana and becoming unable to receive any.
 r1.1 72
 *Added a "Mana Pool Cap before Voiding" NBT tag for mapmakers.
 *Added a "One use Mana Tablet" NBT tag for mapmakers.
