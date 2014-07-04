@@ -22,6 +22,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
@@ -50,9 +51,9 @@ public class ItemIcePendant extends ItemBauble {
 				tickIceRemovers(player);
 
 			if(!player.isSneaking() && !player.isInsideOfMaterial(Material.water)) {
-				int x = (int) player.posX;
-				int y = (int) player.posY - (player.isInWater() ? 0 : 1) - (player.worldObj.isRemote ? 1 : 0);
-				int z = (int) player.posZ;
+				int x = (int) MathHelper.floor_double(player.posX);
+				int y = (int) MathHelper.floor_double(player.posY - (player.isInWater() ? 0 : 1) - (player.worldObj.isRemote ? 1 : 0));
+				int z = (int) MathHelper.floor_double(player.posZ);
 
 				int range = 3;
 				for(int i = -range - 1; i < range; i++)
