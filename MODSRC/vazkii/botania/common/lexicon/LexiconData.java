@@ -157,6 +157,7 @@ public final class LexiconData {
 	public static LexiconEntry dispenserTweaks;
 	public static LexiconEntry shinyFlowers;
 	public static LexiconEntry prismarine;
+	public static LexiconEntry shedding;
 
 	public static void init() {
 		BotaniaAPI.addCategory(categoryBasics = new LexiconCategory(LibLexicon.CATEGORY_BASICS));
@@ -521,5 +522,8 @@ public final class LexiconData {
 
 		prismarine = new BLexiconEntry(LibLexicon.MISC_PRISMARINE, categoryMisc);
 		prismarine.setLexiconPages(new PageText("0"), new PageText("1"), new PageManaInfusionRecipe("2", ModManaAlchemyRecipes.prismarineRecipe), new PageCraftingRecipe("3", ModCrafingRecipes.recipePrismarine), new PageCraftingRecipe("4", ModCrafingRecipes.recipePrismarineBrick), new PageCraftingRecipe("5", ModCrafingRecipes.recipeDarkPrismarine), new PageCraftingRecipe("6", ModCrafingRecipes.recipeSeaLamp));
+	
+		shedding = new BLexiconEntry(LibLexicon.MISC_SHEDDING, categoryMisc);
+		shedding.setLexiconPages(new PageText("0"));
 	}
 }

@@ -93,6 +93,14 @@ versionChecking.enabled=Enable Version Checking
 wandBeam.static=Enable Static Wand Beam
 worldgen.flower.density=Worldgen Flower Density
 worldgen.flower.quantity=Worldgen Flower Quantity
+shedRate.chicken=Shed Rate: Chicken
+shedRate.squid=Shed Rate: Squid
+shedRate.villager=Shed Rate: Villager
+shedRate.spider=Shed Rate: Spider
+shedRate.blaze=Shed Rate: Blaze
+shedRate.ghast=Shed Rate: Ghast
+shedRate.skeleton=Shed Rate: Skeleton
+shedRate.slime=Shed Rate: Slime
 
 # VERSION CHECKING
 botania.versioning.flavour0=NANI SORE!? BOTANIA IS OUTDATED!?
@@ -1306,3 +1314,7 @@ botania.page.prismarine3=Crafting &1Prismarine&0
 botania.page.prismarine4=Crafting &1Prismarine Bricks&0
 botania.page.prismarine5=Crafting &1Dark Prismarine&0
 botania.page.prismarine6=Crafting the &1Sea Lantern&0
+
+# -- NATURAL SHEDDING
+botania.entry.shedding=Natural Shedding
+botania.page.shedding0=The living beings that inhabit our lands don't live in a static state. It's common for pieces of their body to fall out, &1Feathers&0 on &4Chickens&0, &1Bones&0 on &4Skeletons&0, so on.<br>Even the tough &4Ghasts&0 sometimes shed a tear or the &4Villagers&0 accidently drop an &1Emerald&0 and can't pick it back up because their arms are stuck together for some reason.

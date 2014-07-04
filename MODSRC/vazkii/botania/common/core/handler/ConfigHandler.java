@@ -45,6 +45,15 @@ public final class ConfigHandler {
 	public static boolean fallenKanadeEnabled = true;
 	public static boolean darkQuartzEnabled = true;
 
+	public static int shedRateChicken = 26000;
+	public static int shedRateSquid = 18000;
+	public static int shedRateVillager = 82000;
+	public static int shedRateSpider = 12000;
+	public static int shedRateBlaze = 8000;
+	public static int shedRateGhast = 9001;
+	public static int shedRateSkeleton = 36000;
+	public static int shedRateSlime = 21000;
+	
 	public static int flowerQuantity = 3;
 	public static int flowerDensity = 32;
 
@@ -114,6 +123,30 @@ public final class ConfigHandler {
 		desc = "Set to false to disable the Smokey Quartz blocks. This config option is here for those using Thaumic Tinkerer";
 		darkQuartzEnabled = loadPropBool("darkQuartz.enabled", desc, darkQuartzEnabled);
 
+		desc = "The average amount of ticks between a chicken randomly dropping a feather. Set to -1 to disable this feature";
+		shedRateChicken = loadPropInt("shedRate.chicken", desc, shedRateChicken);
+		
+		desc = "The average amount of ticks between a squid randomly dropping an ink sac. Set to -1 to disable this feature";
+		shedRateSquid = loadPropInt("shedRate.squid", desc, shedRateSquid);
+		
+		desc = "The average amount of ticks between a villager randomly dropping an emerald. Set to -1 to disable this feature";
+		shedRateVillager = loadPropInt("shedRate.villager", desc, shedRateVillager);
+		
+		desc = "The average amount of ticks between a spider randomly dropping a piece of string. Set to -1 to disable this feature";
+		shedRateSpider = loadPropInt("shedRate.spider", desc, shedRateSpider);
+		
+		desc = "The average amount of ticks between a blaze randomly dropping a piece of blaze powder. Set to -1 to disable this feature";
+		shedRateBlaze = loadPropInt("shedRate.blaze", desc, shedRateBlaze);
+		
+		desc = "The average amount of ticks between a ghast randomly dropping a ghast tear. Set to -1 to disable this feature";
+		shedRateGhast = loadPropInt("shedRate.ghast", desc, shedRateGhast);
+		
+		desc = "The average amount of ticks between a skeleton randomly dropping a bone. Set to -1 to disable this feature";
+		shedRateSkeleton = loadPropInt("shedRate.skeleton", desc, shedRateSkeleton);
+		
+		desc = "The average amount of ticks between a slime randomly dropping a slimeball. Set to -1 to disable this feature";
+		shedRateSlime = loadPropInt("shedRate.slime", desc, shedRateSlime);
+		
 		desc = "The quanity of flower patches to generate in the world, defaults to 3, the lower the number the less patches geenrate.";
 		flowerQuantity = loadPropInt("worldgen.flower.quantity", desc, 3);
 
