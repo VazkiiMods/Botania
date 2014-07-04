@@ -51,7 +51,7 @@ public class FXWisp extends EntityFX {
 		motionX = motionY = motionZ = 0;
 		particleScale *= size;
 		moteParticleScale = particleScale;
-		particleMaxAge = (int)(28D / (Math.random() * 0.3D + 1.2D) * maxAgeMul);
+		particleMaxAge = (int)(28D / (Math.random() * 0.3D + 0.7D) * maxAgeMul);
 
 		moteHalfLife = particleMaxAge / 2;
 		noClip = true;
