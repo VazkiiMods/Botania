@@ -169,7 +169,7 @@ public class ItemSpawnerMover extends ItemMod {
 			if(placeBlockAt(itemstack, player, world, x, y, z, side, xOffset, yOffset, zOffset, meta)) {
 				world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, block.stepSound.func_150496_b(), (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
 				player.renderBrokenItemStack(itemstack);
-				for(int i = 0; i < 60; i++)
+				for(int i = 0; i < 100; i++)
 					Botania.proxy.sparkleFX(world, x + Math.random(), y + Math.random(), z + Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.45F + 0.2F * (float) Math.random(), 6);
 
 				--itemstack.stackSize;
@@ -186,8 +186,6 @@ public class ItemSpawnerMover extends ItemMod {
 
 		Block block = world.getBlock(x, y, z);
 		if(block.equals(Blocks.mob_spawner)) {
-			block.onBlockPlacedBy(world, x, y, z, player, stack);
-			block.onPostBlockPlaced(world, x, y, z, metadata);
 			TileEntity te = world.getTileEntity(x, y, z);
 			NBTTagCompound tag = stack.getTagCompound();
 			if (tag.hasKey(TAG_SPAWNER))
