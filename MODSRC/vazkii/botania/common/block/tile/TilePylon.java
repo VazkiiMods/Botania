@@ -61,7 +61,7 @@ public class TilePylon extends TileEntity {
 				Vector3 movementVector = centerBlock.sub(ourCoords).normalize().multiply(0.2);
 
 				Block block = worldObj.getBlock(xCoord, yCoord - 1, zCoord);
-				if(block == ModBlocks.flower) {
+				if(block == ModBlocks.flower || block == ModBlocks.shinyFlower) {
 					int fmeta = worldObj.getBlockMetadata(xCoord, yCoord - 1, zCoord);
 					float[] color = EntitySheep.fleeceColorTable[fmeta];
 
