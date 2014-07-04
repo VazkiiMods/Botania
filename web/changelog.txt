@@ -1,3 +1,11 @@
+r1.1 74
+*Added Shedding. All sorts of mobs now randomly drop components of their body (eg, feathers on chickens, bones on skeletons, ghast tears, etc). This feature duplicates the mod ChickenShed and adds variants to other mobs. It can be tweaked in the config.
+*Fixed Glimmering Flowers working below pylons for the enchanter.
+*Fixed the Life Aggregator crashing servers.
+*Fixed the Snowflake Pendant not placing blocks in the correct location under some circumstances.
+*Increased the fall resistance of the Soujourner's Sash.
+*Reverted a recent change where particles would stay in the world for less time.
+*The Globetrotter's Sash now gives you a higher jump height and fall resistance.
 r1.1 73
 *Fixed Mana Pools that were placed before the build 72 update being drained of all their mana and becoming unable to receive any.
 r1.1 72
