@@ -24,14 +24,18 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 public class ItemTravelBelt extends ItemBauble {
 
 	final float speed;
+	final float jump;
+	final float fallBuffer;
 
 	public ItemTravelBelt() {
-		this(LibItemNames.TRAVEL_BELT, 0.035F);
+		this(LibItemNames.TRAVEL_BELT, 0.035F, 0.2F, 2F);
 	}
 
-	public ItemTravelBelt(String name, float speed) {
+	public ItemTravelBelt(String name, float speed, float jump, float fallBuffer) {
 		super(name);
 		this.speed = speed;
+		this.jump = jump;
+		this.fallBuffer = fallBuffer;
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 
@@ -63,8 +67,8 @@ public class ItemTravelBelt extends ItemBauble {
 			ItemStack belt = PlayerHandler.getPlayerBaubles(player).getStackInSlot(3);
 
 			if(belt != null && belt.getItem() == this) {
-				player.motionY += 0.2;
-				player.fallDistance = -1F;
+				player.motionY += jump;
+				player.fallDistance = -fallBuffer;
 			}
 		}
 	}
