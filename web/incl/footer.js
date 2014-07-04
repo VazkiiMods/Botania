@@ -13,7 +13,9 @@ $(function() {
 	}
 	
 	var hash = document.location.hash.substring(1);
-    $('html, body').animate({ scrollTop: $("#" + hash + "-fake").offset().top - 100 }, 1000);
+	var offset = $("#" + hash + "-fake").offset();
+	if(offset != undefined)
+		$('html, body').animate({ scrollTop: offset.top - 100 }, 1000);
 });
 
 $('.hide-footer-btn').click(function() {
@@ -42,14 +44,31 @@ $('.hide-footer-btn').mouseenter(function(e) {
 
 $('.hide-footer-btn').mouseleave(function(e) {
 	$('#footer-tooltip').fadeOut();
-})
+});
+
+$('.hide-div').click(function() {
+	var divname = $(this).attr('id').substring('hide-'.length);
+	var div = $('#' + divname);
+	if(div.is(':visible')) {
+		div.hide(300);
+		$(this).text('(show)');
+	} else {
+		div.show(300);
+		$(this).text('(hide)');
+	}
+	
+});
 
 $(".hashlink").click(function() {
 	var hash = $(this).text();
 	
-	if(hash == 'Back to top')
+	if(hash == 'Back to top' || hash == '(back to top)')
 		$('html, body').animate({  scrollTop: 0 }, 500);
 	else $('html, body').animate({ scrollTop: $("#" + hash + "-fake").offset().top - 100 }, 1000);
+});
+
+$(".moe-scroll").click(function() {
+	$('html, body').animate({ scrollTop: $("#moe-counter").offset().top - 100 }, 1000);
 });
 
 function changeCensor() {
