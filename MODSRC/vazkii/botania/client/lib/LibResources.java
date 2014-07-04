@@ -85,7 +85,7 @@ public final class LibResources {
 	public static final String SHADER_MANA_POOL_FRAG = PREFIX_SHADER + "mana_pool.frag";
 
 	public static final String[] LANGS = new String[] {
-		"en_US", "de_DE", "ru_RU"
+		"en_US", "de_DE", "ru_RU", "zh_CN"
 	};
 
 }
