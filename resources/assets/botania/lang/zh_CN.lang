@@ -93,6 +93,14 @@ versionChecking.enabled=Enable Version Checking
 wandBeam.static=Enable Static Wand Beam
 worldgen.flower.density=Worldgen Flower Density
 worldgen.flower.quantity=Worldgen Flower Quantity
+shedRate.chicken=Shed Rate: Chicken
+shedRate.squid=Shed Rate: Squid
+shedRate.villager=Shed Rate: Villager
+shedRate.spider=Shed Rate: Spider
+shedRate.blaze=Shed Rate: Blaze
+shedRate.ghast=Shed Rate: Ghast
+shedRate.skeleton=Shed Rate: Skeleton
+shedRate.slime=Shed Rate: Slime
 
 # VERSION CHECKING
 botania.versioning.flavour0=(つд⊂)なにそれ!? BOTANIA IS OUTDATED!?
@@ -296,16 +304,16 @@ tile.botania:dreamwood0Stairs.name=梦之木楼梯
 tile.botania:dreamwood0Slab.name=梦之木半砖
 tile.botania:dreamwood1Stairs.name=梦之木楼梯
 tile.botania:dreamwood1Slab.name=梦之木半砖
-tile.botania:conjurationCatalyst.name=制造催化器
-tile.botania:prismarine0.name=海石
-tile.botania:prismarine1.name=海石砖
-tile.botania:prismarine2.name=深色海石
-tile.botania:prismarine0Stairs.name=海石楼梯
-tile.botania:prismarine0Slab.name=海石半砖
-tile.botania:prismarine1Stairs.name=海石砖楼梯
-tile.botania:prismarine1Slab.name=海石砖半砖
-tile.botania:prismarine2Stairs.name=深色海石楼梯
-tile.botania:prismarine2Slab.name=深色海石半砖
+tile.botania:conjurationCatalyst.name=炼造催化器
+tile.botania:prismarine0.name=海晶石
+tile.botania:prismarine1.name=海晶石砖
+tile.botania:prismarine2.name=深色海晶石
+tile.botania:prismarine0Stairs.name=海晶石楼梯
+tile.botania:prismarine0Slab.name=海晶石半砖
+tile.botania:prismarine1Stairs.name=海晶石砖楼梯
+tile.botania:prismarine1Slab.name=海晶石砖半砖
+tile.botania:prismarine2Stairs.name=深色海晶石楼梯
+tile.botania:prismarine2Slab.name=深色海晶石半砖
 tile.botania:seaLamp.name=海灯笼
 
 # FLOWER NAMES
@@ -504,9 +512,9 @@ item.botania:terrasteel.name=泰拉钢锭
 item.botania:terrasteelHelm.name=泰拉钢头盔
 item.botania:terrasteelChest.name=泰拉钢胸甲
 item.botania:terrasteelLegs.name=泰拉钢护腿
-item.botania:terrasteelBoots.name=泰拉钢靴
+item.botania:terrasteelBoots.name=泰拉钢靴子
 item.botania:terraSword.name=泰拉之刃
-item.botania:tinyPlanet.name=环绕项链
+item.botania:tinyPlanet.name=行星项链
 item.botania:manaRing.name=魔力之戒
 item.botania:auraRing.name=光环之戒
 item.botania:manaRingGreater.name=高级魔力之戒
@@ -515,7 +523,7 @@ item.botania:travelBelt.name=旅居者腰带
 item.botania:knockbackBelt.name=抗击腰带
 item.botania:icePendant.name=雪花项链
 item.botania:lavaPendant.name=火石项链
-item.botania:lifeEssence.name=永恒生命精华
+item.botania:lifeEssence.name=虚无生命精华
 item.botania:goldenLaurel.name=黄金桂冠
 item.botania:redstoneRoot.name=红石根
 item.botania:magnetRing.name=磁化指环
@@ -554,7 +562,7 @@ item.botania:fireRod.name=地狱法杖
 item.botania:vineBall.name=藤蔓球
 item.botania:slingshot.name=活木弹弓
 item.botania:manaBottle.name=瓶装魔力
-item.botania:prismarineShard.name=海石碎片
+item.botania:prismarineShard.name=海晶石碎片
 
 # GUI TEXT
 botania.gui.lexicon.header=植物魔法辞典, %s 版目录 - 选择你要浏览的章节:
@@ -642,7 +650,7 @@ botania.page.runeAltar19=&1傲慢符文&0.
 botania.entry.terrasteel=泰拉钢
 botania.page.terrasteel0=&1泰拉钢&0是一种注入了自然魔 法的强力金属.<br>事实证明做出这种金属不是 那么简单,要制作的话,投掷一 个&1魔力钢锭&0,一个&1魔力珍珠&0和 一个&1魔力钻石&0到&4激活的&1信标&0 顶部.附近需要有一个&1魔力池&0, 最少一半魔力.之后就会产生 一个&1泰拉钢锭&0.
 botania.page.terrasteel1=制作&1泰拉钢&0
-botania.page.terrasteel2=通过将&1泰拉钢&0和一个&1下界之&0 &1星&0与&1烈焰粉&0结合,这样就能人 工做出一些&1永恒生命精华&0,一 种制作魔法植物和自然工具 所需的强力原料.
+botania.page.terrasteel2=通过将&1泰拉钢&0和一个&1下界之&0 &1星&0与&1烈焰粉&0结合,这样就能人 工做出一些&1虚无生命精华&0,一 种制作魔法植物和自然工具 所需的强力原料.
 botania.page.terrasteel3=这些不是来自久兵卫
 
 # - MANA
@@ -911,313 +919,313 @@ botania.page.kekimurus1=&o让它们吃蛋糕&r.
 # - MAGICAL APPARATUS
 # -- FORCE RELAY
 botania.entry.pistonRelay=力量传递器
-botania.page.pistonRelay0=It seems that infusing &1Pistons&0 with &4Mana&0 results in some interesting adverse effects.<br>This block tears the fabric of space, relaying any piston force applied to it to the block it's bound to.
-botania.page.pistonRelay1=To bind it to a block, right click it with a &1Wand of the Forest&0, and right click on the block you want to bind it to.<br>Furthermore, this block is highly unstable, and may create uncanny effects, care is to be taken, it is also resistant to glue, both in pulling and pushing. This allows for a "frame" like setup.
-botania.page.pistonRelay2=Infusing a &1Piston&0 with &4Mana&0.
+botania.page.pistonRelay0=看样子给&1活塞&0注入&4魔力&0会产 生有趣的副作用.<br>这个方块会撕裂空间构造,将 任何活塞给它的推力传给绑 定方块.
+botania.page.pistonRelay1=将它绑定到方块,用&1森林法杖&0 右击它,再右击要绑定的方块.<br>此外,这个方块高度不稳定, 并且有可能出现预料外的情 况,务必小心,它也不能被粘 性活塞推拉.
+botania.page.pistonRelay2=给&1活塞&0注入&4魔力&0.
 
 # -- MANA PYLON
 botania.entry.pylon=魔法水晶
-botania.page.pylon0=A &1Mana Pylon&0 is a structure that can pull energies from the earth and use them to power enchanting processes.<br>For one, setting one adjanced to an &1Enchanting Table&0 as if it was a &1Bookshelf&0 will drastically increase the power it can convey, just 2 of these are enough for it to reach &4Level 30&0.
-botania.page.pylon1=&oYou must construct additional pylons!&r
+botania.page.pylon0=&1魔法水晶&0是一个能将能量从 地下中抽出用于供给附魔过 程的装置.<br>举例来说,将一个临近&1附魔台&0 放置会起到和&1书架&0一样的作 用,会大幅增加附魔等级,2个 魔法水晶就足够达到&4Level30&0.
+botania.page.pylon1=&o你必须增建水晶塔!&r
 
 # -- MANA ENCHANTING
 botania.entry.manaEnchanting=魔力附魔
-botania.page.manaEnchanting0=By utilizing the magical power emited from &1Mana Pylons&0, a structure that can enchant items with books without consuming them can be created, called the &1Mana Enchanteer&0.<br>Constructing one of these requires a fair amount of space and materials alike.
-botania.page.manaEnchanting1=To construct the &1Mana Enchanter&0, one requires, as well as fair amount of space, 17 &1Obsidian&0 blocks, 10 &1Mystical Flowers&0 of any color, 6 &1Mana Pylons&0 and a &1Lapis Lazuli Block&0.<br>The instructions on how to assemble this structure are in the following pages.
-botania.page.manaEnchanting2=Start by making an &1Obsidian&0 circle.
-botania.page.manaEnchanting3=Put &1Mana Pylons&0 1 block in the air where marked.
-botania.page.manaEnchanting4=Put flowers under the pylons and in the center
-botania.page.manaEnchanting5=Place a &1Lapis Lazuli Block&0 in the center.
-botania.page.manaEnchanting6=After the construct is done, right click the Lapis block with a &1Wand of the Forest&0 and the enchanter should form.<br>In order to utilize the enchanter, one would place (via right click) the item to be enchanted in the enchanter itself and drop &1Enchanted Books&0 inside the circle around it.
-botania.page.manaEnchanting7=Items that are already enchanted can't be placed in the enchanter.<br>To start the enchanting, right click the enchanter with a &1Wand of the Forest&0. It'll scan the books around, and once it's done, a spell circle of sorts will appear around it, indicating the books can be safely picked up again.
-botania.page.manaEnchanting8=After the enchanting begins, the enchanter will require &4Mana&0.<br>It can be fed via one of two ways, either via &4Mana Bursts&0 or nearby &1Mana Pools&0, the later being much faster, but a bit less efficient, as a small portion of the mana is lost.
-botania.page.manaEnchanting9=When enough &4Mana&0 is gathered, the enchanting process will finalize, and the enchantments will be applied to the item.<br>The amount of &4Mana&0 required depends on the rarity of the enchantments being applied, their level, and the total amount of enchantments.<br>If any book has more than one enchantment, only the first will be accounted for.
-botania.page.manaEnchanting10=During the enchanting process, the item can not be removed, but it can after the process has been completed.<br>Note that if at any point, any component of the construct is removed, it'll revert to it's original &1Lapis Lazuli Block&0 form.
+botania.page.manaEnchanting0=通过利用&1魔法水晶&0输出的魔 法能量,能建造出一个用附魔 书无消耗附魔物品的装置,叫 做&1魔力附魔台&0.<br>建造它需要大量的空间和材 料.
+botania.page.manaEnchanting1=建造&1魔力附魔台&0,需 要大量空间,17个&1黑曜石&0块, 10个任意颜色的&1神秘花&0,6个 &1魔法水晶&0和一个&1青金石块&0.<br>如何组装的说明在后续页面.
+botania.page.manaEnchanting2=先做一个&1黑曜石&0圆.
+botania.page.manaEnchanting3=在标记处高一格位置放置 &1魔法水晶&0.
+botania.page.manaEnchanting4=在水晶下和中心处种上花.
+botania.page.manaEnchanting5=中心处放置一个&1青金石块&0.
+botania.page.manaEnchanting6=摆放完成后,用&1森林法杖&0右击 青金石块附魔台就成型了.<br>使用附魔台时,需要将要附魔 的物品放入附魔台(通过右击 )并在黑曜石圈内扔下&1附魔&0 &1书&0.
+botania.page.manaEnchanting7=已附魔的物品不能放入附魔 台.<br>开始附魔时,用&1森林法杖&0右击 附魔台.它会检测周围的书, 一旦检测完毕,就会出现一个 符文圈,说明这时可以捡起地 上的书了.
+botania.page.manaEnchanting8=附魔开始后,附魔台就会需要 &4魔力&0.<br>有两种来源,通过&4魔力脉冲&0或 附近的&1魔力池&0,后者要快一些 ,但效率不是太高,会有少量 魔力流失.
+botania.page.manaEnchanting9=当聚集了足够的&4魔力&0时,附魔 过程就告终了,附魔将会赋予 物品.<br>所需&4魔力&0的量取决于施加附 魔的稀有度,等级,和附魔总 数.<br>如果有的书有不止一种附魔, 那么仅会附魔第一个.
+botania.page.manaEnchanting10=附魔过程中物品不能取出,但 可在完成后取出.<br>注意附魔台结构的任何一部 分被移除或是破坏都会将它 变为原来的&1青金石块&0.
 
 # -- SPREADER TURNTABLE
 botania.entry.turntable=发射器旋转台
-botania.page.turntable0=The &1Spreader Turntable&0, as it's name implies, can turn &1Mana Spreaders&0 around and around. Placing a spreader above the turntable will rotate it, given that a redstone signal isn't applied.<br>To change the speed of the turntable, right click with a &1Wand of the Forest&0, shift-right clicking will invert the movement.
-botania.page.turntable1=Spin spin spin spin
+botania.page.turntable0=&1发射器旋转台&0如它的名字,能 将&1魔力发射器&0来回旋转.在上 方放置一个发射器旋转台就 会开始转动它,红石信号会阻 止旋转.<br>要改变转速,用&1森林法杖&0右击 它,shift右击会反转.
+botania.page.turntable1=转转转转
 
 # -- BOTANICAL ALCHEMY
 botania.entry.manaAlchemy=魔力炼金
-botania.page.manaAlchemy0=&4Mana&0 is an extremely volatile substance, to a point that it's complete properties and abilities are unknown.<br>One of them is known, though, by attaching an &1Alchemy Catalyst&0, created with a mixture of otherworldly materials to the bottom of a &1Mana Pool&0, it enables the pool to perform &4Alchemy&0.
-botania.page.manaAlchemy1=Creating the &1Catalyst&0
-botania.page.manaAlchemy2=&1Rotten Flesh&0 to &1Leather&0
-botania.page.manaAlchemy3=Various types of &1Wood&0
-botania.page.manaAlchemy4=Various types of &1Saplings&0
-botania.page.manaAlchemy5=Breaking down &1Glowstone Blocks&0
-botania.page.manaAlchemy6=Breaking down &1Quartz Blocks&0
-botania.page.manaAlchemy7=Creating &1Chiseled Stone Bricks&0
-botania.page.manaAlchemy8=Further freezing &1Snow&0 into &1Ice&0
-botania.page.manaAlchemy9=Converting between &1Vines&0 and &1Lilypads&0
-botania.page.manaAlchemy10=Various breeds of &1Fish&0
-botania.page.manaAlchemy11=Transmuting &1Seeds&0 and &1Crops&0
-botania.page.manaAlchemy12=Purifying &1Poisonous Potatos&0
-botania.page.manaAlchemy13=Conjuring &1Nether Wart&0
-botania.page.manaAlchemy14=Converting between &1Gunpowder&0 and &1Flint&0
-botania.page.manaAlchemy15=Making &1Name Tags&0
-botania.page.manaAlchemy16=Splitting &1Wool&0 into &1String&0
-botania.page.manaAlchemy17=Converting between &1Slimeballs&0 and &1Cactus&0
-botania.page.manaAlchemy18=Creating &1Ender Pearls&0
-botania.page.manaAlchemy19=Converting between &1Glowstone&0 and &1Redstone&0
-botania.page.manaAlchemy20=Breaking &1Cobblestone&0 into &1Sand&0
+botania.page.manaAlchemy0=&4魔力&0是种不稳定的物质,某种 程度上我们还未了解它的完 整属性和能力.<br>但有一点,装上&1炼金催化器&0, 由特别材料混合制成放在&1魔&0 &1力池&0底部,使得池子能进行&4炼&0 &4金&0.
+botania.page.manaAlchemy1=制作&1催化器&0
+botania.page.manaAlchemy2=&1腐肉&0变&1皮革&0
+botania.page.manaAlchemy3=各种类型的&1木头&0
+botania.page.manaAlchemy4=各种类型的&1树苗&0
+botania.page.manaAlchemy5=粉碎&1萤石&0
+botania.page.manaAlchemy6=粉碎&1石英块&0
+botania.page.manaAlchemy7=制作&1鉴制石砖&0
+botania.page.manaAlchemy8=将&1雪块&0完全冻结为&1冰&0
+botania.page.manaAlchemy9=&1藤蔓&0和&1睡莲&0间转化
+botania.page.manaAlchemy10=各种类的&1鱼&0
+botania.page.manaAlchemy11=&1种子&0与&1作物&0之间的转化
+botania.page.manaAlchemy12=净化&1毒马铃薯&0
+botania.page.manaAlchemy13=制作&1地狱疣&0
+botania.page.manaAlchemy14=&1火药&0与&1燧石&0间转化
+botania.page.manaAlchemy15=制造&1命名牌&0
+botania.page.manaAlchemy16=将&1羊毛&0变为&1线&0
+botania.page.manaAlchemy17=&1粘液球&0和&1仙人掌&0间转化
+botania.page.manaAlchemy18=制造&1末影珍珠&0
+botania.page.manaAlchemy19=&1萤石粉&0和&1红石&0间转化
+botania.page.manaAlchemy20=将&1圆石&0粉碎成&1沙子&0
 
 # -- EYE OF THE ANCIENTS
 botania.entry.forestEye=远古之眼
-botania.page.forestEye0=As the Ancients who used to watch over the world always looked for the living beings on it, this block, the &1Eye of the Ancients&0, will do just that.<br>By attaching a &1Comparator&0 next to it, it'll send out a redstone signal equivalent to the amount of animals it can find.
-botania.page.forestEye1=The counting only starts at 2, so, with 2 animals around, it'd output a signal of strength 1, with 3 animals, of strength 2 and so on.<br>Lastly, the time has worn down the sight of the Ancients, so this block can only see animals in about 6 blocks in any direction.
-botania.page.forestEye2=Now you see me...
+botania.page.forestEye0=就像在世上寻找生命的古人 一样,这个方块,&1远古之眼&0,会 那么做.<br>紧邻放置一个&1红石比较器&0,会 根据他能找到的动物数量输 出一定强度的红石信号.
+botania.page.forestEye1=计数值从2开始,因此,若是2 只动物,就会输出强度为1的 信号,3只的话,就会是强度2 以此类推.<br>最后,时间的长河黯淡了它的 视力,所以这个方块只能看见 任何方向6格以内的动物.
+botania.page.forestEye2=现在你看见我了...
 
 # -- OPEN CRATE
 botania.entry.openCrate=花格箱
-botania.page.openCrate0=Sometimes devices like &1Droppers&0 or &1Dispensers&0 aren't precise or fast enough. A simple solution is to make a crate and punch a hole in the bottom.<br>Yeah, it's that simple. The &1Open Crate&0 accepts items from &1Hoppers&0 or any other means of inserting items, and obviously, drops them directly below it.
-botania.page.openCrate1=A little interesting effect the &1Open Crate&0 can do is that, when given a redstone signal, any items it drops are prevented from being caught by flowers like the &1Hopperhock&0, &1Rannuncarpus&0 or &1Pollidisiac&0 for around ten seconds more than usual.
-botania.page.openCrate2=A super crate box
+botania.page.openCrate0=有时像&1漏斗&0和&1发射器&0这样的 装置不够快.一个简单的解 决方案就是制作一个花格箱 然后在底部开洞.<br>是的,就是这么简单.&1花格箱&0 接收来自&1漏斗&0或其他途径输 送的物品,而且显然,从下面 直接漏出物品.
+botania.page.openCrate1=&1花格箱&0一个有趣的效果就是, 输入红石信号时,它输出的所 有物品都比平常多10秒不会 被&1漏斗花&0,&1手掌花&0和&1催欲花&0捡 走.
+botania.page.openCrate2=一个精妙的箱子
 
 # -- DRUM OF THE WILD
 botania.entry.forestDrum=狂野之鼓
-botania.page.forestDrum0=The &1Drum of the Wild&0 is, in layman's terms, the percussion counterpart of the &1Horn of the Wild&0. It serves the exact same purpose as the handheld horn, but is placed in world.<br>To trigger a beat and break nearby folliage, one would fire a &4Mana Burst&0 at the drum.
-botania.page.forestDrum1=It's to note that the drum does not store mana, hence, in order to trigger it, a &1Redstone Mana Spreader&0 or a &1Mana Blaster&0 is required.
-botania.page.forestDrum2=But if you close your eyes...
+botania.page.forestDrum0=&1狂野之鼓&0通俗说,就是打击乐 器版的&1狂野号角&0.它与手持的 号角有相同的功能,但是放置 在地上的.<br>要击响它破坏附近的花草,需 要向它发射一道&4魔力脉冲&0.
+botania.page.forestDrum1=注意鼓本身并不存储魔力,然 而,为了触发它,需要&1红石魔&0 &1力发射器&0或是&1魔力脉冲&0.
+botania.page.forestDrum2=但如果你闭上了眼睛...
 
 # -- ABSTRUSE PLATFORM
 botania.entry.platform=奥秘平台
-botania.page.platform0=By laying &1Livingwood&0 on a very specific format it's possible to create a platform of sorts, that only has a physical body for whoever is on top of it and isn't sneaking. For anyone else, it's like it's not there. &4Mana Bursts&0 will always travel through it without any trouble.<br>It's also possible to camouflage this block as any other simple block by simply right clicking it.
-botania.page.platform1=It would be Ethereal but the name was taken
+botania.page.platform0=将&1活木&0摆成一个十分特殊的 形式能做出一种平台,对它上 方未潜行的人来说才有碰撞 箱.而对于其他人,就好像不 在那儿一样.&4魔力脉冲&0总能无 阻碍的穿过它.<br>也可以通过右击将它伪装成 其他方块.
+botania.page.platform1=本因叫虚无平台的但名字被 取过了(TT)
 
 # -- CONJURING WITH MANA
-botania.entry.manaConjuration=魔力制造
-botania.page.manaConjuration0=Similar to the ability to &4Alchemise with Mana&0, a catalyst also exists for &4Conjuration&0, the magic of materializing resources from magical energy only. The mechanism works in a similar way to the &1Alchemy Catalyst&0 where one tosses an item into the pool with the catalyst below.
-botania.page.manaConjuration1=Creating the catalyst
-botania.page.manaConjuration2=Conjuring &1Redstone&0
-botania.page.manaConjuration3=Conjuring &1Glowstone&0
-botania.page.manaConjuration4=Conjuring &1Quartz&0
-botania.page.manaConjuration5=Conjuring &1Coal&0
-botania.page.manaConjuration6=Conjuring &1Snow&0
-botania.page.manaConjuration7=Conjuring &1Netherrack&0
-botania.page.manaConjuration8=Conjuring &1Soul Sand&0
-botania.page.manaConjuration9=Conjuring &1Gravel&0
+botania.entry.manaConjuration=魔力炼造
+botania.page.manaConjuration0=类似&4魔力炼金&0的能力,也存在 着&4炼造&0的催化器,只利用魔法 能量制作材料的魔法.工作的 机制类似&1炼金催化器&0,向下方 有催化器的池子投掷物品.
+botania.page.manaConjuration1=制作催化器
+botania.page.manaConjuration2=炼造&1红石&0
+botania.page.manaConjuration3=炼造&1萤石&0
+botania.page.manaConjuration4=炼造&1石英&0
+botania.page.manaConjuration5=炼造&1煤&0
+botania.page.manaConjuration6=炼造&1雪&0
+botania.page.manaConjuration7=炼造&1地狱岩&0
+botania.page.manaConjuration8=炼造&1灵魂沙&0
+botania.page.manaConjuration9=炼造&1砂砾&0
 
 # -- SPECTRAL PLATFORM
 botania.entry.spectralPlatform=幻影平台
-botania.page.spectralPlatform0=The &1Spectral Platform&0 isn't more than an &1Abstruse Platform&0 with no physical body whatsoever. Whereas the &1Abstruse Platform&0 would have a physical body in some cases, the &1Spectral Platform&0 lets anything go through it, regardless of their position.
-botania.page.spectralPlatform1=This reminds me of a Puzzle
+botania.page.spectralPlatform0=&1幻影平台&0可不是&1奥秘平台&0那 样的.&1奥秘平台&0在有些情况下 会有碰撞箱,而&1幻影平台&0则可 让一切穿过,不管在什么位置.
+botania.page.spectralPlatform1=这让我想起了一个谜题
 
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
 botania.entry.manaBlaster=魔力脉冲枪
-botania.page.manaBlaster0=The &1Mana Blaster&0 is like a portable &1Mana Spreader&0, while shaped like a pistol for easy handling, it's not exactly a firearm, as much as it is just a portable spreader.<br>By utilizing &4Mana&0 from &4Mana carrying items&0 in the holder's inventory, it can shoot a mana burst when one is looking at.
-botania.page.manaBlaster1=This burst is a bit different from the one fired from speaders, as it's faster, but carries only three quarters of the mana a spreader burst would. There's also a short cooldown period after firing the blaster until another burst can be shot.
-botania.page.manaBlaster2=&1Mana Lenses&0 also function with the blaster, to attach one to it, put them side by side on a crafting table, to remove it, simply shift-right click the blaster.
-botania.page.manaBlaster3=We need more dakka
+botania.page.manaBlaster0=&1魔力脉冲枪&0就像是个便携的 &1魔力发射器&0,形状做成了手枪 一样便于使用,但并不是真的 枪,它只是个便携式的发射器.<br>通过使用使用者物品栏的&4魔&0 &4力携带品&0里的&4魔力&0,它能朝所 看方向射出一道魔力脉冲.
+botania.page.manaBlaster1=这种脉冲不同于魔力发射器 里发出的,它更快,但只有前 者四分之三的魔力量.在发射 后也会有短暂的冷却时间.
+botania.page.manaBlaster2=&1魔力透镜&0也对脉冲枪有效,安 装的话,只要将它们放入工作 台合成就可以,取下透镜只需 拿着枪shift右击.
+botania.page.manaBlaster3=我们要更猛的枪
 
 # -- PASTURE SEEDS
 botania.entry.grassSeeds=草地之种
-botania.page.grassSeeds0=Watching grass spread is seldom a fun activity. By infusing some &1Tall Grass&0 with &4Mana&0, it's possible to create &1Pasture Seeds&0, which will grow grass in any barren area, via a simple right click on dirt.<br>Other types of folliage can also be grown, such a &1Podzol&0 or &1Mycellium&0 with alternate seeds.
-botania.page.grassSeeds1=&1Pasture Seeds&0 for grass
-botania.page.grassSeeds2=&1Boreal Seeds&0 for podzol
-botania.page.grassSeeds3=&1Infestation Spores&0 for mycellium
+botania.page.grassSeeds0=看着草地蔓延可不是什么有 趣的事.通过给&1高草&0注入&4魔力&0 ,就能做出&1草地之种&0,它能在 芜原长出草,只需右击土块.<br>其他类的植物也能种出来,比 如&1灰化土&0和&1菌丝&0与对应的种 子.
+botania.page.grassSeeds1=&1草地之种&0与草方块
+botania.page.grassSeeds2=&1寒地之种&0与灰化土
+botania.page.grassSeeds3=&1菌丝孢子&0与菌丝
 
 # -- ROD THE LANDS
 botania.entry.dirtRod=大地法杖
-botania.page.dirtRod0=The &1Rod of the Lands&0 is a rather simpleton tool, by utilizing &4Mana&0 from your inventory (via a &1Mana Tablet&0 or others), it can materialize and place a &1Dirt&0 block down.
-botania.page.dirtRod1=That's dirty
+botania.page.dirtRod0=&1大地法杖&0就是个傻瓜工具,使 用物品栏里的&4魔力&0(通过&1魔力 石板&0或其他),它能塑造并放 置出&1泥土&0.
+botania.page.dirtRod1=脏脏的
 
 # -- TERRA FIRMA ROD
 botania.entry.terraformRod=大地权杖
-botania.page.terraformRod0=While digging away at dirt with a shovel is definitely functional, flattening huge tracts of land can get somewhat tortuous at times.<br>By utilizing the &1Terra Firma Rod&0, it's possible to terraform in a quick and enviromental friendly manner.
-botania.page.terraformRod1=This rod, will, at the cost of some &4Mana&0 from your inventory, flatten the land to the level you are standing. For this to happen, charge it by &4holding right-click&0 and, slowly but surely, the nearby terrain will be flattened to your level, either by placing &1Dirt&0 or by removing blocks.
-botania.page.terraformRod2=Note that blocks removed by the rod are non-recuperable. The terrain will adapt to the changes as best as it can, up to a distance limit, to avoid cuts in hills and the like, for this, the flattening will work in the terrain's natural look.
-botania.page.terraformRod3=Quite a justicar
+botania.page.terraformRod0=尽管一般使用铲子来挖土,整 平大片的土地就没那么简单 了.<br>使用&1大地权杖&0,就能 以快速的环境友好型的方法 整平土地.
+botania.page.terraformRod1=这支杖,消耗一些你物品栏里 的&4魔力&0,将土地整平到你站的 高度.这么做的话,手持它按 住&4右键&0,身边的地形就会缓慢 整平到你的高度,同时放置&1泥&0 &1土&0和移除方块.
+botania.page.terraformRod2=注意被它移除的方块是不可 修复的.地形会尽可能的调整 ,直到距离的上限,为了防止 破坏山形,整平会以地形的自 然外貌为基准进行.
+botania.page.terraformRod3=这就是审判
 
 # -- MANASTEEL EQUIPMENT
 botania.entry.manaGear=魔钢装备
-botania.page.manaGear0=&1Manasteel&0, alike other metals, can be shaped into tools and armor alike.<br>Tools or armor crafted from this material will share their properties with &1Iron&0, albeit somewhat superior in enchantability and durability. Whenever a &1Manasteel&0 item is to take damage, if there's &4Mana&0 available in the inventory (such as a &1Mana Tablet&0), it'll use that instead.
-botania.page.manaGear1=The &1Manasteel Pickaxe&0
-botania.page.manaGear2=The &1Manasteel Shovel&0
-botania.page.manaGear3=The &1Manasteel Axe&0
-botania.page.manaGear4=The &1Manasteel Shears&0
-botania.page.manaGear5=The &1Manasteel Sword&0
-botania.page.manaGear6=The &1Manasteel Helmet&0
-botania.page.manaGear7=The &1Manasteel Chestplate&0
-botania.page.manaGear8=The &1Manasteel Leggings&0
-botania.page.manaGear9=The &1Manasteel Boots&0
+botania.page.manaGear0=&1魔钢&0,和其他金属一样,能做 成类似的工具和护甲.<br>这种金属制作的工具和护甲 会保有&1铁&0的性能,但附魔能力 和耐久度优越.当&1魔钢&0制品受 损时,如果物品栏中有可用的 &4魔力&0(比如&1魔力石板&0),就会优 先消耗魔力.
+botania.page.manaGear1=&1魔钢镐&0
+botania.page.manaGear2=&1魔钢铲&0
+botania.page.manaGear3=&1魔钢斧&0
+botania.page.manaGear4=&1魔钢剪刀&0
+botania.page.manaGear5=&1魔钢剑&0
+botania.page.manaGear6=&1魔钢头盔&0
+botania.page.manaGear7=&1魔钢胸甲&0
+botania.page.manaGear8=&1魔钢护腿&0
+botania.page.manaGear9=&1魔钢靴子&0
 
 # -- HORN OF THE WILD
 botania.entry.grassHorn=狂野号角
-botania.page.grassHorn0=Clearing out &1Tall Grass&0 by hand can definitely be a nuisance.<br>Simply blowing the &1Horn of the Wild&0 will quickly cause any nearby vegetation to uproot, leaving behind drops as if it had been broken by hand.
-botania.page.grassHorn1=Crafting the horn
+botania.page.grassHorn0=空手清理&1高草&0显然是个麻烦 事.<br>吹响&1狂野号角&0会让附近的植 物被快速铲除,留下用手破坏 时的掉落物.
+botania.page.grassHorn1=制作号角
 
 # -- TERRASTEEL ARMOR
 botania.entry.terrasteelArmor=泰拉钢护甲
-botania.page.terrasteelArmor0=Armor made out of &1Terrasteel&0, much alike the &1Manasteel&0 counterpart, can utilize &4Mana&0 from the inventory instead of taking damage.<br>This armor, however, has properties more alike &1Diamond&0 instead of &1Iron&0 and increases the wearer's health when worn.
-botania.page.terrasteelArmor1=The &1Terrasteel Helmet&0
-botania.page.terrasteelArmor2=The &1Terrasteel Chestplate&0
-botania.page.terrasteelArmor3=The &1Terrasteel Leggings&0
-botania.page.terrasteelArmor4=The &1Terrasteel Boots&0
+botania.page.terrasteelArmor0=由&1泰拉钢&0制成的护甲,与&1魔钢&0 制成的相似,会消耗物品栏中 的&4魔力&0抵消磨损.<br>然而这套护甲,有着&1钻石&0级别 的性能而不是&1铁&0的,并且穿戴 时会增加穿着者的生命值.
+botania.page.terrasteelArmor1=&1泰拉钢头盔&0
+botania.page.terrasteelArmor2=&1泰拉钢胸甲&0
+botania.page.terrasteelArmor3=&1泰拉钢护腿&0
+botania.page.terrasteelArmor4=&1泰拉钢靴子&0
 
 # -- TERRA BLADE
 botania.entry.terraSword=泰拉之刃
-botania.page.terraSword0=The &1Terra Blade&0, crafted from &1Terrasteel Ingots&0, is a sword infused with natural strength. Not only does it par with a &1Diamond Sword&0 in terms of strength and it uses &4Mana&0 from the inventory like &1Manasteel Tools&0, but when it's swinged, there's a chance for it to create a beam that will deal as much damage as a melee hit.
-botania.page.terraSword1=No Broken Hero Sword
+botania.page.terraSword0=&1泰拉之刃&0由&1泰拉钢&0制作而成, 是一把注入了自然之力的剑. 不仅有着相当于&1钻石剑&0的强 度,还会像&1魔钢工具&0一样使用 物品栏的&4魔力&0,但在挥舞时, 有一定几率发出一道相当于 近身伤害的光线.
+botania.page.terraSword1=不会破碎的英雄之剑
 
 # -- TERRA SHATTERER
 botania.entry.terraPick=泰拉粉碎者
-botania.page.terraPick0=The &1Terra Shatterer&0 is a tool that can amass insane quantities of mana on itself, due to the amount of &1Terrasteel&0 required for it's creation.<br>The tool functions very much like a &1Mana Tablet&0 by which it can amass &4Mana&0 by being tossed on a &1Mana Pool&0, it can't give the &4Mana&0 back, though, so it doesn't function as a storage method.
-botania.page.terraPick1=The amount of &4Mana&0 stored on the tool defines it's &4Rank&0. Ranks go as follows: &4D&0, &4C&0, &4B&0, &4A&0, &4S&0, &4SS&0. &4D&0 being the default rank.<br>The amount of &4Mana&0 required to advance from rank to rank increases as the rank does. To advance from &4D&0 to &4C&0, for example, it requires just a few seconds of exposition to a &1Mana Pool&0.
-botania.page.terraPick2=To advance from rank &4C&0 to rank &4B&0, a full &1Mana Pool&0 is required, and the cost increases by a tenfold per rank from there on in, all the way to &4SS&0.<br>The rank of the tool does not change it's speed, but instead, it increases the power of it's &4Active Ability&0.<br>Toggling the tool's ability can be done via right click.
-botania.page.terraPick3=While the tool is active, it enables it to break blocks in an extended area. At rank &4C&0 it's a small column, which increases to a square at rank &4B&0, that gets larger trough the ranks. It's to note that the rank &4D&0 tool does not have the active ability.<br>Having the tool active consumes &4Mana&0 from it's storage passively, even if not being used to mine.
-botania.page.terraPick4=Lastly, the tool takes damage for every single block broken, so a good supply of &4Mana&0 in the wielder's inventory is a must for the higher ranks, as the tool does function like normal &1Manasteel Tools&0, in which it'll use &4Mana&0 instead of actually taking damage, given it's made of &1Terrasteel&0.<br>It also won't despawn like regular dropped items.
-botania.page.terraPick5=Stronger than a Gastrea
+botania.page.terraPick0=&1泰拉粉碎者&0是个可以积攒大 量魔力的工具,因为制作过程 使用了相当的&1泰拉钢&0.<br>它的功能有点像&1魔力石板&0因 为它可以通过投入&1魔力池&0而 获取&1魔力&0,尽管它不能返还 &4魔力&0,所以它功能又与储存不 同.
+botania.page.terraPick1=工具里储存的&4魔力&0量决定了 它的&4阶位&0.阶位如下:&4D&0,&4C&0,&4B&0, &4A&0,&4S&0,&4SS&0.&4D&0就是默认的阶位.<br>阶位升级所需的&4魔力&0量会随 着阶位而增加.例如从&4D&0升至 &4C&0,只需要在&1魔力池&0待个几秒.
+botania.page.terraPick2=从&4C&0升至&4B&0,需要一个满的&1魔力&0 &1池&0,每级是上一级的十倍消耗 ,最终到达&4SS&0.<br>工具的阶位不会改变它的速 度,但会增强&4激活能力&0.<br>可以通过右击开启工具的能 力.
+botania.page.terraPick3=当工具激活时,它能破坏区域 内的方块.阶位&4C&0还是一小块 ,到了&4B&0就成了一个区域, 随着 阶位升高区域也会增大.注意 阶位&4D&0的工具不能激活.<br>激活时会消耗工具储存的&4魔&0 &4力&0,哪怕不是用于挖掘.
+botania.page.terraPick4=最后,工具每次破坏方块时都 会受到磨损,所以最好物品栏 有与阶位相应的&4魔力&0储存,工 具的功能又像&1魔钢工具&0,因为 它使用&4魔力&0抵消磨损,制作原 料是&1泰拉钢&0.<br>它也不会像普通掉落物品那 样消失.
+botania.page.terraPick5=比原肠动物还要强
 
 # -- SOULSCRIBE
 botania.entry.enderDagger=灵魂匕首
-botania.page.enderDagger0=Those &4Endermen&0. They're the second more pesky thing since &4Creepers&0. I swear, the person who came up with them must have taken a &onotch&r too much of their drink.<br>However, by infusing a standard dagger with some of their energy, one can create the &1Soulscribe&0, a dagger that tears through &1Endermen&0 as if they were butter.
-botania.page.enderDagger1=Due of the type of infusion, though, the dagger only lasts for a few kills, and the energy that radiates from it prevents the &1Manasteel&0 from gathering &4Mana&0 to avoid damage, like typical tools would. Still, all in the name of killing those monsters.
-botania.page.enderDagger2=Strike my Soul
+botania.page.enderDagger0=那些&4末影人&0.他们是继&4爬行者&0 之后第二恼人的.我诅咒,想 出它的人一定是和&onotch&r喝多 了.<br>然而,给一般的匕首注入它们 的能量,就能做出&1灵魂匕首&0, 一把能像切黄油般对付&1末影&0 &1人&0的匕首.
+botania.page.enderDagger1=由于注魔的关系这把匕首只 能承受很少的击杀量,并且所 用的能量阻止了&1魔钢&0获取&4魔&0 &4力&0预防磨损,它就和普通的工 具一样了.一切都是为了那个 怪物.
+botania.page.enderDagger2=灵魂的冲击
 
 # -- ROD OF THE SEAS
 botania.entry.waterRod=海洋法杖
-botania.page.waterRod0=Similarly to it's land counterpart, the &1Rod of the Seas&0 will, at the cost of some &4Mana&0, place down a &1Water&0 block wherever it's used on. Furthermore, it can also be used to refil a &1Petal Apothecary&0.
-botania.page.waterRod1=Keep the Earth clean, it isn't Uranus
+botania.page.waterRod0=类似大地法杖,&1海洋法杖&0会消 耗一些&4魔力&0,在所用之处放置 &1水&0方块.此外,它也能用于填 充&1花瓣药剂台&0.
+botania.page.waterRod1=保持地球的洁净,它不是天王 星
 
 # -- ELEMENTIUM EQUIPMENT
 botania.entry.elfGear=源质铁装备
-botania.page.elfGear0=Similarly to other metals, as expected, &1Elementium&0 can, too, be shaped into tools and armor.<br>These pieces of equipment have a decent resistance to damage, about half of that of diamond, as well as the ability to drain &4Mana&0 to prevent damage.
-botania.page.elfGear1=Each of the tools come with their own ability or power of sorts which makes them unique. The armor allows the wearer to, when hit, have a chance to spawn a &1Pixie&0 that goes after the attacker, dealing decent damage.<br>The more pieces of &1Elementium Armor&0 equipped, the higher the chance.
-botania.page.elfGear2=Starting off, the &1Elementium Pickaxe&0 will destroy any &1Cobblestone&0, &1Dirt&0, &1Netherrack&0 and other mundane materials, leaving behind only the ores and fine resources.
-botania.page.elfGear3=I can fit a shower in my pocket, screw cobble
-botania.page.elfGear4=The &1Elementium Shovel&0 will, case the block dug is affected by gravity (&1Gravel&0, &1Sand&0, etc), dig all the blocks of that material above and/or below it, no more gravel falling while mining.
-botania.page.elfGear5=Putting Things on Top of Other Things
-botania.page.elfGear6=The &1Elementium Axe&0 doubles as a weapon, if used to strike the finishing blow to a &4Zombie&0, &4Skeleton&0, &4Creeper&0 or even another &4Player&0, it has a chance to decapitate them, leaving their severed head or skull behind.  
-botania.page.elfGear7=Off with their heads
-botania.page.elfGear8=The &1Elementium Shears&0 hold the ability to, when held back like a bow, shear any nearby sheep with speed within a large area of effect centered on the holder.
-botania.page.elfGear9=Nui? She's h-arm-less
-botania.page.elfGear10=Lastly, the &1Elementium Sword&0 will increase the chance of a &4Pixie&0 spawning when hit (this holds true when no &1Elementium Armor&0 is worn) and increases the strength of any &4Pixies&0 spawned.
-botania.page.elfGear11=The Lambent Light
-botania.page.elfGear12=Fortuna on the Sixteenth Night
-botania.page.elfGear13=When the Seagulls Cry Breakdown
-botania.page.elfGear14=Good People Die
-botania.page.elfGear15=The out of Infinity
+botania.page.elfGear0=就像其他金属那样,&1源质铁&0能 用于制作工具和护甲.<br>这些装备有不错的耐磨性,约 为钻石的一半,也有抽取&4魔力&0 以防磨损的能力.
+botania.page.elfGear1=每一种工具都有着它们自己 独特的能力.护甲会让穿戴者 在被攻击时有几率刷出一只 &1小精灵&0追逐攻击者,造成一定 伤害.<br>装备的&1源质铁护甲&0越多,这个 几率越高.
+botania.page.elfGear2=首先,&1源质铁镐&0会破坏一切&1圆&0 &1石&0,&1泥土&0,&1地狱岩&0和其他常见 材料,只留下矿物和有用的资 源.
+botania.page.elfGear3=我的包里倒出来都是圆石
+botania.page.elfGear4=&1源质铁铲&0,会让所挖的受重力 影响的方块(&1砂砾&0,&1沙子&0,等等 ),挖掉它上方/下方同样材料 的方块,挖矿时再也不会有砂 砾掉下来了.
+botania.page.elfGear5=把东西放在其他东西上
+botania.page.elfGear6=&1源质铁斧&0也能作为武器使用, 如果用在最后一击攻击&4僵尸&0 ,&4骷髅射手&0,&4苦力怕&0甚至其他 &4玩家&0,就有几率斩首,留下他 们的头.  
+botania.page.elfGear7=砍下他们的头
+botania.page.elfGear8=&1源质铁剪&0拥有的能力就是,像 拿着弓一样拉伸时,会快速剪 下持有者为中心大范围内所 有羊的毛.
+botania.page.elfGear9=Nui?她是无害的
+botania.page.elfGear10=最后,&1源质铁剑&0会增加攻击时 &4小精灵&0生成的机率(即使没有 装备&1源质铁护甲&0也会生成)并 增强生成的&4小精灵&0.
+botania.page.elfGear11=微微摇曳的光
+botania.page.elfGear12=十六夜のフォルトゥーナ
+botania.page.elfGear13=海猫鸣泣之时
+botania.page.elfGear14=好人死得早
+botania.page.elfGear15=时空轮回
 
 # -- EXTRAPOLATED BUCKET
 botania.entry.openBucket=无底桶
-botania.page.openBucket0=By creating a bucket out of &1Elementium&0 one seems to notice an interesting feature. The liquids acquired by it simply vanish into the ether, never to be seen again. This seems like a great clean up tool.
+botania.page.openBucket0=用&1源质铁锭&0似乎能做出一个 有趣的桶.它所获得的液体都 会消失于虚空,再也不会出现 .看起来是个不错的清理工具.
 botania.page.openBucket1=Geeks...
 
 # -- LIFE AGGREGATOR
 botania.entry.spawnerMover=生命聚合器
-botania.page.spawnerMover0=By arranging &1Dragonstone&0, &1Elementium&0 and &1Essence of Eternal Life&0 in a specific pattern, one can create a device that can contain the curious energies of a &1Monster Spawner&0 and materialize it in another point in space.<br>It's to note that the device will shatter after being used once.
-botania.page.spawnerMover1=We got the spawner, but this isn't a won run yet
+botania.page.spawnerMover0=通过特殊形式组合&1龙石&0,&1源质&0 &1铁锭&0和&1虚无生命精华&0,能制作 出一个可以容纳&1刷怪笼&0的能 量并将它放置在其他地方的 装置.<br>注意这个装置用一次就会碎 掉.
+botania.page.spawnerMover1=我们得到了刷怪笼,但好像不 太值.
 
 # -- ROD OF BIFROST
 botania.entry.rainbowRod=彩虹桥法杖
-botania.page.rainbowRod0=&4Bifrost&0, the rainbow bridge that reaches between the world and the realm of the gods.<br>While this item, the &1Rod of Bifrost&0 doesn't exactly do that, it allows the holder, via a right click and at the cost of some &4Mana&0, to create a rainbow bridge in the direction he or she is looking at.
-botania.page.rainbowRod1=This bridge extends as far as a hundred blocks, and will vanish after about fifteen seconds.<br>Only one bridge can be created for any given &1Rod of Bifrost&0 at a time, as soon as the old bridge vanishes, a new one can be created.
-botania.page.rainbowRod2=Going my way!! Cut open a path and go!
+botania.page.rainbowRod0=&4彩虹桥&0,连接人界与神域的桥 梁.<br>尽管这个物品,&1彩虹桥法杖&0不 是用来那么做的,它让持有者 通过消耗一些&4魔力&0右击,向他 所看的方向延伸出一座彩虹 桥.
+botania.page.rainbowRod1=这座桥可以多到几百个方块, 但会在十五秒后消失.<br>同一时间内一支&1彩虹桥法杖&0 只能创造一座桥,只有之前的 桥消失后才能创造下一个.
+botania.page.rainbowRod2=跟我来!!开辟出一条道路前 行!
 
 # -- ROD OF THE SKIES
 botania.entry.tornadoRod=天空法杖
-botania.page.tornadoRod0=The &1Rod of the Skies&0 is a magical instrument with the ability to propel one in the air at fast velocity for the cost of some &4Mana&0.<br>To do so, one would simply hold it like a bow and watch as their momentum increases.<br>The rod takes a small amount of time to recharge, but during that time it'll block any fall damage, keeping the user safe.
-botania.page.tornadoRod1=A treasure from Lorule
+botania.page.tornadoRod0=&1天空法杖&0是个消耗一些&4魔力&0 将人快速推到天上的神奇工 具.<br>要这么做的话只要像弓一样 握住它升空速度就会飞增.<br>它需要少量的时间来充能,但 这段时间内会免除一切摔落 伤害,保证使用者的安全.
+botania.page.tornadoRod1=里世界的宝物
 
 # -- ROD OF THE HELLS
 botania.entry.fireRod=地狱法杖
-botania.page.fireRod0=The &1Rod of the Hells&0 contains the essence of a burning flame, using it on the ground will create a circle of fire that burns anything inside it, for a decent cost of &4Mana&0.<br>The ring has a decent radius, and takes a small amount of time to fully propagate, it's to note that after that time it burns anything living in it, the caster included.
-botania.page.fireRod1=Megu Megu Fire Endless Night
+botania.page.fireRod0=&1地狱法杖&0包含着燃烧火焰的 要素,对着地面使用会产生一 个燃烧内部的一切的火焰圈, 消耗相当的&4魔力&0.<br>火圈需要一点时间扩散开来, 注意完全扩散开后它会燃烧 内部的一切生物,包括使用者.
+botania.page.fireRod1=MeguMegu无尽之夜的火
 
 # -- VINE BALLS
 botania.entry.vineBall=藤蔓球
-botania.page.vineBall0=&1Ladders&0 can't stand up on their own, they require something on their back, whereas &1Vines&0 don't. Normally, though, &1Vines&0 aren't strong enough for someone to climb them when they're freestanding.<br>By combining a few &1Vines&0, it's possible to create a ball that can be thrown, to create a climbable ladder of strong &1Vines&0 where it hits.
-botania.page.vineBall1=It's also possible, by combining some materials such as &1Livingwood&0 and &1String&0 to create a slingshot that lets these &1Vine Balls&0 be shot while completely ignoring the force of gravity.
-botania.page.vineBall2=This would be in Vineacraft...
-botania.page.vineBall3=...if that actually existed.
+botania.page.vineBall0=&1梯子&0不能独立存在,它们需要 有依附的东西,然而&1藤蔓&0不需 要.通常来说,&1藤蔓&0不够坚韧 能让人挂在上面.<br>通过糅合一些&1藤蔓&0,能做出一 种可以投掷的球,在它所撞的 地方长出一道墙人的&1藤蔓&0梯 子.
+botania.page.vineBall1=也可以用一些类似&1活木&0和&1线&0 的材料制作一把能忽视重力 发射&1藤蔓球&0的弹弓.
+botania.page.vineBall2=这将会在Vineacraft出现..
+botania.page.vineBall3=...如果那确实存在的话.
 
 # - BAUBLES
 # -- AN INTRODUCTION TO BAUBLES
 botania.entry.bIntro=饰品介绍
-botania.page.bIntro0=&4Baubles&0, also commonly refered to as &4Trinkets&0 or &4Charms&0 are pieces of equipment which offer all sorts of different effects, when worn.<br>To equip them, one can press the &4B&0 (configurable) key. There's four slots, one &4Amulet&0 slot, two &4Ring&0 slots and one &4Belt&0 slot.
-botania.page.bIntro1=The &4Baubles Screen&0
-botania.page.bIntro2=It's to note that, if &4Thaumcraft&0 or any other mod that uses the baubles sytem is installed, this inventory will be shared between the various mods. 
+botania.page.bIntro0=&4饰品(Baubles)&0,平常也指&4小&0 &4饰品&0或者&4护身符&0这样在穿戴 时提供不同效果的装备.<br>要装备只需按&4B&0键(可修改). 有四个栏,一个&4项链&0栏,两个 &4戒指&0栏和一个&4腰带&0栏.
+botania.page.bIntro1=&4饰品栏界面&0
+botania.page.bIntro2=注意,如果&4神秘时代&0或其他使 用Baubles的模组也安装了 的话,这个栏会与它们共享.
 
 # -- TINY PLANET
-botania.entry.tinyPlanet=环绕项链
-botania.page.tinyPlanet0=The &1Tiny Planet&0 is a &4Bauble&0 with gravitational proprieties, while equipped, the &1Tiny Planet&0 will pull any nearby &4Mana Bursts&0 towards the wearer, having them orbit around him or her.<br>By increasing it's mass with some &1Stone&0, it can also be placed in world, for the same effect. 
-botania.page.tinyPlanet1=Clearly from rebirth
-botania.page.tinyPlanet2=More of a planet than Pluto
+botania.entry.tinyPlanet=行星项链
+botania.page.tinyPlanet0=&1行星项链&0是一个有着引力能 力的&4饰品&0,装备时&1行星项链&0 会将附近的&4魔力脉冲&0引向装 备者,使它们围绕其转动.<br>用些&1石头&0增加它的质量,它也 能放置下来,有同样的功能.
+botania.page.tinyPlanet1=重生!
+botania.page.tinyPlanet2=像是冥王星
 
 # -- BAND OF MANA
 botania.entry.manaRing=魔力之戒
-botania.page.manaRing0=Combining a &1Mana Tablet&0 with some &1Manasteel&0 creates an easilly worn &4Ring&0, that functions exactly similar to the tablet used to make it, but can be worn as a &4Bauble&0.<br>Using some &1Terrasteel&0 allows for an upgrade, which lets it store about four times as much &4Mana&0.
-botania.page.manaRing1=Creating the ring
-botania.page.manaRing2=Upgrading the ring
+botania.page.manaRing0=将&1魔力石板&0和一些&1魔钢&0组合 能做出一个穿戴方便的&4戒指&0, 就像魔力石板那样的功能,也 能当做&4饰品&0装备.<br>用些&1泰拉钢&0就可以升级,可储 存4倍的&4魔力&0.
+botania.page.manaRing1=制作戒指
+botania.page.manaRing2=升级戒指
 
 # -- BAND OF AURA
 botania.entry.auraRing=光环之戒
-botania.page.auraRing0=The &1Band of Aura&0 is a bit of a deviation from the typical &1Band of Mana&0, in which, instead of storing &4Mana&0, it slowly, while equipped, creates it and stores it into &4Mana&0 containing items in the wearer's inventory.<br>Using some &1Terrasteel&0 allows for an upgrade, which lets it generate &4Mana&0 at a significantly faster rate.
-botania.page.auraRing1=Creating the ring
-botania.page.auraRing2=Upgrading the ring
+botania.page.auraRing0=&1光环之戒&0与&1魔力之戒&0有点不 同,因为它不是用于储存&4魔力&0 ,而是在装备时缓慢制造魔力 并存入可携带&4魔力&0的物品.<br>用些&1泰拉钢&0就可以升级,会让 它产生&4魔力&0的速度快些.
+botania.page.auraRing1=制作戒指
+botania.page.auraRing2=升级戒指
 
 # -- SOUJOURNER'S SASH
 botania.entry.travelBelt=旅居者腰带
-botania.page.travelBelt0=Traversing terrain sometimes proves to be a hassle. The &1Soujourner's Sash&0 can be equipped in the &4Belt&0 slot, and when worn will increase the movement speed, jump height and resistance to fall damage of the wearer.<br>Lastly, if not sneaking, it also allows the wearer to walk over 1 block high gaps without jumping with ease.
+botania.page.travelBelt0=穿越各种地形是个麻烦事. &1旅居者腰带&0能装备在&4腰带&0栏 ,装备时增加移动速度,跳跃 高度和摔落伤害减免.<br>最后,非潜行时能让装备者自 动走上一格高的坡而不需要 跳跃.
 botania.page.travelBelt1=...everell
 
 # -- TECTONIC GIRDLE
 botania.entry.knockbackBelt=抗击腰带
-botania.page.knockbackBelt0=By harnessing the forces of tectonic movement, the &1Tectonic Girdle&0, when worn, will negate any &4Knockback&0 applied to the wearer by outside attacks.
-botania.page.knockbackBelt1=Don't... move
+botania.page.knockbackBelt0=通过利用构造运动的力量, &1抗击腰带&0,穿戴时会消除一切 外部攻击施加给装备者的&4击&0 &4退&0效果.
+botania.page.knockbackBelt1=别... 动
 
 # -- SNOWFLAKE PENDANT
 botania.entry.icePendant=雪花项链
-botania.page.icePendant0=The &1Snowflake Pendant&0 is a &4Bauble&0 that resonates freezing energy, while it's worn, any nearby still &1Water&0 blocks at foot level will be converted into &1Ice&0.<br>The &1Ice&0 will melt shortly afterward the wearer leaves the area. Lastly, this charm will not freeze any blocks if the wearer is sneaking or fully submerged.  
-botania.page.icePendant1=Do you want to build a snowman?
+botania.page.icePendant0=&1雪花项链&0是一个蕴含着冻结 能量的&4饰品&0,穿戴时它会将所 站高度周围一切静止的&1水&0方 块冻为&1冰&0.<br>&1冰&0会在装备者离开后快速融 化.最后,这个项链不会在穿 戴者潜行或是完全没入水中 时生效.
+botania.page.icePendant1=你想堆个雪人么?
 
 # -- PYROCLAST PENDANT
 botania.entry.lavaPendant=火石项链
-botania.page.lavaPendant0=The &1Pyroclast Pendant&0 is a &4Bauble&0 that absorbs any heat, while it's worn, the wearer becomes completely imprevious to any &4Fire&0 or &4Lava&0 damage.
-botania.page.lavaPendant1=Hanako could have used one of these
+botania.page.lavaPendant0=&1火石项链&0是个吸收一切热量 的&4饰品&0,穿戴时会让你完全免 疫&4火&0与&4岩浆&0伤害.
+botania.page.lavaPendant1=花子本应用到这个
 
 # -- GOLDEN LAUREL CROWN
 botania.entry.goldenLaurel=黄金桂冠
-botania.page.goldenLaurel0=One of the uses for &1Essence of Eternal Life&0 is to, of course, grant a layer of immortality to one that uses it, while wearing a &1Golden Laurel Crown&0, if the wearer were to die, the crown will shatter, regenerating all of their health and giving them a short period of invincibility.
-botania.page.goldenLaurel1=Given the theme, probably Viridi
+botania.page.goldenLaurel0=&1虚无生命精华&0的用途之一当 然就是,赋予使用者一次不死 的力量,穿戴&1黄金桂冠&0时,如 果穿戴者即将死亡桂冠就会 破碎,回复他们所有的生命值 并附加短暂的无敌效果.
+botania.page.goldenLaurel1=考虑到主题,那就是自然女神
 
 # -- RING OF CHORDATA
 botania.entry.waterRing=鱼泳指环
-botania.page.waterRing0=The &1Ring of Chordata&0 allows the wearer to swim like a fish. While it's equipped, the wearer is bestowed with the ability to accelarate to a decent speed while underwater. It also gives the wearer good sight underwater and, if &4Mana&0 is present, at the cost of some of it, the ability to breathe indefinitely.
-botania.page.waterRing1=Go swim with the fishes
+botania.page.waterRing0=&1鱼泳指环&0能让装备者像鱼一 样游泳,穿戴者的水下速度得 到提升.它也提供了良好的视 野,如果有可用的&4魔力&0,还能 消耗魔力用来水下呼吸.
+botania.page.waterRing1=和鱼儿们游泳
 
 # -- RING OF THE MANTLE
 botania.entry.miningRing=地幔指环
-botania.page.miningRing0=The &1Ring of the Mantle&0 allows one to mine faster, while equipped and &4Mana&0 is present in the inventory, it'll give a &4Haste&0 effect to the wearer. Some &4Mana&0 is used while the wearer swings their arm or equipped item, be it for attacking, mining or just flailing.
-botania.page.miningRing1=Diggy diggy hole
+botania.page.miningRing0=&1地幔指环&0让你快速挖掘,物品 栏有可用的&4魔力&0时,它会给装 备者一个&4急迫&0效果.装备物品 ,攻击,挖掘甚至是挥手时都 会消耗一些&4魔力&0.
+botania.page.miningRing1=挖呀挖洞
 
 # -- RING OF MAGNETIZATION
 botania.entry.magnetRing=磁化指环
-botania.page.magnetRing0=By turning a &1Magnetizing Lens&0 into a wearable ring, one can use it to magnetize nearby items.<br>While equipped, this ring will make any nearby items magnetize towards the wearer, case they aren't sneaking.
-botania.page.magnetRing1=How do they work?
+botania.page.magnetRing0=通过将&1磁化透镜&0做成可穿戴 的指环,可用它来磁化周围的 物品.<br>装备时,这个指环会将附近一 切物品吸向穿戴者,前提是没 有潜行.
+botania.page.magnetRing1=怎么做到的?
 
 # -- CHARM OF THE DIVA
-botania.entry.divaCharm=女王之魅
-botania.page.divaCharm0=The &1Charm of the Diva&0 blesses the wearer with the ability to have any attacked mob follow the attacker's will, and, case there are any nearby enemies, go after them instead. This process, of course, requires a bit of &4Mana&0 from the wearer's inventory in order to function.
-botania.page.divaCharm1=You shall not disrespect Big Sister
+botania.entry.divaCharm=女王项链
+botania.page.divaCharm0=在周围有其他敌对生物时, &1女王项链&0让穿戴者获得控制 被攻击的怪物的能力,受控制 的怪物会追随其他敌对生物. 当然这个过程需要一点的&4魔&0 &4力&0来生效.
+botania.page.divaCharm1=你应该尊重大姐头
 
 # -- FLUGEL TIARA
 botania.entry.flightTiara=天翼族之冠
-botania.page.flightTiara0=The &4Flügel&0 were once a dominant species in the lands, now they're but a race past extinct, once created as godslayers, who possessed the ability of flight.<br>The usage of &1Essence of Eternal Life&0 allows for a small replica of their power, in the form of the &1Flügel Tiara&0, which, at the cost of &4Mana&0 allows for flight.
-botania.page.flightTiara1=Forty thousand books from another world
+botania.page.flightTiara0=&4天翼族&0一度支配着这片土地, 现在却是濒临灭绝的种族,作 为弑神者而被创造出来,拥有 着飞行的能力.<br>使用&1虚无生命精华&0能复制出 一点她们的力量,那就是以&1天&0 &1翼族之冠&0的形式,消耗&4魔力&0就 能飞行.
+botania.page.flightTiara1=异世界的四万本书
 
 # -- GREAT FAIRY RING
 botania.entry.pixieRing=精灵指环
-botania.page.pixieRing0=This ring works alongside the &1Elementium Armor&0, insight in the powers of it is advised before using this ring. When worn, the &1Great Fairy Ring&0 will increase the chance for a &4Pixie&0 to spawn when the wearer is hit, this still holds true case no &1Elementium Armor&0 is equipped.
-botania.page.pixieRing1=We got square heads, big pointy caps
+botania.page.pixieRing0=这个指环类似&1源质铁护甲&0,使 用之前最好还是先了解它的 力量.穿戴时&1精灵指环&0会增加 装备者受攻击时&4小精灵&0出现 的几率,即便没有装备&1源质铁&0 &1护甲&0也是有效的.
+botania.page.pixieRing1=我们有方方的头,还有尖尖的 帽子
 
 # -- GLOBETROTTER'S SASH
 botania.entry.superTravelBelt=环游者腰带
-botania.page.superTravelBelt0=The &1Globetrotter's Sash&0 is, in layman's terms, an upgrade to then &1Soujourner's Sash&0, by using &1Essence of Eternal Life&0 and some Elven resources, this new belt allows the wearer to reach incredible speeds to which the &1Soujourner's Sash&0 doesn't stand a chance.
-botania.page.superTravelBelt1=No time for guessing, follow my plan instead
+botania.page.superTravelBelt0=&1环游者腰带&0简而言之,就是升 级版的&1旅居者腰带&0,使用&1虚&0 &1无生命精华&0和一些精灵材料, 这条新腰带让穿戴者达到&1旅&0 &1居者腰带&0都不及的不可置信 的速度.
+botania.page.superTravelBelt1=没时间推测了,执行我的计划
 
 # - ALFHOMANCY
 # -- THE PORTAL TO ALFHEIM
@@ -1298,7 +1306,7 @@ botania.page.shinyFlowers0=By combining your typical &1Mystical Flowers&0 with s
 botania.page.shinyFlowers1=Pretty Pretty Shiny Shiny
 
 # -- PRISMARINE
-botania.entry.prismarine=海石
+botania.entry.prismarine=海晶石
 botania.page.prismarine0=&1Prismarine&0 is an interesting component and building block. Some scholars even go as far as to say it comes from &4the future&0.<br>To create it, one requires an &1Alchemy Catalyst&0. Simply tossing some &1Nether Quartz&0 into a &1Mana Pool&0 with the catalyst attached to it will get some of this material.
 botania.page.prismarine1=There's various building blocks that can be created using the &1Prismarine Shards&0, to which all but the &1Sea Lantern&0 can be turned into their &1Stair&0 and &1Slab&0 variants.
 botania.page.prismarine2=Creating &1Prismarine Shards&0
@@ -1306,3 +1314,7 @@ botania.page.prismarine3=Crafting &1Prismarine&0
 botania.page.prismarine4=Crafting &1Prismarine Bricks&0
 botania.page.prismarine5=Crafting &1Dark Prismarine&0
 botania.page.prismarine6=Crafting the &1Sea Lantern&0
+
+# -- NATURAL SHEDDING
+botania.entry.shedding=自然掉落物
+botania.page.shedding0=The living beings that inhabit our lands don't live in a static state. It's common for pieces of their body to fall out, &1Feathers&0 on &4Chickens&0, &1Bones&0 on &4Skeletons&0, so on.<br>Even the tough &4Ghasts&0 sometimes shed a tear or the &4Villagers&0 accidently drop an &1Emerald&0 and can't pick it back up because their arms are stuck together for some reason.
