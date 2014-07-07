@@ -73,73 +73,73 @@ botania.knowledge.minecraft=Minecraftian Knowledge
 botania.knowledge.alfheim=&aElven&7 Knowledge
 
 # CONFIGURATION
-blockBreakingParticles.enabled=Block Break Particles
-blockBreakingParticlesTool.enabled=Tool Block Break Particles
-boundBlock.wireframe.enabled=Bound Block Wireframe
-darkQuartz.enabled=Enable Smokey Quatrz
-fallenKanade.enabled=Enable Fallen Kanade
-flower.forceCheck=Flower Force Checking
-flowerParticles.frequency=Flower Particle Frequency
-lexicon.enable.rotatingItems=Lexicon Rotating Items
-lexicon.render.3D=3D Lexicon Render
-powerSystem.subtle=Use Subtle Power System
-pylonModel.old=Use Old Pylon Model
-elfPortal.particles.enabled=Enable Portal Particles
-matrixMode.enabled=Enable Matrix Mode
-references.enabled=Enable Tooltip References
-shaders.enabled=Enable Shader Usage
+blockBreakingParticles.enabled=破坏方块粒子
+blockBreakingParticlesTool.enabled=工具破坏方块粒子
+boundBlock.wireframe.enabled=绑定方块线框
+darkQuartz.enabled=启用烟熏石英
+fallenKanade.enabled=启用天降之奏
+flower.forceCheck=花的对象检查
+flowerParticles.frequency=花粒子频率
+lexicon.enable.rotatingItems=辞典页面物品旋转特效
+lexicon.render.3D=3D辞典渲染
+powerSystem.subtle=使用微量粒子能量系统
+pylonModel.old=使用旧的水晶模型
+elfPortal.particles.enabled=启用传送门粒子
+matrixMode.enabled=启用矩阵模式
+references.enabled=启用工具提示文本
+shaders.enabled=启用光影支持
 spreader.posShift=Spreader Pos Shift
-versionChecking.enabled=Enable Version Checking
-wandBeam.static=Enable Static Wand Beam
-worldgen.flower.density=Worldgen Flower Density
-worldgen.flower.quantity=Worldgen Flower Quantity
-shedRate.chicken=Shed Rate: Chicken
-shedRate.squid=Shed Rate: Squid
-shedRate.villager=Shed Rate: Villager
-shedRate.spider=Shed Rate: Spider
-shedRate.blaze=Shed Rate: Blaze
-shedRate.ghast=Shed Rate: Ghast
-shedRate.skeleton=Shed Rate: Skeleton
-shedRate.slime=Shed Rate: Slime
+versionChecking.enabled=启用版本检查
+wandBeam.static=启用静态法杖光线
+worldgen.flower.density=世界生成器花密度
+worldgen.flower.quantity=世界生成器花数量
+shedRate.chicken=脱落率:鸡
+shedRate.squid=脱落率:墨鱼
+shedRate.villager=脱落率:村民
+shedRate.spider=脱落率:蜘蛛
+shedRate.blaze=脱落率:烈焰人
+shedRate.ghast=脱落率:恶魂
+shedRate.skeleton=脱落率:骷髅射手
+shedRate.slime=脱落率:史莱姆
 
 # VERSION CHECKING
-botania.versioning.flavour0=(つд⊂)なにそれ!? BOTANIA IS OUTDATED!?
-botania.versioning.flavour1=What do you mean Botania is outdated, you ignorant fool?
-botania.versioning.flavour2=It's not like Botania wants to be outdated,ばっばか!
-botania.versioning.flavour3=Beam me up Scotty. We got a new Botania version.
-botania.versioning.flavour4=The Botania update asks if you have you accepted Vazkii as your lord and saviour.
-botania.versioning.flavour5=Hey, a Botania update, that's rare, isn't it?
-botania.versioning.flavour6=What does the scouter say about the Botania update?
-botania.versioning.flavour7=Oi mate, there's a new Botania update. Why am I australian?
+botania.versioning.flavour0=(つд⊂)なにそれ!?植物魔法版版本落后了!?
+botania.versioning.flavour1=你难道不知道自己的植物魔法版本落后了,你这个笨蛋?
+botania.versioning.flavour2=植物魔法好像不像落后版本,ばっばか!
+botania.versioning.flavour3=让我高兴高兴.我们有新版本了.
+botania.versioning.flavour4=植物魔法更新:汝是否以Vazkii为汝之主.
+botania.versioning.flavour5=嘿,植物魔法更新了,难道不是很少见么?
+botania.versioning.flavour6=Scouter说了什么关于植物魔法更新的?
+botania.versioning.flavour7=天哪,植物魔法有更新了.我是澳大利亚人么?
 botania.versioning.flavour8=Because having a life is too mainstream, here's a Botania update.
-botania.versioning.flavour9=Thank you based Botania update.
-botania.versioning.flavour10=Two hundred updates, that's why they call me Mister Fahrenheit.
-botania.versioning.flavour11=Perry the Platypus, I present to you, Botania-update-inator.
-botania.versioning.flavour12=Botania updated. #hoennconfirmed
-botania.versioning.flavour13=You activated my Trap Card! I play Botania Update!
-botania.versioning.flavour14=Let's play a drinking game, have a drink every time Botania updates. *hic*
-botania.versioning.flavour15=Pay no attention to the Botania update behind the curtain.
-botania.versioning.flavour16=You get an update! You get an update! EVERYONE GETS AN UPDATE! 
-botania.versioning.flavour17=Your build's unbalanced and your hair's a Kuriboh! Hey. Hoo. 
-botania.versioning.flavour18=WhY iS tHiS uPdAtE mEsSaGe CaSeD lIkE tHiS!? 
-botania.versioning.flavour19=By updating botania you must not accept the terms of service. 
-botania.versioning.flavour20=wow such botania so update much fix very content 
-botania.versioning.flavour21=This botania update will self destruct in 3...2...
-botania.versioning.flavour22=There were bugs in botania, but everything changed when the fire nation attacked. Or not. 
-botania.versioning.flavour23=Botania updated. On other news, Germany totally bribed the referee. 
-botania.versioning.flavour24=Hey! Hey player! Hey player! Hey player hey! Botania update! 
-botania.versioning.flavour25=And what do we say to the Botania update? 
-botania.versioning.flavour26=And I grabbed the Botania update AND I THREW IT ON THE GROUND! MAAAN! 
-botania.versioning.flavour27=If you can break wood with your fists, why don't you update Botania too? 
-botania.versioning.flavour28=BotaniaWow! You'll say wow every time! As seen on your chat log! 
-botania.versioning.flavour29=Just update it, update it, update it, update it! No one wants to be outdated! 
-botania.versioning.flavour30=Botania used Update! It's super effective! 
-botania.versioning.flavour31=A new Botania update is available, now 20% cooler.
-botania.versioning.flavour32=Congratulations! You're the 100,000th Botania player with an outdated version, click HERE for a free iPad!
-botania.versioning.flavour33=Before you update your Botania version, would you like to install the ask toolbar?
-botania.versioning.flavour34=Back on the Botania update treadmill. No fun required. #angbadang
-botania.versioning.flavour35=Would you become a Magical Girl for a Botania Update?
-botania.versioning.outdated=You are running Botania build %s, the latest is build %s.
+botania.versioning.flavour9=感谢更新植物魔法.
+botania.versioning.flavour10=两百个更新,那就是为什么他们叫我Mister Fahrenheit.
+botania.versioning.flavour11=鸭嘴兽泰瑞,现在我给你,植物魔法更新器.
+botania.versioning.flavour12=植物魔法已更新. #hoennconfirmed
+botania.versioning.flavour13=你激活了我的陷阱卡!我要发动 植物魔法更新!
+botania.versioning.flavour14=让我们玩个饮酒游戏,植物魔法更新一次就喝一杯. *hic*
+botania.versioning.flavour15=别关心植物魔法更新背后的阴谋.
+botania.versioning.flavour16=你有更新了!你有更新了!每 个 人 都 有 更 新 了! 
+botania.versioning.flavour17=你的版本不稳定并且你的头发就像个栗子球! 嘿. 呴. 
+botania.versioning.flavour18=为么什这条更信新息起来看是样这的!? 
+botania.versioning.flavour19=不用接受服务条款你就可以更新植物魔法. 
+botania.versioning.flavour20=Wow such botania So update Much fix Very content 
+botania.versioning.flavour21=这个植物魔法更新会自我销毁 3...2...
+botania.versioning.flavour22=植物魔法有些故障,但在火之国攻来时一切都变了.也可能没有. 
+botania.versioning.flavour23=植物魔法更新了.另一方面,德国完全贿赂了裁判. 
+botania.versioning.flavour24=嘿! 嘿玩家! 嘿玩家! 嘿玩家! 植物魔法更新了! 
+botania.versioning.flavour25=说什么来着，植物魔法更新了? 
+botania.versioning.flavour26=我抓住了植物魔法的更新然后我 把 它 扔 到 了 地 上! 啊! 
+botania.versioning.flavour27=如果你能空手撸树,为何不顺便更新下植物魔法呢? 
+botania.versioning.flavour28=植物魔法Wow!你每次都说wow!就如你聊天记录显示的! 
+botania.versioning.flavour29=快更新, 更新, 更新, 更新! 没有人想落后版本! 
+botania.versioning.flavour30=植物魔法使用了 更新! 这起到了 很大的效果! 
+botania.versioning.flavour31=有可用的植物魔法更新了, 现在炫酷了20%.
+botania.versioning.flavour32=恭喜!你是第100,000位使用落后版本的植物魔法玩家, 点击这里获得 免费的iPad!
+botania.versioning.flavour33=在更新植物魔法版本前,你想安装疑问工具栏么?
+botania.versioning.flavour34=回到更新植物魔法的无聊工作中.不需要乐趣. #angbadang
+botania.versioning.flavour35=你会为了植物魔法更新而成为魔法少女吗?
+botania.versioning.outdated=你现在运行的版本是build %s最新的是build %s.
 botania.versioning.updateMessage=["Click for... [",{"text":"Download","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Click this to automatically download the latest version","color":"green"}},"clickEvent":{"action":"run_command","value":"/botania-download-latest %version%"}},"] [",{"text":"Website","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Click this to go to the mod's website","color":"green"}},"clickEvent":{"action":"open_url","value":"http://vazkii.us/mod/Botania/downloads.php"}},"] [",{"text":"Changelog","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Click this to go to the version's Changelog","color":"green"}},"clickEvent":{"action":"open_url","value":"http://vazkii.us/mod/Botania/changelog.php#%version%"}},"]"]
 botania.versioning.startingDownload=Starting download of %s. Please do not remove your hard disk.
 botania.versioning.doneDownloading=Finished downloading %s. Delete your old Botania .jar and reload your game to update.
@@ -152,7 +152,7 @@ botania.versioning.disabled=Sorry. This feature is currently disabled due to ser
 botania.baubletype.amulet=装备在&a项链&7栏
 botania.baubletype.ring=装备在&a戒指&7栏
 botania.baubletype.belt=装备在&a腰带&7栏
-botania.baubletooltip=按&b%key%&7键打开Baubles菜单
+botania.baubletooltip=按&b%key%&7键打开饰品菜单
 
 # BLOCK NAMES
 tile.botania:flower0.name=白色神秘花
@@ -182,7 +182,7 @@ tile.botania:livingwood1.name=活木板
 tile.botania:livingwood2.name=苔活木板
 tile.botania:livingwood3.name=框边活木板
 tile.botania:livingwood4.name=框纹活木板
-tile.botania:livingwood5.name=微光活木板
+tile.botania:livingwood5.name=微光活木
 tile.botania:spreader0.name=魔力发射器
 tile.botania:spreader1.name=魔力发射器(红石)
 tile.botania:spreader2.name=精灵魔力发射器
@@ -256,33 +256,33 @@ tile.botania:shinyFlower15.name=黑色微光花
 tile.botania:platform0.name=奥秘平台
 tile.botania:platform1.name=幻影平台
 tile.botania:alfheimPortal.name=精灵门核心
-tile.botania:blockDarkQuartz.name=烟晶块
-tile.botania:chiseledDarkQuartz.name=鉴制烟晶块
-tile.botania:pillarDarkQuartz.name=竖纹烟晶块
-tile.botania:quartzSlabDarkHalf.name=烟晶半砖
-tile.botania:quartzStairsDark.name=烟晶楼梯
-tile.botania:blockManaQuartz.name=魔晶块
-tile.botania:chiseledManaQuartz.name=鉴制魔晶块
-tile.botania:pillarManaQuartz.name=竖纹魔晶块
-tile.botania:quartzSlabManaHalf.name=魔晶半砖
-tile.botania:quartzStairsMana.name=魔晶楼梯
+tile.botania:blockDarkQuartz.name=烟熏石英块
+tile.botania:chiseledDarkQuartz.name=錾制烟熏石英块
+tile.botania:pillarDarkQuartz.name=竖纹烟熏石英块
+tile.botania:quartzSlabDarkHalf.name=烟熏石英半砖
+tile.botania:quartzStairsDark.name=烟熏石英楼梯
+tile.botania:blockManaQuartz.name=魔力石英块
+tile.botania:chiseledManaQuartz.name=錾制魔力石英块
+tile.botania:pillarManaQuartz.name=竖纹魔力石英块
+tile.botania:quartzSlabManaHalf.name=魔力石英半砖
+tile.botania:quartzStairsMana.name=魔力石英楼梯
 tile.botania:blockBlazeQuartz.name=烈焰石英块
-tile.botania:chiseledBlazeQuartz.name=鉴制烈焰石英块
+tile.botania:chiseledBlazeQuartz.name=錾制烈焰石英块
 tile.botania:pillarBlazeQuartz.name=竖纹烈焰石英块
 tile.botania:quartzSlabBlazeHalf.name=烈焰石英半砖
 tile.botania:quartzStairsBlaze.name=烈焰石英楼梯
 tile.botania:blockLavenderQuartz.name=熏香石英块
-tile.botania:chiseledLavenderQuartz.name=鉴制熏香石英块
+tile.botania:chiseledLavenderQuartz.name=錾制熏香石英块
 tile.botania:pillarLavenderQuartz.name=竖纹熏香石英块
 tile.botania:quartzSlabLavenderHalf.name=熏香石英半砖
 tile.botania:quartzStairsLavender.name=熏香石英楼梯
-tile.botania:blockRedQuartz.name=赤晶块
-tile.botania:chiseledRedQuartz.name=鉴制赤晶块
-tile.botania:pillarRedQuartz.name=竖纹赤晶块
-tile.botania:quartzSlabRedHalf.name=赤晶半砖
-tile.botania:quartzStairsRed.name=赤晶楼梯
+tile.botania:blockRedQuartz.name=红色石英块
+tile.botania:chiseledRedQuartz.name=錾制红色石英块
+tile.botania:pillarRedQuartz.name=竖纹红色石英块
+tile.botania:quartzSlabRedHalf.name=红色石英半砖
+tile.botania:quartzStairsRed.name=红色石英楼梯
 tile.botania:blockElfQuartz.name=精灵石英块
-tile.botania:chiseledElfQuartz.name=鉴制精灵石英块
+tile.botania:chiseledElfQuartz.name=錾制精灵石英块
 tile.botania:pillarElfQuartz.name=竖纹精灵石英块
 tile.botania:quartzSlabElfHalf.name=精灵石英半砖
 tile.botania:quartzStairsElf.name=精灵石英楼梯
@@ -347,9 +347,9 @@ tile.botania:flower.kekimurus.name=贪食花
 tile.botania:flower.kekimurus.reference=这朵花是个谎言
 
 # - FUNCTIONAL
-tile.botania:flower.bellethorn.name=贝勒之刺
+tile.botania:flower.bellethorn.name=娇媚之刺
 tile.botania:flower.bellethorn.reference=杀戮的小丑
-tile.botania:flower.dreadthorn.name=德雷德之刺
+tile.botania:flower.dreadthorn.name=恐惧之刺
 tile.botania:flower.dreadthorn.reference=C计划
 tile.botania:flower.heiseiDream.name=平成之梦
 tile.botania:flower.heiseiDream.reference=平成,平成,崩坏...
@@ -375,7 +375,7 @@ tile.botania:flower.rannuncarpus.name=手掌花
 tile.botania:flower.rannuncarpus.reference=十分便利
 tile.botania:flower.hyacidus.name=毒风信
 tile.botania:flower.hyacidus.reference=你不跑的话,就不会受伤
-tile.botania:flower.pollidisiac.name=催欲花
+tile.botania:flower.pollidisiac.name=畜牧花
 tile.botania:flower.pollidisiac.reference=鸟与蜜蜂
 tile.botania:flower.clayconia.name=粘土花
 tile.botania:flower.clayconia.reference=不包括卢比
@@ -533,11 +533,11 @@ item.botania:terraPick.name=泰拉粉碎者
 item.botania:divaCharm.name=女王之魅
 item.botania:flightTiara.name=天翼族之冠
 item.botania:enderDagger.name=灵魂匕首
-item.botania:quartz0.name=烟晶
-item.botania:quartz1.name=魔晶
+item.botania:quartz0.name=烟熏石英
+item.botania:quartz1.name=魔力石英
 item.botania:quartz2.name=烈焰石英
 item.botania:quartz3.name=熏香石英
-item.botania:quartz4.name=赤晶
+item.botania:quartz4.name=红色石英
 item.botania:quartz5.name=精灵石英
 item.botania:elementium.name=源质钢锭
 item.botania:pixieDust.name=精灵尘
@@ -753,7 +753,7 @@ botania.page.manastar1=&r我是一颗划过天空的流星&r.
 
 # -- ELVEN MANA SPREADER
 botania.entry.dreamwoodSpreader=精灵魔力发射器
-botania.page.dreamwoodSpreader0=简而言之,&1梦之木&0引导&4魔力&0的 能力比&1活木&0要好.用&1源质铁锭&0 以及&1魔力珍珠&0做些改进你就 得到了能发射更多&4魔力&0的&1魔&0 &1力发射器&0,速度更快并且&4魔力&0 &4流失&0发生的更迟.<br>可惜的是,它不能做成&1红石魔&0 &1力发射器&0.
+botania.page.dreamwoodSpreader0=简而言之,&1梦之木&0引导&4魔力&0的 能力比&1活木&0要好.用&1源质钢锭&0 以及&1魔力珍珠&0做些改进你就 得到了能发射更多&4魔力&0的&1魔&0 &1力发射器&0,速度更快并且&4魔力&0 &4流失&0发生的更迟.<br>可惜的是,它不能做成&1红石魔&0 &1力发射器&0.
 botania.page.dreamwoodSpreader1=更好的发射器就是它了
 
 # -- PAINTSLINGER LENS
@@ -776,13 +776,13 @@ botania.page.jadedAmaranthus0=每个人都喜欢花对吧?&1杰迪德&0 &1苋&0�
 botania.page.jadedAmaranthus1=&o这难道是紫丁香.&r
 
 # -- BELLETHRONE
-botania.entry.bellethorne=贝勒之刺
-botania.page.bellethorne0=&1贝勒之刺&0是朵神奇的花.通过 使用&4魔力&0它会对周围一切生 物造成伤害(对&4玩家&0安全).
+botania.entry.bellethorne=娇媚之刺
+botania.page.bellethorne0=&1娇媚之刺&0是朵神奇的花.通过 使用&4魔力&0它会对周围一切生 物造成伤害(对&4玩家&0安全).
 botania.page.bellethorne1=&o每朵玫瑰都有它自己的刺&r.
 
 # -- DREADTHORNE
-botania.entry.dreadthorne=德雷德之刺
-botania.page.dreadthorne0=&1德雷德之刺&0比起&1贝勒之刺&0稍 微特殊一点,因为它,不会无 差别伤害生物,只会伤害&4成年&0 动物而已. 
+botania.entry.dreadthorne=恐惧之刺
+botania.page.dreadthorne0=&1恐惧之刺&0比起&1娇媚之刺&0稍 微特殊一点,因为它,不会无 差别伤害生物,只会伤害&4成年&0 动物而已. 
 botania.page.dreadthorne1=&o不邦德先生,你可以去死了&r.
 
 # -- HEISEI DREAM
@@ -843,8 +843,8 @@ botania.page.hyacidus0=因为某些原因,毒不会致命. &1毒风信&0,能用�
 botania.page.hyacidus1=&o硬骨头不好啃&r.
 
 # -- POLLIDISIAC
-botania.entry.pollidisiac=催欲花
-botania.page.pollidisiac0=动物爱吃东西,事实上那就是 它们一直所做的事.有趣的是 它们只会吃喂给它们的东西.<br>&1催欲花&0就会那么做,消耗一些 魔力,利用附近可用的食物类 物品(&1小麦&0,&1胡萝卜&0,等等)来 饲养动物,使它们拥有&o好心情&r.
+botania.entry.pollidisiac=畜牧花
+botania.page.pollidisiac0=动物爱吃东西,事实上那就是 它们一直所做的事.有趣的是 它们只会吃喂给它们的东西.<br>&1畜牧花&0就会那么做,消耗一些 魔力,利用附近可用的食物类 物品(&1小麦&0,&1胡萝卜&0,等等)来 饲养动物,使它们拥有&o好心情&r.
 botania.page.pollidisiac1=&o地狱厨房&r.
 
 # -- CLAYCONIA
@@ -956,7 +956,7 @@ botania.page.manaAlchemy3=各种类型的&1木头&0
 botania.page.manaAlchemy4=各种类型的&1树苗&0
 botania.page.manaAlchemy5=粉碎&1萤石&0
 botania.page.manaAlchemy6=粉碎&1石英块&0
-botania.page.manaAlchemy7=制作&1鉴制石砖&0
+botania.page.manaAlchemy7=制作&1錾制石砖&0
 botania.page.manaAlchemy8=将&1雪块&0完全冻结为&1冰&0
 botania.page.manaAlchemy9=&1藤蔓&0和&1睡莲&0间转化
 botania.page.manaAlchemy10=各种类的&1鱼&0
@@ -980,7 +980,7 @@ botania.page.forestEye2=现在你看见我了...
 # -- OPEN CRATE
 botania.entry.openCrate=花格箱
 botania.page.openCrate0=有时像&1漏斗&0和&1发射器&0这样的 装置不够快.一个简单的解 决方案就是制作一个花格箱 然后在底部开洞.<br>是的,就是这么简单.&1花格箱&0 接收来自&1漏斗&0或其他途径输 送的物品,而且显然,从下面 直接漏出物品.
-botania.page.openCrate1=&1花格箱&0一个有趣的效果就是, 输入红石信号时,它输出的所 有物品都比平常多10秒不会 被&1漏斗花&0,&1手掌花&0和&1催欲花&0捡 走.
+botania.page.openCrate1=&1花格箱&0一个有趣的效果就是, 输入红石信号时,它输出的所 有物品都比平常多10秒不会 被&1漏斗花&0,&1手掌花&0和&1畜牧花&0捡 走.
 botania.page.openCrate2=一个精妙的箱子
 
 # -- DRUM OF THE WILD
@@ -1091,18 +1091,18 @@ botania.page.waterRod0=类似大地法杖,&1海洋法杖&0会消 耗一些&4魔�
 botania.page.waterRod1=保持地球的洁净,它不是天王 星
 
 # -- ELEMENTIUM EQUIPMENT
-botania.entry.elfGear=源质铁装备
-botania.page.elfGear0=就像其他金属那样,&1源质铁&0能 用于制作工具和护甲.<br>这些装备有不错的耐磨性,约 为钻石的一半,也有抽取&4魔力&0 以防磨损的能力.
-botania.page.elfGear1=每一种工具都有着它们自己 独特的能力.护甲会让穿戴者 在被攻击时有几率刷出一只 &1小精灵&0追逐攻击者,造成一定 伤害.<br>装备的&1源质铁护甲&0越多,这个 几率越高.
-botania.page.elfGear2=首先,&1源质铁镐&0会破坏一切&1圆&0 &1石&0,&1泥土&0,&1地狱岩&0和其他常见 材料,只留下矿物和有用的资 源.
+botania.entry.elfGear=源质钢装备
+botania.page.elfGear0=就像其他金属那样,&1源质钢&0能 用于制作工具和护甲.<br>这些装备有不错的耐磨性,约 为钻石的一半,也有抽取&4魔力&0 以防磨损的能力.
+botania.page.elfGear1=每一种工具都有着它们自己 独特的能力.护甲会让穿戴者 在被攻击时有几率刷出一只 &1小精灵&0追逐攻击者,造成一定 伤害.<br>装备的&1源质钢护甲&0越多,这个 几率越高.
+botania.page.elfGear2=首先,&1源质钢镐&0会破坏一切&1圆&0 &1石&0,&1泥土&0,&1地狱岩&0和其他常见 材料,只留下矿物和有用的资 源.
 botania.page.elfGear3=我的包里倒出来都是圆石
-botania.page.elfGear4=&1源质铁铲&0,会让所挖的受重力 影响的方块(&1砂砾&0,&1沙子&0,等等 ),挖掉它上方/下方同样材料 的方块,挖矿时再也不会有砂 砾掉下来了.
+botania.page.elfGear4=&1源质钢铲&0,会让所挖的受重力 影响的方块(&1砂砾&0,&1沙子&0,等等 ),挖掉它上方/下方同样材料 的方块,挖矿时再也不会有砂 砾掉下来了.
 botania.page.elfGear5=把东西放在其他东西上
-botania.page.elfGear6=&1源质铁斧&0也能作为武器使用, 如果用在最后一击攻击&4僵尸&0 ,&4骷髅射手&0,&4苦力怕&0甚至其他 &4玩家&0,就有几率斩首,留下他 们的头.  
+botania.page.elfGear6=&1源质钢斧&0也能作为武器使用, 如果用在最后一击攻击&4僵尸&0 ,&4骷髅射手&0,&4苦力怕&0甚至其他 &4玩家&0,就有几率斩首,留下他 们的头.  
 botania.page.elfGear7=砍下他们的头
-botania.page.elfGear8=&1源质铁剪&0拥有的能力就是,像 拿着弓一样拉伸时,会快速剪 下持有者为中心大范围内所 有羊的毛.
+botania.page.elfGear8=&1源质钢剪&0拥有的能力就是,像 拿着弓一样拉伸时,会快速剪 下持有者为中心大范围内所 有羊的毛.
 botania.page.elfGear9=Nui?她是无害的
-botania.page.elfGear10=最后,&1源质铁剑&0会增加攻击时 &4小精灵&0生成的机率(即使没有 装备&1源质铁护甲&0也会生成)并 增强生成的&4小精灵&0.
+botania.page.elfGear10=最后,&1源质钢剑&0会增加攻击时 &4小精灵&0生成的机率(即使没有 装备&1源质钢护甲&0也会生成)并 增强生成的&4小精灵&0.
 botania.page.elfGear11=微微摇曳的光
 botania.page.elfGear12=十六夜のフォルトゥーナ
 botania.page.elfGear13=海猫鸣泣之时
@@ -1111,7 +1111,7 @@ botania.page.elfGear15=时空轮回
 
 # -- EXTRAPOLATED BUCKET
 botania.entry.openBucket=无底桶
-botania.page.openBucket0=用&1源质铁锭&0似乎能做出一个 有趣的桶.它所获得的液体都 会消失于虚空,再也不会出现 .看起来是个不错的清理工具.
+botania.page.openBucket0=用&1源质钢锭&0似乎能做出一个 有趣的桶.它所获得的液体都 会消失于虚空,再也不会出现 .看起来是个不错的清理工具.
 botania.page.openBucket1=Geeks...
 
 # -- LIFE AGGREGATOR
@@ -1219,7 +1219,7 @@ botania.page.flightTiara1=异世界的四万本书
 
 # -- GREAT FAIRY RING
 botania.entry.pixieRing=精灵指环
-botania.page.pixieRing0=这个指环类似&1源质铁护甲&0,使 用之前最好还是先了解它的 力量.穿戴时&1精灵指环&0会增加 装备者受攻击时&4小精灵&0出现 的几率,即便没有装备&1源质铁&0 &1护甲&0也是有效的.
+botania.page.pixieRing0=这个指环类似&1源质钢护甲&0,使 用之前最好还是先了解它的 力量.穿戴时&1精灵指环&0会增加 装备者受攻击时&4小精灵&0出现 的几率,即便没有装备&1源质钢&0 &1护甲&0也是有效的.
 botania.page.pixieRing1=我们有方方的头,还有尖尖的 帽子
 
 # -- GLOBETROTTER'S SASH
@@ -1230,91 +1230,91 @@ botania.page.superTravelBelt1=没时间推测了,执行我的计划
 # - ALFHOMANCY
 # -- THE PORTAL TO ALFHEIM
 botania.entry.aIntro=精灵传送门
-botania.page.aIntro0=Once, in olden times, &4Elves&0 used to share the world with us &4Minecrafters&0. Due to unknown events, they have been banished back to their own world, &4Alfheim&0.<br>Experimentation has been done in atempt to bridge the gap between the two worlds, and means of creating a portal that does just that have been devised.
-botania.page.aIntro1=Creating this portal proves not to be an easy task, as quite a few exquisite resources are necessary. The requirements are as follows: 8 &1Livingwood&0 blocks, 3 &1Glimmering Livingwood&0 blocks, 1 &1Elven Gateway Core&0 (read on), 2 &1Mana Pools&0 and 2 &1Natura Pylons&0 (read on).
-botania.page.aIntro2=Creating the &1Elven Gateway Core&0
-botania.page.aIntro3=Creating &1Natura Pylons&0
-botania.page.aIntro4=Make a frame of &1Livingwood&0
-botania.page.aIntro5=Add &1Glimmering Livingwood&0
-botania.page.aIntro6=Place the &1Elven Gateway Core&0
-botania.page.aIntro7=Add &1Mana Pools&0
-botania.page.aIntro8=Place &1Natura Pylons&0 above the pools
-botania.page.aIntro9=To open up the portal, simply right click the core with a &1Wand of the Forest&0.<br>The portal requires a substantial ammount of &4Mana&0 deposited in both the pools to open up, after that, it'll slowly drain some to keep itself powered. If it runs out of &4Mana&0, the connection will be broken.
-botania.page.aIntro10=The amount of &4Mana&0 required to open up the portal is orders of magnitude higher than that to keep it maintained, thus closing the portal to prevent &4Mana&0 loss is a poor strategy.<br>Furthermore, the link isn't strong enough to allow living beings to go through it, but it seems that &4items&0 can.
-botania.page.aIntro11=The amount of information about &1Alfheim&0 stored in this lexicon is resumed to this entry alone, perhaps &4letting the Elves have a look at it&0 might prove beneficial.
+botania.page.aIntro0=过去,&4精灵&0曾与&4Minecrafters&0 共享世界.然而未知的变故, 使得他们被禁止回到自己的 世界,&4艾尔夫海姆&0.<br>他们一直以来都在尝试着桥 接两个世界,最终制作传送门 的方法被发明了出来.
+botania.page.aIntro1=制作这个传送门看样子不是 个简单的工作,需要一些特别 的材料.如下:8个&1活木&0方块, 3个&1微光活木&0方块,1个&1精灵门&0 &1核心&0(继续读),2个&1魔力池&0和 2个&1自然水晶&0(继续读).
+botania.page.aIntro2=制作&1精灵门核心&0
+botania.page.aIntro3=合成&1自然水晶&0
+botania.page.aIntro4=用&1活木&0做一个框架
+botania.page.aIntro5=加上&1微光活木&0
+botania.page.aIntro6=放上&1精灵门核心&0
+botania.page.aIntro7=放置&1魔力池&0
+botania.page.aIntro8=在池子上放置&1自然水晶&0
+botania.page.aIntro9=要打开传送门,只需用&1森林法&0 &1杖&0右击核心.<br>门需要两个池子中大量的&4魔&0 &4力&0来开启,之后就只会缓慢抽 取微量保持自身供能.如果&4魔&0 &4力&0耗尽了,链接就会被破坏.
+botania.page.aIntro10=开启门所需的&4魔力&0量远多于 维持所需的,因此关闭传送门 想节省&4魔力&0的做法是下下策.<br>此外,它的连接不足以强到能 让生物通过,但&4物品&0似乎可以.
+botania.page.aIntro11=这本书里关于&1艾尔夫海姆&0的 情报也只有这么多了,或许你 &4让精灵看看这本书&0能获得更 多情报.
 
 # -- A MESSAGE FROM ELVEN GARDE
 botania.entry.elfMessage=来自爱尔文·加尔得的消息
 botania.page.elfMessage0=
 # ^ This is blank on purpose
-botania.page.elfMessage1=&oGreetings. We noticed that our portal was opened via a link from another world. That's rather shocking news indeed. We thank you very much for providing us with a repository of the knowledge from your world, as to keep us up to date to what happened since we left it, it's been a while since then, indeed.
-botania.page.elfMessage2=&oAfter some discussion with the high council of Elven Garde, we have decided to cooperate with you. You see, reading through your "Lexica Botania" has shown us a good amount of resources from your world that we would be extremely keen as to get our hands on, as these are non-existant in our lands.
-botania.page.elfMessage3=&oThe link you have managed to extablish is rather weak, no living beings will be able to go through, as you already know. However, there's a positive side to this, the link strikes the fabric of time of both our worlds in a way where it doesn't keep them in sync, that's the reason why you received your book back so quickly.
-botania.page.elfMessage4=&oWhen it comes to Mana and other magical energies, we are plenty stocked on them, so worry not about the portal closing on our end. Let's put this in prospect, in order for the advance of both our civilizations, we vow to accept a given set of resources from your world we lack in ours in exchange for resources you lack in yours.
-botania.page.elfMessage5=&oWe have taken the liberty of asigning our best scribes to put together a great set of knowledge from our world we're willing to share, you can find it in your lexicon just as you'd find knowledge from yours. We hope you find it enlightening and that it encourages you to invest in our materials.
-botania.page.elfMessage6=&oLast but not least, do keep in mind that if you decide to send something we have not vouched to trade for, we will assume it as a gift and keep it for ourselves, just as a forewarning. We look forward to exchanging resources with you.<br>Best Regards, the High Council of Elven Garde.
+botania.page.elfMessage1=&o致以问候.我们注意到我们的 传送门被其他世界的连接打 开了.说起来的确有些震惊. 感谢你向我们提供你所在世 界的知识库,让我们能了解到 在离开那里之后的事,真的过 去很久了呢,真的.
+botania.page.elfMessage2=&o经过与爱尔文·加尔德高级议 会的讨论,我们决定与您合作 .你看,你的"植物魔法辞典" 让我们知道了诸多很难入手 的你所在世界的资源,因为这 些资源根本不存在于我们的 土地.
+botania.page.elfMessage3=&o你所建立的连接十分脆弱,生 物无法穿过,你现在应该已经 知道了.然而,这也有积极的 一面,我们两个世界之间的时 间连接是不同步的,那就是为 何你这么快就拿回了书.
+botania.page.elfMessage4=&o谈到魔力和其他魔法能量,我 们有充足的量,所以不用担心 传送门在我们这一侧关闭.让 我们展望未来,为了我们两个 文明的发展,我们约定交换彼 此缺乏的资源.
+botania.page.elfMessage5=&o我们让最好的文士写下了我 们世界的一些知识以分享,你 可以像查看你的知识一样在 你的辞典里找到它们.我们希 望这能启发你并鼓励你与我 们持续交易下去.
+botania.page.elfMessage6=&o最后,注意如果你送来我们没 有约好交易的东西,我们会将 它当作送给我们的礼物,提醒 一下.不过我们还是更希望与 你交换资源.<br>诚挚的问候 爱尔文·加尔得高级议会.
 
 # -- THE RESOURCES OF ALFHEIM
 botania.entry.elfResources=精灵的交易
-botania.page.elfResources0=&4Alfheim&0 contains a very varied amount of exquisite resources. Sadly though, most of them are extremely scarce and hard to come by due to competition between the various clans. The elves are interested in trading some materials, such as &1Dreamwood&0, &1Elementium&0, &1Pixie Dust&0 or &1Dragonstone&0, resources native to their lands. 
-botania.page.elfResources1=Trading for &1Dreamwood&0
-botania.page.elfResources2=&1Dreamwood&0, similarly to &1Livingwood&0 can be turned into various &4Decorative Blocks&0, have a look through the &4Decorative Blocks&0 entry under &4Miscelaneous&0 for the recipes.
-botania.page.elfResources3=Trading for &1Elementium&0
-botania.page.elfResources4=Trading for &1Pixie Dust&0
-botania.page.elfResources5=Trading for &1Dragonstone&0
-botania.page.elfResources6=The &1Elves&0 are also quite keen on the white posh block from the &4Nether&0, &1Nether Quartz&0, the ones they have on their world are tinted green. This quartz works just like any other quartz, be it normal &1Nether Quartz&0 or any of the decorative variants you can find on the &4Decorative Blocks&0 entry under &4Miscelaneous&0.
-botania.page.elfResources7=Trading for &1精灵石英&0
+botania.page.elfResources0=&4艾尔夫海姆&0有许多高级的材 料.可惜的是,大多数由于部 族间的竞争而变得稀缺.精灵 们乐于交易一些材料,比如&1梦&0 &1之木&0,&1源质钢锭&0,&1精灵尘&0和&1龙&0 &1石&0,这些都是他们那里的本土 资源. 
+botania.page.elfResources1=交换&1梦之木&0
+botania.page.elfResources2=&1梦之木&0,类似&1活木&0能制成不同 的&4装饰方块&0,在&4杂项&0里浏览&4装&0 &4饰方块&0章节以查看合成.
+botania.page.elfResources3=交换&1源质钢&0
+botania.page.elfResources4=交换&1精灵尘&0
+botania.page.elfResources5=交换&1龙石&0
+botania.page.elfResources6=&1精灵&0也十分热衷&4下界&0产的白 色光洁的方块,&1下界石英&0,而 它们的世界所有的石英是绿 色的.这种石英就像其他石英 一样,在&4杂项&0里浏览&4装饰方块&0 章节以查看&1下界石英&0相关页 面.
+botania.page.elfResources7=交换&1精灵石英&0
 
 # - MISCLANEOUS
 # -- UNSTABLE CUBE
 botania.entry.unstableBlocks=不稳定方立方
-botania.page.unstableBlocks0=Fiddling with highly powerful &4Mana&0 infused objects has lead to the creation of these strange cubes. They seem to emit some visual radiation in the form of colorful lightning, but it doesn't seem like it has any effects other than visual appeal.
-botania.page.unstableBlocks1=They look fancy
-botania.page.unstableBlocks2=And they come in all 16 colors
-botania.page.unstableBlocks3=There's also a way of creating a different version of these that releases an extremely larger amount of energy, this time in the form of a beam towards the sky that extends into a cloud of sorts. This one also seems to be disableable via a &4Redstone Signal&0, it's called an &1Unstable Beacon&0, as it looks like one somehow.
-botania.page.unstableBlocks4=Fireworks?
-botania.page.unstableBlocks5=Combined entropy
-botania.page.unstableBlocks6=It's also possible, by using the &1Unstable Beacons&0, to turn them into a manageable and portable utility, in the form of the &1Signal Flare&0.<br>This gun of sorts shoots a colored round into the sky that lasts a few seconds, it also stuns any nearby enemies for just as long.
-botania.page.unstableBlocks7=Shoot in case of titan
+botania.page.unstableBlocks0=摆弄高强度的&4魔力&0注入物时 做出了这些奇怪的立方.看起 来会发出各种颜色的闪电,但 除此以外就好像没什么用了.
+botania.page.unstableBlocks1=真漂亮
+botania.page.unstableBlocks2=它们有十六种颜色
+botania.page.unstableBlocks3=还有一个版本会放出大量能 量,以光线射入天空变为团状 的形式.它能被&4红石信号&0控制 ,名叫&1不稳定灯塔&0,不知为什 么看起来挺像.
+botania.page.unstableBlocks4=烟花?
+botania.page.unstableBlocks5=结合起来
+botania.page.unstableBlocks6=也可以使用&1不稳定灯塔&0,制成 可控的便携式工具,那就是 &1信号弹&0.<br>它会向天空射出持续几秒的 彩色光圈,还会眩晕附近的敌 人.
+botania.page.unstableBlocks7=巨人来了就发射
 
 # -- DECORATIVE BLOCKS
 botania.entry.decorativeBlocks=装饰方块
-botania.page.decorativeBlocks0=It's possible to turn blocks of &1Livingrock&0 and &1Livingwood&0 into decorative blocks. Each of them features 4 different decorative variations.
-botania.page.decorativeBlocks1=Livingrock bricks.
-botania.page.decorativeBlocks2=Mossing the bricks
-botania.page.decorativeBlocks3=Cracking the bricks
-botania.page.decorativeBlocks4=Framing the bricks
-botania.page.decorativeBlocks5=Turning wood into planks
-botania.page.decorativeBlocks6=Mossing the planks
-botania.page.decorativeBlocks7=Framing the planks
-botania.page.decorativeBlocks8=Pattern planks
-botania.page.decorativeBlocks9=Glimmering livingwood
-botania.page.decorativeBlocks10=Carrying on, by combining &1Nether Quartz&0 with all sorts of other substances, it's possible to create a wide array of other decorative &1Quartz&0 blocks.<br>As expected, all these items can be crafted into all their decorative block counterparts just like regular &1Quartz&0 blocks are crafted. 
-botania.page.decorativeBlocks11=Smokey Quartz
-botania.page.decorativeBlocks12=Mana Quartz
-botania.page.decorativeBlocks13=Blaze Quartz
-botania.page.decorativeBlocks14=Lavender Quartz
-botania.page.decorativeBlocks15=Redquartz
+botania.page.decorativeBlocks0=将&1活石&0和&1活木&0变为装饰方块 是可行的.它们每个都对应着 四种不同的装饰方块.
+botania.page.decorativeBlocks1=活石砖.
+botania.page.decorativeBlocks2=苔活石砖
+botania.page.decorativeBlocks3=裂活石砖
+botania.page.decorativeBlocks4=框边活石砖
+botania.page.decorativeBlocks5=制作木板
+botania.page.decorativeBlocks6=苔活木板
+botania.page.decorativeBlocks7=框边活木板
+botania.page.decorativeBlocks8=框纹活木板
+botania.page.decorativeBlocks9=微光活木
+botania.page.decorativeBlocks10=此外,将&1下界石英&0与其他物质 混合就能做出其他&1石英&0方块.<br>并且这些新的石英也能像原 版&1石英&0那样合成装饰方块. 
+botania.page.decorativeBlocks11=烟熏石英
+botania.page.decorativeBlocks12=魔力石英
+botania.page.decorativeBlocks13=烈焰石英
+botania.page.decorativeBlocks14=熏香石英
+botania.page.decorativeBlocks15=红色石英
 
 # -- DISPENSER TWEAKS
-botania.entry.dispenserTweaks=发射器改动
-botania.page.dispenserTweaks0=&1Dispensers&0, among their normal abilities, can also plant all sorts of crops, from &1Seeds&0, &1Potatos&0 or &1Carrots&0 to even &1Nether Wart&0. The crop is planted in the block right in front of the dispenser.<br>The &1Dispensers&0 can also use the &1Wand of the Forest&0 for some specific tasks such as triggering a &1Runic Altar&0.
+botania.entry.dispenserTweaks=发射器改动(原版)
+botania.page.dispenserTweaks0=&1发射器&0,在原有基础上,也能 种植作物,通过&1种子&0,&1马铃薯&0 ,&1胡萝卜&0甚至&1地狱疣&0.作物会 种在发射器前方的方块上.<br>&1发射器&0也能使用&1森林法杖&0做 些特殊工作比如启动&1符文祭&0 &1坛&0.
 
 # -- GLIMMERING FLOWERS
 botania.entry.shinyFlowers=微光花
-botania.page.shinyFlowers0=By combining your typical &1Mystical Flowers&0 with some &1Glowstone Dust&0, you can make them sparkle even brighter, and emit actual physical light, of the same brightness as a &1Glowstone Block&0.
-botania.page.shinyFlowers1=Pretty Pretty Shiny Shiny
+botania.page.shinyFlowers0=将你的&1神秘花&0和一些&1萤石粉&0 混合,你就能让它们更闪耀, 发出相当于&1萤石块&0的光.
+botania.page.shinyFlowers1=一闪一闪
 
 # -- PRISMARINE
 botania.entry.prismarine=海晶石
-botania.page.prismarine0=&1Prismarine&0 is an interesting component and building block. Some scholars even go as far as to say it comes from &4the future&0.<br>To create it, one requires an &1Alchemy Catalyst&0. Simply tossing some &1Nether Quartz&0 into a &1Mana Pool&0 with the catalyst attached to it will get some of this material.
-botania.page.prismarine1=There's various building blocks that can be created using the &1Prismarine Shards&0, to which all but the &1Sea Lantern&0 can be turned into their &1Stair&0 and &1Slab&0 variants.
-botania.page.prismarine2=Creating &1Prismarine Shards&0
-botania.page.prismarine3=Crafting &1Prismarine&0
-botania.page.prismarine4=Crafting &1Prismarine Bricks&0
-botania.page.prismarine5=Crafting &1Dark Prismarine&0
-botania.page.prismarine6=Crafting the &1Sea Lantern&0
+botania.page.prismarine0=&1海晶石&0是个有趣的建筑构造 方块.有的人说这是来自&4未来&0 的.<br>制作需要&1炼金催化器&0.扔一些 &1下界石英&0就可以得到这种材 料.
+botania.page.prismarine1=有多种建筑方块可用&1海晶石&0 &1碎片&0合成,除了&1海灯笼&0以外的 都能做成对应的&1楼梯&0和&1半砖&0.
+botania.page.prismarine2=制作&1海晶石碎片&0
+botania.page.prismarine3=合成&1海晶石&0
+botania.page.prismarine4=合成&1海晶石砖&0
+botania.page.prismarine5=合成&1深色海晶石&0
+botania.page.prismarine6=合成&1海灯笼&0
 
 # -- NATURAL SHEDDING
 botania.entry.shedding=自然掉落物
-botania.page.shedding0=The living beings that inhabit our lands don't live in a static state. It's common for pieces of their body to fall out, &1Feathers&0 on &4Chickens&0, &1Bones&0 on &4Skeletons&0, so on.<br>Even the tough &4Ghasts&0 sometimes shed a tear or the &4Villagers&0 accidently drop an &1Emerald&0 and can't pick it back up because their arms are stuck together for some reason.
+botania.page.shedding0=这片土地上的生物都以非静 态的形式生存着.所以他们身 体的一部分掉落下来是很正 常的,&1羽毛&0来自&4鸡&0,&1骨头&0来自 &4骷髅射手&0,以此类推.<br>甚至是&4恶魂&0有时都会掉落恶 魂之泪,以及&4村民&0有几率掉落 &1绿宝石&0,他们不会捡绿宝石因 为他们总是将手藏在袖子里.
