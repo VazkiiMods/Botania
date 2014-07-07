@@ -34,8 +34,8 @@ botaniamisc.lexiconcover2=来自畅销书作者
 botaniamisc.lexiconcover3=Lizbeth "Vazkii" Rika
 botaniamisc.lexiconcover4=由BevoLJ编辑
 botaniamisc.shiftinfo=按住&bSHIFT&7显示更多
-botaniamisc.knowledgeTypesSingular=内含 %s 的知识
-botaniamisc.knowledgeTypesPlural=内含 %s 的知识
+botaniamisc.knowledgeTypesSingular=内含%s个世界的知识
+botaniamisc.knowledgeTypesPlural=内含%s个世界的知识
 botaniamisc.bookmark=书签 #%s
 botaniamisc.clickToSee=点击阅读
 botaniamisc.shiftToRemove=Shift点击移除
@@ -69,8 +69,8 @@ botania.rank4=&dS
 botania.rank5=&6SS
 
 # KNOWLEDGE
-botania.knowledge.minecraft=Minecraftian Knowledge
-botania.knowledge.alfheim=&aElven&7 Knowledge
+botania.knowledge.minecraft=Minecraftian的知识
+botania.knowledge.alfheim=&a精灵&7的知识
 
 # CONFIGURATION
 blockBreakingParticles.enabled=破坏方块粒子
@@ -357,7 +357,7 @@ tile.botania:flower.tigerseye.name=虎之眼
 tile.botania:flower.tigerseye.reference=掌上老虎
 tile.botania:flower.jadedAmaranthus.name=杰迪德苋
 tile.botania:flower.jadedAmaranthus.reference=一对情侣因此而死
-tile.botania:flower.orechid.name=掘矿者
+tile.botania:flower.orechid.name=矿物兰
 tile.botania:flower.orechid.reference=你挖了什么我就种了什么
 tile.botania:flower.fallenKanade.name=天降之奏
 tile.botania:flower.fallenKanade.reference=我不是天使
@@ -796,8 +796,8 @@ botania.page.tigerseye0=我们都知道&4爬行者&0害怕&4猫&0.<br>&1虎之�
 botania.page.tigerseye1=&o是时候向敌人反击了&r.
 
 # -- ORECHID
-botania.entry.orechid=掘矿者
-botania.page.orechid0=尽管挖矿很好,我们应想些可 再生的方法.&1掘矿者&0会用(大量 的)&4魔力&0来在附近的&1石头&0方块 中生成&4矿物&0.<br>它生成的矿物是随机的,但显 然普通的比稀有的偏多.
+botania.entry.orechid=矿物兰
+botania.page.orechid0=尽管挖矿很好,我们应想些可 再生的方法.&1矿物兰&0会用(大量 的)&4魔力&0来在附近的&1石头&0方块 中生成&4矿物&0.<br>它生成的矿物是随机的,但显 然普通的比稀有的偏多.
 botania.page.orechid1=&o莉兹白会喜欢这朵花的&r.
 
 # -- FALLEN KANADE
@@ -813,7 +813,7 @@ botania.page.exoflame1=&o还有比这快的吗&r.
 # -- AGRICARNATION
 botania.entry.agricarnation=田园康乃馨
 botania.page.agricarnation0=要喂饱一群人,首先作物缓慢 的生长是个问题.&1田园康乃馨&0 是种能将&4魔力&0变为一种自然 肥料的花,能让附近的植物快 速生长.
-botania.page.agricarnation1=&oGrandola Vila Morena&r...
+botania.page.agricarnation1=&o高山的颂歌&r...
 
 # -- HOPPERHOCK
 botania.entry.hopperhock=漏斗花
