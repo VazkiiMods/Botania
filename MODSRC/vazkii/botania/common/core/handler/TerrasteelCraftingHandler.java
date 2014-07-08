@@ -47,9 +47,11 @@ public final class TerrasteelCraftingHandler {
 					int y = MathHelper.floor_double(item.posY);
 					int z = MathHelper.floor_double(item.posZ);
 
-					for(int i = -4; i < 5; i++)
-						for(int j = -4; j < 5; j++)
-							for(int k = - 4; k < 5; k++) {
+					int range = 12;
+					
+					for(int i = -range; i < range + 1; i++)
+						for(int j = -range; j < range + 1; j++)
+							for(int k = - range; k < range + 1; k++) {
 								TileEntity tile = item.worldObj.getTileEntity(x + i, y + j, z + k);
 
 								if(tile instanceof IManaPool) {
