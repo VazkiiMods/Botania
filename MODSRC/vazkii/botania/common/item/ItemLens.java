@@ -355,11 +355,11 @@ public class ItemLens extends ItemMod implements ILens {
 
 	@Override
 	public void updateBurst(IManaBurst burst, ItemStack stack) {
-		int storedColor = getStoredColor(stack);
-		if(storedColor == 16)
-			burst.setColor(getLensColor(stack));
-
 		EntityThrowable entity = (EntityThrowable) burst;
+		int storedColor = getStoredColor(stack);
+		
+		if(storedColor == 16 && entity.worldObj.isRemote)
+			burst.setColor(getLensColor(stack));
 
 		boolean magnetized = entity.getEntityData().hasKey("Botania:Magnetized");
 		switch(stack.getItemDamage()) {
@@ -480,11 +480,11 @@ public class ItemLens extends ItemMod implements ILens {
 
 	@Override
 	public boolean doParticles(IManaBurst burst, ItemStack stack) {
-		int storedColor = getStoredColor(stack);
-		if(storedColor == 16 && !burst.isFake())
-			return ((EntityThrowable) burst).ticksExisted > 5;
-
-			return true;
+//		int storedColor = getStoredColor(stack);
+//		if(storedColor == 16 && !burst.isFake())
+//			return ((EntityThrowable) burst).ticksExisted > 5;
+		
+		return true;
 	}
 
 	public static void blacklistLenses(int lens1, int lens2) {

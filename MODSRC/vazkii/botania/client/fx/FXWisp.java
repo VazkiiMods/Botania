@@ -134,7 +134,7 @@ public class FXWisp extends EntityFX {
 		motionY *= 0.98000001907348633D;
 		motionZ *= 0.98000001907348633D;
 	}
-
+	
 	public void setGravity(float value) {
 		particleGravity = value;
 	}
