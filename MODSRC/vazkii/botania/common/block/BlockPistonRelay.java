@@ -220,7 +220,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 							TileEntity tile = world.getTileEntity(x, y, z);
 							Material mat = srcBlock.getMaterial();
 
-							if(!sticky && tile == null && mat.getMaterialMobility() == 0 && !srcBlock.isAir(world, x, y, z)) {
+							if(!sticky && tile == null && mat.getMaterialMobility() == 0 && srcBlock.getBlockHardness(world, x, y, z) != -1 && !srcBlock.isAir(world, x, y, z)) {
 								Material destMat = world.getBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ).getMaterial();
 								if(world.isAirBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ) || destMat.isReplaceable()) {
 									world.setBlock(x, y, z, Blocks.air);
