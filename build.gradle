@@ -28,7 +28,7 @@ minecraft {
 
 dependencies {
 	compile files (
-		'libs/Baubles-deobf.jar'
+		'Baubles-deobf.jar'
 	)
 }
 
