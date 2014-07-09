@@ -19,5 +19,5 @@ public class TileMiniIsland extends TileEntity {
 	public boolean canUpdate() {
 		return false;
 	}
-	
+
 }

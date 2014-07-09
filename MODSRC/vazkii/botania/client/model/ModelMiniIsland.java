@@ -13,16 +13,15 @@ package vazkii.botania.client.model;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.entity.Entity;
 
 public class ModelMiniIsland extends ModelBase {
-	
+
 	ModelRenderer island;
 
 	public ModelMiniIsland() {
 		textureWidth = 64;
 		textureHeight = 32;
-		
+
 		setTextureOffset("island.Shape0", 0, 0);
 		setTextureOffset("island.Shape1-1", 8, 0);
 		setTextureOffset("island.Shape1-2", 16, 0);
@@ -51,7 +50,7 @@ public class ModelMiniIsland extends ModelBase {
 
 		island = new ModelRenderer(this, "island");
 		island.setRotationPoint(0F, 16F, 0F);
-//		island.mirror = true;
+		//		island.mirror = true;
 		island.addBox("Shape0", -1F, 0F, -1F, 2, 5, 2);
 		island.addBox("Shape1-1", -1F, 0F, -3F, 2, 4, 2);
 		island.addBox("Shape1-2", 1F, 0F, -1F, 2, 4, 2);

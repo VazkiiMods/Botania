@@ -30,7 +30,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockManaVoid extends BlockModContainer implements ILexiconable, IPoolOverlayProvider {
 
 	IIcon overlay;
-	
+
 	protected BlockManaVoid() {
 		super(Material.rock);
 		setHardness(2.0F);
@@ -38,7 +38,7 @@ public class BlockManaVoid extends BlockModContainer implements ILexiconable, IP
 		setStepSound(Block.soundTypeStone);
 		setBlockName(LibBlockNames.MANA_VOID);
 	}
-	
+
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		blockIcon = IconHelper.forBlock(par1IconRegister, this, 0);

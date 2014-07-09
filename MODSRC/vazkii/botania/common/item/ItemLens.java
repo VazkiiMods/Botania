@@ -357,7 +357,7 @@ public class ItemLens extends ItemMod implements ILens {
 	public void updateBurst(IManaBurst burst, ItemStack stack) {
 		EntityThrowable entity = (EntityThrowable) burst;
 		int storedColor = getStoredColor(stack);
-		
+
 		if(storedColor == 16 && entity.worldObj.isRemote)
 			burst.setColor(getLensColor(stack));
 
@@ -480,10 +480,10 @@ public class ItemLens extends ItemMod implements ILens {
 
 	@Override
 	public boolean doParticles(IManaBurst burst, ItemStack stack) {
-//		int storedColor = getStoredColor(stack);
-//		if(storedColor == 16 && !burst.isFake())
-//			return ((EntityThrowable) burst).ticksExisted > 5;
-		
+		//		int storedColor = getStoredColor(stack);
+		//		if(storedColor == 16 && !burst.isFake())
+		//			return ((EntityThrowable) burst).ticksExisted > 5;
+
 		return true;
 	}
 

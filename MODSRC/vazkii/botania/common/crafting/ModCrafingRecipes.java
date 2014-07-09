@@ -937,38 +937,38 @@ public final class ModCrafingRecipes {
 		recipeSeaLamp = BotaniaAPI.getLatestAddedRecipe();
 
 		// Influence Lens Recipe
-		addOreDictRecipe(new ItemStack(ModItems.lens, 1, 12), 
+		addOreDictRecipe(new ItemStack(ModItems.lens, 1, 12),
 				"PRP", "PLP", "PPP",
 				'P', LibOreDict.PRISMARINE_SHARD,
 				'R', LibOreDict.RUNE[3],
 				'L', new ItemStack(ModItems.lens));
 		recipeLensInfluence = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Weight Lens Recipe
-		addOreDictRecipe(new ItemStack(ModItems.lens, 1, 13), 
+		addOreDictRecipe(new ItemStack(ModItems.lens, 1, 13),
 				"PPP", "PLP", "PRP",
 				'P', LibOreDict.PRISMARINE_SHARD,
 				'R', LibOreDict.RUNE[0],
 				'L', new ItemStack(ModItems.lens));
 		recipeLensWeight = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Paint Lens Recipe
-		addOreDictRecipe(new ItemStack(ModItems.lens, 1, 14), 
+		addOreDictRecipe(new ItemStack(ModItems.lens, 1, 14),
 				" E ", "WLW", " E ",
 				'E', LibOreDict.ELEMENTIUM,
 				'W', new ItemStack(Blocks.wool, 1, Short.MAX_VALUE),
 				'L', new ItemStack(ModItems.lens));
 		recipeLensPaint = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Mini Island Recipes
 		for(int i = 0; i < 16; i++)
-			GameRegistry.addRecipe(new ItemStack(ModBlocks.miniIsland, 1, i), 
-					"F", "S", "D", 
+			GameRegistry.addRecipe(new ItemStack(ModBlocks.miniIsland, 1, i),
+					"F", "S", "D",
 					'F', new ItemStack(ModBlocks.shinyFlower, 1, i),
 					'S', new ItemStack(ModItems.grassSeeds),
 					'D', new ItemStack(Blocks.dirt));
 		recipesMiniIsland = BotaniaAPI.getLatestAddedRecipes(16);
-		
+
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",

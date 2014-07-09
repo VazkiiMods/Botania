@@ -11,10 +11,7 @@
  */
 package vazkii.botania.common.block.tile.mana;
 
-import net.minecraft.util.IIcon;
-import net.minecraft.world.World;
 import vazkii.botania.api.mana.IClientManaHandler;
-import vazkii.botania.api.mana.IPoolOverlayProvider;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileMod;
 

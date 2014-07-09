@@ -84,7 +84,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	private float mmForcedManaLossPerTick = 4F;
 	private float mmForcedGravity = 0F;
 	private float mmForcedVelocityMultiplier = 1F;
-	
+
 	public static boolean staticRedstone = false;
 	public static boolean staticDreamwood = false;
 
@@ -201,7 +201,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		cmp.setInteger(TAG_ROTATION_TICKS, rotationTicks);
 		cmp.setFloat(TAG_TICK_ROTATION_X, tickRotationX);
 		cmp.setFloat(TAG_TICK_ROTATION_Y, tickRotationY);
-		
+
 		cmp.setBoolean(TAG_MAPMAKER_OVERRIDE, mapmakerOverride);
 		cmp.setInteger(TAG_FORCED_COLOR, mmForcedColor);
 		cmp.setInteger(TAG_FORCED_MANA_PAYLOAD, mmForcedManaPayload);
@@ -223,7 +223,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		rotationTicks = cmp.getInteger(TAG_ROTATION_TICKS);
 		tickRotationX = cmp.getFloat(TAG_TICK_ROTATION_X);
 		tickRotationY = cmp.getFloat(TAG_TICK_ROTATION_Y);
-		
+
 		mapmakerOverride = cmp.getBoolean(TAG_MAPMAKER_OVERRIDE);
 		mmForcedColor = cmp.getInteger(TAG_FORCED_COLOR);
 		mmForcedManaPayload = cmp.getInteger(TAG_FORCED_MANA_PAYLOAD);

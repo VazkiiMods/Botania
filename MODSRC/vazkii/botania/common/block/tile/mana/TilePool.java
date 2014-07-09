@@ -151,7 +151,7 @@ public class TilePool extends TileMod implements IManaPool {
 	public void updateEntity() {
 		if(!ManaNetworkHandler.instance.isPoolIn(this))
 			ManaNetworkEvent.addPool(this);
-		
+
 		if(worldObj.isRemote) {
 			double particleChance = 1F - (double) getCurrentMana() / (double) MAX_MANA * 0.1;
 			Color color = new Color(0x00C6FF);
@@ -223,7 +223,7 @@ public class TilePool extends TileMod implements IManaPool {
 		color = cmp.getInteger(TAG_COLOR);
 		if(cmp.hasKey(TAG_MANA_CAP))
 			manaCap = cmp.getInteger(TAG_MANA_CAP);
-		
+
 		if(cmp.hasKey(TAG_KNOWN_MANA))
 			knownMana = cmp.getInteger(TAG_KNOWN_MANA);
 	}

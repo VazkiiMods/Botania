@@ -13,10 +13,10 @@ package vazkii.botania.test;
 
 import java.util.Random;
 
-import vazkii.botania.common.block.ModBlocks;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
+import vazkii.botania.common.block.ModBlocks;
 
 public class MassiveAssTree extends WorldGenerator {
 
@@ -25,24 +25,22 @@ public class MassiveAssTree extends WorldGenerator {
 			for(int j = y; j <= y + height && y < 256; ++j)
 				for(int k = z - radius; k < z + radius; ++k) {
 					int y1 = height - (j - y) - rand.nextInt(radius / 2);
-					if((i - x) * (i - x) + (k - z) * (k - z) <= (radius * radius + y1))
+					if((i - x) * (i - x) + (k - z) * (k - z) <= radius * radius + y1)
 						world.setBlock(i, j, k, ModBlocks.livingwood);
 				}
 	}
 
 	public void generateCanopy(World world, Random rand, int x, int y, int z, int radius, int height) {
-		float uDiv = (radius * radius) / (height / 2);
-		float lDiv = (radius * radius) / (height / 2);
-		int groundHeight = 35;
-
+		float uDiv = radius * radius / (height / 2);
+		float lDiv = radius * radius / (height / 2);
 		for(int i = x - radius; i < x + radius; ++i)
 			for(float k = z - radius; k < z + radius; ++k)
 				for(float j = y + height; j >= 0 && j < 256; --j) {
-					float bx = (i - x);
-					float by = (j - y);
-					float bz = (k - z);
+					float bx = i - x;
+					float by = j - y;
+					float bz = k - z;
 					if (inCanopy(bx, by, bz, radius, height, lDiv, uDiv))
-						world.setBlock((int)i, (int)j, (int)k, Blocks.leaves, 3, 1 | 2);
+						world.setBlock(i, (int)j, (int)k, Blocks.leaves, 3, 1 | 2);
 				}
 	}
 
@@ -62,10 +60,10 @@ public class MassiveAssTree extends WorldGenerator {
 
 	@Override
 	public boolean generate(World world, Random rand, int x, int y, int z) {
-		float scale = (rand.nextFloat() * 0.5F + 1.0F);
+		float scale = rand.nextFloat() * 0.5F + 1.0F;
 		int height = (int)((30 + rand.nextInt(10)) * scale);
-		this.generateTrunk(world, rand, x, y, z, (int)(3 * scale), height);
-		this.generateCanopy(world, rand, x, y + height, z, (int)((30 + rand.nextInt(15)) ), (int)((10 + rand.nextInt(5)) ));
+		generateTrunk(world, rand, x, y, z, (int)(3 * scale), height);
+		generateCanopy(world, rand, x, y + height, z, 30 + rand.nextInt(15), 10 + rand.nextInt(5));
 		return true;
 	}
 }

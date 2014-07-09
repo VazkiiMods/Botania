@@ -340,13 +340,13 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	@Override
 	public void onUpdate() {
 		superUpdate();
-		
+
 		if(!fake && !isDead) {
 			ChunkCoordinates coords = getBurstSourceChunkCoordinates();
 			TileEntity tile = worldObj.getTileEntity(coords.posX, coords.posY, coords.posZ);
 			if(tile != null && tile instanceof TileSpreader)
 				((TileSpreader) tile).canShootBurst = false;
-		} 
+		}
 
 		ILensEffect lens = getLensInstance();
 		if(lens != null)

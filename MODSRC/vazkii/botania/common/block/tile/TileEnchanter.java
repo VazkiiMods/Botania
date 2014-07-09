@@ -345,7 +345,7 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 
 		for(int[] pylon : PYLON_LOCATIONS[meta])
 			if(world.getBlock(pylon[0] + x, pylon[1] + y, pylon[2] + z) != ModBlocks.pylon ||
-			(world.getBlock(pylon[0] + x, pylon[1] + y - 1, pylon[2] + z) != ModBlocks.flower && world.getBlock(pylon[0] + x, pylon[1] + y - 1, pylon[2] + z) != ModBlocks.shinyFlower))
+			world.getBlock(pylon[0] + x, pylon[1] + y - 1, pylon[2] + z) != ModBlocks.flower && world.getBlock(pylon[0] + x, pylon[1] + y - 1, pylon[2] + z) != ModBlocks.shinyFlower)
 				return false;
 
 		for(int[] flower : FLOWER_LOCATIONS) {

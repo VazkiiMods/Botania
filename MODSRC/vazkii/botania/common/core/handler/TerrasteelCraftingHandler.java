@@ -48,7 +48,7 @@ public final class TerrasteelCraftingHandler {
 					int z = MathHelper.floor_double(item.posZ);
 
 					int range = 12;
-					
+
 					for(int i = -range; i < range + 1; i++)
 						for(int j = -range; j < range + 1; j++)
 							for(int k = - range; k < range + 1; k++) {

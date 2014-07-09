@@ -58,7 +58,7 @@ public class LightningHandler {
 	@SubscribeEvent
 	public void onRenderWorldLast(RenderWorldLastEvent event) {
 		ParticleRenderDispatcher.dispatch();
-		
+
 		float frame = event.partialTicks;
 		Entity entity = Minecraft.getMinecraft().thePlayer;
 

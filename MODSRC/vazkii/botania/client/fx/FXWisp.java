@@ -37,9 +37,9 @@ public class FXWisp extends EntityFX {
 	// Queue values
 	float f;
 	float f1;
-	float f2; 
-	float f3; 
-	float f4; 
+	float f2;
+	float f3;
+	float f4;
 	float f5;
 
 	public FXWisp(World world, double d, double d1, double d2,  float size, float red, float green, float blue, boolean distanceLimit, float maxAgeMul) {
@@ -134,7 +134,7 @@ public class FXWisp extends EntityFX {
 		motionY *= 0.98000001907348633D;
 		motionZ *= 0.98000001907348633D;
 	}
-	
+
 	public void setGravity(float value) {
 		particleGravity = value;
 	}

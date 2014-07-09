@@ -71,11 +71,11 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 			waterLevel = 0.4F;
 			forceAllMana = false;
 		}
-		
+
 		float s = 1F / 16F;
 		float v = 1F / 8F;
 		float w = -v * 3.5F;
-		
+
 		if(pool.getWorldObj() != null) {
 			Block below = pool.getWorldObj().getBlock(pool.xCoord, pool.yCoord - 1, pool.zCoord);
 			if(below instanceof IPoolOverlayProvider) {
@@ -85,20 +85,20 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 					GL11.glEnable(GL11.GL_BLEND);
 					GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 					GL11.glDisable(GL11.GL_ALPHA_TEST);
-					GL11.glColor4f(1F, 1F, 1F, (float) ((Math.sin((double) pool.getWorldObj().getTotalWorldTime() / 20.0) + 1) * 0.3 + 0.2));
+					GL11.glColor4f(1F, 1F, 1F, (float) ((Math.sin(pool.getWorldObj().getTotalWorldTime() / 20.0) + 1) * 0.3 + 0.2));
 					GL11.glTranslatef(-0.5F, -1F - 0.43F, -0.5F);
 					GL11.glRotatef(90F, 1F, 0F, 0F);
 					GL11.glScalef(s, s, s);
-					
+
 					renderIcon(0, 0, overlay, 16, 16, 240);
-					
+
 					GL11.glEnable(GL11.GL_ALPHA_TEST);
 					GL11.glDisable(GL11.GL_BLEND);
 					GL11.glPopMatrix();
 				}
 			}
 		}
-		
+
 		if(waterLevel > 0) {
 			s = 1F / 256F * 14F;
 			GL11.glPushMatrix();
@@ -109,20 +109,20 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 			GL11.glTranslatef(w, -1F - (0.43F - waterLevel), w);
 			GL11.glRotatef(90F, 1F, 0F, 0F);
 			GL11.glScalef(s, s, s);
-			
+
 			IIcon waterIcon = Blocks.water.getIcon(0, 0);
-			
+
 			ShaderHelper.useShader(ShaderHelper.manaPool);
 			renderIcon(0, 0, waterIcon, 16, 16, 240);
 			ShaderHelper.releaseShader();
-			
+
 			GL11.glEnable(GL11.GL_ALPHA_TEST);
 			GL11.glDisable(GL11.GL_BLEND);
 			GL11.glPopMatrix();
 		}
 		GL11.glPopMatrix();
 	}
-	
+
 	public void renderIcon(int par1, int par2, IIcon par3Icon, int par4, int par5, int brightness) {
 		Tessellator tessellator = Tessellator.instance;
 		tessellator.startDrawingQuads();

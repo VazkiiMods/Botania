@@ -115,10 +115,10 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
 		EntityManaBurst burst = getBurst(Minecraft.getMinecraft().thePlayer, par1ItemStack, false);
 		Color color = new Color(burst == null ? 0x20FF20 : burst.getColor());
-		
+
 		float mul = (float) (Math.sin((double) ClientTickHandler.ticksInGame / 5) * 0.15F);
 		int c = (int) (255 * mul);
-		
+
 		return new Color(Math.max(0, Math.min(255, color.getRed() + c)), Math.max(0, Math.min(255, color.getGreen() + c)), Math.max(0, Math.min(255, color.getBlue() + c))).getRGB();
 	}
 

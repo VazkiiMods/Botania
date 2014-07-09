@@ -48,11 +48,11 @@ public class SubTileDaybloom extends SubTileGenerating {
 				TileSpecialFlower flower = (TileSpecialFlower) tile;
 				if(flower.getSubTile() != null && flower.getSubTile().getClass() == getClass()) {
 					flowers++;
-					
+
 					Color color = new Color(getColor());
-					float r = (float) color.getRed() / 255F;
-					float g = (float) color.getGreen() / 255F;
-					float b = (float) color.getBlue() / 255F;
+					float r = color.getRed() / 255F;
+					float g = color.getGreen() / 255F;
+					float b = color.getBlue() / 255F;
 
 					float m = 0.045F;
 					if(supertile.getWorldObj().getTotalWorldTime() % 10 == 0)

@@ -29,7 +29,7 @@ public final class SheddingHandler {
 	public void onLivingUpdate(LivingUpdateEvent event) {
 		if(event.entity.worldObj.isRemote)
 			return;
-			
+
 		if(event.entity instanceof EntityChicken) {
 			if(ConfigHandler.shedRateChicken != -1 && event.entity.worldObj.rand.nextInt(ConfigHandler.shedRateChicken) == 0)
 				event.entity.dropItem(Items.feather, 1);
@@ -56,5 +56,5 @@ public final class SheddingHandler {
 				event.entity.dropItem(Items.slime_ball, 1);
 		}
 	}
-	
+
 }

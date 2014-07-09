@@ -44,7 +44,7 @@ public class BlockSolidVines extends BlockVine implements ILexiconable {
 		setBlockBoundsBasedOnState(w, x, y, z);
 		return AxisAlignedBB.getBoundingBox(x + minX, y + minY, z + minZ, x + maxX, y + maxY, z + maxZ);
 	}
-	
+
 	@Override
 	public void updateTick(World p_149674_1_, int p_149674_2_, int p_149674_3_, int p_149674_4_, Random p_149674_5_) {
 		// NO-OP

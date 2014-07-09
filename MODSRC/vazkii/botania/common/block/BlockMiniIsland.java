@@ -46,7 +46,7 @@ public class BlockMiniIsland extends BlockModContainer implements ILexiconable {
 		setStepSound(soundTypeGravel);
 		setTickRandomly(true);
 		setLightLevel(1F);
-		
+
 		float f = 0.1F;
 		setBlockBounds(f, f, f, 1F - f, 1F - f, 1F - f);
 	}
@@ -61,7 +61,7 @@ public class BlockMiniIsland extends BlockModContainer implements ILexiconable {
 		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
 		return super.setBlockName(par1Str);
 	}
-	
+
 	@Override
 	public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random) {
 		int meta = par1World.getBlockMetadata(par2, par3, par4);
@@ -81,7 +81,7 @@ public class BlockMiniIsland extends BlockModContainer implements ILexiconable {
 		for(int i = 0; i < 16; i++)
 			par3.add(new ItemStack(par1, 1, i));
 	}
-	
+
 	@Override
 	public int damageDropped(int par1) {
 		return par1;
@@ -106,7 +106,7 @@ public class BlockMiniIsland extends BlockModContainer implements ILexiconable {
 	public int getRenderType() {
 		return LibRenderIDs.idMiniIsland;
 	}
-	
+
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileMiniIsland();

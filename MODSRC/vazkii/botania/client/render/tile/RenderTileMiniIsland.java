@@ -16,7 +16,6 @@ import java.util.Random;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
@@ -24,7 +23,6 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelMiniIsland;
@@ -34,7 +32,7 @@ public class RenderTileMiniIsland extends TileEntitySpecialRenderer {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_MINI_ISLAND);
 	private static final ModelMiniIsland model = new ModelMiniIsland();
-	
+
 	public static int forcedMetadata = 0;
 
 	@Override
@@ -42,20 +40,20 @@ public class RenderTileMiniIsland extends TileEntitySpecialRenderer {
 		GL11.glPushMatrix();
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		GL11.glTranslated(d0, d1, d2);
-		
+
 		int worldTime = (int) (tile.getWorldObj() == null ? 0 : tile.getWorldObj().getTotalWorldTime());
 		if(tile.getWorldObj() != null)
 			worldTime += new Random(tile.xCoord ^ tile.yCoord ^ tile.zCoord).nextInt(360);
-		
+
 		GL11.glTranslatef(0.5F, 0F, 0.5F);
-		GL11.glRotatef(-((float) worldTime * 0.5F), 0F, 1F, 0F);
+		GL11.glRotatef(-(worldTime * 0.5F), 0F, 1F, 0F);
 		GL11.glTranslatef(-0.5F, 0F, -0.5F);
-		
+
 		if(tile.getWorldObj() != null) {
 			GL11.glTranslatef(0F, (float) Math.sin((double) worldTime * 0.05F) * 0.1F, 0F);
 			GL11.glRotatef(4F * (float) Math.sin((double) worldTime * 0.04F), 1F, 0F, 0F);
 		}
-		
+
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 		GL11.glPushMatrix();
 		GL11.glTranslatef(0.5F, 1.4F, 0.5F);

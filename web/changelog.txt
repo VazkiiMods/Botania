@@ -1,3 +1,8 @@
+r1.1 75
+*Added Fancy floating flowers.
+*Fixed Rainbow Tinted lenses not rendering when there's a block above the spreader.
+*Fixed the Force Relay being allowed to push bedrock and blocks of the like.
+*Increased the range in which the terrasteel crafting process can pull mana from.
 r1.1 74
 *Added Shedding. All sorts of mobs now randomly drop components of their body (eg, feathers on chickens, bones on skeletons, ghast tears, etc). This feature duplicates the mod ChickenShed and adds variants to other mobs. It can be tweaked in the config.
 *Fixed Glimmering Flowers working below pylons for the enchanter.

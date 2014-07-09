@@ -247,7 +247,7 @@ public final class LexiconData {
 
 		paintLens = new ALexiconEntry(LibLexicon.MANA_PAINT_LENS, categoryMana);
 		paintLens.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLensPaint));
-		
+
 		// FUNCTIONAL FLOWERS ENTRIES
 		functionalIntro = new BLexiconEntry(LibLexicon.FFLOWER_INTRO, categoryFunctionalFlowers);
 		functionalIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageText("3"), new PageCraftingRecipe("4", ModCrafingRecipes.recipeRedstoneRoot));
@@ -522,7 +522,7 @@ public final class LexiconData {
 
 		prismarine = new BLexiconEntry(LibLexicon.MISC_PRISMARINE, categoryMisc);
 		prismarine.setLexiconPages(new PageText("0"), new PageText("1"), new PageManaInfusionRecipe("2", ModManaAlchemyRecipes.prismarineRecipe), new PageCraftingRecipe("3", ModCrafingRecipes.recipePrismarine), new PageCraftingRecipe("4", ModCrafingRecipes.recipePrismarineBrick), new PageCraftingRecipe("5", ModCrafingRecipes.recipeDarkPrismarine), new PageCraftingRecipe("6", ModCrafingRecipes.recipeSeaLamp));
-	
+
 		shedding = new BLexiconEntry(LibLexicon.MISC_SHEDDING, categoryMisc);
 		shedding.setLexiconPages(new PageText("0"));
 	}
