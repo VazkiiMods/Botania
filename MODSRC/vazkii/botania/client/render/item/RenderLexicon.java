@@ -64,7 +64,9 @@ public class RenderLexicon implements IItemRenderer {
 			GL11.glRotatef(180F, 0F, 0F, 0F);
 			GL11.glTranslatef(-0.3F, -0.2F, 0.07F);
 			GL11.glScalef(0.0035F, 0.0035F, 0.0035F);
-			boolean bevo = Minecraft.getMinecraft().thePlayer.getCommandSenderName().equals("BevoLJ");
+			boolean bevo = Minecraft.getMinecraft().thePlayer.getCommandSenderName().equalsIgnoreCase("BevoLJ");
+			boolean saice = Minecraft.getMinecraft().thePlayer.getCommandSenderName().equalsIgnoreCase("saice");
+			
 			String title = ModItems.lexicon.getItemStackDisplayName(null);
 			String origTitle = title;
 
@@ -72,7 +74,9 @@ public class RenderLexicon implements IItemRenderer {
 				title = Minecraft.getMinecraft().thePlayer.getCurrentEquippedItem().getDisplayName();
 			if(title.equals(origTitle) && bevo)
 				title = StatCollector.translateToLocal("item.botania:lexicon.bevo");
-
+			if(title.equals(origTitle) && saice)
+				title = StatCollector.translateToLocal("item.botania:lexicon.saice");
+			
 			font.drawString(font.trimStringToWidth(title, 80), 0, 0, 0xD69700);
 			GL11.glTranslatef(0F, 10F, 0F);
 			GL11.glScalef(0.6F, 0.6F, 0.6F);
@@ -95,9 +99,9 @@ public class RenderLexicon implements IItemRenderer {
 			font.drawString(StatCollector.translateToLocal("botaniamisc.lexiconcover2"), 0, 0, 0x79ff92);
 			GL11.glTranslatef(0F, 10F, 0F);
 			font.drawString(EnumChatFormatting.ITALIC + StatCollector.translateToLocal("botaniamisc.lexiconcover3"), 0, 0, 0x79ff92);
-			if(bevo) {
+			if(bevo || saice) {
 				GL11.glTranslatef(0F, 10F, 0F);
-				font.drawString(StatCollector.translateToLocal("botaniamisc.lexiconcover4"), 0, 0, 0x79ff92);
+				font.drawString(StatCollector.translateToLocal("botaniamisc.lexiconcover" + (bevo ? 4 : 5)), 0, 0, 0x79ff92);
 			}
 		}
 

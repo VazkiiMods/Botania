@@ -33,6 +33,7 @@ botaniamisc.lexiconcover1=Botanical needs
 botaniamisc.lexiconcover2=From Bestselling author
 botaniamisc.lexiconcover3=Lizbeth "Vazkii" Rika
 botaniamisc.lexiconcover4=Edited by BevoLJ
+botaniamisc.lexiconcover5=Edited by Saice
 botaniamisc.shiftinfo=Hold &bSHIFT&7 for more info
 botaniamisc.knowledgeTypesSingular=Contains %s School of Knowledge
 botaniamisc.knowledgeTypesPlural=Contains %s Schools of Knowledge
@@ -403,6 +404,7 @@ tile.botania:flower.daffomill.reference=Cook's Assistant
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania
 item.botania:lexicon.bevo=Lexica Botana
+item.botania:lexicon.saice=Lexica Botonia
 item.botania:petal0.name=Mystical White Petal
 item.botania:petal1.name=Mystical Orange Petal
 item.botania:petal2.name=Mystical Magenta Petal
