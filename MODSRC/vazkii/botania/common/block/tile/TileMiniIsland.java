@@ -7,17 +7,17 @@
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
  * 
- * File Created @ [Jan 21, 2014, 8:03:06 PM (GMT)]
+ * File Created @ [Jul 8, 2014, 10:17:28 PM (GMT)]
  */
-package vazkii.botania.client.lib;
+package vazkii.botania.common.block.tile;
 
-public final class LibRenderIDs {
+import net.minecraft.tileentity.TileEntity;
 
-	public static int idAltar = -1;
-	public static int idSpecialFlower = -1;
-	public static int idSpreader = -1;
-	public static int idPool = -1;
-	public static int idPylon = -1;
-	public static int idMiniIsland = -1;
+public class TileMiniIsland extends TileEntity {
 
+	@Override
+	public boolean canUpdate() {
+		return false;
+	}
+	
 }

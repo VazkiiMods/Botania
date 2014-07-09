@@ -518,7 +518,7 @@ public final class LexiconData {
 		dispenserTweaks.setLexiconPages(new PageText("0"));
 
 		shinyFlowers = new BLexiconEntry(LibLexicon.MISC_SHINY_FLOWERS, categoryMisc);
-		shinyFlowers.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipesShinyFlowers));
+		shinyFlowers.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipesShinyFlowers), new PageCraftingRecipe("2", ModCrafingRecipes.recipesMiniIsland));
 
 		prismarine = new BLexiconEntry(LibLexicon.MISC_PRISMARINE, categoryMisc);
 		prismarine.setLexiconPages(new PageText("0"), new PageText("1"), new PageManaInfusionRecipe("2", ModManaAlchemyRecipes.prismarineRecipe), new PageCraftingRecipe("3", ModCrafingRecipes.recipePrismarine), new PageCraftingRecipe("4", ModCrafingRecipes.recipePrismarineBrick), new PageCraftingRecipe("5", ModCrafingRecipes.recipeDarkPrismarine), new PageCraftingRecipe("6", ModCrafingRecipes.recipeSeaLamp));

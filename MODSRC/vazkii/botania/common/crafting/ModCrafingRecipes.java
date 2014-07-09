@@ -159,6 +159,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeLensInfluence;
 	public static IRecipe recipeLensWeight;
 	public static IRecipe recipeLensPaint;
+	public static List<IRecipe> recipesMiniIsland;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -958,6 +959,15 @@ public final class ModCrafingRecipes {
 				'W', new ItemStack(Blocks.wool, 1, Short.MAX_VALUE),
 				'L', new ItemStack(ModItems.lens));
 		recipeLensPaint = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Mini Island Recipes
+		for(int i = 0; i < 16; i++)
+			GameRegistry.addRecipe(new ItemStack(ModBlocks.miniIsland, 1, i), 
+					"F", "S", "D", 
+					'F', new ItemStack(ModBlocks.shinyFlower, 1, i),
+					'S', new ItemStack(ModItems.grassSeeds),
+					'D', new ItemStack(Blocks.dirt));
+		recipesMiniIsland = BotaniaAPI.getLatestAddedRecipes(16);
 		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

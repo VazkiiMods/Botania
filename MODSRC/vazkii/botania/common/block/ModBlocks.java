@@ -82,6 +82,7 @@ import vazkii.botania.common.block.tile.TileBifrost;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.block.tile.TileForestEye;
 import vazkii.botania.common.block.tile.TileManaBeacon;
+import vazkii.botania.common.block.tile.TileMiniIsland;
 import vazkii.botania.common.block.tile.TileOpenCrate;
 import vazkii.botania.common.block.tile.TilePlatform;
 import vazkii.botania.common.block.tile.TilePylon;
@@ -135,6 +136,7 @@ public final class ModBlocks {
 	public static Block buriedPetals;
 	public static Block prismarine;
 	public static Block seaLamp;
+	public static Block miniIsland;
 
 	public static Block livingwoodStairs;
 	public static Block livingwoodSlab;
@@ -224,6 +226,7 @@ public final class ModBlocks {
 		buriedPetals = new BlockBuriedPetals();
 		prismarine = new BlockPrismarine();
 		seaLamp = new BlockSeaLamp();
+		miniIsland = new BlockMiniIsland();
 
 		livingwoodStairs = new BlockLivingwoodStairs();
 		livingwoodSlab = new BlockLivingwoodSlab(false);
@@ -360,6 +363,7 @@ public final class ModBlocks {
 		registerTile(TilePlatform.class, LibBlockNames.PLATFORM);
 		registerTile(TileAlfPortal.class, LibBlockNames.ALF_PORTAL);
 		registerTile(TileBifrost.class, LibBlockNames.BIFROST);
+		registerTile(TileMiniIsland.class, LibBlockNames.MINI_ISLAND);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MANASTAR, SubTileManastar.class);

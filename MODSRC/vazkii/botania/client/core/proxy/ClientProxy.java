@@ -30,6 +30,7 @@ import vazkii.botania.client.gui.lexicon.GuiLexiconEntry;
 import vazkii.botania.client.gui.lexicon.GuiLexiconIndex;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.client.render.block.RenderAltar;
+import vazkii.botania.client.render.block.RenderMiniIsland;
 import vazkii.botania.client.render.block.RenderPool;
 import vazkii.botania.client.render.block.RenderPylon;
 import vazkii.botania.client.render.block.RenderSpecialFlower;
@@ -40,6 +41,7 @@ import vazkii.botania.client.render.item.RenderLexicon;
 import vazkii.botania.client.render.tile.RenderTileAlfPortal;
 import vazkii.botania.client.render.tile.RenderTileAltar;
 import vazkii.botania.client.render.tile.RenderTileEnchanter;
+import vazkii.botania.client.render.tile.RenderTileMiniIsland;
 import vazkii.botania.client.render.tile.RenderTilePool;
 import vazkii.botania.client.render.tile.RenderTilePylon;
 import vazkii.botania.client.render.tile.RenderTileRuneAltar;
@@ -47,6 +49,7 @@ import vazkii.botania.client.render.tile.RenderTileSpreader;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.block.tile.TileEnchanter;
+import vazkii.botania.common.block.tile.TileMiniIsland;
 import vazkii.botania.common.block.tile.TilePylon;
 import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.block.tile.mana.TilePool;
@@ -87,12 +90,14 @@ public class ClientProxy extends CommonProxy {
 		LibRenderIDs.idSpreader = RenderingRegistry.getNextAvailableRenderId();
 		LibRenderIDs.idPool = RenderingRegistry.getNextAvailableRenderId();
 		LibRenderIDs.idPylon = RenderingRegistry.getNextAvailableRenderId();
+		LibRenderIDs.idMiniIsland = RenderingRegistry.getNextAvailableRenderId();
 
 		RenderingRegistry.registerBlockHandler(new RenderAltar());
 		RenderingRegistry.registerBlockHandler(new RenderSpecialFlower(LibRenderIDs.idSpecialFlower));
 		RenderingRegistry.registerBlockHandler(new RenderSpreader());
 		RenderingRegistry.registerBlockHandler(new RenderPool());
 		RenderingRegistry.registerBlockHandler(new RenderPylon());
+		RenderingRegistry.registerBlockHandler(new RenderMiniIsland());
 
 		MinecraftForgeClient.registerItemRenderer(ModItems.lens, new RenderLens());
 		if(ConfigHandler.lexicon3dModel)
@@ -105,6 +110,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TilePylon.class, new RenderTilePylon());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEnchanter.class, new RenderTileEnchanter());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileAlfPortal.class, new RenderTileAlfPortal());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileMiniIsland.class, new RenderTileMiniIsland());
 
 		RenderingRegistry.registerEntityRenderingHandler(EntityPixie.class, new RenderPixie());
 		RenderingRegistry.registerEntityRenderingHandler(EntityVineBall.class, new RenderSnowball(ModItems.vineBall));

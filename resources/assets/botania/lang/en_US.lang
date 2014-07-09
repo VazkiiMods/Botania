@@ -315,6 +315,22 @@ tile.botania:prismarine1Slab.name=Prismarine Brick Slab
 tile.botania:prismarine2Stairs.name=Dark Prismarine Stairs
 tile.botania:prismarine2Slab.name=Dark Prismarine Slab
 tile.botania:seaLamp.name=Sea Lantern
+tile.botania:miniIsland0.name=Floating White Flower
+tile.botania:miniIsland1.name=Floating Orange Flower
+tile.botania:miniIsland2.name=Floating Magenta Flower
+tile.botania:miniIsland3.name=Floating Light Blue Flower
+tile.botania:miniIsland4.name=Floating Yellow Flower
+tile.botania:miniIsland5.name=Floating Lime Flower
+tile.botania:miniIsland6.name=Floating Pink Flower
+tile.botania:miniIsland7.name=Floating Gray Flower
+tile.botania:miniIsland8.name=Floating Light Gray Flower
+tile.botania:miniIsland9.name=Floating Cyan Flower
+tile.botania:miniIsland10.name=Floating Purple Flower
+tile.botania:miniIsland11.name=Floating Blue Flower
+tile.botania:miniIsland12.name=Floating Brown Flower
+tile.botania:miniIsland13.name=Floating Green Flower
+tile.botania:miniIsland14.name=Floating Red Flower
+tile.botania:miniIsland15.name=Floating Black Flower
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
@@ -1302,8 +1318,9 @@ botania.page.dispenserTweaks0=&1Dispensers&0, among their normal abilities, can 
 
 # -- GLIMMERING FLOWERS
 botania.entry.shinyFlowers=Glimmering Flowers
-botania.page.shinyFlowers0=By combining your typical &1Mystical Flowers&0 with some &1Glowstone Dust&0, you can make them sparkle even brighter, and emit actual physical light, of the same brightness as a &1Glowstone Block&0.
+botania.page.shinyFlowers0=By combining your typical &1Mystical Flowers&0 with some &1Glowstone Dust&0, you can make them sparkle even brighter, and emit actual physical light, of the same brightness as a &1Glowstone Block&0.<br>With some &1Dirt&0 and &1Pasture Seeds&0 it's possible to turn them into a miniature floating island that will, not only emit light, but also look very fancy indeed.
 botania.page.shinyFlowers1=Pretty Pretty Shiny Shiny
+botania.page.shinyFlowers2=Like Laputa but (a lot) tinier
 
 # -- PRISMARINE
 botania.entry.prismarine=Prismarine
