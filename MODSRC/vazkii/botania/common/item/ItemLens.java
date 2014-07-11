@@ -41,6 +41,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
@@ -303,45 +304,59 @@ public class ItemLens extends ItemMod implements ILens {
 		case PAINT : {
 			int storedColor = getStoredColor(stack);
 			if(!burst.isFake() && storedColor > -1 && storedColor < 17) {
-				Block block = entity.worldObj.getBlock(pos.blockX, pos.blockY, pos.blockZ);
-				if(paintableBlocks.contains(block)) {
-					int meta = entity.worldObj.getBlockMetadata(pos.blockX, pos.blockY, pos.blockZ);
-					List<ChunkCoordinates> coordsToPaint = new ArrayList();
-					List<ChunkCoordinates> coordsFound = new ArrayList();
+				if(pos.entityHit != null && pos.entityHit instanceof EntitySheep) {
+					int r = 20;
+					int sheepColor = ((EntitySheep) pos.entityHit).getFleeceColor();
+					List<EntitySheep> sheepList = entity.worldObj.getEntitiesWithinAABB(EntitySheep.class, AxisAlignedBB.getBoundingBox(pos.entityHit.posX - r, pos.entityHit.posY - r, pos.entityHit.posZ - r, pos.entityHit.posX + r, pos.entityHit.posY + r, pos.entityHit.posZ + r));
+					for(EntitySheep sheep : sheepList) {
+						if(sheep.getFleeceColor() == sheepColor)
+							if(storedColor == 16) {
+								if(!MinecraftForge.MC_VERSION.endsWith(".2")) // Jeb_ sheep only work on 1.7.4+
+									sheep.setCustomNameTag("jeb_");
+							} else sheep.setFleeceColor(storedColor);
+					}
+					dead = true;
+				} else {
+					Block block = entity.worldObj.getBlock(pos.blockX, pos.blockY, pos.blockZ);
+					if(paintableBlocks.contains(block)) {
+						int meta = entity.worldObj.getBlockMetadata(pos.blockX, pos.blockY, pos.blockZ);
+						List<ChunkCoordinates> coordsToPaint = new ArrayList();
+						List<ChunkCoordinates> coordsFound = new ArrayList();
 
-					ChunkCoordinates theseCoords = new ChunkCoordinates(pos.blockX, pos.blockY, pos.blockZ);
-					coordsFound.add(theseCoords);
+						ChunkCoordinates theseCoords = new ChunkCoordinates(pos.blockX, pos.blockY, pos.blockZ);
+						coordsFound.add(theseCoords);
 
-					do {
-						List<ChunkCoordinates> iterCoords = new ArrayList(coordsFound);
-						for(ChunkCoordinates coords : iterCoords) {
-							coordsFound.remove(coords);
-							coordsToPaint.add(coords);
+						do {
+							List<ChunkCoordinates> iterCoords = new ArrayList(coordsFound);
+							for(ChunkCoordinates coords : iterCoords) {
+								coordsFound.remove(coords);
+								coordsToPaint.add(coords);
 
-							for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-								Block block_ = entity.worldObj.getBlock(coords.posX + dir.offsetX, coords.posY + dir.offsetY, coords.posZ + dir.offsetZ);
-								int meta_ = entity.worldObj.getBlockMetadata(coords.posX + dir.offsetX, coords.posY + dir.offsetY, coords.posZ + dir.offsetZ);
-								ChunkCoordinates coords_ = new ChunkCoordinates(coords.posX + dir.offsetX, coords.posY + dir.offsetY, coords.posZ + dir.offsetZ);
-								if(block_ == block && meta_ == meta && !coordsFound.contains(coords_) && !coordsToPaint.contains(coords_))
-									coordsFound.add(coords_);
+								for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+									Block block_ = entity.worldObj.getBlock(coords.posX + dir.offsetX, coords.posY + dir.offsetY, coords.posZ + dir.offsetZ);
+									int meta_ = entity.worldObj.getBlockMetadata(coords.posX + dir.offsetX, coords.posY + dir.offsetY, coords.posZ + dir.offsetZ);
+									ChunkCoordinates coords_ = new ChunkCoordinates(coords.posX + dir.offsetX, coords.posY + dir.offsetY, coords.posZ + dir.offsetZ);
+									if(block_ == block && meta_ == meta && !coordsFound.contains(coords_) && !coordsToPaint.contains(coords_))
+										coordsFound.add(coords_);
+								}
 							}
-						}
-					} while(!coordsFound.isEmpty() && coordsToPaint.size() < 1000);
+						} while(!coordsFound.isEmpty() && coordsToPaint.size() < 1000);
 
-					for(ChunkCoordinates coords : coordsToPaint) {
-						int placeColor = storedColor == 16 ? entity.worldObj.rand.nextInt(16) : storedColor;
-						int metaThere = entity.worldObj.getBlockMetadata(coords.posX, coords.posY, coords.posZ);
+						for(ChunkCoordinates coords : coordsToPaint) {
+							int placeColor = storedColor == 16 ? entity.worldObj.rand.nextInt(16) : storedColor;
+							int metaThere = entity.worldObj.getBlockMetadata(coords.posX, coords.posY, coords.posZ);
 
-						if(metaThere != placeColor) {
-							if(!entity.worldObj.isRemote)
-								entity.worldObj.setBlockMetadataWithNotify(coords.posX, coords.posY, coords.posZ, placeColor, 2);
-							float[] color = EntitySheep.fleeceColorTable[placeColor];
-							float r = color[0];
-							float g = color[1];
-							float b = color[2];
-							for(int i = 0; i < 4; i++)
-								Botania.proxy.sparkleFX(entity.worldObj, coords.posX + (float) Math.random(), coords.posY + (float) Math.random(), coords.posZ + (float) Math.random(), r, g, b, 0.6F + (float) Math.random() * 0.3F, 5);
+							if(metaThere != placeColor) {
+								if(!entity.worldObj.isRemote)
+									entity.worldObj.setBlockMetadataWithNotify(coords.posX, coords.posY, coords.posZ, placeColor, 2);
+								float[] color = EntitySheep.fleeceColorTable[placeColor];
+								float r = color[0];
+								float g = color[1];
+								float b = color[2];
+								for(int i = 0; i < 4; i++)
+									Botania.proxy.sparkleFX(entity.worldObj, coords.posX + (float) Math.random(), coords.posY + (float) Math.random(), coords.posZ + (float) Math.random(), r, g, b, 0.6F + (float) Math.random() * 0.3F, 5);
 
+							}
 						}
 					}
 				}
@@ -484,10 +499,6 @@ public class ItemLens extends ItemMod implements ILens {
 
 	@Override
 	public boolean doParticles(IManaBurst burst, ItemStack stack) {
-		//		int storedColor = getStoredColor(stack);
-		//		if(storedColor == 16 && !burst.isFake())
-		//			return ((EntityThrowable) burst).ticksExisted > 5;
-
 		return true;
 	}
 
