@@ -310,10 +310,7 @@ public class ItemLens extends ItemMod implements ILens {
 					List<EntitySheep> sheepList = entity.worldObj.getEntitiesWithinAABB(EntitySheep.class, AxisAlignedBB.getBoundingBox(pos.entityHit.posX - r, pos.entityHit.posY - r, pos.entityHit.posZ - r, pos.entityHit.posX + r, pos.entityHit.posY + r, pos.entityHit.posZ + r));
 					for(EntitySheep sheep : sheepList) {
 						if(sheep.getFleeceColor() == sheepColor)
-							if(storedColor == 16) {
-								if(!MinecraftForge.MC_VERSION.endsWith(".2")) // Jeb_ sheep only work on 1.7.4+
-									sheep.setCustomNameTag("jeb_");
-							} else sheep.setFleeceColor(storedColor);
+							sheep.setFleeceColor(storedColor == 16 ? sheep.worldObj.rand.nextInt(16) : storedColor);
 					}
 					dead = true;
 				} else {
