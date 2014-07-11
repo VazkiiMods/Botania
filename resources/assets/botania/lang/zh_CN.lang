@@ -41,6 +41,9 @@ botaniamisc.bookmark=书签 #%s
 botaniamisc.clickToSee=点击阅读
 botaniamisc.shiftToRemove=Shift点击移除
 botaniamisc.clickToAdd=点击添加书签
+botaniamisc.ratio=%s:1 Ratio
+botaniamisc.openBaubles=饰品物品栏
+botaniamisc.openInv=普通物品栏
 
 # COLORS
 botania.color0=白色
@@ -88,6 +91,7 @@ pylonModel.old=使用旧的水晶模型
 elfPortal.particles.enabled=启用传送门粒子
 matrixMode.enabled=启用矩阵模式
 references.enabled=启用工具提示文本
+baublesButton.enabled=启用饰品栏按钮
 shaders.enabled=启用光影支持
 spreader.posShift=Spreader Pos Shift
 versionChecking.enabled=启用版本检查
@@ -776,7 +780,7 @@ botania.page.dreamwoodSpreader1=更好的发射器就是它了
 
 # -- PAINTSLINGER LENS
 botania.entry.paintLens=涂色透镜
-botania.page.paintLens0=&4精灵&0真是一群手巧的家伙.不 同于其他的透镜.&1涂色透镜&0需 要染成十六种颜色之一才能 工作.当它碰到了一个可 染色的方块(&1羊毛,硬化粘土 或是玻璃&0...)它会将任何方块 染成与&4魔力脉冲&0本身相同的 颜色.
+botania.page.paintLens0=&4精灵&0真是一群手巧的家伙.不 同于其他的透镜.&1涂色透镜&0需 要染成十六种颜色之一才能 工作.当它碰到了一个可 染色的方块(&1羊毛,硬化粘土 或是玻璃&0...)它会将任何方块 染成与&4魔力脉冲&0本身相同的 颜色.看起来对&4羊&0同样有效.
 botania.page.paintLens1=A M'AIDER Stranded Girl
 
 # - FUNCTIONAL FLOWERS
