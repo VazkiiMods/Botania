@@ -172,7 +172,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		if(isRedstone())
 			shouldShoot = redstone && !redstoneLastTick;
 
-		if(receiver != null && receiver instanceof IKeyLocked)
+		if(shouldShoot && receiver != null && receiver instanceof IKeyLocked)
 			shouldShoot = ((IKeyLocked) receiver).getInputKey().equals(getOutputKey());
 		
 		if(shouldShoot)
