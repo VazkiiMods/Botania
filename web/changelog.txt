@@ -1,3 +1,12 @@
+r1.1 76
+*Added a Baubles button to the inventory that allows you to swap between the Baubles and Normal inventories instead of using the Keybind. (This can be toggled in the config).
+*Fixed Bifrost blocks being pickupable in creative.
+*Fixed some seeds not getting picked up by the petal apothecary (any registered with "Seed" in the name rather than "seed" because the check was case sensitive). (ganymedes01)
+*The burst from a Damaging Lens or Terra Blade now has a larger collision box and hits mobs in a small radius around it.
+*The Flugel Tiara is now made with Elementium.
+*The Mana Usage display for Mana Infusion and Runic Crafting recipes in the Lexica Botania now shows that it's on a 10:1 ratio. Hovering over the bar changes it to 1:1 ratio.
+*The Paintslinger Lens can now dye sheep.
+*The Paintslinger Lens now works on Carpet and Botania Unstable Blocks/Beacons.
 r1.1 75
 *Added Fancy floating flowers.
 *Fixed Rainbow Tinted lenses not rendering when there's a block above the spreader.
