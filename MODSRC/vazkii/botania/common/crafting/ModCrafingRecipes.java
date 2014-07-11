@@ -702,7 +702,7 @@ public final class ModCrafingRecipes {
 		addOreDictRecipe(new ItemStack(ModItems.flightTiara),
 				"LLL", "ILI", "FIF",
 				'L', LibOreDict.LIFE_ESSENCE,
-				'I', "ingotIron",
+				'I', LibOreDict.ELEMENTIUM,
 				'F', new ItemStack(Items.feather));
 		recipeFlightTiara = BotaniaAPI.getLatestAddedRecipe();
 
