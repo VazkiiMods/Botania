@@ -29,6 +29,8 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.helper.TransientScaledResolution;
 import vazkii.botania.client.lib.LibResources;
 import baubles.client.gui.GuiPlayerExpanded;
+import baubles.common.network.PacketHandler;
+import baubles.common.network.PacketOpenBaublesInventory;
 
 public final class InventoryBaublesButtonHandler {
 
@@ -52,7 +54,10 @@ public final class InventoryBaublesButtonHandler {
 					y += 13;
 				} else return;
 			}
-
+			
+			if(!mc.thePlayer.getActivePotionEffects().isEmpty())
+				x += 60;
+				
 			RenderHelper.disableStandardItemLighting();
 			GL11.glColor4f(1F, 1F, 1F, 1F);
 			GL11.glScalef(0.5F, 0.5F, 0.5F);
@@ -79,7 +84,9 @@ public final class InventoryBaublesButtonHandler {
 				vazkii.botania.client.core.helper.RenderHelper.renderTooltip(mouseX, mouseY, Arrays.asList(EnumChatFormatting.LIGHT_PURPLE + StatCollector.translateToLocal(baubles ? "botaniamisc.openInv" : "botaniamisc.openBaubles")));
 
 				if(Mouse.isButtonDown(0) && !mouseDown) {
-					mc.displayGuiScreen(baubles ? new GuiInventory(mc.thePlayer) : new GuiPlayerExpanded(mc.thePlayer));
+					if(baubles)
+						mc.displayGuiScreen(new GuiInventory(mc.thePlayer));
+					else PacketHandler.INSTANCE.sendToServer(new PacketOpenBaublesInventory(mc.thePlayer));
 					mouseDown = true;
 				}
 			}
