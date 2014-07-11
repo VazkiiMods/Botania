@@ -12,9 +12,11 @@
 package vazkii.botania.common.item;
 
 import java.util.List;
+import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -39,6 +41,7 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemBottledMana extends ItemMod {
 
 	IIcon[] icons;
+	private static final String TAG_SEED = "randomSeed";
 
 	public ItemBottledMana() {
 		setUnlocalizedName(LibItemNames.MANA_BOTTLE);
@@ -175,10 +178,27 @@ public class ItemBottledMana extends ItemMod {
 		}
 		}
 	}
+	
+	@Override
+	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
+		getSeed(par1ItemStack);
+	}
 
-	public void randomEffect(EntityPlayer player) {
-		int rand = (int) (player.worldObj.getTotalWorldTime() + (player.worldObj.isRemote ? 1 : 0)) % 16;
-		effect(player, rand);
+	public void randomEffect(EntityPlayer player, ItemStack stack) {
+		effect(player, new Random(getSeed(stack)).nextInt(16));
+	}
+	
+	long getSeed(ItemStack stack) {
+		long seed = ItemNBTHelper.getLong(stack, TAG_SEED, -1);
+		if(seed == -1)
+			return randomSeed(stack);
+		return seed;
+	}
+	
+	long randomSeed(ItemStack stack) {
+		long seed = Math.abs(itemRand.nextLong());
+		ItemNBTHelper.setLong(stack, TAG_SEED, seed);
+		return seed;
 	}
 
 	@Override
@@ -201,8 +221,9 @@ public class ItemBottledMana extends ItemMod {
 
 	@Override
 	public ItemStack onEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		randomEffect(par3EntityPlayer);
+		randomEffect(par3EntityPlayer, par1ItemStack);
 		par1ItemStack.setItemDamage(par1ItemStack.getItemDamage() + 1);
+		randomSeed(par1ItemStack);
 
 		if(par1ItemStack.getItemDamage() == 6)
 			return new ItemStack(Items.glass_bottle);
