@@ -85,7 +85,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 	@Override
 	public void updateBurst(IManaBurst burst, ItemStack stack) {
 		EntityThrowable entity = (EntityThrowable) burst;
-		AxisAlignedBB axis = AxisAlignedBB.getBoundingBox(entity.posX, entity.posY, entity.posZ, entity.lastTickPosX, entity.lastTickPosY, entity.lastTickPosZ);
+		AxisAlignedBB axis = AxisAlignedBB.getBoundingBox(entity.posX, entity.posY, entity.posZ, entity.lastTickPosX, entity.lastTickPosY, entity.lastTickPosZ).expand(1, 1, 1);
 		List<EntityLivingBase> entities = entity.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, axis);
 		for(EntityLivingBase living : entities) {
 			if(living instanceof EntityPlayer)
