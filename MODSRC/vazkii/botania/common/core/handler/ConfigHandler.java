@@ -37,6 +37,7 @@ public final class ConfigHandler {
 	public static boolean elfPortalParticlesEnabled = true;
 	public static boolean matrixMode = false;
 	public static boolean referencesEnabled = true;
+	public static boolean baublesInventoryButton = true;
 
 	public static boolean versionCheckEnabled = true;
 	public static int spreaderPositionShift = 1;
@@ -108,6 +109,9 @@ public final class ConfigHandler {
 		desc = "Set to false to disable the references in flower tooltips. (You monster D:)";
 		referencesEnabled = loadPropBool("references.enabled", desc, referencesEnabled);
 
+		desc = "Set to false to disable the inventory button to open the Baubles menu.";
+		baublesInventoryButton = loadPropBool("baublesButton.enabled", desc, baublesInventoryButton);
+		
 		desc = "Set to false to disable checking and alerting when new Botania versions come out.";
 		versionCheckEnabled = loadPropBool("versionChecking.enabled", desc, versionCheckEnabled);
 

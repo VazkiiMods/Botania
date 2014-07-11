@@ -83,7 +83,22 @@ public class PageManaInfusionRecipe extends PageRecipe {
 		String manaUsage = StatCollector.translateToLocal("botaniamisc.manaUsage");
 		font.drawString(manaUsage, gui.getLeft() + gui.getWidth() / 2 - font.getStringWidth(manaUsage) / 2, gui.getTop() + 105, 0x66000000);
 
-		HUDHandler.renderManaBar(gui.getLeft() + gui.getWidth() / 2 - 50, gui.getTop() + 115, 0x0000FF, 0.75F, recipe.getManaToConsume(), TilePool.MAX_MANA / 10);
+		int ratio = 10;
+		int x = gui.getLeft() + gui.getWidth() / 2 - 50; 
+		int y = gui.getTop() + 115;
+
+		if(mx > x + 1 && mx <= x + 101 && my > y - 14 && my <= y + 11) 
+			ratio = 1;
+		
+		HUDHandler.renderManaBar(x, y, 0x0000FF, 0.75F, recipe.getManaToConsume(), TilePool.MAX_MANA / ratio);
+		
+		String ratioString = String.format(StatCollector.translateToLocal("botaniamisc.ratio"), ratio);
+		
+		boolean unicode = font.getUnicodeFlag();
+		font.setUnicodeFlag(true);
+		font.drawString(ratioString, x + 100 - font.getStringWidth(ratioString), y + 5, 0x50000000);
+		font.setUnicodeFlag(unicode);
+		
 		GL11.glDisable(GL11.GL_BLEND);
 
 		render.bindTexture(manaInfusionOverlay);

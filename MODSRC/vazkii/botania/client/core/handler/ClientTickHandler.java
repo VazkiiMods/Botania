@@ -23,11 +23,13 @@ import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.TileSignature;
 import vazkii.botania.client.core.handler.LightningHandler.LightningBolt;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.item.ItemTwigWand;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
+import cpw.mods.fml.common.gameevent.TickEvent.RenderTickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Type;
 
 public class ClientTickHandler {
@@ -37,8 +39,8 @@ public class ClientTickHandler {
 	public static int ticksInGame = 0;
 
 	@SubscribeEvent
-	public void tickEnd(ClientTickEvent event) {
-		if(event.phase == Phase.END && event.type == Type.CLIENT) {
+	public void clientTickEnd(ClientTickEvent event) {
+		if(event.phase == Phase.END) {
 			LightningBolt.update();
 
 			if(Minecraft.getMinecraft().theWorld == null)
@@ -82,6 +84,12 @@ public class ClientTickHandler {
 				}
 			}
 		}
+	}
+	
+	@SubscribeEvent
+	public void renderTickEnd(RenderTickEvent event) {
+		if(event.phase == Phase.END && ConfigHandler.baublesInventoryButton)
+			InventoryBaublesButtonHandler.renderBaublesIcon();
 	}
 
 	public static void notifyPageChange() {
