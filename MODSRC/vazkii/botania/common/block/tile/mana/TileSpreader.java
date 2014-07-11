@@ -35,6 +35,7 @@ import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
+import vazkii.botania.api.mana.IKeyLocked;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.ILensEffect;
 import vazkii.botania.api.mana.IManaCollector;
@@ -52,7 +53,7 @@ import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.entity.EntityManaBurst.PositionProperties;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class TileSpreader extends TileSimpleInventory implements IManaCollector, ITileBound {
+public class TileSpreader extends TileSimpleInventory implements IManaCollector, ITileBound, IKeyLocked {
 
 	private static final int MAX_MANA = 1000;
 	private static final String TAG_MANA = "mana";
@@ -60,12 +61,16 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	private static final String TAG_REQUEST_UPDATE = "requestUpdate";
 	private static final String TAG_ROTATION_X = "rotationX";
 	private static final String TAG_ROTATION_Y = "rotationY";
-
+	
 	private static final String TAG_FORCE_CLIENT_BINDING_X = "forceClientBindingX";
 	private static final String TAG_FORCE_CLIENT_BINDING_Y = "forceClientBindingY";
 	private static final String TAG_FORCE_CLIENT_BINDING_Z = "forceClientBindingZ";
 
 	// Map Maker Tags
+	
+	private static final String TAG_INPUT_KEY = "inputKey";
+	private static final String TAG_OUTPUT_KEY = "outputKey";
+	
 	private static final String TAG_MAPMAKER_OVERRIDE = "mapmakerOverrideEnabled";
 	private static final String TAG_FORCED_COLOR = "mmForcedColor";
 	private static final String TAG_FORCED_MANA_PAYLOAD = "mmForcedManaPayload";
@@ -73,15 +78,20 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	private static final String TAG_FORCED_MANA_LOSS_PER_TICK = "mmForcedManaLossPerTick";
 	private static final String TAG_FORCED_GRAVITY = "mmForcedGravity";
 	private static final String TAG_FORCED_VELOCITY_MULTIPLIER = "mmForcedVelocityMultiplier";
+	
+	boolean mapmakerOverride = false;
+	int mmForcedColor = 0x20FF20;
+	int mmForcedManaPayload = 160;
+	int mmForcedTicksBeforeManaLoss = 60;
+	float mmForcedManaLossPerTick = 4F;
+	float mmForcedGravity = 0F;
+	float mmForcedVelocityMultiplier = 1F;
 
-	private boolean mapmakerOverride = false;
-	private int mmForcedColor = 0x20FF20;
-	private int mmForcedManaPayload = 160;
-	private int mmForcedTicksBeforeManaLoss = 60;
-	private float mmForcedManaLossPerTick = 4F;
-	private float mmForcedGravity = 0F;
-	private float mmForcedVelocityMultiplier = 1F;
-
+	String inputKey = "";
+	String outputKey = "";
+	
+	// End Map Maker Tags
+	
 	public static boolean staticRedstone = false;
 	public static boolean staticDreamwood = false;
 
@@ -136,6 +146,9 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			if(tileAt instanceof IManaPool) {
 				IManaPool pool = (IManaPool) tileAt;
 				if(pool != receiver) {
+					if(pool instanceof IKeyLocked && !((IKeyLocked) pool).getOutputKey().equals(getInputKey()))
+						continue;
+					
 					int manaInPool = pool.getCurrentMana();
 					if(manaInPool > 0 && !isFull()) {
 						int manaMissing = MAX_MANA - mana;
@@ -159,9 +172,11 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		if(isRedstone())
 			shouldShoot = redstone && !redstoneLastTick;
 
+		if(receiver != null && receiver instanceof IKeyLocked)
+			shouldShoot = ((IKeyLocked) receiver).getInputKey().equals(getOutputKey());
+		
 		if(shouldShoot)
 			tryShootBurst();
-
 
 		if(receiverLastTick != receiver && !worldObj.isRemote) {
 			requestsClientUpdate = true;
@@ -179,10 +194,14 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		cmp.setFloat(TAG_ROTATION_X, rotationX);
 		cmp.setFloat(TAG_ROTATION_Y, rotationY);
 		cmp.setBoolean(TAG_REQUEST_UPDATE, requestsClientUpdate);
+		
+		cmp.setString(TAG_INPUT_KEY, inputKey);
+		cmp.setString(TAG_OUTPUT_KEY, outputKey);
+
 		cmp.setInteger(TAG_FORCE_CLIENT_BINDING_X, receiver == null ? 0 : ((TileEntity) receiver).xCoord);
 		cmp.setInteger(TAG_FORCE_CLIENT_BINDING_Y, receiver == null ? -1 : ((TileEntity) receiver).yCoord);
 		cmp.setInteger(TAG_FORCE_CLIENT_BINDING_Z, receiver == null ? 0 : ((TileEntity) receiver).zCoord);
-
+		
 		cmp.setBoolean(TAG_MAPMAKER_OVERRIDE, mapmakerOverride);
 		cmp.setInteger(TAG_FORCED_COLOR, mmForcedColor);
 		cmp.setInteger(TAG_FORCED_MANA_PAYLOAD, mmForcedManaPayload);
@@ -201,6 +220,11 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		rotationX = cmp.getFloat(TAG_ROTATION_X);
 		rotationY = cmp.getFloat(TAG_ROTATION_Y);
 		requestsClientUpdate = cmp.getBoolean(TAG_REQUEST_UPDATE);
+		
+		if(cmp.hasKey(TAG_INPUT_KEY))
+			inputKey = cmp.getString(TAG_INPUT_KEY);
+		if(cmp.hasKey(TAG_OUTPUT_KEY))
+			inputKey = cmp.getString(TAG_OUTPUT_KEY);
 
 		mapmakerOverride = cmp.getBoolean(TAG_MAPMAKER_OVERRIDE);
 		mmForcedColor = cmp.getInteger(TAG_FORCED_COLOR);
@@ -488,5 +512,15 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	@Override
 	public int getMaxMana() {
 		return MAX_MANA;
+	}
+
+	@Override
+	public String getInputKey() {
+		return inputKey;
+	}
+
+	@Override
+	public String getOutputKey() {
+		return outputKey;
 	}
 }

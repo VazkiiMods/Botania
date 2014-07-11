@@ -29,6 +29,7 @@ import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.mana.IKeyLocked;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.ManaNetworkEvent;
@@ -41,7 +42,7 @@ import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.item.ModItems;
 
-public class TilePool extends TileMod implements IManaPool {
+public class TilePool extends TileMod implements IManaPool, IKeyLocked {
 
 	public static final int MAX_MANA = 1000000;
 
@@ -50,6 +51,11 @@ public class TilePool extends TileMod implements IManaPool {
 	private static final String TAG_OUTPUTTING = "outputting";
 	private static final String TAG_COLOR = "color";
 	private static final String TAG_MANA_CAP = "manaCap";
+	private static final String TAG_CAN_ACCEPT = "canAccept";
+	private static final String TAG_CAN_SPARE = "canSpare";
+	private static final String TAG_FRAGILE = "fragile";
+	private static final String TAG_INPUT_KEY = "inputKey";
+	private static final String TAG_OUTPUT_KEY = "outputKey";
 
 	boolean outputting = false;
 	public boolean alchemy = false;
@@ -59,8 +65,15 @@ public class TilePool extends TileMod implements IManaPool {
 	int mana;
 	int knownMana = -1;
 	int craftCooldown = 20;
+	
 	public int manaCap = MAX_MANA;
+	boolean canAccept = true;
+	boolean canSpare = true;
+	public boolean fragile = false;
 
+	String inputKey = "";
+	String outputKey = "";
+	
 	@Override
 	public boolean isFull() {
 		Block blockBelow = worldObj.getBlock(xCoord, yCoord - 1, zCoord);
@@ -177,22 +190,26 @@ public class TilePool extends TileMod implements IManaPool {
 					boolean didSomething = false;
 
 					if(outputting) {
-						if(getCurrentMana() > 0)
-							didSomething = true;
+						if(canSpare) {
+							if(getCurrentMana() > 0)
+								didSomething = true;
 
-						if(!worldObj.isRemote) {
-							int manaVal = Math.min(1000, Math.min(getCurrentMana(), mana.getMaxMana(stack) - mana.getMana(stack)));
-							mana.addMana(stack, manaVal);
-							recieveMana(-manaVal);
+							if(!worldObj.isRemote) {
+								int manaVal = Math.min(1000, Math.min(getCurrentMana(), mana.getMaxMana(stack) - mana.getMana(stack)));
+								mana.addMana(stack, manaVal);
+								recieveMana(-manaVal);
+							}
 						}
 					} else {
-						if(mana.getMana(stack) > 0)
-							didSomething = true;
+						if(canAccept) {
+							if(mana.getMana(stack) > 0)
+								didSomething = true;
 
-						if(!worldObj.isRemote) {
-							int manaVal = Math.min(1000, Math.min(MAX_MANA - getCurrentMana(), mana.getMana(stack)));
-							mana.addMana(stack, -manaVal);
-							recieveMana(manaVal);
+							if(!worldObj.isRemote) {
+								int manaVal = Math.min(1000, Math.min(MAX_MANA - getCurrentMana(), mana.getMana(stack)));
+								mana.addMana(stack, -manaVal);
+								recieveMana(manaVal);
+							}
 						}
 					}
 
@@ -213,7 +230,14 @@ public class TilePool extends TileMod implements IManaPool {
 		cmp.setInteger(TAG_MANA, mana);
 		cmp.setBoolean(TAG_OUTPUTTING, outputting);
 		cmp.setInteger(TAG_COLOR, color);
+		
 		cmp.setInteger(TAG_MANA_CAP, manaCap);
+		cmp.setBoolean(TAG_CAN_ACCEPT, canAccept);
+		cmp.setBoolean(TAG_CAN_SPARE, canSpare);
+		cmp.setBoolean(TAG_FRAGILE, fragile);
+		
+		cmp.setString(TAG_INPUT_KEY, inputKey);
+		cmp.setString(TAG_OUTPUT_KEY, outputKey);
 	}
 
 	@Override
@@ -221,9 +245,20 @@ public class TilePool extends TileMod implements IManaPool {
 		mana = cmp.getInteger(TAG_MANA);
 		outputting = cmp.getBoolean(TAG_OUTPUTTING);
 		color = cmp.getInteger(TAG_COLOR);
+		
 		if(cmp.hasKey(TAG_MANA_CAP))
 			manaCap = cmp.getInteger(TAG_MANA_CAP);
-
+		if(cmp.hasKey(TAG_CAN_ACCEPT))
+			canAccept = cmp.getBoolean(TAG_CAN_ACCEPT);
+		if(cmp.hasKey(TAG_CAN_SPARE))
+			canSpare = cmp.getBoolean(TAG_CAN_SPARE);
+		fragile = cmp.getBoolean(TAG_FRAGILE);
+		
+		if(cmp.hasKey(TAG_INPUT_KEY))
+			inputKey = cmp.getString(TAG_INPUT_KEY);
+		if(cmp.hasKey(TAG_OUTPUT_KEY))
+			inputKey = cmp.getString(TAG_OUTPUT_KEY);
+		
 		if(cmp.hasKey(TAG_KNOWN_MANA))
 			knownMana = cmp.getInteger(TAG_KNOWN_MANA);
 	}
@@ -275,5 +310,15 @@ public class TilePool extends TileMod implements IManaPool {
 	@Override
 	public int getCurrentMana() {
 		return worldObj != null && getBlockMetadata() == 1 ? MAX_MANA : mana;
+	}
+
+	@Override
+	public String getInputKey() {
+		return inputKey;
+	}
+
+	@Override
+	public String getOutputKey() {
+		return outputKey;
 	}
 }

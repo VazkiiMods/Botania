@@ -11,6 +11,7 @@
  */
 package vazkii.botania.common.block;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
@@ -32,6 +33,7 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.lib.LibRenderIDs;
+import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.item.block.ItemBlockPool;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -40,6 +42,8 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public class BlockPool extends BlockModContainer implements IWandHUD, IWandable, ILexiconable {
 
+	boolean lastFragile = false;
+	
 	protected BlockPool() {
 		super(Material.rock);
 		setHardness(2.0F);
@@ -64,10 +68,26 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		// NO-OP
 	}
-
+	
 	@Override
-	public int damageDropped(int par1) {
-		return par1;
+	public int damageDropped(int meta) {
+		return meta;
+	}
+	
+	@Override
+	public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6) {
+		TilePool pool = (TilePool) par1World.getTileEntity(par2, par3, par4);
+		lastFragile = pool.fragile;
+	}
+	
+	@Override
+	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
+		ArrayList<ItemStack> drops = new ArrayList();
+		
+		if(!lastFragile)
+			drops.add(new ItemStack(this, 1, metadata));
+		
+		return drops;
 	}
 
 	@Override
