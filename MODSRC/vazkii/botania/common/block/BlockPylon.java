@@ -67,13 +67,13 @@ public class BlockPylon extends BlockModContainer implements ILexiconable {
 
 	@Override
 	public void getSubBlocks(Item par1, CreativeTabs par2, List par3) {
-		for(int i = 0; i < 2; i++)
+		for(int i = 0; i < 3; i++)
 			par3.add(new ItemStack(par1, 1, i));
 	}
 
 	@Override
 	public IIcon getIcon(int par1, int par2) {
-		return par2 == 0 ? Blocks.diamond_block.getIcon(0, 0) : ModBlocks.storage.getIcon(0, 1);
+		return par2 == 0 ? Blocks.diamond_block.getIcon(0, 0) : ModBlocks.storage.getIcon(0, par2);
 	}
 
 	@Override

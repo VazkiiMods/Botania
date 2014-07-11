@@ -37,8 +37,12 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 	private static final ResourceLocation textureGreenOld = new ResourceLocation(LibResources.MODEL_PYLON_GREEN_OLD);
 	private static final ResourceLocation textureGreen = new ResourceLocation(LibResources.MODEL_PYLON_GREEN);
 
+	private static final ResourceLocation texturePinkOld = new ResourceLocation(LibResources.MODEL_PYLON_PINK_OLD);
+	private static final ResourceLocation texturePink = new ResourceLocation(LibResources.MODEL_PYLON_PINK);
+	
 	IPylonModel model;
 	public static boolean green = false;
+	public static boolean pink = false;
 
 	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float pticks) {
@@ -50,10 +54,15 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			GL11.glColor4f(1F, 1F, 1F, 1F);
-			if(tileentity.getWorldObj() != null)
+			if(tileentity.getWorldObj() != null) {
 				green = tileentity.getBlockMetadata() == 1;
+				pink = tileentity.getBlockMetadata() == 2;
+			}
 
-			Minecraft.getMinecraft().renderEngine.bindTexture(ConfigHandler.oldPylonModel ? green ? textureGreenOld : textureOld : green ? textureGreen : texture);
+			if(ConfigHandler.oldPylonModel)
+				Minecraft.getMinecraft().renderEngine.bindTexture(pink ? texturePinkOld : green ? textureGreenOld : textureOld);
+			else Minecraft.getMinecraft().renderEngine.bindTexture(pink ? texturePink : green ? textureGreen : texture);
+			
 			int worldTime = (int) (tileentity.getWorldObj() == null ? 0 : tileentity.getWorldObj().getTotalWorldTime());
 
 			if(tileentity != null)

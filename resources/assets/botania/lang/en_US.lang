@@ -214,6 +214,7 @@ tile.botania:pistonRelay.name=Force Relay
 tile.botania:distributor.name=Mana Distributor
 tile.botania:pylon0.name=Mana Pylon
 tile.botania:pylon1.name=Natura Pylon
+tile.botania:pylon2.name=Gaia Pylon
 tile.botania:manaBeacon0.name=White Unstable Beacon
 tile.botania:manaBeacon1.name=Orange Unstable Beacon
 tile.botania:manaBeacon2.name=Magenta Unstable Beacon
@@ -545,7 +546,7 @@ item.botania:travelBelt.name=Soujourner's Sash
 item.botania:knockbackBelt.name=Tectonic Girdle
 item.botania:icePendant.name=Snowflake Pendant
 item.botania:lavaPendant.name=Pyroclast Pendant
-item.botania:lifeEssence.name=Essence of Eternal Life
+item.botania:lifeEssence.name=Gaia Sprit
 item.botania:goldenLaurel.name=Golden Laurel Crown
 item.botania:redstoneRoot.name=Redstone Root
 item.botania:magnetRing.name=Ring of Magnetization
@@ -672,8 +673,6 @@ botania.page.runeAltar19=The &1Rune of Pride&0.
 botania.entry.terrasteel=Terrasteel
 botania.page.terrasteel0=&1Terrasteel&0 is a powerful metal infused with the magic of nature.<br>Creating this metal proves to not be a short order, in order to create it, toss a &1Manasteel Ingot&0, a &1Mana Pearl&0 and a &1Mana Diamond&0 on top of an &4Active &1Beacon&0. A &1Mana Pool&0 must be present nearby, being at least half full. The infusion will create a single &1Terrasteel Ingot&0.
 botania.page.terrasteel1=Creating &1Terrasteel&0
-botania.page.terrasteel2=By combining the &1Terrasteel&0 with a &1Nether Star&0 and &1Blaze Powder&0, it's possible to artificially create a small extract of &1Essence of Eternal Life&0, a very powerful component in the creation of magical flora and natural instruments.
-botania.page.terrasteel3=These come not from Kyubey
 
 # - MANA
 # -- AN INTRODUCTION TO MANA
@@ -1138,7 +1137,7 @@ botania.page.openBucket1=Geeks...
 
 # -- LIFE AGGREGATOR
 botania.entry.spawnerMover=Life Aggregator
-botania.page.spawnerMover0=By arranging &1Dragonstone&0, &1Elementium&0 and &1Essence of Eternal Life&0 in a specific pattern, one can create a device that can contain the curious energies of a &1Monster Spawner&0 and materialize it in another point in space.<br>It's to note that the device will shatter after being used once.
+botania.page.spawnerMover0=By arranging &1Dragonstone&0, &1Elementium&0 and &1Gaia Spirits&0 in a specific pattern, one can create a device that can contain the curious energies of a &1Monster Spawner&0 and materialize it in another point in space.<br>It's to note that the device will shatter after being used once.
 botania.page.spawnerMover1=We got the spawner, but this isn't a won run yet
 
 # -- ROD OF BIFROST
@@ -1211,7 +1210,7 @@ botania.page.lavaPendant1=Hanako could have used one of these
 
 # -- GOLDEN LAUREL CROWN
 botania.entry.goldenLaurel=Golden Laurel Crown
-botania.page.goldenLaurel0=One of the uses for &1Essence of Eternal Life&0 is to, of course, grant a layer of immortality to one that uses it, while wearing a &1Golden Laurel Crown&0, if the wearer were to die, the crown will shatter, regenerating all of their health and giving them a short period of invincibility.
+botania.page.goldenLaurel0=One of the uses for &1Gaia Spritis&0 is to, grant a layer of immortality to one that uses them, while wearing a &1Golden Laurel Crown&0, if the wearer were to die, the crown will shatter, regenerating all of their health and giving them a short period of invincibility.
 botania.page.goldenLaurel1=Given the theme, probably Viridi
 
 # -- RING OF CHORDATA
@@ -1236,7 +1235,7 @@ botania.page.divaCharm1=You shall not disrespect Big Sister
 
 # -- FLUGEL TIARA
 botania.entry.flightTiara=Flügel Tiara
-botania.page.flightTiara0=The &4Flügel&0 were once a dominant species in the lands, now they're but a race past extinct, once created as godslayers, who possessed the ability of flight.<br>The usage of &1Essence of Eternal Life&0 allows for a small replica of their power, in the form of the &1Flügel Tiara&0, which, at the cost of &4Mana&0 allows for flight.
+botania.page.flightTiara0=The &4Flügel&0 were once a dominant species in the lands, now they're but a race past extinct, once created as godslayers, who possessed the ability of flight.<br>The usage of &1Gaia Spirits&0 allows for a small replica of their power, in the form of the &1Flügel Tiara&0, which, at the cost of &4Mana&0 allows for flight.
 botania.page.flightTiara1=Forty thousand books from another world
 
 # -- GREAT FAIRY RING
@@ -1246,7 +1245,7 @@ botania.page.pixieRing1=We got square heads, big pointy caps
 
 # -- GLOBETROTTER'S SASH
 botania.entry.superTravelBelt=Globetrotter's Sash
-botania.page.superTravelBelt0=The &1Globetrotter's Sash&0 is, in layman's terms, an upgrade to then &1Soujourner's Sash&0, by using &1Essence of Eternal Life&0 and some Elven resources, this new belt allows the wearer to reach incredible speeds to which the &1Soujourner's Sash&0 doesn't stand a chance.
+botania.page.superTravelBelt0=The &1Globetrotter's Sash&0 is, in layman's terms, an upgrade to then &1Soujourner's Sash&0, by using &1Gaia Spirits&0 and some Elven resources, this new belt allows the wearer to reach incredible speeds to which the &1Soujourner's Sash&0 doesn't stand a chance.
 botania.page.superTravelBelt1=No time for guessing, follow my plan instead
 
 # - ALFHOMANCY

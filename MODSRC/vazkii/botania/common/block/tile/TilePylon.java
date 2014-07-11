@@ -76,7 +76,7 @@ public class TilePylon extends TileEntity {
 		}
 
 		if(worldObj.rand.nextBoolean() && worldObj.isRemote)
-			Botania.proxy.sparkleFX(worldObj, xCoord + Math.random(), yCoord + Math.random() * 1.5, zCoord + Math.random(), 0.5F, meta == 1 ? 1F : 0.5F, meta == 1 ? 0.5F : 1F, (float) Math.random(), 2);
+			Botania.proxy.sparkleFX(worldObj, xCoord + Math.random(), yCoord + Math.random() * 1.5, zCoord + Math.random(), meta == 2 ? 1F : 0.5F, meta == 1 ? 1F : 0.5F, meta == 1 ? 0.5F : 1F, (float) Math.random(), 2);
 	}
 
 	private Block getBlockForMeta() {

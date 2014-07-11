@@ -107,7 +107,6 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeKnocbackBelt;
 	public static IRecipe recipeIcePendant;
 	public static IRecipe recipeLavaPendant;
-	public static IRecipe recipeLifeEssence;
 	public static IRecipe recipeGoldenLaurel;
 	public static IRecipe recipeTinyPlanetBlock;
 	public static IRecipe recipeAlchemyCatalyst;
@@ -603,10 +602,6 @@ public final class ModCrafingRecipes {
 				'F', LibOreDict.RUNE[1]);
 		recipeLavaPendant = BotaniaAPI.getLatestAddedRecipe();
 
-		// Essence of Eternal Life Recipe
-		addShapelessOreDictRecipe(new ItemStack(ModItems.manaResource, 12, 5), LibOreDict.TERRA_STEEL, new ItemStack(Items.nether_star), new ItemStack(Items.blaze_powder));
-		recipeLifeEssence = BotaniaAPI.getLatestAddedRecipe();
-
 		// Golden Laurel Crown Recipe
 		addOreDictRecipe(new ItemStack(ModItems.goldLaurel),
 				"G G", "LEL", "LLL",
@@ -763,7 +758,7 @@ public final class ModCrafingRecipes {
 		recipeAlfPortal = BotaniaAPI.getLatestAddedRecipe();
 
 		// Natura Pylon Recipe
-		addShapelessOreDictRecipe(new ItemStack(ModBlocks.pylon, 1, 1), ModBlocks.pylon, LibOreDict.LIFE_ESSENCE, LibOreDict.LIFE_ESSENCE);
+		addShapelessOreDictRecipe(new ItemStack(ModBlocks.pylon, 1, 2), ModBlocks.pylon, LibOreDict.ELEMENTIUM, ModBlocks.pylon);
 		recipeNaturaPylon = BotaniaAPI.getLatestAddedRecipe();
 
 		// Rod of the Seas Recipe
