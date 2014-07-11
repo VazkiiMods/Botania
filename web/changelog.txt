@@ -1,3 +1,13 @@
+r1.1 77
+*Added NBT tags for mapmakers to allow control of whether Mana Pools can input/output mana to items.
+*Added an IO Key system for mapmakers that allows them to define which pools/spreaders a spreader is allowed to shoot mana to.
+*Changed the Mana Mirror texture.
+*Changed the way the remote spreader rotation works, it now rotates instantly and doesn't derp around all over the place.
+*Fixed crash on opening inventory on 1.7.10.
+*Fixed the effects of the Mana in a Bottle being out of sync on servers.
+*Rainbow Tinted Paintslinger Lenses will no longer create jeb_ sheep but rather randomly colored sheep.
+*[API] Added IKeyLocked.
+*[API] Increased apiVersion to 3.
 r1.1 76
 *Added a Baubles button to the inventory that allows you to swap between the Baubles and Normal inventories instead of using the Keybind. (This can be toggled in the config).
 *Fixed Bifrost blocks being pickupable in creative.
