@@ -15,10 +15,13 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.common.block.tile.TileBifrost;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockBifrost extends BlockModContainer {
@@ -26,7 +29,7 @@ public class BlockBifrost extends BlockModContainer {
 	public BlockBifrost() {
 		super(Material.glass);
 		setBlockName(LibBlockNames.BIFROST);
-		setLightLevel(0.6F);
+		setLightOpacity(0);
 		setBlockUnbreakable();
 		setStepSound(soundTypeGlass);
 	}
@@ -39,6 +42,11 @@ public class BlockBifrost extends BlockModContainer {
 	@Override
 	public boolean isOpaqueCube() {
 		return false;
+	}
+	
+	@Override
+	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
+		return new ItemStack(ModItems.rainbowRod);
 	}
 
 	public boolean shouldSideBeRendered1(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int p_149646_5_) {
