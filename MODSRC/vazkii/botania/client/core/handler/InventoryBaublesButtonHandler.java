@@ -14,7 +14,6 @@ package vazkii.botania.client.core.handler;
 import java.util.Arrays;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.renderer.RenderHelper;
@@ -27,6 +26,7 @@ import net.minecraft.util.StatCollector;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.client.core.helper.TransientScaledResolution;
 import vazkii.botania.client.lib.LibResources;
 import baubles.client.gui.GuiPlayerExpanded;
 
@@ -41,7 +41,7 @@ public final class InventoryBaublesButtonHandler {
 			boolean creative = mc.currentScreen instanceof GuiContainerCreative;
 			boolean baubles = mc.currentScreen instanceof GuiPlayerExpanded;
 
-			ScaledResolution res = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
+			TransientScaledResolution res = new TransientScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
 			int x = res.getScaledWidth() / 2 - 19;
 			int y = res.getScaledHeight() / 2 - 75;
 
