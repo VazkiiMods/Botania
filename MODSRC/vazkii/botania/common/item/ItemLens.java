@@ -51,6 +51,7 @@ import vazkii.botania.api.mana.IManaBlock;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
@@ -84,11 +85,14 @@ public class ItemLens extends ItemMod implements ILens {
 		blacklistLenses(PAINT, PHANTOM);
 	}
 
-	private static final List<Block> paintableBlocks = new ArrayList() {{
+	static final List<Block> paintableBlocks = new ArrayList() {{
 		add(Blocks.stained_glass);
 		add(Blocks.stained_glass_pane);
 		add(Blocks.stained_hardened_clay);
 		add(Blocks.wool);
+		add(Blocks.carpet);
+		add(ModBlocks.unstableBlock);
+		add(ModBlocks.manaBeacon);
 	}
 	};
 
