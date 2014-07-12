@@ -15,12 +15,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAttackOnCollide;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.boss.IBossDisplayData;
@@ -35,14 +33,17 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibObfuscation;
+import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class EntityDoppleganger extends EntityCreature implements IBossDisplayData {
 
 	public static final int SPAWN_TICKS = 100;
 
-	private static final float MAX_HP = 200F; // TODO
+	private static final float MAX_HP = 200F;
 
 	private static final String TAG_SOURCE_X = "sourceX";
 	private static final String TAG_SOURCE_Y = "sourceY";
@@ -51,6 +52,13 @@ public class EntityDoppleganger extends EntityCreature implements IBossDisplayDa
 	private static final String TAG_INVUL_TIME = "invulTime";
 	private static final String TAG_AGGRO = "aggro";
 	private static final String TAG_TP_DELAY = "tpDelay";
+	
+	private static final int[][] PYLON_LOCATIONS = new int[][] {
+		{ 4, 1, 4 },
+		{ 4, 1, -4 },
+		{ -4, 1, 4 },
+		{ -4, 1, -4 }
+	};
 	
 	boolean spawnLandmines = false;
 	boolean spawnPixies = false;
@@ -68,6 +76,17 @@ public class EntityDoppleganger extends EntityCreature implements IBossDisplayDa
 	public static boolean spawn(ItemStack par1ItemStack, World par3World, int par4, int par5, int par6) {
 		Block block = par3World.getBlock(par4, par5, par6);
 		if(block == Blocks.beacon && !par3World.isRemote) {
+			for(int[] coords : PYLON_LOCATIONS) {
+				int x = par4 + coords[0];
+				int y = par5 + coords[1];
+				int z = par6 + coords[2];
+
+				Block blockat = par3World.getBlock(x, y, z);
+				int meta = par3World.getBlockMetadata(x, y, z);
+				if(blockat != ModBlocks.pylon || meta != 2)
+					return false;
+			}
+			
 			par1ItemStack.stackSize--;
 			EntityDoppleganger e = new EntityDoppleganger(par3World);
 			e.setPosition(par4 + 0.5, par5 + 3, par6 + 0.5);
@@ -189,7 +208,13 @@ public class EntityDoppleganger extends EntityCreature implements IBossDisplayDa
 	protected boolean canDespawn() {
 		return false;
 	}
-
+	
+	@Override
+	protected void dropFewItems(boolean par1, int par2) {
+		if(par1) 
+			entityDropItem(new ItemStack(ModItems.manaResource, 12, 5), 1F);
+	}
+	
 	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
@@ -275,7 +300,8 @@ public class EntityDoppleganger extends EntityCreature implements IBossDisplayDa
 		}
 	}
 
-	// Enderman code
+	// EntityEnderman code below ============================================================================
+	
 	protected boolean teleportRandomly() {
 		double d0 = this.posX + (this.rand.nextDouble() - 0.5D) * 64.0D;
 		double d1 = this.posY + (double)(this.rand.nextInt(64) - 32);
@@ -315,6 +341,7 @@ public class EntityDoppleganger extends EntityCreature implements IBossDisplayDa
 				if(this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).isEmpty() && !this.worldObj.isAnyLiquid(this.boundingBox))
 					flag = true;
 				
+				// Prevent out of bounds teleporting
 				ChunkCoordinates source = getSource();
 				if(vazkii.botania.common.core.helper.MathHelper.pointDistanceSpace(posX, posY, posZ, source.posX, source.posY, source.posZ) > 15)
 					flag = false;

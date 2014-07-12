@@ -159,6 +159,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeLensWeight;
 	public static IRecipe recipeLensPaint;
 	public static List<IRecipe> recipesMiniIsland;
+	public static IRecipe recipeGaiaPylon;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -963,7 +964,15 @@ public final class ModCrafingRecipes {
 					'S', new ItemStack(ModItems.grassSeeds),
 					'D', new ItemStack(Blocks.dirt));
 		recipesMiniIsland = BotaniaAPI.getLatestAddedRecipes(16);
-
+		
+		// Gaia Pylon Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.pylon, 1, 2), 
+				" D ", "EPE", " D ",
+				'D', LibOreDict.PIXIE_DUST,
+				'E', LibOreDict.ELEMENTIUM,
+				'P', new ItemStack(ModBlocks.pylon));
+		recipeGaiaPylon = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",

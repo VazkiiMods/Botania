@@ -26,6 +26,7 @@ import vazkii.botania.common.crafting.ModManaConjurationRecipes;
 import vazkii.botania.common.crafting.ModManaInfusionRecipes;
 import vazkii.botania.common.crafting.ModPetalRecipes;
 import vazkii.botania.common.crafting.ModRuneRecipes;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
 import vazkii.botania.common.lexicon.page.PageElvenRecipe;
 import vazkii.botania.common.lexicon.page.PageImage;
@@ -151,6 +152,7 @@ public final class LexiconData {
 	public static LexiconEntry alfhomancyIntro;
 	public static LexiconEntry elvenMessage;
 	public static LexiconEntry elvenResources;
+	public static LexiconEntry gaiaRitual;
 
 	public static LexiconEntry unstableBlocks;
 	public static LexiconEntry decorativeBlocks;
@@ -501,6 +503,10 @@ public final class LexiconData {
 		elvenResources = new ALexiconEntry(LibLexicon.ALF_RESOURCES, categoryAlfhomancy);
 		elvenResources.setPriority().setLexiconPages(new PageText("0"), new PageElvenRecipe("1", ModElvenTradeRecipes.dreamwoodRecipe), new PageText("2"), new PageElvenRecipe("3", ModElvenTradeRecipes.elementiumRecipes), new PageElvenRecipe("4", ModElvenTradeRecipes.pixieDustRecipe), new PageElvenRecipe("5", ModElvenTradeRecipes.dragonstoneRecipe), new PageText("6"), new PageElvenRecipe("7", ModElvenTradeRecipes.elvenQuartzRecipe));
 
+		gaiaRitual = new ALexiconEntry(LibLexicon.ALF_GAIA_RITUAL, categoryAlfhomancy);
+		gaiaRitual.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeGaiaPylon), new PageImage("2", LibResources.ENTRY_GAIA_RITUAL), new PageText("3"), new PageText("4"));
+		LexiconRecipeMappings.map(new ItemStack(ModItems.manaResource, 1, 5), gaiaRitual, 0);
+		
 		// MISCLENAEOUS ENTRIES
 		unstableBlocks = new BLexiconEntry(LibLexicon.MISC_UNSTABLE_BLOCKS, categoryMisc);
 		unstableBlocks.setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_UNSTABLE_BLOCK), new PageCraftingRecipe("2", ModCrafingRecipes.recipesUnstableBlocks), new PageText("3"), new PageImage("4", LibResources.ENTRY_UNSTABLE_BEACON), new PageCraftingRecipe("5", ModCrafingRecipes.recipesManaBeacons), new PageText("6"), new PageCraftingRecipe("7", ModCrafingRecipes.recipesSignalFlares));

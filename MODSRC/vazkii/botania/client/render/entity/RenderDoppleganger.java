@@ -61,7 +61,6 @@ public class RenderDoppleganger extends RenderBiped {
 			disfiguration = (0.025F + dopple.hurtTime * ((1F - 0.15F) / 20F)) / 2F;
 			grainIntensity = 0.05F + dopple.hurtTime * ((1F - 0.15F) / 10F);
 		}
-
 		
 		ShaderHelper.useShader(ShaderHelper.doppleganger, callback);
 		super.doRender(par1Entity, par2, par4, par6, par8, par9);

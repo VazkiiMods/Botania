@@ -165,7 +165,7 @@ entity.Botania.botania:signalFlare.name=Signal Flare
 entity.Botania.botania:pixie.name=Pixie
 entity.Botania.botania:flameRing.name=Flame Ring
 entity.Botania.botania:vineBall.name=Vine Ball
-entity.Botania.botania:doppleganger.name=Gaia Guardian
+entity.Botania.botania:doppleganger.name=Guardian of Gaia
 entity.Botania.botania:magicLandmine.name=Gaia Trap
 
 # BLOCK NAMES
@@ -555,7 +555,7 @@ item.botania:travelBelt.name=Soujourner's Sash
 item.botania:knockbackBelt.name=Tectonic Girdle
 item.botania:icePendant.name=Snowflake Pendant
 item.botania:lavaPendant.name=Pyroclast Pendant
-item.botania:lifeEssence.name=Gaia Sprit
+item.botania:lifeEssence.name=Gaia Spirit
 item.botania:goldenLaurel.name=Golden Laurel Crown
 item.botania:redstoneRoot.name=Redstone Root
 item.botania:magnetRing.name=Ring of Magnetization
@@ -1219,7 +1219,7 @@ botania.page.lavaPendant1=Hanako could have used one of these
 
 # -- GOLDEN LAUREL CROWN
 botania.entry.goldenLaurel=Golden Laurel Crown
-botania.page.goldenLaurel0=One of the uses for &1Gaia Spritis&0 is to, grant a layer of immortality to one that uses them, while wearing a &1Golden Laurel Crown&0, if the wearer were to die, the crown will shatter, regenerating all of their health and giving them a short period of invincibility.
+botania.page.goldenLaurel0=One of the uses for &1Gaia Spririts&0 is to, grant a layer of immortality to one that uses them, while wearing a &1Golden Laurel Crown&0, if the wearer were to die, the crown will shatter, regenerating all of their health and giving them a short period of invincibility.
 botania.page.goldenLaurel1=Given the theme, probably Viridi
 
 # -- RING OF CHORDATA
@@ -1294,6 +1294,14 @@ botania.page.elfResources4=Trading for &1Pixie Dust&0
 botania.page.elfResources5=Trading for &1Dragonstone&0
 botania.page.elfResources6=The &1Elves&0 are also quite keen on the white posh block from the &4Nether&0, &1Nether Quartz&0, the ones they have on their world are tinted green. This quartz works just like any other quartz, be it normal &1Nether Quartz&0 or any of the decorative variants you can find on the &4Decorative Blocks&0 entry under &4Miscelaneous&0.
 botania.page.elfResources7=Trading for &1Elven Quartz&0
+
+# -- RITUAL OF GAIA
+botania.entry.gaiaRitual=Ritual of Gaia
+botania.page.gaiaRitual0=The &4Ritual of Gaia&0 is a procedure often enacted by the elves, which is the only way to acquire &1Gaia Spirits&0, which are essences of the power of the Goddess of Gaia herself.<br>This ritual required an &4Active&0 &1Beacon&0 with some &1Gaia Pylons&0 (read on) one level above the beacon as the altar, as well as a single &1Terrasteel Ingot&0 as a sacrifice.
+botania.page.gaiaRitual1=Creating &1Gaia Pylons&0
+botania.page.gaiaRitual2=Place the pylons (1 block above the beacon)
+botania.page.gaiaRitual3=To start the ritual, simply shift-right click the &1Beacon&0 block with a &1Terrasteel Ingot&0, take a step back and prepare to fight for your life. Good preparation is required, as the fight with the &4Guardian of Gaia&0 can be even harder than that of the &4Wither&0. Upon defeating the &4Guardian&0, one can collect their prize, a handful of &1Spirits of Gaia&0.
+botania.page.gaiaRitual4=A few pointers to take in mind are as follows. Enchanted &1Elementium Armor&0 is highly recomended, even more so than conventional &1Diamond Armor&0 due to the &1Pixies&0 it can spawn.<br>The effect on the &1Beacon&0 is nullified during the battle, that should be taken in mind when preparing.<br>Lastly, stay away from the purple.
 
 # - MISCLANEOUS
 # -- UNSTABLE CUBE
