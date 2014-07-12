@@ -57,12 +57,12 @@ public final class ShaderHelper {
 		if(shader != 0) {
 			int time = ARBShaderObjects.glGetUniformLocationARB(shader, "time");
 			ARBShaderObjects.glUniform1iARB(time, ClientTickHandler.ticksInGame);
-			
+
 			if(callback != null)
 				callback.call(shader);
 		}
 	}
-	
+
 	public static void useShader(int shader) {
 		useShader(shader, null);
 	}
@@ -184,7 +184,7 @@ public final class ShaderHelper {
 
 		return source.toString();
 	}
-	
+
 	public static abstract class ShaderCallback {
 		public abstract void call(int shader);
 	}

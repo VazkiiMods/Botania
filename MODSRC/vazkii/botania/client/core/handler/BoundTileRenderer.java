@@ -42,7 +42,6 @@ public final class BoundTileRenderer {
 		Tessellator.renderingWorldRenderer = false;
 
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-		World world = player.worldObj;
 		ItemStack stack = player.getCurrentEquippedItem();
 		if(stack != null && stack.getItem() instanceof ICoordBoundItem) {
 			ChunkCoordinates coords = ((ICoordBoundItem) stack.getItem()).getBinding(stack);

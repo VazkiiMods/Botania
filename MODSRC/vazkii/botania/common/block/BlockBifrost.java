@@ -43,7 +43,7 @@ public class BlockBifrost extends BlockModContainer {
 	public boolean isOpaqueCube() {
 		return false;
 	}
-	
+
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
 		return new ItemStack(ModItems.rainbowRod);

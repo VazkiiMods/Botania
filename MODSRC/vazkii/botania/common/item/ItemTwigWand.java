@@ -42,7 +42,6 @@ import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
-import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
@@ -70,25 +69,25 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 			TileEntity tile = par3World.getTileEntity(boundSpreader.posX, boundSpreader.posY, boundSpreader.posZ);
 			if(tile instanceof TileSpreader) {
 				TileSpreader spreader = (TileSpreader) tile;
-				
+
 				Vector3 spreaderVec = Vector3.fromTileEntityCenter(spreader);
 				Vector3 blockVec = new Vector3(par4 + 0.5, par5 + 0.5, par6 + 0.5);
 				Vector3 diffVec =  blockVec.sub(spreaderVec);
 				Vector3 diffVec2D = new Vector3(diffVec.x, diffVec.z, 0);
 				Vector3 rotVec = new Vector3(0, 1, 0);
 				double angle = rotVec.angle(diffVec2D) / Math.PI * 180.0;
-				
+
 				if(par4 < spreader.xCoord)
 					angle = -angle;
-				
+
 				spreader.rotationX = (float) angle + 90;
-				
+
 				rotVec = new Vector3(diffVec.x, 0, diffVec.z);
 				angle = diffVec.angle(rotVec) * 180F / Math.PI;
 				if(par5 < boundSpreader.posY)
 					angle = -angle;
 				spreader.rotationY = (float) angle;
-				
+
 				spreader.checkForReceiver();
 				par3World.markBlockForUpdate(boundSpreader.posX, boundSpreader.posY, boundSpreader.posZ);
 				return true;

@@ -13,11 +13,9 @@ package vazkii.botania.common.item;
 
 import java.util.List;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -44,7 +42,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
 		if(par1ItemStack.getItemDamage() == 4)
 			return EntityDoppleganger.spawn(par1ItemStack, par3World, par4, par5, par6);
-		
+
 		return super.onItemUse(par1ItemStack, par2EntityPlayer, par3World, par4, par5, par6, par7, par8, par9, par10);
 	}
 

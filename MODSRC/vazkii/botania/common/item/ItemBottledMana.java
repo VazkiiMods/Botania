@@ -178,7 +178,7 @@ public class ItemBottledMana extends ItemMod {
 		}
 		}
 	}
-	
+
 	@Override
 	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
 		getSeed(par1ItemStack);
@@ -187,14 +187,14 @@ public class ItemBottledMana extends ItemMod {
 	public void randomEffect(EntityPlayer player, ItemStack stack) {
 		effect(player, new Random(getSeed(stack)).nextInt(16));
 	}
-	
+
 	long getSeed(ItemStack stack) {
 		long seed = ItemNBTHelper.getLong(stack, TAG_SEED, -1);
 		if(seed == -1)
 			return randomSeed(stack);
 		return seed;
 	}
-	
+
 	long randomSeed(ItemStack stack) {
 		long seed = Math.abs(itemRand.nextLong());
 		ItemNBTHelper.setLong(stack, TAG_SEED, seed);

@@ -53,16 +53,16 @@ public class PageRuneRecipe extends PagePetalRecipe<RecipeRuneAltar> {
 		font.drawString(manaUsage, gui.getLeft() + gui.getWidth() / 2 - font.getStringWidth(manaUsage) / 2, gui.getTop() + 115, 0x66000000);
 
 		int ratio = 10;
-		int x = gui.getLeft() + gui.getWidth() / 2 - 50; 
+		int x = gui.getLeft() + gui.getWidth() / 2 - 50;
 		int y = gui.getTop() + 125;
 
-		if(mx > x + 1 && mx <= x + 101 && my > y - 14 && my <= y + 11) 
+		if(mx > x + 1 && mx <= x + 101 && my > y - 14 && my <= y + 11)
 			ratio = 1;
-		
+
 		HUDHandler.renderManaBar(x, y, 0x0000FF, 0.75F, recipe.getManaUsage(), TilePool.MAX_MANA / ratio);
-		
+
 		String ratioString = String.format(StatCollector.translateToLocal("botaniamisc.ratio"), ratio);
-		
+
 		boolean unicode = font.getUnicodeFlag();
 		font.setUnicodeFlag(true);
 		font.drawString(ratioString, x + 100 - font.getStringWidth(ratioString), y + 5, 0x50000000);

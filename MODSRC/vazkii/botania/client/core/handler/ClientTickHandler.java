@@ -30,7 +30,6 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import cpw.mods.fml.common.gameevent.TickEvent.RenderTickEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.Type;
 
 public class ClientTickHandler {
 
@@ -85,7 +84,7 @@ public class ClientTickHandler {
 			}
 		}
 	}
-	
+
 	@SubscribeEvent
 	public void renderTickEnd(RenderTickEvent event) {
 		if(event.phase == Phase.END && ConfigHandler.baublesInventoryButton)

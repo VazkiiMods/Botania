@@ -67,7 +67,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked {
 	int mana;
 	int knownMana = -1;
 	int craftCooldown = 20;
-	
+
 	public int manaCap = MAX_MANA;
 	boolean canAccept = true;
 	boolean canSpare = true;
@@ -75,7 +75,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked {
 
 	String inputKey = "";
 	String outputKey = "";
-	
+
 	@Override
 	public boolean isFull() {
 		Block blockBelow = worldObj.getBlock(xCoord, yCoord - 1, zCoord);
@@ -233,12 +233,12 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked {
 		cmp.setInteger(TAG_MANA, mana);
 		cmp.setBoolean(TAG_OUTPUTTING, outputting);
 		cmp.setInteger(TAG_COLOR, color);
-		
+
 		cmp.setInteger(TAG_MANA_CAP, manaCap);
 		cmp.setBoolean(TAG_CAN_ACCEPT, canAccept);
 		cmp.setBoolean(TAG_CAN_SPARE, canSpare);
 		cmp.setBoolean(TAG_FRAGILE, fragile);
-		
+
 		cmp.setString(TAG_INPUT_KEY, inputKey);
 		cmp.setString(TAG_OUTPUT_KEY, outputKey);
 	}
@@ -248,7 +248,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked {
 		mana = cmp.getInteger(TAG_MANA);
 		outputting = cmp.getBoolean(TAG_OUTPUTTING);
 		color = cmp.getInteger(TAG_COLOR);
-		
+
 		if(cmp.hasKey(TAG_MANA_CAP))
 			manaCap = cmp.getInteger(TAG_MANA_CAP);
 		if(cmp.hasKey(TAG_CAN_ACCEPT))
@@ -256,12 +256,12 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked {
 		if(cmp.hasKey(TAG_CAN_SPARE))
 			canSpare = cmp.getBoolean(TAG_CAN_SPARE);
 		fragile = cmp.getBoolean(TAG_FRAGILE);
-		
+
 		if(cmp.hasKey(TAG_INPUT_KEY))
 			inputKey = cmp.getString(TAG_INPUT_KEY);
 		if(cmp.hasKey(TAG_OUTPUT_KEY))
 			inputKey = cmp.getString(TAG_OUTPUT_KEY);
-		
+
 		if(cmp.hasKey(TAG_KNOWN_MANA))
 			knownMana = cmp.getInteger(TAG_KNOWN_MANA);
 	}

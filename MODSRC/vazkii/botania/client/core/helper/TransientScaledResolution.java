@@ -16,7 +16,7 @@ import net.minecraft.util.MathHelper;
 
 // Copy of ScaledResolution with 1.7.2 and 1.7.10 support. Will drop once 1.7.10 is in full use
 public class TransientScaledResolution {
-	
+
 	private int scaledWidth;
 	private int scaledHeight;
 	private double scaledWidthD;
@@ -24,40 +24,40 @@ public class TransientScaledResolution {
 	private int scaleFactor;
 
 	public TransientScaledResolution(GameSettings par1GameSettings, int par2, int par3) {
-		this.scaledWidth = par2;
-		this.scaledHeight = par3;
-		this.scaleFactor = 1;
+		scaledWidth = par2;
+		scaledHeight = par3;
+		scaleFactor = 1;
 		int k = par1GameSettings.guiScale;
 
 		if (k == 0)
 			k = 1000;
 
-		while (this.scaleFactor < k && this.scaledWidth / (this.scaleFactor + 1) >= 320 && this.scaledHeight / (this.scaleFactor + 1) >= 240)
-			++this.scaleFactor;
+		while (scaleFactor < k && scaledWidth / (scaleFactor + 1) >= 320 && scaledHeight / (scaleFactor + 1) >= 240)
+			++scaleFactor;
 
-		this.scaledWidthD = (double)this.scaledWidth / (double)this.scaleFactor;
-		this.scaledHeightD = (double)this.scaledHeight / (double)this.scaleFactor;
-		this.scaledWidth = MathHelper.ceiling_double_int(this.scaledWidthD);
-		this.scaledHeight = MathHelper.ceiling_double_int(this.scaledHeightD);
+		scaledWidthD = (double)scaledWidth / (double)scaleFactor;
+		scaledHeightD = (double)scaledHeight / (double)scaleFactor;
+		scaledWidth = MathHelper.ceiling_double_int(scaledWidthD);
+		scaledHeight = MathHelper.ceiling_double_int(scaledHeightD);
 	}
 
 	public int getScaledWidth() {
-		return this.scaledWidth;
+		return scaledWidth;
 	}
 
 	public int getScaledHeight() {
-		return this.scaledHeight;
+		return scaledHeight;
 	}
 
 	public double getScaledWidth_double() {
-		return this.scaledWidthD;
+		return scaledWidthD;
 	}
 
 	public double getScaledHeight_double() {
-		return this.scaledHeightD;
+		return scaledHeightD;
 	}
 
 	public int getScaleFactor() {
-		return this.scaleFactor;
+		return scaleFactor;
 	}
 }

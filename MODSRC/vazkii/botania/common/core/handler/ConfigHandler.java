@@ -111,7 +111,7 @@ public final class ConfigHandler {
 
 		desc = "Set to false to disable the inventory button to open the Baubles menu.";
 		baublesInventoryButton = loadPropBool("baublesButton.enabled", desc, baublesInventoryButton);
-		
+
 		desc = "Set to false to disable checking and alerting when new Botania versions come out.";
 		versionCheckEnabled = loadPropBool("versionChecking.enabled", desc, versionCheckEnabled);
 

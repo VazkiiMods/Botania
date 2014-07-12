@@ -36,7 +36,7 @@ public final class InventoryBaublesButtonHandler {
 
 	static ResourceLocation icon = new ResourceLocation(LibResources.GUI_BAUBLES);
 	static boolean mouseDown = false;
-	
+
 	public static void renderBaublesIcon() {
 		Minecraft mc = Minecraft.getMinecraft();
 		if(mc.currentScreen != null && (mc.currentScreen instanceof GuiInventory || mc.currentScreen instanceof GuiContainerCreative || mc.currentScreen instanceof GuiPlayerExpanded)) {
@@ -54,10 +54,10 @@ public final class InventoryBaublesButtonHandler {
 					y += 13;
 				} else return;
 			}
-			
+
 			if(!mc.thePlayer.getActivePotionEffects().isEmpty())
 				x += 60;
-				
+
 			RenderHelper.disableStandardItemLighting();
 			GL11.glColor4f(1F, 1F, 1F, 1F);
 			GL11.glScalef(0.5F, 0.5F, 0.5F);
@@ -90,8 +90,8 @@ public final class InventoryBaublesButtonHandler {
 					mouseDown = true;
 				}
 			}
- 		}
-		
+		}
+
 		if(mouseDown && !Mouse.isButtonDown(0))
 			mouseDown = false;
 	}
