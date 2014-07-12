@@ -1,3 +1,11 @@
+r1.1 78
+*All renders that relied on world time now use an internal client ticker, this fixes animations for those renders being rubberbanding on servers. (Pylons, floating flowers, etc.)
+*Changed the crafting method of the Natura Pylons to not require Essence of Eternal Life/Gaia Spirits.
+*Fixed Mana Spreader redstone control not being functional.
+*Fixed the Baubles button opening an empty baubles gui.
+*Fixed the Baubles button shifting if there's potion effects active.
+*Rebalanced the elemental rune recipes.
+*Removed Essence of Eternal Life. Added Gaia Spirits to replace it. Anything crafted with Essence of Eternal Life now requires Gaia Spirits and is now elven knowledge. Gaia Spirits are acquired through the <b>Ritual of Gaia</b> (see in the Alfhomancy section, requires elven knowledge, <i>hint, it's a new boss</i>).
 r1.1 77
 *Added NBT tags for mapmakers to allow control of whether Mana Pools can input/output mana to items.
 *Added an IO Key system for mapmakers that allows them to define which pools/spreaders a spreader is allowed to shoot mana to.
