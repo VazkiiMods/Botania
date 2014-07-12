@@ -36,6 +36,7 @@ public final class ShaderHelper {
 	public static int pylonGlow = 0;
 	public static int enchanterRune = 0;
 	public static int manaPool = 0;
+	public static int doppleganger = 0;
 
 	public static void initShaders() {
 		if(!useShaders())
@@ -44,6 +45,7 @@ public final class ShaderHelper {
 		pylonGlow = createProgram(null, LibResources.SHADER_PYLON_GLOW_FRAG);
 		enchanterRune = createProgram(null, LibResources.SHADER_ENCHANTER_RUNE_FRAG);
 		manaPool = createProgram(null, LibResources.SHADER_MANA_POOL_FRAG);
+		doppleganger = createProgram(LibResources.SHADER_DOPLLEGANGER_VERT, LibResources.SHADER_DOPLLEGANGER_FRAG);
 	}
 
 	public static void useShader(int shader) {

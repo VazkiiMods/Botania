@@ -13,15 +13,20 @@ package vazkii.botania.common.item;
 
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
 import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemManaResource extends ItemMod implements IFlowerComponent, IElvenItem {
@@ -33,6 +38,21 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 		super();
 		setUnlocalizedName(LibItemNames.MANA_RESOURCE);
 		setHasSubtypes(true);
+	}
+	
+	@Override
+	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
+		if(par1ItemStack.getItemDamage() == 4) {
+			Block block = par3World.getBlock(par4, par5, par6);
+			if(block == Blocks.beacon && !par3World.isRemote) {
+				par1ItemStack.stackSize--;
+				EntityDoppleganger e = new EntityDoppleganger(par3World);
+				e.setPosition(par4 + 0.5, par5 + 2, par6 + 0.5);
+				par3World.spawnEntityInWorld(e);
+				return true;
+			}
+		}
+		return super.onItemUse(par1ItemStack, par2EntityPlayer, par3World, par4, par5, par6, par7, par8, par9, par10);
 	}
 
 	@Override

@@ -87,6 +87,8 @@ public final class LibResources {
 	public static final String SHADER_PYLON_GLOW_FRAG = PREFIX_SHADER + "pylon_glow.frag";
 	public static final String SHADER_ENCHANTER_RUNE_FRAG = PREFIX_SHADER + "enchanter_rune.frag";
 	public static final String SHADER_MANA_POOL_FRAG = PREFIX_SHADER + "mana_pool.frag";
+	public static final String SHADER_DOPLLEGANGER_VERT = PREFIX_SHADER + "doppleganger.vert";
+	public static final String SHADER_DOPLLEGANGER_FRAG = PREFIX_SHADER + "doppleganger.frag";
 
 	public static final String[] LANGS = new String[] {
 		"en_US", "de_DE", "ru_RU", "zh_CN"

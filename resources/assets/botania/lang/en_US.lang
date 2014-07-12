@@ -159,6 +159,14 @@ botania.baubletype.ring=Equippable in the &aRing&7 slot
 botania.baubletype.belt=Equippable in the &aBelt&7 slot
 botania.baubletooltip=Press &b%key%&7 to open the Baubles menu
 
+# ENTITY NAMES
+entity.Botania.botania:manaBurst.name=Mana Burst
+entity.Botania.botania:signalFlare.name=Signal Flare
+entity.Botania.botania:pixie.name=Pixie
+entity.Botania.botania:flameRing.name=Flame Ring
+entity.Botania.botania:vineBall.name=Vine Ball
+entity.Botania.botania:doppleganger.name=Gaia Guardian
+
 # BLOCK NAMES
 tile.botania:flower0.name=Mystical White Flower
 tile.botania:flower1.name=Mystical Orange Flower
