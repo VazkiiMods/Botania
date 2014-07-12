@@ -47,7 +47,7 @@ public final class BoundTileRenderer {
 		if(stack != null && stack.getItem() instanceof ICoordBoundItem) {
 			ChunkCoordinates coords = ((ICoordBoundItem) stack.getItem()).getBinding(stack);
 			if(coords != null)
-				renderBlockOutlineAt(coords, Color.HSBtoRGB(world.getTotalWorldTime() % 200 / 200F, 0.6F, 1F));
+				renderBlockOutlineAt(coords, Color.HSBtoRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F));
 		}
 
 		GL11.glEnable(GL11.GL_DEPTH_TEST);

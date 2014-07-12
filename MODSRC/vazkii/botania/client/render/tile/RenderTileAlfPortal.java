@@ -20,6 +20,7 @@ import net.minecraft.util.IIcon;
 
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.BlockAlfPortal;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 
@@ -41,7 +42,7 @@ public class RenderTileAlfPortal extends TileEntitySpecialRenderer {
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		GL11.glDisable(GL11.GL_ALPHA_TEST);
 		GL11.glEnable(GL11.GL_CULL_FACE);
-		float alpha = (float) Math.min(1F, (Math.sin(portal.getWorldObj().getTotalWorldTime() / 8D) + 1D) / 7D + 0.6D) * (Math.min(60, portal.ticksOpen) / 60F);
+		float alpha = (float) Math.min(1F, (Math.sin(ClientTickHandler.ticksInGame / 8D) + 1D) / 7D + 0.6D) * (Math.min(60, portal.ticksOpen) / 60F);
 		GL11.glColor4f(1F, 1F, 1F, alpha);
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);

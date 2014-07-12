@@ -25,6 +25,7 @@ import net.minecraft.util.IIcon;
 
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.block.BlockEnchanter;
 import vazkii.botania.common.block.tile.TileEnchanter;
@@ -50,7 +51,7 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer {
 			if(item == null)
 				item = new EntityItem(enchanter.getWorldObj(), enchanter.xCoord, enchanter.yCoord + 1, enchanter.zCoord, enchanter.itemToEnchant);
 
-			item.age = (int) tileentity.getWorldObj().getTotalWorldTime();
+			item.age = (int) ClientTickHandler.ticksInGame;
 			item.setEntityItemStack(enchanter.itemToEnchant);
 
 			GL11.glColor4f(1F, 1F, 1F, 1F);
@@ -69,7 +70,7 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer {
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		GL11.glDisable(GL11.GL_ALPHA_TEST);
-		float alpha = (float) ((Math.sin(enchanter.getWorldObj().getTotalWorldTime() / 8D) + 1D) / 5D + 0.4D) * alphaMod;
+		float alpha = (float) ((Math.sin(ClientTickHandler.ticksInGame / 8D) + 1D) / 5D + 0.4D) * alphaMod;
 		if(ShaderHelper.useShaders())
 			GL11.glColor4f(1F, 1F, 1F, alpha);
 		else {
@@ -77,7 +78,7 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer {
 			int lightmapX = light % 65536;
 			int lightmapY = light / 65536;
 			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
-			GL11.glColor4f(0.6F + (float) ((Math.cos(enchanter.getWorldObj().getTotalWorldTime() / 6D) + 1D) / 5D), 0.1F, 0.9F, alpha);
+			GL11.glColor4f(0.6F + (float) ((Math.cos(ClientTickHandler.ticksInGame / 6D) + 1D) / 5D), 0.1F, 0.9F, alpha);
 		}
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);

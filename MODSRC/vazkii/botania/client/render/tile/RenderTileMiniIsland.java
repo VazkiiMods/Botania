@@ -24,6 +24,7 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelMiniIsland;
 import vazkii.botania.common.block.BlockModFlower;
@@ -41,9 +42,9 @@ public class RenderTileMiniIsland extends TileEntitySpecialRenderer {
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		GL11.glTranslated(d0, d1, d2);
 
-		int worldTime = (int) (tile.getWorldObj() == null ? 0 : tile.getWorldObj().getTotalWorldTime());
+		int worldTime = (int) (tile.getWorldObj() == null ? 0 : ClientTickHandler.ticksInGame);
 		if(tile.getWorldObj() != null)
-			worldTime += new Random(tile.xCoord ^ tile.yCoord ^ tile.zCoord).nextInt(360);
+			worldTime += new Random(tile.xCoord ^ tile.yCoord ^ tile.zCoord).nextInt(1000);
 
 		GL11.glTranslatef(0.5F, 0F, 0.5F);
 		GL11.glRotatef(-(worldTime * 0.5F), 0F, 1F, 0F);

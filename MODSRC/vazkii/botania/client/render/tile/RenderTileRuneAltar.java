@@ -29,6 +29,7 @@ import net.minecraftforge.client.ForgeHooksClient;
 
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.model.ModelSpinningCubes;
 import vazkii.botania.common.block.tile.TileRuneAltar;
@@ -62,10 +63,10 @@ public class RenderTileRuneAltar extends TileEntitySpecialRenderer {
 			GL11.glPushMatrix();
 			GL11.glScalef(0.5F, 0.5F, 0.5F);
 			GL11.glTranslatef(1F, 2.5F, 1F);
-			GL11.glRotatef(angles[i] + altar.getWorldObj().getTotalWorldTime(), 0F, 1F, 0F);
+			GL11.glRotatef(angles[i] + ClientTickHandler.ticksInGame, 0F, 1F, 0F);
 			GL11.glTranslatef(2.25F, 0F, 0.5F);
 			GL11.glRotatef(90F, 0F, 1F, 0F);
-			GL11.glTranslated(0D, 0.15 * Math.sin((tileentity.getWorldObj().getTotalWorldTime() + i * 10) / 5D), 0F);
+			GL11.glTranslated(0D, 0.15 * Math.sin((ClientTickHandler.ticksInGame + i * 10) / 5D), 0F);
 			ItemStack stack = altar.getStackInSlot(i);
 			Minecraft mc = Minecraft.getMinecraft();
 			if(stack != null) {

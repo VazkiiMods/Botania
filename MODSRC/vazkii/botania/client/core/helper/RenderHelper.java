@@ -20,6 +20,8 @@ import net.minecraft.client.renderer.Tessellator;
 
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.client.core.handler.ClientTickHandler;
+
 public final class RenderHelper {
 
 	public static void renderTooltip(int x, int y, List<String> tooltipData) {
@@ -134,7 +136,7 @@ public final class RenderHelper {
 	public static void renderStar(int color, float xScale, float yScale, float zScale, long seed) {
 		Tessellator tessellator = Tessellator.instance;
 
-		int ticks = (int) (Minecraft.getMinecraft().theWorld.getTotalWorldTime() % 200);
+		int ticks = (int) (ClientTickHandler.ticksInGame % 200);
 		if (ticks >= 100)
 			ticks = 200 - ticks - 1;
 

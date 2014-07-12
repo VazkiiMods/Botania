@@ -16,6 +16,7 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
@@ -51,10 +52,13 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 		boolean placed = super.placeBlockAt(stack, player, world, x, y, z, side, hitX, hitY, hitZ, metadata);
 		if(placed) {
 			String type = getType(stack);
-			TileSpecialFlower tile = (TileSpecialFlower) world.getTileEntity(x, y, z);
-			tile.setSubTile(type);
-			if(!world.isRemote)
-				world.markBlockForUpdate(x, y, z);
+			TileEntity te = world.getTileEntity(x, y, z);
+			if(te instanceof TileSpecialFlower) {
+				TileSpecialFlower tile = (TileSpecialFlower) te; 
+				tile.setSubTile(type);
+				if(!world.isRemote)
+					world.markBlockForUpdate(x, y, z);
+			}
 		}
 
 		return placed;

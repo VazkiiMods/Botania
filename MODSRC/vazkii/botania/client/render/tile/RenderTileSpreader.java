@@ -22,6 +22,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import vazkii.botania.api.mana.ILens;
+import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelSpreader;
 import vazkii.botania.client.render.item.RenderLens;
@@ -54,7 +55,7 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer {
 		model.render();
 
 		GL11.glPushMatrix();
-		long worldTicks = tileentity.getWorldObj() == null ? 0 : tileentity.getWorldObj().getTotalWorldTime();
+		long worldTicks = tileentity.getWorldObj() == null ? 0 : ClientTickHandler.ticksInGame;
 		GL11.glRotatef(worldTicks % 360, 0F, 1F, 0F);
 		GL11.glTranslatef(0F, (float) Math.sin(worldTicks / 20.0) * 0.05F, 0F);
 		model.renderCube();
