@@ -48,7 +48,7 @@ public final class ShaderHelper {
 		doppleganger = createProgram(LibResources.SHADER_DOPLLEGANGER_VERT, LibResources.SHADER_DOPLLEGANGER_FRAG);
 	}
 
-	public static void useShader(int shader) {
+	public static void useShader(int shader, ShaderCallback callback) {
 		if(!useShaders())
 			return;
 
@@ -57,7 +57,14 @@ public final class ShaderHelper {
 		if(shader != 0) {
 			int time = ARBShaderObjects.glGetUniformLocationARB(shader, "time");
 			ARBShaderObjects.glUniform1iARB(time, ClientTickHandler.ticksInGame);
+			
+			if(callback != null)
+				callback.call(shader);
 		}
+	}
+	
+	public static void useShader(int shader) {
+		useShader(shader, null);
 	}
 
 	public static void releaseShader() {
@@ -176,5 +183,9 @@ public final class ShaderHelper {
 		}
 
 		return source.toString();
+	}
+	
+	public static abstract class ShaderCallback {
+		public abstract void call(int shader);
 	}
 }
