@@ -35,11 +35,13 @@ import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.client.core.handler.HUDHandler;
+import vazkii.botania.client.core.handler.LightningHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
+import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 
 public class TilePool extends TileMod implements IManaPool, IKeyLocked {
@@ -215,9 +217,10 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked {
 
 					if(didSomething) {
 						worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-						if(worldObj.isRemote) {
-							Color color = new Color(0x00C6FF);
-							Botania.proxy.wispFX(worldObj, item.posX + Math.random() * 0.5 - 0.25, item.posY + Math.random() * 0.5 - (outputting ? 0.65 : 0.25), item.posZ + Math.random() * 0.5 - 0.25, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random() / 15F, (outputting ? -1F : 1) * (float) Math.random() / 25F, 0.1F);
+						if(worldObj.isRemote && worldObj.rand.nextInt(5) == 0) {
+							Vector3 itemVec = Vector3.fromTileEntity(this).add(0.5, 0.5 + Math.random() * 0.3, 0.5);
+							Vector3 tileVec = Vector3.fromTileEntity(this).add(0.2 + Math.random() * 0.6, 0, 0.2 + Math.random() * 0.6);
+							LightningHandler.spawnLightningBolt(worldObj, outputting ? tileVec : itemVec, outputting ? itemVec : tileVec, 80, worldObj.rand.nextLong(), 0x4400799c, 0x4400C6FF);
 						}
 					}
 				}
