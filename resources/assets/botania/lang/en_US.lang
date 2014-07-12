@@ -166,6 +166,7 @@ entity.Botania.botania:pixie.name=Pixie
 entity.Botania.botania:flameRing.name=Flame Ring
 entity.Botania.botania:vineBall.name=Vine Ball
 entity.Botania.botania:doppleganger.name=Gaia Guardian
+entity.Botania.botania:magicLandmine.name=Gaia Trap
 
 # BLOCK NAMES
 tile.botania:flower0.name=Mystical White Flower

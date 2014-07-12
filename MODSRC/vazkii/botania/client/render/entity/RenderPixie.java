@@ -15,15 +15,34 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.boss.BossStatus;
 import net.minecraft.util.ResourceLocation;
 
+import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.client.core.helper.ShaderHelper;
+import vazkii.botania.client.core.helper.ShaderHelper.ShaderCallback;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelPixie;
+import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.EntityPixie;
 
 public class RenderPixie extends RenderLiving {
+
+	ShaderCallback callback = new ShaderCallback() {
+
+		@Override
+		public void call(int shader) {
+			// Frag Uniforms
+			int disfigurationUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "disfiguration");
+			ARBShaderObjects.glUniform1fARB(disfigurationUniform, 0.025F);
+
+			// Vert Uniforms
+			int grainIntensityUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "grainIntensity");
+			ARBShaderObjects.glUniform1fARB(grainIntensityUniform, 0.05F);
+		}
+	};
 
 	public RenderPixie() {
 		super(new ModelPixie(), 0.25F);
@@ -34,6 +53,17 @@ public class RenderPixie extends RenderLiving {
 	@Override
 	protected ResourceLocation getEntityTexture(Entity entity) {
 		return new ResourceLocation(LibResources.MODEL_PIXIE);
+	}
+
+	@Override
+	public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9) {
+		EntityPixie pixie = (EntityPixie) par1Entity;
+
+		if(pixie.getType() == 1)
+			ShaderHelper.useShader(ShaderHelper.doppleganger, callback);
+		super.doRender(par1Entity, par2, par4, par6, par8, par9);
+		if(pixie.getType() == 1)
+			ShaderHelper.releaseShader();
 	}
 
 	protected int setPixieBrightness(EntityPixie par1EntityPixie, int par2, float par3) {

@@ -36,7 +36,7 @@ public class PixieHandler {
 				if(stack != null && stack.getItem() == ModItems.elementiumSword)
 					dmg += 2;
 
-				pixie.setProps((EntityLivingBase) event.source.getEntity(), player, dmg);
+				pixie.setProps((EntityLivingBase) event.source.getEntity(), player, 0, dmg);
 				player.worldObj.spawnEntityInWorld(pixie);
 			}
 		}

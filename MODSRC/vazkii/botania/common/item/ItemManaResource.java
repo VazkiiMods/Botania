@@ -42,19 +42,9 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 
 	@Override
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
-		if(par1ItemStack.getItemDamage() == 4) {
-			Block block = par3World.getBlock(par4, par5, par6);
-			if(block == Blocks.beacon && !par3World.isRemote) {
-				par1ItemStack.stackSize--;
-				EntityDoppleganger e = new EntityDoppleganger(par3World);
-				e.setPosition(par4 + 0.5, par5 + 3, par6 + 0.5);
-				e.setInvulTime(EntityDoppleganger.SPAWN_TICKS);
-				e.setHealth(1F);
-				par3World.playSoundAtEntity(e, "mob.enderdragon.growl", 10F, 0.1F);
-				par3World.spawnEntityInWorld(e);
-				return true;
-			}
-		}
+		if(par1ItemStack.getItemDamage() == 4)
+			return EntityDoppleganger.spawn(par1ItemStack, par3World, par4, par5, par6);
+		
 		return super.onItemUse(par1ItemStack, par2EntityPlayer, par3World, par4, par5, par6, par7, par8, par9, par10);
 	}
 

@@ -12,6 +12,7 @@
 package vazkii.botania.common.entity;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
@@ -19,18 +20,40 @@ import vazkii.botania.common.Botania;
 
 public class EntityPixie extends EntityFlyingCreature {
 
-	EntityPlayer player = null;
+	EntityLivingBase summoner = null;
 	float damage = 0;
 
 	public EntityPixie(World world) {
 		super(world);
 		setSize(1.0F, 1.0F);
 	}
+	
+	@Override
+	protected void entityInit() {
+		super.entityInit();
+		dataWatcher.addObject(20, 0);
+	}
+	
+	@Override
+	protected void applyEntityAttributes() {
+		super.applyEntityAttributes();
+		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(2.0);
+	}
 
-	public void setProps(EntityLivingBase target, EntityPlayer player, float damage) {
+	
+	public void setType(int type) {
+		dataWatcher.updateObject(20, type);
+	}
+	
+	public int getType() {
+		return dataWatcher.getWatchableObjectInt(20);
+	}
+	
+	public void setProps(EntityLivingBase target, EntityLivingBase summoner, int type, float damage) {
 		setAttackTarget(target);
-		this.player = player;
+		this.summoner = summoner;
 		this.damage = damage;
+		setType(type);
 	}
 
 	@Override
@@ -43,14 +66,22 @@ public class EntityPixie extends EntityFlyingCreature {
 			double d3 = d0 * d0 + d1 * d1 + d2 * d2;
 
 			float mod = 0.45F;
+			if(getType() == 1)
+				mod = 0.1F;
+			
 			motionX += d0 / d3 * mod;
 			motionY += d1 / d3 * mod;
 			motionZ += d2 / d3 * mod;
 
 			if(Math.sqrt(d3) < 1F) {
-				if(player != null)
-					target.attackEntityFrom(DamageSource.causePlayerDamage(player), damage);
-				else target.attackEntityFrom(DamageSource.causeMobDamage(this), damage);
+				if(summoner != null) {
+					if(summoner instanceof EntityPlayer)
+						target.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) summoner), damage);
+					else {
+						target.attackEntityFrom(DamageSource.causeMobDamage(summoner), damage);
+						System.out.println(target + " " + damage);
+					}
+				} else target.attackEntityFrom(DamageSource.causeMobDamage(this), damage);
 				die();
 			}
 		}
@@ -65,15 +96,16 @@ public class EntityPixie extends EntityFlyingCreature {
 		if(getAttackTarget() == null && ticksExisted > 100)
 			die();
 
+		boolean dark = getType() == 1;
 		if(worldObj.isRemote)
 			for(int i = 0; i < 4; i++)
-				Botania.proxy.sparkleFX(worldObj, posX + (Math.random() - 0.5) * 0.25, posY + 0.5  + (Math.random() - 0.5) * 0.25, posZ + (Math.random() - 0.5) * 0.25, 1F, 0.25F, 0.9F, 0.1F + (float) Math.random() * 0.25F, 12);
+				Botania.proxy.sparkleFX(worldObj, posX + (Math.random() - 0.5) * 0.25, posY + 0.5  + (Math.random() - 0.5) * 0.25, posZ + (Math.random() - 0.5) * 0.25, dark ? 0.1F : 1F, dark ? 0.025F : 0.25F, dark ? 0.09F : 0.9F, 0.1F + (float) Math.random() * 0.25F, 12);
 	}
 
 	public void die() {
 		setDead();
 
-		if(worldObj.isRemote)
+		if(worldObj.isRemote && getType() == 0)
 			for(int i = 0; i < 12; i++)
 				Botania.proxy.sparkleFX(worldObj, posX + (Math.random() - 0.5) * 0.25, posY + 0.5  + (Math.random() - 0.5) * 0.25, posZ + (Math.random() - 0.5) * 0.25, 1F, 0.25F, 0.9F, 1F + (float) Math.random() * 0.25F, 5);
 	}
