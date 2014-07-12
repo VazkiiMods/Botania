@@ -759,7 +759,7 @@ public final class ModCrafingRecipes {
 		recipeAlfPortal = BotaniaAPI.getLatestAddedRecipe();
 
 		// Natura Pylon Recipe
-		addShapelessOreDictRecipe(new ItemStack(ModBlocks.pylon, 1, 2), ModBlocks.pylon, LibOreDict.ELEMENTIUM, ModBlocks.pylon);
+		addShapelessOreDictRecipe(new ItemStack(ModBlocks.pylon, 2, 1), ModBlocks.pylon, LibOreDict.TERRA_STEEL, ModBlocks.pylon);
 		recipeNaturaPylon = BotaniaAPI.getLatestAddedRecipe();
 
 		// Rod of the Seas Recipe
