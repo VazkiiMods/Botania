@@ -1,3 +1,5 @@
+r1.1 79
+*Fixed Natura Pylons being uncraftable.
 r1.1 78
 *All renders that relied on world time now use an internal client ticker, this fixes animations for those renders being rubberbanding on servers. (Pylons, floating flowers, etc.)
 *Changed the crafting method of the Natura Pylons to not require Essence of Eternal Life/Gaia Spirits.
