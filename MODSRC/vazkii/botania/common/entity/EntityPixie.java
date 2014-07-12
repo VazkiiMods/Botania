@@ -27,28 +27,28 @@ public class EntityPixie extends EntityFlyingCreature {
 		super(world);
 		setSize(1.0F, 1.0F);
 	}
-	
+
 	@Override
 	protected void entityInit() {
 		super.entityInit();
 		dataWatcher.addObject(20, 0);
 	}
-	
+
 	@Override
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(2.0);
 	}
 
-	
+
 	public void setType(int type) {
 		dataWatcher.updateObject(20, type);
 	}
-	
+
 	public int getType() {
 		return dataWatcher.getWatchableObjectInt(20);
 	}
-	
+
 	public void setProps(EntityLivingBase target, EntityLivingBase summoner, int type, float damage) {
 		setAttackTarget(target);
 		this.summoner = summoner;
@@ -68,7 +68,7 @@ public class EntityPixie extends EntityFlyingCreature {
 			float mod = 0.45F;
 			if(getType() == 1)
 				mod = 0.1F;
-			
+
 			motionX += d0 / d3 * mod;
 			motionY += d1 / d3 * mod;
 			motionZ += d2 / d3 * mod;

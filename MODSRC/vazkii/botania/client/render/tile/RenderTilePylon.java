@@ -40,7 +40,7 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 
 	private static final ResourceLocation texturePinkOld = new ResourceLocation(LibResources.MODEL_PYLON_PINK_OLD);
 	private static final ResourceLocation texturePink = new ResourceLocation(LibResources.MODEL_PYLON_PINK);
-	
+
 	IPylonModel model;
 	public static boolean green = false;
 	public static boolean pink = false;
@@ -63,8 +63,8 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 			if(ConfigHandler.oldPylonModel)
 				Minecraft.getMinecraft().renderEngine.bindTexture(pink ? texturePinkOld : green ? textureGreenOld : textureOld);
 			else Minecraft.getMinecraft().renderEngine.bindTexture(pink ? texturePink : green ? textureGreen : texture);
-			
-			int worldTime = (int) (tileentity.getWorldObj() == null ? 0 : ClientTickHandler.ticksInGame);
+
+			int worldTime = tileentity.getWorldObj() == null ? 0 : ClientTickHandler.ticksInGame;
 
 			if(tileentity != null)
 				worldTime += new Random(tileentity.xCoord ^ tileentity.yCoord ^ tileentity.zCoord).nextInt(360);

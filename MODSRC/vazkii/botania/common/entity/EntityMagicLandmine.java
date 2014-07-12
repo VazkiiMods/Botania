@@ -26,32 +26,32 @@ import vazkii.botania.common.Botania;
 public class EntityMagicLandmine extends Entity {
 
 	public EntityDoppleganger summoner;
-	
+
 	public EntityMagicLandmine(World par1World) {
 		super(par1World);
 		setSize(0F, 0F);
 	}
-	
+
 	@Override
 	public void onUpdate() {
 		motionX = 0;
 		motionY = 0;
 		motionZ = 0;
 		super.onUpdate();
-		
+
 		float range = 2.5F;
-		
+
 		float r = 0.2F;
 		float g = 0F;
 		float b = 0.2F;
-		
+
 		Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.6F, -0.2F, 1);
 		for(int i = 0; i < 4; i++)
 			Botania.proxy.wispFX(worldObj, posX - range + Math.random() * range * 2, posY, posZ - range + Math.random() * range * 2, r, g, b, 0.4F, -0.06F, 1);
 
 		if(ticksExisted >= 45) {
 			worldObj.playSoundEffect(posX, posY, posZ, "random.explode", 0.6F, (1F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 1.4F);
-			
+
 			float m = 0.35F;
 			g = 0.4F;
 			for(int i = 0; i < 25; i++)
@@ -65,7 +65,7 @@ public class EntityMagicLandmine extends Entity {
 					player.addPotionEffect(new PotionEffect(Potion.wither.id, 60, 3));
 				}
 			}
-				
+
 			setDead();
 		}
 	}

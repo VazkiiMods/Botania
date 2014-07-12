@@ -42,7 +42,7 @@ public class RenderTileMiniIsland extends TileEntitySpecialRenderer {
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		GL11.glTranslated(d0, d1, d2);
 
-		int worldTime = (int) (tile.getWorldObj() == null ? 0 : ClientTickHandler.ticksInGame);
+		int worldTime = tile.getWorldObj() == null ? 0 : ClientTickHandler.ticksInGame;
 		if(tile.getWorldObj() != null)
 			worldTime += new Random(tile.xCoord ^ tile.yCoord ^ tile.zCoord).nextInt(1000);
 

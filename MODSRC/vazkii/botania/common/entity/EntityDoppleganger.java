@@ -45,21 +45,15 @@ public class EntityDoppleganger extends EntityCreature implements IBossDisplayDa
 
 	private static final float MAX_HP = 200F;
 
-	private static final String TAG_SOURCE_X = "sourceX";
-	private static final String TAG_SOURCE_Y = "sourceY";
-	private static final String TAG_SOURCE_Z = "sourceZ";
-	
 	private static final String TAG_INVUL_TIME = "invulTime";
 	private static final String TAG_AGGRO = "aggro";
-	private static final String TAG_TP_DELAY = "tpDelay";
-	
 	private static final int[][] PYLON_LOCATIONS = new int[][] {
 		{ 4, 1, 4 },
 		{ 4, 1, -4 },
 		{ -4, 1, 4 },
 		{ -4, 1, -4 }
 	};
-	
+
 	boolean spawnLandmines = false;
 	boolean spawnPixies = false;
 
@@ -72,7 +66,7 @@ public class EntityDoppleganger extends EntityCreature implements IBossDisplayDa
 		isImmuneToFire = true;
 		experienceValue = 825;
 	}
-	
+
 	public static boolean spawn(ItemStack par1ItemStack, World par3World, int par4, int par5, int par6) {
 		Block block = par3World.getBlock(par4, par5, par6);
 		if(block == Blocks.beacon && !par3World.isRemote) {
@@ -86,7 +80,7 @@ public class EntityDoppleganger extends EntityCreature implements IBossDisplayDa
 				if(blockat != ModBlocks.pylon || meta != 2)
 					return false;
 			}
-			
+
 			par1ItemStack.stackSize--;
 			EntityDoppleganger e = new EntityDoppleganger(par3World);
 			e.setPosition(par4 + 0.5, par5 + 3, par6 + 0.5);
@@ -127,7 +121,7 @@ public class EntityDoppleganger extends EntityCreature implements IBossDisplayDa
 	public int getTPDelay() {
 		return dataWatcher.getWatchableObjectInt(22);
 	}
-	
+
 	public ChunkCoordinates getSource() {
 		int x = dataWatcher.getWatchableObjectInt(23);
 		int y = dataWatcher.getWatchableObjectInt(24);
@@ -146,7 +140,7 @@ public class EntityDoppleganger extends EntityCreature implements IBossDisplayDa
 	public void setTPDelay(int delay) {
 		dataWatcher.updateObject(22, delay);
 	}
-	
+
 	public void setSource(int x, int y, int z) {
 		dataWatcher.updateObject(23, x);
 		dataWatcher.updateObject(24, y);
@@ -178,12 +172,12 @@ public class EntityDoppleganger extends EntityCreature implements IBossDisplayDa
 	protected void damageEntity(DamageSource par1DamageSource, float par2) {
 		super.damageEntity(par1DamageSource, par2);
 
-		Entity attacker = par1DamageSource.getEntity(); 
+		Entity attacker = par1DamageSource.getEntity();
 		if(attacker != null) {
 			Vector3 thisVector = Vector3.fromEntityCenter(this);
 			Vector3 playerVector = Vector3.fromEntityCenter(attacker);
 			Vector3 motionVector = thisVector.copy().sub(playerVector).copy().normalize().multiply(0.75);
-			
+
 			if(getHealth() > 0) {
 				motionX = -motionVector.x;
 				motionY = 0.5;
@@ -191,7 +185,7 @@ public class EntityDoppleganger extends EntityCreature implements IBossDisplayDa
 				setTPDelay(4);
 				spawnPixies = isAggored();
 			}
-			
+
 			setAggroed(true);
 		}
 	}
@@ -208,13 +202,13 @@ public class EntityDoppleganger extends EntityCreature implements IBossDisplayDa
 	protected boolean canDespawn() {
 		return false;
 	}
-	
+
 	@Override
 	protected void dropFewItems(boolean par1, int par2) {
-		if(par1) 
+		if(par1)
 			entityDropItem(new ItemStack(ModItems.manaResource, 12, 5), 1F);
 	}
-	
+
 	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
@@ -222,10 +216,10 @@ public class EntityDoppleganger extends EntityCreature implements IBossDisplayDa
 
 		float range = 32F;
 		List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(source.posX + 0.5 - range, source.posY + 0.5 - range, source.posZ + 0.5 - range, source.posX + 0.5 + range, source.posY + 0.5 + range, source.posZ + 0.5 + range));
-		
+
 		range = 12F;
 		List<EntityPlayer> playersInside = worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(source.posX + 0.5 - range, source.posY + 0.5 - range, source.posZ + 0.5 - range, source.posX + 0.5 + range, source.posY + 0.5 + range, source.posZ + 0.5 + range));
-		
+
 		if(players.isEmpty())
 			setDead();
 		else for(EntityPlayer player : players) {
@@ -234,30 +228,30 @@ public class EntityDoppleganger extends EntityCreature implements IBossDisplayDa
 			for(PotionEffect effect : active)
 				if(effect.getDuration() < 200 && !ReflectionHelper.<Boolean, Potion>getPrivateValue(Potion.class, Potion.potionTypes[effect.getPotionID()], LibObfuscation.IS_BAD_EFFECT))
 					remove.add(effect);
-			
+
 			active.removeAll(remove);
-			
+
 			if(!playersInside.contains(player)) {
 				Vector3 sourceVector = new Vector3(source.posX + 0.5, source.posY + 0.5, source.posZ + 0.5);
 				Vector3 playerVector = Vector3.fromEntityCenter(player);
 				Vector3 motion = sourceVector.copy().sub(playerVector).copy().normalize();
-				
+
 				player.motionX = motion.x;
 				player.motionY = 0.2;
 				player.motionZ = motion.z;
 			}
 		}
-		
+
 		if(isDead)
 			return;
-		
+
 		int invul = getInvulTime();
 		if(invul > 0) {
 			if(invul < SPAWN_TICKS && invul > SPAWN_TICKS / 2 && worldObj.rand.nextInt(SPAWN_TICKS - invul + 1) == 0)
 				for(int i = 0; i < 2; i++)
 					spawnExplosionParticle();
 
-			setHealth(getHealth() + ((MAX_HP - 1F) / SPAWN_TICKS));
+			setHealth(getHealth() + (MAX_HP - 1F) / SPAWN_TICKS);
 			setInvulTime(invul - 1);
 			motionY = 0;
 		} else {
@@ -268,16 +262,16 @@ public class EntityDoppleganger extends EntityCreature implements IBossDisplayDa
 						while(!teleportRandomly());
 						if(spawnLandmines && !worldObj.isRemote)
 							for(int i = 0; i < 6; i++) {
-								int x = source.posX - 10 + rand.nextInt(20); 
-								int z = source.posZ - 10 + rand.nextInt(20); 
+								int x = source.posX - 10 + rand.nextInt(20);
+								int z = source.posZ - 10 + rand.nextInt(20);
 								int y = worldObj.getTopSolidOrLiquidBlock(x, z);
-								
+
 								EntityMagicLandmine landmine = new EntityMagicLandmine(worldObj);
 								landmine.setPosition(x + 0.5, y, z + 0.5);
 								landmine.summoner = this;
 								worldObj.spawnEntityInWorld(landmine);
 							}
-						
+
 						if(!worldObj.isRemote)
 							for(int i = 0; i < (spawnPixies ? worldObj.rand.nextInt(3) : 1); i++) {
 								EntityPixie pixie = new EntityPixie(worldObj);
@@ -285,7 +279,7 @@ public class EntityDoppleganger extends EntityCreature implements IBossDisplayDa
 								pixie.setPosition(posX + width / 2, posY + 2, posZ + width / 2);
 								worldObj.spawnEntityInWorld(pixie);
 							}
-						
+
 						setTPDelay(50);
 						spawnLandmines = true;
 						spawnPixies = false;
@@ -301,46 +295,46 @@ public class EntityDoppleganger extends EntityCreature implements IBossDisplayDa
 	}
 
 	// EntityEnderman code below ============================================================================
-	
+
 	protected boolean teleportRandomly() {
-		double d0 = this.posX + (this.rand.nextDouble() - 0.5D) * 64.0D;
-		double d1 = this.posY + (double)(this.rand.nextInt(64) - 32);
-		double d2 = this.posZ + (this.rand.nextDouble() - 0.5D) * 64.0D;
-		return this.teleportTo(d0, d1, d2);
+		double d0 = posX + (rand.nextDouble() - 0.5D) * 64.0D;
+		double d1 = posY + (rand.nextInt(64) - 32);
+		double d2 = posZ + (rand.nextDouble() - 0.5D) * 64.0D;
+		return teleportTo(d0, d1, d2);
 	}
 
 	protected boolean teleportTo(double par1, double par3, double par5) {
-		double d3 = this.posX;
-		double d4 = this.posY;
-		double d5 = this.posZ;
-		this.posX = par1;
-		this.posY = par3;
-		this.posZ = par5;
+		double d3 = posX;
+		double d4 = posY;
+		double d5 = posZ;
+		posX = par1;
+		posY = par3;
+		posZ = par5;
 		boolean flag = false;
-		int i = MathHelper.floor_double(this.posX);
-		int j = MathHelper.floor_double(this.posY);
-		int k = MathHelper.floor_double(this.posZ);
+		int i = MathHelper.floor_double(posX);
+		int j = MathHelper.floor_double(posY);
+		int k = MathHelper.floor_double(posZ);
 
-		if(this.worldObj.blockExists(i, j, k)) {
+		if(worldObj.blockExists(i, j, k)) {
 			boolean flag1 = false;
 
 			while(!flag1 && j > 0) {
-				Block block = this.worldObj.getBlock(i, j - 1, k);
+				Block block = worldObj.getBlock(i, j - 1, k);
 
 				if(block.getMaterial().blocksMovement())
 					flag1 = true;
 				else {
-					--this.posY;
+					--posY;
 					--j;
 				}
 			}
 
 			if(flag1) {
-				this.setPosition(this.posX, this.posY, this.posZ);
+				setPosition(posX, posY, posZ);
 
-				if(this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).isEmpty() && !this.worldObj.isAnyLiquid(this.boundingBox))
+				if(worldObj.getCollidingBoundingBoxes(this, boundingBox).isEmpty() && !worldObj.isAnyLiquid(boundingBox))
 					flag = true;
-				
+
 				// Prevent out of bounds teleporting
 				ChunkCoordinates source = getSource();
 				if(vazkii.botania.common.core.helper.MathHelper.pointDistanceSpace(posX, posY, posZ, source.posX, source.posY, source.posZ) > 15)
@@ -349,24 +343,24 @@ public class EntityDoppleganger extends EntityCreature implements IBossDisplayDa
 		}
 
 		if (!flag) {
-			this.setPosition(d3, d4, d5);
+			setPosition(d3, d4, d5);
 			return false;
 		} else  {
 			short short1 = 128;
 
 			for(int l = 0; l < short1; ++l)  {
-				double d6 = (double)l / ((double)short1 - 1.0D);
-				float f = (this.rand.nextFloat() - 0.5F) * 0.2F;
-				float f1 = (this.rand.nextFloat() - 0.5F) * 0.2F;
-				float f2 = (this.rand.nextFloat() - 0.5F) * 0.2F;
-				double d7 = d3 + (this.posX - d3) * d6 + (this.rand.nextDouble() - 0.5D) * (double)this.width * 2.0D;
-				double d8 = d4 + (this.posY - d4) * d6 + this.rand.nextDouble() * (double)this.height;
-				double d9 = d5 + (this.posZ - d5) * d6 + (this.rand.nextDouble() - 0.5D) * (double)this.width * 2.0D;
-				this.worldObj.spawnParticle("portal", d7, d8, d9, (double)f, (double)f1, (double)f2);
+				double d6 = l / (short1 - 1.0D);
+				float f = (rand.nextFloat() - 0.5F) * 0.2F;
+				float f1 = (rand.nextFloat() - 0.5F) * 0.2F;
+				float f2 = (rand.nextFloat() - 0.5F) * 0.2F;
+				double d7 = d3 + (posX - d3) * d6 + (rand.nextDouble() - 0.5D) * width * 2.0D;
+				double d8 = d4 + (posY - d4) * d6 + rand.nextDouble() * height;
+				double d9 = d5 + (posZ - d5) * d6 + (rand.nextDouble() - 0.5D) * width * 2.0D;
+				worldObj.spawnParticle("portal", d7, d8, d9, f, f1, f2);
 			}
 
-			this.worldObj.playSoundEffect(d3, d4, d5, "mob.endermen.portal", 1.0F, 1.0F);
-			this.playSound("mob.endermen.portal", 1.0F, 1.0F);
+			worldObj.playSoundEffect(d3, d4, d5, "mob.endermen.portal", 1.0F, 1.0F);
+			playSound("mob.endermen.portal", 1.0F, 1.0F);
 			return true;
 		}
 	}
