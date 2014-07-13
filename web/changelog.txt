@@ -1,3 +1,9 @@
+r1.1 80
+*Fixed an exploit with the Fallen Kanade that would trivialize the Gaia Guardian fight.
+*Fixed crash when breaking a mana pool and placing a spreader/flower in it's place.
+*Fixed the Fallen Kanade sometimes leaving behind a residual 0:00 time regen effect that wouldn't disappear.
+*Slightly increased the delay between Gaia Guardian teleportations.
+*The Gaia Spirits now have a subtle color overlay.
 r1.1 79
 *Fixed Natura Pylons being uncraftable.
 r1.1 78
