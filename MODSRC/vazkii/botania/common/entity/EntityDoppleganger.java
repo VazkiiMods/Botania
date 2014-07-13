@@ -33,6 +33,7 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.FakePlayer;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
@@ -163,7 +164,7 @@ public class EntityDoppleganger extends EntityCreature implements IBossDisplayDa
 
 	@Override
 	public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
-		if((par1DamageSource.damageType.equals("player") || par1DamageSource.getEntity() instanceof EntityPixie) && getInvulTime() == 0)
+		if((par1DamageSource.damageType.equals("player") || par1DamageSource.getEntity() instanceof EntityPixie) && par1DamageSource.getEntity() != null && !(par1DamageSource.getEntity() instanceof FakePlayer) && getInvulTime() == 0)
 			return super.attackEntityFrom(par1DamageSource, par2);
 		return false;
 	}
