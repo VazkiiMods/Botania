@@ -11,6 +11,7 @@
  */
 package vazkii.botania.common.item;
 
+import java.awt.Color;
 import java.util.List;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -24,6 +25,7 @@ import net.minecraft.world.World;
 import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.lib.LibItemNames;
 
@@ -59,6 +61,14 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 			icons[i] = IconHelper.forName(par1IconRegister, LibItemNames.MANA_RESOURCE_NAMES[i]);
 	}
 
+	@Override
+	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
+		if(par1ItemStack.getItemDamage() == 5)
+			return Color.HSBtoRGB(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 0.25F, 1F);
+		
+		return 0xFFFFFF;
+	}
+	
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
 		return "item." + LibItemNames.MANA_RESOURCE_NAMES[Math.min(types - 1, par1ItemStack.getItemDamage())];
