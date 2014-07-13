@@ -280,7 +280,7 @@ public class EntityDoppleganger extends EntityCreature implements IBossDisplayDa
 								worldObj.spawnEntityInWorld(pixie);
 							}
 
-						setTPDelay(50);
+						setTPDelay(60);
 						spawnLandmines = true;
 						spawnPixies = false;
 					}
