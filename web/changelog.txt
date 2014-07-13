@@ -1,3 +1,7 @@
+r1.1 81
+*Fixed a crash when breaking a mana pool, since the fix for the crash when placing a mana spreader broke that. >_>
+*Fixed the Gaia Guardian being able to be hurt by Fake Players.
+*Lowered the volume of the Terra Blade's proc effect because Marty was complaining.
 r1.1 80
 *Fixed an exploit with the Fallen Kanade that would trivialize the Gaia Guardian fight.
 *Fixed crash when breaking a mana pool and placing a spreader/flower in it's place.
