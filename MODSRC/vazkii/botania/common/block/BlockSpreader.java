@@ -135,7 +135,11 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 
 	@Override
 	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
-		TileSpreader spreader = (TileSpreader) par1World.getTileEntity(par2, par3, par4);
+		TileEntity tile = par1World.getTileEntity(par2, par3, par4);
+		if(!(tile instanceof TileSpreader))
+			return false;
+		
+		TileSpreader spreader = (TileSpreader) tile;
 		ItemStack lens = spreader.getStackInSlot(0);
 		ItemStack heldItem = par5EntityPlayer.getCurrentEquippedItem();
 		boolean isHeldItemLens = heldItem != null && heldItem.getItem() instanceof ILens;
@@ -161,7 +165,11 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 
 	@Override
 	public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6) {
-		TileSimpleInventory inv = (TileSimpleInventory) par1World.getTileEntity(par2, par3, par4);
+		TileEntity tile = par1World.getTileEntity(par2, par3, par4);
+		if(!(tile instanceof TileSimpleInventory))
+			return;
+		
+		TileSimpleInventory inv = (TileSimpleInventory) tile;
 
 		if (inv != null) {
 			for (int j1 = 0; j1 < inv.getSizeInventory(); ++j1) {

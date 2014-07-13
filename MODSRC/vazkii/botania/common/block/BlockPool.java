@@ -75,6 +75,7 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 
 	@Override
 	public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6) {
+		super.breakBlock(par1World, par2, par3, par4, par5, par6);
 		TilePool pool = (TilePool) par1World.getTileEntity(par2, par3, par4);
 		lastFragile = pool.fragile;
 	}
