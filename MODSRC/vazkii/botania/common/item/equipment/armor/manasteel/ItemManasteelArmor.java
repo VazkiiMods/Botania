@@ -19,9 +19,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaUsingItem;
+import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.BotaniaCreativeTab;
@@ -70,6 +72,18 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 	@Override
 	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
 		return damageReduceAmount;
+	}
+
+	@Override
+	public void onUpdate(ItemStack stack, World world, Entity player, int par4, boolean par5) {
+		if(player instanceof EntityPlayer)
+			onArmorTick(world, (EntityPlayer) player, stack);
+	}
+
+	@Override
+	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
+		if(!world.isRemote && stack.getItemDamage() > 0 && ManaItemHandler.requestManaExact(stack, player, MANA_PER_DAMAGE * 2, true))
+			stack.setItemDamage(stack.getItemDamage() - 1);
 	}
 
 	@Override
