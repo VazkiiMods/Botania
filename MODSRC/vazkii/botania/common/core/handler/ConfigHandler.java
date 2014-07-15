@@ -35,6 +35,7 @@ public final class ConfigHandler {
 	public static boolean blockBreakParticles = true;
 	public static boolean blockBreakParticlesTool = true;
 	public static boolean elfPortalParticlesEnabled = true;
+	public static boolean chargingAnimationEnabled = true;
 	public static boolean matrixMode = false;
 	public static boolean referencesEnabled = true;
 	public static boolean baublesInventoryButton = true;
@@ -103,6 +104,9 @@ public final class ConfigHandler {
 		desc = "Set to false to disable the particles in the elven portal.";
 		elfPortalParticlesEnabled = loadPropBool("elfPortal.particles.enabled", desc, elfPortalParticlesEnabled);
 
+		desc = "Set to false to disable the animation when an item is charging on top of a mana pool.";
+		chargingAnimationEnabled = loadPropBool("chargeAnimation.enabled", desc, chargingAnimationEnabled);
+		
 		desc = "Set to true if you are the chosen one. For lovers of glitch art and just general mad people.";
 		matrixMode = loadPropBool("matrixMode.enabled", desc, matrixMode);
 
