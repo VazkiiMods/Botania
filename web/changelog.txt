@@ -1,3 +1,12 @@
+r1.1 82
+*Added a config option to disable the animation when an item is charging on a mana pool.
+*Added some Botania loot to the Bonus Chest, Stronghold and Dungeon chests.
+*Added the Vinculotus, a new flower that interecepts enderman teleportation and forces them to teleport to it.
+*Botania armor now pulls mana from the inventory to repair damage, not only nullify it. If repairing, it costs twice as much.
+*Fixed pixie console spam.
+*Fixed pixies being able to be killed by the player who spawned them.
+*Fixed the daffomill (sometimes?) creating a rubberbanding effect on the client. (I couldn't reproduce this issue so I can only assume that fix did it)
+*The Gaia Guardian now blocks flight.
 r1.1 81
 *Fixed a crash when breaking a mana pool, since the fix for the crash when placing a mana spreader broke that. >_>
 *Fixed the Gaia Guardian being able to be hurt by Fake Players.
