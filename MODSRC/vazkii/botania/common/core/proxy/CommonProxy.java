@@ -25,6 +25,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.BiomeDecorationHandler;
 import vazkii.botania.common.core.handler.CommonTickHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.core.handler.ChestGenHandler;
 import vazkii.botania.common.core.handler.InternalMethodHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.handler.PixieHandler;
@@ -68,6 +69,7 @@ public class CommonProxy {
 		ModManaConjurationRecipes.init();
 		ModManaInfusionRecipes.init();
 		ModElvenTradeRecipes.init();
+		ChestGenHandler.init();
 
 		LexiconData.init();
 	}
