@@ -32,5 +32,4 @@ public final class ChestGenHandler {
 		ChestGenHooks.addItem(c, new WeightedRandomChestContent(new ItemStack(ModItems.manaBottle), 1, 1, 5));
 	}
 	
-	
 }

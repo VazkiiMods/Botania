@@ -86,7 +86,8 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 				LibBlockNames.SUBTILE_POLLIDISIAC,
 				LibBlockNames.SUBTILE_CLAYCONIA,
 				LibBlockNames.SUBTILE_LOONIUM,
-				LibBlockNames.SUBTILE_DAFFOMILL
+				LibBlockNames.SUBTILE_DAFFOMILL,
+				LibBlockNames.SUBTILE_VINCULOTUS
 		}));
 	}
 

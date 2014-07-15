@@ -415,6 +415,8 @@ tile.botania:flower.loonium.name=Loonium
 tile.botania:flower.loonium.reference=Hold it up above your head
 tile.botania:flower.daffomill.name=Daffomill
 tile.botania:flower.daffomill.reference=Cook's Assistant
+tile.botania:flower.vinculotus.name=Vinculotus
+tile.botania:flower.vinculotus.reference=Totally an Extra Utils ripoff
 
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania
