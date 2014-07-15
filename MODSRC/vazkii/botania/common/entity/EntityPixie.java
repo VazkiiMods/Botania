@@ -79,7 +79,6 @@ public class EntityPixie extends EntityFlyingCreature {
 						target.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) summoner), damage);
 					else {
 						target.attackEntityFrom(DamageSource.causeMobDamage(summoner), damage);
-						System.out.println(target + " " + damage);
 					}
 				} else target.attackEntityFrom(DamageSource.causeMobDamage(this), damage);
 				die();
@@ -89,6 +88,13 @@ public class EntityPixie extends EntityFlyingCreature {
 		renderYawOffset = rotationYaw = -((float)Math.atan2(motionX, motionZ)) * 180.0F / (float)Math.PI;
 	}
 
+	@Override
+	public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
+		if(par1DamageSource.getEntity() != summoner)
+			return super.attackEntityFrom(par1DamageSource, par2);
+		return false;
+	}
+	
 	@Override
 	public void onEntityUpdate() {
 		super.onEntityUpdate();
