@@ -65,6 +65,8 @@ public final class LibLexicon {
 	public static final String FFLOWER_POLLIDISIAC = "pollidisiac";
 	public static final String FFLOWER_CLAYCONIA = "clayconia";
 	public static final String FFLOWER_LOONIUM = "loonium";
+	public static final String FFLOWER_DAFFOMILL = "daffomill";
+	public static final String FFLOWER_VINCULOTUS = "vinculotus";
 
 	public static final String GFLOWER_INTRO = "gIntro";
 	public static final String GFLOWER_DAYBLOOM = "daybloom";
@@ -76,7 +78,6 @@ public final class LibLexicon {
 	public static final String GFLOWER_MUNCHDEW = "munchdew";
 	public static final String GFLOWER_ENTROPINNYUM = "entropinnyum";
 	public static final String GFLOWER_KEKIMURUS = "kekimurus";
-	public static final String GFLOWER_DAFFOMILL = "daffomill";
 
 	public static final String DEVICE_PISTON_RELAY = "pistonRelay";
 	public static final String DEVICE_PYLON = "pylon";

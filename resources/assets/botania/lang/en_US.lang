@@ -895,6 +895,11 @@ botania.entry.daffomill=Daffomill
 botania.page.daffomill0=The &1Daffomill&0 works as a fan of sorts. It pushes, at the cost of a small amount of &4Mana&0, any items found in front of it.<br>Shift-right clicking it with a &1Wand of the Forest&0 changes the orientation. Where it's currently facing can be seen via the subtle wind particles it emits.
 botania.page.daffomill1=&oWind Turbines? I'm a big fan&r.
 
+# -- VINCULOTUS
+botania.entry.vinculotus=Vinculotus
+botania.page.vinculotus0=The &1Vinculotus&0 has the power to create a disturbance among any &4Enderman&0's teleportation powers within a fairly large radius around it. For a cost of &4Mana&0, whenever an &4Enderman&0 would teleport anywhere, instead, they're teleported to the location of the &1Vinculotus&0.
+botania.page.vinculotus1=Touch this black lotus with your fingers
+
 # - GENERATING FLOWERS
 # -- AN INTRODUCTION TO GENERATION
 botania.entry.gIntro=An Introduction to Generation

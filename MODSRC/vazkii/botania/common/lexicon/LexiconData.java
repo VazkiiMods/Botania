@@ -100,6 +100,7 @@ public final class LexiconData {
 	public static LexiconEntry entropinnyum;
 	public static LexiconEntry kekimurus;
 	public static LexiconEntry daffomill;
+	public static LexiconEntry vinculotus;
 
 	public static LexiconEntry pistonRelay;
 	public static LexiconEntry pylon;
@@ -307,9 +308,12 @@ public final class LexiconData {
 		loonium = new BLexiconEntry(LibLexicon.FFLOWER_LOONIUM, categoryFunctionalFlowers);
 		loonium.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.looniumRecipe));
 
-		daffomill = new BLexiconEntry(LibLexicon.GFLOWER_DAFFOMILL, categoryFunctionalFlowers);
+		daffomill = new BLexiconEntry(LibLexicon.FFLOWER_DAFFOMILL, categoryFunctionalFlowers);
 		daffomill.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.daffomillRecipe));
 
+		vinculotus = new BLexiconEntry(LibLexicon.FFLOWER_VINCULOTUS, categoryFunctionalFlowers);
+		vinculotus.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.vinculotusRecipe));
+		
 		// GENERATING FLOWERS ENTRIES
 		generatingIntro = new BLexiconEntry(LibLexicon.GFLOWER_INTRO, categoryGenerationFlowers);
 		generatingIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"));
