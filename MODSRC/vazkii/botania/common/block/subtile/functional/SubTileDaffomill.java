@@ -88,7 +88,7 @@ public class SubTileDaffomill extends SubTileFunctional {
 
 	@Override
 	public boolean onWanded(EntityPlayer player, ItemStack wand) {
-		if(player == null)
+		if(player == null || player.worldObj.isRemote)
 			return false;
 
 		if(player.isSneaking()) {
