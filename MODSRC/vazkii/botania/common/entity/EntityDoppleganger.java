@@ -232,6 +232,8 @@ public class EntityDoppleganger extends EntityCreature implements IBossDisplayDa
 
 			active.removeAll(remove);
 
+			player.capabilities.isFlying = player.capabilities.isFlying && player.capabilities.isCreativeMode;
+			
 			if(!playersInside.contains(player)) {
 				Vector3 sourceVector = new Vector3(source.posX + 0.5, source.posY + 0.5, source.posZ + 0.5);
 				Vector3 playerVector = Vector3.fromEntityCenter(player);
