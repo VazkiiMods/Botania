@@ -89,6 +89,7 @@ lexicon.render.3D=3D辞典渲染
 powerSystem.subtle=使用微量粒子能量系统
 pylonModel.old=使用旧的水晶模型
 elfPortal.particles.enabled=启用传送门粒子
+chargeAnimation.enabled=启用充能时的动画
 matrixMode.enabled=启用矩阵模式
 references.enabled=启用工具提示文本
 baublesButton.enabled=启用饰品栏按钮
@@ -388,7 +389,7 @@ tile.botania:flower.tigerseye.name=虎之眼
 tile.botania:flower.tigerseye.reference=掌上老虎
 tile.botania:flower.jadedAmaranthus.name=杰迪德苋
 tile.botania:flower.jadedAmaranthus.reference=一对情侣因此而死
-tile.botania:flower.orechid.name=矿物兰
+tile.botania:flower.orechid.name=凝矿兰
 tile.botania:flower.orechid.reference=你挖了什么我就种了什么
 tile.botania:flower.fallenKanade.name=天降之奏
 tile.botania:flower.fallenKanade.reference=我不是天使
@@ -410,10 +411,12 @@ tile.botania:flower.pollidisiac.name=畜牧花
 tile.botania:flower.pollidisiac.reference=鸟与蜜蜂
 tile.botania:flower.clayconia.name=粘土花
 tile.botania:flower.clayconia.reference=不包括卢比
-tile.botania:flower.loonium.name=懒惰汉
+tile.botania:flower.loonium.name=聚宝花
 tile.botania:flower.loonium.reference=好好珍惜它
 tile.botania:flower.daffomill.name=扇水仙
 tile.botania:flower.daffomill.reference=厨师的好帮手
+tile.botania:flower.vinculotus.name=诱引莲
+tile.botania:flower.vinculotus.reference=完全就是抄袭更多实用设备
 
 # ITEM NAMES
 item.botania:lexicon.name=植物魔法辞典
@@ -826,8 +829,8 @@ botania.page.tigerseye0=我们都知道&4爬行者&0害怕&4猫&0.<br>&1虎之�
 botania.page.tigerseye1=&o是时候向敌人反击了&r.
 
 # -- ORECHID
-botania.entry.orechid=矿物兰
-botania.page.orechid0=尽管挖矿很好,我们应想些可 再生的方法.&1矿物兰&0会用(大量 的)&4魔力&0来在附近的&1石头&0方块 中生成&4矿物&0.<br>它生成的矿物是随机的,但显 然普通的比稀有的偏多.
+botania.entry.orechid=凝矿兰
+botania.page.orechid0=尽管挖矿很好,我们应想些可 再生的方法.&1凝矿兰&0会用(大量 的)&4魔力&0来在附近的&1石头&0方块 中生成&4矿物&0.<br>它生成的矿物是随机的,但显 然普通的比稀有的偏多.
 botania.page.orechid1=&o莉兹白会喜欢这朵花的&r.
 
 # -- FALLEN KANADE
@@ -883,14 +886,19 @@ botania.page.clayconia0=&1粘土花&0是种简单的花,本质上 来说.它所�
 botania.page.clayconia1=&o简直是杀手的笑话&r.
 
 # -- LOONIUM
-botania.entry.loonium=懒惰汉
-botania.page.loonium0=任何疲于冒险的家伙们都知 道&4地牢&0会有些好东西.&1懒惰汉&0 会消耗大量&4魔力&0,使这些物品 实体化并掉落在附近.
+botania.entry.loonium=聚宝花
+botania.page.loonium0=任何疲于冒险的家伙们都知 道&4地牢&0会有些好东西.&1聚宝花&0 会消耗大量&4魔力&0,使这些物品 实体化并掉落在附近.
 botania.page.loonium1=&o箱子箱子我需要箱子&r!
 
 # -- DAFFOMILL
 botania.entry.daffomill=扇水仙
 botania.page.daffomill0=&1扇水仙&0就像个风扇.它会消耗 少量&4魔力&0推动它前方的任何 物品.<br>使用&1森林法杖&0shift右击可以 调整朝向.它实时的朝向可以 通过风粒子的效果来判断.
 botania.page.daffomill1=&o风电机?不,我就是个风扇&r.
+
+# -- VINCULOTUS
+botania.entry.vinculotus=诱引莲
+botania.page.vinculotus0=&1诱引莲&0有着干扰大范围内的 &4末影人&0瞬移的能力.消耗一些 &4魔力&0,当&4末影人&0要瞬移到某处 时,它们只会被传送到&1诱引莲&0 的所在处.
+botania.page.vinculotus1=用你的指尖轻触这朵黑莲
 
 # - GENERATING FLOWERS
 # -- AN INTRODUCTION TO GENERATION
