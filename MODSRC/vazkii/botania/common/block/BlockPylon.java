@@ -103,6 +103,7 @@ public class BlockPylon extends BlockModContainer implements ILexiconable {
 
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
-		return world.getBlockMetadata(x, y, z) == 0 ? LexiconData.pylon : LexiconData.alfhomancyIntro;
+		int meta = world.getBlockMetadata(x, y, z);
+		return meta == 0 ? LexiconData.pylon : meta == 1 ? LexiconData.alfhomancyIntro : LexiconData.gaiaRitual;
 	}
 }
