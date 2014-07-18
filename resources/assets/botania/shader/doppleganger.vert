@@ -1,4 +1,6 @@
-varying out vec2 texcoord;
+#version 120
+
+varying vec2 texcoord;
 uniform int time; // Passed in, see ShaderHelper.java
 
 uniform float disfiguration; // Passed in via Callback
