@@ -1,3 +1,8 @@
+r1.1 83
+*Changed the Lexicon HUD icon to be a lot less intrusive.
+*Fixed Gaia Pylons' in-world lexicon click going to the wrong entry.
+*Shaders now use GLSL version 120 instead of whatever they feel like. Should fix issues with some GPUs having lag with them enabled. If your GPU doesn't support GLSL version 120 you should consider upgrading (or turning shaders off in the config I guess).
+*The Charm of the Diva is now a lot more reliable.
 r1.1 82
 *Added a config option to disable the animation when an item is charging on a mana pool.
 *Added some Botania loot to the Bonus Chest, Stronghold and Dungeon chests.
