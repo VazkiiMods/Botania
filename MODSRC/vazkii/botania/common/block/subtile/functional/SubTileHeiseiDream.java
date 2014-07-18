@@ -14,6 +14,7 @@ package vazkii.botania.common.block.subtile.functional;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIAttackOnCollide;
@@ -41,36 +42,43 @@ public class SubTileHeiseiDream extends SubTileFunctional {
 			for(IMob mob : mobs) {
 				if(mob instanceof EntityLiving) {
 					EntityLiving entity = (EntityLiving) mob;
-					brainwashEntity(entity, mobs);
-
-					mana -= cost;
-					sync();
-					break;
-
+					if(brainwashEntity(entity, mobs)) {
+						mana -= cost;
+						sync();
+						break;
+					}
 				}
 			}
 	}
 
-	public static void brainwashEntity(EntityLiving entity, List<IMob> mobs) {
+	public static boolean brainwashEntity(EntityLiving entity, List<IMob> mobs) {
 		EntityLivingBase target = entity.getAttackTarget();
+		boolean did = false;
+		
 		if(target == null || !(target instanceof IMob)) {
 			IMob newTarget;
 			do newTarget = mobs.get(entity.worldObj.rand.nextInt(mobs.size()));
 			while(newTarget == entity);
 
 			if(newTarget instanceof EntityLiving) {
-				entity.setAttackTarget((EntityLiving) newTarget);
-
 				List<EntityAITaskEntry> entries = new ArrayList(entity.tasks.taskEntries);
 				entries.addAll(new ArrayList(entity.targetTasks.taskEntries));
 
 				for(EntityAITaskEntry entry : entries)
-					if(entry.action instanceof EntityAINearestAttackableTarget)
+					if(entry.action instanceof EntityAINearestAttackableTarget) {
 						messWithGetTargetAI((EntityAINearestAttackableTarget) entry.action, (EntityLiving) newTarget);
-					else if(entry.action instanceof EntityAIAttackOnCollide)
+						did = true;
+					} else if(entry.action instanceof EntityAIAttackOnCollide) {
 						messWithAttackOnCollideAI((EntityAIAttackOnCollide) entry.action);
+						did = true;
+					}
+				
+				if(did)
+					entity.setAttackTarget((EntityLiving) newTarget);
 			}
 		}
+		
+		return did;
 	}
 
 	private static void messWithGetTargetAI(EntityAINearestAttackableTarget aiEntry, EntityLivingBase target) {
