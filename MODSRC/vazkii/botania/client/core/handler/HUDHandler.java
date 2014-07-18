@@ -44,7 +44,6 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 public final class HUDHandler {
 
 	private static final ResourceLocation manaBar = new ResourceLocation(LibResources.GUI_MANA_HUD);
-	private static final RenderItem itemRender = new RenderItem();
 
 	@SubscribeEvent
 	public void onDrawScreen(RenderGameOverlayEvent.Post event) {
@@ -140,16 +139,12 @@ public final class HUDHandler {
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		Minecraft mc = Minecraft.getMinecraft();
-		int x = res.getScaledWidth() / 2  + 8;
-		int y = res.getScaledHeight() / 2 - 4;
-
-		int color = 0x6600FF00;
-
-		mc.fontRenderer.drawStringWithShadow(StatCollector.translateToLocal(entry.getUnlocalizedName()), x + 18, y, color);
-		mc.fontRenderer.drawStringWithShadow(StatCollector.translateToLocal("botaniamisc.shiftToRead"), x + 18, y + 11, color);
-		itemRender.renderItemIntoGUI(mc.fontRenderer, mc.renderEngine, new ItemStack(ModItems.lexicon), x, y);
+		int x = res.getScaledWidth() / 2 - 17;
+		int y = res.getScaledHeight() / 2 + 2;
+		
+		RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine, new ItemStack(ModItems.lexicon), x, y);
 		GL11.glDisable(GL11.GL_LIGHTING);
-		mc.fontRenderer.drawStringWithShadow("?", x + 10, y + 8, 0xFFFFFF);
+		mc.fontRenderer.drawStringWithShadow("?", x + 10, y + 8, 0xFFFFFFFF);
 
 		GL11.glDisable(GL11.GL_BLEND);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
