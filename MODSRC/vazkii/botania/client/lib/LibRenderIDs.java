@@ -19,5 +19,6 @@ public final class LibRenderIDs {
 	public static int idPool = -1;
 	public static int idPylon = -1;
 	public static int idMiniIsland = -1;
+	public static int idTinyPotato = -1;
 
 }

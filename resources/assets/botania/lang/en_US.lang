@@ -347,6 +347,7 @@ tile.botania:miniIsland12.name=Floating Brown Flower
 tile.botania:miniIsland13.name=Floating Green Flower
 tile.botania:miniIsland14.name=Floating Red Flower
 tile.botania:miniIsland15.name=Floating Black Flower
+tile.botania:tinyPotato.name=Tiny Potato
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
@@ -1365,3 +1366,8 @@ botania.page.prismarine6=Crafting the &1Sea Lantern&0
 # -- NATURAL SHEDDING
 botania.entry.shedding=Natural Shedding
 botania.page.shedding0=The living beings that inhabit our lands don't live in a static state. It's common for pieces of their body to fall out, &1Feathers&0 on &4Chickens&0, &1Bones&0 on &4Skeletons&0, so on.<br>Even the tough &4Ghasts&0 sometimes shed a tear or the &4Villagers&0 accidently drop an &1Emerald&0 and can't pick it back up because their arms are stuck together for some reason.
+
+# -- TINY POTATO
+botania.entry.tinyPotato=Tiny Potato
+botania.page.tinyPotato0=It's a tiny potato, it believes in you, you can do the thing.<br>No really, that's it, by tossing a &1Potato&0 in a &1Mana Pool&0, the potato gains a little lively essence and happy feeling. It's a lively one, giving it a right click will make it even more so!
+botania.page.tinyPotato1=Put it on Kickstarter, it'll work 

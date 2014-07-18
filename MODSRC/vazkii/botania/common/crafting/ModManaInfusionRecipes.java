@@ -35,6 +35,7 @@ public final class ModManaInfusionRecipes {
 	public static RecipeManaInfusion podzolSeedsRecipe;
 	public static List<RecipeManaInfusion> mycelSeedsRecipes;
 	public static RecipeManaInfusion manaQuartzRecipe;
+	public static RecipeManaInfusion tinyPotatoRecipe;
 
 	public static void init() {
 		manaPetalRecipes = new ArrayList();
@@ -57,7 +58,8 @@ public final class ModManaInfusionRecipes {
 		mycelSeedsRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.grassSeeds, 1, 2), new ItemStack(Blocks.brown_mushroom), 6500));
 
 		manaQuartzRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.quartz, 1, 1), new ItemStack(Items.quartz), 250);
-
+		tinyPotatoRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.tinyPotato), new ItemStack(Items.potato), 1337);
+		
 		BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaBottle), new ItemStack(Items.glass_bottle), 5000);
 	}
 

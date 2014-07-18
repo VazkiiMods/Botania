@@ -161,6 +161,7 @@ public final class LexiconData {
 	public static LexiconEntry shinyFlowers;
 	public static LexiconEntry prismarine;
 	public static LexiconEntry shedding;
+	public static LexiconEntry tinyPotato;
 
 	public static void init() {
 		BotaniaAPI.addCategory(categoryBasics = new LexiconCategory(LibLexicon.CATEGORY_BASICS));
@@ -535,5 +536,8 @@ public final class LexiconData {
 
 		shedding = new BLexiconEntry(LibLexicon.MISC_SHEDDING, categoryMisc);
 		shedding.setLexiconPages(new PageText("0"));
+		
+		tinyPotato = new BLexiconEntry(LibLexicon.MISC_TINY_POTATO, categoryMisc);
+		tinyPotato.setLexiconPages(new PageText("0"), new PageManaInfusionRecipe("1", ModManaInfusionRecipes.tinyPotatoRecipe));
 	}
 }

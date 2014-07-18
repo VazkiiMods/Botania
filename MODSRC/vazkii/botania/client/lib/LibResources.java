@@ -76,6 +76,7 @@ public final class LibResources {
 	public static final String MODEL_ELEMENTIUM_1 = PREFIX_MODEL + "elementium1.png";
 	public static final String MODEL_PIXIE = PREFIX_MODEL + "pixie.png";
 	public static final String MODEL_MINI_ISLAND = PREFIX_MODEL + "miniIsland.png";
+	public static final String MODEL_TINY_POTATO = PREFIX_MODEL + "tinyPotato.png";
 
 	public static final String MODEL_CAPE = "/assets/botania/textures/model/cape.png";
 
