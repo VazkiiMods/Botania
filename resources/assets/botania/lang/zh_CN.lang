@@ -253,6 +253,7 @@ tile.botania:storage0.name=魔力钢块
 tile.botania:storage1.name=泰拉钢块
 tile.botania:storage2.name=源质钢块
 tile.botania:forestDrum.name=狂野之鼓
+tile.botania:forestDrum1.name=收集之鼓
 tile.botania:shinyFlower0.name=白色荧光花
 tile.botania:shinyFlower1.name=橙色荧光花
 tile.botania:shinyFlower2.name=品红色荧光花
@@ -347,6 +348,7 @@ tile.botania:miniIsland12.name=棕色浮空花
 tile.botania:miniIsland13.name=绿色浮空花
 tile.botania:miniIsland14.name=红色浮空花
 tile.botania:miniIsland15.name=黑色浮空花
+tile.botania:tinyPotato.name=小土豆
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
@@ -1050,6 +1052,11 @@ botania.entry.spectralPlatform=幻影平台
 botania.page.spectralPlatform0=&1幻影平台&0可不是&1奥秘平台&0那 样的.&1奥秘平台&0在有些情况下 会有碰撞箱,而&1幻影平台&0则可 让一切穿过,不管在什么位置.
 botania.page.spectralPlatform1=这让我想起了一个谜题
 
+# -- DRUM OF THE GATHERING
+botania.entry.gatherDrum=收集之鼓
+botania.page.gatherDrum0=所谓的&1收集之鼓&0,短期来说,就 是一个为牲畜而准备的&1狂野&0 &1之鼓&0.<br>当有&4魔力脉冲&0撞上它时,它会 给周围长毛的&4羊&0剪毛.所有的&4牛&0 ,下方若有&1空桶&0的话,牛奶就会 被装入桶中.
++botania.page.gatherDrum1=Tap your lands
+
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
 botania.entry.manaBlaster=魔力脉冲枪
@@ -1365,3 +1372,8 @@ botania.page.prismarine6=合成&1海灯笼&0
 # -- NATURAL SHEDDING
 botania.entry.shedding=自然掉落物
 botania.page.shedding0=这片土地上的生物都以非静 态的形式生存着.所以他们身 体的一部分掉落下来是很正 常的,&1羽毛&0来自&4鸡&0,&1骨头&0来自 &4骷髅射手&0,以此类推.<br>甚至是&4恶魂&0有时都会掉落恶 魂之泪,以及&4村民&0有几率掉落 &1绿宝石&0,他们不会捡绿宝石因 为他们总是将手藏在袖子里.
+
+# -- TINY POTATO
+botania.entry.tinyPotato=小土豆
+botania.page.tinyPotato0=这是一个小土豆,它相信你,你 能做到.<br>尽管听起来不太真实,但就是 那样,将一个&1马铃薯&0投入&1魔力&0 &1池&0,它就得到了一点活性精华 并且感到愉悦.它很活跃,右击 它还能让它更活跃!
+botania.page.tinyPotato1=将它放在Kickstarter网站上 就起效了
