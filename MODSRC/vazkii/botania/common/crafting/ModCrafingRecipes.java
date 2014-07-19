@@ -160,6 +160,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeLensPaint;
 	public static List<IRecipe> recipesMiniIsland;
 	public static IRecipe recipeGaiaPylon;
+	public static IRecipe recipeGatherDrum;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -972,6 +973,14 @@ public final class ModCrafingRecipes {
 				'E', LibOreDict.ELEMENTIUM,
 				'P', new ItemStack(ModBlocks.pylon));
 		recipeGaiaPylon = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Drum of the Gathering Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.forestDrum, 1, 1),
+				"WLW", "WEW", "WLW",
+				'W', LibOreDict.DREAM_WOOD,
+				'L', new ItemStack(Items.leather),
+				'E', LibOreDict.ELEMENTIUM);
+		recipeGatherDrum = BotaniaAPI.getLatestAddedRecipe();
 
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

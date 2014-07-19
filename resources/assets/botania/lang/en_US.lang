@@ -252,7 +252,8 @@ tile.botania:forestEye.name=Eye of the Ancients
 tile.botania:storage0.name=Block of Manasteel
 tile.botania:storage1.name=Block of Terrasteel
 tile.botania:storage2.name=Block of Elementium
-tile.botania:forestDrum.name=Drum of the Wild
+tile.botania:forestDrum0.name=Drum of the Wild
+tile.botania:forestDrum1.name=Drum of the Gathering
 tile.botania:shinyFlower0.name=Glimmering White Flower
 tile.botania:shinyFlower1.name=Glimmering Orange Flower
 tile.botania:shinyFlower2.name=Glimmering Magenta Flower
@@ -1050,6 +1051,11 @@ botania.page.manaConjuration9=Conjuring &1Gravel&0
 botania.entry.spectralPlatform=Spectral Platform
 botania.page.spectralPlatform0=The &1Spectral Platform&0 isn't more than an &1Abstruse Platform&0 with no physical body whatsoever. Whereas the &1Abstruse Platform&0 would have a physical body in some cases, the &1Spectral Platform&0 lets anything go through it, regardless of their position.
 botania.page.spectralPlatform1=This reminds me of a Puzzle
+
+# -- DRUM OF THE GATHERING
+botania.entry.gatherDrum=Drum of the Gathering
+botania.page.gatherDrum0=The &1Drum of the Gathering&0 is, in short terms, a &1Drum of the Wild&0 for livestock.<br>When a &4Mana Burst&0 collides with it, it'll shear any &4Sheep&0 around with grown fleece. Any &4Cows&0, with &1Empty Buckets&0 below them will have their milk transfered to the buckets.
+botania.page.gatherDrum1=Tap your lands
 
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER

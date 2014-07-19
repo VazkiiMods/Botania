@@ -90,6 +90,7 @@ public final class LibLexicon {
 	public static final String DEVICE_PLATFORM = "platform";
 	public static final String DEVICE_MANA_CONJURATION = "manaConjuration";
 	public static final String DEVICE_SPECTRAL_PLATFORM = "spectralPlatform";
+	public static final String DEVICE_GATHER_DRUM = "gatherDrum";
 
 	public static final String TOOL_MANA_BLASTER = "manaBlaster";
 	public static final String TOOL_GRASS_SEEDS = "grassSeeds";
