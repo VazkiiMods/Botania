@@ -14,6 +14,7 @@ package vazkii.botania.common.entity;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
@@ -461,7 +462,8 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 		int mana = getMana();
 		int maxMana = getStartingMana();
-		float size = (float) mana / (float) maxMana;
+		float osize = (float) mana / (float) maxMana;
+		float size = osize;
 
 		if(fake) {
 			if(getMana() == getStartingMana())
@@ -476,22 +478,43 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 				for(int i = 0; i < 1; i++)
 					Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.1F * size, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.01F);
 			else {
-				posX += motionX;
-				posY += motionY;
-				posZ += motionZ;
+				float or = r;
+				float og = g;
+				float ob = b;
 
-				Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.2F * size, (float) -motionX * 0.01F, (float) -motionY * 0.01F, (float) -motionZ * 0.01F);
+				double savedPosX = posX;
+				double savedPosY = posY;
+				double savedPosZ = posZ;
+
+				Vector3 currentPos = Vector3.fromEntity(this);
+				Vector3 oldPos = new Vector3(prevPosX, prevPosY, prevPosZ);
+				Vector3 diffVec = oldPos.copy().sub(currentPos);
+				Vector3 diffVecNorm = diffVec.copy().normalize();
+
+				double distance = 0.095;
+				
+				int particles = 0;
+				do {
+					r = or + ((float) Math.random() - 0.5F) * 0.25F;
+					g = og + ((float) Math.random() - 0.5F) * 0.25F;
+					b = ob + ((float) Math.random() - 0.5F) * 0.25F;
+					size = osize + ((float) Math.random() - 0.5F) * 0.05F + (float) Math.sin(new Random(entityUniqueID.getMostSignificantBits()).nextInt(9001)) * 0.45F;
+					Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.2F * size, (float) -motionX * 0.01F, (float) -motionY * 0.01F, (float) -motionZ * 0.01F);
+
+					posX += diffVecNorm.x * distance;
+					posY += diffVecNorm.y * distance;
+					posZ += diffVecNorm.z * distance;
+					
+					currentPos = Vector3.fromEntity(this);
+					diffVec = oldPos.copy().sub(currentPos);
+					particles++;
+				} while(Math.abs(diffVec.mag()) > distance);
+				
 				Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.1F * size, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F);
 
-				posX -= motionX / 2.0;
-				posY -= motionY / 2.0;
-				posZ -= motionZ / 2.0;
-
-				Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.2F * size, (float) -motionX * 0.01F, (float) -motionY * 0.01F, (float) -motionZ * 0.01F);
-
-				posX -= motionX / 2.0;
-				posY -= motionY / 2.0;
-				posZ -= motionZ / 2.0;
+				posX = savedPosX;
+				posY = savedPosY;
+				posZ = savedPosZ;
 			}
 		}
 	}
