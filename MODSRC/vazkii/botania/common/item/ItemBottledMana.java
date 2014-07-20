@@ -31,6 +31,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -199,6 +200,11 @@ public class ItemBottledMana extends ItemMod {
 		long seed = Math.abs(itemRand.nextLong());
 		ItemNBTHelper.setLong(stack, TAG_SEED, seed);
 		return seed;
+	}
+
+	@Override
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+		par3List.add(StatCollector.translateToLocal("botaniamisc.bottleTooltip"));
 	}
 
 	@Override
