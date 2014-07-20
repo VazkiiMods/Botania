@@ -161,6 +161,8 @@ public final class ModCrafingRecipes {
 	public static List<IRecipe> recipesMiniIsland;
 	public static IRecipe recipeGaiaPylon;
 	public static IRecipe recipeGatherDrum;
+	public static IRecipe recipeLensFire;
+	public static IRecipe recipeLensPiston;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -277,7 +279,7 @@ public final class ModCrafingRecipes {
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 1, 8), new ItemStack(ModItems.lens), LibOreDict.RUNE[13]);
 		recipeLensDamaging = BotaniaAPI.getLatestAddedRecipe();
 
-		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 1, 9), new ItemStack(ModItems.lens), new ItemStack(ModBlocks.pistonRelay));
+		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 1, 9), new ItemStack(ModItems.lens), new ItemStack(ModBlocks.platform));
 		recipeLensPhantom = BotaniaAPI.getLatestAddedRecipe();
 
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 1, 10), new ItemStack(ModItems.lens), "ingotIron", "ingotGold");
@@ -982,6 +984,14 @@ public final class ModCrafingRecipes {
 				'E', LibOreDict.ELEMENTIUM);
 		recipeGatherDrum = BotaniaAPI.getLatestAddedRecipe();
 
+		// Mana Lens: Kindle
+		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 1, 15), new ItemStack(ModItems.lens), new ItemStack(Items.fire_charge));
+		recipeLensFire = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Mana Lens: Piston
+		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 1, 16), new ItemStack(ModItems.lens), new ItemStack(ModBlocks.pistonRelay));
+		recipeLensPiston = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",

@@ -63,26 +63,51 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ItemLens extends ItemMod implements ILens {
 
-	private static final int NORMAL = 0, SPEED = 1, POWER = 2, TIME = 3, EFFICIENCY = 4,
-			BOUNCE = 5, GRAVITY = 6, MINE = 7, DAMAGE = 8, PHANTOM = 9,
-			MAGNET = 10, EXPLOSIVE = 11, INFLUENCE = 12, WEIGHT = 13, PAINT = 14;
+	private static final int NORMAL = 0, 
+			SPEED = 1, 
+			POWER = 2, 
+			TIME = 3, 
+			EFFICIENCY = 4,
+			BOUNCE = 5,
+			GRAVITY = 6, 
+			MINE = 7, 
+			DAMAGE = 8,
+			PHANTOM = 9,
+			MAGNET = 10,
+			EXPLOSIVE = 11,
+			INFLUENCE = 12,
+			WEIGHT = 13, 
+			PAINT = 14,
+			FIRE = 15,
+			PISTON = 16;
 
-	private static final Map<Integer, List<Integer>> blacklist = new HashMap();
+	private static final int PROP_NONE = 0,
+			PROP_POWER = 1,
+			PROP_ORIENTATION = 1 << 1,
+			PROP_TOUCH = 1 << 2,
+			PROP_INTERACTION = 1 << 3,
+			PROP_DAMAGE = 1 << 4;
+	
+	private static final Map<Integer, Integer> props = new HashMap();
 
 	static {
-		blacklistLenses(POWER, EXPLOSIVE);
-		blacklistLenses(GRAVITY, MAGNET);
-		blacklistLenses(PHANTOM, MINE);
-		blacklistLenses(PHANTOM, EXPLOSIVE);
-		blacklistLenses(PHANTOM, BOUNCE);
-		blacklistLenses(PHANTOM, WEIGHT);
-		blacklistLenses(EXPLOSIVE, MINE);
-		blacklistLenses(EXPLOSIVE, WEIGHT);
-		blacklistLenses(MINE, WEIGHT);
-		blacklistLenses(PAINT, MINE);
-		blacklistLenses(PAINT, EXPLOSIVE);
-		blacklistLenses(PAINT, WEIGHT);
-		blacklistLenses(PAINT, PHANTOM);
+		setProps(NORMAL, PROP_NONE);
+		setProps(SPEED, PROP_NONE);
+		setProps(POWER, PROP_POWER);
+		setProps(TIME, PROP_NONE);
+		setProps(EFFICIENCY, PROP_NONE);
+		setProps(BOUNCE, PROP_TOUCH);
+		setProps(GRAVITY, PROP_ORIENTATION);
+		setProps(MINE, PROP_TOUCH | PROP_INTERACTION);
+		setProps(DAMAGE, PROP_DAMAGE);
+		setProps(PHANTOM, PROP_TOUCH);
+		setProps(MAGNET, PROP_ORIENTATION);
+		setProps(EXPLOSIVE, PROP_DAMAGE | PROP_TOUCH | PROP_INTERACTION);
+		setProps(INFLUENCE, PROP_NONE);
+		setProps(WEIGHT, PROP_TOUCH | PROP_INTERACTION);
+		setProps(PAINT, PROP_TOUCH | PROP_INTERACTION);
+		setProps(FIRE, PROP_DAMAGE | PROP_TOUCH | PROP_INTERACTION);
+		setProps(PISTON, PROP_TOUCH | PROP_INTERACTION);
 	}
 
 	static final List<Block> paintableBlocks = new ArrayList() {{
@@ -101,7 +126,7 @@ public class ItemLens extends ItemMod implements ILens {
 
 	public static IIcon iconGlass;
 
-	public static final int SUBTYPES = 15;
+	public static final int SUBTYPES = 17;
 	IIcon[] ringIcons;
 
 	public ItemLens() {
@@ -359,6 +384,44 @@ public class ItemLens extends ItemMod implements ILens {
 			}
 			break;
 		}
+		case FIRE : {
+			ChunkCoordinates coords = burst.getBurstSourceChunkCoordinates();
+			if((coords.posX != pos.blockX || coords.posY != pos.blockY || coords.posZ != pos.blockZ) && !burst.isFake() && !isManaBlock) {
+				ForgeDirection dir = ForgeDirection.getOrientation(pos.sideHit);
+				if(entity.worldObj.getBlock(pos.blockX, pos.blockY, pos.blockZ) == Blocks.portal)
+					entity.worldObj.setBlock(pos.blockX, pos.blockY, pos.blockZ, Blocks.air);
+				else {
+					int x = pos.blockX + dir.offsetX;
+					int y = pos.blockY + dir.offsetY;
+					int z = pos.blockZ + dir.offsetZ;
+					entity.worldObj.setBlock(x, y, z, Blocks.fire);
+				}
+			}
+
+			break;
+		}
+		case PISTON : {
+			ChunkCoordinates coords = burst.getBurstSourceChunkCoordinates();
+			if((coords.posX != pos.blockX || coords.posY != pos.blockY || coords.posZ != pos.blockZ) && !burst.isFake() && !isManaBlock && !entity.worldObj.isRemote) {
+				ForgeDirection dir = ForgeDirection.getOrientation(pos.sideHit).getOpposite();
+				int x = pos.blockX + dir.offsetX;
+				int y = pos.blockY + dir.offsetY;
+				int z = pos.blockZ + dir.offsetZ;
+				
+				if(entity.worldObj.isAirBlock(x, y, z) || entity.worldObj.getBlock(x, y, z).isReplaceable(entity.worldObj, x, y, z)) {
+					Block block = entity.worldObj.getBlock(pos.blockX, pos.blockY, pos.blockZ);
+					int meta = entity.worldObj.getBlockMetadata(pos.blockX, pos.blockY, pos.blockZ);
+					TileEntity tile = entity.worldObj.getTileEntity(pos.blockX, pos.blockY, pos.blockZ);
+					
+					if(block.getMobilityFlag() == 0 && block != Blocks.obsidian && tile == null) {
+						entity.worldObj.setBlockToAir(pos.blockX, pos.blockY, pos.blockZ);
+						entity.worldObj.setBlock(x, y, z, block, meta, 1 | 2);
+						entity.worldObj.playAuxSFX(2001, pos.blockX, pos.blockY, pos.blockZ, Block.getIdFromBlock(block) + (meta << 12));
+					}
+				}
+			}
+			break;
+		}
 		}
 
 		ItemStack compositeLens = getCompositeLens(stack);
@@ -500,24 +563,12 @@ public class ItemLens extends ItemMod implements ILens {
 		return true;
 	}
 
-	public static void blacklistLenses(int lens1, int lens2) {
-		blacklistLenses(lens1, lens2, true);
-	}
-
-	public static void blacklistLenses(int lens1, int lens2, boolean recursive) {
-		if(!blacklist.containsKey(lens1))
-			blacklist.put(lens1, new ArrayList());
-		blacklist.get(lens1).add(lens2);
-
-		if(recursive)
-			blacklistLenses(lens2, lens1, false);
+	public static void setProps(int lens, int props_) {
+		props.put(lens, props_);
 	}
 
 	public static boolean isBlacklisted(int lens1, int lens2) {
-		if(!blacklist.containsKey(lens1))
-			return false;
-
-		return blacklist.get(lens1).contains(lens2);
+		return (props.get(lens1) & props.get(lens2)) == 0;
 	}
 
 	@Override

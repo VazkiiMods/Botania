@@ -101,7 +101,9 @@ public final class LibItemNames {
 		"lensExplosive",
 		"lensInfluence",
 		"lensWeight",
-		"lensPaint"
+		"lensPaint",
+		"lensFire",
+		"lensPiston"
 	};
 
 	public static final String[] MANA_RESOURCE_NAMES = new String[] {
