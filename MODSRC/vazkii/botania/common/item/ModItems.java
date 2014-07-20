@@ -131,6 +131,7 @@ public final class ModItems {
 	public static Item vineBall;
 	public static Item slingshot;
 	public static Item manaBottle;
+	public static Item laputaShard;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -204,6 +205,7 @@ public final class ModItems {
 		vineBall = new ItemVineBall();
 		slingshot = new ItemSlingshot();
 		manaBottle = new ItemBottledMana();
+		laputaShard = new ItemLaputaShard();
 
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {

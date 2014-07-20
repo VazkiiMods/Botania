@@ -84,6 +84,7 @@ public final class LibItemNames {
 	public static final String VINE_BALL = "vineBall";
 	public static final String SLINGSHOT = "slingshot";
 	public static final String MANA_BOTTLE = "manaBottle";
+	public static final String LAPUTA_SHARD = "laputaShard";
 
 	public static final String[] LENS_NAMES = new String[] {
 		"lensNormal",
