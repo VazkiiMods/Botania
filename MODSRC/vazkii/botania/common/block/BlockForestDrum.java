@@ -11,6 +11,9 @@
  */
 package vazkii.botania.common.block;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import net.minecraft.block.Block;
@@ -102,17 +105,12 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 		else {
 			int range = 10;
 			List<EntityLiving> entities = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range + 1, y + range + 1, z + range + 1));
+			List<EntityLiving> shearables = new ArrayList();
+			ItemStack stack = new ItemStack(this, 1, 1);
+
 			for(EntityLiving entity : entities) {
-				ItemStack stack = new ItemStack(this, 1, 1);
 				if(entity instanceof IShearable && ((IShearable) entity).isShearable(stack, world, (int) entity.posX, (int) entity.posY, (int) entity.posZ)) {
-					List<ItemStack> stacks = ((IShearable) entity).onSheared(stack, world, (int) entity.posX, (int) entity.posY, (int) entity.posZ, 0);
-					if(stacks != null && !world.isRemote)
-						for(ItemStack wool : stacks) {
-							EntityItem ent = entity.entityDropItem(wool, 1.0F);
-							ent.motionY += world.rand.nextFloat() * 0.05F;
-							ent.motionX += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F;
-							ent.motionZ += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F;
-						}
+					shearables.add(entity);
 				} else if(entity instanceof EntityCow) {
 					List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(entity.posX, entity.posY, entity.posZ, entity.posX + entity.width, entity.posY + entity.height, entity.posZ + entity.width));
 					for(EntityItem item : items) {
@@ -129,6 +127,24 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 						}
 					}
 				}
+			}
+			
+			Collections.shuffle(shearables);
+			int sheared = 0;
+			
+			for(EntityLiving entity : shearables) {
+				if(sheared > 4)
+					break;
+				
+				List<ItemStack> stacks = ((IShearable) entity).onSheared(stack, world, (int) entity.posX, (int) entity.posY, (int) entity.posZ, 0);
+				if(stacks != null && !world.isRemote)
+					for(ItemStack wool : stacks) {
+						EntityItem ent = entity.entityDropItem(wool, 1.0F);
+						ent.motionY += world.rand.nextFloat() * 0.05F;
+						ent.motionX += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F;
+						ent.motionZ += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F;
+					}
+				++sheared;
 			}
 		}
 
