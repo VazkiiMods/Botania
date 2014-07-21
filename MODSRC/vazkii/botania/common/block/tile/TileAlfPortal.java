@@ -59,6 +59,7 @@ public class TileAlfPortal extends TileMod {
 	private static final String TAG_TICKS_SINCE_LAST_ITEM = "ticksSinceLastItem";
 	private static final String TAG_STACK_COUNT = "stackCount";
 	private static final String TAG_STACK = "portalStack";
+	private static final String TAG_PORTAL_FLAG = "_elvenPortal";
 
 	List<ItemStack> stacksIn = new ArrayList();
 
@@ -110,7 +111,7 @@ public class TileAlfPortal extends TileMod {
 						continue;
 
 					ItemStack stack = item.getEntityItem();
-					if(stack != null && (!(stack.getItem() instanceof IElvenItem) || !((IElvenItem) stack.getItem()).isElvenItem(stack))) {
+					if(stack != null && (!(stack.getItem() instanceof IElvenItem) || !((IElvenItem) stack.getItem()).isElvenItem(stack)) && !item.getEntityData().hasKey(TAG_PORTAL_FLAG)) {
 						item.setDead();
 						addItem(stack);
 						ticksSinceLastItem = 0;
@@ -201,6 +202,7 @@ public class TileAlfPortal extends TileMod {
 
 	void spawnItem(ItemStack stack) {
 		EntityItem item = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, stack);
+		item.getEntityData().setBoolean(TAG_PORTAL_FLAG, true);
 		worldObj.spawnEntityInWorld(item);
 		ticksSinceLastItem = 0;
 	}
