@@ -1,3 +1,18 @@
+r1.1 84
+*Added a tooltip to the Mana Bottle.
+*Added the <a href="https://www.youtube.com/watch?v=8bNEIOkUuH0">Shard of Laputa</a>, endgame item, generates a floating island.
+*Added the Drum of the Gathering. Kinda like the Drum of the Wild, but for animals.
+*Added the Necrodermal Virus and the Nullodermal Virus, when used on Horses they make them Skeleton or Zombie Horses and make them harder, better, faster, stronger.
+*Added the Tiny Potato, it believes in you, you can do the thing!
+*Added two new lenses: The Kindle and Force lenses, which, respectively, set blocks on fire and move them like a piston.
+*Changed the recipe for the Phantom Lens since that recipe is now used for the Force Lens.
+*Changed the wording for the explanation for Daybloom/Nightshade dimishing returns, as it was somewhat ambiguous.
+*Fixed Elementium Armor having a 100% chance to spawn pixies.
+*Items that come out of the Elven Portal get asigned an NBT tag to prevent them from going back in, in case some other mod adds recipes (like Modtweaker).
+*Lowered the amount of Gaia Spirits the Gaia Guardian drops (from 12 to 8).
+*Renamed "Mystical Instruments" to "Mystical Items", because it makes more sense and is less confusing.
+*The Petal Apothecary now has a smarter checking for what it considers seeds. Read: Natura Hop<i>seed</i> wood won't work now :p
+*Tweaked the Mana Burst particles, now they never leave any empty space between them, so you get a proper straight burst when you fire it with a mana blaster instead of a bunch of loose particles. The color and size also randomizes a bit to make each burst distint, even if just by a bit.
 r1.1 83
 *Changed the Lexicon HUD icon to be a lot less intrusive.
 *Fixed Gaia Pylons' in-world lexicon click going to the wrong entry.
