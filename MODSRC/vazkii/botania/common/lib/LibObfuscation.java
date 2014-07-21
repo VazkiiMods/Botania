@@ -47,4 +47,7 @@ public final class LibObfuscation {
 
 	// Potion
 	public static final String[] IS_BAD_EFFECT = new String[] { "isBadEffect", "field_76418_K", "J" };
+	
+	// EntityHorse
+	public static final String[] HORSE_JUMP_STRENGTH = new String[] { "horseJumpStrength", "field_110271_bv", "bv" };
 }

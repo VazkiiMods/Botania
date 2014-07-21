@@ -606,6 +606,8 @@ item.botania:slingshot.name=Livingwood Slingshot
 item.botania:manaBottle.name=Mana in a Bottle
 item.botania:prismarineShard.name=Prismarine Shard
 item.botania:laputaShard.name=Shard of Laputa
+item.botania:virus0.name=Necrodermal Virus
+item.botania:virus1.name=Nullodermal Virus
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania, %s Edition's Index - Pick which category you would like to study:
@@ -1201,6 +1203,12 @@ botania.page.vineBall3=...if that actually existed.
 botania.entry.laputaShard=Shard of Laputa
 botania.page.laputaShard0=Via a somewhat complex magic activation sequence, combining a few interesting resources, including &1Gaia Spirits&0 would allow one to create a shard that, when used on the ground, will allow one to lift a spherical area arount that point up into the air.<br>This process consumes the shard and can take upwards of ten minutes depending on the mass of land.
 botania.page.laputaShard1=Look Shiro, Laputa exists!
+
+# -- EQUESTRIAN VIRUS
+botania.entry.virus=Equestrian Virus
+botania.page.virus0=Through the mixing of some ingredients, a type of virus that can alter the genetic code of equestrian life can be made.<br>Using one of these viruses on a &1Horse&0 will alter it's genetic code, turning it into either a &1Zombie&0 or &1Skeleton Horse&0. Not only will it do that, but it will vastly increase all the &1Horse&0's genetic attributes.
+botania.page.virus1=No ponies here
+botania.page.virus2=None here either
 
 # - BAUBLES
 # -- AN INTRODUCTION TO BAUBLES
