@@ -13,6 +13,7 @@ package vazkii.botania.common.block.tile;
 
 import java.awt.Color;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
@@ -30,6 +31,8 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 
+	private static final Pattern SEED_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)seed)|(?:(?:[a-z-_.:]|^)Seed))(?:[sA-Z-_.:]|$)");
+	
 	public static final String TAG_HAS_WATER = "hasWater";
 	public static final String TAG_IS_MOSSY = "isMossy";
 
@@ -82,7 +85,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 						break;
 					}
 			}
-		} else if(stack.getItem() != null && stack.getItem().getUnlocalizedName().toLowerCase().contains("seed")) {
+		} else if(stack.getItem() != null && SEED_PATTERN.matcher(stack.getItem().getUnlocalizedName()).find()) {
 			for(RecipePetals recipe : BotaniaAPI.petalRecipes) {
 				if(recipe.matches(this)) {
 					for(int i = 0; i < getSizeInventory(); i++)
