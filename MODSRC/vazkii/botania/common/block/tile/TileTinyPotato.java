@@ -11,25 +11,21 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.MathHelper;
-import net.minecraft.world.World;
 
 public class TileTinyPotato extends TileMod {
 
 	public int jumpTicks = 0;
-	
+
 	public void jump() {
 		if(jumpTicks == 0)
 			jumpTicks = 20;
 	}
-	
+
 	@Override
 	public void updateEntity() {
 		if(worldObj.rand.nextInt(100) == 0)
 			jump();
-		
+
 		if(jumpTicks > 0)
 			jumpTicks--;
 	}

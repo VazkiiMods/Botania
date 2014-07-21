@@ -13,7 +13,6 @@ package vazkii.botania.common.item;
 
 import java.util.List;
 
-import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -30,18 +29,19 @@ import net.minecraft.util.IIcon;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibObfuscation;
+import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class ItemVirus extends ItemMod {
 
 	IIcon[] icons;
 
 	private static final int SUBTYPES = 2;
-	
+
 	public ItemVirus() {
 		setUnlocalizedName(LibItemNames.VIRUS);
 		setHasSubtypes(true);
 	}
-	
+
 	@Override
 	public boolean itemInteractionForEntity(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, EntityLivingBase par3EntityLivingBase) {
 		if(par3EntityLivingBase instanceof EntityHorse) {
@@ -63,18 +63,18 @@ public class ItemVirus extends ItemMod {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public void getSubItems(Item item, CreativeTabs tab, List list) {
 		for(int i = 0; i < SUBTYPES; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
-	
+
 	@Override
 	public IIcon getIconFromDamage(int par1) {
 		return icons[Math.min(icons.length - 1, par1)];
 	}
-	
+
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
 		return getUnlocalizedNameLazy(par1ItemStack) + par1ItemStack.getItemDamage();
@@ -90,5 +90,5 @@ public class ItemVirus extends ItemMod {
 		for(int i = 0; i < SUBTYPES; i++)
 			icons[i] = IconHelper.forItem(par1IconRegister, this, i);
 	}
-	
+
 }

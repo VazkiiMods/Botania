@@ -231,7 +231,7 @@ public final class ModBlocks {
 		seaLamp = new BlockSeaLamp();
 		miniIsland = new BlockMiniIsland();
 		tinyPotato = new BlockTinyPotato();
-		
+
 		livingwoodStairs = new BlockLivingwoodStairs();
 		livingwoodSlab = new BlockLivingwoodSlab(false);
 		livingwoodSlabFull = new BlockLivingwoodSlab(true);

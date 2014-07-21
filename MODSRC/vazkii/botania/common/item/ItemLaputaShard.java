@@ -53,9 +53,6 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect {
 	public void spawnBurst(World world, int srcx, int srcy, int srcz) {
 		int range = 14;
 
-		int islandHeight = 64;
-		int blocks = 0;
-
 		if(!world.isRemote) {
 			for(int i = 0; i < range * 2 + 1; i++)
 				for(int j = range * 2 + 1; j > 0; j--)
@@ -179,7 +176,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect {
 		EntityThrowable entity = (EntityThrowable) burst;
 		ItemStack lens = burst.getSourceLens();
 		int id = ItemNBTHelper.getInt(lens, TAG_BLOCK, 0);
-		Block block = Block.getBlockById(id);
+		Block.getBlockById(id);
 		int meta = ItemNBTHelper.getInt(lens, TAG_META, 0);
 		entity.worldObj.spawnParticle("blockcrack_" + id + "_" + meta, entity.posX, entity.posY, entity.posZ, entity.motionX, entity.motionY, entity.motionZ);
 

@@ -492,8 +492,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 				Vector3 diffVecNorm = diffVec.copy().normalize();
 
 				double distance = 0.095;
-				
-				int particles = 0;
+
 				do {
 					r = or + ((float) Math.random() - 0.5F) * 0.25F;
 					g = og + ((float) Math.random() - 0.5F) * 0.25F;
@@ -504,12 +503,11 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 					posX += diffVecNorm.x * distance;
 					posY += diffVecNorm.y * distance;
 					posZ += diffVecNorm.z * distance;
-					
+
 					currentPos = Vector3.fromEntity(this);
 					diffVec = oldPos.copy().sub(currentPos);
-					particles++;
 				} while(Math.abs(diffVec.mag()) > distance);
-				
+
 				Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.1F * size, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F);
 
 				posX = savedPosX;

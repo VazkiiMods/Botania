@@ -13,10 +13,9 @@ package vazkii.botania.client.model;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.entity.Entity;
 
 public class ModelTinyPotato extends ModelBase {
-	
+
 	ModelRenderer potato;
 
 	public ModelTinyPotato() {

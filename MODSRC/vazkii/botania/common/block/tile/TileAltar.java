@@ -32,7 +32,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 
 	private static final Pattern SEED_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)seed)|(?:(?:[a-z-_.:]|^)Seed))(?:[sA-Z-_.:]|$)");
-	
+
 	public static final String TAG_HAS_WATER = "hasWater";
 	public static final String TAG_IS_MOSSY = "isMossy";
 

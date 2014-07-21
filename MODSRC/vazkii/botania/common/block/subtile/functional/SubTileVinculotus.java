@@ -30,11 +30,11 @@ public class SubTileVinculotus extends SubTileFunctional {
 
 	public static Set<SubTileVinculotus> existingFlowers = Collections.newSetFromMap(new WeakHashMap());
 	private static boolean registered = false;
-	
+
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		
+
 		if(!existingFlowers.contains(this)) {
 			existingFlowers.add(this);
 			if(!registered) {
@@ -43,43 +43,43 @@ public class SubTileVinculotus extends SubTileFunctional {
 			}
 		}
 	}
-	
+
 	@Override
 	public boolean acceptsRedstone() {
 		return true;
 	}
-	
+
 	@Override
 	public int getColor() {
 		return 0x0A6051;
 	}
-	
+
 	@Override
 	public int getMaxMana() {
 		return 500;
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry() {
 		return LexiconData.vinculotus;
 	}
-	
+
 	public static class EndermanIntercepter {
-		
+
 		@SubscribeEvent
 		public void onEndermanTeleport(EnderTeleportEvent event) {
 			if(event.entity.worldObj.isRemote)
 				return;
-			
+
 			int cost = 50;
 			int range = 64;
-			
+
 			if(event.entity instanceof EntityEnderman) {
 				List<SubTileVinculotus> possibleFlowers = new ArrayList();
 				for(SubTileVinculotus flower : existingFlowers) {
 					if(flower.redstoneSignal > 0 || flower.mana <= cost || flower.supertile.getWorldObj() != event.entity.worldObj || flower.supertile.getWorldObj().getTileEntity(flower.supertile.xCoord, flower.supertile.yCoord, flower.supertile.zCoord) != flower.supertile)
 						continue;
-					
+
 					double x = flower.supertile.xCoord + 0.5;
 					double y = flower.supertile.yCoord + 1.5;
 					double z = flower.supertile.zCoord + 0.5;
@@ -87,14 +87,14 @@ public class SubTileVinculotus extends SubTileFunctional {
 					if(MathHelper.pointDistanceSpace(x, y, z, event.targetX, event.targetY, event.targetZ) < range)
 						possibleFlowers.add(flower);
 				}
-				
+
 				if(!possibleFlowers.isEmpty()) {
 					SubTileVinculotus flower = possibleFlowers.get(event.entity.worldObj.rand.nextInt(possibleFlowers.size()));
-					
+
 					double x = flower.supertile.xCoord + 0.5;
 					double y = flower.supertile.yCoord + 1.5;
 					double z = flower.supertile.zCoord + 0.5;
-					
+
 					event.targetX = x + Math.random() * 3 - 1;
 					event.targetY = y;
 					event.targetZ = z + Math.random() * 3 - 1;
@@ -103,7 +103,7 @@ public class SubTileVinculotus extends SubTileFunctional {
 				}
 			}
 		}
-		
+
 	}
-	
+
 }

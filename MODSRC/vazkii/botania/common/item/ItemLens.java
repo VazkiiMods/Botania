@@ -63,20 +63,20 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ItemLens extends ItemMod implements ILens {
 
-	private static final int NORMAL = 0, 
-			SPEED = 1, 
-			POWER = 2, 
-			TIME = 3, 
+	private static final int NORMAL = 0,
+			SPEED = 1,
+			POWER = 2,
+			TIME = 3,
 			EFFICIENCY = 4,
 			BOUNCE = 5,
-			GRAVITY = 6, 
-			MINE = 7, 
+			GRAVITY = 6,
+			MINE = 7,
 			DAMAGE = 8,
 			PHANTOM = 9,
 			MAGNET = 10,
 			EXPLOSIVE = 11,
 			INFLUENCE = 12,
-			WEIGHT = 13, 
+			WEIGHT = 13,
 			PAINT = 14,
 			FIRE = 15,
 			PISTON = 16;
@@ -87,7 +87,7 @@ public class ItemLens extends ItemMod implements ILens {
 			PROP_TOUCH = 1 << 2,
 			PROP_INTERACTION = 1 << 3,
 			PROP_DAMAGE = 1 << 4;
-	
+
 	private static final Map<Integer, Integer> props = new HashMap();
 
 	static {
@@ -407,12 +407,12 @@ public class ItemLens extends ItemMod implements ILens {
 				int x = pos.blockX + dir.offsetX;
 				int y = pos.blockY + dir.offsetY;
 				int z = pos.blockZ + dir.offsetZ;
-				
+
 				if(entity.worldObj.isAirBlock(x, y, z) || entity.worldObj.getBlock(x, y, z).isReplaceable(entity.worldObj, x, y, z)) {
 					Block block = entity.worldObj.getBlock(pos.blockX, pos.blockY, pos.blockZ);
 					int meta = entity.worldObj.getBlockMetadata(pos.blockX, pos.blockY, pos.blockZ);
 					TileEntity tile = entity.worldObj.getTileEntity(pos.blockX, pos.blockY, pos.blockZ);
-					
+
 					if(block.getMobilityFlag() == 0 && block != Blocks.obsidian && tile == null) {
 						entity.worldObj.setBlockToAir(pos.blockX, pos.blockY, pos.blockZ);
 						entity.worldObj.setBlock(x, y, z, block, meta, 1 | 2);

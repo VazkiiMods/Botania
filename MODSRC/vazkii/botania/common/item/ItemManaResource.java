@@ -65,10 +65,10 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
 		if(par1ItemStack.getItemDamage() == 5)
 			return Color.HSBtoRGB(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 0.25F, 1F);
-		
+
 		return 0xFFFFFF;
 	}
-	
+
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
 		return "item." + LibItemNames.MANA_RESOURCE_NAMES[Math.min(types - 1, par1ItemStack.getItemDamage())];

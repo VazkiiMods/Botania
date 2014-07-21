@@ -57,7 +57,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 							event.entityLiving.heal(event.entityLiving.getMaxHealth());
 							if(event.entityLiving.isDead)
 								event.entityLiving.isDead = false;
-							
+
 							ManaItemHandler.requestManaExact(amulet, player, cost, true);
 							player.worldObj.playSoundAtEntity(player, "random.levelup", 1F, 1F);
 

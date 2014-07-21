@@ -94,7 +94,7 @@ public class EntityPixie extends EntityFlyingCreature {
 			return super.attackEntityFrom(par1DamageSource, par2);
 		return false;
 	}
-	
+
 	@Override
 	public void onEntityUpdate() {
 		super.onEntityUpdate();

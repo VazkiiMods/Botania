@@ -21,15 +21,15 @@ public final class ChestGenHandler {
 	public static void init() {
 		String c = ChestGenHooks.BONUS_CHEST;
 		ChestGenHooks.addItem(c, new WeightedRandomChestContent(new ItemStack(ModItems.lexicon), 1, 1, 12));
-		
+
 		c = ChestGenHooks.STRONGHOLD_CORRIDOR;
 		ChestGenHooks.addItem(c, new WeightedRandomChestContent(new ItemStack(ModItems.manaResource, 1, 1), 1, 1, 8));
 		ChestGenHooks.addItem(c, new WeightedRandomChestContent(new ItemStack(ModItems.manaResource, 1, 1), 1, 3, 2));
-		
+
 		c = ChestGenHooks.DUNGEON_CHEST;
 		ChestGenHooks.addItem(c, new WeightedRandomChestContent(new ItemStack(ModItems.manaResource, 1, 0), 1, 5, 9));
 		ChestGenHooks.addItem(c, new WeightedRandomChestContent(new ItemStack(ModItems.lexicon), 1, 1, 6));
 		ChestGenHooks.addItem(c, new WeightedRandomChestContent(new ItemStack(ModItems.manaBottle), 1, 1, 5));
 	}
-	
+
 }

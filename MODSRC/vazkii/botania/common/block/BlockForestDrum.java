@@ -12,7 +12,6 @@
 package vazkii.botania.common.block;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -128,14 +127,14 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 					}
 				}
 			}
-			
+
 			Collections.shuffle(shearables);
 			int sheared = 0;
-			
+
 			for(EntityLiving entity : shearables) {
 				if(sheared > 4)
 					break;
-				
+
 				List<ItemStack> stacks = ((IShearable) entity).onSheared(stack, world, (int) entity.posX, (int) entity.posY, (int) entity.posZ, 0);
 				if(stacks != null && !world.isRemote)
 					for(ItemStack wool : stacks) {

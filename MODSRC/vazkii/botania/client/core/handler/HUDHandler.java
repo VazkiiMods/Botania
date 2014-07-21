@@ -141,7 +141,7 @@ public final class HUDHandler {
 		Minecraft mc = Minecraft.getMinecraft();
 		int x = res.getScaledWidth() / 2 - 17;
 		int y = res.getScaledHeight() / 2 + 2;
-		
+
 		RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine, new ItemStack(ModItems.lexicon), x, y);
 		GL11.glDisable(GL11.GL_LIGHTING);
 		mc.fontRenderer.drawStringWithShadow("?", x + 10, y + 8, 0xFFFFFFFF);

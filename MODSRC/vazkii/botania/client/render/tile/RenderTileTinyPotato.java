@@ -11,20 +11,17 @@
  */
 package vazkii.botania.client.render.tile;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.client.model.ModelPool;
 import vazkii.botania.client.model.ModelTinyPotato;
-import vazkii.botania.common.block.tile.TileTinyPlanet;
 import vazkii.botania.common.block.tile.TileTinyPotato;
-import vazkii.botania.common.block.tile.mana.TilePool;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.entity.passive.EntitySheep;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
 
 public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 
@@ -45,11 +42,11 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 		GL11.glScalef(1F, -1F, -1F);
 		int meta = potato.getWorldObj() == null ? 3 : potato.getBlockMetadata();
 		GL11.glRotatef(meta * 90F - 180F, 0F, 1F, 0F);
-		
+
 		int jump = potato.jumpTicks;
 		float up = (float) -Math.abs(Math.sin((float) jump / 10 * Math.PI)) * 0.2F;
 		float rot = (float) Math.sin((float) jump / 10 * Math.PI) * 2;
-		
+
 		GL11.glTranslatef(0F, up, 0F);
 		GL11.glRotatef(rot, 0F, 0F, 1F);
 

@@ -106,7 +106,7 @@ public final class ConfigHandler {
 
 		desc = "Set to false to disable the animation when an item is charging on top of a mana pool.";
 		chargingAnimationEnabled = loadPropBool("chargeAnimation.enabled", desc, chargingAnimationEnabled);
-		
+
 		desc = "Set to true if you are the chosen one. For lovers of glitch art and just general mad people.";
 		matrixMode = loadPropBool("matrixMode.enabled", desc, matrixMode);
 

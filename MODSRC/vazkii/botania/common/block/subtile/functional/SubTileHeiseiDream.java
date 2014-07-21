@@ -14,7 +14,6 @@ package vazkii.botania.common.block.subtile.functional;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIAttackOnCollide;
@@ -54,7 +53,7 @@ public class SubTileHeiseiDream extends SubTileFunctional {
 	public static boolean brainwashEntity(EntityLiving entity, List<IMob> mobs) {
 		EntityLivingBase target = entity.getAttackTarget();
 		boolean did = false;
-		
+
 		if(target == null || !(target instanceof IMob)) {
 			IMob newTarget;
 			do newTarget = mobs.get(entity.worldObj.rand.nextInt(mobs.size()));
@@ -72,12 +71,12 @@ public class SubTileHeiseiDream extends SubTileFunctional {
 						messWithAttackOnCollideAI((EntityAIAttackOnCollide) entry.action);
 						did = true;
 					}
-				
+
 				if(did)
 					entity.setAttackTarget((EntityLiving) newTarget);
 			}
 		}
-		
+
 		return did;
 	}
 

@@ -138,7 +138,7 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 		TileEntity tile = par1World.getTileEntity(par2, par3, par4);
 		if(!(tile instanceof TileSpreader))
 			return false;
-		
+
 		TileSpreader spreader = (TileSpreader) tile;
 		ItemStack lens = spreader.getStackInSlot(0);
 		ItemStack heldItem = par5EntityPlayer.getCurrentEquippedItem();
@@ -168,7 +168,7 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 		TileEntity tile = par1World.getTileEntity(par2, par3, par4);
 		if(!(tile instanceof TileSimpleInventory))
 			return;
-		
+
 		TileSimpleInventory inv = (TileSimpleInventory) tile;
 
 		if (inv != null) {
