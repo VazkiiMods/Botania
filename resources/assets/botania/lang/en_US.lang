@@ -605,6 +605,7 @@ item.botania:vineBall.name=Vine Ball
 item.botania:slingshot.name=Livingwood Slingshot
 item.botania:manaBottle.name=Mana in a Bottle
 item.botania:prismarineShard.name=Prismarine Shard
+item.botania:laputaShard.name=Shard of Laputa
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania, %s Edition's Index - Pick which category you would like to study:

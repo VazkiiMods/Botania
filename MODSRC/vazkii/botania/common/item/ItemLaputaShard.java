@@ -12,49 +12,176 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockFalling;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.mana.BurstProperties;
+import vazkii.botania.api.mana.ILensEffect;
+import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
+import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemLaputaShard extends ItemMod {
+public class ItemLaputaShard extends ItemMod implements ILensEffect {
+
+	private static final String TAG_BLOCK = "_block";
+	private static final String TAG_META = "_meta";
+	private static final String TAG_TILE = "_tile";
+	private static final String TAG_X = "_x";
+	private static final String TAG_Y = "_y";
+	private static final String TAG_Z = "_z";
 
 	public ItemLaputaShard() {
 		setUnlocalizedName(LibItemNames.LAPUTA_SHARD);
 	}
-	
+
 	@Override
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
+		par3World.playSound(par4 + 0.5D, par5 + 0.5D, par6 + 0.5D, "mob.zombie.remedy", 1.0F + par3World.rand.nextFloat(), par3World.rand.nextFloat() * 0.7F + 1.3F, false);
+		spawnBurst(par3World, par4, par5, par6);
+		par1ItemStack.stackSize--;
+
+		return true;
+	}
+
+	public void spawnBurst(World world, int srcx, int srcy, int srcz) {
 		int range = 14;
-		
+
 		int islandHeight = 64;
 		int blocks = 0;
 
-		if(!par3World.isRemote) {
+		if(!world.isRemote) {
 			for(int i = 0; i < range * 2 + 1; i++)
-				for(int j = 0; j < range * 2 + 1; j++)
+				for(int j = range * 2 + 1; j > 0; j--)
 					for(int k = 0; k < range * 2 + 1; k++) {
-						int x = par4 - range + i;
-						int y = par5 - range + j;
-						int z = par6 - range + k;
-						
-						if(MathHelper.pointDistanceSpace(x, y, z, par4, par5, par6) < range) {
-							Block block = par3World.getBlock(x, y, z);
-							if(!block.isAir(par3World, x, y, z)) {
-								int meta = par3World.getBlockMetadata(x, y, z);
-								TileEntity tile = par3World.getTileEntity(x, y, z);
-								
-								par3World.setBlockToAir(x, y, z);
-								par3World.setBlock(x, y + islandHeight, z, block, meta, 1 | 2);
-								par3World.setTileEntity(x, y + islandHeight, z, tile);
-								blocks++;
+						int x = srcx - range + i;
+						int y = srcy - range + j;
+						int z = srcz - range + k;
+
+						if(MathHelper.pointDistanceSpace(x, y, z, srcx, srcy, srcz) < range) {
+							Block block = world.getBlock(x, y, z);
+							if(!block.isAir(world, x, y, z) && !block.isReplaceable(world, x, y, z) && !(block instanceof BlockFalling)) {
+								int id = Block.getIdFromBlock(block);
+								int meta = world.getBlockMetadata(x, y, z);
+								TileEntity tile = world.getTileEntity(x, y, z);
+
+								if(tile != null) {
+									TileEntity newTile = block.createTileEntity(world, meta);
+									world.setTileEntity(x, y, z, newTile);
+								}
+								world.setBlockToAir(x, y, z);
+								world.playAuxSFX(2001, x, y, z, id + (meta << 12));
+
+								ItemStack lens = new ItemStack(this);
+								ItemNBTHelper.setInt(lens, TAG_BLOCK, id);
+								ItemNBTHelper.setInt(lens, TAG_META, meta);
+								NBTTagCompound cmp = new NBTTagCompound();
+								if(tile != null)
+									tile.writeToNBT(cmp);
+								ItemNBTHelper.setCompound(lens, TAG_TILE, cmp);
+								ItemNBTHelper.setInt(lens, TAG_X, srcx);
+								ItemNBTHelper.setInt(lens, TAG_Y, srcy);
+								ItemNBTHelper.setInt(lens, TAG_Z, srcz);
+
+								EntityManaBurst burst = getBurst(world, x, y, z, lens);
+								world.spawnEntityInWorld(burst);
+								return;
 							}
 						}
 					}
-			System.out.println("Blocks Moved: " + blocks);
 		}
+	}
+
+	public EntityManaBurst getBurst(World world, int x, int y, int z, ItemStack stack) {
+		EntityManaBurst burst = new EntityManaBurst(world);
+		burst.posX = x + 0.5;
+		burst.posY = y + 0.5;
+		burst.posZ = z + 0.5;
+
+		burst.setColor(0x00EAFF);
+		burst.setMana(1);
+		burst.setStartingMana(1);
+		burst.setMinManaLoss(0);
+		burst.setManaLossPerTick(0F);
+		burst.setGravity(0F);
+		burst.setMotion(0, 0.5, 0);
+
+		burst.setSourceLens(stack);
+		return burst;
+	}
+
+	@Override
+	public void apply(ItemStack stack, BurstProperties props) {
+		// NO-OP
+	}
+
+	@Override
+	public boolean collideBurst(IManaBurst burst, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+		return false;
+	}
+
+	@Override
+	public void updateBurst(IManaBurst burst, ItemStack stack) {
+		EntityThrowable entity = (EntityThrowable) burst;
+		if(!entity.worldObj.isRemote) {
+			entity.motionX = 0;
+			entity.motionY = 0.35;
+			entity.motionZ = 0;
+
+			final int spawnTicks = 3;
+			final int placeTicks = 120;
+
+			ItemStack lens = burst.getSourceLens();
+
+			if(entity.ticksExisted == spawnTicks) {
+				int x = ItemNBTHelper.getInt(lens, TAG_X, 0);
+				int y = ItemNBTHelper.getInt(lens, TAG_Y, -1);
+				int z = ItemNBTHelper.getInt(lens, TAG_Z, 0);
+
+				if(y != -1)
+					spawnBurst(entity.worldObj, x, y, z);
+			} else if(entity.ticksExisted == placeTicks) {
+				int x = (int) entity.posX;
+				int y = (int) entity.posY;
+				int z = (int) entity.posZ;
+
+				int id = ItemNBTHelper.getInt(lens, TAG_BLOCK, 0);
+				Block block = Block.getBlockById(id);
+				int meta = ItemNBTHelper.getInt(lens, TAG_META, 0);
+
+				TileEntity tile = null;
+				NBTTagCompound tilecmp = ItemNBTHelper.getCompound(lens, TAG_TILE, false);
+				if(tilecmp.hasKey("id"))
+					tile = TileEntity.createAndLoadEntity(tilecmp);
+
+				entity.worldObj.setBlock(x, y, z, block, meta, 1 | 2);
+				entity.worldObj.playAuxSFX(2001, x, y, z, id + (meta << 12));
+				if(tile != null) {
+					tile.xCoord = x;
+					tile.yCoord = y;
+					tile.zCoord = z;
+					entity.worldObj.setTileEntity(x, y, z, tile);
+				}
+
+				entity.setDead();
+			}
+		}
+	}
+
+	@Override
+	public boolean doParticles(IManaBurst burst, ItemStack stack) {
+		EntityThrowable entity = (EntityThrowable) burst;
+		ItemStack lens = burst.getSourceLens();
+		int id = ItemNBTHelper.getInt(lens, TAG_BLOCK, 0);
+		Block block = Block.getBlockById(id);
+		int meta = ItemNBTHelper.getInt(lens, TAG_META, 0);
+		entity.worldObj.spawnParticle("blockcrack_" + id + "_" + meta, entity.posX, entity.posY, entity.posZ, entity.motionX, entity.motionY, entity.motionZ);
 
 		return true;
 	}
