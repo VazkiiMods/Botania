@@ -1197,6 +1197,11 @@ botania.page.vineBall1=It's also possible, by combining some materials such as &
 botania.page.vineBall2=This would be in Vineacraft...
 botania.page.vineBall3=...if that actually existed.
 
+# -- SHARD OF LAPUTA
+botania.entry.laputaShard=Shard of Laputa
+botania.page.laputaShard0=Via a somewhat complex magic activation sequence, combining a few interesting resources, including &1Gaia Spirits&0 would allow one to create a shard that, when used on the ground, will allow one to lift a spherical area arount that point up into the air.<br>This process consumes the shard and can take upwards of ten minutes depending on the mass of land.
+botania.page.laputaShard1=Look Shiro, Laputa exists!
+
 # - BAUBLES
 # -- AN INTRODUCTION TO BAUBLES
 botania.entry.bIntro=An Introduction to Baubles

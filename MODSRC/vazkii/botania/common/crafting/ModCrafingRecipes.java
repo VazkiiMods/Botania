@@ -163,6 +163,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeGatherDrum;
 	public static IRecipe recipeLensFire;
 	public static IRecipe recipeLensPiston;
+	public static List<IRecipe> recipesLaputaShard;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -975,7 +976,7 @@ public final class ModCrafingRecipes {
 				'E', LibOreDict.ELEMENTIUM,
 				'P', new ItemStack(ModBlocks.pylon));
 		recipeGaiaPylon = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Drum of the Gathering Recipe
 		addOreDictRecipe(new ItemStack(ModBlocks.forestDrum, 1, 1),
 				"WLW", "WEW", "WLW",
@@ -984,14 +985,26 @@ public final class ModCrafingRecipes {
 				'E', LibOreDict.ELEMENTIUM);
 		recipeGatherDrum = BotaniaAPI.getLatestAddedRecipe();
 
-		// Mana Lens: Kindle
+		// Mana Lens: Kindle Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 1, 15), new ItemStack(ModItems.lens), new ItemStack(Items.fire_charge));
 		recipeLensFire = BotaniaAPI.getLatestAddedRecipe();
-		
-		// Mana Lens: Piston
+
+		// Mana Lens: Piston Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 1, 16), new ItemStack(ModItems.lens), new ItemStack(ModBlocks.pistonRelay));
 		recipeLensPiston = BotaniaAPI.getLatestAddedRecipe();
-		
+
+		// Shard of Laputa Recipe
+		for(int i = 0; i < 16; i++)
+			addOreDictRecipe(new ItemStack(ModItems.laputaShard),
+					"SFS", "PDP", "ASE",
+					'S', LibOreDict.LIFE_ESSENCE,
+					'D', LibOreDict.DRAGONSTONE,
+					'F', new ItemStack(ModBlocks.miniIsland, 1, i),
+					'P', LibOreDict.PRISMARINE_SHARD,
+					'A', LibOreDict.RUNE[3],
+					'E', LibOreDict.RUNE[2]);
+		recipesLaputaShard = BotaniaAPI.getLatestAddedRecipes(16);
+
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",
