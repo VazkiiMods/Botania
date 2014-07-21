@@ -207,7 +207,7 @@ public class EntityDoppleganger extends EntityCreature implements IBossDisplayDa
 	@Override
 	protected void dropFewItems(boolean par1, int par2) {
 		if(par1)
-			entityDropItem(new ItemStack(ModItems.manaResource, 12, 5), 1F);
+			entityDropItem(new ItemStack(ModItems.manaResource, 8, 5), 1F);
 	}
 
 	@Override
