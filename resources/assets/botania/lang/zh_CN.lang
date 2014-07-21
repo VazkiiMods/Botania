@@ -44,6 +44,7 @@ botaniamisc.clickToAdd=点击添加书签
 botaniamisc.ratio=%s:1 Ratio
 botaniamisc.openBaubles=饰品物品栏
 botaniamisc.openInv=普通物品栏
+botaniamisc.bottleTooltip=味道如何
 
 # COLORS
 botania.color0=白色
@@ -490,6 +491,10 @@ item.botania:lensWeight.name=魔力透镜:重力
 item.botania:lensWeight.short=重力
 item.botania:lensPaint.name=魔力透镜:涂色
 item.botania:lensPaint.short=涂色
+item.botania:lensFire.name=魔力透镜:引燃
+item.botania:lensFire.short=引燃
+item.botania:lensPiston.name=魔力透镜:力量
+item.botania:lensPiston.short=力量
 item.botania:manaPetal0.name=白色魔力花瓣
 item.botania:manaPetal1.name=橙色魔力花瓣
 item.botania:manaPetal2.name=品红色魔力花瓣
@@ -600,6 +605,7 @@ item.botania:vineBall.name=藤蔓球
 item.botania:slingshot.name=活木弹弓
 item.botania:manaBottle.name=瓶装魔力
 item.botania:prismarineShard.name=海晶石碎片
+item.botania:laputaShard.name=拉普达碎片
 
 # GUI TEXT
 botania.gui.lexicon.header=植物魔法辞典, %s 版目录 - 选择你要浏览的章节:
@@ -752,7 +758,7 @@ botania.page.lens18=&1挖掘透镜&0赋予&4魔力脉冲&0破坏 它所接触的
 botania.page.lens19=挖掘透镜 
 botania.page.lens20=&1伤害透镜&0给予&4魔力脉冲&0伤害 它穿过的任何生物的力量,使 用它本身的魔力来运作.<br>因为这依靠&1魔力发射器&0的检 测能力,所以不会对任意的对 象发射,并且它需要末端有一 个可接收&4魔力&0的方块.
 botania.page.lens21=伤害透镜
-botania.page.lens22=&1虚化透镜&0是个有趣的透镜. 通过利用&1力量传递器&0的时空 连续能力,就能做出一个使 &4魔力脉冲&0穿透方块的透镜.但 这样一来,它也会更早开始流 失魔力.
+botania.page.lens22=&1虚化透镜&0是个有趣的透镜. 通过利用&1奥秘平台&0和它的特 殊能力,就能做出一个使&4魔力&0 &4脉冲&0穿透方块的透镜.但这样 一来,它也会更早开始流失魔 力.
 botania.page.lens23=虚化透镜
 botania.page.lens24=&1磁化透镜&0,正如它的名字,使 &4魔力脉冲&0能被附近可接收&4魔&0 &4力&0的方块吸引.这使得脉冲的 速度有所减缓.
 botania.page.lens25=合成透镜
@@ -762,6 +768,10 @@ botania.page.lens28=&1推力透镜&0赋予&4魔力脉冲&0能对 任何附近的
 botania.page.lens29=合成透镜
 botania.page.lens30=&1重力透镜&0给&4魔力脉冲&0附加上 负荷,使得它所击中的任何方 块,若下方没有其他方块就会 落下,就像&1沙子&0和&1砂砾&0那样.
 botania.page.lens31=合成透镜
+botania.page.lens32=&1引燃透镜&0被注入了燃烧的火 花,它会点燃所撞上的方块. 也有着开关&1地狱门&0的能力.尽 管它似乎不能点燃活体生物.
+botania.page.lens33=引燃透镜
+botania.page.lens34=&1力量透镜&0就像&1活塞&0一样,当它 撞上了能被活塞推动的方块, 就会推动那个方块.
+botania.page.lens35=力量透镜
 
 # -- PORTABLE MANA TRANSPORT
 botania.entry.manaTransport=便携式魔力运输
