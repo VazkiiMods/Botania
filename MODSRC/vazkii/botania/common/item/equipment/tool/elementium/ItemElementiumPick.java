@@ -19,8 +19,8 @@ public class ItemElementiumPick extends ItemManasteelPick {
 
 	{
 		add(Blocks.dirt);
-		add(Blocks.sand);
-		add(Blocks.gravel);
+		add(Block.getBlockFromName("sand"));
+		add(Block.getBlockFromName("gravel"));
 		add(Blocks.cobblestone);
 		add(Blocks.netherrack);
 	}};

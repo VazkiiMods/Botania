@@ -14,6 +14,7 @@ package vazkii.botania.common.crafting;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -112,7 +113,7 @@ public final class ModManaAlchemyRecipes {
 		redstoneToGlowstoneRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.redstone), new ItemStack(Items.glowstone_dust), 300));
 		redstoneToGlowstoneRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.glowstone_dust), new ItemStack(Items.redstone), 300));
 
-		sandRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.sand), new ItemStack(Blocks.cobblestone), 50);
+		sandRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Block.getBlockFromName("sand")), new ItemStack(Blocks.cobblestone), 50);
 
 		prismarineRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(ModItems.manaResource, 1, 10), new ItemStack(Items.quartz), 200);
 	}

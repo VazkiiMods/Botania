@@ -333,8 +333,8 @@ public final class ModBlocks {
 		// Vanilla OreDict entries
 		OreDictionary.registerOre("dirt", Blocks.dirt);
 		OreDictionary.registerOre("grass", Blocks.grass);
-		OreDictionary.registerOre("sand", Blocks.sand);
-		OreDictionary.registerOre("gravel", Blocks.gravel);
+		OreDictionary.registerOre("sand", Block.getBlockFromName("sand"));
+		OreDictionary.registerOre("gravel", Block.getBlockFromName("gravel"));
 		OreDictionary.registerOre("hardenedClay", new ItemStack(Blocks.hardened_clay, 1, OreDictionary.WILDCARD_VALUE));
 		OreDictionary.registerOre("snowLayer", Blocks.snow_layer);
 		OreDictionary.registerOre("mycelium", Blocks.mycelium);
