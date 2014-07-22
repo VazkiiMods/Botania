@@ -91,6 +91,7 @@ powerSystem.subtle=使用微量粒子能量系统
 pylonModel.old=使用旧的水晶模型
 elfPortal.particles.enabled=启用传送门粒子
 chargeAnimation.enabled=启用充能时的动画
+flowerTextures.alt=替换花的贴图
 matrixMode.enabled=启用矩阵模式
 references.enabled=启用工具提示文本
 baublesButton.enabled=启用饰品栏按钮
@@ -273,6 +274,7 @@ tile.botania:shinyFlower14.name=红色荧光花
 tile.botania:shinyFlower15.name=黑色荧光花
 tile.botania:platform0.name=奥秘平台
 tile.botania:platform1.name=幻影平台
+tile.botania:platform2.name=不破平台
 tile.botania:alfheimPortal.name=精灵门核心
 tile.botania:blockDarkQuartz.name=烟熏石英块
 tile.botania:chiseledDarkQuartz.name=錾制烟熏石英块
@@ -571,6 +573,7 @@ item.botania:redstoneRoot.name=红石根
 item.botania:magnetRing.name=磁化指环
 item.botania:waterRing.name=鱼泳指环
 item.botania:miningRing.name=地幔指环
+item.botania:reachRing.name=触物指环
 item.botania:terraPick.name=泰拉粉碎者
 item.botania:divaCharm.name=女王之魅
 item.botania:flightTiara.name=天翼族之冠
@@ -606,6 +609,8 @@ item.botania:slingshot.name=活木弹弓
 item.botania:manaBottle.name=瓶装魔力
 item.botania:prismarineShard.name=海晶石碎片
 item.botania:laputaShard.name=拉普达碎片
+item.botania:virus0.name=僵尸病毒
+item.botania:virus1.name=骷髅病毒
 
 # GUI TEXT
 botania.gui.lexicon.header=植物魔法辞典, %s 版目录 - 选择你要浏览的章节:
@@ -1167,7 +1172,7 @@ botania.page.elfGear15=时空轮回
 # -- EXTRAPOLATED BUCKET
 botania.entry.openBucket=无底桶
 botania.page.openBucket0=用&1源质钢锭&0似乎能做出一个 有趣的桶.它所获得的液体都 会消失于虚空,再也不会出现 .看起来是个不错的清理工具.
-botania.page.openBucket1=Geeks...
+botania.page.openBucket1=Lewis的纪念品
 
 # -- LIFE AGGREGATOR
 botania.entry.spawnerMover=生命聚合器
@@ -1196,6 +1201,17 @@ botania.page.vineBall0=&1梯子&0不能独立存在,它们需要 有依附的东
 botania.page.vineBall1=也可以用一些类似&1活木&0和&1线&0 的材料制作一把能忽视重力 发射&1藤蔓球&0的弹弓.
 botania.page.vineBall2=这将会在Vineacraft出现..
 botania.page.vineBall3=...如果那确实存在的话.
+
+# -- SHARD OF LAPUTA
+botania.entry.laputaShard=拉普达碎片
+botania.page.laputaShard0=通过有些复杂的激活程序,结 合一些有趣的材料包括&1盖亚&0 &1之魂&0就能制作一个特殊的碎 片,当对土地使用时,就能让 附近一个的球形区域升至空 中.<br>这个过程可持续10分钟并且 根据土地的质量消耗对应量 的碎片.
+botania.page.laputaShard1=看呐白,拉普达真的存在!
+
+# -- EQUESTRIAN VIRUS
+botania.entry.virus=马类病毒
+botania.page.virus0=通过混合一些成分,能制作出 一种可改变马类生物基因序 列的病毒.<br>用在一匹&1马&0的身上就会改变 它的基因序列,将它变成一匹 &1僵尸&0或&1骷髅马&0.不仅仅是这样 ,它还会极大地改变所有&1马&0的 遗传特性.
+botania.page.virus1=小马驹不在这
+botania.page.virus2=也不在这儿
 
 # - BAUBLES
 # -- AN INTRODUCTION TO BAUBLES
@@ -1261,6 +1277,11 @@ botania.page.miningRing1=挖呀挖洞
 botania.entry.magnetRing=磁化指环
 botania.page.magnetRing0=通过将&1磁化透镜&0做成可穿戴 的指环,可用它来磁化周围的 物品.<br>装备时,这个指环会将附近一 切物品吸向穿戴者,前提是没 有潜行.
 botania.page.magnetRing1=怎么做到的?
+
+# -- RING OF FAR REACH
+botania.entry.reachRing=触物指环
+botania.page.reachRing0=利用一个人傲慢的力量,将一 切都掌控于手.戴上&1触物指环&0 后,穿戴者破坏,放置和交互 方块以及攻击生物等等的最 大距离都会增加3格.
+botania.page.reachRing1=烈火与鲜血
 
 # -- CHARM OF THE DIVA
 botania.entry.divaCharm=女王项链
