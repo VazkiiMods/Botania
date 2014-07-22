@@ -568,7 +568,7 @@ public class ItemLens extends ItemMod implements ILens {
 	}
 
 	public static boolean isBlacklisted(int lens1, int lens2) {
-		return (props.get(lens1) & props.get(lens2)) == 0;
+		return (props.get(lens1) & props.get(lens2)) != 0;
 	}
 
 	@Override
