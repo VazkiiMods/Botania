@@ -91,7 +91,7 @@ public class BlockPlatform extends BlockCamo implements ILexiconable {
 	@Override
 	public float getBlockHardness(World par1World, int par2, int par3, int par4) {
 		int meta = par1World.getBlockMetadata(par2, par3, par4);
-		return meta == 2 ? -1 : super.getBlockHardness(par1World, par2, par3, par4);
+		return meta == 2 ? -1F : super.getBlockHardness(par1World, par2, par3, par4);
 	}
 
 	@Override

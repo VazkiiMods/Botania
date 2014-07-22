@@ -12,13 +12,18 @@
 package vazkii.botania.client.core.proxy;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.PlayerControllerMP;
+import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.renderer.entity.RenderSnowball;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldSettings.GameType;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.client.core.handler.BotaniaPlayerController;
 import vazkii.botania.client.core.handler.BoundTileRenderer;
-import vazkii.botania.client.core.handler.CapeHandler;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.handler.LightningHandler;
@@ -66,10 +71,12 @@ import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.EntityPixie;
 import vazkii.botania.common.entity.EntityVineBall;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibObfuscation;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class ClientProxy extends CommonProxy {
 
@@ -80,7 +87,6 @@ public class ClientProxy extends CommonProxy {
 		FMLCommonHandler.instance().bus().register(new ClientTickHandler());
 		MinecraftForge.EVENT_BUS.register(new HUDHandler());
 		MinecraftForge.EVENT_BUS.register(new LightningHandler());
-		MinecraftForge.EVENT_BUS.register(new CapeHandler());
 		if(ConfigHandler.boundBlockWireframe)
 			MinecraftForge.EVENT_BUS.register(new BoundTileRenderer());
 		if(ConfigHandler.versionCheckEnabled)
@@ -130,6 +136,23 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void setEntryToOpen(LexiconEntry entry) {
 		GuiLexicon.currentOpenLexicon = new GuiLexiconEntry(entry, new GuiLexiconIndex(entry.category));
+	}
+	
+	@Override
+	public void setExtraReach(EntityLivingBase entity, float reach) {
+		Minecraft mc = Minecraft.getMinecraft();
+		EntityPlayer player = mc.thePlayer;
+		if(entity == player) {
+			if(!(mc.playerController instanceof BotaniaPlayerController)) {
+				GameType type = ReflectionHelper.getPrivateValue(PlayerControllerMP.class, mc.playerController, LibObfuscation.CURRENT_GAME_TYPE);
+				NetHandlerPlayClient net = ReflectionHelper.getPrivateValue(PlayerControllerMP.class, mc.playerController, LibObfuscation.NET_CLIENT_HANDLER);
+				BotaniaPlayerController controller = new BotaniaPlayerController(mc, net);
+				controller.setGameType(type);
+				mc.playerController = controller;
+			}
+			
+			((BotaniaPlayerController) mc.playerController).distance = reach;
+		}
 	}
 
 	@Override

@@ -13,6 +13,8 @@ package vazkii.botania.common.core.proxy;
 
 import java.util.List;
 
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.server.MinecraftServer;
@@ -103,7 +105,12 @@ public class CommonProxy {
 	public void setEntryToOpen(LexiconEntry entry) {
 		// NO-OP
 	}
-
+	
+	public void setExtraReach(EntityLivingBase entity, float reach) {
+		if(entity instanceof EntityPlayerMP)
+			((EntityPlayerMP) entity).theItemInWorldManager.setBlockReachDistance(reach);
+	}
+	
 	public long getWorldElapsedTicks() {
 		return MinecraftServer.getServer().worldServers[0].getTotalWorldTime();
 	}
