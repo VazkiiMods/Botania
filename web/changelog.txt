@@ -1,3 +1,20 @@
+r1.1 85
+*<b>Botania should now work properly in a developer environment</b> and not complain about sand in it's eyes or something.
+*Added <a href="http://redd.it/2b3o3f">Futureazoo's Textures</a> as a config option. A <a href="http://www.curse.com/texture-packs/minecraft/222614-botania-retexture">Full Resource Pack</a> with other textures is also available.
+*Added the Infrangible Platform, a counterpart to the Abstruse and Spectral Platforms only available in creative, its' collision box is similar to a regular block and it's unbreakable, it's meant for mapmakers, see.
+*Added the Ring of Far Reach (Elven Knowledge), it increases your reach by 3 blocks.
+*Changed the Terra Shatterer texture to Futureazoo's. See previous link.
+*Fixed the Drum of the Gathering dropping the Drum of the Wild instead.
+*Fixed the Mana Lens crafting recipe only allowing you to use invalid combinations instead of valid ones.
+*Fixed the Shard of Laputa...<ul><li>Being allowed to go above world height.</li><li>Sometimes having an offset of 1 block.</li><li>Being able to be used in the nether</li><li>Being able to mobilize Bedrock and other unbreakable blocks.<li>Overriding any blocks already in the area.</li><li>Stopping if the player relogs.</li><li>Creating bursts that can be pulled by the Tiny Planet <i>(lol)</i>.</li></ul>
+*Fixed the Tiny Planet creating way too many particles when used with the Terra Blade.
+*Mana Bursts now properly save the time they've been in the world and the lens they were spawned with when you leave the game.
+*Removed Capes. <i>Just so mojang doesn't throw a hissy fit, I'll find something else.</i>
+*Removed the <i>feature</i> where the Tiny Potato would take over other mods' item renders.
+*Removed the technical quantityDropped override for special flowers at request of mDiyo, might fix some stuff with tcon. <i>/shrug</i>
+*[API] Added getTicksExisted() to IManaBurst.
+*[API] Added ITinyPlanetExempt.
+*[API] Incremented Version number to 4.
 r1.1 84
 *Added a tooltip to the Mana Bottle.
 *Added the <a href="https://www.youtube.com/watch?v=8bNEIOkUuH0">Shard of Laputa</a>, endgame item, generates a floating island.
