@@ -37,6 +37,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class BlockPlatform extends BlockCamo implements ILexiconable {
 
 	IIcon[] icons;
+	private static final int SUBTYPES = 3;
 
 	public BlockPlatform() {
 		super(Material.wood);
@@ -64,26 +65,33 @@ public class BlockPlatform extends BlockCamo implements ILexiconable {
 
 	@Override
 	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
-		for(int i = 0; i < 2; i++)
+		for(int i = 0; i < SUBTYPES; i++)
 			par3List.add(new ItemStack(par1, 1, i));
 	}
 
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[2];
-		for(int i = 0; i < 2; i++)
+		icons = new IIcon[SUBTYPES];
+		for(int i = 0; i < SUBTYPES; i++)
 			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
 	}
 
 	@Override
 	public IIcon getIcon(int par1, int par2) {
-		return icons[Math.min(2 - 1, par2)];
+		return icons[Math.min(SUBTYPES - 1, par2)];
 	}
 
 	@Override
 	public void addCollisionBoxesToList(World par1World, int par2, int par3, int par4, AxisAlignedBB par5AxisAlignedBB, List par6List, Entity par7Entity) {
-		if(par1World.getBlockMetadata(par2, par3, par4) == 0 && par7Entity != null && par7Entity.posY > par3 + (par7Entity instanceof EntityPlayer ? 2 : 0) && (!(par7Entity instanceof EntityPlayer) || !par7Entity.isSneaking()))
+		int meta = par1World.getBlockMetadata(par2, par3, par4);
+		if(meta == 2 || (meta == 0 && par7Entity != null && par7Entity.posY > par3 + (par7Entity instanceof EntityPlayer ? 2 : 0) && (!(par7Entity instanceof EntityPlayer) || !par7Entity.isSneaking())))
 			super.addCollisionBoxesToList(par1World, par2, par3, par4, par5AxisAlignedBB, par6List, par7Entity);
+	}
+	
+	@Override
+	public float getBlockHardness(World par1World, int par2, int par3, int par4) {
+		int meta = par1World.getBlockMetadata(par2, par3, par4);
+		return meta == 2 ? -1 : super.getBlockHardness(par1World, par2, par3, par4);
 	}
 
 	@Override
@@ -93,7 +101,8 @@ public class BlockPlatform extends BlockCamo implements ILexiconable {
 
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
-		return world.getBlockMetadata(x, y, z) == 0 ? LexiconData.platform : LexiconData.spectralPlatform;
+		int meta = world.getBlockMetadata(x, y, z);
+		return meta == 0 ? LexiconData.platform : meta == 2 ? null : LexiconData.spectralPlatform;
 	}
 
 }

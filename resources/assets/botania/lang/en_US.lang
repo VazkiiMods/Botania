@@ -274,6 +274,7 @@ tile.botania:shinyFlower14.name=Glimmering Red Flower
 tile.botania:shinyFlower15.name=Glimmering Black Flower
 tile.botania:platform0.name=Abstruse Platform
 tile.botania:platform1.name=Spectral Platform
+tile.botania:platform2.name=Infrangible Platform
 tile.botania:alfheimPortal.name=Elven Gateway Core
 tile.botania:blockDarkQuartz.name=Block of Smokey Quartz
 tile.botania:chiseledDarkQuartz.name=Chiseled Smokey Quartz Block
