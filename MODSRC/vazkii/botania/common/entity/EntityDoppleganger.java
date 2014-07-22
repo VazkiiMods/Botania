@@ -262,7 +262,12 @@ public class EntityDoppleganger extends EntityCreature implements IBossDisplayDa
 				if(getTPDelay() > 0) {
 					setTPDelay(getTPDelay() - 1);
 					if(getTPDelay() == 0 && getHealth() > 0) {
-						while(!teleportRandomly());
+						int tries = 0;
+						while(!teleportRandomly() && tries < 50)
+							tries++;
+						if(tries >= 50)
+							teleportTo(source.posX + 0.5, source.posY + 1.6, source.posZ + 0.5);
+						
 						if(spawnLandmines && !worldObj.isRemote)
 							for(int i = 0; i < 6; i++) {
 								int x = source.posX - 10 + rand.nextInt(20);
