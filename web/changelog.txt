@@ -1,3 +1,6 @@
+r1.1 87
+*Fixed Mana Spreaders freezing your game, woot!
+*Removed the ability for the Rod of the Seas to place water in the nether, after some thought it wasn't that great of an idea after all.
 r1.1 86
 *Fixed compatibility with 1.7.2.
 r1.1 85
