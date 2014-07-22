@@ -96,6 +96,7 @@ public class ClientProxy extends CommonProxy {
 		LibRenderIDs.idPool = RenderingRegistry.getNextAvailableRenderId();
 		LibRenderIDs.idPylon = RenderingRegistry.getNextAvailableRenderId();
 		LibRenderIDs.idMiniIsland = RenderingRegistry.getNextAvailableRenderId();
+		LibRenderIDs.idTinyPotato = RenderingRegistry.getNextAvailableRenderId();
 
 		RenderingRegistry.registerBlockHandler(new RenderAltar());
 		RenderingRegistry.registerBlockHandler(new RenderSpecialFlower(LibRenderIDs.idSpecialFlower));
