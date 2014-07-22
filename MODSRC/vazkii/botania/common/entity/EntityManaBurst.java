@@ -65,13 +65,14 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 	boolean fake = false;
 
-	final int dataWatcherEntries = 11;
+	final int dataWatcherEntries = 10;
 	final int dataWatcherStart = 32 - dataWatcherEntries;
 
 	List<String> alreadyCollidedAt = new ArrayList();
 
 	boolean fullManaLastTick = true;
 
+	int _ticksExisted = 0;
 	boolean scanBeam = false;
 	public List<PositionProperties> propsList = new ArrayList();
 
@@ -714,11 +715,11 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	
 	@Override
 	public int getTicksExisted() {
-		return dataWatcher.getWatchableObjectInt(dataWatcherStart + 10);
+		return _ticksExisted;
 	}
 	
 	public void setTicksExisted(int ticks) {
-		 dataWatcher.updateObject(dataWatcherStart + 10, ticks);
+		_ticksExisted = ticks;
 	}
 
 	public ILensEffect getLensInstance() {
