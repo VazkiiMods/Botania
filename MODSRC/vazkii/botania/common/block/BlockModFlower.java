@@ -41,7 +41,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class BlockModFlower extends BlockFlower implements ILexiconable {
 
 	public static IIcon[] icons;
+	public static IIcon[] iconsAlt;
 
+	public static final String ALT_DIR = "alt";
+	
 	protected BlockModFlower() {
 		this(LibBlockNames.FLOWER);
 	}
@@ -76,13 +79,17 @@ public class BlockModFlower extends BlockFlower implements ILexiconable {
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		icons = new IIcon[17];
-		for(int i = 0; i < icons.length; i++)
+		iconsAlt = new IIcon[17];
+
+		for(int i = 0; i < icons.length; i++) {
 			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
+			iconsAlt[i] = IconHelper.forBlock(par1IconRegister, this, i, ALT_DIR);
+		}
 	}
 
 	@Override
 	public IIcon getIcon(int par1, int par2) {
-		return icons[par2];
+		return (ConfigHandler.altFlowerTextures ? iconsAlt : icons)[par2];
 	}
 
 	@Override

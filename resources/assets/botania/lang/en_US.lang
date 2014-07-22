@@ -91,6 +91,7 @@ powerSystem.subtle=Use Subtle Power System
 pylonModel.old=Use Old Pylon Model
 elfPortal.particles.enabled=Enable Portal Particles
 chargeAnimation.enabled=Charging Animation Enabled
+flowerTextures.alt=Alternate Flower Textures
 matrixMode.enabled=Enable Matrix Mode
 references.enabled=Enable Tooltip References
 baublesButton.enabled=Baubles Button Enabled

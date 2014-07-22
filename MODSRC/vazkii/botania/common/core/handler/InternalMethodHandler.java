@@ -65,7 +65,7 @@ public class InternalMethodHandler implements IInternalMethodHandler {
 
 	@Override
 	public IIcon getSubTileIconForName(String name) {
-		IIcon icon = BlockSpecialFlower.icons.get(name);
+		IIcon icon = (ConfigHandler.altFlowerTextures ? BlockSpecialFlower.iconsAlt : BlockSpecialFlower.icons).get(name);
 		return icon == null ? Blocks.red_flower.getIcon(0, 0) : icon;
 	}
 

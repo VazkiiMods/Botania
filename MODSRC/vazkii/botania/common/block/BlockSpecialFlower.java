@@ -50,6 +50,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvider, ISpecialFlower, IWandable, ILexiconable, IWandHUD {
 
 	public static Map<String, IIcon> icons = new HashMap();
+	public static Map<String, IIcon> iconsAlt = new HashMap();
 
 	static {
 		BotaniaAPI.subtilesForCreativeMenu.addAll(Arrays.asList(new String[] {
@@ -120,8 +121,12 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		for(String s : BotaniaAPI.subtilesForCreativeMenu)
-			icons.put(s, IconHelper.forName(par1IconRegister, s));
+		for(String s : BotaniaAPI.subtilesForCreativeMenu){
+			IIcon normal = IconHelper.forName(par1IconRegister, s);
+			IIcon alt = IconHelper.forName(par1IconRegister, BlockModFlower.ALT_DIR + "/" + s);
+			icons.put(s, normal);
+			iconsAlt.put(s, alt == null ? normal : alt);
+		}
 	}
 
 	@Override
