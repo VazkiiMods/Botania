@@ -358,7 +358,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			lens.updateBurst(this, getSourceLens());
 
 		int mana = getMana();
-		if(ticksExisted >= getMinManaLoss()) {
+		if(getTicksExisted() >= getMinManaLoss()) {
 			accumulatedManaLoss += getManaLossPerTick();
 			int loss = (int) accumulatedManaLoss;
 			setMana(mana - loss);
