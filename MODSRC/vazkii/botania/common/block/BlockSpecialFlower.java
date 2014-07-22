@@ -113,11 +113,6 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 	}
 
 	@Override
-	public int quantityDropped(Random par1Random) {
-		return 0;
-	}
-
-	@Override
 	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
 		for(String s : BotaniaAPI.subtilesForCreativeMenu)
 			par3List.add(ItemBlockSpecialFlower.ofType(s));
