@@ -22,7 +22,7 @@ public class ItemWaterRod extends ItemMod implements IManaUsingItem {
 
 	@Override
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
-		if(ManaItemHandler.requestManaExact(par1ItemStack, par2EntityPlayer, COST, false)) {
+		if(ManaItemHandler.requestManaExact(par1ItemStack, par2EntityPlayer, COST, false) && !par3World.provider.isHellWorld) {
 			ForgeDirection dir = ForgeDirection.getOrientation(par7);
 
 			ItemStack stackToPlace = new ItemStack(Blocks.flowing_water);
