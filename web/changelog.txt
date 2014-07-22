@@ -1,3 +1,5 @@
+r1.1 86
+*Fixed compatibility with 1.7.2.
 r1.1 85
 *<b>Botania should now work properly in a developer environment</b> and not complain about sand in it's eyes or something.
 *Added <a href="http://redd.it/2b3o3f">Futureazoo's Textures</a> as a config option. A <a href="http://www.curse.com/texture-packs/minecraft/222614-botania-retexture">Full Resource Pack</a> with other textures is also available.
