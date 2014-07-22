@@ -166,6 +166,7 @@ public final class ModCrafingRecipes {
 	public static List<IRecipe> recipesLaputaShard;
 	public static IRecipe recipeVirusZombie;
 	public static IRecipe recipeVirusSkeleton;
+	public static IRecipe recipeReachRing;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1015,6 +1016,13 @@ public final class ModCrafingRecipes {
 		addShapelessOreDictRecipe(new ItemStack(ModItems.virus, 1, 1), LibOreDict.PIXIE_DUST, new ItemStack(ModItems.vineBall), new ItemStack(Items.magma_cream), new ItemStack(Items.fermented_spider_eye), new ItemStack(Items.ender_eye), new ItemStack(Items.skull));
 		recipeVirusSkeleton = BotaniaAPI.getLatestAddedRecipe();
 
+		// Ring of Far Reach Recipe
+		addOreDictRecipe(new ItemStack(ModItems.reachRing), 
+				"RE ", "E E", " E ",
+				'R', LibOreDict.RUNE[15],
+				'E', LibOreDict.ELEMENTIUM);
+		recipeReachRing = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",

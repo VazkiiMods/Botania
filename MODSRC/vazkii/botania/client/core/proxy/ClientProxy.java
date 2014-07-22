@@ -140,6 +140,7 @@ public class ClientProxy extends CommonProxy {
 	
 	@Override
 	public void setExtraReach(EntityLivingBase entity, float reach) {
+		super.setExtraReach(entity, reach);
 		Minecraft mc = Minecraft.getMinecraft();
 		EntityPlayer player = mc.thePlayer;
 		if(entity == player) {
