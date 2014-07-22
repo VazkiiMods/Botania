@@ -1,6 +1,6 @@
 #version 120
 
-attribute vec2 texcoord;
+varying vec2 texcoord;
 uniform sampler2D bgl_RenderedTexture;
 uniform int time; // Passed in, see ShaderHelper.java
 
