@@ -44,6 +44,7 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
 
 public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	
@@ -521,6 +522,8 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 					currentPos = Vector3.fromEntity(this);
 					diffVec = oldPos.copy().sub(currentPos);
+					if(getEntityData().hasKey(ItemTinyPlanet.TAG_ORBIT))
+						break;
 				} while(Math.abs(diffVec.mag()) > distance);
 
 				Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.1F * size, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F);

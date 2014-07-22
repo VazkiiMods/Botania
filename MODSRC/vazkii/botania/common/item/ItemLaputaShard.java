@@ -23,12 +23,13 @@ import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILensEffect;
+import vazkii.botania.api.mana.ITinyPlanetExcempt;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemLaputaShard extends ItemMod implements ILensEffect {
+public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanetExcempt {
 
 	private static final String TAG_BLOCK = "_block";
 	private static final String TAG_META = "_meta";
@@ -185,6 +186,11 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect {
 		entity.worldObj.spawnParticle("blockcrack_" + id + "_" + meta, entity.posX, entity.posY, entity.posZ, entity.motionX, entity.motionY, entity.motionZ);
 
 		return true;
+	}
+
+	@Override
+	public boolean shouldPull(ItemStack stack) {
+		return false;
 	}
 
 }

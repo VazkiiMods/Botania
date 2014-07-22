@@ -20,13 +20,14 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.mana.ITinyPlanetExcempt;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
 
 public class ItemTinyPlanet extends ItemBauble {
 
-	private static final String TAG_ORBIT = "orbit";
+	public static final String TAG_ORBIT = "orbit";
 
 	public ItemTinyPlanet() {
 		super(LibItemNames.TINY_PLANET);
@@ -55,6 +56,10 @@ public class ItemTinyPlanet extends ItemBauble {
 		List<Entity> entities = world.getEntitiesWithinAABB(IManaBurst.class, AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range, y + range, z + range));
 		for(Entity entity : entities) {
 			IManaBurst burst = (IManaBurst) entity;
+			ItemStack lens = burst.getSourceLens();
+			if(lens != null && lens.getItem() instanceof ITinyPlanetExcempt && !((ITinyPlanetExcempt) lens.getItem()).shouldPull(lens))
+				continue;
+			
 			int orbitTime = getEntityOrbitTime(entity);
 			if(orbitTime == 0)
 				burst.setMinManaLoss(burst.getMinManaLoss() * 3);
