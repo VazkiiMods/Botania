@@ -46,7 +46,8 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
 
 public class EntityManaBurst extends EntityThrowable implements IManaBurst {
-
+	
+	private static final String TAG_TICKS_EXISTED = "ticksExisted";
 	private static final String TAG_COLOR = "color";
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_STARTING_MANA = "startingMana";
@@ -56,13 +57,14 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	private static final String TAG_SPREADER_Y = "spreaderY";
 	private static final String TAG_SPREADER_Z = "spreaderZ";
 	private static final String TAG_GRAVITY = "gravity";
+	private static final String TAG_LENS_STACK = "lensStack";
 	private static final String TAG_LAST_MOTION_X = "lastMotionX";
 	private static final String TAG_LAST_MOTION_Y = "lastMotionY";
 	private static final String TAG_LAST_MOTION_Z = "lastMotionZ";
 
 	boolean fake = false;
 
-	final int dataWatcherEntries = 10;
+	final int dataWatcherEntries = 11;
 	final int dataWatcherStart = 32 - dataWatcherEntries;
 
 	List<String> alreadyCollidedAt = new ArrayList();
@@ -77,7 +79,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		setSize(0F, 0F);
 		for(int i = 0; i < dataWatcherEntries; i++) {
 			int j = dataWatcherStart + i;
-			if(i == 4 || i == 5 || i == 10 || i == 11 || i == 12)
+			if(i == 4 || i == 5)
 				dataWatcher.addObject(j, 0F);
 			else if(i == 9)
 				dataWatcher.addObject(j, new ItemStack(Blocks.stone, 0, 0));
@@ -340,8 +342,9 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 	@Override
 	public void onUpdate() {
+		setTicksExisted(getTicksExisted() + 1);
 		superUpdate();
-
+		
 		if(!fake && !isDead) {
 			ChunkCoordinates coords = getBurstSourceChunkCoordinates();
 			TileEntity tile = worldObj.getTileEntity(coords.posX, coords.posY, coords.posZ);
@@ -393,10 +396,8 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	public TileEntity getCollidedTile(boolean noParticles) {
 		this.noParticles = noParticles;
 
-		while(!isDead) {
-			++ticksExisted;
+		while(!isDead)
 			onUpdate();
-		}
 
 		if(fake)
 			incrementFakeParticleTick();
@@ -407,6 +408,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	@Override
 	public void writeEntityToNBT(NBTTagCompound par1nbtTagCompound) {
 		super.writeEntityToNBT(par1nbtTagCompound);
+		par1nbtTagCompound.setInteger(TAG_TICKS_EXISTED, getTicksExisted());
 		par1nbtTagCompound.setInteger(TAG_COLOR, getColor());
 		par1nbtTagCompound.setInteger(TAG_MANA, getMana());
 		par1nbtTagCompound.setInteger(TAG_STARTING_MANA, getStartingMana());
@@ -414,6 +416,12 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		par1nbtTagCompound.setFloat(TAG_TICK_MANA_LOSS, getManaLossPerTick());
 		par1nbtTagCompound.setFloat(TAG_GRAVITY, getGravity());
 
+		ItemStack stack = getSourceLens();
+		NBTTagCompound lensCmp = new NBTTagCompound();
+		if(stack != null)
+			stack.writeToNBT(lensCmp);
+		par1nbtTagCompound.setTag(TAG_LENS_STACK, lensCmp);
+		
 		ChunkCoordinates coords = getBurstSourceChunkCoordinates();
 		par1nbtTagCompound.setInteger(TAG_SPREADER_X, coords.posX);
 		par1nbtTagCompound.setInteger(TAG_SPREADER_Y, coords.posY);
@@ -427,6 +435,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	@Override
 	public void readEntityFromNBT(NBTTagCompound par1nbtTagCompound) {
 		super.readEntityFromNBT(par1nbtTagCompound);
+		setTicksExisted(par1nbtTagCompound.getInteger(TAG_TICKS_EXISTED));
 		setColor(par1nbtTagCompound.getInteger(TAG_COLOR));
 		setMana(par1nbtTagCompound.getInteger(TAG_MANA));
 		setStartingMana(par1nbtTagCompound.getInteger(TAG_STARTING_MANA));
@@ -434,6 +443,12 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		setManaLossPerTick(par1nbtTagCompound.getFloat(TAG_TICK_MANA_LOSS));
 		setGravity(par1nbtTagCompound.getFloat(TAG_GRAVITY));
 
+		NBTTagCompound lensCmp = par1nbtTagCompound.getCompoundTag(TAG_LENS_STACK);
+		ItemStack stack = ItemStack.loadItemStackFromNBT(lensCmp);
+		if(stack != null)
+			setSourceLens(stack);
+		else setSourceLens(new ItemStack(Blocks.stone, 0, 0));
+		
 		int x = par1nbtTagCompound.getInteger(TAG_SPREADER_X);
 		int y = par1nbtTagCompound.getInteger(TAG_SPREADER_Y);
 		int z = par1nbtTagCompound.getInteger(TAG_SPREADER_Z);
@@ -693,6 +708,15 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	public void setSourceLens(ItemStack lens) {
 		dataWatcher.updateObject(dataWatcherStart + 9, lens == null ? new ItemStack(Blocks.stone, 0, 0) : lens);
 	}
+	
+	@Override
+	public int getTicksExisted() {
+		return dataWatcher.getWatchableObjectInt(dataWatcherStart + 10);
+	}
+	
+	public void setTicksExisted(int ticks) {
+		 dataWatcher.updateObject(dataWatcherStart + 10, ticks);
+	}
 
 	public ILensEffect getLensInstance() {
 		ItemStack lens = getSourceLens();
@@ -727,7 +751,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		ChunkCoordinates coords = getBurstSourceChunkCoordinates();
 		TileEntity tile = worldObj.getTileEntity(coords.posX, coords.posY, coords.posZ);
 		if(tile != null && tile instanceof TileSpreader)
-			return getMana() != getStartingMana() && fullManaLastTick || Math.abs(((TileSpreader) tile).burstParticleTick - ticksExisted) < 4;
+			return getMana() != getStartingMana() && fullManaLastTick || Math.abs(((TileSpreader) tile).burstParticleTick - getTicksExisted()) < 4;
 		return false;
 	}
 
@@ -746,7 +770,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		ChunkCoordinates coords = getBurstSourceChunkCoordinates();
 		TileEntity tile = worldObj.getTileEntity(coords.posX, coords.posY, coords.posZ);
 		if(tile != null && tile instanceof TileSpreader)
-			((TileSpreader) tile).lastBurstDeathTick = ticksExisted;
+			((TileSpreader) tile).lastBurstDeathTick = getTicksExisted();
 	}
 
 	public static class PositionProperties {

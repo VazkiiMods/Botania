@@ -43,7 +43,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect {
 
 	@Override
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
-		if(par5 < 160) {
+		if(par5 < 160 && !par3World.provider.isHellWorld) {
 			par3World.playSound(par4 + 0.5D, par5 + 0.5D, par6 + 0.5D, "mob.zombie.remedy", 1.0F + par3World.rand.nextFloat(), par3World.rand.nextFloat() * 0.7F + 1.3F, false);
 			spawnBurst(par3World, par4, par5, par6);
 			par1ItemStack.stackSize--;
@@ -65,7 +65,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect {
 
 						if(MathHelper.pointDistanceSpace(x, y, z, srcx, srcy, srcz) < range) {
 							Block block = world.getBlock(x, y, z);
-							if(!block.isAir(world, x, y, z) && !block.isReplaceable(world, x, y, z) && !(block instanceof BlockFalling)) {
+						if(!block.isAir(world, x, y, z) && !block.isReplaceable(world, x, y, z) && !(block instanceof BlockFalling) && block.getBlockHardness(world, x, y, z) != -1) {
 								int id = Block.getIdFromBlock(block);
 								int meta = world.getBlockMetadata(x, y, z);
 								TileEntity tile = world.getTileEntity(x, y, z);
@@ -138,36 +138,38 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect {
 
 			ItemStack lens = burst.getSourceLens();
 
-			if(entity.ticksExisted == spawnTicks) {
+			if(burst.getTicksExisted() == spawnTicks) {
 				int x = ItemNBTHelper.getInt(lens, TAG_X, 0);
 				int y = ItemNBTHelper.getInt(lens, TAG_Y, -1);
 				int z = ItemNBTHelper.getInt(lens, TAG_Z, 0);
 
 				if(y != -1)
 					spawnBurst(entity.worldObj, x, y, z);
-			} else if(entity.ticksExisted == placeTicks) {
+			} else if(burst.getTicksExisted() == placeTicks) {
 				int x = (int) net.minecraft.util.MathHelper.floor_double(entity.posX);
 				int y = (int) net.minecraft.util.MathHelper.floor_double(entity.posY);
 				int z = (int) net.minecraft.util.MathHelper.floor_double(entity.posZ);
 
-				int id = ItemNBTHelper.getInt(lens, TAG_BLOCK, 0);
-				Block block = Block.getBlockById(id);
-				int meta = ItemNBTHelper.getInt(lens, TAG_META, 0);
+				if(entity.worldObj.isAirBlock(x, y, z)) {
+					int id = ItemNBTHelper.getInt(lens, TAG_BLOCK, 0);
+					Block block = Block.getBlockById(id);
+					int meta = ItemNBTHelper.getInt(lens, TAG_META, 0);
 
-				TileEntity tile = null;
-				NBTTagCompound tilecmp = ItemNBTHelper.getCompound(lens, TAG_TILE, false);
-				if(tilecmp.hasKey("id"))
-					tile = TileEntity.createAndLoadEntity(tilecmp);
+					TileEntity tile = null;
+					NBTTagCompound tilecmp = ItemNBTHelper.getCompound(lens, TAG_TILE, false);
+					if(tilecmp.hasKey("id"))
+						tile = TileEntity.createAndLoadEntity(tilecmp);
 
-				entity.worldObj.setBlock(x, y, z, block, meta, 1 | 2);
-				entity.worldObj.playAuxSFX(2001, x, y, z, id + (meta << 12));
-				if(tile != null) {
-					tile.xCoord = x;
-					tile.yCoord = y;
-					tile.zCoord = z;
-					entity.worldObj.setTileEntity(x, y, z, tile);
+					entity.worldObj.setBlock(x, y, z, block, meta, 1 | 2);
+					entity.worldObj.playAuxSFX(2001, x, y, z, id + (meta << 12));
+					if(tile != null) {
+						tile.xCoord = x;
+						tile.yCoord = y;
+						tile.zCoord = z;
+						entity.worldObj.setTileEntity(x, y, z, tile);
+					}
 				}
-
+				
 				entity.setDead();
 			}
 		}
