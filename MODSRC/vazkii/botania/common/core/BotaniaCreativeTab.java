@@ -68,7 +68,6 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.grassHorn);
 		addItem(ModItems.waterRod);
 		addItem(ModItems.openBucket);
-		addItem(ModItems.spawnerMover);
 		addItem(ModItems.rainbowRod);
 		addItem(ModItems.tornadoRod);
 		addItem(ModItems.fireRod);
@@ -77,7 +76,9 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.vineBall);
 		addBlock(ModBlocks.forestDrum);
 		addBlock(ModBlocks.forestEye);
-
+		addItem(ModItems.spawnerMover);
+		addBlock(ModBlocks.spawnerClaw);
+		
 		addBlock(ModBlocks.livingrock);
 		addBlock(ModBlocks.livingwood);
 		addBlock(ModBlocks.openCrate);

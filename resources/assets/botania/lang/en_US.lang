@@ -352,6 +352,7 @@ tile.botania:miniIsland13.name=Floating Green Flower
 tile.botania:miniIsland14.name=Floating Red Flower
 tile.botania:miniIsland15.name=Floating Black Flower
 tile.botania:tinyPotato.name=Tiny Potato
+tile.botania:spawnerClaw.name=Life Imbuer
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower

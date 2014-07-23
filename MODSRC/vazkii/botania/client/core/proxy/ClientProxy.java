@@ -38,6 +38,7 @@ import vazkii.botania.client.render.block.RenderAltar;
 import vazkii.botania.client.render.block.RenderMiniIsland;
 import vazkii.botania.client.render.block.RenderPool;
 import vazkii.botania.client.render.block.RenderPylon;
+import vazkii.botania.client.render.block.RenderSpawnerClaw;
 import vazkii.botania.client.render.block.RenderSpecialFlower;
 import vazkii.botania.client.render.block.RenderSpreader;
 import vazkii.botania.client.render.block.RenderTinyPotato;
@@ -52,6 +53,7 @@ import vazkii.botania.client.render.tile.RenderTileMiniIsland;
 import vazkii.botania.client.render.tile.RenderTilePool;
 import vazkii.botania.client.render.tile.RenderTilePylon;
 import vazkii.botania.client.render.tile.RenderTileRuneAltar;
+import vazkii.botania.client.render.tile.RenderTileSpawnerClaw;
 import vazkii.botania.client.render.tile.RenderTileSpreader;
 import vazkii.botania.client.render.tile.RenderTileTinyPotato;
 import vazkii.botania.common.block.tile.TileAlfPortal;
@@ -60,6 +62,7 @@ import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.block.tile.TileMiniIsland;
 import vazkii.botania.common.block.tile.TilePylon;
 import vazkii.botania.common.block.tile.TileRuneAltar;
+import vazkii.botania.common.block.tile.TileSpawnerClaw;
 import vazkii.botania.common.block.tile.TileTinyPotato;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
@@ -103,6 +106,7 @@ public class ClientProxy extends CommonProxy {
 		LibRenderIDs.idPylon = RenderingRegistry.getNextAvailableRenderId();
 		LibRenderIDs.idMiniIsland = RenderingRegistry.getNextAvailableRenderId();
 		LibRenderIDs.idTinyPotato = RenderingRegistry.getNextAvailableRenderId();
+		LibRenderIDs.idSpawnerClaw = RenderingRegistry.getNextAvailableRenderId();
 
 		RenderingRegistry.registerBlockHandler(new RenderAltar());
 		RenderingRegistry.registerBlockHandler(new RenderSpecialFlower(LibRenderIDs.idSpecialFlower));
@@ -111,6 +115,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerBlockHandler(new RenderPylon());
 		RenderingRegistry.registerBlockHandler(new RenderMiniIsland());
 		RenderingRegistry.registerBlockHandler(new RenderTinyPotato());
+		RenderingRegistry.registerBlockHandler(new RenderSpawnerClaw());
 
 		MinecraftForgeClient.registerItemRenderer(ModItems.lens, new RenderLens());
 		if(ConfigHandler.lexicon3dModel)
@@ -125,6 +130,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileAlfPortal.class, new RenderTileAlfPortal());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileMiniIsland.class, new RenderTileMiniIsland());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileTinyPotato.class, new RenderTileTinyPotato());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileSpawnerClaw.class, new RenderTileSpawnerClaw());
 
 		RenderingRegistry.registerEntityRenderingHandler(EntityPixie.class, new RenderPixie());
 		RenderingRegistry.registerEntityRenderingHandler(EntityVineBall.class, new RenderSnowball(ModItems.vineBall));

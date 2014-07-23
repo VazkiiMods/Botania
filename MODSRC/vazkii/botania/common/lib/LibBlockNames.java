@@ -49,6 +49,7 @@ public final class LibBlockNames {
 	public static final String SEA_LAMP = "seaLamp";
 	public static final String MINI_ISLAND = "miniIsland";
 	public static final String TINY_POTATO = "tinyPotato";
+	public static final String SPAWNER_CLAW = "spawnerClaw";
 
 	public static final String SPECIAL_FLOWER_PREFIX = FLOWER + ".";
 

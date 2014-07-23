@@ -55,5 +55,13 @@ public final class LibObfuscation {
 	public static final String[] NET_CLIENT_HANDLER = new String[] { "netClientHandler", "field_78774_b", "b" };
 	public static final String[] CURRENT_GAME_TYPE = new String[] { "currentGameType", "field_78779_k", "k" };
 
+	// MobSpawnerBaseLogic
+	public static final String[] SPAWN_RANGE = new String[] { "spawnRange", "field_98290_m", "m" };
+	public static final String[] SPAWN_COUNT = new String[] { "spawnCount", "field_98294_i", "i" };
+	public static final String[] MAX_NEARBY_ENTITIES = new String[] { "maxNearbyEntities", "field_98292_k", "k" };
+	public static final String[] MAX_SPAWN_DELAY = new String[] { "maxSpawnDelay", "field_98293_h", "h" };
+	public static final String[] MIN_SPAWN_DELAY = new String[] { "minSpawnDelay", "field_98283_g", "g" };
+	public static final String[] POTENTIAL_ENTITY_SPAWNS = new String[] { "potentialEntitySpawns", "field_98285_e", "e" };
+	
 }
 
