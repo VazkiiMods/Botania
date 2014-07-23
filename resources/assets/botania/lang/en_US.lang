@@ -1418,3 +1418,8 @@ botania.page.shedding0=The living beings that inhabit our lands don't live in a 
 botania.entry.tinyPotato=Tiny Potato
 botania.page.tinyPotato0=It's a tiny potato, it believes in you, you can do the thing.<br>No really, that's it, by tossing a &1Potato&0 in a &1Mana Pool&0, the potato gains a little lively essence and happy feeling. It's a lively one, giving it a right click will make it even more so!
 botania.page.tinyPotato1=Put it on Kickstarter, it'll work 
+
+# -- HEAD CREATION
+botania.entry.headCreating=Head Creation
+botania.page.headCreating0=A typical incantation of the Elves, combining a few resources and a &1Name Tag&0 allows for the creation of a replica of sorts of the head of the person described in the tag. How it works isn't really known, but it seems to be possible to replicate it with a &1Runic Altar&0.
+botania.page.headCreating1=Get your head in the game
