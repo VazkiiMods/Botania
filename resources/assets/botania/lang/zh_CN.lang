@@ -354,9 +354,10 @@ tile.botania:miniIsland15.name=黑色浮空花
 tile.botania:tinyPotato.name=小土豆
 
 # FLOWER NAMES
-tile.botania:flower..name=Botania Flower
+tile.botania:flower..name=植物魔法花
 # ^ This is the placeholder name for when no flower type is detected
 # The two dots are not a typo
+tile.botania:flower..reference=如果你看到这个,说明有什么出错了,你应该报告这个错误
 
 tile.botania:flower.puredaisy.name=白雏菊
 tile.botania:flower.puredaisy.reference=你想变成什么颜色?
@@ -611,6 +612,7 @@ item.botania:prismarineShard.name=海晶石碎片
 item.botania:laputaShard.name=拉普达碎片
 item.botania:virus0.name=僵尸病毒
 item.botania:virus1.name=骷髅病毒
+item.botania:skyDirtRod.name=高原法杖
 
 # GUI TEXT
 botania.gui.lexicon.header=植物魔法辞典, %s 版目录 - 选择你要浏览的章节:
@@ -672,6 +674,7 @@ botania.page.wand2=使用的花瓣决定了法杖颜色
 
 # -- RUNIC ALTAR
 botania.entry.runeAltar=符文祭坛
+botania.page.runeAltar21=制作符文是植物魔法发展的 一个重要而复杂的部分.首要 的是,这种合成需要熟知一些 &4魔力运用&0的知识.在进一步学 习前,阅览完&1植物魔法辞典&0 中那些重要的条目(&o斜体&r书写 )或许能给你启发.
 botania.page.runeAltar0=&1符文&0是复杂魔法设备和植物 的重要组成部分.<br>为了制作这些,需要&1符文祭坛&0.<br>为了使用&1符文祭坛&0,放置下来 ,通过右击或简单的投掷,添 加你要合成的符文的原材料.
 botania.page.runeAltar1=通过将一个&1魔力发射器&0连接 到祭坛以开始,再用&1森林法杖&0 右击.<br>很明显能看出祭坛是否吸收 了足够多的&4魔力&0.这种情况下, 只要在顶部扔一个&1活石&0再用 法杖点击就能获得你的符文.
 botania.page.runeAltar2=合成&1符文祭坛&0.
@@ -709,12 +712,12 @@ botania.page.mIntro2=掌握&4魔力&0的艺术需要先学习 如何使用&1太�
 # -- MANA SPREADER
 botania.entry.spreader=魔力发射器
 botania.page.spreader0=&1魔力发射器&0是运用&4魔力&0中最 重要的一部分.<br>这是一个允许从点A到点B传 递&4魔力&0的方块.放置在地上 时,它会面朝六个基本方向中 的一个.手持&1森林法杖&0shift右 击它,就能照点击位置调整它 的朝向.
-botania.page.spreader10=只需用&1森林法杖&0shift 右击一次就会将法杖绑定到 它,再shift右击另一处 会将发射器朝向调整到那一 点.再一次shift右击发 射器取消法杖的绑定.<br>这种方法不太完美,因为发射 器的朝向可能会变歪,准确调 整的方法参见下一页.
-botania.page.spreader11=关于上一页提到的方法,注意 一个发射器必须由未绑定其 它发射器的法杖来旋转,不然 发射器就会朝向所点那一个.
+botania.page.spreader10=只需用&1森林法杖&0shift 右击一次就会将法杖绑定到 它,再shift右击另一处 会将发射器朝向调整到那一 点.<br>再一次shift右击发 射器取消 法杖的绑定.注意你必须取消 绑定,不然当你尝试绑定到另 一个发射器时,上一个发射器 就会转向它.
 botania.page.spreader1=手持&1森林法杖&0
 botania.page.spreader2=&1魔力发射器&0有一个很小的内 部&4魔力&0缓存,这个缓存能被附 近的&4产能花&0填充.要查看&1魔力&0 &1发射器&0的缓存量需要一根&1森&0 &1林法杖&0,如最后一页所示.<br>注意需要用法杖右击才能看 到缓存的量.
 botania.page.spreader3=手持&1森林法杖&0将会显示一条 发射器朝向的光线,末端停留 在目标处.常亮的闪烁光点就 是&4魔力流失&0开始的地方.<br>如果目标处的方块可以接收 &4魔力&0,并且不是满的,发射器 就会发出一条&4魔力脉冲&0,它会 飞向目标,并将&4Mana&0输送给它.
 botania.page.spreader4=魔力发射器每次只发射一波 脉冲,直到上一波命中目标才 会发射下一波.<br>此外,一段时间后脉冲也会受 &4魔力流失&0的影响.在光线中变 稀薄的部分就开始发生流失 了.当光线进入一个发射器时 也会有少量&4魔力流失&0.
+botania.page.spreader11=提供一个&4红石信号&0给魔力发 射器会让它停止工作.在需要 更好的控制时推荐&1红石魔力&0 &1发射器&0,因为它可以在没有目 标方块的情况经由红石脉冲 激活发射脉冲.
 botania.page.spreader5=合成&1魔力发射器&0
 
 # -- MANA POOL
@@ -745,7 +748,7 @@ botania.page.lens0=为了发掘&1魔力发射器&0的潜力, 需要&1魔力透�
 botania.page.lens1=基础透镜,没有特殊效果.
 botania.page.lens2=&4染色&0透镜!
 botania.page.lens3=&1彩虹透镜&0合成
-botania.page.lens4=透镜不仅仅是为了各种炫丽 的色彩.你可以用各种材料升 级以制作出能赋予&4魔力脉冲&0 各种效果的新透镜.
+botania.page.lens4=透镜不仅仅是为了各种炫丽 的色彩.你可以用各种材料升 级以制作出能赋予&4魔力脉冲&0 各种效果的新透镜.<br>注意如果你用的是普通的&1魔&0 &1力发射器&0,在末端需要有一个 能接受&4魔力&0的方块才能发射 脉冲.对于一些透镜还是推荐 使用&1红石魔力发射器&0.
 botania.page.lens5=有时,尽管,单独给魔力发射器 一个&1魔力透镜&0还不够.用&1粘液&0 &1球&0在合成台可以叠加复合透 镜,复合为一个透镜是可行的, 并能保留双方的特性.<br>所用的第一个透镜决定了外 观(文本和颜色).注意有些叠 加是无效的,比如两个同类的 透镜.
 botania.page.lens6=&1速度透镜&0会大幅提升&4魔力脉&0 &4冲&0的速度,这样不仅会加快光 线流失&4魔力&0的速度,还会使每 次脉冲魔力量更少.
 botania.page.lens7=速度透镜
@@ -759,15 +762,15 @@ botania.page.lens14=&1反射透镜&0会让&4魔力脉冲&0在墙 壁之间反射
 botania.page.lens15=反射透镜
 botania.page.lens16=&1引力透镜&0使得&4魔力脉冲&0受到 世上重力的作用,因此形成弧 形运动轨迹.作为补偿,也轻 微延迟了&4魔力&0的流失.
 botania.page.lens17=引力透镜
-botania.page.lens18=&1挖掘透镜&0赋予&4魔力脉冲&0破坏 它所接触的一切方块的能力, 使用它本身的魔力来运作.<br>因为这依靠&1魔力发射器&0的检 测能力,所以不会对任意的对 象发射,并且它需要末端有一 个可接收&4魔力&0的方块.
+botania.page.lens18=&1挖掘透镜&0赋予&4魔力脉冲&0破坏 它所接触的一切方块的能力, 使用它本身的魔力来运作.
 botania.page.lens19=挖掘透镜 
-botania.page.lens20=&1伤害透镜&0给予&4魔力脉冲&0伤害 它穿过的任何生物的力量,使 用它本身的魔力来运作.<br>因为这依靠&1魔力发射器&0的检 测能力,所以不会对任意的对 象发射,并且它需要末端有一 个可接收&4魔力&0的方块.
+botania.page.lens20=&1伤害透镜&0给予&4魔力脉冲&0伤害 它穿过的任何生物的力量,使 用它本身的魔力来运作.
 botania.page.lens21=伤害透镜
 botania.page.lens22=&1虚化透镜&0是个有趣的透镜. 通过利用&1奥秘平台&0和它的特 殊能力,就能做出一个使&4魔力&0 &4脉冲&0穿透方块的透镜.但这样 一来,它也会更早开始流失魔 力.
 botania.page.lens23=虚化透镜
 botania.page.lens24=&1磁化透镜&0,正如它的名字,使 &4魔力脉冲&0能被附近可接收&4魔&0 &4力&0的方块吸引.这使得脉冲的 速度有所减缓.
 botania.page.lens25=合成透镜
-botania.page.lens26=&1爆炸透镜&0给&4魔力脉冲&0注入熵 热,使它在撞上不能接收&4魔力&0 的对象时以爆炸的形式释放 能量.<br>因为这依靠&1魔力发射器&0的检 测能力,所以不会对任意的对 象发射,并且它需要末端有一 个可接收&4魔力&0的方块.
+botania.page.lens26=&1爆炸透镜&0给&4魔力脉冲&0注入熵 热,使它在撞上不能接收&4魔力&0 的对象时以爆炸的形式释放 能量.
 botania.page.lens27=合成透镜
 botania.page.lens28=&1推力透镜&0赋予&4魔力脉冲&0能对 任何附近的&4下落物品&0,&4经验球&0 甚至是&4下落方块&0产生影响,使 它们沿着脉冲的运动方向移 动.
 botania.page.lens29=合成透镜
@@ -1212,6 +1215,11 @@ botania.entry.virus=马类病毒
 botania.page.virus0=通过混合一些成分,能制作出 一种可改变马类生物基因序 列的病毒.<br>用在一匹&1马&0的身上就会改变 它的基因序列,将它变成一匹 &1僵尸&0或&1骷髅马&0.不仅仅是这样 ,它还会极大地改变所有&1马&0的 遗传特性.
 botania.page.virus1=小马驹不在这
 botania.page.virus2=也不在这儿
+
+# -- ROD OF THE HIGHLANDS
+botania.entry.skyDirtRod=高原法杖
+botania.page.skyDirtRod0=尽管&1大地法杖&0十分出色,但若能不依靠其他东西而放置&1泥土&0就更好了.<br>&1高原法杖&0就是那样的,保有&1大地法杖&0原本的力量同时,它也能在半空中放置&1泥土&0,多消耗一点&4魔力&0.
+botania.page.skyDirtRod1=mk2型泥土棍
 
 # - BAUBLES
 # -- AN INTRODUCTION TO BAUBLES
