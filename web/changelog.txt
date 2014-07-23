@@ -1,3 +1,10 @@
+r1.1 89
+*Added a means of creating players heads (elven knowledge).
+*Added some Illustrations to the Daybloom and Hydroangeas entries to explain better how they work.
+*Added the Life Imbuer, a means of allowing spawners to work without players nearby.
+*If a Wand of the Forest is bound to a spreader, it'll always show that spreader's bounding box instead of any other, to make it more obvious.
+*Spreaders now aim to the center of blocks taking their collision box in mind and not a 1x1x1 box.
+*The islands created by the Shard of Laputa are now somewhat randomized and pickup more blocks above the source. (SoundLogic)
 r1.1 88
 *Added a "If you have this, it means something went wrong, you should report it" message to the fallback flower (The Poppy textured "Botania Flower"), in case somebody gets it somehow.
 *Added the Rod of the Highlands, an upgrade to the Rod of the Lands that lets you place blocks in midair.
