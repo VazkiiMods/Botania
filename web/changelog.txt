@@ -1,3 +1,12 @@
+r1.1 88
+*Added a "If you have this, it means something went wrong, you should report it" message to the fallback flower (The Poppy textured "Botania Flower"), in case somebody gets it somehow.
+*Added the Rod of the Highlands, an upgrade to the Rod of the Lands that lets you place blocks in midair.
+*Changed some documentation.<ul><li>The Runic Altar's entry now has a small preface telling players they should look into Mana Manipulation first.</li><li>The Mana Spreader's entry now has clearer instructions for how the rotating is done and documentation for the fact that you can disable it with a redstone signal.</li><li>The disclaimer that lenses only function when there's a proper block to shoot at has been changed and moved to a single page rather than being on various lenses' pages.</li></ul>
+*Fixed Mana Burst particles going above the spreader on the first few ticks.
+*Fixed shaders not compiling sometimes and causing crashes/log spam. <i>I have no idea what I'm doing :V</i>
+*Fixed the Gaia Guardian being able to freeze the game if it falls in a ravine or equivalent (found this while fighting it in an island made by the Shard of Laputa).
+*Fixed the Hyacidus wasting mana by trying to poison undead.
+*The Influence Lens no longer moves other Mana Bursts. <i>I designed the thing at 5AM that time I had insomnia, gimme a break.</i>
 r1.1 87
 *Fixed Mana Spreaders freezing your game, woot!
 *Removed the ability for the Rod of the Seas to place water in the nether, after some thought it wasn't that great of an idea after all.
