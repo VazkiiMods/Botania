@@ -135,6 +135,7 @@ public final class ModItems {
 	public static Item laputaShard;
 	public static Item virus;
 	public static Item reachRing;
+	public static Item skyDirtRod;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -211,7 +212,8 @@ public final class ModItems {
 		laputaShard = new ItemLaputaShard();
 		virus = new ItemVirus();
 		reachRing = new ItemReachRing();
-
+		skyDirtRod = new ItemSkyDirtRod();
+		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));

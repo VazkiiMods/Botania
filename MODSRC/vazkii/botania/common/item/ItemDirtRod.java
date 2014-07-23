@@ -25,14 +25,18 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemDirtRod extends ItemMod implements IManaUsingItem {
 
-	private static final int COST = 75;
+	static final int COST = 75;
 
 	public ItemDirtRod() {
-		super();
-		setMaxStackSize(1);
-		setUnlocalizedName(LibItemNames.DIRT_ROD);
+		this(LibItemNames.DIRT_ROD);
 	}
 
+	public ItemDirtRod(String name) {
+		super();
+		setMaxStackSize(1);
+		setUnlocalizedName(name);
+	}
+	
 	@Override
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
 		if(ManaItemHandler.requestManaExact(par1ItemStack, par2EntityPlayer, COST, false)) {

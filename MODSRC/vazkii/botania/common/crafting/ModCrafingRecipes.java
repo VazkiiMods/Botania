@@ -167,6 +167,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeVirusZombie;
 	public static IRecipe recipeVirusSkeleton;
 	public static IRecipe recipeReachRing;
+	public static IRecipe recipeSkyDirtRod;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1022,6 +1023,10 @@ public final class ModCrafingRecipes {
 				'R', LibOreDict.RUNE[15],
 				'E', LibOreDict.ELEMENTIUM);
 		recipeReachRing = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Rod of the Highlands Recipe
+		addShapelessOreDictRecipe(new ItemStack(ModItems.skyDirtRod), new ItemStack(ModItems.dirtRod), LibOreDict.PIXIE_DUST, LibOreDict.RUNE[3]);
+		recipeSkyDirtRod = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

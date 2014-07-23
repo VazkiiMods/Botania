@@ -612,6 +612,7 @@ item.botania:prismarineShard.name=Prismarine Shard
 item.botania:laputaShard.name=Shard of Laputa
 item.botania:virus0.name=Necrodermal Virus
 item.botania:virus1.name=Nullodermal Virus
+item.botania:skyDirtRod.name=Rod of the Highlands
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania, %s Edition's Index - Pick which category you would like to study:
@@ -1214,6 +1215,11 @@ botania.entry.virus=Equestrian Virus
 botania.page.virus0=Through the mixing of some ingredients, a type of virus that can alter the genetic code of equestrian life can be made.<br>Using one of these viruses on a &1Horse&0 will alter it's genetic code, turning it into either a &1Zombie&0 or &1Skeleton Horse&0. Not only will it do that, but it will vastly increase all the &1Horse&0's genetic attributes.
 botania.page.virus1=No ponies here
 botania.page.virus2=None here either
+
+# -- ROD OF THE HIGHLANDS
+botania.entry.skyDirtRod=Rod of the Highlands
+botania.page.skyDirtRod0=While the &1Rod of the Lands&0 is all well and good, being able to place &1Dirt&0 without something to hold it would be great.<br>The &1Rod of the Highlands&0 does just that, while maintaining the original power of the &1Rod of the Lands&0, it can also place &1Dirt&0 in mid air, for an increased &4Mana&0 cost.
+botania.page.skyDirtRod1=Dirty Stick mk2
 
 # - BAUBLES
 # -- AN INTRODUCTION TO BAUBLES

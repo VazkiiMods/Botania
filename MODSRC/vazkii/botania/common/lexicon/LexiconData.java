@@ -135,6 +135,7 @@ public final class LexiconData {
 	public static LexiconEntry vineBall;
 	public static LexiconEntry laputaShard;
 	public static LexiconEntry virus;
+	public static LexiconEntry skyDirtRod;
 
 	public static LexiconEntry baublesIntro;
 	public static LexiconEntry tinyPlanet;
@@ -462,6 +463,9 @@ public final class LexiconData {
 		virus = new ALexiconEntry(LibLexicon.TOOL_VIRUS, categoryTools);
 		virus.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeVirusZombie), new PageCraftingRecipe("2", ModCrafingRecipes.recipeVirusSkeleton));
 
+		skyDirtRod = new ALexiconEntry(LibLexicon.TOOL_SKY_DIRT_ROD, categoryTools);
+		skyDirtRod.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeSkyDirtRod));
+		
 		// BAUBLES ENTRIES
 		baublesIntro = new BLexiconEntry(LibLexicon.BAUBLE_INTRO, categoryBaubles);
 		baublesIntro.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_BAUBLES), new PageText("2"));
