@@ -82,7 +82,7 @@ public final class BoundTileRenderer {
 				axis.maxZ -= pos.posZ;
 
 				GL11.glScalef(1F, 1F, -1F);
-				
+
 				GL11.glLineWidth(1F);
 				renderBlockOutline(axis);
 
@@ -97,48 +97,48 @@ public final class BoundTileRenderer {
 
 	private void renderBlockOutline(AxisAlignedBB aabb) {
 		Tessellator tessellator = Tessellator.instance;
-		
+
 		double ix = aabb.minX;
 		double iy = aabb.minY;
 		double iz = aabb.minZ;
 		double ax = aabb.maxX;
 		double ay = aabb.maxY;
 		double az = aabb.maxZ;
-		
+
 		tessellator.startDrawing(GL11.GL_LINES);
 		tessellator.addVertex(ix, iy, iz);
 		tessellator.addVertex(ix, ay, iz);
-		
+
 		tessellator.addVertex(ix, ay, iz);
 		tessellator.addVertex(ax, ay, iz);
-		
+
 		tessellator.addVertex(ax, ay, iz);
 		tessellator.addVertex(ax, iy, iz);
-		
+
 		tessellator.addVertex(ax, iy, iz);
 		tessellator.addVertex(ix, iy, iz);
-		
+
 		tessellator.addVertex(ix, iy, az);
 		tessellator.addVertex(ix, ay, az);
-		
+
 		tessellator.addVertex(ix, iy, az);
 		tessellator.addVertex(ax, iy, az);
-		
+
 		tessellator.addVertex(ax, iy, az);
 		tessellator.addVertex(ax, ay, az);
-		
+
 		tessellator.addVertex(ix, ay, az);
 		tessellator.addVertex(ax, ay, az);
-		
+
 		tessellator.addVertex(ix, iy, iz);
 		tessellator.addVertex(ix, iy, az);
-		
+
 		tessellator.addVertex(ix, ay, iz);
 		tessellator.addVertex(ix, ay, az);
-		
+
 		tessellator.addVertex(ax, iy, iz);
 		tessellator.addVertex(ax, iy, az);
-		
+
 		tessellator.addVertex(ax, ay, iz);
 		tessellator.addVertex(ax, ay, az);
 

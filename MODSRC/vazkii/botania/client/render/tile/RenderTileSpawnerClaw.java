@@ -11,17 +11,16 @@
  */
 package vazkii.botania.client.render.tile;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelSpawnerClaw;
-import vazkii.botania.client.model.ModelTinyPotato;
-import vazkii.botania.common.block.tile.TileTinyPotato;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
 
 public class RenderTileSpawnerClaw extends TileEntitySpecialRenderer {
 
@@ -30,7 +29,7 @@ public class RenderTileSpawnerClaw extends TileEntitySpecialRenderer {
 
 	@Override
 	public void renderTileEntityAt(TileEntity var1, double d0, double d1, double d2, float var8) {
-//		TileTinyPotato potato = (TileTinyPotato) var1;
+		//		TileTinyPotato potato = (TileTinyPotato) var1;
 		GL11.glPushMatrix();
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
@@ -40,15 +39,15 @@ public class RenderTileSpawnerClaw extends TileEntitySpecialRenderer {
 
 		GL11.glTranslatef(0.5F, 1.5F, 0.5F);
 		GL11.glScalef(1F, -1F, -1F);
-//		int meta = potato.getWorldObj() == null ? 3 : potato.getBlockMetadata();
-//		GL11.glRotatef(meta * 90F - 180F, 0F, 1F, 0F);
-//
-//		int jump = potato.jumpTicks;
-//		float up = (float) -Math.abs(Math.sin((float) jump / 10 * Math.PI)) * 0.2F;
-//		float rot = (float) Math.sin((float) jump / 10 * Math.PI) * 2;
-//
-//		GL11.glTranslatef(0F, up, 0F);
-//		GL11.glRotatef(rot, 0F, 0F, 1F);
+		//		int meta = potato.getWorldObj() == null ? 3 : potato.getBlockMetadata();
+		//		GL11.glRotatef(meta * 90F - 180F, 0F, 1F, 0F);
+		//
+		//		int jump = potato.jumpTicks;
+		//		float up = (float) -Math.abs(Math.sin((float) jump / 10 * Math.PI)) * 0.2F;
+		//		float rot = (float) Math.sin((float) jump / 10 * Math.PI) * 2;
+		//
+		//		GL11.glTranslatef(0F, up, 0F);
+		//		GL11.glRotatef(rot, 0F, 0F, 1F);
 
 		model.render();
 		GL11.glColor3f(1F, 1F, 1F);

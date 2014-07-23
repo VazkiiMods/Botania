@@ -234,7 +234,7 @@ public final class ModBlocks {
 		miniIsland = new BlockMiniIsland();
 		tinyPotato = new BlockTinyPotato();
 		spawnerClaw = new BlockSpawnerClaw();
-		
+
 		livingwoodStairs = new BlockLivingwoodStairs();
 		livingwoodSlab = new BlockLivingwoodSlab(false);
 		livingwoodSlabFull = new BlockLivingwoodSlab(true);

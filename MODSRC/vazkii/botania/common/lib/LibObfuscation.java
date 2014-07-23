@@ -62,6 +62,6 @@ public final class LibObfuscation {
 	public static final String[] MAX_SPAWN_DELAY = new String[] { "maxSpawnDelay", "field_98293_h", "h" };
 	public static final String[] MIN_SPAWN_DELAY = new String[] { "minSpawnDelay", "field_98283_g", "g" };
 	public static final String[] POTENTIAL_ENTITY_SPAWNS = new String[] { "potentialEntitySpawns", "field_98285_e", "e" };
-	
+
 }
 

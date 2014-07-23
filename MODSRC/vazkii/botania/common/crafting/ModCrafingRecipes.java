@@ -1030,14 +1030,14 @@ public final class ModCrafingRecipes {
 		recipeSkyDirtRod = BotaniaAPI.getLatestAddedRecipe();
 
 		// Life Imbuer Recipe
-		addOreDictRecipe(new ItemStack(ModBlocks.spawnerClaw), 
+		addOreDictRecipe(new ItemStack(ModBlocks.spawnerClaw),
 				"BSB", "PMP", "P P",
 				'B', new ItemStack(Items.blaze_rod),
 				'S', LibOreDict.ELEMENTIUM,
 				'P', new ItemStack(ModBlocks.prismarine, 1, 2),
 				'M', new ItemStack(ModBlocks.storage));
 		recipeSpawnerClaw = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",

@@ -21,15 +21,15 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 public class HeadRecipe extends RecipeRuneAltar {
 
 	String name = "";
-	
+
 	public HeadRecipe(ItemStack output, int mana, Object... inputs) {
 		super(output, mana, inputs);
 	}
-	
+
 	@Override
 	public boolean matches(IInventory inv) {
 		boolean matches = super.matches(inv);
-		
+
 		if(matches) {
 			for(int i = 0; i < inv.getSizeInventory(); i++) {
 				ItemStack stack = inv.getStackInSlot(i);
@@ -43,10 +43,10 @@ public class HeadRecipe extends RecipeRuneAltar {
 				}
 			}
 		}
-		
+
 		return matches;
 	}
-	
+
 	@Override
 	public ItemStack getOutput() {
 		ItemStack stack = new ItemStack(Items.skull, 1, 3);

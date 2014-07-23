@@ -73,13 +73,13 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 
 				Vector3 spreaderVec = Vector3.fromTileEntityCenter(spreader);
 				Vector3 blockVec = new Vector3(par4 + 0.5, par5 + 0.5, par6 + 0.5);
-				
+
 				AxisAlignedBB axis = par3World.getBlock(par4, par5, par6).getCollisionBoundingBoxFromPool(par3World, par4, par5, par6);
 				System.out.println(axis);
 				if(!blockVec.isInside(axis))
-					blockVec = new Vector3(axis.minX + (axis.maxX - axis.minX) / 2, axis.minY + (axis.maxY - axis.minY) / 2, axis.minZ + (axis.maxZ - axis.minZ) / 2); 
+					blockVec = new Vector3(axis.minX + (axis.maxX - axis.minX) / 2, axis.minY + (axis.maxY - axis.minY) / 2, axis.minZ + (axis.maxZ - axis.minZ) / 2);
 				System.out.println(spreaderVec + " " + blockVec);
-				
+
 				Vector3 diffVec =  blockVec.copy().sub(spreaderVec);
 				Vector3 diffVec2D = new Vector3(diffVec.x, diffVec.z, 0);
 				Vector3 rotVec = new Vector3(0, 1, 0);
@@ -279,7 +279,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 		ChunkCoordinates bound = getBoundSpreader(stack);
 		if(bound.posY != -1)
 			return bound;
-		
+
 		MovingObjectPosition pos = Minecraft.getMinecraft().objectMouseOver;
 		if(pos != null) {
 			TileEntity tile = Minecraft.getMinecraft().theWorld.getTileEntity(pos.blockX, pos.blockY, pos.blockZ);

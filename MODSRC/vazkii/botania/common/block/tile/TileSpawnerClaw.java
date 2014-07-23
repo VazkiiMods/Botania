@@ -11,7 +11,6 @@
  */
 package vazkii.botania.common.block.tile;
 
-import java.awt.Color;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
@@ -31,9 +30,9 @@ import cpw.mods.fml.relauncher.ReflectionHelper;
 public class TileSpawnerClaw extends TileMod implements IManaReceiver {
 
 	private static final String TAG_MANA = "mana";
-	
+
 	int mana = 0;
-	
+
 	@Override
 	public void updateEntity() {
 		TileEntity tileBelow = worldObj.getTileEntity(xCoord, yCoord - 1, zCoord);
@@ -44,18 +43,18 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver {
 			if(!logic.isActivated()) {
 				if(!worldObj.isRemote)
 					mana -= 6;
-				
+
 				if(logic.getSpawnerWorld().isRemote) {
 					if(logic.spawnDelay > 0)
 						--logic.spawnDelay;
-					
+
 					if(Math.random() > 0.5)
 						Botania.proxy.wispFX(worldObj, xCoord + 0.3 + Math.random() * 0.5, yCoord - 0.3 + Math.random() * 0.25, zCoord + Math.random(), 0.6F - (float) Math.random() * 0.3F, 0.1F, 0.6F - (float) Math.random() * 0.3F, (float) Math.random() / 3F, -0.025F - 0.005F * (float) Math.random(), 2F);
 
 					logic.field_98284_d = logic.field_98287_c;
-					logic.field_98287_c = (logic.field_98287_c + (double)(1000.0F / ((float)logic.spawnDelay + 200.0F))) % 360.0D;
+					logic.field_98287_c = (logic.field_98287_c + 1000.0F / (logic.spawnDelay + 200.0F)) % 360.0D;
 				} else if(logic.spawnDelay == -1)
-						resetTimer(logic);				
+					resetTimer(logic);
 
 				if(logic.spawnDelay > 0) {
 					--logic.spawnDelay;
@@ -74,16 +73,16 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver {
 					if (entity == null)
 						return;
 
-					int j = logic.getSpawnerWorld().getEntitiesWithinAABB(entity.getClass(), AxisAlignedBB.getBoundingBox((double)logic.getSpawnerX(), (double)logic.getSpawnerY(), (double)logic.getSpawnerZ(), (double)(logic.getSpawnerX() + 1), (double)(logic.getSpawnerY() + 1), (double)(logic.getSpawnerZ() + 1)).expand(spawnRange * 2, 4.0D, spawnRange * 2)).size();
+					int j = logic.getSpawnerWorld().getEntitiesWithinAABB(entity.getClass(), AxisAlignedBB.getBoundingBox(logic.getSpawnerX(), logic.getSpawnerY(), logic.getSpawnerZ(), logic.getSpawnerX() + 1, logic.getSpawnerY() + 1, logic.getSpawnerZ() + 1).expand(spawnRange * 2, 4.0D, spawnRange * 2)).size();
 
 					if (j >= maxNearbyEntities) {
 						resetTimer(logic);
 						return;
 					}
 
-					double d2 = (double)logic.getSpawnerX() + (logic.getSpawnerWorld().rand.nextDouble() - logic.getSpawnerWorld().rand.nextDouble()) * spawnRange;
-					double d3 = (double)(logic.getSpawnerY() + logic.getSpawnerWorld().rand.nextInt(3) - 1);
-					double d4 = (double)logic.getSpawnerZ() + (logic.getSpawnerWorld().rand.nextDouble() - logic.getSpawnerWorld().rand.nextDouble()) * spawnRange;
+					double d2 = logic.getSpawnerX() + (logic.getSpawnerWorld().rand.nextDouble() - logic.getSpawnerWorld().rand.nextDouble()) * spawnRange;
+					double d3 = logic.getSpawnerY() + logic.getSpawnerWorld().rand.nextInt(3) - 1;
+					double d4 = logic.getSpawnerZ() + (logic.getSpawnerWorld().rand.nextDouble() - logic.getSpawnerWorld().rand.nextDouble()) * spawnRange;
 					EntityLiving entityliving = entity instanceof EntityLiving ? (EntityLiving)entity : null;
 					entity.setLocationAndAngles(d2, d3, d4, logic.getSpawnerWorld().rand.nextFloat() * 360.0F, 0.0F);
 
@@ -108,25 +107,25 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver {
 		int maxSpawnDelay = ReflectionHelper.getPrivateValue(MobSpawnerBaseLogic.class, logic, LibObfuscation.MAX_SPAWN_DELAY);
 		int minSpawnDelay = ReflectionHelper.getPrivateValue(MobSpawnerBaseLogic.class, logic, LibObfuscation.MIN_SPAWN_DELAY);
 		List potentialEntitySpawns = ReflectionHelper.getPrivateValue(MobSpawnerBaseLogic.class, logic, LibObfuscation.POTENTIAL_ENTITY_SPAWNS);
-		
+
 		if(maxSpawnDelay <= minSpawnDelay)
-            logic.spawnDelay = minSpawnDelay;
+			logic.spawnDelay = minSpawnDelay;
 		else {
-            int i = maxSpawnDelay - minSpawnDelay;
-            logic.spawnDelay = minSpawnDelay + logic.getSpawnerWorld().rand.nextInt(i);
-        }
+			int i = maxSpawnDelay - minSpawnDelay;
+			logic.spawnDelay = minSpawnDelay + logic.getSpawnerWorld().rand.nextInt(i);
+		}
 
-        if(potentialEntitySpawns != null && potentialEntitySpawns.size() > 0)
-            logic.setRandomEntity((MobSpawnerBaseLogic.WeightedRandomMinecart)WeightedRandom.getRandomItem(logic.getSpawnerWorld().rand, potentialEntitySpawns));
+		if(potentialEntitySpawns != null && potentialEntitySpawns.size() > 0)
+			logic.setRandomEntity((MobSpawnerBaseLogic.WeightedRandomMinecart)WeightedRandom.getRandomItem(logic.getSpawnerWorld().rand, potentialEntitySpawns));
 
-        logic.func_98267_a(1);
+		logic.func_98267_a(1);
 	}
-	
+
 	@Override
 	public void writeCustomNBT(NBTTagCompound cmp) {
 		cmp.setInteger(TAG_MANA, mana);
 	}
-	
+
 	@Override
 	public void readCustomNBT(NBTTagCompound cmp) {
 		mana = cmp.getInteger(TAG_MANA);

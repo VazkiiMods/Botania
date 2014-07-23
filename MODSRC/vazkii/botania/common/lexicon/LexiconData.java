@@ -402,7 +402,7 @@ public final class LexiconData {
 
 		spawnerClaw = new ALexiconEntry(LibLexicon.DEVICE_SPAWNER_CLAW, categoryDevices);
 		spawnerClaw.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCrafingRecipes.recipeSpawnerClaw));
-		
+
 		// TOOLS ENTRIES
 		manaBlaster = new BLexiconEntry(LibLexicon.TOOL_MANA_BLASTER, categoryTools);
 		manaBlaster.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCrafingRecipes.recipeManaBlaster));
@@ -566,7 +566,7 @@ public final class LexiconData {
 
 		tinyPotato = new BLexiconEntry(LibLexicon.MISC_TINY_POTATO, categoryMisc);
 		tinyPotato.setLexiconPages(new PageText("0"), new PageManaInfusionRecipe("1", ModManaInfusionRecipes.tinyPotatoRecipe));
-		
+
 		headCreating = new ALexiconEntry(LibLexicon.MISC_HEAD_CREATING, categoryMisc);
 		headCreating.setLexiconPages(new PageText("0"), new PageRuneRecipe("1", ModRuneRecipes.recipeHead));
 	}

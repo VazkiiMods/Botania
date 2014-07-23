@@ -60,7 +60,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 		double heightscale = world.rand.nextDouble() + 0.5;
 		spawnBurst(world, srcx, srcy, srcz, pointy, heightscale);
 	}
-	
+
 	public void spawnBurst(World world, int srcx, int srcy, int srcz, ItemStack lens) {
 		boolean pointy = ItemNBTHelper.getBoolean(lens, TAG_POINTY, false);
 		double heightscale = ItemNBTHelper.getDouble(lens, TAG_HEIGHTSCALE, 1);
@@ -112,7 +112,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 					}
 		}
 	}
-	
+
 	private boolean inRange(int x,int y,int z,int srcx, int srcy, int srcz, int range, double heightscale, boolean pointy) {
 		if(y >= srcy)
 			return MathHelper.pointDistanceSpace(x, 0, z, srcx, 0, srcz) < range;
