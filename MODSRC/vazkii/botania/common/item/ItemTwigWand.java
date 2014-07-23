@@ -26,6 +26,7 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
@@ -72,19 +73,26 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 
 				Vector3 spreaderVec = Vector3.fromTileEntityCenter(spreader);
 				Vector3 blockVec = new Vector3(par4 + 0.5, par5 + 0.5, par6 + 0.5);
-				Vector3 diffVec =  blockVec.sub(spreaderVec);
+				
+				AxisAlignedBB axis = par3World.getBlock(par4, par5, par6).getCollisionBoundingBoxFromPool(par3World, par4, par5, par6);
+				System.out.println(axis);
+				if(!blockVec.isInside(axis))
+					blockVec = new Vector3(axis.minX + (axis.maxX - axis.minX) / 2, axis.minY + (axis.maxY - axis.minY) / 2, axis.minZ + (axis.maxZ - axis.minZ) / 2); 
+				System.out.println(spreaderVec + " " + blockVec);
+				
+				Vector3 diffVec =  blockVec.copy().sub(spreaderVec);
 				Vector3 diffVec2D = new Vector3(diffVec.x, diffVec.z, 0);
 				Vector3 rotVec = new Vector3(0, 1, 0);
 				double angle = rotVec.angle(diffVec2D) / Math.PI * 180.0;
 
-				if(par4 < spreader.xCoord)
+				if(blockVec.x < spreaderVec.x)
 					angle = -angle;
 
 				spreader.rotationX = (float) angle + 90;
 
 				rotVec = new Vector3(diffVec.x, 0, diffVec.z);
 				angle = diffVec.angle(rotVec) * 180F / Math.PI;
-				if(par5 < boundSpreader.posY)
+				if(blockVec.y < spreaderVec.y)
 					angle = -angle;
 				spreader.rotationY = (float) angle;
 
@@ -126,7 +134,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 			boolean spreader = par3World.getTileEntity(par4, par5, par6) instanceof TileSpreader;
 			int ticks = getTicksSinceSpreaderUse(par1ItemStack);
 			boolean wanded = false;
-			if(spreader && ticks == 20 && par2EntityPlayer.isSneaking()) {
+			if(spreader && ticks == 5 && par2EntityPlayer.isSneaking()) {
 				if(boundSpreader.posX == par4 && boundSpreader.posY == par5 && boundSpreader.posZ == par6)
 					setBoundSpreader(par1ItemStack, 0, -1, 0);
 				else setBoundSpreader(par1ItemStack, par4, par5, par6);
@@ -168,7 +176,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 	@Override
 	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
 		int ticks = getTicksSinceSpreaderUse(par1ItemStack);
-		if(ticks < 20)
+		if(ticks < 5)
 			setTicksSinceSpreaderUse(par1ItemStack, ticks + 1);
 
 		ChunkCoordinates coords = getBoundSpreader(par1ItemStack);
@@ -268,6 +276,10 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 
 	@Override
 	public ChunkCoordinates getBinding(ItemStack stack) {
+		ChunkCoordinates bound = getBoundSpreader(stack);
+		if(bound.posY != -1)
+			return bound;
+		
 		MovingObjectPosition pos = Minecraft.getMinecraft().objectMouseOver;
 		if(pos != null) {
 			TileEntity tile = Minecraft.getMinecraft().theWorld.getTileEntity(pos.blockX, pos.blockY, pos.blockZ);
@@ -276,10 +288,6 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 				return coords;
 			}
 		}
-
-		ChunkCoordinates bound = getBoundSpreader(stack);
-		if(bound.posY != -1)
-			return bound;
 
 		return null;
 	}

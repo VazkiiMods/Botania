@@ -81,49 +81,66 @@ public final class BoundTileRenderer {
 				axis.minZ -= pos.posZ;
 				axis.maxZ -= pos.posZ;
 
-				GL11.glTranslated(axis.minX, axis.minY, axis.minZ);
-				GL11.glScaled(axis.maxX - axis.minX, axis.maxY - axis.minY, axis.maxZ - axis.minZ);
-
+				GL11.glScalef(1F, 1F, -1F);
+				
 				GL11.glLineWidth(1F);
-				renderBlockOutline();
+				renderBlockOutline(axis);
 
 				GL11.glLineWidth(4F);
 				GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 64);
-				renderBlockOutline();
+				renderBlockOutline(axis);
 			}
 		}
 
 		GL11.glPopMatrix();
 	}
 
-	private void renderBlockOutline() {
+	private void renderBlockOutline(AxisAlignedBB aabb) {
 		Tessellator tessellator = Tessellator.instance;
-
+		
+		double ix = aabb.minX;
+		double iy = aabb.minY;
+		double iz = aabb.minZ;
+		double ax = aabb.maxX;
+		double ay = aabb.maxY;
+		double az = aabb.maxZ;
+		
 		tessellator.startDrawing(GL11.GL_LINES);
-		tessellator.addVertex(0, 0, 0);
-		tessellator.addVertex(0, 1, 0);
-		tessellator.addVertex(0, 1, 0);
-		tessellator.addVertex(1, 1, 0);
-		tessellator.addVertex(1, 1, 0);
-		tessellator.addVertex(1, 0, 0);
-		tessellator.addVertex(1, 0, 0);
-		tessellator.addVertex(0, 0, 0);
-		tessellator.addVertex(0, 0, -1);
-		tessellator.addVertex(0, 1, -1);
-		tessellator.addVertex(0, 0, -1);
-		tessellator.addVertex(1, 0, -1);
-		tessellator.addVertex(1, 0, -1);
-		tessellator.addVertex(1, 1, -1);
-		tessellator.addVertex(0, 1, -1);
-		tessellator.addVertex(1, 1, -1);
-		tessellator.addVertex(0, 0, 0);
-		tessellator.addVertex(0, 0, -1);
-		tessellator.addVertex(0, 1, 0);
-		tessellator.addVertex(0, 1, -1);
-		tessellator.addVertex(1, 0, 0);
-		tessellator.addVertex(1, 0, -1);
-		tessellator.addVertex(1, 1, 0);
-		tessellator.addVertex(1, 1, -1);
+		tessellator.addVertex(ix, iy, iz);
+		tessellator.addVertex(ix, ay, iz);
+		
+		tessellator.addVertex(ix, ay, iz);
+		tessellator.addVertex(ax, ay, iz);
+		
+		tessellator.addVertex(ax, ay, iz);
+		tessellator.addVertex(ax, iy, iz);
+		
+		tessellator.addVertex(ax, iy, iz);
+		tessellator.addVertex(ix, iy, iz);
+		
+		tessellator.addVertex(ix, iy, az);
+		tessellator.addVertex(ix, ay, az);
+		
+		tessellator.addVertex(ix, iy, az);
+		tessellator.addVertex(ax, iy, az);
+		
+		tessellator.addVertex(ax, iy, az);
+		tessellator.addVertex(ax, ay, az);
+		
+		tessellator.addVertex(ix, ay, az);
+		tessellator.addVertex(ax, ay, az);
+		
+		tessellator.addVertex(ix, iy, iz);
+		tessellator.addVertex(ix, iy, az);
+		
+		tessellator.addVertex(ix, ay, iz);
+		tessellator.addVertex(ix, ay, az);
+		
+		tessellator.addVertex(ax, iy, iz);
+		tessellator.addVertex(ax, iy, az);
+		
+		tessellator.addVertex(ax, ay, iz);
+		tessellator.addVertex(ax, ay, az);
 
 		tessellator.draw();
 	}

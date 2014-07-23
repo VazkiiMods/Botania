@@ -17,6 +17,7 @@ import java.math.RoundingMode;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Vec3;
 
 import org.lwjgl.opengl.GL11;
@@ -211,6 +212,7 @@ public class Vector3
 
 	public Vector3 zCrossProduct() {
 		double d = y;
+	
 		double d1 = -x;
 		x = d;
 		y = d1;
@@ -235,6 +237,10 @@ public class Vector3
 		return Math.acos(copy().normalize().dotProduct(vec.copy().normalize()));
 	}
 
+	public boolean isInside(AxisAlignedBB aabb) {
+		return x >= aabb.minX && y >= aabb.maxY && z >= aabb.minZ && x < aabb.maxX && y < aabb.maxY && z < aabb.maxZ;
+	}
+	
 	public boolean isZero() {
 		return x == 0 && y == 0 && z == 0;
 	}
