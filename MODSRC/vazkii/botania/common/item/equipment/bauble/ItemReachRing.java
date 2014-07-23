@@ -12,12 +12,10 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-import baubles.api.BaubleType;
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibItemNames;
+import baubles.api.BaubleType;
 
 public class ItemReachRing extends ItemBauble {
 
@@ -29,12 +27,12 @@ public class ItemReachRing extends ItemBauble {
 	public void onEquippedOrLoadedIntoWorld(ItemStack stack, EntityLivingBase player) {
 		Botania.proxy.setExtraReach(player, 3.5F);
 	}
-	
+
 	@Override
 	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
 		Botania.proxy.setExtraReach(player, 0F);
 	}
-	
+
 	@Override
 	public BaubleType getBaubleType(ItemStack arg0) {
 		return BaubleType.RING;

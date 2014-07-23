@@ -110,10 +110,10 @@ public final class ConfigHandler {
 
 		desc = "Set to true to use alternate flower textures by Futureazoo, not all flowers are textured. http://redd.it/2b3o3f";
 		altFlowerTextures = loadPropBool("flowerTextures.alt", desc, altFlowerTextures);
-		
+
 		desc = "Set to true if you are the chosen one. For lovers of glitch art and just general mad people.";
 		matrixMode = loadPropBool("matrixMode.enabled", desc, matrixMode);
-		
+
 		desc = "Set to false to disable the references in flower tooltips. (You monster D:)";
 		referencesEnabled = loadPropBool("references.enabled", desc, referencesEnabled);
 

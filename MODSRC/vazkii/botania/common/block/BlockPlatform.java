@@ -84,10 +84,10 @@ public class BlockPlatform extends BlockCamo implements ILexiconable {
 	@Override
 	public void addCollisionBoxesToList(World par1World, int par2, int par3, int par4, AxisAlignedBB par5AxisAlignedBB, List par6List, Entity par7Entity) {
 		int meta = par1World.getBlockMetadata(par2, par3, par4);
-		if(meta == 2 || (meta == 0 && par7Entity != null && par7Entity.posY > par3 + (par7Entity instanceof EntityPlayer ? 2 : 0) && (!(par7Entity instanceof EntityPlayer) || !par7Entity.isSneaking())))
+		if(meta == 2 || meta == 0 && par7Entity != null && par7Entity.posY > par3 + (par7Entity instanceof EntityPlayer ? 2 : 0) && (!(par7Entity instanceof EntityPlayer) || !par7Entity.isSneaking()))
 			super.addCollisionBoxesToList(par1World, par2, par3, par4, par5AxisAlignedBB, par6List, par7Entity);
 	}
-	
+
 	@Override
 	public float getBlockHardness(World par1World, int par2, int par3, int par4) {
 		int meta = par1World.getBlockMetadata(par2, par3, par4);

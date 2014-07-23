@@ -66,7 +66,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 
 						if(MathHelper.pointDistanceSpace(x, y, z, srcx, srcy, srcz) < range) {
 							Block block = world.getBlock(x, y, z);
-						if(!block.isAir(world, x, y, z) && !block.isReplaceable(world, x, y, z) && !(block instanceof BlockFalling) && block.getBlockHardness(world, x, y, z) != -1) {
+							if(!block.isAir(world, x, y, z) && !block.isReplaceable(world, x, y, z) && !(block instanceof BlockFalling) && block.getBlockHardness(world, x, y, z) != -1) {
 								int id = Block.getIdFromBlock(block);
 								int meta = world.getBlockMetadata(x, y, z);
 								TileEntity tile = world.getTileEntity(x, y, z);
@@ -147,9 +147,9 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 				if(y != -1)
 					spawnBurst(entity.worldObj, x, y, z);
 			} else if(burst.getTicksExisted() == placeTicks) {
-				int x = (int) net.minecraft.util.MathHelper.floor_double(entity.posX);
-				int y = (int) net.minecraft.util.MathHelper.floor_double(entity.posY);
-				int z = (int) net.minecraft.util.MathHelper.floor_double(entity.posZ);
+				int x = net.minecraft.util.MathHelper.floor_double(entity.posX);
+				int y = net.minecraft.util.MathHelper.floor_double(entity.posY);
+				int z = net.minecraft.util.MathHelper.floor_double(entity.posZ);
 
 				if(entity.worldObj.isAirBlock(x, y, z)) {
 					int id = ItemNBTHelper.getInt(lens, TAG_BLOCK, 0);
@@ -170,7 +170,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 						entity.worldObj.setTileEntity(x, y, z, tile);
 					}
 				}
-				
+
 				entity.setDead();
 			}
 		}

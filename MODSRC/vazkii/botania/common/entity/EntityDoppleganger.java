@@ -267,7 +267,7 @@ public class EntityDoppleganger extends EntityCreature implements IBossDisplayDa
 							tries++;
 						if(tries >= 50)
 							teleportTo(source.posX + 0.5, source.posY + 1.6, source.posZ + 0.5);
-						
+
 						if(spawnLandmines && !worldObj.isRemote)
 							for(int i = 0; i < 6; i++) {
 								int x = source.posX - 10 + rand.nextInt(20);

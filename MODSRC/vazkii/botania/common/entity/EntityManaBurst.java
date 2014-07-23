@@ -47,7 +47,7 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
 
 public class EntityManaBurst extends EntityThrowable implements IManaBurst {
-	
+
 	private static final String TAG_TICKS_EXISTED = "ticksExisted";
 	private static final String TAG_COLOR = "color";
 	private static final String TAG_MANA = "mana";
@@ -346,7 +346,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	public void onUpdate() {
 		setTicksExisted(getTicksExisted() + 1);
 		superUpdate();
-		
+
 		if(!fake && !isDead) {
 			ChunkCoordinates coords = getBurstSourceChunkCoordinates();
 			TileEntity tile = worldObj.getTileEntity(coords.posX, coords.posY, coords.posZ);
@@ -423,7 +423,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		if(stack != null)
 			stack.writeToNBT(lensCmp);
 		par1nbtTagCompound.setTag(TAG_LENS_STACK, lensCmp);
-		
+
 		ChunkCoordinates coords = getBurstSourceChunkCoordinates();
 		par1nbtTagCompound.setInteger(TAG_SPREADER_X, coords.posX);
 		par1nbtTagCompound.setInteger(TAG_SPREADER_Y, coords.posY);
@@ -450,7 +450,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		if(stack != null)
 			setSourceLens(stack);
 		else setSourceLens(new ItemStack(Blocks.stone, 0, 0));
-		
+
 		int x = par1nbtTagCompound.getInteger(TAG_SPREADER_X);
 		int y = par1nbtTagCompound.getInteger(TAG_SPREADER_Y);
 		int z = par1nbtTagCompound.getInteger(TAG_SPREADER_Z);
@@ -712,12 +712,12 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	public void setSourceLens(ItemStack lens) {
 		dataWatcher.updateObject(dataWatcherStart + 9, lens == null ? new ItemStack(Blocks.stone, 0, 0) : lens);
 	}
-	
+
 	@Override
 	public int getTicksExisted() {
 		return _ticksExisted;
 	}
-	
+
 	public void setTicksExisted(int ticks) {
 		_ticksExisted = ticks;
 	}

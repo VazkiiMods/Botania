@@ -105,12 +105,12 @@ public class CommonProxy {
 	public void setEntryToOpen(LexiconEntry entry) {
 		// NO-OP
 	}
-	
+
 	public void setExtraReach(EntityLivingBase entity, float reach) {
 		if(entity instanceof EntityPlayerMP)
 			((EntityPlayerMP) entity).theItemInWorldManager.setBlockReachDistance(5.0 + reach);
 	}
-	
+
 	public long getWorldElapsedTicks() {
 		return MinecraftServer.getServer().worldServers[0].getTotalWorldTime();
 	}

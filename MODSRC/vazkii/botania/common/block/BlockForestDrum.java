@@ -76,7 +76,7 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 	public boolean isOpaqueCube() {
 		return false;
 	}
-	
+
 	@Override
 	public int damageDropped(int meta) {
 		return meta;

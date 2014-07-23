@@ -28,17 +28,17 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 	public ItemSkyDirtRod() {
 		super(LibItemNames.SKY_DIRT_ROD);
 	}
-	
+
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
 		if(!world.isRemote && ManaItemHandler.requestManaExact(stack, player, COST * 2, false)) {
 			Vector3 playerVec = Vector3.fromEntityCenter(player);
 			Vector3 lookVec = new Vector3(player.getLookVec()).multiply(3);
 			Vector3 placeVec = playerVec.copy().add(lookVec);
-			
-			int x = (int) MathHelper.floor_double(placeVec.x);
-			int y = (int) MathHelper.floor_double(placeVec.y) + 1;
-			int z = (int) MathHelper.floor_double(placeVec.z);
+
+			int x = MathHelper.floor_double(placeVec.x);
+			int y = MathHelper.floor_double(placeVec.y) + 1;
+			int z = MathHelper.floor_double(placeVec.z);
 
 			int entities = world.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1)).size();
 
@@ -55,8 +55,8 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 		}
 		if(world.isRemote)
 			player.swingItem();
-		
+
 		return stack;
 	}
-	
+
 }

@@ -56,7 +56,7 @@ public interface IManaBurst {
 	public void setSourceLens(ItemStack lens);
 
 	public boolean hasAlreadyCollidedAt(int x, int y, int z);
-	
+
 	public int getTicksExisted();
 
 }

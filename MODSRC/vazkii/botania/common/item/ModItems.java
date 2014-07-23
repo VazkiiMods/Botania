@@ -213,7 +213,7 @@ public final class ModItems {
 		virus = new ItemVirus();
 		reachRing = new ItemReachRing();
 		skyDirtRod = new ItemSkyDirtRod();
-		
+
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));

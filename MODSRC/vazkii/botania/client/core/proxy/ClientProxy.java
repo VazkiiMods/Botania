@@ -137,7 +137,7 @@ public class ClientProxy extends CommonProxy {
 	public void setEntryToOpen(LexiconEntry entry) {
 		GuiLexicon.currentOpenLexicon = new GuiLexiconEntry(entry, new GuiLexiconIndex(entry.category));
 	}
-	
+
 	@Override
 	public void setExtraReach(EntityLivingBase entity, float reach) {
 		super.setExtraReach(entity, reach);
@@ -151,7 +151,7 @@ public class ClientProxy extends CommonProxy {
 				controller.setGameType(type);
 				mc.playerController = controller;
 			}
-			
+
 			((BotaniaPlayerController) mc.playerController).distance = reach;
 		}
 	}

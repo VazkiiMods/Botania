@@ -1018,16 +1018,16 @@ public final class ModCrafingRecipes {
 		recipeVirusSkeleton = BotaniaAPI.getLatestAddedRecipe();
 
 		// Ring of Far Reach Recipe
-		addOreDictRecipe(new ItemStack(ModItems.reachRing), 
+		addOreDictRecipe(new ItemStack(ModItems.reachRing),
 				"RE ", "E E", " E ",
 				'R', LibOreDict.RUNE[15],
 				'E', LibOreDict.ELEMENTIUM);
 		recipeReachRing = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Rod of the Highlands Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.skyDirtRod), new ItemStack(ModItems.dirtRod), LibOreDict.PIXIE_DUST, LibOreDict.RUNE[3]);
 		recipeSkyDirtRod = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",

@@ -50,10 +50,10 @@ public final class LibObfuscation {
 
 	// EntityHorse
 	public static final String[] HORSE_JUMP_STRENGTH = new String[] { "horseJumpStrength", "field_110271_bv", "bv" };
-	
+
 	// PlayerControllerMP
 	public static final String[] NET_CLIENT_HANDLER = new String[] { "netClientHandler", "field_78774_b", "b" };
 	public static final String[] CURRENT_GAME_TYPE = new String[] { "currentGameType", "field_78779_k", "k" };
-	
+
 }
 

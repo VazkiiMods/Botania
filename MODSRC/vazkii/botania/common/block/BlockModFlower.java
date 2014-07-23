@@ -44,7 +44,7 @@ public class BlockModFlower extends BlockFlower implements ILexiconable {
 	public static IIcon[] iconsAlt;
 
 	public static final String ALT_DIR = "alt";
-	
+
 	protected BlockModFlower() {
 		this(LibBlockNames.FLOWER);
 	}

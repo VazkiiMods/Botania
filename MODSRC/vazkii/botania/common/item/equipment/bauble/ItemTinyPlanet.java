@@ -59,7 +59,7 @@ public class ItemTinyPlanet extends ItemBauble {
 			ItemStack lens = burst.getSourceLens();
 			if(lens != null && lens.getItem() instanceof ITinyPlanetExcempt && !((ITinyPlanetExcempt) lens.getItem()).shouldPull(lens))
 				continue;
-			
+
 			int orbitTime = getEntityOrbitTime(entity);
 			if(orbitTime == 0)
 				burst.setMinManaLoss(burst.getMinManaLoss() * 3);

@@ -31,7 +31,7 @@ public final class IconHelper {
 	public static IIcon forBlock(IIconRegister ir, Block block, int i) {
 		return forBlock(ir, block, Integer.toString(i));
 	}
-	
+
 	public static IIcon forBlock(IIconRegister ir, Block block, int i, String dir) {
 		return forBlock(ir, block, Integer.toString(i), dir);
 	}
@@ -39,7 +39,7 @@ public final class IconHelper {
 	public static IIcon forBlock(IIconRegister ir, Block block, String s) {
 		return forName(ir, block.getUnlocalizedName().replaceAll("tile.", "") + s);
 	}
-	
+
 	public static IIcon forBlock(IIconRegister ir, Block block, String s, String dir) {
 		return forName(ir, dir + "/" + block.getUnlocalizedName().replaceAll("tile.", "") + s);
 	}

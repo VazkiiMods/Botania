@@ -11,17 +11,17 @@
  */
 package vazkii.botania.client.core.handler;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.network.NetHandlerPlayClient;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class BotaniaPlayerController extends PlayerControllerMP {
 
 	public float distance = 0F;
-	
+
 	public BotaniaPlayerController(Minecraft p_i45062_1_, NetHandlerPlayClient p_i45062_2_) {
 		super(p_i45062_1_, p_i45062_2_);
 	}
@@ -30,5 +30,5 @@ public class BotaniaPlayerController extends PlayerControllerMP {
 	public float getBlockReachDistance() {
 		return super.getBlockReachDistance() + distance;
 	}
-	
+
 }
