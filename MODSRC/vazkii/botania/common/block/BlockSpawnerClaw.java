@@ -11,16 +11,21 @@
  */
 package vazkii.botania.common.block;
 
+import vazkii.botania.api.lexicon.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.tile.TileSpawnerClaw;
+import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockSpawnerClaw extends BlockModContainer {
+public class BlockSpawnerClaw extends BlockModContainer implements ILexiconable {
 
 	protected BlockSpawnerClaw() {
 		super(Material.iron);
@@ -55,6 +60,11 @@ public class BlockSpawnerClaw extends BlockModContainer {
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileSpawnerClaw();
+	}
+
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return LexiconData.spawnerClaw;
 	}
 
 }

@@ -168,6 +168,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeVirusSkeleton;
 	public static IRecipe recipeReachRing;
 	public static IRecipe recipeSkyDirtRod;
+	public static IRecipe recipeSpawnerClaw;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1028,6 +1029,15 @@ public final class ModCrafingRecipes {
 		addShapelessOreDictRecipe(new ItemStack(ModItems.skyDirtRod), new ItemStack(ModItems.dirtRod), LibOreDict.PIXIE_DUST, LibOreDict.RUNE[3]);
 		recipeSkyDirtRod = BotaniaAPI.getLatestAddedRecipe();
 
+		// Life Imbuer Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.spawnerClaw), 
+				"BSB", "PMP", "P P",
+				'B', new ItemStack(Items.blaze_rod),
+				'S', LibOreDict.ELEMENTIUM,
+				'P', new ItemStack(ModBlocks.prismarine, 1, 2),
+				'M', new ItemStack(ModBlocks.storage));
+		recipeSpawnerClaw = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",
