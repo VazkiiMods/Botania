@@ -357,6 +357,7 @@ tile.botania:tinyPotato.name=Tiny Potato
 tile.botania:flower..name=Botania Flower
 # ^ This is the placeholder name for when no flower type is detected
 # The two dots are not a typo
+tile.botania:flower..reference=If you have this, it means something went wrong, you should report it
 
 tile.botania:flower.puredaisy.name=Pure Daisy
 tile.botania:flower.puredaisy.reference=What color do you want to be?
