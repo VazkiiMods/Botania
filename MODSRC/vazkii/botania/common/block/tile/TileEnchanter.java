@@ -163,7 +163,7 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 				manaRequired = 0;
 				for(EnchantmentData data : enchants) {
 					Enchantment ench = Enchantment.enchantmentsList[data.enchant];
-					manaRequired += (int) (3000F * ((15 - ench.getWeight()) * 1.45F) * ((3F + data.level * data.level) * 0.25F) * (0.9F + enchants.size() * 0.05F));
+					manaRequired += (int) (5000F * ((15 - ench.getWeight()) * 1.05F) * ((3F + data.level * data.level) * 0.25F) * (0.9F + enchants.size() * 0.05F));
 				}
 			} else if(mana >= manaRequired) {
 				manaRequired = 0;
