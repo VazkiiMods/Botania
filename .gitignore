@@ -1,23 +1,13 @@
+# Ignore Gradle cache files & directories
+bin/
+build/
+eclipse/
+.classpath
+.gradle/
+.project
+.settings/
+
+# Ignore OS cache files & directories
+*.DS_Store
+_MACOSX
 Thumbs.db
-
-## gradle
-/.gradle
-/build
-
-## ForgeGradle
-/run
-
-## eclipse
-/.settings
-/.metadata
-/.classpath
-/.project
-/bin
-
-## intellij
-/out
-/.idea
-/atlassian-ide-plugin.xml
-
-## Private Stuffs
-/ftp.properties
