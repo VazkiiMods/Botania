@@ -58,7 +58,7 @@ public final class ConfigHandler {
 	public static int shedRateSlime = 21000;
 
 	public static int flowerQuantity = 2;
-	public static int flowerDensity = 20;
+	public static int flowerDensity = 16;
 
 	public static void loadConfig(File configFile) {
 		config = new Configuration(configFile);
