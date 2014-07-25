@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.common.core.BotaniaCreativeTab;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.block.ItemBlockMod;
 import vazkii.botania.common.lexicon.LexiconData;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -17,7 +17,7 @@ public class BlockModStairs extends BlockStairs implements ILexiconable {
 	public BlockModStairs(Block source, int meta, String name) {
 		super(source, meta);
 		setBlockName(name);
-		setCreativeTab(BotaniaCreativeTab.INSTANCE);
+		setCreativeTab(Botania.tabBotania);
 		useNeighborBrightness = true;
 	}
 

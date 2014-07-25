@@ -29,7 +29,7 @@ import net.minecraftforge.common.IShearable;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.core.BotaniaCreativeTab;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
@@ -46,7 +46,7 @@ public class ItemManasteelShears extends ItemShears implements IManaUsingItem {
 	}
 
 	public ItemManasteelShears(String name) {
-		setCreativeTab(BotaniaCreativeTab.INSTANCE);
+		setCreativeTab(Botania.tabBotania);
 		setUnlocalizedName(name);
 	}
 

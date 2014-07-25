@@ -12,7 +12,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.common.core.BotaniaCreativeTab;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.block.ItemBlockModSlab;
 import vazkii.botania.common.lexicon.LexiconData;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -29,7 +29,7 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable {
 		setBlockName(name);
 		if(!full) {
 			setLightOpacity(0);
-			setCreativeTab(BotaniaCreativeTab.INSTANCE);
+			setCreativeTab(Botania.tabBotania);
 		}
 	}
 

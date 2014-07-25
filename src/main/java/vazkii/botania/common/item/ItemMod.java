@@ -16,7 +16,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.core.BotaniaCreativeTab;
+import vazkii.botania.common.Botania;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -25,7 +25,7 @@ public class ItemMod extends Item {
 
 	public ItemMod() {
 		super();
-		setCreativeTab(BotaniaCreativeTab.INSTANCE);
+		setCreativeTab(Botania.tabBotania);
 	}
 
 	@Override

@@ -11,9 +11,12 @@
  */
 package vazkii.botania.common;
 
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import vazkii.botania.common.core.handler.AliasHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.proxy.CommonProxy;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -34,6 +37,13 @@ public class Botania {
 
 	@SidedProxy(serverSide = LibMisc.PROXY_COMMON, clientSide = LibMisc.PROXY_CLIENT)
 	public static CommonProxy proxy;
+
+	public static CreativeTabs tabBotania = new CreativeTabs(LibMisc.MOD_ID) {
+		@Override
+		public Item getTabIconItem() {
+			return ModItems.lexicon;
+		}
+	};
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {

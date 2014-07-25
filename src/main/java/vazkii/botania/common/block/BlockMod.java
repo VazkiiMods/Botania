@@ -15,7 +15,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import vazkii.botania.client.core.helper.IconHelper;
-import vazkii.botania.common.core.BotaniaCreativeTab;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.block.ItemBlockMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -26,7 +26,7 @@ public class BlockMod extends Block {
 	public BlockMod(Material par2Material) {
 		super(par2Material);
 		if(registerInCreative())
-			setCreativeTab(BotaniaCreativeTab.INSTANCE);
+			setCreativeTab(Botania.tabBotania);
 	}
 
 	@Override

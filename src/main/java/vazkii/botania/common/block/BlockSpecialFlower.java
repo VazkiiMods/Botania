@@ -40,8 +40,8 @@ import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibRenderIDs;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
-import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -97,7 +97,7 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 		setHardness(0.1F);
 		setStepSound(soundTypeGrass);
 		setTickRandomly(true);
-		setCreativeTab(BotaniaCreativeTab.INSTANCE);
+		setCreativeTab(Botania.tabBotania);
 		setBlockBounds(0.3F, 0.0F, 0.3F, 0.8F, 1, 0.8F);
 	}
 

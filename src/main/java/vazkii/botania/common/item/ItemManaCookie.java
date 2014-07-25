@@ -18,7 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.core.BotaniaCreativeTab;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -29,7 +29,7 @@ public class ItemManaCookie extends ItemFood {
 	public ItemManaCookie() {
 		super(0, 0.1F, false);
 		setPotionEffect(Potion.field_76443_y.id, 1,  0, 1F);
-		setCreativeTab(BotaniaCreativeTab.INSTANCE);
+		setCreativeTab(Botania.tabBotania);
 		setUnlocalizedName(LibItemNames.MANA_COOKIE);
 	}
 

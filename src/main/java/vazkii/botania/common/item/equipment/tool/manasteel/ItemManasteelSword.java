@@ -23,7 +23,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.core.BotaniaCreativeTab;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
@@ -43,7 +43,7 @@ public class ItemManasteelSword extends ItemSword implements IManaUsingItem {
 
 	public ItemManasteelSword(ToolMaterial mat, String name) {
 		super(mat);
-		setCreativeTab(BotaniaCreativeTab.INSTANCE);
+		setCreativeTab(Botania.tabBotania);
 		setUnlocalizedName(name);
 	}
 

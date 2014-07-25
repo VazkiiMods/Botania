@@ -18,7 +18,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import vazkii.botania.client.core.helper.IconHelper;
-import vazkii.botania.common.core.BotaniaCreativeTab;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.block.ItemBlockMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -29,7 +29,7 @@ public abstract class BlockModContainer<T extends TileEntity> extends BlockConta
 	protected BlockModContainer(Material par2Material) {
 		super(par2Material);
 		if(registerInCreative())
-			setCreativeTab(BotaniaCreativeTab.INSTANCE);
+			setCreativeTab(Botania.tabBotania);
 	}
 
 	@Override

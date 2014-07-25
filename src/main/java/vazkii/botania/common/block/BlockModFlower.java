@@ -29,7 +29,6 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -40,8 +39,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockModFlower extends BlockFlower implements ILexiconable {
 
-	public static IIcon[] icons;
-	public static IIcon[] iconsAlt;
+	public static IIcon[] icons, iconsAlt;
 
 	public static final String ALT_DIR = "alt";
 
@@ -56,7 +54,7 @@ public class BlockModFlower extends BlockFlower implements ILexiconable {
 		setStepSound(soundTypeGrass);
 		setBlockBounds(0.3F, 0.0F, 0.3F, 0.8F, 1, 0.8F);
 		setTickRandomly(true);
-		setCreativeTab(registerInCreative() ? BotaniaCreativeTab.INSTANCE : null);
+		setCreativeTab(registerInCreative() ? Botania.tabBotania : null);
 	}
 
 	boolean registerInCreative() {
