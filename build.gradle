@@ -17,7 +17,7 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "1.1 89"
+version = "1.1.90"
 group = "vazkii.botania"
 archivesBaseName = "Botania"
 
@@ -27,9 +27,7 @@ minecraft {
 }
 
 dependencies {
-	compile files (
-		'Baubles-deobf.jar'
-	)
+    compile fileTree(dir: 'lib', include: '*.jar')
 }
 
 processResources {
