@@ -66,7 +66,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 		Block block = par3World.getBlock(par4, par5, par6);
 		ChunkCoordinates boundSpreader = getBoundSpreader(par1ItemStack);
 
-		if(boundSpreader.posY != -1 && par2EntityPlayer.isSneaking() && !par3World.isRemote && (boundSpreader.posX != par4 || boundSpreader.posY != par5 || boundSpreader.posZ != par6)) {
+		if(boundSpreader.posY != -1 && par2EntityPlayer.isSneaking() && (boundSpreader.posX != par4 || boundSpreader.posY != par5 || boundSpreader.posZ != par6)) {
 			TileEntity tile = par3World.getTileEntity(boundSpreader.posX, boundSpreader.posY, boundSpreader.posZ);
 			if(tile instanceof TileSpreader) {
 				TileSpreader spreader = (TileSpreader) tile;
@@ -75,10 +75,11 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 				Vector3 blockVec = new Vector3(par4 + 0.5, par5 + 0.5, par6 + 0.5);
 
 				AxisAlignedBB axis = par3World.getBlock(par4, par5, par6).getCollisionBoundingBoxFromPool(par3World, par4, par5, par6);
-				System.out.println(axis);
+				if(axis == null)
+					axis = AxisAlignedBB.getBoundingBox(par4, par5, par6, par4 + 1, par5 + 1, par6 + 1);
+				
 				if(!blockVec.isInside(axis))
 					blockVec = new Vector3(axis.minX + (axis.maxX - axis.minX) / 2, axis.minY + (axis.maxY - axis.minY) / 2, axis.minZ + (axis.maxZ - axis.minZ) / 2);
-				System.out.println(spreaderVec + " " + blockVec);
 
 				Vector3 diffVec =  blockVec.copy().sub(spreaderVec);
 				Vector3 diffVec2D = new Vector3(diffVec.x, diffVec.z, 0);
@@ -98,6 +99,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 
 				spreader.checkForReceiver();
 				par3World.markBlockForUpdate(boundSpreader.posX, boundSpreader.posY, boundSpreader.posZ);
+				System.out.println(par3World.isRemote);
 				return true;
 			} else setBoundSpreader(par1ItemStack, 0, -1, 0);
 		} else if(par2EntityPlayer.isSneaking()) {
@@ -157,7 +159,6 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 			}
 
 			return wanded;
-
 		} else if(BlockPistonRelay.playerPositions.containsKey(par2EntityPlayer.getCommandSenderName())) {
 			String bindPos = BlockPistonRelay.playerPositions.get(par2EntityPlayer.getCommandSenderName());
 			String currentPos = BlockPistonRelay.getCoordsAsString(par3World.provider.dimensionId, par4, par5, par6);
