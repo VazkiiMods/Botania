@@ -50,15 +50,15 @@ public final class ConfigHandler {
 
 	public static int shedRateChicken = 26000;
 	public static int shedRateSquid = 18000;
-	public static int shedRateVillager = 82000;
+	public static int shedRateVillager = 226000;
 	public static int shedRateSpider = 12000;
 	public static int shedRateBlaze = 8000;
 	public static int shedRateGhast = 9001;
 	public static int shedRateSkeleton = 36000;
 	public static int shedRateSlime = 21000;
 
-	public static int flowerQuantity = 3;
-	public static int flowerDensity = 32;
+	public static int flowerQuantity = 2;
+	public static int flowerDensity = 20;
 
 	public static void loadConfig(File configFile) {
 		config = new Configuration(configFile);
