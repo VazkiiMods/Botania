@@ -352,6 +352,7 @@ tile.botania:miniIsland13.name=绿色浮空花
 tile.botania:miniIsland14.name=红色浮空花
 tile.botania:miniIsland15.name=黑色浮空花
 tile.botania:tinyPotato.name=小土豆
+tile.botania:spawnerClaw.name=生命灌注器
 
 # FLOWER NAMES
 tile.botania:flower..name=植物魔法花
@@ -931,6 +932,7 @@ botania.page.gIntro2=注意这些花会记住它们存入 &4魔力&0的&1魔力�
 botania.entry.daybloom=太阳花
 botania.page.daybloom0=&1太阳花&0是最基本的&4产能花&0.简 而言之,它进行着特别的光合 作用,将阳光转化为&4魔力&0.<br>这个过程十分缓慢,需要十朵 甚至更多才能有所产出,当下 而言.
 botania.page.daybloom1=需要注意的是当阳光照射一 片区域时这些花会互相争夺 资源,因此在四个方向上有紧 邻的太阳花时会减少&4魔力&0的 产量.
+botania.page.daybloom3=产出缩减
 botania.page.daybloom2=&o崭新的一天开始了&r.
 
 # -- NIGHTSHADE
@@ -947,6 +949,7 @@ botania.page.endoflame2=&o不是闪耀之光&r.
 # -- HYDROANGEAS
 botania.entry.hydroangeas=水绣球
 botania.page.hydroangeas0=尽管被动的&4魔力&0生产可以通 过&1太阳花&0轻松实现,同样便利 的方法也是有的.&1水绣球&0会吸 取以它为中心3x3范围内等 高的&1静水&0,从中产生&4魔力&0.<br>似乎&4下雨&0天会更快,但有谁会 想到呢?
+botania.page.hydroangeas2=一个简单的&1水绣球&0系统
 botania.page.hydroangeas1=&oFrom some Hyperdimension&r?
 
 # -- THERMALILY
@@ -1074,6 +1077,12 @@ botania.page.spectralPlatform1=这让我想起了一个谜题
 botania.entry.gatherDrum=收集之鼓
 botania.page.gatherDrum0=所谓的&1收集之鼓&0,短期来说,就 是一个为牲畜而准备的&1狂野&0 &1之鼓&0.<br>当有&4魔力脉冲&0撞上它时,它会 给周围长毛的&4羊&0剪毛.所有的&4牛&0 ,下方若有&1空桶&0的话,牛奶就会 被装入桶中.
 +botania.page.gatherDrum1=Tap your lands
+
+# -- LIFE IMBUER
+botania.entry.spawnerClaw=生命灌注器
+botania.page.spawnerClaw0=&1刷怪笼&0是个有趣的东西.它们 能从稀薄的空气中抽取出生 命,但不知何故,只在附近有 玩家时才会运行.<br>当然这会在某些程度上限制 它生成生物的速度.
+botania.page.spawnerClaw1=将一个&1生命灌注器&0放在刷怪 笼的顶端并用&1魔力发射器&0提 供大量的&4魔力&0,当附近无玩家 时,&4魔力&0就会驱动刷怪笼, 就好像有玩家存在一样.
+botania.page.spawnerClaw2=Something something shadow dragon
 
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
@@ -1416,3 +1425,8 @@ botania.page.shedding0=这片土地上的生物都以非静 态的形式生存�
 botania.entry.tinyPotato=小土豆
 botania.page.tinyPotato0=这是一个小土豆,它相信你,你 能做到.<br>尽管听起来不太真实,但就是 那样,将一个&1马铃薯&0投入&1魔力&0 &1池&0,它就得到了一点活性精华 并且感到愉悦.它很活跃,右击 它还能让它更活跃!
 botania.page.tinyPotato1=将它放在Kickstarter网站上 就起效了
+
+# -- HEAD CREATION
+botania.entry.headCreating=头颅制造
+botania.page.headCreating0=一个特别的精灵咒语,配合一 些材料和一个&1命名牌&0就能做 出牌子里所写者头的复制品. 虽然并不知道这是怎样的原 理,但似乎可以用&1符文祭坛&0来 制作.
+botania.page.headCreating1=在游戏中获得你的头
