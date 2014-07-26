@@ -31,7 +31,7 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemManaResource extends ItemMod implements IFlowerComponent, IElvenItem {
 
-	final int types = 11;
+	final int types = 12;
 	IIcon[] icons;
 
 	public ItemManaResource() {
@@ -94,5 +94,11 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	public boolean isElvenItem(ItemStack stack) {
 		int meta = stack.getItemDamage();
 		return meta == 7 || meta == 8 || meta == 9;
+	}
+	
+	
+	@Override
+	public ItemStack getContainerItem(ItemStack itemStack) {
+		return itemStack.getItemDamage() == 11 ? itemStack.copy() : null;
 	}
 }

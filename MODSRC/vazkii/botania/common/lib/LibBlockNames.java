@@ -34,6 +34,7 @@ public final class LibBlockNames {
 	public static final String TINY_PLANET = "tinyPlanetBlock";
 	public static final String ALCHEMY_CATALYST = "alchemyCatalyst";
 	public static final String OPEN_CRATE = "openCrate";
+	public static final String CRAFT_CRATE = "craftCrate";
 	public static final String FOREST_EYE = "forestEye";
 	public static final String STORAGE = "storage";
 	public static final String FOREST_DRUM = "forestDrum";

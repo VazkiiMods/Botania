@@ -81,6 +81,7 @@ import vazkii.botania.common.block.subtile.generating.SubTileThermalily;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.block.tile.TileBifrost;
+import vazkii.botania.common.block.tile.TileCraftCrate;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.block.tile.TileForestEye;
 import vazkii.botania.common.block.tile.TileManaBeacon;
@@ -367,6 +368,7 @@ public final class ModBlocks {
 		registerTile(TileTurntable.class, LibBlockNames.TURNTABLE);
 		registerTile(TileTinyPlanet.class, LibBlockNames.TINY_PLANET);
 		registerTile(TileOpenCrate.class, LibBlockNames.OPEN_CRATE);
+		registerTile(TileCraftCrate.class, LibBlockNames.CRAFT_CRATE);
 		registerTile(TileForestEye.class, LibBlockNames.FOREST_EYE);
 		registerTile(TilePlatform.class, LibBlockNames.PLATFORM);
 		registerTile(TileAlfPortal.class, LibBlockNames.ALF_PORTAL);

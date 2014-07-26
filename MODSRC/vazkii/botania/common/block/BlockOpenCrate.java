@@ -27,6 +27,7 @@ import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.common.block.tile.TileCraftCrate;
 import vazkii.botania.common.block.tile.TileOpenCrate;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -85,7 +86,7 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable {
 
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
-		return new TileOpenCrate();
+		return meta == 0 ? new TileOpenCrate() : new TileCraftCrate();
 	}
 
 	@Override

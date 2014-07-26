@@ -38,19 +38,19 @@ public class TileOpenCrate extends TileSimpleInventory {
 				redstone = true;
 		}
 
-		if(canRelease()) {
+		if(canEject()) {
 			ItemStack stack = getStackInSlot(0);
 			if(stack != null)
-				release(stack, redstone);
+				eject(stack, redstone);
 		}
 	}
 	
-	public boolean canRelease() {
+	public boolean canEject() {
 		Block blockBelow = worldObj.getBlock(xCoord, yCoord - 1, zCoord);
 		return blockBelow.isAir(worldObj, xCoord, yCoord - 1, zCoord);
 	}
 
-	public void release(ItemStack stack, boolean redstone) {
+	public void eject(ItemStack stack, boolean redstone) {
 		EntityItem item = new EntityItem(worldObj, xCoord + 0.5, yCoord - 0.5, zCoord + 0.5, stack);
 		item.motionX = 0;
 		item.motionY = 0;

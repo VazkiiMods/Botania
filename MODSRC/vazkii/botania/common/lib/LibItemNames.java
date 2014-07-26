@@ -120,6 +120,7 @@ public final class LibItemNames {
 		"elementium",
 		"pixieDust",
 		"dragonstone",
-		"prismarineShard"
+		"prismarineShard",
+		"placeholder"
 	};
 }
