@@ -37,12 +37,18 @@ public class InventoryHelper {
 		if(targetInventory.isItemValidForSlot(slot, stack)) {
 			ItemStack targetStack = targetInventory.getStackInSlot(slot);
 			if(targetStack == null) {
-				targetInventory.setInventorySlotContents(slot, stack.copy());
-				stack.stackSize = 0;
+				int space = targetInventory.getInventoryStackLimit();
+				int mergeAmount = Math.min(space, stack.stackSize);
+				
+				ItemStack copy = stack.copy();
+				copy.stackSize = mergeAmount;
+				targetInventory.setInventorySlotContents(slot, copy);
+				stack.stackSize -= mergeAmount;
 			} else if(canMerge) {
 				if(targetInventory.isItemValidForSlot(slot, stack) && areMergeCandidates(stack, targetStack)) {
-					int space = targetStack.getMaxStackSize() - targetStack.stackSize;
+					int space = Math.min(targetInventory.getInventoryStackLimit(), targetStack.getMaxStackSize()) - targetStack.stackSize;
 					int mergeAmount = Math.min(space, stack.stackSize);
+					
 					ItemStack copy = targetStack.copy();
 					copy.stackSize += mergeAmount;
 					targetInventory.setInventorySlotContents(slot, copy);
@@ -147,7 +153,7 @@ public class InventoryHelper {
 			if(inventorySlot == null)
 				itemSizeCounter -= Math.min(Math.min(itemSizeCounter, inventory.getInventoryStackLimit()), item.getMaxStackSize());
 			else if(areMergeCandidates(item, inventorySlot)) {
-				int space = inventorySlot.getMaxStackSize() - inventorySlot.stackSize;
+				int space = Math.min(inventory.getInventoryStackLimit(), inventorySlot.getMaxStackSize()) - inventorySlot.stackSize;
 				itemSizeCounter -= Math.min(itemSizeCounter, space);
 			}
 		}

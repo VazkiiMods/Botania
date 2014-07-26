@@ -47,7 +47,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 	public void onUpdate() {
 		super.onUpdate();
 
-		if(redstoneSignal > 0)
+		if(redstoneSignal > 0 || supertile.getWorldObj().isRemote)
 			return;
 
 		boolean pulledAny = false;
@@ -97,8 +97,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 
 			if(invToPutItemIn != null) {
 				InventoryHelper.insertItemIntoInventory(invToPutItemIn, stack.copy(), sideToPutItemIn, -1);
-				if(!supertile.getWorldObj().isRemote)
-					item.setDead();
+				item.setDead();
 				pulledAny = true;
 			}
 		}
