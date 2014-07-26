@@ -50,13 +50,13 @@ public class ItemIcePendant extends ItemBauble {
 			if(!player.worldObj.isRemote)
 				tickIceRemovers(player);
 
-			if(!player.isSneaking() && !player.isInsideOfMaterial(Material.water)) {
+			if(!player.isSneaking() && !player.isInsideOfMaterial(Material.water) && !player.worldObj.isRemote) {
 				int x = MathHelper.floor_double(player.posX);
-				int y = MathHelper.floor_double(player.posY - (player.isInWater() ? 0 : 1) - (player.worldObj.isRemote ? 1 : 0));
+				int y = MathHelper.floor_double(player.posY - (player.isInWater() ? 0 : 1));
 				int z = MathHelper.floor_double(player.posZ);
 
 				int range = 3;
-				for(int i = -range - 1; i < range; i++)
+				for(int i = -range; i < range + 1; i++)
 					for(int j = -range; j < range + 1; j++) {
 						int x1 = x + i;
 						int z1 = z + j;
