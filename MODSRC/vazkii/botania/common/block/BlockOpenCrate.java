@@ -13,7 +13,6 @@ package vazkii.botania.common.block;
 
 import java.util.List;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -26,14 +25,16 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.tile.TileCraftCrate;
 import vazkii.botania.common.block.tile.TileOpenCrate;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
+import cpw.mods.fml.common.registry.GameRegistry;
 
-public class BlockOpenCrate extends BlockModContainer implements ILexiconable {
+public class BlockOpenCrate extends BlockModContainer implements ILexiconable, IWandable {
 
 	IIcon iconSide;
 	IIcon iconBottom;
@@ -92,6 +93,12 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable {
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.openCrate;
+	}
+
+	@Override
+	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
+		TileOpenCrate crate = (TileOpenCrate) world.getTileEntity(x, y, z);
+		return crate.onWanded(player, stack);
 	}
 
 }

@@ -40,12 +40,12 @@ public class TileCraftCrate extends TileOpenCrate {
 	
 	@Override
 	public void updateEntity() {
-		if(!worldObj.isRemote && craft() && canEject())
+		if(!worldObj.isRemote && craft(true) && canEject())
 			ejectAll();
 	}
 	
-	boolean craft() {
-		if(!isFull())
+	boolean craft(boolean fullCheck) {
+		if(fullCheck && !isFull())
 			return false;
 		
 		InventoryCrafting craft = new InventoryCrafting(new Container() {
@@ -56,11 +56,10 @@ public class TileCraftCrate extends TileOpenCrate {
 		}, 3, 3);
 		for(int i = 0; i < 9; i++) {
 			ItemStack stack = getStackInSlot(i);
-			if(stack == null)
-				return false; // Should never get here, but just in case.
 			
-			if(stack.getItem() == ModItems.manaResource && stack.getItemDamage() == 11)
+			if(stack == null || stack.getItem() == ModItems.manaResource && stack.getItemDamage() == 11)
 				continue;
+			
 			craft.setInventorySlotContents(i, stack.copy());
 		}
 		
@@ -98,5 +97,12 @@ public class TileCraftCrate extends TileOpenCrate {
 				eject(stack, false);
 			setInventorySlotContents(i, null);
 		}
+	}
+	
+	@Override
+	public boolean onWanded(EntityPlayer player, ItemStack stack) {
+		craft(false);
+		ejectAll();
+		return true;
 	}
 }

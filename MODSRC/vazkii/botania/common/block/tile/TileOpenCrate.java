@@ -13,6 +13,7 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -62,5 +63,10 @@ public class TileOpenCrate extends TileSimpleInventory {
 		setInventorySlotContents(0, null);
 		if(!worldObj.isRemote)
 			worldObj.spawnEntityInWorld(item);
+	}
+	
+	
+	public boolean onWanded(EntityPlayer player, ItemStack stack) {
+		return false;
 	}
 }

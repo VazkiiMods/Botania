@@ -619,7 +619,7 @@ item.botania:laputaShard.name=Shard of Laputa
 item.botania:virus0.name=Necrodermal Virus
 item.botania:virus1.name=Nullodermal Virus
 item.botania:skyDirtRod.name=Rod of the Highlands
-item.botania:placeholder.name=Placeholder
+item.botania:placeholder.name=Crafting Placeholder
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania, %s Edition's Index - Pick which category you would like to study:
