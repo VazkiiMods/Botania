@@ -18,7 +18,9 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileGenerating;
+import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileGourmaryllis extends SubTileGenerating {
 
@@ -80,6 +82,11 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 	@Override
 	public int getColor() {
 		return 0xD3D604;
+	}
+	
+	@Override
+	public LexiconEntry getEntry() {
+		return LexiconData.gourmaryllis;
 	}
 	
 }
