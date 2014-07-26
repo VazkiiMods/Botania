@@ -981,6 +981,13 @@ botania.entry.kekimurus=Kekimurus
 botania.page.kekimurus0=&1Cake&0 is delicious, everyone loves it, flowers included.<br>The &1Kekimurus&0 is one of these &1Cake&0 aficionados, and will eat any it spots nearby, using it's enriching nutrients to create &4Mana&0.
 botania.page.kekimurus1=&oThe flower of Flaxbeard the kekker&r.
 
+# -- GOURMARYLLIS
+botania.entry.gourmaryllis=Gourmaryllis
+botania.page.gourmaryllis0=The &1Gourmaryllis&0 is one hungry flower. It'll eat up any food in a small area around it, and turn it into &4Mana&0.<br>There's a catch, though, it can only digest a single food at any given time, the &4Mana&0 is created when it's done. Any other food it finds, it'll also devour, but not create any mana from it.
+botania.page.gourmaryllis1=The amount of time it takes to digest a delicacy depends on it's nutricional value, in layman's terms, the amount of food points it restores.<br>So, a &1Steak&0 will take four seconds to digest, a &1Carrot&0 will take two, a loaf of &1Bread&0 will take two and a half, so on. 
+botania.page.gourmaryllis2=The amount of &4Mana&0 created also makes use of this value, but in a way where the more nutritious the food is, the more efficient it is. For example, a single &1Steak&0 will produce more &1Mana&0 from two &1Carrots&0, both absolutely and per second.
+botania.page.gourmaryllis3=&oA hot pot for our new residents&r.
+
 # - MAGICAL APPARATUS
 # -- FORCE RELAY
 botania.entry.pistonRelay=Force Relay

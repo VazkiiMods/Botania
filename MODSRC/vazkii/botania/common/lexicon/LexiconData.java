@@ -88,7 +88,9 @@ public final class LexiconData {
 	public static LexiconEntry pollidisiac;
 	public static LexiconEntry clayconia;
 	public static LexiconEntry loonium;
-
+	public static LexiconEntry daffomill;
+	public static LexiconEntry vinculotus;
+	
 	public static LexiconEntry generatingIntro;
 	public static LexiconEntry daybloom;
 	public static LexiconEntry nightshade;
@@ -99,8 +101,7 @@ public final class LexiconData {
 	public static LexiconEntry munchdew;
 	public static LexiconEntry entropinnyum;
 	public static LexiconEntry kekimurus;
-	public static LexiconEntry daffomill;
-	public static LexiconEntry vinculotus;
+	public static LexiconEntry gourmaryllis;
 
 	public static LexiconEntry pistonRelay;
 	public static LexiconEntry pylon;
@@ -355,6 +356,9 @@ public final class LexiconData {
 		kekimurus = new BLexiconEntry(LibLexicon.GFLOWER_KEKIMURUS, categoryGenerationFlowers);
 		kekimurus.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.kekimurusRecipe));
 
+		gourmaryllis = new BLexiconEntry(LibLexicon.GFLOWER_GOURMARYLLIS, categoryGenerationFlowers);
+		gourmaryllis.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PagePetalRecipe("3", ModPetalRecipes.gourmaryllisRecipe));
+		
 		// DEVICES ENTRIES
 		pistonRelay = new BLexiconEntry(LibLexicon.DEVICE_PISTON_RELAY, categoryDevices);
 		pistonRelay.setLexiconPages(new PageText("0"), new PageText("1"), new PageManaInfusionRecipe("2", ModManaInfusionRecipes.pistonRelayRecipe));
