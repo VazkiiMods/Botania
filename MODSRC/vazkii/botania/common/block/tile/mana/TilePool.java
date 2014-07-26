@@ -218,7 +218,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked {
 
 					if(didSomething) {
 						worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-						if(worldObj.isRemote && ConfigHandler.chargingAnimationEnabled && worldObj.rand.nextInt(5) == 0) {
+						if(worldObj.isRemote && ConfigHandler.chargingAnimationEnabled && worldObj.rand.nextInt(20) == 0) {
 							Vector3 itemVec = Vector3.fromTileEntity(this).add(0.5, 0.5 + Math.random() * 0.3, 0.5);
 							Vector3 tileVec = Vector3.fromTileEntity(this).add(0.2 + Math.random() * 0.6, 0, 0.2 + Math.random() * 0.6);
 							LightningHandler.spawnLightningBolt(worldObj, outputting ? tileVec : itemVec, outputting ? itemVec : tileVec, 80, worldObj.rand.nextLong(), 0x4400799c, 0x4400C6FF);
