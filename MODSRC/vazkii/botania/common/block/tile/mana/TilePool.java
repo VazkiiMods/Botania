@@ -67,9 +67,9 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked {
 	public int color = 0;
 	int mana;
 	int knownMana = -1;
-	int craftCooldown = 20;
 
 	public int manaCap = MAX_MANA;
+	int soundTicks = 0;
 	boolean canAccept = true;
 	boolean canSpare = true;
 	public boolean fragile = false;
@@ -105,7 +105,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked {
 	}
 
 	public boolean collideEntityItem(EntityItem item) {
-		if(craftCooldown > 0 || item.isDead)
+		if(item.isDead || (item.age > 100 && item.age < 130))
 			return false;
 
 		boolean didChange = false;
@@ -137,11 +137,10 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked {
 
 						ItemStack output = recipe.getOutput().copy();
 						EntityItem outputItem = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, output);
-						outputItem.age = 55;
+						outputItem.age = 105;
 						worldObj.spawnEntityInWorld(outputItem);
 					}
 
-					craftCooldown = 20;
 					craftingFanciness();
 					didChange = true;
 				}
@@ -154,7 +153,11 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked {
 	}
 
 	public void craftingFanciness() {
-		worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.levelup", 0.5F, 4F);
+		if(soundTicks == 0) {
+			worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.levelup", 0.25F, 4F);
+			soundTicks = 10;
+		}
+		
 		for(int i = 0; i < 25; i++) {
 			float red = (float) Math.random();
 			float green = (float) Math.random();
@@ -168,6 +171,9 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked {
 		if(!ManaNetworkHandler.instance.isPoolIn(this))
 			ManaNetworkEvent.addPool(this);
 
+		if(soundTicks > 0)
+			soundTicks--;
+		
 		if(worldObj.isRemote) {
 			double particleChance = 1F - (double) getCurrentMana() / (double) MAX_MANA * 0.1;
 			Color color = new Color(0x00C6FF);
@@ -177,9 +183,6 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked {
 
 		alchemy = worldObj.getBlock(xCoord, yCoord - 1, zCoord) == ModBlocks.alchemyCatalyst;
 		conjuration = worldObj.getBlock(xCoord, yCoord - 1, zCoord) == ModBlocks.conjurationCatalyst;
-
-		if(craftCooldown > 0)
-			craftCooldown--;
 
 		List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1));
 		for(EntityItem item : items) {
