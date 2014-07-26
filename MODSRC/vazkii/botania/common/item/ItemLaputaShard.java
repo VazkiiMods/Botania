@@ -22,6 +22,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
+import vazkii.botania.api.mana.ILaputaImmobile;
 import vazkii.botania.api.mana.ILensEffect;
 import vazkii.botania.api.mana.ITinyPlanetExcempt;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -79,7 +80,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 
 						if(inRange(x, y, z, srcx, srcy, srcz,range, heightscale, pointy)) {
 							Block block = world.getBlock(x, y, z);
-							if(!block.isAir(world, x, y, z) && !block.isReplaceable(world, x, y, z) && !(block instanceof BlockFalling) && block.getBlockHardness(world, x, y, z) != -1) {
+							if(!block.isAir(world, x, y, z) && !block.isReplaceable(world, x, y, z) && !(block instanceof BlockFalling) && (!(block instanceof ILaputaImmobile) || ((ILaputaImmobile) block).canMove(world, x, y, z)) && block.getBlockHardness(world, x, y, z) != -1) {
 								int id = Block.getIdFromBlock(block);
 								int meta = world.getBlockMetadata(x, y, z);
 								TileEntity tile = world.getTileEntity(x, y, z);
