@@ -99,7 +99,6 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 
 				spreader.checkForReceiver();
 				par3World.markBlockForUpdate(boundSpreader.posX, boundSpreader.posY, boundSpreader.posZ);
-				System.out.println(par3World.isRemote);
 				return true;
 			} else setBoundSpreader(par1ItemStack, 0, -1, 0);
 		} else if(par2EntityPlayer.isSneaking()) {

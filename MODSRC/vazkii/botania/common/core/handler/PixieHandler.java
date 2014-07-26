@@ -27,7 +27,6 @@ public class PixieHandler {
 			for(int i = 0; i < baubles.getSizeInventory(); i++)
 				chance += getChance(baubles.getStackInSlot(i));
 
-			System.out.println(chance);
 			if(Math.random() < chance) {
 				EntityPixie pixie = new EntityPixie(player.worldObj);
 				pixie.setPosition(player.posX, player.posY + 2, player.posZ);
