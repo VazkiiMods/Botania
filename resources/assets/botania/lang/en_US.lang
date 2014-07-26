@@ -45,6 +45,8 @@ botaniamisc.ratio=%s:1 Ratio
 botaniamisc.openBaubles=Baubles Inventory
 botaniamisc.openInv=Normal Inventory
 botaniamisc.bottleTooltip=It has an acquired taste
+botaniamisc.coarseDirt0=Coarse Dirt, grass
+botaniamisc.coarseDirt1=won't grow on it
 
 # COLORS
 botania.color0=White
@@ -1031,6 +1033,7 @@ botania.page.manaAlchemy17=Converting between &1Slimeballs&0 and &1Cactus&0
 botania.page.manaAlchemy18=Creating &1Ender Pearls&0
 botania.page.manaAlchemy19=Converting between &1Glowstone&0 and &1Redstone&0
 botania.page.manaAlchemy20=Breaking &1Cobblestone&0 into &1Sand&0
+botania.page.manaAlchemy21=Making &1Coarse Dirt&0
 
 # -- EYE OF THE ANCIENTS
 botania.entry.forestEye=Eye of the Ancients
