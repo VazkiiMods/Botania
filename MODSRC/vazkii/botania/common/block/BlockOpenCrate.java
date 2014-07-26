@@ -92,7 +92,7 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
-		return LexiconData.openCrate;
+		return world.getBlockMetadata(x, y, z) == 0 ? LexiconData.openCrate : LexiconData.craftCrate;
 	}
 
 	@Override

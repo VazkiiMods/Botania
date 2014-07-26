@@ -1098,6 +1098,16 @@ botania.page.spawnerClaw0=&1Monster Spawners&0 are an interesting bunch. They ha
 botania.page.spawnerClaw1=By placing a &1Life Imbuer&0 on top of a &1Monster Spreader&0 and giving it a rather decent chunk of &4Mana&0 through a &1Mana Spreader&0, when there aren't any players in the nearby vicinity, the &4Mana&0 will power the spawner, just as if there were players around.
 botania.page.spawnerClaw2=Something something shadow dragon
 
+# -- CRAFTY CRATE
+botania.entry.craftCrate=Crafty Crate
+botania.page.craftCrate0=As the name suggests, the &1Crafty Crate&0 is a counterpart to the &1Open Crate&0 with the ability to assemble items into other items similarly to a &1Crafting Table&0.<br>Like a &1Crafting Table&0, it has a 9 slot inventory, which can be filled with items in the pattern of a recipe.
+botania.page.craftCrate1=The items go in from left to right and top to bottom (illustration further in this entry), to that, there's a special item, named the &1Crafting Placeholder&0, which, when placed in, counts as an empty slot in the recipe. This is used to allow for recipes with gaps (eg, furnace, chest, pickaxe...) to also be doable.
+botania.page.craftCrate2=Creating the placeholder
+botania.page.craftCrate3=To finish the recipe, one of two things can be done.<br>First off, filling every of the 9 slots with either recipe components or placeholders will instantly eject the result, the placeholders and any lefovers (e.g. buckets when making cake), this is the most straightforward method.
+botania.page.craftCrate4=Right clicking the crate with a &1Wand of the Forest&0 (remember: &1Dispensers&0 can do this) will atempt at crafting with whatever is inside the crate and eject it.<br>If this fails all the items inside are simply ejected with no crafting procedure done.
+botania.page.craftCrate5=An example of crafting a &1Diamond Pickaxe&0
+botania.page.craftCrate6=Made in Portugal
+
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
 botania.entry.manaBlaster=Mana Blaster
