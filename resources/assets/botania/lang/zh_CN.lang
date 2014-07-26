@@ -45,6 +45,8 @@ botaniamisc.ratio=%s:1 Ratio
 botaniamisc.openBaubles=饰品物品栏
 botaniamisc.openInv=普通物品栏
 botaniamisc.bottleTooltip=味道如何
+botaniamisc.coarseDirt0=劣质土,草
+botaniamisc.coarseDirt1=无法生长
 
 # COLORS
 botania.color0=白色
@@ -249,7 +251,8 @@ tile.botania:enchanter.name=魔力附魔台
 tile.botania:turntable.name=发射器旋转台
 tile.botania:tinyPlanetBlock.name=魔力环绕器
 tile.botania:alchemyCatalyst.name=炼金催化器
-tile.botania:openCrate.name=花格箱
+tile.botania:openCrate0.name=花格箱
+tile.botania:openCrate1.name=机巧箱
 tile.botania:forestEye.name=远古之眼
 tile.botania:storage0.name=魔力钢块
 tile.botania:storage1.name=泰拉钢块
@@ -384,7 +387,8 @@ tile.botania:flower.entropinnyum.name=热爆花
 tile.botania:flower.entropinnyum.reference=你可以选择成为魔法少女
 tile.botania:flower.kekimurus.name=贪食花
 tile.botania:flower.kekimurus.reference=这朵花是个谎言
-
+tile.botania:flower.gourmaryllis.name=彼方兰
+tile.botania:flower.gourmaryllis.reference=不愉快です
 # - FUNCTIONAL
 tile.botania:flower.bellethorn.name=娇媚之刺
 tile.botania:flower.bellethorn.reference=杀戮的小丑
@@ -978,6 +982,13 @@ botania.page.kekimurus0=&1蛋糕&0很美味,人人喜爱,花也 是.<br>&1贪食
 botania.page.kekimurus1=&o让它们吃蛋糕&r.
 
 # - MAGICAL APPARATUS
+# -- GOURMARYLLIS
+botania.entry.gourmaryllis=彼方兰
+botania.page.gourmaryllis0=&1彼方兰&0是朵饥饿的花.它会吃 掉它附近小范围内的一切食 物,并转为&4魔力&0.<br>问题在于,它在一定时间内只 能消化某种食物,消化完成时 便会制造出&4魔力&0.它所发现的 其他食物,也会被吃掉但不产 生任何魔力.
+botania.page.gourmaryllis1=消化美味的时间取决于它的 营养值,通俗来说,就是食物 所含的饱食度.<br>因此,一个&1牛排&0需要4秒来消 化,一个&1胡萝卜&0则需要2秒,一 个&1面包&0就需要2.5秒,以此类 推. 
+botania.page.gourmaryllis2=&4魔力&0的产量也取决于这个值, 食物越有营养它的效率就越 高.举例来说,单个&1牛排&0能比 两根&1胡萝卜&0产生更多的&1魔力&0, 无论是总量还是每秒的.
+botania.page.gourmaryllis3=&o为我们的新房客准备的火锅&r.
+
 # -- FORCE RELAY
 botania.entry.pistonRelay=力量传递器
 botania.page.pistonRelay0=看样子给&1活塞&0注入&4魔力&0会产 生有趣的副作用.<br>这个方块会撕裂空间构造,将 任何活塞给它的推力传给绑 定方块.
@@ -1031,6 +1042,7 @@ botania.page.manaAlchemy17=&1粘液球&0和&1仙人掌&0间转化
 botania.page.manaAlchemy18=制造&1末影珍珠&0
 botania.page.manaAlchemy19=&1萤石粉&0和&1红石&0间转化
 botania.page.manaAlchemy20=将&1圆石&0粉碎成&1沙子&0
+botania.page.manaAlchemy21=制作&1劣质土&0
 
 # -- EYE OF THE ANCIENTS
 botania.entry.forestEye=远古之眼
