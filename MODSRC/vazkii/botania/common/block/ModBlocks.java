@@ -72,6 +72,7 @@ import vazkii.botania.common.block.subtile.generating.SubTileArcaneRose;
 import vazkii.botania.common.block.subtile.generating.SubTileDaybloom;
 import vazkii.botania.common.block.subtile.generating.SubTileEndoflame;
 import vazkii.botania.common.block.subtile.generating.SubTileEntropinnyum;
+import vazkii.botania.common.block.subtile.generating.SubTileGourmaryllis;
 import vazkii.botania.common.block.subtile.generating.SubTileHydroangeas;
 import vazkii.botania.common.block.subtile.generating.SubTileKekimurus;
 import vazkii.botania.common.block.subtile.generating.SubTileMunchdew;
@@ -386,6 +387,7 @@ public final class ModBlocks {
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MUNCHDEW, SubTileMunchdew.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_ENTROPINNYUM, SubTileEntropinnyum.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_KEKIMURUS, SubTileKekimurus.class);
+		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_GOURMARYLLIS, SubTileGourmaryllis.class);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_BELLETHORN, SubTileBellethorn.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_DREADTHORN, SubTileDreadthorn.class);

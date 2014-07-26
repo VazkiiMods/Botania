@@ -386,6 +386,8 @@ tile.botania:flower.entropinnyum.name=Entropinnyum
 tile.botania:flower.entropinnyum.reference=Magical girls are an option
 tile.botania:flower.kekimurus.name=Kekimurus
 tile.botania:flower.kekimurus.reference=This flower is a lie
+tile.botania:flower.gourmaryllis.name=Gourmaryllis
+tile.botania:flower.gourmaryllis.reference=Fuyukai Desu
 
 # - FUNCTIONAL
 tile.botania:flower.bellethorn.name=Bellethorne
