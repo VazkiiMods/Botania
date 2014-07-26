@@ -1,3 +1,23 @@
+r1.1 90
+*Added a new generating flower, the Gourmaryllis, it eats food to make mana, but there's a catch...
+*Added a new recipe for Mana Alchemy, Coarse Dirt (just vanilla dirt with metadata value 1, grass can't spread to it, the stuff that spawns in the Mega Taiga).
+*Added Rainbows for Nemsun.
+*Added the Crafty Crate (and a Placeholder item for use with it), a counterpart to the Open Crate that can autocraft items.
+*Fixed a crash when binding the Wand of the Forest to a spreader and right clicking on something with no collision box (tall grass, flowers, etc).
+*Fixed chat spam when using a Wand of the Forest or spawning pixies.
+*Fixed the Kindle Lens destroying blocks.
+*Fixed the Wand of the Forest trying to interact with objects on the client when it's bound to a spreader. So when bound to a spreader, mana pools will no longer change their mode in the client but update when clicked normally.
+*Lowered default flower quantity and density to 2 and 16 respectively (was 3 and 32).
+*Lowered default villager shed avg interval from 82000 to 226000 (this won't affect old configs).
+*The Hopperhock is now more efficient at picking up items and picks up any it can find instead of just one at a time, this makes automating systems that require timing a lot easier.
+*The Hopperhock now respects inventory max stack sizes.
+*The Mana Enchanter is more expensive and puts less empahsis in the rarity of the enchantment.
+*The Mana Pool no longer has a cooldown between being able to craft items but rather a timer on when it can "re-craft" an item after it crafted it (see wood log transmutation for example).
+*The Mana Pool will no longer emit charging/discharging FX if no transfer happened (when either the pool or the item is full/empty).
+*The Snowflake Pendant no longer creates ghost ice blocks in the client and is now properly centered on the player.
+*Toned down the mana pool charging/discharging fx for sake of performance.
+*[API] Added ILaputaImmobile for blocks that shouldn't be able to be moved by the Shard of Laputa. For Victorious3 for BetterStorage crates.
+*[API] Incremented version to 5.
 r1.1 89
 *Added a means of creating players heads (elven knowledge).
 *Added some Illustrations to the Daybloom and Hydroangeas entries to explain better how they work.
