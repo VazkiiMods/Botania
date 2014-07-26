@@ -194,7 +194,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked {
 
 					if(outputting) {
 						if(canSpare) {
-							if(getCurrentMana() > 0)
+							if(getCurrentMana() > 0 && mana.getMana(stack) < mana.getMaxMana(stack))
 								didSomething = true;
 
 							if(!worldObj.isRemote) {
@@ -205,7 +205,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked {
 						}
 					} else {
 						if(canAccept) {
-							if(mana.getMana(stack) > 0)
+							if(mana.getMana(stack) > 0 && !this.isFull())
 								didSomething = true;
 
 							if(!worldObj.isRemote) {
