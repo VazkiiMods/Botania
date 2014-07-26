@@ -79,7 +79,7 @@ public final class LibLexicon {
 	public static final String GFLOWER_ENTROPINNYUM = "entropinnyum";
 	public static final String GFLOWER_KEKIMURUS = "kekimurus";
 	public static final String GFLOWER_GOURMARYLLIS = "gourmaryllis";
-	
+
 	public static final String DEVICE_PISTON_RELAY = "pistonRelay";
 	public static final String DEVICE_PYLON = "pylon";
 	public static final String DEVICE_MANA_ENCHANTING = "manaEnchanting";

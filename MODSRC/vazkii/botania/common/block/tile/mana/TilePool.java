@@ -105,7 +105,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked {
 	}
 
 	public boolean collideEntityItem(EntityItem item) {
-		if(item.isDead || (item.age > 100 && item.age < 130))
+		if(item.isDead || item.age > 100 && item.age < 130)
 			return false;
 
 		boolean didChange = false;
@@ -157,7 +157,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked {
 			worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.levelup", 0.25F, 4F);
 			soundTicks = 10;
 		}
-		
+
 		for(int i = 0; i < 25; i++) {
 			float red = (float) Math.random();
 			float green = (float) Math.random();
@@ -173,7 +173,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked {
 
 		if(soundTicks > 0)
 			soundTicks--;
-		
+
 		if(worldObj.isRemote) {
 			double particleChance = 1F - (double) getCurrentMana() / (double) MAX_MANA * 0.1;
 			Color color = new Color(0x00C6FF);
@@ -208,7 +208,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked {
 						}
 					} else {
 						if(canAccept) {
-							if(mana.getMana(stack) > 0 && !this.isFull())
+							if(mana.getMana(stack) > 0 && !isFull())
 								didSomething = true;
 
 							if(!worldObj.isRemote) {

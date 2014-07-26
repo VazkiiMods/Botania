@@ -40,9 +40,9 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 	IIcon iconBottom;
 	IIcon iconSideCraft;
 	IIcon iconBottomCraft;
-	
+
 	private static final int SUBTYPES = 2;
-	
+
 	public BlockOpenCrate() {
 		super(Material.wood);
 		setHardness(2.0F);
@@ -54,7 +54,7 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 	protected boolean shouldRegisterInNameSet() {
 		return false;
 	}
-	
+
 	@Override
 	public Block setBlockName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
@@ -66,12 +66,12 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 		for(int i = 0; i < SUBTYPES; i++)
 			par3List.add(new ItemStack(par1, 1, i));
 	}
-	
+
 	@Override
 	public int damageDropped(int meta) {
 		return meta;
 	}
-	
+
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		iconSide = IconHelper.forBlock(par1IconRegister, this, 0);

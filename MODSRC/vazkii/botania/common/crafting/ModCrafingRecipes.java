@@ -171,7 +171,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeSpawnerClaw;
 	public static IRecipe recipeCraftCrate;
 	public static IRecipe recipePlaceholder;
-	
+
 	public static void init() {
 		// Lexicon Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lexicon), "treeSapling", Items.book);
@@ -1046,11 +1046,11 @@ public final class ModCrafingRecipes {
 				'C', new ItemStack(Blocks.crafting_table),
 				'W', new ItemStack(ModBlocks.dreamwood, 1, 1));
 		recipeCraftCrate = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Crafting Placeholder Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.manaResource, 32, 11), new ItemStack(Blocks.crafting_table), LibOreDict.LIVING_ROCK);
 		recipePlaceholder = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",

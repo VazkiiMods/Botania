@@ -77,7 +77,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 				AxisAlignedBB axis = par3World.getBlock(par4, par5, par6).getCollisionBoundingBoxFromPool(par3World, par4, par5, par6);
 				if(axis == null)
 					axis = AxisAlignedBB.getBoundingBox(par4, par5, par6, par4 + 1, par5 + 1, par6 + 1);
-				
+
 				if(!blockVec.isInside(axis))
 					blockVec = new Vector3(axis.minX + (axis.maxX - axis.minX) / 2, axis.minY + (axis.maxY - axis.minY) / 2, axis.minZ + (axis.maxZ - axis.minZ) / 2);
 

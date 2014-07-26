@@ -60,12 +60,12 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 							double x = event.entityLiving.posX - 0.5;
 							double y = event.entityLiving.posY - 1.7;
 							double z = event.entityLiving.posZ - 0.5;
-							
-							String name = player.getGameProfile().getName(); 
+
+							String name = player.getGameProfile().getName();
 							float r = 1F;
 							float g = 1F;
 							float b = 1F;
-							
+
 							if(name.equals("Vazkii"))
 								g = 1F - ((float) Math.random() * 0.75F + 0.25F);
 							else if(name.equals("Nemsun")) {
@@ -73,7 +73,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 								g = (float) Math.random();
 								b = (float) Math.random();
 							}
-							
+
 							for(int i = 0; i < 3; i++)
 								Botania.proxy.sparkleFX(event.entityLiving.worldObj, x + Math.random() * event.entityLiving.width, y + Math.random() * 0.4, z + Math.random() * event.entityLiving.width, r, g, b, 2F * (float) Math.random(), 20);
 						}

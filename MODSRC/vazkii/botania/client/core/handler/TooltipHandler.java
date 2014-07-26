@@ -27,5 +27,5 @@ public final class TooltipHandler {
 			event.toolTip.add(StatCollector.translateToLocal("botaniamisc.coarseDirt1"));
 		}
 	}
-		
+
 }

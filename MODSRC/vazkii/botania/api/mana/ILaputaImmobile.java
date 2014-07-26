@@ -12,7 +12,6 @@
 package vazkii.botania.api.mana;
 
 import net.minecraft.world.World;
-import vazkii.botania.api.internal.IManaBurst;
 
 /**
  * A block that implements this has a flag for whether it can be moved by the Shard of Laputa.
@@ -20,5 +19,5 @@ import vazkii.botania.api.internal.IManaBurst;
 public interface ILaputaImmobile {
 
 	public boolean canMove(World world, int x, int y, int z);
-	
+
 }

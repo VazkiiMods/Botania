@@ -25,15 +25,13 @@ import vazkii.botania.common.lexicon.LexiconData;
 public class SubTileGourmaryllis extends SubTileGenerating {
 
 	private static final String TAG_COOLDOWN = "cooldown";
-	private static final String TAG_STORED_MANA = "storedMana";
-
 	int cooldown = 0;
 	int storedMana = 0;
-	
+
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		
+
 		if(cooldown > 0)
 			cooldown--;
 		if(cooldown == 0 && !supertile.getWorldObj().isRemote) {
@@ -50,43 +48,43 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 				if(stack != null && stack.getItem() instanceof ItemFood) {
 					if(cooldown == 0) {
 						int val = ((ItemFood) stack.getItem()).func_150905_g(stack);
-						storedMana = (val * val) * 18;
+						storedMana = val * val * 18;
 						cooldown = val * 10;
 						sync();
 					}
-					
+
 					item.setDead();
 				}
 			}
 		}
 	}
-	
+
 	@Override
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		super.writeToPacketNBT(cmp);
 		cmp.setInteger(TAG_COOLDOWN, cooldown);
 		cmp.setInteger(TAG_COOLDOWN, cooldown);
 	}
-	
+
 	@Override
 	public void readFromPacketNBT(NBTTagCompound cmp) {
 		super.readFromPacketNBT(cmp);
 		cooldown = cmp.getInteger(TAG_COOLDOWN);
 	}
-	
+
 	@Override
 	public int getMaxMana() {
 		return 2400;
 	}
-	
+
 	@Override
 	public int getColor() {
 		return 0xD3D604;
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry() {
 		return LexiconData.gourmaryllis;
 	}
-	
+
 }

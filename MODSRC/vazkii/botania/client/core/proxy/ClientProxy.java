@@ -94,7 +94,7 @@ public class ClientProxy extends CommonProxy {
 		if(ConfigHandler.boundBlockWireframe)
 			MinecraftForge.EVENT_BUS.register(new BoundTileRenderer());
 		MinecraftForge.EVENT_BUS.register(new TooltipHandler());
-		
+
 		if(ConfigHandler.versionCheckEnabled)
 			new VersionChecker().init();
 

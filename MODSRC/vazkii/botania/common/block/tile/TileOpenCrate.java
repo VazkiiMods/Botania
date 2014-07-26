@@ -45,7 +45,7 @@ public class TileOpenCrate extends TileSimpleInventory {
 				eject(stack, redstone);
 		}
 	}
-	
+
 	public boolean canEject() {
 		Block blockBelow = worldObj.getBlock(xCoord, yCoord - 1, zCoord);
 		return blockBelow.isAir(worldObj, xCoord, yCoord - 1, zCoord);
@@ -64,8 +64,8 @@ public class TileOpenCrate extends TileSimpleInventory {
 		if(!worldObj.isRemote)
 			worldObj.spawnEntityInWorld(item);
 	}
-	
-	
+
+
 	public boolean onWanded(EntityPlayer player, ItemStack stack) {
 		return false;
 	}

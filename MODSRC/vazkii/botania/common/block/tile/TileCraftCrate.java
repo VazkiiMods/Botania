@@ -13,13 +13,13 @@ package vazkii.botania.common.block.tile;
 
 import java.util.List;
 
-import vazkii.botania.common.item.ModItems;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
+import vazkii.botania.common.item.ModItems;
 
 public class TileCraftCrate extends TileOpenCrate {
 
@@ -27,27 +27,27 @@ public class TileCraftCrate extends TileOpenCrate {
 	public int getSizeInventory() {
 		return 10;
 	}
-	
+
 	@Override
 	public int getInventoryStackLimit() {
 		return 1;
 	}
-	
+
 	@Override
 	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
 		return i != 9;
 	}
-	
+
 	@Override
 	public void updateEntity() {
 		if(!worldObj.isRemote && craft(true) && canEject())
 			ejectAll();
 	}
-	
+
 	boolean craft(boolean fullCheck) {
 		if(fullCheck && !isFull())
 			return false;
-		
+
 		InventoryCrafting craft = new InventoryCrafting(new Container() {
 			@Override
 			public boolean canInteractWith(EntityPlayer p_75145_1_) {
@@ -56,32 +56,32 @@ public class TileCraftCrate extends TileOpenCrate {
 		}, 3, 3);
 		for(int i = 0; i < 9; i++) {
 			ItemStack stack = getStackInSlot(i);
-			
+
 			if(stack == null || stack.getItem() == ModItems.manaResource && stack.getItemDamage() == 11)
 				continue;
-			
+
 			craft.setInventorySlotContents(i, stack.copy());
 		}
-		
+
 		List<IRecipe> recipes = CraftingManager.getInstance().getRecipeList();
 		for(IRecipe recipe : recipes)
 			if(recipe.matches(craft, worldObj)) {
 				setInventorySlotContents(9, recipe.getCraftingResult(craft));
-				
+
 				for(int i = 0; i < 9; i++) {
 					ItemStack stack = getStackInSlot(i);
 					if(stack == null)
 						continue;
-					
+
 					ItemStack container = stack.getItem().getContainerItem(stack);
 					setInventorySlotContents(i, container);
 				}
 				return true;
 			}
-		
+
 		return false;
 	}
-	
+
 	boolean isFull() {
 		for(int i = 0; i < 9; i++)
 			if(getStackInSlot(i) == null)
@@ -89,7 +89,7 @@ public class TileCraftCrate extends TileOpenCrate {
 
 		return true;
 	}
-	
+
 	void ejectAll() {
 		for(int i = 0; i < getSizeInventory(); i++) {
 			ItemStack stack = getStackInSlot(i);
@@ -98,7 +98,7 @@ public class TileCraftCrate extends TileOpenCrate {
 			setInventorySlotContents(i, null);
 		}
 	}
-	
+
 	@Override
 	public boolean onWanded(EntityPlayer player, ItemStack stack) {
 		craft(false);
