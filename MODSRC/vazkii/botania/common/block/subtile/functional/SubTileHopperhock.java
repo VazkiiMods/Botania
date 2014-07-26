@@ -100,7 +100,6 @@ public class SubTileHopperhock extends SubTileFunctional {
 				if(!supertile.getWorldObj().isRemote)
 					item.setDead();
 				pulledAny = true;
-				break;
 			}
 		}
 
