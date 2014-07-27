@@ -45,6 +45,8 @@ botaniamisc.ratio=%s:1 Ratio
 botaniamisc.openBaubles=饰品物品栏
 botaniamisc.openInv=普通物品栏
 botaniamisc.bottleTooltip=味道如何
+botaniamisc.coarseDirt0=劣质土,草
+botaniamisc.coarseDirt1=无法生长
 
 # COLORS
 botania.color0=白色
@@ -249,7 +251,8 @@ tile.botania:enchanter.name=魔力附魔台
 tile.botania:turntable.name=发射器旋转台
 tile.botania:tinyPlanetBlock.name=魔力环绕器
 tile.botania:alchemyCatalyst.name=炼金催化器
-tile.botania:openCrate.name=花格箱
+tile.botania:openCrate0.name=花格箱
+tile.botania:openCrate1.name=机巧箱
 tile.botania:forestEye.name=远古之眼
 tile.botania:storage0.name=魔力钢块
 tile.botania:storage1.name=泰拉钢块
@@ -384,6 +387,8 @@ tile.botania:flower.entropinnyum.name=热爆花
 tile.botania:flower.entropinnyum.reference=你可以选择成为魔法少女
 tile.botania:flower.kekimurus.name=贪食花
 tile.botania:flower.kekimurus.reference=这朵花是个谎言
+tile.botania:flower.gourmaryllis.name=彼方兰
+tile.botania:flower.gourmaryllis.reference=不愉快です
 
 # - FUNCTIONAL
 tile.botania:flower.bellethorn.name=娇媚之刺
@@ -614,6 +619,7 @@ item.botania:laputaShard.name=拉普达碎片
 item.botania:virus0.name=僵尸病毒
 item.botania:virus1.name=骷髅病毒
 item.botania:skyDirtRod.name=高原法杖
+item.botania:placeholder.name=合成占位符
 
 # GUI TEXT
 botania.gui.lexicon.header=植物魔法辞典, %s 版目录 - 选择你要浏览的章节:
@@ -977,6 +983,13 @@ botania.entry.kekimurus=贪食花
 botania.page.kekimurus0=&1蛋糕&0很美味,人人喜爱,花也 是.<br>&1贪食花&0就是一个&1蛋糕&0狂热者, 它会吃掉附近的蛋糕,用丰富 的营养物制造&4魔力&0.
 botania.page.kekimurus1=&o让它们吃蛋糕&r.
 
+# -- GOURMARYLLIS
+botania.entry.gourmaryllis=彼方兰
+botania.page.gourmaryllis0=&1彼方兰&0是朵饥饿的花.它会吃 掉它附近小范围内的一切食 物,并转为&4魔力&0.<br>问题在于,它在一定时间内只 能消化某种食物,消化完成时 便会制造出&4魔力&0.它所发现的 其他食物,也会被吃掉但不产 生任何魔力.
+botania.page.gourmaryllis1=消化美味的时间取决于它的 营养值,通俗来说,就是食物 所含的饱食度.<br>因此,一个&1牛排&0需要4秒来消 化,一个&1胡萝卜&0则需要2秒,一 个&1面包&0就需要2.5秒,以此类 推. 
+botania.page.gourmaryllis2=&4魔力&0的产量也取决于这个值, 食物越有营养它的效率就越 高.举例来说,单个&1牛排&0能比 两根&1胡萝卜&0产生更多的&1魔力&0, 无论是总量还是每秒的.
+botania.page.gourmaryllis3=&o为我们的新房客准备的火锅&r.
+
 # - MAGICAL APPARATUS
 # -- FORCE RELAY
 botania.entry.pistonRelay=力量传递器
@@ -1031,6 +1044,7 @@ botania.page.manaAlchemy17=&1粘液球&0和&1仙人掌&0间转化
 botania.page.manaAlchemy18=制造&1末影珍珠&0
 botania.page.manaAlchemy19=&1萤石粉&0和&1红石&0间转化
 botania.page.manaAlchemy20=将&1圆石&0粉碎成&1沙子&0
+botania.page.manaAlchemy21=制作&1劣质土&0
 
 # -- EYE OF THE ANCIENTS
 botania.entry.forestEye=远古之眼
@@ -1083,6 +1097,16 @@ botania.entry.spawnerClaw=生命灌注器
 botania.page.spawnerClaw0=&1刷怪笼&0是个有趣的东西.它们 能从稀薄的空气中抽取出生 命,但不知何故,只在附近有 玩家时才会运行.<br>当然这会在某些程度上限制 它生成生物的速度.
 botania.page.spawnerClaw1=将一个&1生命灌注器&0放在刷怪 笼的顶端并用&1魔力发射器&0提 供大量的&4魔力&0,当附近无玩家 时,&4魔力&0就会驱动刷怪笼, 就好像有玩家存在一样.
 botania.page.spawnerClaw2=Something something shadow dragon
+
+# -- CRAFTY CRATE
+botania.entry.craftCrate=机巧箱
+botania.page.craftCrate0=就如它的名字所示,&1机巧箱&0对 应着&1花格箱&0但它能像&1工作台&0 那样将物品组装成其他物品.<br>就像&1工作台&0那样它有9个物品 栏,可以将物品在其中摆成指 定合成配方.
+botania.page.craftCrate1=物品遵循由左到右由上至下 的原则(这里进一步说明),有 一个特殊的物品,叫做&1合成占&0 &1位符&0,放入时,会算作合成中 的空位.用于有空槽的合成( 比如熔炉,箱子,镐...).
+botania.page.craftCrate2=制作合成占位符
+botania.page.craftCrate3=完成合成,一共需要两步.<br>首先,在9个栏中填满合成所 需的物品或占位符就会显示 出合成结果,占位符和任何副 产物(比如制作蛋糕时的桶) ,这就是最简单的方法.
+botania.page.craftCrate4=用&1森林法杖&0右击这个箱子(注 意:&1发射器&0也能做到)就会开 始用其中的物品合成并喷出 产物.<br>如果该过程失败就会直接喷 出其中所有的物品.
+botania.page.craftCrate5=合成&1钻石镐&0的示例
+botania.page.craftCrate6=葡萄牙制造
 
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
