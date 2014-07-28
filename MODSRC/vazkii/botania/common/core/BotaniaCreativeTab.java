@@ -106,7 +106,24 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.prismarineBrickSlab);
 		addBlock(ModBlocks.darkPrismarineStairs);
 		addBlock(ModBlocks.darkPrismarineSlab);
-
+		
+		addBlock(ModBlocks.reedBlock);
+		addBlock(ModBlocks.reedStairs);
+		addBlock(ModBlocks.reedSlab);
+		addBlock(ModBlocks.thatch);
+		addBlock(ModBlocks.thatchStairs);
+		addBlock(ModBlocks.thatchSlab);
+		
+		addBlock(ModBlocks.customBrick);
+		addBlock(ModBlocks.netherBrickStairs);
+		addBlock(ModBlocks.netherBrickSlab);
+		addBlock(ModBlocks.soulBrickStairs);
+		addBlock(ModBlocks.soulBrickSlab);
+		addBlock(ModBlocks.snowBrickStairs);
+		addBlock(ModBlocks.snowBrickSlab);
+		addBlock(ModBlocks.tileStairs);
+		addBlock(ModBlocks.tileSlab);
+		
 		addBlock(ModBlocks.livingwoodStairs);
 		addBlock(ModBlocks.livingwoodSlab);
 		addBlock(ModBlocks.livingwoodPlankStairs);
