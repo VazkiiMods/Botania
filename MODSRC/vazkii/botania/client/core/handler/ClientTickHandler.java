@@ -85,12 +85,6 @@ public class ClientTickHandler {
 		}
 	}
 
-	@SubscribeEvent
-	public void renderTickEnd(RenderTickEvent event) {
-		if(event.phase == Phase.END && ConfigHandler.baublesInventoryButton)
-			InventoryBaublesButtonHandler.renderBaublesIcon();
-	}
-
 	public static void notifyPageChange() {
 		if(pageFlipTicks == 0)
 			pageFlipTicks = 5;

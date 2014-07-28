@@ -89,13 +89,6 @@ public class CommonProxy {
 
 	public void postInit(FMLPostInitializationEvent event) {
 		ModBlocks.addDispenserBehaviours();
-
-		List<IRecipe> recipes = CraftingManager.getInstance().getRecipeList();
-		for(IRecipe recipe : recipes)
-			if(recipe.getRecipeOutput() != null && recipe.getRecipeOutput().getItem() == Config.itemRing) {
-				recipes.remove(recipe);
-				break;
-			}
 	}
 
 	public void serverStarting(FMLServerStartingEvent event) {
