@@ -9,7 +9,7 @@
  * 
  * File Created @ [Jul 8, 2014, 10:16:53 PM (GMT)]
  */
-package vazkii.botania.common.block;
+package vazkii.botania.common.block.decor;
 
 import java.util.List;
 import java.util.Random;
@@ -30,6 +30,7 @@ import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.tile.TileMiniIsland;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;

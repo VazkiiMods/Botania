@@ -9,7 +9,7 @@
  * 
  * File Created @ [Jul 18, 2014, 7:58:08 PM (GMT)]
  */
-package vazkii.botania.common.block;
+package vazkii.botania.common.block.decor;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -24,13 +24,14 @@ import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.lib.LibRenderIDs;
+import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.tile.TileTinyPotato;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockTinyPotato extends BlockModContainer implements ILexiconable {
 
-	protected BlockTinyPotato() {
+	public BlockTinyPotato() {
 		super(Material.cloth);
 		setHardness(0.25F);
 		setBlockName(LibBlockNames.TINY_POTATO);

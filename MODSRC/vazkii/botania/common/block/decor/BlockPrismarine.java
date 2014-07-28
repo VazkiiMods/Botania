@@ -9,7 +9,7 @@
  * 
  * File Created @ [Jun 28, 2014, 8:25:39 PM (GMT)]
  */
-package vazkii.botania.common.block;
+package vazkii.botania.common.block.decor;
 
 import java.util.List;
 
@@ -26,6 +26,7 @@ import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
