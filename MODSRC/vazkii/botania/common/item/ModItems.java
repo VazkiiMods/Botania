@@ -17,14 +17,17 @@ import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumBoots;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumChest;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumHelm;
+import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumHelmRevealing;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumLegs;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelBoots;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelChest;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelHelm;
+import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelHelmRevealing;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelLegs;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelBoots;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelChest;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
+import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelmRevealing;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelLegs;
 import vazkii.botania.common.item.equipment.bauble.ItemAuraRing;
 import vazkii.botania.common.item.equipment.bauble.ItemDivaCharm;
@@ -81,6 +84,7 @@ public final class ModItems {
 	public static Item grassHorn;
 	public static Item manaMirror;
 	public static Item manasteelHelm;
+	public static Item manasteelHelmRevealing;
 	public static Item manasteelChest;
 	public static Item manasteelLegs;
 	public static Item manasteelBoots;
@@ -90,6 +94,7 @@ public final class ModItems {
 	public static Item manasteelSword;
 	public static Item manasteelShears;
 	public static Item terrasteelHelm;
+	public static Item terrasteelHelmRevealing;
 	public static Item terrasteelChest;
 	public static Item terrasteelLegs;
 	public static Item terrasteelBoots;
@@ -114,6 +119,7 @@ public final class ModItems {
 	public static Item quartz;
 	public static Item waterRod;
 	public static Item elementiumHelm;
+	public static Item elementiumHelmRevealing;
 	public static Item elementiumChest;
 	public static Item elementiumLegs;
 	public static Item elementiumBoots;
@@ -158,6 +164,7 @@ public final class ModItems {
 		grassHorn = new ItemGrassHorn();
 		manaMirror = new ItemManaMirror();
 		manasteelHelm = new ItemManasteelHelm();
+		manasteelHelmRevealing = new ItemManasteelHelmRevealing();
 		manasteelChest = new ItemManasteelChest();
 		manasteelLegs = new ItemManasteelLegs();
 		manasteelBoots = new ItemManasteelBoots();
@@ -167,6 +174,7 @@ public final class ModItems {
 		manasteelSword = new ItemManasteelSword();
 		manasteelShears = new ItemManasteelShears();
 		terrasteelHelm = new ItemTerrasteelHelm();
+		terrasteelHelmRevealing = new ItemTerrasteelHelmRevealing();
 		terrasteelChest = new ItemTerrasteelChest();
 		terrasteelLegs = new ItemTerrasteelLegs();
 		terrasteelBoots = new ItemTerrasteelBoots();
@@ -191,6 +199,7 @@ public final class ModItems {
 		quartz = new ItemQuartz();
 		waterRod = new ItemWaterRod();
 		elementiumHelm = new ItemElementiumHelm();
+		elementiumHelmRevealing = new ItemElementiumHelmRevealing();
 		elementiumChest = new ItemElementiumChest();
 		elementiumLegs = new ItemElementiumLegs();
 		elementiumBoots = new ItemElementiumBoots();

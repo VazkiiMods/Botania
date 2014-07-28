@@ -29,6 +29,10 @@
 		<copy todir="${build.dir.gradle}\src\main\java">
 			<fileset dir="${build.dir.repo}\MODSRC\" />
 		</copy>
+		
+		<copy todir="${build.dir.gradle}\src\api\java">
+			<fileset dir="${build.dir.repo}\apis\" />
+		</copy>
 	</target>
 
 	<target name="replace_tokens">

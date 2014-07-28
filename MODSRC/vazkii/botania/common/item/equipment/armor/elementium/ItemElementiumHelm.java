@@ -6,9 +6,13 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemElementiumHelm extends ItemElementiumArmor {
 
 	public ItemElementiumHelm() {
-		super(0, LibItemNames.ELEMENTIUM_HELM);
+		this(LibItemNames.ELEMENTIUM_HELM);
 	}
 
+	public ItemElementiumHelm(String name) {
+		super(0, name);
+	}
+	
 	@Override
 	public float getPixieChance(ItemStack stack) {
 		return 0.055F;

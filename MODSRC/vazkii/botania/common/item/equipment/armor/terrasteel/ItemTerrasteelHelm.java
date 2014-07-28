@@ -16,7 +16,11 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemTerrasteelHelm extends ItemTerrasteeelArmor {
 
 	public ItemTerrasteelHelm() {
-		super(0, LibItemNames.TERRASTEEL_HELM);
+		this(LibItemNames.TERRASTEEL_HELM);
+	}
+	
+	public ItemTerrasteelHelm(String name) {
+		super(0, name);
 	}
 
 	@Override

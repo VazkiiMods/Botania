@@ -23,6 +23,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ItemLens;
@@ -1065,6 +1066,14 @@ public final class ModCrafingRecipes {
 		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manaResource, 9, 4), new ItemStack(ModBlocks.storage, 1, 1));
 		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manaResource, 9, 7), new ItemStack(ModBlocks.storage, 1, 2));
 
+		// Revealing Helmet Recipes
+		if(Botania.thaumcraftLoaded) {
+			Item goggles = (Item) Item.itemRegistry.getObject("Thaumcraft:ItemGoggles");
+			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manasteelHelmRevealing), new ItemStack(ModItems.manasteelHelm), new ItemStack(goggles));
+			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.terrasteelHelmRevealing), new ItemStack(ModItems.terrasteelHelm), new ItemStack(goggles));
+			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.elementiumHelmRevealing), new ItemStack(ModItems.elementiumHelm), new ItemStack(goggles));
+		}
+		
 		// Slab & Stair Recipes
 		addStairsAndSlabs(ModBlocks.livingwood, 0, ModBlocks.livingwoodStairs, ModBlocks.livingwoodSlab);
 		addStairsAndSlabs(ModBlocks.livingwood, 1, ModBlocks.livingwoodPlankStairs, ModBlocks.livingwoodPlankSlab);

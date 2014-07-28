@@ -16,7 +16,11 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemManasteelHelm extends ItemManasteelArmor {
 
 	public ItemManasteelHelm() {
-		super(0, LibItemNames.MANASTEEL_HELM);
+		this(LibItemNames.MANASTEEL_HELM);
+	}
+	
+	public ItemManasteelHelm(String name) {
+		super(0, name);
 	}
 
 }

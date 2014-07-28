@@ -617,6 +617,9 @@ item.botania:virus0.name=Necrodermal Virus
 item.botania:virus1.name=Nullodermal Virus
 item.botania:skyDirtRod.name=Rod of the Highlands
 item.botania:placeholder.name=Crafting Placeholder
+item.botania:manasteelHelmReveal.name=Manasteel Helmet of Revealing
+item.botania:terrasteelHelmReveal.name=Terrasteel Helmet of Revealing
+item.botania:elementiumHelmReveal.name=Elementium Helmet of Revealing
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania, %s Edition's Index - Pick which category you would like to study:

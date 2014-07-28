@@ -88,6 +88,9 @@ public final class LibItemNames {
 	public static final String VIRUS = "virus";
 	public static final String REACH_RING = "reachRing";
 	public static final String SKY_DIRT_ROD = "skyDirtRod";
+	public static final String MANASTEEL_HELM_R = "manasteelHelmReveal";
+	public static final String TERRASTEEL_HELM_R = "terrasteelHelmReveal";
+	public static final String ELEMENTIUM_HELM_R = "elementiumHelmReveal";
 
 	public static final String[] LENS_NAMES = new String[] {
 		"lensNormal",

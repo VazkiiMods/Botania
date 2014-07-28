@@ -17,6 +17,7 @@ import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
@@ -149,12 +150,16 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.manasteelSword);
 		addItem(ModItems.enderDagger);
 		addItem(ModItems.manasteelHelm);
+		if(Botania.thaumcraftLoaded)
+			addItem(ModItems.manasteelHelmRevealing);
 		addItem(ModItems.manasteelChest);
 		addItem(ModItems.manasteelLegs);
 		addItem(ModItems.manasteelBoots);
 		addItem(ModItems.terraSword);
 		addItem(ModItems.terraPick);
 		addItem(ModItems.terrasteelHelm);
+		if(Botania.thaumcraftLoaded)
+			addItem(ModItems.terrasteelHelmRevealing);
 		addItem(ModItems.terrasteelChest);
 		addItem(ModItems.terrasteelLegs);
 		addItem(ModItems.terrasteelBoots);
@@ -164,6 +169,8 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.elementiumShears);
 		addItem(ModItems.elementiumSword);
 		addItem(ModItems.elementiumHelm);
+		if(Botania.thaumcraftLoaded)
+			addItem(ModItems.elementiumHelmRevealing);
 		addItem(ModItems.elementiumChest);
 		addItem(ModItems.elementiumLegs);
 		addItem(ModItems.elementiumBoots);
