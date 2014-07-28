@@ -96,7 +96,7 @@ public final class LibResources {
 	public static final String SHADER_DOPLLEGANGER_FRAG = PREFIX_SHADER + "doppleganger.frag";
 
 	public static final String[] LANGS = new String[] {
-		"en_US", "de_DE", "ru_RU", "zh_CN"
+		"en_US", "de_DE", "ru_RU", "zh_CN", "zh_TW"
 	};
 
 }
