@@ -173,8 +173,9 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 				advanceStage();
 			} else {
 				getManaFromPools : {
-				for(int i = -4; i < 5; i++)
-					for(int j = -4; j < 5; j++) {
+				int range = 8;
+				for(int i = -range; i < range + 1; i++)
+					for(int j = -range; j < range + 1; j++) {
 						TileEntity tile = worldObj.getTileEntity(xCoord + i, yCoord, zCoord + j);
 						if(tile instanceof IManaPool) {
 							IManaPool pool = (IManaPool) tile;
