@@ -87,7 +87,8 @@ public class BlockCustomBrick extends BlockMod implements ILexiconable {
 
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
-		return LexiconData.decorativeBlocks;
+		int meta = world.getBlockMetadata(x, y, z);
+		return meta >= 4 ? LexiconData.azulejo : LexiconData.decorativeBlocks;
 	}
 
 }
