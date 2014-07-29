@@ -1,3 +1,5 @@
+r1.1 93
+*Actually fix the skull renderer because I'm an undereducated idiot who has no clue what they're doing or how the java compiler works :V
 r1.1 92
 *Doubled the range in which the Mana Enchanter can pull from Mana Pools. The range it was before was stupidly low anyway.
 *Fixed Azulejo blocks pointing to the wrong lexicon entry.
