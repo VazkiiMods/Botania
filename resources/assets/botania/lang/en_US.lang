@@ -1434,7 +1434,7 @@ botania.page.unstableBlocks7=Shoot in case of titan
 
 # -- DECORATIVE BLOCKS
 botania.entry.decorativeBlocks=Decorative Blocks
-botania.page.decorativeBlocks0=It's possible to turn blocks of &1Livingrock&0 and &1Livingwood&0 into decorative blocks. Each of them features 4 different decorative variations.
+botania.page.decorativeBlocks0=Past functionality, quite a few decorative blocks are available to make your builds look better.<br>Starting off. It's possible to turn blocks of &1Livingrock&0 and &1Livingwood&0 into decorative blocks. Each of them features 4 different decorative variations.
 botania.page.decorativeBlocks1=Livingrock bricks.
 botania.page.decorativeBlocks2=Mossing the bricks
 botania.page.decorativeBlocks3=Cracking the bricks
@@ -1450,6 +1450,13 @@ botania.page.decorativeBlocks12=Mana Quartz
 botania.page.decorativeBlocks13=Blaze Quartz
 botania.page.decorativeBlocks14=Lavender Quartz
 botania.page.decorativeBlocks15=Redquartz
+botania.page.decorativeBlocks16=A few blocks can be organized in methods different than normal to create new building blocks, such as &1Reed Blocks&0, &1Thatch&0, &1Roof Tiles&0 and a few new &1Bricks&0.<br>All these also can be crafted into both stairs and slabs.
+botania.page.decorativeBlocks17=Crafting &1Reed Blocks&0
+botania.page.decorativeBlocks18=Crafting &1Thatch&0
+botania.page.decorativeBlocks19=Crafting &1Roof Tiles&0
+botania.page.decorativeBlocks20=Crafting &1Hellish Bricks&0
+botania.page.decorativeBlocks21=Crafting &1Soul Bricks&0
+botania.page.decorativeBlocks22=Crafting &1Frosty Bricks&0
 
 # -- DISPENSER TWEAKS
 botania.entry.dispenserTweaks=Dispenser Tweaks
@@ -1484,3 +1491,10 @@ botania.page.tinyPotato1=Put it on Kickstarter, it'll work
 botania.entry.headCreating=Head Creation
 botania.page.headCreating0=A typical incantation of the Elves, combining a few resources and a &1Name Tag&0 allows for the creation of a replica of sorts of the head of the person described in the tag. How it works isn't really known, but it seems to be possible to replicate it with a &1Runic Altar&0.
 botania.page.headCreating1=Get your head in the game
+
+# -- AZULEJO -- http://en.wikipedia.org/wiki/Azulejo
+botania.entry.azulejo=Azulejos
+botania.page.azulejo0=&1Azulejos&0 are a type of decorative block, simply put, they are tileable patterns of blue and white. To create them, one would simply mix a piece of &1Lapis Lazulli&0 with a &1Block of Quartz&0.<br>From there, placing it in the crafting grid allows for cyclying between the twelve different patterns.
+botania.page.azulejo1=The various patterns
+botania.page.azulejo2=Crafting a block of &1Azulejo&0
+botania.page.azulejo3=Cycling between the patterns

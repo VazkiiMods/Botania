@@ -172,6 +172,14 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeSpawnerClaw;
 	public static IRecipe recipeCraftCrate;
 	public static IRecipe recipePlaceholder;
+	public static IRecipe recipeReedBlock;
+	public static IRecipe recipeThatch;
+	public static IRecipe recipeNetherBrick;
+	public static IRecipe recipeSoulBrick;
+	public static IRecipe recipeSnowBrick;
+	public static IRecipe recipeRoofTile;
+	public static IRecipe recipeAzulejo;
+	public static List<IRecipe> recipesAzulejoCycling;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1052,6 +1060,54 @@ public final class ModCrafingRecipes {
 		addShapelessOreDictRecipe(new ItemStack(ModItems.manaResource, 32, 11), new ItemStack(Blocks.crafting_table), LibOreDict.LIVING_ROCK);
 		recipePlaceholder = BotaniaAPI.getLatestAddedRecipe();
 
+		// Reed Block Recipe
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.reedBlock), 
+				"rrr", "rrr", "rrr",
+				'r', new ItemStack(Items.reeds));
+		recipeReedBlock = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Thatch Recipe
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.thatch), 
+				"ww", "ww",
+				'w', new ItemStack(Items.wheat));
+		recipeThatch = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Nether Brick Recipe
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.customBrick, 4, 0),
+				" B ", "BSB", " B ",
+				'B', new ItemStack(Blocks.netherrack),
+				'S', new ItemStack(Blocks.stonebrick));
+		recipeNetherBrick = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Soul Brick Recipe
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.customBrick, 4, 1),
+				" B ", "BSB", " B ",
+				'B', new ItemStack(Blocks.soul_sand),
+				'S', new ItemStack(Blocks.stonebrick));
+		recipeSoulBrick = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Snow Brick Recipe
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.customBrick, 4, 2),
+				" B ", "BSB", " B ",
+				'B', new ItemStack(Blocks.snow),
+				'S', new ItemStack(Blocks.stonebrick));
+		recipeSnowBrick = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Roof Tile Recipe
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.customBrick, 4, 3),
+				"BB", "BB", "BB",
+				'B', new ItemStack(Items.brick));
+		recipeRoofTile = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Azulejo Recipe
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.customBrick, 1, 4), new ItemStack(Items.dye, 1, 4), new ItemStack(Blocks.quartz_block));
+		recipeAzulejo = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Azulejo Cycling Recipes
+		for(int i = 0; i < 12; i++)
+			GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.customBrick, 1, 4 + (i == 11 ? 0 : i + 1)), new ItemStack(ModBlocks.customBrick, 1, 4 + i));
+		recipesAzulejoCycling = BotaniaAPI.getLatestAddedRecipes(12);
+		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",
@@ -1084,6 +1140,12 @@ public final class ModCrafingRecipes {
 		addStairsAndSlabs(ModBlocks.prismarine, 0, ModBlocks.prismarineStairs, ModBlocks.prismarineSlab);
 		addStairsAndSlabs(ModBlocks.prismarine, 1, ModBlocks.prismarineBrickStairs, ModBlocks.prismarineBrickSlab);
 		addStairsAndSlabs(ModBlocks.prismarine, 2, ModBlocks.darkPrismarineStairs, ModBlocks.darkPrismarineSlab);
+		addStairsAndSlabs(ModBlocks.reedBlock, 0, ModBlocks.reedStairs, ModBlocks.reedSlab);
+		addStairsAndSlabs(ModBlocks.thatch, 0, ModBlocks.thatchStairs, ModBlocks.thatchSlab);
+		addStairsAndSlabs(ModBlocks.customBrick, 0, ModBlocks.netherBrickStairs, ModBlocks.netherBrickSlab);
+		addStairsAndSlabs(ModBlocks.customBrick, 1, ModBlocks.soulBrickStairs, ModBlocks.soulBrickSlab);
+		addStairsAndSlabs(ModBlocks.customBrick, 2, ModBlocks.snowBrickStairs, ModBlocks.snowBrickSlab);
+		addStairsAndSlabs(ModBlocks.customBrick, 3, ModBlocks.tileStairs, ModBlocks.tileSlab);
 	}
 
 	private static void addStairsAndSlabs(Block block, int meta, Block stairs, Block slab) {

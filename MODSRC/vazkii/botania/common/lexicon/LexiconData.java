@@ -171,6 +171,7 @@ public final class LexiconData {
 	public static LexiconEntry shedding;
 	public static LexiconEntry tinyPotato;
 	public static LexiconEntry headCreating;
+	public static LexiconEntry azulejo;
 
 	public static void init() {
 		BotaniaAPI.addCategory(categoryBasics = new LexiconCategory(LibLexicon.CATEGORY_BASICS));
@@ -555,10 +556,12 @@ public final class LexiconData {
 		if(ConfigHandler.darkQuartzEnabled)
 			decorativeBlocks.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLivingrockDecor1), new PageCraftingRecipe("2", ModCrafingRecipes.recipeLivingrockDecor2), new PageCraftingRecipe("3", ModCrafingRecipes.recipeLivingrockDecor3), new PageCraftingRecipe("4", ModCrafingRecipes.recipeLivingrockDecor4),
 					new PageCraftingRecipe("5", ModCrafingRecipes.recipeLivingwoodDecor1), new PageCraftingRecipe("6", ModCrafingRecipes.recipeLivingwoodDecor2), new PageCraftingRecipe("7", ModCrafingRecipes.recipeLivingwoodDecor3), new PageCraftingRecipe("8", ModCrafingRecipes.recipeLivingwoodDecor4), new PageCraftingRecipe("9", ModCrafingRecipes.recipeLivingwoodDecor5),
-					new PageText("10"), new PageCraftingRecipe("11", ModCrafingRecipes.recipeDarkQuartz), new PageManaInfusionRecipe("12", ModManaInfusionRecipes.manaQuartzRecipe), new PageCraftingRecipe("13", ModCrafingRecipes.recipeBlazeQuartz), new PageCraftingRecipe("14", ModCrafingRecipes.recipesLavenderQuartz), new PageCraftingRecipe("15", ModCrafingRecipes.recipeRedQuartz));
+					new PageText("10"), new PageCraftingRecipe("11", ModCrafingRecipes.recipeDarkQuartz), new PageManaInfusionRecipe("12", ModManaInfusionRecipes.manaQuartzRecipe), new PageCraftingRecipe("13", ModCrafingRecipes.recipeBlazeQuartz), new PageCraftingRecipe("14", ModCrafingRecipes.recipesLavenderQuartz), new PageCraftingRecipe("15", ModCrafingRecipes.recipeRedQuartz),
+					new PageText("16"), new PageCraftingRecipe("17", ModCrafingRecipes.recipeReedBlock), new PageCraftingRecipe("18", ModCrafingRecipes.recipeThatch), new PageCraftingRecipe("19", ModCrafingRecipes.recipeRoofTile), new PageCraftingRecipe("20", ModCrafingRecipes.recipeNetherBrick), new PageCraftingRecipe("21", ModCrafingRecipes.recipeSoulBrick), new PageCraftingRecipe("22", ModCrafingRecipes.recipeSnowBrick));
 		else decorativeBlocks.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeLivingrockDecor1), new PageCraftingRecipe("2", ModCrafingRecipes.recipeLivingrockDecor2), new PageCraftingRecipe("3", ModCrafingRecipes.recipeLivingrockDecor3), new PageCraftingRecipe("4", ModCrafingRecipes.recipeLivingrockDecor4),
 				new PageCraftingRecipe("5", ModCrafingRecipes.recipeLivingwoodDecor1), new PageCraftingRecipe("6", ModCrafingRecipes.recipeLivingwoodDecor2), new PageCraftingRecipe("7", ModCrafingRecipes.recipeLivingwoodDecor3), new PageCraftingRecipe("8", ModCrafingRecipes.recipeLivingwoodDecor4), new PageCraftingRecipe("9", ModCrafingRecipes.recipeLivingwoodDecor5),
-				new PageText("10"), new PageManaInfusionRecipe("12", ModManaInfusionRecipes.manaQuartzRecipe), new PageCraftingRecipe("13", ModCrafingRecipes.recipeBlazeQuartz), new PageCraftingRecipe("14", ModCrafingRecipes.recipesLavenderQuartz), new PageCraftingRecipe("15", ModCrafingRecipes.recipeRedQuartz));
+				new PageText("10"), new PageManaInfusionRecipe("12", ModManaInfusionRecipes.manaQuartzRecipe), new PageCraftingRecipe("13", ModCrafingRecipes.recipeBlazeQuartz), new PageCraftingRecipe("14", ModCrafingRecipes.recipesLavenderQuartz), new PageCraftingRecipe("15", ModCrafingRecipes.recipeRedQuartz),
+				new PageText("16"), new PageCraftingRecipe("17", ModCrafingRecipes.recipeReedBlock), new PageCraftingRecipe("18", ModCrafingRecipes.recipeThatch), new PageCraftingRecipe("19", ModCrafingRecipes.recipeRoofTile), new PageCraftingRecipe("20", ModCrafingRecipes.recipeNetherBrick), new PageCraftingRecipe("21", ModCrafingRecipes.recipeSoulBrick), new PageCraftingRecipe("22", ModCrafingRecipes.recipeSnowBrick));
 
 		dispenserTweaks = new BLexiconEntry(LibLexicon.MISC_DISPENSER_TWEAKS, categoryMisc);
 		dispenserTweaks.setLexiconPages(new PageText("0"));
@@ -577,5 +580,8 @@ public final class LexiconData {
 
 		headCreating = new ALexiconEntry(LibLexicon.MISC_HEAD_CREATING, categoryMisc);
 		headCreating.setLexiconPages(new PageText("0"), new PageRuneRecipe("1", ModRuneRecipes.recipeHead));
+		
+		azulejo = new BLexiconEntry(LibLexicon.MISC_AZULEJO, categoryMisc);
+		azulejo.setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_AZULEJOS), new PageCraftingRecipe("2", ModCrafingRecipes.recipeAzulejo), new PageCraftingRecipe("3", ModCrafingRecipes.recipesAzulejoCycling));
 	}
 }
