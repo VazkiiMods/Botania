@@ -11,13 +11,12 @@
  */
 package vazkii.botania.common.block.decor.stairs;
 
-import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.lexicon.LexiconData;
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.lexicon.LexiconData;
 
 public class BlockReedStairs extends BlockLivingStairs {
 

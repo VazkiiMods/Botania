@@ -29,5 +29,5 @@ public class BlockTileSlab extends BlockCustomBrickSlab {
 	public BlockSlab getSingleBlock() {
 		return (BlockSlab) ModBlocks.tileSlab;
 	}
-	
+
 }

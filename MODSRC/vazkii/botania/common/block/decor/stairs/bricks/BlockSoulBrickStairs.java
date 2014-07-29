@@ -16,5 +16,5 @@ public class BlockSoulBrickStairs extends BlockCustomBrickStairs {
 	public BlockSoulBrickStairs() {
 		super(1);
 	}
-	
+
 }

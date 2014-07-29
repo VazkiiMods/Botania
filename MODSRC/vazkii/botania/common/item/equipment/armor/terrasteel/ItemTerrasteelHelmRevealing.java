@@ -28,7 +28,7 @@ public class ItemTerrasteelHelmRevealing extends ItemTerrasteelHelm implements I
 	public ItemTerrasteelHelmRevealing() {
 		super(LibItemNames.TERRASTEEL_HELM_R);
 	}
-	
+
 	@Override
 	public boolean showNodes(ItemStack itemstack, EntityLivingBase player) {
 		return true;
@@ -43,5 +43,5 @@ public class ItemTerrasteelHelmRevealing extends ItemTerrasteelHelm implements I
 	public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
 		return LibResources.MODEL_TERRASTEEL_2;
 	}
-	
+
 }

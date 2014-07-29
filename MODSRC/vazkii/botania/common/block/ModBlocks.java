@@ -202,7 +202,7 @@ public final class ModBlocks {
 	public static Block thatchStairs;
 	public static Block thatchSlab;
 	public static Block thatchSlabFull;
-	
+
 	public static Block netherBrickStairs;
 	public static Block netherBrickSlab;
 	public static Block netherBrickSlabFull;
@@ -215,7 +215,7 @@ public final class ModBlocks {
 	public static Block tileStairs;
 	public static Block tileSlab;
 	public static Block tileSlabFull;
-	
+
 	public static Block darkQuartz;
 	public static Block darkQuartzSlab;
 	public static Block darkQuartzSlabFull;
@@ -281,7 +281,7 @@ public final class ModBlocks {
 		reedBlock = new BlockReeds();
 		thatch = new BlockThatch();
 		customBrick = new BlockCustomBrick();
-		
+
 		livingwoodStairs = new BlockLivingwoodStairs();
 		livingwoodSlab = new BlockLivingwoodSlab(false);
 		livingwoodSlabFull = new BlockLivingwoodSlab(true);
@@ -307,7 +307,7 @@ public final class ModBlocks {
 		thatchStairs = new BlockThatchStairs();
 		thatchSlab = new BlockThatchSlab(false);
 		thatchSlabFull = new BlockThatchSlab(true);
-		
+
 		prismarineStairs = new BlockPrismarineStairs();
 		prismarineSlab = new BlockPrismarineSlab(false);
 		prismarineSlabFull = new BlockPrismarineSlab(true);
@@ -330,7 +330,7 @@ public final class ModBlocks {
 		tileStairs = new BlockTileStairs();
 		tileSlab = new BlockTileSlab(false);
 		tileSlabFull = new BlockTileSlab(true);
-		
+
 		if(ConfigHandler.darkQuartzEnabled) {
 			darkQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_DARK);
 			darkQuartzSlab = new BlockSpecialQuartzSlab(darkQuartz, false);
@@ -386,12 +386,12 @@ public final class ModBlocks {
 		((BlockModSlab) dreamwoodSlabFull).register();
 		((BlockModSlab) dreamwoodPlankSlab).register();
 		((BlockModSlab) dreamwoodPlankSlabFull).register();
-		
+
 		((BlockModSlab) reedSlab).register();
 		((BlockModSlab) reedSlabFull).register();
 		((BlockModSlab) thatchSlab).register();
 		((BlockModSlab) thatchSlabFull).register();
-		
+
 		((BlockModSlab) prismarineSlab).register();
 		((BlockModSlab) prismarineSlabFull).register();
 		((BlockModSlab) prismarineBrickSlab).register();
@@ -407,7 +407,7 @@ public final class ModBlocks {
 		((BlockModSlab) snowBrickSlabFull).register();
 		((BlockModSlab) tileSlab).register();
 		((BlockModSlab) tileSlabFull).register();
-		
+
 		for(int i = 0; i < 16; i++)
 			OreDictionary.registerOre(LibOreDict.FLOWER[i], new ItemStack(flower, 1, i));
 

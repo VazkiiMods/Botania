@@ -580,7 +580,7 @@ public final class LexiconData {
 
 		headCreating = new ALexiconEntry(LibLexicon.MISC_HEAD_CREATING, categoryMisc);
 		headCreating.setLexiconPages(new PageText("0"), new PageRuneRecipe("1", ModRuneRecipes.recipeHead));
-		
+
 		azulejo = new BLexiconEntry(LibLexicon.MISC_AZULEJO, categoryMisc);
 		azulejo.setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_AZULEJOS), new PageCraftingRecipe("2", ModCrafingRecipes.recipeAzulejo), new PageCraftingRecipe("3", ModCrafingRecipes.recipesAzulejoCycling));
 	}

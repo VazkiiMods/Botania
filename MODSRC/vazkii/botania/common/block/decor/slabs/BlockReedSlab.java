@@ -11,15 +11,13 @@
  */
 package vazkii.botania.common.block.decor.slabs;
 
-import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibBlockNames;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.lexicon.LexiconData;
 
 public class BlockReedSlab extends BlockLivingSlab {
 

@@ -11,7 +11,6 @@
  */
 package vazkii.botania.common.item.equipment.armor.manasteel;
 
-import cpw.mods.fml.common.Optional;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
@@ -19,6 +18,7 @@ import thaumcraft.api.IGoggles;
 import thaumcraft.api.nodes.IRevealer;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.lib.LibItemNames;
+import cpw.mods.fml.common.Optional;
 
 @Optional.InterfaceList({
 	@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.IGoggles", striprefs = true),
@@ -28,7 +28,7 @@ public class ItemManasteelHelmRevealing extends ItemManasteelHelm implements IGo
 	public ItemManasteelHelmRevealing() {
 		super(LibItemNames.MANASTEEL_HELM_R);
 	}
-	
+
 	@Override
 	public boolean showNodes(ItemStack itemstack, EntityLivingBase player) {
 		return true;
@@ -43,5 +43,5 @@ public class ItemManasteelHelmRevealing extends ItemManasteelHelm implements IGo
 	public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
 		return LibResources.MODEL_MANASTEEL_2;
 	}
-	
+
 }

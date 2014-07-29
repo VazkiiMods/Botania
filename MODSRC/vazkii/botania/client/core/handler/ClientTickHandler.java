@@ -23,13 +23,11 @@ import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.TileSignature;
 import vazkii.botania.client.core.handler.LightningHandler.LightningBolt;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.item.ItemTwigWand;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
-import cpw.mods.fml.common.gameevent.TickEvent.RenderTickEvent;
 
 public class ClientTickHandler {
 

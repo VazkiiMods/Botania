@@ -12,7 +12,7 @@ public class ItemElementiumHelm extends ItemElementiumArmor {
 	public ItemElementiumHelm(String name) {
 		super(0, name);
 	}
-	
+
 	@Override
 	public float getPixieChance(ItemStack stack) {
 		return 0.055F;

@@ -18,7 +18,7 @@ public class ItemManasteelHelm extends ItemManasteelArmor {
 	public ItemManasteelHelm() {
 		this(LibItemNames.MANASTEEL_HELM);
 	}
-	
+
 	public ItemManasteelHelm(String name) {
 		super(0, name);
 	}

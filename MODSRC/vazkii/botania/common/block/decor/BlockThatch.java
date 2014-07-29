@@ -29,7 +29,7 @@ public class BlockThatch extends BlockMod implements ILexiconable {
 		setStepSound(soundTypeGrass);
 		setBlockName(LibBlockNames.THATCH);
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.decorativeBlocks;

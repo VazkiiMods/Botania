@@ -18,7 +18,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteeelArmor {
 	public ItemTerrasteelHelm() {
 		this(LibItemNames.TERRASTEEL_HELM);
 	}
-	
+
 	public ItemTerrasteelHelm(String name) {
 		super(0, name);
 	}

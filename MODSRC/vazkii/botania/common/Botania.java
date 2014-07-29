@@ -11,7 +11,6 @@
  */
 package vazkii.botania.common;
 
-import net.minecraftforge.event.world.ChunkDataEvent.Load;
 import vazkii.botania.common.core.handler.AliasHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.proxy.CommonProxy;
@@ -30,7 +29,7 @@ import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 
 @Mod(modid = LibMisc.MOD_ID, name = LibMisc.MOD_NAME, version = LibMisc.VERSION, dependencies = LibMisc.DEPENDENCIES, guiFactory = LibMisc.GUI_FACTORY)
 public class Botania {
-	
+
 	public static boolean thaumcraftLoaded = false;
 
 	@Instance(LibMisc.MOD_ID)
@@ -42,7 +41,7 @@ public class Botania {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		thaumcraftLoaded = Loader.isModLoaded("Thaumcraft");
-		
+
 		proxy.preInit(event);
 	}
 

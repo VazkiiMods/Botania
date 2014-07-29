@@ -13,7 +13,6 @@ package vazkii.botania.common.block.decor.slabs.bricks;
 
 import net.minecraft.block.BlockSlab;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.decor.slabs.prismarine.BlockPrismarineSlab;
 
 public class BlockSoulBrickSlab extends BlockCustomBrickSlab {
 

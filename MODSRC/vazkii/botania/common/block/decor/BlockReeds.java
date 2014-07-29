@@ -11,9 +11,6 @@
  */
 package vazkii.botania.common.block.decor;
 
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRotatedPillar;
 import net.minecraft.block.material.Material;
@@ -25,16 +22,18 @@ import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
-import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockMod;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockReeds extends BlockRotatedPillar implements ILexiconable {
 
 	IIcon topIcon;
-	
+
 	public BlockReeds() {
 		super(Material.wood);
 		setHardness(1.0F);
@@ -43,7 +42,7 @@ public class BlockReeds extends BlockRotatedPillar implements ILexiconable {
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 	}
 
-	
+
 	@Override
 	public Block setBlockName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockMod.class, par1Str);
@@ -71,5 +70,5 @@ public class BlockReeds extends BlockRotatedPillar implements ILexiconable {
 	protected IIcon getTopIcon(int p_150161_1_) {
 		return topIcon;
 	}
-	
+
 }

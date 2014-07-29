@@ -33,7 +33,7 @@ public class RenderTileSkullOverride extends TileEntitySkullRenderer {
 
 	@Override
 	public void renderTileEntityAt(TileEntitySkull p_147500_1_, double p_147500_2_, double p_147500_4_, double p_147500_6_, float p_147500_8_) {
-		this.render(p_147500_1_, (float) p_147500_2_, (float) p_147500_4_, (float) p_147500_6_, p_147500_1_.getBlockMetadata() & 7, (float) (p_147500_1_.func_145906_b() * 360) / 16.0F, p_147500_1_.func_145904_a(), p_147500_1_.func_152108_a());
+		render(p_147500_1_, (float) p_147500_2_, (float) p_147500_4_, (float) p_147500_6_, p_147500_1_.getBlockMetadata() & 7, p_147500_1_.func_145906_b() * 360 / 16.0F, p_147500_1_.func_145904_a(), p_147500_1_.func_152108_a());
 	}
 
 	public void render(TileEntitySkull skull, float par1, float par2, float par3, int par4, float par5, int par6, GameProfile gameProfile) {
@@ -47,7 +47,7 @@ public class RenderTileSkullOverride extends TileEntitySkullRenderer {
 					resourcelocation = minecraft.func_152342_ad().func_152792_a((MinecraftProfileTexture)map.get(MinecraftProfileTexture.Type.SKIN), MinecraftProfileTexture.Type.SKIN);
 				}
 			}
-			this.bindTexture(resourcelocation);
+			bindTexture(resourcelocation);
 			GL11.glPushMatrix();
 			GL11.glDisable(GL11.GL_CULL_FACE);
 			if (par4 != 1) {
