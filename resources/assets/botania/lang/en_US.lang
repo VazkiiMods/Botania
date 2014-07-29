@@ -1125,7 +1125,7 @@ botania.page.gatherDrum1=Tap your lands
 # -- LIFE IMBUER
 botania.entry.spawnerClaw=Life Imbuer
 botania.page.spawnerClaw0=&1Monster Spawners&0 are an interesting bunch. They have the ability to bring out life from thin air, but somehow, this only manifests when there's a player nearby.<br>This, of course, tends to be a rather limiting factor in the onslaught of any creatures that they can create.
-botania.page.spawnerClaw1=By placing a &1Life Imbuer&0 on top of a &1Monster Spreader&0 and giving it a rather decent chunk of &4Mana&0 through a &1Mana Spreader&0, when there aren't any players in the nearby vicinity, the &4Mana&0 will power the spawner, just as if there were players around.
+botania.page.spawnerClaw1=By placing a &1Life Imbuer&0 on top of a &1Monster Spawner&0 and giving it a rather decent chunk of &4Mana&0 through a &1Mana Spreader&0, when there aren't any players in the nearby vicinity, the &4Mana&0 will power the spawner, just as if there were players around.
 botania.page.spawnerClaw2=Something something shadow dragon
 
 # -- CRAFTY CRATE
