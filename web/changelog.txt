@@ -1,3 +1,10 @@
+r1.1 91
+*Added new building blocks: Reed Block, Thatch, Netherrack Bricks, Soul Bricks, Snow Bricks, <a href="http://www.madeireirafalsarella.com.br/arquivos/produtos/telhas/portuguesa/01-g.jpg">Roof Tiles</a> (all with stair and slab variants) and 12 types of <a href="http://en.wikipedia.org/wiki/Azulejo">Azulejos</a> for use with white Quartz.
+*Hopperhocks will no longer pick items up right after a mana pool crafts them.
+*I was playing with TC and realized I wanted Botania armor mixed in with the Goggles of Revealing, so you can do that now.
+*Lowered the chance for the Lexica Botania to spawn in the Bonus Chest, according to almighty reddit it was too high.
+*Player heads now render with the hat/hair layer as they do in the normal model, so your crafted heads won't look weird now. Thanks to Kihira for this!
+*Removed the Baubles Button from the inventory as that feature is provided by Baubles itself now.
 r1.1 90
 *Added a new generating flower, the Gourmaryllis, it eats food to make mana, but there's a catch...
 *Added a new recipe for Mana Alchemy, Coarse Dirt (just vanilla dirt with metadata value 1, grass can't spread to it, the stuff that spawns in the Mega Taiga).

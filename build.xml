@@ -8,6 +8,9 @@
 		<delete dir="${build.dir.gradle}\build\classes\main" />
 		<delete dir="${build.dir.gradle}\src\main\java\vazkii" />
 		<delete file="${build.dir.gradle}\src\main\java\mcmod.info" />
+		
+		<delete dir="${build.dir.gradle}\src\api\java\thaumcraft" />
+		
 		<delete dir ="${build.dir.temp}" />
 	</target>
 
