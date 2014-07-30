@@ -11,9 +11,14 @@
  */
 package vazkii.botania.common.block;
 
+import java.util.List;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -36,6 +41,12 @@ public class BlockSpawnerClaw extends BlockModContainer implements ILexiconable 
 		setBlockBounds(f, 0F, f, 1F - f, f1, 1F - f);
 	}
 
+	@Override
+	public void getSubBlocks(Item item, CreativeTabs tab, List list) {
+		list.add(new ItemStack(item));
+		list.add(new ItemStack(Blocks.mob_spawner));
+	}
+	
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		//NO-OP

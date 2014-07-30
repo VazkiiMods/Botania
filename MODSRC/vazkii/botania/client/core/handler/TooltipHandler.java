@@ -25,7 +25,8 @@ public final class TooltipHandler {
 		if(event.itemStack.getItem() == Item.getItemFromBlock(Blocks.dirt) && event.itemStack.getItemDamage() == 1) {
 			event.toolTip.add(StatCollector.translateToLocal("botaniamisc.coarseDirt0"));
 			event.toolTip.add(StatCollector.translateToLocal("botaniamisc.coarseDirt1"));
-		}
+		} else if(event.itemStack.getItem() == Item.getItemFromBlock(Blocks.mob_spawner) && event.entityPlayer.capabilities.isCreativeMode)
+			event.toolTip.add(StatCollector.translateToLocal("botaniamisc.spawnerTip"));
 	}
 
 }

@@ -45,6 +45,7 @@ botaniamisc.ratio=%s:1 Ratio
 botaniamisc.bottleTooltip=It has an acquired taste
 botaniamisc.coarseDirt0=Coarse Dirt, grass
 botaniamisc.coarseDirt1=won't grow on it
+botaniamisc.spawnerTip=Tip: Use a Spawn Egg to change the mob
 
 # COLORS
 botania.color0=White
