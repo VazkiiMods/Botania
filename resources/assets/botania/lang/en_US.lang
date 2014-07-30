@@ -1333,7 +1333,7 @@ botania.page.icePendant1=Do you want to build a snowman?
 
 # -- PYROCLAST PENDANT
 botania.entry.lavaPendant=Pyroclast Pendant
-botania.page.lavaPendant0=The &1Pyroclast Pendant&0 is a &4Bauble&0 that absorbs any heat, while it's worn, the wearer becomes completely imprevious to any &4Fire&0 or &4Lava&0 damage.
+botania.page.lavaPendant0=The &1Pyroclast Pendant&0 is a &4Bauble&0 that absorbs low heat, while it's worn, if the wearer is caught on fire and is not directly standing on &1Fire&0, &1Lava&0 or anything else that can induce burning, they'll be extinguished.
 botania.page.lavaPendant1=Hanako could have used one of these
 
 # -- GOLDEN LAUREL CROWN

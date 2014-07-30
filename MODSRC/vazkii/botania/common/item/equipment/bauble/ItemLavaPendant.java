@@ -27,16 +27,8 @@ public class ItemLavaPendant extends ItemBauble {
 
 	@Override
 	public void onWornTick(ItemStack stack, EntityLivingBase player) {
-		setImmunity(player, true);
-	}
-
-	@Override
-	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
-		setImmunity(player, false);
-	}
-
-	private void setImmunity(Entity entity, boolean immune) {
-		ReflectionHelper.setPrivateValue(Entity.class, entity, immune, LibObfuscation.IS_IMMUNE_TO_FIRE);
+		if(player.isBurning())
+			player.extinguish();
 	}
 
 	@Override
