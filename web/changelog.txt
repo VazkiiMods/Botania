@@ -1,3 +1,7 @@
+r1.1 94
+*Added Mob Spawners to the Botania creative tab. Using a spawn egg on them changes the mob it's spawning, similar to MC:PE.
+*Added the Ender Overseer, a new block that detects when players are looking at it and gives out a redstone signal.
+*Nerfed the Pyroclast Pendant, now it only protects the wearer from fire damage if they are not standing on fire or lava.
 r1.1 93
 *Actually fix the skull renderer because I'm an undereducated idiot who has no clue what they're doing or how the java compiler works :V
 r1.1 92
