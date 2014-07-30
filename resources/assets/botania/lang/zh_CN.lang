@@ -45,6 +45,7 @@ botaniamisc.ratio=%s:1 Ratio
 botaniamisc.bottleTooltip=味道如何
 botaniamisc.coarseDirt0=劣质土,草
 botaniamisc.coarseDirt1=无法生长
+botaniamisc.spawnerTip=Tip:使用刷怪蛋改变怪物类型
 
 # COLORS
 botania.color0=白色
@@ -383,6 +384,7 @@ tile.botania:customBrick12.name=阿兹勒赫瓷砖
 tile.botania:customBrick13.name=阿兹勒赫瓷砖
 tile.botania:customBrick14.name=阿兹勒赫瓷砖
 tile.botania:customBrick15.name=阿兹勒赫瓷砖
+tile.botania:enderEyeBlock.name=末影监视者
 
 # FLOWER NAMES
 tile.botania:flower..name=植物魔法花
@@ -1138,6 +1140,11 @@ botania.page.craftCrate4=用&1森林法杖&0右击这个箱子(注 意:&1发射�
 botania.page.craftCrate5=合成&1钻石镐&0的示例
 botania.page.craftCrate6=葡萄牙制造
 
+# -- ENDER OVERSEER
+botania.entry.enderEyeBlock=末影监视者
+botania.page.enderEyeBlock0=&4末影人&0的眼睛被看见时十分 敏感.由此制成的方块在64格 内被玩家直视时就会发出&4红&0 &4石信号&0.<br>当然,头戴&1南瓜&0时可以避免.
+botania.page.enderEyeBlock1=MY BRAND
+
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
 botania.entry.manaBlaster=魔力脉冲枪
@@ -1326,7 +1333,7 @@ botania.page.icePendant1=你想堆个雪人么?
 
 # -- PYROCLAST PENDANT
 botania.entry.lavaPendant=火石项链
-botania.page.lavaPendant0=&1火石项链&0是个吸收一切热量 的&4饰品&0,穿戴时会让你完全免 疫&4火&0与&4岩浆&0伤害.
+botania.page.lavaPendant0=&1火石项链&0是个吸收少量热量 的&4饰品&0,若穿戴者着火且没有 直接处于&1火&0,&1岩浆&0或其他能引 起燃烧的地方,火就会被扑灭 .
 botania.page.lavaPendant1=花子本应用到这个
 
 # -- GOLDEN LAUREL CROWN
