@@ -94,6 +94,7 @@ public final class LibLexicon {
 	public static final String DEVICE_GATHER_DRUM = "gatherDrum";
 	public static final String DEVICE_SPAWNER_CLAW = "spawnerClaw";
 	public static final String DEVICE_CRAFT_CRATE = "craftCrate";
+	public static final String DEVICE_ENDER_EYE_BLOCK = "enderEyeBlock";
 
 	public static final String TOOL_MANA_BLASTER = "manaBlaster";
 	public static final String TOOL_GRASS_SEEDS = "grassSeeds";

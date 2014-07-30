@@ -102,6 +102,7 @@ import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.block.tile.TileBifrost;
 import vazkii.botania.common.block.tile.TileCraftCrate;
 import vazkii.botania.common.block.tile.TileEnchanter;
+import vazkii.botania.common.block.tile.TileEnderEye;
 import vazkii.botania.common.block.tile.TileForestEye;
 import vazkii.botania.common.block.tile.TileManaBeacon;
 import vazkii.botania.common.block.tile.TileMiniIsland;
@@ -166,6 +167,7 @@ public final class ModBlocks {
 	public static Block reedBlock;
 	public static Block thatch;
 	public static Block customBrick;
+	public static Block enderEye;
 
 	public static Block livingwoodStairs;
 	public static Block livingwoodSlab;
@@ -281,7 +283,8 @@ public final class ModBlocks {
 		reedBlock = new BlockReeds();
 		thatch = new BlockThatch();
 		customBrick = new BlockCustomBrick();
-
+		enderEye = new BlockEnderEye();
+		
 		livingwoodStairs = new BlockLivingwoodStairs();
 		livingwoodSlab = new BlockLivingwoodSlab(false);
 		livingwoodSlabFull = new BlockLivingwoodSlab(true);
@@ -456,6 +459,7 @@ public final class ModBlocks {
 		registerTile(TileMiniIsland.class, LibBlockNames.MINI_ISLAND);
 		registerTile(TileTinyPotato.class, LibBlockNames.TINY_POTATO);
 		registerTile(TileSpawnerClaw.class, LibBlockNames.SPAWNER_CLAW);
+		registerTile(TileEnderEye.class, LibBlockNames.ENDER_EYE_BLOCK);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MANASTAR, SubTileManastar.class);

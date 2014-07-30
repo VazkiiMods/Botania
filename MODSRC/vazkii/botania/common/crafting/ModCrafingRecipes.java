@@ -180,6 +180,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeRoofTile;
 	public static IRecipe recipeAzulejo;
 	public static List<IRecipe> recipesAzulejoCycling;
+	public static IRecipe recipeEnderEyeBlock;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1108,6 +1109,14 @@ public final class ModCrafingRecipes {
 			GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.customBrick, 1, 4 + (i == 11 ? 0 : i + 1)), new ItemStack(ModBlocks.customBrick, 1, 4 + i));
 		recipesAzulejoCycling = BotaniaAPI.getLatestAddedRecipes(12);
 
+		// Ender Overseer Recipe
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.enderEye),
+				"RER", "EOE", "RER",
+				'R', new ItemStack(Items.redstone),
+				'E', new ItemStack(Items.ender_eye),
+				'O', new ItemStack(Blocks.obsidian));
+		recipeEnderEyeBlock = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",

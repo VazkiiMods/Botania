@@ -109,8 +109,6 @@ public final class ToolCommons {
 		float f7 = f4 * f5;
 		float f8 = f3 * f5;
 		double d3 = range;
-		if (player instanceof EntityPlayerMP)
-			d3 = ((EntityPlayerMP) player).theItemInWorldManager.getBlockReachDistance();
 		Vec3 vec31 = vec3.addVector(f7 * d3, f6 * d3, f8 * d3);
 		return world.rayTraceBlocks(vec3, vec31, par3);
 	}
