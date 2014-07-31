@@ -159,6 +159,7 @@ public final class LexiconData {
 	public static LexiconEntry superTravelBelt;
 	public static LexiconEntry reachRing;
 	public static LexiconEntry itemFinder;
+	public static LexiconEntry superLavaPendant;
 
 	public static LexiconEntry alfhomancyIntro;
 	public static LexiconEntry elvenMessage;
@@ -541,6 +542,9 @@ public final class LexiconData {
 
 		itemFinder = new BLexiconEntry(LibLexicon.BAUBLE_ITEM_FINDER, categoryBaubles);
 		itemFinder.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCrafingRecipes.recipeItemFinder));
+		
+		superLavaPendant = new ALexiconEntry(LibLexicon.BAUBLE_SUPER_LAVA_PENDANT, categoryBaubles);
+		superLavaPendant.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeSuperLavaPendant));
 		
 		// ALFHOMANCY ENTRIES
 		alfhomancyIntro = new BLexiconEntry(LibLexicon.ALF_INTRO, categoryAlfhomancy);

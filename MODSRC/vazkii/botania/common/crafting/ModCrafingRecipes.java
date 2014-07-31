@@ -182,6 +182,7 @@ public final class ModCrafingRecipes {
 	public static List<IRecipe> recipesAzulejoCycling;
 	public static IRecipe recipeEnderEyeBlock;
 	public static IRecipe recipeItemFinder;
+	public static IRecipe recipeSuperLavaPendant;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1125,6 +1126,15 @@ public final class ModCrafingRecipes {
 				'Y', new ItemStack(Items.ender_eye),
 				'E', new ItemStack(Items.emerald));
 		recipeItemFinder = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Crimson Pendant Recipe
+		addOreDictRecipe(new ItemStack(ModItems.superLavaPendant), 
+				"BBB", "BPB", "NGN",
+				'B', new ItemStack(Items.blaze_rod),
+				'P', new ItemStack(ModItems.lavaPendant),
+				'N', new ItemStack(Blocks.nether_brick),
+				'G', LibOreDict.LIFE_ESSENCE);
+		recipeSuperLavaPendant = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

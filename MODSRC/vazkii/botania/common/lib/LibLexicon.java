@@ -136,6 +136,7 @@ public final class LibLexicon {
 	public static final String BAUBLE_SUPER_TRAVEL_BELT = "superTravelBelt";
 	public static final String BAUBLE_REACH_RING = "reachRing";
 	public static final String BAUBLE_ITEM_FINDER = "itemFinder";
+	public static final String BAUBLE_SUPER_LAVA_PENDANT = "superLavaPendant";
 
 	public static final String ALF_INTRO = "aIntro";
 	public static final String ALF_MESSAGE = "elfMessage";

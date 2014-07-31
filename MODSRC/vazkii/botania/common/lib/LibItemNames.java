@@ -92,6 +92,7 @@ public final class LibItemNames {
 	public static final String TERRASTEEL_HELM_R = "terrasteelHelmReveal";
 	public static final String ELEMENTIUM_HELM_R = "elementiumHelmReveal";
 	public static final String ITEM_FINDER = "itemFinder";
+	public static final String SUPER_LAVA_PENDANT = "superLavaPendant";
 
 	public static final String[] LENS_NAMES = new String[] {
 		"lensNormal",

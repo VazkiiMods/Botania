@@ -654,6 +654,7 @@ item.botania:manasteelHelmReveal.name=Manasteel Helmet of Revealing
 item.botania:terrasteelHelmReveal.name=Terrasteel Helmet of Revealing
 item.botania:elementiumHelmReveal.name=Elementium Helmet of Revealing
 item.botania:itemFinder.name=The Spectator
+item.botania:superLavaPendant.name=Crimson Pendant
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania, %s Edition's Index - Pick which category you would like to study:
@@ -1388,6 +1389,11 @@ botania.entry.itemFinder=The Spectator
 botania.page.itemFinder0=&1The Spectator&0 is a headband that allows the wearer to have a better perception of the world. While holding an item, any &4containers&0 (chests, minecarts, donkeys with chests, furnaces, etc...) that have an item of that type, &4dropped items&0 of that type, &4mobs&0 who have that item equipped &o(...)&r
 botania.page.itemFinder1=&o(...)&r &4players&0 who have the item in their inventory and &4villagers&0 who want to trade either with or for that item will shine with a green glow, allowing them to be easily spotted.<br>While sneaking, all dropped items around the wearer will shine, regardless of the item.
 botania.page.itemFinder2=Do you hear their voices?
+
+# -- CRIMSON PENDANT
+botania.entry.superLavaPendant=Crimson Pendant
+botania.page.superLavaPendant0=The &1Crimson Pendant&0 is, in simple terms, an upgraded counterpart to the &1Pyroclast Pendant&0, wearing it provides the wearer immunity to all fire and lava damage, instead of just extinguishing them.
+botania.page.superLavaPendant1=The Crimson Prince
 
 # - ALFHOMANCY
 # -- THE PORTAL TO ALFHEIM
