@@ -86,6 +86,7 @@ darkQuartz.enabled=Enable Smokey Quatrz
 fallenKanade.enabled=Enable Fallen Kanade
 manaEnchanter.enabled=Enable Mana Enchanter
 flower.forceCheck=Flower Force Checking
+enderPickpocket.enabled=Enable Ender Pickpocketting
 flowerParticles.frequency=Flower Particle Frequency
 lexicon.enable.rotatingItems=Lexicon Rotating Items
 lexicon.render.3D=3D Lexicon Render

@@ -127,6 +127,9 @@ public final class ConfigHandler {
 		desc = "Turn off ONLY IF you're on an extremely large world with an exhagerated count of Mana Spreaders/Mana Pools and are experiencing TPS lag. This toggles whether flowers are strict with their checking for connecting to pools/spreaders or just check whenever possible.";
 		flowerForceCheck = loadPropBool("flower.forceCheck", desc, flowerForceCheck);
 
+		desc = "Set to false to disable the ability for the Hand of Ender to pickpocket other players' ender chests.";
+		enderPickpocketEnabled = loadPropBool("enderPickpocket.enabled", desc, enderPickpocketEnabled);
+		
 		desc = "Set to false to disable the Fallen Kanade flower (gives Regeneration). This config option is here for those using Blood Magic. Note: Turning this off will not remove ones already in the world, it'll simply prevent the crafting.";
 		fallenKanadeEnabled = loadPropBool("fallenKanade.enabled", desc, fallenKanadeEnabled);
 
