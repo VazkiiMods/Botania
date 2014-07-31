@@ -25,7 +25,7 @@ public final class IconHelper {
 	}
 
 	public static IIcon forBlock(IIconRegister ir, Block block) {
-		return forName(ir, block.getUnlocalizedName().replaceAll("tile.", ""));
+		return forName(ir, block.getUnlocalizedName().replaceAll("tile\\.", ""));
 	}
 
 	public static IIcon forBlock(IIconRegister ir, Block block, int i) {
@@ -37,15 +37,15 @@ public final class IconHelper {
 	}
 
 	public static IIcon forBlock(IIconRegister ir, Block block, String s) {
-		return forName(ir, block.getUnlocalizedName().replaceAll("tile.", "") + s);
+		return forName(ir, block.getUnlocalizedName().replaceAll("tile\\.", "") + s);
 	}
 
 	public static IIcon forBlock(IIconRegister ir, Block block, String s, String dir) {
-		return forName(ir, dir + "/" + block.getUnlocalizedName().replaceAll("tile.", "") + s);
+		return forName(ir, dir + "/" + block.getUnlocalizedName().replaceAll("tile\\.", "") + s);
 	}
 
 	public static IIcon forItem(IIconRegister ir, Item item) {
-		return forName(ir, item.getUnlocalizedName().replaceAll("item.", ""));
+		return forName(ir, item.getUnlocalizedName().replaceAll("item\\.", ""));
 	}
 
 	public static IIcon forItem(IIconRegister ir, Item item, int i) {
@@ -53,7 +53,7 @@ public final class IconHelper {
 	}
 
 	public static IIcon forItem(IIconRegister ir, Item item, String s) {
-		return forName(ir, item.getUnlocalizedName().replaceAll("item.", "") + s);
+		return forName(ir, item.getUnlocalizedName().replaceAll("item\\.", "") + s);
 	}
 
 }
