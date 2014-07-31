@@ -1,3 +1,5 @@
+r1.1 96
+*Fixed crashes when an invalid PlayerInteractEvent is fired (mostly because Cauldron throws them around like they're free samples).
 r1.1 95
 *Added "dammit reddit".
 *Added a config option to disable the Mana Enchanter.
