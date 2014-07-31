@@ -107,7 +107,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeTravelBelt;
 	public static IRecipe recipeKnocbackBelt;
 	public static IRecipe recipeIcePendant;
-	public static IRecipe recipeLavaPendant;
+	public static IRecipe recipeFirePendant;
 	public static IRecipe recipeGoldenLaurel;
 	public static IRecipe recipeTinyPlanetBlock;
 	public static IRecipe recipeAlchemyCatalyst;
@@ -619,10 +619,10 @@ public final class ModCrafingRecipes {
 		addOreDictRecipe(new ItemStack(ModItems.lavaPendant),
 				"MS ", "S S", "DSF",
 				'S', new ItemStack(Items.string),
-				'D', LibOreDict.MANA_DIAMOND,
+				'D', LibOreDict.MANA_STEEL,
 				'M', LibOreDict.RUNE[5],
 				'F', LibOreDict.RUNE[1]);
-		recipeLavaPendant = BotaniaAPI.getLatestAddedRecipe();
+		recipeFirePendant = BotaniaAPI.getLatestAddedRecipe();
 
 		// Golden Laurel Crown Recipe
 		addOreDictRecipe(new ItemStack(ModItems.goldLaurel),
