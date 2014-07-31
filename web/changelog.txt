@@ -1,3 +1,11 @@
+r1.1 95
+*Added "dammit reddit".
+*Added a config option to disable the Mana Enchanter.
+*Added the Crimson Pendant, a "tier 2" Pyroclast Pendant that does what the old one used to pre-nerf.
+*Added the Hand of Ender, an item that allows not only for access of one's ender chest, but of others' via right clicking on them. (the last feature can be toggled in the config).
+*Added The Spectator, a new bauble that lets you search for items in inventories, dropped around, in players/horses' inventories, equipped by mobs and that villagers trade.
+*Changed the recipe for the Pyroclast Pendant to make more sense with the recent nerf.
+*The Pixies the Gaia Guardian spawns no longer take non-player damage, so you can't cheese the battle with Tiny Planet + Terra Blade. <i>Sorry Lewis :3</i>
 r1.1 94
 *Added Mob Spawners to the Botania creative tab. Using a spawn egg on them changes the mob it's spawning, similar to MC:PE.
 *Added the Ender Overseer, a new block that detects when players are looking at it and gives out a redstone signal.
