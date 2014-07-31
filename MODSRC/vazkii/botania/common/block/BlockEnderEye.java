@@ -29,7 +29,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockEnderEye extends BlockModContainer implements ILexiconable {
 
 	IIcon iconOff, iconOn;
-	
+
 	protected BlockEnderEye() {
 		super(Material.iron);
 		setHardness(3F);
@@ -43,17 +43,17 @@ public class BlockEnderEye extends BlockModContainer implements ILexiconable {
 		iconOff = IconHelper.forBlock(par1IconRegister, this, 0);
 		iconOn = IconHelper.forBlock(par1IconRegister, this, 1);
 	}
-	
+
 	@Override
 	public IIcon getIcon(int side, int meta) {
 		return meta == 0 ? iconOff : iconOn;
 	}
-	
+
 	@Override
 	public boolean canProvidePower() {
 		return true;
 	}
-	
+
 	@Override
 	public int isProvidingWeakPower(IBlockAccess world, int x, int y, int z, int side) {
 		return world.getBlockMetadata(x, y, z);

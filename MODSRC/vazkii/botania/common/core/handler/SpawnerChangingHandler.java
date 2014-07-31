@@ -11,10 +11,8 @@
  */
 package vazkii.botania.common.core.handler;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.init.Items;
-import net.minecraft.item.ItemMonsterPlacer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityMobSpawner;
@@ -39,5 +37,5 @@ public final class SpawnerChangingHandler {
 			}
 		}
 	}
-	
+
 }

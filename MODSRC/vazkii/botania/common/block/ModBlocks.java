@@ -284,7 +284,7 @@ public final class ModBlocks {
 		thatch = new BlockThatch();
 		customBrick = new BlockCustomBrick();
 		enderEye = new BlockEnderEye();
-		
+
 		livingwoodStairs = new BlockLivingwoodStairs();
 		livingwoodSlab = new BlockLivingwoodSlab(false);
 		livingwoodSlabFull = new BlockLivingwoodSlab(true);

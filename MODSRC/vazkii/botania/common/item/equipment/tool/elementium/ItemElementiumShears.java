@@ -47,6 +47,7 @@ public class ItemElementiumShears extends ItemManasteelShears {
 		return par1ItemStack;
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister par1IconRegister) {
 		super.registerIcons(par1IconRegister);

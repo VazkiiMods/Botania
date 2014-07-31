@@ -27,27 +27,27 @@ public class TileEnderEye extends TileMod {
 	public void updateEntity() {
 		if(worldObj.isRemote)
 			return;
-		
+
 		int meta = getBlockMetadata();
 		int range = 80;
 		List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(xCoord - range, yCoord - range, zCoord - range, xCoord + range, yCoord + range, zCoord + range));
-		
+
 		boolean looking = false;
 		for(EntityPlayer player : players) {
 			ItemStack helm = player.getCurrentArmor(3);
 			if(helm != null && helm.getItem() == Item.getItemFromBlock(Blocks.pumpkin))
 				continue;
-			
+
 			MovingObjectPosition pos = ToolCommons.raytraceFromEntity(worldObj, player, true, 64);
 			if(pos != null && pos.blockX == xCoord && pos.blockY == yCoord && pos.blockZ == zCoord) {
 				looking = true;
 				break;
 			}
 		}
-		
+
 		int newMeta = looking ? 15 : 0;
 		if(newMeta != meta)
 			worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, newMeta, 1 | 2);
 	}
-	
+
 }

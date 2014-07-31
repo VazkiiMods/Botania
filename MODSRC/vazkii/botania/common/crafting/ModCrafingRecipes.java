@@ -1119,33 +1119,33 @@ public final class ModCrafingRecipes {
 				'E', new ItemStack(Items.ender_eye),
 				'O', new ItemStack(Blocks.obsidian));
 		recipeEnderEyeBlock = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// The Spectator Recipe
-		addOreDictRecipe(new ItemStack(ModItems.itemFinder), 
+		addOreDictRecipe(new ItemStack(ModItems.itemFinder),
 				" I ", "IYI", "IEI",
 				'I', "ingotIron",
 				'Y', new ItemStack(Items.ender_eye),
 				'E', new ItemStack(Items.emerald));
 		recipeItemFinder = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Crimson Pendant Recipe
-		addOreDictRecipe(new ItemStack(ModItems.superLavaPendant), 
+		addOreDictRecipe(new ItemStack(ModItems.superLavaPendant),
 				"BBB", "BPB", "NGN",
 				'B', new ItemStack(Items.blaze_rod),
 				'P', new ItemStack(ModItems.lavaPendant),
 				'N', new ItemStack(Blocks.nether_brick),
 				'G', LibOreDict.LIFE_ESSENCE);
 		recipeSuperLavaPendant = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Hand of Ender Recipe
-		addOreDictRecipe(new ItemStack(ModItems.enderHand), 
+		addOreDictRecipe(new ItemStack(ModItems.enderHand),
 				"PLO", "LEL", "OL ",
 				'P', LibOreDict.PIXIE_DUST,
 				'L', new ItemStack(Items.leather),
 				'E', new ItemStack(Blocks.ender_chest),
 				'O', new ItemStack(Blocks.obsidian));
 		recipeEnderHand = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",

@@ -98,27 +98,27 @@ public class ItemItemFinder extends ItemBauble {
 				if(e instanceof EntityItem) {
 					EntityItem item = (EntityItem) e;
 					ItemStack istack = item.getEntityItem();
-					if(player.isSneaking() || (istack.isItemEqual(pstack) && ItemStack.areItemStackTagsEqual(istack, pstack)))
+					if(player.isSneaking() || istack.isItemEqual(pstack) && ItemStack.areItemStackTagsEqual(istack, pstack))
 						positionsBuilder.append(item.getEntityId()).append(";");
-					
+
 				} else if(e instanceof IInventory) {
 					IInventory inv = (IInventory) e;
 					if(scanInventory(inv, pstack))
 						positionsBuilder.append(e.getEntityId()).append(";");
-					
+
 				} else if(e instanceof EntityHorse) {
 					EntityHorse horse = (EntityHorse) e;
 					AnimalChest chest = ReflectionHelper.getPrivateValue(EntityHorse.class, horse, LibObfuscation.HORSE_CHEST);
 					if(scanInventory(chest, pstack))
 						positionsBuilder.append(horse.getEntityId()).append(";");
-					
+
 				} else if(e instanceof EntityPlayer) {
 					EntityPlayer player_ = (EntityPlayer) e;
 					InventoryPlayer inv = player_.inventory;
 					InventoryBaubles binv = PlayerHandler.getPlayerBaubles(player_);
 					if(scanInventory(inv, pstack) || scanInventory(binv, pstack))
 						positionsBuilder.append(player_.getEntityId()).append(";");
-					
+
 				} else if(e instanceof EntityVillager) {
 					EntityVillager villager = (EntityVillager) e;
 					ArrayList<MerchantRecipe> recipes = villager.getRecipes(player);
@@ -126,7 +126,7 @@ public class ItemItemFinder extends ItemBauble {
 						for(MerchantRecipe recipe : recipes)
 							if(!recipe.isRecipeDisabled() && (equalStacks(pstack, recipe.getItemToBuy()) || equalStacks(pstack, recipe.getItemToSell())))
 								positionsBuilder.append(villager.getEntityId()).append(";");
-					
+
 				} else if(e instanceof EntityLivingBase) {
 					EntityLivingBase living = (EntityLivingBase) e;
 					ItemStack estack = living.getEquipmentInSlot(0);
@@ -137,9 +137,9 @@ public class ItemItemFinder extends ItemBauble {
 
 			if(pstack != null) {
 				range = 12;
-				int x = (int) MathHelper.floor_double(player.posX);
-				int y = (int) MathHelper.floor_double(player.posY);
-				int z = (int) MathHelper.floor_double(player.posZ);
+				int x = MathHelper.floor_double(player.posX);
+				int y = MathHelper.floor_double(player.posY);
+				int z = MathHelper.floor_double(player.posZ);
 				for(int i = -range; i < range + 1; i++)
 					for(int j = -range; j < range + 1; j++)
 						for(int k = -range; k < range + 1; k++) {
@@ -163,7 +163,7 @@ public class ItemItemFinder extends ItemBauble {
 			PacketHandler.INSTANCE.sendToAll(new PacketSyncBauble(player, 0));
 		}
 	}
-	
+
 	boolean equalStacks(ItemStack stack1, ItemStack stack2) {
 		return stack1.isItemEqual(stack2) && ItemStack.areItemStackTagsEqual(stack1, stack2);
 	}

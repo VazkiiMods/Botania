@@ -46,7 +46,7 @@ public class BlockSpawnerClaw extends BlockModContainer implements ILexiconable 
 		list.add(new ItemStack(item));
 		list.add(new ItemStack(Blocks.mob_spawner));
 	}
-	
+
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		//NO-OP

@@ -48,7 +48,7 @@ public class ItemEnderHand extends ItemMod implements IManaUsingItem {
 			iplayer.worldObj.playSoundAtEntity(iplayer, "mob.endermen.portal", 1F, 1F);
 			return true;
 		}
-		
+
 		return false;
 	}
 

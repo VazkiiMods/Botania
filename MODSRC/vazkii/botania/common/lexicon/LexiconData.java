@@ -378,7 +378,7 @@ public final class LexiconData {
 					new PageImage("2", LibResources.ENTRY_ENCHANTER0), new PageImage("3", LibResources.ENTRY_ENCHANTER1), new PageImage("4", LibResources.ENTRY_ENCHANTER2), new PageImage("5", LibResources.ENTRY_ENCHANTER3),
 					new PageText("6"), new PageText("7"), new PageText("8"), new PageText("9"), new PageText("10"));
 		}
-		
+
 		turntable = new BLexiconEntry(LibLexicon.DEVICE_TURNTABLE, categoryDevices);
 		turntable.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeTurntable));
 
@@ -420,7 +420,7 @@ public final class LexiconData {
 
 		enderEyeBlock = new BLexiconEntry(LibLexicon.DEVICE_ENDER_EYE_BLOCK, categoryDevices);
 		enderEyeBlock.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeEnderEyeBlock));
-		
+
 		// TOOLS ENTRIES
 		manaBlaster = new BLexiconEntry(LibLexicon.TOOL_MANA_BLASTER, categoryTools);
 		manaBlaster.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCrafingRecipes.recipeManaBlaster));
@@ -491,7 +491,7 @@ public final class LexiconData {
 
 		enderHand = new ALexiconEntry(LibLexicon.TOOL_ENDER_HAND, categoryTools);
 		enderHand.setLexiconPages(new PageText(ConfigHandler.enderPickpocketEnabled ? "0" : "0a"), new PageCraftingRecipe(ConfigHandler.enderPickpocketEnabled ? "1" : "1a", ModCrafingRecipes.recipeEnderHand));
-		
+
 		// BAUBLES ENTRIES
 		baublesIntro = new BLexiconEntry(LibLexicon.BAUBLE_INTRO, categoryBaubles);
 		baublesIntro.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_BAUBLES), new PageText("2"));
@@ -546,10 +546,10 @@ public final class LexiconData {
 
 		itemFinder = new BLexiconEntry(LibLexicon.BAUBLE_ITEM_FINDER, categoryBaubles);
 		itemFinder.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCrafingRecipes.recipeItemFinder));
-		
+
 		superLavaPendant = new ALexiconEntry(LibLexicon.BAUBLE_SUPER_LAVA_PENDANT, categoryBaubles);
 		superLavaPendant.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeSuperLavaPendant));
-		
+
 		// ALFHOMANCY ENTRIES
 		alfhomancyIntro = new BLexiconEntry(LibLexicon.ALF_INTRO, categoryAlfhomancy);
 		alfhomancyIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCrafingRecipes.recipeAlfPortal), new PageCraftingRecipe("3", ModCrafingRecipes.recipeNaturaPylon),

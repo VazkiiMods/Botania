@@ -11,13 +11,10 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.common.lib.LibItemNames;
-import vazkii.botania.common.lib.LibObfuscation;
 import baubles.api.BaubleType;
-import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class ItemLavaPendant extends ItemBauble {
 
