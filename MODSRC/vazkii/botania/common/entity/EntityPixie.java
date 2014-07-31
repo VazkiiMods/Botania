@@ -40,7 +40,6 @@ public class EntityPixie extends EntityFlyingCreature {
 		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(2.0);
 	}
 
-
 	public void setType(int type) {
 		dataWatcher.updateObject(20, type);
 	}
@@ -90,7 +89,7 @@ public class EntityPixie extends EntityFlyingCreature {
 
 	@Override
 	public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
-		if(par1DamageSource.getEntity() != summoner)
+		if((getType() == 0 && par1DamageSource.getEntity() != summoner) || (getType() == 1 && par1DamageSource.getDamageType().equals("player")))
 			return super.attackEntityFrom(par1DamageSource, par2);
 		return false;
 	}
