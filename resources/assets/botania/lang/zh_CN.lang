@@ -654,6 +654,7 @@ item.botania:manasteelHelmReveal.name=魔钢揭示头盔
 item.botania:terrasteelHelmReveal.name=泰拉钢揭示头盔
 item.botania:elementiumHelmReveal.name=源质钢揭示头盔
 item.botania:itemFinder.name=寻物者
+item.botania:superLavaPendant.name=绯红项链
 
 # GUI TEXT
 botania.gui.lexicon.header=植物魔法辞典, %s 版目录 - 选择你要浏览的章节:
@@ -1388,6 +1389,11 @@ botania.entry.itemFinder=寻物者
 botania.page.itemFinder0=&1寻物者&0是一个增强穿戴者对 世界感知能力的头饰.当你手 持某个物品,任何有同种物品 的&4容器&0(箱子,矿车,带箱子的 驴,熔炉等等...),同种物品 的&4掉落物&0,装备该物品的&4怪物&0 &o(...)&r
 botania.page.itemFinder1=&o(...)&r物品栏拥有该物品的 &4玩家&0和有与该物品相关交易 的&4村民&0都会闪烁着绿光,使他 们更容易被认出.<br>而潜行时,穿戴者附近所有的 掉落物品都会发光,不管是什 么种类.
 botania.page.itemFinder2=你听见它们的细语了么?
+
+# -- CRIMSON PENDANT
+botania.entry.superLavaPendant=腥红项链
+botania.page.superLavaPendant0=&1绯红项链&0简而言之,就是&1火石项链&0的升级版,穿着时能提供对火和岩浆的免疫力,而不是单纯的灭火.
+botania.page.superLavaPendant1=腥红王子一条将辉
 
 # - ALFHOMANCY
 # -- THE PORTAL TO ALFHEIM
