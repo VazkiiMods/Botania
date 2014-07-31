@@ -181,6 +181,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeAzulejo;
 	public static List<IRecipe> recipesAzulejoCycling;
 	public static IRecipe recipeEnderEyeBlock;
+	public static IRecipe recipeItemFinder;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1116,6 +1117,14 @@ public final class ModCrafingRecipes {
 				'E', new ItemStack(Items.ender_eye),
 				'O', new ItemStack(Blocks.obsidian));
 		recipeEnderEyeBlock = BotaniaAPI.getLatestAddedRecipe();
+		
+		// The Spectator Recipe
+		addOreDictRecipe(new ItemStack(ModItems.itemFinder), 
+				" I ", "IYI", "IEI",
+				'I', "ingotIron",
+				'Y', new ItemStack(Items.ender_eye),
+				'E', new ItemStack(Items.emerald));
+		recipeItemFinder = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

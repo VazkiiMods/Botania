@@ -652,6 +652,7 @@ item.botania:placeholder.name=Crafting Placeholder
 item.botania:manasteelHelmReveal.name=Manasteel Helmet of Revealing
 item.botania:terrasteelHelmReveal.name=Terrasteel Helmet of Revealing
 item.botania:elementiumHelmReveal.name=Elementium Helmet of Revealing
+item.botania:itemFinder.name=The Spectator
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania, %s Edition's Index - Pick which category you would like to study:
@@ -1380,6 +1381,12 @@ botania.page.pixieRing1=We got square heads, big pointy caps
 botania.entry.superTravelBelt=Globetrotter's Sash
 botania.page.superTravelBelt0=The &1Globetrotter's Sash&0 is, in layman's terms, an upgrade to then &1Soujourner's Sash&0, by using &1Gaia Spirits&0 and some Elven resources, this new belt allows the wearer to reach incredible speeds to which the &1Soujourner's Sash&0 doesn't stand a chance.
 botania.page.superTravelBelt1=No time for guessing, follow my plan instead
+
+# -- THE SPECTATOR
+botania.entry.itemFinder=The Spectator
+botania.page.itemFinder0=&1The Spectator&0 is a headband that allows the wearer to have a better perception of the world. While holding an item, any &4containers&0 (chests, minecarts, donkeys with chests, furnaces, etc...) that have an item of that type, &4dropped items&0 of that type, &4mobs&0 who have that item equipped &o(...)&r
+botania.page.itemFinder1=&o(...)&r &4players&0 who have the item in their inventory and &4villagers&0 who want to trade either with or for that item will shine with a green glow, allowing them to be easily spotted.<br>While sneaking, all dropped items around the wearer will shine, regardless of the item.
+botania.page.itemFinder2=Do you hear their voices?
 
 # - ALFHOMANCY
 # -- THE PORTAL TO ALFHEIM
