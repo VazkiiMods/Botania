@@ -84,6 +84,7 @@ blockBreakingParticlesTool.enabled=Tool Block Break Particles
 boundBlock.wireframe.enabled=Bound Block Wireframe
 darkQuartz.enabled=Enable Smokey Quatrz
 fallenKanade.enabled=Enable Fallen Kanade
+manaEnchanter.enabled=Enable Mana Enchanter
 flower.forceCheck=Flower Force Checking
 flowerParticles.frequency=Flower Particle Frequency
 lexicon.enable.rotatingItems=Lexicon Rotating Items

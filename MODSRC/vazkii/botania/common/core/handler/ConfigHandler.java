@@ -46,6 +46,7 @@ public final class ConfigHandler {
 
 	public static boolean fallenKanadeEnabled = true;
 	public static boolean darkQuartzEnabled = true;
+	public static boolean enchanterEnabled = true;
 
 	public static int shedRateChicken = 26000;
 	public static int shedRateSquid = 18000;
@@ -131,6 +132,9 @@ public final class ConfigHandler {
 		desc = "Set to false to disable the Smokey Quartz blocks. This config option is here for those using Thaumic Tinkerer";
 		darkQuartzEnabled = loadPropBool("darkQuartz.enabled", desc, darkQuartzEnabled);
 
+		desc = "Set to false to disable the Mana Enchanter. Since some people find it OP or something. This only disables the entry and creation. Old ones that are already in the world will stay.";
+		enchanterEnabled = loadPropBool("manaEnchanter.enabled", desc, enchanterEnabled);
+		
 		desc = "The average amount of ticks between a chicken randomly dropping a feather. Set to -1 to disable this feature";
 		shedRateChicken = loadPropInt("shedRate.chicken", desc, shedRateChicken);
 

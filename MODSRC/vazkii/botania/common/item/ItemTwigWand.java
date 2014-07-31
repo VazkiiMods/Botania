@@ -41,6 +41,7 @@ import vazkii.botania.common.block.BlockPistonRelay;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibItemNames;
@@ -107,7 +108,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 				par2EntityPlayer.swingItem();
 		}
 
-		if(block == Blocks.lapis_block) {
+		if(block == Blocks.lapis_block && ConfigHandler.enchanterEnabled) {
 			int meta = -1;
 			if(TileEnchanter.canEnchanterExist(par3World, par4, par5, par6, 0))
 				meta = 0;

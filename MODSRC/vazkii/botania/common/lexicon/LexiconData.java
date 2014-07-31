@@ -370,11 +370,13 @@ public final class LexiconData {
 		pylon = new BLexiconEntry(LibLexicon.DEVICE_PYLON, categoryDevices);
 		pylon.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipePylon));
 
-		manaEnchanting = new BLexiconEntry(LibLexicon.DEVICE_MANA_ENCHANTING, categoryDevices);
-		manaEnchanting.setLexiconPages(new PageText("0"), new PageText("1"),
-				new PageImage("2", LibResources.ENTRY_ENCHANTER0), new PageImage("3", LibResources.ENTRY_ENCHANTER1), new PageImage("4", LibResources.ENTRY_ENCHANTER2), new PageImage("5", LibResources.ENTRY_ENCHANTER3),
-				new PageText("6"), new PageText("7"), new PageText("8"), new PageText("9"), new PageText("10"));
-
+		if(ConfigHandler.enchanterEnabled) {
+			manaEnchanting = new BLexiconEntry(LibLexicon.DEVICE_MANA_ENCHANTING, categoryDevices);
+			manaEnchanting.setLexiconPages(new PageText("0"), new PageText("1"),
+					new PageImage("2", LibResources.ENTRY_ENCHANTER0), new PageImage("3", LibResources.ENTRY_ENCHANTER1), new PageImage("4", LibResources.ENTRY_ENCHANTER2), new PageImage("5", LibResources.ENTRY_ENCHANTER3),
+					new PageText("6"), new PageText("7"), new PageText("8"), new PageText("9"), new PageText("10"));
+		}
+		
 		turntable = new BLexiconEntry(LibLexicon.DEVICE_TURNTABLE, categoryDevices);
 		turntable.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeTurntable));
 
