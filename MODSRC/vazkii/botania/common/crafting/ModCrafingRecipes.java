@@ -183,6 +183,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeEnderEyeBlock;
 	public static IRecipe recipeItemFinder;
 	public static IRecipe recipeSuperLavaPendant;
+	public static IRecipe recipeEnderHand;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1135,6 +1136,15 @@ public final class ModCrafingRecipes {
 				'N', new ItemStack(Blocks.nether_brick),
 				'G', LibOreDict.LIFE_ESSENCE);
 		recipeSuperLavaPendant = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Hand of Ender Recipe
+		addOreDictRecipe(new ItemStack(ModItems.enderHand), 
+				"PLO", "LEL", "OL ",
+				'P', LibOreDict.PIXIE_DUST,
+				'L', new ItemStack(Items.leather),
+				'E', new ItemStack(Blocks.ender_chest),
+				'O', new ItemStack(Blocks.obsidian));
+		recipeEnderHand = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

@@ -1295,6 +1295,13 @@ botania.entry.skyDirtRod=Rod of the Highlands
 botania.page.skyDirtRod0=While the &1Rod of the Lands&0 is all well and good, being able to place &1Dirt&0 without something to hold it would be great.<br>The &1Rod of the Highlands&0 does just that, while maintaining the original power of the &1Rod of the Lands&0, it can also place &1Dirt&0 in mid air, for an increased &4Mana&0 cost.
 botania.page.skyDirtRod1=Dirty Stick mk2
 
+# -- HAND OF ENDER
+botania.entry.enderHand=Hand of Ender
+botania.page.enderHand0=The &1Hand of Ender&0 allows the user to access the interdimensional ender field, on other words, their &1Ender Chest&0 inventory. This can be done anywhere by right clicking with the hand at the cost of some &4Mana&0.<br>Using the hand on another player will open up &otheir&r inventory instead, at a lot higher &4Mana&0 cost.
+botania.page.enderHand0a=The &1Hand of Ender&0 allows the user to access the interdimensional ender field, on other words, their &1Ender Chest&0 inventory. This can be done anywhere by right clicking with the hand at the cost of some &4Mana&0.
+botania.page.enderHand1=Zezima hates him!
+botania.page.enderHand1a=It's like the 4G of Ender Chests
+
 # - BAUBLES
 # -- AN INTRODUCTION TO BAUBLES
 botania.entry.bIntro=An Introduction to Baubles
@@ -1394,7 +1401,7 @@ botania.page.itemFinder2=Do you hear their voices?
 # -- CRIMSON PENDANT
 botania.entry.superLavaPendant=Crimson Pendant
 botania.page.superLavaPendant0=The &1Crimson Pendant&0 is, in simple terms, an upgraded counterpart to the &1Pyroclast Pendant&0, wearing it provides the wearer immunity to all fire and lava damage, instead of just extinguishing them.
-botania.page.superLavaPendant1=The Crimson Prince
+botania.page.superLavaPendant1=Runner-up on Monolith Code
 
 # - ALFHOMANCY
 # -- THE PORTAL TO ALFHEIM

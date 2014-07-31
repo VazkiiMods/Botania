@@ -43,6 +43,7 @@ public final class ConfigHandler {
 	public static boolean versionCheckEnabled = true;
 	public static int spreaderPositionShift = 1;
 	public static boolean flowerForceCheck = true;
+	public static boolean enderPickpocketEnabled = true;
 
 	public static boolean fallenKanadeEnabled = true;
 	public static boolean darkQuartzEnabled = true;

@@ -117,6 +117,7 @@ public final class LibLexicon {
 	public static final String TOOL_LAPUTA_SHARD = "laputaShard";
 	public static final String TOOL_VIRUS = "virus";
 	public static final String TOOL_SKY_DIRT_ROD = "skyDirtRod";
+	public static final String TOOL_ENDER_HAND = "enderHand";
 
 	public static final String BAUBLE_INTRO = "bIntro";
 	public static final String BAUBLE_TINY_PLANET = "tinyPlanet";

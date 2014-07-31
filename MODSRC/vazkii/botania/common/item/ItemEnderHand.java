@@ -15,10 +15,12 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemEnderHand extends ItemMod {
+public class ItemEnderHand extends ItemMod implements IManaUsingItem {
 
 	private static final int COST_SELF = 250;
 	private static final int COST_OTHER = 5000;
@@ -40,7 +42,7 @@ public class ItemEnderHand extends ItemMod {
 
 	@Override
 	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer iplayer, EntityLivingBase entity) {
-		if(entity instanceof EntityPlayer && ManaItemHandler.requestManaExact(stack, iplayer, COST_OTHER, false)) {
+		if(ConfigHandler.enderPickpocketEnabled && entity instanceof EntityPlayer && ManaItemHandler.requestManaExact(stack, iplayer, COST_OTHER, false)) {
 			iplayer.displayGUIChest(((EntityPlayer) entity).getInventoryEnderChest());
 			ManaItemHandler.requestManaExact(stack, iplayer, COST_OTHER, true);
 			iplayer.worldObj.playSoundAtEntity(iplayer, "mob.endermen.portal", 1F, 1F);
@@ -48,6 +50,11 @@ public class ItemEnderHand extends ItemMod {
 		}
 		
 		return false;
+	}
+
+	@Override
+	public boolean usesMana(ItemStack stack) {
+		return true;
 	}
 
 }
