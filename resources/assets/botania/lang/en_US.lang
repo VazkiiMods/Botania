@@ -655,6 +655,7 @@ item.botania:terrasteelHelmReveal.name=Terrasteel Helmet of Revealing
 item.botania:elementiumHelmReveal.name=Elementium Helmet of Revealing
 item.botania:itemFinder.name=The Spectator
 item.botania:superLavaPendant.name=Crimson Pendant
+item.botania:enderHand.name=Hand of Ender
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania, %s Edition's Index - Pick which category you would like to study:

@@ -146,6 +146,7 @@ public final class ModItems {
 	public static Item skyDirtRod;
 	public static Item itemFinder;
 	public static Item superLavaPendant;
+	public static Item enderHand;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -228,7 +229,8 @@ public final class ModItems {
 		skyDirtRod = new ItemSkyDirtRod();
 		itemFinder = new ItemItemFinder();
 		superLavaPendant = new ItemSuperLavaPendant();
-		
+		enderHand = new ItemEnderHand();
+
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));

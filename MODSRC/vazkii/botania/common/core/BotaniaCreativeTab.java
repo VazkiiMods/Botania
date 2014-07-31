@@ -78,6 +78,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.forestDrum);
 		addBlock(ModBlocks.forestEye);
 		addBlock(ModBlocks.enderEye);
+		addItem(ModItems.enderHand);
 		addItem(ModItems.spawnerMover);
 		addBlock(ModBlocks.spawnerClaw);
 
