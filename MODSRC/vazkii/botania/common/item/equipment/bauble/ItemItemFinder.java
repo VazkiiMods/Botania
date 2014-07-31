@@ -11,12 +11,14 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityHorse;
+import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.AnimalChest;
@@ -25,6 +27,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
+import net.minecraft.village.MerchantRecipe;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
@@ -97,25 +100,37 @@ public class ItemItemFinder extends ItemBauble {
 					ItemStack istack = item.getEntityItem();
 					if(player.isSneaking() || (istack.isItemEqual(pstack) && ItemStack.areItemStackTagsEqual(istack, pstack)))
 						positionsBuilder.append(item.getEntityId()).append(";");
+					
 				} else if(e instanceof IInventory) {
 					IInventory inv = (IInventory) e;
 					if(scanInventory(inv, pstack))
 						positionsBuilder.append(e.getEntityId()).append(";");
+					
 				} else if(e instanceof EntityHorse) {
 					EntityHorse horse = (EntityHorse) e;
 					AnimalChest chest = ReflectionHelper.getPrivateValue(EntityHorse.class, horse, LibObfuscation.HORSE_CHEST);
 					if(scanInventory(chest, pstack))
 						positionsBuilder.append(horse.getEntityId()).append(";");
+					
 				} else if(e instanceof EntityPlayer) {
 					EntityPlayer player_ = (EntityPlayer) e;
 					InventoryPlayer inv = player_.inventory;
 					InventoryBaubles binv = PlayerHandler.getPlayerBaubles(player_);
 					if(scanInventory(inv, pstack) || scanInventory(binv, pstack))
 						positionsBuilder.append(player_.getEntityId()).append(";");
+					
+				} else if(e instanceof EntityVillager) {
+					EntityVillager villager = (EntityVillager) e;
+					ArrayList<MerchantRecipe> recipes = villager.getRecipes(player);
+					if(pstack != null)
+						for(MerchantRecipe recipe : recipes)
+							if(!recipe.isRecipeDisabled() && (equalStacks(pstack, recipe.getItemToBuy()) || equalStacks(pstack, recipe.getItemToSell())))
+								positionsBuilder.append(villager.getEntityId()).append(";");
+					
 				} else if(e instanceof EntityLivingBase) {
 					EntityLivingBase living = (EntityLivingBase) e;
 					ItemStack estack = living.getEquipmentInSlot(0);
-					if(pstack != null && estack != null && estack.isItemEqual(pstack) && ItemStack.areItemStackTagsEqual(estack, pstack))
+					if(pstack != null && estack != null && equalStacks(estack, pstack))
 						positionsBuilder.append(living.getEntityId()).append(";");
 				}
 			}
@@ -148,6 +163,10 @@ public class ItemItemFinder extends ItemBauble {
 			PacketHandler.INSTANCE.sendToAll(new PacketSyncBauble(player, 0));
 		}
 	}
+	
+	boolean equalStacks(ItemStack stack1, ItemStack stack2) {
+		return stack1.isItemEqual(stack2) && ItemStack.areItemStackTagsEqual(stack1, stack2);
+	}
 
 	boolean scanInventory(IInventory inv, ItemStack pstack) {
 		if(pstack == null)
@@ -155,7 +174,7 @@ public class ItemItemFinder extends ItemBauble {
 
 		for(int l = 0; l < inv.getSizeInventory(); l++) {
 			ItemStack istack = inv.getStackInSlot(l);
-			if(istack != null && istack.isItemEqual(pstack) && ItemStack.areItemStackTagsEqual(istack, pstack))
+			if(istack != null && equalStacks(istack, pstack))
 				return true;
 		}
 
