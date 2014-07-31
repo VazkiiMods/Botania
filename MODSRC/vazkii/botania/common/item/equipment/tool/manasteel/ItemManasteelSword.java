@@ -61,7 +61,7 @@ public class ItemManasteelSword extends ItemSword implements IManaUsingItem {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister par1IconRegister) {
-		itemIcon = IconHelper.forItem(par1IconRegister, this);
+		super.registerIcons(par1IconRegister);
 		elucidatorIcon = IconHelper.forName(par1IconRegister, "elucidator");
 	}
 
@@ -74,7 +74,7 @@ public class ItemManasteelSword extends ItemSword implements IManaUsingItem {
 
 	@Override
 	public IIcon getIconIndex(ItemStack par1ItemStack) {
-		return par1ItemStack.getDisplayName().equals("The Elucidator") ? elucidatorIcon : super.getIconIndex(par1ItemStack);
+		return par1ItemStack.getDisplayName().equalsIgnoreCase("the elucidator") ? elucidatorIcon : super.getIconIndex(par1ItemStack);
 	}
 
 	@Override
