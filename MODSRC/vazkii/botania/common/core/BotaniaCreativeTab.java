@@ -207,6 +207,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.travelBelt);
 		addItem(ModItems.superTravelBelt);
 		addItem(ModItems.knockbackBelt);
+		addItem(ModItems.itemFinder);
 		addItem(ModItems.icePendant);
 		addItem(ModItems.lavaPendant);
 		addItem(ModItems.goldLaurel);
