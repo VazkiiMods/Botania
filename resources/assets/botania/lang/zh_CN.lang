@@ -86,6 +86,7 @@ darkQuartz.enabled=启用烟熏石英
 fallenKanade.enabled=启用天降之奏
 manaEnchanter.enabled=启用魔力附魔台
 flower.forceCheck=花的对象检查
+enderPickpocket.enabled=启用末影扒手
 flowerParticles.frequency=花粒子频率
 lexicon.enable.rotatingItems=辞典页面物品旋转特效
 lexicon.render.3D=3D辞典渲染
@@ -654,6 +655,8 @@ item.botania:manasteelHelmReveal.name=魔钢揭示头盔
 item.botania:terrasteelHelmReveal.name=泰拉钢揭示头盔
 item.botania:elementiumHelmReveal.name=源质钢揭示头盔
 item.botania:itemFinder.name=寻物者
+item.botania:superLavaPendant.name=绯红项链
+item.botania:enderHand.name=末影之手
 
 # GUI TEXT
 botania.gui.lexicon.header=植物魔法辞典, %s 版目录 - 选择你要浏览的章节:
@@ -1293,6 +1296,13 @@ botania.entry.skyDirtRod=高原法杖
 botania.page.skyDirtRod0=尽管&1大地法杖&0十分出色,但若能不依靠其他东西而放置&1泥土&0就更好了.<br>&1高原法杖&0就是那样的,保有&1大地法杖&0原本的力量同时,它也能在半空中放置&1泥土&0,多消耗一点&4魔力&0.
 botania.page.skyDirtRod1=mk2型泥土棍
 
+# -- HAND OF ENDER
+botania.entry.enderHand=末影之手
+botania.page.enderHand0=&1末影之手&0让使用者能跨维度 触及末界,换言之就是&1末影箱&0 的物品栏.无论何地只需用这 个手右击并消耗一些&4魔力&0.<br>若对其他玩家使用则会相应 打开&o他们的&r末影物品栏,消耗 更多的&4魔力&0.
+botania.page.enderHand0a=&1末影之手&0让使用者能跨维度 触及末界,换言之就是&1末影箱&0 的物品栏.无论何地只需用这 个手右击并消耗一些&4魔力&0.
+botania.page.enderHand1=Zezima hates him!
+botania.page.enderHand1a=就像是4G版的末影箱
+
 # - BAUBLES
 # -- AN INTRODUCTION TO BAUBLES
 botania.entry.bIntro=饰品介绍
@@ -1388,6 +1398,11 @@ botania.entry.itemFinder=寻物者
 botania.page.itemFinder0=&1寻物者&0是一个增强穿戴者对 世界感知能力的头饰.当你手 持某个物品,任何有同种物品 的&4容器&0(箱子,矿车,带箱子的 驴,熔炉等等...),同种物品 的&4掉落物&0,装备该物品的&4怪物&0 &o(...)&r
 botania.page.itemFinder1=&o(...)&r物品栏拥有该物品的 &4玩家&0和有与该物品相关交易 的&4村民&0都会闪烁着绿光,使他 们更容易被认出.<br>而潜行时,穿戴者附近所有的 掉落物品都会发光,不管是什 么种类.
 botania.page.itemFinder2=你听见它们的细语了么?
+
+# -- CRIMSON PENDANT
+botania.entry.superLavaPendant=绯红项链
+botania.page.superLavaPendant0=&1绯红项链&0简而言之,就是&1火石&0 &1项链&0的升级版,穿着时能提供 对火和岩浆的免疫力,而不是 单纯的灭火.
+botania.page.superLavaPendant1=[秘碑解码]亚军
 
 # - ALFHOMANCY
 # -- THE PORTAL TO ALFHEIM
