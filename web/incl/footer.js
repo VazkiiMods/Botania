@@ -1,4 +1,4 @@
-const censorChars = 'abcdefghijklmnopkrstuvwxyz';
+const censorChars = 'abcdefghijklmnopqrstuvwxyz';
 var animating = false;
 
 $(function() {
