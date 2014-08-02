@@ -61,8 +61,8 @@ public class RenderLexicon implements IItemRenderer {
 		model.render(null, 0F, 0F, pageFlip, opening, 0F, 1F / 16F);
 		if(ticks < 3) {
 			FontRenderer font = Minecraft.getMinecraft().fontRenderer;
-			GL11.glRotatef(180F, 0F, 0F, 0F);
-			GL11.glTranslatef(-0.3F, -0.2F, 0.07F);
+			GL11.glRotatef(180F, 0F, 0F, 1F);
+			GL11.glTranslatef(-0.3F, -0.2F, -0.07F);
 			GL11.glScalef(0.0035F, 0.0035F, 0.0035F);
 			boolean bevo = Minecraft.getMinecraft().thePlayer.getCommandSenderName().equalsIgnoreCase("BevoLJ");
 			boolean saice = Minecraft.getMinecraft().thePlayer.getCommandSenderName().equalsIgnoreCase("saice");
