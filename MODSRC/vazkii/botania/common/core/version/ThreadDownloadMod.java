@@ -78,7 +78,7 @@ public class ThreadDownloadMod extends Thread {
 				Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentTranslation("botania.versioning.doneDownloading", fileName).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.GREEN)));
 
 			Desktop.getDesktop().open(dir);
-			VersionChecker.downloadedFile = true;
+			VersionChecker.downloadedFile = false;
 
 			outputStream.close();
 			webReader.close();
