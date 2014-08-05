@@ -27,6 +27,7 @@ import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.common.block.tile.TileForestEye;
 import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -136,6 +137,17 @@ public class BlockRuneAltar extends BlockModContainer implements IWandable, ILex
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileRuneAltar();
+	}
+
+	@Override
+	public boolean hasComparatorInputOverride() {
+		return true;
+	}
+
+	@Override
+	public int getComparatorInputOverride(World par1World, int par2, int par3, int par4, int par5) {
+		TileRuneAltar altar = (TileRuneAltar) par1World.getTileEntity(par2, par3, par4);
+		return altar.signal;
 	}
 
 	@Override
