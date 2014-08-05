@@ -36,6 +36,8 @@ public final class ConfigHandler {
 	public static boolean blockBreakParticlesTool = true;
 	public static boolean elfPortalParticlesEnabled = true;
 	public static boolean chargingAnimationEnabled = true;
+	public static boolean useVanillaParticleLimiter = true;
+	
 	public static boolean altFlowerTextures = false;
 	public static boolean matrixMode = false;
 	public static boolean referencesEnabled = true;
@@ -109,6 +111,9 @@ public final class ConfigHandler {
 		desc = "Set to false to disable the animation when an item is charging on top of a mana pool.";
 		chargingAnimationEnabled = loadPropBool("chargeAnimation.enabled", desc, chargingAnimationEnabled);
 
+		desc = "Set to false to always display all particles regardless of the \"Particles\" setting in the Vanilla options menu.";
+		useVanillaParticleLimiter = loadPropBool("vanillaParticleConfig.enabled", desc, useVanillaParticleLimiter);
+		
 		desc = "Set to true to use alternate flower textures by Futureazoo, not all flowers are textured. http://redd.it/2b3o3f";
 		altFlowerTextures = loadPropBool("flowerTextures.alt", desc, altFlowerTextures);
 
