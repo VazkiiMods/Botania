@@ -83,6 +83,9 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem {
 			int yCenter = (int) par3EntityPlayer.posY - (par2World.isRemote ? 2 : 1);
 			int zCenter = (int) par3EntityPlayer.posZ;
 
+			if(yCenter < 62) // Not below sea level
+				return;
+			
 			int yStart = yCenter + range;
 
 			List<CoordsWithBlock> blocks = new ArrayList();
