@@ -32,6 +32,7 @@ import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.tile.TileCraftCrate;
 import vazkii.botania.common.block.tile.TileOpenCrate;
+import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -78,6 +79,18 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 	@Override
 	public int damageDropped(int meta) {
 		return meta;
+	}
+	
+
+	@Override
+	public boolean hasComparatorInputOverride() {
+		return true;
+	}
+
+	@Override
+	public int getComparatorInputOverride(World par1World, int par2, int par3, int par4, int par5) {
+		TileOpenCrate crate = (TileOpenCrate) par1World.getTileEntity(par2, par3, par4);
+		return crate.getSignal();
 	}
 	
 	@Override

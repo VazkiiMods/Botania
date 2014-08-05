@@ -23,6 +23,8 @@ import vazkii.botania.common.item.ModItems;
 
 public class TileCraftCrate extends TileOpenCrate {
 
+	int signal = 0;
+	
 	@Override
 	public int getSizeInventory() {
 		return 10;
@@ -42,6 +44,16 @@ public class TileCraftCrate extends TileOpenCrate {
 	public void updateEntity() {
 		if(!worldObj.isRemote && craft(true) && canEject())
 			ejectAll();
+		
+		int newSignal = 0;
+		for(; newSignal < 9; newSignal++) // dis for loop be derpy
+			if(getStackInSlot(newSignal) == null)
+				break;
+		
+		if(newSignal != signal) {
+			signal = newSignal;
+			worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
+		}
 	}
 
 	boolean craft(boolean fullCheck) {
@@ -91,7 +103,7 @@ public class TileCraftCrate extends TileOpenCrate {
 	}
 
 	void ejectAll() {
-		for(int i = 0; i < getSizeInventory(); i++) {
+		for(int i = 0; i < getSizeInventory(); ++i) {
 			ItemStack stack = getStackInSlot(i);
 			if(stack != null)
 				eject(stack, false);
@@ -104,5 +116,10 @@ public class TileCraftCrate extends TileOpenCrate {
 		craft(false);
 		ejectAll();
 		return true;
+	}
+	
+	@Override
+	public int getSignal() {
+		return signal;
 	}
 }
