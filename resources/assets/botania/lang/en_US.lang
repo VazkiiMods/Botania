@@ -723,7 +723,7 @@ botania.page.runeAltar0=&1Runes&0 are extremely important components of complex 
 botania.page.runeAltar1=Proceed by linking a &1Mana Spreader&0 to the altar, and right click it with a &1Wand of the Forest&0.<br>It should be apparent when the altar has received enough &4Mana&0. When that happens, just drop a piece of &1Livingrock&0 on top of it and use the wand on it again to collect your rune.
 botania.page.runeAltar2=Crafting the &1Runic Altar&0.
 botania.page.runeAltar3=A total of 16 &1Runes&0 exist.<br>The most basic and elementary runes are named after the &4Four Elements&0. The intermediate runes are named after the &4Four Seasons&0, and the most advanced runes are named after the &4Seven Deadly Sins&0. A separate &1Rune of Mana&0 also exists.
-botania.page.runeAltar20=Last but not least, sneaking and right-clicking the &1Runic Altar&0 with an empty hand while it's not accepting mana will remove the last item put into it.
+botania.page.runeAltar20=Sneaking and right-clicking the &1Runic Altar&0 with an empty hand while it's not accepting mana will remove the last item put into it.<br>Last but not least, attaching a &1Comparator&0 to it will emit singnal strength &41&0 if the altar is accepting &4Mana&0 and signal strength &42&0 if it's ready to craft the rune.
 botania.page.runeAltar4=The &1Rune of Water&0.
 botania.page.runeAltar5=The &1Rune of Earth&0.
 botania.page.runeAltar6=The &1Rune of Air&0.
@@ -1142,6 +1142,7 @@ botania.page.craftCrate1=The items go in from left to right and top to bottom (i
 botania.page.craftCrate2=Creating the placeholder
 botania.page.craftCrate3=To finish the recipe, one of two things can be done.<br>First off, filling every of the 9 slots with either recipe components or placeholders will instantly eject the result, the placeholders and any lefovers (e.g. buckets when making cake), this is the most straightforward method.
 botania.page.craftCrate4=Right clicking the crate with a &1Wand of the Forest&0 (remember: &1Dispensers&0 can do this) will attempt at crafting with whatever is inside the crate and eject it.<br>If this fails all the items inside are simply ejected with no crafting procedure done.
+botania.page.craftCrate7=Attaching a &1Comparator&0 to the crate will have it emit a signal equal to the amount of items inside the crate, which can be an extremely valuable asset in creating mechanisms with it.
 botania.page.craftCrate5=An example of crafting a &1Diamond Pickaxe&0
 botania.page.craftCrate6=Made in Portugal
 
