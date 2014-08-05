@@ -11,6 +11,7 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -50,7 +51,7 @@ public class ItemTravelBelt extends ItemBauble {
 
 		if(entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entity;
-			if((player.onGround || player.capabilities.isFlying) && player.moveForward > 0F)
+			if((player.onGround || player.capabilities.isFlying) && player.moveForward > 0F && !player.isInsideOfMaterial(Material.water))
 				player.moveFlying(0F, 1F, player.capabilities.isFlying ? speed : speed * 2);
 
 			if(player.isSneaking())
