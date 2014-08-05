@@ -14,6 +14,7 @@ package vazkii.botania.common.block.subtile.functional;
 import java.util.List;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.boss.IBossDisplayData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -41,7 +42,7 @@ public class SubTileTangleberrie extends SubTileFunctional {
 			List<EntityLivingBase> entities = supertile.getWorldObj().getEntitiesWithinAABB(EntityLivingBase.class, boundingBox);
 
 			for(EntityLivingBase entity : entities) {
-				if(entity instanceof EntityPlayer)
+				if(entity instanceof EntityPlayer || entity instanceof IBossDisplayData)
 					continue;
 
 				double x2 = entity.posX;
