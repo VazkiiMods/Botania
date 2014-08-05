@@ -60,6 +60,9 @@ public class ItemItemFinder extends ItemBauble {
 	}
 
 	public void tickClient(ItemStack stack, EntityPlayer player) {
+		if(!Botania.proxy.isTheClientPlayer(player))
+			return;
+		
 		String pos = ItemNBTHelper.getString(stack, TAG_POSITIONS, "");
 		String[] tokens = pos.split(";");
 		for(String token : tokens) {
