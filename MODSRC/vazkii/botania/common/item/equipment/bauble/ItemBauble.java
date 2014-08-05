@@ -41,17 +41,27 @@ public abstract class ItemBauble extends ItemMod implements IBauble {
 	@Override
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
 		InventoryBaubles baubles = PlayerHandler.getPlayerBaubles(par3EntityPlayer);
-		for(int i = 0; i < baubles.getSizeInventory(); i++)
-			if(baubles.getStackInSlot(i) == null && baubles.isItemValidForSlot(i, par1ItemStack)) {
-				if(!par2World.isRemote) {
-					baubles.setInventorySlotContents(i, par1ItemStack.copy());
-					if(!par3EntityPlayer.capabilities.isCreativeMode)
-						par3EntityPlayer.inventory.setInventorySlotContents(par3EntityPlayer.inventory.currentItem, null);
-				}
+		for(int i = 0; i < baubles.getSizeInventory(); i++) {
+			if(baubles.isItemValidForSlot(i, par1ItemStack)) {
+				ItemStack stackInSlot = baubles.getStackInSlot(i);
+				if(stackInSlot == null || ((IBauble) stackInSlot.getItem()).canUnequip(stackInSlot, par3EntityPlayer)) {
+	 				if(!par2World.isRemote) {
+						baubles.setInventorySlotContents(i, par1ItemStack.copy());
+						if(!par3EntityPlayer.capabilities.isCreativeMode)
+							par3EntityPlayer.inventory.setInventorySlotContents(par3EntityPlayer.inventory.currentItem, null);
+					}
 
-				onEquipped(par1ItemStack, par3EntityPlayer);
-				break;
+					onEquipped(par1ItemStack, par3EntityPlayer);
+					
+					if(stackInSlot != null) {
+						((IBauble) stackInSlot.getItem()).onUnequipped(stackInSlot, par3EntityPlayer);
+						return stackInSlot.copy();
+					}
+					break;
+				}
 			}
+		}
+
 
 		return par1ItemStack;
 	}
