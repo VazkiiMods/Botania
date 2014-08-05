@@ -46,7 +46,7 @@ public final class ModRuneRecipes {
 	public static RecipeRuneAltar recipeHead;
 
 	public static void init() {
-		final int costTier1 = 10000;
+		final int costTier1 = 8500;
 		final int costTier2 = 4000;
 		final int costTier3 = 6000;
 
