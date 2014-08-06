@@ -185,6 +185,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeItemFinder;
 	public static IRecipe recipeSuperLavaPendant;
 	public static IRecipe recipeEnderHand;
+	public static IRecipe recipeGlassPick;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1153,6 +1154,14 @@ public final class ModCrafingRecipes {
 				'O', new ItemStack(Blocks.obsidian));
 		recipeEnderHand = BotaniaAPI.getLatestAddedRecipe();
 
+		// Vitreous Pickaxe Recipe
+		addOreDictRecipe(new ItemStack(ModItems.glassPick),
+				"GIG", " T ", " T ",
+				'G', new ItemStack(Blocks.glass),
+				'I', LibOreDict.MANA_STEEL,
+				'T', LibOreDict.LIVINGWOOD_TWIG);
+		recipeGlassPick = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",

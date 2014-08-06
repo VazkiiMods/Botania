@@ -1336,6 +1336,11 @@ botania.page.enderHand0a=The &1Hand of Ender&0 allows the user to access the int
 botania.page.enderHand1=Zezima hates him!
 botania.page.enderHand1a=It's like the 4G of Ender Chests
 
+# -- VITREOUS PICKAXE
+botania.entry.glassPick=Vitreous Pickaxe
+botania.page.glassPick0=Placing down &1Glass&0 and having to break it again can be a heartbreaking experience. Luckilly, by creating a &1Vitreous Pickaxe&0, one can gather the &1Glass&0 back by mining it with the pick, it's like cheap &4Silk Touch&0 for glass!
+botania.page.glassPick1=Trapped inside with food
+
 # - BAUBLES
 # -- AN INTRODUCTION TO BAUBLES
 botania.entry.bIntro=An Introduction to Baubles

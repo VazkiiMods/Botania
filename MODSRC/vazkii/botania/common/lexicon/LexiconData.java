@@ -140,6 +140,8 @@ public final class LexiconData {
 	public static LexiconEntry laputaShard;
 	public static LexiconEntry virus;
 	public static LexiconEntry skyDirtRod;
+	public static LexiconEntry enderHand;
+	public static LexiconEntry glassPick;
 
 	public static LexiconEntry baublesIntro;
 	public static LexiconEntry tinyPlanet;
@@ -160,7 +162,6 @@ public final class LexiconData {
 	public static LexiconEntry reachRing;
 	public static LexiconEntry itemFinder;
 	public static LexiconEntry superLavaPendant;
-	public static LexiconEntry enderHand;
 
 	public static LexiconEntry alfhomancyIntro;
 	public static LexiconEntry elvenMessage;
@@ -492,6 +493,9 @@ public final class LexiconData {
 		enderHand = new ALexiconEntry(LibLexicon.TOOL_ENDER_HAND, categoryTools);
 		enderHand.setLexiconPages(new PageText(ConfigHandler.enderPickpocketEnabled ? "0" : "0a"), new PageCraftingRecipe(ConfigHandler.enderPickpocketEnabled ? "1" : "1a", ModCrafingRecipes.recipeEnderHand));
 
+		glassPick = new BLexiconEntry(LibLexicon.TOOL_GLASS_PICK, categoryTools);
+		glassPick.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeGlassPick));
+		
 		// BAUBLES ENTRIES
 		baublesIntro = new BLexiconEntry(LibLexicon.BAUBLE_INTRO, categoryBaubles);
 		baublesIntro.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_BAUBLES), new PageText("2"));
