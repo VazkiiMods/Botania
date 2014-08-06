@@ -165,6 +165,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeLensFire;
 	public static IRecipe recipeLensPiston;
 	public static List<IRecipe> recipesLaputaShard;
+	public static List<IRecipe> recipesLaputaShardUpgrade;
 	public static IRecipe recipeVirusZombie;
 	public static IRecipe recipeVirusSkeleton;
 	public static IRecipe recipeReachRing;
@@ -1025,6 +1026,10 @@ public final class ModCrafingRecipes {
 					'E', LibOreDict.RUNE[2]);
 		recipesLaputaShard = BotaniaAPI.getLatestAddedRecipes(16);
 
+		for(int i = 1; i < 20; i++)
+			addShapelessOreDictRecipe(new ItemStack(ModItems.laputaShard, 1, i), LibOreDict.LIFE_ESSENCE,new ItemStack(ModItems.laputaShard, 1, i - 1));
+		recipesLaputaShardUpgrade = BotaniaAPI.getLatestAddedRecipes(19);
+		
 		// Necrodermal Virus Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.virus), LibOreDict.PIXIE_DUST, new ItemStack(ModItems.vineBall), new ItemStack(Items.magma_cream), new ItemStack(Items.fermented_spider_eye), new ItemStack(Items.ender_eye), new ItemStack(Items.skull, 1, 2));
 		recipeVirusZombie = BotaniaAPI.getLatestAddedRecipe();

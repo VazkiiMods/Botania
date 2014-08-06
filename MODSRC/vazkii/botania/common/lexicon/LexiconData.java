@@ -481,7 +481,7 @@ public final class LexiconData {
 		vineBall.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCrafingRecipes.recipeVineBall), new PageCraftingRecipe("3", ModCrafingRecipes.recipeSlingshot));
 
 		laputaShard = new ALexiconEntry(LibLexicon.TOOL_LAPUTA_SHARD, categoryTools);
-		laputaShard.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipesLaputaShard));
+		laputaShard.setLexiconPages(new PageText("0"), new PageText("2"), new PageCraftingRecipe("1", ModCrafingRecipes.recipesLaputaShard), new PageCraftingRecipe("3", ModCrafingRecipes.recipesLaputaShardUpgrade));
 
 		virus = new ALexiconEntry(LibLexicon.TOOL_VIRUS, categoryTools);
 		virus.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeVirusZombie), new PageCraftingRecipe("2", ModCrafingRecipes.recipeVirusSkeleton));

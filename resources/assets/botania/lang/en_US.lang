@@ -46,6 +46,7 @@ botaniamisc.bottleTooltip=It has an acquired taste
 botaniamisc.coarseDirt0=Coarse Dirt, grass
 botaniamisc.coarseDirt1=won't grow on it
 botaniamisc.spawnerTip=Tip: Use a Spawn Egg to change the mob
+botaniamisc.shardLevel=Shard Power %s
 
 # COLORS
 botania.color0=White
@@ -73,6 +74,28 @@ botania.rank2=&bB
 botania.rank3=&aA
 botania.rank4=&dS
 botania.rank5=&6SS
+
+# ROMAN NUMERALS
+botania.roman1=I
+botania.roman2=II
+botania.roman3=III
+botania.roman4=IV
+botania.roman5=V
+botania.roman6=VI
+botania.roman7=VII
+botania.roman8=VIII
+botania.roman9=IX
+botania.roman10=X
+botania.roman11=XI
+botania.roman12=XII
+botania.roman13=XIII
+botania.roman14=XIV
+botania.roman15=XV
+botania.roman16=XVI
+botania.roman17=XVII
+botania.roman18=XVIII
+botania.roman19=XIX
+botania.roman20=XX
 
 # KNOWLEDGE
 botania.knowledge.minecraft=Minecraftian Knowledge
@@ -1286,7 +1309,9 @@ botania.page.vineBall3=...if that actually existed.
 # -- SHARD OF LAPUTA
 botania.entry.laputaShard=Shard of Laputa
 botania.page.laputaShard0=Via a somewhat complex magic activation sequence, combining a few interesting resources, including &1Gaia Spirits&0 would allow one to create a shard that, when used on the ground, will allow one to lift a spherical area around that point up into the air.<br>This process consumes the shard and can take upwards of ten minutes depending on the mass of land.
+botania.page.laputaShard2=The radius of the island creates start at 14 blocks, on other words, 28 blocks of diameter. It's possible to increase the size by upgrading the shard with aditional &1Gaia Spirits&0, each one adds 1 block to the radius, or 2 to the diameter.
 botania.page.laputaShard1=Look Shiro, Laputa exists!
+botania.page.laputaShard3=Size does matter
 
 # -- EQUESTRIAN VIRUS
 botania.entry.virus=Equestrian Virus

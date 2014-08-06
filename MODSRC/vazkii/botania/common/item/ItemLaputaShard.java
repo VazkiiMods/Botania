@@ -11,14 +11,19 @@
  */
 package vazkii.botania.common.item;
 
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
@@ -43,32 +48,47 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 
 	public ItemLaputaShard() {
 		setUnlocalizedName(LibItemNames.LAPUTA_SHARD);
+		setHasSubtypes(true);
+	}
+
+	@Override
+	public void getSubItems(Item item, CreativeTabs tab, List list) {
+		super.getSubItems(item, tab, list);
+		for(int i = 0; i < 4; i++)
+			list.add(new ItemStack(item, 1, (i + 1) * 5 - 1));
+	}
+
+	@Override
+	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean adv) {
+		list.add(String.format(StatCollector.translateToLocal("botaniamisc.shardLevel"), StatCollector.translateToLocal("botania.roman" + (stack.getItemDamage() + 1))));
 	}
 
 	@Override
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
 		if(par5 < 160 && !par3World.provider.isHellWorld) {
 			par3World.playSound(par4 + 0.5D, par5 + 0.5D, par6 + 0.5D, "mob.zombie.remedy", 1.0F + par3World.rand.nextFloat(), par3World.rand.nextFloat() * 0.7F + 1.3F, false);
-			spawnBurst(par3World, par4, par5, par6);
+			spawnBurst(par3World, par4, par5, par6, par1ItemStack);
 			par1ItemStack.stackSize--;
 		}
 
 		return true;
 	}
 
-	public void spawnBurst(World world, int srcx, int srcy, int srcz) {
+	public void spawnBurstFirst(World world, int srcx, int srcy, int srcz, ItemStack lens) {
 		boolean pointy = world.rand.nextDouble() < 0.25;
 		double heightscale = world.rand.nextDouble() + 0.5;
-		spawnBurst(world, srcx, srcy, srcz, pointy, heightscale);
+		spawnBurst(world, srcx, srcy, srcz, lens, pointy, heightscale);
 	}
 
 	public void spawnBurst(World world, int srcx, int srcy, int srcz, ItemStack lens) {
 		boolean pointy = ItemNBTHelper.getBoolean(lens, TAG_POINTY, false);
 		double heightscale = ItemNBTHelper.getDouble(lens, TAG_HEIGHTSCALE, 1);
-		spawnBurst(world, srcx, srcy, srcz, pointy, heightscale);
+
+		spawnBurst(world, srcx, srcy, srcz, lens, pointy, heightscale);
 	}
-	public void spawnBurst(World world, int srcx, int srcy, int srcz, boolean pointy, double heightscale) {
-		int range = 14;
+
+	public void spawnBurst(World world, int srcx, int srcy, int srcz, ItemStack lens, boolean pointy, double heightscale) {
+		int range = 14 + lens.getItemDamage();
 
 		if(!world.isRemote) {
 			for(int i = 0; i < range * 2 + 1; i++)
@@ -78,7 +98,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 						int y = srcy - range + j;
 						int z = srcz - range + k;
 
-						if(inRange(x, y, z, srcx, srcy, srcz,range, heightscale, pointy)) {
+						if(inRange(x, y, z, srcx, srcy, srcz, range, heightscale, pointy)) {
 							Block block = world.getBlock(x, y, z);
 							if(!block.isAir(world, x, y, z) && !block.isReplaceable(world, x, y, z) && !(block instanceof BlockFalling) && (!(block instanceof ILaputaImmobile) || ((ILaputaImmobile) block).canMove(world, x, y, z)) && block.getBlockHardness(world, x, y, z) != -1) {
 								int id = Block.getIdFromBlock(block);
@@ -92,20 +112,20 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 								world.setBlockToAir(x, y, z);
 								world.playAuxSFX(2001, x, y, z, id + (meta << 12));
 
-								ItemStack lens = new ItemStack(this);
-								ItemNBTHelper.setInt(lens, TAG_BLOCK, id);
-								ItemNBTHelper.setInt(lens, TAG_META, meta);
+								ItemStack copyLens = new ItemStack(this, 1, lens.getItemDamage());
+								ItemNBTHelper.setInt(copyLens, TAG_BLOCK, id);
+								ItemNBTHelper.setInt(copyLens, TAG_META, meta);
 								NBTTagCompound cmp = new NBTTagCompound();
 								if(tile != null)
 									tile.writeToNBT(cmp);
-								ItemNBTHelper.setCompound(lens, TAG_TILE, cmp);
-								ItemNBTHelper.setInt(lens, TAG_X, srcx);
-								ItemNBTHelper.setInt(lens, TAG_Y, srcy);
-								ItemNBTHelper.setInt(lens, TAG_Z, srcz);
-								ItemNBTHelper.setBoolean(lens, TAG_POINTY, pointy);
-								ItemNBTHelper.setDouble(lens, TAG_HEIGHTSCALE, heightscale);
+								ItemNBTHelper.setCompound(copyLens, TAG_TILE, cmp);
+								ItemNBTHelper.setInt(copyLens, TAG_X, srcx);
+								ItemNBTHelper.setInt(copyLens, TAG_Y, srcy);
+								ItemNBTHelper.setInt(copyLens, TAG_Z, srcz);
+								ItemNBTHelper.setBoolean(copyLens, TAG_POINTY, pointy);
+								ItemNBTHelper.setDouble(copyLens, TAG_HEIGHTSCALE, heightscale);
 
-								EntityManaBurst burst = getBurst(world, x, y, z, lens);
+								EntityManaBurst burst = getBurst(world, x, y, z, copyLens);
 								world.spawnEntityInWorld(burst);
 								return;
 							}
@@ -114,12 +134,12 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 		}
 	}
 
-	private boolean inRange(int x,int y,int z,int srcx, int srcy, int srcz, int range, double heightscale, boolean pointy) {
+	private boolean inRange(int x, int y, int z, int srcx, int srcy, int srcz, int range, double heightscale, boolean pointy) {
 		if(y >= srcy)
 			return MathHelper.pointDistanceSpace(x, 0, z, srcx, 0, srcz) < range;
 		else if(!pointy)
-			return MathHelper.pointDistanceSpace(x, y/heightscale, z, srcx, srcy/heightscale, srcz) < range;
-		else return MathHelper.pointDistanceSpace(x, 0, z, srcx, 0, srcz) < range-(srcy-y)/heightscale;
+			return MathHelper.pointDistanceSpace(x, y / heightscale, z, srcx, srcy / heightscale, srcz) < range;
+		else return MathHelper.pointDistanceSpace(x, 0, z, srcx, 0, srcz) < range - (srcy - y) / heightscale;
 	}
 
 	public EntityManaBurst getBurst(World world, int x, int y, int z, ItemStack stack) {
@@ -158,7 +178,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 			entity.motionY = 0.35;
 			entity.motionZ = 0;
 
-			final int spawnTicks = 3;
+			final int spawnTicks = 1000;
 			final int placeTicks = 120;
 
 			ItemStack lens = burst.getSourceLens();
