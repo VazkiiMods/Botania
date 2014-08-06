@@ -22,6 +22,7 @@ import net.minecraft.tileentity.TileEntity;
 import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.TileSignature;
 import vazkii.botania.client.core.handler.LightningHandler.LightningBolt;
+import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.item.ItemTwigWand;
@@ -40,8 +41,10 @@ public class ClientTickHandler {
 		if(event.phase == Phase.END) {
 			LightningBolt.update();
 
-			if(Minecraft.getMinecraft().theWorld == null)
+			if(Minecraft.getMinecraft().theWorld == null) {
+				ClientProxy.hasRingReachIncrease = false;
 				ManaNetworkHandler.instance.clear();
+			}
 
 			GuiScreen gui = Minecraft.getMinecraft().currentScreen;
 			if(gui == null || !gui.doesGuiPauseGame()) {
