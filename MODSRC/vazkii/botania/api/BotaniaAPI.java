@@ -254,6 +254,13 @@ public final class BotaniaAPI {
 	}
 
 	/**
+	 * Gets all registered entries.
+	 */
+	public static List<LexiconEntry> getAllEntries() {
+		return allEntries;
+	}
+	
+	/**
 	 * Registers a Lexicon Entry and adds it to the category passed in.
 	 */
 	public static void addEntry(LexiconEntry entry, LexiconCategory category) {

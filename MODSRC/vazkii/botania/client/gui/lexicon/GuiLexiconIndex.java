@@ -21,6 +21,7 @@ import net.minecraft.util.StatCollector;
 
 import org.lwjgl.input.Mouse;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -28,6 +29,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonBack;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonInvisible;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonPage;
+import vazkii.botania.common.lexicon.LexiconData;
 
 public class GuiLexiconIndex extends GuiLexicon implements IParented {
 
@@ -42,7 +44,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 
 	public GuiLexiconIndex(LexiconCategory category) {
 		this.category = category;
-		title = StatCollector.translateToLocal(category.getUnlocalizedName());
+		title = StatCollector.translateToLocal(category == null ? "botaniamisc.lexiconIndex" : category.getUnlocalizedName());
 		parent = new GuiLexicon();
 	}
 
@@ -65,7 +67,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 
 		entriesToDisplay.clear();
 		ILexicon lex = (ILexicon) stackUsed.getItem();
-		for(LexiconEntry entry : category.entries) {
+		for(LexiconEntry entry : category == null ? BotaniaAPI.getAllEntries() : category.entries) {
 			if(lex.isKnowledgeUnlocked(stackUsed, entry.getKnowledgeType()))
 				entriesToDisplay.add(entry);
 		}

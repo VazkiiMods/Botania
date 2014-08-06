@@ -131,17 +131,15 @@ public class GuiLexicon extends GuiScreen {
 		if(par1GuiButton.id >= BOOKMARK_START)
 			handleBookmark(par1GuiButton);
 		else {
-			int i = par1GuiButton.id - 3;
+			int i = par1GuiButton.id - 2;
 			if(i < 0)
 				return;
 
 			List<LexiconCategory> categoryList = BotaniaAPI.getAllCategories();
 			LexiconCategory category = i >= categoryList.size() ? null : categoryList.get(i);
 
-			if(category != null) {
-				mc.displayGuiScreen(new GuiLexiconIndex(category));
-				ClientTickHandler.notifyPageChange();
-			}
+			mc.displayGuiScreen(new GuiLexiconIndex(category));
+			ClientTickHandler.notifyPageChange();
 		}
 	}
 
@@ -198,13 +196,17 @@ public class GuiLexicon extends GuiScreen {
 
 	void populateIndex() {
 		List<LexiconCategory> categoryList = BotaniaAPI.getAllCategories();
-		for(int i = 3; i < 12; i++) {
-			int i_ = i - 3;
+		int shift = 2;
+		for(int i = shift; i < 12; i++) {
+			int i_ = i - shift;
 			GuiButtonInvisible button = (GuiButtonInvisible) buttonList.get(i);
 			LexiconCategory category = i_ >= categoryList.size() ? null : categoryList.get(i_);
 			if(category != null)
 				button.displayString = StatCollector.translateToLocal(category.getUnlocalizedName());
-			else button.displayString = "";
+			else {
+				button.displayString = StatCollector.translateToLocal("botaniamisc.lexiconIndex");
+				break;
+			}
 		}
 	}
 
