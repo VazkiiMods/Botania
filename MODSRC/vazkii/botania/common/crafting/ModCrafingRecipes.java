@@ -733,11 +733,12 @@ public final class ModCrafingRecipes {
 		recipesShinyFlowers = BotaniaAPI.getLatestAddedRecipes(16);
 
 		// Abstruse Platform Recipe
-		GameRegistry.addRecipe(new ItemStack(ModBlocks.platform),
-				"343", "0 0",
+		addOreDictRecipe(new ItemStack(ModBlocks.platform, 2),
+				"343", "0P0",
 				'0', new ItemStack(ModBlocks.livingwood, 0, 0),
 				'3', new ItemStack(ModBlocks.livingwood, 0, 3),
-				'4', new ItemStack(ModBlocks.livingwood, 0, 4));
+				'4', new ItemStack(ModBlocks.livingwood, 0, 4),
+				'P', LibOreDict.MANA_PEARL);
 		recipePlatform = BotaniaAPI.getLatestAddedRecipe();
 
 		// Soulscribe Recipe
@@ -884,11 +885,12 @@ public final class ModCrafingRecipes {
 		recipeRainbowRod = BotaniaAPI.getLatestAddedRecipe();
 
 		// Spectral Platform Recipe
-		GameRegistry.addRecipe(new ItemStack(ModBlocks.platform, 1, 1),
-				"343", "0 0",
+		addOreDictRecipe(new ItemStack(ModBlocks.platform, 2, 1),
+				"343", "0D0",
 				'0', new ItemStack(ModBlocks.dreamwood, 0, 0),
 				'3', new ItemStack(ModBlocks.dreamwood, 0, 3),
-				'4', new ItemStack(ModBlocks.dreamwood, 0, 4));
+				'4', new ItemStack(ModBlocks.dreamwood, 0, 4),
+				'D', LibOreDict.PIXIE_DUST);
 		recipeSpectralPlatform = BotaniaAPI.getLatestAddedRecipe();
 
 		// Elven Mana Spreader Recipes

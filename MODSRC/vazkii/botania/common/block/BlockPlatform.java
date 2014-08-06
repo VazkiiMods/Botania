@@ -26,6 +26,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.tile.TileCamo;
 import vazkii.botania.common.block.tile.TilePlatform;
@@ -34,7 +35,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class BlockPlatform extends BlockCamo implements ILexiconable {
+public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable {
 
 	IIcon[] icons;
 	private static final int SUBTYPES = 3;
@@ -103,6 +104,12 @@ public class BlockPlatform extends BlockCamo implements ILexiconable {
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		int meta = world.getBlockMetadata(x, y, z);
 		return meta == 0 ? LexiconData.platform : meta == 2 ? null : LexiconData.spectralPlatform;
+	}
+
+	@Override
+	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
+		TilePlatform tile = (TilePlatform) world.getTileEntity(x, y, z);
+		return tile.onWanded(player);
 	}
 
 }
