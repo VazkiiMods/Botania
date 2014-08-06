@@ -1131,6 +1131,7 @@ botania.page.forestDrum2=But if you close your eyes...
 # -- ABSTRUSE PLATFORM
 botania.entry.platform=Abstruse Platform
 botania.page.platform0=By laying &1Livingwood&0 on a very specific format it's possible to create a platform of sorts, that only has a physical body for whoever is on top of it and isn't sneaking. For anyone else, it's like it's not there. &4Mana Bursts&0 will always travel through it without any trouble.<br>It's also possible to camouflage this block as any other simple block by simply right clicking it.
+botania.page.platform2=Right clicking a platform with a block in it with a &1Wand of the Forest&0 will change all connected platforms with no block set to them to the block on the one clicked. Shift-right clicking removes all blocks.
 botania.page.platform1=It would be Ethereal but the name was taken
 
 # -- CONJURING WITH MANA
