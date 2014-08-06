@@ -683,6 +683,7 @@ item.botania:elementiumHelmReveal.name=Elementium Helmet of Revealing
 item.botania:itemFinder.name=The Spectator
 item.botania:superLavaPendant.name=Crimson Pendant
 item.botania:enderHand.name=Hand of Ender
+item.botania:glassPick.name=Vitreous Pickaxe
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania, %s Edition Table of Contents

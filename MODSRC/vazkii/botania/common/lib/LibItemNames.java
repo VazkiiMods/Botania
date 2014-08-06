@@ -94,6 +94,7 @@ public final class LibItemNames {
 	public static final String ITEM_FINDER = "itemFinder";
 	public static final String SUPER_LAVA_PENDANT = "superLavaPendant";
 	public static final String ENDER_HAND = "enderHand";
+	public static final String GLASS_PICK = "glassPick";
 
 	public static final String[] LENS_NAMES = new String[] {
 		"lensNormal",
