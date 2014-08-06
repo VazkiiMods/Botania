@@ -3,8 +3,8 @@ package vazkii.botania.common.item.equipment.armor.elementium;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.item.IPixieSpawner;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.core.handler.PixieHandler.IPixieSpawner;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 

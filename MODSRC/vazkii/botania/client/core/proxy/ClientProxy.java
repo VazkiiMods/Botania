@@ -22,6 +22,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings.GameType;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
+import vazkii.botania.api.item.IExtendedPlayerController;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.handler.BotaniaPlayerController;
 import vazkii.botania.client.core.handler.BoundTileRenderer;
@@ -164,7 +165,7 @@ public class ClientProxy extends CommonProxy {
 		Minecraft mc = Minecraft.getMinecraft();
 		EntityPlayer player = mc.thePlayer;
 		if(entity == player) {
-			if(!(mc.playerController instanceof BotaniaPlayerController)) {
+			if(!(mc.playerController instanceof IExtendedPlayerController)) {
 				GameType type = ReflectionHelper.getPrivateValue(PlayerControllerMP.class, mc.playerController, LibObfuscation.CURRENT_GAME_TYPE);
 				NetHandlerPlayClient net = ReflectionHelper.getPrivateValue(PlayerControllerMP.class, mc.playerController, LibObfuscation.NET_CLIENT_HANDLER);
 				BotaniaPlayerController controller = new BotaniaPlayerController(mc, net);
@@ -172,7 +173,7 @@ public class ClientProxy extends CommonProxy {
 				mc.playerController = controller;
 			}
 
-			((BotaniaPlayerController) mc.playerController).distance = reach;
+			((IExtendedPlayerController) mc.playerController).setReachDistanceExtension(reach);
 		}
 	}
 

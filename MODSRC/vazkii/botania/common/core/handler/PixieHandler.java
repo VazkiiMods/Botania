@@ -5,6 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import vazkii.botania.api.item.IPixieSpawner;
 import vazkii.botania.common.entity.EntityPixie;
 import vazkii.botania.common.item.ModItems;
 import baubles.common.container.InventoryBaubles;
@@ -50,12 +51,6 @@ public class PixieHandler {
 			return ((IPixieSpawner) item).getPixieChance(stack);
 
 		return 0F;
-	}
-
-	public static interface IPixieSpawner {
-
-		public float getPixieChance(ItemStack stack);
-
 	}
 
 }

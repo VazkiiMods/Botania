@@ -2,7 +2,7 @@ package vazkii.botania.common.item.equipment.tool.elementium;
 
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.core.handler.PixieHandler.IPixieSpawner;
+import vazkii.botania.api.item.IPixieSpawner;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 import vazkii.botania.common.lib.LibItemNames;
 
