@@ -36,5 +36,10 @@ public class BotaniaPlayerController extends PlayerControllerMP implements IExte
 	public void setReachDistanceExtension(float f) {
 		distance = f;
 	}
+
+	@Override
+	public float getReachDistanceExtension() {
+		return distance;
+	}
 	
 }

@@ -22,4 +22,8 @@ public interface IExtendedPlayerController {
 	 */
 	public void setReachDistanceExtension(float f);
 	
+	/**
+	 * Gets the current reach extension.
+	 */
+	public float getReachDistanceExtension();
 }
