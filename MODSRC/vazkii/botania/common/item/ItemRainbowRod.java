@@ -78,7 +78,7 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem {
 			}
 
 			if(count > 0) {
-				par2World.playSoundAtEntity(par3EntityPlayer, "random.levelup", 0.5F, 0.25F);
+				par2World.playSoundAtEntity(par3EntityPlayer, "botania:bifrostRod", 0.5F, 0.25F);
 				ManaItemHandler.requestManaExact(par1ItemStack, par3EntityPlayer, MANA_COST, false);
 				par1ItemStack.setItemDamage(TIME);
 			}

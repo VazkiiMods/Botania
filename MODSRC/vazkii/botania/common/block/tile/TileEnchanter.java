@@ -110,7 +110,7 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 				float blue = (float) Math.random();
 				Botania.proxy.wispFX(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, red, green, blue, (float) Math.random() * 0.15F + 0.15F, (float) (Math.random() - 0.5F) * 0.25F, (float) (Math.random() - 0.5F) * 0.25F, (float) (Math.random() - 0.5F) * 0.25F);
 			}
-			worldObj.playSoundEffect(xCoord, yCoord, zCoord, "mob.blaze.breathe", 0.5F, 10F);
+			worldObj.playSoundEffect(xCoord, yCoord, zCoord, "botania:enchanterBlock", 0.5F, 10F);
 		}
 
 		switch(stage) {
@@ -131,7 +131,7 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 								short enchantLvl = enchant.getShort("lvl");
 								if(!hasEnchantAlready(enchantId)) {
 									this.enchants.add(new EnchantmentData(enchantId, enchantLvl));
-									worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.orb", 1F, 1F);
+									worldObj.playSoundEffect(xCoord, yCoord, zCoord, "botania:ding", 1F, 1F);
 									addedEnch = true;
 									break;
 								}
@@ -236,7 +236,7 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 	}
 
 	public void craftingFanciness() {
-		worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.levelup", 1F, 1F);
+		worldObj.playSoundEffect(xCoord, yCoord, zCoord, "botania:enchanterEnchant", 1F, 1F);
 		for(int i = 0; i < 25; i++) {
 			float red = (float) Math.random();
 			float green = (float) Math.random();

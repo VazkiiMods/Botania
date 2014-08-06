@@ -86,8 +86,6 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 
 		if(worldObj.isRemote && manaToGet > 0 && mana >= manaToGet) {
 			if(worldObj.rand.nextInt(20) == 0) {
-				worldObj.playSoundEffect(xCoord, yCoord, zCoord, "mob.creeper.live", 1F, 1F);
-
 				Vector3 vec = Vector3.fromTileEntityCenter(this);
 				Vector3 endVec = vec.copy().add(0, 2.5, 0);
 				Botania.proxy.lightningFX(worldObj, vec, endVec, 2F, 0x00948B, 0x00E4D7);
@@ -125,7 +123,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 		}
 
 		if(manaToGet != this.manaToGet) {
-			worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.orb", 1F, 1F);
+			worldObj.playSoundEffect(xCoord, yCoord, zCoord, "botania:runeAltarStart", 1F, 1F);
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 		}
 	}
@@ -179,7 +177,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 	}
 
 	public void craftingFanciness() {
-		worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.levelup", 1F, 1F);
+		worldObj.playSoundEffect(xCoord, yCoord, zCoord, "botania:runeAltarCraft", 1F, 1F);
 		for(int i = 0; i < 25; i++) {
 			float red = (float) Math.random();
 			float green = (float) Math.random();

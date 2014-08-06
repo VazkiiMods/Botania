@@ -1,0 +1,23 @@
+{
+	"airRod": { "category": "neutral", "sounds":["airRod"] },
+	"altarCraft": { "category": "neutral", "sounds":["altarCraft"] },
+	"bifrostRod": { "category": "neutral", "sounds":["bifrostRod"] },
+	"ding": { "category": "neutral", "sounds":["ding"] },
+	"divaCharm": { "category": "neutral", "sounds":["divaCharm"] },
+	"enchanterBlock": { "category": "neutral", "sounds":["enchanterBlock"] },
+	"enchanterEnchant": { "category": "neutral", "sounds":["enchanterEnchant"] },
+	"equipBauble": { "category": "neutral", "sounds":["equipBauble"] },
+	"gaiaTrap": { "category": "neutral", "sounds":["gaiaTrap"] },
+	"goldenLaurel": { "category": "neutral", "sounds":["goldenLaurel"] },
+	"laputaStart": { "category": "neutral", "sounds":["laputaStart"] },
+	"lexiconOpen": { "category": "neutral", "sounds":["lexiconOpen"] },
+	"lexiconPage": { "category": "neutral", "sounds":["lexiconPage"] },
+	"manaBlaster": { "category": "neutral", "sounds":["manaBlaster"] },
+	"manaPoolCraft": { "category": "neutral", "sounds":["manaPoolCraft"] },
+	"runeAltarCraft": { "category": "neutral", "sounds":["runeAltarCraft"] },
+	"runeAltarStart": { "category": "neutral", "sounds":["runeAltarStart"] },
+	"terraBlade": { "category": "neutral", "sounds":["terraBlade"] },
+	"terraformRod": { "category": "neutral", "sounds":["terraformRod"] },
+	"terraPickMode": { "category": "neutral", "sounds":["terraPickMode"] },
+	"terrasteelCraft": { "category": "neutral", "sounds":["terrasteelCraft"] }
+}

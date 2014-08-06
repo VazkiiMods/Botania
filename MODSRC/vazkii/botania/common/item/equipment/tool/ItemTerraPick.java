@@ -86,7 +86,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem {
 		if(level != 0) {
 			setEnabled(par1ItemStack, !isEnabled(par1ItemStack));
 			if(!par2World.isRemote)
-				par2World.playSoundAtEntity(par3EntityPlayer, "random.orb", 0.5F, 0.4F);
+				par2World.playSoundAtEntity(par3EntityPlayer, "botania:terraPickMode", 0.5F, 0.4F);
 		}
 
 		return par1ItemStack;

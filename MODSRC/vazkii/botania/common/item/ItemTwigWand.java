@@ -117,7 +117,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 
 			if(meta != -1 && !par3World.isRemote) {
 				par3World.setBlock(par4, par5, par6, ModBlocks.enchanter, meta, 1 | 2);
-				par3World.playSoundEffect(par4, par5, par6, "random.levelup", 0.5F, 0.6F);
+				par3World.playSoundEffect(par4, par5, par6, "botania:enchanterBlock", 0.5F, 0.6F);
 				for(int i = 0; i < 50; i++) {
 					float red = (float) Math.random();
 					float green = (float) Math.random();
@@ -143,7 +143,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 
 				if(par3World.isRemote)
 					par2EntityPlayer.swingItem();
-				par3World.playSoundAtEntity(par2EntityPlayer, "random.orb", 0.1F, 1F);
+				par3World.playSoundAtEntity(par2EntityPlayer, "botania:ding", 0.1F, 1F);
 
 				setTicksSinceSpreaderUse(par1ItemStack, 0);
 				wanded = true;

@@ -50,7 +50,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 				EntityManaBurst burst = getBurst(player, par1ItemStack);
 				par2World.spawnEntityInWorld(burst);
 				ToolCommons.damageItem(par1ItemStack, 1, player, MANA_PER_DAMAGE);
-				par2World.playSoundAtEntity(player, "random.levelup", 0.4F, 1.4F);
+				par2World.playSoundAtEntity(player, "botania:terraBlade", 0.4F, 1.4F);
 			}
 		}
 	}

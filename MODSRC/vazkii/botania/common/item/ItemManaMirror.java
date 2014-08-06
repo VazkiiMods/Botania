@@ -99,7 +99,7 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 			TileEntity tile = par3World.getTileEntity(par4, par5, par6);
 			if(tile != null && tile instanceof IManaPool) {
 				bindPool(par1ItemStack, tile);
-				par3World.playSoundAtEntity(par2EntityPlayer, "random.orb", 1F, 1F);
+				par3World.playSoundAtEntity(par2EntityPlayer, "botania:ding", 1F, 1F);
 				return true;
 			}
 		}

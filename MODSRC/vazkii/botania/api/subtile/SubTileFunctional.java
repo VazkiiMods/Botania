@@ -136,7 +136,7 @@ public class SubTileFunctional extends SubTileEntity {
 			return false;
 
 		knownMana = mana;
-		player.worldObj.playSoundAtEntity(player, "random.orb", 0.1F, 1F);
+		player.worldObj.playSoundAtEntity(player, "botania:ding", 0.1F, 1F);
 
 		return super.onWanded(player, wand);
 	}

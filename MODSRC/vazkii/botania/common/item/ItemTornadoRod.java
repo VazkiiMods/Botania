@@ -85,7 +85,7 @@ public class ItemTornadoRod extends ItemMod {
 			player.fallDistance = 0F;
 			player.motionY = 1.25;
 			stack.setItemDamage(Math.min(max, stack.getItemDamage() + FALL_MULTIPLIER));
-			player.worldObj.playSoundAtEntity(player, "mob.blaze.breathe", 0.1F, 0.25F);
+			player.worldObj.playSoundAtEntity(player, "botania:airRod", 0.1F, 0.25F);
 			for(int i = 0; i < 5; i++)
 				Botania.proxy.wispFX(player.worldObj, player.posX, player.posY, player.posZ, 0.25F, 0.25F, 0.25F, 0.35F + (float) Math.random() * 0.1F, 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
 		}

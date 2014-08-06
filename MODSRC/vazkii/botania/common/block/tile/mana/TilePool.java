@@ -154,8 +154,8 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked {
 
 	public void craftingFanciness() {
 		if(soundTicks == 0) {
-			worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.levelup", 0.25F, 4F);
-			soundTicks = 10;
+			worldObj.playSoundEffect(xCoord, yCoord, zCoord, "botania:manaPoolCraft", 0.4F, 4F);
+			soundTicks = 6;
 		}
 
 		for(int i = 0; i < 25; i++) {
@@ -287,7 +287,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked {
 				((EntityPlayerMP) player).playerNetServerHandler.sendPacket(new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, -999, nbttagcompound));
 		}
 
-		worldObj.playSoundAtEntity(player, "random.orb", 0.11F, 1F);
+		worldObj.playSoundAtEntity(player, "botania:ding", 0.11F, 1F);
 	}
 
 	public void renderHUD(Minecraft mc, ScaledResolution res) {

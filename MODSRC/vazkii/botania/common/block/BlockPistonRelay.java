@@ -127,7 +127,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 
 		if(!player.isSneaking()) {
 			playerPositions.put(player.getCommandSenderName(), getCoordsAsString(world.provider.dimensionId, x, y, z));
-			world.playSoundEffect(x, y, z, "random.orb", 0.5F, 1F);
+			world.playSoundEffect(x, y, z, "botania:ding", 0.5F, 1F);
 		} else {
 			dropBlockAsItem(world, x, y, z, new ItemStack(this));
 			world.setBlockToAir(x, y, z);

@@ -40,7 +40,7 @@ public final class TerrasteelCraftingHandler {
 			if(time != -1) {
 				doParticles(item, time);
 				if(time == TIME)
-					item.worldObj.playSoundAtEntity(item, "random.levelup", 1F, 1F);
+					item.worldObj.playSoundAtEntity(item, "botania:terrasteelCraft", 1F, 1F);
 
 				getManaFromPools : {
 					int x = MathHelper.floor_double(item.posX);

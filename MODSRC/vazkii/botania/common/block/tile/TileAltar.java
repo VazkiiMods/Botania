@@ -114,7 +114,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 	}
 
 	public void craftingFanciness() {
-		worldObj.playSoundEffect(xCoord, yCoord, zCoord, "random.levelup", 1F, 1F);
+		worldObj.playSoundEffect(xCoord, yCoord, zCoord, "botania:altarCraft", 1F, 1F);
 		for(int i = 0; i < 25; i++) {
 			float red = (float) Math.random();
 			float green = (float) Math.random();

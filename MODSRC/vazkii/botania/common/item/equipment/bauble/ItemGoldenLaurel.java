@@ -42,7 +42,7 @@ public class ItemGoldenLaurel extends ItemBauble {
 				player.setHealth(player.getMaxHealth());
 				player.addPotionEffect(new PotionEffect(Potion.resistance.id, 300, 6));
 				player.addChatMessage(new ChatComponentTranslation("botaniamisc.savedByLaurel"));
-				player.worldObj.playSoundAtEntity(player, "random.levelup", 1F, 0.3F);
+				player.worldObj.playSoundAtEntity(player, "botania:goldenLaurel", 1F, 0.3F);
 				PlayerHandler.getPlayerBaubles(player).setInventorySlotContents(0, null);
 			}
 		}

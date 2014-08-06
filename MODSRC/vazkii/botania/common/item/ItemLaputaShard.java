@@ -66,7 +66,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 	@Override
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
 		if(par5 < 160 && !par3World.provider.isHellWorld) {
-			par3World.playSound(par4 + 0.5D, par5 + 0.5D, par6 + 0.5D, "mob.zombie.remedy", 1.0F + par3World.rand.nextFloat(), par3World.rand.nextFloat() * 0.7F + 1.3F, false);
+			par3World.playSound(par4 + 0.5D, par5 + 0.5D, par6 + 0.5D, "botania:laputaStart", 1.0F + par3World.rand.nextFloat(), par3World.rand.nextFloat() * 0.7F + 1.3F, false);
 			spawnBurst(par3World, par4, par5, par6, par1ItemStack);
 			par1ItemStack.stackSize--;
 		}

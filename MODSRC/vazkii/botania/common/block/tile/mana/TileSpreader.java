@@ -275,7 +275,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 				if(player instanceof EntityPlayerMP)
 					((EntityPlayerMP) player).playerNetServerHandler.sendPacket(new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, -999, nbttagcompound));
 			}
-			worldObj.playSoundAtEntity(player, "random.orb", 0.1F, 1F);
+			worldObj.playSoundAtEntity(player, "botania:ding", 0.1F, 1F);
 		} else {
 			MovingObjectPosition pos = raytraceFromEntity(worldObj, player, true, 5);
 			if(pos != null && pos.hitVec != null && !worldObj.isRemote) {
