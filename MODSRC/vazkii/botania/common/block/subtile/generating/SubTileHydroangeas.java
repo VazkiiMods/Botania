@@ -54,7 +54,7 @@ public class SubTileHydroangeas extends SubTileGenerating {
 					else if(randomInt2 == 2)
 						positions[1] = supertile.zCoord - 1;
 
-					if(supertile.getWorldObj().getBlock(positions[0], supertile.yCoord, positions[1]) == getBlockToSearchFor() && supertile.getWorldObj().getBlockMetadata(positions[0], supertile.yCoord, positions[1]) == 0) {
+					if(supertile.getWorldObj().getBlock(positions[0], supertile.yCoord, positions[1]) == getBlockToSearchFor() && (getBlockToSearchBelow() == null || supertile.getWorldObj().getBlock(positions[0], supertile.yCoord - 1, positions[1]) == getBlockToSearchBelow()) && supertile.getWorldObj().getBlockMetadata(positions[0], supertile.yCoord, positions[1]) == 0) {
 						supertile.getWorldObj().setBlockToAir(positions[0], supertile.yCoord, positions[1]);
 						didSomething = true;
 						burnTime += getBurnTime();
@@ -76,6 +76,10 @@ public class SubTileHydroangeas extends SubTileGenerating {
 
 	public Block getBlockToSearchFor() {
 		return Blocks.water;
+	}
+	
+	public Block getBlockToSearchBelow() {
+		return null;
 	}
 
 	public int getBurnTime() {

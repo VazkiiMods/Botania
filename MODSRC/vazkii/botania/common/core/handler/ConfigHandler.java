@@ -46,6 +46,7 @@ public final class ConfigHandler {
 	public static int spreaderPositionShift = 1;
 	public static boolean flowerForceCheck = true;
 	public static boolean enderPickpocketEnabled = true;
+	public static boolean thermalilyObsidian = false;
 
 	public static boolean fallenKanadeEnabled = true;
 	public static boolean darkQuartzEnabled = true;
@@ -134,6 +135,9 @@ public final class ConfigHandler {
 
 		desc = "Set to false to disable the ability for the Hand of Ender to pickpocket other players' ender chests.";
 		enderPickpocketEnabled = loadPropBool("enderPickpocket.enabled", desc, enderPickpocketEnabled);
+		
+		desc = "Set to true to only allow the Thermalily to absorb Lava if there's Obsidian below it. Another config option for the Blood Magic balance freaks.";
+		thermalilyObsidian = loadPropBool("thermalily.obsidian", desc, thermalilyObsidian);
 		
 		desc = "Set to false to disable the Fallen Kanade flower (gives Regeneration). This config option is here for those using Blood Magic. Note: Turning this off will not remove ones already in the world, it'll simply prevent the crafting.";
 		fallenKanadeEnabled = loadPropBool("fallenKanade.enabled", desc, fallenKanadeEnabled);

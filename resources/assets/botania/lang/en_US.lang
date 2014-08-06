@@ -110,6 +110,7 @@ fallenKanade.enabled=Enable Fallen Kanade
 manaEnchanter.enabled=Enable Mana Enchanter
 flower.forceCheck=Flower Force Checking
 enderPickpocket.enabled=Enable Ender Pickpocketting
+thermalily.obsidian=Thermalily Needs Obsidian
 flowerParticles.frequency=Flower Particle Frequency
 lexicon.enable.rotatingItems=Lexicon Rotating Items
 lexicon.render.3D=3D Lexicon Render
@@ -1023,6 +1024,7 @@ botania.page.hydroangeas1=&oFrom some Hyperdimension&r?
 # -- THERMALILY
 botania.entry.thermalily=Thermalily
 botania.page.thermalily0=There comes a point where slow generating power, like the &1Hydroangeas&0 or the &1Endoflame&0 is not enough. An answer to that is the &1Thermalily&0, which works similarly to the &1Hydroangeas&0, except with &1Lava&0.
+botania.page.thermalily0a=There comes a point where slow generating power, like the &1Hydroangeas&0 or the &1Endoflame&0 is not enough. An answer to that is the &1Thermalily&0, which works similarly to the &1Hydroangeas&0, except with &1Lava&0.<br>Due to the heat the &1Lava&0 produces, there must be a block of &1Obsidian&0 below it for it to be absorbed.
 botania.page.thermalily1=&oLily ought to know&r.
 
 # -- ROSA ARCANA

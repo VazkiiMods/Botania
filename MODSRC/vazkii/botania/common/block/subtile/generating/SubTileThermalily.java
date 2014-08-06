@@ -15,6 +15,7 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileThermalily extends SubTileHydroangeas {
@@ -39,6 +40,11 @@ public class SubTileThermalily extends SubTileHydroangeas {
 		return Blocks.lava;
 	}
 
+	@Override
+	public Block getBlockToSearchBelow() {
+		return ConfigHandler.thermalilyObsidian ? Blocks.obsidian : null;
+	}
+	
 	@Override
 	public int getDelayBetweenPassiveGeneration() {
 		return 1;
