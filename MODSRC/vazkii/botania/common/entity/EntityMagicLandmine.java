@@ -50,7 +50,7 @@ public class EntityMagicLandmine extends Entity {
 			Botania.proxy.wispFX(worldObj, posX - range + Math.random() * range * 2, posY, posZ - range + Math.random() * range * 2, r, g, b, 0.4F, -0.06F, 1);
 
 		if(ticksExisted >= 55) {
-			worldObj.playSoundEffect(posX, posY, posZ, "random.explode", 0.6F, (1F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 1.4F);
+			worldObj.playSoundEffect(posX, posY, posZ, "botania:gaiaTrap", 0.6F, 1F);
 
 			float m = 0.35F;
 			g = 0.4F;
@@ -61,7 +61,7 @@ public class EntityMagicLandmine extends Entity {
 				List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(posX - range, posY - range, posZ - range, posX + range, posY + range, posZ + range));
 				for(EntityPlayer player : players) {
 					player.attackEntityFrom(summoner == null ? DamageSource.generic : DamageSource.causeMobDamage(summoner), 8);
-					player.addPotionEffect(new PotionEffect(Potion.blindness.id, 80, 0));
+					player.addPotionEffect(new PotionEffect(Potion.blindness.id, 25, 0));
 					player.addPotionEffect(new PotionEffect(Potion.wither.id, 60, 3));
 				}
 			}
