@@ -59,6 +59,8 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 				if(entry != null) {
 					Botania.proxy.setEntryToOpen(entry);
 					par2EntityPlayer.openGui(Botania.instance, LibGuiIDs.LEXICON, par3World, 0, 0, 0);
+					if(!par3World.isRemote)
+						par3World.playSoundAtEntity(par2EntityPlayer, "botania:lexiconOpen", 0.5F, 1F);
 					return true;
 				}
 			}
@@ -118,6 +120,8 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 			forceMessage(par1ItemStack, false);
 		}
 		par3EntityPlayer.openGui(Botania.instance, LibGuiIDs.LEXICON, par2World, 0, 0, 0);
+		if(!par2World.isRemote)
+			par2World.playSoundAtEntity(par3EntityPlayer, "botania:lexiconOpen", 0.5F, 1F);
 		return par1ItemStack;
 	}
 

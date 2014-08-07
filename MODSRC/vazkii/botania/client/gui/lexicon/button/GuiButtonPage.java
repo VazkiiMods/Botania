@@ -22,7 +22,7 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 
-public class GuiButtonPage extends GuiButton {
+public class GuiButtonPage extends GuiButtonLexicon {
 
 	boolean right;
 

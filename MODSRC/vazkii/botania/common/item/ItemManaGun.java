@@ -65,7 +65,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 				EntityManaBurst burst = getBurst(par3EntityPlayer, par1ItemStack, true);
 				if(burst != null && ManaItemHandler.requestManaExact(par1ItemStack, par3EntityPlayer, burst.getMana(), true)) {
 					if(!par2World.isRemote) {
-						par2World.playSoundAtEntity(par3EntityPlayer, "random.explode", 0.9F, 3F);
+						par2World.playSoundAtEntity(par3EntityPlayer, "botania:manaBlaster", 0.6F, 1F);
 						par2World.spawnEntityInWorld(burst);
 					} else {
 						par3EntityPlayer.swingItem();

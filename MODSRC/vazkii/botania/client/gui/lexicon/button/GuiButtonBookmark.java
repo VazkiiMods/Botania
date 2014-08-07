@@ -10,7 +10,7 @@ import net.minecraft.util.StatCollector;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 
-public class GuiButtonBookmark extends GuiButton {
+public class GuiButtonBookmark extends GuiButtonLexicon {
 
 	GuiLexicon gui = new GuiLexicon();
 
