@@ -46,6 +46,8 @@ botaniamisc.bottleTooltip=味道如何
 botaniamisc.coarseDirt0=劣质土,草
 botaniamisc.coarseDirt1=无法生长
 botaniamisc.spawnerTip=Tip:使用刷怪蛋改变怪物类型
+botaniamisc.shardLevel=碎片能量 %s
+botaniamisc.lexiconIndex=辞典目录
 
 # COLORS
 botania.color0=白色
@@ -74,6 +76,28 @@ botania.rank3=&aA
 botania.rank4=&dS
 botania.rank5=&6SS
 
+# ROMAN NUMERALS
+botania.roman1=I
+botania.roman2=II
+botania.roman3=III
+botania.roman4=IV
+botania.roman5=V
+botania.roman6=VI
+botania.roman7=VII
+botania.roman8=VIII
+botania.roman9=IX
+botania.roman10=X
+botania.roman11=XI
+botania.roman12=XII
+botania.roman13=XIII
+botania.roman14=XIV
+botania.roman15=XV
+botania.roman16=XVI
+botania.roman17=XVII
+botania.roman18=XVIII
+botania.roman19=XIX
+botania.roman20=XX
+
 # KNOWLEDGE
 botania.knowledge.minecraft=Minecraftian的知识
 botania.knowledge.alfheim=&a精灵&7的知识
@@ -87,6 +111,7 @@ fallenKanade.enabled=启用天降之奏
 manaEnchanter.enabled=启用魔力附魔台
 flower.forceCheck=花的对象检查
 enderPickpocket.enabled=启用末影扒手
+thermalily.obsidian=炽玫瑰吸收黑曜石上的岩浆
 flowerParticles.frequency=花粒子频率
 lexicon.enable.rotatingItems=辞典页面物品旋转特效
 lexicon.render.3D=3D辞典渲染
@@ -658,9 +683,10 @@ item.botania:elementiumHelmReveal.name=源质钢揭示头盔
 item.botania:itemFinder.name=寻物者
 item.botania:superLavaPendant.name=绯红项链
 item.botania:enderHand.name=末影之手
+item.botania:glassPick.name=玻璃镐
 
 # GUI TEXT
-botania.gui.lexicon.header=植物魔法辞典, %s 版目录 - 选择你要浏览的章节:
+botania.gui.lexicon.header=植物魔法辞典, %s 版目录
 botania.gui.lexicon.wip=(This entry is a Work In Progress. It's not even it's final form)
 
 # LEXICON CATEGORIES
@@ -1000,6 +1026,7 @@ botania.page.hydroangeas1=&oFrom some Hyperdimension&r?
 # -- THERMALILY
 botania.entry.thermalily=炽玫瑰
 botania.page.thermalily0=有时候产能速度太慢了,就像 &1水绣球&0和&1火红莲&0.这个问题的 答案就是&1炽玫瑰&0,原理类似&1水&0 &1绣球&0,但它吸收的是&1岩浆&0.
+botania.page.thermalily0a=有时候产能速度太慢了,就像 &1水绣球&0和&1火红莲&0.这个问题的 答案就是&1炽玫瑰&0,原理类似&1水&0 &1绣球&0,但它吸收的是&1岩浆&0.<br>由于&1岩浆&0产生的热量过高,岩 浆下方需要有一个&1黑曜石&0才 能让花吸收.
 botania.page.thermalily1=&o莉莉应该知道&r.
 
 # -- ROSA ARCANA
@@ -1020,7 +1047,7 @@ botania.page.entropinnyum1=&o耍帅的家伙是不会看爆炸的&r.
 # -- KEKIMURUS
 botania.entry.kekimurus=贪食花
 botania.page.kekimurus0=&1蛋糕&0很美味,人人喜爱,花也 是.<br>&1贪食花&0就是一个&1蛋糕&0狂热者, 它会吃掉附近的蛋糕,用丰富 的营养物制造&4魔力&0.
-botania.page.kekimurus1=&o让它们吃蛋糕&r.
+botania.page.kekimurus1=&oFlaxbeard之花就是它了&r.
 
 # -- GOURMARYLLIS
 botania.entry.gourmaryllis=彼方兰
@@ -1106,6 +1133,7 @@ botania.page.forestDrum2=但如果你闭上了眼睛...
 # -- ABSTRUSE PLATFORM
 botania.entry.platform=奥秘平台
 botania.page.platform0=将&1活木&0摆成一个十分特殊的 形式能做出一种平台,对它上 方未潜行的人来说才有碰撞 箱.而对于其他人,就好像不 在那儿一样.&4魔力脉冲&0总能无 阻碍的穿过它.<br>也可以通过右击将它伪装成 其他方块.
+botania.page.platform2=用&1森林法杖&0右击一个已设定 的平台会将与其相连的平台 都变为所点平台的设定方块, shift右击则会移除所有的 设定.
 botania.page.platform1=本因叫虚无平台的但名字被 取过了(TT)
 
 # -- CONJURING WITH MANA
@@ -1286,7 +1314,9 @@ botania.page.vineBall3=...如果那确实存在的话.
 # -- SHARD OF LAPUTA
 botania.entry.laputaShard=拉普达碎片
 botania.page.laputaShard0=通过有些复杂的激活程序,结 合一些有趣的材料包括&1盖亚&0 &1之魂&0就能制作一个特殊的碎 片,当对土地使用时,就能让 附近一个的球形区域升至空 中.<br>这个过程可持续10分钟并且 根据土地的质量消耗对应量 的碎片.
+botania.page.laputaShard2=创建的岛的初始半径为14格 ,换句话说就是直径28格.可 通过添加&1盖亚之魂&0来升级,每 个增加1格半径,即2格直径.
 botania.page.laputaShard1=看呐白,拉普达真的存在!
+botania.page.laputaShard3=大小很重要
 
 # -- EQUESTRIAN VIRUS
 botania.entry.virus=马类病毒
@@ -1305,6 +1335,11 @@ botania.page.enderHand0=&1末影之手&0让使用者能跨维度 触及末界,�
 botania.page.enderHand0a=&1末影之手&0让使用者能跨维度 触及末界,换言之就是&1末影箱&0 的物品栏.无论何地只需用这 个手右击并消耗一些&4魔力&0.
 botania.page.enderHand1=Zezima hates him!
 botania.page.enderHand1a=就像是4G版的末影箱
+
+# -- VITREOUS PICKAXE
+botania.entry.glassPick=玻璃镐
+botania.page.glassPick0=将&1玻璃&0放置下来后还不得不 破坏掉真是心碎的经历,幸运 的是,做出一把&1玻璃镐&0采集就 不会破坏掉玻璃,这就像是为 玻璃而生的廉价的&4精准采集&0.
+botania.page.glassPick1=请勿与食物放在一起
 
 # - BAUBLES
 # -- AN INTRODUCTION TO BAUBLES
