@@ -259,7 +259,7 @@ public final class BotaniaAPI {
 	public static List<LexiconEntry> getAllEntries() {
 		return allEntries;
 	}
-	
+
 	/**
 	 * Registers a Lexicon Entry and adds it to the category passed in.
 	 */

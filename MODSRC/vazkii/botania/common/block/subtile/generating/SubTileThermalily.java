@@ -44,7 +44,7 @@ public class SubTileThermalily extends SubTileHydroangeas {
 	public Block getBlockToSearchBelow() {
 		return ConfigHandler.thermalilyObsidian ? Blocks.obsidian : null;
 	}
-	
+
 	@Override
 	public int getDelayBetweenPassiveGeneration() {
 		return 1;

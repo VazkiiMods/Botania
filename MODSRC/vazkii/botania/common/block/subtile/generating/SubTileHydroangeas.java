@@ -77,7 +77,7 @@ public class SubTileHydroangeas extends SubTileGenerating {
 	public Block getBlockToSearchFor() {
 		return Blocks.water;
 	}
-	
+
 	public Block getBlockToSearchBelow() {
 		return null;
 	}

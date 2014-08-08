@@ -15,10 +15,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.PositionedSoundRecord;
-import net.minecraft.client.audio.SoundHandler;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
@@ -46,7 +42,7 @@ public class GuiButtonBack extends GuiButtonLexicon {
 		if(k == 2)
 			RenderHelper.renderTooltip(par2, par3 + tooltipY, tooltip);
 	}
-	
+
 	public List<String> getTooltip() {
 		return Arrays.asList(StatCollector.translateToLocal("botaniamisc.back"));
 	}

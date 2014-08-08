@@ -217,7 +217,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	void back() {
 		if(backButton.enabled) {
 			actionPerformed(backButton);
-			backButton.func_146113_a(this.mc.getSoundHandler());
+			backButton.func_146113_a(mc.getSoundHandler());
 		}
 
 	}
@@ -225,14 +225,14 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	void nextPage() {
 		if(rightButton.enabled) {
 			actionPerformed(rightButton);
-			rightButton.func_146113_a(this.mc.getSoundHandler());
+			rightButton.func_146113_a(mc.getSoundHandler());
 		}
 	}
 
 	void prevPage() {
 		if(leftButton.enabled) {
 			actionPerformed(leftButton);
-			leftButton.func_146113_a(this.mc.getSoundHandler());
+			leftButton.func_146113_a(mc.getSoundHandler());
 		}
 	}
 }

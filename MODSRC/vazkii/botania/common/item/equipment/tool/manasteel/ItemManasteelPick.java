@@ -74,7 +74,7 @@ public class ItemManasteelPick extends ItemPickaxe implements IManaUsingItem {
 
 		return true;
 	}
-	
+
 	public int getManaPerDmg() {
 		return MANA_PER_DAMAGE;
 	}

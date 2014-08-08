@@ -36,8 +36,6 @@ public class RenderTileStarfield extends TileEntitySpecialRenderer {
 	private static final ResourceLocation field_147526_d = new ResourceLocation("textures/entity/end_portal.png");
 	private static final Random field_147527_e = new Random(31100L);
 	FloatBuffer field_147528_b = GLAllocation.createDirectFloatBuffer(16);
-	private static final String __OBFID = "CL_00000972";
-
 	@Override
 	public void renderTileEntityAt(TileEntity p_147500_1_, double p_147500_2_, double p_147500_4_, double p_147500_6_, float p_147500_8_) {
 		float f1 = (float)field_147501_a.field_147560_j;
@@ -49,7 +47,7 @@ public class RenderTileStarfield extends TileEntitySpecialRenderer {
 
 		for(int i = 0; i < 16; ++i) {
 			GL11.glPushMatrix();
-			float f5 = (float)(16 - i);
+			float f5 = 16 - i;
 			float f6 = 0.0625F;
 			float f7 = 1.0F / (f5 + 1.0F);
 
@@ -69,11 +67,11 @@ public class RenderTileStarfield extends TileEntitySpecialRenderer {
 				f6 = 0.5F;
 			}
 
-			float f8 = (float)(-(p_147500_4_ + (double)f4));
+			float f8 = (float)-(p_147500_4_ + f4);
 			float f9 = f8 + ActiveRenderInfo.objectY;
 			float f10 = f8 + f5 + ActiveRenderInfo.objectY;
 			float f11 = f9 / f10;
-			f11 += (float)(p_147500_4_ + (double)f4);
+			f11 += (float)(p_147500_4_ + f4);
 			GL11.glTranslatef(f1, f11, f3);
 			GL11.glTexGeni(GL11.GL_S, GL11.GL_TEXTURE_GEN_MODE, GL11.GL_OBJECT_LINEAR);
 			GL11.glTexGeni(GL11.GL_T, GL11.GL_TEXTURE_GEN_MODE, GL11.GL_OBJECT_LINEAR);
@@ -91,10 +89,10 @@ public class RenderTileStarfield extends TileEntitySpecialRenderer {
 			GL11.glMatrixMode(GL11.GL_TEXTURE);
 			GL11.glPushMatrix();
 			GL11.glLoadIdentity();
-			GL11.glTranslatef(0.0F, (float)(Minecraft.getSystemTime() % 20000L) / 20000.0F, 0.0F);
+			GL11.glTranslatef(0.0F, Minecraft.getSystemTime() % 20000L / 20000.0F, 0.0F);
 			GL11.glScalef(f6, f6, f6);
 			GL11.glTranslatef(0.5F, 0.5F, 0.0F);
-			GL11.glRotatef((float)(i * i * 4321 + i * 9) * 2.0F, 0.0F, 0.0F, 1.0F);
+			GL11.glRotatef((i * i * 4321 + i * 9) * 2.0F, 0.0F, 0.0F, 1.0F);
 			GL11.glTranslatef(-0.5F, -0.5F, 0.0F);
 			GL11.glTranslatef(-f1, -f3, -f2);
 			f9 = f8 + ActiveRenderInfo.objectY;
@@ -102,16 +100,16 @@ public class RenderTileStarfield extends TileEntitySpecialRenderer {
 			Tessellator tessellator = Tessellator.instance;
 			tessellator.startDrawingQuads();
 
-			Color color = Color.getHSBColor((float) ((Minecraft.getSystemTime() / 20F) % 360) / 360F, 1F, 1F);
-			f11 = (float) color.getRed() / 255F;
-			float f12 = (float) color.getGreen() / 255F;
-			float f13 = (float) color.getBlue() / 255F;
-			
+			Color color = Color.getHSBColor(Minecraft.getSystemTime() / 20F % 360 / 360F, 1F, 1F);
+			f11 = color.getRed() / 255F;
+			float f12 = color.getGreen() / 255F;
+			float f13 = color.getBlue() / 255F;
+
 			tessellator.setColorRGBA_F(f11 * f7, f12 * f7, f13 * f7, 1.0F);
-			tessellator.addVertex(p_147500_2_, p_147500_4_ + (double)f4, p_147500_6_);
-			tessellator.addVertex(p_147500_2_, p_147500_4_ + (double)f4, p_147500_6_ + 1.0D);
-			tessellator.addVertex(p_147500_2_ + 1.0D, p_147500_4_ + (double)f4, p_147500_6_ + 1.0D);
-			tessellator.addVertex(p_147500_2_ + 1.0D, p_147500_4_ + (double)f4, p_147500_6_);
+			tessellator.addVertex(p_147500_2_, p_147500_4_ + f4, p_147500_6_);
+			tessellator.addVertex(p_147500_2_, p_147500_4_ + f4, p_147500_6_ + 1.0D);
+			tessellator.addVertex(p_147500_2_ + 1.0D, p_147500_4_ + f4, p_147500_6_ + 1.0D);
+			tessellator.addVertex(p_147500_2_ + 1.0D, p_147500_4_ + f4, p_147500_6_);
 			tessellator.draw();
 			GL11.glPopMatrix();
 			GL11.glMatrixMode(GL11.GL_MODELVIEW);

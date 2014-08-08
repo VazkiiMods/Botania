@@ -11,8 +11,6 @@
  */
 package vazkii.botania.client.render.item;
 
-import java.awt.Color;
-
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.ItemStack;
@@ -20,9 +18,6 @@ import net.minecraft.util.IIcon;
 import net.minecraftforge.client.IItemRenderer;
 
 import org.lwjgl.opengl.GL11;
-
-import vazkii.botania.api.mana.ILens;
-import vazkii.botania.common.item.ItemLens;
 
 public class RenderGlassPick implements IItemRenderer {
 
@@ -81,5 +76,5 @@ public class RenderGlassPick implements IItemRenderer {
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 	}
 
-	
+
 }

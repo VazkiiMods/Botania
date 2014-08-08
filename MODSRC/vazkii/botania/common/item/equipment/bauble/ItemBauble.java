@@ -45,14 +45,14 @@ public abstract class ItemBauble extends ItemMod implements IBauble {
 			if(baubles.isItemValidForSlot(i, par1ItemStack)) {
 				ItemStack stackInSlot = baubles.getStackInSlot(i);
 				if(stackInSlot == null || ((IBauble) stackInSlot.getItem()).canUnequip(stackInSlot, par3EntityPlayer)) {
-	 				if(!par2World.isRemote) {
+					if(!par2World.isRemote) {
 						baubles.setInventorySlotContents(i, par1ItemStack.copy());
 						if(!par3EntityPlayer.capabilities.isCreativeMode)
 							par3EntityPlayer.inventory.setInventorySlotContents(par3EntityPlayer.inventory.currentItem, null);
 					}
 
 					onEquipped(par1ItemStack, par3EntityPlayer);
-					
+
 					if(stackInSlot != null) {
 						((IBauble) stackInSlot.getItem()).onUnequipped(stackInSlot, par3EntityPlayer);
 						return stackInSlot.copy();

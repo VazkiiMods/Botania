@@ -21,7 +21,6 @@ import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
-import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.tile.TileStarfield;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -30,17 +29,17 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockStarfield extends BlockModContainer implements ILexiconable {
 
 	IIcon[] icons;
-	
+
 	public BlockStarfield() {
 		super(Material.iron);
 		setHardness(5F);
 		setResistance(2000F);
 		setStepSound(soundTypeMetal);
 		setBlockName(LibBlockNames.STARFIELD);
-		
+
 		setBlockBounds(0F, 0F, 0F, 1F, 0.25F, 1F);
 	}
-	
+
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		icons = new IIcon[3];
@@ -52,7 +51,7 @@ public class BlockStarfield extends BlockModContainer implements ILexiconable {
 	public IIcon getIcon(int par1, int par2) {
 		return icons[Math.min(2, par1)];
 	}
-	
+
 	@Override
 	public boolean renderAsNormalBlock() {
 		return false;

@@ -96,14 +96,14 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 			cooldown--;
 			Botania.proxy.wispFX(getWorldObj(), xCoord + Math.random(), yCoord + 0.8, zCoord + Math.random(), 0.2F, 0.2F, 0.2F, 0.2F, -0.025F);
 		}
-		
+
 		int newSignal = 0;
 		if(manaToGet > 0) {
 			newSignal++;
 			if(mana >= manaToGet)
 				newSignal++;
 		}
-		
+
 		if(newSignal != signal) {
 			signal = newSignal;
 			worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
@@ -185,7 +185,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 			Botania.proxy.sparkleFX(worldObj, xCoord + 0.5 + Math.random() * 0.4 - 0.2, yCoord + 1, zCoord + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
 		}
 	}
-	
+
 	@Override
 	public void writeCustomNBT(NBTTagCompound par1nbtTagCompound) {
 		super.writeCustomNBT(par1nbtTagCompound);

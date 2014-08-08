@@ -12,7 +12,6 @@
 package vazkii.botania.client.gui.lexicon.button;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
 
 public class GuiButtonInvisible extends GuiButtonLexicon {
 

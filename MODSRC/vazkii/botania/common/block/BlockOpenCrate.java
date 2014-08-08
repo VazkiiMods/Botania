@@ -32,7 +32,6 @@ import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.tile.TileCraftCrate;
 import vazkii.botania.common.block.tile.TileOpenCrate;
-import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -45,7 +44,7 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 	IIcon iconBottom;
 	IIcon iconSideCraft;
 	IIcon iconBottomCraft;
-	
+
 	Random random;
 
 	private static final int SUBTYPES = 2;
@@ -55,7 +54,7 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 		setHardness(2.0F);
 		setStepSound(soundTypeWood);
 		setBlockName(LibBlockNames.OPEN_CRATE);
-		
+
 		random = new Random();
 	}
 
@@ -80,7 +79,7 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 	public int damageDropped(int meta) {
 		return meta;
 	}
-	
+
 
 	@Override
 	public boolean hasComparatorInputOverride() {
@@ -92,7 +91,7 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 		TileOpenCrate crate = (TileOpenCrate) par1World.getTileEntity(par2, par3, par4);
 		return crate.getSignal();
 	}
-	
+
 	@Override
 	public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6) {
 		TileSimpleInventory inv = (TileSimpleInventory) par1World.getTileEntity(par2, par3, par4);

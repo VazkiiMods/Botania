@@ -288,7 +288,7 @@ public final class ModBlocks {
 		customBrick = new BlockCustomBrick();
 		enderEye = new BlockEnderEye();
 		starfield = new BlockStarfield();
-		
+
 		livingwoodStairs = new BlockLivingwoodStairs();
 		livingwoodSlab = new BlockLivingwoodSlab(false);
 		livingwoodSlabFull = new BlockLivingwoodSlab(true);
@@ -465,7 +465,7 @@ public final class ModBlocks {
 		registerTile(TileSpawnerClaw.class, LibBlockNames.SPAWNER_CLAW);
 		registerTile(TileEnderEye.class, LibBlockNames.ENDER_EYE_BLOCK);
 		registerTile(TileStarfield.class, LibBlockNames.STARFIELD);
-		
+
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MANASTAR, SubTileManastar.class);
 

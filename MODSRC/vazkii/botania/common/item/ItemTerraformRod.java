@@ -85,7 +85,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem {
 
 			if(yCenter < 62) // Not below sea level
 				return;
-			
+
 			int yStart = yCenter + range;
 
 			List<CoordsWithBlock> blocks = new ArrayList();

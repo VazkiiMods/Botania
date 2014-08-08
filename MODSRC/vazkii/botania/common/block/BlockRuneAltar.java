@@ -27,7 +27,6 @@ import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.helper.IconHelper;
-import vazkii.botania.common.block.tile.TileForestEye;
 import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.lexicon.LexiconData;

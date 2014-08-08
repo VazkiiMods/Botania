@@ -11,10 +11,10 @@
  */
 package vazkii.botania.client.core.handler;
 
-import vazkii.botania.api.item.IExtendedPlayerController;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.network.NetHandlerPlayClient;
+import vazkii.botania.api.item.IExtendedPlayerController;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -41,5 +41,5 @@ public class BotaniaPlayerController extends PlayerControllerMP implements IExte
 	public float getReachDistanceExtension() {
 		return distance;
 	}
-	
+
 }

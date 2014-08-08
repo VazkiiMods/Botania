@@ -23,8 +23,8 @@ public class GuiButtonLexicon extends GuiButton {
 	}
 
 	@Override
-    public void func_146113_a(SoundHandler p_146113_1_)  {
-        p_146113_1_.playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("botania:lexiconPage"), 1.0F));
-    }
-	
+	public void func_146113_a(SoundHandler p_146113_1_)  {
+		p_146113_1_.playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("botania:lexiconPage"), 1.0F));
+	}
+
 }

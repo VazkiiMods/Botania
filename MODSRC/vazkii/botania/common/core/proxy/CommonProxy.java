@@ -99,7 +99,7 @@ public class CommonProxy {
 	public boolean isTheClientPlayer(EntityLivingBase entity) {
 		return false;
 	}
-	
+
 	public void setExtraReach(EntityLivingBase entity, float reach) {
 		if(entity instanceof EntityPlayerMP)
 			((EntityPlayerMP) entity).theItemInWorldManager.setBlockReachDistance(((EntityPlayerMP) entity).theItemInWorldManager.getBlockReachDistance() + reach);

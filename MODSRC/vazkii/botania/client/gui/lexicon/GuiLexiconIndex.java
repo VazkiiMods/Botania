@@ -29,7 +29,6 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonBack;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonInvisible;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonPage;
-import vazkii.botania.common.lexicon.LexiconData;
 
 public class GuiLexiconIndex extends GuiLexicon implements IParented {
 
@@ -186,25 +185,25 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 
 		super.keyTyped(par1, par2);
 	}
-	
+
 	void back() {
 		if(backButton.enabled) {
 			actionPerformed(backButton);
-			backButton.func_146113_a(this.mc.getSoundHandler());
+			backButton.func_146113_a(mc.getSoundHandler());
 		}
 	}
 
 	void nextPage() {
 		if(rightButton.enabled) {
 			actionPerformed(rightButton);
-			rightButton.func_146113_a(this.mc.getSoundHandler());
+			rightButton.func_146113_a(mc.getSoundHandler());
 		}
 	}
 
 	void prevPage() {
 		if(leftButton.enabled) {
 			actionPerformed(leftButton);
-			leftButton.func_146113_a(this.mc.getSoundHandler());
+			leftButton.func_146113_a(mc.getSoundHandler());
 		}
 	}
 }

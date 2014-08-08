@@ -24,20 +24,21 @@ public class ItemGlassPick extends ItemManasteelPick {
 
 	private static final int MANA_PER_DAMAGE = 160;
 	private static final ToolMaterial MATERIAL = EnumHelper.addToolMaterial("MANASTEEL_GLASS", 0, 125, 4.8F, 1F, 10);
-	
+
 	public ItemGlassPick() {
 		super(MATERIAL, LibItemNames.GLASS_PICK);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
-	
+
 	@SubscribeEvent
 	public void onBlockDrops(HarvestDropsEvent event) {
 		if(event.harvester != null && event.block != null && event.harvester.getCurrentEquippedItem() != null && event.harvester.getCurrentEquippedItem().getItem() == this && event.block.getMaterial() == Material.glass && event.block.canSilkHarvest(event.world, event.harvester, event.x, event.y, event.z, event.blockMetadata))
 			event.drops.add(new ItemStack(event.block, 1, event.blockMetadata));
 	}
-	
+
+	@Override
 	public int getManaPerDmg() {
 		return MANA_PER_DAMAGE;
 	}
-	
+
 }
