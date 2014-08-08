@@ -42,11 +42,12 @@ botaniamisc.clickToSee=點擊閱讀
 botaniamisc.shiftToRemove=Shift點擊移除
 botaniamisc.clickToAdd=點擊添加書簽
 botaniamisc.ratio=%s:1 Ratio
-botaniamisc.openBaubles=飾品物品欄
-botaniamisc.openInv=普通物品欄
 botaniamisc.bottleTooltip=味道如何
 botaniamisc.coarseDirt0=劣質土,草
 botaniamisc.coarseDirt1=無法生長
+botaniamisc.spawnerTip=Tip:使用刷怪蛋改變怪物類型
+botaniamisc.shardLevel=碎片能量 %s
+botaniamisc.lexiconIndex=辭典目錄
 
 # COLORS
 botania.color0=白色
@@ -75,6 +76,28 @@ botania.rank3=&aA
 botania.rank4=&dS
 botania.rank5=&6SS
 
+# ROMAN NUMERALS
+botania.roman1=I
+botania.roman2=II
+botania.roman3=III
+botania.roman4=IV
+botania.roman5=V
+botania.roman6=VI
+botania.roman7=VII
+botania.roman8=VIII
+botania.roman9=IX
+botania.roman10=X
+botania.roman11=XI
+botania.roman12=XII
+botania.roman13=XIII
+botania.roman14=XIV
+botania.roman15=XV
+botania.roman16=XVI
+botania.roman17=XVII
+botania.roman18=XVIII
+botania.roman19=XIX
+botania.roman20=XX
+
 # KNOWLEDGE
 botania.knowledge.minecraft=Minecraftian的知識
 botania.knowledge.alfheim=&a精靈&7的知識
@@ -85,7 +108,10 @@ blockBreakingParticlesTool.enabled=工具破壞方塊粒子
 boundBlock.wireframe.enabled=綁定方塊線框
 darkQuartz.enabled=啟用煙熏石英
 fallenKanade.enabled=啟用天降之奏
+manaEnchanter.enabled=啟用魔力附魔臺
 flower.forceCheck=花的對象檢查
+enderPickpocket.enabled=啟用末影扒手
+thermalily.obsidian=熾玫瑰吸收黑曜石上的巖漿
 flowerParticles.frequency=花粒子頻率
 lexicon.enable.rotatingItems=辭典頁面物品旋轉特效
 lexicon.render.3D=3D辭典渲染
@@ -93,10 +119,10 @@ powerSystem.subtle=使用微量粒子能量系統
 pylonModel.old=使用舊的水晶模型
 elfPortal.particles.enabled=啟用傳送門粒子
 chargeAnimation.enabled=啟用充能時的動畫
+vanillaParticleConfig.enabled=使用原版粒子config
 flowerTextures.alt=替換花的貼圖
 matrixMode.enabled=啟用矩陣模式
 references.enabled=啟用工具提示文本
-baublesButton.enabled=啟用飾品欄按鈕
 shaders.enabled=啟用光影支持
 spreader.posShift=Spreader Pos Shift
 versionChecking.enabled=啟用版本檢查
@@ -257,7 +283,7 @@ tile.botania:forestEye.name=遠古之眼
 tile.botania:storage0.name=魔力鋼塊
 tile.botania:storage1.name=泰拉鋼塊
 tile.botania:storage2.name=源質鋼塊
-tile.botania:forestDrum.name=狂野之鼓
+tile.botania:forestDrum0.name=狂野之鼓
 tile.botania:forestDrum1.name=收集之鼓
 tile.botania:shinyFlower0.name=白色熒光花
 tile.botania:shinyFlower1.name=橙色熒光花
@@ -282,32 +308,32 @@ tile.botania:alfheimPortal.name=精靈門核心
 tile.botania:blockDarkQuartz.name=煙熏石英塊
 tile.botania:chiseledDarkQuartz.name=鏨制煙熏石英塊
 tile.botania:pillarDarkQuartz.name=豎紋煙熏石英塊
-tile.botania:quartzSlabDarkHalf.name=煙熏石英半磚
+tile.botania:quartzSlabDarkHalf.name=煙熏石英臺階
 tile.botania:quartzStairsDark.name=煙熏石英樓梯
 tile.botania:blockManaQuartz.name=魔力石英塊
 tile.botania:chiseledManaQuartz.name=鏨制魔力石英塊
 tile.botania:pillarManaQuartz.name=豎紋魔力石英塊
-tile.botania:quartzSlabManaHalf.name=魔力石英半磚
+tile.botania:quartzSlabManaHalf.name=魔力石英臺階
 tile.botania:quartzStairsMana.name=魔力石英樓梯
 tile.botania:blockBlazeQuartz.name=烈焰石英塊
 tile.botania:chiseledBlazeQuartz.name=鏨制烈焰石英塊
 tile.botania:pillarBlazeQuartz.name=豎紋烈焰石英塊
-tile.botania:quartzSlabBlazeHalf.name=烈焰石英半磚
+tile.botania:quartzSlabBlazeHalf.name=烈焰石英臺階
 tile.botania:quartzStairsBlaze.name=烈焰石英樓梯
 tile.botania:blockLavenderQuartz.name=熏香石英塊
 tile.botania:chiseledLavenderQuartz.name=鏨制熏香石英塊
 tile.botania:pillarLavenderQuartz.name=豎紋熏香石英塊
-tile.botania:quartzSlabLavenderHalf.name=熏香石英半磚
+tile.botania:quartzSlabLavenderHalf.name=熏香石英臺階
 tile.botania:quartzStairsLavender.name=熏香石英樓梯
 tile.botania:blockRedQuartz.name=紅色石英塊
 tile.botania:chiseledRedQuartz.name=鏨制紅色石英塊
 tile.botania:pillarRedQuartz.name=豎紋紅色石英塊
-tile.botania:quartzSlabRedHalf.name=紅色石英半磚
+tile.botania:quartzSlabRedHalf.name=紅色石英臺階
 tile.botania:quartzStairsRed.name=紅色石英樓梯
 tile.botania:blockElfQuartz.name=精靈石英塊
 tile.botania:chiseledElfQuartz.name=鏨制精靈石英塊
 tile.botania:pillarElfQuartz.name=豎紋精靈石英塊
-tile.botania:quartzSlabElfHalf.name=精靈石英半磚
+tile.botania:quartzSlabElfHalf.name=精靈石英臺階
 tile.botania:quartzStairsElf.name=精靈石英樓梯
 tile.botania:dreamwood0.name=夢之木
 tile.botania:dreamwood1.name=夢之木板
@@ -316,27 +342,27 @@ tile.botania:dreamwood3.name=框邊夢之木板
 tile.botania:dreamwood4.name=框紋夢之木板
 tile.botania:dreamwood5.name=微光夢之木
 tile.botania:livingwood0Stairs.name=活木樓梯
-tile.botania:livingwood0Slab.name=活木半磚
+tile.botania:livingwood0Slab.name=活木臺階
 tile.botania:livingwood1Stairs.name=活木樓梯
-tile.botania:livingwood1Slab.name=活木半磚
+tile.botania:livingwood1Slab.name=活木臺階
 tile.botania:livingrock0Stairs.name=活石樓梯
-tile.botania:livingrock0Slab.name=活石半磚
+tile.botania:livingrock0Slab.name=活石臺階
 tile.botania:livingrock1Stairs.name=活石磚樓梯
-tile.botania:livingrock1Slab.name=活石磚半磚
+tile.botania:livingrock1Slab.name=活石磚臺階
 tile.botania:dreamwood0Stairs.name=夢之木樓梯
-tile.botania:dreamwood0Slab.name=夢之木半磚
+tile.botania:dreamwood0Slab.name=夢之木臺階
 tile.botania:dreamwood1Stairs.name=夢之木樓梯
-tile.botania:dreamwood1Slab.name=夢之木半磚
+tile.botania:dreamwood1Slab.name=夢之木臺階
 tile.botania:conjurationCatalyst.name=煉造催化器
 tile.botania:prismarine0.name=海晶石
 tile.botania:prismarine1.name=海晶石磚
 tile.botania:prismarine2.name=深色海晶石
 tile.botania:prismarine0Stairs.name=海晶石樓梯
-tile.botania:prismarine0Slab.name=海晶石半磚
+tile.botania:prismarine0Slab.name=海晶石臺階
 tile.botania:prismarine1Stairs.name=海晶石磚樓梯
-tile.botania:prismarine1Slab.name=海晶石磚半磚
+tile.botania:prismarine1Slab.name=海晶石磚臺階
 tile.botania:prismarine2Stairs.name=深色海晶石樓梯
-tile.botania:prismarine2Slab.name=深色海晶石半磚
+tile.botania:prismarine2Slab.name=深色海晶石臺階
 tile.botania:seaLamp.name=海燈籠
 tile.botania:miniIsland0.name=白色浮空花
 tile.botania:miniIsland1.name=橙色浮空花
@@ -356,6 +382,37 @@ tile.botania:miniIsland14.name=紅色浮空花
 tile.botania:miniIsland15.name=黑色浮空花
 tile.botania:tinyPotato.name=小土豆
 tile.botania:spawnerClaw.name=生命灌注器
+tile.botania:reedBlock.name=甘蔗塊
+tile.botania:reedBlock0Stairs.name=甘蔗樓梯
+tile.botania:reedBlock0Slab.name=甘蔗臺階
+tile.botania:thatch.name=茅草塊
+tile.botania:thatch0Stairs.name=茅草樓梯
+tile.botania:thatch0Slab.name=茅草臺階
+tile.botania:customBrick0.name=煉獄磚塊
+tile.botania:customBrick1.name=靈魂磚塊
+tile.botania:customBrick2.name=霜凍磚塊
+tile.botania:customBrick3.name=瓦塊
+tile.botania:customBrick0Stairs.name=煉獄磚樓梯
+tile.botania:customBrick1Stairs.name=靈魂磚樓梯
+tile.botania:customBrick2Stairs.name=霜凍磚樓梯
+tile.botania:customBrick3Stairs.name=瓦塊樓梯
+tile.botania:customBrick0Slab.name=煉獄磚臺階
+tile.botania:customBrick1Slab.name=靈魂磚臺階
+tile.botania:customBrick2Slab.name=霜凍磚臺階
+tile.botania:customBrick3Slab.name=瓦塊臺階
+tile.botania:customBrick4.name=阿茲勒赫瓷磚
+tile.botania:customBrick5.name=阿茲勒赫瓷磚
+tile.botania:customBrick6.name=阿茲勒赫瓷磚
+tile.botania:customBrick7.name=阿茲勒赫瓷磚
+tile.botania:customBrick8.name=阿茲勒赫瓷磚
+tile.botania:customBrick9.name=阿茲勒赫瓷磚
+tile.botania:customBrick10.name=阿茲勒赫瓷磚
+tile.botania:customBrick11.name=阿茲勒赫瓷磚
+tile.botania:customBrick12.name=阿茲勒赫瓷磚
+tile.botania:customBrick13.name=阿茲勒赫瓷磚
+tile.botania:customBrick14.name=阿茲勒赫瓷磚
+tile.botania:customBrick15.name=阿茲勒赫瓷磚
+tile.botania:enderEyeBlock.name=末影監視者
 
 # FLOWER NAMES
 tile.botania:flower..name=植物魔法花
@@ -620,9 +677,16 @@ item.botania:virus0.name=僵尸病毒
 item.botania:virus1.name=骷髏病毒
 item.botania:skyDirtRod.name=高原法杖
 item.botania:placeholder.name=合成占位符
+item.botania:manasteelHelmReveal.name=魔鋼揭示頭盔
+item.botania:terrasteelHelmReveal.name=泰拉鋼揭示頭盔
+item.botania:elementiumHelmReveal.name=源質鋼揭示頭盔
+item.botania:itemFinder.name=尋物者
+item.botania:superLavaPendant.name=緋紅項鏈
+item.botania:enderHand.name=末影之手
+item.botania:glassPick.name=玻璃鎬
 
 # GUI TEXT
-botania.gui.lexicon.header=植物魔法辭典, %s 版目錄 - 選擇你要瀏覽的章節:
+botania.gui.lexicon.header=植物魔法辭典, %s 版目錄
 botania.gui.lexicon.wip=(This entry is a Work In Progress. It's not even it's final form)
 
 # LEXICON CATEGORIES
@@ -686,7 +750,7 @@ botania.page.runeAltar0=&1符文&0是復雜魔法設備和植物 的重要組成
 botania.page.runeAltar1=通過將一個&1魔力發射器&0連接 到祭壇以開始,再用&1森林法杖&0 右擊.<br>很明顯能看出祭壇是否吸收 了足夠多的&4魔力&0.這種情況下, 只要在頂部扔一個&1活石&0再用 法杖點擊就能獲得你的符文.
 botania.page.runeAltar2=合成&1符文祭壇&0.
 botania.page.runeAltar3=共計16種&1符文&0.<br>最基本最初級的符文是以&4四&0 &4大元素&0命名的.中級符文則是 以&4四季&0命名的,而最高級符文 是以&4七宗罪&0命名的.此外還有 一個單獨的&1符文:魔力&0.
-botania.page.runeAltar20=最后,潛行空手右擊&1符文祭壇&0 時,若它未接收魔力則會取出 上一個添加的物品.
+botania.page.runeAltar20=潛行空手右擊未接收魔力的 &1符文祭壇&0時,則會取出上一個 添加的物品.<br>最后,連接&1比較器&0,接收&4魔力&0 時發出強度為&41&0的信號,準備 好合成符文時輸出強度為&42&0 的信號.
 botania.page.runeAltar4=&1水之符文&0.
 botania.page.runeAltar5=&1地之符文&0.
 botania.page.runeAltar6=&1風之符文&0.
@@ -732,6 +796,7 @@ botania.entry.pool=魔力池
 botania.page.pool0=&1魔力池&0簡單說就是儲存&4魔力&0 的地方.<br>魔力能通過使用&1魔力發射器&0 輸入,與魔力池相鄰的&1魔力發&0 &1射器&0會自動從中抽取魔力增 加內部緩存.<br>所有&4功能花&0需要一個相鄰的 &1魔力池&0提供能量.
 botania.page.pool1=制作&1魔力池Mana Pool&0.
 botania.page.pool2=向魔力池投入一些材料會使 它們被注入&4魔力&0,而變為更富 能量的形式.<br>就比如&1鐵錠&0或是&1神秘花瓣&0.<br>&4魔力&0查看功能參見&1魔力發射&0 &1器&0.&1紅石比較器&0也能根據池內 魔力量輸出信號.
+botania.page.pool9=注意&1魔力池&0會密集儲存&4魔力&0, 因而讀取其中的&4魔力&0就不太 準確且緩慢.因其&o巨大&r的容量 ,魔力產生較慢時可能難以觀 察出 .<br>這很正常,當然耐心也是一種 美德.
 botania.page.pool8=為了美觀,也可以投入任意顏 色的&1花粉&0來給池子染色,全部 的十六種顏色都是可用的.
 botania.page.pool3=制作&1魔力鋼&0
 botania.page.pool4=制作&1魔力珍珠&0
@@ -961,6 +1026,7 @@ botania.page.hydroangeas1=&oFrom some Hyperdimension&r?
 # -- THERMALILY
 botania.entry.thermalily=熾玫瑰
 botania.page.thermalily0=有時候產能速度太慢了,就像 &1水繡球&0和&1火紅蓮&0.這個問題的 答案就是&1熾玫瑰&0,原理類似&1水&0 &1繡球&0,但它吸收的是&1巖漿&0.
+botania.page.thermalily0a=有時候產能速度太慢了,就像 &1水繡球&0和&1火紅蓮&0.這個問題的 答案就是&1熾玫瑰&0,原理類似&1水&0 &1繡球&0,但它吸收的是&1巖漿&0.<br>由于&1巖漿&0產生的熱量過高,巖 漿下方需要有一個&1黑曜石&0才 能讓花吸收.
 botania.page.thermalily1=&o莉莉應該知道&r.
 
 # -- ROSA ARCANA
@@ -981,7 +1047,7 @@ botania.page.entropinnyum1=&o耍帥的家伙是不會看爆炸的&r.
 # -- KEKIMURUS
 botania.entry.kekimurus=貪食花
 botania.page.kekimurus0=&1蛋糕&0很美味,人人喜愛,花也 是.<br>&1貪食花&0就是一個&1蛋糕&0狂熱者, 它會吃掉附近的蛋糕,用豐富 的營養物制造&4魔力&0.
-botania.page.kekimurus1=&o讓它們吃蛋糕&r.
+botania.page.kekimurus1=&oFlaxbeard之花就是它了&r.
 
 # -- GOURMARYLLIS
 botania.entry.gourmaryllis=彼方蘭
@@ -1067,6 +1133,7 @@ botania.page.forestDrum2=但如果你閉上了眼睛...
 # -- ABSTRUSE PLATFORM
 botania.entry.platform=奧秘平臺
 botania.page.platform0=將&1活木&0擺成一個十分特殊的 形式能做出一種平臺,對它上 方未潛行的人來說才有碰撞 箱.而對于其他人,就好像不 在那兒一樣.&4魔力脈沖&0總能無 阻礙的穿過它.<br>也可以通過右擊將它偽裝成 其他方塊.
+botania.page.platform2=用&1森林法杖&0右擊一個已設定 的平臺會將與其相連的平臺 都變為所點平臺的設定方塊, shift右擊則會移除所有的 設定.
 botania.page.platform1=本因叫虛無平臺的但名字被 取過了(TT)
 
 # -- CONJURING WITH MANA
@@ -1105,8 +1172,14 @@ botania.page.craftCrate1=物品遵循由左到右由上至下 的原則(這里�
 botania.page.craftCrate2=制作合成占位符
 botania.page.craftCrate3=完成合成,一共需要兩步.<br>首先,在9個欄中填滿合成所 需的物品或占位符就會顯示 出合成結果,占位符和任何副 產物(比如制作蛋糕時的桶) ,這就是最簡單的方法.
 botania.page.craftCrate4=用&1森林法杖&0右擊這個箱子(注 意:&1發射器&0也能做到)就會開 始用其中的物品合成并噴出 產物.<br>如果該過程失敗就會直接噴 出其中所有的物品.
+botania.page.craftCrate7=使箱子連接&1比較器&0會根據內 部的物品數輸出紅石信號,在 用其制造機械時這非常有價 值.
 botania.page.craftCrate5=合成&1鉆石鎬&0的示例
 botania.page.craftCrate6=葡萄牙制造
+
+# -- ENDER OVERSEER
+botania.entry.enderEyeBlock=末影監視者
+botania.page.enderEyeBlock0=&4末影人&0的眼睛被看見時十分 敏感.由此制成的方塊在64格 內被玩家直視時就會發出&4紅&0 &4石信號&0.<br>當然,頭戴&1南瓜&0時可以避免.
+botania.page.enderEyeBlock1=MY BRAND
 
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
@@ -1132,7 +1205,7 @@ botania.page.dirtRod1=臟臟的
 botania.entry.terraformRod=大地權杖
 botania.page.terraformRod0=盡管一般使用鏟子來挖土,整 平大片的土地就沒那么簡單 了.<br>使用&1大地權杖&0,就能 以快速的環境友好型的方法 整平土地.
 botania.page.terraformRod1=這支杖,消耗一些你物品欄里 的&4魔力&0,將土地整平到你站的 高度.這么做的話,手持它按 住&4右鍵&0,身邊的地形就會緩慢 整平到你的高度,同時放置&1泥&0 &1土&0和移除方塊.
-botania.page.terraformRod2=注意被它移除的方塊是不可 修復的.地形會盡可能的調整 ,直到距離的上限,為了防止 破壞山形,整平會以地形的自 然外貌為基準進行.
+botania.page.terraformRod2=注意被它移除的方塊是不可 修復的.地形會盡可能的調整 ,直到距離的上限,為了防止 破壞山形,整平會以地形的自 然外貌為基準進行.<br>最后,該法杖在海平面以下將 會失效.
 botania.page.terraformRod3=這就是審判
 
 # -- MANASTEEL EQUIPMENT
@@ -1241,7 +1314,9 @@ botania.page.vineBall3=...如果那確實存在的話.
 # -- SHARD OF LAPUTA
 botania.entry.laputaShard=拉普達碎片
 botania.page.laputaShard0=通過有些復雜的激活程序,結 合一些有趣的材料包括&1蓋亞&0 &1之魂&0就能制作一個特殊的碎 片,當對土地使用時,就能讓 附近一個的球形區域升至空 中.<br>這個過程可持續10分鐘并且 根據土地的質量消耗對應量 的碎片.
+botania.page.laputaShard2=創建的島的初始半徑為14格 ,換句話說就是直徑28格.可 通過添加&1蓋亞之魂&0來升級,每 個增加1格半徑,即2格直徑.
 botania.page.laputaShard1=看吶白,拉普達真的存在!
+botania.page.laputaShard3=大小很重要
 
 # -- EQUESTRIAN VIRUS
 botania.entry.virus=馬類病毒
@@ -1253,6 +1328,18 @@ botania.page.virus2=也不在這兒
 botania.entry.skyDirtRod=高原法杖
 botania.page.skyDirtRod0=盡管&1大地法杖&0十分出色,但若能不依靠其他東西而放置&1泥土&0就更好了.<br>&1高原法杖&0就是那樣的,保有&1大地法杖&0原本的力量同時,它也能在半空中放置&1泥土&0,多消耗一點&4魔力&0.
 botania.page.skyDirtRod1=mk2型泥土棍
+
+# -- HAND OF ENDER
+botania.entry.enderHand=末影之手
+botania.page.enderHand0=&1末影之手&0讓使用者能跨維度 觸及末界,換言之就是&1末影箱&0 的物品欄.無論何地只需用這 個手右擊并消耗一些&4魔力&0.<br>若對其他玩家使用則會相應 打開&o他們的&r末影物品欄,消耗 更多的&4魔力&0.
+botania.page.enderHand0a=&1末影之手&0讓使用者能跨維度 觸及末界,換言之就是&1末影箱&0 的物品欄.無論何地只需用這 個手右擊并消耗一些&4魔力&0.
+botania.page.enderHand1=Zezima hates him!
+botania.page.enderHand1a=就像是4G版的末影箱
+
+# -- VITREOUS PICKAXE
+botania.entry.glassPick=玻璃鎬
+botania.page.glassPick0=將&1玻璃&0放置下來后還不得不 破壞掉真是心碎的經歷,幸運 的是,做出一把&1玻璃鎬&0采集就 不會破壞掉玻璃,這就像是為 玻璃而生的廉價的&4精準采集&0.
+botania.page.glassPick1=請勿與食物放在一起
 
 # - BAUBLES
 # -- AN INTRODUCTION TO BAUBLES
@@ -1296,7 +1383,7 @@ botania.page.icePendant1=你想堆個雪人么?
 
 # -- PYROCLAST PENDANT
 botania.entry.lavaPendant=火石項鏈
-botania.page.lavaPendant0=&1火石項鏈&0是個吸收一切熱量 的&4飾品&0,穿戴時會讓你完全免 疫&4火&0與&4巖漿&0傷害.
+botania.page.lavaPendant0=&1火石項鏈&0是個吸收少量熱量 的&4飾品&0,若穿戴者著火且沒有 直接處于&1火&0,&1巖漿&0或其他能引 起燃燒的地方,火就會被撲滅 .
 botania.page.lavaPendant1=花子本應用到這個
 
 # -- GOLDEN LAUREL CROWN
@@ -1343,6 +1430,17 @@ botania.page.pixieRing1=我們有方方的頭,還有尖尖的 帽子
 botania.entry.superTravelBelt=環游者腰帶
 botania.page.superTravelBelt0=&1環游者腰帶&0簡而言之,就是升 級版的&1旅居者腰帶&0,使用&1蓋&0 &1亞之魂&0和一些精靈材料,這條 新腰帶讓穿戴者達到&1旅居者&0 &1腰帶&0都不及的不可置信的速 度.
 botania.page.superTravelBelt1=沒時間推測了,執行我的計劃
+
+# -- THE SPECTATOR
+botania.entry.itemFinder=尋物者
+botania.page.itemFinder0=&1尋物者&0是一個增強穿戴者對 世界感知能力的頭飾.當你手 持某個物品,任何有同種物品 的&4容器&0(箱子,礦車,帶箱子的 驢,熔爐等等...),同種物品 的&4掉落物&0,裝備該物品的&4怪物&0 &o(...)&r
+botania.page.itemFinder1=&o(...)&r物品欄擁有該物品的 &4玩家&0和有與該物品相關交易 的&4村民&0都會閃爍著綠光,使他 們更容易被認出.<br>而潛行時,穿戴者附近所有的 掉落物品都會發光,不管是什 么種類.
+botania.page.itemFinder2=你聽見它們的細語了么?
+
+# -- CRIMSON PENDANT
+botania.entry.superLavaPendant=緋紅項鏈
+botania.page.superLavaPendant0=&1緋紅項鏈&0簡而言之,就是&1火石&0 &1項鏈&0的升級版,穿著時能提供 對火和巖漿的免疫力,而不是 單純的滅火.
+botania.page.superLavaPendant1=[秘碑解碼]亞軍
 
 # - ALFHOMANCY
 # -- THE PORTAL TO ALFHEIM
@@ -1404,7 +1502,7 @@ botania.page.unstableBlocks7=巨人來了就發射
 
 # -- DECORATIVE BLOCKS
 botania.entry.decorativeBlocks=裝飾方塊
-botania.page.decorativeBlocks0=將&1活石&0和&1活木&0變為裝飾方塊 是可行的.它們每個都對應著 四種不同的裝飾方塊.
+botania.page.decorativeBlocks0=除去功能,很少有裝飾方塊能 點綴你的建筑.<br>但從現在起.你就能將&1活石&0和 &1活木&0變為裝飾方塊.它們各自 對應著四種不同的裝飾方塊.
 botania.page.decorativeBlocks1=活石磚.
 botania.page.decorativeBlocks2=苔活石磚
 botania.page.decorativeBlocks3=裂活石磚
@@ -1420,6 +1518,13 @@ botania.page.decorativeBlocks12=魔力石英
 botania.page.decorativeBlocks13=烈焰石英
 botania.page.decorativeBlocks14=熏香石英
 botania.page.decorativeBlocks15=紅色石英
+botania.page.decorativeBlocks16=少數方塊能用不同于平常的 方法制作成新的建筑方塊,例 如&1甘蔗塊&0,&1茅草塊&0,&1瓦塊&0和一 些新的&1磚塊&0.<br>它們都能做成臺階和樓梯.
+botania.page.decorativeBlocks17=合成&1甘蔗塊&0
+botania.page.decorativeBlocks18=合成&1茅草塊&0
+botania.page.decorativeBlocks19=合成&1瓦塊&0
+botania.page.decorativeBlocks20=合成&1煉獄磚塊&0
+botania.page.decorativeBlocks21=合成&1靈魂磚塊&0
+botania.page.decorativeBlocks22=合成&1霜凍磚塊&0
 
 # -- DISPENSER TWEAKS
 botania.entry.dispenserTweaks=發射器改動(原版)
@@ -1454,3 +1559,10 @@ botania.page.tinyPotato1=將它放在Kickstarter網站上 就起效了
 botania.entry.headCreating=頭顱制造
 botania.page.headCreating0=一個特別的精靈咒語,配合一 些材料和一個&1命名牌&0就能做 出牌子里所寫者頭的復制品. 雖然并不知道這是怎樣的原 理,但似乎可以用&1符文祭壇&0來 制作.
 botania.page.headCreating1=在游戲中獲得你的頭
+
+# -- AZULEJO -- http://en.wikipedia.org/wiki/Azulejo
+botania.entry.azulejo=阿茲勒赫瓷磚
+botania.page.azulejo0=&1阿茲勒赫瓷磚&0是種裝飾方塊, 它們是被摹制了藍白相間花 紋的瓷磚.要制作它們,只需 要一些&1青金石&0和一個&1石英塊&0 即可.<br>之后,再將它放入合成欄就可 以在12種不同的樣式之間切 換.
+botania.page.azulejo1=花樣的圖案
+botania.page.azulejo2=制作一個&1阿茲勒赫瓷磚&0
+botania.page.azulejo3=各種樣式間循環
