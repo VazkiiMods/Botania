@@ -1,3 +1,5 @@
+r1.1 98
+*Fixed the Shard of Laputa only ever pulling a single block >_>
 r1.1 97
 *Added a "hey noob, the pool holds a lot of mana, k?" info page to the Mana Pool entry.
 *Added a bunch of sounds, no more rand.levelup everywhere with different pitches!
