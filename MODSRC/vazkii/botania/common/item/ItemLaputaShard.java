@@ -178,7 +178,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 			entity.motionY = 0.35;
 			entity.motionZ = 0;
 
-			final int spawnTicks = 1000;
+			final int spawnTicks = 3;
 			final int placeTicks = 120;
 
 			ItemStack lens = burst.getSourceLens();
