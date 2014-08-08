@@ -94,6 +94,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.shinyFlower);
 		addBlock(ModBlocks.miniIsland);
 		addBlock(ModBlocks.tinyPotato);
+		addBlock(ModBlocks.starfield);
 		addBlock(ModBlocks.unstableBlock);
 		addBlock(ModBlocks.manaBeacon);
 		addItem(ModItems.signalFlare);

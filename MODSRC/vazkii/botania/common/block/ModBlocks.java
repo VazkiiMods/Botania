@@ -27,6 +27,7 @@ import vazkii.botania.common.block.decor.BlockPrismarine;
 import vazkii.botania.common.block.decor.BlockReeds;
 import vazkii.botania.common.block.decor.BlockSeaLamp;
 import vazkii.botania.common.block.decor.BlockShinyFlower;
+import vazkii.botania.common.block.decor.BlockStarfield;
 import vazkii.botania.common.block.decor.BlockThatch;
 import vazkii.botania.common.block.decor.BlockTinyPotato;
 import vazkii.botania.common.block.decor.BlockUnstable;
@@ -112,6 +113,7 @@ import vazkii.botania.common.block.tile.TilePylon;
 import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.block.tile.TileSpawnerClaw;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
+import vazkii.botania.common.block.tile.TileStarfield;
 import vazkii.botania.common.block.tile.TileTinyPlanet;
 import vazkii.botania.common.block.tile.TileTinyPotato;
 import vazkii.botania.common.block.tile.mana.TileDistributor;
@@ -168,6 +170,7 @@ public final class ModBlocks {
 	public static Block thatch;
 	public static Block customBrick;
 	public static Block enderEye;
+	public static Block starfield;
 
 	public static Block livingwoodStairs;
 	public static Block livingwoodSlab;
@@ -284,7 +287,8 @@ public final class ModBlocks {
 		thatch = new BlockThatch();
 		customBrick = new BlockCustomBrick();
 		enderEye = new BlockEnderEye();
-
+		starfield = new BlockStarfield();
+		
 		livingwoodStairs = new BlockLivingwoodStairs();
 		livingwoodSlab = new BlockLivingwoodSlab(false);
 		livingwoodSlabFull = new BlockLivingwoodSlab(true);
@@ -460,7 +464,8 @@ public final class ModBlocks {
 		registerTile(TileTinyPotato.class, LibBlockNames.TINY_POTATO);
 		registerTile(TileSpawnerClaw.class, LibBlockNames.SPAWNER_CLAW);
 		registerTile(TileEnderEye.class, LibBlockNames.ENDER_EYE_BLOCK);
-
+		registerTile(TileStarfield.class, LibBlockNames.STARFIELD);
+		
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MANASTAR, SubTileManastar.class);
 
