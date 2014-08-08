@@ -22,6 +22,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.IChatComponent;
+import net.minecraft.util.StatCollector;
 
 public class ThreadDownloadMod extends Thread {
 
@@ -45,8 +47,9 @@ public class ThreadDownloadMod extends Thread {
 	@Override
 	public void run() {
 		try {
+			IChatComponent component = IChatComponent.Serializer.func_150699_a(String.format(StatCollector.translateToLocal("botania.versioning.startingDownload"), fileName));
 			if(Minecraft.getMinecraft().thePlayer != null)
-				Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentTranslation("botania.versioning.startingDownload", fileName).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.GOLD)));
+				Minecraft.getMinecraft().thePlayer.addChatMessage(component);
 
 			VersionChecker.startedDownload = true;
 
