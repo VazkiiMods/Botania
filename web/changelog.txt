@@ -1,3 +1,31 @@
+r1.1 97
+*Added a "hey noob, the pool holds a lot of mana, k?" info page to the Mana Pool entry.
+*Added a bunch of sounds, no more rand.levelup everywhere with different pitches!
+*Added a config to make the Thermalily only take Lava if there's Obsidian below it, for the Blood Magic balance freaks. (disabled by default)
+*Added a new category to the Lexica Botania. The "Lexicon Index" category, which shows every single entry in alphabetical order.
+*Added the Starfield Creator, a new block that makes twinkly stars :3
+*Added the Vitreous Pickaxe, it's like cheap silk touch but only for glass.
+*Baubles can now be swapped on the fly, by right clicking one it replaces it with the one currently there.
+*Botania particles now respect the vanilla "Particles" setting. You can make it so it ignores it again in the config if you want.
+*Changed the recipe for the Platforms, they now use Mana Pearls/Pixie Dust and craft into 2.
+*Elemental Runes are now crafted in sets of 3.
+*Fixed more typos. (Adaptivity)
+*Fixed the Lexica Botania's cover text rendering backwards (or not at all) on some setups.
+*Fixed The Spectator doing particles for every player, not just the client player.
+*Removed manual .lang file assigning, let forge do all the work now.
+*Right clicking a platform with a wand will change all adjacent ones to that block, shift right clicking removes all masks.
+*The Crafty Crate now has Comparator support, it emits power equal to the amount of items in it.
+*The Gaia Traps (purple spots the Gaia Guardian summons) now only blind for a fraction of a second instead of four seconds.
+*The Rod of the Lands no longer works below sea level (Y = 62), this is to prevent it from being used as a ghetto underground quarry.
+*The Runic Altar now has Comparator support, it emits power 1 if it's taking mana, power 2 if it's ready for the Livingrock.
+*The Shard of Laputa is now upgradable using aditional Gaia Spirits, each one increases the radius by 1 block, up to 20 can be used.
+*The Soujourner's and Globetrotter's Sashes no longer work underwater, so you can't go at hyperspeed underwater. <i>Godspeed, Godspeed, Godspeed, speed us away</i>
+*The Tangleberrie and Jyullia now ignore bosses. <i>soz.</i>
+*Updating botania through the ingame downloader now has a link to my <a href="http://www.patreon.com/Vazkii">Patreon.</a> <i>Dollah dollah bills y'all.</i>
+*[API] Added a function to get all registered lexicon entries.
+*[API] Added IExtendedPlayerController.
+*[API] Exposed IPixieSpawner from internal classes.
+*[API] Increased version number to 7.
 r1.1 96
 *Fixed crashes when an invalid PlayerInteractEvent is fired (mostly because Cauldron throws them around like they're free samples).
 r1.1 95
