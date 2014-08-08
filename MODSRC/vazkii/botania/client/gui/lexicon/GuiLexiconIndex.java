@@ -186,19 +186,25 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 
 		super.keyTyped(par1, par2);
 	}
-
+	
 	void back() {
-		if(backButton.enabled)
+		if(backButton.enabled) {
 			actionPerformed(backButton);
+			backButton.func_146113_a(this.mc.getSoundHandler());
+		}
 	}
 
 	void nextPage() {
-		if(rightButton.enabled)
+		if(rightButton.enabled) {
 			actionPerformed(rightButton);
+			rightButton.func_146113_a(this.mc.getSoundHandler());
+		}
 	}
 
 	void prevPage() {
-		if(leftButton.enabled)
+		if(leftButton.enabled) {
 			actionPerformed(leftButton);
+			leftButton.func_146113_a(this.mc.getSoundHandler());
+		}
 	}
 }
