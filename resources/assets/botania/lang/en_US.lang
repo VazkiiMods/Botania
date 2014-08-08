@@ -1567,3 +1567,8 @@ botania.page.azulejo0=&1Azulejos&0 are a type of decorative block, simply put, t
 botania.page.azulejo1=The various patterns
 botania.page.azulejo2=Crafting a block of &1Azulejo&0
 botania.page.azulejo3=Cycling between the patterns
+
+# -- STARFIELD CREATOR
+botania.entry.starfield=Starfield Creator
+botania.page.starfield0=The &1Starfield Creator&0 does exactly as it says, by releasing elven energies into the air, if it's placed in the world, during night time it will create a starry sky that extends for a fair distance.
+botania.page.starfield1=Twinkle twinkle

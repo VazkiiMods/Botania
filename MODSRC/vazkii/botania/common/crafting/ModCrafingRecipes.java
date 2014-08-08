@@ -186,6 +186,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeSuperLavaPendant;
 	public static IRecipe recipeEnderHand;
 	public static IRecipe recipeGlassPick;
+	public static IRecipe recipeStarfield;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1161,6 +1162,14 @@ public final class ModCrafingRecipes {
 				'I', LibOreDict.MANA_STEEL,
 				'T', LibOreDict.LIVINGWOOD_TWIG);
 		recipeGlassPick = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Starfield Creator Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.starfield), 
+				"EPE", "EOE",
+				'E', LibOreDict.ELEMENTIUM,
+				'P', LibOreDict.PIXIE_DUST,
+				'O', new ItemStack(Blocks.obsidian));
+		recipeStarfield = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

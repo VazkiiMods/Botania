@@ -154,5 +154,6 @@ public final class LibLexicon {
 	public static final String MISC_TINY_POTATO = "tinyPotato";
 	public static final String MISC_HEAD_CREATING = "headCreating";
 	public static final String MISC_AZULEJO = "azulejo";
+	public static final String MISC_STARFIELD = "starfield";
 
 }

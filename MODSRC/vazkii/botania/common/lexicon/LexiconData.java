@@ -177,6 +177,7 @@ public final class LexiconData {
 	public static LexiconEntry tinyPotato;
 	public static LexiconEntry headCreating;
 	public static LexiconEntry azulejo;
+	public static LexiconEntry starfield;
 
 	public static void init() {
 		BotaniaAPI.addCategory(categoryBasics = new LexiconCategory(LibLexicon.CATEGORY_BASICS));
@@ -605,5 +606,8 @@ public final class LexiconData {
 
 		azulejo = new BLexiconEntry(LibLexicon.MISC_AZULEJO, categoryMisc);
 		azulejo.setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_AZULEJOS), new PageCraftingRecipe("2", ModCrafingRecipes.recipeAzulejo), new PageCraftingRecipe("3", ModCrafingRecipes.recipesAzulejoCycling));
+		
+		starfield = new ALexiconEntry(LibLexicon.MISC_STARFIELD, categoryMisc);
+		starfield.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeStarfield));
 	}
 }
