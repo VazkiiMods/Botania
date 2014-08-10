@@ -16,13 +16,16 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import thaumcraft.api.crafting.IInfusionStabiliser;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
+import cpw.mods.fml.common.Optional;
 
-public class BlockShinyFlower extends BlockModFlower {
+@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser", striprefs = true)
+public class BlockShinyFlower extends BlockModFlower implements IInfusionStabiliser {
 
 	public BlockShinyFlower() {
 		super(LibBlockNames.SHINY_FLOWER);
@@ -42,6 +45,11 @@ public class BlockShinyFlower extends BlockModFlower {
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.shinyFlowers;
+	}
+
+	@Override
+	public boolean canStabaliseInfusion(World world, int x, int y, int z) {
+		return true;
 	}
 
 }
