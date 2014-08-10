@@ -177,7 +177,7 @@ botania.versioning.flavour34=回到更新植物魔法的无聊工作中.不需�
 botania.versioning.flavour35=你会为了植物魔法更新而成为魔法少女吗?
 botania.versioning.outdated=你现在运行的版本是build %s最新的是build %s.
 botania.versioning.updateMessage=["Click for... [",{"text":"Download","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Click this to automatically download the latest version","color":"green"}},"clickEvent":{"action":"run_command","value":"/botania-download-latest %version%"}},"] [",{"text":"Website","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Click this to go to the mod's website","color":"green"}},"clickEvent":{"action":"open_url","value":"http://vazkii.us/mod/Botania/downloads.php"}},"] [",{"text":"Changelog","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Click this to go to the version's Changelog","color":"green"}},"clickEvent":{"action":"open_url","value":"http://vazkii.us/mod/Botania/changelog.php#%version%"}},"]"]
-botania.versioning.startingDownload=Starting download of %s. Please do not remove your hard disk.
+botania.versioning.startingDownload=[{"text":"Starting download of %s. Please do not remove your hard disk. Enjoying ","color":"aqua"},{"text":"Botania","color":"green"},{"text":"? Consider supporting ","color":"aqua"},{"text":"Vazkii","color":"light_purple"},{"text":" on [","color":"aqua"},{"text":"Patreon","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"Click this to go to Vazkii's Patreon","color":"light_purple"}},"clickEvent":{"action":"open_url","value":"http://www.patreon.com/Vazkii"}},{"text":"]!","color":"aqua"}]
 botania.versioning.doneDownloading=Finished downloading %s. Delete your old Botania .jar and reload your game to update.
 botania.versioning.downloadedAlready=You already downloaded the latest version. Close your game, delete the old version from your mods folder and load it again to update!
 botania.versioning.downloadingAlready=The update is already downloading, give it some time, will you?
@@ -413,6 +413,7 @@ tile.botania:customBrick13.name=阿兹勒赫瓷砖
 tile.botania:customBrick14.name=阿兹勒赫瓷砖
 tile.botania:customBrick15.name=阿兹勒赫瓷砖
 tile.botania:enderEyeBlock.name=末影监视者
+tile.botania:starfield.name=星空制造器
 
 # FLOWER NAMES
 tile.botania:flower..name=植物魔法花
@@ -1566,3 +1567,8 @@ botania.page.azulejo0=&1阿兹勒赫瓷砖&0是种装饰方块, 它们是被摹�
 botania.page.azulejo1=花样的图案
 botania.page.azulejo2=制作一个&1阿兹勒赫瓷砖&0
 botania.page.azulejo3=各种样式间循环
+
+# -- STARFIELD CREATOR
+botania.entry.starfield=星空制造器
+botania.page.starfield0=&1星空制造器&0就像它的名字一 样,通过将精灵的能量释放到 空中,置于世界上时,会在夜 晚创造出一片距离很远的星 空.
+botania.page.starfield=一闪一闪
