@@ -37,11 +37,13 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_POOL);
 	private static final ResourceLocation textureInf = new ResourceLocation(LibResources.MODEL_INFINITE_POOL);
+	private static final ResourceLocation textureDil = new ResourceLocation(LibResources.MODEL_DILUTED_POOL);
 
 	private static final ModelPool model = new ModelPool();
 	RenderItem renderItem = new RenderItem();
 
-	public static boolean forceAllMana = false;
+	public static int forceMeta = 0;
+	public static boolean forceMana = false;
 
 	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f) {
@@ -51,9 +53,10 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		GL11.glTranslated(d0, d1, d2);
-		boolean inf = tileentity.getWorldObj() == null ? forceAllMana : tileentity.getBlockMetadata() == 1;
-
-		Minecraft.getMinecraft().renderEngine.bindTexture(inf ? textureInf : texture);
+		boolean inf = tileentity.getWorldObj() == null ? forceMeta == 1 : tileentity.getBlockMetadata() == 1;
+		boolean dil = tileentity.getWorldObj() == null ? forceMeta == 2 : tileentity.getBlockMetadata() == 2;
+		
+		Minecraft.getMinecraft().renderEngine.bindTexture(inf ? textureInf : dil ? textureDil : texture);
 
 		GL11.glTranslatef(0.5F, 1.5F, 0.5F);
 		GL11.glScalef(1F, -1F, -1F);
@@ -67,11 +70,9 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 
-		float waterLevel = (float) pool.getCurrentMana() / (float) TilePool.MAX_MANA * 0.4F;
-		if(forceAllMana) {
+		float waterLevel = (float) pool.getCurrentMana() / (float) pool.manaCap * 0.4F;
+		if(forceMana)
 			waterLevel = 0.4F;
-			forceAllMana = false;
-		}
 
 		float s = 1F / 16F;
 		float v = 1F / 8F;
@@ -122,6 +123,9 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 			GL11.glPopMatrix();
 		}
 		GL11.glPopMatrix();
+		
+		forceMeta = 0;
+		forceMana = false;
 	}
 
 	public void renderIcon(int par1, int par2, IIcon par3Icon, int par4, int par5, int brightness) {

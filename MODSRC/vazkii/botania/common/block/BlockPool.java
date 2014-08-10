@@ -92,8 +92,9 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 
 	@Override
 	public void getSubBlocks(Item par1, CreativeTabs par2, List par3) {
-		for(int i = 0; i < 2; i++)
-			par3.add(new ItemStack(par1, 1, i));
+		par3.add(new ItemStack(par1, 1, 2));
+		par3.add(new ItemStack(par1, 1, 0));
+		par3.add(new ItemStack(par1, 1, 1));
 	}
 
 	@Override

@@ -18,6 +18,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -31,6 +32,7 @@ import vazkii.botania.api.lexicon.LexiconRecipeMappings;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.render.tile.RenderTilePool;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import cpw.mods.fml.relauncher.Side;
@@ -71,8 +73,12 @@ public class PageManaInfusionRecipe extends PageRecipe {
 			input = OreDictionary.getOres((String) input).get(0);
 
 		renderItemAtGridPos(gui, 1, 1, (ItemStack) input, false);
-		renderItemAtGridPos(gui, 2, 1, new ItemStack(ModBlocks.pool), false);
+
+		RenderTilePool.forceMana = true;
+		renderItemAtGridPos(gui, 2, 1, new ItemStack(ModBlocks.pool, 1, recipe.getOutput().getItem() == Item.getItemFromBlock(ModBlocks.pool) ? 2 : 0), false);
+		
 		renderItemAtGridPos(gui, 3, 1, recipe.getOutput(), false);
+		
 		if(recipe.isAlchemy())
 			renderItemAtGridPos(gui, 1, 2, new ItemStack(ModBlocks.alchemyCatalyst), false);
 		else if(recipe.isConjuration())

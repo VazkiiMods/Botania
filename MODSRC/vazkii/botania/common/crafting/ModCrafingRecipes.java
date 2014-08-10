@@ -262,7 +262,7 @@ public final class ModCrafingRecipes {
 			addShapelessOreDictRecipe(ItemLens.setLensColor(new ItemStack(ModItems.lens, 1, i), 16), new ItemStack(ModItems.lens, 1, i), LibOreDict.MANA_PEARL);
 
 		// Mana Pool Recipe
-		addOreDictRecipe(new ItemStack(ModBlocks.pool),
+		addOreDictRecipe(new ItemStack(ModBlocks.pool, 1, 2),
 				"R R", "RRR",
 				'R', LibOreDict.LIVING_ROCK);
 		recipePool = BotaniaAPI.getLatestAddedRecipe();

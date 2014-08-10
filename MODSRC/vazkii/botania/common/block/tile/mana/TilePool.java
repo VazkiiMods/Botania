@@ -20,6 +20,7 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
@@ -48,6 +49,7 @@ import vazkii.botania.common.item.ModItems;
 public class TilePool extends TileMod implements IManaPool, IKeyLocked {
 
 	public static final int MAX_MANA = 1000000;
+	public static final int MAX_MANA_DILLUTED = 10000;
 
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_KNOWN_MANA = "knownMana";
@@ -68,7 +70,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked {
 	int mana;
 	int knownMana = -1;
 
-	public int manaCap = MAX_MANA;
+	public int manaCap = -1;
 	int soundTicks = 0;
 	boolean canAccept = true;
 	boolean canSpare = true;
@@ -125,7 +127,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked {
 		}
 
 		for(RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes) {
-			if(recipe.matches(stack) && (!recipe.isAlchemy() || alchemy) && (!recipe.isConjuration() || conjuration)) {
+			if(recipe.matches(stack) && (!recipe.isAlchemy() || alchemy) && (!recipe.isConjuration() || conjuration) && (getBlockMetadata() != 2 || recipe.getOutput().getItem() == Item.getItemFromBlock(getBlockType()))) {
 				int mana = recipe.getManaToConsume();
 				if(getCurrentMana() >= mana) {
 					recieveMana(-mana);
@@ -168,6 +170,9 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked {
 
 	@Override
 	public void updateEntity() {
+		if(manaCap == -1)
+			manaCap = getBlockMetadata() == 2 ? MAX_MANA_DILLUTED : MAX_MANA;
+		
 		if(!ManaNetworkHandler.instance.isPoolIn(this))
 			ManaNetworkEvent.addPool(this);
 
@@ -293,7 +298,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked {
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		String name = StatCollector.translateToLocal(new ItemStack(ModBlocks.pool, 1, getBlockMetadata()).getUnlocalizedName().replaceAll("tile.", "tile." + LibResources.PREFIX_MOD) + ".name");
 		int color = 0x660000FF;
-		HUDHandler.drawSimpleManaHUD(color, knownMana, MAX_MANA, name, res);
+		HUDHandler.drawSimpleManaHUD(color, knownMana, manaCap, name, res);
 
 		String power = StatCollector.translateToLocal("botaniamisc." + (outputting ? "outputtingPower" : "inputtingPower"));
 		int x = res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(power) / 2;

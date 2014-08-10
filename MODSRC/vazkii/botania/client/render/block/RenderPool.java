@@ -29,8 +29,8 @@ public class RenderPool implements ISimpleBlockRenderingHandler {
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
 		GL11.glPushMatrix();
 		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
-		if(metadata == 1)
-			RenderTilePool.forceAllMana = true;
+		RenderTilePool.forceMeta = metadata;
+		RenderTilePool.forceMana = RenderTilePool.forceMana | metadata == 1;
 		TileEntityRendererDispatcher.instance.renderTileEntityAt(new TilePool(), 0.0D, 0.0D, 0.0D, 0.0F);
 		GL11.glPopMatrix();
 	}
