@@ -42,12 +42,14 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 	private static final String TAG_TILE = "_tile";
 	private static final String TAG_X = "_x";
 	private static final String TAG_Y = "_y";
+	private static final String TAG_Y_START = "_yStart";
 	private static final String TAG_Z = "_z";
 	private static final String TAG_POINTY = "_pointy";
 	private static final String TAG_HEIGHTSCALE = "_heightscale";
 
 	private static final int BASE_RANGE = 14;
-	
+	private static final int BASE_OFFSET = 42;
+
 	public ItemLaputaShard() {
 		setUnlocalizedName(LibItemNames.LAPUTA_SHARD);
 		setHasSubtypes(true);
@@ -69,7 +71,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
 		if(par5 < 160 && !par3World.provider.isHellWorld) {
 			par3World.playSound(par4 + 0.5D, par5 + 0.5D, par6 + 0.5D, "botania:laputaStart", 1.0F + par3World.rand.nextFloat(), par3World.rand.nextFloat() * 0.7F + 1.3F, false);
-			spawnBurst(par3World, par4, par5, par6, par1ItemStack);
+			spawnBurstFirst(par3World, par4, par5, par6, par1ItemStack);
 			par1ItemStack.stackSize--;
 		}
 
@@ -79,7 +81,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 	public void spawnBurstFirst(World world, int srcx, int srcy, int srcz, ItemStack lens) {
 		int range = BASE_RANGE + lens.getItemDamage();
 		boolean pointy = world.rand.nextDouble() < 0.25;
-		double heightscale = (world.rand.nextDouble() + 0.5) * (BASE_RANGE / range);
+		double heightscale = (world.rand.nextDouble() + 0.5) * ((double)BASE_RANGE / (double)range);
 		spawnBurst(world, srcx, srcy, srcz, lens, pointy, heightscale);
 	}
 
@@ -95,7 +97,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 
 		if(!world.isRemote) {
 			for(int i = 0; i < range * 2 + 1; i++)
-				for(int j = BASE_RANGE * 2 + 1; j > -BASE_RANGE; j--)
+				for(int j = BASE_OFFSET-BASE_RANGE / 2; j > -BASE_RANGE * 2; j--)
 					for(int k = 0; k < range * 2 + 1; k++) {
 						int x = srcx - range + i;
 						int y = srcy - BASE_RANGE + j;
@@ -124,6 +126,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 								ItemNBTHelper.setCompound(copyLens, TAG_TILE, cmp);
 								ItemNBTHelper.setInt(copyLens, TAG_X, srcx);
 								ItemNBTHelper.setInt(copyLens, TAG_Y, srcy);
+								ItemNBTHelper.setInt(copyLens, TAG_Y_START, y);
 								ItemNBTHelper.setInt(copyLens, TAG_Z, srcz);
 								ItemNBTHelper.setBoolean(copyLens, TAG_POINTY, pointy);
 								ItemNBTHelper.setDouble(copyLens, TAG_HEIGHTSCALE, heightscale);
@@ -175,14 +178,16 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 
 	@Override
 	public void updateBurst(IManaBurst burst, ItemStack stack) {
+		double speed=0.35;
+		int targetDistance=BASE_OFFSET;
 		EntityThrowable entity = (EntityThrowable) burst;
 		if(!entity.worldObj.isRemote) {
 			entity.motionX = 0;
-			entity.motionY = 0.35;
+			entity.motionY = speed;
 			entity.motionZ = 0;
 
 			final int spawnTicks = 2;
-			final int placeTicks = 120;
+			final int placeTicks = net.minecraft.util.MathHelper.floor_double(targetDistance / speed);
 
 			ItemStack lens = burst.getSourceLens();
 
@@ -195,7 +200,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 					spawnBurst(entity.worldObj, x, y, z, lens);
 			} else if(burst.getTicksExisted() == placeTicks) {
 				int x = net.minecraft.util.MathHelper.floor_double(entity.posX);
-				int y = net.minecraft.util.MathHelper.floor_double(entity.posY);
+				int y = ItemNBTHelper.getInt(lens, TAG_Y_START, -1)+targetDistance;
 				int z = net.minecraft.util.MathHelper.floor_double(entity.posZ);
 
 				if(entity.worldObj.isAirBlock(x, y, z)) {
