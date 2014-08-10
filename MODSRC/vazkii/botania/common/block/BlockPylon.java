@@ -24,6 +24,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import thaumcraft.api.crafting.IInfusionStabiliser;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.lib.LibRenderIDs;
@@ -33,7 +34,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class BlockPylon extends BlockModContainer implements ILexiconable {
+public class BlockPylon extends BlockModContainer implements ILexiconable, IInfusionStabiliser {
 
 	public BlockPylon() {
 		super(Material.iron);
@@ -105,5 +106,9 @@ public class BlockPylon extends BlockModContainer implements ILexiconable {
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		int meta = world.getBlockMetadata(x, y, z);
 		return meta == 0 ? LexiconData.pylon : meta == 1 ? LexiconData.alfhomancyIntro : LexiconData.gaiaRitual;
+	}
+	@Override
+	public boolean canStabaliseInfusion(World world, int x, int y, int z) {
+		return true;
 	}
 }
