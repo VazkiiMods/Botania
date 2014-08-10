@@ -42,7 +42,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 	private static final String TAG_TILE = "_tile";
 	private static final String TAG_X = "_x";
 	private static final String TAG_Y = "_y";
-	private static final String TAG_Y_START = "_y_start";
+	private static final String TAG_Y_START = "_yStart";
 	private static final String TAG_Z = "_z";
 	private static final String TAG_POINTY = "_pointy";
 	private static final String TAG_HEIGHTSCALE = "_heightscale";
@@ -187,7 +187,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 			entity.motionZ = 0;
 
 			final int spawnTicks = 2;
-			final int placeTicks = net.minecraft.util.MathHelper.floor_double(targetDistance/speed);
+			final int placeTicks = net.minecraft.util.MathHelper.floor_double(targetDistance / speed);
 
 			ItemStack lens = burst.getSourceLens();
 
