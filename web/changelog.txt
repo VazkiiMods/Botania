@@ -1,3 +1,11 @@
+r1.1 99
+*Endoflames now  take priority over Hopperhocks. They'll try to pick the items up before the Hopperhock has a chance.
+*Fixed Mana Pools with a custom mana cap set through NBT not rendering properly.
+*Fixed crashes with the Force Relay with the Little Blocks Mod.
+*Glimmering Flowers, Floating Flowers and Mana Pylons now lessen Thaumcraft Infusion instability. <i>More hypocrisy!</i>
+*Mana Pools in the Lexica Botania now render with mana in them, that just makes sense right?
+*Mana Pools now come in two tiers. Diluted and [normal]. The diluted one only stores 1% of what the normal one can and is what you get by crafting it now, it can't infuse any items but a normal mana pool, which is acquired by tossing a Diluted Mana Pool into one with mana.
+*The Shard of Laputa doesn't scale vertically now, fixes it pulling blocks twice on higher levels. (SoundLogic)
 r1.1 98
 *Fixed the Shard of Laputa only ever pulling a single block >_>
 r1.1 97
