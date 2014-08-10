@@ -1,3 +1,6 @@
+r1.1 100
+*Fixed crash on startup if thaumcraft isn't loaded. <i>I'm an noob :V</i>
+*<i>Build 100, that's a milestone or something I guess...</i>
 r1.1 99
 *Endoflames now  take priority over Hopperhocks. They'll try to pick the items up before the Hopperhock has a chance.
 *Fixed Mana Pools with a custom mana cap set through NBT not rendering properly.
