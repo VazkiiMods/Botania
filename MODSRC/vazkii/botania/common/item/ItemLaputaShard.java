@@ -46,6 +46,8 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 	private static final String TAG_POINTY = "_pointy";
 	private static final String TAG_HEIGHTSCALE = "_heightscale";
 
+	private static final int BASE_RANGE = 14;
+	
 	public ItemLaputaShard() {
 		setUnlocalizedName(LibItemNames.LAPUTA_SHARD);
 		setHasSubtypes(true);
@@ -75,8 +77,9 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 	}
 
 	public void spawnBurstFirst(World world, int srcx, int srcy, int srcz, ItemStack lens) {
+		int range = BASE_RANGE + lens.getItemDamage();
 		boolean pointy = world.rand.nextDouble() < 0.25;
-		double heightscale = world.rand.nextDouble() + 0.5;
+		double heightscale = (world.rand.nextDouble() + 0.5) * (BASE_RANGE / range);
 		spawnBurst(world, srcx, srcy, srcz, lens, pointy, heightscale);
 	}
 
@@ -88,7 +91,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 	}
 
 	public void spawnBurst(World world, int srcx, int srcy, int srcz, ItemStack lens, boolean pointy, double heightscale) {
-		int range = 14 + lens.getItemDamage();
+		int range = BASE_RANGE + lens.getItemDamage();
 
 		if(!world.isRemote) {
 			for(int i = 0; i < range * 2 + 1; i++)
@@ -178,7 +181,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 			entity.motionY = 0.35;
 			entity.motionZ = 0;
 
-			final int spawnTicks = 3;
+			final int spawnTicks = 2;
 			final int placeTicks = 120;
 
 			ItemStack lens = burst.getSourceLens();
