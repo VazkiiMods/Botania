@@ -173,6 +173,9 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 		}
 
 		public static WorldData get(World world) {
+			if(world.mapStorage == null)
+				return null;
+			
 			WorldData data = (WorldData) world.mapStorage.loadData(WorldData.class, ID);
 
 			if (data == null) {
@@ -232,7 +235,9 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 							pos = mappedPositions.get(s);
 							mappedPositions.remove(s);
 							mappedPositions.put(newPos, pos);
-							WorldData.get(world).markDirty();
+							WorldData data = WorldData.get(world);
+							if(data != null)
+								data.markDirty();
 						}
 					}
 				}
