@@ -95,10 +95,10 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 
 		if(!world.isRemote) {
 			for(int i = 0; i < range * 2 + 1; i++)
-				for(int j = range * 2 + 1; j > -range; j--)
+				for(int j = BASE_RANGE * 2 + 1; j > -BASE_RANGE; j--)
 					for(int k = 0; k < range * 2 + 1; k++) {
 						int x = srcx - range + i;
-						int y = srcy - range + j;
+						int y = srcy - BASE_RANGE + j;
 						int z = srcz - range + k;
 
 						if(inRange(x, y, z, srcx, srcy, srcz, range, heightscale, pointy)) {
