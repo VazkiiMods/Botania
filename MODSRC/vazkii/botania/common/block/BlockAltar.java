@@ -20,12 +20,14 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -36,6 +38,7 @@ import vazkii.botania.common.item.ItemWaterRod;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
+import cpw.mods.fml.common.Loader;
 
 public class BlockAltar extends BlockModContainer implements ILexiconable {
 
@@ -84,12 +87,12 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 				}
 			}
 		} else {
-			if(stack != null && (stack.getItem() == Items.water_bucket || stack.getItem() == ModItems.waterRod && ManaItemHandler.requestManaExact(stack, par5EntityPlayer, ItemWaterRod.COST, false))) {
+			if(stack != null && (isValidWaterContainer(stack) || stack.getItem() == ModItems.waterRod && ManaItemHandler.requestManaExact(stack, par5EntityPlayer, ItemWaterRod.COST, false))) {
 				if(!tile.hasWater) {
 					if(stack.getItem() == ModItems.waterRod)
 						ManaItemHandler.requestManaExact(stack, par5EntityPlayer, ItemWaterRod.COST, true);
 					else if(!par5EntityPlayer.capabilities.isCreativeMode)
-						par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, new ItemStack(Items.bucket));
+						par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, getContainer(stack));
 
 					tile.hasWater = true;
 					par1World.func_147453_f(par2, par3, par4, this);
@@ -101,6 +104,19 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 		}
 
 		return false;
+	}
+	
+	private boolean isValidWaterContainer(ItemStack stack) {
+		if(stack.stackSize != 1)
+			return false;
+		FluidStack fluidStack = FluidContainerRegistry.getFluidForFilledItem(stack);
+		return fluidStack != null && fluidStack.getFluid() == FluidRegistry.WATER && fluidStack.amount >= FluidContainerRegistry.BUCKET_VOLUME; 
+	}
+	
+	private ItemStack getContainer(ItemStack stack) {
+		if(stack.getItem().hasContainerItem(stack))
+			return stack.getItem().getContainerItem(stack);
+		return null;
 	}
 
 	@Override
