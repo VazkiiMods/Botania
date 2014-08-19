@@ -45,7 +45,7 @@ public class TilePlatform extends TileCamo implements IManaCollisionGhost {
 			int y = tile.yCoord + dir.offsetY;
 			int z = tile.zCoord + dir.offsetZ;
 			TileEntity tileAt = worldObj.getTileEntity(x, y, z);
-			if(tileAt != null && tile instanceof TilePlatform) {
+			if(tileAt != null && tileAt instanceof TilePlatform) {
 				TilePlatform platform = (TilePlatform) tileAt;
 				if(empty ? platform.camo != null : platform.camo == null)
 					swapSelfAndPass(platform, empty);
