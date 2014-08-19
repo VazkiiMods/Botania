@@ -11,7 +11,7 @@ public class ItemElementiumBoots extends ItemElementiumArmor {
 
 	@Override
 	public float getPixieChance(ItemStack stack) {
-		return 0.045F;
+		return 0.09F;
 	}
 
 }
