@@ -1310,7 +1310,7 @@ botania.page.fireRod1=Megu Megu Fire Endless Night
 # -- VINE BALLS
 botania.entry.vineBall=Vine Balls
 botania.page.vineBall0=&1Ladders&0 can't stand up on their own, they require something on their back, whereas &1Vines&0 don't. Normally, though, &1Vines&0 aren't strong enough for someone to climb them when they're freestanding.<br>By combining a few &1Vines&0, it's possible to create a ball that can be thrown, to create a climbable ladder of strong &1Vines&0 where it hits.
-botania.page.vineBall1=It's also possible, by combining some materials such as &1Livingwood&0 and &1String&0 to create a slingshot that lets these &1Vine Balls&0 be shot while completely ignoring the force of gravity.
+botania.page.vineBall1=It's also possible, by combining some materials such as &1Livingwood&0 or a &1Rune of Air&0 to create a slingshot that lets these &1Vine Balls&0 be shot while completely ignoring the force of gravity.
 botania.page.vineBall2=This would be in Vineacraft...
 botania.page.vineBall3=...if that actually existed.
 
