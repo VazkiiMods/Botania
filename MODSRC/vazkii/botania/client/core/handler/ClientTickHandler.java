@@ -41,10 +41,8 @@ public class ClientTickHandler {
 		if(event.phase == Phase.END) {
 			LightningBolt.update();
 
-			if(Minecraft.getMinecraft().theWorld == null) {
-				ClientProxy.hasRingReachIncrease = false;
+			if(Minecraft.getMinecraft().theWorld == null)
 				ManaNetworkHandler.instance.clear();
-			}
 
 			GuiScreen gui = Minecraft.getMinecraft().currentScreen;
 			if(gui == null || !gui.doesGuiPauseGame()) {

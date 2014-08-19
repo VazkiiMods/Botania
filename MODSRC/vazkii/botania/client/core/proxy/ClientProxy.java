@@ -91,8 +91,6 @@ import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class ClientProxy extends CommonProxy {
 
-	public static boolean hasRingReachIncrease = false;
-
 	@Override
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
@@ -180,9 +178,7 @@ public class ClientProxy extends CommonProxy {
 				mc.playerController = controller;
 			}
 
-			if(reach > 0 != hasRingReachIncrease)
-				((IExtendedPlayerController) mc.playerController).setReachDistanceExtension(((IExtendedPlayerController) mc.playerController).getReachDistanceExtension() + reach);
-			hasRingReachIncrease = reach > 0;
+			((IExtendedPlayerController) mc.playerController).setReachDistanceExtension(Math.max(0, ((IExtendedPlayerController) mc.playerController).getReachDistanceExtension() + reach));
 		}
 	}
 
