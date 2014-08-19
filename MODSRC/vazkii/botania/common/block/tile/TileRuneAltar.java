@@ -140,7 +140,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 			}
 		}
 
-		if(manaToGet > 0 && mana >= manaToGet) {
+		if(manaToGet > 0 && mana >= manaToGet && !worldObj.isRemote) {
 			List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1));
 			EntityItem livingrock = null;
 			for(EntityItem item : items)
