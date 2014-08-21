@@ -141,7 +141,7 @@ public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaP
 
 	@Override
 	public boolean canReceiveManaFromItem(ItemStack stack, ItemStack otherStack) {
-		return true;
+		return !isCreative(stack);
 	}
 
 	@Override
