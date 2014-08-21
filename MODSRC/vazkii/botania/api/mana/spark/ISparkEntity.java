@@ -12,13 +12,18 @@
 package vazkii.botania.api.mana.spark;
 
 import java.util.Collection;
+import java.util.List;
+
+import net.minecraft.world.World;
 
 public interface ISparkEntity {
-
+	
 	public ISparkAttachable getAttachedTile();
+
+	public Collection<ISparkEntity> getTransfers();
 	
-	public Collection<ISparkEntity> getSparkTransferingTo();
+	public void registerTransfer(ISparkEntity entity);
 	
-	public void registerSparkTranfer(ISparkEntity spark);
-	
+	public boolean areIncomingTransfersDone();
+
 }

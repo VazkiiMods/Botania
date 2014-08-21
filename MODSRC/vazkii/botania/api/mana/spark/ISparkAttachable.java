@@ -12,7 +12,6 @@
 package vazkii.botania.api.mana.spark;
 
 import net.minecraft.item.ItemStack;
-import vazkii.botania.api.mana.IManaBlock;
 import vazkii.botania.api.mana.IManaReceiver;
 
 public interface ISparkAttachable extends IManaReceiver {
@@ -22,5 +21,7 @@ public interface ISparkAttachable extends IManaReceiver {
 	public void attachSpark(ISparkEntity entity);
 	
 	public ISparkEntity getAttachedSpark();
+	
+	public boolean areIncomingTranfersDone();
 	
 }

@@ -64,7 +64,6 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	private static final String TAG_FRAGILE = "fragile";
 	private static final String TAG_INPUT_KEY = "inputKey";
 	private static final String TAG_OUTPUT_KEY = "outputKey";
-	private static final String TAG_ATTACHED_SPARK = "attachedSpark";
 
 	boolean outputting = false;
 	public boolean alchemy = false;
@@ -73,7 +72,6 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	public int color = 0;
 	int mana;
 	int knownMana = -1;
-	int sparkAttached = -1;
 	
 	public int manaCap = -1;
 	int soundTicks = 0;
@@ -346,17 +344,22 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 	@Override
 	public void attachSpark(ISparkEntity entity) {
-		sparkAttached = ((Entity) entity).getEntityId();
+		// NO-OP
 	}
 
 	@Override
 	public ISparkEntity getAttachedSpark() {
-		Entity e = worldObj.getEntityByID(sparkAttached);
-		if(e != null || !(e instanceof ISparkEntity)) {
-			sparkAttached = -1;
-			return null;
+		List<ISparkEntity> sparks = worldObj.getEntitiesWithinAABB(ISparkEntity.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord + 1, zCoord, xCoord + 1, yCoord + 2, zCoord + 1));
+		if(sparks.size() == 1) {
+			Entity e = (Entity) sparks.get(0);
+			return (ISparkEntity) e;
 		}
-		
-		return (ISparkEntity) e;
+
+		return null;
+	}
+
+	@Override
+	public boolean areIncomingTranfersDone() {
+		return false;
 	}
 }

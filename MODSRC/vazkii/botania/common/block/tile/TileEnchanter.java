@@ -16,6 +16,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -27,11 +28,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaPool;
-import vazkii.botania.api.mana.IManaReceiver;
+import vazkii.botania.api.mana.spark.ISparkAttachable;
+import vazkii.botania.api.mana.spark.ISparkEntity;
+import vazkii.botania.api.mana.spark.SparkHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 
-public class TileEnchanter extends TileMod implements IManaReceiver {
+public class TileEnchanter extends TileMod implements ISparkAttachable {
 
 	private static final String TAG_STAGE = "stage";
 	private static final String TAG_STAGE_TICKS = "stageTicks";
@@ -40,7 +43,7 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_ITEM = "item";
 	private static final String TAG_ENCHANTS = "enchantsToApply";
-
+	
 	public int stage = 0;
 	public int stageTicks = 0;
 
@@ -172,25 +175,36 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 
 				advanceStage();
 			} else {
-				getManaFromPools : {
-				int range = 8;
-				for(int i = -range; i < range + 1; i++)
-					for(int j = -range; j < range + 1; j++) {
-						TileEntity tile = worldObj.getTileEntity(xCoord + i, yCoord, zCoord + j);
-						if(tile instanceof IManaPool) {
-							IManaPool pool = (IManaPool) tile;
-							int manaToRemove = Math.min(pool.getCurrentMana(), Math.min(1000, manaRequired - mana + 1));
-							if(!worldObj.isRemote) {
-								pool.recieveMana(-manaToRemove);
-								recieveMana((int) (manaToRemove * 0.9));
-								sync();
-							}
-
-							if(mana >= manaRequired)
-								break getManaFromPools;
-						}
+				ISparkEntity spark = getAttachedSpark();
+				if(spark != null) {
+					List<ISparkEntity> sparkEntities = SparkHelper.getSparksAround(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5);
+					for(ISparkEntity otherSpark : sparkEntities) {
+						if(spark == otherSpark)
+							continue;
+						
+						if(otherSpark.getAttachedTile() != null && otherSpark.getAttachedTile() instanceof IManaPool)
+							otherSpark.registerTransfer(spark);
 					}
-			}
+				}
+//				getManaFromPools : {
+//				int range = 8;
+//				for(int i = -range; i < range + 1; i++)
+//					for(int j = -range; j < range + 1; j++) {
+//						TileEntity tile = worldObj.getTileEntity(xCoord + i, yCoord, zCoord + j);
+//						if(tile instanceof IManaPool) {
+//							IManaPool pool = (IManaPool) tile;
+//							int manaToRemove = Math.min(pool.getCurrentMana(), Math.min(1000, manaRequired - mana + 1));
+//							if(!worldObj.isRemote) {
+//								pool.recieveMana(-manaToRemove);
+//								recieveMana((int) (manaToRemove * 0.9));
+//								sync();
+//							}
+//
+//							if(mana >= manaRequired)
+//								break getManaFromPools;
+//						}
+//					}
+//			}
 			}
 
 			break;
@@ -367,6 +381,32 @@ public class TileEnchanter extends TileMod implements IManaReceiver {
 			this.enchant = enchant;
 			this.level = level;
 		}
+	}
+
+	@Override
+	public boolean canAttachSpark(ItemStack stack) {
+		return true;
+	}
+
+	@Override
+	public void attachSpark(ISparkEntity entity) {
+		// NO-OP
+	}
+
+	@Override
+	public ISparkEntity getAttachedSpark() {
+		List<ISparkEntity> sparks = worldObj.getEntitiesWithinAABB(ISparkEntity.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord + 1, zCoord, xCoord + 1, yCoord + 2, zCoord + 1));
+		if(sparks.size() == 1) {
+			Entity e = (Entity) sparks.get(0);
+			return (ISparkEntity) e;
+		}
+
+		return null;
+	}
+
+	@Override
+	public boolean areIncomingTranfersDone() {
+		return stage == 3;
 	}
 
 }

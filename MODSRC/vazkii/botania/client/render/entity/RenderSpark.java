@@ -14,6 +14,8 @@ package vazkii.botania.client.render.entity;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
+import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.item.ItemSpark;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderEntity;
@@ -37,7 +39,10 @@ public class RenderSpark extends RenderEntity {
             GL11.glEnable(GL12.GL_RESCALE_NORMAL);
             GL11.glEnable(GL11.GL_BLEND);
             GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-            GL11.glAlphaFunc(GL11.GL_GREATER, 0.025F);
+            GL11.glAlphaFunc(GL11.GL_GREATER, 0.05F);
+            
+            int time = ClientTickHandler.ticksInGame;
+            GL11.glColor4f(1F, 1F, 1F, 0.7F + (0.3F * (float) (Math.sin((double) time / 5.0) + 0.5) * 2));
             
             GL11.glScalef(0.75F, 0.75F, 0.75F);
             this.bindEntityTexture(par1Entity);
