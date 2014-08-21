@@ -686,6 +686,11 @@ item.botania:itemFinder.name=The Spectator
 item.botania:superLavaPendant.name=Crimson Pendant
 item.botania:enderHand.name=Hand of Ender
 item.botania:glassPick.name=Vitreous Pickaxe
+item.botania:spark.name=Spark
+item.botania:sparkUpgrade0.name=Spark Augment: Dispersive
+item.botania:sparkUpgrade1.name=Spark Augment: Dominant
+item.botania:sparkUpgrade2.name=Spark Augment: Recessive
+item.botania:sparkUpgrade3.name=Spark Augment: Isolated
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania, %s Edition Table of Contents

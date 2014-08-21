@@ -149,6 +149,8 @@ public final class ModItems {
 	public static Item superLavaPendant;
 	public static Item enderHand;
 	public static Item glassPick;
+	public static Item spark;
+	public static Item sparkUpgrade;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -233,6 +235,8 @@ public final class ModItems {
 		superLavaPendant = new ItemSuperLavaPendant();
 		enderHand = new ItemEnderHand();
 		glassPick = new ItemGlassPick();
+		spark = new ItemSpark();
+		sparkUpgrade = new ItemSparkUpgrade();
 
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
