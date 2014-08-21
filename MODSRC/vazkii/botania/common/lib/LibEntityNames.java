@@ -22,5 +22,6 @@ public final class LibEntityNames {
 	public static final String VINE_BALL = LibResources.PREFIX_MOD + "vineBall";
 	public static final String DOPPLEGANGER = LibResources.PREFIX_MOD + "doppleganger";
 	public static final String MAGIC_LANDMINE = LibResources.PREFIX_MOD + "magicLandmine";
+	public static final String SPARK = LibResources.PREFIX_MOD + "spark";
 
 }

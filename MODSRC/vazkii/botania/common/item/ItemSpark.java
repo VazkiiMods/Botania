@@ -12,8 +12,14 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
+import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.common.entity.EntitySpark;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemSpark extends ItemMod {
@@ -25,6 +31,26 @@ public class ItemSpark extends ItemMod {
 	}
 	
 	@Override
+	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float xv, float yv, float zv) {
+		TileEntity tile = world.getTileEntity(x, y, z);
+		if(tile instanceof ISparkAttachable) {
+			ISparkAttachable attach = (ISparkAttachable) tile;
+			if(attach.canAttachSpark(stack) && attach.getAttachedSpark() == null) {
+				stack.stackSize--;
+				if(!world.isRemote) {
+					EntitySpark spark = new EntitySpark(world);
+					spark.setPosition(x + 0.5, y + 1.5, z + 0.5);
+					world.spawnEntityInWorld(spark);
+					attach.attachSpark(spark);
+					world.markBlockForUpdate(x, y, z);
+				}
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	@Override
 	public void registerIcons(IIconRegister par1IconRegister) {
 		invIcon = IconHelper.forItem(par1IconRegister, this, 0);
 		worldIcon = IconHelper.forItem(par1IconRegister, this, 1);
@@ -32,7 +58,7 @@ public class ItemSpark extends ItemMod {
 	
 	@Override
 	public IIcon getIconFromDamage(int p_77617_1_) {
-		return invIcon;
+		return worldIcon;
 	}
 	
 }

@@ -17,6 +17,7 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -34,6 +35,8 @@ import vazkii.botania.api.mana.IKeyLocked;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.ManaNetworkEvent;
+import vazkii.botania.api.mana.spark.ISparkAttachable;
+import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.handler.LightningHandler;
@@ -46,7 +49,7 @@ import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 
-public class TilePool extends TileMod implements IManaPool, IKeyLocked {
+public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAttachable {
 
 	public static final int MAX_MANA = 1000000;
 	public static final int MAX_MANA_DILLUTED = 10000;
@@ -61,6 +64,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked {
 	private static final String TAG_FRAGILE = "fragile";
 	private static final String TAG_INPUT_KEY = "inputKey";
 	private static final String TAG_OUTPUT_KEY = "outputKey";
+	private static final String TAG_ATTACHED_SPARK = "attachedSpark";
 
 	boolean outputting = false;
 	public boolean alchemy = false;
@@ -69,7 +73,8 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked {
 	public int color = 0;
 	int mana;
 	int knownMana = -1;
-
+	int sparkAttached = -1;
+	
 	public int manaCap = -1;
 	int soundTicks = 0;
 	boolean canAccept = true;
@@ -332,5 +337,26 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked {
 	@Override
 	public String getOutputKey() {
 		return outputKey;
+	}
+
+	@Override
+	public boolean canAttachSpark(ItemStack stack) {
+		return getBlockMetadata() != 2;
+	}
+
+	@Override
+	public void attachSpark(ISparkEntity entity) {
+		sparkAttached = ((Entity) entity).getEntityId();
+	}
+
+	@Override
+	public ISparkEntity getAttachedSpark() {
+		Entity e = worldObj.getEntityByID(sparkAttached);
+		if(e != null || !(e instanceof ISparkEntity)) {
+			sparkAttached = -1;
+			return null;
+		}
+		
+		return (ISparkEntity) e;
 	}
 }

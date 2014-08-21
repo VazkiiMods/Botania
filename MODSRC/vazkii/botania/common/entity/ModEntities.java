@@ -26,6 +26,7 @@ public final class ModEntities {
 		EntityRegistry.registerModEntity(EntityVineBall.class, LibEntityNames.VINE_BALL, id++, Botania.instance, 64, 10, true);
 		EntityRegistry.registerModEntity(EntityDoppleganger.class, LibEntityNames.DOPPLEGANGER, id++, Botania.instance, 128, 3, true);
 		EntityRegistry.registerModEntity(EntityMagicLandmine.class, LibEntityNames.MAGIC_LANDMINE, id++, Botania.instance, 128, 40, false);
+		EntityRegistry.registerModEntity(EntitySpark.class, LibEntityNames.SPARK, id++, Botania.instance, 64, 10, false);
 	}
 
 }
