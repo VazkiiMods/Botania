@@ -24,6 +24,10 @@ public interface ISparkEntity {
 	
 	public void registerTransfer(ISparkEntity entity);
 	
+	public int getUpgrade();
+	
+	public void setUpgrade(int upgrade);
+	
 	public boolean areIncomingTransfersDone();
 
 }

@@ -61,7 +61,7 @@ public class ItemSpark extends ItemMod {
 	
 	@Override
 	public IIcon getIconFromDamage(int p_77617_1_) {
-		return worldIcon;
+		return invIcon;
 	}
 	
 }
