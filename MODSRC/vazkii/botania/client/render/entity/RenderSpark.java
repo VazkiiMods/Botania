@@ -11,24 +11,22 @@
  */
 package vazkii.botania.client.render.entity;
 
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
+import java.util.Random;
 
-import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
-import vazkii.botania.api.mana.spark.ISparkEntity;
-import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.common.entity.EntitySpark;
-import vazkii.botania.common.item.ItemSpark;
-import vazkii.botania.common.item.ItemSparkUpgrade;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderEntity;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.projectile.EntityPotion;
-import net.minecraft.item.ItemPotion;
-import net.minecraft.potion.PotionHelper;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
+
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
+
+import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.common.entity.EntitySpark;
+import vazkii.botania.common.item.ItemSpark;
+import vazkii.botania.common.item.ItemSparkUpgrade;
 
 public class RenderSpark extends RenderEntity {
 
@@ -45,19 +43,22 @@ public class RenderSpark extends RenderEntity {
 		GL11.glAlphaFunc(GL11.GL_GREATER, 0.05F);
 
 		int time = ClientTickHandler.ticksInGame;
+		time += new Random(par1Entity.getEntityId()).nextInt();
 		GL11.glColor4f(1F, 1F, 1F, 0.7F + (0.3F * (float) (Math.sin((double) time / 5.0) + 0.5) * 2));
 
-		GL11.glScalef(0.75F, 0.75F, 0.75F);
+		float scale = 0.75F + 0.1F * (float) (Math.sin((double) time / 10));
+		GL11.glScalef(scale, scale, scale);
 		this.bindEntityTexture(par1Entity);
 		Tessellator tessellator = Tessellator.instance;
 
 		float r = 180.0F - this.renderManager.playerViewY;
 		GL11.glRotatef(r, 0.0F, 1.0F, 0.0F);
+		GL11.glRotatef(25F * (float) (Math.sin((double) time / 15)), 1F, 0F, 0F);
 		this.func_77026_a(tessellator, iicon);
 		int upgrade = spark.getUpgrade() - 1;
 		if(upgrade >= 0 && upgrade < ItemSparkUpgrade.worldIcons.length) {
-			GL11.glTranslatef(-0.02F, 0.24F, 0.005F);
-			GL11.glScalef(0.15F, 0.15F, 0.15F);
+			GL11.glTranslatef(-0.02F + (float) (Math.sin((double) time / 20)) * 0.2F, 0.24F + (float) (Math.cos((double) time / 20)) * 0.2F, 0.005F);
+			GL11.glScalef(0.2F, 0.2F, 0.2F);
 			this.func_77026_a(tessellator, ItemSparkUpgrade.worldIcons[upgrade]);
 		}
 		GL11.glRotatef(-r, 0.0F, 1.0F, 0.0F);
