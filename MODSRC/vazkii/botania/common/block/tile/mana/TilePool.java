@@ -72,7 +72,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	public int color = 0;
 	int mana;
 	int knownMana = -1;
-	
+
 	public int manaCap = -1;
 	int soundTicks = 0;
 	boolean canAccept = true;
@@ -175,7 +175,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	public void updateEntity() {
 		if(manaCap == -1)
 			manaCap = getBlockMetadata() == 2 ? MAX_MANA_DILLUTED : MAX_MANA;
-		
+
 		if(!ManaNetworkHandler.instance.isPoolIn(this))
 			ManaNetworkEvent.addPool(this);
 

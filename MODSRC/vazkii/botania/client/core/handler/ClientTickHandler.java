@@ -22,7 +22,6 @@ import net.minecraft.tileentity.TileEntity;
 import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.TileSignature;
 import vazkii.botania.client.core.handler.LightningHandler.LightningBolt;
-import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.item.ItemTwigWand;

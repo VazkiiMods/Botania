@@ -43,7 +43,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_ITEM = "item";
 	private static final String TAG_ENCHANTS = "enchantsToApply";
-	
+
 	public int stage = 0;
 	public int stageTicks = 0;
 
@@ -181,30 +181,30 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 					for(ISparkEntity otherSpark : sparkEntities) {
 						if(spark == otherSpark)
 							continue;
-						
+
 						if(otherSpark.getAttachedTile() != null && otherSpark.getAttachedTile() instanceof IManaPool)
 							otherSpark.registerTransfer(spark);
 					}
 				}
-//				getManaFromPools : {
-//				int range = 8;
-//				for(int i = -range; i < range + 1; i++)
-//					for(int j = -range; j < range + 1; j++) {
-//						TileEntity tile = worldObj.getTileEntity(xCoord + i, yCoord, zCoord + j);
-//						if(tile instanceof IManaPool) {
-//							IManaPool pool = (IManaPool) tile;
-//							int manaToRemove = Math.min(pool.getCurrentMana(), Math.min(1000, manaRequired - mana + 1));
-//							if(!worldObj.isRemote) {
-//								pool.recieveMana(-manaToRemove);
-//								recieveMana((int) (manaToRemove * 0.9));
-//								sync();
-//							}
-//
-//							if(mana >= manaRequired)
-//								break getManaFromPools;
-//						}
-//					}
-//			}
+				//				getManaFromPools : {
+				//				int range = 8;
+				//				for(int i = -range; i < range + 1; i++)
+				//					for(int j = -range; j < range + 1; j++) {
+				//						TileEntity tile = worldObj.getTileEntity(xCoord + i, yCoord, zCoord + j);
+				//						if(tile instanceof IManaPool) {
+				//							IManaPool pool = (IManaPool) tile;
+				//							int manaToRemove = Math.min(pool.getCurrentMana(), Math.min(1000, manaRequired - mana + 1));
+				//							if(!worldObj.isRemote) {
+				//								pool.recieveMana(-manaToRemove);
+				//								recieveMana((int) (manaToRemove * 0.9));
+				//								sync();
+				//							}
+				//
+				//							if(mana >= manaRequired)
+				//								break getManaFromPools;
+				//						}
+				//					}
+				//			}
 			}
 
 			break;

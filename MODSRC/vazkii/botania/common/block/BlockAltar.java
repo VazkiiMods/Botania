@@ -38,7 +38,6 @@ import vazkii.botania.common.item.ItemWaterRod;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-import cpw.mods.fml.common.Loader;
 
 public class BlockAltar extends BlockModContainer implements ILexiconable {
 
@@ -105,14 +104,14 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 
 		return false;
 	}
-	
+
 	private boolean isValidWaterContainer(ItemStack stack) {
 		if(stack.stackSize != 1)
 			return false;
 		FluidStack fluidStack = FluidContainerRegistry.getFluidForFilledItem(stack);
-		return fluidStack != null && fluidStack.getFluid() == FluidRegistry.WATER && fluidStack.amount >= FluidContainerRegistry.BUCKET_VOLUME; 
+		return fluidStack != null && fluidStack.getFluid() == FluidRegistry.WATER && fluidStack.amount >= FluidContainerRegistry.BUCKET_VOLUME;
 	}
-	
+
 	private ItemStack getContainer(ItemStack stack) {
 		if(stack.getItem().hasContainerItem(stack))
 			return stack.getItem().getContainerItem(stack);

@@ -17,11 +17,11 @@ import vazkii.botania.api.mana.IManaReceiver;
 public interface ISparkAttachable extends IManaReceiver {
 
 	public boolean canAttachSpark(ItemStack stack);
-	
+
 	public void attachSpark(ISparkEntity entity);
-	
+
 	public ISparkEntity getAttachedSpark();
-	
+
 	public boolean areIncomingTranfersDone();
-	
+
 }

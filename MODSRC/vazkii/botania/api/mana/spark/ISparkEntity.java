@@ -12,22 +12,19 @@
 package vazkii.botania.api.mana.spark;
 
 import java.util.Collection;
-import java.util.List;
-
-import net.minecraft.world.World;
 
 public interface ISparkEntity {
-	
+
 	public ISparkAttachable getAttachedTile();
 
 	public Collection<ISparkEntity> getTransfers();
-	
+
 	public void registerTransfer(ISparkEntity entity);
-	
+
 	public int getUpgrade();
-	
+
 	public void setUpgrade(int upgrade);
-	
+
 	public boolean areIncomingTransfersDone();
 
 }

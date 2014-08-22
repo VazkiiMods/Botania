@@ -175,7 +175,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 		public static WorldData get(World world) {
 			if(world.mapStorage == null)
 				return null;
-			
+
 			WorldData data = (WorldData) world.mapStorage.loadData(WorldData.class, ID);
 
 			if (data == null) {

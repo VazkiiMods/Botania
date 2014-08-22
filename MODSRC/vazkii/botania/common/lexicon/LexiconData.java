@@ -231,10 +231,10 @@ public final class LexiconData {
 
 		sparks = new BLexiconEntry(LibLexicon.MANA_SPARKS, categoryMana);
 		sparks.setPriority().setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipesSpark));
-		
+
 		sparkUpgrades = new ALexiconEntry(LibLexicon.MANA_SPARK_UPGRADES, categoryMana);
 		sparkUpgrades.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageText("3"), new PageText("4"), new PageCraftingRecipe("5", ModCrafingRecipes.recipesSparkUpgrades));
-		
+
 		lenses = new BLexiconEntry(LibLexicon.MANA_LENSES, categoryMana);
 		lenses.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeManaLens), new PageCraftingRecipe("2", ModCrafingRecipes.recipesLensDying), new PageCraftingRecipe("3", ModCrafingRecipes.recipeRainbowLens), new PageText("4"), new PageText("5"),
 				new PageText("6"), new PageCraftingRecipe("7", ModCrafingRecipes.recipeLensVelocity),

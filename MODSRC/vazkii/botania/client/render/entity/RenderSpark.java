@@ -44,22 +44,22 @@ public class RenderSpark extends RenderEntity {
 
 		int time = ClientTickHandler.ticksInGame;
 		time += new Random(par1Entity.getEntityId()).nextInt();
-		GL11.glColor4f(1F, 1F, 1F, 0.7F + (0.3F * (float) (Math.sin((double) time / 5.0) + 0.5) * 2));
+		GL11.glColor4f(1F, 1F, 1F, 0.7F + 0.3F * (float) (Math.sin(time / 5.0) + 0.5) * 2);
 
-		float scale = 0.75F + 0.1F * (float) (Math.sin((double) time / 10));
+		float scale = 0.75F + 0.1F * (float) Math.sin((double) time / 10);
 		GL11.glScalef(scale, scale, scale);
-		this.bindEntityTexture(par1Entity);
+		bindEntityTexture(par1Entity);
 		Tessellator tessellator = Tessellator.instance;
 
-		float r = 180.0F - this.renderManager.playerViewY;
+		float r = 180.0F - renderManager.playerViewY;
 		GL11.glRotatef(r, 0.0F, 1.0F, 0.0F);
-		GL11.glRotatef(25F * (float) (Math.sin((double) time / 15)), 1F, 0F, 0F);
-		this.func_77026_a(tessellator, iicon);
+		GL11.glRotatef(25F * (float) Math.sin((double) time / 15), 1F, 0F, 0F);
+		func_77026_a(tessellator, iicon);
 		int upgrade = spark.getUpgrade() - 1;
 		if(upgrade >= 0 && upgrade < ItemSparkUpgrade.worldIcons.length) {
-			GL11.glTranslatef(-0.02F + (float) (Math.sin((double) time / 20)) * 0.2F, 0.24F + (float) (Math.cos((double) time / 20)) * 0.2F, 0.005F);
+			GL11.glTranslatef(-0.02F + (float) Math.sin((double) time / 20) * 0.2F, 0.24F + (float) Math.cos((double) time / 20) * 0.2F, 0.005F);
 			GL11.glScalef(0.2F, 0.2F, 0.2F);
-			this.func_77026_a(tessellator, ItemSparkUpgrade.worldIcons[upgrade]);
+			func_77026_a(tessellator, ItemSparkUpgrade.worldIcons[upgrade]);
 		}
 		GL11.glRotatef(-r, 0.0F, 1.0F, 0.0F);
 
@@ -86,12 +86,12 @@ public class RenderSpark extends RenderEntity {
 		p_77026_1_.startDrawingQuads();
 		p_77026_1_.setNormal(0.0F, 1.0F, 0.0F);
 		p_77026_1_.setBrightness(240);
-		p_77026_1_.addVertexWithUV((double)(0.0F - f5), (double)(0.0F - f6), 0.0D, (double)f, (double)f3);
-		p_77026_1_.addVertexWithUV((double)(f4 - f5), (double)(0.0F - f6), 0.0D, (double)f1, (double)f3);
-		p_77026_1_.addVertexWithUV((double)(f4 - f5), (double)(f4 - f6), 0.0D, (double)f1, (double)f2);
-		p_77026_1_.addVertexWithUV((double)(0.0F - f5), (double)(f4 - f6), 0.0D, (double)f, (double)f2);
+		p_77026_1_.addVertexWithUV(0.0F - f5, 0.0F - f6, 0.0D, f, f3);
+		p_77026_1_.addVertexWithUV(f4 - f5, 0.0F - f6, 0.0D, f1, f3);
+		p_77026_1_.addVertexWithUV(f4 - f5, f4 - f6, 0.0D, f1, f2);
+		p_77026_1_.addVertexWithUV(0.0F - f5, f4 - f6, 0.0D, f, f2);
 		p_77026_1_.draw();
-		
+
 	}
 
 }

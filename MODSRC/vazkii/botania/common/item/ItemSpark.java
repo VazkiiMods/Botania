@@ -11,10 +11,7 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.List;
-
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -28,11 +25,11 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemSpark extends ItemMod {
 
 	public static IIcon invIcon, worldIcon;
-	
+
 	public ItemSpark() {
 		setUnlocalizedName(LibItemNames.SPARK);
 	}
-	
+
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float xv, float yv, float zv) {
 		TileEntity tile = world.getTileEntity(x, y, z);
@@ -52,16 +49,16 @@ public class ItemSpark extends ItemMod {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public void registerIcons(IIconRegister par1IconRegister) {
 		invIcon = IconHelper.forItem(par1IconRegister, this, 0);
 		worldIcon = IconHelper.forItem(par1IconRegister, this, 1);
 	}
-	
+
 	@Override
 	public IIcon getIconFromDamage(int p_77617_1_) {
 		return invIcon;
 	}
-	
+
 }

@@ -24,15 +24,15 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemSparkUpgrade extends ItemMod {
 
 	private static final int VARIANTS = 4;
-	
+
 	public static IIcon[] worldIcons;
 	IIcon[] invIcons;
-	
+
 	public ItemSparkUpgrade() {
 		setUnlocalizedName(LibItemNames.SPARK_UPGRADE);
 		setHasSubtypes(true);
 	}
-	
+
 	@Override
 	public void registerIcons(IIconRegister par1IconRegister) {
 		worldIcons = new IIcon[VARIANTS];
@@ -42,18 +42,18 @@ public class ItemSparkUpgrade extends ItemMod {
 			invIcons[i] = IconHelper.forItem(par1IconRegister, this, i);
 		}
 	}
-	
+
 	@Override
 	public IIcon getIconFromDamage(int meta) {
 		return invIcons[Math.min(invIcons.length - 1, meta)];
 	}
-	
+
 	@Override
 	public void getSubItems(Item item, CreativeTabs tab, List list) {
 		for(int i = 0; i < VARIANTS; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
-	
+
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
 		return getUnlocalizedNameLazy(par1ItemStack) + par1ItemStack.getItemDamage();

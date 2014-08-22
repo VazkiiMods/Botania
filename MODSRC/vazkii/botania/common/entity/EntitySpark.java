@@ -67,7 +67,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 		}
 
 		Collection<ISparkEntity> transfers = getTransfers();
-		
+
 		int upgrade = getUpgrade();
 		if(upgrade != 0) {
 			List<ISparkEntity> sparks = SparkHelper.getSparksAround(worldObj, posX, posY, posZ);
@@ -129,7 +129,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 						continue;
 
 					int upgrade_ = spark.getUpgrade();
-					if(upgrade_ == 0) 
+					if(upgrade_ == 0)
 						spark.registerTransfer(this);
 				}
 				break;
@@ -140,7 +140,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 						continue;
 
 					int upgrade_ = spark.getUpgrade();
-					if(upgrade_ != 2 && upgrade_ != 3 && upgrade_ != 4) 
+					if(upgrade_ != 2 && upgrade_ != 3 && upgrade_ != 4)
 						transfers.add(spark);
 				}
 				break;
@@ -161,7 +161,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 				tile.recieveMana(-manaTotal);
 			}
 		}
-		
+
 		if(removeTransferants > 0)
 			removeTransferants--;
 	}
@@ -191,15 +191,15 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 	@Override
 	public boolean interactFirst(EntityPlayer player) {
-		ItemStack stack = player.getCurrentEquippedItem(); 
+		ItemStack stack = player.getCurrentEquippedItem();
 		if(stack != null) {
 			int upgrade = getUpgrade();
 			if(stack.getItem() == ModItems.twigWand) {
-				if(upgrade > 0) { 
+				if(upgrade > 0) {
 					if(!worldObj.isRemote)
 						entityDropItem(new ItemStack(ModItems.sparkUpgrade, 1, upgrade - 1), 0F);
 					setUpgrade(0);
-					
+
 					dataWatcher.updateObject(29, "");
 					removeTransferants = 2;
 				} else setDead();
@@ -242,9 +242,9 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 	@Override
 	public ISparkAttachable getAttachedTile() {
-		int x = (int) MathHelper.floor_double(posX);
-		int y = (int) MathHelper.floor_double(posY) - 1;
-		int z = (int) MathHelper.floor_double(posZ);
+		int x = MathHelper.floor_double(posX);
+		int y = MathHelper.floor_double(posY) - 1;
+		int z = MathHelper.floor_double(posZ);
 		TileEntity tile = worldObj.getTileEntity(x, y, z);
 		if(tile != null && tile instanceof ISparkAttachable)
 			return (ISparkAttachable) tile;
@@ -269,7 +269,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 			Entity e = worldObj.getEntityByID(id);
 			if(e != null && e instanceof ISparkEntity) {
 				ISparkEntity spark = (ISparkEntity) e;
-				if(spark != this && !spark.areIncomingTransfersDone() && spark.getAttachedTile() != null && !spark.getAttachedTile().isFull() && spark.getUpgrade() != 4 && ((getUpgrade() != 4 || getUpgrade() != 3 || getUpgrade() != 1) || !(spark.getAttachedTile() instanceof IManaPool))) {
+				if(spark != this && !spark.areIncomingTransfersDone() && spark.getAttachedTile() != null && !spark.getAttachedTile().isFull() && spark.getUpgrade() != 4 && (getUpgrade() != 4 || getUpgrade() != 3 || getUpgrade() != 1 || !(spark.getAttachedTile() instanceof IManaPool))) {
 					entities.add((ISparkEntity) e);
 					added = true;
 				}
@@ -298,7 +298,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 			return;
 
 		String transfers = dataWatcher.getWatchableObjectString(29);
-		dataWatcher.updateObject(29, transfers + (transfers.isEmpty() ? "" : ";") + ((Entity) entity).getEntityId()); 
+		dataWatcher.updateObject(29, transfers + (transfers.isEmpty() ? "" : ";") + ((Entity) entity).getEntityId());
 	}
 
 	@Override
@@ -316,8 +316,8 @@ public class EntitySpark extends Entity implements ISparkEntity {
 		ISparkAttachable tile = getAttachedTile();
 		if(tile instanceof IManaPool)
 			return removeTransferants > 0;
-		
-		return tile != null && tile.areIncomingTranfersDone();
+
+			return tile != null && tile.areIncomingTranfersDone();
 	}
 
 }

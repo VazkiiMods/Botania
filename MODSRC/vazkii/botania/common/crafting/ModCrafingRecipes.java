@@ -1175,19 +1175,19 @@ public final class ModCrafingRecipes {
 
 		// Spark Recipe
 		for(int i = 0; i < 16; i++)
-			addOreDictRecipe(new ItemStack(ModItems.spark), 
-				"BPB", "BNB", "BPB",
-				'B', new ItemStack(Items.blaze_powder),
-				'P', LibOreDict.MANA_PETAL[i],
-				'N', new ItemStack(Items.gold_nugget));
+			addOreDictRecipe(new ItemStack(ModItems.spark),
+					"BPB", "BNB", "BPB",
+					'B', new ItemStack(Items.blaze_powder),
+					'P', LibOreDict.MANA_PETAL[i],
+					'N', new ItemStack(Items.gold_nugget));
 		recipesSpark = BotaniaAPI.getLatestAddedRecipes(16);
-		
+
 		// Spark Augment Recipes
 		for(int i = 0; i < 4; i++)
 			addShapelessOreDictRecipe(new ItemStack(ModItems.sparkUpgrade, 1, i),
-				LibOreDict.PIXIE_DUST, LibOreDict.MANA_STEEL, LibOreDict.RUNE[i]);
+					LibOreDict.PIXIE_DUST, LibOreDict.MANA_STEEL, LibOreDict.RUNE[i]);
 		recipesSparkUpgrades = BotaniaAPI.getLatestAddedRecipes(4);
-		
+
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",
