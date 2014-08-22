@@ -34,7 +34,7 @@
 				I accidentally a debug in, I fixed it in 1.7, if you don't want to update, don't place down Nightshades.<br><br>
 				
 				<b>My game crashes with <a href="http://openeye.openmods.info/crashes/1dbc37884f9ac4ed8cce833186832e19">this log</a> or <a href="http://openeye.openmods.info/crashes/7f75eed23d85bb2d9a44393890c97cf3">this log</a>, what did I do wrong?</b><br>
-				You forgot to install <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/2132152-baubles-princess-edition-1-0-0-18p-last-updated-7">Baubles</a>, silly.<br><br>
+				You forgot to install <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1294623-baubles-1-0-1-5-updated-20-8-2014">Baubles</a>, silly.<br><br>
 				
 				<b>My game crashes with <a href="http://openeye.openmods.info/crashes/94b7e7a0917b27942913735e38c1dd3f">this log</a> when I open my inventory, how do I fix this?</b><br>
 				Install the latest <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/2132152-baubles-princess-edition-1-0-0-18p-last-updated-7">Baubles</a> from my fork. Note that Thaumcraft has a tendency to download baubles even if you have the latest version, you might need to rename the file if it does that.<br><br>
