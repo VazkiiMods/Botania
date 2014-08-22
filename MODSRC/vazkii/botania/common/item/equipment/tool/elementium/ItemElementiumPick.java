@@ -9,6 +9,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.equipment.tool.ItemTerraPick;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelPick;
 import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -16,7 +18,6 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 public class ItemElementiumPick extends ItemManasteelPick {
 
 	static final List<Block> validBlocks = new ArrayList() {private static final long serialVersionUID = 2265395319423142758L;
-
 	{
 		add(Blocks.dirt);
 		add(Block.getBlockFromName("sand"));
@@ -34,16 +35,20 @@ public class ItemElementiumPick extends ItemManasteelPick {
 	public void onHarvestDrops(HarvestDropsEvent event) {
 		if(event.harvester != null) {
 			ItemStack stack = event.harvester.getCurrentEquippedItem();
-			if(stack != null && stack.getItem() == this)
+			if(stack != null && (stack.getItem() == this || (stack.getItem() == ModItems.terraPick && ItemTerraPick.isTipped(stack))))
 				for(int i = 0; i < event.drops.size(); i++) {
 					ItemStack drop = event.drops.get(i);
 					if(drop != null) {
 						Block block = Block.getBlockFromItem(drop.getItem());
-						if(block != null && validBlocks.contains(block))
+						if(block != null && isDisposable(block))
 							event.drops.remove(i);
 					}
 				}
 		}
+	}
+	
+	public static boolean isDisposable(Block block) {
+		return validBlocks.contains(block);
 	}
 
 }

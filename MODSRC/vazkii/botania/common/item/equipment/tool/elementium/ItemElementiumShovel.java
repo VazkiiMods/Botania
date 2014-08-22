@@ -38,7 +38,7 @@ public class ItemElementiumShovel extends ItemManasteelShovel {
 
 		Block blk = world.getBlock(x, y, z);
 		if(blk instanceof BlockFalling)
-			ToolCommons.removeBlocksInIteration(player, stack, world, x, y, z, 0, -12, 0, 1, 12, 1, blk, materialsShovel, silk, fortune);
+			ToolCommons.removeBlocksInIteration(player, stack, world, x, y, z, 0, -12, 0, 1, 12, 1, blk, materialsShovel, silk, fortune, false);
 
 		return false;
 	}

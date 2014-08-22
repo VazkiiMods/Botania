@@ -26,6 +26,7 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumPick;
 
 public final class ToolCommons {
 
@@ -38,14 +39,14 @@ public final class ToolCommons {
 			stack.damageItem(finalDamage, entity);
 	}
 
-	public static void removeBlocksInIteration(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int xs, int ys, int zs, int xe, int ye, int ze, Block block, Material[] materialsListing, boolean silk, int fortune) {
+	public static void removeBlocksInIteration(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int xs, int ys, int zs, int xe, int ye, int ze, Block block, Material[] materialsListing, boolean silk, int fortune, boolean dispose) {
 		float blockHardness = block == null ? 1F : block.getBlockHardness(world, x, y, z);
 
 		for(int x1 = xs; x1 < xe; x1++)
 			for(int y1 = ys; y1 < ye; y1++)
 				for(int z1 = zs; z1 < ze; z1++)
 					if(x != x1 && y != y1 && z != z1)
-						removeBlockWithDrops(player, stack, world, x1 + x, y1 + y, z1 + z, x, y, z, block, materialsListing, silk, fortune,blockHardness);
+						removeBlockWithDrops(player, stack, world, x1 + x, y1 + y, z1 + z, x, y, z, block, materialsListing, silk, fortune, blockHardness, dispose);
 	}
 
 	public static boolean isRightMaterial(Material material, Material[] materialsListing) {
@@ -56,7 +57,7 @@ public final class ToolCommons {
 		return false;
 	}
 
-	public static void removeBlockWithDrops(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int bx, int by, int bz, Block block, Material[] materialsListing, boolean silk, int fortune,float blockHardness) {
+	public static void removeBlockWithDrops(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int bx, int by, int bz, Block block, Material[] materialsListing, boolean silk, int fortune, float blockHardness, boolean dispose) {
 		if(!world.blockExists(x, y, z))
 			return;
 
@@ -75,11 +76,12 @@ public final class ToolCommons {
 
 			if(!player.capabilities.isCreativeMode && blk != Blocks.bedrock) {
 				int localMeta = world.getBlockMetadata(x, y, z);
-				if (blk.removedByPlayer(world, player, x, y, z))
+				if (blk.removedByPlayer(world, player, x, y, z, true))
 					blk.onBlockDestroyedByPlayer(world, x, y, z, localMeta);
 
 				damageItem(stack, 1, player, 80);
-				blk.harvestBlock(world, player, x, y, z, localMeta);
+				if(!dispose || !ItemElementiumPick.isDisposable(blk))
+					blk.harvestBlock(world, player, x, y, z, localMeta);
 				blk.onBlockHarvested(world, x, y, z, localMeta, player);
 			} else world.setBlockToAir(x, y, z);
 

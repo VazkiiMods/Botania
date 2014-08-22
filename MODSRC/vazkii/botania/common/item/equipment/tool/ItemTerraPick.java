@@ -28,14 +28,18 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.oredict.RecipeSorter;
+import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.crafting.recipe.TerraPickTippingRecipe;
 import vazkii.botania.common.item.equipment.bauble.ItemAuraRing;
 import vazkii.botania.common.item.equipment.bauble.ItemGreaterAuraRing;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelPick;
 import vazkii.botania.common.lib.LibItemNames;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -43,6 +47,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem {
 
 	private static final String TAG_ENABLED = "enabled";
 	private static final String TAG_MANA = "mana";
+	private static final String TAG_TIPPED = "tipped";
 
 	private static final int MAX_MANA = 2000000000;
 
@@ -56,10 +61,12 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem {
 		10000 - 1, 1000000 - 1, 10000000 - 1, 100000000 - 1, 1000000000 - 1, MAX_MANA
 	};
 
-	IIcon iconTool, iconOverlay;
+	IIcon iconTool, iconOverlay, iconTipped;
 
 	public ItemTerraPick() {
 		super(BotaniaAPI.terrasteelToolMaterial, LibItemNames.TERRA_PICK);
+		GameRegistry.addRecipe(new TerraPickTippingRecipe());
+		RecipeSorter.register("botania:terraPickTipping", TerraPickTippingRecipe.class, Category.SHAPELESS, "");
 	}
 
 	@Override
@@ -132,7 +139,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem {
 		if(range == 0 && level != 1)
 			return false;
 
-		ToolCommons.removeBlocksInIteration(player, stack, world, x, y, z, doX ? -range : 0, doY ? -1 : 0, doZ ? -range : 0, doX ? range + 1 : 1, doY ? rangeY * 2 : 1, doZ ? range + 1 : 1, null, MATERIALS, silk, fortune);
+		ToolCommons.removeBlocksInIteration(player, stack, world, x, y, z, doX ? -range : 0, doY ? -1 : 0, doZ ? -range : 0, doX ? range + 1 : 1, doY ? rangeY * 2 : 1, doZ ? range + 1 : 1, null, MATERIALS, silk, fortune, isTipped(stack));
 
 		return false;
 	}
@@ -146,6 +153,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem {
 	public void registerIcons(IIconRegister par1IconRegister) {
 		iconTool = IconHelper.forItem(par1IconRegister, this, 0);
 		iconOverlay = IconHelper.forItem(par1IconRegister, this, 1);
+		iconTipped = IconHelper.forItem(par1IconRegister, this, 2);
 	}
 
 	@Override
@@ -155,7 +163,15 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem {
 
 	@Override
 	public IIcon getIcon(ItemStack stack, int pass) {
-		return pass == 1 && isEnabled(stack) ? iconOverlay : iconTool;
+		return pass == 1 && isEnabled(stack) ? iconOverlay : isTipped(stack) ? iconTipped : iconTool;
+	}
+
+	public static boolean isTipped(ItemStack stack) {
+		return ItemNBTHelper.getBoolean(stack, TAG_TIPPED, false);
+	}
+
+	public static void setTipped(ItemStack stack) {
+		ItemNBTHelper.setBoolean(stack, TAG_TIPPED, true);
 	}
 
 	@Override
