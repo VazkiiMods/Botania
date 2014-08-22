@@ -46,6 +46,9 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 	private static final String TAG_Z = "_z";
 	private static final String TAG_POINTY = "_pointy";
 	private static final String TAG_HEIGHTSCALE = "_heightscale";
+	private static final String TAG_ITERATION_I = "iterationI";
+	private static final String TAG_ITERATION_J = "iterationJ";
+	private static final String TAG_ITERATION_K = "iterationK";
 
 	private static final int BASE_RANGE = 14;
 	private static final int BASE_OFFSET = 42;
@@ -95,10 +98,19 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 	public void spawnBurst(World world, int srcx, int srcy, int srcz, ItemStack lens, boolean pointy, double heightscale) {
 		int range = BASE_RANGE + lens.getItemDamage();
 
+		int i = ItemNBTHelper.getInt(lens, TAG_ITERATION_I, 0);
+		int j = ItemNBTHelper.getInt(lens, TAG_ITERATION_J, BASE_OFFSET - BASE_RANGE / 2);
+		int k = ItemNBTHelper.getInt(lens, TAG_ITERATION_K, 0);
+
+		if(j <= -BASE_RANGE * 2)
+			j = BASE_OFFSET - BASE_RANGE / 2;
+		if(k >= range * 2 + 1)
+			k = 0;
+
 		if(!world.isRemote) {
-			for(int i = 0; i < range * 2 + 1; i++)
-				for(int j = BASE_OFFSET-BASE_RANGE / 2; j > -BASE_RANGE * 2; j--)
-					for(int k = 0; k < range * 2 + 1; k++) {
+			for(; i < range * 2 + 1; i++) {
+				for(; j > -BASE_RANGE * 2; j--) {
+					for(; k < range * 2 + 1; k++) {
 						int x = srcx - range + i;
 						int y = srcy - BASE_RANGE + j;
 						int z = srcz - range + k;
@@ -130,6 +142,9 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 								ItemNBTHelper.setInt(copyLens, TAG_Z, srcz);
 								ItemNBTHelper.setBoolean(copyLens, TAG_POINTY, pointy);
 								ItemNBTHelper.setDouble(copyLens, TAG_HEIGHTSCALE, heightscale);
+								ItemNBTHelper.setInt(copyLens, TAG_ITERATION_I, i);
+								ItemNBTHelper.setInt(copyLens, TAG_ITERATION_J, j);
+								ItemNBTHelper.setInt(copyLens, TAG_ITERATION_K, k);
 
 								EntityManaBurst burst = getBurst(world, x, y, z, copyLens);
 								world.spawnEntityInWorld(burst);
@@ -137,6 +152,10 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 							}
 						}
 					}
+					k = 0;
+				}
+				j = BASE_OFFSET - BASE_RANGE / 2;
+			}
 		}
 	}
 
@@ -178,8 +197,8 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 
 	@Override
 	public void updateBurst(IManaBurst burst, ItemStack stack) {
-		double speed=0.35;
-		int targetDistance=BASE_OFFSET;
+		double speed = 0.35;
+		int targetDistance = BASE_OFFSET;
 		EntityThrowable entity = (EntityThrowable) burst;
 		if(!entity.worldObj.isRemote) {
 			entity.motionX = 0;
@@ -200,7 +219,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 					spawnBurst(entity.worldObj, x, y, z, lens);
 			} else if(burst.getTicksExisted() == placeTicks) {
 				int x = net.minecraft.util.MathHelper.floor_double(entity.posX);
-				int y = ItemNBTHelper.getInt(lens, TAG_Y_START, -1)+targetDistance;
+				int y = ItemNBTHelper.getInt(lens, TAG_Y_START, -1) + targetDistance;
 				int z = net.minecraft.util.MathHelper.floor_double(entity.posZ);
 
 				if(entity.worldObj.isAirBlock(x, y, z)) {
