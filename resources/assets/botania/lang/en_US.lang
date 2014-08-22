@@ -1087,12 +1087,12 @@ botania.page.pistonRelay2=Infusing a &1Piston&0 with &4Mana&0.
 
 # -- MANA PYLON
 botania.entry.pylon=Mana Pylon
-botania.page.pylon0=A &1Mana Pylon&0 is a structure that can pull energies from the earth and use them to power enchanting processes.<br>For one, setting one adjanced to an &1Enchanting Table&0 as if it was a &1Bookshelf&0 will drastically increase the power it can convey, just 2 of these are enough for it to reach &4Level 30&0.
+botania.page.pylon0=A &1Mana Pylon&0 is a structure that can pull energies from the earth and use them to power enchanting processes.<br>For one, setting one adjusted to an &1Enchanting Table&0 as if it was a &1Bookshelf&0 will drastically increase the power it can convey, just 2 of these are enough for it to reach &4Level 30&0.
 botania.page.pylon1=&oYou must construct additional pylons!&r
 
 # -- MANA ENCHANTING
 botania.entry.manaEnchanting=Enchanting with Mana
-botania.page.manaEnchanting0=By utilizing the magical power emitted from &1Mana Pylons&0, a structure that can enchant items with books without consuming them can be created, called the &1Mana Enchanteer&0.<br>Constructing one of these requires a fair amount of space and materials alike.
+botania.page.manaEnchanting0=By utilizing the magical power emitted from &1Mana Pylons&0, a structure that can enchant items with books without consuming them can be created, called the &1Mana Enchanter&0.<br>Constructing one of these requires a fair amount of space and materials alike.
 botania.page.manaEnchanting1=To construct the &1Mana Enchanter&0, one requires, as well as fair amount of space, 17 &1Obsidian&0 blocks, 10 &1Mystical Flowers&0 of any color, 6 &1Mana Pylons&0 and a &1Lapis Lazuli Block&0.<br>The instructions on how to assemble this structure are in the following pages.
 botania.page.manaEnchanting2=Start by making an &1Obsidian&0 circle.
 botania.page.manaEnchanting3=Put &1Mana Pylons&0 1 block in the air where marked.
@@ -1336,7 +1336,7 @@ botania.page.vineBall3=...if that actually existed.
 # -- SHARD OF LAPUTA
 botania.entry.laputaShard=Shard of Laputa
 botania.page.laputaShard0=Via a somewhat complex magic activation sequence, combining a few interesting resources, including &1Gaia Spirits&0 would allow one to create a shard that, when used on the ground, will allow one to lift a spherical area around that point up into the air.<br>This process consumes the shard and can take upwards of ten minutes depending on the mass of land.
-botania.page.laputaShard2=The radius of the island creates start at 14 blocks, on other words, 28 blocks of diameter. It's possible to increase the size by upgrading the shard with aditional &1Gaia Spirits&0, each one adds 1 block to the radius, or 2 to the diameter.
+botania.page.laputaShard2=The radius of the island creates start at 14 blocks, on other words, 28 blocks of diameter. It's possible to increase the size by upgrading the shard with additional &1Gaia Spirits&0, each one adds 1 block to the radius, or 2 to the diameter.
 botania.page.laputaShard1=Look Shiro, Laputa exists!
 botania.page.laputaShard3=Size does matter
 
@@ -1570,7 +1570,7 @@ botania.page.prismarine6=Crafting the &1Sea Lantern&0
 
 # -- NATURAL SHEDDING
 botania.entry.shedding=Natural Shedding
-botania.page.shedding0=The living beings that inhabit our lands don't live in a static state. It's common for pieces of their body to fall out, &1Feathers&0 on &4Chickens&0, &1Bones&0 on &4Skeletons&0, so on.<br>Even the tough &4Ghasts&0 sometimes shed a tear or the &4Villagers&0 accidently drop an &1Emerald&0 and can't pick it back up because their arms are stuck together for some reason.
+botania.page.shedding0=The living beings that inhabit our lands don't live in a static state. It's common for pieces of their body to fall out, &1Feathers&0 on &4Chickens&0, &1Bones&0 on &4Skeletons&0, so on.<br>Even the tough &4Ghasts&0 sometimes shed a tear or the &4Villagers&0 accidentally drop an &1Emerald&0 and can't pick it back up because their arms are stuck together for some reason.
 
 # -- TINY POTATO
 botania.entry.tinyPotato=Tiny Potato
@@ -1584,7 +1584,7 @@ botania.page.headCreating1=Get your head in the game
 
 # -- AZULEJO -- http://en.wikipedia.org/wiki/Azulejo
 botania.entry.azulejo=Azulejos
-botania.page.azulejo0=&1Azulejos&0 are a type of decorative block, simply put, they are tileable patterns of blue and white. To create them, one would simply mix a piece of &1Lapis Lazulli&0 with a &1Block of Quartz&0.<br>From there, placing it in the crafting grid allows for cyclying between the twelve different patterns.
+botania.page.azulejo0=&1Azulejos&0 are a type of decorative block, simply put, they are tileable patterns of blue and white. To create them, one would simply mix a piece of &1Lapis Lazulli&0 with a &1Block of Quartz&0.<br>From there, placing it in the crafting grid allows for cycling between the twelve different patterns.
 botania.page.azulejo1=The various patterns
 botania.page.azulejo2=Crafting a block of &1Azulejo&0
 botania.page.azulejo3=Cycling between the patterns
