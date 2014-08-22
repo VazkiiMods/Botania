@@ -132,7 +132,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 								NBTTagCompound enchant = enchants.getCompoundTagAt(0);
 								short enchantId = enchant.getShort("id");
 								short enchantLvl = enchant.getShort("lvl");
-								if(!hasEnchantAlready(enchantId)) {
+								if(!hasEnchantAlready(enchantId) && isEnchantmentValid(enchantId)) {
 									this.enchants.add(new EnchantmentData(enchantId, enchantLvl));
 									worldObj.playSoundEffect(xCoord, yCoord, zCoord, "botania:ding", 1F, 1F);
 									addedEnch = true;
