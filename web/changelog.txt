@@ -1,3 +1,20 @@
+r1.2 101
+*<b>Added Sparks.</b>
+*Added the ability to mix an Elementium Pickaxe with a Terra Shatterer.
+*Any water containers (water cans, cells, etc from other mods) can now fill up the petal apothecary. (ganymedes01)
+*Changed some flower textures lightly. You probably won't notice much of a difference.
+*Elementium Armor now has double the chance for spawning pixies.
+*Fixed Floating Flowers not stabilizing TC infusion stability. (viliml)
+*Fixed lots of typos. (Adaptivity)
+*Fixed the Kindle Lens being able to replace blocks (liquids included).
+*Fixed the Mana Enchanter ignoring enchantment types (Power on swords, Sharpness on armor, etc).
+*Fixed the Platforms crashing if swapped when there's an adjacent Tile Entity.
+*Fixed the Ring of Far Reach not always working due to issues with baubles.
+*Fixed the Runic Altar not crafting if the piece of livingrock tossed in desyncs and looks like it's on top of the altar even though it isn't.
+*Fixed the Vitreous Pickaxe duplicating glowstone and other glass blocks of the same type.
+*Highly optimized the block finding code for the Shard of Laputa. Larger ones should no longer eat up your tickrate.
+*[API] Added classes to do with Sparks, ISparkAttachable, ISparkEntity and SparkHelper.
+*[API] Increased version number to 8.
 r1.1 100
 *Fixed crash on startup if thaumcraft isn't loaded. <i>I'm an noob :V</i>
 *<i>Build 100, that's a milestone or something I guess...</i>
