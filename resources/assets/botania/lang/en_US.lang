@@ -812,6 +812,20 @@ botania.page.pool5=Infusing &1Mana Diamonds&0
 botania.page.pool6=Infusing &1Mana Petals&0
 botania.page.pool7=&1Mana Cookies&0 feed you pretty well.
 
+# -- SPARKS
+botania.entry.sparks=Sparks
+botania.page.sparks0=&1Sparks&0 are interesting entities. Created from a combination of raw energy and &4Mana&0, they have the ability to be placed on top of a few specific &4Mana&0 containing or accepting blocks, mainly, &1Mana Pools&0.<br>Some blocks have the ability to harness &4Mana&0 from &1Sparks&0, but the uses for them seem rather limited right now.
+botania.page.sparks1=Making a Spark
+
+# -- SPARK AUGMENTATION
+botania.entry.sparkUpgrades=Spark Agumentation
+botania.page.sparkUpgrades0=As it seems, &1Sparks&0 are a bit more versatile than it was known previously. A variety of &1Augments&0 can be applied to them to enhance their abilities. It's to note that Augments can only be applied to &1Sparks&0 that lie on &1Mana Pools&0.<br>A &1Spark&0 can only have a single &1Augment&0 at any given time.
+botania.page.sparkUpgrades1=Starting off, the &1Dispersive Augment&0 has the &1Spark&0 use up the &4Mana&0 in the pool below, to charge any nearby players' &4Mana&0 containing items.
+botania.page.sparkUpgrades2=The &1Dominant Augment&0 will have the &1Spark&0 pull any &4Mana&0 from nearby non-augmented &1Sparks'&0 pools into it's own, until it's completely full.
+botania.page.sparkUpgrades3=The &1Recessive Augment&0 will have thee &1Spark&0 output all of the &4Mana&0 in it's pool into any nearby non-augmented or Dispersive &1Sparks'&0 pools until it's completely empty.
+botania.page.sparkUpgrades4=Lastly, the &1Isolated Augment&0 will prevent the &1Spark&0 from interacting with any Dominant or Recessive &1Sparks&0, but still allow it to interact with blocks that can receive their &4Mana&0 through the &1Spark&0 network.
+botania.page.sparkUpgrades5=Crafting the Aguments
+
 # -- MANA DISTRIBUTOR
 botania.entry.distributor=Mana Distributor
 botania.page.distributor0=Any botanist will eventually reach a point where a single &1Mana Pool&0 setup is not enough.<br>The &1Mana Distributor&0 will fix all those issues. By placing it adjacently to a few &1Mana Pools&0 on its sides, when it receives &4Mana&0 through &4Mana Bursts&0 it'll equally spread it to the adjacent pools. 
@@ -1086,7 +1100,7 @@ botania.page.manaEnchanting4=Put flowers under the pylons and in the center
 botania.page.manaEnchanting5=Place a &1Lapis Lazuli Block&0 in the center.
 botania.page.manaEnchanting6=After the construct is done, right click the Lapis block with a &1Wand of the Forest&0 and the enchanter should form.<br>In order to utilize the enchanter, one would place (via right click) the item to be enchanted in the enchanter itself and drop &1Enchanted Books&0 inside the circle around it.
 botania.page.manaEnchanting7=Items that are already enchanted can't be placed in the enchanter.<br>To start the enchanting, right click the enchanter with a &1Wand of the Forest&0. It'll scan the books around, and once it's done, a spell circle of sorts will appear around it, indicating the books can be safely picked up again.
-botania.page.manaEnchanting8=After the enchanting begins, the enchanter will require &4Mana&0.<br>It can be fed via one of two ways, either via &4Mana Bursts&0 or nearby &1Mana Pools&0, the later being much faster, but a bit less efficient, as a small portion of the mana is lost.
+botania.page.manaEnchanting8=After the enchanting begins, the enchanter will require &4Mana&0.<br>It can be fed via one of two ways, either via &4Mana Bursts&0 or nearby &1Sparks&0, by placing a &1Spark&0 on top of the enchanter. The later being much faster.
 botania.page.manaEnchanting9=When enough &4Mana&0 is gathered, the enchanting process will finalize, and the enchantments will be applied to the item.<br>The amount of &4Mana&0 required depends on the rarity of the enchantments being applied, their level, and the total amount of enchantments.<br>If any book has more than one enchantment, only the first will be accounted for.
 botania.page.manaEnchanting10=During the enchanting process, the item can not be removed, but it can after the process has been completed.<br>Note that if at any point, any component of the construct is removed, it'll revert to it's original &1Lapis Lazuli Block&0 form.
 

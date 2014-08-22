@@ -69,6 +69,8 @@ public final class LexiconData {
 	public static LexiconEntry manastar;
 	public static LexiconEntry dreamwoodSpreader;
 	public static LexiconEntry paintLens;
+	public static LexiconEntry sparks;
+	public static LexiconEntry sparkUpgrades;
 
 	public static LexiconEntry functionalIntro;
 	public static LexiconEntry jadedAmaranthus;
@@ -227,6 +229,12 @@ public final class LexiconData {
 		pool = new BLexiconEntry(LibLexicon.MANA_POOL, categoryMana);
 		pool.setPriority().setLexiconPages(new PageText("0"), new PageText("9"), new PageCraftingRecipe("1", ModCrafingRecipes.recipePool), new PageManaInfusionRecipe("10", ModManaInfusionRecipes.poolRecipe), new PageText("2"), new PageText("8"), new PageManaInfusionRecipe("3", ModManaInfusionRecipes.manasteelRecipes), new PageManaInfusionRecipe("4", ModManaInfusionRecipes.manaPearlRecipe), new PageManaInfusionRecipe("5", ModManaInfusionRecipes.manaDiamondRecipe), new PageManaInfusionRecipe("6", ModManaInfusionRecipes.manaPetalRecipes), new PageManaInfusionRecipe("7", ModManaInfusionRecipes.manaCookieRecipe));
 
+		sparks = new BLexiconEntry(LibLexicon.MANA_SPARKS, categoryMana);
+		sparks.setPriority().setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipesSpark));
+		
+		sparkUpgrades = new ALexiconEntry(LibLexicon.MANA_SPARK_UPGRADES, categoryMana);
+		sparkUpgrades.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageText("3"), new PageText("4"), new PageCraftingRecipe("5", ModCrafingRecipes.recipesSparkUpgrades));
+		
 		lenses = new BLexiconEntry(LibLexicon.MANA_LENSES, categoryMana);
 		lenses.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeManaLens), new PageCraftingRecipe("2", ModCrafingRecipes.recipesLensDying), new PageCraftingRecipe("3", ModCrafingRecipes.recipeRainbowLens), new PageText("4"), new PageText("5"),
 				new PageText("6"), new PageCraftingRecipe("7", ModCrafingRecipes.recipeLensVelocity),
