@@ -24,6 +24,7 @@ import net.minecraft.world.World;
 
 import org.lwjgl.input.Keyboard;
 
+import vazkii.botania.common.core.handler.BaubleLoadHandler;
 import vazkii.botania.common.item.ItemMod;
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
@@ -101,8 +102,10 @@ public abstract class ItemBauble extends ItemMod implements IBauble {
 
 	@Override
 	public void onWornTick(ItemStack stack, EntityLivingBase player) {
-		if(player.ticksExisted == 1)
+		if(player instanceof EntityPlayer && !BaubleLoadHandler.tickedPlayers.contains(player)) {
 			onEquippedOrLoadedIntoWorld(stack, player);
+			BaubleLoadHandler.tickingPlayers.add((EntityPlayer) player);
+		}
 	}
 
 	@Override
