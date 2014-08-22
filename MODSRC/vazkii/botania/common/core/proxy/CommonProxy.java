@@ -20,7 +20,6 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.core.handler.BaubleLoadHandler;
 import vazkii.botania.common.core.handler.BiomeDecorationHandler;
 import vazkii.botania.common.core.handler.ChestGenHandler;
 import vazkii.botania.common.core.handler.CommonTickHandler;
@@ -81,7 +80,6 @@ public class CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new PixieHandler());
 		MinecraftForge.EVENT_BUS.register(new SheddingHandler());
 		MinecraftForge.EVENT_BUS.register(new SpawnerChangingHandler());
-		MinecraftForge.EVENT_BUS.register(new BaubleLoadHandler());
 
 		FMLCommonHandler.instance().bus().register(new CommonTickHandler());
 	}
