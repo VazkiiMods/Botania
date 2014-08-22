@@ -140,7 +140,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 						continue;
 
 					int upgrade_ = spark.getUpgrade();
-					if(upgrade_ != 2 && upgrade_ != 4) 
+					if(upgrade_ != 2 && upgrade_ != 3 && upgrade_ != 4) 
 						transfers.add(spark);
 				}
 				break;
@@ -197,17 +197,21 @@ public class EntitySpark extends Entity implements ISparkEntity {
 			if(stack.getItem() == ModItems.twigWand) {
 				if(upgrade > 0) { 
 					if(!worldObj.isRemote)
-						entityDropItem(new ItemStack(ModItems.sparkUpgrade, 1, upgrade + 1), 0F);
+						entityDropItem(new ItemStack(ModItems.sparkUpgrade, 1, upgrade - 1), 0F);
 					setUpgrade(0);
 					
 					dataWatcher.updateObject(29, "");
 					removeTransferants = 2;
 				} else setDead();
+				if(player.worldObj.isRemote)
+					player.swingItem();
 				return true;
 			} else if(stack.getItem() == ModItems.sparkUpgrade && upgrade == 0) {
 				int newUpgrade = stack.getItemDamage() + 1;
 				setUpgrade(newUpgrade);
 				stack.stackSize--;
+				if(player.worldObj.isRemote)
+					player.swingItem();
 				return true;
 			}
 		}
@@ -265,7 +269,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 			Entity e = worldObj.getEntityByID(id);
 			if(e != null && e instanceof ISparkEntity) {
 				ISparkEntity spark = (ISparkEntity) e;
-				if(spark != this && !spark.areIncomingTransfersDone() && spark.getAttachedTile() != null && !spark.getAttachedTile().isFull() && spark.getUpgrade() != 4 && (getUpgrade() != 4 || !(spark.getAttachedTile() instanceof IManaPool))) {
+				if(spark != this && !spark.areIncomingTransfersDone() && spark.getAttachedTile() != null && !spark.getAttachedTile().isFull() && spark.getUpgrade() != 4 && ((getUpgrade() != 4 || getUpgrade() != 3 || getUpgrade() != 1) || !(spark.getAttachedTile() instanceof IManaPool))) {
 					entities.add((ISparkEntity) e);
 					added = true;
 				}

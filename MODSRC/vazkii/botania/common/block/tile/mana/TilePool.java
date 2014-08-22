@@ -339,7 +339,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 	@Override
 	public boolean canAttachSpark(ItemStack stack) {
-		return getBlockMetadata() != 2;
+		return true;
 	}
 
 	@Override
