@@ -1023,7 +1023,7 @@ botania.page.gIntro2=It is important to keep in mind that these flowers memorize
 
 # -- DAYBLOOM
 botania.entry.daybloom=Daybloom
-botania.page.daybloom0=The &1Daybloom&0 is the most basic and rudimentary &4Generating Flower&0. Simply put, it preforms a modified photosynthesis process, in order to transform sunlight into &4Mana&0.<br>The process is rather slow, about ten or a dozen of these should get the job done, for now.
+botania.page.daybloom0=The &1Daybloom&0 is the most basic and rudimentary &4Generating Flower&0. Simply put, it performs a modified photosynthesis process, in order to transform sunlight into &4Mana&0.<br>The process is rather slow, about ten or a dozen of these should get the job done, for now.
 botania.page.daybloom1=An interesting thing to take in note is that these flowers tend to compete among themselves for what sunlight hits an area, thus having any other of the same type adjacent to it on any of the four cardinal directions will result in diminishing returns of &4Mana&0 production.
 botania.page.daybloom3=Diminishing Returns
 botania.page.daybloom2=&oStarting up a brand new day&r.
@@ -1058,7 +1058,7 @@ botania.page.arcanerose1=&oGo have a drink, it might take a bit&r.
 
 # -- MUNCHDEW
 botania.entry.munchdew=Munchdew
-botania.page.munchdew0=Generating the form of natural energy that is &4Mana&0 should be a pretty good process when done via other living materials. By using the &1Munchdew&0, any &1Leaves&0 near the flower will get munched up and convereted into &4Mana&0.<br>It's to note that, though, no saplings or any other items will be dropped from the leaves.
+botania.page.munchdew0=Generating the form of natural energy that is &4Mana&0 should be a pretty good process when done via other living materials. By using the &1Munchdew&0, any &1Leaves&0 near the flower will get munched up and converted into &4Mana&0.<br>It's to note that, though, no saplings or any other items will be dropped from the leaves.
 botania.page.munchdew1=&oItadakimasu&r!
 
 # -- ENTROPINNYUM
