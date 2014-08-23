@@ -39,6 +39,7 @@ import vazkii.botania.common.lexicon.page.PageShedding;
 import vazkii.botania.common.lexicon.page.PageTerrasteel;
 import vazkii.botania.common.lexicon.page.PageText;
 import vazkii.botania.common.lib.LibLexicon;
+import vazkii.botania.common.shedding.SheddingTracker;
 
 public final class LexiconData {
 
@@ -606,13 +607,6 @@ public final class LexiconData {
 		prismarine = new BLexiconEntry(LibLexicon.MISC_PRISMARINE, categoryMisc);
 		prismarine.setLexiconPages(new PageText("0"), new PageText("1"), new PageManaInfusionRecipe("2", ModManaAlchemyRecipes.prismarineRecipe), new PageCraftingRecipe("3", ModCrafingRecipes.recipePrismarine), new PageCraftingRecipe("4", ModCrafingRecipes.recipePrismarineBrick), new PageCraftingRecipe("5", ModCrafingRecipes.recipeDarkPrismarine), new PageCraftingRecipe("6", ModCrafingRecipes.recipeSeaLamp));
 
-		shedding = new BLexiconEntry(LibLexicon.MISC_SHEDDING, categoryMisc);
-		shedding.setLexiconPages(new PageText("0"), 
-				new PageShedding("1", "Chicken", 20, new ItemStack(Items.feather)), 
-				new PageShedding("2", "Skeleton", 40, new ItemStack(Items.bone)), 
-				new PageShedding("3", "Ghast", 30, new ItemStack(Items.ghast_tear)), 
-				new PageShedding("4", "Villager", 40, new ItemStack(Items.emerald)));
-
 		tinyPotato = new BLexiconEntry(LibLexicon.MISC_TINY_POTATO, categoryMisc);
 		tinyPotato.setLexiconPages(new PageText("0"), new PageManaInfusionRecipe("1", ModManaInfusionRecipes.tinyPotatoRecipe));
 
@@ -624,5 +618,12 @@ public final class LexiconData {
 
 		starfield = new ALexiconEntry(LibLexicon.MISC_STARFIELD, categoryMisc);
 		starfield.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeStarfield));
+	}
+	public static void postInit() {
+		if(SheddingTracker.hasShedding()) {
+			shedding = new BLexiconEntry(LibLexicon.MISC_SHEDDING, categoryMisc);
+			shedding.setLexiconPages(new PageText("0"));
+			SheddingTracker.addToLexicon();
+		}
 	}
 }

@@ -86,6 +86,8 @@ public class CommonProxy {
 
 	public void postInit(FMLPostInitializationEvent event) {
 		ModBlocks.addDispenserBehaviours();
+		ConfigHandler.loadPostInit();
+		LexiconData.postInit();
 	}
 
 	public void serverStarting(FMLServerStartingEvent event) {
