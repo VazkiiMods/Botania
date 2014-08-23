@@ -76,7 +76,7 @@ public final class ToolCommons {
 
 			if(!player.capabilities.isCreativeMode && blk != Blocks.bedrock) {
 				int localMeta = world.getBlockMetadata(x, y, z);
-				if (blk.removedByPlayer(world, player, x, y, z, true))
+				if (blk.removedByPlayer(world, player, x, y, z))
 					blk.onBlockDestroyedByPlayer(world, x, y, z, localMeta);
 
 				damageItem(stack, 1, player, 80);
