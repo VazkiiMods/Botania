@@ -66,8 +66,7 @@ public class SheddingTracker {
 		if(!hasShedding())
 			return;
 		int i = 1;
-		for(ShedPattern pattern : patterns)
-		{
+		for(ShedPattern pattern : patterns) {
 			PageShedding page = new PageShedding(String.valueOf(i), (String)EntityList.classToStringMapping.get(pattern.EntityClass), pattern.lexiconSize, pattern.getItemStack());
 			LexiconData.shedding.addPage(page);
 		}
@@ -105,8 +104,7 @@ public class SheddingTracker {
 		int metadata = 0;
 		int rate = -1;
 		int lexiconSize = 40;
-		if(defaultPattern != null)
-		{
+		if(defaultPattern != null) {
 			itemName = Item.itemRegistry.getNameForObject(defaultPattern.getItemStack().getItem());
 			metadata = defaultPattern.getItemStack().getItemDamage();
 			rate = defaultPattern.rate;

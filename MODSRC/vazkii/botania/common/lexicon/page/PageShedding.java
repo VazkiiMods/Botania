@@ -33,12 +33,10 @@ public class PageShedding extends PageEntity{
 	private static final ResourceLocation sheddingOverlay = new ResourceLocation(LibResources.GUI_SHEDDING_OVERLAY);
 
 	ItemStack shedStack;
-
 	ItemStack tooltipStack;
 	boolean tooltipEntry;
 
 	static boolean mouseDownLastTick = false;
-
 
 	public PageShedding(String unlocalizedName, String entity, int size, ItemStack shedStack) {
 		super(unlocalizedName, entity, size);
