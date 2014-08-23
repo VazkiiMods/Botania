@@ -61,7 +61,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 		super.onUpdate();
 
 		ISparkAttachable tile = getAttachedTile();
-		if(tile == null) {
+		if(tile == null && !worldObj.isRemote) {
 			setDead();
 			return;
 		}
@@ -153,7 +153,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 			int manaForEach = manaTotal / transfers.size();
 			if(manaForEach > transfers.size()) {
 				for(ISparkEntity spark : transfers) {
-					if(spark.getAttachedTile() == null)
+					if(spark.getAttachedTile() == null || spark.getAttachedTile().isFull() || spark.areIncomingTransfersDone())
 						continue;
 					
 					ISparkAttachable attached = spark.getAttachedTile();
