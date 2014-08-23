@@ -16,6 +16,7 @@ import java.io.File;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.common.shedding.SheddingTracker;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -51,15 +52,6 @@ public final class ConfigHandler {
 	public static boolean fallenKanadeEnabled = true;
 	public static boolean darkQuartzEnabled = true;
 	public static boolean enchanterEnabled = true;
-
-	public static int shedRateChicken = 26000;
-	public static int shedRateSquid = 18000;
-	public static int shedRateVillager = 226000;
-	public static int shedRateSpider = 12000;
-	public static int shedRateBlaze = 8000;
-	public static int shedRateGhast = 9001;
-	public static int shedRateSkeleton = 36000;
-	public static int shedRateSlime = 21000;
 
 	public static int flowerQuantity = 2;
 	public static int flowerDensity = 16;
@@ -148,30 +140,6 @@ public final class ConfigHandler {
 		desc = "Set to false to disable the Mana Enchanter. Since some people find it OP or something. This only disables the entry and creation. Old ones that are already in the world will stay.";
 		enchanterEnabled = loadPropBool("manaEnchanter.enabled", desc, enchanterEnabled);
 
-		desc = "The average amount of ticks between a chicken randomly dropping a feather. Set to -1 to disable this feature";
-		shedRateChicken = loadPropInt("shedRate.chicken", desc, shedRateChicken);
-
-		desc = "The average amount of ticks between a squid randomly dropping an ink sac. Set to -1 to disable this feature";
-		shedRateSquid = loadPropInt("shedRate.squid", desc, shedRateSquid);
-
-		desc = "The average amount of ticks between a villager randomly dropping an emerald. Set to -1 to disable this feature";
-		shedRateVillager = loadPropInt("shedRate.villager", desc, shedRateVillager);
-
-		desc = "The average amount of ticks between a spider randomly dropping a piece of string. Set to -1 to disable this feature";
-		shedRateSpider = loadPropInt("shedRate.spider", desc, shedRateSpider);
-
-		desc = "The average amount of ticks between a blaze randomly dropping a piece of blaze powder. Set to -1 to disable this feature";
-		shedRateBlaze = loadPropInt("shedRate.blaze", desc, shedRateBlaze);
-
-		desc = "The average amount of ticks between a ghast randomly dropping a ghast tear. Set to -1 to disable this feature";
-		shedRateGhast = loadPropInt("shedRate.ghast", desc, shedRateGhast);
-
-		desc = "The average amount of ticks between a skeleton randomly dropping a bone. Set to -1 to disable this feature";
-		shedRateSkeleton = loadPropInt("shedRate.skeleton", desc, shedRateSkeleton);
-
-		desc = "The average amount of ticks between a slime randomly dropping a slimeball. Set to -1 to disable this feature";
-		shedRateSlime = loadPropInt("shedRate.slime", desc, shedRateSlime);
-
 		desc = "The quanity of flower patches to generate in the world, defaults to 3, the lower the number the less patches geenrate.";
 		flowerQuantity = loadPropInt("worldgen.flower.quantity", desc, 3);
 
@@ -182,6 +150,13 @@ public final class ConfigHandler {
 			config.save();
 	}
 
+	public static void loadPostInit() {
+		SheddingTracker.loadFromConfig(config);
+		
+		if(config.hasChanged())
+			config.save();
+	}
+	
 	public static int loadPropInt(String propName, String desc, int default_) {
 		Property prop = config.get(Configuration.CATEGORY_GENERAL, propName, default_);
 		prop.comment = desc;

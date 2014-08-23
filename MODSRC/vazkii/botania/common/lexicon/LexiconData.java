@@ -11,6 +11,7 @@
  */
 package vazkii.botania.common.lexicon;
 
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconCategory;
@@ -29,13 +30,16 @@ import vazkii.botania.common.crafting.ModRuneRecipes;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
 import vazkii.botania.common.lexicon.page.PageElvenRecipe;
+import vazkii.botania.common.lexicon.page.PageEntity;
 import vazkii.botania.common.lexicon.page.PageImage;
 import vazkii.botania.common.lexicon.page.PageManaInfusionRecipe;
 import vazkii.botania.common.lexicon.page.PagePetalRecipe;
 import vazkii.botania.common.lexicon.page.PageRuneRecipe;
+import vazkii.botania.common.lexicon.page.PageShedding;
 import vazkii.botania.common.lexicon.page.PageTerrasteel;
 import vazkii.botania.common.lexicon.page.PageText;
 import vazkii.botania.common.lib.LibLexicon;
+import vazkii.botania.common.shedding.SheddingTracker;
 
 public final class LexiconData {
 
@@ -603,9 +607,6 @@ public final class LexiconData {
 		prismarine = new BLexiconEntry(LibLexicon.MISC_PRISMARINE, categoryMisc);
 		prismarine.setLexiconPages(new PageText("0"), new PageText("1"), new PageManaInfusionRecipe("2", ModManaAlchemyRecipes.prismarineRecipe), new PageCraftingRecipe("3", ModCrafingRecipes.recipePrismarine), new PageCraftingRecipe("4", ModCrafingRecipes.recipePrismarineBrick), new PageCraftingRecipe("5", ModCrafingRecipes.recipeDarkPrismarine), new PageCraftingRecipe("6", ModCrafingRecipes.recipeSeaLamp));
 
-		shedding = new BLexiconEntry(LibLexicon.MISC_SHEDDING, categoryMisc);
-		shedding.setLexiconPages(new PageText("0"));
-
 		tinyPotato = new BLexiconEntry(LibLexicon.MISC_TINY_POTATO, categoryMisc);
 		tinyPotato.setLexiconPages(new PageText("0"), new PageManaInfusionRecipe("1", ModManaInfusionRecipes.tinyPotatoRecipe));
 
@@ -617,5 +618,13 @@ public final class LexiconData {
 
 		starfield = new ALexiconEntry(LibLexicon.MISC_STARFIELD, categoryMisc);
 		starfield.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeStarfield));
+	}
+
+	public static void postInit() {
+		if(SheddingTracker.hasShedding()) {
+			shedding = new BLexiconEntry(LibLexicon.MISC_SHEDDING, categoryMisc);
+			shedding.setLexiconPages(new PageText("0"));
+			SheddingTracker.addToLexicon();
+		}
 	}
 }

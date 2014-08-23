@@ -1570,7 +1570,7 @@ botania.page.prismarine6=Crafting the &1Sea Lantern&0
 
 # -- NATURAL SHEDDING
 botania.entry.shedding=Natural Shedding
-botania.page.shedding0=The living beings that inhabit our lands don't live in a static state. It's common for pieces of their body to fall out, &1Feathers&0 on &4Chickens&0, &1Bones&0 on &4Skeletons&0, so on.<br>Even the tough &4Ghasts&0 sometimes shed a tear or the &4Villagers&0 accidentally drop an &1Emerald&0 and can't pick it back up because their arms are stuck together for some reason.
+botania.page.shedding0=The living and unliving beings that inhabit our lands don't live in a static state. It's common for pieces of their body to fall out, or for them to drop things, or for them to extrude substances. The following pages list some such items that can come from such entities.
 
 # -- TINY POTATO
 botania.entry.tinyPotato=Tiny Potato
