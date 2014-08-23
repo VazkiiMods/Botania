@@ -49,13 +49,9 @@ public class PageShedding extends PageEntity{
 
 		relativeMouseX = mx;
 		relativeMouseY = my;
-
 		int stack_x = gui.getLeft() + gui.getWidth() / 2 - 8;
 		int stack_y = gui.getTop() + gui.getHeight() - 40 - 24 - 5;
-		
-		
 		int entity_scale = getEntityScale(size);
-		
 		int entity_x = gui.getLeft() + gui.getWidth() / 2;
 		int entity_y = gui.getTop() + gui.getHeight() / 2 + MathHelper.floor_float(dummyEntity.height * entity_scale / 2) - 35;
 		
