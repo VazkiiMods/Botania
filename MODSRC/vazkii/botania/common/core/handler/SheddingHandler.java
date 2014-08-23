@@ -11,17 +11,8 @@
  */
 package vazkii.botania.common.core.handler;
 
-import vazkii.botania.common.shedding.SheddingTracker;
-import net.minecraft.entity.monster.EntityBlaze;
-import net.minecraft.entity.monster.EntityGhast;
-import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.entity.monster.EntitySlime;
-import net.minecraft.entity.monster.EntitySpider;
-import net.minecraft.entity.passive.EntityChicken;
-import net.minecraft.entity.passive.EntitySquid;
-import net.minecraft.entity.passive.EntityVillager;
-import net.minecraft.init.Items;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import vazkii.botania.common.shedding.SheddingTracker;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public final class SheddingHandler {
@@ -33,7 +24,7 @@ public final class SheddingHandler {
 
 		SheddingTracker.ShedPattern pattern = SheddingTracker.getShedPattern(event.entity);
 		
-		if(pattern != null){
+		if(pattern != null) {
 			if(event.entity.worldObj.rand.nextInt(pattern.getRate()) == 0)
 				event.entity.entityDropItem(pattern.getItemStack(), 0.0F);
 		}

@@ -150,13 +150,11 @@ public final class ConfigHandler {
 			config.save();
 	}
 
-	public static void loadPostInit()
-	{
+	public static void loadPostInit() {
 		SheddingTracker.loadFromConfig(config);
 		
 		if(config.hasChanged())
 			config.save();
-		
 	}
 	
 	public static int loadPropInt(String propName, String desc, int default_) {

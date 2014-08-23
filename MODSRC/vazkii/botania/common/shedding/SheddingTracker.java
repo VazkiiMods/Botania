@@ -3,10 +3,6 @@ package vazkii.botania.common.shedding;
 import java.util.ArrayList;
 import java.util.Map.Entry;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lexicon.page.PageShedding;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
@@ -23,6 +19,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
+import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lexicon.page.PageShedding;
 
 public class SheddingTracker {
 
@@ -40,22 +38,18 @@ public class SheddingTracker {
 			this.rate = rate;
 			this.lexiconSize=lexiconSize;
 		}
-		public ItemStack getItemStack()
-		{
+		public ItemStack getItemStack() {
 			return itemStack.copy();
 		}
-		public int getRate()
-		{
+		public int getRate() {
 			return rate;
 		}
-		public String getEntityString()
-		{
+		public String getEntityString() {
 			return (String)EntityList.classToStringMapping.get(EntityClass);
 		}
 	}
 	
-	public static ShedPattern getShedPattern(Entity entity)
-	{
+	public static ShedPattern getShedPattern(Entity entity) {
 		for(ShedPattern pattern : patterns)
 		{
 			if(pattern.EntityClass.isInstance(entity))
@@ -64,13 +58,11 @@ public class SheddingTracker {
 		return null;
 	}
 	
-	public static boolean hasShedding()
-	{
+	public static boolean hasShedding() {
 		return patterns.size() > 0;
 	}
 	
-	public static void addToLexicon()
-	{
+	public static void addToLexicon() {
 		if(!hasShedding())
 			return;
 		int i = 1;
@@ -94,13 +86,11 @@ public class SheddingTracker {
 		
 		ArrayList<String> defaultNames = new ArrayList<String>();
 		
-		for(ShedPattern pattern : defaultPatterns)
-		{
+		for(ShedPattern pattern : defaultPatterns) {
 			loadFromConfig(config, pattern.getEntityString(), pattern);
 			defaultNames.add(pattern.getEntityString());
 		}
-		for(Object o : EntityList.stringToClassMapping.entrySet())
-		{
+		for(Object o : EntityList.stringToClassMapping.entrySet()) {
 			Entry<String, Class> entry = (Entry<String, Class>)o;
 			if(EntityLiving.class.isAssignableFrom(entry.getValue())) {
 				String name = entry.getKey();
@@ -109,8 +99,8 @@ public class SheddingTracker {
 			}
 		}
 	}
-	public static void loadFromConfig(Configuration config, String key, ShedPattern defaultPattern)
-	{
+	
+	public static void loadFromConfig(Configuration config, String key, ShedPattern defaultPattern) {
 		String itemName = "";
 		int metadata = 0;
 		int rate = -1;

@@ -619,6 +619,7 @@ public final class LexiconData {
 		starfield = new ALexiconEntry(LibLexicon.MISC_STARFIELD, categoryMisc);
 		starfield.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeStarfield));
 	}
+
 	public static void postInit() {
 		if(SheddingTracker.hasShedding()) {
 			shedding = new BLexiconEntry(LibLexicon.MISC_SHEDDING, categoryMisc);
