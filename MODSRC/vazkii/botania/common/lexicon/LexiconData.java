@@ -454,7 +454,7 @@ public final class LexiconData {
 		terrasteelArmor.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeTerrasteelHelm), new PageCraftingRecipe("2", ModCrafingRecipes.recipeTerrasteelChest), new PageCraftingRecipe("3", ModCrafingRecipes.recipeTerrasteelLegs), new PageCraftingRecipe("4", ModCrafingRecipes.recipeTerrasteelBoots));
 
 		grassHorn = new BLexiconEntry(LibLexicon.TOOL_GRASS_HORN, categoryTools);
-		grassHorn.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeGrassHorn));
+		grassHorn.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeGrassHorn), new PageCraftingRecipe("2", ModCrafingRecipes.recipeLeafHorn));
 
 		terraBlade = new BLexiconEntry(LibLexicon.TOOL_TERRA_SWORD, categoryTools);
 		terraBlade.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeTerraSword));

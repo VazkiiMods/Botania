@@ -189,6 +189,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeStarfield;
 	public static List<IRecipe> recipesSpark;
 	public static List<IRecipe> recipesSparkUpgrades;
+	public static IRecipe recipeLeafHorn;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1188,6 +1189,10 @@ public final class ModCrafingRecipes {
 					LibOreDict.PIXIE_DUST, LibOreDict.MANA_STEEL, LibOreDict.RUNE[i]);
 		recipesSparkUpgrades = BotaniaAPI.getLatestAddedRecipes(4);
 
+		// Horn of the Canopy Recipe
+		addShapelessOreDictRecipe(new ItemStack(ModItems.grassHorn, 1, 1), new ItemStack(ModItems.grassHorn), "treeLeaves");
+		recipeLeafHorn = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",

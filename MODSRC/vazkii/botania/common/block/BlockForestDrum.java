@@ -105,7 +105,7 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 	@Override
 	public void onBurstCollision(IManaBurst burst, World world, int x, int y, int z) {
 		if(world.getBlockMetadata(x, y, z) == 0)
-			ItemGrassHorn.breakGrass(world, x, y, z);
+			ItemGrassHorn.breakGrass(world, 0, x, y, z);
 		else {
 			int range = 10;
 			List<EntityLiving> entities = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range + 1, y + range + 1, z + range + 1));
