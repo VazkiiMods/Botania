@@ -1,3 +1,7 @@
+r1.2 104
+*Added the Horn of the Canopy. It breaks leaves. Look for it in the Horn of the Wild entry.
+*Fixed server crash. <i>And this, ladies and gentleman, is why you don't trust pull requested code.</i>
+*The Gaia Guardian now can't be spawned if the world is in peaceful, it also despawns in this case.
 r1.2 103
 *Added the ability to fully customize mob shedding in the config file, which mobs drop what and how often. The lexicon entry for the shedding now dynamically updates depending on which mobs are set. (SoundLogic)
 *Fixed crashes when wanding platforms, again.
