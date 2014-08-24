@@ -1,3 +1,6 @@
+r1.2 103
+*Added the ability to fully customize mob shedding in the config file, which mobs drop what and how often. The lexicon entry for the shedding now dynamically updates depending on which mobs are set. (SoundLogic)
+*Fixed crashes when wanding platforms, again.
 r1.2 102
 *Fixed Recessive sparks pumping mana into other pools even if they are full.
 *Fixed Sparks sometimes vanishing on the client side after a world reload.
