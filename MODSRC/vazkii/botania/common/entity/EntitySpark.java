@@ -273,7 +273,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 			Entity e = worldObj.getEntityByID(id);
 			if(e != null && e instanceof ISparkEntity) {
 				ISparkEntity spark = (ISparkEntity) e;
-				if(spark != this && !spark.areIncomingTransfersDone() && spark.getAttachedTile() != null && !spark.getAttachedTile().isFull() && spark.getUpgrade() != 4 && (getUpgrade() != 4 || getUpgrade() != 3 || getUpgrade() != 1 || !(spark.getAttachedTile() instanceof IManaPool))) {
+				if(spark != this && !spark.areIncomingTransfersDone() && spark.getAttachedTile() != null && !spark.getAttachedTile().isFull() && ((getUpgrade() == 0 && spark.getUpgrade() == 2) || (getUpgrade() == 3 && (spark.getUpgrade() == 0 || spark.getUpgrade() == 1))) && spark.getAttachedTile() instanceof IManaPool) {
 					entities.add((ISparkEntity) e);
 					added = true;
 				}
