@@ -40,7 +40,7 @@ public class PageEntity extends LexiconPage{
 		Class EntityClass = (Class) EntityList.stringToClassMapping.get(entity);
 		this.size = size;
 		try {
-			dummyEntity = (Entity)EntityClass.getConstructor(new Class[] {World.class}).newInstance(new Object[] {null});
+			dummyEntity = (Entity) EntityClass.getConstructor(new Class[] {World.class}).newInstance(new Object[] {null});
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -60,6 +60,7 @@ public class PageEntity extends LexiconPage{
 		PageText.renderText(text_x, text_y, gui.getWidth() - 30, gui.getHeight(), getUnlocalizedName());
 	}
 
+	@SideOnly(Side.CLIENT)
 	public int getEntityScale(int targetSize) {
 		float entity_size = dummyEntity.width;
 
@@ -75,6 +76,7 @@ public class PageEntity extends LexiconPage{
 		dummyEntity.ticksExisted++;
 	}
 
+	@SideOnly(Side.CLIENT)
 	public void renderEntity(IGuiLexiconEntry gui, Entity entity, int x, int y, int scale, float rotation) {
 		dummyEntity.worldObj = (Minecraft.getMinecraft() != null) ? Minecraft.getMinecraft().theWorld : null;
 
