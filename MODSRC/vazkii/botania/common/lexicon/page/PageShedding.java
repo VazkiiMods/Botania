@@ -1,3 +1,14 @@
+/**
+ * This class was created by <SoundLogic>. It's distributed as
+ * part of the Botania Mod. Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ * 
+ * Botania is Open Source and distributed under a
+ * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
+ * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * 
+ * File Created @ [Jul 4, 2014, 10:38:50 PM (GMT)]
+ */
 package vazkii.botania.common.lexicon.page;
 
 import java.util.ArrayList;
@@ -28,7 +39,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
-public class PageShedding extends PageEntity{
+public class PageShedding extends PageEntity {
 
 	private static final ResourceLocation sheddingOverlay = new ResourceLocation(LibResources.GUI_SHEDDING_OVERLAY);
 
@@ -46,16 +57,13 @@ public class PageShedding extends PageEntity{
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void renderScreen(IGuiLexiconEntry gui, int mx, int my) {
-
 		relativeMouseX = mx;
 		relativeMouseY = my;
 		int stack_x = gui.getLeft() + gui.getWidth() / 2 - 8;
-		int stack_y = gui.getTop() + gui.getHeight() - 40 - 24 - 5;
+		int stack_y = gui.getTop() + gui.getHeight() - 40 - 18 - 5;
 		int entity_scale = getEntityScale(size);
 		int entity_x = gui.getLeft() + gui.getWidth() / 2;
-		int entity_y = gui.getTop() + gui.getHeight() / 2 + MathHelper.floor_float(dummyEntity.height * entity_scale / 2) - 35;
-		
-		tickEntity(dummyEntity);
+		int entity_y = gui.getTop() + gui.getHeight() / 2 + MathHelper.floor_float(dummyEntity.height * entity_scale / 2) - 29;
 		
         renderEntity(gui, dummyEntity, entity_x, entity_y, entity_scale, dummyEntity.ticksExisted * 2);
 				

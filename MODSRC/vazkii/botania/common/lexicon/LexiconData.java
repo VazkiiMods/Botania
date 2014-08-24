@@ -11,7 +11,6 @@
  */
 package vazkii.botania.common.lexicon;
 
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconCategory;
@@ -20,6 +19,7 @@ import vazkii.botania.api.lexicon.LexiconRecipeMappings;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.core.handler.SheddingHandler;
 import vazkii.botania.common.crafting.ModCrafingRecipes;
 import vazkii.botania.common.crafting.ModElvenTradeRecipes;
 import vazkii.botania.common.crafting.ModManaAlchemyRecipes;
@@ -30,16 +30,13 @@ import vazkii.botania.common.crafting.ModRuneRecipes;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
 import vazkii.botania.common.lexicon.page.PageElvenRecipe;
-import vazkii.botania.common.lexicon.page.PageEntity;
 import vazkii.botania.common.lexicon.page.PageImage;
 import vazkii.botania.common.lexicon.page.PageManaInfusionRecipe;
 import vazkii.botania.common.lexicon.page.PagePetalRecipe;
 import vazkii.botania.common.lexicon.page.PageRuneRecipe;
-import vazkii.botania.common.lexicon.page.PageShedding;
 import vazkii.botania.common.lexicon.page.PageTerrasteel;
 import vazkii.botania.common.lexicon.page.PageText;
 import vazkii.botania.common.lib.LibLexicon;
-import vazkii.botania.common.shedding.SheddingTracker;
 
 public final class LexiconData {
 
@@ -621,10 +618,10 @@ public final class LexiconData {
 	}
 
 	public static void postInit() {
-		if(SheddingTracker.hasShedding()) {
+		if(SheddingHandler.hasShedding()) {
 			shedding = new BLexiconEntry(LibLexicon.MISC_SHEDDING, categoryMisc);
 			shedding.setLexiconPages(new PageText("0"));
-			SheddingTracker.addToLexicon();
+			SheddingHandler.addToLexicon();
 		}
 	}
 }

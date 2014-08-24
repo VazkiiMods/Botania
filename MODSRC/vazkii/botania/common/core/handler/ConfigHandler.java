@@ -16,7 +16,6 @@ import java.io.File;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.common.shedding.SheddingTracker;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -151,7 +150,7 @@ public final class ConfigHandler {
 	}
 
 	public static void loadPostInit() {
-		SheddingTracker.loadFromConfig(config);
+		SheddingHandler.loadFromConfig(config);
 		
 		if(config.hasChanged())
 			config.save();

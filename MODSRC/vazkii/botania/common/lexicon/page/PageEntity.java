@@ -1,3 +1,14 @@
+/**
+ * This class was created by <SoundLogic>. It's distributed as
+ * part of the Botania Mod. Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ * 
+ * Botania is Open Source and distributed under a
+ * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
+ * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * 
+ * File Created @ [Jul 4, 2014, 10:38:50 PM (GMT)]
+ */
 package vazkii.botania.common.lexicon.page;
 
 import net.minecraft.client.Minecraft;
@@ -26,8 +37,8 @@ public class PageEntity extends LexiconPage{
 
 	public PageEntity(String unlocalizedName, String entity, int size) {
 		super(unlocalizedName);
-		Class EntityClass=(Class) EntityList.stringToClassMapping.get(entity);
-		this.size=size;
+		Class EntityClass = (Class) EntityList.stringToClassMapping.get(entity);
+		this.size = size;
 		try {
 			dummyEntity = (Entity)EntityClass.getConstructor(new Class[] {World.class}).newInstance(new Object[] {null});
 		} catch (Exception e) {
@@ -44,12 +55,9 @@ public class PageEntity extends LexiconPage{
 		int entity_x = gui.getLeft() + gui.getWidth() / 2;
 		int entity_y = gui.getTop() + gui.getHeight() / 2 + MathHelper.floor_float(dummyEntity.height * entity_scale / 2);
 
-		tickEntity(dummyEntity);
-
 		renderEntity(gui, dummyEntity, entity_x, entity_y, entity_scale, dummyEntity.ticksExisted * 2);
 
 		PageText.renderText(text_x, text_y, gui.getWidth() - 30, gui.getHeight(), getUnlocalizedName());
-
 	}
 
 	public int getEntityScale(int targetSize) {
@@ -61,8 +69,9 @@ public class PageEntity extends LexiconPage{
 		return MathHelper.floor_float(size / entity_size);
 
 	}
-
-	public void tickEntity(Entity entity) {
+	
+	@Override
+	public void updateScreen() {
 		dummyEntity.ticksExisted++;
 	}
 
