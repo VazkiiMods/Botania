@@ -25,7 +25,7 @@ public class TilePlatform extends TileCamo implements IManaCollisionGhost {
 
 	public boolean onWanded(EntityPlayer player) {
 		if(player != null) {
-			if(player.isSneaking())
+			if(camo == null || player.isSneaking())
 				swapSelfAndPass(this, true);
 			else swapSurroudings(this, false);
 			return true;
