@@ -32,6 +32,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
 import vazkii.botania.common.block.ModBlocks;
@@ -71,6 +72,9 @@ public class EntityDoppleganger extends EntityCreature implements IBossDisplayDa
 	public static boolean spawn(ItemStack par1ItemStack, World par3World, int par4, int par5, int par6) {
 		Block block = par3World.getBlock(par4, par5, par6);
 		if(block == Blocks.beacon && !par3World.isRemote) {
+			if(par3World.difficultySetting == EnumDifficulty.PEACEFUL)
+				return false;
+			
 			for(int[] coords : PYLON_LOCATIONS) {
 				int x = par4 + coords[0];
 				int y = par5 + coords[1];
@@ -213,6 +217,10 @@ public class EntityDoppleganger extends EntityCreature implements IBossDisplayDa
 	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
+
+		if(!worldObj.isRemote && worldObj.difficultySetting == EnumDifficulty.PEACEFUL)
+			setDead();
+
 		ChunkCoordinates source = getSource();
 
 		float range = 32F;
