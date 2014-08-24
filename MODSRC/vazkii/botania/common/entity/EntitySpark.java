@@ -61,8 +61,9 @@ public class EntitySpark extends Entity implements ISparkEntity {
 		super.onUpdate();
 
 		ISparkAttachable tile = getAttachedTile();
-		if(tile == null && !worldObj.isRemote) {
-			setDead();
+		if(tile == null) {
+			if(!worldObj.isRemote)
+				setDead();
 			return;
 		}
 
