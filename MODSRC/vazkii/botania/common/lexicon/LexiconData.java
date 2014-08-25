@@ -221,7 +221,7 @@ public final class LexiconData {
 		terrasteel = new BLexiconEntry(LibLexicon.BASICS_TERRASTEEL, categoryBasics);
 		terrasteel.setLexiconPages(new PageText("0"), new PageTerrasteel("1"));
 
-//		if(Botania.thaumcraftLoaded)
+		if(Botania.thaumcraftLoaded)
 			new BLexiconEntry("wrap", categoryBasics).setLexiconPages(new PageText("0")); // lel
 		
 		// MANA ENTRIES
