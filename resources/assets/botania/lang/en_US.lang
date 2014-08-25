@@ -692,6 +692,7 @@ item.botania:sparkUpgrade0.name=Spark Augment: Dispersive
 item.botania:sparkUpgrade1.name=Spark Augment: Dominant
 item.botania:sparkUpgrade2.name=Spark Augment: Recessive
 item.botania:sparkUpgrade3.name=Spark Augment: Isolated
+item.botania:diviningRod.name=Rod of Divining
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania, %s Edition Table of Contents
@@ -1368,6 +1369,11 @@ botania.page.enderHand1a=It's like the 4G of Ender Chests
 botania.entry.glassPick=Vitreous Pickaxe
 botania.page.glassPick0=Placing down &1Glass&0 and having to break it again can be a heartbreaking experience. Luckily, by creating a &1Vitreous Pickaxe&0, one can gather the &1Glass&0 back by mining it with the pick, it's like cheap &4Silk Touch&0 for glass!
 botania.page.glassPick1=Trapped inside with food
+
+# -- ROD OF DIVINING
+botania.entry.diviningRod=Rod of Divining
+botania.page.diviningRod0=As it's name implies, the &1Rod of Divining&0 has the ability to divine in a decently large radius around the user to find any ores. These will shine for a little bit, allowing their location.<br>This process, obviously, requires a decent amount of &4Mana&0 from the user's inventory.
+botania.page.diviningRod1=inb4 ee3 
 
 # - BAUBLES
 # -- AN INTRODUCTION TO BAUBLES

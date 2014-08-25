@@ -211,10 +211,16 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	private static boolean distanceLimit = true;
+	private static boolean depthTest = true;
 
 	@Override
 	public void setWispFXDistanceLimit(boolean limit) {
 		distanceLimit = limit;
+	}
+	
+	@Override
+	public void setWispFXDepthTest(boolean test) {
+		depthTest = test;
 	}
 
 	@Override
@@ -222,7 +228,7 @@ public class ClientProxy extends CommonProxy {
 		if(!doParticle())
 			return;
 
-		FXWisp wisp = new FXWisp(world, x, y, z, size, r, g, b, distanceLimit, maxAgeMul);
+		FXWisp wisp = new FXWisp(world, x, y, z, size, r, g, b, distanceLimit, depthTest, maxAgeMul);
 		wisp.motionX = motionx;
 		wisp.motionY = motiony;
 		wisp.motionZ = motionz;

@@ -33,6 +33,7 @@ public class FXWisp extends EntityFX {
 	public static final ResourceLocation particles = new ResourceLocation(LibResources.MISC_WISP_LARGE);
 
 	public static Queue<FXWisp> queuedRenders = new ArrayDeque();
+	public static Queue<FXWisp> queuedDepthIgnoringRenders = new ArrayDeque();
 
 	// Queue values
 	float f;
@@ -42,7 +43,7 @@ public class FXWisp extends EntityFX {
 	float f4;
 	float f5;
 
-	public FXWisp(World world, double d, double d1, double d2,  float size, float red, float green, float blue, boolean distanceLimit, float maxAgeMul) {
+	public FXWisp(World world, double d, double d1, double d2,  float size, float red, float green, float blue, boolean distanceLimit, boolean depthTest, float maxAgeMul) {
 		super(world, d, d1, d2, 0.0D, 0.0D, 0.0D);
 		particleRed = red;
 		particleGreen = green;
@@ -52,7 +53,8 @@ public class FXWisp extends EntityFX {
 		particleScale *= size;
 		moteParticleScale = particleScale;
 		particleMaxAge = (int)(28D / (Math.random() * 0.3D + 0.7D) * maxAgeMul);
-
+		this.depthTest = depthTest;
+		
 		moteHalfLife = particleMaxAge / 2;
 		noClip = true;
 		setSize(0.01F, 0.01F);
@@ -76,12 +78,24 @@ public class FXWisp extends EntityFX {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.75F);
 		Minecraft.getMinecraft().renderEngine.bindTexture(ConfigHandler.matrixMode ? ObfuscationHelper.getParticleTexture() : particles);
 
-		tessellator.startDrawingQuads();
-		for(FXWisp wisp : queuedRenders)
-			wisp.renderQueued(tessellator);
-		tessellator.draw();
+		if(!queuedRenders.isEmpty()) {
+			tessellator.startDrawingQuads();
+			for(FXWisp wisp : queuedRenders)
+				wisp.renderQueued(tessellator);
+			tessellator.draw();
+		}
+
+		if(!queuedDepthIgnoringRenders.isEmpty()) {
+			GL11.glDisable(GL11.GL_DEPTH_TEST);
+			tessellator.startDrawingQuads();
+			for(FXWisp wisp : queuedDepthIgnoringRenders)
+				wisp.renderQueued(tessellator);
+			tessellator.draw();
+			GL11.glEnable(GL11.GL_DEPTH_TEST);
+		}
 
 		queuedRenders.clear();
+		queuedDepthIgnoringRenders.clear();
 	}
 
 	private void renderQueued(Tessellator tessellator) {
@@ -114,7 +128,9 @@ public class FXWisp extends EntityFX {
 		this.f4 = f4;
 		this.f5 = f5;
 
-		queuedRenders.add(this);
+		if(depthTest)
+			queuedRenders.add(this);
+		else queuedDepthIgnoringRenders.add(this);
 	}
 
 	@Override
@@ -139,6 +155,7 @@ public class FXWisp extends EntityFX {
 		particleGravity = value;
 	}
 
+	boolean depthTest = true;
 	public boolean distanceLimit = true;
 	float moteParticleScale;
 	int moteHalfLife;

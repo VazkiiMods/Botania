@@ -126,6 +126,10 @@ public class CommonProxy {
 	public void setWispFXDistanceLimit(boolean limit) {
 		// NO-OP
 	}
+	
+	public void setWispFXDepthTest(boolean depth) {
+		// NO-OP
+	}
 
 	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size) {
 		wispFX(world, x, y, z, r, g, b, size, 0F);
