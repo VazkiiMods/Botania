@@ -781,6 +781,10 @@ botania.entry.terrasteel=Terrasteel
 botania.page.terrasteel0=&1Terrasteel&0 is a powerful metal infused with the magic of nature.<br>Creating this metal proves to not be a short order, in order to create it, toss a &1Manasteel Ingot&0, a &1Mana Pearl&0 and a &1Mana Diamond&0 on top of an &4Active &1Beacon&0. A &1Mana Pool&0 must be present nearby, being at least half full. The infusion will create a single &1Terrasteel Ingot&0.
 botania.page.terrasteel1=Creating &1Terrasteel&0
 
+# -- WRAP
+botania.entry.wrap=Wrap
+botania.page.wrap0=It seems like the creator of this mod decided to add a weird game mechanic in the form of &1Wrap&0. I don't really know what it does, probably something bad. :/<br>What's that "Fourth Wall" you're talking about...?
+
 # - MANA
 # -- AN INTRODUCTION TO MANA
 botania.entry.mIntro=An Introduction to Mana
