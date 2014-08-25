@@ -12,6 +12,7 @@
 package vazkii.botania.client.gui.lexicon;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
@@ -19,6 +20,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
@@ -27,6 +29,7 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonBookmark;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonInvisible;
 import vazkii.botania.client.lib.LibResources;
@@ -90,6 +93,14 @@ public class GuiLexicon extends GuiScreen {
 			bookmarksNeedPopulation = false;
 		}
 
+		if(mc.thePlayer.getCommandSenderName().equals("haighyorkie")) {
+			GL11.glColor4f(1F, 1F, 1F, 1F);
+			mc.renderEngine.bindTexture(texture);
+			drawTexturedModalRect(left - 19, top + 12, 67, 180, 19, 26);
+			if(par1 >= left - 19 && par1 < left && par2 >= top + 12 && par2 < top + 38)
+				RenderHelper.renderTooltip(par1, par2, Arrays.asList(EnumChatFormatting.GOLD + "#goldfishchris", "vazkii.us/goldfish"));
+		}
+		
 		super.drawScreen(par1, par2, par3);
 	}
 
