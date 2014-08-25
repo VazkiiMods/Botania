@@ -1,3 +1,9 @@
+r1.2 105
+*Added the Rod of Divining.
+*Fixed an exploit with Sparks where a dominant one can pull from others if the upgrade is added a posteriori. (mattcr11)
+*Fixed another Spark related crash. (mattcr11)
+*If you're a goldfish, you get a new thing.
+*Since Warp was such a success, if you have Thaumcraft loaded, you'll now have Wrap too.
 r1.2 104
 *Added the Horn of the Canopy. It breaks leaves. Look for it in the Horn of the Wild entry.
 *Fixed server crash. <i>And this, ladies and gentleman, is why you don't trust pull requested code.</i>
