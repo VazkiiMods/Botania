@@ -1,3 +1,11 @@
+r1.2 106
+*Fixed Dispersive Sparks putting mana into a Terra Shatterer.
+*Fixed the Clayconia, Exoflame and Rannuncarpus having -1 range in one corner.
+*Fixed the Rod of Divination being uncraftable and crashing the game when trying to look up the recipe.
+*[API] Added ISubTileProvider.
+*[API] Documented classes under vazkii.botania.api.mana.spark.
+*[API] Increased version number to 9.
+*<i>holds up spork</i>
 r1.2 105
 *Added the Rod of Divining.
 *Fixed an exploit with Sparks where a dominant one can pull from others if the upgrade is added a posteriori. (mattcr11)
