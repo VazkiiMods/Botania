@@ -821,7 +821,7 @@ botania.page.pool7=&1Mana Cookies&0 feed you pretty well.
 # -- SPARKS
 botania.entry.sparks=Sparks
 botania.page.sparks0=&1Sparks&0 are interesting entities. Created from a combination of raw energy and &4Mana&0, they have the ability to be placed on top of a few specific &4Mana&0 containing or accepting blocks, mainly, &1Mana Pools&0.<br>Some blocks have the ability to harness &4Mana&0 from &1Sparks&0, but the uses for them seem rather limited right now.
-botania.page.sparks1=Making a Spark
+botania.page.sparks1=&oholds up spork&r
 
 # -- SPARK AUGMENTATION
 botania.entry.sparkUpgrades=Spark Agumentation
