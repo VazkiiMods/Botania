@@ -617,7 +617,8 @@ item.botania:manasteelShovel.name=魔钢铲
 item.botania:manasteelAxe.name=魔钢斧
 item.botania:manasteelSword.name=魔钢剑
 item.botania:manasteelShears.name=魔钢剪刀
-item.botania:grassHorn.name=狂野号角
+item.botania:grassHorn0.name=狂野号角
+item.botania:grassHorn1.name=林冠号角
 item.botania:terrasteel.name=泰拉钢锭
 item.botania:terrasteelHelm.name=泰拉钢头盔
 item.botania:terrasteelChest.name=泰拉钢胸甲
@@ -686,6 +687,12 @@ item.botania:itemFinder.name=寻物者
 item.botania:superLavaPendant.name=绯红项链
 item.botania:enderHand.name=末影之手
 item.botania:glassPick.name=玻璃镐
+item.botania:spark.name=火花
+item.botania:sparkUpgrade0.name=火花升级:弥散
+item.botania:sparkUpgrade1.name=火花升级:聚集
+item.botania:sparkUpgrade2.name=火花升级:扩散
+item.botania:sparkUpgrade3.name=火花升级:隔绝
+item.botania:diviningRod.name=占矿法杖
 
 # GUI TEXT
 botania.gui.lexicon.header=植物魔法辞典, %s 版目录
@@ -775,6 +782,10 @@ botania.entry.terrasteel=泰拉钢
 botania.page.terrasteel0=&1泰拉钢&0是一种注入了自然魔 法的强力金属.<br>事实证明做出这种金属不是 那么简单,要制作的话,投掷一 个&1魔力钢锭&0,一个&1魔力珍珠&0和 一个&1魔力钻石&0到&4激活的&1信标&0 顶部.附近需要有一个&1魔力池&0, 最少一半魔力.之后就会产生 一个&1泰拉钢锭&0.
 botania.page.terrasteel1=制作&1泰拉钢&0
 
+# -- WRAP
+botania.entry.wrap=扭曲
+botania.page.wrap0=看样子这个模组的作者决心 以&1扭曲&0的形式增加种游戏机 制.我不太清楚它会怎样,很有 可能是什么坏的东西.:/<br>你所说的"第四面墙"是什么 ...?(十八世纪的法国剧作家 提出了第四面墙Fourth Wall 的观念,他殷殷叮嘱营造幻觉 的重要性)
+
 # - MANA
 # -- AN INTRODUCTION TO MANA
 botania.entry.mIntro=魔力的介绍
@@ -806,6 +817,20 @@ botania.page.pool4=制作&1魔力珍珠&0
 botania.page.pool5=制作&1魔力钻石&0
 botania.page.pool6=制作&1魔力花瓣&0
 botania.page.pool7=&1魔力曲奇&0能填饱你的肚子
+
+# -- SPARKS
+botania.entry.sparks=火花
+botania.page.sparks0=&1火花&0是种有趣的实体.它由纯 粹的能量与&4魔力&0结合而生,能 被置于少部分容纳或是接收 &4魔力&0的方块上方,当然主要还 是&1魔力池&0.<br>有些方块能利用来自&1火花&0的 魔力,当它们的用途现在仍是 十分有限的样子.
+botania.page.sparks1=&o举起叉勺&r
+
+# -- SPARK AUGMENTATION
+botania.entry.sparkUpgrades=火花升级
+botania.page.sparkUpgrades0=似乎&1火花&0比之前所知的还要 实用.可对其使用各种&1升级&0来 增强它们的能力.注意升级只 能用于&1魔力池&0上方的&1火花&0.<br>每个&1火花&0在给定时间内只能 拥有一种&1升级&0.
+botania.page.sparkUpgrades1=首先,&1弥散升级&0会使&1火花&0耗尽 下方池中的&4魔力&0,用来给附近 玩家身上容纳&4魔力&0的物品充 能.
+botania.page.sparkUpgrades2=&1聚集升级&0会让&1火花&0从附近任 何未升级&1火花&0的池子中抽取 &4魔力&0,直到它的池子充满为止.
+botania.page.sparkUpgrades3=&1扩散升级&0会使&1火花&0将它自己 池中全部&4魔力&0输出到任何邻 近的,未升级或是弥散升级 &1火花&0的池子中,直到它完全变 空.
+botania.page.sparkUpgrades4=最后,&1隔绝升级&0会阻止&1火花&0与 任何聚集或扩散&1火花&0交互,但 仍可以和可通过&1火花&0网络接 收&4魔力&0的方块交互.
+botania.page.sparkUpgrades5=制作升级
 
 # -- MANA DISTRIBUTOR
 botania.entry.distributor=魔力分配器
@@ -1081,7 +1106,7 @@ botania.page.manaEnchanting4=在水晶下和中心处种上花.
 botania.page.manaEnchanting5=中心处放置一个&1青金石块&0.
 botania.page.manaEnchanting6=摆放完成后,用&1森林法杖&0右击 青金石块附魔台就成型了.<br>使用附魔台时,需要将要附魔 的物品放入附魔台(通过右击 )并在黑曜石圈内扔下&1附魔&0 &1书&0.
 botania.page.manaEnchanting7=已附魔的物品不能放入附魔 台.<br>开始附魔时,用&1森林法杖&0右击 附魔台.它会检测周围的书, 一旦检测完毕,就会出现一个 符文圈,说明这时可以捡起地 上的书了.
-botania.page.manaEnchanting8=附魔开始后,附魔台就会需要 &4魔力&0.<br>有两种来源,通过&4魔力脉冲&0或 附近的&1魔力池&0,后者要快一些 ,但效率不是太高,会有少量 魔力流失.
+botania.page.manaEnchanting8=附魔开始后,附魔台就会需要 &4魔力&0.<br>有两种来源,通过&4魔力脉冲&0或 在附魔台上方放置&1火花&0,后者 要快一些.
 botania.page.manaEnchanting9=当聚集了足够的&4魔力&0时,附魔 过程就告终了,附魔将会赋予 物品.<br>所需&4魔力&0的量取决于施加附 魔的稀有度,等级,和附魔总 数.<br>如果有的书有不止一种附魔, 那么仅会附魔第一个.
 botania.page.manaEnchanting10=附魔过程中物品不能取出,但 可在完成后取出.<br>注意附魔台结构的任何一部 分被移除或是破坏都会将它 变为原来的&1青金石块&0.
 
@@ -1226,8 +1251,9 @@ botania.page.manaGear9=&1魔钢靴子&0
 
 # -- HORN OF THE WILD
 botania.entry.grassHorn=狂野号角
-botania.page.grassHorn0=空手清理&1高草&0显然是个麻烦 事.<br>吹响&1狂野号角&0会让附近的植 物被快速铲除,留下用手破坏 时的掉落物.
+botania.page.grassHorn0=空手清理&1高草&0显然是个麻烦 事.<br>吹响&1狂野号角&0会让附近的植 物被快速铲除,留下用手破坏 时的掉落物.<br>稍加改造就有了一个能用于 破坏树叶的号角.
 botania.page.grassHorn1=制作号角
+botania.page.grassHorn2=改造号角
 
 # -- TERRASTEEL ARMOR
 botania.entry.terrasteelArmor=泰拉钢护甲
@@ -1266,7 +1292,7 @@ botania.page.waterRod1=保持地球的洁净,它不是天王 星
 botania.entry.elfGear=源质钢装备
 botania.page.elfGear0=就像其他金属那样,&1源质钢&0能 用于制作工具和护甲.<br>这些装备有不错的耐磨性,约 为钻石的一半,也有抽取&4魔力&0 以防磨损的能力.
 botania.page.elfGear1=每一种工具都有着它们自己 独特的能力.护甲会让穿戴者 在被攻击时有几率刷出一只 &1小精灵&0追逐攻击者,造成一定 伤害.<br>装备的&1源质钢护甲&0越多,这个 几率越高.
-botania.page.elfGear2=首先,&1源质钢镐&0会破坏一切&1圆&0 &1石&0,&1泥土&0,&1地狱岩&0和其他常见 材料,只留下矿物和有用的资 源.
+botania.page.elfGear2=首先,&1源质钢镐&0会破坏一切&1圆&0 &1石&0,&1泥土&0,&1地狱岩&0和其他常见 材料,只留下矿物和有用的资 源.<br>将&1源质钢镐&0与&1泰拉粉碎者&0在 合成栏中结合会给予后者这 种能力.这个过程不能撤销.
 botania.page.elfGear3=我的包里倒出来都是圆石
 botania.page.elfGear4=&1源质钢铲&0,会让所挖的受重力 影响的方块(&1砂砾&0,&1沙子&0,等等 ),挖掉它上方/下方同样材料 的方块,挖矿时再也不会有砂 砾掉下来了.
 botania.page.elfGear5=把东西放在其他东西上
@@ -1310,7 +1336,7 @@ botania.page.fireRod1=MeguMegu无尽之夜的火
 # -- VINE BALLS
 botania.entry.vineBall=藤蔓球
 botania.page.vineBall0=&1梯子&0不能独立存在,它们需要 有依附的东西,然而&1藤蔓&0不需 要.通常来说,&1藤蔓&0不够坚韧 能让人挂在上面.<br>通过糅合一些&1藤蔓&0,能做出一 种可以投掷的球,在它所撞的 地方长出一道墙人的&1藤蔓&0梯 子.
-botania.page.vineBall1=也可以用一些类似&1活木&0和&1线&0 的材料制作一把能忽视重力 发射&1藤蔓球&0的弹弓.
+botania.page.vineBall1=也可以用一些类似&1活木&0和&1风&0 &1之符文&0的材料制作一把能忽 视重力发射&1藤蔓球&0的弹弓.
 botania.page.vineBall2=这将会在Vineacraft出现..
 botania.page.vineBall3=...如果那确实存在的话.
 
@@ -1343,6 +1369,11 @@ botania.page.enderHand1a=就像是4G版的末影箱
 botania.entry.glassPick=玻璃镐
 botania.page.glassPick0=将&1玻璃&0放置下来后还不得不 破坏掉真是心碎的经历,幸运 的是,做出一把&1玻璃镐&0采集就 不会破坏掉玻璃,这就像是为 玻璃而生的廉价的&4精准采集&0.
 botania.page.glassPick1=请勿与食物放在一起
+
+# -- ROD OF DIVINING
+botania.entry.diviningRod=占矿法杖
+botania.page.diviningRod0=就如其名所示,&1占矿法杖&0能卜 测使用者周围大范围内的矿 物.它们会闪出亮点来显示位 置.<br>这个过程显然会消耗掉玩家 相当量的&4魔力&0.
+botania.page.diviningRod1=inb4 ee3 
 
 # - BAUBLES
 # -- AN INTRODUCTION TO BAUBLES
@@ -1551,7 +1582,7 @@ botania.page.prismarine6=合成&1海灯笼&0
 
 # -- NATURAL SHEDDING
 botania.entry.shedding=自然掉落物
-botania.page.shedding0=这片土地上的生物都以非静 态的形式生存着.所以他们身 体的一部分掉落下来是很正 常的,&1羽毛&0来自&4鸡&0,&1骨头&0来自 &4骷髅射手&0,以此类推.<br>甚至是&4恶魂&0有时都会掉落恶 魂之泪,以及&4村民&0有几率掉落 &1绿宝石&0,他们不会捡绿宝石因 为他们总是将手藏在袖子里.
+botania.page.shedding0=这片土地上的生物都以非静 态的形式生存着.所以它们掉 落身体的一部分或是其他什 么东西都是很正常的.之后的 页面列举了这些生物会掉落 的物品.
 
 # -- TINY POTATO
 botania.entry.tinyPotato=小土豆
