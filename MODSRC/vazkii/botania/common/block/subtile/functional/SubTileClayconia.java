@@ -51,9 +51,9 @@ public class SubTileClayconia extends SubTileFunctional {
 		int range = 5;
 		int rangeY = 3;
 
-		for(int i = -range; i < range; i++)
-			for(int j = -rangeY; j < rangeY; j++)
-				for(int k = -range; k < range; k++) {
+		for(int i = -range; i < range + 1; i++)
+			for(int j = -rangeY; j < rangeY + 1; j++)
+				for(int k = -range; k < range + 1; k++) {
 					int x = supertile.xCoord + i;
 					int y = supertile.yCoord + j;
 					int z = supertile.zCoord + k;

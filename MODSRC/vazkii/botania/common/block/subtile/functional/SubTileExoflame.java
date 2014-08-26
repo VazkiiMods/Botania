@@ -28,9 +28,9 @@ public class SubTileExoflame extends SubTileFunctional {
 		int rangeY = 2;
 
 		fireFurnaces : {
-			for(int i = -range + 1; i < range; i++)
-				for(int j = -rangeY; j < rangeY; j++)
-					for(int k = -range + 1; k < range; k++) {
+			for(int i = -range + 1; i < range + 1; i++)
+				for(int j = -rangeY; j < rangeY + 1; j++)
+					for(int k = -range + 1; k < range + 1; k++) {
 						int x = supertile.xCoord + i;
 						int y = supertile.yCoord + j;
 						int z = supertile.zCoord + k;
