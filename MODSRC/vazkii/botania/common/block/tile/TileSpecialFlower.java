@@ -21,10 +21,11 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.IIcon;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.subtile.ISubTileContainer;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.wand.ITileBound;
 
-public class TileSpecialFlower extends TileMod implements ITileBound {
+public class TileSpecialFlower extends TileMod implements ITileBound, ISubTileContainer {
 
 	private static final String TAG_SUBTILE_NAME = "subTileName";
 	private static final String TAG_SUBTILE_CMP = "subTileCmp";
@@ -32,10 +33,12 @@ public class TileSpecialFlower extends TileMod implements ITileBound {
 	public String subTileName = "";
 	SubTileEntity subTile;
 
+	@Override
 	public SubTileEntity getSubTile() {
 		return subTile;
 	}
 
+	@Override
 	public void setSubTile(String name) {
 		subTileName = name;
 		provideSubTile(subTileName);
