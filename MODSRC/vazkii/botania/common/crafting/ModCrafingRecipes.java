@@ -1197,7 +1197,7 @@ public final class ModCrafingRecipes {
 		// Rod of Divining Recipe
 		addOreDictRecipe(new ItemStack(ModItems.diviningRod), 
 				" TD", " TT", "T  ",
-				'T', LibOreDict.TWIG_WAND,
+				'T', LibOreDict.LIVINGWOOD_TWIG,
 				'D', LibOreDict.MANA_DIAMOND);
 		recipeDiviningRod = BotaniaAPI.getLatestAddedRecipe();
 		
