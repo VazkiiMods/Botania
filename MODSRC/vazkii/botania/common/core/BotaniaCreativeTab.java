@@ -33,7 +33,6 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		super(LibMisc.MOD_ID);
 		setNoTitle();
 		setBackgroundImageName(LibResources.GUI_CREATIVE);
-		
 	}
 
 	@Override
