@@ -183,7 +183,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 			soundTicks--;
 
 		if(worldObj.isRemote) {
-			double particleChance = 1F - (double) getCurrentMana() / (double) MAX_MANA * 0.1;
+			double particleChance = 1F - (double) getCurrentMana() / (double) manaCap * 0.1;
 			Color color = new Color(0x00C6FF);
 			if(Math.random() > particleChance)
 				Botania.proxy.wispFX(worldObj, xCoord + 0.3 + Math.random() * 0.5, yCoord + 0.6 + Math.random() * 0.25, zCoord + Math.random(), color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random() / 3F, (float) -Math.random() / 25F, 2F);
@@ -220,7 +220,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 								didSomething = true;
 
 							if(!worldObj.isRemote) {
-								int manaVal = Math.min(1000, Math.min(MAX_MANA - getCurrentMana(), mana.getMana(stack)));
+								int manaVal = Math.min(1000, Math.min(manaCap - getCurrentMana(), mana.getMana(stack)));
 								mana.addMana(stack, -manaVal);
 								recieveMana(manaVal);
 							}
