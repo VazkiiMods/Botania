@@ -17,6 +17,7 @@ import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -30,6 +31,9 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 
 	public BotaniaCreativeTab() {
 		super(LibMisc.MOD_ID);
+		setNoTitle();
+		setBackgroundImageName(LibResources.GUI_CREATIVE);
+		
 	}
 
 	@Override
@@ -40,6 +44,11 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 	@Override
 	public Item getTabIconItem() {
 		return getIconItemStack().getItem();
+	}
+	
+	@Override
+	public boolean hasSearchBar() {
+		return true;
 	}
 
 	@Override
