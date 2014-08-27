@@ -28,6 +28,7 @@ import vazkii.botania.client.core.handler.BotaniaPlayerController;
 import vazkii.botania.client.core.handler.BoundTileRenderer;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.HUDHandler;
+import vazkii.botania.client.core.handler.JibrilRenderHandler;
 import vazkii.botania.client.core.handler.LightningHandler;
 import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
@@ -103,6 +104,7 @@ public class ClientProxy extends CommonProxy {
 		if(ConfigHandler.boundBlockWireframe)
 			MinecraftForge.EVENT_BUS.register(new BoundTileRenderer());
 		MinecraftForge.EVENT_BUS.register(new TooltipHandler());
+		MinecraftForge.EVENT_BUS.register(new JibrilRenderHandler());
 
 		if(ConfigHandler.versionCheckEnabled)
 			new VersionChecker().init();

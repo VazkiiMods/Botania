@@ -14,12 +14,15 @@ package vazkii.botania.common.item.equipment.bauble;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
@@ -32,6 +35,9 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 	public static List<String> playersWithFlight = new ArrayList();
 	private static final int COST = 50;
+	
+	public static IIcon iconWings;
+	public static IIcon iconDemonWings;
 
 	public ItemFlightTiara() {
 		super(LibItemNames.FLIGHT_TIARA);
@@ -44,6 +50,13 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		return BaubleType.AMULET;
 	}
 
+	@Override
+	public void registerIcons(IIconRegister par1IconRegister) {
+		itemIcon = IconHelper.forItem(par1IconRegister, this, 0);
+		iconWings = IconHelper.forItem(par1IconRegister, this, 1);
+		iconDemonWings = IconHelper.forItem(par1IconRegister, this, 2);
+	}
+	
 	@SubscribeEvent
 	public void updatePlayerFlyStatus(LivingUpdateEvent event) {
 		if(event.entityLiving instanceof EntityPlayer) {
