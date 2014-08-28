@@ -30,13 +30,17 @@ import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 	public static List<String> playersWithFlight = new ArrayList();
 	private static final int COST = 50;
 	
+	@SideOnly(Side.CLIENT)
 	public static IIcon iconWings;
+	@SideOnly(Side.CLIENT)
 	public static IIcon iconDemonWings;
 
 	public ItemFlightTiara() {
@@ -51,6 +55,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister par1IconRegister) {
 		itemIcon = IconHelper.forItem(par1IconRegister, this, 0);
 		iconWings = IconHelper.forItem(par1IconRegister, this, 1);
