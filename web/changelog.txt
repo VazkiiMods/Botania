@@ -1,3 +1,9 @@
+r1.2 107
+*Added a custom texture to the Botania creative tab, it also has a search bar now.
+*Added Wings to the Flugel Tiara. You even get devil wings in the Nether!
+*Fixed Diluted Mana Pools draining tablets and equivalent even when they're full.
+*Fixed Sparks never outputting their mana into non-pool blocks. <i>I'm gonna go hang myself now >_></i>
+*<i>Is it fixed yet? Is it fixed yet? Is it fixed yet? Is it fixed yet? Is it fixed yet? Is it fixed yet?</i>
 r1.2 106
 *Fixed Dispersive Sparks putting mana into a Terra Shatterer.
 *Fixed the Clayconia, Exoflame and Rannuncarpus having -1 range in one corner.
