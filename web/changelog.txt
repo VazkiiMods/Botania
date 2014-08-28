@@ -1,3 +1,5 @@
+r1.2 108
+*Fixed dedicated server crash. (tterrag1098)
 r1.2 107
 *Added a custom texture to the Botania creative tab, it also has a search bar now.
 *Added Wings to the Flugel Tiara. You even get devil wings in the Nether!
