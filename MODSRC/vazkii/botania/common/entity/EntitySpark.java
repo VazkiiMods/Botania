@@ -154,8 +154,10 @@ public class EntitySpark extends Entity implements ISparkEntity {
 			int manaForEach = manaTotal / transfers.size();
 			if(manaForEach > transfers.size()) {
 				for(ISparkEntity spark : transfers) {
-					if(spark.getAttachedTile() == null || spark.getAttachedTile().isFull() || spark.areIncomingTransfersDone())
+					if(spark.getAttachedTile() == null || spark.getAttachedTile().isFull() || spark.areIncomingTransfersDone()) {
+						manaTotal -= manaForEach;
 						continue;
+					}
 					
 					ISparkAttachable attached = spark.getAttachedTile();
 					attached.recieveMana(manaForEach);
