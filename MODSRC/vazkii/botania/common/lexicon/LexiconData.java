@@ -555,7 +555,7 @@ public final class LexiconData {
 		divaCharm.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeDivaCharm));
 
 		flightTiara = new ALexiconEntry(LibLexicon.BAUBLE_FLIGHT_TIARA, categoryBaubles);
-		flightTiara.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeFlightTiara));
+		flightTiara.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeFlightTiara), new PageText("2"), new PageCraftingRecipe("3", ModCrafingRecipes.recipesWings));
 
 		pixieRing = new ALexiconEntry(LibLexicon.BAUBLE_PIXIE_RING, categoryBaubles);
 		pixieRing.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipePixieRing));

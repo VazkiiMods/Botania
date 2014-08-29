@@ -191,6 +191,7 @@ public final class ModCrafingRecipes {
 	public static List<IRecipe> recipesSparkUpgrades;
 	public static IRecipe recipeLeafHorn;
 	public static IRecipe recipeDiviningRod;
+	public static List<IRecipe> recipesWings;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1200,6 +1201,12 @@ public final class ModCrafingRecipes {
 				'T', LibOreDict.LIVINGWOOD_TWIG,
 				'D', LibOreDict.MANA_DIAMOND);
 		recipeDiviningRod = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Wing Recipes
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.flightTiara, 1, 1), new ItemStack(ModItems.flightTiara), new ItemStack(Items.quartz));
+		for(int i = 0; i < 6; i++)
+			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.flightTiara, 1, 2 + i), new ItemStack(ModItems.flightTiara), new ItemStack(ModItems.quartz, 1, i));
+		recipesWings = BotaniaAPI.getLatestAddedRecipes(7);
 		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
