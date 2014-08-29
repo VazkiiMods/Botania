@@ -15,9 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -38,15 +41,14 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 	public static List<String> playersWithFlight = new ArrayList();
 	private static final int COST = 50;
 	
-	@SideOnly(Side.CLIENT)
-	public static IIcon iconWings;
-	@SideOnly(Side.CLIENT)
-	public static IIcon iconDemonWings;
-
+	public static IIcon[] wingIcons;
+	private static final int WING_TYPES = 7;
+	
 	public ItemFlightTiara() {
 		super(LibItemNames.FLIGHT_TIARA);
 		MinecraftForge.EVENT_BUS.register(this);
 		FMLCommonHandler.instance().bus().register(this);
+		setHasSubtypes(true);
 	}
 
 	@Override
@@ -58,8 +60,20 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister par1IconRegister) {
 		itemIcon = IconHelper.forItem(par1IconRegister, this, 0);
-		iconWings = IconHelper.forItem(par1IconRegister, this, 1);
-		iconDemonWings = IconHelper.forItem(par1IconRegister, this, 2);
+		wingIcons = new IIcon[WING_TYPES];
+		for(int i = 0; i < WING_TYPES; i++)
+			wingIcons[i] = IconHelper.forItem(par1IconRegister, this, i + 1);
+	}
+	
+	@Override
+	public void getSubItems(Item item, CreativeTabs tab, List list) {
+		for(int i = 0; i < WING_TYPES + 1; i++)
+			list.add(new ItemStack(item, 1, i));
+	}
+	
+	@Override
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+		par3List.add(StatCollector.translateToLocal("botania.wings" + par1ItemStack.getItemDamage()));
 	}
 	
 	@SubscribeEvent
