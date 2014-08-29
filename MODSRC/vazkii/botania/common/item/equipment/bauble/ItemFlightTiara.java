@@ -88,7 +88,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 					if(player.capabilities.isFlying) {
 						if(!player.worldObj.isRemote)
 							ManaItemHandler.requestManaExact(tiara, player, COST, true);
-						else if(tiara.getItemDamage() == 0 && Math.abs(player.motionX) > 0.1 || Math.abs(player.motionZ) > 0.1) {
+						else if(Math.abs(player.motionX) > 0.1 || Math.abs(player.motionZ) > 0.1) {
 							double x = event.entityLiving.posX - 0.5;
 							double y = event.entityLiving.posY - 1.7;
 							double z = event.entityLiving.posZ - 0.5;
@@ -97,16 +97,45 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 							float r = 1F;
 							float g = 1F;
 							float b = 1F;
-
-							if(name.equals("Vazkii"))
-								g = 1F - ((float) Math.random() * 0.75F + 0.25F);
-							else if(name.equals("Nemsun")) {
-								r = (float) Math.random();
-								g = (float) Math.random();
-								b = (float) Math.random();
+							
+							switch(tiara.getItemDamage()) {
+								case 2 : {
+									r = 0.1F;
+									g = 0.1F;
+									b = 0.1F;
+									break;
+								}
+								case 3 : {
+									r = 0F;
+									g = 0.6F;
+									b = 1F;
+									break;
+								}
+								case 4 : {
+									g = 0.3F;
+									b = 0.3F;
+									break;
+								}
+								case 5 : {
+									r = 0.6F;
+									g = 0F;
+									b = 0.6F;
+									break;
+								}
+								case 6 : {
+									r = 0.4F;
+									g = 0F;
+									b = 0F;
+									break;
+								}
+								case 7 : {
+									r = 0.2F;
+									g = 0.6F;
+									b = 0.2F;
+								}
 							}
 
-							for(int i = 0; i < 3; i++)
+							for(int i = 0; i < 2; i++)
 								Botania.proxy.sparkleFX(event.entityLiving.worldObj, x + Math.random() * event.entityLiving.width, y + Math.random() * 0.4, z + Math.random() * event.entityLiving.width, r, g, b, 2F * (float) Math.random(), 20);
 						}
 					}
