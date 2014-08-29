@@ -1,3 +1,7 @@
+r1.2 110
+*Added the ability to customize the wings the Flugel Tiara gives you, using Quartz. <i>Confirmed, Botania is a cosplay mod now.</i>
+*Fixed Sparks making pools losing mana even if there's no place for it to go.
+*Fixed wings' rendering being affected by the color of the item being held.
 r1.2 109
 *Fixed dedicated server crash. (tterrag1098)
 r1.2 108
