@@ -81,14 +81,14 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		if(event.entityLiving instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
 
-			ItemStack armor = PlayerHandler.getPlayerBaubles(player).getStackInSlot(0);
+			ItemStack tiara = PlayerHandler.getPlayerBaubles(player).getStackInSlot(0);
 			if(playersWithFlight.contains(playerStr(player))) {
 				if(shouldPlayerHaveFlight(player)) {
 					player.capabilities.allowFlying = true;
 					if(player.capabilities.isFlying) {
 						if(!player.worldObj.isRemote)
-							ManaItemHandler.requestManaExact(armor, player, COST, true);
-						else if(Math.abs(player.motionX) > 0.1 || Math.abs(player.motionZ) > 0.1) {
+							ManaItemHandler.requestManaExact(tiara, player, COST, true);
+						else if(tiara.getItemDamage() == 0 && Math.abs(player.motionX) > 0.1 || Math.abs(player.motionZ) > 0.1) {
 							double x = event.entityLiving.posX - 0.5;
 							double y = event.entityLiving.posY - 1.7;
 							double z = event.entityLiving.posZ - 0.5;
