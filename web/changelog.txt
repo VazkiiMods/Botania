@@ -1,3 +1,8 @@
+r1.2 111
+*Added the Mana Fluxfield, a way to convert from Mana to RF. <i>And I'm sure as all hell not doing it backwards.</i>
+*Fixed more typos and nonsense. (johnnydickpants)
+*[API] Added IPetalApothecary and IExoflameHeatable. <i>*stares at Azanor* Your move, buddy.</i>
+*[API] Increased version number to 10.
 r1.2 110
 *Added the ability to customize the wings the Flugel Tiara gives you, using Quartz. <i>Confirmed, Botania is a cosplay mod now.</i>
 *Fixed Sparks making pools losing mana even if there's no place for it to go.
