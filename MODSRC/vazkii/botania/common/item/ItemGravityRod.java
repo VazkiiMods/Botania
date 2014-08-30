@@ -27,7 +27,9 @@ import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.entity.EntityThrownItem;
+import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemGravityRod extends ItemMod implements IManaUsingItem {
@@ -40,7 +42,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 	}
 	
 	@Override
-    public void onUpdate(ItemStack stack, World p_77663_2_, Entity p_77663_3_, int p_77663_4_, boolean p_77663_5_) {
+    public void onUpdate(ItemStack stack, World world, Entity par3Entity, int p_77663_4_, boolean p_77663_5_) {
 		if (!stack.hasTagCompound()) {
 			stack.setTagCompound(new NBTTagCompound());
 		}
@@ -64,6 +66,12 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 		ticksTillExpire--;
 		stack.stackTagCompound.setInteger("ticksTillExpire", ticksTillExpire);
 		stack.stackTagCompound.setInteger("ticksCooldown", ticksCooldown);
+		EntityPlayer player = (EntityPlayer) par3Entity;
+		PotionEffect haste = player.getActivePotionEffect(Potion.digSpeed);
+		float check = haste == null ? 0.16666667F : haste.getAmplifier() == 1 ? 0.5F : 0.4F;
+		if(player.getCurrentEquippedItem() == stack && player.swingProgress == check && !world.isRemote) {
+			this.leftClick(player);
+		}
 	}
 
 	@Override

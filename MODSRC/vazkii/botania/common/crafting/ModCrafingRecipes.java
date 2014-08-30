@@ -193,6 +193,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeDiviningRod;
 	public static List<IRecipe> recipesWings;
 	public static IRecipe recipeRFGenerator;
+	public static IRecipe recipeGravityRod;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1202,6 +1203,14 @@ public final class ModCrafingRecipes {
 				'T', LibOreDict.LIVINGWOOD_TWIG,
 				'D', LibOreDict.MANA_DIAMOND);
 		recipeDiviningRod = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Rod of the Black Mesa Recipe
+		addOreDictRecipe(new ItemStack(ModItems.gravityRod), 
+				" TD", " TW", "T  ",
+				'T', LibOreDict.LIVINGWOOD_TWIG,
+				'W', new ItemStack(Items.wheat),
+				'D', LibOreDict.DRAGONSTONE);
+		recipeGravityRod = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Wing Recipes
 		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.flightTiara, 1, 1), new ItemStack(ModItems.flightTiara), new ItemStack(Items.quartz));

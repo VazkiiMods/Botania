@@ -41,7 +41,6 @@ import vazkii.botania.common.crafting.ModRuneRecipes;
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.network.BotaniaServerPacketHandler;
 import vazkii.botania.common.network.GuiHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -83,14 +82,8 @@ public class CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new SpawnerChangingHandler());
 
 		FMLCommonHandler.instance().bus().register(new CommonTickHandler());
-		
-		registerPacketHandler();
 	}
 	
-	public void registerPacketHandler() {
-   	 	Botania.channel.register(new BotaniaServerPacketHandler());
-	}
-
 	public void postInit(FMLPostInitializationEvent event) {
 		ModBlocks.addDispenserBehaviours();
 		ConfigHandler.loadPostInit();

@@ -1392,6 +1392,11 @@ botania.entry.diviningRod=Rod of Divining
 botania.page.diviningRod0=As its name implies, the &1Rod of Divining&0 has the ability to divine in a decently large radius around the user to find any ores. These will shine for a little bit, allowing their location.<br>This process, obviously, requires a decent amount of &4Mana&0 from the user's inventory.
 botania.page.diviningRod1=inb4 ee3 
 
+# -- ROD OF THE BLACK MESA
+botania.entry.gravityRod=Rod of the Black Mesa
+botania.page.gravityRod0=The &1Rod of the Black Mesa&0 is a powerful relic, legend says that the first of these devices was found atop a dark mesa, along with a crowbar. To use this device, the user may right click and hold on a monster or item to pick it up. Releasing right click will drop the selected entity, while left click will fire it in a powerful burst.
+botania.page.gravityRod1=bun
+
 # - BAUBLES
 # -- AN INTRODUCTION TO BAUBLES
 botania.entry.bIntro=An Introduction to Baubles

@@ -40,8 +40,6 @@ public class Botania {
 	@SidedProxy(serverSide = LibMisc.PROXY_COMMON, clientSide = LibMisc.PROXY_CLIENT)
 	public static CommonProxy proxy;
 	
-	public static FMLEventChannel channel;
-
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		thaumcraftLoaded = Loader.isModLoaded("Thaumcraft");
@@ -51,7 +49,6 @@ public class Botania {
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		channel = NetworkRegistry.INSTANCE.newEventDrivenChannel(LibMisc.MOD_ID);
 		proxy.init(event);
 	}
 
