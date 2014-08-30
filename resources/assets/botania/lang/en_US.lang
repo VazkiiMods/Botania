@@ -839,7 +839,7 @@ botania.entry.sparkUpgrades=Spark Agumentation
 botania.page.sparkUpgrades0=As it seems, &1Sparks&0 are a bit more versatile than it was known previously. A variety of &1Augments&0 can be applied to them to enhance their abilities. It's to note that Augments can only be applied to &1Sparks&0 that lie on &1Mana Pools&0.<br>A &1Spark&0 can only have a single &1Augment&0 at any given time.
 botania.page.sparkUpgrades1=Starting off, the &1Dispersive Augment&0 has the &1Spark&0 use up the &4Mana&0 in the pool below, to charge any nearby players' &4Mana&0 containing items.
 botania.page.sparkUpgrades2=The &1Dominant Augment&0 will have the &1Spark&0 pull any &4Mana&0 from nearby non-augmented &1Sparks'&0 pools into it's own, until it's completely full.
-botania.page.sparkUpgrades3=The &1Recessive Augment&0 will have thee &1Spark&0 output all of the &4Mana&0 in it's pool into any nearby non-augmented or Dispersive &1Sparks'&0 pools until it's completely empty.
+botania.page.sparkUpgrades3=The &1Recessive Augment&0 will have the &1Spark&0 output all of the &4Mana&0 in it's pool into any nearby non-augmented or Dispersive &1Sparks'&0 pools until it's completely empty.
 botania.page.sparkUpgrades4=Lastly, the &1Isolated Augment&0 will prevent the &1Spark&0 from interacting with any Dominant or Recessive &1Sparks&0, but still allow it to interact with blocks that can receive their &4Mana&0 through the &1Spark&0 network.
 botania.page.sparkUpgrades5=Crafting the Aguments
 
