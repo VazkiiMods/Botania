@@ -26,6 +26,8 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
+import cpw.mods.fml.common.network.FMLEventChannel;
+import cpw.mods.fml.common.network.NetworkRegistry;
 
 @Mod(modid = LibMisc.MOD_ID, name = LibMisc.MOD_NAME, version = LibMisc.VERSION, dependencies = LibMisc.DEPENDENCIES, guiFactory = LibMisc.GUI_FACTORY)
 public class Botania {
@@ -37,7 +39,7 @@ public class Botania {
 
 	@SidedProxy(serverSide = LibMisc.PROXY_COMMON, clientSide = LibMisc.PROXY_CLIENT)
 	public static CommonProxy proxy;
-
+	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		thaumcraftLoaded = Loader.isModLoaded("Thaumcraft");

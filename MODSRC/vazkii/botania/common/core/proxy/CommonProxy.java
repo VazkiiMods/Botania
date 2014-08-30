@@ -83,7 +83,7 @@ public class CommonProxy {
 
 		FMLCommonHandler.instance().bus().register(new CommonTickHandler());
 	}
-
+	
 	public void postInit(FMLPostInitializationEvent event) {
 		ModBlocks.addDispenserBehaviours();
 		ConfigHandler.loadPostInit();

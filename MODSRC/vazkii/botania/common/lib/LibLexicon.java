@@ -123,6 +123,7 @@ public final class LibLexicon {
 	public static final String TOOL_ENDER_HAND = "enderHand";
 	public static final String TOOL_GLASS_PICK = "glassPick";
 	public static final String TOOL_DIVINING_ROD = "diviningRod";
+	public static final String TOOL_GRAVITY_ROD = "gravityRod";
 
 	public static final String BAUBLE_INTRO = "bIntro";
 	public static final String BAUBLE_TINY_PLANET = "tinyPlanet";

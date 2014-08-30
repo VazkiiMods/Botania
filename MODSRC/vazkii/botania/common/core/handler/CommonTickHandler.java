@@ -39,7 +39,7 @@ public final class CommonTickHandler {
 
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
-	public void onTick(ClientTickEvent event) {
+	public void onTick(ClientTickEvent event) {		
 		if(event.phase == Phase.END) {
 			World world = Minecraft.getMinecraft().theWorld;
 			if(world != null) {

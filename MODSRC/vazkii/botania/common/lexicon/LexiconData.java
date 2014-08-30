@@ -148,6 +148,7 @@ public final class LexiconData {
 	public static LexiconEntry enderHand;
 	public static LexiconEntry glassPick;
 	public static LexiconEntry diviningRod;
+	public static LexiconEntry gravityRod;
 
 	public static LexiconEntry baublesIntro;
 	public static LexiconEntry tinyPlanet;
@@ -518,6 +519,9 @@ public final class LexiconData {
 		diviningRod = new BLexiconEntry(LibLexicon.TOOL_DIVINING_ROD, categoryTools);
 		diviningRod.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeDiviningRod));
 		
+		gravityRod = new BLexiconEntry(LibLexicon.TOOL_GRAVITY_ROD, categoryTools);
+		gravityRod.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeGravityRod));
+	
 		// BAUBLES ENTRIES
 		baublesIntro = new BLexiconEntry(LibLexicon.BAUBLE_INTRO, categoryBaubles);
 		baublesIntro.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_BAUBLES), new PageText("2"));
