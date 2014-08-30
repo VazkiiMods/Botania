@@ -24,12 +24,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class TileAltar extends TileSimpleInventory implements ISidedInventory {
+public class TileAltar extends TileSimpleInventory implements ISidedInventory, IPetalApothecary {
 
 	private static final Pattern SEED_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)seed)|(?:(?:[a-z-_.:]|^)Seed))(?:[sA-Z-_.:]|$)");
 
@@ -201,6 +202,16 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory {
 	@Override
 	public boolean canExtractItem(int i, ItemStack itemstack, int j) {
 		return false;
+	}
+
+	@Override
+	public void setWater(boolean water) {
+		hasWater = water;
+	}
+
+	@Override
+	public boolean hasWater() {
+		return hasWater;
 	}
 
 }
