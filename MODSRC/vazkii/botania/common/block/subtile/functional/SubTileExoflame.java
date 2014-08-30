@@ -16,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
+import vazkii.botania.api.item.IExoflameHeatable;
 import vazkii.botania.api.subtile.SubTileFunctional;
 
 public class SubTileExoflame extends SubTileFunctional {
@@ -36,22 +37,38 @@ public class SubTileExoflame extends SubTileFunctional {
 						int z = supertile.zCoord + k;
 
 						TileEntity tile = supertile.getWorldObj().getTileEntity(x, y, z);
-						if(tile != null && tile instanceof TileEntityFurnace) {
-							TileEntityFurnace furnace = (TileEntityFurnace) tile;
-							boolean canSmelt = canFurnaceSmelt(furnace);
-							if(canSmelt && mana > 2) {
-								if(furnace.furnaceBurnTime < 2) {
-									if(furnace.furnaceBurnTime == 0)
-										BlockFurnace.updateFurnaceBlockState(true, supertile.getWorldObj(), x, y, z);
-									furnace.furnaceBurnTime = 200;
+						if(tile != null) {
+							if(tile instanceof TileEntityFurnace) {
+								TileEntityFurnace furnace = (TileEntityFurnace) tile;
+								boolean canSmelt = canFurnaceSmelt(furnace);
+								if(canSmelt && mana > 2) {
+									if(furnace.furnaceBurnTime < 2) {
+										if(furnace.furnaceBurnTime == 0)
+											BlockFurnace.updateFurnaceBlockState(true, supertile.getWorldObj(), x, y, z);
+										furnace.furnaceBurnTime = 200;
+									}
+									if(supertile.getWorldObj().getTotalWorldTime() % 2 == 0)
+										furnace.furnaceCookTime = Math.min(199, furnace.furnaceCookTime + 1);
+
+									mana -= 2;
+
+									if(mana == 0)
+										break fireFurnaces;
 								}
-								if(supertile.getWorldObj().getTotalWorldTime() % 2 == 0)
-									furnace.furnaceCookTime = Math.min(199, furnace.furnaceCookTime + 1);
+							} else if(tile instanceof IExoflameHeatable) {
+								IExoflameHeatable heatable = (IExoflameHeatable) tile;
+								
+								if(heatable.canSmelt() && mana > 2) {
+									if(heatable.getBurnTime() == 0)
+										heatable.boostBurnTime();
+									if(supertile.getWorldObj().getTotalWorldTime() % 2 == 0)
+										heatable.boostCookTime();
 
-								mana -= 2;
+									mana -= 2;
 
-								if(mana == 0)
-									break fireFurnaces;
+									if(mana == 0)
+										break fireFurnaces;
+								}
 							}
 						}
 					}
