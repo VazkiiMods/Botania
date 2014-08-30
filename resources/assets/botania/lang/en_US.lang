@@ -1,4 +1,4 @@
-# MISC
+﻿# MISC
 itemGroup.Botania=Botania
 botaniamisc.nextPage=Next Page
 botaniamisc.prevPage=Previous Page
@@ -704,6 +704,7 @@ item.botania:sparkUpgrade1.name=Spark Augment: Dominant
 item.botania:sparkUpgrade2.name=Spark Augment: Recessive
 item.botania:sparkUpgrade3.name=Spark Augment: Isolated
 item.botania:diviningRod.name=Rod of Divining
+item.botania:gravityRod.name=Rod of the Black Mesa
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania, %s Edition Table of Contents

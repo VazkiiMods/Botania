@@ -28,8 +28,8 @@ import vazkii.botania.client.core.handler.BotaniaPlayerController;
 import vazkii.botania.client.core.handler.BoundTileRenderer;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.HUDHandler;
-import vazkii.botania.client.core.handler.TiaraWingRenderHandler;
 import vazkii.botania.client.core.handler.LightningHandler;
+import vazkii.botania.client.core.handler.TiaraWingRenderHandler;
 import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.fx.FXSparkle;
@@ -64,6 +64,7 @@ import vazkii.botania.client.render.tile.RenderTileSpawnerClaw;
 import vazkii.botania.client.render.tile.RenderTileSpreader;
 import vazkii.botania.client.render.tile.RenderTileStarfield;
 import vazkii.botania.client.render.tile.RenderTileTinyPotato;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.block.tile.TileEnchanter;
@@ -85,6 +86,7 @@ import vazkii.botania.common.entity.EntitySpark;
 import vazkii.botania.common.entity.EntityVineBall;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibObfuscation;
+import vazkii.botania.common.network.BotaniaClientPacketHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -111,6 +113,12 @@ public class ClientProxy extends CommonProxy {
 
 		initRenderers();
 	}
+	
+	@Override
+	public void registerPacketHandler() {
+   	 	Botania.channel.register(new BotaniaClientPacketHandler());
+	}
+
 
 	private void initRenderers() {
 		LibRenderIDs.idAltar = RenderingRegistry.getNextAvailableRenderId();

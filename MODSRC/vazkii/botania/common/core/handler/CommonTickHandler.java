@@ -17,7 +17,14 @@ import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+
+import org.lwjgl.input.Mouse;
+
+import vazkii.botania.common.item.ItemGravityRod;
+import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.network.BotaniaClientPacketHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
@@ -40,6 +47,11 @@ public final class CommonTickHandler {
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public void onTick(ClientTickEvent event) {
+		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+		if (Mouse.isButtonDown(0) && player != null && player.getHeldItem() != null && player.getHeldItem().getItem() == ModItems.gravityRod) {
+			BotaniaClientPacketHandler.sendClickPacket(player);
+			ItemGravityRod.leftClick(player);
+		}
 		if(event.phase == Phase.END) {
 			World world = Minecraft.getMinecraft().theWorld;
 			if(world != null) {
