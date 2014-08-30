@@ -853,6 +853,11 @@ botania.entry.manaVoid=Mana Void
 botania.page.manaVoid0=The &1Mana Void&0 is, in layman's terms, the grave for &4Mana&0. Any &4Mana&0 shot into this block will simply vanish into the void, never to be seen again.<br>Placing one of these under a &1Mana Pool&0 allows the pool to always accept &4Mana&0, but disposing any it can't hold.
 botania.page.manaVoid1=Crafting the void block
 
+# -- MANA FLUXFIELD
+botania.entry.rfGenerator=Mana Fluxfield
+botania.page.rfGenerator0=By passing &4Mana&0 through a field of redstone energy, its state can change from a natural energy source to &4Redstone Flux&0.<br>Simply pointing a spreader at this block will have it shoot at it, converting the &4Mana&0 that lands on it into &4RF&0. It can then be pulled out with any &4RF&0 transporter.
+botania.page.rfGenerator1=The bullet guys. I bit it.
+
 # -- MANA LENSES
 botania.entry.lens=Mana Lenses
 botania.page.lens0=In order to upgrade the potential a &1Mana Spreader&0, one can apply &1Mana Lenses&0. The very basic mana lens does absolutely nothing.<br>Lenses can be &4dyed&0 all the 16 colors of the spectrum, or combined with a &1Mana Pearl&0 to create a &1Rainbow Lens&0. These will change the color of the burst.

@@ -192,6 +192,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeLeafHorn;
 	public static IRecipe recipeDiviningRod;
 	public static List<IRecipe> recipesWings;
+	public static IRecipe recipeRFGenerator;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1207,6 +1208,14 @@ public final class ModCrafingRecipes {
 		for(int i = 0; i < 6; i++)
 			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.flightTiara, 1, 2 + i), new ItemStack(ModItems.flightTiara), new ItemStack(ModItems.quartz, 1, i));
 		recipesWings = BotaniaAPI.getLatestAddedRecipes(7);
+		
+		// Mana Fluxfield Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.rfGenerator), 
+				"SRS", "RMR", "SRS",
+				'S', LibOreDict.LIVING_ROCK,
+				'M', LibOreDict.MANA_STEEL,
+				'R', new ItemStack(Blocks.redstone_block));
+		recipeRFGenerator = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
