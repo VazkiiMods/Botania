@@ -20,7 +20,7 @@
 				<b>cpw and Player</b> for help with some internals.<br>
 				<b>dylan4ever</b> for a bunch of texture work.<br>
 				<b>Enterbrain</b> for a bunch of resources (both sound and graphical) from the RPG Maker VX Ace RTP.<br>
-				<b>Flaxbeard</b> for texture work when dylan isn't available.<br>
+				<b>Flaxbeard</b> for the Rod of the Black Meas, and for texture work when dylan isn't available.<br>
 				<b>Futureazoo</b> for the Terra Shatterer texture and the alternate textures in the Unity texture pack style that are available in the config.<br>
 				<b>Haighyorkie</b> for being a goldfish and always being supportive with making videos to show off the mod.<br>
 				<b>Le_Alchemist</b> for providing many hours of shameless fun.<br>
