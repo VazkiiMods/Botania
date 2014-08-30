@@ -425,6 +425,7 @@ tile.botania:customBrick14.name=Azulejo
 tile.botania:customBrick15.name=Azulejo
 tile.botania:enderEyeBlock.name=Ender Overseer
 tile.botania:starfield.name=Starfield Creator
+tile.botania:rfGenerator.name=Mana Fluxfield
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower

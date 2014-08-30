@@ -1,0 +1,152 @@
+/**
+ * This class was created by <Vazkii>. It's distributed as
+ * part of the Botania Mod. Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ * 
+ * Botania is Open Source and distributed under a
+ * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
+ * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * 
+ * File Created @ [Aug 29, 2014, 10:01:32 PM (GMT)]
+ */
+package vazkii.botania.common.block.tile.mana;
+
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
+import vazkii.botania.api.mana.IManaReceiver;
+import vazkii.botania.common.block.tile.TileMod;
+import cofh.api.energy.IEnergyConnection;
+import cofh.api.energy.IEnergyHandler;
+import cpw.mods.fml.common.Optional;
+
+@Optional.Interface(iface = "cofh.api.energy.IEnergyConnection", modid = "CoFHAPI")
+public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyConnection {
+
+	private static final int MAX_MANA = 1280;
+
+	private static final String TAG_MANA = "mana";
+
+	int mana = 0;
+
+	// Thanks to skyboy for help with this cuz I'm a noob with RF
+	private IEnergyHandler[] handlerCache;
+	private boolean deadCache;
+
+	@Override
+	@Optional.Method(modid = "CoFHAPI")
+	public void validate() {
+		super.validate();
+		deadCache = true;
+		handlerCache = null;
+	}
+
+	@Override
+	@Optional.Method(modid = "CoFHAPI")
+	public void updateEntity() {
+		super.updateEntity();
+		if(!worldObj.isRemote) {
+			if(deadCache)
+				reCache();
+
+			int transfer = Math.min(mana, 160);
+			mana -= transfer;
+			mana += transmitEnergy(transfer);
+		}
+	}
+
+	@Optional.Method(modid = "CoFHAPI")
+	protected final int transmitEnergy(int energy) {
+		if (handlerCache != null)
+			for(int i = handlerCache.length; i-- > 0;) {
+				IEnergyHandler tile = handlerCache[i];
+				if (tile == null)
+					continue;
+
+				ForgeDirection from = ForgeDirection.VALID_DIRECTIONS[i];
+				if(tile.receiveEnergy(from, energy, true) > 0)
+					energy -= tile.receiveEnergy(from, energy * 10, false) / 10;
+
+				if(energy <= 0)
+					return 0;
+			}
+
+		return energy;
+	}
+
+	@Optional.Method(modid = "CoFHAPI")
+	private void reCache() {
+		if(deadCache) {
+			for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS)
+				onNeighborTileChange(xCoord + dir.offsetX,
+						yCoord + dir.offsetY, zCoord + dir.offsetZ);
+			deadCache = false;
+		}
+	}
+
+	@Optional.Method(modid = "CoFHAPI")
+	public void onNeighborTileChange(int x, int y, int z) {
+		TileEntity tile = worldObj.getTileEntity(x, y, z);
+
+		if(x < xCoord)
+			addCache(tile, 5);
+		else if(x > xCoord)
+			addCache(tile, 4);
+		else if(z < zCoord)
+			addCache(tile, 3);
+		else if(z > zCoord)
+			addCache(tile, 2);
+		else if(y < yCoord)
+			addCache(tile, 1);
+		else if(y > yCoord)
+			addCache(tile, 0);
+	}
+
+	@Optional.Method(modid = "CoFHAPI")
+	private void addCache(TileEntity tile, int side) {
+		if(handlerCache != null)
+			handlerCache[side] = null;
+
+		if(tile instanceof IEnergyHandler && ((IEnergyHandler)tile).canConnectEnergy(ForgeDirection.VALID_DIRECTIONS[side])) {
+			if(handlerCache == null)
+				handlerCache = new IEnergyHandler[6];
+			handlerCache[side] = (IEnergyHandler)tile;
+		}
+	}
+
+	@Override
+	public int getCurrentMana() {
+		return mana;
+	}
+
+	@Override
+	public boolean isFull() {
+		return mana >= MAX_MANA;
+	}
+
+	@Override
+	public void recieveMana(int mana) {
+		this.mana = Math.min(MAX_MANA, this.mana + mana);
+	}
+
+	@Override
+	public boolean canRecieveManaFromBursts() {
+		return true;
+	}
+
+	@Override
+	public void writeCustomNBT(NBTTagCompound cmp) {
+		cmp.setInteger(TAG_MANA, mana);
+	}
+
+	@Override
+	public void readCustomNBT(NBTTagCompound cmp) {
+		mana = cmp.getInteger(TAG_MANA);
+	}
+
+	@Override
+	public boolean canConnectEnergy(ForgeDirection from) {
+		return true;
+	}
+
+}

@@ -120,6 +120,7 @@ import vazkii.botania.common.block.tile.mana.TileDistributor;
 import vazkii.botania.common.block.tile.mana.TileManaDetector;
 import vazkii.botania.common.block.tile.mana.TileManaVoid;
 import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.block.tile.mana.TileRFGenerator;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.block.tile.mana.TileTurntable;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -171,6 +172,7 @@ public final class ModBlocks {
 	public static Block customBrick;
 	public static Block enderEye;
 	public static Block starfield;
+	public static Block rfGenerator;
 
 	public static Block livingwoodStairs;
 	public static Block livingwoodSlab;
@@ -288,7 +290,8 @@ public final class ModBlocks {
 		customBrick = new BlockCustomBrick();
 		enderEye = new BlockEnderEye();
 		starfield = new BlockStarfield();
-
+		rfGenerator	= new BlockRFGenerator();
+		
 		livingwoodStairs = new BlockLivingwoodStairs();
 		livingwoodSlab = new BlockLivingwoodSlab(false);
 		livingwoodSlabFull = new BlockLivingwoodSlab(true);
@@ -465,6 +468,7 @@ public final class ModBlocks {
 		registerTile(TileSpawnerClaw.class, LibBlockNames.SPAWNER_CLAW);
 		registerTile(TileEnderEye.class, LibBlockNames.ENDER_EYE_BLOCK);
 		registerTile(TileStarfield.class, LibBlockNames.STARFIELD);
+		registerTile(TileRFGenerator.class, LibBlockNames.RF_GENERATOR);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MANASTAR, SubTileManastar.class);
