@@ -1,3 +1,9 @@
+r1.2 112
+*Added the Rod of the Black Mesa (Flaxbeard) <i>Half Life 3 Confirmed.</i>
+*Added the ability to shift-right click on virtually any block in the game with the Lexica Botania to open up a wiki page for that block. A few wikis are supported right now, more will be added in the future. In case there's a wiki for a mod not supported it'll fallback to the FTB Wiki. Other modders can register their own wikis through the API.
+*Sneaking with a Lexica Botania in hand now shows the name of the entry/wiki page that will be opened instead of a ? all the time.
+*[API] Added a wiki package and classes respective to them.
+*[API] Increased version number to 11.
 r1.2 111
 *Added the Mana Fluxfield, a way to convert from Mana to RF. <i>And I'm sure as all hell not doing it backwards.</i>
 *Fixed more typos and nonsense. (johnnydickpants)
