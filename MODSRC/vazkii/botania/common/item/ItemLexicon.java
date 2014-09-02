@@ -22,7 +22,9 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexicon;
@@ -54,14 +56,19 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 		if(par2EntityPlayer.isSneaking()) {
 			Block block = par3World.getBlock(par4, par5, par6);
 
-			if(block != null && block instanceof ILexiconable) {
-				LexiconEntry entry = ((ILexiconable) block).getEntry(par3World, par4, par5, par6, par2EntityPlayer, par1ItemStack);
-				if(entry != null) {
-					Botania.proxy.setEntryToOpen(entry);
-					par2EntityPlayer.openGui(Botania.instance, LibGuiIDs.LEXICON, par3World, 0, 0, 0);
-					if(!par3World.isRemote)
-						par3World.playSoundAtEntity(par2EntityPlayer, "botania:lexiconOpen", 0.5F, 1F);
-					return true;
+			if(block != null) {
+				if(block instanceof ILexiconable) {
+					LexiconEntry entry = ((ILexiconable) block).getEntry(par3World, par4, par5, par6, par2EntityPlayer, par1ItemStack);
+					if(entry != null) {
+						Botania.proxy.setEntryToOpen(entry);
+						par2EntityPlayer.openGui(Botania.instance, LibGuiIDs.LEXICON, par3World, 0, 0, 0);
+						if(!par3World.isRemote)
+							par3World.playSoundAtEntity(par2EntityPlayer, "botania:lexiconOpen", 0.5F, 1F);
+						return true;
+					}
+				} else if(par3World.isRemote) {
+					MovingObjectPosition pos = new MovingObjectPosition(par4, par5, par6, par7, Vec3.createVectorHelper(par8, par9, par10));
+					return Botania.proxy.openWikiPage(par3World, block, pos);
 				}
 			}
 		}

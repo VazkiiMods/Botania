@@ -21,6 +21,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -35,6 +36,8 @@ import vazkii.botania.api.mana.ICreativeManaProvider;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.wand.IWandHUD;
+import vazkii.botania.api.wiki.IWikiProvider;
+import vazkii.botania.api.wiki.WikiHooks;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.item.ModItems;
@@ -58,11 +61,7 @@ public final class HUDHandler {
 
 			else if(pos != null && mc.thePlayer.getCurrentEquippedItem() != null && mc.thePlayer.getCurrentEquippedItem().getItem() == ModItems.lexicon) {
 				Block block = mc.theWorld.getBlock(pos.blockX, pos.blockY, pos.blockZ);
-				if(block instanceof ILexiconable) {
-					LexiconEntry entry = ((ILexiconable) block).getEntry(mc.theWorld, pos.blockX, pos.blockY, pos.blockZ, mc.thePlayer, mc.thePlayer.getCurrentEquippedItem());
-					if(entry != null)
-						drawLexiconGUI(entry, event.resolution);
-				}
+				drawLexiconGUI(block, pos, event.resolution);
 			}
 		} else if(event.type == ElementType.EXPERIENCE) {
 			EntityPlayer player = Minecraft.getMinecraft().thePlayer;
@@ -135,17 +134,44 @@ public final class HUDHandler {
 		GL11.glDisable(GL11.GL_BLEND);
 	}
 
-	private void drawLexiconGUI(LexiconEntry entry, ScaledResolution res) {
+	private void drawLexiconGUI(Block block, MovingObjectPosition pos, ScaledResolution res) {
+		Minecraft mc = Minecraft.getMinecraft();
+		boolean draw = false;
+		String drawStr = "";
+
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		Minecraft mc = Minecraft.getMinecraft();
-		int x = res.getScaledWidth() / 2 - 17;
-		int y = res.getScaledHeight() / 2 + 2;
-
-		RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine, new ItemStack(ModItems.lexicon), x, y);
-		GL11.glDisable(GL11.GL_LIGHTING);
-		mc.fontRenderer.drawStringWithShadow("?", x + 10, y + 8, 0xFFFFFFFF);
-
+		int sx = res.getScaledWidth() / 2 - 17;
+		int sy = res.getScaledHeight() / 2 + 2;
+		
+		if(block instanceof ILexiconable) {
+			LexiconEntry entry = ((ILexiconable) block).getEntry(mc.theWorld, pos.blockX, pos.blockY, pos.blockZ, mc.thePlayer, mc.thePlayer.getCurrentEquippedItem());
+			if(entry != null) {
+				drawStr = StatCollector.translateToLocal(entry.getUnlocalizedName());
+				draw = true;
+			}
+		}
+		
+		if(!draw && pos.entityHit == null) {
+			IWikiProvider provider = WikiHooks.getWikiFor(block);
+			String url = provider.getWikiURL(mc.theWorld, pos);
+			if(url != null && !url.isEmpty()) {
+				String name = provider.getBlockName(mc.theWorld, pos);
+				String wikiName = provider.getWikiName(mc.theWorld, pos);
+				drawStr = name + "  @ " + EnumChatFormatting.AQUA + wikiName;
+				draw = true;
+			}
+		}
+		
+		if(draw) {
+			if(!mc.thePlayer.isSneaking())
+				drawStr = "?";
+			
+			RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine, new ItemStack(ModItems.lexicon), sx, sy);
+			GL11.glDisable(GL11.GL_LIGHTING);
+			mc.fontRenderer.drawStringWithShadow(drawStr, sx + 10, sy + 8, 0xFFFFFFFF);
+		}
+		
 		GL11.glDisable(GL11.GL_BLEND);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 	}

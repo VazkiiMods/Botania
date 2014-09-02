@@ -21,7 +21,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-import vazkii.botania.api.internal.IInternalMethodHandler;
+import vazkii.botania.api.internal.DummyMethodHandler;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
@@ -40,8 +40,9 @@ import vazkii.botania.common.lexicon.page.PagePetalRecipe;
 import vazkii.botania.common.lexicon.page.PageRuneRecipe;
 import vazkii.botania.common.lexicon.page.PageText;
 import baubles.common.lib.PlayerHandler;
+import cpw.mods.fml.common.Optional;
 
-public class InternalMethodHandler implements IInternalMethodHandler {
+public class InternalMethodHandler extends DummyMethodHandler {
 
 	@Override
 	public LexiconPage textPage(String key) {

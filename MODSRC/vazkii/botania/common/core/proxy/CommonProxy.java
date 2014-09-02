@@ -11,9 +11,11 @@
  */
 package vazkii.botania.common.core.proxy;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.BotaniaAPI;
@@ -107,6 +109,10 @@ public class CommonProxy {
 			((EntityPlayerMP) entity).theItemInWorldManager.setBlockReachDistance(Math.max(5, ((EntityPlayerMP) entity).theItemInWorldManager.getBlockReachDistance() + reach));
 	}
 
+	public boolean openWikiPage(World world, Block block, MovingObjectPosition pos) {
+		return false;
+	}
+	
 	public long getWorldElapsedTicks() {
 		return MinecraftServer.getServer().worldServers[0].getTotalWorldTime();
 	}

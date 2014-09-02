@@ -11,6 +11,10 @@
  */
 package vazkii.botania.client.core.proxy;
 
+import java.awt.Desktop;
+import java.net.URI;
+
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.network.NetHandlerPlayClient;
@@ -18,12 +22,15 @@ import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntitySkull;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings.GameType;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.item.IExtendedPlayerController;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.wiki.IWikiProvider;
+import vazkii.botania.api.wiki.WikiHooks;
 import vazkii.botania.client.core.handler.BotaniaPlayerController;
 import vazkii.botania.client.core.handler.BoundTileRenderer;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -186,6 +193,22 @@ public class ClientProxy extends CommonProxy {
 
 			((IExtendedPlayerController) mc.playerController).setReachDistanceExtension(Math.max(0, ((IExtendedPlayerController) mc.playerController).getReachDistanceExtension() + reach));
 		}
+	}
+	
+	@Override
+	public boolean openWikiPage(World world, Block block, MovingObjectPosition pos) {
+		IWikiProvider wiki = WikiHooks.getWikiFor(block);
+		String url = wiki.getWikiURL(world, pos);
+		if(url != null && !url.isEmpty()) {
+			try {
+				Desktop.getDesktop().browse(new URI(url));
+			} catch(Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+			return true;
+		}
+		return false;
 	}
 
 	@Override
