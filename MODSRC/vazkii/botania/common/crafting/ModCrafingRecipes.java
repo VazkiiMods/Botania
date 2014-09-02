@@ -1206,7 +1206,7 @@ public final class ModCrafingRecipes {
 		
 		// Rod of the Black Mesa Recipe
 		addOreDictRecipe(new ItemStack(ModItems.gravityRod), 
-				" TD", " TW", "T  ",
+				" TD", " WT", "T  ",
 				'T', LibOreDict.LIVINGWOOD_TWIG,
 				'W', new ItemStack(Items.wheat),
 				'D', LibOreDict.DRAGONSTONE);

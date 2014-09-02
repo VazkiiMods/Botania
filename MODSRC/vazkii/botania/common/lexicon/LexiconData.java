@@ -519,7 +519,7 @@ public final class LexiconData {
 		diviningRod = new BLexiconEntry(LibLexicon.TOOL_DIVINING_ROD, categoryTools);
 		diviningRod.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeDiviningRod));
 		
-		gravityRod = new BLexiconEntry(LibLexicon.TOOL_GRAVITY_ROD, categoryTools);
+		gravityRod = new ALexiconEntry(LibLexicon.TOOL_GRAVITY_ROD, categoryTools);
 		gravityRod.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCrafingRecipes.recipeGravityRod));
 	
 		// BAUBLES ENTRIES

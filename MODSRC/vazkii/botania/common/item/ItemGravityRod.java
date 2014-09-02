@@ -26,15 +26,21 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
-import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.entity.EntityThrownItem;
-import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 
-	static final int COST = 1; //CHANGE THIS
+	private static final float RANGE = 3F;
+	private static final int COST = 2;
+	
+	private static final String TAG_TICKS_TILL_EXPIRE = "ticksTillExpire";
+	private static final String TAG_TICKS_COOLDOWN = "ticksCooldown";
+	private static final String TAG_TARGET = "target";
+	private static final String TAG_DIST = "dist";
 
 	public ItemGravityRod() {
 		setMaxStackSize(1);
@@ -43,140 +49,115 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 	
 	@Override
     public void onUpdate(ItemStack stack, World world, Entity par3Entity, int p_77663_4_, boolean p_77663_5_) {
-		if (!stack.hasTagCompound()) {
-			stack.setTagCompound(new NBTTagCompound());
-		}
-		if (!stack.stackTagCompound.hasKey("ticksTillExpire")) {
-			stack.stackTagCompound.setInteger("ticksTillExpire", 0);
-		}
-		if (!stack.stackTagCompound.hasKey("ticksCooldown")) {
-			stack.stackTagCompound.setInteger("ticksCooldown", 0);
-		}
-		int ticksTillExpire = stack.stackTagCompound.getInteger("ticksTillExpire");	
-		int ticksCooldown = stack.stackTagCompound.getInteger("ticksCooldown");
+		if(!(par3Entity instanceof EntityPlayer))
+			return;
+		
+		int ticksTillExpire = ItemNBTHelper.getInt(stack, TAG_TICKS_TILL_EXPIRE, 0);	
+		int ticksCooldown = ItemNBTHelper.getInt(stack, TAG_TICKS_COOLDOWN, 0);
 
-		if (ticksTillExpire == 0) {
-			stack.stackTagCompound.setInteger("target", -1);
-			stack.stackTagCompound.setDouble("dist", -1);
+		if(ticksTillExpire == 0) {
+			ItemNBTHelper.setInt(stack, TAG_TARGET, -1);
+			ItemNBTHelper.setDouble(stack, TAG_DIST, -1);
 		}
 
-		if (ticksCooldown > 0) {
+		if(ticksCooldown > 0)
 			ticksCooldown--;
-		}
+		
 		ticksTillExpire--;
-		stack.stackTagCompound.setInteger("ticksTillExpire", ticksTillExpire);
-		stack.stackTagCompound.setInteger("ticksCooldown", ticksCooldown);
+		ItemNBTHelper.setInt(stack, TAG_TICKS_TILL_EXPIRE, ticksTillExpire);
+		ItemNBTHelper.setInt(stack, TAG_TICKS_COOLDOWN, ticksCooldown);
+		
 		EntityPlayer player = (EntityPlayer) par3Entity;
 		PotionEffect haste = player.getActivePotionEffect(Potion.digSpeed);
 		float check = haste == null ? 0.16666667F : haste.getAmplifier() == 1 ? 0.5F : 0.4F;
-		if(player.getCurrentEquippedItem() == stack && player.swingProgress == check && !world.isRemote) {
-			this.leftClick(player);
-		}
+		if(player.getCurrentEquippedItem() == stack && player.swingProgress == check && !world.isRemote)
+			leftClick(player);
 	}
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		if (!stack.hasTagCompound()) {
-			stack.setTagCompound(new NBTTagCompound());
-		}
-		if (!stack.stackTagCompound.hasKey("ticksTillExpire")) {
-			stack.stackTagCompound.setInteger("ticksTillExpire", 0);
-		}
-		if (!stack.stackTagCompound.hasKey("target")) {
-			stack.stackTagCompound.setInteger("target", -1);
-		}
-		if (!stack.stackTagCompound.hasKey("ticksCooldown")) {
-			stack.stackTagCompound.setInteger("ticksCooldown", 0);
-		}
-		if (!stack.stackTagCompound.hasKey("dist")) {
-			stack.stackTagCompound.setDouble("dist", -1);
-		}
-		int targetID = stack.stackTagCompound.getInteger("target");
-		int ticksCooldown = stack.stackTagCompound.getInteger("ticksCooldown");
-		double length = stack.stackTagCompound.getDouble("dist");
-		//length = 15;
-		if (ticksCooldown == 0) {
+		int targetID = ItemNBTHelper.getInt(stack, TAG_TARGET, -1);
+		int ticksCooldown = ItemNBTHelper.getInt(stack, TAG_TICKS_COOLDOWN, 0);
+		double length = ItemNBTHelper.getDouble(stack, TAG_DIST, -1);
+		if(ticksCooldown == 0) {
 			Entity item = null;
-			if (targetID != -1 && player.worldObj.getEntityByID(targetID) != null) {
+			if(targetID != -1 && player.worldObj.getEntityByID(targetID) != null) {
 				Entity taritem = player.worldObj.getEntityByID(targetID);
 	
 				boolean found = false;
 				Vector3 target = Vector3.fromEntityCenter(player);
 				List<Entity> entities = new ArrayList<Entity>();
 				int distance = 1;
-				while (entities.size() == 0 && distance < 25) {
-					
-					final double range = 3F;
+				while(entities.size() == 0 && distance < 25) {
 					target.add(new Vector3(player.getLookVec()).multiply(distance));
 			
 					target.y += 0.5;
-					entities = player.worldObj.getEntitiesWithinAABBExcludingEntity(player, AxisAlignedBB.getBoundingBox(target.x - range, target.y - range, target.z - range, target.x + range, target.y + range, target.z + range));
+					entities = player.worldObj.getEntitiesWithinAABBExcludingEntity(player, AxisAlignedBB.getBoundingBox(target.x - RANGE, target.y - RANGE, target.z - RANGE, target.x + RANGE, target.y + RANGE, target.z + RANGE));
 					distance++;
-					if (entities.contains(taritem)) {
+					if(entities.contains(taritem))
 						found = true;
-					}
 				}
 				
-				if (found) {
+				if(found)
 					item = player.worldObj.getEntityByID(targetID);
-				}
-				
 			}
 			
-			if (item == null)
-			{
+			if(item == null) {
 				Vector3 target = Vector3.fromEntityCenter(player);
 				List<Entity> entities = new ArrayList<Entity>();
 				int distance = 1;
-				while (entities.size() == 0 && distance < 25) {
-		
-					final double range = 3F;
+				while(entities.size() == 0 && distance < 25) {
 					target.add(new Vector3(player.getLookVec()).multiply(distance));
 			
 					target.y += 0.5;
-					entities = player.worldObj.getEntitiesWithinAABBExcludingEntity(player, AxisAlignedBB.getBoundingBox(target.x - range, target.y - range, target.z - range, target.x + range, target.y + range, target.z + range));
+					entities = player.worldObj.getEntitiesWithinAABBExcludingEntity(player, AxisAlignedBB.getBoundingBox(target.x - RANGE, target.y - RANGE, target.z - RANGE, target.x + RANGE, target.y + RANGE, target.z + RANGE));
 					distance++;
 				}
 				
-				if (entities.size() > 0) {
+				if(entities.size() > 0) {
 					item = entities.get(0);
-//					Vector3 target2 = new Vector3(item.posX, item.posY, item.posZ);
-//					target2.subtract(Vector3.fromEntityCenter(player));
-//					length = target2.mag();
-//					length = Math.max(5, length);
 					length = 5.5D;
-					if (item instanceof EntityItem) {
+					if(item instanceof EntityItem)
 						length = 2.0D;
-					}
 				}
 			}
-			if (ManaItemHandler.requestManaExact(stack, player, COST, true) && item != null) {
-				if (item instanceof EntityItem) {
+			
+			if(ManaItemHandler.requestManaExact(stack, player, COST, true) && item != null) {
+				if(item instanceof EntityItem)
 					((EntityItem)item).delayBeforeCanPickup = 5;
-				}
-				if (item instanceof EntityLivingBase) {
+				
+				if(item instanceof EntityLivingBase) {
 					EntityLivingBase targetEntity = ((EntityLivingBase)item);
 					targetEntity.fallDistance = 0.0F;
-					if (targetEntity.getActivePotionEffect(Potion.moveSlowdown) == null) {
+					if(targetEntity.getActivePotionEffect(Potion.moveSlowdown) == null)
 						targetEntity.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 2, 3, true));
-					}
 				}
+				
 				Vector3 target3 = Vector3.fromEntityCenter(player);
 				target3.add(new Vector3(player.getLookVec()).multiply(length));
 				target3.y += 0.5;
-				if (item instanceof EntityItem) {
+				if(item instanceof EntityItem)
 					target3.y += 0.25;
-				}
 	
-				setEntityMotionFromVector(item, target3, 0.3333F);
+				for(int i = 0; i < 4; i++) {
+					float r = 0.5F + (float) Math.random() * 0.5F;
+					float b = 0.5F + (float) Math.random() * 0.5F;
+					float s = 0.2F + (float) Math.random() * 0.1F;
+					float m = 0.1F;
+					float xm = ((float) Math.random() - 0.5F) * m;
+					float ym = ((float) Math.random() - 0.5F) * m;
+					float zm = ((float) Math.random() - 0.5F) * m;
+					Botania.proxy.wispFX(world, item.posX + item.width / 2, item.posY + item.height / 2, item.posZ + item.width / 2, r, 0F, b, s, xm, ym, zm);
+				}
+
+				setEntityMotionFromVector(item, target3, 0.3333333F);
 				
-				stack.stackTagCompound.setInteger("target", item.getEntityId());
-				stack.stackTagCompound.setDouble("dist", length);
+				ItemNBTHelper.setInt(stack, TAG_TARGET, item.getEntityId());
+				ItemNBTHelper.setDouble(stack, TAG_DIST, length);
 			}
 		
-			if (item != null) {
-				stack.stackTagCompound.setInteger("ticksTillExpire", 5);
-			}
+			if(item != null)
+				ItemNBTHelper.setInt(stack, TAG_TICKS_TILL_EXPIRE, 5);
 		}
 		return stack;
 	}
@@ -185,7 +166,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 		Vector3 entityVector = Vector3.fromEntityCenter(entity);
 		Vector3 finalVector = originalPosVector.copy().subtract(entityVector);
 
-		if (finalVector.mag() > 1)
+		if(finalVector.mag() > 1)
 			finalVector.normalize();
 
 		entity.motionX = finalVector.x * modifier;
@@ -200,53 +181,48 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 
 	public static void leftClick(EntityPlayer player) {
 		ItemStack stack = player.getHeldItem();
-		if (stack != null && stack.getItem() == ModItems.gravityRod) {
-			int targetID = stack.stackTagCompound.getInteger("target");
-			double length = stack.stackTagCompound.getDouble("dist");
+		if(stack != null && stack.getItem() == ModItems.gravityRod) {
+			int targetID = ItemNBTHelper.getInt(stack, TAG_TARGET, -1);
+			double length = ItemNBTHelper.getDouble(stack, TAG_DIST, -1);
 			Entity item = null;
-			if (targetID != -1 && player.worldObj.getEntityByID(targetID) != null) {
+			if(targetID != -1 && player.worldObj.getEntityByID(targetID) != null) {
 				Entity taritem = player.worldObj.getEntityByID(targetID);
 
 				boolean found = false;
 				Vector3 target = Vector3.fromEntityCenter(player);
 				List<Entity> entities = new ArrayList<Entity>();
 				int distance = 1;
-				while (entities.size() == 0 && distance < 25) {
-					
-					final double range = 3F;
+				while(entities.size() == 0 && distance < 25) {
 					target.add(new Vector3(player.getLookVec()).multiply(distance));
 			
 					target.y += 0.5;
-					entities = player.worldObj.getEntitiesWithinAABBExcludingEntity(player, AxisAlignedBB.getBoundingBox(target.x - range, target.y - range, target.z - range, target.x + range, target.y + range, target.z + range));
+					entities = player.worldObj.getEntitiesWithinAABBExcludingEntity(player, AxisAlignedBB.getBoundingBox(target.x - RANGE, target.y - RANGE, target.z - RANGE, target.x + RANGE, target.y + RANGE, target.z + RANGE));
 					distance++;
-					if (entities.contains(taritem)) {
+					if(entities.contains(taritem))
 						found = true;
-					}
 				}
 				
-				if (found) {
+				if(found) {
 					item = player.worldObj.getEntityByID(targetID);
-					stack.stackTagCompound.setInteger("target", -1);
-					stack.stackTagCompound.setDouble("dist", -1);
+					ItemNBTHelper.setInt(stack, TAG_TARGET, -1);
+					ItemNBTHelper.setDouble(stack, TAG_DIST, -1);
 					Vector3 moveVector = new Vector3(player.getLookVec().normalize());
-					if (item instanceof EntityItem) {
+					if(item instanceof EntityItem) {
 						((EntityItem)item).delayBeforeCanPickup = 20;
 						item.motionX = moveVector.x * 1.5F;
 						item.motionY = moveVector.y * 1.0F;
 						item.motionZ = moveVector.z * 1.5F;
-						if (!player.worldObj.isRemote) {
+						if(!player.worldObj.isRemote) {
 							EntityThrownItem thrown = new EntityThrownItem(item.worldObj, item.posX, item.posY, item.posZ, (EntityItem) item);
 							item.worldObj.spawnEntityInWorld(thrown);
 						}
 						item.setDead();
-					}
-					else
-					{
+					} else {
 						item.motionX = moveVector.x * 3.0F;
 						item.motionY = moveVector.y * 1.5F;
 						item.motionZ = moveVector.z * 3.0F;
 					}
-					stack.stackTagCompound.setInteger("ticksCooldown", 10);
+					ItemNBTHelper.setInt(stack, TAG_TICKS_COOLDOWN, 10);
 				}
 			}
 		}
