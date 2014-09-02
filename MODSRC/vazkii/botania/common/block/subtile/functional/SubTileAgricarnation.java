@@ -17,8 +17,10 @@ import net.minecraft.block.BlockCrops;
 import net.minecraft.block.BlockSapling;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileAgricarnation extends SubTileFunctional {
 
@@ -67,6 +69,11 @@ public class SubTileAgricarnation extends SubTileFunctional {
 	@Override
 	public int getMaxMana() {
 		return 200;
+	}
+	
+	@Override
+	public LexiconEntry getEntry() {
+		return LexiconData.agricarnation;
 	}
 
 }
