@@ -14,8 +14,6 @@ package vazkii.botania.common.entity;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibEntityNames;
 import cpw.mods.fml.common.registry.EntityRegistry;
-import flaxbeard.steamcraft.Steamcraft;
-import flaxbeard.steamcraft.entity.EntityFloatingItem;
 
 public final class ModEntities {
 
