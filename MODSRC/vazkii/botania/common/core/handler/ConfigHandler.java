@@ -47,6 +47,7 @@ public final class ConfigHandler {
 	public static boolean flowerForceCheck = true;
 	public static boolean enderPickpocketEnabled = true;
 	public static boolean thermalilyObsidian = false;
+	public static int hardcorePassiveGeneration = -1;
 
 	public static boolean fallenKanadeEnabled = true;
 	public static boolean darkQuartzEnabled = true;
@@ -130,6 +131,9 @@ public final class ConfigHandler {
 		desc = "Set to true to only allow the Thermalily to absorb Lava if there's Obsidian below it. Another config option for the Blood Magic balance freaks.";
 		thermalilyObsidian = loadPropBool("thermalily.obsidian", desc, thermalilyObsidian);
 
+		desc = "Set to anything other than -1 for passive generation flowers (dayblooms, nightshades, hydroangeas) to die after a specific amount of ticks. 24000 is 2 minecraft days, that's a recomended value.";
+		hardcorePassiveGeneration = loadPropInt("passiveWither.time", desc, hardcorePassiveGeneration);
+		
 		desc = "Set to false to disable the Fallen Kanade flower (gives Regeneration). This config option is here for those using Blood Magic. Note: Turning this off will not remove ones already in the world, it'll simply prevent the crafting.";
 		fallenKanadeEnabled = loadPropBool("fallenKanade.enabled", desc, fallenKanadeEnabled);
 

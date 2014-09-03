@@ -13,6 +13,7 @@ package vazkii.botania.api.subtile;
 
 import java.awt.Color;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,6 +25,7 @@ import net.minecraft.util.StatCollector;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaCollector;
+import vazkii.botania.common.core.handler.ConfigHandler;
 
 /**
  * The basic class for a Generating Flower.
@@ -31,13 +33,15 @@ import vazkii.botania.api.mana.IManaCollector;
 public class SubTileGenerating extends SubTileEntity {
 
 	private static final String TAG_MANA = "mana";
-
+	private static final String TAG_TICKS_EXISTED = "ticksExisted";
+	
 	private static final String TAG_COLLECTOR_X = "collectorX";
 	private static final String TAG_COLLECTOR_Y = "collectorY";
 	private static final String TAG_COLLECTOR_Z = "collectorZ";
 
 	protected int mana;
 
+	int ticksExisted = 0;
 	int sizeLastCheck = -1;
 	protected TileEntity linkedCollector = null;
 	public int knownMana = -1;
@@ -70,6 +74,14 @@ public class SubTileGenerating extends SubTileEntity {
 			Color color = new Color(getColor());
 			if(Math.random() > particleChance)
 				BotaniaAPI.internalHandler.sparkleFX(supertile.getWorldObj(), supertile.xCoord + 0.3 + Math.random() * 0.5, supertile.yCoord + 0.5 + Math.random()  * 0.5, supertile.zCoord + 0.3 + Math.random() * 0.5, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random(), 5);
+		}
+		
+		if(!supertile.getWorldObj().isRemote) {
+			++ticksExisted;
+			if(isPassiveFlower() && ConfigHandler.hardcorePassiveGeneration > 0 && ticksExisted > ConfigHandler.hardcorePassiveGeneration) {
+				supertile.getWorldObj().playAuxSFX(2001, supertile.xCoord, supertile.yCoord, supertile.zCoord, Block.getIdFromBlock(supertile.getBlockType()));
+				supertile.getWorldObj().setBlockToAir(supertile.xCoord, supertile.yCoord, supertile.zCoord);
+			}
 		}
 	}
 
@@ -125,6 +137,10 @@ public class SubTileGenerating extends SubTileEntity {
 		}
 	}
 
+	public boolean isPassiveFlower() {
+		return false;
+	}
+	
 	public boolean shouldSyncPassiveGeneration() {
 		return false;
 	}
@@ -166,7 +182,9 @@ public class SubTileGenerating extends SubTileEntity {
 	@Override
 	public void readFromPacketNBT(NBTTagCompound cmp) {
 		mana = cmp.getInteger(TAG_MANA);
-
+		if(!cmp.hasKey(TAG_TICKS_EXISTED))
+			ticksExisted = cmp.getInteger(TAG_TICKS_EXISTED);
+		
 		int x = cmp.getInteger(TAG_COLLECTOR_X);
 		int y = cmp.getInteger(TAG_COLLECTOR_Y);
 		int z = cmp.getInteger(TAG_COLLECTOR_Z);
@@ -177,7 +195,8 @@ public class SubTileGenerating extends SubTileEntity {
 	@Override
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		cmp.setInteger(TAG_MANA, mana);
-
+		cmp.setInteger(TAG_TICKS_EXISTED, ticksExisted);
+		
 		int x = linkedCollector == null ? 0 : linkedCollector.xCoord;
 		int y = linkedCollector == null ? -1 : linkedCollector.yCoord;
 		int z = linkedCollector == null ? 0 : linkedCollector.zCoord;
