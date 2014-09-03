@@ -32,6 +32,7 @@
 				<b>ScottWears</b> for hosting my website<br>
 				<b>The TConstruct and OpenBlocks teams</b> for code snippets I took from their repositories.<br>
 				<b>wiiv</b> for the old Pylon model and the Terra Blade texture.<br>
+				<b>WTFG33ks</b> for making the getting started video that's linked within the Lexica Botania.<br>
 			</div>
 		</div>
 		
