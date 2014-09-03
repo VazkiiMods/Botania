@@ -70,7 +70,7 @@ public class PageEntity extends LexiconPage{
 		return MathHelper.floor_float(size / entity_size);
 
 	}
-	
+
 	@Override
 	public void updateScreen() {
 		dummyEntity.ticksExisted++;
@@ -78,12 +78,12 @@ public class PageEntity extends LexiconPage{
 
 	@SideOnly(Side.CLIENT)
 	public void renderEntity(IGuiLexiconEntry gui, Entity entity, int x, int y, int scale, float rotation) {
-		dummyEntity.worldObj = (Minecraft.getMinecraft() != null) ? Minecraft.getMinecraft().theWorld : null;
+		dummyEntity.worldObj = Minecraft.getMinecraft() != null ? Minecraft.getMinecraft().theWorld : null;
 
 		GL11.glEnable(GL11.GL_COLOR_MATERIAL);
 		GL11.glPushMatrix();
-		GL11.glTranslatef((float)x, (float)y, 50.0F);
-		GL11.glScalef((float)(-scale), (float)scale, (float)scale);
+		GL11.glTranslatef(x, y, 50.0F);
+		GL11.glScalef(-scale, scale, scale);
 		GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
 		GL11.glRotatef(rotation, 0.0F, 1.0F, 0.0F);
 		RenderHelper.enableStandardItemLighting();
@@ -97,7 +97,7 @@ public class PageEntity extends LexiconPage{
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		OpenGlHelper.setActiveTexture(OpenGlHelper.defaultTexUnit);
 
-		if(relativeMouseX >= x - (dummyEntity.width * scale / 2) - 10  && relativeMouseY >= y - (dummyEntity.height * scale) - 20 && relativeMouseX <= x + (dummyEntity.width * scale / 2) + 10 && relativeMouseY <= y + 20)
+		if(relativeMouseX >= x - dummyEntity.width * scale / 2 - 10  && relativeMouseY >= y - dummyEntity.height * scale - 20 && relativeMouseX <= x + dummyEntity.width * scale / 2 + 10 && relativeMouseY <= y + 20)
 			tooltipEntity = true;
 	}
 }

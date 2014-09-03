@@ -34,7 +34,7 @@ public class SubTileThermalily extends SubTileHydroangeas {
 	public void doBurnParticles() {
 		Botania.proxy.wispFX(supertile.getWorldObj(), supertile.xCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.yCoord + 0.9 + Math.random() * 0.2 - 0.1, supertile.zCoord + 0.5, 0.7F, 0.05F, 0.05F, (float) Math.random() / 6, (float) -Math.random() / 60);
 	}
-	
+
 	@Override
 	public boolean isPassiveFlower() {
 		return false;

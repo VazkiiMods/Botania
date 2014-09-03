@@ -12,16 +12,14 @@
 package vazkii.botania.common.lexicon.page;
 
 import java.awt.Desktop;
-import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 
 public class PageGuide extends PageText {
 
 	public PageGuide(String unlocalizedName) {
 		super(unlocalizedName);
 	}
-	
+
 	@Override
 	public void onKeyPressed(char c, int key) {
 		if(key == 28 && Desktop.isDesktopSupported())
@@ -31,5 +29,5 @@ public class PageGuide extends PageText {
 					Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=dQw4w9WgXcQ"));
 			} catch(Exception e) { }
 	}
-	
+
 }

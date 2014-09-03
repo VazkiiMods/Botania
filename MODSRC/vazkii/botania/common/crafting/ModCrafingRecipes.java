@@ -1197,40 +1197,40 @@ public final class ModCrafingRecipes {
 		// Horn of the Canopy Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.grassHorn, 1, 1), new ItemStack(ModItems.grassHorn), "treeLeaves");
 		recipeLeafHorn = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Rod of Divining Recipe
-		addOreDictRecipe(new ItemStack(ModItems.diviningRod), 
+		addOreDictRecipe(new ItemStack(ModItems.diviningRod),
 				" TD", " TT", "T  ",
 				'T', LibOreDict.LIVINGWOOD_TWIG,
 				'D', LibOreDict.MANA_DIAMOND);
 		recipeDiviningRod = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Rod of the Black Mesa Recipe
-		addOreDictRecipe(new ItemStack(ModItems.gravityRod), 
+		addOreDictRecipe(new ItemStack(ModItems.gravityRod),
 				" TD", " WT", "T  ",
 				'T', LibOreDict.LIVINGWOOD_TWIG,
 				'W', new ItemStack(Items.wheat),
 				'D', LibOreDict.DRAGONSTONE);
 		recipeGravityRod = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Timeless Ivy Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.regenIvy), new ItemStack(Blocks.vine), LibOreDict.LIFE_ESSENCE, LibOreDict.ELEMENTIUM);
 		recipeRegenIvy = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Wing Recipes
 		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.flightTiara, 1, 1), new ItemStack(ModItems.flightTiara), new ItemStack(Items.quartz));
 		for(int i = 0; i < 6; i++)
 			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.flightTiara, 1, 2 + i), new ItemStack(ModItems.flightTiara), new ItemStack(ModItems.quartz, 1, i));
 		recipesWings = BotaniaAPI.getLatestAddedRecipes(7);
-		
+
 		// Mana Fluxfield Recipe
-		addOreDictRecipe(new ItemStack(ModBlocks.rfGenerator), 
+		addOreDictRecipe(new ItemStack(ModBlocks.rfGenerator),
 				"SRS", "RMR", "SRS",
 				'S', LibOreDict.LIVING_ROCK,
 				'M', LibOreDict.MANA_STEEL,
 				'R', new ItemStack(Blocks.redstone_block));
 		recipeRFGenerator = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",

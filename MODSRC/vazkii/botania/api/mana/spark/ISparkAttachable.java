@@ -11,11 +11,7 @@
  */
 package vazkii.botania.api.mana.spark;
 
-import java.util.List;
-
-import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
 import vazkii.botania.api.mana.IManaReceiver;
 
 /**

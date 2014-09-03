@@ -291,7 +291,7 @@ public final class ModBlocks {
 		enderEye = new BlockEnderEye();
 		starfield = new BlockStarfield();
 		rfGenerator	= new BlockRFGenerator();
-		
+
 		livingwoodStairs = new BlockLivingwoodStairs();
 		livingwoodSlab = new BlockLivingwoodSlab(false);
 		livingwoodSlabFull = new BlockLivingwoodSlab(true);

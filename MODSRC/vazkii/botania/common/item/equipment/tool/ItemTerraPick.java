@@ -245,7 +245,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem {
 	public boolean isNoExport(ItemStack stack) {
 		return true;
 	}
-	
+
 	@Override
 	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
 		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 4 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);

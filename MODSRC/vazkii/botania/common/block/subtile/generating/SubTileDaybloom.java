@@ -19,7 +19,6 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.ISubTileContainer;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -40,7 +39,7 @@ public class SubTileDaybloom extends SubTileGenerating {
 	public int getDelayBetweenPassiveGeneration() {
 		return 30 + (int) (getSurroundingFlowers() * 7.5);
 	}
-	
+
 	@Override
 	public boolean isPassiveFlower() {
 		return true;

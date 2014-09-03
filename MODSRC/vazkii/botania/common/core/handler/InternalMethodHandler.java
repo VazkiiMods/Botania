@@ -40,7 +40,6 @@ import vazkii.botania.common.lexicon.page.PagePetalRecipe;
 import vazkii.botania.common.lexicon.page.PageRuneRecipe;
 import vazkii.botania.common.lexicon.page.PageText;
 import baubles.common.lib.PlayerHandler;
-import cpw.mods.fml.common.Optional;
 
 public class InternalMethodHandler extends DummyMethodHandler {
 

@@ -40,10 +40,10 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 	public static List<String> playersWithFlight = new ArrayList();
 	private static final int COST = 50;
-	
+
 	public static IIcon[] wingIcons;
 	private static final int WING_TYPES = 7;
-	
+
 	public ItemFlightTiara() {
 		super(LibItemNames.FLIGHT_TIARA);
 		MinecraftForge.EVENT_BUS.register(this);
@@ -64,18 +64,18 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		for(int i = 0; i < WING_TYPES; i++)
 			wingIcons[i] = IconHelper.forItem(par1IconRegister, this, i + 1);
 	}
-	
+
 	@Override
 	public void getSubItems(Item item, CreativeTabs tab, List list) {
 		for(int i = 0; i < WING_TYPES + 1; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
-	
+
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
 		par3List.add(StatCollector.translateToLocal("botania.wings" + par1ItemStack.getItemDamage()));
 	}
-	
+
 	@SubscribeEvent
 	public void updatePlayerFlyStatus(LivingUpdateEvent event) {
 		if(event.entityLiving instanceof EntityPlayer) {
@@ -93,46 +93,46 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 							double y = event.entityLiving.posY - 1.7;
 							double z = event.entityLiving.posZ - 0.5;
 
-							String name = player.getGameProfile().getName();
+							player.getGameProfile().getName();
 							float r = 1F;
 							float g = 1F;
 							float b = 1F;
-							
+
 							switch(tiara.getItemDamage()) {
-								case 2 : {
-									r = 0.1F;
-									g = 0.1F;
-									b = 0.1F;
-									break;
-								}
-								case 3 : {
-									r = 0F;
-									g = 0.6F;
-									b = 1F;
-									break;
-								}
-								case 4 : {
-									g = 0.3F;
-									b = 0.3F;
-									break;
-								}
-								case 5 : {
-									r = 0.6F;
-									g = 0F;
-									b = 0.6F;
-									break;
-								}
-								case 6 : {
-									r = 0.4F;
-									g = 0F;
-									b = 0F;
-									break;
-								}
-								case 7 : {
-									r = 0.2F;
-									g = 0.6F;
-									b = 0.2F;
-								}
+							case 2 : {
+								r = 0.1F;
+								g = 0.1F;
+								b = 0.1F;
+								break;
+							}
+							case 3 : {
+								r = 0F;
+								g = 0.6F;
+								b = 1F;
+								break;
+							}
+							case 4 : {
+								g = 0.3F;
+								b = 0.3F;
+								break;
+							}
+							case 5 : {
+								r = 0.6F;
+								g = 0F;
+								b = 0.6F;
+								break;
+							}
+							case 6 : {
+								r = 0.4F;
+								g = 0F;
+								b = 0F;
+								break;
+							}
+							case 7 : {
+								r = 0.2F;
+								g = 0.6F;
+								b = 0.2F;
+							}
 							}
 
 							for(int i = 0; i < 2; i++)

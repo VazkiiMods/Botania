@@ -44,7 +44,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 	public Item getTabIconItem() {
 		return getIconItemStack().getItem();
 	}
-	
+
 	@Override
 	public boolean hasSearchBar() {
 		return true;

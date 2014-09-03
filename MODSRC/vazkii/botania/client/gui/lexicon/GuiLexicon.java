@@ -100,7 +100,7 @@ public class GuiLexicon extends GuiScreen {
 			if(par1 >= left - 19 && par1 < left && par2 >= top + 12 && par2 < top + 38)
 				RenderHelper.renderTooltip(par1, par2, Arrays.asList(EnumChatFormatting.GOLD + "#goldfishchris", "vazkii.us/goldfish"));
 		}
-		
+
 		super.drawScreen(par1, par2, par3);
 	}
 

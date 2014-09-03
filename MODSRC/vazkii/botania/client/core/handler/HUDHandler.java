@@ -143,7 +143,7 @@ public final class HUDHandler {
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		int sx = res.getScaledWidth() / 2 - 17;
 		int sy = res.getScaledHeight() / 2 + 2;
-		
+
 		if(block instanceof ILexiconable) {
 			LexiconEntry entry = ((ILexiconable) block).getEntry(mc.theWorld, pos.blockX, pos.blockY, pos.blockZ, mc.thePlayer, mc.thePlayer.getCurrentEquippedItem());
 			if(entry != null) {
@@ -151,7 +151,7 @@ public final class HUDHandler {
 				draw = true;
 			}
 		}
-		
+
 		if(!draw && pos.entityHit == null) {
 			IWikiProvider provider = WikiHooks.getWikiFor(block);
 			String url = provider.getWikiURL(mc.theWorld, pos);
@@ -162,16 +162,16 @@ public final class HUDHandler {
 				draw = true;
 			}
 		}
-		
+
 		if(draw) {
 			if(!mc.thePlayer.isSneaking())
 				drawStr = "?";
-			
+
 			RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine, new ItemStack(ModItems.lexicon), sx, sy);
 			GL11.glDisable(GL11.GL_LIGHTING);
 			mc.fontRenderer.drawStringWithShadow(drawStr, sx + 10, sy + 8, 0xFFFFFFFF);
 		}
-		
+
 		GL11.glDisable(GL11.GL_BLEND);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 	}

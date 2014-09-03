@@ -18,7 +18,6 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
-import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockLeavesBase;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -39,7 +38,7 @@ public class ItemGrassHorn extends ItemMod {
 
 	private static final int SUBTYPES = 2;
 	IIcon[] icons;
-	
+
 	public ItemGrassHorn() {
 		super();
 		setMaxStackSize(1);
@@ -73,7 +72,7 @@ public class ItemGrassHorn extends ItemMod {
 	String getUnlocalizedNameLazy(ItemStack par1ItemStack) {
 		return super.getUnlocalizedName(par1ItemStack);
 	}
-	
+
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
 		return EnumAction.bow;
@@ -113,7 +112,7 @@ public class ItemGrassHorn extends ItemMod {
 					int z = srcz + j;
 
 					Block block = world.getBlock(x, y, z);
-					if((stackDmg == 0 && block instanceof BlockBush && !(block instanceof ISpecialFlower)) || (stackDmg == 1 && block instanceof BlockLeavesBase))
+					if(stackDmg == 0 && block instanceof BlockBush && !(block instanceof ISpecialFlower) || stackDmg == 1 && block instanceof BlockLeavesBase)
 						coords.add(new ChunkCoordinates(x, y, z));
 				}
 

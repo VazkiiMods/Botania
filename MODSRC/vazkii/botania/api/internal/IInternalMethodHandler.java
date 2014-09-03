@@ -75,5 +75,5 @@ public interface IInternalMethodHandler {
 	public void drawSimpleManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res);
 
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m);
-	
+
 }

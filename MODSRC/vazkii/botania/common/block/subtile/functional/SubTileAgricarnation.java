@@ -70,7 +70,7 @@ public class SubTileAgricarnation extends SubTileFunctional {
 	public int getMaxMana() {
 		return 200;
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry() {
 		return LexiconData.agricarnation;

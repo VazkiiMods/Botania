@@ -16,12 +16,12 @@ package vazkii.botania.api.item;
  * be safely casted to TileEntity.
  */
 public interface IPetalApothecary {
-	
+
 	/**
 	 * Sets if the the apothecary has water or not.
 	 */
 	public void setWater(boolean water);
-	
+
 	/**
 	 * Does the apothecary have water in it?
 	 */

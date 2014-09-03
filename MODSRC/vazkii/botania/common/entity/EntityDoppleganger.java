@@ -74,7 +74,7 @@ public class EntityDoppleganger extends EntityCreature implements IBossDisplayDa
 		if(block == Blocks.beacon && !par3World.isRemote) {
 			if(par3World.difficultySetting == EnumDifficulty.PEACEFUL)
 				return false;
-			
+
 			for(int[] coords : PYLON_LOCATIONS) {
 				int x = par4 + coords[0];
 				int y = par5 + coords[1];

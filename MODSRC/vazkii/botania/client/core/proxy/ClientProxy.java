@@ -194,7 +194,7 @@ public class ClientProxy extends CommonProxy {
 			((IExtendedPlayerController) mc.playerController).setReachDistanceExtension(Math.max(0, ((IExtendedPlayerController) mc.playerController).getReachDistanceExtension() + reach));
 		}
 	}
-	
+
 	@Override
 	public boolean openWikiPage(World world, Block block, MovingObjectPosition pos) {
 		IWikiProvider wiki = WikiHooks.getWikiFor(block);
@@ -242,7 +242,7 @@ public class ClientProxy extends CommonProxy {
 	public void setWispFXDistanceLimit(boolean limit) {
 		distanceLimit = limit;
 	}
-	
+
 	@Override
 	public void setWispFXDepthTest(boolean test) {
 		depthTest = test;

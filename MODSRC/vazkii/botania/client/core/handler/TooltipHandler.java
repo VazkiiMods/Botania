@@ -11,12 +11,12 @@
  */
 package vazkii.botania.client.core.handler;
 
-import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.item.ItemRegenIvy;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.item.ItemRegenIvy;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
@@ -29,7 +29,7 @@ public final class TooltipHandler {
 			event.toolTip.add(StatCollector.translateToLocal("botaniamisc.coarseDirt1"));
 		} else if(event.itemStack.getItem() == Item.getItemFromBlock(Blocks.mob_spawner) && event.entityPlayer.capabilities.isCreativeMode)
 			event.toolTip.add(StatCollector.translateToLocal("botaniamisc.spawnerTip"));
-		
+
 		if(ItemNBTHelper.getBoolean(event.itemStack, ItemRegenIvy.TAG_REGEN, false))
 			event.toolTip.add(StatCollector.translateToLocal("botaniamisc.hasIvy"));
 	}

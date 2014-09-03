@@ -25,7 +25,7 @@ public class TileStarfield extends TileMod {
 				meta = newMeta;
 			}
 		}
-		
+
 		if(meta == 1) {
 			double radius = 512;
 			int iter = 2;

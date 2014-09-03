@@ -35,7 +35,7 @@ public class ItemRegenIvy extends ItemMod {
 		RecipeSorter.register("botania:regenIvy", RegenIvyRecipe.class, Category.SHAPELESS, "");
 		MinecraftForge.EVENT_BUS.register(this);
 	}
-	
+
 	@SubscribeEvent
 	public void onTick(LivingUpdateEvent event) {
 		if(event.entity instanceof EntityPlayer) {

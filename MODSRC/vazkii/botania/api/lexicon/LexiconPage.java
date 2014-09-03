@@ -39,7 +39,7 @@ public abstract class LexiconPage {
 	public void updateScreen() {
 		// NO-OP
 	}
-	
+
 	/**
 	 * Called when a key is pressed.
 	 */

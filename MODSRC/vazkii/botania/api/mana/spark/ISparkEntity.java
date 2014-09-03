@@ -13,9 +13,6 @@ package vazkii.botania.api.mana.spark;
 
 import java.util.Collection;
 
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.MathHelper;
-
 /**
  * An Entity that implements this is considered a Spark.
  */

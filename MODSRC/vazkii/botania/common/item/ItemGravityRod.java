@@ -19,7 +19,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
@@ -36,7 +35,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 
 	private static final float RANGE = 3F;
 	private static final int COST = 2;
-	
+
 	private static final String TAG_TICKS_TILL_EXPIRE = "ticksTillExpire";
 	private static final String TAG_TICKS_COOLDOWN = "ticksCooldown";
 	private static final String TAG_TARGET = "target";
@@ -46,13 +45,13 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 		setMaxStackSize(1);
 		setUnlocalizedName(LibItemNames.GRAVITY_ROD);
 	}
-	
+
 	@Override
-    public void onUpdate(ItemStack stack, World world, Entity par3Entity, int p_77663_4_, boolean p_77663_5_) {
+	public void onUpdate(ItemStack stack, World world, Entity par3Entity, int p_77663_4_, boolean p_77663_5_) {
 		if(!(par3Entity instanceof EntityPlayer))
 			return;
-		
-		int ticksTillExpire = ItemNBTHelper.getInt(stack, TAG_TICKS_TILL_EXPIRE, 0);	
+
+		int ticksTillExpire = ItemNBTHelper.getInt(stack, TAG_TICKS_TILL_EXPIRE, 0);
 		int ticksCooldown = ItemNBTHelper.getInt(stack, TAG_TICKS_COOLDOWN, 0);
 
 		if(ticksTillExpire == 0) {
@@ -62,11 +61,11 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 
 		if(ticksCooldown > 0)
 			ticksCooldown--;
-		
+
 		ticksTillExpire--;
 		ItemNBTHelper.setInt(stack, TAG_TICKS_TILL_EXPIRE, ticksTillExpire);
 		ItemNBTHelper.setInt(stack, TAG_TICKS_COOLDOWN, ticksCooldown);
-		
+
 		EntityPlayer player = (EntityPlayer) par3Entity;
 		PotionEffect haste = player.getActivePotionEffect(Potion.digSpeed);
 		float check = haste == null ? 0.16666667F : haste.getAmplifier() == 1 ? 0.5F : 0.4F;
@@ -83,37 +82,37 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 			Entity item = null;
 			if(targetID != -1 && player.worldObj.getEntityByID(targetID) != null) {
 				Entity taritem = player.worldObj.getEntityByID(targetID);
-	
+
 				boolean found = false;
 				Vector3 target = Vector3.fromEntityCenter(player);
 				List<Entity> entities = new ArrayList<Entity>();
 				int distance = 1;
 				while(entities.size() == 0 && distance < 25) {
 					target.add(new Vector3(player.getLookVec()).multiply(distance));
-			
+
 					target.y += 0.5;
 					entities = player.worldObj.getEntitiesWithinAABBExcludingEntity(player, AxisAlignedBB.getBoundingBox(target.x - RANGE, target.y - RANGE, target.z - RANGE, target.x + RANGE, target.y + RANGE, target.z + RANGE));
 					distance++;
 					if(entities.contains(taritem))
 						found = true;
 				}
-				
+
 				if(found)
 					item = player.worldObj.getEntityByID(targetID);
 			}
-			
+
 			if(item == null) {
 				Vector3 target = Vector3.fromEntityCenter(player);
 				List<Entity> entities = new ArrayList<Entity>();
 				int distance = 1;
 				while(entities.size() == 0 && distance < 25) {
 					target.add(new Vector3(player.getLookVec()).multiply(distance));
-			
+
 					target.y += 0.5;
 					entities = player.worldObj.getEntitiesWithinAABBExcludingEntity(player, AxisAlignedBB.getBoundingBox(target.x - RANGE, target.y - RANGE, target.z - RANGE, target.x + RANGE, target.y + RANGE, target.z + RANGE));
 					distance++;
 				}
-				
+
 				if(entities.size() > 0) {
 					item = entities.get(0);
 					length = 5.5D;
@@ -121,24 +120,24 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 						length = 2.0D;
 				}
 			}
-			
+
 			if(ManaItemHandler.requestManaExact(stack, player, COST, true) && item != null) {
 				if(item instanceof EntityItem)
 					((EntityItem)item).delayBeforeCanPickup = 5;
-				
+
 				if(item instanceof EntityLivingBase) {
-					EntityLivingBase targetEntity = ((EntityLivingBase)item);
+					EntityLivingBase targetEntity = (EntityLivingBase)item;
 					targetEntity.fallDistance = 0.0F;
 					if(targetEntity.getActivePotionEffect(Potion.moveSlowdown) == null)
 						targetEntity.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 2, 3, true));
 				}
-				
+
 				Vector3 target3 = Vector3.fromEntityCenter(player);
 				target3.add(new Vector3(player.getLookVec()).multiply(length));
 				target3.y += 0.5;
 				if(item instanceof EntityItem)
 					target3.y += 0.25;
-	
+
 				for(int i = 0; i < 4; i++) {
 					float r = 0.5F + (float) Math.random() * 0.5F;
 					float b = 0.5F + (float) Math.random() * 0.5F;
@@ -151,17 +150,17 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 				}
 
 				setEntityMotionFromVector(item, target3, 0.3333333F);
-				
+
 				ItemNBTHelper.setInt(stack, TAG_TARGET, item.getEntityId());
 				ItemNBTHelper.setDouble(stack, TAG_DIST, length);
 			}
-		
+
 			if(item != null)
 				ItemNBTHelper.setInt(stack, TAG_TICKS_TILL_EXPIRE, 5);
 		}
 		return stack;
 	}
-	
+
 	public static void setEntityMotionFromVector(Entity entity, Vector3 originalPosVector, float modifier) {
 		Vector3 entityVector = Vector3.fromEntityCenter(entity);
 		Vector3 finalVector = originalPosVector.copy().subtract(entityVector);
@@ -173,7 +172,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 		entity.motionY = finalVector.y * modifier;
 		entity.motionZ = finalVector.z * modifier;
 	}
-	
+
 	@Override
 	public boolean usesMana(ItemStack stack) {
 		return true;
@@ -183,7 +182,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 		ItemStack stack = player.getHeldItem();
 		if(stack != null && stack.getItem() == ModItems.gravityRod) {
 			int targetID = ItemNBTHelper.getInt(stack, TAG_TARGET, -1);
-			double length = ItemNBTHelper.getDouble(stack, TAG_DIST, -1);
+			ItemNBTHelper.getDouble(stack, TAG_DIST, -1);
 			Entity item = null;
 			if(targetID != -1 && player.worldObj.getEntityByID(targetID) != null) {
 				Entity taritem = player.worldObj.getEntityByID(targetID);
@@ -194,14 +193,14 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 				int distance = 1;
 				while(entities.size() == 0 && distance < 25) {
 					target.add(new Vector3(player.getLookVec()).multiply(distance));
-			
+
 					target.y += 0.5;
 					entities = player.worldObj.getEntitiesWithinAABBExcludingEntity(player, AxisAlignedBB.getBoundingBox(target.x - RANGE, target.y - RANGE, target.z - RANGE, target.x + RANGE, target.y + RANGE, target.z + RANGE));
 					distance++;
 					if(entities.contains(taritem))
 						found = true;
 				}
-				
+
 				if(found) {
 					item = player.worldObj.getEntityByID(targetID);
 					ItemNBTHelper.setInt(stack, TAG_TARGET, -1);

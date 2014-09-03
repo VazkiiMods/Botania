@@ -34,7 +34,7 @@ public class SubTileGenerating extends SubTileEntity {
 
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_TICKS_EXISTED = "ticksExisted";
-	
+
 	private static final String TAG_COLLECTOR_X = "collectorX";
 	private static final String TAG_COLLECTOR_Y = "collectorY";
 	private static final String TAG_COLLECTOR_Z = "collectorZ";
@@ -75,7 +75,7 @@ public class SubTileGenerating extends SubTileEntity {
 			if(Math.random() > particleChance)
 				BotaniaAPI.internalHandler.sparkleFX(supertile.getWorldObj(), supertile.xCoord + 0.3 + Math.random() * 0.5, supertile.yCoord + 0.5 + Math.random()  * 0.5, supertile.zCoord + 0.3 + Math.random() * 0.5, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random(), 5);
 		}
-		
+
 		if(!supertile.getWorldObj().isRemote) {
 			++ticksExisted;
 			if(isPassiveFlower() && ConfigHandler.hardcorePassiveGeneration > 0 && ticksExisted > ConfigHandler.hardcorePassiveGeneration) {
@@ -140,7 +140,7 @@ public class SubTileGenerating extends SubTileEntity {
 	public boolean isPassiveFlower() {
 		return false;
 	}
-	
+
 	public boolean shouldSyncPassiveGeneration() {
 		return false;
 	}
@@ -184,7 +184,7 @@ public class SubTileGenerating extends SubTileEntity {
 		mana = cmp.getInteger(TAG_MANA);
 		if(!cmp.hasKey(TAG_TICKS_EXISTED))
 			ticksExisted = cmp.getInteger(TAG_TICKS_EXISTED);
-		
+
 		int x = cmp.getInteger(TAG_COLLECTOR_X);
 		int y = cmp.getInteger(TAG_COLLECTOR_Y);
 		int z = cmp.getInteger(TAG_COLLECTOR_Z);
@@ -196,7 +196,7 @@ public class SubTileGenerating extends SubTileEntity {
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		cmp.setInteger(TAG_MANA, mana);
 		cmp.setInteger(TAG_TICKS_EXISTED, ticksExisted);
-		
+
 		int x = linkedCollector == null ? 0 : linkedCollector.xCoord;
 		int y = linkedCollector == null ? -1 : linkedCollector.yCoord;
 		int z = linkedCollector == null ? 0 : linkedCollector.zCoord;

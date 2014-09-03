@@ -21,24 +21,24 @@ public interface IExoflameHeatable {
 	 * to fuel it.
 	 */
 	public boolean canSmelt();
-	
+
 	/**
 	 * Gets the amount of ticks left for the fuel. If below 2, the exoflame
 	 * will call boostBurnTime.
 	 */
 	public int getBurnTime();
-	
+
 	/**
 	 * Called to increase the amount of time this furnace should be burning
 	 * the fuel for. Even if it doesn't have any fuel.
 	 */
 	public void boostBurnTime();
-	
+
 	/**
 	 * Called once every two ticks to increase the speed of the furnace. Feel
 	 * free to not do anything if all you want is to allow the exoflame to feed
 	 * it, not make it faster.
 	 */
 	public void boostCookTime();
-	
+
 }

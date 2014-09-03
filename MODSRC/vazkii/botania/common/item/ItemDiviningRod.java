@@ -36,12 +36,12 @@ public class ItemDiviningRod extends ItemMod implements IManaUsingItem {
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer p) {
 		if(ManaItemHandler.requestManaExact(stack, p, COST, true) && world.isRemote) {
-			int x = (int) MathHelper.floor_double(p.posX);
-			int y = (int) MathHelper.floor_double(p.posY);
-			int z = (int) MathHelper.floor_double(p.posZ);
+			int x = MathHelper.floor_double(p.posX);
+			int y = MathHelper.floor_double(p.posY);
+			int z = MathHelper.floor_double(p.posZ);
 			int range = 15;
 			long seedxor = world.rand.nextLong();
-			
+
 			Botania.proxy.setWispFXDepthTest(false);
 			for(int i = -range; i < range + 1; i++)
 				for(int j = -range; j < range + 1; j++)
@@ -67,7 +67,7 @@ public class ItemDiviningRod extends ItemMod implements IManaUsingItem {
 
 		return stack;
 	}
-	
+
 	@Override
 	public boolean usesMana(ItemStack stack) {
 		return true;

@@ -243,7 +243,7 @@ public final class ModItems {
 		diviningRod = new ItemDiviningRod();
 		gravityRod = new ItemGravityRod();
 		regenIvy = new ItemRegenIvy();
-		
+
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));

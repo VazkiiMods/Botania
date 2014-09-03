@@ -133,9 +133,9 @@ public final class BotaniaAPI {
 		addSeed(Items.nether_wart, Blocks.nether_wart);
 		addSeed(Items.pumpkin_seeds, Blocks.pumpkin_stem);
 		addSeed(Items.melon_seeds, Blocks.melon_stem);
-		
+
 		registerModWiki("Minecraft", new SimpleWikiProvider("Minecraft Wiki", "http://minecraft.gamepedia.com/%s"));
-		
+
 		IWikiProvider technicWiki = new SimpleWikiProvider("Technic Wiki", "http://wiki.technicpack.net/%s");
 		IWikiProvider mekanismWiki = new SimpleWikiProvider("Mekanism Wiki", "http://wiki.aidancbrady.com/wiki/%s");
 		IWikiProvider buildcraftWiki = new SimpleWikiProvider("BuildCraft Wiki", "http://www.mod-buildcraft.com/wiki/doku.php?id=%s");
@@ -338,7 +338,7 @@ public final class BotaniaAPI {
 
 		return newList;
 	}
-	
+
 	/**
 	 * Registers a Wiki provider for a mod so it uses that instead of the fallback
 	 * FTB wiki. Make sure to call this on PostInit only!

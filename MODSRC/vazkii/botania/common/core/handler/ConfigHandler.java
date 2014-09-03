@@ -133,7 +133,7 @@ public final class ConfigHandler {
 
 		desc = "Set to anything other than -1 for passive generation flowers (dayblooms, nightshades, hydroangeas) to die after a specific amount of ticks. 24000 is 2 minecraft days, that's a recomended value.";
 		hardcorePassiveGeneration = loadPropInt("passiveWither.time", desc, hardcorePassiveGeneration);
-		
+
 		desc = "Set to false to disable the Fallen Kanade flower (gives Regeneration). This config option is here for those using Blood Magic. Note: Turning this off will not remove ones already in the world, it'll simply prevent the crafting.";
 		fallenKanadeEnabled = loadPropBool("fallenKanade.enabled", desc, fallenKanadeEnabled);
 
@@ -155,11 +155,11 @@ public final class ConfigHandler {
 
 	public static void loadPostInit() {
 		SheddingHandler.loadFromConfig(config);
-		
+
 		if(config.hasChanged())
 			config.save();
 	}
-	
+
 	public static int loadPropInt(String propName, String desc, int default_) {
 		Property prop = config.get(Configuration.CATEGORY_GENERAL, propName, default_);
 		prop.comment = desc;

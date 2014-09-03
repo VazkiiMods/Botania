@@ -57,7 +57,7 @@ public class SubTileExoflame extends SubTileFunctional {
 								}
 							} else if(tile instanceof IExoflameHeatable) {
 								IExoflameHeatable heatable = (IExoflameHeatable) tile;
-								
+
 								if(heatable.canSmelt() && mana > 2) {
 									if(heatable.getBurnTime() == 0)
 										heatable.boostBurnTime();

@@ -107,7 +107,7 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	public IManaNetwork getManaNetworkInstance() {
 		return DummyManaNetwork.instance;
 	}
-	
+
 	@Override
 	public void drawSimpleManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res) {
 		// NO-OP

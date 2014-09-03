@@ -203,7 +203,7 @@ public final class LexiconData {
 		// BASICS ENTRIES
 		introVideo = new BLexiconEntry(LibLexicon.BASICS_INTRO_VIDEO, categoryBasics);
 		introVideo.setPriority().setLexiconPages(new PageGuide("0"));
-		
+
 		flowers = new BLexiconEntry(LibLexicon.BASICS_FLOWERS, categoryBasics);
 		flowers.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_FLOWERS), new PageText("2"), new PageCraftingRecipe("3", ModCrafingRecipes.recipesPetals), new PageCraftingRecipe("4", ModCrafingRecipes.recipePestleAndMortar), new PageCraftingRecipe("5", ModCrafingRecipes.recipesDyes),
 				new PageText("6"), new PageCraftingRecipe("7", ModCrafingRecipes.recipeFertilizerPowder), new PageCraftingRecipe("8", ModCrafingRecipes.recipeFerilizerDye));
@@ -232,7 +232,7 @@ public final class LexiconData {
 
 		if(Botania.thaumcraftLoaded)
 			new BLexiconEntry("wrap", categoryBasics).setLexiconPages(new PageText("0")); // lel
-		
+
 		// MANA ENTRIES
 		manaIntro = new BLexiconEntry(LibLexicon.MANA_INTRO, categoryMana);
 		manaIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"));
@@ -251,7 +251,7 @@ public final class LexiconData {
 
 		rfGenerator = new BLexiconEntry(LibLexicon.MANA_RF_GENERATOR, categoryMana);
 		rfGenerator.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeRFGenerator));
-		
+
 		lenses = new BLexiconEntry(LibLexicon.MANA_LENSES, categoryMana);
 		lenses.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeManaLens), new PageCraftingRecipe("2", ModCrafingRecipes.recipesLensDying), new PageCraftingRecipe("3", ModCrafingRecipes.recipeRainbowLens), new PageText("4"), new PageText("5"),
 				new PageText("6"), new PageCraftingRecipe("7", ModCrafingRecipes.recipeLensVelocity),
@@ -524,13 +524,13 @@ public final class LexiconData {
 
 		diviningRod = new BLexiconEntry(LibLexicon.TOOL_DIVINING_ROD, categoryTools);
 		diviningRod.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeDiviningRod));
-		
+
 		gravityRod = new ALexiconEntry(LibLexicon.TOOL_GRAVITY_ROD, categoryTools);
 		gravityRod.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCrafingRecipes.recipeGravityRod));
-	
+
 		regenIvy = new ALexiconEntry(LibLexicon.TOOL_REGEN_IVY, categoryTools);
 		regenIvy.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCrafingRecipes.recipeRegenIvy));
-		
+
 		// BAUBLES ENTRIES
 		baublesIntro = new BLexiconEntry(LibLexicon.BAUBLE_INTRO, categoryBaubles);
 		baublesIntro.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_BAUBLES), new PageText("2"));

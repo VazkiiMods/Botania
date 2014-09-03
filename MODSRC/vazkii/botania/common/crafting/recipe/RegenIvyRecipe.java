@@ -14,7 +14,6 @@ package vazkii.botania.common.crafting.recipe;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTool;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -41,7 +40,7 @@ public class RegenIvyRecipe implements IRecipe {
 
 				else if(tool != null && tool.getItem().getIsRepairable(tool, stack))
 					materialsFound++;
-				
+
 				else return false; // Found an invalid item, breaking the recipe
 			}
 		}

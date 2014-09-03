@@ -85,7 +85,7 @@ public class CommonProxy {
 
 		FMLCommonHandler.instance().bus().register(new CommonTickHandler());
 	}
-	
+
 	public void postInit(FMLPostInitializationEvent event) {
 		ModBlocks.addDispenserBehaviours();
 		ConfigHandler.loadPostInit();
@@ -112,7 +112,7 @@ public class CommonProxy {
 	public boolean openWikiPage(World world, Block block, MovingObjectPosition pos) {
 		return false;
 	}
-	
+
 	public long getWorldElapsedTicks() {
 		return MinecraftServer.getServer().worldServers[0].getTotalWorldTime();
 	}
@@ -132,7 +132,7 @@ public class CommonProxy {
 	public void setWispFXDistanceLimit(boolean limit) {
 		// NO-OP
 	}
-	
+
 	public void setWispFXDepthTest(boolean depth) {
 		// NO-OP
 	}
