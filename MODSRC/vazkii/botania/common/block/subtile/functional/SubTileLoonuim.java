@@ -22,7 +22,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileLoonuim extends SubTileFunctional {
 
-	private static final int COST = 20000;
+	private static final int COST = 35000;
 
 	@Override
 	public void onUpdate() {
