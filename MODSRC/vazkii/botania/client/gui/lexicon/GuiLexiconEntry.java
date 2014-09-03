@@ -200,6 +200,9 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 
 	@Override
 	protected void keyTyped(char par1, int par2) {
+		LexiconPage page = entry.pages.get(this.page);
+		page.onKeyPressed(par1, par2);
+		
 		if(par2 == 203 || par2 == 200 || par2 == 201) // Left, Up, Page Up
 			prevPage();
 		else if(par2 == 205 || par2 == 208 || par2 == 209) // Right, Down Page Down

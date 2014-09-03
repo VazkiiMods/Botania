@@ -727,6 +727,10 @@ botania.category.misc=Miscellaneous
 # LEXICON ENTRIES
 
 # - BASIC
+# -- AN INTRODUCTORY CLIP
+botania.entry.introVideo=An Introductory Clip
+botania.page.introVideo0=For those readers who are not quite readers, a short video guide covering the basics of Botania is also available. It's to keep in note that this guide acts as an aid and not a substitution for the contents of the &1Lexica Botania&0.<br>To watch this video simply press the &4ENTER&0 key.
+
 # -- LEXICA BOTANIA
 botania.entry.lexicon=Lexica Botania
 botania.page.lexicon0=The &1Lexica Botania&0 is the repository of all knowledge for all botany related matters. But you probably knew that already.<br>All information is stored here, as expected. For convenience, if a block happens to have an entry, it can be shift-right clicked with the &1Lexica Botania&0 to open that entry.

@@ -31,6 +31,7 @@ import vazkii.botania.common.crafting.ModRuneRecipes;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
 import vazkii.botania.common.lexicon.page.PageElvenRecipe;
+import vazkii.botania.common.lexicon.page.PageGuide;
 import vazkii.botania.common.lexicon.page.PageImage;
 import vazkii.botania.common.lexicon.page.PageManaInfusionRecipe;
 import vazkii.botania.common.lexicon.page.PagePetalRecipe;
@@ -51,6 +52,7 @@ public final class LexiconData {
 	public static LexiconCategory categoryAlfhomancy;
 	public static LexiconCategory categoryMisc;
 
+	public static LexiconEntry introVideo;
 	public static LexiconEntry flowers;
 	public static LexiconEntry apothecary;
 	public static LexiconEntry lexicon;
@@ -199,6 +201,9 @@ public final class LexiconData {
 		BotaniaAPI.addCategory(categoryMisc = new LexiconCategory(LibLexicon.CATEGORY_MISC));
 
 		// BASICS ENTRIES
+		introVideo = new BLexiconEntry(LibLexicon.BASICS_INTRO_VIDEO, categoryBasics);
+		introVideo.setPriority().setLexiconPages(new PageGuide("0"));
+		
 		flowers = new BLexiconEntry(LibLexicon.BASICS_FLOWERS, categoryBasics);
 		flowers.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_FLOWERS), new PageText("2"), new PageCraftingRecipe("3", ModCrafingRecipes.recipesPetals), new PageCraftingRecipe("4", ModCrafingRecipes.recipePestleAndMortar), new PageCraftingRecipe("5", ModCrafingRecipes.recipesDyes),
 				new PageText("6"), new PageCraftingRecipe("7", ModCrafingRecipes.recipeFertilizerPowder), new PageCraftingRecipe("8", ModCrafingRecipes.recipeFerilizerDye));

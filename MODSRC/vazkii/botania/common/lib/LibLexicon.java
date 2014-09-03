@@ -25,6 +25,7 @@ public final class LibLexicon {
 	public static final String CATEGORY_ALFHOMANCY = CATEGORY_PREFIX + "alfhomancy";
 	public static final String CATEGORY_MISC = CATEGORY_PREFIX + "misc";
 
+	public static final String BASICS_INTRO_VIDEO = "introVideo";
 	public static final String BASICS_FLOWERS = "flowers";
 	public static final String BASICS_APOTHECARY = "apothecary";
 	public static final String BASICS_LEXICON = "lexicon";

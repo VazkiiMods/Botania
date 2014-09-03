@@ -39,6 +39,14 @@ public abstract class LexiconPage {
 	public void updateScreen() {
 		// NO-OP
 	}
+	
+	/**
+	 * Called when a key is pressed.
+	 */
+	@SideOnly(Side.CLIENT)
+	public void onKeyPressed(char c, int key) {
+		// NO-OP
+	}
 
 	/**
 	 * Called when {@link LexiconEntry#setLexiconPages(LexiconPage...)} is called.
