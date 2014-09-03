@@ -48,6 +48,7 @@ botaniamisc.coarseDirt1=won't grow on it
 botaniamisc.spawnerTip=Tip: Use a Spawn Egg to change the mob
 botaniamisc.shardLevel=Shard Power %s
 botaniamisc.lexiconIndex=Lexicon Index
+botaniamisc.hasIvy=Has Timeless Ivy
 
 # COLORS
 botania.color0=White
@@ -706,6 +707,7 @@ item.botania:sparkUpgrade2.name=Spark Augment: Recessive
 item.botania:sparkUpgrade3.name=Spark Augment: Isolated
 item.botania:diviningRod.name=Rod of Divining
 item.botania:gravityRod.name=Rod of the Black Mesa
+item.botania:regenIvy.name=Timeless Ivy
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania, %s Edition Table of Contents

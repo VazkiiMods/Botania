@@ -153,6 +153,7 @@ public final class ModItems {
 	public static Item sparkUpgrade;
 	public static Item diviningRod;
 	public static Item gravityRod;
+	public static Item regenIvy;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -241,7 +242,8 @@ public final class ModItems {
 		sparkUpgrade = new ItemSparkUpgrade();
 		diviningRod = new ItemDiviningRod();
 		gravityRod = new ItemGravityRod();
-
+		regenIvy = new ItemRegenIvy();
+		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));

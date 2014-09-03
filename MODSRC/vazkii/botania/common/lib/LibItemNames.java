@@ -99,6 +99,7 @@ public final class LibItemNames {
 	public static final String SPARK_UPGRADE = "sparkUpgrade";
 	public static final String DIVINING_ROD = "diviningRod";
 	public static final String GRAVITY_ROD = "gravityRod";
+	public static final String REGEN_IVY = "regenIvy";
 
 	public static final String[] LENS_NAMES = new String[] {
 		"lensNormal",
