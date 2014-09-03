@@ -194,6 +194,7 @@ public final class ModCrafingRecipes {
 	public static List<IRecipe> recipesWings;
 	public static IRecipe recipeRFGenerator;
 	public static IRecipe recipeGravityRod;
+	public static IRecipe recipeRegenIvy;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1211,6 +1212,10 @@ public final class ModCrafingRecipes {
 				'W', new ItemStack(Items.wheat),
 				'D', LibOreDict.DRAGONSTONE);
 		recipeGravityRod = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Timeless Ivy Recipe
+		addShapelessOreDictRecipe(new ItemStack(ModItems.regenIvy), new ItemStack(Blocks.vine), LibOreDict.LIFE_ESSENCE, LibOreDict.ELEMENTIUM);
+		recipeRegenIvy = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Wing Recipes
 		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.flightTiara, 1, 1), new ItemStack(ModItems.flightTiara), new ItemStack(Items.quartz));
