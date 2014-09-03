@@ -1,3 +1,14 @@
+r1.2 113
+*Added a <a href="https://www.youtube.com/watch?v=rx0xyejC6fI">video guide</a> you can access from the lexica botania, courtesy of <a href="https://www.youtube.com/channel/UCBFiQsdlPYROelxYELr0usw">WTFG33ks</a>!
+*Added Hardcore passive generation. You can now set a number in the config file in which a passive flower (daybloom, nightshade, hydroangeas) will die after that time, in ticks. This is off by default.
+*Added the Timeless Ivy, add it to a tool and it can pull mana from your inventory just as if it's made of Manasteel.
+*Changed the textures for the Brown Mystical Flower, powered Ender Overseer and Redstone Root.
+*Fixed the Starfield Creator not working in multiplayer.
+*Fixed the Terra Shatterer and Vitreous Pickaxe not being able to be repaired in the anvil.
+*Made the Loonium more expensive in terms of mana.
+*[API] Added onKeyPressed() to LexiconPage.
+*[API] Added ticksExisted to SubTileGenerating.
+*[API] Increased version number to 12.
 r1.2 112
 *Added the Rod of the Black Mesa (Flaxbeard) <i>Half Life 3 Confirmed.</i>
 *Added the ability to shift-right click on virtually any block in the game with the Lexica Botania to open up a wiki page for that block. A few wikis are supported right now, more will be added in the future. In case there's a wiki for a mod not supported it'll fallback to the FTB Wiki. Other modders can register their own wikis through the API.
