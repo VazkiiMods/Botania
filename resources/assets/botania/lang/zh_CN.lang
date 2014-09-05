@@ -48,6 +48,7 @@ botaniamisc.coarseDirt1=无法生长
 botaniamisc.spawnerTip=Tip:使用刷怪蛋改变怪物类型
 botaniamisc.shardLevel=碎片能量 %s
 botaniamisc.lexiconIndex=辞典目录
+botaniamisc.hasIvy=有永恒常春藤
 
 # COLORS
 botania.color0=白色
@@ -75,6 +76,16 @@ botania.rank2=&bB
 botania.rank3=&aA
 botania.rank4=&dS
 botania.rank5=&6SS
+
+# WINGS
+botania.wings0=无翼
+botania.wings1=翼:天翼族
+botania.wings2=翼:单翼天使
+botania.wings3=翼:冰精灵
+botania.wings4=翼:炎魔
+botania.wings5=翼:黑雪姬
+botania.wings6=翼:深渊领主
+botania.wings7=翼:仙女
 
 # ROMAN NUMERALS
 botania.roman1=I
@@ -112,6 +123,7 @@ manaEnchanter.enabled=启用魔力附魔台
 flower.forceCheck=花的对象检查
 enderPickpocket.enabled=启用末影扒手
 thermalily.obsidian=炽玫瑰吸收黑曜石上的岩浆
+passiveWither.time=被动枯萎时间
 flowerParticles.frequency=花粒子频率
 lexicon.enable.rotatingItems=辞典页面物品旋转特效
 lexicon.render.3D=3D辞典渲染
@@ -415,6 +427,7 @@ tile.botania:customBrick14.name=阿兹勒赫瓷砖
 tile.botania:customBrick15.name=阿兹勒赫瓷砖
 tile.botania:enderEyeBlock.name=末影监视者
 tile.botania:starfield.name=星空制造器
+tile.botania:rfGenerator.name=魔力流量场
 
 # FLOWER NAMES
 tile.botania:flower..name=植物魔法花
@@ -693,6 +706,8 @@ item.botania:sparkUpgrade1.name=火花升级:聚集
 item.botania:sparkUpgrade2.name=火花升级:扩散
 item.botania:sparkUpgrade3.name=火花升级:隔绝
 item.botania:diviningRod.name=占矿法杖
+item.botania:gravityRod.name=黑山法杖
+item.botania:regenIvy.name=永恒常春藤
 
 # GUI TEXT
 botania.gui.lexicon.header=植物魔法辞典, %s 版目录
@@ -712,6 +727,10 @@ botania.category.misc=杂项
 # LEXICON ENTRIES
 
 # - BASIC
+# -- AN INTRODUCTORY CLIP
+botania.entry.introVideo=简介片段
+botania.page.introVideo0=对于并不喜欢图文的读者,我 们也准备了一个涵盖植物魔 法基础的短片,注意这只是个 指南而不是&1植物魔法辞典&0内容的替代 品.<br>要观看的话直接按下&4Enter&0键 即可.
+
 # -- LEXICA BOTANIA
 botania.entry.lexicon=植物魔法辞典
 botania.page.lexicon0=&1植物魔法辞典&0是所有植物学 相关的知识库.但你可能已经 了解了.<br>如你所预料的,所有的信息都 记载在了这里.为了方便,如 果某方块在书里有一个条目, 可以手持&1植物魔法辞典&0shift 右击以打开那个条目.
@@ -841,6 +860,11 @@ botania.page.distributor1=合成分配器
 botania.entry.manaVoid=魔力销毁器
 botania.page.manaVoid0=&1魔力销毁器&0通俗的说,就是&4魔&0 &4力&0的垃圾桶.所有进入这个方 块的&4魔力&0都会消失在虚空,再 也不会出现.<br>将它放在一个&1魔力池&0下方会 让池子总是接收&4魔力&0,但销毁 超出容量的部分.
 botania.page.manaVoid1=合成销毁器
+
+# -- MANA FLUXFIELD
+botania.entry.rfGenerator=魔力流量场
+botania.page.rfGenerator0=将&4魔力&0引入红石能量场,就可 以将其从自然能量源形态转 为&4红石流量&0.<br>将一魔力发射器对向此方块, 就可把进入其中的&4魔力&0转化 为&4RF&0.之后就能用各种传输&4RF&0 的装置来输出.
+botania.page.rfGenerator1=The bullet guys. I bit it.
 
 # -- MANA LENSES
 botania.entry.lens=魔力透镜
@@ -1031,12 +1055,14 @@ botania.page.gIntro2=注意这些花会记住它们存入 &4魔力&0的&1魔力�
 botania.entry.daybloom=太阳花
 botania.page.daybloom0=&1太阳花&0是最基本的&4产能花&0.简 而言之,它进行着特别的光合 作用,将阳光转化为&4魔力&0.<br>这个过程十分缓慢,需要十朵 甚至更多才能有所产出,当下 而言.
 botania.page.daybloom1=需要注意的是当阳光照射一 片区域时这些花会互相争夺 资源,因此在四个方向上有紧 邻的太阳花时会减少&4魔力&0的 产量.
+botania.page.daybloom1a=需要注意的是当阳光照射一 片区域时这些花会互相争夺 资源,因此在四个方向上有紧 邻的太阳花时会减少&4魔力&0的 产量.<br>这种花的生命力不太顽强,因 此过段时间后就会枯萎死亡.
 botania.page.daybloom3=产出缩减
 botania.page.daybloom2=&o崭新的一天开始了&r.
 
 # -- NIGHTSHADE
 botania.entry.nightshade=夜颠茄
 botania.page.nightshade0=&1夜颠茄&0是黑暗版的&1太阳花&0,它 会在&1太阳花&0不能工作的情况 下被动产生&4魔力&0,尽管只有一 半的速度.<br>同样它也会因邻近的个体而 降低效率.
+botania.page.nightshade0a=&1夜颠茄&0是黑暗版的&1太阳花&0,它 会在&1太阳花&0不能工作的情况 下被动产生&4魔力&0,尽管只有一 半的速度.<br>同样它也会因邻近的个体而 降低效率.<br>就像&1太阳花&0,这种花的生命力不太顽强 ,因此过段时间后就会枯萎死 亡.
 botania.page.nightshade1=&o白日的阴影&r.
 
 # -- ENDOFLAME
@@ -1047,7 +1073,7 @@ botania.page.endoflame2=&o不是闪耀之光&r.
 
 # -- HYDROANGEAS
 botania.entry.hydroangeas=水绣球
-botania.page.hydroangeas0=尽管被动的&4魔力&0生产可以通 过&1太阳花&0轻松实现,同样便利 的方法也是有的.&1水绣球&0会吸 取以它为中心3x3范围内等 高的&1静水&0,从中产生&4魔力&0.<br>似乎&4下雨&0天会更快,但有谁会 想到呢?
+botania.page.hydroangeas0=尽管被动的&4魔力&0生产可以通 过&1太阳花&0轻松实现,同样便利 的方法也是有的.&1水绣球&0会吸 取以它为中心3x3范围内等 高的&1静水&0,从中产生&4魔力&0.<br>似乎&4下雨&0天会更快,但有谁会 想到呢?<br>就像&1太阳花&0,这种花的生命力不太顽强 ,因此过段时间后就会枯萎死 亡.
 botania.page.hydroangeas2=一个简单的&1水绣球&0系统
 botania.page.hydroangeas1=&oFrom some Hyperdimension&r?
 
@@ -1375,6 +1401,18 @@ botania.entry.diviningRod=占矿法杖
 botania.page.diviningRod0=就如其名所示,&1占矿法杖&0能卜 测使用者周围大范围内的矿 物.它们会闪出亮点来显示位 置.<br>这个过程显然会消耗掉玩家 相当量的&4魔力&0.
 botania.page.diviningRod1=inb4 ee3 
 
+# -- ROD OF THE BLACK MESA
+botania.entry.gravityRod=黑山法杖
+botania.page.gravityRod0=&1黑山法杖&0是个强力的遗物,传说这些最 初和撬棍被发现于一座黑山 的山顶.<br>使用时需要对怪物或是物品 右键.松开右键就会扔出选择 的实体,左键时则会让它吃发 强力的爆破.
+botania.page.gravityRod1=当然这种力量不是免费的,它 会消耗使用者相当大量的&4魔&0 &4力&0.
+botania.page.gravityRod2=Why the flax?
+
+# -- TIMELESS IVY
+botania.entry.regenIvy=永恒常春藤
+botania.page.regenIvy0=尽管&1魔钢&0和&1源质钢&0能用&4魔力&0 保护自身,其他的工具和护甲 却没有这种能力.<br>可以给几乎所有物品附上一 些&1永恒常春藤&0,使它们能用&4魔&0 &4力&0修复.
+botania.page.regenIvy1=使用的话,只需将常春藤和3 个修理工具的材料合成并在 铁砧中修理(比如&1钻石镐&0用的 就是&1钻石&0)<br>由于没有直接连接到材料,这 样消耗的&4魔力&0比起&1魔钢&0的会多很多.
+botania.page.regenIvy2=Cut it in Varrock
+
 # - BAUBLES
 # -- AN INTRODUCTION TO BAUBLES
 botania.entry.bIntro=饰品介绍
@@ -1454,6 +1492,8 @@ botania.page.divaCharm1=你应该尊重大姐头
 botania.entry.flightTiara=天翼族之冠
 botania.page.flightTiara0=&4天翼族&0一度支配着这片土地, 现在却是濒临灭绝的种族,作 为弑神者而被创造出来,拥有 着飞行的能力.<br>使用&1盖亚之魂&0能复制出一点 她们的力量,那就是以&1天翼族&0 &1之冠&0的形式,消耗&4魔力&0就能飞 行.
 botania.page.flightTiara1=异世界的四万本书
+botania.page.flightTiara2=将头冠配上各种石英碎片就 能做出各种漂亮的翅膀,每种 石英对应一种.<br>各种石英的合成可在&4杂项&0下 的&4装饰方块&0章节找到,&1精灵石&0 &1英&0是与精灵贸易&1下界石英&0而 获得的.
+botania.page.flightTiara3=添上羽翼
 
 # -- GREAT FAIRY RING
 botania.entry.pixieRing=精灵指环
