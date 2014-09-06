@@ -23,7 +23,7 @@ public class SubTileKekimurus extends SubTileGenerating {
 	public void onUpdate() {
 		super.onUpdate();
 
-		int mana = 320;
+		int mana = 640;
 
 		if(getMaxMana() - this.mana >= mana && !supertile.getWorldObj().isRemote && supertile.getWorldObj().getTotalWorldTime() % 50 == 0) {
 			int range = 5;
@@ -61,7 +61,7 @@ public class SubTileKekimurus extends SubTileGenerating {
 
 	@Override
 	public int getMaxMana() {
-		return 1600;
+		return 4200;
 	}
 
 }
