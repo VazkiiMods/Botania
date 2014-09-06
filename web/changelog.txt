@@ -1,3 +1,5 @@
+r1.2 114
+*Trying to fix NEI or Invtweaks derping. I can't reproduce that issue at all. This may or may not fix it >_>
 r1.2 113
 *Added a <a href="https://www.youtube.com/watch?v=rx0xyejC6fI">video guide</a> you can access from the lexica botania, courtesy of <a href="https://www.youtube.com/channel/UCBFiQsdlPYROelxYELr0usw">WTFG33ks</a>!
 *Added Hardcore passive generation. You can now set a number in the config file in which a passive flower (daybloom, nightshade, hydroangeas) will die after that time, in ticks. This is off by default.
