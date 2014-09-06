@@ -577,7 +577,7 @@ public final class ModCrafingRecipes {
 		// Mana Band Recipe
 		addOreDictRecipe(new ItemStack(ModItems.manaRing),
 				"TI ", "I I", " I ",
-				'T', new ItemStack(ModItems.manaTablet),
+				'T', new ItemStack(ModItems.manaTablet, 1, Short.MAX_VALUE),
 				'I', LibOreDict.MANA_STEEL);
 		recipeManaRing = BotaniaAPI.getLatestAddedRecipe();
 
@@ -715,7 +715,7 @@ public final class ModCrafingRecipes {
 		// Terra Shatterer Recipe
 		addOreDictRecipe(new ItemStack(ModItems.terraPick),
 				"ITI", "ILI", " L ",
-				'T', new ItemStack(ModItems.manaTablet, 1, -1),
+				'T', new ItemStack(ModItems.manaTablet, 1, Short.MAX_VALUE),
 				'I', LibOreDict.TERRA_STEEL,
 				'L', LibOreDict.LIVINGWOOD_TWIG);
 		recipeTerraPick = BotaniaAPI.getLatestAddedRecipe();
@@ -1218,9 +1218,9 @@ public final class ModCrafingRecipes {
 		recipeRegenIvy = BotaniaAPI.getLatestAddedRecipe();
 
 		// Wing Recipes
-		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.flightTiara, 1, 1), new ItemStack(ModItems.flightTiara), new ItemStack(Items.quartz));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.flightTiara, 1, 1), new ItemStack(ModItems.flightTiara, 1, Short.MAX_VALUE), new ItemStack(Items.quartz));
 		for(int i = 0; i < 6; i++)
-			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.flightTiara, 1, 2 + i), new ItemStack(ModItems.flightTiara), new ItemStack(ModItems.quartz, 1, i));
+			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.flightTiara, 1, 2 + i), new ItemStack(ModItems.flightTiara, 1, Short.MAX_VALUE), new ItemStack(ModItems.quartz, 1, i));
 		recipesWings = BotaniaAPI.getLatestAddedRecipes(7);
 
 		// Mana Fluxfield Recipe
