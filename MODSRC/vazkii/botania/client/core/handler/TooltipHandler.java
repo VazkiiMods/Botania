@@ -30,7 +30,7 @@ public final class TooltipHandler {
 		} else if(event.itemStack.getItem() == Item.getItemFromBlock(Blocks.mob_spawner) && event.entityPlayer.capabilities.isCreativeMode)
 			event.toolTip.add(StatCollector.translateToLocal("botaniamisc.spawnerTip"));
 
-		if(ItemNBTHelper.getBoolean(event.itemStack, ItemRegenIvy.TAG_REGEN, false))
+		if(ItemNBTHelper.detectNBT(event.itemStack) && ItemNBTHelper.getBoolean(event.itemStack, ItemRegenIvy.TAG_REGEN, false))
 			event.toolTip.add(StatCollector.translateToLocal("botaniamisc.hasIvy"));
 	}
 
