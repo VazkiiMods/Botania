@@ -11,17 +11,18 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.recipe.RegenIvyRecipe;
 import vazkii.botania.common.lib.LibItemNames;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.Phase;
+import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ItemRegenIvy extends ItemMod {
@@ -33,18 +34,16 @@ public class ItemRegenIvy extends ItemMod {
 		setUnlocalizedName(LibItemNames.REGEN_IVY);
 		GameRegistry.addRecipe(new RegenIvyRecipe());
 		RecipeSorter.register("botania:regenIvy", RegenIvyRecipe.class, Category.SHAPELESS, "");
-		MinecraftForge.EVENT_BUS.register(this);
+		FMLCommonHandler.instance().bus().register(this);
 	}
 
-	@SubscribeEvent
-	public void onTick(LivingUpdateEvent event) {
-		if(event.entity instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) event.entity;
-			for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
-				ItemStack stack = player.inventory.getStackInSlot(i);
-				if(stack != null && ItemNBTHelper.detectNBT(stack) && ItemNBTHelper.getBoolean(stack, TAG_REGEN, false) && stack.getItemDamage() > 0 && ManaItemHandler.requestManaExact(stack, player, MANA_PER_DAMAGE, true))
-					stack.setItemDamage(stack.getItemDamage() - 1);
-			}
+	@SubscribeEvent(priority = EventPriority.LOWEST)
+	public void onTick(PlayerTickEvent event) {
+		if(event.phase == Phase.END)
+		for(int i = 0; i < event.player.inventory.getSizeInventory(); i++) {
+			ItemStack stack = event.player.inventory.getStackInSlot(i);
+			if(stack != null && ItemNBTHelper.detectNBT(stack) && ItemNBTHelper.getBoolean(stack, TAG_REGEN, false) && stack.getItemDamage() > 0 && ManaItemHandler.requestManaExact(stack, event.player, MANA_PER_DAMAGE, true))
+				stack.setItemDamage(stack.getItemDamage() - 1);
 		}
 	}
 }
