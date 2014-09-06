@@ -39,11 +39,11 @@ public class ItemRegenIvy extends ItemMod {
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void onTick(PlayerTickEvent event) {
-		if(event.phase == Phase.END)
-		for(int i = 0; i < event.player.inventory.getSizeInventory(); i++) {
-			ItemStack stack = event.player.inventory.getStackInSlot(i);
-			if(stack != null && ItemNBTHelper.detectNBT(stack) && ItemNBTHelper.getBoolean(stack, TAG_REGEN, false) && stack.getItemDamage() > 0 && ManaItemHandler.requestManaExact(stack, event.player, MANA_PER_DAMAGE, true))
-				stack.setItemDamage(stack.getItemDamage() - 1);
-		}
+		if(event.phase == Phase.END && !event.player.worldObj.isRemote)
+			for(int i = 0; i < event.player.inventory.getSizeInventory(); i++) {
+				ItemStack stack = event.player.inventory.getStackInSlot(i);
+				if(stack != null && ItemNBTHelper.detectNBT(stack) && ItemNBTHelper.getBoolean(stack, TAG_REGEN, false) && stack.getItemDamage() > 0 && ManaItemHandler.requestManaExact(stack, event.player, MANA_PER_DAMAGE, true))
+					stack.setItemDamage(stack.getItemDamage() - 1);
+			}
 	}
 }
