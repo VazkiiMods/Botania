@@ -125,7 +125,7 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 
 	@Override
 	public IIcon getIcon(int par1, int par2) {
-		return ModBlocks.livingwood.getIcon(par1, par2);
+		return par2 >= 2 ? ModBlocks.dreamwood.getIcon(par1, 0) : ModBlocks.livingwood.getIcon(par1, 0);
 	}
 
 	@Override
