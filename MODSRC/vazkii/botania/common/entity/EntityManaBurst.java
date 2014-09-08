@@ -492,8 +492,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 				Botania.proxy.sparkleFX(worldObj, posX, posY, posZ, r, g, b, 0.4F * size, 1, true);
 		} else {
 			if(ConfigHandler.subtlePowerSystem)
-				for(int i = 0; i < 1; i++)
-					Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.1F * size, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.01F);
+				Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.1F * size, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.01F);
 			else {
 				float or = r;
 				float og = g;
@@ -514,7 +513,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 					r = or + ((float) Math.random() - 0.5F) * 0.25F;
 					g = og + ((float) Math.random() - 0.5F) * 0.25F;
 					b = ob + ((float) Math.random() - 0.5F) * 0.25F;
-					size = osize + ((float) Math.random() - 0.5F) * 0.05F + (float) Math.sin(new Random(entityUniqueID.getMostSignificantBits()).nextInt(9001)) * 0.45F;
+					size = osize + ((float) Math.random() - 0.5F) * 0.065F + (float) Math.sin(new Random(entityUniqueID.getMostSignificantBits()).nextInt(9001)) * 0.4F;
 					Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.2F * size, (float) -motionX * 0.01F, (float) -motionY * 0.01F, (float) -motionZ * 0.01F);
 
 					posX += diffVecNorm.x * distance;
