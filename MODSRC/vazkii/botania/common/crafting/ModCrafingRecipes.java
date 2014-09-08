@@ -195,6 +195,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeRFGenerator;
 	public static IRecipe recipeGravityRod;
 	public static IRecipe recipeRegenIvy;
+	public static IRecipe recipeUltraSpreader;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1217,6 +1218,14 @@ public final class ModCrafingRecipes {
 		addShapelessOreDictRecipe(new ItemStack(ModItems.regenIvy), new ItemStack(Blocks.vine), LibOreDict.LIFE_ESSENCE, LibOreDict.ELEMENTIUM);
 		recipeRegenIvy = BotaniaAPI.getLatestAddedRecipe();
 
+		// Gaia Mana Spreader Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.spreader, 1, 3), 
+				"ESD",
+				'E', LibOreDict.LIFE_ESSENCE,
+				'S', new ItemStack(ModBlocks.spreader, 1, 2),
+				'D', LibOreDict.DRAGONSTONE);
+		recipeUltraSpreader = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Wing Recipes
 		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.flightTiara, 1, 1), new ItemStack(ModItems.flightTiara, 1, Short.MAX_VALUE), new ItemStack(Items.quartz));
 		for(int i = 0; i < 6; i++)
