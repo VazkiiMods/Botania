@@ -20,6 +20,7 @@ import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
@@ -28,6 +29,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILensEffect;
+import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
@@ -35,6 +37,8 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 
+	private static final String TAG_ATTACKER_USERNAME = "attackerUsername";
+	
 	public ItemTerraSword() {
 		super(BotaniaAPI.terrasteelToolMaterial, LibItemNames.TERRA_SWORD);
 	}
@@ -68,7 +72,9 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 		burst.setGravity(0F);
 		burst.setMotion(burst.motionX * motionModifier, burst.motionY * motionModifier, burst.motionZ * motionModifier);
 
-		burst.setSourceLens(stack);
+		ItemStack lens = stack.copy();
+		ItemNBTHelper.setString(lens, TAG_ATTACKER_USERNAME, player.getCommandSenderName());
+		burst.setSourceLens(lens);
 		return burst;
 	}
 
@@ -87,8 +93,10 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 		EntityThrowable entity = (EntityThrowable) burst;
 		AxisAlignedBB axis = AxisAlignedBB.getBoundingBox(entity.posX, entity.posY, entity.posZ, entity.lastTickPosX, entity.lastTickPosY, entity.lastTickPosZ).expand(1, 1, 1);
 		List<EntityLivingBase> entities = entity.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, axis);
+		String attacker = ItemNBTHelper.getString(burst.getSourceLens(), TAG_ATTACKER_USERNAME, "");
+		
 		for(EntityLivingBase living : entities) {
-			if(living instanceof EntityPlayer)
+			if(living instanceof EntityPlayer && (((EntityPlayer) living).getCommandSenderName().equals(attacker) || (MinecraftServer.getServer() != null && !MinecraftServer.getServer().isPVPEnabled())))
 				continue;
 
 			if(living.hurtTime == 0) {
@@ -98,7 +106,8 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 					burst.setMana(mana - cost);
 					float damage = 4F + BotaniaAPI.terrasteelToolMaterial.getDamageVsEntity();
 					if(!burst.isFake() && !entity.worldObj.isRemote) {
-						living.attackEntityFrom(DamageSource.magic, damage);
+						EntityPlayer player = living.worldObj.getPlayerEntityByName(attacker);
+						living.attackEntityFrom(player == null ? DamageSource.magic : DamageSource.causePlayerDamage(player), damage);
 						entity.setDead();
 						break;
 					}
