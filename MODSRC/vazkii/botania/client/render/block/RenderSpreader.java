@@ -29,7 +29,9 @@ public class RenderSpreader implements ISimpleBlockRenderingHandler {
 		GL11.glPushMatrix();
 		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
 		TileSpreader.staticRedstone = metadata == 1;
-		TileSpreader.staticDreamwood = metadata == 2;
+		TileSpreader.staticDreamwood = metadata == 2 || metadata == 3;
+		TileSpreader.staticUltra = metadata == 3;
+
 		TileSpreader spreader = new TileSpreader();
 		spreader.rotationX = -180F;
 		TileEntityRendererDispatcher.instance.renderTileEntityAt(spreader, 0.0D, 0.0D, 0.0D, 0.0F);

@@ -77,7 +77,7 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 
 	@Override
 	public void getSubBlocks(Item par1, CreativeTabs par2, List par3) {
-		for(int i = 0; i < 3; i++)
+		for(int i = 0; i < 4; i++)
 			par3.add(new ItemStack(par1, 1, i));
 	}
 

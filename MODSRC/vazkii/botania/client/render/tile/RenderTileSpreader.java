@@ -11,6 +11,9 @@
  */
 package vazkii.botania.client.render.tile;
 
+import java.awt.Color;
+import java.util.Random;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -52,7 +55,13 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer {
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(spreader.isRedstone() ? textureRs : spreader.isDreamwood() ? textureDw : texture);
 		GL11.glScalef(1F, -1F, -1F);
+		
+		if(spreader.isULTRA_SPREADER()) {
+			Color color = Color.getHSBColor((float) ((((double) System.currentTimeMillis() / 10) + new Random(spreader.xCoord ^ spreader.yCoord ^ spreader.zCoord).nextInt(10000)) % 360) / 360F, 0.4F, 0.9F);
+			GL11.glColor3f((float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F);
+		}
 		model.render();
+		GL11.glColor3f(1F, 1F, 1F);
 
 		GL11.glPushMatrix();
 		long worldTicks = tileentity.getWorldObj() == null ? 0 : ClientTickHandler.ticksInGame;
