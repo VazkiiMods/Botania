@@ -48,7 +48,6 @@ public class BlockMiniIsland extends BlockModContainer implements ILexiconable, 
 		setBlockName(LibBlockNames.MINI_ISLAND);
 		setHardness(0.5F);
 		setStepSound(soundTypeGravel);
-		setTickRandomly(true);
 		setLightLevel(1F);
 
 		float f = 0.1F;

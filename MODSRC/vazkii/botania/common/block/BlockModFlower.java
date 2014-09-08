@@ -55,7 +55,7 @@ public class BlockModFlower extends BlockFlower implements ILexiconable {
 		setHardness(0F);
 		setStepSound(soundTypeGrass);
 		setBlockBounds(0.3F, 0.0F, 0.3F, 0.8F, 1, 0.8F);
-		setTickRandomly(true);
+		setTickRandomly(false);
 		setCreativeTab(registerInCreative() ? BotaniaCreativeTab.INSTANCE : null);
 	}
 

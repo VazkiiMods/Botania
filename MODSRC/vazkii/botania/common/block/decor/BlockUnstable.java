@@ -43,7 +43,6 @@ public class BlockUnstable extends BlockMod implements ILexiconable {
 		setStepSound(soundTypeMetal);
 		setBlockBounds(0.25F, 0.25F, 0.25F, 0.75F, 0.75F, 0.75F);
 		setBlockName(LibBlockNames.UNSTABLE_BLOCK);
-		setTickRandomly(true);
 	}
 
 	@Override
