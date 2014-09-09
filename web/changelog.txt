@@ -1,3 +1,17 @@
+r1.2 116
+*Added Alfglass, fancy new glass. You can find it in the Resources of Alfheim entry.
+*Added the Gaia Mana Spreader, a "tier 3" Mana Spreader. You can find it in the Elven Spreaders entry.
+*Doubled the amount of mana the Kekimurus produces.
+*Fixed any Mana Blasters that aren't the default ones having wrong particles when broken.
+*Fixed trying to look at the recipe for any variant of quartz taking you to the block->quartz recipe instead of the acutal recipe.
+*Increased the minimum visual width of a Mana Burst, you no longer have super thin visual bursts.
+*Intensified Goldfish.
+*Removed unnecessary random ticking from botania blocks. Might help with server optimization.
+*The Ring of Mana and Terra Shatterer can now be crafted with a Mana Tablet of any durability.
+*The Terra Blade's beam now deals player damage, works in PVP and respects enchants.
+*The wings of the Flugel Tiara can now be swapped without having to create a new tiara.
+*[API] Added setSkipRegistry() to LexiconPage.
+*[API] Increased version number to 13.
 r1.2 115
 *Actually fixed the NEI and InvTweaks derps.
 r1.2 114
