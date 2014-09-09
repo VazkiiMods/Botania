@@ -21,6 +21,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemDirtRod extends ItemMod implements IManaUsingItem {
@@ -54,6 +55,7 @@ public class ItemDirtRod extends ItemMod implements IManaUsingItem {
 				}
 			}
 		}
+		
 		return true;
 	}
 

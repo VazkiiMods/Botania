@@ -14,8 +14,10 @@ package vazkii.botania.common.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.BotaniaCreativeTab;
+import vazkii.botania.common.item.block.ItemBlockElven;
 import vazkii.botania.common.item.block.ItemBlockMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -32,7 +34,7 @@ public class BlockMod extends Block {
 	@Override
 	public Block setBlockName(String par1Str) {
 		if(shouldRegisterInNameSet())
-			GameRegistry.registerBlock(this, ItemBlockMod.class, par1Str);
+			GameRegistry.registerBlock(this, this instanceof IElvenItem ? ItemBlockElven.class : ItemBlockMod.class, par1Str);
 		return super.setBlockName(par1Str);
 	}
 

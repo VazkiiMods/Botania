@@ -9,7 +9,7 @@
  * 
  * File Created @ [Jun 28, 2014, 6:43:33 PM (GMT)]
  */
-package vazkii.botania.common.block;
+package vazkii.botania.common.block.decor;
 
 import java.util.Random;
 
@@ -20,6 +20,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
 
@@ -41,7 +42,7 @@ public class BlockBuriedPetals extends BlockModFlower {
 	}
 
 	@Override
-	boolean registerInCreative() {
+	public boolean registerInCreative() {
 		return false;
 	}
 

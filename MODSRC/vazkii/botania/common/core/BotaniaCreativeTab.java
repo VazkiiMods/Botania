@@ -111,6 +111,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.signalFlare);
 
 		addBlock(ModBlocks.dreamwood);
+		addBlock(ModBlocks.elfGlass);
 
 		addBlock(ModBlocks.prismarine);
 		addBlock(ModBlocks.seaLamp);

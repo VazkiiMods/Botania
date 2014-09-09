@@ -20,6 +20,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.block.decor.BlockBuriedPetals;
 import vazkii.botania.common.block.decor.BlockCustomBrick;
 import vazkii.botania.common.block.decor.BlockManaBeacon;
 import vazkii.botania.common.block.decor.BlockMiniIsland;
@@ -173,6 +174,7 @@ public final class ModBlocks {
 	public static Block enderEye;
 	public static Block starfield;
 	public static Block rfGenerator;
+	public static Block elfGlass;
 
 	public static Block livingwoodStairs;
 	public static Block livingwoodSlab;
@@ -291,6 +293,7 @@ public final class ModBlocks {
 		enderEye = new BlockEnderEye();
 		starfield = new BlockStarfield();
 		rfGenerator	= new BlockRFGenerator();
+		elfGlass = new BlockElfGlass();
 
 		livingwoodStairs = new BlockLivingwoodStairs();
 		livingwoodSlab = new BlockLivingwoodSlab(false);

@@ -59,7 +59,7 @@ public class BlockModFlower extends BlockFlower implements ILexiconable {
 		setCreativeTab(registerInCreative() ? BotaniaCreativeTab.INSTANCE : null);
 	}
 
-	boolean registerInCreative() {
+	public boolean registerInCreative() {
 		return true;
 	}
 

@@ -57,6 +57,7 @@ public final class LibBlockNames {
 	public static final String ENDER_EYE_BLOCK = "enderEyeBlock";
 	public static final String STARFIELD = "starfield";
 	public static final String RF_GENERATOR = "rfGenerator";
+	public static final String ELF_GLASS = "elfGlass";
 
 	public static final String SPECIAL_FLOWER_PREFIX = FLOWER + ".";
 
