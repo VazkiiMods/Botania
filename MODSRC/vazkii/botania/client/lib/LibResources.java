@@ -35,6 +35,7 @@ public final class LibResources {
 	public static final String GUI_ELVEN_TRADE_OVERLAY = PREFIX_GUI + "elvenTradeOverlay.png";
 	public static final String GUI_SHEDDING_OVERLAY = PREFIX_GUI + "sheddingOverlay.png";
 	public static final String GUI_CREATIVE = "botania.png";
+	public static final String GUI_TOFF = PREFIX_GUI + "toff.png";
 
 	public static final String ENTRY_FLOWERS = PREFIX_ENTRIES + "flowers.png";
 	public static final String ENTRY_APOTHECARY = PREFIX_ENTRIES + "apothecary.png";

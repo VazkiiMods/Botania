@@ -45,6 +45,7 @@ public class GuiLexicon extends GuiScreen {
 	boolean bookmarksNeedPopulation = false;
 
 	public static final ResourceLocation texture = new ResourceLocation(LibResources.GUI_LEXICON);
+	public static final ResourceLocation textureToff = new ResourceLocation(LibResources.GUI_TOFF);
 
 	String title;
 	int guiWidth = 146;
@@ -97,8 +98,14 @@ public class GuiLexicon extends GuiScreen {
 			GL11.glColor4f(1F, 1F, 1F, 1F);
 			mc.renderEngine.bindTexture(texture);
 			drawTexturedModalRect(left - 19, top + 12, 67, 180, 19, 26);
-			if(par1 >= left - 19 && par1 < left && par2 >= top + 12 && par2 < top + 38)
-				RenderHelper.renderTooltip(par1, par2, Arrays.asList(EnumChatFormatting.GOLD + "#goldfishchris", "vazkii.us/goldfish"));
+			if(par1 >= left - 19 && par1 < left && par2 >= top + 12 && par2 < top + 38) {
+				mc.renderEngine.bindTexture(textureToff);
+				GL11.glScalef(0.5F, 0.5F, 0.5F);
+				drawTexturedModalRect((left - 92) * 2, (top + 40) * 2, 0, 0, 184, 248);
+				GL11.glScalef(2F, 2F, 2F);
+				
+				RenderHelper.renderTooltip(par1, par2, Arrays.asList(EnumChatFormatting.GOLD + "#goldfishchris", EnumChatFormatting.AQUA + "CONGRATS ON YOUR NEW COMPUTER!!", "vazkii.us/goldfish"));
+			}
 		}
 
 		super.drawScreen(par1, par2, par3);
