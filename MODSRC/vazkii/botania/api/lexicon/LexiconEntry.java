@@ -70,8 +70,11 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 	public LexiconEntry setLexiconPages(LexiconPage... pages) {
 		this.pages.addAll(Arrays.asList(pages));
 
-		for(int i = 0; i < this.pages.size(); i++)
-			this.pages.get(i).onPageAdded(this, i);
+		for(int i = 0; i < this.pages.size(); i++) {
+			LexiconPage page = this.pages.get(i);
+			if(!page.skipRegistry)
+				page.onPageAdded(this, i);
+		}
 
 		return this;
 	}
