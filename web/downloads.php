@@ -3,6 +3,7 @@
 	<head>
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 		<link rel="stylesheet" href="page.css">
+		<script src="//widget.battleforthenet.com/widget.min.js" async></script>
 	</head>
 
 	<body>
