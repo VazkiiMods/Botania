@@ -15,6 +15,7 @@ import java.awt.Color;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -30,6 +31,7 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.ICreativeManaProvider;
@@ -59,9 +61,9 @@ public final class HUDHandler {
 					((IWandHUD) block).renderHUD(mc, event.resolution, mc.theWorld, pos.blockX, pos.blockY, pos.blockZ);
 			}
 
-			else if(pos != null && mc.thePlayer.getCurrentEquippedItem() != null && mc.thePlayer.getCurrentEquippedItem().getItem() == ModItems.lexicon) {
+			else if(pos != null && mc.thePlayer.getCurrentEquippedItem() != null && mc.thePlayer.getCurrentEquippedItem().getItem() instanceof ILexicon) {
 				Block block = mc.theWorld.getBlock(pos.blockX, pos.blockY, pos.blockZ);
-				drawLexiconGUI(block, pos, event.resolution);
+				drawLexiconGUI(mc.thePlayer.getCurrentEquippedItem(), block, pos, event.resolution);
 			}
 		} else if(event.type == ElementType.EXPERIENCE) {
 			EntityPlayer player = Minecraft.getMinecraft().thePlayer;
@@ -134,8 +136,9 @@ public final class HUDHandler {
 		GL11.glDisable(GL11.GL_BLEND);
 	}
 
-	private void drawLexiconGUI(Block block, MovingObjectPosition pos, ScaledResolution res) {
+	private void drawLexiconGUI(ItemStack stack, Block block, MovingObjectPosition pos, ScaledResolution res) {
 		Minecraft mc = Minecraft.getMinecraft();
+		FontRenderer font = mc.fontRenderer;
 		boolean draw = false;
 		String drawStr = "";
 
@@ -147,6 +150,9 @@ public final class HUDHandler {
 		if(block instanceof ILexiconable) {
 			LexiconEntry entry = ((ILexiconable) block).getEntry(mc.theWorld, pos.blockX, pos.blockY, pos.blockZ, mc.thePlayer, mc.thePlayer.getCurrentEquippedItem());
 			if(entry != null) {
+				if(!((ILexicon) stack.getItem()).isKnowledgeUnlocked(stack, entry.getKnowledgeType()))
+					font = mc.standardGalacticFontRenderer;
+				
 				drawStr = StatCollector.translateToLocal(entry.getUnlocalizedName());
 				draw = true;
 			}
@@ -164,12 +170,14 @@ public final class HUDHandler {
 		}
 
 		if(draw) {
-			if(!mc.thePlayer.isSneaking())
+			if(!mc.thePlayer.isSneaking()) {
 				drawStr = "?";
-
+				font = mc.fontRenderer;
+			}
+				
 			RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine, new ItemStack(ModItems.lexicon), sx, sy);
 			GL11.glDisable(GL11.GL_LIGHTING);
-			mc.fontRenderer.drawStringWithShadow(drawStr, sx + 10, sy + 8, 0xFFFFFFFF);
+			font.drawStringWithShadow(drawStr, sx + 10, sy + 8, 0xFFFFFFFF);
 		}
 
 		GL11.glDisable(GL11.GL_BLEND);
