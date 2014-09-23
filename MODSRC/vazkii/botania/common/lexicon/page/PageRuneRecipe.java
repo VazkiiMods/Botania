@@ -65,7 +65,7 @@ public class PageRuneRecipe extends PagePetalRecipe<RecipeRuneAltar> {
 
 		boolean unicode = font.getUnicodeFlag();
 		font.setUnicodeFlag(true);
-		font.drawString(ratioString, x + 100 - font.getStringWidth(ratioString), y + 5, 0x50000000);
+		font.drawString(ratioString, x + 100 - font.getStringWidth(ratioString), y + 5, 0x99000000);
 		font.setUnicodeFlag(unicode);		GL11.glDisable(GL11.GL_BLEND);
 	}
 
