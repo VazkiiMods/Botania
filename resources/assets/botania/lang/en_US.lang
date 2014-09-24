@@ -959,6 +959,7 @@ botania.page.fIntro4=&1Redstone Root&0 for Redstone Control
 botania.entry.jadedAmaranthus=Jaded Amaranthus
 botania.page.jadedAmaranthus0=Everyone likes flowers right? The &1Jaded Amaranthus&0 is made just for that purpose.<br>Feeding it with &4Mana&0 from &1Mana Pools&0 will have it quickly grow new &1Mystical Flowers&0 around it, in any spots it can.
 botania.page.jadedAmaranthus1=&oIt was this or clematis.&r
+botania.page.jadedAmaranthus2=&oWait a minute, did you just summon a bunch of flowers in one turn?<br>Yeah, so?<br>That's against the rules, isn't it?<br>Screw the rules, I have Mana!
 
 # -- BELLETHRONE
 botania.entry.bellethorne=Bellethorne
@@ -974,6 +975,7 @@ botania.page.dreadthorne1=&oNo Mr.Bond, I expect you to die&r.
 botania.entry.heiseiDream=Heisei Dream
 botania.page.heiseiDream0=The &1Heisei Dream&0 will, by utilizing &4Mana&0, awaken feelings of anger and revenge in any nearby &4mobs&0, turning them against eachother.
 botania.page.heiseiDream1=&oA pleasant era will murder people&r.
+botania.page.heiseiDream2=&oHeisei, was broken, broken. Who was the one who lied about peace? See, it's forgotten, forgotten, even the punishement blamed on the altar. Hey, it's breaking, breaking, at the end, even the meaning of shaking is killed.<br>Well, where shall we go? Let's go somewhere, whose ally are you? Whose replacement am I?
 
 # -- TIGERSEYE
 botania.entry.tigerseye=Tigerseye
@@ -989,6 +991,7 @@ botania.page.orechid1=&oLizbeth would like this flower&r.
 botania.entry.fallenKanade=Fallen Kanade
 botania.page.fallenKanade0=The &1Fallen Kanade&0 is a flower with angelic properties, it'll use &4Mana&0 from nearby &4Mana Pools&0 in order to apply a regeneration effect to any &4players&0 nearby.
 botania.page.fallenKanade1=&oHand Sonic, version four&r.
+botania.page.fallenKanade2=&oI'll marry you. No matter what kind of sickness you have, even if you can't walk or stand, or even if you can't have kids, I'll still marry you. No matter where or how I met you, I'll fall in love with you.<br>If I can meet you again, against the six billion to one odds, and even if your body can't move, I'll marry you.
 
 # -- EXOFLAME
 botania.entry.exoflame=Exoflame
@@ -1066,6 +1069,8 @@ botania.page.daybloom1=An interesting thing to take in note is that these flower
 botania.page.daybloom1a=An interesting thing to take in note is that these flowers tend to compete among themselves for what sunlight hits an area, thus having any other of the same type adjacent to it on any of the four cardinal directions will result in diminishing returns of &4Mana&0 production.<br>These flowers are not very resistant, and after some time they'll wither and die off.
 botania.page.daybloom3=Diminishing Returns
 botania.page.daybloom2=&oStarting up a brand new day&r.
+botania.page.daybloom4=&oHow many of you people out there been hurt in some kind of love affair? And how many times do you swear that you'll never love again? How many lonely, sleepless nights? How many lies? How many fights? And why would you want to put yourself through all that again? "Love is pain," I hear you say. Love has a cruel and bitter way of paying you back for all the faith you ever had in your brain. (...)
+botania.page.daybloom5=&oHow could it be that what you need the most can leave you feeling just like a ghost? You never want to feel so sad and lost again. One day you could be looking through an old book in rainy weather. You see a picture of her smiling at you when you were still together. You could be walking down the street and who should you chance to meet. But that same old smile that you've been thinking of all day...
 
 # -- NIGHTSHADE
 botania.entry.nightshade=Nightshade
@@ -1118,6 +1123,9 @@ botania.page.gourmaryllis0=The &1Gourmaryllis&0 is one hungry flower. It'll eat 
 botania.page.gourmaryllis1=The amount of time it takes to digest a delicacy depends on its nutritional value, in layman's terms, the amount of food points it restores.<br>So, a &1Steak&0 will take four seconds to digest, a &1Carrot&0 will take two, a loaf of &1Bread&0 will take two and a half, so on. 
 botania.page.gourmaryllis2=The amount of &4Mana&0 created also makes use of this value, but in a way where the more nutritious the food is, the more efficient it is. For example, a single &1Steak&0 will produce more &1Mana&0 from two &1Carrots&0, both absolutely and per second.
 botania.page.gourmaryllis3=&oA hot pot for our new residents&r.
+botania.page.gourmaryllis4=&oWell, if Men ate themselves after death, one would think of less horror and negative feeling matter. But so you know what your cruelty leads to, think, fishes, that even Men eat themselves alive like you.<br>Alive was Job when he said: "Why do you follow me so inhumanely, thou who are eating me alive and getting sick of my flesh?". Do you want to see a Job like this? (...)
+botania.page.gourmaryllis5=&oSee a man of those who are followed by claims or accused of crimes, and behold all who are eating them. The bailiff eats him, the jailer eats him, the scribe eats him, the requestor eats him, the lawyer eats him, the inquirer eats him, the witness eats him, the judge eats him and he's not even sentenced he's already eaten. Worse are the Men than the crows. (...)
+botania.page.gourmaryllis6=&oThe sad one who was hanged, only eat him the crows past his execution and death, while the one who's being judged, not even executed or sentenced and he's already eaten.<br>The true evil are the Man who eat eachother, and those who commit to it are the largest, those who eat the smallest. For that you, Man, vos estis sal terrae.
 
 # - MAGICAL APPARATUS
 # -- FORCE RELAY
