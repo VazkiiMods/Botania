@@ -55,7 +55,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 		buttonList.add(backButton = new GuiButtonBackWithShift(0, left + guiWidth / 2 - 8, top + guiHeight + 2));
 		buttonList.add(leftButton = new GuiButtonPage(1, left, top + guiHeight - 10, false));
 		buttonList.add(rightButton = new GuiButtonPage(2, left + guiWidth - 18, top + guiHeight - 10, true));
-		buttonList.add(shareButton = new GuiButtonShare(3, left + guiWidth / 2 + fontRendererObj.getStringWidth(title) / 2 + 12, top - 15));
+		buttonList.add(shareButton = new GuiButtonShare(3, left + guiWidth - 6, top - 2));
 
 		updatePageButtons();
 	}
