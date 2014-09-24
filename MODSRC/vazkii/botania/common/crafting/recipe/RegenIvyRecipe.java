@@ -27,21 +27,28 @@ public class RegenIvyRecipe implements IRecipe {
 		ItemStack tool = null;
 		boolean foundIvy = false;
 		int materialsFound = 0;
+        for(int i = 0; i < var1.getSizeInventory(); i++) {
+            ItemStack stack = var1.getStackInSlot(i);
+            if (stack != null) {
+                Item item = stack.getItem();
+                if(item.isRepairable())
+                    tool = stack;
 
+                else if(item == ModItems.regenIvy)
+                    foundIvy = true;
+
+            }
+        }
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
 			if(stack != null) {
-				Item item = stack.getItem();
-				if(item.isRepairable())
-					tool = stack;
+                Item item = stack.getItem();
 
-				else if(stack.getItem() == ModItems.regenIvy)
-					foundIvy = true;
-
-				else if(tool != null && tool.getItem().getIsRepairable(tool, stack))
+				if(tool != null && tool.getItem().getIsRepairable(tool, stack))
 					materialsFound++;
 
-				else return false; // Found an invalid item, breaking the recipe
+				else if(stack!=tool && item!=ModItems.regenIvy )
+                    return false;
 			}
 		}
 
