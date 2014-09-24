@@ -25,7 +25,7 @@ public class PageGuide extends PageText {
 		if(key == 28 && Desktop.isDesktopSupported())
 			try {
 				Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=rx0xyejC6fI"));
-				if(Math.random() > 0.01)
+				if(Math.random() < 0.01)
 					Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=dQw4w9WgXcQ"));
 			} catch(Exception e) { }
 	}
