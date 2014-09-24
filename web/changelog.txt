@@ -1,3 +1,14 @@
+r1.2 117
+*Added a HUD element when hovering over a mana pool with an item that can be infused that shows if there's enough mana in the pool or not. If you're a goldfish you should sneak on it too.
+*Added some Lore/Quote pages (all text in italics) to some entries in the Lexica Botania. They aren't gameplay focused, just little homages and small distractions.<ul><li>Daybloom</li><li>Fallen Kanade</li><li>Gourmaryllis</li><li>Heisei Dream</li><li>Jaded Amaranthus</li></ul>
+*Added the ability to share lexicon entries through a button on the top-right corner of the gui.
+*Changed some text to fit better on screen on low resolutions/high gui scale.
+*Changed the "X:10 Ratio" display on mana infusion and runic altar recipes to be more visible.
+*Fixed Mana Enchanters crashing the world if somehow spawned in with an invalid metadata.
+*Fixed the "An Introdutory Clip" page misbehaving. That totally wasn't intentional, nope.
+*Fixed the Timeless Ivy's repair recipe not being completely shapeless and not working if the repair item isn't in the end. (nekosune)
+*Fixed the wiki display having two spaces behind my @. <i>MY OCD</i>
+*Shift-right clicking on a block from unknown knowledge school in the world doesn't work any more.
 r1.2 116
 *Added Alfglass, fancy new glass. You can find it in the Resources of Alfheim entry.
 *Added the Gaia Mana Spreader, a "tier 3" Mana Spreader. You can find it in the Elven Spreaders entry.
