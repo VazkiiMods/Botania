@@ -22,6 +22,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
@@ -31,17 +32,20 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.ICreativeManaProvider;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaUsingItem;
+import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wiki.IWikiProvider;
 import vazkii.botania.api.wiki.WikiHooks;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.item.ModItems;
 import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -55,15 +59,19 @@ public final class HUDHandler {
 		if(event.type == ElementType.ALL) {
 			Minecraft mc = Minecraft.getMinecraft();
 			MovingObjectPosition pos = mc.objectMouseOver;
-			if(pos != null && mc.thePlayer.getCurrentEquippedItem() != null && mc.thePlayer.getCurrentEquippedItem().getItem() == ModItems.twigWand) {
-				Block block = mc.theWorld.getBlock(pos.blockX, pos.blockY, pos.blockZ);
-				if(block instanceof IWandHUD)
-					((IWandHUD) block).renderHUD(mc, event.resolution, mc.theWorld, pos.blockX, pos.blockY, pos.blockZ);
-			}
-
-			else if(pos != null && mc.thePlayer.getCurrentEquippedItem() != null && mc.thePlayer.getCurrentEquippedItem().getItem() instanceof ILexicon) {
-				Block block = mc.theWorld.getBlock(pos.blockX, pos.blockY, pos.blockZ);
-				drawLexiconGUI(mc.thePlayer.getCurrentEquippedItem(), block, pos, event.resolution);
+			Block block = mc.theWorld.getBlock(pos.blockX, pos.blockY, pos.blockZ);
+			TileEntity tile = mc.theWorld.getTileEntity(pos.blockX, pos.blockY, pos.blockZ);
+			ItemStack stack = mc.thePlayer.getCurrentEquippedItem();
+			
+			if(stack != null) {
+				if(pos != null && stack.getItem() == ModItems.twigWand) {
+					if(block instanceof IWandHUD)
+						((IWandHUD) block).renderHUD(mc, event.resolution, mc.theWorld, pos.blockX, pos.blockY, pos.blockZ);
+				}
+				else if(pos != null && stack.getItem() instanceof ILexicon)
+					drawLexiconHUD(mc.thePlayer.getCurrentEquippedItem(), block, pos, event.resolution);
+				else if(tile != null && tile instanceof TilePool)
+					renderPoolRecipeHUD(event.resolution, (TilePool) tile, stack);
 			}
 		} else if(event.type == ElementType.EXPERIENCE) {
 			EntityPlayer player = Minecraft.getMinecraft().thePlayer;
@@ -135,8 +143,35 @@ public final class HUDHandler {
 		RenderHelper.drawTexturedModalRect(x, y, 0, 0, 251, width, 5);
 		GL11.glDisable(GL11.GL_BLEND);
 	}
+	
+	private void renderPoolRecipeHUD(ScaledResolution res, TilePool tile, ItemStack stack) {
+		for(RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes) {
+			if(recipe.matches(stack)) {
+				Minecraft mc = Minecraft.getMinecraft();
+				mc.renderEngine.bindTexture(manaBar);
+				int x = res.getScaledWidth() / 2 - 11;
+				int y = res.getScaledHeight() / 2 + 10;
+				
+				int u = tile.getCurrentMana() >= recipe.getManaToConsume() ? 0 : 22;
+				int v = mc.thePlayer.getCommandSenderName().equals("haighyorkie") && mc.thePlayer.isSneaking() ? 23 : 8;
+				
+				GL11.glEnable(GL11.GL_BLEND);
+				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+				RenderHelper.drawTexturedModalRect(x, y, 0, u, v, 22, 15);
+				GL11.glDisable(GL11.GL_BLEND);
+				net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
+				RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine, stack, x - 20, y);
+				RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine, recipe.getOutput(), x + 26, y);
+				net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
-	private void drawLexiconGUI(ItemStack stack, Block block, MovingObjectPosition pos, ScaledResolution res) {
+				GL11.glDisable(GL11.GL_LIGHTING);
+
+				break;
+			}
+		}
+	}
+
+	private void drawLexiconHUD(ItemStack stack, Block block, MovingObjectPosition pos, ScaledResolution res) {
 		Minecraft mc = Minecraft.getMinecraft();
 		FontRenderer font = mc.fontRenderer;
 		boolean draw = false;
