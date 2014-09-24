@@ -40,7 +40,7 @@ botaniamisc.knowledgeTypesPlural=Contains %s Schools of Knowledge
 botaniamisc.bookmark=Bookmark #%s
 botaniamisc.clickToSee=Click to read
 botaniamisc.shiftToRemove=Shift-click to remove
-botaniamisc.clickToAdd=Click to add a Bookmark here
+botaniamisc.clickToAdd=Add Bookmark
 botaniamisc.ratio=%s:1 Ratio
 botaniamisc.bottleTooltip=It has an acquired taste
 botaniamisc.coarseDirt0=Coarse Dirt, grass
@@ -49,6 +49,10 @@ botaniamisc.spawnerTip=Tip: Use a Spawn Egg to change the mob
 botaniamisc.shardLevel=Shard Power %s
 botaniamisc.lexiconIndex=Lexicon Index
 botaniamisc.hasIvy=Has Timeless Ivy
+botaniamisc.shareMsg=[{"text":"%name%","color":"light_purple"},{"text":" has shared a ","color":"blue"},{"text":"Lexica Botania","color":"green","hoverEvent":{"action":"show_text","value":{"text":"You can make one using a Book and a Sapling!","color":"aqua"}}},{"text":" entry, click to see it: ","color":"blue"},{"text":"[%entryname%]","color":"green","clickEvent":{"action":"run_command","value":"/botania-open %entry%"},"hoverEvent":{"action":"show_text","value":{"text":"Click to read about this","color":"aqua"}}}]
+botaniamisc.noLexicon=You need a Lexica Botania in-hand to read this.
+botaniamisc.cantOpen=It doesn't seem like your Lexica Botania has this page. Perhaps it comes from an outside source...?
+botaniamisc.clickToShare=Share
 
 # COLORS
 botania.color0=White

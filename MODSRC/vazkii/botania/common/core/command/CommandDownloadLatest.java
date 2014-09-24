@@ -9,8 +9,10 @@
  * 
  * File Created @ [May 31, 2014, 11:43:13 PM (GMT)]
  */
-package vazkii.botania.common.core.version;
+package vazkii.botania.common.core.command;
 
+import vazkii.botania.common.core.version.ThreadDownloadMod;
+import vazkii.botania.common.core.version.VersionChecker;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentTranslation;

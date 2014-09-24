@@ -17,10 +17,13 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
@@ -44,7 +47,9 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 
 	private static final String TAG_KNOWLEDGE_PREFIX = "knowledge.";
 	private static final String TAG_FORCED_MESSAGE = "forcedMessage";
-
+	private static final String TAG_QUEUE_TICKS = "queueTicks";
+	boolean skipSound = false;
+	
 	public ItemLexicon() {
 		super();
 		setMaxStackSize(1);
@@ -122,14 +127,32 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		if(isMessageForced(par1ItemStack)) {
-			Botania.proxy.setEntryToOpen(LexiconData.elvenMessage);
-			forceMessage(par1ItemStack, false);
+		String force = getForcedPage(par1ItemStack);
+		if(force != null && !force.isEmpty()) {
+			LexiconEntry entry = getEntryFromForce(par1ItemStack);
+			if(entry != null)
+				Botania.proxy.setEntryToOpen(entry);
+			else par3EntityPlayer.addChatMessage(new ChatComponentTranslation("botaniamisc.cantOpen").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
+			setForcedPage(par1ItemStack, "");
 		}
+		
 		par3EntityPlayer.openGui(Botania.instance, LibGuiIDs.LEXICON, par2World, 0, 0, 0);
-		if(!par2World.isRemote)
+		if(!par2World.isRemote && !skipSound)
 			par2World.playSoundAtEntity(par3EntityPlayer, "botania:lexiconOpen", 0.5F, 1F);
+		skipSound = false;
+		
 		return par1ItemStack;
+	}
+	
+	@Override
+	public void onUpdate(ItemStack stack, World world, Entity entity, int idk, boolean something) {
+		int ticks = getQueueTicks(stack);
+		if(ticks > 0 && entity instanceof EntityPlayer) {
+			skipSound = ticks < 3;
+			onItemRightClick(stack, world, (EntityPlayer) entity);  
+		
+			setQueueTicks(stack, ticks - 1);
+		}
 	}
 
 	@Override
@@ -147,14 +170,33 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 		ItemNBTHelper.setBoolean(stack, TAG_KNOWLEDGE_PREFIX + knowledge.id, true);
 	}
 
-	public static void forceMessage(ItemStack stack, boolean forced) {
-		ItemNBTHelper.setBoolean(stack, TAG_FORCED_MESSAGE, forced);
+	public static void setForcedPage(ItemStack stack, String forced) {
+		ItemNBTHelper.setString(stack, TAG_FORCED_MESSAGE, forced);
 	}
 
-	public static boolean isMessageForced(ItemStack stack) {
-		return ItemNBTHelper.getBoolean(stack, TAG_FORCED_MESSAGE, false);
+	public static String getForcedPage(ItemStack stack) {
+		return ItemNBTHelper.getString(stack, TAG_FORCED_MESSAGE, "");
 	}
-
+	
+	private static LexiconEntry getEntryFromForce(ItemStack stack) {
+		String force = getForcedPage(stack);
+		
+		for(LexiconEntry entry : BotaniaAPI.getAllEntries())
+			if(entry.unlocalizedName.equals(force))
+				if(entry != null && ((ItemLexicon) stack.getItem()).isKnowledgeUnlocked(stack, entry.getKnowledgeType())) 
+					return entry;
+		
+		return null;
+	}
+	
+	public static int getQueueTicks(ItemStack stack) {
+		return ItemNBTHelper.getInt(stack, TAG_QUEUE_TICKS, 0);
+	}
+	
+	public static void setQueueTicks(ItemStack stack, int ticks) {
+		ItemNBTHelper.setInt(stack, TAG_QUEUE_TICKS, ticks);
+	}
+		
 	@Override
 	public boolean isElvenItem(ItemStack stack) {
 		return isKnowledgeUnlocked(stack, BotaniaAPI.elvenKnowledge);

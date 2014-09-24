@@ -22,6 +22,9 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.core.command.CommandDownloadLatest;
+import vazkii.botania.common.core.command.CommandOpen;
+import vazkii.botania.common.core.command.CommandShare;
 import vazkii.botania.common.core.handler.BiomeDecorationHandler;
 import vazkii.botania.common.core.handler.ChestGenHandler;
 import vazkii.botania.common.core.handler.CommonTickHandler;
@@ -32,7 +35,6 @@ import vazkii.botania.common.core.handler.PixieHandler;
 import vazkii.botania.common.core.handler.SheddingHandler;
 import vazkii.botania.common.core.handler.SpawnerChangingHandler;
 import vazkii.botania.common.core.helper.Vector3;
-import vazkii.botania.common.core.version.CommandDownloadLatest;
 import vazkii.botania.common.crafting.ModCrafingRecipes;
 import vazkii.botania.common.crafting.ModElvenTradeRecipes;
 import vazkii.botania.common.crafting.ModManaAlchemyRecipes;
@@ -94,6 +96,8 @@ public class CommonProxy {
 
 	public void serverStarting(FMLServerStartingEvent event) {
 		event.registerServerCommand(new CommandDownloadLatest());
+		event.registerServerCommand(new CommandShare());
+		event.registerServerCommand(new CommandOpen());
 	}
 
 	public void setEntryToOpen(LexiconEntry entry) {

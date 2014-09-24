@@ -164,7 +164,7 @@ public final class HUDHandler {
 			if(url != null && !url.isEmpty()) {
 				String name = provider.getBlockName(mc.theWorld, pos);
 				String wikiName = provider.getWikiName(mc.theWorld, pos);
-				drawStr = name + "  @ " + EnumChatFormatting.AQUA + wikiName;
+				drawStr = name + " @ " + EnumChatFormatting.AQUA + wikiName;
 				draw = true;
 			}
 		}

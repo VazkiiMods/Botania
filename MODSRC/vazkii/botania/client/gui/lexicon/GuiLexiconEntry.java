@@ -11,6 +11,7 @@
  */
 package vazkii.botania.client.gui.lexicon;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.EnumChatFormatting;
@@ -25,6 +26,7 @@ import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonBackWithShift;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonPage;
+import vazkii.botania.client.gui.lexicon.button.GuiButtonShare;
 
 public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IParented {
 
@@ -34,7 +36,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	String title;
 	String subtitle;
 
-	GuiButton leftButton, rightButton, backButton;
+	GuiButton leftButton, rightButton, backButton, shareButton;
 
 	public GuiLexiconEntry(LexiconEntry entry, GuiScreen parent) {
 		this.entry = entry;
@@ -53,6 +55,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 		buttonList.add(backButton = new GuiButtonBackWithShift(0, left + guiWidth / 2 - 8, top + guiHeight + 2));
 		buttonList.add(leftButton = new GuiButtonPage(1, left, top + guiHeight - 10, false));
 		buttonList.add(rightButton = new GuiButtonPage(2, left + guiWidth - 18, top + guiHeight - 10, true));
+		buttonList.add(shareButton = new GuiButtonShare(3, left + guiWidth / 2 + fontRendererObj.getStringWidth(title) / 2 + 12, top - 15));
 
 		updatePageButtons();
 	}
@@ -105,7 +108,15 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 				page++;
 				ClientTickHandler.notifyPageChange();
 				break;
+			case 3 : 
+				Minecraft mc = Minecraft.getMinecraft();
+				String cmd = "/botania-share " + entry.unlocalizedName;
+				
+		        mc.ingameGUI.getChatGUI().addToSentMessages(cmd);
+		        mc.thePlayer.sendChatMessage(cmd);
+				break;
 			}
+		
 		updatePageButtons();
 	}
 
