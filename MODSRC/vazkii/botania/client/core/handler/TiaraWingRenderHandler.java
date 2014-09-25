@@ -174,11 +174,6 @@ public final class TiaraWingRenderHandler {
 		tes.addVertexWithUV(-0.5, 0, 0.5, 0, 1);
 		tes.addVertexWithUV(0.5, 0, 0.5, 1, 1);
 		tes.addVertexWithUV(0.5, 0, -0.5, 1, 0);
-		
-		tes.addVertexWithUV(-0.5, 0, -0.5, 0, 0);
-		tes.addVertexWithUV(0.5, 0, -0.5, 1, 0);
-		tes.addVertexWithUV(0.5, 0, 0.5, 1, 1);
-		tes.addVertexWithUV(-0.5, 0, 0.5, 0, 1);			
 		tes.draw();
 		
 		GL11.glEnable(GL11.GL_LIGHTING);
