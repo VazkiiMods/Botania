@@ -1074,8 +1074,8 @@ botania.page.daybloom5=&oHow could it be that what you need the most can leave y
 
 # -- NIGHTSHADE
 botania.entry.nightshade=Nightshade
-botania.page.nightshade0=The &1Nightshade&0 is the dark counterpart of the &1Daybloom&0, as it generates &4Mana&0 passively in any situation the &1Daybloom&0 can not, albeit at half the speed.<br>Similarly to their shining counterpart, they suffer diminishing returns from having any adjacent.
-botania.page.nightshade0a=The &1Nightshade&0 is the dark counterpart of the &1Daybloom&0, as it generates &4Mana&0 passively in any situation the &1Daybloom&0 can not, albeit at half the speed.<br>Similarly to their shining counterpart, they suffer diminishing returns from having any adjacent.<br>Similarly to the &1Daybloom&0, these flowers are not very resistant, and after some time they'll wither and die off.
+botania.page.nightshade0=The &1Nightshade&0 is the dark counterpart of the &1Daybloom&0, as it generates &4Mana&0 passively in any situation the &1Daybloom&0 can not, as long as it's nighttime, albeit at half the speed.<br>Similarly to their shining counterpart, they suffer diminishing returns from having any adjacent.
+botania.page.nightshade0a=The &1Nightshade&0 is the dark counterpart of the &1Daybloom&0, as it generates &4Mana&0 passively in any situation the &1Daybloom&0 can not, as long as it's nighttime, albeit at half the speed.<br>Similarly to their shining counterpart, they suffer diminishing returns from having any adjacent.<br>Similarly to the &1Daybloom&0, these flowers are not very resistant, and after some time they'll wither and die off.
 botania.page.nightshade1=&oThe shadow of the day&r.
 
 # -- ENDOFLAME
