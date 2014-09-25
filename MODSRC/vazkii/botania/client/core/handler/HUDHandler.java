@@ -59,19 +59,21 @@ public final class HUDHandler {
 		if(event.type == ElementType.ALL) {
 			Minecraft mc = Minecraft.getMinecraft();
 			MovingObjectPosition pos = mc.objectMouseOver;
-			Block block = mc.theWorld.getBlock(pos.blockX, pos.blockY, pos.blockZ);
-			TileEntity tile = mc.theWorld.getTileEntity(pos.blockX, pos.blockY, pos.blockZ);
-			ItemStack stack = mc.thePlayer.getCurrentEquippedItem();
-			
-			if(stack != null) {
-				if(pos != null && stack.getItem() == ModItems.twigWand) {
-					if(block instanceof IWandHUD)
-						((IWandHUD) block).renderHUD(mc, event.resolution, mc.theWorld, pos.blockX, pos.blockY, pos.blockZ);
+			if(pos != null) {
+				Block block = mc.theWorld.getBlock(pos.blockX, pos.blockY, pos.blockZ);
+				TileEntity tile = mc.theWorld.getTileEntity(pos.blockX, pos.blockY, pos.blockZ);
+				ItemStack stack = mc.thePlayer.getCurrentEquippedItem();
+				
+				if(stack != null) {
+					if(pos != null && stack.getItem() == ModItems.twigWand) {
+						if(block instanceof IWandHUD)
+							((IWandHUD) block).renderHUD(mc, event.resolution, mc.theWorld, pos.blockX, pos.blockY, pos.blockZ);
+					}
+					else if(pos != null && stack.getItem() instanceof ILexicon)
+						drawLexiconHUD(mc.thePlayer.getCurrentEquippedItem(), block, pos, event.resolution);
+					else if(tile != null && tile instanceof TilePool)
+						renderPoolRecipeHUD(event.resolution, (TilePool) tile, stack);
 				}
-				else if(pos != null && stack.getItem() instanceof ILexicon)
-					drawLexiconHUD(mc.thePlayer.getCurrentEquippedItem(), block, pos, event.resolution);
-				else if(tile != null && tile instanceof TilePool)
-					renderPoolRecipeHUD(event.resolution, (TilePool) tile, stack);
 			}
 		} else if(event.type == ElementType.EXPERIENCE) {
 			EntityPlayer player = Minecraft.getMinecraft().thePlayer;
