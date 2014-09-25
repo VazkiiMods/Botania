@@ -1,3 +1,7 @@
+r1.2 118
+*Fixed random crashes.
+*Fixed the Nightshade documentation being inaccurate.
+*The Hand of Ender is no longer elven knowledge.
 r1.2 117
 *Added a HUD element when hovering over a mana pool with an item that can be infused that shows if there's enough mana in the pool or not. If you're a goldfish you should sneak on it too.
 *Added some Lore/Quote pages (all text in italics) to some entries in the Lexica Botania. They aren't gameplay focused, just little homages and small distractions.<ul><li>Daybloom</li><li>Fallen Kanade</li><li>Gourmaryllis</li><li>Heisei Dream</li><li>Jaded Amaranthus</li></ul>
