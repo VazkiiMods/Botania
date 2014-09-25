@@ -516,7 +516,7 @@ public final class LexiconData {
 		skyDirtRod = new ALexiconEntry(LibLexicon.TOOL_SKY_DIRT_ROD, categoryTools);
 		skyDirtRod.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeSkyDirtRod));
 
-		enderHand = new ALexiconEntry(LibLexicon.TOOL_ENDER_HAND, categoryTools);
+		enderHand = new BLexiconEntry(LibLexicon.TOOL_ENDER_HAND, categoryTools);
 		enderHand.setLexiconPages(new PageText(ConfigHandler.enderPickpocketEnabled ? "0" : "0a"), new PageCraftingRecipe(ConfigHandler.enderPickpocketEnabled ? "1" : "1a", ModCrafingRecipes.recipeEnderHand));
 
 		glassPick = new BLexiconEntry(LibLexicon.TOOL_GLASS_PICK, categoryTools);

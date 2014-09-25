@@ -1158,7 +1158,7 @@ public final class ModCrafingRecipes {
 		// Hand of Ender Recipe
 		addOreDictRecipe(new ItemStack(ModItems.enderHand),
 				"PLO", "LEL", "OL ",
-				'P', LibOreDict.PIXIE_DUST,
+				'P', LibOreDict.MANA_PEARL,
 				'L', new ItemStack(Items.leather),
 				'E', new ItemStack(Blocks.ender_chest),
 				'O', new ItemStack(Blocks.obsidian));
