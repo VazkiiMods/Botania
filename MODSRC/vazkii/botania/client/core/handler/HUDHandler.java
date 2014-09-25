@@ -63,7 +63,7 @@ public final class HUDHandler {
 				Block block = mc.theWorld.getBlock(pos.blockX, pos.blockY, pos.blockZ);
 				TileEntity tile = mc.theWorld.getTileEntity(pos.blockX, pos.blockY, pos.blockZ);
 				ItemStack stack = mc.thePlayer.getCurrentEquippedItem();
-				
+
 				if(stack != null) {
 					if(pos != null && stack.getItem() == ModItems.twigWand) {
 						if(block instanceof IWandHUD)
@@ -145,7 +145,7 @@ public final class HUDHandler {
 		RenderHelper.drawTexturedModalRect(x, y, 0, 0, 251, width, 5);
 		GL11.glDisable(GL11.GL_BLEND);
 	}
-	
+
 	private void renderPoolRecipeHUD(ScaledResolution res, TilePool tile, ItemStack stack) {
 		for(RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes) {
 			if(recipe.matches(stack)) {
@@ -153,10 +153,10 @@ public final class HUDHandler {
 				mc.renderEngine.bindTexture(manaBar);
 				int x = res.getScaledWidth() / 2 - 11;
 				int y = res.getScaledHeight() / 2 + 10;
-				
+
 				int u = tile.getCurrentMana() >= recipe.getManaToConsume() ? 0 : 22;
 				int v = mc.thePlayer.getCommandSenderName().equals("haighyorkie") && mc.thePlayer.isSneaking() ? 23 : 8;
-				
+
 				GL11.glEnable(GL11.GL_BLEND);
 				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 				RenderHelper.drawTexturedModalRect(x, y, 0, u, v, 22, 15);
@@ -189,7 +189,7 @@ public final class HUDHandler {
 			if(entry != null) {
 				if(!((ILexicon) stack.getItem()).isKnowledgeUnlocked(stack, entry.getKnowledgeType()))
 					font = mc.standardGalacticFontRenderer;
-				
+
 				drawStr = StatCollector.translateToLocal(entry.getUnlocalizedName());
 				draw = true;
 			}
@@ -211,7 +211,7 @@ public final class HUDHandler {
 				drawStr = "?";
 				font = mc.fontRenderer;
 			}
-				
+
 			RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine, new ItemStack(ModItems.lexicon), sx, sy);
 			GL11.glDisable(GL11.GL_LIGHTING);
 			font.drawStringWithShadow(drawStr, sx + 10, sy + 8, 0xFFFFFFFF);

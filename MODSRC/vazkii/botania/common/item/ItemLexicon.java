@@ -38,7 +38,6 @@ import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibGuiIDs;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -49,7 +48,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	private static final String TAG_FORCED_MESSAGE = "forcedMessage";
 	private static final String TAG_QUEUE_TICKS = "queueTicks";
 	boolean skipSound = false;
-	
+
 	public ItemLexicon() {
 		super();
 		setMaxStackSize(1);
@@ -135,22 +134,22 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 			else par3EntityPlayer.addChatMessage(new ChatComponentTranslation("botaniamisc.cantOpen").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
 			setForcedPage(par1ItemStack, "");
 		}
-		
+
 		par3EntityPlayer.openGui(Botania.instance, LibGuiIDs.LEXICON, par2World, 0, 0, 0);
 		if(!par2World.isRemote && !skipSound)
 			par2World.playSoundAtEntity(par3EntityPlayer, "botania:lexiconOpen", 0.5F, 1F);
 		skipSound = false;
-		
+
 		return par1ItemStack;
 	}
-	
+
 	@Override
 	public void onUpdate(ItemStack stack, World world, Entity entity, int idk, boolean something) {
 		int ticks = getQueueTicks(stack);
 		if(ticks > 0 && entity instanceof EntityPlayer) {
 			skipSound = ticks < 3;
-			onItemRightClick(stack, world, (EntityPlayer) entity);  
-		
+			onItemRightClick(stack, world, (EntityPlayer) entity);
+
 			setQueueTicks(stack, ticks - 1);
 		}
 	}
@@ -177,26 +176,26 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	public static String getForcedPage(ItemStack stack) {
 		return ItemNBTHelper.getString(stack, TAG_FORCED_MESSAGE, "");
 	}
-	
+
 	private static LexiconEntry getEntryFromForce(ItemStack stack) {
 		String force = getForcedPage(stack);
-		
+
 		for(LexiconEntry entry : BotaniaAPI.getAllEntries())
 			if(entry.unlocalizedName.equals(force))
-				if(entry != null && ((ItemLexicon) stack.getItem()).isKnowledgeUnlocked(stack, entry.getKnowledgeType())) 
+				if(entry != null && ((ItemLexicon) stack.getItem()).isKnowledgeUnlocked(stack, entry.getKnowledgeType()))
 					return entry;
-		
+
 		return null;
 	}
-	
+
 	public static int getQueueTicks(ItemStack stack) {
 		return ItemNBTHelper.getInt(stack, TAG_QUEUE_TICKS, 0);
 	}
-	
+
 	public static void setQueueTicks(ItemStack stack, int ticks) {
 		ItemNBTHelper.setInt(stack, TAG_QUEUE_TICKS, ticks);
 	}
-		
+
 	@Override
 	public boolean isElvenItem(ItemStack stack) {
 		return isKnowledgeUnlocked(stack, BotaniaAPI.elvenKnowledge);

@@ -19,7 +19,7 @@ public abstract class LexiconPage {
 
 	public String unlocalizedName;
 	public boolean skipRegistry;
-	
+
 	public LexiconPage(String unlocalizedName) {
 		this.unlocalizedName = unlocalizedName;
 	}
@@ -59,7 +59,7 @@ public abstract class LexiconPage {
 	public String getUnlocalizedName() {
 		return unlocalizedName;
 	}
-	
+
 	public LexiconPage setSkipRegistry() {
 		skipRegistry = true;
 		return this;

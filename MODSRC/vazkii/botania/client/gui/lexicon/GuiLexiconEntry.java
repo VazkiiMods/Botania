@@ -108,15 +108,15 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 				page++;
 				ClientTickHandler.notifyPageChange();
 				break;
-			case 3 : 
+			case 3 :
 				Minecraft mc = Minecraft.getMinecraft();
 				String cmd = "/botania-share " + entry.unlocalizedName;
-				
-		        mc.ingameGUI.getChatGUI().addToSentMessages(cmd);
-		        mc.thePlayer.sendChatMessage(cmd);
+
+				mc.ingameGUI.getChatGUI().addToSentMessages(cmd);
+				mc.thePlayer.sendChatMessage(cmd);
 				break;
 			}
-		
+
 		updatePageButtons();
 	}
 

@@ -103,7 +103,7 @@ public class GuiLexicon extends GuiScreen {
 				GL11.glScalef(0.5F, 0.5F, 0.5F);
 				drawTexturedModalRect((left - 92) * 2, (top + 40) * 2, 0, 0, 184, 248);
 				GL11.glScalef(2F, 2F, 2F);
-				
+
 				RenderHelper.renderTooltip(par1, par2, Arrays.asList(EnumChatFormatting.GOLD + "#goldfishchris", EnumChatFormatting.AQUA + "CONGRATS ON YOUR NEW COMPUTER!!", "vazkii.us/goldfish"));
 			}
 		}

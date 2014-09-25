@@ -11,9 +11,9 @@
  */
 package vazkii.botania.common.item.block;
 
-import vazkii.botania.api.recipe.IElvenItem;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
+import vazkii.botania.api.recipe.IElvenItem;
 
 public class ItemBlockElven extends ItemBlockMod implements IElvenItem {
 
@@ -26,6 +26,6 @@ public class ItemBlockElven extends ItemBlockMod implements IElvenItem {
 		return ((IElvenItem) field_150939_a).isElvenItem(stack);
 	}
 
-	
-	
+
+
 }

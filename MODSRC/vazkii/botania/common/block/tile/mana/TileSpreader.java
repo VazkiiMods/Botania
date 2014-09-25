@@ -344,7 +344,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	public boolean isDreamwood() {
 		return worldObj == null ? staticDreamwood : getBlockMetadata() == 2 || getBlockMetadata() == 3;
 	}
-	
+
 	public boolean isULTRA_SPREADER() {
 		return worldObj == null ? staticUltra : getBlockMetadata() == 3;
 	}

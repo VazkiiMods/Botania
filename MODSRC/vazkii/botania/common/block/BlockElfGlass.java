@@ -32,7 +32,7 @@ public class BlockElfGlass extends BlockMod implements IElvenItem, ILexiconable 
 
 	private static final int ICON_COUNT = 4;
 	IIcon[] icons;
-	
+
 	public BlockElfGlass() {
 		super(Material.glass);
 		setHardness(0.3F);
@@ -40,7 +40,7 @@ public class BlockElfGlass extends BlockMod implements IElvenItem, ILexiconable 
 		setLightLevel(1.0F);
 		setBlockName(LibBlockNames.ELF_GLASS);
 	}
-	
+
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		icons = new IIcon[ICON_COUNT];
@@ -49,13 +49,14 @@ public class BlockElfGlass extends BlockMod implements IElvenItem, ILexiconable 
 		blockIcon = icons[0];
 	}
 
+	@Override
 	public boolean isOpaqueCube() {
 		return false;
 	}
-	
+
 	@Override
 	public IIcon getIcon(IBlockAccess world, int x, int y, int z, int s) {
-		int v = (int) Math.floor((double) new Random((x * 10) ^ (y * 20) ^ (z * 30)).nextInt(ICON_COUNT * 100) / 100.0);
+		int v = (int) Math.floor(new Random(x * 10 ^ y * 20 ^ z * 30).nextInt(ICON_COUNT * 100) / 100.0);
 		return icons[v];
 	}
 

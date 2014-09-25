@@ -107,7 +107,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 					if(tile != null && tile instanceof TilePylon)
 						((TilePylon) tile).activated = false;
 				}
-			
+
 			worldObj.setBlock(xCoord, yCoord, zCoord, Blocks.lapis_block, 0, 1 | 2);
 			for(int i = 0; i < 50; i++) {
 				float red = (float) Math.random();

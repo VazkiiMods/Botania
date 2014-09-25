@@ -11,13 +11,13 @@
  */
 package vazkii.botania.common.core.command;
 
-import vazkii.botania.common.core.version.ThreadDownloadMod;
-import vazkii.botania.common.core.version.VersionChecker;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
+import vazkii.botania.common.core.version.ThreadDownloadMod;
+import vazkii.botania.common.core.version.VersionChecker;
 
 public class CommandDownloadLatest extends CommandBase {
 

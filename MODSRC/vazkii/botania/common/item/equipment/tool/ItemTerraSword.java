@@ -38,7 +38,7 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 
 	private static final String TAG_ATTACKER_USERNAME = "attackerUsername";
-	
+
 	public ItemTerraSword() {
 		super(BotaniaAPI.terrasteelToolMaterial, LibItemNames.TERRA_SWORD);
 	}
@@ -94,9 +94,9 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 		AxisAlignedBB axis = AxisAlignedBB.getBoundingBox(entity.posX, entity.posY, entity.posZ, entity.lastTickPosX, entity.lastTickPosY, entity.lastTickPosZ).expand(1, 1, 1);
 		List<EntityLivingBase> entities = entity.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, axis);
 		String attacker = ItemNBTHelper.getString(burst.getSourceLens(), TAG_ATTACKER_USERNAME, "");
-		
+
 		for(EntityLivingBase living : entities) {
-			if(living instanceof EntityPlayer && (((EntityPlayer) living).getCommandSenderName().equals(attacker) || (MinecraftServer.getServer() != null && !MinecraftServer.getServer().isPVPEnabled())))
+			if(living instanceof EntityPlayer && (((EntityPlayer) living).getCommandSenderName().equals(attacker) || MinecraftServer.getServer() != null && !MinecraftServer.getServer().isPVPEnabled()))
 				continue;
 
 			if(living.hurtTime == 0) {
