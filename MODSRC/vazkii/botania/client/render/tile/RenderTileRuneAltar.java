@@ -60,7 +60,7 @@ public class RenderTileRuneAltar extends TileEntitySpecialRenderer {
 			angles[i] = totalAngle += anglePer;
 
 		double time = ClientTickHandler.ticksInGame + partticks;
-		
+
 		for(int i = 0; i < altar.getSizeInventory(); i++) {
 			GL11.glPushMatrix();
 			GL11.glScalef(0.5F, 0.5F, 0.5F);

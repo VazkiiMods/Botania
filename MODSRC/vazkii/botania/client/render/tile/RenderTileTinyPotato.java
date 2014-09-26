@@ -46,7 +46,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 		float jump = potato.jumpTicks;
 		if(jump > 0)
 			jump += var8;
-		
+
 		float up = (float) -Math.abs(Math.sin(jump / 10 * Math.PI)) * 0.2F;
 		float rot = (float) Math.sin(jump / 10 * Math.PI) * 2;
 

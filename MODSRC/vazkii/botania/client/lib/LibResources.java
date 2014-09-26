@@ -90,7 +90,7 @@ public final class LibResources {
 	public static final String MODEL_SPAWNER_CLAW = PREFIX_MODEL + "spawnerClaw.png";
 
 	public static final String MODEL_CAPE = "/assets/botania/textures/model/cape.png";
-	
+
 	public static final String MISC_PARTICLES = PREFIX_MISC + "particles.png";
 	public static final String MISC_WISP_LARGE = PREFIX_MISC + "wispLarge.png";
 	public static final String MISC_WISP_SMALL = PREFIX_MISC + "wispSmall.png";

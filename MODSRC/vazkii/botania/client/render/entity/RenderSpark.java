@@ -46,7 +46,7 @@ public class RenderSpark extends RenderEntity {
 		time += new Random(par1Entity.getEntityId()).nextInt();
 		GL11.glColor4f(1F, 1F, 1F, 0.7F + 0.3F * (float) (Math.sin(time / 5.0) + 0.5) * 2);
 
-		float scale = 0.75F + 0.1F * (float) Math.sin((double) time / 10);
+		float scale = 0.75F + 0.1F * (float) Math.sin(time / 10);
 		GL11.glScalef(scale, scale, scale);
 		bindEntityTexture(par1Entity);
 		Tessellator tessellator = Tessellator.instance;

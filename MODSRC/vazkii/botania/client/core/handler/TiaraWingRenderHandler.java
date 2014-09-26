@@ -29,12 +29,11 @@ import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
 
 public final class TiaraWingRenderHandler {
-	
+
 	private static ResourceLocation textureHalo = new ResourceLocation(LibResources.MISC_HALO);
-	
+
 	@SubscribeEvent
 	public void onPlayerRender(RenderPlayerEvent.Specials.Post event) {
 		InventoryBaubles inv = PlayerHandler.getPlayerBaubles(event.entityPlayer);
@@ -139,36 +138,36 @@ public final class TiaraWingRenderHandler {
 
 				GL11.glColor3f(1F, 1F, 1F);
 				GL11.glPopMatrix();
-				
+
 				// Jibril's Halo
-				if(meta == 1) 
+				if(meta == 1)
 					renderHalo(event.entityPlayer, event.partialRenderTick);
 			}
 		}
 	}
-	
+
 	private void renderHalo(EntityPlayer player, float partialTicks) {
 		float yaw = player.prevRotationYawHead + (player.rotationYawHead - player.prevRotationYawHead) * partialTicks;
 		float yawOffset = player.prevRenderYawOffset + (player.renderYawOffset - player.prevRenderYawOffset) * partialTicks;
 		float pitch = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * partialTicks;
-		
+
 		GL11.glPushMatrix();
 		GL11.glRotatef(yawOffset, 0, -1, 0);
 		GL11.glRotatef(yaw - 270, 0, 1, 0);
-		GL11.glRotatef(pitch, 0, 0, 1);	
+		GL11.glRotatef(pitch, 0, 0, 1);
 
 		GL11.glShadeModel(GL11.GL_SMOOTH);
 		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240, 240);
 		GL11.glDisable(GL11.GL_LIGHTING);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
-		
+
 		Minecraft.getMinecraft().renderEngine.bindTexture(textureHalo);
-		
+
 		GL11.glTranslated(0, -player.getDefaultEyeHeight() + (player.isSneaking() ? 0.0625 : 0), 0);
 		GL11.glRotated(30, 1, 0, -1);
 		GL11.glTranslatef(-0.1F, -0.5F, -0.1F);
 		GL11.glRotatef(player.ticksExisted + partialTicks, 0, 1, 0);
-		
+
 		Tessellator tes = Tessellator.instance;
 		ShaderHelper.useShader(ShaderHelper.halo);
 		tes.startDrawingQuads();
@@ -178,7 +177,7 @@ public final class TiaraWingRenderHandler {
 		tes.addVertexWithUV(0.75, 0, -0.75, 1, 0);
 		tes.draw();
 		ShaderHelper.releaseShader();
-		
+
 		GL11.glEnable(GL11.GL_LIGHTING);
 		GL11.glShadeModel(GL11.GL_FLAT);
 		GL11.glPopMatrix();

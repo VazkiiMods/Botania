@@ -87,7 +87,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 					GL11.glEnable(GL11.GL_BLEND);
 					GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 					GL11.glDisable(GL11.GL_ALPHA_TEST);
-					GL11.glColor4f(1F, 1F, 1F, (float) ((Math.sin((double) (ClientTickHandler.ticksInGame + f) / 20.0) + 1) * 0.3 + 0.2));
+					GL11.glColor4f(1F, 1F, 1F, (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 20.0) + 1) * 0.3 + 0.2));
 					GL11.glTranslatef(-0.5F, -1F - 0.43F, -0.5F);
 					GL11.glRotatef(90F, 1F, 0F, 0F);
 					GL11.glScalef(s, s, s);
