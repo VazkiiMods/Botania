@@ -11,7 +11,11 @@
  */
 package vazkii.botania.common.item.interaction.thaumcraft;
 
+import java.util.List;
+
 import cpw.mods.fml.common.Optional;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -35,6 +39,12 @@ public class ItemManaInkwell extends ItemMod implements IManaItem, IScribeTools 
 		setMaxDamage(USES);
 		setMaxStackSize(1);
 		setNoRepair();
+	}
+	
+	@Override
+	public void getSubItems(Item item, CreativeTabs tab, List list) {
+		list.add(new ItemStack(item, 1, USES));
+		list.add(new ItemStack(item));
 	}
 	
 	@Override

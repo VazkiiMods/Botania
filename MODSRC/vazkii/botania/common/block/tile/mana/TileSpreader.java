@@ -15,6 +15,7 @@ import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -441,7 +442,9 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 			mc.fontRenderer.drawStringWithShadow(lensName, x + 20, y + 5, color);
 			GL11.glDisable(GL11.GL_DEPTH_TEST);
-			new RenderItem().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, lens, x, y);
+			RenderHelper.enableGUIStandardItemLighting();
+			RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, lens, x, y);
+			RenderHelper.disableStandardItemLighting();
 			GL11.glEnable(GL11.GL_DEPTH_TEST);
 			GL11.glDisable(GL11.GL_LIGHTING);
 			GL11.glDisable(GL11.GL_BLEND);
@@ -459,7 +462,9 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 				int y = res.getScaledHeight() / 2 + 30;
 
 				mc.fontRenderer.drawStringWithShadow(stackName, x + 20, y + 5, color);
-				new RenderItem().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, recieverStack, x, y);
+				RenderHelper.enableGUIStandardItemLighting();
+				RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, recieverStack, x, y);
+				RenderHelper.disableStandardItemLighting();
 			}
 
 			GL11.glDisable(GL11.GL_LIGHTING);

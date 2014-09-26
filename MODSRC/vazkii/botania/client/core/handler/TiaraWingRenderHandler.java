@@ -164,7 +164,7 @@ public final class TiaraWingRenderHandler {
 		
 		Minecraft.getMinecraft().renderEngine.bindTexture(textureHalo);
 		
-		GL11.glTranslated(0, -player.eyeHeight + (player.isSneaking() ? 0.0625 : 0), 0);
+		GL11.glTranslated(0, -player.getDefaultEyeHeight() + (player.isSneaking() ? 0.0625 : 0), 0);
 		GL11.glRotated(30, 1, 0, -1);
 		GL11.glTranslatef(-0.1F, -0.5F, -0.1F);
 		GL11.glRotatef(player.ticksExisted + partialTicks, 0, 1, 0);
