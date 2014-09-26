@@ -16,9 +16,11 @@ import java.util.List;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibOreDict;
@@ -38,6 +40,7 @@ public final class ModManaInfusionRecipes {
 	public static List<RecipeManaInfusion> mycelSeedsRecipes;
 	public static RecipeManaInfusion manaQuartzRecipe;
 	public static RecipeManaInfusion tinyPotatoRecipe;
+	public static RecipeManaInfusion manaInkwellRecipe;
 
 	public static void init() {
 		poolRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.pool), new ItemStack(ModBlocks.pool, 1, 2), 320);
@@ -63,7 +66,12 @@ public final class ModManaInfusionRecipes {
 
 		manaQuartzRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.quartz, 1, 1), new ItemStack(Items.quartz), 250);
 		tinyPotatoRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.tinyPotato), new ItemStack(Items.potato), 1337);
-
+		
+		if(Botania.thaumcraftLoaded) {
+			Item inkwell = (Item) Item.itemRegistry.getObject("Thaumcraft:ItemInkwell");
+			manaInkwellRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaInkwell), new ItemStack(inkwell), 35000);
+		}
+		
 		BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaBottle), new ItemStack(Items.glass_bottle), 5000);
 	}
 

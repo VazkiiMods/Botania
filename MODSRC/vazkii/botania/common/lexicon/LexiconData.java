@@ -188,6 +188,7 @@ public final class LexiconData {
 	public static LexiconEntry headCreating;
 	public static LexiconEntry azulejo;
 	public static LexiconEntry starfield;
+	public static LexiconEntry tcIntegration;
 
 	public static void init() {
 		BotaniaAPI.addCategory(categoryBasics = new LexiconCategory(LibLexicon.CATEGORY_BASICS));
@@ -640,6 +641,11 @@ public final class LexiconData {
 
 		starfield = new ALexiconEntry(LibLexicon.MISC_STARFIELD, categoryMisc);
 		starfield.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeStarfield));
+		
+		if(Botania.thaumcraftLoaded) {
+			tcIntegration = new BLexiconEntry(LibLexicon.MISC_TC_INTEGRATION, categoryMisc);
+			tcIntegration.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCrafingRecipes.recipeHelmetOfRevealing), new PageText("3"), new PageManaInfusionRecipe("4", ModManaInfusionRecipes.manaInkwellRecipe), new PageText("5"));
+		}
 	}
 
 	public static void postInit() {

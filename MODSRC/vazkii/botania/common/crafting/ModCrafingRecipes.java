@@ -196,6 +196,7 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeGravityRod;
 	public static IRecipe recipeRegenIvy;
 	public static IRecipe recipeUltraSpreader;
+	public static IRecipe recipeHelmetOfRevealing;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1258,6 +1259,7 @@ public final class ModCrafingRecipes {
 		if(Botania.thaumcraftLoaded) {
 			Item goggles = (Item) Item.itemRegistry.getObject("Thaumcraft:ItemGoggles");
 			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manasteelHelmRevealing), new ItemStack(ModItems.manasteelHelm), new ItemStack(goggles));
+			recipeHelmetOfRevealing = BotaniaAPI.getLatestAddedRecipe();
 			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.terrasteelHelmRevealing), new ItemStack(ModItems.terrasteelHelm), new ItemStack(goggles));
 			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.elementiumHelmRevealing), new ItemStack(ModItems.elementiumHelm), new ItemStack(goggles));
 		}

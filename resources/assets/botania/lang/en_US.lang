@@ -810,7 +810,7 @@ botania.page.terrasteel1=Creating &1Terrasteel&0
 
 # -- WRAP
 botania.entry.wrap=Wrap
-botania.page.wrap0=It seems like the creator of this mod decided to add a weird game mechanic in the form of &1Wrap&0. I don't really know what it does, probably something bad. :/<br>What's that "Fourth Wall" you're talking about...?
+botania.page.wrap0=It seems like the creator of this mod decided to add a weird game mechanic in the form of &1Wrap&0. I don't really know what it does, probably something bad. :/<br>What's this "Fourth Wall" you're talking about...?
 
 # - MANA
 # -- AN INTRODUCTION TO MANA
@@ -1665,3 +1665,12 @@ botania.page.azulejo3=Cycling between the patterns
 botania.entry.starfield=Starfield Creator
 botania.page.starfield0=The &1Starfield Creator&0 does exactly as it says, by releasing elven energies into the air, if it's placed in the world, during night time it will create a starry sky that extends for a fair distance.
 botania.page.starfield1=Twinkle twinkle
+
+# -- THAUMCRAFT INTEGRATION
+botania.entry.tcIntegration=Thaumcraft Integration
+botania.page.tcIntegration0=Often enough, the paths of &4Botany&0 and &4Thaumaturgy&0 cross together. Mixing some of the artifacts mentioned in this book as well as any from the school of &5Thaumcraft&0 can allow for combinations of these to form.
+botania.page.tcIntegration1=First and foremost, combining any of the &1Mana Metal&0 helms with a set of &1Goggles of Revealing&0 allows for a combination of both.<br>The protection and regenerability of the armor works alongside the Goggles' abilities, but the &4Vis&0 discount is loss. 
+botania.page.tcIntegration2=Helmets of Revealing (works with any Botania helm)
+botania.page.tcIntegration3=Carrying on, &4Mana&0 can also serve as an interesting type of Ink. Infusing a set of black &1Scribing Tools&0 with &4Mana&0 from a &1Mana Pool&0 allows for them to use said &4Mana&0 as their source of color.<br>Refilling these tools works similarly to a &1Mana Tablet&0, done by tossing it on top of the pool.
+botania.page.tcIntegration4=Making the &1Botanurgist's Inkwell
+botania.page.tcIntegration5=Last but not least, there's a few varied resources or constructs that can work as paraphernalia for an &1Infusion Altar&0, to lower its' instability.<br>These come in the form of &1Glimmering Flowers, Floating Flowers and any variety of Pylons&0.
