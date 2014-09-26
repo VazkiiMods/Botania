@@ -1,3 +1,11 @@
+r1.2 119
+*Added a proper entry documenting the Thaumcraft Integration in the mod (under Miscellaneous), also added the Botanurgist's Inkwell, that uses mana to make ink for the research table.
+*Added fancy side halo to the Flügel Tiara with Flügel wings (Nether Quartz). (Victorious3)
+*Blocks rendered in the HUD for the Rannuncarpus or any Mana Spreader now have proper shading.
+*Changed the "X:1 Ratio" display to "Zoom: Xx", just so it's a bit clearer.
+*Fixed crashes with the Rod of the Skies when Hunger Overhaul is installed. (squeek502)
+*Renders now use partial ticks and should look a lot smoother than before, provided you have high enough FPS, of course.
+*Updated the lore text for the Mana Tablet's crafting recipe in the lexicon to be more refering to modern times.
 r1.2 118
 *Fixed random crashes.
 *Fixed the Nightshade documentation being inaccurate.
