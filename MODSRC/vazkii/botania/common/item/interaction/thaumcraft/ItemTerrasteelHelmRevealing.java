@@ -9,7 +9,7 @@
  * 
  * File Created @ [Jul 28, 2014, 6:22:51 PM (GMT)]
  */
-package vazkii.botania.common.item.equipment.armor.terrasteel;
+package vazkii.botania.common.item.interaction.thaumcraft;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -17,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import thaumcraft.api.IGoggles;
 import thaumcraft.api.nodes.IRevealer;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
 import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.common.Optional;
 

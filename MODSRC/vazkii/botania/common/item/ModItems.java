@@ -17,17 +17,14 @@ import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumBoots;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumChest;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumHelm;
-import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumHelmRevealing;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumLegs;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelBoots;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelChest;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelHelm;
-import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelHelmRevealing;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelLegs;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelBoots;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelChest;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
-import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelmRevealing;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelLegs;
 import vazkii.botania.common.item.equipment.bauble.ItemAuraRing;
 import vazkii.botania.common.item.equipment.bauble.ItemDivaCharm;
@@ -63,6 +60,10 @@ import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelPick;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelShears;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelShovel;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
+import vazkii.botania.common.item.interaction.thaumcraft.ItemElementiumHelmRevealing;
+import vazkii.botania.common.item.interaction.thaumcraft.ItemManaInkwell;
+import vazkii.botania.common.item.interaction.thaumcraft.ItemManasteelHelmRevealing;
+import vazkii.botania.common.item.interaction.thaumcraft.ItemTerrasteelHelmRevealing;
 import vazkii.botania.common.lib.LibOreDict;
 
 public final class ModItems {
@@ -154,6 +155,7 @@ public final class ModItems {
 	public static Item diviningRod;
 	public static Item gravityRod;
 	public static Item regenIvy;
+	public static Item manaInkwell;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -243,6 +245,7 @@ public final class ModItems {
 		diviningRod = new ItemDiviningRod();
 		gravityRod = new ItemGravityRod();
 		regenIvy = new ItemRegenIvy();
+		manaInkwell = new ItemManaInkwell();
 
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {

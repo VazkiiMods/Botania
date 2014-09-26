@@ -60,7 +60,9 @@ public interface IManaItem {
 	public boolean canExportManaToItem(ItemStack stack, ItemStack otherStack);
 
 	/**
-	 * If this item simply does not export mana in any have, set this to true.
+	 * If this item simply does not export mana at all, set this to true. This is
+	 * used to skip items that contain mana but can't export it when drawing the
+	 * mana bar above the XP bar.
 	 */
 	public boolean isNoExport(ItemStack stack);
 
