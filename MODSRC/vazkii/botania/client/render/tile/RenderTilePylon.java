@@ -64,7 +64,7 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 				Minecraft.getMinecraft().renderEngine.bindTexture(pink ? texturePinkOld : green ? textureGreenOld : textureOld);
 			else Minecraft.getMinecraft().renderEngine.bindTexture(pink ? texturePink : green ? textureGreen : texture);
 
-			int worldTime = tileentity.getWorldObj() == null ? 0 : ClientTickHandler.ticksInGame;
+			double worldTime = tileentity.getWorldObj() == null ? 0 : (double) (ClientTickHandler.ticksInGame + pticks);
 
 			if(tileentity != null)
 				worldTime += new Random(tileentity.xCoord ^ tileentity.yCoord ^ tileentity.zCoord).nextInt(360);
@@ -82,7 +82,7 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 				GL11.glPushMatrix();
 				if(!ConfigHandler.oldPylonModel)
 					GL11.glTranslatef(0.5F, 0F, -0.5F);
-				GL11.glRotatef(worldTime * 1.5F, 0F, 1F, 0F);
+				GL11.glRotatef((float) worldTime * 1.5F, 0F, 1F, 0F);
 				if(!ConfigHandler.oldPylonModel)
 					GL11.glTranslatef(-0.5F, 0F, 0.5F);
 
@@ -98,7 +98,7 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 			if(!ConfigHandler.oldPylonModel)
 				GL11.glTranslatef(0.5F, 0F, -0.5F);
 
-			GL11.glRotatef(-worldTime, 0F, 1F, 0F);
+			GL11.glRotatef((float) -worldTime, 0F, 1F, 0F);
 			if(!ConfigHandler.oldPylonModel)
 				GL11.glTranslatef(-0.5F, 0F, 0.5F);
 

@@ -56,16 +56,18 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer {
 		Minecraft.getMinecraft().renderEngine.bindTexture(spreader.isRedstone() ? textureRs : spreader.isDreamwood() ? textureDw : texture);
 		GL11.glScalef(1F, -1F, -1F);
 
+		double time = ClientTickHandler.ticksInGame + f;
+		
 		if(spreader.isULTRA_SPREADER()) {
-			Color color = Color.getHSBColor((float) (((double) System.currentTimeMillis() / 10 + new Random(spreader.xCoord ^ spreader.yCoord ^ spreader.zCoord).nextInt(10000)) % 360) / 360F, 0.4F, 0.9F);
+			Color color = Color.getHSBColor((float) ((time * 5 + new Random(spreader.xCoord ^ spreader.yCoord ^ spreader.zCoord).nextInt(10000)) % 360) / 360F, 0.4F, 0.9F);
 			GL11.glColor3f(color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F);
 		}
 		model.render();
 		GL11.glColor3f(1F, 1F, 1F);
 
 		GL11.glPushMatrix();
-		long worldTicks = tileentity.getWorldObj() == null ? 0 : ClientTickHandler.ticksInGame;
-		GL11.glRotatef(worldTicks % 360, 0F, 1F, 0F);
+		double worldTicks = tileentity.getWorldObj() == null ? 0 : time;
+		GL11.glRotatef((float) worldTicks % 360, 0F, 1F, 0F);
 		GL11.glTranslatef(0F, (float) Math.sin(worldTicks / 20.0) * 0.05F, 0F);
 		model.renderCube();
 		GL11.glPopMatrix();

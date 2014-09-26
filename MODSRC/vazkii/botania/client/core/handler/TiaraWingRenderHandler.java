@@ -32,6 +32,8 @@ import cpw.mods.fml.common.gameevent.TickEvent;
 
 public final class TiaraWingRenderHandler {
 	
+	private static ResourceLocation textureHalo = new ResourceLocation(LibResources.MISC_HALO);
+	
 	@SubscribeEvent
 	public void onPlayerRender(RenderPlayerEvent.Specials.Post event) {
 		InventoryBaubles inv = PlayerHandler.getPlayerBaubles(event.entityPlayer);
@@ -44,7 +46,7 @@ public final class TiaraWingRenderHandler {
 				boolean flying = event.entityPlayer.capabilities.isFlying;
 
 				float rz = 120F;
-				float rx = 20F + (float) ((Math.sin((double) event.entityPlayer.ticksExisted * (flying ? 0.4F : 0.2F)) + 0.5F) * (flying ? 30F : 5F));
+				float rx = 20F + (float) ((Math.sin((double) (event.entityPlayer.ticksExisted + event.partialRenderTick) * (flying ? 0.4F : 0.2F)) + 0.5F) * (flying ? 30F : 5F));
 				float ry = 0F;
 				float h = 0.2F;
 				float i = 0.15F;
@@ -95,7 +97,7 @@ public final class TiaraWingRenderHandler {
 					rz = 0F;
 					ry = -rx;
 					rx = 0F;
-					GL11.glColor4f(1F, 1F, 1F, 0.5F + (float) Math.cos((double) event.entityPlayer.ticksExisted * 0.3F) * 0.2F);
+					GL11.glColor4f(1F, 1F, 1F, 0.5F + (float) Math.cos((double) (event.entityPlayer.ticksExisted + event.partialRenderTick) * 0.3F) * 0.2F);
 					break;
 				}
 				}
@@ -138,15 +140,13 @@ public final class TiaraWingRenderHandler {
 				GL11.glPopMatrix();
 				
 				// Jibril's Halo
-				if(meta == 1) renderHalo(event.entityPlayer, event.partialRenderTick);
+				if(meta == 1) 
+					renderHalo(event.entityPlayer, event.partialRenderTick);
 			}
 		}
 	}
 	
-	private static ResourceLocation textureHalo = new ResourceLocation(LibResources.MISC_HALO);
-	
 	private void renderHalo(EntityPlayer player, float partialTicks) {
-		
 		float yaw = player.prevRotationYawHead + (player.rotationYawHead - player.prevRotationYawHead) * partialTicks;
 		float yawOffset = player.prevRenderYawOffset + (player.renderYawOffset - player.prevRenderYawOffset) * partialTicks;
 		float pitch = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * partialTicks;

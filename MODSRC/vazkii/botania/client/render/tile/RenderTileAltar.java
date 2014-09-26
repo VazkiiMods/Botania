@@ -28,6 +28,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelAltar;
 import vazkii.botania.common.block.tile.TileAltar;
@@ -73,7 +74,7 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 				final float radiusBase = 1.2F;
 				final float radiusMod = 0.1F;
 
-				double ticks = Minecraft.getMinecraft().thePlayer.ticksExisted * 0.5;
+				double ticks = (ClientTickHandler.ticksInGame + pticks) * 0.5;
 				float offsetPerPetal = 360 / petals;
 
 				GL11.glPushMatrix();

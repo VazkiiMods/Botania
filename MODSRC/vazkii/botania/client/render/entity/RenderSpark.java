@@ -42,7 +42,7 @@ public class RenderSpark extends RenderEntity {
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GL11.glAlphaFunc(GL11.GL_GREATER, 0.05F);
 
-		int time = ClientTickHandler.ticksInGame;
+		double time = ClientTickHandler.ticksInGame + par9;
 		time += new Random(par1Entity.getEntityId()).nextInt();
 		GL11.glColor4f(1F, 1F, 1F, 0.7F + 0.3F * (float) (Math.sin(time / 5.0) + 0.5) * 2);
 
@@ -53,11 +53,11 @@ public class RenderSpark extends RenderEntity {
 
 		float r = 180.0F - renderManager.playerViewY;
 		GL11.glRotatef(r, 0.0F, 1.0F, 0.0F);
-		GL11.glRotatef(25F * (float) Math.sin((double) time / 15), 1F, 0F, 0F);
+		GL11.glRotatef(25F * (float) Math.sin(time / 15), 1F, 0F, 0F);
 		func_77026_a(tessellator, iicon);
 		int upgrade = spark.getUpgrade() - 1;
 		if(upgrade >= 0 && upgrade < ItemSparkUpgrade.worldIcons.length) {
-			GL11.glTranslatef(-0.02F + (float) Math.sin((double) time / 20) * 0.2F, 0.24F + (float) Math.cos((double) time / 20) * 0.2F, 0.005F);
+			GL11.glTranslatef(-0.02F + (float) Math.sin(time / 20) * 0.2F, 0.24F + (float) Math.cos(time / 20) * 0.2F, 0.005F);
 			GL11.glScalef(0.2F, 0.2F, 0.2F);
 			func_77026_a(tessellator, ItemSparkUpgrade.worldIcons[upgrade]);
 		}
