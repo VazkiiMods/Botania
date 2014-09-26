@@ -23,6 +23,7 @@ import net.minecraftforge.client.event.RenderPlayerEvent;
 
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import baubles.common.container.InventoryBaubles;
@@ -169,12 +170,14 @@ public final class TiaraWingRenderHandler {
 		GL11.glRotatef(player.ticksExisted + partialTicks, 0, 1, 0);
 		
 		Tessellator tes = Tessellator.instance;
+		ShaderHelper.useShader(ShaderHelper.halo);
 		tes.startDrawingQuads();
-		tes.addVertexWithUV(-0.5, 0, -0.5, 0, 0);
-		tes.addVertexWithUV(-0.5, 0, 0.5, 0, 1);
-		tes.addVertexWithUV(0.5, 0, 0.5, 1, 1);
-		tes.addVertexWithUV(0.5, 0, -0.5, 1, 0);
+		tes.addVertexWithUV(-0.75, 0, -0.75, 0, 0);
+		tes.addVertexWithUV(-0.75, 0, 0.75, 0, 1);
+		tes.addVertexWithUV(0.75, 0, 0.75, 1, 1);
+		tes.addVertexWithUV(0.75, 0, -0.75, 1, 0);
 		tes.draw();
+		ShaderHelper.releaseShader();
 		
 		GL11.glEnable(GL11.GL_LIGHTING);
 		GL11.glShadeModel(GL11.GL_FLAT);
