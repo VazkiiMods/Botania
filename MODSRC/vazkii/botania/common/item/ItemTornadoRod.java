@@ -80,7 +80,7 @@ public class ItemTornadoRod extends ItemMod {
 		int max = FALL_MULTIPLIER * FLY_TIME;
 		if(stack.getItemDamage() >= max) {
 			setFlying(stack, false);
-			player.setItemInUse(null, 0);
+			player.stopUsingItem();
 		} else if(isFlying(stack)) {
 			player.fallDistance = 0F;
 			player.motionY = 1.25;
