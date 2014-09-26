@@ -16,18 +16,22 @@ import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
 
 public final class TiaraWingRenderHandler {
-
+	
 	@SubscribeEvent
 	public void onPlayerRender(RenderPlayerEvent.Specials.Post event) {
 		InventoryBaubles inv = PlayerHandler.getPlayerBaubles(event.entityPlayer);
@@ -132,7 +136,48 @@ public final class TiaraWingRenderHandler {
 
 				GL11.glColor3f(1F, 1F, 1F);
 				GL11.glPopMatrix();
+				
+				// Jibril's Halo
+				if(meta == 1) renderHalo(event.entityPlayer, event.partialRenderTick);
 			}
 		}
+	}
+	
+	private static ResourceLocation textureHalo = new ResourceLocation(LibResources.MISC_HALO);
+	
+	private void renderHalo(EntityPlayer player, float partialTicks) {
+		
+		float yaw = player.prevRotationYawHead + (player.rotationYawHead - player.prevRotationYawHead) * partialTicks;
+		float yawOffset = player.prevRenderYawOffset + (player.renderYawOffset - player.prevRenderYawOffset) * partialTicks;
+		float pitch = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * partialTicks;
+		
+		GL11.glPushMatrix();
+		GL11.glRotatef(yawOffset, 0, -1, 0);
+		GL11.glRotatef(yaw - 270, 0, 1, 0);
+		GL11.glRotatef(pitch, 0, 0, 1);	
+
+		GL11.glShadeModel(GL11.GL_SMOOTH);
+		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240, 240);
+		GL11.glDisable(GL11.GL_LIGHTING);
+		GL11.glColor4f(1F, 1F, 1F, 1F);
+		
+		Minecraft.getMinecraft().renderEngine.bindTexture(textureHalo);
+		
+		GL11.glTranslated(0, -player.eyeHeight + (player.isSneaking() ? 0.0625 : 0), 0);
+		GL11.glRotated(30, 1, 0, -1);
+		GL11.glTranslatef(-0.1F, -0.5F, -0.1F);
+		GL11.glRotatef(player.ticksExisted + partialTicks, 0, 1, 0);
+		
+		Tessellator tes = Tessellator.instance;
+		tes.startDrawingQuads();
+		tes.addVertexWithUV(-0.5, 0, -0.5, 0, 0);
+		tes.addVertexWithUV(-0.5, 0, 0.5, 0, 1);
+		tes.addVertexWithUV(0.5, 0, 0.5, 1, 1);
+		tes.addVertexWithUV(0.5, 0, -0.5, 1, 0);
+		tes.draw();
+		
+		GL11.glEnable(GL11.GL_LIGHTING);
+		GL11.glShadeModel(GL11.GL_FLAT);
+		GL11.glPopMatrix();
 	}
 }
