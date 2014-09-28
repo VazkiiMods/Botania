@@ -92,9 +92,13 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
 	@Override
 	public void registerIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[2];
-		for(int i = 0; i < icons.length; i++)
+		int states = 2;
+		icons = new IIcon[states * 2];
+		
+		for(int i = 0; i < states; i++)
 			icons[i] = IconHelper.forItem(par1IconRegister, this, i);
+		icons[states] = IconHelper.forName(par1IconRegister, "desuGun0");
+		icons[states + 1] = IconHelper.forName(par1IconRegister, "desuGun1");
 	}
 
 	@Override
@@ -104,9 +108,28 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
 	@Override
 	public IIcon getIcon(ItemStack stack, int pass) {
-		return icons[Math.min(1, pass)];
+		boolean desu = isSugoiKawaiiDesuNe(stack);
+		return icons[Math.min(1, pass) + (desu ? 2 : 0)];
 	}
 
+	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
+	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN 
+	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
+	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN 
+	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
+	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN 
+	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
+	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN 
+	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
+	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN 
+	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
+	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN 
+	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
+	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN 
+	private boolean isSugoiKawaiiDesuNe(ItemStack stack) {
+		return stack.getDisplayName().equalsIgnoreCase("desu gun");
+	}
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
