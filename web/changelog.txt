@@ -1,3 +1,12 @@
+r1.2 120
+*Added desu.
+*Added squirt.
+*Removed unnecessary update ticks. More likely than not you'll notice an FPS increase, the larger your generation plant (no pun intended) the more noticeable this should be.
+*The Flugel Tiara is now a bit cheaper.
+*The Mana Enchanter will now function properly if an enchantment is more common than Efficiency or Sharpness.
+*The Rosa Arcana now produces a bit less mana.
+*The Globetrotter's Sash now is a bit slower.
+*[API] Increased version number to 13, since the performance changes involve api class changes. No adaption is required.
 r1.2 119
 *Added a proper entry documenting the Thaumcraft Integration in the mod (under Miscellaneous), also added the Botanurgist's Inkwell, that uses mana to make ink for the research table.
 *Added fancy side halo to the Flugel Tiara with Flugel wings (Nether Quartz). (Victorious3)
@@ -5,7 +14,7 @@ r1.2 119
 *Changed the "X:1 Ratio" display to "Zoom: Xx", just so it's a bit clearer.
 *Fixed crashes with the Rod of the Skies when Hunger Overhaul is installed. (squeek502)
 *Renders now use partial ticks and should look a lot smoother than before, provided you have high enough FPS, of course.
-*Updated the lore text for the Mana Tablet's crafting recipe in the lexicon to be more refering to modern times.
+*Updated the lore text for the Mana Tablet's crafting recipe in the lexicon to be more referring to modern times.
 r1.2 118
 *Fixed random crashes.
 *Fixed the Nightshade documentation being inaccurate.
