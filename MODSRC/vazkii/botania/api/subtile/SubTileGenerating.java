@@ -132,7 +132,6 @@ public class SubTileGenerating extends SubTileEntity {
 				int manaval = Math.min(mana, collector.getMaxMana() - collector.getCurrentMana());
 				mana -= manaval;
 				collector.recieveMana(manaval);
-				sync();
 			}
 		}
 	}

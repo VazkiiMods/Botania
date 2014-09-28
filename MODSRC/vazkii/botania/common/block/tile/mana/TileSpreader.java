@@ -332,7 +332,6 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 					}
 
 					canShootBurst = false;
-					worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 				}
 			}
 		}
