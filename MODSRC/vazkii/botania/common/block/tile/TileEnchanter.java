@@ -168,7 +168,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 				manaRequired = 0;
 				for(EnchantmentData data : enchants) {
 					Enchantment ench = Enchantment.enchantmentsList[data.enchant];
-					manaRequired += (int) (5000F * ((15 - ench.getWeight()) * 1.05F) * ((3F + data.level * data.level) * 0.25F) * (0.9F + enchants.size() * 0.05F));
+					manaRequired += (int) (5000F * ((15 - Math.min(15, ench.getWeight())) * 1.05F) * ((3F + data.level * data.level) * 0.25F) * (0.9F + enchants.size() * 0.05F));
 				}
 			} else if(mana >= manaRequired) {
 				manaRequired = 0;
@@ -188,25 +188,6 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 							otherSpark.registerTransfer(spark);
 					}
 				}
-				//				getManaFromPools : {
-				//				int range = 8;
-				//				for(int i = -range; i < range + 1; i++)
-				//					for(int j = -range; j < range + 1; j++) {
-				//						TileEntity tile = worldObj.getTileEntity(xCoord + i, yCoord, zCoord + j);
-				//						if(tile instanceof IManaPool) {
-				//							IManaPool pool = (IManaPool) tile;
-				//							int manaToRemove = Math.min(pool.getCurrentMana(), Math.min(1000, manaRequired - mana + 1));
-				//							if(!worldObj.isRemote) {
-				//								pool.recieveMana(-manaToRemove);
-				//								recieveMana((int) (manaToRemove * 0.9));
-				//								sync();
-				//							}
-				//
-				//							if(mana >= manaRequired)
-				//								break getManaFromPools;
-				//						}
-				//					}
-				//			}
 			}
 
 			break;
