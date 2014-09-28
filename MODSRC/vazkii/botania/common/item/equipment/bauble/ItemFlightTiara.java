@@ -39,7 +39,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 	public static List<String> playersWithFlight = new ArrayList();
-	private static final int COST = 50;
+	private static final int COST = 35;
 
 	public static IIcon[] wingIcons;
 	private static final int WING_TYPES = 7;
