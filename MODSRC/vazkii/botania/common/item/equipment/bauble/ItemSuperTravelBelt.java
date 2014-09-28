@@ -16,6 +16,6 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemSuperTravelBelt extends ItemTravelBelt {
 
 	public ItemSuperTravelBelt() {
-		super(LibItemNames.SUPER_TRAVEL_BELT, 0.1F, 0.3F, 4F);
+		super(LibItemNames.SUPER_TRAVEL_BELT, 0.085F, 0.3F, 4F);
 	}
 }
