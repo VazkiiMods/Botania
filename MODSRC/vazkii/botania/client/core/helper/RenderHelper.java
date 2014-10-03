@@ -17,7 +17,9 @@ import java.util.Random;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.settings.KeyBinding;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -187,5 +189,17 @@ public final class RenderHelper {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glEnable(GL11.GL_ALPHA_TEST);
 		GL11.glPopMatrix();
+	}
+	
+	public static String getKeyDisplayString(String keyName) {
+		String key = null;
+		KeyBinding[] keys = Minecraft.getMinecraft().gameSettings.keyBindings;
+		for(KeyBinding otherKey : keys)
+			if(otherKey.getKeyDescription().equals(keyName)) {
+				key = Keyboard.getKeyName(otherKey.getKeyCode());
+				break;
+			}
+		
+		return key;
 	}
 }

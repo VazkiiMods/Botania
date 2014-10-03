@@ -20,6 +20,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.oredict.OreDictionary;
@@ -31,6 +32,7 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconRecipeMappings;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.client.core.handler.HUDHandler;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.render.tile.RenderTilePool;
 import vazkii.botania.common.block.ModBlocks;
@@ -99,9 +101,20 @@ public class PageManaInfusionRecipe extends PageRecipe {
 		HUDHandler.renderManaBar(x, y, 0x0000FF, 0.75F, recipe.getManaToConsume(), TilePool.MAX_MANA / ratio);
 
 		String ratioString = String.format(StatCollector.translateToLocal("botaniamisc.ratio"), ratio);
+		String dropString = StatCollector.translateToLocal("botaniamisc.drop") + " " + EnumChatFormatting.BOLD + "(?)";
 
+		boolean hoveringOverDrop = false;
+		
 		boolean unicode = font.getUnicodeFlag();
 		font.setUnicodeFlag(true);
+		int dw = font.getStringWidth(dropString);
+		int dx = x + 35 - dw / 2;
+		int dy = gui.getTop() + 30;
+		
+		if(mx > dx && mx <= dx + dw && my > dy && my <= dy + 10)
+			hoveringOverDrop = true;
+		
+		font.drawString(dropString, dx, dy, 0x77000000);
 		font.drawString(ratioString, x + 100 - font.getStringWidth(ratioString), y + 5, 0x99000000);
 		font.setUnicodeFlag(unicode);
 
@@ -114,6 +127,13 @@ public class PageManaInfusionRecipe extends PageRecipe {
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		((GuiScreen) gui).drawTexturedModalRect(gui.getLeft(), gui.getTop(), 0, 0, gui.getWidth(), gui.getHeight());
 		GL11.glDisable(GL11.GL_BLEND);
+		
+		if(hoveringOverDrop) {
+			String key = RenderHelper.getKeyDisplayString("key.drop");
+			String tip0 = StatCollector.translateToLocal("botaniamisc.dropTip0").replaceAll("%key%", EnumChatFormatting.GREEN + key + EnumChatFormatting.WHITE);
+			String tip1 = StatCollector.translateToLocal("botaniamisc.dropTip1").replaceAll("%key%", EnumChatFormatting.GREEN + key + EnumChatFormatting.WHITE);
+			RenderHelper.renderTooltip(mx, my, Arrays.asList(tip0, tip1));
+		}
 	}
 
 	@Override

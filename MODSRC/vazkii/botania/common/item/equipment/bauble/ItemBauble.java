@@ -13,22 +13,19 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import java.util.List;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-
-import org.lwjgl.input.Keyboard;
-
 import vazkii.botania.common.item.ItemMod;
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class ItemBauble extends ItemMod implements IBauble {
 
@@ -67,21 +64,16 @@ public abstract class ItemBauble extends ItemMod implements IBauble {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
 		BaubleType type = getBaubleType(par1ItemStack);
 		if(GuiScreen.isShiftKeyDown()) {
 			addStringToTooltip(StatCollector.translateToLocal("botania.baubletype." + type.name().toLowerCase()), par3List);
 
-			KeyBinding key = null;
-			KeyBinding[] keys = Minecraft.getMinecraft().gameSettings.keyBindings;
-			for(KeyBinding otherKey : keys)
-				if(otherKey.getKeyDescription().equals("Baubles Inventory")) {
-					key = otherKey;
-					break;
-				}
+			String key = vazkii.botania.client.core.helper.RenderHelper.getKeyDisplayString("Baubles Inventory");
 
 			if(key != null)
-				addStringToTooltip(StatCollector.translateToLocal("botania.baubletooltip").replaceAll("%key%", Keyboard.getKeyName(key.getKeyCode())), par3List);
+				addStringToTooltip(StatCollector.translateToLocal("botania.baubletooltip").replaceAll("%key%", key), par3List);
 		} else addStringToTooltip(StatCollector.translateToLocal("botaniamisc.shiftinfo"), par3List);
 	}
 

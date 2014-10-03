@@ -53,6 +53,9 @@ botaniamisc.shareMsg=[{"text":"%name%","color":"light_purple"},{"text":" has sha
 botaniamisc.noLexicon=You need a Lexica Botania in-hand to read this.
 botaniamisc.cantOpen=It doesn't seem like your Lexica Botania has this page. Perhaps it comes from an outside source...?
 botaniamisc.clickToShare=Share
+botaniamisc.drop=Drop
+botaniamisc.dropTip0=Tip: You can press %key% in your inv to drop
+botaniamisc.dropTip1=CTRL-%key% will drop a full stack
 
 # COLORS
 botania.color0=White
