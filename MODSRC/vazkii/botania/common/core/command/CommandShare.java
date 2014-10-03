@@ -13,6 +13,7 @@ package vazkii.botania.common.core.command;
 
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.StatCollector;
@@ -40,4 +41,14 @@ public class CommandShare extends CommandBase {
 		MinecraftServer.getServer().getConfigurationManager().sendChatMsg(component);
 	}
 
+	
+	@Override
+	public int getRequiredPermissionLevel() {
+		return 0;
+	}
+	
+	@Override
+	public boolean canCommandSenderUseCommand(ICommandSender p_71519_1_) {
+		return p_71519_1_ instanceof EntityPlayer;
+	}
 }
