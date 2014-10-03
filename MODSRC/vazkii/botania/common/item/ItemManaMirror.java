@@ -169,11 +169,19 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 			return null;
 
 		int dim = getDimension(stack);
-		if(server.worldServers.length > dim && server.worldServers[dim] != null) {
-			TileEntity tile = server.worldServers[dim].getTileEntity(coords.posX, coords.posY, coords.posZ);
+		World world = null;
+		for(World w : server.worldServers)
+			if(w.provider.dimensionId == dim) {
+				world = w;
+				break;
+			}
+			
+		if(world != null) {
+			TileEntity tile = world.getTileEntity(coords.posX, coords.posY, coords.posZ);
 			if(tile != null && tile instanceof IManaPool)
 				return (IManaPool) tile;
 		}
+
 
 		return null;
 	}
