@@ -1,3 +1,9 @@
+r1.2 121
+*Fixed the Mana Mirror crashing the game if bound to a pool in the nether or any other dimension with ID < 0.
+*Fixed the share commands not working without OP permissions (cheats enabled in singleplayer).
+*Mana Infusion recipes are now properly labeled with "Drop" and also have a tooltip giving tips on drop shortcuts.
+*Wiki linking now has proper capitalization. Should fix websites that are case sensitive (*cough* FTB Wiki *cough*) not showing the proper page at times.
+*[API] Increased version number to 15 due to the wiki stuff.
 r1.2 120
 *Added desu.
 *Added squirt.
