@@ -11,6 +11,8 @@
  */
 package vazkii.botania.api.wiki;
 
+import org.apache.commons.lang3.text.WordUtils;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
@@ -60,7 +62,7 @@ public class SimpleWikiProvider implements IWikiProvider {
 		String name = getBlockName(world, pos);
 		if(name == null)
 			return null;
-		return String.format(urlBase, name.replaceAll(" ", replacement).toLowerCase());
+		return String.format(urlBase, WordUtils.capitalizeFully(name).replaceAll(" ", replacement));
 	}
 
 	@Override
