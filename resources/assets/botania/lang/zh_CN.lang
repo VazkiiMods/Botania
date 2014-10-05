@@ -41,7 +41,7 @@ botaniamisc.bookmark=书签 #%s
 botaniamisc.clickToSee=点击阅读
 botaniamisc.shiftToRemove=Shift点击移除
 botaniamisc.clickToAdd=点击添加书签
-botaniamisc.ratio=%s:1 Ratio
+botaniamisc.ratio=放大: %s倍
 botaniamisc.bottleTooltip=味道如何
 botaniamisc.coarseDirt0=劣质土,草
 botaniamisc.coarseDirt1=无法生长
@@ -49,6 +49,13 @@ botaniamisc.spawnerTip=Tip:使用刷怪蛋改变怪物类型
 botaniamisc.shardLevel=碎片能量 %s
 botaniamisc.lexiconIndex=辞典目录
 botaniamisc.hasIvy=有永恒常春藤
+botaniamisc.shareMsg=[{"text":"%name%","color":"light_purple"},{"text":" has shared a ","color":"blue"},{"text":"Lexica Botania","color":"green","hoverEvent":{"action":"show_text","value":{"text":"You can make one using a Book and a Sapling!","color":"aqua"}}},{"text":" entry, click to see it: ","color":"blue"},{"text":"[%entryname%]","color":"green","clickEvent":{"action":"run_command","value":"/botania-open %entry%"},"hoverEvent":{"action":"show_text","value":{"text":"Click to read about this","color":"aqua"}}}]
+botaniamisc.noLexicon=你需要有植物魔法辞典才能阅读它.
+botaniamisc.cantOpen=你的书里似乎没有这一页.或许它是从书外而来的...?
+botaniamisc.clickToShare=分享
+botaniamisc.drop=扔出
+botaniamisc.dropTip0=提示:你在物品栏内可以按下%key%键来扔出物品
+botaniamisc.dropTip1=CTRL加%key%键扔出一整组
 
 # COLORS
 botania.color0=白色
@@ -243,6 +250,7 @@ tile.botania:livingwood5.name=微光活木
 tile.botania:spreader0.name=魔力发射器
 tile.botania:spreader1.name=魔力发射器(红石)
 tile.botania:spreader2.name=精灵魔力发射器
+tile.botania:spreader3.name=盖亚魔力发射器
 tile.botania:pool0.name=魔力池
 tile.botania:pool1.name=永恒魔力池
 tile.botania:pool2.name=稀释魔力池
@@ -427,7 +435,8 @@ tile.botania:customBrick14.name=阿兹勒赫瓷砖
 tile.botania:customBrick15.name=阿兹勒赫瓷砖
 tile.botania:enderEyeBlock.name=末影监视者
 tile.botania:starfield.name=星空制造器
-tile.botania:rfGenerator.name=魔力流量场
+tile.botania:rfGenerator.name=魔力转换器
+tile.botania:elfGlass.name=精灵玻璃
 
 # FLOWER NAMES
 tile.botania:flower..name=植物魔法花
@@ -444,7 +453,7 @@ tile.botania:flower.manastar.reference=繁星下许愿
 tile.botania:flower.daybloom.name=太阳花
 tile.botania:flower.daybloom.reference=刺眼的光
 tile.botania:flower.endoflame.name=火红莲
-tile.botania:flower.endoflame.reference=就像夏娜的火焰
+tile.botania:flower.endoflame.reference=延迟发射
 tile.botania:flower.hydroangeas.name=水绣球
 tile.botania:flower.hydroangeas.reference=友好的甲壳类动物
 tile.botania:flower.thermalily.name=炽玫瑰
@@ -708,6 +717,7 @@ item.botania:sparkUpgrade3.name=火花升级:隔绝
 item.botania:diviningRod.name=占矿法杖
 item.botania:gravityRod.name=黑山法杖
 item.botania:regenIvy.name=永恒常春藤
+item.botania:manaInkwell.name=植物学家的笔墨
 
 # GUI TEXT
 botania.gui.lexicon.header=植物魔法辞典, %s 版目录
@@ -909,7 +919,7 @@ botania.page.lens35=力量透镜
 botania.entry.manaTransport=便携式魔力运输
 botania.page.manaTransport0=尽管用&1魔力发射器&0传输&4魔力&0 还不错,还有种方法能做到同 样的事.<br>&1魔力石板&0就是一个能储存 &4魔力&0的便携品.
 botania.page.manaTransport1=将它扔在&1魔力池&0上就会使两 者间进行&1魔力&0传输.<br>用&1森林法杖&0shift右击&1魔力池&0 就可以改变&4魔力&0的流向.<br>最后,不像普通的物品,落在 地上的魔力石板不会消失.
-botania.page.manaTransport2=它不支持安卓系统
+botania.page.manaTransport2=别把它放在口袋里,它有可能会折弯(iPhone6)
 botania.page.manaTransport3=也可从&1魔力池&0间接获取&4魔力&0, 使用&1魔力手镜&0,物品就会从池 子抽取魔力.<br>将镜子与魔力池绑定,只需要 用手镜&4shift右击&0池子就可以.<br>手镜不能以其他方式输入或 输出魔力.
 botania.page.manaTransport4=镜子镜子墙上的镜子...
 
@@ -928,10 +938,12 @@ botania.entry.manastar=魔力星
 botania.page.manastar0=&1森林法杖&0不精确的测量有时 不会告诉你&1魔力池&0的魔力是 在增加还是减少.<br>做一朵&1魔力星&0并临近魔力池 放置会使它因魔力减少而闪 红光,魔力增加闪蓝光.它的 测量间隔仅有几秒.
 botania.page.manastar1=&r我是一颗划过天空的流星&r.
 
-# -- ELVEN MANA SPREADER
+# -- ELVEN MANA SPREADERS
 botania.entry.dreamwoodSpreader=精灵魔力发射器
 botania.page.dreamwoodSpreader0=简而言之,&1梦之木&0引导&4魔力&0的 能力比&1活木&0要好.用&1源质钢锭&0 以及&1魔力珍珠&0做些改进你就 得到了能发射更多&4魔力&0的&1魔&0 &1力发射器&0,速度更快并且&4魔力&0 &4流失&0发生的更迟.<br>可惜的是,它不能做成&1红石魔&0 &1力发射器&0.
 botania.page.dreamwoodSpreader1=更好的发射器就是它了
+botania.page.dreamwoodSpreader2=将这个足够强力的发射器和 一个&1盖亚之魂&0与一块&1龙石&0相 结合,就能制作出更佳出色的 发射器.&1盖亚发射器&0在诸多的 魔力发射器之中居于顶端,有 着更优越的性能.
+botania.page.dreamwoodSpreader3=终极发射器
 
 # -- PAINTSLINGER LENS
 botania.entry.paintLens=涂色透镜
@@ -951,6 +963,7 @@ botania.page.fIntro4=&1红石根&0方便红石控制
 botania.entry.jadedAmaranthus=杰迪德苋
 botania.page.jadedAmaranthus0=每个人都喜欢花对吧?&1杰迪德&0 &1苋&0就是为此而生的.<br>用&1魔力池&0给它提供&4魔力&0会让 它在周围快速长出新的&1神秘&0 &1花&0,在范围内的任何一处.
 botania.page.jadedAmaranthus1=&o这难道是紫丁香.&r
+botania.page.jadedAmaranthus2=&o等一下,你刚刚是召唤出了一 大堆花么?<br>是啊,有什么奇怪的?<br>这不科学,不是么?<br>我有魔力,需要什么科学!
 
 # -- BELLETHRONE
 botania.entry.bellethorne=娇媚之刺
@@ -966,6 +979,7 @@ botania.page.dreadthorne1=&o不邦德先生,你可以去死了&r.
 botania.entry.heiseiDream=平成之梦
 botania.page.heiseiDream0=&1平成之梦&0会用&4魔力&0,会唤醒附 近&4怪物&0的仇恨,让它们窝里斗.
 botania.page.heiseiDream1=&o生于忧患,死于安逸&r.
+botania.page.heiseiDream2=&o平成壊れちゃって,壊れちゃ って.平和なんて嘘をついた のは谁だ?ほら忘れちゃっ た,忘れちゃった,祭坛に咎 めた罚も.ねえ砕けちゃって ,砕けちゃって,体も心もズ タズタにされて.<br>さあどこに行くの,どこに行 くの,君は谁の味方？
 
 # -- TIGERSEYE
 botania.entry.tigerseye=虎之眼
@@ -981,6 +995,7 @@ botania.page.orechid1=&o莉兹白会喜欢这朵花的&r.
 botania.entry.fallenKanade=天降之奏
 botania.page.fallenKanade0=&1天降之奏&0是有天使属性的花, 会从附近的&4魔力池&0抽取&4魔力&0 给附近的&4玩家&0提供生命恢复 的效果.
 botania.page.fallenKanade1=&oHand Sonic, version four&r.
+botania.page.fallenKanade2=&o我会和你结婚.不管你在现实 之中有怎样的障碍,即使无法 走路,无法站立,甚至无法生 育,既便如此我也会和你结婚 .不管在哪里遇到你.我都会 喜欢上你.<br>如果在六十亿分之一的概率 下再次相遇,即使那时候你的 身体依旧无法动弹,我也会和 你结婚的.(AngelBeats)
 
 # -- EXOFLAME
 botania.entry.exoflame=冶炼火
@@ -1058,6 +1073,8 @@ botania.page.daybloom1=需要注意的是当阳光照射一 片区域时这些�
 botania.page.daybloom1a=需要注意的是当阳光照射一 片区域时这些花会互相争夺 资源,因此在四个方向上有紧 邻的太阳花时会减少&4魔力&0的 产量.<br>这种花的生命力不太顽强,因 此过段时间后就会枯萎死亡.
 botania.page.daybloom3=产出缩减
 botania.page.daybloom2=&o崭新的一天开始了&r.
+botania.page.daybloom4=&o你们中有多少人曾为爱所伤? 又有多少次你发誓不会再爱? 有多少孤独寂寞的不眠之夜? 有过多少谎言?多少斗争?你 又为何每次都要重新卷入其 中?"爱即是痛,"我听见了你 的话语.爱有着残酷而又痛苦 的方法来报复你所遗弃的信 念. (...)
+botania.page.daybloom5=&o当你最需要的反而让你变得 存在薄弱,那又是何种感觉? 你再也不想迷失在悲伤之中. 可能会有一天,下着淅淅沥沥 的雨,你打开了一本老书.看 见了一张照片,那是当你们还 在一起的时候她所留下的笑 容.你也可能会在路上漫步, 随着思绪而行.但她的笑脸一 直在脑海中挥之不去...
 
 # -- NIGHTSHADE
 botania.entry.nightshade=夜颠茄
@@ -1109,6 +1126,9 @@ botania.page.gourmaryllis0=&1彼方兰&0是朵饥饿的花.它会吃 掉它附�
 botania.page.gourmaryllis1=消化美味的时间取决于它的 营养值,通俗来说,就是食物 所含的饱食度.<br>因此,一个&1牛排&0需要4秒来消 化,一个&1胡萝卜&0则需要2秒,一 个&1面包&0就需要2.5秒,以此类 推. 
 botania.page.gourmaryllis2=&4魔力&0的产量也取决于这个值, 食物越有营养它的效率就越 高.举例来说,单个&1牛排&0能比 两根&1胡萝卜&0产生更多的&1魔力&0, 无论是总量还是每秒的.
 botania.page.gourmaryllis3=&o为我们的新房客准备的火锅&r.
+botania.page.gourmaryllis4=&oWell, if Men ate themselves after death, one would think of less horror and negative feeling matter. But so you know what your cruelty leads to, think, fishes, that even Men eat themselves alive like you.<br>Alive was Job when he said: "Why do you follow me so inhumanely, thou who are eating me alive and getting sick of my flesh?". Do you want to see a Job like this? (...)
+botania.page.gourmaryllis5=&oSee a man of those who are followed by claims or accused of crimes, and behold all who are eating them. The bailiff eats him, the jailer eats him, the scribe eats him, the requestor eats him, the lawyer eats him, the inquirer eats him, the witness eats him, the judge eats him and he's not even sentenced he's already eaten. Worse are the Men than the crows. (...)
+botania.page.gourmaryllis6=&oThe sad one who was hanged, only eat him the crows past his execution and death, while the one who's being judged, not even executed or sentenced and he's already eaten.<br>The true evil are the Man who eat eachother, and those who commit to it are the largest, those who eat the smallest. For that you, Man, vos estis sal terrae.
 
 # - MAGICAL APPARATUS
 # -- FORCE RELAY
@@ -1493,7 +1513,7 @@ botania.entry.flightTiara=天翼族之冠
 botania.page.flightTiara0=&4天翼族&0一度支配着这片土地, 现在却是濒临灭绝的种族,作 为弑神者而被创造出来,拥有 着飞行的能力.<br>使用&1盖亚之魂&0能复制出一点 她们的力量,那就是以&1天翼族&0 &1之冠&0的形式,消耗&4魔力&0就能飞 行.
 botania.page.flightTiara1=异世界的四万本书
 botania.page.flightTiara2=将头冠配上各种石英碎片就 能做出各种漂亮的翅膀,每种 石英对应一种.<br>各种石英的合成可在&4杂项&0下 的&4装饰方块&0章节找到,&1精灵石&0 &1英&0是与精灵贸易&1下界石英&0而 获得的.
-botania.page.flightTiara3=添上羽翼
+botania.page.flightTiara3=添上羽翼(它们随时都可以切换)
 
 # -- GREAT FAIRY RING
 botania.entry.pixieRing=精灵指环
@@ -1553,6 +1573,8 @@ botania.page.elfResources4=交换&1精灵尘&0
 botania.page.elfResources5=交换&1龙石&0
 botania.page.elfResources6=&1精灵&0也十分热衷&4下界&0产的白 色光洁的方块,&1下界石英&0,而 它们的世界所有的石英是绿 色的.这种石英就像其他石英 一样,在&4杂项&0里浏览&4装饰方块&0 章节以查看&1下界石英&0相关页 面.
 botania.page.elfResources7=交换&1精灵石英&0
+botania.page.elfResources8=艾尔夫海姆也有着它自己独 特的&1玻璃&0,名为&1精灵玻璃&0.它 们看起来更加的明亮,并且其 图案也会根据环境而变化.
+botania.page.elfResources9=交换&1精灵玻璃&0
 
 # -- RITUAL OF GAIA
 botania.entry.gaiaRitual=盖亚仪式
@@ -1645,3 +1667,12 @@ botania.page.azulejo3=各种样式间循环
 botania.entry.starfield=星空制造器
 botania.page.starfield0=&1星空制造器&0就像它的名字一 样,通过将精灵的能量释放到 空中,置于世界上时,会在夜 晚创造出一片距离很远的星 空.
 botania.page.starfield=一闪一闪
+
+# -- THAUMCRAFT INTEGRATION
+botania.entry.tcIntegration=神秘学相关
+botania.page.tcIntegration0=&4植物学&0与&4神秘学&0常有交叉之 处.使用本书中和&5神秘学&0中 提到的一些东西就能将两者 结合制造新的物品.
+botania.page.tcIntegration1=首先,将任何一种&1魔力金属&0头 盔和一副&1揭示之护目镜&0结合 就能兼得两者的能力.<br>护甲的保护力和恢复力都将 与护目镜的能力共存,但&4要素&0 减免的能力则会丢失. 
+botania.page.tcIntegration2=揭示之头盔(植物魔法的头盔 都有效)
+botania.page.tcIntegration3=接下来,&4魔力&0也能作为一种特 殊的墨水来使用.给&1笔与墨&0注 入来自&1魔力池&0的&4魔力&0就能让 其将所提的&4魔力&0作为颜料源.<br>补充起来类似给&1魔力石板&0充 能,直接扔到池子上面即可.
+botania.page.tcIntegration4=制作&1植物学家的笔墨&0
+botania.page.tcIntegration5=最后,还有一些对&1注魔祭坛&0有 用的东西,能降低它的不稳定 性.<br>它们是&1荧光花,浮空花和任意&0 &1的水晶&0.
