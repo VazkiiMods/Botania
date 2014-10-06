@@ -34,6 +34,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.recipe.ManaGunLensRecipe;
+import vazkii.botania.common.crafting.recipe.ManaGunRemoveLensRecipe;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -55,37 +56,31 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 		setUnlocalizedName(LibItemNames.MANA_GUN);
 
 		GameRegistry.addRecipe(new ManaGunLensRecipe());
+		GameRegistry.addRecipe(new ManaGunRemoveLensRecipe());
 		RecipeSorter.register("botania:manaGunLens", ManaGunLensRecipe.class, Category.SHAPELESS, "");
+		RecipeSorter.register("botania:manaGunRemoveLens", ManaGunRemoveLensRecipe.class, Category.SHAPELESS, "");
 	}
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		if(!par3EntityPlayer.isSneaking()) {
-			if(par1ItemStack.getItemDamage() == 0) {
-				EntityManaBurst burst = getBurst(par3EntityPlayer, par1ItemStack, true);
-				if(burst != null && ManaItemHandler.requestManaExact(par1ItemStack, par3EntityPlayer, burst.getMana(), true)) {
-					if(!par2World.isRemote) {
-						par2World.playSoundAtEntity(par3EntityPlayer, "botania:manaBlaster", 0.6F, 1F);
-						par2World.spawnEntityInWorld(burst);
-					} else {
-						par3EntityPlayer.swingItem();
-						par3EntityPlayer.motionX -= burst.motionX * 0.1;
-						par3EntityPlayer.motionY -= burst.motionY * 0.3;
-						par3EntityPlayer.motionZ -= burst.motionZ * 0.1;
-					}
-					par1ItemStack.setItemDamage(COOLDOWN);
-				} else if(!par2World.isRemote)
-					par2World.playSoundAtEntity(par3EntityPlayer, "random.click", 0.6F, (1.0F + (par2World.rand.nextFloat() - par2World.rand.nextFloat()) * 0.2F) * 0.7F);
+		if(par1ItemStack.getItemDamage() == 0) {
+			EntityManaBurst burst = getBurst(par3EntityPlayer, par1ItemStack, true);
+			if(burst != null && ManaItemHandler.requestManaExact(par1ItemStack, par3EntityPlayer, burst.getMana(), true)) {
+				if(!par2World.isRemote) {
+					par2World.playSoundAtEntity(par3EntityPlayer, "botania:manaBlaster", 0.6F, 1F);
+					par2World.spawnEntityInWorld(burst);
+				} else {
+					par3EntityPlayer.swingItem();
+					par3EntityPlayer.motionX -= burst.motionX * 0.1;
+					par3EntityPlayer.motionY -= burst.motionY * 0.3;
+					par3EntityPlayer.motionZ -= burst.motionZ * 0.1;
+				}
+				par1ItemStack.setItemDamage(COOLDOWN);
+			} else if(!par2World.isRemote)
+				par2World.playSoundAtEntity(par3EntityPlayer, "random.click", 0.6F, (1.0F + (par2World.rand.nextFloat() - par2World.rand.nextFloat()) * 0.2F) * 0.7F);
 
-			}
-		} else {
-			ItemStack lens = getLens(par1ItemStack);
-			if(lens != null) {
-				if(!par3EntityPlayer.inventory.addItemStackToInventory(lens.copy()))
-					par3EntityPlayer.addChatMessage(new ChatComponentTranslation("botaniamisc.invFull"));
-				else setLens(par1ItemStack, null);
-			}
 		}
+
 
 		return par1ItemStack;
 	}
@@ -94,7 +89,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 	public void registerIcons(IIconRegister par1IconRegister) {
 		int states = 2;
 		icons = new IIcon[states * 2];
-		
+
 		for(int i = 0; i < states; i++)
 			icons[i] = IconHelper.forItem(par1IconRegister, this, i);
 		icons[states] = IconHelper.forName(par1IconRegister, "desuGun0");
@@ -129,7 +124,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 	private boolean isSugoiKawaiiDesuNe(ItemStack stack) {
 		return stack.getDisplayName().equalsIgnoreCase("desu gun");
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
@@ -143,6 +138,21 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 		int c = (int) (255 * mul);
 
 		return new Color(Math.max(0, Math.min(255, color.getRed() + c)), Math.max(0, Math.min(255, color.getGreen() + c)), Math.max(0, Math.min(255, color.getBlue() + c))).getRGB();
+	}
+
+	@Override
+	public boolean hasContainerItem(ItemStack stack) {
+		return true;
+	}
+
+	@Override
+	public ItemStack getContainerItem(ItemStack itemStack) {
+		return getLens(itemStack);
+	}
+
+	@Override
+	public boolean doesContainerItemLeaveCraftingGrid(ItemStack p_77630_1_) {
+		return false;
 	}
 
 	public EntityManaBurst getBurst(EntityPlayer player, ItemStack stack, boolean request) {
