@@ -1,3 +1,9 @@
+r1.2 122
+*Added an alchemy recipe to change Hardened Clay into Red Sand.
+*Fixed botania particles rendering white if the NEI spawn overlay is enabled.
+*Flower generation is now done in patches of the same color rather than fully randomly. Here's a <a href="http://i.imgur.com/CnOFssk.png">Before</a> & <a href="http://i.imgur.com/ggICjfM.png">After</a> (with flower spawn rates turned higher than by default)
+*Removing lenses from the Mana Blaster is now done via placing it in a crafting grid rather than shift-right click.
+*The Ring of Magnetization now only works when sneaking rather than when not sneaking.
 r1.2 121
 *Fixed the Mana Mirror crashing the game if bound to a pool in the nether or any other dimension with ID < 0.
 *Fixed the share commands not working without OP permissions (cheats enabled in singleplayer).
