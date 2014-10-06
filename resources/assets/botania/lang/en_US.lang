@@ -1496,7 +1496,7 @@ botania.page.miningRing1=Diggy diggy hole
 
 # -- RING OF MAGNETIZATION
 botania.entry.magnetRing=Ring of Magnetization
-botania.page.magnetRing0=By turning a &1Magnetizing Lens&0 into a wearable ring, one can use it to magnetize nearby items.<br>While equipped, this ring will make any nearby items magnetize towards the wearer, case they aren't sneaking.
+botania.page.magnetRing0=By turning a &1Magnetizing Lens&0 into a wearable ring, one can use it to magnetize nearby items.<br>While equipped, this ring will make any nearby items magnetize towards the wearer if they're sneaking.
 botania.page.magnetRing1=How do they work?
 
 # -- RING OF FAR REACH

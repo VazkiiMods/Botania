@@ -33,7 +33,7 @@ public class ItemMagnetRing extends ItemBauble {
 	public void onWornTick(ItemStack stack, EntityLivingBase player) {
 		super.onWornTick(stack, player);
 
-		if(!player.isSneaking()) {
+		if(player.isSneaking()) {
 			int range = 6;
 			double x = player.posX;
 			double y = player.posY -(player.worldObj.isRemote ? 1.62 : 0) + 0.75;
