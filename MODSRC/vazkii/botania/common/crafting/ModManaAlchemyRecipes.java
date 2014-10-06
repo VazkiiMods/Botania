@@ -44,6 +44,7 @@ public final class ModManaAlchemyRecipes {
 	public static RecipeManaInfusion enderPearlRecipe;
 	public static List<RecipeManaInfusion> redstoneToGlowstoneRecipes;
 	public static RecipeManaInfusion sandRecipe;
+	public static RecipeManaInfusion redSandRecipe;
 	public static RecipeManaInfusion coarseDirtRecipe;
 	public static RecipeManaInfusion prismarineRecipe;
 
@@ -115,6 +116,7 @@ public final class ModManaAlchemyRecipes {
 		redstoneToGlowstoneRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.glowstone_dust), new ItemStack(Items.redstone), 300));
 
 		sandRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Block.getBlockFromName("sand")), new ItemStack(Blocks.cobblestone), 50);
+		redSandRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Block.getBlockFromName("sand"), 1, 1), new ItemStack(Blocks.hardened_clay), 50);
 		coarseDirtRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.dirt, 1, 1), new ItemStack(Blocks.dirt), 120);
 
 		prismarineRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(ModItems.manaResource, 1, 10), new ItemStack(Items.quartz), 200);
