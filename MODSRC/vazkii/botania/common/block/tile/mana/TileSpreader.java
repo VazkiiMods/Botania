@@ -441,11 +441,9 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			int y = res.getScaledHeight() / 2 + 50;
 
 			mc.fontRenderer.drawStringWithShadow(lensName, x + 20, y + 5, color);
-			GL11.glDisable(GL11.GL_DEPTH_TEST);
 			RenderHelper.enableGUIStandardItemLighting();
 			RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, lens, x, y);
 			RenderHelper.disableStandardItemLighting();
-			GL11.glEnable(GL11.GL_DEPTH_TEST);
 			GL11.glDisable(GL11.GL_LIGHTING);
 			GL11.glDisable(GL11.GL_BLEND);
 		}

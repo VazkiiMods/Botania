@@ -174,26 +174,32 @@ public final class HUDHandler {
 	private void renderPoolRecipeHUD(ScaledResolution res, TilePool tile, ItemStack stack) {
 		for(RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes) {
 			if(recipe.matches(stack)) {
-				Minecraft mc = Minecraft.getMinecraft();
-				mc.renderEngine.bindTexture(manaBar);
-				int x = res.getScaledWidth() / 2 - 11;
-				int y = res.getScaledHeight() / 2 + 10;
+				if((!recipe.isAlchemy() || tile.alchemy) && (!recipe.isConjuration() || tile.conjuration)) {
+					Minecraft mc = Minecraft.getMinecraft();
+					int x = res.getScaledWidth() / 2 - 11;
+					int y = res.getScaledHeight() / 2 + 10;
 
-				int u = tile.getCurrentMana() >= recipe.getManaToConsume() ? 0 : 22;
-				int v = mc.thePlayer.getCommandSenderName().equals("haighyorkie") && mc.thePlayer.isSneaking() ? 23 : 8;
+					int u = tile.getCurrentMana() >= recipe.getManaToConsume() ? 0 : 22;
+					int v = mc.thePlayer.getCommandSenderName().equals("haighyorkie") && mc.thePlayer.isSneaking() ? 23 : 8;
 
-				GL11.glEnable(GL11.GL_BLEND);
-				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-				RenderHelper.drawTexturedModalRect(x, y, 0, u, v, 22, 15);
-				GL11.glDisable(GL11.GL_BLEND);
-				net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
-				RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine, stack, x - 20, y);
-				RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine, recipe.getOutput(), x + 26, y);
-				net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
+					GL11.glEnable(GL11.GL_BLEND);
+					GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+					
+					mc.renderEngine.bindTexture(manaBar);
+					RenderHelper.drawTexturedModalRect(x, y, 0, u, v, 22, 15);
+					GL11.glColor4f(1F, 1F, 1F, 1F);
+					
+					net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
+					RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack, x - 20, y);
+					RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, recipe.getOutput(), x + 26, y);
+					RenderItem.getInstance().renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, recipe.getOutput(), x + 26, y);
+					net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
+					
+					GL11.glDisable(GL11.GL_LIGHTING);
+					GL11.glDisable(GL11.GL_BLEND);
 
-				GL11.glDisable(GL11.GL_LIGHTING);
-
-				break;
+					break;
+				}
 			}
 		}
 	}
