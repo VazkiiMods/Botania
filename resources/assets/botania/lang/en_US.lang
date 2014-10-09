@@ -780,8 +780,9 @@ botania.page.pureDaisy3=White is bright and pure
 # -- WAND OF THE FOREST
 botania.entry.wand=Wand of the Forest
 botania.page.wand0=The general multi-use tool for a botanist is the &1Wand of the Forest&0.<br>This wand, made by, effectively, strapping a pair of &1Mystical Petals&0 of any color to a few &1Livingwood Twigs&0, is required for a good amount of tasks.
-botania.page.wand1=The wand can be bound to &1Mana Spreaders&0 by shift-right clicking them, and unbound via the same task. If the wand isn't bound to anything, shift-right clicking a block allows it to be rotated around the axis of the side it's clicked on.<br>For example, clicking on the top of a &1Chest&0 rotates it around. Most blocks which can be rotated should work.
-botania.page.wand2=The petals used determine the colors of the wand
+botania.page.wand1=The wand has two modes, &4Bind Mode&0 and &4Function Mode&0. In &4Bind Mode&0 it can be shift-right clicked on a compatible block to select it. Shift-right clicking elsewhere binds the two blocks. In &4Function Mode&0 it'll simply not do that for shift-right clicking.<br>The two modes can be switched freely by shift-right clicking on air.
+botania.page.wand2=If the wand isn't bound to anything, shift-right clicking a block allows it to be rotated around the axis of the side it's clicked on.<br>For example, clicking on the top of a &1Chest&0 rotates it around. Most blocks which can be rotated should work.
+botania.page.wand3=The petals used determine the colors of the wand
 
 # -- RUNIC ALTAR
 botania.entry.runeAltar=Runic Altar
@@ -826,8 +827,7 @@ botania.page.mIntro2=To get started with mastering the art of &4Mana&0, one woul
 
 # -- MANA SPREADER
 botania.entry.spreader=Mana Spreader
-botania.page.spreader0=The &1Mana Spreader&0 is the most important component in manipulating &4Mana&0.<br>This is the block that allows &4Mana&0 to travel from point A to point B. When this block is placed on the ground, it'll face one of 6 basic directions. By holding shift-right on it with a &1Wand of the Forest&0, one can orient it to the opposite of where it was clicked.
-botania.page.spreader10=Simply shift-right clicking once with the &1Wand of the Forest&0 on it once will bind the wand to it, pressing shift-right click elsewhere will orient the spreader to that point.<br>Shift-right clicking the spreader again unbinds it from the wand, note that this last step has to be done, else when trying to bind to another spreader, the last one will simply turn towards it instead.
+botania.page.spreader0=The &1Mana Spreader&0 is the most important component in manipulating &4Mana&0.<br>This is the block that allows &4Mana&0 to travel from point A to point B. When this block is placed on the ground, it'll face one of 6 basic directions. By holding shift-right on it with a &1Wand of the Forest&0, one can orient it to the opposite of where it was clicked. It can be pointed to other blocks with a wand in &4Bind Mode&0.
 botania.page.spreader1=Holding a &1Wand of the Forest&0
 botania.page.spreader2=The &1Mana Spreader&0 has a small internal buffer of &4Mana&0, which will get filled by nearby &4Generating Flowers&0. This buffer can be viewed by looking at the &1Spreader&0 with a &1Wand of the Forest&0, as demonstrated in the last page.<br>Note that the block needs to be right clicked with a wand to get accurate and adequate values.  
 botania.page.spreader3=Holding a &1Wand of the Forest&0 displays a beam which shows where the spreader is pointing at. Hovering over it shows the target. The sparkle that's always shown is the point when &4Mana loss&0 starts to happen.<br>If the target of the spreader is a block that can contain &4Mana&0, and isn't full, the spreader will fire a &4Mana Burst&0, which will travel to the target, and pass the &4Mana&0 along to it.
@@ -957,7 +957,7 @@ botania.page.paintLens1=A M'AIDER Stranded Girl
 botania.entry.fIntro=An Introduction to Function
 botania.page.fIntro0=There are various places in which the &4Mana&0 a botanist generates can be put to use, one of them is an assortment of &4Functional Flowers&0.<br>These flowers will drain &4Mana&0 from a nearby &1Mana Pool&0 into themselves, in order to do whatever task they were created for.<br>It's to note that these can't receive power directly through &1Mana Spreaders&0.
 botania.page.fIntro1=All &4Functional Flowers&0, alike the &4Generating Flowers&0 contain a small buffer of &4Mana&0.<br>Standard rules for &4Mana&0 reading apply, right clicking with a &1Wand of the Forest&0 will update the mana readings.
-botania.page.fIntro2=It is important to keep in mind that these flowers memorize the &1Mana Pool&0 from which they should pull &4Mana&0 out of. They'll only pull from the nearest pool present at the time of the flower being placed (or the closest placed afterward, if none was present), and none other, unless that one is removed.
+botania.page.fIntro2=It is important to keep in mind that these flowers memorize the &1Mana Pool&0 from which they should pull &4Mana&0 out of. They'll only pull from the nearest pool present at the time of the flower being placed (or the closest placed afterward, if none was present), and none other, unless that one is removed. It can be bound to another pool with a wand in &4Bind Mode&0.
 botania.page.fIntro3=Lastly, some functional flowers utilize a &1Redstone Root&0 in their creation. If they do, the flower's effect can be toggled with a redstone signal.
 botania.page.fIntro4=&1Redstone Root&0 for Redstone Control
 
@@ -1066,7 +1066,7 @@ botania.page.vinculotus1=Touch this black lotus with your fingers
 botania.entry.gIntro=An Introduction to Generation
 botania.page.gIntro0=&4Generating Mana&0 should be at the top of the priorities for any botanist. Luckily there's an array of &4Generating Flowers&0 willing to do the job.<br>These flowers, as their name shows, generate &4Mana&0, both passively and actively. Unless stated otherwise, all &4Generating Flowers&0 generate &4Mana&0 passively under certain circumstances.
 botania.page.gIntro1=All &4Generating Flowers&0, alike the &4Functional Flowers&0 contain a small buffer of &4Mana&0.<br>Standard rules for &4Mana&0 reading apply, right clicking with a &1Wand of the Forest&0 will update the mana readings.<br>This mana will be stored in the closest &1Mana Spreader&0 around.
-botania.page.gIntro2=It is important to keep in mind that these flowers memorize the &1Mana Spreader&0 into which they should put &4Mana&0 into. They'll only store into the nearest spreader present at the time of the flower being placed (or the closest placed afterward, if none was present), and none other, unless that one is removed.
+botania.page.gIntro2=It is important to keep in mind that these flowers memorize the &1Mana Spreader&0 into which they should put &4Mana&0 into. They'll only store into the nearest spreader present at the time of the flower being placed (or the closest placed afterward, if none was present), and none other, unless that one is removed. It can be bound to another spreader with a wand in &4Bind Mode&0.
 
 # -- DAYBLOOM
 botania.entry.daybloom=Daybloom
