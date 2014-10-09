@@ -33,6 +33,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.wand.ICoordBoundItem;
 import vazkii.botania.api.wand.ITileBound;
 import vazkii.botania.api.wand.IWandBindable;
@@ -74,6 +75,30 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 			TileEntity tile = par3World.getTileEntity(boundTile.posX, boundTile.posY, boundTile.posZ);
 			if(tile instanceof IWandBindable) {
 				if(((IWandBindable) tile).bindTo(par2EntityPlayer, par1ItemStack, par4, par5, par6, par7)) {
+					if(par3World.isRemote) {
+						Vector3 orig = new Vector3(boundTile.posX + 0.5, boundTile.posY + 0.5, boundTile.posZ + 0.5);
+						Vector3 end = new Vector3(par4 + 0.5, par5 + 0.5, par6 + 0.5);
+						Vector3 diff = end.copy().sub(orig);
+						Vector3 movement = diff.copy().normalize().multiply(0.05);
+						int iters = (int) (diff.mag() / movement.mag());
+						float huePer = 1F / iters;
+						float hueSum = (float) Math.random();
+						
+						Vector3 currentPos = orig.copy();
+						for(int i = 0; i < iters; i++) {
+							float hue = i * huePer + hueSum;
+							Color color = Color.getHSBColor(hue, 1F, 1F);
+							float r = (float) color.getRed() / 255F;
+							float g = (float) color.getGreen() / 255F;
+							float b = (float) color.getBlue() / 255F;
+							
+							Botania.proxy.setSparkleFXNoClip(true);
+							Botania.proxy.sparkleFX(par3World, currentPos.x, currentPos.y, currentPos.z, r, g, b, 0.5F, 4);
+							Botania.proxy.setSparkleFXNoClip(false);
+							currentPos.add(movement);
+						}
+					}
+					
 					par3World.markBlockForUpdate(boundTile.posX, boundTile.posY, boundTile.posZ);
 					setBoundTile(par1ItemStack, 0, -1, 0);
 				}
