@@ -27,6 +27,7 @@ public class SubTileExoflame extends SubTileFunctional {
 
 		int range = 5;
 		int rangeY = 2;
+		boolean did = false;
 
 		fireFurnaces : {
 			for(int i = -range + 1; i < range + 1; i++)
@@ -51,11 +52,9 @@ public class SubTileExoflame extends SubTileFunctional {
 										furnace.furnaceCookTime = Math.min(199, furnace.furnaceCookTime + 1);
 
 									mana -= 2;
+									did = true;
 
-									if(mana == 0) {
-										sync();
-										break fireFurnaces;
-									}
+									break fireFurnaces;
 								}
 							} else if(tile instanceof IExoflameHeatable) {
 								IExoflameHeatable heatable = (IExoflameHeatable) tile;
@@ -75,6 +74,9 @@ public class SubTileExoflame extends SubTileFunctional {
 						}
 					}
 		}
+		
+		if(did)
+			sync();
 	}
 
 	public boolean canFurnaceSmelt(TileEntityFurnace furnace){
