@@ -220,10 +220,16 @@ public class SubTileGenerating extends SubTileEntity {
 	
 	@Override
 	public boolean bindTo(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
-		TileEntity tile = player.worldObj.getTileEntity(x, y, z);
-		if(tile instanceof IManaCollector) {
-			linkedCollector = tile;
-			return true;
+		int range = 6;
+		range *= range;
+		
+		double dist = (x - supertile.xCoord) * (x - supertile.xCoord) + (y - supertile.yCoord) * (y - supertile.yCoord) + (z - supertile.zCoord) * (z - supertile.zCoord);
+		if(range >= dist) {
+			TileEntity tile = player.worldObj.getTileEntity(x, y, z);
+			if(tile instanceof IManaCollector) {
+				linkedCollector = tile;
+				return true;
+			}
 		}
 		
 		return false;
