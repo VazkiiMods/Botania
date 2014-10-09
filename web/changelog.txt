@@ -1,3 +1,20 @@
+r1.2 123
+*Fixed some wireframes rendering out of place.
+*Fixed the Exoflame appearing full even when it's empty.
+*Fixed the pool craft check HUD displaying recipes that require catalysts even if they're not installed.
+*Fixed the pool craft check HUD not displaying stack sizes (relevant for the conjuration catalyst).
+*Generating and functional flowers can now be manually bound to spreaders or pools, respectively, by shift right clicking with the wand of the forest on them while in bind mode.
+*Mana Spreaders now unbind themselves from the wand when bound to something, no need to do it manually.
+*Reorienting spreaders (and binding flowers now) has a beam effect as a visual confirmation.
+*Slightly modified the regular expression used in the divining rod algorithm, it should be actually accurate rather than accepting anything that starts with "ore".
+*Swapped the ring of magnetization's controls, again. It now picks up items when <i>not</i> sneaking, again.
+*The following things now make a sound:<ul><li>Mana Spreaders firing.</li><li>Endoflames consuming fuel.</li><li>Hydroangeas consuming water.</li><li>Thermalilies consuming lava.</li><li>Gorumaryllis eating food.</li><li>Kekimuruses eating cake.</li><li>Orechids making ores.</li><li>Agricarnations fertilizing crops.</li><li>Divination rods divining.</li><li><i>And a botania update on a pine tree~</li></ul>
+*The ring of magnetization now goes into a 5 second cooldown period whenver the player wearing it tosses an item, this should make using it a lot less hazardous.
+*The Spectator now has fancier particles and they display on top of blocks.
+*The Wand of the Forest now has two modes, Function Mode and Bind Mode. They can be swapped with shift-right click. Bind Mode is reqired to orient Mana Spreaders.
+*[API] Added IWandBindable for the ability to bind blocks to other blocks using the Wand of the Forest
+*[API] Increased version number to 16.
+*[API] SubTileEntities have the methods for IWandBindable built in. SubTileGenerating and SubTileFunctional use them already.
 r1.2 122
 *Added an alchemy recipe to change Hardened Clay into Red Sand.
 *Fixed botania particles rendering white if the NEI spawn overlay is enabled.
