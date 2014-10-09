@@ -58,6 +58,7 @@ public class SubTileHydroangeas extends SubTileGenerating {
 						supertile.getWorldObj().setBlockToAir(positions[0], supertile.yCoord, positions[1]);
 						didSomething = true;
 						burnTime += getBurnTime();
+						playSound();
 					}
 
 					if(didSomething)
@@ -85,6 +86,10 @@ public class SubTileHydroangeas extends SubTileGenerating {
 
 	public Block getBlockToSearchBelow() {
 		return null;
+	}
+	
+	public void playSound() {
+		supertile.getWorldObj().playSoundEffect(supertile.xCoord, supertile.yCoord, supertile.zCoord, "random.drink", 0.2F, 0.5F + (float) Math.random() * 0.5F);
 	}
 
 	public int getBurnTime() {

@@ -41,6 +41,7 @@ public class SubTileKekimurus extends SubTileGenerating {
 							else supertile.getWorldObj().setBlockMetadataWithNotify(x, y, z, meta, 1 | 2);
 
 							supertile.getWorldObj().playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
+							supertile.getWorldObj().playSoundEffect(supertile.xCoord, supertile.yCoord, supertile.zCoord, "random.eat", 1F, 0.5F + (float) Math.random() * 0.5F);
 							this.mana += mana;
 							sync();
 							return;

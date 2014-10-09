@@ -52,6 +52,7 @@ public class SubTileEndoflame extends SubTileGenerating {
 								this.burnTime = burnTime / 2;
 
 								stack.stackSize--;
+								supertile.getWorldObj().playSoundEffect(supertile.xCoord, supertile.yCoord, supertile.zCoord, "botania:endoflame", 0.2F, 1F);
 
 								if(stack.stackSize == 0)
 									item.setDead();

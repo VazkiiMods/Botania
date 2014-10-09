@@ -330,6 +330,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 					if(!worldObj.isRemote) {
 						mana -= burst.getStartingMana();
 						worldObj.spawnEntityInWorld(burst);
+						worldObj.playSoundEffect(xCoord, yCoord, zCoord, "botania:spreaderFire", 0.2F, 0.7F + 0.3F * (float) Math.random());
 					}
 
 					canShootBurst = false;

@@ -50,6 +50,7 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 						int val = ((ItemFood) stack.getItem()).func_150905_g(stack);
 						storedMana = val * val * 18;
 						cooldown = val * 10;
+						supertile.getWorldObj().playSoundEffect(supertile.xCoord, supertile.yCoord, supertile.zCoord, "random.eat", 0.2F, 0.5F + (float) Math.random() * 0.5F);
 						sync();
 					}
 

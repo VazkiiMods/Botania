@@ -48,6 +48,7 @@ public class SubtileOrechid extends SubTileFunctional {
 					supertile.getWorldObj().setBlock(coords.posX, coords.posY, coords.posZ, block, meta, 1 | 2);
 					if(ConfigHandler.blockBreakParticles)
 						supertile.getWorldObj().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(block) + (meta << 12));
+					supertile.getWorldObj().playSoundEffect(supertile.xCoord, supertile.yCoord, supertile.zCoord, "botania:orechid", 2F, 1F);
 
 					mana -= COST;
 					sync();
