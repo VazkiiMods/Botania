@@ -24,6 +24,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
@@ -43,7 +44,7 @@ import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.mana.ManaNetworkEvent;
-import vazkii.botania.api.wand.ITileBound;
+import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
@@ -54,7 +55,7 @@ import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.entity.EntityManaBurst.PositionProperties;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class TileSpreader extends TileSimpleInventory implements IManaCollector, ITileBound, IKeyLocked {
+public class TileSpreader extends TileSimpleInventory implements IManaCollector, IWandBindable, IKeyLocked {
 
 	private static final int MAX_MANA = 1000;
 	private static final int ULTRA_MAX_MANA = 6400;
@@ -534,5 +535,42 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	@Override
 	public String getOutputKey() {
 		return outputKey;
+	}
+
+	@Override
+	public boolean canSelect(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
+		return true;
+	}
+
+	@Override
+	public boolean bindTo(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
+		Vector3 thisVec = Vector3.fromTileEntityCenter(this);
+		Vector3 blockVec = new Vector3(x + 0.5, y + 0.5, z + 0.5);
+
+		AxisAlignedBB axis = player.worldObj.getBlock(x, y, z).getCollisionBoundingBoxFromPool(player.worldObj, x, y, z);
+		if(axis == null)
+			axis = AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1);
+
+		if(!blockVec.isInside(axis))
+			blockVec = new Vector3(axis.minX + (axis.maxX - axis.minX) / 2, axis.minY + (axis.maxY - axis.minY) / 2, axis.minZ + (axis.maxZ - axis.minZ) / 2);
+
+		Vector3 diffVec =  blockVec.copy().sub(thisVec);
+		Vector3 diffVec2D = new Vector3(diffVec.x, diffVec.z, 0);
+		Vector3 rotVec = new Vector3(0, 1, 0);
+		double angle = rotVec.angle(diffVec2D) / Math.PI * 180.0;
+
+		if(blockVec.x < thisVec.x)
+			angle = -angle;
+
+		rotationX = (float) angle + 90;
+
+		rotVec = new Vector3(diffVec.x, 0, diffVec.z);
+		angle = diffVec.angle(rotVec) * 180F / Math.PI;
+		if(blockVec.y < thisVec.y)
+			angle = -angle;
+		rotationY = (float) angle;
+
+		checkForReceiver();
+		return true;
 	}
 }

@@ -24,8 +24,9 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.ISubTileContainer;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.wand.ITileBound;
+import vazkii.botania.api.wand.IWandBindable;
 
-public class TileSpecialFlower extends TileMod implements ITileBound, ISubTileContainer {
+public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTileContainer {
 
 	private static final String TAG_SUBTILE_NAME = "subTileName";
 	private static final String TAG_SUBTILE_CMP = "subTileCmp";
@@ -120,5 +121,19 @@ public class TileSpecialFlower extends TileMod implements ITileBound, ISubTileCo
 		if(subTile == null)
 			return null;
 		return subTile.getBinding();
+	}
+
+	@Override
+	public boolean canSelect(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
+		if(subTile == null)
+			return false;
+		return subTile.canSelect(player, wand, x, y, z, side);
+	}
+
+	@Override
+	public boolean bindTo(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
+		if(subTile == null)
+			return false;
+		return subTile.bindTo(player, wand, x, y, z, side);	
 	}
 }

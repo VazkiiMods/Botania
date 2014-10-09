@@ -34,6 +34,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.wand.ICoordBoundItem;
 import vazkii.botania.api.wand.ITileBound;
+import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
@@ -44,6 +45,7 @@ import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
@@ -53,9 +55,9 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 	private static final String TAG_COLOR1 = "color1";
 	private static final String TAG_COLOR2 = "color2";
 	private static final String TAG_TICKS_SINCE_SPREADER = "ticksSinceSpreader";
-	private static final String TAG_SPREADER_X = "spreaderX";
-	private static final String TAG_SPREADER_Y = "spreaderY";
-	private static final String TAG_SPREADER_Z = "spreaderZ";
+	private static final String TAG_BOUND_TILE_X = "boundTileX";
+	private static final String TAG_BOUND_TILE_Y = "boundTileY";
+	private static final String TAG_BOUND_TILE_Z = "boundTileZ";
 
 	public ItemTwigWand() {
 		super(LibItemNames.TWIG_WAND);
@@ -65,43 +67,18 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 	@Override
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
 		Block block = par3World.getBlock(par4, par5, par6);
-		ChunkCoordinates boundSpreader = getBoundSpreader(par1ItemStack);
+		ChunkCoordinates boundTile = getBoundTile(par1ItemStack);
 
-		if(boundSpreader.posY != -1 && par2EntityPlayer.isSneaking() && (boundSpreader.posX != par4 || boundSpreader.posY != par5 || boundSpreader.posZ != par6)) {
-			TileEntity tile = par3World.getTileEntity(boundSpreader.posX, boundSpreader.posY, boundSpreader.posZ);
-			if(tile instanceof TileSpreader) {
-				TileSpreader spreader = (TileSpreader) tile;
+		if(boundTile.posY != -1 && par2EntityPlayer.isSneaking() && (boundTile.posX != par4 || boundTile.posY != par5 || boundTile.posZ != par6)) {
+			TileEntity tile = par3World.getTileEntity(boundTile.posX, boundTile.posY, boundTile.posZ);
+			if(tile instanceof IWandBindable) {
+				if(((IWandBindable) tile).bindTo(par2EntityPlayer, par1ItemStack, par4, par5, par6, par7)) {
+					par3World.markBlockForUpdate(boundTile.posX, boundTile.posY, boundTile.posZ);
+					setBoundTile(par1ItemStack, 0, -1, 0);
+				}
 
-				Vector3 spreaderVec = Vector3.fromTileEntityCenter(spreader);
-				Vector3 blockVec = new Vector3(par4 + 0.5, par5 + 0.5, par6 + 0.5);
-
-				AxisAlignedBB axis = par3World.getBlock(par4, par5, par6).getCollisionBoundingBoxFromPool(par3World, par4, par5, par6);
-				if(axis == null)
-					axis = AxisAlignedBB.getBoundingBox(par4, par5, par6, par4 + 1, par5 + 1, par6 + 1);
-
-				if(!blockVec.isInside(axis))
-					blockVec = new Vector3(axis.minX + (axis.maxX - axis.minX) / 2, axis.minY + (axis.maxY - axis.minY) / 2, axis.minZ + (axis.maxZ - axis.minZ) / 2);
-
-				Vector3 diffVec =  blockVec.copy().sub(spreaderVec);
-				Vector3 diffVec2D = new Vector3(diffVec.x, diffVec.z, 0);
-				Vector3 rotVec = new Vector3(0, 1, 0);
-				double angle = rotVec.angle(diffVec2D) / Math.PI * 180.0;
-
-				if(blockVec.x < spreaderVec.x)
-					angle = -angle;
-
-				spreader.rotationX = (float) angle + 90;
-
-				rotVec = new Vector3(diffVec.x, 0, diffVec.z);
-				angle = diffVec.angle(rotVec) * 180F / Math.PI;
-				if(blockVec.y < spreaderVec.y)
-					angle = -angle;
-				spreader.rotationY = (float) angle;
-
-				spreader.checkForReceiver();
-				par3World.markBlockForUpdate(boundSpreader.posX, boundSpreader.posY, boundSpreader.posZ);
 				return true;
-			} else setBoundSpreader(par1ItemStack, 0, -1, 0);
+			} else setBoundTile(par1ItemStack, 0, -1, 0);
 		} else if(par2EntityPlayer.isSneaking()) {
 			block.rotateBlock(par3World, par4, par5, par6, ForgeDirection.getOrientation(par7));
 			if(par3World.isRemote)
@@ -133,19 +110,23 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 				}
 			}
 		} else if(block instanceof IWandable) {
-			boolean spreader = par3World.getTileEntity(par4, par5, par6) instanceof TileSpreader;
+			TileEntity tile = par3World.getTileEntity(par4, par5, par6);
+			boolean spreader = tile instanceof TileSpreader;
+			boolean bindable = tile instanceof IWandBindable;
+
 			int ticks = getTicksSinceSpreaderUse(par1ItemStack);
 			boolean wanded = false;
-			if(spreader && ticks == 5 && par2EntityPlayer.isSneaking()) {
-				if(boundSpreader.posX == par4 && boundSpreader.posY == par5 && boundSpreader.posZ == par6)
-					setBoundSpreader(par1ItemStack, 0, -1, 0);
-				else setBoundSpreader(par1ItemStack, par4, par5, par6);
+			if(bindable && (!spreader || ticks == 5) && par2EntityPlayer.isSneaking() && ((IWandBindable) tile).canSelect(par2EntityPlayer, par1ItemStack, par4, par5, par6, par7)) {
+				if(boundTile.posX == par4 && boundTile.posY == par5 && boundTile.posZ == par6)
+					setBoundTile(par1ItemStack, 0, -1, 0);
+				else setBoundTile(par1ItemStack, par4, par5, par6);
 
 				if(par3World.isRemote)
 					par2EntityPlayer.swingItem();
 				par3World.playSoundAtEntity(par2EntityPlayer, "botania:ding", 0.1F, 1F);
 
-				setTicksSinceSpreaderUse(par1ItemStack, 0);
+				if(spreader)
+					setTicksSinceSpreaderUse(par1ItemStack, 0);
 				wanded = true;
 			} else {
 				wanded = ((IWandable) block).onUsedByWand(par2EntityPlayer, par1ItemStack, par3World, par4, par5, par6, par7);
@@ -180,10 +161,10 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 		if(ticks < 5)
 			setTicksSinceSpreaderUse(par1ItemStack, ticks + 1);
 
-		ChunkCoordinates coords = getBoundSpreader(par1ItemStack);
+		ChunkCoordinates coords = getBoundTile(par1ItemStack);
 		TileEntity tile = par2World.getTileEntity(coords.posX, coords.posY, coords.posZ);
-		if(tile == null || !(tile instanceof TileSpreader))
-			setBoundSpreader(par1ItemStack, 0, -1, 0);
+		if(tile == null || !(tile instanceof IWandBindable))
+			setBoundTile(par1ItemStack, 0, -1, 0);
 	}
 
 	@Override
@@ -262,22 +243,22 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 		return ItemNBTHelper.getInt(stack, TAG_TICKS_SINCE_SPREADER, 20);
 	}
 
-	public static void setBoundSpreader(ItemStack stack, int x, int y, int z) {
-		ItemNBTHelper.setInt(stack, TAG_SPREADER_X, x);
-		ItemNBTHelper.setInt(stack, TAG_SPREADER_Y, y);
-		ItemNBTHelper.setInt(stack, TAG_SPREADER_Z, z);
+	public static void setBoundTile(ItemStack stack, int x, int y, int z) {
+		ItemNBTHelper.setInt(stack, TAG_BOUND_TILE_X, x);
+		ItemNBTHelper.setInt(stack, TAG_BOUND_TILE_Y, y);
+		ItemNBTHelper.setInt(stack, TAG_BOUND_TILE_Z, z);
 	}
 
-	public static ChunkCoordinates getBoundSpreader(ItemStack stack) {
-		int x = ItemNBTHelper.getInt(stack, TAG_SPREADER_X, 0);
-		int y = ItemNBTHelper.getInt(stack, TAG_SPREADER_Y, -1);
-		int z = ItemNBTHelper.getInt(stack, TAG_SPREADER_Z, 0);
+	public static ChunkCoordinates getBoundTile(ItemStack stack) {
+		int x = ItemNBTHelper.getInt(stack, TAG_BOUND_TILE_X, 0);
+		int y = ItemNBTHelper.getInt(stack, TAG_BOUND_TILE_Y, -1);
+		int z = ItemNBTHelper.getInt(stack, TAG_BOUND_TILE_Z, 0);
 		return new ChunkCoordinates(x, y, z);
 	}
 
 	@Override
 	public ChunkCoordinates getBinding(ItemStack stack) {
-		ChunkCoordinates bound = getBoundSpreader(stack);
+		ChunkCoordinates bound = getBoundTile(stack);
 		if(bound.posY != -1)
 			return bound;
 

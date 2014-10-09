@@ -21,6 +21,7 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.IIcon;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.wand.IWandBindable;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -98,6 +99,20 @@ public class SubTileEntity {
 	@SideOnly(Side.CLIENT)
 	public ChunkCoordinates getBinding() {
 		return null;
+	}
+	
+	/**
+	 * @see IWandBindable#canSelect(EntityPlayer, ItemStack, int, int, int, int)
+	 */
+	public boolean canSelect(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
+		return false;
+	}
+
+	/**
+	 * @see IWandBindable#bindTo(EntityPlayer, ItemStack, int, int, int, int)
+	 */
+	public boolean bindTo(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
+		return false;
 	}
 
 	/**
