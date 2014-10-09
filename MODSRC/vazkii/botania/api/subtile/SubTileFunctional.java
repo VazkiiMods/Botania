@@ -181,6 +181,22 @@ public class SubTileFunctional extends SubTileEntity {
 	}
 
 	@Override
+	public boolean canSelect(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
+		return true;
+	}
+	
+	@Override
+	public boolean bindTo(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
+		TileEntity tile = player.worldObj.getTileEntity(x, y, z);
+		if(tile instanceof IManaPool) {
+			linkedPool = tile;
+			return true;
+		}
+		
+		return false;
+	}
+	
+	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		String name = StatCollector.translateToLocal("tile.botania:flower." + getUnlocalizedName() + ".name");
 		int color = 0x66000000 | getColor();

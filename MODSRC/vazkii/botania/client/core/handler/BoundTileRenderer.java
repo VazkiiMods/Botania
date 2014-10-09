@@ -78,10 +78,10 @@ public final class BoundTileRenderer {
 				axis.maxX -= pos.posX;
 				axis.minY -= pos.posY;
 				axis.maxY -= pos.posY;
-				axis.minZ -= pos.posZ;
-				axis.maxZ -= pos.posZ;
+				axis.minZ -= pos.posZ + 1;
+				axis.maxZ -= pos.posZ + 1;
 
-				GL11.glScalef(1F, 1F, -1F);
+				GL11.glScalef(1F, 1F, 1F);
 
 				GL11.glLineWidth(1F);
 				renderBlockOutline(axis);

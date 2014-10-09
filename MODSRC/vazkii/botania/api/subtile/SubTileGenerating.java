@@ -25,6 +25,7 @@ import net.minecraft.util.StatCollector;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaCollector;
+import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
 /**
@@ -212,6 +213,22 @@ public class SubTileGenerating extends SubTileEntity {
 		return new ChunkCoordinates(linkedCollector.xCoord, linkedCollector.yCoord, linkedCollector.zCoord);
 	}
 
+	@Override
+	public boolean canSelect(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
+		return true;
+	}
+	
+	@Override
+	public boolean bindTo(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
+		TileEntity tile = player.worldObj.getTileEntity(x, y, z);
+		if(tile instanceof IManaCollector) {
+			linkedCollector = tile;
+			return true;
+		}
+		
+		return false;
+	}
+	
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		String name = StatCollector.translateToLocal("tile.botania:flower." + getUnlocalizedName() + ".name");
