@@ -65,6 +65,7 @@ public class ItemItemFinder extends ItemBauble {
 
 		String pos = ItemNBTHelper.getString(stack, TAG_POSITIONS, "");
 		String[] tokens = pos.split(";");
+		
 		for(String token : tokens) {
 			if(token.isEmpty())
 				continue;
@@ -74,16 +75,20 @@ public class ItemItemFinder extends ItemBauble {
 				int x = Integer.parseInt(tokens_[0]);
 				int y = Integer.parseInt(tokens_[1]);
 				int z = Integer.parseInt(tokens_[2]);
-				float m = 0.08F;
-				Botania.proxy.wispFX(player.worldObj, x + (float) Math.random(), y + 0.5, z + (float) Math.random(), 0.2F * (float) Math.random(), 1F, 0.2F * (float) Math.random(), 0.15F + 0.05F * (float) Math.random(), m * (float) (Math.random() - 0.5), m * (float) (Math.random() - 0.5), m * (float) (Math.random() - 0.5));
+				float m = 0.02F;
+				Botania.proxy.setWispFXDepthTest(false);
+				Botania.proxy.wispFX(player.worldObj, x + (float) Math.random(), y + (float) Math.random(), z + (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.15F + 0.05F * (float) Math.random(), m * (float) (Math.random() - 0.5), m * (float) (Math.random() - 0.5), m * (float) (Math.random() - 0.5));
 			} else {
 				int id = Integer.parseInt(token);
 				Entity e = player.worldObj.getEntityByID(id);
 
-				if(e != null && Math.random() < 0.6)
-					Botania.proxy.wispFX(player.worldObj, e.posX + (float) (Math.random() * 0.5 - 0.25) * 0.45F, e.posY + e.height, e.posZ + (float) (Math.random() * 0.5 - 0.25) * 0.45F, 0.2F * (float) Math.random(), 1F, 0.2F * (float) Math.random(), 0.15F + 0.05F * (float) Math.random(), -0.05F - 0.03F * (float) Math.random());
+				if(e != null && Math.random() < 0.6) {
+					Botania.proxy.setWispFXDepthTest(Math.random() < 0.6);
+					Botania.proxy.wispFX(player.worldObj, e.posX + (float) (Math.random() * 0.5 - 0.25) * 0.45F, e.posY + e.height, e.posZ + (float) (Math.random() * 0.5 - 0.25) * 0.45F, (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.15F + 0.05F * (float) Math.random(), -0.05F - 0.03F * (float) Math.random());
+				}
 			}
 		}
+		Botania.proxy.setWispFXDepthTest(true);
 	}
 
 	public void tickServer(ItemStack stack, EntityPlayer player) {
