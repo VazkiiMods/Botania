@@ -56,6 +56,8 @@ botaniamisc.clickToShare=Share
 botaniamisc.drop=Drop
 botaniamisc.dropTip0=Tip: You can press %key% in your inv to drop
 botaniamisc.dropTip1=CTRL-%key% will drop a full stack
+botaniamisc.wandMode.bind=Bind Mode
+botaniamisc.wandMode.function=Function Mode
 
 # COLORS
 botania.color0=White

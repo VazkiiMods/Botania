@@ -16,6 +16,7 @@ import java.awt.Color;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -46,9 +47,12 @@ import vazkii.botania.api.wiki.WikiHooks;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibObfuscation;
 import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public final class HUDHandler {
 
@@ -66,6 +70,8 @@ public final class HUDHandler {
 
 				if(stack != null) {
 					if(pos != null && stack.getItem() == ModItems.twigWand) {
+						renderWandModeDisplay(event.resolution);
+						
 						if(block instanceof IWandHUD)
 							((IWandHUD) block).renderHUD(mc, event.resolution, mc.theWorld, pos.blockX, pos.blockY, pos.blockZ);
 					}
@@ -114,6 +120,25 @@ public final class HUDHandler {
 
 			if(anyRequest)
 				renderManaInvBar(event.resolution, creative, totalMana, totalMaxMana);
+		}
+	}
+	
+	private void renderWandModeDisplay(ScaledResolution res) {
+		Minecraft mc = Minecraft.getMinecraft();
+		int ticks = ReflectionHelper.getPrivateValue(GuiIngame.class, mc.ingameGUI, LibObfuscation.REMAINING_HIGHLIGHT_TICKS);
+		ticks -= 15;
+		if(ticks > 0) {
+			int alpha = Math.min(255, (int) ((float) ticks * 256.0F / 10.0F));
+			int color = 0x00CC00 + (alpha << 24);
+			String disp = StatCollector.translateToLocal(ItemTwigWand.getModeString(mc.thePlayer.getCurrentEquippedItem()));
+			
+			int x = res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(disp) / 2;
+			int y = res.getScaledHeight() - 70;
+			
+			GL11.glEnable(GL11.GL_BLEND);
+			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			mc.fontRenderer.drawStringWithShadow(disp, x, y, color);
+			GL11.glDisable(GL11.GL_BLEND);
 		}
 	}
 
