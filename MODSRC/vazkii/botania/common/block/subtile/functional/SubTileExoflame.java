@@ -52,8 +52,10 @@ public class SubTileExoflame extends SubTileFunctional {
 
 									mana -= 2;
 
-									if(mana == 0)
+									if(mana == 0) {
+										sync();
 										break fireFurnaces;
+									}
 								}
 							} else if(tile instanceof IExoflameHeatable) {
 								IExoflameHeatable heatable = (IExoflameHeatable) tile;
