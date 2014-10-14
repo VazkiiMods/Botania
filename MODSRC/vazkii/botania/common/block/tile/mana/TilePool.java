@@ -208,27 +208,24 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 							if(getCurrentMana() > 0 && mana.getMana(stack) < mana.getMaxMana(stack))
 								didSomething = true;
 
-							if(!worldObj.isRemote) {
-								int manaVal = Math.min(1000, Math.min(getCurrentMana(), mana.getMaxMana(stack) - mana.getMana(stack)));
+							int manaVal = Math.min(1000, Math.min(getCurrentMana(), mana.getMaxMana(stack) - mana.getMana(stack)));
+							if(!worldObj.isRemote) 
 								mana.addMana(stack, manaVal);
-								recieveMana(-manaVal);
-							}
+							recieveMana(-manaVal);
 						}
 					} else {
 						if(canAccept) {
 							if(mana.getMana(stack) > 0 && !isFull())
 								didSomething = true;
 
-							if(!worldObj.isRemote) {
-								int manaVal = Math.min(1000, Math.min(manaCap - getCurrentMana(), mana.getMana(stack)));
+							int manaVal = Math.min(1000, Math.min(manaCap - getCurrentMana(), mana.getMana(stack)));
+							if(!worldObj.isRemote) 
 								mana.addMana(stack, -manaVal);
-								recieveMana(manaVal);
-							}
+							recieveMana(manaVal);
 						}
 					}
 
 					if(didSomething) {
-						worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 						if(worldObj.isRemote && ConfigHandler.chargingAnimationEnabled && worldObj.rand.nextInt(20) == 0) {
 							Vector3 itemVec = Vector3.fromTileEntity(this).add(0.5, 0.5 + Math.random() * 0.3, 0.5);
 							Vector3 tileVec = Vector3.fromTileEntity(this).add(0.2 + Math.random() * 0.6, 0, 0.2 + Math.random() * 0.6);
