@@ -44,6 +44,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 	public EntitySpark(World world) {
 		super(world);
+		isImmuneToFire = true;
 	}
 
 	@Override
