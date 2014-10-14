@@ -68,6 +68,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	boolean outputting = false;
 	public boolean alchemy = false;
 	public boolean conjuration = false;
+	boolean catalystsRegistered = false;
 
 	public int color = 0;
 	int mana;
@@ -110,7 +111,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	}
 
 	public boolean collideEntityItem(EntityItem item) {
-		if(item.isDead || item.age > 100 && item.age < 130)
+		if(item.isDead || (item.age > 100 && item.age < 130) || !catalystsRegistered)
 			return false;
 
 		boolean didChange = false;
@@ -191,7 +192,8 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 		alchemy = worldObj.getBlock(xCoord, yCoord - 1, zCoord) == ModBlocks.alchemyCatalyst;
 		conjuration = worldObj.getBlock(xCoord, yCoord - 1, zCoord) == ModBlocks.conjurationCatalyst;
-
+		catalystsRegistered = true;
+		
 		List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1));
 		for(EntityItem item : items) {
 			if(item.isDead)
