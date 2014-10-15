@@ -25,11 +25,17 @@ import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.IIcon;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibObfuscation;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.ReflectionHelper;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemVirus extends ItemMod {
 
@@ -40,6 +46,7 @@ public class ItemVirus extends ItemMod {
 	public ItemVirus() {
 		setUnlocalizedName(LibItemNames.VIRUS);
 		setHasSubtypes(true);
+		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	@Override
@@ -63,14 +70,29 @@ public class ItemVirus extends ItemMod {
 		}
 		return false;
 	}
+	
+	@SubscribeEvent
+	public void onLivingHurt(LivingHurtEvent event) {
+		EntityLivingBase entity = event.entityLiving;
+		if(entity.ridingEntity != null && entity.ridingEntity instanceof EntityLivingBase)
+			entity = (EntityLivingBase) entity.ridingEntity;
+		
+		if(entity instanceof EntityHorse && event.source == DamageSource.fall) {
+			EntityHorse horse = (EntityHorse) entity;
+			if((horse.getHorseType() == 3 || horse.getHorseType() == 4) && horse.isTame())
+				event.setCanceled(true);
+		}
+	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item, CreativeTabs tab, List list) {
 		for(int i = 0; i < SUBTYPES; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public IIcon getIconFromDamage(int par1) {
 		return icons[Math.min(icons.length - 1, par1)];
 	}
@@ -85,6 +107,7 @@ public class ItemVirus extends ItemMod {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister par1IconRegister) {
 		icons = new IIcon[SUBTYPES];
 		for(int i = 0; i < SUBTYPES; i++)
