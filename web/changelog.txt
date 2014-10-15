@@ -1,3 +1,17 @@
+r1.2 124
+*Added a config option for silent mana spreaders.
+*Added support for all 3 Gany's Mods wikis for shift-right clicking with the lexica botania.
+*All variants of quartz blocks can be properly returned to quartz item format with the alchemy catalyst.
+*Blocks from Ars Magica will no longer display to be opened "AE2 Wiki" when hovered with the lexica. The behaviour worked as intended before, just the display was wrong.
+*Fixed lag when mana pools are (dis)charging an item.
+*Fixed Mana Pools not registering the catalyst below them on the first tick, so if an item was transformed upon loading the world it could've been transformed to the non-catalyst recipe.
+*Fixed the default flower spawn rates being wrong (3 and 32). They're now 2 and 16. <i>Funny story, this was supposed to have been changed in build 90, but wasn't due to an oversight on my part. Regardless, it's now :V</i>
+*Horses infected with a virus no longer take fall damage, this includes the riders.
+*Mana Bursts will no longer be affected by ProjectE Interdiction Torches.
+*Mana tools/armor will now not try to pull mana from tablets that don't have enough and fail, causing them to get damaging.
+*Sparks are now immune to fire.
+*The Agricarnation now uses a redstone root and can be controlled a redstone signal.
+*[API] Increased version number to 17 as per wiki changes in the main class.
 r1.2 123
 *Fixed some wireframes rendering out of place.
 *Fixed the Exoflame appearing full even when it's empty.
