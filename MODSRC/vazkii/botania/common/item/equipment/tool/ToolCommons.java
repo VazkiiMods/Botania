@@ -32,11 +32,10 @@ public final class ToolCommons {
 
 	public static void damageItem(ItemStack stack, int dmg, EntityLivingBase entity, int manaPerDamage) {
 		int manaToRequest = dmg * manaPerDamage;
-		int manaRequested = entity instanceof EntityPlayer ? ManaItemHandler.requestMana(stack, (EntityPlayer) entity, manaToRequest, true) : 0;
+		boolean manaRequested = entity instanceof EntityPlayer ? ManaItemHandler.requestManaExact(stack, (EntityPlayer) entity, manaToRequest, true) : false;
 
-		int finalDamage = dmg - manaRequested / manaPerDamage;
-		if(finalDamage > 0)
-			stack.damageItem(finalDamage, entity);
+		if(!manaRequested)
+			stack.damageItem(dmg, entity);
 	}
 
 	public static void removeBlocksInIteration(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int xs, int ys, int zs, int xe, int ye, int ze, Block block, Material[] materialsListing, boolean silk, int fortune, boolean dispose) {
