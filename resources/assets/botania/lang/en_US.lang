@@ -141,6 +141,7 @@ pylonModel.old=Use Old Pylon Model
 elfPortal.particles.enabled=Enable Portal Particles
 chargeAnimation.enabled=Charging Animation Enabled
 vanillaParticleConfig.enabled=Use Vanilla Particle Config
+manaSpreaders.silent=Silent Mana Spreaders
 flowerTextures.alt=Alternate Flower Textures
 matrixMode.enabled=Enable Matrix Mode
 references.enabled=Enable Tooltip References

@@ -49,6 +49,7 @@ import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityManaBurst;
@@ -330,7 +331,8 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 					if(!worldObj.isRemote) {
 						mana -= burst.getStartingMana();
 						worldObj.spawnEntityInWorld(burst);
-						worldObj.playSoundEffect(xCoord, yCoord, zCoord, "botania:spreaderFire", 0.2F, 0.7F + 0.3F * (float) Math.random());
+						if(!ConfigHandler.silentSpreaders)
+							worldObj.playSoundEffect(xCoord, yCoord, zCoord, "botania:spreaderFire", 0.2F, 0.7F + 0.3F * (float) Math.random());
 					}
 
 					canShootBurst = false;
