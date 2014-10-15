@@ -155,9 +155,12 @@ public final class BotaniaAPI {
 		registerModWiki("BuildCraft|Factory", buildcraftWiki);
 		registerModWiki("BuildCraft|Silicon", buildcraftWiki);
 		registerModWiki("BuildCraft|Transport", buildcraftWiki);
-		registerModWiki("ArsMagica2", new SimpleWikiProvider("AE2 Wiki", "http://wiki.arsmagicamod.com/wiki/%s"));
+		registerModWiki("ArsMagica2", new SimpleWikiProvider("ArsMagica2 Wiki", "http://wiki.arsmagicamod.com/wiki/%s"));
 		registerModWiki("PneumaticCraft", new SimpleWikiProvider("PneumaticCraft Wiki", "http://www.minemaarten.com/wikis/pneumaticcraft-wiki/pneumaticcraft-wiki-%s"));
 		registerModWiki("StevesCarts2", new SimpleWikiProvider("Steve's Carts Wiki", "http://stevescarts2.wikispaces.com/%s"));
+		registerModWiki("GanysSurface", new SimpleWikiProvider("Gany's Surface Wiki", "http://ganys-surface.wikia.com/wiki/%s"));
+		registerModWiki("GanysNether", new SimpleWikiProvider("Gany's Nether Wiki", "http://ganys-nether.wikia.com/wiki/%s"));
+		registerModWiki("GanysEnd", new SimpleWikiProvider("Gany's End Wiki", "http://ganys-end.wikia.com/wiki/%s"));
 	}
 
 	/**
