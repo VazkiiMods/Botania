@@ -42,12 +42,14 @@ import vazkii.botania.common.crafting.ModManaConjurationRecipes;
 import vazkii.botania.common.crafting.ModManaInfusionRecipes;
 import vazkii.botania.common.crafting.ModPetalRecipes;
 import vazkii.botania.common.crafting.ModRuneRecipes;
+import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.network.GuiHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
@@ -86,6 +88,8 @@ public class CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new SpawnerChangingHandler());
 
 		FMLCommonHandler.instance().bus().register(new CommonTickHandler());
+		
+		FMLInterModComms.sendMessage("ProjectE", "interdictionblacklist", EntityManaBurst.class.getCanonicalName());
 	}
 
 	public void postInit(FMLPostInitializationEvent event) {
