@@ -148,10 +148,10 @@ public final class ConfigHandler {
 		enchanterEnabled = loadPropBool("manaEnchanter.enabled", desc, enchanterEnabled);
 
 		desc = "The quanity of flower patches to generate in the world, defaults to 3, the lower the number the less patches geenrate.";
-		flowerQuantity = loadPropInt("worldgen.flower.quantity", desc, 3);
+		flowerQuantity = loadPropInt("worldgen.flower.quantity", desc, flowerQuantity);
 
 		desc = "The density of each flower patch generataed, defaults to 32, the lower the number, the less each patch will have.";
-		flowerDensity = loadPropInt("worldgen.flower.density", desc, 32);
+		flowerDensity = loadPropInt("worldgen.flower.density", desc, flowerDensity);
 
 		if(config.hasChanged())
 			config.save();
