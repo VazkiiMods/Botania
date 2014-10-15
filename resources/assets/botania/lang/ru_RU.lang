@@ -293,7 +293,7 @@ tile.botania:manaVoid.name=Пустота маны
 tile.botania:manaDetector.name=Детектор маны
 tile.botania:enchanter.name=Зачарователь маной
 tile.botania:turntable.name=Поворотный стол распространителей
-tile.botania:tinyPlanetBlock.name=Крошечная планета
+tile.botania:tinyPlanetBlock.name=Микропланета
 tile.botania:alchemyCatalyst.name=Алхимический катализатор
 tile.botania:openCrate0.name=Открытый ящик
 tile.botania:openCrate1.name=Сборочный ящик
@@ -644,7 +644,7 @@ item.botania:terrasteelChest.name=Кираса из террастали
 item.botania:terrasteelLegs.name=Поножи из террастали
 item.botania:terrasteelBoots.name=Ботинки из террастали
 item.botania:terraSword.name=Терралезвие
-item.botania:tinyPlanet.name=Крошечная планета
+item.botania:tinyPlanet.name=Микропланета
 item.botania:manaRing.name=Кольцо маны
 item.botania:auraRing.name=Кольцо ауры
 item.botania:manaRingGreater.name=Сильное кольцо маны
@@ -705,15 +705,15 @@ item.botania:elementiumHelmReveal.name=Шлем откровения из эле
 item.botania:itemFinder.name=Наблюдатель
 item.botania:superLavaPendant.name=Багряный кулон
 item.botania:enderHand.name=Рука Края
-item.botania:glassPick.name=Vitreous Pickaxe
+item.botania:glassPick.name=Стеклянная кирка
 item.botania:spark.name=Искра
 item.botania:sparkUpgrade0.name=Дополнитель искр: Рассеиватель
 item.botania:sparkUpgrade1.name=Дополнитель искр: Доминантный
 item.botania:sparkUpgrade2.name=Дополнитель искр: Подчиненный
 item.botania:sparkUpgrade3.name=Дополнитель искр: Изолированый
-item.botania:diviningRod.name=Rod of Divining
-item.botania:gravityRod.name=Rod of the Black Mesa
-item.botania:regenIvy.name=Timeless Ivy
+item.botania:diviningRod.name=Жезл Волхвов
+item.botania:gravityRod.name=Жезл Чёрной Мессы
+item.botania:regenIvy.name=Вневременный плющ
 item.botania:manaInkwell.name=Botanurgist's Inkwell
 
 # GUI TEXT
@@ -1398,98 +1398,98 @@ botania.page.virus1=Здесь нет пони
 botania.page.virus2=Здесь тоже нет
 
 # -- ROD OF THE HIGHLANDS
-botania.entry.skyDirtRod=Rod of the Highlands
-botania.page.skyDirtRod0=While the &1Rod of the Lands&0 is all well and good, being able to place &1Dirt&0 without something to hold it would be great.<br>The &1Rod of the Highlands&0 does just that, while maintaining the original power of the &1Rod of the Lands&0, it can also place &1Dirt&0 in mid air, for an increased &4Mana&0 cost.
-botania.page.skyDirtRod1=Dirty Stick mk2
+botania.entry.skyDirtRod=Жезл Высокогорья
+botania.page.skyDirtRod0=В то время как &1Жезл земель&0 хорошо работает, устанавливая блок &1Земли&0, было бы неплохо устанавливать его без каких-либо движений.<br>&1Жезл земель&0 делает именно это, сохраняя при этом оригинальную силу &1Жезла Земель&0, он также размещает блок &1Земли&0 в воздухе, но при повышенном расходе &4Маны&0.
+botania.page.skyDirtRod1=Грязепалка версия 2.0
 
 # -- HAND OF ENDER
-botania.entry.enderHand=Hand of Ender
-botania.page.enderHand0=The &1Hand of Ender&0 allows the user to access the interdimensional ender field, on other words, their &1Ender Chest&0 inventory. This can be done anywhere by right clicking with the hand at the cost of some &4Mana&0.<br>Using the hand on another player will open up &otheir&r inventory instead, at a lot higher &4Mana&0 cost.
-botania.page.enderHand0a=The &1Hand of Ender&0 allows the user to access the interdimensional ender field, on other words, their &1Ender Chest&0 inventory. This can be done anywhere by right clicking with the hand at the cost of some &4Mana&0.
-botania.page.enderHand1=Zezima hates him!
-botania.page.enderHand1a=It's like the 4G of Ender Chests
+botania.entry.enderHand=Рука Края
+botania.page.enderHand0=&1Рука Края&0 позволяет получить доступ к силовым полям меж измерений, другими словами, доступ к инвентарю &1Сундука Края&0. Доступ можно получить из любого места шелчком ПКМ с рукой Края, при этом будет потрачено немного &4Маны&0.<br>Использование руки края на другого игрока откроет их инвентарь вместо вашего, при этом &4Маны&0 нужно гораздо больше.
+botania.page.enderHand0a=&1Рука Края&0 позволяет получить доступ к силовым полям меж измерений, другими словами, доступ к инвентарю &1Сундука Края&0. Доступ можно получить из любого места шелчком ПКМ с рукой Края, при этом будет потрачено немного &4Маны&0.
+botania.page.enderHand1=Зезима ненавидит его!
+botania.page.enderHand1a=Это как 4G для Эндер Сундука
 
 # -- VITREOUS PICKAXE
-botania.entry.glassPick=Vitreous Pickaxe
-botania.page.glassPick0=Placing down &1Glass&0 and having to break it again can be a heartbreaking experience. Luckily, by creating a &1Vitreous Pickaxe&0, one can gather the &1Glass&0 back by mining it with the pick, it's like cheap &4Silk Touch&0 for glass!
-botania.page.glassPick1=Trapped inside with food
+botania.entry.glassPick=Стеклянная кирка
+botania.page.glassPick0=Разместив блок &1Стекла&0 и попытавшись забрать его назад можно получит горький опыт. К счастью есть выход, создав &1Стеклянную кирку&0, можно будет забрать назад &1Стекло&0 добывая его киркой. Это дешевый аналог кирки с &4Шелковым касанием&0 для стекла!
+botania.page.glassPick1=В ловушке внутри с едой
 
 # -- ROD OF DIVINING
-botania.entry.diviningRod=Rod of Divining
-botania.page.diviningRod0=As its name implies, the &1Rod of Divining&0 has the ability to divine in a decently large radius around the user to find any ores. These will shine for a little bit, allowing their location.<br>This process, obviously, requires a decent amount of &4Mana&0 from the user's inventory.
+botania.entry.diviningRod=Жезл Волхвов
+botania.page.diviningRod0=Как видно из названия, &1Жезл Волхвов&0 может распростанять сияние в большом радиусе вокруг игрока для поиска любых руд. Светиться они будут не долго, но их расположение можно будет обнаружить.<br>Этот процесс ожидаемо, требует приличного количества  &4маны&0 из инвентаря игрока.
 botania.page.diviningRod1=inb4 ee3 
 
 # -- ROD OF THE BLACK MESA
-botania.entry.gravityRod=Rod of the Black Mesa
-botania.page.gravityRod0=The &1Rod of the Black Mesa&0 is a powerful relic, legend says that the first of these devices was found atop a dark mesa, along with a crowbar.<br>To use this device, the user may right click and hold on a monster or item to pick it up. Releasing right click will drop the selected entity, while left click will fire it in a powerful burst.
-botania.page.gravityRod1=This power does not come free, of course. It requires significant amounts of &4Mana&0 from the user's inventory.
-botania.page.gravityRod2=Why the flax?
+botania.entry.gravityRod=Жезл Чёрной Мессы
+botania.page.gravityRod0=&1Жезл Чёрной Мессы&0это мощная реликвия. Легенды говорят, что это первая реликвия которая была найдена на вершине черной горы, среди разного хлама.<br>Чтобы использовать это устройство, нужно щелкнуть ПКМ и удерживать её на моба, чтобы поднять его. Отпустив ПКМ моб упадет на землю, в то время как шелчек ЛКМ выстрелит мощным всплеском энергии.
+botania.page.gravityRod1=Эта власть конечно не дается даром и требует значительных количеств &4Маны&0 из инвентаря пользователя.
+botania.page.gravityRod2=Почему лён?
 
 # -- TIMELESS IVY
-botania.entry.regenIvy=Timeless Ivy
-botania.page.regenIvy0=While &1Manasteel&0 or &1Elementium&0 tools have the ability to harness &4Mana&0 and use it to protect their bodies, other tools or armor don't have this property.<br>A handful of &1Timeless Ivy&0 can be attached on to virtually any item, allowing it to be repaired with &4Mana&0.
-botania.page.regenIvy1=To apply it, one'd simply craft the tool in question alongside the ivy and 3 of an item that can be used to repair the tool in an anvil (eg. &1Diamonds&0 for a &1Diamond Pickaxe&0).<br>Due to not being in direct contact with the material, the amount of &4Mana&0 used by the ivy in comparison to &1Manasteel&0 is rather high.
-botania.page.regenIvy2=Cut it in Varrock
+botania.entry.regenIvy=Вневременный плющ
+botania.page.regenIvy0=Пока инструменты из &1Манастали&0 или &1Элементия&0 могут поглощать &4ману&0, при этом защищая себя от поломки, другие инструменты и броня на это не способны.<br>Горстка &1Вневременного плюща&0 может быть применена практически к любому предмету, позволяя ему восстанавливаться поглощая &4ману&0.
+botania.page.regenIvy1=Чтобы применить его, нужно просто скрафтить инструмент рядом с плющом и тремя предметами, которые могут использоваться для ремонта инструмента на наковальне (например &1Алмаз&0 для &1Алмазной кирки&0).<br>В связи с отсутствием прямого контакта с материалом инструмента, количество &4маны&0 используемой плющом по сравнению с &1Манасталью&0 достаточно высока.
+botania.page.regenIvy2=Нарежьте его в Варроке
 
 # - BAUBLES
 # -- AN INTRODUCTION TO BAUBLES
-botania.entry.bIntro=An Introduction to Baubles
-botania.page.bIntro0=&4Baubles&0, also commonly referred to as &4Trinkets&0 or &4Charms&0 are pieces of equipment which offer all sorts of different effects, when worn.<br>To equip them, one can press the &4B&0 (configurable) key. There's four slots, one &4Amulet&0 slot, two &4Ring&0 slots and one &4Belt&0 slot.
-botania.page.bIntro1=The &4Baubles Screen&0
-botania.page.bIntro2=It's to note that, if &4Thaumcraft&0 or any other mod that uses the baubles system is installed, this inventory will be shared between the various mods. 
+botania.entry.bIntro=Знакомство с Baubles
+botania.page.bIntro0=&4Фенечками&0обычно называют &4брелоки&0 или &4подвески&0, являющиеся частью системы, которая накладывает на носящего различные эффекты.<br>Для экипировки, просто нажмите кнопку &4B&0 (настраиваемо). Здесь 4 слота, один для &4Амулета&0, два для &4Колец&0и один для &4Пояса&0.
+botania.page.bIntro1=&4Экран Baubles&0
+botania.page.bIntro2=Следует отметить что если установлен &4Thaumcraft&0 или другой мод который использует эту систему фенечек, этот инвентарь будет совместно использоваться разними модами. 
 
 # -- TINY PLANET
-botania.entry.tinyPlanet=Tiny Planet
-botania.page.tinyPlanet0=The &1Tiny Planet&0 is a &4Bauble&0 with gravitational proprieties, while equipped, the &1Tiny Planet&0 will pull any nearby &4Mana Bursts&0 towards the wearer, having them orbit around him or her.<br>By increasing its mass with some &1Stone&0, it can also be placed in world, for the same effect. 
-botania.page.tinyPlanet1=Clearly from rebirth
-botania.page.tinyPlanet2=More of a planet than Pluto
+botania.entry.tinyPlanet=Микропланета
+botania.page.tinyPlanet0=&1Микропланета&0 это &4фенечка&0 с гравитационными свойствами. Когда &1Микропланета&0 экипирована, она потянет ближайшие &4Всплески маны&0 к игроку, располагая их по орбите вокруг него.<br>Увеличивая массу микропланеты с помощью &1Камня&0, можно разместить в мире с тем же эффектом.
+botania.page.tinyPlanet1=Очевидно для перерождения
+botania.page.tinyPlanet2=Планета больше чем Плутон
 
 # -- BAND OF MANA
-botania.entry.manaRing=Band of Mana
-botania.page.manaRing0=Combining a &1Mana Tablet&0 with some &1Manasteel&0 creates an easily worn &4Ring&0, that functions exactly similar to the tablet used to make it, but can be worn as a &4Bauble&0.<br>Using some &1Terrasteel&0 allows for an upgrade, which lets it store about four times as much &4Mana&0.
-botania.page.manaRing1=Creating the ring
-botania.page.manaRing2=Upgrading the ring
+botania.entry.manaRing=Кольцо маны
+botania.page.manaRing0=Соединив &1Планшет маны&0 и несколько &1манаслитков&0 создается маленькое &4колечко&0, которое имеет такие же функции как у планшета маны, но может носиться как &4Фенечка&0.<br>Кольцо можно улучшить используя немного &1Террастали&0, при этом количество хранимой маны &4Mana&0 увеличивается в 4 раза.
+botania.page.manaRing1=Создание кольца
+botania.page.manaRing2=Улучшение кольца
 
 # -- BAND OF AURA
-botania.entry.auraRing=Band of Aura
-botania.page.auraRing0=The &1Band of Aura&0 is a bit of a deviation from the typical &1Band of Mana&0, in which, instead of storing &4Mana&0, it slowly, while equipped, creates it and stores it into &4Mana&0 containing items in the wearer's inventory.<br>Using some &1Terrasteel&0 allows for an upgrade, which lets it generate &4Mana&0 at a significantly faster rate.
-botania.page.auraRing1=Creating the ring
-botania.page.auraRing2=Upgrading the ring
+botania.entry.auraRing=Кольцо ауры
+botania.page.auraRing0=&1Кольцо ауры&0 немного отличается от обычного &1Кольца маны&0. Вместо хранения &4маны&0, оно медленно создаёт её и наполняет &4маной&0 предметы в инвентаре.<br>Используя немного &1Террастали&0 можно создать более мощное кольцо, которое генерирует &4ману&0 значительно быстрее.
+botania.page.auraRing1=Создание кольца
+botania.page.auraRing2=Улучшение кольца
 
 # -- SOUJOURNER'S SASH
-botania.entry.travelBelt=Soujourner's Sash
-botania.page.travelBelt0=Traversing terrain sometimes proves to be a hassle. The &1Soujourner's Sash&0 can be equipped in the &4Belt&0 slot, and when worn will increase the movement speed, jump height and resistance to fall damage of the wearer.<br>Lastly, if not sneaking, it also allows the wearer to walk over 1 block high gaps without jumping with ease.
-botania.page.travelBelt1=...everell
+botania.entry.travelBelt=Пояс путешественника
+botania.page.travelBelt0=Путешествие по местности иногда может быть хлопотным занятием. &1Пояс путешественника&0 при экипировке в слот &4ремня&0 будет повышать скорость передвижения, высоту прыжка и снижать урон от падения.<br>Наконец, если не красться, он также позволяет владельцу с легкостью подниматься более чем на 1 блок в высоту без прыжков.
+botania.page.travelBelt1=...эверелл
 
 # -- TECTONIC GIRDLE
-botania.entry.knockbackBelt=Tectonic Girdle
-botania.page.knockbackBelt0=By harnessing the forces of tectonic movement, the &1Tectonic Girdle&0, when worn, will negate any &4Knockback&0 applied to the wearer by outside attacks.
-botania.page.knockbackBelt1=Don't... move
+botania.entry.knockbackBelt=Тектонический пояс
+botania.page.knockbackBelt0=Используя силу тектонического движения, &1Тектонический пояс&0, при ношении, сведёт на нет эффект &4отталкивания&0, применённый к игроку от внешней атаки.
+botania.page.knockbackBelt1=Не... двигайся
 
 # -- SNOWFLAKE PENDANT
-botania.entry.icePendant=Snowflake Pendant
-botania.page.icePendant0=The &1Snowflake Pendant&0 is a &4Bauble&0 that resonates freezing energy, while it's worn, any nearby still &1Water&0 blocks at foot level will be converted into &1Ice&0.<br>The &1Ice&0 will melt shortly afterward the wearer leaves the area. Lastly, this charm will not freeze any blocks if the wearer is sneaking or fully submerged.  
-botania.page.icePendant1=Do you want to build a snowman?
+botania.entry.icePendant=Кулон со снежинкой
+botania.page.icePendant0=&1Кулон со снежинкой&0 это &4фенечка&0 которая собирает морозильную энергию, которая при ношении кулона, будет замораживать блок стоячей &1воды&0 на уровне ног игрока в &1блок льда&0.<br>&1Лёд&0 растает после того как игрок покинет область. И наконец, эти чары не заморозят блоки, если владелец крадётся или уже полностью погружен в воду.
+botania.page.icePendant1=Вы хотели построить снеговика?
 
 # -- PYROCLAST PENDANT
-botania.entry.lavaPendant=Pyroclast Pendant
-botania.page.lavaPendant0=The &1Pyroclast Pendant&0 is a &4Bauble&0 that absorbs low heat, while it's worn, if the wearer is caught on fire and is not directly standing on &1Fire&0, &1Lava&0 or anything else that can induce burning, they'll be extinguished.
-botania.page.lavaPendant1=Hanako could have used one of these
+botania.entry.lavaPendant=Пирокластический кулон
+botania.page.lavaPendant0=&1Пирокластический кулон&0 это&4фенечка&0 которая когда экипирована поглощает немного тепла. Если владелец подожжен и не стоит прямо на &1Огне&0, &1Лаве&0 или чем-то другом, поддерживающем горение, он будет потушен.
+botania.page.lavaPendant1=Ханако мог бы использовать один из них
 
 # -- GOLDEN LAUREL CROWN
-botania.entry.goldenLaurel=Golden Laurel Crown
-botania.page.goldenLaurel0=One of the uses for &1Gaia Spririts&0 is to, grant a layer of immortality to one that uses them, while wearing a &1Golden Laurel Crown&0, if the wearer were to die, the crown will shatter, regenerating all of their health and giving them a short period of invincibility.
-botania.page.goldenLaurel1=Given the theme, probably Viridi
+botania.entry.goldenLaurel=Золотой лавровый венок
+botania.page.goldenLaurel0=Одним из применений &1Духа Гайи&0 является предоставление бессмертия носящему его игроку. &1Золотой лавровый венок&0 при смерти игрока развеется, но при этом регенерирует всё здоровье игроку и сделает бессмертным на короткий период.
+botania.page.goldenLaurel1=С учетом темы, наверное Viridi
 
 # -- RING OF CHORDATA
-botania.entry.waterRing=Ring of Chordata
-botania.page.waterRing0=The &1Ring of Chordata&0 allows the wearer to swim like a fish. While it's equipped, the wearer is bestowed with the ability to accelerate to a decent speed while underwater. It also gives the wearer good sight underwater and, if &4Mana&0 is present, at the cost of some of it, the ability to breathe indefinitely.
-botania.page.waterRing1=Go swim with the fishes
+botania.entry.waterRing=Кольцо хордовых
+botania.page.waterRing0=&1Кольцо хордовых&0 позволяет носителю плавать как рыба. Пока оно экипировано, носящий способен быстро плавать. Оно также даёт хорошее подводное зрение и, при наличии &4маны&0, способность дышать под водой.
+botania.page.waterRing1=Давай поплаваем с рыбками
 
 # -- RING OF THE MANTLE
-botania.entry.miningRing=Ring of the Mantle
-botania.page.miningRing0=The &1Ring of the Mantle&0 allows one to mine faster, while equipped and &4Mana&0 is present in the inventory, it'll give a &4Haste&0 effect to the wearer. Some &4Mana&0 is used while the wearer swings their arm or equipped item, be it for attacking, mining or just flailing.
-botania.page.miningRing1=Diggy diggy hole
+botania.entry.miningRing=Кольцо мантии
+botania.page.miningRing0=&1Кольцо мантии&0 позволяет игроку добывать руду быстре. Когда оно экипировано и &4маны&0 в инвентаре достаточно игрок получает эффект &4Скорость&0. Немного &4маны&0 используется пока игрок машет рукой или экипированным предметом, будь то для нападения, шахтерства или просто так.
+botania.page.miningRing1=Копай копай дыру
 
 # -- RING OF MAGNETIZATION
 botania.entry.magnetRing=Ring of Magnetization
