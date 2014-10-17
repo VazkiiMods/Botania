@@ -17,7 +17,6 @@ import net.minecraft.util.IIcon;
 
 /**
  * A singleton instance for a SubTileEntity, this is called for a few methods.
- * You can attach this
  */
 public abstract class SubTileSignature {
 

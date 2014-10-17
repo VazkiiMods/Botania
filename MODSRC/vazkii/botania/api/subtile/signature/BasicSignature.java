@@ -16,6 +16,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import vazkii.botania.api.BotaniaAPI;
 
+/**
+ * A basic (and fallback) implementation of SubTileSignature.
+ */
 public class BasicSignature extends SubTileSignature {
 
 	final String name;
