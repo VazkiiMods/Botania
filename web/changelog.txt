@@ -1,3 +1,10 @@
+r1.2 125
+*Lowered the maximum amount of bookmarks from 10 to 8, so the searchbar fits.
+*You can now type in a index page to search, pressing enter if there's only one entry visible opens it.
+*[API] Added SubTileSignatures. Used for overrides of the initialization of a SubTileEntity.
+*[API] Expose PageText.renderText() through the IInternalMethodHandler.
+*[API] Fixed usage of internal classes.
+*[API] Increased version number to 18 as per wiki changes in the main class.
 r1.2 124
 *Added a config option for silent mana spreaders.
 *Added support for all 3 Gany's Mods wikis for shift-right clicking with the lexica botania.
