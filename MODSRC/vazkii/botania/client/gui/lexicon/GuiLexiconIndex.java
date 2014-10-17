@@ -21,6 +21,7 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 
 import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexicon;
@@ -106,10 +107,10 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		super.drawScreen(par1, par2, par3);
 		
 		if(!searchField.getText().isEmpty()) {
+			drawBookmark(left + 138, top + guiHeight - 24, "  " + searchField.getText(), false);
 			mc.renderEngine.bindTexture(texture);
-			drawTexturedModalRect(searchField.xPosition - 13, searchField.yPosition - 3, 86, 180, 12, 12);
-			
-			searchField.drawTextBox();
+			GL11.glColor4f(1F, 1F, 1F, 1F);
+			drawTexturedModalRect(left + 134, top + guiHeight - 26, 86, 180, 12, 12);
 		}
 	}
 

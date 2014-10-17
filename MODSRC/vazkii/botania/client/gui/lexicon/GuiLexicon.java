@@ -116,7 +116,7 @@ public class GuiLexicon extends GuiScreen {
 		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
 		boolean unicode = font.getUnicodeFlag();
 		font.setUnicodeFlag(true);
-		int l = font.getStringWidth(s.trim());
+		int l = font.getStringWidth(s);
 		int fontOff = 0;
 
 		if(!drawLeft) {
@@ -242,7 +242,7 @@ public class GuiLexicon extends GuiScreen {
 			if(lex.getTitle().equals(getTitle()))
 				thisExists = true;
 
-		boolean addEnabled = len < 10 && this instanceof IParented && !thisExists;
+		boolean addEnabled = len < 8 && this instanceof IParented && !thisExists;
 		for(int i = 0; i < len + (addEnabled ? 1 : 0); i++) {
 			boolean isAdd = i == bookmarks.size();
 			GuiLexicon gui = isAdd ? null : bookmarks.get(i);
