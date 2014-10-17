@@ -65,7 +65,7 @@ public class ItemItemFinder extends ItemBauble {
 
 		String pos = ItemNBTHelper.getString(stack, TAG_POSITIONS, "");
 		String[] tokens = pos.split(";");
-		
+
 		for(String token : tokens) {
 			if(token.isEmpty())
 				continue;

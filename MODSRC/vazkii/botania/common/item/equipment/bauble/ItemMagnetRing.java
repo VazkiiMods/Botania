@@ -13,9 +13,6 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import java.util.List;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
@@ -33,31 +30,34 @@ import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemMagnetRing extends ItemBauble {
 
 	IIcon iconOff;
-	
+
 	private static final String TAG_COOLDOWN = "cooldown";
-	
+
 	public ItemMagnetRing() {
 		super(LibItemNames.MAGNET_RING);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister par1IconRegister) {
 		itemIcon = IconHelper.forItem(par1IconRegister, this, 0);
 		iconOff = IconHelper.forItem(par1IconRegister, this, 1);
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIconIndex(ItemStack stack) {
 		return getCooldown(stack) <= 0 ? itemIcon : iconOff;
 	}
-	
+
 	@SubscribeEvent
 	public void onTossItem(ItemTossEvent event) {
 		InventoryBaubles inv = PlayerHandler.getPlayerBaubles(event.player);
@@ -73,7 +73,7 @@ public class ItemMagnetRing extends ItemBauble {
 		super.onWornTick(stack, player);
 
 		int cooldown = getCooldown(stack);
-		
+
 		if(cooldown <= 0) {
 			if(!player.isSneaking()) {
 				int range = 6;
@@ -96,11 +96,11 @@ public class ItemMagnetRing extends ItemBauble {
 	public static int getCooldown(ItemStack stack) {
 		return ItemNBTHelper.getInt(stack, TAG_COOLDOWN, 0);
 	}
-	
+
 	public static void setCooldown(ItemStack stack, int cooldown) {
 		ItemNBTHelper.setInt(stack, TAG_COOLDOWN, cooldown);
 	}
-	
+
 	@Override
 	public BaubleType getBaubleType(ItemStack arg0) {
 		return BaubleType.RING;

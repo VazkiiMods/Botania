@@ -111,7 +111,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	}
 
 	public boolean collideEntityItem(EntityItem item) {
-		if(item.isDead || (item.age > 100 && item.age < 130) || !catalystsRegistered)
+		if(item.isDead || item.age > 100 && item.age < 130 || !catalystsRegistered)
 			return false;
 
 		boolean didChange = false;
@@ -193,7 +193,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		alchemy = worldObj.getBlock(xCoord, yCoord - 1, zCoord) == ModBlocks.alchemyCatalyst;
 		conjuration = worldObj.getBlock(xCoord, yCoord - 1, zCoord) == ModBlocks.conjurationCatalyst;
 		catalystsRegistered = true;
-		
+
 		List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1));
 		for(EntityItem item : items) {
 			if(item.isDead)
@@ -211,7 +211,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 								didSomething = true;
 
 							int manaVal = Math.min(1000, Math.min(getCurrentMana(), mana.getMaxMana(stack) - mana.getMana(stack)));
-							if(!worldObj.isRemote) 
+							if(!worldObj.isRemote)
 								mana.addMana(stack, manaVal);
 							recieveMana(-manaVal);
 						}
@@ -221,7 +221,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 								didSomething = true;
 
 							int manaVal = Math.min(1000, Math.min(manaCap - getCurrentMana(), mana.getMana(stack)));
-							if(!worldObj.isRemote) 
+							if(!worldObj.isRemote)
 								mana.addMana(stack, -manaVal);
 							recieveMana(manaVal);
 						}

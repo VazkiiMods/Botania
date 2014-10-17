@@ -30,7 +30,6 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.lib.LibBlockNames;
 
 public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyProvider {
 

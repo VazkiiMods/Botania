@@ -104,16 +104,16 @@ public class PageManaInfusionRecipe extends PageRecipe {
 		String dropString = StatCollector.translateToLocal("botaniamisc.drop") + " " + EnumChatFormatting.BOLD + "(?)";
 
 		boolean hoveringOverDrop = false;
-		
+
 		boolean unicode = font.getUnicodeFlag();
 		font.setUnicodeFlag(true);
 		int dw = font.getStringWidth(dropString);
 		int dx = x + 35 - dw / 2;
 		int dy = gui.getTop() + 30;
-		
+
 		if(mx > dx && mx <= dx + dw && my > dy && my <= dy + 10)
 			hoveringOverDrop = true;
-		
+
 		font.drawString(dropString, dx, dy, 0x77000000);
 		font.drawString(ratioString, x + 100 - font.getStringWidth(ratioString), y + 5, 0x99000000);
 		font.setUnicodeFlag(unicode);
@@ -127,7 +127,7 @@ public class PageManaInfusionRecipe extends PageRecipe {
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		((GuiScreen) gui).drawTexturedModalRect(gui.getLeft(), gui.getTop(), 0, 0, gui.getWidth(), gui.getHeight());
 		GL11.glDisable(GL11.GL_BLEND);
-		
+
 		if(hoveringOverDrop) {
 			String key = RenderHelper.getKeyDisplayString("key.drop");
 			String tip0 = StatCollector.translateToLocal("botaniamisc.dropTip0").replaceAll("%key%", EnumChatFormatting.GREEN + key + EnumChatFormatting.WHITE);

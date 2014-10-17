@@ -88,7 +88,7 @@ public class CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new SpawnerChangingHandler());
 
 		FMLCommonHandler.instance().bus().register(new CommonTickHandler());
-		
+
 		FMLInterModComms.sendMessage("ProjectE", "interdictionblacklist", EntityManaBurst.class.getCanonicalName());
 	}
 

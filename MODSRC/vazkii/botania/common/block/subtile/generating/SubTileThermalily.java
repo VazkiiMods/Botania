@@ -49,7 +49,7 @@ public class SubTileThermalily extends SubTileHydroangeas {
 	public Block getBlockToSearchBelow() {
 		return ConfigHandler.thermalilyObsidian ? Blocks.obsidian : null;
 	}
-	
+
 	@Override
 	public void playSound() {
 		supertile.getWorldObj().playSoundEffect(supertile.xCoord, supertile.yCoord, supertile.zCoord, "botania:thermalily", 0.2F, 1F);

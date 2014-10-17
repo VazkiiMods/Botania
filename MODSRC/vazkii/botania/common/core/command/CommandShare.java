@@ -41,12 +41,12 @@ public class CommandShare extends CommandBase {
 		MinecraftServer.getServer().getConfigurationManager().sendChatMsg(component);
 	}
 
-	
+
 	@Override
 	public int getRequiredPermissionLevel() {
 		return 0;
 	}
-	
+
 	@Override
 	public boolean canCommandSenderUseCommand(ICommandSender p_71519_1_) {
 		return p_71519_1_ instanceof EntityPlayer;

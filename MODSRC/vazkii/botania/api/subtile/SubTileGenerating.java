@@ -78,7 +78,7 @@ public class SubTileGenerating extends SubTileEntity {
 		if(!supertile.getWorldObj().isRemote) {
 			++ticksExisted;
 			int muhBalance = BotaniaAPI.internalHandler.getPassiveFlowerDecay();
-			
+
 			if(isPassiveFlower() && muhBalance > 0 && ticksExisted > muhBalance) {
 				supertile.getWorldObj().playAuxSFX(2001, supertile.xCoord, supertile.yCoord, supertile.zCoord, Block.getIdFromBlock(supertile.getBlockType()));
 				supertile.getWorldObj().setBlockToAir(supertile.xCoord, supertile.yCoord, supertile.zCoord);
@@ -217,12 +217,12 @@ public class SubTileGenerating extends SubTileEntity {
 	public boolean canSelect(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
 		return true;
 	}
-	
+
 	@Override
 	public boolean bindTo(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
 		int range = 6;
 		range *= range;
-		
+
 		double dist = (x - supertile.xCoord) * (x - supertile.xCoord) + (y - supertile.yCoord) * (y - supertile.yCoord) + (z - supertile.zCoord) * (z - supertile.zCoord);
 		if(range >= dist) {
 			TileEntity tile = player.worldObj.getTileEntity(x, y, z);
@@ -231,10 +231,10 @@ public class SubTileGenerating extends SubTileEntity {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		String name = StatCollector.translateToLocal("tile.botania:flower." + getUnlocalizedName() + ".name");

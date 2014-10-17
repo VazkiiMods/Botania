@@ -87,7 +87,7 @@ public class SubTileHydroangeas extends SubTileGenerating {
 	public Block getBlockToSearchBelow() {
 		return null;
 	}
-	
+
 	public void playSound() {
 		supertile.getWorldObj().playSoundEffect(supertile.xCoord, supertile.yCoord, supertile.zCoord, "random.drink", 0.2F, 0.5F + (float) Math.random() * 0.5F);
 	}

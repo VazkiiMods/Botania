@@ -100,7 +100,7 @@ public class SubTileEntity {
 	public ChunkCoordinates getBinding() {
 		return null;
 	}
-	
+
 	/**
 	 * @see IWandBindable#canSelect(EntityPlayer, ItemStack, int, int, int, int)
 	 */

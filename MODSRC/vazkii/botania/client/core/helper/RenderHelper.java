@@ -190,7 +190,7 @@ public final class RenderHelper {
 		GL11.glEnable(GL11.GL_ALPHA_TEST);
 		GL11.glPopMatrix();
 	}
-	
+
 	public static String getKeyDisplayString(String keyName) {
 		String key = null;
 		KeyBinding[] keys = Minecraft.getMinecraft().gameSettings.keyBindings;
@@ -199,7 +199,7 @@ public final class RenderHelper {
 				key = Keyboard.getKeyName(otherKey.getKeyCode());
 				break;
 			}
-		
+
 		return key;
 	}
 }

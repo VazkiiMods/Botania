@@ -41,7 +41,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 	GuiButton leftButton, rightButton, backButton;
 	GuiLexicon parent;
 	GuiTextField searchField;
-	
+
 	List<LexiconEntry> entriesToDisplay = new ArrayList();
 
 	public GuiLexiconIndex(LexiconCategory category) {
@@ -66,21 +66,21 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		buttonList.add(backButton = new GuiButtonBack(12, left + guiWidth / 2 - 8, top + guiHeight + 2));
 		buttonList.add(leftButton = new GuiButtonPage(13, left, top + guiHeight - 10, false));
 		buttonList.add(rightButton = new GuiButtonPage(14, left + guiWidth - 18, top + guiHeight - 10, true));
-		
+
 		searchField = new GuiTextField(fontRendererObj, left + guiWidth / 2 + 28, top + guiHeight + 6, 200, 10);
 		searchField.setCanLoseFocus(false);
 		searchField.setFocused(true);
 		searchField.setEnableBackgroundDrawing(false);
-		
+
 		updateAll();
 	}
-	
+
 	void updateAll() {
 		buildEntries();
 		updatePageButtons();
 		populateIndex();
 	}
-	
+
 	void buildEntries() {
 		entriesToDisplay.clear();
 		ILexicon lex = (ILexicon) stackUsed.getItem();
@@ -101,11 +101,11 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			else button.displayString = "";
 		}
 	}
-	
+
 	@Override
 	public void drawScreen(int par1, int par2, float par3) {
 		super.drawScreen(par1, par2, par3);
-		
+
 		if(!searchField.getText().isEmpty()) {
 			drawBookmark(left + 138, top + guiHeight - 24, "  " + searchField.getText(), false);
 			mc.renderEngine.bindTexture(texture);
@@ -141,7 +141,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 				openEntry(index);
 			}
 	}
-	
+
 	void openEntry(int index) {
 		if(index >= entriesToDisplay.size())
 			return;
@@ -201,7 +201,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		else if(w > 0)
 			prevPage();
 	}
-	
+
 	@Override
 	boolean closeScreenOnInvKey() {
 		return false;
@@ -220,12 +220,12 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			ClientTickHandler.notifyPageChange();
 		} else if(par2 == 28 && entriesToDisplay.size() == 1) // Enter
 			openEntry(0);
-		
+
 		String search = searchField.getText();
 		searchField.textboxKeyTyped(par1, par2);
 		if(!searchField.getText().equalsIgnoreCase(search))
 			updateAll();
-		
+
 		super.keyTyped(par1, par2);
 	}
 

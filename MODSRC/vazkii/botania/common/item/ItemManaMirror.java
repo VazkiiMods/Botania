@@ -175,7 +175,7 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 				world = w;
 				break;
 			}
-			
+
 		if(world != null) {
 			TileEntity tile = world.getTileEntity(coords.posX, coords.posY, coords.posZ);
 			if(tile != null && tile instanceof IManaPool)

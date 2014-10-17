@@ -52,7 +52,7 @@ public class SubTileAgricarnation extends SubTileFunctional {
 			}
 		}
 	}
-	
+
 	@Override
 	public boolean acceptsRedstone() {
 		return true;

@@ -272,7 +272,7 @@ public final class BotaniaAPI {
 	public static void registerSubTileSignature(Class<? extends SubTileEntity> subtileClass, SubTileSignature signature) {
 		subTileSignatures.put(subtileClass, signature);
 	}
-	
+
 	/**
 	 * Gets the singleton signature for a SubTileEntity class. Registers a fallback if one wasn't registered
 	 * before the call.
@@ -280,10 +280,10 @@ public final class BotaniaAPI {
 	public static SubTileSignature getSignatureForClass(Class<? extends SubTileEntity> subtileClass) {
 		if(!subTileSignatures.containsKey(subtileClass))
 			registerSubTileSignature(subtileClass, new BasicSignature(subTiles.inverse().get(subtileClass)));
-		
+
 		return subTileSignatures.get(subtileClass);
 	}
-	
+
 	/**
 	 * Gets the singleton signature for a SubTileEntity's name. Registers a fallback if one wasn't registered
 	 * before the call.
@@ -292,7 +292,7 @@ public final class BotaniaAPI {
 		Class<? extends SubTileEntity> subtileClass = subTiles.get(name);
 		return getSignatureForClass(subtileClass);
 	}
-	
+
 	/**
 	 * Adds the key for a SubTileEntity into the creative menu. This goes into the
 	 * subtilesForCreativeMenu Set.

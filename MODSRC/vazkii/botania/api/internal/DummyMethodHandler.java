@@ -103,7 +103,7 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	public IIcon getSubTileIconForName(String name) {
 		return Blocks.red_flower.getIcon(0, 0);
 	}
-	
+
 	@Override
 	public void registerBasicSignatureIcons(String name, IIconRegister register) {
 		// NO-OP
@@ -118,7 +118,7 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	public void drawSimpleManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res) {
 		// NO-OP
 	}
-	
+
 	@Override
 	public void renderLexiconText(int x, int y, int width, int height, String unlocalizedText) {
 		// NO-OP
@@ -138,7 +138,7 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	public boolean shouldForceCheck() {
 		return true;
 	}
-	
+
 	@Override
 	public int getPassiveFlowerDecay() {
 		return 0;

@@ -15,7 +15,6 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
-import vazkii.botania.api.mana.ILens;
 import vazkii.botania.common.item.ItemManaGun;
 
 public class ManaGunRemoveLensRecipe implements IRecipe {

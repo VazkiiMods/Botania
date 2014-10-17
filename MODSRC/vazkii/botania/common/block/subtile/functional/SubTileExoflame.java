@@ -74,7 +74,7 @@ public class SubTileExoflame extends SubTileFunctional {
 						}
 					}
 		}
-		
+
 		if(did)
 			sync();
 	}

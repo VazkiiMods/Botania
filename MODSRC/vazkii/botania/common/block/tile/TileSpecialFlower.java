@@ -23,7 +23,6 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.ISubTileContainer;
 import vazkii.botania.api.subtile.SubTileEntity;
-import vazkii.botania.api.wand.ITileBound;
 import vazkii.botania.api.wand.IWandBindable;
 
 public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTileContainer {
@@ -134,6 +133,6 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 	public boolean bindTo(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
 		if(subTile == null)
 			return false;
-		return subTile.bindTo(player, wand, x, y, z, side);	
+		return subTile.bindTo(player, wand, x, y, z, side);
 	}
 }

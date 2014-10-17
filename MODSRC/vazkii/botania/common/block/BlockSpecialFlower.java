@@ -38,7 +38,6 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
-import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.core.BotaniaCreativeTab;

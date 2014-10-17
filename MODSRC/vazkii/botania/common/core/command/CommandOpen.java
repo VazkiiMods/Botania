@@ -43,13 +43,13 @@ public class CommandOpen extends CommandBase {
 			} else sender.addChatMessage(new ChatComponentTranslation("botaniamisc.noLexicon").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
 		}
 	}
-	
-	
+
+
 	@Override
 	public int getRequiredPermissionLevel() {
 		return 0;
 	}
-	
+
 	@Override
 	public boolean canCommandSenderUseCommand(ICommandSender p_71519_1_) {
 		return p_71519_1_ instanceof EntityPlayer;

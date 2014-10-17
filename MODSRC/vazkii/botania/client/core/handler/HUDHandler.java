@@ -71,7 +71,7 @@ public final class HUDHandler {
 				if(stack != null) {
 					if(pos != null && stack.getItem() == ModItems.twigWand) {
 						renderWandModeDisplay(event.resolution);
-						
+
 						if(block instanceof IWandHUD)
 							((IWandHUD) block).renderHUD(mc, event.resolution, mc.theWorld, pos.blockX, pos.blockY, pos.blockZ);
 					}
@@ -122,19 +122,19 @@ public final class HUDHandler {
 				renderManaInvBar(event.resolution, creative, totalMana, totalMaxMana);
 		}
 	}
-	
+
 	private void renderWandModeDisplay(ScaledResolution res) {
 		Minecraft mc = Minecraft.getMinecraft();
 		int ticks = ReflectionHelper.getPrivateValue(GuiIngame.class, mc.ingameGUI, LibObfuscation.REMAINING_HIGHLIGHT_TICKS);
 		ticks -= 15;
 		if(ticks > 0) {
-			int alpha = Math.min(255, (int) ((float) ticks * 256.0F / 10.0F));
+			int alpha = Math.min(255, (int) (ticks * 256.0F / 10.0F));
 			int color = 0x00CC00 + (alpha << 24);
 			String disp = StatCollector.translateToLocal(ItemTwigWand.getModeString(mc.thePlayer.getCurrentEquippedItem()));
-			
+
 			int x = res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(disp) / 2;
 			int y = res.getScaledHeight() - 70;
-			
+
 			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			mc.fontRenderer.drawStringWithShadow(disp, x, y, color);
@@ -184,17 +184,17 @@ public final class HUDHandler {
 
 					GL11.glEnable(GL11.GL_BLEND);
 					GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-					
+
 					mc.renderEngine.bindTexture(manaBar);
 					RenderHelper.drawTexturedModalRect(x, y, 0, u, v, 22, 15);
 					GL11.glColor4f(1F, 1F, 1F, 1F);
-					
+
 					net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 					RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack, x - 20, y);
 					RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, recipe.getOutput(), x + 26, y);
 					RenderItem.getInstance().renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, recipe.getOutput(), x + 26, y);
 					net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
-					
+
 					GL11.glDisable(GL11.GL_LIGHTING);
 					GL11.glDisable(GL11.GL_BLEND);
 

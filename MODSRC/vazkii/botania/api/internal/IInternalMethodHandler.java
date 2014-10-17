@@ -67,11 +67,11 @@ public interface IInternalMethodHandler {
 	public ItemStack getSubTileAsStack(String subTile);
 
 	public IIcon getSubTileIconForName(String name);
-	
+
 	public void registerBasicSignatureIcons(String name, IIconRegister register);
 
 	public boolean shouldForceCheck();
-	
+
 	public int getPassiveFlowerDecay();
 
 	public IInventory getBaublesInventory(EntityPlayer player);
@@ -81,7 +81,7 @@ public interface IInternalMethodHandler {
 
 	@SideOnly(Side.CLIENT)
 	public void renderLexiconText(int x, int y, int width, int height, String unlocalizedText);
-	
+
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m);
 
 }

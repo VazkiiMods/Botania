@@ -26,14 +26,12 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.wand.ICoordBoundItem;
 import vazkii.botania.api.wand.ITileBound;
 import vazkii.botania.api.wand.IWandBindable;
@@ -43,11 +41,9 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockPistonRelay;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileEnchanter;
-import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
-import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
@@ -83,22 +79,22 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 						int iters = (int) (diff.mag() / movement.mag());
 						float huePer = 1F / iters;
 						float hueSum = (float) Math.random();
-						
+
 						Vector3 currentPos = orig.copy();
 						for(int i = 0; i < iters; i++) {
 							float hue = i * huePer + hueSum;
 							Color color = Color.getHSBColor(hue, 1F, 1F);
-							float r = (float) color.getRed() / 255F;
-							float g = (float) color.getGreen() / 255F;
-							float b = (float) color.getBlue() / 255F;
-							
+							float r = color.getRed() / 255F;
+							float g = color.getGreen() / 255F;
+							float b = color.getBlue() / 255F;
+
 							Botania.proxy.setSparkleFXNoClip(true);
 							Botania.proxy.sparkleFX(par3World, currentPos.x, currentPos.y, currentPos.z, r, g, b, 0.5F, 4);
 							Botania.proxy.setSparkleFXNoClip(false);
 							currentPos.add(movement);
 						}
 					}
-					
+
 					par3World.markBlockForUpdate(boundTile.posX, boundTile.posY, boundTile.posZ);
 					setBoundTile(par1ItemStack, 0, -1, 0);
 				}
@@ -179,7 +175,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 		if(tile == null || !(tile instanceof IWandBindable))
 			setBoundTile(par1ItemStack, 0, -1, 0);
 	}
-	
+
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
 		if(!world.isRemote && player.isSneaking()) {
@@ -239,7 +235,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
 		return getUnlocalizedNameLazy(par1ItemStack);
 	}
-	
+
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer p, List list, boolean adv) {
 		list.add(StatCollector.translateToLocal(getModeString(stack)));
@@ -286,7 +282,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 	public static void setBindMode(ItemStack stack, boolean bindMode) {
 		ItemNBTHelper.setBoolean(stack, TAG_BIND_MODE, bindMode);
 	}
-	
+
 	public static String getModeString(ItemStack stack) {
 		return "botaniamisc.wandMode." + (getBindMode(stack) ? "bind" : "function");
 	}

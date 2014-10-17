@@ -110,7 +110,7 @@ public final class ConfigHandler {
 
 		desc = "Set to true to disable the mana spreader shooting sound.";
 		silentSpreaders = loadPropBool("manaSpreaders.silent", desc, silentSpreaders);
-		
+
 		desc = "Set to true to use alternate flower textures by Futureazoo, not all flowers are textured. http://redd.it/2b3o3f";
 		altFlowerTextures = loadPropBool("flowerTextures.alt", desc, altFlowerTextures);
 

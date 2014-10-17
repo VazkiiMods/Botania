@@ -26,17 +26,17 @@ public abstract class SubTileSignature {
 	 * Equivalent to Block.registerBlockIcons.
 	 */
 	public abstract void registerIcons(IIconRegister register);
-	
+
 	/**
 	 * Gets the icon to display for the flower item.
 	 */
 	public abstract IIcon getIconForStack(ItemStack stack);
-	
+
 	/**
 	 * Gets the display name for the flower item.
 	 */
 	public abstract String getUnlocalizedNameForStack(ItemStack stack);
-	
+
 	/**
 	 * Gets the lore text for the flower item, displayed in the item's tooltip.
 	 * If you do not want a reference return a key that does not have localization such

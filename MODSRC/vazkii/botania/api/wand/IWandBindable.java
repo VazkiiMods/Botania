@@ -13,7 +13,6 @@ package vazkii.botania.api.wand;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.MovingObjectPosition;
 
 /**
  * A TileEntity that implements this can be bound to another block
@@ -21,7 +20,7 @@ import net.minecraft.util.MovingObjectPosition;
  * the displayed bounding box.
  */
 public interface IWandBindable extends ITileBound {
-	
+
 	/**
 	 * Return true if the Wand can select this tile.
 	 */
@@ -29,8 +28,8 @@ public interface IWandBindable extends ITileBound {
 
 	/**
 	 * Call to bind the TileEntity to where the player clicked. Return true to deselect
-	 * the TileEntity for another bind or false case the TileEntity should stay selected.  
+	 * the TileEntity for another bind or false case the TileEntity should stay selected.
 	 */
 	public boolean bindTo(EntityPlayer player, ItemStack wand, int x, int y, int z, int side);
-	
+
 }

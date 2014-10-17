@@ -77,9 +77,9 @@ public class InternalMethodHandler extends DummyMethodHandler {
 		IIcon normal = IconHelper.forName(register, name);
 		IIcon alt = IconHelper.forName(register, BlockModFlower.ALT_DIR + "/" + name);
 		BlockSpecialFlower.icons.put(name, normal);
-		BlockSpecialFlower.iconsAlt.put(name, alt == null ? normal : alt);	
+		BlockSpecialFlower.iconsAlt.put(name, alt == null ? normal : alt);
 	}
-	
+
 	@Override
 	public LexiconPage petalRecipesPage(String key, List<RecipePetals> recipes) {
 		return new PagePetalRecipe(key, recipes);
@@ -139,7 +139,7 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	public void drawSimpleManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res) {
 		HUDHandler.drawSimpleManaHUD(color, mana, maxMana, name, res);
 	}
-	
+
 	@Override
 	public void renderLexiconText(int x, int y, int width, int height, String unlocalizedText) {
 		PageText.renderText(x, y, width, height, unlocalizedText);
@@ -154,7 +154,7 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	public boolean shouldForceCheck() {
 		return ConfigHandler.flowerForceCheck;
 	}
-	
+
 	@Override
 	public int getPassiveFlowerDecay() {
 		return ConfigHandler.hardcorePassiveGeneration;

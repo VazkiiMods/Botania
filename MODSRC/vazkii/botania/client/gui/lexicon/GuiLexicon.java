@@ -253,7 +253,7 @@ public class GuiLexicon extends GuiScreen {
 	boolean closeScreenOnInvKey() {
 		return true;
 	}
-	
+
 	@Override
 	protected void keyTyped(char par1, int par2) {
 		if(closeScreenOnInvKey() && mc.gameSettings.keyBindInventory.getKeyCode() == par2) {

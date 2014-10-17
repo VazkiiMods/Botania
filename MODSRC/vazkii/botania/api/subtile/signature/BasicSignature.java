@@ -22,7 +22,7 @@ import vazkii.botania.api.BotaniaAPI;
 public class BasicSignature extends SubTileSignature {
 
 	final String name;
-	
+
 	public BasicSignature(String name) {
 		this.name = name;
 	}
@@ -41,18 +41,18 @@ public class BasicSignature extends SubTileSignature {
 	public String getUnlocalizedNameForStack(ItemStack stack) {
 		return unlocalizedName("");
 	}
-	
+
 	@Override
 	public String getUnlocalizedLoreTextForStack(ItemStack stack) {
 		return unlocalizedName(".reference");
 	}
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	private String unlocalizedName(String end) {
 		return "tile." + SubTileSignature.SPECIAL_FLOWER_PREFIX + name + end;
 	}
-		
+
 }
