@@ -40,6 +40,8 @@ import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.api.subtile.SubTileEntity;
+import vazkii.botania.api.subtile.signature.BasicSignature;
+import vazkii.botania.api.subtile.signature.SubTileSignature;
 import vazkii.botania.api.wiki.IWikiProvider;
 import vazkii.botania.api.wiki.SimpleWikiProvider;
 import vazkii.botania.api.wiki.WikiHooks;
@@ -60,6 +62,7 @@ public final class BotaniaAPI {
 	public static List<RecipeElvenTrade> elvenTradeRecipes = new ArrayList<RecipeElvenTrade>();
 
 	private static BiMap<String, Class<? extends SubTileEntity>> subTiles = HashBiMap.<String, Class<? extends SubTileEntity>> create();
+	private static Map<Class<? extends SubTileEntity>, SubTileSignature> subTileSignatures = new HashMap<Class<? extends SubTileEntity>, SubTileSignature>();
 	public static Set<String> subtilesForCreativeMenu = new LinkedHashSet();
 
 	public static Map<String, Integer> oreWeights = new HashMap<String, Integer>();
@@ -262,6 +265,34 @@ public final class BotaniaAPI {
 		subTiles.put(key, subtileClass);
 	}
 
+	/**
+	 * Registers a SubTileEntity's signature.
+	 * @see SubTileSignature
+	 */
+	public static void registerSubTileSignature(Class<? extends SubTileEntity> subtileClass, SubTileSignature signature) {
+		subTileSignatures.put(subtileClass, signature);
+	}
+	
+	/**
+	 * Gets the singleton signature for a SubTileEntity class. Registers a fallback if one wasn't registered
+	 * before the call.
+	 */
+	public static SubTileSignature getSignatureForClass(Class<? extends SubTileEntity> subtileClass) {
+		if(!subTileSignatures.containsKey(subtileClass))
+			registerSubTileSignature(subtileClass, new BasicSignature(subTiles.inverse().get(subtileClass)));
+		
+		return subTileSignatures.get(subtileClass);
+	}
+	
+	/**
+	 * Gets the singleton signature for a SubTileEntity's name. Registers a fallback if one wasn't registered
+	 * before the call.
+	 */
+	public static SubTileSignature getSignatureForName(String name) {
+		Class<? extends SubTileEntity> subtileClass = subTiles.get(name);
+		return getSignatureForClass(subtileClass);
+	}
+	
 	/**
 	 * Adds the key for a SubTileEntity into the creative menu. This goes into the
 	 * subtilesForCreativeMenu Set.

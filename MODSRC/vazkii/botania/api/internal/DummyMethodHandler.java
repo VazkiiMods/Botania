@@ -14,6 +14,7 @@ package vazkii.botania.api.internal;
 import java.util.List;
 
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
@@ -102,6 +103,11 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	public IIcon getSubTileIconForName(String name) {
 		return Blocks.red_flower.getIcon(0, 0);
 	}
+	
+	@Override
+	public void registerBasicSignatureIcons(String name, IIconRegister register) {
+		// NO-OP
+	}
 
 	@Override
 	public IManaNetwork getManaNetworkInstance() {
@@ -132,4 +138,5 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	public int getPassiveFlowerDecay() {
 		return 0;
 	}
+
 }

@@ -24,6 +24,7 @@ import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.IRecipeKeyProvider;
 import vazkii.botania.api.subtile.SubTileEntity;
+import vazkii.botania.api.subtile.signature.SubTileSignature;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
@@ -39,7 +40,7 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 
 	@Override
 	public IIcon getIconIndex(ItemStack stack) {
-		return BotaniaAPI.internalHandler.getSubTileIconForName(getType(stack));
+		return BotaniaAPI.getSignatureForName(getType(stack)).getIconForStack(stack);
 	}
 
 	@Override
@@ -66,13 +67,13 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 
 	@Override
 	public String getUnlocalizedName(ItemStack stack) {
-		return "tile." + LibBlockNames.SPECIAL_FLOWER_PREFIX + getType(stack);
+		return BotaniaAPI.getSignatureForName(getType(stack)).getUnlocalizedNameForStack(stack);
 	}
 
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
 		if(ConfigHandler.referencesEnabled) {
-			String refUnlocalized = "tile." + LibResources.PREFIX_MOD + LibBlockNames.SPECIAL_FLOWER_PREFIX + getType(par1ItemStack) + ".reference";
+			String refUnlocalized = "tile." + LibResources.PREFIX_MOD + SubTileSignature.SPECIAL_FLOWER_PREFIX + getType(par1ItemStack) + ".reference";
 			String refLocalized = StatCollector.translateToLocal(refUnlocalized);
 			if(!refLocalized.equals(refUnlocalized))
 				par3List.add(EnumChatFormatting.ITALIC + refLocalized);

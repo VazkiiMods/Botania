@@ -59,8 +59,6 @@ public final class LibBlockNames {
 	public static final String RF_GENERATOR = "rfGenerator";
 	public static final String ELF_GLASS = "elfGlass";
 
-	public static final String SPECIAL_FLOWER_PREFIX = FLOWER + ".";
-
 	public static final String SUBTILE_PUREDAISY = "puredaisy";
 	public static final String SUBTILE_MANASTAR = "manastar";
 

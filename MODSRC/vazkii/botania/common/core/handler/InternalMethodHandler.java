@@ -14,6 +14,7 @@ package vazkii.botania.common.core.handler;
 import java.util.List;
 
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
@@ -29,7 +30,9 @@ import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.client.core.handler.HUDHandler;
+import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.block.BlockSpecialFlower;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
@@ -69,6 +72,14 @@ public class InternalMethodHandler extends DummyMethodHandler {
 		return icon == null ? Blocks.red_flower.getIcon(0, 0) : icon;
 	}
 
+	@Override
+	public void registerBasicSignatureIcons(String name, IIconRegister register) {
+		IIcon normal = IconHelper.forName(register, name);
+		IIcon alt = IconHelper.forName(register, BlockModFlower.ALT_DIR + "/" + name);
+		BlockSpecialFlower.icons.put(name, normal);
+		BlockSpecialFlower.iconsAlt.put(name, alt == null ? normal : alt);	
+	}
+	
 	@Override
 	public LexiconPage petalRecipesPage(String key, List<RecipePetals> recipes) {
 		return new PagePetalRecipe(key, recipes);

@@ -121,12 +121,8 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		for(String s : BotaniaAPI.subtilesForCreativeMenu){
-			IIcon normal = IconHelper.forName(par1IconRegister, s);
-			IIcon alt = IconHelper.forName(par1IconRegister, BlockModFlower.ALT_DIR + "/" + s);
-			icons.put(s, normal);
-			iconsAlt.put(s, alt == null ? normal : alt);
-		}
+		for(String s : BotaniaAPI.subtilesForCreativeMenu)
+			BotaniaAPI.getSignatureForName(s).registerIcons(par1IconRegister);
 	}
 
 	@Override

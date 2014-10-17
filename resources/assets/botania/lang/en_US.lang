@@ -1,5 +1,9 @@
-﻿# MISC
+# MISC
 itemGroup.Botania=Botania
+
+# Something that is not localized, translators, do NOT change this line.
+botaniamisc.noloc=botaniamisc.noloc
+
 botaniamisc.nextPage=Next Page
 botaniamisc.prevPage=Previous Page
 botaniamisc.back=Back

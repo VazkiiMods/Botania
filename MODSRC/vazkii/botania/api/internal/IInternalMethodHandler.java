@@ -14,6 +14,7 @@ package vazkii.botania.api.internal;
 import java.util.List;
 
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -66,6 +67,8 @@ public interface IInternalMethodHandler {
 	public ItemStack getSubTileAsStack(String subTile);
 
 	public IIcon getSubTileIconForName(String name);
+	
+	public void registerBasicSignatureIcons(String name, IIconRegister register);
 
 	public boolean shouldForceCheck();
 	
