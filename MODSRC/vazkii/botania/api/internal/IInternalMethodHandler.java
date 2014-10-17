@@ -68,6 +68,8 @@ public interface IInternalMethodHandler {
 	public IIcon getSubTileIconForName(String name);
 
 	public boolean shouldForceCheck();
+	
+	public int getPassiveFlowerDecay();
 
 	public IInventory getBaublesInventory(EntityPlayer player);
 

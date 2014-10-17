@@ -127,4 +127,9 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	public boolean shouldForceCheck() {
 		return true;
 	}
+	
+	@Override
+	public int getPassiveFlowerDecay() {
+		return 0;
+	}
 }

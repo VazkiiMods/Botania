@@ -138,5 +138,10 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	public boolean shouldForceCheck() {
 		return ConfigHandler.flowerForceCheck;
 	}
+	
+	@Override
+	public int getPassiveFlowerDecay() {
+		return ConfigHandler.hardcorePassiveGeneration;
+	}
 
 }

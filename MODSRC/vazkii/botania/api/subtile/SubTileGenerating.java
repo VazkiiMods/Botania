@@ -25,8 +25,6 @@ import net.minecraft.util.StatCollector;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaCollector;
-import vazkii.botania.api.mana.IManaPool;
-import vazkii.botania.common.core.handler.ConfigHandler;
 
 /**
  * The basic class for a Generating Flower.
@@ -79,7 +77,9 @@ public class SubTileGenerating extends SubTileEntity {
 
 		if(!supertile.getWorldObj().isRemote) {
 			++ticksExisted;
-			if(isPassiveFlower() && ConfigHandler.hardcorePassiveGeneration > 0 && ticksExisted > ConfigHandler.hardcorePassiveGeneration) {
+			int muhBalance = BotaniaAPI.internalHandler.getPassiveFlowerDecay();
+			
+			if(isPassiveFlower() && muhBalance > 0 && ticksExisted > muhBalance) {
 				supertile.getWorldObj().playAuxSFX(2001, supertile.xCoord, supertile.yCoord, supertile.zCoord, Block.getIdFromBlock(supertile.getBlockType()));
 				supertile.getWorldObj().setBlockToAir(supertile.xCoord, supertile.yCoord, supertile.zCoord);
 			}
