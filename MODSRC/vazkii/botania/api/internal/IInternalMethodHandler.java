@@ -79,6 +79,9 @@ public interface IInternalMethodHandler {
 	@SideOnly(Side.CLIENT)
 	public void drawSimpleManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res);
 
+	@SideOnly(Side.CLIENT)
+	public void renderLexiconText(int x, int y, int width, int height, String unlocalizedText);
+	
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m);
 
 }

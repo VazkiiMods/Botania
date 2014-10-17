@@ -139,6 +139,11 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	public void drawSimpleManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res) {
 		HUDHandler.drawSimpleManaHUD(color, mana, maxMana, name, res);
 	}
+	
+	@Override
+	public void renderLexiconText(int x, int y, int width, int height, String unlocalizedText) {
+		PageText.renderText(x, y, width, height, unlocalizedText);
+	}
 
 	@Override
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {
