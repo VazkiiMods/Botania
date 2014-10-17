@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.List;
 
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 
@@ -38,7 +39,8 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 
 	GuiButton leftButton, rightButton, backButton;
 	GuiLexicon parent;
-
+	GuiTextField searchField;
+	
 	List<LexiconEntry> entriesToDisplay = new ArrayList();
 
 	public GuiLexiconIndex(LexiconCategory category) {
@@ -63,17 +65,29 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		buttonList.add(backButton = new GuiButtonBack(12, left + guiWidth / 2 - 8, top + guiHeight + 2));
 		buttonList.add(leftButton = new GuiButtonPage(13, left, top + guiHeight - 10, false));
 		buttonList.add(rightButton = new GuiButtonPage(14, left + guiWidth - 18, top + guiHeight - 10, true));
-
+		
+		searchField = new GuiTextField(fontRendererObj, left + guiWidth / 2 + 28, top + guiHeight + 6, 200, 10);
+		searchField.setCanLoseFocus(false);
+		searchField.setFocused(true);
+		searchField.setEnableBackgroundDrawing(false);
+		
+		updateAll();
+	}
+	
+	void updateAll() {
+		buildEntries();
+		updatePageButtons();
+		populateIndex();
+	}
+	
+	void buildEntries() {
 		entriesToDisplay.clear();
 		ILexicon lex = (ILexicon) stackUsed.getItem();
 		for(LexiconEntry entry : category == null ? BotaniaAPI.getAllEntries() : category.entries) {
-			if(lex.isKnowledgeUnlocked(stackUsed, entry.getKnowledgeType()))
+			if(lex.isKnowledgeUnlocked(stackUsed, entry.getKnowledgeType()) && StatCollector.translateToLocal(entry.getUnlocalizedName()).toLowerCase().contains(searchField.getText().toLowerCase().trim()))
 				entriesToDisplay.add(entry);
 		}
 		Collections.sort(entriesToDisplay);
-
-		updatePageButtons();
-		populateIndex();
 	}
 
 	@Override
@@ -84,6 +98,18 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			if(entry != null)
 				button.displayString = entry.getKnowledgeType().color + "" + (entry.isPriority() ? EnumChatFormatting.ITALIC : "") + StatCollector.translateToLocal(entry.getUnlocalizedName());
 			else button.displayString = "";
+		}
+	}
+	
+	@Override
+	public void drawScreen(int par1, int par2, float par3) {
+		super.drawScreen(par1, par2, par3);
+		
+		if(!searchField.getText().isEmpty()) {
+			mc.renderEngine.bindTexture(texture);
+			drawTexturedModalRect(searchField.xPosition - 13, searchField.yPosition - 3, 86, 180, 12, 12);
+			
+			searchField.drawTextBox();
 		}
 	}
 
@@ -111,13 +137,17 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 				break;
 			default :
 				int index = par1GuiButton.id + page * 12;
-				if(index >= entriesToDisplay.size())
-					return;
-
-				LexiconEntry entry = entriesToDisplay.get(index);
-				mc.displayGuiScreen(new GuiLexiconEntry(entry, this));
-				ClientTickHandler.notifyPageChange();
+				openEntry(index);
 			}
+	}
+	
+	void openEntry(int index) {
+		if(index >= entriesToDisplay.size())
+			return;
+
+		LexiconEntry entry = entriesToDisplay.get(index);
+		mc.displayGuiScreen(new GuiLexiconEntry(entry, this));
+		ClientTickHandler.notifyPageChange();
 	}
 
 	public void updatePageButtons() {
@@ -151,6 +181,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 	protected void mouseClicked(int par1, int par2, int par3) {
 		super.mouseClicked(par1, par2, par3);
 
+		searchField.mouseClicked(par1, par2, par3);
 		fx = par1;
 		if(par3 == 1)
 			back();
@@ -169,6 +200,11 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		else if(w > 0)
 			prevPage();
 	}
+	
+	@Override
+	boolean closeScreenOnInvKey() {
+		return false;
+	}
 
 	@Override
 	protected void keyTyped(char par1, int par2) {
@@ -176,13 +212,19 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			prevPage();
 		else if(par2 == 205 || par2 == 208 || par2 == 209) // Right, Down Page Down
 			nextPage();
-		else if(par2 == 14) // Backspace
+		else if(par2 == 14 && searchField.getText().isEmpty()) // Backspace
 			back();
 		else if(par2 == 199) { // Home
 			mc.displayGuiScreen(new GuiLexicon());
 			ClientTickHandler.notifyPageChange();
-		}
-
+		} else if(par2 == 28 && entriesToDisplay.size() == 1) // Enter
+			openEntry(0);
+		
+		String search = searchField.getText();
+		searchField.textboxKeyTyped(par1, par2);
+		if(!searchField.getText().equalsIgnoreCase(search))
+			updateAll();
+		
 		super.keyTyped(par1, par2);
 	}
 
