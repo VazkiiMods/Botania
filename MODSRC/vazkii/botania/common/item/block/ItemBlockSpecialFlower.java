@@ -68,11 +68,16 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 	public String getUnlocalizedName(ItemStack stack) {
 		return BotaniaAPI.getSignatureForName(getType(stack)).getUnlocalizedNameForStack(stack);
 	}
-
+	
+	@Override
+	public String getUnlocalizedNameInefficiently(ItemStack par1ItemStack) {
+		return getUnlocalizedNameInefficiently_(par1ItemStack);
+	}
+	
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
 		if(ConfigHandler.referencesEnabled) {
-			String refUnlocalized = "tile." + LibResources.PREFIX_MOD + SubTileSignature.SPECIAL_FLOWER_PREFIX + getType(par1ItemStack) + ".reference";
+			String refUnlocalized = BotaniaAPI.getSignatureForName(getType(par1ItemStack)).getUnlocalizedLoreTextForStack(par1ItemStack);
 			String refLocalized = StatCollector.translateToLocal(refUnlocalized);
 			if(!refLocalized.equals(refUnlocalized))
 				par3List.add(EnumChatFormatting.ITALIC + refLocalized);

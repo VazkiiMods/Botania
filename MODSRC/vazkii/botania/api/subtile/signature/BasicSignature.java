@@ -52,7 +52,7 @@ public class BasicSignature extends SubTileSignature {
 	}
 
 	private String unlocalizedName(String end) {
-		return "tile." + SubTileSignature.SPECIAL_FLOWER_PREFIX + name + end;
+		return "tile.botania:" + SubTileSignature.SPECIAL_FLOWER_PREFIX + name + end;
 	}
 
 }
