@@ -11,6 +11,9 @@
  */
 package vazkii.botania.api.internal;
 
+import java.util.List;
+
+import net.minecraft.client.gui.GuiButton;
 import vazkii.botania.api.lexicon.LexiconEntry;
 
 /**
@@ -54,4 +57,26 @@ public interface IGuiLexiconEntry {
 	 * Gets the GUI's Z level for rendering.
 	 */
 	public float getZLevel();
+
+	/**
+	 * Gets the list of buttons in this gui.
+	 */
+	public List<GuiButton> getButtonList();
+	
+	/**
+	 * Gets the total amount of ticks (+ partial ticks) the player
+	 * has been in this gui.
+	 */
+	public float getElapsedTicks();
+	
+	/**
+	 * Gets the current partial ticks.
+	 */
+	public float getPartialTicks();
+	
+	/**
+	 * Gets the delta (1F = 1 tick) between this render call
+	 * and the last one.
+	 */
+	public float getTickDelta();
 }

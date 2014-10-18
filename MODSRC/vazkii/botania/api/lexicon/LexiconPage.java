@@ -11,6 +11,7 @@
  */
 package vazkii.botania.api.lexicon;
 
+import net.minecraft.client.gui.GuiButton;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -34,13 +35,48 @@ public abstract class LexiconPage {
 	public abstract void renderScreen(IGuiLexiconEntry gui, int mx, int my);
 
 	/**
-	 * Called per update tick.
+	 * Called per update tick. Non gui-sensitive version, kept for backwards compatibility only.
 	 */
 	@SideOnly(Side.CLIENT)
 	public void updateScreen() {
 		// NO-OP
 	}
-
+	
+	/** 
+	 * Called per update tick. Feel free to override fully, the
+	 * call to updateScreen() is for backwards compatibility.
+	 */
+	@SideOnly(Side.CLIENT)
+	public void updateScreen(IGuiLexiconEntry gui) {
+		updateScreen();
+	}
+	
+	/** 
+	 * Called when this page is opened, be it via initGui() or when the player changes page.
+	 * You can add buttons and whatever you'd do on initGui() here.
+	 */
+	@SideOnly(Side.CLIENT)
+	public void onOpened(IGuiLexiconEntry gui) {
+		// NO-OP
+	}
+	
+	/** 
+	 * Called when this page is opened, be it via closing the gui or when the player changes page.
+	 * Make sure to dispose of anything you don't use any more, such as buttons in the gui's buttonList.
+	 */
+	@SideOnly(Side.CLIENT)
+	public void onClosed(IGuiLexiconEntry gui) {
+		// NO-OP
+	}
+	
+	/**
+	 * Called when a button is pressed, equivalent to GuiScreen.actionPerformed.
+	 */
+	@SideOnly(Side.CLIENT)
+	public void onActionPerformed(IGuiLexiconEntry gui, GuiButton button) {
+		// NO-OP
+	}
+	
 	/**
 	 * Called when a key is pressed.
 	 */

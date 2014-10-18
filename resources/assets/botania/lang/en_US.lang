@@ -62,6 +62,7 @@ botaniamisc.dropTip0=Tip: You can press %key% in your inv to drop
 botaniamisc.dropTip1=CTRL-%key% will drop a full stack
 botaniamisc.wandMode.bind=Bind Mode
 botaniamisc.wandMode.function=Function Mode
+botaniamisc.playVideo=Play Video
 
 # COLORS
 botania.color0=White
@@ -746,7 +747,7 @@ botania.category.misc=Miscellaneous
 # - BASIC
 # -- AN INTRODUCTORY CLIP
 botania.entry.introVideo=An Introductory Clip
-botania.page.introVideo0=For those readers who are not quite readers, a short video guide covering the basics of Botania is also available. It's to keep in note that this guide acts as an aid and not a substitution for the contents of the &1Lexica Botania&0.<br>To watch this video simply press the &4ENTER&0 key.
+botania.page.introVideo0=For those readers who are not quite readers, a short video guide covering the basics of Botania is also available. It's to keep in note that this guide acts as an aid and not a substitution for the contents of the &1Lexica Botania&0.
 
 # -- LEXICA BOTANIA
 botania.entry.lexicon=Lexica Botania

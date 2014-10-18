@@ -11,6 +11,8 @@
  */
 package vazkii.botania.client.gui.lexicon;
 
+import java.util.List;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -57,6 +59,8 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 		buttonList.add(rightButton = new GuiButtonPage(2, left + guiWidth - 18, top + guiHeight - 10, true));
 		buttonList.add(shareButton = new GuiButtonShare(3, left + guiWidth - 6, top - 2));
 
+		LexiconPage page = entry.pages.get(this.page);
+		page.onOpened(this);
 		updatePageButtons();
 	}
 
@@ -92,20 +96,32 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 
 	@Override
 	protected void actionPerformed(GuiButton par1GuiButton) {
+		LexiconPage currentPage = entry.pages.get(page);
+		LexiconPage newPage;
+		
 		if(par1GuiButton.id >= BOOKMARK_START)
 			handleBookmark(par1GuiButton);
 		else
 			switch(par1GuiButton.id) {
 			case 0 :
+				currentPage.onClosed(this);
 				mc.displayGuiScreen(GuiScreen.isShiftKeyDown() ? new GuiLexicon() : parent);
 				ClientTickHandler.notifyPageChange();
 				break;
 			case 1 :
+				currentPage.onClosed(this);
 				page--;
+				newPage = entry.pages.get(page);
+				newPage.onOpened(this);
+				
 				ClientTickHandler.notifyPageChange();
 				break;
 			case 2 :
+				currentPage.onClosed(this);
 				page++;
+				newPage = entry.pages.get(page);
+				newPage.onOpened(this);
+				
 				ClientTickHandler.notifyPageChange();
 				break;
 			case 3 :
@@ -118,6 +134,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 			}
 
 		updatePageButtons();
+		currentPage.onActionPerformed(this, par1GuiButton);
 	}
 
 	public void updatePageButtons() {
@@ -136,7 +153,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	@Override
 	public void updateScreen() {
 		LexiconPage page = entry.pages.get(this.page);
-		page.updateScreen();
+		page.updateScreen(this);
 	}
 
 	@Override
@@ -233,7 +250,6 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 			actionPerformed(backButton);
 			backButton.func_146113_a(mc.getSoundHandler());
 		}
-
 	}
 
 	void nextPage() {
@@ -248,5 +264,25 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 			actionPerformed(leftButton);
 			leftButton.func_146113_a(mc.getSoundHandler());
 		}
+	}
+
+	@Override
+	public List<GuiButton> getButtonList() {
+		return buttonList;
+	}
+	
+	@Override
+	public float getElapsedTicks() {
+		return lastTime;
+	}
+
+	@Override
+	public float getPartialTicks() {
+		return partialTicks;
+	}
+
+	@Override
+	public float getTickDelta() {
+		return timeDelta;
 	}
 }

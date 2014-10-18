@@ -49,6 +49,7 @@ public class GuiLexicon extends GuiScreen {
 	public static final ResourceLocation textureToff = new ResourceLocation(LibResources.GUI_TOFF);
 
 	public float lastTime = 0F;
+	public float partialTicks = 0F;
 	public float timeDelta = 0F;
 	
 	String title;
@@ -96,6 +97,7 @@ public class GuiLexicon extends GuiScreen {
 		float time = ClientTickHandler.ticksInGame + par3;
 		timeDelta = time - lastTime;
 		lastTime = time;
+		partialTicks = par3;
 		
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		mc.renderEngine.bindTexture(texture);

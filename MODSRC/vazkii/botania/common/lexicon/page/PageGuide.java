@@ -14,20 +14,39 @@ package vazkii.botania.common.lexicon.page;
 import java.awt.Desktop;
 import java.net.URI;
 
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
+import vazkii.botania.api.internal.IGuiLexiconEntry;
+
 public class PageGuide extends PageText {
 
+	GuiButton button;
+	
 	public PageGuide(String unlocalizedName) {
 		super(unlocalizedName);
 	}
 
 	@Override
-	public void onKeyPressed(char c, int key) {
-		if(key == 28 && Desktop.isDesktopSupported())
+	public void onOpened(IGuiLexiconEntry gui) {
+		button = new GuiButton(101, gui.getLeft() + 30, gui.getTop() + gui.getHeight() - 50, gui.getWidth() - 60, 20, StatCollector.translateToLocal("botaniamisc.playVideo"));
+		gui.getButtonList().add(button);
+	}
+	
+	@Override
+	public void onClosed(IGuiLexiconEntry gui) {
+		gui.getButtonList().remove(button);
+	}
+	
+	@Override
+	public void onActionPerformed(IGuiLexiconEntry gui, GuiButton button) {
+		if(button == this.button && Desktop.isDesktopSupported())
 			try {
 				Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=rx0xyejC6fI"));
 				if(Math.random() < 0.01)
 					Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=dQw4w9WgXcQ"));
 			} catch(Exception e) { }
 	}
+	
 
 }
