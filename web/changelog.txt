@@ -1,5 +1,6 @@
 r1.2 126
 *Changed the "introductory clip" page to use a button rather than the enter key.
+*Fixed hopperhocks having weird interactions with sided inventories, fixes issues with the Storage Drawers mod.
 *Hydroangeas are now less noisy.
 *Replaced the main page of the Lexica Botania with a new, icon driven one. This also increases the max amount of possible categories from 9 to 19, so addon authors have more space.
 *[API] Added getButtonList(), getElapsedTicks(), getPartialTicks() and getTickDelta() to IGuiLexiconEntry.
