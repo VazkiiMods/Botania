@@ -1,3 +1,13 @@
+r1.2 126
+*Changed the "introductory clip" page to use a button rather than the enter key.
+*Hydroangeas are now less noisy.
+*Replaced the main page of the Lexica Botania with a new, icon driven one. This also increases the max amount of possible categories from 9 to 19, so addon authors have more space.
+*[API] Added getButtonList(), getElapsedTicks(), getPartialTicks() and getTickDelta() to IGuiLexiconEntry.
+*[API] Added IGuiLexiconEntry sensitive updateScreen(), onOpened(), onClosed() and onActionPerformed() to LexiconPage. Buttons in lexicon pages can now be done as well as other things.
+*[API] Fixed any instances of "tile." returned by SubTileSignature.getUnlocalizedNameForStack() being replaced with "tile.botania:".
+*[API] Fixed SubTileSignature.getUnlocalizedLoreTextForStack() not having any effect.
+*[API] LexiconCategory now has a ResourceLocation with the icon to be rendered on the main page.
+*[API] Increased version number to 19.
 r1.2 125
 *Lowered the maximum amount of bookmarks from 10 to 8, so the searchbar fits.
 *You can now type in a index page to search, pressing enter if there's only one entry visible opens it.
