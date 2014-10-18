@@ -15,15 +15,15 @@ public final class LibLexicon {
 
 	public static final String CATEGORY_PREFIX = "botania.category.";
 
-	public static final String CATEGORY_BASICS = CATEGORY_PREFIX + "basics";
-	public static final String CATEGORY_MANA = CATEGORY_PREFIX + "mana";
-	public static final String CATEGORY_FUNCTIONAL_FLOWERS = CATEGORY_PREFIX + "functionalFlowers";
-	public static final String CATEGORY_GENERATION_FLOWERS = CATEGORY_PREFIX + "generationFlowers";
-	public static final String CATEGORY_DEVICES = CATEGORY_PREFIX + "devices";
-	public static final String CATEGORY_TOOLS = CATEGORY_PREFIX + "tools";
-	public static final String CATEGORY_BAUBLES = CATEGORY_PREFIX + "baubles";
-	public static final String CATEGORY_ALFHOMANCY = CATEGORY_PREFIX + "alfhomancy";
-	public static final String CATEGORY_MISC = CATEGORY_PREFIX + "misc";
+	public static final String CATEGORY_BASICS = "basics";
+	public static final String CATEGORY_MANA = "mana";
+	public static final String CATEGORY_FUNCTIONAL_FLOWERS = "functionalFlowers";
+	public static final String CATEGORY_GENERATION_FLOWERS = "generationFlowers";
+	public static final String CATEGORY_DEVICES = "devices";
+	public static final String CATEGORY_TOOLS = "tools";
+	public static final String CATEGORY_BAUBLES = "baubles";
+	public static final String CATEGORY_ALFHOMANCY = "alfhomancy";
+	public static final String CATEGORY_MISC = "misc";
 
 	public static final String BASICS_INTRO_VIDEO = "introVideo";
 	public static final String BASICS_FLOWERS = "flowers";

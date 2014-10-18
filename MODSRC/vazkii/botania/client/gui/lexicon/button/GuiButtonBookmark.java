@@ -11,10 +11,11 @@ import vazkii.botania.client.gui.lexicon.GuiLexicon;
 
 public class GuiButtonBookmark extends GuiButtonLexicon {
 
-	GuiLexicon gui = new GuiLexicon();
+	GuiLexicon gui;
 
 	public GuiButtonBookmark(int par1, int par2, int par3, GuiLexicon gui, String str) {
 		super(par1, par2, par3, gui.bookmarkWidth(str) + 5, 11, str);
+		this.gui = gui;
 	}
 
 	@Override

@@ -31,6 +31,7 @@ import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonBookmark;
+import vazkii.botania.client.gui.lexicon.button.GuiButtonCategory;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonInvisible;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.item.ItemLexicon;
@@ -47,6 +48,9 @@ public class GuiLexicon extends GuiScreen {
 	public static final ResourceLocation texture = new ResourceLocation(LibResources.GUI_LEXICON);
 	public static final ResourceLocation textureToff = new ResourceLocation(LibResources.GUI_TOFF);
 
+	public float lastTime = 0F;
+	public float timeDelta = 0F;
+	
 	String title;
 	int guiWidth = 146;
 	int guiHeight = 180;
@@ -55,7 +59,8 @@ public class GuiLexicon extends GuiScreen {
 	@Override
 	public void initGui() {
 		super.initGui();
-
+		lastTime = ClientTickHandler.ticksInGame;
+		
 		title = Minecraft.getMinecraft().thePlayer.getCurrentEquippedItem().getDisplayName();
 		currentOpenLexicon = this;
 
@@ -70,12 +75,28 @@ public class GuiLexicon extends GuiScreen {
 				buttonList.add(new GuiButtonInvisible(i, left + x, top + y, 110, 10, ""));
 			}
 			populateIndex();
+		} else if(isCategoryIndex()) {
+			int categories = BotaniaAPI.getAllCategories().size();
+			for(int i = 0; i < categories + 1; i++) {
+				LexiconCategory category = null;
+				category = i >= categories ? null : BotaniaAPI.getAllCategories().get(i);
+				int x = i % 4;
+				int y = i / 4;
+				
+				int size = 27;
+				GuiButtonCategory button = new GuiButtonCategory(i, left + 18 + x * size, top + 35 + y * size, this, category);
+				buttonList.add(button);
+			}
 		}
 		populateBookmarks();
 	}
 
 	@Override
 	public void drawScreen(int par1, int par2, float par3) {
+		float time = ClientTickHandler.ticksInGame + par3;
+		timeDelta = time - lastTime;
+		lastTime = time;
+		
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		mc.renderEngine.bindTexture(texture);
 		drawTexturedModalRect(left, top, 0, 0, guiWidth, guiHeight);
@@ -140,7 +161,7 @@ public class GuiLexicon extends GuiScreen {
 	void drawHeader() {
 		boolean unicode = fontRendererObj.getUnicodeFlag();
 		fontRendererObj.setUnicodeFlag(true);
-		fontRendererObj.drawSplitString(String.format(StatCollector.translateToLocal("botania.gui.lexicon.header"), ItemLexicon.getEdition()), left + 18, top + 14, 110, 0);
+		fontRendererObj.drawSplitString(String.format(StatCollector.translateToLocal("botania.gui.lexicon.header"), ItemLexicon.getEdition()), left + 18, top + 12, 110, 0);
 		fontRendererObj.setUnicodeFlag(unicode);
 	}
 
@@ -148,13 +169,8 @@ public class GuiLexicon extends GuiScreen {
 	protected void actionPerformed(GuiButton par1GuiButton) {
 		if(par1GuiButton.id >= BOOKMARK_START)
 			handleBookmark(par1GuiButton);
-		else {
-			int i = par1GuiButton.id - 2;
-			if(i < 0)
-				return;
-
-			List<LexiconCategory> categoryList = BotaniaAPI.getAllCategories();
-			LexiconCategory category = i >= categoryList.size() ? null : categoryList.get(i);
+		else if(par1GuiButton instanceof GuiButtonCategory) {
+			LexiconCategory category = ((GuiButtonCategory) par1GuiButton).getCategory();
 
 			mc.displayGuiScreen(new GuiLexiconIndex(category));
 			ClientTickHandler.notifyPageChange();
@@ -209,9 +225,13 @@ public class GuiLexicon extends GuiScreen {
 	}
 
 	boolean isIndex() {
-		return true;
+		return false;
 	}
 
+	boolean isCategoryIndex() {
+		return true;
+	}
+	
 	void populateIndex() {
 		List<LexiconCategory> categoryList = BotaniaAPI.getAllCategories();
 		int shift = 2;

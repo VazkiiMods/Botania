@@ -61,6 +61,16 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 	}
 
 	@Override
+	boolean isIndex() {
+		return true;
+	}
+	
+	@Override
+	boolean isCategoryIndex() {
+		return false;
+	}
+	
+	@Override
 	public void initGui() {
 		super.initGui();
 		buttonList.add(backButton = new GuiButtonBack(12, left + guiWidth / 2 - 8, top + guiHeight + 2));

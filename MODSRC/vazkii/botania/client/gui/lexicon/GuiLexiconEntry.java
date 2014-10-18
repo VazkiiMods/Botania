@@ -71,11 +71,6 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	}
 
 	@Override
-	boolean isIndex() {
-		return false;
-	}
-
-	@Override
 	void drawHeader() {
 		// NO-OP
 	}
@@ -88,6 +83,11 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	@Override
 	String getSubtitle() {
 		return subtitle;
+	}
+	
+	@Override
+	boolean isCategoryIndex() {
+		return false;
 	}
 
 	@Override

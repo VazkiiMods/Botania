@@ -14,11 +14,14 @@ package vazkii.botania.api.lexicon;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class LexiconCategory {
+import net.minecraft.util.ResourceLocation;
+
+public class LexiconCategory {
 
 	public final String unlocalizedName;
 	public final List<LexiconEntry> entries = new ArrayList<LexiconEntry>();
-
+	private ResourceLocation icon;
+	
 	/**
 	 * @param unlocalizedName The unlocalized name of this category. This will be localized by the client display.
 	 */
@@ -28,5 +31,14 @@ public final class LexiconCategory {
 
 	public String getUnlocalizedName() {
 		return unlocalizedName;
+	}
+	
+	public LexiconCategory setIcon(ResourceLocation icon) {
+		this.icon = icon;
+		return this;
+	}
+	
+	public ResourceLocation getIcon() {
+		return icon;
 	}
 }
