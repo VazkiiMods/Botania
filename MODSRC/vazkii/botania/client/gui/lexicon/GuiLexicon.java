@@ -51,7 +51,7 @@ public class GuiLexicon extends GuiScreen {
 	public float lastTime = 0F;
 	public float partialTicks = 0F;
 	public float timeDelta = 0F;
-	
+
 	String title;
 	int guiWidth = 146;
 	int guiHeight = 180;
@@ -61,7 +61,7 @@ public class GuiLexicon extends GuiScreen {
 	public void initGui() {
 		super.initGui();
 		lastTime = ClientTickHandler.ticksInGame;
-		
+
 		title = Minecraft.getMinecraft().thePlayer.getCurrentEquippedItem().getDisplayName();
 		currentOpenLexicon = this;
 
@@ -83,7 +83,7 @@ public class GuiLexicon extends GuiScreen {
 				category = i >= categories ? null : BotaniaAPI.getAllCategories().get(i);
 				int x = i % 4;
 				int y = i / 4;
-				
+
 				int size = 27;
 				GuiButtonCategory button = new GuiButtonCategory(i, left + 18 + x * size, top + 35 + y * size, this, category);
 				buttonList.add(button);
@@ -98,7 +98,7 @@ public class GuiLexicon extends GuiScreen {
 		timeDelta = time - lastTime;
 		lastTime = time;
 		partialTicks = par3;
-		
+
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		mc.renderEngine.bindTexture(texture);
 		drawTexturedModalRect(left, top, 0, 0, guiWidth, guiHeight);
@@ -233,7 +233,7 @@ public class GuiLexicon extends GuiScreen {
 	boolean isCategoryIndex() {
 		return true;
 	}
-	
+
 	void populateIndex() {
 		List<LexiconCategory> categoryList = BotaniaAPI.getAllCategories();
 		int shift = 2;

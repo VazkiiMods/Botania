@@ -64,12 +64,12 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 	boolean isIndex() {
 		return true;
 	}
-	
+
 	@Override
 	boolean isCategoryIndex() {
 		return false;
 	}
-	
+
 	@Override
 	public void initGui() {
 		super.initGui();

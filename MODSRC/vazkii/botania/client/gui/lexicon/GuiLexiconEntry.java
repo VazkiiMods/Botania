@@ -88,7 +88,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	String getSubtitle() {
 		return subtitle;
 	}
-	
+
 	@Override
 	boolean isCategoryIndex() {
 		return false;
@@ -98,7 +98,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	protected void actionPerformed(GuiButton par1GuiButton) {
 		LexiconPage currentPage = entry.pages.get(page);
 		LexiconPage newPage;
-		
+
 		if(par1GuiButton.id >= BOOKMARK_START)
 			handleBookmark(par1GuiButton);
 		else
@@ -113,7 +113,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 				page--;
 				newPage = entry.pages.get(page);
 				newPage.onOpened(this);
-				
+
 				ClientTickHandler.notifyPageChange();
 				break;
 			case 2 :
@@ -121,7 +121,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 				page++;
 				newPage = entry.pages.get(page);
 				newPage.onOpened(this);
-				
+
 				ClientTickHandler.notifyPageChange();
 				break;
 			case 3 :
@@ -270,7 +270,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	public List<GuiButton> getButtonList() {
 		return buttonList;
 	}
-	
+
 	@Override
 	public float getElapsedTicks() {
 		return lastTime;

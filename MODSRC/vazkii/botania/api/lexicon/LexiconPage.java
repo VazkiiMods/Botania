@@ -41,8 +41,8 @@ public abstract class LexiconPage {
 	public void updateScreen() {
 		// NO-OP
 	}
-	
-	/** 
+
+	/**
 	 * Called per update tick. Feel free to override fully, the
 	 * call to updateScreen() is for backwards compatibility.
 	 */
@@ -50,8 +50,8 @@ public abstract class LexiconPage {
 	public void updateScreen(IGuiLexiconEntry gui) {
 		updateScreen();
 	}
-	
-	/** 
+
+	/**
 	 * Called when this page is opened, be it via initGui() or when the player changes page.
 	 * You can add buttons and whatever you'd do on initGui() here.
 	 */
@@ -59,8 +59,8 @@ public abstract class LexiconPage {
 	public void onOpened(IGuiLexiconEntry gui) {
 		// NO-OP
 	}
-	
-	/** 
+
+	/**
 	 * Called when this page is opened, be it via closing the gui or when the player changes page.
 	 * Make sure to dispose of anything you don't use any more, such as buttons in the gui's buttonList.
 	 */
@@ -68,7 +68,7 @@ public abstract class LexiconPage {
 	public void onClosed(IGuiLexiconEntry gui) {
 		// NO-OP
 	}
-	
+
 	/**
 	 * Called when a button is pressed, equivalent to GuiScreen.actionPerformed.
 	 */
@@ -76,7 +76,7 @@ public abstract class LexiconPage {
 	public void onActionPerformed(IGuiLexiconEntry gui, GuiButton button) {
 		// NO-OP
 	}
-	
+
 	/**
 	 * Called when a key is pressed.
 	 */

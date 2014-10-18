@@ -26,7 +26,7 @@ public class ItemBlockMod extends ItemBlock {
 	public String getUnlocalizedNameInefficiently(ItemStack par1ItemStack) {
 		return getUnlocalizedNameInefficiently_(par1ItemStack).replaceAll("tile.", "tile." + LibResources.PREFIX_MOD);
 	}
-	
+
 	public String getUnlocalizedNameInefficiently_(ItemStack stack) {
 		return super.getUnlocalizedNameInefficiently(stack);
 	}

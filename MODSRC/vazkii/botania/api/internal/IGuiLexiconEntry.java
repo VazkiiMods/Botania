@@ -62,18 +62,18 @@ public interface IGuiLexiconEntry {
 	 * Gets the list of buttons in this gui.
 	 */
 	public List<GuiButton> getButtonList();
-	
+
 	/**
 	 * Gets the total amount of ticks (+ partial ticks) the player
 	 * has been in this gui.
 	 */
 	public float getElapsedTicks();
-	
+
 	/**
 	 * Gets the current partial ticks.
 	 */
 	public float getPartialTicks();
-	
+
 	/**
 	 * Gets the delta (1F = 1 tick) between this render call
 	 * and the last one.
