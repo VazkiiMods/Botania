@@ -1,3 +1,5 @@
+r1.2 127
+*Fixed the category buttons using Scala arrays rather than Java arrays (and crashing the game thanks to that). How does that even happen? O.o
 r1.2 126
 *Changed the "introductory clip" page to use a button rather than the enter key.
 *Fixed hopperhocks having weird interactions with sided inventories, fixes issues with the Storage Drawers mod.
