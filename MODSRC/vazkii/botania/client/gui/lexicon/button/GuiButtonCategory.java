@@ -11,13 +11,14 @@
  */
 package vazkii.botania.client.gui.lexicon.button;
 
+import java.util.Arrays;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
 
-import scala.actors.threadpool.Arrays;
 import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
@@ -66,7 +67,7 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 		GL11.glPopMatrix();
 
 		if(inside)
-			RenderHelper.renderTooltipGreen(mx, my, Arrays.asList(new String[] {StatCollector.translateToLocal(getTooltipText())}));
+			RenderHelper.renderTooltipGreen(mx, my, Arrays.asList(StatCollector.translateToLocal(getTooltipText())));
 	}
 
 	String getTooltipText() {
