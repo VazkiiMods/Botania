@@ -24,6 +24,7 @@
 				<b>Futureazoo</b> for the Terra Shatterer texture and the alternate textures in the Unity texture pack style that are available in the config.<br>
 				<b>Haighyorkie</b> for being a goldfish and always being supportive with making videos to show off the mod.<br>
 				<b>Le_Alchemist</b> for providing many hours of shameless fun.<br>
+				<b>Lorc</b> of <a href="http://game-icons.net/">game-icons.net</b> for the icons used in the main lexicon page.
 				<b>MCPBot</b> for always being there for my obfuscation woes.<br>
 				<b>MegaManki</b> for the mod's logo.<br>
 				<b>Pokefenn</b> for the Hydroangeas and breaking all the things, every single time.<br>
