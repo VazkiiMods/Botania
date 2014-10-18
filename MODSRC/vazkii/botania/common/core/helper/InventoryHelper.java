@@ -107,7 +107,7 @@ public class InventoryHelper {
 		}
 		while(stack.stackSize > 0 && i < attemptSlots.length) {
 			if(side != ForgeDirection.UNKNOWN && inventory instanceof ISidedInventory)
-				if(!((ISidedInventory)inventory).canInsertItem(intoSlot, stack, side.ordinal())) {
+				if(!((ISidedInventory)inventory).canInsertItem(attemptSlots[i], stack, side.ordinal())) {
 					i++;
 					continue;
 				}
