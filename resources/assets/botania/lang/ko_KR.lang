@@ -14,7 +14,7 @@ botaniamisc.statusUnknown=알 수 없는 상태
 botaniamisc.color=%s 색
 botaniamisc.manaUsage=마나 사용량
 botaniamisc.shiftToRead=Shift + 우클릭으로 더 많은 정보를 얻으세요
-botaniamisc.clickToRecipe=Shift * 왼클릭으로 조합법을 얻으세요
+botaniamisc.clickToRecipe=Shift + 왼클릭으로 조합법을 얻으세요
 botaniamisc.clickToIndex=Shift 클릭시 목차로 이동
 botaniamisc.flareColor=%s Rounds
 botaniamisc.outputtingPower=아이템에 마나를 주입합니다
@@ -204,8 +204,8 @@ botania.versioning.flavour35=보타니아를 하고 마법소녀가 되어줘!
 botania.versioning.outdated=당신이 실행하고 있는 보타니아의 빌드는 %s지만, 최신버전은 %s입니다.
 botania.versioning.updateMessage=["Click for... [",{"text":"Download","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Click this to automatically download the latest version","color":"green"}},"clickEvent":{"action":"run_command","value":"/botania-download-latest %version%"}},"] [",{"text":"Website","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Click this to go to the mod's website","color":"green"}},"clickEvent":{"action":"open_url","value":"http://vazkii.us/mod/Botania/downloads.php"}},"] [",{"text":"Changelog","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Click this to go to the version's Changelog","color":"green"}},"clickEvent":{"action":"open_url","value":"http://vazkii.us/mod/Botania/changelog.php#%version%"}},"]"]
 botania.versioning.startingDownload=[{"text":"Starting download of %s. Please do not remove your hard disk. Enjoying ","color":"aqua"},{"text":"Botania","color":"green"},{"text":"? Consider supporting ","color":"aqua"},{"text":"Vazkii","color":"light_purple"},{"text":" on [","color":"aqua"},{"text":"Patreon","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"Click this to go to Vazkii's Patreon","color":"light_purple"}},"clickEvent":{"action":"open_url","value":"http://www.patreon.com/Vazkii"}},{"text":"]!","color":"aqua"}]
-botania.versioning.startingDownload=다운로드를 시작합니다 %s. 하드디스크를 제거하지 마세요.
-botania.versioning.doneDownloading=다운로드가 끝났습니다 %s. 당신의 보타니아 구버젼 [모드이름].jar 을 제거해주시고 업데이트를 위해 마인크래프트를 재시작 해주세요
+botania.versioning.startingDownload=%s의 다운로드를 시작합니다. 하드디스크를 제거하지 마세요.
+botania.versioning.doneDownloading=%s의 다운로드가 끝났습니다. 당신의 보타니아 구버젼 MODNAME.jar 을 제거해주시고 업데이트를 위해 마인크래프트를 재시작 해주세요
 botania.versioning.downloadedAlready=당신은 이미 최신 버젼을 다운로드 하셨습니다. 게임을 종료하시고, .minecraft - mods 에서 구버젼을 삭제해주세요, 그리고 게임을 재시작 해주세요!
 botania.versioning.error=Woah! It seems like something went wrong while trying to download the Botania update. Is vazkii.us down?
 botania.versioning.disabled=Sorry. This feature is currently disabled due to server host problems, it should be back soon.
@@ -311,7 +311,7 @@ tile.botania:forestEye.name=고대인의 눈
 tile.botania:storage0.name=마나 합금 블럭
 tile.botania:storage1.name=땅의 합금 블럭
 tile.botania:storage2.name=엘레멘티움 블럭
-tile.botania:forestDrum.name=야생의 드럼
+tile.botania:forestDrum0.name=야생의 드럼
 tile.botania:forestDrum1.name=Drum of the Gathering
 tile.botania:shinyFlower0.name=희미하게 빛나는 하얀색 꽃
 tile.botania:shinyFlower1.name=희미하게 빛나는 주황색 꽃
@@ -749,7 +749,7 @@ botania.entry.introVideo=An Introductory Clip
 botania.page.introVideo0=For those readers who are not quite readers, a short video guide covering the basics of Botania is also available. It's to keep in note that this guide acts as an aid and not a substitution for the contents of the &1Lexica Botania&0.<br>To watch this video simply press the &4ENTER&0 key.
 
 # -- LEXICA BOTANIA
-botania.entry.lexicon=0.보타니아 사전
+botania.entry.lexicon=보타니아 사전
 botania.page.lexicon0=botania.page.lexicon0=이 &1보타니아 사전&0은 보타니아에 관련된 모든 식물학 지식의 저장소 입니다. 하지만 당신은 아마 알고계실 것입니다.<br>예상하신대로, 모든정보는 여기에 저장됩니다. 블럭이나 아이템 확인의 편의를 위해  &1보타니아 사전&0을 들고 쉬프트 우클릭하시면 해당하는 페이지로 이동됩니다.
 botania.page.lexicon3=Any entries typed in &oItalics&r are &4basic&0 entries, which contain the very basic knowledge required to playing Botania. They should be prioritized over others, most of the sections contain one or more, so a good look through through them is a good idea.
 botania.page.lexicon1=&1보타니아 사전&0 조합법.
