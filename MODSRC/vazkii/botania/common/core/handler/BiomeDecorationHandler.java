@@ -23,7 +23,14 @@ public class BiomeDecorationHandler {
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void onWorldDecoration(DecorateBiomeEvent.Decorate event) {
-		if((event.getResult() == Result.ALLOW || event.getResult() == Result.DEFAULT) && event.type == EventType.FLOWERS)
+		if((event.getResult() == Result.ALLOW || event.getResult() == Result.DEFAULT) && event.type == EventType.FLOWERS) {
+			boolean flowers = true;
+			if(event.world.provider instanceof IFlowerlessWorld)
+				flowers = ((IFlowerlessWorld) event.world.provider).generateFlowers(event.world);
+
+			if(!flowers)
+				return;
+
 			for(int i = 0; i < ConfigHandler.flowerQuantity; i++) {
 				int x = event.chunkX + event.rand.nextInt(16) + 8;
 				int z = event.chunkZ + event.rand.nextInt(16) + 8;
@@ -35,16 +42,10 @@ public class BiomeDecorationHandler {
 					int y1 = y + event.rand.nextInt(4) - event.rand.nextInt(4);
 					int z1 = z + event.rand.nextInt(8) - event.rand.nextInt(8);
 
-                    boolean flowers;
-                    if((event.world.provider instanceof IFlowerlessWorld)) {
-                        flowers = ((IFlowerlessWorld) event.world.provider).generateFlowers();
-                    }else{
-                        flowers = true;
-                    }
-                        if (flowers && event.world.isAirBlock(x1, y1, z1) && (!event.world.provider.hasNoSky || y1 < 127) && ModBlocks.flower.canBlockStay(event.world, x1, y1, z1))
-                            event.world.setBlock(x1, y1, z1, ModBlocks.flower, color, 2);
-                    }
-
+					if (flowers && event.world.isAirBlock(x1, y1, z1) && (!event.world.provider.hasNoSky || y1 < 127) && ModBlocks.flower.canBlockStay(event.world, x1, y1, z1))
+						event.world.setBlock(x1, y1, z1, ModBlocks.flower, color, 2);
+				}
 			}
+		}
 	}
 }
