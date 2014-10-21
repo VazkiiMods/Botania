@@ -1,3 +1,11 @@
+r1.2 128
+*Added a bunch of references.
+*Added some entries to the game profiler (Shift-F3):<ul><li>root.gameRenderer.gui.botania-hud</li><li>root.gameRenderer.level.FRenderLast.botania-particles</li></ul>
+*Added some text to the left of the debug menu (F3) that shows particle count and mana network status.
+*Fixed the text for Nightshades and Hydroangeas going off the book if passive flower decay is enabled.
+*Updated the Daybloom and Endoflame entries to have better conveyance. The Daybloom entry tells you to invest in Endoflames and the Endoflame entry tells you to check out the Crafty Crate.
+*[API] Added IFlowerlessWorld for WorldProviders. (Thelonedevil)
+*[API] Increased version number to 20.
 r1.2 127
 *Fixed the category buttons using Scala arrays rather than Java arrays (and crashing the game thanks to that). How does that even happen? O.o
 r1.2 126
