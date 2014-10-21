@@ -26,6 +26,7 @@ import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.entity.Entity;
+import net.minecraft.profiler.Profiler;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChunkCoordinates;
@@ -58,10 +59,14 @@ public class LightningHandler {
 
 	@SubscribeEvent
 	public void onRenderWorldLast(RenderWorldLastEvent event) {
+		Profiler profiler = Minecraft.getMinecraft().mcProfiler;
+		profiler.startSection("botania-particles");
 		ParticleRenderDispatcher.dispatch();
+		profiler.startSection("lightning");
 
 		float frame = event.partialTicks;
 		Entity entity = Minecraft.getMinecraft().thePlayer;
+		TextureManager render = Minecraft.getMinecraft().renderEngine;
 
 		interpPosX = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * frame;
 		interpPosY = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * frame;
@@ -75,19 +80,19 @@ public class LightningHandler {
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-		TextureManager render = Minecraft.getMinecraft().renderEngine;
-
+		ParticleRenderDispatcher.lightningCount = 0;
+		
 		render.bindTexture(outsideResource);
 		tessellator.startDrawingQuads();
 		tessellator.setBrightness(0xF000F0);
-		for (LightningBolt bolt : LightningBolt.boltlist)
+		for(LightningBolt bolt : LightningBolt.boltlist)
 			renderBolt(bolt, tessellator, frame, ActiveRenderInfo.rotationX, ActiveRenderInfo.rotationXZ, ActiveRenderInfo.rotationZ, ActiveRenderInfo.rotationXY, 0, false);
 		tessellator.draw();
 
 		render.bindTexture(insideResource);
 		tessellator.startDrawingQuads();
 		tessellator.setBrightness(0xF000F0);
-		for (LightningBolt bolt : LightningBolt.boltlist)
+		for(LightningBolt bolt : LightningBolt.boltlist)
 			renderBolt(bolt, tessellator, frame, ActiveRenderInfo.rotationX, ActiveRenderInfo.rotationXZ, ActiveRenderInfo.rotationZ, ActiveRenderInfo.rotationXY, 1, true);
 		tessellator.draw();
 
@@ -95,6 +100,9 @@ public class LightningHandler {
 		GL11.glDepthMask(true);
 
 		GL11.glTranslated(interpPosX, interpPosY, interpPosZ);
+		profiler.endSection();
+		profiler.endSection();
+		
 	}
 
 	public static void spawnLightningBolt(World world, Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
@@ -105,6 +113,7 @@ public class LightningHandler {
 	}
 
 	private void renderBolt(LightningBolt bolt, Tessellator tessellator, float partialframe, float cosyaw, float cospitch, float sinyaw, float cossinpitch, int pass, boolean inner) {
+		ParticleRenderDispatcher.lightningCount++;
 		float boltage = bolt.particleAge < 0 ? 0 : (float) bolt.particleAge / (float) bolt.particleMaxAge;
 		float mainalpha = 1;
 		if(pass == 0)

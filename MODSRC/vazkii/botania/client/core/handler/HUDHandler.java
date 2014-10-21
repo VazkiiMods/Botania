@@ -23,6 +23,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.profiler.Profiler;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MovingObjectPosition;
@@ -60,8 +61,11 @@ public final class HUDHandler {
 
 	@SubscribeEvent
 	public void onDrawScreen(RenderGameOverlayEvent.Post event) {
+		Minecraft mc = Minecraft.getMinecraft();
+		Profiler profiler = mc.mcProfiler;
+
 		if(event.type == ElementType.ALL) {
-			Minecraft mc = Minecraft.getMinecraft();
+			profiler.startSection("botania-hud");
 			MovingObjectPosition pos = mc.objectMouseOver;
 			if(pos != null) {
 				Block block = mc.theWorld.getBlock(pos.blockX, pos.blockY, pos.blockZ);
@@ -72,8 +76,11 @@ public final class HUDHandler {
 					if(pos != null && stack.getItem() == ModItems.twigWand) {
 						renderWandModeDisplay(event.resolution);
 
-						if(block instanceof IWandHUD)
+						if(block instanceof IWandHUD) {
+							profiler.startSection("wandItem");
 							((IWandHUD) block).renderHUD(mc, event.resolution, mc.theWorld, pos.blockX, pos.blockY, pos.blockZ);
+							profiler.endSection();
+						}
 					}
 					else if(pos != null && stack.getItem() instanceof ILexicon)
 						drawLexiconHUD(mc.thePlayer.getCurrentEquippedItem(), block, pos, event.resolution);
@@ -81,7 +88,8 @@ public final class HUDHandler {
 						renderPoolRecipeHUD(event.resolution, (TilePool) tile, stack);
 				}
 			}
-		} else if(event.type == ElementType.EXPERIENCE) {
+
+			profiler.startSection("manaBar");
 			EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 			int totalMana = 0;
 			int totalMaxMana = 0;
@@ -120,11 +128,17 @@ public final class HUDHandler {
 
 			if(anyRequest)
 				renderManaInvBar(event.resolution, creative, totalMana, totalMaxMana);
+			
+			profiler.endSection();
+			profiler.endSection();
 		}
 	}
 
 	private void renderWandModeDisplay(ScaledResolution res) {
 		Minecraft mc = Minecraft.getMinecraft();
+		Profiler profiler = mc.mcProfiler;
+
+		profiler.startSection("wandMode");
 		int ticks = ReflectionHelper.getPrivateValue(GuiIngame.class, mc.ingameGUI, LibObfuscation.REMAINING_HIGHLIGHT_TICKS);
 		ticks -= 15;
 		if(ticks > 0) {
@@ -140,9 +154,13 @@ public final class HUDHandler {
 			mc.fontRenderer.drawStringWithShadow(disp, x, y, color);
 			GL11.glDisable(GL11.GL_BLEND);
 		}
+		profiler.endSection();
 	}
 
 	private void renderManaInvBar(ScaledResolution res, boolean hasCreative, int totalMana, int totalMaxMana) {
+		Minecraft mc = Minecraft.getMinecraft();
+		Profiler profiler = mc.mcProfiler;
+
 		int width = 182;
 		int x = res.getScaledWidth() / 2 - width / 2;
 		int y = res.getScaledHeight() - 29;
@@ -159,8 +177,6 @@ public final class HUDHandler {
 			else return;
 		}
 
-		Minecraft mc = Minecraft.getMinecraft();
-
 		Color color = new Color(Color.HSBtoRGB(0.55F, (float) Math.min(1F, Math.sin(System.currentTimeMillis() / 200D) * 0.5 + 1F), 1F));
 		GL11.glColor4ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue(), (byte) (255 - color.getRed()));
 		mc.renderEngine.bindTexture(manaBar);
@@ -172,10 +188,13 @@ public final class HUDHandler {
 	}
 
 	private void renderPoolRecipeHUD(ScaledResolution res, TilePool tile, ItemStack stack) {
+		Minecraft mc = Minecraft.getMinecraft();
+		Profiler profiler = mc.mcProfiler;
+
+		profiler.startSection("poolRecipe");
 		for(RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes) {
 			if(recipe.matches(stack)) {
 				if((!recipe.isAlchemy() || tile.alchemy) && (!recipe.isConjuration() || tile.conjuration)) {
-					Minecraft mc = Minecraft.getMinecraft();
 					int x = res.getScaledWidth() / 2 - 11;
 					int y = res.getScaledHeight() / 2 + 10;
 
@@ -202,10 +221,14 @@ public final class HUDHandler {
 				}
 			}
 		}
+		profiler.endSection();
 	}
 
 	private void drawLexiconHUD(ItemStack stack, Block block, MovingObjectPosition pos, ScaledResolution res) {
 		Minecraft mc = Minecraft.getMinecraft();
+		Profiler profiler = mc.mcProfiler;
+
+		profiler.startSection("lexicon");
 		FontRenderer font = mc.fontRenderer;
 		boolean draw = false;
 		String drawStr = "";
@@ -227,6 +250,7 @@ public final class HUDHandler {
 		}
 
 		if(!draw && pos.entityHit == null) {
+			profiler.startSection("wikiLookup");
 			IWikiProvider provider = WikiHooks.getWikiFor(block);
 			String url = provider.getWikiURL(mc.theWorld, pos);
 			if(url != null && !url.isEmpty()) {
@@ -235,6 +259,7 @@ public final class HUDHandler {
 				drawStr = name + " @ " + EnumChatFormatting.AQUA + wikiName;
 				draw = true;
 			}
+			profiler.endSection();
 		}
 
 		if(draw) {
@@ -250,6 +275,7 @@ public final class HUDHandler {
 
 		GL11.glDisable(GL11.GL_BLEND);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
+		profiler.endSection();
 	}
 
 	public static void drawSimpleManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res) {

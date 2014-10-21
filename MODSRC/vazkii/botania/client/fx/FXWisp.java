@@ -75,13 +75,16 @@ public class FXWisp extends EntityFX {
 	}
 
 	public static void dispatchQueuedRenders(Tessellator tessellator) {
+		ParticleRenderDispatcher.wispFxCount = 0;
+		ParticleRenderDispatcher.depthIgnoringWispFxCount = 0;
+		
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.75F);
 		Minecraft.getMinecraft().renderEngine.bindTexture(ConfigHandler.matrixMode ? ObfuscationHelper.getParticleTexture() : particles);
 
 		if(!queuedRenders.isEmpty()) {
 			tessellator.startDrawingQuads();
 			for(FXWisp wisp : queuedRenders)
-				wisp.renderQueued(tessellator);
+				wisp.renderQueued(tessellator, true);
 			tessellator.draw();
 		}
 
@@ -89,7 +92,7 @@ public class FXWisp extends EntityFX {
 			GL11.glDisable(GL11.GL_DEPTH_TEST);
 			tessellator.startDrawingQuads();
 			for(FXWisp wisp : queuedDepthIgnoringRenders)
-				wisp.renderQueued(tessellator);
+				wisp.renderQueued(tessellator, false);
 			tessellator.draw();
 			GL11.glEnable(GL11.GL_DEPTH_TEST);
 		}
@@ -98,7 +101,11 @@ public class FXWisp extends EntityFX {
 		queuedDepthIgnoringRenders.clear();
 	}
 
-	private void renderQueued(Tessellator tessellator) {
+	private void renderQueued(Tessellator tessellator, boolean depthEnabled) {
+		if(depthEnabled)
+			ParticleRenderDispatcher.wispFxCount++;
+		else ParticleRenderDispatcher.depthIgnoringWispFxCount++;
+		
 		float agescale = 0;
 		agescale = (float)particleAge / (float) moteHalfLife;
 		if (agescale > 1F)
