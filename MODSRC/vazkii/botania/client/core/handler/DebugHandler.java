@@ -11,18 +11,18 @@
  */
 package vazkii.botania.client.core.handler;
 
-import vazkii.botania.client.fx.ParticleRenderDispatcher;
-import vazkii.botania.common.core.handler.ManaNetworkHandler;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import vazkii.botania.client.fx.ParticleRenderDispatcher;
+import vazkii.botania.common.core.handler.ManaNetworkHandler;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public final class DebugHandler {
 
 	private static final String PREFIX = EnumChatFormatting.GREEN + "[Botania] " + EnumChatFormatting.RESET;
-	
+
 	@SubscribeEvent
 	public void onDrawDebugText(RenderGameOverlayEvent.Text event) {
 		World world = Minecraft.getMinecraft().theWorld;
@@ -32,6 +32,6 @@ public final class DebugHandler {
 			event.left.add(PREFIX + "netColl: " + ManaNetworkHandler.instance.getAllCollectorsInWorld(world).size() + ", netPool: " + ManaNetworkHandler.instance.getAllPoolsInWorld(world).size());
 		}
 	}
-	
-	
+
+
 }

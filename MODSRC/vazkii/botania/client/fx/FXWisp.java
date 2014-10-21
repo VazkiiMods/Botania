@@ -77,7 +77,7 @@ public class FXWisp extends EntityFX {
 	public static void dispatchQueuedRenders(Tessellator tessellator) {
 		ParticleRenderDispatcher.wispFxCount = 0;
 		ParticleRenderDispatcher.depthIgnoringWispFxCount = 0;
-		
+
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.75F);
 		Minecraft.getMinecraft().renderEngine.bindTexture(ConfigHandler.matrixMode ? ObfuscationHelper.getParticleTexture() : particles);
 
@@ -105,7 +105,7 @@ public class FXWisp extends EntityFX {
 		if(depthEnabled)
 			ParticleRenderDispatcher.wispFxCount++;
 		else ParticleRenderDispatcher.depthIgnoringWispFxCount++;
-		
+
 		float agescale = 0;
 		agescale = (float)particleAge / (float) moteHalfLife;
 		if (agescale > 1F)

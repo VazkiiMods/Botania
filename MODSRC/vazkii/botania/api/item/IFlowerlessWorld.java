@@ -18,8 +18,8 @@ import net.minecraft.world.World;
  */
 public interface IFlowerlessWorld {
 
-    /**
-     * @return Should this world be allowed to generate flowers?
-     */
-    public boolean generateFlowers(World world);
+	/**
+	 * @return Should this world be allowed to generate flowers?
+	 */
+	public boolean generateFlowers(World world);
 }

@@ -81,7 +81,7 @@ public class LightningHandler {
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 		ParticleRenderDispatcher.lightningCount = 0;
-		
+
 		render.bindTexture(outsideResource);
 		tessellator.startDrawingQuads();
 		tessellator.setBrightness(0xF000F0);
@@ -102,7 +102,7 @@ public class LightningHandler {
 		GL11.glTranslated(interpPosX, interpPosY, interpPosZ);
 		profiler.endSection();
 		profiler.endSection();
-		
+
 	}
 
 	public static void spawnLightningBolt(World world, Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {

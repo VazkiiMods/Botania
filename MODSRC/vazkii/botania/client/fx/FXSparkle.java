@@ -62,7 +62,7 @@ public class FXSparkle extends EntityFX {
 	public static void dispatchQueuedRenders(Tessellator tessellator) {
 		ParticleRenderDispatcher.sparkleFxCount = 0;
 		ParticleRenderDispatcher.fakeSparkleFxCount = 0;
-		
+
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.75F);
 		Minecraft.getMinecraft().renderEngine.bindTexture(ConfigHandler.matrixMode ? ObfuscationHelper.getParticleTexture() : particles);
 
@@ -78,7 +78,7 @@ public class FXSparkle extends EntityFX {
 		if(fake)
 			ParticleRenderDispatcher.fakeSparkleFxCount++;
 		else ParticleRenderDispatcher.sparkleFxCount++;
-		
+
 		int part = particle + particleAge/multiplier;
 
 		float var8 = part % 8 / 8.0F;

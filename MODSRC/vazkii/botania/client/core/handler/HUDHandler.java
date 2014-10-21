@@ -128,7 +128,7 @@ public final class HUDHandler {
 
 			if(anyRequest)
 				renderManaInvBar(event.resolution, creative, totalMana, totalMaxMana);
-			
+
 			profiler.endSection();
 			profiler.endSection();
 		}
@@ -159,8 +159,6 @@ public final class HUDHandler {
 
 	private void renderManaInvBar(ScaledResolution res, boolean hasCreative, int totalMana, int totalMaxMana) {
 		Minecraft mc = Minecraft.getMinecraft();
-		Profiler profiler = mc.mcProfiler;
-
 		int width = 182;
 		int x = res.getScaledWidth() / 2 - width / 2;
 		int y = res.getScaledHeight() - 29;
