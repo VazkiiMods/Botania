@@ -13,6 +13,7 @@ package vazkii.botania.common.core.handler;
 
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType;
+import vazkii.botania.api.item.IFlowerlessWorld;
 import vazkii.botania.common.block.ModBlocks;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.EventPriority;
@@ -34,9 +35,16 @@ public class BiomeDecorationHandler {
 					int y1 = y + event.rand.nextInt(4) - event.rand.nextInt(4);
 					int z1 = z + event.rand.nextInt(8) - event.rand.nextInt(8);
 
-					if(event.world.isAirBlock(x1, y1, z1) && (!event.world.provider.hasNoSky || y1 < 127) && ModBlocks.flower.canBlockStay(event.world, x1, y1, z1))
-						event.world.setBlock(x1, y1, z1, ModBlocks.flower, color, 2);
-				}
+                    boolean flowers;
+                    if((event.world.provider instanceof IFlowerlessWorld)) {
+                        flowers = ((IFlowerlessWorld) event.world.provider).generateFlowers();
+                    }else{
+                        flowers = true;
+                    }
+                        if (flowers && event.world.isAirBlock(x1, y1, z1) && (!event.world.provider.hasNoSky || y1 < 127) && ModBlocks.flower.canBlockStay(event.world, x1, y1, z1))
+                            event.world.setBlock(x1, y1, z1, ModBlocks.flower, color, 2);
+                    }
+
 			}
 	}
 }
