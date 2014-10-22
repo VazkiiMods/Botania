@@ -480,7 +480,7 @@ tile.botania:flower.gourmaryllis.reference=Fuyukai Desu
 
 # - FUNCTIONAL
 tile.botania:flower.bellethorn.name=미인가시꽃
-tile.botania:flower.bellethorn.reference=킬리 - 킬리 - 조커
+tile.botania:flower.bellethorn.reference=world's end, girl's rondo
 tile.botania:flower.dreadthorn.name=죽음의 덤불
 tile.botania:flower.dreadthorn.reference=C작전!
 tile.botania:flower.heiseiDream.name=길몽초
@@ -876,7 +876,7 @@ botania.page.distributor1=Crafting the distributor
 # -- MANA VOID
 botania.entry.manaVoid=Mana Void
 botania.page.manaVoid0=The &1Mana Void&0 is, in layman's terms, the grave for &4Mana&0. Any &4Mana&0 shot into this block will simply vanish into the void, never to be seen again.<br>Placing one of these under a &1Mana Pool&0 allows the pool to always accept &4Mana&0, but disposing any it can't hold.
-botania.page.manaVoid1=Crafting the void block
+botania.page.manaVoid1=Even Chad from accounting?
 
 # -- MANA FLUXFIELD
 botania.entry.rfGenerator=Mana Fluxfield
@@ -996,7 +996,7 @@ botania.page.tigerseye1=&oRisin' up to the challenge of our rivals&r.
 # -- ORECHID
 botania.entry.orechid=Orechid
 botania.page.orechid0=While going mining is all good, a renewable means of getting ore is due. The &1Orechid&0 will use (a massive amount of) &4Mana&0 to generate &4ores&0 in nearby &1Stone&0 blocks.<br>The ores it generates are random, but seem to be biased towards more common ores rather than rarer ones.
-botania.page.orechid1=&oLizbeth would like this flower&r.
+botania.page.orechid1=&oNot dragon poop&r.
 
 # -- FALLEN KANADE
 botania.entry.fallenKanade=Fallen Kanade
@@ -1028,13 +1028,13 @@ botania.page.tangleberrie1=&oTangled, brave and frozen&r.
 # -- JIYUULIA
 botania.entry.jiyuulia=Jiyuulia
 botania.page.jiyuulia0=The &1Jiyuulia&0 is a flower that, at the cost of a small amount of &4Mana&0, will keep any nearby animals or monsters at bay, protecting a circular area from them getting in.
-botania.page.jiyuulia1=&oKeep out, please&r.
+botania.page.jiyuulia1=&oHR HD DT Masterpiece&r.
 
 # -- RANNUNCARPUS
 botania.entry.rannuncarpus=Rannuncarpus
 botania.page.rannuncarpus0=Quite a handy flower indeed, the &1Rannuncarpus&0 will pick up any nearby blocks in dropped item form and place them in the world nearby. It, however, only places the blocks thrown at it on top of a specific block, to specify this block, place it right below the soil the flower is resting on.
 botania.page.rannuncarpus1=Block items, such as &1Sugar Cane&0 will also work, but, much alike any other blocks, will only be placed in a location where they normally would be able to be placed.<br>Lastly, giving &4Mana&0 to the flower is optional, but it increases its range.
-botania.page.rannuncarpus2=&oNeed a hand&r?
+botania.page.rannuncarpus2=&oThe Sandpit of Yanille&r?
 
 # -- HYACIDUS
 botania.entry.hyacidus=Hyacidus
@@ -1076,8 +1076,8 @@ botania.page.gIntro2=It is important to keep in mind that these flowers memorize
 # -- DAYBLOOM
 botania.entry.daybloom=Daybloom
 botania.page.daybloom0=The &1Daybloom&0 is the most basic and rudimentary &4Generating Flower&0. Simply put, it performs a modified photosynthesis process, in order to transform sunlight into &4Mana&0.<br>The process is rather slow, about ten or a dozen of these should get the job done, for now.
-botania.page.daybloom1=An interesting thing to take in note is that these flowers tend to compete among themselves for what sunlight hits an area, thus having any other of the same type adjacent to it on any of the four cardinal directions will result in diminishing returns of &4Mana&0 production.
-botania.page.daybloom1a=An interesting thing to take in note is that these flowers tend to compete among themselves for what sunlight hits an area, thus having any other of the same type adjacent to it on any of the four cardinal directions will result in diminishing returns of &4Mana&0 production.<br>These flowers are not very resistant, and after some time they'll wither and die off.
+botania.page.daybloom1=These flowers tend to compete among themselves for what sunlight hits an area, thus having any other of the same type adjacent to it on any of the four cardinal directions will result in diminishing returns of &4Mana&0 production.<br>They don't produce much to begin with, perhaps upgrading to &1Endoflames&0 or others soon might be a good idea.
+botania.page.daybloom1a=Having any other &1Dayblooms&0 adjacent to it on any of the four cardinal directions will result in diminishing returns of &4Mana&0 production.<br>These flowers are not very resistant, and after some time they'll wither and die off.<br>They don't produce much to begin with, perhaps upgrading to &1Endoflames&0 or others soon might be a good idea.
 botania.page.daybloom3=Diminishing Returns
 botania.page.daybloom2=&oStarting up a brand new day&r.
 botania.page.daybloom4=&oHow many of you people out there been hurt in some kind of love affair? And how many times do you swear that you'll never love again? How many lonely, sleepless nights? How many lies? How many fights? And why would you want to put yourself through all that again? "Love is pain," I hear you say. Love has a cruel and bitter way of paying you back for all the faith you ever had in your brain. (...)
@@ -1086,19 +1086,19 @@ botania.page.daybloom5=&oHow could it be that what you need the most can leave y
 # -- NIGHTSHADE
 botania.entry.nightshade=Nightshade
 botania.page.nightshade0=The &1Nightshade&0 is the dark counterpart of the &1Daybloom&0, as it generates &4Mana&0 passively in any situation the &1Daybloom&0 can not, as long as it's nighttime, albeit at half the speed.<br>Similarly to their shining counterpart, they suffer diminishing returns from having any adjacent.
-botania.page.nightshade0a=The &1Nightshade&0 is the dark counterpart of the &1Daybloom&0, as it generates &4Mana&0 passively in any situation the &1Daybloom&0 can not, as long as it's nighttime, albeit at half the speed.<br>Similarly to their shining counterpart, they suffer diminishing returns from having any adjacent.<br>Similarly to the &1Daybloom&0, these flowers are not very resistant, and after some time they'll wither and die off.
+botania.page.nightshade0a=The &1Nightshade&0 is the dark counterpart of the &1Daybloom&0, as it generates &4Mana&0 passively in any situation the &1Daybloom&0 can not, as long as it's nighttime, albeit at half the speed.Alike its shining counterpart, they suffer diminishing returns from having any adjacent and are not very resistant, and some time they'll wither and die off.
 botania.page.nightshade1=&oThe shadow of the day&r.
 
 # -- ENDOFLAME
 botania.entry.endoflame=Endoflame
 botania.page.endoflame0=While the &1Daybloom&0 is all well and good, a botanist requires more effective means of generating &4Mana&0.<br>The &1Endoflame&0 does that exactly, it will absorb any combustible items or blocks dropped on the nearby vicinity (albeit only one at a time) and burn through them to passively generate mana while the fuel lasts.
-botania.page.endoflame1=There is a small caveat though, the &1Endoflame&0 will not burn anything that returns a bi-product, an example are &1Lava Buckets&0, that have empty &1Buckets&0 as a bi-product.
+botania.page.endoflame1=There is a small caveat though, the &1Endoflame&0 will not burn anything that returns a bi-product, an example are &1Lava Buckets&0, that have empty &1Buckets&0 as a bi-product.<br>Due to their behaviour, an &1Open Crate&0, which you read about on the &4Magical Apparatus&0 section, might be a good step on getting it to be self-sustainable.
 botania.page.endoflame2=&oNot nitor&r.
 
 # -- HYDROANGEAS
 botania.entry.hydroangeas=Hydroangeas
 botania.page.hydroangeas0=While passive &4Mana&0 generation can be easily achieved through &1Dayblooms&0, different means of doing so might come in handy. The &1Hydroangeas&0 will suck up any &1Still Water&0 in a 3x3 area around it, on the same height, creating &4Mana&0 from it. They also seem to function faster during &4Rain&0, who'd have thought?
-botania.page.hydroangeas0a=While passive &4Mana&0 generation can be easily achieved through &1Dayblooms&0, different means of doing so might come in handy. The &1Hydroangeas&0 will suck up any &1Still Water&0 in a 3x3 area around it, on the same height, creating &4Mana&0 from it. They also seem to function faster during &4Rain&0, who'd have thought?<br>Similarly to the &1Daybloom&0, these flowers are not very resistant, and after some time they'll wither and die off.
+botania.page.hydroangeas0a=The &1Hydroangeas&0 will suck up any &1Still Water&0 in a 3x3 area around it, on the same height, creating &4Mana&0 from it. They also seem to function faster during &4Rain&0, who'd have thought?<br>Similarly to the &1Daybloom&0, these flowers are not very resistant, and after some time they'll wither and die off.
 botania.page.hydroangeas2=A simple &1Hydroangeas&0 system
 botania.page.hydroangeas1=&oFrom some Hyperdimension&r?
 
@@ -1106,17 +1106,17 @@ botania.page.hydroangeas1=&oFrom some Hyperdimension&r?
 botania.entry.thermalily=Thermalily
 botania.page.thermalily0=There comes a point where slow generating power, like the &1Hydroangeas&0 or the &1Endoflame&0 is not enough. An answer to that is the &1Thermalily&0, which works similarly to the &1Hydroangeas&0, except with &1Lava&0.
 botania.page.thermalily0a=There comes a point where slow generating power, like the &1Hydroangeas&0 or the &1Endoflame&0 is not enough. An answer to that is the &1Thermalily&0, which works similarly to the &1Hydroangeas&0, except with &1Lava&0.<br>Due to the heat the &1Lava&0 produces, there must be a block of &1Obsidian&0 below it for it to be absorbed.
-botania.page.thermalily1=&oLily ought to know&r.
+botania.page.thermalily1=&o0108 Style&r.
 
 # -- ROSA ARCANA
 botania.entry.arcanerose=Rosa Arcana
 botania.page.arcanerose0=&4Experience Points&0 are a form of magic of sorts. The &1Rosa Arcana&0 can tap into it and absorb the experience of players on the ground around it, turning it into &1Mana&0. 
-botania.page.arcanerose1=&oGo have a drink, it might take a bit&r.
+botania.page.arcanerose1=&oWhen this card is Summoned, toss a coin&r.
 
 # -- MUNCHDEW
 botania.entry.munchdew=Munchdew
 botania.page.munchdew0=Generating the form of natural energy that is &4Mana&0 should be a pretty good process when done via other living materials. By using the &1Munchdew&0, any &1Leaves&0 near the flower will get munched up and converted into &4Mana&0.<br>It's to note that, though, no saplings or any other items will be dropped from the leaves.
-botania.page.munchdew1=&oItadakimasu&r!
+botania.page.munchdew1=&oYou pay for dinner, Shibazaki&r.
 
 # -- ENTROPINNYUM
 botania.entry.entropinnyum=Entropinnyum
@@ -1167,7 +1167,7 @@ botania.page.manaEnchanting10=During the enchanting process, the item can not be
 # -- SPREADER TURNTABLE
 botania.entry.turntable=Spreader Turntable
 botania.page.turntable0=The &1Spreader Turntable&0, as its name implies, can turn &1Mana Spreaders&0 around and around. Placing a spreader above the turntable will rotate it, given that a redstone signal isn't applied.<br>To change the speed of the turntable, right click with a &1Wand of the Forest&0, shift-right clicking will invert the movement.
-botania.page.turntable1=Spin spin spin spin
+botania.page.turntable1=You spin me right round
 
 # -- BOTANICAL ALCHEMY
 botania.entry.manaAlchemy=Alchemising with Mana
@@ -1330,7 +1330,7 @@ botania.page.terraPick1=The amount of &4Mana&0 stored on the tool defines its &4
 botania.page.terraPick2=To advance from rank &4C&0 to rank &4B&0, a full &1Mana Pool&0 is required, and the cost increases by a tenfold per rank from there on in, all the way to &4SS&0.<br>The rank of the tool does not change its speed, but instead, it increases the power of its &4Active Ability&0.<br>Toggling the tool's ability can be done via right click.
 botania.page.terraPick3=While the tool is active, it enables it to break blocks in an extended area. At rank &4C&0 it's a small column, which increases to a square at rank &4B&0, that gets larger trough the ranks. It's to note that the rank &4D&0 tool does not have the active ability.<br>Having the tool active consumes &4Mana&0 from its storage passively, even if not being used to mine.
 botania.page.terraPick4=Lastly, the tool takes damage for every single block broken, so a good supply of &4Mana&0 in the wielder's inventory is a must for the higher ranks, as the tool does function like normal &1Manasteel Tools&0, in which it'll use &4Mana&0 instead of actually taking damage, given it's made of &1Terrasteel&0.<br>It also won't despawn like regular dropped items.
-botania.page.terraPick5=Stronger than a Gastrea
+botania.page.terraPick5=WE'RE MINING IN THE DATABASE WOW WOW
 
 # -- SOULSCRIBE
 botania.entry.enderDagger=Soulscribe
@@ -1440,7 +1440,7 @@ botania.page.gravityRod2=Why the flax?
 botania.entry.regenIvy=Timeless Ivy
 botania.page.regenIvy0=While &1Manasteel&0 or &1Elementium&0 tools have the ability to harness &4Mana&0 and use it to protect their bodies, other tools or armor don't have this property.<br>A handful of &1Timeless Ivy&0 can be attached on to virtually any item, allowing it to be repaired with &4Mana&0.
 botania.page.regenIvy1=To apply it, one'd simply craft the tool in question alongside the ivy and 3 of an item that can be used to repair the tool in an anvil (eg. &1Diamonds&0 for a &1Diamond Pickaxe&0).<br>Due to not being in direct contact with the material, the amount of &4Mana&0 used by the ivy in comparison to &1Manasteel&0 is rather high.
-botania.page.regenIvy2=Cut it in Varrock
+botania.page.regenIvy2=Bring your Inferno Adze
 
 # - BAUBLES
 # -- AN INTRODUCTION TO BAUBLES
@@ -1475,7 +1475,7 @@ botania.page.travelBelt1=...everell
 # -- TECTONIC GIRDLE
 botania.entry.knockbackBelt=Tectonic Girdle
 botania.page.knockbackBelt0=By harnessing the forces of tectonic movement, the &1Tectonic Girdle&0, when worn, will negate any &4Knockback&0 applied to the wearer by outside attacks.
-botania.page.knockbackBelt1=Don't... move
+botania.page.knockbackBelt1=I'm the man who can't be moved
 
 # -- SNOWFLAKE PENDANT
 botania.entry.icePendant=Snowflake Pendant
@@ -1495,7 +1495,7 @@ botania.page.goldenLaurel1=Given the theme, probably Viridi
 # -- RING OF CHORDATA
 botania.entry.waterRing=Ring of Chordata
 botania.page.waterRing0=The &1Ring of Chordata&0 allows the wearer to swim like a fish. While it's equipped, the wearer is bestowed with the ability to accelerate to a decent speed while underwater. It also gives the wearer good sight underwater and, if &4Mana&0 is present, at the cost of some of it, the ability to breathe indefinitely.
-botania.page.waterRing1=Go swim with the fishes
+botania.page.waterRing1=Check out that fish AI
 
 # -- RING OF THE MANTLE
 botania.entry.miningRing=Ring of the Mantle
