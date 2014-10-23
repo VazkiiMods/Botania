@@ -55,13 +55,13 @@ botaniamisc.lexiconIndex=사전 목차
 botaniamisc.hasIvy=시대를 초월한 아이비
 botaniamisc.shareMsg=[{"text":"%name%","color":"light_purple"},{"text":" has shared a ","color":"blue"},{"text":"Lexica Botania","color":"green","hoverEvent":{"action":"show_text","value":{"text":"You can make one using a Book and a Sapling!","color":"aqua"}}},{"text":" entry, click to see it: ","color":"blue"},{"text":"[%entryname%]","color":"green","clickEvent":{"action":"run_command","value":"/botania-open %entry%"},"hoverEvent":{"action":"show_text","value":{"text":"Click to read about this","color":"aqua"}}}]
 botaniamisc.noLexicon=당신 손위에 보타니아사전이 있을 필요가 있습니다.
-botaniamisc.cantOpen=It doesn't seem like your Lexica Botania has this page. Perhaps it comes from an outside source...?
+botaniamisc.cantOpen=당신의 보타니아 사전이 이런 페이지를 가졌을 리가 없습니다. 다른곳에서 왔을 가능성이...?
 botaniamisc.clickToShare=공유
-botaniamisc.drop=Drop
-botaniamisc.dropTip0=Tip: You can press %key% in your inv to drop
-botaniamisc.dropTip1=CTRL-%key% will drop a full stack
+botaniamisc.drop=떨어뜨림
+botaniamisc.dropTip0=팁: %key% 키를 누름으로써 당신의 아이템을 드롭시킬 수 있습니다
+botaniamisc.dropTip1=컨트롤-%key% 가 한 뭉을 떨어뜨릴 겁니다
 botaniamisc.wandMode.bind=Bind Mode
-botaniamisc.wandMode.function=Function Mode
+botaniamisc.wandMode.function=기능 모드
 
 # COLORS
 botania.color0=하얀색
@@ -129,7 +129,7 @@ botania.knowledge.alfheim=&a요정&7들의 지식
 # CONFIGURATION
 blockBreakingParticles.enabled=블럭 파괴 파티클
 blockBreakingParticlesTool.enabled=도구 블럭 파괴 파티클
-boundBlock.wireframe.enabled=Bound Block Wireframe
+boundBlock.wireframe.enabled=바인드된 블럭의 와이어 프레임
 darkQuartz.enabled=스모크 석영 활성화
 fallenKanade.enabled=천상의연주가 활성화
 manaEnchanter.enabled=마나 인첸터 활성화
@@ -143,10 +143,10 @@ lexicon.render.3D=3D 사전 렌더링
 powerSystem.subtle=Use Subtle Power System
 pylonModel.old=예전 파일론 모델 사용
 elfPortal.particles.enabled=포탈 파티클 활성화
-chargeAnimation.enabled=Charging Animation Enabled
+chargeAnimation.enabled=충전 애니메이션 활성화
 vanillaParticleConfig.enabled=바닐라 파티클 설정 활성화
-manaSpreaders.silent=Silent Mana Spreaders
-flowerTextures.alt=Alternate Flower Textures
+manaSpreaders.silent=무음 마나 확산기
+flowerTextures.alt=Alternate 꽃 텍스쳐
 matrixMode.enabled=Enable Matrix Mode
 references.enabled=Enable Tooltip References
 shaders.enabled=Enable Shader Usage
@@ -168,7 +168,7 @@ shedRate.slime=Shed Rate: Slime
 botania.versioning.flavour0=나닛!? 보타니아가 구버전이라니!?
 botania.versioning.flavour1=What do you mean Botania is outdated, you ignorant fool?
 botania.versioning.flavour2=It's not like Botania wants to be outdated, b-b-BAKA!
-botania.versioning.flavour3=Beam me up Scotty. We got a new Botania version.
+botania.versioning.flavour3=나를 전송시켜줘 스코티. 우리는 새로운 보타니아의 버전이 있어.
 botania.versioning.flavour4=The Botania update asks if you have you accepted Vazkii as your lord and saviour.
 botania.versioning.flavour5=보타니아 업데이트 드물죠, 안그런가요?(너무 많이 해서 한글화 식자가 빡침)
 botania.versioning.flavour6=관리자는 이번 업데이트에 대해서 뭐라고 말하나요?
@@ -195,7 +195,7 @@ botania.versioning.flavour26=And I grabbed the Botania update AND I THREW IT ON 
 botania.versioning.flavour27=If you can break wood with your fists, why don't you update Botania too? 
 botania.versioning.flavour28=BotaniaWow! You'll say wow every time! As seen on your chat log! 
 botania.versioning.flavour29=그냥 보타니아를 업데이트, 업데이트, 업데이트 , 업데이트 하세요! 아무도 구버젼을 원하지 않습니다! 
-botania.versioning.flavour30=Botania used Update! It's super effective! 
+botania.versioning.flavour30=보타니아가 업데이트를 시전했다! 효과가 엄청났다! 
 botania.versioning.flavour31=A new Botania update is available, now 20% cooler.
 botania.versioning.flavour32=Congratulations! You're the 100,000th Botania player with an outdated version, click HERE for a free iPad!
 botania.versioning.flavour33=당신의 보타니아 버전을 업데이트하기 전에, ask툴바를 설치하시겠습니까??
@@ -223,7 +223,7 @@ entity.Botania.botania:pixie.name=픽시
 entity.Botania.botania:flameRing.name=불꽃의 반지
 entity.Botania.botania:vineBall.name=덩굴 공
 entity.Botania.botania:doppleganger.name=대지의 수호자
-entity.Botania.botania:magicLandmine.name=Gaia Trap
+entity.Botania.botania:magicLandmine.name=대지의 함정
 
 # BLOCK NAMES
 tile.botania:flower0.name=신비로운 하얀색 꽃
@@ -257,7 +257,7 @@ tile.botania:livingwood5.name=빛나는 생명의 나무
 tile.botania:spreader0.name=마나 분배기
 tile.botania:spreader1.name=레드스톤 마나 분배기
 tile.botania:spreader2.name=요정의 마나 분배기
-tile.botania:spreader3.name=가이아 마나 분배기
+tile.botania:spreader3.name=대지의 마나 분배기
 tile.botania:pool0.name=마나 웅덩이
 tile.botania:pool1.name=영원한 속죄의 웅덩이
 tile.botania:pool2.name=희박한 마나 웅덩이
@@ -282,7 +282,7 @@ tile.botania:pistonRelay.name=힘 전달기
 tile.botania:distributor.name=마나 배급기
 tile.botania:pylon0.name=마나 파일론
 tile.botania:pylon1.name=자연 파일론
-tile.botania:pylon2.name=가이아 파일론
+tile.botania:pylon2.name=대지 파일론
 tile.botania:manaBeacon0.name=하얀색 불안정한 신호기
 tile.botania:manaBeacon1.name=주황색 불안정한 신호기
 tile.botania:manaBeacon2.name=밝은 자주색 불안정한 신호기
@@ -703,8 +703,8 @@ item.botania:fireRod.name=지옥의 막대
 item.botania:vineBall.name=덩굴 공
 item.botania:slingshot.name=생명의나무 개총
 item.botania:manaBottle.name=마나가 들어있는 병
-item.botania:prismarineShard.name=프리스마린 Shard
-item.botania:laputaShard.name=Shard of Laputa
+item.botania:prismarineShard.name=프리스마린 샤드
+item.botania:laputaShard.name=라퓨타의 샤드
 item.botania:virus0.name=Necrodermal Virus
 item.botania:virus1.name=Nullodermal Virus
 item.botania:skyDirtRod.name=Rod of the Highlands
@@ -713,7 +713,7 @@ item.botania:manasteelHelmReveal.name=Manasteel Helmet of Revealing
 item.botania:terrasteelHelmReveal.name=Terrasteel Helmet of Revealing
 item.botania:elementiumHelmReveal.name=Elementium Helmet of Revealing
 item.botania:itemFinder.name=The Spectator
-item.botania:superLavaPendant.name=Crimson Pendant
+item.botania:superLavaPendant.name=크림슨 펜던트
 item.botania:enderHand.name=엔더의 손
 item.botania:glassPick.name=Vitreous Pickaxe
 item.botania:spark.name=스파크
@@ -721,9 +721,9 @@ item.botania:sparkUpgrade0.name=Spark Augment: Dispersive
 item.botania:sparkUpgrade1.name=Spark Augment: Dominant
 item.botania:sparkUpgrade2.name=Spark Augment: Recessive
 item.botania:sparkUpgrade3.name=Spark Augment: Isolated
-item.botania:diviningRod.name=Rod of Divining
-item.botania:gravityRod.name=Rod of the Black Mesa
-item.botania:regenIvy.name=Timeless Ivy
+item.botania:diviningRod.name=나눗셈의 막대
+item.botania:gravityRod.name= 검정 탁자의 막대
+item.botania:regenIvy.name=시간을 초월한 아이비
 item.botania:manaInkwell.name=Botanurgist's Inkwell
 
 # GUI TEXT
@@ -745,8 +745,8 @@ botania.category.misc=기타
 
 # - BASIC
 # -- AN INTRODUCTORY CLIP
-botania.entry.introVideo=An Introductory Clip
-botania.page.introVideo0=For those readers who are not quite readers, a short video guide covering the basics of Botania is also available. It's to keep in note that this guide acts as an aid and not a substitution for the contents of the &1Lexica Botania&0.<br>To watch this video simply press the &4ENTER&0 key.
+botania.entry.introVideo=인트로 클립
+botania.page.introVideo0=이 모드를 플레이하시는 분들 중에 책을 읽는게 잼병인 분들도 계실 겁니다. 그래서 보타니아에는 동영상 가이드 시설이 완비되어 있습니다.. It's to keep in note that this guide acts as an aid and not a substitution for the contents of the &1Lexica Botania&0.<br>To watch this video simply press the &4ENTER&0 key.
 
 # -- LEXICA BOTANIA
 botania.entry.lexicon=보타니아 사전
@@ -756,7 +756,7 @@ botania.page.lexicon1=&1보타니아 사전&0 조합법.
 botania.page.lexicon2=그것은 &1모루&0로 이름을 변경할 수 있으며,커버까지 변경가능합니다.<br>에디션으로 표시된 숫자는 &4보타니아&0의 버전과 일치합니다.
 
 # -- MYSTICAL FLOWERS
-botania.entry.flowers=Mystical Flowers
+botania.entry.flowers=신비로운 꽃들
 botania.page.flowers0=Around the world, you may stumble upon a large variety of Mystical Flora. Spotting these doesn't take much work as the flowers themselves emit a fair amount of shine.<br>They come in a total of &416 &0different colors.<br>It's also possible to grow these flowers using &1Floral Fertlizer&0 (read on).
 botania.page.flowers1=Flowers as far as the eye can see...
 botania.page.flowers2=These flowers can be plucked for &1Mystical Petals&0, that can be used for making magical instruments and plants alike.<br>Right clicking a petal on the ground will &4bury it&0, having it emit particles.<br>These petals can also be crushed into &1Floral Powder&0, which functions much alike any mundane piece of dye.
