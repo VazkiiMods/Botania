@@ -66,18 +66,19 @@ public class RecipeHandlerManaPool extends TemplateRecipeHandler {
 
 		@Override
 		public boolean contains(Collection<PositionedStack> ingredients, ItemStack ingredient) {
-			boolean skippedPool = false;
-			for (PositionedStack stack : ingredients) {
-				if (!skippedPool) {
-					skippedPool = true;
-					continue;
-				}
-				if (stack.contains(ingredient)) {
-					return true;
+			if (ingredients == this.inputs) {
+				boolean skippedPool = false;
+				for (PositionedStack stack : ingredients) {
+					if (!skippedPool) {
+						skippedPool = true;
+						continue;
+					}
+					if (stack.contains(ingredient)) {
+						return true;
+					}
 				}
 			}
-
-			return false;
+			return super.contains(ingredients, ingredient);
 		}
 
 	}
@@ -137,7 +138,7 @@ public class RecipeHandlerManaPool extends TemplateRecipeHandler {
 	public void loadUsageRecipes(ItemStack ingredient) {
 		for (RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes) {
 			CachedManaPoolRecipe crecipe = new CachedManaPoolRecipe(recipe);
-			if (crecipe.contains(crecipe.getIngredients(), ingredient)) {
+			if (crecipe.contains(crecipe.getIngredients(), ingredient) || crecipe.contains(crecipe.getOtherStacks(), ingredient)) {
 				arecipes.add(crecipe);
 			}
 		}
