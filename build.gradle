@@ -15,6 +15,13 @@ buildscript {
     }
 }
 
+repositories {
+    maven {
+        name = "chickenbones"
+        url = "http://chickenbones.net/maven/"
+    }
+}
+
 apply plugin: 'forge'
 
 version = "1.0"
@@ -27,9 +34,12 @@ minecraft {
 }
 
 dependencies {
-	compile files (
-		'Baubles-deobf.jar'
-	)
+    compile files (
+        'Baubles-deobf.jar'
+    )
+    compile "codechicken:CodeChickenLib:1.7.10-1.1.1.95:dev"
+    compile "codechicken:CodeChickenCore:1.7.10-1.0.2.9:dev"
+    compile "codechicken:NotEnoughItems:1.7.10-1.0.2.15:dev"
 }
 
 processResources
@@ -46,14 +56,14 @@ processResources
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
-	
-	task deobfJar(type: Jar) {
-		from(sourceSets.main.output)
-			classifier = 'deobf'	
-			
-	}
-	
-	artifacts {
-		archives deobfJar		
-	}   
+    
+    task deobfJar(type: Jar) {
+        from(sourceSets.main.output)
+            classifier = 'deobf'    
+            
+    }
+    
+    artifacts {
+        archives deobfJar       
+    }   
 }
