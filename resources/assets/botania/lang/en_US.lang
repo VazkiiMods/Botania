@@ -64,6 +64,12 @@ botaniamisc.wandMode.bind=Bind Mode
 botaniamisc.wandMode.function=Function Mode
 botaniamisc.playVideo=Play Video
 
+# NEI INTEGRATION
+botania.nei.elvenTrade=Elven Trade
+botania.nei.manaPool=Mana Infusion
+botania.nei.petalApothecary=Petal Apothecary
+botania.nei.runicAltar=Runic Altar
+
 # COLORS
 botania.color0=White
 botania.color1=Orange

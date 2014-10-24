@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.oredict.OreDictionary;
 
 import org.lwjgl.opengl.GL11;
@@ -16,6 +17,7 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
+import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.BlockAlfPortal;
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.NEIServerUtils;
@@ -36,12 +38,11 @@ public class RecipeHandlerElvenTrade extends TemplateRecipeHandler {
 
 		public void setIngredients(List<Object> inputs) {
 			int i = 0;
-			for (Object o : inputs) {
-				if (o instanceof String) {
+			for(Object o : inputs) {
+				if(o instanceof String)
 					this.inputs.add(new PositionedStack(OreDictionary.getOres((String) o), 60 + i * 18, 6));
-				} else {
-					this.inputs.add(new PositionedStack(o, 60 + i * 18, 6));
-				}
+				else this.inputs.add(new PositionedStack(o, 60 + i * 18, 6));
+				
 				i++;
 			}
 		}
@@ -60,12 +61,12 @@ public class RecipeHandlerElvenTrade extends TemplateRecipeHandler {
 
 	@Override
 	public String getRecipeName() {
-		return "Elven Trade";
+		return StatCollector.translateToLocal("botania.nei.elvenTrade");
 	}
 
 	@Override
 	public String getGuiTexture() {
-		return "botania:textures/gui/neiBlank.png";
+		return LibResources.GUI_NEI_BLANK;
 	}
 
 	@Override
@@ -83,7 +84,7 @@ public class RecipeHandlerElvenTrade extends TemplateRecipeHandler {
 		super.drawBackground(recipe);
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.7F);
-		GuiDraw.changeTexture("botania:textures/gui/elvenTradeOverlay.png");
+		GuiDraw.changeTexture(LibResources.GUI_ELVEN_TRADE_OVERLAY);
 		GuiDraw.drawTexturedModalRect(30, 10, 17, 17, 100, 80);
 		GL11.glDisable(GL11.GL_BLEND);
 		GuiDraw.changeTexture(TextureMap.locationBlocksTexture);

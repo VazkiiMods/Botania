@@ -3,6 +3,7 @@ package vazkii.botania.client.nei;
 import java.util.List;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
@@ -27,7 +28,7 @@ public class RecipeHandlerRunicAltar extends RecipeHandlerPetalApothecary {
 
 	@Override
 	public String getRecipeName() {
-		return "Runic Altar";
+		return StatCollector.translateToLocal("botania.nei.runicAltar");
 	}
 
 	@Override
@@ -38,7 +39,7 @@ public class RecipeHandlerRunicAltar extends RecipeHandlerPetalApothecary {
 	@Override
 	public void drawBackground(int recipe) {
 		super.drawBackground(recipe);
-		HUDHandler.renderManaBar(32, 113, 0x0000FF, 0.75F, ((CachedRunicAltarRecipe) arecipes.get(recipe)).manaUsage, TilePool.MAX_MANA);
+		HUDHandler.renderManaBar(32, 113, 0x0000FF, 0.75F, ((CachedRunicAltarRecipe) arecipes.get(recipe)).manaUsage, TilePool.MAX_MANA / 10);
 	}
 
 	@Override

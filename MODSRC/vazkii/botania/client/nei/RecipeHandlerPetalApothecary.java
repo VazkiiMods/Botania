@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.oredict.OreDictionary;
 
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipePetals;
+import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.NEIServerUtils;
@@ -27,9 +29,8 @@ public class RecipeHandlerPetalApothecary extends TemplateRecipeHandler {
 		public CachedPetalApothecaryRecipe(RecipePetals recipe, boolean addCenterItem) {
 			setIngredients(recipe.getInputs());
 			output = new PositionedStack(recipe.getOutput(), 111, 21);
-			if (addCenterItem) {
+			if(addCenterItem)
 				inputs.add(new PositionedStack(new ItemStack(ModBlocks.altar), 73, 55));
-			}
 		}
 
 		public CachedPetalApothecaryRecipe(RecipePetals recipe) {
@@ -40,15 +41,13 @@ public class RecipeHandlerPetalApothecary extends TemplateRecipeHandler {
 			float degreePerInput = 360F / inputs.size();
 			float currentDegree = -90F;
 
-			for (Object o : inputs) {
+			for(Object o : inputs) {
 				int posX = (int) Math.round(73 + Math.cos(currentDegree * Math.PI / 180D) * 32);
 				int posY = (int) Math.round(55 + Math.sin(currentDegree * Math.PI / 180D) * 32);
 
-				if (o instanceof String) {
+				if(o instanceof String)
 					this.inputs.add(new PositionedStack(OreDictionary.getOres((String) o), posX, posY));
-				} else {
-					this.inputs.add(new PositionedStack(o, posX, posY));
-				}
+				else this.inputs.add(new PositionedStack(o, posX, posY));
 				currentDegree += degreePerInput;
 			}
 		}
@@ -67,7 +66,7 @@ public class RecipeHandlerPetalApothecary extends TemplateRecipeHandler {
 
 	@Override
 	public String getRecipeName() {
-		return "Petal Apothecary";
+		return StatCollector.translateToLocal("botania.nei.petalApothecary");
 	}
 
 	public String getRecipeID() {
@@ -76,7 +75,7 @@ public class RecipeHandlerPetalApothecary extends TemplateRecipeHandler {
 
 	@Override
 	public String getGuiTexture() {
-		return "botania:textures/gui/neiBlank.png";
+		return LibResources.GUI_NEI_BLANK;
 	}
 
 	@Override
@@ -94,7 +93,7 @@ public class RecipeHandlerPetalApothecary extends TemplateRecipeHandler {
 		super.drawBackground(recipe);
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.5F);
-		GuiDraw.changeTexture("botania:textures/gui/petalOverlay.png");
+		GuiDraw.changeTexture(LibResources.GUI_PETAL_OVERLAY);
 		GuiDraw.drawTexturedModalRect(45, 10, 38, 7, 92, 92);
 	}
 
@@ -108,31 +107,25 @@ public class RecipeHandlerPetalApothecary extends TemplateRecipeHandler {
 
 	@Override
 	public void loadCraftingRecipes(String outputId, Object... results) {
-		if (outputId.equals(getRecipeID())) {
-			for (RecipePetals recipe : getRecipes()) {
+		if(outputId.equals(getRecipeID()))
+			for(RecipePetals recipe : getRecipes())
 				arecipes.add(getCachedRecipe(recipe));
-			}
-		} else {
-			super.loadCraftingRecipes(outputId, results);
-		}
+		else super.loadCraftingRecipes(outputId, results);
 	}
 
 	@Override
 	public void loadCraftingRecipes(ItemStack result) {
-		for (RecipePetals recipe : getRecipes()) {
-			if (recipe.getOutput().stackTagCompound != null && NEIServerUtils.areStacksSameType(recipe.getOutput(), result) || recipe.getOutput().stackTagCompound == null && NEIServerUtils.areStacksSameTypeCrafting(recipe.getOutput(), result)) {
+		for(RecipePetals recipe : getRecipes())
+			if (recipe.getOutput().stackTagCompound != null && NEIServerUtils.areStacksSameType(recipe.getOutput(), result) || recipe.getOutput().stackTagCompound == null && NEIServerUtils.areStacksSameTypeCrafting(recipe.getOutput(), result))
 				arecipes.add(getCachedRecipe(recipe));
-			}
-		}
 	}
 
 	@Override
 	public void loadUsageRecipes(ItemStack ingredient) {
-		for (RecipePetals recipe : getRecipes()) {
+		for(RecipePetals recipe : getRecipes()) {
 			CachedPetalApothecaryRecipe crecipe = getCachedRecipe(recipe);
-			if (crecipe.contains(crecipe.inputs, ingredient)) {
+			if(crecipe.contains(crecipe.inputs, ingredient))
 				arecipes.add(crecipe);
-			}
 		}
 	}
 
