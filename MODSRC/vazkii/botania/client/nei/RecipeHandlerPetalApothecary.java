@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.oredict.OreDictionary;
@@ -109,14 +110,15 @@ public class RecipeHandlerPetalApothecary extends TemplateRecipeHandler {
 	public void loadCraftingRecipes(String outputId, Object... results) {
 		if(outputId.equals(getRecipeID()))
 			for(RecipePetals recipe : getRecipes())
-				arecipes.add(getCachedRecipe(recipe));
+				if(recipe.getOutput().getItem() != Items.skull)
+					arecipes.add(getCachedRecipe(recipe));
 		else super.loadCraftingRecipes(outputId, results);
 	}
 
 	@Override
 	public void loadCraftingRecipes(ItemStack result) {
 		for(RecipePetals recipe : getRecipes())
-			if (recipe.getOutput().stackTagCompound != null && NEIServerUtils.areStacksSameType(recipe.getOutput(), result) || recipe.getOutput().stackTagCompound == null && NEIServerUtils.areStacksSameTypeCrafting(recipe.getOutput(), result))
+			if(recipe.getOutput().stackTagCompound != null && NEIServerUtils.areStacksSameType(recipe.getOutput(), result) || recipe.getOutput().stackTagCompound == null && NEIServerUtils.areStacksSameTypeCrafting(recipe.getOutput(), result) && recipe.getOutput().getItem() != Items.skull)
 				arecipes.add(getCachedRecipe(recipe));
 	}
 
@@ -124,9 +126,10 @@ public class RecipeHandlerPetalApothecary extends TemplateRecipeHandler {
 	public void loadUsageRecipes(ItemStack ingredient) {
 		for(RecipePetals recipe : getRecipes()) {
 			CachedPetalApothecaryRecipe crecipe = getCachedRecipe(recipe);
-			if(crecipe.contains(crecipe.inputs, ingredient))
+			if(crecipe.contains(crecipe.inputs, ingredient) && recipe.getOutput().getItem() != Items.skull)
 				arecipes.add(crecipe);
 		}
 	}
+	
 
 }
