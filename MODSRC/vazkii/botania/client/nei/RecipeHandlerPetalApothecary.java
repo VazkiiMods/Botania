@@ -108,11 +108,11 @@ public class RecipeHandlerPetalApothecary extends TemplateRecipeHandler {
 
 	@Override
 	public void loadCraftingRecipes(String outputId, Object... results) {
-		if(outputId.equals(getRecipeID()))
+		if(outputId.equals(getRecipeID())) {
 			for(RecipePetals recipe : getRecipes())
 				if(recipe.getOutput().getItem() != Items.skull)
 					arecipes.add(getCachedRecipe(recipe));
-		else super.loadCraftingRecipes(outputId, results);
+		} else super.loadCraftingRecipes(outputId, results);
 	}
 
 	@Override
