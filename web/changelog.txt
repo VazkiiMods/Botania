@@ -1,3 +1,5 @@
+r1.2 129
+*Added NEI Integration (Tonius):<ul><li>Petal Apothecary</li><li>Runic Altar</li><li>Mana Pool</li><li>Elven Trade</li></ul>
 r1.2 128
 *Added a bunch of references.
 *Added some entries to the game profiler (Shift-F3):<ul><li>root.gameRenderer.gui.botania-hud</li><li>root.gameRenderer.level.FRenderLast.botania-particles</li></ul>
