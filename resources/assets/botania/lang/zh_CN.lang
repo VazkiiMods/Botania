@@ -1,5 +1,9 @@
 # MISC
 itemGroup.Botania=植物魔法
+
+#并非本地化条目,请翻译者不要修改此行文本.
+botaniamisc.noloc=botaniamisc.noloc
+
 botaniamisc.nextPage=下一页
 botaniamisc.prevPage=上一页
 botaniamisc.back=返回
@@ -56,6 +60,15 @@ botaniamisc.clickToShare=分享
 botaniamisc.drop=扔出
 botaniamisc.dropTip0=提示:你在物品栏内可以按下%key%键来扔出物品
 botaniamisc.dropTip1=CTRL加%key%键扔出一整组
+botaniamisc.wandMode.bind=绑定模式
+botaniamisc.wandMode.function=工作模式
+botaniamisc.playVideo=播放视频
+
+# NEI INTEGRATION
+botania.nei.elvenTrade=精灵交易
+botania.nei.manaPool=魔力灌注
+botania.nei.petalApothecary=花瓣炼制
+botania.nei.runicAltar=符文祭坛
 
 # COLORS
 botania.color0=白色
@@ -139,6 +152,7 @@ pylonModel.old=使用旧的水晶模型
 elfPortal.particles.enabled=启用传送门粒子
 chargeAnimation.enabled=启用充能时的动画
 vanillaParticleConfig.enabled=使用原版粒子config
+manaSpreaders.silent=魔力发射器静音
 flowerTextures.alt=替换花的贴图
 matrixMode.enabled=启用矩阵模式
 references.enabled=启用工具提示文本
@@ -473,7 +487,7 @@ tile.botania:flower.gourmaryllis.reference=不愉快です
 
 # - FUNCTIONAL
 tile.botania:flower.bellethorn.name=娇媚之刺
-tile.botania:flower.bellethorn.reference=杀戮的小丑
+tile.botania:flower.bellethorn.reference=world's end, girl's rondo
 tile.botania:flower.dreadthorn.name=恐惧之刺
 tile.botania:flower.dreadthorn.reference=C计划
 tile.botania:flower.heiseiDream.name=平成之梦
@@ -739,7 +753,7 @@ botania.category.misc=杂项
 # - BASIC
 # -- AN INTRODUCTORY CLIP
 botania.entry.introVideo=简介片段
-botania.page.introVideo0=对于并不喜欢图文的读者,我 们也准备了一个涵盖植物魔 法基础的短片,注意这只是个 指南而不是&1植物魔法辞典&0内容的替代 品.<br>要观看的话直接按下&4Enter&0键 即可.
+botania.page.introVideo0=对于并不喜欢图文的读者,我 们也准备了一个涵盖植物魔 法基础的短片,注意这只是个 指南而不是&1植物魔法辞典&0内容的替代 品.
 
 # -- LEXICA BOTANIA
 botania.entry.lexicon=植物魔法辞典
@@ -778,8 +792,9 @@ botania.page.pureDaisy3=白色明亮而纯洁
 # -- WAND OF THE FOREST
 botania.entry.wand=森林法杖
 botania.page.wand0=对一个植物魔法师而言最普 通的多用途工具就是&1森林法&0 &1杖&0了.<br>这个法杖由一对任意颜色的 &1神秘花瓣&0和几根&1活木枝&0紧紧 捆绑制成,许多地方都要用到 它.
-botania.page.wand1=这个法杖能通过shift右击以 绑定到&1魔力发射器&0,并用同样 的方法解除绑定.如果法杖没 有绑定到任何对象,shift 右击一个方块让它绕着所点 击的轴旋转.<br>比如,点击一个&1箱子&0的顶部就 能旋转它.能被旋转的大多数 方块都有效.
-botania.page.wand2=使用的花瓣决定了法杖颜色
+botania.page.wand1=法杖有两种模式,&4绑定模式&0与 &4工作模式&0.&4绑定模式&0下shift 右击相应的方块来选择.再次 shift右击其他地方来绑定 两方块.&4工作模式&0下shift右 击则不会绑定任何东西.<br>两模式可通过shift右击空气 来切换.
+botania.page.wand2=如果法杖没有绑定到任何对 象,shift右击一个方块让它 绕着所点击的轴旋转.<br>比如,点击一个&1箱子&0的顶部就 能旋转它.能被旋转的大多数 方块都有效.
+botania.page.wand3=使用的花瓣决定了法杖颜色
 
 # -- RUNIC ALTAR
 botania.entry.runeAltar=符文祭坛
@@ -824,8 +839,7 @@ botania.page.mIntro2=掌握&4魔力&0的艺术需要先学习 如何使用&1太�
 
 # -- MANA SPREADER
 botania.entry.spreader=魔力发射器
-botania.page.spreader0=&1魔力发射器&0是运用&4魔力&0中最 重要的一部分.<br>这是一个允许从点A到点B传 递&4魔力&0的方块.放置在地上 时,它会面朝六个基本方向中 的一个.手持&1森林法杖&0shift右 击它,就能照点击位置调整它 的朝向.
-botania.page.spreader10=只需用&1森林法杖&0shift 右击一次就会将法杖绑定到 它,再shift右击另一处 会将发射器朝向调整到那一 点.<br>再一次shift右击发 射器取消 法杖的绑定.注意你必须取消 绑定,不然当你尝试绑定到另 一个发射器时,上一个发射器 就会转向它.
+botania.page.spreader0=&1魔力发射器&0是运用&4魔力&0中最 重要的一部分.<br>这是一个允许从点A到点B传 递&4魔力&0的方块.放置在地上 时,它会面朝六个基本方向中 的一个.手持&1森林法杖&0shift右 击它,就能照点击位置调整它 的朝向.可用&4绑定模式&0的法杖 让它指向其他方块.
 botania.page.spreader1=手持&1森林法杖&0
 botania.page.spreader2=&1魔力发射器&0有一个很小的内 部&4魔力&0缓存,这个缓存能被附 近的&4产能花&0填充.要查看&1魔力&0 &1发射器&0的缓存量需要一根&1森&0 &1林法杖&0,如最后一页所示.<br>注意需要用法杖右击才能看 到缓存的量.
 botania.page.spreader3=手持&1森林法杖&0将会显示一条 发射器朝向的光线,末端停留 在目标处.常亮的闪烁光点就 是&4魔力流失&0开始的地方.<br>如果目标处的方块可以接收 &4魔力&0,并且不是满的,发射器 就会发出一条&4魔力脉冲&0,它会 飞向目标,并将&4Mana&0输送给它.
@@ -869,7 +883,7 @@ botania.page.distributor1=合成分配器
 # -- MANA VOID
 botania.entry.manaVoid=魔力销毁器
 botania.page.manaVoid0=&1魔力销毁器&0通俗的说,就是&4魔&0 &4力&0的垃圾桶.所有进入这个方 块的&4魔力&0都会消失在虚空,再 也不会出现.<br>将它放在一个&1魔力池&0下方会 让池子总是接收&4魔力&0,但销毁 超出容量的部分.
-botania.page.manaVoid1=合成销毁器
+botania.page.manaVoid1=Even Chad from accounting?
 
 # -- MANA FLUXFIELD
 botania.entry.rfGenerator=魔力流量场
@@ -955,7 +969,7 @@ botania.page.paintLens1=A M'AIDER Stranded Girl
 botania.entry.fIntro=功能的介绍
 botania.page.fIntro0=植物魔法师生产的&4魔力&0有许 多地方可以用到,其中一个就 是&4功能花&0.<br>这些花会从附近的&1魔力池&0抽 取&4魔力&0,用以完成它们所定的 任务.<br>注意它们不能直接从&1魔力发&0 &1射器&0获取魔力.
 botania.page.fIntro1=所有的&4功能花&0,就像&4产能花&0一 样有一小部分&4魔力&0的缓存.<br>查看&4魔力&0的标准方法就是, 用&1森林法杖&0右击更新魔力读 条.
-botania.page.fIntro2=这些花会记住它们抽取&4魔力&0 的那个&1魔力池&0.它们只会从自 己被种下时最近的池子(或是 之后最近放置的,如果没有的 话),仅此一个,除非这个池子 被移除.
+botania.page.fIntro2=这些花会记住它们抽取&4魔力&0 的那个&1魔力池&0.它们只会从自 己被种下时最近的池子(或是 之后最近放置的,如果没有的 话),仅此一个,除非这个池子 被移除.可用&4绑定模式&0的法杖 将它绑定到另一个池子.
 botania.page.fIntro3=最后,制作时用到&1红石根&0的功 能花.花的效果能用红石控制.
 botania.page.fIntro4=&1红石根&0方便红石控制
 
@@ -989,7 +1003,7 @@ botania.page.tigerseye1=&o是时候向敌人反击了&r.
 # -- ORECHID
 botania.entry.orechid=凝矿兰
 botania.page.orechid0=尽管挖矿很好,我们应想些可 再生的方法.&1凝矿兰&0会用(大量 的)&4魔力&0来在附近的&1石头&0方块 中生成&4矿物&0.<br>它生成的矿物是随机的,但显 然普通的比稀有的偏多.
-botania.page.orechid1=&o莉兹白会喜欢这朵花的&r.
+botania.page.orechid1=&o这可不是龙的便便(SAO)&r.
 
 # -- FALLEN KANADE
 botania.entry.fallenKanade=天降之奏
@@ -1021,13 +1035,13 @@ botania.page.tangleberrie1=&o纠缠,勇敢和冻结&r.
 # -- JIYUULIA
 botania.entry.jiyuulia=自由之翼
 botania.page.jiyuulia0=&1自由之翼&0是种消耗少量&4魔力&0 而使得所有邻近的动物和怪 物无法进入一个圈内的花.
-botania.page.jiyuulia1=&o请出去&r.
+botania.page.jiyuulia1=&oHR HD DT Masterpiece(osu)&r.
 
 # -- RANNUNCARPUS
 botania.entry.rannuncarpus=手掌花
 botania.page.rannuncarpus0=真是朵方便的花,&1手掌花&0会拾 取附近任何掉落物品形式的 方块并放置在其他地方.只会 将方块放置在特殊的方块上, 要指定这种特殊方块,只需将 它放在这朵花种植的土方块 下就可以.
 botania.page.rannuncarpus1=方块式物品,比如&1甘蔗&0也会奏 效的,但,就像这些方块一样, 它们只能被放在平常能放置 的地方.<br>最后,提供&4魔力&0不是必需的, 但这会增加工作范围.
-botania.page.rannuncarpus2=&o需要帮手么&r?
+botania.page.rannuncarpus2=&oThe Sandpit of Yanille&r?
 
 # -- HYACIDUS
 botania.entry.hyacidus=毒风信
@@ -1064,13 +1078,13 @@ botania.page.vinculotus1=用你的指尖轻触这朵黑莲
 botania.entry.gIntro=产能的介绍
 botania.page.gIntro0=&4生产魔力&0应是每个植物魔法 师最优先的事项.幸运的是有 一系列&4产能花&0能胜任这项工 作.<br>这些花,就如它们的名字那样, 产生&4魔力&0,既是主动也是被动 的.除非另有说明,所有&4产能&0 &4花&0在特定条件下才会被动产 生&4魔力&0.
 botania.page.gIntro1=所有的&4产能花&0,不同于&4功能花&0 那样有少量&4魔力&0缓存.<br>查看&4魔力&0的标准方法就是,用 &1森林法杖&0右击更新魔力读数.<br>这些魔力会被存入附近最近 的&1魔力发射器&0中.
-botania.page.gIntro2=注意这些花会记住它们存入 &4魔力&0的&1魔力发射器&0.它们只会 存入被种下时最近的发射器 (或之后放置得最近的发射器 ,如果种下时没有的话),仅 此一个,除非该发射器被移除.
+botania.page.gIntro2=注意这些花会记住它们存入 &4魔力&0的&1魔力发射器&0.它们只会 存入被种下时最近的发射器 (或之后放置得最近的发射器 ,如果种下时没有的话),仅 此一个,除非该发射器被移除 .可用&4绑定模式&0的法杖将它绑 定到另一个发射器.
 
 # -- DAYBLOOM
 botania.entry.daybloom=太阳花
 botania.page.daybloom0=&1太阳花&0是最基本的&4产能花&0.简 而言之,它进行着特别的光合 作用,将阳光转化为&4魔力&0.<br>这个过程十分缓慢,需要十朵 甚至更多才能有所产出,当下 而言.
-botania.page.daybloom1=需要注意的是当阳光照射一 片区域时这些花会互相争夺 资源,因此在四个方向上有紧 邻的太阳花时会减少&4魔力&0的 产量.
-botania.page.daybloom1a=需要注意的是当阳光照射一 片区域时这些花会互相争夺 资源,因此在四个方向上有紧 邻的太阳花时会减少&4魔力&0的 产量.<br>这种花的生命力不太顽强,因 此过段时间后就会枯萎死亡.
+botania.page.daybloom1=这些花会相互争夺光照,因此 在邻近的四个面有同类花时 会减少&4魔力&0的产量.<br>作为初期的花它们的效率有 限,或许升级为&1火红莲&0或其他 的花是个不错的选择.
+botania.page.daybloom1a=若有其他&1太阳花&0相邻则会减 少&4魔力&0的产量.<br>这种花的生命力不太顽强,因 此过段时间后就会枯萎死亡.<br>作为初期的花它们的效率有 限,或许升级为&1火红莲&0或其他 的花是个不错的选择.
 botania.page.daybloom3=产出缩减
 botania.page.daybloom2=&o崭新的一天开始了&r.
 botania.page.daybloom4=&o你们中有多少人曾为爱所伤? 又有多少次你发誓不会再爱? 有多少孤独寂寞的不眠之夜? 有过多少谎言?多少斗争?你 又为何每次都要重新卷入其 中?"爱即是痛,"我听见了你 的话语.爱有着残酷而又痛苦 的方法来报复你所遗弃的信 念. (...)
@@ -1079,36 +1093,37 @@ botania.page.daybloom5=&o当你最需要的反而让你变得 存在薄弱,那�
 # -- NIGHTSHADE
 botania.entry.nightshade=夜颠茄
 botania.page.nightshade0=&1夜颠茄&0是黑暗版的&1太阳花&0,它 会在&1太阳花&0不能工作的情况 下被动产生&4魔力&0,尽管只有一 半的速度.<br>同样它也会因邻近的个体而 降低效率.
-botania.page.nightshade0a=&1夜颠茄&0是黑暗版的&1太阳花&0,它 会在&1太阳花&0不能工作的情况 下被动产生&4魔力&0,尽管只有一 半的速度.<br>同样它也会因邻近的个体而 降低效率.<br>就像&1太阳花&0,这种花的生命力不太顽强 ,因此过段时间后就会枯萎死 亡.
+botania.page.nightshade0a=&1夜颠茄&0是黑暗版的&1太阳花&0,它 会在&1太阳花&0不能工作的情况 下被动产生&4魔力&0,尽管只有一 半的速度.<br>同样它也会因邻近的个体而 降低效率.而且这种花的生命 力不太顽强,过段时间后就会 枯萎死亡.
 botania.page.nightshade1=&o白日的阴影&r.
 
 # -- ENDOFLAME
 botania.entry.endoflame=火红莲
 botania.page.endoflame0=尽管&1太阳花&0很好,对植物魔法 师而言还需要更有效的生产 &4魔力&0的方法.<br>&1火红莲&0恰好是那样的,它会吸 收掉落在附近的任何可燃物 品和方块(每次一个)并在燃 烧期间释放出魔力.
-botania.page.endoflame1=有个小提示,&1火红莲&0不会燃烧 有燃烧产物的物品,比如&1岩浆&0 &1桶&0,会留下&1空桶&0.
+botania.page.endoflame1=有个小提示,&1火红莲&0不会燃烧 有燃烧产物的物品,比如&1岩浆&0 &1桶&0,会留下&1空桶&0.<br>根据它们的特性,你在书中所 见的&1花格箱&0或许能助你实现 它的补给.
 botania.page.endoflame2=&o不是闪耀之光&r.
 
 # -- HYDROANGEAS
 botania.entry.hydroangeas=水绣球
-botania.page.hydroangeas0=尽管被动的&4魔力&0生产可以通 过&1太阳花&0轻松实现,同样便利 的方法也是有的.&1水绣球&0会吸 取以它为中心3x3范围内等 高的&1静水&0,从中产生&4魔力&0.<br>似乎&4下雨&0天会更快,但有谁会 想到呢?<br>就像&1太阳花&0,这种花的生命力不太顽强 ,因此过段时间后就会枯萎死 亡.
+botania.page.hydroangeas0=尽管被动的&4魔力&0生产可以通 过&1太阳花&0轻松实现,同样便利 的方法也是有的.&1水绣球&0会吸 取以它为中心3x3范围内等 高的&1静水&0,从中产生&4魔力&0.<br>似乎&4下雨&0天会更快,但有谁会 想到呢?
+botania.page.hydroangeas0a=&1水绣球&0会吸取3x3范围内等高 的&1静水&0,从中产生&4魔力&0.<br>似乎&4下雨&0天会更快,但有谁会 想到呢?<br>就像&1太阳花&0,这种花的生命力不太顽强 ,因此过段时间后就会枯萎死 亡.
 botania.page.hydroangeas2=一个简单的&1水绣球&0系统
-botania.page.hydroangeas1=&oFrom some Hyperdimension&r?
+botania.page.hydroangeas1=&o超次元来物&r?
 
 # -- THERMALILY
 botania.entry.thermalily=炽玫瑰
 botania.page.thermalily0=有时候产能速度太慢了,就像 &1水绣球&0和&1火红莲&0.这个问题的 答案就是&1炽玫瑰&0,原理类似&1水&0 &1绣球&0,但它吸收的是&1岩浆&0.
 botania.page.thermalily0a=有时候产能速度太慢了,就像 &1水绣球&0和&1火红莲&0.这个问题的 答案就是&1炽玫瑰&0,原理类似&1水&0 &1绣球&0,但它吸收的是&1岩浆&0.<br>由于&1岩浆&0产生的热量过高,岩 浆下方需要有一个&1黑曜石&0才 能让花吸收.
-botania.page.thermalily1=&o莉莉应该知道&r.
+botania.page.thermalily1=&o0108 Style&r.
 
 # -- ROSA ARCANA
 botania.entry.arcanerose=阿卡纳蔷薇
 botania.page.arcanerose0=&4经验点&0是一种形式的魔力. &1阿卡纳蔷薇&0能吸收附近玩家 的经验,并利用它产生&1魔力&0. 
-botania.page.arcanerose1=&o去喝一杯,只需要一点&r.
+botania.page.arcanerose1=&o该卡被召唤时,投掷硬币&r.
 
 # -- MUNCHDEW
 botania.entry.munchdew=咀叶花
 botania.page.munchdew0=通过其它生物材料生产自然 能量形式的&4魔力&0是极好的.利 用&1咀叶花&0,靠近花的一切&1树叶&0 都会被啃食并转为&4魔力&0.<br>需要注意,被啃食的树叶不会 掉落树苗和其它物品.
-botania.page.munchdew1=&oいただきます&r!
+botania.page.munchdew1=&o你付饭钱吧,柴崎&r.
 
 # -- ENTROPINNYUM
 botania.entry.entropinnyum=热爆花
@@ -1159,7 +1174,7 @@ botania.page.manaEnchanting10=附魔过程中物品不能取出,但 可在完成
 # -- SPREADER TURNTABLE
 botania.entry.turntable=发射器旋转台
 botania.page.turntable0=&1发射器旋转台&0如它的名字,能 将&1魔力发射器&0来回旋转.在上 方放置一个发射器旋转台就 会开始转动它,红石信号会阻 止旋转.<br>要改变转速,用&1森林法杖&0右击 它,shift右击会反转.
-botania.page.turntable1=转转转转
+botania.page.turntable1=You spin me right round
 
 # -- BOTANICAL ALCHEMY
 botania.entry.manaAlchemy=魔力炼金
@@ -1184,7 +1199,8 @@ botania.page.manaAlchemy17=&1粘液球&0和&1仙人掌&0间转化
 botania.page.manaAlchemy18=制造&1末影珍珠&0
 botania.page.manaAlchemy19=&1萤石粉&0和&1红石&0间转化
 botania.page.manaAlchemy20=将&1圆石&0粉碎成&1沙子&0
-botania.page.manaAlchemy21=制作&1劣质土&0
+botania.page.manaAlchemy21=将&1硬化粘土&0变成&1红沙&0
+botania.page.manaAlchemy22=制作&1劣质土&0
 
 # -- EYE OF THE ANCIENTS
 botania.entry.forestEye=远古之眼
@@ -1260,7 +1276,7 @@ botania.page.enderEyeBlock1=MY BRAND
 botania.entry.manaBlaster=魔力脉冲枪
 botania.page.manaBlaster0=&1魔力脉冲枪&0就像是个便携的 &1魔力发射器&0,形状做成了手枪 一样便于使用,但并不是真的 枪,它只是个便携式的发射器.<br>通过使用使用者物品栏的&4魔&0 &4力携带品&0里的&4魔力&0,它能朝所 看方向射出一道魔力脉冲.
 botania.page.manaBlaster1=这种脉冲不同于魔力发射器 里发出的,它更快,但只有前 者四分之三的魔力量.在发射 后也会有短暂的冷却时间.
-botania.page.manaBlaster2=&1魔力透镜&0也对脉冲枪有效,安 装的话,只要将它们放入工作 台合成就可以,取下透镜只需 拿着枪shift右击.
+botania.page.manaBlaster2=&1魔力透镜&0也对脉冲枪有效,安 装的话,只要将它们放入工作 台合成就可以,取下透镜只需 把枪放回合成栏.
 botania.page.manaBlaster3=我们要更猛的枪
 
 # -- PASTURE SEEDS
@@ -1321,7 +1337,7 @@ botania.page.terraPick1=工具里储存的&4魔力&0量决定了 它的&4阶位&
 botania.page.terraPick2=从&4C&0升至&4B&0,需要一个满的&1魔力&0 &1池&0,每级是上一级的十倍消耗 ,最终到达&4SS&0.<br>工具的阶位不会改变它的速 度,但会增强&4激活能力&0.<br>可以通过右击开启工具的能 力.
 botania.page.terraPick3=当工具激活时,它能破坏区域 内的方块.阶位&4C&0还是一小块 ,到了&4B&0就成了一个区域, 随着 阶位升高区域也会增大.注意 阶位&4D&0的工具不能激活.<br>激活时会消耗工具储存的&4魔&0 &4力&0,哪怕不是用于挖掘.
 botania.page.terraPick4=最后,工具每次破坏方块时都 会受到磨损,所以最好物品栏 有与阶位相应的&4魔力&0储存,工 具的功能又像&1魔钢工具&0,因为 它使用&4魔力&0抵消磨损,制作原 料是&1泰拉钢&0.<br>它也不会像普通掉落物品那 样消失.
-botania.page.terraPick5=比原肠动物还要强
+botania.page.terraPick5=WE'RE MINING IN THE DATABASE WOW WOW(ログ ホライズン)
 
 # -- SOULSCRIBE
 botania.entry.enderDagger=灵魂匕首
@@ -1431,7 +1447,7 @@ botania.page.gravityRod2=Why the flax?
 botania.entry.regenIvy=永恒常春藤
 botania.page.regenIvy0=尽管&1魔钢&0和&1源质钢&0能用&4魔力&0 保护自身,其他的工具和护甲 却没有这种能力.<br>可以给几乎所有物品附上一 些&1永恒常春藤&0,使它们能用&4魔&0 &4力&0修复.
 botania.page.regenIvy1=使用的话,只需将常春藤和3 个修理工具的材料合成并在 铁砧中修理(比如&1钻石镐&0用的 就是&1钻石&0)<br>由于没有直接连接到材料,这 样消耗的&4魔力&0比起&1魔钢&0的会多很多.
-botania.page.regenIvy2=Cut it in Varrock
+botania.page.regenIvy2=Bring your Inferno Adze
 
 # - BAUBLES
 # -- AN INTRODUCTION TO BAUBLES
@@ -1466,7 +1482,7 @@ botania.page.travelBelt1=...everell
 # -- TECTONIC GIRDLE
 botania.entry.knockbackBelt=抗击腰带
 botania.page.knockbackBelt0=通过利用构造运动的力量, &1抗击腰带&0,穿戴时会消除一切 外部攻击施加给装备者的&4击&0 &4退&0效果.
-botania.page.knockbackBelt1=别... 动
+botania.page.knockbackBelt1=我就是不会被撼动之人
 
 # -- SNOWFLAKE PENDANT
 botania.entry.icePendant=雪花项链
@@ -1486,7 +1502,7 @@ botania.page.goldenLaurel1=考虑到主题,那就是自然女神
 # -- RING OF CHORDATA
 botania.entry.waterRing=鱼泳指环
 botania.page.waterRing0=&1鱼泳指环&0能让装备者像鱼一 样游泳,穿戴者的水下速度得 到提升.它也提供了良好的视 野,如果有可用的&4魔力&0,还能 消耗魔力用来水下呼吸.
-botania.page.waterRing1=和鱼儿们游泳
+botania.page.waterRing1=看看鱼的AI
 
 # -- RING OF THE MANTLE
 botania.entry.miningRing=地幔指环
@@ -1495,7 +1511,7 @@ botania.page.miningRing1=挖呀挖洞
 
 # -- RING OF MAGNETIZATION
 botania.entry.magnetRing=磁化指环
-botania.page.magnetRing0=通过将&1磁化透镜&0做成可穿戴 的指环,可用它来磁化周围的 物品.<br>装备时,这个指环会将附近一 切物品吸向穿戴者,前提是没 有潜行.
+botania.page.magnetRing0=通过将&1磁化透镜&0做成可穿戴 的指环,可用它来磁化周围的 物品.装备时,这个指环会将 附近物品吸向穿戴者,前提是 非潜行状态.<br>注意它有一个特性,当装备者 扔出一个物品后5秒内它会 停止工作,以免再将扔出去的 东西吸回来.
 botania.page.magnetRing1=怎么做到的?
 
 # -- RING OF FAR REACH
