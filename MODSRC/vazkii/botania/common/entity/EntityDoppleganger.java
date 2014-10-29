@@ -11,9 +11,12 @@
  */
 package vazkii.botania.common.entity;
 
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import org.lwjgl.opengl.ARBShaderObjects;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -32,16 +35,24 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
+import vazkii.botania.api.boss.IBotaniaBoss;
+import vazkii.botania.api.boss.IBotaniaBossWithShader;
+import vazkii.botania.api.internal.ShaderCallback;
+import vazkii.botania.client.core.handler.BossBarHandler;
+import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibObfuscation;
 import cpw.mods.fml.relauncher.ReflectionHelper;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
-public class EntityDoppleganger extends EntityCreature implements IBossDisplayData {
+public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWithShader {
 
 	public static final int SPAWN_TICKS = 100;
 
@@ -379,5 +390,63 @@ public class EntityDoppleganger extends EntityCreature implements IBossDisplayDa
 			playSound("mob.endermen.portal", 1.0F, 1.0F);
 			return true;
 		}
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public ResourceLocation getBossBarTexture() {
+		return BossBarHandler.defaultBossBar;
+	}
+
+	@SideOnly(Side.CLIENT)
+	private static final Rectangle barRect = new Rectangle(0, 0, 185, 15);
+	@SideOnly(Side.CLIENT)
+	private static final Rectangle hpBarRect = new Rectangle(0, barRect.y + barRect.height, 181, 7);
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public Rectangle getBossBarTextureRect() {
+		return barRect;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public Rectangle getBossBarHPTextureRect() {
+		return hpBarRect;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void bossBarRenderCallback() {
+		// NO-OP
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public int getBossBarShaderProgram(boolean background) {
+		return background ? 0 : ShaderHelper.dopplegangerBar;
+	}
+
+	@SideOnly(Side.CLIENT)
+	private final ShaderCallback shaderCallback = new ShaderCallback() {
+		
+		@Override
+		public void call(int shader) {
+			int grainIntensityUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "grainIntensity");
+			int hpFractUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "hpFract");
+			
+			float time = getInvulTime();
+			float grainIntensity = time > 20 ? 1F : time / 20F;
+			
+			ARBShaderObjects.glUniform1fARB(grainIntensityUniform, grainIntensity);
+			ARBShaderObjects.glUniform1fARB(hpFractUniform, (float) getHealth() / (float) getMaxHealth());
+		}
+		
+	};
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public ShaderCallback getBossBarShaderCallback(boolean background, int shader) {
+		return background ? null : shaderCallback;
 	}
 }

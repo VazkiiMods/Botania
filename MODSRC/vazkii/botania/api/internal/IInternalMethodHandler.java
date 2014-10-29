@@ -20,7 +20,9 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
@@ -82,6 +84,12 @@ public interface IInternalMethodHandler {
 	@SideOnly(Side.CLIENT)
 	public void renderLexiconText(int x, int y, int width, int height, String unlocalizedText);
 
+	@SideOnly(Side.CLIENT)
+	public ResourceLocation getDefaultBossBarTexture();
+	
+	@SideOnly(Side.CLIENT)
+	public void setBossStatus(IBotaniaBoss status);
+	
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m);
 
 }

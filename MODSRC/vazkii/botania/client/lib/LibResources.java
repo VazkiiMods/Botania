@@ -37,6 +37,7 @@ public final class LibResources {
 	public static final String GUI_SHEDDING_OVERLAY = PREFIX_GUI + "sheddingOverlay.png";
 	public static final String GUI_CREATIVE = "botania.png";
 	public static final String GUI_TOFF = PREFIX_GUI + "toff.png";
+	public static final String GUI_BOSS_BAR = PREFIX_GUI + "bossBar.png";
 	public static final String GUI_NEI_BLANK = PREFIX_GUI + "neiBlank.png";
 
 	public static final String ENTRY_FLOWERS = PREFIX_ENTRIES + "flowers.png";
@@ -108,5 +109,6 @@ public final class LibResources {
 	public static final String SHADER_DOPLLEGANGER_VERT = PREFIX_SHADER + "doppleganger.vert";
 	public static final String SHADER_DOPLLEGANGER_FRAG = PREFIX_SHADER + "doppleganger.frag";
 	public static final String SHADER_HALO_FRAG = PREFIX_SHADER + "halo.frag";
+	public static final String SHADER_DOPLLEGANGER_BAR_FRAG = PREFIX_SHADER + "doppleganger_bar.frag";
 
 }

@@ -21,7 +21,9 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.internal.DummyMethodHandler;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.lexicon.LexiconPage;
@@ -29,6 +31,7 @@ import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
+import vazkii.botania.client.core.handler.BossBarHandler;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
@@ -148,6 +151,16 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	@Override
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {
 		Botania.proxy.sparkleFX(world, x, y, z, r, g, b, size, m);
+	}
+	
+	@Override
+	public ResourceLocation getDefaultBossBarTexture() {
+		return BossBarHandler.defaultBossBar;
+	}
+	
+	@Override
+	public void setBossStatus(IBotaniaBoss status) {
+		BossBarHandler.setCurrentBoss(status);
 	}
 
 	@Override

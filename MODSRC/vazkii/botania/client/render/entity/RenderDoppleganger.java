@@ -20,8 +20,9 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.ARBShaderObjects;
 
+import vazkii.botania.api.internal.ShaderCallback;
+import vazkii.botania.client.core.handler.BossBarHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
-import vazkii.botania.client.core.helper.ShaderHelper.ShaderCallback;
 import vazkii.botania.common.entity.EntityDoppleganger;
 
 public class RenderDoppleganger extends RenderBiped {
@@ -50,7 +51,7 @@ public class RenderDoppleganger extends RenderBiped {
 	@Override
 	public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9) {
 		EntityDoppleganger dopple = (EntityDoppleganger) par1Entity;
-		BossStatus.setBossStatus(dopple, true);
+		BossBarHandler.setCurrentBoss(dopple);
 
 		if(dopple.getInvulTime() > 0) {
 			grainIntensity = dopple.getInvulTime() > 20 ? 1F : dopple.getInvulTime() * 0.05F;

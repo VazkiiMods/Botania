@@ -15,8 +15,6 @@ void main() {
     
     float gs = (color.r + color.g + color.b) / 50.0;
     
-    vec2 seed = texcoord.xy * time;
-    
     float r = gs + rand(texcoord) * grainIntensity;
     float g = gs + rand(texcoord) * grainIntensity;
     float b = gs + rand(texcoord) * grainIntensity;

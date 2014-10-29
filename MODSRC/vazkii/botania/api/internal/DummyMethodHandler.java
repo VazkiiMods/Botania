@@ -21,7 +21,9 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
@@ -142,6 +144,16 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	@Override
 	public int getPassiveFlowerDecay() {
 		return 0;
+	}
+
+	@Override
+	public ResourceLocation getDefaultBossBarTexture() {
+		return null;
+	}
+
+	@Override
+	public void setBossStatus(IBotaniaBoss status) {
+		// NO-OP
 	}
 
 }

@@ -20,8 +20,8 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.client.core.helper.ShaderHelper;
-import vazkii.botania.client.core.helper.ShaderHelper.ShaderCallback;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelPixie;
 import vazkii.botania.common.entity.EntityPixie;
