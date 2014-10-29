@@ -29,6 +29,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import vazkii.botania.api.item.IGrassHornExcempt;
 import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -112,7 +113,7 @@ public class ItemGrassHorn extends ItemMod {
 					int z = srcz + j;
 
 					Block block = world.getBlock(x, y, z);
-					if(stackDmg == 0 && block instanceof BlockBush && !(block instanceof ISpecialFlower) || stackDmg == 1 && block instanceof BlockLeavesBase)
+					if((stackDmg == 0 && block instanceof BlockBush && !(block instanceof ISpecialFlower) && (!(block instanceof IGrassHornExcempt) || ((IGrassHornExcempt) block).canUproot(world, x, y, z))) || (stackDmg == 1 && block instanceof BlockLeavesBase))
 						coords.add(new ChunkCoordinates(x, y, z));
 				}
 

@@ -17,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import thaumcraft.api.crafting.IInfusionStabiliser;
+import vazkii.botania.api.item.IGrassHornExcempt;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.block.ModBlocks;
@@ -25,7 +26,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.Optional;
 
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser", striprefs = true)
-public class BlockShinyFlower extends BlockModFlower implements IInfusionStabiliser {
+public class BlockShinyFlower extends BlockModFlower implements IInfusionStabiliser, IGrassHornExcempt {
 
 	public BlockShinyFlower() {
 		super(LibBlockNames.SHINY_FLOWER);
@@ -50,6 +51,11 @@ public class BlockShinyFlower extends BlockModFlower implements IInfusionStabili
 	@Override
 	public boolean canStabaliseInfusion(World world, int x, int y, int z) {
 		return true;
+	}
+
+	@Override
+	public boolean canUproot(World world, int x, int y, int z) {
+		return false;
 	}
 
 }
