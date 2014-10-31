@@ -1,3 +1,17 @@
+r1.2 130
+*Added 16 new update flavour messages, up to 50 different ones!
+*Added a "progress pie" to the runic altar's HUD, when hovering over it with a wand of the forest.
+*Added a Brewery block, it's not functional at the moment, it'll do something later, but it just looks pretty for now.
+*Blowing the Horn of the Wild will no longer unroot glimmering flowers.
+*Changed the mana HUD texture. It now is less noisy and has points indicating the 25%, 50% and 75% marks.
+*Fixed not being able to look up petal apothecary recipes in NEI. (Tonius)
+*Manasteel, Terrasteel and Elementium tools now repair using mana in the inventory at double the cost of normal damage suppression.
+*The Gaia Guardian now has a new, much fancier, health bar. <a href="http://i.imgur.com/jHwDGVe.gif">Here's a gif</a> (endgame spoilers, I guess).
+*The Runic Altar's render now has a smoother trail rather than a bunch of cubes all with the same alpha value.
+*[API] Added IGrassHornExcempt, for blocks that extend BlockBush but shouldn't be uprooted by the Horn of the Wild. Note that ISpecialFlower implementers will be excempt by default.
+*[API] Added stuff for bosses, IBotaniaBoss, IBotaniaBossWithShader interfaces and getDefaultBossBarTexture and setBossStatus to the Internal Method Handler.
+*[API] Exposed ShaderCallback.
+*[API] Increased version number to 21.
 r1.2 129
 *Added NEI Integration (Tonius):<ul><li>Petal Apothecary</li><li>Runic Altar</li><li>Mana Pool</li><li>Elven Trade</li></ul>
 r1.2 128
