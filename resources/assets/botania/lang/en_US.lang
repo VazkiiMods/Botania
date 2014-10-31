@@ -465,6 +465,7 @@ tile.botania:enderEyeBlock.name=Ender Overseer
 tile.botania:starfield.name=Starfield Creator
 tile.botania:rfGenerator.name=Mana Fluxfield
 tile.botania:elfGlass.name=Alfglass
+tile.botania:brewery.name=Botanical Brewery
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower

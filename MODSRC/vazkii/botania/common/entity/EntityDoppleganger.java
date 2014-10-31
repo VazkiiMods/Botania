@@ -228,7 +228,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
-
+		
 		if(!worldObj.isRemote && worldObj.difficultySetting == EnumDifficulty.PEACEFUL)
 			setDead();
 
