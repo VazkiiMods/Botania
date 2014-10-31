@@ -399,19 +399,23 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	}
 
 	@SideOnly(Side.CLIENT)
-	private static final Rectangle barRect = new Rectangle(0, 0, 185, 15);
+	private static Rectangle barRect;
 	@SideOnly(Side.CLIENT)
-	private static final Rectangle hpBarRect = new Rectangle(0, barRect.y + barRect.height, 181, 7);
+	private static Rectangle hpBarRect;
 	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Rectangle getBossBarTextureRect() {
+		if(barRect == null)
+			barRect = new Rectangle(0, 0, 185, 15);
 		return barRect;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Rectangle getBossBarHPTextureRect() {
+		if(hpBarRect == null)
+			hpBarRect = new Rectangle(0, barRect.y + barRect.height, 181, 7);
 		return hpBarRect;
 	}
 
@@ -428,25 +432,28 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	}
 
 	@SideOnly(Side.CLIENT)
-	private final ShaderCallback shaderCallback = new ShaderCallback() {
-		
-		@Override
-		public void call(int shader) {
-			int grainIntensityUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "grainIntensity");
-			int hpFractUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "hpFract");
-			
-			float time = getInvulTime();
-			float grainIntensity = time > 20 ? 1F : time / 20F;
-			
-			ARBShaderObjects.glUniform1fARB(grainIntensityUniform, grainIntensity);
-			ARBShaderObjects.glUniform1fARB(hpFractUniform, (float) getHealth() / (float) getMaxHealth());
-		}
-		
-	};
+	private static ShaderCallback shaderCallback;
 	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public ShaderCallback getBossBarShaderCallback(boolean background, int shader) {
+		if(shaderCallback == null)
+			shaderCallback = new ShaderCallback() {
+			
+			@Override
+			public void call(int shader) {
+				int grainIntensityUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "grainIntensity");
+				int hpFractUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "hpFract");
+				
+				float time = getInvulTime();
+				float grainIntensity = time > 20 ? 1F : time / 20F;
+				
+				ARBShaderObjects.glUniform1fARB(grainIntensityUniform, grainIntensity);
+				ARBShaderObjects.glUniform1fARB(hpFractUniform, (float) getHealth() / (float) getMaxHealth());
+			}
+			
+		};
+		
 		return background ? null : shaderCallback;
 	}
 }

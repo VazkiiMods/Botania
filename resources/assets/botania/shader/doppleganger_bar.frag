@@ -22,7 +22,7 @@ void main() {
     float b = color.b;
     
     float s = sin((texcoord.y + 0.0375) * 100.0 + sin(texcoord.x * 90.0 - time / 2.0) * hpFract) * 0.5 + 0.5;
-    s = 1F - s;
+    s = 1.0 - s;
     if(s <= 0.98)
         s = 0;
     s *= 0.4;
