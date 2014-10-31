@@ -31,7 +31,7 @@ void main() {
     g = min(1, g + s);
     b = min(1, b + s);
     
-    if(hpFract <= 0.5) {
+    if(hpFract <= 0.2) {
         float flash = (sin(time * 2.0) - 0.8) * 5;
         if(flash > 0) {
             g = max(0, g - flash);
