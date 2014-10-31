@@ -1,3 +1,6 @@
+r1.2 131
+*Fixed spawning the gaia guardian crashing servers.
+*Fixed the boss bar shader not compiling on some GPUs.
 r1.2 130
 *Added 16 new update flavour messages, up to 50 different ones!
 *Added a "progress pie" to the runic altar's HUD, when hovering over it with a wand of the forest.
