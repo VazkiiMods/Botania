@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import buildcraft.api.transport.IPipeTile;
+import cpw.mods.fml.common.Loader;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLeaves;
@@ -547,6 +549,9 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			if(tile instanceof IManaCollisionGhost && ((IManaCollisionGhost) tile).isGhost() || block instanceof BlockBush || block instanceof BlockLeaves)
 				return;
 
+			if(tile instanceof IPipeTile) // BuildCeaft pipe compat
+				return;
+			
 			ChunkCoordinates coords = getBurstSourceChunkCoordinates();
 			if(tile != null && (tile.xCoord != coords.posX || tile.yCoord != coords.posY || tile.zCoord != coords.posZ))
 				collidedTile = tile;
