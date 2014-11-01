@@ -1709,6 +1709,9 @@ botania.page.tcIntegration4=Making the &1Botanurgist's Inkwell
 botania.page.tcIntegration5=Last but not least, there's a few varied resources or constructs that can work as paraphernalia for an &1Infusion Altar&0, to lower its' instability.<br>These come in the form of &1Glimmering Flowers, Floating Flowers and any variety of Pylons&0.
 
 # -- BUILDCRAFT TRIGGER API INTEGRATION
+botania.entry.bcIntegration=Buildcraft Integration
+botania.page.bcIntegration0=Recent advances in piping technology have allowed &1Gates&0 to get a feel of the &4Mana&0 around them.<br>A &1Gate&0 can now sense whether a &4Mana&0 container is empty, full or if it contains any mana.
+botania.page.bcIntegration1=&1Gates&0 can also use the &1Mana Detector&0 trigger to detect if a mana is passing by the pipe block.<br>In addition, they can also sense when a &1Runic Altar&0 is ready to create &4Runes&0.
 botania.trigger.manaDetector=Mana Burst
 botania.trigger.manaEmpty=Mana Empty
 botania.trigger.manaSpace=Space for Mana

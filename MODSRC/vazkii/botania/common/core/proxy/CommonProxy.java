@@ -93,7 +93,7 @@ public class CommonProxy {
 
 		FMLInterModComms.sendMessage("ProjectE", "interdictionblacklist", EntityManaBurst.class.getCanonicalName());
 		
-		if(ModAPIManager.INSTANCE.hasAPI("BuildCraftAPI|statements")) new StatementAPIPlugin();
+		if(Botania.bcTriggersLoaded) new StatementAPIPlugin();
 	}
 
 	public void postInit(FMLPostInitializationEvent event) {
