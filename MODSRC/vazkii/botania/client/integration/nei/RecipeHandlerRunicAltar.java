@@ -1,4 +1,4 @@
-package vazkii.botania.client.nei;
+package vazkii.botania.client.integration.nei;
 
 import java.util.List;
 
