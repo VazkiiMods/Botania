@@ -41,6 +41,7 @@ public final class ModManaInfusionRecipes {
 	public static RecipeManaInfusion manaQuartzRecipe;
 	public static RecipeManaInfusion tinyPotatoRecipe;
 	public static RecipeManaInfusion manaInkwellRecipe;
+	public static RecipeManaInfusion managlassRecipe;
 
 	public static void init() {
 		poolRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.pool), new ItemStack(ModBlocks.pool, 1, 2), 320);
@@ -72,6 +73,8 @@ public final class ModManaInfusionRecipes {
 			manaInkwellRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaInkwell), new ItemStack(inkwell), 35000);
 		}
 
+		managlassRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.manaGlass), new ItemStack(Blocks.glass), 150);
+		
 		BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaBottle), new ItemStack(Items.glass_bottle), 5000);
 	}
 

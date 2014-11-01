@@ -885,7 +885,8 @@ botania.page.pool3=Infusing &1Manasteel&0
 botania.page.pool4=Infusing &1Mana Pearls&0
 botania.page.pool5=Infusing &1Mana Diamonds&0
 botania.page.pool6=Infusing &1Mana Petals&0
-botania.page.pool7=&1Mana Cookies&0 feed you pretty well.
+botania.page.pool11=Infusing &1Managlass&0, clear seamless glass.
+botania.page.pool7=Infusing &1Mana Cookies&0, pretty good food.
 
 # -- SPARKS
 botania.entry.sparks=Sparks
