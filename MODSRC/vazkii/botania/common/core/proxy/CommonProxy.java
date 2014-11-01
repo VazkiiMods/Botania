@@ -47,7 +47,9 @@ import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.network.GuiHandler;
+import vazkii.botania.common.plugins.buildcraft.StatementAPIPlugin;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.ModAPIManager;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -90,6 +92,10 @@ public class CommonProxy {
 		FMLCommonHandler.instance().bus().register(new CommonTickHandler());
 
 		FMLInterModComms.sendMessage("ProjectE", "interdictionblacklist", EntityManaBurst.class.getCanonicalName());
+		
+		if (ModAPIManager.INSTANCE.hasAPI("BuildCraftAPI|statements")) {
+			new StatementAPIPlugin();
+		}
 	}
 
 	public void postInit(FMLPostInitializationEvent event) {
