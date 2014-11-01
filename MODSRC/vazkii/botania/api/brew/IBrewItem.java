@@ -7,23 +7,19 @@
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
  * 
- * File Created @ [Feb 5, 2014, 1:41:14 PM (GMT)]
+ * File Created @ [Nov 1, 2014, 9:20:33 PM (GMT)]
  */
-package vazkii.botania.api.recipe;
+package vazkii.botania.api.brew;
 
 import net.minecraft.item.ItemStack;
 
-public class RecipeRuneAltar extends RecipePetals {
-
-	int mana;
-
-	public RecipeRuneAltar(ItemStack output, int mana, Object... inputs) {
-		super(output, inputs);
-		this.mana = mana;
-	}
-
-	public int getManaUsage() {
-		return mana;
-	}
+/**
+ * An Item that implements this is a Brew item, by which it contains
+ * a brew. This is only used in vanilla to prevent the brew item
+ * from going back into the brewery but other mods might use it for whatever.
+ */
+public interface IBrewItem {
+	
+	public Brew getBrew(ItemStack brew);
 
 }

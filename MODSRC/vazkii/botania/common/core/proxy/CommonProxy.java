@@ -37,6 +37,7 @@ import vazkii.botania.common.core.handler.PixieHandler;
 import vazkii.botania.common.core.handler.SheddingHandler;
 import vazkii.botania.common.core.handler.SpawnerChangingHandler;
 import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.crafting.ModBrewRecipes;
 import vazkii.botania.common.crafting.ModCrafingRecipes;
 import vazkii.botania.common.crafting.ModElvenTradeRecipes;
 import vazkii.botania.common.crafting.ModManaAlchemyRecipes;
@@ -78,6 +79,8 @@ public class CommonProxy {
 		ModManaConjurationRecipes.init();
 		ModManaInfusionRecipes.init();
 		ModElvenTradeRecipes.init();
+		ModBrewRecipes.init();
+		
 		ChestGenHandler.init();
 
 		LexiconData.init();

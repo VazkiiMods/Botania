@@ -71,9 +71,10 @@ public class BlockRuneAltar extends BlockModContainer implements IWandable, IWan
 
 	@Override
 	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
-		if(par5EntityPlayer.isSneaking()) {
-			TileRuneAltar altar = (TileRuneAltar) par1World.getTileEntity(par2, par3, par4);
+		TileRuneAltar altar = (TileRuneAltar) par1World.getTileEntity(par2, par3, par4);
 
+		
+		if(par5EntityPlayer.isSneaking()) {
 			if(altar.manaToGet == 0)
 				for(int i = altar.getSizeInventory() - 1; i >= 0; i--) {
 					ItemStack stackAt = altar.getStackInSlot(i);
@@ -89,7 +90,7 @@ public class BlockRuneAltar extends BlockModContainer implements IWandable, IWan
 		} else {
 			ItemStack stack = par5EntityPlayer.getCurrentEquippedItem();
 			if(stack != null)
-				return ((TileRuneAltar) par1World.getTileEntity(par2, par3, par4)).addItem(par5EntityPlayer, stack);
+				return altar.addItem(par5EntityPlayer, stack);
 		}
 		return false;
 	}

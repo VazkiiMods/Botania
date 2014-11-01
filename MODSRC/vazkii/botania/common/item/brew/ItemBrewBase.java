@@ -30,11 +30,12 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
+import vazkii.botania.api.brew.IBrewItem;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemMod;
 
-public abstract class ItemBrewBase extends ItemMod {
+public abstract class ItemBrewBase extends ItemMod implements IBrewItem {
 
 	private static final String TAG_BREW_KEY = "brewKey";
 	private static final String TAG_SWIGS_LEFT = "swigsLeft";
@@ -105,7 +106,7 @@ public abstract class ItemBrewBase extends ItemMod {
 		}
 	}
 
-	public static Brew getBrew(ItemStack stack) {
+	public Brew getBrew(ItemStack stack) {
 		String key = ItemNBTHelper.getString(stack, TAG_BREW_KEY, "");
 		return BotaniaAPI.getBrewFromKey(key);
 	}

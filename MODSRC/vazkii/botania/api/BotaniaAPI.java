@@ -36,6 +36,7 @@ import vazkii.botania.api.internal.IInternalMethodHandler;
 import vazkii.botania.api.lexicon.KnowledgeType;
 import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.recipe.RecipeBrew;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
@@ -63,6 +64,7 @@ public final class BotaniaAPI {
 	public static List<RecipeRuneAltar> runeAltarRecipes = new ArrayList<RecipeRuneAltar>();
 	public static List<RecipeManaInfusion> manaInfusionRecipes = new ArrayList<RecipeManaInfusion>();
 	public static List<RecipeElvenTrade> elvenTradeRecipes = new ArrayList<RecipeElvenTrade>();
+	public static List<RecipeBrew> brewRecipes = new ArrayList<RecipeBrew>();
 
 	private static BiMap<String, Class<? extends SubTileEntity>> subTiles = HashBiMap.<String, Class<? extends SubTileEntity>> create();
 	private static Map<Class<? extends SubTileEntity>, SubTileSignature> subTileSignatures = new HashMap<Class<? extends SubTileEntity>, SubTileSignature>();
@@ -278,6 +280,17 @@ public final class BotaniaAPI {
 	public static RecipeElvenTrade registerElvenTradeRecipe(ItemStack output, Object... inputs) {
 		RecipeElvenTrade recipe = new RecipeElvenTrade(output, inputs);
 		elvenTradeRecipes.add(recipe);
+		return recipe;
+	}
+	
+	/**
+	 * Registers a Brew Recipe (for the Botanical Brewery).
+	 * @param brew The brew in to be set in this recipe.
+	 * @inputs The items used in the recipe, no more than 5.
+	 */
+	public static RecipeBrew registerBrewRecipe(Brew brew, Object... inputs) {
+		RecipeBrew recipe = new RecipeBrew(brew, inputs);
+		brewRecipes.add(recipe);
 		return recipe;
 	}
 
