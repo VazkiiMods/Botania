@@ -96,6 +96,10 @@ public class RecipeBrew {
 		return new ArrayList(inputs);
 	}
 	
+	public Brew getBrew() {
+		return brew;
+	}
+	
 	public int getManaUsage() {
 		return brew.getManaCost();
 	}

@@ -18,6 +18,7 @@
 	"manaBlaster": { "category": "neutral", "sounds":["manaBlaster"] },
 	"manaPoolCraft": { "category": "neutral", "sounds":["manaPoolCraft"] },
 	"orechid": { "category": "neutral", "sounds":["orechid"] },
+	"potionCreate": { "category": "neutral", "sounds":["potionCreate"] },
 	"runeAltarCraft": { "category": "neutral", "sounds":["runeAltarCraft"] },
 	"runeAltarStart": { "category": "neutral", "sounds":["runeAltarStart"] },
 	"spreaderFire": { "category": "neutral", "sounds":["spreaderFire"] },

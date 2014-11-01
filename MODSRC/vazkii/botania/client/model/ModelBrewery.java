@@ -51,7 +51,7 @@ public class ModelBrewery extends ModelBase {
 		float f = 1F / 16F;
 		
 		float offset = (float) Math.sin(time / 40) * 0.1F + 0.05F;
-		int plates = 5;
+		int plates = render.brewery.getSizeInventory() - 1;
 		float deg = (float) time / 16F;
 		float polerot = -deg * 25F;
 		

@@ -11,33 +11,21 @@
  */
 package vazkii.botania.common.block.tile;
 
+import java.awt.Color;
 import java.util.List;
 
-import org.lwjgl.opengl.GL11;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ResourceLocation;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.IBrewContainer;
 import vazkii.botania.api.brew.IBrewItem;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.recipe.RecipeBrew;
-import vazkii.botania.api.recipe.RecipeRuneAltar;
-import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.core.helper.Vector3;
-import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
 
 // This is mostly copypasta from TileRuneAltar
@@ -47,6 +35,7 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 
 	public RecipeBrew recipe;
 	int mana = 0;
+	int manaLastTick = 0;
 	public int signal = 0;
 
 	public boolean addItem(EntityPlayer player, ItemStack stack) {
@@ -87,6 +76,17 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 	public void updateEntity() {
 		super.updateEntity();
 
+		if(mana > 0 && recipe == null) {
+			for(RecipeBrew recipe : BotaniaAPI.brewRecipes)
+				if(recipe.matches(this)) {
+					this.recipe = recipe;
+					worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 1, 1 | 2);
+				}
+
+			if(recipe == null)
+				mana = 0;
+		}
+
 		// Update every tick.
 		recieveMana(0);
 
@@ -105,20 +105,34 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 				recipe = null;
 				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 0, 1 | 2);
 			}
-			
-			if(recipe != null && mana >= recipe.getManaUsage() && !worldObj.isRemote) {
-				int mana = recipe.getManaUsage();
-				recieveMana(-mana);
-				if(!worldObj.isRemote) {
-					ItemStack output = recipe.getOutput(getStackInSlot(0));
-					EntityItem outputItem = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, output);
-					worldObj.spawnEntityInWorld(outputItem);
+
+			if(recipe != null) {
+				if(mana != manaLastTick) {
+					Color color = new Color(recipe.getBrew().getColor(getStackInSlot(0)));
+					float r = (float) color.getRed() / 255F;
+					float g = (float) color.getGreen() / 255F;
+					float b = (float) color.getBlue() / 255F;
+					for(int i = 0; i < 5; i++) {
+						Botania.proxy.wispFX(worldObj, xCoord + 0.7 - Math.random() * 0.4, yCoord + 0.9 - Math.random() * 0.2, zCoord + 0.7 - Math.random() * 0.4, r, g, b, 0.1F + (float) Math.random() * 0.05F, 0.03F - (float) Math.random() * 0.06F, 0.03F + (float) Math.random() * 0.015F, 0.03F - (float) Math.random() * 0.06F);
+						for(int j = 0; j < 2; j++)
+							Botania.proxy.wispFX(worldObj, xCoord + 0.7 - Math.random() * 0.4, yCoord + 0.9 - Math.random() * 0.2, zCoord + 0.7 - Math.random() * 0.4, 0.2F, 0.2F, 0.2F, 0.1F + (float) Math.random() * 0.2F, -(0.04F + (float) Math.random() * 0.02F));
+					}
 				}
 
-				for(int i = 0; i < getSizeInventory(); i++)
-					setInventorySlotContents(i, null);
+				if(mana >= getManaCost() && !worldObj.isRemote) {
+					int mana = getManaCost();
+					recieveMana(-mana);
+					if(!worldObj.isRemote) {
+						ItemStack output = recipe.getOutput(getStackInSlot(0));
+						EntityItem outputItem = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, output);
+						worldObj.spawnEntityInWorld(outputItem);
+					}
 
-				craftingFanciness();
+					for(int i = 0; i < getSizeInventory(); i++)
+						setInventorySlotContents(i, null);
+
+					craftingFanciness();
+				}
 			}
 		}
 
@@ -130,15 +144,27 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 			signal = newSignal;
 			worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 		}
+
+		manaLastTick = mana;
 	}
 
+	public int getManaCost() {
+		ItemStack stack = getStackInSlot(0);
+		if(recipe == null || stack == null || !(stack.getItem() instanceof IBrewContainer))
+			return 0;
+		IBrewContainer container = (IBrewContainer) stack.getItem();
+		return container.getManaCost(recipe.getBrew(), stack);
+	}
+	
 	public void craftingFanciness() {
-		worldObj.playSoundEffect(xCoord, yCoord, zCoord, "botania:runeAltarCraft", 1F, 1F);
+		worldObj.playSoundEffect(xCoord, yCoord, zCoord, "botania:potionCreate", 1F, 1.5F + (float) Math.random() * 0.25F);
 		for(int i = 0; i < 25; i++) {
-			float red = (float) Math.random();
-			float green = (float) Math.random();
-			float blue = (float) Math.random();
-			Botania.proxy.sparkleFX(worldObj, xCoord + 0.5 + Math.random() * 0.4 - 0.2, yCoord + 1, zCoord + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
+			Color color = new Color(recipe.getBrew().getColor(getStackInSlot(0)));
+			float r = (float) color.getRed() / 255F;
+			float g = (float) color.getGreen() / 255F;
+			float b = (float) color.getBlue() / 255F;
+			Botania.proxy.sparkleFX(worldObj, xCoord + 0.5 + Math.random() * 0.4 - 0.2, yCoord + 1, zCoord + 0.5 + Math.random() * 0.4 - 0.2, r, g, b, (float) Math.random() * 2F + 0.5F, 10);
+			Botania.proxy.wispFX(worldObj, xCoord + 0.7 - Math.random() * 0.4, yCoord + 0.9 - Math.random() * 0.2, zCoord + 0.7 - Math.random() * 0.4, 0.2F, 0.2F, 0.2F, 0.1F + (float) Math.random() * 0.2F, -(0.04F + (float) Math.random() * 0.02F));		
 		}
 	}
 
@@ -158,7 +184,7 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 
 	@Override
 	public int getSizeInventory() {
-		return 6;
+		return 7;
 	}
 
 	@Override
@@ -203,12 +229,12 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 
 	@Override
 	public boolean isFull() {
-		return recipe == null ? true : mana >= recipe.getManaUsage();
+		return mana >= getManaCost();
 	}
 
 	@Override
 	public void recieveMana(int mana) {
-		this.mana = Math.min(this.mana + mana, recipe == null ? 0 : recipe.getManaUsage());
+		this.mana = Math.min(this.mana + mana, getManaCost());
 	}
 
 	@Override

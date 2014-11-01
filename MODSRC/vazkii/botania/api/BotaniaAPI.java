@@ -286,7 +286,7 @@ public final class BotaniaAPI {
 	/**
 	 * Registers a Brew Recipe (for the Botanical Brewery).
 	 * @param brew The brew in to be set in this recipe.
-	 * @inputs The items used in the recipe, no more than 5.
+	 * @inputs The items used in the recipe, no more than 6.
 	 */
 	public static RecipeBrew registerBrewRecipe(Brew brew, Object... inputs) {
 		RecipeBrew recipe = new RecipeBrew(brew, inputs);
