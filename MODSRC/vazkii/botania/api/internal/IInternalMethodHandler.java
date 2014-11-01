@@ -19,6 +19,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -89,6 +90,8 @@ public interface IInternalMethodHandler {
 	
 	@SideOnly(Side.CLIENT)
 	public void setBossStatus(IBotaniaBoss status);
+	
+	public boolean isBuildcraftPipe(TileEntity tile);
 	
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m);
 

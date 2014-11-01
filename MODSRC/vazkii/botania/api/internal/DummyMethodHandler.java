@@ -20,6 +20,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -154,6 +155,11 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	@Override
 	public void setBossStatus(IBotaniaBoss status) {
 		// NO-OP
+	}
+
+	@Override
+	public boolean isBuildcraftPipe(TileEntity tile) {
+		return false;
 	}
 
 }

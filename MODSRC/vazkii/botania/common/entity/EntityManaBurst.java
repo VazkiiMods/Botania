@@ -35,6 +35,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IClientManaHandler;
 import vazkii.botania.api.mana.ILensEffect;
@@ -549,7 +550,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			if(tile instanceof IManaCollisionGhost && ((IManaCollisionGhost) tile).isGhost() || block instanceof BlockBush || block instanceof BlockLeaves)
 				return;
 
-			if(tile instanceof IPipeTile) // BuildCeaft pipe compat
+			if(BotaniaAPI.internalHandler.isBuildcraftPipe(tile))
 				return;
 			
 			ChunkCoordinates coords = getBurstSourceChunkCoordinates();

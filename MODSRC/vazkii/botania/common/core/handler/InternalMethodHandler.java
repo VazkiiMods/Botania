@@ -13,6 +13,7 @@ package vazkii.botania.common.core.handler;
 
 import java.util.List;
 
+import cpw.mods.fml.common.Optional;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,6 +21,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -46,6 +48,7 @@ import vazkii.botania.common.lexicon.page.PagePetalRecipe;
 import vazkii.botania.common.lexicon.page.PageRuneRecipe;
 import vazkii.botania.common.lexicon.page.PageText;
 import baubles.common.lib.PlayerHandler;
+import buildcraft.api.transport.IPipeTile;
 
 public class InternalMethodHandler extends DummyMethodHandler {
 
@@ -173,4 +176,9 @@ public class InternalMethodHandler extends DummyMethodHandler {
 		return ConfigHandler.hardcorePassiveGeneration;
 	}
 
+	@Override
+	@Optional.Method(modid = "BuildCraft|Transport")
+	public boolean isBuildcraftPipe(TileEntity tile) {
+		return tile instanceof IPipeTile;
+	}
 }

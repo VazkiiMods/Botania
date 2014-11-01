@@ -15,6 +15,7 @@ import buildcraft.api.statements.ITriggerProvider;
 import buildcraft.api.statements.StatementManager;
 
 public class StatementAPIPlugin implements ITriggerProvider {
+	
 	public static final ITriggerExternal triggerManaEmpty = new TriggerManaLevel(TriggerManaLevel.State.EMPTY);
 	public static final ITriggerExternal triggerManaContains = new TriggerManaLevel(TriggerManaLevel.State.CONTAINS);
 	public static final ITriggerExternal triggerManaSpace = new TriggerManaLevel(TriggerManaLevel.State.SPACE);

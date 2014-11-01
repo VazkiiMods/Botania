@@ -650,7 +650,7 @@ public final class LexiconData {
 		
 		if(Botania.bcTriggersLoaded) {
 			bcIntegration = new BLexiconEntry(LibLexicon.MISC_BC_INTEGRATION, categoryMisc);
-			bcIntegration.setLexiconPages(new PageText("0"), new PageText("1"));
+			bcIntegration.setLexiconPages(new PageText("0"));
 		}
 	}
 
