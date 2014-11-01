@@ -101,7 +101,7 @@ public abstract class ItemBrewBase extends ItemMod {
 		for(PotionEffect effect : brew.getPotionEffects(stack)) {
 			Potion potion = Potion.potionTypes[effect.getPotionID()];
 			EnumChatFormatting format = potion.isBadEffect() ? EnumChatFormatting.RED : EnumChatFormatting.GRAY;
-			list.add(format + StatCollector.translateToLocal(effect.getEffectName()) + " " + StatCollector.translateToLocal("potion.potency." + effect.getAmplifier()) + EnumChatFormatting.GRAY + (potion.isInstant() ? "" : (" (" + Potion.getDurationString(effect) + ")")));
+			list.add(format + StatCollector.translateToLocal(effect.getEffectName()) + (effect.getAmplifier() == 0 ? "" : (" " + StatCollector.translateToLocal("botania.roman" + (effect.getAmplifier() + 1)))) + EnumChatFormatting.GRAY + (potion.isInstant() ? "" : (" (" + Potion.getDurationString(effect) + ")")));
 		}
 	}
 

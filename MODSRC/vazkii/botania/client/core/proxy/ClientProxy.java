@@ -128,15 +128,6 @@ public class ClientProxy extends CommonProxy {
 
 		initRenderers();
 	}
-
-	@Override
-	public void postInit(FMLPostInitializationEvent event) {
-		for(int i = 0; i <= 30; i++) { // Fix Enchant and Potion values up to 30
-			String loc = StatCollector.translateToLocal("botania.roman" + i);
-			LanguageRegistry.instance().addStringLocalization("enchantment.level." + i , "en_US", loc);
-			LanguageRegistry.instance().addStringLocalization("potion.potency." + i, "en_US", loc);
-		}
-	}
 	
 	private void initRenderers() {
 		LibRenderIDs.idAltar = RenderingRegistry.getNextAvailableRenderId();
