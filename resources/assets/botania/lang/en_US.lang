@@ -116,6 +116,7 @@ botania.wings6=Wings: Lord of the Pit
 botania.wings7=Wings: Sylph
 
 # ROMAN NUMERALS
+botania.roman0=
 botania.roman1=I
 botania.roman2=II
 botania.roman3=III
@@ -136,6 +137,16 @@ botania.roman17=XVII
 botania.roman18=XVIII
 botania.roman19=XIX
 botania.roman20=XX
+botania.roman21=XXI
+botania.roman22=XXII
+botania.roman23=XXIII
+botania.roman24=XXIV
+botania.roman25=XXV
+botania.roman26=XXVI
+botania.roman27=XXVII
+botania.roman28=XXVIII
+botania.roman29=XXIX
+botania.roman30=XXX
 
 # KNOWLEDGE
 botania.knowledge.minecraft=Minecraftian Knowledge
@@ -758,6 +769,13 @@ item.botania:regenIvy.name=Timeless Ivy
 item.botania:manaInkwell.name=Botanurgist's Inkwell
 item.botania:vial0.name=Managlass Vial
 item.botania:vial1.name=Alfglass Flask
+item.botania:brewVial.name=Vial of %s (%s)
+item.botania:brewFlask.name=Flask of %s (%s)
+
+# BREW NAMES
+botania.brew.fallback=Fallback
+botania.brew.speed=Fleetfeet
+botania.brew.strength=Fortitude
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania, %s Edition Table of Contents

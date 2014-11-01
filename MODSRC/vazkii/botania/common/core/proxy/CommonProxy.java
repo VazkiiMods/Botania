@@ -22,6 +22,8 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.brew.ModBrews;
+import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.core.command.CommandDownloadLatest;
 import vazkii.botania.common.core.command.CommandOpen;
 import vazkii.botania.common.core.command.CommandShare;
@@ -49,7 +51,6 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.network.GuiHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.ModAPIManager;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -67,6 +68,8 @@ public class CommonProxy {
 		ModBlocks.init();
 		ModItems.init();
 		ModEntities.init();
+		ModPotions.init();
+		ModBrews.init();
 
 		ModCrafingRecipes.init();
 		ModPetalRecipes.init();

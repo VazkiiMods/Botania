@@ -83,6 +83,8 @@ public final class BotaniaAPI {
 
 	public static KnowledgeType basicKnowledge, elvenKnowledge;
 
+	public static Brew fallbackBrew = new Brew("fallback", "botania.brew.fallback", 0, 0);
+	
 	static {
 		registerSubTile("", DummySubTile.class);
 
@@ -195,6 +197,16 @@ public final class BotaniaAPI {
 		return brew;
 	}
 
+	/**
+	 * Gets a brew from the key passed in, returns the fallback if
+	 * it's not in the map.
+	 */
+	public static Brew getBrewFromKey(String key) {
+		if(brewMap.containsKey(key))
+			return brewMap.get(key);
+		return fallbackBrew;
+	}
+	
 	/**
 	 * Registers a Petal Recipe.
 	 * @param output The ItemStack to craft.

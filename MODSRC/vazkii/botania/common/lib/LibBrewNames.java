@@ -7,10 +7,13 @@
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
  * 
- * File Created @ [Nov 1, 2014, 5:45:58 PM (GMT)]
+ * File Created @ [Nov 1, 2014, 7:03:57 PM (GMT)]
  */
-package vazkii.botania.common.item;
+package vazkii.botania.common.lib;
 
-public class ItemBrew {
+public final class LibBrewNames {
+
+	public static final String SPEED = "speed";
+	public static final String STRENGTH = "strength";
 
 }

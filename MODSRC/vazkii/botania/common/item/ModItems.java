@@ -14,6 +14,9 @@ package vazkii.botania.common.item;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+import vazkii.botania.common.item.brew.ItemBrewFlask;
+import vazkii.botania.common.item.brew.ItemBrewVial;
+import vazkii.botania.common.item.brew.ItemVial;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumBoots;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumChest;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumHelm;
@@ -157,6 +160,8 @@ public final class ModItems {
 	public static Item regenIvy;
 	public static Item manaInkwell;
 	public static Item vial;
+	public static Item brewVial;
+	public static Item brewFlask;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -248,7 +253,9 @@ public final class ModItems {
 		regenIvy = new ItemRegenIvy();
 		manaInkwell = new ItemManaInkwell();
 		vial = new ItemVial();
-
+		brewVial = new ItemBrewVial();
+		brewFlask = new ItemBrewFlask();
+		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));

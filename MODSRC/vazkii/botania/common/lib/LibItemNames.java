@@ -102,8 +102,10 @@ public final class LibItemNames {
 	public static final String REGEN_IVY = "regenIvy";
 	public static final String MANA_INKWELL = "manaInkwell";
 	public static final String VIAL = "vial";
-	public static final String BOTANICAL_POTION = "botanicalPotion";
-
+	public static final String FLASK = "flask";
+	public static final String BREW_VIAL = "brewVial";
+	public static final String BREW_FLASK = "brewFlask";
+	
 	public static final String[] LENS_NAMES = new String[] {
 		"lensNormal",
 		"lensSpeed",

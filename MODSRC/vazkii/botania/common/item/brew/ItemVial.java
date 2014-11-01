@@ -9,7 +9,7 @@
  * 
  * File Created @ [Nov 1, 2014, 5:45:50 PM (GMT)]
  */
-package vazkii.botania.common.item;
+package vazkii.botania.common.item.brew;
 
 import java.util.List;
 
@@ -21,6 +21,8 @@ import net.minecraft.util.IIcon;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewContainer;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.common.item.ItemMod;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemVial extends ItemMod implements IBrewContainer {
@@ -28,14 +30,18 @@ public class ItemVial extends ItemMod implements IBrewContainer {
 	public static IIcon flaskIcon, vialIcon;
 	
 	public ItemVial() {
+		this(LibItemNames.VIAL);
+	}
+	
+	public ItemVial(String name) {
 		setHasSubtypes(true);
-		setUnlocalizedName(LibItemNames.VIAL);
+		setUnlocalizedName(name);
 	}
 	
 	@Override
 	public void registerIcons(IIconRegister par1IconRegister) {
-		vialIcon = IconHelper.forName(par1IconRegister, "vial0");
-		flaskIcon = IconHelper.forName(par1IconRegister, "flask0");
+		vialIcon = IconHelper.forName(par1IconRegister, LibItemNames.VIAL + "0");
+		flaskIcon = IconHelper.forName(par1IconRegister, LibItemNames.FLASK + "0");
 	}
 
 	@Override
@@ -56,7 +62,9 @@ public class ItemVial extends ItemMod implements IBrewContainer {
 
 	@Override
 	public ItemStack getItemForBrew(Brew brew, ItemStack stack) {
-		return null;
+		ItemStack brewStack = new ItemStack(stack.getItemDamage() == 1 ? ModItems.brewFlask : ModItems.brewVial);
+		ItemBrewBase.setBrew(brewStack, brew);
+		return brewStack;
 	}
 
 	@Override

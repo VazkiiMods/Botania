@@ -23,6 +23,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.StatCollector;
+import net.minecraft.util.StringTranslate;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings.GameType;
 import net.minecraftforge.client.MinecraftForgeClient;
@@ -101,6 +103,9 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class ClientProxy extends CommonProxy {
@@ -124,6 +129,15 @@ public class ClientProxy extends CommonProxy {
 		initRenderers();
 	}
 
+	@Override
+	public void postInit(FMLPostInitializationEvent event) {
+		for(int i = 0; i <= 30; i++) { // Fix Enchant and Potion values up to 30
+			String loc = StatCollector.translateToLocal("botania.roman" + i);
+			LanguageRegistry.instance().addStringLocalization("enchantment.level." + i , "en_US", loc);
+			LanguageRegistry.instance().addStringLocalization("potion.potency." + i, "en_US", loc);
+		}
+	}
+	
 	private void initRenderers() {
 		LibRenderIDs.idAltar = RenderingRegistry.getNextAvailableRenderId();
 		LibRenderIDs.idSpecialFlower = RenderingRegistry.getNextAvailableRenderId();
@@ -287,3 +301,4 @@ public class ClientProxy extends CommonProxy {
 		LightningHandler.spawnLightningBolt(world, vectorStart, vectorEnd, ticksPerMeter, seed, colorOuter, colorInner);
 	}
 }
+
