@@ -139,6 +139,13 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 		}
 	}
+	
+	public boolean hasValidRecipe() {
+		for(RecipeRuneAltar recipe : BotaniaAPI.runeAltarRecipes)
+			if(recipe.matches(this)) return true;
+		
+		return false;
+	}
 
 	public void onWanded(EntityPlayer player, ItemStack wand) {
 		updateRecipe();

@@ -1,4 +1,4 @@
-package vazkii.botania.client.nei;
+package vazkii.botania.client.integration.nei;
 
 import vazkii.botania.common.lib.LibMisc;
 import codechicken.nei.api.API;
