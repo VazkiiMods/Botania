@@ -156,6 +156,7 @@ public final class ModItems {
 	public static Item gravityRod;
 	public static Item regenIvy;
 	public static Item manaInkwell;
+	public static Item vial;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -246,6 +247,7 @@ public final class ModItems {
 		gravityRod = new ItemGravityRod();
 		regenIvy = new ItemRegenIvy();
 		manaInkwell = new ItemManaInkwell();
+		vial = new ItemVial();
 
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
@@ -267,5 +269,7 @@ public final class ModItems {
 		OreDictionary.registerOre(LibOreDict.DRAGONSTONE, new ItemStack(manaResource, 1, 9));
 		OreDictionary.registerOre(LibOreDict.PRISMARINE_SHARD, new ItemStack(manaResource, 1, 10));
 		OreDictionary.registerOre(LibOreDict.PLACEHOLDER, new ItemStack(manaResource, 1, 11));
+		OreDictionary.registerOre(LibOreDict.VIAL, new ItemStack(vial, 1, 0));
+		OreDictionary.registerOre(LibOreDict.FLASK, new ItemStack(vial, 1, 1));
 	}
 }

@@ -29,6 +29,7 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.util.EnumHelper;
+import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.DummyMethodHandler;
 import vazkii.botania.api.internal.DummySubTile;
 import vazkii.botania.api.internal.IInternalMethodHandler;
@@ -56,6 +57,8 @@ public final class BotaniaAPI {
 
 	public static Map<String, KnowledgeType> knowledgeTypes = new HashMap<String, KnowledgeType>();
 
+	public static Map<String, Brew> brewMap = new HashMap<String, Brew>();
+	
 	public static List<RecipePetals> petalRecipes = new ArrayList<RecipePetals>();
 	public static List<RecipeRuneAltar> runeAltarRecipes = new ArrayList<RecipeRuneAltar>();
 	public static List<RecipeManaInfusion> manaInfusionRecipes = new ArrayList<RecipeManaInfusion>();
@@ -182,6 +185,14 @@ public final class BotaniaAPI {
 		KnowledgeType type = new KnowledgeType(id, color, autoUnlock);
 		knowledgeTypes.put(id, type);
 		return type;
+	}
+	
+	/**
+	 * Registers a Brew and returns it.
+	 */
+	public static Brew registerBrew(Brew brew) {
+		brewMap.put(brew.getKey(), brew);
+		return brew;
 	}
 
 	/**

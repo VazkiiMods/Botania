@@ -103,6 +103,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.altar);
 		addBlock(ModBlocks.runeAltar);
 		addBlock(ModBlocks.brewery);
+		addItem(ModItems.vial);
 		addBlock(ModBlocks.pylon);
 		addBlock(ModBlocks.pistonRelay);
 		addBlock(ModBlocks.shinyFlower);
@@ -114,6 +115,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.signalFlare);
 
 		addBlock(ModBlocks.dreamwood);
+		addBlock(ModBlocks.manaGlass);
 		addBlock(ModBlocks.elfGlass);
 
 		addBlock(ModBlocks.prismarine);

@@ -22,7 +22,9 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.decor.BlockBuriedPetals;
 import vazkii.botania.common.block.decor.BlockCustomBrick;
+import vazkii.botania.common.block.decor.BlockElfGlass;
 import vazkii.botania.common.block.decor.BlockManaBeacon;
+import vazkii.botania.common.block.decor.BlockManaGlass;
 import vazkii.botania.common.block.decor.BlockMiniIsland;
 import vazkii.botania.common.block.decor.BlockPrismarine;
 import vazkii.botania.common.block.decor.BlockReeds;
@@ -177,6 +179,7 @@ public final class ModBlocks {
 	public static Block rfGenerator;
 	public static Block elfGlass;
 	public static Block brewery;
+	public static Block manaGlass;
 
 	public static Block livingwoodStairs;
 	public static Block livingwoodSlab;
@@ -297,7 +300,8 @@ public final class ModBlocks {
 		rfGenerator	= new BlockRFGenerator();
 		elfGlass = new BlockElfGlass();
 		brewery = new BlockBrewery();
-
+		manaGlass = new BlockManaGlass();
+		
 		livingwoodStairs = new BlockLivingwoodStairs();
 		livingwoodSlab = new BlockLivingwoodSlab(false);
 		livingwoodSlabFull = new BlockLivingwoodSlab(true);
