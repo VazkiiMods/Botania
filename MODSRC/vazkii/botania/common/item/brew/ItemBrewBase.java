@@ -11,16 +11,13 @@
  */
 package vazkii.botania.common.item.brew;
 
-import java.util.Iterator;
+import java.awt.Color;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -28,9 +25,11 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewItem;
+import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemMod;
@@ -54,9 +53,47 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem {
 		this.swigs = swigs;
 		this.drinkSpeed = drinkSpeed;
 		this.baseItem = baseItem;
+		setMaxStackSize(1);
 		setMaxDamage(swigs);
 		setUnlocalizedName(name);
 	}
+
+	@Override
+	public int getMaxItemUseDuration(ItemStack p_77626_1_) {
+		return drinkSpeed;
+	}
+
+	@Override
+	public EnumAction getItemUseAction(ItemStack p_77661_1_) {
+		return EnumAction.drink;
+	}
+
+	@Override
+	public ItemStack onItemRightClick(ItemStack p_77659_1_, World p_77659_2_, EntityPlayer p_77659_3_) {
+		p_77659_3_.setItemInUse(p_77659_1_, this.getMaxItemUseDuration(p_77659_1_));
+		return p_77659_1_;
+	}
+	
+	@Override
+    public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) {
+		for(PotionEffect effect : getBrew(stack).getPotionEffects(stack)) {
+			PotionEffect newEffect = new PotionEffect(effect);
+			player.addPotionEffect(newEffect);
+		}
+		
+		if(!world.isRemote && world.rand.nextBoolean())
+			world.playSoundAtEntity(player, "random.burp", 0.4F, 1F);
+		
+		int swigs = getSwigsLeft(stack);
+		if(!player.capabilities.isCreativeMode) {
+			if(swigs == 1)
+				return baseItem.copy();
+			
+			setSwigsLeft(stack, swigs - 1);
+		}
+		
+		return stack;
+    }
 
 	@Override
 	public void getSubItems(Item item, CreativeTabs tab, List list) {
@@ -88,7 +125,17 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem {
 
 	@Override
 	public int getColorFromItemStack(ItemStack stack, int pass) {
-		return pass == 0 ? 0xFFFFFF : getBrew(stack).getColor(stack);
+		if(pass == 0)
+			return 0xFFFFFF;
+		
+		Color color = new Color(getBrew(stack).getColor(stack));
+		int add = (int) (Math.sin((double) ClientTickHandler.ticksInGame * 0.1) * 16);
+		
+		int r = Math.max(0, Math.min(255, color.getRed() + add));
+		int g = Math.max(0, Math.min(255, color.getGreen() + add));
+		int b = Math.max(0, Math.min(255, color.getBlue() + add));
+		
+		return pass == 0 ? 0xFFFFFF : r << 16 | g << 8 | b;
 	}
 
 	@Override
@@ -124,7 +171,7 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem {
 	}
 
 	public void setSwigsLeft(ItemStack stack, int swigs) {
-		ItemNBTHelper.setInt(stack, TAG_SWIGS_LEFT, drinkSpeed);
+		ItemNBTHelper.setInt(stack, TAG_SWIGS_LEFT, swigs);
 	}
 
 }

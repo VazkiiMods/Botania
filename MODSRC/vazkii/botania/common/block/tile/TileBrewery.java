@@ -89,7 +89,7 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 
 		// Update every tick.
 		recieveMana(0);
-
+		
 		if(!worldObj.isRemote && recipe == null) {
 			List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1));
 			for(EntityItem item : items)
@@ -164,7 +164,8 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 			float g = (float) color.getGreen() / 255F;
 			float b = (float) color.getBlue() / 255F;
 			Botania.proxy.sparkleFX(worldObj, xCoord + 0.5 + Math.random() * 0.4 - 0.2, yCoord + 1, zCoord + 0.5 + Math.random() * 0.4 - 0.2, r, g, b, (float) Math.random() * 2F + 0.5F, 10);
-			Botania.proxy.wispFX(worldObj, xCoord + 0.7 - Math.random() * 0.4, yCoord + 0.9 - Math.random() * 0.2, zCoord + 0.7 - Math.random() * 0.4, 0.2F, 0.2F, 0.2F, 0.1F + (float) Math.random() * 0.2F, -(0.04F + (float) Math.random() * 0.02F));		
+			for(int j = 0; j < 2; j++)
+				Botania.proxy.wispFX(worldObj, xCoord + 0.7 - Math.random() * 0.4, yCoord + 0.9 - Math.random() * 0.2, zCoord + 0.7 - Math.random() * 0.4, 0.2F, 0.2F, 0.2F, 0.1F + (float) Math.random() * 0.2F, 0.04F + (float) Math.random() * 0.02F, 0.04F + (float) Math.random() * 0.02F, 0.04F + (float) Math.random() * 0.02F);		
 		}
 	}
 
