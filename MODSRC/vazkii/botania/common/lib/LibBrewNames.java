@@ -26,4 +26,6 @@ public final class LibBrewNames {
 	public static final String NIGHT_VISION = "nightVision";
 	public static final String ABSORPTION = "absorption";
 
+	public static final String SOUL_CROSS = "soulCross";
+	
 }

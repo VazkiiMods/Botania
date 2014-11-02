@@ -787,6 +787,10 @@ botania.brew.waterBreathing=Gills
 botania.brew.invisibility=Cloaking
 botania.brew.nightVision=Owlsight
 botania.brew.absorption=Shielding
+botania.brew.soulCross=Crossed Souls
+
+# POTION NAMES
+botania.potion.soulCross=Soul Cross
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania, %s Edition Table of Contents

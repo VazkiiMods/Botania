@@ -31,6 +31,8 @@ public class ModBrews {
 	public static Brew nightVision;
 	public static Brew absorption;
 
+	public static Brew soulCross;
+	
 	public static void init() {
 		speed = new BrewMod(LibBrewNames.SPEED, 0x59B7FF, 4000, new PotionEffect(Potion.moveSpeed.id, 1800, 1));
 		strength = new BrewMod(LibBrewNames.STRENGTH, 0xEE3F3F, 4000, new PotionEffect(Potion.damageBoost.id, 1800, 1));
@@ -44,6 +46,8 @@ public class ModBrews {
 		invisibility = new BrewMod(LibBrewNames.INVISIBILITY, 0xAEAEAE, 4000, new PotionEffect(Potion.invisibility.id, 9600, 0));
 		nightVision = new BrewMod(LibBrewNames.NIGHT_VISION, 0x7C4BEB, 4000, new PotionEffect(Potion.nightVision.id, 9600, 0));
 		absorption = new BrewMod(LibBrewNames.ABSORPTION, 0xF2EB23, 7000, new PotionEffect(Potion.field_76444_x.id, 1800, 3));
+	
+		soulCross = new BrewModPotion(LibBrewNames.SOUL_CROSS, 10000, new PotionEffect(ModPotions.soulCross.id, 1800, 0));
 	}
 	
 }

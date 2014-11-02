@@ -38,8 +38,9 @@ public final class LibResources {
 	public static final String GUI_CREATIVE = "botania.png";
 	public static final String GUI_TOFF = PREFIX_GUI + "toff.png";
 	public static final String GUI_BOSS_BAR = PREFIX_GUI + "bossBar.png";
+	public static final String GUI_POTIONS = PREFIX_GUI + "potions.png";
 	public static final String GUI_NEI_BLANK = PREFIX_GUI + "neiBlank.png";
-
+	
 	public static final String ENTRY_FLOWERS = PREFIX_ENTRIES + "flowers.png";
 	public static final String ENTRY_APOTHECARY = PREFIX_ENTRIES + "apothecary.png";
 	public static final String ENTRY_PURE_DAISY = PREFIX_ENTRIES + "pureDaisy.png";
