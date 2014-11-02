@@ -35,7 +35,7 @@ public class BlockBrewery extends BlockModContainer {
 	protected BlockBrewery() {
 		super(Material.rock);
 		float f = 6F / 16F;
-		setBlockBounds(f, 0F, f, 1F - f, 1F, 1F - f);
+		setBlockBounds(f, 0.05F, f, 1F - f, 0.95F, 1F - f);
 		setBlockName(LibBlockNames.BREWERY);
 		
 		random = new Random();
