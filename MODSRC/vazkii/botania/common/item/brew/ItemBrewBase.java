@@ -76,14 +76,14 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem {
 	
 	@Override
     public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) {
-		if(!player.worldObj.isRemote) {
+		if(!world.isRemote) {
 			for(PotionEffect effect : getBrew(stack).getPotionEffects(stack)) {
 				PotionEffect newEffect = new PotionEffect(effect);
 				player.addPotionEffect(newEffect);
 			}
 			
-			if(!world.isRemote && world.rand.nextBoolean())
-				world.playSoundAtEntity(player, "random.burp", 0.4F, 1F);
+			if(world.rand.nextBoolean())
+				world.playSoundAtEntity(player, "random.burp", 1F, 1F);
 			
 			int swigs = getSwigsLeft(stack);
 			if(!player.capabilities.isCreativeMode) {
