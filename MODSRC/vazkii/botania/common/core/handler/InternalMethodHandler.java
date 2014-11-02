@@ -29,6 +29,7 @@ import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.internal.DummyMethodHandler;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.lexicon.LexiconPage;
+import vazkii.botania.api.recipe.RecipeBrew;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
@@ -40,6 +41,7 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.block.BlockSpecialFlower;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
+import vazkii.botania.common.lexicon.page.PageBrew;
 import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
 import vazkii.botania.common.lexicon.page.PageElvenRecipe;
 import vazkii.botania.common.lexicon.page.PageImage;
@@ -124,6 +126,11 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	@Override
 	public LexiconPage elvenTradesPage(String key, RecipeElvenTrade recipe) {
 		return new PageElvenRecipe(key, recipe);
+	}
+	
+	@Override
+	public LexiconPage brewPage(String key, String bottomText, RecipeBrew recipe) {
+		return new PageBrew(recipe, key, bottomText);
 	}
 
 	@Override

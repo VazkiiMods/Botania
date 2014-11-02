@@ -25,6 +25,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.lexicon.LexiconPage;
+import vazkii.botania.api.recipe.RecipeBrew;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
@@ -64,6 +65,8 @@ public interface IInternalMethodHandler {
 	public LexiconPage elvenTradePage(String key, List<RecipeElvenTrade> recipes);
 
 	public LexiconPage elvenTradesPage(String key, RecipeElvenTrade recipe);
+	
+	public LexiconPage brewPage(String key, String bottomText, RecipeBrew recipe);
 
 	public IManaNetwork getManaNetworkInstance();
 

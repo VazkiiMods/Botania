@@ -26,6 +26,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.lexicon.LexiconPage;
+import vazkii.botania.api.recipe.RecipeBrew;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
@@ -90,6 +91,11 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 
 	@Override
 	public LexiconPage elvenTradesPage(String key, RecipeElvenTrade recipe) {
+		return dummyPage(key);
+	}
+	
+	@Override
+	public LexiconPage brewPage(String key, String bottomText, RecipeBrew recipe) {
 		return dummyPage(key);
 	}
 

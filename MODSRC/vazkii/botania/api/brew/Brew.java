@@ -67,8 +67,9 @@ public class Brew {
 	}
 	
 	/**
-	 * Gets the display color for the ItemStack passed in. Note that for
-	 * the lexicon, this passes in a botania Managlass Flask at all times.
+	 * Gets the display color for the ItemStack passed in.  Note that for 
+	 * the lexicon, this passes in a botania Managlass Vial or an 
+	 * Alfglass Flask at all times.
 	 */
 	public int getColor(ItemStack stack) {
 		return color;
@@ -91,7 +92,7 @@ public class Brew {
 	/**
 	 * Gets the list of potion effects for the ItemStack passed in.
 	 * Note that for the lexicon, this passes in a botania Managlass 
-	 * Flask at all times.
+	 * Vial or an Alfglass Flask at all times.
 	 */
 	public List<PotionEffect> getPotionEffects(ItemStack stack) {
 		return effects;
