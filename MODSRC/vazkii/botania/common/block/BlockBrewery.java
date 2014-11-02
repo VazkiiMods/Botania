@@ -13,11 +13,6 @@ package vazkii.botania.common.block;
 
 import java.util.Random;
 
-import vazkii.botania.client.lib.LibRenderIDs;
-import vazkii.botania.common.block.tile.TileBrewery;
-import vazkii.botania.common.block.tile.TileRuneAltar;
-import vazkii.botania.common.block.tile.TileSimpleInventory;
-import vazkii.botania.common.lib.LibBlockNames;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -27,8 +22,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import vazkii.botania.api.lexicon.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.client.lib.LibRenderIDs;
+import vazkii.botania.common.block.tile.TileBrewery;
+import vazkii.botania.common.block.tile.TileRuneAltar;
+import vazkii.botania.common.block.tile.TileSimpleInventory;
+import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockBrewery extends BlockModContainer {
+public class BlockBrewery extends BlockModContainer implements ILexiconable {
 
 	Random random;
 	
@@ -138,6 +141,11 @@ public class BlockBrewery extends BlockModContainer {
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileBrewery();
+	}
+
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return LexiconData.brewery;
 	} 
 
 }

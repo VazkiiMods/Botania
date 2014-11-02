@@ -63,6 +63,7 @@ botaniamisc.dropTip1=CTRL-%key% will drop a full stack
 botaniamisc.wandMode.bind=Bind Mode
 botaniamisc.wandMode.function=Function Mode
 botaniamisc.playVideo=Play Video
+botaniamisc.brewOf=Brew of %s
 
 # NEI INTEGRATION
 botania.nei.elvenTrade=Elven Trade
@@ -1221,7 +1222,7 @@ botania.entry.turntable=Spreader Turntable
 botania.page.turntable0=The &1Spreader Turntable&0, as its name implies, can turn &1Mana Spreaders&0 around and around. Placing a spreader above the turntable will rotate it, given that a redstone signal isn't applied.<br>To change the speed of the turntable, right click with a &1Wand of the Forest&0, shift-right clicking will invert the movement.
 botania.page.turntable1=You spin me right round
 
-# -- BOTANICAL ALCHEMY
+# -- ALCHEMISING WITH MANA
 botania.entry.manaAlchemy=Alchemising with Mana
 botania.page.manaAlchemy0=&4Mana&0 is an extremely volatile substance, to a point that its complete properties and abilities are unknown.<br>One of them is known, though, by attaching an &1Alchemy Catalyst&0, created with a mixture of otherworldly materials to the bottom of a &1Mana Pool&0, it enables the pool to perform &4Alchemy&0.
 botania.page.manaAlchemy1=Creating the &1Catalyst&0
@@ -1246,6 +1247,24 @@ botania.page.manaAlchemy19=Converting between &1Glowstone&0 and &1Redstone&0
 botania.page.manaAlchemy20=Breaking &1Cobblestone&0 into &1Sand&0
 botania.page.manaAlchemy21=Breaking &1Hardened Clay&0 into &1Red Sand&0
 botania.page.manaAlchemy22=Making &1Coarse Dirt&0
+
+# -- BOTANICAL BREWERY
+botania.entry.brewery=Brewing (I - Basics)
+botania.page.brewery0=Given the versatility of &4Mana&0, the fact that it can be used to conjure some sort of &4Potions&0 comes to nobody's surprise. &4Brews&0 are a variant of &4Potions&0, to put it simply. They're created using &4Mana&0 and a set of ingedients.<br>Unlike &4Potions&0, &4Brews&0 have defined recipes, and each vial contains multiple doses.
+botania.page.brewery1=In order to create &4Brews&0 one would require a &1Botanical Brewery&0, &1Vials&0 and of course, the reagents defined in the recipe.<br>The &4Mana&0 functions as the both the solvent and energy source and is given through &4Mana Bursts&0, simply pointing a &1Mana Spreader&0 at the &1Brewery&0 will work just fine.
+botania.page.brewery2=Crafting the &1Botanical Brewery&0
+botania.page.brewery3=Crafting &1Vials&0
+botania.page.brewery4=Working the &1Botanical Brewery&0 is rather simple. First off, to add an item, right click with it on the block or toss it.<br>Start off by adding the &1Vial&0, which will get set on the top of the brewery. Proceed by adding all the required ingredients. Once a &4Brew&0 can be created with the ingredients in the brewery, &4Mana&0 will start flowing, just wait a bit after that.
+botania.page.brewery5a=A simple brew, it mimics a &1Potion of Swiftness&0, when taken, it has a similar effect, giving the individual a &4Speed II&0 effect.
+botania.page.brewery5b=Gotta go fast
+botania.page.brewery6a=A simple brew, it mimics a &1Potion of Strength&0, when taken, it has a similar effect, giving the individual a &4Strength II&0 effect.
+botania.page.brewery6b=Hodor
+
+# -- BREWING FLASKS
+botania.entry.flasks=Brewing Flasks
+botania.page.flasks0=&1Alfglass&0 seems to be more maleable than the typical &1Managlass&0 used for &1Vials&0. A &1Flask&0, made with &1Alfglass&0 is the typical elven container for &4Brews&0, and can contain 6 doses of one, rather than the 4 a &1Vial&0 does.
+botania.page.flasks1=While the ingredient cost to brew something in a &1Flask&0 is smaller, the &4Mana&0 cost is double that of a regular &1Vial&0.<br>Lastly, given that the bottleneck of a &1Flask&0 is larger than that of a &1Vial&0, the contents can be consumed faster.
+botania.page.flasks2=Get one under the bridge
 
 # -- EYE OF THE ANCIENTS
 botania.entry.forestEye=Eye of the Ancients

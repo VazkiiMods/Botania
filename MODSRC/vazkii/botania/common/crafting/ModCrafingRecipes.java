@@ -197,6 +197,9 @@ public final class ModCrafingRecipes {
 	public static IRecipe recipeRegenIvy;
 	public static IRecipe recipeUltraSpreader;
 	public static IRecipe recipeHelmetOfRevealing;
+	public static IRecipe recipeVial;
+	public static IRecipe recipeFlask;
+	public static IRecipe recipeBrewery;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1241,6 +1244,27 @@ public final class ModCrafingRecipes {
 				'R', new ItemStack(Blocks.redstone_block));
 		recipeRFGenerator = BotaniaAPI.getLatestAddedRecipe();
 
+		// Vial Recipe
+		GameRegistry.addRecipe(new ItemStack(ModItems.vial, 3, 0), 
+				"G G", " G ",
+				'G', new ItemStack(ModBlocks.manaGlass));
+		recipeVial = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Flask Recipe
+		GameRegistry.addRecipe(new ItemStack(ModItems.vial, 3, 1), 
+				"G G", " G ",
+				'G', new ItemStack(ModBlocks.elfGlass));
+		recipeFlask = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Botanical Brewery Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.brewery), 
+				"RSR", "RAR", "RMR",
+				'R', LibOreDict.LIVING_ROCK,
+				'S', new ItemStack(Items.brewing_stand),
+				'A', LibOreDict.RUNE[8],
+				'M', new ItemStack(ModBlocks.storage));
+		recipeBrewery = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",

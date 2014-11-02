@@ -25,8 +25,13 @@ public class BLexiconEntry extends LexiconEntry {
 
 	@Override
 	public LexiconEntry setLexiconPages(LexiconPage... pages) {
-		for(LexiconPage page : pages)
+		for(LexiconPage page : pages) {
 			page.unlocalizedName = "botania.page." + getLazyUnlocalizedName() + page.unlocalizedName;
+			if(page instanceof IDoubleUnlocalizedName) {
+				IDoubleUnlocalizedName dou = (IDoubleUnlocalizedName) page;
+				dou.setSecondUnlocalizedName("botania.page." + getLazyUnlocalizedName() + dou.getSecondUnlocalizedName());
+			}
+		}
 
 		return super.setLexiconPages(pages);
 	}
@@ -39,5 +44,9 @@ public class BLexiconEntry extends LexiconEntry {
 	public String getLazyUnlocalizedName() {
 		return super.getUnlocalizedName();
 	}
-
+	
+	public static interface IDoubleUnlocalizedName {
+		public void setSecondUnlocalizedName(String name);
+		public String getSecondUnlocalizedName();
+	}
 }
