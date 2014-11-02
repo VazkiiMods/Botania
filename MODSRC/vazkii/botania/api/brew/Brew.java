@@ -12,12 +12,11 @@
 package vazkii.botania.api.brew;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
-import scala.actors.threadpool.Arrays;
-import vazkii.botania.api.BotaniaAPI;
 
 /**
  * The class for a Brew definition, each one is a singleton.
