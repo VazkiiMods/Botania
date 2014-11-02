@@ -22,8 +22,8 @@ public class ModBrews {
 	public static Brew strength;
 
 	public static void init() {
-		speed = new BrewMod(LibBrewNames.SPEED, 0x59B7FF, 2000, new PotionEffect(Potion.moveSpeed.id, 1200, 1));
-		strength = new BrewMod(LibBrewNames.STRENGTH, 0XEE3F3F, 2000, new PotionEffect(Potion.damageBoost.id, 1200, 1));
+		speed = new BrewMod(LibBrewNames.SPEED, 0x59B7FF, 2000, new PotionEffect(Potion.moveSpeed.id, 1800, 1));
+		strength = new BrewMod(LibBrewNames.STRENGTH, 0XEE3F3F, 2000, new PotionEffect(Potion.damageBoost.id, 1800, 1));
 	}
 	
 }

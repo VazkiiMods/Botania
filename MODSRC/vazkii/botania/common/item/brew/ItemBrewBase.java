@@ -76,22 +76,29 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem {
 	
 	@Override
     public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) {
-		for(PotionEffect effect : getBrew(stack).getPotionEffects(stack)) {
-			PotionEffect newEffect = new PotionEffect(effect);
-			player.addPotionEffect(newEffect);
-		}
-		
-		if(!world.isRemote && world.rand.nextBoolean())
-			world.playSoundAtEntity(player, "random.burp", 0.4F, 1F);
-		
-		int swigs = getSwigsLeft(stack);
-		if(!player.capabilities.isCreativeMode) {
-			if(swigs == 1)
-				return baseItem.copy();
+		if(!player.worldObj.isRemote) {
+			for(PotionEffect effect : getBrew(stack).getPotionEffects(stack)) {
+				PotionEffect newEffect = new PotionEffect(effect);
+				player.addPotionEffect(newEffect);
+			}
 			
-			setSwigsLeft(stack, swigs - 1);
+			if(!world.isRemote && world.rand.nextBoolean())
+				world.playSoundAtEntity(player, "random.burp", 0.4F, 1F);
+			
+			int swigs = getSwigsLeft(stack);
+			if(!player.capabilities.isCreativeMode) {
+				if(swigs == 1) {
+					ItemStack copy = baseItem.copy();
+					if(!player.inventory.addItemStackToInventory(copy))
+						return baseItem.copy();
+					return null;
+				}
+					
+				
+				setSwigsLeft(stack, swigs - 1);
+			}
 		}
-		
+
 		return stack;
     }
 
@@ -120,7 +127,7 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem {
 
 	@Override
 	public IIcon getIcon(ItemStack stack, int pass) {
-		return pass == 0 ? itemIcon : icons[Math.max(0, swigs - getSwigsLeft(stack))];
+		return pass == 0 ? itemIcon : icons[Math.max(0, Math.min(icons.length - 1, swigs - getSwigsLeft(stack)))];
 	}
 
 	@Override
