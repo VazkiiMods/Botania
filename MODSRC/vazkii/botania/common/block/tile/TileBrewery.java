@@ -165,7 +165,7 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 			float b = (float) color.getBlue() / 255F;
 			Botania.proxy.sparkleFX(worldObj, xCoord + 0.5 + Math.random() * 0.4 - 0.2, yCoord + 1, zCoord + 0.5 + Math.random() * 0.4 - 0.2, r, g, b, (float) Math.random() * 2F + 0.5F, 10);
 			for(int j = 0; j < 2; j++)
-				Botania.proxy.wispFX(worldObj, xCoord + 0.7 - Math.random() * 0.4, yCoord + 0.9 - Math.random() * 0.2, zCoord + 0.7 - Math.random() * 0.4, 0.2F, 0.2F, 0.2F, 0.1F + (float) Math.random() * 0.2F, 0.04F + (float) Math.random() * 0.02F, 0.04F + (float) Math.random() * 0.02F, 0.04F + (float) Math.random() * 0.02F);		
+				Botania.proxy.wispFX(worldObj, xCoord + 0.7 - Math.random() * 0.4, yCoord + 0.9 - Math.random() * 0.2, zCoord + 0.7 - Math.random() * 0.4, 0.2F, 0.2F, 0.2F, 0.1F + (float) Math.random() * 0.2F, 0.06F - (float) Math.random() * 0.04F, 0.04F + (float) Math.random() * 0.02F, 0.06F - (float) Math.random() * 0.04F);		
 		}
 	}
 
