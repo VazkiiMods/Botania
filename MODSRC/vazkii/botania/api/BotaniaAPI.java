@@ -13,6 +13,7 @@ package vazkii.botania.api;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -58,7 +59,7 @@ public final class BotaniaAPI {
 
 	public static Map<String, KnowledgeType> knowledgeTypes = new HashMap<String, KnowledgeType>();
 
-	public static Map<String, Brew> brewMap = new HashMap<String, Brew>();
+	public static Map<String, Brew> brewMap = new LinkedHashMap<String, Brew>();
 	
 	public static List<RecipePetals> petalRecipes = new ArrayList<RecipePetals>();
 	public static List<RecipeRuneAltar> runeAltarRecipes = new ArrayList<RecipeRuneAltar>();

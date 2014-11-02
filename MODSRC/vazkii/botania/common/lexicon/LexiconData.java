@@ -456,7 +456,12 @@ public final class LexiconData {
 
 		brewery = new BLexiconEntry(LibLexicon.DEVICE_BREWERY, categoryDevices);
 		brewery.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCrafingRecipes.recipeBrewery), new PageCraftingRecipe("3", ModCrafingRecipes.recipeVial), new PageText("4"), 
-				new PageBrew(ModBrewRecipes.speedBrew, "5a", "5b"), new PageBrew(ModBrewRecipes.strengthBrew, "6a", "6b"));
+				new PageBrew(ModBrewRecipes.speedBrew, "5a", "5b"), new PageBrew(ModBrewRecipes.strengthBrew, "6a", "6b"),
+				new PageBrew(ModBrewRecipes.hasteBrew, "7a", "7b"), new PageBrew(ModBrewRecipes.healingBrew, "8a", "8b"),
+				new PageBrew(ModBrewRecipes.jumpBoostBrew, "9a", "9b"), new PageBrew(ModBrewRecipes.regenerationBrew, "10a", "10b"),
+				new PageBrew(ModBrewRecipes.resistanceBrew, "11a", "11b"), new PageBrew(ModBrewRecipes.fireResistanceBrew, "12a", "12b"),
+				new PageBrew(ModBrewRecipes.waterBreathingBrew, "13a", "13b"), new PageBrew(ModBrewRecipes.invisibilityBrew, "14a", "14b"),
+				new PageBrew(ModBrewRecipes.nightVisionBrew, "15a", "15b"), new PageBrew(ModBrewRecipes.absorptionBrew, "16a", "16b"));
 		
 		flasks = new ALexiconEntry(LibLexicon.DEVICE_FLASKS, categoryDevices);
 		flasks.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCrafingRecipes.recipeFlask));

@@ -776,7 +776,17 @@ item.botania:brewFlask.name=Flask of %s (%s)
 # BREW NAMES
 botania.brew.fallback=Fallback
 botania.brew.speed=Fleetfeet
-botania.brew.strength=Fortitude
+botania.brew.strength=Vigor
+botania.brew.haste=Adrenaline
+botania.brew.healing=Mending
+botania.brew.jumpBoost=Upsurging
+botania.brew.regen=Revitalization
+botania.brew.resistance=Fortitude
+botania.brew.fireResistance=Magmaskin
+botania.brew.waterBreathing=Gills
+botania.brew.invisibility=Cloaking
+botania.brew.nightVision=Owlsight
+botania.brew.absorption=Shielding
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania, %s Edition Table of Contents
@@ -1259,6 +1269,26 @@ botania.page.brewery5a=A simple brew, it mimics a &1Potion of Swiftness&0, when 
 botania.page.brewery5b=Gotta go fast
 botania.page.brewery6a=A simple brew, it mimics a &1Potion of Strength&0, when taken, it has a similar effect, giving the individual a &4Strength II&0 effect.
 botania.page.brewery6b=Hodor
+botania.page.brewery7a=A simple brew, it mimics a &1Potion of Haste&0, when taken, it has a similar effect, giving the individual a &4Haste II&0 effect.
+botania.page.brewery7b=Full of C9H13NO3
+botania.page.brewery8a=A simple brew, it mimics a &1Potion of Healing&0, when taken, it has a similar effect, giving the individual an &4Instant Health II&0 effect.
+botania.page.brewery8b=He pulled a Truesilver, GG
+botania.page.brewery9a=A simple brew, it mimics a &1Potion of Leaping&0, when taken, it has a similar effect, giving the individual a &4Jump Boost II&0 effect.
+botania.page.brewery9b=I got jumps, isn't that what the kids say?
+botania.page.brewery10a=A simple brew, it mimics a &1Potion of Regeneration&0, when taken, it has a similar effect, giving the individual a &4Regeneration II&0 effect.
+botania.page.brewery10b=Good reaction to simochi
+botania.page.brewery11a=A simple brew, it mimics a &1Potion of Resistance&0, when taken, it has a similar effect, giving the individual a &4Resistance II&0 effect.
+botania.page.brewery11b=Can't touch this
+botania.page.brewery12a=A simple brew, it mimics a &1Potion of Fire Resistance&0, when taken, it has a similar effect, giving the individual a &4Fire Resistance&0 effect.
+botania.page.brewery12b=He isn't a true dragon, fire can't kill a dragon
+botania.page.brewery13a=A simple brew, it mimics a &1Potion of Water Breathing&0, when taken, it has a similar effect, giving the individual a &4Water Breathing&0 effect.
+botania.page.brewery13b=Under the sea, under the sea
+botania.page.brewery14a=A simple brew, it mimics a &1Potion of Invisibility&0, when taken, it has a similar effect, giving the individual a &4Invisibility&0 effect.
+botania.page.brewery14b=Pretend you have Incursio
+botania.page.brewery15a=A simple brew, it mimics a &1Potion of Night Vision&0, when taken, it has a similar effect, giving the individual a &4Night Vision&0 effect.
+botania.page.brewery15b=Does it come with a silence?
+botania.page.brewery16a=A simple brew, it mimics a &1Potion of Absorption&0, when taken, it has a similar effect, giving the individual a &4Absorption IV&0 effect.
+botania.page.brewery16b=You're gonna catch a cold
 
 # -- BREWING FLASKS
 botania.entry.flasks=Brewing Flasks

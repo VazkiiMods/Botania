@@ -15,5 +15,15 @@ public final class LibBrewNames {
 
 	public static final String SPEED = "speed";
 	public static final String STRENGTH = "strength";
+	public static final String HASTE = "haste";
+	public static final String HEALING = "healing";
+	public static final String JUMP_BOOST = "jumpBoost";
+	public static final String REGEN = "regen";
+	public static final String RESISTANCE = "resistance";
+	public static final String FIRE_RESISTANCE = "fireResistance";
+	public static final String WATER_BREATHING = "waterBreathing";
+	public static final String INVISIBILITY = "invisibility";
+	public static final String NIGHT_VISION = "nightVision";
+	public static final String ABSORPTION = "absorption";
 
 }
