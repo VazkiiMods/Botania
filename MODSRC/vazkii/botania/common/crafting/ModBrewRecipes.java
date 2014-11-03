@@ -13,6 +13,7 @@ package vazkii.botania.common.crafting;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeBrew;
@@ -33,6 +34,8 @@ public class ModBrewRecipes {
 	public static RecipeBrew invisibilityBrew;
 	public static RecipeBrew nightVisionBrew;
 	public static RecipeBrew absorptionBrew;
+	
+	public static RecipeBrew warpWardBrew;
 
 	public static void init() {
 		speedBrew = BotaniaAPI.registerBrewRecipe(ModBrews.speed, new ItemStack(Items.nether_wart), new ItemStack(Items.sugar), new ItemStack(Items.redstone));
@@ -48,5 +51,13 @@ public class ModBrewRecipes {
 		nightVisionBrew = BotaniaAPI.registerBrewRecipe(ModBrews.nightVision, new ItemStack(Items.nether_wart), new ItemStack(Items.spider_eye), new ItemStack(Items.golden_carrot));
 		absorptionBrew = BotaniaAPI.registerBrewRecipe(ModBrews.absorption, new ItemStack(Items.nether_wart), new ItemStack(Items.golden_apple), new ItemStack(Items.potato));
 	}
+	
+	public static void initTC() {
+		Item resource = (Item) Item.itemRegistry.getObject("Thaumcraft:ItemResource");
+		Item bathSalts = (Item) Item.itemRegistry.getObject("Thaumcraft:ItemBathSalts");
+
+		warpWardBrew = BotaniaAPI.registerBrewRecipe(ModBrews.warpWard, new ItemStack(Items.nether_wart), new ItemStack(resource, 1, 14), new ItemStack(bathSalts), new ItemStack(resource, 1, 6));
+	}
+
 
 }

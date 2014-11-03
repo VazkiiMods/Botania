@@ -14,6 +14,7 @@ package vazkii.botania.common.brew;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import vazkii.botania.api.brew.Brew;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibBrewNames;
 
 public class ModBrews {
@@ -40,7 +41,7 @@ public class ModBrews {
 	public static Brew manashock;
 	public static Brew gravitation;
 	public static Brew cleansing;
-	
+
 	public static Brew warpWard;
 
 	public static void init() {
@@ -56,7 +57,7 @@ public class ModBrews {
 		invisibility = new BrewMod(LibBrewNames.INVISIBILITY, 0xAEAEAE, 4000, new PotionEffect(Potion.invisibility.id, 9600, 0));
 		nightVision = new BrewMod(LibBrewNames.NIGHT_VISION, 0x7C4BEB, 4000, new PotionEffect(Potion.nightVision.id, 9600, 0));
 		absorption = new BrewMod(LibBrewNames.ABSORPTION, 0xF2EB23, 7000, new PotionEffect(Potion.field_76444_x.id, 1800, 3));
-	
+
 		soulCross = new BrewModPotion(LibBrewNames.SOUL_CROSS, 10000, new PotionEffect(ModPotions.soulCross.id, 1800, 0));
 		featherfeet = new BrewModPotion(LibBrewNames.FEATHER_FEET, 7000, new PotionEffect(ModPotions.featherfeet.id, 1800, 0));
 		emptiness = new BrewModPotion(LibBrewNames.EMPTINESS, 30000, new PotionEffect(ModPotions.emptiness.id, 7200, 0));
@@ -66,7 +67,17 @@ public class ModBrews {
 		manashock = new BrewModPotion(LibBrewNames.MANASHOCK, 15000, new PotionEffect(ModPotions.manashock.id, 200, 0));
 		gravitation = new BrewModPotion(LibBrewNames.MANASHOCK, 12000, new PotionEffect(ModPotions.gravitation.id, 1800, 0));
 		cleansing = new BrewModPotion(LibBrewNames.CLEANSING, 16000, new PotionEffect(ModPotions.cleansing.id, 1200, 0));
-		
-		// TODO Warp Ward if TC is loaded
+	}
+
+	public static void initTC() {
+		Potion warpWardPotion = null;
+		for(Potion potion : Potion.potionTypes)
+			if(potion != null && potion.getName().equals("potion.warpward")) {
+				warpWardPotion = potion;
+				break;
+			}
+
+		if(warpWardPotion != null)
+			warpWard = new BrewMod(LibBrewNames.WARP_WARD, 0xFBBDFF, 25000, new PotionEffect(warpWardPotion.id, 12000, 0));
 	}
 }
