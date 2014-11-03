@@ -13,7 +13,7 @@ package vazkii.botania.common.item.equipment.armor.terrasteel;
 
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemTerrasteelChest extends ItemTerrasteeelArmor {
+public class ItemTerrasteelChest extends ItemTerrasteelArmor {
 
 	public ItemTerrasteelChest() {
 		super(1, LibItemNames.TERRASTEEL_CHEST);
