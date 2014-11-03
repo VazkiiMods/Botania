@@ -63,7 +63,7 @@ botaniamisc.dropTip1=CTRL-%key% will drop a full stack
 botaniamisc.wandMode.bind=Bind Mode
 botaniamisc.wandMode.function=Function Mode
 botaniamisc.playVideo=Play Video
-botaniamisc.brewOf=Brew of %s
+botaniamisc.brewOf=%s Brew
 
 # NEI INTEGRATION
 botania.nei.elvenTrade=Elven Trade
@@ -788,9 +788,25 @@ botania.brew.invisibility=Cloaking
 botania.brew.nightVision=Owlsight
 botania.brew.absorption=Shielding
 botania.brew.soulCross=Crossed Souls
+botania.brew.featherFeet=Feather Feet
+botania.brew.emptiness=Vanity's Emptiness
+botania.brew.fulfilment=Vanity's Fulfilment
+botania.brew.overload=Overload
+botania.brew.livingReactor=Living Reactive
+botania.brew.manashock=Manashock
+botania.brew.gravitation=Twisted Gravity
+botania.brew.cleansing=Cleansing
+botania.brew.warpWard=Sane Thoughts
 
 # POTION NAMES
 botania.potion.soulCross=Soul Cross
+botania.potion.featherFeet=Feather Feet
+botania.potion.emptiness=Emptiness
+botania.potion.fulfilment=Fulfilment
+botania.potion.livingReactor=Living Reactor
+botania.potion.manashock=Manashock
+botania.potion.gravitation=Gravitation
+botania.potion.cleansing=Cleansing
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania, %s Edition Table of Contents

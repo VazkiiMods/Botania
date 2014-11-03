@@ -25,7 +25,7 @@ public class PotionMod extends Potion {
 	public PotionMod(String name, boolean badEffect, int color, int iconIndex) {
 		super(findFreeID(), badEffect, color);
 		setPotionName("botania.potion." + name);
-		setIconIndex(iconIndex % 8 * 8, iconIndex / 8);
+		setIconIndex(iconIndex % 8, iconIndex / 8);
 	}
 	
 	static int findFreeID() {

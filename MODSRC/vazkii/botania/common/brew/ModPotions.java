@@ -15,17 +15,38 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
 import net.minecraft.potion.Potion;
+import vazkii.botania.common.brew.potion.PotionCleansing;
+import vazkii.botania.common.brew.potion.PotionEmptiness;
+import vazkii.botania.common.brew.potion.PotionFeatherfeet;
+import vazkii.botania.common.brew.potion.PotionFulfilment;
+import vazkii.botania.common.brew.potion.PotionGravitation;
+import vazkii.botania.common.brew.potion.PotionLivingReactor;
+import vazkii.botania.common.brew.potion.PotionManashock;
 import vazkii.botania.common.brew.potion.PotionSoulCross;
 
 public class ModPotions {
 
 	public static Potion soulCross;
-	
+	public static Potion featherfeet;
+	public static Potion emptiness;
+	public static Potion fulfilment;
+	public static Potion livingReactor;
+	public static Potion manashock;
+	public static Potion gravitation;
+	public static Potion cleansing;
+
 	public static void init() {
 		if(Potion.potionTypes.length < 256)
 			extendPotionArray();
 	
 		soulCross = new PotionSoulCross();
+		featherfeet = new PotionFeatherfeet();
+		emptiness = new PotionEmptiness();
+		fulfilment = new PotionFulfilment();
+		livingReactor = new PotionLivingReactor();
+		manashock = new PotionManashock();
+		gravitation = new PotionGravitation();
+		cleansing = new PotionCleansing();
 	}
 
 	// This is the method that everyone and their mom uses right?
