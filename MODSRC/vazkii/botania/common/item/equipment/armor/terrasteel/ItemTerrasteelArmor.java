@@ -25,9 +25,9 @@ import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
-public class ItemTerrasteeelArmor extends ItemManasteelArmor {
+public class ItemTerrasteelArmor extends ItemManasteelArmor {
 
-	public ItemTerrasteeelArmor(int type, String name) {
+	public ItemTerrasteelArmor(int type, String name) {
 		super(type, name, BotaniaAPI.terrasteelArmorMaterial);
 	}
 
