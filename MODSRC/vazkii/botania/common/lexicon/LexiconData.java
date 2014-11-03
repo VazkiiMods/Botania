@@ -658,11 +658,6 @@ public final class LexiconData {
 
 		starfield = new ALexiconEntry(LibLexicon.MISC_STARFIELD, categoryMisc);
 		starfield.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCrafingRecipes.recipeStarfield));
-
-		if(Botania.thaumcraftLoaded) {
-			tcIntegration = new BLexiconEntry(LibLexicon.MISC_TC_INTEGRATION, categoryMisc);
-			tcIntegration.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCrafingRecipes.recipeHelmetOfRevealing), new PageText("3"), new PageManaInfusionRecipe("4", ModManaInfusionRecipes.manaInkwellRecipe), new PageText("5"));
-		}
 		
 		if(Botania.bcTriggersLoaded) {
 			bcIntegration = new BLexiconEntry(LibLexicon.MISC_BC_INTEGRATION, categoryMisc);
@@ -675,6 +670,11 @@ public final class LexiconData {
 			shedding = new BLexiconEntry(LibLexicon.MISC_SHEDDING, categoryMisc);
 			shedding.setLexiconPages(new PageText("0"));
 			SheddingHandler.addToLexicon();
+		}
+		
+		if(Botania.thaumcraftLoaded) {
+			tcIntegration = new BLexiconEntry(LibLexicon.MISC_TC_INTEGRATION, categoryMisc);
+			tcIntegration.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCrafingRecipes.recipeHelmetOfRevealing), new PageText("3"), new PageManaInfusionRecipe("4", ModManaInfusionRecipes.manaInkwellRecipe), new PageText("5"), new PageBrew(ModBrewRecipes.warpWardBrew, "6a", "6b"));
 		}
 	}
 }

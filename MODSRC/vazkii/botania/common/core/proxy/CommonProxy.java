@@ -99,10 +99,16 @@ public class CommonProxy {
 
 		FMLInterModComms.sendMessage("ProjectE", "interdictionblacklist", EntityManaBurst.class.getCanonicalName());
 		
-		if(Botania.bcTriggersLoaded) new StatementAPIPlugin();
+		if(Botania.bcTriggersLoaded) 
+			new StatementAPIPlugin();
 	}
 
 	public void postInit(FMLPostInitializationEvent event) {
+		if(Botania.thaumcraftLoaded) {
+			ModBrews.initTC();
+			ModBrewRecipes.initTC();
+		}
+		
 		ModBlocks.addDispenserBehaviours();
 		ConfigHandler.loadPostInit();
 		LexiconData.postInit();
