@@ -12,6 +12,7 @@
 package vazkii.botania.common.lexicon;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.lexicon.ITwoNamedPage;
 import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
@@ -27,8 +28,8 @@ public class BLexiconEntry extends LexiconEntry {
 	public LexiconEntry setLexiconPages(LexiconPage... pages) {
 		for(LexiconPage page : pages) {
 			page.unlocalizedName = "botania.page." + getLazyUnlocalizedName() + page.unlocalizedName;
-			if(page instanceof IDoubleUnlocalizedName) {
-				IDoubleUnlocalizedName dou = (IDoubleUnlocalizedName) page;
+			if(page instanceof ITwoNamedPage) {
+				ITwoNamedPage dou = (ITwoNamedPage) page;
 				dou.setSecondUnlocalizedName("botania.page." + getLazyUnlocalizedName() + dou.getSecondUnlocalizedName());
 			}
 		}
@@ -45,8 +46,4 @@ public class BLexiconEntry extends LexiconEntry {
 		return super.getUnlocalizedName();
 	}
 	
-	public static interface IDoubleUnlocalizedName {
-		public void setSecondUnlocalizedName(String name);
-		public String getSecondUnlocalizedName();
-	}
 }

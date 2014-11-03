@@ -16,7 +16,6 @@ import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
@@ -25,13 +24,13 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.ILexicon;
+import vazkii.botania.api.lexicon.ITwoNamedPage;
 import vazkii.botania.api.recipe.RecipeBrew;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lexicon.BLexiconEntry.IDoubleUnlocalizedName;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class PageBrew extends PageRecipe implements IDoubleUnlocalizedName {
+public class PageBrew extends PageRecipe implements ITwoNamedPage {
 
 	RecipeBrew recipe;
 	String text;
