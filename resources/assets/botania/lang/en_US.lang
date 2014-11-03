@@ -66,6 +66,7 @@ botaniamisc.playVideo=Play Video
 botaniamisc.brewOf=Brew of %s
 
 # NEI INTEGRATION
+botania.nei.brewery=Botanical Brewery
 botania.nei.elvenTrade=Elven Trade
 botania.nei.manaPool=Mana Infusion
 botania.nei.petalApothecary=Petal Apothecary

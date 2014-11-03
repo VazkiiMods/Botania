@@ -33,7 +33,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibOreDict;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public final class ModCrafingRecipes {
+public final class ModCraftingRecipes {
 
 	public static IRecipe recipeLexicon;
 	public static List<IRecipe> recipesPetals;
