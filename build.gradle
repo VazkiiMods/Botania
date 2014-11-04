@@ -24,46 +24,157 @@ repositories {
 
 apply plugin: 'forge'
 
-version = "1.0"
-group= "vazkii.botania" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "modid"
+ext.configFile = file('build.properties')
+
+ext.config = parseConfig(configFile)
+ext.ftp = parseConfig(file('ftp.properties'))
+
+version = "${config.version}-${config.build_number}"
+group = "vazkii.botania" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = config.mod_name
 
 minecraft {
-    version = "1.7.10-10.13.1.1217"
+    version = "${config.mc_version}-${config.forge_version}"
     assetDir = "eclipse/assets"
+
+    //This, does the token replacement.
+    //Though, I reccomend this to be replaced with a token such as @VERSION@
+    replace 'ANT:BUILD', config.build_number
+    replace 'ANT:VERSION', config.version
+
+    replaceIn 'LibMisc.java' //I may have missed another file, though I can only find it in here.
 }
 
+//This here is for FTP
+repositories {
+    mavenCentral()
+}
+configurations {
+    ftpAntTask
+}
+//End of the FTP config
 dependencies {
-    compile files (
-        'Baubles-deobf.jar'
+    compile files(
+            'Baubles-deobf.jar'
     )
     compile "codechicken:CodeChickenLib:1.7.10-1.1.1.95:dev"
     compile "codechicken:CodeChickenCore:1.7.10-1.0.2.9:dev"
     compile "codechicken:NotEnoughItems:1.7.10-1.0.2.15:dev"
+
+    //and a bit more for FTP
+    ftpAntTask module("org.apache.ant:ant-commons-net:1.7.0") {
+        module("commons-net:commons-net:1.4.1") {
+            dependencies("oro:oro:2.0.8@jar")
+        }
+    }
 }
 
-processResources
-{
+processResources {
     // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-                
+
         // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+        expand 'version': project.version, 'mcversion': project.minecraft.version
     }
-        
+
     // copy everything else, thats not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
+        exclude 'mcmod.info', '**/psd/**'
     }
-    
-    task deobfJar(type: Jar) {
-        from(sourceSets.main.output)
-            classifier = 'deobf'    
-            
-    }
-    
-    artifacts {
-        archives deobfJar       
-    }   
 }
+
+/**
+ * These, go outside of the processResources {}* Though, this was added with the NEI intergation commit (8bf4680)
+ */
+task deobfJar(type: Jar) {
+    from(sourceSets.main.output)
+    classifier = 'deobf'
+
+}
+
+artifacts {
+    archives deobfJar
+}
+/**
+ * Increments the buildnumber in your config file, and saves it
+ */
+task incrementBuildNumber(dependsOn: 'reobf') << {
+    config.build_number = (config.build_number.toString().toInteger()) + 1
+    configFile.withWriter {
+        config.toProperties().store(it, "")
+    }
+
+    file('web/versions.ini').append("\n${version}=${minecraft.version}")
+    file("${config.dir.repo}/version/${minecraft.version}.txt").write("${version}")
+}
+
+/**
+ * Copy over to ForgeCraft
+ */
+task forgecraft(type: Copy) {
+    dependsOn "build"
+    from jar.archivePath
+    into config.dir.forgecraft
+}
+
+/**
+ * This is the upload task from the build.xml
+ */
+task upload(dependsOn: 'reobf') << {
+    ftp(action: 'mkdir', remotedir: '/files')
+    ftp(action: 'send', remotedir: '/files') {
+        fileset(file: jar.archivePath)
+    }
+
+    ftp(action: 'send', remotedir: '.') {
+        fileset(file: 'web/changelog.txt')
+        fileset(file: 'web/versions.ini')
+    }
+}
+
+/**
+ * This is deply_web task
+ */
+task deployWeb << {
+    ftp(action: 'send', remotedir: '.') {
+        fileset(dir: 'web') //everything from the web directory
+    }
+}
+
+//simple function that we can use
+//Got this from: http://svn.codehaus.org/gradle/website/build.gradle
+void ftp(Map args, Closure antFileset = {}) {
+    ant {
+        taskdef(name: 'ftp',
+                classname: 'org.apache.tools.ant.taskdefs.optional.net.FTP',
+                classpath: configurations.ftpAntTask.asPath)
+        Map ftpArgs = args + [ //some default options
+                               verbose : 'yes',
+                               server  : ftp.host,
+                               userid  : ftp.user,
+                               password: ftp.pass
+        ]
+        delegate.ftp(ftpArgs) {
+            antFileset.delegate = delegate
+            antFileset()
+        }
+    }
+}
+
+def parseConfig(File config) {
+    config.withReader {
+        def prop = new Properties()
+        prop.load(it)
+        return (new ConfigSlurper().parse(prop))
+    }
+}
+
+jar {
+    //rename the default output, for some better... sanity with scipts
+    archiveName = "${baseName} ${version}.${extension}"
+}
+
+//change this so it only increments on upload
+upload.dependsOn tasks.incrementBuildNumber
+defaultTasks 'clean', 'build', 'forgecraft', 'upload' //remove clean if you want faster builds, this will stop rare inconsistancies.
