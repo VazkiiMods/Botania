@@ -36,7 +36,7 @@ public class ModPotions {
 	public static Potion cleansing;
 
 	public static void init() {
-		if(Potion.potionTypes.length < 256)
+		/*if(Potion.potionTypes.length < 256)
 			extendPotionArray();
 	
 		soulCross = new PotionSoulCross();
@@ -46,7 +46,7 @@ public class ModPotions {
 		livingReactor = new PotionLivingReactor();
 		manashock = new PotionManashock();
 		gravitation = new PotionGravitation();
-		cleansing = new PotionCleansing();
+		cleansing = new PotionCleansing();*/
 	}
 
 	// This is the method that everyone and their mom uses right?
