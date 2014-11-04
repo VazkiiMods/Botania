@@ -53,7 +53,7 @@ public class RenderSpark extends RenderEntity {
 
 		float r = 180.0F - renderManager.playerViewY;
 		GL11.glRotatef(r, 0.0F, 1.0F, 0.0F);
-		GL11.glRotatef(25F * (float) Math.sin(time / 15), 1F, 0F, 0F);
+		GL11.glRotatef(-renderManager.playerViewX, 1F, 0F, 0F);
 		func_77026_a(tessellator, iicon);
 		int upgrade = spark.getUpgrade() - 1;
 		if(upgrade >= 0 && upgrade < ItemSparkUpgrade.worldIcons.length) {
