@@ -1,3 +1,14 @@
+r1.2 132
+*<b>Added the new Brewing system: Botanical Brewery, Vials, Brews and more.</b> And it comes with NEI integration too thanks to Tonius /o/
+*Added a Warp Ward potion type thing to the thaumcraft integration section.
+*Added Buildcraft Gate integration. (asiekierka)
+*Added Managlass, very clear blue glass, made by tossing glass on a mana pool.
+*Fixed sparks not rotating properly along the player's Y position. (Flaxbeard)
+*The Alfglass trade recipe now uses Managlass instead of regular glass.
+*[API] Added Brew stuffs.
+*[API] Added isBuildcraftPipe() to the internal method handler.
+*[API] Added ITwoNamedPage for LexiconPage subtypes with two unlocalized names.
+*[API] Increased version number to 22.
 r1.2 131
 *Fixed spawning the gaia guardian crashing servers.
 *Fixed the boss bar shader not compiling on some GPUs.
