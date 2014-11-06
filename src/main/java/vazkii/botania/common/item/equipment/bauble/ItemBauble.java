@@ -66,18 +66,22 @@ public abstract class ItemBauble extends ItemMod implements IBauble {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+		if(GuiScreen.isShiftKeyDown())
+			addHiddenTooltip(par1ItemStack, par2EntityPlayer, par3List, par4);
+		else addStringToTooltip(StatCollector.translateToLocal("botaniamisc.shiftinfo"), par3List);
+	}
+	
+	public void addHiddenTooltip(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
 		BaubleType type = getBaubleType(par1ItemStack);
-		if(GuiScreen.isShiftKeyDown()) {
-			addStringToTooltip(StatCollector.translateToLocal("botania.baubletype." + type.name().toLowerCase()), par3List);
+		addStringToTooltip(StatCollector.translateToLocal("botania.baubletype." + type.name().toLowerCase()), par3List);
 
-			String key = vazkii.botania.client.core.helper.RenderHelper.getKeyDisplayString("Baubles Inventory");
+		String key = vazkii.botania.client.core.helper.RenderHelper.getKeyDisplayString("Baubles Inventory");
 
-			if(key != null)
-				addStringToTooltip(StatCollector.translateToLocal("botania.baubletooltip").replaceAll("%key%", key), par3List);
-		} else addStringToTooltip(StatCollector.translateToLocal("botaniamisc.shiftinfo"), par3List);
+		if(key != null)
+			addStringToTooltip(StatCollector.translateToLocal("botania.baubletooltip").replaceAll("%key%", key), par3List);
 	}
 
-	private void addStringToTooltip(String s, List<String> tooltip) {
+	protected void addStringToTooltip(String s, List<String> tooltip) {
 		tooltip.add(s.replaceAll("&", "\u00a7"));
 	}
 

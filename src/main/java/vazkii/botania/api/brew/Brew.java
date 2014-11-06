@@ -28,6 +28,7 @@ public class Brew {
 	int color;
 	int cost;
 	List<PotionEffect> effects;
+	boolean canInfuseBloodPendant = true;
 	
 	/**
 	 * @param name The unlocalized name of this potion.
@@ -42,6 +43,18 @@ public class Brew {
 		this.color = color;
 		this.cost = cost;
 		this.effects = new ArrayList(Arrays.asList(effects));
+	}
+	
+	/**
+	 * Sets this brew to not be able to be infused onto the Tainted Blood Pendant.
+	 */
+	public Brew setNotBloodPendantInfusable() {
+		canInfuseBloodPendant = false;
+		return this;
+	}
+	
+	public boolean canInfuseBloodPendant() {
+		return canInfuseBloodPendant;
 	}
 	
 	/**

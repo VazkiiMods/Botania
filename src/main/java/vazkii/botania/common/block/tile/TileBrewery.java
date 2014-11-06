@@ -39,7 +39,7 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 	public int signal = 0;
 
 	public boolean addItem(EntityPlayer player, ItemStack stack) {
-		if(recipe != null || stack == null || stack.getItem() instanceof IBrewItem || ((getStackInSlot(0) == null) != stack.getItem() instanceof IBrewContainer))
+		if(recipe != null || stack == null || (stack.getItem() instanceof IBrewItem && (((IBrewItem) stack.getItem()).getBrew(stack) != null && ((IBrewItem) stack.getItem()).getBrew(stack) != BotaniaAPI.fallbackBrew)) || ((getStackInSlot(0) == null) != stack.getItem() instanceof IBrewContainer))
 			return false;
 
 		boolean did = false;
@@ -63,7 +63,7 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 		if(did) {
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 			for(RecipeBrew recipe : BotaniaAPI.brewRecipes)
-				if(recipe.matches(this)) {
+				if(recipe.matches(this) && recipe.getOutput(getStackInSlot(0)) != null) {
 					this.recipe = recipe;
 					worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 1, 1 | 2);
 				}

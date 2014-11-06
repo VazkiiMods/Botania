@@ -66,6 +66,7 @@ botaniamisc.playVideo=Play Video
 botaniamisc.brewOf=Brew of %s
 botaniamisc.needsCatalysts=No matter how hard you try to push the Terrasteel Ingot into the Beacon, nothing seems to happen, perhaps your configuration of catalyst pylons might be off.
 botaniamisc.peacefulNoob=You try to offer the Terrasteel Ingot, but the peaceful vibes of your world prevent you from doing so. Perhaps you should do something about that.
+botaniamisc.notInfused=Not Infused
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
@@ -775,6 +776,7 @@ item.botania:vial0.name=Managlass Vial
 item.botania:vial1.name=Alfglass Flask
 item.botania:brewVial.name=Vial of %s (%s)
 item.botania:brewFlask.name=Flask of %s (%s)
+item.botania:bloodPendant.name=Tainted Blood Pendant
 
 # BREW NAMES
 botania.brew.fallback=Fallback

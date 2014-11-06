@@ -142,7 +142,7 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem {
 		int g = Math.max(0, Math.min(255, color.getGreen() + add));
 		int b = Math.max(0, Math.min(255, color.getBlue() + add));
 		
-		return pass == 0 ? 0xFFFFFF : r << 16 | g << 8 | b;
+		return r << 16 | g << 8 | b;
 	}
 
 	@Override
@@ -160,6 +160,7 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem {
 		}
 	}
 
+	@Override
 	public Brew getBrew(ItemStack stack) {
 		String key = ItemNBTHelper.getString(stack, TAG_BREW_KEY, "");
 		return BotaniaAPI.getBrewFromKey(key);

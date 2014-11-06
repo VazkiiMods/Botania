@@ -30,6 +30,7 @@ import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelChest
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelLegs;
 import vazkii.botania.common.item.equipment.bauble.ItemAuraRing;
+import vazkii.botania.common.item.equipment.bauble.ItemBloodPendant;
 import vazkii.botania.common.item.equipment.bauble.ItemDivaCharm;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.equipment.bauble.ItemGoldenLaurel;
@@ -162,6 +163,7 @@ public final class ModItems {
 	public static Item vial;
 	public static Item brewVial;
 	public static Item brewFlask;
+	public static Item bloodPendant;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -255,6 +257,7 @@ public final class ModItems {
 		vial = new ItemVial();
 		brewVial = new ItemBrewVial();
 		brewFlask = new ItemBrewFlask();
+		bloodPendant = new ItemBloodPendant();
 		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
