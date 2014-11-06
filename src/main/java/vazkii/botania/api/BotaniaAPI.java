@@ -86,6 +86,17 @@ public final class BotaniaAPI {
 
 	public static KnowledgeType basicKnowledge, elvenKnowledge;
 
+	// All of these categories are initialized during botania's PreInit stage.
+	public static LexiconCategory categoryBasics;
+	public static LexiconCategory categoryMana;
+	public static LexiconCategory categoryFunctionalFlowers;
+	public static LexiconCategory categoryGenerationFlowers;
+	public static LexiconCategory categoryDevices;
+	public static LexiconCategory categoryTools;
+	public static LexiconCategory categoryBaubles;
+	public static LexiconCategory categoryAlfhomancy;
+	public static LexiconCategory categoryMisc;
+	
 	public static Brew fallbackBrew = new Brew("fallback", "botania.brew.fallback", 0, 0);
 	
 	static {

@@ -44,16 +44,6 @@ import vazkii.botania.common.lib.LibLexicon;
 
 public final class LexiconData {
 
-	public static LexiconCategory categoryBasics;
-	public static LexiconCategory categoryMana;
-	public static LexiconCategory categoryFunctionalFlowers;
-	public static LexiconCategory categoryGenerationFlowers;
-	public static LexiconCategory categoryDevices;
-	public static LexiconCategory categoryTools;
-	public static LexiconCategory categoryBaubles;
-	public static LexiconCategory categoryAlfhomancy;
-	public static LexiconCategory categoryMisc;
-
 	public static LexiconEntry introVideo;
 	public static LexiconEntry flowers;
 	public static LexiconEntry apothecary;
@@ -196,16 +186,26 @@ public final class LexiconData {
 	public static LexiconEntry bcIntegration;
 
 	public static void init() {
-		BotaniaAPI.addCategory(categoryBasics = new BLexiconCategory(LibLexicon.CATEGORY_BASICS, 9));
-		BotaniaAPI.addCategory(categoryMana = new BLexiconCategory(LibLexicon.CATEGORY_MANA, 5));
-		BotaniaAPI.addCategory(categoryGenerationFlowers = new BLexiconCategory(LibLexicon.CATEGORY_GENERATION_FLOWERS, 5));
-		BotaniaAPI.addCategory(categoryFunctionalFlowers = new BLexiconCategory(LibLexicon.CATEGORY_FUNCTIONAL_FLOWERS, 5));
-		BotaniaAPI.addCategory(categoryDevices = new BLexiconCategory(LibLexicon.CATEGORY_DEVICES, 5));
-		BotaniaAPI.addCategory(categoryTools = new BLexiconCategory(LibLexicon.CATEGORY_TOOLS, 0));
-		BotaniaAPI.addCategory(categoryBaubles = new BLexiconCategory(LibLexicon.CATEGORY_BAUBLES, 5));
-		BotaniaAPI.addCategory(categoryAlfhomancy = new BLexiconCategory(LibLexicon.CATEGORY_ALFHOMANCY, 5));
-		BotaniaAPI.addCategory(categoryMisc = new BLexiconCategory(LibLexicon.CATEGORY_MISC, 0));
+		BotaniaAPI.addCategory(BotaniaAPI.categoryBasics = new BLexiconCategory(LibLexicon.CATEGORY_BASICS, 9));
+		BotaniaAPI.addCategory(BotaniaAPI.categoryMana = new BLexiconCategory(LibLexicon.CATEGORY_MANA, 5));
+		BotaniaAPI.addCategory(BotaniaAPI.categoryGenerationFlowers = new BLexiconCategory(LibLexicon.CATEGORY_GENERATION_FLOWERS, 5));
+		BotaniaAPI.addCategory(BotaniaAPI.categoryFunctionalFlowers = new BLexiconCategory(LibLexicon.CATEGORY_FUNCTIONAL_FLOWERS, 5));
+		BotaniaAPI.addCategory(BotaniaAPI.categoryDevices = new BLexiconCategory(LibLexicon.CATEGORY_DEVICES, 5));
+		BotaniaAPI.addCategory(BotaniaAPI.categoryTools = new BLexiconCategory(LibLexicon.CATEGORY_TOOLS, 0));
+		BotaniaAPI.addCategory(BotaniaAPI.categoryBaubles = new BLexiconCategory(LibLexicon.CATEGORY_BAUBLES, 5));
+		BotaniaAPI.addCategory(BotaniaAPI.categoryAlfhomancy = new BLexiconCategory(LibLexicon.CATEGORY_ALFHOMANCY, 5));
+		BotaniaAPI.addCategory(BotaniaAPI.categoryMisc = new BLexiconCategory(LibLexicon.CATEGORY_MISC, 0));
 
+		LexiconCategory categoryBasics = BotaniaAPI.categoryBasics;
+		LexiconCategory categoryMana = BotaniaAPI.categoryMana;
+		LexiconCategory categoryGenerationFlowers = BotaniaAPI.categoryGenerationFlowers;
+		LexiconCategory categoryFunctionalFlowers = BotaniaAPI.categoryFunctionalFlowers;
+		LexiconCategory categoryDevices = BotaniaAPI.categoryDevices;
+		LexiconCategory categoryTools = BotaniaAPI.categoryTools;
+		LexiconCategory categoryBaubles = BotaniaAPI.categoryBaubles;
+		LexiconCategory categoryAlfhomancy = BotaniaAPI.categoryAlfhomancy;
+		LexiconCategory categoryMisc = BotaniaAPI.categoryMisc;
+		
 		// BASICS ENTRIES
 		introVideo = new BLexiconEntry(LibLexicon.BASICS_INTRO_VIDEO, categoryBasics);
 		introVideo.setPriority().setLexiconPages(new PageGuide("0"));
@@ -667,13 +667,13 @@ public final class LexiconData {
 
 	public static void postInit() {
 		if(SheddingHandler.hasShedding()) {
-			shedding = new BLexiconEntry(LibLexicon.MISC_SHEDDING, categoryMisc);
+			shedding = new BLexiconEntry(LibLexicon.MISC_SHEDDING, BotaniaAPI.categoryMisc);
 			shedding.setLexiconPages(new PageText("0"));
 			SheddingHandler.addToLexicon();
 		}
 		
 		if(Botania.thaumcraftLoaded) {
-			tcIntegration = new BLexiconEntry(LibLexicon.MISC_TC_INTEGRATION, categoryMisc);
+			tcIntegration = new BLexiconEntry(LibLexicon.MISC_TC_INTEGRATION, BotaniaAPI.categoryMisc);
 			tcIntegration.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeHelmetOfRevealing), new PageText("3"), new PageManaInfusionRecipe("4", ModManaInfusionRecipes.manaInkwellRecipe), new PageText("5"), new PageBrew(ModBrewRecipes.warpWardBrew, "6a", "6b"));
 		}
 	}
