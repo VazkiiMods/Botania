@@ -1,1 +1,1 @@
-ant deploy_website
+gradle deployWeb

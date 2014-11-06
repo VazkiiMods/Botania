@@ -1,2 +1,2 @@
-ant build
+gradle build
 pause
