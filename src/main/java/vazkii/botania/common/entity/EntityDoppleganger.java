@@ -32,8 +32,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.ChatStyle;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.EnumDifficulty;
@@ -80,11 +83,13 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		experienceValue = 825;
 	}
 
-	public static boolean spawn(ItemStack par1ItemStack, World par3World, int par4, int par5, int par6) {
+	public static boolean spawn(EntityPlayer player, ItemStack par1ItemStack, World par3World, int par4, int par5, int par6) {
 		Block block = par3World.getBlock(par4, par5, par6);
 		if(block == Blocks.beacon && !par3World.isRemote) {
-			if(par3World.difficultySetting == EnumDifficulty.PEACEFUL)
+			if(par3World.difficultySetting == EnumDifficulty.PEACEFUL) {
+				player.addChatMessage(new ChatComponentTranslation("botaniamisc.peacefulNoob").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
 				return false;
+			}
 
 			for(int[] coords : PYLON_LOCATIONS) {
 				int x = par4 + coords[0];
@@ -93,8 +98,10 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 				Block blockat = par3World.getBlock(x, y, z);
 				int meta = par3World.getBlockMetadata(x, y, z);
-				if(blockat != ModBlocks.pylon || meta != 2)
+				if(blockat != ModBlocks.pylon || meta != 2) {
+					player.addChatMessage(new ChatComponentTranslation("botaniamisc.needsCatalysts").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
 					return false;
+				}
 			}
 
 			par1ItemStack.stackSize--;
@@ -107,6 +114,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			par3World.spawnEntityInWorld(e);
 			return true;
 		}
+		
 		return false;
 	}
 
