@@ -16,6 +16,7 @@ import java.util.List;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
@@ -30,6 +31,8 @@ import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
+import baubles.common.network.PacketHandler;
+import baubles.common.network.PacketSyncBauble;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -63,8 +66,11 @@ public class ItemMagnetRing extends ItemBauble {
 		InventoryBaubles inv = PlayerHandler.getPlayerBaubles(event.player);
 		for(int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
-			if(stack != null && stack.getItem() == this)
+			if(stack != null && stack.getItem() == this) {
 				setCooldown(stack, 100);
+				if(event.player instanceof EntityPlayerMP)
+					PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(event.player, i), (EntityPlayerMP) event.player);
+			}
 		}
 	}
 
