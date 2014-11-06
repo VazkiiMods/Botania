@@ -23,6 +23,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
@@ -51,7 +52,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem {
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_TIPPED = "tipped";
 
-	private static final int MAX_MANA = 2000000000;
+	private static final int MAX_MANA = Integer.MAX_VALUE;
 
 	private static final Material[] MATERIALS = new Material[] { Material.rock, Material.iron, Material.ice, Material.glass, Material.piston, Material.anvil, Material.grass, Material.ground, Material.sand, Material.snow, Material.craftedSnow, Material.clay };
 
@@ -60,7 +61,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem {
 	};
 
 	private static final int[] CREATIVE_MANA = new int[] {
-		10000 - 1, 1000000 - 1, 10000000 - 1, 100000000 - 1, 1000000000 - 1, MAX_MANA
+		10000 - 1, 1000000 - 1, 10000000 - 1, 100000000 - 1, 1000000000 - 1, MAX_MANA - 1
 	};
 
 	IIcon iconTool, iconOverlay, iconTipped;
@@ -85,6 +86,8 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem {
 		String rankFormat = StatCollector.translateToLocal("botaniamisc.toolRank");
 		String rank = StatCollector.translateToLocal("botania.rank" + getLevel(par1ItemStack));
 		par3List.add(String.format(rankFormat, rank).replaceAll("&", "\u00a7"));
+		if(getMana(par1ItemStack) == Integer.MAX_VALUE)
+			par3List.add(EnumChatFormatting.RED + StatCollector.translateToLocal("botaniamisc.getALife"));
 	}
 
 	@Override

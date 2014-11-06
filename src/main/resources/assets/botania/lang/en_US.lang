@@ -67,6 +67,7 @@ botaniamisc.brewOf=Brew of %s
 botaniamisc.needsCatalysts=No matter how hard you try to push the Terrasteel Ingot into the Beacon, nothing seems to happen, perhaps your configuration of catalyst pylons might be off.
 botaniamisc.peacefulNoob=You try to offer the Terrasteel Ingot, but the peaceful vibes of your world prevent you from doing so. Perhaps you should do something about that.
 botaniamisc.notInfused=Not Infused
+botaniamisc.getALife=Get a Life
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
