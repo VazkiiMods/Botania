@@ -31,8 +31,14 @@ public class RecipeManaInfusion {
 	}
 
 	public boolean matches(ItemStack stack) {
-		if(input instanceof ItemStack)
-			return stack.isItemEqual((ItemStack) input);
+		
+		if(input instanceof ItemStack) {
+			ItemStack inputCopy = ((ItemStack) input).copy();
+			if(inputCopy.getItemDamage() == Short.MAX_VALUE)
+				inputCopy.setItemDamage(stack.getItemDamage());
+			
+			return stack.isItemEqual((ItemStack) inputCopy);
+		}
 
 		if(input instanceof String) {
 			List<ItemStack> validStacks = OreDictionary.getOres((String) input);
