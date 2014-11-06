@@ -196,15 +196,15 @@ public final class LexiconData {
 	public static LexiconEntry bcIntegration;
 
 	public static void init() {
-		BotaniaAPI.addCategory(categoryBasics = new BLexiconCategory(LibLexicon.CATEGORY_BASICS));
-		BotaniaAPI.addCategory(categoryMana = new BLexiconCategory(LibLexicon.CATEGORY_MANA));
-		BotaniaAPI.addCategory(categoryGenerationFlowers = new BLexiconCategory(LibLexicon.CATEGORY_GENERATION_FLOWERS));
-		BotaniaAPI.addCategory(categoryFunctionalFlowers = new BLexiconCategory(LibLexicon.CATEGORY_FUNCTIONAL_FLOWERS));
-		BotaniaAPI.addCategory(categoryDevices = new BLexiconCategory(LibLexicon.CATEGORY_DEVICES));
-		BotaniaAPI.addCategory(categoryTools = new BLexiconCategory(LibLexicon.CATEGORY_TOOLS));
-		BotaniaAPI.addCategory(categoryBaubles = new BLexiconCategory(LibLexicon.CATEGORY_BAUBLES));
-		BotaniaAPI.addCategory(categoryAlfhomancy = new BLexiconCategory(LibLexicon.CATEGORY_ALFHOMANCY));
-		BotaniaAPI.addCategory(categoryMisc = new BLexiconCategory(LibLexicon.CATEGORY_MISC));
+		BotaniaAPI.addCategory(categoryBasics = new BLexiconCategory(LibLexicon.CATEGORY_BASICS, 9));
+		BotaniaAPI.addCategory(categoryMana = new BLexiconCategory(LibLexicon.CATEGORY_MANA, 5));
+		BotaniaAPI.addCategory(categoryGenerationFlowers = new BLexiconCategory(LibLexicon.CATEGORY_GENERATION_FLOWERS, 5));
+		BotaniaAPI.addCategory(categoryFunctionalFlowers = new BLexiconCategory(LibLexicon.CATEGORY_FUNCTIONAL_FLOWERS, 5));
+		BotaniaAPI.addCategory(categoryDevices = new BLexiconCategory(LibLexicon.CATEGORY_DEVICES, 5));
+		BotaniaAPI.addCategory(categoryTools = new BLexiconCategory(LibLexicon.CATEGORY_TOOLS, 0));
+		BotaniaAPI.addCategory(categoryBaubles = new BLexiconCategory(LibLexicon.CATEGORY_BAUBLES, 5));
+		BotaniaAPI.addCategory(categoryAlfhomancy = new BLexiconCategory(LibLexicon.CATEGORY_ALFHOMANCY, 5));
+		BotaniaAPI.addCategory(categoryMisc = new BLexiconCategory(LibLexicon.CATEGORY_MISC, 0));
 
 		// BASICS ENTRIES
 		introVideo = new BLexiconEntry(LibLexicon.BASICS_INTRO_VIDEO, categoryBasics);

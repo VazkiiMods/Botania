@@ -18,9 +18,10 @@ import vazkii.botania.common.lib.LibLexicon;
 
 public class BLexiconCategory extends LexiconCategory {
 
-	public BLexiconCategory(String unlocalizedName) {
+	public BLexiconCategory(String unlocalizedName, int priority) {
 		super(LibLexicon.CATEGORY_PREFIX + unlocalizedName);
 		setIcon(new ResourceLocation(LibResources.PREFIX_CATEGORIES + unlocalizedName + ".png"));
+		setPriority(priority);
 	}
 
 }

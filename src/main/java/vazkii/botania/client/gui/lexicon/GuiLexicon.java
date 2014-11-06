@@ -13,6 +13,7 @@ package vazkii.botania.client.gui.lexicon;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
@@ -51,6 +52,8 @@ public class GuiLexicon extends GuiScreen {
 	public float lastTime = 0F;
 	public float partialTicks = 0F;
 	public float timeDelta = 0F;
+	
+	List<LexiconCategory> allCategories;
 
 	String title;
 	int guiWidth = 146;
@@ -60,6 +63,10 @@ public class GuiLexicon extends GuiScreen {
 	@Override
 	public void initGui() {
 		super.initGui();
+		
+		allCategories = new ArrayList(BotaniaAPI.getAllCategories());
+		Collections.sort(allCategories);
+		
 		lastTime = ClientTickHandler.ticksInGame;
 
 		title = Minecraft.getMinecraft().thePlayer.getCurrentEquippedItem().getDisplayName();
@@ -77,10 +84,10 @@ public class GuiLexicon extends GuiScreen {
 			}
 			populateIndex();
 		} else if(isCategoryIndex()) {
-			int categories = BotaniaAPI.getAllCategories().size();
+			int categories = allCategories.size();
 			for(int i = 0; i < categories + 1; i++) {
 				LexiconCategory category = null;
-				category = i >= categories ? null : BotaniaAPI.getAllCategories().get(i);
+				category = i >= categories ? null : allCategories.get(i);
 				int x = i % 4;
 				int y = i / 4;
 

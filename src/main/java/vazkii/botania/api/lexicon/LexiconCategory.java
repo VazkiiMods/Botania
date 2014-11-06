@@ -16,21 +16,49 @@ import java.util.List;
 
 import net.minecraft.util.ResourceLocation;
 
-public class LexiconCategory {
+public class LexiconCategory implements Comparable<LexiconCategory> {
 
+	private static int count = 0;
+	
 	public final String unlocalizedName;
 	public final List<LexiconEntry> entries = new ArrayList<LexiconEntry>();
+	private final int sortingId;
 	private ResourceLocation icon;
+	private int priority = 5;
 
 	/**
 	 * @param unlocalizedName The unlocalized name of this category. This will be localized by the client display.
 	 */
 	public LexiconCategory(String unlocalizedName) {
 		this.unlocalizedName = unlocalizedName;
+		sortingId = count;
+		count++;
 	}
 
 	public String getUnlocalizedName() {
 		return unlocalizedName;
+	}
+	
+	/**
+	 * Sets the priority for this category for sorting. Higher numbers
+	 * means they'll appear first in the book. The basics category
+	 * is 9, the miscellaneous category is 0, other vanilla botania categories
+	 * are 5. Using 9 and 0 is <b>not</b> recommended, since having your
+	 * categories before basics or after miscellaneous is a bad idea.
+	 * If two categories have the same priority they'll be sorted
+	 * by insertion order.
+	 */
+	public LexiconCategory setPriority(int priority) {
+		this.priority = priority;
+		return this;
+	}
+	
+	public int getSortingPriority() {
+		return priority;
+	}
+	
+	public final int getSortingId() {
+		return sortingId;
 	}
 
 	public LexiconCategory setIcon(ResourceLocation icon) {
@@ -40,5 +68,10 @@ public class LexiconCategory {
 
 	public ResourceLocation getIcon() {
 		return icon;
+	}
+
+	@Override
+	public int compareTo(LexiconCategory category) {
+		return priority == category.priority ? sortingId - category.sortingId : category.priority - priority;
 	}
 }
