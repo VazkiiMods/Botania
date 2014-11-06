@@ -1286,7 +1286,7 @@ botania.page.manaAlchemy22=Making &1Coarse Dirt&0
 
 # -- BOTANICAL BREWERY
 botania.entry.brewery=Botanical Brewery
-botania.page.brewery0=Given the versatility of &4Mana&0, the fact that it can be used to conjure some sort of &4Potions&0 comes to nobody's surprise. &4Brews&0 are a variant of &4Potions&0, to put it simply. They're created using &4Mana&0 and a set of ingedients.<br>Unlike &4Potions&0, &4Brews&0 have defined recipes, and each vial contains multiple doses.
+botania.page.brewery0=Given the versatility of &4Mana&0, the fact that it can be used to conjure some sort of &4Potions&0 comes to nobody's surprise. &4Brews&0 are a variant of &4Potions&0, to put it simply. They're created using &4Mana&0 and a set of ingredients.<br>Unlike &4Potions&0, &4Brews&0 have defined recipes, and each vial contains multiple doses.
 botania.page.brewery1=In order to create &4Brews&0 one would require a &1Botanical Brewery&0, &1Vials&0 and of course, the reagents defined in the recipe.<br>The &4Mana&0 functions as the both the solvent and energy source and is given through &4Mana Bursts&0, simply pointing a &1Mana Spreader&0 at the &1Brewery&0 will work just fine.
 botania.page.brewery2=Crafting the &1Botanical Brewery&0
 botania.page.brewery3=Crafting &1Vials&0
@@ -1671,6 +1671,13 @@ botania.page.itemFinder2=Do you hear their voices?
 botania.entry.superLavaPendant=Crimson Pendant
 botania.page.superLavaPendant0=The &1Crimson Pendant&0 is, in simple terms, an upgraded counterpart to the &1Pyroclast Pendant&0, wearing it provides the wearer immunity to all fire and lava damage, instead of just extinguishing them.
 botania.page.superLavaPendant1=Runner-up on Monolith Code
+
+
+# -- TAINED BLOOD PENDANT
+botania.entry.bloodPendant=Tained Blood Pendant
+botania.page.bloodPendant0=Messing around with the original source of the &4Potion&0 design, the Nether, seems to work fairly well at harnessing that very power.<br>The &1Tainted Blood Pendant&0 allows one to store a &4Brew&0 in a condensed, wearable state. Infusing this pendant with one and wearing it will apply the effect while it's worn, for the cost of &4Mana&0 depending on the power of the &4Brew&0.
+botania.page.bloodPendant1=To infuse the pendant with a &4Brew&0 the normal procedure of infusing one on a &1Vial&0 is what's required. The cost increases by a tenfold, though.<br>However, the pendant will not accept any and all effects, a few don't seem to behave well, such as &4Instant Health&0 or &4Absorption&0. Lastly, &4Brews&0 with more than one effect will fail as well.
+botania.page.bloodPendant2=I'll get Saber for sure
 
 # - ALFHOMANCY
 # -- THE PORTAL TO ALFHEIM

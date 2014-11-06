@@ -200,6 +200,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeVial;
 	public static IRecipe recipeFlask;
 	public static IRecipe recipeBrewery;
+	public static IRecipe recipeBloodPendant;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1264,6 +1265,14 @@ public final class ModCraftingRecipes {
 				'A', LibOreDict.RUNE[8],
 				'M', new ItemStack(ModBlocks.storage));
 		recipeBrewery = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Tainted Blood Pendant Recipe
+		addOreDictRecipe(new ItemStack(ModItems.bloodPendant), 
+				" P ", "PGP", "DP ",
+				'P', LibOreDict.PRISMARINE_SHARD,
+				'G', new ItemStack(Items.ghast_tear),
+				'D', LibOreDict.MANA_DIAMOND);
+		recipeBloodPendant = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
