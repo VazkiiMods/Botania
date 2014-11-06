@@ -48,7 +48,7 @@ public class ModBrews {
 		speed = new BrewMod(LibBrewNames.SPEED, 0x59B7FF, 4000, new PotionEffect(Potion.moveSpeed.id, 1800, 1));
 		strength = new BrewMod(LibBrewNames.STRENGTH, 0xEE3F3F, 4000, new PotionEffect(Potion.damageBoost.id, 1800, 1));
 		haste = new BrewMod(LibBrewNames.HASTE, 0xF4A432, 4000, new PotionEffect(Potion.digSpeed.id, 1800, 1));
-		healing = new BrewMod(LibBrewNames.HEALING, 0xFF5ECC, 6000, new PotionEffect(Potion.heal.id, 0, 1));
+		healing = new BrewMod(LibBrewNames.HEALING, 0xFF5ECC, 6000, new PotionEffect(Potion.heal.id, 1, 1));
 		jumpBoost = new BrewMod(LibBrewNames.JUMP_BOOST, 0x32F46D, 4000, new PotionEffect(Potion.jump.id, 1800, 1));
 		regen = new BrewMod(LibBrewNames.REGEN, 0xFD6488, 7000, new PotionEffect(Potion.regeneration.id, 500, 1));
 		resistance = new BrewMod(LibBrewNames.RESISTANCE, 0xB44E17, 4000, new PotionEffect(Potion.resistance.id, 1800, 1));
