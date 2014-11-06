@@ -80,7 +80,9 @@ public class RenderTileBrewery extends TileEntitySpecialRenderer {
 				if(stack.getItem() instanceof ItemBlock && RenderBlocks.renderItemIn3d(Block.getBlockFromItem(stack.getItem()).getRenderType())) {
 					GL11.glScalef(0.5F, 0.5F, 0.5F);
 					GL11.glTranslatef(1F, 1.1F, 0F);
+					GL11.glPushMatrix();
 					RenderBlocks.getInstance().renderBlockAsItem(Block.getBlockFromItem(stack.getItem()), stack.getItemDamage(), 1F);
+					GL11.glPopMatrix();
 					GL11.glTranslatef(-1F, -1.1F, 0F);
 					GL11.glScalef(2F, 2F, 2F);
 				} else {
