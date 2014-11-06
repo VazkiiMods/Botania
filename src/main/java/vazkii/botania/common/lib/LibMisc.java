@@ -18,8 +18,8 @@ public final class LibMisc {
 	// Mod Constants
 	public static final String MOD_ID = "Botania";
 	public static final String MOD_NAME = MOD_ID;
-	public static final String BUILD = "ANT:BUILD";
-	public static final String VERSION = "ANT:VERSION-" + BUILD;
+	public static final String BUILD = "GRADLE:BUILD";
+	public static final String VERSION = "GRADLE:VERSION-" + BUILD;
 	public static final String DEPENDENCIES = "required-after:Forge@[10.12.2.1147,);after:Thaumcraft";
 
 	// Network Contants

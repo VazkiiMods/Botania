@@ -39,8 +39,8 @@ minecraft {
 
     //This, does the token replacement.
     //Though, I reccomend this to be replaced with a token such as @VERSION@
-    replace 'ANT:BUILD', config.build_number
-    replace 'ANT:VERSION', config.version
+    replace 'GRADLE:BUILD', config.build_number
+    replace 'GRADLE:VERSION', config.version
 
     replaceIn 'LibMisc.java' //I may have missed another file, though I can only find it in here.
 }
