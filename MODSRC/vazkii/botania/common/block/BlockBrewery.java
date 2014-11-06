@@ -18,9 +18,11 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -40,8 +42,16 @@ public class BlockBrewery extends BlockModContainer implements ILexiconable {
 		float f = 6F / 16F;
 		setBlockBounds(f, 0.05F, f, 1F - f, 0.95F, 1F - f);
 		setBlockName(LibBlockNames.BREWERY);
+		setHardness(2.0F);
+		setResistance(10.0F);
+		setStepSound(soundTypeStone);
 		
 		random = new Random();
+	}
+	
+	@Override
+	public IIcon getIcon(int side, int meta) {
+		return Blocks.cobblestone.getIcon(side, meta);
 	}
 	
 	@Override
