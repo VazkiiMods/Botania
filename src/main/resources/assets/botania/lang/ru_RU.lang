@@ -1676,9 +1676,9 @@ botania.page.starfield1=Блести сверкай
 
 # -- THAUMCRAFT INTEGRATION
 botania.entry.tcIntegration=Интеграция Thaumcraft
-botania.page.tcIntegration0=Достаточно часто, пути &4Ботании&0 и &4Трауматургии&0 пересекаются. Смешивание некоторых компонентов, упомянутых в этой книге а также любая из школ &5Thaumcraft&0 может позволить комбинироваться этой форме.
+botania.page.tcIntegration0=Достаточно часто, пути &4Ботании&0 и &4Тауматургии&0 пересекаются. Смешивание некоторых компонентов, упомянутых в этой книге а также любая из школ &5Thaumcraft&0 может позволить комбинироваться этой форме.
 botania.page.tcIntegration1=First and foremost, combining any of the &1Mana Metal&0 helms with a set of &1Goggles of Revealing&0 allows for a combination of both.<br>The protection and regenerability of the armor works alongside the Goggles' abilities, but the &4Vis&0 discount is loss. 
-botania.page.tcIntegration2=Helmets of Revealing (works with any Botania helm)
-botania.page.tcIntegration3=Carrying on, &4Mana&0 can also serve as an interesting type of Ink. Infusing a set of black &1Scribing Tools&0 with &4Mana&0 from a &1Mana Pool&0 allows for them to use said &4Mana&0 as their source of color.<br>Refilling these tools works similarly to a &1Mana Tablet&0, done by tossing it on top of the pool.
-botania.page.tcIntegration4=Making the &1Botanurgist's Inkwell
+botania.page.tcIntegration2=Шлемы откровения (работают с любым шлемом Botania)
+botania.page.tcIntegration3=Прекрасно справляясь, &4Мана&0 также может служить интересным видом чернил. Наполняя &1чернильницу&0  &4Маной&0 из &1бассейна маны&0 позволяет использовать &4Ману&0 как источник цвета.<br>Заправка чернильницы схожа с зарядкой &1Планшета маны&0, проиходит через бросок чернильницы на бассейн маны.
+botania.page.tcIntegration4=Создание &1Чернил ботанитургиста
 botania.page.tcIntegration5=Last but not least, there's a few varied resources or constructs that can work as paraphernalia for an &1Infusion Altar&0, to lower its' instability.<br>These come in the form of &1Glimmering Flowers, Floating Flowers and any variety of Pylons&0.
