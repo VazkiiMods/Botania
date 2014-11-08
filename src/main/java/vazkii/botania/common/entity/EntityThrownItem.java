@@ -125,7 +125,6 @@ public class EntityThrownItem extends EntityItem {
 		Vector3 vec3m = new Vector3(motionX, motionY, motionZ);
 		if (vec3m.mag() < 1.0F) {
 			if (!worldObj.isRemote) {
-				System.out.println("3slo");
 				Entity item = getEntityItem().getItem().createEntity(worldObj, this, getEntityItem());
 				if (item == null) {
 					item = new EntityItem(worldObj, posX, posY, posZ, getEntityItem());
@@ -133,7 +132,6 @@ public class EntityThrownItem extends EntityItem {
 					item.motionX = motionX;
 					item.motionY = motionY;
 					item.motionZ = motionZ;
-
 				}
 				else
 				{
