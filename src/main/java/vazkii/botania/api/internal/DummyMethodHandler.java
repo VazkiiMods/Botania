@@ -40,6 +40,11 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	}
 
 	@Override
+	public LexiconPage elfPaperTextPage(String key) {
+		return dummyPage(key);
+	}
+	
+	@Override
 	public LexiconPage imagePage(String key, String resource) {
 		return dummyPage(key);
 	}

@@ -43,6 +43,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 public interface IInternalMethodHandler {
 
 	public LexiconPage textPage(String key);
+	
+	public LexiconPage elfPaperTextPage(String key);
 
 	public LexiconPage imagePage(String key, String resource);
 

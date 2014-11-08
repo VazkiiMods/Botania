@@ -59,7 +59,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 	public static final int SPAWN_TICKS = 100;
 
-	private static final float MAX_HP = 200F;
+	private static final float MAX_HP = 300F;
 
 	private static final String TAG_INVUL_TIME = "invulTime";
 	private static final String TAG_AGGRO = "aggro";

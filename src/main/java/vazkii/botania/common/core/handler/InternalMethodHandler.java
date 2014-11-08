@@ -45,6 +45,7 @@ import vazkii.botania.common.lexicon.page.PageBrew;
 import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
 import vazkii.botania.common.lexicon.page.PageElvenRecipe;
 import vazkii.botania.common.lexicon.page.PageImage;
+import vazkii.botania.common.lexicon.page.PageLoreText;
 import vazkii.botania.common.lexicon.page.PageManaInfusionRecipe;
 import vazkii.botania.common.lexicon.page.PagePetalRecipe;
 import vazkii.botania.common.lexicon.page.PageRuneRecipe;
@@ -57,6 +58,11 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	@Override
 	public LexiconPage textPage(String key) {
 		return new PageText(key);
+	}
+	
+	@Override
+	public LexiconPage elfPaperTextPage(String key) {
+		return new PageLoreText(key);
 	}
 
 	@Override
