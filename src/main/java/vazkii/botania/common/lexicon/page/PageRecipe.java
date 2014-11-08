@@ -162,7 +162,7 @@ public class PageRecipe extends LexiconPage {
 					newGui.page = data.page;
 					Minecraft.getMinecraft().displayGuiScreen(newGui);
 				}
-			}
+			} else tooltipEntry = false;
 
 			if(accountForContainer) {
 				ItemStack containerStack = stack.getItem().getContainerItem(stack);
