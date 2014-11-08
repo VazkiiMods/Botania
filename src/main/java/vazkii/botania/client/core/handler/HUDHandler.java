@@ -47,6 +47,7 @@ import vazkii.botania.api.wiki.IWikiProvider;
 import vazkii.botania.api.wiki.WikiHooks;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
@@ -199,6 +200,8 @@ public final class HUDHandler {
 					int y = res.getScaledHeight() / 2 + 10;
 
 					int u = tile.getCurrentMana() >= recipe.getManaToConsume() ? 0 : 22;
+					if(u == 0 && tile.getBlockMetadata() == 2 && recipe.getOutput().getItem() != Item.getItemFromBlock(ModBlocks.pool))
+						u = 44;
 					int v = mc.thePlayer.getCommandSenderName().equals("haighyorkie") && mc.thePlayer.isSneaking() ? 23 : 8;
 
 					GL11.glEnable(GL11.GL_BLEND);
