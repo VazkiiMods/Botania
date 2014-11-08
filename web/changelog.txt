@@ -1,3 +1,35 @@
+r1.3 133
+*<b>Build 132 was supposed to be 1.3, not this, but this one works too.</b> <i>All this stuff was to be in 132 but I wanted to play The Binding of Isaac: Rebirth, since that came out, y'know...</i>
+*<b>1.7.2 is no longer supported.</b>
+*Added a Brew of Restoration, it's like the brew of Revitalization but it's Regeneration I for 2 minutes and uses redstone in the crafting.
+*Added new lore/backstory pages for the events that separated the elves' world from the overworld. It's worth a read, but not required. Some text in the original entries was also changed to reflect.
+*Added the Tainted Blood Pendant, it can store potions and give the player their effects while it's worn, for the cost of mana.
+*Added the Terrestrial Agglomeration Plate, which serves as the new method to create Terrasteel. You'd be wise to look at the Terrasteel page to check out how it works. It's pretty similar to the old method but allows for more control and can be done earlier in the game.
+*Changed the Gaia Guardian fight a whole bunch, it's harder now to compensate for the new items and the fact that it can take damage from the Terra Blade now. Brews and a Terra Blade are a must now. The entry in the lexicon now describes the recommended gear. You can see what it does for yourself ;)
+*Fixed the Alfglass recipe using Glass instead of Managlass as it should.
+*Fixed the Brew of Mending not working.
+*Fixed the Brewery breaking instantly. Added added the proper block texture for breaking.
+*Fixed the Brewery's rendering going all over the place if you placed a block on it.
+*Fixed the console getting spammed when using the Rod of the Black Mesa. <i>smh flaxbeard</i>
+*Fixed the Gaia Guardian being able to teleport outside the bounds of the arena.
+*Fixed the Gaia Guardian despwaning if the last player in the world logged out.
+*Fixed the Gaia Guardian's HP bar showing the sinusoid for the first guardian spawned if multiple guardians were spawned in the same play session.
+*Fixed the lexicon gui showing the recipe for an item that's not the one being hovered above if the two happen to intersect. (see Terrasteel page)
+*Fixed the Mana Pool (with Alchemy Catalyst) not being able to break down quartz blocks into their components.
+*Fixed the Ring of Magnetization pulling items in the cilent side only when in a dedicated server.
+*Fixed tucking fypos. Again.
+*If the summoning of a Gaia Guardian fails, a chat message is now sent describing why.
+*Increased the max amount of mana a Terra Shatterer can hold up to <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html#MAX_VALUE">2147483647</a>. If you manage to reach this value you also get a fancy congratulatory message.
+*Lexicon Entries containing documents from Elven Garde now have a special type of paper.
+*The arena for the Gaia Guardian is now round, not square.
+*Trying to infuse an item that isn't a Diluted Mana Pool in a Diluted Mana Pool will show a yellow check with a line rather than just a green check.
+*When fighting the Gaia Guardian there's now an indicator to where the arena ends.
+*[API] Addded setNotBloodPendantInfusable() to Brew to allow brews to not be infused in the Tainted Blood Pendant.
+*[API] Added elfPaperTextPage() to IInternalMethodHandler.
+*[API] Exposed all of the categories from internals to the API side. They're available after Botania's PreInit.
+*[API] Fixed Mana Infusion Recipes that have an ItemStack input and Short.MAX_VALUE (32767) metadata as a wildcard never being considered valid.
+*[API] Increased version number to 23.
+*[API] LexiconCategory now implements Comparable, has a sorting priority int and keeps count on how many were added for addon makers to be able to have their entries be sorted. The default (and used by botania categories) is 5, entries like basics and misc use 9 and 0, respectively. Use setPriority() to set.
 r1.2 132
 *<b>Added the new Brewing system: Botanical Brewery, Vials, Brews and more.</b> And it comes with NEI integration too thanks to Tonius /o/
 *Added a Warp Ward potion type thing to the thaumcraft integration section.
