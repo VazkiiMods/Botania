@@ -60,9 +60,9 @@ public class EntityMagicLandmine extends Entity {
 			if(!worldObj.isRemote) {
 				List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(posX - range, posY - range, posZ - range, posX + range, posY + range, posZ + range));
 				for(EntityPlayer player : players) {
-					player.attackEntityFrom(summoner == null ? DamageSource.generic : DamageSource.causeMobDamage(summoner), 8);
+					player.attackEntityFrom(summoner == null ? DamageSource.generic : DamageSource.causeMobDamage(summoner), 10);
 					player.addPotionEffect(new PotionEffect(Potion.blindness.id, 25, 0));
-					player.addPotionEffect(new PotionEffect(Potion.wither.id, 60, 3));
+					player.addPotionEffect(new PotionEffect(Potion.wither.id, 70, 3));
 				}
 			}
 

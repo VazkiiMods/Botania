@@ -53,8 +53,9 @@ public class RenderDoppleganger extends RenderBiped {
 		EntityDoppleganger dopple = (EntityDoppleganger) par1Entity;
 		BossBarHandler.setCurrentBoss(dopple);
 
-		if(dopple.getInvulTime() > 0) {
-			grainIntensity = dopple.getInvulTime() > 20 ? 1F : dopple.getInvulTime() * 0.05F;
+		int invulTime = dopple.getInvulTime();
+		if(invulTime > 0) {
+			grainIntensity = invulTime > 20 ? 1F : invulTime * 0.05F;
 			disfiguration = grainIntensity * 0.3F;
 		} else {
 			disfiguration = (0.025F + dopple.hurtTime * ((1F - 0.15F) / 20F)) / 2F;

@@ -19,6 +19,7 @@ public final class LibBrewNames {
 	public static final String HEALING = "healing";
 	public static final String JUMP_BOOST = "jumpBoost";
 	public static final String REGEN = "regen";
+	public static final String REGEN_WEAK = "regenWeak";
 	public static final String RESISTANCE = "resistance";
 	public static final String FIRE_RESISTANCE = "fireResistance";
 	public static final String WATER_BREATHING = "waterBreathing";

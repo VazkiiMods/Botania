@@ -69,7 +69,7 @@ public final class BossBarHandler {
 		
 		Entity e = (Entity) currentBoss;
 		EntityPlayer p = mc.thePlayer;
-		if(e.isDead || !e.worldObj.loadedEntityList.contains(e) || MathHelper.pointDistanceSpace(e.posX, e.posY, e.posZ, p.posX, p.posY, p.posZ) > 32)
+		if(e.isDead || !p.worldObj.loadedEntityList.contains(e) || MathHelper.pointDistanceSpace(e.posX, e.posY, e.posZ, p.posX, p.posY, p.posZ) > 32)
 			currentBoss = null;
 	}
 	

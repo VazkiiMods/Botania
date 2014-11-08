@@ -28,6 +28,7 @@ public class ModBrewRecipes {
 	public static RecipeBrew healingBrew;
 	public static RecipeBrew jumpBoostBrew;
 	public static RecipeBrew regenerationBrew;
+	public static RecipeBrew weakRegenerationBrew;
 	public static RecipeBrew resistanceBrew;
 	public static RecipeBrew fireResistanceBrew;
 	public static RecipeBrew waterBreathingBrew;
@@ -44,6 +45,7 @@ public class ModBrewRecipes {
 		healingBrew = BotaniaAPI.registerBrewRecipe(ModBrews.healing, new ItemStack(Items.nether_wart), new ItemStack(Items.speckled_melon), new ItemStack(Items.potato));
 		jumpBoostBrew = BotaniaAPI.registerBrewRecipe(ModBrews.jumpBoost, new ItemStack(Items.nether_wart), new ItemStack(Items.feather), new ItemStack(Items.carrot));
 		regenerationBrew = BotaniaAPI.registerBrewRecipe(ModBrews.regen, new ItemStack(Items.nether_wart), new ItemStack(Items.ghast_tear), new ItemStack(Items.glowstone_dust));
+		weakRegenerationBrew = BotaniaAPI.registerBrewRecipe(ModBrews.regenWeak, new ItemStack(Items.nether_wart), new ItemStack(Items.ghast_tear), new ItemStack(Items.redstone));
 		resistanceBrew = BotaniaAPI.registerBrewRecipe(ModBrews.resistance, new ItemStack(Items.nether_wart), new ItemStack(Items.iron_ingot), new ItemStack(Items.leather));
 		fireResistanceBrew = BotaniaAPI.registerBrewRecipe(ModBrews.fireResistance, new ItemStack(Items.nether_wart), new ItemStack(Items.magma_cream), new ItemStack(Blocks.netherrack));
 		waterBreathingBrew = BotaniaAPI.registerBrewRecipe(ModBrews.waterBreathing, new ItemStack(Items.nether_wart), new ItemStack(ModItems.manaResource, 1, 10), new ItemStack(Items.glowstone_dust));
