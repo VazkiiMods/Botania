@@ -1728,7 +1728,7 @@ botania.page.gaiaRitual0=The &4Ritual of Gaia&0 is a procedure often enacted by 
 botania.page.gaiaRitual1=Creating &1Gaia Pylons&0
 botania.page.gaiaRitual2=Place the pylons (1 block above the beacon)
 botania.page.gaiaRitual3=To start the ritual, simply shift-right click the &1Beacon&0 block with a &1Terrasteel Ingot&0, take a step back and prepare to fight for your life. Good preparation is required, as the fight with the &4Guardian of Gaia&0 can be even harder than that of the &4Wither&0. Upon defeating the &4Guardian&0, one can collect their prize, a handful of &1Spirits of Gaia&0.
-botania.page.gaiaRitual4=A few pointers to take in mind are as follows. Enchanted &1Elementium Armor&0 is highly recommended, even more so than conventional &1Diamond Armor&0 due to the &1Pixies&0 it can spawn.<br>The effect on the &1Beacon&0 is nullified during the battle, that should be taken in mind when preparing.<br>Lastly, stay away from the purple.
+botania.page.gaiaRitual4=The common attire for this ritual is a set of Enchanted &1Elementium Armor&0, a &1Terra Blade&0 and a large assortment of &4Brews&0 and &4Baubles&0.<br>The effect of the &1Beacon&0 is nullified during the battle, so that should be taken in mind. Lastly, staying away from the purple might be a good idea. 
 
 # -- ELVEN LORE - THE SHATTERING
 botania.entry.elvenLore=Elven Lore - The Shattering
