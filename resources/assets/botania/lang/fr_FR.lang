@@ -293,7 +293,7 @@ tile.botania:manaDetector.name=Mana Detector
 tile.botania:enchanter.name=Mana Enchanter
 tile.botania:turntable.name=Spreader Turntable
 tile.botania:tinyPlanetBlock.name=Tiny Planet
-tile.botania:alchemyCatalyst.name=Alchemy Catalyst
+tile.botania:alchemyCatalyst.name=Catalyseur Alchimique
 tile.botania:openCrate0.name=Open Crate
 tile.botania:openCrate1.name=Crafty Crate
 tile.botania:forestEye.name=Eye of the Ancients
@@ -1089,34 +1089,34 @@ botania.entry.turntable=Spreader Turntable
 botania.page.turntable0=The &1Spreader Turntable&0, as its name implies, can turn &1Mana Spreaders&0 around and around. Placing a spreader above the turntable will rotate it, given that a redstone signal isn't applied.<br>To change the speed of the turntable, right click with a &1Baguette Sylvestre&0, shift-right clicking will invert the movement.
 botania.page.turntable1=Spin spin spin spin
 # -- BOTANICAL ALCHEMY
-botania.entry.manaAlchemy=Alchemising with Mana
-botania.page.manaAlchemy0=&4Mana&0 is an extremely volatile substance, to a point that its complete properties and abilities are unknown.<br>One of them is known, though, by attaching an &1Alchemy Catalyst&0, created with a mixture of otherworldly materials to the bottom of a &1Mana Pool&0, it enables the pool to perform &4Alchemy&0.
-botania.page.manaAlchemy1=Creating the &1Catalyst&0
-botania.page.manaAlchemy2=&1Rotten Flesh&0 to &1Leather&0
-botania.page.manaAlchemy3=Various types of &1Wood&0
-botania.page.manaAlchemy4=Various types of &1Saplings&0
-botania.page.manaAlchemy5=Breaking down &1Glowstone Blocks&0
-botania.page.manaAlchemy6=Breaking down &1Quartz Blocks&0
-botania.page.manaAlchemy7=Creating &1Chiseled Stone Bricks&0
-botania.page.manaAlchemy8=Further freezing &1Snow&0 into &1Ice&0
-botania.page.manaAlchemy9=Converting between &1Vines&0 and &1Lilypads&0
-botania.page.manaAlchemy10=Various breeds of &1Fish&0
-botania.page.manaAlchemy11=Transmuting &1Seeds&0 and &1Crops&0
-botania.page.manaAlchemy12=Purifying &1Poisonous Potatoes&0
-botania.page.manaAlchemy13=Conjuring &1Nether Wart&0
-botania.page.manaAlchemy14=Converting between &1Gunpowder&0 and &1Flint&0
-botania.page.manaAlchemy15=Making &1Name Tags&0
-botania.page.manaAlchemy16=Splitting &1Wool&0 into &1String&0
-botania.page.manaAlchemy17=Converting between &1Slimeballs&0 and &1Cactus&0
-botania.page.manaAlchemy18=Creating &1Ender Pearls&0
-botania.page.manaAlchemy19=Converting between &1Glowstone&0 and &1Redstone&0
-botania.page.manaAlchemy20=Breaking &1Cobblestone&0 into &1Sand&0
-botania.page.manaAlchemy21=Breaking &1Hardened Clay&0 into &1Red Sand&0
-botania.page.manaAlchemy22=Making &1Coarse Dirt&0
+botania.entry.manaAlchemy=Alchimie avec Mana
+botania.page.manaAlchemy0=Le &4Mana&0 est une substance encore peu connue, qui dispose de propriétés assez mystérieuses.<br>En attachant un &1Catalyseur Alchimique&0 à un &1Réservoir de Mana&0, vous pourrez faire de l'&4Alchimie&0 grâce à ce dernier.
+botania.page.manaAlchemy1=Recette du &1Catalyseur&0
+botania.page.manaAlchemy2=&1Chair pourrie&0 en &1Cuir&0
+botania.page.manaAlchemy3=Plusieurs types de &1Bois&0
+botania.page.manaAlchemy4=Plusieurs types de &1Pousses&0
+botania.page.manaAlchemy5=Briser de la &1Pierre Lumineuse&0
+botania.page.manaAlchemy6=Briser du &1Quartz&0
+botania.page.manaAlchemy7=Créer de la &1Pierre Sculptée&0
+botania.page.manaAlchemy8=Transformer de la &1Neige&0 en &1Glace&0
+botania.page.manaAlchemy9=Transformer des &1Lianes&0 en &1Nénuphars&0
+botania.page.manaAlchemy10=Mutation de &1Poissons&0
+botania.page.manaAlchemy11=Transformer &1Graines&0 et &1Récoltes&0
+botania.page.manaAlchemy12=Purifier les &1Patates empoisonnées&0
+botania.page.manaAlchemy13=Créer une &1Verrue du Nether&0
+botania.page.manaAlchemy14=Transmuter la &1Poudre à canon&0 et le &1Silex&0
+botania.page.manaAlchemy15=Créer des &1Étiquettes&0
+botania.page.manaAlchemy16=Efiller la &1Laine&0
+botania.page.manaAlchemy17=Convertir les &1Boules de Slime&0 en &1Cactus&0
+botania.page.manaAlchemy18=Créer une &1Perle du Néant&0
+botania.page.manaAlchemy19=Convertir &1Poudre de Pierre Lumineuse&0 et &1Redstone&0
+botania.page.manaAlchemy20=Transformer la &1Pierre taillée&0 en &1Sable&0
+botania.page.manaAlchemy21=Transformer la &1Terre Cuite&0 en &1Sable Rouge&0
+botania.page.manaAlchemy22=Créer de la &1Terre Stérile&0
 # -- EYE OF THE ANCIENTS
-botania.entry.forestEye=Eye of the Ancients
-botania.page.forestEye0=As the Ancients who used to watch over the world always looked for the living beings on it, this block, the &1Eye of the Ancients&0, will do just that.<br>By attaching a &1Comparator&0 next to it, it'll send out a redstone signal equivalent to the amount of animals it can find.
-botania.page.forestEye1=The counting only starts at 2, so, with 2 animals around, it'd output a signal of strength 1, with 3 animals, of strength 2 and so on.<br>Lastly, the time has worn down the sight of the Ancients, so this block can only see animals in about 6 blocks in any direction.
+botania.entry.forestEye=Œil des Anciens
+botania.page.forestEye0=Ce bloc vous permettra d'observer constamment les êtres vivants autour de vous.<br>En posant un &1Comparateur&0 contre l'&1Œil des Anciens&0, il émettra un signal de redstone équivalent au nombre de créatures qu'il voit.
+botania.page.forestEye1=Avec deux animaux en vue, un signal de puissance 1, pour 3 animaux de puissance 3, etc ...<br>Enfin, l'âge ayant altéré ce bloc, il ne peut détecter les animaux que dans un cercle de 6 blocs autour de lui.
 botania.page.forestEye2=Now you see me...
 # -- OPEN CRATE
 botania.entry.openCrate=Open Crate
@@ -1132,7 +1132,7 @@ botania.page.forestDrum2=But if you close your eyes...
 botania.entry.platform=Plateforme Mystérieuse
 botania.page.platform0=En assemblant du &1Bois de Vie&0 d'une certaine manière, il est possible de créer une plateforme au comportement étrange. Il sera possible de lui donner l'apparence d'un bloc d'un clic droit avec ledit bloc. Vous pourrez tomber à travers en vous accroupissant.<br>Les &4Rafales de Mana&0 passeront au travers sans problèmes.
 botania.page.platform2=En faisant un clic droit avec une &1Baguette Sylvestre&0 sur une plateforme mystérieuse camouflée, vous donnerez à toutes les autres plateformes adjacentes la même apparence. Clic droit + Maj. retirera tout camouflage.
-botania.page.platform1=Recette de la Plateforme Mbsconse
+botania.page.platform1=Recette de la Plateforme Mystérieuse
 # -- CONJURING WITH MANA
 botania.entry.manaConjuration=Conjuring with Mana
 botania.page.manaConjuration0=Similar to the ability to &4Alchemise with Mana&0, a catalyst also exists for &4Conjuration&0, the magic of materializing resources from magical energy only. The mechanism works in a similar way to the &1Alchemy Catalyst&0 where one tosses an item into the pool with the catalyst below.
@@ -1169,25 +1169,25 @@ botania.page.craftCrate7=Attaching a &1Comparator&0 to the crate will have it em
 botania.page.craftCrate5=An example of crafting a &1Diamond Pickaxe&0
 botania.page.craftCrate6=Made in Portugal
 # -- ENDER OVERSEER
-botania.entry.enderEyeBlock=Ender Overseer
-botania.page.enderEyeBlock0=The eyes of an &4Enderman&0 have an interesting sensitivity to being watched. A block out of these will simply output a &4redstone signal&0 if a player within a 64 block radius is looking directly at it.<br>Of course, wearing a &1Pumpkin&0 negates this effect.
+botania.entry.enderEyeBlock=Surveillant de l’End 
+botania.page.enderEyeBlock0=Les yeux d'&4Enderman&0 sont extrêmements sensibles aux regards qu'on leur porte.Un bloc comme celui-ci émettra un &4signal de redstone&0 si un joueur dans un cercle de 64 blocs autour de lui le regarde.<br>Bien entendu, porter sur la tête une &1Citrouille&0 annule cet effet.
 botania.page.enderEyeBlock1=MY BRAND
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
-botania.entry.manaBlaster=Mana Blaster
-botania.page.manaBlaster0=The &1Mana Blaster&0 is like a portable &1Mana Spreader&0, while shaped like a pistol for easy handling, it's not exactly a firearm, as much as it is just a portable spreader.<br>By utilizing &4Mana&0 from &4Mana carrying items&0 in the holder's inventory, it can shoot a mana burst when one is looking at.
-botania.page.manaBlaster1=This burst is a bit different from the one fired from speaders, as it's faster, but carries only three quarters of the mana a spreader burst would. There's also a short cooldown period after firing the blaster until another burst can be shot.
-botania.page.manaBlaster2=&1Mana Lenses&0 also function with the blaster, to attach one to it, put them side by side on a crafting table, to remove it, simply place the &1Mana Blaster&0 back on the crafting grid.
+botania.entry.manaBlaster=Blaster à Mana
+botania.page.manaBlaster0=Le &1Blaster à Mana&0, même s'il a l'apparence d'une arme à feu, est un &1Diffuseur de Mana&0 portable.<br>En utilisant du &4Mana&0 d'un &4Contenant&0 présent dans l'inventaire son porteur, il pourra tirer une Rafale de Mana vers sa cible.
+botania.page.manaBlaster1=Cette rafale est plus rapide qu'une rafale tirée par un Diffuseur mais transporte les 3/4 de Mana de cette dernière. Il existe également un temps de recharge avant de retirer une rafale avec le Blaster.
+botania.page.manaBlaster2=Le &1Lentilles&0 fonctionnent également sur le Blaster, il suffit de les combiner pour l'appliquer. Pour l'enlever, placez simplement le &1Blaster&0 seul dans la grille de craft.
 botania.page.manaBlaster3=We need more dakka
 # -- PASTURE SEEDS
-botania.entry.grassSeeds=Pasture Seeds
-botania.page.grassSeeds0=Watching grass spread is seldom a fun activity. By infusing some &1Tall Grass&0 with &4Mana&0, it's possible to create &1Pasture Seeds&0, which will grow grass in any barren area, via a simple right click on dirt.<br>Other types of foliage can also be grown, such a &1Podzol&0 or &1Mycellium&0 with alternate seeds.
-botania.page.grassSeeds1=&1Pasture Seeds&0 for grass
-botania.page.grassSeeds2=&1Boreal Seeds&0 for podzol
-botania.page.grassSeeds3=&1Infestation Spores&0 for mycellium
+botania.entry.grassSeeds=Graines de pâturage
+botania.page.grassSeeds0=En faisant infuser des &1Hautes Herbes&0 dans du &4Mana&0, il est possible de créer des &1Graines de pâturage&0, qui feront pousser de l'herbe sur de la terre d'un simple clic droit.<br>Vous pourrez aussi vous servir d'autres types de graines pour faire pousser du &1Podzol&0 ou du &1Mycellium&0.
+botania.page.grassSeeds1=&1Graines de pâturage&0 pour l'Herbe
+botania.page.grassSeeds2=&1Graines de pâturage&0 pour le Podzol
+botania.page.grassSeeds3=&1Spores Infectieux&0 pour le Mycellium
 # -- ROD THE LANDS
-botania.entry.dirtRod=Rod of the Lands
-botania.page.dirtRod0=The &1Rod of the Lands&0 is a rather simpleton tool, by utilizing &4Mana&0 from your inventory (via a &1Mana Tablet&0 or others), it can materialize and place a &1Dirt&0 block down.
+botania.entry.dirtRod=Bâton des Terres
+botania.page.dirtRod0=Le &1Bâton des Terres&0 permet d'utiliser du &4Mana&0 de votre inventaire pour matérialiser un bloc de terre.
 botania.page.dirtRod1=That's dirty
 # -- TERRA FIRMA ROD
 botania.entry.terraformRod=Terra Firma Rod
@@ -1196,29 +1196,29 @@ botania.page.terraformRod1=This rod, will, at the cost of some &4Mana&0 from you
 botania.page.terraformRod2=Note that blocks removed by the rod are non-recuperable. The terrain will adapt to the changes as best as it can, up to a distance limit, to avoid cuts in hills and the like, for this, the flattening will work in the terrain's natural look.<br>Lastly, the rod will cease to function whatsoever below sea level.
 botania.page.terraformRod3=Quite a justicar
 # -- MANASTEEL EQUIPMENT
-botania.entry.manaGear=Manasteel Equipment
-botania.page.manaGear0=&1Manasteel&0, alike other metals, can be shaped into tools and armor alike.<br>Tools or armor crafted from this material will share their properties with &1Iron&0, albeit somewhat superior in enchantability and durability. Whenever a &1Manasteel&0 item is to take damage, if there's &4Mana&0 available in the inventory (such as a &1Mana Tablet&0), it'll use that instead.
-botania.page.manaGear1=The &1Manasteel Pickaxe&0
-botania.page.manaGear2=The &1Manasteel Shovel&0
-botania.page.manaGear3=The &1Manasteel Axe&0
-botania.page.manaGear4=The &1Manasteel Shears&0
-botania.page.manaGear5=The &1Manasteel Sword&0
-botania.page.manaGear6=The &1Manasteel Helmet&0
-botania.page.manaGear7=The &1Manasteel Chestplate&0
-botania.page.manaGear8=The &1Manasteel Leggings&0
-botania.page.manaGear9=The &1Manasteel Boots&0
+botania.entry.manaGear=Équipement en Manacier
+botania.page.manaGear0=Le &1Manacier&0, comme les autres métaux, peut être utilisé pour fabriquer des outils, armes et armures.<br>Ce métal est semblable au &1Fer&0, mais possède une enchantabilité et une durabilité un peu supérieure. Lorsqu'un objet en &1Manacier0 subit un dégât, il utilisera du &4Mana&0 de votre inventaire s'il le peut pour ne pas s'abîmer.
+botania.page.manaGear1=La &1Pioche en Manacier&0
+botania.page.manaGear2=La &1Pelle en Manacier&0
+botania.page.manaGear3=La &1Hache enManacier&0
+botania.page.manaGear4=La &1Cisaille en Manacier&0
+botania.page.manaGear5=L'&1Épée en Manacier&0
+botania.page.manaGear6=Le &1Casque Manacier&0
+botania.page.manaGear7=Le &1Plastron Manacier&0
+botania.page.manaGear8=Les &1Jambières Manacier&0
+botania.page.manaGear9=Les &1Bottes en Manacier&0
 # -- HORN OF THE WILD
-botania.entry.grassHorn=Horn of the Wild
-botania.page.grassHorn0=Clearing out &1Tall Grass&0 by hand can definitely be a nuisance.<br>Simply blowing the &1Horn of the Wild&0 will quickly cause any nearby vegetation to uproot, leaving behind drops as if it had been broken by hand.<br>With some modifications, the horn can be modified to break leaves instead.
-botania.page.grassHorn1=Crafting the horn
-botania.page.grassHorn2=Modifying the horn
+botania.entry.grassHorn=Corne de Brume
+botania.page.grassHorn0=Débrouissailler toutes les &1Hautes Herbes&0 à la main peut être fatiguant.<br>Souffler dans la &1Corne de Brume&0 retirera toute la végétation alentour, ne laissant que les graines.<br>En la modifiant, cette Corne pourra même briser des feuilles.
+botania.page.grassHorn1=Créer la Corne
+botania.page.grassHorn2=Modifier la Corne
 # -- TERRASTEEL ARMOR
-botania.entry.terrasteelArmor=Terrasteel Armor
-botania.page.terrasteelArmor0=Armor made out of &1Terrasteel&0, much alike the &1Manasteel&0 counterpart, can utilize &4Mana&0 from the inventory instead of taking damage.<br>This armor, however, has properties more alike &1Diamond&0 instead of &1Iron&0 and increases the wearer's health when worn.
-botania.page.terrasteelArmor1=The &1Terrasteel Helmet&0
-botania.page.terrasteelArmor2=The &1Terrasteel Chestplate&0
-botania.page.terrasteelArmor3=The &1Terrasteel Leggings&0
-botania.page.terrasteelArmor4=The &1Terrasteel Boots&0
+botania.entry.terrasteelArmor=Armure en Terracier
+botania.page.terrasteelArmor0=Une armure en &1Terracier&0, comme en &1Manacier&0 utilise du &4Mana&0 s'il le peut pour éviter de s'abîmer.<br>Cependant cette armure partage les mêmes propriétés que le &1Diamant&0 et augmente la vie de son porteur.
+botania.page.terrasteelArmor1=Le &1Casque en Terracier&0
+botania.page.terrasteelArmor2=Le &1Plastron en Terracier&0
+botania.page.terrasteelArmor3=Les &1Jambières en Terracier&0
+botania.page.terrasteelArmor4=Les &1Bottes en Terracier&0
 # -- TERRA BLADE
 botania.entry.terraSword=Terra Blade
 botania.page.terraSword0=The &1Terra Blade&0, crafted from &1Terrasteel Ingots&0, is a sword infused with natural strength. Not only does it par with a &1Diamond Sword&0 in terms of strength and it uses &4Mana&0 from the inventory like &1Manasteel Tools&0, but when swung, there's a chance for it to create a beam that will deal as much damage as a melee hit.
@@ -1237,8 +1237,8 @@ botania.page.enderDagger0=Those &4Endermen&0. They're the second more pesky thin
 botania.page.enderDagger1=Due of the type of infusion, though, the dagger only lasts for a few kills, and the energy that radiates from it prevents the &1Manasteel&0 from gathering &4Mana&0 to avoid damage, like typical tools would. Still, all in the name of killing those monsters.
 botania.page.enderDagger2=Strike my Soul
 # -- ROD OF THE SEAS
-botania.entry.waterRod=Rod of the Seas
-botania.page.waterRod0=Similarly to its land counterpart, the &1Rod of the Seas&0 will, at the cost of some &4Mana&0, place down a &1Water&0 block wherever it's used on. Furthermore, it can also be used to refill a &1Petal Apothecary&0.
+botania.entry.waterRod=Bâton des Mers
+botania.page.waterRod0=Comme celui des Terres le &1Bâton des Mers&0 créera avec du &4Mana&0, une source d'&1Eau&0. Il peut donc être utilisé pour remplir un &1Autel à Pétales&0.
 botania.page.waterRod1=Keep the Earth clean, it isn't Uranus
 # -- ELEMENTIUM EQUIPMENT
 botania.entry.elfGear=Elementium Equipment
@@ -1272,16 +1272,16 @@ botania.page.rainbowRod0=&4Bifrost&0, the rainbow bridge that reaches between th
 botania.page.rainbowRod1=This bridge extends as far as a hundred blocks, and will vanish after about fifteen seconds.<br>Only one bridge can be created for any given &1Rod of Bifrost&0 at a time, as soon as the old bridge vanishes, a new one can be created.
 botania.page.rainbowRod2=Going my way!! Cut open a path and go!
 # -- ROD OF THE SKIES
-botania.entry.tornadoRod=Rod of the Skies
-botania.page.tornadoRod0=The &1Rod of the Skies&0 is a magical instrument with the ability to propel one in the air at fast velocity for the cost of some &4Mana&0.<br>To do so, one would simply hold it like a bow and watch as their momentum increases.<br>The rod takes a small amount of time to recharge, but during that time it'll block any fall damage, keeping the user safe.
+botania.entry.tornadoRod=Bâton des Cieux
+botania.page.tornadoRod0=Le &1Bâton des Cieux&0 est un objet magique qui peut propulser un joueur dans les airs grâce au &4Mana&0.<br>Pour ce faire, il faut le charger tel un arc.<br>Le Bâton mettra un certain temps à se recharger, durant lequel son porteur ne subira pas de dégâts de chute.
 botania.page.tornadoRod1=A treasure from Lorule
 # -- ROD OF THE HELLS
-botania.entry.fireRod=Rod of the Hells
-botania.page.fireRod0=The &1Rod of the Hells&0 contains the essence of a burning flame, using it on the ground will create a circle of fire that burns anything inside it, for a decent cost of &4Mana&0.<br>The ring has a decent radius, and takes a small amount of time to fully propagate, it's to note that after that time it burns anything living in it, the caster included.
+botania.entry.fireRod=Bâton des Enfers
+botania.page.fireRod0=Le &1Bâton des Enfers&0 permettra de créer un cercle de flamme pour un certain coût en &4Mana&0.<br>Le cercle est assez grand, et prend un peu de temps à se propager aubout duquel toutes les entités à l'intérieur brûleront, le porteur du Bâton inclus.
 botania.page.fireRod1=Megu Megu Fire Endless Night
 # -- VINE BALLS
-botania.entry.vineBall=Vine Balls
-botania.page.vineBall0=&1Ladders&0 can't stand up on their own, they require something on their back, whereas &1Vines&0 don't. Normally, though, &1Vines&0 aren't strong enough for someone to climb them when they're freestanding.<br>By combining a few &1Vines&0, it's possible to create a ball that can be thrown, to create a climbable ladder of strong &1Vines&0 where it hits.
+botania.entry.vineBall=Boule de Lianes
+botania.page.vineBall0=Une &1Échelles&0 ne peut pas tenir d'elle même et nécessite un support, alors que les &1Lianes&0 le peuvent. Cependant elles ne sont pas assez solides pour vous permettre d'y grimper.<br>En combinant plusieurs &1Lianes&0, il est possible de créer une boule qui créera à son point d'impact une échelle de &1Lianes&0 solides sur lesquelles vous pourrez grimper.
 botania.page.vineBall1=It's also possible, by combining some materials such as &1Livingwood&0 or a &1Rune of Air&0 to create a slingshot that lets these &1Vine Balls&0 be shot while completely ignoring the force of gravity.
 botania.page.vineBall2=This would be in Vineacraft...
 botania.page.vineBall3=...if that actually existed.
@@ -1301,9 +1301,9 @@ botania.entry.skyDirtRod=Rod of the Highlands
 botania.page.skyDirtRod0=While the &1Rod of the Lands&0 is all well and good, being able to place &1Dirt&0 without something to hold it would be great.<br>The &1Rod of the Highlands&0 does just that, while maintaining the original power of the &1Rod of the Lands&0, it can also place &1Dirt&0 in mid air, for an increased &4Mana&0 cost.
 botania.page.skyDirtRod1=Dirty Stick mk2
 # -- HAND OF ENDER
-botania.entry.enderHand=Hand of Ender
-botania.page.enderHand0=The &1Hand of Ender&0 allows the user to access the interdimensional ender field, on other words, their &1Ender Chest&0 inventory. This can be done anywhere by right clicking with the hand at the cost of some &4Mana&0.<br>Using the hand on another player will open up &otheir&r inventory instead, at a lot higher &4Mana&0 cost.
-botania.page.enderHand0a=The &1Hand of Ender&0 allows the user to access the interdimensional ender field, on other words, their &1Ender Chest&0 inventory. This can be done anywhere by right clicking with the hand at the cost of some &4Mana&0.
+botania.entry.enderHand=Main du Néant
+botania.page.enderHand0=La &1Main du Néant&0 permet à son porteur d'accéder n'importe où à son &1Coffre du Néant&0. Cela peut être fait n'importe où pour le prix d'un peu de &4Mana&0.<br>Utiliser la Main sur un autre joueur ouvrira &0son inventaire&r mais coûtera beaucoup plus de &1Mana&0.
+botania.page.enderHand0a=La &1Main du Néant&0 permet à son porteur d'accéder n'importe où à son &1Coffre du Néant&0. Cela peut être fait n'importe où pour le prix d'un peu de &4Mana&0.<br>Utiliser la Main sur un autre joueur ouvrira &0son inventaire&r mais coûtera beaucoup plus de &1Mana&0.
 botania.page.enderHand1=Zezima hates him!
 botania.page.enderHand1a=It's like the 4G of Ender Chests
 # -- VITREOUS PICKAXE
@@ -1311,8 +1311,8 @@ botania.entry.glassPick=Vitreous Pickaxe
 botania.page.glassPick0=Placing down &1Glass&0 and having to break it again can be a heartbreaking experience. Luckily, by creating a &1Vitreous Pickaxe&0, one can gather the &1Glass&0 back by mining it with the pick, it's like cheap &4Silk Touch&0 for glass!
 botania.page.glassPick1=Trapped inside with food
 # -- ROD OF DIVINING
-botania.entry.diviningRod=Rod of Divining
-botania.page.diviningRod0=As its name implies, the &1Rod of Divining&0 has the ability to divine in a decently large radius around the user to find any ores. These will shine for a little bit, allowing their location.<br>This process, obviously, requires a decent amount of &4Mana&0 from the user's inventory.
+botania.entry.diviningRod=Bâton de Divination
+botania.page.diviningRod0=Comme son nom l'indique, le &1Bâton de Divination&0 à la capacité de détecter les minerais aux alentours. Ceux-ci brilleront un temps, vous délivrant leur emplacement.<br>Ce processus nécessite bien entendu du &1Mana&0 de l'inventaire de son porteur.
 botania.page.diviningRod1=inb4 ee3
 # -- ROD OF THE BLACK MESA
 botania.entry.gravityRod=Rod of the Black Mesa
