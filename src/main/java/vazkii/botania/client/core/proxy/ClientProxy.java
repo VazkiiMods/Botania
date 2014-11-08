@@ -23,8 +23,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.StatCollector;
-import net.minecraft.util.StringTranslate;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings.GameType;
 import net.minecraftforge.client.MinecraftForgeClient;
@@ -75,6 +73,7 @@ import vazkii.botania.client.render.tile.RenderTileSkullOverride;
 import vazkii.botania.client.render.tile.RenderTileSpawnerClaw;
 import vazkii.botania.client.render.tile.RenderTileSpreader;
 import vazkii.botania.client.render.tile.RenderTileStarfield;
+import vazkii.botania.client.render.tile.RenderTileTerraPlate;
 import vazkii.botania.client.render.tile.RenderTileTinyPotato;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.block.tile.TileAltar;
@@ -85,6 +84,7 @@ import vazkii.botania.common.block.tile.TilePylon;
 import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.block.tile.TileSpawnerClaw;
 import vazkii.botania.common.block.tile.TileStarfield;
+import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.block.tile.TileTinyPotato;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
@@ -103,9 +103,6 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class ClientProxy extends CommonProxy {
@@ -168,6 +165,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileSpawnerClaw.class, new RenderTileSpawnerClaw());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileStarfield.class, new RenderTileStarfield());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileBrewery.class, new RenderTileBrewery());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileTerraPlate.class, new RenderTileTerraPlate());
 
 		if(Loader.instance().getMCVersionString().equals("Minecraft 1.7.10"))
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySkull.class, new RenderTileSkullOverride());

@@ -26,6 +26,7 @@ import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
 
+// This is legacy code and is no longer used. Check out TileTerraPlate instead.
 public final class TerrasteelCraftingHandler {
 
 	private static final String TAG_TIME = "Botania-CraftingTime";

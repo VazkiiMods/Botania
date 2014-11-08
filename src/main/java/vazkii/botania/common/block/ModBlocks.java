@@ -118,6 +118,7 @@ import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.block.tile.TileSpawnerClaw;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.block.tile.TileStarfield;
+import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.block.tile.TileTinyPlanet;
 import vazkii.botania.common.block.tile.TileTinyPotato;
 import vazkii.botania.common.block.tile.mana.TileDistributor;
@@ -180,6 +181,7 @@ public final class ModBlocks {
 	public static Block elfGlass;
 	public static Block brewery;
 	public static Block manaGlass;
+	public static Block terraPlate;
 
 	public static Block livingwoodStairs;
 	public static Block livingwoodSlab;
@@ -301,6 +303,7 @@ public final class ModBlocks {
 		elfGlass = new BlockElfGlass();
 		brewery = new BlockBrewery();
 		manaGlass = new BlockManaGlass();
+		terraPlate = new BlockTerraPlate();
 		
 		livingwoodStairs = new BlockLivingwoodStairs();
 		livingwoodSlab = new BlockLivingwoodSlab(false);
@@ -480,6 +483,7 @@ public final class ModBlocks {
 		registerTile(TileStarfield.class, LibBlockNames.STARFIELD);
 		registerTile(TileRFGenerator.class, LibBlockNames.RF_GENERATOR);
 		registerTile(TileBrewery.class, LibBlockNames.BREWERY);
+		registerTile(TileTerraPlate.class, LibBlockNames.TERRA_PLATE);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MANASTAR, SubTileManastar.class);

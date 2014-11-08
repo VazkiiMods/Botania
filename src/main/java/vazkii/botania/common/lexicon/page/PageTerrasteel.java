@@ -33,13 +33,6 @@ public class PageTerrasteel extends PageRecipe {
 
 	private static final ResourceLocation terrasteelOverlay = new ResourceLocation(LibResources.GUI_TERRASTEEL_OVERLAY);
 
-	int ticksElapsed = 0;
-	int index = 0;
-
-	static final Block[] blocks = new Block[] {
-		Blocks.iron_block, Blocks.gold_block, Blocks.emerald_block, Blocks.diamond_block, ModBlocks.storage
-	};
-
 	public PageTerrasteel(String unlocalizedName) {
 		super(unlocalizedName);
 	}
@@ -47,29 +40,31 @@ public class PageTerrasteel extends PageRecipe {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void renderRecipe(IGuiLexiconEntry gui, int mx, int my) {
-		Block block = blocks[index];
+		Block block1 = ModBlocks.livingrock;
+		Block block2 = Blocks.lapis_block;
+		Block block3 = ModBlocks.terraPlate;
 
 		GL11.glTranslatef(0F, 0F, -10F);
-		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8, gui.getTop() + 103, new ItemStack(block), false);
+		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8, gui.getTop() + 103, new ItemStack(block1), false);
 
 		GL11.glTranslatef(0F, 0F, 5F);
-		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8 + 7, gui.getTop() + 106, new ItemStack(block), false);
-		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8 - 6, gui.getTop() + 106, new ItemStack(block), false);
+		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8 + 7, gui.getTop() + 106, new ItemStack(block2), false);
+		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8 - 6, gui.getTop() + 106, new ItemStack(block2), false);
 
 		GL11.glTranslatef(0F, 0F, 5F);
-		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8, gui.getTop() + 110, new ItemStack(block), false);
-		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8 + 14, gui.getTop() + 110, new ItemStack(block), false);
-		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8 - 13, gui.getTop() + 110, new ItemStack(block), false);
+		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8, gui.getTop() + 110, new ItemStack(block1), false);
+		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8 + 14, gui.getTop() + 110, new ItemStack(block1), false);
+		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8 - 13, gui.getTop() + 110, new ItemStack(block1), false);
 
 		GL11.glTranslatef(0F, 0F, 5F);
-		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8 - 6, gui.getTop() + 114, new ItemStack(block), false);
-		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8 + 7, gui.getTop() + 114, new ItemStack(block), false);
+		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8 - 6, gui.getTop() + 114, new ItemStack(block2), false);
+		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8 + 7, gui.getTop() + 114, new ItemStack(block2), false);
 
 		GL11.glTranslatef(0F, 0F, 5F);
-		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8 + 1, gui.getTop() + 117, new ItemStack(block), false);
+		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8 + 1, gui.getTop() + 117, new ItemStack(block1), false);
 
 		GL11.glTranslatef(0F, 0F, 5F);
-		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8, gui.getTop() + 102, new ItemStack(Blocks.beacon), false);
+		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8, gui.getTop() + 102, new ItemStack(block3), false);
 		GL11.glTranslatef(0F, 0F, -10F);
 
 		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8, gui.getTop() + 30, new ItemStack(ModItems.manaResource, 1, 4), false);
@@ -84,18 +79,6 @@ public class PageTerrasteel extends PageRecipe {
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		((GuiScreen) gui).drawTexturedModalRect(gui.getLeft(), gui.getTop(), 0, 0, gui.getWidth(), gui.getHeight());
 		GL11.glDisable(GL11.GL_BLEND);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void updateScreen() {
-		if(ticksElapsed % 20 == 0) {
-			index++;
-
-			if(index == blocks.length)
-				index = 0;
-		}
-		++ticksElapsed;
 	}
 
 	@Override

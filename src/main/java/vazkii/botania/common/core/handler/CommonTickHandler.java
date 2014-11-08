@@ -25,6 +25,8 @@ import cpw.mods.fml.common.gameevent.TickEvent.WorldTickEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+// This is legacy code, it used to be used for the old terrasteel crafting
+// mechanic. For the new one check TileTerraPlate
 public final class CommonTickHandler {
 
 	@SubscribeEvent

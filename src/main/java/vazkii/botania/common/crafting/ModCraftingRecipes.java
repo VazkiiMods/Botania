@@ -201,6 +201,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeFlask;
 	public static IRecipe recipeBrewery;
 	public static IRecipe recipeBloodPendant;
+	public static IRecipe recipeTerraPlate;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1273,6 +1274,18 @@ public final class ModCraftingRecipes {
 				'G', new ItemStack(Items.ghast_tear),
 				'D', LibOreDict.MANA_DIAMOND);
 		recipeBloodPendant = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Terrestrial Agglomeration Plate Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.terraPlate), 
+				"LLL", "0M1", "283",
+				'L', new ItemStack(Blocks.lapis_block),
+				'M', new ItemStack(ModBlocks.storage),
+				'0', LibOreDict.RUNE[0],
+				'1', LibOreDict.RUNE[1],
+				'2', LibOreDict.RUNE[2],
+				'3', LibOreDict.RUNE[3],
+				'8', LibOreDict.RUNE[8]);
+		recipeTerraPlate = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

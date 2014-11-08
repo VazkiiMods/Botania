@@ -40,6 +40,7 @@ public final class ShaderHelper {
 	public static int doppleganger = 0;
 	public static int halo = 0;
 	public static int dopplegangerBar = 0;
+	public static int terraPlateRune = 0;
 
 	public static void initShaders() {
 		if(!useShaders())
@@ -51,6 +52,7 @@ public final class ShaderHelper {
 		doppleganger = createProgram(LibResources.SHADER_DOPLLEGANGER_VERT, LibResources.SHADER_DOPLLEGANGER_FRAG);
 		halo = createProgram(null, LibResources.SHADER_HALO_FRAG);
 		dopplegangerBar = createProgram(null, LibResources.SHADER_DOPLLEGANGER_BAR_FRAG);
+		terraPlateRune = createProgram(null, LibResources.SHADER_TERRA_PLATE_RUNE_FRAG);
 	}
 
 	public static void useShader(int shader, ShaderCallback callback) {
