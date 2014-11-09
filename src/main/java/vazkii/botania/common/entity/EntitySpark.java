@@ -183,9 +183,9 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 		Vector3 motion = receiverVec.copy().sub(thisVec);
 		motion.multiply(0.04F);
-		float r = 0.5F + 0.4F * (float) Math.random();
-		float g = 0.5F + 0.4F * (float) Math.random();
-		float b = 0.5F + 0.4F * (float) Math.random();
+		float r = 0.4F + 0.3F * (float) Math.random();
+		float g = 0.4F + 0.3F * (float) Math.random();
+		float b = 0.4F + 0.3F * (float) Math.random();
 		float size = 0.125F + 0.125F * (float) Math.random();
 
 		Botania.proxy.wispFX(worldObj, thisVec.x, thisVec.y, thisVec.z, r, g, b, size, (float) motion.x, (float) motion.y, (float) motion.z);
