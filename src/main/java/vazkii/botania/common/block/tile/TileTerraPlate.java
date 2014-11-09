@@ -189,7 +189,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 
 	@Override
 	public boolean canRecieveManaFromBursts() {
-		return true;
+		return areItemsValid(getItems());
 	}
 
 	@Override
