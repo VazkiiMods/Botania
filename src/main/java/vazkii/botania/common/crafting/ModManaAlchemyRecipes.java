@@ -21,6 +21,7 @@ import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 
 public final class ModManaAlchemyRecipes {
@@ -66,7 +67,8 @@ public final class ModManaAlchemyRecipes {
 		glowstoneDustRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.glowstone_dust, 4), new ItemStack(Blocks.glowstone), 25);
 		quartzRecipes = new ArrayList();
 		quartzRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.quartz, 4), new ItemStack(Blocks.quartz_block, 1, Short.MAX_VALUE), 25));
-		quartzRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(ModItems.quartz, 4, 0), new ItemStack(ModBlocks.darkQuartz, 1, Short.MAX_VALUE), 25));
+		if(ConfigHandler.darkQuartzEnabled)
+			quartzRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(ModItems.quartz, 4, 0), new ItemStack(ModBlocks.darkQuartz, 1, Short.MAX_VALUE), 25));
 		quartzRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(ModItems.quartz, 4, 1), new ItemStack(ModBlocks.manaQuartz, 1, Short.MAX_VALUE), 25));
 		quartzRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(ModItems.quartz, 4, 2), new ItemStack(ModBlocks.blazeQuartz, 1, Short.MAX_VALUE), 25));
 		quartzRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(ModItems.quartz, 4, 3), new ItemStack(ModBlocks.lavenderQuartz, 1, Short.MAX_VALUE), 25));
