@@ -24,9 +24,9 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntityCaveSpider;
-import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntitySpider;
+import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -356,13 +356,13 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 					}
 
 					if(reverseTicks > MOB_SPAWN_START_TICKS * 2 && mobTicks > MOB_SPAWN_END_TICKS && mobTicks % MOB_SPAWN_WAVE_TIME == 0 && !worldObj.isRemote) {
-						for(int i = 0; i < 4 + worldObj.rand.nextInt(3); i++) {
+						for(int i = 0; i < 3 + worldObj.rand.nextInt(2); i++) {
 							EntityLiving entity = null;
-							switch(worldObj.rand.nextInt(5)) {
+							switch(worldObj.rand.nextInt(2)) {
 							case 0 : {
 								entity = new EntityZombie(worldObj);
-								if(worldObj.rand.nextInt(8) == 0)
-									entity = new EntityPigZombie(worldObj);
+								if(worldObj.rand.nextInt(12) == 0)
+									entity = new EntityWitch(worldObj);
 								
 								break;
 							}
@@ -373,12 +373,6 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 									((EntitySkeleton) entity).setSkeletonType(1);
 									((EntitySkeleton) entity).setCurrentItemOrArmor(0, new ItemStack(Items.stone_sword));
 								}
-								break;
-							}
-							case 2 : {
-								entity = new EntitySpider(worldObj);
-								if(worldObj.rand.nextInt(8) == 0)
-									entity = new EntityCaveSpider(worldObj);
 								break;
 							}
 							case 3 : {
@@ -392,6 +386,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 							}
 							
 							if(entity != null) {
+								range = 6F;
 								entity.setPosition(source.posX + 0.5 + Math.random() * range - range / 2, posY - 1, source.posZ + 0.5 + Math.random() * range - range / 2);
 								worldObj.spawnEntityInWorld(entity);
 							}
