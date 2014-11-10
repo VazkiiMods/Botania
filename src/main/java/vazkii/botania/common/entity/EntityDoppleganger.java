@@ -387,7 +387,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 							
 							if(entity != null) {
 								range = 6F;
-								entity.setPosition(source.posX + 0.5 + Math.random() * range - range / 2, posY - 1, source.posZ + 0.5 + Math.random() * range - range / 2);
+								entity.setPosition(posX + 0.5 + Math.random() * range - range / 2, posY - 1, posZ + 0.5 + Math.random() * range - range / 2);
 								worldObj.spawnEntityInWorld(entity);
 							}
 						}
