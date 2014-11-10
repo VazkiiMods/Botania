@@ -11,6 +11,7 @@
  */
 package vazkii.botania.common.entity;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -41,6 +42,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	private static final int TRANSFER_RATE = 1000;
 	private static final String TAG_UPGRADE = "upgrade";
 	int removeTransferants = 2;
+	boolean didStartupParticles = false;
 
 	public EntitySpark(World world) {
 		super(world);
@@ -68,11 +70,41 @@ public class EntitySpark extends Entity implements ISparkEntity {
 			return;
 		}
 
+
+		List<ISparkEntity> allSparks = SparkHelper.getSparksAround(worldObj, posX, posY, posZ);
+		if(worldObj.isRemote && !didStartupParticles) {
+			for(ISparkEntity spark : allSparks) {
+				Entity e = (Entity) spark;
+				Vector3 orig = new Vector3(e.posX , e.posY + 0.25, e.posZ);
+				Vector3 end = new Vector3(posX, posY + 0.25, posZ);
+				Vector3 diff = end.copy().sub(orig);
+				Vector3 movement = diff.copy().normalize().multiply(0.05);
+				int iters = (int) (diff.mag() / movement.mag());
+				float huePer = 1F / iters;
+				float hueSum = (float) Math.random();
+
+				Vector3 currentPos = orig.copy();
+				for(int i = 0; i < iters; i++) {
+					float hue = i * huePer + hueSum;
+					Color color = Color.getHSBColor(hue, 1F, 1F);
+					float r = Math.min(1F, color.getRed() / 255F + 0.4F);
+					float g = Math.min(1F, color.getGreen() / 255F + 0.4F);
+					float b = Math.min(1F, color.getBlue() / 255F + 0.4F);
+
+					Botania.proxy.setSparkleFXNoClip(true);
+					Botania.proxy.sparkleFX(worldObj, currentPos.x, currentPos.y, currentPos.z, r, g, b, 0.6F, 12);
+					Botania.proxy.setSparkleFXNoClip(false);
+					currentPos.add(movement);
+				}
+			}
+
+			didStartupParticles = true;
+		}
+
 		Collection<ISparkEntity> transfers = getTransfers();
 
 		int upgrade = getUpgrade();
 		if(upgrade != 0) {
-			List<ISparkEntity> sparks = SparkHelper.getSparksAround(worldObj, posX, posY, posZ);
 			switch(upgrade) {
 			case 1 : { // Dispersive
 				List<EntityPlayer> players = SparkHelper.getEntitiesAround(EntityPlayer.class, worldObj, posX, posY, posZ);
@@ -126,7 +158,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 				break;
 			}
 			case 2 : { // Dominant
-				for(ISparkEntity spark : sparks) {
+				for(ISparkEntity spark : allSparks) {
 					if(spark == this)
 						continue;
 
@@ -137,7 +169,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 				break;
 			}
 			case 3 : { // Recessive
-				for(ISparkEntity spark : sparks) {
+				for(ISparkEntity spark : allSparks) {
 					if(spark == this)
 						continue;
 
@@ -202,17 +234,22 @@ public class EntitySpark extends Entity implements ISparkEntity {
 		if(stack != null) {
 			int upgrade = getUpgrade();
 			if(stack.getItem() == ModItems.twigWand) {
-				if(upgrade > 0) {
-					if(!worldObj.isRemote)
-						entityDropItem(new ItemStack(ModItems.sparkUpgrade, 1, upgrade - 1), 0F);
-					setUpgrade(0);
+				if(player.isSneaking()) {
+					if(upgrade > 0) {
+						if(!worldObj.isRemote)
+							entityDropItem(new ItemStack(ModItems.sparkUpgrade, 1, upgrade - 1), 0F);
+						setUpgrade(0);
 
-					dataWatcher.updateObject(29, "");
-					removeTransferants = 2;
-				} else setDead();
-				if(player.worldObj.isRemote)
-					player.swingItem();
-				return true;
+						dataWatcher.updateObject(29, "");
+						removeTransferants = 2;
+					} else setDead();
+					if(player.worldObj.isRemote)
+						player.swingItem();
+					return true;
+				} else {
+					didStartupParticles = false;
+					return true;
+				}
 			} else if(stack.getItem() == ModItems.sparkUpgrade && upgrade == 0) {
 				int newUpgrade = stack.getItemDamage() + 1;
 				setUpgrade(newUpgrade);
