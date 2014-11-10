@@ -1,3 +1,10 @@
+r1.3 135
+*Added some more info to the Spark page.
+*Fixed the terrasteel plate not being in the creative tab.
+*Fixed the terrasteel plate not taking the player to the Terrasteel entry when shift-right clicked with the lexicon.
+*Removing sparks is now done via shift-right click, normal right click now shows which sparks it can connect to.
+*The Gaia Guardian now spawns a few less mobs and spawns them in a smaller radius. It won't spawn pig zombies or spiders any more, but you might get witches.
+*When a spark is placed in the world it displays what sparks it can connect to, this can be duplicated by right clicking it with a wand.
 r1.3 134
 *Fixed crash when looking at a mana pool if dark quartz is disabled in the config.
 *Fixed the terrasteel plate taking mana from spreaders even if it isn't active.
