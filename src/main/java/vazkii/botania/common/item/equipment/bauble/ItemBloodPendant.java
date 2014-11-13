@@ -131,8 +131,9 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 			boolean doRand = cost < 1;
 			if(ManaItemHandler.requestManaExact(stack, eplayer, (int) Math.ceil(cost), false)) {
 				PotionEffect currentEffect = player.getActivePotionEffect(Potion.potionTypes[effect.getPotionID()]);
-				if(currentEffect == null || currentEffect.getDuration() < 3) {
-					PotionEffect applyEffect = new PotionEffect(effect.getPotionID(), 80, effect.getAmplifier());
+				boolean nightVision = effect.getPotionID() == Potion.nightVision.id;
+				if(currentEffect == null || currentEffect.getDuration() < (nightVision ? 205 : 3)) {
+					PotionEffect applyEffect = new PotionEffect(effect.getPotionID(), nightVision ? 285 : 80, effect.getAmplifier());
 					player.addPotionEffect(applyEffect);
 				}
 
