@@ -1832,7 +1832,7 @@ botania.page.starfield1=Twinkle twinkle
 # -- THAUMCRAFT INTEGRATION
 botania.entry.tcIntegration=Thaumcraft Integration
 botania.page.tcIntegration0=Often enough, the paths of &4Botany&0 and &4Thaumaturgy&0 cross together. Mixing some of the artifacts mentioned in this book as well as any from the school of &5Thaumcraft&0 can allow for combinations of these to form.
-botania.page.tcIntegration1=First and foremost, combining any of the &1Mana Metal&0 helms with a set of &1Goggles of Revealing&0 allows for a combination of both.<br>The protection and regenerability of the armor works alongside the Goggles' abilities, but the &4Vis&0 discount is loss. 
+botania.page.tcIntegration1=First and foremost, combining any of the &1Mana Metal&0 helms with a set of &1Goggles of Revealing&0 allows for a combination of both.<br>The protection and regenerability of the armor works alongside the Goggles' abilities, but the &4Vis&0 discount is lost. 
 botania.page.tcIntegration2=Helmets of Revealing (works with any Botania helm)
 botania.page.tcIntegration3=Carrying on, &4Mana&0 can also serve as an interesting type of Ink. Infusing a set of black &1Scribing Tools&0 with &4Mana&0 from a &1Mana Pool&0 allows for them to use said &4Mana&0 as their source of color.<br>Refilling these tools works similarly to a &1Mana Tablet&0, done by tossing it on top of the pool.
 botania.page.tcIntegration4=Making the &1Botanurgist's Inkwell
