@@ -1531,7 +1531,7 @@ botania.page.vineBall3=...if that actually existed.
 
 # -- SHARD OF LAPUTA
 botania.entry.laputaShard=Shard of Laputa
-botania.page.laputaShard0=Via a somewhat complex magic activation sequence, combining a few interesting resources, including &1Gaia Spirits&0 would allow one to create a shard that, when used on the ground, will allow one to lift a spherical area around that point up into the air.<br>This process consumes the shard and can take upwards of ten minutes depending on the mass of land.
+botania.page.laputaShard0=Via a somewhat complex magic activation sequence, combining a few interesting resources, including &1Gaia Spirits&0 would allow one to create a shard that, when used on the ground, will lift an almost spherical area around that point up into the air.<br>This process consumes the shard and can take upwards of ten minutes depending on the mass of land.
 botania.page.laputaShard2=The radius of the island creates start at 14 blocks, on other words, 28 blocks of diameter. It's possible to increase the size by upgrading the shard with additional &1Gaia Spirits&0, each one adds 1 block to the radius, or 2 to the diameter.
 botania.page.laputaShard1=Look Shiro, Laputa exists!
 botania.page.laputaShard3=Size does matter
@@ -1671,7 +1671,7 @@ botania.page.superTravelBelt1=No time for guessing, follow my plan instead
 # -- THE SPECTATOR
 botania.entry.itemFinder=The Spectator
 botania.page.itemFinder0=&1The Spectator&0 is a headband that allows the wearer to have a better perception of the world. While holding an item, any &4containers&0 (chests, minecarts, donkeys with chests, furnaces, etc...) that have an item of that type, &4dropped items&0 of that type, &4mobs&0 who have that item equipped &o(...)&r
-botania.page.itemFinder1=&o(...)&r &4players&0 who have the item in their inventory and &4villagers&0 who want to trade either with or for that item will shine with a green glow, allowing them to be easily spotted.<br>While sneaking, all dropped items around the wearer will shine, regardless of the item.
+botania.page.itemFinder1=&o(...)&r &4players&0 who have the item in their inventory and &4villagers&0 who want to trade either with or for that item will shine with a colorful glow, allowing them to be easily spotted.<br>While sneaking, all dropped items around the wearer will shine, regardless of the item.
 botania.page.itemFinder2=Do you hear their voices?
 
 # -- CRIMSON PENDANT
@@ -1819,7 +1819,7 @@ botania.page.headCreating1=Get your head in the game
 
 # -- AZULEJO -- http://en.wikipedia.org/wiki/Azulejo
 botania.entry.azulejo=Azulejos
-botania.page.azulejo0=&1Azulejos&0 are a type of decorative block, simply put, they are tileable patterns of blue and white. To create them, one would simply mix a piece of &1Lapis Lazulli&0 with a &1Block of Quartz&0.<br>From there, placing it in the crafting grid allows for cycling between the twelve different patterns.
+botania.page.azulejo0=&1Azulejos&0 are a type of decorative block, simply put, they are tileable patterns of blue and white. To create them, one would simply mix a piece of &1Lapis Lazuli&0 with a &1Block of Quartz&0.<br>From there, placing it in the crafting grid allows for cycling between the twelve different patterns.
 botania.page.azulejo1=The various patterns
 botania.page.azulejo2=Crafting a block of &1Azulejo&0
 botania.page.azulejo3=Cycling between the patterns
