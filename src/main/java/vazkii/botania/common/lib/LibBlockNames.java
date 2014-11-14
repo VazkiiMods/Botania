@@ -61,6 +61,7 @@ public final class LibBlockNames {
 	public static final String BREWERY = "brewery";
 	public static final String MANA_GLASS = "manaGlass";
 	public static final String TERRA_PLATE = "terraPlate";
+	public static final String RED_STRING_CONTAINER = "redStringContainer";
 
 	public static final String SUBTILE_PUREDAISY = "puredaisy";
 	public static final String SUBTILE_MANASTAR = "manastar";
