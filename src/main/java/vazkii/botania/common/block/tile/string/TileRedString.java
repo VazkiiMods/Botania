@@ -47,6 +47,7 @@ public abstract class TileRedString extends TileMod implements ITileBound {
 				setBinding(new ChunkCoordinates(x, y, z));
 				if((currBinding == null || currBinding.posX != x || currBinding.posY != y || currBinding.posZ != z))
 					onBound(x, y, z);
+				break;
 			}
 		}
 	}
