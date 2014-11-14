@@ -133,9 +133,7 @@ public class InventoryHelper {
 		if(inventory instanceof ISidedInventory)
 			availableSlots = ((ISidedInventory) inventory).getAccessibleSlotsFromSide(side.ordinal());
 		else {
-			availableSlots = new int[slotCount];
-			for(int i = 0; i < slotCount; i++)
-				availableSlots[i] = i;
+			availableSlots = buildSlotsForLinearInventory(inventory);
 		}
 
 		for(int i : availableSlots) {
@@ -200,6 +198,14 @@ public class InventoryHelper {
 		return inventory;
 	}
 
+    public static int[] buildSlotsForLinearInventory(IInventory inv) {
+        int[] slots = new int[inv.getSizeInventory()];
+        for (int i = 0; i < slots.length; i++)
+            slots[i] = i;
+
+        return slots;
+    }
+	
 	public static class GenericInventory implements IInventory {
 
 		protected String inventoryTitle;

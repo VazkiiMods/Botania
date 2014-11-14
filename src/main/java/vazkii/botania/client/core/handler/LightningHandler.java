@@ -60,9 +60,12 @@ public class LightningHandler {
 	@SubscribeEvent
 	public void onRenderWorldLast(RenderWorldLastEvent event) {
 		Profiler profiler = Minecraft.getMinecraft().mcProfiler;
+		
 		profiler.startSection("botania-particles");
 		ParticleRenderDispatcher.dispatch();
-		profiler.startSection("lightning");
+		profiler.startSection("redString");
+		RedStringRenderer.renderAll();
+		profiler.endStartSection("lightning");
 
 		float frame = event.partialTicks;
 		Entity entity = Minecraft.getMinecraft().thePlayer;

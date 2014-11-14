@@ -12,6 +12,7 @@
 package vazkii.botania.common.block.tile.string;
 
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.wand.ITileBound;
@@ -28,6 +29,9 @@ public abstract class TileRedString extends TileMod implements ITileBound {
 		int y = yCoord;
 		int z = zCoord;
 		int range = getRange();
+		ChunkCoordinates currBinding = getBinding();
+		setBinding(null);
+		
 		for(int i = 0; i < range; i++) {
 			x += dir.offsetX;
 			y += dir.offsetY;
@@ -39,9 +43,10 @@ public abstract class TileRedString extends TileMod implements ITileBound {
 			if(tile instanceof TileRedString)
 				continue;
 			
-			if(acceptBlock(x, y, z) && (binding == null || binding.posX != x || binding.posY != y || binding.posZ != z)) {
-				binding = new ChunkCoordinates(x, y, z);
-				onBound(x, y, z);
+			if(acceptBlock(x, y, z)) {
+				setBinding(new ChunkCoordinates(x, y, z));
+				if((currBinding == null || currBinding.posX != x || currBinding.posY != y || currBinding.posZ != z))
+					onBound(x, y, z);
 			}
 		}
 	}
@@ -55,10 +60,24 @@ public abstract class TileRedString extends TileMod implements ITileBound {
 	public void onBound(int x, int y, int z) {
 		// NO-OP
 	}
+	
+	@Override
+	public AxisAlignedBB getRenderBoundingBox() {
+		return INFINITE_EXTENT_AABB;
+	}
 
 	@Override
 	public ChunkCoordinates getBinding() {
 		return binding;
+	}
+	
+	public void setBinding(ChunkCoordinates binding) {
+		this.binding = binding;
+	}
+	
+	public TileEntity getTileAtBinding() {
+		ChunkCoordinates binding = getBinding();
+		return binding == null ? null : worldObj.getTileEntity(binding.posX, binding.posY, binding.posZ);
 	}
 
 }
