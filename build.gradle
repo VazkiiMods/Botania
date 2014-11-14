@@ -115,7 +115,16 @@ task incrementBuildNumber(dependsOn: 'reobf') << {
 task forgecraft(type: Copy) {
     dependsOn "build"
     from jar.archivePath
-    into config.dir.forgecraft
+    into file(config.dir.forgecraft).absolutePath
+}
+
+/**
+ * Copy over to the Output dir
+ */
+task output(type: Copy) {
+    dependsOn "build"
+    from jar.archivePath
+    into config.dir.output
 }
 
 /**
@@ -177,4 +186,4 @@ jar {
 
 //change this so it only increments on upload
 upload.dependsOn tasks.incrementBuildNumber
-defaultTasks 'clean', 'build', 'forgecraft', 'upload' //remove clean if you want faster builds, this will stop rare inconsistancies.
+defaultTasks 'clean', 'build', 'output', 'forgecraft', 'upload' //remove clean if you want faster builds, this will stop rare inconsistancies.
