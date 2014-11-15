@@ -493,6 +493,8 @@ tile.botania:elfGlass.name=Alfglass
 tile.botania:brewery.name=Botanical Brewery
 tile.botania:manaGlass.name=Managlass
 tile.botania:terraPlate.name=Terrestrial Agglomeration Plate
+tile.botania:redStringContainer.name=Red Stringed Container
+tile.botania:redStringDispenser.name=Red Stringed Dispenser
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
