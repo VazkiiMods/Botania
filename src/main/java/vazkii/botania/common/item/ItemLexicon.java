@@ -147,8 +147,9 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	public void onUpdate(ItemStack stack, World world, Entity entity, int idk, boolean something) {
 		int ticks = getQueueTicks(stack);
 		if(ticks > 0 && entity instanceof EntityPlayer) {
-			skipSound = ticks < 3;
-			onItemRightClick(stack, world, (EntityPlayer) entity);
+			skipSound = ticks < 5;
+			if(ticks == 1)
+				onItemRightClick(stack, world, (EntityPlayer) entity);
 
 			setQueueTicks(stack, ticks - 1);
 		}

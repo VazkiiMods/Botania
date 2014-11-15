@@ -39,7 +39,7 @@ public class CommandOpen extends CommandBase {
 			ItemStack stack = player.getCurrentEquippedItem();
 			if(stack != null && stack.getItem() instanceof ItemLexicon) {
 				ItemLexicon.setForcedPage(stack, args[0]);
-				ItemLexicon.setQueueTicks(stack, 3);
+				ItemLexicon.setQueueTicks(stack, 5);
 			} else sender.addChatMessage(new ChatComponentTranslation("botaniamisc.noLexicon").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
 		}
 	}
