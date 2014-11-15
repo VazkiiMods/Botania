@@ -56,12 +56,11 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 			}
 		}
 
-		if(!hasWater) {
+		if(!hasWater()) {
 			if(stack.getItem() == Items.water_bucket && !worldObj.isRemote) {
-				hasWater = true;
+				setWater(true);
 				worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 				stack.func_150996_a(Items.bucket); // Set item
-				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 			} else return false;
 		}
 
@@ -103,7 +102,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 					}
 
 					craftingFanciness();
-					hasWater = false;
+					setWater(false);
 					worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 					didChange = true;
 					break;
@@ -157,7 +156,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 	public void writeCustomNBT(NBTTagCompound cmp) {
 		super.writeCustomNBT(cmp);
 
-		cmp.setBoolean(TAG_HAS_WATER, hasWater);
+		cmp.setBoolean(TAG_HAS_WATER, hasWater());
 		cmp.setBoolean(TAG_IS_MOSSY, isMossy);
 	}
 
@@ -207,6 +206,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 	@Override
 	public void setWater(boolean water) {
 		hasWater = water;
+		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 	}
 
 	@Override
