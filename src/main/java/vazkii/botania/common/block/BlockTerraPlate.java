@@ -51,7 +51,7 @@ public class BlockTerraPlate extends BlockModContainer implements ILexiconable {
 	
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[4];
+		icons = new IIcon[3];
 		for(int i = 0; i < icons.length; i++)
 			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
 		overlay = IconHelper.forBlock(par1IconRegister, this, "Overlay");
