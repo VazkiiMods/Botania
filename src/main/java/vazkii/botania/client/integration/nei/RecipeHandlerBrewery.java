@@ -112,10 +112,12 @@ public class RecipeHandlerBrewery extends TemplateRecipeHandler {
 
 	@Override
 	public void loadUsageRecipes(ItemStack ingredient) {
-		if (ingredient.getItem() instanceof IBrewContainer)
-			for (RecipeBrew recipe : BotaniaAPI.brewRecipes)
-				this.arecipes.add(new CachedBreweryRecipe(recipe, ingredient));
-		else
+		if (ingredient.getItem() instanceof IBrewContainer) {
+			for(RecipeBrew recipe : BotaniaAPI.brewRecipes) {
+				if(recipe.getOutput(ingredient) != null)
+					this.arecipes.add(new CachedBreweryRecipe(recipe, ingredient));
+			}
+		} else
 			for (RecipeBrew recipe : BotaniaAPI.brewRecipes) {
 				CachedBreweryRecipe crecipe = new CachedBreweryRecipe(recipe);
 				if (crecipe.contains(crecipe.inputs, ingredient))
