@@ -31,9 +31,11 @@ public final class LibOreDict {
 	public static final String DRAGONSTONE = "elvenDragonstone";
 	public static final String PRISMARINE_SHARD = "shardPrismarine";
 	public static final String PLACEHOLDER = "bPlaceholder";
+	public static final String RED_STRING = "bRedString";
+
 	public static final String VIAL = "bVial";
 	public static final String FLASK = "bFlask";
-
+	
 	public static final String[] FLOWER = new String[] {
 		"mysticFlowerWhite", "mysticFlowerOrange", "mysticFlowerMagenta", "mysticFlowerLightBlue", "mysticFlowerYellow", "mysticFlowerLime", "mysticFlowerPink", "mysticFlowerGray", "mysticFlowerLightGray", "mysticFlowerCyan", "mysticFlowerPurple", "mysticFlowerBlue", "mysticFlowerBrown", "mysticFlowerGreen", "mysticFlowerRed", "mysticFlowerBlack",
 	};

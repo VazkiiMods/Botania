@@ -139,6 +139,7 @@ public final class LibItemNames {
 		"pixieDust",
 		"dragonstone",
 		"prismarineShard",
-		"placeholder"
+		"placeholder",
+		"redString"
 	};
 }
