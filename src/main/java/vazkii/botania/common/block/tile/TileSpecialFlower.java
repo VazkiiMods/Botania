@@ -17,6 +17,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.IIcon;
 import vazkii.botania.api.BotaniaAPI;
@@ -24,6 +25,7 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.ISubTileContainer;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.wand.IWandBindable;
+import vazkii.botania.common.block.tile.string.TileRedStringRelay;
 
 public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTileContainer {
 
@@ -63,8 +65,28 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 
 	@Override
 	public void updateEntity() {
-		if(subTile != null)
+		if(subTile != null) {
+			TileEntity tileBelow = worldObj.getTileEntity(xCoord, yCoord - 1, zCoord);
+			if(tileBelow instanceof TileRedStringRelay) {
+				ChunkCoordinates coords = ((TileRedStringRelay) tileBelow).getBinding();
+				if(coords != null) {
+					int currX = xCoord;
+					int currY = yCoord;
+					int currZ = zCoord;
+					xCoord = coords.posX;
+					yCoord = coords.posY;
+					zCoord = coords.posZ;
+					subTile.onUpdate();
+					xCoord = currX;
+					yCoord = currY;
+					zCoord = currZ;
+					
+					return;
+				}
+			}
+			
 			subTile.onUpdate();
+		}
 	}
 
 	@Override

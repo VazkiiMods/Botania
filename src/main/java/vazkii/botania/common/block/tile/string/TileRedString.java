@@ -26,7 +26,7 @@ public abstract class TileRedString extends TileMod implements ITileBound {
 
 	@Override
 	public void updateEntity() {
-		ForgeDirection dir = ForgeDirection.getOrientation(getBlockMetadata());
+		ForgeDirection dir = getOrientation();
 		int x = xCoord;
 		int y = yCoord;
 		int z = zCoord;
@@ -76,6 +76,10 @@ public abstract class TileRedString extends TileMod implements ITileBound {
 	
 	public void setBinding(ChunkCoordinates binding) {
 		this.binding = binding;
+	}
+	
+	public ForgeDirection getOrientation() {
+		return ForgeDirection.getOrientation(getBlockMetadata());
 	}
 	
 	public TileEntity getTileAtBinding() {

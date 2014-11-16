@@ -70,9 +70,11 @@ import vazkii.botania.common.block.decor.stairs.prismarine.BlockPrismarineBrickS
 import vazkii.botania.common.block.decor.stairs.prismarine.BlockPrismarineStairs;
 import vazkii.botania.common.block.dispenser.BehaviourSeeds;
 import vazkii.botania.common.block.dispenser.BehaviourWand;
+import vazkii.botania.common.block.string.BlockRedStringComparator;
 import vazkii.botania.common.block.string.BlockRedStringContainer;
 import vazkii.botania.common.block.string.BlockRedStringDispenser;
 import vazkii.botania.common.block.string.BlockRedStringFertilizer;
+import vazkii.botania.common.block.string.BlockRedStringRelay;
 import vazkii.botania.common.block.subtile.SubTileManastar;
 import vazkii.botania.common.block.subtile.SubTilePureDaisy;
 import vazkii.botania.common.block.subtile.functional.SubTileAgricarnation;
@@ -131,9 +133,11 @@ import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.block.tile.mana.TileRFGenerator;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.block.tile.mana.TileTurntable;
+import vazkii.botania.common.block.tile.string.TileRedStringComparator;
 import vazkii.botania.common.block.tile.string.TileRedStringContainer;
 import vazkii.botania.common.block.tile.string.TileRedStringDispenser;
 import vazkii.botania.common.block.tile.string.TileRedStringFertilizer;
+import vazkii.botania.common.block.tile.string.TileRedStringRelay;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -191,6 +195,8 @@ public final class ModBlocks {
 	public static Block redStringContainer;
 	public static Block redStringDispenser;
 	public static Block redStringFertilizer;
+	public static Block redStringComparator;
+	public static Block redStringRelay;
 
 	public static Block livingwoodStairs;
 	public static Block livingwoodSlab;
@@ -316,6 +322,8 @@ public final class ModBlocks {
 		redStringContainer = new BlockRedStringContainer();
 		redStringDispenser = new BlockRedStringDispenser();
 		redStringFertilizer = new BlockRedStringFertilizer();
+		redStringComparator = new BlockRedStringComparator();
+		redStringRelay = new BlockRedStringRelay();
 		
 		livingwoodStairs = new BlockLivingwoodStairs();
 		livingwoodSlab = new BlockLivingwoodSlab(false);
@@ -499,6 +507,8 @@ public final class ModBlocks {
 		registerTile(TileRedStringContainer.class, LibBlockNames.RED_STRING_CONTAINER);
 		registerTile(TileRedStringDispenser.class, LibBlockNames.RED_STRING_DISPENSER);
 		registerTile(TileRedStringFertilizer.class, LibBlockNames.RED_STRING_FERTILIZER);
+		registerTile(TileRedStringComparator.class, LibBlockNames.RED_STRING_COMPARATOR);
+		registerTile(TileRedStringRelay.class, LibBlockNames.RED_STRING_RELAY);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MANASTAR, SubTileManastar.class);
