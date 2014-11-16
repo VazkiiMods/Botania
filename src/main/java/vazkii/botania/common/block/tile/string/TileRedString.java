@@ -11,6 +11,8 @@
  */
 package vazkii.botania.common.block.tile.string;
 
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChunkCoordinates;
@@ -79,6 +81,11 @@ public abstract class TileRedString extends TileMod implements ITileBound {
 	public TileEntity getTileAtBinding() {
 		ChunkCoordinates binding = getBinding();
 		return binding == null ? null : worldObj.getTileEntity(binding.posX, binding.posY, binding.posZ);
+	}
+	
+	public Block getBlockAtBinding() {
+		ChunkCoordinates binding = getBinding();
+		return binding == null ? Blocks.air : worldObj.getBlock(binding.posX, binding.posY, binding.posZ);
 	}
 
 }
