@@ -44,6 +44,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class TileRuneAltar extends TileSimpleInventory implements ISidedInventory, IManaReceiver {
 
 	private static final String TAG_MANA = "mana";
+	private static final String TAG_MANA_TO_GET = "manaToGet";
 
 	public int manaToGet = 0;
 	int mana = 0;
@@ -210,6 +211,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 		super.writeCustomNBT(par1nbtTagCompound);
 
 		par1nbtTagCompound.setInteger(TAG_MANA, mana);
+		par1nbtTagCompound.setInteger(TAG_MANA_TO_GET, manaToGet);
 	}
 
 	@Override
@@ -217,6 +219,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 		super.readCustomNBT(par1nbtTagCompound);
 
 		mana = par1nbtTagCompound.getInteger(TAG_MANA);
+		manaToGet = par1nbtTagCompound.getInteger(TAG_MANA_TO_GET);
 	}
 
 	@Override
