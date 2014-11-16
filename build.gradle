@@ -23,11 +23,12 @@ repositories {
 }
 
 apply plugin: 'forge'
+apply plugin: 'curseforge'
 
 ext.configFile = file('build.properties')
 
 ext.config = parseConfig(configFile)
-ext.ftp = parseConfig(file('ftp.properties'))
+ext.priv = parseConfig(file('private.properties'))
 
 version = "${config.version}-${config.build_number}"
 group = "vazkii.botania" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
@@ -160,9 +161,9 @@ void ftp(Map args, Closure antFileset = {}) {
                 classpath: configurations.ftpAntTask.asPath)
         Map ftpArgs = args + [ //some default options
                                verbose : 'yes',
-                               server  : ftp.host,
-                               userid  : ftp.user,
-                               password: ftp.pass
+                               server  : priv.host,
+                               userid  : priv.user,
+                               password: priv.pass
         ]
         delegate.ftp(ftpArgs) {
             antFileset.delegate = delegate
@@ -177,6 +178,15 @@ def parseConfig(File config) {
         prop.load(it)
         return (new ConfigSlurper().parse(prop))
     }
+}
+
+curse {
+    apiKey = priv.cfkey
+    projectId = "225643"
+    changelog = """
+		See http://vazkii.us/mod/Botania/changelog.php#${version}
+    """
+    releaseType = "release"
 }
 
 jar {
