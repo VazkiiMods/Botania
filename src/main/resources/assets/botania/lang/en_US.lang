@@ -496,7 +496,8 @@ tile.botania:terraPlate.name=Terrestrial Agglomeration Plate
 tile.botania:redStringContainer.name=Red Stringed Container
 tile.botania:redStringDispenser.name=Red Stringed Dispenser
 tile.botania:redStringFertilizer.name=Red Stringed Nutrifier
-tile.botania:redStringDetonator.name=Red Stringed Detonator
+tile.botania:redStringComparator.name=Red Stringed Comparator
+tile.botania:redStringRelay.name=Red Stringed Effector
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
