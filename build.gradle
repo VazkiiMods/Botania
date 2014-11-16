@@ -196,4 +196,4 @@ jar {
 
 //change this so it only increments on upload
 upload.dependsOn tasks.incrementBuildNumber
-defaultTasks 'clean', 'build', 'output', 'forgecraft', 'upload' //remove clean if you want faster builds, this will stop rare inconsistancies.
+defaultTasks 'clean', 'build', 'output', 'forgecraft', 'curse', 'upload' //remove clean if you want faster builds, this will stop rare inconsistancies.
