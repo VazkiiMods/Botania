@@ -120,6 +120,7 @@ public final class LexiconData {
 	public static LexiconEntry enderEyeBlock;
 	public static LexiconEntry brewery;
 	public static LexiconEntry flasks;
+	public static LexiconEntry redString;
 
 	public static LexiconEntry manaBlaster;
 	public static LexiconEntry grassSeeds;
@@ -469,6 +470,14 @@ public final class LexiconData {
 		
 		flasks = new ALexiconEntry(LibLexicon.DEVICE_FLASKS, categoryDevices);
 		flasks.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeFlask));
+		
+		redString = new ALexiconEntry(LibLexicon.DEVICE_RED_STRING, categoryDevices);
+		redString.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeRedString),
+				new PageText("3"), new PageCraftingRecipe("4", ModCraftingRecipes.recipeRedStringContainer),
+				new PageText("5"), new PageCraftingRecipe("6", ModCraftingRecipes.recipeRedStringDispenser),
+				new PageText("7"), new PageCraftingRecipe("8", ModCraftingRecipes.recipeRedStringFertilizer),
+				new PageText("9"), new PageCraftingRecipe("10", ModCraftingRecipes.recipeRedStringComparator),
+				new PageText("11"), new PageCraftingRecipe("12", ModCraftingRecipes.recipeRedStringRelay));
 		
 		// TOOLS ENTRIES
 		manaBlaster = new BLexiconEntry(LibLexicon.TOOL_MANA_BLASTER, categoryTools);

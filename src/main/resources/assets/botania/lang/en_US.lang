@@ -1404,6 +1404,22 @@ botania.entry.enderEyeBlock=Ender Overseer
 botania.page.enderEyeBlock0=The eyes of an &4Enderman&0 have an interesting sensitivity to being watched. A block out of these will simply output a &4redstone signal&0 if a player within a 64 block radius is looking directly at it.<br>Of course, wearing a &1Pumpkin&0 negates this effect.
 botania.page.enderEyeBlock1=MY BRAND
 
+# -- RED STRING
+botania.entry.redString=Red String
+botania.page.redString0=Lore says the Gods tie a red string around the ankles of people who are supposed to affect eachothers lives. This led inventors to come up with a way of connecting blocks over the air, called, of course, &1Red String&0. Blocks created with this exquisite material can face in all 6 basic directions and bind to the first available and compatible block they can find, given a range.
+botania.page.redString1=Each &4Red Stringed&0 block has a different criteria to what it'll bind to, but the distance in which they'll bind stays constant between the variations. The string can be viewed, if a block is bound, by holding a &1Wand of the Forest&0.<br>Blocks being in the way will not break the connection. Lastly, &1Red String&0 blocks can't be chained.
+botania.page.redString2=Are you in a pinch?
+botania.page.redString3=Starting off, the &1Red Stringed Container&0 will bind to any inventory (&1Chests&0, &1Furnaces&0, &1Hoppers&0, etc), items can be put into it using &1Hoppers&0 or any other means of insertion. The items will end up in the block it's bound to, and will enter from the same side as they were put on the &1Red Stringed Container&0 itself.
+botania.page.redString4=The &1Red Stringed Container&0.
+botania.page.redString5=The &1Red Stringed Dispenser&0 can be bound to &1Dispensers&0 or &1Droppers&0, it functions similarly to the &1Red Stringed Container&0 where items can also be placed in the bound block through it. When a redstone signal is given to it, the &1Dispenser&0 or &1Dropper&0 in the end will fire.
+botania.page.redString6=The &1Red Stringed Dispenser&0.
+botania.page.redString7=The &1Red Stringed Nutrifier&0 can be bound to any block that can be fertilized with &1Bone Meal&0. Using &1Bone Meal&0 on the block will fertilize the bound block instead.
+botania.page.redString8=The &1Red Stringed Nutrifier&0.
+botania.page.redString9=The &1Red Stringed Comparator&0 can be bound to any block whose status can be read with a &1Container&0, such as &1Chests&0, &1Mana Pools&0, &1Runic Altars&0, etc. Placing a &1Comparator&0 pointing outwards of this block will send the signal equal to the signal a &1Comparator&0 would send on the bound block.
+botania.page.redString10=The &1Red Stringed Comparator&0.
+botania.page.redString11=Lastly, the &1Red Stringed Spoofer&0 is an interesting one. Any flower with an effect can be placed on it. The block will bind to any flowers. While there's a flower on top of the block, that flower will not do anything, but the bound block will take all of that flower's properties and work as if it was the flower itself.
+botania.page.redString12=The &1Red Stringed Spoofer&0.
+
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
 botania.entry.manaBlaster=Mana Blaster

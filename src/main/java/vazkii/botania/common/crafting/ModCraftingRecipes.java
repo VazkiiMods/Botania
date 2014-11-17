@@ -30,6 +30,7 @@ import vazkii.botania.common.item.ItemLens;
 import vazkii.botania.common.item.ItemSignalFlare;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibOreDict;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -202,6 +203,12 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeBrewery;
 	public static IRecipe recipeBloodPendant;
 	public static IRecipe recipeTerraPlate;
+	public static IRecipe recipeRedString;
+	public static IRecipe recipeRedStringContainer;
+	public static IRecipe recipeRedStringDispenser;
+	public static IRecipe recipeRedStringFertilizer;
+	public static IRecipe recipeRedStringComparator;
+	public static IRecipe recipeRedStringRelay;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1286,6 +1293,52 @@ public final class ModCraftingRecipes {
 				'3', LibOreDict.RUNE[3],
 				'8', LibOreDict.RUNE[8]);
 		recipeTerraPlate = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Red String Recipe
+		addShapelessOreDictRecipe(new ItemStack(ModItems.manaResource, 1, 12), new ItemStack(Items.string), new ItemStack(Blocks.redstone_block), LibOreDict.PIXIE_DUST);
+		recipeRedString = BotaniaAPI.getLatestAddedRecipe();
+		// Are you in a pinch?
+		addShapelessOreDictRecipe(new ItemStack(ModItems.manaResource, 1, 12), new ItemStack(Items.string), new ItemStack(Blocks.redstone_block), LibOreDict.PIXIE_DUST, new ItemStack(Blocks.pumpkin));
+
+		// Red String Container Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.redStringContainer),
+				"RRR", "RCS", "RRR",
+				'R', LibOreDict.LIVING_ROCK,
+				'S', LibOreDict.RED_STRING,
+				'C', new ItemStack(Blocks.chest));
+		recipeRedStringContainer = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Red String Dispenser Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.redStringDispenser), 
+				"RRR", "RDS", "RRR",
+				'R', LibOreDict.LIVING_ROCK,
+				'S', LibOreDict.RED_STRING,
+				'D', new ItemStack(Blocks.dispenser));
+		recipeRedStringDispenser = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Red String Fertilizer Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.redStringFertilizer), 
+				"RRR", "RBS", "RRR",
+				'R', LibOreDict.LIVING_ROCK,
+				'S', LibOreDict.RED_STRING,
+				'B', new ItemStack(ModItems.fertilizer));
+		recipeRedStringFertilizer = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Red String Comparator Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.redStringComparator), 
+				"RRR", "RCS", "RRR",
+				'R', LibOreDict.LIVING_ROCK,
+				'S', LibOreDict.RED_STRING,
+				'C', new ItemStack(Items.comparator));
+		recipeRedStringComparator = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Red String Spoofer Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.redStringRelay), 
+				"RRR", "RMS", "RRR",
+				'R', LibOreDict.LIVING_ROCK,
+				'S', LibOreDict.RED_STRING,
+				'M', new ItemStack(ModBlocks.spreader));
+		recipeRedStringRelay = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

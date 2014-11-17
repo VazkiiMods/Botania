@@ -15,15 +15,19 @@ import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import vazkii.botania.api.lexicon.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.block.tile.string.TileRedString;
+import vazkii.botania.common.lexicon.LexiconData;
 
-public abstract class BlockRedString extends BlockModContainer<TileRedString> {
+public abstract class BlockRedString extends BlockModContainer<TileRedString> implements ILexiconable {
 
 	IIcon senderIcon;
 	IIcon sideIcon;
@@ -55,6 +59,11 @@ public abstract class BlockRedString extends BlockModContainer<TileRedString> {
 	@Override
 	public IIcon getIcon(int side, int meta) {
 		return side == meta ? senderIcon : sideIcon;
+	}
+	
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return LexiconData.redString;
 	}
 	
 }

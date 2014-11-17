@@ -101,6 +101,7 @@ public final class LibLexicon {
 	public static final String DEVICE_ENDER_EYE_BLOCK = "enderEyeBlock";
 	public static final String DEVICE_BREWERY = "brewery";
 	public static final String DEVICE_FLASKS = "flasks";
+	public static final String DEVICE_RED_STRING = "redString";
 
 	public static final String TOOL_MANA_BLASTER = "manaBlaster";
 	public static final String TOOL_GRASS_SEEDS = "grassSeeds";
@@ -128,7 +129,7 @@ public final class LibLexicon {
 	public static final String TOOL_DIVINING_ROD = "diviningRod";
 	public static final String TOOL_GRAVITY_ROD = "gravityRod";
 	public static final String TOOL_REGEN_IVY = "regenIvy";
-
+	
 	public static final String BAUBLE_INTRO = "bIntro";
 	public static final String BAUBLE_TINY_PLANET = "tinyPlanet";
 	public static final String BAUBLE_MANA_RING = "manaRing";
