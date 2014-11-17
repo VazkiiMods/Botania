@@ -87,7 +87,10 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 	}
 
 	public static ItemStack ofType(String type) {
-		ItemStack stack = new ItemStack(ModBlocks.specialFlower);
+		return ofType(new ItemStack(ModBlocks.specialFlower), type);
+	}
+	
+	public static ItemStack ofType(ItemStack stack, String type) {
 		ItemNBTHelper.setString(stack, SubTileEntity.TAG_TYPE, type);
 		return stack;
 	}

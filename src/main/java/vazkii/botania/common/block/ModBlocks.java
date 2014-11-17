@@ -25,7 +25,7 @@ import vazkii.botania.common.block.decor.BlockCustomBrick;
 import vazkii.botania.common.block.decor.BlockElfGlass;
 import vazkii.botania.common.block.decor.BlockManaBeacon;
 import vazkii.botania.common.block.decor.BlockManaGlass;
-import vazkii.botania.common.block.decor.BlockMiniIsland;
+import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.decor.BlockPrismarine;
 import vazkii.botania.common.block.decor.BlockReeds;
 import vazkii.botania.common.block.decor.BlockSeaLamp;
@@ -113,9 +113,10 @@ import vazkii.botania.common.block.tile.TileBrewery;
 import vazkii.botania.common.block.tile.TileCraftCrate;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.block.tile.TileEnderEye;
+import vazkii.botania.common.block.tile.TileFloatingSpecialFlower;
 import vazkii.botania.common.block.tile.TileForestEye;
 import vazkii.botania.common.block.tile.TileManaBeacon;
-import vazkii.botania.common.block.tile.TileMiniIsland;
+import vazkii.botania.common.block.tile.TileFloatingFlower;
 import vazkii.botania.common.block.tile.TileOpenCrate;
 import vazkii.botania.common.block.tile.TilePlatform;
 import vazkii.botania.common.block.tile.TilePylon;
@@ -179,7 +180,7 @@ public final class ModBlocks {
 	public static Block buriedPetals;
 	public static Block prismarine;
 	public static Block seaLamp;
-	public static Block miniIsland;
+	public static Block floatingFlower;
 	public static Block tinyPotato;
 	public static Block spawnerClaw;
 	public static Block reedBlock;
@@ -197,6 +198,7 @@ public final class ModBlocks {
 	public static Block redStringFertilizer;
 	public static Block redStringComparator;
 	public static Block redStringRelay;
+	public static Block floatingSpecialFlower;
 
 	public static Block livingwoodStairs;
 	public static Block livingwoodSlab;
@@ -306,7 +308,7 @@ public final class ModBlocks {
 		buriedPetals = new BlockBuriedPetals();
 		prismarine = new BlockPrismarine();
 		seaLamp = new BlockSeaLamp();
-		miniIsland = new BlockMiniIsland();
+		floatingFlower = new BlockFloatingFlower();
 		tinyPotato = new BlockTinyPotato();
 		spawnerClaw = new BlockSpawnerClaw();
 		reedBlock = new BlockReeds();
@@ -324,6 +326,7 @@ public final class ModBlocks {
 		redStringFertilizer = new BlockRedStringFertilizer();
 		redStringComparator = new BlockRedStringComparator();
 		redStringRelay = new BlockRedStringRelay();
+		floatingSpecialFlower = new BlockFloatingSpecialFlower();
 		
 		livingwoodStairs = new BlockLivingwoodStairs();
 		livingwoodSlab = new BlockLivingwoodSlab(false);
@@ -496,7 +499,7 @@ public final class ModBlocks {
 		registerTile(TilePlatform.class, LibBlockNames.PLATFORM);
 		registerTile(TileAlfPortal.class, LibBlockNames.ALF_PORTAL);
 		registerTile(TileBifrost.class, LibBlockNames.BIFROST);
-		registerTile(TileMiniIsland.class, LibBlockNames.MINI_ISLAND);
+		registerTile(TileFloatingFlower.class, LibBlockNames.MINI_ISLAND);
 		registerTile(TileTinyPotato.class, LibBlockNames.TINY_POTATO);
 		registerTile(TileSpawnerClaw.class, LibBlockNames.SPAWNER_CLAW);
 		registerTile(TileEnderEye.class, LibBlockNames.ENDER_EYE_BLOCK);
@@ -509,7 +512,8 @@ public final class ModBlocks {
 		registerTile(TileRedStringFertilizer.class, LibBlockNames.RED_STRING_FERTILIZER);
 		registerTile(TileRedStringComparator.class, LibBlockNames.RED_STRING_COMPARATOR);
 		registerTile(TileRedStringRelay.class, LibBlockNames.RED_STRING_RELAY);
-
+		registerTile(TileFloatingSpecialFlower.class, LibBlockNames.FLOATING_SPECIAL_FLOWER);
+		
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MANASTAR, SubTileManastar.class);
 

@@ -68,6 +68,7 @@ botaniamisc.needsCatalysts=No matter how hard you try to push the Terrasteel Ing
 botaniamisc.peacefulNoob=You try to offer the Terrasteel Ingot, but the peaceful vibes of your world prevent you from doing so. Perhaps you should do something about that.
 botaniamisc.notInfused=Not Infused
 botaniamisc.getALife=Get a Life
+botaniamisc.floatingPrefix=Floating %s
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery

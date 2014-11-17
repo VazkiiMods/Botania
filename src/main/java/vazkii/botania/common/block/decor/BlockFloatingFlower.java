@@ -32,7 +32,7 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockModContainer;
-import vazkii.botania.common.block.tile.TileMiniIsland;
+import vazkii.botania.common.block.tile.TileFloatingFlower;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -41,11 +41,15 @@ import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser", striprefs = true)
-public class BlockMiniIsland extends BlockModContainer implements ILexiconable, IInfusionStabiliser {
+public class BlockFloatingFlower extends BlockModContainer implements ILexiconable, IInfusionStabiliser {
 
-	public BlockMiniIsland() {
+	public BlockFloatingFlower() {
+		this(LibBlockNames.MINI_ISLAND);
+	}
+	
+	public BlockFloatingFlower(String name) {
 		super(Material.ground);
-		setBlockName(LibBlockNames.MINI_ISLAND);
+		setBlockName(name);
 		setHardness(0.5F);
 		setStepSound(soundTypeGravel);
 		setLightLevel(1F);
@@ -61,8 +65,12 @@ public class BlockMiniIsland extends BlockModContainer implements ILexiconable, 
 
 	@Override
 	public Block setBlockName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
+		register(par1Str);
 		return super.setBlockName(par1Str);
+	}
+	
+	protected void register(String name) {
+		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, name);	
 	}
 
 	@Override
@@ -112,7 +120,7 @@ public class BlockMiniIsland extends BlockModContainer implements ILexiconable, 
 
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
-		return new TileMiniIsland();
+		return new TileFloatingFlower();
 	}
 
 	@Override

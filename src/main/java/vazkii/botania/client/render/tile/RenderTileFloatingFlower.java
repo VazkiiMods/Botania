@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
@@ -28,16 +29,17 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelMiniIsland;
 import vazkii.botania.common.block.BlockModFlower;
+import vazkii.botania.common.block.decor.IFloatingFlower;
+import vazkii.botania.common.block.tile.TileFloatingFlower;
 
-public class RenderTileMiniIsland extends TileEntitySpecialRenderer {
+public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_MINI_ISLAND);
 	private static final ModelMiniIsland model = new ModelMiniIsland();
 
-	public static int forcedMetadata = 0;
-
 	@Override
 	public void renderTileEntityAt(TileEntity tile, double d0, double d1, double d2, float t) {
+		IFloatingFlower flower = (IFloatingFlower) tile;
 		GL11.glPushMatrix();
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		GL11.glTranslated(d0, d1, d2);
@@ -62,8 +64,9 @@ public class RenderTileMiniIsland extends TileEntitySpecialRenderer {
 		model.render();
 		GL11.glPopMatrix();
 
-		int meta = tile.getWorldObj() == null ? forcedMetadata : tile.getBlockMetadata();
-		IIcon icon = BlockModFlower.icons[meta];
+		ItemStack stack = flower.getDisplayStack();
+		IIcon icon = stack.getIconIndex();
+		
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();

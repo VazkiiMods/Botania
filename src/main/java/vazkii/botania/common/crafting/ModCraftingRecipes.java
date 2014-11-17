@@ -1009,7 +1009,7 @@ public final class ModCraftingRecipes {
 
 		// Mini Island Recipes
 		for(int i = 0; i < 16; i++)
-			GameRegistry.addRecipe(new ItemStack(ModBlocks.miniIsland, 1, i),
+			GameRegistry.addRecipe(new ItemStack(ModBlocks.floatingFlower, 1, i),
 					"F", "S", "D",
 					'F', new ItemStack(ModBlocks.shinyFlower, 1, i),
 					'S', new ItemStack(ModItems.grassSeeds),
@@ -1046,7 +1046,7 @@ public final class ModCraftingRecipes {
 					"SFS", "PDP", "ASE",
 					'S', LibOreDict.LIFE_ESSENCE,
 					'D', LibOreDict.DRAGONSTONE,
-					'F', new ItemStack(ModBlocks.miniIsland, 1, i),
+					'F', new ItemStack(ModBlocks.floatingFlower, 1, i),
 					'P', LibOreDict.PRISMARINE_SHARD,
 					'A', LibOreDict.RUNE[3],
 					'E', LibOreDict.RUNE[2]);

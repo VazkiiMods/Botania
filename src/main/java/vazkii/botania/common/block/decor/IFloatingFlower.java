@@ -7,17 +7,14 @@
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
  * 
- * File Created @ [Jul 8, 2014, 10:17:28 PM (GMT)]
+ * File Created @ [Nov 17, 2014, 6:05:18 PM (GMT)]
  */
-package vazkii.botania.common.block.tile;
+package vazkii.botania.common.block.decor;
 
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.item.ItemStack;
 
-public class TileMiniIsland extends TileEntity {
+public interface IFloatingFlower {
 
-	@Override
-	public boolean canUpdate() {
-		return false;
-	}
-
+	public ItemStack getDisplayStack();
+	
 }
