@@ -1,3 +1,18 @@
+r1.3 136
+*<b>Added Red String and Red Stringed Blocks</b>. These can interact with other blocks remotely.
+*Calling setWater on the petal apothecary now calls for a block update. <i>This is technical stuff for other modders only.</i>
+*Changed some minor details in some lexicon entries so they are accurate to recent changes.
+*Changed the brewery texture to a more appropriate one. (Yulife)
+*Combining a Floating (any color) Flower with any botania flower with an effect (manastar, pure daisy, any generating or functional...) will replace the flower there with the one you put. The flower will still act like normally, but has the visual and technical properties of a Floating Flower.
+*Fixed mod slabs letting light pass through.
+*Fixed some tpyos in the elven lore page. <i>I desperately need someone to proofread the nonsense I write.</i>
+*Fixed the game crashing if one tries to look up uses for the Tainted Blood Pendant in NEI.
+*Fixed the runic altar not saving the amount of mana it should get (and thus causing the amount of mana it has to reset to 0 when it loads back).
+*Fixed there being a missing texture on the terra plate, resulting in some unneeded log errors.
+*Having Night Vision on a Tainted Blood Pendant will no longer make the brightness blink obnoxiously.
+*Hopefully fixed entry sharing being somewhat fiddly in SMP.
+*Removed the text that says that Bursts would work in the Terrasteel crafting, because it seems everyone gets confused and decides not to use sparks even though it clearly says it's the best way >.<
+*The Terra Shatterer should no longer break blocks on the client side only and require a relog.
 r1.3 135
 *Added some more info to the Spark page.
 *Fixed the terrasteel plate not being in the creative tab.
