@@ -1813,6 +1813,7 @@ botania.page.dispenserTweaks0=&1Dispensers&0, among their normal abilities, can 
 # -- GLIMMERING FLOWERS
 botania.entry.shinyFlowers=Glimmering Flowers
 botania.page.shinyFlowers0=By combining your typical &1Mystical Flowers&0 with some &1Glowstone Dust&0, you can make them sparkle even brighter, and emit actual physical light, of the same brightness as a &1Glowstone Block&0.<br>With some &1Dirt&0 and &1Pasture Seeds&0 it's possible to turn them into a miniature floating island that will not only emit light, but also look very fancy indeed.
+botania.page.shinyFlowers3=Combining any color of &1Floating Flower&0 with any flower that has an effect (any &4Functional or Generating Flower&0, etc) in a crafting table will join the two, allowing for both the look and properties of a &1Floating Flower&0 and the effects of the flower chosen in one block.
 botania.page.shinyFlowers1=Pretty Pretty Shiny Shiny
 botania.page.shinyFlowers2=Like Laputa but (a lot) tinier
 
