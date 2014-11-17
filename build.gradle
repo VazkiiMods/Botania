@@ -90,8 +90,7 @@ processResources {
  */
 task deobfJar(type: Jar) {
     from(sourceSets.main.output)
-    classifier = 'deobf'
-
+	archiveName = "${baseName} ${version}-deobf.${extension}"
 }
 
 artifacts {
@@ -107,25 +106,44 @@ task incrementBuildNumber(dependsOn: 'reobf') << {
     }
 
     file('web/versions.ini').append("\n${version}=${minecraft.version}")
-    file("${config.dir.repo}/version/${minecraft.version}.txt").write("${version}")
+    file("${config.dir_repo}/version/${minecraft.version}.txt").write("${version}")
 }
 
-/**
- * Copy over to ForgeCraft
- */
-task forgecraft(type: Copy) {
-    dependsOn "build"
-    from jar.archivePath
-    into file(config.dir.forgecraft).absolutePath
+// I have no idea what I'm doing
+task wtfGradle2(type: Copy) {
+    from(jar.destinationDir)
+    into file("${config.dir_output}/wtf")
 }
 
-/**
- * Copy over to the Output dir
- */
+// Seriously, I'm desperate to make this work
+task wtfGradle1(type: Delete) {
+	dependsOn "wtfGradle2"
+    delete "${config.dir_output}/wtf/${deobfJar.archiveName}"
+}
+
 task output(type: Copy) {
-    dependsOn "build"
-    from jar.archivePath
-    into config.dir.output
+	dependsOn "wtfGradle1"
+	from(jar.destinationDir)
+    into file(config.dir_output)
+}
+
+task outputDeobf(type: Copy) {
+	dependsOn "output"
+	from(config.dir_output) {
+		include deobfJar.archiveName
+	}
+    into file("${config.dir_output}/deobf")
+}
+
+task forgecraft(type: Copy) {
+	dependsOn "outputDeobf"
+    from "${config.dir_output}/wtf"
+    into file(config.dir_forgecraft)
+}
+
+task sort(type: Delete) {
+	dependsOn "forgecraft"
+	delete "${config.dir_output}/${deobfJar.archiveName}", "${config.dir_output}/wtf"
 }
 
 /**
@@ -135,6 +153,7 @@ task upload(dependsOn: 'reobf') << {
     ftp(action: 'mkdir', remotedir: '/files')
     ftp(action: 'send', remotedir: '/files') {
         fileset(file: jar.archivePath)
+		//fileset(file: deobfJar.archivePath) TODO Add once website has support for deobf jars
     }
 
     ftp(action: 'send', remotedir: '.') {
@@ -196,4 +215,4 @@ jar {
 
 //change this so it only increments on upload
 upload.dependsOn tasks.incrementBuildNumber
-defaultTasks 'clean', 'build', 'output', 'forgecraft', 'curse', 'upload' //remove clean if you want faster builds, this will stop rare inconsistancies.
+defaultTasks 'clean', 'build', 'sort', 'forgecraft', 'curse', 'upload' //remove clean if you want faster builds, this will stop rare inconsistancies. 
