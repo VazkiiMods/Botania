@@ -118,6 +118,10 @@ hr {
   background-color: #777;
 }
 
+#myCarousel {
+	margin-bottom: 40px;
+}
+
 .carousel-inner {
 	outline: double;
 	box-shadow: 0px 0px 20px 8px #000000;
