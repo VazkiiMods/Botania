@@ -91,6 +91,72 @@
 	color: #fff;
 }
 
+.carousel {
+  height: 500px;
+  width: 970px;
+  margin-top: -18px;
+  left: 50%;
+  margin-left: -485px;
+}
+
+.carousel-caption {
+  z-index: 10;
+}
+ 
+.carousel .item {
+  height: 500px;
+  background-color: #777;
+}
+
+.carousel-inner {
+	outline: double;
+	box-shadow: 0px 0px 20px 8px #000000;
+}
+
+.carousel-inner > .item > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 500px;
+  width: 100%;
+}
+
+.featurette-divider {
+  margin: 20px 0;
+}
+ 
+.featurette-heading {
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.featurette-image {
+  box-shadow: 0px 0px 20px 2px #000000;
+}
+
+.youtube {
+  width: 912px;
+}
+
+.bottom-youtube {
+	margin-bottom: 60px;
+}
+
+.video-intro {
+	margin-left: 20px;
+	color: #888;
+	font-weight: bold;
+	text-shadow: 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+iframe {
+  width: 290px;
+  height: 220px;
+  margin: 15px 0px 0px 10px;
+  box-shadow: -1px 0px 20px 2px #000000;
+}
+
 #moe-counter {
 	margin-left: -15px;
 	width: calc(100% + 30px);
