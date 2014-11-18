@@ -1,0 +1,61 @@
+.navbar {
+	background-image: none;
+	background-color: #33691E;
+	box-shadow: 0 2px 5px rgba(0,0,0,0.26)
+}
+
+.navbar-brand {
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-right: 15px;
+}
+
+.navbar-brand img {
+	height: 50px;
+	top: -10px;
+}
+
+.header-btn {
+	width: 100px;
+	text-align: center;
+}
+
+.navbar .navbar-nav>.active>a, .navbar .navbar-nav>.active>a:focus, .navbar .navbar-nav>.active>a:hover {
+	background-color: rgba(0, 0, 0, 0);
+}
+
+.navbar-inverse .navbar-nav>.active>a {
+	background-image: none;
+	box-shadow: none;
+	background-color: rgba(0, 0, 0, 0);
+	border-bottom: #FFC107 3px solid;
+}
+
+.module-contents {
+	margin-top: 80px;
+}
+
+.total-dls {
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.3);
+  font-size: 26px;
+}
+
+.warning-txt {
+  color: #cc0000;
+  font-weight: bold;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+.btn {
+	width: 240px;
+	margin-bottom: 2px;
+	margin-top: 2px;
+}
+
+.btn-succeed {
+	width: 175px;
+}
+
+.btn:hover, .btn:focus {
+	color: #fff;
+}
