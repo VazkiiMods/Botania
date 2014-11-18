@@ -25,8 +25,8 @@ import net.minecraftforge.common.util.ForgeDirection;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.common.block.tile.string.TileRedString;
+import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
-import codechicken.lib.vec.Vector3;
 
 public final class RedStringRenderer {
 
