@@ -158,7 +158,10 @@ task upload(dependsOn: 'reobf') << {
     ftp(action: 'mkdir', remotedir: '/files')
     ftp(action: 'send', remotedir: '/files') {
         fileset(file: jar.archivePath)
-		//fileset(file: deobfJar.archivePath) TODO Add once website has support for deobf jars
+    }
+	
+	 ftp(action: 'send', remotedir: '/files/deobf') {
+        fileset(file: deobfJar.archivePath)
     }
 
     ftp(action: 'send', remotedir: '.') {
