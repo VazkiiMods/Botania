@@ -1,4 +1,4 @@
 <?php 
-	$module = 'index.php';
+	$module = 'downloads.php';
 	require_once 'botania.php';
 ?>
