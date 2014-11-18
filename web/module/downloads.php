@@ -22,11 +22,11 @@
 			$mc_version = $versions[$version_name];
 			$version_name = str_replace('.', '-', $version_name);
 										
-			$dls_txt = 'Dls';
+			$dls_txt = 'Downloads';
 			if($dls_num == 0)
-				$dls_txt = 'Dls :(';
+				$dls_txt = 'Downloads :(';
 			elseif($dls_num == 1)
-				$dls_txt = 'Dl';
+				$dls_txt = 'Download';
 			
 			$deobf_dl = ' ';
 			$deobf_name = str_replace('.jar', '-deobf.jar', $file);
@@ -45,7 +45,7 @@
 			if($first)
 				$group_class = ' btn-group-first';
 			
-			$downloads_str .= "<div class='btn-group$group_class'><a href='dl.php?file=$file' class='btn btn-material-lightgreen dl'><b><span class='glyphicon glyphicon-download'></span> $file</b></a>$deobf_dl<a href='changelog.php#$version_name' class='btn $extra_class btn-material-cyan'><b>Changelog</b></a><a class='btn $extra_class btn-material-pink dl-counter'><b>$mc_version</b></a><a href='dl.php?file=$file' class='btn $extra_class btn-material-orange dl-counter'><b>$dls</b> $dls_txt</a></div>";
+			$downloads_str .= "<div class='btn-group$group_class'><a href='dl.php?file=$file' class='btn btn-material-lightgreen'><b><span class='glyphicon glyphicon-download'></span> $file</b></a>$deobf_dl<a href='changelog.php#$version_name' class='btn $extra_class btn-material-cyan'><b>Changelog</b></a><a class='btn $extra_class btn-material-pink dl-counter'><b>$mc_version</b></a><a href='dl.php?file=$file' class='btn $extra_class btn-material-orange dl-counter'><b>$dls</b> $dls_txt</a></div>";
 			
 			if($first) {
 				$downloads_str .= '<hr><font size="6">Old Versions</font><div>';
@@ -64,7 +64,7 @@
 	$days_int = round($days_passed);
 	$daily_dls = round($total_dls / $days_passed, 2);
 	
-	print("<div class='total-dls'><span class='glyphicon glyphicon-star moe-scroll'></span> Botania has been downloaded a total of <b>$total_dl_str</b> times over $days_int days. (About <i>$daily_dls</i> dls/day)</div><span class='warning-txt'>Botania requires <a href='http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1294623-baubles-1-0-1-5-updated-20-8-2014'>Baubles</a> to work properly, make sure you have it!<br>1.7.2 versions also work on 1.7.10!</span><br><br><font size='5'>Latest Download</font><br>");
+	print("<div class='total-dls'><span class='glyphicon glyphicon-star moe-scroll'></span> Botania has been downloaded a total of <b class='moe-scroll'>$total_dl_str</b> times over $days_int days. (About <i>$daily_dls</i> dls/day)</div><span class='warning-txt'>Botania requires <a href='http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1294623-baubles-1-0-1-5-updated-20-8-2014'>Baubles</a> to work properly, make sure you have it!<br>1.7.2 versions also work on 1.7.10!</span><br><br><font size='5'>Latest Download</font><br>");
 	print($downloads_str);
 	
 	$nekos = '<br><hr><br><div id="moe-counter">';

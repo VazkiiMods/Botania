@@ -35,6 +35,10 @@ $(".hashlink").click(function() {
 	else $('html, body').animate({ scrollTop: $("#" + hash + "-fake").offset().top - 100 }, 1000);
 });
 
+$(".moe-scroll").click(function() {
+	$('html, body').animate({ scrollTop: $("#moe-counter").offset().top - 100 }, 1000);
+});
+
 function changeCensor() {
 	$('.censored').each(function() {
 		$(this).text(randomStr($(this).text().length));

@@ -41,13 +41,17 @@
 }
 
 .warning-txt {
-  color: #cc0000;
+  color: #B71C1C;
   font-weight: bold;
   text-shadow: 1px 1px rgba(0, 0, 0, 0.3);
 }
 
-.hashlink, .hide-div {
+.hashlink, .moe-scroll, .hide-div {
 	cursor: pointer;
+}
+
+.moe-scroll:hover {
+	color: #33691E;
 }
 
 .btn-group {
