@@ -1,3 +1,9 @@
+hr {
+	height: 1px;
+	background-color: #ccc;
+
+}
+
 .navbar {
 	background-image: none;
 	background-color: #33691E;
@@ -60,7 +66,6 @@
 } 
 
 .btn-group-first {
-	margin-bottom: -12px;
 	margin-top: 7px;
 	height: 46px;
 } 
@@ -174,4 +179,12 @@ iframe {
 	width: 68px;
 	height: 150px;
 	z-index: -1;
+}
+
+.changelog-header {
+	font-size: 32px;
+}
+
+#changelog-container {
+	margin-bottom: 60px;
 }

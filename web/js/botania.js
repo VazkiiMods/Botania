@@ -23,15 +23,14 @@ $('.hide-div').click(function() {
 	} else {
 		div.show(300);
 		$(this).text('(hide)');
-	}
-	
+	}	
 });
 
 $(".hashlink").click(function() {
 	var hash = $(this).text();
 	
 	if(hash == 'Back to top' || hash == '(back to top)')
-		$('html, body').animate({  scrollTop: 0 }, 500);
+		$('html, body').delay(hash == 'Back to top' ? 400 : 0).animate({  scrollTop: 0 }, 500);
 	else $('html, body').animate({ scrollTop: $("#" + hash + "-fake").offset().top - 100 }, 1000);
 });
 
