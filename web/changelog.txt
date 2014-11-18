@@ -1,3 +1,8 @@
+r1.3 137
+*Fixed RedStringRenderer looking for the codechicken Vector3 rather than the botania one. On other words, Fixed the game crashing if you have a wand of the forest equipped while you have a red string block in the world and codechickencore isn't installed.
+*Fixed the Red Stringed Spoofer not being in the creative tab.
+*Fixed the Terra Shatterer not actively restoring its damage like the manasteel tools do.
+*Fixed the recipes for breaking back Reed and Thatch blocks giving items with metadata 1, and thus unusable.
 r1.3 136
 *<b>Added Red String and Red Stringed Blocks</b>. These can interact with other blocks remotely.
 *Calling setWater on the petal apothecary now calls for a block update. <i>This is technical stuff for other modders only.</i>
