@@ -105,7 +105,7 @@
 			<iframe src="//www.youtube.com/embed/RDiY6Ltbcos" frameborder="0" allowfullscreen></iframe>
 		</div>
 		<div class="video-intro">Direwolf20's 2 part spotlight is a good getting started guide to Botania.</div>
-		<div class="lead youtube bottom-youtube">
+		<div class="lead youtube">
 			<iframe src="//www.youtube.com/embed/ixIVMYrbpaw" frameborder="0" allowfullscreen></iframe>
 			<iframe src="//www.youtube.com/embed/bpM_MSJZY2o" frameborder="0" allowfullscreen></iframe>
 		</div>

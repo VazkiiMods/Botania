@@ -30,8 +30,8 @@
 				<li id="header-btn-changelog" class="header-btn"><a href="./changelog.php">Changelog</a></li>
 				<li id="header-btn-addons" class="header-btn"><a href="./addons.php">Addons</a></li>
 				<li id="header-btn-modpacks" class="header-btn"><a href="./modpacks.php">Modpacks</a></li>
-				<li id="header-btn-faq" class="header-btn"><a href="./faq.php">FAQ</a></li>
 				<li id="header-btn-credits" class="header-btn"><a href="./credits.php">Credits</a></li>
+				<li id="header-btn-faq" class="header-btn"><a href="./faq.php">FAQ</a></li>
 				<li id="header-btn-back" class="header-btn"><a href="http://vazkii.us">vazkii.us</a></li>
 			  </ul>
 			</div>

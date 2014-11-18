@@ -39,6 +39,7 @@ hr {
 
 .module-contents {
 	margin-top: 80px;
+	margin-bottom: 60px;
 }
 
 .total-dls {
@@ -149,10 +150,6 @@ hr {
   width: 912px;
 }
 
-.bottom-youtube {
-	margin-bottom: 60px;
-}
-
 .video-intro {
 	margin-left: 20px;
 	color: #888;
@@ -181,10 +178,6 @@ iframe {
 	z-index: -1;
 }
 
-.changelog-header {
+.section-header {
 	font-size: 32px;
-}
-
-#changelog-container {
-	margin-bottom: 60px;
 }
