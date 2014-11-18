@@ -135,10 +135,15 @@ task outputDeobf(type: Copy) {
     into file("${config.dir_output}/deobf")
 }
 
-task forgecraft(type: Copy) {
+task delOldForgecraft(type: Delete) {
 	dependsOn "outputDeobf"
-    from "${config.dir_output}/wtf"
-    into file(config.dir_forgecraft)
+	delete "${config.dir_forgecraft}/Botania *.jar"
+}
+
+task forgecraft(type: Copy) {
+	dependsOn "delOldForgecraft"
+	from "${config.dir_output}/wtf"
+	into file(config.dir_forgecraft)
 }
 
 task sort(type: Delete) {
@@ -199,6 +204,11 @@ def parseConfig(File config) {
     }
 }
 
+jar {
+    //rename the default output, for some better... sanity with scipts
+    archiveName = "${baseName} ${version}.${extension}"
+}
+
 curse {
     apiKey = priv.cfkey
     projectId = "225643"
@@ -206,11 +216,6 @@ curse {
 		See http://vazkii.us/mod/Botania/changelog.php#${version}
     """
     releaseType = "release"
-}
-
-jar {
-    //rename the default output, for some better... sanity with scipts
-    archiveName = "${baseName} ${version}.${extension}"
 }
 
 //change this so it only increments on upload
