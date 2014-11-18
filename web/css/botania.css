@@ -1,7 +1,7 @@
 .navbar {
 	background-image: none;
 	background-color: #33691E;
-	box-shadow: 0 2px 5px rgba(0,0,0,0.26)
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26)
 }
 
 .navbar-brand {
@@ -20,11 +20,11 @@
 	text-align: center;
 }
 
-.navbar .navbar-nav>.active>a, .navbar .navbar-nav>.active>a:focus, .navbar .navbar-nav>.active>a:hover {
+.navbar .navbar-nav > .active > a, .navbar .navbar-nav > .active > a:focus, .navbar .navbar-nav > .active > a:hover {
 	background-color: rgba(0, 0, 0, 0);
 }
 
-.navbar-inverse .navbar-nav>.active>a {
+.navbar-inverse .navbar-nav > .active > a {
 	background-image: none;
 	box-shadow: none;
 	background-color: rgba(0, 0, 0, 0);
@@ -46,16 +46,61 @@
   text-shadow: 1px 1px rgba(0, 0, 0, 0.3);
 }
 
+.hashlink, .hide-div {
+	cursor: pointer;
+}
+
+.btn-group {
+	margin-bottom: 7px;
+	margin-top: 7px;
+} 
+
+.btn-group-first {
+	margin-bottom: -12px;
+	margin-top: 7px;
+	height: 46px;
+} 
+
+.btn-group-first > .btn {
+	height: 100%;
+	padding-top: 13px;
+	padding-bottom: 13px;
+} 
+
 .btn {
 	width: 240px;
-	margin-bottom: 2px;
-	margin-top: 2px;
+}
+
+.btn:hover {
+	box-shadow: 0 3px 6px rgba(0,0,0,.2),0 3px 6px rgba(0,0,0,.28);
 }
 
 .btn-succeed {
-	width: 175px;
+	width: 211px;
+}
+
+.btn-succeed-deobf {
+	width: 178px;
+}
+
+.btn-deobf {
+	width: 100px;
 }
 
 .btn:hover, .btn:focus {
 	color: #fff;
+}
+
+#moe-counter {
+	margin-left: -15px;
+	width: calc(100% + 30px);
+	height: 180px;
+	margin-bottom: 50px;
+	text-align: center;
+}
+
+.moe {
+	width: 68px;
+	height: 150px;
+	z-index: -1;
 }

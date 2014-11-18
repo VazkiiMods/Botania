@@ -12,27 +12,40 @@
 	$old = false;
 	
 	foreach($files as $file)
-		if(strlen($file) > 2) {
+		if(strlen($file) > 2 && substr($file, -4) == '.jar') {
 			$dls_num = get_dls($file);
 			$total_dls += intval($dls_num);
 			$dls = number_format($dls_num);
 										
 			$file_version = substr($file, strlen('Botania '));
-			$version_name = substr($file_version, 0, strlen($file_version) - strlen('.jar'));
+			$version_name = substr($file_version, 0, strlen($file_version) - 4);
 			$mc_version = $versions[$version_name];
 			$version_name = str_replace('.', '-', $version_name);
 										
-			$dls_txt = 'Downloads';
+			$dls_txt = 'Dls';
 			if($dls_num == 0)
-				$dls_txt = 'Downloads :(';
+				$dls_txt = 'Dls :(';
 			elseif($dls_num == 1)
-				$dls_txt = 'Download';
+				$dls_txt = 'Dl';
+			
+			$deobf_dl = ' ';
+			$deobf_name = str_replace('.jar', '-deobf.jar', $file);
+			$extra_class = 'btn-succeed';
+
+			if(file_exists("files/deobf/$deobf_name")) {
+				$deobf_dl = "<a href='files/deobf/$deobf_name' class='btn btn-deobf btn-material-lime dl'><b>(dev)</b></a>";
+				$extra_class = 'btn-succeed-deobf';
+			}
 			
 			$div_id = 'version-' . str_replace('.', '-', $mc_version);
 			if($last_version != $mc_version && !$first)
 				$downloads_str .= "</div><br><font size='4'>Minecraft <b>$mc_version</b></font> <a class='hide-div' id='hide-$div_id'>(hide)</a><br><div id='$div_id'>";
 			
-			$downloads_str .= "<a href='dl.php?file=$file' class='btn btn-material-lightgreen dl'><b><span class='glyphicon glyphicon-download'></span> $file</b></a> <a href='changelog.php#$version_name' class='btn btn-succeed btn-material-cyan'><b>Changelog</b></a> <a class='btn btn-succeed btn-material-pink dl-counter'>Minecraft <b>$mc_version</b></a> <a href='dl.php?file=$file' class='btn btn-succeed btn-material-orange dl-counter'><b>$dls</b> $dls_txt</a>";
+			$group_class = '';
+			if($first)
+				$group_class = ' btn-group-first';
+			
+			$downloads_str .= "<div class='btn-group$group_class'><a href='dl.php?file=$file' class='btn btn-material-lightgreen dl'><b><span class='glyphicon glyphicon-download'></span> $file</b></a>$deobf_dl<a href='changelog.php#$version_name' class='btn $extra_class btn-material-cyan'><b>Changelog</b></a><a class='btn $extra_class btn-material-pink dl-counter'><b>$mc_version</b></a><a href='dl.php?file=$file' class='btn $extra_class btn-material-orange dl-counter'><b>$dls</b> $dls_txt</a></div>";
 			
 			if($first) {
 				$downloads_str .= '<hr><font size="6">Old Versions</font><div>';
