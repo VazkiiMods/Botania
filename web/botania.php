@@ -41,6 +41,16 @@
 			<?php require_once "module/$module.php"; ?>
 		</div>
 		
+		<footer class="footer">
+			<div class="container text-muted">
+				Botania (this website included) is licensed under a <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.<br>
+				Powered by <a href="http://fezvrasta.github.io/bootstrap-material-design/">Bootstrap Material Design</a> by <a href="https://github.com/FezVrasta">Fez Vrasta</a>.<br>
+				Discuss Botania on the <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1294116-botania-an-innovative-natural-magic-themed-tech">Minecraft Forums</a> or the <a href="http://forum.feed-the-beast.com/threads/botania-an-innovative-natural-magic-themed-tech-mod-not-in-beta-any-more.41662/">FTB Forums</a>.<br>
+				Misc Links: <a href="https://twitter.com/Vazkii">Twitter</a> <b>|</b> <a href="http://www.patreon.com/Vazkii">Patreon</a> <b>|</b> <a href="https://github.com/Vazkii/Botania">Github</a> <b>|</b> <a href="http://webchat.esper.net/?channels=vazkii">IRC</a><br><br>
+				<i>Add the colors to the big sight, before the world turns black and white. Don't let unity cause monotony, chante avec moi, bring the symphony.</i> - <a href="https://www.youtube.com/watch?v=zkLJoFp2UAE">Mitchie M</a>
+			</div>
+		</footer>
+		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 		<script src="js/ripples.min.js"></script>
