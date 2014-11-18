@@ -85,7 +85,7 @@
 <div class="row featurette">
 	<div class="col-md-7">
 		<h2 class="featurette-heading">Not convinced yet? <span class="text-muted">Check out some videos.</span></h2>
-		<div class="video-intro">WTFG33ks' fast paced spotlights cover a good part of the mod and the Alfomancy (r1.1) update.</div>
+		<div class="video-intro">WTFG33ks' fast paced spotlights cover a good part of the mod.</div>
 		<div class="lead youtube">
 			<iframe src="//www.youtube.com/embed/eElyj6S8ggs" frameborder="0" allowfullscreen></iframe>
 			<iframe src="//www.youtube.com/embed/-9PZgC00aK8" frameborder="0" allowfullscreen></iframe>
