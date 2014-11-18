@@ -1381,8 +1381,8 @@ public final class ModCraftingRecipes {
 		addStairsAndSlabs(ModBlocks.customBrick, 3, ModBlocks.tileStairs, ModBlocks.tileSlab);
 		
 		// Misc Recipes
-		GameRegistry.addShapelessRecipe(new ItemStack(Items.reeds, 9, 1), new ItemStack(ModBlocks.reedBlock));
-		GameRegistry.addShapelessRecipe(new ItemStack(Items.wheat, 4, 1), new ItemStack(ModBlocks.thatch));
+		GameRegistry.addShapelessRecipe(new ItemStack(Items.reeds, 9, 0), new ItemStack(ModBlocks.reedBlock));
+		GameRegistry.addShapelessRecipe(new ItemStack(Items.wheat, 4, 0), new ItemStack(ModBlocks.thatch));
 	}
 
 	private static void addStairsAndSlabs(Block block, int meta, Block stairs, Block slab) {
