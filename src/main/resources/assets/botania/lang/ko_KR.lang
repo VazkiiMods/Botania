@@ -8,13 +8,13 @@ botaniamisc.nextPage=다음 장
 botaniamisc.prevPage=이전 장
 botaniamisc.back=뒤로
 botaniamisc.craftingContainer=조합 후에 돌려줍니다.
-botaniamisc.shapeless=자유로운(Shapeless) 조합법
+botaniamisc.shapeless=무형(Shapeless) 조합법
 botaniamisc.oredict=광물 사전 관련 조합법
 botaniamisc.statusUnknown=알 수 없는 상태
 botaniamisc.color=%s 색
 botaniamisc.manaUsage=마나 사용량
 botaniamisc.shiftToRead=Shift + 우클릭으로 더 많은 정보를 얻으세요
-botaniamisc.clickToRecipe=Shift + 왼클릭으로 조합법을 얻으세요
+botaniamisc.clickToRecipe=Shift + 좌클릭으로 조합법을 얻으세요
 botaniamisc.clickToIndex=Shift 클릭시 목차로 이동
 botaniamisc.flareColor=%s Rounds
 botaniamisc.outputtingPower=아이템에 마나를 주입합니다
@@ -79,11 +79,11 @@ botania.nei.runicAltar=루닉 제단
 
 # BUILDCRAFT INTEGRATION
 botania.trigger.manaDetector=Mana Burst
-botania.trigger.manaEmpty=Mana Empty
-botania.trigger.manaSpace=Space for Mana
-botania.trigger.manaContains=Contains Mana
-botania.trigger.manaFull=Mana Full
-botania.trigger.runeAltarCanCraft=Altar Can Craft
+botania.trigger.manaEmpty=마나가 없을 때
+botania.trigger.manaSpace=마나를 위한 공간이 있을 때
+botania.trigger.manaContains=마나가 들어 있을 때
+botania.trigger.manaFull=마나가 꽉 차 있을 때
+botania.trigger.runeAltarCanCraft=제단에서 조합 가능할 때
 
 # COLORS
 botania.color0=하얀색
