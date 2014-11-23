@@ -20,7 +20,7 @@ public final class LibMisc {
 	public static final String MOD_NAME = MOD_ID;
 	public static final String BUILD = "GRADLE:BUILD";
 	public static final String VERSION = "GRADLE:VERSION-" + BUILD;
-	public static final String DEPENDENCIES = "required-after:Forge@[10.12.2.1147,);after:Thaumcraft";
+	public static final String DEPENDENCIES = "required-after:Forge@[10.12.2.1147,);required-after:Baubles;after:Thaumcraft";
 
 	// Network Contants
 	public static final String NETWORK_CHANNEL = MOD_ID;
