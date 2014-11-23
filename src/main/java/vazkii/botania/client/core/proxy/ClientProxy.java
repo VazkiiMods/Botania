@@ -238,7 +238,7 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public long getWorldElapsedTicks() {
-		return Minecraft.getMinecraft().theWorld == null ? 0 : Minecraft.getMinecraft().theWorld.getTotalWorldTime();
+		return ClientTickHandler.ticksInGame;
 	}
 
 	private static boolean noclipEnabled = false;
