@@ -18,6 +18,7 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
@@ -26,7 +27,7 @@ import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibObfuscation;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 
-public class ItemTornadoRod extends ItemMod {
+public class ItemTornadoRod extends ItemMod implements IManaUsingItem {
 
 	private static final int FLY_TIME = 20;
 	private static final int FALL_MULTIPLIER = 3;
@@ -133,6 +134,11 @@ public class ItemTornadoRod extends ItemMod {
 
 	@Override
 	public boolean isFull3D() {
+		return true;
+	}
+
+	@Override
+	public boolean usesMana(ItemStack stack) {
 		return true;
 	}
 

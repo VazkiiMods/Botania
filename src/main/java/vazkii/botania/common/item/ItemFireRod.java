@@ -15,11 +15,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.entity.EntityFlameRing;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemFireRod extends ItemMod {
+public class ItemFireRod extends ItemMod implements IManaUsingItem {
 
 	private static final int COST = 900;
 	private static final int COOLDOWN = 1200;
@@ -53,6 +54,11 @@ public class ItemFireRod extends ItemMod {
 
 	@Override
 	public boolean isFull3D() {
+		return true;
+	}
+
+	@Override
+	public boolean usesMana(ItemStack stack) {
 		return true;
 	}
 
