@@ -100,13 +100,14 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 
 	@Override
 	public void updateEntity() {
+		if(getBlockMetadata() < PYLON_LOCATIONS.length)
+			for(int[] pylon : PYLON_LOCATIONS[getBlockMetadata()]) {
+				TileEntity tile = worldObj.getTileEntity(xCoord + pylon[0], yCoord + pylon[1], zCoord + pylon[2]);
+				if(tile != null && tile instanceof TilePylon)
+					((TilePylon) tile).activated = false;
+			}
+		
 		if(!canEnchanterExist(worldObj, xCoord, yCoord, zCoord, getBlockMetadata())) {
-			if(getBlockMetadata() < PYLON_LOCATIONS.length)
-				for(int[] pylon : PYLON_LOCATIONS[getBlockMetadata()]) {
-					TileEntity tile = worldObj.getTileEntity(xCoord + pylon[0], yCoord + pylon[1], zCoord + pylon[2]);
-					if(tile != null && tile instanceof TilePylon)
-						((TilePylon) tile).activated = false;
-				}
 
 			worldObj.setBlock(xCoord, yCoord, zCoord, Blocks.lapis_block, 0, 1 | 2);
 			for(int i = 0; i < 50; i++) {
