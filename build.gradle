@@ -135,13 +135,8 @@ task outputDeobf(type: Copy) {
     into file("${config.dir_output}/deobf")
 }
 
-task delOldForgecraft(type: Delete) {
-	dependsOn "outputDeobf"
-	delete "${config.dir_forgecraft}/Botania *.jar"
-}
-
 task forgecraft(type: Copy) {
-	dependsOn "delOldForgecraft"
+	dependsOn "outputDeobf"
 	from "${config.dir_output}/wtf"
 	into file(config.dir_forgecraft)
 }
