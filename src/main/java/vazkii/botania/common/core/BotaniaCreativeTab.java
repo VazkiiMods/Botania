@@ -82,6 +82,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.fireRod);
 		addItem(ModItems.diviningRod);
 		addItem(ModItems.gravityRod);
+		addItem(ModItems.missileRod);
 		addItem(ModItems.virus);
 		addItem(ModItems.slingshot);
 		addItem(ModItems.vineBall);

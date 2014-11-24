@@ -106,6 +106,7 @@ public final class LibItemNames {
 	public static final String BREW_VIAL = "brewVial";
 	public static final String BREW_FLASK = "brewFlask";
 	public static final String BLOOD_PENDANT = "bloodPendant";
+	public static final String MISSILE_ROD = "missileRod";
 
 	public static final String[] LENS_NAMES = new String[] {
 		"lensNormal",

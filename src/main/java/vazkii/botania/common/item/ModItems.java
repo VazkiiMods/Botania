@@ -79,6 +79,7 @@ import vazkii.botania.common.item.rod.ItemDirtRod;
 import vazkii.botania.common.item.rod.ItemDiviningRod;
 import vazkii.botania.common.item.rod.ItemFireRod;
 import vazkii.botania.common.item.rod.ItemGravityRod;
+import vazkii.botania.common.item.rod.ItemMissileRod;
 import vazkii.botania.common.item.rod.ItemRainbowRod;
 import vazkii.botania.common.item.rod.ItemSkyDirtRod;
 import vazkii.botania.common.item.rod.ItemTerraformRod;
@@ -180,6 +181,7 @@ public final class ModItems {
 	public static Item brewVial;
 	public static Item brewFlask;
 	public static Item bloodPendant;
+	public static Item missileRod;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -274,6 +276,7 @@ public final class ModItems {
 		brewVial = new ItemBrewVial();
 		brewFlask = new ItemBrewFlask();
 		bloodPendant = new ItemBloodPendant();
+		missileRod = new ItemMissileRod();
 		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {

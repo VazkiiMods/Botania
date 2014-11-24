@@ -19,6 +19,7 @@ public final class ModEntities {
 
 	public static void init() {
 		int id = 0;
+		
 		EntityRegistry.registerModEntity(EntityManaBurst.class, LibEntityNames.MANA_BURST, id++, Botania.instance, 64, 10, true);
 		EntityRegistry.registerModEntity(EntitySignalFlare.class, LibEntityNames.SIGNAL_FLARE, id++, Botania.instance, 2048, 10, false);
 		EntityRegistry.registerModEntity(EntityPixie.class, LibEntityNames.PIXIE, id++, Botania.instance, 16, 3, true);
@@ -28,6 +29,7 @@ public final class ModEntities {
 		EntityRegistry.registerModEntity(EntityMagicLandmine.class, LibEntityNames.MAGIC_LANDMINE, id++, Botania.instance, 128, 40, false);
 		EntityRegistry.registerModEntity(EntitySpark.class, LibEntityNames.SPARK, id++, Botania.instance, 64, 10, false);
 		EntityRegistry.registerModEntity(EntityThrownItem.class, LibEntityNames.THROWN_ITEM, id++, Botania.instance, 64, 20, true);
+		EntityRegistry.registerModEntity(EntityMagicMissile.class, LibEntityNames.MAGIC_MISSILE, id++, Botania.instance, 64, 10, true);
 	}
 
 }
