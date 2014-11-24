@@ -68,6 +68,22 @@ import vazkii.botania.common.item.interaction.thaumcraft.ItemElementiumHelmRevea
 import vazkii.botania.common.item.interaction.thaumcraft.ItemManaInkwell;
 import vazkii.botania.common.item.interaction.thaumcraft.ItemManasteelHelmRevealing;
 import vazkii.botania.common.item.interaction.thaumcraft.ItemTerrasteelHelmRevealing;
+import vazkii.botania.common.item.material.ItemDye;
+import vazkii.botania.common.item.material.ItemManaPetal;
+import vazkii.botania.common.item.material.ItemManaResource;
+import vazkii.botania.common.item.material.ItemPestleAndMortar;
+import vazkii.botania.common.item.material.ItemPetal;
+import vazkii.botania.common.item.material.ItemQuartz;
+import vazkii.botania.common.item.material.ItemRune;
+import vazkii.botania.common.item.rod.ItemDirtRod;
+import vazkii.botania.common.item.rod.ItemDiviningRod;
+import vazkii.botania.common.item.rod.ItemFireRod;
+import vazkii.botania.common.item.rod.ItemGravityRod;
+import vazkii.botania.common.item.rod.ItemRainbowRod;
+import vazkii.botania.common.item.rod.ItemSkyDirtRod;
+import vazkii.botania.common.item.rod.ItemTerraformRod;
+import vazkii.botania.common.item.rod.ItemTornadoRod;
+import vazkii.botania.common.item.rod.ItemWaterRod;
 import vazkii.botania.common.lib.LibOreDict;
 
 public final class ModItems {

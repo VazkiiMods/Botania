@@ -27,7 +27,7 @@ import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
-import vazkii.botania.common.block.BlockEnchanter;
+import vazkii.botania.common.block.mana.BlockEnchanter;
 import vazkii.botania.common.block.tile.TileEnchanter;
 
 public class RenderTileEnchanter extends TileEntitySpecialRenderer {

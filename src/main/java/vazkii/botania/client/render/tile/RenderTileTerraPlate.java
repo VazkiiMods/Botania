@@ -26,8 +26,8 @@ import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
-import vazkii.botania.common.block.BlockEnchanter;
-import vazkii.botania.common.block.BlockTerraPlate;
+import vazkii.botania.common.block.mana.BlockEnchanter;
+import vazkii.botania.common.block.mana.BlockTerraPlate;
 import vazkii.botania.common.block.tile.TileTerraPlate;
 
 public class RenderTileTerraPlate extends TileEntitySpecialRenderer {
