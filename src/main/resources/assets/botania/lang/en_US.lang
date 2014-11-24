@@ -786,6 +786,7 @@ item.botania:brewVial.name=Vial of %s (%s)
 item.botania:brewFlask.name=Flask of %s (%s)
 item.botania:bloodPendant.name=Tainted Blood Pendant
 item.botania:redString.name=Red String
+item.botania:missileRod.name=Missile Rod Thingymajig (WIP)
 
 # BREW NAMES
 botania.brew.fallback=Fallback
