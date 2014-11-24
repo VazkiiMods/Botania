@@ -1,3 +1,10 @@
+r1.3 138
+*"Added" a new item that works but is creative only for now, I'll work on it some more later >_>
+*Added a proper, registered dependency on Baubles. <i>Only took over 100 versions to do it /o/</i>
+*Fixed dreamwood not going to the right page when shift-right clicked with the lexicon.
+*Fixed the color of Rainbow bursts and Gaia Spirits not changing in Mystcraft ages.
+*Fixed the Rod of the Skies and Hells not showing a mana bar. 
+*The enchanter will now always properly reset the pylons' particle emitting status.
 r1.3 137
 *Fixed RedStringRenderer looking for the codechicken Vector3 rather than the botania one. On other words, Fixed the game crashing if you have a wand of the forest equipped while you have a red string block in the world and codechickencore isn't installed.
 *Fixed the Red Stringed Spoofer not being in the creative tab.
