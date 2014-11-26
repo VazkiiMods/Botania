@@ -28,6 +28,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidContainerItem;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -106,16 +107,24 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 	}
 
 	private boolean isValidWaterContainer(ItemStack stack) {
-		if(stack.stackSize != 1)
+		if (stack.stackSize != 1)
 			return false;
+		if (stack.getItem() instanceof IFluidContainerItem) {
+			FluidStack fluidStack = ((IFluidContainerItem) stack.getItem()).getFluid(stack);
+			return fluidStack != null && fluidStack.getFluid() == FluidRegistry.WATER && fluidStack.amount >= FluidContainerRegistry.BUCKET_VOLUME;
+		}
 		FluidStack fluidStack = FluidContainerRegistry.getFluidForFilledItem(stack);
 		return fluidStack != null && fluidStack.getFluid() == FluidRegistry.WATER && fluidStack.amount >= FluidContainerRegistry.BUCKET_VOLUME;
 	}
 
 	private ItemStack getContainer(ItemStack stack) {
-		if(stack.getItem().hasContainerItem(stack))
+		if (stack.getItem().hasContainerItem(stack))
 			return stack.getItem().getContainerItem(stack);
-		return null;
+		else if (stack.getItem() instanceof IFluidContainerItem) {
+			((IFluidContainerItem) stack.getItem()).drain(stack, FluidContainerRegistry.BUCKET_VOLUME, true);
+			return stack;
+		}
+		return FluidContainerRegistry.drainFluidContainer(stack);
 	}
 
 	@Override
