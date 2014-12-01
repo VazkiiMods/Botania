@@ -11,6 +11,8 @@
  */
 package vazkii.botania.common.lexicon.page;
 
+import java.lang.reflect.Constructor;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
@@ -34,13 +36,14 @@ public class PageEntity extends LexiconPage{
 	int relativeMouseX, relativeMouseY;
 	boolean tooltipEntity;
 	int size;
+	Constructor entityConstructor;
 
 	public PageEntity(String unlocalizedName, String entity, int size) {
 		super(unlocalizedName);
 		Class EntityClass = (Class) EntityList.stringToClassMapping.get(entity);
 		this.size = size;
 		try {
-			dummyEntity = (Entity) EntityClass.getConstructor(new Class[] {World.class}).newInstance(new Object[] {null});
+			entityConstructor = EntityClass.getConstructor(new Class[] {World.class});
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -49,6 +52,7 @@ public class PageEntity extends LexiconPage{
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void renderScreen(IGuiLexiconEntry gui, int mx, int my) {
+		prepDummy();
 		int text_x = gui.getLeft() + 16;
 		int text_y = gui.getTop() + gui.getHeight() - 40;
 		int entity_scale = getEntityScale(size);
@@ -73,6 +77,7 @@ public class PageEntity extends LexiconPage{
 
 	@Override
 	public void updateScreen() {
+		prepDummy();
 		dummyEntity.ticksExisted++;
 	}
 
@@ -99,5 +104,16 @@ public class PageEntity extends LexiconPage{
 
 		if(relativeMouseX >= x - dummyEntity.width * scale / 2 - 10  && relativeMouseY >= y - dummyEntity.height * scale - 20 && relativeMouseX <= x + dummyEntity.width * scale / 2 + 10 && relativeMouseY <= y + 20)
 			tooltipEntity = true;
+	}
+	
+	public void prepDummy() {
+		if(dummyEntity == null || dummyEntity.isDead) {
+			try {
+				dummyEntity = (Entity) entityConstructor.newInstance(new Object[] {Minecraft.getMinecraft().theWorld});
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }

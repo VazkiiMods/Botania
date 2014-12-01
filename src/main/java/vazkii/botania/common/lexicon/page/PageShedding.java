@@ -57,6 +57,7 @@ public class PageShedding extends PageEntity {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void renderScreen(IGuiLexiconEntry gui, int mx, int my) {
+		prepDummy();
 		relativeMouseX = mx;
 		relativeMouseY = my;
 		int stack_x = gui.getLeft() + gui.getWidth() / 2 - 8;
