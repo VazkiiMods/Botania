@@ -78,12 +78,12 @@ botania.nei.petalApothecary=Petal Apothecary
 botania.nei.runicAltar=Runic Altar
 
 # BUILDCRAFT INTEGRATION
-botania.trigger.manaDetector=Mana Burst
-botania.trigger.manaEmpty=Mana Empty
-botania.trigger.manaSpace=Space for Mana
-botania.trigger.manaContains=Contains Mana
-botania.trigger.manaFull=Mana Full
-botania.trigger.runeAltarCanCraft=Altar Can Craft
+botania.triggers.manaDetector=Mana Burst
+botania.triggers.manaEmpty=Mana Empty
+botania.triggers.manaSpace=Space for Mana
+botania.triggers.manaContains=Contains Mana
+botania.triggers.manaFull=Mana Full
+botania.triggers.runeAltarCanCraft=Altar Can Craft
 
 # COLORS
 botania.color0=White
@@ -1408,7 +1408,7 @@ botania.page.enderEyeBlock1=MY BRAND
 
 # -- RED STRING
 botania.entry.redString=Red String
-botania.page.redString0=Lore says the Gods tie a red string around the ankles of people who are supposed to affect eachothers lives. This led inventors to come up with a way of connecting blocks over the air, called, of course, &1Red String&0. Blocks created with this exquisite material can face in all 6 basic directions and bind to the first available and compatible block they can find, given a range.
+botania.page.redString0=Lore says the Gods tie a red string around the ankles of people who are supposed to affect each others lives. This led inventors to come up with a way of connecting blocks over the air, called, of course, &1Red String&0. Blocks created with this exquisite material can face in all 6 basic directions and bind to the first available and compatible block they can find, given a range.
 botania.page.redString1=Each &4Red Stringed&0 block has a different criteria to what it'll bind to, but the distance in which they'll bind stays constant between the variations. The string can be viewed, if a block is bound, by holding a &1Wand of the Forest&0.<br>Blocks being in the way will not break the connection. Lastly, &1Red String&0 blocks can't be chained.
 botania.page.redString2=Are you in a pinch?
 botania.page.redString3=Starting off, the &1Red Stringed Container&0 will bind to any inventory (&1Chests&0, &1Furnaces&0, &1Hoppers&0, etc), items can be put into it using &1Hoppers&0 or any other means of insertion. The items will end up in the block it's bound to, and will enter from the same side as they were put on the &1Red Stringed Container&0 itself.
