@@ -127,7 +127,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem {
 		if(!ToolCommons.isRightMaterial(mat, MATERIALS))
 			return false;
 
-		MovingObjectPosition block = ToolCommons.raytraceFromEntity(world, player, true, 4.5);
+		MovingObjectPosition block = ToolCommons.raytraceFromEntity(world, player, true, 10);
 		if(block == null)
 			return false;
 
