@@ -1,3 +1,9 @@
+r1.3 139
+*Added the Rod of the Arcane Barrage. The thing from the last update.
+*Fixed BuildCraft gates not being localized. (sb023612)
+*Fixed the Petal Apothecary consuming water bottles and added support for Forge IFluidContainerItem. (ganymedes01)
+*Made the color for the floating island texture a bit more saturated. (Yulife)
+*The shedding pages now properly use the world instance for creating entities. Should fix crashes with Fossils & Archeology. (SoundLogic)
 r1.3 138
 *"Added" a new item that works but is creative only for now, I'll work on it some more later >_>
 *Added a proper, registered dependency on Baubles. <i>Only took over 100 versions to do it /o/</i>
