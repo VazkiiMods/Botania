@@ -77,7 +77,7 @@ public class EntityMagicMissile extends EntityThrowable {
 			if(targetList.contains(target) && target != null) {
 				EntityLivingBase thrower = getThrower();
 				EntityPlayer player = thrower instanceof EntityPlayer ? (EntityPlayer) thrower : null;
-				target.attackEntityFrom(player == null ? DamageSource.generic : DamageSource.causePlayerDamage(player), 5);
+				target.attackEntityFrom(player == null ? DamageSource.generic : DamageSource.causePlayerDamage(player), 7);
 				setDead();
 			}
 		}
