@@ -17,6 +17,7 @@
 	"lexiconPage": { "category": "neutral", "sounds":["lexiconPage"] },
 	"manaBlaster": { "category": "neutral", "sounds":["manaBlaster"] },
 	"manaPoolCraft": { "category": "neutral", "sounds":["manaPoolCraft"] },
+	"missile": { "category": "neutral", "sounds":["missile"] },
 	"orechid": { "category": "neutral", "sounds":["orechid"] },
 	"potionCreate": { "category": "neutral", "sounds":["potionCreate"] },
 	"runeAltarCraft": { "category": "neutral", "sounds":["runeAltarCraft"] },

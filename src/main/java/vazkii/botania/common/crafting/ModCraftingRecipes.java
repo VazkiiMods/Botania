@@ -209,6 +209,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeRedStringFertilizer;
 	public static IRecipe recipeRedStringComparator;
 	public static IRecipe recipeRedStringRelay;
+	public static IRecipe recipeMissileRod;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1339,6 +1340,14 @@ public final class ModCraftingRecipes {
 				'S', LibOreDict.RED_STRING,
 				'M', new ItemStack(ModBlocks.spreader));
 		recipeRedStringRelay = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Rod of the Arcane Barrage
+		addOreDictRecipe(new ItemStack(ModItems.missileRod), 
+				"GDD", " TD", "T G",
+				'G', LibOreDict.LIFE_ESSENCE,
+				'D', LibOreDict.DRAGONSTONE,
+				'T', LibOreDict.LIVINGWOOD_TWIG);
+		recipeMissileRod = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

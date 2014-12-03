@@ -148,6 +148,7 @@ public final class LexiconData {
 	public static LexiconEntry diviningRod;
 	public static LexiconEntry gravityRod;
 	public static LexiconEntry regenIvy;
+	public static LexiconEntry missileRod;
 
 	public static LexiconEntry baublesIntro;
 	public static LexiconEntry tinyPlanet;
@@ -562,6 +563,9 @@ public final class LexiconData {
 		regenIvy = new ALexiconEntry(LibLexicon.TOOL_REGEN_IVY, categoryTools);
 		regenIvy.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeRegenIvy));
 
+		missileRod = new ALexiconEntry(LibLexicon.TOOL_MISSILE_ROD, categoryTools);
+		missileRod.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeMissileRod));
+		
 		// BAUBLES ENTRIES
 		baublesIntro = new BLexiconEntry(LibLexicon.BAUBLE_INTRO, categoryBaubles);
 		baublesIntro.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_BAUBLES), new PageText("2"));

@@ -786,7 +786,7 @@ item.botania:brewVial.name=Vial of %s (%s)
 item.botania:brewFlask.name=Flask of %s (%s)
 item.botania:bloodPendant.name=Tainted Blood Pendant
 item.botania:redString.name=Red String
-item.botania:missileRod.name=Missile Rod Thingymajig (WIP)
+item.botania:missileRod.name=Rod of the Arcane Barrage
 
 # BREW NAMES
 botania.brew.fallback=Fallback
@@ -1600,6 +1600,11 @@ botania.page.regenIvy0=While &1Manasteel&0 or &1Elementium&0 tools have the abil
 botania.page.regenIvy1=To apply it, one'd simply craft the tool in question alongside the ivy and 3 of an item that can be used to repair the tool in an anvil (eg. &1Diamonds&0 for a &1Diamond Pickaxe&0).<br>Due to not being in direct contact with the material, the amount of &4Mana&0 used by the ivy in comparison to &1Manasteel&0 is rather high.
 botania.page.regenIvy2=Bring your Inferno Adze
 
+# -- ROD OF THE ARCANE BARRAGE
+botania.entry.missileRod=Rod of the Arcane Barrage
+botania.page.missileRod0=The &1Rod of the Arcane Barrage&0 is a rather powerful weapon against a large crowd of foes. Channeling its power will materialize countless arcane missiles that home in on targets at random, at a pretty hefty cost of &4Mana&0.
+botania.page.missileRod1=Zapzapzapzap
+
 # - BAUBLES
 # -- AN INTRODUCTION TO BAUBLES
 botania.entry.bIntro=An Introduction to Baubles
@@ -1702,7 +1707,6 @@ botania.page.itemFinder2=Do you hear their voices?
 botania.entry.superLavaPendant=Crimson Pendant
 botania.page.superLavaPendant0=The &1Crimson Pendant&0 is, in simple terms, an upgraded counterpart to the &1Pyroclast Pendant&0, wearing it provides the wearer immunity to all fire and lava damage, instead of just extinguishing them.
 botania.page.superLavaPendant1=Runner-up on Monolith Code
-
 
 # -- TAINED BLOOD PENDANT
 botania.entry.bloodPendant=Tained Blood Pendant

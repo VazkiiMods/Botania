@@ -60,6 +60,7 @@ public class ItemMissileRod extends ItemMod implements IManaUsingItem {
 			EntityMagicMissile missile = new EntityMagicMissile(player.worldObj);
 			missile.setPosition(player.posX + (Math.random() - 0.5 * 0.1), player.posY + 2.4 + (Math.random() - 0.5 * 0.1), player.posZ + (Math.random() - 0.5 * 0.1));
 			if(missile.getTarget()) {
+				player.worldObj.playSoundAtEntity(player, "botania:missile", 0.6F, 0.8F + (float) Math.random() * 0.2F);
 				player.worldObj.spawnEntityInWorld(missile);
 				ManaItemHandler.requestManaExact(stack, player, COST_PER, true);
 			}
