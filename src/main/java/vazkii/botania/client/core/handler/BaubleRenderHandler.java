@@ -57,8 +57,12 @@ public final class BaubleRenderHandler {
 	private void dispatchRenders(InventoryBaubles inv, RenderPlayerEvent event, RenderType type) {
 		for(int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
-			if(stack != null && stack.getItem() instanceof IBaubleRender)
+			if(stack != null && stack.getItem() instanceof IBaubleRender) {
+				GL11.glPushMatrix();
+				GL11.glColor4f(1F, 1F, 1F, 1F);
 				((IBaubleRender) stack.getItem()).onPlayerBaubleRender(stack, event, type);
+				GL11.glPopMatrix();
+			}
 		}
 	}
 	

@@ -95,6 +95,9 @@ public final class LibResources {
 	public static final String MODEL_TINY_POTATO = PREFIX_MODEL + "tinyPotato.png";
 	public static final String MODEL_SPAWNER_CLAW = PREFIX_MODEL + "spawnerClaw.png";
 	public static final String MODEL_BREWERY = PREFIX_MODEL + "brewery.png";
+	public static final String MODEL_TRAVEL_BELT = PREFIX_MODEL + "travelBelt.png";
+	public static final String MODEL_SUPER_TRAVEL_BELT = PREFIX_MODEL + "superTravelBelt.png";
+	public static final String MODEL_KNOCKBACK_BELT = PREFIX_MODEL + "knockbackBelt.png";
 
 	public static final String MODEL_CAPE = "/assets/botania/textures/model/cape.png";
 
