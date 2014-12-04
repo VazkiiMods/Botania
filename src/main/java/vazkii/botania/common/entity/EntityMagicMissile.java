@@ -84,7 +84,7 @@ public class EntityMagicMissile extends EntityThrowable {
 	}
 	
 	public boolean getTarget() {
-		if(target != null && target.getHealth() > 0 && !target.isDead && worldObj.getLoadedEntityList().contains(target))
+		if(target != null && target.getHealth() > 0 && !target.isDead && worldObj.loadedEntityList.contains(target))
 			return true;
 		target = null;
 		
