@@ -11,6 +11,7 @@
  */
 package vazkii.botania.api.item;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.RenderPlayerEvent;
@@ -26,7 +27,6 @@ import cpw.mods.fml.relauncher.SideOnly;
  * This class doesn't extend IBauble to make the API not depend on the Baubles
  * API, but the item in question still needs to implement IBauble.
  */
-@SideOnly(Side.CLIENT)
 public interface IBaubleRender {
 
 	/**
@@ -53,7 +53,7 @@ public interface IBaubleRender {
 		}
 		
 		public static void translateToHeadLevel(EntityPlayer player) {
-			GL11.glTranslated(0, -player.getDefaultEyeHeight() + (player.isSneaking() ? 0.0625 : 0), 0);
+			GL11.glTranslated(0, (player != Minecraft.getMinecraft().thePlayer ? 1.62F : 0F) - player.getDefaultEyeHeight() + (player.isSneaking() ? 0.0625 : 0), 0);
 		}
 
 	}

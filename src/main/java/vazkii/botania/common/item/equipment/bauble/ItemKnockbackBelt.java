@@ -37,7 +37,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemKnockbackBelt extends ItemBaubleModifier implements IBaubleRender {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_KNOCKBACK_BELT);
-	private static final ModelBiped model = new ModelBiped();
+	private static ModelBiped model;
 	
 	public ItemKnockbackBelt() {
 		super(LibItemNames.KNOCKBACK_BELT);
@@ -64,6 +64,10 @@ public class ItemKnockbackBelt extends ItemBaubleModifier implements IBaubleRend
 
 			float s = (armor ? 1.3F : 1.05F) / 16F;
 			GL11.glScalef(s, s, s);
+			
+			if(model == null)
+				model = new ModelBiped();
+
 			model.bipedBody.render(1F);
 		}
 	}

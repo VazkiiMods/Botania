@@ -35,7 +35,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemTravelBelt extends ItemBauble implements IBaubleRender {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_TRAVEL_BELT);
-	private static final ModelBiped model = new ModelBiped();
+	@SideOnly(Side.CLIENT)
+	private static ModelBiped model;
 	
 	final float speed;
 	final float jump;
@@ -113,6 +114,9 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender {
 
 			float s = (armor ? 1.3F : 1.05F) / 16F;
 			GL11.glScalef(s, s, s);
+			if(model == null)
+				 model = new ModelBiped();
+			
 			model.bipedBody.render(1F);
 		}
 	}
