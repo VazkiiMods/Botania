@@ -98,7 +98,9 @@ public final class LibResources {
 	public static final String MODEL_TRAVEL_BELT = PREFIX_MODEL + "travelBelt.png";
 	public static final String MODEL_SUPER_TRAVEL_BELT = PREFIX_MODEL + "superTravelBelt.png";
 	public static final String MODEL_KNOCKBACK_BELT = PREFIX_MODEL + "knockbackBelt.png";
-
+	public static final String MODEL_HOLY_CLOAK = PREFIX_MODEL + "holyCloak.png";
+	public static final String MODEL_UNHOLY_CLOAK = PREFIX_MODEL + "unholyCloak.png";
+	
 	public static final String MODEL_CAPE = "/assets/botania/textures/model/cape.png";
 
 	public static final String MISC_PARTICLES = PREFIX_MISC + "particles.png";

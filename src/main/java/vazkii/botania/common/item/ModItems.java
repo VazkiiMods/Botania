@@ -36,6 +36,7 @@ import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.equipment.bauble.ItemGoldenLaurel;
 import vazkii.botania.common.item.equipment.bauble.ItemGreaterAuraRing;
 import vazkii.botania.common.item.equipment.bauble.ItemGreaterManaRing;
+import vazkii.botania.common.item.equipment.bauble.ItemHolyCloak;
 import vazkii.botania.common.item.equipment.bauble.ItemIcePendant;
 import vazkii.botania.common.item.equipment.bauble.ItemItemFinder;
 import vazkii.botania.common.item.equipment.bauble.ItemKnockbackBelt;
@@ -49,6 +50,7 @@ import vazkii.botania.common.item.equipment.bauble.ItemSuperLavaPendant;
 import vazkii.botania.common.item.equipment.bauble.ItemSuperTravelBelt;
 import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
 import vazkii.botania.common.item.equipment.bauble.ItemTravelBelt;
+import vazkii.botania.common.item.equipment.bauble.ItemUnholyCloak;
 import vazkii.botania.common.item.equipment.bauble.ItemWaterRing;
 import vazkii.botania.common.item.equipment.tool.ItemEnderDagger;
 import vazkii.botania.common.item.equipment.tool.ItemGlassPick;
@@ -182,6 +184,8 @@ public final class ModItems {
 	public static Item brewFlask;
 	public static Item bloodPendant;
 	public static Item missileRod;
+	public static Item holyCloak;
+	public static Item unholyCloak;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -277,6 +281,8 @@ public final class ModItems {
 		brewFlask = new ItemBrewFlask();
 		bloodPendant = new ItemBloodPendant();
 		missileRod = new ItemMissileRod();
+		holyCloak = new ItemHolyCloak();
+		unholyCloak = new ItemUnholyCloak();
 		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {

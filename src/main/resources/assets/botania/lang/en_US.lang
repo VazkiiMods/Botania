@@ -787,6 +787,8 @@ item.botania:brewFlask.name=Flask of %s (%s)
 item.botania:bloodPendant.name=Tainted Blood Pendant
 item.botania:redString.name=Red String
 item.botania:missileRod.name=Rod of the Arcane Barrage
+item.botania:holyCloak.name=Cloak of Virtue
+item.botania:holyCloak.name=Cloak of Sin
 
 # BREW NAMES
 botania.brew.fallback=Fallback
