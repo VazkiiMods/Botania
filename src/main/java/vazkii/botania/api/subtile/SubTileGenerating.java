@@ -69,7 +69,6 @@ public class SubTileGenerating extends SubTileEntity {
 		}
 
 		if(!supertile.getWorldObj().isRemote) {
-			++ticksExisted;
 			int muhBalance = BotaniaAPI.internalHandler.getPassiveFlowerDecay();
 
 			if(isPassiveFlower() && muhBalance > 0 && ticksExisted > muhBalance) {

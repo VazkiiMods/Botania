@@ -103,7 +103,7 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 		cmp.setTag(TAG_SUBTILE_CMP, subCmp);
 
 		if(subTile != null)
-			subTile.readFromPacketNBTInternal(subCmp);
+			subTile.writeToPacketNBTInternal(subCmp);
 	}
 
 	@Override

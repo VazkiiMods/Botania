@@ -33,7 +33,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class SubTileEntity {
 
 	protected TileEntity supertile;
-	
+
 	public int ticksExisted = 0;
 
 	/** The Tag items should use to store which sub tile they are. **/
@@ -48,7 +48,7 @@ public class SubTileEntity {
 		return true;
 	}
 
-	public void onUpdate() { 
+	public void onUpdate() {
 		ticksExisted++;
 	}
 
@@ -56,13 +56,13 @@ public class SubTileEntity {
 		cmp.setInteger(TAG_TICKS_EXISTED, ticksExisted);
 		writeToPacketNBT(cmp);
 	}
-	
+
 	public final void readFromPacketNBTInternal(NBTTagCompound cmp) {
 		if(cmp.hasKey(TAG_TICKS_EXISTED))
 			ticksExisted = cmp.getInteger(TAG_TICKS_EXISTED);
 		readFromPacketNBT(cmp);
 	}
-	
+
 	/**
 	 * Writes some extra data to a network packet. This data is read
 	 * by readFromPacketNBT on the client that receives the packet.
