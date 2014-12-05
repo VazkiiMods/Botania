@@ -28,7 +28,7 @@ public class ItemGreaterAuraRing extends ItemBauble {
 	public void onWornTick(ItemStack stack, EntityLivingBase player) {
 		super.onWornTick(stack, player);
 		if(player instanceof EntityPlayer)
-			ManaItemHandler.dispatchManaExact(stack, (EntityPlayer) player, player.worldObj.getTotalWorldTime() % 3 == 0 ? 2 : 1, true);
+			ManaItemHandler.dispatchManaExact(stack, (EntityPlayer) player, player.ticksExisted % 3 == 0 ? 2 : 1, true);
 	}
 
 	@Override

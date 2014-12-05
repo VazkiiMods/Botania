@@ -33,7 +33,7 @@ public class SubTileHydroangeas extends SubTileGenerating {
 		boolean didSomething = false;
 
 		if(burnTime == 0) {
-			if(supertile.getWorldObj().getWorldTime() % 40L == 0)
+			if(ticksExisted % 40L == 0)
 				if(mana < getMaxMana() && !supertile.getWorldObj().isRemote) {
 					Random random = new Random();
 					int randomInt = random.nextInt(3);

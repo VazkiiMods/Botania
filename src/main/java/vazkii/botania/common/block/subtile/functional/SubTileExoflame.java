@@ -48,7 +48,7 @@ public class SubTileExoflame extends SubTileFunctional {
 											BlockFurnace.updateFurnaceBlockState(true, supertile.getWorldObj(), x, y, z);
 										furnace.furnaceBurnTime = 200;
 									}
-									if(supertile.getWorldObj().getTotalWorldTime() % 2 == 0)
+									if(ticksExisted % 2 == 0)
 										furnace.furnaceCookTime = Math.min(199, furnace.furnaceCookTime + 1);
 
 									mana -= 2;
@@ -62,7 +62,7 @@ public class SubTileExoflame extends SubTileFunctional {
 								if(heatable.canSmelt() && mana > 2) {
 									if(heatable.getBurnTime() == 0)
 										heatable.boostBurnTime();
-									if(supertile.getWorldObj().getTotalWorldTime() % 2 == 0)
+									if(ticksExisted % 2 == 0)
 										heatable.boostCookTime();
 
 									mana -= 2;

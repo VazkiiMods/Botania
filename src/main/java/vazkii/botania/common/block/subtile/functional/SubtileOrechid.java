@@ -38,7 +38,7 @@ public class SubtileOrechid extends SubTileFunctional {
 		if(redstoneSignal > 0)
 			return;
 
-		if(!supertile.getWorldObj().isRemote && mana >= COST && supertile.getWorldObj().getTotalWorldTime() % 100 == 0) {
+		if(!supertile.getWorldObj().isRemote && mana >= COST && ticksExisted % 100 == 0) {
 			ChunkCoordinates coords = getCoordsToPut();
 			if(coords != null) {
 				ItemStack stack = getOreToPut();

@@ -103,7 +103,7 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 		cmp.setTag(TAG_SUBTILE_CMP, subCmp);
 
 		if(subTile != null)
-			subTile.writeToPacketNBT(subCmp);
+			subTile.readFromPacketNBTInternal(subCmp);
 	}
 
 	@Override
@@ -117,7 +117,7 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 			provideSubTile(subTileName);
 
 		if(subTile != null)
-			subTile.readFromPacketNBT(subCmp);
+			subTile.readFromPacketNBTInternal(subCmp);
 	}
 
 	public IIcon getIcon() {

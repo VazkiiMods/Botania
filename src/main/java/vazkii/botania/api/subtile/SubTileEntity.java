@@ -33,20 +33,36 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class SubTileEntity {
 
 	protected TileEntity supertile;
+	
+	public int ticksExisted = 0;
 
 	/** The Tag items should use to store which sub tile they are. **/
 	public static final String TAG_TYPE = "type";
+	public static final String TAG_TICKS_EXISTED = "ticksExisted";
 
 	public void setSupertile(TileEntity tile) {
 		supertile = tile;
 	}
 
 	public boolean canUpdate() {
-		return false;
+		return true;
 	}
 
-	public void onUpdate() { }
+	public void onUpdate() { 
+		ticksExisted++;
+	}
 
+	public final void writeToPacketNBTInternal(NBTTagCompound cmp) {
+		cmp.setInteger(TAG_TICKS_EXISTED, ticksExisted);
+		writeToPacketNBT(cmp);
+	}
+	
+	public final void readFromPacketNBTInternal(NBTTagCompound cmp) {
+		if(cmp.hasKey(TAG_TICKS_EXISTED))
+			ticksExisted = cmp.getInteger(TAG_TICKS_EXISTED);
+		readFromPacketNBT(cmp);
+	}
+	
 	/**
 	 * Writes some extra data to a network packet. This data is read
 	 * by readFromPacketNBT on the client that receives the packet.

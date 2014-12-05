@@ -25,12 +25,9 @@ public class SubTileManastar extends SubTileEntity {
 	int manaLastTick = -1;
 
 	@Override
-	public boolean canUpdate() {
-		return true;
-	}
-
-	@Override
 	public void onUpdate() {
+		super.onUpdate();
+		
 		int mana = 0;
 		for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) {
 			TileEntity tile = supertile.getWorldObj().getTileEntity(supertile.xCoord + dir.offsetX, supertile.yCoord, supertile.zCoord + dir.offsetZ);
@@ -43,7 +40,7 @@ public class SubTileManastar extends SubTileEntity {
 			Botania.proxy.wispFX(supertile.getWorldObj(), supertile.xCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.yCoord + 0.75 + Math.random() * 0.2 - 0.1, supertile.zCoord + 0.5, more ? 0.05F : 1F, 0.05F, more ? 1F : 0.05F, (float) Math.random() / 7, (float) -Math.random() / 50);
 		}
 
-		if(supertile.getWorldObj().getTotalWorldTime() % 60 == 0)
+		if(ticksExisted % 60 == 0)
 			manaLastTick = mana;
 	}
 

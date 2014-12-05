@@ -30,7 +30,7 @@ public class SubTileClayconia extends SubTileFunctional {
 	public void onUpdate() {
 		super.onUpdate();
 
-		if(!supertile.getWorldObj().isRemote && supertile.getWorldObj().getTotalWorldTime() % 5 == 0) {
+		if(!supertile.getWorldObj().isRemote && ticksExisted % 5 == 0) {
 			int manaCost = 80;
 			if(mana >= manaCost) {
 				ChunkCoordinates coords = getCoordsToPut();

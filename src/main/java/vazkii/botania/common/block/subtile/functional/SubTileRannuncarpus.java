@@ -47,7 +47,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 		if(redstoneSignal > 0)
 			return;
 
-		if(supertile.getWorldObj().getTotalWorldTime() % 10 == 0) {
+		if(ticksExisted % 10 == 0) {
 			BlockData filter = getUnderlyingBlock();
 
 			boolean scanned = false;

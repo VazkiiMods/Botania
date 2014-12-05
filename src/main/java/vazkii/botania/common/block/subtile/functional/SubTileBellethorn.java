@@ -45,7 +45,7 @@ public class SubTileBellethorn extends SubTileFunctional {
 		final int range = 6;
 		final int manaToUse = getManaCost();
 
-		if(supertile.getWorldObj().getTotalWorldTime() % 5 == 0) {
+		if(ticksExisted % 5 == 0) {
 			List<EntityLivingBase> entities = supertile.getWorldObj().getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord, supertile.zCoord - range, supertile.xCoord + range, supertile.yCoord + 1, supertile.zCoord + range));
 			IEntitySelector selector = getSelector();
 
