@@ -170,6 +170,7 @@ public final class LexiconData {
 	public static LexiconEntry itemFinder;
 	public static LexiconEntry superLavaPendant;
 	public static LexiconEntry bloodPendant;
+	public static LexiconEntry judgementCloaks;
 
 	public static LexiconEntry alfhomancyIntro;
 	public static LexiconEntry elvenMessage;
@@ -626,6 +627,9 @@ public final class LexiconData {
 
 		bloodPendant = new BLexiconEntry(LibLexicon.BAUBLE_BLOOD_PENDANT, categoryBaubles);
 		bloodPendant.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeBloodPendant));
+		
+		judgementCloaks = new ALexiconEntry(LibLexicon.BAUBLE_JUDGEMENT_CLOAKS, categoryBaubles);
+		judgementCloaks.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeHolyCloak), new PageCraftingRecipe("3", ModCraftingRecipes.recipeUnholyCloak));
 		
 		// ALFHOMANCY ENTRIES
 		alfhomancyIntro = new BLexiconEntry(LibLexicon.ALF_INTRO, categoryAlfhomancy);

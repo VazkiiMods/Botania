@@ -14,11 +14,11 @@ package vazkii.botania.common.item.equipment.bauble;
 import java.util.List;
 
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -40,8 +40,8 @@ public class ItemUnholyCloak extends ItemHolyCloak {
 			int range = 6;
 			List<IMob> mobs = player.worldObj.getEntitiesWithinAABB(IMob.class, AxisAlignedBB.getBoundingBox(player.posX - range, player.posY - range, player.posZ - range, player.posX + range, player.posY + range, player.posZ + range));
 			for(IMob mob : mobs)
-				if(mob instanceof EntityLiving) {
-					EntityLiving entity = (EntityLiving) mob;
+				if(mob instanceof EntityLivingBase) {
+					EntityLivingBase entity = (EntityLivingBase) mob;
 					entity.attackEntityFrom(DamageSource.causePlayerDamage(player), event.ammount);
 				}
 			
