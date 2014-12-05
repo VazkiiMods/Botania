@@ -1,3 +1,14 @@
+r1.3 140
+*Added two new Baubles, the Cloaks of Virtue and Sin. Their effects trigger when the player takes damage.
+*All non-ring baubles now render on the player, fancy!
+*Fixed flowers not ticking properly if the doDaylightCycle gamerule is set to false.
+*Fixed the Halo on the Flugel wings rendering 1.62 blocks higher than normal on other players in multiplayer.
+*Fixed the Rod of the Arcane Barrage crashing servers >_>
+*Fixed the Terra Shatterer and Elementium Shovel having not working if the player's reach is above 4.5 (with the ring of far reach for example).
+*Gave some more damage to the Rod of the Arcane Barrage.
+*[API] Added IBaubleRender.
+*[API] SubTileEntities now have an internal ticker.
+*[API] Updated version number to 24.
 r1.3 139
 *Added the Rod of the Arcane Barrage. The thing from the last update.
 *Fixed BuildCraft gates not being localized. (sb023612)
