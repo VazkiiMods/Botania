@@ -15,10 +15,16 @@ buildscript {
     }
 }
 
+
 repositories {
+    mavenCentral()
     maven {
         name = "chickenbones"
         url = "http://chickenbones.net/maven/"
+    }
+    ivy {
+        name "Baubles-deobf"
+        artifactPattern "https://dl.dropboxusercontent.com/u/47135879/[module]-[revision].[ext]"
     }
 }
 
@@ -31,33 +37,30 @@ ext.config = parseConfig(configFile)
 ext.priv = parseConfig(file('private.properties'))
 
 version = "${config.version}-${config.build_number}"
-group = "vazkii.botania" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = "vazkii.botania"
 archivesBaseName = config.mod_name
+
 
 minecraft {
     version = "${config.mc_version}-${config.forge_version}"
-    assetDir = "eclipse/assets"
+    runDir = "eclipse"
 
-    //This, does the token replacement.
-    //Though, I reccomend this to be replaced with a token such as @VERSION@
+    replaceIn "LibMisc.java"
     replace 'GRADLE:BUILD', config.build_number
     replace 'GRADLE:VERSION', config.version
-
-    replaceIn 'LibMisc.java' //I may have missed another file, though I can only find it in here.
 }
 
-//This here is for FTP
-repositories {
-    mavenCentral()
+processResources {
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
 }
+
 configurations {
     ftpAntTask
 }
-//End of the FTP config
+
 dependencies {
-    compile files(
-            'Baubles-deobf.jar'
-    )
+    compile name: "Baubles-deobf", version: "1.7.10-1.0.1.10", ext: "jar"
     compile "codechicken:CodeChickenLib:1.7.10-1.1.1.95:dev"
     compile "codechicken:CodeChickenCore:1.7.10-1.0.2.9:dev"
     compile "codechicken:NotEnoughItems:1.7.10-1.0.2.15:dev"
@@ -67,110 +70,6 @@ dependencies {
         module("commons-net:commons-net:1.4.1") {
             dependencies("oro:oro:2.0.8@jar")
         }
-    }
-}
-
-processResources {
-    // replace stuff in mcmod.info, nothing else
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-
-        // replace version and mcversion
-        expand 'version': project.version, 'mcversion': project.minecraft.version
-    }
-
-    // copy everything else, thats not the mcmod.info
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info', '**/psd/**'
-    }
-}
-
-/**
- * These, go outside of the processResources {}* Though, this was added with the NEI intergation commit (8bf4680)
- */
-task deobfJar(type: Jar) {
-    from(sourceSets.main.output)
-	archiveName = "${baseName} ${version}-deobf.${extension}"
-}
-
-artifacts {
-    archives deobfJar
-}
-/**
- * Increments the buildnumber in your config file, and saves it
- */
-task incrementBuildNumber(dependsOn: 'reobf') << {
-    config.build_number = (config.build_number.toString().toInteger()) + 1
-    configFile.withWriter {
-        config.toProperties().store(it, "")
-    }
-
-    file('web/versions.ini').append("\n${version}=${minecraft.version}")
-    file("${config.dir_repo}/version/${minecraft.version}.txt").write("${version}")
-}
-
-// I have no idea what I'm doing
-task wtfGradle2(type: Copy) {
-    from(jar.destinationDir)
-    into file("${config.dir_output}/wtf")
-}
-
-// Seriously, I'm desperate to make this work
-task wtfGradle1(type: Delete) {
-	dependsOn "wtfGradle2"
-    delete "${config.dir_output}/wtf/${deobfJar.archiveName}"
-}
-
-task output(type: Copy) {
-	dependsOn "wtfGradle1"
-	from(jar.destinationDir)
-    into file(config.dir_output)
-}
-
-task outputDeobf(type: Copy) {
-	dependsOn "output"
-	from(config.dir_output) {
-		include deobfJar.archiveName
-	}
-    into file("${config.dir_output}/deobf")
-}
-
-task forgecraft(type: Copy) {
-	dependsOn "outputDeobf"
-	from "${config.dir_output}/wtf"
-	into file(config.dir_forgecraft)
-}
-
-task sort(type: Delete) {
-	dependsOn "forgecraft"
-	delete "${config.dir_output}/${deobfJar.archiveName}", "${config.dir_output}/wtf"
-}
-
-/**
- * This is the upload task from the build.xml
- */
-task upload(dependsOn: 'reobf') << {
-    ftp(action: 'mkdir', remotedir: '/files')
-    ftp(action: 'send', remotedir: '/files') {
-        fileset(file: jar.archivePath)
-    }
-	
-	 ftp(action: 'send', remotedir: '/files/deobf') {
-        fileset(file: deobfJar.archivePath)
-    }
-
-    ftp(action: 'send', remotedir: '.') {
-        fileset(file: 'web/changelog.txt')
-        fileset(file: 'web/versions.ini')
-    }
-}
-
-/**
- * This is deply_web task
- */
-task deployWeb << {
-    ftp(action: 'send', remotedir: '.') {
-        fileset(dir: 'web') //everything from the web directory
     }
 }
 
@@ -194,6 +93,10 @@ void ftp(Map args, Closure antFileset = {}) {
     }
 }
 
+/**
+ * Parse a specified file
+ * @return config File
+ */
 def parseConfig(File config) {
     config.withReader {
         def prop = new Properties()
@@ -202,20 +105,85 @@ def parseConfig(File config) {
     }
 }
 
-jar {
-    //rename the default output, for some better... sanity with scipts
-    archiveName = "${baseName} ${version}.${extension}"
+/**
+ * Increments the buildnumber in your config file, and saves it
+ */
+task incrementBuildNumber(dependsOn: 'build') << {
+    config.build_number = (config.build_number.toString().toInteger()) + 1
+    configFile.withWriter {
+        config.toProperties().store(it, "")
+    }
+
+    file('web/versions.ini').append("\n${version}=${minecraft.version}")
+    file("./version/${minecraft.version}.txt").write("${version}")
+}
+
+task apiJar(type: Jar, dependsOn: classes) {
+    from sourceSets.main.output
+    include 'vazkii/botania/api/**' 
+    classifier = 'api'
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    classifier = 'deobf'
+}
+
+
+ 
+  /**
+   * This is the upload task from the build.xml
+   * Only increments on upload.
+   */
+task upload(dependsOn: 'incrementBuildNumber') << {
+    ftp(action: 'mkdir', remotedir: '/files')
+    ftp(action: 'send', remotedir: '/files') {
+        fileset(file: jar.archivePath)
+    }
+    
+    ftp(action: 'mkdir', remotedir: '/files/deobf')
+    ftp(action: 'send', remotedir: '/files/deobf') {
+        fileset(file: deobfJar.archivePath)
+    }
+
+    ftp(action: 'send', remotedir: '.') {
+        fileset(file: 'web/changelog.txt')
+        fileset(file: 'web/versions.ini')
+    }
+}
+
+/**
+ * This is deply_web task
+ */
+task deployWeb << {
+    ftp(action: 'send', remotedir: '.') {
+        fileset(dir: 'web') //everything from the web directory
+    }
+}
+
+task forgecraft(type: Copy, dependsOn: 'reobf') {
+    from jar.archivePath
+    into file(config.dir_forgecraft)
 }
 
 curse {
     apiKey = priv.cfkey
     projectId = "225643"
     changelog = """
-		See http://vazkii.us/mod/Botania/changelog.php#${version}
+        See http://vazkii.us/mod/Botania/changelog.php#${version}
     """
     releaseType = "release"
 }
 
-//change this so it only increments on upload
-upload.dependsOn tasks.incrementBuildNumber
-defaultTasks 'clean', 'build', 'sort', 'forgecraft', 'curse', 'upload' //remove clean if you want faster builds, this will stop rare inconsistancies. 
+artifacts {
+    archives sourcesJar
+    archives apiJar
+    archives deobfJar
+}
+
+defaultTasks 'clean', 'build', 'forgecraft', 'curse', 'upload' //remove clean if you want faster builds, this will stop rare inconsistancies.
