@@ -1,3 +1,7 @@
+r1.3 141
+*Added Alchemy recipes to break down Clay and Brick blocks.
+*Moved Terrasteel Armor hp boost values around so the amount is relative to the amount of materials used for crafting. Total is still 20.
+*The Tiny Potato now emits heart particles when it's right cli- <i>...what am I doing with my life?</i>
 r1.3 140
 *Added two new Baubles, the Cloaks of Virtue and Sin. Their effects trigger when the player takes damage.
 *All non-ring baubles now render on the player, fancy!
