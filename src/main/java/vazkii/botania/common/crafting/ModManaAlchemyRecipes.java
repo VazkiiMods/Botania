@@ -122,8 +122,8 @@ public final class ModManaAlchemyRecipes {
 		redSandRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Block.getBlockFromName("sand"), 1, 1), new ItemStack(Blocks.hardened_clay), 50);
 		
 		clayBreakdownRecipes = new ArrayList();
-		clayBreakdownRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.clay_ball), new ItemStack(Blocks.clay), 25));
-		clayBreakdownRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.brick), new ItemStack(Blocks.brick_block), 25));
+		clayBreakdownRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.clay_ball, 4), new ItemStack(Blocks.clay), 25));
+		clayBreakdownRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.brick, 4), new ItemStack(Blocks.brick_block), 25));
 		
 		coarseDirtRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.dirt, 1, 1), new ItemStack(Blocks.dirt), 120);
 
