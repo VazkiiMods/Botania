@@ -7,6 +7,7 @@
 		<link rel="stylesheet" href="css/ripples.min.css">
         <link rel="stylesheet" href="css/material-wfont.min.css">
 		<link rel="stylesheet" href="css/botania.css">
+		<link rel="stylesheet" href="css/minecraft-pallette.css">
 	</head>
 
 	<body>

@@ -1,0 +1,21 @@
+.mc-color-0 { color: #000000; }
+.mc-color-1 { color: #0000AA; }
+.mc-color-2 { color: #00AA00; }
+.mc-color-3 { color: #00AAAA; }
+.mc-color-4 { color: #AA0000; }
+.mc-color-5 { color: #AA00AA; }
+.mc-color-6 { color: #FFAA00; }
+.mc-color-7 { color: #AAAAAA; }
+.mc-color-8 { color: #555555; }
+.mc-color-9 { color: #5555FF; }
+.mc-color-a { color: #55FF55; }
+.mc-color-b { color: #55FFFF; }
+.mc-color-c { color: #FF5555; }
+.mc-color-d { color: #FF55FF; }
+.mc-color-e { color: #FFFF55; }
+.mc-color-f { color: #FFFFFF; }
+
+.mc-color-l { font-weight: bold; }
+.mc-color-m { text-decoration: line-through; }
+.mc-color-n { text-decoration: underline; }
+.mc-color-o { font-style: italic; }
