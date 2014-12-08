@@ -61,6 +61,10 @@ hr {
 	text-shadow: 1px 1px rgba(0, 0, 0, 0.3);
 }
 
+.whore-txt {
+	color: #E6721D;
+}
+
 .hashlink, .moe-scroll, .hide-div {
 	cursor: pointer;
 }

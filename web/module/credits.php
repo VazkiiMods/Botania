@@ -1,4 +1,9 @@
-<div class='section-header'>Botania Credits</div>
+<div class='section-header'>
+	<span class='glyphicon glyphicon-heart'></span> 
+	Botania Credits
+</div>
+
+
 No project is done with only one member, Botania is no exception, here's the cast of people to thank!<br><br>
 <ul>
 <li><b>All of my <a href="http://www.patreon.com/Vazkii">Patrons</a> and Donators</b> for being extremely kind as to support me every month with their own income.<br></li>

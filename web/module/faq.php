@@ -1,4 +1,8 @@
-<div class='section-header'>Botania FAQ</div>
+<div class='section-header'>
+	<span class='glyphicon glyphicon-comment'></span>
+	Botania FAQ
+</div>
+
 <ul>
 <li id="q1-fake"><b>Can I use Botania in a modpack?</b> <a href="#q1">(permalink)</a><br>
 Have a look at the license in the bottom of the website, it's the image in the middle. If the footer isn't there, click the little + icon.</li><br>
