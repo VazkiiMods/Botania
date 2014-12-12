@@ -11,19 +11,23 @@
  */
 package vazkii.botania.api.subtile;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.wand.IWandBindable;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+
+import java.util.ArrayList;
 
 /**
  * A Sub-TileEntity, this is used for the flower system. Make sure to map subclasses
@@ -99,6 +103,39 @@ public class SubTileEntity {
 	 */
 	public boolean onWanded(EntityPlayer player, ItemStack wand) {
 		return false;
+	}
+
+	/**
+	 * Called when this sub tile is placed in the world (by an entity).
+	 */
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
+		// NO-OP
+	}
+
+	/**
+	 * Called when a player right clicks this sub tile.
+	 */
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) { return false; }
+
+	/**
+	 * Called when this sub tile is added to the world.
+	 */
+	public void onBlockAdded(World world, int x, int y, int z) {
+		//NO-OP
+	}
+
+	/**
+	 * Called when this sub tile is harvested
+	 */
+	public void onBlockHarvested(World world, int x, int y, int z, int side, EntityPlayer player) {
+		//NO-OP
+	}
+
+	/**
+	 * Allows additional processing of sub tile drops
+	 */
+	public ArrayList<ItemStack> getDrops(ArrayList<ItemStack> list) {
+		return list;
 	}
 
 	/**

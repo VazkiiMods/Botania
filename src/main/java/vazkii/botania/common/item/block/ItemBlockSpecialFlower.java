@@ -54,6 +54,8 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 			if(te instanceof TileSpecialFlower) {
 				TileSpecialFlower tile = (TileSpecialFlower) te;
 				tile.setSubTile(type);
+				tile.onBlockAdded(world, x, y, z);
+				tile.onBlockPlacedBy(world, x, y, z, player, stack);
 				if(!world.isRemote)
 					world.markBlockForUpdate(x, y, z);
 			}
