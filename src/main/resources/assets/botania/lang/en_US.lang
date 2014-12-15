@@ -69,6 +69,8 @@ botaniamisc.peacefulNoob=You try to offer the Terrasteel Ingot, but the peaceful
 botaniamisc.notInfused=Not Infused
 botaniamisc.getALife=Get a Life
 botaniamisc.floatingPrefix=Floating %s
+botaniamisc.unsetRecipe=[No Recipe] Right click to set:
+botaniamisc.cantCraft=Not enough Materials!
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
@@ -789,6 +791,7 @@ item.botania:redString.name=Red String
 item.botania:missileRod.name=Rod of the Unstable Reservoir
 item.botania:holyCloak.name=Cloak of Virtue
 item.botania:unholyCloak.name=Cloak of Sin
+item.botania:craftingHalo.name=Assembly Halo
 
 # BREW NAMES
 botania.brew.fallback=Fallback

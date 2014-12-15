@@ -49,6 +49,7 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.item.ItemCraftingHalo;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibObfuscation;
@@ -64,17 +65,18 @@ public final class HUDHandler {
 	public void onDrawScreen(RenderGameOverlayEvent.Post event) {
 		Minecraft mc = Minecraft.getMinecraft();
 		Profiler profiler = mc.mcProfiler;
+		ItemStack equippedStack = mc.thePlayer.getCurrentEquippedItem();
 
 		if(event.type == ElementType.ALL) {
 			profiler.startSection("botania-hud");
 			MovingObjectPosition pos = mc.objectMouseOver;
+			
 			if(pos != null) {
 				Block block = mc.theWorld.getBlock(pos.blockX, pos.blockY, pos.blockZ);
 				TileEntity tile = mc.theWorld.getTileEntity(pos.blockX, pos.blockY, pos.blockZ);
-				ItemStack stack = mc.thePlayer.getCurrentEquippedItem();
 
-				if(stack != null) {
-					if(pos != null && stack.getItem() == ModItems.twigWand) {
+				if(equippedStack != null) {
+					if(pos != null && equippedStack.getItem() == ModItems.twigWand) {
 						renderWandModeDisplay(event.resolution);
 
 						if(block instanceof IWandHUD) {
@@ -83,15 +85,21 @@ public final class HUDHandler {
 							profiler.endSection();
 						}
 					}
-					else if(pos != null && stack.getItem() instanceof ILexicon)
+					else if(pos != null && equippedStack.getItem() instanceof ILexicon)
 						drawLexiconHUD(mc.thePlayer.getCurrentEquippedItem(), block, pos, event.resolution);
 					else if(tile != null && tile instanceof TilePool)
-						renderPoolRecipeHUD(event.resolution, (TilePool) tile, stack);
+						renderPoolRecipeHUD(event.resolution, (TilePool) tile, equippedStack);
 				}
 			}
 
+			if(equippedStack != null && equippedStack.getItem() == ModItems.craftingHalo) {
+				profiler.startSection("craftingHalo");
+				ItemCraftingHalo.renderHUD(event.resolution, mc.thePlayer, equippedStack);
+				profiler.endSection();
+			}
+			
 			profiler.startSection("manaBar");
-			EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+			EntityPlayer player = mc.thePlayer;
 			int totalMana = 0;
 			int totalMaxMana = 0;
 			boolean anyRequest = false;
