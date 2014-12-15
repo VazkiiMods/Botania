@@ -14,5 +14,6 @@ package vazkii.botania.common.lib;
 public final class LibGuiIDs {
 
 	public static final int LEXICON = 0;
+	public static final int CRAFTING_HALO = 1;
 
 }

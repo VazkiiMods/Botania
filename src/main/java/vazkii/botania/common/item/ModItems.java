@@ -186,6 +186,7 @@ public final class ModItems {
 	public static Item missileRod;
 	public static Item holyCloak;
 	public static Item unholyCloak;
+	public static Item craftingHalo;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -283,6 +284,7 @@ public final class ModItems {
 		missileRod = new ItemMissileRod();
 		holyCloak = new ItemHolyCloak();
 		unholyCloak = new ItemUnholyCloak();
+		craftingHalo = new ItemCraftingHalo();
 		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
