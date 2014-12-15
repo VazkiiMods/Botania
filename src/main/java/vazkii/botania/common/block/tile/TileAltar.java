@@ -35,9 +35,12 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 	private static final Pattern SEED_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)seed)|(?:(?:[a-z-_.:]|^)Seed))(?:[sA-Z-_.:]|$)");
 
 	public static final String TAG_HAS_WATER = "hasWater";
+	public static final String TAG_HAS_LAVA = "hasLava";
 	public static final String TAG_IS_MOSSY = "isMossy";
 
 	public boolean hasWater = false;
+	public boolean hasLava = false;
+
 	public boolean isMossy = false;
 
 	public boolean collideEntityItem(EntityItem item) {
@@ -56,14 +59,23 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 			}
 		}
 
-		if(!hasWater()) {
+		if(!hasWater() && !hasLava()) {
 			if(stack.getItem() == Items.water_bucket && !worldObj.isRemote) {
 				setWater(true);
 				worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 				stack.func_150996_a(Items.bucket); // Set item
+			} else if(stack.getItem() == Items.lava_bucket && !worldObj.isRemote) {
+				setLava(true);
+				worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
+				stack.func_150996_a(Items.bucket); // Set item
 			} else return false;
-		}
+		} 
 
+		if(hasLava()) {
+			item.setFire(100);
+			return true;
+		}
+		
 		boolean didChange = false;
 
 		if(stack.getItem() instanceof IFlowerComponent) {
@@ -150,6 +162,13 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 				Botania.proxy.sparkleFX(worldObj, xCoord + 0.5 + Math.random() * 0.4 - 0.2, yCoord + 1, zCoord + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
 			}
 		}
+		
+		if(hasLava()) {
+			isMossy = false;
+			worldObj.spawnParticle("smoke", xCoord + 0.5 + Math.random() * 0.4 - 0.2, yCoord + 1, zCoord + 0.5 + Math.random() * 0.4 - 0.2, 0, 0.05, 0);
+			if(Math.random() > 0.9)
+				worldObj.spawnParticle("lava", xCoord + 0.5 + Math.random() * 0.4 - 0.2, yCoord + 1, zCoord + 0.5 + Math.random() * 0.4 - 0.2, 0, 0.01, 0);
+		}
 	}
 
 	@Override
@@ -157,6 +176,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 		super.writeCustomNBT(cmp);
 
 		cmp.setBoolean(TAG_HAS_WATER, hasWater());
+		cmp.setBoolean(TAG_HAS_LAVA, hasLava());
 		cmp.setBoolean(TAG_IS_MOSSY, isMossy);
 	}
 
@@ -165,6 +185,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 		super.readCustomNBT(cmp);
 
 		hasWater = cmp.getBoolean(TAG_HAS_WATER);
+		hasLava = cmp.getBoolean(TAG_HAS_LAVA);
 		isMossy = cmp.getBoolean(TAG_IS_MOSSY);
 	}
 
@@ -208,10 +229,19 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 		hasWater = water;
 		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 	}
+	
+	public void setLava(boolean lava) {
+		hasLava = lava;
+		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+	}
 
 	@Override
 	public boolean hasWater() {
 		return hasWater;
+	}
+	
+	public boolean hasLava() {
+		return hasLava;
 	}
 
 }
