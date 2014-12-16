@@ -37,6 +37,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -49,6 +50,7 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.InventoryHelper;
+import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.core.helper.InventoryHelper.GenericInventory;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibGuiIDs;
@@ -110,6 +112,12 @@ public class ItemCraftingHalo extends ItemMod {
 		consumeRecipeIngredients(recipe, player.inventory, player);
 		if(!player.inventory.addItemStackToInventory(recipe[9]))
 			player.dropPlayerItemWithRandomChoice(recipe[9], false);
+		
+		Vec3 lookVec3 = player.getLookVec();
+		Vector3 centerVector = Vector3.fromEntityCenter(player).add(lookVec3.xCoord * 3, 1.3, lookVec3.zCoord * 3);
+		float m = 0.1F;
+		for(int i = 0; i < 4; i++)
+			Botania.proxy.wispFX(player.worldObj, centerVector.x, centerVector.y, centerVector.z, 1F, 0F, 1F, 0.2F + 0.2F * (float) Math.random(), ((float) Math.random() - 0.5F) * m, ((float) Math.random() - 0.5F) * m, ((float) Math.random() - 0.5F) * m);
 	}
 
 	private static boolean consumeRecipeIngredients(ItemStack[] recipe, IInventory inv, EntityPlayer player) {
@@ -461,6 +469,8 @@ public class ItemCraftingHalo extends ItemMod {
 			}
 			
 			RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, recipe[9], x + 72, y + 18);
+			RenderItem.getInstance().renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, recipe[9], x + 72, y + 18);
+
 			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 		}
 

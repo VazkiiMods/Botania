@@ -212,6 +212,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeMissileRod;
 	public static IRecipe recipeHolyCloak;
 	public static IRecipe recipeUnholyCloak;
+	public static IRecipe recipeCraftingHalo;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1367,6 +1368,14 @@ public final class ModCraftingRecipes {
 				'S', LibOreDict.LIFE_ESSENCE);
 		recipeUnholyCloak = BotaniaAPI.getLatestAddedRecipe();
 
+		// Assembly Halo Recipe
+		addOreDictRecipe(new ItemStack(ModItems.craftingHalo), 
+				" P ", "ICI", " I ",
+				'P', LibOreDict.MANA_PEARL,
+				'I', LibOreDict.MANA_STEEL,
+				'C', new ItemStack(Blocks.crafting_table));
+		recipeCraftingHalo = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",

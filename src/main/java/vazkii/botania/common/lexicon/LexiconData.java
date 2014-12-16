@@ -149,6 +149,7 @@ public final class LexiconData {
 	public static LexiconEntry gravityRod;
 	public static LexiconEntry regenIvy;
 	public static LexiconEntry missileRod;
+	public static LexiconEntry craftingHalo;
 
 	public static LexiconEntry baublesIntro;
 	public static LexiconEntry tinyPlanet;
@@ -567,6 +568,9 @@ public final class LexiconData {
 
 		missileRod = new ALexiconEntry(LibLexicon.TOOL_MISSILE_ROD, categoryTools);
 		missileRod.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeMissileRod));
+		
+		craftingHalo = new BLexiconEntry(LibLexicon.TOOL_CRAFTING_HALO, categoryTools);
+		craftingHalo.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeCraftingHalo));
 		
 		// BAUBLES ENTRIES
 		baublesIntro = new BLexiconEntry(LibLexicon.BAUBLE_INTRO, categoryBaubles);
