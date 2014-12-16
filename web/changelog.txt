@@ -1,3 +1,13 @@
+r1.3 142
+*Added the Assembly Halo, a portable crafting solution.
+*Adding lava to the petal apothecary turns it into a brazier/incinerator.
+*Changed Hydroangeas' recipe to use Cyan petals rather than Light Blue ones.
+*Fixed the Signal Flare item crashing if an invalid color is loaded somehow.
+*Hydroangeas are now more dilligent at picking up water blocks.
+*INTENSIFIED GOLDFISH
+*Renamed a bunch of rods so they all are in the same name scheme and theme.
+*[API] Added aditional SubTileEntity interaction methods. onBlockPlacedBy(), onBlockActivated(), onBlockAdded(), onBlockHarvested() and getDrops() (LiamEarle)
+*[API] Increased version number to 25.
 r1.3 141
 *Added Alchemy recipes to break down Clay and Brick blocks.
 *Moved Terrasteel Armor hp boost values around so the amount is relative to the amount of materials used for crafting. Total is still 20.
