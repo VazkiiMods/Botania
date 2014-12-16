@@ -406,6 +406,7 @@ public class ItemCraftingHalo extends ItemMod {
 		GL11.glPopMatrix();
 	}
 	
+	@SideOnly(Side.CLIENT)
 	public static void renderHUD(ScaledResolution resolution, EntityPlayer player, ItemStack stack) {
 		Minecraft mc = Minecraft.getMinecraft();
 		int slot = getSegmentLookedAt(player);
@@ -442,6 +443,7 @@ public class ItemCraftingHalo extends ItemMod {
 		}
 	}
 	
+	@SideOnly(Side.CLIENT)
 	public static void renderRecipe(ScaledResolution resolution, String label, ItemStack[] recipe, EntityPlayer player, boolean setRecipe) {
 		Minecraft mc = Minecraft.getMinecraft();
 		
