@@ -1,3 +1,5 @@
+r1.3 143
+*Fixed Dedicated Server crashing.
 r1.3 142
 *Added the Assembly Halo, a portable crafting solution.
 *Adding lava to the petal apothecary turns it into a brazier/incinerator.
