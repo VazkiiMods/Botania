@@ -102,5 +102,14 @@ public class BlockLivingwood extends BlockMod implements ILexiconable {
 		int meta = world.getBlockMetadata(x, y, z);
 		return meta == 0 ? LexiconData.pureDaisy : LexiconData.decorativeBlocks;
 	}
+	
+	@Override
+	public boolean canSustainLeaves(IBlockAccess world, int x, int y, int z)
+    {
+        if(world.getBlockMetadata(x, y, z) == 0)
+			return true;
+		else
+			return false;
+    }
 
 }
