@@ -18,5 +18,5 @@ public interface IFlowerlessBiome {
 	/**
 	* @return Should this world be allowed to generate flowers?
 	*/
-	public boolean generateFlowers(World world, int x, int z);
+	public boolean canGenerateFlowers(World world, int x, int z);
 }
