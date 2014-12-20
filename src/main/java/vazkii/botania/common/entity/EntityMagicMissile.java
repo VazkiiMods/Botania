@@ -13,10 +13,12 @@ package vazkii.botania.common.entity;
 
 import java.util.List;
 
+import cpw.mods.fml.relauncher.ReflectionHelper;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.lib.LibObfuscation;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLeaves;
@@ -38,6 +40,11 @@ public class EntityMagicMissile extends EntityThrowable {
 	public EntityMagicMissile(World world) {
 		super(world);
 		setSize(0F, 0F);
+	}
+	
+	public EntityMagicMissile(EntityPlayer player) {
+		this(player.worldObj);
+		ReflectionHelper.setPrivateValue(EntityThrowable.class, this, player, LibObfuscation.THROWER);
 	}
 
 	@Override

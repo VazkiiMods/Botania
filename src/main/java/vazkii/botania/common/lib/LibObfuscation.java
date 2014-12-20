@@ -66,5 +66,8 @@ public final class LibObfuscation {
 
 	// GuiIngame
 	public static final String[] REMAINING_HIGHLIGHT_TICKS = new String[] { "remainingHighlightTicks", "field_92017_k", "r" };
+	
+	// EntityThrowable
+	public static final String[] THROWER = new String[] { "thrower", "field_70192_c", "g" };
 }
 
