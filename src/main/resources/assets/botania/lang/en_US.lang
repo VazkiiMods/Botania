@@ -273,6 +273,9 @@ entity.Botania.botania:flameRing.name=Flame Ring
 entity.Botania.botania:vineBall.name=Vine Ball
 entity.Botania.botania:doppleganger.name=Guardian of Gaia
 entity.Botania.botania:magicLandmine.name=Gaia Trap
+entity.Botania.botania:spark.name=Spark
+entity.Botania.botania:thrownItem.name=Thrown Item
+entity.Botania.botania:magicMissile.name=Magic Missile
 
 # BLOCK NAMES
 tile.botania:flower0.name=Mystical White Flower
