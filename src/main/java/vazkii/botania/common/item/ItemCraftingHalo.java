@@ -46,13 +46,13 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.core.helper.RenderHelper;
+import vazkii.botania.client.gui.crafting.InventoryCraftingHalo;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.InventoryHelper;
-import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.core.helper.InventoryHelper.GenericInventory;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibGuiIDs;
 import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -211,6 +211,9 @@ public class ItemCraftingHalo extends ItemMod {
 
 	@SubscribeEvent
 	public void onItemCrafted(ItemCraftedEvent event) {
+		if(!(event.craftMatrix instanceof InventoryCraftingHalo))
+			return;
+		
 		for(int i = 0; i < event.player.inventory.getSizeInventory(); i++) {
 			ItemStack stack = event.player.inventory.getStackInSlot(i);
 			if(stack != null && stack.getItem() == this)
