@@ -150,9 +150,9 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 				} else if(e instanceof EntityVillager) {
 					EntityVillager villager = (EntityVillager) e;
 					ArrayList<MerchantRecipe> recipes = villager.getRecipes(player);
-					if(pstack != null)
+					if(pstack != null && recipes != null)
 						for(MerchantRecipe recipe : recipes)
-							if(!recipe.isRecipeDisabled() && (equalStacks(pstack, recipe.getItemToBuy()) || equalStacks(pstack, recipe.getItemToSell())))
+							if(recipe != null && !recipe.isRecipeDisabled() && (equalStacks(pstack, recipe.getItemToBuy()) || equalStacks(pstack, recipe.getItemToSell())))
 								positionsBuilder.append(villager.getEntityId()).append(";");
 
 				} else if(e instanceof EntityLivingBase) {
