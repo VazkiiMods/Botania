@@ -21,5 +21,5 @@ public interface IFlowerlessWorld {
 	/**
 	 * @return Should this world be allowed to generate flowers?
 	 */
-	public boolean generateFlowers(World world);
+	public boolean canGenerateFlowers(World world);
 }

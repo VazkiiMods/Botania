@@ -14,6 +14,7 @@ package vazkii.botania.common.core.handler;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType;
 import vazkii.botania.api.item.IFlowerlessWorld;
+import vazkii.botania.api.item.IFlowerlessBiome;
 import vazkii.botania.common.block.ModBlocks;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.EventPriority;
@@ -26,7 +27,9 @@ public class BiomeDecorationHandler {
 		if((event.getResult() == Result.ALLOW || event.getResult() == Result.DEFAULT) && event.type == EventType.FLOWERS) {
 			boolean flowers = true;
 			if(event.world.provider instanceof IFlowerlessWorld)
-				flowers = ((IFlowerlessWorld) event.world.provider).generateFlowers(event.world);
+				flowers = ((IFlowerlessWorld) event.world.provider).canGenerateFlowers(event.world);
+			else if(event.world.getBiomeGenForCoords(event.chunkX, event.chunkZ) instanceof IFlowerlessBiome)
+				flowers = ((IFlowerlessBiome)event.world.getBiomeGenForCoords(event.chunkX, event.chunkZ)).canGenerateFlowers(event.world, event.chunkX, event.chunkZ);
 
 			if(!flowers)
 				return;
