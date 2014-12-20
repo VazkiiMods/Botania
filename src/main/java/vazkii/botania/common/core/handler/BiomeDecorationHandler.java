@@ -27,9 +27,9 @@ public class BiomeDecorationHandler {
 		if((event.getResult() == Result.ALLOW || event.getResult() == Result.DEFAULT) && event.type == EventType.FLOWERS) {
 			boolean flowers = true;
 			if(event.world.provider instanceof IFlowerlessWorld)
-				flowers = ((IFlowerlessWorld) event.world.provider).canGenerateFlowers(event.world);
+				flowers = ((IFlowerlessWorld) event.world.provider).generateFlowers(event.world);
 			else if(event.world.getBiomeGenForCoords(event.chunkX, event.chunkZ) instanceof IFlowerlessBiome)
-				flowers = ((IFlowerlessBiome)event.world.getBiomeGenForCoords(event.chunkX, event.chunkZ)).canGenerateFlowers(event.world, event.chunkX, event.chunkZ);
+				flowers = ((IFlowerlessBiome) event.world.getBiomeGenForCoords(event.chunkX, event.chunkZ)).canGenerateFlowers(event.world, event.chunkX, event.chunkZ);
 
 			if(!flowers)
 				return;
