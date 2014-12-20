@@ -1,3 +1,11 @@
+r1.3 144
+*Fixed a crash with The Spectator and the Helpful Villagers mod.
+*Fixed some entities not being named.
+*Fixed the Assembly Halo getting recipe events from mod blocks and creating cheaty recipes.
+*Fixed the Rod of the Unstable Reservoir not dealing player damage.
+*Livingwood can now support leaves. (SpitefulFox)
+*[API] Added a IFlowerlessBiome interface for biomes. (SpitefulFox)
+*[API] Increased version number to 26.
 r1.3 143
 *Fixed Dedicated Server crashing.
 r1.3 142
