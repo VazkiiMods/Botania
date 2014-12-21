@@ -504,6 +504,7 @@ tile.botania:redStringDispenser.name=Red Stringed Dispenser
 tile.botania:redStringFertilizer.name=Red Stringed Nutrifier
 tile.botania:redStringComparator.name=Red Stringed Comparator
 tile.botania:redStringRelay.name=Red Stringed Spoofer
+tile.botania:manaFlame.name=Mana Flash
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
@@ -652,6 +653,8 @@ item.botania:lensFire.name=Mana Lens: Kindle
 item.botania:lensFire.short=Kindle
 item.botania:lensPiston.name=Mana Lens: Force
 item.botania:lensPiston.short=Force
+item.botania:lensLight.name=Mana Lens: Flash
+item.botania:lensLight.short=Flash
 item.botania:manaPetal0.name=White Mana Petal
 item.botania:manaPetal1.name=Orange Mana Petal
 item.botania:manaPetal2.name=Magenta Mana Petal

@@ -52,6 +52,7 @@ import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.tile.TileManaFlame;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
@@ -78,7 +79,8 @@ public class ItemLens extends ItemMod implements ILens {
 			WEIGHT = 13,
 			PAINT = 14,
 			FIRE = 15,
-			PISTON = 16;
+			PISTON = 16,
+			LIGHT = 17;
 
 	private static final int PROP_NONE = 0,
 			PROP_POWER = 1,
@@ -107,6 +109,7 @@ public class ItemLens extends ItemMod implements ILens {
 		setProps(PAINT, PROP_TOUCH | PROP_INTERACTION);
 		setProps(FIRE, PROP_DAMAGE | PROP_TOUCH | PROP_INTERACTION);
 		setProps(PISTON, PROP_TOUCH | PROP_INTERACTION);
+		setProps(LIGHT, PROP_TOUCH | PROP_INTERACTION);
 	}
 
 	static final List<Block> paintableBlocks = new ArrayList() {{
@@ -125,7 +128,7 @@ public class ItemLens extends ItemMod implements ILens {
 
 	public static IIcon iconGlass;
 
-	public static final int SUBTYPES = 17;
+	public static final int SUBTYPES = 18;
 	IIcon[] ringIcons;
 
 	public ItemLens() {
@@ -423,6 +426,31 @@ public class ItemLens extends ItemMod implements ILens {
 					}
 				}
 			}
+			break;
+		}
+		case LIGHT : {
+			ChunkCoordinates coords = burst.getBurstSourceChunkCoordinates();
+			if((coords.posX != pos.blockX || coords.posY != pos.blockY || coords.posZ != pos.blockZ) && !burst.isFake() && !isManaBlock) {
+				ForgeDirection dir = ForgeDirection.getOrientation(pos.sideHit);
+
+				int x = pos.blockX + dir.offsetX;
+				int y = pos.blockY + dir.offsetY;
+				int z = pos.blockZ + dir.offsetZ;
+
+				Block blockAt = entity.worldObj.getBlock(pos.blockX, pos.blockY, pos.blockZ);
+				Block blockAt_ = entity.worldObj.getBlock(x, y, z);
+
+				if(blockAt == ModBlocks.manaFlame)
+					entity.worldObj.setBlock(pos.blockX, pos.blockY, pos.blockZ, Blocks.air);
+				else if(blockAt_.isAir(entity.worldObj, x, y, z)) {
+					entity.worldObj.setBlock(x, y, z, ModBlocks.manaFlame);
+					TileEntity tile = entity.worldObj.getTileEntity(x, y, z);
+					
+					if(tile instanceof TileManaFlame)
+						((TileManaFlame) tile).setColor(burst.getColor());
+				}
+			}
+			
 			break;
 		}
 		}
