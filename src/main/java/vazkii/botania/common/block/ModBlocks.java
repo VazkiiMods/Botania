@@ -484,6 +484,7 @@ public final class ModBlocks {
 		OreDictionary.registerOre("hardenedClay", new ItemStack(Blocks.hardened_clay, 1, OreDictionary.WILDCARD_VALUE));
 		OreDictionary.registerOre("snowLayer", Blocks.snow_layer);
 		OreDictionary.registerOre("mycelium", Blocks.mycelium);
+		OreDictionary.registerOre("podzol", new ItemStack(Blocks.dirt, 1, 2));
 
 		initTileEntities();
 	}
