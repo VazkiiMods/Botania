@@ -73,6 +73,8 @@ public interface IInternalMethodHandler {
 	public IManaNetwork getManaNetworkInstance();
 
 	public ItemStack getSubTileAsStack(String subTile);
+	
+	public ItemStack getSubTileAsFloatingFlowerStack(String subTile);
 
 	public IIcon getSubTileIconForName(String name);
 
