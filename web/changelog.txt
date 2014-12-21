@@ -1,3 +1,13 @@
+r1.3 145
+*Added the Mana Lens: Flash. It makes fancy lights!
+*Botania Flowers now shift a bit depending on position similarly to vanilla flowers since 1.7. <i>About time.</i>
+*Fixed Botania slabs breaking lighting on adjacent blocks.
+*Increased the endoflame's radius by one block northwest so it's a proper centered square now.
+*The potion effects brews (and the tainted blood pendant) create now have semi transparent particles smilarly to beacons.
+*The Rod of Terra Firma now works with Podzol.
+*Tweaked the Assembly Halo so that the crafting table always faces the player when the item is equipped.
+*[API] Added getSubTileAsFloatingFlowerStack() to the internal method handler.
+*[API] Increased Version Number to 27.
 r1.3 144
 *Fixed a crash with The Spectator and the Helpful Villagers mod.
 *Fixed some entities not being named.
