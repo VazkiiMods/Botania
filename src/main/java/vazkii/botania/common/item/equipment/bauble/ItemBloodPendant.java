@@ -143,7 +143,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 				PotionEffect currentEffect = player.getActivePotionEffect(Potion.potionTypes[effect.getPotionID()]);
 				boolean nightVision = effect.getPotionID() == Potion.nightVision.id;
 				if(currentEffect == null || currentEffect.getDuration() < (nightVision ? 205 : 3)) {
-					PotionEffect applyEffect = new PotionEffect(effect.getPotionID(), nightVision ? 285 : 80, effect.getAmplifier());
+					PotionEffect applyEffect = new PotionEffect(effect.getPotionID(), nightVision ? 285 : 80, effect.getAmplifier(), true);
 					player.addPotionEffect(applyEffect);
 				}
 
