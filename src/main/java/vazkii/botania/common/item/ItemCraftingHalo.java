@@ -23,6 +23,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -71,6 +72,8 @@ public class ItemCraftingHalo extends ItemMod {
 	private static final String TAG_LAST_CRAFTING = "lastCrafting";
 	private static final String TAG_STORED_RECIPE_PREFIX = "storedRecipe";
 	private static final String TAG_ITEM_PREFIX = "item";
+	private static final String TAG_EQUIPPED = "equipped";
+	private static final String TAG_ROTATION_BASE = "rotationBase";
 
 	public ItemCraftingHalo() {
 		setUnlocalizedName(LibItemNames.CRAFTING_HALO);
@@ -81,7 +84,7 @@ public class ItemCraftingHalo extends ItemMod {
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		int segment = getSegmentLookedAt(player);
+		int segment = getSegmentLookedAt(stack, player);
 		ItemStack itemForPos = getItemForSlot(stack, segment);
 
 		if(segment == 0)
@@ -93,6 +96,20 @@ public class ItemCraftingHalo extends ItemMod {
 		}
 
 		return stack;
+	}
+
+	@Override
+	public void onUpdate(ItemStack stack, World world, Entity entity, int pos, boolean equipped) {
+		boolean eqLastTick = wasEquipped(stack);
+		if(eqLastTick != equipped)
+			setEquipped(stack, equipped);
+
+		if(!equipped && entity instanceof EntityLivingBase) {
+			int angles = 360;
+			int segAngles = angles / SEGMENTS;
+			float shift = segAngles / 2; 
+			setRotationBase(stack, getCheckingAngle((EntityLivingBase) entity) - shift);
+		}
 	}
 
 	private void tryCraft(EntityPlayer player, ItemStack stack, int slot) {
@@ -112,7 +129,7 @@ public class ItemCraftingHalo extends ItemMod {
 		consumeRecipeIngredients(recipe, player.inventory, player);
 		if(!player.inventory.addItemStackToInventory(recipe[9]))
 			player.dropPlayerItemWithRandomChoice(recipe[9], false);
-		
+
 		Vec3 lookVec3 = player.getLookVec();
 		Vector3 centerVector = Vector3.fromEntityCenter(player).add(lookVec3.xCoord * 3, 1.3, lookVec3.zCoord * 3);
 		float m = 0.1F;
@@ -153,7 +170,7 @@ public class ItemCraftingHalo extends ItemMod {
 
 	@Override
 	public boolean onEntitySwing(EntityLivingBase player, ItemStack stack) {
-		int segment = getSegmentLookedAt(player);
+		int segment = getSegmentLookedAt(stack, player);
 		if(segment == 0)
 			return false;
 
@@ -167,11 +184,13 @@ public class ItemCraftingHalo extends ItemMod {
 		return false;
 	}
 
-	private static int getSegmentLookedAt(EntityLivingBase player) {
-		float yaw = getCheckingAngle(player);
+	private static int getSegmentLookedAt(ItemStack stack, EntityLivingBase player) {
+		float base = getRotationBase(stack);
+		float yaw = getCheckingAngle(player, getRotationBase(stack));
 
 		int angles = 360;
 		int segAngles = angles / SEGMENTS;
+		float shift = segAngles / 2; 
 		for(int seg = 0; seg < SEGMENTS; seg++) {
 			float calcAngle = (float) seg * segAngles;
 			if(yaw >= calcAngle && yaw < (calcAngle + segAngles))
@@ -181,10 +200,26 @@ public class ItemCraftingHalo extends ItemMod {
 	}
 
 	private static float getCheckingAngle(EntityLivingBase player) {
+		return getCheckingAngle(player, 0F);
+	}
+
+	// Screw the way minecraft handles rotation
+	// Really...
+	private static float getCheckingAngle(EntityLivingBase player, float base) {
 		float yaw = MathHelper.wrapAngleTo180_float(player.rotationYaw) + 90F;
+		int angles = 360;
+		int segAngles = angles / SEGMENTS;
+		float shift = segAngles / 2; 
+
 		if(yaw < 0)
-			yaw = 180F + (180F - Math.abs(yaw));
-		return 360F - yaw;
+			yaw = 180F + (180F + yaw);
+		yaw -= (360F - base);
+		float angle = 360F - yaw + shift;
+
+		if(angle < 0)
+			angle = 360F + angle;
+
+		return angle;
 	}
 
 	public static ItemStack getItemForSlot(ItemStack stack, int slot) {
@@ -213,7 +248,7 @@ public class ItemCraftingHalo extends ItemMod {
 	public void onItemCrafted(ItemCraftedEvent event) {
 		if(!(event.craftMatrix instanceof InventoryCraftingHalo))
 			return;
-		
+
 		for(int i = 0; i < event.player.inventory.getSizeInventory(); i++) {
 			ItemStack stack = event.player.inventory.getStackInSlot(i);
 			if(stack != null && stack.getItem() == this)
@@ -285,6 +320,22 @@ public class ItemCraftingHalo extends ItemMod {
 		return ItemStack.loadItemStackFromNBT(cmp1);
 	}
 
+	public static boolean wasEquipped(ItemStack stack) {
+		return ItemNBTHelper.getBoolean(stack, TAG_EQUIPPED, false);
+	}
+
+	public static void setEquipped(ItemStack stack, boolean equipped) {
+		ItemNBTHelper.setBoolean(stack, TAG_EQUIPPED, equipped);
+	}
+
+	public static float getRotationBase(ItemStack stack) {
+		return ItemNBTHelper.getFloat(stack, TAG_ROTATION_BASE, 0F);
+	}
+
+	public static void setRotationBase(ItemStack stack, float rotation) {
+		ItemNBTHelper.setFloat(stack, TAG_ROTATION_BASE, rotation);
+	}
+
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public void onRenderWorldLast(RenderWorldLastEvent event) {
@@ -311,8 +362,11 @@ public class ItemCraftingHalo extends ItemMod {
 
 		GL11.glTranslated(posX - RenderManager.renderPosX, posY - RenderManager.renderPosY, posZ - RenderManager.renderPosZ);
 
+
+		float base = getRotationBase(stack);
 		int angles = 360;
 		int segAngles = angles / SEGMENTS;
+		float shift = base - segAngles / 2;
 
 		float u = 1F;
 		float v = 0.25F;
@@ -326,11 +380,11 @@ public class ItemCraftingHalo extends ItemMod {
 		float y = v * s * 2;
 		float y0 = 0;
 
-		int segmentLookedAt = getSegmentLookedAt(player);
+		int segmentLookedAt = getSegmentLookedAt(stack, player);
 
 		for(int seg = 0; seg < SEGMENTS; seg++) {
 			boolean inside = false;
-			float rotationAngle = ((float) seg + 0.5F) * segAngles;
+			float rotationAngle = ((float) seg + 0.5F) * segAngles + shift;
 			GL11.glPushMatrix();
 			GL11.glRotatef(rotationAngle, 0F, 1F, 0F);
 			GL11.glTranslatef(s * m, -0.75F, 0F);
@@ -387,7 +441,7 @@ public class ItemCraftingHalo extends ItemMod {
 			mc.renderEngine.bindTexture(glowTexture);
 			tess.startDrawingQuads();
 			for(int i = 0; i < segAngles; i++) {
-				int ang = i + seg * segAngles;
+				float ang = i + seg * segAngles + shift;
 				double xp = Math.cos(ang * Math.PI / 180F) * s;
 				double zp = Math.sin(ang * Math.PI / 180F) * s;
 
@@ -408,55 +462,55 @@ public class ItemCraftingHalo extends ItemMod {
 		}
 		GL11.glPopMatrix();
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	public static void renderHUD(ScaledResolution resolution, EntityPlayer player, ItemStack stack) {
 		Minecraft mc = Minecraft.getMinecraft();
-		int slot = getSegmentLookedAt(player);
+		int slot = getSegmentLookedAt(stack, player);
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		
+
 		if(slot == 0) {
 			String name = craftingTable.getDisplayName();
 			int l = mc.fontRenderer.getStringWidth(name);
 			int x = resolution.getScaledWidth() / 2 - l / 2;
 			int y = resolution.getScaledHeight() / 2 - 75;
-			
+
 			Gui.drawRect(x - 6, y - 6, x + l + 6, y + 37, 0x22000000);
 			Gui.drawRect(x - 4, y - 4, x + l + 4, y + 35, 0x22000000);
 			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 			RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, craftingTable, resolution.getScaledWidth() / 2 - 8, resolution.getScaledHeight() / 2 - 60);
 			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
-			
+
 			mc.fontRenderer.drawStringWithShadow(name, x, y, 0xFFFFFF);
 		} else {
 			ItemStack[] recipe = getCraftingItems(stack, slot);
 			String label = StatCollector.translateToLocal("botaniamisc.unsetRecipe");
 			boolean setRecipe = false;
-			
+
 			if(recipe[9] == null)
 				recipe = getCraftingItems(stack, SEGMENTS);
 			else {
 				label = recipe[9].getDisplayName();
 				setRecipe = true;
 			}
-			
+
 			renderRecipe(resolution, label, recipe, player, setRecipe);
 		}
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	public static void renderRecipe(ScaledResolution resolution, String label, ItemStack[] recipe, EntityPlayer player, boolean setRecipe) {
 		Minecraft mc = Minecraft.getMinecraft();
-		
+
 		if(recipe[9] != null) {
 			int x = resolution.getScaledWidth() / 2 - 45;
 			int y = resolution.getScaledHeight() / 2 - 90;
-			
+
 			Gui.drawRect(x - 6, y - 6, x + 90 + 6, y + 60, 0x22000000);
 			Gui.drawRect(x - 4, y - 4, x + 90 + 4, y + 58, 0x22000000);
-			
+
 			Gui.drawRect(x + 66, y + 14, x + 92, y + 40, 0x22000000);
 			Gui.drawRect(x - 2, y - 2, x + 56, y + 56, 0x22000000);
 
@@ -472,7 +526,7 @@ public class ItemCraftingHalo extends ItemMod {
 					RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack, xpos, ypos);
 				}
 			}
-			
+
 			RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, recipe[9], x + 72, y + 18);
 			RenderItem.getInstance().renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, recipe[9], x + 72, y + 18);
 
@@ -485,8 +539,8 @@ public class ItemCraftingHalo extends ItemMod {
 			mc.fontRenderer.drawStringWithShadow(warning, resolution.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(warning) / 2, resolution.getScaledHeight() / 2 - yoff, 0xFFFFFF);
 			yoff += 12;
 		}
-		
+
 		mc.fontRenderer.drawStringWithShadow(label, resolution.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(label) / 2, resolution.getScaledHeight() / 2 - yoff, 0xFFFFFF);
 	}
-	
+
 }
