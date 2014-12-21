@@ -281,7 +281,8 @@ public final class LexiconData {
 				new PageText("28"), new PageCraftingRecipe("29", ModCraftingRecipes.recipeLensInfluence),
 				new PageText("30"), new PageCraftingRecipe("31", ModCraftingRecipes.recipeLensWeight),
 				new PageText("32"), new PageCraftingRecipe("33", ModCraftingRecipes.recipeLensFire),
-				new PageText("34"), new PageCraftingRecipe("35", ModCraftingRecipes.recipeLensPiston));
+				new PageText("34"), new PageCraftingRecipe("35", ModCraftingRecipes.recipeLensPiston),
+				new PageText("36"), new PageCraftingRecipe("37", ModCraftingRecipes.recipesLensFlash));
 
 		distributor = new BLexiconEntry(LibLexicon.MANA_DISTRIBUTOR, categoryMana);
 		distributor.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeDistributor));

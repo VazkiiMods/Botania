@@ -1035,6 +1035,8 @@ botania.page.lens32=The &1Kindle Lens&0 is infused with a burning spark, when it
 botania.page.lens33=Kindle Lens
 botania.page.lens34=The &1Force Lens&0 acts as a &1Piston&0, when it hits a block that a piston can move, it'll do just so.
 botania.page.lens35=Force Lens
+botania.page.lens36=The &1Flash Lens&0, in contact with a block, creates a flame of the same color as the burst that caused it. The flame provides light and is purely decorative.<br>If it hits one of these flames, it puts it out instead.
+botania.page.lens37=Flash Lens
 
 # -- PORTABLE MANA TRANSPORT
 botania.entry.manaTransport=Portable Mana Transport

@@ -213,6 +213,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeHolyCloak;
 	public static IRecipe recipeUnholyCloak;
 	public static IRecipe recipeCraftingHalo;
+	public static List<IRecipe> recipesLensFlash;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1375,6 +1376,19 @@ public final class ModCraftingRecipes {
 				'I', LibOreDict.MANA_STEEL,
 				'C', new ItemStack(Blocks.crafting_table));
 		recipeCraftingHalo = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Mana Lens: Flash Recipe
+		GameRegistry.addRecipe(new ItemStack(ModItems.lens, 1, 17), 
+				"GFG", "FLF", "GFG",
+				'G', new ItemStack(Blocks.glowstone),
+				'F', new ItemStack(Items.fire_charge),
+				'L', new ItemStack(ModItems.lens));
+		GameRegistry.addRecipe(new ItemStack(ModItems.lens, 1, 17), 
+				"FGF", "GLG", "FGF",
+				'G', new ItemStack(Blocks.glowstone),
+				'F', new ItemStack(Items.fire_charge),
+				'L', new ItemStack(ModItems.lens));
+		recipesLensFlash = BotaniaAPI.getLatestAddedRecipes(2);
 		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
