@@ -1,3 +1,12 @@
+r1.3 146
+*<i>Added some christmas spark. ARE YOU JINGLING YOUR BELLS YET?!</i>
+*Fixed a major dupe with the Assembly Halo where right clicking a recipe would allow for more than one item to be crafted at once using only one set of resources.
+*Fixed the render for the flowers not randomizing the position in the Z axis like vanilla flowers do. It still randomizes in the Y axis unlike vanilla flowers because I think it looks good.
+*Sparks now properly check against how much space is left on the target block and don't try to put in more mana than available, actually making spark networks viable. <i>You can all point and laugh now.</i>
+*The Assembly Halo is now more forceful with checking the validity of a recipe. It can no longer craft recipes purely from memory (and allowing as a way to craft things that have been changed since)
+*The Mana Mirror now checks for the pool on update and has a backlog for calls inbetween. It also works cross dimension a lot better.
+*[API] Added getAvailableSpaceForMana() to ISparkAttachable. This is very important and breaks backwards compatibility. If anyone is using that interface please adapt ASAP.
+*[API] Increased version number to 28.
 r1.3 145
 *Added the Mana Lens: Flash. It makes fancy lights!
 *Botania Flowers now shift a bit depending on position similarly to vanilla flowers since 1.7. <i>About time.</i>
