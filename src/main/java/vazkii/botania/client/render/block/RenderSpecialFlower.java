@@ -58,17 +58,18 @@ public class RenderSpecialFlower implements ISimpleBlockRenderingHandler {
 		}
 
 		tessellator.setColorOpaque_F(f * f1, f * f2, f * f3);
-		double d0 = par2;
-		double d1 = par3;
-		double d2 = par4;
+		double d1 = par2;
+		double d2 = par3;
+		double d0 = par4;
         long sh;
 
 		sh = (long)(par2 * 3129871) ^ (long) par4 * 116129781L ^ (long) par3;
 		sh = sh * sh * 42317861L + sh * 11L;
 		d1 += ((double)((float)(sh >> 16 & 15L) / 15.0F) - 0.5D) * 0.3D;
+		d2 += ((double)((float)(sh >> 32 & 15L) / 15.0F) - 0.5D) * 0.3D;
 		d0 += ((double)((float)(sh >> 24 & 15L) / 15.0F) - 0.5D) * 0.3D;
 
-		drawCrossedSquares(blockAccess, par1Block, par2, par3, par4, d0, d1, d2, 1.0F, render);
+		drawCrossedSquares(blockAccess, par1Block, par2, par3, par4, d1, d2, d0, 1.0F, render);
 
 		return true;
 	}
