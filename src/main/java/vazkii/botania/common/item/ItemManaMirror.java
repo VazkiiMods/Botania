@@ -34,11 +34,15 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 
 	IIcon[] icons;
 
-	private static final String TAG_MANA_VISUAL = "manaVisual";
+	private static final String TAG_MANA = "mana";
+	private static final String TAG_MANA_BACKLOG = "manaBacklog";
+
 	private static final String TAG_POS_X = "posX";
 	private static final String TAG_POS_Y = "posY";
 	private static final String TAG_POS_Z = "posZ";
 	private static final String TAG_DIM = "dim";
+
+	private static final DummyPool fallbackPool = new DummyPool();
 
 	public ItemManaMirror() {
 		super();
@@ -50,13 +54,13 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 
 	@Override
 	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
-		float mana = getManaForDisplay(par1ItemStack);
+		float mana = getMana(par1ItemStack);
 		return par2 == 1 ? Color.HSBtoRGB(0.528F,  mana / TilePool.MAX_MANA, 1F) : 0xFFFFFF;
 	}
 
 	@Override
 	public int getDamage(ItemStack stack) {
-		float mana = getManaForDisplay(stack);
+		float mana = getMana(stack);
 		return 1000 - (int) (mana / TilePool.MAX_MANA * 1000);
 	}
 
@@ -86,10 +90,13 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
 		IManaPool pool = getManaPool(par1ItemStack);
 		if(!(pool instanceof DummyPool)) {
-			if(pool == null) {
-				bindPool(par1ItemStack, null);
-				setManaForDisplay(par1ItemStack, 0);
-			} else setManaForDisplay(par1ItemStack, pool.getCurrentMana());
+			if(pool == null)
+				setMana(par1ItemStack, 0);
+			else {
+				pool.recieveMana(getManaBacklog(par1ItemStack));
+				setManaBacklog(par1ItemStack, 0);
+				setMana(par1ItemStack, pool.getCurrentMana());
+			}
 		}
 	}
 
@@ -112,18 +119,26 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 		return true;
 	}
 
-	@Override
-	public int getMana(ItemStack stack) {
+	/*public int getMana(ItemStack stack) {
 		IManaPool pool = getManaPool(stack);
 		return pool == null ? 0 : pool.getCurrentMana();
+	}*/
+
+	@Override
+	public int getMana(ItemStack stack) {
+		return ItemNBTHelper.getInt(stack, TAG_MANA, 0);
 	}
 
-	public int getManaForDisplay(ItemStack stack) {
-		return ItemNBTHelper.getInt(stack, TAG_MANA_VISUAL, 0);
+	public void setMana(ItemStack stack, int mana) {
+		ItemNBTHelper.setInt(stack, TAG_MANA, Math.max(0, mana));
 	}
 
-	public void setManaForDisplay(ItemStack stack, int mana) {
-		ItemNBTHelper.setInt(stack, TAG_MANA_VISUAL, mana);
+	public int getManaBacklog(ItemStack stack) {
+		return ItemNBTHelper.getInt(stack, TAG_MANA_BACKLOG, 0);
+	}
+
+	public void setManaBacklog(ItemStack stack, int backlog) {
+		ItemNBTHelper.setInt(stack, TAG_MANA_BACKLOG, backlog);
 	}
 
 	@Override
@@ -133,13 +148,18 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 
 	@Override
 	public void addMana(ItemStack stack, int mana) {
+		setMana(stack, getMana(stack) + mana);
+		setManaBacklog(stack, getManaBacklog(stack) + mana);
+	}
+
+	/*public void addMana(ItemStack stack, int mana) {
 		IManaPool pool = getManaPool(stack);
 		if(pool != null) {
 			pool.recieveMana(mana);
 			TileEntity tile = (TileEntity) pool;
 			tile.getWorldObj().func_147453_f(tile.xCoord, tile.yCoord, tile.zCoord, tile.getWorldObj().getBlock(tile.xCoord, tile.yCoord, tile.zCoord));
-		}
-	}
+		}	
+	}*/
 
 	public void bindPool(ItemStack stack, TileEntity pool) {
 		ItemNBTHelper.setInt(stack, TAG_POS_X, pool == null ? 0 : pool.xCoord);
@@ -162,7 +182,7 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 	public IManaPool getManaPool(ItemStack stack) {
 		MinecraftServer server = MinecraftServer.getServer();
 		if(server == null)
-			return new DummyPool();
+			return fallbackPool;
 
 		ChunkCoordinates coords = getPoolCoords(stack);
 		if(coords.posY == -1)
@@ -181,7 +201,6 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 			if(tile != null && tile instanceof IManaPool)
 				return (IManaPool) tile;
 		}
-
 
 		return null;
 	}
@@ -242,7 +261,9 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 
 	@Override
 	public ChunkCoordinates getBinding(ItemStack stack) {
-		return getPoolCoords(stack);
+		IManaPool pool = getManaPool(stack);
+		
+		return pool == null || pool instanceof DummyPool ? null : getPoolCoords(stack);
 	}
 
 }
