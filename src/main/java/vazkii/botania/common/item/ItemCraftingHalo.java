@@ -27,6 +27,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.inventory.ContainerWorkbench;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemBlock;
@@ -113,13 +114,35 @@ public class ItemCraftingHalo extends ItemMod {
 	}
 
 	private void tryCraft(EntityPlayer player, ItemStack stack, int slot) {
-		ItemStack[] recipe = getCraftingItems(stack, slot);
+		ItemStack[] recipe = validateRecipe(player, stack, getCraftingItems(stack, slot), slot);
 
 		if(canCraft(player, recipe))
 			doCraft(player, recipe);
 	}
+	
+	private static ItemStack[] validateRecipe(EntityPlayer player, ItemStack stack, ItemStack[] recipe, int slot) {
+		InventoryCrafting fakeInv = new InventoryCrafting(new ContainerWorkbench(player.inventory, player.worldObj, 0, 0, 0), 3, 3);
+		for(int i = 0; i < 9; i++)
+			fakeInv.setInventorySlotContents(i, recipe[i]); 
+		
+		ItemStack result = CraftingManager.getInstance().findMatchingRecipe(fakeInv, player.worldObj);
+		if(result == null) {
+			assignRecipe(stack, recipe[9], slot);
+			return null;
+		}
+		
+		if(!result.isItemEqual(recipe[9]) || result.stackSize != recipe[9].stackSize || !ItemStack.areItemStackTagsEqual(recipe[9], result)) {
+			assignRecipe(stack, recipe[9], slot);
+			return null;
+		}
+		
+		return recipe;
+	}
 
 	private static boolean canCraft(EntityPlayer player, ItemStack[] recipe) {
+		if(recipe == null)
+			return false;
+		
 		GenericInventory tempInv = new GenericInventory("temp", false, player.inventory.getSizeInventory());
 		tempInv.copyFrom(player.inventory);
 		return consumeRecipeIngredients(recipe, tempInv, null);
@@ -260,9 +283,7 @@ public class ItemCraftingHalo extends ItemMod {
 		NBTTagCompound cmp = new NBTTagCompound();
 		NBTTagCompound cmp1 = new NBTTagCompound();
 
-		ItemStack result = event.crafting;
-		if(result.stackSize == 0 && event.craftMatrix instanceof InventoryCrafting)
-			result = CraftingManager.getInstance().findMatchingRecipe((InventoryCrafting) event.craftMatrix, event.player.worldObj);
+		ItemStack result = CraftingManager.getInstance().findMatchingRecipe((InventoryCrafting) event.craftMatrix, event.player.worldObj);
 
 		result.writeToNBT(cmp1);
 		cmp.setTag(TAG_ITEM_PREFIX + 9, cmp1);
