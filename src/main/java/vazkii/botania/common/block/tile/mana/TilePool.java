@@ -361,4 +361,9 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	public boolean areIncomingTranfersDone() {
 		return false;
 	}
+
+	@Override
+	public int getAvailableSpaceForMana() {
+		return Math.max(0, manaCap - getCurrentMana());
+	}
 }

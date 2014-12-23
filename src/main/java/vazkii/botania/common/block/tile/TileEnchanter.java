@@ -393,4 +393,9 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 		return stage == 3;
 	}
 
+	@Override
+	public int getAvailableSpaceForMana() {
+		return Math.max(0, manaRequired - getCurrentMana());
+	}
+
 }
