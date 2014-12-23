@@ -13,6 +13,7 @@ package vazkii.botania.client.core.proxy;
 
 import java.awt.Desktop;
 import java.net.URI;
+import java.util.Calendar;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -115,6 +116,8 @@ import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class ClientProxy extends CommonProxy {
 
+	public static boolean singAnnoyingChristmasSongsTillVazkiisHeadExplodesFromAllTheDamnJingle = false;
+	
 	@Override
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
@@ -131,6 +134,12 @@ public class ClientProxy extends CommonProxy {
 		if(ConfigHandler.versionCheckEnabled)
 			new VersionChecker().init();
 
+
+		// Jingle bells jingle bells
+	    Calendar calendar = Calendar.getInstance();
+	    if((calendar.get(2) == 11 && calendar.get(5) >= 24 && calendar.get(5) <= 26) || (calendar.get(2) == 0 && calendar.get(5) <= 6))
+	        singAnnoyingChristmasSongsTillVazkiisHeadExplodesFromAllTheDamnJingle = true;
+		
 		initRenderers();
 	}
 	
