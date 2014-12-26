@@ -21,6 +21,8 @@ public class TileManaFlame extends TileMod {
 	
 	int color = 0x20FF20;
 	
+	int lightColor = -1;
+	
 	public void setColor(int color) {
 		this.color = color;
 	}
@@ -54,10 +56,14 @@ public class TileManaFlame extends TileMod {
 	}
 	
 	public int getLightColor() {
-		float r = (float) ((color >> 16) & 0xFF) / 0xFF;
-		float g = (float) ((color >> 8) & 0xFF) / 0xFF;
-		float b = (float) (color & 0xFF) / 0xFF;
-		return ColoredLightHelper.makeRGBLightValue(r, g, b, 1F);
+		if(lightColor == -1) {
+			float r = (float) ((color >> 16) & 0xFF) / 0xFF;
+			float g = (float) ((color >> 8) & 0xFF) / 0xFF;
+			float b = (float) (color & 0xFF) / 0xFF;
+			lightColor = ColoredLightHelper.makeRGBLightValue(r, g, b, 1F);
+		}
+		
+		return lightColor;
 	}
 	
 	@Override
