@@ -25,6 +25,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockMod extends Block {
 
+	public int originalLight;
+	
 	public BlockMod(Material par2Material) {
 		super(par2Material);
 		if(registerInCreative())
@@ -42,6 +44,12 @@ public class BlockMod extends Block {
 		return true;
 	}
 
+	@Override
+	public Block setLightLevel(float p_149715_1_) {
+		originalLight = (int) (p_149715_1_ * 15);
+		return super.setLightLevel(p_149715_1_);
+	}
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister par1IconRegister) {

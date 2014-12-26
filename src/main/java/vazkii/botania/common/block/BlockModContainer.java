@@ -26,6 +26,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class BlockModContainer<T extends TileEntity> extends BlockContainer {
 
+	public int originalLight;
+	
 	protected BlockModContainer(Material par2Material) {
 		super(par2Material);
 		if(registerInCreative())
@@ -41,6 +43,12 @@ public abstract class BlockModContainer<T extends TileEntity> extends BlockConta
 
 	protected boolean shouldRegisterInNameSet() {
 		return true;
+	}
+	
+	@Override
+	public Block setLightLevel(float p_149715_1_) {
+		originalLight = (int) (p_149715_1_ * 15);
+		return super.setLightLevel(p_149715_1_);
 	}
 
 	@Override

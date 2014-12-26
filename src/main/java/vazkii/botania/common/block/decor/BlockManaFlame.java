@@ -11,6 +11,7 @@
  */
 package vazkii.botania.common.block.decor;
 
+import cpw.mods.fml.common.Optional;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.init.Blocks;
@@ -21,6 +22,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.tile.TileManaFlame;
+import vazkii.botania.common.integration.coloredlights.ColoredLightHelper;
 import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockManaFlame extends BlockModContainer {
@@ -33,6 +35,12 @@ public class BlockManaFlame extends BlockModContainer {
 		setBlockBounds(f, f, f, 1F - f, 1F - f, 1F - f);
 		setLightLevel(1F);
 	}
+	
+	@Override
+	@Optional.Method(modid = "easycoloredlights")
+    public int getLightValue(IBlockAccess world, int x, int y, int z) {
+		return ((TileManaFlame) world.getTileEntity(x, y, z)).getLightColor();
+    }
 	
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
