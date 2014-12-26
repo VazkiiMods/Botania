@@ -29,7 +29,6 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.tile.TileBrewery;
-import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -125,8 +124,8 @@ public class BlockBrewery extends BlockModContainer implements ILexiconable {
 
 	@Override
 	public int getComparatorInputOverride(World par1World, int par2, int par3, int par4, int par5) {
-		TileRuneAltar altar = (TileRuneAltar) par1World.getTileEntity(par2, par3, par4);
-		return altar.signal;
+		TileBrewery brew = (TileBrewery) par1World.getTileEntity(par2, par3, par4);
+		return brew.signal;
 	}
 	
 	@Override
