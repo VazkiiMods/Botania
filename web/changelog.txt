@@ -1,3 +1,7 @@
+r1.3 147
+*<i>Just a small update to fix a major issue and a major annoyance.</i>
+*Fixed a crash when placing a comparator next to a brewery.
+*Fixed flowers sometimes rendering as floating due to the Y position shift in the render.
 r1.3 146
 *<i>Added some christmas spark. ARE YOU JINGLING YOUR BELLS YET?!</i>
 *Fixed a major dupe with the Assembly Halo where right clicking a recipe would allow for more than one item to be crafted at once using only one set of resources.
