@@ -66,7 +66,7 @@ public class RenderSpecialFlower implements ISimpleBlockRenderingHandler {
 		sh = (long)(par2 * 3129871) ^ (long) par4 * 116129781L ^ (long) par3;
 		sh = sh * sh * 42317861L + sh * 11L;
 		d1 += ((double)((float)(sh >> 16 & 15L) / 15.0F) - 0.5D) * 0.3D;
-		d2 += ((double)((float)(sh >> 32 & 15L) / 15.0F) - 0.5D) * 0.3D;
+		d2 += (double)((float)(sh >> 32 & 15L) / 15.0F) * -0.15D;
 		d0 += ((double)((float)(sh >> 24 & 15L) / 15.0F) - 0.5D) * 0.3D;
 
 		drawCrossedSquares(blockAccess, par1Block, par2, par3, par4, d1, d2, d0, 1.0F, render);
