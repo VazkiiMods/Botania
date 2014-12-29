@@ -206,6 +206,43 @@ iframe {
 	color: #4AA825;
 }
 
+.text-muted b {
+	color: #444;
+	font-weight: normal;
+}
+
+.license-point-header {
+	font-size: 30px;
+}
+
+.license-clauses {
+	margin-left: 20px;
+}
+
+.license-clause {
+	margin-top: 20px;
+}
+
+.license-clause-icon {
+	font-size: 60px;
+	display: inline-block;
+}
+
+.license-clause-info {
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 20px;
+	width: 900px;
+}
+
+.license-clause-name {
+	font-size: 25px;
+}
+
+.license-clause-desc {
+	margin-left: 10px;
+}
+
 .footer {
 	text-align: center;
 	padding-top: 5px;

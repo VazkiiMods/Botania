@@ -3,7 +3,7 @@
 	Modpack Info
 </div>
 
-<b>First and foremost, you're free to use Botania in a modpack, just make sure to keep <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB">the license</a> in mind.</b><br><br>
+<b>First and foremost, you're free to use Botania in a modpack, just make sure to keep <a href="license.php">the license</a> in mind.</b><br><br>
 Here's a few modpacks that have botania on them. I'm not listing every single of them though, because that'd take a lot of work.
 <ul>
 <li><b><a href="http://www.atlauncher.com/pack/bevostechpack/">Bevo's Tech Pack</a></b></li>
