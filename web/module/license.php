@@ -24,7 +24,7 @@
 	
 	$clause_thief = build_clause('Thief', 'lock', "You must not claim that you made $mod_name. Giving appropriate credit to $mod_creator as the creator of $mod_name makes you cooler, but you don't have to do it if you don't want to.");
 	
-	$clause_open_source = build_clause('Open Source', 'random', 'Your project must be open source.');
+	$clause_open_source = build_clause('Open Source', 'random', 'Your project must be open source (have its source visible and allow for redistribution and modification).');
 	
 	function add_clause($clause) {
 		global $clauses;
