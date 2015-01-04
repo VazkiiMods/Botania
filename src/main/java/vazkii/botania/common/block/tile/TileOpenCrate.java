@@ -48,7 +48,7 @@ public class TileOpenCrate extends TileSimpleInventory {
 
 	public boolean canEject() {
 		Block blockBelow = worldObj.getBlock(xCoord, yCoord - 1, zCoord);
-		return blockBelow.isAir(worldObj, xCoord, yCoord - 1, zCoord);
+		return blockBelow.isAir(worldObj, xCoord, yCoord - 1, zCoord) || blockBelow.getCollisionBoundingBoxFromPool(worldObj, xCoord, yCoord - 1, zCoord) == null;
 	}
 
 	public void eject(ItemStack stack, boolean redstone) {
