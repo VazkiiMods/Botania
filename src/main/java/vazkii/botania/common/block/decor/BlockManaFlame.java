@@ -11,10 +11,13 @@
  */
 package vazkii.botania.common.block.decor;
 
+import java.util.ArrayList;
+
 import cpw.mods.fml.common.Optional;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
@@ -75,6 +78,11 @@ public class BlockManaFlame extends BlockModContainer {
 	@Override
 	public IIcon getIcon(int side, int meta) {
 		return Blocks.fire.getIcon(side, meta);
+	}
+	
+	@Override
+	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
+		return new ArrayList();
 	}
 	
 	@Override
