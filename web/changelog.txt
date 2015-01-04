@@ -1,3 +1,8 @@
+r1.3 149
+*Fixed Dominant Sparks being able to pull from blocks other than Mana Pools.
+*Fixed Flashes dropping themselves.
+*Moved the following flowers to elven knowledge: Thermalily, Kekimurus, Heisei Dream, Orechid, Loonium.
+*Open Crates will now eject into the block below not only if it's an air block but also if it has no collision box. So yes, you can drop stuff on water now.
 r1.3 148
 *<i>I could have fit this on 147 but I only decided to do it later :V</i>
 *Added support for <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/wip-mods/1445251-1-7-10-beta-wip-colored-light-progress-and">Colored Lights</a>. (<a href="http://puu.sh/dKo8o/7c34ca4d3d.png">Picture 1</a>) (<a href="http://puu.sh/dKozh/323db4f589.png">Picture 2</a>) You can find it in the following blocks:<ul><li>Glimmering Flowers</li><li>Floating Flowers (colored normal ones only)</li><li>Buried Petals</li><li>Sea Lanterns</li><li>Flashes</li></ul>
