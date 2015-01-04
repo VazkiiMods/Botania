@@ -163,7 +163,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 						continue;
 
 					int upgrade_ = spark.getUpgrade();
-					if(upgrade_ == 0)
+					if(upgrade_ == 0 && spark.getAttachedTile() instanceof IManaPool)
 						spark.registerTransfer(this);
 				}
 				break;
