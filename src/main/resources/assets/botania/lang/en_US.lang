@@ -1729,8 +1729,8 @@ botania.entry.superLavaPendant=Crimson Pendant
 botania.page.superLavaPendant0=The &1Crimson Pendant&0 is, in simple terms, an upgraded counterpart to the &1Pyroclast Pendant&0, wearing it provides the wearer immunity to all fire and lava damage, instead of just extinguishing them.
 botania.page.superLavaPendant1=Runner-up on Monolith Code
 
-# -- TAINED BLOOD PENDANT
-botania.entry.bloodPendant=Tained Blood Pendant
+# -- TAINTED BLOOD PENDANT
+botania.entry.bloodPendant=Tainted Blood Pendant
 botania.page.bloodPendant0=Messing around with the original source of the &4Potion&0 design, the Nether, seems to work fairly well at harnessing that very power.<br>The &1Tainted Blood Pendant&0 allows one to store a &4Brew&0 in a condensed, wearable state. Infusing this pendant with one and wearing it will apply the effect while it's worn, for the cost of &4Mana&0 depending on the power of the &4Brew&0.
 botania.page.bloodPendant1=To infuse the pendant with a &4Brew&0 the normal procedure of infusing one on a &1Vial&0 is what's required. The cost increases by a tenfold, though.<br>However, the pendant will not accept any and all effects, a few don't seem to behave well, such as &4Instant Health&0 or &4Absorption&0. Lastly, &4Brews&0 with more than one effect will fail as well.
 botania.page.bloodPendant2=I'll get Saber for sure
