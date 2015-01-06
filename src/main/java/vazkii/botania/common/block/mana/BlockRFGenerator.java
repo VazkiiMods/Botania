@@ -36,7 +36,7 @@ public class BlockRFGenerator extends BlockModContainer implements ILexiconable 
 	}
 
 	@Override
-	@Optional.Method(modid = "CoFHAPI")
+	@Optional.Method(modid = "CoFHAPI|energy")
 	public void onNeighborChange(IBlockAccess world, int x, int y, int z, int tileX, int tileY, int tileZ) {
 		TileEntity tile = world.getTileEntity(x, y, z);
 		if(tile != null && tile instanceof TileRFGenerator)
