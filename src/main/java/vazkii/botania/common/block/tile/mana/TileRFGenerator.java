@@ -20,7 +20,7 @@ import cofh.api.energy.IEnergyConnection;
 import cofh.api.energy.IEnergyHandler;
 import cpw.mods.fml.common.Optional;
 
-@Optional.Interface(iface = "cofh.api.energy.IEnergyConnection", modid = "CoFHAPI")
+@Optional.Interface(iface = "cofh.api.energy.IEnergyConnection", modid = "CoFHAPI|energy")
 public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyConnection {
 
 	private static final int MAX_MANA = 1280;
