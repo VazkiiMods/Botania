@@ -20,7 +20,7 @@ import cofh.api.energy.IEnergyConnection;
 import cofh.api.energy.IEnergyHandler;
 import cpw.mods.fml.common.Optional;
 
-@Optional.Interface(iface = "cofh.api.energy.IEnergyConnection", modid = "CoFHAPI")
+@Optional.Interface(iface = "cofh.api.energy.IEnergyConnection", modid = "CoFHAPI|energy")
 public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyConnection {
 
 	private static final int MAX_MANA = 1280;
@@ -34,7 +34,7 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyCo
 	private boolean deadCache;
 
 	@Override
-	@Optional.Method(modid = "CoFHAPI")
+	@Optional.Method(modid = "CoFHAPI|energy")
 	public void validate() {
 		super.validate();
 		deadCache = true;
@@ -42,7 +42,7 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyCo
 	}
 
 	@Override
-	@Optional.Method(modid = "CoFHAPI")
+	@Optional.Method(modid = "CoFHAPI|energy")
 	public void updateEntity() {
 		super.updateEntity();
 		if(!worldObj.isRemote) {
@@ -55,7 +55,7 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyCo
 		}
 	}
 
-	@Optional.Method(modid = "CoFHAPI")
+	@Optional.Method(modid = "CoFHAPI|energy")
 	protected final int transmitEnergy(int energy) {
 		if (handlerCache != null)
 			for(int i = handlerCache.length; i-- > 0;) {
@@ -74,7 +74,7 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyCo
 		return energy;
 	}
 
-	@Optional.Method(modid = "CoFHAPI")
+	@Optional.Method(modid = "CoFHAPI|energy")
 	private void reCache() {
 		if(deadCache) {
 			for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS)
@@ -84,7 +84,7 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyCo
 		}
 	}
 
-	@Optional.Method(modid = "CoFHAPI")
+	@Optional.Method(modid = "CoFHAPI|energy")
 	public void onNeighborTileChange(int x, int y, int z) {
 		TileEntity tile = worldObj.getTileEntity(x, y, z);
 
@@ -102,7 +102,7 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyCo
 			addCache(tile, 0);
 	}
 
-	@Optional.Method(modid = "CoFHAPI")
+	@Optional.Method(modid = "CoFHAPI|energy")
 	private void addCache(TileEntity tile, int side) {
 		if(handlerCache != null)
 			handlerCache[side] = null;
