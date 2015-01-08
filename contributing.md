@@ -5,6 +5,7 @@ Hey there. Looks like you want to contribute with an issue. Great. Here's what y
   * Issues regarding MCPC+/Cauldron that are not reproducible with forge only are **not accepted**;
   * Issues regarding outdated versions of the mod are **not accepted**;
   * Duplicate issues or issues that have been solved already (use the search feature!) will be closed without asking.
+  * Do not tag your issues' names. "Something Broke" is prefered to "[Bug] Something Broke"  because there's a proper label system in place.
 * [Report the Issue](https://github.com/Vazkii/Botania/issues)!
 
 You can find me at most times on [#vazkii @ irc.esper.net](http://webchat.esper.net/?channels=vazkii), if you need to speak with me about the issue you would report.

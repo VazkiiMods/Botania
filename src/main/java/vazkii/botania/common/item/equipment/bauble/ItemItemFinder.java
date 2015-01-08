@@ -14,6 +14,13 @@ package vazkii.botania.common.item.equipment.bauble;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.lwjgl.opengl.GL11;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
@@ -26,8 +33,12 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.village.MerchantRecipe;
+import net.minecraftforge.client.event.RenderPlayerEvent;
+import vazkii.botania.api.item.IBaubleRender;
+import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
@@ -38,13 +49,22 @@ import baubles.common.lib.PlayerHandler;
 import baubles.common.network.PacketHandler;
 import baubles.common.network.PacketSyncBauble;
 import cpw.mods.fml.relauncher.ReflectionHelper;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemItemFinder extends ItemBauble {
+public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 
+	IIcon gemIcon;
 	private static final String TAG_POSITIONS = "highlightPositions";
 
 	public ItemItemFinder() {
 		super(LibItemNames.ITEM_FINDER);
+	}
+
+	@Override
+	public void registerIcons(IIconRegister par1IconRegister) {
+		super.registerIcons(par1IconRegister);
+		gemIcon = IconHelper.forItem(par1IconRegister, this, "Gem");
 	}
 
 	@Override
@@ -130,9 +150,9 @@ public class ItemItemFinder extends ItemBauble {
 				} else if(e instanceof EntityVillager) {
 					EntityVillager villager = (EntityVillager) e;
 					ArrayList<MerchantRecipe> recipes = villager.getRecipes(player);
-					if(pstack != null)
+					if(pstack != null && recipes != null)
 						for(MerchantRecipe recipe : recipes)
-							if(!recipe.isRecipeDisabled() && (equalStacks(pstack, recipe.getItemToBuy()) || equalStacks(pstack, recipe.getItemToSell())))
+							if(recipe != null && !recipe.isRecipeDisabled() && (equalStacks(pstack, recipe.getItemToBuy()) || equalStacks(pstack, recipe.getItemToSell())))
 								positionsBuilder.append(villager.getEntityId()).append(";");
 
 				} else if(e instanceof EntityLivingBase) {
@@ -192,6 +212,25 @@ public class ItemItemFinder extends ItemBauble {
 	@Override
 	public BaubleType getBaubleType(ItemStack arg0) {
 		return BaubleType.AMULET;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type) {
+		if(type == RenderType.HEAD) { 
+			float f = gemIcon.getMinU();
+			float f1 = gemIcon.getMaxU();
+			float f2 = gemIcon.getMinV();
+			float f3 = gemIcon.getMaxV();
+			boolean armor = event.entityPlayer.getCurrentArmor(3) != null;
+			Helper.translateToHeadLevel(event.entityPlayer);
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
+			GL11.glRotatef(90F, 0F, 1F, 0F);
+			GL11.glRotatef(180F, 1F, 0F, 0F);
+			GL11.glTranslatef(-0.4F, 0.1F, armor ? -0.3F : -0.25F);
+			GL11.glScalef(0.75F, 0.75F, 0.75F);
+			ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, gemIcon.getIconWidth(), gemIcon.getIconHeight(), 1F / 16F);		
+		}
 	}
 
 }

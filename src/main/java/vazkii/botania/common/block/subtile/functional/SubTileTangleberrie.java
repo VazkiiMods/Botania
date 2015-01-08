@@ -58,7 +58,7 @@ public class SubTileTangleberrie extends SubTileFunctional {
 				}
 			}
 
-			if(supertile.getWorldObj().getTotalWorldTime() % 4 == 0) {
+			if(ticksExisted % 4 == 0) {
 				mana--;
 				sync();
 			}

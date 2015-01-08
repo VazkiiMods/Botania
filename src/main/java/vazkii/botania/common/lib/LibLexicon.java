@@ -129,7 +129,9 @@ public final class LibLexicon {
 	public static final String TOOL_DIVINING_ROD = "diviningRod";
 	public static final String TOOL_GRAVITY_ROD = "gravityRod";
 	public static final String TOOL_REGEN_IVY = "regenIvy";
-	
+	public static final String TOOL_MISSILE_ROD = "missileRod";
+	public static final String TOOL_CRAFTING_HALO = "craftingHalo";
+
 	public static final String BAUBLE_INTRO = "bIntro";
 	public static final String BAUBLE_TINY_PLANET = "tinyPlanet";
 	public static final String BAUBLE_MANA_RING = "manaRing";
@@ -150,6 +152,7 @@ public final class LibLexicon {
 	public static final String BAUBLE_ITEM_FINDER = "itemFinder";
 	public static final String BAUBLE_SUPER_LAVA_PENDANT = "superLavaPendant";
 	public static final String BAUBLE_BLOOD_PENDANT = "bloodPendant";
+	public static final String BAUBLE_JUDGEMENT_CLOAKS = "judgementCloaks";
 
 	public static final String ALF_INTRO = "aIntro";
 	public static final String ALF_MESSAGE = "elfMessage";

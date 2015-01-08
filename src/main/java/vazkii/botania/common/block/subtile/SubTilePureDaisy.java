@@ -45,12 +45,9 @@ public class SubTilePureDaisy extends SubTileEntity {
 	int[] ticksRemaining = new int[] { 200, 200, 200, 200, 200, 200, 200, 200 };
 
 	@Override
-	public boolean canUpdate() {
-		return true;
-	}
-
-	@Override
 	public void onUpdate() {
+		super.onUpdate();
+		
 		positionAt++;
 		if(positionAt == POSITIONS.length)
 			positionAt = 0;

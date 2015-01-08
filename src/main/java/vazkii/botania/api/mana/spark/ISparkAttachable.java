@@ -32,6 +32,12 @@ public interface ISparkAttachable extends IManaReceiver {
 	public void attachSpark(ISparkEntity entity);
 
 	/**
+	 * Returns how much space for mana is available in this block, normally the total - the current.
+	 * Should NEVER return negative values. Make sure to check against that.
+	 */
+	public int getAvailableSpaceForMana();
+	
+	/**
 	 * Gets the Spark that is attached to this block. A common implementation is
 	 * to check for Spark entities above:
 	 * 

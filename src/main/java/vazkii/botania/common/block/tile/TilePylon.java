@@ -25,9 +25,11 @@ public class TilePylon extends TileEntity {
 
 	boolean activated = false;
 	int centerX, centerY, centerZ;
+	int ticks = 0;
 
 	@Override
 	public void updateEntity() {
+		++ticks;
 		int meta = getBlockMetadata();
 
 		if(activated && worldObj.isRemote) {
@@ -40,7 +42,7 @@ public class TilePylon extends TileEntity {
 
 			if(meta == 1) {
 				if(ConfigHandler.elfPortalParticlesEnabled) {
-					double worldTime = (int) worldObj.getTotalWorldTime();
+					double worldTime = ticks;
 					worldTime += new Random(xCoord ^ yCoord ^ zCoord).nextInt(1000);
 					worldTime /= 5;
 

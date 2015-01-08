@@ -7,6 +7,7 @@
 		<link rel="stylesheet" href="css/ripples.min.css">
         <link rel="stylesheet" href="css/material-wfont.min.css">
 		<link rel="stylesheet" href="css/botania.css">
+		<link rel="stylesheet" href="css/minecraft-pallette.css">
 	</head>
 
 	<body>
@@ -30,6 +31,8 @@
 				<li id="header-btn-changelog" class="header-btn"><a href="./changelog.php">Changelog</a></li>
 				<li id="header-btn-modpacks" class="header-btn"><a href="./modpacks.php">Modpacks</a></li>
 				<li id="header-btn-credits" class="header-btn"><a href="./credits.php">Credits</a></li>
+				<li id="header-btn-license" class="header-btn"><a href="./license.php">License</a></li>
+				<li id="header-btn-lexicon" class="header-btn"><a href="./lexicon.php">Lexicon</a></li>
 				<li id="header-btn-faq" class="header-btn"><a href="./faq.php">FAQ</a></li>
 				<li id="header-btn-back" class="header-btn"><a href="http://vazkii.us">vazkii.us</a></li>
 			  </ul>
@@ -43,7 +46,7 @@
 		
 		<footer class="footer">
 			<div class="container text-muted">
-				Botania (this website included) is licensed under a <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.<br>
+				Botania (this website included) is licensed under the <a href="license.php">Botania License</a>.<br>
 				Powered by <a href="http://fezvrasta.github.io/bootstrap-material-design/">Bootstrap Material Design</a> by <a href="https://github.com/FezVrasta">Fez Vrasta</a>.<br>
 				Discuss Botania on the <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1294116-botania-an-innovative-natural-magic-themed-tech">Minecraft Forums</a> or the <a href="http://forum.feed-the-beast.com/threads/botania-an-innovative-natural-magic-themed-tech-mod-not-in-beta-any-more.41662/">FTB Forums</a>.<br>
 				Misc Links: <a href="https://twitter.com/Vazkii">Twitter</a> <b>|</b> <a href="http://www.patreon.com/Vazkii">Patreon</a> <b>|</b> <a href="https://github.com/Vazkii/Botania">Github</a> <b>|</b> <a href="http://webchat.esper.net/?channels=vazkii">IRC</a><br><br>

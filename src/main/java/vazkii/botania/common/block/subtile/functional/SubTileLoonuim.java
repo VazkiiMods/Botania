@@ -27,7 +27,7 @@ public class SubTileLoonuim extends SubTileFunctional {
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		if(redstoneSignal == 0 && supertile.getWorldObj().getTotalWorldTime() % 200 == 0 && mana >= COST) {
+		if(redstoneSignal == 0 && ticksExisted % 200 == 0 && mana >= COST) {
 			Random rand = supertile.getWorldObj().rand;
 			ItemStack stack = ChestGenHooks.getOneItem(ChestGenHooks.DUNGEON_CHEST, rand);
 			EntityItem entity = new EntityItem(supertile.getWorldObj(), supertile.xCoord - 3 + rand.nextInt(7) , supertile.yCoord + 1, supertile.zCoord - 3 + rand.nextInt(7), stack);

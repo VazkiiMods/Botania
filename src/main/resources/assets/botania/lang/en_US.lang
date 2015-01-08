@@ -69,6 +69,8 @@ botaniamisc.peacefulNoob=You try to offer the Terrasteel Ingot, but the peaceful
 botaniamisc.notInfused=Not Infused
 botaniamisc.getALife=Get a Life
 botaniamisc.floatingPrefix=Floating %s
+botaniamisc.unsetRecipe=[No Recipe] Right click to set:
+botaniamisc.cantCraft=Not enough Materials!
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
@@ -78,12 +80,12 @@ botania.nei.petalApothecary=Petal Apothecary
 botania.nei.runicAltar=Runic Altar
 
 # BUILDCRAFT INTEGRATION
-botania.trigger.manaDetector=Mana Burst
-botania.trigger.manaEmpty=Mana Empty
-botania.trigger.manaSpace=Space for Mana
-botania.trigger.manaContains=Contains Mana
-botania.trigger.manaFull=Mana Full
-botania.trigger.runeAltarCanCraft=Altar Can Craft
+botania.triggers.manaDetector=Mana Burst
+botania.triggers.manaEmpty=Mana Empty
+botania.triggers.manaSpace=Space for Mana
+botania.triggers.manaContains=Contains Mana
+botania.triggers.manaFull=Mana Full
+botania.triggers.runeAltarCanCraft=Altar Can Craft
 
 # COLORS
 botania.color0=White
@@ -163,7 +165,7 @@ botania.knowledge.alfheim=&aElven&7 Knowledge
 blockBreakingParticles.enabled=Block Break Particles
 blockBreakingParticlesTool.enabled=Tool Block Break Particles
 boundBlock.wireframe.enabled=Bound Block Wireframe
-darkQuartz.enabled=Enable Smokey Quatrz
+darkQuartz.enabled=Enable Smokey Quartz
 fallenKanade.enabled=Enable Fallen Kanade
 manaEnchanter.enabled=Enable Mana Enchanter
 flower.forceCheck=Flower Force Checking
@@ -271,6 +273,9 @@ entity.Botania.botania:flameRing.name=Flame Ring
 entity.Botania.botania:vineBall.name=Vine Ball
 entity.Botania.botania:doppleganger.name=Guardian of Gaia
 entity.Botania.botania:magicLandmine.name=Gaia Trap
+entity.Botania.botania:spark.name=Spark
+entity.Botania.botania:thrownItem.name=Thrown Item
+entity.Botania.botania:magicMissile.name=Magic Missile
 
 # BLOCK NAMES
 tile.botania:flower0.name=Mystical White Flower
@@ -499,6 +504,7 @@ tile.botania:redStringDispenser.name=Red Stringed Dispenser
 tile.botania:redStringFertilizer.name=Red Stringed Nutrifier
 tile.botania:redStringComparator.name=Red Stringed Comparator
 tile.botania:redStringRelay.name=Red Stringed Spoofer
+tile.botania:manaFlame.name=Mana Flash
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
@@ -647,6 +653,8 @@ item.botania:lensFire.name=Mana Lens: Kindle
 item.botania:lensFire.short=Kindle
 item.botania:lensPiston.name=Mana Lens: Force
 item.botania:lensPiston.short=Force
+item.botania:lensLight.name=Mana Lens: Flash
+item.botania:lensLight.short=Flash
 item.botania:manaPetal0.name=White Mana Petal
 item.botania:manaPetal1.name=Orange Mana Petal
 item.botania:manaPetal2.name=Magenta Mana Petal
@@ -690,7 +698,7 @@ item.botania:grassSeeds1.name=Boreal Seeds
 item.botania:grassSeeds2.name=Infestation Spores
 item.botania:livingwoodTwig.name=Livingwood Twig
 item.botania:dirtRod.name=Rod of the Lands
-item.botania:terraformRod.name=Terra Firma Rod
+item.botania:terraformRod.name=Rod of the Terra Firma
 item.botania:manaMirror.name=Mana Mirror
 item.botania:manasteelHelm.name=Manasteel Helmet
 item.botania:manasteelChest.name=Manasteel Chestplate
@@ -752,7 +760,7 @@ item.botania:openBucket.name=Extrapolated Bucket
 item.botania:spawnerMover.name=Life Aggregator
 item.botania:pixieRing.name=Great Fairy Ring
 item.botania:superTravelBelt.name=Globetrotter's Sash
-item.botania:rainbowRod.name=Rod of Bifrost
+item.botania:rainbowRod.name=Rod of the Bifrost
 item.botania:tornadoRod.name=Rod of the Skies
 item.botania:fireRod.name=Rod of the Hells
 item.botania:vineBall.name=Vine Ball
@@ -776,8 +784,8 @@ item.botania:sparkUpgrade0.name=Spark Augment: Dispersive
 item.botania:sparkUpgrade1.name=Spark Augment: Dominant
 item.botania:sparkUpgrade2.name=Spark Augment: Recessive
 item.botania:sparkUpgrade3.name=Spark Augment: Isolated
-item.botania:diviningRod.name=Rod of Divining
-item.botania:gravityRod.name=Rod of the Black Mesa
+item.botania:diviningRod.name=Rod of the Plentiful Mantle
+item.botania:gravityRod.name=Rod of the Shaded Mesa
 item.botania:regenIvy.name=Timeless Ivy
 item.botania:manaInkwell.name=Botanurgist's Inkwell
 item.botania:vial0.name=Managlass Vial
@@ -786,7 +794,10 @@ item.botania:brewVial.name=Vial of %s (%s)
 item.botania:brewFlask.name=Flask of %s (%s)
 item.botania:bloodPendant.name=Tainted Blood Pendant
 item.botania:redString.name=Red String
-item.botania:missileRod.name=Missile Rod Thingymajig (WIP)
+item.botania:missileRod.name=Rod of the Unstable Reservoir
+item.botania:holyCloak.name=Cloak of Virtue
+item.botania:unholyCloak.name=Cloak of Sin
+item.botania:craftingHalo.name=Assembly Halo
 
 # BREW NAMES
 botania.brew.fallback=Fallback
@@ -870,8 +881,9 @@ botania.entry.apothecary=Petal Apothecary
 botania.page.apothecary0=In order for a botanist to create plantlife that can do its bidding, one would need special means of infusing plants with mystical energy.<br>Luckily, the &1Petal Apothecary&0 does just that.
 botania.page.apothecary1=The &1Petal Apothecary&0.
 botania.page.apothecary2=This block, when placed in the world and given some water (by use of a &1Water Bucket&0), will accept any &1Mystical Petals&0 thrown at it, releasing their energies.<br>Once one has set the correct petals in, throwing some &1Seeds&0 in will finalize the proccess.<br>Tossing in the full bucket will also fill the recipient with water.
-botania.page.apothecary3=Quite a few plants can be made using this method, for more information, read on the &4Functional Flora&0 and &4Generation Flora&0 sections of this Lexicon.<br>Shift-right clicking the &1Petal Apothecary&0 with an empty hand will remove the last item thrown in.<br>Lastly, tossing in &1Vines&0 also gives the block an overgrown visual.
-botania.page.apothecary4=Crafting the &1Petal Apothecary&0.
+botania.page.apothecary3=Quite a few plants can be made using this method, for more information, read on the &4Functional Flora&0 and &4Generation Flora&0 sections of this Lexicon.<br>Shift-right clicking the &1Petal Apothecary&0 with an empty hand will remove the last item thrown in.
+botania.page.apothecary4=Instead of &1Water&0, one can place &1Lava&0 in this block, if that is done, it'll serve as a brazier and incinerator, destroying any items that come in contact.<br>Lastly, tossing in &1Vines&0 also gives the block an overgrown visual.
+botania.page.apothecary5=Crafting the &1Petal Apothecary&0.
 
 # -- PURE DAISY
 botania.entry.pureDaisy=Pure Daisy
@@ -1023,6 +1035,8 @@ botania.page.lens32=The &1Kindle Lens&0 is infused with a burning spark, when it
 botania.page.lens33=Kindle Lens
 botania.page.lens34=The &1Force Lens&0 acts as a &1Piston&0, when it hits a block that a piston can move, it'll do just so.
 botania.page.lens35=Force Lens
+botania.page.lens36=The &1Flash Lens&0, in contact with a block, creates a flame of the same color as the burst that caused it. The flame provides light and is purely decorative.<br>If it hits one of these flames, it puts it out instead.
+botania.page.lens37=Flash Lens
 
 # -- PORTABLE MANA TRANSPORT
 botania.entry.manaTransport=Portable Mana Transport
@@ -1194,7 +1208,7 @@ botania.page.nightshade1=&oThe shadow of the day&r.
 # -- ENDOFLAME
 botania.entry.endoflame=Endoflame
 botania.page.endoflame0=While the &1Daybloom&0 is all well and good, a botanist requires more effective means of generating &4Mana&0.<br>The &1Endoflame&0 does that exactly, it will absorb any combustible items or blocks dropped on the nearby vicinity (albeit only one at a time) and burn through them to passively generate mana while the fuel lasts.
-botania.page.endoflame1=There is a small caveat though, the &1Endoflame&0 will not burn anything that returns a bi-product, an example are &1Lava Buckets&0, that have empty &1Buckets&0 as a bi-product.<br>Due to their behaviour, an &1Open Crate&0, which you read about on the &4Magical Apparatus&0 section, might be a good step on getting it to be self-sustainable.
+botania.page.endoflame1=There is a small caveat though, the &1Endoflame&0 will not burn anything that returns a byproduct, an example are &1Lava Buckets&0, that have empty &1Buckets&0 as a byproduct.<br>Due to their behaviour, an &1Open Crate&0, which you read about on the &4Magical Apparatus&0 section, might be a good step on getting it to be self-sustainable.
 botania.page.endoflame2=&oNot nitor&r.
 
 # -- HYDROANGEAS
@@ -1295,7 +1309,8 @@ botania.page.manaAlchemy18=Creating &1Ender Pearls&0
 botania.page.manaAlchemy19=Converting between &1Glowstone&0 and &1Redstone&0
 botania.page.manaAlchemy20=Breaking &1Cobblestone&0 into &1Sand&0
 botania.page.manaAlchemy21=Breaking &1Hardened Clay&0 into &1Red Sand&0
-botania.page.manaAlchemy22=Making &1Coarse Dirt&0
+botania.page.manaAlchemy22=Breaking down &1Clay&0 and &1Bricks&0
+botania.page.manaAlchemy23=Making &1Coarse Dirt&0
 
 # -- BOTANICAL BREWERY
 botania.entry.brewery=Botanical Brewery
@@ -1408,7 +1423,7 @@ botania.page.enderEyeBlock1=MY BRAND
 
 # -- RED STRING
 botania.entry.redString=Red String
-botania.page.redString0=Lore says the Gods tie a red string around the ankles of people who are supposed to affect eachothers lives. This led inventors to come up with a way of connecting blocks over the air, called, of course, &1Red String&0. Blocks created with this exquisite material can face in all 6 basic directions and bind to the first available and compatible block they can find, given a range.
+botania.page.redString0=Lore says the Gods tie a red string around the ankles of people who are supposed to affect each others lives. This led inventors to come up with a way of connecting blocks over the air, called, of course, &1Red String&0. Blocks created with this exquisite material can face in all 6 basic directions and bind to the first available and compatible block they can find, given a range.
 botania.page.redString1=Each &4Red Stringed&0 block has a different criteria to what it'll bind to, but the distance in which they'll bind stays constant between the variations. The string can be viewed, if a block is bound, by holding a &1Wand of the Forest&0.<br>Blocks being in the way will not break the connection. Lastly, &1Red String&0 blocks can't be chained.
 botania.page.redString2=Are you in a pinch?
 botania.page.redString3=Starting off, the &1Red Stringed Container&0 will bind to any inventory (&1Chests&0, &1Furnaces&0, &1Hoppers&0, etc), items can be put into it using &1Hoppers&0 or any other means of insertion. The items will end up in the block it's bound to, and will enter from the same side as they were put on the &1Red Stringed Container&0 itself.
@@ -1443,8 +1458,8 @@ botania.page.dirtRod0=The &1Rod of the Lands&0 is a rather simpleton tool, by ut
 botania.page.dirtRod1=That's dirty
 
 # -- TERRA FIRMA ROD
-botania.entry.terraformRod=Terra Firma Rod
-botania.page.terraformRod0=While digging away at dirt with a shovel is definitely functional, flattening huge tracts of land can get somewhat tortuous at times.<br>By utilizing the &1Terra Firma Rod&0, it's possible to terraform in a quick and environmental friendly manner.
+botania.entry.terraformRod=Rod of the Terra Firma
+botania.page.terraformRod0=While digging away at dirt with a shovel is definitely functional, flattening huge tracts of land can get somewhat tortuous at times.<br>By utilizing the &1Rod of the Terra Firma&0, it's possible to terraform in a quick and environmental friendly manner.
 botania.page.terraformRod1=This rod, will, at the cost of some &4Mana&0 from your inventory, flatten the land to the level you are standing. For this to happen, charge it by &4holding right-click&0 and, slowly but surely, the nearby terrain will be flattened to your level, either by placing &1Dirt&0 or by removing blocks.
 botania.page.terraformRod2=Note that blocks removed by the rod are non-recuperable. The terrain will adapt to the changes as best as it can, up to a distance limit, to avoid cuts in hills and the like, for this, the flattening will work in the terrain's natural look.<br>Lastly, the rod will cease to function whatsoever below sea level.
 botania.page.terraformRod3=Quite a justicar
@@ -1531,9 +1546,9 @@ botania.page.spawnerMover0=By arranging &1Dragonstone&0, &1Elementium&0 and &1Ga
 botania.page.spawnerMover1=We got the spawner, but this isn't a won run yet
 
 # -- ROD OF BIFROST
-botania.entry.rainbowRod=Rod of Bifrost
-botania.page.rainbowRod0=&4Bifrost&0, the rainbow bridge that reaches between the world and the realm of the gods.<br>While this item, the &1Rod of Bifrost&0 doesn't exactly do that, it allows the holder, via a right click and at the cost of some &4Mana&0, to create a rainbow bridge in the direction he or she is looking at.
-botania.page.rainbowRod1=This bridge extends as far as a hundred blocks, and will vanish after about fifteen seconds.<br>Only one bridge can be created for any given &1Rod of Bifrost&0 at a time, as soon as the old bridge vanishes, a new one can be created.
+botania.entry.rainbowRod=Rod of the Bifrost
+botania.page.rainbowRod0=&4Bifrost&0, the rainbow bridge that reaches between the world and the realm of the gods.<br>While this item, the &1Rod of the Bifrost&0 doesn't exactly do that, it allows the holder, via a right click and at the cost of some &4Mana&0, to create a rainbow bridge in the direction he or she is looking at.
+botania.page.rainbowRod1=This bridge extends as far as a hundred blocks, and will vanish after about fifteen seconds.<br>Only one bridge can be created for any given &1Rod of the Bifrost&0 at a time, as soon as the old bridge vanishes, a new one can be created.
 botania.page.rainbowRod2=Going my way!! Cut open a path and go!
 
 # -- ROD OF THE SKIES
@@ -1584,13 +1599,13 @@ botania.page.glassPick0=Placing down &1Glass&0 and having to break it again can 
 botania.page.glassPick1=Trapped inside with food
 
 # -- ROD OF DIVINING
-botania.entry.diviningRod=Rod of Divining
-botania.page.diviningRod0=As its name implies, the &1Rod of Divining&0 has the ability to divine in a decently large radius around the user to find any ores. These will shine for a little bit, allowing their location.<br>This process, obviously, requires a decent amount of &4Mana&0 from the user's inventory.
+botania.entry.diviningRod=Rod of the Plentiful Mantle
+botania.page.diviningRod0=The &1Rod of the Plentiful Mantle&0 has the ability to divine in a decently large radius around the user to find any ores. These will shine for a little bit, allowing their location.<br>This process, obviously, requires a decent amount of &4Mana&0 from the user's inventory.
 botania.page.diviningRod1=inb4 ee3 
 
 # -- ROD OF THE BLACK MESA
-botania.entry.gravityRod=Rod of the Black Mesa
-botania.page.gravityRod0=The &1Rod of the Black Mesa&0 is a powerful relic, legend says that the first of these devices was found atop a dark mesa, along with a crowbar.<br>To use this device, the user may right click and hold on a monster or item to pick it up. Releasing right click will drop the selected entity, while left click will fire it in a powerful burst.
+botania.entry.gravityRod=Rod of the Shaded Mesa
+botania.page.gravityRod0=The &1Rod of the Shaded Mesa&0 is a powerful relic, legend says that the first of these devices was found atop a dark mesa, along with a crowbar.<br>To use this device, the user may right click and hold on a monster or item to pick it up. Releasing right click will drop the selected entity, while left click will fire it in a powerful burst.
 botania.page.gravityRod1=This power does not come free, of course. It requires significant amounts of &4Mana&0 from the user's inventory.
 botania.page.gravityRod2=Why the flax?
 
@@ -1599,6 +1614,17 @@ botania.entry.regenIvy=Timeless Ivy
 botania.page.regenIvy0=While &1Manasteel&0 or &1Elementium&0 tools have the ability to harness &4Mana&0 and use it to protect their bodies, other tools or armor don't have this property.<br>A handful of &1Timeless Ivy&0 can be attached on to virtually any item, allowing it to be repaired with &4Mana&0.
 botania.page.regenIvy1=To apply it, one'd simply craft the tool in question alongside the ivy and 3 of an item that can be used to repair the tool in an anvil (eg. &1Diamonds&0 for a &1Diamond Pickaxe&0).<br>Due to not being in direct contact with the material, the amount of &4Mana&0 used by the ivy in comparison to &1Manasteel&0 is rather high.
 botania.page.regenIvy2=Bring your Inferno Adze
+
+# -- ROD OF THE ARCANE BARRAGE
+botania.entry.missileRod=Rod of the Unstable Reservoir
+botania.page.missileRod0=The &1Rod of the Unstable Reservoir&0 is a rather powerful weapon against a large crowd of foes. Channeling its power will materialize countless arcane missiles that home in on targets at random, at a pretty hefty cost of &4Mana&0.
+botania.page.missileRod1=Zapzapzapzap
+
+# -- ASSEMBLY HALO
+botania.entry.craftingHalo=Assembly Halo
+botania.page.craftingHalo0=Carrying a &1Crafting Table&0 around generally can be troublesome. The &1Assembly Halo&0 acts not only as a portable &1Crafting Table&0 but as a quick crafting method. Having the item in hand displays a "halo" of recipes around the holder.<br>First off, right clicking on the &1Crafting Table&0 will open up a crafting interface.
+botania.page.craftingHalo1=As long as the item is present in the inventory the last crafting recipe done will be stored in it.<br>Right clicking an empty slot of the halo will set the last recipe on it. Right clicking a slot with a recipe will try to do it using items from the inventory. Removing a recipe can be done through shift-left click.
+botania.page.craftingHalo2=It has no taste if you cook it from the menu
 
 # - BAUBLES
 # -- AN INTRODUCTION TO BAUBLES
@@ -1703,12 +1729,18 @@ botania.entry.superLavaPendant=Crimson Pendant
 botania.page.superLavaPendant0=The &1Crimson Pendant&0 is, in simple terms, an upgraded counterpart to the &1Pyroclast Pendant&0, wearing it provides the wearer immunity to all fire and lava damage, instead of just extinguishing them.
 botania.page.superLavaPendant1=Runner-up on Monolith Code
 
-
-# -- TAINED BLOOD PENDANT
-botania.entry.bloodPendant=Tained Blood Pendant
+# -- TAINTED BLOOD PENDANT
+botania.entry.bloodPendant=Tainted Blood Pendant
 botania.page.bloodPendant0=Messing around with the original source of the &4Potion&0 design, the Nether, seems to work fairly well at harnessing that very power.<br>The &1Tainted Blood Pendant&0 allows one to store a &4Brew&0 in a condensed, wearable state. Infusing this pendant with one and wearing it will apply the effect while it's worn, for the cost of &4Mana&0 depending on the power of the &4Brew&0.
 botania.page.bloodPendant1=To infuse the pendant with a &4Brew&0 the normal procedure of infusing one on a &1Vial&0 is what's required. The cost increases by a tenfold, though.<br>However, the pendant will not accept any and all effects, a few don't seem to behave well, such as &4Instant Health&0 or &4Absorption&0. Lastly, &4Brews&0 with more than one effect will fail as well.
 botania.page.bloodPendant2=I'll get Saber for sure
+
+# -- CLOAKS OF JUDGEMENT
+botania.entry.judgementCloaks=Cloaks of Judgement
+botania.page.judgementCloaks0=The &1Cloaks of Judgement&0 are a pair of cloaks that can be worn instead of a belt (and thus, they go in the Belt slot). Their strength triggers when their wearer takes damage. After that, they'll go in a ten second recharge period in which their effects won't trigger.
+botania.page.judgementCloaks1=The &1Cloak of Virtue&0 will, when active, block the full extent of a piece of damage taken. This does not apply to magic damage.<br>The &1Cloak of Sin&0 will damage all nearby hostile mobs for the same amount of damage that was taken.
+botania.page.judgementCloaks2=A Holy Mantle
+botania.page.judgementCloaks3=Taste Vengance!
 
 # - ALFHOMANCY
 # -- THE PORTAL TO ALFHEIM

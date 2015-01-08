@@ -31,7 +31,7 @@ public class SubTileMunchdew extends SubTileGenerating {
 		super.onUpdate();
 
 		int manaPerLeaf = 16;
-		if(getMaxMana() - mana >= manaPerLeaf && !supertile.getWorldObj().isRemote && supertile.getWorldObj().getTotalWorldTime() % 4 == 0) {
+		if(getMaxMana() - mana >= manaPerLeaf && !supertile.getWorldObj().isRemote && ticksExisted % 4 == 0) {
 			List<ChunkCoordinates> coords = new ArrayList();
 			int range = 8;
 			int rangeY = 16;

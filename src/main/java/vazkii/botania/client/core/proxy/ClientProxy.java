@@ -13,6 +13,7 @@ package vazkii.botania.client.core.proxy;
 
 import java.awt.Desktop;
 import java.net.URI;
+import java.util.Calendar;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -38,7 +39,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.DebugHandler;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.handler.LightningHandler;
-import vazkii.botania.client.core.handler.TiaraWingRenderHandler;
+import vazkii.botania.client.core.handler.BaubleRenderHandler;
 import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.fx.FXSparkle;
@@ -46,6 +47,7 @@ import vazkii.botania.client.fx.FXWisp;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 import vazkii.botania.client.gui.lexicon.GuiLexiconEntry;
 import vazkii.botania.client.gui.lexicon.GuiLexiconIndex;
+import vazkii.botania.client.integration.nei.NEIGuiHooks;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.client.render.block.RenderAltar;
 import vazkii.botania.client.render.block.RenderBrewery;
@@ -108,11 +110,14 @@ import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class ClientProxy extends CommonProxy {
 
+	public static boolean singAnnoyingChristmasSongsTillVazkiisHeadExplodesFromAllTheDamnJingle = false;
+	
 	@Override
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
@@ -123,12 +128,18 @@ public class ClientProxy extends CommonProxy {
 		if(ConfigHandler.boundBlockWireframe)
 			MinecraftForge.EVENT_BUS.register(new BoundTileRenderer());
 		MinecraftForge.EVENT_BUS.register(new TooltipHandler());
-		MinecraftForge.EVENT_BUS.register(new TiaraWingRenderHandler());
+		MinecraftForge.EVENT_BUS.register(new BaubleRenderHandler());
 		MinecraftForge.EVENT_BUS.register(new DebugHandler());
 
 		if(ConfigHandler.versionCheckEnabled)
 			new VersionChecker().init();
 
+
+		// Jingle bells jingle bells
+	    Calendar calendar = Calendar.getInstance();
+	    if((calendar.get(2) == 11 && calendar.get(5) >= 24 && calendar.get(5) <= 26) || (calendar.get(2) == 0 && calendar.get(5) <= 6))
+	        singAnnoyingChristmasSongsTillVazkiisHeadExplodesFromAllTheDamnJingle = true;
+		
 		initRenderers();
 	}
 	
@@ -190,6 +201,12 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntitySpark.class, new RenderSpark());
 
 		ShaderHelper.initShaders();
+	}
+	
+	@Override
+	@Optional.Method(modid = "NotEnoughItems")
+	public void registerNEIStuff() {
+		NEIGuiHooks.init();
 	}
 
 	@Override

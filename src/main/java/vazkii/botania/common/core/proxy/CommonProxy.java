@@ -11,10 +11,12 @@
  */
 package vazkii.botania.common.core.proxy;
 
+import buildcraft.api.transport.IPipeTile;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -52,6 +54,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.network.GuiHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -110,6 +113,8 @@ public class CommonProxy {
 		ModBlocks.addDispenserBehaviours();
 		ConfigHandler.loadPostInit();
 		LexiconData.postInit();
+		
+		registerNEIStuff();
 	}
 
 	public void serverStarting(FMLServerStartingEvent event) {
@@ -118,6 +123,10 @@ public class CommonProxy {
 		event.registerServerCommand(new CommandOpen());
 	}
 
+	public void registerNEIStuff() {
+		// NO-OP
+	}
+	
 	public void setEntryToOpen(LexiconEntry entry) {
 		// NO-OP
 	}

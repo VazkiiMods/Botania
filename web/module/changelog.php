@@ -1,4 +1,7 @@
-<div class='section-header'>Botania Changelog</div>
+<div class='section-header'>
+	<span class='glyphicon glyphicon-tag'></span>
+	Botania Changelog
+</div>
 
 <?php
 	$versions = array();

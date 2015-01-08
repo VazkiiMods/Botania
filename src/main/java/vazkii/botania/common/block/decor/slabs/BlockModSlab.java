@@ -27,8 +27,10 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable {
 		super(full, mat);
 		this.name = name;
 		setBlockName(name);
-		if(!full)
+		if(!full) {
 			setCreativeTab(BotaniaCreativeTab.INSTANCE);
+			useNeighborBrightness = true;
+		}
 	}
 
 	public abstract BlockSlab getFullBlock();

@@ -20,6 +20,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -94,11 +95,18 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 					else if(!par5EntityPlayer.capabilities.isCreativeMode)
 						par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, getContainer(stack));
 
-					tile.hasWater = true;
+					tile.setWater(true);
 					par1World.func_147453_f(par2, par3, par4, this);
-					par1World.markBlockForUpdate(par2, par3, par4);
 				}
 
+				return true;
+			} else if(stack != null && stack.getItem() == Items.lava_bucket) {
+				if(!par5EntityPlayer.capabilities.isCreativeMode)
+					par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, getContainer(stack));
+				
+				tile.setLava(true);
+				par1World.func_147453_f(par2, par3, par4, this);
+				
 				return true;
 			}
 		}

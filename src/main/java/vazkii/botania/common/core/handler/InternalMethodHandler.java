@@ -13,7 +13,6 @@ package vazkii.botania.common.core.handler;
 
 import java.util.List;
 
-import cpw.mods.fml.common.Optional;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -40,6 +39,7 @@ import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.block.BlockSpecialFlower;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lexicon.page.PageBrew;
 import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
@@ -52,6 +52,7 @@ import vazkii.botania.common.lexicon.page.PageRuneRecipe;
 import vazkii.botania.common.lexicon.page.PageText;
 import baubles.common.lib.PlayerHandler;
 import buildcraft.api.transport.IPipeTile;
+import cpw.mods.fml.common.Optional;
 
 public class InternalMethodHandler extends DummyMethodHandler {
 
@@ -142,6 +143,11 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	@Override
 	public ItemStack getSubTileAsStack(String subTile) {
 		return ItemBlockSpecialFlower.ofType(subTile);
+	}
+	
+	@Override
+	public ItemStack getSubTileAsFloatingFlowerStack(String subTile) {
+		return ItemBlockSpecialFlower.ofType(new ItemStack(ModBlocks.floatingSpecialFlower), subTile);
 	}
 
 	@Override

@@ -95,13 +95,19 @@ public final class LibResources {
 	public static final String MODEL_TINY_POTATO = PREFIX_MODEL + "tinyPotato.png";
 	public static final String MODEL_SPAWNER_CLAW = PREFIX_MODEL + "spawnerClaw.png";
 	public static final String MODEL_BREWERY = PREFIX_MODEL + "brewery.png";
-
+	public static final String MODEL_TRAVEL_BELT = PREFIX_MODEL + "travelBelt.png";
+	public static final String MODEL_SUPER_TRAVEL_BELT = PREFIX_MODEL + "superTravelBelt.png";
+	public static final String MODEL_KNOCKBACK_BELT = PREFIX_MODEL + "knockbackBelt.png";
+	public static final String MODEL_HOLY_CLOAK = PREFIX_MODEL + "holyCloak.png";
+	public static final String MODEL_UNHOLY_CLOAK = PREFIX_MODEL + "unholyCloak.png";
+	
 	public static final String MODEL_CAPE = "/assets/botania/textures/model/cape.png";
 
 	public static final String MISC_PARTICLES = PREFIX_MISC + "particles.png";
 	public static final String MISC_WISP_LARGE = PREFIX_MISC + "wispLarge.png";
 	public static final String MISC_WISP_SMALL = PREFIX_MISC + "wispSmall.png";
 	public static final String MISC_HALO = PREFIX_MISC + "halo.png";
+	public static final String MISC_GLOW = PREFIX_MISC + "glow.png";
 
 	public static final String OBJ_MODEL_PYLON = PREFIX_OBJ_MODEL + "pylon.obj";
 

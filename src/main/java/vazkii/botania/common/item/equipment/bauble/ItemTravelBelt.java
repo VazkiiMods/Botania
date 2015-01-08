@@ -11,19 +11,33 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import org.lwjgl.opengl.GL11;
+
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
+import vazkii.botania.api.item.IBaubleRender;
+import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
 import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemTravelBelt extends ItemBauble {
+public class ItemTravelBelt extends ItemBauble implements IBaubleRender {
 
+	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_TRAVEL_BELT);
+	@SideOnly(Side.CLIENT)
+	private static ModelBiped model;
+	
 	final float speed;
 	final float jump;
 	final float fallBuffer;
@@ -82,6 +96,29 @@ public class ItemTravelBelt extends ItemBauble {
 	@Override
 	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
 		player.stepHeight = 0.5F;
+	}
+
+	@SideOnly(Side.CLIENT)
+	ResourceLocation getRenderTexture() {
+		return texture;
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type) {
+		if(type == RenderType.BODY) {
+			Minecraft.getMinecraft().renderEngine.bindTexture(getRenderTexture());
+			Helper.rotateIfSneaking(event.entityPlayer);
+			boolean armor = event.entityPlayer.getCurrentArmor(1) != null;
+			GL11.glTranslatef(0F, 0.1F, 0F);
+
+			float s = (armor ? 1.3F : 1.05F) / 16F;
+			GL11.glScalef(s, s, s);
+			if(model == null)
+				 model = new ModelBiped();
+			
+			model.bipedBody.render(1F);
+		}
 	}
 
 }

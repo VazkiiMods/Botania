@@ -23,9 +23,10 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.decor.BlockBuriedPetals;
 import vazkii.botania.common.block.decor.BlockCustomBrick;
 import vazkii.botania.common.block.decor.BlockElfGlass;
-import vazkii.botania.common.block.decor.BlockManaBeacon;
-import vazkii.botania.common.block.decor.BlockManaGlass;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
+import vazkii.botania.common.block.decor.BlockManaBeacon;
+import vazkii.botania.common.block.decor.BlockManaFlame;
+import vazkii.botania.common.block.decor.BlockManaGlass;
 import vazkii.botania.common.block.decor.BlockPrismarine;
 import vazkii.botania.common.block.decor.BlockReeds;
 import vazkii.botania.common.block.decor.BlockSeaLamp;
@@ -128,10 +129,11 @@ import vazkii.botania.common.block.tile.TileBrewery;
 import vazkii.botania.common.block.tile.TileCraftCrate;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.block.tile.TileEnderEye;
+import vazkii.botania.common.block.tile.TileFloatingFlower;
 import vazkii.botania.common.block.tile.TileFloatingSpecialFlower;
 import vazkii.botania.common.block.tile.TileForestEye;
 import vazkii.botania.common.block.tile.TileManaBeacon;
-import vazkii.botania.common.block.tile.TileFloatingFlower;
+import vazkii.botania.common.block.tile.TileManaFlame;
 import vazkii.botania.common.block.tile.TileOpenCrate;
 import vazkii.botania.common.block.tile.TilePlatform;
 import vazkii.botania.common.block.tile.TilePylon;
@@ -214,6 +216,7 @@ public final class ModBlocks {
 	public static Block redStringComparator;
 	public static Block redStringRelay;
 	public static Block floatingSpecialFlower;
+	public static Block manaFlame;
 
 	public static Block livingwoodStairs;
 	public static Block livingwoodSlab;
@@ -342,6 +345,7 @@ public final class ModBlocks {
 		redStringComparator = new BlockRedStringComparator();
 		redStringRelay = new BlockRedStringRelay();
 		floatingSpecialFlower = new BlockFloatingSpecialFlower();
+		manaFlame = new BlockManaFlame();
 		
 		livingwoodStairs = new BlockLivingwoodStairs();
 		livingwoodSlab = new BlockLivingwoodSlab(false);
@@ -484,6 +488,7 @@ public final class ModBlocks {
 		OreDictionary.registerOre("hardenedClay", new ItemStack(Blocks.hardened_clay, 1, OreDictionary.WILDCARD_VALUE));
 		OreDictionary.registerOre("snowLayer", Blocks.snow_layer);
 		OreDictionary.registerOre("mycelium", Blocks.mycelium);
+		OreDictionary.registerOre("podzol", new ItemStack(Blocks.dirt, 1, 2));
 
 		initTileEntities();
 	}
@@ -528,7 +533,8 @@ public final class ModBlocks {
 		registerTile(TileRedStringComparator.class, LibBlockNames.RED_STRING_COMPARATOR);
 		registerTile(TileRedStringRelay.class, LibBlockNames.RED_STRING_RELAY);
 		registerTile(TileFloatingSpecialFlower.class, LibBlockNames.FLOATING_SPECIAL_FLOWER);
-		
+		registerTile(TileManaFlame.class, LibBlockNames.MANA_FLAME);
+
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MANASTAR, SubTileManastar.class);
 

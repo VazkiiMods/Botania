@@ -163,7 +163,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 						continue;
 
 					int upgrade_ = spark.getUpgrade();
-					if(upgrade_ == 0)
+					if(upgrade_ == 0 && spark.getAttachedTile() instanceof IManaPool)
 						spark.registerTransfer(this);
 				}
 				break;
@@ -185,6 +185,8 @@ public class EntitySpark extends Entity implements ISparkEntity {
 		if(!transfers.isEmpty()) {
 			int manaTotal = Math.min(TRANSFER_RATE * transfers.size(), tile.getCurrentMana());
 			int manaForEach = manaTotal / transfers.size();
+			int manaSpent = 0;
+			
 			if(manaForEach > transfers.size()) {
 				for(ISparkEntity spark : transfers) {
 					if(spark.getAttachedTile() == null || spark.getAttachedTile().isFull() || spark.areIncomingTransfersDone()) {
@@ -193,11 +195,13 @@ public class EntitySpark extends Entity implements ISparkEntity {
 					}
 
 					ISparkAttachable attached = spark.getAttachedTile();
-					attached.recieveMana(manaForEach);
+					int spend = Math.min(attached.getAvailableSpaceForMana(), manaForEach);
+					attached.recieveMana(spend);
+					manaSpent += spend;
 
 					particlesTowards((Entity) spark);
 				}
-				tile.recieveMana(-manaTotal);
+				tile.recieveMana(-manaSpent);
 			}
 		}
 

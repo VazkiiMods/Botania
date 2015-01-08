@@ -78,7 +78,7 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem {
     public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) {
 		if(!world.isRemote) {
 			for(PotionEffect effect : getBrew(stack).getPotionEffects(stack)) {
-				PotionEffect newEffect = new PotionEffect(effect);
+				PotionEffect newEffect = new PotionEffect(effect.getPotionID(), effect.getDuration(), effect.getAmplifier(), true);
 				player.addPotionEffect(newEffect);
 			}
 			

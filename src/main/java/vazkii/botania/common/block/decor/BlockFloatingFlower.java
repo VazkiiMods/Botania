@@ -25,6 +25,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import thaumcraft.api.crafting.IInfusionStabiliser;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -34,6 +35,7 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.tile.TileFloatingFlower;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.integration.coloredlights.ColoredLightHelper;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -57,6 +59,12 @@ public class BlockFloatingFlower extends BlockModContainer implements ILexiconab
 		float f = 0.1F;
 		setBlockBounds(f, f, f, 1F - f, 1F - f, 1F - f);
 	}
+	
+	@Override
+	@Optional.Method(modid = "easycoloredlights")
+    public int getLightValue(IBlockAccess world, int x, int y, int z) {
+		return ColoredLightHelper.getPackedColor(world.getBlockMetadata(x, y, z), originalLight);
+    }
 
 	@Override
 	protected boolean shouldRegisterInNameSet() {

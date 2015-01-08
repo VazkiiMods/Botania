@@ -218,4 +218,9 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 		return !areItemsValid(getItems());
 	}
 	
+	@Override
+	public int getAvailableSpaceForMana() {
+		return Math.max(0, MAX_MANA - getCurrentMana());
+	}
+	
 }

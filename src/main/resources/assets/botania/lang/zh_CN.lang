@@ -53,7 +53,7 @@ botaniamisc.spawnerTip=Tip:使用刷怪蛋改变怪物类型
 botaniamisc.shardLevel=碎片能量 %s
 botaniamisc.lexiconIndex=辞典目录
 botaniamisc.hasIvy=有永恒常春藤
-botaniamisc.shareMsg=[{"text":"%name%","color":"light_purple"},{"text":" has shared a ","color":"blue"},{"text":"Lexica Botania","color":"green","hoverEvent":{"action":"show_text","value":{"text":"You can make one using a Book and a Sapling!","color":"aqua"}}},{"text":" entry, click to see it: ","color":"blue"},{"text":"[%entryname%]","color":"green","clickEvent":{"action":"run_command","value":"/botania-open %entry%"},"hoverEvent":{"action":"show_text","value":{"text":"Click to read about this","color":"aqua"}}}]
+botaniamisc.shareMsg=[{"text":"%name%","color":"light_purple"},{"text":"分享了一本","color":"blue"},{"text":"植物魔法辞典","color":"green","hoverEvent":{"action":"show_text","value":{"text":"你可以使用一本书和树苗制作一本!","color":"aqua"}}},{"text":"条目,点击查看: ","color":"blue"},{"text":"[%entryname%]","color":"green","clickEvent":{"action":"run_command","value":"/botania-open %entry%"},"hoverEvent":{"action":"show_text","value":{"text":"点击阅读相关信息","color":"aqua"}}}]
 botaniamisc.noLexicon=你需要有植物魔法辞典才能阅读它.
 botaniamisc.cantOpen=你的书里似乎没有这一页.或许它是从书外而来的...?
 botaniamisc.clickToShare=分享
@@ -63,12 +63,27 @@ botaniamisc.dropTip1=CTRL加%key%键扔出一整组
 botaniamisc.wandMode.bind=绑定模式
 botaniamisc.wandMode.function=工作模式
 botaniamisc.playVideo=播放视频
+botaniamisc.brewOf= %s的酿造
+botaniamisc.needsCatalysts=无论你多么努力地尝试将泰拉钢锭推送入信标之中,什么事都没有发生,也许你的配置文件中关于催化水晶的选项已经被关闭.
+botaniamisc.peacefulNoob=你尝试提供泰拉钢锭,但是被和平模式世界当中的和平共鸣所阻止.也许你该采取些措施.
+botaniamisc.notInfused=未灌注
+botaniamisc.getALife=获得一条生命
+botaniamisc.floatingPrefix=浮空%s
 
 # NEI INTEGRATION
+botania.nei.brewery=植物酿造
 botania.nei.elvenTrade=精灵交易
 botania.nei.manaPool=魔力灌注
 botania.nei.petalApothecary=花瓣炼制
 botania.nei.runicAltar=符文祭坛
+
+# BUILDCRAFT INTEGRATION
+botania.triggers.manaDetector=魔力脉冲
+botania.triggers.manaEmpty=魔力为0
+botania.triggers.manaSpace=尚可存储魔力
+botania.triggers.manaContains=包含魔力
+botania.triggers.manaFull=魔力已满
+botania.triggers.runeAltarCanCraft=祭坛可合成符文
 
 # COLORS
 botania.color0=白色
@@ -108,6 +123,7 @@ botania.wings6=翼:深渊领主
 botania.wings7=翼:仙女
 
 # ROMAN NUMERALS
+botania.roman0=
 botania.roman1=I
 botania.roman2=II
 botania.roman3=III
@@ -128,6 +144,16 @@ botania.roman17=XVII
 botania.roman18=XVIII
 botania.roman19=XIX
 botania.roman20=XX
+botania.roman21=XXI
+botania.roman22=XXII
+botania.roman23=XXIII
+botania.roman24=XXIV
+botania.roman25=XXV
+botania.roman26=XXVI
+botania.roman27=XXVII
+botania.roman28=XXVIII
+botania.roman29=XXIX
+botania.roman30=XXX
 
 # KNOWLEDGE
 botania.knowledge.minecraft=Minecraftian的知识
@@ -157,7 +183,7 @@ flowerTextures.alt=替换花的贴图
 matrixMode.enabled=启用矩阵模式
 references.enabled=启用工具提示文本
 shaders.enabled=启用光影支持
-spreader.posShift=Spreader Pos Shift
+spreader.posShift=发射器位置移动
 versionChecking.enabled=启用版本检查
 wandBeam.static=启用静态法杖光线
 worldgen.flower.density=世界生成器花密度
@@ -180,7 +206,7 @@ botania.versioning.flavour4=植物魔法更新:汝是否以Vazkii为汝之主.
 botania.versioning.flavour5=嘿,植物魔法更新了,难道不是很少见么?
 botania.versioning.flavour6=Scouter说了什么关于植物魔法更新的?
 botania.versioning.flavour7=天哪,植物魔法有更新了.我是澳大利亚人么?
-botania.versioning.flavour8=Because having a life is too mainstream, here's a Botania update.
+botania.versioning.flavour8=因为增加生命太主流了,这就是这次的更新.
 botania.versioning.flavour9=感谢更新植物魔法.
 botania.versioning.flavour10=两百个更新,那就是为什么他们叫我Mister Fahrenheit.
 botania.versioning.flavour11=鸭嘴兽泰瑞,现在我给你,植物魔法更新器.
@@ -208,14 +234,28 @@ botania.versioning.flavour32=恭喜!你是第100,000位使用落后版本的植�
 botania.versioning.flavour33=在更新植物魔法版本前,你想安装疑问工具栏么?
 botania.versioning.flavour34=回到更新植物魔法的无聊工作中.不需要乐趣. #angbadang
 botania.versioning.flavour35=你会为了植物魔法更新而成为魔法少女吗?
-botania.versioning.outdated=你现在运行的版本是build %s最新的是build %s.
-botania.versioning.updateMessage=["Click for... [",{"text":"Download","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Click this to automatically download the latest version","color":"green"}},"clickEvent":{"action":"run_command","value":"/botania-download-latest %version%"}},"] [",{"text":"Website","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Click this to go to the mod's website","color":"green"}},"clickEvent":{"action":"open_url","value":"http://vazkii.us/mod/Botania/downloads.php"}},"] [",{"text":"Changelog","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Click this to go to the version's Changelog","color":"green"}},"clickEvent":{"action":"open_url","value":"http://vazkii.us/mod/Botania/changelog.php#%version%"}},"]"]
-botania.versioning.startingDownload=[{"text":"Starting download of %s. Please do not remove your hard disk. Enjoying ","color":"aqua"},{"text":"Botania","color":"green"},{"text":"? Consider supporting ","color":"aqua"},{"text":"Vazkii","color":"light_purple"},{"text":" on [","color":"aqua"},{"text":"Patreon","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"Click this to go to Vazkii's Patreon","color":"light_purple"}},"clickEvent":{"action":"open_url","value":"http://www.patreon.com/Vazkii"}},{"text":"]!","color":"aqua"}]
-botania.versioning.doneDownloading=Finished downloading %s. Delete your old Botania .jar and reload your game to update.
-botania.versioning.downloadedAlready=You already downloaded the latest version. Close your game, delete the old version from your mods folder and load it again to update!
-botania.versioning.downloadingAlready=The update is already downloading, give it some time, will you?
-botania.versioning.error=Woah! It seems like something went wrong while trying to download the Botania update. Is vazkii.us down?
-botania.versioning.disabled=Sorry. This feature is currently disabled due to server host problems, it should be back soon.
+botania.versioning.flavour36=为什么植物魔法的更新横穿了马路?来到了客户端一侧.
+botania.versioning.flavour37=Take that old build, watch it burn, sink in the river the updates I learned.
+botania.versioning.flavour38=This new Botania Update fits perfectly in the Super Health Space.
+botania.versioning.flavour39=Introducing the new Botania Update, now with 0% more numbers and GUIs.
+botania.versioning.flavour40=This is my Botania Update. There are many like it but this one is mine.
+botania.versioning.flavour41=What is the air-speed velocity of an unladen Botania Update?
+botania.versioning.flavour42=If you go look in the lang files, this flavour text is #42. That means you should install this Update.
+botania.versioning.flavour43=That's impossible, a Botania Update doesn't break down. It's a portuguese.
+botania.versioning.flavour44=看着更新,现在回过头看着我,现在再回过头去看着更新.那里有个下载按钮,呆瓜.
+botania.versioning.flavour45=很遗憾,你不会因为更新植物魔法而获得薯条.
+botania.versioning.flavour46=You were expecting Botania to be up to date, but it was me, Dio!
+botania.versioning.flavour47=江湖传言如果你能移动一俩卡车,你就能在卡车下找到一个植物魔法的更新.
+botania.versioning.flavour48=我很好奇BevoLJ什么时候会更新他的整合包...
+botania.versioning.flavour49=1个植物魔法的更新在墙上,1个植物魔法的更新在墙上.
+botania.versioning.outdated=你所使用的植物魔法版本为%s,最新版本为%s.
+botania.versioning.updateMessage=["Click for... [",{"text":"下载","color":"green","hoverEvent":{"action":"show_text","value":{"text":"点此自动下载最新版本","color":"green"}},"clickEvent":{"action":"run_command","value":"/botania-download-latest %version%"}},"] [",{"text":"网站","color":"green","hoverEvent":{"action":"show_text","value":{"text":"点此浏览该mod的网站","color":"green"}},"clickEvent":{"action":"open_url","value":"http://vazkii.us/mod/Botania/downloads.php"}},"] [",{"text":"更新日志","color":"green","hoverEvent":{"action":"show_text","value":{"text":"点此查看该版本的更新日志","color":"green"}},"clickEvent":{"action":"open_url","value":"http://vazkii.us/mod/Botania/changelog.php#%version%"}},"]"]
+botania.versioning.startingDownload=[{"text":"开始下载%s.请勿移除你的硬盘.祝你玩得开心 ","color":"aqua"},{"text":"植物魔法","color":"green"},{"text":"?是否考虑赞助","color":"aqua"},{"text":"Vazkii","color":"light_purple"},{"text":" on [","color":"aqua"},{"text":"赞助","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"点此进入Vazkii的赞助界面","color":"light_purple"}},"clickEvent":{"action":"open_url","value":"http://www.patreon.com/Vazkii"}},{"text":"]!","color":"aqua"}]
+botania.versioning.doneDownloading=已完成下载%s.请删除旧的Botania .jar并且重启游戏以加载新版本.
+botania.versioning.downloadedAlready=你已下载最新版本.关闭你的游戏,从你的mods文件夹中删除就版本的mod文件,并且重启游戏以加载新版本!
+botania.versioning.downloadingAlready=更新正在下载中,给它点时间,好吗?
+botania.versioning.error=Woah!看起来在下载植物魔法新版本时出现了点问题.不知vazkii.us是否已经关闭了?
+botania.versioning.disabled=抱歉.该特性由于服务器主机的原因已被禁用,很快应该就会好的.
 
 # BAUBLE TOOLTIPS
 botania.baubletype.amulet=装备在&a项链&7栏
@@ -451,6 +491,14 @@ tile.botania:enderEyeBlock.name=末影监视者
 tile.botania:starfield.name=星空制造器
 tile.botania:rfGenerator.name=魔力转换器
 tile.botania:elfGlass.name=精灵玻璃
+tile.botania:brewery.name=植物酿造台
+tile.botania:manaGlass.name=魔力玻璃
+tile.botania:terraPlate.name=泰拉凝聚板
+tile.botania:redStringContainer.name=红线容器
+tile.botania:redStringDispenser.name=红线发射器
+tile.botania:redStringFertilizer.name=红线施肥器
+tile.botania:redStringComparator.name=红线比较器
+tile.botania:redStringRelay.name=红线继电器
 
 # FLOWER NAMES
 tile.botania:flower..name=植物魔法花
@@ -487,7 +535,7 @@ tile.botania:flower.gourmaryllis.reference=不愉快です
 
 # - FUNCTIONAL
 tile.botania:flower.bellethorn.name=娇媚之刺
-tile.botania:flower.bellethorn.reference=world's end, girl's rondo
+tile.botania:flower.bellethorn.reference=世界的尽头,少女的回旋曲
 tile.botania:flower.dreadthorn.name=恐惧之刺
 tile.botania:flower.dreadthorn.reference=C计划
 tile.botania:flower.heiseiDream.name=平成之梦
@@ -732,6 +780,49 @@ item.botania:diviningRod.name=占矿法杖
 item.botania:gravityRod.name=黑山法杖
 item.botania:regenIvy.name=永恒常春藤
 item.botania:manaInkwell.name=植物学家的笔墨
+item.botania:vial0.name=魔法玻璃小瓶
+item.botania:vial1.name=精灵玻璃烧瓶
+item.botania:brewVial.name=装有%s (%s)的小瓶
+item.botania:brewFlask.name=装有%s (%s)的烧瓶
+item.botania:bloodPendant.name=污血吊坠
+item.botania:redString.name=红线
+item.botania:missileRod.name=Missile Rod Thingymajig (WIP)
+
+# BREW NAMES
+botania.brew.fallback=退却
+botania.brew.speed=飞毛腿
+botania.brew.strength=活力
+botania.brew.haste=肾上腺素
+botania.brew.healing=治疗
+botania.brew.jumpBoost=上涌
+botania.brew.regen=再生
+botania.brew.regenWeak=恢复
+botania.brew.resistance=刚毅
+botania.brew.fireResistance=熔岩外皮
+botania.brew.waterBreathing=鱼鳃
+botania.brew.invisibility=隐身
+botania.brew.nightVision=枭眼
+botania.brew.absorption=护盾
+botania.brew.soulCross=交叉灵魂
+botania.brew.featherFeet=羽毛腿
+botania.brew.emptiness=虚荣之空虚
+botania.brew.fulfilment=虚荣之满足
+botania.brew.overload=过载
+botania.brew.livingReactor=Living Reactive
+botania.brew.manashock=魔力休克
+botania.brew.gravitation=扭曲重力
+botania.brew.cleansing=净化
+botania.brew.warpWard=理智思想
+
+# POTION NAMES
+botania.potion.soulCross=灵魂十字
+botania.potion.featherFeet=羽毛腿
+botania.potion.emptiness=空虚
+botania.potion.fulfilment=满足
+botania.potion.livingReactor=Living Reactor
+botania.potion.manashock=魔力休克
+botania.potion.gravitation=重力
+botania.potion.cleansing=净化
 
 # GUI TEXT
 botania.gui.lexicon.header=植物魔法辞典, %s 版目录
@@ -823,8 +914,10 @@ botania.page.runeAltar19=&1傲慢符文&0.
 
 # -- TERRASTEEL
 botania.entry.terrasteel=泰拉钢
-botania.page.terrasteel0=&1泰拉钢&0是一种注入了自然魔 法的强力金属.<br>事实证明做出这种金属不是 那么简单,要制作的话,投掷一 个&1魔力钢锭&0,一个&1魔力珍珠&0和 一个&1魔力钻石&0到&4激活的&1信标&0 顶部.附近需要有一个&1魔力池&0, 最少一半魔力.之后就会产生 一个&1泰拉钢锭&0.
-botania.page.terrasteel1=制作&1泰拉钢&0
+botania.page.terrasteel0=&1泰拉钢&0是一种复杂的魔法合金 ,需注入大量&4魔力&0而成.事 实证明做出这种金属不是那么 简单.要制作的话,首先需要 一个&1泰拉凝聚板&0,将它置于一 个由&1青金石块&0和&1活石&0组成的棋 盘状的布局之上.需提供&4魔力&0 给这个方块,&1火花&0也许能加快 其工作效率.
+botania.page.terrasteel1=制作泰拉凝聚板
+botania.page.terrasteel2=泰拉凝聚板放置好且已做好接 收&4魔力&0的准备之后,将一个&1魔 力钢锭,魔力钻石与魔力珍珠&0 掷于其顶部即可开始注魔.<br>此过程中拾起任何物品均会使 注魔骤停,导致严重的 &4魔力流失&0.注魔将会使用一半 &1魔力池&0的魔力以制作一小块 &4泰拉钢&0,多个&1火花&0可加快注魔 速度.
+botania.page.terrasteel3=制作&1泰拉钢&0的模型
 
 # -- WRAP
 botania.entry.wrap=扭曲
@@ -860,11 +953,13 @@ botania.page.pool4=制作&1魔力珍珠&0
 botania.page.pool5=制作&1魔力钻石&0
 botania.page.pool6=制作&1魔力花瓣&0
 botania.page.pool7=&1魔力曲奇&0能填饱你的肚子
+botania.page.pool7=注魔&1魔力曲奇&0,味道好极了.
 
 # -- SPARKS
 botania.entry.sparks=火花
 botania.page.sparks0=&1火花&0是种有趣的实体.它由纯 粹的能量与&4魔力&0结合而生,能 被置于少部分容纳或是接收 &4魔力&0的方块上方,当然主要还 是&1魔力池&0.<br>有些方块能利用来自&1火花&0的 魔力,当它们的用途现在仍是 十分有限的样子.
-botania.page.sparks1=&o举起叉勺&r
+botania.page.sparks1=将一个&1火花&0放置于一个&1魔力池&0 顶部,且在另一个能接受魔力 的方块顶部也放置一个&1火花&0, 则会允许后者在需要时能远程 使用存储于该&1魔力池&0中的魔力 ,只要它们不要离得太远.<br>若 要移除&1火花&0,只需手持&1森林法 杖&0shift右击之.右击之则会显示其 魔力将会被传输至哪个&1火花&0.
+botania.page.sparks2=&o举起叉勺&r
 
 # -- SPARK AUGMENTATION
 botania.entry.sparkUpgrades=火花升级
@@ -1174,9 +1269,9 @@ botania.page.manaEnchanting10=附魔过程中物品不能取出,但 可在完成
 # -- SPREADER TURNTABLE
 botania.entry.turntable=发射器旋转台
 botania.page.turntable0=&1发射器旋转台&0如它的名字,能 将&1魔力发射器&0来回旋转.在上 方放置一个发射器旋转台就 会开始转动它,红石信号会阻 止旋转.<br>要改变转速,用&1森林法杖&0右击 它,shift右击会反转.
-botania.page.turntable1=You spin me right round
+botania.page.turntable1=你让我刚好转了一圈
 
-# -- BOTANICAL ALCHEMY
+# -- ALCHEMISING WITH MANA
 botania.entry.manaAlchemy=魔力炼金
 botania.page.manaAlchemy0=&4魔力&0是种不稳定的物质,某种 程度上我们还未了解它的完 整属性和能力.<br>但有一点,装上&1炼金催化器&0, 由特别材料混合制成放在&1魔&0 &1力池&0底部,使得池子能进行&4炼&0 &4金&0.
 botania.page.manaAlchemy1=制作&1催化器&0
@@ -1201,6 +1296,46 @@ botania.page.manaAlchemy19=&1萤石粉&0和&1红石&0间转化
 botania.page.manaAlchemy20=将&1圆石&0粉碎成&1沙子&0
 botania.page.manaAlchemy21=将&1硬化粘土&0变成&1红沙&0
 botania.page.manaAlchemy22=制作&1劣质土&0
+
+# -- BOTANICAL BREWERY
+botania.entry.brewery=植物酿造
+botania.page.brewery0=鉴于&4魔力&0的多用性,那么它能 被用于制作某些&4药水&0的事实肯 定不会让大家吃惊.简单来说 ,&4魔法药水&0就是&4原版药水&0的一 个变体.它们的制作需用到&4魔 力&0与一系列材料.<br>不像&4原版药水&0,&4魔法药水&0有特 定的配方,并且每个小瓶所含 的剂量是原版药水的多倍.
+botania.page.brewery1=为了制作&4魔法药水&0,需要一个 &1植物酿造台&0,&1玻璃小瓶&0以及配 方中明确要求的试剂. <br> &4魔力&0在此之中,既当作溶剂, 又当作能量源,通过&4魔力脉冲&0 提供能量.只需使一个&1魔力发 射器&0指向&1植物酿造台&即可使之 运作.
+botania.page.brewery2=制作&1魔法药水&0
+botania.page.brewery3=合成&1玻璃小瓶&0
+botania.page.brewery4=操作&1植物酿造台&0其实相当简单 .首先,若要添加物品,手持 该物品然后右击酿造台,或者 投掷之.<br>首先要添加的物品就 是&1玻璃小瓶&0,它会被放置于酿 造台的顶部.继续添加其它需 要的材料.一旦使用这些材料 的某种&4魔法药水&0在酿造台中可 被制作,&4魔力&0就会开始流动, 接着只需耐心等待即可.
+botania.page.brewery5a=一种简单的魔法药水,它效仿 了&1迅捷药水&0,服用后,玩家会 被给予与之相仿的效果,使玩 家获得一个&4速度II&0的效果.
+botania.page.brewery5b=跑得飞起
+botania.page.brewery6a=一种简单的魔法药水,它效仿 了&1力量药水&0,服用后,玩家会 被给予与之相仿的效果,使玩 家获得一个&4力量II&0的效果.
+botania.page.brewery6b=阿多
+botania.page.brewery7a=一种简单的魔法药水,它效仿 了&1急迫药水&0,服用后,玩家会 被给予与之相仿的效果,使玩 家获得一个&4急迫II&0的效果.
+botania.page.brewery7b=充满C9H13NO3
+botania.page.brewery8a=一种简单的魔法药水,它效仿 了&1治疗药水&0,服用后,玩家会 被给予与之相仿的效果,使玩 家获得一个&4立即治愈&0的效果.
+botania.page.brewery8b=He pulled a Truesilver, GG
+botania.page.brewery9a=一种简单的魔法药水,它效仿 了&1跳跃药水&0,服用后,玩家会 被给予与之相仿的效果,使玩 家获得一个&4跳跃提升II&0的效果.
+botania.page.brewery9b=I got jumps, isn't that what the kids say?
+botania.page.brewery10a=一种简单的魔法药水,它效仿 了&1再生药水&0,服用后,玩家会 被给予与之相仿的效果,使玩 家获得一个&4生命恢复II&0的效果.
+botania.page.brewery10b=Good reaction to simochi
+botania.page.brewery17a=一种简单的魔法药水,它效仿 了&1再生药水&0,服用后,玩家会 被给予与之相仿的效果,使玩 家获得一个&4生命恢复&0的效果, 但持续时间更长.
+botania.page.brewery17b=我猜她变得更有弹性了
+botania.page.brewery11a=一种简单的魔法药水,它效仿 了&1抗性药水&0,服用后,玩家会 被给予与之相仿的效果,使玩 家获得一个&4抗性提升II&0的效果.
+botania.page.brewery11b=别碰它
+botania.page.brewery12a=一种简单的魔法药水,它效仿 了&1抗火药水&0,服用后,玩家会 被给予与之相仿的效果,使玩 家获得一个&4抗火&0的效果.
+botania.page.brewery12b=他不是真正的龙,火焰绝不会 杀死真正的龙
+botania.page.brewery13a=一种简单的魔法药水,它效仿 了&1水下呼吸药水&0,服用后,玩 家会被给予与之相仿的效果, 使玩家获得一个&4水下呼吸&0的效 果.
+botania.page.brewery13b=大洋之下,大洋之下
+botania.page.brewery14a=一种简单的魔法药水,它效仿 了&1隐身药水&0,服用后,玩家会 被给予与之相仿的效果,使玩 家获得一个&4隐身&0的效果.
+botania.page.brewery14b=Pretend you have Incursio
+botania.page.brewery15a=一种简单的魔法药水,它效仿 了&1夜视药水&0,服用后,玩家会 被给予与之相仿的效果,使玩 家获得一个&4夜视&0的效果.
+botania.page.brewery15b=寂静是否随之而来?
+botania.page.brewery16a=botania.page.brewery13a=一种简单的魔法药水,它效仿 了&1伤害吸收药水&0,服用后,玩 家会被给予与之相仿的效果, 使玩家获得一个&4伤害吸收IV&0的 效果.
+botania.page.brewery16b=你准会感冒
+
+# -- BREWING FLASKS
+botania.entry.flasks=酿药烧瓶
+botania.page.flasks0=&1精灵玻璃&0看起来比用于制作 &1玻璃小瓶&0的&1魔力玻璃&0更具韧性 .使用&1精灵玻璃&0制作的&1烧瓶&0是 精灵一族用于存放&4魔法药水&0的 典型容器,并且可存储6瓶剂 量,远超只能存储4瓶剂量的 &1小瓶&0.
+botania.page.flasks1=但是使用&1烧瓶&0酿造药水所需的 材料消耗更少,但是&4魔力&0是其 两倍.<br>最后,鉴于&1烧瓶&0的瓶颈比&1小瓶&0 的要大出很多,里面的药水也 因此会被更快饮用.
+botania.page.flasks2=在桥下找到一瓶
 
 # -- EYE OF THE ANCIENTS
 botania.entry.forestEye=远古之眼
@@ -1247,7 +1382,7 @@ botania.page.spectralPlatform1=这让我想起了一个谜题
 # -- DRUM OF THE GATHERING
 botania.entry.gatherDrum=收集之鼓
 botania.page.gatherDrum0=所谓的&1收集之鼓&0,短期来说,就 是一个为牲畜而准备的&1狂野&0 &1之鼓&0.<br>当有&4魔力脉冲&0撞上它时,它会 给周围长毛的&4羊&0剪毛.所有的&4牛&0 ,下方若有&1空桶&0的话,牛奶就会 被装入桶中.
-+botania.page.gatherDrum1=Tap your lands
+botania.page.gatherDrum1=轻叩你的土地
 
 # -- LIFE IMBUER
 botania.entry.spawnerClaw=生命灌注器
@@ -1270,6 +1405,22 @@ botania.page.craftCrate6=葡萄牙制造
 botania.entry.enderEyeBlock=末影监视者
 botania.page.enderEyeBlock0=&4末影人&0的眼睛被看见时十分 敏感.由此制成的方块在64格 内被玩家直视时就会发出&4红&0 &4石信号&0.<br>当然,头戴&1南瓜&0时可以避免.
 botania.page.enderEyeBlock1=MY BRAND
+
+# -- RED STRING
+botania.entry.redString=红线
+botania.page.redString0=Lore说过上帝将一条红线系在了 那些命中注定会互相影响各自 生命的人们的脚踝处.这启发 了发明家们想出了一种远程连 接方块的方法,并命名为&1红线&0 .用这种精致的材料制成的方 块可面朝6个基础方向,并且 在一定范围内与它能找到的第 一个有效且可相容的方块绑定.
+botania.page.redString1=每个&4红线&0方块都有自己不同的 绑定标准,但是每个变体都有 相同的绑定距离要求.如果方 块已建立绑定,则玩家手持 &1森林法杖&0就会看到线.<br>中间的 方块不会阻挡方块之间的连接 .最后,&1红线&0方块不能被绑定
+botania.page.redString2=你是否正处于紧要关头?
+botania.page.redString3=首先,&1红线容器&0可以任何容器 (&1箱子&0,&1熔炉&0,&1漏斗&0等)绑定 ,物品可用&1漏斗&0或者其它方法 放入其中.物品会被放入与之 绑定的容器中,并且会从与导 入&红线容器&0相同的方位进入到 对应的容器中.
+botania.page.redString4=&1红线容器&0.
+botania.page.redString5=&1红线发射器&0与&1发射器&0或&1投掷器&0 绑定,它的功能与&1红线容器&0相 似,物品会从与导入 &红线发射器&0相同的方位进入到 对应的容器中.当给它一个红 石信号时, &1发射器&0或&1投掷器&0便 会发射.
+botania.page.redString6=&1红线发射器&0.
+botania.page.redString7=&1红线施肥器&0可以与任何能被 &1骨粉&0催熟的方块绑定.对着 &1红线施肥器&0使用&1骨粉&0 会对与之 绑定的方块施肥.
+botania.page.redString8=&1红线施肥器&0.
+botania.page.redString9=&1红线比较器&0可与任何状态可被 读取的&1容器&0,比如&1箱子&0, &1魔力池&0, &1符文祭坛&0等绑定.将 一个&1比较器&0向外指着这个方块 放置会发出与&1比较器&0抵着与之 绑定方块放置相同的信号.
+botania.page.redString10=&1红线比较器&0.
+botania.page.redString11=最后,&1红线继电器&0是个有趣的 方块.任何带效果的花均可放 置于其上.该方块会与任何花 绑定当该方块顶部有一朵花时 ,这朵花不会做任何事,该方 块会获取这朵花的所有属性, 并且将像那朵花一样运作, 仿佛其自身就是一朵花.
+botania.page.redString12=&1红线继电器&0.
 
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
@@ -1404,7 +1555,7 @@ botania.page.vineBall3=...如果那确实存在的话.
 
 # -- SHARD OF LAPUTA
 botania.entry.laputaShard=拉普达碎片
-botania.page.laputaShard0=通过有些复杂的激活程序,结 合一些有趣的材料包括&1盖亚&0 &1之魂&0就能制作一个特殊的碎 片,当对土地使用时,就能让 附近一个的球形区域升至空 中.<br>这个过程可持续10分钟并且 根据土地的质量消耗对应量 的碎片.
+botania.page.laputaShard0=通过有些复杂的激活程序,结 合一些有趣的材料包括&1盖亚&0 &1之魂&0就能制作一个特殊的碎 片,当对土地使用时,就能让 附近一个几乎的球形区域升至 空中.<br>这个过程可持续10分钟 并且根据土地的质量消耗对 应量的碎片.
 botania.page.laputaShard2=创建的岛的初始半径为14格 ,换句话说就是直径28格.可 通过添加&1盖亚之魂&0来升级,每 个增加1格半径,即2格直径.
 botania.page.laputaShard1=看呐白,拉普达真的存在!
 botania.page.laputaShard3=大小很重要
@@ -1544,7 +1695,7 @@ botania.page.superTravelBelt1=没时间推测了,执行我的计划
 # -- THE SPECTATOR
 botania.entry.itemFinder=寻物者
 botania.page.itemFinder0=&1寻物者&0是一个增强穿戴者对 世界感知能力的头饰.当你手 持某个物品,任何有同种物品 的&4容器&0(箱子,矿车,带箱子的 驴,熔炉等等...),同种物品 的&4掉落物&0,装备该物品的&4怪物&0 &o(...)&r
-botania.page.itemFinder1=&o(...)&r物品栏拥有该物品的 &4玩家&0和有与该物品相关交易 的&4村民&0都会闪烁着绿光,使他 们更容易被认出.<br>而潜行时,穿戴者附近所有的 掉落物品都会发光,不管是什 么种类.
+botania.page.itemFinder1=&o(...)&r物品栏拥有该物品的 &4玩家&0和有与该物品相关交易 的&4村民&0都会闪烁着彩光,使他 们更容易被认出.<br>而潜行时,穿戴者附近所有的 掉落物品都会发光,不管是什 么种类.
 botania.page.itemFinder2=你听见它们的细语了么?
 
 # -- CRIMSON PENDANT
@@ -1552,10 +1703,17 @@ botania.entry.superLavaPendant=绯红项链
 botania.page.superLavaPendant0=&1绯红项链&0简而言之,就是&1火石&0 &1项链&0的升级版,穿着时能提供 对火和岩浆的免疫力,而不是 单纯的灭火.
 botania.page.superLavaPendant1=[秘碑解码]亚军
 
+
+# -- TAINED BLOOD PENDANT
+botania.entry.bloodPendant=污血吊坠
+botania.page.bloodPendant0=Messing around with the original source of the &4Potion&0 design, the Nether, seems to work fairly well at harnessing that very power.<br>The &1Tainted Blood Pendant&0 allows one to store a &4Brew&0 in a condensed, wearable state. Infusing this pendant with one and wearing it will apply the effect while it's worn, for the cost of &4Mana&0 depending on the power of the &4Brew&0.
+botania.page.bloodPendant1=To infuse the pendant with a &4Brew&0 the normal procedure of infusing one on a &1Vial&0 is what's required. The cost increases by a tenfold, though.<br>However, the pendant will not accept any and all effects, a few don't seem to behave well, such as &4Instant Health&0 or &4Absorption&0. Lastly, &4Brews&0 with more than one effect will fail as well.
+botania.page.bloodPendant2=I'll get Saber for sure
+
 # - ALFHOMANCY
 # -- THE PORTAL TO ALFHEIM
 botania.entry.aIntro=精灵传送门
-botania.page.aIntro0=过去,&4精灵&0曾与&4Minecrafters&0 共享世界.然而未知的变故, 使得他们被禁止回到自己的 世界,&4艾尔夫海姆&0.<br>他们一直以来都在尝试着桥 接两个世界,最终制作传送门 的方法被发明了出来.
+botania.page.aIntro0=据说过去,&4精灵&0曾与&4Minecrafters&0 共享世界.然而未知的变故, 使得他们被禁止回到自己的 世界,&4艾尔夫海姆&0.<br>他们一直以来都在尝试着桥 接两个世界,最终制作传送门 的方法被发明了出来.
 botania.page.aIntro1=制作这个传送门看样子不是 个简单的工作,需要一些特别 的材料.如下:8个&1活木&0方块, 3个&1微光活木&0方块,1个&1精灵门&0 &1核心&0(继续读),2个&1魔力池&0和 2个&1自然水晶&0(继续读).
 botania.page.aIntro2=制作&1精灵门核心&0
 botania.page.aIntro3=合成&1自然水晶&0
@@ -1572,7 +1730,7 @@ botania.page.aIntro11=这本书里关于&1艾尔夫海姆&0的 情报也只有�
 botania.entry.elfMessage=来自爱尔文·加尔得的消息
 botania.page.elfMessage0=
 # ^ This is blank on purpose
-botania.page.elfMessage1=&o致以问候.我们注意到我们的 传送门被其他世界的连接打 开了.说起来的确有些震惊. 感谢你向我们提供你所在世 界的知识库,让我们能了解到 在离开那里之后的事,真的过 去很久了呢,真的.
+botania.page.elfMessage1=&o致以问候.我们注意到我们的 传送门被其他世界的连接打 开了.说起来的确有些震惊. 感谢你向我们提供你所在世 界的知识库,让我们能了解到 在离开那里之后的事,真的过 去很久了呢,it's good to see it's doing well.
 botania.page.elfMessage2=&o经过与爱尔文·加尔德高级议 会的讨论,我们决定与您合作 .你看,你的"植物魔法辞典" 让我们知道了诸多很难入手 的你所在世界的资源,因为这 些资源根本不存在于我们的 土地.
 botania.page.elfMessage3=&o你所建立的连接十分脆弱,生 物无法穿过,你现在应该已经 知道了.然而,这也有积极的 一面,我们两个世界之间的时 间连接是不同步的,那就是为 何你这么快就拿回了书.
 botania.page.elfMessage4=&o谈到魔力和其他魔法能量,我 们有充足的量,所以不用担心 传送门在我们这一侧关闭.让 我们展望未来,为了我们两个 文明的发展,我们约定交换彼 此缺乏的资源.
@@ -1598,7 +1756,18 @@ botania.page.gaiaRitual0=&4盖亚仪式&0是一个由精灵所创 立的程序,�
 botania.page.gaiaRitual1=制作&1盖亚水晶&0
 botania.page.gaiaRitual2=放置水晶(比信标高一格)
 botania.page.gaiaRitual3=要启动仪式,需手持&1泰拉钢锭&0 shift右击&1信标&0,再退后几步准 备开战.这需要极好的准备工 作,与&4盖亚守护者&0的战斗会比 与&4凋零&0的还要艰难.一旦击败 了&4守护者&0,就能获得他们的奖 励:一些&1盖亚之魂&0.
-botania.page.gaiaRitual4=你最好记住以下几点.首先极 力推荐附魔的&1源质钢护甲&0,远 优于传统的&1钻石护甲&0因为它 能刷出&1小精灵&0.<br>其次,&1信标&0提供的效果在战斗 期间会被消除,准备阶段时最 好记住.<br>最后,远离那些紫色的东西. (盖亚陷阱)
+botania.page.gaiaRitual4=你最好记住以下几点.首先极 力推荐附魔的&1源质钢护甲&0,远 优于传统的&1钻石护甲&0因为它 能刷出&1小精灵&0. 其次力推&1泰拉之刃&0, &4魔法药水&0与各类&4饰品&0. <br>其次,&1信标&0提供的效果在战斗 期间会被消除,准备阶段时最 好记住.<br>最后,远离那些紫色的东西. (盖亚陷阱)
+
+# -- ELVEN LORE - THE SHATTERING
+botania.entry.elvenLore=Elven Lore - The Shattering
+botania.page.elvenLore0=It seems this section of the lexicon is just a bunch of pieces of paper. By the looks of them, they seem like they were taken from a document from the libraries of Elven Garde.<br>Their contents should contain historical knowledge, but doubtfully anything important to the studies of botany itself.
+botania.page.elvenLore1=&oA few millennia have passed since The Shattering. The amount of us who actually know about what really happened that day is rather minute. Nidavellir broke down, and while the Dwarves' incredible resistance helped, a great part of their technology and civilization was eradicated. Muspelheim, what was (...)
+botania.page.elvenLore2=&opreviously in the very opposite corner of the World Tree herself collided with Asgard, merging the two worlds in an apocalypse, eradicating any life remaining in that world. There's theories that state Hel was also involved in the event, although none were ever confirmed. Fissures in the ground of (...)
+botania.page.elvenLore3=&oJotunheim opened all around, massacring a great portion of the Giants who lived there, its current status remains unknown. Niflheim seemed to stay in place, unlike Muspelheim, interestingly enough. Since it contained no known lifeforms, we can admit that damage is irrelevant. Lastly, ourselves, the (...)
+botania.page.elvenLore4=&oelves of Alfheim, the damage on our world was somewhat split. The Salamander and Undine clans suffered a massive cut on their population, due to the unstableness of their volcanic and aquatic environments, respectively. Most of the Sylph were completely intact due to their extraordinary flight capabilities, the (...)
+botania.page.elvenLore5=&oSpriggan also had fairly small scale consequences. During that time our civilization prospects were fairly weak and our choices of residence were mostly just huts made of Dreamwood, so, luckily, rebuilding was little of a chore. Allewyn, our emissary in Asgard witnessed this happening, everything happened faster (...)
+botania.page.elvenLore6=&othan the birth of a Pixie. Thor shattering the Bifrost with Mjolnir, her command to evacuate all of the elven civilization residing in Midgard, luckilly she was here unscathed, or at least that's what records say, regardless, a few millennia later, she's passed off long ago. Right now our major concern is the status of Midgard. (...)
+botania.page.elvenLore7=&oThe collapse of the Bifrost broke any interaction between the various worlds, but the sheer quantity of Mana residues we have left behind will surely have lingered and infused the world with life all over again, be it animal, floral or fungal, natural or magical in essence. We hope it's enough to create intelligent life that can properly harness it though.
 
 # - MISCLANEOUS
 # -- UNSTABLE CUBE
@@ -1645,6 +1814,7 @@ botania.page.dispenserTweaks0=&1发射器&0,在原有基础上,也能 种植作�
 # -- GLIMMERING FLOWERS
 botania.entry.shinyFlowers=荧光花
 botania.page.shinyFlowers0=给你的&1神秘花&0加上点&1萤石粉&0, 就能让她们更闪耀,发出相当 于&1萤石块&0亮度的物理光.<br>加上一些&1泥土&0和&1草地之种&0就 能将它们变为一块小型空岛, 它不仅能发光,而且还很炫酷.
+botania.page.shinyFlowers3=将任何颜色的&1浮空花朵&0与任何 有效果的花朵, (任何 &4功能性或产能花朵&0等)在合 成台里相互结合,会得到拥有双 方属性,效果及外观的 &1浮空花&0.
 botania.page.shinyFlowers1=一闪一闪
 botania.page.shinyFlowers2=就像拉普达(天空之城)但小 多了
 
@@ -1692,3 +1862,9 @@ botania.page.tcIntegration2=揭示之头盔(植物魔法的头盔 都有效)
 botania.page.tcIntegration3=接下来,&4魔力&0也能作为一种特 殊的墨水来使用.给&1笔与墨&0注 入来自&1魔力池&0的&4魔力&0就能让 其将所提的&4魔力&0作为颜料源.<br>补充起来类似给&1魔力石板&0充 能,直接扔到池子上面即可.
 botania.page.tcIntegration4=制作&1植物学家的笔墨&0
 botania.page.tcIntegration5=最后,还有一些对&1注魔祭坛&0有 用的东西,能降低它的不稳定 性.<br>它们是&1荧光花,浮空花和任意&0 &1的水晶&0.
+botania.page.tcIntegration6a=Perhaps insanity might not be the greatest tool in all of occasions. For those cases, a nice bath generally takes care of it. A brew might be a better format for such a task, though...
+botania.page.tcIntegration6b=The official frowny face
+
+# -- BUILDCRAFT INTEGRATION
+botania.entry.bcIntegration=Buildcraft结合
+botania.page.bcIntegration0=最近在管道技术上的进步使得 &1BC门&0能感知其周围的&4魔力&0. &1BC门&0现可感知一个&4魔力&0容器 是否为空,满或者是否包含魔 力.<br>&1BC门&0也可使用&1魔力探测器&0 触发来探测是否有魔力经过管 道.而且,它们也可感知 &1符文祭坛&0是否已可合成符文.

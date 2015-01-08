@@ -32,7 +32,6 @@ import vazkii.botania.api.mana.IManaCollector;
 public class SubTileGenerating extends SubTileEntity {
 
 	private static final String TAG_MANA = "mana";
-	private static final String TAG_TICKS_EXISTED = "ticksExisted";
 
 	private static final String TAG_COLLECTOR_X = "collectorX";
 	private static final String TAG_COLLECTOR_Y = "collectorY";
@@ -40,17 +39,11 @@ public class SubTileGenerating extends SubTileEntity {
 
 	protected int mana;
 
-	int ticksExisted = 0;
 	int sizeLastCheck = -1;
 	protected TileEntity linkedCollector = null;
 	public int knownMana = -1;
 
 	ChunkCoordinates cachedCollectorCoordinates = null;
-
-	@Override
-	public boolean canUpdate() {
-		return true;
-	}
 
 	@Override
 	public void onUpdate() {
@@ -60,7 +53,7 @@ public class SubTileGenerating extends SubTileEntity {
 
 		if(canGeneratePassively()) {
 			int delay = getDelayBetweenPassiveGeneration();
-			if(delay > 0 && supertile.getWorldObj().getWorldTime() % delay == 0) {
+			if(delay > 0 && ticksExisted % delay == 0) {
 				if(shouldSyncPassiveGeneration())
 					sync();
 				addMana(getValueForPassiveGeneration());
@@ -76,7 +69,6 @@ public class SubTileGenerating extends SubTileEntity {
 		}
 
 		if(!supertile.getWorldObj().isRemote) {
-			++ticksExisted;
 			int muhBalance = BotaniaAPI.internalHandler.getPassiveFlowerDecay();
 
 			if(isPassiveFlower() && muhBalance > 0 && ticksExisted > muhBalance) {

@@ -60,7 +60,7 @@ public class SubTileDaybloom extends SubTileGenerating {
 					float b = color.getBlue() / 255F;
 
 					float m = 0.045F;
-					if(supertile.getWorldObj().getTotalWorldTime() % 10 == 0)
+					if(ticksExisted % 10 == 0)
 						Botania.proxy.wispFX(supertile.getWorldObj(), supertile.xCoord + 0.5, supertile.yCoord + 0.05, supertile.zCoord + 0.5, r, g, b, 0.1F, dir.offsetX * m, dir.offsetY * m, dir.offsetZ * m);
 				}
 			}

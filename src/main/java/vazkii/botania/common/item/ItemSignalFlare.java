@@ -101,6 +101,10 @@ public class ItemSignalFlare extends ItemMod {
 		if(par2 == 0)
 			return 0xFFFFFF;
 
+		int colorv = getColor(par1ItemStack);
+		if(colorv >= EntitySheep.fleeceColorTable.length || colorv < 0)
+			return 0xFFFFFF;
+				
 		float[] color = EntitySheep.fleeceColorTable[getColor(par1ItemStack)];
 		return new Color(color[0], color[1], color[2]).getRGB();
 	}

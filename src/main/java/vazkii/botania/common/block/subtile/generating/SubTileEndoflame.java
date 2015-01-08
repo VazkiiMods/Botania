@@ -40,7 +40,7 @@ public class SubTileEndoflame extends SubTileGenerating {
 					final int range = 3;
 					boolean didSomething = false;
 
-					List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord - range, supertile.zCoord - range, supertile.xCoord + range, supertile.yCoord + range, supertile.zCoord + range));
+					List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord - range, supertile.zCoord - range, supertile.xCoord + range + 1, supertile.yCoord + range + 1, supertile.zCoord + range + 1));
 					for(EntityItem item : items) {
 						if(item.age >= 59 && !item.isDead) {
 							ItemStack stack = item.getEntityItem();

@@ -112,6 +112,11 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	public ItemStack getSubTileAsStack(String subTile) {
 		return new ItemStack(Blocks.stone, 0, 0);
 	}
+	
+	@Override
+	public ItemStack getSubTileAsFloatingFlowerStack(String subTile) {
+		return getSubTileAsStack(subTile);
+	}
 
 	@Override
 	public IIcon getSubTileIconForName(String name) {

@@ -11,7 +11,7 @@ $(function() {
 	var hash = document.location.hash.substring(1);
 	var offset = $("#" + hash + "-fake").offset();
 	if(offset != undefined)
-		$('html, body').animate({ scrollTop: offset.top - 100 }, 1000);
+		$('html, body').animate({ scrollTop: offset.top - 72 }, 1000);
 });
 
 $('.hide-div').click(function() {

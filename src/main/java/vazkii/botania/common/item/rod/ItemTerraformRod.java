@@ -46,6 +46,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem {
 			add("hardenedClay");
 			add("snowLayer");
 			add("mycelium");
+			add("podzol");
 			add("sandstone");
 		}};
 

@@ -1,3 +1,77 @@
+r1.3 149
+*Fixed Dominant Sparks being able to pull from blocks other than Mana Pools.
+*Fixed Flashes dropping themselves.
+*Moved the following flowers to elven knowledge: Thermalily, Kekimurus, Heisei Dream, Orechid, Loonium.
+*Open Crates will now eject into the block below not only if it's an air block but also if it has no collision box. So yes, you can drop stuff on water now.
+r1.3 148
+*<i>I could have fit this on 147 but I only decided to do it later :V</i>
+*Added support for <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/wip-mods/1445251-1-7-10-beta-wip-colored-light-progress-and">Colored Lights</a>. (<a href="http://puu.sh/dKo8o/7c34ca4d3d.png">Picture 1</a>) (<a href="http://puu.sh/dKozh/323db4f589.png">Picture 2</a>) You can find it in the following blocks:<ul><li>Glimmering Flowers</li><li>Floating Flowers (colored normal ones only)</li><li>Buried Petals</li><li>Sea Lanterns</li><li>Flashes</li></ul>
+*Buried petals now emit a faint light.
+*Fixed mobs' pathfinding getting stuck in Flashes.
+r1.3 147
+*<i>Just a small update to fix a major issue and a major annoyance.</i>
+*Fixed a crash when placing a comparator next to a brewery.
+*Fixed flowers sometimes rendering as floating due to the Y position shift in the render.
+r1.3 146
+*<i>Added some christmas spark. ARE YOU JINGLING YOUR BELLS YET?!</i>
+*Fixed a major dupe with the Assembly Halo where right clicking a recipe would allow for more than one item to be crafted at once using only one set of resources.
+*Fixed the render for the flowers not randomizing the position in the Z axis like vanilla flowers do. It still randomizes in the Y axis unlike vanilla flowers because I think it looks good.
+*Sparks now properly check against how much space is left on the target block and don't try to put in more mana than available, actually making spark networks viable. <i>You can all point and laugh now.</i>
+*The Assembly Halo is now more forceful with checking the validity of a recipe. It can no longer craft recipes purely from memory (and allowing as a way to craft things that have been changed since)
+*The Mana Mirror now checks for the pool on update and has a backlog for calls inbetween. It also works cross dimension a lot better.
+*[API] Added getAvailableSpaceForMana() to ISparkAttachable. This is very important and breaks backwards compatibility. If anyone is using that interface please adapt ASAP.
+*[API] Increased version number to 28.
+r1.3 145
+*Added the Mana Lens: Flash. It makes fancy lights!
+*Botania Flowers now shift a bit depending on position similarly to vanilla flowers since 1.7. <i>About time.</i>
+*Fixed Botania slabs breaking lighting on adjacent blocks.
+*Increased the endoflame's radius by one block northwest so it's a proper centered square now.
+*The potion effects brews (and the tainted blood pendant) create now have semi transparent particles smilarly to beacons.
+*The Rod of Terra Firma now works with Podzol.
+*Tweaked the Assembly Halo so that the crafting table always faces the player when the item is equipped.
+*[API] Added getSubTileAsFloatingFlowerStack() to the internal method handler.
+*[API] Increased Version Number to 27.
+r1.3 144
+*Fixed a crash with The Spectator and the Helpful Villagers mod.
+*Fixed some entities not being named.
+*Fixed the Assembly Halo getting recipe events from mod blocks and creating cheaty recipes.
+*Fixed the Rod of the Unstable Reservoir not dealing player damage.
+*Livingwood can now support leaves. (SpitefulFox)
+*[API] Added a IFlowerlessBiome interface for biomes. (SpitefulFox)
+*[API] Increased version number to 26.
+r1.3 143
+*Fixed Dedicated Server crashing.
+r1.3 142
+*Added the Assembly Halo, a portable crafting solution.
+*Adding lava to the petal apothecary turns it into a brazier/incinerator.
+*Changed Hydroangeas' recipe to use Cyan petals rather than Light Blue ones.
+*Fixed the Signal Flare item crashing if an invalid color is loaded somehow.
+*Hydroangeas are now more dilligent at picking up water blocks.
+*INTENSIFIED GOLDFISH
+*Renamed a bunch of rods so they all are in the same name scheme and theme.
+*[API] Added aditional SubTileEntity interaction methods. onBlockPlacedBy(), onBlockActivated(), onBlockAdded(), onBlockHarvested() and getDrops() (LiamEarle)
+*[API] Increased version number to 25.
+r1.3 141
+*Added Alchemy recipes to break down Clay and Brick blocks.
+*Moved Terrasteel Armor hp boost values around so the amount is relative to the amount of materials used for crafting. Total is still 20.
+*The Tiny Potato now emits heart particles when it's right cli- <i>...what am I doing with my life?</i>
+r1.3 140
+*Added two new Baubles, the Cloaks of Virtue and Sin. Their effects trigger when the player takes damage.
+*All non-ring baubles now render on the player, fancy!
+*Fixed flowers not ticking properly if the doDaylightCycle gamerule is set to false.
+*Fixed the Halo on the Flugel wings rendering 1.62 blocks higher than normal on other players in multiplayer.
+*Fixed the Rod of the Arcane Barrage crashing servers >_>
+*Fixed the Terra Shatterer and Elementium Shovel having not working if the player's reach is above 4.5 (with the ring of far reach for example).
+*Gave some more damage to the Rod of the Arcane Barrage.
+*[API] Added IBaubleRender.
+*[API] SubTileEntities now have an internal ticker.
+*[API] Updated version number to 24.
+r1.3 139
+*Added the Rod of the Arcane Barrage. The thing from the last update.
+*Fixed BuildCraft gates not being localized. (sb023612)
+*Fixed the Petal Apothecary consuming water bottles and added support for Forge IFluidContainerItem. (ganymedes01)
+*Made the color for the floating island texture a bit more saturated. (Yulife)
+*The shedding pages now properly use the world instance for creating entities. Should fix crashes with Fossils & Archeology. (SoundLogic)
 r1.3 138
 *"Added" a new item that works but is creative only for now, I'll work on it some more later >_>
 *Added a proper, registered dependency on Baubles. <i>Only took over 100 versions to do it /o/</i>

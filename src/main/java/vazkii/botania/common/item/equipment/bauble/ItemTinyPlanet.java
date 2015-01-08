@@ -13,19 +13,27 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import java.util.List;
 
+import org.lwjgl.opengl.GL11;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.RenderPlayerEvent;
 import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.mana.ITinyPlanetExcempt;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
 
-public class ItemTinyPlanet extends ItemBauble {
+public class ItemTinyPlanet extends ItemBauble implements IBaubleRender {
 
 	public static final String TAG_ORBIT = "orbit";
 
@@ -92,6 +100,16 @@ public class ItemTinyPlanet extends ItemBauble {
 		NBTTagCompound cmp = entity.getEntityData();
 		int time = getEntityOrbitTime(entity);
 		cmp.setInteger(TAG_ORBIT, time + 1);
+	}
+
+	@Override
+	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type) {
+		if(type == RenderType.HEAD) {
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+			GL11.glTranslatef(0.25F, -0.5F, 0F);
+			GL11.glScalef(0.5F, 0.5F, 0.5F);
+			RenderBlocks.getInstance().renderBlockAsItem(ModBlocks.tinyPlanet, 0, 1F);
+		}
 	}
 
 }

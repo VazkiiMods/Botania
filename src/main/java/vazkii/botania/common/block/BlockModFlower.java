@@ -43,6 +43,8 @@ public class BlockModFlower extends BlockFlower implements ILexiconable {
 	public static IIcon[] icons;
 	public static IIcon[] iconsAlt;
 
+	public int originalLight;
+	
 	public static final String ALT_DIR = "alt";
 
 	protected BlockModFlower() {
@@ -85,6 +87,12 @@ public class BlockModFlower extends BlockFlower implements ILexiconable {
 			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
 			iconsAlt[i] = IconHelper.forBlock(par1IconRegister, this, i, ALT_DIR);
 		}
+	}
+	
+	@Override
+	public Block setLightLevel(float p_149715_1_) {
+		originalLight = (int) (p_149715_1_ * 15);
+		return super.setLightLevel(p_149715_1_);
 	}
 
 	@Override

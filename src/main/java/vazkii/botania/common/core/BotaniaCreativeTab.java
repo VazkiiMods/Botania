@@ -93,6 +93,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.forestEye);
 		addBlock(ModBlocks.enderEye);
 		addItem(ModItems.enderHand);
+		addItem(ModItems.craftingHalo);
 		addItem(ModItems.spawnerMover);
 		addBlock(ModBlocks.spawnerClaw);
 
@@ -244,6 +245,8 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.icePendant);
 		addItem(ModItems.lavaPendant);
 		addItem(ModItems.superLavaPendant);
+		addItem(ModItems.holyCloak);
+		addItem(ModItems.unholyCloak);
 		addItem(ModItems.goldLaurel);
 		addItem(ModItems.divaCharm);
 		addItem(ModItems.flightTiara);

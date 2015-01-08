@@ -24,6 +24,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -147,8 +148,10 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 	
 	@Override
 	public void onBlockHarvested(World par1World, int par2, int par3, int par4, int par5, EntityPlayer par6EntityPlayer) {
-		if(!par6EntityPlayer.capabilities.isCreativeMode)
+		if(!par6EntityPlayer.capabilities.isCreativeMode) {
 			dropBlockAsItem(par1World, par2, par3, par4, par5, 0);
+			((TileSpecialFlower) par1World.getTileEntity(par2, par3, par4)).onBlockHarvested(par1World, par2, par3, par4, par5, par6EntityPlayer);
+		}
 	}
 
 	@Override
@@ -159,6 +162,7 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 		if(tile != null) {
 			String name = ((TileSpecialFlower) tile).subTileName;
 			list.add(ItemBlockSpecialFlower.ofType(name));
+			((TileSpecialFlower) tile).getDrops(list);
 		}
 
 		return list;
@@ -184,6 +188,21 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 	@Override
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
 		return ((TileSpecialFlower) world.getTileEntity(x, y, z)).onWanded(stack, player);
+	}
+
+	@Override
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
+		((TileSpecialFlower) world.getTileEntity(x, y, z)).onBlockPlacedBy(world, x, y, z, entity, stack);
+	}
+
+	@Override
+	public void onBlockAdded(World world, int x, int y, int z) {
+		((TileSpecialFlower) world.getTileEntity(x, y, z)).onBlockAdded(world, x, y, z);
+	}
+
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+		return ((TileSpecialFlower) world.getTileEntity(x, y, z)).onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ);
 	}
 
 	@Override

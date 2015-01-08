@@ -31,6 +31,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
+import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonBookmark;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonCategory;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonInvisible;
@@ -109,6 +110,10 @@ public class GuiLexicon extends GuiScreen {
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		mc.renderEngine.bindTexture(texture);
 		drawTexturedModalRect(left, top, 0, 0, guiWidth, guiHeight);
+		
+		if(ClientProxy.singAnnoyingChristmasSongsTillVazkiisHeadExplodesFromAllTheDamnJingle)
+			drawTexturedModalRect(left + 3, top + 1, 0, 212, 138, 6);
+		
 		drawBookmark(left + guiWidth / 2, top - getTitleHeight(), getTitle(), true);
 		String subtitle = getSubtitle();
 		if(subtitle != null) {
@@ -123,18 +128,29 @@ public class GuiLexicon extends GuiScreen {
 			populateBookmarks();
 			bookmarksNeedPopulation = false;
 		}
-
+		
 		if(mc.thePlayer.getCommandSenderName().equals("haighyorkie")) {
 			GL11.glColor4f(1F, 1F, 1F, 1F);
 			mc.renderEngine.bindTexture(texture);
 			drawTexturedModalRect(left - 19, top + 12, 67, 180, 19, 26);
 			if(par1 >= left - 19 && par1 < left && par2 >= top + 12 && par2 < top + 38) {
 				mc.renderEngine.bindTexture(textureToff);
+				GL11.glPushMatrix();
 				GL11.glScalef(0.5F, 0.5F, 0.5F);
-				drawTexturedModalRect((left - 92) * 2, (top + 40) * 2, 0, 0, 184, 248);
-				GL11.glScalef(2F, 2F, 2F);
-
-				RenderHelper.renderTooltip(par1, par2, Arrays.asList(EnumChatFormatting.GOLD + "#goldfishchris", EnumChatFormatting.AQUA + "CONGRATS ON YOUR NEW COMPUTER!!", "vazkii.us/goldfish"));
+				GL11.glEnable(GL11.GL_BLEND);
+				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+				GL11.glTranslatef(0F, 0F, 2F);
+				
+				int w = 256;
+				int h = 152;
+				int x = (int) ((ClientTickHandler.ticksInGame + par3) * 6) % (width + w) - w;
+				int y = (int) (top + guiHeight / 2 - h / 4 + Math.sin((ClientTickHandler.ticksInGame + par3) / 6.0) * 40);
+				
+				drawTexturedModalRect(x * 2, y * 2, 0, 0, w, h);
+				GL11.glDisable(GL11.GL_BLEND);				
+				GL11.glPopMatrix();
+				
+				RenderHelper.renderTooltip(par1, par2, Arrays.asList(EnumChatFormatting.GOLD + "#goldfishchris", EnumChatFormatting.RED + "INTENSIFY HIM"));
 			}
 		}
 

@@ -13,10 +13,12 @@ package vazkii.botania.common.entity;
 
 import java.util.List;
 
+import cpw.mods.fml.relauncher.ReflectionHelper;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.lib.LibObfuscation;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLeaves;
@@ -38,6 +40,11 @@ public class EntityMagicMissile extends EntityThrowable {
 	public EntityMagicMissile(World world) {
 		super(world);
 		setSize(0F, 0F);
+	}
+	
+	public EntityMagicMissile(EntityPlayer player) {
+		this(player.worldObj);
+		ReflectionHelper.setPrivateValue(EntityThrowable.class, this, player, LibObfuscation.THROWER);
 	}
 
 	@Override
@@ -77,14 +84,14 @@ public class EntityMagicMissile extends EntityThrowable {
 			if(targetList.contains(target) && target != null) {
 				EntityLivingBase thrower = getThrower();
 				EntityPlayer player = thrower instanceof EntityPlayer ? (EntityPlayer) thrower : null;
-				target.attackEntityFrom(player == null ? DamageSource.generic : DamageSource.causePlayerDamage(player), 5);
+				target.attackEntityFrom(player == null ? DamageSource.generic : DamageSource.causePlayerDamage(player), 7);
 				setDead();
 			}
 		}
 	}
 	
 	public boolean getTarget() {
-		if(target != null && target.getHealth() > 0 && !target.isDead && worldObj.getLoadedEntityList().contains(target))
+		if(target != null && target.getHealth() > 0 && !target.isDead && worldObj.loadedEntityList.contains(target))
 			return true;
 		target = null;
 		

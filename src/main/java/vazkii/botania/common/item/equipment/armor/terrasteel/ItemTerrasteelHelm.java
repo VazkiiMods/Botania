@@ -25,7 +25,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor {
 
 	@Override
 	int getHealthBoost() {
-		return 5;
+		return 4;
 	}
 
 }

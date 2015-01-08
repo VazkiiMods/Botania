@@ -1,4 +1,8 @@
-<div class='section-header'>Botania FAQ</div>
+<div class='section-header'>
+	<span class='glyphicon glyphicon-comment'></span>
+	Botania FAQ
+</div>
+
 <ul>
 <li id="q1-fake"><b>Can I use Botania in a modpack?</b> <a href="#q1">(permalink)</a><br>
 Have a look at the license in the bottom of the website, it's the image in the middle. If the footer isn't there, click the little + icon.</li><br>
@@ -37,4 +41,4 @@ First off, make sure you are on the latest version, there have been lots of opti
 <a href="http://vazkii.us/mod/Botania/terrablade.html">http://vazkii.us/mod/Botania/terrablade.html</a></li><br>
 
 <li id="q13-fake"><b>Is there a Botania API? Can I make a Botania Addon?</b> <a href="#q13">(permalink)</a><br>
-Yes, there is <a href="https://github.com/Vazkii/Botania/tree/master/MODSRC/vazkii/botania/api">an API</a>. When it comes to making addons, you can make them, but please give me a poke about what you're going to add. I hold no ability to disallow you to add some things, given the mod's license, but I at least like to know what's being done. It's not required though.</li></ul>
+Yes, there is <a href="https://github.com/Vazkii/Botania/tree/master/src/main/java/vazkii/botania/api">an API</a>. When it comes to making addons, you can make them, but please give me a poke about what you're going to add. I hold no ability to disallow you to add some things, given the mod's license, but I at least like to know what's being done. It's not required though.</li></ul>

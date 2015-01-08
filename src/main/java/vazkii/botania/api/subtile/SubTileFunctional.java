@@ -47,11 +47,6 @@ public class SubTileFunctional extends SubTileEntity {
 
 	ChunkCoordinates cachedPoolCoordinates = null;
 
-	@Override
-	public boolean canUpdate() {
-		return true;
-	}
-
 	/**
 	 * If set to true, redstoneSignal will be updated every tick.
 	 */

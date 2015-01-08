@@ -31,7 +31,7 @@ public class SubTileJadedAmaranthus extends SubTileFunctional {
 		if(redstoneSignal > 0)
 			return;
 
-		if(mana >= COST && !supertile.getWorldObj().isRemote && supertile.getWorldObj().getTotalWorldTime() % 30 == 0) {
+		if(mana >= COST && !supertile.getWorldObj().isRemote && ticksExisted % 30 == 0) {
 			int range = 4;
 			int x = supertile.xCoord - range + supertile.getWorldObj().rand.nextInt(range * 2 + 1);
 			int y = supertile.yCoord + range;

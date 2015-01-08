@@ -13,6 +13,7 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -20,12 +21,15 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.ISubTileContainer;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.common.block.tile.string.TileRedStringRelay;
+
+import java.util.ArrayList;
 
 public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTileContainer {
 
@@ -103,7 +107,7 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 		cmp.setTag(TAG_SUBTILE_CMP, subCmp);
 
 		if(subTile != null)
-			subTile.writeToPacketNBT(subCmp);
+			subTile.writeToPacketNBTInternal(subCmp);
 	}
 
 	@Override
@@ -117,7 +121,7 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 			provideSubTile(subTileName);
 
 		if(subTile != null)
-			subTile.readFromPacketNBT(subCmp);
+			subTile.readFromPacketNBTInternal(subCmp);
 	}
 
 	public IIcon getIcon() {
@@ -130,6 +134,32 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 
 	public boolean onWanded(ItemStack wand, EntityPlayer player) {
 		return subTile == null ? false : subTile.onWanded(player, wand);
+	}
+
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
+		if (subTile != null)
+			subTile.onBlockPlacedBy(world, x, y, z, entity, stack);
+	}
+
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+		return subTile == null ? false : subTile.onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ);
+	}
+
+	public void onBlockAdded(World world, int x, int y, int z) {
+		if (subTile != null)
+			subTile.onBlockAdded(world, x, y, z);
+	}
+
+	public void onBlockHarvested(World world, int x, int y, int z, int side, EntityPlayer player) {
+		if (subTile != null)
+			subTile.onBlockHarvested(world, x, y, z, side, player);
+	}
+
+	public ArrayList<ItemStack> getDrops(ArrayList<ItemStack> list) {
+		if (subTile != null)
+			subTile.getDrops(list);
+
+		return list;
 	}
 
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
