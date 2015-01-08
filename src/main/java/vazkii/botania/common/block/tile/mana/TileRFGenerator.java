@@ -17,7 +17,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.block.tile.TileMod;
 import cofh.api.energy.IEnergyConnection;
-import cofh.api.energy.IEnergyHandler;
+import cofh.api.energy.IEnergyReceiver;
 import cpw.mods.fml.common.Optional;
 
 @Optional.Interface(iface = "cofh.api.energy.IEnergyConnection", modid = "CoFHAPI|energy")
@@ -30,7 +30,7 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyCo
 	int mana = 0;
 
 	// Thanks to skyboy for help with this cuz I'm a noob with RF
-	private IEnergyHandler[] handlerCache;
+	private IEnergyReceiver[] receiverCache;
 	private boolean deadCache;
 
 	@Override
@@ -38,7 +38,7 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyCo
 	public void validate() {
 		super.validate();
 		deadCache = true;
-		handlerCache = null;
+		receiverCache = null;
 	}
 
 	@Override
@@ -57,9 +57,9 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyCo
 
 	@Optional.Method(modid = "CoFHAPI|energy")
 	protected final int transmitEnergy(int energy) {
-		if (handlerCache != null)
-			for(int i = handlerCache.length; i-- > 0;) {
-				IEnergyHandler tile = handlerCache[i];
+		if (receiverCache != null)
+			for(int i = receiverCache.length; i-- > 0;) {
+				IEnergyReceiver tile = receiverCache[i];
 				if (tile == null)
 					continue;
 
@@ -104,13 +104,13 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyCo
 
 	@Optional.Method(modid = "CoFHAPI|energy")
 	private void addCache(TileEntity tile, int side) {
-		if(handlerCache != null)
-			handlerCache[side] = null;
+		if(receiverCache != null)
+			receiverCache[side] = null;
 
-		if(tile instanceof IEnergyHandler && ((IEnergyHandler)tile).canConnectEnergy(ForgeDirection.VALID_DIRECTIONS[side])) {
-			if(handlerCache == null)
-				handlerCache = new IEnergyHandler[6];
-			handlerCache[side] = (IEnergyHandler)tile;
+		if(tile instanceof IEnergyReceiver && ((IEnergyReceiver)tile).canConnectEnergy(ForgeDirection.VALID_DIRECTIONS[side])) {
+			if(receiverCache == null)
+				receiverCache = new IEnergyReceiver[6];
+			receiverCache[side] = (IEnergyReceiver)tile;
 		}
 	}
 
