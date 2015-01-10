@@ -142,6 +142,8 @@ public final class HUDHandler {
 			BossBarHandler.render(event.resolution);
 			profiler.endSection();
 			profiler.endSection();
+			
+			GL11.glColor4f(1F, 1F, 1F, 1F);
 		}
 	}
 
