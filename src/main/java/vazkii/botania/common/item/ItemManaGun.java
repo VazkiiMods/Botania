@@ -141,7 +141,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
 	@Override
 	public boolean hasContainerItem(ItemStack stack) {
-		return getLens(itemStack) != null;
+		return getLens(stack) != null;
 	}
 
 	@Override
