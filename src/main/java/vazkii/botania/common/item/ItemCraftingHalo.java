@@ -284,20 +284,21 @@ public class ItemCraftingHalo extends ItemMod {
 		NBTTagCompound cmp1 = new NBTTagCompound();
 
 		ItemStack result = CraftingManager.getInstance().findMatchingRecipe((InventoryCrafting) event.craftMatrix, event.player.worldObj);
+		if(result != null) {
+			result.writeToNBT(cmp1);
+			cmp.setTag(TAG_ITEM_PREFIX + 9, cmp1);
 
-		result.writeToNBT(cmp1);
-		cmp.setTag(TAG_ITEM_PREFIX + 9, cmp1);
+			for(int i = 0; i < 9; i++) {
+				cmp1 = new NBTTagCompound();
+				ItemStack stackSlot = event.craftMatrix.getStackInSlot(i);
 
-		for(int i = 0; i < 9; i++) {
-			cmp1 = new NBTTagCompound();
-			ItemStack stackSlot = event.craftMatrix.getStackInSlot(i);
-
-			if(stackSlot != null) {
-				ItemStack writeStack = stackSlot.copy();
-				writeStack.stackSize = 1;
-				writeStack.writeToNBT(cmp1);
+				if(stackSlot != null) {
+					ItemStack writeStack = stackSlot.copy();
+					writeStack.stackSize = 1;
+					writeStack.writeToNBT(cmp1);
+				}
+				cmp.setTag(TAG_ITEM_PREFIX + i, cmp1);
 			}
-			cmp.setTag(TAG_ITEM_PREFIX + i, cmp1);
 		}
 
 		ItemNBTHelper.setCompound(stack, TAG_LAST_CRAFTING, cmp);
