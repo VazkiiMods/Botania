@@ -1,3 +1,10 @@
+r1.3 150
+*Fixed a crash when using the crafting halo to make extra utils unstable ingots.
+*Fixed more tpyos. <i>This is becoming a dank meme.</i>
+*Fixed other mods' GUIs turning blue while the mana bar is being rendered. <i>They really should reset the glColor before rendering...</i>
+*Fixed the Mana Fluxfield not sending energy to every RF receiver. (yueh)
+*Fixed the Mana Fluxfield requiring the CoFH API to be present to work rather than the CoFH Energy API. (Vexatos)
+*Fixed tools that break multiple blocks (manasteel shovel, terra shatterer) causing dupes with thermal expansion tanks and strongboxes and potentially other blocks that require exact harvest method call order.
 r1.3 149
 *Fixed Dominant Sparks being able to pull from blocks other than Mana Pools.
 *Fixed Flashes dropping themselves.
