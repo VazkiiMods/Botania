@@ -1,3 +1,5 @@
+r1.3 151
+*Fixed the Terra Shatterer.
 r1.3 150
 *Fixed a crash when using the crafting halo to make extra utils unstable ingots.
 *Fixed more tpyos. <i>This is becoming a dank meme.</i>
