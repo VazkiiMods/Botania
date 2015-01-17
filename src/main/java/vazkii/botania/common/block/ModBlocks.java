@@ -80,6 +80,7 @@ import vazkii.botania.common.block.mana.BlockForestDrum;
 import vazkii.botania.common.block.mana.BlockManaDetector;
 import vazkii.botania.common.block.mana.BlockManaVoid;
 import vazkii.botania.common.block.mana.BlockPool;
+import vazkii.botania.common.block.mana.BlockPrism;
 import vazkii.botania.common.block.mana.BlockRFGenerator;
 import vazkii.botania.common.block.mana.BlockRuneAltar;
 import vazkii.botania.common.block.mana.BlockSpawnerClaw;
@@ -148,6 +149,7 @@ import vazkii.botania.common.block.tile.mana.TileDistributor;
 import vazkii.botania.common.block.tile.mana.TileManaDetector;
 import vazkii.botania.common.block.tile.mana.TileManaVoid;
 import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.block.tile.mana.TilePrism;
 import vazkii.botania.common.block.tile.mana.TileRFGenerator;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.block.tile.mana.TileTurntable;
@@ -217,6 +219,7 @@ public final class ModBlocks {
 	public static Block redStringRelay;
 	public static Block floatingSpecialFlower;
 	public static Block manaFlame;
+	public static Block prism;
 
 	public static Block livingwoodStairs;
 	public static Block livingwoodSlab;
@@ -346,7 +349,8 @@ public final class ModBlocks {
 		redStringRelay = new BlockRedStringRelay();
 		floatingSpecialFlower = new BlockFloatingSpecialFlower();
 		manaFlame = new BlockManaFlame();
-		
+		prism = new BlockPrism();
+
 		livingwoodStairs = new BlockLivingwoodStairs();
 		livingwoodSlab = new BlockLivingwoodSlab(false);
 		livingwoodSlabFull = new BlockLivingwoodSlab(true);
@@ -534,6 +538,7 @@ public final class ModBlocks {
 		registerTile(TileRedStringRelay.class, LibBlockNames.RED_STRING_RELAY);
 		registerTile(TileFloatingSpecialFlower.class, LibBlockNames.FLOATING_SPECIAL_FLOWER);
 		registerTile(TileManaFlame.class, LibBlockNames.MANA_FLAME);
+		registerTile(TilePrism.class, LibBlockNames.PRISM);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MANASTAR, SubTileManastar.class);

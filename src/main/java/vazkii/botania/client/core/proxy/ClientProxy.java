@@ -71,6 +71,7 @@ import vazkii.botania.client.render.tile.RenderTileBrewery;
 import vazkii.botania.client.render.tile.RenderTileEnchanter;
 import vazkii.botania.client.render.tile.RenderTileFloatingFlower;
 import vazkii.botania.client.render.tile.RenderTilePool;
+import vazkii.botania.client.render.tile.RenderTilePrism;
 import vazkii.botania.client.render.tile.RenderTilePylon;
 import vazkii.botania.client.render.tile.RenderTileRedString;
 import vazkii.botania.client.render.tile.RenderTileRuneAltar;
@@ -94,6 +95,7 @@ import vazkii.botania.common.block.tile.TileStarfield;
 import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.block.tile.TileTinyPotato;
 import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.block.tile.mana.TilePrism;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -191,7 +193,8 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileBrewery.class, new RenderTileBrewery());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileTerraPlate.class, new RenderTileTerraPlate());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileRedString.class, new RenderTileRedString());
-		
+		ClientRegistry.bindTileEntitySpecialRenderer(TilePrism.class, new RenderTilePrism());
+
 		if(Loader.instance().getMCVersionString().equals("Minecraft 1.7.10"))
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySkull.class, new RenderTileSkullOverride());
 

@@ -547,7 +547,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			TileEntity tile = worldObj.getTileEntity(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ);
 			Block block = worldObj.getBlock(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ);
 
-			if(tile instanceof IManaCollisionGhost && ((IManaCollisionGhost) tile).isGhost() || block instanceof BlockBush || block instanceof BlockLeaves)
+			if((tile instanceof IManaCollisionGhost && ((IManaCollisionGhost) tile).isGhost() && !(block instanceof IManaTrigger)) || block instanceof BlockBush || block instanceof BlockLeaves)
 				return;
 
 			if(BotaniaAPI.internalHandler.isBuildcraftPipe(tile))
@@ -567,10 +567,13 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 					worldObj.markBlockForUpdate(tile.xCoord, tile.yCoord, tile.zCoord);
 				}
 
-				if(!isFake() && block instanceof IManaTrigger)
+				if(block instanceof IManaTrigger)
 					((IManaTrigger) block).onBurstCollision(this, worldObj, movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ);
 
-				dead = true;
+				boolean ghost = tile instanceof IManaCollisionGhost; 
+				dead = !ghost;
+				if(ghost)
+					return;
 			}
 
 			collided = true;

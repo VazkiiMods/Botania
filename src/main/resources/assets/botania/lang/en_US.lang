@@ -505,6 +505,7 @@ tile.botania:redStringFertilizer.name=Red Stringed Nutrifier
 tile.botania:redStringComparator.name=Red Stringed Comparator
 tile.botania:redStringRelay.name=Red Stringed Spoofer
 tile.botania:manaFlame.name=Mana Flash
+tile.botania:prism.name=Mana Prism
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
