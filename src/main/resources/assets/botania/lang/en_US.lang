@@ -1074,6 +1074,12 @@ botania.entry.paintLens=Paintslinger Lens
 botania.page.paintLens0=The &4Elves&0 are one crafty bunch. This lens is somewhat unique in comparison to the other lenses. The &1Paintslinger Lens&0 needs to be dyed one of the 16 colors of the spectrum to function. When it hits a colorable block (&1Wool, Stained Clay or Glass&0...) it'll turn any blocks connected, of the same type and color, into the color of the &4Mana Burst&0 itself. It seems to work with &4Sheep&0 too.
 botania.page.paintLens1=A M'AIDER Stranded Girl
 
+# -- MANA PRISM
+botania.entry.prism=Mana Prism
+botania.page.prism0=The concept of &1Mana Lens&0 allows for the manipulation of the power convyed through &4Mana Bursts&0, the &1Mana Prism&0 works on that technology to allow a burst to have its lens effect switched on the fly.<br>Using a &1Spectral Platform&0 as a component, this block does not have a physical presence, entities and bursts can go through it as if it doesn't exist.
+botania.page.prism1=Right clicking it with any variety of &1Mana Lens&0 sets the lens in the prism. Whenever a &4Mana Burst&0 goes through the prism, its color and effect will be set to that of the lens in the prism. Case the lens is not dyed, the burst will turn white.<br>Using any of the four basic lenses also increases the time the burst can go before losing &4Mana&0, allowing it to go further.
+botania.page.prism2=Another pixel in the wall
+
 # - FUNCTIONAL FLOWERS
 # -- AN INTRODUCTION TO FUNCTION
 botania.entry.fIntro=An Introduction to Function

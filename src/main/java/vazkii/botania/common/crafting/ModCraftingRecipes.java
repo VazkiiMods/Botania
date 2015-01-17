@@ -214,6 +214,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeUnholyCloak;
 	public static IRecipe recipeCraftingHalo;
 	public static List<IRecipe> recipesLensFlash;
+	public static IRecipe recipePrism;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1389,6 +1390,14 @@ public final class ModCraftingRecipes {
 				'F', new ItemStack(Items.fire_charge),
 				'L', new ItemStack(ModItems.lens));
 		recipesLensFlash = BotaniaAPI.getLatestAddedRecipes(2);
+		
+		// Mana Prism Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.prism),
+				"GPG", "GSG", "GPG",
+				'G', new ItemStack(Blocks.glass),
+				'P', LibOreDict.PRISMARINE_SHARD,
+				'S', new ItemStack(ModBlocks.platform, 1, 1));
+		recipePrism = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

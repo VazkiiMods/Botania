@@ -69,6 +69,7 @@ public final class LexiconData {
 	public static LexiconEntry sparks;
 	public static LexiconEntry sparkUpgrades;
 	public static LexiconEntry rfGenerator;
+	public static LexiconEntry prism;
 
 	public static LexiconEntry functionalIntro;
 	public static LexiconEntry jadedAmaranthus;
@@ -309,6 +310,9 @@ public final class LexiconData {
 		paintLens = new ALexiconEntry(LibLexicon.MANA_PAINT_LENS, categoryMana);
 		paintLens.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeLensPaint));
 
+		prism = new ALexiconEntry(LibLexicon.MANA_PRISM, categoryMana);
+		prism.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipePrism));
+		
 		// FUNCTIONAL FLOWERS ENTRIES
 		functionalIntro = new BLexiconEntry(LibLexicon.FFLOWER_INTRO, categoryFunctionalFlowers);
 		functionalIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageText("3"), new PageCraftingRecipe("4", ModCraftingRecipes.recipeRedstoneRoot));
