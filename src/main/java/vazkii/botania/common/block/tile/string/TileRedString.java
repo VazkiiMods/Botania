@@ -33,21 +33,21 @@ public abstract class TileRedString extends TileMod implements ITileBound {
 		int range = getRange();
 		ChunkCoordinates currBinding = getBinding();
 		setBinding(null);
-		
+
 		for(int i = 0; i < range; i++) {
 			x += dir.offsetX;
 			y += dir.offsetY;
 			z += dir.offsetZ;
 			if(worldObj.isAirBlock(x, y, z))
 				continue;
-			
+
 			TileEntity tile = worldObj.getTileEntity(x, y, z);
 			if(tile instanceof TileRedString)
 				continue;
-			
+
 			if(acceptBlock(x, y, z)) {
 				setBinding(new ChunkCoordinates(x, y, z));
-				if((currBinding == null || currBinding.posX != x || currBinding.posY != y || currBinding.posZ != z))
+				if(currBinding == null || currBinding.posX != x || currBinding.posY != y || currBinding.posZ != z)
 					onBound(x, y, z);
 				break;
 			}
@@ -63,7 +63,7 @@ public abstract class TileRedString extends TileMod implements ITileBound {
 	public void onBound(int x, int y, int z) {
 		// NO-OP
 	}
-	
+
 	@Override
 	public AxisAlignedBB getRenderBoundingBox() {
 		return INFINITE_EXTENT_AABB;
@@ -73,20 +73,20 @@ public abstract class TileRedString extends TileMod implements ITileBound {
 	public ChunkCoordinates getBinding() {
 		return binding;
 	}
-	
+
 	public void setBinding(ChunkCoordinates binding) {
 		this.binding = binding;
 	}
-	
+
 	public ForgeDirection getOrientation() {
 		return ForgeDirection.getOrientation(getBlockMetadata());
 	}
-	
+
 	public TileEntity getTileAtBinding() {
 		ChunkCoordinates binding = getBinding();
 		return binding == null ? null : worldObj.getTileEntity(binding.posX, binding.posY, binding.posZ);
 	}
-	
+
 	public Block getBlockAtBinding() {
 		ChunkCoordinates binding = getBinding();
 		return binding == null ? Blocks.air : worldObj.getBlock(binding.posX, binding.posY, binding.posZ);

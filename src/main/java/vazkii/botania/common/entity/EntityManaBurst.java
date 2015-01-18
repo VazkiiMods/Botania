@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import buildcraft.api.transport.IPipeTile;
-import cpw.mods.fml.common.Loader;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLeaves;
@@ -547,12 +545,12 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			TileEntity tile = worldObj.getTileEntity(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ);
 			Block block = worldObj.getBlock(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ);
 
-			if((tile instanceof IManaCollisionGhost && ((IManaCollisionGhost) tile).isGhost() && !(block instanceof IManaTrigger)) || block instanceof BlockBush || block instanceof BlockLeaves)
+			if(tile instanceof IManaCollisionGhost && ((IManaCollisionGhost) tile).isGhost() && !(block instanceof IManaTrigger) || block instanceof BlockBush || block instanceof BlockLeaves)
 				return;
 
 			if(BotaniaAPI.internalHandler.isBuildcraftPipe(tile))
 				return;
-			
+
 			ChunkCoordinates coords = getBurstSourceChunkCoordinates();
 			if(tile != null && (tile.xCoord != coords.posX || tile.yCoord != coords.posY || tile.zCoord != coords.posZ))
 				collidedTile = tile;
@@ -570,7 +568,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 				if(block instanceof IManaTrigger)
 					((IManaTrigger) block).onBurstCollision(this, worldObj, movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ);
 
-				boolean ghost = tile instanceof IManaCollisionGhost; 
+				boolean ghost = tile instanceof IManaCollisionGhost;
 				dead = !ghost;
 				if(ghost)
 					return;

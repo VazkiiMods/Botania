@@ -21,7 +21,7 @@ public class TileRedStringRelay extends TileRedString {
 	public boolean acceptBlock(int x, int y, int z) {
 		if(x == xCoord && y == yCoord + 1 && z == zCoord)
 			return false;
-		
+
 		Block block = worldObj.getBlock(x, y, z);
 		return block instanceof BlockFlower || block instanceof BlockMushroom;
 	}

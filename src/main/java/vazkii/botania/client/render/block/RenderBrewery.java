@@ -18,12 +18,10 @@ import net.minecraft.world.IBlockAccess;
 
 import org.lwjgl.opengl.GL11;
 
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.client.render.tile.RenderTileBrewery;
-import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.block.tile.TileBrewery;
-import vazkii.botania.common.block.tile.TileSpawnerClaw;
+import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class RenderBrewery implements ISimpleBlockRenderingHandler {
 
@@ -52,5 +50,5 @@ public class RenderBrewery implements ISimpleBlockRenderingHandler {
 	public int getRenderId() {
 		return LibRenderIDs.idBrewery;
 	}
-	
+
 }

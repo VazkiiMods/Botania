@@ -49,7 +49,6 @@ import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.helper.Vector3;
-import vazkii.botania.common.item.ModItems;
 
 public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLocked, ISparkAttachable {
 
@@ -127,9 +126,9 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 				item.setDead();
 		}
 
-		if((item.age > 100 && item.age < 130) || !catalystsRegistered)
+		if(item.age > 100 && item.age < 130 || !catalystsRegistered)
 			return false;
-		
+
 		for(RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes) {
 			if(recipe.matches(stack) && (!recipe.isAlchemy() || alchemy) && (!recipe.isConjuration() || conjuration) && (getBlockMetadata() != 2 || recipe.getOutput().getItem() == Item.getItemFromBlock(getBlockType()))) {
 				int mana = recipe.getManaToConsume();

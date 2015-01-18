@@ -113,7 +113,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.bloodPendant);
 		addBlock(ModBlocks.pylon);
 		addBlock(ModBlocks.pistonRelay);
-		
+
 		addBlock(ModBlocks.redStringContainer);
 		addBlock(ModBlocks.redStringDispenser);
 		addBlock(ModBlocks.redStringFertilizer);
@@ -130,11 +130,11 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.signalFlare);
 
 		addBlock(ModBlocks.dirtPath);
-		
+
 		addBlock(ModBlocks.dreamwood);
 		addBlock(ModBlocks.manaGlass);
 		addBlock(ModBlocks.elfGlass);
-		
+
 		addBlock(ModBlocks.prismarine);
 		addBlock(ModBlocks.seaLamp);
 		addBlock(ModBlocks.prismarineStairs);

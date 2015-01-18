@@ -28,7 +28,7 @@ public class ItemElementiumShovel extends ItemManasteelShovel {
 		Material mat = world.getBlock(x, y, z).getMaterial();
 		if (!ToolCommons.isRightMaterial(mat, materialsShovel))
 			return false;
-		
+
 		MovingObjectPosition block = ToolCommons.raytraceFromEntity(world, player, true, 10);
 		if (block == null)
 			return false;

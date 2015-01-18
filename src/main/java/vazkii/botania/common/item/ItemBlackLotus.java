@@ -55,7 +55,7 @@ public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
 	public void onDissolveTick(IManaPool pool, ItemStack stack, EntityItem item) {
 		if(pool.isFull() || pool.getCurrentMana() == 0)
 			return;
-		
+
 		TileEntity tile = (TileEntity) pool;
 		boolean t2 = stack.getItemDamage() > 0;
 
@@ -64,7 +64,7 @@ public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
 			stack.stackSize--;
 			item.worldObj.markBlockForUpdate(tile.xCoord, tile.yCoord, tile.zCoord);
 		}
-		
+
 		for(int i = 0; i < 50; i++) {
 			float r = (float) Math.random() * 0.25F;
 			float g = 0F;
@@ -80,7 +80,7 @@ public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
 		}
 		item.worldObj.playSoundAtEntity(item, "botania:blackLotus", 0.5F, t2 ? 0.1F : 1F);
 	}
-	
+
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean adv) {
 		list.add(StatCollector.translateToLocal("botaniamisc.lotusDesc"));

@@ -32,7 +32,6 @@ import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.tile.TileBrewery;
-import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -165,6 +164,6 @@ public class BlockBrewery extends BlockModContainer implements ILexiconable, IWa
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res, World world, int x, int y, int z) {
 		((TileBrewery) world.getTileEntity(x, y, z)).renderHUD(mc, res);
-	} 
+	}
 
 }

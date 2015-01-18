@@ -194,7 +194,7 @@ public final class RenderHelper {
 		GL11.glEnable(GL11.GL_ALPHA_TEST);
 		GL11.glPopMatrix();
 	}
-	
+
 	public static void renderProgressPie(int x, int y, float progress, ItemStack stack) {
 		Minecraft mc = Minecraft.getMinecraft();
 		RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack, x, y);
@@ -207,14 +207,14 @@ public final class RenderHelper {
 		GL11.glStencilOp(GL11.GL_REPLACE, GL11.GL_KEEP, GL11.GL_KEEP);
 		GL11.glStencilMask(0xFF);
 		RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack, x, y);
-		
+
 		mc.renderEngine.bindTexture(new ResourceLocation(LibResources.GUI_MANA_HUD));
 		int r = 10;
 		int centerX = x + 8;
 		int centerY = y + 8;
 		int degs = (int) (360 * progress);
 		float a = 0.5F + 0.2F * ((float) Math.cos((double) ClientTickHandler.ticksInGame / 10) * 0.5F + 0.5F);
-		
+
 		GL11.glDisable(GL11.GL_LIGHTING);
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glShadeModel(GL11.GL_SMOOTH);

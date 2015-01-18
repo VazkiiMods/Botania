@@ -33,7 +33,7 @@ public interface IBaubleRender {
 	 * Called for the rendering of the bauble on the player. The player instance can be
 	 * acquired through the event parameter. Transformations are already applied for
 	 * the RenderType passed in. Make sure to check against the type parameter for
-	 * rendering. 
+	 * rendering.
 	 */
 	@SideOnly(Side.CLIENT)
 	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type);
@@ -51,7 +51,7 @@ public interface IBaubleRender {
 		public static void applySneakingRotation() {
 			GL11.glRotatef(28.64789F, 1.0F, 0.0F, 0.0F);
 		}
-		
+
 		public static void translateToHeadLevel(EntityPlayer player) {
 			GL11.glTranslated(0, (player != Minecraft.getMinecraft().thePlayer ? 1.62F : 0F) - player.getDefaultEyeHeight() + (player.isSneaking() ? 0.0625 : 0), 0);
 		}

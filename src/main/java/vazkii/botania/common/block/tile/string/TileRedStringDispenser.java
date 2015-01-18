@@ -11,7 +11,6 @@
  */
 package vazkii.botania.common.block.tile.string;
 
-import net.minecraft.inventory.IInventory;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityDispenser;
 import net.minecraft.util.ChunkCoordinates;
@@ -23,7 +22,7 @@ public class TileRedStringDispenser extends TileRedStringContainer {
 		TileEntity tile = worldObj.getTileEntity(x, y, z);
 		return tile != null && tile instanceof TileEntityDispenser;
 	}
-	
+
 	public void tickDispenser() {
 		ChunkCoordinates bind = getBinding();
 		if(bind != null) {
@@ -32,5 +31,5 @@ public class TileRedStringDispenser extends TileRedStringContainer {
 				worldObj.scheduleBlockUpdate(bind.posX, bind.posY, bind.posZ, tile.getBlockType(), tile.getBlockType().tickRate(worldObj));
 		}
 	}
-	
+
 }

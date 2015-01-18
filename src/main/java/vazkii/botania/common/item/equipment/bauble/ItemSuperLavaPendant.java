@@ -11,8 +11,6 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
@@ -23,9 +21,10 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.client.event.RenderPlayerEvent;
+
+import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.api.item.IBaubleRender;
-import vazkii.botania.api.item.IBaubleRender.Helper;
-import vazkii.botania.api.item.IBaubleRender.RenderType;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibObfuscation;
@@ -35,7 +34,7 @@ import cpw.mods.fml.relauncher.ReflectionHelper;
 public class ItemSuperLavaPendant extends ItemBauble implements IBaubleRender {
 
 	IIcon gemIcon;
-	
+
 	public ItemSuperLavaPendant() {
 		super(LibItemNames.SUPER_LAVA_PENDANT);
 	}
@@ -58,13 +57,13 @@ public class ItemSuperLavaPendant extends ItemBauble implements IBaubleRender {
 	public BaubleType getBaubleType(ItemStack itemstack) {
 		return BaubleType.AMULET;
 	}
-	
+
 	@Override
 	public void registerIcons(IIconRegister par1IconRegister) {
 		super.registerIcons(par1IconRegister);
 		gemIcon = IconHelper.forItem(par1IconRegister, this, "Gem");
 	}
-	
+
 	@Override
 	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type) {
 		if(type == RenderType.BODY) {

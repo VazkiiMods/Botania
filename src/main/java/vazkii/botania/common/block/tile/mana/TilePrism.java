@@ -19,24 +19,23 @@ import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.lib.LibBlockNames;
-import codechicken.lib.vec.Vector3;
 
 public class TilePrism extends TileSimpleInventory implements IManaCollisionGhost {
 
 	public void onBurstCollision(IManaBurst burst) {
 		ItemStack lens = getStackInSlot(0);
-		boolean valid = lens != null && lens.getItem() instanceof ILens; 
-		
+		boolean valid = lens != null && lens.getItem() instanceof ILens;
+
 		burst.setSourceLens(valid ? lens.copy() : null);
 		burst.setColor(0xFFFFFF);
 		burst.setGravity(0F);
-		
+
 		if(valid) {
 			Entity burstEntity = (Entity) burst;
 			BurstProperties properties = new BurstProperties(burst.getStartingMana(), burst.getMinManaLoss(), burst.getManaLossPerTick(), burst.getGravity(), 1F, burst.getColor());
-			
+
 			((ILens) lens.getItem()).apply(lens, properties);
-			
+
 			burst.setColor(properties.color);
 			burst.setStartingMana(properties.maxMana);
 			burst.setMinManaLoss(properties.ticksBeforeManaLoss);
@@ -45,7 +44,7 @@ public class TilePrism extends TileSimpleInventory implements IManaCollisionGhos
 			burst.setMotion(burstEntity.motionX * properties.motionModifier, burstEntity.motionY * properties.motionModifier,burstEntity.motionZ * properties.motionModifier);
 		}
 	}
-	
+
 	@Override
 	public boolean isGhost() {
 		return true;

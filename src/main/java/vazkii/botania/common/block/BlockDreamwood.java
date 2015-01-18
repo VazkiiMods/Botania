@@ -19,7 +19,7 @@ public class BlockDreamwood extends BlockLivingwood {
 	void register(String name) {
 		GameRegistry.registerBlock(this, ItemBlockDreamwood.class, name);
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.elvenResources;

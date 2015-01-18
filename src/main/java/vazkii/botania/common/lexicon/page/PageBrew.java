@@ -34,11 +34,11 @@ public class PageBrew extends PageRecipe implements ITwoNamedPage {
 
 	RecipeBrew recipe;
 	String text;
-	
+
 	public PageBrew(RecipeBrew recipe, String unlocalizedName, String bottomText) {
 		super(bottomText);
 		this.recipe = recipe;
-		this.text = unlocalizedName;
+		text = unlocalizedName;
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class PageBrew extends PageRecipe implements ITwoNamedPage {
 		int height = gui.getHeight();
 		int x = gui.getLeft() + 16;
 		int y = gui.getTop() + 12;
-		
+
 		Brew brew = recipe.getBrew();
 		FontRenderer renderer = Minecraft.getMinecraft().fontRenderer;
 		boolean unicode = renderer.getUnicodeFlag();
@@ -56,7 +56,7 @@ public class PageBrew extends PageRecipe implements ITwoNamedPage {
 		renderer.drawString(s, gui.getLeft() + gui.getWidth() / 2 - renderer.getStringWidth(s) / 2, y, 0x222222);
 		renderer.setUnicodeFlag(unicode);
 		PageText.renderText(x, y + 22, width, height, text);
-		
+
 		ItemStack book = Minecraft.getMinecraft().thePlayer.getCurrentEquippedItem();
 		if(book != null && book.getItem() instanceof ILexicon && ((ILexicon) book.getItem()).isKnowledgeUnlocked(book, BotaniaAPI.elvenKnowledge)) {
 			renderItemAtLinePos(gui, 20, 2, y + 12, recipe.getOutput(new ItemStack(ModItems.vial)));
@@ -78,7 +78,7 @@ public class PageBrew extends PageRecipe implements ITwoNamedPage {
 
 		super.renderRecipe(gui, mx, my);
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	public void renderItemAtLinePos(IGuiLexiconEntry gui, int offset, int pos, int yPos, ItemStack stack) {
 		if(stack == null || stack.getItem() == null)
@@ -106,5 +106,5 @@ public class PageBrew extends PageRecipe implements ITwoNamedPage {
 	public String getSecondUnlocalizedName() {
 		return text;
 	}
-	
+
 }

@@ -1,18 +1,16 @@
 package vazkii.botania.common.integration.buildcraft;
 
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.StatCollector;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import org.apache.commons.lang3.text.WordUtils;
 
 import vazkii.botania.api.mana.IManaBlock;
-import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.lib.LibTriggerNames;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.StatCollector;
-import net.minecraftforge.common.util.ForgeDirection;
-import buildcraft.api.statements.IStatement;
 import buildcraft.api.statements.IStatementContainer;
 import buildcraft.api.statements.IStatementParameter;
 import buildcraft.api.statements.ITriggerExternal;
@@ -26,11 +24,11 @@ public class TriggerManaLevel extends StatementBase implements ITriggerExternal 
 	};
 
 	private State state;
-	
+
 	public TriggerManaLevel(State state) {
 		this.state = state;
 	}
-	
+
 	@Override
 	public String getUniqueTag() {
 		return "botania:mana" + state.name();
@@ -56,7 +54,7 @@ public class TriggerManaLevel extends StatementBase implements ITriggerExternal 
 				else if(state == State.FULL) return ((IManaReceiver) target).isFull();
 			}
 		}
-		
+
 		return false;
 	}
 }

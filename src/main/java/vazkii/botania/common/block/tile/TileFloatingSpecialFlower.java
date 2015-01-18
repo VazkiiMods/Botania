@@ -21,6 +21,6 @@ public class TileFloatingSpecialFlower extends TileSpecialFlower implements IFlo
 	public ItemStack getDisplayStack() {
 		return ItemBlockSpecialFlower.ofType(subTileName);
 	}
-	
-	
+
+
 }

@@ -12,7 +12,6 @@
 package vazkii.botania.client.integration.nei;
 
 import vazkii.botania.client.gui.crafting.GuiCraftingHalo;
-import net.minecraft.client.gui.inventory.GuiCrafting;
 import codechicken.nei.api.API;
 import codechicken.nei.recipe.DefaultOverlayHandler;
 
@@ -22,5 +21,5 @@ public class NEIGuiHooks {
 		API.registerGuiOverlay(GuiCraftingHalo.class, "crafting");
 		API.registerGuiOverlayHandler(GuiCraftingHalo.class, new DefaultOverlayHandler(), "crafting");
 	}
-	
+
 }

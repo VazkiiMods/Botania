@@ -1,18 +1,18 @@
 package vazkii.botania.common.integration.buildcraft;
 
-import vazkii.botania.client.core.helper.IconHelper;
-import vazkii.botania.common.block.tile.TileRuneAltar;
-import vazkii.botania.common.lib.LibTriggerNames;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.ForgeDirection;
+import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.common.block.tile.TileRuneAltar;
+import vazkii.botania.common.lib.LibTriggerNames;
 import buildcraft.api.statements.IStatementContainer;
 import buildcraft.api.statements.IStatementParameter;
 import buildcraft.api.statements.ITriggerExternal;
 
 public class TriggerRuneAltarCanCraft extends StatementBase implements ITriggerExternal {
-	
+
 	@Override
 	public String getUniqueTag() {
 		return "botania:runeAltarCanCraft";

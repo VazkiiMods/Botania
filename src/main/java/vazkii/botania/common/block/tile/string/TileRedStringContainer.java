@@ -11,13 +11,13 @@
  */
 package vazkii.botania.common.block.tile.string;
 
-import vazkii.botania.common.core.helper.InventoryHelper;
-import vazkii.botania.common.lib.LibBlockNames;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import vazkii.botania.common.core.helper.InventoryHelper;
+import vazkii.botania.common.lib.LibBlockNames;
 
 public class TileRedStringContainer extends TileRedString implements ISidedInventory {
 
@@ -86,14 +86,14 @@ public class TileRedStringContainer extends TileRedString implements ISidedInven
 	public void openInventory() {
 		TileEntity tile = getTileAtBinding();
 		if(tile instanceof IInventory)
-			((IInventory) tile).openInventory();	
+			((IInventory) tile).openInventory();
 	}
 
 	@Override
 	public void closeInventory() {
 		TileEntity tile = getTileAtBinding();
 		if(tile instanceof IInventory)
-			((IInventory) tile).closeInventory();	
+			((IInventory) tile).closeInventory();
 	}
 
 	@Override
@@ -111,13 +111,13 @@ public class TileRedStringContainer extends TileRedString implements ISidedInven
 	@Override
 	public boolean canInsertItem(int slot, ItemStack stack, int side) {
 		TileEntity tile = getTileAtBinding();
-		return tile instanceof ISidedInventory ? ((ISidedInventory) tile).canInsertItem(slot, stack, side) : true;	
+		return tile instanceof ISidedInventory ? ((ISidedInventory) tile).canInsertItem(slot, stack, side) : true;
 	}
 
 	@Override
 	public boolean canExtractItem(int slot, ItemStack stack, int side) {
 		TileEntity tile = getTileAtBinding();
-		return tile instanceof ISidedInventory ? ((ISidedInventory) tile).canExtractItem(slot, stack, side) : true;		
+		return tile instanceof ISidedInventory ? ((ISidedInventory) tile).canExtractItem(slot, stack, side) : true;
 	}
 
 }

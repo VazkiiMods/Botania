@@ -16,7 +16,6 @@ import java.awt.Color;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -134,7 +133,7 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 			Block block = lava ? Blocks.lava : Blocks.water;
 			int brightness = lava ? 240 : -1;
 			float alpha = lava ? 1F : 0.7F;
-			
+
 			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			GL11.glDisable(GL11.GL_ALPHA_TEST);
@@ -154,7 +153,7 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 		}
 		GL11.glPopMatrix();
 	}
-	
+
 	public void renderIcon(int par1, int par2, IIcon par3Icon, int par4, int par5, int brightness) {
 		Tessellator tessellator = Tessellator.instance;
 		tessellator.startDrawingQuads();

@@ -28,9 +28,7 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelMiniIsland;
-import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.block.decor.IFloatingFlower;
-import vazkii.botania.common.block.tile.TileFloatingFlower;
 
 public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 
@@ -66,7 +64,7 @@ public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 
 		ItemStack stack = flower.getDisplayStack();
 		IIcon icon = stack.getIconIndex();
-		
+
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();

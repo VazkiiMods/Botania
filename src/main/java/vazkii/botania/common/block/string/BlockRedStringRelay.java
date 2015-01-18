@@ -11,10 +11,7 @@
  */
 package vazkii.botania.common.block.string;
 
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.IPlantable;
-import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.block.tile.string.TileRedStringRelay;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -24,7 +21,7 @@ public class BlockRedStringRelay extends BlockRedString {
 	public BlockRedStringRelay() {
 		super(LibBlockNames.RED_STRING_RELAY);
 	}
-	
+
 	@Override
 	public TileRedString createNewTileEntity(World world, int meta) {
 		return new TileRedStringRelay();

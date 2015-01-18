@@ -13,13 +13,10 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -69,14 +66,14 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 			}
 		}
 	}
-	
+
 	@Override
 	public void onWornTick(ItemStack stack, EntityLivingBase player) {
 		int cooldown = getCooldown(stack);
 		if(cooldown > 0)
 			setCooldown(stack, cooldown - 1);
 	}
-	
+
 	public boolean effectOnDamage(LivingHurtEvent event, EntityPlayer player, ItemStack stack) {
 		if(!event.source.isMagicDamage()) {
 			event.setCanceled(true);
@@ -90,7 +87,7 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 			}
 			return true;
 		}
-	
+
 		return false;
 	}
 

@@ -18,7 +18,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
@@ -76,14 +75,14 @@ public final class ToolCommons {
 			if(!player.capabilities.isCreativeMode) {
 				int localMeta = world.getBlockMetadata(x, y, z);
 				blk.onBlockHarvested(world, x, y, z, localMeta, player);
-				
-				if(blk.removedByPlayer(world, player, x, y, z, true)) { 
+
+				if(blk.removedByPlayer(world, player, x, y, z, true)) {
 					blk.onBlockDestroyedByPlayer(world, x, y, z, localMeta);
-					
+
 					if(!dispose || !ItemElementiumPick.isDisposable(blk))
 						blk.harvestBlock(world, player, x, y, z, localMeta);
 				}
-				
+
 				damageItem(stack, 1, player, 80);
 			} else world.setBlockToAir(x, y, z);
 

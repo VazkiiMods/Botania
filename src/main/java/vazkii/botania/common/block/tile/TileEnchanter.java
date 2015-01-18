@@ -1,5 +1,5 @@
 /**
-  * This class was created by <Vazkii>. It's distributed as
+ * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
@@ -29,12 +29,10 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.api.mana.spark.SparkHelper;
-import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
@@ -111,7 +109,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 				if(tile != null && tile instanceof TilePylon)
 					((TilePylon) tile).activated = false;
 			}
-		
+
 		if(!canEnchanterExist(worldObj, xCoord, yCoord, zCoord, getBlockMetadata())) {
 
 			worldObj.setBlock(xCoord, yCoord, zCoord, Blocks.lapis_block, 0, 1 | 2);
@@ -392,16 +390,16 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 	public int getAvailableSpaceForMana() {
 		return Math.max(0, manaRequired - getCurrentMana());
 	}
-	
+
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		if(manaRequired > 0 && itemToEnchant != null) {
 			int x = res.getScaledWidth() / 2 + 20;
 			int y = res.getScaledHeight() / 2 - 8;
 
-			RenderHelper.renderProgressPie(x, y, (float) mana / (float) manaRequired, itemToEnchant);		
+			RenderHelper.renderProgressPie(x, y, (float) mana / (float) manaRequired, itemToEnchant);
 		}
 	}
-	
+
 	private static class EnchantmentData {
 
 		public int enchant, level;

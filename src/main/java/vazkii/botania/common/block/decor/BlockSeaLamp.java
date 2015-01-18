@@ -11,7 +11,6 @@
  */
 package vazkii.botania.common.block.decor;
 
-import cpw.mods.fml.common.Optional;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -23,6 +22,7 @@ import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.integration.coloredlights.ColoredLightHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
+import cpw.mods.fml.common.Optional;
 
 public class BlockSeaLamp extends BlockMod implements ILexiconable {
 
@@ -33,14 +33,14 @@ public class BlockSeaLamp extends BlockMod implements ILexiconable {
 		setLightLevel(1.0F);
 		setBlockName(LibBlockNames.SEA_LAMP);
 	}
-	
+
 	int coloredLight = -1;
-	
+
 	@Override
 	@Optional.Method(modid = "easycoloredlights")
-    public int getLightValue(IBlockAccess world, int x, int y, int z) {
+	public int getLightValue(IBlockAccess world, int x, int y, int z) {
 		return coloredLight == -1 ? (coloredLight = ColoredLightHelper.makeRGBLightValue(85, 136, 125, originalLight)) : coloredLight;
-    }
+	}
 
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {

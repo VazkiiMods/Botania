@@ -19,7 +19,7 @@ import net.minecraft.util.ResourceLocation;
 public class LexiconCategory implements Comparable<LexiconCategory> {
 
 	private static int count = 0;
-	
+
 	public final String unlocalizedName;
 	public final List<LexiconEntry> entries = new ArrayList<LexiconEntry>();
 	private final int sortingId;
@@ -38,7 +38,7 @@ public class LexiconCategory implements Comparable<LexiconCategory> {
 	public String getUnlocalizedName() {
 		return unlocalizedName;
 	}
-	
+
 	/**
 	 * Sets the priority for this category for sorting. Higher numbers
 	 * means they'll appear first in the book. The basics category
@@ -52,11 +52,11 @@ public class LexiconCategory implements Comparable<LexiconCategory> {
 		this.priority = priority;
 		return this;
 	}
-	
+
 	public int getSortingPriority() {
 		return priority;
 	}
-	
+
 	public final int getSortingId() {
 		return sortingId;
 	}

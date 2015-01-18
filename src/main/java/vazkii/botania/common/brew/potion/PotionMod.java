@@ -21,26 +21,26 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class PotionMod extends Potion {
 
 	private static final ResourceLocation resource = new ResourceLocation(LibResources.GUI_POTIONS);
-	
+
 	public PotionMod(String name, boolean badEffect, int color, int iconIndex) {
 		super(findFreeID(), badEffect, color);
 		setPotionName("botania.potion." + name);
 		setIconIndex(iconIndex % 8, iconIndex / 8);
 	}
-	
+
 	static int findFreeID() {
 		for(int i = 0; i < potionTypes.length; i++)
 			if(potionTypes[i] == null)
 				return i;
-		
+
 		return -1;
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public int getStatusIconIndex() {
 		Minecraft.getMinecraft().renderEngine.bindTexture(resource);
-		
+
 		return super.getStatusIconIndex();
 	}
 

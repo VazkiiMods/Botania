@@ -125,7 +125,7 @@ public class InventoryHelper {
 		if(inventory == null)
 			return 0;
 
-		int slotCount = inventory.getSizeInventory();
+		inventory.getSizeInventory();
 
 		int itemSizeCounter = item.stackSize;
 		int[] availableSlots = new int[0];
@@ -198,14 +198,14 @@ public class InventoryHelper {
 		return inventory;
 	}
 
-    public static int[] buildSlotsForLinearInventory(IInventory inv) {
-        int[] slots = new int[inv.getSizeInventory()];
-        for (int i = 0; i < slots.length; i++)
-            slots[i] = i;
+	public static int[] buildSlotsForLinearInventory(IInventory inv) {
+		int[] slots = new int[inv.getSizeInventory()];
+		for (int i = 0; i < slots.length; i++)
+			slots[i] = i;
 
-        return slots;
-    }
-	
+		return slots;
+	}
+
 	public static class GenericInventory implements IInventory {
 
 		protected String inventoryTitle;

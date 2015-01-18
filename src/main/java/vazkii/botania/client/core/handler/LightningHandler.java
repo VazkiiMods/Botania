@@ -60,7 +60,7 @@ public class LightningHandler {
 	@SubscribeEvent
 	public void onRenderWorldLast(RenderWorldLastEvent event) {
 		Profiler profiler = Minecraft.getMinecraft().mcProfiler;
-		
+
 		profiler.startSection("botania-particles");
 		ParticleRenderDispatcher.dispatch();
 		profiler.startSection("redString");

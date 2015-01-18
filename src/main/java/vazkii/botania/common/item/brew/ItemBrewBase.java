@@ -70,21 +70,21 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem {
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack p_77659_1_, World p_77659_2_, EntityPlayer p_77659_3_) {
-		p_77659_3_.setItemInUse(p_77659_1_, this.getMaxItemUseDuration(p_77659_1_));
+		p_77659_3_.setItemInUse(p_77659_1_, getMaxItemUseDuration(p_77659_1_));
 		return p_77659_1_;
 	}
-	
+
 	@Override
-    public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) {
+	public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) {
 		if(!world.isRemote) {
 			for(PotionEffect effect : getBrew(stack).getPotionEffects(stack)) {
 				PotionEffect newEffect = new PotionEffect(effect.getPotionID(), effect.getDuration(), effect.getAmplifier(), true);
 				player.addPotionEffect(newEffect);
 			}
-			
+
 			if(world.rand.nextBoolean())
 				world.playSoundAtEntity(player, "random.burp", 1F, 1F);
-			
+
 			int swigs = getSwigsLeft(stack);
 			if(!player.capabilities.isCreativeMode) {
 				if(swigs == 1) {
@@ -93,14 +93,14 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem {
 						return baseItem.copy();
 					return null;
 				}
-					
-				
+
+
 				setSwigsLeft(stack, swigs - 1);
 			}
 		}
 
 		return stack;
-    }
+	}
 
 	@Override
 	public void getSubItems(Item item, CreativeTabs tab, List list) {
@@ -134,14 +134,14 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem {
 	public int getColorFromItemStack(ItemStack stack, int pass) {
 		if(pass == 0)
 			return 0xFFFFFF;
-		
+
 		Color color = new Color(getBrew(stack).getColor(stack));
-		int add = (int) (Math.sin((double) ClientTickHandler.ticksInGame * 0.1) * 16);
-		
+		int add = (int) (Math.sin(ClientTickHandler.ticksInGame * 0.1) * 16);
+
 		int r = Math.max(0, Math.min(255, color.getRed() + add));
 		int g = Math.max(0, Math.min(255, color.getGreen() + add));
 		int b = Math.max(0, Math.min(255, color.getBlue() + add));
-		
+
 		return r << 16 | g << 8 | b;
 	}
 
@@ -156,7 +156,7 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem {
 		for(PotionEffect effect : brew.getPotionEffects(stack)) {
 			Potion potion = Potion.potionTypes[effect.getPotionID()];
 			EnumChatFormatting format = potion.isBadEffect() ? EnumChatFormatting.RED : EnumChatFormatting.GRAY;
-			list.add(format + StatCollector.translateToLocal(effect.getEffectName()) + (effect.getAmplifier() == 0 ? "" : (" " + StatCollector.translateToLocal("botania.roman" + (effect.getAmplifier() + 1)))) + EnumChatFormatting.GRAY + (potion.isInstant() ? "" : (" (" + Potion.getDurationString(effect) + ")")));
+			list.add(format + StatCollector.translateToLocal(effect.getEffectName()) + (effect.getAmplifier() == 0 ? "" : " " + StatCollector.translateToLocal("botania.roman" + (effect.getAmplifier() + 1))) + EnumChatFormatting.GRAY + (potion.isInstant() ? "" : " (" + Potion.getDurationString(effect) + ")"));
 		}
 	}
 

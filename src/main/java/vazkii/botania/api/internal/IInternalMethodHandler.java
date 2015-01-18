@@ -43,7 +43,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public interface IInternalMethodHandler {
 
 	public LexiconPage textPage(String key);
-	
+
 	public LexiconPage elfPaperTextPage(String key);
 
 	public LexiconPage imagePage(String key, String resource);
@@ -67,13 +67,13 @@ public interface IInternalMethodHandler {
 	public LexiconPage elvenTradePage(String key, List<RecipeElvenTrade> recipes);
 
 	public LexiconPage elvenTradesPage(String key, RecipeElvenTrade recipe);
-	
+
 	public LexiconPage brewPage(String key, String bottomText, RecipeBrew recipe);
 
 	public IManaNetwork getManaNetworkInstance();
 
 	public ItemStack getSubTileAsStack(String subTile);
-	
+
 	public ItemStack getSubTileAsFloatingFlowerStack(String subTile);
 
 	public IIcon getSubTileIconForName(String name);
@@ -94,12 +94,12 @@ public interface IInternalMethodHandler {
 
 	@SideOnly(Side.CLIENT)
 	public ResourceLocation getDefaultBossBarTexture();
-	
+
 	@SideOnly(Side.CLIENT)
 	public void setBossStatus(IBotaniaBoss status);
-	
+
 	public boolean isBuildcraftPipe(TileEntity tile);
-	
+
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m);
 
 }

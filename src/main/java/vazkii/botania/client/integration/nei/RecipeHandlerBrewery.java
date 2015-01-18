@@ -46,7 +46,7 @@ public class RecipeHandlerBrewery extends TemplateRecipeHandler {
 		}
 
 		public void setIngredients(List<Object> inputs) {
-			int left = 96 - (inputs.size() * 18 / 2);
+			int left = 96 - inputs.size() * 18 / 2;
 
 			int i = 0;
 			for (Object o : inputs) {
@@ -97,7 +97,7 @@ public class RecipeHandlerBrewery extends TemplateRecipeHandler {
 	public void loadCraftingRecipes(String outputId, Object... results) {
 		if (outputId.equals("botania.brewery"))
 			for (RecipeBrew recipe : BotaniaAPI.brewRecipes)
-				this.arecipes.add(new CachedBreweryRecipe(recipe));
+				arecipes.add(new CachedBreweryRecipe(recipe));
 		else
 			super.loadCraftingRecipes(outputId, results);
 	}
@@ -107,7 +107,7 @@ public class RecipeHandlerBrewery extends TemplateRecipeHandler {
 		if (result.getItem() instanceof IBrewItem)
 			for (RecipeBrew recipe : BotaniaAPI.brewRecipes)
 				if (((IBrewItem) result.getItem()).getBrew(result) == recipe.getBrew())
-					this.arecipes.add(new CachedBreweryRecipe(recipe));
+					arecipes.add(new CachedBreweryRecipe(recipe));
 	}
 
 	@Override
@@ -115,13 +115,13 @@ public class RecipeHandlerBrewery extends TemplateRecipeHandler {
 		if (ingredient.getItem() instanceof IBrewContainer) {
 			for(RecipeBrew recipe : BotaniaAPI.brewRecipes) {
 				if(recipe.getOutput(ingredient) != null)
-					this.arecipes.add(new CachedBreweryRecipe(recipe, ingredient));
+					arecipes.add(new CachedBreweryRecipe(recipe, ingredient));
 			}
 		} else
 			for (RecipeBrew recipe : BotaniaAPI.brewRecipes) {
 				CachedBreweryRecipe crecipe = new CachedBreweryRecipe(recipe);
 				if (crecipe.contains(crecipe.inputs, ingredient))
-					this.arecipes.add(crecipe);
+					arecipes.add(crecipe);
 			}
 	}
 

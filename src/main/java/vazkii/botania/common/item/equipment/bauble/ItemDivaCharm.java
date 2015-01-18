@@ -13,8 +13,6 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import java.util.List;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
@@ -28,9 +26,10 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+
+import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.api.item.IBaubleRender;
-import vazkii.botania.api.item.IBaubleRender.Helper;
-import vazkii.botania.api.item.IBaubleRender.RenderType;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.Botania;
@@ -95,11 +94,11 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem, IBauble
 	public boolean usesMana(ItemStack stack) {
 		return true;
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type) {
-		if(type == RenderType.HEAD) { 
+		if(type == RenderType.HEAD) {
 			float f = itemIcon.getMinU();
 			float f1 = itemIcon.getMaxU();
 			float f2 = itemIcon.getMinV();
@@ -111,7 +110,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem, IBauble
 			GL11.glRotatef(180F, 1F, 0F, 0F);
 			GL11.glTranslatef(-0.4F, 0.1F, armor ? -0.35F : -0.3F);
 			GL11.glScalef(0.5F, 0.5F, 0.5F);
-			ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, itemIcon.getIconWidth(), itemIcon.getIconHeight(), 1F / 16F);		
+			ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, itemIcon.getIconWidth(), itemIcon.getIconHeight(), 1F / 16F);
 		}
 	}
 

@@ -26,5 +26,5 @@ public interface IManaDissolvable {
 	 * size 0 the item is killed. This is called in both the server and client.
 	 */
 	public void onDissolveTick(IManaPool pool, ItemStack stack, EntityItem item);
-	
+
 }

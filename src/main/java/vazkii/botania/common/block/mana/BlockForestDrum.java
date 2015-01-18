@@ -107,7 +107,7 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 	public void onBurstCollision(IManaBurst burst, World world, int x, int y, int z) {
 		if(burst.isFake())
 			return;
-		
+
 		if(world.getBlockMetadata(x, y, z) == 0)
 			ItemGrassHorn.breakGrass(world, 0, x, y, z);
 		else {

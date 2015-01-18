@@ -11,13 +11,10 @@
  */
 package vazkii.botania.client.render.tile;
 
-import org.lwjgl.opengl.GL11;
-
-import vazkii.botania.client.core.handler.RedStringRenderer;
-import vazkii.botania.common.block.tile.string.TileRedString;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChunkCoordinates;
+import vazkii.botania.client.core.handler.RedStringRenderer;
+import vazkii.botania.common.block.tile.string.TileRedString;
 
 public class RenderTileRedString extends TileEntitySpecialRenderer {
 

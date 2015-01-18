@@ -105,7 +105,7 @@ public class PageEntity extends LexiconPage{
 		if(relativeMouseX >= x - dummyEntity.width * scale / 2 - 10  && relativeMouseY >= y - dummyEntity.height * scale - 20 && relativeMouseX <= x + dummyEntity.width * scale / 2 + 10 && relativeMouseY <= y + 20)
 			tooltipEntity = true;
 	}
-	
+
 	public void prepDummy() {
 		if(dummyEntity == null || dummyEntity.isDead) {
 			try {

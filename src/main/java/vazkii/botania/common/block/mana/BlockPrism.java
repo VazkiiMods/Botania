@@ -40,7 +40,7 @@ public class BlockPrism extends BlockModContainer implements IManaTrigger, ILexi
 
 	Random random;
 	IIcon[] icons;
-	
+
 	public BlockPrism() {
 		super(Material.glass);
 		setHardness(0.3F);
@@ -49,10 +49,10 @@ public class BlockPrism extends BlockModContainer implements IManaTrigger, ILexi
 		setBlockName(LibBlockNames.PRISM);
 		float f = 0.25F;
 		setBlockBounds(f, 0F, f, 1F - f, 1F, 1F - f);
-		
+
 		random = new Random();
 	}
-	
+
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		icons = new IIcon[2];
@@ -69,17 +69,17 @@ public class BlockPrism extends BlockModContainer implements IManaTrigger, ILexi
 	public int getRenderBlockPass() {
 		return 1;
 	}
-	
+
 	@Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World p_149668_1_, int p_149668_2_, int p_149668_3_, int p_149668_4_) {
 		return null;
 	}
-	
+
 	@Override
 	public boolean isOpaqueCube() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean renderAsNormalBlock() {
 		return false;
@@ -112,7 +112,7 @@ public class BlockPrism extends BlockModContainer implements IManaTrigger, ILexi
 
 		return true;
 	}
-	
+
 	@Override
 	public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6) {
 		TileEntity tile = par1World.getTileEntity(par2, par3, par4);
@@ -154,7 +154,7 @@ public class BlockPrism extends BlockModContainer implements IManaTrigger, ILexi
 
 		super.breakBlock(par1World, par2, par3, par4, par5, par6);
 	}
-	
+
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TilePrism();

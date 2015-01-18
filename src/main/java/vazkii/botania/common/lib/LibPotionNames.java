@@ -21,5 +21,5 @@ public final class LibPotionNames {
 	public static final String MANASHOCK = "manashock";
 	public static final String GRAVITATION = "gravitation";
 	public static final String CLEANSING = "cleansing";
-	
+
 }

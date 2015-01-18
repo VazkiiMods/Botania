@@ -11,15 +11,13 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
-import vazkii.botania.common.item.equipment.tool.ItemTerraPick;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
+import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 
 public class SpecialFloatingFlowerRecipe implements IRecipe {
 

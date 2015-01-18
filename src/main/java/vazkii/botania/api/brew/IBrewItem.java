@@ -19,7 +19,7 @@ import net.minecraft.item.ItemStack;
  * from going back into the brewery but other mods might use it for whatever.
  */
 public interface IBrewItem {
-	
+
 	public Brew getBrew(ItemStack brew);
 
 }

@@ -38,12 +38,12 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem {
 	private static final int COST_PER = 55;
 
 	static final List<String> validBlocks = Arrays.asList(new String[] {
-			"stone", 
-			"dirt", 
-			"grass", 
-			"sand", 
-			"gravel", 
-			"hardenedClay", 
+			"stone",
+			"dirt",
+			"grass",
+			"sand",
+			"gravel",
+			"hardenedClay",
 			"snowLayer",
 			"mycelium",
 			"podzol",

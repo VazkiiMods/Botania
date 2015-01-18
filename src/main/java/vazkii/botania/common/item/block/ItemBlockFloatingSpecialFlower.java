@@ -11,7 +11,6 @@
  */
 package vazkii.botania.common.item.block;
 
-import vazkii.botania.api.BotaniaAPI;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;

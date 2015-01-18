@@ -34,7 +34,6 @@ import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.BlockModContainer;
-import vazkii.botania.common.block.tile.TileBrewery;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -151,5 +150,5 @@ public class BlockEnchanter extends BlockModContainer implements IWandable, ILex
 	public void renderHUD(Minecraft mc, ScaledResolution res, World world, int x, int y, int z) {
 		((TileEnchanter) world.getTileEntity(x, y, z)).renderHUD(mc, res);
 	}
-	
+
 }

@@ -43,7 +43,7 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	public LexiconPage elfPaperTextPage(String key) {
 		return dummyPage(key);
 	}
-	
+
 	@Override
 	public LexiconPage imagePage(String key, String resource) {
 		return dummyPage(key);
@@ -98,7 +98,7 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	public LexiconPage elvenTradesPage(String key, RecipeElvenTrade recipe) {
 		return dummyPage(key);
 	}
-	
+
 	@Override
 	public LexiconPage brewPage(String key, String bottomText, RecipeBrew recipe) {
 		return dummyPage(key);
@@ -112,7 +112,7 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	public ItemStack getSubTileAsStack(String subTile) {
 		return new ItemStack(Blocks.stone, 0, 0);
 	}
-	
+
 	@Override
 	public ItemStack getSubTileAsFloatingFlowerStack(String subTile) {
 		return getSubTileAsStack(subTile);

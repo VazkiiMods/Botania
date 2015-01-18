@@ -45,28 +45,28 @@ public class BlockDirtPath extends BlockMod implements ILexiconable {
 		float max = 0.4F;
 
 		double motionX = Math.abs(entity.motionX);
-        double motionZ = Math.abs(entity.motionZ);
-        if(motionX < max)
-            entity.motionX *= speed;
-        if(motionZ < max)
-            entity.motionZ *= speed;
+		double motionZ = Math.abs(entity.motionZ);
+		if(motionX < max)
+			entity.motionX *= speed;
+		if(motionZ < max)
+			entity.motionZ *= speed;
 	}
 
 	@Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
 		return AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1);
 	}
-	
+
 	@Override
 	public boolean isOpaqueCube() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean renderAsNormalBlock() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean canSustainPlant(IBlockAccess world, int x, int y, int z, ForgeDirection direction, IPlantable plantable) {
 		return plantable.getPlantType(world, x, y - 1, z) == EnumPlantType.Plains;
@@ -76,5 +76,5 @@ public class BlockDirtPath extends BlockMod implements ILexiconable {
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.dirtPath;
 	}
-	
+
 }

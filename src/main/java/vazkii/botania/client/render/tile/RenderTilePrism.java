@@ -11,18 +11,18 @@
  */
 package vazkii.botania.client.render.tile;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.render.item.RenderLens;
 import vazkii.botania.common.block.tile.mana.TilePrism;
-import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 
 public class RenderTilePrism extends TileEntitySpecialRenderer {
 
@@ -31,8 +31,8 @@ public class RenderTilePrism extends TileEntitySpecialRenderer {
 		TilePrism prism = (TilePrism) tile;
 		GL11.glPushMatrix();
 		GL11.glTranslated(x, y, z);
-		float pos = (float) Math.sin((float) (ClientTickHandler.ticksInGame + partTicks) * 0.05F) * 0.5F * (1F - 1F / 16F) - 0.5F;
-		
+		float pos = (float) Math.sin((ClientTickHandler.ticksInGame + partTicks) * 0.05F) * 0.5F * (1F - 1F / 16F) - 0.5F;
+
 		ItemStack stack = prism.getStackInSlot(0);
 
 		if(stack != null) {

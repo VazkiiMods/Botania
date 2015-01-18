@@ -11,7 +11,6 @@
  */
 package vazkii.botania.api.item;
 
-import vazkii.botania.api.mana.IManaPool;
 
 /**
  * Used to define a Mana Pool that can be dyed through floral powder.
@@ -19,8 +18,8 @@ import vazkii.botania.api.mana.IManaPool;
 public interface IDyablePool {
 
 	public int getColor();
-	
+
 	public void setColor(int color);
-	
-	
+
+
 }

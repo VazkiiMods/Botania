@@ -60,7 +60,7 @@ public final class BotaniaAPI {
 	public static Map<String, KnowledgeType> knowledgeTypes = new HashMap<String, KnowledgeType>();
 
 	public static Map<String, Brew> brewMap = new LinkedHashMap<String, Brew>();
-	
+
 	public static List<RecipePetals> petalRecipes = new ArrayList<RecipePetals>();
 	public static List<RecipeRuneAltar> runeAltarRecipes = new ArrayList<RecipeRuneAltar>();
 	public static List<RecipeManaInfusion> manaInfusionRecipes = new ArrayList<RecipeManaInfusion>();
@@ -96,9 +96,9 @@ public final class BotaniaAPI {
 	public static LexiconCategory categoryBaubles;
 	public static LexiconCategory categoryAlfhomancy;
 	public static LexiconCategory categoryMisc;
-	
+
 	public static Brew fallbackBrew = new Brew("fallback", "botania.brew.fallback", 0, 0);
-	
+
 	static {
 		registerSubTile("", DummySubTile.class);
 
@@ -202,7 +202,7 @@ public final class BotaniaAPI {
 		knowledgeTypes.put(id, type);
 		return type;
 	}
-	
+
 	/**
 	 * Registers a Brew and returns it.
 	 */
@@ -220,7 +220,7 @@ public final class BotaniaAPI {
 			return brewMap.get(key);
 		return fallbackBrew;
 	}
-	
+
 	/**
 	 * Registers a Petal Recipe.
 	 * @param output The ItemStack to craft.
@@ -294,7 +294,7 @@ public final class BotaniaAPI {
 		elvenTradeRecipes.add(recipe);
 		return recipe;
 	}
-	
+
 	/**
 	 * Registers a Brew Recipe (for the Botanical Brewery).
 	 * @param brew The brew in to be set in this recipe.

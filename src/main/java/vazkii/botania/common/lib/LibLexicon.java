@@ -34,7 +34,7 @@ public final class LibLexicon {
 	public static final String BASICS_RUNE_ALTAR = "runeAltar";
 	public static final String BASICS_TERRASTEEL = "terrasteel";
 	public static final String BASICS_BLACK_LOTUS = "blackLotus";
-	
+
 	public static final String MANA_INTRO = "mIntro";
 	public static final String MANA_SPREADER = "spreader";
 	public static final String MANA_POOL = "pool";
@@ -52,7 +52,7 @@ public final class LibLexicon {
 	public static final String MANA_SPARKS = "sparks";
 	public static final String MANA_SPARK_UPGRADES = "sparkUpgrades";
 	public static final String MANA_PRISM = "prism";
-	
+
 	public static final String FFLOWER_INTRO = "fIntro";
 	public static final String FFLOWER_JADED_AMARANTHUS = "jadedAmaranthus";
 	public static final String FFLOWER_BELLETHORNE = "bellethorne";

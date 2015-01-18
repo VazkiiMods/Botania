@@ -14,8 +14,6 @@ package vazkii.botania.common.item.equipment.bauble;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -32,6 +30,9 @@ import net.minecraft.util.StatCollector;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+
+import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -51,7 +52,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaubleRender {
 
 	private static ResourceLocation textureHalo = new ResourceLocation(LibResources.MISC_HALO);
-	
+
 	public static List<String> playersWithFlight = new ArrayList();
 	private static final int COST = 35;
 
@@ -292,11 +293,11 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 
 				GL11.glColor3f(1F, 1F, 1F);
 				GL11.glPopMatrix();
-			}	
+			}
 		} else if(meta == 1) // Jibril's Halo
-				renderHalo(event.entityPlayer, event.partialRenderTick);
+			renderHalo(event.entityPlayer, event.partialRenderTick);
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	private void renderHalo(EntityPlayer player, float partialTicks) {
 		GL11.glShadeModel(GL11.GL_SMOOTH);

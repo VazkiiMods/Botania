@@ -57,7 +57,7 @@ public class ItemMagnetRing extends ItemBauble {
 			"appliedenergistics2:ItemCrystalSeed.Fluix2",
 			"appliedenergistics2:ItemCrystalSeed.Fluix3",
 	});
-	
+
 	public ItemMagnetRing() {
 		super(LibItemNames.MAGNET_RING);
 		MinecraftForge.EVENT_BUS.register(this);
@@ -118,20 +118,20 @@ public class ItemMagnetRing extends ItemBauble {
 	private boolean canPullItem(EntityItem item) {
 		if(item.isDead)
 			return false;
-		
+
 		ItemStack stack = item.getEntityItem();
 		if(stack == null || stack.getItem() instanceof IManaItem || BLACKLIST.contains(itemRegistry.getNameForObject(stack.getItem())))
 			return false;
-		
+
 		int x = net.minecraft.util.MathHelper.floor_double(item.posX);
 		int y = net.minecraft.util.MathHelper.floor_double(item.posY);
 		int z = net.minecraft.util.MathHelper.floor_double(item.posZ);
 		if(item.worldObj.getBlock(x, y, z) == ModBlocks.terraPlate)
 			return false;
-		
+
 		return true;
 	}
-	
+
 	public static int getCooldown(ItemStack stack) {
 		return ItemNBTHelper.getInt(stack, TAG_COOLDOWN, 0);
 	}

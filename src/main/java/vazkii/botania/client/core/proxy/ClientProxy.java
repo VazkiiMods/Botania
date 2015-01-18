@@ -33,13 +33,13 @@ import vazkii.botania.api.item.IExtendedPlayerController;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.wiki.IWikiProvider;
 import vazkii.botania.api.wiki.WikiHooks;
+import vazkii.botania.client.core.handler.BaubleRenderHandler;
 import vazkii.botania.client.core.handler.BotaniaPlayerController;
 import vazkii.botania.client.core.handler.BoundTileRenderer;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.DebugHandler;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.handler.LightningHandler;
-import vazkii.botania.client.core.handler.BaubleRenderHandler;
 import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.fx.FXSparkle;
@@ -119,7 +119,7 @@ import cpw.mods.fml.relauncher.ReflectionHelper;
 public class ClientProxy extends CommonProxy {
 
 	public static boolean singAnnoyingChristmasSongsTillVazkiisHeadExplodesFromAllTheDamnJingle = false;
-	
+
 	@Override
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
@@ -138,13 +138,13 @@ public class ClientProxy extends CommonProxy {
 
 
 		// Jingle bells jingle bells
-	    Calendar calendar = Calendar.getInstance();
-	    if((calendar.get(2) == 11 && calendar.get(5) >= 24 && calendar.get(5) <= 26) || (calendar.get(2) == 0 && calendar.get(5) <= 6))
-	        singAnnoyingChristmasSongsTillVazkiisHeadExplodesFromAllTheDamnJingle = true;
-		
+		Calendar calendar = Calendar.getInstance();
+		if(calendar.get(2) == 11 && calendar.get(5) >= 24 && calendar.get(5) <= 26 || calendar.get(2) == 0 && calendar.get(5) <= 6)
+			singAnnoyingChristmasSongsTillVazkiisHeadExplodesFromAllTheDamnJingle = true;
+
 		initRenderers();
 	}
-	
+
 	private void initRenderers() {
 		LibRenderIDs.idAltar = RenderingRegistry.getNextAvailableRenderId();
 		LibRenderIDs.idSpecialFlower = RenderingRegistry.getNextAvailableRenderId();
@@ -168,7 +168,7 @@ public class ClientProxy extends CommonProxy {
 
 		RenderTransparentItem renderTransparentItem = new RenderTransparentItem();
 		RenderFloatingFlowerItem renderFloatingFlower = new RenderFloatingFlowerItem();
-		
+
 		MinecraftForgeClient.registerItemRenderer(ModItems.lens, new RenderLens());
 		if(ConfigHandler.lexicon3dModel)
 			MinecraftForgeClient.registerItemRenderer(ModItems.lexicon, new RenderLexicon());
@@ -205,7 +205,7 @@ public class ClientProxy extends CommonProxy {
 
 		ShaderHelper.initShaders();
 	}
-	
+
 	@Override
 	@Optional.Method(modid = "NotEnoughItems")
 	public void registerNEIStuff() {

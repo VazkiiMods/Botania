@@ -11,8 +11,6 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
@@ -23,6 +21,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
+
+import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.lib.LibItemNames;
@@ -37,7 +38,7 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender {
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_TRAVEL_BELT);
 	@SideOnly(Side.CLIENT)
 	private static ModelBiped model;
-	
+
 	final float speed;
 	final float jump;
 	final float fallBuffer;
@@ -102,7 +103,7 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender {
 	ResourceLocation getRenderTexture() {
 		return texture;
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type) {
@@ -115,8 +116,8 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender {
 			float s = (armor ? 1.3F : 1.05F) / 16F;
 			GL11.glScalef(s, s, s);
 			if(model == null)
-				 model = new ModelBiped();
-			
+				model = new ModelBiped();
+
 			model.bipedBody.render(1F);
 		}
 	}

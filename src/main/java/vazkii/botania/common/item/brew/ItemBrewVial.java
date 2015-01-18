@@ -11,9 +11,9 @@
  */
 package vazkii.botania.common.item.brew;
 
+import net.minecraft.item.ItemStack;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
-import net.minecraft.item.ItemStack;
 
 public class ItemBrewVial extends ItemBrewBase {
 
