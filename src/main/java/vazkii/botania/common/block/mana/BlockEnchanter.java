@@ -15,6 +15,8 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -28,15 +30,17 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.BlockModContainer;
+import vazkii.botania.common.block.tile.TileBrewery;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockEnchanter extends BlockModContainer implements IWandable, ILexiconable {
+public class BlockEnchanter extends BlockModContainer implements IWandable, ILexiconable, IWandHUD {
 
 	Random random;
 	public static IIcon overlay;
@@ -143,4 +147,9 @@ public class BlockEnchanter extends BlockModContainer implements IWandable, ILex
 		return LexiconData.manaEnchanting;
 	}
 
+	@Override
+	public void renderHUD(Minecraft mc, ScaledResolution res, World world, int x, int y, int z) {
+		((TileEnchanter) world.getTileEntity(x, y, z)).renderHUD(mc, res);
+	}
+	
 }

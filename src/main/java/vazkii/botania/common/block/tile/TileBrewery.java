@@ -14,6 +14,8 @@ package vazkii.botania.common.block.tile;
 import java.awt.Color;
 import java.util.List;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -25,6 +27,8 @@ import vazkii.botania.api.brew.IBrewContainer;
 import vazkii.botania.api.brew.IBrewItem;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.recipe.RecipeBrew;
+import vazkii.botania.api.recipe.RecipeRuneAltar;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibBlockNames;
 
@@ -241,6 +245,19 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 	@Override
 	public boolean canRecieveManaFromBursts() {
 		return !isFull();
+	}
+	
+	public void renderHUD(Minecraft mc, ScaledResolution res) {
+		int manaToGet = getManaCost();
+		if(manaToGet > 0) {
+			int x = res.getScaledWidth() / 2 + 20;
+			int y = res.getScaledHeight() / 2 - 8;
+
+			if(recipe == null)
+				return;
+
+			RenderHelper.renderProgressPie(x, y, (float) mana / (float) manaToGet, recipe.getOutput(getStackInSlot(0)));		
+		}
 	}
 
 }
