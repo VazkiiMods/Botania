@@ -1,3 +1,14 @@
+r1.3 152
+*Added the Black Lotus, a dungeon loot consumable that can be tossed onto a Mana Pool for a boost of mana.
+*Added the Mana Prism, a new block that can change the properties of a Mana Burst on the fly.
+*Added Trodden Dirt, a new block that looks great for <a href="https://en.wikipedia.org/wiki/Desire_path">desire paths</a>. It also gives a slight speed boost. The texture and idea come from <a href="http://redd.it/2sqwu6">/u/LupusX's post on reddit</a>.
+*Red String Spoofers will now also connect to mushrooms.
+*Shifted the Assembly Halo HUD down 10px so it fits on smaller resolution/render scales.
+*The Brewery and Enchanter now have the same progress pie as the Runic Altar.
+*The Magnet Ring will no longer pull items that can contain mana, items that are on a terrasteel plate or AE2 crystal seeds.
+*(Technical) IManaTrigger blocks with IManaCollisionGhost tile entities will still have their effect triggered. Furthermore IManaTrigger triggers for fake bursts too so that should be checked against.
+*[API] Added IManaDissolvable and IDyablePool.
+*[API] Increased version number to 29.
 r1.3 151
 *Fixed the Terra Shatterer.
 r1.3 150
