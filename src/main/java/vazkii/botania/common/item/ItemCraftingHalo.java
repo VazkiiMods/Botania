@@ -496,7 +496,7 @@ public class ItemCraftingHalo extends ItemMod {
 			String name = craftingTable.getDisplayName();
 			int l = mc.fontRenderer.getStringWidth(name);
 			int x = resolution.getScaledWidth() / 2 - l / 2;
-			int y = resolution.getScaledHeight() / 2 - 75;
+			int y = resolution.getScaledHeight() / 2 - 65;
 
 			Gui.drawRect(x - 6, y - 6, x + l + 6, y + 37, 0x22000000);
 			Gui.drawRect(x - 4, y - 4, x + l + 4, y + 35, 0x22000000);
