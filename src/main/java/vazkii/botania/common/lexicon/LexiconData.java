@@ -193,6 +193,7 @@ public final class LexiconData {
 	public static LexiconEntry headCreating;
 	public static LexiconEntry azulejo;
 	public static LexiconEntry starfield;
+	public static LexiconEntry dirtPath;
 	public static LexiconEntry tcIntegration;
 	public static LexiconEntry bcIntegration;
 
@@ -701,6 +702,9 @@ public final class LexiconData {
 
 		starfield = new ALexiconEntry(LibLexicon.MISC_STARFIELD, categoryMisc);
 		starfield.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeStarfield));
+
+		dirtPath = new BLexiconEntry(LibLexicon.MISC_DIRT_PATH, categoryMisc);
+		dirtPath.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeDirtPath));
 		
 		if(Botania.bcTriggersLoaded) {
 			bcIntegration = new BLexiconEntry(LibLexicon.MISC_BC_INTEGRATION, categoryMisc);

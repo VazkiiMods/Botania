@@ -215,7 +215,8 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeCraftingHalo;
 	public static List<IRecipe> recipesLensFlash;
 	public static IRecipe recipePrism;
-
+	public static IRecipe recipeDirtPath;
+	
 	public static void init() {
 		// Lexicon Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lexicon), "treeSapling", Items.book);
@@ -1398,6 +1399,10 @@ public final class ModCraftingRecipes {
 				'P', LibOreDict.PRISMARINE_SHARD,
 				'S', new ItemStack(ModBlocks.platform, 1, 1));
 		recipePrism = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Trodden Dirt Recipe
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.dirtPath, 4), new ItemStack(Blocks.dirt, 1, 1), new ItemStack(Blocks.dirt, 1, 1), new ItemStack(Blocks.dirt, 1, 1), new ItemStack(Blocks.gravel));
+		recipeDirtPath = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
