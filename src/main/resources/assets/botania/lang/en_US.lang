@@ -186,19 +186,12 @@ flowerTextures.alt=Alternate Flower Textures
 matrixMode.enabled=Enable Matrix Mode
 references.enabled=Enable Tooltip References
 shaders.enabled=Enable Shader Usage
+baubleRender.enabled=Enable Bauble Rendering
 spreader.posShift=Spreader Pos Shift
 versionChecking.enabled=Enable Version Checking
 wandBeam.static=Enable Static Wand Beam
 worldgen.flower.density=Worldgen Flower Density
 worldgen.flower.quantity=Worldgen Flower Quantity
-shedRate.chicken=Shed Rate: Chicken
-shedRate.squid=Shed Rate: Squid
-shedRate.villager=Shed Rate: Villager
-shedRate.spider=Shed Rate: Spider
-shedRate.blaze=Shed Rate: Blaze
-shedRate.ghast=Shed Rate: Ghast
-shedRate.skeleton=Shed Rate: Skeleton
-shedRate.slime=Shed Rate: Slime
 
 # VERSION CHECKING
 botania.versioning.flavour0=NANI SORE!? BOTANIA IS OUTDATED!?

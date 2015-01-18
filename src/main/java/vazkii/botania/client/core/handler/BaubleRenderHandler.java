@@ -28,6 +28,7 @@ import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.item.IBaubleRender.RenderType;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
@@ -37,6 +38,9 @@ public final class BaubleRenderHandler {
 
 	@SubscribeEvent
 	public void onPlayerRender(RenderPlayerEvent.Specials.Post event) {
+		if(!ConfigHandler.renderBaubles)
+			return;
+		
 		EntityPlayer player = event.entityPlayer;
 		InventoryBaubles inv = PlayerHandler.getPlayerBaubles(player);
 
