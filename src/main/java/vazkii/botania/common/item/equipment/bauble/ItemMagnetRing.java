@@ -11,6 +11,7 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -22,8 +23,10 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
+import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
@@ -43,6 +46,18 @@ public class ItemMagnetRing extends ItemBauble {
 
 	private static final String TAG_COOLDOWN = "cooldown";
 
+	private static final List<String> BLACKLIST = Arrays.asList(new String[] {
+			"appliedenergistics2:ItemCrystalSeed.Certus",
+			"appliedenergistics2:ItemCrystalSeed.Certus2",
+			"appliedenergistics2:ItemCrystalSeed.Certus3",
+			"appliedenergistics2:ItemCrystalSeed.Nether",
+			"appliedenergistics2:ItemCrystalSeed.Nether2",
+			"appliedenergistics2:ItemCrystalSeed.Nether3",
+			"appliedenergistics2:ItemCrystalSeed.Fluix",
+			"appliedenergistics2:ItemCrystalSeed.Fluix2",
+			"appliedenergistics2:ItemCrystalSeed.Fluix3",
+	});
+	
 	public ItemMagnetRing() {
 		super(LibItemNames.MAGNET_RING);
 		MinecraftForge.EVENT_BUS.register(this);
@@ -88,17 +103,35 @@ public class ItemMagnetRing extends ItemBauble {
 				double z = player.posZ;
 
 				List<EntityItem> items = player.worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range, y + range, z + range));
-				for(EntityItem item : items) {
-					MathHelper.setEntityMotionFromVector(item, new Vector3(x, y, z), 0.45F);
-					if(player.worldObj.isRemote) {
-						boolean red = player.worldObj.rand.nextBoolean();
-						Botania.proxy.sparkleFX(player.worldObj, item.posX, item.posY, item.posZ, red ? 1F : 0F, 0F, red ? 0F : 1F, 1F, 3);
+				for(EntityItem item : items)
+					if(canPullItem(item)) {
+						MathHelper.setEntityMotionFromVector(item, new Vector3(x, y, z), 0.45F);
+						if(player.worldObj.isRemote) {
+							boolean red = player.worldObj.rand.nextBoolean();
+							Botania.proxy.sparkleFX(player.worldObj, item.posX, item.posY, item.posZ, red ? 1F : 0F, 0F, red ? 0F : 1F, 1F, 3);
+						}
 					}
-				}
 			}
 		} else setCooldown(stack, cooldown - 1);
 	}
 
+	private boolean canPullItem(EntityItem item) {
+		if(item.isDead)
+			return false;
+		
+		ItemStack stack = item.getEntityItem();
+		if(stack == null || stack.getItem() instanceof IManaItem || BLACKLIST.contains(itemRegistry.getNameForObject(stack.getItem())))
+			return false;
+		
+		int x = net.minecraft.util.MathHelper.floor_double(item.posX);
+		int y = net.minecraft.util.MathHelper.floor_double(item.posY);
+		int z = net.minecraft.util.MathHelper.floor_double(item.posZ);
+		if(item.worldObj.getBlock(x, y, z) == ModBlocks.terraPlate)
+			return false;
+		
+		return true;
+	}
+	
 	public static int getCooldown(ItemStack stack) {
 		return ItemNBTHelper.getInt(stack, TAG_COOLDOWN, 0);
 	}
