@@ -13,6 +13,7 @@ package vazkii.botania.common.block.tile.string;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
+import net.minecraft.block.BlockMushroom;
 
 public class TileRedStringRelay extends TileRedString {
 
@@ -22,7 +23,7 @@ public class TileRedStringRelay extends TileRedString {
 			return false;
 		
 		Block block = worldObj.getBlock(x, y, z);
-		return block instanceof BlockFlower;
+		return block instanceof BlockFlower || block instanceof BlockMushroom;
 	}
 
 }
