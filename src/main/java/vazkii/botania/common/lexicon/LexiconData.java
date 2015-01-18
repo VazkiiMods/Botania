@@ -11,6 +11,8 @@
  */
 package vazkii.botania.common.lexicon;
 
+import org.apache.logging.log4j.core.pattern.AbstractStyleNameConverter.Black;
+
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconCategory;
@@ -53,6 +55,7 @@ public final class LexiconData {
 	public static LexiconEntry pureDaisy;
 	public static LexiconEntry runicAltar;
 	public static LexiconEntry terrasteel;
+	public static LexiconEntry blackLotus;
 
 	public static LexiconEntry manaIntro;
 	public static LexiconEntry spreader;
@@ -244,6 +247,9 @@ public final class LexiconData {
 		terrasteel = new BLexiconEntry(LibLexicon.BASICS_TERRASTEEL, categoryBasics);
 		terrasteel.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeTerraPlate), new PageText("2"), new PageTerrasteel("3"));
 
+		blackLotus = new BLexiconEntry(LibLexicon.BASICS_BLACK_LOTUS, categoryBasics);
+		blackLotus.setLexiconPages(new PageText("0"));
+		
 		if(Botania.thaumcraftLoaded)
 			new BLexiconEntry("wrap", categoryBasics).setLexiconPages(new PageText("0")); // lel
 

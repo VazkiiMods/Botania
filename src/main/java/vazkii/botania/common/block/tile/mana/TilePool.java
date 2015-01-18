@@ -31,6 +31,8 @@ import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.item.IDyablePool;
+import vazkii.botania.api.item.IManaDissolvable;
 import vazkii.botania.api.mana.IKeyLocked;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaPool;
@@ -49,7 +51,7 @@ import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 
-public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAttachable {
+public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLocked, ISparkAttachable {
 
 	public static final int MAX_MANA = 1000000;
 	public static final int MAX_MANA_DILLUTED = 10000;
@@ -111,7 +113,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	}
 
 	public boolean collideEntityItem(EntityItem item) {
-		if(item.isDead || item.age > 100 && item.age < 130 || !catalystsRegistered)
+		if(item.isDead)
 			return false;
 
 		boolean didChange = false;
@@ -119,17 +121,15 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		if(stack == null)
 			return false;
 
-		if(stack.getItem() == ModItems.dye && !worldObj.isRemote) {
-			int meta = stack.getItemDamage();
-			if(meta != color) {
-				color = meta;
-				stack.stackSize--;
-				if(stack.stackSize == 0)
-					item.setDead();
-				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-			}
+		if(stack.getItem() instanceof IManaDissolvable) {
+			((IManaDissolvable) stack.getItem()).onDissolveTick(this, stack, item);
+			if(stack.stackSize == 0)
+				item.setDead();
 		}
 
+		if((item.age > 100 && item.age < 130) || !catalystsRegistered)
+			return false;
+		
 		for(RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes) {
 			if(recipe.matches(stack) && (!recipe.isAlchemy() || alchemy) && (!recipe.isConjuration() || conjuration) && (getBlockMetadata() != 2 || recipe.getOutput().getItem() == Item.getItemFromBlock(getBlockType()))) {
 				int mana = recipe.getManaToConsume();
@@ -365,5 +365,15 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	@Override
 	public int getAvailableSpaceForMana() {
 		return Math.max(0, manaCap - getCurrentMana());
+	}
+
+	@Override
+	public int getColor() {
+		return color;
+	}
+
+	@Override
+	public void setColor(int color) {
+		this.color = color;
 	}
 }

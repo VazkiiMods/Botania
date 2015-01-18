@@ -71,6 +71,7 @@ botaniamisc.getALife=Get a Life
 botaniamisc.floatingPrefix=Floating %s
 botaniamisc.unsetRecipe=[No Recipe] Right click to set:
 botaniamisc.cantCraft=Not enough Materials!
+botaniamisc.lotusDesc=It emits strong magical vibes
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
@@ -799,6 +800,8 @@ item.botania:missileRod.name=Rod of the Unstable Reservoir
 item.botania:holyCloak.name=Cloak of Virtue
 item.botania:unholyCloak.name=Cloak of Sin
 item.botania:craftingHalo.name=Assembly Halo
+item.botania:blackLotus0.name=Black Lotus
+item.botania:blackLotus1.name=Void Lotus
 
 # BREW NAMES
 botania.brew.fallback=Fallback
@@ -931,6 +934,10 @@ botania.page.terrasteel0=&1Terrasteel&0 is a complex magical alloy, infused with
 botania.page.terrasteel1=Creating the plate
 botania.page.terrasteel2=After the plate is set up and ready to receive &4Mana&0, tossing a single &1Manasteel Ingot, Mana Diamond and Mana Pearl&0 on top of it will begin the infusion.<br>Picking up any of the items will halt the infusion causing severe &4Mana Loss&0. The infusion uses half a &1Mana Pool&0 total to create a single piece of &4Terrasteel&0, multiple &1Sparks&0 would make it go faster, too.
 botania.page.terrasteel3=The pattern for creating &1Terrasteel&0
+
+# -- BLACK LOTUS
+botania.entry.blackLotus=Black Lotus
+botania.page.blackLotus0=An elusive flower by the name of &1Black Lotus&0 is known to exist, however, it does not grow or reproduce. Where they can be found or come from is not known.<br>It is known, however, that it contains a strong amount of concentrated &4Mana&0, that can be released by putting it in contact with a &1Mana Pool&0 that already has some in it. Just tossing it would do. 
 
 # -- WRAP
 botania.entry.wrap=Wrap
