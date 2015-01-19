@@ -67,8 +67,6 @@ public final class ToolCommons {
 
 		Material mat = world.getBlock(x, y, z).getMaterial();
 		if(!world.isRemote && blk != null && !blk.isAir(world, x, y, z) && blk.getPlayerRelativeBlockHardness(player, world, x, y, z) > 0) {
-			new ArrayList();
-
 			if(!blk.canHarvestBlock(player, meta) || !isRightMaterial(mat, materialsListing))
 				return;
 
