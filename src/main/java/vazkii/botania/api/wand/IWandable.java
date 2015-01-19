@@ -16,7 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 /**
- * Any block that implements this can be used with the Wand for the Forest for some purpose.
+ * Any block that implements this can interact with the Wand of the Forest.
  */
 public interface IWandable {
 
