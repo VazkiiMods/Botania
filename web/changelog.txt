@@ -1,3 +1,5 @@
+r1.3 153
+*Fixed the Terra Shatterer being able to break bedrock and other unbreakable blocks.
 r1.3 152
 *Added the Black Lotus, a dungeon loot consumable that can be tossed onto a Mana Pool for a boost of mana.
 *Added the Mana Prism, a new block that can change the properties of a Mana Burst on the fly.
