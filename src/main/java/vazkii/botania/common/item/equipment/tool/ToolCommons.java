@@ -18,7 +18,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
@@ -67,21 +66,22 @@ public final class ToolCommons {
 			return;
 
 		Material mat = world.getBlock(x, y, z).getMaterial();
-		if(!world.isRemote && blk != null && !blk.isAir(world, x, y, z) && blk.getPlayerRelativeBlockHardness(player, world, x, y, z) != 0) {
-			new ArrayList();
-
+		if(!world.isRemote && blk != null && !blk.isAir(world, x, y, z) && blk.getPlayerRelativeBlockHardness(player, world, x, y, z) > 0) {
 			if(!blk.canHarvestBlock(player, meta) || !isRightMaterial(mat, materialsListing))
 				return;
 
-			if(!player.capabilities.isCreativeMode && blk != Blocks.bedrock) {
+			if(!player.capabilities.isCreativeMode) {
 				int localMeta = world.getBlockMetadata(x, y, z);
-				if (blk.removedByPlayer(world, player, x, y, z))
+				blk.onBlockHarvested(world, x, y, z, localMeta, player);
+
+				if(blk.removedByPlayer(world, player, x, y, z, true)) {
 					blk.onBlockDestroyedByPlayer(world, x, y, z, localMeta);
 
+					if(!dispose || !ItemElementiumPick.isDisposable(blk))
+						blk.harvestBlock(world, player, x, y, z, localMeta);
+				}
+
 				damageItem(stack, 1, player, 80);
-				if(!dispose || !ItemElementiumPick.isDisposable(blk))
-					blk.harvestBlock(world, player, x, y, z, localMeta);
-				blk.onBlockHarvested(world, x, y, z, localMeta, player);
 			} else world.setBlockToAir(x, y, z);
 
 			if(ConfigHandler.blockBreakParticles && ConfigHandler.blockBreakParticlesTool && !world.isRemote)

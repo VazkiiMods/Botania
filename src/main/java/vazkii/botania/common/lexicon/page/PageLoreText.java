@@ -23,7 +23,7 @@ import vazkii.botania.client.lib.LibResources;
 public class PageLoreText extends PageText {
 
 	private static final ResourceLocation paperOverlay = new ResourceLocation(LibResources.GUI_PAPER);
-	
+
 	public PageLoreText(String unlocalizedName) {
 		super(unlocalizedName);
 	}
@@ -39,5 +39,5 @@ public class PageLoreText extends PageText {
 		GL11.glDisable(GL11.GL_BLEND);
 		super.renderScreen(gui, mx, my);
 	}
-	
+
 }

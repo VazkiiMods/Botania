@@ -33,13 +33,13 @@ import vazkii.botania.api.item.IExtendedPlayerController;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.wiki.IWikiProvider;
 import vazkii.botania.api.wiki.WikiHooks;
+import vazkii.botania.client.core.handler.BaubleRenderHandler;
 import vazkii.botania.client.core.handler.BotaniaPlayerController;
 import vazkii.botania.client.core.handler.BoundTileRenderer;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.DebugHandler;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.handler.LightningHandler;
-import vazkii.botania.client.core.handler.BaubleRenderHandler;
 import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.fx.FXSparkle;
@@ -71,6 +71,7 @@ import vazkii.botania.client.render.tile.RenderTileBrewery;
 import vazkii.botania.client.render.tile.RenderTileEnchanter;
 import vazkii.botania.client.render.tile.RenderTileFloatingFlower;
 import vazkii.botania.client.render.tile.RenderTilePool;
+import vazkii.botania.client.render.tile.RenderTilePrism;
 import vazkii.botania.client.render.tile.RenderTilePylon;
 import vazkii.botania.client.render.tile.RenderTileRedString;
 import vazkii.botania.client.render.tile.RenderTileRuneAltar;
@@ -94,6 +95,7 @@ import vazkii.botania.common.block.tile.TileStarfield;
 import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.block.tile.TileTinyPotato;
 import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.block.tile.mana.TilePrism;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -117,7 +119,7 @@ import cpw.mods.fml.relauncher.ReflectionHelper;
 public class ClientProxy extends CommonProxy {
 
 	public static boolean singAnnoyingChristmasSongsTillVazkiisHeadExplodesFromAllTheDamnJingle = false;
-	
+
 	@Override
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
@@ -136,13 +138,13 @@ public class ClientProxy extends CommonProxy {
 
 
 		// Jingle bells jingle bells
-	    Calendar calendar = Calendar.getInstance();
-	    if((calendar.get(2) == 11 && calendar.get(5) >= 24 && calendar.get(5) <= 26) || (calendar.get(2) == 0 && calendar.get(5) <= 6))
-	        singAnnoyingChristmasSongsTillVazkiisHeadExplodesFromAllTheDamnJingle = true;
-		
+		Calendar calendar = Calendar.getInstance();
+		if(calendar.get(2) == 11 && calendar.get(5) >= 24 && calendar.get(5) <= 26 || calendar.get(2) == 0 && calendar.get(5) <= 6)
+			singAnnoyingChristmasSongsTillVazkiisHeadExplodesFromAllTheDamnJingle = true;
+
 		initRenderers();
 	}
-	
+
 	private void initRenderers() {
 		LibRenderIDs.idAltar = RenderingRegistry.getNextAvailableRenderId();
 		LibRenderIDs.idSpecialFlower = RenderingRegistry.getNextAvailableRenderId();
@@ -166,7 +168,7 @@ public class ClientProxy extends CommonProxy {
 
 		RenderTransparentItem renderTransparentItem = new RenderTransparentItem();
 		RenderFloatingFlowerItem renderFloatingFlower = new RenderFloatingFlowerItem();
-		
+
 		MinecraftForgeClient.registerItemRenderer(ModItems.lens, new RenderLens());
 		if(ConfigHandler.lexicon3dModel)
 			MinecraftForgeClient.registerItemRenderer(ModItems.lexicon, new RenderLexicon());
@@ -191,7 +193,8 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileBrewery.class, new RenderTileBrewery());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileTerraPlate.class, new RenderTileTerraPlate());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileRedString.class, new RenderTileRedString());
-		
+		ClientRegistry.bindTileEntitySpecialRenderer(TilePrism.class, new RenderTilePrism());
+
 		if(Loader.instance().getMCVersionString().equals("Minecraft 1.7.10"))
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySkull.class, new RenderTileSkullOverride());
 
@@ -202,7 +205,7 @@ public class ClientProxy extends CommonProxy {
 
 		ShaderHelper.initShaders();
 	}
-	
+
 	@Override
 	@Optional.Method(modid = "NotEnoughItems")
 	public void registerNEIStuff() {

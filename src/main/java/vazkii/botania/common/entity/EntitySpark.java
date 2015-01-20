@@ -186,7 +186,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 			int manaTotal = Math.min(TRANSFER_RATE * transfers.size(), tile.getCurrentMana());
 			int manaForEach = manaTotal / transfers.size();
 			int manaSpent = 0;
-			
+
 			if(manaForEach > transfers.size()) {
 				for(ISparkEntity spark : transfers) {
 					if(spark.getAttachedTile() == null || spark.getAttachedTile().isFull() || spark.areIncomingTransfersDone()) {

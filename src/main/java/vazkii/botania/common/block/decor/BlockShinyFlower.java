@@ -12,7 +12,6 @@
 package vazkii.botania.common.block.decor;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -35,13 +34,13 @@ public class BlockShinyFlower extends BlockModFlower implements IInfusionStabili
 		super(LibBlockNames.SHINY_FLOWER);
 		setLightLevel(1F);
 	}
-	
+
 	@Override
 	@Optional.Method(modid = "easycoloredlights")
-    public int getLightValue(IBlockAccess world, int x, int y, int z) {
+	public int getLightValue(IBlockAccess world, int x, int y, int z) {
 		return ColoredLightHelper.getPackedColor(world.getBlockMetadata(x, y, z), originalLight);
-    }
-	
+	}
+
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		// NO-OP

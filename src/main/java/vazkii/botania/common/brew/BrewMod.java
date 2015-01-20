@@ -21,7 +21,7 @@ public class BrewMod extends Brew {
 		super(key, key, color, cost, effects);
 		BotaniaAPI.registerBrew(this);
 	}
-	
+
 	@Override
 	public String getUnlocalizedName() {
 		return "botania.brew." + super.getUnlocalizedName();

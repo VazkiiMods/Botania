@@ -11,6 +11,8 @@
  */
 package vazkii.botania.common.block.tile;
 
+import java.util.ArrayList;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.EntityLivingBase;
@@ -28,8 +30,6 @@ import vazkii.botania.api.subtile.ISubTileContainer;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.common.block.tile.string.TileRedStringRelay;
-
-import java.util.ArrayList;
 
 public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTileContainer {
 
@@ -84,11 +84,11 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 					xCoord = currX;
 					yCoord = currY;
 					zCoord = currZ;
-					
+
 					return;
 				}
 			}
-			
+
 			subTile.onUpdate();
 		}
 	}

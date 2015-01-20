@@ -15,7 +15,6 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.IGrowable;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 
@@ -24,7 +23,7 @@ public class TileRedStringFertilizer extends TileRedString {
 	public boolean func_149851_a(World p_149851_1_, boolean p_149851_5_) {
 		ChunkCoordinates binding = getBinding();
 		Block block = getBlockAtBinding();
-		
+
 		return block instanceof IGrowable ? ((IGrowable) block).func_149851_a(p_149851_1_, binding.posX, binding.posY, binding.posZ, p_149851_5_) : false;
 	}
 
@@ -40,7 +39,7 @@ public class TileRedStringFertilizer extends TileRedString {
 		if(block instanceof IGrowable)
 			((IGrowable) block).func_149853_b(p_149853_1_, p_149853_2_, binding.posX, binding.posY, binding.posZ);
 	}
-	
+
 	@Override
 	public boolean acceptBlock(int x, int y, int z) {
 		return worldObj.getBlock(x, y, z) instanceof IGrowable;

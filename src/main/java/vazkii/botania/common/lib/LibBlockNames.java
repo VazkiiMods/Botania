@@ -11,7 +11,6 @@
  */
 package vazkii.botania.common.lib;
 
-
 public final class LibBlockNames {
 
 	public static final String FLOWER = "flower";
@@ -68,6 +67,8 @@ public final class LibBlockNames {
 	public static final String RED_STRING_RELAY = "redStringRelay";
 	public static final String FLOATING_SPECIAL_FLOWER = "floatingSpecialFlower";
 	public static final String MANA_FLAME = "manaFlame";
+	public static final String PRISM = "prism";
+	public static final String DIRT_PATH = "dirtPath";
 
 	public static final String SUBTILE_PUREDAISY = "puredaisy";
 	public static final String SUBTILE_MANASTAR = "manastar";

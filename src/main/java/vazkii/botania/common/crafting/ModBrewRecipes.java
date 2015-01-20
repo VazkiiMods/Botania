@@ -21,7 +21,7 @@ import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.item.ModItems;
 
 public class ModBrewRecipes {
-	
+
 	public static RecipeBrew speedBrew;
 	public static RecipeBrew strengthBrew;
 	public static RecipeBrew hasteBrew;
@@ -35,7 +35,7 @@ public class ModBrewRecipes {
 	public static RecipeBrew invisibilityBrew;
 	public static RecipeBrew nightVisionBrew;
 	public static RecipeBrew absorptionBrew;
-	
+
 	public static RecipeBrew warpWardBrew;
 
 	public static void init() {
@@ -53,7 +53,7 @@ public class ModBrewRecipes {
 		nightVisionBrew = BotaniaAPI.registerBrewRecipe(ModBrews.nightVision, new ItemStack(Items.nether_wart), new ItemStack(Items.spider_eye), new ItemStack(Items.golden_carrot));
 		absorptionBrew = BotaniaAPI.registerBrewRecipe(ModBrews.absorption, new ItemStack(Items.nether_wart), new ItemStack(Items.golden_apple), new ItemStack(Items.potato));
 	}
-	
+
 	public static void initTC() {
 		Item resource = (Item) Item.itemRegistry.getObject("Thaumcraft:ItemResource");
 		Item bathSalts = (Item) Item.itemRegistry.getObject("Thaumcraft:ItemBathSalts");

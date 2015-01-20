@@ -48,7 +48,7 @@ public class BlockFloatingFlower extends BlockModContainer implements ILexiconab
 	public BlockFloatingFlower() {
 		this(LibBlockNames.MINI_ISLAND);
 	}
-	
+
 	public BlockFloatingFlower(String name) {
 		super(Material.ground);
 		setBlockName(name);
@@ -59,12 +59,12 @@ public class BlockFloatingFlower extends BlockModContainer implements ILexiconab
 		float f = 0.1F;
 		setBlockBounds(f, f, f, 1F - f, 1F - f, 1F - f);
 	}
-	
+
 	@Override
 	@Optional.Method(modid = "easycoloredlights")
-    public int getLightValue(IBlockAccess world, int x, int y, int z) {
+	public int getLightValue(IBlockAccess world, int x, int y, int z) {
 		return ColoredLightHelper.getPackedColor(world.getBlockMetadata(x, y, z), originalLight);
-    }
+	}
 
 	@Override
 	protected boolean shouldRegisterInNameSet() {
@@ -76,9 +76,9 @@ public class BlockFloatingFlower extends BlockModContainer implements ILexiconab
 		register(par1Str);
 		return super.setBlockName(par1Str);
 	}
-	
+
 	protected void register(String name) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, name);	
+		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, name);
 	}
 
 	@Override

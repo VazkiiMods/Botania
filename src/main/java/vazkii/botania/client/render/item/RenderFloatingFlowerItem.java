@@ -46,7 +46,7 @@ public class RenderFloatingFlowerItem implements IItemRenderer {
 		GL11.glRotatef(-5F, 1F, 0F, 0F);
 		Item item = stack.getItem();
 		TileFloatingFlower.forcedStack = item instanceof ItemBlockFloatingSpecialFlower ? ItemBlockSpecialFlower.ofType(ItemBlockSpecialFlower.getType(stack)) : new ItemStack(ModBlocks.flower, 1, stack.getItemDamage());
-		
+
 		TileEntityRendererDispatcher.instance.renderTileEntityAt(new TileFloatingFlower(), 0.0D, 0.0D, 0.0D, 0.0F);
 		GL11.glDisable(GL11.GL_BLEND);
 		GL11.glPopMatrix();

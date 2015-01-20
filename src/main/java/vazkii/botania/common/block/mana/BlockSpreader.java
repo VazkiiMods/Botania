@@ -207,7 +207,6 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 		super.breakBlock(par1World, par2, par3, par4, par5, par6);
 	}
 
-
 	@Override
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
 		((TileSpreader) world.getTileEntity(x, y, z)).onWanded(player, stack);

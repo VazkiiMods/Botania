@@ -13,7 +13,6 @@ package vazkii.botania.common.block.decor;
 
 import java.util.Random;
 
-import cpw.mods.fml.common.Optional;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.item.Item;
@@ -26,6 +25,7 @@ import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.integration.coloredlights.ColoredLightHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
+import cpw.mods.fml.common.Optional;
 
 public class BlockBuriedPetals extends BlockModFlower {
 
@@ -34,12 +34,12 @@ public class BlockBuriedPetals extends BlockModFlower {
 		setBlockBounds(0F, 0F, 0F, 1F, 0.1F, 1F);
 		setLightLevel(0.25F);
 	}
-	
+
 	@Override
 	@Optional.Method(modid = "easycoloredlights")
-    public int getLightValue(IBlockAccess world, int x, int y, int z) {
+	public int getLightValue(IBlockAccess world, int x, int y, int z) {
 		return ColoredLightHelper.getPackedColor(world.getBlockMetadata(x, y, z), originalLight);
-    }
+	}
 
 	@Override
 	public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random) {

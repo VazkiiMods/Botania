@@ -13,17 +13,9 @@ package vazkii.botania.common.entity;
 
 import java.util.List;
 
-import cpw.mods.fml.relauncher.ReflectionHelper;
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.mana.IManaCollisionGhost;
-import vazkii.botania.common.Botania;
-import vazkii.botania.common.core.helper.Vector3;
-import vazkii.botania.common.lib.LibObfuscation;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLeaves;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
@@ -32,16 +24,20 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.lib.LibObfuscation;
+import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class EntityMagicMissile extends EntityThrowable {
 
 	EntityLivingBase target;
-	
+
 	public EntityMagicMissile(World world) {
 		super(world);
 		setSize(0F, 0F);
 	}
-	
+
 	public EntityMagicMissile(EntityPlayer player) {
 		this(player.worldObj);
 		ReflectionHelper.setPrivateValue(EntityThrowable.class, this, player, LibObfuscation.THROWER);
@@ -50,19 +46,19 @@ public class EntityMagicMissile extends EntityThrowable {
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		
+
 		if(!worldObj.isRemote && !getTarget()) {
 			setDead();
 			return;
 		}
-		
+
 		Vector3 thisVec = Vector3.fromEntityCenter(this);
 		Vector3 oldPos = new Vector3(lastTickPosX, lastTickPosY, lastTickPosZ);
 		Vector3 diff = thisVec.copy().sub(oldPos);
 		Vector3 step = diff.copy().normalize().multiply(0.05);
 		int steps = (int) (diff.mag() / step.mag());
 		Vector3 particlePos = oldPos.copy();
-		
+
 		for(int i = 0; i < steps; i++) {
 			Botania.proxy.sparkleFX(worldObj, particlePos.x, particlePos.y, particlePos.z, 1F, 0.4F, 1F, 0.8F, 2);
 			if(worldObj.rand.nextInt(steps) <= 1)
@@ -70,7 +66,7 @@ public class EntityMagicMissile extends EntityThrowable {
 
 			particlePos.add(step);
 		}
-		
+
 		if(!worldObj.isRemote) {
 			Vector3 targetVec = Vector3.fromEntityCenter(target);
 			Vector3 motionVec = targetVec.copy().sub(thisVec).normalize().multiply(0.6);
@@ -79,7 +75,7 @@ public class EntityMagicMissile extends EntityThrowable {
 			if(ticksExisted < 10)
 				motionY = Math.abs(motionY);
 			motionZ = motionVec.z;
-			
+
 			List<EntityLivingBase> targetList = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(posX - 0.5, posY - 0.5, posZ - 0.5, posX + 0.5, posY + 0.5, posZ + 0.5));
 			if(targetList.contains(target) && target != null) {
 				EntityLivingBase thrower = getThrower();
@@ -89,12 +85,12 @@ public class EntityMagicMissile extends EntityThrowable {
 			}
 		}
 	}
-	
+
 	public boolean getTarget() {
 		if(target != null && target.getHealth() > 0 && !target.isDead && worldObj.loadedEntityList.contains(target))
 			return true;
 		target = null;
-		
+
 		double range = 12;
 		List<IMob> entities = worldObj.getEntitiesWithinAABB(IMob.class, AxisAlignedBB.getBoundingBox(posX - range, posY - range, posZ - range, posX + range, posY + range, posZ + range));
 		while(entities.size() > 0) {
@@ -103,14 +99,14 @@ public class EntityMagicMissile extends EntityThrowable {
 				entities.remove(mob);
 				continue;
 			}
-			
+
 			target = (EntityLivingBase) mob;
 			break;
 		}
-		
+
 		return target != null;
 	}
-	
+
 	@Override
 	protected void onImpact(MovingObjectPosition pos) {
 		Block block = worldObj.getBlock(pos.blockX, pos.blockY, pos.blockZ);

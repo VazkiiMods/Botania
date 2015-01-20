@@ -187,6 +187,7 @@ public final class ModItems {
 	public static Item holyCloak;
 	public static Item unholyCloak;
 	public static Item craftingHalo;
+	public static Item blackLotus;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -285,7 +286,8 @@ public final class ModItems {
 		holyCloak = new ItemHolyCloak();
 		unholyCloak = new ItemUnholyCloak();
 		craftingHalo = new ItemCraftingHalo();
-		
+		blackLotus = new ItemBlackLotus();
+
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));
@@ -307,7 +309,7 @@ public final class ModItems {
 		OreDictionary.registerOre(LibOreDict.PRISMARINE_SHARD, new ItemStack(manaResource, 1, 10));
 		OreDictionary.registerOre(LibOreDict.PLACEHOLDER, new ItemStack(manaResource, 1, 11));
 		OreDictionary.registerOre(LibOreDict.RED_STRING, new ItemStack(manaResource, 1, 12));
-		
+
 		OreDictionary.registerOre(LibOreDict.VIAL, new ItemStack(vial, 1, 0));
 		OreDictionary.registerOre(LibOreDict.FLASK, new ItemStack(vial, 1, 1));
 	}

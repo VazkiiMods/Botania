@@ -42,7 +42,7 @@ public final class LibResources {
 	public static final String GUI_POTIONS = PREFIX_GUI + "potions.png";
 	public static final String GUI_NEI_BLANK = PREFIX_GUI + "neiBlank.png";
 	public static final String GUI_NEI_BREWERY = PREFIX_GUI + "neiBrewery.png";
-	
+
 	public static final String ENTRY_FLOWERS = PREFIX_ENTRIES + "flowers.png";
 	public static final String ENTRY_APOTHECARY = PREFIX_ENTRIES + "apothecary.png";
 	public static final String ENTRY_PURE_DAISY = PREFIX_ENTRIES + "pureDaisy.png";
@@ -100,7 +100,7 @@ public final class LibResources {
 	public static final String MODEL_KNOCKBACK_BELT = PREFIX_MODEL + "knockbackBelt.png";
 	public static final String MODEL_HOLY_CLOAK = PREFIX_MODEL + "holyCloak.png";
 	public static final String MODEL_UNHOLY_CLOAK = PREFIX_MODEL + "unholyCloak.png";
-	
+
 	public static final String MODEL_CAPE = "/assets/botania/textures/model/cape.png";
 
 	public static final String MISC_PARTICLES = PREFIX_MISC + "particles.png";

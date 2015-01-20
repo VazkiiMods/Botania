@@ -110,7 +110,8 @@ public final class LibItemNames {
 	public static final String HOLY_CLOAK = "holyCloak";
 	public static final String UNHOLY_CLOAK = "unholyCloak";
 	public static final String CRAFTING_HALO = "craftingHalo";
-	
+	public static final String BLACK_LOTUS = "blackLotus";
+
 	public static final String[] LENS_NAMES = new String[] {
 		"lensNormal",
 		"lensSpeed",

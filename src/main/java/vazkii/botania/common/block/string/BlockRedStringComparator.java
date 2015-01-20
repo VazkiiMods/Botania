@@ -26,12 +26,12 @@ public class BlockRedStringComparator extends BlockRedString {
 	public boolean hasComparatorInputOverride() {
 		return true;
 	}
-	
+
 	@Override
 	public int getComparatorInputOverride(World world, int x, int y, int z, int side) {
 		return ((TileRedStringComparator) world.getTileEntity(x, y, z)).getComparatorValue();
 	}
-	
+
 	@Override
 	public TileRedString createNewTileEntity(World world, int meta) {
 		return new TileRedStringComparator();

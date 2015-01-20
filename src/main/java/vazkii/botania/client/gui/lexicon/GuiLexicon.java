@@ -53,7 +53,7 @@ public class GuiLexicon extends GuiScreen {
 	public float lastTime = 0F;
 	public float partialTicks = 0F;
 	public float timeDelta = 0F;
-	
+
 	List<LexiconCategory> allCategories;
 
 	String title;
@@ -64,10 +64,10 @@ public class GuiLexicon extends GuiScreen {
 	@Override
 	public void initGui() {
 		super.initGui();
-		
+
 		allCategories = new ArrayList(BotaniaAPI.getAllCategories());
 		Collections.sort(allCategories);
-		
+
 		lastTime = ClientTickHandler.ticksInGame;
 
 		title = Minecraft.getMinecraft().thePlayer.getCurrentEquippedItem().getDisplayName();
@@ -110,10 +110,10 @@ public class GuiLexicon extends GuiScreen {
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		mc.renderEngine.bindTexture(texture);
 		drawTexturedModalRect(left, top, 0, 0, guiWidth, guiHeight);
-		
+
 		if(ClientProxy.singAnnoyingChristmasSongsTillVazkiisHeadExplodesFromAllTheDamnJingle)
 			drawTexturedModalRect(left + 3, top + 1, 0, 212, 138, 6);
-		
+
 		drawBookmark(left + guiWidth / 2, top - getTitleHeight(), getTitle(), true);
 		String subtitle = getSubtitle();
 		if(subtitle != null) {
@@ -128,7 +128,7 @@ public class GuiLexicon extends GuiScreen {
 			populateBookmarks();
 			bookmarksNeedPopulation = false;
 		}
-		
+
 		if(mc.thePlayer.getCommandSenderName().equals("haighyorkie")) {
 			GL11.glColor4f(1F, 1F, 1F, 1F);
 			mc.renderEngine.bindTexture(texture);
@@ -140,16 +140,16 @@ public class GuiLexicon extends GuiScreen {
 				GL11.glEnable(GL11.GL_BLEND);
 				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 				GL11.glTranslatef(0F, 0F, 2F);
-				
+
 				int w = 256;
 				int h = 152;
 				int x = (int) ((ClientTickHandler.ticksInGame + par3) * 6) % (width + w) - w;
 				int y = (int) (top + guiHeight / 2 - h / 4 + Math.sin((ClientTickHandler.ticksInGame + par3) / 6.0) * 40);
-				
+
 				drawTexturedModalRect(x * 2, y * 2, 0, 0, w, h);
-				GL11.glDisable(GL11.GL_BLEND);				
+				GL11.glDisable(GL11.GL_BLEND);
 				GL11.glPopMatrix();
-				
+
 				RenderHelper.renderTooltip(par1, par2, Arrays.asList(EnumChatFormatting.GOLD + "#goldfishchris", EnumChatFormatting.RED + "INTENSIFY HIM"));
 			}
 		}

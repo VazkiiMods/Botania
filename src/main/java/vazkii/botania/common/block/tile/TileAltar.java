@@ -69,13 +69,13 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 				worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 				stack.func_150996_a(Items.bucket); // Set item
 			} else return false;
-		} 
+		}
 
 		if(hasLava()) {
 			item.setFire(100);
 			return true;
 		}
-		
+
 		boolean didChange = false;
 
 		if(stack.getItem() instanceof IFlowerComponent) {
@@ -162,7 +162,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 				Botania.proxy.sparkleFX(worldObj, xCoord + 0.5 + Math.random() * 0.4 - 0.2, yCoord + 1, zCoord + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
 			}
 		}
-		
+
 		if(hasLava()) {
 			isMossy = false;
 			worldObj.spawnParticle("smoke", xCoord + 0.5 + Math.random() * 0.4 - 0.2, yCoord + 1, zCoord + 0.5 + Math.random() * 0.4 - 0.2, 0, 0.05, 0);
@@ -229,7 +229,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 		hasWater = water;
 		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 	}
-	
+
 	public void setLava(boolean lava) {
 		hasLava = lava;
 		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
@@ -239,7 +239,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 	public boolean hasWater() {
 		return hasWater;
 	}
-	
+
 	public boolean hasLava() {
 		return hasLava;
 	}

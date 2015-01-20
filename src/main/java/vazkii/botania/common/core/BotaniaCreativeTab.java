@@ -64,6 +64,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.dye);
 		addItem(ModItems.fertilizer);
 		addItem(ModItems.grassSeeds);
+		addItem(ModItems.blackLotus);
 		addItem(ModItems.twigWand);
 		addItem(ModItems.manaResource);
 		addBlock(ModBlocks.storage);
@@ -112,7 +113,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.bloodPendant);
 		addBlock(ModBlocks.pylon);
 		addBlock(ModBlocks.pistonRelay);
-		
+
 		addBlock(ModBlocks.redStringContainer);
 		addBlock(ModBlocks.redStringDispenser);
 		addBlock(ModBlocks.redStringFertilizer);
@@ -127,6 +128,8 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.unstableBlock);
 		addBlock(ModBlocks.manaBeacon);
 		addItem(ModItems.signalFlare);
+
+		addBlock(ModBlocks.dirtPath);
 
 		addBlock(ModBlocks.dreamwood);
 		addBlock(ModBlocks.manaGlass);
@@ -263,6 +266,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.rfGenerator);
 		addBlock(ModBlocks.spreader);
 		addBlock(ModBlocks.turntable);
+		addBlock(ModBlocks.prism);
 		addItem(ModItems.spark);
 		addItem(ModItems.sparkUpgrade);
 		addItem(ModItems.manaGun);

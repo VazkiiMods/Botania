@@ -158,7 +158,7 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 			pool.recieveMana(mana);
 			TileEntity tile = (TileEntity) pool;
 			tile.getWorldObj().func_147453_f(tile.xCoord, tile.yCoord, tile.zCoord, tile.getWorldObj().getBlock(tile.xCoord, tile.yCoord, tile.zCoord));
-		}	
+		}
 	}*/
 
 	public void bindPool(ItemStack stack, TileEntity pool) {
@@ -262,7 +262,7 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 	@Override
 	public ChunkCoordinates getBinding(ItemStack stack) {
 		IManaPool pool = getManaPool(stack);
-		
+
 		return pool == null || pool instanceof DummyPool ? null : getPoolCoords(stack);
 	}
 

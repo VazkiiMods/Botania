@@ -71,6 +71,7 @@ botaniamisc.getALife=Get a Life
 botaniamisc.floatingPrefix=Floating %s
 botaniamisc.unsetRecipe=[No Recipe] Right click to set:
 botaniamisc.cantCraft=Not enough Materials!
+botaniamisc.lotusDesc=It emits strong magical vibes
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
@@ -185,19 +186,12 @@ flowerTextures.alt=Alternate Flower Textures
 matrixMode.enabled=Enable Matrix Mode
 references.enabled=Enable Tooltip References
 shaders.enabled=Enable Shader Usage
+baubleRender.enabled=Enable Bauble Rendering
 spreader.posShift=Spreader Pos Shift
 versionChecking.enabled=Enable Version Checking
 wandBeam.static=Enable Static Wand Beam
 worldgen.flower.density=Worldgen Flower Density
 worldgen.flower.quantity=Worldgen Flower Quantity
-shedRate.chicken=Shed Rate: Chicken
-shedRate.squid=Shed Rate: Squid
-shedRate.villager=Shed Rate: Villager
-shedRate.spider=Shed Rate: Spider
-shedRate.blaze=Shed Rate: Blaze
-shedRate.ghast=Shed Rate: Ghast
-shedRate.skeleton=Shed Rate: Skeleton
-shedRate.slime=Shed Rate: Slime
 
 # VERSION CHECKING
 botania.versioning.flavour0=NANI SORE!? BOTANIA IS OUTDATED!?
@@ -505,6 +499,8 @@ tile.botania:redStringFertilizer.name=Red Stringed Nutrifier
 tile.botania:redStringComparator.name=Red Stringed Comparator
 tile.botania:redStringRelay.name=Red Stringed Spoofer
 tile.botania:manaFlame.name=Mana Flash
+tile.botania:prism.name=Mana Prism
+tile.botania:dirtPath.name=Trodden Dirt
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
@@ -798,6 +794,8 @@ item.botania:missileRod.name=Rod of the Unstable Reservoir
 item.botania:holyCloak.name=Cloak of Virtue
 item.botania:unholyCloak.name=Cloak of Sin
 item.botania:craftingHalo.name=Assembly Halo
+item.botania:blackLotus0.name=Black Lotus
+item.botania:blackLotus1.name=Void Lotus
 
 # BREW NAMES
 botania.brew.fallback=Fallback
@@ -930,6 +928,10 @@ botania.page.terrasteel0=&1Terrasteel&0 is a complex magical alloy, infused with
 botania.page.terrasteel1=Creating the plate
 botania.page.terrasteel2=After the plate is set up and ready to receive &4Mana&0, tossing a single &1Manasteel Ingot, Mana Diamond and Mana Pearl&0 on top of it will begin the infusion.<br>Picking up any of the items will halt the infusion causing severe &4Mana Loss&0. The infusion uses half a &1Mana Pool&0 total to create a single piece of &4Terrasteel&0, multiple &1Sparks&0 would make it go faster, too.
 botania.page.terrasteel3=The pattern for creating &1Terrasteel&0
+
+# -- BLACK LOTUS
+botania.entry.blackLotus=Black Lotus
+botania.page.blackLotus0=An elusive flower by the name of &1Black Lotus&0 is known to exist, however, it does not grow or reproduce. Where they can be found or come from is not known.<br>It is known, however, that it contains a strong amount of concentrated &4Mana&0, that can be released by putting it in contact with a &1Mana Pool&0 that already has some in it. Just tossing it would do. 
 
 # -- WRAP
 botania.entry.wrap=Wrap
@@ -1072,6 +1074,12 @@ botania.page.dreamwoodSpreader3=ULTRA_SPREADER
 botania.entry.paintLens=Paintslinger Lens
 botania.page.paintLens0=The &4Elves&0 are one crafty bunch. This lens is somewhat unique in comparison to the other lenses. The &1Paintslinger Lens&0 needs to be dyed one of the 16 colors of the spectrum to function. When it hits a colorable block (&1Wool, Stained Clay or Glass&0...) it'll turn any blocks connected, of the same type and color, into the color of the &4Mana Burst&0 itself. It seems to work with &4Sheep&0 too.
 botania.page.paintLens1=A M'AIDER Stranded Girl
+
+# -- MANA PRISM
+botania.entry.prism=Mana Prism
+botania.page.prism0=The concept of &1Mana Lens&0 allows for the manipulation of the power convyed through &4Mana Bursts&0, the &1Mana Prism&0 works on that technology to allow a burst to have its lens effect switched on the fly.<br>Using a &1Spectral Platform&0 as a component, this block does not have a physical presence, entities and bursts can go through it as if it doesn't exist.
+botania.page.prism1=Right clicking it with any variety of &1Mana Lens&0 sets the lens in the prism. Whenever a &4Mana Burst&0 goes through the prism, its color and effect will be set to that of the lens in the prism. Case the lens is not dyed, the burst will turn white.<br>Using any of the four basic lenses also increases the time the burst can go before losing &4Mana&0, allowing it to go further.
+botania.page.prism2=Another pixel in the wall
 
 # - FUNCTIONAL FLOWERS
 # -- AN INTRODUCTION TO FUNCTION
@@ -1434,7 +1442,7 @@ botania.page.redString7=The &1Red Stringed Nutrifier&0 can be bound to any block
 botania.page.redString8=The &1Red Stringed Nutrifier&0.
 botania.page.redString9=The &1Red Stringed Comparator&0 can be bound to any block whose status can be read with a &1Container&0, such as &1Chests&0, &1Mana Pools&0, &1Runic Altars&0, etc. Placing a &1Comparator&0 pointing outwards of this block will send the signal equal to the signal a &1Comparator&0 would send on the bound block.
 botania.page.redString10=The &1Red Stringed Comparator&0.
-botania.page.redString11=Lastly, the &1Red Stringed Spoofer&0 is an interesting one. Any flower with an effect can be placed on it. The block will bind to any flowers. While there's a flower on top of the block, that flower will not do anything, but the bound block will take all of that flower's properties and work as if it was the flower itself.
+botania.page.redString11=Lastly, the &1Red Stringed Spoofer&0 is an interesting one. Any flower with an effect can be placed on it. The block will bind to any flowers or mushrooms. While there's a flower on top of the block, that flower will not do anything, but the bound block will take all of that flower's properties and work as if it was the flower itself.
 botania.page.redString12=The &1Red Stringed Spoofer&0.
 
 # - MYSTICAL INSTRUMENTS
@@ -1885,6 +1893,11 @@ botania.page.azulejo3=Cycling between the patterns
 botania.entry.starfield=Starfield Creator
 botania.page.starfield0=The &1Starfield Creator&0 does exactly as it says, by releasing elven energies into the air, if it's placed in the world, during night time it will create a starry sky that extends for a fair distance.
 botania.page.starfield1=Twinkle twinkle
+
+# -- TRODDEN DIRT
+botania.entry.dirtPath=Trodden Dirt
+botania.page.dirtPath0=&1Trodden Dirt&0 is a type of soil that works perfectly for the creation of natural looking artificial paths through landscape. Similarly to &1Farmland&0, it's slightly inset into the ground, walking on it also provides a small speed boost.
+botania.page.dirtPath1=Follow the yellow dirt road
 
 # -- THAUMCRAFT INTEGRATION
 botania.entry.tcIntegration=Thaumcraft Integration

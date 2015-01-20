@@ -36,7 +36,7 @@ public interface ISparkAttachable extends IManaReceiver {
 	 * Should NEVER return negative values. Make sure to check against that.
 	 */
 	public int getAvailableSpaceForMana();
-	
+
 	/**
 	 * Gets the Spark that is attached to this block. A common implementation is
 	 * to check for Spark entities above:

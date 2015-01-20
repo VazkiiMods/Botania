@@ -11,28 +11,16 @@
  */
 package vazkii.botania.common.item.rod;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockFlower;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.entity.EntityMagicMissile;
 import vazkii.botania.common.item.ItemMod;
-import vazkii.botania.common.item.rod.ItemTerraformRod.CoordsWithBlock;
 import vazkii.botania.common.lib.LibItemNames;
-import vazkii.botania.common.lib.LibMisc;
 
 public class ItemMissileRod extends ItemMod implements IManaUsingItem {
 

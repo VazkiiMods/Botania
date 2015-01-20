@@ -145,7 +145,7 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 	protected boolean canPlaceBlockOn(Block block) {
 		return super.canPlaceBlockOn(block) || block == ModBlocks.redStringRelay;
 	}
-	
+
 	@Override
 	public void onBlockHarvested(World par1World, int par2, int par3, int par4, int par5, EntityPlayer par6EntityPlayer) {
 		if(!par6EntityPlayer.capabilities.isCreativeMode) {

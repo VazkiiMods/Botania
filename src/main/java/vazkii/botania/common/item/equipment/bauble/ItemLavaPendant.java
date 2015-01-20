@@ -31,7 +31,7 @@ import baubles.api.BaubleType;
 public class ItemLavaPendant extends ItemBauble implements IBaubleRender {
 
 	IIcon gemIcon;
-	
+
 	public ItemLavaPendant() {
 		super(LibItemNames.LAVA_PENDANT);
 	}

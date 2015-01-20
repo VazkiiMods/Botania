@@ -53,7 +53,7 @@ public class SubTileExoflame extends SubTileFunctional {
 
 									mana -= 2;
 									did = true;
-									
+
 									if(mana == 0)
 										break fireFurnaces;
 								}

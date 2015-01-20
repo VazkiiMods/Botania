@@ -11,24 +11,15 @@
  */
 package vazkii.botania.client.core.handler;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.item.IBaubleRender.RenderType;
-import vazkii.botania.client.core.helper.ShaderHelper;
-import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -37,11 +28,14 @@ public final class BaubleRenderHandler {
 
 	@SubscribeEvent
 	public void onPlayerRender(RenderPlayerEvent.Specials.Post event) {
+		if(!ConfigHandler.renderBaubles)
+			return;
+
 		EntityPlayer player = event.entityPlayer;
 		InventoryBaubles inv = PlayerHandler.getPlayerBaubles(player);
 
 		dispatchRenders(inv, event, RenderType.BODY);
-		
+
 		float yaw = player.prevRotationYawHead + (player.rotationYawHead - player.prevRotationYawHead) * event.partialRenderTick;
 		float yawOffset = player.prevRenderYawOffset + (player.renderYawOffset - player.prevRenderYawOffset) * event.partialRenderTick;
 		float pitch = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * event.partialRenderTick;
@@ -65,5 +59,5 @@ public final class BaubleRenderHandler {
 			}
 		}
 	}
-	
+
 }

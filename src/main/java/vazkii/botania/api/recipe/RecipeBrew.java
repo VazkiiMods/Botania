@@ -28,7 +28,7 @@ public class RecipeBrew {
 
 	public RecipeBrew(Brew brew, Object... inputs) {
 		this.brew = brew;
-		
+
 		List<Object> inputsToSet = new ArrayList();
 		for(Object obj : inputs) {
 			if(obj instanceof String || obj instanceof ItemStack)
@@ -49,7 +49,7 @@ public class RecipeBrew {
 
 			if(stack.getItem() instanceof IBrewContainer)
 				continue;
-				
+
 			int stackIndex = -1, oredictIndex = -1;
 
 			for(int j = 0; j < inputsMissing.size(); j++) {
@@ -95,11 +95,11 @@ public class RecipeBrew {
 	public List<Object> getInputs() {
 		return new ArrayList(inputs);
 	}
-	
+
 	public Brew getBrew() {
 		return brew;
 	}
-	
+
 	public int getManaUsage() {
 		return brew.getManaCost();
 	}
@@ -108,7 +108,7 @@ public class RecipeBrew {
 		if(stack == null || !(stack.getItem() instanceof IBrewContainer))
 			return new ItemStack(Items.glass_bottle); // Fallback...
 		IBrewContainer container = (IBrewContainer) stack.getItem();
-		
+
 		return container.getItemForBrew(brew, stack);
 	}
 

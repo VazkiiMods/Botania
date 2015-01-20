@@ -70,7 +70,7 @@ public final class HUDHandler {
 		if(event.type == ElementType.ALL) {
 			profiler.startSection("botania-hud");
 			MovingObjectPosition pos = mc.objectMouseOver;
-			
+
 			if(pos != null) {
 				Block block = mc.theWorld.getBlock(pos.blockX, pos.blockY, pos.blockZ);
 				TileEntity tile = mc.theWorld.getTileEntity(pos.blockX, pos.blockY, pos.blockZ);
@@ -97,7 +97,7 @@ public final class HUDHandler {
 				ItemCraftingHalo.renderHUD(event.resolution, mc.thePlayer, equippedStack);
 				profiler.endSection();
 			}
-			
+
 			profiler.startSection("manaBar");
 			EntityPlayer player = mc.thePlayer;
 			int totalMana = 0;
@@ -142,6 +142,8 @@ public final class HUDHandler {
 			BossBarHandler.render(event.resolution);
 			profiler.endSection();
 			profiler.endSection();
+
+			GL11.glColor4f(1F, 1F, 1F, 1F);
 		}
 	}
 

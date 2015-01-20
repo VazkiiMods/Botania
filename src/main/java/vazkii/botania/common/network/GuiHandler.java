@@ -29,7 +29,7 @@ public class GuiHandler implements IGuiHandler {
 			return new ContainerCraftingHalo(player.inventory, world);
 		}
 		}
-		
+
 		return null;
 	}
 

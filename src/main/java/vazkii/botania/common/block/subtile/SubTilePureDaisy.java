@@ -47,7 +47,7 @@ public class SubTilePureDaisy extends SubTileEntity {
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		
+
 		positionAt++;
 		if(positionAt == POSITIONS.length)
 			positionAt = 0;

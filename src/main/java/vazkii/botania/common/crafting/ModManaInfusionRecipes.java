@@ -74,7 +74,7 @@ public final class ModManaInfusionRecipes {
 		}
 
 		managlassRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.manaGlass), new ItemStack(Blocks.glass), 150);
-		
+
 		BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaBottle), new ItemStack(Items.glass_bottle), 5000);
 	}
 

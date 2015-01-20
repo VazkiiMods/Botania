@@ -36,7 +36,7 @@ public final class LibBrewNames {
 	public static final String MANASHOCK = "manashock";
 	public static final String GRAVITATION = "gravitation";
 	public static final String CLEANSING = "cleansing";
-	
+
 	public static final String WARP_WARD = "warpWard";
 
 }

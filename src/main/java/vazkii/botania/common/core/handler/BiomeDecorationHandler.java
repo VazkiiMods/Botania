@@ -13,8 +13,8 @@ package vazkii.botania.common.core.handler;
 
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType;
-import vazkii.botania.api.item.IFlowerlessWorld;
 import vazkii.botania.api.item.IFlowerlessBiome;
+import vazkii.botania.api.item.IFlowerlessWorld;
 import vazkii.botania.common.block.ModBlocks;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.EventPriority;

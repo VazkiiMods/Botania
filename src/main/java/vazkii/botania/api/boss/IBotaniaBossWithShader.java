@@ -29,15 +29,15 @@ public interface IBotaniaBossWithShader extends IBotaniaBoss {
 	 * you don't want a shader to be used. You can use separate shaders
 	 * for the background and foreground.
 	 * @param background True if rendering the background of the boss bar,
-	 * false if rendering the bar itself that shows the HP. 
+	 * false if rendering the bar itself that shows the HP.
 	 */
 	@SideOnly(Side.CLIENT)
 	public int getBossBarShaderProgram(boolean background);
-	
+
 	/**
 	 * A callback for the shader, used to pass in uniforms. Return null for no callback.
 	 */
 	@SideOnly(Side.CLIENT)
 	public ShaderCallback getBossBarShaderCallback(boolean background, int shader);
-	
+
 }

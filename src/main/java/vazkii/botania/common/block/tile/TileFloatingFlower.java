@@ -19,7 +19,7 @@ import vazkii.botania.common.block.decor.IFloatingFlower;
 public class TileFloatingFlower extends TileEntity implements IFloatingFlower {
 
 	public static ItemStack forcedStack = null;
-	
+
 	@Override
 	public ItemStack getDisplayStack() {
 		if(forcedStack != null) {
@@ -27,10 +27,10 @@ public class TileFloatingFlower extends TileEntity implements IFloatingFlower {
 			forcedStack = null;
 			return retStack;
 		}
-		
+
 		return new ItemStack(ModBlocks.flower, 1, getBlockMetadata());
 	}
-	
+
 	@Override
 	public boolean canUpdate() {
 		return false;

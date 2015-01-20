@@ -1,13 +1,12 @@
 package vazkii.botania.common.integration.buildcraft;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 import buildcraft.api.statements.IStatement;
 import buildcraft.api.statements.IStatementParameter;
 
 public abstract class StatementBase implements IStatement {
 	protected IIcon icon;
-	
+
 	@Override
 	public IIcon getIcon() {
 		return icon;

@@ -23,9 +23,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.monster.EntityCaveSpider;
 import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
@@ -65,7 +63,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWithShader {
 
 	public static final int SPAWN_TICKS = 100;
-	
+
 	public static final int MOB_SPAWN_START_TICKS = 20;
 	public static final int MOB_SPAWN_END_TICKS = 80;
 	public static final int MOB_SPAWN_BASE_TICKS = 800;
@@ -282,7 +280,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			setDead();
 
 		ChunkCoordinates source = getSource();
-		
+
 		float range = 32F;
 		List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(source.posX + 0.5 - range, source.posY + 0.5 - range, source.posZ + 0.5 - range, source.posX + 0.5 + range, source.posY + 0.5 + range, source.posZ + 0.5 + range));
 
@@ -294,15 +292,15 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			float m = 0.15F;
 			float mv = 0.35F;
 
-			float rad = (float) i * (float) Math.PI / 180F;
+			float rad = i * (float) Math.PI / 180F;
 			double x = source.posX - 0.5 - Math.cos(rad) * range;
 			double y = source.posY - 0.5;
 			double z = source.posZ - 0.5 - Math.sin(rad) * range;
-			
+
 			Botania.proxy.wispFX(worldObj, x, y, z, r, g, b, 0.5F, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * mv, (float) (Math.random() - 0.5F) * m);
 
 		}
-		
+
 		if(players.isEmpty() && !worldObj.playerEntities.isEmpty())
 			setDead();
 		else for(EntityPlayer player : players) {
@@ -343,13 +341,13 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			motionY = 0;
 		} else {
 			if(isAggored()) {
-				boolean dying = getHealth() / getMaxHealth() < 0.2; 
+				boolean dying = getHealth() / getMaxHealth() < 0.2;
 				if(dying && mobTicks > 0) {
 					motionX = 0;
 					motionY = 0;
 					motionZ = 0;
 
-					int reverseTicks = MOB_SPAWN_TICKS - mobTicks; 
+					int reverseTicks = MOB_SPAWN_TICKS - mobTicks;
 					if(reverseTicks < MOB_SPAWN_START_TICKS) {
 						motionY = 0.2;
 						setInvulTime(invul + 1);
@@ -363,7 +361,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 								entity = new EntityZombie(worldObj);
 								if(worldObj.rand.nextInt(12) == 0)
 									entity = new EntityWitch(worldObj);
-								
+
 								break;
 							}
 							case 1 : {
@@ -384,7 +382,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 								}
 							}
 							}
-							
+
 							if(entity != null) {
 								range = 6F;
 								entity.setPosition(posX + 0.5 + Math.random() * range - range / 2, posY - 1, posZ + 0.5 + Math.random() * range - range / 2);
@@ -398,7 +396,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 				} else if(getTPDelay() > 0 && !worldObj.isRemote) {
 					if(invul > 0)
 						setInvulTime(invul - 1);
-					
+
 					setTPDelay(getTPDelay() - 1);
 					if(getTPDelay() == 0 && getHealth() > 0) {
 						int tries = 0;
@@ -568,7 +566,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 				float grainIntensity = time > 20 ? 1F : time / 20F;
 
 				ARBShaderObjects.glUniform1fARB(grainIntensityUniform, grainIntensity);
-				ARBShaderObjects.glUniform1fARB(hpFractUniform, (float) getHealth() / (float) getMaxHealth());
+				ARBShaderObjects.glUniform1fARB(hpFractUniform, getHealth() / getMaxHealth());
 			}
 
 		};

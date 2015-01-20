@@ -14,6 +14,8 @@ package vazkii.botania.common.block.tile;
 import java.awt.Color;
 import java.util.List;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -25,6 +27,7 @@ import vazkii.botania.api.brew.IBrewContainer;
 import vazkii.botania.api.brew.IBrewItem;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.recipe.RecipeBrew;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibBlockNames;
 
@@ -39,7 +42,7 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 	public int signal = 0;
 
 	public boolean addItem(EntityPlayer player, ItemStack stack) {
-		if(recipe != null || stack == null || (stack.getItem() instanceof IBrewItem && (((IBrewItem) stack.getItem()).getBrew(stack) != null && ((IBrewItem) stack.getItem()).getBrew(stack) != BotaniaAPI.fallbackBrew)) || ((getStackInSlot(0) == null) != stack.getItem() instanceof IBrewContainer))
+		if(recipe != null || stack == null || stack.getItem() instanceof IBrewItem && ((IBrewItem) stack.getItem()).getBrew(stack) != null && ((IBrewItem) stack.getItem()).getBrew(stack) != BotaniaAPI.fallbackBrew || getStackInSlot(0) == null != stack.getItem() instanceof IBrewContainer)
 			return false;
 
 		boolean did = false;
@@ -89,7 +92,7 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 
 		// Update every tick.
 		recieveMana(0);
-		
+
 		if(!worldObj.isRemote && recipe == null) {
 			List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1));
 			for(EntityItem item : items)
@@ -109,9 +112,9 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 			if(recipe != null) {
 				if(mana != manaLastTick) {
 					Color color = new Color(recipe.getBrew().getColor(getStackInSlot(0)));
-					float r = (float) color.getRed() / 255F;
-					float g = (float) color.getGreen() / 255F;
-					float b = (float) color.getBlue() / 255F;
+					float r = color.getRed() / 255F;
+					float g = color.getGreen() / 255F;
+					float b = color.getBlue() / 255F;
 					for(int i = 0; i < 5; i++) {
 						Botania.proxy.wispFX(worldObj, xCoord + 0.7 - Math.random() * 0.4, yCoord + 0.9 - Math.random() * 0.2, zCoord + 0.7 - Math.random() * 0.4, r, g, b, 0.1F + (float) Math.random() * 0.05F, 0.03F - (float) Math.random() * 0.06F, 0.03F + (float) Math.random() * 0.015F, 0.03F - (float) Math.random() * 0.06F);
 						for(int j = 0; j < 2; j++)
@@ -155,17 +158,17 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 		IBrewContainer container = (IBrewContainer) stack.getItem();
 		return container.getManaCost(recipe.getBrew(), stack);
 	}
-	
+
 	public void craftingFanciness() {
 		worldObj.playSoundEffect(xCoord, yCoord, zCoord, "botania:potionCreate", 1F, 1.5F + (float) Math.random() * 0.25F);
 		for(int i = 0; i < 25; i++) {
 			Color color = new Color(recipe.getBrew().getColor(getStackInSlot(0)));
-			float r = (float) color.getRed() / 255F;
-			float g = (float) color.getGreen() / 255F;
-			float b = (float) color.getBlue() / 255F;
+			float r = color.getRed() / 255F;
+			float g = color.getGreen() / 255F;
+			float b = color.getBlue() / 255F;
 			Botania.proxy.sparkleFX(worldObj, xCoord + 0.5 + Math.random() * 0.4 - 0.2, yCoord + 1, zCoord + 0.5 + Math.random() * 0.4 - 0.2, r, g, b, (float) Math.random() * 2F + 0.5F, 10);
 			for(int j = 0; j < 2; j++)
-				Botania.proxy.wispFX(worldObj, xCoord + 0.7 - Math.random() * 0.4, yCoord + 0.9 - Math.random() * 0.2, zCoord + 0.7 - Math.random() * 0.4, 0.2F, 0.2F, 0.2F, 0.1F + (float) Math.random() * 0.2F, 0.05F - (float) Math.random() * 0.1F, 0.05F + (float) Math.random() * 0.03F, 0.05F - (float) Math.random() * 0.1F);		
+				Botania.proxy.wispFX(worldObj, xCoord + 0.7 - Math.random() * 0.4, yCoord + 0.9 - Math.random() * 0.2, zCoord + 0.7 - Math.random() * 0.4, 0.2F, 0.2F, 0.2F, 0.1F + (float) Math.random() * 0.2F, 0.05F - (float) Math.random() * 0.1F, 0.05F + (float) Math.random() * 0.03F, 0.05F - (float) Math.random() * 0.1F);
 		}
 	}
 
@@ -241,6 +244,19 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 	@Override
 	public boolean canRecieveManaFromBursts() {
 		return !isFull();
+	}
+
+	public void renderHUD(Minecraft mc, ScaledResolution res) {
+		int manaToGet = getManaCost();
+		if(manaToGet > 0) {
+			int x = res.getScaledWidth() / 2 + 20;
+			int y = res.getScaledHeight() / 2 - 8;
+
+			if(recipe == null)
+				return;
+
+			RenderHelper.renderProgressPie(x, y, (float) mana / (float) manaToGet, recipe.getOutput(getStackInSlot(0)));
+		}
 	}
 
 }

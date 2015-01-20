@@ -25,12 +25,12 @@ public interface IBrewContainer {
 	 * passed in.
 	 */
 	public ItemStack getItemForBrew(Brew brew, ItemStack stack);
-	
+
 	/**
 	 * Gets the cost to add this brew onto this container. Return -1
 	 * to not allow for the brew to be added. Normally you'd
 	 * use brew.getManaCost(stack);
 	 */
 	public int getManaCost(Brew brew, ItemStack stack);
-	
+
 }

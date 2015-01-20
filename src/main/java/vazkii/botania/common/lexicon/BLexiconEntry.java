@@ -45,5 +45,5 @@ public class BLexiconEntry extends LexiconEntry {
 	public String getLazyUnlocalizedName() {
 		return super.getUnlocalizedName();
 	}
-	
+
 }

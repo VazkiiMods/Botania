@@ -33,6 +33,7 @@ public final class LibLexicon {
 	public static final String BASICS_PURE_DAISY = "pureDaisy";
 	public static final String BASICS_RUNE_ALTAR = "runeAltar";
 	public static final String BASICS_TERRASTEEL = "terrasteel";
+	public static final String BASICS_BLACK_LOTUS = "blackLotus";
 
 	public static final String MANA_INTRO = "mIntro";
 	public static final String MANA_SPREADER = "spreader";
@@ -50,6 +51,7 @@ public final class LibLexicon {
 	public static final String MANA_PAINT_LENS = "paintLens";
 	public static final String MANA_SPARKS = "sparks";
 	public static final String MANA_SPARK_UPGRADES = "sparkUpgrades";
+	public static final String MANA_PRISM = "prism";
 
 	public static final String FFLOWER_INTRO = "fIntro";
 	public static final String FFLOWER_JADED_AMARANTHUS = "jadedAmaranthus";
@@ -170,6 +172,7 @@ public final class LibLexicon {
 	public static final String MISC_HEAD_CREATING = "headCreating";
 	public static final String MISC_AZULEJO = "azulejo";
 	public static final String MISC_STARFIELD = "starfield";
+	public static final String MISC_DIRT_PATH = "dirtPath";
 	public static final String MISC_TC_INTEGRATION = "tcIntegration";
 	public static final String MISC_BC_INTEGRATION = "bcIntegration";
 

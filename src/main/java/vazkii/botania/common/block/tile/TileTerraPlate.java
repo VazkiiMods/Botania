@@ -33,21 +33,21 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 
 	public static final int MAX_MANA = TilePool.MAX_MANA / 2;
 	private static final int[][] LAPIS_BLOCKS = {
-		{ 1, 0, }, { -1, 0 }, { 0, 1 }, { 0, -1 } 
+		{ 1, 0, }, { -1, 0 }, { 0, 1 }, { 0, -1 }
 	};
-	
+
 	private static final int[][] LIVINGROCK_BLOCKS = {
 		{ 0, 0 }, { 1, 1 }, { 1, -1 }, { -1, 1 }, { -1, -1 }
 	};
-	
+
 	private static final String TAG_MANA = "mana";
-	
+
 	int mana;
-	
+
 	@Override
 	public void updateEntity() {
 		boolean removeMana = true;
-		
+
 		if(hasValidPlatform()) {
 			List<EntityItem> items = getItems();
 			if(areItemsValid(items)) {
@@ -65,7 +65,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 				}
 				if(mana > 0)
 					doParticles();
-				
+
 				if(mana >= MAX_MANA) {
 					EntityItem item = items.get(0);
 					for(EntityItem otherItem : items)
@@ -78,15 +78,15 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 				}
 			}
 		}
-		
+
 		if(removeMana)
 			recieveMana(-1000);
 	}
-	
+
 	void doParticles() {
 		if(worldObj.isRemote) {
 			int ticks = (int) (100.0 * ((double) getCurrentMana() / (double) MAX_MANA));
-			
+
 			int totalSpiritCount = 3;
 			double tickIncrement = 360D / totalSpiritCount;
 
@@ -97,9 +97,9 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 			double g = Math.sin(wticks * Math.PI / 180 * 0.55);
 
 			for(int i = 0; i < totalSpiritCount; i++) {
-				double x = (int) xCoord + Math.sin(wticks * Math.PI / 180) * r + 0.5;
-				double y = (int) yCoord + 0.25 + Math.abs(r) * 0.7;
-				double z = (int) zCoord + Math.cos(wticks * Math.PI / 180) * r + 0.5;
+				double x = xCoord + Math.sin(wticks * Math.PI / 180) * r + 0.5;
+				double y = yCoord + 0.25 + Math.abs(r) * 0.7;
+				double z = zCoord + Math.cos(wticks * Math.PI / 180) * r + 0.5;
 
 				wticks += tickIncrement;
 				float[] colorsfx = new float[] {
@@ -114,15 +114,15 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 			}
 		}
 	}
-	
+
 	List<EntityItem> getItems() {
 		return worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1));
 	}
-	
+
 	boolean areItemsValid(List<EntityItem> items) {
 		if(items.size() != 3)
 			return false;
-		
+
 		ItemStack ingot = null;
 		ItemStack pearl = null;
 		ItemStack diamond = null;
@@ -130,7 +130,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 			ItemStack stack = item.getEntityItem();
 			if(stack.getItem() != ModItems.manaResource || stack.stackSize != 1)
 				return false;
-			
+
 			int meta = stack.getItemDamage();
 			if(meta == 0)
 				ingot = stack;
@@ -140,24 +140,24 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 				diamond = stack;
 			else return false;
 		}
-		
+
 		return ingot != null && pearl != null && diamond != null;
 	}
-	
+
 	boolean hasValidPlatform() {
 		return checkAll(LAPIS_BLOCKS, Blocks.lapis_block) && checkAll(LIVINGROCK_BLOCKS, ModBlocks.livingrock);
 	}
-	
+
 	boolean checkAll(int[][] positions, Block block) {
-		for(int i = 0; i < positions.length; i++) {
-			int[] positions_ = positions[i];
+		for (int[] position : positions) {
+			int[] positions_ = position;
 			if(!checkPlatform(positions_[0], positions_[1], block))
 				return false;
 		}
-		
+
 		return true;
 	}
-	
+
 	boolean checkPlatform(int xOff, int zOff, Block block) {
 		return worldObj.getBlock(xCoord + xOff, yCoord - 1, zOff + zCoord) == block;
 	}
@@ -166,12 +166,12 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 	public void writeCustomNBT(NBTTagCompound cmp) {
 		cmp.setInteger(TAG_MANA, mana);
 	}
-	
+
 	@Override
 	public void readCustomNBT(NBTTagCompound cmp) {
 		mana = cmp.getInteger(TAG_MANA);
 	}
-	
+
 	@Override
 	public int getCurrentMana() {
 		return mana;
@@ -217,10 +217,10 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 	public boolean areIncomingTranfersDone() {
 		return !areItemsValid(getItems());
 	}
-	
+
 	@Override
 	public int getAvailableSpaceForMana() {
 		return Math.max(0, MAX_MANA - getCurrentMana());
 	}
-	
+
 }

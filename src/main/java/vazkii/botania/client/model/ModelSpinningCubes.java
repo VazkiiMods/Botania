@@ -60,7 +60,7 @@ public class ModelSpinningCubes extends ModelBase {
 
 			GL11.glRotatef(deg, xRotate, yRotate, zRotate);
 			if(repeat < origRepeat) {
-				GL11.glColor4f(1F, 1F, 1F, ((float) repeat / (float) origRepeat) * 0.4F);
+				GL11.glColor4f(1F, 1F, 1F, (float) repeat / (float) origRepeat * 0.4F);
 				GL11.glEnable(GL11.GL_BLEND);
 				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 				GL11.glDisable(GL11.GL_ALPHA_TEST);
@@ -82,7 +82,7 @@ public class ModelSpinningCubes extends ModelBase {
 		}
 		GL11.glPopMatrix();
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
-		
+
 		if(repeat != 0)
 			renderSpinningCubes(cubes, repeat - 1, origRepeat);
 	}

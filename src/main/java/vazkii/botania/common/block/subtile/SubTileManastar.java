@@ -27,7 +27,7 @@ public class SubTileManastar extends SubTileEntity {
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		
+
 		int mana = 0;
 		for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) {
 			TileEntity tile = supertile.getWorldObj().getTileEntity(supertile.xCoord + dir.offsetX, supertile.yCoord, supertile.zCoord + dir.offsetZ);

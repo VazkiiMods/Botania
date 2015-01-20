@@ -14,11 +14,8 @@ package vazkii.botania.client.render.tile;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 
@@ -26,7 +23,6 @@ import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
-import vazkii.botania.common.block.mana.BlockEnchanter;
 import vazkii.botania.common.block.mana.BlockTerraPlate;
 import vazkii.botania.common.block.tile.TileTerraPlate;
 
@@ -36,8 +32,8 @@ public class RenderTileTerraPlate extends TileEntitySpecialRenderer {
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f) {
 		TileTerraPlate plate = (TileTerraPlate) tileentity;
 
-		float max = (float) TileTerraPlate.MAX_MANA / 10F;
-		float alphaMod = (float) Math.min(max, plate.getCurrentMana()) / max; 
+		float max = TileTerraPlate.MAX_MANA / 10F;
+		float alphaMod = Math.min(max, plate.getCurrentMana()) / max;
 		GL11.glPushMatrix();
 		GL11.glTranslated(d0, d1, d2);
 

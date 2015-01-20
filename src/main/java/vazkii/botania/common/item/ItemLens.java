@@ -445,12 +445,12 @@ public class ItemLens extends ItemMod implements ILens {
 				else if(blockAt_.isAir(entity.worldObj, x, y, z)) {
 					entity.worldObj.setBlock(x, y, z, ModBlocks.manaFlame);
 					TileEntity tile = entity.worldObj.getTileEntity(x, y, z);
-					
+
 					if(tile instanceof TileManaFlame)
 						((TileManaFlame) tile).setColor(burst.getColor());
 				}
 			}
-			
+
 			break;
 		}
 		}
