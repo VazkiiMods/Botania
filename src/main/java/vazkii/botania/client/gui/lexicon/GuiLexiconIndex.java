@@ -74,8 +74,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 	public void initGui() {
 		super.initGui();
 
-		if(!GuiLexicon.isValidLexiconGui(this))
-		{
+		if(!GuiLexicon.isValidLexiconGui(this))	{
 			currentOpenLexicon = new GuiLexicon();
 			mc.displayGuiScreen(currentOpenLexicon);
 			ClientTickHandler.notifyPageChange();
