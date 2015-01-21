@@ -73,6 +73,14 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 	@Override
 	public void initGui() {
 		super.initGui();
+
+		if(!GuiLexicon.isValidLexiconGui(this))	{
+			currentOpenLexicon = new GuiLexicon();
+			mc.displayGuiScreen(currentOpenLexicon);
+			ClientTickHandler.notifyPageChange();
+			return;
+		}
+
 		buttonList.add(backButton = new GuiButtonBack(12, left + guiWidth / 2 - 8, top + guiHeight + 2));
 		buttonList.add(leftButton = new GuiButtonPage(13, left, top + guiHeight - 10, false));
 		buttonList.add(rightButton = new GuiButtonPage(14, left + guiWidth - 18, top + guiHeight - 10, true));
