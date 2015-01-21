@@ -59,7 +59,16 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 		buttonList.add(rightButton = new GuiButtonPage(2, left + guiWidth - 18, top + guiHeight - 10, true));
 		buttonList.add(shareButton = new GuiButtonShare(3, left + guiWidth - 6, top - 2));
 
+		if(!GuiLexicon.isValidLexiconGui(this))
+		{
+			currentOpenLexicon = new GuiLexicon();
+			mc.displayGuiScreen(currentOpenLexicon);
+			ClientTickHandler.notifyPageChange();
+			return;
+		}
+		
 		LexiconPage page = entry.pages.get(this.page);
+
 		page.onOpened(this);
 		updatePageButtons();
 	}

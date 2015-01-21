@@ -309,4 +309,14 @@ public class GuiLexicon extends GuiScreen {
 		super.keyTyped(par1, par2);
 	}
 
+	public static boolean isValidLexiconGui(GuiLexicon gui)
+	{
+		if(gui.isCategoryIndex())
+			return true;
+		if(gui.isIndex())
+			return BotaniaAPI.getAllCategories().contains(((GuiLexiconIndex)gui).category);
+		if(!BotaniaAPI.getAllEntries().contains(((GuiLexiconEntry)gui).entry))
+			return false;
+		return ((GuiLexiconEntry)gui).page<((GuiLexiconEntry)gui).entry.pages.size();
+	}
 }
