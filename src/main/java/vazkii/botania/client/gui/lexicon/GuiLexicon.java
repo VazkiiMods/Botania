@@ -314,6 +314,8 @@ public class GuiLexicon extends GuiScreen {
 			return true;
 		if(gui.isIndex()) {
 			GuiLexiconIndex indexGui=(GuiLexiconIndex)gui;
+			if(indexGui.category==null)
+				return true;
 			return BotaniaAPI.getAllCategories().contains(indexGui.category);
 		}
 		GuiLexiconEntry entryGui=(GuiLexiconEntry)gui;
