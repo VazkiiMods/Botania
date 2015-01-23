@@ -18,22 +18,14 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
 
-public class ItemGreaterAuraRing extends ItemBauble {
+public class ItemGreaterAuraRing extends ItemAuraRing {
 
 	public ItemGreaterAuraRing() {
 		super(LibItemNames.AURA_RING_GREATER);
 	}
 
 	@Override
-	public void onWornTick(ItemStack stack, EntityLivingBase player) {
-		super.onWornTick(stack, player);
-		if(player instanceof EntityPlayer)
-			ManaItemHandler.dispatchManaExact(stack, (EntityPlayer) player, player.ticksExisted % 3 == 0 ? 2 : 1, true);
+	int getDelay() {
+		return 3;
 	}
-
-	@Override
-	public BaubleType getBaubleType(ItemStack itemstack) {
-		return BaubleType.RING;
-	}
-
 }

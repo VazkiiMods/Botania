@@ -20,15 +20,23 @@ import baubles.api.BaubleType;
 
 public class ItemAuraRing extends ItemBauble {
 
+	public ItemAuraRing(String name) {
+		super(name);
+	}
+	
 	public ItemAuraRing() {
-		super(LibItemNames.AURA_RING);
+		this(LibItemNames.AURA_RING);
 	}
 
 	@Override
 	public void onWornTick(ItemStack stack, EntityLivingBase player) {
 		super.onWornTick(stack, player);
-		if(player instanceof EntityPlayer && player.ticksExisted % 2 == 0)
+		if(player instanceof EntityPlayer && player.ticksExisted % getDelay() == 0)
 			ManaItemHandler.dispatchManaExact(stack, (EntityPlayer) player, 1, true);
+	}
+	
+	int getDelay() {
+		return 10;
 	}
 
 	@Override
