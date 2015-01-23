@@ -1475,6 +1475,7 @@ botania.page.terraformRod3=Quite a justicar
 # -- MANASTEEL EQUIPMENT
 botania.entry.manaGear=Manasteel Equipment
 botania.page.manaGear0=&1Manasteel&0, alike other metals, can be shaped into tools and armor alike.<br>Tools or armor crafted from this material will share their properties with &1Iron&0, albeit somewhat superior in enchantability and durability. Whenever a &1Manasteel&0 item is to take damage, if there's &4Mana&0 available in the inventory (such as a &1Mana Tablet&0), it'll use that instead.
+botania.page.manaGear10=Some pieces of the toolset have an ability when right clicked. The &1Pickaxe&0 will place a torch from your inventory, the &1Axe&0 will do the same for a sapling and the &1Shovel&0 will till the earth, similarly to a hoe.
 botania.page.manaGear1=The &1Manasteel Pickaxe&0
 botania.page.manaGear2=The &1Manasteel Shovel&0
 botania.page.manaGear3=The &1Manasteel Axe&0

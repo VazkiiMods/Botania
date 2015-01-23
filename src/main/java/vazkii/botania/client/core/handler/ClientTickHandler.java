@@ -40,6 +40,7 @@ public class ClientTickHandler {
 		if(event.phase == Phase.END) {
 			LightningBolt.update();
 			RedStringRenderer.tick();
+			ItemsRemainingRenderHandler.tick();
 
 			if(Minecraft.getMinecraft().theWorld == null)
 				ManaNetworkHandler.instance.clear();

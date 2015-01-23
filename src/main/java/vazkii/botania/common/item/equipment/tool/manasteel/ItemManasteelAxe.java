@@ -11,11 +11,14 @@
  */
 package vazkii.botania.common.item.equipment.tool.manasteel;
 
+import java.util.regex.Pattern;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
@@ -23,6 +26,7 @@ import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.BotaniaCreativeTab;
@@ -35,6 +39,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemManasteelAxe extends ItemAxe implements IManaUsingItem {
 
+	private static final Pattern SAPLING_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)sapling)|(?:(?:[a-z-_.:]|^)Sapling))(?:[A-Z-_.:]|$)");
+	
 	private static final int MANA_PER_DAMAGE = 60;
 
 	public ItemManasteelAxe() {
@@ -77,6 +83,21 @@ public class ItemManasteelAxe extends ItemAxe implements IManaUsingItem {
 
 		return true;
 	}
+	
+	@Override
+	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int s, float sx, float sy, float sz) {
+		for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
+			ItemStack stackAt = player.inventory.getStackInSlot(i);
+			if(stackAt != null && SAPLING_PATTERN.matcher(stackAt.getItem().getUnlocalizedName()).find()) {
+				boolean did = stackAt.getItem().onItemUse(stackAt, player, world, x, y, z, s, sx, sy, sz);
+				ItemsRemainingRenderHandler.set(player, new ItemStack(Blocks.sapling), SAPLING_PATTERN);
+				return did;
+			}
+		}
+		
+		return false;
+	}
+
 
 	@Override
 	public void onUpdate(ItemStack stack, World world, Entity player, int par4, boolean par5) {
