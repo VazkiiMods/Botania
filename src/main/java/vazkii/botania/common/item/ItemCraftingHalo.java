@@ -174,16 +174,25 @@ public class ItemCraftingHalo extends ItemMod {
 		for(int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stackAt = inv.getStackInSlot(i);
 			if(stackAt != null && stack.isItemEqual(stackAt) && ItemStack.areItemStackTagsEqual(stack, stackAt)) {
-				stackAt.stackSize--;
-				if(stackAt.stackSize == 0)
-					inv.setInventorySlotContents(i, null);
+				boolean consume = true;
+				
 				ItemStack container = stackAt.getItem().getContainerItem(stackAt);
 				if(container != null) {
+					if(container == stackAt)
+						consume = false;
+					else {
 					InventoryHelper.insertItemIntoInventory(inv, container);
 					if(container.stackSize != 0 && player != null)
 						player.dropPlayerItemWithRandomChoice(container, false);
+					}
 				}
 
+				if(consume) {
+					stackAt.stackSize--;
+					if(stackAt.stackSize == 0)
+						inv.setInventorySlotContents(i, null);
+				}
+				
 				return true;
 			}
 		}
