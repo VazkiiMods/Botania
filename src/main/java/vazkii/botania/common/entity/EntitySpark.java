@@ -70,7 +70,6 @@ public class EntitySpark extends Entity implements ISparkEntity {
 			return;
 		}
 
-
 		List<ISparkEntity> allSparks = SparkHelper.getSparksAround(worldObj, posX, posY, posZ);
 		if(worldObj.isRemote && !didStartupParticles) {
 			for(ISparkEntity spark : allSparks) {
@@ -158,14 +157,17 @@ public class EntitySpark extends Entity implements ISparkEntity {
 				break;
 			}
 			case 2 : { // Dominant
-				for(ISparkEntity spark : allSparks) {
+				List<ISparkEntity> validSparks = new ArrayList();
+ 				for(ISparkEntity spark : allSparks) {
 					if(spark == this)
 						continue;
 
 					int upgrade_ = spark.getUpgrade();
 					if(upgrade_ == 0 && spark.getAttachedTile() instanceof IManaPool)
-						spark.registerTransfer(this);
+						validSparks.add(spark);
 				}
+ 				validSparks.get(worldObj.rand.nextInt(validSparks.size())).registerTransfer(this);
+ 				
 				break;
 			}
 			case 3 : { // Recessive
@@ -207,6 +209,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 		if(removeTransferants > 0)
 			removeTransferants--;
+		getTransfers();
 	}
 
 	void particlesTowards(Entity e) {
