@@ -971,7 +971,7 @@ botania.page.pool7=Infusing &1Mana Cookies&0, pretty good food.
 
 # -- SPARKS
 botania.entry.sparks=Sparks
-botania.page.sparks0=&1Sparks&0 are interesting entities. Created from a combination of raw energy and &4Mana&0, they have the ability to be placed on top of a few specific &4Mana&0 containing or accepting blocks, mainly, &1Mana Pools&0.<br>Some blocks have the ability to harness &4Mana&0 from &1Sparks&0, but the uses for them seem rather limited right now.
+botania.page.sparks0=&1Sparks&0 are interesting entities. Created from a combination of raw energy and &4Mana&0, they have the ability to be placed on top of a few specific &4Mana&0 containing or accepting blocks, mainly, &1Mana Pools&0.<br>Some blocks have the ability to harness &4Mana&0 from &1Sparks&0, but the uses for them seem limited to a few blocks right now.
 botania.page.sparks1=Placing a &1Spark&0 on top of a &1Mana Pool&0 and another on top of a block that can accept it will allow for the latter to remotely access the reservoirs of the &1Mana Pool&0 when needed, given it's not too far away.<br>To remove a &1Spark&0 simply shift-right click it with a &1Wand of the Forest&0. Regular right clicking shows which other &1Sparks&0 it can transfer to.
 botania.page.sparks2=&oholds up spork&r
 
@@ -1067,7 +1067,7 @@ botania.page.manastar1=&rI'm a shooting star leaping through the skies&r.
 botania.entry.dreamwoodSpreader=Elven Mana Spreaders
 botania.page.dreamwoodSpreader0=Simply put, &1Dreamwood&0 conducts &4Mana&0 better than &1Livingwood&0. Add in some adjustments like &1Elementium&0 or &1Mana Petals&0 and what you get is a &1Mana Spreader&0 that can conduct more &4Mana&0, faster and for more time without &4Mana loss&0.<br>On the negative side, it can't be turned into a &1Redstone Mana Spreader&0.
 botania.page.dreamwoodSpreader1=Better spreaders, that's it
-botania.page.dreamwoodSpreader2=By combining this already powerful spreader with a &1Gaia Spirit&0 and a &1Dragonstone&0 gem, one can create an even more potent variant. The &1Gaia Spreader&0 is within the top percentage of Mana Spreaders, with pretty much upgrades all round.
+botania.page.dreamwoodSpreader2=By combining this already powerful spreader with a &1Gaia Spirit&0 and a &1Dragonstone&0 gem, one can create an even more potent variant. The &1Gaia Spreader&0 is within the top percentage of Mana Spreaders, with pretty much upgrades all round.<br>It's to note that these spreaders fire a larger payload at once and thus, might fire less often.
 botania.page.dreamwoodSpreader3=ULTRA_SPREADER
 
 # -- PAINTSLINGER LENS
@@ -1764,7 +1764,7 @@ botania.page.aIntro7=Add &1Mana Pools&0
 botania.page.aIntro8=Place &1Natura Pylons&0 above the pools
 botania.page.aIntro9=To open up the portal, simply right click the core with a &1Wand of the Forest&0.<br>The portal requires a substantial amount of &4Mana&0 deposited in both the pools to open up, after that, it'll slowly drain some to keep itself powered. If it runs out of &4Mana&0, the connection will be broken.
 botania.page.aIntro10=The amount of &4Mana&0 required to open up the portal is orders of magnitude higher than that to keep it maintained, thus closing the portal to prevent &4Mana&0 loss is a poor strategy.<br>Furthermore, the link isn't strong enough to allow living beings to go through it, but it seems that &4items&0 can.
-botania.page.aIntro11=The amount of information about &1Alfheim&0 stored in this lexicon is resumed to this entry alone, perhaps &4letting the Elves have a look at it&0 might prove beneficial.
+botania.page.aIntro11=The amount of information about &1Alfheim&0 stored in this lexicon is resumed to this entry alone, perhaps &4letting the Elves have a look at it&0 might prove beneficial.<br>Perhaps they'd also return a good amount of knowledge of their mystical constructs.
 
 # -- A MESSAGE FROM ELVEN GARDE
 botania.entry.elfMessage=A Message from Elven Garde
@@ -1874,7 +1874,7 @@ botania.page.shedding0=The living and unliving beings that inhabit our lands don
 
 # -- TINY POTATO
 botania.entry.tinyPotato=Tiny Potato
-botania.page.tinyPotato0=It's a tiny potato, it believes in you, you can do the thing.<br>No really, that's it, by tossing a &1Potato&0 in a &1Mana Pool&0, the potato gains a little lively essence and happy feeling. It's a lively one, giving it a right click will make it even more so!
+botania.page.tinyPotato0=It's a tiny potato, it believes in you, you can do the thing.<br>No really, that's it, by tossing a &1Potato&0 in a &1Mana Pool&0, the potato gains a little lively essence and happy feeling. It's a lively one, giving it a right click will make it even more so!<br>It can also be named in an &1Anvil&0.
 botania.page.tinyPotato1=Put it on Kickstarter, it'll work 
 
 # -- HEAD CREATION

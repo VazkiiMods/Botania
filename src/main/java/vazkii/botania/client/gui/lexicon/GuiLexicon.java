@@ -153,7 +153,7 @@ public class GuiLexicon extends GuiScreen {
 				RenderHelper.renderTooltip(par1, par2, Arrays.asList(EnumChatFormatting.GOLD + "#goldfishchris", EnumChatFormatting.RED + "INTENSIFY HIM"));
 			}
 		}
-
+		
 		super.drawScreen(par1, par2, par3);
 	}
 
