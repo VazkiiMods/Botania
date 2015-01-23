@@ -146,6 +146,7 @@ public final class LibItemNames {
 		"dragonstone",
 		"prismarineShard",
 		"placeholder",
-		"redString"
+		"redString",
+		"dreamwoodTwig"
 	};
 }

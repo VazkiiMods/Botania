@@ -213,6 +213,7 @@ public final class ModCraftingRecipes {
 	public static List<IRecipe> recipesLensFlash;
 	public static IRecipe recipePrism;
 	public static IRecipe recipeDirtPath;
+	public static IRecipe recipeDreamwoodTwig;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -829,22 +830,22 @@ public final class ModCraftingRecipes {
 		addOreDictRecipe(new ItemStack(ModItems.elementiumPick),
 				"SSS", " T ", " T ",
 				'S', LibOreDict.ELEMENTIUM,
-				'T', LibOreDict.LIVINGWOOD_TWIG);
+				'T', LibOreDict.DREAMWOOD_TWIG);
 		recipeElementiumPick = BotaniaAPI.getLatestAddedRecipe();
 		addOreDictRecipe(new ItemStack(ModItems.elementiumShovel),
 				"S", "T", "T",
 				'S', LibOreDict.ELEMENTIUM,
-				'T', LibOreDict.LIVINGWOOD_TWIG);
+				'T', LibOreDict.DREAMWOOD_TWIG);
 		recipeElementiumShovel = BotaniaAPI.getLatestAddedRecipe();
 		addOreDictRecipe(new ItemStack(ModItems.elementiumAxe),
 				"SS", "TS", "T ",
 				'S', LibOreDict.ELEMENTIUM,
-				'T', LibOreDict.LIVINGWOOD_TWIG);
+				'T', LibOreDict.DREAMWOOD_TWIG);
 		recipeElementiumAxe = BotaniaAPI.getLatestAddedRecipe();
 		addOreDictRecipe(new ItemStack(ModItems.elementiumSword),
 				"S", "S", "T",
 				'S', LibOreDict.ELEMENTIUM,
-				'T', LibOreDict.LIVINGWOOD_TWIG);
+				'T', LibOreDict.DREAMWOOD_TWIG);
 		recipeElementiumSword = BotaniaAPI.getLatestAddedRecipe();
 		addOreDictRecipe(new ItemStack(ModItems.elementiumShears),
 				"S ", " S",
@@ -1385,7 +1386,13 @@ public final class ModCraftingRecipes {
 		// Trodden Dirt Recipe
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.dirtPath, 4), new ItemStack(Blocks.dirt, 1, 1), new ItemStack(Blocks.dirt, 1, 1), new ItemStack(Blocks.dirt, 1, 1), new ItemStack(Blocks.gravel));
 		recipeDirtPath = BotaniaAPI.getLatestAddedRecipe();
-
+		
+		// Dreamwood Twig Recipe
+		addOreDictRecipe(new ItemStack(ModItems.manaResource, 1, 13), 
+				"W", "W",
+				'W', LibOreDict.DREAM_WOOD);
+		recipeDreamwoodTwig = BotaniaAPI.getLatestAddedRecipe();		
+		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",
