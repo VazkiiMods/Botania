@@ -40,6 +40,9 @@ public final class LexiconRecipeMappings {
 		map(stack, entry, page, false);
 	}
 
+	public static void remove(ItemStack stack) {
+		mappings.remove(stackToString(stack));
+	}
 
 	public static EntryData getDataForStack(ItemStack stack) {
 		return mappings.get(stackToString(stack));
