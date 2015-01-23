@@ -272,7 +272,7 @@ public final class LexiconData {
 		rfGenerator.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeRFGenerator));
 
 		lenses = new BLexiconEntry(LibLexicon.MANA_LENSES, categoryMana);
-		lenses.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeManaLens), new PageCraftingRecipe("2", ModCraftingRecipes.recipesLensDying), new PageCraftingRecipe("3", ModCraftingRecipes.recipeRainbowLens), new PageText("4"), new PageText("5"),
+		lenses.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeManaLens), new PageText("4"), new PageText("5"),
 				new PageText("6"), new PageCraftingRecipe("7", ModCraftingRecipes.recipeLensVelocity),
 				new PageText("8"), new PageCraftingRecipe("9", ModCraftingRecipes.recipeLensPotency),
 				new PageText("10"), new PageCraftingRecipe("11", ModCraftingRecipes.recipeLensResistance),

@@ -58,6 +58,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
+import vazkii.botania.common.crafting.recipe.LensDyingRecipe;
 import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -138,7 +139,9 @@ public class ItemLens extends ItemMod implements ILens {
 		setHasSubtypes(true);
 
 		GameRegistry.addRecipe(new CompositeLensRecipe());
+		GameRegistry.addRecipe(new LensDyingRecipe());
 		RecipeSorter.register("botania:compositeLens", CompositeLensRecipe.class, Category.SHAPELESS, "");
+		RecipeSorter.register("botania:lensDying", CompositeLensRecipe.class, Category.SHAPELESS, "");
 	}
 
 	@Override

@@ -43,8 +43,6 @@ public final class ModCraftingRecipes {
 	public static List<IRecipe> recipesApothecary;
 	public static List<IRecipe> recipesSpreader;
 	public static IRecipe recipeManaLens;
-	public static List<IRecipe> recipesLensDying;
-	public static IRecipe recipeRainbowLens;
 	public static IRecipe recipePool;
 	public static List<IRecipe> recipesRuneAltar;
 	public static IRecipe recipeLensVelocity;
@@ -273,21 +271,6 @@ public final class ModCraftingRecipes {
 				'S', LibOreDict.MANA_STEEL,
 				'G', new ItemStack(Blocks.glass_pane));
 		recipeManaLens = BotaniaAPI.getLatestAddedRecipe();
-
-		// Mana Lens Dying Recipes
-		for(int j = 0; j < 16; j++)
-			addShapelessOreDictRecipe(ItemLens.setLensColor(new ItemStack(ModItems.lens), j), new ItemStack(ModItems.lens), LibOreDict.DYE[j]);
-		recipesLensDying = BotaniaAPI.getLatestAddedRecipes(16);
-
-		for(int i = 1; i < ItemLens.SUBTYPES; i++)
-			for(int j = 0; j < 16; j++)
-				addShapelessOreDictRecipe(ItemLens.setLensColor(new ItemStack(ModItems.lens, 1, i), j), new ItemStack(ModItems.lens, 1, i), LibOreDict.DYE[j]);
-
-		// Rainbow Lens Recipe
-		addShapelessOreDictRecipe(ItemLens.setLensColor(new ItemStack(ModItems.lens), 16), new ItemStack(ModItems.lens), LibOreDict.MANA_PEARL);
-		recipeRainbowLens = BotaniaAPI.getLatestAddedRecipe();
-		for(int i = 1; i < ItemLens.SUBTYPES; i++)
-			addShapelessOreDictRecipe(ItemLens.setLensColor(new ItemStack(ModItems.lens, 1, i), 16), new ItemStack(ModItems.lens, 1, i), LibOreDict.MANA_PEARL);
 
 		// Mana Pool Recipe
 		addOreDictRecipe(new ItemStack(ModBlocks.pool, 1, 2),

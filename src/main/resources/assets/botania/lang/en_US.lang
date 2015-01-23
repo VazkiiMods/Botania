@@ -1001,7 +1001,7 @@ botania.page.rfGenerator1=The bullet guys. I bit it.
 
 # -- MANA LENSES
 botania.entry.lens=Mana Lenses
-botania.page.lens0=In order to upgrade the potential a &1Mana Spreader&0, one can apply &1Mana Lenses&0. The very basic mana lens does absolutely nothing.<br>Lenses can be &4dyed&0 all the 16 colors of the spectrum, or combined with a &1Mana Pearl&0 to create a &1Rainbow Lens&0. These will change the color of the burst.
+botania.page.lens0=In order to upgrade the potential a &1Mana Spreader&0, one can apply &1Mana Lenses&0. The very basic mana lens does absolutely nothing.<br>Lenses can be &4dyed&0, in a workbench, all the 16 colors of the spectrum, or combined with a &1Mana Pearl&0 to create a &1Rainbow Lens&0. These will change the color of the burst.
 botania.page.lens1=The basic lens, it doesn't do anything.
 botania.page.lens2=&4Dying&0 lenses!
 botania.page.lens3=&1Rainbow Lens&0 all the way
