@@ -19,6 +19,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemMod;
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
@@ -29,6 +30,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class ItemBauble extends ItemMod implements IBauble {
 
+	private static final String TAG_HASHCODE = "playerHashcode";
+	
 	public ItemBauble(String name) {
 		super();
 		setMaxStackSize(1);
@@ -58,7 +61,6 @@ public abstract class ItemBauble extends ItemMod implements IBauble {
 				}
 			}
 		}
-
 
 		return par1ItemStack;
 	}
@@ -97,8 +99,10 @@ public abstract class ItemBauble extends ItemMod implements IBauble {
 
 	@Override
 	public void onWornTick(ItemStack stack, EntityLivingBase player) {
-		if(player.ticksExisted == 1)
+		if(getLastPlayerHashcode(stack) != player.hashCode()) {
 			onEquippedOrLoadedIntoWorld(stack, player);
+			setLastPlayerHashcode(stack, player.hashCode());
+		}
 	}
 
 	@Override
@@ -107,6 +111,7 @@ public abstract class ItemBauble extends ItemMod implements IBauble {
 			player.worldObj.playSoundAtEntity(player, "botania:equipBauble", 0.1F, 1.3F);
 
 		onEquippedOrLoadedIntoWorld(stack, player);
+		setLastPlayerHashcode(stack, player.hashCode());
 	}
 
 	public void onEquippedOrLoadedIntoWorld(ItemStack stack, EntityLivingBase player) {
@@ -116,6 +121,14 @@ public abstract class ItemBauble extends ItemMod implements IBauble {
 	@Override
 	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
 		// NO-OP
+	}
+	
+	public int getLastPlayerHashcode(ItemStack stack) {
+		return ItemNBTHelper.getInt(stack, TAG_HASHCODE, 0);
+	}
+	
+	public void setLastPlayerHashcode(ItemStack stack, int hash) {
+		ItemNBTHelper.setInt(stack, TAG_HASHCODE, hash);
 	}
 
 }
