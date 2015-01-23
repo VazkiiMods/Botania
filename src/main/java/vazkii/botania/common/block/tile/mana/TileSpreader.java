@@ -431,7 +431,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		String name = StatCollector.translateToLocal(new ItemStack(ModBlocks.spreader, 1, getBlockMetadata()).getUnlocalizedName().replaceAll("tile.", "tile." + LibResources.PREFIX_MOD) + ".name");
-		int color = isRedstone() ? 0x66FF0000 : isDreamwood() ? 0x66FF00AE :  0x6600FF00;
+		int color = isRedstone() ? 0xFF0000 : isDreamwood() ? 0xFF00AE :  0x00FF00;
 		HUDHandler.drawSimpleManaHUD(color, knownMana, getMaxMana(), name, res);
 
 		ItemStack lens = getStackInSlot(0);

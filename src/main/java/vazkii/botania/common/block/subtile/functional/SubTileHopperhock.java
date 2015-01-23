@@ -200,7 +200,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		super.renderHUD(mc, res);
 
-		int color = 0x66000000 | getColor();
+		int color = getColor();
 		String filter = StatCollector.translateToLocal("botaniamisc.filter" + filterType);
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);

@@ -230,7 +230,7 @@ public class SubTileGenerating extends SubTileEntity {
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		String name = StatCollector.translateToLocal("tile.botania:flower." + getUnlocalizedName() + ".name");
-		int color = 0x66000000 | getColor();
+		int color = getColor();
 		BotaniaAPI.internalHandler.drawSimpleManaHUD(color, knownMana, getMaxMana(), name, res);
 	}
 

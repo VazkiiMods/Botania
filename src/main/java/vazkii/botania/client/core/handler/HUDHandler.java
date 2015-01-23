@@ -303,13 +303,13 @@ public final class HUDHandler {
 		x = res.getScaledWidth() / 2 - 51;
 		y += 10;
 
-		renderManaBar(x, y, color, 0.5F, mana, maxMana);
+		renderManaBar(x, y, color, mana < 0 ? 0.5F : 1F, mana, maxMana);
 
 		if(mana < 0) {
 			String text = StatCollector.translateToLocal("botaniamisc.statusUnknown");
 			x = res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(text) / 2;
 			y -= 1;
-			mc.fontRenderer.drawStringWithShadow(text, x, y, color);
+			mc.fontRenderer.drawString(text, x, y, color);
 		}
 
 		GL11.glDisable(GL11.GL_BLEND);

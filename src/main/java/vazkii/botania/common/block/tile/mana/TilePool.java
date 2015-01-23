@@ -298,7 +298,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		String name = StatCollector.translateToLocal(new ItemStack(ModBlocks.pool, 1, getBlockMetadata()).getUnlocalizedName().replaceAll("tile.", "tile." + LibResources.PREFIX_MOD) + ".name");
-		int color = 0x660000FF;
+		int color = 0x0000FF;
 		HUDHandler.drawSimpleManaHUD(color, knownMana, manaCap, name, res);
 
 		String power = StatCollector.translateToLocal("botaniamisc." + (outputting ? "outputtingPower" : "inputtingPower"));
