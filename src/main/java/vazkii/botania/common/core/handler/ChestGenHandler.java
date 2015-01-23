@@ -21,6 +21,7 @@ public final class ChestGenHandler {
 	public static void init() {
 		String c = ChestGenHooks.BONUS_CHEST;
 		ChestGenHooks.addItem(c, new WeightedRandomChestContent(new ItemStack(ModItems.lexicon), 1, 1, 7));
+		ChestGenHooks.addItem(c, new WeightedRandomChestContent(new ItemStack(ModItems.blackLotus), 1, 1, 1));
 
 		c = ChestGenHooks.STRONGHOLD_CORRIDOR;
 		ChestGenHooks.addItem(c, new WeightedRandomChestContent(new ItemStack(ModItems.manaResource, 1, 1), 1, 1, 8));
