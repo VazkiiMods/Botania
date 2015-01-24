@@ -72,6 +72,8 @@ botaniamisc.floatingPrefix=Floating %s
 botaniamisc.unsetRecipe=[No Recipe] Right click to set:
 botaniamisc.cantCraft=Not enough Materials!
 botaniamisc.lotusDesc=It emits strong magical vibes
+botaniamisc.hasClip=&6Has Lens Clip
+botaniamisc.clipEmpty=(Empty)
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
@@ -800,6 +802,7 @@ item.botania:blackLotus0.name=Black Lotus
 item.botania:blackLotus1.name=Void Lotus
 item.botania:dreamwoodTwig.name=Dreamwood Twig
 item.botania:monocle.name=Manaseer Monocle
+item.botania:clip.name=Lens Clip
 
 # BREW NAMES
 botania.brew.fallback=Fallback

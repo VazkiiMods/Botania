@@ -35,7 +35,7 @@ public final class ItemsRemainingRenderHandler {
 	
 	@SideOnly(Side.CLIENT)
 	public static void render(ScaledResolution resolution, float partTicks) {
-		if(ticks > 0) {
+		if(ticks > 0 && stack != null) {
 			int pos = maxTicks - ticks;
 			Minecraft mc = Minecraft.getMinecraft();
 			int x = resolution.getScaledWidth() / 2 + 10 + Math.max(0, pos - leaveTicks);
@@ -57,17 +57,23 @@ public final class ItemsRemainingRenderHandler {
 			GL11.glScalef(1F / alpha,1F, 1F);
 			GL11.glTranslatef(-xp, -y, 0F);
 			RenderHelper.disableStandardItemLighting();
-			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glColor4f(1F, 1F, 1F, 1F);
+			GL11.glEnable(GL11.GL_BLEND);
 			
-			int max = stack.getMaxStackSize();
-			int stacks = count / max;
-			int rem = count % max;
+			String text = EnumChatFormatting.GREEN + stack.getDisplayName();
+			if(count >= 0) {
+				int max = stack.getMaxStackSize();
+				int stacks = count / max;
+				int rem = count % max;
+				
+				if(stacks == 0)
+					text = "" + count;
+				else text = count + " (" + stacks + "*" + max + "+" + rem + ")";
+			}
 			
 			int color = 0x00FFFFFF | ((int) (alpha * 0xFF) << 24);
-			if(stacks == 0)
-				mc.fontRenderer.drawStringWithShadow("" + count, x + 20, y + 6, color);
-			else mc.fontRenderer.drawStringWithShadow(count + " (" + stacks + "*" + max + "+" + rem + ")", x + 20, y + 6, color);
+			mc.fontRenderer.drawStringWithShadow(text, x + 20, y + 6, color);
+			
 			GL11.glDisable(GL11.GL_BLEND);
 			GL11.glEnable(GL11.GL_ALPHA_TEST);
 		}
@@ -82,7 +88,7 @@ public final class ItemsRemainingRenderHandler {
 	public static void set(ItemStack stack, int count) {
 		ItemsRemainingRenderHandler.stack = stack;
 		ItemsRemainingRenderHandler.count = count;
-		ticks = maxTicks;
+		ticks = stack == null ? 0 : maxTicks;
 	}
 	
 	public static void set(EntityPlayer player, ItemStack displayStack, Pattern pattern) {
