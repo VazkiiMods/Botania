@@ -215,6 +215,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeDirtPath;
 	public static IRecipe recipeDreamwoodTwig;
 	public static IRecipe recipeMonocle;
+	public static IRecipe recipeClip;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1401,6 +1402,12 @@ public final class ModCraftingRecipes {
 				'I', LibOreDict.MANA_STEEL,
 				'N', new ItemStack(Items.gold_nugget));
 		recipeMonocle = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Lens Clip Recipe
+		addOreDictRecipe(new ItemStack(ModItems.clip), 
+				" D ", "D D", "DD ",
+				'D', LibOreDict.DREAM_WOOD);
+		recipeClip = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

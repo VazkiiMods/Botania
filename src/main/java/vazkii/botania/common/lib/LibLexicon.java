@@ -133,6 +133,7 @@ public final class LibLexicon {
 	public static final String TOOL_REGEN_IVY = "regenIvy";
 	public static final String TOOL_MISSILE_ROD = "missileRod";
 	public static final String TOOL_CRAFTING_HALO = "craftingHalo";
+	public static final String TOOL_CLIP = "clip";
 
 	public static final String BAUBLE_INTRO = "bIntro";
 	public static final String BAUBLE_TINY_PLANET = "tinyPlanet";

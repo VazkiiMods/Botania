@@ -76,7 +76,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		if(par3EntityPlayer.isSneaking()) {
+		if(par3EntityPlayer.isSneaking() && hasClip(par1ItemStack)) {
 			rotatePos(par1ItemStack);
 			par2World.playSoundAtEntity(par3EntityPlayer, "random.click", 0.6F, (1.0F + (par2World.rand.nextFloat() - par2World.rand.nextFloat()) * 0.2F) * 0.7F);
 			if(par2World.isRemote)
