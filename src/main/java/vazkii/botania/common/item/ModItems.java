@@ -71,6 +71,7 @@ import vazkii.botania.common.item.interaction.thaumcraft.ItemElementiumHelmRevea
 import vazkii.botania.common.item.interaction.thaumcraft.ItemManaInkwell;
 import vazkii.botania.common.item.interaction.thaumcraft.ItemManasteelHelmRevealing;
 import vazkii.botania.common.item.interaction.thaumcraft.ItemTerrasteelHelmRevealing;
+import vazkii.botania.common.item.lens.ItemLens;
 import vazkii.botania.common.item.material.ItemDye;
 import vazkii.botania.common.item.material.ItemManaPetal;
 import vazkii.botania.common.item.material.ItemManaResource;

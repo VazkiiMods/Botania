@@ -24,7 +24,7 @@ import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.mana.ILens;
-import vazkii.botania.common.item.ItemLens;
+import vazkii.botania.common.item.lens.ItemLens;
 
 public class RenderLens implements IItemRenderer {
 

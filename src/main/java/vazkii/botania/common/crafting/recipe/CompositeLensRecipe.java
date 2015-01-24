@@ -17,8 +17,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.ILens;
-import vazkii.botania.common.item.ItemLens;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.lens.ItemLens;
 
 public class CompositeLensRecipe implements IRecipe {
 

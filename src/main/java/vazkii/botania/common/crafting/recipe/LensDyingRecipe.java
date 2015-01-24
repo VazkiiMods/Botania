@@ -21,8 +21,8 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.mana.ILens;
-import vazkii.botania.common.item.ItemLens;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.lens.ItemLens;
 import vazkii.botania.common.lib.LibOreDict;
 
 public class LensDyingRecipe implements IRecipe {

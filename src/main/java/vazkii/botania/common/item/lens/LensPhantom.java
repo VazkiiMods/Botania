@@ -1,0 +1,31 @@
+/**
+ * This class was created by <Vazkii>. It's distributed as
+ * part of the Botania Mod. Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ * 
+ * Botania is Open Source and distributed under a
+ * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
+ * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * 
+ * File Created @ [Jan 24, 2015, 4:39:24 PM (GMT)]
+ */
+package vazkii.botania.common.item.lens;
+
+import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.MovingObjectPosition;
+import vazkii.botania.api.internal.IManaBurst;
+
+public class LensPhantom extends Lens {
+
+	@Override
+	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+		if(!isManaBlock) {
+			dead = false;
+			burst.setMinManaLoss(Math.max(0, burst.getMinManaLoss() - 4));
+		}
+		
+		return dead;
+	}
+	
+}
