@@ -24,6 +24,7 @@ import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerCapabilities;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntitySkull;
@@ -244,7 +245,11 @@ public class ClientProxy extends CommonProxy {
 				GameType type = ReflectionHelper.getPrivateValue(PlayerControllerMP.class, mc.playerController, LibObfuscation.CURRENT_GAME_TYPE);
 				NetHandlerPlayClient net = ReflectionHelper.getPrivateValue(PlayerControllerMP.class, mc.playerController, LibObfuscation.NET_CLIENT_HANDLER);
 				BotaniaPlayerController controller = new BotaniaPlayerController(mc, net);
+				boolean isFlying = player.capabilities.isFlying;
+				boolean allowFlying = player.capabilities.allowFlying;
 				controller.setGameType(type);
+				player.capabilities.isFlying = isFlying;
+				player.capabilities.allowFlying = allowFlying;
 				mc.playerController = controller;
 			}
 
