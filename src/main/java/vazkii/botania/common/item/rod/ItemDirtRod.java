@@ -11,6 +11,7 @@
  */
 package vazkii.botania.common.item.rod;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -40,18 +41,22 @@ public class ItemDirtRod extends ItemMod implements IManaUsingItem {
 
 	@Override
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
-		if(ManaItemHandler.requestManaExact(par1ItemStack, par2EntityPlayer, COST, false)) {
+		return place(par1ItemStack, par2EntityPlayer, par3World, par4, par5, par6, par7, par8, par9, par10, Blocks.dirt, COST, 0.35F, 0.2F, 0.05F);
+	}
+	
+	public static boolean place(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10, Block block, int cost, float r, float g, float b) {
+		if(ManaItemHandler.requestManaExact(par1ItemStack, par2EntityPlayer, cost, false)) {
 			ForgeDirection dir = ForgeDirection.getOrientation(par7);
 			int entities = par3World.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(par4 + dir.offsetX, par5 + dir.offsetY, par6 + dir.offsetZ, par4 + dir.offsetX + 1, par5 + dir.offsetY + 1, par6 + dir.offsetZ + 1)).size();
 
 			if(entities == 0) {
-				ItemStack stackToPlace = new ItemStack(Blocks.dirt);
+				ItemStack stackToPlace = new ItemStack(block);
 				stackToPlace.tryPlaceItemIntoWorld(par2EntityPlayer, par3World, par4, par5, par6, par7, par8, par9, par10);
 
 				if(stackToPlace.stackSize == 0) {
-					ManaItemHandler.requestManaExact(par1ItemStack, par2EntityPlayer, COST, true);
+					ManaItemHandler.requestManaExact(par1ItemStack, par2EntityPlayer, cost, true);
 					for(int i = 0; i < 6; i++)
-						Botania.proxy.sparkleFX(par3World, par4 + dir.offsetX + Math.random(), par5 + dir.offsetY + Math.random(), par6 + dir.offsetZ + Math.random(), 0.35F, 0.2F, 0.05F, 1F, 5);
+						Botania.proxy.sparkleFX(par3World, par4 + dir.offsetX + Math.random(), par5 + dir.offsetY + Math.random(), par6 + dir.offsetZ + Math.random(), r, g, b, 1F, 5);
 				}
 			}
 		}

@@ -216,6 +216,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeDreamwoodTwig;
 	public static IRecipe recipeMonocle;
 	public static IRecipe recipeClip;
+	public static IRecipe recipeCobbleRod;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1408,6 +1409,15 @@ public final class ModCraftingRecipes {
 				" D ", "D D", "DD ",
 				'D', LibOreDict.DREAM_WOOD);
 		recipeClip = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Rod of the Depths Recipe
+		addOreDictRecipe(new ItemStack(ModItems.cobbleRod), 
+				" FC", " TW", "T  ",
+				'F', LibOreDict.RUNE[1],
+				'W', LibOreDict.RUNE[0],
+				'T', LibOreDict.LIVINGWOOD_TWIG,
+				'C', new ItemStack(Blocks.cobblestone));
+		recipeCobbleRod = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

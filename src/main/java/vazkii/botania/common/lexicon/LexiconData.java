@@ -153,7 +153,8 @@ public final class LexiconData {
 	public static LexiconEntry missileRod;
 	public static LexiconEntry craftingHalo;
 	public static LexiconEntry clip;
-
+	public static LexiconEntry cobbleRod;
+	
 	public static LexiconEntry baublesIntro;
 	public static LexiconEntry tinyPlanet;
 	public static LexiconEntry manaRing;
@@ -586,6 +587,9 @@ public final class LexiconData {
 
 		clip = new ALexiconEntry(LibLexicon.TOOL_CLIP, categoryTools);
 		clip.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeClip));
+		
+		cobbleRod = new BLexiconEntry(LibLexicon.TOOL_COBBLE_ROD, categoryTools);
+		cobbleRod.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeCobbleRod));
 		
 		// BAUBLES ENTRIES
 		baublesIntro = new BLexiconEntry(LibLexicon.BAUBLE_INTRO, categoryBaubles);

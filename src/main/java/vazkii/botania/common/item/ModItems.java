@@ -79,6 +79,7 @@ import vazkii.botania.common.item.material.ItemPestleAndMortar;
 import vazkii.botania.common.item.material.ItemPetal;
 import vazkii.botania.common.item.material.ItemQuartz;
 import vazkii.botania.common.item.material.ItemRune;
+import vazkii.botania.common.item.rod.ItemCobbleRod;
 import vazkii.botania.common.item.rod.ItemDirtRod;
 import vazkii.botania.common.item.rod.ItemDiviningRod;
 import vazkii.botania.common.item.rod.ItemFireRod;
@@ -192,6 +193,7 @@ public final class ModItems {
 	public static Item blackLotus;
 	public static Item monocle;
 	public static Item clip;
+	public static Item cobbleRod;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -293,6 +295,7 @@ public final class ModItems {
 		blackLotus = new ItemBlackLotus();
 		monocle = new ItemMonocle();
 		clip = new ItemClip();
+		cobbleRod = new ItemCobbleRod();
 		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {

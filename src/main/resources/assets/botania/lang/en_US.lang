@@ -803,6 +803,7 @@ item.botania:blackLotus1.name=Void Lotus
 item.botania:dreamwoodTwig.name=Dreamwood Twig
 item.botania:monocle.name=Manaseer Monocle
 item.botania:clip.name=Lens Clip
+item.botania:cobbleRod.name=Rod of the Depths
 
 # BREW NAMES
 botania.brew.fallback=Fallback
@@ -1648,6 +1649,11 @@ botania.entry.clip=Lens Clip
 botania.page.clip0=While a formidable and versatile tool, the &1Mana Blaster&0's greatest downfall is the lack of an ability to store more than one &1Lens&0 at once. Not any more. The &1Lens Clip&0 will attach to a &1Mana Blaster&0 in a crafting grid and allow it to store up to 6 lenses rather than just one.<br>As they say, Russian Roulette is not the same without a gun...
 botania.page.clip1=Adding and removing &1Lenses&0 works just as it did previously, with one detail. The lens will be added or removed in the slot that the clip is currently on.<br>To change this slot, simply shift-right click the &1Mana Blaster&0 in the air. This will also change which lens is selected, case there is one in that slot.
 botania.page.clip2=Since we're dubbed by 4Kids we must make do without one
+
+# -- ROD OF THE DEPTHS
+botania.entry.cobbleRod=Rod of the Depths
+botania.page.cobbleRod0=The &1Rod of the Depths&0 acts pretty much as a variant to the the &1Rod of the Lands&0. It does exactly the same thing but with &1Cobblestone&0 for a bit of a higher price.
+botania.page.cobbleRod1=It's cobbling time
 
 # - BAUBLES
 # -- AN INTRODUCTION TO BAUBLES
