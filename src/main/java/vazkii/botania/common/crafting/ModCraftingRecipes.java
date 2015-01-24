@@ -1402,7 +1402,7 @@ public final class ModCraftingRecipes {
 				'N', new ItemStack(Items.gold_nugget));
 		recipeMonocle = BotaniaAPI.getLatestAddedRecipe();
 		
-		// Mana and Terrasteel Block Recipes
+		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",
 				'I', LibOreDict.MANA_STEEL);
@@ -1412,10 +1412,18 @@ public final class ModCraftingRecipes {
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 2),
 				"III", "III", "III",
 				'I', LibOreDict.ELEMENTIUM);
+		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 3),
+				"III", "III", "III",
+				'I', LibOreDict.MANA_DIAMOND);
+		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 4),
+				"III", "III", "III",
+				'I', LibOreDict.DRAGONSTONE);
 		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manaResource, 9, 0), new ItemStack(ModBlocks.storage, 1, 0));
 		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manaResource, 9, 4), new ItemStack(ModBlocks.storage, 1, 1));
 		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manaResource, 9, 7), new ItemStack(ModBlocks.storage, 1, 2));
-
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manaResource, 9, 2), new ItemStack(ModBlocks.storage, 1, 3));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manaResource, 9, 9), new ItemStack(ModBlocks.storage, 1, 4));
+		
 		// Revealing Helmet Recipes
 		if(Botania.thaumcraftLoaded) {
 			Item goggles = (Item) Item.itemRegistry.getObject("Thaumcraft:ItemGoggles");
