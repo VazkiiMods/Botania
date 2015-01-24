@@ -24,7 +24,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.decor.slabs.BlockModSlab;
 import vazkii.botania.common.lexicon.LexiconData;
 import cpw.mods.fml.relauncher.Side;
@@ -43,36 +43,36 @@ public class BlockSpecialQuartzSlab extends BlockModSlab {
 
 	@Override
 	public BlockSlab getFullBlock() {
-		if(source == ModBlocks.darkQuartz)
-			return (BlockSlab) ModBlocks.darkQuartzSlabFull;
-		if(source == ModBlocks.manaQuartz)
-			return (BlockSlab) ModBlocks.manaQuartzSlabFull;
-		if(source == ModBlocks.blazeQuartz)
-			return (BlockSlab) ModBlocks.blazeQuartzSlabFull;
-		if(source == ModBlocks.lavenderQuartz)
-			return (BlockSlab) ModBlocks.lavenderQuartzSlabFull;
-		if(source == ModBlocks.redQuartz)
-			return (BlockSlab) ModBlocks.redQuartzSlabFull;
-		if(source == ModBlocks.elfQuartz)
-			return (BlockSlab) ModBlocks.elfQuartzSlabFull;
+		if(source == ModFluffBlocks.darkQuartz)
+			return (BlockSlab) ModFluffBlocks.darkQuartzSlabFull;
+		if(source == ModFluffBlocks.manaQuartz)
+			return (BlockSlab) ModFluffBlocks.manaQuartzSlabFull;
+		if(source == ModFluffBlocks.blazeQuartz)
+			return (BlockSlab) ModFluffBlocks.blazeQuartzSlabFull;
+		if(source == ModFluffBlocks.lavenderQuartz)
+			return (BlockSlab) ModFluffBlocks.lavenderQuartzSlabFull;
+		if(source == ModFluffBlocks.redQuartz)
+			return (BlockSlab) ModFluffBlocks.redQuartzSlabFull;
+		if(source == ModFluffBlocks.elfQuartz)
+			return (BlockSlab) ModFluffBlocks.elfQuartzSlabFull;
 
 		return this;
 	}
 
 	@Override
 	public BlockSlab getSingleBlock() {
-		if(source == ModBlocks.darkQuartz)
-			return (BlockSlab) ModBlocks.darkQuartzSlab;
-		if(source == ModBlocks.manaQuartz)
-			return (BlockSlab) ModBlocks.manaQuartzSlab;
-		if(source == ModBlocks.blazeQuartz)
-			return (BlockSlab) ModBlocks.blazeQuartzSlab;
-		if(source == ModBlocks.lavenderQuartz)
-			return (BlockSlab) ModBlocks.lavenderQuartzSlab;
-		if(source == ModBlocks.redQuartz)
-			return (BlockSlab) ModBlocks.redQuartzSlab;
-		if(source == ModBlocks.elfQuartz)
-			return (BlockSlab) ModBlocks.elfQuartzSlab;
+		if(source == ModFluffBlocks.darkQuartz)
+			return (BlockSlab) ModFluffBlocks.darkQuartzSlab;
+		if(source == ModFluffBlocks.manaQuartz)
+			return (BlockSlab) ModFluffBlocks.manaQuartzSlab;
+		if(source == ModFluffBlocks.blazeQuartz)
+			return (BlockSlab) ModFluffBlocks.blazeQuartzSlab;
+		if(source == ModFluffBlocks.lavenderQuartz)
+			return (BlockSlab) ModFluffBlocks.lavenderQuartzSlab;
+		if(source == ModFluffBlocks.redQuartz)
+			return (BlockSlab) ModFluffBlocks.redQuartzSlab;
+		if(source == ModFluffBlocks.elfQuartz)
+			return (BlockSlab) ModFluffBlocks.elfQuartzSlab;
 
 		return this;
 	}
@@ -106,7 +106,7 @@ public class BlockSpecialQuartzSlab extends BlockModSlab {
 
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
-		return this == ModBlocks.elfQuartzSlab ? LexiconData.elvenResources : LexiconData.decorativeBlocks;
+		return this == ModFluffBlocks.elfQuartzSlab ? LexiconData.elvenResources : LexiconData.decorativeBlocks;
 	}
 
 }

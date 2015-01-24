@@ -17,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class BlockThatchSlab extends BlockLivingSlab {
@@ -29,12 +30,12 @@ public class BlockThatchSlab extends BlockLivingSlab {
 
 	@Override
 	public BlockSlab getFullBlock() {
-		return (BlockSlab) ModBlocks.thatchSlabFull;
+		return (BlockSlab) ModFluffBlocks.thatchSlabFull;
 	}
 
 	@Override
 	public BlockSlab getSingleBlock() {
-		return (BlockSlab) ModBlocks.thatchSlab;
+		return (BlockSlab) ModFluffBlocks.thatchSlab;
 	}
 
 	@Override

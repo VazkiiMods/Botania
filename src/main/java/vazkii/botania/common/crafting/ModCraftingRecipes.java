@@ -25,8 +25,8 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.item.ItemLens;
 import vazkii.botania.common.item.ItemSignalFlare;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
@@ -765,9 +765,9 @@ public final class ModCraftingRecipes {
 
 		// Quartz Recipes
 		if(ConfigHandler.darkQuartzEnabled)
-			recipeDarkQuartz = addQuartzRecipes(0, Items.coal, ModBlocks.darkQuartz, ModBlocks.darkQuartzStairs, ModBlocks.darkQuartzSlab);
-		addQuartzRecipes(1, null, ModBlocks.manaQuartz, ModBlocks.manaQuartzStairs, ModBlocks.manaQuartzSlab);
-		recipeBlazeQuartz = addQuartzRecipes(2, Items.blaze_powder, ModBlocks.blazeQuartz, ModBlocks.blazeQuartzStairs, ModBlocks.blazeQuartzSlab);
+			recipeDarkQuartz = addQuartzRecipes(0, Items.coal, ModFluffBlocks.darkQuartz, ModFluffBlocks.darkQuartzStairs, ModFluffBlocks.darkQuartzSlab);
+		addQuartzRecipes(1, null, ModFluffBlocks.manaQuartz, ModFluffBlocks.manaQuartzStairs, ModFluffBlocks.manaQuartzSlab);
+		recipeBlazeQuartz = addQuartzRecipes(2, Items.blaze_powder, ModFluffBlocks.blazeQuartz, ModFluffBlocks.blazeQuartzStairs, ModFluffBlocks.blazeQuartzSlab);
 
 		GameRegistry.addRecipe(new ItemStack(ModItems.quartz, 8, 3),
 				"QQQ", "QCQ", "QQQ",
@@ -786,10 +786,10 @@ public final class ModCraftingRecipes {
 				'Q', Items.quartz,
 				'C', new ItemStack(Blocks.double_plant, 1, 5));
 		recipesLavenderQuartz = BotaniaAPI.getLatestAddedRecipes(4);
-		addQuartzRecipes(3, null, ModBlocks.lavenderQuartz, ModBlocks.lavenderQuartzStairs, ModBlocks.lavenderQuartzSlab);
+		addQuartzRecipes(3, null, ModFluffBlocks.lavenderQuartz, ModFluffBlocks.lavenderQuartzStairs, ModFluffBlocks.lavenderQuartzSlab);
 
-		recipeRedQuartz = addQuartzRecipes(4, Items.redstone, ModBlocks.redQuartz, ModBlocks.redQuartzStairs, ModBlocks.redQuartzSlab);
-		addQuartzRecipes(5, null, ModBlocks.elfQuartz, ModBlocks.elfQuartzStairs, ModBlocks.elfQuartzSlab);
+		recipeRedQuartz = addQuartzRecipes(4, Items.redstone, ModFluffBlocks.redQuartz, ModFluffBlocks.redQuartzStairs, ModFluffBlocks.redQuartzSlab);
+		addQuartzRecipes(5, null, ModFluffBlocks.elfQuartz, ModFluffBlocks.elfQuartzStairs, ModFluffBlocks.elfQuartzSlab);
 
 		// Alfheim Portal Recipe
 		addOreDictRecipe(new ItemStack(ModBlocks.alfPortal),
@@ -1417,21 +1417,21 @@ public final class ModCraftingRecipes {
 		}
 
 		// Slab & Stair Recipes
-		addStairsAndSlabs(ModBlocks.livingwood, 0, ModBlocks.livingwoodStairs, ModBlocks.livingwoodSlab);
-		addStairsAndSlabs(ModBlocks.livingwood, 1, ModBlocks.livingwoodPlankStairs, ModBlocks.livingwoodPlankSlab);
-		addStairsAndSlabs(ModBlocks.livingrock, 0, ModBlocks.livingrockStairs, ModBlocks.livingrockSlab);
-		addStairsAndSlabs(ModBlocks.livingrock, 1, ModBlocks.livingrockBrickStairs, ModBlocks.livingrockBrickSlab);
-		addStairsAndSlabs(ModBlocks.dreamwood, 0, ModBlocks.dreamwoodStairs, ModBlocks.dreamwoodSlab);
-		addStairsAndSlabs(ModBlocks.dreamwood, 1, ModBlocks.dreamwoodPlankStairs, ModBlocks.dreamwoodPlankSlab);
-		addStairsAndSlabs(ModBlocks.prismarine, 0, ModBlocks.prismarineStairs, ModBlocks.prismarineSlab);
-		addStairsAndSlabs(ModBlocks.prismarine, 1, ModBlocks.prismarineBrickStairs, ModBlocks.prismarineBrickSlab);
-		addStairsAndSlabs(ModBlocks.prismarine, 2, ModBlocks.darkPrismarineStairs, ModBlocks.darkPrismarineSlab);
-		addStairsAndSlabs(ModBlocks.reedBlock, 0, ModBlocks.reedStairs, ModBlocks.reedSlab);
-		addStairsAndSlabs(ModBlocks.thatch, 0, ModBlocks.thatchStairs, ModBlocks.thatchSlab);
-		addStairsAndSlabs(ModBlocks.customBrick, 0, ModBlocks.netherBrickStairs, ModBlocks.netherBrickSlab);
-		addStairsAndSlabs(ModBlocks.customBrick, 1, ModBlocks.soulBrickStairs, ModBlocks.soulBrickSlab);
-		addStairsAndSlabs(ModBlocks.customBrick, 2, ModBlocks.snowBrickStairs, ModBlocks.snowBrickSlab);
-		addStairsAndSlabs(ModBlocks.customBrick, 3, ModBlocks.tileStairs, ModBlocks.tileSlab);
+		addStairsAndSlabs(ModBlocks.livingwood, 0, ModFluffBlocks.livingwoodStairs, ModFluffBlocks.livingwoodSlab);
+		addStairsAndSlabs(ModBlocks.livingwood, 1, ModFluffBlocks.livingwoodPlankStairs, ModFluffBlocks.livingwoodPlankSlab);
+		addStairsAndSlabs(ModBlocks.livingrock, 0, ModFluffBlocks.livingrockStairs, ModFluffBlocks.livingrockSlab);
+		addStairsAndSlabs(ModBlocks.livingrock, 1, ModFluffBlocks.livingrockBrickStairs, ModFluffBlocks.livingrockBrickSlab);
+		addStairsAndSlabs(ModBlocks.dreamwood, 0, ModFluffBlocks.dreamwoodStairs, ModFluffBlocks.dreamwoodSlab);
+		addStairsAndSlabs(ModBlocks.dreamwood, 1, ModFluffBlocks.dreamwoodPlankStairs, ModFluffBlocks.dreamwoodPlankSlab);
+		addStairsAndSlabs(ModBlocks.prismarine, 0, ModFluffBlocks.prismarineStairs, ModFluffBlocks.prismarineSlab);
+		addStairsAndSlabs(ModBlocks.prismarine, 1, ModFluffBlocks.prismarineBrickStairs, ModFluffBlocks.prismarineBrickSlab);
+		addStairsAndSlabs(ModBlocks.prismarine, 2, ModFluffBlocks.darkPrismarineStairs, ModFluffBlocks.darkPrismarineSlab);
+		addStairsAndSlabs(ModBlocks.reedBlock, 0, ModFluffBlocks.reedStairs, ModFluffBlocks.reedSlab);
+		addStairsAndSlabs(ModBlocks.thatch, 0, ModFluffBlocks.thatchStairs, ModFluffBlocks.thatchSlab);
+		addStairsAndSlabs(ModBlocks.customBrick, 0, ModFluffBlocks.netherBrickStairs, ModFluffBlocks.netherBrickSlab);
+		addStairsAndSlabs(ModBlocks.customBrick, 1, ModFluffBlocks.soulBrickStairs, ModFluffBlocks.soulBrickSlab);
+		addStairsAndSlabs(ModBlocks.customBrick, 2, ModFluffBlocks.snowBrickStairs, ModFluffBlocks.snowBrickSlab);
+		addStairsAndSlabs(ModBlocks.customBrick, 3, ModFluffBlocks.tileStairs, ModFluffBlocks.tileSlab);
 
 		// Misc Recipes
 		GameRegistry.addShapelessRecipe(new ItemStack(Items.reeds, 9, 0), new ItemStack(ModBlocks.reedBlock));

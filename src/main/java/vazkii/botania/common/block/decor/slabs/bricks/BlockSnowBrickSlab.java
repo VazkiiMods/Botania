@@ -12,7 +12,7 @@
 package vazkii.botania.common.block.decor.slabs.bricks;
 
 import net.minecraft.block.BlockSlab;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.ModFluffBlocks;
 
 public class BlockSnowBrickSlab extends BlockCustomBrickSlab {
 
@@ -22,12 +22,12 @@ public class BlockSnowBrickSlab extends BlockCustomBrickSlab {
 
 	@Override
 	public BlockSlab getFullBlock() {
-		return (BlockSlab) ModBlocks.snowBrickSlabFull;
+		return (BlockSlab) ModFluffBlocks.snowBrickSlabFull;
 	}
 
 	@Override
 	public BlockSlab getSingleBlock() {
-		return (BlockSlab) ModBlocks.snowBrickSlab;
+		return (BlockSlab) ModFluffBlocks.snowBrickSlab;
 	}
 
 }

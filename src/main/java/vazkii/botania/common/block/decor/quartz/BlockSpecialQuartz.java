@@ -26,7 +26,7 @@ import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.BlockMod;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.item.block.ItemBlockSpecialQuartz;
 import vazkii.botania.common.lexicon.LexiconData;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -150,6 +150,6 @@ public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
 
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
-		return this == ModBlocks.elfQuartz ? LexiconData.elvenResources : LexiconData.decorativeBlocks;
+		return this == ModFluffBlocks.elfQuartz ? LexiconData.elvenResources : LexiconData.decorativeBlocks;
 	}
 }

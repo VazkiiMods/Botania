@@ -16,7 +16,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.decor.stairs.BlockModStairs;
 import vazkii.botania.common.lexicon.LexiconData;
 
@@ -28,7 +28,7 @@ public class BlockSpecialQuartzStairs extends BlockModStairs {
 
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
-		return this == ModBlocks.elfQuartzStairs ? LexiconData.elvenResources : super.getEntry(world, x, y, z, player, lexicon);
+		return this == ModFluffBlocks.elfQuartzStairs ? LexiconData.elvenResources : super.getEntry(world, x, y, z, player, lexicon);
 	}
 
 }

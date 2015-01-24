@@ -17,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.decor.slabs.BlockLivingSlab;
 import vazkii.botania.common.lexicon.LexiconData;
 
@@ -35,12 +36,12 @@ public class BlockCustomBrickSlab extends BlockLivingSlab {
 
 	@Override
 	public BlockSlab getFullBlock() {
-		return (BlockSlab) ModBlocks.netherBrickSlabFull;
+		return (BlockSlab) ModFluffBlocks.netherBrickSlabFull;
 	}
 
 	@Override
 	public BlockSlab getSingleBlock() {
-		return (BlockSlab) ModBlocks.netherBrickSlab;
+		return (BlockSlab) ModFluffBlocks.netherBrickSlab;
 	}
 
 	@Override

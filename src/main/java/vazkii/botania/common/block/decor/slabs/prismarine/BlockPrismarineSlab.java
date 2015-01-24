@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.decor.slabs.BlockLivingSlab;
 import vazkii.botania.common.lexicon.LexiconData;
 
@@ -24,12 +25,12 @@ public class BlockPrismarineSlab extends BlockLivingSlab {
 
 	@Override
 	public BlockSlab getFullBlock() {
-		return (BlockSlab) ModBlocks.prismarineSlabFull;
+		return (BlockSlab) ModFluffBlocks.prismarineSlabFull;
 	}
 
 	@Override
 	public BlockSlab getSingleBlock() {
-		return (BlockSlab) ModBlocks.prismarineSlab;
+		return (BlockSlab) ModFluffBlocks.prismarineSlab;
 	}
 
 	@Override

@@ -17,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class BlockReedSlab extends BlockLivingSlab {
@@ -29,12 +30,12 @@ public class BlockReedSlab extends BlockLivingSlab {
 
 	@Override
 	public BlockSlab getFullBlock() {
-		return (BlockSlab) ModBlocks.reedSlabFull;
+		return (BlockSlab) ModFluffBlocks.reedSlabFull;
 	}
 
 	@Override
 	public BlockSlab getSingleBlock() {
-		return (BlockSlab) ModBlocks.reedSlab;
+		return (BlockSlab) ModFluffBlocks.reedSlab;
 	}
 
 	@Override
