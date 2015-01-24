@@ -129,7 +129,7 @@ public class ItemLens extends ItemMod implements ILens {
 		GameRegistry.addRecipe(new CompositeLensRecipe());
 		GameRegistry.addRecipe(new LensDyingRecipe());
 		RecipeSorter.register("botania:compositeLens", CompositeLensRecipe.class, Category.SHAPELESS, "");
-		RecipeSorter.register("botania:lensDying", CompositeLensRecipe.class, Category.SHAPELESS, "");
+		RecipeSorter.register("botania:lensDying", LensDyingRecipe.class, Category.SHAPELESS, "");
 	}
 
 	@Override
