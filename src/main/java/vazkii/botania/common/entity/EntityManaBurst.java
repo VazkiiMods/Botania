@@ -472,7 +472,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		ILensEffect lens = getLensInstance();
 		if(lens != null && !lens.doParticles(this, getSourceLens()))
 			return;
-
+		
 		Color color = new Color(getColor());
 		float r = color.getRed() / 255F;
 		float g = color.getGreen() / 255F;
@@ -492,6 +492,10 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			if(!noParticles && shouldDoFakeParticles())
 				Botania.proxy.sparkleFX(worldObj, posX, posY, posZ, r, g, b, 0.4F * size, 1, true);
 		} else {
+			boolean monocle = Botania.proxy.isClientPlayerWearingMonocle();
+			if(monocle)
+				Botania.proxy.setWispFXDepthTest(false); 
+			
 			if(ConfigHandler.subtlePowerSystem)
 				Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.1F * size, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.01F);
 			else {
@@ -533,6 +537,9 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 				posY = savedPosY;
 				posZ = savedPosZ;
 			}
+			
+			if(monocle)
+				Botania.proxy.setWispFXDepthTest(true); 
 		}
 	}
 

@@ -44,6 +44,7 @@ import vazkii.botania.common.item.equipment.bauble.ItemLavaPendant;
 import vazkii.botania.common.item.equipment.bauble.ItemMagnetRing;
 import vazkii.botania.common.item.equipment.bauble.ItemManaRing;
 import vazkii.botania.common.item.equipment.bauble.ItemMiningRing;
+import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.item.equipment.bauble.ItemPixieRing;
 import vazkii.botania.common.item.equipment.bauble.ItemReachRing;
 import vazkii.botania.common.item.equipment.bauble.ItemSuperLavaPendant;
@@ -188,7 +189,8 @@ public final class ModItems {
 	public static Item unholyCloak;
 	public static Item craftingHalo;
 	public static Item blackLotus;
-
+	public static Item monocle;
+	
 	public static void init() {
 		lexicon = new ItemLexicon();
 		petal = new ItemPetal();
@@ -287,7 +289,8 @@ public final class ModItems {
 		unholyCloak = new ItemUnholyCloak();
 		craftingHalo = new ItemCraftingHalo();
 		blackLotus = new ItemBlackLotus();
-
+		monocle = new ItemMonocle();
+		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));

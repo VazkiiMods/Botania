@@ -797,6 +797,7 @@ item.botania:craftingHalo.name=Assembly Halo
 item.botania:blackLotus0.name=Black Lotus
 item.botania:blackLotus1.name=Void Lotus
 item.botania:dreamwoodTwig.name=Dreamwood Twig
+item.botania:monocle.name=Manaseer Monocle
 
 # BREW NAMES
 botania.brew.fallback=Fallback

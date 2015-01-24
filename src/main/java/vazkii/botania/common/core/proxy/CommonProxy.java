@@ -129,6 +129,10 @@ public class CommonProxy {
 	public boolean isTheClientPlayer(EntityLivingBase entity) {
 		return false;
 	}
+	
+	public boolean isClientPlayerWearingMonocle() {
+		return false;
+	}
 
 	public void setExtraReach(EntityLivingBase entity, float reach) {
 		if(entity instanceof EntityPlayerMP)

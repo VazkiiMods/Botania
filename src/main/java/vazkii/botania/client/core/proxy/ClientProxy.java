@@ -15,6 +15,8 @@ import java.awt.Desktop;
 import java.net.URI;
 import java.util.Calendar;
 
+import baubles.common.container.InventoryBaubles;
+import baubles.common.lib.PlayerHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
@@ -23,12 +25,14 @@ import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings.GameType;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
+import vazkii.botania.api.item.IBurstViewerBauble;
 import vazkii.botania.api.item.IExtendedPlayerController;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.wiki.IWikiProvider;
@@ -220,6 +224,14 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public boolean isTheClientPlayer(EntityLivingBase entity) {
 		return entity == Minecraft.getMinecraft().thePlayer;
+	}
+	
+	@Override
+	public boolean isClientPlayerWearingMonocle() {
+		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+		InventoryBaubles inv = PlayerHandler.getPlayerBaubles(player);
+		ItemStack stack = inv.getStackInSlot(0);
+		return stack != null && stack.getItem() instanceof IBurstViewerBauble;
 	}
 
 	@Override
