@@ -316,7 +316,7 @@ public final class LexiconData {
 		paintLens.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeLensPaint));
 
 		prism = new ALexiconEntry(LibLexicon.MANA_PRISM, categoryMana);
-		prism.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipePrism));
+		prism.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipePrism));
 
 		// FUNCTIONAL FLOWERS ENTRIES
 		functionalIntro = new BLexiconEntry(LibLexicon.FFLOWER_INTRO, categoryFunctionalFlowers);

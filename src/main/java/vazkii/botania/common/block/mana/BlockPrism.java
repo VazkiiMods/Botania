@@ -33,6 +33,7 @@ import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.mana.TilePrism;
+import vazkii.botania.common.block.tile.string.TileRedStringDispenser;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
@@ -95,24 +96,39 @@ public class BlockPrism extends BlockModContainer implements IManaTrigger, ILexi
 		ItemStack lens = prism.getStackInSlot(0);
 		ItemStack heldItem = par5EntityPlayer.getCurrentEquippedItem();
 		boolean isHeldItemLens = heldItem != null && heldItem.getItem() instanceof ILens;
+		int meta = par1World.getBlockMetadata(par2, par3, par4);
 
 		if(lens == null && isHeldItemLens) {
 			par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, null);
 			prism.setInventorySlotContents(0, heldItem.copy());
 			prism.markDirty();
-			par1World.setBlockMetadataWithNotify(par2, par3, par4, 1, 1 | 2);
+			par1World.setBlockMetadataWithNotify(par2, par3, par4, meta | 1, 1 | 2);
 		} else if(lens != null) {
 			ItemStack add = lens.copy();
 			if(!par5EntityPlayer.inventory.addItemStackToInventory(add))
 				par5EntityPlayer.dropPlayerItemWithRandomChoice(add, false);
 			prism.setInventorySlotContents(0, null);
 			prism.markDirty();
-			par1World.setBlockMetadataWithNotify(par2, par3, par4, 0, 1 | 2);
+			par1World.setBlockMetadataWithNotify(par2, par3, par4, meta & 14, 1 | 2);
 		}
 
 		return true;
 	}
 
+	@Override
+	public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+		boolean power = world.isBlockIndirectlyGettingPowered(x, y, z) || world.isBlockIndirectlyGettingPowered(x, y + 1, z);
+		int meta = world.getBlockMetadata(x, y, z);
+		boolean powered = (meta & 8) != 0;
+
+		if(!world.isRemote) {
+			if(power && !powered)
+				world.setBlockMetadataWithNotify(x, y, z, meta | 8, 1 | 2);
+			else if(!power && powered)
+				world.setBlockMetadataWithNotify(x, y, z, meta & -9, 1 | 2);
+		}
+	}
+	
 	@Override
 	public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6) {
 		TileEntity tile = par1World.getTileEntity(par2, par3, par4);

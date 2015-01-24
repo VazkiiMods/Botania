@@ -24,24 +24,27 @@ public class TilePrism extends TileSimpleInventory implements IManaCollisionGhos
 
 	public void onBurstCollision(IManaBurst burst) {
 		ItemStack lens = getStackInSlot(0);
+		boolean active = (getBlockMetadata() & 8) == 0;
 		boolean valid = lens != null && lens.getItem() instanceof ILens;
 
-		burst.setSourceLens(valid ? lens.copy() : null);
-		burst.setColor(0xFFFFFF);
-		burst.setGravity(0F);
+		if(active) {
+			burst.setSourceLens(valid ? lens.copy() : null);
+			burst.setColor(0xFFFFFF);
+			burst.setGravity(0F);
 
-		if(valid) {
-			Entity burstEntity = (Entity) burst;
-			BurstProperties properties = new BurstProperties(burst.getStartingMana(), burst.getMinManaLoss(), burst.getManaLossPerTick(), burst.getGravity(), 1F, burst.getColor());
+			if(valid) {
+				Entity burstEntity = (Entity) burst;
+				BurstProperties properties = new BurstProperties(burst.getStartingMana(), burst.getMinManaLoss(), burst.getManaLossPerTick(), burst.getGravity(), 1F, burst.getColor());
 
-			((ILens) lens.getItem()).apply(lens, properties);
+				((ILens) lens.getItem()).apply(lens, properties);
 
-			burst.setColor(properties.color);
-			burst.setStartingMana(properties.maxMana);
-			burst.setMinManaLoss(properties.ticksBeforeManaLoss);
-			burst.setManaLossPerTick(properties.manaLossPerTick);
-			burst.setGravity(properties.gravity);
-			burst.setMotion(burstEntity.motionX * properties.motionModifier, burstEntity.motionY * properties.motionModifier,burstEntity.motionZ * properties.motionModifier);
+				burst.setColor(properties.color);
+				burst.setStartingMana(properties.maxMana);
+				burst.setMinManaLoss(properties.ticksBeforeManaLoss);
+				burst.setManaLossPerTick(properties.manaLossPerTick);
+				burst.setGravity(properties.gravity);
+				burst.setMotion(burstEntity.motionX * properties.motionModifier, burstEntity.motionY * properties.motionModifier,burstEntity.motionZ * properties.motionModifier);
+			}
 		}
 	}
 
