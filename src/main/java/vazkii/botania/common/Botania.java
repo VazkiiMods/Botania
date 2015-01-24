@@ -68,8 +68,8 @@ public class Botania {
 		ManaNetworkHandler.instance.clear();
 	}
 
-	@EventHandler
+	/*@EventHandler
 	public void missingMappings(FMLMissingMappingsEvent event) {
 		AliasHandler.onMissingMappings(event);
-	}
+	}*/
 }
