@@ -45,9 +45,9 @@ public class EntityMagicLandmine extends Entity {
 		float g = 0F;
 		float b = 0.2F;
 
-		Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.6F, -0.2F, 1);
-		for(int i = 0; i < 4; i++)
-			Botania.proxy.wispFX(worldObj, posX - range + Math.random() * range * 2, posY, posZ - range + Math.random() * range * 2, r, g, b, 0.4F, -0.06F, 1);
+		//Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.6F, -0.2F, 1);
+		for(int i = 0; i < 6; i++)
+			Botania.proxy.wispFX(worldObj, posX - range + Math.random() * range * 2, posY, posZ - range + Math.random() * range * 2, r, g, b, 0.4F, -0.015F, 1);
 
 		if(ticksExisted >= 55) {
 			worldObj.playSoundEffect(posX, posY, posZ, "botania:gaiaTrap", 0.6F, 1F);
@@ -55,7 +55,7 @@ public class EntityMagicLandmine extends Entity {
 			float m = 0.35F;
 			g = 0.4F;
 			for(int i = 0; i < 25; i++)
-				Botania.proxy.wispFX(worldObj, posX, posY + 5, posZ, r, g, b, 0.5F, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m);
+				Botania.proxy.wispFX(worldObj, posX, posY + 1, posZ, r, g, b, 0.5F, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m);
 
 			if(!worldObj.isRemote) {
 				List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(posX - range, posY - range, posZ - range, posX + range, posY + range, posZ + range));
