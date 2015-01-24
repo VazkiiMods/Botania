@@ -1,13 +1,13 @@
 package vazkii.botania.common.item.equipment.tool.elementium;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
+import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ItemTerraPick;
@@ -17,14 +17,9 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class ItemElementiumPick extends ItemManasteelPick {
 
-	static final List<Block> validBlocks = new ArrayList() {private static final long serialVersionUID = 2265395319423142758L;
-	{
-		add(Blocks.dirt);
-		add(Block.getBlockFromName("sand"));
-		add(Block.getBlockFromName("gravel"));
-		add(Blocks.cobblestone);
-		add(Blocks.netherrack);
-	}};
+	static final List<String> validBlocks = Arrays.asList(new String[] {
+		"dirt", "sand", "gravel", "cobblestone", "netherrack"
+	});
 
 	public ItemElementiumPick() {
 		super(BotaniaAPI.elementiumToolMaterial, LibItemNames.ELEMENTIUM_PICK);
@@ -48,7 +43,11 @@ public class ItemElementiumPick extends ItemManasteelPick {
 	}
 
 	public static boolean isDisposable(Block block) {
-		return validBlocks.contains(block);
+		for(int id : OreDictionary.getOreIDs(new ItemStack(block)))
+			if(validBlocks.contains(OreDictionary.getOreName(id)))
+				return true;
+		
+		return false;
 	}
 
 }

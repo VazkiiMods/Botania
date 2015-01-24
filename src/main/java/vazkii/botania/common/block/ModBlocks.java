@@ -298,6 +298,7 @@ public final class ModBlocks {
 		OreDictionary.registerOre("snowLayer", Blocks.snow_layer);
 		OreDictionary.registerOre("mycelium", Blocks.mycelium);
 		OreDictionary.registerOre("podzol", new ItemStack(Blocks.dirt, 1, 2));
+		OreDictionary.registerOre("netherrack", Blocks.netherrack);
 
 		initTileEntities();
 	}
