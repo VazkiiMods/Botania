@@ -174,7 +174,8 @@ public final class LexiconData {
 	public static LexiconEntry superLavaPendant;
 	public static LexiconEntry bloodPendant;
 	public static LexiconEntry judgementCloaks;
-
+	public static LexiconEntry monocle;
+	
 	public static LexiconEntry alfhomancyIntro;
 	public static LexiconEntry elvenMessage;
 	public static LexiconEntry elvenResources;
@@ -646,6 +647,9 @@ public final class LexiconData {
 		judgementCloaks = new ALexiconEntry(LibLexicon.BAUBLE_JUDGEMENT_CLOAKS, categoryBaubles);
 		judgementCloaks.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeHolyCloak), new PageCraftingRecipe("3", ModCraftingRecipes.recipeUnholyCloak));
 
+		monocle = new BLexiconEntry(LibLexicon.BAUBLE_MONOCLE, categoryBaubles);
+		monocle.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeMonocle));
+		
 		// ALFHOMANCY ENTRIES
 		alfhomancyIntro = new BLexiconEntry(LibLexicon.ALF_INTRO, categoryAlfhomancy);
 		alfhomancyIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeAlfPortal), new PageCraftingRecipe("3", ModCraftingRecipes.recipeNaturaPylon),
@@ -723,3 +727,4 @@ public final class LexiconData {
 		}
 	}
 }
+

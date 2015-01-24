@@ -155,6 +155,7 @@ public final class LibLexicon {
 	public static final String BAUBLE_SUPER_LAVA_PENDANT = "superLavaPendant";
 	public static final String BAUBLE_BLOOD_PENDANT = "bloodPendant";
 	public static final String BAUBLE_JUDGEMENT_CLOAKS = "judgementCloaks";
+	public static final String BAUBLE_MONOCLE = "monocle";
 
 	public static final String ALF_INTRO = "aIntro";
 	public static final String ALF_MESSAGE = "elfMessage";

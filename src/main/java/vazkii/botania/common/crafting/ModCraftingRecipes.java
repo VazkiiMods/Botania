@@ -214,6 +214,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipePrism;
 	public static IRecipe recipeDirtPath;
 	public static IRecipe recipeDreamwoodTwig;
+	public static IRecipe recipeMonocle;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1392,6 +1393,14 @@ public final class ModCraftingRecipes {
 				"W", "W",
 				'W', LibOreDict.DREAM_WOOD);
 		recipeDreamwoodTwig = BotaniaAPI.getLatestAddedRecipe();		
+		
+		// Manaseer Monocle Recipe
+		addOreDictRecipe(new ItemStack(ModItems.monocle), 
+				"GN", "IN", " N",
+				'G', new ItemStack(ModBlocks.manaGlass),
+				'I', LibOreDict.MANA_STEEL,
+				'N', new ItemStack(Items.gold_nugget));
+		recipeMonocle = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Mana and Terrasteel Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
