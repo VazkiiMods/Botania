@@ -272,6 +272,7 @@ entity.Botania.botania:magicLandmine.name=Gaia Trap
 entity.Botania.botania:spark.name=Spark
 entity.Botania.botania:thrownItem.name=Thrown Item
 entity.Botania.botania:magicMissile.name=Magic Missile
+entity.Botania.botania:thornChakram.name=Thorn Chakram
 
 # BLOCK NAMES
 tile.botania:flower0.name=Mystical White Flower
@@ -807,6 +808,7 @@ item.botania:cobbleRod.name=Rod of the Depths
 item.botania:smeltRod.name=Rod of the Molten Core
 item.botania:worldSeed.name=World Seed
 item.botania:spellCloth.name=Spellbinding Cloth
+item.botania:thornChakram.name=Thorn Chakram
 
 # BREW NAMES
 botania.brew.fallback=Fallback
