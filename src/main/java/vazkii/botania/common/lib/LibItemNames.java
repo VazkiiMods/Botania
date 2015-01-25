@@ -114,7 +114,8 @@ public final class LibItemNames {
 	public static final String MONOCLE = "monocle";
 	public static final String CLIP = "clip";
 	public static final String COBBLE_ROD = "cobbleRod";
-	
+	public static final String SMELT_ROD = "smeltRod";
+
 	public static final String[] LENS_NAMES = new String[] {
 		"lensNormal",
 		"lensSpeed",

@@ -804,6 +804,7 @@ item.botania:dreamwoodTwig.name=Dreamwood Twig
 item.botania:monocle.name=Manaseer Monocle
 item.botania:clip.name=Lens Clip
 item.botania:cobbleRod.name=Rod of the Depths
+item.botania:smeltRod.name=Rod of the Molten Core
 
 # BREW NAMES
 botania.brew.fallback=Fallback
@@ -1654,6 +1655,11 @@ botania.page.clip2=Since we're dubbed by 4Kids we must make do without one
 botania.entry.cobbleRod=Rod of the Depths
 botania.page.cobbleRod0=The &1Rod of the Depths&0 acts pretty much as a variant to the the &1Rod of the Lands&0. It does exactly the same thing but with &1Cobblestone&0 for a bit of a higher price.
 botania.page.cobbleRod1=It's cobbling time
+
+# -- ROD OF THE MOLTEN CORE
+botania.entry.smeltRod=Rod of the Molten Core
+botania.page.smeltRod0=The &1Rod of the Molten Core&0 has the ability to expel heat provenient from the world's core. Holding it via right click and pointing at a block in the world that can be smelted into a different type of block will quickly turn it into that.<br>For some examples, &1Cobblestone&0 turns into &1Stone&0, &1Sand&0 into &1Glass&0, so on.
+botania.page.smeltRod1=Stolen from Efreet
 
 # - BAUBLES
 # -- AN INTRODUCTION TO BAUBLES

@@ -217,6 +217,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeMonocle;
 	public static IRecipe recipeClip;
 	public static IRecipe recipeCobbleRod;
+	public static IRecipe recipeSmeltRod;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1418,6 +1419,14 @@ public final class ModCraftingRecipes {
 				'T', LibOreDict.LIVINGWOOD_TWIG,
 				'C', new ItemStack(Blocks.cobblestone));
 		recipeCobbleRod = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Rod of the Molten Core Recipe
+		addOreDictRecipe(new ItemStack(ModItems.smeltRod),
+				" BF", " TB", "T  ",
+				'B', new ItemStack(Items.blaze_rod),
+				'F', LibOreDict.RUNE[1],
+				'T', LibOreDict.LIVINGWOOD_TWIG);
+		recipeSmeltRod = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
