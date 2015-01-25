@@ -828,23 +828,17 @@ botania.brew.absorption=Shielding
 botania.brew.soulCross=Crossed Souls
 botania.brew.featherFeet=Feather Feet
 botania.brew.emptiness=Vanity's Emptiness
-botania.brew.fulfilment=Vanity's Fulfilment
+botania.brew.bloodthirst=Crimson Shade
 botania.brew.overload=Overload
-botania.brew.livingReactor=Living Reactive
-botania.brew.manashock=Manashock
-botania.brew.gravitation=Twisted Gravity
-botania.brew.cleansing=Cleansing
+botania.brew.allure=Marine Allure
 botania.brew.warpWard=Sane Thoughts
 
 # POTION NAMES
 botania.potion.soulCross=Soul Cross
 botania.potion.featherFeet=Feather Feet
 botania.potion.emptiness=Emptiness
-botania.potion.fulfilment=Fulfilment
-botania.potion.livingReactor=Living Reactor
-botania.potion.manashock=Manashock
-botania.potion.gravitation=Gravitation
-botania.potion.cleansing=Cleansing
+botania.potion.bloodthirst=Bloodthirst
+botania.potion.allure=Allure
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania, %s Edition Table of Contents

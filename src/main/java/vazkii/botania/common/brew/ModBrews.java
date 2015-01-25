@@ -32,15 +32,12 @@ public class ModBrews {
 	public static Brew nightVision;
 	public static Brew absorption;
 
+	public static Brew allure;
 	public static Brew soulCross;
 	public static Brew featherfeet;
 	public static Brew emptiness;
-	public static Brew fulfilment;
-	public static Brew livingReactor;
+	public static Brew bloodthirst;
 	public static Brew overload;
-	public static Brew manashock;
-	public static Brew gravitation;
-	public static Brew cleansing;
 
 	public static Brew warpWard;
 
@@ -59,15 +56,12 @@ public class ModBrews {
 		nightVision = new BrewMod(LibBrewNames.NIGHT_VISION, 0x7C4BEB, 4000, new PotionEffect(Potion.nightVision.id, 9600, 0));
 		absorption = new BrewMod(LibBrewNames.ABSORPTION, 0xF2EB23, 7000, new PotionEffect(Potion.field_76444_x.id, 1800, 3)).setNotBloodPendantInfusable();
 
-		/*soulCross = new BrewModPotion(LibBrewNames.SOUL_CROSS, 10000, new PotionEffect(ModPotions.soulCross.id, 1800, 0));
+		overload = new BrewMod(LibBrewNames.OVERLOAD, 0x232323, 12000, new PotionEffect(Potion.damageBoost.id, 1800, 3), new PotionEffect(Potion.moveSpeed.id, 1800, 2), new PotionEffect(Potion.weakness.id, 1800, 2), new PotionEffect(Potion.hunger.id, 200, 2));
+		soulCross = new BrewModPotion(LibBrewNames.SOUL_CROSS, 10000, new PotionEffect(ModPotions.soulCross.id, 1800, 0));
 		featherfeet = new BrewModPotion(LibBrewNames.FEATHER_FEET, 7000, new PotionEffect(ModPotions.featherfeet.id, 1800, 0));
 		emptiness = new BrewModPotion(LibBrewNames.EMPTINESS, 30000, new PotionEffect(ModPotions.emptiness.id, 7200, 0));
-		fulfilment = new BrewModPotion(LibBrewNames.FULFILMENT, 20000, new PotionEffect(ModPotions.fulfilment.id, 7200, 0));
-		livingReactor = new BrewModPotion(LibBrewNames.LIVING_REACTOR, 9000, new PotionEffect(ModPotions.livingReactor.id, 200, 0));
-		overload = new BrewMod(LibBrewNames.OVERLOAD, 0x232323, 12000, new PotionEffect(Potion.damageBoost.id, 1800, 3), new PotionEffect(Potion.moveSpeed.id, 1800, 2), new PotionEffect(Potion.weakness.id, 1800, 2), new PotionEffect(Potion.hunger.id, 200, 0));
-		manashock = new BrewModPotion(LibBrewNames.MANASHOCK, 15000, new PotionEffect(ModPotions.manashock.id, 200, 0));
-		gravitation = new BrewModPotion(LibBrewNames.MANASHOCK, 12000, new PotionEffect(ModPotions.gravitation.id, 1800, 0));
-		cleansing = new BrewModPotion(LibBrewNames.CLEANSING, 16000, new PotionEffect(ModPotions.cleansing.id, 1200, 0));*/
+		bloodthirst = new BrewModPotion(LibBrewNames.BLOODTHIRST, 20000, new PotionEffect(ModPotions.bloodthrst.id, 7200, 0));
+		allure = new BrewModPotion(LibBrewNames.ALLURE, 2000, new PotionEffect(ModPotions.allure.id, 4800, 0));
 	}
 
 	public static void initTC() {

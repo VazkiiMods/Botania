@@ -7,7 +7,7 @@
  * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
  * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
  * 
- * File Created @ [Nov 3, 2014, 12:12:36 AM (GMT)]
+ * File Created @ [Nov 3, 2014, 12:13:09 AM (GMT)]
  */
 package vazkii.botania.common.brew.potion;
 
@@ -18,29 +18,30 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
-import vazkii.botania.common.lib.LibPotionNames;
-import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.eventhandler.Event.Result;
+import vazkii.botania.common.brew.ModPotions;
+import vazkii.botania.common.lib.LibPotionNames;
 
-public class PotionEmptiness extends PotionMod {
+public class PotionBloodthirst extends PotionMod {
 
-	private static final int RANGE = 128;
+	private static final int RANGE = 64;
 	
-	public PotionEmptiness() {
-		super(LibPotionNames.EMPTINESS, false, 0xE7E7E7, 2);
+	public PotionBloodthirst() {
+		super(LibPotionNames.BLOODTHIRST, false, 0xC30000, 3);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
-
+	
 	@SubscribeEvent
 	public void onSpawn(LivingSpawnEvent.CheckSpawn event) {
 		if(event.getResult() != Result.ALLOW && event.entityLiving instanceof IMob) {
 			List<EntityPlayer> players = event.world.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(event.x - RANGE, event.y - RANGE, event.z - RANGE, event.x + RANGE, event.y + RANGE, event.z + RANGE));
 			for(EntityPlayer player : players)
-				if(hasEffect(player)) {
-					event.setResult(Result.DENY);
+				if(hasEffect(player) && !hasEffect(player, ModPotions.emptiness)) {
+					event.setResult(Result.ALLOW);
 					return;
 				}
 		}
 	}
-	
+
 }

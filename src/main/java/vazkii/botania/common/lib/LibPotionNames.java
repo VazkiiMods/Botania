@@ -16,10 +16,7 @@ public final class LibPotionNames {
 	public static final String SOUL_CROSS = "soulCross";
 	public static final String FEATHER_FEET = "featherFeet";
 	public static final String EMPTINESS = "emptiness";
-	public static final String FULFILMENT = "fulfilment";
-	public static final String LIVING_REACTOR = "livingReactor";
-	public static final String MANASHOCK = "manashock";
-	public static final String GRAVITATION = "gravitation";
-	public static final String CLEANSING = "cleansing";
+	public static final String BLOODTHIRST = "bloodthirst";
+	public static final String ALLURE = "allure";
 
 }

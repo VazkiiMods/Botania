@@ -12,6 +12,7 @@
 package vazkii.botania.common.brew.potion;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.client.lib.LibResources;
@@ -42,6 +43,14 @@ public class PotionMod extends Potion {
 		Minecraft.getMinecraft().renderEngine.bindTexture(resource);
 
 		return super.getStatusIconIndex();
+	}
+	
+	public boolean hasEffect(EntityLivingBase entity) {
+		return hasEffect(entity, this);
+	}
+	
+	public boolean hasEffect(EntityLivingBase entity, Potion potion) {
+		return entity.getActivePotionEffect(potion) != null;
 	}
 
 }
