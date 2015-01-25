@@ -156,6 +156,7 @@ public final class LexiconData {
 	public static LexiconEntry cobbleRod;
 	public static LexiconEntry smeltRod;
 	public static LexiconEntry worldSeed;
+	public static LexiconEntry spellCloth;
 
 	public static LexiconEntry baublesIntro;
 	public static LexiconEntry tinyPlanet;
@@ -598,6 +599,9 @@ public final class LexiconData {
 		
 		worldSeed = new ALexiconEntry(LibLexicon.TOOL_WORLD_SEED, categoryTools);
 		worldSeed.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeWorldSeed));
+		
+		spellCloth = new BLexiconEntry(LibLexicon.TOOL_SPELL_CLOTH, categoryTools);
+		spellCloth.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeSpellCloth));
 		
 		// BAUBLES ENTRIES
 		baublesIntro = new BLexiconEntry(LibLexicon.BAUBLE_INTRO, categoryBaubles);

@@ -219,6 +219,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeCobbleRod;
 	public static IRecipe recipeSmeltRod;
 	public static IRecipe recipeWorldSeed;
+	public static IRecipe recipeSpellCloth;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1436,6 +1437,13 @@ public final class ModCraftingRecipes {
 				'S', new ItemStack(Items.wheat_seeds),
 				'D', LibOreDict.DRAGONSTONE);
 		recipeWorldSeed = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Spellbinding Cloth Recipe
+		addOreDictRecipe(new ItemStack(ModItems.spellCloth), 
+				"WWW", "WPW", "WWW",
+				'W', new ItemStack(Blocks.wool, 1, -1),
+				'P', LibOreDict.MANA_PEARL);
+		recipeSpellCloth = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
