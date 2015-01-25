@@ -197,6 +197,7 @@ public final class ModItems {
 	public static Item cobbleRod;
 	public static Item smeltRod;
 	public static Item worldSeed;
+	public static Item spellCloth;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -301,6 +302,7 @@ public final class ModItems {
 		cobbleRod = new ItemCobbleRod();
 		smeltRod = new ItemSmeltRod();
 		worldSeed = new ItemWorldSeed();
+		spellCloth = new ItemSpellCloth();
 		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
