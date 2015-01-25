@@ -805,6 +805,7 @@ item.botania:monocle.name=Manaseer Monocle
 item.botania:clip.name=Lens Clip
 item.botania:cobbleRod.name=Rod of the Depths
 item.botania:smeltRod.name=Rod of the Molten Core
+item.botania:worldSeed.name=World Seed
 
 # BREW NAMES
 botania.brew.fallback=Fallback

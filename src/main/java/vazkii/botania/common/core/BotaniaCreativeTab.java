@@ -91,6 +91,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.slingshot);
 		addItem(ModItems.vineBall);
 		addItem(ModItems.regenIvy);
+		addItem(ModItems.worldSeed);
 		if(Botania.thaumcraftLoaded)
 			addItem(ModItems.manaInkwell);
 		addBlock(ModBlocks.forestDrum);

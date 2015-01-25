@@ -196,6 +196,7 @@ public final class ModItems {
 	public static Item clip;
 	public static Item cobbleRod;
 	public static Item smeltRod;
+	public static Item worldSeed;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -299,6 +300,7 @@ public final class ModItems {
 		clip = new ItemClip();
 		cobbleRod = new ItemCobbleRod();
 		smeltRod = new ItemSmeltRod();
+		worldSeed = new ItemWorldSeed();
 		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
