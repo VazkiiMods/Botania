@@ -69,7 +69,9 @@
 	}
 ?>
 
-<b><?php echo $mod_name ?> is distributed under a reasonably open license. You probably want to have a read through this if you want to do something with it other than just play.</b>
+<b><?php echo $mod_name ?> is distributed under a reasonably open license. You probably want to have a read through this if you want to do something with it other than just play.</b><br>
+You are completely free and have the right to <b>Use</b>, <b>Share</b> and <b>Adapt</b> the mod. These rights can not be removed from you as long as follow the license terms.<br>
+If you simply wish to play with the mod and do nothing else, go for it, this page is of no use to you.
 
 <?php
 	add_clause($clause_personal_permission);

@@ -27,6 +27,6 @@ No project is done with only one member, Botania is no exception, here's the cas
 <li><b>Rorax</b> for the Pylon model.<br></li>
 <li><b>ScottWears</b> for hosting my website<br></li>
 <li><b>The TConstruct and OpenBlocks teams</b> for code snippets I took from their repositories.<br></li>
-<li><b>wiiv</b> for the old Pylon model and the Terra Blade texture.<br></li>
+<li><b>wiiv</b> for a bunch more texture work both before and after dylan4ever left.<br></li>
 <li><b>WTFG33ks</b> for making the getting started video that's linked within the Lexica Botania.<br></li>
 </li>

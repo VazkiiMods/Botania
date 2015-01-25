@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-	<title>Botania | vazkii.us</title>	
+	<title>Botania</title>	
 	<head>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
@@ -60,6 +60,6 @@
         <script src="js/material.min.js"></script>
 		<script src="js/botania.js"></script>
 		
-		<?php echo "<script>\$(function(){\$('#header-btn-$module').addClass('active');});</script>"; ?>
+		<?php echo "<script>\$(function(){var module='$module';var btn=\$('#header-btn-'+module);var txt=btn.text();btn.addClass('active');document.title+=(' - '+txt);});</script>"; ?>
 	</body>
 </html>
