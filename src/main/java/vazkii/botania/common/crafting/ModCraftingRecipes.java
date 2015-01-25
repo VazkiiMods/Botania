@@ -220,6 +220,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeSmeltRod;
 	public static IRecipe recipeWorldSeed;
 	public static IRecipe recipeSpellCloth;
+	public static IRecipe recipeThornChakram;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1444,6 +1445,13 @@ public final class ModCraftingRecipes {
 				'W', new ItemStack(Blocks.wool, 1, -1),
 				'P', LibOreDict.MANA_PEARL);
 		recipeSpellCloth = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Thorn Chakram Recipe
+		addOreDictRecipe(new ItemStack(ModItems.thornChakram), 
+				"VVV", "VTV", "VVV",
+				'V', new ItemStack(Blocks.vine),
+				'T', LibOreDict.TERRA_STEEL);
+		recipeThornChakram = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

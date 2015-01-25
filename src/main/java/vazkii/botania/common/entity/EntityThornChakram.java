@@ -16,6 +16,8 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -26,7 +28,7 @@ import vazkii.botania.common.item.ModItems;
 
 public class EntityThornChakram extends EntityThrowable {
 
-	private static final int MAX_BOUNCES = 8;
+	private static final int MAX_BOUNCES = 16;
 	boolean bounced = false;
 	
 	public EntityThornChakram(World world) {
@@ -92,9 +94,11 @@ public class EntityThornChakram extends EntityThrowable {
 			return;
 		
 		EntityLivingBase thrower = getThrower();
-		if(pos.entityHit != null && pos.entityHit instanceof EntityLivingBase && pos.entityHit != thrower)
+		if(pos.entityHit != null && pos.entityHit instanceof EntityLivingBase && pos.entityHit != thrower) {
 			((EntityLivingBase) pos.entityHit).attackEntityFrom(thrower != null ? thrower instanceof EntityPlayer ? DamageSource.causePlayerDamage((EntityPlayer) thrower) : DamageSource.causeMobDamage(thrower) : DamageSource.generic, 6);
-		else {
+			if(worldObj.rand.nextInt(3) == 0)
+				((EntityLivingBase) pos.entityHit).addPotionEffect(new PotionEffect(Potion.poison.id, 60, 0));
+		} else {
 			int bounces = getTimesBounced();
 			if(bounces < MAX_BOUNCES) {
 				Vector3 currentMovementVec = new Vector3(motionX, motionY, motionZ);
