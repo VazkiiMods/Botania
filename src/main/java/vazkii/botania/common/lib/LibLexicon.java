@@ -136,6 +136,7 @@ public final class LibLexicon {
 	public static final String TOOL_CLIP = "clip";
 	public static final String TOOL_COBBLE_ROD = "cobbleRod";
 	public static final String TOOL_SMELT_ROD = "smeltRod";
+	public static final String TOOL_WORLD_SEED = "worldSeed";
 
 	public static final String BAUBLE_INTRO = "bIntro";
 	public static final String BAUBLE_TINY_PLANET = "tinyPlanet";

@@ -218,6 +218,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeClip;
 	public static IRecipe recipeCobbleRod;
 	public static IRecipe recipeSmeltRod;
+	public static IRecipe recipeWorldSeed;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1427,6 +1428,14 @@ public final class ModCraftingRecipes {
 				'F', LibOreDict.RUNE[1],
 				'T', LibOreDict.LIVINGWOOD_TWIG);
 		recipeSmeltRod = BotaniaAPI.getLatestAddedRecipe();
+		
+		// World Seed Recipe
+		addOreDictRecipe(new ItemStack(ModItems.worldSeed, 4), 
+				"G", "S", "D",
+				'G', new ItemStack(Blocks.grass),
+				'S', new ItemStack(Items.wheat_seeds),
+				'D', LibOreDict.DRAGONSTONE);
+		recipeWorldSeed = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
