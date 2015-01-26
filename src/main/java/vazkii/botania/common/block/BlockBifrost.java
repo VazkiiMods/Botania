@@ -35,7 +35,7 @@ public class BlockBifrost extends BlockModContainer {
 	}
 
 	@Override
-	boolean registerInCreative() {
+	public boolean registerInCreative() {
 		return false;
 	}
 
