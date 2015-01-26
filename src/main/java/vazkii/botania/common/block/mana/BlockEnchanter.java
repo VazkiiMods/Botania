@@ -56,6 +56,11 @@ public class BlockEnchanter extends BlockModContainer implements IWandable, ILex
 	}
 
 	@Override
+	public boolean registerInCreative() {
+		return false;
+	}
+
+	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		super.registerBlockIcons(par1IconRegister);
 		overlay = IconHelper.forBlock(par1IconRegister, this, "Overlay");

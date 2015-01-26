@@ -57,7 +57,7 @@ public abstract class BlockModContainer<T extends TileEntity> extends BlockConta
 		blockIcon = IconHelper.forBlock(par1IconRegister, this);
 	}
 
-	boolean registerInCreative() {
+	public boolean registerInCreative() {
 		return true;
 	}
 
