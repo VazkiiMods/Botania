@@ -506,6 +506,7 @@ tile.botania:redStringRelay.name=Red Stringed Spoofer
 tile.botania:manaFlame.name=Mana Flash
 tile.botania:prism.name=Mana Prism
 tile.botania:dirtPath.name=Trodden Dirt
+tile.botania:enchantedSoil.name=Enchanted Soil
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
@@ -809,6 +810,7 @@ item.botania:smeltRod.name=Rod of the Molten Core
 item.botania:worldSeed.name=World Seed
 item.botania:spellCloth.name=Spellbinding Cloth
 item.botania:thornChakram.name=Thorn Chakram
+item.botania:overgrowthSeed.name=Overgrowth Seed
 
 # BREW NAMES
 botania.brew.fallback=Fallback
@@ -1689,6 +1691,10 @@ botania.page.spellCloth1=Oldest item in the book
 botania.entry.thornChakram=Thorn Chakram
 botania.page.thornChakram0=The &1Thorn Chakram&0 is a thrown weapon made of &1Terrasteel&0 and plant matter. After thrown it'll pierce through enemies, damaging them and sometimes poisoning them, and bounce on blocks a few times before returning to the thrower, similarly to a boomerang.
 botania.page.thornChakram1=Spores and stingers
+
+# -- OVERGROWTH SEED
+botania.entry.overgrowthSeed=Overgrowth Seed
+botania.page.overgrowthSeed0=An &1Overgrowth Seed&0 is an elusive item, which can be used to enchant a piece of &1Grass&0, via right clicking on it in the world, creating &1Enchanted Soil&0. Flowers that are rooted on this &1Enchanted Soil&0 will function at double the normal speed.<br>There's one problem, though. No known method of creating these exists, but they have been spotted in ancient structures and the like.
 
 # - BAUBLES
 # -- AN INTRODUCTION TO BAUBLES

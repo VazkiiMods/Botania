@@ -199,6 +199,7 @@ public final class ModItems {
 	public static Item worldSeed;
 	public static Item spellCloth;
 	public static Item thornChakram;
+	public static Item overgrowthSeed;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -305,6 +306,7 @@ public final class ModItems {
 		worldSeed = new ItemWorldSeed();
 		spellCloth = new ItemSpellCloth();
 		thornChakram = new ItemThornChakram();
+		overgrowthSeed = new ItemOvergrowthSeed();
 		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {

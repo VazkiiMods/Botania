@@ -140,6 +140,7 @@ public final class LibLexicon {
 	public static final String TOOL_WORLD_SEED = "worldSeed";
 	public static final String TOOL_SPELL_CLOTH = "spellCloth";
 	public static final String TOOL_THORN_CHAKRAM = "thornChakram";
+	public static final String TOOL_OVERGROWTH_SEED = "overgrowthSeed";
 
 	public static final String BAUBLE_INTRO = "bIntro";
 	public static final String BAUBLE_TINY_PLANET = "tinyPlanet";

@@ -36,40 +36,6 @@ import vazkii.botania.common.block.decor.BlockStarfield;
 import vazkii.botania.common.block.decor.BlockThatch;
 import vazkii.botania.common.block.decor.BlockTinyPotato;
 import vazkii.botania.common.block.decor.BlockUnstable;
-import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartz;
-import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartzSlab;
-import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartzStairs;
-import vazkii.botania.common.block.decor.slabs.BlockModSlab;
-import vazkii.botania.common.block.decor.slabs.BlockReedSlab;
-import vazkii.botania.common.block.decor.slabs.BlockThatchSlab;
-import vazkii.botania.common.block.decor.slabs.bricks.BlockCustomBrickSlab;
-import vazkii.botania.common.block.decor.slabs.bricks.BlockSnowBrickSlab;
-import vazkii.botania.common.block.decor.slabs.bricks.BlockSoulBrickSlab;
-import vazkii.botania.common.block.decor.slabs.bricks.BlockTileSlab;
-import vazkii.botania.common.block.decor.slabs.living.BlockDreamwoodPlankSlab;
-import vazkii.botania.common.block.decor.slabs.living.BlockDreamwoodSlab;
-import vazkii.botania.common.block.decor.slabs.living.BlockLivingrockBrickSlab;
-import vazkii.botania.common.block.decor.slabs.living.BlockLivingrockSlab;
-import vazkii.botania.common.block.decor.slabs.living.BlockLivingwoodPlankSlab;
-import vazkii.botania.common.block.decor.slabs.living.BlockLivingwoodSlab;
-import vazkii.botania.common.block.decor.slabs.prismarine.BlockDarkPrismarineSlab;
-import vazkii.botania.common.block.decor.slabs.prismarine.BlockPrismarineBrickSlab;
-import vazkii.botania.common.block.decor.slabs.prismarine.BlockPrismarineSlab;
-import vazkii.botania.common.block.decor.stairs.BlockReedStairs;
-import vazkii.botania.common.block.decor.stairs.BlockThatchStairs;
-import vazkii.botania.common.block.decor.stairs.bricks.BlockCustomBrickStairs;
-import vazkii.botania.common.block.decor.stairs.bricks.BlockSnowBrickStairs;
-import vazkii.botania.common.block.decor.stairs.bricks.BlockSoulBrickStairs;
-import vazkii.botania.common.block.decor.stairs.bricks.BlockTileStairs;
-import vazkii.botania.common.block.decor.stairs.living.BlockDreamwoodPlankStairs;
-import vazkii.botania.common.block.decor.stairs.living.BlockDreamwoodStairs;
-import vazkii.botania.common.block.decor.stairs.living.BlockLivingrockBrickStairs;
-import vazkii.botania.common.block.decor.stairs.living.BlockLivingrockStairs;
-import vazkii.botania.common.block.decor.stairs.living.BlockLivingwoodPlankStairs;
-import vazkii.botania.common.block.decor.stairs.living.BlockLivingwoodStairs;
-import vazkii.botania.common.block.decor.stairs.prismarine.BlockDarkPrismarineStairs;
-import vazkii.botania.common.block.decor.stairs.prismarine.BlockPrismarineBrickStairs;
-import vazkii.botania.common.block.decor.stairs.prismarine.BlockPrismarineStairs;
 import vazkii.botania.common.block.dispenser.BehaviourSeeds;
 import vazkii.botania.common.block.dispenser.BehaviourWand;
 import vazkii.botania.common.block.mana.BlockAlchemyCatalyst;
@@ -159,7 +125,6 @@ import vazkii.botania.common.block.tile.string.TileRedStringContainer;
 import vazkii.botania.common.block.tile.string.TileRedStringDispenser;
 import vazkii.botania.common.block.tile.string.TileRedStringFertilizer;
 import vazkii.botania.common.block.tile.string.TileRedStringRelay;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibOreDict;
@@ -222,6 +187,7 @@ public final class ModBlocks {
 	public static Block manaFlame;
 	public static Block prism;
 	public static Block dirtPath;
+	public static Block enchantedSoil;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -279,7 +245,8 @@ public final class ModBlocks {
 		manaFlame = new BlockManaFlame();
 		prism = new BlockPrism();
 		dirtPath = new BlockDirtPath();
-
+		enchantedSoil = new BlockEnchantedSoil();
+		
 		ModFluffBlocks.init();
 		
 		for(int i = 0; i < 16; i++)

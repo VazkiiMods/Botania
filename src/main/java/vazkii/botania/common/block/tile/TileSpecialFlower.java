@@ -29,6 +29,7 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.ISubTileContainer;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.wand.IWandBindable;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.string.TileRedStringRelay;
 
 public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTileContainer {
@@ -90,6 +91,8 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 			}
 
 			subTile.onUpdate();
+			if(worldObj.getBlock(xCoord, yCoord - 1, zCoord) == ModBlocks.enchantedSoil)
+				subTile.onUpdate();
 		}
 	}
 

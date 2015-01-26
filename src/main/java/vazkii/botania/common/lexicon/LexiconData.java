@@ -159,6 +159,7 @@ public final class LexiconData {
 	public static LexiconEntry worldSeed;
 	public static LexiconEntry spellCloth;
 	public static LexiconEntry thornChakram;
+	public static LexiconEntry overgrowthSeed;
 
 	public static LexiconEntry baublesIntro;
 	public static LexiconEntry tinyPlanet;
@@ -614,6 +615,9 @@ public final class LexiconData {
 		thornChakram = new BLexiconEntry(LibLexicon.TOOL_THORN_CHAKRAM, categoryTools);
 		thornChakram.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeThornChakram));
 		
+		overgrowthSeed = new BLexiconEntry(LibLexicon.TOOL_OVERGROWTH_SEED, categoryTools);
+		overgrowthSeed.setLexiconPages(new PageText("0"));
+ 		
 		// BAUBLES ENTRIES
 		baublesIntro = new BLexiconEntry(LibLexicon.BAUBLE_INTRO, categoryBaubles);
 		baublesIntro.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_BAUBLES), new PageText("2"));
