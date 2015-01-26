@@ -1368,6 +1368,22 @@ botania.page.flasks0=&1Alfglass&0 seems to be more maleable than the typical &1M
 botania.page.flasks1=While the ingredient cost to brew something in a &1Flask&0 is smaller, the &4Mana&0 cost is double that of a regular &1Vial&0.<br>Lastly, given that the bottleneck of a &1Flask&0 is larger than that of a &1Vial&0, the contents can be consumed faster.
 botania.page.flasks2=Get one under the bridge
 
+# -- COMPLEX BREWING
+botania.entry.complexBrews=Complex Brews
+botania.page.complexBrews0=Apart from the standard, run of the mill &1Brews&0 that can don't pass from mimics of the &1Potions&0 that can be made in a &1Brewing Stand&0 there's also some more complex brews which apply either a combination of effects or new, beneficial effects altogether.
+botania.page.complexBrews1a=A brew that applies both positive and negative effects. Taking it leaves the affected individual in a state of power, but also vulnerability.
+botania.page.complexBrews1b=96 Herblore
+botania.page.complexBrews2a=An entity affected with this brew's effect will regain HP whenever they slay any other creature.
+botania.page.complexBrews2b=killy killy JOKER
+botania.page.complexBrews3a=An entity affected with this brew's effect will be completely immune to any fall damage.
+botania.page.complexBrews3b=And I call it magic
+botania.page.complexBrews4a=This brew casts an aura of emptiness around any entity that has its effect. In a 128 block radius, mobs will not be allowed to spawn naturally.
+botania.page.complexBrews4b=50$ for a common!?
+botania.page.complexBrews5a=This brew casts an aura of emptiness around any entity that has its effect. In a 64 block radius, mobs will be allowed to spawn regardless of light or other conditions. This won't work with &1Emptiness&0.
+botania.page.complexBrews5b=Shall we pray for a miracle? 
+botania.page.complexBrews6a=A player affected with this brew's effect will have much higher profiency at fishing and will catch fish and other loot twice as fast.
+botania.page.complexBrews6b=Maybe you'll catch a Chris
+
 # -- EYE OF THE ANCIENTS
 botania.entry.forestEye=Eye of the Ancients
 botania.page.forestEye0=As the Ancients who used to watch over the world always looked for the living beings on it, this block, the &1Eye of the Ancients&0, will do just that.<br>By attaching a &1Comparator&0 next to it, it'll send out a redstone signal equivalent to the amount of animals it can find.

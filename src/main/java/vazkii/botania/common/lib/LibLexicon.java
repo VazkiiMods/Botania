@@ -103,6 +103,7 @@ public final class LibLexicon {
 	public static final String DEVICE_ENDER_EYE_BLOCK = "enderEyeBlock";
 	public static final String DEVICE_BREWERY = "brewery";
 	public static final String DEVICE_FLASKS = "flasks";
+	public static final String DEVICE_COMPLEX_BREWS = "complexBrews";
 	public static final String DEVICE_RED_STRING = "redString";
 
 	public static final String TOOL_MANA_BLASTER = "manaBlaster";

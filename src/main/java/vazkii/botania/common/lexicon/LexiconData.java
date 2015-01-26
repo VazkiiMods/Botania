@@ -122,6 +122,7 @@ public final class LexiconData {
 	public static LexiconEntry enderEyeBlock;
 	public static LexiconEntry brewery;
 	public static LexiconEntry flasks;
+	public static LexiconEntry complexBrews;
 	public static LexiconEntry redString;
 
 	public static LexiconEntry manaBlaster;
@@ -492,6 +493,12 @@ public final class LexiconData {
 		flasks = new ALexiconEntry(LibLexicon.DEVICE_FLASKS, categoryDevices);
 		flasks.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeFlask));
 
+		complexBrews = new BLexiconEntry(LibLexicon.DEVICE_COMPLEX_BREWS, categoryDevices);
+		complexBrews.setLexiconPages(new PageText("0"),
+				new PageBrew(ModBrewRecipes.overloadBrew, "1a", "1b"), new PageBrew(ModBrewRecipes.soulCrossBrew, "2a", "2b"),
+				new PageBrew(ModBrewRecipes.featherFeetBrew, "3a", "3b"), new PageBrew(ModBrewRecipes.emptinessBrew, "4a", "4b"),
+				new PageBrew(ModBrewRecipes.bloodthirstBrew, "5a", "5b"), new PageBrew(ModBrewRecipes.allureBrew, "6a", "6b"));
+		
 		redString = new ALexiconEntry(LibLexicon.DEVICE_RED_STRING, categoryDevices);
 		redString.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeRedString),
 				new PageText("3"), new PageCraftingRecipe("4", ModCraftingRecipes.recipeRedStringContainer),
