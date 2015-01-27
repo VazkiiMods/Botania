@@ -220,6 +220,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeWorldSeed;
 	public static IRecipe recipeSpellCloth;
 	public static IRecipe recipeThornChakram;
+	public static IRecipe recipeDirtPathSlab;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1390,7 +1391,7 @@ public final class ModCraftingRecipes {
 		recipePrism = BotaniaAPI.getLatestAddedRecipe();
 
 		// Trodden Dirt Recipe
-		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.dirtPath, 4), new ItemStack(Blocks.dirt, 1, 1), new ItemStack(Blocks.dirt, 1, 1), new ItemStack(Blocks.dirt, 1, 1), new ItemStack(Blocks.gravel));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.dirtPath, 4), new ItemStack(Blocks.dirt, 1, 1), new ItemStack(Blocks.dirt, 1, 1), new ItemStack(Blocks.dirt, 1, 1), new ItemStack(Blocks.sand));
 		recipeDirtPath = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Dreamwood Twig Recipe
@@ -1451,6 +1452,12 @@ public final class ModCraftingRecipes {
 				'V', new ItemStack(Blocks.vine),
 				'T', LibOreDict.TERRA_STEEL);
 		recipeThornChakram = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Trodden Dirt Slab
+		GameRegistry.addRecipe(new ItemStack(ModFluffBlocks.dirtPathSlab, 6), 
+				"DDD",
+				'D', new ItemStack(ModBlocks.dirtPath));
+		recipeDirtPathSlab = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

@@ -740,7 +740,7 @@ public final class LexiconData {
 		starfield.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeStarfield));
 
 		dirtPath = new BLexiconEntry(LibLexicon.MISC_DIRT_PATH, categoryMisc);
-		dirtPath.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeDirtPath));
+		dirtPath.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeDirtPath), new PageCraftingRecipe("2", ModCraftingRecipes.recipeDirtPathSlab));
 
 		if(Botania.bcTriggersLoaded) {
 			bcIntegration = new BLexiconEntry(LibLexicon.MISC_BC_INTEGRATION, categoryMisc);

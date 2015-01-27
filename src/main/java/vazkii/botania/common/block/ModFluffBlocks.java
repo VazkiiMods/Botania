@@ -14,6 +14,7 @@ import net.minecraft.block.Block;
 import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartz;
 import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartzSlab;
 import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartzStairs;
+import vazkii.botania.common.block.decor.slabs.BlockDirtPathSlab;
 import vazkii.botania.common.block.decor.slabs.BlockModSlab;
 import vazkii.botania.common.block.decor.slabs.BlockReedSlab;
 import vazkii.botania.common.block.decor.slabs.BlockThatchSlab;
@@ -124,6 +125,9 @@ public final class ModFluffBlocks {
 	public static Block elfQuartzSlabFull;
 	public static Block elfQuartzStairs;
 	
+	public static Block dirtPathSlab;
+	public static Block dirtPathSlabFull;
+	
 	public static void init() {
 		livingwoodStairs = new BlockLivingwoodStairs();
 		livingwoodSlab = new BlockLivingwoodSlab(false);
@@ -202,6 +206,9 @@ public final class ModFluffBlocks {
 		elfQuartzSlabFull = new BlockSpecialQuartzSlab(elfQuartz, true);
 		elfQuartzStairs = new BlockSpecialQuartzStairs(elfQuartz);
 
+		dirtPathSlab = new BlockDirtPathSlab(false);
+		dirtPathSlabFull = new BlockDirtPathSlab(true);
+		
 		if(ConfigHandler.darkQuartzEnabled) {
 			((BlockModSlab) darkQuartzSlab).register();
 			((BlockModSlab) darkQuartzSlabFull).register();
@@ -250,6 +257,9 @@ public final class ModFluffBlocks {
 		((BlockModSlab) snowBrickSlabFull).register();
 		((BlockModSlab) tileSlab).register();
 		((BlockModSlab) tileSlabFull).register();
+		
+		((BlockModSlab) dirtPathSlab).register();
+		((BlockModSlab) dirtPathSlabFull).register();
 	}
 	
 }

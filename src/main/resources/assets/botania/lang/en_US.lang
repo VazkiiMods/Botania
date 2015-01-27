@@ -507,6 +507,7 @@ tile.botania:manaFlame.name=Mana Flash
 tile.botania:prism.name=Mana Prism
 tile.botania:dirtPath.name=Trodden Dirt
 tile.botania:enchantedSoil.name=Enchanted Soil
+tile.botania:dirtPath0Slab.name=Trodden Dirt Slab
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
@@ -1966,6 +1967,7 @@ botania.page.starfield1=Twinkle twinkle
 botania.entry.dirtPath=Trodden Dirt
 botania.page.dirtPath0=&1Trodden Dirt&0 is a type of soil that works perfectly for the creation of natural looking artificial paths through landscape. Similarly to &1Farmland&0, it's slightly inset into the ground, walking on it also provides a small speed boost.
 botania.page.dirtPath1=Follow the yellow dirt road
+botania.page.dirtPath2=Also available in slabs
 
 # -- THAUMCRAFT INTEGRATION
 botania.entry.tcIntegration=Thaumcraft Integration
