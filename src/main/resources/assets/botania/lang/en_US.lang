@@ -583,6 +583,8 @@ tile.botania:flower.vinculotus.name=Vinculotus
 tile.botania:flower.vinculotus.reference=Totally an Extra Utils ripoff
 tile.botania:flower.spectranthemum.name=Spectranthemum
 tile.botania:flower.spectranthemum.reference=In the shell
+tile.botania:flower.medumone.name=Medumone
+tile.botania:flower.medumone.reference='Twas Hades all along
 
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania
@@ -1201,14 +1203,19 @@ botania.page.daffomill1=&oWind Turbines? I'm a big fan&r.
 # -- VINCULOTUS
 botania.entry.vinculotus=Vinculotus
 botania.page.vinculotus0=The &1Vinculotus&0 has the power to create a disturbance among any &4Enderman&0's teleportation powers within a fairly large radius around it. For a cost of &4Mana&0, whenever an &4Enderman&0 would teleport anywhere, instead, they're teleported to the location of the &1Vinculotus&0.
-botania.page.vinculotus1=Touch this black lotus with your fingers
+botania.page.vinculotus1=&oTouch this black lotus with your fingers&r.
 
 # -- SPECTRANTHEMUM
 botania.entry.spectranthemum=Spectranthemum
 botania.page.spectranthemum0=Transporting items a long distance can be an arduous task. Water channels and &1Daffomills&0 won't cut it forever.<br>The &1Spectranthemum&0, at the cost of &4Mana&0 wraps the fabric of reality of any dropped items around it, teleporting them somewhere else in the world.
 botania.page.spectranthemum1=In order to specify where the items go, one would use a &1Wand of the Forest&0 in bind mode and bind the flower to a block somewhere, similarly to binding it to a pool.<br>In order to view what block the flower is bound to rather than the pool it's pulling &4Mana&0, one would sneak while looking at it with a wand.
 botania.page.spectranthemum2=This flower is governed by the &4axiom of chunkloading&0, by which it'll not function on chunks not loaded. This topic is not addressed in full extent this lexicon.<br>&oRecommended Reading: "Chunks and Chicken", "Anchors of the World".
-botania.page.spectranthemum3=(n)spooky(n+2)me
+botania.page.spectranthemum3=&o(n)spooky(n+2)me&r.
+
+# -- MEDUMONE
+botania.entry.medumone=Medumone
+botania.page.medumone0=The &1Medumone&0 is a flower with the ability to completely halt a creature's movement.<br>While it receives &4Mana&0, it'll halt any nearby entities in their tracks with a powerful slowness effect, provided they are not players. 
+botania.page.medumone1=&oThose credits look fake&r...
 
 # - GENERATING FLOWERS
 # -- AN INTRODUCTION TO GENERATION

@@ -92,6 +92,7 @@ public final class LexiconData {
 	public static LexiconEntry daffomill;
 	public static LexiconEntry vinculotus;
 	public static LexiconEntry spectranthemum;
+	public static LexiconEntry medumone;
 
 	public static LexiconEntry generatingIntro;
 	public static LexiconEntry daybloom;
@@ -392,6 +393,9 @@ public final class LexiconData {
 
 		spectranthemum = new ALexiconEntry(LibLexicon.FFLOWER_SPECTRANTHEMUN, categoryFunctionalFlowers);
 		spectranthemum.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PagePetalRecipe("3", ModPetalRecipes.spectranthemumRecipe));
+		
+		medumone = new BLexiconEntry(LibLexicon.FFLOWER_MEDUMONE, categoryFunctionalFlowers);
+		medumone.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.medumoneRecipe));
 		
 		// GENERATING FLOWERS ENTRIES
 		generatingIntro = new BLexiconEntry(LibLexicon.GFLOWER_INTRO, categoryGenerationFlowers);
