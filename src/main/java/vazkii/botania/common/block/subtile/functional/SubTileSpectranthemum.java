@@ -17,6 +17,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChunkCoordinates;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -26,6 +27,10 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class SubTileSpectranthemum extends SubTileFunctional {
+
+	private static final String TAG_BIND_X = "bindX";
+	private static final String TAG_BIND_Y = "bindY";
+	private static final String TAG_BIND_Z = "bindZ";
 
 	private static final int COST = 24;
 	int bindX, bindY = -1, bindZ;
@@ -77,6 +82,22 @@ public class SubTileSpectranthemum extends SubTileFunctional {
             double d3 = 10.0D;
             item.worldObj.spawnParticle("explode", item.posX + (double)(item.worldObj.rand.nextFloat() * item.width * 2.0F) - (double)item.width - d0 * d3, item.posY + (double)(item.worldObj.rand.nextFloat() * item.height) - d1 * d3, item.posZ + (double)(item.worldObj.rand.nextFloat() * item.width * 2.0F) - (double)item.width - d2 * d3, d0, d1, d2);
         }
+	}
+	
+	@Override
+	public void writeToPacketNBT(NBTTagCompound cmp) {
+		super.writeToPacketNBT(cmp);
+		cmp.setInteger(TAG_BIND_X, bindX);
+		cmp.setInteger(TAG_BIND_Y, bindY);
+		cmp.setInteger(TAG_BIND_Z, bindZ);
+	}
+	
+	@Override
+	public void readFromPacketNBT(NBTTagCompound cmp) {
+		super.readFromPacketNBT(cmp);
+		bindX = cmp.getInteger(TAG_BIND_X);
+		bindY = cmp.getInteger(TAG_BIND_Y);
+		bindZ = cmp.getInteger(TAG_BIND_Z);
 	}
 	
 	@Override
