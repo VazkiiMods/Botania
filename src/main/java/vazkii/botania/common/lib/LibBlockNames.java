@@ -103,6 +103,8 @@ public final class LibBlockNames {
 	public static final String SUBTILE_LOONIUM = "loonium";
 	public static final String SUBTILE_DAFFOMILL = "daffomill";
 	public static final String SUBTILE_VINCULOTUS = "vinculotus";
+	public static final String SUBTILE_SPECTRANTHEMUM = "spectranthemum";
+	public static final String SUBTILE_MEDUMONE = "medumone";
 
 	public static final String QUARTZ_DARK = "Dark";
 	public static final String QUARTZ_MANA = "Mana";
