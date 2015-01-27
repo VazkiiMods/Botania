@@ -11,7 +11,11 @@
 package vazkii.botania.common.block.decor;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
+import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
@@ -19,7 +23,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -27,9 +30,9 @@ import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.BlockModContainer;
-import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.block.tile.TileTinyPotato;
-import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
+import vazkii.botania.common.item.block.ItemBlockMod;
+import vazkii.botania.common.item.block.ItemBlockTinyPotato;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
@@ -41,6 +44,16 @@ public class BlockTinyPotato extends BlockModContainer implements ILexiconable {
 		setBlockName(LibBlockNames.TINY_POTATO);
 		float f = 1F / 16F * 6F;
 		setBlockBounds(f, 0, f, 1F - f, f, 1F - f);
+	}
+	
+	@Override
+	public Block setBlockName(String par1Str) {
+		GameRegistry.registerBlock(this, ItemBlockTinyPotato.class, par1Str);
+		return super.setBlockName(par1Str);
+	}
+
+	protected boolean shouldRegisterInNameSet() {
+		return false;
 	}
 
 	@Override
