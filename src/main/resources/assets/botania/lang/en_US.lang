@@ -315,10 +315,21 @@ achievement.botania:dirtRodCraft=Rockbell
 achievement.botania:dirtRodCraft.desc=Craft a dirty sti- er... Rod of the Lands
 achievement.botania:spawnerMoverUse=I can take off my (redacted)
 achievement.botania:spawnerMoverUse.desc=Use a Life Aggregator to transport a Monster Spawner
+achievement.botania:signalFlareStun=See the Lights
+achievement.botania:signalFlareStun.desc=Stun 100 or more mobs at once with a Signal Flare
+achievement.botania:l20ShardUse=Out of Step
+achievement.botania:l20ShardUse.desc=Raise the ground up to the sky with a Power XX Shard of Laputa
+achievement.botania:gaiaGuardianNoArmor=Mythologia's End
+achievement.botania:gaiaGuardianNoArmor.desc=Slay a Gaia Guardian without wearing any armor at any point during the fight
+achievement.botania:rankSSPick=Talent Shredder
+achievement.botania:rankSSPick.desc=Dig through the world using a rank SS Terra Shatterer
+achievement.botania:desuGun=Two-Faced Lovers
+achievement.botania:desuGun.desc=ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
+#                                 ^ Don't localize
 
 # BLOCK NAMES
 tile.botania:flower0.name=Mystical White Flower
-tile.botania:flower1.name=Mystical Orange Flower
+tile.botania:flower1.name=Mystical Orange Flowere
 tile.botania:flower2.name=Mystical Magenta Flower
 tile.botania:flower3.name=Mystical Light Blue Flower
 tile.botania:flower4.name=Mystical Yellow Flower

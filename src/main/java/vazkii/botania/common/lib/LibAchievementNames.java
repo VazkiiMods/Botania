@@ -36,7 +36,8 @@ public final class LibAchievementNames {
 	public static final String SIGNAL_FLARE_STUN = "signalFlareStun";
 	public static final String L20_SHARD_USE = "l20ShardUse";
 	public static final String GAIA_GUARDIAN_NO_ARMOR = "gaiaGuardianNoArmor";
-	public static final String TERRASTEEL_WILLS = "terrasteelWills";
 	public static final String RANK_SS_PICK = "rankSSPick";
 	
+	public static final String DESU_GUN = "desuGun";
+
 }

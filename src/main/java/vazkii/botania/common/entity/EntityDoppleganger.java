@@ -90,6 +90,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 	boolean spawnLandmines = false;
 	boolean spawnPixies = false;
+	boolean anyWithArmor = false;
 
 	public EntityDoppleganger(World par1World) {
 		super(par1World);
@@ -258,8 +259,11 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	public void onDeath(DamageSource p_70645_1_) {
 		super.onDeath(p_70645_1_);
         EntityLivingBase entitylivingbase = this.func_94060_bK();
-        if(entitylivingbase instanceof EntityPlayer)
+        if(entitylivingbase instanceof EntityPlayer) {
         	((EntityPlayer) entitylivingbase).addStat(ModAchievements.gaiaGuardianKill, 1);
+        	if(!anyWithArmor)
+        		((EntityPlayer) entitylivingbase).addStat(ModAchievements.gaiaGuardianNoArmor, 1);
+        }
 	}
 
 	@Override
@@ -313,6 +317,9 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		if(players.isEmpty() && !worldObj.playerEntities.isEmpty())
 			setDead();
 		else for(EntityPlayer player : players) {
+			if(player.inventory.armorInventory[0] != null || player.inventory.armorInventory[1] != null || player.inventory.armorInventory[2] != null || player.inventory.armorInventory[3] != null)
+				anyWithArmor = true;
+			
 			List<PotionEffect> remove = new ArrayList();
 			Collection<PotionEffect> active = player.getActivePotionEffects();
 			for(PotionEffect effect : active)

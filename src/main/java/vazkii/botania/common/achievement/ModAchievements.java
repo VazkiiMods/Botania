@@ -11,6 +11,7 @@
 package vazkii.botania.common.achievement;
 
 import cpw.mods.fml.common.FMLCommonHandler;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraftforge.common.AchievementPage;
@@ -51,8 +52,9 @@ public final class ModAchievements {
 	public static Achievement signalFlareStun;
 	public static Achievement l20ShardUse;
 	public static Achievement gaiaGuardianNoArmor;
-	public static Achievement terrasteelWills;
 	public static Achievement rankSSPick;
+	
+	public static Achievement desuGun;
 	
 	public static void init() {
 		flowerPickup = new AchievementMod(LibAchievementNames.FLOWER_PICKUP, 0, 0, new ItemStack(ModBlocks.flower, 1, 6), null);
@@ -80,6 +82,15 @@ public final class ModAchievements {
 		
 		spawnerMoverUse = new AchievementMod(LibAchievementNames.SPAWNER_MOVER_USE, -1, 5, ModItems.spawnerMover, gaiaGuardianKill);
 		tiaraWings = new AchievementMod(LibAchievementNames.TIARA_WINGS, -1, 3, ModItems.flightTiara, gaiaGuardianKill);
+		
+		signalFlareStun = new AchievementMod(LibAchievementNames.SIGNAL_FLARE_STUN, -3, -3, ModItems.signalFlare, null).setSpecial();
+		l20ShardUse = new AchievementMod(LibAchievementNames.L20_SHARD_USE, -5, -1, ModItems.laputaShard, null).setSpecial();
+		gaiaGuardianNoArmor = new AchievementMod(LibAchievementNames.GAIA_GUARDIAN_NO_ARMOR, -5, -3, new ItemStack(Items.skull, 1, 3), null).setSpecial();
+		rankSSPick = new AchievementMod(LibAchievementNames.RANK_SS_PICK, -3, -1, ModItems.terraPick, null).setSpecial();
+		
+		ItemStack desu = new ItemStack(ModItems.manaGun);
+		desu.setStackDisplayName("desu gun");
+		desuGun = new AchievementMod(LibAchievementNames.DESU_GUN, -8, -2, desu, null).setSpecial();
 		
 		botaniaPage = new AchievementPage(LibMisc.MOD_NAME, AchievementMod.achievements.toArray(new Achievement[AchievementMod.achievements.size()]));
 		AchievementPage.registerAchievementPage(botaniaPage);

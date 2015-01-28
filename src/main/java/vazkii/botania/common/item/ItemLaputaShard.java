@@ -29,6 +29,7 @@ import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILaputaImmobile;
 import vazkii.botania.api.mana.ILensEffect;
 import vazkii.botania.api.mana.ITinyPlanetExcempt;
+import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.entity.EntityManaBurst;
@@ -75,6 +76,8 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 			par3World.playSound(par4 + 0.5D, par5 + 0.5D, par6 + 0.5D, "botania:laputaStart", 1.0F + par3World.rand.nextFloat(), par3World.rand.nextFloat() * 0.7F + 1.3F, false);
 			spawnBurstFirst(par3World, par4, par5, par6, par1ItemStack);
 			par1ItemStack.stackSize--;
+			if(par1ItemStack.getItemDamage() == 19)
+				par2EntityPlayer.addStat(ModAchievements.l20ShardUse, 1);
 		}
 
 		return true;

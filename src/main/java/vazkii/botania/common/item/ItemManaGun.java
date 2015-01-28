@@ -90,6 +90,8 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 				if(!par2World.isRemote) {
 					par2World.playSoundAtEntity(par3EntityPlayer, "botania:manaBlaster", 0.6F, 1F);
 					par3EntityPlayer.addStat(ModAchievements.manaBlasterShoot, 1);
+					if(isSugoiKawaiiDesuNe(par1ItemStack))
+						par3EntityPlayer.addStat(ModAchievements.desuGun, 1);
 					par2World.spawnEntityInWorld(burst);
 				} else {
 					par3EntityPlayer.swingItem();

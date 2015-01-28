@@ -29,6 +29,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntitySignalFlare;
 import vazkii.botania.common.lib.LibItemNames;
@@ -65,11 +66,17 @@ public class ItemSignalFlare extends ItemMod {
 
 				par2World.spawnEntityInWorld(flare);
 
+				int stunned = 0;
 				int range = 5;
 				List<EntityLivingBase> entities = par2World.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(par3EntityPlayer.posX - range, par3EntityPlayer.posY - range, par3EntityPlayer.posZ - range, par3EntityPlayer.posX + range, par3EntityPlayer.posY + range, par3EntityPlayer.posZ + range));
 				for(EntityLivingBase entity : entities)
-					if(entity != par3EntityPlayer && (!(entity instanceof EntityPlayer) || MinecraftServer.getServer() == null || MinecraftServer.getServer().isPVPEnabled()))
+					if(entity != par3EntityPlayer && (!(entity instanceof EntityPlayer) || MinecraftServer.getServer() == null || MinecraftServer.getServer().isPVPEnabled())) {
 						entity.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 50, 5));
+						stunned++;
+					}
+				
+				if(stunned >= 100)
+					par3EntityPlayer.addStat(ModAchievements.signalFlareStun, 1);
 			}
 			par1ItemStack.damageItem(200, par3EntityPlayer);
 		}
