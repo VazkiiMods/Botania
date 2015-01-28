@@ -30,7 +30,7 @@ public final class ToolCommons {
 
 	public static void damageItem(ItemStack stack, int dmg, EntityLivingBase entity, int manaPerDamage) {
 		int manaToRequest = dmg * manaPerDamage;
-		boolean manaRequested = entity instanceof EntityPlayer ? ManaItemHandler.requestManaExact(stack, (EntityPlayer) entity, manaToRequest, true) : false;
+		boolean manaRequested = entity instanceof EntityPlayer ? ManaItemHandler.requestManaExactForTool(stack, (EntityPlayer) entity, manaToRequest, true) : false;
 
 		if(!manaRequested)
 			stack.damageItem(dmg, entity);
