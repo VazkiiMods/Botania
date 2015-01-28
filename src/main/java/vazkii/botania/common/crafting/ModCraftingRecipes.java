@@ -760,9 +760,9 @@ public final class ModCraftingRecipes {
 		// Abstruse Platform Recipe
 		addOreDictRecipe(new ItemStack(ModBlocks.platform, 2),
 				"343", "0P0",
-				'0', new ItemStack(ModBlocks.livingwood, 0, 0),
-				'3', new ItemStack(ModBlocks.livingwood, 0, 3),
-				'4', new ItemStack(ModBlocks.livingwood, 0, 4),
+				'0', new ItemStack(ModBlocks.livingwood, 1, 0),
+				'3', new ItemStack(ModBlocks.livingwood, 1, 3),
+				'4', new ItemStack(ModBlocks.livingwood, 1, 4),
 				'P', LibOreDict.MANA_PEARL);
 		recipePlatform = BotaniaAPI.getLatestAddedRecipe();
 
