@@ -10,6 +10,8 @@
  */
 package vazkii.botania.common.crafting;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.block.Block;
@@ -25,6 +27,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
+import vazkii.botania.common.block.tile.TileCraftCrate;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ItemSignalFlare;
 import vazkii.botania.common.item.ItemTwigWand;
@@ -221,6 +224,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeSpellCloth;
 	public static IRecipe recipeThornChakram;
 	public static IRecipe recipeDirtPathSlab;
+	public static List<IRecipe> recipesPatterns;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1393,13 +1397,13 @@ public final class ModCraftingRecipes {
 		// Trodden Dirt Recipe
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.dirtPath, 4), new ItemStack(Blocks.dirt, 1, 1), new ItemStack(Blocks.dirt, 1, 1), new ItemStack(Blocks.dirt, 1, 1), new ItemStack(Blocks.sand));
 		recipeDirtPath = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Dreamwood Twig Recipe
 		addOreDictRecipe(new ItemStack(ModItems.manaResource, 1, 13), 
 				"W", "W",
 				'W', LibOreDict.DREAM_WOOD);
 		recipeDreamwoodTwig = BotaniaAPI.getLatestAddedRecipe();		
-		
+
 		// Manaseer Monocle Recipe
 		addOreDictRecipe(new ItemStack(ModItems.monocle), 
 				"GN", "IN", " N",
@@ -1407,13 +1411,13 @@ public final class ModCraftingRecipes {
 				'I', LibOreDict.MANA_STEEL,
 				'N', new ItemStack(Items.gold_nugget));
 		recipeMonocle = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Lens Clip Recipe
 		addOreDictRecipe(new ItemStack(ModItems.clip), 
 				" D ", "D D", "DD ",
 				'D', LibOreDict.DREAM_WOOD);
 		recipeClip = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Rod of the Depths Recipe
 		addOreDictRecipe(new ItemStack(ModItems.cobbleRod), 
 				" FC", " TW", "T  ",
@@ -1422,7 +1426,7 @@ public final class ModCraftingRecipes {
 				'T', LibOreDict.LIVINGWOOD_TWIG,
 				'C', new ItemStack(Blocks.cobblestone));
 		recipeCobbleRod = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Rod of the Molten Core Recipe
 		addOreDictRecipe(new ItemStack(ModItems.smeltRod),
 				" BF", " TB", "T  ",
@@ -1430,7 +1434,7 @@ public final class ModCraftingRecipes {
 				'F', LibOreDict.RUNE[1],
 				'T', LibOreDict.LIVINGWOOD_TWIG);
 		recipeSmeltRod = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// World Seed Recipe
 		addOreDictRecipe(new ItemStack(ModItems.worldSeed, 4), 
 				"G", "S", "D",
@@ -1438,27 +1442,51 @@ public final class ModCraftingRecipes {
 				'S', new ItemStack(Items.wheat_seeds),
 				'D', LibOreDict.DRAGONSTONE);
 		recipeWorldSeed = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Spellbinding Cloth Recipe
 		addOreDictRecipe(new ItemStack(ModItems.spellCloth), 
 				"WWW", "WPW", "WWW",
 				'W', new ItemStack(Blocks.wool, 1, -1),
 				'P', LibOreDict.MANA_PEARL);
 		recipeSpellCloth = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Thorn Chakram Recipe
 		addOreDictRecipe(new ItemStack(ModItems.thornChakram), 
 				"VVV", "VTV", "VVV",
 				'V', new ItemStack(Blocks.vine),
 				'T', LibOreDict.TERRA_STEEL);
 		recipeThornChakram = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Trodden Dirt Slab
 		GameRegistry.addRecipe(new ItemStack(ModFluffBlocks.dirtPathSlab, 6), 
 				"DDD",
 				'D', new ItemStack(ModBlocks.dirtPath));
 		recipeDirtPathSlab = BotaniaAPI.getLatestAddedRecipe();
-		
+
+		// Pattern Recipes
+		{
+			int count = TileCraftCrate.PATTERNS.length;
+			List<Object> recipeObjects = Arrays.asList(
+					'R', new ItemStack(Items.redstone),
+					'P', LibOreDict.PLACEHOLDER
+					);
+			
+			for(int i = 0; i < count; i++) {
+				List<Object> recipe = new ArrayList();
+				for(int j = 0; j < 3; j++) {
+					String s = "";
+					for(int k = 0; k < 3; k++)
+						s += TileCraftCrate.PATTERNS[i][j * 3 + k] ? "R" : "P";
+					recipe.add(s);
+				}
+				recipe.addAll(recipeObjects);
+				
+				addOreDictRecipe(new ItemStack(ModItems.craftPattern, 1, i), recipe.toArray(new Object[recipe.size()]));
+			}
+			
+			recipesPatterns = BotaniaAPI.getLatestAddedRecipes(count);
+		}
+
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",
@@ -1480,7 +1508,7 @@ public final class ModCraftingRecipes {
 		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manaResource, 9, 7), new ItemStack(ModBlocks.storage, 1, 2));
 		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manaResource, 9, 2), new ItemStack(ModBlocks.storage, 1, 3));
 		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manaResource, 9, 9), new ItemStack(ModBlocks.storage, 1, 4));
-		
+
 		// Revealing Helmet Recipes
 		if(Botania.thaumcraftLoaded) {
 			Item goggles = (Item) Item.itemRegistry.getObject("Thaumcraft:ItemGoggles");

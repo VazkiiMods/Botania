@@ -18,10 +18,56 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import vazkii.botania.common.item.ModItems;
 
 public class TileCraftCrate extends TileOpenCrate {
 
+	public static final boolean[][] PATTERNS = new boolean[][] {
+		{
+			true, false, false,
+			false, false, false,
+			false, false, false
+		}, {
+			true, true, false,
+			true, true, false,
+			false, false, false
+		}, {
+			true, false, false,
+			true, false, false,
+			false, false, false
+		}, {
+			true, true, false,
+			false, false, false,
+			false, false, false
+		}, {
+			true, false, false,
+			true, false, false,
+			true, false, false
+		}, {
+			true, true, true,
+			false, false, false,
+			false, false, false
+		}, {
+			true, true, false,
+			true, true, false,
+			true, true, false
+		}, {
+			true, true, true,
+			true, true, true,
+			false, false, false
+		}, {
+			true, true, true,
+			true, false, true,
+			true, true, true
+		}
+	};
+	
+	private static final String TAG_PATTERN = "pattern";
+	
+	public int pattern = -1;
 	int signal = 0;
 
 	@Override
@@ -36,9 +82,13 @@ public class TileCraftCrate extends TileOpenCrate {
 
 	@Override
 	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-		return i != 9;
+		return i != 9 && !isLocked(i);
 	}
 
+	public boolean isLocked(int slot) {
+		return pattern != -1 && !PATTERNS[pattern][slot];
+	}
+	
 	@Override
 	public void updateEntity() {
 		if(!worldObj.isRemote && craft(true) && canEject())
@@ -46,7 +96,7 @@ public class TileCraftCrate extends TileOpenCrate {
 
 		int newSignal = 0;
 		for(; newSignal < 9; newSignal++) // dis for loop be derpy
-			if(getStackInSlot(newSignal) == null)
+			if(!isLocked(newSignal) && getStackInSlot(newSignal) == null)
 				break;
 
 		if(newSignal != signal) {
@@ -68,7 +118,7 @@ public class TileCraftCrate extends TileOpenCrate {
 		for(int i = 0; i < 9; i++) {
 			ItemStack stack = getStackInSlot(i);
 
-			if(stack == null || stack.getItem() == ModItems.manaResource && stack.getItemDamage() == 11)
+			if(stack == null || isLocked(i) || stack.getItem() == ModItems.manaResource && stack.getItemDamage() == 11)
 				continue;
 
 			craft.setInventorySlotContents(i, stack.copy());
@@ -95,7 +145,7 @@ public class TileCraftCrate extends TileOpenCrate {
 
 	boolean isFull() {
 		for(int i = 0; i < 9; i++)
-			if(getStackInSlot(i) == null)
+			if(!isLocked(i) && getStackInSlot(i) == null)
 				return false;
 
 		return true;
@@ -109,7 +159,19 @@ public class TileCraftCrate extends TileOpenCrate {
 			setInventorySlotContents(i, null);
 		}
 	}
-
+	
+	@Override
+	public void writeCustomNBT(NBTTagCompound par1nbtTagCompound) {
+		super.writeCustomNBT(par1nbtTagCompound);
+		par1nbtTagCompound.setInteger(TAG_PATTERN, pattern);
+	}
+	
+	@Override
+	public void readCustomNBT(NBTTagCompound par1nbtTagCompound) {
+		super.readCustomNBT(par1nbtTagCompound);
+		pattern = par1nbtTagCompound.getInteger(TAG_PATTERN);
+	}
+	
 	@Override
 	public boolean onWanded(EntityPlayer player, ItemStack stack) {
 		craft(false);
@@ -121,4 +183,12 @@ public class TileCraftCrate extends TileOpenCrate {
 	public int getSignal() {
 		return signal;
 	}
+	@Override
+	public void onDataPacket(NetworkManager manager, S35PacketUpdateTileEntity packet) {
+		int lastPattern = pattern;
+		super.onDataPacket(manager, packet);
+		if(pattern != lastPattern)
+			worldObj.markBlockRangeForRenderUpdate(xCoord,yCoord,zCoord,xCoord,yCoord,zCoord);
+	}
+	
 }

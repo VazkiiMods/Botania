@@ -118,6 +118,7 @@ public final class LibItemNames {
 	public static final String SPELL_CLOTH = "spellCloth";
 	public static final String THORN_CHAKRAM = "thornChakram";
 	public static final String OVERGROWTH_SEED = "overgrowthSeed";
+	public static final String CRAFT_PATTERN = "craftPattern";
 
 	public static final String[] LENS_NAMES = new String[] {
 		"lensNormal",

@@ -816,6 +816,15 @@ item.botania:worldSeed.name=World Seed
 item.botania:spellCloth.name=Spellbinding Cloth
 item.botania:thornChakram.name=Thorn Chakram
 item.botania:overgrowthSeed.name=Overgrowth Seed
+item.botania:craftPattern0.name=Crafting Pattern #1: 1x1
+item.botania:craftPattern1.name=Crafting Pattern #2: 2x2
+item.botania:craftPattern2.name=Crafting Pattern #3: 1x2
+item.botania:craftPattern3.name=Crafting Pattern #4: 2x1
+item.botania:craftPattern4.name=Crafting Pattern #5: 1x3
+item.botania:craftPattern5.name=Crafting Pattern #6: 3x1
+item.botania:craftPattern6.name=Crafting Pattern #7: 2x3
+item.botania:craftPattern7.name=Crafting Pattern #8: 3x2
+item.botania:craftPattern8.name=Crafting Pattern #9: Donut
 
 # BREW NAMES
 botania.brew.fallback=Fallback
@@ -1466,6 +1475,8 @@ botania.page.craftCrate4=Right clicking the crate with a &1Wand of the Forest&0 
 botania.page.craftCrate7=Attaching a &1Comparator&0 to the crate will have it emit a signal equal to the amount of items inside the crate, which can be an extremely valuable asset in creating mechanisms with it.
 botania.page.craftCrate5=An example of crafting a &1Diamond Pickaxe&0
 botania.page.craftCrate6=Made in Portugal
+botania.page.craftCrate7=The &1Crafty Crate&0 can also be augmented with patterns. A pattern locks specific slots in the recipe, disallowing items from going into those slots and making them count as if there were placeholders there.<br>There's only a few basic patterns, which can be applied by right clicking on the crate (this doesn't consume them).
+botania.page.craftCrate8=9 different patterns
 
 # -- ENDER OVERSEER
 botania.entry.enderEyeBlock=Ender Overseer

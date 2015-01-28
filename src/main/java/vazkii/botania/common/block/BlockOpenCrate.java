@@ -24,6 +24,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -44,6 +45,8 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 	IIcon iconSideCraft;
 	IIcon iconBottomCraft;
 
+	IIcon[] sidePatternIcons;
+	
 	Random random;
 
 	private static final int SUBTYPES = 2;
@@ -135,6 +138,10 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 		iconBottom = IconHelper.forBlock(par1IconRegister, this, 1);
 		iconSideCraft = IconHelper.forBlock(par1IconRegister, this, 2);
 		iconBottomCraft = IconHelper.forBlock(par1IconRegister, this, 3);
+		
+		sidePatternIcons = new IIcon[TileCraftCrate.PATTERNS.length];
+		for(int i = 0; i < sidePatternIcons.length; i++)
+			sidePatternIcons[i] = IconHelper.forName(par1IconRegister, "ocPattern" + i);
 	}
 
 	@Override
@@ -142,6 +149,15 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 		return meta == 0 ? side == 0 ? iconBottom : iconSide : side == 0 ? iconBottomCraft : iconSideCraft;
 	}
 
+	@Override
+	public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side) {
+		TileEntity tile = world.getTileEntity(x, y, z);
+		if(tile != null && tile instanceof TileCraftCrate && ((TileCraftCrate) tile).pattern != -1 && side != 0)
+			return sidePatternIcons[((TileCraftCrate) tile).pattern];
+		
+		return super.getIcon(world, x, y, z, side);
+	}
+	
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return meta == 0 ? new TileOpenCrate() : new TileCraftCrate();
