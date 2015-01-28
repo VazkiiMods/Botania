@@ -42,8 +42,7 @@ public final class ToolCommons {
 		for(int x1 = xs; x1 < xe; x1++)
 			for(int y1 = ys; y1 < ye; y1++)
 				for(int z1 = zs; z1 < ze; z1++)
-					if(x != x1 && y != y1 && z != z1)
-						removeBlockWithDrops(player, stack, world, x1 + x, y1 + y, z1 + z, x, y, z, block, materialsListing, silk, fortune, blockHardness, dispose);
+					removeBlockWithDrops(player, stack, world, x1 + x, y1 + y, z1 + z, x, y, z, block, materialsListing, silk, fortune, blockHardness, dispose);
 	}
 
 	public static boolean isRightMaterial(Material material, Material[] materialsListing) {
