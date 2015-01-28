@@ -74,6 +74,7 @@ botaniamisc.cantCraft=Not enough Materials!
 botaniamisc.lotusDesc=It emits strong magical vibes
 botaniamisc.hasClip=&6Has Lens Clip
 botaniamisc.clipEmpty=(Empty)
+botaniamisc.armorset=&bArmor Set&r:
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
@@ -126,6 +127,10 @@ botania.wings4=Wings: Firelord
 botania.wings5=Wings: Black Snow Princess
 botania.wings6=Wings: Lord of the Pit
 botania.wings7=Wings: Sylph
+
+# ARMOR SETS
+botania.armorset.manasteel.name=Mana Affinity
+botania.armorset.manasteel.desc=10% less Mana cost on Mana Tools
 
 # ROMAN NUMERALS
 botania.roman0=
