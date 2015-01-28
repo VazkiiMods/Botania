@@ -207,7 +207,7 @@ public final class ManaItemHandler {
 	 * @return The amount of mana received from the request.
 	 */
 	public static int requestManaForTool(ItemStack stack, EntityPlayer player, int manaToGet, boolean remove) {
-		float multiplier = 1F - getFullDiscountForTools(player);
+		float multiplier = Math.max(0F, 1F - getFullDiscountForTools(player));
 		int cost = (int) ((float) manaToGet * multiplier);
 		return (int) ((float) requestMana(stack, player, cost, remove) / multiplier);
 	}
@@ -221,7 +221,7 @@ public final class ManaItemHandler {
 	 * @return If the request was succesful.
 	 */
 	public static boolean requestManaExactForTool(ItemStack stack, EntityPlayer player, int manaToGet, boolean remove) {
-		float multiplier = 1F - getFullDiscountForTools(player);
+		float multiplier = Math.max(0F, 1F - getFullDiscountForTools(player));
 		int cost = (int) ((float) manaToGet * multiplier);
 		return requestManaExact(stack, player, cost, remove);
 	}
