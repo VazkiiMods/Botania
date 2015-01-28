@@ -19,6 +19,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
@@ -51,6 +52,7 @@ import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.client.core.handler.BossBarHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
@@ -250,6 +252,14 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 			setAggroed(true);
 		}
+	}
+	
+	@Override
+	public void onDeath(DamageSource p_70645_1_) {
+		super.onDeath(p_70645_1_);
+        EntityLivingBase entitylivingbase = this.func_94060_bK();
+        if(entitylivingbase instanceof EntityPlayer)
+        	((EntityPlayer) entitylivingbase).addStat(ModAchievements.gaiaGuardianKill, 1);
 	}
 
 	@Override

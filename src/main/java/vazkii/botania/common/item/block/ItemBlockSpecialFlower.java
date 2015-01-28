@@ -13,8 +13,10 @@ package vazkii.botania.common.item.block;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.Achievement;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
@@ -23,10 +25,12 @@ import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.IRecipeKeyProvider;
 import vazkii.botania.api.subtile.SubTileEntity;
+import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.lib.LibBlockNames;
 
 public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyProvider {
 
@@ -101,4 +105,16 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 		return getType(stack);
 	}
 
+	@Override
+	public Achievement getAchievementOnPickup(ItemStack stack, EntityPlayer player, EntityItem item) {
+		switch(getType(stack)) {
+		case LibBlockNames.SUBTILE_DAYBLOOM : return ModAchievements.daybloomPickup;
+		case LibBlockNames.SUBTILE_ENDOFLAME : return ModAchievements.endoflamePickup;
+		case LibBlockNames.SUBTILE_KEKIMURUS : return ModAchievements.kekimurusPickup;
+		case LibBlockNames.SUBTILE_HEISEI_DREAM : return ModAchievements.heiseiDreamPickup;
+		default : return null;
+		}
+	}
+
 }
+

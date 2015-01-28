@@ -10,9 +10,11 @@
  */
 package vazkii.botania.common.achievement;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraftforge.common.AchievementPage;
+import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
@@ -63,7 +65,7 @@ public final class ModAchievements {
 		sparkCraft = new AchievementMod(LibAchievementNames.SPARK_CRAFT, 4, -5, ModItems.spark, manaPoolPickup);
 		baubleWear = new AchievementMod(LibAchievementNames.BAUBLE_WEAR, 5, -3, ModItems.manaRing, manaPoolPickup);
 		manaCookieEat = new AchievementMod(LibAchievementNames.MANA_COOKIE_EAT, 3, -7, ModItems.manaCookie, manaPoolPickup);
-		runePickup = new AchievementMod(LibAchievementNames.RUNE_PICKUP, 6, 0, ModBlocks.runeAltar, manaPoolPickup);
+		runePickup = new AchievementMod(LibAchievementNames.RUNE_PICKUP, 6, -1, ModBlocks.runeAltar, manaPoolPickup);
 		
 		dirtRodCraft = new AchievementMod(LibAchievementNames.DIRT_ROD_CRAFT, 8, 0, ModItems.dirtRod, runePickup);
 		manaBlasterShoot = new AchievementMod(LibAchievementNames.MANA_BLASTER_SHOOT, 8, -2, ModItems.manaGun, runePickup);
@@ -81,6 +83,8 @@ public final class ModAchievements {
 		
 		botaniaPage = new AchievementPage(LibMisc.MOD_NAME, AchievementMod.achievements.toArray(new Achievement[AchievementMod.achievements.size()]));
 		AchievementPage.registerAchievementPage(botaniaPage);
+		
+		FMLCommonHandler.instance().bus().register(new AchievementTriggerer());
 	}
 	
 }

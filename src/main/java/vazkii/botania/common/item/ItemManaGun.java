@@ -37,6 +37,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.recipe.ManaGunClipRecipe;
 import vazkii.botania.common.crafting.recipe.ManaGunLensRecipe;
@@ -88,6 +89,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 			if(burst != null && ManaItemHandler.requestManaExact(par1ItemStack, par3EntityPlayer, burst.getMana(), true)) {
 				if(!par2World.isRemote) {
 					par2World.playSoundAtEntity(par3EntityPlayer, "botania:manaBlaster", 0.6F, 1F);
+					par3EntityPlayer.addStat(ModAchievements.manaBlasterShoot, 1);
 					par2World.spawnEntityInWorld(burst);
 				} else {
 					par3EntityPlayer.swingItem();

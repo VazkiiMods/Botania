@@ -10,12 +10,16 @@
  */
 package vazkii.botania.common.item;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.Achievement;
 import net.minecraft.world.World;
+import vazkii.botania.common.achievement.ICraftAchievement;
+import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.entity.EntityThornChakram;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemThornChakram extends ItemMod {
+public class ItemThornChakram extends ItemMod implements ICraftAchievement {
 
 	public ItemThornChakram() {
 		setUnlocalizedName(LibItemNames.THORN_CHAKRAM);
@@ -32,6 +36,11 @@ public class ItemThornChakram extends ItemMod {
 			p_77659_2_.spawnEntityInWorld(new EntityThornChakram(p_77659_2_, p_77659_3_));
 
 		return p_77659_1_;
+	}
+
+	@Override
+	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
+		return ModAchievements.terrasteelWeaponCraft;
 	}
 
 }

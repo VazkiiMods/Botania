@@ -12,16 +12,20 @@ package vazkii.botania.common.item;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.Achievement;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.common.achievement.ICraftAchievement;
+import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.entity.EntitySpark;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemSpark extends ItemMod {
+public class ItemSpark extends ItemMod implements ICraftAchievement {
 
 	public static IIcon invIcon, worldIcon;
 
@@ -58,6 +62,11 @@ public class ItemSpark extends ItemMod {
 	@Override
 	public IIcon getIconFromDamage(int p_77617_1_) {
 		return invIcon;
+	}
+
+	@Override
+	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
+		return ModAchievements.sparkCraft;
 	}
 
 }

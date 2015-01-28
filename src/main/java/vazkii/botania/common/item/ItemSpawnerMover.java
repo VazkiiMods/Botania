@@ -25,6 +25,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemSpawnerMover extends ItemMod {
@@ -168,6 +169,7 @@ public class ItemSpawnerMover extends ItemMod {
 			if(placeBlockAt(itemstack, player, world, x, y, z, side, xOffset, yOffset, zOffset, meta)) {
 				world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, block.stepSound.func_150496_b(), (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
 				player.renderBrokenItemStack(itemstack);
+				player.addStat(ModAchievements.spawnerMoverUse, 1);
 				for(int i = 0; i < 100; i++)
 					Botania.proxy.sparkleFX(world, x + Math.random(), y + Math.random(), z + Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.45F + 0.2F * (float) Math.random(), 6);
 

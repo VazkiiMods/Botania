@@ -29,6 +29,7 @@ import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.lib.LibRenderIDs;
+import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.tile.TileTinyPotato;
 import vazkii.botania.common.item.block.ItemBlockMod;
@@ -71,6 +72,7 @@ public class BlockTinyPotato extends BlockModContainer implements ILexiconable {
 		TileEntity tile = par1World.getTileEntity(par2, par3, par4);
 		if(tile instanceof TileTinyPotato) {
 			((TileTinyPotato) tile).jump();
+			par5EntityPlayer.addStat(ModAchievements.tinyPotatoPet, 1);
 			par1World.spawnParticle("heart", par2 + minX + Math.random() * (maxX - minX), par3 + maxY, par4 + minZ + Math.random() * (maxZ - minZ), 0, 0 ,0);
 		}
 		return true;

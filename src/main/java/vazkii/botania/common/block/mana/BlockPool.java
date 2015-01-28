@@ -24,6 +24,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.Achievement;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
@@ -32,6 +33,8 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.lib.LibRenderIDs;
+import vazkii.botania.common.achievement.IPickupAchievement;
+import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
@@ -40,7 +43,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class BlockPool extends BlockModContainer implements IWandHUD, IWandable, ILexiconable {
+public class BlockPool extends BlockModContainer implements IWandHUD, IWandable, ILexiconable, IPickupAchievement {
 
 	boolean lastFragile = false;
 
@@ -161,5 +164,10 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.pool;
+	}
+
+	@Override
+	public Achievement getAchievementOnPickup(ItemStack stack, EntityPlayer player, EntityItem item) {
+		return stack.getItemDamage() == 0 ? ModAchievements.manaPoolPickup : null;
 	}
 }

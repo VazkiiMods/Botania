@@ -25,6 +25,4 @@ public class ItemBlockElven extends ItemBlockMod implements IElvenItem {
 		return ((IElvenItem) field_150939_a).isElvenItem(stack);
 	}
 
-
-
 }

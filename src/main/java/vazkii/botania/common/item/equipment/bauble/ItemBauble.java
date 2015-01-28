@@ -18,6 +18,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemMod;
 import baubles.api.BaubleType;
@@ -109,6 +110,9 @@ public abstract class ItemBauble extends ItemMod implements IBauble {
 		if(!player.worldObj.isRemote)
 			player.worldObj.playSoundAtEntity(player, "botania:equipBauble", 0.1F, 1.3F);
 
+		if(player instanceof EntityPlayer)
+			((EntityPlayer) player).addStat(ModAchievements.baubleWear, 1);
+		
 		onEquippedOrLoadedIntoWorld(stack, player);
 		setLastPlayerHashcode(stack, player.hashCode());
 	}

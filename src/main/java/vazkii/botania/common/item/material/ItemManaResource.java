@@ -15,21 +15,25 @@ import java.util.List;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.Achievement;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.achievement.IPickupAchievement;
+import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemManaResource extends ItemMod implements IFlowerComponent, IElvenItem {
+public class ItemManaResource extends ItemMod implements IFlowerComponent, IElvenItem, IPickupAchievement {
 
 	final int types = 14;
 	IIcon[] icons;
@@ -100,5 +104,10 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	@Override
 	public ItemStack getContainerItem(ItemStack itemStack) {
 		return itemStack.getItemDamage() == 11 ? itemStack.copy() : null;
+	}
+
+	@Override
+	public Achievement getAchievementOnPickup(ItemStack stack, EntityPlayer player, EntityItem item) {
+		return stack.getItemDamage() == 4 ? ModAchievements.terrasteelPickup : null;
 	}
 }
