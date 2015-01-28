@@ -20,6 +20,7 @@ import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.brew.ModPotions;
@@ -77,7 +78,8 @@ public class CommonProxy {
 		ModManaInfusionRecipes.init();
 		ModElvenTradeRecipes.init();
 		ModBrewRecipes.init();
-
+		ModAchievements.init();
+		
 		ChestGenHandler.init();
 
 		LexiconData.init();
