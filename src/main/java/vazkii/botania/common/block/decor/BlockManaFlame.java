@@ -36,6 +36,11 @@ public class BlockManaFlame extends BlockModContainer {
 		setBlockBounds(f, f, f, 1F - f, 1F - f, 1F - f);
 		setLightLevel(1F);
 	}
+	
+	@Override
+	public boolean registerInCreative() {
+		return false;
+	}
 
 	@Override
 	@Optional.Method(modid = "easycoloredlights")
