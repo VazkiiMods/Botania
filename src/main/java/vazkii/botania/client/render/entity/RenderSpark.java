@@ -81,7 +81,6 @@ public class RenderSpark extends RenderEntity {
 		float f5 = 0.5F;
 		float f6 = 0.25F;
 
-
 		p_77026_1_.startDrawingQuads();
 		p_77026_1_.setNormal(0.0F, 1.0F, 0.0F);
 		p_77026_1_.setBrightness(240);
