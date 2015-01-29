@@ -1371,6 +1371,12 @@ botania.entry.medumone=Medumone
 botania.page.medumone0=The &1Medumone&0 is a flower with the ability to completely halt a creature's movement.<br>While it receives &4Mana&0, it'll halt any nearby entities in their tracks with a powerful slowness effect, provided they are not players. 
 botania.page.medumone1=&oThose credits look fake&r...
 
+# -- MARIMORPHOSIS
+botania.entry.marimorphosis=Marimorphosis
+botania.page.marimorphosis0=The &1Marimorphosis&0 is a flower that executes metamorphic transformations on nearby &1Stone&0 blocks. These blocks get metamorphised into one of 8 different types of &1Metamorphic Stone&0. All 8 types will generate, but the type(s) that generate more often depend on the biome. All of these can be used to make bricks, chiseled bricks, slabs and stairs.
+botania.page.marimorphosis1=The various flavours of &1Metamorphic Stone&0
+botania.page.marimorphosis2=&oThis flower is pretty gneiss&r.
+
 # - GENERATING FLOWERS
 # -- AN INTRODUCTION TO GENERATION
 botania.entry.gIntro=An Introduction to Generation

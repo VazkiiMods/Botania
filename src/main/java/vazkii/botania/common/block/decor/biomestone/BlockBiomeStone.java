@@ -17,16 +17,20 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+import vazkii.botania.api.lexicon.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
+import vazkii.botania.common.lexicon.LexiconData;
 
-public class BlockBiomeStone extends BlockMod {
+public class BlockBiomeStone extends BlockMod implements ILexiconable {
 
 	private static IIcon[] icons = new IIcon[32];
 	int iconOffset;
@@ -79,5 +83,10 @@ public class BlockBiomeStone extends BlockMod {
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
 		int meta = world.getBlockMetadata(x, y, z);
 		return new ItemStack(this, 1, meta);
+	}
+
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return LexiconData.marimorphosis;
 	}
 }

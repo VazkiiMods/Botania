@@ -34,6 +34,7 @@ import vazkii.botania.common.block.decor.slabs.living.BlockLivingwoodSlab;
 import vazkii.botania.common.block.decor.slabs.prismarine.BlockDarkPrismarineSlab;
 import vazkii.botania.common.block.decor.slabs.prismarine.BlockPrismarineBrickSlab;
 import vazkii.botania.common.block.decor.slabs.prismarine.BlockPrismarineSlab;
+import vazkii.botania.common.block.decor.stairs.BlockBiomeStoneStairs;
 import vazkii.botania.common.block.decor.stairs.BlockLivingStairs;
 import vazkii.botania.common.block.decor.stairs.BlockReedStairs;
 import vazkii.botania.common.block.decor.stairs.BlockThatchStairs;
@@ -226,7 +227,7 @@ public final class ModFluffBlocks {
 		for(int i = 0; i < 24; i++) {
 			int meta = i % 16;
 			Block block = i < 16 ? biomeStoneA : biomeStoneB;
-			biomeStoneStairs[i] = new BlockLivingStairs(block, meta);
+			biomeStoneStairs[i] = new BlockBiomeStoneStairs(block, meta);
 			biomeStoneSlabs[i] = new BlockBiomeStoneSlab(false, block, meta, i);
 			biomeStoneFullSlabs[i] = new BlockBiomeStoneSlab(true, block, meta, i);
 		}

@@ -6,36 +6,21 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  * 
- * File Created @ [Jan 29, 2015, 7:34:16 PM (GMT)]
+ * File Created @ [Jan 29, 2015, 10:39:38 PM (GMT)]
  */
-package vazkii.botania.common.block.decor.slabs;
+package vazkii.botania.common.block.decor.stairs;
 
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.lexicon.LexiconData;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockSlab;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class BlockBiomeStoneSlab extends BlockLivingSlab {
+public class BlockBiomeStoneStairs extends BlockLivingStairs {
 
-	int index;
-	
-	public BlockBiomeStoneSlab(boolean full, Block source, int meta, int index) {
-		super(full, source, meta);
-		this.index = index;
-	}
-
-	@Override
-	public BlockSlab getFullBlock() {
-		return (BlockSlab) ModFluffBlocks.biomeStoneFullSlabs[index];
-	}
-
-	@Override
-	public BlockSlab getSingleBlock() {
-		return (BlockSlab) ModFluffBlocks.biomeStoneSlabs[index];
+	public BlockBiomeStoneStairs(Block source, int meta) {
+		super(source, meta);
 	}
 	
 	@Override

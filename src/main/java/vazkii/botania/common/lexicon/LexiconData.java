@@ -93,6 +93,7 @@ public final class LexiconData {
 	public static LexiconEntry vinculotus;
 	public static LexiconEntry spectranthemum;
 	public static LexiconEntry medumone;
+	public static LexiconEntry marimorphosis;
 
 	public static LexiconEntry generatingIntro;
 	public static LexiconEntry daybloom;
@@ -396,6 +397,9 @@ public final class LexiconData {
 		
 		medumone = new BLexiconEntry(LibLexicon.FFLOWER_MEDUMONE, categoryFunctionalFlowers);
 		medumone.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.medumoneRecipe));
+		
+		marimorphosis = new BLexiconEntry(LibLexicon.FFLOWER_MARIMORPHOSIS, categoryFunctionalFlowers);
+		marimorphosis.setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_METAMORPHIC_STONES), new PagePetalRecipe("2", ModPetalRecipes.marimorphosisRecipe));
 		
 		// GENERATING FLOWERS ENTRIES
 		generatingIntro = new BLexiconEntry(LibLexicon.GFLOWER_INTRO, categoryGenerationFlowers);

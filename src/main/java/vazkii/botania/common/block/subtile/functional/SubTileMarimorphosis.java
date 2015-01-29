@@ -21,10 +21,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileMarimorphosis extends SubTileFunctional {
 
@@ -114,6 +116,11 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 	@Override
 	public int getMaxMana() {
 		return 1000;
+	}
+	
+	@Override
+	public LexiconEntry getEntry() {
+		return LexiconData.marimorphosis;
 	}
 	
 }
