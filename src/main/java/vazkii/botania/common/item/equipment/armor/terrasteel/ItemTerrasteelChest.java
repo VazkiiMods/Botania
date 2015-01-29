@@ -18,9 +18,4 @@ public class ItemTerrasteelChest extends ItemTerrasteelArmor {
 		super(1, LibItemNames.TERRASTEEL_CHEST);
 	}
 
-	@Override
-	int getHealthBoost() {
-		return 7;
-	}
-
 }

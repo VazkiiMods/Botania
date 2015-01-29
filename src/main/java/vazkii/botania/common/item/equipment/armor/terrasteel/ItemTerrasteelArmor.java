@@ -10,12 +10,15 @@
  */
 package vazkii.botania.common.item.equipment.armor.terrasteel;
 
+import java.util.List;
 import java.util.UUID;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.item.ModItems;
@@ -30,17 +33,6 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 		super(type, name, BotaniaAPI.terrasteelArmorMaterial);
 	}
 
-	int getHealthBoost() {
-		return 0;
-	}
-
-	@Override
-	public Multimap getItemAttributeModifiers() {
-		Multimap map = HashMultimap.create();
-		map.put(SharedMonsterAttributes.maxHealth.getAttributeUnlocalizedName(), new AttributeModifier(new UUID(171328 /** Random number **/, armorType), "Armor modifier" + armorType, getHealthBoost(), 0));
-		return map;
-	}
-
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
 		return slot == 2 ? LibResources.MODEL_TERRASTEEL_1 : LibResources.MODEL_TERRASTEEL_0;
@@ -49,6 +41,44 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 	@Override
 	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
 		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 4 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
+	}
+	
+	static ItemStack[] armorset;
+
+	public ItemStack[] getArmorSetStacks() {
+		if(armorset == null)
+			armorset = new ItemStack[] {
+				new ItemStack(ModItems.terrasteelHelm),
+				new ItemStack(ModItems.terrasteelChest),
+				new ItemStack(ModItems.terrasteelLegs),
+				new ItemStack(ModItems.terrasteelBoots)
+			};
+		
+		return armorset;
+	}
+	
+	public boolean hasArmorSetItem(EntityPlayer player, int i) {
+		ItemStack stack = player.inventory.armorInventory[3 - i];
+		if(stack == null)
+			return false;
+		
+		switch(i) {
+		case 0: return stack.getItem() == ModItems.terrasteelHelm || stack.getItem() == ModItems.terrasteelHelmRevealing;
+		case 1: return stack.getItem() == ModItems.terrasteelChest;
+		case 2: return stack.getItem() == ModItems.terrasteelLegs;
+		case 3: return stack.getItem() == ModItems.terrasteelBoots;
+		}
+		
+		return false;
+	}
+	
+	public String getArmorSetName() {
+		return StatCollector.translateToLocal("botania.armorset.terrasteel.name");
+	}
+
+	public void addArmorSetDescription(List<String> list) {
+		addStringToTooltip(StatCollector.translateToLocal("botania.armorset.terrasteel.desc0"), list);
+		addStringToTooltip(StatCollector.translateToLocal("botania.armorset.terrasteel.desc1"), list);
 	}
 
 }

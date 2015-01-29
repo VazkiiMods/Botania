@@ -10,9 +10,13 @@
  */
 package vazkii.botania.common.item.equipment.armor.terrasteel;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+import vazkii.botania.api.mana.IManaDiscountArmor;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemTerrasteelHelm extends ItemTerrasteelArmor {
+public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDiscountArmor {
 
 	public ItemTerrasteelHelm() {
 		this(LibItemNames.TERRASTEEL_HELM);
@@ -23,8 +27,18 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor {
 	}
 
 	@Override
-	int getHealthBoost() {
-		return 4;
+	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
+		super.onArmorTick(world, player, stack);
+		if(!hasArmorSet(player)) {
+			int food = player.getFoodStats().getFoodLevel();
+	        if(food > 0 && food < 18 && player.shouldHeal() && player.ticksExisted % 80 == 0)
+	            player.heal(1F);
+		}
+	}
+	
+	@Override
+	public float getDiscount(ItemStack stack, int slot, EntityPlayer player) {
+		return hasArmorSet(player) ? 0.2F : 0F;
 	}
 
 }

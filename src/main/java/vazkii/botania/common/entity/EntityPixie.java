@@ -13,6 +13,7 @@ package vazkii.botania.common.entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import vazkii.botania.common.Botania;
@@ -21,6 +22,7 @@ public class EntityPixie extends EntityFlyingCreature {
 
 	EntityLivingBase summoner = null;
 	float damage = 0;
+	PotionEffect effect = null;
 
 	public EntityPixie(World world) {
 		super(world);
@@ -53,6 +55,10 @@ public class EntityPixie extends EntityFlyingCreature {
 		this.damage = damage;
 		setType(type);
 	}
+	
+	public void setApplyPotionEffect(PotionEffect effect) {
+		this.effect = effect;
+	}
 
 	@Override
 	protected void updateEntityActionState() {
@@ -79,6 +85,8 @@ public class EntityPixie extends EntityFlyingCreature {
 						target.attackEntityFrom(DamageSource.causeMobDamage(summoner), damage);
 					}
 				} else target.attackEntityFrom(DamageSource.causeMobDamage(this), damage);
+				if(effect != null)
+					target.addPotionEffect(effect);
 				die();
 			}
 		}
