@@ -65,7 +65,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 				if(mana > 0)
 					doParticles();
 
-				if(mana >= MAX_MANA) {
+				if(mana >= MAX_MANA && !worldObj.isRemote) {
 					EntityItem item = items.get(0);
 					for(EntityItem otherItem : items)
 						if(otherItem != item)
