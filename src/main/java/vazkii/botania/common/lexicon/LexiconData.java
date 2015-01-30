@@ -106,6 +106,7 @@ public final class LexiconData {
 	public static LexiconEntry entropinnyum;
 	public static LexiconEntry kekimurus;
 	public static LexiconEntry gourmaryllis;
+	public static LexiconEntry narslimmus;
 
 	public static LexiconEntry pistonRelay;
 	public static LexiconEntry pylon;
@@ -435,6 +436,9 @@ public final class LexiconData {
 		gourmaryllis = new BLexiconEntry(LibLexicon.GFLOWER_GOURMARYLLIS, categoryGenerationFlowers);
 		gourmaryllis.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PagePetalRecipe("3", ModPetalRecipes.gourmaryllisRecipe), new PageText("4"), new PageText("5"), new PageText("6"));
 
+		narslimmus = new BLexiconEntry(LibLexicon.GFLOWER_NARSLIMMUS, categoryGenerationFlowers);
+		narslimmus.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.narslimmusRecipe));
+		
 		// DEVICES ENTRIES
 		pistonRelay = new BLexiconEntry(LibLexicon.DEVICE_PISTON_RELAY, categoryDevices);
 		pistonRelay.setLexiconPages(new PageText("0"), new PageText("1"), new PageManaInfusionRecipe("2", ModManaInfusionRecipes.pistonRelayRecipe));
