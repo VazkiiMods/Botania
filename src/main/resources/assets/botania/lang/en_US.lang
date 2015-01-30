@@ -686,6 +686,8 @@ tile.botania:flower.gourmaryllis.name=Gourmaryllis
 tile.botania:flower.gourmaryllis.reference=Fuyukai Desu
 tile.botania:flower.narslimmus.name=Narslimmus
 tile.botania:flower.narslimmus.reference=What's this? It's all sticky
+tile.botania:flower.spectrolus.name=Spectrolus
+tile.botania:flower.spectrolus.reference=Profiting off Hate
 
 # - FUNCTIONAL
 tile.botania:flower.bellethorn.name=Bellethorne
@@ -2168,4 +2170,3 @@ botania.page.tcIntegration6b=The official frowny face
 # -- BUILDCRAFT INTEGRATION
 botania.entry.bcIntegration=Buildcraft Integration
 botania.page.bcIntegration0=Recent advances in piping technology have allowed &1Gates&0 to get a feel of the &4Mana&0 around them. A &1Gate&0 can now sense whether a &4Mana&0 container is empty, full or if it contains any mana.<br>&1Gates&0 can also use the &1Mana Detector&0 trigger to detect if a mana is passing by the pipe block. In addition, they can also sense when a &1Runic Altar&0 is ready to create runes.
-
