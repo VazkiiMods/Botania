@@ -280,12 +280,18 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	private static boolean noclipEnabled = false;
+	private static boolean corruptSparkle = false;
 
 	@Override
 	public void setSparkleFXNoClip(boolean noclip) {
 		noclipEnabled = noclip;
 	}
 
+	@Override
+	public void setSparkleFXCorrupt(boolean corrupt) {
+		corruptSparkle = corrupt;
+	}
+	
 	@Override
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m, boolean fake) {
 		if(!doParticle() && !fake)
@@ -295,6 +301,8 @@ public class ClientProxy extends CommonProxy {
 		sparkle.fake = sparkle.noClip = fake;
 		if(noclipEnabled)
 			sparkle.noClip = true;
+		if(corruptSparkle)
+			sparkle.corrupt = true;
 		Minecraft.getMinecraft().effectRenderer.addEffect(sparkle);
 	}
 

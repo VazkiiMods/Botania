@@ -121,5 +121,6 @@ public final class LibResources {
 	public static final String SHADER_HALO_FRAG = PREFIX_SHADER + "halo.frag";
 	public static final String SHADER_DOPLLEGANGER_BAR_FRAG = PREFIX_SHADER + "doppleganger_bar.frag";
 	public static final String SHADER_TERRA_PLATE_RUNE_FRAG = PREFIX_SHADER + "terra_plate_rune.frag";
+	public static final String SHADER_FILM_GRAIN = PREFIX_SHADER + "film_grain.frag";
 
 }

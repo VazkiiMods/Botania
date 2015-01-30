@@ -64,8 +64,8 @@ botaniamisc.wandMode.bind=Bind Mode
 botaniamisc.wandMode.function=Function Mode
 botaniamisc.playVideo=Play Video
 botaniamisc.brewOf=Brew of %s
-botaniamisc.needsCatalysts=No matter how hard you try to push the Terrasteel Ingot into the Beacon, nothing seems to happen, perhaps your configuration of catalyst pylons might be off.
-botaniamisc.peacefulNoob=You try to offer the Terrasteel Ingot, but the peaceful vibes of your world prevent you from doing so. Perhaps you should do something about that.
+botaniamisc.needsCatalysts=No matter how hard you try to push the Ingot into the Beacon, nothing seems to happen, perhaps your configuration of catalyst pylons might be off.
+botaniamisc.peacefulNoob=You try to offer the Ingot, but the peaceful vibes of your world prevent you from doing so. Perhaps you should do something about that.
 botaniamisc.notInfused=Not Infused
 botaniamisc.getALife=Get a Life
 botaniamisc.floatingPrefix=Floating %s
@@ -974,6 +974,7 @@ item.botania:craftPattern5.name=Crafting Pattern #6: 3x1
 item.botania:craftPattern6.name=Crafting Pattern #7: 2x3
 item.botania:craftPattern7.name=Crafting Pattern #8: 3x2
 item.botania:craftPattern8.name=Crafting Pattern #9: Donut
+item.botania:gaiaIngot.name=Gaia Spirit Ingot
 
 # BREW NAMES
 botania.brew.fallback=Fallback

@@ -153,6 +153,10 @@ public class CommonProxy {
 	public void setSparkleFXNoClip(boolean noclip) {
 		// NO-OP
 	}
+	
+	public void setSparkleFXCorrupt(boolean corrupt) {
+		// NO-OP
+	}
 
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {
 		sparkleFX(world, x, y, z, r, g, b, size, m, false);
@@ -169,7 +173,7 @@ public class CommonProxy {
 	public void setWispFXDepthTest(boolean depth) {
 		// NO-OP
 	}
-
+	
 	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size) {
 		wispFX(world, x, y, z, r, g, b, size, 0F);
 	}

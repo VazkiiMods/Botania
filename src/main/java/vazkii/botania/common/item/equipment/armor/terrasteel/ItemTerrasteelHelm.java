@@ -29,7 +29,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
 		super.onArmorTick(world, player, stack);
-		if(!hasArmorSet(player)) {
+		if(hasArmorSet(player)) {
 			int food = player.getFoodStats().getFoodLevel();
 	        if(food > 0 && food < 18 && player.shouldHeal() && player.ticksExisted % 80 == 0)
 	            player.heal(1F);

@@ -155,6 +155,7 @@ public final class LibItemNames {
 		"prismarineShard",
 		"placeholder",
 		"redString",
-		"dreamwoodTwig"
+		"dreamwoodTwig",
+		"gaiaIngot"
 	};
 }

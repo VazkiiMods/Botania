@@ -225,6 +225,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeThornChakram;
 	public static IRecipe recipeDirtPathSlab;
 	public static List<IRecipe> recipesPatterns;
+	public static IRecipe recipeGaiaIngot;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1486,6 +1487,13 @@ public final class ModCraftingRecipes {
 			
 			recipesPatterns = BotaniaAPI.getLatestAddedRecipes(count);
 		}
+		
+		// Gaia Spirit Ingot Recipe
+		addOreDictRecipe(new ItemStack(ModItems.manaResource, 1, 14), 
+				" S ", "SIS", " S ",
+				'S', LibOreDict.LIFE_ESSENCE,
+				'I', LibOreDict.TERRA_STEEL);
+		recipeGaiaIngot = BotaniaAPI.getLatestAddedRecipe();
 
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
