@@ -119,4 +119,12 @@ public class TileRedStringContainer extends TileRedString implements ISidedInven
 		return tile instanceof ISidedInventory ? ((ISidedInventory) tile).canExtractItem(slot, stack, side) : true;
 	}
 
+	@Override
+	public void markDirty() {
+		super.markDirty();
+		TileEntity tile = getTileAtBinding();
+		if(tile != null)
+			tile.markDirty();
+	}
+	
 }
