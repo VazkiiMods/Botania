@@ -85,6 +85,8 @@ public final class LibBlockNames {
 	public static final String SUBTILE_ENTROPINNYUM = "entropinnyum";
 	public static final String SUBTILE_KEKIMURUS = "kekimurus";
 	public static final String SUBTILE_GOURMARYLLIS = "gourmaryllis";
+	public static final String SUBTILE_NARSLIMMUS = "narslimmus";
+	public static final String SUBTILE_SPECTROLUS = "spectrolus";
 
 	public static final String SUBTILE_BELLETHORN = "bellethorn";
 	public static final String SUBTILE_DREADTHORN = "dreadthorn";
