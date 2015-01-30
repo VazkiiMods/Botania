@@ -26,7 +26,9 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileGenerating;
+import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileSpectrolus extends SubTileGenerating {
 
@@ -66,6 +68,11 @@ public class SubTileSpectrolus extends SubTileGenerating {
 	@Override
 	public int getColor() {
 		return Color.HSBtoRGB((float) ticksExisted / 100F, 1F, 1F);
+	}
+	
+	@Override
+	public LexiconEntry getEntry() {
+		return LexiconData.spectrolus;
 	}
 	
 	@Override
