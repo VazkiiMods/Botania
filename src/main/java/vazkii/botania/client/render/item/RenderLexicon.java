@@ -22,6 +22,7 @@ import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.gui.lexicon.GuiLexicon;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;
@@ -49,13 +50,24 @@ public class RenderLexicon implements IItemRenderer {
 		float opening = 0F;
 		float pageFlip = 0F;
 
-		int ticks = ClientTickHandler.ticksWithLexicaOpen;
+		float ticks = ClientTickHandler.ticksWithLexicaOpen;
+		if(ticks > 0 && ticks < 10) {
+			if(mc.currentScreen instanceof GuiLexicon)
+				ticks += ClientTickHandler.partialTicks;
+			else ticks -= ClientTickHandler.partialTicks;
+		}
+		
 		GL11.glTranslatef(0.3F + 0.02F * ticks, 0.475F + 0.01F * ticks, -0.2F - 0.01F * ticks);
 		GL11.glRotatef(87.5F + ticks * 5, 0F, 1F, 0F);
 		GL11.glRotatef(ticks * 2.5F, 0F, 0F, 1F);
 		GL11.glScalef(0.9F, 0.9F, 0.9F);
 		opening = ticks / 12F;
-		pageFlip = ClientTickHandler.pageFlipTicks / 5F;
+		
+		float pageFlipTicks = ClientTickHandler.pageFlipTicks;
+		if(pageFlipTicks > 0)
+			pageFlipTicks -= ClientTickHandler.partialTicks;
+		
+		pageFlip = pageFlipTicks / 5F;
 
 		model.render(null, 0F, 0F, pageFlip, opening, 0F, 1F / 16F);
 		if(ticks < 3) {

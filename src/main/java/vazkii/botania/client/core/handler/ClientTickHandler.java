@@ -27,13 +27,21 @@ import vazkii.botania.common.item.ItemTwigWand;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
+import cpw.mods.fml.common.gameevent.TickEvent.RenderTickEvent;
 
 public class ClientTickHandler {
 
 	public static int ticksWithLexicaOpen = 0;
 	public static int pageFlipTicks = 0;
 	public static int ticksInGame = 0;
+	public static float partialTicks = 0;
 
+	@SubscribeEvent
+	public void renderTickStart(RenderTickEvent event) {
+		if(event.phase == Phase.START)
+			partialTicks = event.renderTickTime;
+	}
+	
 	@SubscribeEvent
 	public void clientTickEnd(ClientTickEvent event) {
 		if(event.phase == Phase.END) {
