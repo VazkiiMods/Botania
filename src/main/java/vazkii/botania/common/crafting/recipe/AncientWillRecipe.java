@@ -10,14 +10,12 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import vazkii.botania.api.item.IAncientWillContainer;
-import vazkii.botania.api.mana.ILens;
-import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.lens.ItemLens;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
+import vazkii.botania.api.item.IAncientWillContainer;
+import vazkii.botania.common.item.ModItems;
 
 public class AncientWillRecipe implements IRecipe {
 
@@ -50,16 +48,16 @@ public class AncientWillRecipe implements IRecipe {
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
 			if(stack != null) {
-				if(stack.getItem() instanceof IAncientWillContainer && item == null)				
+				if(stack.getItem() instanceof IAncientWillContainer && item == null)
 					item = stack;
 				else will = stack.getItemDamage();
 			}
 		}
-		
+
 		IAncientWillContainer container = (IAncientWillContainer) item.getItem();
 		if(container.hasAncientWill(item, will))
 			return null;
-		
+
 		ItemStack copy = item.copy();
 		container.addAncientWill(copy, will);
 		return copy;
@@ -74,5 +72,5 @@ public class AncientWillRecipe implements IRecipe {
 	public ItemStack getRecipeOutput() {
 		return null;
 	}
-	
+
 }

@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.block;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import net.minecraft.block.material.Material;
@@ -67,7 +66,7 @@ public class BlockEnchantedSoil extends BlockMod implements ILexiconable {
 	public boolean canSustainPlant(IBlockAccess world, int x, int y, int z, ForgeDirection direction, IPlantable plantable) {
 		return plantable.getPlantType(world, x, y - 1, z) == EnumPlantType.Plains;
 	}
-	
+
 	@Override
 	protected boolean canSilkHarvest() {
 		return true;
@@ -77,5 +76,5 @@ public class BlockEnchantedSoil extends BlockMod implements ILexiconable {
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.overgrowthSeed;
 	}
-	
+
 }

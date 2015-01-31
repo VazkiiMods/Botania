@@ -55,7 +55,7 @@ public class EntityPixie extends EntityFlyingCreature {
 		this.damage = damage;
 		setType(type);
 	}
-	
+
 	public void setApplyPotionEffect(PotionEffect effect) {
 		this.effect = effect;
 	}

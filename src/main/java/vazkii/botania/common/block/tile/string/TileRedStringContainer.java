@@ -126,5 +126,5 @@ public class TileRedStringContainer extends TileRedString implements ISidedInven
 		if(tile != null)
 			tile.markDirty();
 	}
-	
+
 }

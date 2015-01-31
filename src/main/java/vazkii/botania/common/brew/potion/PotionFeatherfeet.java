@@ -22,7 +22,7 @@ public class PotionFeatherfeet extends PotionMod {
 		super(LibPotionNames.FEATHER_FEET, false, 0x26ADFF, 1);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
-	
+
 	@SubscribeEvent
 	public void onEntityUpdate(LivingUpdateEvent event) {
 		EntityLivingBase e = event.entityLiving;

@@ -12,7 +12,6 @@ package vazkii.botania.common.block.decor.biomestone;
 
 import java.util.List;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -29,40 +28,41 @@ import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class BlockBiomeStone extends BlockMod implements ILexiconable {
 
 	private static IIcon[] icons = new IIcon[32];
 	int iconOffset;
-	
+
 	public BlockBiomeStone(int iconOffset, String name) {
 		super(Material.rock);
 		setHardness(1.5F);
 		setResistance(10F);
 		setStepSound(soundTypeStone);
 		setBlockName(name);
-		this.iconOffset = iconOffset; 
+		this.iconOffset = iconOffset;
 	}
-	
+
 	@Override
 	public void registerBlockIcons(IIconRegister register) {
 		for(int i = 0; i < 16; i++) {
 			int index = i + iconOffset;
-			icons[index] = IconHelper.forName(register, "biomeStone" + index); 
+			icons[index] = IconHelper.forName(register, "biomeStone" + index);
 		}
 	}
-	
+
 	@Override
 	public void getSubBlocks(Item item, CreativeTabs tab, List list) {
 		for(int i = 0; i < 16; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
-	
+
 	@Override
 	public IIcon getIcon(int side, int meta) {
 		return icons[meta + iconOffset];
 	}
-	
+
 	@Override
 	protected boolean shouldRegisterInNameSet() {
 		return false;

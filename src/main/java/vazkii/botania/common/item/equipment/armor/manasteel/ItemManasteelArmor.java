@@ -109,7 +109,7 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 	public boolean usesMana(ItemStack stack) {
 		return true;
 	}
-	
+
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean adv) {
 		if(GuiScreen.isShiftKeyDown()) {
@@ -120,7 +120,7 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 				addStringToTooltip((hasArmorSetItem(player, i) ? EnumChatFormatting.GREEN : "") + " - " + stacks[i].getDisplayName(), list);
 		} else addStringToTooltip(StatCollector.translateToLocal("botaniamisc.shiftinfo"), list);
 	}
-	
+
 	public void addStringToTooltip(String s, List<String> tooltip) {
 		tooltip.add(s.replaceAll("&", "\u00a7"));
 	}
@@ -134,47 +134,47 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 				new ItemStack(ModItems.manasteelChest),
 				new ItemStack(ModItems.manasteelLegs),
 				new ItemStack(ModItems.manasteelBoots)
-			};
-		
+		};
+
 		return armorset;
 	}
 
 	public boolean hasArmorSet(EntityPlayer player) {
 		return hasArmorSetItem(player, 0) && hasArmorSetItem(player, 1) && hasArmorSetItem(player, 2) && hasArmorSetItem(player, 3);
 	}
-	
+
 	public boolean hasArmorSetItem(EntityPlayer player, int i) {
 		ItemStack stack = player.inventory.armorInventory[3 - i];
 		if(stack == null)
 			return false;
-		
+
 		switch(i) {
 		case 0: return stack.getItem() == ModItems.manasteelHelm || stack.getItem() == ModItems.manasteelHelmRevealing;
 		case 1: return stack.getItem() == ModItems.manasteelChest;
 		case 2: return stack.getItem() == ModItems.manasteelLegs;
 		case 3: return stack.getItem() == ModItems.manasteelBoots;
 		}
-		
+
 		return false;
 	}
-	
+
 	public int getSetPiecesEquipped(EntityPlayer player) {
 		int pieces = 0;
 		for(int i = 0; i < 4; i++)
 			if(hasArmorSetItem(player, i))
 				pieces++;
-		
+
 		return pieces;
 	}
-	
+
 	public String getArmorSetName() {
 		return StatCollector.translateToLocal("botania.armorset.manasteel.name");
 	}
-	
+
 	public String getArmorSetTitle(EntityPlayer player) {
 		return StatCollector.translateToLocal("botaniamisc.armorset") + " " + getArmorSetName() + " (" + getSetPiecesEquipped(player) + "/" + getArmorSetStacks().length + ")";
 	}
-	
+
 	public void addArmorSetDescription(ItemStack stack, List<String> list) {
 		addStringToTooltip(StatCollector.translateToLocal("botania.armorset.manasteel.desc"), list);
 	}

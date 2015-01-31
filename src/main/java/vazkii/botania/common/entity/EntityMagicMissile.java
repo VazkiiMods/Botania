@@ -44,20 +44,20 @@ public class EntityMagicMissile extends EntityThrowable {
 		ReflectionHelper.setPrivateValue(EntityThrowable.class, this, thrower, LibObfuscation.THROWER);
 		setEvil(evil);
 	}
-	
+
 	@Override
 	protected void entityInit() {
 		dataWatcher.addObject(25, (byte) 0);
 	}
-	
+
 	public void setEvil(boolean evil) {
 		dataWatcher.updateObject(25, (byte) (evil ? 1 : 0));
 	}
-	
+
 	public boolean isEvil() {
 		return dataWatcher.getWatchableObjectByte(25) == 1;
 	}
-	
+
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
@@ -91,7 +91,7 @@ public class EntityMagicMissile extends EntityThrowable {
 				lockY = target.posY;
 				lockZ = target.posZ;
 			}
-			
+
 			Vector3 targetVec = evil ? new Vector3(lockX, lockY, lockZ) : Vector3.fromEntityCenter(target);
 			Vector3 diffVec = targetVec.copy().sub(thisVec);
 			Vector3 motionVec = diffVec.copy().normalize().multiply(evil ? 0.5 : 0.6);
@@ -100,7 +100,7 @@ public class EntityMagicMissile extends EntityThrowable {
 			if(ticksExisted < 10)
 				motionY = Math.abs(motionY);
 			motionZ = motionVec.z;
-			
+
 			List<EntityLivingBase> targetList = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(posX - 0.5, posY - 0.5, posZ - 0.5, posX + 0.5, posY + 0.5, posZ + 0.5));
 			if(targetList.contains(target) && target != null) {
 				EntityLivingBase thrower = getThrower();
@@ -108,7 +108,7 @@ public class EntityMagicMissile extends EntityThrowable {
 				target.attackEntityFrom(player == null ? DamageSource.causeMobDamage(thrower) : DamageSource.causePlayerDamage(player), evil ? 12 : 7);
 				setDead();
 			}
-			
+
 			if(evil && diffVec.mag() < 1)
 				setDead();
 		}

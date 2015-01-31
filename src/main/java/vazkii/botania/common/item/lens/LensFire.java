@@ -39,8 +39,8 @@ public class LensFire extends Lens {
 			else if(blockAt_.isAir(entity.worldObj, x, y, z))
 				entity.worldObj.setBlock(x, y, z, Blocks.fire);
 		}
-		
+
 		return dead;
 	}
-	
+
 }

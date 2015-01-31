@@ -64,9 +64,9 @@ public class TileCraftCrate extends TileOpenCrate {
 			true, true, true
 		}
 	};
-	
+
 	private static final String TAG_PATTERN = "pattern";
-	
+
 	public int pattern = -1;
 	int signal = 0;
 
@@ -88,7 +88,7 @@ public class TileCraftCrate extends TileOpenCrate {
 	public boolean isLocked(int slot) {
 		return pattern != -1 && !PATTERNS[pattern][slot];
 	}
-	
+
 	@Override
 	public void updateEntity() {
 		if(!worldObj.isRemote && craft(true) && canEject())
@@ -159,19 +159,19 @@ public class TileCraftCrate extends TileOpenCrate {
 			setInventorySlotContents(i, null);
 		}
 	}
-	
+
 	@Override
 	public void writeCustomNBT(NBTTagCompound par1nbtTagCompound) {
 		super.writeCustomNBT(par1nbtTagCompound);
 		par1nbtTagCompound.setInteger(TAG_PATTERN, pattern);
 	}
-	
+
 	@Override
 	public void readCustomNBT(NBTTagCompound par1nbtTagCompound) {
 		super.readCustomNBT(par1nbtTagCompound);
 		pattern = par1nbtTagCompound.getInteger(TAG_PATTERN);
 	}
-	
+
 	@Override
 	public boolean onWanded(EntityPlayer player, ItemStack stack) {
 		craft(false);
@@ -190,5 +190,5 @@ public class TileCraftCrate extends TileOpenCrate {
 		if(pattern != lastPattern)
 			worldObj.markBlockRangeForRenderUpdate(xCoord,yCoord,zCoord,xCoord,yCoord,zCoord);
 	}
-	
+
 }

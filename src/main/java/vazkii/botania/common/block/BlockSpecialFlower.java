@@ -24,11 +24,9 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.Achievement;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
@@ -41,7 +39,6 @@ import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.lib.LibRenderIDs;
-import vazkii.botania.common.achievement.IPickupAchievement;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
@@ -78,7 +75,7 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 				LibBlockNames.SUBTILE_BELLETHORN,
 				LibBlockNames.SUBTILE_DREADTHORN,
 				LibBlockNames.SUBTILE_HEISEI_DREAM,
-				LibBlockNames.SUBTILE_TIGERSEYE,				
+				LibBlockNames.SUBTILE_TIGERSEYE,
 				LibBlockNames.SUBTILE_MARIMORPHOSIS,
 				LibBlockNames.SUBTILE_ORECHID,
 				LibBlockNames.SUBTILE_FALLEN_KANADE,

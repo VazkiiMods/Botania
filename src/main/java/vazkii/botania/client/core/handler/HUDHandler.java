@@ -291,7 +291,7 @@ public final class HUDHandler {
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		profiler.endSection();
 	}
-	
+
 	public static void drawSimpleManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res) {
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);

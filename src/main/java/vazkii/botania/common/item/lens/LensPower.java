@@ -21,5 +21,5 @@ public class LensPower extends Lens {
 		props.motionModifier *= 0.85F;
 		props.manaLossPerTick *= 2F;
 	}
-	
+
 }

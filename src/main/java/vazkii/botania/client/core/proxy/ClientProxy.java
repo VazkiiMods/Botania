@@ -14,8 +14,6 @@ import java.awt.Desktop;
 import java.net.URI;
 import java.util.Calendar;
 
-import baubles.common.container.InventoryBaubles;
-import baubles.common.lib.PlayerHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
@@ -23,7 +21,6 @@ import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.PlayerCapabilities;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntitySkull;
@@ -113,6 +110,8 @@ import vazkii.botania.common.entity.EntityThornChakram;
 import vazkii.botania.common.entity.EntityVineBall;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibObfuscation;
+import baubles.common.container.InventoryBaubles;
+import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -227,7 +226,7 @@ public class ClientProxy extends CommonProxy {
 	public boolean isTheClientPlayer(EntityLivingBase entity) {
 		return entity == Minecraft.getMinecraft().thePlayer;
 	}
-	
+
 	@Override
 	public boolean isClientPlayerWearingMonocle() {
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
@@ -291,7 +290,7 @@ public class ClientProxy extends CommonProxy {
 	public void setSparkleFXCorrupt(boolean corrupt) {
 		corruptSparkle = corrupt;
 	}
-	
+
 	@Override
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m, boolean fake) {
 		if(!doParticle() && !fake)

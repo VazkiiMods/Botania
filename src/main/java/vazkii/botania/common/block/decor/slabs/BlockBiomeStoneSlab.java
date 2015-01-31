@@ -10,19 +10,19 @@
  */
 package vazkii.botania.common.block.decor.slabs;
 
-import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.common.block.ModFluffBlocks;
-import vazkii.botania.common.lexicon.LexiconData;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.common.block.ModFluffBlocks;
+import vazkii.botania.common.lexicon.LexiconData;
 
 public class BlockBiomeStoneSlab extends BlockLivingSlab {
 
 	int index;
-	
+
 	public BlockBiomeStoneSlab(boolean full, Block source, int meta, int index) {
 		super(full, source, meta);
 		this.index = index;
@@ -37,7 +37,7 @@ public class BlockBiomeStoneSlab extends BlockLivingSlab {
 	public BlockSlab getSingleBlock() {
 		return (BlockSlab) ModFluffBlocks.biomeStoneSlabs[index];
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.marimorphosis;

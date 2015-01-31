@@ -250,9 +250,9 @@ public final class ModBlocks {
 		prism = new BlockPrism();
 		dirtPath = new BlockDirtPath();
 		enchantedSoil = new BlockEnchantedSoil();
-		
+
 		ModFluffBlocks.init();
-		
+
 		for(int i = 0; i < 16; i++)
 			OreDictionary.registerOre(LibOreDict.FLOWER[i], new ItemStack(flower, 1, i));
 

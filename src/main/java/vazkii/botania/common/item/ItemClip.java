@@ -18,5 +18,5 @@ public class ItemClip extends ItemMod {
 		setMaxStackSize(1);
 		setUnlocalizedName(LibItemNames.CLIP);
 	}
-	
+
 }

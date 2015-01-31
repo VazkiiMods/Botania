@@ -20,5 +20,5 @@ public class LensEfficiency extends Lens {
 		props.manaLossPerTick /= 5F;
 		props.ticksBeforeManaLoss *= 1.1F;
 	}
-	
+
 }

@@ -174,15 +174,15 @@ public class ItemCraftingHalo extends ItemMod {
 			ItemStack stackAt = inv.getStackInSlot(i);
 			if(stackAt != null && stack.isItemEqual(stackAt) && ItemStack.areItemStackTagsEqual(stack, stackAt)) {
 				boolean consume = true;
-				
+
 				ItemStack container = stackAt.getItem().getContainerItem(stackAt);
 				if(container != null) {
 					if(container == stackAt)
 						consume = false;
 					else {
-					InventoryHelper.insertItemIntoInventory(inv, container);
-					if(container.stackSize != 0 && player != null)
-						player.dropPlayerItemWithRandomChoice(container, false);
+						InventoryHelper.insertItemIntoInventory(inv, container);
+						if(container.stackSize != 0 && player != null)
+							player.dropPlayerItemWithRandomChoice(container, false);
 					}
 				}
 
@@ -191,7 +191,7 @@ public class ItemCraftingHalo extends ItemMod {
 					if(stackAt.stackSize == 0)
 						inv.setInventorySlotContents(i, null);
 				}
-				
+
 				return true;
 			}
 		}
@@ -400,7 +400,6 @@ public class ItemCraftingHalo extends ItemMod {
 		float u = 1F;
 		float v = 0.25F;
 
-		float uper = u / angles;
 		float s = 3F;
 		float m = 0.8F;
 		float y = v * s * 2;

@@ -19,7 +19,7 @@ public class TileTinyPotato extends TileMod {
 
 	public int jumpTicks = 0;
 	public String name = "";
-	
+
 	public void jump() {
 		if(jumpTicks == 0)
 			jumpTicks = 20;
@@ -33,12 +33,12 @@ public class TileTinyPotato extends TileMod {
 		if(jumpTicks > 0)
 			jumpTicks--;
 	}
-	
+
 	@Override
 	public void writeCustomNBT(NBTTagCompound cmp) {
 		cmp.setString(TAG_NAME, name);
 	}
-	
+
 	@Override
 	public void readCustomNBT(NBTTagCompound cmp) {
 		name = cmp.getString(TAG_NAME);

@@ -22,7 +22,7 @@ public class ItemAuraRing extends ItemBauble {
 	public ItemAuraRing(String name) {
 		super(name);
 	}
-	
+
 	public ItemAuraRing() {
 		this(LibItemNames.AURA_RING);
 	}
@@ -33,7 +33,7 @@ public class ItemAuraRing extends ItemBauble {
 		if(player instanceof EntityPlayer && player.ticksExisted % getDelay() == 0)
 			ManaItemHandler.dispatchManaExact(stack, (EntityPlayer) player, 1, true);
 	}
-	
+
 	int getDelay() {
 		return 10;
 	}

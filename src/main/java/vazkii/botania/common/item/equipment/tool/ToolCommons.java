@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.tool;
 
-import java.util.ArrayList;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;

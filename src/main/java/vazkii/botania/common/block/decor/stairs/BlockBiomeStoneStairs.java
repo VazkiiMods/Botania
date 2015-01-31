@@ -10,19 +10,19 @@
  */
 package vazkii.botania.common.block.decor.stairs;
 
-import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.common.lexicon.LexiconData;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.common.lexicon.LexiconData;
 
 public class BlockBiomeStoneStairs extends BlockLivingStairs {
 
 	public BlockBiomeStoneStairs(Block source, int meta) {
 		super(source, meta);
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.marimorphosis;

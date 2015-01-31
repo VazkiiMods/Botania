@@ -41,5 +41,5 @@ public class LensDamage extends Lens {
 			}
 		}
 	}
-	
+
 }

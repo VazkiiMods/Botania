@@ -26,5 +26,5 @@ public interface IManaDiscountArmor {
 	 * You can also return negative values to make tools cost more.
 	 */
 	public float getDiscount(ItemStack stack, int slot, EntityPlayer player);
-	
+
 }

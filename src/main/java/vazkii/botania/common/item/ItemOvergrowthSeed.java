@@ -23,7 +23,7 @@ public class ItemOvergrowthSeed extends ItemMod {
 	public ItemOvergrowthSeed() {
 		setUnlocalizedName(LibItemNames.OVERGROWTH_SEED);
 	}
-	
+
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int s, float xs, float ys, float zs) {
 		Block block = world.getBlock(x, y, z);
@@ -35,11 +35,11 @@ public class ItemOvergrowthSeed extends ItemMod {
 				world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block));
 				world.setBlock(x, y, z, ModBlocks.enchantedSoil);
 				stack.stackSize--;
-				
+
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 }

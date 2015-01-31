@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import akka.util.Collections;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -23,7 +22,6 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileFunctional;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -41,7 +39,7 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 		Type.SNOWY,
 		Type.MESA
 	};
-	
+
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
@@ -65,20 +63,20 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 			}
 		}
 	}
-	
+
 	public ItemStack getStoneToPut(ChunkCoordinates coords) {
 		List<Type> types = Arrays.asList(BiomeDictionary.getTypesForBiome(supertile.getWorldObj().getBiomeGenForCoords(coords.posX, coords.posZ)));
-		
+
 		List<Integer> values = new ArrayList();
 		for(int i = 0; i < 8; i++) {
 			int times = 1;
 			if(types.contains(TYPES[i]))
 				times = 12;
-			
+
 			for(int j = 0; j < times; j++)
 				values.add(i);
 		}
-		
+
 		return new ItemStack(ModFluffBlocks.biomeStoneA, 1, values.get(supertile.getWorldObj().rand.nextInt(values.size())));
 	}
 
@@ -102,12 +100,12 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 			return null;
 		return possibleCoords.get(supertile.getWorldObj().rand.nextInt(possibleCoords.size()));
 	}
-	
+
 	@Override
 	public int getColor() {
 		return 0x769897;
 	}
-	
+
 	@Override
 	public boolean acceptsRedstone() {
 		return true;
@@ -117,10 +115,10 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 	public int getMaxMana() {
 		return 1000;
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry() {
 		return LexiconData.marimorphosis;
 	}
-	
+
 }

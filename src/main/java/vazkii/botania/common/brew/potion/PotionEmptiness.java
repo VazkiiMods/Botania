@@ -24,7 +24,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 public class PotionEmptiness extends PotionMod {
 
 	private static final int RANGE = 128;
-	
+
 	public PotionEmptiness() {
 		super(LibPotionNames.EMPTINESS, false, 0xE7E7E7, 2);
 		MinecraftForge.EVENT_BUS.register(this);
@@ -41,5 +41,5 @@ public class PotionEmptiness extends PotionMod {
 				}
 		}
 	}
-	
+
 }

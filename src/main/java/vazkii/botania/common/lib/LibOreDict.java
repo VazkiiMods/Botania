@@ -38,34 +38,34 @@ public final class LibOreDict {
 	public static final String FLASK = "bFlask";
 
 	public static final String[] FLOWER = new String[] { "mysticFlowerWhite",
-			"mysticFlowerOrange", "mysticFlowerMagenta",
-			"mysticFlowerLightBlue", "mysticFlowerYellow", "mysticFlowerLime",
-			"mysticFlowerPink", "mysticFlowerGray", "mysticFlowerLightGray",
-			"mysticFlowerCyan", "mysticFlowerPurple", "mysticFlowerBlue",
-			"mysticFlowerBrown", "mysticFlowerGreen", "mysticFlowerRed",
-			"mysticFlowerBlack", };
+		"mysticFlowerOrange", "mysticFlowerMagenta",
+		"mysticFlowerLightBlue", "mysticFlowerYellow", "mysticFlowerLime",
+		"mysticFlowerPink", "mysticFlowerGray", "mysticFlowerLightGray",
+		"mysticFlowerCyan", "mysticFlowerPurple", "mysticFlowerBlue",
+		"mysticFlowerBrown", "mysticFlowerGreen", "mysticFlowerRed",
+		"mysticFlowerBlack", };
 
 	public static final String[] PETAL = new String[] { "petalWhite",
-			"petalOrange", "petalMagenta", "petalLightBlue", "petalYellow",
-			"petalLime", "petalPink", "petalGray", "petalLightGray",
-			"petalCyan", "petalPurple", "petalBlue", "petalBrown",
-			"petalGreen", "petalRed", "petalBlack", };
+		"petalOrange", "petalMagenta", "petalLightBlue", "petalYellow",
+		"petalLime", "petalPink", "petalGray", "petalLightGray",
+		"petalCyan", "petalPurple", "petalBlue", "petalBrown",
+		"petalGreen", "petalRed", "petalBlack", };
 
 	public static final String[] DYE = new String[] { "dyeWhite", "dyeOrange",
-			"dyeMagenta", "dyeLightBlue", "dyeYellow", "dyeLime", "dyePink",
-			"dyeGray", "dyeLightGray", "dyeCyan", "dyePurple", "dyeBlue",
-			"dyeBrown", "dyeGreen", "dyeRed", "dyeBlack", };
+		"dyeMagenta", "dyeLightBlue", "dyeYellow", "dyeLime", "dyePink",
+		"dyeGray", "dyeLightGray", "dyeCyan", "dyePurple", "dyeBlue",
+		"dyeBrown", "dyeGreen", "dyeRed", "dyeBlack", };
 
 	public static final String[] MANA_PETAL = new String[] { "manaPetalWhite",
-			"manaPetalOrange", "manaPetalMagenta", "manaPetalLightBlue",
-			"manaPetalYellow", "manaPetalLime", "manaPetalPink",
-			"manaPetalGray", "manaPetalLightGray", "manaPetalCyan",
-			"manaPetalPurple", "manaPetalBlue", "manaPetalBrown",
-			"manaPetalGreen", "manaPetalRed", "manaPetalBlack", };
+		"manaPetalOrange", "manaPetalMagenta", "manaPetalLightBlue",
+		"manaPetalYellow", "manaPetalLime", "manaPetalPink",
+		"manaPetalGray", "manaPetalLightGray", "manaPetalCyan",
+		"manaPetalPurple", "manaPetalBlue", "manaPetalBrown",
+		"manaPetalGreen", "manaPetalRed", "manaPetalBlack", };
 
 	public static final String[] RUNE = new String[] { "runeWaterB",
-			"runeFireB", "runeEarthB", "runeAirB", "runeSpringB",
-			"runeSummerB", "runeAutumnB", "runeWinterB", "runeManaB",
-			"runeLustB", "runeGluttonyB", "runeGreedB", "runeSlothB",
-			"runeWrathB", "runeEnvyB", "runePrideB" };
+		"runeFireB", "runeEarthB", "runeAirB", "runeSpringB",
+		"runeSummerB", "runeAutumnB", "runeWinterB", "runeManaB",
+		"runeLustB", "runeGluttonyB", "runeGreedB", "runeSlothB",
+		"runeWrathB", "runeEnvyB", "runePrideB" };
 }

@@ -41,7 +41,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class ItemLens extends ItemMod implements ILens {
 
 	public static final int SUBTYPES = 18;
-	
+
 	private static final int NORMAL = 0,
 			SPEED = 1,
 			POWER = 2,
@@ -71,7 +71,7 @@ public class ItemLens extends ItemMod implements ILens {
 	private static final int[] props = new int[SUBTYPES];
 	private static final Lens[] lenses = new Lens[SUBTYPES];
 	private static Lens fallbackLens = new Lens();
-	
+
 	static {
 		setProps(NORMAL, PROP_NONE);
 		setProps(SPEED, PROP_NONE);
@@ -91,7 +91,7 @@ public class ItemLens extends ItemMod implements ILens {
 		setProps(FIRE, PROP_DAMAGE | PROP_TOUCH | PROP_INTERACTION);
 		setProps(PISTON, PROP_TOUCH | PROP_INTERACTION);
 		setProps(LIGHT, PROP_TOUCH | PROP_INTERACTION);
-		
+
 		setLens(NORMAL, fallbackLens);
 		setLens(SPEED, new LensSpeed());
 		setLens(POWER, new LensPower());
@@ -198,7 +198,7 @@ public class ItemLens extends ItemMod implements ILens {
 			props.color = getLensColor(stack);
 
 		getLens(stack.getItemDamage()).apply(stack, props);
-		
+
 		ItemStack compositeLens = getCompositeLens(stack);
 		if(compositeLens != null && compositeLens.getItem() instanceof ILens)
 			((ILens) compositeLens.getItem()).apply(compositeLens, props);
@@ -209,7 +209,7 @@ public class ItemLens extends ItemMod implements ILens {
 		EntityThrowable entity = (EntityThrowable) burst;
 
 		dead = getLens(stack.getItemDamage()).collideBurst(burst, entity, pos, isManaBlock, dead, stack);
-		
+
 		ItemStack compositeLens = getCompositeLens(stack);
 		if(compositeLens != null && compositeLens.getItem() instanceof ILens)
 			dead = ((ILens) compositeLens.getItem()).collideBurst(burst, pos, isManaBlock, dead, compositeLens);
@@ -226,7 +226,7 @@ public class ItemLens extends ItemMod implements ILens {
 			burst.setColor(getLensColor(stack));
 
 		getLens(stack.getItemDamage()).updateBurst(burst, entity, stack);
-		
+
 		ItemStack compositeLens = getCompositeLens(stack);
 		if(compositeLens != null && compositeLens.getItem() instanceof ILens)
 			((ILens) compositeLens.getItem()).updateBurst(burst, compositeLens);
@@ -267,11 +267,11 @@ public class ItemLens extends ItemMod implements ILens {
 	public static void setLens(int index, Lens lens) {
 		lenses[index] = lens;
 	}
-	
+
 	public static boolean isBlacklisted(int lens1, int lens2) {
 		return (props[lens1] & props[lens2]) != 0;
 	}
-	
+
 	public static Lens getLens(int index) {
 		Lens lens = lenses[index];
 		return lens == null ? fallbackLens : lens;

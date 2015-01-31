@@ -157,7 +157,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 			}
 			case 2 : { // Dominant
 				List<ISparkEntity> validSparks = new ArrayList();
- 				for(ISparkEntity spark : allSparks) {
+				for(ISparkEntity spark : allSparks) {
 					if(spark == this)
 						continue;
 
@@ -165,9 +165,9 @@ public class EntitySpark extends Entity implements ISparkEntity {
 					if(upgrade_ == 0 && spark.getAttachedTile() instanceof IManaPool)
 						validSparks.add(spark);
 				}
- 				if(validSparks.size() > 0)
- 					validSparks.get(worldObj.rand.nextInt(validSparks.size())).registerTransfer(this);
- 				
+				if(validSparks.size() > 0)
+					validSparks.get(worldObj.rand.nextInt(validSparks.size())).registerTransfer(this);
+
 				break;
 			}
 			case 3 : { // Recessive

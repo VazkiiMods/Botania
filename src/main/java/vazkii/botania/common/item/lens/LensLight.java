@@ -47,8 +47,8 @@ public class LensLight extends Lens {
 					((TileManaFlame) tile).setColor(burst.getColor());
 			}
 		}
-		
+
 		return dead;
 	}
-	
+
 }

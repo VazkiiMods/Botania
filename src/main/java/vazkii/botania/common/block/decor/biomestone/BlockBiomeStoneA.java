@@ -17,7 +17,7 @@ public class BlockBiomeStoneA extends BlockBiomeStone {
 	public BlockBiomeStoneA() {
 		super(0, LibBlockNames.BIOME_STONE_A);
 	}
-	
+
 	@Override
 	public int damageDropped(int par1) {
 		return par1 % 8 + 8;

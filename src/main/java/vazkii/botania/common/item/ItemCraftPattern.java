@@ -27,13 +27,13 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemCraftPattern extends ItemMod {
 
 	IIcon[] icons;
- 	
+
 	public ItemCraftPattern() {
 		setHasSubtypes(true);
 		setUnlocalizedName(LibItemNames.CRAFT_PATTERN);
 		setMaxStackSize(1);
 	}
-	
+
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer p, World world, int x, int y, int z, int s, float xs, float ys, float zs) {
 		TileEntity tile = world.getTileEntity(x, y, z);
@@ -44,13 +44,13 @@ public class ItemCraftPattern extends ItemMod {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public void getSubItems(Item item, CreativeTabs tab, List list) {
 		for(int i = 0; i < TileCraftCrate.PATTERNS.length; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
-	
+
 	@Override
 	public void registerIcons(IIconRegister par1IconRegister) {
 		icons = new IIcon[TileCraftCrate.PATTERNS.length];
@@ -62,10 +62,10 @@ public class ItemCraftPattern extends ItemMod {
 	public IIcon getIconFromDamage(int dmg) {
 		return icons[Math.min(icons.length - 1, dmg)];
 	}
-	
+
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
 		return super.getUnlocalizedName(par1ItemStack) + par1ItemStack.getItemDamage();
 	}
-	
+
 }

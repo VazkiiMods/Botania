@@ -20,5 +20,5 @@ public class LensTime extends Lens {
 		props.ticksBeforeManaLoss *= 2.25F;
 		props.motionModifier *= 0.8F;
 	}
-	
+
 }

@@ -19,7 +19,6 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.internal.IManaBurst;
-import vazkii.botania.api.mana.BurstProperties;
 
 public class LensPiston extends Lens {
 
@@ -44,8 +43,8 @@ public class LensPiston extends Lens {
 				}
 			}
 		}
-		
+
 		return dead;
 	}
-	
+
 }

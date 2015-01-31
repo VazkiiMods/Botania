@@ -11,7 +11,6 @@
 package vazkii.botania.common.item;
 
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
@@ -27,8 +26,6 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.lexicon.KnowledgeType;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -36,7 +33,6 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
 import vazkii.botania.client.core.helper.IconHelper;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.recipe.ManaGunClipRecipe;
@@ -53,7 +49,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 	private static final String TAG_LENS = "lens";
 	private static final String TAG_CLIP = "clip";
 	private static final String TAG_CLIP_POS = "clipPos";
-	
+
 	private static final int CLIP_SLOTS = 6;
 	private static final int COOLDOWN = 30;
 
@@ -122,14 +118,14 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 	public boolean requiresMultipleRenderPasses() {
 		return true;
 	}
-	
+
 	@Override
 	public IIcon getIcon(ItemStack stack, int pass) {
 		boolean desu = isSugoiKawaiiDesuNe(stack);
 		int index = pass;
 		if(index == 0 && hasClip(stack))
 			index = 2;
-		
+
 		return icons[Math.min(2, index) + (desu ? 3 : 0)];
 	}
 
@@ -219,20 +215,20 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 			addStringToTooltip(StatCollector.translateToLocal("botaniamisc.shiftinfo"), par3List);
 			return;
 		}
-		
+
 		ItemStack lens = getLens(par1ItemStack);
 		if(lens != null) {
 			List<String> tooltip = lens.getTooltip(par2EntityPlayer, false);
 			if(tooltip.size() > 1)
 				par3List.addAll(tooltip.subList(1, tooltip.size()));
 		}
-		
+
 		if(clip) {
 			int pos = getClipPos(par1ItemStack);
 			addStringToTooltip(StatCollector.translateToLocal("botaniamisc.hasClip"), par3List);
 			for(int i = 0; i < CLIP_SLOTS; i++) {
 				String name = "";
-				EnumChatFormatting formatting = i == pos ? EnumChatFormatting.GREEN : EnumChatFormatting.GRAY;  
+				EnumChatFormatting formatting = i == pos ? EnumChatFormatting.GREEN : EnumChatFormatting.GRAY;
 				ItemStack lensAt = getLensAtPos(par1ItemStack, i);
 				if(lensAt == null)
 					name = StatCollector.translateToLocal("botaniamisc.clipEmpty");
@@ -245,7 +241,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 	private void addStringToTooltip(String s, List<String> tooltip) {
 		tooltip.add(s.replaceAll("&", "\u00a7"));
 	}
-	
+
 	@Override
 	public String getItemStackDisplayName(ItemStack par1ItemStack) {
 		ItemStack lens = getLens(par1ItemStack);
@@ -255,30 +251,30 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 	public static boolean hasClip(ItemStack stack) {
 		return ItemNBTHelper.getBoolean(stack, TAG_CLIP, false);
 	}
-	
+
 	public static void setClip(ItemStack stack, boolean clip) {
 		ItemNBTHelper.setBoolean(stack, TAG_CLIP, clip);
 	}
-	
+
 	public static int getClipPos(ItemStack stack) {
 		return ItemNBTHelper.getInt(stack, TAG_CLIP_POS, 0);
 	}
-	
+
 	public static void setClipPos(ItemStack stack, int pos) {
 		ItemNBTHelper.setInt(stack, TAG_CLIP_POS, pos);
 	}
-	
+
 	public static void rotatePos(ItemStack stack) {
 		int currPos = getClipPos(stack);
 		boolean acceptEmpty = getLensAtPos(stack, currPos) != null;
 		int[] slots = new int[CLIP_SLOTS - 1];
-		
+
 		int index = 0;
 		for(int i = currPos + 1; i < CLIP_SLOTS; i++, index++)
 			slots[index] = i;
 		for(int i = 0; i < currPos; i++, index++)
 			slots[index] = i;
-		
+
 		for(int i : slots) {
 			ItemStack lensAt = getLensAtPos(stack, i);
 			if(acceptEmpty || lensAt != null) {
@@ -287,7 +283,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 			}
 		}
 	}
-	
+
 	public static ItemStack getLensAtPos(ItemStack stack, int pos) {
 		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_LENS + pos, true);
 		if(cmp != null) {
@@ -296,18 +292,18 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 		}
 		return null;
 	}
-	
+
 	public static void setLensAtPos(ItemStack stack, ItemStack lens, int pos) {
 		NBTTagCompound cmp = new NBTTagCompound();
 		if(lens != null)
 			lens.writeToNBT(cmp);
 		ItemNBTHelper.setCompound(stack, TAG_LENS + pos, cmp);
 	}
-	
+
 	public static void setLens(ItemStack stack, ItemStack lens) {
 		if(hasClip(stack))
 			setLensAtPos(stack, lens, getClipPos(stack));
-		
+
 		NBTTagCompound cmp = new NBTTagCompound();
 		if(lens != null)
 			lens.writeToNBT(cmp);
@@ -317,7 +313,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 	public static ItemStack getLens(ItemStack stack) {
 		if(hasClip(stack))
 			return getLensAtPos(stack, getClipPos(stack));
-		
+
 		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_LENS, true);
 		if(cmp != null) {
 			ItemStack lens = ItemStack.loadItemStackFromNBT(cmp);

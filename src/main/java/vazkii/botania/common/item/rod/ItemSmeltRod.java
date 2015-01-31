@@ -20,12 +20,10 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
@@ -35,14 +33,14 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 	private static final int TIME = 10;
 	private static final int COST = 300;
 	private static final int COST_PER_TICK = COST / TIME;
-	
+
 	public static Map<EntityPlayer, SmeltData> playerData = new WeakHashMap();
 
 	public ItemSmeltRod() {
 		setUnlocalizedName(LibItemNames.SMELT_ROD);
 		setMaxStackSize(1);
 	}
-	
+
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
 		return EnumAction.bow;
@@ -58,12 +56,12 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 		par3EntityPlayer.setItemInUse(par1ItemStack, getMaxItemUseDuration(par1ItemStack));
 		return par1ItemStack;
 	}
-	
+
 	@Override
 	public void onUsingTick(ItemStack stack, EntityPlayer p, int time) {
 		if(!ManaItemHandler.requestManaExact(stack, p, COST_PER_TICK, false))
 			return;
-		
+
 		MovingObjectPosition pos = ToolCommons.raytraceFromEntity(p.worldObj, p, false, 32);
 
 		if(pos != null) {
@@ -106,13 +104,13 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 
 				if(!decremented)
 					playerData.put(p, new SmeltData(pos, TIME));
-					else for(int i = 0; i < 2; i++) {
-						double x = pos.blockX + Math.random();
-						double y = pos.blockY + Math.random();
-						double z = pos.blockZ + Math.random();
-						p.worldObj.playSoundAtEntity(p, "fire.fire", (float) Math.random() / 2F + 0.5F, 1F);
-						Botania.proxy.wispFX(p.worldObj, x, y, z, 1F, 0.2F, 0.2F, 0.5F, (float) -Math.random() / 10F);
-					}
+				else for(int i = 0; i < 2; i++) {
+					double x = pos.blockX + Math.random();
+					double y = pos.blockY + Math.random();
+					double z = pos.blockZ + Math.random();
+					p.worldObj.playSoundAtEntity(p, "fire.fire", (float) Math.random() / 2F + 0.5F, 1F);
+					Botania.proxy.wispFX(p.worldObj, x, y, z, 1F, 0.2F, 0.2F, 0.5F, (float) -Math.random() / 10F);
+				}
 			}
 		}
 	}
@@ -126,7 +124,7 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 	public boolean usesMana(ItemStack stack) {
 		return true;
 	}
-	
+
 	static class SmeltData {
 		public MovingObjectPosition pos;
 		public int progress;

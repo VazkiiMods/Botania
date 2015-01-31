@@ -82,10 +82,10 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 			tessellator.startDrawingQuads();
 			int i = mc.fontRenderer.getStringWidth(potato.name) / 2;
 			tessellator.setColorRGBA_F(0.0F, 0.0F, 0.0F, 0.25F);
-			tessellator.addVertex((double)(-i - 1), -1.0D, 0.0D);
-			tessellator.addVertex((double)(-i - 1), 8.0D, 0.0D);
-			tessellator.addVertex((double)(i + 1), 8.0D, 0.0D);
-			tessellator.addVertex((double)(i + 1), -1.0D, 0.0D);
+			tessellator.addVertex(-i - 1, -1.0D, 0.0D);
+			tessellator.addVertex(-i - 1, 8.0D, 0.0D);
+			tessellator.addVertex(i + 1, 8.0D, 0.0D);
+			tessellator.addVertex(i + 1, -1.0D, 0.0D);
 			tessellator.draw();
 			GL11.glEnable(GL11.GL_TEXTURE_2D);
 			GL11.glDepthMask(true);

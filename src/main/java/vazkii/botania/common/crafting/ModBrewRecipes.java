@@ -41,7 +41,7 @@ public class ModBrewRecipes {
 	public static RecipeBrew emptinessBrew;
 	public static RecipeBrew bloodthirstBrew;
 	public static RecipeBrew allureBrew;
-	
+
 	public static RecipeBrew warpWardBrew;
 
 	public static void init() {
@@ -58,7 +58,7 @@ public class ModBrewRecipes {
 		invisibilityBrew = BotaniaAPI.registerBrewRecipe(ModBrews.invisibility, new ItemStack(Items.nether_wart), new ItemStack(Items.snowball), new ItemStack(Items.glowstone_dust));
 		nightVisionBrew = BotaniaAPI.registerBrewRecipe(ModBrews.nightVision, new ItemStack(Items.nether_wart), new ItemStack(Items.spider_eye), new ItemStack(Items.golden_carrot));
 		absorptionBrew = BotaniaAPI.registerBrewRecipe(ModBrews.absorption, new ItemStack(Items.nether_wart), new ItemStack(Items.golden_apple), new ItemStack(Items.potato));
-		
+
 		overloadBrew = BotaniaAPI.registerBrewRecipe(ModBrews.overload, new ItemStack(Items.nether_wart), new ItemStack(Items.blaze_powder), new ItemStack(Items.sugar), new ItemStack(Items.glowstone_dust), new ItemStack(ModItems.manaResource), new ItemStack(Items.spider_eye));
 		soulCrossBrew = BotaniaAPI.registerBrewRecipe(ModBrews.soulCross, new ItemStack(Items.nether_wart), new ItemStack(Blocks.soul_sand), new ItemStack(Items.paper), new ItemStack(Items.apple), new ItemStack(Items.bone));
 		featherFeetBrew = BotaniaAPI.registerBrewRecipe(ModBrews.featherfeet, new ItemStack(Items.nether_wart), new ItemStack(Items.feather), new ItemStack(Items.leather), new ItemStack(Blocks.wool, 1, -1));

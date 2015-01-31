@@ -56,7 +56,7 @@ public class SubTileMedumone extends SubTileFunctional {
 	public int getMaxMana() {
 		return 4000;
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry() {
 		return LexiconData.medumone;

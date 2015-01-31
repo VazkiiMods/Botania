@@ -16,7 +16,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MovingObjectPosition;
 import vazkii.botania.api.internal.IManaBurst;
-import vazkii.botania.api.mana.BurstProperties;
 
 public class LensExplosive extends Lens {
 
@@ -27,8 +26,8 @@ public class LensExplosive extends Lens {
 			if(!entity.worldObj.isRemote && pos.entityHit == null && !isManaBlock && (pos.blockX != coords.posX || pos.blockY != coords.posY || pos.blockZ != coords.posZ))
 				entity.worldObj.createExplosion(entity, entity.posX, entity.posY, entity.posZ, burst.getMana() / 50F, true);
 		} else dead = false;
-		
+
 		return dead;
 	}
-	
+
 }

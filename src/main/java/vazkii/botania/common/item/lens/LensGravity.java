@@ -20,5 +20,5 @@ public class LensGravity extends Lens {
 		props.gravity = 0.0015F;
 		props.ticksBeforeManaLoss *= 1.2F;
 	}
-	
+
 }

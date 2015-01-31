@@ -10,19 +10,18 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import org.lwjgl.opengl.GL11;
-
-import vazkii.botania.api.item.IBaubleRender;
-import vazkii.botania.api.item.IBurstViewerBauble;
-import vazkii.botania.api.item.IBaubleRender.Helper;
-import vazkii.botania.api.item.IBaubleRender.RenderType;
-import vazkii.botania.common.lib.LibItemNames;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.RenderPlayerEvent;
+
+import org.lwjgl.opengl.GL11;
+
+import vazkii.botania.api.item.IBaubleRender;
+import vazkii.botania.api.item.IBurstViewerBauble;
+import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
 
 public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, IBaubleRender {
@@ -30,7 +29,7 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, IBaub
 	public ItemMonocle() {
 		super(LibItemNames.MONOCLE);
 	}
-	
+
 	@Override
 	public BaubleType getBaubleType(ItemStack arg0) {
 		return BaubleType.AMULET;

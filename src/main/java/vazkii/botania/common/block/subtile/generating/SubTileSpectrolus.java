@@ -13,8 +13,6 @@ package vazkii.botania.common.block.subtile.generating;
 import java.awt.Color;
 import java.util.List;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.RenderHelper;
@@ -22,10 +20,12 @@ import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
+
+import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -33,13 +33,13 @@ import vazkii.botania.common.lexicon.LexiconData;
 public class SubTileSpectrolus extends SubTileGenerating {
 
 	private static final String TAG_NEXT_COLOR = "nextColor";
-	
+
 	int nextColor;
-	
+
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		
+
 		if(!supertile.getWorldObj().isRemote) {
 			int range = 1;
 			Item wool = Item.getItemFromBlock(Blocks.wool);
@@ -51,7 +51,7 @@ public class SubTileSpectrolus extends SubTileGenerating {
 					if(meta == nextColor) {
 						mana = Math.min(getMaxMana(), mana + 100);
 						nextColor = nextColor == 15 ? 0 : nextColor + 1;
-						
+
 						sync();
 					}
 					item.setDead();
@@ -59,22 +59,22 @@ public class SubTileSpectrolus extends SubTileGenerating {
 			}
 		}
 	}
-	
+
 	@Override
 	public int getMaxMana() {
 		return 2000;
 	}
-	
+
 	@Override
 	public int getColor() {
-		return Color.HSBtoRGB((float) ticksExisted / 100F, 1F, 1F);
+		return Color.HSBtoRGB(ticksExisted / 100F, 1F, 1F);
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry() {
 		return LexiconData.spectrolus;
 	}
-	
+
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		super.renderHUD(mc, res);
@@ -99,17 +99,17 @@ public class SubTileSpectrolus extends SubTileGenerating {
 		GL11.glDisable(GL11.GL_LIGHTING);
 		GL11.glDisable(GL11.GL_BLEND);
 	}
-	
+
 	@Override
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		super.writeToPacketNBT(cmp);
 		cmp.setInteger(TAG_NEXT_COLOR, nextColor);
 	}
-	
+
 	@Override
 	public void readFromPacketNBT(NBTTagCompound cmp) {
 		super.readFromPacketNBT(cmp);
 		nextColor = cmp.getInteger(TAG_NEXT_COLOR);
 	}
-	
+
 }

@@ -12,7 +12,6 @@ package vazkii.botania.common.block.subtile.generating;
 
 import java.util.List;
 
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
@@ -41,7 +40,6 @@ public class SubTileNarslimmus extends SubTileGenerating {
 					int size = slime.getSlimeSize();
 					int mul = (int) Math.pow(2, size);
 					int mana = 160 * mul;
-					int remain = getMaxMana() - this.mana;
 					if(!slime.worldObj.isRemote) {
 						slime.setDead();
 						slime.worldObj.playSoundAtEntity(slime, "mob.slime." + (size > 1 ? "big" : "small"), 1F, 0.02F);
@@ -52,10 +50,10 @@ public class SubTileNarslimmus extends SubTileGenerating {
 					for (int j = 0; j < mul * 8; ++j) {
 						float f = slime.worldObj.rand.nextFloat() * (float)Math.PI * 2.0F;
 						float f1 = slime.worldObj.rand.nextFloat() * 0.5F + 0.5F;
-						float f2 = MathHelper.sin(f) * (float) size * 0.5F * f1;
-						float f3 = MathHelper.cos(f) * (float) size * 0.5F * f1;
-						float f4 = slime.worldObj.rand.nextFloat() * (float) size * 0.5F * f1;
-						slime.worldObj.spawnParticle("slime", slime.posX + (double)f2, slime.boundingBox.minY + f4, slime.posZ + (double)f3, 0.0D, 0.0D, 0.0D);
+						float f2 = MathHelper.sin(f) * size * 0.5F * f1;
+						float f3 = MathHelper.cos(f) * size * 0.5F * f1;
+						float f4 = slime.worldObj.rand.nextFloat() * size * 0.5F * f1;
+						slime.worldObj.spawnParticle("slime", slime.posX + f2, slime.boundingBox.minY + f4, slime.posZ + f3, 0.0D, 0.0D, 0.0D);
 					}
 					break;
 				}
@@ -77,7 +75,7 @@ public class SubTileNarslimmus extends SubTileGenerating {
 	public LexiconEntry getEntry() {
 		return LexiconData.narslimmus;
 	}
-	
+
 	public static class SpawnIntercepter {
 
 		@SubscribeEvent

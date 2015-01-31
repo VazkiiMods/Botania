@@ -10,13 +10,13 @@
  */
 package vazkii.botania.common.brew.potion;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityFishHook;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import vazkii.botania.common.lib.LibPotionNames;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class PotionAllure extends PotionMod {
 
@@ -24,7 +24,7 @@ public class PotionAllure extends PotionMod {
 		super(LibPotionNames.ALLURE, false, 0x0034E4, 5);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
-	
+
 	@SubscribeEvent
 	public void onEntityUpdate(LivingUpdateEvent event) {
 		EntityLivingBase e = event.entityLiving;

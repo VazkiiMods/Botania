@@ -29,69 +29,69 @@ public class EntityThornChakram extends EntityThrowable {
 
 	private static final int MAX_BOUNCES = 16;
 	boolean bounced = false;
-	
+
 	public EntityThornChakram(World world) {
 		super(world);
 	}
-	
-    public EntityThornChakram(World world, EntityLivingBase e) {
-    	super(world, e);
-    }
-    
+
+	public EntityThornChakram(World world, EntityLivingBase e) {
+		super(world, e);
+	}
+
 	@Override
 	protected void entityInit() {
 		dataWatcher.addObject(30, 0);
 		dataWatcher.setObjectWatched(30);
 	}
 
-    @Override
-    public void onUpdate() {
-    	double mx = motionX;
-    	double my = motionY;
-    	double mz = motionZ;
-    	
-    	super.onUpdate();
-    	int bounces = getTimesBounced();
-    	if(bounces >= MAX_BOUNCES || ticksExisted > 60) {
-    		EntityLivingBase thrower = getThrower();
-    		noClip = true;
-    		if(thrower == null)
-    			dropAndKill();
-    		else {
-    			Vector3 motion = Vector3.fromEntityCenter(thrower).sub(Vector3.fromEntityCenter(this)).normalize();
-    			motionX = motion.x;
-    			motionY = motion.y;
-    			motionZ = motion.z;
-    			if(MathHelper.pointDistanceSpace(posX, posY, posZ, thrower.posX, thrower.posY, thrower.posZ) < 1)
-    				if(!(thrower instanceof EntityPlayer && (((EntityPlayer) thrower).capabilities.isCreativeMode || ((EntityPlayer) thrower).inventory.addItemStackToInventory(new ItemStack(ModItems.thornChakram)))))
-    					dropAndKill();
-    				else if(!worldObj.isRemote)
-    					setDead();
-    		}
-    	} else {
-    		if(!bounced) {
-    			motionX = mx;
-    			motionY = my;
-    			motionZ = mz;
-    		}
-    		bounced = false;
-    	}
-    }
-    
-    private void dropAndKill() {
-    	if(!worldObj.isRemote) {
+	@Override
+	public void onUpdate() {
+		double mx = motionX;
+		double my = motionY;
+		double mz = motionZ;
+
+		super.onUpdate();
+		int bounces = getTimesBounced();
+		if(bounces >= MAX_BOUNCES || ticksExisted > 60) {
+			EntityLivingBase thrower = getThrower();
+			noClip = true;
+			if(thrower == null)
+				dropAndKill();
+			else {
+				Vector3 motion = Vector3.fromEntityCenter(thrower).sub(Vector3.fromEntityCenter(this)).normalize();
+				motionX = motion.x;
+				motionY = motion.y;
+				motionZ = motion.z;
+				if(MathHelper.pointDistanceSpace(posX, posY, posZ, thrower.posX, thrower.posY, thrower.posZ) < 1)
+					if(!(thrower instanceof EntityPlayer && (((EntityPlayer) thrower).capabilities.isCreativeMode || ((EntityPlayer) thrower).inventory.addItemStackToInventory(new ItemStack(ModItems.thornChakram)))))
+						dropAndKill();
+					else if(!worldObj.isRemote)
+						setDead();
+			}
+		} else {
+			if(!bounced) {
+				motionX = mx;
+				motionY = my;
+				motionZ = mz;
+			}
+			bounced = false;
+		}
+	}
+
+	private void dropAndKill() {
+		if(!worldObj.isRemote) {
 			ItemStack stack = new ItemStack(ModItems.thornChakram);
 			EntityItem item = new EntityItem(worldObj, posX, posY, posZ, stack);
 			worldObj.spawnEntityInWorld(item);
 			setDead();
-    	}
-    }
-    
+		}
+	}
+
 	@Override
 	protected void onImpact(MovingObjectPosition pos) {
 		if(noClip)
 			return;
-		
+
 		EntityLivingBase thrower = getThrower();
 		if(pos.entityHit != null && pos.entityHit instanceof EntityLivingBase && pos.entityHit != thrower) {
 			((EntityLivingBase) pos.entityHit).attackEntityFrom(thrower != null ? thrower instanceof EntityPlayer ? DamageSource.causePlayerDamage((EntityPlayer) thrower) : DamageSource.causeMobDamage(thrower) : DamageSource.generic, 6);
@@ -112,16 +112,16 @@ public class EntityThornChakram extends EntityThrowable {
 			}
 		}
 	}
-	
+
 	@Override
 	protected float getGravityVelocity() {
 		return 0F;
 	}
-	
+
 	int getTimesBounced() {
 		return dataWatcher.getWatchableObjectInt(30);
 	}
-	
+
 	void setTimesBounced(int times) {
 		dataWatcher.updateObject(30, times);
 	}

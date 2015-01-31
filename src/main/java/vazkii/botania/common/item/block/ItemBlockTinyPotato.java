@@ -13,22 +13,21 @@ package vazkii.botania.common.item.block;
 import java.util.Arrays;
 import java.util.List;
 
-import vazkii.botania.common.core.helper.ItemNBTHelper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemNameTag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
+import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 public class ItemBlockTinyPotato extends ItemBlockMod {
 
 	private static final List<String> TYPOS = Arrays.asList(new String[] {
-		"vaskii", "vazki", "voskii", "vazkkii", "vazkki", "vazzki", "vaskki", "vozkii"
+			"vaskii", "vazki", "voskii", "vazkkii", "vazkki", "vazzki", "vaskki", "vozkii"
 	});
-	
+
 	private static final String NOT_MY_NAME[] = {
 		"Six letter word just to get me along",
 		"It's a intricacy and I'm coding on my mod and I,",
@@ -48,13 +47,13 @@ public class ItemBlockTinyPotato extends ItemBlockMod {
 		"That's not my name",
 		"That's not my name"
 	};
-	
+
 	private static final String TAG_TICKS = "notMyNameTicks";
-	
+
 	public ItemBlockTinyPotato(Block block) {
 		super(block);
 	}
-	
+
 	@Override
 	public void onUpdate(ItemStack stack, World world, Entity e, int t, boolean idunno) {
 		if(!world.isRemote && e instanceof EntityPlayer && e.ticksExisted % 30 == 0 && TYPOS.contains(stack.getDisplayName().toLowerCase())) {

@@ -273,7 +273,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	@Override
 	public void onDeath(DamageSource p_70645_1_) {
 		super.onDeath(p_70645_1_);
-		EntityLivingBase entitylivingbase = this.func_94060_bK();
+		EntityLivingBase entitylivingbase = func_94060_bK();
 		if(entitylivingbase instanceof EntityPlayer) {
 			((EntityPlayer) entitylivingbase).addStat(ModAchievements.gaiaGuardianKill, 1);
 			if(!anyWithArmor)
@@ -299,7 +299,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		if(par1) {
 			boolean hard = isHardMode();
 			entityDropItem(new ItemStack(ModItems.manaResource, hard ? 16 : 8, 5), 1F);
-			
+
 			if(hard) {
 				entityDropItem(new ItemStack(ModItems.ancientWill, 1, rand.nextInt(6)), 1F);
 				if(Math.random() < 0.25)
@@ -329,7 +329,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 		ChunkCoordinates source = getSource();
 		boolean hard = isHardMode();
-		
+
 		float range = 32F;
 		List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(source.posX + 0.5 - range, source.posY + 0.5 - range, source.posZ + 0.5 - range, source.posX + 0.5 + range, source.posY + 0.5 + range, source.posZ + 0.5 + range));
 
@@ -384,7 +384,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		int invul = getInvulTime();
 		int mobTicks = getMobSpawnTicks();
 		boolean spawnMissiles = hard && ticksExisted % 15 < 4;
-		
+
 		if(invul > 0 && mobTicks == MOB_SPAWN_TICKS) {
 			if(invul < SPAWN_TICKS && invul > SPAWN_TICKS / 2 && worldObj.rand.nextInt(SPAWN_TICKS - invul + 1) == 0)
 				for(int i = 0; i < 2; i++)
@@ -443,7 +443,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 								worldObj.spawnEntityInWorld(entity);
 							}
 						}
-						
+
 						if(hard && ticksExisted % 3 < 2) {
 							spawnMissile();
 							spawnMissiles = false;
@@ -488,7 +488,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 						spawnPixies = false;
 					}
 				}
-				
+
 				if(spawnMissiles)
 					spawnMissile();
 			} else {
@@ -499,12 +499,12 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			}
 		}
 	}
-	
+
 	void spawnMissile() {
 		if(!worldObj.isRemote) {
 			EntityMagicMissile missile = new EntityMagicMissile(this, true);
 			missile.setPosition(posX + (Math.random() - 0.5 * 0.1), posY + 2.4 + (Math.random() - 0.5 * 0.1), posZ + (Math.random() - 0.5 * 0.1));
-			if(missile.getTarget()) { 
+			if(missile.getTarget()) {
 				worldObj.playSoundAtEntity(this, "botania:missile", 0.6F, 0.8F + (float) Math.random() * 0.2F);
 				worldObj.spawnEntityInWorld(missile);
 			}

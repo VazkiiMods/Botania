@@ -23,7 +23,7 @@ public class SpellClothRecipe implements IRecipe {
 	public boolean matches(InventoryCrafting var1, World var2) {
 		boolean foundCloth = false;
 		boolean foundEnchanted = false;
-		
+
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
 			if(stack != null) {

@@ -203,7 +203,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModFluffBlocks.elfQuartz);
 		addBlock(ModFluffBlocks.elfQuartzSlab);
 		addBlock(ModFluffBlocks.elfQuartzStairs);
-		
+
 		addBlock(ModFluffBlocks.biomeStoneA);
 		addBlock(ModFluffBlocks.biomeStoneB);
 		for(int i = 0; i < 24; i++)
@@ -244,7 +244,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.terrasteelLegs);
 		addItem(ModItems.terrasteelBoots);
 		addItem(ModItems.ancientWill);
-		
+
 		addItem(ModItems.tinyPlanet);
 		addBlock(ModBlocks.tinyPlanet);
 		addItem(ModItems.manaRing);

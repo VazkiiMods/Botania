@@ -19,7 +19,7 @@ public class ItemElementiumHelm extends ItemElementiumArmor implements IManaDisc
 	public float getPixieChance(ItemStack stack) {
 		return 0.11F;
 	}
-	
+
 	@Override
 	public float getDiscount(ItemStack stack, int slot, EntityPlayer player) {
 		return hasArmorSet(player) ? 0.1F : 0F;

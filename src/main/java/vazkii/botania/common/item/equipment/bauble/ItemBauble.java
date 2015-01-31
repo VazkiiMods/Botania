@@ -31,7 +31,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public abstract class ItemBauble extends ItemMod implements IBauble {
 
 	private static final String TAG_HASHCODE = "playerHashcode";
-	
+
 	public ItemBauble(String name) {
 		super();
 		setMaxStackSize(1);
@@ -112,7 +112,7 @@ public abstract class ItemBauble extends ItemMod implements IBauble {
 
 		if(player instanceof EntityPlayer)
 			((EntityPlayer) player).addStat(ModAchievements.baubleWear, 1);
-		
+
 		onEquippedOrLoadedIntoWorld(stack, player);
 		setLastPlayerHashcode(stack, player.hashCode());
 	}
@@ -125,11 +125,11 @@ public abstract class ItemBauble extends ItemMod implements IBauble {
 	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
 		// NO-OP
 	}
-	
+
 	public int getLastPlayerHashcode(ItemStack stack) {
 		return ItemNBTHelper.getInt(stack, TAG_HASHCODE, 0);
 	}
-	
+
 	public void setLastPlayerHashcode(ItemStack stack, int hash) {
 		ItemNBTHelper.setInt(stack, TAG_HASHCODE, hash);
 	}

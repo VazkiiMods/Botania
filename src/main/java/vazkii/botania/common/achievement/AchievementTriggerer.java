@@ -27,7 +27,7 @@ public final class AchievementTriggerer {
 				event.player.addStat(achievement, 1);
 		}
 	}
-	
+
 	@SubscribeEvent
 	public void onItemCrafted(ItemCraftedEvent event) {
 		if(event.crafting != null && event.crafting.getItem() instanceof ICraftAchievement) {
@@ -36,5 +36,5 @@ public final class AchievementTriggerer {
 				event.player.addStat(achievement, 1);
 		}
 	}
-	
+
 }

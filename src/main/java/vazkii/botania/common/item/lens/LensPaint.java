@@ -38,7 +38,7 @@ public class LensPaint extends Lens {
 		add(ModBlocks.manaBeacon);
 	}
 	};
-	
+
 	@Override
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		int storedColor = ItemLens.getStoredColor(stack);
@@ -97,8 +97,8 @@ public class LensPaint extends Lens {
 				}
 			}
 		}
-		
+
 		return dead;
 	}
-	
+
 }

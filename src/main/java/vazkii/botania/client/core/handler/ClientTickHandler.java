@@ -41,7 +41,7 @@ public class ClientTickHandler {
 		if(event.phase == Phase.START)
 			partialTicks = event.renderTickTime;
 	}
-	
+
 	@SubscribeEvent
 	public void clientTickEnd(ClientTickEvent event) {
 		if(event.phase == Phase.END) {

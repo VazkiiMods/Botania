@@ -24,35 +24,35 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemSpellCloth extends ItemMod {
 
 	public ItemSpellCloth() {
-        setMaxDamage(35);
-        setMaxStackSize(1);
-        setNoRepair();
-        setUnlocalizedName(LibItemNames.SPELL_CLOTH);
-        
+		setMaxDamage(35);
+		setMaxStackSize(1);
+		setNoRepair();
+		setUnlocalizedName(LibItemNames.SPELL_CLOTH);
+
 		GameRegistry.addRecipe(new SpellClothRecipe());
 		RecipeSorter.register("botania:spellCloth", SpellClothRecipe.class, Category.SHAPELESS, "");
-    }
+	}
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
-        return Color.HSBtoRGB(0.55F, ((float) par1ItemStack.getMaxDamage() - (float) par1ItemStack.getItemDamage()) / par1ItemStack.getMaxDamage() * 0.5F, 1F);
-    }
+	@Override
+	@SideOnly(Side.CLIENT)
+	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
+		return Color.HSBtoRGB(0.55F, ((float) par1ItemStack.getMaxDamage() - (float) par1ItemStack.getItemDamage()) / par1ItemStack.getMaxDamage() * 0.5F, 1F);
+	}
 
-    @Override
-    public boolean hasContainerItem() {
-        return true;
-    }
+	@Override
+	public boolean hasContainerItem() {
+		return true;
+	}
 
-    @Override
-    public ItemStack getContainerItem(ItemStack itemStack) {
-        itemStack.setItemDamage(itemStack.getItemDamage() + 1);
-        return itemStack;
-    }
+	@Override
+	public ItemStack getContainerItem(ItemStack itemStack) {
+		itemStack.setItemDamage(itemStack.getItemDamage() + 1);
+		return itemStack;
+	}
 
-    @Override
-    public boolean doesContainerItemLeaveCraftingGrid(ItemStack par1ItemStack) {
-        return false;
-    }
-	
+	@Override
+	public boolean doesContainerItemLeaveCraftingGrid(ItemStack par1ItemStack) {
+		return false;
+	}
+
 }

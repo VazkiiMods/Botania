@@ -46,7 +46,7 @@ public class ItemDirtRod extends ItemMod implements IManaUsingItem, ICraftAchiev
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
 		return place(par1ItemStack, par2EntityPlayer, par3World, par4, par5, par6, par7, par8, par9, par10, Blocks.dirt, COST, 0.35F, 0.2F, 0.05F);
 	}
-	
+
 	public static boolean place(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10, Block block, int cost, float r, float g, float b) {
 		if(ManaItemHandler.requestManaExact(par1ItemStack, par2EntityPlayer, cost, false)) {
 			ForgeDirection dir = ForgeDirection.getOrientation(par7);

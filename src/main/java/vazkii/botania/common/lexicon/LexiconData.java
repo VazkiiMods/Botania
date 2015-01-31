@@ -187,7 +187,7 @@ public final class LexiconData {
 	public static LexiconEntry bloodPendant;
 	public static LexiconEntry judgementCloaks;
 	public static LexiconEntry monocle;
-	
+
 	public static LexiconEntry alfhomancyIntro;
 	public static LexiconEntry elvenMessage;
 	public static LexiconEntry elvenResources;
@@ -397,13 +397,13 @@ public final class LexiconData {
 
 		spectranthemum = new ALexiconEntry(LibLexicon.FFLOWER_SPECTRANTHEMUN, categoryFunctionalFlowers);
 		spectranthemum.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PagePetalRecipe("3", ModPetalRecipes.spectranthemumRecipe));
-		
+
 		medumone = new BLexiconEntry(LibLexicon.FFLOWER_MEDUMONE, categoryFunctionalFlowers);
 		medumone.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.medumoneRecipe));
-		
+
 		marimorphosis = new BLexiconEntry(LibLexicon.FFLOWER_MARIMORPHOSIS, categoryFunctionalFlowers);
 		marimorphosis.setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_METAMORPHIC_STONES), new PagePetalRecipe("2", ModPetalRecipes.marimorphosisRecipe));
-		
+
 		// GENERATING FLOWERS ENTRIES
 		generatingIntro = new BLexiconEntry(LibLexicon.GFLOWER_INTRO, categoryGenerationFlowers);
 		generatingIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"));
@@ -440,10 +440,10 @@ public final class LexiconData {
 
 		narslimmus = new BLexiconEntry(LibLexicon.GFLOWER_NARSLIMMUS, categoryGenerationFlowers);
 		narslimmus.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.narslimmusRecipe));
-		
+
 		spectrolus = new ALexiconEntry(LibLexicon.GFLOWER_SPECTROLUS, categoryGenerationFlowers);
 		spectrolus.setLexiconPages(new PageText("0"), new PageText("1"), new PagePetalRecipe("2", ModPetalRecipes.spectrolusRecipe));
-		
+
 		// DEVICES ENTRIES
 		pistonRelay = new BLexiconEntry(LibLexicon.DEVICE_PISTON_RELAY, categoryDevices);
 		pistonRelay.setLexiconPages(new PageText("0"), new PageText("1"), new PageManaInfusionRecipe("2", ModManaInfusionRecipes.pistonRelayRecipe));
@@ -519,7 +519,7 @@ public final class LexiconData {
 				new PageBrew(ModBrewRecipes.overloadBrew, "1a", "1b"), new PageBrew(ModBrewRecipes.soulCrossBrew, "2a", "2b"),
 				new PageBrew(ModBrewRecipes.featherFeetBrew, "3a", "3b"), new PageBrew(ModBrewRecipes.emptinessBrew, "4a", "4b"),
 				new PageBrew(ModBrewRecipes.bloodthirstBrew, "5a", "5b"), new PageBrew(ModBrewRecipes.allureBrew, "6a", "6b"));
-		
+
 		redString = new ALexiconEntry(LibLexicon.DEVICE_RED_STRING, categoryDevices);
 		redString.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeRedString),
 				new PageText("3"), new PageCraftingRecipe("4", ModCraftingRecipes.recipeRedStringContainer),
@@ -619,25 +619,25 @@ public final class LexiconData {
 
 		clip = new ALexiconEntry(LibLexicon.TOOL_CLIP, categoryTools);
 		clip.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeClip));
-		
+
 		cobbleRod = new BLexiconEntry(LibLexicon.TOOL_COBBLE_ROD, categoryTools);
 		cobbleRod.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeCobbleRod));
-		
+
 		smeltRod = new BLexiconEntry(LibLexicon.TOOL_SMELT_ROD, categoryTools);
 		smeltRod.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeSmeltRod));
-		
+
 		worldSeed = new ALexiconEntry(LibLexicon.TOOL_WORLD_SEED, categoryTools);
 		worldSeed.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeWorldSeed));
-		
+
 		spellCloth = new BLexiconEntry(LibLexicon.TOOL_SPELL_CLOTH, categoryTools);
 		spellCloth.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeSpellCloth));
-		
+
 		thornChakram = new BLexiconEntry(LibLexicon.TOOL_THORN_CHAKRAM, categoryTools);
 		thornChakram.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeThornChakram));
-		
+
 		overgrowthSeed = new BLexiconEntry(LibLexicon.TOOL_OVERGROWTH_SEED, categoryTools);
 		overgrowthSeed.setLexiconPages(new PageText("0"));
- 		
+
 		// BAUBLES ENTRIES
 		baublesIntro = new BLexiconEntry(LibLexicon.BAUBLE_INTRO, categoryBaubles);
 		baublesIntro.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_BAUBLES), new PageText("2"));
@@ -704,7 +704,7 @@ public final class LexiconData {
 
 		monocle = new BLexiconEntry(LibLexicon.BAUBLE_MONOCLE, categoryBaubles);
 		monocle.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeMonocle));
-		
+
 		// ALFHOMANCY ENTRIES
 		alfhomancyIntro = new BLexiconEntry(LibLexicon.ALF_INTRO, categoryAlfhomancy);
 		alfhomancyIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeAlfPortal), new PageCraftingRecipe("3", ModCraftingRecipes.recipeNaturaPylon),
@@ -723,7 +723,7 @@ public final class LexiconData {
 
 		gaiaRitualHardmode = new ALexiconEntry(LibLexicon.ALF_GAIA_RITUAL_HARDMODE, categoryAlfhomancy);
 		gaiaRitualHardmode.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeGaiaIngot));
-		
+
 		elvenLore = new ALexiconEntry(LibLexicon.ALF_LORE, categoryAlfhomancy);
 		elvenLore.setLexiconPages(new PageText("0"), new PageLoreText("1"), new PageLoreText("2"), new PageLoreText("3"), new PageLoreText("4"), new PageLoreText("5"), new PageLoreText("6"), new PageLoreText("7"));
 

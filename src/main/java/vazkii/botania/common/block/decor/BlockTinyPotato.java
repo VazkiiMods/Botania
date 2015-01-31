@@ -11,10 +11,7 @@
 package vazkii.botania.common.block.decor;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -32,10 +29,10 @@ import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.tile.TileTinyPotato;
-import vazkii.botania.common.item.block.ItemBlockMod;
 import vazkii.botania.common.item.block.ItemBlockTinyPotato;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class BlockTinyPotato extends BlockModContainer implements ILexiconable {
 
@@ -46,13 +43,14 @@ public class BlockTinyPotato extends BlockModContainer implements ILexiconable {
 		float f = 1F / 16F * 6F;
 		setBlockBounds(f, 0, f, 1F - f, f, 1F - f);
 	}
-	
+
 	@Override
 	public Block setBlockName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockTinyPotato.class, par1Str);
 		return super.setBlockName(par1Str);
 	}
 
+	@Override
 	protected boolean shouldRegisterInNameSet() {
 		return false;
 	}
@@ -83,10 +81,10 @@ public class BlockTinyPotato extends BlockModContainer implements ILexiconable {
 		int l1 = MathHelper.floor_double(par5EntityLiving.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
 
 		par1World.setBlockMetadataWithNotify(par2, par3, par4, l1, 2);
-        if (par6ItemStack.hasDisplayName())
-        	((TileTinyPotato) par1World.getTileEntity(par2, par3, par4)).name = par6ItemStack.getDisplayName();
+		if (par6ItemStack.hasDisplayName())
+			((TileTinyPotato) par1World.getTileEntity(par2, par3, par4)).name = par6ItemStack.getDisplayName();
 	}
-	
+
 	@Override
 	public void onBlockHarvested(World par1World, int par2, int par3, int par4, int par5, EntityPlayer par6EntityPlayer) {
 		if(!par6EntityPlayer.capabilities.isCreativeMode)
@@ -105,7 +103,7 @@ public class BlockTinyPotato extends BlockModContainer implements ILexiconable {
 				stack.setStackDisplayName(name);
 			list.add(stack);
 		}
-		
+
 		return list;
 	}
 

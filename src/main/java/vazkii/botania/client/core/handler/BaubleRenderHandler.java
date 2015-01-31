@@ -30,7 +30,6 @@ import vazkii.botania.api.item.IBaubleRender.Helper;
 import vazkii.botania.api.item.IBaubleRender.RenderType;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumHelm;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
@@ -49,7 +48,7 @@ public final class BaubleRenderHandler {
 		dispatchRenders(inv, event, RenderType.BODY);
 		if(inv.getStackInSlot(3) != null)
 			renderManaTablet(event);
-		
+
 		float yaw = player.prevRotationYawHead + (player.rotationYawHead - player.prevRotationYawHead) * event.partialRenderTick;
 		float yawOffset = player.prevRenderYawOffset + (player.renderYawOffset - player.prevRenderYawOffset) * event.partialRenderTick;
 		float pitch = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * event.partialRenderTick;
@@ -59,8 +58,8 @@ public final class BaubleRenderHandler {
 		GL11.glRotatef(yaw - 270, 0, 1, 0);
 		GL11.glRotatef(pitch, 0, 0, 1);
 		dispatchRenders(inv, event, RenderType.HEAD);
-		
-		ItemStack helm = player.inventory.armorItemInSlot(3); 
+
+		ItemStack helm = player.inventory.armorItemInSlot(3);
 		if(helm != null && helm.getItem() instanceof ItemTerrasteelHelm)
 			ItemTerrasteelHelm.renderOnPlayer(helm, event);
 		GL11.glPopMatrix();
@@ -77,7 +76,7 @@ public final class BaubleRenderHandler {
 			}
 		}
 	}
-	
+
 	private void renderManaTablet(RenderPlayerEvent event) {
 		EntityPlayer player = event.entityPlayer;
 		boolean renderedOne = false;
@@ -91,7 +90,7 @@ public final class BaubleRenderHandler {
 				boolean armor = event.entityPlayer.getCurrentArmor(1) != null;
 				GL11.glRotatef(180F, 1F, 0F, 0F);
 				GL11.glRotatef(90F, 0F, 1F, 0F);
-				GL11.glTranslatef(-0.25F, -0.85F, renderedOne ? (armor ? 0.2F : 0.28F) : (armor ? -0.3F : -0.25F));
+				GL11.glTranslatef(-0.25F, -0.85F, renderedOne ? armor ? 0.2F : 0.28F : armor ? -0.3F : -0.25F);
 				GL11.glScalef(0.5F, 0.5F, 0.5F);
 
 				GL11.glColor3f(1F, 1F, 1F);
@@ -111,7 +110,7 @@ public final class BaubleRenderHandler {
 					GL11.glColor3ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
 				}
 				GL11.glPopMatrix();
-				
+
 				if(renderedOne)
 					return;
 				renderedOne = true;

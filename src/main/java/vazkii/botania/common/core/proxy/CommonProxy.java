@@ -80,7 +80,7 @@ public class CommonProxy {
 		ModElvenTradeRecipes.init();
 		ModBrewRecipes.init();
 		ModAchievements.init();
-		
+
 		ChestGenHandler.init();
 
 		LexiconData.init();
@@ -132,7 +132,7 @@ public class CommonProxy {
 	public boolean isTheClientPlayer(EntityLivingBase entity) {
 		return false;
 	}
-	
+
 	public boolean isClientPlayerWearingMonocle() {
 		return false;
 	}
@@ -153,7 +153,7 @@ public class CommonProxy {
 	public void setSparkleFXNoClip(boolean noclip) {
 		// NO-OP
 	}
-	
+
 	public void setSparkleFXCorrupt(boolean corrupt) {
 		// NO-OP
 	}
@@ -173,7 +173,7 @@ public class CommonProxy {
 	public void setWispFXDepthTest(boolean depth) {
 		// NO-OP
 	}
-	
+
 	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size) {
 		wispFX(world, x, y, z, r, g, b, size, 0F);
 	}

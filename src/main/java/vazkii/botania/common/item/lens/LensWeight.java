@@ -33,8 +33,8 @@ public class LensWeight extends Lens {
 					entity.worldObj.spawnEntityInWorld(falling);
 			}
 		}
-		
+
 		return dead;
 	}
-	
+
 }

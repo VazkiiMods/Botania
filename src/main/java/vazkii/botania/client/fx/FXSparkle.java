@@ -72,7 +72,7 @@ public class FXSparkle extends EntityFX {
 		for(FXSparkle sparkle : queuedRenders)
 			sparkle.renderQueued(tessellator);
 		tessellator.draw();
-		
+
 		ShaderHelper.useShader(ShaderHelper.filmGrain);
 		tessellator.startDrawingQuads();
 		for(FXSparkle sparkle : queuedCorruptRenders)

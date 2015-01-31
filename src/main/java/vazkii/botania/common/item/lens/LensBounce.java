@@ -34,8 +34,8 @@ public class LensBounce extends Lens {
 				dead = false;
 			}
 		}
-		
+
 		return dead;
 	}
-	
+
 }

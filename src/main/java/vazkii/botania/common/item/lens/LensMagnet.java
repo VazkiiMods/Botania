@@ -25,7 +25,7 @@ public class LensMagnet extends Lens {
 	private static final String TAG_MAGNETIZED_X = "Botania:MagnetizedX";
 	private static final String TAG_MAGNETIZED_Y = "Botania:MagnetizedY";
 	private static final String TAG_MAGNETIZED_Z = "Botania:MagnetizedZ";
-	
+
 	@Override
 	public void updateBurst(IManaBurst burst, EntityThrowable entity, ItemStack stack) {
 		int x = (int) entity.posX;

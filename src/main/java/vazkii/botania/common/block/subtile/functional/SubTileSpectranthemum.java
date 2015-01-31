@@ -44,7 +44,7 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 			int x = supertile.xCoord;
 			int y = supertile.yCoord;
 			int z = supertile.zCoord;
-			
+
 			boolean did = false;
 			List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range + 1, y + range, z + range + 1));
 			for(EntityItem item : items) {
@@ -66,23 +66,23 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 					}
 				}
 			}
-			
+
 			if(did)
 				sync();
 		}
 	}
-	
+
 	void spawnExplosionParticles(EntityItem item) {
-        for(int i = 0; i < 10; i++) {
-        	double m = 0.01;
-            double d0 = item.worldObj.rand.nextGaussian() * m;
-            double d1 = item.worldObj.rand.nextGaussian() * m;
-            double d2 = item.worldObj.rand.nextGaussian() * m;
-            double d3 = 10.0D;
-            item.worldObj.spawnParticle("explode", item.posX + (double)(item.worldObj.rand.nextFloat() * item.width * 2.0F) - (double)item.width - d0 * d3, item.posY + (double)(item.worldObj.rand.nextFloat() * item.height) - d1 * d3, item.posZ + (double)(item.worldObj.rand.nextFloat() * item.width * 2.0F) - (double)item.width - d2 * d3, d0, d1, d2);
-        }
+		for(int i = 0; i < 10; i++) {
+			double m = 0.01;
+			double d0 = item.worldObj.rand.nextGaussian() * m;
+			double d1 = item.worldObj.rand.nextGaussian() * m;
+			double d2 = item.worldObj.rand.nextGaussian() * m;
+			double d3 = 10.0D;
+			item.worldObj.spawnParticle("explode", item.posX + item.worldObj.rand.nextFloat() * item.width * 2.0F - item.width - d0 * d3, item.posY + item.worldObj.rand.nextFloat() * item.height - d1 * d3, item.posZ + item.worldObj.rand.nextFloat() * item.width * 2.0F - item.width - d2 * d3, d0, d1, d2);
+		}
 	}
-	
+
 	@Override
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		super.writeToPacketNBT(cmp);
@@ -90,7 +90,7 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 		cmp.setInteger(TAG_BIND_Y, bindY);
 		cmp.setInteger(TAG_BIND_Z, bindZ);
 	}
-	
+
 	@Override
 	public void readFromPacketNBT(NBTTagCompound cmp) {
 		super.readFromPacketNBT(cmp);
@@ -98,7 +98,7 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 		bindY = cmp.getInteger(TAG_BIND_Y);
 		bindZ = cmp.getInteger(TAG_BIND_Z);
 	}
-	
+
 	@Override
 	public boolean acceptsRedstone() {
 		return true;
@@ -132,9 +132,9 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public ChunkCoordinates getBinding() {
-		return (Minecraft.getMinecraft().thePlayer.isSneaking() && bindY != -1) ? new ChunkCoordinates(bindX, bindY, bindZ) : super.getBinding();
+		return Minecraft.getMinecraft().thePlayer.isSneaking() && bindY != -1 ? new ChunkCoordinates(bindX, bindY, bindZ) : super.getBinding();
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry() {
 		return LexiconData.spectranthemum;

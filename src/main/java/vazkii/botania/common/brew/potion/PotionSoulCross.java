@@ -33,5 +33,5 @@ public class PotionSoulCross extends PotionMod {
 				living.heal(event.entityLiving.getMaxHealth() / 20);
 		}
 	}
-	
+
 }

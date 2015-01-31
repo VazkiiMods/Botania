@@ -32,12 +32,12 @@ public final class LibAchievementNames {
 	public static final String HEISEI_DREAM_PICKUP = "heiseiDreamPickup";
 	public static final String DIRT_ROD_CRAFT = "dirtRodCraft";
 	public static final String SPAWNER_MOVER_USE = "spawnerMoverUse";
-	
+
 	public static final String SIGNAL_FLARE_STUN = "signalFlareStun";
 	public static final String L20_SHARD_USE = "l20ShardUse";
 	public static final String GAIA_GUARDIAN_NO_ARMOR = "gaiaGuardianNoArmor";
 	public static final String RANK_SS_PICK = "rankSSPick";
-	
+
 	public static final String DESU_GUN = "desuGun";
 
 }

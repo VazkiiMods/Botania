@@ -64,7 +64,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 			ClientTickHandler.notifyPageChange();
 			return;
 		}
-		
+
 		LexiconPage page = entry.pages.get(this.page);
 
 		page.onOpened(this);

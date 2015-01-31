@@ -148,7 +148,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem {
 		ToolCommons.removeBlocksInIteration(player, stack, world, x, y, z, doX ? -range : 0, doY ? -1 : 0, doZ ? -range : 0, doX ? range + 1 : 1, doY ? rangeY * 2 : 1, doZ ? range + 1 : 1, null, MATERIALS, silk, fortune, isTipped(stack));
 		if(level == 5)
 			player.addStat(ModAchievements.rankSSPick, 1);
-		
+
 		return false;
 	}
 

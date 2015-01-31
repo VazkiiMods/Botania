@@ -43,11 +43,11 @@ public class PotionMod extends Potion {
 
 		return super.getStatusIconIndex();
 	}
-	
+
 	public boolean hasEffect(EntityLivingBase entity) {
 		return hasEffect(entity, this);
 	}
-	
+
 	public boolean hasEffect(EntityLivingBase entity, Potion potion) {
 		return entity.getActivePotionEffect(potion) != null;
 	}

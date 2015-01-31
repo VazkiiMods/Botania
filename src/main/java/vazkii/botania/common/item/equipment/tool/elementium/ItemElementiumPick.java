@@ -18,7 +18,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 public class ItemElementiumPick extends ItemManasteelPick {
 
 	static final List<String> validBlocks = Arrays.asList(new String[] {
-		"dirt", "sand", "gravel", "cobblestone", "netherrack"
+			"dirt", "sand", "gravel", "cobblestone", "netherrack"
 	});
 
 	public ItemElementiumPick() {
@@ -46,7 +46,7 @@ public class ItemElementiumPick extends ItemManasteelPick {
 		for(int id : OreDictionary.getOreIDs(new ItemStack(block)))
 			if(validBlocks.contains(OreDictionary.getOreName(id)))
 				return true;
-		
+
 		return false;
 	}
 

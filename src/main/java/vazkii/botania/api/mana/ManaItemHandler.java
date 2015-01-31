@@ -197,7 +197,7 @@ public final class ManaItemHandler {
 
 		return false;
 	}
-	
+
 	/**
 	 * Requests mana from items in a given player's inventory. This version also
 	 * checks for IManaDiscountArmor items equipped to lower the cost.
@@ -208,8 +208,8 @@ public final class ManaItemHandler {
 	 */
 	public static int requestManaForTool(ItemStack stack, EntityPlayer player, int manaToGet, boolean remove) {
 		float multiplier = Math.max(0F, 1F - getFullDiscountForTools(player));
-		int cost = (int) ((float) manaToGet * multiplier);
-		return (int) ((float) requestMana(stack, player, cost, remove) / multiplier);
+		int cost = (int) (manaToGet * multiplier);
+		return (int) (requestMana(stack, player, cost, remove) / multiplier);
 	}
 
 	/**
@@ -222,13 +222,13 @@ public final class ManaItemHandler {
 	 */
 	public static boolean requestManaExactForTool(ItemStack stack, EntityPlayer player, int manaToGet, boolean remove) {
 		float multiplier = Math.max(0F, 1F - getFullDiscountForTools(player));
-		int cost = (int) ((float) manaToGet * multiplier);
+		int cost = (int) (manaToGet * multiplier);
 		return requestManaExact(stack, player, cost, remove);
 	}
-	
+
 	/**
 	 * Gets the sum of all the discounts on IManaDiscountArmor items equipped
-	 * on the player passed in. 
+	 * on the player passed in.
 	 */
 	public static float getFullDiscountForTools(EntityPlayer player) {
 		float discount = 0F;
@@ -237,7 +237,7 @@ public final class ManaItemHandler {
 			if(armor != null && armor.getItem() instanceof IManaDiscountArmor)
 				discount += ((IManaDiscountArmor) armor.getItem()).getDiscount(armor, i, player);
 		}
-		
+
 		return discount;
 	}
 }

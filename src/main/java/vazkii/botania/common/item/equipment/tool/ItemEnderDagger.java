@@ -23,7 +23,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 import vazkii.botania.common.lib.LibItemNames;
@@ -74,7 +73,7 @@ public class ItemEnderDagger extends ItemManasteelSword {
 		par1ItemStack.damageItem(1, par3EntityLivingBase);
 		return true;
 	}
-	
+
 	@Override
 	public void onUpdate(ItemStack stack, World world, Entity player, int par4, boolean par5) {
 		// NO-OP

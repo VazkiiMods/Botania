@@ -40,7 +40,7 @@ public class ItemManaCookie extends ItemFood {
 		super.onFoodEaten(p_77849_1_, p_77849_2_, p_77849_3_);
 		p_77849_3_.addStat(ModAchievements.manaCookieEat, 1);
 	}
-	
+
 	@Override
 	public Item setUnlocalizedName(String par1Str) {
 		GameRegistry.registerItem(this, par1Str);

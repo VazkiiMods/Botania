@@ -1400,13 +1400,13 @@ public final class ModCraftingRecipes {
 		recipeDirtPath = BotaniaAPI.getLatestAddedRecipe();
 
 		// Dreamwood Twig Recipe
-		addOreDictRecipe(new ItemStack(ModItems.manaResource, 1, 13), 
+		addOreDictRecipe(new ItemStack(ModItems.manaResource, 1, 13),
 				"W", "W",
 				'W', LibOreDict.DREAM_WOOD);
-		recipeDreamwoodTwig = BotaniaAPI.getLatestAddedRecipe();		
+		recipeDreamwoodTwig = BotaniaAPI.getLatestAddedRecipe();
 
 		// Manaseer Monocle Recipe
-		addOreDictRecipe(new ItemStack(ModItems.monocle), 
+		addOreDictRecipe(new ItemStack(ModItems.monocle),
 				"GN", "IN", " N",
 				'G', new ItemStack(ModBlocks.manaGlass),
 				'I', LibOreDict.MANA_STEEL,
@@ -1414,13 +1414,13 @@ public final class ModCraftingRecipes {
 		recipeMonocle = BotaniaAPI.getLatestAddedRecipe();
 
 		// Lens Clip Recipe
-		addOreDictRecipe(new ItemStack(ModItems.clip), 
+		addOreDictRecipe(new ItemStack(ModItems.clip),
 				" D ", "D D", "DD ",
 				'D', LibOreDict.DREAM_WOOD);
 		recipeClip = BotaniaAPI.getLatestAddedRecipe();
 
 		// Rod of the Depths Recipe
-		addOreDictRecipe(new ItemStack(ModItems.cobbleRod), 
+		addOreDictRecipe(new ItemStack(ModItems.cobbleRod),
 				" FC", " TW", "T  ",
 				'F', LibOreDict.RUNE[1],
 				'W', LibOreDict.RUNE[0],
@@ -1437,7 +1437,7 @@ public final class ModCraftingRecipes {
 		recipeSmeltRod = BotaniaAPI.getLatestAddedRecipe();
 
 		// World Seed Recipe
-		addOreDictRecipe(new ItemStack(ModItems.worldSeed, 4), 
+		addOreDictRecipe(new ItemStack(ModItems.worldSeed, 4),
 				"G", "S", "D",
 				'G', new ItemStack(Blocks.grass),
 				'S', new ItemStack(Items.wheat_seeds),
@@ -1445,21 +1445,21 @@ public final class ModCraftingRecipes {
 		recipeWorldSeed = BotaniaAPI.getLatestAddedRecipe();
 
 		// Spellbinding Cloth Recipe
-		addOreDictRecipe(new ItemStack(ModItems.spellCloth), 
+		addOreDictRecipe(new ItemStack(ModItems.spellCloth),
 				"WWW", "WPW", "WWW",
 				'W', new ItemStack(Blocks.wool, 1, -1),
 				'P', LibOreDict.MANA_PEARL);
 		recipeSpellCloth = BotaniaAPI.getLatestAddedRecipe();
 
 		// Thorn Chakram Recipe
-		addOreDictRecipe(new ItemStack(ModItems.thornChakram), 
+		addOreDictRecipe(new ItemStack(ModItems.thornChakram),
 				"VVV", "VTV", "VVV",
 				'V', new ItemStack(Blocks.vine),
 				'T', LibOreDict.TERRA_STEEL);
 		recipeThornChakram = BotaniaAPI.getLatestAddedRecipe();
 
 		// Trodden Dirt Slab
-		GameRegistry.addRecipe(new ItemStack(ModFluffBlocks.dirtPathSlab, 6), 
+		GameRegistry.addRecipe(new ItemStack(ModFluffBlocks.dirtPathSlab, 6),
 				"DDD",
 				'D', new ItemStack(ModBlocks.dirtPath));
 		recipeDirtPathSlab = BotaniaAPI.getLatestAddedRecipe();
@@ -1471,7 +1471,7 @@ public final class ModCraftingRecipes {
 					'R', new ItemStack(Items.redstone),
 					'P', LibOreDict.PLACEHOLDER
 					);
-			
+
 			for(int i = 0; i < count; i++) {
 				List<Object> recipe = new ArrayList();
 				for(int j = 0; j < 3; j++) {
@@ -1481,15 +1481,15 @@ public final class ModCraftingRecipes {
 					recipe.add(s);
 				}
 				recipe.addAll(recipeObjects);
-				
+
 				addOreDictRecipe(new ItemStack(ModItems.craftPattern, 1, i), recipe.toArray(new Object[recipe.size()]));
 			}
-			
+
 			recipesPatterns = BotaniaAPI.getLatestAddedRecipes(count);
 		}
-		
+
 		// Gaia Spirit Ingot Recipe
-		addOreDictRecipe(new ItemStack(ModItems.manaResource, 1, 14), 
+		addOreDictRecipe(new ItemStack(ModItems.manaResource, 1, 14),
 				" S ", "SIS", " S ",
 				'S', LibOreDict.LIFE_ESSENCE,
 				'I', LibOreDict.TERRA_STEEL);
@@ -1552,7 +1552,7 @@ public final class ModCraftingRecipes {
 			addStairsAndSlabs(ModFluffBlocks.biomeStoneA, i + 8, ModFluffBlocks.biomeStoneStairs[i + 8], ModFluffBlocks.biomeStoneSlabs[i + 8]);
 			addStairsAndSlabs(ModFluffBlocks.biomeStoneB, i, ModFluffBlocks.biomeStoneStairs[i + 16], ModFluffBlocks.biomeStoneSlabs[i + 16]);
 		}
-		
+
 		// Misc Recipes
 		GameRegistry.addShapelessRecipe(new ItemStack(Items.reeds, 9, 0), new ItemStack(ModBlocks.reedBlock));
 		GameRegistry.addShapelessRecipe(new ItemStack(Items.wheat, 4, 0), new ItemStack(ModBlocks.thatch));

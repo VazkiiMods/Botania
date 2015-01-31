@@ -29,24 +29,24 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class ItemAncientWill extends ItemMod {
 
 	private static final int SUBTYPES = 6;
-	
+
 	IIcon[] icons;
-	
+
 	public ItemAncientWill() {
 		setUnlocalizedName(LibItemNames.ANCIENT_WILL);
 		setHasSubtypes(true);
 		setMaxStackSize(1);
-		
+
 		GameRegistry.addRecipe(new AncientWillRecipe());
 		RecipeSorter.register("botania:ancientWill", AncientWillRecipe.class, Category.SHAPELESS, "");
 	}
-	
+
 	@Override
 	public void getSubItems(Item item, CreativeTabs tab, List list) {
 		for(int i = 0; i < SUBTYPES; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
-	
+
 	@Override
 	public void registerIcons(IIconRegister par1IconRegister) {
 		icons = new IIcon[SUBTYPES];
@@ -58,21 +58,21 @@ public class ItemAncientWill extends ItemMod {
 	public IIcon getIconFromDamage(int dmg) {
 		return icons[Math.min(icons.length - 1, dmg)];
 	}
-	
+
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean adv) {
 		addStringToTooltip(StatCollector.translateToLocal("botaniamisc.craftToAddWill"), list);
 		addStringToTooltip(StatCollector.translateToLocal("botania.armorset.will" + stack.getItemDamage() + ".shortDesc"), list);
 	}
-	
+
 	public void addStringToTooltip(String s, List<String> tooltip) {
 		tooltip.add(s.replaceAll("&", "\u00a7"));
 	}
-	
+
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
 		return super.getUnlocalizedName(par1ItemStack) + par1ItemStack.getItemDamage();
 	}
-	
-	
+
+
 }

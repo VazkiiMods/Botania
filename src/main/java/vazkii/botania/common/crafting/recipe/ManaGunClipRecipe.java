@@ -16,7 +16,6 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 import vazkii.botania.common.item.ItemManaGun;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.equipment.tool.ItemTerraPick;
 
 public class ManaGunClipRecipe  implements IRecipe {
 

@@ -34,13 +34,13 @@ public class PixieHandler {
 			if(Math.random() < chance) {
 				EntityPixie pixie = new EntityPixie(player.worldObj);
 				pixie.setPosition(player.posX, player.posY + 2, player.posZ);
-				
+
 				if(((ItemElementiumHelm) ModItems.elementiumHelm).hasArmorSet(player)) {
 					int[] potions = new int[] {
-						Potion.blindness.id,
-						Potion.wither.id,
-						Potion.moveSlowdown.id,
-						Potion.weakness.id
+							Potion.blindness.id,
+							Potion.wither.id,
+							Potion.moveSlowdown.id,
+							Potion.weakness.id
 					};
 					pixie.setApplyPotionEffect(new PotionEffect(potions[event.entity.worldObj.rand.nextInt(potions.length)], 40, 0));
 				}

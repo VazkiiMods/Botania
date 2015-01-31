@@ -13,21 +13,19 @@ package vazkii.botania.common.crafting.recipe;
 import java.util.Arrays;
 import java.util.List;
 
-import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.mana.ILens;
-import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.lens.ItemLens;
 import vazkii.botania.common.lib.LibOreDict;
 
 public class LensDyingRecipe implements IRecipe {
 
 	private static final List<String> DYES = Arrays.asList(new String[] {
-		"dyeWhite", "dyeOrange", "dyeMagenta", "dyeLightBlue", "dyeYellow", "dyeLime", "dyePink", "dyeGray", "dyeLightGray", "dyeCyan", "dyePurple", "dyeBlue", "dyeBrown", "dyeGreen", "dyeRed", "dyeBlack", LibOreDict.MANA_PEARL
+			"dyeWhite", "dyeOrange", "dyeMagenta", "dyeLightBlue", "dyeYellow", "dyeLime", "dyePink", "dyeGray", "dyeLightGray", "dyeCyan", "dyePurple", "dyeBlue", "dyeBrown", "dyeGreen", "dyeRed", "dyeBlack", LibOreDict.MANA_PEARL
 	});
 
 	@Override
@@ -60,16 +58,16 @@ public class LensDyingRecipe implements IRecipe {
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
 			if(stack != null) {
-				if(stack.getItem() instanceof ILens && lens == null)				
+				if(stack.getItem() instanceof ILens && lens == null)
 					lens = stack;
 				else color = getStackColor(stack);
 			}
 		}
 
 		if(lens.getItem() instanceof ILens) {
-			ILens lensItem = (ILens) lens.getItem();
+			lens.getItem();
 			ItemStack lensCopy = lens.copy();
-			((ItemLens) ModItems.lens).setLensColor(lensCopy, color);
+			ItemLens.setLensColor(lensCopy, color);
 
 			return lensCopy;
 		}
@@ -94,7 +92,7 @@ public class LensDyingRecipe implements IRecipe {
 			if(index > 0)
 				return index;
 		}
-	
+
 		return -1;
 	}
 

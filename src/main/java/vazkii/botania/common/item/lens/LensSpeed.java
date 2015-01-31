@@ -22,5 +22,5 @@ public class LensSpeed extends Lens {
 		props.ticksBeforeManaLoss /= 3F;
 		props.manaLossPerTick *= 2F;
 	}
-	
+
 }

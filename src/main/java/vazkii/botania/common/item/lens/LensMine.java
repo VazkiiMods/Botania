@@ -22,7 +22,6 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaBurst;
-import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.IManaBlock;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
@@ -61,8 +60,8 @@ public class LensMine extends Lens {
 
 			dead = false;
 		}
-		
+
 		return dead;
 	}
-	
+
 }

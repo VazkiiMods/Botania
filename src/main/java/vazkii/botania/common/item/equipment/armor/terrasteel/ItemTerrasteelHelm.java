@@ -45,7 +45,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 
 	private static final String TAG_ANCIENT_WILL = "AncientWill";
 	static IIcon willIcon;
-	
+
 	public ItemTerrasteelHelm() {
 		this(LibItemNames.TERRASTEEL_HELM);
 		MinecraftForge.EVENT_BUS.register(this);
@@ -61,17 +61,17 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 		super.registerIcons(par1IconRegister);
 		willIcon = IconHelper.forName(par1IconRegister, "willFlame");
 	}
-	
+
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
 		super.onArmorTick(world, player, stack);
 		if(hasArmorSet(player)) {
 			int food = player.getFoodStats().getFoodLevel();
-	        if(food > 0 && food < 18 && player.shouldHeal() && player.ticksExisted % 80 == 0)
-	            player.heal(1F);
+			if(food > 0 && food < 18 && player.shouldHeal() && player.ticksExisted % 80 == 0)
+				player.heal(1F);
 		}
 	}
-	
+
 	@Override
 	public float getDiscount(ItemStack stack, int slot, EntityPlayer player) {
 		return hasArmorSet(player) ? 0.2F : 0F;
@@ -86,11 +86,11 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 	public boolean hasAncientWill(ItemStack stack, int will) {
 		return hasAncientWill_(stack, will);
 	}
-	
+
 	public static boolean hasAncientWill_(ItemStack stack, int will) {
 		return ItemNBTHelper.getBoolean(stack, TAG_ANCIENT_WILL + will, false);
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addArmorSetDescription(ItemStack stack, List<String> list) {
@@ -99,15 +99,15 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 			if(hasAncientWill(stack, i))
 				addStringToTooltip(StatCollector.translateToLocal("botania.armorset.will" + i + ".desc"), list);
 	}
-	
+
 	public static boolean hasAnyWill(ItemStack stack) {
 		for(int i = 0; i < 6; i++)
 			if(hasAncientWill_(stack, i))
 				return true;
-		
+
 		return false;
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	public static void renderOnPlayer(ItemStack stack, RenderPlayerEvent event) {
 		if(hasAnyWill(stack)) {
@@ -124,12 +124,12 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 			ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, willIcon.getIconWidth(), willIcon.getIconHeight(), 1F / 16F);
 		}
 	}
-	
+
 	@SubscribeEvent
 	public void onEntityAttacked(LivingHurtEvent event) {
 		Entity attacker = event.source.getEntity();
 		if(attacker instanceof EntityPlayer) {
-			EntityPlayer player = ((EntityPlayer) attacker);
+			EntityPlayer player = (EntityPlayer) attacker;
 			boolean crit = player.fallDistance > 0.0F && !player.onGround && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(Potion.blindness) && player.ridingEntity == null;
 			ItemStack stack = player.inventory.armorItemInSlot(3);
 			if(crit && stack != null && stack.getItem() instanceof ItemTerrasteelHelm) {
@@ -139,11 +139,11 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 				boolean torag = hasAncientWill(stack, 3);
 				boolean verac = hasAncientWill(stack, 4);
 				boolean karil = hasAncientWill(stack, 5);
-				
+
 				if(ahrim)
 					event.entityLiving.addPotionEffect(new PotionEffect(Potion.weakness.id, 20, 1));
 				if(dharok)
-					event.ammount *= (1F + (1F - player.getHealth() / player.getMaxHealth()) * 0.5F);
+					event.ammount *= 1F + (1F - player.getHealth() / player.getMaxHealth()) * 0.5F;
 				if(guthan)
 					player.heal(event.ammount * 0.25F);
 				if(torag)

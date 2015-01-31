@@ -39,7 +39,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemManasteelAxe extends ItemAxe implements IManaUsingItem {
 
 	private static final Pattern SAPLING_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)sapling)|(?:(?:[a-z-_.:]|^)Sapling))(?:[A-Z-_.:]|$)");
-	
+
 	private static final int MANA_PER_DAMAGE = 60;
 
 	public ItemManasteelAxe() {
@@ -82,7 +82,7 @@ public class ItemManasteelAxe extends ItemAxe implements IManaUsingItem {
 
 		return true;
 	}
-	
+
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int s, float sx, float sy, float sz) {
 		for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
@@ -93,7 +93,7 @@ public class ItemManasteelAxe extends ItemAxe implements IManaUsingItem {
 				return did;
 			}
 		}
-		
+
 		return false;
 	}
 

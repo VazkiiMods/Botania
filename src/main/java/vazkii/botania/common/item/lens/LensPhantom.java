@@ -23,8 +23,8 @@ public class LensPhantom extends Lens {
 			dead = false;
 			burst.setMinManaLoss(Math.max(0, burst.getMinManaLoss() - 4));
 		}
-		
+
 		return dead;
 	}
-	
+
 }

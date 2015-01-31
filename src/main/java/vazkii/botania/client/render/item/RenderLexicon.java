@@ -56,17 +56,17 @@ public class RenderLexicon implements IItemRenderer {
 				ticks += ClientTickHandler.partialTicks;
 			else ticks -= ClientTickHandler.partialTicks;
 		}
-		
+
 		GL11.glTranslatef(0.3F + 0.02F * ticks, 0.475F + 0.01F * ticks, -0.2F - 0.01F * ticks);
 		GL11.glRotatef(87.5F + ticks * 5, 0F, 1F, 0F);
 		GL11.glRotatef(ticks * 2.5F, 0F, 0F, 1F);
 		GL11.glScalef(0.9F, 0.9F, 0.9F);
 		opening = ticks / 12F;
-		
+
 		float pageFlipTicks = ClientTickHandler.pageFlipTicks;
 		if(pageFlipTicks > 0)
 			pageFlipTicks -= ClientTickHandler.partialTicks;
-		
+
 		pageFlip = pageFlipTicks / 5F;
 
 		model.render(null, 0F, 0F, pageFlip, opening, 0F, 1F / 16F);

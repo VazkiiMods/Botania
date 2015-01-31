@@ -46,5 +46,5 @@ public class ItemBlockWithMetadataAndName extends ItemBlockWithMetadata implemen
 	public Achievement getAchievementOnPickup(ItemStack stack, EntityPlayer player, EntityItem item) {
 		return field_150939_a instanceof IPickupAchievement ? ((IPickupAchievement) field_150939_a).getAchievementOnPickup(stack, player, item) : null;
 	}
-	
+
 }

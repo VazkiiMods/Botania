@@ -74,7 +74,7 @@ public class ItemSignalFlare extends ItemMod {
 						entity.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 50, 5));
 						stunned++;
 					}
-				
+
 				if(stunned >= 100)
 					par3EntityPlayer.addStat(ModAchievements.signalFlareStun, 1);
 			}

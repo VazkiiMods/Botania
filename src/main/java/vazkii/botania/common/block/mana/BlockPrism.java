@@ -32,7 +32,6 @@ import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.mana.TilePrism;
-import vazkii.botania.common.block.tile.string.TileRedStringDispenser;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
@@ -127,7 +126,7 @@ public class BlockPrism extends BlockModContainer implements IManaTrigger, ILexi
 				world.setBlockMetadataWithNotify(x, y, z, meta & -9, 1 | 2);
 		}
 	}
-	
+
 	@Override
 	public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6) {
 		TileEntity tile = par1World.getTileEntity(par2, par3, par4);
