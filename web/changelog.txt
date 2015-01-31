@@ -1,3 +1,59 @@
+r1.4 154
+*<i>Holy moley, that's a long changelog. I apologize in advance if anything in this build is broken. I don't do "exclusive beta testing", and since this is a large version there'll probably be some kinks. I'll try my best to iron them out over the next couple of days!</i>
+*Added 23 achievements, 20 are progression/side things and the other 4 are special challenges. <i>There's also one more achievement but we don't talk about that one.</i>
+*Added 5 new flowers.<ul><li>Spectranthemum, functional, teleports items from around it to a defined point in the world. (Elven Knowledge)</li><li>Medumone, functional, freezes mobs in place.</li><li>Marimorphosis, functional, turns standard vanilla Stone into colored, decorative, stone variants depending on biome.</li><li>Narslimmus, generating, kills natural spawned slimes in slime chunks for mana, doesn't drop slimeballs or split them in two.</li><li>Spectrolus, generating, uses all 16 colors of wool sequentually to create mana.</li></ul>
+*Added a "Complex Brews" page, with 6 new brews, 5 featuring new potion effects.<ul><li>Overload: A bunch of effects, Strength, Speed, Weakneess and Hunger.</li><li>Crossed Souls: Killing a mob gives the killer a bit of their HP.</li><li>Feather Feet: Fall damage immunity.</li><li>Vanity's Emptiness: Prevents mob spawns in a 128 block radius.</li><li>Crimson Shade: Removes mob spawn restrictions in a 64 block radius. (eg. Mobs can spawn in broad daylight, slimes in non-slime chunks, etc)</li><li>Marine Allure: Doubles the speed at which fishing rods work.</li></ul>
+*Added a Gaia Spirit Ingot, used to summon a hard mode Gaia Guardian, it's harder, better, faster and stronger. It also drops moar lootz.
+*Added Ancient Wills. Items that can crafted with a Terrasteel Helmet to provide for very powerful abilities. How do you get them? Who knows.
+*Added armor set bonuses to sets of mana armor that apply when all 4 pieces are equipped.<ul><li>Manasteel: 10% Mana Discount for Mana Tools.</li><li>Elementium: 10% Mana Discount for Mana Tools, pixies apply random potion effects.</li><li>Terrasteel: 10% Mana Discount for Mana Tools, regeneration still works even when the food bar isn't topped off.</li></ul>
+*Added Crafting Patterns, upgrades of sorts to the Crafty Crate which prevent items from going into slots. There's 9 basic ones that can be used for simple recipes: 1x1, 2x2, 1x2, 2x1, 1x3, 3x1, 2x3, 3x2 and Donut.
+*Added Dreamwood Twigs, used to craft Elementium Tools instead of Livingwood Twigs.
+*Added Mana Diamond and Dragonstone storage blocks.
+*Added Overgrowth Seeds. A new dungeon loot item that allows you to enchant a piece of grass, making any flowers on it work at twice the speed.
+*Added Sanity Checks to the lexicon GUIs to prevent crashing if one tries to open a page that doesn't exist. This is important for third party minetweaker support. (SoundLogic)
+*Added Spellbinding Cloth. Combine it with an item to remove any enchants it has. <i>This one actually is a carbon copy of the one in Thaumic Tinkerer, this item is like a legacy in my mods. Surprised I hadn't stolen it from TT yet :V</i>
+*Added the Lens Clip, an addon to the Mana Blaster that allows it to carry 6 lenses rather than just 1.
+*Added the Manaseer Monocle, a new amulet bauble that allows the wearer to see mana bursts even if there's something blocking the view.
+*Added the Rod of the Depths, a variant to the Rod of the Lands that places cobblestone.
+*Added the Rod of the Molten Core. Almost a carbon copy of the Efreet's Flame Wand Focus from Thaumic Tinkerer. Look at a block and hold it to smelt it.
+*Added the Thorn Chakram. A throwable weapon that bounces off blocks. <i>Yes, it's from terraria, shut up.</i>
+*Added the World Seed. A new (stackable) item that can be used to instantly teleport to the world's spawn point case the user is at least 24 blocks away.
+*Added Trodden Dirt Slabs.
+*Baubles now detect the "first tick" using hash codes. This is a lot more reliable than using the old entity time method.
+*Changed some lexicon text to make more sense on the small details.
+*Changed the Gaia Guardian's Landmine particles to look a bit better and not be as tricky to spot.
+*Changed the Trodden Dirt recipe to use Sand instead of Gravel.
+*Fixed a crash regarding dominant sparks when there's no other sparks available for transfer.
+*Fixed dying Composite Lenses removing the composite component.<i>Took me long enough.</i>
+*Fixed the Abstruse Platform recipe having stack size 0 for the components and causing divide by zero crashes with the NEI shift-[?] feature. <i>(Why does that even check the stack size? O.o)</i>
+*Fixed the Assembly Halo consuming Blood Magic orbs and potentially other items whose container item is the item itself.
+*Fixed the Life Imbuer spawning client-side only mobs.
+*Fixed the Mana Enchanter and Mana Flash blocks appearing in the search creative tab.
+*Fixed the Red String Container not passing markDirty() calls to the bound block and causing it not to sync to the client.
+*Fixed the Ring of Far Reach adding insane amounts of reach if one travels between dimensions.
+*Fixed the Ring of Far Reach removing flight <i>(and breaking whatever arcane sorcery was behind the Angel Ring in Extra Utils)</i>.
+*Fixed the Soulscribe being able to automatically repair with mana like a Manasteel Sword can.
+*Fixed the Terra Shatterer not breaking blocks in AoE at X=0 or Z=0.
+*Fixed the Terrestrial Agglomeration Plate desyncing if the server is lagging and potentially destroying all the mana used if one picks up the item too early in those circumstances.
+*Made the Black Lotus rarely appear in Bonus Chests.
+*Made the Fallen Kanade not work in the end to prevent cheesing the Ender Dragon.
+*Mana Sparks now try to update the list of sparks they can transfer to after they're done ticking. Dominant Sparks will also attempt to pull mana from sparks at random rather than iteratively. When a Mana Pool with a Dominant Spark is charging an item and is full, instead of pulling from one Mana Pool exclusively it randomly pulls from all possible pools around.
+*Mana Tablets now render on the player's belt, if there's one.
+*Mana tools now have right click abilities. The Pickaxe places a torch from the inventory, the Axe does the same for a sapling and the Shovel works as a Hoe.
+*Nerfed the Bands of Aura. A lot.
+*Removed the health boost from Terrasteel Armor.
+*Removed the item name remapper. It's completely useless at this point unless by some reason you're updating from a 10 month old build. It was also breaking downgrading as it was trying to remap items that didn't exist. 
+*Removed the transparency in the HUD mana bars, as it looked absolutely god awful in higher resolutions/scales.
+*The Elementium Pickaxe (and Elementium Tipped Terra Shatterer) will now look in the ore dictionary for what blocks not to break. Should help with Underground Biomes and other mods that add new stones.
+*The Lexica Botania's in hand animation uses partial ticks now and isn't locked to 20fps any more. It looks so much smoother. <i>GLORIOUS 60FPS PC MASTER RACE</i>
+*The Mana Prism can now be turned off with a redstone signal.
+*The Tiny Potato can now be named in an anvil. It can also sing.
+*Trodden Dirt now expands to a full block if there's a block above it.
+*[API] Added IBurstViewerBauble for a bauble that acts as the Manaseer Monocle.
+*[API] Added IManaDiscoutArmor. Pretty self explanatory.
+*[API] Added methods to ManaItemHandler for handling mana discount for tools.
+*[API] Added remove() to LexiconRecipeMappings. (SoundLogic)
+*[API] Updated version number to 30.
 r1.3 153
 *Fixed the Terra Shatterer being able to break bedrock and other unbreakable blocks.
 r1.3 152
