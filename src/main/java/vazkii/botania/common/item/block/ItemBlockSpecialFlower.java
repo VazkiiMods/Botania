@@ -107,13 +107,16 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 
 	@Override
 	public Achievement getAchievementOnPickup(ItemStack stack, EntityPlayer player, EntityItem item) {
-		switch(getType(stack)) {
-		case LibBlockNames.SUBTILE_DAYBLOOM : return ModAchievements.daybloomPickup;
-		case LibBlockNames.SUBTILE_ENDOFLAME : return ModAchievements.endoflamePickup;
-		case LibBlockNames.SUBTILE_KEKIMURUS : return ModAchievements.kekimurusPickup;
-		case LibBlockNames.SUBTILE_HEISEI_DREAM : return ModAchievements.heiseiDreamPickup;
-		default : return null;
-		}
+		String type = getType(stack);
+		if(type.equals(LibBlockNames.SUBTILE_DAYBLOOM))
+			return ModAchievements.daybloomPickup;
+		else if(type.equals(LibBlockNames.SUBTILE_ENDOFLAME))
+			return ModAchievements.endoflamePickup;
+		else if(type.equals(LibBlockNames.SUBTILE_KEKIMURUS))
+			return ModAchievements.kekimurusPickup;
+		else if(type.equals(LibBlockNames.SUBTILE_HEISEI_DREAM))
+			return ModAchievements.heiseiDreamPickup;
+		return null;
 	}
 
 }
