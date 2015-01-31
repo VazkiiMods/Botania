@@ -61,8 +61,8 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor implements 
 		return StatCollector.translateToLocal("botania.armorset.elementium.name");
 	}
 
-	public void addArmorSetDescription(List<String> list) {
-		super.addArmorSetDescription(list);
+	public void addArmorSetDescription(ItemStack stack, List<String> list) {
+		super.addArmorSetDescription(stack, list);
 		addStringToTooltip(StatCollector.translateToLocal("botania.armorset.elementium.desc"), list);
 	}
 

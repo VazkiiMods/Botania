@@ -13,6 +13,7 @@ package vazkii.botania.common.item.equipment.armor.terrasteel;
 import java.util.List;
 import java.util.UUID;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -76,7 +77,8 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 		return StatCollector.translateToLocal("botania.armorset.terrasteel.name");
 	}
 
-	public void addArmorSetDescription(List<String> list) {
+	@Override
+	public void addArmorSetDescription(ItemStack stack, List<String> list) {
 		addStringToTooltip(StatCollector.translateToLocal("botania.armorset.terrasteel.desc0"), list);
 		addStringToTooltip(StatCollector.translateToLocal("botania.armorset.terrasteel.desc1"), list);
 	}

@@ -30,6 +30,8 @@ import vazkii.botania.api.item.IBaubleRender.Helper;
 import vazkii.botania.api.item.IBaubleRender.RenderType;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumHelm;
+import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -57,6 +59,10 @@ public final class BaubleRenderHandler {
 		GL11.glRotatef(yaw - 270, 0, 1, 0);
 		GL11.glRotatef(pitch, 0, 0, 1);
 		dispatchRenders(inv, event, RenderType.HEAD);
+		
+		ItemStack helm = player.inventory.armorItemInSlot(3); 
+		if(helm != null && helm.getItem() instanceof ItemTerrasteelHelm)
+			ItemTerrasteelHelm.renderOnPlayer(helm, event);
 		GL11.glPopMatrix();
 	}
 

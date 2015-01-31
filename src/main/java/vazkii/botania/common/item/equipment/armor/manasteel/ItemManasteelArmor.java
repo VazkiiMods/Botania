@@ -114,7 +114,7 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean adv) {
 		if(GuiScreen.isShiftKeyDown()) {
 			addStringToTooltip(getArmorSetTitle(player), list);
-			addArmorSetDescription(list);
+			addArmorSetDescription(stack, list);
 			ItemStack[] stacks = getArmorSetStacks();
 			for(int i = 0; i < stacks.length; i++)
 				addStringToTooltip((hasArmorSetItem(player, i) ? EnumChatFormatting.GREEN : "") + " - " + stacks[i].getDisplayName(), list);
@@ -175,7 +175,7 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 		return StatCollector.translateToLocal("botaniamisc.armorset") + " " + getArmorSetName() + " (" + getSetPiecesEquipped(player) + "/" + getArmorSetStacks().length + ")";
 	}
 	
-	public void addArmorSetDescription(List<String> list) {
+	public void addArmorSetDescription(ItemStack stack, List<String> list) {
 		addStringToTooltip(StatCollector.translateToLocal("botania.armorset.manasteel.desc"), list);
 	}
 

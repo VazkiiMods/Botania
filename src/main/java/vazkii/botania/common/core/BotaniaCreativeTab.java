@@ -224,14 +224,6 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.manasteelChest);
 		addItem(ModItems.manasteelLegs);
 		addItem(ModItems.manasteelBoots);
-		addItem(ModItems.terraSword);
-		addItem(ModItems.terraPick);
-		addItem(ModItems.terrasteelHelm);
-		if(Botania.thaumcraftLoaded)
-			addItem(ModItems.terrasteelHelmRevealing);
-		addItem(ModItems.terrasteelChest);
-		addItem(ModItems.terrasteelLegs);
-		addItem(ModItems.terrasteelBoots);
 		addItem(ModItems.elementiumPick);
 		addItem(ModItems.elementiumShovel);
 		addItem(ModItems.elementiumAxe);
@@ -243,7 +235,16 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.elementiumChest);
 		addItem(ModItems.elementiumLegs);
 		addItem(ModItems.elementiumBoots);
-
+		addItem(ModItems.terraSword);
+		addItem(ModItems.terraPick);
+		addItem(ModItems.terrasteelHelm);
+		if(Botania.thaumcraftLoaded)
+			addItem(ModItems.terrasteelHelmRevealing);
+		addItem(ModItems.terrasteelChest);
+		addItem(ModItems.terrasteelLegs);
+		addItem(ModItems.terrasteelBoots);
+		addItem(ModItems.ancientWill);
+		
 		addItem(ModItems.tinyPlanet);
 		addBlock(ModBlocks.tinyPlanet);
 		addItem(ModItems.manaRing);

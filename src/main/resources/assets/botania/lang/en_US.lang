@@ -75,6 +75,7 @@ botaniamisc.lotusDesc=It emits strong magical vibes
 botaniamisc.hasClip=&6Has Lens Clip
 botaniamisc.clipEmpty=(Empty)
 botaniamisc.armorset=&bArmor Set&r:
+botaniamisc.craftToAddWill=&aCraft with a Terrasteel Helmet to add the following effect:
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
@@ -136,6 +137,18 @@ botania.armorset.elementium.desc=Chance for pixies to apply potion effects
 botania.armorset.terrasteel.name=Will of the Ancients
 botania.armorset.terrasteel.desc0=20% less Mana cost on Mana Tools
 botania.armorset.terrasteel.desc1=Regen even if hunger isn't topped off
+botania.armorset.will0.desc=Critical Hits apply a strong weakness effect (Will of Ahrim)
+botania.armorset.will1.desc=Critical Hit damage increases with lower HP (Will of Dharok)
+botania.armorset.will2.desc=Critical Hits heal for a portion of damage dealt (Will of Guthan)
+botania.armorset.will3.desc=Critical Hits apply a strong slowness effect (Will of Torag)
+botania.armorset.will4.desc=Critical Hits pierce through armor (Will of Verac)
+botania.armorset.will5.desc=Critical Hits apply a wither effect (Will of Karil)
+botania.armorset.will0.shortDesc=Critical Hits apply a strong weakness effect
+botania.armorset.will1.shortDesc=Critical Hit damage increases with lower HP
+botania.armorset.will2.shortDesc=Critical Hits heal for a portion of damage dealt
+botania.armorset.will3.shortDesc=Critical Hits apply a strong slowness effect
+botania.armorset.will4.shortDesc=Critical Hits pierce through armor
+botania.armorset.will5.shortDesc=Critical Hits apply a wither effect
 
 # ROMAN NUMERALS
 botania.roman0=
@@ -975,6 +988,12 @@ item.botania:craftPattern6.name=Crafting Pattern #7: 2x3
 item.botania:craftPattern7.name=Crafting Pattern #8: 3x2
 item.botania:craftPattern8.name=Crafting Pattern #9: Donut
 item.botania:gaiaIngot.name=Gaia Spirit Ingot
+item.botania:ancientWill0.name=Will of Ahrim
+item.botania:ancientWill1.name=Will of Dharok
+item.botania:ancientWill2.name=Will of Guthan
+item.botania:ancientWill3.name=Will of Torag
+item.botania:ancientWill4.name=Will of Verac
+item.botania:ancientWill5.name=Will of Karil
 
 # BREW NAMES
 botania.brew.fallback=Fallback
