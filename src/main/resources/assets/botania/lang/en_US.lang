@@ -1734,7 +1734,7 @@ botania.page.grassHorn2=Modifying the horn
 
 # -- TERRASTEEL ARMOR
 botania.entry.terrasteelArmor=Terrasteel Armor
-botania.page.terrasteelArmor0=Armor made out of &1Terrasteel&0, much alike the &1Manasteel&0 counterpart, can utilize &4Mana&0 from the inventory instead of taking damage.<br>This armor, however, has properties more alike &1Diamond&0 instead of &1Iron&0 and increases the wearer's health when worn.
+botania.page.terrasteelArmor0=Armor made out of &1Terrasteel&0, much alike the &1Manasteel&0 counterpart, can utilize &4Mana&0 from the inventory instead of taking damage.<br>This armor, however, has properties more alike &1Diamond&0 instead of &1Iron&0.
 botania.page.terrasteelArmor1=The &1Terrasteel Helmet&0
 botania.page.terrasteelArmor2=The &1Terrasteel Chestplate&0
 botania.page.terrasteelArmor3=The &1Terrasteel Leggings&0
