@@ -43,7 +43,7 @@ public final class ChestGenHandler {
 		ChestGenHooks.addItem(c, new WeightedRandomChestContent(new ItemStack(ModItems.blackLotus), 1, 1, 6));
 		ChestGenHooks.addItem(c, new WeightedRandomChestContent(new ItemStack(ModItems.blackLotus), 1, 1, 2));
 
-		c = ChestGenHooks.PYRAMID_JUNGLE_DISPENSER;
+		c = ChestGenHooks.PYRAMID_JUNGLE_CHEST;
 		ChestGenHooks.addItem(c, new WeightedRandomChestContent(new ItemStack(ModItems.blackLotus), 1, 1, 6));
 		ChestGenHooks.addItem(c, new WeightedRandomChestContent(new ItemStack(ModItems.blackLotus), 1, 1, 2));
 
