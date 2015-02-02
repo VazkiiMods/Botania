@@ -605,17 +605,11 @@ public final class ModCraftingRecipes {
 		recipeAuraRing = BotaniaAPI.getLatestAddedRecipe();
 
 		// Greater Mana Band Recipe
-		addOreDictRecipe(new ItemStack(ModItems.manaRingGreater),
-				"IRI",
-				'I', LibOreDict.TERRA_STEEL,
-				'R', new ItemStack(ModItems.manaRing));
+		addShapelessOreDictRecipe(new ItemStack(ModItems.manaRingGreater), LibOreDict.TERRA_STEEL, new ItemStack(ModItems.manaRing));
 		recipeGreaterManaRing = BotaniaAPI.getLatestAddedRecipe();
 
 		// Greater Aura Band Recipe
-		addOreDictRecipe(new ItemStack(ModItems.auraRingGreater),
-				"IRI",
-				'I', LibOreDict.TERRA_STEEL,
-				'R', new ItemStack(ModItems.auraRing));
+		addShapelessOreDictRecipe(new ItemStack(ModItems.auraRingGreater), LibOreDict.TERRA_STEEL, new ItemStack(ModItems.auraRing));
 		recipeGreaterAuraRing = BotaniaAPI.getLatestAddedRecipe();
 
 		// Soujourner's Belt Recipe

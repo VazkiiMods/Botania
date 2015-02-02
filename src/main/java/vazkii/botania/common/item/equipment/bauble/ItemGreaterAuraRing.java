@@ -20,6 +20,6 @@ public class ItemGreaterAuraRing extends ItemAuraRing {
 
 	@Override
 	int getDelay() {
-		return 3;
+		return 2;
 	}
 }
