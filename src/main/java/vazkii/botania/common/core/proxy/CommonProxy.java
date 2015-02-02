@@ -13,6 +13,7 @@ package vazkii.botania.common.core.proxy;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -126,6 +127,10 @@ public class CommonProxy {
 	}
 
 	public void setEntryToOpen(LexiconEntry entry) {
+		// NO-OP
+	}
+	
+	public void setLexiconStack(ItemStack stack) {
 		// NO-OP
 	}
 

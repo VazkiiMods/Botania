@@ -37,9 +37,6 @@ public class GuiHandler implements IGuiHandler {
 		switch(ID) {
 		case LibGuiIDs.LEXICON : {
 			GuiLexicon lex = GuiLexicon.currentOpenLexicon;
-			GuiLexicon.stackUsed = player.getCurrentEquippedItem();
-			if(GuiLexicon.stackUsed == null || !(GuiLexicon.stackUsed.getItem() instanceof ILexicon))
-				return null;
 			return lex;
 		}
 		case LibGuiIDs.CRAFTING_HALO : {

@@ -221,6 +221,11 @@ public class ClientProxy extends CommonProxy {
 	public void setEntryToOpen(LexiconEntry entry) {
 		GuiLexicon.currentOpenLexicon = new GuiLexiconEntry(entry, new GuiLexiconIndex(entry.category));
 	}
+	
+	@Override
+	public void setLexiconStack(ItemStack stack) {
+		GuiLexicon.stackUsed = stack;
+	}
 
 	@Override
 	public boolean isTheClientPlayer(EntityLivingBase entity) {
