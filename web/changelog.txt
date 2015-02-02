@@ -1,3 +1,19 @@
+r1.4 155
+*Added a proper config for potion IDs rather than letting them auto-assign.
+*Changed the Ring of Chordata to check for air levels a bit better so it works properly with Mariculture.
+*Fixed Ancient Wills working without the full armor set.
+*Fixed Black Lotuses spawning on jungle temple dispensers rather than chests.
+*Fixed Mobs' AI getting stuck in the terrasteel plate.
+*Fixed the floating flowers with effects being affected by Enchanted Soil.
+*Fixed the mana cost bar rendering more than once in the lexicon or NEI if a recipe with more than 100k mana cost was inserted via the api or minetweaker.
+*Moved the Crafting Table HUD icon on the Assembly Halo down a bit so it doesn't render behind the text.
+*Moved the Greater Band of Aura's output back a bit, it's not as strong as it used to be, but it's a bit better than last update.
+*Removed the text that states Terrasteel Armor has HP boost as that was removed last version.
+*The Gaia Guardian now has slighty better fake player checker code and can no longer be killed by TT dynamism tablets. Sorry!
+*The Greater Bands of Aura and Mana are now crafted both with a single Terrasteel Ingot rather than two.
+*The Soujourner's and Globetrotter's Sashes now actively try to change step height rather than on equip only.
+*Thermalilies are now faster and make more mana per bucket of lava. However, after they go in a cooldown period after consuming a bucket. Also removed the obsidian config option as it's pretty useless anyway and made it non-elven knowledge again.
+*(Technical) The lexicon's GUI now keeps the ItemStack used to open it to render the name, rather than pulling it from the current equipped stack.
 r1.4 154
 *<i>Holy moley, that's a long changelog. I apologize in advance if anything in this build is broken. I don't do "exclusive beta testing", and since this is a large version there'll probably be some kinks. I'll try my best to iron them out over the next couple of days!</i>
 *Added 25 achievements, 20 are progression/side things and the other 4 are special challenges. <i>There's also one more achievement but we don't talk about that one.</i>
