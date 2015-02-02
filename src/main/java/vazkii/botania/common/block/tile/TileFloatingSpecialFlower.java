@@ -17,9 +17,13 @@ import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 public class TileFloatingSpecialFlower extends TileSpecialFlower implements IFloatingFlower {
 
 	@Override
+	public boolean isOnSpecialSoil() {
+		return false;
+	}
+	
+	@Override
 	public ItemStack getDisplayStack() {
 		return ItemBlockSpecialFlower.ofType(subTileName);
 	}
-
 
 }
