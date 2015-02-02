@@ -15,6 +15,7 @@ import java.io.File;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.common.lib.LibPotionNames;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -22,6 +23,8 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 public final class ConfigHandler {
 
 	public static Configuration config;
+	
+	private static final String CATEGORY_POTIONS = "potions";
 
 	public static boolean useShaders = true;
 	public static boolean lexiconRotatingItems = true;
@@ -56,6 +59,12 @@ public final class ConfigHandler {
 
 	public static int flowerQuantity = 2;
 	public static int flowerDensity = 16;
+	
+	public static int potionIDSoulCross = 191;
+	public static int potionIDFeatherfeet = 192;
+	public static int potionIDEmptiness = 193;
+	public static int potionIDBloodthirst = 194;
+	public static int potionIDAllure = 195;
 
 	public static void loadConfig(File configFile) {
 		config = new Configuration(configFile);
@@ -156,6 +165,12 @@ public final class ConfigHandler {
 		desc = "The density of each flower patch generataed, defaults to 16, the lower the number, the less each patch will have.";
 		flowerDensity = loadPropInt("worldgen.flower.density", desc, flowerDensity);
 
+		potionIDSoulCross = loadPropPotionId(LibPotionNames.SOUL_CROSS, potionIDSoulCross);
+		potionIDFeatherfeet = loadPropPotionId(LibPotionNames.FEATHER_FEET, potionIDFeatherfeet);
+		potionIDEmptiness = loadPropPotionId(LibPotionNames.EMPTINESS, potionIDEmptiness);
+		potionIDBloodthirst = loadPropPotionId(LibPotionNames.BLOODTHIRST, potionIDBloodthirst);
+		potionIDAllure = loadPropPotionId(LibPotionNames.ALLURE, potionIDAllure);
+
 		if(config.hasChanged())
 			config.save();
 	}
@@ -183,6 +198,11 @@ public final class ConfigHandler {
 		Property prop = config.get(Configuration.CATEGORY_GENERAL, propName, default_);
 		prop.comment = desc;
 		return prop.getBoolean(default_);
+	}
+	
+	public static int loadPropPotionId(String propName, int default_) {
+		Property prop = config.get(CATEGORY_POTIONS, propName, default_);
+		return prop.getInt(default_);
 	}
 
 	public static class ChangeListener {

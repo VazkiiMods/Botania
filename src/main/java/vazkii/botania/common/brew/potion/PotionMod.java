@@ -22,18 +22,10 @@ public class PotionMod extends Potion {
 
 	private static final ResourceLocation resource = new ResourceLocation(LibResources.GUI_POTIONS);
 
-	public PotionMod(String name, boolean badEffect, int color, int iconIndex) {
-		super(findFreeID(), badEffect, color);
+	public PotionMod(int id, String name, boolean badEffect, int color, int iconIndex) {
+		super(id, badEffect, color);
 		setPotionName("botania.potion." + name);
 		setIconIndex(iconIndex % 8, iconIndex / 8);
-	}
-
-	static int findFreeID() {
-		for(int i = 0; i < potionTypes.length; i++)
-			if(potionTypes[i] == null)
-				return i;
-
-		return -1;
 	}
 
 	@Override

@@ -14,13 +14,14 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibPotionNames;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class PotionSoulCross extends PotionMod {
 
 	public PotionSoulCross() {
-		super(LibPotionNames.SOUL_CROSS, false, 0x47453d, 0);
+		super(ConfigHandler.potionIDSoulCross, LibPotionNames.SOUL_CROSS, false, 0x47453d, 0);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 

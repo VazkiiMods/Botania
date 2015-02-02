@@ -18,6 +18,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import vazkii.botania.common.brew.ModPotions;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibPotionNames;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -27,7 +28,7 @@ public class PotionBloodthirst extends PotionMod {
 	private static final int RANGE = 64;
 
 	public PotionBloodthirst() {
-		super(LibPotionNames.BLOODTHIRST, false, 0xC30000, 3);
+		super(ConfigHandler.potionIDBloodthirst, LibPotionNames.BLOODTHIRST, false, 0xC30000, 3);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 
