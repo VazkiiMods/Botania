@@ -243,10 +243,23 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 	@Override
 	public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
-		if((par1DamageSource.damageType.equals("player") || par1DamageSource.getEntity() instanceof EntityPixie) && par1DamageSource.getEntity() != null && !(par1DamageSource.getEntity() instanceof FakePlayer) && getInvulTime() == 0)
+		if((par1DamageSource.damageType.equals("player") || par1DamageSource.getEntity() instanceof EntityPixie) && par1DamageSource.getEntity() != null && !(isTruePlayer(par1DamageSource.getEntity())) && getInvulTime() == 0)
 			return super.attackEntityFrom(par1DamageSource, par2 * (isHardMode() ? 0.6F : 1F));
 		return false;
 	}
+	
+	
+	public boolean isTruePlayer(Entity e) {
+		if(e instanceof EntityPlayer)
+        	return false;
+		if(worldObj.isRemote)
+            return true;
+		
+		EntityPlayer player = (EntityPlayer) e;
+		
+        String name = player.getCommandSenderName();
+        return !(player instanceof FakePlayer || name.contains("[CoFH]") || name.contains("[Thaumcraft"));
+    }
 
 	@Override
 	protected void damageEntity(DamageSource par1DamageSource, float par2) {
