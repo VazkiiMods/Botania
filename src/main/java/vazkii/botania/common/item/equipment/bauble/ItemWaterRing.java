@@ -56,7 +56,7 @@ public class ItemWaterRing extends ItemBauble implements IManaUsingItem {
 				player.addPotionEffect(neweffect);
 			}
 
-			if(player.getAir() == 1 && player instanceof EntityPlayer) {
+			if(player.getAir() <= 1 && player instanceof EntityPlayer) {
 				int mana = ManaItemHandler.requestMana(stack, (EntityPlayer) player, 300, true);
 				player.setAir(mana);
 			}
