@@ -45,11 +45,6 @@ public class SubTileThermalily extends SubTileHydroangeas {
 	}
 
 	@Override
-	public Block getBlockToSearchBelow() {
-		return ConfigHandler.thermalilyObsidian ? Blocks.obsidian : null;
-	}
-
-	@Override
 	public void playSound() {
 		supertile.getWorldObj().playSoundEffect(supertile.xCoord, supertile.yCoord, supertile.zCoord, "botania:thermalily", 0.2F, 1F);
 	}
@@ -61,17 +56,22 @@ public class SubTileThermalily extends SubTileHydroangeas {
 
 	@Override
 	public int getBurnTime() {
-		return 3500;
+		return 875;
 	}
 
 	@Override
 	public int getValueForPassiveGeneration() {
-		return 2;
+		return 12;
 	}
 
 	@Override
 	public int getMaxMana() {
 		return 250;
+	}
+	
+	@Override
+	public int getCooldown() {
+		return 9600;
 	}
 
 }

@@ -1439,8 +1439,7 @@ botania.page.hydroangeas1=&oFrom some Hyperdimension&r?
 
 # -- THERMALILY
 botania.entry.thermalily=Thermalily
-botania.page.thermalily0=There comes a point where slow generating power, like the &1Hydroangeas&0 or the &1Endoflame&0 is not enough. An answer to that is the &1Thermalily&0, which works similarly to the &1Hydroangeas&0, except with &1Lava&0.
-botania.page.thermalily0a=There comes a point where slow generating power, like the &1Hydroangeas&0 or the &1Endoflame&0 is not enough. An answer to that is the &1Thermalily&0, which works similarly to the &1Hydroangeas&0, except with &1Lava&0.<br>Due to the heat the &1Lava&0 produces, there must be a block of &1Obsidian&0 below it for it to be absorbed.
+botania.page.thermalily0=There comes a point where slow generating power, like the &1Hydroangeas&0 or the &1Endoflame&0 is not enough. An answer to that is the &1Thermalily&0, which works similarly to the &1Hydroangeas&0, except with &1Lava&0, it'll produce a very large amount of &1Mana&0 at a spurt when it consumes &1Lava&0, doing this heats up the flower, and it'll need some time to cool down before it can begin the cycle anew.
 botania.page.thermalily1=&o0108 Style&r.
 
 # -- ROSA ARCANA

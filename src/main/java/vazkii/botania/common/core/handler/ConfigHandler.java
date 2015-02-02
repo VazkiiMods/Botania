@@ -50,7 +50,6 @@ public final class ConfigHandler {
 	public static int spreaderPositionShift = 1;
 	public static boolean flowerForceCheck = true;
 	public static boolean enderPickpocketEnabled = true;
-	public static boolean thermalilyObsidian = false;
 	public static int hardcorePassiveGeneration = -1;
 
 	public static boolean fallenKanadeEnabled = true;
@@ -143,9 +142,6 @@ public final class ConfigHandler {
 
 		desc = "Set to false to disable the ability for the Hand of Ender to pickpocket other players' ender chests.";
 		enderPickpocketEnabled = loadPropBool("enderPickpocket.enabled", desc, enderPickpocketEnabled);
-
-		desc = "Set to true to only allow the Thermalily to absorb Lava if there's Obsidian below it. Another config option for the Blood Magic balance freaks.";
-		thermalilyObsidian = loadPropBool("thermalily.obsidian", desc, thermalilyObsidian);
 
 		desc = "Set to anything other than -1 for passive generation flowers (dayblooms, nightshades, hydroangeas) to die after a specific amount of ticks. 24000 is 2 minecraft days, that's a recomended value.";
 		hardcorePassiveGeneration = loadPropInt("passiveWither.time", desc, hardcorePassiveGeneration);
