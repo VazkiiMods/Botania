@@ -1661,8 +1661,8 @@ botania.page.craftCrate4=Right clicking the crate with a &1Wand of the Forest&0 
 botania.page.craftCrate7=Attaching a &1Comparator&0 to the crate will have it emit a signal equal to the amount of items inside the crate, which can be an extremely valuable asset in creating mechanisms with it.
 botania.page.craftCrate5=An example of crafting a &1Diamond Pickaxe&0
 botania.page.craftCrate6=Made in Portugal
-botania.page.craftCrate7=The &1Crafty Crate&0 can also be augmented with patterns. A pattern locks specific slots in the recipe, disallowing items from going into those slots and making them count as if there were placeholders there.<br>There's only a few basic patterns, which can be applied by right clicking on the crate (this doesn't consume them).
-botania.page.craftCrate8=9 different patterns
+botania.page.craftCrate8=The &1Crafty Crate&0 can also be augmented with patterns. A pattern locks specific slots in the recipe, disallowing items from going into those slots and making them count as if there were placeholders there.<br>There's only a few basic patterns, which can be applied by right clicking on the crate (this doesn't consume them).
+botania.page.craftCrate9=9 different patterns
 
 # -- ENDER OVERSEER
 botania.entry.enderEyeBlock=Ender Overseer
