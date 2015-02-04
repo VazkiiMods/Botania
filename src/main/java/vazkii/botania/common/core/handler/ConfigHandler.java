@@ -155,7 +155,7 @@ public final class ConfigHandler {
 		desc = "Set this to false to disable the Mana Enchanter. Since some people find it OP or something. This only disables the entry and creation. Old ones that are already in the world will stay.";
 		enchanterEnabled = loadPropBool("manaEnchanter.enabled", desc, enchanterEnabled);
 
-		desc = "The quanity of flower patches to generate in the world, defaults to 2, the lower the number the less patches generate.";
+		desc = "The quanity of flower patches to generate in the world. Defaults to 2, the lower the number is, the less that patches will generate.";
 		flowerQuantity = loadPropInt("worldgen.flower.quantity", desc, flowerQuantity);
 
 		desc = "The density of each flower patch generataed, defaults to 16, the lower the number, the less each patch will have.";
