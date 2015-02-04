@@ -1,6 +1,6 @@
 /**
  * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+ * part of the Botania Mod. Get the Source Code on GitHub:
  * https://github.com/Vazkii/Botania
  * 
  * Botania is Open Source and distributed under the
@@ -128,7 +128,7 @@ public final class ConfigHandler {
 		desc = "Set this to true if you are the chosen one. For lovers of glitch art and just general mad people.";
 		matrixMode = loadPropBool("matrixMode.enabled", desc, matrixMode);
 
-		desc = "Set this to false to disable the references in flower tooltips. (You monster D:)";
+		desc = "Set this to false to disable the references in flower tooltips. (You monster! :D)";
 		referencesEnabled = loadPropBool("references.enabled", desc, referencesEnabled);
 
 		desc = "Set this to false to disable checking and alerting when new Botania versions come out.";
@@ -155,7 +155,7 @@ public final class ConfigHandler {
 		desc = "Set this to false to disable the Mana Enchanter. Since some people find it OP or something. This only disables the entry and creation. Old ones that are already in the world will stay.";
 		enchanterEnabled = loadPropBool("manaEnchanter.enabled", desc, enchanterEnabled);
 
-		desc = "The quanity of flower patches to generate in the world. Defaults to 2, the lower the number is, the less that patches will generate.";
+		desc = "The quanity of flower patches to generate in the world. Defaults to 2, the lower the number is, the number of patches that generate will be smaller.";
 		flowerQuantity = loadPropInt("worldgen.flower.quantity", desc, flowerQuantity);
 
 		desc = "The density of each flower patch generataed, defaults to 16, the lower the number, the less each patch will have.";
