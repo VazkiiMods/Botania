@@ -17,6 +17,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -198,7 +199,8 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 		case 3 : { // Enchant
 			if(stageTicks >= 100) {
 				for(EnchantmentData data : enchants)
-					itemToEnchant.addEnchantment(Enchantment.enchantmentsList[data.enchant], data.level);
+					if(EnchantmentHelper.getEnchantmentLevel(data.enchant, itemToEnchant) == 0)
+						itemToEnchant.addEnchantment(Enchantment.enchantmentsList[data.enchant], data.level);
 
 				enchants.clear();
 				manaRequired = -1;
