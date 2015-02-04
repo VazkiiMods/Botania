@@ -28,12 +28,12 @@ public class BlockDirtPathSlab extends BlockLivingSlab {
 
 	@Override
 	public BlockSlab getFullBlock() {
-		return (BlockSlab) ModFluffBlocks.dirtPathSlab;
+		return (BlockSlab) ModFluffBlocks.dirtPathSlabFull;
 	}
 
 	@Override
 	public BlockSlab getSingleBlock() {
-		return (BlockSlab) ModFluffBlocks.dirtPathSlabFull;
+		return (BlockSlab) ModFluffBlocks.dirtPathSlab;
 	}
 
 	@Override
