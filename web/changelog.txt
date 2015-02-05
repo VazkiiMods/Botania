@@ -1,3 +1,8 @@
+r1.4 156
+*Fixed a crash when the Elementium Axe killed a player and dropped a skull.
+*Fixed the game completely freezing on the mojang splash screen on some AMD graphics cards. Technical details can be found <a href="https://github.com/Vazkii/Botania/commit/f8b0f2155d97944fcec7ab315864bb5f86ed9f54">here</a>.
+*Fixed the Mana Enchanter adding enchantments twice to items that already have an NBT compound for some reason.
+*Fixed the Trodden Dirt Slabs giving the wrong block when picked in creative.
 r1.4 155
 *Added a proper config for potion IDs rather than letting them auto-assign.
 *Changed the Ring of Chordata to check for air levels a bit better so it works properly with Mariculture.
