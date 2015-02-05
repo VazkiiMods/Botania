@@ -1,5 +1,4 @@
-#version 120
-#extension GL_EXT_gpu_shader4 : enable
+#version 130
 
 uniform sampler2D bgl_RenderedTexture;
 uniform int time; // Passed in, see ShaderHelper.java
