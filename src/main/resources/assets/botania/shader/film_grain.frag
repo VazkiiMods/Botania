@@ -1,4 +1,4 @@
-#version 130
+#version 120
 
 uniform sampler2D bgl_RenderedTexture;
 uniform int time; // Passed in, see ShaderHelper.java
@@ -10,7 +10,7 @@ float rand(vec2 co) {
 void main() {
     vec2 texcoord = vec2(gl_TexCoord[0]);
     vec4 color = texture2D(bgl_RenderedTexture, texcoord);
-    float gs = rand(vec2(int(texcoord.x * 512) ^ time, int(texcoord.y * 512) ^ ~time)) * 0.5;
+    float gs = rand(vec2(int(texcoord.x * 256), int(texcoord.y * 512))) * 0.5;
     
     gl_FragColor = vec4(gs, gs, gs, color.a);
 }
