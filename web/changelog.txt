@@ -1,3 +1,7 @@
+r1.4 157
+*Added a sanity check in the case that a brew is null for some reason, previously it would crash the nei lookup.
+*Changed the film grain shader again to fix AMD cards not working, again. I don't have an AMD card to test so fingers crossed it works this time.
+*Fixed Overgrowth Seeds not generating as chest loot.
 r1.4 156
 *Fixed a crash when the Elementium Axe killed a player and dropped a skull.
 *Fixed the game completely freezing on the mojang splash screen on some AMD graphics cards. Technical details can be found <a href="https://github.com/Vazkii/Botania/commit/f8b0f2155d97944fcec7ab315864bb5f86ed9f54">here</a>.
