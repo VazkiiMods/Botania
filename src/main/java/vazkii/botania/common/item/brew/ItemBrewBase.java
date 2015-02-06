@@ -166,7 +166,7 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem {
 	}
 
 	public static void setBrew(ItemStack stack, Brew brew) {
-		setBrew(stack, brew.getKey());
+		setBrew(stack, (brew == null ? BotaniaAPI.fallbackBrew : brew).getKey());
 	}
 
 	public static void setBrew(ItemStack stack, String brew) {
