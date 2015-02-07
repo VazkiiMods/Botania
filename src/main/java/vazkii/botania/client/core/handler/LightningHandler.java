@@ -74,6 +74,7 @@ public class LightningHandler {
 		interpPosY = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * frame;
 		interpPosZ = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * frame;
 
+		GL11.glPushMatrix();
 		GL11.glTranslated(-interpPosX, -interpPosY, -interpPosZ);
 
 		Tessellator tessellator = Tessellator.instance;
@@ -102,6 +103,8 @@ public class LightningHandler {
 		GL11.glDepthMask(true);
 
 		GL11.glTranslated(interpPosX, interpPosY, interpPosZ);
+		GL11.glPopMatrix();
+                
 		profiler.endSection();
 		profiler.endSection();
 
