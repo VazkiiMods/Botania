@@ -16,6 +16,7 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
@@ -23,7 +24,9 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaBlock;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.item.ModItems;
 
 public class LensMine extends Lens {
 
@@ -34,6 +37,13 @@ public class LensMine extends Lens {
 		int y = pos.blockY;
 		int z = pos.blockZ;
 		Block block = world.getBlock(x, y, z);
+		
+		ItemStack composite = ((ItemLens) ModItems.lens).getCompositeLens(stack);
+		boolean warp = composite != null && composite.getItem() == ModItems.lens && composite.getItemDamage() == ItemLens.WARP;
+		
+		if(warp && (block == ModBlocks.pistonRelay || block == Blocks.piston || block == Blocks.piston_extension || block == Blocks.piston_head))
+			return false;
+		
 		TileEntity tile = world.getTileEntity(x, y, z);
 
 		int meta = world.getBlockMetadata(x, y, z);
@@ -52,8 +62,13 @@ public class LensMine extends Lens {
 					if(ConfigHandler.blockBreakParticles)
 						entity.worldObj.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
 
+					int dropX = warp ? coords.posX : x;
+					int dropY = warp ? coords.posY : y;
+					int dropZ = warp ? coords.posZ : z;
+					
 					for(ItemStack stack_ : items)
-						world.spawnEntityInWorld(new EntityItem(world, x + 0.5, y + 0.5, z + 0.5, stack_));
+						world.spawnEntityInWorld(new EntityItem(world, dropX + 0.5, dropY + 0.5, dropZ + 0.5, stack_));
+					
 					burst.setMana(mana - 24);
 				}
 			}

@@ -56,6 +56,8 @@ public interface IManaBurst {
 
 	public boolean hasAlreadyCollidedAt(int x, int y, int z);
 
+	public void setCollidedAt(int x, int y, int z);
+	
 	public int getTicksExisted();
 
 }

@@ -17,7 +17,7 @@ import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
 
 public class Lens  {
-
+	
 	public void apply(ItemStack stack, BurstProperties props) {
 		// NO-OP
 	}
@@ -29,5 +29,5 @@ public class Lens  {
 	public void updateBurst(IManaBurst burst, EntityThrowable entity, ItemStack stack) {
 		// NO-OP
 	}
-
+	
 }

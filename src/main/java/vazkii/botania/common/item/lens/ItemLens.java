@@ -40,9 +40,9 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ItemLens extends ItemMod implements ILens {
 
-	public static final int SUBTYPES = 18;
+	public static final int SUBTYPES = 19;
 
-	private static final int NORMAL = 0,
+	public static final int NORMAL = 0,
 			SPEED = 1,
 			POWER = 2,
 			TIME = 3,
@@ -59,7 +59,8 @@ public class ItemLens extends ItemMod implements ILens {
 			PAINT = 14,
 			FIRE = 15,
 			PISTON = 16,
-			LIGHT = 17;
+			LIGHT = 17,
+			WARP = 18;
 
 	private static final int PROP_NONE = 0,
 			PROP_POWER = 1,
@@ -91,6 +92,7 @@ public class ItemLens extends ItemMod implements ILens {
 		setProps(FIRE, PROP_DAMAGE | PROP_TOUCH | PROP_INTERACTION);
 		setProps(PISTON, PROP_TOUCH | PROP_INTERACTION);
 		setProps(LIGHT, PROP_TOUCH | PROP_INTERACTION);
+		setProps(WARP, PROP_NONE);
 
 		setLens(NORMAL, fallbackLens);
 		setLens(SPEED, new LensSpeed());
@@ -110,6 +112,7 @@ public class ItemLens extends ItemMod implements ILens {
 		setLens(FIRE, new LensFire());
 		setLens(PISTON, new LensPiston());
 		setLens(LIGHT, new LensLight());
+		setLens(WARP, new LensWarp());
 	}
 
 	private static final String TAG_COLOR = "color";

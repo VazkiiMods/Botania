@@ -139,7 +139,8 @@ public final class LibItemNames {
 		"lensPaint",
 		"lensFire",
 		"lensPiston",
-		"lensLight"
+		"lensLight",
+		"lensWarp"
 	};
 
 	public static final String[] MANA_RESOURCE_NAMES = new String[] {
