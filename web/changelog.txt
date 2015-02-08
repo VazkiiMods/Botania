@@ -1,3 +1,10 @@
+r1.4 158
+*Added a new Mana Lens: Warp. It teleports bursts around. It lets you make quarries (good luck with that).
+*Fixed potions IDs being set to a value over 127 by default and added a check to change the old configs to a new proper value, networking passes the values as a byte, which means anything over 127 got messed up and crashed the game.
+*Fixed the particle render messing up other mods' renders when very far from 0,0. (Gwani)
+*Made the Rod of the Unstable Reservoir and Rod of the Shaded Mesa use Dreamwood Twigs in the crafting recipe.
+*[API] Added setCollidedAt to IManaBurst
+*[API] Updated version number to 31
 r1.4 157
 *Added a sanity check in the case that a brew is null for some reason, previously it would crash the nei lookup.
 *Changed the film grain shader again to fix AMD cards not working, again. I don't have an AMD card to test so fingers crossed it works this time.
