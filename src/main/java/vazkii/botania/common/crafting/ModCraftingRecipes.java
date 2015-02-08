@@ -1223,7 +1223,7 @@ public final class ModCraftingRecipes {
 		// Rod of the Black Mesa Recipe
 		addOreDictRecipe(new ItemStack(ModItems.gravityRod),
 				" TD", " WT", "T  ",
-				'T', LibOreDict.LIVINGWOOD_TWIG,
+				'T', LibOreDict.DREAMWOOD_TWIG,
 				'W', new ItemStack(Items.wheat),
 				'D', LibOreDict.DRAGONSTONE);
 		recipeGravityRod = BotaniaAPI.getLatestAddedRecipe();
@@ -1346,7 +1346,7 @@ public final class ModCraftingRecipes {
 				"GDD", " TD", "T G",
 				'G', LibOreDict.LIFE_ESSENCE,
 				'D', LibOreDict.DRAGONSTONE,
-				'T', LibOreDict.LIVINGWOOD_TWIG);
+				'T', LibOreDict.DREAMWOOD_TWIG);
 		recipeMissileRod = BotaniaAPI.getLatestAddedRecipe();
 
 		// Cloak of Virtue Recipe
