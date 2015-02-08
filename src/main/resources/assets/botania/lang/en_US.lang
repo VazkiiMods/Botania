@@ -1269,6 +1269,11 @@ botania.entry.paintLens=Paintslinger Lens
 botania.page.paintLens0=The &4Elves&0 are one crafty bunch. This lens is somewhat unique in comparison to the other lenses. The &1Paintslinger Lens&0 needs to be dyed one of the 16 colors of the spectrum to function. When it hits a colorable block (&1Wool, Stained Clay or Glass&0...) it'll turn any blocks connected, of the same type and color, into the color of the &4Mana Burst&0 itself. It seems to work with &4Sheep&0 too.
 botania.page.paintLens1=A M'AIDER Stranded Girl
 
+# -- WARP LENS
+botania.entry.warpLens=Warp Lens
+botania.page.warpLens0=The &1Mana Lens: Warp&0 is an interesting one. A &4Mana Burst&0 with its effect, when colliding with a &1Force Relay&0 will teleport to the end position of said &1Force Relay&0, maintaining its momentum. Furthermore, when it's used as a composite material to a &1Bore Lens&0 (the &1Bore Lens&0 must be visible) it'll make the lens not break &1Force Relays&0 or &1Pistons&0, as well as teleport any blocks to the spot where the burst was fired.
+botania.page.warpLens1=Hakase Quarries
+
 # -- MANA PRISM
 botania.entry.prism=Mana Prism
 botania.page.prism0=The concept of &1Mana Lens&0 allows for the manipulation of the power convyed through &4Mana Bursts&0, the &1Mana Prism&0 works on that technology to allow a burst to have its lens effect switched on the fly.<br>Using a &1Spectral Platform&0 as a component, this block does not have a physical presence, entities and bursts can go through it as if it doesn't exist.

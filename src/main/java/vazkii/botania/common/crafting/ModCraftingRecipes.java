@@ -159,6 +159,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeLensInfluence;
 	public static IRecipe recipeLensWeight;
 	public static IRecipe recipeLensPaint;
+	public static IRecipe recipeLensWarp;
 	public static List<IRecipe> recipesMiniIsland;
 	public static IRecipe recipeGaiaPylon;
 	public static IRecipe recipeGatherDrum;
@@ -1003,6 +1004,10 @@ public final class ModCraftingRecipes {
 				'L', new ItemStack(ModItems.lens));
 		recipeLensPaint = BotaniaAPI.getLatestAddedRecipe();
 
+		// Warp Lens Recipe
+		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 1, 18), new ItemStack(ModItems.lens), LibOreDict.PIXIE_DUST);
+		recipeLensWarp = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Mini Island Recipes
 		for(int i = 0; i < 16; i++)
 			GameRegistry.addRecipe(new ItemStack(ModBlocks.floatingFlower, 1, i),

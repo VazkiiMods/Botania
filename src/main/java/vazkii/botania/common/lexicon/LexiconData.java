@@ -66,6 +66,7 @@ public final class LexiconData {
 	public static LexiconEntry manastar;
 	public static LexiconEntry dreamwoodSpreader;
 	public static LexiconEntry paintLens;
+	public static LexiconEntry warpLens;
 	public static LexiconEntry sparks;
 	public static LexiconEntry sparkUpgrades;
 	public static LexiconEntry rfGenerator;
@@ -329,6 +330,9 @@ public final class LexiconData {
 		paintLens = new ALexiconEntry(LibLexicon.MANA_PAINT_LENS, categoryMana);
 		paintLens.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeLensPaint));
 
+		warpLens = new ALexiconEntry(LibLexicon.MANA_WARP_LENS, categoryMana);
+		warpLens.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeLensWarp));
+		
 		prism = new ALexiconEntry(LibLexicon.MANA_PRISM, categoryMana);
 		prism.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipePrism));
 
