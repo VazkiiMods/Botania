@@ -59,11 +59,11 @@ public final class ConfigHandler {
 	public static int flowerQuantity = 2;
 	public static int flowerDensity = 16;
 	
-	public static int potionIDSoulCross = 191;
-	public static int potionIDFeatherfeet = 192;
-	public static int potionIDEmptiness = 193;
-	public static int potionIDBloodthirst = 194;
-	public static int potionIDAllure = 195;
+	public static int potionIDSoulCross = 91;
+	public static int potionIDFeatherfeet = 92;
+	public static int potionIDEmptiness = 93;
+	public static int potionIDBloodthirst = 94;
+	public static int potionIDAllure = 95;
 
 	public static void loadConfig(File configFile) {
 		config = new Configuration(configFile);
@@ -198,7 +198,13 @@ public final class ConfigHandler {
 	
 	public static int loadPropPotionId(String propName, int default_) {
 		Property prop = config.get(CATEGORY_POTIONS, propName, default_);
-		return prop.getInt(default_);
+		int val = prop.getInt(default_);
+		if(val > 127) {
+			val = default_;
+			prop.set(default_);
+		}
+		
+		return val;
 	}
 
 	public static class ChangeListener {
