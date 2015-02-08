@@ -11,8 +11,8 @@ botaniamisc.craftingContainer=Retour aux recettes
 botaniamisc.shapeless=Recette sans schéma
 botaniamisc.oredict=Recette Ore Dictionary
 botaniamisc.statusUnknown=Statut inconnu
-botaniamisc.color=%s coloré
-botaniamisc.manaUsage=Utilisation de Mana
+botaniamisc.color=De couleur %s
+botaniamisc.manaUsage=Coût en Mana
 botaniamisc.shiftToRead=Maj + clic droit pour en savoir plus
 botaniamisc.clickToRecipe=Maj + clic pour voir la recette
 botaniamisc.clickToIndex=Maj + clic pour l'index
@@ -25,8 +25,8 @@ botaniamisc.compositeLens=Composée de %s
 botaniamisc.filter0=Prendre seulement les éléments du filtre
 botaniamisc.filter1=Prendre seulement les éléments hors filtre
 botaniamisc.filter2=Prendre tous les éléments
-botaniamisc.creativePool0=Creative Mana Pool, has infinite Mana
-botaniamisc.creativePool1=Worthy of an Egoist
+botaniamisc.creativePool0=Le Réservoir Infini, contient une quantité de mana infinie.
+botaniamisc.creativePool1=Digne d'un égoïste
 botaniamisc.savedByLaurel=Your Golden Laurel Crown shatters, as it saves you from death.
 botaniamisc.toolRank=%s&7 Rang
 botaniamisc.edition=Edition %s
@@ -78,11 +78,11 @@ botaniamisc.armorset=&bArmor Set&r:
 botaniamisc.craftToAddWill=&aCraft with a Terrasteel Helmet to add the following effect:
 
 # NEI INTEGRATION
-botania.nei.brewery=Botanical Brewery
-botania.nei.elvenTrade=Elven Trade
-botania.nei.manaPool=Mana Infusion
-botania.nei.petalApothecary=Petal Apothecary
-botania.nei.runicAltar=Runic Altar
+botania.nei.brewery=Brasserie Botanique
+botania.nei.elvenTrade=Commerce Elfique
+botania.nei.manaPool=Infusion de Mana
+botania.nei.petalApothecary=Autel à Pétales
+botania.nei.runicAltar=Autel Runique
 
 # BUILDCRAFT INTEGRATION
 botania.triggers.manaDetector=Mana Burst
@@ -191,27 +191,27 @@ botania.knowledge.alfheim= Savoir &aElfique&7
 blockBreakingParticles.enabled=Particules de destruction
 blockBreakingParticlesTool.enabled=Tool Block Break Particles
 boundBlock.wireframe.enabled=Bound Block Wireframe
-darkQuartz.enabled=Enable Smokey Quatrz
-fallenKanade.enabled=Enable Fallen Kanade
-manaEnchanter.enabled=Enable Mana Enchanter
+darkQuartz.enabled=Possibilité de fabriquer du Quartz fumé
+fallenKanade.enabled=Possibilité de fabriquer une Fleur Angélique
+manaEnchanter.enabled=Possibilité de fabriquer un Enchanteur à Mana
 flower.forceCheck=Flower Force Checking
 enderPickpocket.enabled=Enable Ender Pickpocketting
 thermalily.obsidian=Thermalily Needs Obsidian
 passiveWither.time=Passive Wither Time
 flowerParticles.frequency=Flower Particle Frequency
 lexicon.enable.rotatingItems=Lexicon Rotating Items
-lexicon.render.3D=3D Lexicon Render
+lexicon.render.3D=Rendu 3D du Lexique
 powerSystem.subtle=Use Subtle Power System
-pylonModel.old=Use Old Pylon Model
+pylonModel.old=Utiliser l'ancien modèle de Pylônes
 elfPortal.particles.enabled=Enable Portal Particles
 chargeAnimation.enabled=Charging Animation Enabled
 vanillaParticleConfig.enabled=Use Vanilla Particle Config
-manaSpreaders.silent=Silent Mana Spreaders
-flowerTextures.alt=Alternate Flower Textures
+manaSpreaders.silent=Diffuseurs de Mana silencieux
+flowerTextures.alt=Textures alternatives pour les fleurs
 matrixMode.enabled=Enable Matrix Mode
 references.enabled=Enable Tooltip References
 shaders.enabled=Enable Shader Usage
-baubleRender.enabled=Enable Bauble Rendering
+baubleRender.enabled=Activer le rendu des Babioles
 spreader.posShift=Spreader Pos Shift
 versionChecking.enabled=Enable Version Checking
 wandBeam.static=Enable Static Wand Beam
@@ -282,7 +282,7 @@ botania.versioning.disabled=Sorry. This feature is currently disabled due to ser
 botania.baubletype.amulet=A équiper dans l'emplacement d'&aAmulette&7
 botania.baubletype.ring=A équiper dans l'emplacement d'&aAnneau&7 
 botania.baubletype.belt=A équiper dans l'emplacement de &aCeinture&7 
-botania.baubletooltip=Appuyez sur &b%key%&7 pour ouvrir le menu de Baubles.
+botania.baubletooltip=Appuyez sur &b%key%&7 pour ouvrir le menu des Babioles.
 
 # ENTITY NAMES
 entity.Botania.botania:manaBurst.name=Rafale de Mana
@@ -299,23 +299,23 @@ entity.Botania.botania:thornChakram.name=Thorn Chakram
 
 # ACHIEVEMENT NAMES + DESC
 achievement.botania:flowerPickup=Ciel du commencement
-achievement.botania:flowerPickup.desc=Pick up a Mystical Flower from the world
-achievement.botania:lexiconUse=Outer Science
-achievement.botania:lexiconUse.desc=Open a Lexica Botania and have a look through the index
-achievement.botania:daybloomPickup=Daybreak Arrival
-achievement.botania:daybloomPickup.desc=Make a Daybloom in a Petal Apothecary
-achievement.botania:manaPoolPickup=Vivid Wave
-achievement.botania:manaPoolPickup.desc=Upgrade a Diluted Mana Pool to a normal one
-achievement.botania:endoflamePickup=Meltdown
-achievement.botania:endoflamePickup.desc=Create an Endoflame to boost Mana production
-achievement.botania:tinyPotatoPet=Just Be Friends
-achievement.botania:tinyPotatoPet.desc=Make a Tiny Potato and pet it
-achievement.botania:sparkCraft=Live Drive
-achievement.botania:sparkCraft.desc=Make a Spark to help transfer Mana around
-achievement.botania:baubleWear=Inner Arts
-achievement.botania:baubleWear.desc=Craft any variety of Bauble and wear it
-achievement.botania:manaCookieEat=Rotten Heresy and Chocolate
-achievement.botania:manaCookieEat.desc=Infuse and eat a delicions Mana Cookie
+achievement.botania:flowerPickup.desc=Prends une Fleur Mystique de la surface du Monde
+achievement.botania:lexiconUse=Science d'un autre monde
+achievement.botania:lexiconUse.desc=Ouvre un Lexica Botania et parcours l'index
+achievement.botania:daybloomPickup=L'aube d'un nouveau jour
+achievement.botania:daybloomPickup.desc=Crée une Fleur dur Jour dans un Autel à Pétales
+achievement.botania:manaPoolPickup=Onde Vive
+achievement.botania:manaPoolPickup.desc=Améliore un Réservoir de Mana Dilué en Réservoir de Mana
+achievement.botania:endoflamePickup=Fusion
+achievement.botania:endoflamePickup.desc=Crée une Endoflamme pour améliorer la production de Mana
+achievement.botania:tinyPotatoPet=Soyons amis
+achievement.botania:tinyPotatoPet.desc=Crée une Petite Patate et apprivoise-la
+achievement.botania:sparkCraft=Transfert en direct
+achievement.botania:sparkCraft.desc=Fabrique une Etincelle pour aider au transfert de mana
+achievement.botania:baubleWear=Arts Internes
+achievement.botania:baubleWear.desc=Fabrique une Babiole et porte-la
+achievement.botania:manaCookieEat=Hérésie pourrie et Chocolaterie
+achievement.botania:manaCookieEat.desc=Infuse et mange un délicieux Cookie au Mana
 achievement.botania:runePickup=Lilium Dolls
 achievement.botania:runePickup.desc=Use a Runic Altar to create a Rune
 achievement.botania:manaBlasterShoot=M'aider Stranded Girl
@@ -382,7 +382,7 @@ tile.botania:livingwood5.name=Bois de Vie Scintillant
 tile.botania:spreader0.name=Diffuseur de Mana
 tile.botania:spreader1.name=Diffuseur de Mana de Redstone
 tile.botania:spreader2.name=Diffuseur de Mana Elfique
-tile.botania:spreader3.name=Gaia Mana Spreader
+tile.botania:spreader3.name=Diffuseur de Mana de Gaia
 tile.botania:pool0.name=Réservoir de Mana
 tile.botania:pool1.name=Le Réservoir Infini
 tile.botania:pool2.name=Réservoir de Mana Dilué
@@ -569,8 +569,8 @@ tile.botania:customBrick15.name=Azulejo
 tile.botania:enderEyeBlock.name=Surveillant du Néant
 tile.botania:starfield.name=Starfield Creator
 tile.botania:rfGenerator.name=Convertisseur
-tile.botania:elfGlass.name=Alfglass
-tile.botania:brewery.name=Botanical Brewery
+tile.botania:elfGlass.name=Elfeverre
+tile.botania:brewery.name=Brasserie Botanique
 tile.botania:manaGlass.name=Managlass
 tile.botania:terraPlate.name=Terrestrial Agglomeration Plate
 tile.botania:redStringContainer.name=Red Stringed Container
@@ -945,19 +945,19 @@ item.botania:itemFinder.name=The Spectator
 item.botania:superLavaPendant.name=Crimson Pendant
 item.botania:enderHand.name=Main du Néant
 item.botania:glassPick.name=Vitreous Pickaxe
-item.botania:spark.name=Spark
-item.botania:sparkUpgrade0.name=Spark Augment: Dispersive
-item.botania:sparkUpgrade1.name=Spark Augment: Dominant
-item.botania:sparkUpgrade2.name=Spark Augment: Recessive
-item.botania:sparkUpgrade3.name=Spark Augment: Isolated
+item.botania:spark.name=Etincelle
+item.botania:sparkUpgrade0.name=Amérlioration d'Etincelle: Dispersive
+item.botania:sparkUpgrade1.name=Amérlioration d'Etincelle: Dominante
+item.botania:sparkUpgrade2.name=Amérlioration d'Etincelle: Récessive
+item.botania:sparkUpgrade3.name=Amérlioration d'Etincelle: Isolée
 item.botania:diviningRod.name=Bâton de Divination
 item.botania:gravityRod.name=Rod of the Black Mesa
 item.botania:regenIvy.name=Timeless Ivy
 item.botania:manaInkwell.name=Botanurgist's Inkwell
 item.botania:vial0.name=Managlass Vial
-item.botania:vial1.name=Alfglass Flask
-item.botania:brewVial.name=Vial of %s (%s)
-item.botania:brewFlask.name=Flask of %s (%s)
+item.botania:vial1.name=Flasque d'Elfeverre
+item.botania:brewVial.name=Fiole of %s (%s)
+item.botania:brewFlask.name=Flasque of %s (%s)
 item.botania:bloodPendant.name=Tainted Blood Pendant
 item.botania:redString.name=Red String
 item.botania:missileRod.name=Rod of the Unstable Reservoir
@@ -967,7 +967,7 @@ item.botania:craftingHalo.name=Assembly Halo
 item.botania:blackLotus0.name=Black Lotus
 item.botania:blackLotus1.name=Void Lotus
 item.botania:dreamwoodTwig.name=Dreamwood Twig
-item.botania:monocle.name=Manaseer Monocle
+item.botania:monocle.name=Monocle du Cherche-Mana
 item.botania:clip.name=Lens Clip
 item.botania:cobbleRod.name=Rod of the Depths
 item.botania:smeltRod.name=Rod of the Molten Core
@@ -997,7 +997,7 @@ item.botania:ancientWill5.name=Volonté de Karil
 
 # BREW NAMES
 botania.brew.fallback=Fallback
-botania.brew.speed=Fleetfeet
+botania.brew.speed=Vivecourse
 botania.brew.strength=Vigor
 botania.brew.haste=Adrenaline
 botania.brew.healing=Mending
@@ -1005,10 +1005,10 @@ botania.brew.jumpBoost=Upsurging
 botania.brew.regen=Revitalization
 botania.brew.regenWeak=Restoration
 botania.brew.resistance=Fortitude
-botania.brew.fireResistance=Magmaskin
-botania.brew.waterBreathing=Gills
+botania.brew.fireResistance=Rochepeau
+botania.brew.waterBreathing=Branchies
 botania.brew.invisibility=Cloaking
-botania.brew.nightVision=Owlsight
+botania.brew.nightVision=Ombrœil
 botania.brew.absorption=Shielding
 botania.brew.soulCross=Crossed Souls
 botania.brew.featherFeet=Feather Feet
@@ -1036,7 +1036,7 @@ botania.category.functionalFlowers=Fleurs Fonctionnelles
 botania.category.generationFlowers=Fleurs Génératrices
 botania.category.devices=Éléments Naturels
 botania.category.tools=Objets Mystiques
-botania.category.baubles=Baubles et Accessoires
+botania.category.baubles=Babioles et Accessoires
 botania.category.alfhomancy=Alfhomancie
 botania.category.misc=Divers
 
@@ -1123,7 +1123,7 @@ botania.page.terrasteel3=The pattern for creating &1Terrasteel&0
 
 # -- BLACK LOTUS
 botania.entry.blackLotus=Lotus Noir
-botania.page.blackLotus0=An elusive flower by the name of &1Black Lotus&0 is known to exist, however, it does not grow or reproduce. Where they can be found or come from is not known.<br>It is known, however, that it contains a strong amount of concentrated &4Mana&0, that can be released by putting it in contact with a &1Mana Pool&0 that already has some in it. Just tossing it would do. 
+botania.page.blackLotus0=On raconte qu'une fleur insaisissable nommée &1Lotus Noir&0 existe, cependant, elle ne pousse pas ni ne se reproduit. Nul ne sait où elles poussent et d'où elles viennent.<br>On sait, cependant, que cette plante contient beaucoup de &4Mana&0 concentré, qui peut être libéré en mettant en contact le Lotus Noir avec un &1Réservoir de Mana&0 qui en contient déjà un peu. La lancer suffira. 
 
 # -- WRAP
 botania.entry.wrap=Wrap
@@ -1512,33 +1512,6 @@ botania.entry.turntable=Spreader Turntable
 botania.page.turntable0=The &1Spreader Turntable&0, as its name implies, can turn &1Mana Spreaders&0 around and around. Placing a spreader above the turntable will rotate it, given that a redstone signal isn't applied.<br>To change the speed of the turntable, right click with a &1Baguette Sylvestre&0, shift-right clicking will invert the movement.
 botania.page.turntable1=Spin spin spin spin
 
-# -- ALCHEMISING WITH MANA
-botania.entry.manaAlchemy=Alchemising with Mana
-botania.page.manaAlchemy0=&4Mana&0 is an extremely volatile substance, to a point that its complete properties and abilities are unknown.<br>One of them is known, though, by attaching an &1Alchemy Catalyst&0, created with a mixture of otherworldly materials to the bottom of a &1Mana Pool&0, it enables the pool to perform &4Alchemy&0.
-botania.page.manaAlchemy1=Creating the &1Catalyst&0
-botania.page.manaAlchemy2=&1Rotten Flesh&0 to &1Leather&0
-botania.page.manaAlchemy3=Various types of &1Wood&0
-botania.page.manaAlchemy4=Various types of &1Saplings&0
-botania.page.manaAlchemy5=Breaking down &1Glowstone Blocks&0
-botania.page.manaAlchemy6=Breaking down &1Quartz Blocks&0
-botania.page.manaAlchemy7=Creating &1Chiseled Stone Bricks&0
-botania.page.manaAlchemy8=Further freezing &1Snow&0 into &1Ice&0
-botania.page.manaAlchemy9=Converting between &1Vines&0 and &1Lilypads&0
-botania.page.manaAlchemy10=Various breeds of &1Fish&0
-botania.page.manaAlchemy11=Transmuting &1Seeds&0 and &1Crops&0
-botania.page.manaAlchemy12=Purifying &1Poisonous Potatoes&0
-botania.page.manaAlchemy13=Conjuring &1Nether Wart&0
-botania.page.manaAlchemy14=Converting between &1Gunpowder&0 and &1Flint&0
-botania.page.manaAlchemy15=Making &1Name Tags&0
-botania.page.manaAlchemy16=Splitting &1Wool&0 into &1String&0
-botania.page.manaAlchemy17=Converting between &1Slimeballs&0 and &1Cactus&0
-botania.page.manaAlchemy18=Creating &1Ender Pearls&0
-botania.page.manaAlchemy19=Converting between &1Glowstone&0 and &1Redstone&0
-botania.page.manaAlchemy20=Breaking &1Cobblestone&0 into &1Sand&0
-botania.page.manaAlchemy21=Breaking &1Hardened Clay&0 into &1Red Sand&0
-botania.page.manaAlchemy22=Breaking down &1Clay&0 and &1Bricks&0
-botania.page.manaAlchemy23=Making &1Coarse Dirt&0
-
 # -- BOTANICAL ALCHEMY
 botania.entry.manaAlchemy=Alchimie avec Mana
 botania.page.manaAlchemy0=Le &4Mana&0 est une substance encore peu connue, qui dispose de propriétés assez mystérieuses.<br>En attachant un &1Catalyseur Alchimique&0 à un &1Réservoir de Mana&0, vous pourrez faire de l'&4Alchimie&0 grâce à ce dernier.
@@ -1563,13 +1536,14 @@ botania.page.manaAlchemy18=Créer une &1Perle du Néant&0
 botania.page.manaAlchemy19=Convertir &1Poudre de Pierre Lumineuse&0 et &1Redstone&0
 botania.page.manaAlchemy20=Transformer la &1Pierre taillée&0 en &1Sable&0
 botania.page.manaAlchemy21=Transformer la &1Terre Cuite&0 en &1Sable Rouge&0
-botania.page.manaAlchemy22=Créer de la &1Terre Stérile&0
+botania.page.manaAlchemy22=Fragmenter l'&1Argile&0 et les &1Briques&0
+botania.page.manaAlchemy23=Créer de la &1Terre Stérile&0
 
 # -- BREWING FLASKS
-botania.entry.flasks=Brewing Flasks
-botania.page.flasks0=&1Alfglass&0 seems to be more maleable than the typical &1Managlass&0 used for &1Vials&0. A &1Flask&0, made with &1Alfglass&0 is the typical elven container for &4Brews&0, and can contain 6 doses of one, rather than the 4 a &1Vial&0 does.
-botania.page.flasks1=While the ingredient cost to brew something in a &1Flask&0 is smaller, the &4Mana&0 cost is double that of a regular &1Vial&0.<br>Lastly, given that the bottleneck of a &1Flask&0 is larger than that of a &1Vial&0, the contents can be consumed faster.
-botania.page.flasks2=Get one under the bridge
+botania.entry.flasks=Flasques à breuvages
+botania.page.flasks0=L'&1Elfeverre&0 semble plus malléable que le traditionnel &1Verre de Mana&0 utilisé pour les &1Fioles&0. Une &1Flasque&0 d'&1Elfeverre&0 est le contenant elfique par excellence pour les &4Breuvages&0, et peut contenir 6 doses, là où une &1Fiole&0 en contient 4.
+botania.page.flasks1=Si distiller dans une &1Flasque&0 requiert moins d'ingrédients, le coût en &4Mana&0 est le double de celui d'une &1Fiole&0.<br>Enfin, vu que le goulot d'une &1Flasque&0 est plus large que celui d'une &1Fiole&0, le contenu peut être consommé plus vite.
+botania.page.flasks2=Parfait si l'on est sous un pont.
 
 # -- COMPLEX BREWING
 botania.entry.complexBrews=Complex Brews
@@ -1898,10 +1872,10 @@ botania.page.overgrowthSeed0=An &1Overgrowth Seed&0 is an elusive item, which ca
 
 # - BAUBLES
 # -- AN INTRODUCTION TO BAUBLES
-botania.entry.bIntro=An Introduction to Baubles
-botania.page.bIntro0=&4Baubles&0, also commonly referred to as &4Trinkets&0 or &4Charms&0 are pieces of equipment which offer all sorts of different effects, when worn.<br>To equip them, one can press the &4B&0 (configurable) key. There's four slots, one &4Amulet&0 slot, two &4Ring&0 slots and one &4Belt&0 slot.
-botania.page.bIntro1=The &4Baubles Screen&0
-botania.page.bIntro2=It's to note that, if &4Thaumcraft&0 or any other mod that uses the baubles system is installed, this inventory will be shared between the various mods.
+botania.entry.bIntro=Introduction aux Babioles
+botania.page.bIntro0=Les &4Babioles&0, aussi connues sous les noms de &4Colifichets&0 ou de &4Charmes&0 sont des pièces d'équipement qui offrent différents effets quand elles sont équipées.<br>Pour les équiper, appuyez sur la touche &4B&0 (vous pouvez la configurer dans les options). Il y a quatre emplacements : Un d'amulette, deux d'anneau et un de ceinture.
+botania.page.bIntro1=L'&4écran des Babioles&0
+botania.page.bIntro2=Une note intéressante est que, si &4Thaumcraft&0 ou un autre mod utilisant le système de babioles est installé, cet inventaire sera partagé entre les différents mods.
 
 # -- TINY PLANET
 botania.entry.tinyPlanet=Tiny Planet
@@ -2013,9 +1987,9 @@ botania.page.judgementCloaks2=A Holy Mantle
 botania.page.judgementCloaks3=Taste Vengance!
 
 # -- MANASEER MONOCLE
-botania.entry.monocle=Manaseer Monocle
-botania.page.monocle0=A handy acessory for one who requires a thorough window into where their &4Mana Bursts&0 are going is the &1Manaseer Monocle&0. Not only is it a rather fancy eyepiece but it also allows the wearer to see all nearby &4Mana Bursts&0, even if their line of sight towards them is blocked by something.
-botania.page.monocle1=Why hello there old chap
+botania.entry.monocle=Monocle du Cherche-Mana
+botania.page.monocle0=Un accessoire utile pour celui qui a besoin d'une fenêtre ouverte sur le chemin pris par ses &4Rafales de Mana&0 est le &1Monocle du Cherche-Mana&0. Non seulement, il s'agit d'un oculaire classieux mais il permet aussi à son porteur de voir toutes les &4Rafales de Mana&0 proches, et ce même si leur champ de vision est obstrué.
+botania.page.monocle1=Bien le bonjour, mon bon monsieur.
 
 # - ALFHOMANCY
 # -- THE PORTAL TO ALFHEIM
@@ -2034,15 +2008,15 @@ botania.page.aIntro10=The amount of &4Mana&0 required to open up the portal is o
 botania.page.aIntro11=The amount of information about &1Alfheim&0 stored in this lexicon is resumed to this entry alone, perhaps &4letting the Elves have a look at it&0 might prove beneficial.
 
 # -- A MESSAGE FROM ELVEN GARDE
-botania.entry.elfMessage=A Message from Elven Garde
+botania.entry.elfMessage=Missive de l'Elfegarde
 botania.page.elfMessage0=
 # ^ This is blank on purpose
-botania.page.elfMessage1=&oGreetings. We noticed that our portal was opened via a link from another world. That's rather shocking news indeed. We thank you very much for providing us with a repository of the knowledge from your world, as to keep us up to date to what happened since we left it, it's been a while since then, indeed.
-botania.page.elfMessage2=&oAfter some discussion with the high council of Elven Garde, we have decided to cooperate with you. You see, reading through your "Lexica Botania" has shown us a good amount of resources from your world that we would be extremely keen as to get our hands on, as these are non-existent in our lands.
-botania.page.elfMessage3=&oThe link you have managed to establish is rather weak, no living beings will be able to go through, as you already know. However, there's a positive side to this, the link strikes the fabric of time of both our worlds in a way where it doesn't keep them in sync, that's the reason why you received your book back so quickly.
-botania.page.elfMessage4=&oWhen it comes to Mana and other magical energies, we are plenty stocked on them, so worry not about the portal closing on our end. Let's put this in prospect, in order for the advance of both our civilizations, we vow to accept a given set of resources from your world we lack in ours in exchange for resources you lack in yours.
-botania.page.elfMessage5=&oWe have taken the liberty of assigning our best scribes to put together a great set of knowledge from our world we're willing to share, you can find it in your lexicon just as you'd find knowledge from yours. We hope you find it enlightening and that it encourages you to invest in our materials.
-botania.page.elfMessage6=&oLast but not least, do keep in mind that if you decide to send something we have not vouched to trade for, we will assume it as a gift and keep it for ourselves, just as a forewarning. We look forward to exchanging resources with you.<br>Best Regards, the High Council of Elven Garde.
+botania.page.elfMessage1=&oSalutations. Nous avons remarqué que notre portail a été ouvert depuis un autre monde. Ce sont de troublantes nouvelles en effet. Nous vous remercions grandement pour le compendium de connaissances que vous nous avez envoyé, afin que nous puission rester à jour quant à ce qui s'est passé chez vous depuis notre départ, il y a fort longtemps.
+botania.page.elfMessage2=&oAprès avoir discuté avec le Haut-Conseil de l'Elfegarde, nous avons décidé de collaborer avec vous : Voyez-vous, en lisant votre "Lexica Botania", nous avons découvert moult ressources de votre monde sur lesquelles nous aimerions beaucoup mettre la main, celles-ci étant inexistantes chez nous.
+botania.page.elfMessage3=&oLe lien que vous avez établi étant très faible, aucun être vivant ne pourra emprunter ce portail, comme vous le savez déjà. Néanmoins, il y a quand même une notre positive à cela, le lien tord les tissus temporels de nos deux mondes d'une manière telle qu'ils ne sont pas synchrones, expliquant que vous ayez récupéré votre "Lexica" si vite.
+botania.page.elfMessage4=&oPour ce qui est du Mana et des autres énergies magiques, nous en avons une très large réserve, donc le portail ne se fermera pas de notre côté. Et si l'on met ça en perspective, pour l'avancée de nos civilisations respectives, nous vous proposons d'échanger des ressources de votre monde et absentes du notre contre les ressources qui vous manquent.
+botania.page.elfMessage5=&oNous avons pris la liberté de demander à nos meilleurs scribes de rassembler tout un florilège de connaissance que nous sommes prêts à partager avec vous, que vous pourrez trouver dans votre "Lexica". Nous espérons que vous trouverez cela enrichissant et que cela vous incitera à investir dans nos ressources.
+botania.page.elfMessage6=&oEnfin, nous souhaitons vous avertir que si vous veniez à nous envoyer quelque chose qui n'était pas dans notre accord de commerce, nous prendrons cela comme un présent et le garderons pour nous. Nous avons hâte de pouvoir échanger des ressources avec vous.<br>Sincères salutations, le Haut-Conseil de l'Elfegarde.
 
 # -- THE RESOURCES OF ALFHEIM
 botania.entry.elfResources=The Resources of Alfheim
