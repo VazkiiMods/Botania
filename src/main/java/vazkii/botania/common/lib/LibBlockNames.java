@@ -71,6 +71,7 @@ public final class LibBlockNames {
 	public static final String ENCHANTED_SOIL = "enchantedSoil";
 	public static final String BIOME_STONE_A = "biomeStoneA";
 	public static final String BIOME_STONE_B = "biomeStoneB";
+	public static final String PETAL_BLOCK = "petalBlock";
 
 	public static final String SUBTILE_PUREDAISY = "puredaisy";
 	public static final String SUBTILE_MANASTAR = "manastar";

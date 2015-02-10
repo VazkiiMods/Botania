@@ -664,6 +664,22 @@ tile.botania:biomeStoneB4Slab.name=Metamorphic Swamp Stone Brick Slab
 tile.botania:biomeStoneB5Slab.name=Metamorphic Desert Stone Brick Slab
 tile.botania:biomeStoneB6Slab.name=Metamorphic Taiga Stone Brick Slab
 tile.botania:biomeStoneB7Slab.name=Metamorphic Mesa Stone Bricks Slab
+tile.botania:petalBlock0.name=White Petal Block
+tile.botania:petalBlock1.name=Orange Petal Block
+tile.botania:petalBlock2.name=Magenta Petal Block
+tile.botania:petalBlock3.name=Light Blue Petal Block
+tile.botania:petalBlock4.name=Yellow Petal Block
+tile.botania:petalBlock5.name=Lime Petal Block
+tile.botania:petalBlock6.name=Pink Petal Block
+tile.botania:petalBlock7.name=Gray Petal Block
+tile.botania:petalBlock8.name=Light Gray Petal Block
+tile.botania:petalBlock9.name=Cyan Petal Block
+tile.botania:petalBlock10.name=Purple Petal Block
+tile.botania:petalBlock11.name=Blue Petal Block
+tile.botania:petalBlock12.name=Brown Petal Block
+tile.botania:petalBlock13.name=Green Petal Block
+tile.botania:petalBlock14.name=Red Petal Block
+tile.botania:petalBlock15.name=Black Petal Block
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower

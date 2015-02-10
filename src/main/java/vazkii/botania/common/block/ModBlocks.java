@@ -27,6 +27,7 @@ import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.decor.BlockManaBeacon;
 import vazkii.botania.common.block.decor.BlockManaFlame;
 import vazkii.botania.common.block.decor.BlockManaGlass;
+import vazkii.botania.common.block.decor.BlockPetalBlock;
 import vazkii.botania.common.block.decor.BlockPrismarine;
 import vazkii.botania.common.block.decor.BlockReeds;
 import vazkii.botania.common.block.decor.BlockSeaLamp;
@@ -192,6 +193,7 @@ public final class ModBlocks {
 	public static Block prism;
 	public static Block dirtPath;
 	public static Block enchantedSoil;
+	public static Block petalBlock;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -250,7 +252,8 @@ public final class ModBlocks {
 		prism = new BlockPrism();
 		dirtPath = new BlockDirtPath();
 		enchantedSoil = new BlockEnchantedSoil();
-
+		petalBlock = new BlockPetalBlock();
+		
 		ModFluffBlocks.init();
 
 		for(int i = 0; i < 16; i++)
