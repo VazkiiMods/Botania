@@ -28,12 +28,14 @@ public class LensWarp extends Lens {
 		Block block = entity.worldObj.getBlock(pos.blockX, pos.blockY, pos.blockZ);
 		if(block == ModBlocks.pistonRelay) {
 			String key = BlockPistonRelay.mappedPositions.get(BlockPistonRelay.getCoordsAsString(entity.worldObj.provider.dimensionId, pos.blockX, pos.blockY, pos.blockZ));
-			String[] tokens = key.split(":");
-			int worldId = Integer.parseInt(tokens[0]), x = Integer.parseInt(tokens[1]), y = Integer.parseInt(tokens[2]), z = Integer.parseInt(tokens[3]);
-			if(worldId == entity.worldObj.provider.dimensionId) {
-				entity.setPosition(x + 0.5, y + 0.5, z + 0.5);
-				burst.setCollidedAt(x, y, z);
-				return false;
+			if(key != null) {
+				String[] tokens = key.split(":");
+				int worldId = Integer.parseInt(tokens[0]), x = Integer.parseInt(tokens[1]), y = Integer.parseInt(tokens[2]), z = Integer.parseInt(tokens[3]);
+				if(worldId == entity.worldObj.provider.dimensionId) {
+					entity.setPosition(x + 0.5, y + 0.5, z + 0.5);
+					burst.setCollidedAt(x, y, z);
+					return false;
+				}
 			}
 		}
 		return dead;
