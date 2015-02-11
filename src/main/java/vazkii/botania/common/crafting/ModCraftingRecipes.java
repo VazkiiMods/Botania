@@ -40,6 +40,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeLexicon;
 	public static List<IRecipe> recipesPetals;
 	public static List<IRecipe> recipesDyes;
+	public static List<IRecipe> recipesPetalBlocks;
 	public static IRecipe recipePestleAndMortar;
 	public static List<IRecipe> recipesTwigWand;
 	public static List<IRecipe> recipesApothecary;
@@ -242,6 +243,13 @@ public final class ModCraftingRecipes {
 			addShapelessOreDictRecipe(new ItemStack(ModItems.dye, 1, i), LibOreDict.PETAL[i], LibOreDict.PESTLE_AND_MORTAR);
 		recipesDyes = BotaniaAPI.getLatestAddedRecipes(16);
 
+		// Petal Block Recipes
+		for(int i = 0; i < 16; i++)
+			addOreDictRecipe(new ItemStack(ModBlocks.petalBlock, 1, i), 
+					"PPP", "PPP", "PPP", // PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+					'P', LibOreDict.PETAL[i]); 
+		recipesPetalBlocks = BotaniaAPI.getLatestAddedRecipes(16);
+			
 		// Pestle and Mortar Recipe
 		addOreDictRecipe(new ItemStack(ModItems.pestleAndMortar),
 				" S", "W ", "B ",

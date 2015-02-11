@@ -17,15 +17,20 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import vazkii.botania.api.lexicon.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
+import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class BlockPetalBlock extends BlockMod {
+public class BlockPetalBlock extends BlockMod implements ILexiconable {
 
 	public BlockPetalBlock() {
 		super(Material.plants);
@@ -65,6 +70,10 @@ public class BlockPetalBlock extends BlockMod {
 	public int damageDropped(int meta) {
 		return meta;
 	}
-	
 
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return LexiconData.flowers;
+	}
+	
 }
