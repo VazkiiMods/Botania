@@ -298,7 +298,7 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m, boolean fake) {
-		if(!doParticle() && !fake)
+		if(!doParticle(world) && !fake)
 			return;
 
 		FXSparkle sparkle = new FXSparkle(world, x, y, z, size, r, g, b, m);
@@ -325,7 +325,7 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size, float motionx, float motiony, float motionz, float maxAgeMul) {
-		if(!doParticle())
+		if(!doParticle(world))
 			return;
 
 		FXWisp wisp = new FXWisp(world, x, y, z, size, r, g, b, distanceLimit, depthTest, maxAgeMul);
@@ -336,7 +336,10 @@ public class ClientProxy extends CommonProxy {
 		Minecraft.getMinecraft().effectRenderer.addEffect(wisp);
 	}
 
-	private boolean doParticle() {
+	private boolean doParticle(World world) {
+		if(!world.isRemote)
+			return false;
+		
 		if(!ConfigHandler.useVanillaParticleLimiter)
 			return true;
 
@@ -346,7 +349,7 @@ public class ClientProxy extends CommonProxy {
 		else if(Minecraft.getMinecraft().gameSettings.particleSetting == 2)
 			chance = 0.2F;
 
-		return Math.random() < chance;
+		return chance == 1F || Math.random() < chance;
 	}
 
 	@Override
