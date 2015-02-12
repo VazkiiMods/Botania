@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jan 14, 2014, 5:53:00 PM (GMT)]
  */
@@ -36,6 +35,7 @@ import vazkii.botania.api.lexicon.KnowledgeType;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lib.LibGuiIDs;
@@ -65,7 +65,10 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 					LexiconEntry entry = ((ILexiconable) block).getEntry(par3World, par4, par5, par6, par2EntityPlayer, par1ItemStack);
 					if(entry != null && isKnowledgeUnlocked(par1ItemStack, entry.getKnowledgeType())) {
 						Botania.proxy.setEntryToOpen(entry);
+						Botania.proxy.setLexiconStack(par1ItemStack);
+
 						par2EntityPlayer.openGui(Botania.instance, LibGuiIDs.LEXICON, par3World, 0, 0, 0);
+						par2EntityPlayer.addStat(ModAchievements.lexiconUse, 1);
 						if(!par3World.isRemote)
 							par3World.playSoundAtEntity(par2EntityPlayer, "botania:lexiconOpen", 0.5F, 1F);
 						return true;
@@ -135,6 +138,8 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 			setForcedPage(par1ItemStack, "");
 		}
 
+		Botania.proxy.setLexiconStack(par1ItemStack);
+		par3EntityPlayer.addStat(ModAchievements.lexiconUse, 1);
 		par3EntityPlayer.openGui(Botania.instance, LibGuiIDs.LEXICON, par2World, 0, 0, 0);
 		if(!par2World.isRemote && !skipSound)
 			par2World.playSoundAtEntity(par3EntityPlayer, "botania:lexiconOpen", 0.5F, 1F);

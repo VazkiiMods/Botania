@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [May 4, 2014, 12:29:56 PM (GMT)]
  */
@@ -25,6 +24,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -44,6 +44,8 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 	IIcon iconBottom;
 	IIcon iconSideCraft;
 	IIcon iconBottomCraft;
+
+	IIcon[] sidePatternIcons;
 
 	Random random;
 
@@ -136,11 +138,24 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 		iconBottom = IconHelper.forBlock(par1IconRegister, this, 1);
 		iconSideCraft = IconHelper.forBlock(par1IconRegister, this, 2);
 		iconBottomCraft = IconHelper.forBlock(par1IconRegister, this, 3);
+
+		sidePatternIcons = new IIcon[TileCraftCrate.PATTERNS.length];
+		for(int i = 0; i < sidePatternIcons.length; i++)
+			sidePatternIcons[i] = IconHelper.forName(par1IconRegister, "ocPattern" + i);
 	}
 
 	@Override
 	public IIcon getIcon(int side, int meta) {
 		return meta == 0 ? side == 0 ? iconBottom : iconSide : side == 0 ? iconBottomCraft : iconSideCraft;
+	}
+
+	@Override
+	public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side) {
+		TileEntity tile = world.getTileEntity(x, y, z);
+		if(tile != null && tile instanceof TileCraftCrate && ((TileCraftCrate) tile).pattern != -1 && side != 0)
+			return sidePatternIcons[((TileCraftCrate) tile).pattern];
+
+		return super.getIcon(world, x, y, z, side);
 	}
 
 	@Override

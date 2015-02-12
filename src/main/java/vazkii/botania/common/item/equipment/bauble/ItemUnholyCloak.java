@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Dec 4, 2014, 11:12:51 PM (GMT)]
  */
@@ -13,7 +12,6 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import java.util.List;
 
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
@@ -33,7 +31,7 @@ public class ItemUnholyCloak extends ItemHolyCloak {
 	public ItemUnholyCloak() {
 		super(LibItemNames.UNHOLY_CLOAK);
 	}
-	
+
 	@Override
 	public boolean effectOnDamage(LivingHurtEvent event, EntityPlayer player, ItemStack stack) {
 		if(!event.source.isUnblockable()) {
@@ -44,24 +42,24 @@ public class ItemUnholyCloak extends ItemHolyCloak {
 					EntityLivingBase entity = (EntityLivingBase) mob;
 					entity.attackEntityFrom(DamageSource.causePlayerDamage(player), event.ammount);
 				}
-			
+
 			player.worldObj.playSoundAtEntity(player, "botania:unholyCloak", 1F, 1F);
 			for(int i = 0; i < 90; i++) {
-				float rad = (float) i * 4F * (float) Math.PI / 180F;
+				float rad = i * 4F * (float) Math.PI / 180F;
 				float xMotion = (float) Math.cos(rad) * 0.2F;
 				float zMotion = (float) Math.sin(rad) * 0.2F;
 				Botania.proxy.wispFX(player.worldObj, player.posX, player.posY + 0.5, player.posZ, 0.4F + (float) Math.random() + 0.25F, 0F, 0F, 0.6F + (float) Math.random() * 0.2F, xMotion, 0F, zMotion);
 			}
-			
+
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	@Override
 	ResourceLocation getRenderTexture() {
 		return texture;
 	}
-	
+
 }

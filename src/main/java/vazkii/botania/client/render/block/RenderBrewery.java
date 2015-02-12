@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Oct 31, 2014, 5:00:12 PM (GMT)]
  */
@@ -18,12 +17,10 @@ import net.minecraft.world.IBlockAccess;
 
 import org.lwjgl.opengl.GL11;
 
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.client.render.tile.RenderTileBrewery;
-import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.block.tile.TileBrewery;
-import vazkii.botania.common.block.tile.TileSpawnerClaw;
+import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class RenderBrewery implements ISimpleBlockRenderingHandler {
 
@@ -52,5 +49,5 @@ public class RenderBrewery implements ISimpleBlockRenderingHandler {
 	public int getRenderId() {
 		return LibRenderIDs.idBrewery;
 	}
-	
+
 }

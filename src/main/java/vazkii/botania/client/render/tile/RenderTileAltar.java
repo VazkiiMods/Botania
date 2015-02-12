@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jan 21, 2014, 7:55:47 PM (GMT)]
  */
@@ -16,7 +15,6 @@ import java.awt.Color;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -134,7 +132,7 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 			Block block = lava ? Blocks.lava : Blocks.water;
 			int brightness = lava ? 240 : -1;
 			float alpha = lava ? 1F : 0.7F;
-			
+
 			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			GL11.glDisable(GL11.GL_ALPHA_TEST);
@@ -154,7 +152,7 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 		}
 		GL11.glPopMatrix();
 	}
-	
+
 	public void renderIcon(int par1, int par2, IIcon par3Icon, int par4, int par5, int brightness) {
 		Tessellator tessellator = Tessellator.instance;
 		tessellator.startDrawingQuads();

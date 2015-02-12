@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Nov 14, 2014, 7:05:32 PM (GMT)]
  */
@@ -32,7 +31,7 @@ public final class RedStringRenderer {
 
 	public static final Queue<TileRedString> redStringTiles = new ArrayDeque();
 	static float sizeAlpha = 0F;
-	
+
 	public static void renderAll() {
 		if(!redStringTiles.isEmpty()) {
 			GL11.glPushMatrix();
@@ -48,7 +47,7 @@ public final class RedStringRenderer {
 			TileRedString tile;
 			while((tile = redStringTiles.poll()) != null)
 				renderTile(tile);
-			
+
 			if(lighting)
 				GL11.glEnable(GL11.GL_LIGHTING);
 			GL11.glEnable(GL11.GL_TEXTURE_2D);
@@ -57,7 +56,7 @@ public final class RedStringRenderer {
 
 		}
 	}
-	
+
 	public static void tick() {
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 		boolean hasWand = player != null && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == ModItems.twigWand;
@@ -66,11 +65,11 @@ public final class RedStringRenderer {
 		else if(sizeAlpha < 1F &&hasWand)
 			sizeAlpha += 0.1F;
 	}
-	
+
 	private static void renderTile(TileRedString tile) {
 		ForgeDirection dir = ForgeDirection.getOrientation(tile.getBlockMetadata());
 		ChunkCoordinates bind = tile.getBinding();
-		
+
 		if(bind != null) {
 			GL11.glPushMatrix();
 			GL11.glTranslated(tile.xCoord + 0.5 - RenderManager.renderPosX, tile.yCoord + 0.5 - RenderManager.renderPosY, tile.zCoord + 0.5 - RenderManager.renderPosZ);
@@ -80,11 +79,11 @@ public final class RedStringRenderer {
 			Vector3 vecApply = vecMag.copy();
 
 			int stages = (int) (vecOrig.mag() / vecMag.mag());
-			
+
 			Tessellator tessellator = Tessellator.instance;
 			GL11.glLineWidth(1F);
 			tessellator.startDrawing(GL11.GL_LINES);
-			
+
 			double len = (double) -ClientTickHandler.ticksInGame / 100F + new Random(dir.ordinal() ^ tile.xCoord ^ tile.yCoord ^ tile.zCoord).nextInt(10000);
 			double add = vecMag.mag();
 			double rand = Math.random() - 0.5;
@@ -97,11 +96,11 @@ public final class RedStringRenderer {
 			}
 
 			tessellator.draw();
-			
+
 			GL11.glPopMatrix();
 		}
 	}
-	
+
 	private static void addVertexAtWithTranslation(Tessellator tess, ForgeDirection dir, double xpos, double ypos, double zpos, double rand, double l) {
 		double freq = 20;
 		double ampl = (0.15 * (Math.sin(l * 2F) * 0.5 + 0.5) + 0.1) * sizeAlpha;
@@ -109,8 +108,8 @@ public final class RedStringRenderer {
 		double x = xpos + Math.sin(l * freq) * ampl * Math.abs(Math.abs(dir.offsetX) - 1) + rand * randMul;
 		double y = ypos + Math.cos(l * freq) * ampl * Math.abs(Math.abs(dir.offsetY) - 1) + rand * randMul;
 		double z = zpos + (dir.offsetY == 0 ? Math.sin(l * freq) : Math.cos(l * freq)) * ampl * Math.abs(Math.abs(dir.offsetZ) - 1) + rand * randMul;
-		
+
 		tess.addVertex(x, y, z);
 	}
-	
+
 }

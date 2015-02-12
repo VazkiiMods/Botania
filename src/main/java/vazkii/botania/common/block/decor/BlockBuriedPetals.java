@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jun 28, 2014, 6:43:33 PM (GMT)]
  */
@@ -13,7 +12,6 @@ package vazkii.botania.common.block.decor;
 
 import java.util.Random;
 
-import cpw.mods.fml.common.Optional;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.item.Item;
@@ -26,6 +24,7 @@ import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.integration.coloredlights.ColoredLightHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
+import cpw.mods.fml.common.Optional;
 
 public class BlockBuriedPetals extends BlockModFlower {
 
@@ -34,12 +33,12 @@ public class BlockBuriedPetals extends BlockModFlower {
 		setBlockBounds(0F, 0F, 0F, 1F, 0.1F, 1F);
 		setLightLevel(0.25F);
 	}
-	
+
 	@Override
 	@Optional.Method(modid = "easycoloredlights")
-    public int getLightValue(IBlockAccess world, int x, int y, int z) {
+	public int getLightValue(IBlockAccess world, int x, int y, int z) {
 		return ColoredLightHelper.getPackedColor(world.getBlockMetadata(x, y, z), originalLight);
-    }
+	}
 
 	@Override
 	public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random) {

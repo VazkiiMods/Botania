@@ -15,6 +15,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelAxe;
 import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -44,11 +45,9 @@ public class ItemElementiumAxe extends ItemManasteelAxe {
 				else if(event.entityLiving instanceof EntityCreeper && rand.nextInt(26) <= 2 + 2 * looting)
 					addDrop(event, new ItemStack(Items.skull, 1, 4));
 				else if(event.entityLiving instanceof EntityPlayer && rand.nextInt(11) <= 1 + looting) {
-					ItemStack head = new ItemStack(Items.skull, 1, 3);
-					NBTTagCompound nametag = new NBTTagCompound();
-					nametag.setString("SkullOwner", ((EntityPlayer)event.entityLiving).getCommandSenderName());
-					head.setTagInfo("SkullOwner", nametag);
-					addDrop(event, head);
+					ItemStack stack = new ItemStack(Items.skull, 1, 3);
+					ItemNBTHelper.setString(stack, "SkullOwner", ((EntityPlayer)event.entityLiving).getCommandSenderName());
+					addDrop(event, stack);
 				}
 			}
 		}

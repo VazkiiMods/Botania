@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [May 17, 2014, 3:44:24 PM (GMT)]
  */
@@ -57,7 +56,7 @@ public class ItemWaterRing extends ItemBauble implements IManaUsingItem {
 				player.addPotionEffect(neweffect);
 			}
 
-			if(player.getAir() == 1 && player instanceof EntityPlayer) {
+			if(player.getAir() <= 1 && player instanceof EntityPlayer) {
 				int mana = ManaItemHandler.requestMana(stack, (EntityPlayer) player, 300, true);
 				player.setAir(mana);
 			}

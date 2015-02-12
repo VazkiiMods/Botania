@@ -3,27 +3,15 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Oct 31, 2014, 4:53:15 PM (GMT)]
  */
 package vazkii.botania.client.render.tile;
 
 import java.awt.Color;
-import java.util.Random;
 
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
-import vazkii.botania.api.mana.ILens;
-import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.client.model.ModelBrewery;
-import vazkii.botania.client.render.item.RenderLens;
-import vazkii.botania.common.block.tile.TileBrewery;
-import vazkii.botania.common.block.tile.mana.TileSpreader;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -39,13 +27,21 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.ForgeHooksClient;
 
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
+
+import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.model.ModelBrewery;
+import vazkii.botania.common.block.tile.TileBrewery;
+
 public class RenderTileBrewery extends TileEntitySpecialRenderer {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_BREWERY);
 	ModelBrewery model = new ModelBrewery();
 	public TileBrewery brewery;
 	public static boolean rotate = true;
-	
+
 	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f) {
 		brewery = (TileBrewery) tileentity;
@@ -61,12 +57,12 @@ public class RenderTileBrewery extends TileEntitySpecialRenderer {
 		double time = ClientTickHandler.ticksInGame + f;
 		if(!rotate)
 			time = -1;
-		
+
 		model.render(this, time);
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glPopMatrix();
 	}
-	
+
 	public void renderItemStack(ItemStack stack) {
 		if(stack != null) {
 			Minecraft mc = Minecraft.getMinecraft();
@@ -105,7 +101,7 @@ public class RenderTileBrewery extends TileEntitySpecialRenderer {
 				}
 			}
 			GL11.glScalef(1F / s, 1F / s, 1F / s);
-			
+
 			Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 		}
 	}

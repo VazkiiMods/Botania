@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Feb 2, 2014, 6:31:19 PM (GMT)]
  */
@@ -13,13 +12,8 @@ package vazkii.botania.common.block.tile;
 
 import java.util.List;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -27,16 +21,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ResourceLocation;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
-import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -140,11 +130,11 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 		}
 	}
-	
+
 	public boolean hasValidRecipe() {
 		for(RecipeRuneAltar recipe : BotaniaAPI.runeAltarRecipes)
 			if(recipe.matches(this)) return true;
-		
+
 		return false;
 	}
 
@@ -296,47 +286,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 			if(recipe == null)
 				return;
 
-			RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, recipe.getOutput(), x, y);
-
-			GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT);
-			GL11.glEnable(GL11.GL_STENCIL_TEST);
-			GL11.glColorMask(false, false, false, false);
-			GL11.glDepthMask(false);
-			GL11.glStencilFunc(GL11.GL_NEVER, 1, 0xFF);
-			GL11.glStencilOp(GL11.GL_REPLACE, GL11.GL_KEEP, GL11.GL_KEEP);
-			GL11.glStencilMask(0xFF);
-			RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, recipe.getOutput(), x, y);
-			
-			mc.renderEngine.bindTexture(new ResourceLocation(LibResources.GUI_MANA_HUD));
-			int r = 10;
-			int centerX = x + 8;
-			int centerY = y + 8;
-			int degs = (int) (360 * ((double) mana / (double) manaToGet));
-			float a = 0.5F + 0.2F * ((float) Math.cos((double) ClientTickHandler.ticksInGame / 10) * 0.5F + 0.5F);
-			
-			GL11.glDisable(GL11.GL_LIGHTING);
-			GL11.glDisable(GL11.GL_TEXTURE_2D);
-			GL11.glShadeModel(GL11.GL_SMOOTH);
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			GL11.glColorMask(true, true, true, true);
-			GL11.glDepthMask(true);
-			GL11.glStencilMask(0x00);
-			GL11.glStencilFunc(GL11.GL_EQUAL, 1, 0xFF);
-			GL11.glBegin(GL11.GL_TRIANGLE_FAN);
-			GL11.glColor4f(0F, 0.5F, 0.5F, a);
-			GL11.glVertex2i(centerX, centerY);
-			GL11.glColor4f(0F, 1F, 0.5F, a);
-			for(int i = degs; i > 0; i--) {
-				double rad = (i - 90) / 180F * Math.PI;
-				GL11.glVertex2d(centerX + Math.cos(rad) * r, centerY + Math.sin(rad) * r);
-			}
-			GL11.glVertex2i(centerX, centerY);
-			GL11.glEnd();
-			GL11.glDisable(GL11.GL_BLEND);
-			GL11.glEnable(GL11.GL_TEXTURE_2D);
-			GL11.glShadeModel(GL11.GL_FLAT);
-			GL11.glDisable(GL11.GL_STENCIL_TEST);
+			RenderHelper.renderProgressPie(x, y, (float) mana / (float) manaToGet, recipe.getOutput());
 		}
 	}
 

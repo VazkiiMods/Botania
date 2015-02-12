@@ -3,22 +3,18 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Apr 13, 2014, 7:13:04 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.tool;
-
-import java.util.ArrayList;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
@@ -32,7 +28,7 @@ public final class ToolCommons {
 
 	public static void damageItem(ItemStack stack, int dmg, EntityLivingBase entity, int manaPerDamage) {
 		int manaToRequest = dmg * manaPerDamage;
-		boolean manaRequested = entity instanceof EntityPlayer ? ManaItemHandler.requestManaExact(stack, (EntityPlayer) entity, manaToRequest, true) : false;
+		boolean manaRequested = entity instanceof EntityPlayer ? ManaItemHandler.requestManaExactForTool(stack, (EntityPlayer) entity, manaToRequest, true) : false;
 
 		if(!manaRequested)
 			stack.damageItem(dmg, entity);
@@ -44,8 +40,7 @@ public final class ToolCommons {
 		for(int x1 = xs; x1 < xe; x1++)
 			for(int y1 = ys; y1 < ye; y1++)
 				for(int z1 = zs; z1 < ze; z1++)
-					if(x != x1 && y != y1 && z != z1)
-						removeBlockWithDrops(player, stack, world, x1 + x, y1 + y, z1 + z, x, y, z, block, materialsListing, silk, fortune, blockHardness, dispose);
+					removeBlockWithDrops(player, stack, world, x1 + x, y1 + y, z1 + z, x, y, z, block, materialsListing, silk, fortune, blockHardness, dispose);
 	}
 
 	public static boolean isRightMaterial(Material material, Material[] materialsListing) {
@@ -67,23 +62,21 @@ public final class ToolCommons {
 			return;
 
 		Material mat = world.getBlock(x, y, z).getMaterial();
-		if(!world.isRemote && blk != null && !blk.isAir(world, x, y, z) && blk.getPlayerRelativeBlockHardness(player, world, x, y, z) < 0) {
-			new ArrayList();
-
+		if(!world.isRemote && blk != null && !blk.isAir(world, x, y, z) && blk.getPlayerRelativeBlockHardness(player, world, x, y, z) > 0) {
 			if(!blk.canHarvestBlock(player, meta) || !isRightMaterial(mat, materialsListing))
 				return;
 
 			if(!player.capabilities.isCreativeMode) {
 				int localMeta = world.getBlockMetadata(x, y, z);
 				blk.onBlockHarvested(world, x, y, z, localMeta, player);
-				
-				if(blk.removedByPlayer(world, player, x, y, z, true)) { 
+
+				if(blk.removedByPlayer(world, player, x, y, z, true)) {
 					blk.onBlockDestroyedByPlayer(world, x, y, z, localMeta);
-					
+
 					if(!dispose || !ItemElementiumPick.isDisposable(blk))
 						blk.harvestBlock(world, player, x, y, z, localMeta);
 				}
-				
+
 				damageItem(stack, 1, player, 80);
 			} else world.setBlockToAir(x, y, z);
 

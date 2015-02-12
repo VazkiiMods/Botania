@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Nov 16, 2014, 10:52:21 PM (GMT)]
  */
@@ -13,6 +12,7 @@ package vazkii.botania.common.block.tile.string;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
+import net.minecraft.block.BlockMushroom;
 
 public class TileRedStringRelay extends TileRedString {
 
@@ -20,9 +20,9 @@ public class TileRedStringRelay extends TileRedString {
 	public boolean acceptBlock(int x, int y, int z) {
 		if(x == xCoord && y == yCoord + 1 && z == zCoord)
 			return false;
-		
+
 		Block block = worldObj.getBlock(x, y, z);
-		return block instanceof BlockFlower;
+		return block instanceof BlockFlower || block instanceof BlockMushroom;
 	}
 
 }

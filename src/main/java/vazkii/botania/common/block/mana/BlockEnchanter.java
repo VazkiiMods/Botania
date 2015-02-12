@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Mar 15, 2014, 4:08:26 PM (GMT)]
  */
@@ -15,6 +14,8 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -28,6 +29,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.BlockModContainer;
@@ -36,7 +38,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockEnchanter extends BlockModContainer implements IWandable, ILexiconable {
+public class BlockEnchanter extends BlockModContainer implements IWandable, ILexiconable, IWandHUD {
 
 	Random random;
 	public static IIcon overlay;
@@ -50,6 +52,11 @@ public class BlockEnchanter extends BlockModContainer implements IWandable, ILex
 		setBlockName(LibBlockNames.ENCHANTER);
 
 		random = new Random();
+	}
+
+	@Override
+	public boolean registerInCreative() {
+		return false;
 	}
 
 	@Override
@@ -141,6 +148,11 @@ public class BlockEnchanter extends BlockModContainer implements IWandable, ILex
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.manaEnchanting;
+	}
+
+	@Override
+	public void renderHUD(Minecraft mc, ScaledResolution res, World world, int x, int y, int z) {
+		((TileEnchanter) world.getTileEntity(x, y, z)).renderHUD(mc, res);
 	}
 
 }

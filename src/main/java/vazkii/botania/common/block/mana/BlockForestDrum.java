@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [May 16, 2014, 7:34:37 PM (GMT)]
  */
@@ -105,6 +104,9 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 
 	@Override
 	public void onBurstCollision(IManaBurst burst, World world, int x, int y, int z) {
+		if(burst.isFake())
+			return;
+
 		if(world.getBlockMetadata(x, y, z) == 0)
 			ItemGrassHorn.breakGrass(world, 0, x, y, z);
 		else {

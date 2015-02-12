@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Mar 17, 2014, 8:30:41 PM (GMT)]
  */
@@ -17,8 +16,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.ILens;
-import vazkii.botania.common.item.ItemLens;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.lens.ItemLens;
 
 public class CompositeLensRecipe implements IRecipe {
 

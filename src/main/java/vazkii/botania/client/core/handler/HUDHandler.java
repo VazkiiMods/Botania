@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jan 25, 2014, 6:11:10 PM (GMT)]
  */
@@ -70,7 +69,7 @@ public final class HUDHandler {
 		if(event.type == ElementType.ALL) {
 			profiler.startSection("botania-hud");
 			MovingObjectPosition pos = mc.objectMouseOver;
-			
+
 			if(pos != null) {
 				Block block = mc.theWorld.getBlock(pos.blockX, pos.blockY, pos.blockZ);
 				TileEntity tile = mc.theWorld.getTileEntity(pos.blockX, pos.blockY, pos.blockZ);
@@ -97,7 +96,7 @@ public final class HUDHandler {
 				ItemCraftingHalo.renderHUD(event.resolution, mc.thePlayer, equippedStack);
 				profiler.endSection();
 			}
-			
+
 			profiler.startSection("manaBar");
 			EntityPlayer player = mc.thePlayer;
 			int totalMana = 0;
@@ -140,9 +139,11 @@ public final class HUDHandler {
 
 			profiler.endStartSection("bossBar");
 			BossBarHandler.render(event.resolution);
+			profiler.endStartSection("itemsRemaining");
+			ItemsRemainingRenderHandler.render(event.resolution, event.partialTicks);
 			profiler.endSection();
 			profiler.endSection();
-			
+
 			GL11.glColor4f(1F, 1F, 1F, 1F);
 		}
 	}
@@ -303,13 +304,13 @@ public final class HUDHandler {
 		x = res.getScaledWidth() / 2 - 51;
 		y += 10;
 
-		renderManaBar(x, y, color, 0.5F, mana, maxMana);
+		renderManaBar(x, y, color, mana < 0 ? 0.5F : 1F, mana, maxMana);
 
 		if(mana < 0) {
 			String text = StatCollector.translateToLocal("botaniamisc.statusUnknown");
 			x = res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(text) / 2;
 			y -= 1;
-			mc.fontRenderer.drawStringWithShadow(text, x, y, color);
+			mc.fontRenderer.drawString(text, x, y, color);
 		}
 
 		GL11.glDisable(GL11.GL_BLEND);
@@ -331,6 +332,6 @@ public final class HUDHandler {
 
 		Color color_ = new Color(color);
 		GL11.glColor4ub((byte) color_.getRed(), (byte) color_.getGreen(),(byte) color_.getBlue(), (byte) (255F * alpha));
-		RenderHelper.drawTexturedModalRect(x + 1, y + 1, 0, 0, 5, manaPercentage, 3);
+		RenderHelper.drawTexturedModalRect(x + 1, y + 1, 0, 0, 5, Math.min(100, manaPercentage), 3);
 	}
 }

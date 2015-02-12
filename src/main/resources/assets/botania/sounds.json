@@ -3,6 +3,7 @@
 	"agricarnation": { "category": "neutral", "sounds":["agricarnation"] },
 	"altarCraft": { "category": "neutral", "sounds":["altarCraft"] },
 	"bifrostRod": { "category": "neutral", "sounds":["bifrostRod"] },
+	"blackLotus": { "category": "neutral", "sounds":["blackLotus"] },
 	"ding": { "category": "neutral", "sounds":["ding"] },
 	"divaCharm": { "category": "neutral", "sounds":["divaCharm"] },
 	"divinationRod": { "category": "neutral", "sounds":["divinationRod"] },

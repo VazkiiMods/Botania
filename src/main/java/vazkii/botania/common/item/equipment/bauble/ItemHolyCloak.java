@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Dec 4, 2014, 11:03:13 PM (GMT)]
  */
@@ -13,13 +12,10 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -69,14 +65,14 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 			}
 		}
 	}
-	
+
 	@Override
 	public void onWornTick(ItemStack stack, EntityLivingBase player) {
 		int cooldown = getCooldown(stack);
 		if(cooldown > 0)
 			setCooldown(stack, cooldown - 1);
 	}
-	
+
 	public boolean effectOnDamage(LivingHurtEvent event, EntityPlayer player, ItemStack stack) {
 		if(!event.source.isMagicDamage()) {
 			event.setCanceled(true);
@@ -90,7 +86,7 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 			}
 			return true;
 		}
-	
+
 		return false;
 	}
 

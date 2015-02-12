@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Nov 1, 2014, 8:52:00 PM (GMT)]
  */
@@ -28,7 +27,7 @@ public class RecipeBrew {
 
 	public RecipeBrew(Brew brew, Object... inputs) {
 		this.brew = brew;
-		
+
 		List<Object> inputsToSet = new ArrayList();
 		for(Object obj : inputs) {
 			if(obj instanceof String || obj instanceof ItemStack)
@@ -49,7 +48,7 @@ public class RecipeBrew {
 
 			if(stack.getItem() instanceof IBrewContainer)
 				continue;
-				
+
 			int stackIndex = -1, oredictIndex = -1;
 
 			for(int j = 0; j < inputsMissing.size(); j++) {
@@ -95,11 +94,11 @@ public class RecipeBrew {
 	public List<Object> getInputs() {
 		return new ArrayList(inputs);
 	}
-	
+
 	public Brew getBrew() {
 		return brew;
 	}
-	
+
 	public int getManaUsage() {
 		return brew.getManaCost();
 	}
@@ -108,7 +107,7 @@ public class RecipeBrew {
 		if(stack == null || !(stack.getItem() instanceof IBrewContainer))
 			return new ItemStack(Items.glass_bottle); // Fallback...
 		IBrewContainer container = (IBrewContainer) stack.getItem();
-		
+
 		return container.getItemForBrew(brew, stack);
 	}
 

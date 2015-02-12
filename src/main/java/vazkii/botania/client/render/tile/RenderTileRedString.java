@@ -3,21 +3,17 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Nov 14, 2014, 6:52:09 PM (GMT)]
  */
 package vazkii.botania.client.render.tile;
 
-import org.lwjgl.opengl.GL11;
-
-import vazkii.botania.client.core.handler.RedStringRenderer;
-import vazkii.botania.common.block.tile.string.TileRedString;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChunkCoordinates;
+import vazkii.botania.client.core.handler.RedStringRenderer;
+import vazkii.botania.common.block.tile.string.TileRedString;
 
 public class RenderTileRedString extends TileEntitySpecialRenderer {
 

@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jan 25, 2014, 2:04:15 PM (GMT)]
  */
@@ -14,8 +13,10 @@ package vazkii.botania.common.item.block;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.Achievement;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
@@ -24,10 +25,12 @@ import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.IRecipeKeyProvider;
 import vazkii.botania.api.subtile.SubTileEntity;
+import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.lib.LibBlockNames;
 
 public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyProvider {
 
@@ -91,7 +94,7 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 	public static ItemStack ofType(String type) {
 		return ofType(new ItemStack(ModBlocks.specialFlower), type);
 	}
-	
+
 	public static ItemStack ofType(ItemStack stack, String type) {
 		ItemNBTHelper.setString(stack, SubTileEntity.TAG_TYPE, type);
 		return stack;
@@ -102,4 +105,19 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 		return getType(stack);
 	}
 
+	@Override
+	public Achievement getAchievementOnPickup(ItemStack stack, EntityPlayer player, EntityItem item) {
+		String type = getType(stack);
+		if(type.equals(LibBlockNames.SUBTILE_DAYBLOOM))
+			return ModAchievements.daybloomPickup;
+		else if(type.equals(LibBlockNames.SUBTILE_ENDOFLAME))
+			return ModAchievements.endoflamePickup;
+		else if(type.equals(LibBlockNames.SUBTILE_KEKIMURUS))
+			return ModAchievements.kekimurusPickup;
+		else if(type.equals(LibBlockNames.SUBTILE_HEISEI_DREAM))
+			return ModAchievements.heiseiDreamPickup;
+		return null;
+	}
+
 }
+

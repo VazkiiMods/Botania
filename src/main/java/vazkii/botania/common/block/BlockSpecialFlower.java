@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jan 22, 2014, 7:06:38 PM (GMT)]
  */
@@ -68,6 +67,8 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 				LibBlockNames.SUBTILE_ENTROPINNYUM,
 				LibBlockNames.SUBTILE_KEKIMURUS,
 				LibBlockNames.SUBTILE_GOURMARYLLIS,
+				LibBlockNames.SUBTILE_NARSLIMMUS,
+				LibBlockNames.SUBTILE_SPECTROLUS,
 
 				// Functional
 				LibBlockNames.SUBTILE_JADED_AMARANTHUS,
@@ -75,6 +76,7 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 				LibBlockNames.SUBTILE_DREADTHORN,
 				LibBlockNames.SUBTILE_HEISEI_DREAM,
 				LibBlockNames.SUBTILE_TIGERSEYE,
+				LibBlockNames.SUBTILE_MARIMORPHOSIS,
 				LibBlockNames.SUBTILE_ORECHID,
 				LibBlockNames.SUBTILE_FALLEN_KANADE,
 				LibBlockNames.SUBTILE_EXOFLAME,
@@ -84,11 +86,13 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 				LibBlockNames.SUBTILE_TANGLEBERRIE,
 				LibBlockNames.SUBTILE_JIYUULIA,
 				LibBlockNames.SUBTILE_HYACIDUS,
+				LibBlockNames.SUBTILE_MEDUMONE,
 				LibBlockNames.SUBTILE_POLLIDISIAC,
 				LibBlockNames.SUBTILE_CLAYCONIA,
 				LibBlockNames.SUBTILE_LOONIUM,
 				LibBlockNames.SUBTILE_DAFFOMILL,
-				LibBlockNames.SUBTILE_VINCULOTUS
+				LibBlockNames.SUBTILE_VINCULOTUS,
+				LibBlockNames.SUBTILE_SPECTRANTHEMUM
 		}));
 	}
 
@@ -145,7 +149,7 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 	protected boolean canPlaceBlockOn(Block block) {
 		return super.canPlaceBlockOn(block) || block == ModBlocks.redStringRelay;
 	}
-	
+
 	@Override
 	public void onBlockHarvested(World par1World, int par2, int par3, int par4, int par5, EntityPlayer par6EntityPlayer) {
 		if(!par6EntityPlayer.capabilities.isCreativeMode) {

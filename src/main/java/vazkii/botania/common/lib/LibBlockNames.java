@@ -3,14 +3,12 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jan 16, 2014, 5:55:03 PM (GMT)]
  */
 package vazkii.botania.common.lib;
-
 
 public final class LibBlockNames {
 
@@ -68,6 +66,12 @@ public final class LibBlockNames {
 	public static final String RED_STRING_RELAY = "redStringRelay";
 	public static final String FLOATING_SPECIAL_FLOWER = "floatingSpecialFlower";
 	public static final String MANA_FLAME = "manaFlame";
+	public static final String PRISM = "prism";
+	public static final String DIRT_PATH = "dirtPath";
+	public static final String ENCHANTED_SOIL = "enchantedSoil";
+	public static final String BIOME_STONE_A = "biomeStoneA";
+	public static final String BIOME_STONE_B = "biomeStoneB";
+	public static final String PETAL_BLOCK = "petalBlock";
 
 	public static final String SUBTILE_PUREDAISY = "puredaisy";
 	public static final String SUBTILE_MANASTAR = "manastar";
@@ -82,6 +86,8 @@ public final class LibBlockNames {
 	public static final String SUBTILE_ENTROPINNYUM = "entropinnyum";
 	public static final String SUBTILE_KEKIMURUS = "kekimurus";
 	public static final String SUBTILE_GOURMARYLLIS = "gourmaryllis";
+	public static final String SUBTILE_NARSLIMMUS = "narslimmus";
+	public static final String SUBTILE_SPECTROLUS = "spectrolus";
 
 	public static final String SUBTILE_BELLETHORN = "bellethorn";
 	public static final String SUBTILE_DREADTHORN = "dreadthorn";
@@ -102,6 +108,9 @@ public final class LibBlockNames {
 	public static final String SUBTILE_LOONIUM = "loonium";
 	public static final String SUBTILE_DAFFOMILL = "daffomill";
 	public static final String SUBTILE_VINCULOTUS = "vinculotus";
+	public static final String SUBTILE_SPECTRANTHEMUM = "spectranthemum";
+	public static final String SUBTILE_MEDUMONE = "medumone";
+	public static final String SUBTILE_MARIMORPHOSIS = "marimorphosis";
 
 	public static final String QUARTZ_DARK = "Dark";
 	public static final String QUARTZ_MANA = "Mana";

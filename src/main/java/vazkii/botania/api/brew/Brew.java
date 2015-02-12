@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Nov 1, 2014, 6:22:54 PM (GMT)]
  */
@@ -29,7 +28,7 @@ public class Brew {
 	int cost;
 	List<PotionEffect> effects;
 	boolean canInfuseBloodPendant = true;
-	
+
 	/**
 	 * @param name The unlocalized name of this potion.
 	 * @param color The color for the potion to be rendered in the bottle, note that it will get
@@ -44,7 +43,7 @@ public class Brew {
 		this.cost = cost;
 		this.effects = new ArrayList(Arrays.asList(effects));
 	}
-	
+
 	/**
 	 * Sets this brew to not be able to be infused onto the Tainted Blood Pendant.
 	 */
@@ -52,11 +51,11 @@ public class Brew {
 		canInfuseBloodPendant = false;
 		return this;
 	}
-	
+
 	public boolean canInfuseBloodPendant() {
 		return canInfuseBloodPendant;
 	}
-	
+
 	/**
 	 * Returns the key for this brew, for it to be found in the map in the API.
 	 * This should ALWAYS return the same result.
@@ -64,51 +63,51 @@ public class Brew {
 	public String getKey() {
 		return key;
 	}
-	
+
 	/**
 	 * Gets the insensitive unlocalized name. This is used for the lexicon.
 	 */
 	public String getUnlocalizedName() {
 		return name;
 	}
-	
+
 	/**
 	 * Gets the unlocalized name for the ItemStack passed in.
 	 */
 	public String getUnlocalizedName(ItemStack stack) {
 		return getUnlocalizedName();
 	}
-	
+
 	/**
-	 * Gets the display color for the ItemStack passed in.  Note that for 
-	 * the lexicon, this passes in a botania Managlass Vial or an 
+	 * Gets the display color for the ItemStack passed in.  Note that for
+	 * the lexicon, this passes in a botania Managlass Vial or an
 	 * Alfglass Flask at all times.
 	 */
 	public int getColor(ItemStack stack) {
 		return color;
 	}
-	
+
 	/**
 	 * Gets the insensitive unlocalized mana cost. This is used for the lexicon.
 	 */
 	public int getManaCost() {
 		return cost;
 	}
-	
+
 	/**
 	 * Gets the mana cost for the ItemStack passed in.
 	 */
 	public int getManaCost(ItemStack stack) {
 		return getManaCost();
 	}
-	
+
 	/**
 	 * Gets the list of potion effects for the ItemStack passed in.
-	 * Note that for the lexicon, this passes in a botania Managlass 
+	 * Note that for the lexicon, this passes in a botania Managlass
 	 * Vial or an Alfglass Flask at all times.
 	 */
 	public List<PotionEffect> getPotionEffects(ItemStack stack) {
 		return effects;
 	}
-	
+
 }

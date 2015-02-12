@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jan 14, 2014, 6:50:15 PM (GMT)]
  */
@@ -29,7 +28,7 @@ public class GuiHandler implements IGuiHandler {
 			return new ContainerCraftingHalo(player.inventory, world);
 		}
 		}
-		
+
 		return null;
 	}
 
@@ -38,9 +37,6 @@ public class GuiHandler implements IGuiHandler {
 		switch(ID) {
 		case LibGuiIDs.LEXICON : {
 			GuiLexicon lex = GuiLexicon.currentOpenLexicon;
-			GuiLexicon.stackUsed = player.getCurrentEquippedItem();
-			if(GuiLexicon.stackUsed == null || !(GuiLexicon.stackUsed.getItem() instanceof ILexicon))
-				return null;
 			return lex;
 		}
 		case LibGuiIDs.CRAFTING_HALO : {

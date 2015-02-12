@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jan 19, 2014, 4:30:32 PM (GMT)]
  */
@@ -32,27 +31,41 @@ public final class LibOreDict {
 	public static final String PRISMARINE_SHARD = "shardPrismarine";
 	public static final String PLACEHOLDER = "bPlaceholder";
 	public static final String RED_STRING = "bRedString";
+	public static final String DREAMWOOD_TWIG = "dreamwoodTwig";
+	public static final String GAIA_INGOT = "gaiaIngot";
 
 	public static final String VIAL = "bVial";
 	public static final String FLASK = "bFlask";
-	
-	public static final String[] FLOWER = new String[] {
-		"mysticFlowerWhite", "mysticFlowerOrange", "mysticFlowerMagenta", "mysticFlowerLightBlue", "mysticFlowerYellow", "mysticFlowerLime", "mysticFlowerPink", "mysticFlowerGray", "mysticFlowerLightGray", "mysticFlowerCyan", "mysticFlowerPurple", "mysticFlowerBlue", "mysticFlowerBrown", "mysticFlowerGreen", "mysticFlowerRed", "mysticFlowerBlack",
-	};
 
-	public static final String[] PETAL = new String[] {
-		"petalWhite", "petalOrange", "petalMagenta", "petalLightBlue", "petalYellow", "petalLime", "petalPink", "petalGray", "petalLightGray", "petalCyan", "petalPurple", "petalBlue", "petalBrown", "petalGreen", "petalRed", "petalBlack",
-	};
+	public static final String[] FLOWER = new String[] { "mysticFlowerWhite",
+		"mysticFlowerOrange", "mysticFlowerMagenta",
+		"mysticFlowerLightBlue", "mysticFlowerYellow", "mysticFlowerLime",
+		"mysticFlowerPink", "mysticFlowerGray", "mysticFlowerLightGray",
+		"mysticFlowerCyan", "mysticFlowerPurple", "mysticFlowerBlue",
+		"mysticFlowerBrown", "mysticFlowerGreen", "mysticFlowerRed",
+		"mysticFlowerBlack", };
 
-	public static final String[] DYE = new String[] {
-		"dyeWhite", "dyeOrange", "dyeMagenta", "dyeLightBlue", "dyeYellow", "dyeLime", "dyePink", "dyeGray", "dyeLightGray", "dyeCyan", "dyePurple", "dyeBlue", "dyeBrown", "dyeGreen", "dyeRed", "dyeBlack",
-	};
+	public static final String[] PETAL = new String[] { "petalWhite",
+		"petalOrange", "petalMagenta", "petalLightBlue", "petalYellow",
+		"petalLime", "petalPink", "petalGray", "petalLightGray",
+		"petalCyan", "petalPurple", "petalBlue", "petalBrown",
+		"petalGreen", "petalRed", "petalBlack", };
 
-	public static final String[] MANA_PETAL = new String[] {
-		"manaPetalWhite", "manaPetalOrange", "manaPetalMagenta", "manaPetalLightBlue", "manaPetalYellow", "manaPetalLime", "manaPetalPink", "manaPetalGray", "manaPetalLightGray", "manaPetalCyan", "manaPetalPurple", "manaPetalBlue", "manaPetalBrown", "manaPetalGreen", "manaPetalRed", "manaPetalBlack",
-	};
+	public static final String[] DYE = new String[] { "dyeWhite", "dyeOrange",
+		"dyeMagenta", "dyeLightBlue", "dyeYellow", "dyeLime", "dyePink",
+		"dyeGray", "dyeLightGray", "dyeCyan", "dyePurple", "dyeBlue",
+		"dyeBrown", "dyeGreen", "dyeRed", "dyeBlack", };
 
-	public static final String[] RUNE = new String[] {
-		"runeWaterB", "runeFireB", "runeEarthB", "runeAirB", "runeSpringB", "runeSummerB", "runeAutumnB", "runeWinterB", "runeManaB", "runeLustB", "runeGluttonyB", "runeGreedB", "runeSlothB", "runeWrathB", "runeEnvyB", "runePrideB"
-	};
+	public static final String[] MANA_PETAL = new String[] { "manaPetalWhite",
+		"manaPetalOrange", "manaPetalMagenta", "manaPetalLightBlue",
+		"manaPetalYellow", "manaPetalLime", "manaPetalPink",
+		"manaPetalGray", "manaPetalLightGray", "manaPetalCyan",
+		"manaPetalPurple", "manaPetalBlue", "manaPetalBrown",
+		"manaPetalGreen", "manaPetalRed", "manaPetalBlack", };
+
+	public static final String[] RUNE = new String[] { "runeWaterB",
+		"runeFireB", "runeEarthB", "runeAirB", "runeSpringB",
+		"runeSummerB", "runeAutumnB", "runeWinterB", "runeManaB",
+		"runeLustB", "runeGluttonyB", "runeGreedB", "runeSlothB",
+		"runeWrathB", "runeEnvyB", "runePrideB" };
 }

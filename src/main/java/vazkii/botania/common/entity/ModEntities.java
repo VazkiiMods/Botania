@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jan 26, 2014, 4:11:03 PM (GMT)]
  */
@@ -19,7 +18,7 @@ public final class ModEntities {
 
 	public static void init() {
 		int id = 0;
-		
+
 		EntityRegistry.registerModEntity(EntityManaBurst.class, LibEntityNames.MANA_BURST, id++, Botania.instance, 64, 10, true);
 		EntityRegistry.registerModEntity(EntitySignalFlare.class, LibEntityNames.SIGNAL_FLARE, id++, Botania.instance, 2048, 10, false);
 		EntityRegistry.registerModEntity(EntityPixie.class, LibEntityNames.PIXIE, id++, Botania.instance, 16, 3, true);
@@ -30,6 +29,7 @@ public final class ModEntities {
 		EntityRegistry.registerModEntity(EntitySpark.class, LibEntityNames.SPARK, id++, Botania.instance, 64, 10, false);
 		EntityRegistry.registerModEntity(EntityThrownItem.class, LibEntityNames.THROWN_ITEM, id++, Botania.instance, 64, 20, true);
 		EntityRegistry.registerModEntity(EntityMagicMissile.class, LibEntityNames.MAGIC_MISSILE, id++, Botania.instance, 64, 10, true);
+		EntityRegistry.registerModEntity(EntityThornChakram.class, LibEntityNames.THORN_CHAKRAM, id++, Botania.instance, 64, 10, true);
 	}
 
 }

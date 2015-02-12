@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Nov 7, 2014, 11:46:21 PM (GMT)]
  */
@@ -23,7 +22,7 @@ import vazkii.botania.client.lib.LibResources;
 public class PageLoreText extends PageText {
 
 	private static final ResourceLocation paperOverlay = new ResourceLocation(LibResources.GUI_PAPER);
-	
+
 	public PageLoreText(String unlocalizedName) {
 		super(unlocalizedName);
 	}
@@ -39,5 +38,5 @@ public class PageLoreText extends PageText {
 		GL11.glDisable(GL11.GL_BLEND);
 		super.renderScreen(gui, mx, my);
 	}
-	
+
 }

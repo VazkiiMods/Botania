@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jan 14, 2014, 6:43:03 PM (GMT)]
  */
@@ -43,7 +42,7 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	public LexiconPage elfPaperTextPage(String key) {
 		return dummyPage(key);
 	}
-	
+
 	@Override
 	public LexiconPage imagePage(String key, String resource) {
 		return dummyPage(key);
@@ -98,7 +97,7 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	public LexiconPage elvenTradesPage(String key, RecipeElvenTrade recipe) {
 		return dummyPage(key);
 	}
-	
+
 	@Override
 	public LexiconPage brewPage(String key, String bottomText, RecipeBrew recipe) {
 		return dummyPage(key);
@@ -112,7 +111,7 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	public ItemStack getSubTileAsStack(String subTile) {
 		return new ItemStack(Blocks.stone, 0, 0);
 	}
-	
+
 	@Override
 	public ItemStack getSubTileAsFloatingFlowerStack(String subTile) {
 		return getSubTileAsStack(subTile);

@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [May 26, 2014, 4:05:50 PM (GMT)]
  */
@@ -13,8 +12,6 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -24,14 +21,19 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.Achievement;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+
+import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -39,6 +41,8 @@ import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.achievement.ICraftAchievement;
+import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
 import baubles.common.lib.PlayerHandler;
@@ -48,10 +52,10 @@ import cpw.mods.fml.common.gameevent.PlayerEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaubleRender {
+public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaubleRender, ICraftAchievement {
 
 	private static ResourceLocation textureHalo = new ResourceLocation(LibResources.MISC_HALO);
-	
+
 	public static List<String> playersWithFlight = new ArrayList();
 	private static final int COST = 35;
 
@@ -292,11 +296,11 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 
 				GL11.glColor3f(1F, 1F, 1F);
 				GL11.glPopMatrix();
-			}	
+			}
 		} else if(meta == 1) // Jibril's Halo
-				renderHalo(event.entityPlayer, event.partialRenderTick);
+			renderHalo(event.entityPlayer, event.partialRenderTick);
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	private void renderHalo(EntityPlayer player, float partialTicks) {
 		GL11.glShadeModel(GL11.GL_SMOOTH);
@@ -323,6 +327,11 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 
 		GL11.glEnable(GL11.GL_LIGHTING);
 		GL11.glShadeModel(GL11.GL_FLAT);
+	}
+
+	@Override
+	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
+		return stack.getItemDamage() == 1 ? ModAchievements.tiaraWings : null;
 	}
 
 

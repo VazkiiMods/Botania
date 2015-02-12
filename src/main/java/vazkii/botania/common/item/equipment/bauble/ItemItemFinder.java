@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jul 31, 2014, 12:59:16 AM (GMT)]
  */
@@ -13,8 +12,6 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -37,6 +34,9 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.village.MerchantRecipe;
 import net.minecraftforge.client.event.RenderPlayerEvent;
+
+import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
@@ -217,7 +217,7 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type) {
-		if(type == RenderType.HEAD) { 
+		if(type == RenderType.HEAD) {
 			float f = gemIcon.getMinU();
 			float f1 = gemIcon.getMaxU();
 			float f2 = gemIcon.getMinV();
@@ -229,7 +229,7 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 			GL11.glRotatef(180F, 1F, 0F, 0F);
 			GL11.glTranslatef(-0.4F, 0.1F, armor ? -0.3F : -0.25F);
 			GL11.glScalef(0.75F, 0.75F, 0.75F);
-			ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, gemIcon.getIconWidth(), gemIcon.getIconHeight(), 1F / 16F);		
+			ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, gemIcon.getIconWidth(), gemIcon.getIconHeight(), 1F / 16F);
 		}
 	}
 

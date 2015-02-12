@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Mar 13, 2014, 5:32:24 PM (GMT)]
  */
@@ -197,5 +196,48 @@ public final class ManaItemHandler {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Requests mana from items in a given player's inventory. This version also
+	 * checks for IManaDiscountArmor items equipped to lower the cost.
+	 * @param manaToGet How much mana is to be requested, if less mana exists than this amount,
+	 * the amount of mana existent will be returned instead, if you want exact values use requestManaExact.
+	 * @param remove If true, the mana will be removed from the target item. Set to false to just check.
+	 * @return The amount of mana received from the request.
+	 */
+	public static int requestManaForTool(ItemStack stack, EntityPlayer player, int manaToGet, boolean remove) {
+		float multiplier = Math.max(0F, 1F - getFullDiscountForTools(player));
+		int cost = (int) (manaToGet * multiplier);
+		return (int) (requestMana(stack, player, cost, remove) / multiplier);
+	}
+
+	/**
+	 * Requests an exact amount of mana from items in a given player's inventory. This version also
+	 * checks for IManaDiscountArmor items equipped to lower the cost.
+	 * @param manaToGet How much mana is to be requested, if less mana exists than this amount,
+	 * false will be returned instead, and nothing will happen.
+	 * @param remove If true, the mana will be removed from the target item. Set to false to just check.
+	 * @return If the request was succesful.
+	 */
+	public static boolean requestManaExactForTool(ItemStack stack, EntityPlayer player, int manaToGet, boolean remove) {
+		float multiplier = Math.max(0F, 1F - getFullDiscountForTools(player));
+		int cost = (int) (manaToGet * multiplier);
+		return requestManaExact(stack, player, cost, remove);
+	}
+
+	/**
+	 * Gets the sum of all the discounts on IManaDiscountArmor items equipped
+	 * on the player passed in.
+	 */
+	public static float getFullDiscountForTools(EntityPlayer player) {
+		float discount = 0F;
+		for(int i = 0; i < player.inventory.armorInventory.length; i++) {
+			ItemStack armor = player.inventory.armorInventory[i];
+			if(armor != null && armor.getItem() instanceof IManaDiscountArmor)
+				discount += ((IManaDiscountArmor) armor.getItem()).getDiscount(armor, i, player);
+		}
+
+		return discount;
 	}
 }

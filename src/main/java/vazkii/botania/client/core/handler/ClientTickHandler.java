@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Feb 3, 2014, 9:59:17 PM (GMT)]
  */
@@ -28,18 +27,27 @@ import vazkii.botania.common.item.ItemTwigWand;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
+import cpw.mods.fml.common.gameevent.TickEvent.RenderTickEvent;
 
 public class ClientTickHandler {
 
 	public static int ticksWithLexicaOpen = 0;
 	public static int pageFlipTicks = 0;
 	public static int ticksInGame = 0;
+	public static float partialTicks = 0;
+
+	@SubscribeEvent
+	public void renderTickStart(RenderTickEvent event) {
+		if(event.phase == Phase.START)
+			partialTicks = event.renderTickTime;
+	}
 
 	@SubscribeEvent
 	public void clientTickEnd(ClientTickEvent event) {
 		if(event.phase == Phase.END) {
 			LightningBolt.update();
 			RedStringRenderer.tick();
+			ItemsRemainingRenderHandler.tick();
 
 			if(Minecraft.getMinecraft().theWorld == null)
 				ManaNetworkHandler.instance.clear();

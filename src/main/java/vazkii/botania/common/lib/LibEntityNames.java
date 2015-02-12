@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jan 26, 2014, 5:30:03 PM (GMT)]
  */
@@ -25,5 +24,6 @@ public final class LibEntityNames {
 	public static final String SPARK = LibResources.PREFIX_MOD + "spark";
 	public static final String THROWN_ITEM = LibResources.PREFIX_MOD + "thrownItem";
 	public static final String MAGIC_MISSILE = LibResources.PREFIX_MOD + "magicMissile";
+	public static final String THORN_CHAKRAM = LibResources.PREFIX_MOD + "thornChakram";
 
 }

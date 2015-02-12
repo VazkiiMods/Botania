@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Oct 31, 2014, 4:37:29 PM (GMT)]
  */
@@ -15,6 +14,8 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,6 +27,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.tile.TileBrewery;
@@ -33,10 +35,10 @@ import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockBrewery extends BlockModContainer implements ILexiconable {
+public class BlockBrewery extends BlockModContainer implements ILexiconable, IWandHUD {
 
 	Random random;
-	
+
 	public BlockBrewery() {
 		super(Material.rock);
 		float f = 6F / 16F;
@@ -45,19 +47,19 @@ public class BlockBrewery extends BlockModContainer implements ILexiconable {
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setStepSound(soundTypeStone);
-		
+
 		random = new Random();
 	}
-	
+
 	@Override
 	public IIcon getIcon(int side, int meta) {
 		return Blocks.cobblestone.getIcon(side, meta);
 	}
-	
+
 	@Override
 	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
 		TileBrewery brew = (TileBrewery) par1World.getTileEntity(par2, par3, par4);
-		
+
 		if(par5EntityPlayer.isSneaking()) {
 			if(brew.recipe == null && par1World.getBlockMetadata(par2, par3, par4) == 0)
 				for(int i = brew.getSizeInventory() - 1; i >= 0; i--) {
@@ -116,7 +118,7 @@ public class BlockBrewery extends BlockModContainer implements ILexiconable {
 
 		super.breakBlock(par1World, par2, par3, par4, par5, par6);
 	}
-	
+
 	@Override
 	public boolean hasComparatorInputOverride() {
 		return true;
@@ -127,12 +129,12 @@ public class BlockBrewery extends BlockModContainer implements ILexiconable {
 		TileBrewery brew = (TileBrewery) par1World.getTileEntity(par2, par3, par4);
 		return brew.signal;
 	}
-	
+
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		// NO-OP
 	}
-	
+
 	@Override
 	public int getRenderType() {
 		return LibRenderIDs.idBrewery;
@@ -142,12 +144,12 @@ public class BlockBrewery extends BlockModContainer implements ILexiconable {
 	public boolean isOpaqueCube() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean renderAsNormalBlock() {
 		return false;
 	}
-	
+
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileBrewery();
@@ -156,6 +158,11 @@ public class BlockBrewery extends BlockModContainer implements ILexiconable {
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.brewery;
-	} 
+	}
+
+	@Override
+	public void renderHUD(Minecraft mc, ScaledResolution res, World world, int x, int y, int z) {
+		((TileBrewery) world.getTileEntity(x, y, z)).renderHUD(mc, res);
+	}
 
 }

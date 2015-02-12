@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jul 23, 2014, 5:32:11 PM (GMT)]
  */
@@ -87,7 +86,8 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver {
 					entity.setLocationAndAngles(d2, d3, d4, logic.getSpawnerWorld().rand.nextFloat() * 360.0F, 0.0F);
 
 					if(entityliving == null || entityliving.getCanSpawnHere()) {
-						logic.func_98265_a(entity);
+						if(!worldObj.isRemote)
+							logic.func_98265_a(entity);
 						logic.getSpawnerWorld().playAuxSFX(2004, logic.getSpawnerX(), logic.getSpawnerY(), logic.getSpawnerZ(), 0);
 
 						if (entityliving != null)

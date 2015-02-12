@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Aug 21, 2014, 5:43:44 PM (GMT)]
  */
@@ -69,7 +68,6 @@ public class EntitySpark extends Entity implements ISparkEntity {
 				setDead();
 			return;
 		}
-
 
 		List<ISparkEntity> allSparks = SparkHelper.getSparksAround(worldObj, posX, posY, posZ);
 		if(worldObj.isRemote && !didStartupParticles) {
@@ -158,14 +156,18 @@ public class EntitySpark extends Entity implements ISparkEntity {
 				break;
 			}
 			case 2 : { // Dominant
+				List<ISparkEntity> validSparks = new ArrayList();
 				for(ISparkEntity spark : allSparks) {
 					if(spark == this)
 						continue;
 
 					int upgrade_ = spark.getUpgrade();
 					if(upgrade_ == 0 && spark.getAttachedTile() instanceof IManaPool)
-						spark.registerTransfer(this);
+						validSparks.add(spark);
 				}
+				if(validSparks.size() > 0)
+					validSparks.get(worldObj.rand.nextInt(validSparks.size())).registerTransfer(this);
+
 				break;
 			}
 			case 3 : { // Recessive
@@ -186,7 +188,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 			int manaTotal = Math.min(TRANSFER_RATE * transfers.size(), tile.getCurrentMana());
 			int manaForEach = manaTotal / transfers.size();
 			int manaSpent = 0;
-			
+
 			if(manaForEach > transfers.size()) {
 				for(ISparkEntity spark : transfers) {
 					if(spark.getAttachedTile() == null || spark.getAttachedTile().isFull() || spark.areIncomingTransfersDone()) {
@@ -207,6 +209,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 		if(removeTransferants > 0)
 			removeTransferants--;
+		getTransfers();
 	}
 
 	void particlesTowards(Entity e) {

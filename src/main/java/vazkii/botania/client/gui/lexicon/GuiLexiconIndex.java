@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jan 14, 2014, 6:46:59 PM (GMT)]
  */
@@ -73,6 +72,14 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 	@Override
 	public void initGui() {
 		super.initGui();
+
+		if(!GuiLexicon.isValidLexiconGui(this))	{
+			currentOpenLexicon = new GuiLexicon();
+			mc.displayGuiScreen(currentOpenLexicon);
+			ClientTickHandler.notifyPageChange();
+			return;
+		}
+
 		buttonList.add(backButton = new GuiButtonBack(12, left + guiWidth / 2 - 8, top + guiHeight + 2));
 		buttonList.add(leftButton = new GuiButtonPage(13, left, top + guiHeight - 10, false));
 		buttonList.add(rightButton = new GuiButtonPage(14, left + guiWidth - 18, top + guiHeight - 10, true));

@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Mar 19, 2014, 3:42:32 PM (GMT)]
  */
@@ -53,7 +52,7 @@ public class SubTileExoflame extends SubTileFunctional {
 
 									mana -= 2;
 									did = true;
-									
+
 									if(mana == 0)
 										break fireFurnaces;
 								}

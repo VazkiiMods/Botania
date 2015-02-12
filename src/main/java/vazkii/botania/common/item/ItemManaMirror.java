@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Apr 13, 2014, 5:39:24 PM (GMT)]
  */
@@ -158,7 +157,7 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 			pool.recieveMana(mana);
 			TileEntity tile = (TileEntity) pool;
 			tile.getWorldObj().func_147453_f(tile.xCoord, tile.yCoord, tile.zCoord, tile.getWorldObj().getBlock(tile.xCoord, tile.yCoord, tile.zCoord));
-		}	
+		}
 	}*/
 
 	public void bindPool(ItemStack stack, TileEntity pool) {
@@ -262,7 +261,7 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 	@Override
 	public ChunkCoordinates getBinding(ItemStack stack) {
 		IManaPool pool = getManaPool(stack);
-		
+
 		return pool == null || pool instanceof DummyPool ? null : getPoolCoords(stack);
 	}
 

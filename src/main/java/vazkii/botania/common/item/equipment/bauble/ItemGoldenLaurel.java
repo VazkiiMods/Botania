@@ -3,15 +3,12 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Apr 27, 2014, 8:49:01 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.bauble;
-
-import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -25,9 +22,10 @@ import net.minecraft.util.ChatComponentTranslation;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+
+import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.api.item.IBaubleRender;
-import vazkii.botania.api.item.IBaubleRender.Helper;
-import vazkii.botania.api.item.IBaubleRender.RenderType;
 import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
 import baubles.common.lib.PlayerHandler;
@@ -64,11 +62,11 @@ public class ItemGoldenLaurel extends ItemBauble implements IBaubleRender {
 	public BaubleType getBaubleType(ItemStack itemstack) {
 		return BaubleType.AMULET;
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type) {
-		if(type == RenderType.HEAD) { 
+		if(type == RenderType.HEAD) {
 			float f = itemIcon.getMinU();
 			float f1 = itemIcon.getMaxU();
 			float f2 = itemIcon.getMinV();
@@ -84,7 +82,7 @@ public class ItemGoldenLaurel extends ItemBauble implements IBaubleRender {
 				GL11.glScalef(1.1F, 1.1F, 1F);
 				GL11.glTranslatef(-0.05F, -0.1F, 0F);
 			}
-			ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, itemIcon.getIconWidth(), itemIcon.getIconHeight(), 1F / 32F);		
+			ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, itemIcon.getIconWidth(), itemIcon.getIconHeight(), 1F / 32F);
 		}
 	}
 }

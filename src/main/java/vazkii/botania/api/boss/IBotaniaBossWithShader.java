@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Oct 29, 2014, 6:13:21 PM (GMT)]
  */
@@ -29,15 +28,15 @@ public interface IBotaniaBossWithShader extends IBotaniaBoss {
 	 * you don't want a shader to be used. You can use separate shaders
 	 * for the background and foreground.
 	 * @param background True if rendering the background of the boss bar,
-	 * false if rendering the bar itself that shows the HP. 
+	 * false if rendering the bar itself that shows the HP.
 	 */
 	@SideOnly(Side.CLIENT)
 	public int getBossBarShaderProgram(boolean background);
-	
+
 	/**
 	 * A callback for the shader, used to pass in uniforms. Return null for no callback.
 	 */
 	@SideOnly(Side.CLIENT)
 	public ShaderCallback getBossBarShaderCallback(boolean background, int shader);
-	
+
 }

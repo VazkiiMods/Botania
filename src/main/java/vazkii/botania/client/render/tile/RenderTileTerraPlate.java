@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Nov 8, 2014, 7:20:26 PM (GMT)]
  */
@@ -14,11 +13,8 @@ package vazkii.botania.client.render.tile;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 
@@ -26,7 +22,6 @@ import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
-import vazkii.botania.common.block.mana.BlockEnchanter;
 import vazkii.botania.common.block.mana.BlockTerraPlate;
 import vazkii.botania.common.block.tile.TileTerraPlate;
 
@@ -36,8 +31,8 @@ public class RenderTileTerraPlate extends TileEntitySpecialRenderer {
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f) {
 		TileTerraPlate plate = (TileTerraPlate) tileentity;
 
-		float max = (float) TileTerraPlate.MAX_MANA / 10F;
-		float alphaMod = (float) Math.min(max, plate.getCurrentMana()) / max; 
+		float max = TileTerraPlate.MAX_MANA / 10F;
+		float alphaMod = Math.min(max, plate.getCurrentMana()) / max;
 		GL11.glPushMatrix();
 		GL11.glTranslated(d0, d1, d2);
 

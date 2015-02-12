@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jan 14, 2014, 5:17:47 PM (GMT)]
  */
@@ -44,6 +43,7 @@ import vazkii.botania.common.item.equipment.bauble.ItemLavaPendant;
 import vazkii.botania.common.item.equipment.bauble.ItemMagnetRing;
 import vazkii.botania.common.item.equipment.bauble.ItemManaRing;
 import vazkii.botania.common.item.equipment.bauble.ItemMiningRing;
+import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.item.equipment.bauble.ItemPixieRing;
 import vazkii.botania.common.item.equipment.bauble.ItemReachRing;
 import vazkii.botania.common.item.equipment.bauble.ItemSuperLavaPendant;
@@ -70,6 +70,7 @@ import vazkii.botania.common.item.interaction.thaumcraft.ItemElementiumHelmRevea
 import vazkii.botania.common.item.interaction.thaumcraft.ItemManaInkwell;
 import vazkii.botania.common.item.interaction.thaumcraft.ItemManasteelHelmRevealing;
 import vazkii.botania.common.item.interaction.thaumcraft.ItemTerrasteelHelmRevealing;
+import vazkii.botania.common.item.lens.ItemLens;
 import vazkii.botania.common.item.material.ItemDye;
 import vazkii.botania.common.item.material.ItemManaPetal;
 import vazkii.botania.common.item.material.ItemManaResource;
@@ -77,6 +78,7 @@ import vazkii.botania.common.item.material.ItemPestleAndMortar;
 import vazkii.botania.common.item.material.ItemPetal;
 import vazkii.botania.common.item.material.ItemQuartz;
 import vazkii.botania.common.item.material.ItemRune;
+import vazkii.botania.common.item.rod.ItemCobbleRod;
 import vazkii.botania.common.item.rod.ItemDirtRod;
 import vazkii.botania.common.item.rod.ItemDiviningRod;
 import vazkii.botania.common.item.rod.ItemFireRod;
@@ -84,6 +86,7 @@ import vazkii.botania.common.item.rod.ItemGravityRod;
 import vazkii.botania.common.item.rod.ItemMissileRod;
 import vazkii.botania.common.item.rod.ItemRainbowRod;
 import vazkii.botania.common.item.rod.ItemSkyDirtRod;
+import vazkii.botania.common.item.rod.ItemSmeltRod;
 import vazkii.botania.common.item.rod.ItemTerraformRod;
 import vazkii.botania.common.item.rod.ItemTornadoRod;
 import vazkii.botania.common.item.rod.ItemWaterRod;
@@ -187,6 +190,17 @@ public final class ModItems {
 	public static Item holyCloak;
 	public static Item unholyCloak;
 	public static Item craftingHalo;
+	public static Item blackLotus;
+	public static Item monocle;
+	public static Item clip;
+	public static Item cobbleRod;
+	public static Item smeltRod;
+	public static Item worldSeed;
+	public static Item spellCloth;
+	public static Item thornChakram;
+	public static Item overgrowthSeed;
+	public static Item craftPattern;
+	public static Item ancientWill;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -285,7 +299,18 @@ public final class ModItems {
 		holyCloak = new ItemHolyCloak();
 		unholyCloak = new ItemUnholyCloak();
 		craftingHalo = new ItemCraftingHalo();
-		
+		blackLotus = new ItemBlackLotus();
+		monocle = new ItemMonocle();
+		clip = new ItemClip();
+		cobbleRod = new ItemCobbleRod();
+		smeltRod = new ItemSmeltRod();
+		worldSeed = new ItemWorldSeed();
+		spellCloth = new ItemSpellCloth();
+		thornChakram = new ItemThornChakram();
+		overgrowthSeed = new ItemOvergrowthSeed();
+		craftPattern = new ItemCraftPattern();
+		ancientWill = new ItemAncientWill();
+
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));
@@ -307,7 +332,9 @@ public final class ModItems {
 		OreDictionary.registerOre(LibOreDict.PRISMARINE_SHARD, new ItemStack(manaResource, 1, 10));
 		OreDictionary.registerOre(LibOreDict.PLACEHOLDER, new ItemStack(manaResource, 1, 11));
 		OreDictionary.registerOre(LibOreDict.RED_STRING, new ItemStack(manaResource, 1, 12));
-		
+		OreDictionary.registerOre(LibOreDict.DREAMWOOD_TWIG, new ItemStack(manaResource, 1, 13));
+		OreDictionary.registerOre(LibOreDict.GAIA_INGOT, new ItemStack(manaResource, 1, 14));
+
 		OreDictionary.registerOre(LibOreDict.VIAL, new ItemStack(vial, 1, 0));
 		OreDictionary.registerOre(LibOreDict.FLASK, new ItemStack(vial, 1, 1));
 	}

@@ -23,6 +23,7 @@ import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ObfuscationHelper;
@@ -32,6 +33,7 @@ public class FXSparkle extends EntityFX {
 	public static final ResourceLocation particles = new ResourceLocation(LibResources.MISC_PARTICLES);
 
 	public static Queue<FXSparkle> queuedRenders = new ArrayDeque();
+	public static Queue<FXSparkle> queuedCorruptRenders = new ArrayDeque();
 
 	// Queue values
 	float f;
@@ -71,7 +73,15 @@ public class FXSparkle extends EntityFX {
 			sparkle.renderQueued(tessellator);
 		tessellator.draw();
 
+		ShaderHelper.useShader(ShaderHelper.filmGrain);
+		tessellator.startDrawingQuads();
+		for(FXSparkle sparkle : queuedCorruptRenders)
+			sparkle.renderQueued(tessellator);
+		tessellator.draw();
+		ShaderHelper.releaseShader();
+
 		queuedRenders.clear();
+		queuedCorruptRenders.clear();
 	}
 
 	private void renderQueued(Tessellator tessellator) {
@@ -111,7 +121,9 @@ public class FXSparkle extends EntityFX {
 		this.f4 = f4;
 		this.f5 = f5;
 
-		queuedRenders.add(this);
+		if(corrupt)
+			queuedCorruptRenders.add(this);
+		else queuedRenders.add(this);
 	}
 
 	@Override
@@ -236,6 +248,7 @@ public class FXSparkle extends EntityFX {
 		} else return false;
 	}
 
+	public boolean corrupt = false;
 	public boolean fake = false;
 	public int multiplier = 2;
 	public boolean shrink = true;

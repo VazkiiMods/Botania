@@ -3,13 +3,14 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jan 22, 2014, 7:21:51 PM (GMT)]
  */
 package vazkii.botania.common.block.tile;
+
+import java.util.ArrayList;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -27,9 +28,8 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.ISubTileContainer;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.wand.IWandBindable;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.string.TileRedStringRelay;
-
-import java.util.ArrayList;
 
 public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTileContainer {
 
@@ -84,15 +84,21 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 					xCoord = currX;
 					yCoord = currY;
 					zCoord = currZ;
-					
+
 					return;
 				}
 			}
-			
+
 			subTile.onUpdate();
+			if(isOnSpecialSoil())
+				subTile.onUpdate();
 		}
 	}
 
+	public boolean isOnSpecialSoil() {
+		return worldObj.getBlock(xCoord, yCoord - 1, zCoord) == ModBlocks.enchantedSoil;
+	}
+	
 	@Override
 	public boolean canUpdate() {
 		return subTile == null || subTile.canUpdate();

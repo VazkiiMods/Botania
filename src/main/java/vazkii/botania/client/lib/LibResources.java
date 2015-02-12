@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jan 14, 2014, 5:29:31 PM (GMT)]
  */
@@ -42,7 +41,7 @@ public final class LibResources {
 	public static final String GUI_POTIONS = PREFIX_GUI + "potions.png";
 	public static final String GUI_NEI_BLANK = PREFIX_GUI + "neiBlank.png";
 	public static final String GUI_NEI_BREWERY = PREFIX_GUI + "neiBrewery.png";
-	
+
 	public static final String ENTRY_FLOWERS = PREFIX_ENTRIES + "flowers.png";
 	public static final String ENTRY_APOTHECARY = PREFIX_ENTRIES + "apothecary.png";
 	public static final String ENTRY_PURE_DAISY = PREFIX_ENTRIES + "pureDaisy.png";
@@ -65,6 +64,7 @@ public final class LibResources {
 	public static final String ENTRY_HYDROANGEAS = PREFIX_ENTRIES + "hydroangeas.png";
 	public static final String ENTRY_CRAFT_CRATE = PREFIX_ENTRIES + "craftCrate.png";
 	public static final String ENTRY_AZULEJOS = PREFIX_ENTRIES + "azulejos.png";
+	public static final String ENTRY_METAMORPHIC_STONES = PREFIX_ENTRIES + "metamorphicStones.png";
 
 	public static final String MODEL_ALTAR = PREFIX_MODEL + "altar.png";
 	public static final String MODEL_ALTAR_MOSSY = PREFIX_MODEL + "altarMossy.png";
@@ -100,7 +100,7 @@ public final class LibResources {
 	public static final String MODEL_KNOCKBACK_BELT = PREFIX_MODEL + "knockbackBelt.png";
 	public static final String MODEL_HOLY_CLOAK = PREFIX_MODEL + "holyCloak.png";
 	public static final String MODEL_UNHOLY_CLOAK = PREFIX_MODEL + "unholyCloak.png";
-	
+
 	public static final String MODEL_CAPE = "/assets/botania/textures/model/cape.png";
 
 	public static final String MISC_PARTICLES = PREFIX_MISC + "particles.png";
@@ -121,5 +121,6 @@ public final class LibResources {
 	public static final String SHADER_HALO_FRAG = PREFIX_SHADER + "halo.frag";
 	public static final String SHADER_DOPLLEGANGER_BAR_FRAG = PREFIX_SHADER + "doppleganger_bar.frag";
 	public static final String SHADER_TERRA_PLATE_RUNE_FRAG = PREFIX_SHADER + "terra_plate_rune.frag";
+	public static final String SHADER_FILM_GRAIN = PREFIX_SHADER + "film_grain.frag";
 
 }

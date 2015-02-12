@@ -3,11 +3,11 @@ package vazkii.botania.common.integration.buildcraft;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.mana.IManaBlock;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.block.tile.TileRuneAltar;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
 import buildcraft.api.statements.IStatementContainer;
 import buildcraft.api.statements.ITriggerExternal;
 import buildcraft.api.statements.ITriggerInternal;
@@ -15,13 +15,13 @@ import buildcraft.api.statements.ITriggerProvider;
 import buildcraft.api.statements.StatementManager;
 
 public class StatementAPIPlugin implements ITriggerProvider {
-	
+
 	public static final ITriggerExternal triggerManaEmpty = new TriggerManaLevel(TriggerManaLevel.State.EMPTY);
 	public static final ITriggerExternal triggerManaContains = new TriggerManaLevel(TriggerManaLevel.State.CONTAINS);
 	public static final ITriggerExternal triggerManaSpace = new TriggerManaLevel(TriggerManaLevel.State.SPACE);
 	public static final ITriggerExternal triggerManaFull = new TriggerManaLevel(TriggerManaLevel.State.FULL);
 	public static final ITriggerInternal triggerManaDetector = new TriggerManaDetector();
-	
+
 	public static final ITriggerExternal triggerRuneAltarCanCraft = new TriggerRuneAltarCanCraft();
 
 	public StatementAPIPlugin() {
@@ -32,7 +32,7 @@ public class StatementAPIPlugin implements ITriggerProvider {
 		StatementManager.registerStatement(triggerManaDetector);
 
 		StatementManager.registerStatement(triggerRuneAltarCanCraft);
-		
+
 		StatementManager.registerTriggerProvider(this);
 	}
 
@@ -55,9 +55,9 @@ public class StatementAPIPlugin implements ITriggerProvider {
 				list.add(triggerManaFull);
 			}
 		}
-		
+
 		if (tile instanceof TileRuneAltar) list.add(triggerRuneAltarCanCraft);
-		
+
 		return list;
 	}
 }

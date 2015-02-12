@@ -3,33 +3,46 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  *
  * File Created @ [? (GMT)]
  */
 package vazkii.botania.common.block.subtile.generating;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileHydroangeas extends SubTileGenerating {
 
 	private static final String TAG_BURN_TIME = "burnTime";
-	int burnTime = 0;
+	private static final String TAG_COOLDOWN = "cooldown";
+
+	int burnTime, cooldown;
 
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
 
+		if(cooldown > 0) {
+			cooldown--;
+			for(int i = 0; i < 3; i++)
+				Botania.proxy.wispFX(supertile.getWorldObj(), supertile.xCoord + 0.5 + Math.random() * 0.2 - 0.1, supertile.yCoord + 0.5 + Math.random() * 0.2 - 0.1, supertile.zCoord + 0.5 + Math.random() * 0.2 - 0.1, 0.1F, 0.1F, 0.1F, (float) Math.random() / 6, (float) -Math.random() / 30);
+			return;
+		}
+		
 		boolean didSomething = false;
 
 		if(burnTime == 0) {
@@ -60,15 +73,19 @@ public class SubTileHydroangeas extends SubTileGenerating {
 						burnTime += getBurnTime();
 						playSound();
 					}
-
-					if(didSomething)
-						sync();
 				}
 		} else {
 			if(supertile.getWorldObj().rand.nextInt(8) == 0)
 				doBurnParticles();
 			burnTime--;
+			if(burnTime == 0) {
+				cooldown = getCooldown();
+				didSomething = true;
+			}
 		}
+		
+		if(didSomething)
+			sync();
 	}
 
 	@Override
@@ -116,6 +133,7 @@ public class SubTileHydroangeas extends SubTileGenerating {
 		super.writeToPacketNBT(cmp);
 
 		cmp.setInteger(TAG_BURN_TIME, burnTime);
+		cmp.setInteger(TAG_COOLDOWN, cooldown);
 	}
 
 	@Override
@@ -123,8 +141,23 @@ public class SubTileHydroangeas extends SubTileGenerating {
 		super.readFromPacketNBT(cmp);
 
 		burnTime = cmp.getInteger(TAG_BURN_TIME);
+		cooldown = cmp.getInteger(TAG_COOLDOWN);
 	}
 
+	@Override
+	public ArrayList<ItemStack> getDrops(ArrayList<ItemStack> list) {
+		ArrayList<ItemStack> drops = super.getDrops(list);
+		if(cooldown > 0)
+			ItemNBTHelper.setInt(drops.get(0), TAG_COOLDOWN, getCooldown());
+		return drops;
+	}
+	
+	@Override
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
+		super.onBlockPlacedBy(world, x, y, z, entity, stack);
+		cooldown = ItemNBTHelper.getInt(stack, TAG_COOLDOWN, 0);
+	}
+	
 	@Override
 	public boolean canGeneratePassively() {
 		return burnTime > 0;
@@ -134,6 +167,10 @@ public class SubTileHydroangeas extends SubTileGenerating {
 	public int getDelayBetweenPassiveGeneration() {
 		boolean rain = supertile.getWorldObj().getWorldChunkManager().getBiomeGenAt(supertile.xCoord, supertile.zCoord).getIntRainfall() > 0 && (supertile.getWorldObj().isRaining() || supertile.getWorldObj().isThundering());
 		return rain ? 3 : 4;
+	}
+	
+	public int getCooldown() {
+		return 0;
 	}
 
 }

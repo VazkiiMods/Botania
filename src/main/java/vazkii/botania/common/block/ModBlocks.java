@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jan 14, 2014, 5:17:55 PM (GMT)]
  */
@@ -22,11 +21,13 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.decor.BlockBuriedPetals;
 import vazkii.botania.common.block.decor.BlockCustomBrick;
+import vazkii.botania.common.block.decor.BlockDirtPath;
 import vazkii.botania.common.block.decor.BlockElfGlass;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.decor.BlockManaBeacon;
 import vazkii.botania.common.block.decor.BlockManaFlame;
 import vazkii.botania.common.block.decor.BlockManaGlass;
+import vazkii.botania.common.block.decor.BlockPetalBlock;
 import vazkii.botania.common.block.decor.BlockPrismarine;
 import vazkii.botania.common.block.decor.BlockReeds;
 import vazkii.botania.common.block.decor.BlockSeaLamp;
@@ -35,40 +36,6 @@ import vazkii.botania.common.block.decor.BlockStarfield;
 import vazkii.botania.common.block.decor.BlockThatch;
 import vazkii.botania.common.block.decor.BlockTinyPotato;
 import vazkii.botania.common.block.decor.BlockUnstable;
-import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartz;
-import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartzSlab;
-import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartzStairs;
-import vazkii.botania.common.block.decor.slabs.BlockModSlab;
-import vazkii.botania.common.block.decor.slabs.BlockReedSlab;
-import vazkii.botania.common.block.decor.slabs.BlockThatchSlab;
-import vazkii.botania.common.block.decor.slabs.bricks.BlockCustomBrickSlab;
-import vazkii.botania.common.block.decor.slabs.bricks.BlockSnowBrickSlab;
-import vazkii.botania.common.block.decor.slabs.bricks.BlockSoulBrickSlab;
-import vazkii.botania.common.block.decor.slabs.bricks.BlockTileSlab;
-import vazkii.botania.common.block.decor.slabs.living.BlockDreamwoodPlankSlab;
-import vazkii.botania.common.block.decor.slabs.living.BlockDreamwoodSlab;
-import vazkii.botania.common.block.decor.slabs.living.BlockLivingrockBrickSlab;
-import vazkii.botania.common.block.decor.slabs.living.BlockLivingrockSlab;
-import vazkii.botania.common.block.decor.slabs.living.BlockLivingwoodPlankSlab;
-import vazkii.botania.common.block.decor.slabs.living.BlockLivingwoodSlab;
-import vazkii.botania.common.block.decor.slabs.prismarine.BlockDarkPrismarineSlab;
-import vazkii.botania.common.block.decor.slabs.prismarine.BlockPrismarineBrickSlab;
-import vazkii.botania.common.block.decor.slabs.prismarine.BlockPrismarineSlab;
-import vazkii.botania.common.block.decor.stairs.BlockReedStairs;
-import vazkii.botania.common.block.decor.stairs.BlockThatchStairs;
-import vazkii.botania.common.block.decor.stairs.bricks.BlockCustomBrickStairs;
-import vazkii.botania.common.block.decor.stairs.bricks.BlockSnowBrickStairs;
-import vazkii.botania.common.block.decor.stairs.bricks.BlockSoulBrickStairs;
-import vazkii.botania.common.block.decor.stairs.bricks.BlockTileStairs;
-import vazkii.botania.common.block.decor.stairs.living.BlockDreamwoodPlankStairs;
-import vazkii.botania.common.block.decor.stairs.living.BlockDreamwoodStairs;
-import vazkii.botania.common.block.decor.stairs.living.BlockLivingrockBrickStairs;
-import vazkii.botania.common.block.decor.stairs.living.BlockLivingrockStairs;
-import vazkii.botania.common.block.decor.stairs.living.BlockLivingwoodPlankStairs;
-import vazkii.botania.common.block.decor.stairs.living.BlockLivingwoodStairs;
-import vazkii.botania.common.block.decor.stairs.prismarine.BlockDarkPrismarineStairs;
-import vazkii.botania.common.block.decor.stairs.prismarine.BlockPrismarineBrickStairs;
-import vazkii.botania.common.block.decor.stairs.prismarine.BlockPrismarineStairs;
 import vazkii.botania.common.block.dispenser.BehaviourSeeds;
 import vazkii.botania.common.block.dispenser.BehaviourWand;
 import vazkii.botania.common.block.mana.BlockAlchemyCatalyst;
@@ -80,6 +47,7 @@ import vazkii.botania.common.block.mana.BlockForestDrum;
 import vazkii.botania.common.block.mana.BlockManaDetector;
 import vazkii.botania.common.block.mana.BlockManaVoid;
 import vazkii.botania.common.block.mana.BlockPool;
+import vazkii.botania.common.block.mana.BlockPrism;
 import vazkii.botania.common.block.mana.BlockRFGenerator;
 import vazkii.botania.common.block.mana.BlockRuneAltar;
 import vazkii.botania.common.block.mana.BlockSpawnerClaw;
@@ -106,8 +74,11 @@ import vazkii.botania.common.block.subtile.functional.SubTileHyacidus;
 import vazkii.botania.common.block.subtile.functional.SubTileJadedAmaranthus;
 import vazkii.botania.common.block.subtile.functional.SubTileJiyuulia;
 import vazkii.botania.common.block.subtile.functional.SubTileLoonuim;
+import vazkii.botania.common.block.subtile.functional.SubTileMarimorphosis;
+import vazkii.botania.common.block.subtile.functional.SubTileMedumone;
 import vazkii.botania.common.block.subtile.functional.SubTilePollidisiac;
 import vazkii.botania.common.block.subtile.functional.SubTileRannuncarpus;
+import vazkii.botania.common.block.subtile.functional.SubTileSpectranthemum;
 import vazkii.botania.common.block.subtile.functional.SubTileTangleberrie;
 import vazkii.botania.common.block.subtile.functional.SubTileTigerseye;
 import vazkii.botania.common.block.subtile.functional.SubTileVinculotus;
@@ -120,7 +91,9 @@ import vazkii.botania.common.block.subtile.generating.SubTileGourmaryllis;
 import vazkii.botania.common.block.subtile.generating.SubTileHydroangeas;
 import vazkii.botania.common.block.subtile.generating.SubTileKekimurus;
 import vazkii.botania.common.block.subtile.generating.SubTileMunchdew;
+import vazkii.botania.common.block.subtile.generating.SubTileNarslimmus;
 import vazkii.botania.common.block.subtile.generating.SubTileNightshade;
+import vazkii.botania.common.block.subtile.generating.SubTileSpectrolus;
 import vazkii.botania.common.block.subtile.generating.SubTileThermalily;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.block.tile.TileAltar;
@@ -148,6 +121,7 @@ import vazkii.botania.common.block.tile.mana.TileDistributor;
 import vazkii.botania.common.block.tile.mana.TileManaDetector;
 import vazkii.botania.common.block.tile.mana.TileManaVoid;
 import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.block.tile.mana.TilePrism;
 import vazkii.botania.common.block.tile.mana.TileRFGenerator;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.block.tile.mana.TileTurntable;
@@ -156,7 +130,6 @@ import vazkii.botania.common.block.tile.string.TileRedStringContainer;
 import vazkii.botania.common.block.tile.string.TileRedStringDispenser;
 import vazkii.botania.common.block.tile.string.TileRedStringFertilizer;
 import vazkii.botania.common.block.tile.string.TileRedStringRelay;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibOreDict;
@@ -217,80 +190,10 @@ public final class ModBlocks {
 	public static Block redStringRelay;
 	public static Block floatingSpecialFlower;
 	public static Block manaFlame;
-
-	public static Block livingwoodStairs;
-	public static Block livingwoodSlab;
-	public static Block livingwoodSlabFull;
-	public static Block livingwoodPlankStairs;
-	public static Block livingwoodPlankSlab;
-	public static Block livingwoodPlankSlabFull;
-	public static Block livingrockStairs;
-	public static Block livingrockSlab;
-	public static Block livingrockSlabFull;
-	public static Block livingrockBrickStairs;
-	public static Block livingrockBrickSlab;
-	public static Block livingrockBrickSlabFull;
-	public static Block dreamwoodStairs;
-	public static Block dreamwoodSlab;
-	public static Block dreamwoodSlabFull;
-	public static Block dreamwoodPlankStairs;
-	public static Block dreamwoodPlankSlab;
-	public static Block dreamwoodPlankSlabFull;
-
-	public static Block prismarineStairs;
-	public static Block prismarineSlab;
-	public static Block prismarineSlabFull;
-	public static Block prismarineBrickStairs;
-	public static Block prismarineBrickSlab;
-	public static Block prismarineBrickSlabFull;
-	public static Block darkPrismarineStairs;
-	public static Block darkPrismarineSlab;
-	public static Block darkPrismarineSlabFull;
-
-	public static Block reedStairs;
-	public static Block reedSlab;
-	public static Block reedSlabFull;
-	public static Block thatchStairs;
-	public static Block thatchSlab;
-	public static Block thatchSlabFull;
-
-	public static Block netherBrickStairs;
-	public static Block netherBrickSlab;
-	public static Block netherBrickSlabFull;
-	public static Block soulBrickStairs;
-	public static Block soulBrickSlab;
-	public static Block soulBrickSlabFull;
-	public static Block snowBrickStairs;
-	public static Block snowBrickSlab;
-	public static Block snowBrickSlabFull;
-	public static Block tileStairs;
-	public static Block tileSlab;
-	public static Block tileSlabFull;
-
-	public static Block darkQuartz;
-	public static Block darkQuartzSlab;
-	public static Block darkQuartzSlabFull;
-	public static Block darkQuartzStairs;
-	public static Block manaQuartz;
-	public static Block manaQuartzSlab;
-	public static Block manaQuartzSlabFull;
-	public static Block manaQuartzStairs;
-	public static Block blazeQuartz;
-	public static Block blazeQuartzSlab;
-	public static Block blazeQuartzSlabFull;
-	public static Block blazeQuartzStairs;
-	public static Block lavenderQuartz;
-	public static Block lavenderQuartzSlab;
-	public static Block lavenderQuartzSlabFull;
-	public static Block lavenderQuartzStairs;
-	public static Block redQuartz;
-	public static Block redQuartzSlab;
-	public static Block redQuartzSlabFull;
-	public static Block redQuartzStairs;
-	public static Block elfQuartz;
-	public static Block elfQuartzSlab;
-	public static Block elfQuartzSlabFull;
-	public static Block elfQuartzStairs;
+	public static Block prism;
+	public static Block dirtPath;
+	public static Block enchantedSoil;
+	public static Block petalBlock;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -346,132 +249,12 @@ public final class ModBlocks {
 		redStringRelay = new BlockRedStringRelay();
 		floatingSpecialFlower = new BlockFloatingSpecialFlower();
 		manaFlame = new BlockManaFlame();
+		prism = new BlockPrism();
+		dirtPath = new BlockDirtPath();
+		enchantedSoil = new BlockEnchantedSoil();
+		petalBlock = new BlockPetalBlock();
 		
-		livingwoodStairs = new BlockLivingwoodStairs();
-		livingwoodSlab = new BlockLivingwoodSlab(false);
-		livingwoodSlabFull = new BlockLivingwoodSlab(true);
-		livingwoodPlankStairs = new BlockLivingwoodPlankStairs();
-		livingwoodPlankSlab = new BlockLivingwoodPlankSlab(false);
-		livingwoodPlankSlabFull = new BlockLivingwoodPlankSlab(true);
-		livingrockStairs = new BlockLivingrockStairs();
-		livingrockSlab = new BlockLivingrockSlab(false);
-		livingrockSlabFull = new BlockLivingrockSlab(true);
-		livingrockBrickStairs = new BlockLivingrockBrickStairs();
-		livingrockBrickSlab = new BlockLivingrockBrickSlab(false);
-		livingrockBrickSlabFull = new BlockLivingrockBrickSlab(true);
-		dreamwoodStairs = new BlockDreamwoodStairs();
-		dreamwoodSlab = new BlockDreamwoodSlab(false);
-		dreamwoodSlabFull = new BlockDreamwoodSlab(true);
-		dreamwoodPlankStairs = new BlockDreamwoodPlankStairs();
-		dreamwoodPlankSlab = new BlockDreamwoodPlankSlab(false);
-		dreamwoodPlankSlabFull = new BlockDreamwoodPlankSlab(true);
-
-		reedStairs = new BlockReedStairs();
-		reedSlab = new BlockReedSlab(false);
-		reedSlabFull = new BlockReedSlab(true);
-		thatchStairs = new BlockThatchStairs();
-		thatchSlab = new BlockThatchSlab(false);
-		thatchSlabFull = new BlockThatchSlab(true);
-
-		prismarineStairs = new BlockPrismarineStairs();
-		prismarineSlab = new BlockPrismarineSlab(false);
-		prismarineSlabFull = new BlockPrismarineSlab(true);
-		prismarineBrickStairs = new BlockPrismarineBrickStairs();
-		prismarineBrickSlab = new BlockPrismarineBrickSlab(false);
-		prismarineBrickSlabFull = new BlockPrismarineBrickSlab(true);
-		darkPrismarineStairs = new BlockDarkPrismarineStairs();
-		darkPrismarineSlab = new BlockDarkPrismarineSlab(false);
-		darkPrismarineSlabFull = new BlockDarkPrismarineSlab(true);
-
-		netherBrickStairs = new BlockCustomBrickStairs();
-		netherBrickSlab = new BlockCustomBrickSlab(false);
-		netherBrickSlabFull = new BlockCustomBrickSlab(true);
-		soulBrickStairs = new BlockSoulBrickStairs();
-		soulBrickSlab = new BlockSoulBrickSlab(false);
-		soulBrickSlabFull = new BlockSoulBrickSlab(true);
-		snowBrickStairs = new BlockSnowBrickStairs();
-		snowBrickSlab = new BlockSnowBrickSlab(false);
-		snowBrickSlabFull = new BlockSnowBrickSlab(true);
-		tileStairs = new BlockTileStairs();
-		tileSlab = new BlockTileSlab(false);
-		tileSlabFull = new BlockTileSlab(true);
-
-		if(ConfigHandler.darkQuartzEnabled) {
-			darkQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_DARK);
-			darkQuartzSlab = new BlockSpecialQuartzSlab(darkQuartz, false);
-			darkQuartzSlabFull = new BlockSpecialQuartzSlab(darkQuartz, true);
-			darkQuartzStairs = new BlockSpecialQuartzStairs(darkQuartz);
-		}
-
-		manaQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_MANA);
-		manaQuartzSlab = new BlockSpecialQuartzSlab(manaQuartz, false);
-		manaQuartzSlabFull = new BlockSpecialQuartzSlab(manaQuartz, true);
-		manaQuartzStairs = new BlockSpecialQuartzStairs(manaQuartz);
-		blazeQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_BLAZE);
-		blazeQuartzSlab = new BlockSpecialQuartzSlab(blazeQuartz, false);
-		blazeQuartzSlabFull = new BlockSpecialQuartzSlab(blazeQuartz, true);
-		blazeQuartzStairs = new BlockSpecialQuartzStairs(blazeQuartz);
-		lavenderQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_LAVENDER);
-		lavenderQuartzSlab = new BlockSpecialQuartzSlab(lavenderQuartz, false);
-		lavenderQuartzSlabFull = new BlockSpecialQuartzSlab(lavenderQuartz, true);
-		lavenderQuartzStairs = new BlockSpecialQuartzStairs(lavenderQuartz);
-		redQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_RED);
-		redQuartzSlab = new BlockSpecialQuartzSlab(redQuartz, false);
-		redQuartzSlabFull = new BlockSpecialQuartzSlab(redQuartz, true);
-		redQuartzStairs = new BlockSpecialQuartzStairs(redQuartz);
-		elfQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_ELF);
-		elfQuartzSlab = new BlockSpecialQuartzSlab(elfQuartz, false);
-		elfQuartzSlabFull = new BlockSpecialQuartzSlab(elfQuartz, true);
-		elfQuartzStairs = new BlockSpecialQuartzStairs(elfQuartz);
-
-		if(ConfigHandler.darkQuartzEnabled) {
-			((BlockModSlab) darkQuartzSlab).register();
-			((BlockModSlab) darkQuartzSlabFull).register();
-		}
-		((BlockModSlab) manaQuartzSlab).register();
-		((BlockModSlab) manaQuartzSlabFull).register();
-		((BlockModSlab) blazeQuartzSlab).register();
-		((BlockModSlab) blazeQuartzSlabFull).register();
-		((BlockModSlab) lavenderQuartzSlab).register();
-		((BlockModSlab) lavenderQuartzSlabFull).register();
-		((BlockModSlab) redQuartzSlab).register();
-		((BlockModSlab) redQuartzSlabFull).register();
-		((BlockModSlab) elfQuartzSlab).register();
-		((BlockModSlab) elfQuartzSlabFull).register();
-
-		((BlockModSlab) livingwoodSlab).register();
-		((BlockModSlab) livingwoodSlabFull).register();
-		((BlockModSlab) livingwoodPlankSlab).register();
-		((BlockModSlab) livingwoodPlankSlabFull).register();
-		((BlockModSlab) livingrockSlab).register();
-		((BlockModSlab) livingrockSlabFull).register();
-		((BlockModSlab) livingrockBrickSlab).register();
-		((BlockModSlab) livingrockBrickSlabFull).register();
-		((BlockModSlab) dreamwoodSlab).register();
-		((BlockModSlab) dreamwoodSlabFull).register();
-		((BlockModSlab) dreamwoodPlankSlab).register();
-		((BlockModSlab) dreamwoodPlankSlabFull).register();
-
-		((BlockModSlab) reedSlab).register();
-		((BlockModSlab) reedSlabFull).register();
-		((BlockModSlab) thatchSlab).register();
-		((BlockModSlab) thatchSlabFull).register();
-
-		((BlockModSlab) prismarineSlab).register();
-		((BlockModSlab) prismarineSlabFull).register();
-		((BlockModSlab) prismarineBrickSlab).register();
-		((BlockModSlab) prismarineBrickSlabFull).register();
-		((BlockModSlab) darkPrismarineSlab).register();
-		((BlockModSlab) darkPrismarineSlabFull).register();
-
-		((BlockModSlab) netherBrickSlab).register();
-		((BlockModSlab) netherBrickSlabFull).register();
-		((BlockModSlab) soulBrickSlab).register();
-		((BlockModSlab) soulBrickSlabFull).register();
-		((BlockModSlab) snowBrickSlab).register();
-		((BlockModSlab) snowBrickSlabFull).register();
-		((BlockModSlab) tileSlab).register();
-		((BlockModSlab) tileSlabFull).register();
+		ModFluffBlocks.init();
 
 		for(int i = 0; i < 16; i++)
 			OreDictionary.registerOre(LibOreDict.FLOWER[i], new ItemStack(flower, 1, i));
@@ -489,6 +272,7 @@ public final class ModBlocks {
 		OreDictionary.registerOre("snowLayer", Blocks.snow_layer);
 		OreDictionary.registerOre("mycelium", Blocks.mycelium);
 		OreDictionary.registerOre("podzol", new ItemStack(Blocks.dirt, 1, 2));
+		OreDictionary.registerOre("netherrack", Blocks.netherrack);
 
 		initTileEntities();
 	}
@@ -534,6 +318,7 @@ public final class ModBlocks {
 		registerTile(TileRedStringRelay.class, LibBlockNames.RED_STRING_RELAY);
 		registerTile(TileFloatingSpecialFlower.class, LibBlockNames.FLOATING_SPECIAL_FLOWER);
 		registerTile(TileManaFlame.class, LibBlockNames.MANA_FLAME);
+		registerTile(TilePrism.class, LibBlockNames.PRISM);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MANASTAR, SubTileManastar.class);
@@ -548,6 +333,8 @@ public final class ModBlocks {
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_ENTROPINNYUM, SubTileEntropinnyum.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_KEKIMURUS, SubTileKekimurus.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_GOURMARYLLIS, SubTileGourmaryllis.class);
+		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_NARSLIMMUS, SubTileNarslimmus.class);
+		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_SPECTROLUS, SubTileSpectrolus.class);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_BELLETHORN, SubTileBellethorn.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_DREADTHORN, SubTileDreadthorn.class);
@@ -568,6 +355,9 @@ public final class ModBlocks {
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_LOONIUM, SubTileLoonuim.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_DAFFOMILL, SubTileDaffomill.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_VINCULOTUS, SubTileVinculotus.class);
+		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_SPECTRANTHEMUM, SubTileSpectranthemum.class);
+		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MEDUMONE, SubTileMedumone.class);
+		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MARIMORPHOSIS, SubTileMarimorphosis.class);
 	}
 
 	private static void registerTile(Class<? extends TileEntity> clazz, String key) {

@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jan 14, 2014, 6:48:05 PM (GMT)]
  */
@@ -53,7 +52,7 @@ public class GuiLexicon extends GuiScreen {
 	public float lastTime = 0F;
 	public float partialTicks = 0F;
 	public float timeDelta = 0F;
-	
+
 	List<LexiconCategory> allCategories;
 
 	String title;
@@ -64,13 +63,13 @@ public class GuiLexicon extends GuiScreen {
 	@Override
 	public void initGui() {
 		super.initGui();
-		
+
 		allCategories = new ArrayList(BotaniaAPI.getAllCategories());
 		Collections.sort(allCategories);
-		
+
 		lastTime = ClientTickHandler.ticksInGame;
 
-		title = Minecraft.getMinecraft().thePlayer.getCurrentEquippedItem().getDisplayName();
+		title = stackUsed.getDisplayName();
 		currentOpenLexicon = this;
 
 		left = width / 2 - guiWidth / 2;
@@ -110,10 +109,10 @@ public class GuiLexicon extends GuiScreen {
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		mc.renderEngine.bindTexture(texture);
 		drawTexturedModalRect(left, top, 0, 0, guiWidth, guiHeight);
-		
+
 		if(ClientProxy.singAnnoyingChristmasSongsTillVazkiisHeadExplodesFromAllTheDamnJingle)
 			drawTexturedModalRect(left + 3, top + 1, 0, 212, 138, 6);
-		
+
 		drawBookmark(left + guiWidth / 2, top - getTitleHeight(), getTitle(), true);
 		String subtitle = getSubtitle();
 		if(subtitle != null) {
@@ -128,7 +127,7 @@ public class GuiLexicon extends GuiScreen {
 			populateBookmarks();
 			bookmarksNeedPopulation = false;
 		}
-		
+
 		if(mc.thePlayer.getCommandSenderName().equals("haighyorkie")) {
 			GL11.glColor4f(1F, 1F, 1F, 1F);
 			mc.renderEngine.bindTexture(texture);
@@ -140,16 +139,16 @@ public class GuiLexicon extends GuiScreen {
 				GL11.glEnable(GL11.GL_BLEND);
 				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 				GL11.glTranslatef(0F, 0F, 2F);
-				
+
 				int w = 256;
 				int h = 152;
 				int x = (int) ((ClientTickHandler.ticksInGame + par3) * 6) % (width + w) - w;
 				int y = (int) (top + guiHeight / 2 - h / 4 + Math.sin((ClientTickHandler.ticksInGame + par3) / 6.0) * 40);
-				
+
 				drawTexturedModalRect(x * 2, y * 2, 0, 0, w, h);
-				GL11.glDisable(GL11.GL_BLEND);				
+				GL11.glDisable(GL11.GL_BLEND);
 				GL11.glPopMatrix();
-				
+
 				RenderHelper.renderTooltip(par1, par2, Arrays.asList(EnumChatFormatting.GOLD + "#goldfishchris", EnumChatFormatting.RED + "INTENSIFY HIM"));
 			}
 		}
@@ -309,4 +308,18 @@ public class GuiLexicon extends GuiScreen {
 		super.keyTyped(par1, par2);
 	}
 
+	public static boolean isValidLexiconGui(GuiLexicon gui)	{
+		if(gui.isCategoryIndex())
+			return true;
+		if(gui.isIndex()) {
+			GuiLexiconIndex indexGui=(GuiLexiconIndex)gui;
+			if(indexGui.category==null)
+				return true;
+			return BotaniaAPI.getAllCategories().contains(indexGui.category);
+		}
+		GuiLexiconEntry entryGui=(GuiLexiconEntry)gui;
+		if(!BotaniaAPI.getAllEntries().contains(entryGui.entry))
+			return false;
+		return entryGui.page < entryGui.entry.pages.size();
+	}
 }

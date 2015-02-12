@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Oct 31, 2014, 4:33:55 PM (GMT)]
  */
@@ -49,12 +48,12 @@ public class ModelBrewery extends ModelBase {
 
 	public void render(RenderTileBrewery render, double time) {
 		float f = 1F / 16F;
-		
+
 		float offset = (float) Math.sin(time / 40) * 0.1F + 0.05F;
 		int plates = render.brewery.getSizeInventory() - 1;
 		float deg = (float) time / 16F;
 		float polerot = -deg * 25F;
-		
+
 		GL11.glTranslatef(0F, offset, 0F);
 		GL11.glRotatef(polerot, 0F, 1F, 0F);
 		if(render.brewery.getStackInSlot(0) != null) {
@@ -69,14 +68,14 @@ public class ModelBrewery extends ModelBase {
 		Top.render(f);
 		Bottom.render(f);
 		GL11.glRotatef(-polerot, 0F, 1F, 0F);
-		
+
 		float degper = (float) (2F * Math.PI) / plates;
 		for(int i = 0; i < plates; i++) {
 			Plate.rotateAngleY = deg;
 			float offset1 = (float) Math.sin(time / 20 + i * 40F) * 0.2F - 0.2F;
 			if(time == -1)
 				offset1 = 0F;
-			
+
 			GL11.glTranslatef(0F, offset1, 0F);
 			if(render.brewery.getStackInSlot(i + 1) != null) {
 				float rot = Plate.rotateAngleY * 180F / (float) Math.PI;
@@ -91,10 +90,10 @@ public class ModelBrewery extends ModelBase {
 				GL11.glTranslatef(-transX, -transY, -transZ);
 				GL11.glRotatef(-rot, 0F, 1F, 0F);
 			}
-			
+
 			Plate.render(f);
 			GL11.glTranslatef(0F, -offset1, 0F);
-			
+
 			deg += degper;
 		}
 		GL11.glTranslatef(0F, -offset, 0F);

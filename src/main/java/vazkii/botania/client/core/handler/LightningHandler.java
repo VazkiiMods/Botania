@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Feb 3, 2014, 9:05:38 PM (GMT)]
  */
@@ -60,7 +59,7 @@ public class LightningHandler {
 	@SubscribeEvent
 	public void onRenderWorldLast(RenderWorldLastEvent event) {
 		Profiler profiler = Minecraft.getMinecraft().mcProfiler;
-		
+
 		profiler.startSection("botania-particles");
 		ParticleRenderDispatcher.dispatch();
 		profiler.startSection("redString");
@@ -75,6 +74,7 @@ public class LightningHandler {
 		interpPosY = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * frame;
 		interpPosZ = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * frame;
 
+		GL11.glPushMatrix();
 		GL11.glTranslated(-interpPosX, -interpPosY, -interpPosZ);
 
 		Tessellator tessellator = Tessellator.instance;
@@ -103,6 +103,8 @@ public class LightningHandler {
 		GL11.glDepthMask(true);
 
 		GL11.glTranslated(interpPosX, interpPosY, interpPosZ);
+		GL11.glPopMatrix();
+                
 		profiler.endSection();
 		profiler.endSection();
 

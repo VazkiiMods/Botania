@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jul 8, 2014, 10:17:28 PM (GMT)]
  */
@@ -19,7 +18,7 @@ import vazkii.botania.common.block.decor.IFloatingFlower;
 public class TileFloatingFlower extends TileEntity implements IFloatingFlower {
 
 	public static ItemStack forcedStack = null;
-	
+
 	@Override
 	public ItemStack getDisplayStack() {
 		if(forcedStack != null) {
@@ -27,10 +26,10 @@ public class TileFloatingFlower extends TileEntity implements IFloatingFlower {
 			forcedStack = null;
 			return retStack;
 		}
-		
+
 		return new ItemStack(ModBlocks.flower, 1, getBlockMetadata());
 	}
-	
+
 	@Override
 	public boolean canUpdate() {
 		return false;

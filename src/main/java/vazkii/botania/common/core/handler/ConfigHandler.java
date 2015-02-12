@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jan 13, 2014, 9:01:32 PM (GMT)]
  */
@@ -16,6 +15,7 @@ import java.io.File;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.common.lib.LibPotionNames;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -23,6 +23,8 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 public final class ConfigHandler {
 
 	public static Configuration config;
+	
+	private static final String CATEGORY_POTIONS = "potions";
 
 	public static boolean useShaders = true;
 	public static boolean lexiconRotatingItems = true;
@@ -38,6 +40,7 @@ public final class ConfigHandler {
 	public static boolean chargingAnimationEnabled = true;
 	public static boolean useVanillaParticleLimiter = true;
 	public static boolean silentSpreaders = false;
+	public static boolean renderBaubles = true;
 
 	public static boolean altFlowerTextures = false;
 	public static boolean matrixMode = false;
@@ -47,7 +50,6 @@ public final class ConfigHandler {
 	public static int spreaderPositionShift = 1;
 	public static boolean flowerForceCheck = true;
 	public static boolean enderPickpocketEnabled = true;
-	public static boolean thermalilyObsidian = false;
 	public static int hardcorePassiveGeneration = -1;
 
 	public static boolean fallenKanadeEnabled = true;
@@ -56,6 +58,12 @@ public final class ConfigHandler {
 
 	public static int flowerQuantity = 2;
 	public static int flowerDensity = 16;
+	
+	public static int potionIDSoulCross = 91;
+	public static int potionIDFeatherfeet = 92;
+	public static int potionIDEmptiness = 93;
+	public static int potionIDBloodthirst = 94;
+	public static int potionIDAllure = 95;
 
 	public static void loadConfig(File configFile) {
 		config = new Configuration(configFile);
@@ -111,6 +119,9 @@ public final class ConfigHandler {
 		desc = "Set to true to disable the mana spreader shooting sound.";
 		silentSpreaders = loadPropBool("manaSpreaders.silent", desc, silentSpreaders);
 
+		desc = "Set to false to disable rendering of baubles in the player.";
+		renderBaubles = loadPropBool("baubleRender.enabled", desc, renderBaubles);
+
 		desc = "Set to true to use alternate flower textures by Futureazoo, not all flowers are textured. http://redd.it/2b3o3f";
 		altFlowerTextures = loadPropBool("flowerTextures.alt", desc, altFlowerTextures);
 
@@ -132,9 +143,6 @@ public final class ConfigHandler {
 		desc = "Set to false to disable the ability for the Hand of Ender to pickpocket other players' ender chests.";
 		enderPickpocketEnabled = loadPropBool("enderPickpocket.enabled", desc, enderPickpocketEnabled);
 
-		desc = "Set to true to only allow the Thermalily to absorb Lava if there's Obsidian below it. Another config option for the Blood Magic balance freaks.";
-		thermalilyObsidian = loadPropBool("thermalily.obsidian", desc, thermalilyObsidian);
-
 		desc = "Set to anything other than -1 for passive generation flowers (dayblooms, nightshades, hydroangeas) to die after a specific amount of ticks. 24000 is 2 minecraft days, that's a recomended value.";
 		hardcorePassiveGeneration = loadPropInt("passiveWither.time", desc, hardcorePassiveGeneration);
 
@@ -152,6 +160,12 @@ public final class ConfigHandler {
 
 		desc = "The density of each flower patch generataed, defaults to 16, the lower the number, the less each patch will have.";
 		flowerDensity = loadPropInt("worldgen.flower.density", desc, flowerDensity);
+
+		potionIDSoulCross = loadPropPotionId(LibPotionNames.SOUL_CROSS, potionIDSoulCross);
+		potionIDFeatherfeet = loadPropPotionId(LibPotionNames.FEATHER_FEET, potionIDFeatherfeet);
+		potionIDEmptiness = loadPropPotionId(LibPotionNames.EMPTINESS, potionIDEmptiness);
+		potionIDBloodthirst = loadPropPotionId(LibPotionNames.BLOODTHIRST, potionIDBloodthirst);
+		potionIDAllure = loadPropPotionId(LibPotionNames.ALLURE, potionIDAllure);
 
 		if(config.hasChanged())
 			config.save();
@@ -180,6 +194,17 @@ public final class ConfigHandler {
 		Property prop = config.get(Configuration.CATEGORY_GENERAL, propName, default_);
 		prop.comment = desc;
 		return prop.getBoolean(default_);
+	}
+	
+	public static int loadPropPotionId(String propName, int default_) {
+		Property prop = config.get(CATEGORY_POTIONS, propName, default_);
+		int val = prop.getInt(default_);
+		if(val > 127) {
+			val = default_;
+			prop.set(default_);
+		}
+		
+		return val;
 	}
 
 	public static class ChangeListener {

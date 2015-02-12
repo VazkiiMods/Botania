@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jan 14, 2014, 9:14:08 PM (GMT)]
  */
@@ -33,6 +32,7 @@ public final class LibLexicon {
 	public static final String BASICS_PURE_DAISY = "pureDaisy";
 	public static final String BASICS_RUNE_ALTAR = "runeAltar";
 	public static final String BASICS_TERRASTEEL = "terrasteel";
+	public static final String BASICS_BLACK_LOTUS = "blackLotus";
 
 	public static final String MANA_INTRO = "mIntro";
 	public static final String MANA_SPREADER = "spreader";
@@ -48,8 +48,10 @@ public final class LibLexicon {
 	public static final String MANA_MANASTAR = "manastar";
 	public static final String MANA_DREAMWOOD_SPREADER = "dreamwoodSpreader";
 	public static final String MANA_PAINT_LENS = "paintLens";
+	public static final String MANA_WARP_LENS = "warpLens";
 	public static final String MANA_SPARKS = "sparks";
 	public static final String MANA_SPARK_UPGRADES = "sparkUpgrades";
+	public static final String MANA_PRISM = "prism";
 
 	public static final String FFLOWER_INTRO = "fIntro";
 	public static final String FFLOWER_JADED_AMARANTHUS = "jadedAmaranthus";
@@ -71,6 +73,9 @@ public final class LibLexicon {
 	public static final String FFLOWER_LOONIUM = "loonium";
 	public static final String FFLOWER_DAFFOMILL = "daffomill";
 	public static final String FFLOWER_VINCULOTUS = "vinculotus";
+	public static final String FFLOWER_SPECTRANTHEMUN = "spectranthemum";
+	public static final String FFLOWER_MEDUMONE = "medumone";
+	public static final String FFLOWER_MARIMORPHOSIS = "marimorphosis";
 
 	public static final String GFLOWER_INTRO = "gIntro";
 	public static final String GFLOWER_DAYBLOOM = "daybloom";
@@ -83,6 +88,8 @@ public final class LibLexicon {
 	public static final String GFLOWER_ENTROPINNYUM = "entropinnyum";
 	public static final String GFLOWER_KEKIMURUS = "kekimurus";
 	public static final String GFLOWER_GOURMARYLLIS = "gourmaryllis";
+	public static final String GFLOWER_NARSLIMMUS = "narslimmus";
+	public static final String GFLOWER_SPECTROLUS = "spectrolus";
 
 	public static final String DEVICE_PISTON_RELAY = "pistonRelay";
 	public static final String DEVICE_PYLON = "pylon";
@@ -101,6 +108,7 @@ public final class LibLexicon {
 	public static final String DEVICE_ENDER_EYE_BLOCK = "enderEyeBlock";
 	public static final String DEVICE_BREWERY = "brewery";
 	public static final String DEVICE_FLASKS = "flasks";
+	public static final String DEVICE_COMPLEX_BREWS = "complexBrews";
 	public static final String DEVICE_RED_STRING = "redString";
 
 	public static final String TOOL_MANA_BLASTER = "manaBlaster";
@@ -131,6 +139,13 @@ public final class LibLexicon {
 	public static final String TOOL_REGEN_IVY = "regenIvy";
 	public static final String TOOL_MISSILE_ROD = "missileRod";
 	public static final String TOOL_CRAFTING_HALO = "craftingHalo";
+	public static final String TOOL_CLIP = "clip";
+	public static final String TOOL_COBBLE_ROD = "cobbleRod";
+	public static final String TOOL_SMELT_ROD = "smeltRod";
+	public static final String TOOL_WORLD_SEED = "worldSeed";
+	public static final String TOOL_SPELL_CLOTH = "spellCloth";
+	public static final String TOOL_THORN_CHAKRAM = "thornChakram";
+	public static final String TOOL_OVERGROWTH_SEED = "overgrowthSeed";
 
 	public static final String BAUBLE_INTRO = "bIntro";
 	public static final String BAUBLE_TINY_PLANET = "tinyPlanet";
@@ -153,11 +168,13 @@ public final class LibLexicon {
 	public static final String BAUBLE_SUPER_LAVA_PENDANT = "superLavaPendant";
 	public static final String BAUBLE_BLOOD_PENDANT = "bloodPendant";
 	public static final String BAUBLE_JUDGEMENT_CLOAKS = "judgementCloaks";
+	public static final String BAUBLE_MONOCLE = "monocle";
 
 	public static final String ALF_INTRO = "aIntro";
 	public static final String ALF_MESSAGE = "elfMessage";
 	public static final String ALF_RESOURCES = "elfResources";
 	public static final String ALF_GAIA_RITUAL = "gaiaRitual";
+	public static final String ALF_GAIA_RITUAL_HARDMODE = "gaiaRitualHardmode";
 	public static final String ALF_LORE = "elvenLore";
 
 	public static final String MISC_UNSTABLE_BLOCKS = "unstableBlocks";
@@ -170,6 +187,7 @@ public final class LibLexicon {
 	public static final String MISC_HEAD_CREATING = "headCreating";
 	public static final String MISC_AZULEJO = "azulejo";
 	public static final String MISC_STARFIELD = "starfield";
+	public static final String MISC_DIRT_PATH = "dirtPath";
 	public static final String MISC_TC_INTEGRATION = "tcIntegration";
 	public static final String MISC_BC_INTEGRATION = "bcIntegration";
 

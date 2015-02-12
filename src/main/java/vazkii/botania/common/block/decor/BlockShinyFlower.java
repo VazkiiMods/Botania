@@ -3,16 +3,14 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jun 2, 2014, 8:15:49 PM (GMT)]
  */
 package vazkii.botania.common.block.decor;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -35,13 +33,13 @@ public class BlockShinyFlower extends BlockModFlower implements IInfusionStabili
 		super(LibBlockNames.SHINY_FLOWER);
 		setLightLevel(1F);
 	}
-	
+
 	@Override
 	@Optional.Method(modid = "easycoloredlights")
-    public int getLightValue(IBlockAccess world, int x, int y, int z) {
+	public int getLightValue(IBlockAccess world, int x, int y, int z) {
 		return ColoredLightHelper.getPackedColor(world.getBlockMetadata(x, y, z), originalLight);
-    }
-	
+	}
+
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		// NO-OP

@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jan 25, 2014, 4:15:46 PM (GMT)]
  */
@@ -15,7 +14,6 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
@@ -61,13 +59,13 @@ public class RenderSpecialFlower implements ISimpleBlockRenderingHandler {
 		double d1 = par2;
 		double d2 = par3;
 		double d0 = par4;
-        long sh;
+		long sh;
 
-		sh = (long)(par2 * 3129871) ^ (long) par4 * 116129781L ^ (long) par3;
+		sh = par2 * 3129871 ^ par4 * 116129781L ^ par3;
 		sh = sh * sh * 42317861L + sh * 11L;
-		d1 += ((double)((float)(sh >> 16 & 15L) / 15.0F) - 0.5D) * 0.3D;
-		d2 += (double)((float)(sh >> 32 & 15L) / 15.0F) * -0.15D;
-		d0 += ((double)((float)(sh >> 24 & 15L) / 15.0F) - 0.5D) * 0.3D;
+		d1 += ((sh >> 16 & 15L) / 15.0F - 0.5D) * 0.3D;
+		d2 += (sh >> 32 & 15L) / 15.0F * -0.15D;
+		d0 += ((sh >> 24 & 15L) / 15.0F - 0.5D) * 0.3D;
 
 		drawCrossedSquares(blockAccess, par1Block, par2, par3, par4, d1, d2, d0, 1.0F, render);
 

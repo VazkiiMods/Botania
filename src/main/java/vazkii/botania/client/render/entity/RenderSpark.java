@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Aug 21, 2014, 5:53:22 PM (GMT)]
  */
@@ -81,7 +80,6 @@ public class RenderSpark extends RenderEntity {
 		float f4 = 1.0F;
 		float f5 = 0.5F;
 		float f6 = 0.25F;
-
 
 		p_77026_1_.startDrawingQuads();
 		p_77026_1_.setNormal(0.0F, 1.0F, 0.0F);

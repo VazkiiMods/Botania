@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Mar 6, 2014, 3:54:12 PM (GMT)]
  */
@@ -40,6 +39,9 @@ public final class LexiconRecipeMappings {
 		map(stack, entry, page, false);
 	}
 
+	public static void remove(ItemStack stack) {
+		mappings.remove(stackToString(stack));
+	}
 
 	public static EntryData getDataForStack(ItemStack stack) {
 		return mappings.get(stackToString(stack));

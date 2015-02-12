@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Dec 4, 2014, 3:28:43 PM (GMT)]
  */
@@ -33,7 +32,7 @@ public interface IBaubleRender {
 	 * Called for the rendering of the bauble on the player. The player instance can be
 	 * acquired through the event parameter. Transformations are already applied for
 	 * the RenderType passed in. Make sure to check against the type parameter for
-	 * rendering. 
+	 * rendering.
 	 */
 	@SideOnly(Side.CLIENT)
 	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type);
@@ -51,7 +50,7 @@ public interface IBaubleRender {
 		public static void applySneakingRotation() {
 			GL11.glRotatef(28.64789F, 1.0F, 0.0F, 0.0F);
 		}
-		
+
 		public static void translateToHeadLevel(EntityPlayer player) {
 			GL11.glTranslated(0, (player != Minecraft.getMinecraft().thePlayer ? 1.62F : 0F) - player.getDefaultEyeHeight() + (player.isSneaking() ? 0.0625 : 0), 0);
 		}

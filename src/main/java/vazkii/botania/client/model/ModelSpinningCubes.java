@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Feb 2, 2014, 6:37:00 PM (GMT)]
  */
@@ -60,7 +59,7 @@ public class ModelSpinningCubes extends ModelBase {
 
 			GL11.glRotatef(deg, xRotate, yRotate, zRotate);
 			if(repeat < origRepeat) {
-				GL11.glColor4f(1F, 1F, 1F, ((float) repeat / (float) origRepeat) * 0.4F);
+				GL11.glColor4f(1F, 1F, 1F, (float) repeat / (float) origRepeat * 0.4F);
 				GL11.glEnable(GL11.GL_BLEND);
 				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 				GL11.glDisable(GL11.GL_ALPHA_TEST);
@@ -82,7 +81,7 @@ public class ModelSpinningCubes extends ModelBase {
 		}
 		GL11.glPopMatrix();
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
-		
+
 		if(repeat != 0)
 			renderSpinningCubes(cubes, repeat - 1, origRepeat);
 	}

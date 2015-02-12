@@ -3,15 +3,12 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Apr 24, 2014, 11:14:57 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.bauble;
-
-import org.lwjgl.opengl.GL11;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -23,6 +20,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
+
+import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.lib.LibItemNames;
@@ -37,7 +37,7 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender {
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_TRAVEL_BELT);
 	@SideOnly(Side.CLIENT)
 	private static ModelBiped model;
-	
+
 	final float speed;
 	final float jump;
 	final float fallBuffer;
@@ -70,7 +70,7 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender {
 
 			if(player.isSneaking())
 				player.stepHeight = 0.50001F; // Not 0.5F because that is the default
-			else if(player.stepHeight == 0.50001F)
+			else if(player.stepHeight <= 0.50001F)
 				player.stepHeight = 1F;
 		}
 	}
@@ -89,11 +89,6 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender {
 	}
 
 	@Override
-	public void onEquippedOrLoadedIntoWorld(ItemStack stack, EntityLivingBase player) {
-		player.stepHeight = 1F;
-	}
-
-	@Override
 	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
 		player.stepHeight = 0.5F;
 	}
@@ -102,7 +97,7 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender {
 	ResourceLocation getRenderTexture() {
 		return texture;
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type) {
@@ -115,8 +110,8 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender {
 			float s = (armor ? 1.3F : 1.05F) / 16F;
 			GL11.glScalef(s, s, s);
 			if(model == null)
-				 model = new ModelBiped();
-			
+				model = new ModelBiped();
+
 			model.bipedBody.render(1F);
 		}
 	}

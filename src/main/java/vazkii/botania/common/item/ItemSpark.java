@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Aug 21, 2014, 5:24:55 PM (GMT)]
  */
@@ -13,16 +12,20 @@ package vazkii.botania.common.item;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.Achievement;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.common.achievement.ICraftAchievement;
+import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.entity.EntitySpark;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemSpark extends ItemMod {
+public class ItemSpark extends ItemMod implements ICraftAchievement {
 
 	public static IIcon invIcon, worldIcon;
 
@@ -59,6 +62,11 @@ public class ItemSpark extends ItemMod {
 	@Override
 	public IIcon getIconFromDamage(int p_77617_1_) {
 		return invIcon;
+	}
+
+	@Override
+	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
+		return ModAchievements.sparkCraft;
 	}
 
 }

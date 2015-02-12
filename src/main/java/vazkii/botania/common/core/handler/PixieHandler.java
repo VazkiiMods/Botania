@@ -4,10 +4,13 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import vazkii.botania.api.item.IPixieSpawner;
 import vazkii.botania.common.entity.EntityPixie;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumHelm;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -31,6 +34,16 @@ public class PixieHandler {
 			if(Math.random() < chance) {
 				EntityPixie pixie = new EntityPixie(player.worldObj);
 				pixie.setPosition(player.posX, player.posY + 2, player.posZ);
+
+				if(((ItemElementiumHelm) ModItems.elementiumHelm).hasArmorSet(player)) {
+					int[] potions = new int[] {
+							Potion.blindness.id,
+							Potion.wither.id,
+							Potion.moveSlowdown.id,
+							Potion.weakness.id
+					};
+					pixie.setApplyPotionEffect(new PotionEffect(potions[event.entity.worldObj.rand.nextInt(potions.length)], 40, 0));
+				}
 
 				float dmg = 4;
 				if(stack != null && stack.getItem() == ModItems.elementiumSword)

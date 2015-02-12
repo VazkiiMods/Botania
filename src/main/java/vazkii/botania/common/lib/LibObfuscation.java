@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jan 17, 2014, 4:52:15 PM (GMT)]
  */
@@ -66,7 +65,7 @@ public final class LibObfuscation {
 
 	// GuiIngame
 	public static final String[] REMAINING_HIGHLIGHT_TICKS = new String[] { "remainingHighlightTicks", "field_92017_k", "r" };
-	
+
 	// EntityThrowable
 	public static final String[] THROWER = new String[] { "thrower", "field_70192_c", "g" };
 }

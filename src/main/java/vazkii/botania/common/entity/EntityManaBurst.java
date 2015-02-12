@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jan 26, 2014, 5:09:12 PM (GMT)]
  */
@@ -16,8 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import buildcraft.api.transport.IPipeTile;
-import cpw.mods.fml.common.Loader;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLeaves;
@@ -494,6 +491,10 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			if(!noParticles && shouldDoFakeParticles())
 				Botania.proxy.sparkleFX(worldObj, posX, posY, posZ, r, g, b, 0.4F * size, 1, true);
 		} else {
+			boolean monocle = Botania.proxy.isClientPlayerWearingMonocle();
+			if(monocle)
+				Botania.proxy.setWispFXDepthTest(false);
+
 			if(ConfigHandler.subtlePowerSystem)
 				Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.1F * size, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.01F);
 			else {
@@ -535,6 +536,9 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 				posY = savedPosY;
 				posZ = savedPosZ;
 			}
+
+			if(monocle)
+				Botania.proxy.setWispFXDepthTest(true);
 		}
 	}
 
@@ -547,12 +551,12 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			TileEntity tile = worldObj.getTileEntity(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ);
 			Block block = worldObj.getBlock(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ);
 
-			if(tile instanceof IManaCollisionGhost && ((IManaCollisionGhost) tile).isGhost() || block instanceof BlockBush || block instanceof BlockLeaves)
+			if(tile instanceof IManaCollisionGhost && ((IManaCollisionGhost) tile).isGhost() && !(block instanceof IManaTrigger) || block instanceof BlockBush || block instanceof BlockLeaves)
 				return;
 
 			if(BotaniaAPI.internalHandler.isBuildcraftPipe(tile))
 				return;
-			
+
 			ChunkCoordinates coords = getBurstSourceChunkCoordinates();
 			if(tile != null && (tile.xCoord != coords.posX || tile.yCoord != coords.posY || tile.zCoord != coords.posZ))
 				collidedTile = tile;
@@ -567,10 +571,13 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 					worldObj.markBlockForUpdate(tile.xCoord, tile.yCoord, tile.zCoord);
 				}
 
-				if(!isFake() && block instanceof IManaTrigger)
+				if(block instanceof IManaTrigger)
 					((IManaTrigger) block).onBurstCollision(this, worldObj, movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ);
 
-				dead = true;
+				boolean ghost = tile instanceof IManaCollisionGhost;
+				dead = !ghost;
+				if(ghost)
+					return;
 			}
 
 			collided = true;
@@ -749,6 +756,12 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		return alreadyCollidedAt.contains(getCollisionLocString(x, y, z));
 	}
 
+	@Override
+	public void setCollidedAt(int x, int y, int z) {
+		if(!hasAlreadyCollidedAt(x, y, z))
+			alreadyCollidedAt.add(getCollisionLocString(x, y, z));
+	}
+	
 	private String getCollisionLocString(int x, int y, int z) {
 		return x + ":" + y + ":" + z;
 	}

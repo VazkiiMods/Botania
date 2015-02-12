@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jul 12, 2014, 3:47:45 PM (GMT)]
  */
@@ -20,12 +19,11 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.monster.EntityCaveSpider;
 import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
@@ -54,6 +52,7 @@ import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.client.core.handler.BossBarHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
@@ -65,7 +64,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWithShader {
 
 	public static final int SPAWN_TICKS = 100;
-	
+
 	public static final int MOB_SPAWN_START_TICKS = 20;
 	public static final int MOB_SPAWN_END_TICKS = 80;
 	public static final int MOB_SPAWN_BASE_TICKS = 800;
@@ -81,6 +80,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	private static final String TAG_SOURCE_Y = "sourceY";
 	private static final String TAG_SOURCE_Z = "sourcesZ";
 	private static final String TAG_MOB_SPAWN_TICKS = "mobSpawnTicks";
+	private static final String TAG_HARD_MODE = "hardMode";
 
 	private static final int[][] PYLON_LOCATIONS = new int[][] {
 		{ 4, 1, 4 },
@@ -91,6 +91,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 	boolean spawnLandmines = false;
 	boolean spawnPixies = false;
+	boolean anyWithArmor = false;
 
 	public EntityDoppleganger(World par1World) {
 		super(par1World);
@@ -102,7 +103,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		experienceValue = 825;
 	}
 
-	public static boolean spawn(EntityPlayer player, ItemStack par1ItemStack, World par3World, int par4, int par5, int par6) {
+	public static boolean spawn(EntityPlayer player, ItemStack par1ItemStack, World par3World, int par4, int par5, int par6, boolean hard) {
 		Block block = par3World.getBlock(par4, par5, par6);
 		if(block == Blocks.beacon && !par3World.isRemote) {
 			if(par3World.difficultySetting == EnumDifficulty.PEACEFUL) {
@@ -130,6 +131,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			e.setHealth(1F);
 			e.setSource(par4, par5, par6);
 			e.setMobSpawnTicks(MOB_SPAWN_TICKS);
+			e.setHardMode(hard);
 			par3World.playSoundAtEntity(e, "mob.enderdragon.growl", 10F, 0.1F);
 			par3World.spawnEntityInWorld(e);
 			return true;
@@ -153,6 +155,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		dataWatcher.addObject(24, 0); // Source Y
 		dataWatcher.addObject(25, 0); // Source Z
 		dataWatcher.addObject(26, 0); // Ticks spawning mobs
+		dataWatcher.addObject(27, (byte) 0); // Hard Mode
 	}
 
 	public int getInvulTime() {
@@ -178,6 +181,10 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		return dataWatcher.getWatchableObjectInt(26);
 	}
 
+	public boolean isHardMode() {
+		return dataWatcher.getWatchableObjectByte(27) == 1;
+	}
+
 	public void setInvulTime(int time) {
 		dataWatcher.updateObject(20, time);
 	}
@@ -200,6 +207,10 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		dataWatcher.updateObject(26, ticks);
 	}
 
+	public void setHardMode(boolean hardMode) {
+		dataWatcher.updateObject(27, (byte) (hardMode ? 1 : 0));
+	}
+
 	@Override
 	public void writeEntityToNBT(NBTTagCompound par1nbtTagCompound) {
 		super.writeEntityToNBT(par1nbtTagCompound);
@@ -211,6 +222,8 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		par1nbtTagCompound.setInteger(TAG_SOURCE_X, source.posX);
 		par1nbtTagCompound.setInteger(TAG_SOURCE_Y, source.posY);
 		par1nbtTagCompound.setInteger(TAG_SOURCE_Z, source.posZ);
+
+		par1nbtTagCompound.setBoolean(TAG_HARD_MODE, isHardMode());
 	}
 
 	@Override
@@ -224,14 +237,29 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		int y = par1nbtTagCompound.getInteger(TAG_SOURCE_Y);
 		int z = par1nbtTagCompound.getInteger(TAG_SOURCE_Z);
 		setSource(x, y, z);
+
+		setHardMode(par1nbtTagCompound.getBoolean(TAG_HARD_MODE));
 	}
 
 	@Override
 	public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
-		if((par1DamageSource.damageType.equals("player") || par1DamageSource.getEntity() instanceof EntityPixie) && par1DamageSource.getEntity() != null && !(par1DamageSource.getEntity() instanceof FakePlayer) && getInvulTime() == 0)
-			return super.attackEntityFrom(par1DamageSource, par2);
+		if((par1DamageSource.damageType.equals("player") || par1DamageSource.getEntity() instanceof EntityPixie) && par1DamageSource.getEntity() != null && !(isTruePlayer(par1DamageSource.getEntity())) && getInvulTime() == 0)
+			return super.attackEntityFrom(par1DamageSource, par2 * (isHardMode() ? 0.6F : 1F));
 		return false;
 	}
+	
+	
+	public boolean isTruePlayer(Entity e) {
+		if(e instanceof EntityPlayer)
+        	return false;
+		if(worldObj.isRemote)
+            return true;
+		
+		EntityPlayer player = (EntityPlayer) e;
+		
+        String name = player.getCommandSenderName();
+        return !(player instanceof FakePlayer || name.contains("[CoFH]") || name.contains("[Thaumcraft"));
+    }
 
 	@Override
 	protected void damageEntity(DamageSource par1DamageSource, float par2) {
@@ -256,6 +284,17 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	}
 
 	@Override
+	public void onDeath(DamageSource p_70645_1_) {
+		super.onDeath(p_70645_1_);
+		EntityLivingBase entitylivingbase = func_94060_bK();
+		if(entitylivingbase instanceof EntityPlayer) {
+			((EntityPlayer) entitylivingbase).addStat(ModAchievements.gaiaGuardianKill, 1);
+			if(!anyWithArmor)
+				((EntityPlayer) entitylivingbase).addStat(ModAchievements.gaiaGuardianNoArmor, 1);
+		}
+	}
+
+	@Override
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.4);
@@ -270,8 +309,28 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 	@Override
 	protected void dropFewItems(boolean par1, int par2) {
-		if(par1)
-			entityDropItem(new ItemStack(ModItems.manaResource, 8, 5), 1F);
+		if(par1) {
+			boolean hard = isHardMode();
+			entityDropItem(new ItemStack(ModItems.manaResource, hard ? 16 : 8, 5), 1F);
+
+			if(hard) {
+				entityDropItem(new ItemStack(ModItems.ancientWill, 1, rand.nextInt(6)), 1F);
+				if(Math.random() < 0.25)
+					entityDropItem(new ItemStack(ModItems.overgrowthSeed, rand.nextInt(3) + 1), 1F);
+				if(Math.random() < 0.5) {
+					boolean voidLotus = Math.random() < 0.3F;
+					entityDropItem(new ItemStack(ModItems.blackLotus, voidLotus ? 1 : rand.nextInt(3) + 1, voidLotus ? 1 : 0), 1F);
+				}
+				if(Math.random() < 0.9)
+					entityDropItem(new ItemStack(ModItems.manaResource, 16 + rand.nextInt(12)), 1F);
+				if(Math.random() < 0.7)
+					entityDropItem(new ItemStack(ModItems.manaResource, 8 + rand.nextInt(6), 1), 1F);
+				if(Math.random() < 0.5)
+					entityDropItem(new ItemStack(ModItems.manaResource, 4 + rand.nextInt(3), 1), 1F);
+				if(Math.random() < 0.3)
+					entityDropItem(new ItemStack(ModItems.rune, 2 + rand.nextInt(3), rand.nextInt(16)), 1F);
+			}
+		}
 	}
 
 	@Override
@@ -282,7 +341,8 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			setDead();
 
 		ChunkCoordinates source = getSource();
-		
+		boolean hard = isHardMode();
+
 		float range = 32F;
 		List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(source.posX + 0.5 - range, source.posY + 0.5 - range, source.posZ + 0.5 - range, source.posX + 0.5 + range, source.posY + 0.5 + range, source.posZ + 0.5 + range));
 
@@ -294,36 +354,40 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			float m = 0.15F;
 			float mv = 0.35F;
 
-			float rad = (float) i * (float) Math.PI / 180F;
+			float rad = i * (float) Math.PI / 180F;
 			double x = source.posX - 0.5 - Math.cos(rad) * range;
 			double y = source.posY - 0.5;
 			double z = source.posZ - 0.5 - Math.sin(rad) * range;
-			
-			Botania.proxy.wispFX(worldObj, x, y, z, r, g, b, 0.5F, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * mv, (float) (Math.random() - 0.5F) * m);
 
+			Botania.proxy.wispFX(worldObj, x, y, z, r, g, b, 0.5F, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * mv, (float) (Math.random() - 0.5F) * m);
 		}
-		
+
 		if(players.isEmpty() && !worldObj.playerEntities.isEmpty())
 			setDead();
-		else for(EntityPlayer player : players) {
-			List<PotionEffect> remove = new ArrayList();
-			Collection<PotionEffect> active = player.getActivePotionEffects();
-			for(PotionEffect effect : active)
-				if(effect.getDuration() < 200 && !ReflectionHelper.<Boolean, Potion>getPrivateValue(Potion.class, Potion.potionTypes[effect.getPotionID()], LibObfuscation.IS_BAD_EFFECT))
-					remove.add(effect);
+		else {
+			for(EntityPlayer player : players) {
+				if(player.inventory.armorInventory[0] != null || player.inventory.armorInventory[1] != null || player.inventory.armorInventory[2] != null || player.inventory.armorInventory[3] != null)
+					anyWithArmor = true;
 
-			active.removeAll(remove);
+				List<PotionEffect> remove = new ArrayList();
+				Collection<PotionEffect> active = player.getActivePotionEffects();
+				for(PotionEffect effect : active)
+					if(effect.getDuration() < 200 && !ReflectionHelper.<Boolean, Potion>getPrivateValue(Potion.class, Potion.potionTypes[effect.getPotionID()], LibObfuscation.IS_BAD_EFFECT))
+						remove.add(effect);
 
-			player.capabilities.isFlying = player.capabilities.isFlying && player.capabilities.isCreativeMode;
+				active.removeAll(remove);
 
-			if(vazkii.botania.common.core.helper.MathHelper.pointDistanceSpace(player.posX, player.posY, player.posZ, source.posX + 0.5, source.posY + 0.5, source.posZ + 0.5) >= range) {
-				Vector3 sourceVector = new Vector3(source.posX + 0.5, source.posY + 0.5, source.posZ + 0.5);
-				Vector3 playerVector = Vector3.fromEntityCenter(player);
-				Vector3 motion = sourceVector.copy().sub(playerVector).copy().normalize();
+				player.capabilities.isFlying = player.capabilities.isFlying && player.capabilities.isCreativeMode;
 
-				player.motionX = motion.x;
-				player.motionY = 0.2;
-				player.motionZ = motion.z;
+				if(vazkii.botania.common.core.helper.MathHelper.pointDistanceSpace(player.posX, player.posY, player.posZ, source.posX + 0.5, source.posY + 0.5, source.posZ + 0.5) >= range) {
+					Vector3 sourceVector = new Vector3(source.posX + 0.5, source.posY + 0.5, source.posZ + 0.5);
+					Vector3 playerVector = Vector3.fromEntityCenter(player);
+					Vector3 motion = sourceVector.copy().sub(playerVector).copy().normalize();
+
+					player.motionX = motion.x;
+					player.motionY = 0.2;
+					player.motionZ = motion.z;
+				}
 			}
 		}
 
@@ -332,6 +396,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 		int invul = getInvulTime();
 		int mobTicks = getMobSpawnTicks();
+		boolean spawnMissiles = hard && ticksExisted % 15 < 4;
 
 		if(invul > 0 && mobTicks == MOB_SPAWN_TICKS) {
 			if(invul < SPAWN_TICKS && invul > SPAWN_TICKS / 2 && worldObj.rand.nextInt(SPAWN_TICKS - invul + 1) == 0)
@@ -343,13 +408,13 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			motionY = 0;
 		} else {
 			if(isAggored()) {
-				boolean dying = getHealth() / getMaxHealth() < 0.2; 
+				boolean dying = getHealth() / getMaxHealth() < 0.2;
 				if(dying && mobTicks > 0) {
 					motionX = 0;
 					motionY = 0;
 					motionZ = 0;
 
-					int reverseTicks = MOB_SPAWN_TICKS - mobTicks; 
+					int reverseTicks = MOB_SPAWN_TICKS - mobTicks;
 					if(reverseTicks < MOB_SPAWN_START_TICKS) {
 						motionY = 0.2;
 						setInvulTime(invul + 1);
@@ -361,9 +426,9 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 							switch(worldObj.rand.nextInt(2)) {
 							case 0 : {
 								entity = new EntityZombie(worldObj);
-								if(worldObj.rand.nextInt(12) == 0)
+								if(worldObj.rand.nextInt(hard ? 9 : 12) == 0)
 									entity = new EntityWitch(worldObj);
-								
+
 								break;
 							}
 							case 1 : {
@@ -371,12 +436,12 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 								((EntitySkeleton) entity).setCurrentItemOrArmor(0, new ItemStack(Items.bow));
 								if(worldObj.rand.nextInt(8) == 0) {
 									((EntitySkeleton) entity).setSkeletonType(1);
-									((EntitySkeleton) entity).setCurrentItemOrArmor(0, new ItemStack(Items.stone_sword));
+									((EntitySkeleton) entity).setCurrentItemOrArmor(0, new ItemStack(hard ? ModItems.elementiumSword : Items.stone_sword));
 								}
 								break;
 							}
 							case 3 : {
-								for(int j = 0; j < 1 + worldObj.rand.nextInt(5); j++) {
+								for(int j = 0; j < 1 + worldObj.rand.nextInt(hard ? 8 : 5); j++) {
 									EntityPixie pixie = new EntityPixie(worldObj);
 									pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
 									pixie.setPosition(posX + width / 2, posY + 2, posZ + width / 2);
@@ -384,12 +449,17 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 								}
 							}
 							}
-							
+
 							if(entity != null) {
 								range = 6F;
 								entity.setPosition(posX + 0.5 + Math.random() * range - range / 2, posY - 1, posZ + 0.5 + Math.random() * range - range / 2);
 								worldObj.spawnEntityInWorld(entity);
 							}
+						}
+
+						if(hard && ticksExisted % 3 < 2) {
+							spawnMissile();
+							spawnMissiles = false;
 						}
 					}
 
@@ -398,7 +468,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 				} else if(getTPDelay() > 0 && !worldObj.isRemote) {
 					if(invul > 0)
 						setInvulTime(invul - 1);
-					
+
 					setTPDelay(getTPDelay() - 1);
 					if(getTPDelay() == 0 && getHealth() > 0) {
 						int tries = 0;
@@ -419,23 +489,37 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 								worldObj.spawnEntityInWorld(landmine);
 							}
 
-						for(int i = 0; i < (spawnPixies ? worldObj.rand.nextInt(3) : 1); i++) {
+						for(int i = 0; i < (spawnPixies ? worldObj.rand.nextInt(hard ? 6 : 3) : 1); i++) {
 							EntityPixie pixie = new EntityPixie(worldObj);
 							pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
 							pixie.setPosition(posX + width / 2, posY + 2, posZ + width / 2);
 							worldObj.spawnEntityInWorld(pixie);
 						}
 
-						setTPDelay(dying ? 40 : 60);
+						setTPDelay(hard ? dying ? 20 : 45 : dying ? 40 : 60);
 						spawnLandmines = true;
 						spawnPixies = false;
 					}
 				}
+
+				if(spawnMissiles)
+					spawnMissile();
 			} else {
 				range = 3F;
 				players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(posX - range, posY - range, posZ - range, posX + range, posY + range, posZ + range));
 				if(!players.isEmpty())
 					damageEntity(DamageSource.causePlayerDamage(players.get(0)), 0);
+			}
+		}
+	}
+
+	void spawnMissile() {
+		if(!worldObj.isRemote) {
+			EntityMagicMissile missile = new EntityMagicMissile(this, true);
+			missile.setPosition(posX + (Math.random() - 0.5 * 0.1), posY + 2.4 + (Math.random() - 0.5 * 0.1), posZ + (Math.random() - 0.5 * 0.1));
+			if(missile.getTarget()) {
+				worldObj.playSoundAtEntity(this, "botania:missile", 0.6F, 0.8F + (float) Math.random() * 0.2F);
+				worldObj.spawnEntityInWorld(missile);
 			}
 		}
 	}
@@ -565,10 +649,10 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 				int hpFractUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "hpFract");
 
 				float time = getInvulTime();
-				float grainIntensity = time > 20 ? 1F : time / 20F;
+				float grainIntensity = time > 20 ? 1F : Math.max(isHardMode() ? 0.5F : 0F, time / 20F);
 
 				ARBShaderObjects.glUniform1fARB(grainIntensityUniform, grainIntensity);
-				ARBShaderObjects.glUniform1fARB(hpFractUniform, (float) getHealth() / (float) getMaxHealth());
+				ARBShaderObjects.glUniform1fARB(hpFractUniform, getHealth() / getMaxHealth());
 			}
 
 		};

@@ -3,23 +3,27 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jan 19, 2014, 4:10:47 PM (GMT)]
  */
 package vazkii.botania.common.item.material;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import vazkii.botania.api.item.IDyablePool;
+import vazkii.botania.api.item.IManaDissolvable;
+import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.common.item.Item16Colors;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemDye extends Item16Colors {
+public class ItemDye extends Item16Colors implements IManaDissolvable {
 
 	public ItemDye() {
 		super(LibItemNames.DYE);
@@ -35,6 +39,20 @@ public class ItemDye extends Item16Colors {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public void onDissolveTick(IManaPool pool, ItemStack stack, EntityItem item) {
+		if(!item.worldObj.isRemote && pool instanceof IDyablePool) {
+			IDyablePool dyable = (IDyablePool) pool;
+			TileEntity tile = (TileEntity) pool;
+			int meta = stack.getItemDamage();
+			if(meta != dyable.getColor()) {
+				dyable.setColor(meta);
+				stack.stackSize--;
+				item.worldObj.markBlockForUpdate(tile.xCoord, tile.yCoord, tile.zCoord);
+			}
+		}
 	}
 
 }

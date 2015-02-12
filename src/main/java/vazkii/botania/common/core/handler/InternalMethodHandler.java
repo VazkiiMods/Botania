@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jan 14, 2014, 6:44:59 PM (GMT)]
  */
@@ -60,7 +59,7 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	public LexiconPage textPage(String key) {
 		return new PageText(key);
 	}
-	
+
 	@Override
 	public LexiconPage elfPaperTextPage(String key) {
 		return new PageLoreText(key);
@@ -134,7 +133,7 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	public LexiconPage elvenTradesPage(String key, RecipeElvenTrade recipe) {
 		return new PageElvenRecipe(key, recipe);
 	}
-	
+
 	@Override
 	public LexiconPage brewPage(String key, String bottomText, RecipeBrew recipe) {
 		return new PageBrew(recipe, key, bottomText);
@@ -144,7 +143,7 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	public ItemStack getSubTileAsStack(String subTile) {
 		return ItemBlockSpecialFlower.ofType(subTile);
 	}
-	
+
 	@Override
 	public ItemStack getSubTileAsFloatingFlowerStack(String subTile) {
 		return ItemBlockSpecialFlower.ofType(new ItemStack(ModBlocks.floatingSpecialFlower), subTile);
@@ -174,12 +173,12 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {
 		Botania.proxy.sparkleFX(world, x, y, z, r, g, b, size, m);
 	}
-	
+
 	@Override
 	public ResourceLocation getDefaultBossBarTexture() {
 		return BossBarHandler.defaultBossBar;
 	}
-	
+
 	@Override
 	public void setBossStatus(IBotaniaBoss status) {
 		BossBarHandler.setCurrentBoss(status);

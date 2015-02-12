@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Nov 1, 2014, 7:02:29 PM (GMT)]
  */
@@ -21,7 +20,7 @@ public class BrewMod extends Brew {
 		super(key, key, color, cost, effects);
 		BotaniaAPI.registerBrew(this);
 	}
-	
+
 	@Override
 	public String getUnlocalizedName() {
 		return "botania.brew." + super.getUnlocalizedName();

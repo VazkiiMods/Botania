@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Mar 15, 2014, 4:57:52 PM (GMT)]
  */
@@ -15,7 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -31,6 +33,7 @@ import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.api.mana.spark.SparkHelper;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 
@@ -106,7 +109,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 				if(tile != null && tile instanceof TilePylon)
 					((TilePylon) tile).activated = false;
 			}
-		
+
 		if(!canEnchanterExist(worldObj, xCoord, yCoord, zCoord, getBlockMetadata())) {
 
 			worldObj.setBlock(xCoord, yCoord, zCoord, Blocks.lapis_block, 0, 1 | 2);
@@ -196,7 +199,8 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 		case 3 : { // Enchant
 			if(stageTicks >= 100) {
 				for(EnchantmentData data : enchants)
-					itemToEnchant.addEnchantment(Enchantment.enchantmentsList[data.enchant], data.level);
+					if(EnchantmentHelper.getEnchantmentLevel(data.enchant, itemToEnchant) == 0)
+						itemToEnchant.addEnchantment(Enchantment.enchantmentsList[data.enchant], data.level);
 
 				enchants.clear();
 				manaRequired = -1;
@@ -357,16 +361,6 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 		return true;
 	}
 
-	private static class EnchantmentData {
-
-		public int enchant, level;
-
-		public EnchantmentData(int enchant, int level) {
-			this.enchant = enchant;
-			this.level = level;
-		}
-	}
-
 	@Override
 	public boolean canAttachSpark(ItemStack stack) {
 		return true;
@@ -396,6 +390,25 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 	@Override
 	public int getAvailableSpaceForMana() {
 		return Math.max(0, manaRequired - getCurrentMana());
+	}
+
+	public void renderHUD(Minecraft mc, ScaledResolution res) {
+		if(manaRequired > 0 && itemToEnchant != null) {
+			int x = res.getScaledWidth() / 2 + 20;
+			int y = res.getScaledHeight() / 2 - 8;
+
+			RenderHelper.renderProgressPie(x, y, (float) mana / (float) manaRequired, itemToEnchant);
+		}
+	}
+
+	private static class EnchantmentData {
+
+		public int enchant, level;
+
+		public EnchantmentData(int enchant, int level) {
+			this.enchant = enchant;
+			this.level = level;
+		}
 	}
 
 }

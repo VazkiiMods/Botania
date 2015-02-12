@@ -42,7 +42,7 @@ public class RecipeHandlerElvenTrade extends TemplateRecipeHandler {
 				if(o instanceof String)
 					this.inputs.add(new PositionedStack(OreDictionary.getOres((String) o), 60 + i * 18, 6));
 				else this.inputs.add(new PositionedStack(o, 60 + i * 18, 6));
-				
+
 				i++;
 			}
 		}

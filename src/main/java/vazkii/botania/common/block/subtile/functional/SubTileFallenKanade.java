@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Mar 14, 2014, 8:54:11 PM (GMT)]
  */
@@ -30,7 +29,7 @@ public class SubTileFallenKanade extends SubTileFunctional {
 		final int range = 2;
 		final int cost = 120;
 
-		if(!supertile.getWorldObj().isRemote) {
+		if(!supertile.getWorldObj().isRemote && supertile.getWorldObj().provider.dimensionId != 1) {
 			List<EntityPlayer> players = supertile.getWorldObj().getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord - range, supertile.zCoord - range, supertile.xCoord + range + 1, supertile.yCoord + range + 1, supertile.zCoord + range + 1));
 			for(EntityPlayer player : players) {
 				if(player.getActivePotionEffect(Potion.regeneration) == null && mana >= cost) {

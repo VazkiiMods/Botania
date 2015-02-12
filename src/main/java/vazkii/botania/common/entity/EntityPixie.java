@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [? (GMT)]
  */
@@ -14,6 +13,7 @@ package vazkii.botania.common.entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import vazkii.botania.common.Botania;
@@ -22,6 +22,7 @@ public class EntityPixie extends EntityFlyingCreature {
 
 	EntityLivingBase summoner = null;
 	float damage = 0;
+	PotionEffect effect = null;
 
 	public EntityPixie(World world) {
 		super(world);
@@ -55,6 +56,10 @@ public class EntityPixie extends EntityFlyingCreature {
 		setType(type);
 	}
 
+	public void setApplyPotionEffect(PotionEffect effect) {
+		this.effect = effect;
+	}
+
 	@Override
 	protected void updateEntityActionState() {
 		EntityLivingBase target = getAttackTarget();
@@ -80,6 +85,8 @@ public class EntityPixie extends EntityFlyingCreature {
 						target.attackEntityFrom(DamageSource.causeMobDamage(summoner), damage);
 					}
 				} else target.attackEntityFrom(DamageSource.causeMobDamage(this), damage);
+				if(effect != null)
+					target.addPotionEffect(effect);
 				die();
 			}
 		}

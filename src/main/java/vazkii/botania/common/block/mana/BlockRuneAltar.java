@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Feb 2, 2014, 2:10:14 PM (GMT)]
  */
@@ -33,7 +32,6 @@ import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
-import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
@@ -74,7 +72,7 @@ public class BlockRuneAltar extends BlockModContainer implements IWandable, IWan
 	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
 		TileRuneAltar altar = (TileRuneAltar) par1World.getTileEntity(par2, par3, par4);
 
-		
+
 		if(par5EntityPlayer.isSneaking()) {
 			if(altar.manaToGet == 0)
 				for(int i = altar.getSizeInventory() - 1; i >= 0; i--) {

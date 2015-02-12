@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jan 14, 2014, 5:49:06 PM (GMT)]
  */
@@ -110,7 +109,18 @@ public final class LibItemNames {
 	public static final String HOLY_CLOAK = "holyCloak";
 	public static final String UNHOLY_CLOAK = "unholyCloak";
 	public static final String CRAFTING_HALO = "craftingHalo";
-	
+	public static final String BLACK_LOTUS = "blackLotus";
+	public static final String MONOCLE = "monocle";
+	public static final String CLIP = "clip";
+	public static final String COBBLE_ROD = "cobbleRod";
+	public static final String SMELT_ROD = "smeltRod";
+	public static final String WORLD_SEED = "worldSeed";
+	public static final String SPELL_CLOTH = "spellCloth";
+	public static final String THORN_CHAKRAM = "thornChakram";
+	public static final String OVERGROWTH_SEED = "overgrowthSeed";
+	public static final String CRAFT_PATTERN = "craftPattern";
+	public static final String ANCIENT_WILL = "ancientWill";
+
 	public static final String[] LENS_NAMES = new String[] {
 		"lensNormal",
 		"lensSpeed",
@@ -129,7 +139,8 @@ public final class LibItemNames {
 		"lensPaint",
 		"lensFire",
 		"lensPiston",
-		"lensLight"
+		"lensLight",
+		"lensWarp"
 	};
 
 	public static final String[] MANA_RESOURCE_NAMES = new String[] {
@@ -145,6 +156,8 @@ public final class LibItemNames {
 		"dragonstone",
 		"prismarineShard",
 		"placeholder",
-		"redString"
+		"redString",
+		"dreamwoodTwig",
+		"gaiaIngot"
 	};
 }

@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Nov 1, 2014, 9:15:15 PM (GMT)]
  */
@@ -21,7 +20,7 @@ import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.item.ModItems;
 
 public class ModBrewRecipes {
-	
+
 	public static RecipeBrew speedBrew;
 	public static RecipeBrew strengthBrew;
 	public static RecipeBrew hasteBrew;
@@ -35,7 +34,14 @@ public class ModBrewRecipes {
 	public static RecipeBrew invisibilityBrew;
 	public static RecipeBrew nightVisionBrew;
 	public static RecipeBrew absorptionBrew;
-	
+
+	public static RecipeBrew overloadBrew;
+	public static RecipeBrew soulCrossBrew;
+	public static RecipeBrew featherFeetBrew;
+	public static RecipeBrew emptinessBrew;
+	public static RecipeBrew bloodthirstBrew;
+	public static RecipeBrew allureBrew;
+
 	public static RecipeBrew warpWardBrew;
 
 	public static void init() {
@@ -52,8 +58,15 @@ public class ModBrewRecipes {
 		invisibilityBrew = BotaniaAPI.registerBrewRecipe(ModBrews.invisibility, new ItemStack(Items.nether_wart), new ItemStack(Items.snowball), new ItemStack(Items.glowstone_dust));
 		nightVisionBrew = BotaniaAPI.registerBrewRecipe(ModBrews.nightVision, new ItemStack(Items.nether_wart), new ItemStack(Items.spider_eye), new ItemStack(Items.golden_carrot));
 		absorptionBrew = BotaniaAPI.registerBrewRecipe(ModBrews.absorption, new ItemStack(Items.nether_wart), new ItemStack(Items.golden_apple), new ItemStack(Items.potato));
+
+		overloadBrew = BotaniaAPI.registerBrewRecipe(ModBrews.overload, new ItemStack(Items.nether_wart), new ItemStack(Items.blaze_powder), new ItemStack(Items.sugar), new ItemStack(Items.glowstone_dust), new ItemStack(ModItems.manaResource), new ItemStack(Items.spider_eye));
+		soulCrossBrew = BotaniaAPI.registerBrewRecipe(ModBrews.soulCross, new ItemStack(Items.nether_wart), new ItemStack(Blocks.soul_sand), new ItemStack(Items.paper), new ItemStack(Items.apple), new ItemStack(Items.bone));
+		featherFeetBrew = BotaniaAPI.registerBrewRecipe(ModBrews.featherfeet, new ItemStack(Items.nether_wart), new ItemStack(Items.feather), new ItemStack(Items.leather), new ItemStack(Blocks.wool, 1, -1));
+		emptinessBrew = BotaniaAPI.registerBrewRecipe(ModBrews.emptiness, new ItemStack(Items.nether_wart), new ItemStack(Items.gunpowder), new ItemStack(Items.rotten_flesh), new ItemStack(Items.bone), new ItemStack(Items.string), new ItemStack(Items.ender_pearl));
+		bloodthirstBrew = BotaniaAPI.registerBrewRecipe(ModBrews.bloodthirst, new ItemStack(Items.nether_wart), new ItemStack(Items.fermented_spider_eye), new ItemStack(Items.dye, 1, 4), new ItemStack(Items.fire_charge), new ItemStack(Items.iron_ingot));
+		allureBrew = BotaniaAPI.registerBrewRecipe(ModBrews.allure, new ItemStack(Items.nether_wart), new ItemStack(Items.fish), new ItemStack(Items.quartz), new ItemStack(Items.golden_carrot));
 	}
-	
+
 	public static void initTC() {
 		Item resource = (Item) Item.itemRegistry.getObject("Thaumcraft:ItemResource");
 		Item bathSalts = (Item) Item.itemRegistry.getObject("Thaumcraft:ItemBathSalts");

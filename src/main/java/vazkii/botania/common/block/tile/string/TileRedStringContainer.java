@@ -3,21 +3,20 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Nov 14, 2014, 5:26:39 PM (GMT)]
  */
 package vazkii.botania.common.block.tile.string;
 
-import vazkii.botania.common.core.helper.InventoryHelper;
-import vazkii.botania.common.lib.LibBlockNames;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import vazkii.botania.common.core.helper.InventoryHelper;
+import vazkii.botania.common.lib.LibBlockNames;
 
 public class TileRedStringContainer extends TileRedString implements ISidedInventory {
 
@@ -86,14 +85,14 @@ public class TileRedStringContainer extends TileRedString implements ISidedInven
 	public void openInventory() {
 		TileEntity tile = getTileAtBinding();
 		if(tile instanceof IInventory)
-			((IInventory) tile).openInventory();	
+			((IInventory) tile).openInventory();
 	}
 
 	@Override
 	public void closeInventory() {
 		TileEntity tile = getTileAtBinding();
 		if(tile instanceof IInventory)
-			((IInventory) tile).closeInventory();	
+			((IInventory) tile).closeInventory();
 	}
 
 	@Override
@@ -111,13 +110,21 @@ public class TileRedStringContainer extends TileRedString implements ISidedInven
 	@Override
 	public boolean canInsertItem(int slot, ItemStack stack, int side) {
 		TileEntity tile = getTileAtBinding();
-		return tile instanceof ISidedInventory ? ((ISidedInventory) tile).canInsertItem(slot, stack, side) : true;	
+		return tile instanceof ISidedInventory ? ((ISidedInventory) tile).canInsertItem(slot, stack, side) : true;
 	}
 
 	@Override
 	public boolean canExtractItem(int slot, ItemStack stack, int side) {
 		TileEntity tile = getTileAtBinding();
-		return tile instanceof ISidedInventory ? ((ISidedInventory) tile).canExtractItem(slot, stack, side) : true;		
+		return tile instanceof ISidedInventory ? ((ISidedInventory) tile).canExtractItem(slot, stack, side) : true;
+	}
+
+	@Override
+	public void markDirty() {
+		super.markDirty();
+		TileEntity tile = getTileAtBinding();
+		if(tile != null)
+			tile.markDirty();
 	}
 
 }

@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jan 14, 2014, 6:23:47 PM (GMT)]
  */
@@ -19,7 +18,7 @@ import net.minecraft.util.ResourceLocation;
 public class LexiconCategory implements Comparable<LexiconCategory> {
 
 	private static int count = 0;
-	
+
 	public final String unlocalizedName;
 	public final List<LexiconEntry> entries = new ArrayList<LexiconEntry>();
 	private final int sortingId;
@@ -38,7 +37,7 @@ public class LexiconCategory implements Comparable<LexiconCategory> {
 	public String getUnlocalizedName() {
 		return unlocalizedName;
 	}
-	
+
 	/**
 	 * Sets the priority for this category for sorting. Higher numbers
 	 * means they'll appear first in the book. The basics category
@@ -52,11 +51,11 @@ public class LexiconCategory implements Comparable<LexiconCategory> {
 		this.priority = priority;
 		return this;
 	}
-	
+
 	public int getSortingPriority() {
 		return priority;
 	}
-	
+
 	public final int getSortingId() {
 		return sortingId;
 	}

@@ -3,20 +3,44 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Nov 3, 2014, 12:12:36 AM (GMT)]
  */
 package vazkii.botania.common.brew.potion;
 
+import java.util.List;
+
+import net.minecraft.entity.monster.IMob;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.living.LivingSpawnEvent;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibPotionNames;
+import cpw.mods.fml.common.eventhandler.Event.Result;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class PotionEmptiness extends PotionMod {
 
+	private static final int RANGE = 128;
+
 	public PotionEmptiness() {
-		super(LibPotionNames.EMPTINESS, false, 0xE7E7E7, 2);
+		super(ConfigHandler.potionIDEmptiness, LibPotionNames.EMPTINESS, false, 0xE7E7E7, 2);
+		MinecraftForge.EVENT_BUS.register(this);
+	}
+
+	@SubscribeEvent
+	public void onSpawn(LivingSpawnEvent.CheckSpawn event) {
+		if(event.getResult() != Result.ALLOW && event.entityLiving instanceof IMob) {
+			List<EntityPlayer> players = event.world.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(event.x - RANGE, event.y - RANGE, event.z - RANGE, event.x + RANGE, event.y + RANGE, event.z + RANGE));
+			for(EntityPlayer player : players)
+				if(hasEffect(player)) {
+					event.setResult(Result.DENY);
+					return;
+				}
+		}
 	}
 
 }

@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Nov 1, 2014, 9:20:33 PM (GMT)]
  */
@@ -19,7 +18,7 @@ import net.minecraft.item.ItemStack;
  * from going back into the brewery but other mods might use it for whatever.
  */
 public interface IBrewItem {
-	
+
 	public Brew getBrew(ItemStack brew);
 
 }

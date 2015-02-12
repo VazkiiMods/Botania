@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jan 13, 2014, 7:46:05 PM (GMT)]
  */
@@ -23,23 +22,25 @@ import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings.GameType;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
+import vazkii.botania.api.item.IBurstViewerBauble;
 import vazkii.botania.api.item.IExtendedPlayerController;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.wiki.IWikiProvider;
 import vazkii.botania.api.wiki.WikiHooks;
+import vazkii.botania.client.core.handler.BaubleRenderHandler;
 import vazkii.botania.client.core.handler.BotaniaPlayerController;
 import vazkii.botania.client.core.handler.BoundTileRenderer;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.DebugHandler;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.handler.LightningHandler;
-import vazkii.botania.client.core.handler.BaubleRenderHandler;
 import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.fx.FXSparkle;
@@ -71,6 +72,7 @@ import vazkii.botania.client.render.tile.RenderTileBrewery;
 import vazkii.botania.client.render.tile.RenderTileEnchanter;
 import vazkii.botania.client.render.tile.RenderTileFloatingFlower;
 import vazkii.botania.client.render.tile.RenderTilePool;
+import vazkii.botania.client.render.tile.RenderTilePrism;
 import vazkii.botania.client.render.tile.RenderTilePylon;
 import vazkii.botania.client.render.tile.RenderTileRedString;
 import vazkii.botania.client.render.tile.RenderTileRuneAltar;
@@ -94,6 +96,7 @@ import vazkii.botania.common.block.tile.TileStarfield;
 import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.block.tile.TileTinyPotato;
 import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.block.tile.mana.TilePrism;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -103,9 +106,12 @@ import vazkii.botania.common.core.version.VersionChecker;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.EntityPixie;
 import vazkii.botania.common.entity.EntitySpark;
+import vazkii.botania.common.entity.EntityThornChakram;
 import vazkii.botania.common.entity.EntityVineBall;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibObfuscation;
+import baubles.common.container.InventoryBaubles;
+import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -117,7 +123,7 @@ import cpw.mods.fml.relauncher.ReflectionHelper;
 public class ClientProxy extends CommonProxy {
 
 	public static boolean singAnnoyingChristmasSongsTillVazkiisHeadExplodesFromAllTheDamnJingle = false;
-	
+
 	@Override
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
@@ -136,13 +142,13 @@ public class ClientProxy extends CommonProxy {
 
 
 		// Jingle bells jingle bells
-	    Calendar calendar = Calendar.getInstance();
-	    if((calendar.get(2) == 11 && calendar.get(5) >= 24 && calendar.get(5) <= 26) || (calendar.get(2) == 0 && calendar.get(5) <= 6))
-	        singAnnoyingChristmasSongsTillVazkiisHeadExplodesFromAllTheDamnJingle = true;
-		
+		Calendar calendar = Calendar.getInstance();
+		if(calendar.get(2) == 11 && calendar.get(5) >= 24 && calendar.get(5) <= 26 || calendar.get(2) == 0 && calendar.get(5) <= 6)
+			singAnnoyingChristmasSongsTillVazkiisHeadExplodesFromAllTheDamnJingle = true;
+
 		initRenderers();
 	}
-	
+
 	private void initRenderers() {
 		LibRenderIDs.idAltar = RenderingRegistry.getNextAvailableRenderId();
 		LibRenderIDs.idSpecialFlower = RenderingRegistry.getNextAvailableRenderId();
@@ -166,7 +172,7 @@ public class ClientProxy extends CommonProxy {
 
 		RenderTransparentItem renderTransparentItem = new RenderTransparentItem();
 		RenderFloatingFlowerItem renderFloatingFlower = new RenderFloatingFlowerItem();
-		
+
 		MinecraftForgeClient.registerItemRenderer(ModItems.lens, new RenderLens());
 		if(ConfigHandler.lexicon3dModel)
 			MinecraftForgeClient.registerItemRenderer(ModItems.lexicon, new RenderLexicon());
@@ -191,7 +197,8 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileBrewery.class, new RenderTileBrewery());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileTerraPlate.class, new RenderTileTerraPlate());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileRedString.class, new RenderTileRedString());
-		
+		ClientRegistry.bindTileEntitySpecialRenderer(TilePrism.class, new RenderTilePrism());
+
 		if(Loader.instance().getMCVersionString().equals("Minecraft 1.7.10"))
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySkull.class, new RenderTileSkullOverride());
 
@@ -199,10 +206,11 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityVineBall.class, new RenderSnowball(ModItems.vineBall));
 		RenderingRegistry.registerEntityRenderingHandler(EntityDoppleganger.class, new RenderDoppleganger());
 		RenderingRegistry.registerEntityRenderingHandler(EntitySpark.class, new RenderSpark());
+		RenderingRegistry.registerEntityRenderingHandler(EntityThornChakram.class, new RenderSnowball(ModItems.thornChakram));
 
 		ShaderHelper.initShaders();
 	}
-	
+
 	@Override
 	@Optional.Method(modid = "NotEnoughItems")
 	public void registerNEIStuff() {
@@ -213,10 +221,23 @@ public class ClientProxy extends CommonProxy {
 	public void setEntryToOpen(LexiconEntry entry) {
 		GuiLexicon.currentOpenLexicon = new GuiLexiconEntry(entry, new GuiLexiconIndex(entry.category));
 	}
+	
+	@Override
+	public void setLexiconStack(ItemStack stack) {
+		GuiLexicon.stackUsed = stack;
+	}
 
 	@Override
 	public boolean isTheClientPlayer(EntityLivingBase entity) {
 		return entity == Minecraft.getMinecraft().thePlayer;
+	}
+
+	@Override
+	public boolean isClientPlayerWearingMonocle() {
+		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+		InventoryBaubles inv = PlayerHandler.getPlayerBaubles(player);
+		ItemStack stack = inv.getStackInSlot(0);
+		return stack != null && stack.getItem() instanceof IBurstViewerBauble;
 	}
 
 	@Override
@@ -229,7 +250,11 @@ public class ClientProxy extends CommonProxy {
 				GameType type = ReflectionHelper.getPrivateValue(PlayerControllerMP.class, mc.playerController, LibObfuscation.CURRENT_GAME_TYPE);
 				NetHandlerPlayClient net = ReflectionHelper.getPrivateValue(PlayerControllerMP.class, mc.playerController, LibObfuscation.NET_CLIENT_HANDLER);
 				BotaniaPlayerController controller = new BotaniaPlayerController(mc, net);
+				boolean isFlying = player.capabilities.isFlying;
+				boolean allowFlying = player.capabilities.allowFlying;
 				controller.setGameType(type);
+				player.capabilities.isFlying = isFlying;
+				player.capabilities.allowFlying = allowFlying;
 				mc.playerController = controller;
 			}
 
@@ -259,6 +284,7 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	private static boolean noclipEnabled = false;
+	private static boolean corruptSparkle = false;
 
 	@Override
 	public void setSparkleFXNoClip(boolean noclip) {
@@ -266,14 +292,21 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	@Override
+	public void setSparkleFXCorrupt(boolean corrupt) {
+		corruptSparkle = corrupt;
+	}
+
+	@Override
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m, boolean fake) {
-		if(!doParticle() && !fake)
+		if(!doParticle(world) && !fake)
 			return;
 
 		FXSparkle sparkle = new FXSparkle(world, x, y, z, size, r, g, b, m);
 		sparkle.fake = sparkle.noClip = fake;
 		if(noclipEnabled)
 			sparkle.noClip = true;
+		if(corruptSparkle)
+			sparkle.corrupt = true;
 		Minecraft.getMinecraft().effectRenderer.addEffect(sparkle);
 	}
 
@@ -292,7 +325,7 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size, float motionx, float motiony, float motionz, float maxAgeMul) {
-		if(!doParticle())
+		if(!doParticle(world))
 			return;
 
 		FXWisp wisp = new FXWisp(world, x, y, z, size, r, g, b, distanceLimit, depthTest, maxAgeMul);
@@ -303,7 +336,10 @@ public class ClientProxy extends CommonProxy {
 		Minecraft.getMinecraft().effectRenderer.addEffect(wisp);
 	}
 
-	private boolean doParticle() {
+	private boolean doParticle(World world) {
+		if(!world.isRemote)
+			return false;
+		
 		if(!ConfigHandler.useVanillaParticleLimiter)
 			return true;
 
@@ -313,7 +349,7 @@ public class ClientProxy extends CommonProxy {
 		else if(Minecraft.getMinecraft().gameSettings.particleSetting == 2)
 			chance = 0.2F;
 
-		return Math.random() < chance;
+		return chance == 1F || Math.random() < chance;
 	}
 
 	@Override

@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jan 14, 2014, 5:31:15 PM (GMT)]
  */
@@ -26,7 +25,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class BlockMod extends Block {
 
 	public int originalLight;
-	
+
 	public BlockMod(Material par2Material) {
 		super(par2Material);
 		if(registerInCreative())
@@ -49,7 +48,7 @@ public class BlockMod extends Block {
 		originalLight = (int) (p_149715_1_ * 15);
 		return super.setLightLevel(p_149715_1_);
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister par1IconRegister) {

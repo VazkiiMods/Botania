@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jan 26, 2014, 12:23:55 AM (GMT)]
  */
@@ -31,6 +30,8 @@ import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.item.IDyablePool;
+import vazkii.botania.api.item.IManaDissolvable;
 import vazkii.botania.api.mana.IKeyLocked;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaPool;
@@ -47,9 +48,8 @@ import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.helper.Vector3;
-import vazkii.botania.common.item.ModItems;
 
-public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAttachable {
+public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLocked, ISparkAttachable {
 
 	public static final int MAX_MANA = 1000000;
 	public static final int MAX_MANA_DILLUTED = 10000;
@@ -111,7 +111,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	}
 
 	public boolean collideEntityItem(EntityItem item) {
-		if(item.isDead || item.age > 100 && item.age < 130 || !catalystsRegistered)
+		if(item.isDead)
 			return false;
 
 		boolean didChange = false;
@@ -119,16 +119,14 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		if(stack == null)
 			return false;
 
-		if(stack.getItem() == ModItems.dye && !worldObj.isRemote) {
-			int meta = stack.getItemDamage();
-			if(meta != color) {
-				color = meta;
-				stack.stackSize--;
-				if(stack.stackSize == 0)
-					item.setDead();
-				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-			}
+		if(stack.getItem() instanceof IManaDissolvable) {
+			((IManaDissolvable) stack.getItem()).onDissolveTick(this, stack, item);
+			if(stack.stackSize == 0)
+				item.setDead();
 		}
+
+		if(item.age > 100 && item.age < 130 || !catalystsRegistered)
+			return false;
 
 		for(RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes) {
 			if(recipe.matches(stack) && (!recipe.isAlchemy() || alchemy) && (!recipe.isConjuration() || conjuration) && (getBlockMetadata() != 2 || recipe.getOutput().getItem() == Item.getItemFromBlock(getBlockType()))) {
@@ -299,7 +297,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		String name = StatCollector.translateToLocal(new ItemStack(ModBlocks.pool, 1, getBlockMetadata()).getUnlocalizedName().replaceAll("tile.", "tile." + LibResources.PREFIX_MOD) + ".name");
-		int color = 0x660000FF;
+		int color = 0x4444FF;
 		HUDHandler.drawSimpleManaHUD(color, knownMana, manaCap, name, res);
 
 		String power = StatCollector.translateToLocal("botaniamisc." + (outputting ? "outputtingPower" : "inputtingPower"));
@@ -365,5 +363,15 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	@Override
 	public int getAvailableSpaceForMana() {
 		return Math.max(0, manaCap - getCurrentMana());
+	}
+
+	@Override
+	public int getColor() {
+		return color;
+	}
+
+	@Override
+	public void setColor(int color) {
+		this.color = color;
 	}
 }

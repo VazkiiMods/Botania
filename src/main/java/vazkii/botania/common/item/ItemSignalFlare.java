@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Mar 3, 2014, 6:49:15 PM (GMT)]
  */
@@ -30,6 +29,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntitySignalFlare;
 import vazkii.botania.common.lib.LibItemNames;
@@ -66,11 +66,17 @@ public class ItemSignalFlare extends ItemMod {
 
 				par2World.spawnEntityInWorld(flare);
 
+				int stunned = 0;
 				int range = 5;
 				List<EntityLivingBase> entities = par2World.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(par3EntityPlayer.posX - range, par3EntityPlayer.posY - range, par3EntityPlayer.posZ - range, par3EntityPlayer.posX + range, par3EntityPlayer.posY + range, par3EntityPlayer.posZ + range));
 				for(EntityLivingBase entity : entities)
-					if(entity != par3EntityPlayer && (!(entity instanceof EntityPlayer) || MinecraftServer.getServer() == null || MinecraftServer.getServer().isPVPEnabled()))
+					if(entity != par3EntityPlayer && (!(entity instanceof EntityPlayer) || MinecraftServer.getServer() == null || MinecraftServer.getServer().isPVPEnabled())) {
 						entity.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 50, 5));
+						stunned++;
+					}
+
+				if(stunned >= 100)
+					par3EntityPlayer.addStat(ModAchievements.signalFlareStun, 1);
 			}
 			par1ItemStack.damageItem(200, par3EntityPlayer);
 		}
@@ -104,7 +110,7 @@ public class ItemSignalFlare extends ItemMod {
 		int colorv = getColor(par1ItemStack);
 		if(colorv >= EntitySheep.fleeceColorTable.length || colorv < 0)
 			return 0xFFFFFF;
-				
+
 		float[] color = EntitySheep.fleeceColorTable[getColor(par1ItemStack)];
 		return new Color(color[0], color[1], color[2]).getRGB();
 	}

@@ -3,9 +3,8 @@
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  * 
- * Botania is Open Source and distributed under a
- * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
- * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
  * 
  * File Created @ [Jul 8, 2014, 10:58:46 PM (GMT)]
  */
@@ -28,9 +27,7 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelMiniIsland;
-import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.block.decor.IFloatingFlower;
-import vazkii.botania.common.block.tile.TileFloatingFlower;
 
 public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 
@@ -66,7 +63,7 @@ public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 
 		ItemStack stack = flower.getDisplayStack();
 		IIcon icon = stack.getIconIndex();
-		
+
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();
