@@ -49,6 +49,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 	public static Map<String, String> mappedPositions = new HashMap();
 
 	static List<String> removeThese = new ArrayList();
+	static List<String> checkedCoords = new ArrayList();
 	static Map<String, Integer> coordsToCheck = new HashMap();
 
 	public BlockPistonRelay() {
@@ -82,7 +83,8 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 	}
 
 	static void mapCoords(int world, int x, int y, int z, int time) {
-		coordsToCheck.put(getCoordsAsString(world, x, y, z), time);
+		String coords = getCoordsAsString(world, x, y, z);
+		coordsToCheck.put(coords, time);
 	}
 
 	static void decrCoords(String key) {
@@ -190,9 +192,11 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 	public void tickEnd(TickEvent event) {
 		if(event.type == Type.SERVER && event.phase == Phase.END)
 			for(String s : coordsToCheck.keySet()) {
-				Block block = getBlockAt(s);
 				decrCoords(s);
-
+				if(checkedCoords.contains(s))
+					continue;
+				
+				Block block = getBlockAt(s);
 				if(block == Blocks.piston_extension) {
 					int meta = getBlockMetaAt(s);
 					boolean sticky = (meta & 8) == 8;
@@ -208,6 +212,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 							int worldId = Integer.parseInt(tokens[0]), x = Integer.parseInt(tokens[1]), y = Integer.parseInt(tokens[2]), z = Integer.parseInt(tokens[3]);
 							World world = server.worldServerForDimension(worldId);
 							world.setBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ, ModBlocks.pistonRelay);
+							checkedCoords.add(s);
 							newPos = getCoordsAsString(world.provider.dimensionId, x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
 						}
 
@@ -242,8 +247,12 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 				}
 			}
 
-		for(String s : removeThese)
+		// ConcurrentModificationException failsafe
+		ArrayList<String> remove = new ArrayList(removeThese);
+		for(String s : remove) {
 			coordsToCheck.remove(s);
+			checkedCoords.remove(s);
+		}
 		removeThese.clear();
 	}
 
