@@ -30,7 +30,7 @@ botaniamisc.creativePool1=Waardig voor een egoïst
 botaniamisc.savedByLaurel=Uw gouden lauwerkrans verbrijzeld wanneer hij je redt van de dood.
 botaniamisc.toolRank=%s&7 Rang
 
-botaniamisc.edition=%s Edition
+botaniamisc.edition=%s Editie
 # ^ Leave this empty for no edition display
 botaniamisc.devEdition=Schrijver's
 botaniamisc.lexiconcover0=Uw gids voor alle
@@ -73,6 +73,11 @@ botaniamisc.getALife=Krijg een leven
 botaniamisc.floatingPrefix=Drijvende %s
 botaniamisc.unsetRecipe=[Geen recept] Rechts-klik om in te stellen:
 botaniamisc.cantCraft=Niet genoeg materialen!
+botaniamisc.lotusDesc=Hij straalt sterke Magie uit
+botaniamisc.hasClip=&6Met Lens Klem
+botaniamisc.clipEmpty=(Leeg)
+botaniamisc.armorset=&bArmor Set&r:
+botaniamisc.craftToAddWill=&aVervaardig met Terrastaal Helm om effect toe te voegen:
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanische Brouwerij
@@ -122,9 +127,30 @@ botania.wings1=Vleugels: Flügel
 botania.wings2=Vleugels: Enkelgevleugelde Engel
 botania.wings3=Vleugels: Ijs Fee
 botania.wings4=Vleugels: Vuurmeester
-botania.wings5=Vleugels: Zwarte Sneeuw Princes
+botania.wings5=Vleugels: Zwarte Sneeuw Prinses
 botania.wings6=Vleugels: Meester der Schacht
 botania.wings7=Vleugels: Luchtgeest
+
+# ARMOR SETS
+botania.armorset.manasteel.name=Mana Affiniteit
+botania.armorset.manasteel.desc=10% minder Mana kosten voor Mana gereedschap
+botania.armorset.elementium.name=Grote Elfjes Zegen
+botania.armorset.elementium.desc=Kans voor Elfjes om effect van Dranken te geven
+botania.armorset.terrasteel.name=Wil der Ouden
+botania.armorset.terrasteel.desc0=20% minder Mana kosten voor Mana gereedschap
+botania.armorset.terrasteel.desc1=Herstel ook als honger niet is afgevuld
+botania.armorset.will0.desc=Voltreffers geven een sterk zwakheid effect (Wil van Ahrim)
+botania.armorset.will1.desc=Voltreffers geven meer schade bij minder HP (Wil van Dharok)
+botania.armorset.will2.desc=Voltreffers genezen voor een deel van de schade (Wil van Guthan)
+botania.armorset.will3.desc=Voltreffers geven een sterk traagheid effect (Wil van Torag)
+botania.armorset.will4.desc=Voltreffers doordringen armor (Wil van Verac)
+botania.armorset.will5.desc=Voltreffers geven aantastend effect (Wil van Karil)
+botania.armorset.will0.shortDesc=Voltreffers geven een sterk zwakheid effect effect
+botania.armorset.will1.shortDesc=Voltreffers geven meer schade bij minder HP
+botania.armorset.will2.shortDesc=Voltreffers genezen voor een deel van de schade
+botania.armorset.will3.shortDesc=Voltreffers geven een sterk traagheid effect
+botania.armorset.will4.shortDesc=Voltreffers doordringen armor
+botania.armorset.will5.shortDesc=Voltreffers geven aantastend effect
 
 # ROMAN NUMERALS
 botania.roman0=
@@ -187,19 +213,12 @@ flowerTextures.alt=Alternatieve bloemen textures
 matrixMode.enabled=Matrix Mode inschakelen
 references.enabled=Gebruik tooltip referenties
 shaders.enabled=Gebruik schaduwen
+baubleRender.enabled=Bauble Rendering Inschakelen
 spreader.posShift=Verspreider positie verplaatsing
 versionChecking.enabled=Versie controle inschakelen
 wandBeam.static=Statische staf straal inschakelen
 worldgen.flower.density=Worldgen bloemen dichtheid
 worldgen.flower.quantity=Worldgen bloemen hoeveelheid
-shedRate.chicken=Werpsnelheid: Kip
-shedRate.squid=Werpsnelheid: Inktvis
-shedRate.villager=Werpsnelheid: Dorpeling
-shedRate.spider=Werpsnelheid: Spin
-shedRate.blaze=Werpsnelheid: Blaze
-shedRate.ghast=Werpsnelheid: Geest
-shedRate.skeleton=Werpsnelheid: Skelet
-shedRate.slime=Werpsnelheid: Slijmkubus
 
 # VERSION CHECKING
 botania.versioning.flavour0=Er is een Botania update!
@@ -229,6 +248,60 @@ entity.Botania.botania:magicLandmine.name=Gaia val
 entity.Botania.botania:spark.name=Vonk
 entity.Botania.botania:thrownItem.name=Gegooid object
 entity.Botania.botania:magicMissile.name=Magische Raket
+entity.Botania.botania:thornChakram.name=Doorn van Chakram
+
+# ACHIEVEMENT NAMES + DESC
+achievement.botania:flowerPickup=Hemel van het Begin
+achievement.botania:flowerPickup.desc=Pak een Mystieke Bloem op uit de wereld
+achievement.botania:lexiconUse=Wezenlijke Wetenschap
+achievement.botania:lexiconUse.desc=Open een Lexica Botania en bekijk de inhoudsopgave
+achievement.botania:daybloomPickup=Een nieuwe Dag
+achievement.botania:daybloomPickup.desc=Maak een Dagbloem in een Bloemblad Apotheek
+achievement.botania:manaPoolPickup=Levendige Golf
+achievement.botania:manaPoolPickup.desc=Upgrade een Verdunde Mana Voorraad naar een normale
+achievement.botania:endoflamePickup=Versmelting
+achievement.botania:endoflamePickup.desc=Maak een Endovlam voor extra Mana productie
+achievement.botania:tinyPotatoPet=Laten we Vrienden zijn
+achievement.botania:tinyPotatoPet.desc=Maak een Kleine Aardappel en tem hem
+achievement.botania:sparkCraft=Vonkelnieuw
+achievement.botania:sparkCraft.desc=Maak een Vonk om mana te verplaatsen
+achievement.botania:baubleWear=Innerlijke Kunst
+achievement.botania:baubleWear.desc=Vervaardig een Bauble en draag hem
+achievement.botania:manaCookieEat=Ketterij en Chocolade
+achievement.botania:manaCookieEat.desc=Doordrenk en eet een heerlijk Mana Koekje
+achievement.botania:runePickup=De poppen aan het dansen
+achievement.botania:runePickup.desc=Gebruik een Runen Altaar om een Rune te maken
+achievement.botania:manaBlasterShoot=Oh Yeah
+achievement.botania:manaBlasterShoot.desc=Maak en schiet een Mana Blaster
+achievement.botania:tiaraWings=Hartendief
+achievement.botania:tiaraWings.desc=Maak en gebruik een Flügel Tiara met Flügel vleugels
+achievement.botania:terrasteelPickup=Dancer in the Dark
+achievement.botania:terrasteelPickup.desc=Roep een staaf Terrastaal op met een Bodemverbindingsplaat
+achievement.botania:elfPortalOpen=De Wereld Roept
+achievement.botania:elfPortalOpen.desc=Open een poort naar het Elvenrijk
+achievement.botania:gaiaGuardianKill=Dood en Dwaas
+achievement.botania:gaiaGuardianKill.desc=Dood een Beschermer van Gaia voor een Ritueel van Gaia
+achievement.botania:terrasteelWeaponCraft=Paniek op afstand
+achievement.botania:terrasteelWeaponCraft.desc=Bewapen jezelf met een Terrastaal wapen
+achievement.botania:kekimurusPickup=Naschoolse Activiteit
+achievement.botania:kekimurusPickup.desc=Maak een Kekimurus om te helpen veel Mana te genereren
+achievement.botania:heiseiDreamPickup=Droom Verder
+achievement.botania:heiseiDreamPickup.desc=Maak een Droomdoorn om monsters te plagen
+achievement.botania:dirtRodCraft=Landvastig
+achievement.botania:dirtRodCraft.desc=Maak een Staf van het Land
+achievement.botania:spawnerMoverUse=Houdt het netjes
+achievement.botania:spawnerMoverUse.desc=Gebruik een Levensverzamelaar om een Monsterkooi te verplaatsen
+achievement.botania:signalFlareStun=Zie het Licht
+achievement.botania:signalFlareStun.desc=Leidt 100 of meer mobs tegelijk af met een Signaalpistool
+achievement.botania:l20ShardUse=Uit de Pas
+achievement.botania:l20ShardUse.desc=Verhoog de grond tot de hemel met een Kracht XX Scherf van Laputa
+achievement.botania:gaiaGuardianNoArmor=Mythologisch Einde
+achievement.botania:gaiaGuardianNoArmor.desc=Doodt een Beschermer van Gaia zonder armor te dragen op een moment tijdens het gevecht
+achievement.botania:rankSSPick=Wereldversnipperaar
+achievement.botania:rankSSPick.desc=Graaf door de wereld met een klasse SS Terrabreker
+achievement.botania:desuGun=Tweezijdige Liefde
+achievement.botania:desuGun.desc=ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
+#                                 ^ Don't localize
 
 # BLOCK NAMES
 tile.botania:flower0.name=Mystieke Witte Bloem
@@ -316,6 +389,8 @@ tile.botania:forestEye.name=Oog der Ouden
 tile.botania:storage0.name=Blok Manastaal
 tile.botania:storage1.name=Blok Terrastaal
 tile.botania:storage2.name=Blok Elementium
+tile.botania:storage3.name=Blok Mana Diamant
+tile.botania:storage4.name=Blok Drakensteen
 tile.botania:forestDrum0.name=Drum van het Wild
 tile.botania:forestDrum1.name=Drum der Verzameling
 tile.botania:shinyFlower0.name=Glinsterende Witte Bloem
@@ -452,12 +527,112 @@ tile.botania:elfGlass.name=Elvenglas
 tile.botania:brewery.name=Botanische Brouwerij
 tile.botania:manaGlass.name=Managlas
 tile.botania:terraPlate.name=Bodemverbindingsplaat
-tile.botania:redStringContainer.name=Rode Gestreepte Container
-tile.botania:redStringDispenser.name=Rode Gestreepte Dispenser
-tile.botania:redStringFertilizer.name=Rode Gestreepte Bloemvoeder
-tile.botania:redStringComparator.name=Rode Gestreepte Comparator
-tile.botania:redStringRelay.name=Rode Gestreepte Spoofer
+tile.botania:redStringContainer.name=Rood Gestreepte Container
+tile.botania:redStringDispenser.name=Rood Gestreepte Dispenser
+tile.botania:redStringFertilizer.name=Rood Gestreepte Bloemvoeder
+tile.botania:redStringComparator.name=Rood Gestreepte Comparator
+tile.botania:redStringRelay.name=Rood Gestreepte Spoofer
 tile.botania:manaFlame.name=Mana Flits
+tile.botania:prism.name=Mana Prisma
+tile.botania:dirtPath.name=Betreden Aarde
+tile.botania:enchantedSoil.name=Betoverde Grond
+tile.botania:dirtPath0Slab.name=Betreden Aarde Plaat
+tile.botania:biomeStoneA0.name=Veranderlijke Woudsteen
+tile.botania:biomeStoneA1.name=Veranderlijke Veldsteen
+tile.botania:biomeStoneA2.name=Veranderlijke Bergsteen
+tile.botania:biomeStoneA3.name=Veranderlijke Schimmelsteen
+tile.botania:biomeStoneA4.name=Veranderlijke Moerassteen
+tile.botania:biomeStoneA5.name=Veranderlijke Woestijnsteen
+tile.botania:biomeStoneA6.name=Veranderlijke Winterwoudsteen
+tile.botania:biomeStoneA7.name=Veranderlijke Hoogvlaktesteen
+tile.botania:biomeStoneA8.name=Veranderlijke Woudkeisteen
+tile.botania:biomeStoneA9.name=Veranderlijke Veldkeisteen
+tile.botania:biomeStoneA10.name=Veranderlijke Bergkeisteen
+tile.botania:biomeStoneA11.name=Veranderlijke Schimmelkeisteen
+tile.botania:biomeStoneA12.name=Veranderlijke Moeraskeisteen
+tile.botania:biomeStoneA13.name=Veranderlijke Woestijnkeisteen
+tile.botania:biomeStoneA14.name=Veranderlijke Winterwoudkeisteen
+tile.botania:biomeStoneA15.name=Veranderlijke Hoogvlaktekeisteen
+tile.botania:biomeStoneB0.name=Veranderlijke Woudsteen Baksteen
+tile.botania:biomeStoneB1.name=Veranderlijke Veldsteen Baksteen
+tile.botania:biomeStoneB2.name=Veranderlijke Bergsteen Baksteen
+tile.botania:biomeStoneB3.name=Veranderlijke Schimmelsteen Baksteen
+tile.botania:biomeStoneB4.name=Veranderlijke Moerassteen Baksteen
+tile.botania:biomeStoneB5.name=Veranderlijke Woestijnsteen Baksteen
+tile.botania:biomeStoneB6.name=Veranderlijke Winterwoudsteen Baksteen
+tile.botania:biomeStoneB7.name=Veranderlijke Hoogvlaktesteen Baksteen
+tile.botania:biomeStoneB8.name=Chiseled Veranderlijke Woudsteen Baksteen
+tile.botania:biomeStoneB9.name=Chiseled Veranderlijke Veldsteen Baksteen
+tile.botania:biomeStoneB10.name=Chiseled Veranderlijke Bergsteen Baksteen
+tile.botania:biomeStoneB11.name=Chiseled Veranderlijke Schimmelsteen Baksteen
+tile.botania:biomeStoneB12.name=Chiseled Veranderlijke Moerassteen Baksteen
+tile.botania:biomeStoneB13.name=Chiseled Veranderlijke Woestijnsteen Baksteen
+tile.botania:biomeStoneB14.name=Chiseled Veranderlijke Winterwoudsteen Baksteen
+tile.botania:biomeStoneB15.name=Chiseled Veranderlijke Hoogvlaktesteen Baksteen
+tile.botania:biomeStoneA0Stairs.name=Veranderlijke Woudsteen Trap
+tile.botania:biomeStoneA1Stairs.name=Veranderlijke Veldsteen Trap
+tile.botania:biomeStoneA2Stairs.name=Veranderlijke Bergsteen Trap
+tile.botania:biomeStoneA3Stairs.name=Veranderlijke Schimmelsteen Trap
+tile.botania:biomeStoneA4Stairs.name=Veranderlijke Moerassteen Trap
+tile.botania:biomeStoneA5Stairs.name=Veranderlijke Woestijnsteen Trap
+tile.botania:biomeStoneA6Stairs.name=Veranderlijke Winterwoudsteen Trap
+tile.botania:biomeStoneA7Stairs.name=Veranderlijke Hoogvlaktesteen Trap
+tile.botania:biomeStoneA8Stairs.name=Veranderlijke Woudkeisteen Trap
+tile.botania:biomeStoneA9Stairs.name=Veranderlijke Veldkeisteen Trap
+tile.botania:biomeStoneA10Stairs.name=Veranderlijke Bergkeisteen Trap
+tile.botania:biomeStoneA11Stairs.name=Veranderlijke Schimmelkeisteen Trap
+tile.botania:biomeStoneA12Stairs.name=Veranderlijke Moeraskeisteen Trap
+tile.botania:biomeStoneA13Stairs.name=Veranderlijke Woestijnkeisteen Trap
+tile.botania:biomeStoneA14Stairs.name=Veranderlijke Winterwoudkeisteen Trap
+tile.botania:biomeStoneA15Stairs.name=Veranderlijke Hoogvlaktekeisteen Trap
+tile.botania:biomeStoneB0Stairs.name=Veranderlijke Woudsteen Baksteen Trap
+tile.botania:biomeStoneB1Stairs.name=Veranderlijke Veldsteen Baksteen Trap
+tile.botania:biomeStoneB2Stairs.name=Veranderlijke Bergsteen Baksteen Trap
+tile.botania:biomeStoneB3Stairs.name=Veranderlijke Schimmelsteen Baksteen Trap
+tile.botania:biomeStoneB4Stairs.name=Veranderlijke Moerassteen Baksteen Trap
+tile.botania:biomeStoneB5Stairs.name=Veranderlijke Woestijnsteen Baksteen Trap
+tile.botania:biomeStoneB6Stairs.name=Veranderlijke Winterwoudsteen Baksteen Trap
+tile.botania:biomeStoneB7Stairs.name=Veranderlijke Hoogvlaktesteen Baksteen Trap
+tile.botania:biomeStoneA0Slab.name=Veranderlijke Woudsteen Plaat
+tile.botania:biomeStoneA1Slab.name=Veranderlijke Veldsteen Plaat
+tile.botania:biomeStoneA2Slab.name=Veranderlijke Bergsteen Plaat
+tile.botania:biomeStoneA3Slab.name=Veranderlijke Schimmelsteen Plaat
+tile.botania:biomeStoneA4Slab.name=Veranderlijke Moerassteen Plaat
+tile.botania:biomeStoneA5Slab.name=Veranderlijke Woestijnsteen Plaat
+tile.botania:biomeStoneA6Slab.name=Veranderlijke Winterwoudsteen Plaat
+tile.botania:biomeStoneA7Slab.name=Veranderlijke Hoogvlaktesteen Plaat
+tile.botania:biomeStoneA8Slab.name=Veranderlijke Woudkeisteen Plaat
+tile.botania:biomeStoneA9Slab.name=Veranderlijke Veldkeisteen Plaat
+tile.botania:biomeStoneA10Slab.name=Veranderlijke Bergkeisteen Plaat
+tile.botania:biomeStoneA11Slab.name=Veranderlijke Schimmelkeisteen Plaat
+tile.botania:biomeStoneA12Slab.name=Veranderlijke Moeraskeisteen Plaat
+tile.botania:biomeStoneA13Slab.name=Veranderlijke Woestijnkeisteen Plaat
+tile.botania:biomeStoneA14Slab.name=Veranderlijke Winterwoudkeisteen Plaat
+tile.botania:biomeStoneA15Slab.name=Veranderlijke Hoogvlaktekeisteen Plaat
+tile.botania:biomeStoneB0Slab.name=Veranderlijke Woudsteen Baksteen Plaat
+tile.botania:biomeStoneB1Slab.name=Veranderlijke Veldsteen Baksteen Plaat
+tile.botania:biomeStoneB2Slab.name=Veranderlijke Bergsteen Baksteen Plaat
+tile.botania:biomeStoneB3Slab.name=Veranderlijke Schimmelsteen Baksteen Plaat
+tile.botania:biomeStoneB4Slab.name=Veranderlijke Moerassteen Baksteen Plaat
+tile.botania:biomeStoneB5Slab.name=Veranderlijke Woestijnsteen Baksteen Plaat
+tile.botania:biomeStoneB6Slab.name=Veranderlijke Winterwoudsteen Baksteen Plaat
+tile.botania:biomeStoneB7Slab.name=Veranderlijke Hoogvlaktesteen Baksteen Plaat
+tile.botania:petalBlock0.name=Wit Bloemblad Blok
+tile.botania:petalBlock1.name=Oranje Bloemblad Blok
+tile.botania:petalBlock2.name=Magenta Bloemblad Blok
+tile.botania:petalBlock3.name=Lichtblauw Bloemblad Blok
+tile.botania:petalBlock4.name=Geel Bloemblad Blok
+tile.botania:petalBlock5.name=Lichtgroen Bloemblad Blok
+tile.botania:petalBlock6.name=Roze Bloemblad Blok
+tile.botania:petalBlock7.name=Grijs Bloemblad Blok
+tile.botania:petalBlock8.name=Lichtgrijs Bloemblad Blok
+tile.botania:petalBlock9.name=Blauwgroen Bloemblad Blok
+tile.botania:petalBlock10.name=Paars Bloemblad Blok
+tile.botania:petalBlock11.name=Blauw Bloemblad Blok
+tile.botania:petalBlock12.name=Bruin Bloemblad Blok
+tile.botania:petalBlock13.name=Groen Bloemblad Blok
+tile.botania:petalBlock14.name=Rood Bloemblad Blok
+tile.botania:petalBlock15.name=Zwart Bloemblad Blok
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Bloem
@@ -491,6 +666,10 @@ tile.botania:flower.kekimurus.name=Kekimurus
 tile.botania:flower.kekimurus.reference=Deze bloem bedriegt
 tile.botania:flower.gourmaryllis.name=Gourmarie
 tile.botania:flower.gourmaryllis.reference=Voor de fijnproever
+tile.botania:flower.narslimmus.name=Narslimmus
+tile.botania:flower.narslimmus.reference=Wat is dit? Het is zo plakkerig.
+tile.botania:flower.spectrolus.name=Spectrolus
+tile.botania:flower.spectrolus.reference=Profiteert van haat
 
 # - FUNCTIONAL
 tile.botania:flower.bellethorn.name=Bellendoorn
@@ -531,6 +710,12 @@ tile.botania:flower.daffomill.name=Daffolelie
 tile.botania:flower.daffomill.reference=Assistent Chef
 tile.botania:flower.vinculotus.name=Vinculotus
 tile.botania:flower.vinculotus.reference=Samen sterker
+tile.botania:flower.spectranthemum.name=Spectranthemie
+tile.botania:flower.spectranthemum.reference=In een notendop
+tile.botania:flower.medumone.name=Medumeen
+tile.botania:flower.medumone.reference=Hij gaat je pakken
+tile.botania:flower.marimorphosis.name=Mariemorfose
+tile.botania:flower.marimorphosis.reference=Stevig als een rots
 
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania
@@ -608,6 +793,8 @@ item.botania:lensPiston.name=Mana Lens: Bewegings
 item.botania:lensPiston.short=Bewegings
 item.botania:lensLight.name=Mana Lens: Flits
 item.botania:lensLight.short=Flits
+item.botania:lensWarp.name=Mana Lens: Afbuiging
+item.botania:lensWarp.short=Afbuiging
 item.botania:manaPetal0.name=Wit Mana Bloemblad
 item.botania:manaPetal1.name=Oranje Mana Bloemblad
 item.botania:manaPetal2.name=Magenta Mana Bloemblad
@@ -751,6 +938,33 @@ item.botania:missileRod.name=Staf van het Instabiele Reservoir
 item.botania:holyCloak.name=Mantel der Deugdzaamheid
 item.botania:unholyCloak.name=Mantel der Zonde
 item.botania:craftingHalo.name=Vervaardigingshalo
+item.botania:blackLotus0.name=Zwarte Lotus
+item.botania:blackLotus1.name=Lege Lotus
+item.botania:dreamwoodTwig.name=Droomhout Twijgje
+item.botania:monocle.name=Manazicht Oogglas
+item.botania:clip.name=Lens Klem
+item.botania:cobbleRod.name=Staf van de Diepte
+item.botania:smeltRod.name=Staf van de Gesmolten Kern
+item.botania:worldSeed.name=Wereldzaad
+item.botania:spellCloth.name=Betoveringsdoek
+item.botania:thornChakram.name=Doorn van Chakram
+item.botania:overgrowthSeed.name=Overwoekeringszaad
+item.botania:craftPattern0.name=Vervaardigingspatroon #1: 1x1
+item.botania:craftPattern1.name=Vervaardigingspatroon #2: 2x2
+item.botania:craftPattern2.name=Vervaardigingspatroon #3: 1x2
+item.botania:craftPattern3.name=Vervaardigingspatroon #4: 2x1
+item.botania:craftPattern4.name=Vervaardigingspatroon #5: 1x3
+item.botania:craftPattern5.name=Vervaardigingspatroon #6: 3x1
+item.botania:craftPattern6.name=Vervaardigingspatroon #7: 2x3
+item.botania:craftPattern7.name=Vervaardigingspatroon #8: 3x2
+item.botania:craftPattern8.name=Vervaardigingspatroon #9: Donut
+item.botania:gaiaIngot.name=Staaf van Gaia
+item.botania:ancientWill0.name=Wil van Ahrim
+item.botania:ancientWill1.name=Wil van Dharok
+item.botania:ancientWill2.name=Wil van Guthan
+item.botania:ancientWill3.name=Wil van Torag
+item.botania:ancientWill4.name=Wil van Verac
+item.botania:ancientWill5.name=Wil van Karil
 
 # BREW NAMES
 botania.brew.fallback=Terugval
@@ -770,23 +984,17 @@ botania.brew.absorption=Afscherming
 botania.brew.soulCross=Gekruisde Zielen
 botania.brew.featherFeet=Lichtvoetig
 botania.brew.emptiness=Ijdelheid's Leegte
-botania.brew.fulfilment=Ijdelheid's Vervulling
+botania.brew.bloodthirst=Crimson Schaduw
 botania.brew.overload=Overbelasting
-botania.brew.livingReactor=Reactief
-botania.brew.manashock=Manashock
-botania.brew.gravitation=Zwaartekracht
-botania.brew.cleansing=Zuiverend
+botania.brew.allure=Waterverleiding
 botania.brew.warpWard=Verstandige Gedachten
 
 # POTION NAMES
 botania.potion.soulCross=Gekruisde Zielen
 botania.potion.featherFeet=Lichtvoetig
 botania.potion.emptiness=Leegte
-botania.potion.fulfilment=Vervulling
-botania.potion.livingReactor=Reactief
-botania.potion.manashock=Manashock
-botania.potion.gravitation=Zwaartekracht
-botania.potion.cleansing=Zuiverend
+botania.potion.bloodthirst=Bloeddorst
+botania.potion.allure=Verleiding
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania, %s Editie Inhoudsopgave
@@ -879,10 +1087,14 @@ botania.page.runeAltar19=De &1Rune der Ijdelheid&0.
 
 # -- TERRASTEEL
 botania.entry.terrasteel=Terrastaal
-botania.page.terrasteel0=&1Terrastaal&0 is een ingewikkelde magische samenstelling, doordrenkt met een grote hoeveelheid &4Mana&0. Het oproepen ervan blijkt niet eenvoudig te zijn. Om te beginnen  om het te produceren, heb je een &1Bodemverbindingsplaat&0 nodig, geplaatst op een schaakbord patroon van &1Lapis Lazuli Blokken&0 en &1Levensteen&0. Het blok moet voorzien worden van &4Mana&0, de meest effectieve manier daarvoor is het gebruik van &1Vonken&0.
+botania.page.terrasteel0=&1Terrastaal&0 is een ingewikkelde magische samenstelling, doordrenkt met een grote hoeveelheid &4Mana&0. Het oproepen ervan blijkt niet eenvoudig te zijn. Om te beginnen om het te produceren, heb je een &1Bodemverbindingsplaat&0 nodig, geplaatst op een schaakbord patroon van &1Lapis Lazuli Blokken&0 en &1Levensteen&0. Het blok moet voorzien worden van &4Mana&0, de meest effectieve manier daarvoor is het gebruik van &1Vonken&0.
 botania.page.terrasteel1=Het maken van de Bodemverbindingsplaat
 botania.page.terrasteel2=Wanneer de Bodemverbindingsplaat klaar is om &4Mana&0 te ontvangen, gooi je er een &1Staaf Manastaal, Mana Diamant en Mana Parel&0 bovenop om de samensmelting te starten. Het oppakken van één van de bestanddelen stopt het proces, wat &4Verlies van Mana&0 veroorzaakt. De samensmelting verbruikt de helft van een volle &1Mana Voorraad&0 voor één stuk &4Terrastaal&0, maar met &1Vonken&0 zal het sneller gaan.
 botania.page.terrasteel3=Het patroon voor het maken van &1Terrastaal&0
+
+# -- BLACK LOTUS
+botania.entry.blackLotus=Zwarte Lotus
+botania.page.blackLotus0=Het bestaan is bekend van een ongrijpbare bloem met de naam &1Zwarte Lotus&0. Echter, hij groeit niet en plant zich niet voort. Het is niet bekend waar je ze kunt vinden.<br>Wat echter wel bekend is, is dat hij een sterke hoeveelheid &4Mana&0 bevat, die kan worden vrijgelaten in een &1Mana Voorraad&0 waar al wat mana in zit.
 
 # -- WRAP
 botania.entry.wrap=Wrap
@@ -922,7 +1134,7 @@ botania.page.pool7=Het doordrenken van &1Mana Koekjes&0
 
 # -- SPARKS
 botania.entry.sparks=Vonken
-botania.page.sparks0=&1Vonken&0 zijn interessante dingen. Gemaakt uit een combinatie van pure energie en &4Mana&0, kunnen ze geplaatst worden boven op enkele blokken die &4Mana&0 bevatten of accepteren, zoals de &1Mana Voorraad&0.<br>Sommige blokken kunnen &4Mana&0 halen uit &1Vonken&0, maar daar is momenteel weinig toepassing voor.
+botania.page.sparks0=&1Vonken&0 zijn interessante dingen. Gemaakt uit een combinatie van pure energie en &4Mana&0, kunnen ze geplaatst worden boven op enkele blokken die &4Mana&0 bevatten of accepteren, zoals de &1Mana Voorraad&0.<br>Sommige blokken kunnen &4Mana&0 halen uit &1Vonken&0, maar daar dat zijn er momenteel slechts enkele.
 botania.page.sparks1=Door een &1Vonk&0 bovenop een &1Mana Voorraad&0 te plaatsen, en nog eentje bovenop een blok dat mana kan accepteren, kan deze de &1Mana Voorraad&0 op afstand gebruiken, mits hij niet te ver weg staat.<br>Om een &1Vonk&0 weg te halen, klik shift-rechts erop met een &1Staf van het Woud&0. Door normaal rechts te klikken wordt getoond naar welke andere &1Vonken&0 energie kan worden overgebracht.
 botania.page.sparks2=&oHet maken van de Vonk&r
 
@@ -1018,13 +1230,25 @@ botania.page.manastar1=&rAls een vallende ster&r.
 botania.entry.dreamwoodSpreader=Elven Mana Verspreiders
 botania.page.dreamwoodSpreader0=Simpel gezegd geleidt &1Droomhout&0 beter &4Mana&0 dan &1Levenshout&0. Voeg wat aanpassingen toe zoals &1Elementium&0 of &1Mana Bloemblaadjes&0 en wat je krijgt is een &1Mana Verspreider&0 die meer &4Mana&0 kan geleiden, sneller en langer voordat &4Verlies van Mana&0 optreedt.<br>Als nadelig effect, hij kan niet in een &1Redstone Mana Verspreider&0 worden veranderd.
 botania.page.dreamwoodSpreader1=Betere spreiders, dat is alles
-botania.page.dreamwoodSpreader2=Door deze al vrij krachtige verspreider te combineren met een &1Geest van Gaia&0 en een &1Drakensteen&0 juweel, is het mogelijk een nog krachtigere variant te maken. De &1Gaia Verspreider&0 staat in de absolute top van Mana Verspreiders, met zo ongeveer alle upgrades die er zijn.
+botania.page.dreamwoodSpreader2=Door deze al vrij krachtige verspreider te combineren met een &1Geest van Gaia&0 en een &1Drakensteen&0 juweel, is het mogelijk een nog krachtigere variant te maken. De &1Gaia Verspreider&0 staat in de absolute top van Mana Verspreiders, met zo ongeveer alle upgrades die er zijn.<br>Let op dat deze verspreider meer Mana per burst verstuurt, wat daardoor minder vaak gebeurt.
 botania.page.dreamwoodSpreader3=De ultieme Verspreider
 
 # -- PAINTSLINGER LENS
 botania.entry.paintLens=Schilder Lens
 botania.page.paintLens0=Die &4Elven&0 zijn een creatief stel. Deze lens is wat uniek in vergelijking met de andere lenzen. De &1Schilder Lens&0 moet in één van de 16 kleuren van het spectrum gekleurd worden om te kunnen werken. Als een burst door deze lens een kleurbaar blok raakt (&1Wol, Klei of Glas&0...) dan verandert hij alle aangesloten blokken van hetzelfde type en kleur in de kleur van de &4Mana Burst&0. Het lijkt zelfs op &4Schapen&0 te werken.
 botania.page.paintLens1=Schilder Lens
+
+# -- WARP LENS
+botania.entry.warpLens=Afbuiging Lens
+botania.page.warpLens0=De &1Mana Lens: Afbuiging&0 is een interressante. Als een &4Mana Burst&0 met dit effect bots met een &1Krachtverbinding&0, dan zal hij teleporteren naar de eindpositie daarvan en zijn snelheid behouden. Verder als hij gebruikt wordt als onderdeel voor een zichtbare &1Doorboren Lens&0, dan zorgt hij dat deze geen &1Krachtverbinding&0 of &1Duwmachine&0 vernietigt, en blokken teleporteert naar de plek waar de burst werd afgevuurd.
+botania.page.warpLens1=Afbuiging Lens
+
+# -- MANA PRISM
+botania.entry.prism=Mana Prisma
+botania.page.prism0=Het concept van de &1Mana Lens&0 is de aanpassing van de kracht die wordt overgebracht door een &4Mana Burst&0. De &1Mana Prisma&0 laat toe dat het effect van de lens op een burst kan worden omgeschakeld.<br>Door gebruik van een &1Spookachtig Platform&0 als bestandsdeel, heeft dit blok geen fysieke aanwezigheid, alles kan erdoorheen alsof het niet bestaat.
+botania.page.prism1=Door erop te rechts-klikken met een willekeurige &1Mana Lens&0, komt de lens op het prisma. Waneer een &4Mana Burst&0 erdoorheen gaat, wordt zijn kleur en effect dat van de lens in het prisma. Als de lens niet gekleurd is, worden de bursten wit.<br>Het gebruik van 1 van de 4 basis lenzen vergoot de tijd alvorens &4Mana&0 verlies optreedt.
+botania.page.prism2=Hij kan ook aan/uit geschakeld worden middels een redstone signaal.
+botania.page.prism3=Nog een pixel in de muur
 
 # - FUNCTIONAL FLOWERS
 # -- AN INTRODUCTION TO FUNCTION
@@ -1131,7 +1355,25 @@ botania.page.daffomill1=&oWind Turbines? Ik ben fan.&r
 # -- VINCULOTUS
 botania.entry.vinculotus=Vinculotus
 botania.page.vinculotus0=De &1Vinculotus&0 heeft de kracht om een verstoring te maken in de teleportatie mogelijkheden van de &4Enderman&0, tot op redelijk grote afstand. Tegen de prijs van &4Mana&0, wanneer een &4Enderman&0 ergens heen zou teleporteren, wordt de &4Enderman&0 in plaats daarvan geteleporteerd naar de &1Vinculotus&0.
-botania.page.vinculotus1=Raak deze bloem aan met je vingers
+botania.page.vinculotus1=&oRaak deze bloem aan met je vingers&r
+
+# -- SPECTRANTHEMUM
+botania.entry.spectranthemum=Spectranthemie
+botania.page.spectranthemum0=Voorwerpen vervoeren over grote afstanden kan een lastige taak zijn. Met kanalen met water en de &1Daffolelie&0 kom je niet overal.<br>De &1Spectranthemie&0 kan tegen de prijs van wat &4Mana&0 de materie van de realiteit veranderen, en gevallen voorwerpen in de buurt oppaken en teleporteren naar een andere plaats in de wereld.
+botania.page.spectranthemum1=Om aan te geven waar de voorwerpen heen moeten, gebruik je een &1Staf van het Woud&0 in verbind mode om de bloem te binden aan een blok ergens, net als hij aan een voorraad verbonden kan worden.<br>Om het verbonden blok te zien in plaats van de verbonden voorraad, moet je sluipen met de staf in de hand.
+botania.page.spectranthemum2=Deze bloem wordt beheerst door het &4axiom of chunkloading&0, waardoor hij niet werkt op niet geladen chunks. Dit onderwerp wordt niet behandeld in deze lexicon.<br>&oAanbevolen leesvoer: "Chunks and Chicken", "Anchors of the World".
+botania.page.spectranthemum3=&o(n)Spoogachtige(n+2)ik&r.
+
+# -- MEDUMONE
+botania.entry.medumone=Medumeen
+botania.page.medumone0=De &1Medumeen&0 is een bloem die in staat is een wezen volledig tot stilstand te brengen.<br>Zolang hij &4Mana&0 ontvangt, stopt hij alle wezens in de buurt met een sterk effect van langzaamheid, zolang het geen spelers zijn.
+botania.page.medumone1=&oDat ziet er niet echt uit..&r...
+
+# -- MARIMORPHOSIS
+botania.entry.marimorphosis=Mariemorfose
+botania.page.marimorphosis0=De &1Mariemorfose&0 is een bloem die dichtbijzijnde &1Steen&0 blokken metamorfose-achtige veranderingen laat ondergaan. Deze blokken worden veranderd in 1 van 8 typen &1Veranderlijke Steen&0. Alle 8 typen zullen voorkomen, maar afhankelijk van de biome sommige meer dan andere. Allemaal kunnen ze gebruikt worden om (gebeitelde) bakstenen, platen en trappen te maken.
+botania.page.marimorphosis1=De verschillende smaken &1Veranderlijke Steen&0
+botania.page.marimorphosis2=&oBest een puike bloem.&r.
 
 # - GENERATING FLOWERS
 # -- AN INTRODUCTION TO GENERATION
@@ -1169,8 +1411,7 @@ botania.page.hydroangeas1=&oHydroangea&r
 
 # -- THERMALILY
 botania.entry.thermalily=Thermalelie
-botania.page.thermalily0=Er komt een punt waarop het langzaam genereren van &4Mana&0, zoals de &1Hydroangea&0 en de &1Endovlam&0 doen, niet genoeg is. Een antwoord daarop is de &1Thermalelie&0, die net zo werkt als de &1Hydroangea&0, alleen met &1Lava&0.
-botania.page.thermalily0a=Er komt een punt waarop het langzaam genereren van &4Mana&0, zoals de &1Hydroangea&0 en de &1Endovlam&0 doen, niet genoeg is. Een antwoord daarop is de &1Thermalelie&0, die net zo werkt als de &1Hydroangea&0, alleen met &1Lava&0.<br>Door de hitte die de &1Lava&0 produceert, moet er een blok &1Obsidiaan&0 onder de bloem zodat de hitte geabsorbeerd wordt.
+botania.page.thermalily0=Er komt een punt waarop het langzaam genereren van &4Mana&0, zoals de &1Hydroangea&0 en de &1Endovlam&0 doen, niet genoeg is. Een antwoord daarop is de &1Thermalelie&0, die net zo werkt als de &1Hydroangea&0, alleen met &1Lava&0. Bij het drinken van de Lava komt erg veel Mana vrij, maar de bloem warmt erdoor op waardoor hij tijd nodig heeft om af te koelen.
 botania.page.thermalily1=&oThermalelie&r
 
 # -- ROSA ARCANA
@@ -1200,6 +1441,17 @@ botania.page.gourmaryllis1=De tijd die nodig is om het eten te verteren hangt af
 botania.page.gourmaryllis2=De hoeveelheid &4Mana&0 die ontstaat hangt ook af van de voedingswaarde, maar hoe hoger deze waarde, hoe hoger de efficientie. Bijvoorbeeld, een &1Biefstuk&0 produceert meer &1Mana&0 dan twee &1Wortels&0, per seconde en in totaal.
 botania.page.gourmaryllis3=&oGourmarie&r
 
+# -- NARSLIMMUS
+botania.entry.narslimmus=Narslimmus
+botania.page.narslimmus0=Er is een soort onbevangen kracht in de wereld die &1Slijmkubussen&0 maakt op willekeurige plekken. De &1Narslimmus&0 is een bloem met de mogelijkheid om die energie af te tappen. Als hij wordt neergezet naast een &1Slijmkubus&0 maakt hij hem kapot, en verzamelt hij alle &4Mana&0 die door de kracht is gegenegeerd. Hoe groter de &1Slijmkubus&0, hoe meer &4Mana&0 wordt gemaakt. Het maakt ook een beetje een plakkerige rommel.
+botania.page.narslimmus1=&oBlijf je nog even plakken&r? 
+
+# -- SPECTROLUS
+botania.entry.spectrolus=Spectrolus
+botania.page.spectrolus0=De &1Spectrolus&0 is een bloem die erg gesteld is op de verscheidenheid aan &1Wol&0. Hij zal alle blokken &1Wol&0 die dichtbij worden neergegooid consumeren voor &4Mana&0.<br>Maar er zit een addertje onder het gras. Hij is kieskeurig over welke kleur hij wil. Beginnend bij wit, als het een blok &1Wol&0 gehad heeft, verwacht hij daarna de volgende kleur uit het spectrum.
+botania.page.spectrolus1=Terwijl hij al het &1Wol&0 consumeert, maakt hij alleen mana als de kleur klopt, dus willekeurig &1Wol&0 gooien is een slecht idee.<br>De gewenste kleur kan worden gezien door de bloem te bekijken met een &1Staf van het Woud&0.
+botania.page.spectrolus2=&oProef de regenboog&r.
+
 # - MAGICAL APPARATUS
 # -- FORCE RELAY
 botania.entry.pistonRelay=Krachtverbinding
@@ -1220,7 +1472,7 @@ botania.page.manaEnchanting2=Begin door cirkel te maken van &1Obsidiaan&0.
 botania.page.manaEnchanting3=Plaats &1Mana Zuilen&0 1 blok in de lucht zoals aangegeven.
 botania.page.manaEnchanting4=Plaats bloemen onder de zuilen en in het midden
 botania.page.manaEnchanting5=Plaats een &1Lapis Lazuli Blok&0 in het midden
-botania.page.manaEnchanting6=Nadat het bouwen klaar is, rechts-klik dan op het Lapis blok met een &1Staf van het Woud&0, en de betoveraar moet zich vormen.<br>Om de betoveraar te gebruiken, plaats  (door te rechts-klikken) het voorwerp dat betoverd moet worden in de betoveraar en laat &1Betoverde Boeken&0 vallen rondom binnen de cirkel eromheen.
+botania.page.manaEnchanting6=Nadat het bouwen klaar is, rechts-klik dan op het Lapis blok met een &1Staf van het Woud&0, en de betoveraar moet zich vormen.<br>Om de betoveraar te gebruiken, plaats (door te rechts-klikken) het voorwerp dat betoverd moet worden in de betoveraar en laat &1Betoverde Boeken&0 vallen rondom binnen de cirkel eromheen.
 botania.page.manaEnchanting7=Voorwerpen die al betoverd zijn kunnen niet in de betoveraar geplaatst worden.<br>Om het betoveren te beginnen, rechts-klik op de betoveraar met een &1Staf van het Woud&0. Hij zal de boeken die er liggen vluchtig bekijken. Wanneer hij klaar is, verschijnt er een soort betoveringsring, wat aangeeft dat de boeken weer opgepakt kunnen worden.
 botania.page.manaEnchanting8=Als het betoveren is begonnen, heeft de betoveraar &4Mana&0 nodig.<br>Dat kan aangeleverd worden op twee manieren: via &4Mana Bursts&0 of dichtbijzijnde &1Vonken&0, door een &1Vonk&0 te plaatsen bovenop de betoveraar. De laatste manier is veel sneller.
 botania.page.manaEnchanting9=Wanneer genoeg &4Mana&0 verzameld is zullen betoveringen van kracht worden op het voorwerp. De hoeveelheid &4Mana&0 die nodig is hangt af van de zeldzaamheid van de betoveringen die worden toegepast, hun niveau, en het totale aantal betoveringen. Als een boek meer dan één betovering bevat, zal alleen de eerste worden gebruikt.
@@ -1298,6 +1550,22 @@ botania.page.flasks0=&1Elvenglas&0 lijkt meer mogelijkheden te bieden dan &1Mana
 botania.page.flasks1=Hoewel er minder ingrediënten nodig zijn om iets te brouwen in een &1Flesje&0, de &4Mana&0 kosten zijn dubbel die van een &1Flacon&0.<br>Maar daar staat tegenover dat uit een &1Flesje&0 sneller gedronken kan worden dan uit een &1Flacon&0.
 botania.page.flasks2=Brouw Flesje
 
+# -- COMPLEX BREWING
+botania.entry.complexBrews=Complexe Brouwsels
+botania.page.complexBrews0=Naast de welbekende standaard &1Brouwsels&0, die eigenlijk vooral de &1Dranken&0 imiteren die gemaakt kunnen worden met een &1Brouwstandaard&0, zijn er ook wat meer complexe brouwsels die een combinatie van bestaande of nieuwe effecten bieden.
+botania.page.complexBrews1a=Een brouwsel met zowel positieve als negatieve effecten. Het innemen ervan maakt de drinker krachtig, maar ook kwetsbaar.
+botania.page.complexBrews1b=Kruidenleer 96
+botania.page.complexBrews2a=De drinker van dit brouwsel verdient levens door het doden van andere wezens.
+botania.page.complexBrews2b=doodt doodt DOENIET
+botania.page.complexBrews3a=De drinker van dit brouwsel is volledig bestand tegen valschade.
+botania.page.complexBrews3b=En ik noem het Magie
+botania.page.complexBrews4a=Dit brouwsel werpt een aura van leegheid om degene die zijn effect heeft. Binnen een straal van 128 blokken, zullen geen monsters of dieren spawnen.
+botania.page.complexBrews4b=€50,- voor eentje?
+botania.page.complexBrews5a=Dit brouwsel werpt een aura van volheid om degene die zijn effect heeft. Binnen een straal van 64 blokken, mogen monsters en dieren spawnen, ongeacht condities zoals licht. Dit werkt niet samen met &1Leegheid&0.
+botania.page.complexBrews5b=Zullen we bidden voor een wonder?
+botania.page.complexBrews6a=De speler die het effect van dit brouwsel heeft, zal veel beter worden in vissen. Hij zal tweemaal zo snel vis en andere zaken vangen.
+botania.page.complexBrews6b=Misschien vang je wel een Chris
+
 # -- EYE OF THE ANCIENTS
 botania.entry.forestEye=Oog der Ouden
 botania.page.forestEye0=Net zoals de Ouden die lang geleden de macht hadden over de wereld altijd zorgden voor de levende wezens die erop leefden, doet dit blok, het &1Oog der Ouden&0, precies hetzelfde.<br>Door een &1Comparator&0 eraan vast te maken, zal het een redstone signaal afgeven dat aangeeft hoeveel dieren het Oog kan zien.
@@ -1312,7 +1580,7 @@ botania.page.openCrate2=Een super krat
 
 # -- DRUM OF THE WILD
 botania.entry.forestDrum=Drum van het Wild
-botania.page.forestDrum0=De &1Drum van het Wild&0 is simpel gezegd de percussie tegenhanger van de &1Hoorn van het Wild&0. Hij doet precies hetzelfde als de hoorn die vastgehouden van worden, maar is geplaatst in de wereld.<br>Om een beat te krijgen en dichtbij gebladerte te breken, stuur je een &4Mana Burst&0 naar de drum.
+botania.page.forestDrum0=De &1Drum van het Wild&0 is simpel gezegd de percussie tegenhanger van de &1Hoorn van het Wild&0. Hij doet precies hetzelfde als de hoorn die vastgehouden kan worden, maar is geplaatst in de wereld.<br>Om een beat te krijgen en dichtbij gebladerte te breken, stuur je een &4Mana Burst&0 naar de drum.
 botania.page.forestDrum1=Goed om te weten is dat de drum geen mana opslaat, dus om hem te laten werken, is een &1Redstone Mana Verspreider&0 of een &1Mana Blaster&0 nodig.
 botania.page.forestDrum2=Maar als je de ogen sluit...
 
@@ -1361,6 +1629,8 @@ botania.page.craftCrate4=Rechts klikken op het krat met een &1Staf van het Woud&
 botania.page.craftCrate7=Door een &1Comparator&0 vast te maken aan het krat zal het een signaal afgeven gelijk aan het aantal voorwerpen binnenin, wat erg handig kan zijn als er mechanische opstellingen mee worden gemaakt.
 botania.page.craftCrate5=Het vervaardigen van een &1Diamanten Houweel&0
 botania.page.craftCrate6=Gemaakt in Portugal
+botania.page.craftCrate8=Het &1Vervaardigings Krat&0 kan ook worden aangevuld met patronen. Een patroon sluit specifieke plaatsen in het recept, waardoor voorwerpen niet op deze plaatsen kunnen komen. De gesloten plaatsen tellen als plaatshouders.<br>Er zijn slechts een paar standaard patronen, die kunnen worden toegepast middels een rechts-klik op het krat (ze worden hierbij niet verbruikt).
+botania.page.craftCrate9=9 verschillende patronen
 
 # -- ENDER OVERSEER
 botania.entry.enderEyeBlock=Ender Opzichter
@@ -1380,7 +1650,7 @@ botania.page.redString7=&1Rood Gestreept Bloemvoeder&0 kan verbonden worden aan 
 botania.page.redString8=&1Rood Gestreept Bloemvoeder&0.
 botania.page.redString9=De &1Rood Gestreepte Comparator&0 kan verbonden worden met elk blok waarvan de status kan worden uitgelezen met een &1Container&0, zoals een  &1Kist&0, &1Mana Voorraad&0, &1Runen Altaars&0, etc. Het plaatsen van een &1Comparator&0 weggericht van dit blok zal hetzelfde signaal afgeven als een &1Comparator&0 zou doen op het verbonden blok.
 botania.page.redString10=De &1Rood Gestreepte Comparator&0.
-botania.page.redString11=Tenslotte, de &1Rood Gestreepte Spoofer&0 is een interessante. Elke bloem met een effect kan erop worden geplaatst. Het blok zal zich binden aan elke bloem. Zolang er een bloem bovenop het blok zit, zal die bloem niets doen, maar in plaats daarvan zal het verbonden blok alle eigenschappen van de bloem overnemen en zich gaan gedragen als de bloem zelf.
+botania.page.redString11=Tenslotte, de &1Rood Gestreepte Spoofer&0 is een interessante. Elke bloem met een effect kan erop worden geplaatst. Het blok zal zich binden aan elke bloem of paddestoel. Zolang er een bloem bovenop het blok zit, zal die bloem niets doen, maar in plaats daarvan zal het verbonden blok alle eigenschappen van de bloem overnemen en zich gaan gedragen als de bloem zelf.
 botania.page.redString12=De &1Rood Gestreepte Spoofer&0.
 
 # - MYSTICAL INSTRUMENTS
@@ -1400,7 +1670,7 @@ botania.page.grassSeeds3=&1Ziektezaden&0 voor mycellium
 
 # -- ROD THE LANDS
 botania.entry.dirtRod=Staf van het Land
-botania.page.dirtRod0=De &1Staf van het Land&0 is een eenvoudig gereedschap. Door &4Mana&0 te gebruiken uit je inventory (uit een &1Mana Tablet&0 of iets anders), kan het een blok &1Aarde&0 materialiseren op de grond.
+botania.page.dirtRod0=De &1Staf van het Land&0 is een eenvoudig gereedschap. Door &4Mana&0 te gebruiken uit de gebruikers inventory (uit een &1Mana Tablet&0 of iets anders), kan het een blok &1Aarde&0 materialiseren op de grond.
 botania.page.dirtRod1=Dat is zanderig
 
 # -- TERRA FIRMA ROD
@@ -1413,6 +1683,7 @@ botania.page.terraformRod3=Egaliseren, moet je leren
 # -- MANASTEEL EQUIPMENT
 botania.entry.manaGear=Manastaal Uitrusting
 botania.page.manaGear0=&1Manastaal&0 kan net als andere metalen worden gevormd tot gereedschappen en armor. Gemaakt van dit materiaal hebben ze de eigenschappen van &1Ijzer&0, maar dan iets beter betoverbaar en iets duurzamer. Wanneer een &1Manastaal&0 voorwerp schade zou krijgen, en er &4Mana&0 beschikbaar is in de inventory (&1Mana Tablet&0), zal dat in plaats daarvan gebruikt worden.
+botania.page.manaGear10=Sommige delen van de uitrusting hebben een mogelijkheid bij een rechts-klik. De &1Houweel&0 plaatst een fakkel uit de gebruikers inventory, de &1Bijl&0 plaatst een kiemplant en de &1Schep&0 bewerkt de grond net als een schoffel.
 botania.page.manaGear1=De &1Manastaal Houweel&0
 botania.page.manaGear2=De &1Manastaal Schep&0
 botania.page.manaGear3=De &1Manastaal Bijl&0
@@ -1431,7 +1702,7 @@ botania.page.grassHorn2=Het aanpassen van de hoorn
 
 # -- TERRASTEEL ARMOR
 botania.entry.terrasteelArmor=Terrastaal Armor
-botania.page.terrasteelArmor0=Armor gemaakt van &1Terrastaal&0, net als de &1Manastaal&0 tegenhanger, kan &4Mana&0 gebruiken uit de inventory in plaats van het oplopen van schade.<br>Deze armor heeft echter eigenschappen die meer lijken op &1Diamant&0 in plaats van &1Ijzer&0, en verbeteren de gezondheid van de drager.
+botania.page.terrasteelArmor0=Armor gemaakt van &1Terrastaal&0, net als de &1Manastaal&0 tegenhanger, kan &4Mana&0 gebruiken uit de inventory in plaats van het oplopen van schade.<br>Deze armor heeft echter eigenschappen die meer lijken op &1Diamant&0 in plaats van &1Ijzer&0.
 botania.page.terrasteelArmor1=De &1Terrastaal Helm&0
 botania.page.terrasteelArmor2=De &1Terrastaal Borstplaat&0
 botania.page.terrasteelArmor3=De &1Terrastaal Beenstukken&0
@@ -1572,6 +1843,41 @@ botania.page.craftingHalo0=Een &1Werkbank&0 met je meedragen kan vervelend zijn.
 botania.page.craftingHalo1=Zo lang als het voorwerp in de inventory zit, wordt het laatst gebruikt recept erin opgeslagen.<br>Rechts klikken op een lege plek in de halo zet er het laatste recept neer. Rechts klikken op een plek met een recept, probeert het recept uit te voeren met voorwerpen uit de inventory. Het verwijderen van een recept gaat met een shift-links klik.
 botania.page.craftingHalo2=Het smaakt niet als het van een menu komt
 
+# -- LENS CLIP
+botania.entry.clip=Lens Klem
+botania.page.clip0=De &1Mana Blaster&0 is een geschikt en veelzijdig gereedschap, maar het grootste nadeel is de beperking om niet meer dan 1 &1Lens&0 tegelijk te kunnen plaatsen. Maar niet langer. De &1Lens Klem&0 kan vervaardigd worden op de &1Mana Blaster&0, waardoor deze 6 lenzen tegelijk kan dragen.<br>Zoals ze zeggen, Russische Roulette is niet hetzelfde zonder pistool...
+botania.page.clip1=Het toevoegen en verwijderen van &1Lenzen&0 gaat zoals eerder, maar de lens komt of gaat nu op de plek waar de klem momenteel op zit.<br>Om deze plek te veranderen, klik shift-rechts met de &1Mana Blaster&0 in de lucht. Dit wijzigt ook de geselecteerde lens, als er op die plek een geplaatst is.
+botania.page.clip2=We zullen het nog even zonder moeten doen
+
+# -- ROD OF THE DEPTHS
+botania.entry.cobbleRod=Staf van de Diepte
+botania.page.cobbleRod0=De &1Staf van de Diepte&0 gedraagt zich als een variant van de &1Staf van het Land&0. Hij doet precies hetzelfde, maar dan met &1Keisteen&0 voor een iets hogere prijs.
+botania.page.cobbleRod1=Tijd voor keisteen
+
+# -- ROD OF THE MOLTEN CORE
+botania.entry.smeltRod=Staf van de Gesmolten Kern
+botania.page.smeltRod0=De &1Staf van de Gesmolten Kern&0 heeft de mogelijkheid om uitstralende hitte uit de aardkern af te vangen. Door hem met rechts-klik vast te houden op een blok in de wereld dat gesmolten kan worden in een ander soort, wordt het blok snel omgezet daarin.<br>Enkele voorbeelden, &1Keisteen&0 wordt &1Steen&0, &1Zand&0 wordt &1Glas&0, enzovoort.
+botania.page.smeltRod1=Gestolen van Efreet
+
+# -- WORLD SEED
+botania.entry.worldSeed=Wereldzaad
+botania.page.worldSeed0=Het &1Wereldzaad&0 is een stuk elementaire materie dat zijn gebruiker terug kan brengen naar het spawn punt van zijn wereld.<br>Als dat verder weg is dan 24 blokken, kan met een rechts-klik het zaad verbruikt worden om de gebruiker meteen daarheen te teleporteren.
+botania.page.worldSeed1=Waar het hart is
+
+# -- SPELLBINDING CLOTH
+botania.entry.spellCloth=Betoveringsdoek
+botania.page.spellCloth0=Het combineren van &1Wol&0 met wat &4Mana&0 in de vorm van een &1Mana Parel&0 maakt een soort doek die elke &4Betovering&0 kan absorberen waarmee het in aanraking komt.<br>Door het &1Betoveringsdoek&0 te combineren met een betoverd voorwerp op een werkbank, worden alle betoveringen ervan verwijderd, tegen wat slijtage van het doek.
+botania.page.spellCloth1=Het oudste voorwerp in het boek
+
+# -- THORN CHAKRAM
+botania.entry.thornChakram=Doorn van Chakram
+botania.page.thornChakram0=De &1Doorn van Chakram&0 is een werpwapen gemaakt van &1Terrastaal&0 en planten. Wanneer gegooid zal hij vijanden doorsnijden, waarbij ze beschadigd en soms vergiftigd worden. Hij zal enkele malen op blokken afketsen voordat hij terugkeert naar zijn eigenaar, net als een boemerang.
+botania.page.thornChakram1=Een uit stekend wapen
+
+# -- OVERGROWTH SEED
+botania.entry.overgrowthSeed=Overwoekeringszaad
+botania.page.overgrowthSeed0=Een &1Overwoekeringszaad&0 is een ongrijpbaar voorwerp, dat &1Gras&0 kan betoveren middels een rechts-klik erop in de wereld. Er ontstaat dan &1Betoverde Grond&0, wat de eigenschap heeft dat alle bloemen die erop groeien tweemaal zo snel werken als normaal.<br>Er is slechts een probleem. Het is niet bekend hoe het gemaakt kan worden, maar het is gezien in oude bouwwerken en dergelijke.
+
 # - BAUBLES
 # -- AN INTRODUCTION TO BAUBLES
 botania.entry.bIntro=Een introductie tot Baubles
@@ -1688,6 +1994,11 @@ botania.page.judgementCloaks1=De &1Mantel der Deugdzaamheid&0 zal als actief de 
 botania.page.judgementCloaks2=Een heilige mantel
 botania.page.judgementCloaks3=De Smaak van Wraak
 
+# -- MANASEER MONOCLE
+botania.entry.monocle=Manazicht Oogglas
+botania.page.monocle0=Een handige accessoire voor iemand die goed inzicht wil hebben in waar zijn &4Mana Bursts&0 heen gaan, is het &1Manazicht Oogglas&0. Niet alleen staat hij goed, hij stelt de drager in staat om alle dichtbijzijnde &4Mana Bursts&0 te zien, zelfs als er iets in de weg staat.
+botania.page.monocle1=Goed jullie te zien
+
 # - ALFHOMANCY
 # -- THE PORTAL TO ALFHEIM
 botania.entry.aIntro=De Poort naar Alfheim
@@ -1702,7 +2013,7 @@ botania.page.aIntro7=&1Mana Voorraden&0 toevoegen
 botania.page.aIntro8=Plaats &1Natura Zuilen&0 boven de voorraden
 botania.page.aIntro9=Om te poort te openen, doe een rechts-klik op het midden met een &1Staf van het Woud&0.<br>De poort vereist behoorlijk wat &4Mana&0 in beide voorraden om open te gaan. Daarna, zal hij langzaam Mana verbruiken om open te blijven. Als de &4Mana&0 op raakt, zal de verbinding worden verbroken.
 botania.page.aIntro10=De hoeveelheid &4Mana&0 benodigd om de poort te openen is vele malen hoger dan die om hem open te houden, dus de poort sluiten om &4Mana&0 te besparen is een slecht idee.<br>De verbinding is niet sterk genoeg voor levende wezens om erdoor te gaan, maar het lijkt erop dat &4voorwerpen&0 dat wel kunnen.
-botania.page.aIntro11=De hoeveelheid informatie over &1Alfheim&0 in deze gids beperkt zich tot deze vermelding. Misschien is het handig om &4de Elven ernaar te laten kijken&0.
+botania.page.aIntro11=De hoeveelheid informatie over &1Alfheim&0 in deze gids beperkt zich tot deze vermelding. Misschien is het handig om &4de Elven ernaar te laten kijken&0.<br>Misschien zijn ze bereid de kennis over hun mystieke bouwwerken te delen.
 
 # -- A MESSAGE FROM ELVEN GARDE
 botania.entry.elfMessage=Een bericht van Elven Garde
@@ -1720,6 +2031,7 @@ botania.entry.elfResources=De Grondstoffen van Alfheim
 botania.page.elfResources0=&4Alfheim&0 bevat een gevarieerde hoeveelheid bijzondere grondstoffen. Helaas zijn de meeste daarvan extreem schaars, en moeilijk te verkrijgen wegens de strijd tussen de verschillende clans. De Elven willen enkele materialen graag verhandelen, zoals &1Droomhout&0, &1Elementium&0, &1Sterrenstof&0 en &1Drakensteen&0, grondstoffen die voorkomen op hun land. 
 botania.page.elfResources1=Handelen voor &1Droomhout&0
 botania.page.elfResources2=&1Droomhout&0 kan net als &1Levenshout&0 worden omgezet in verschillende &4Decoratieve Blokken&0. Neem een kijkje onder de vermelding &4Decoratieve Blokken&0 onder &4Diversen&0 voor de recepten.
+botania.page.elfResources10=&1Droomhout Twijgjes&0
 botania.page.elfResources3=Handelen voor &1Elementium&0
 botania.page.elfResources4=Handelen voor &1Sterrenstof&0
 botania.page.elfResources5=Handelen voor &1Drakensteen&0
@@ -1735,6 +2047,12 @@ botania.page.gaiaRitual1=Het maken van &1Gaia Zuilen&0
 botania.page.gaiaRitual2=Plaats de zuilen (1 blok boven het baken)
 botania.page.gaiaRitual3=Om het ritueel te starten, klik shift-rechts op het &1Baken&0 blok met een &1Staaf Terrastaal&0, neem een stap terug en bereid jezelf voor om te vechten voor je leven. Goede voorbereiding is vereist, omdat het gevecht met de &4Beschermer van Gaia&0 zelfs lastiger kan zijn dat dat met de &4Wither&0. Als de &4Beschermer&0 verslagen wordt, kan de prijs worden opgepakt, een handvol &1Geesten van Gaia&0.
 botania.page.gaiaRitual4=De normale kledij voor dit ritueel is een set betoverde &1Elementium Armor&0, een &1Terrazwaard&0 en een groot assortiment &4Brouwsels&0 en &4Baubles&0.<br>Hou in de gaten dat het effect van het &1Baken&0 wordt tenietgedaan tijdens de strijd. Nog een tip: blijf weg van het paars. 
+
+# -- RITUAL OF GAIA II
+botania.entry.gaiaRitualHardmode=Ritueel van Gaia II
+botania.page.gaiaRitualHardmode0=Je zou denken dat door het combineren van twee van de meest krachtige grondstoffen die er zijn, &1Terrastaal&0 en de &1Geest van Gaia&0, je een onstopbaar materiaal verkrijgt. Dit lijkt echter niet het geval. In feite heffen de twee krachten elkaar op wanneer ze gecombineerd worden in een staaf, waardoor een volstrekt nutteloos materiaal ontstaat.
+botania.page.gaiaRitualHardmode1=Maar door de geconcentreerde kracht en energie in de staaf, kan wel een nog krachtigere &1Beschermer van Gaia&0 worden opgeroepen, met meer weerstand, kracht en snelheid.<br>Tegen dit alles laat hij wel meer &1Geesten van Gaia&0 vallen dan normaal, maar ook andere zeldzame spullen en schatten, wat het een waardevolle vijand maakt.
+botania.page.gaiaRitualHardmode2=Het maken van de &1Staaf van Gaia&0.
 
 # -- ELVEN LORE - THE SHATTERING
 botania.entry.elvenLore=Elven Leer - De Versplintering
@@ -1812,7 +2130,7 @@ botania.page.shedding0=De levende en ondode wezens die ons land bewonen zijn nie
 
 # -- TINY POTATO
 botania.entry.tinyPotato=Kleine Aardappel
-botania.page.tinyPotato0=Het is een kleine aardappel, hij gelooft in jou, je kunt het.<br>Nee echt, dat is het, door een &1Aardappel&0 in een &1Mana Voorraad&0 te werpen, krijgt hij een beetje levensenergie en blije gevoelens. Het is een levendige aardappel, en het geven van een rechts-klik erop zal dat niet minder maken!
+botania.page.tinyPotato0=Het is een kleine aardappel, hij gelooft in jou, je kunt het.<br>Nee echt, dat is het, door een &1Aardappel&0 in een &1Mana Voorraad&0 te werpen, krijgt hij een beetje levensenergie en blije gevoelens. Het is een levendige aardappel, en het geven van een rechts-klik erop zal dat niet minder maken!<br>Hij kan ook genaamd worden op een &1Aambeeld&0.
 botania.page.tinyPotato1=Zet hem op Kickstarter, het zal aanslaan
 
 # -- HEAD CREATION
@@ -1831,6 +2149,12 @@ botania.page.azulejo3=Het kiezen uit de verschillende patronen
 botania.entry.starfield=Sterrenmaker
 botania.page.starfield0=De &1Sterrenmaker&0 doet precies wat hij zegt. Door de energie van Elven af te geven in de lucht wanneer hij geplaatst is in de wereld, zal hij gedurende de nacht een sterrenhemel creëren die zich uitstrekt tot op redelijke afstand.
 botania.page.starfield1=Twinkel Twinkel
+
+# -- TRODDEN DIRT
+botania.entry.dirtPath=Betreden Aarde
+botania.page.dirtPath0=&1Betreden Aarde&0 is een soort bodem die perfect werkt voor het maken van natuurlijk uitziende paden door een landschap. Net als &1omgespitte aarde&0 ligt het iets dieper in de grond. Erop lopen geeft ook een kleine snelheidswinst.
+botania.page.dirtPath1=Volg het gele pad
+botania.page.dirtPath2=Ook beschikbaar in platen
 
 # -- THAUMCRAFT INTEGRATION
 botania.entry.tcIntegration=Thaumcraft Integratie
