@@ -1,3 +1,8 @@
+r1.4 159
+*Added Petal Blocks of all 16 colors, purely decorative blocks made out of petals.
+*Changed the textures of the elfen rods to be made of dreamwood instead of livingwood.
+*Fixed a crash with the Force Relay and Warp Lens.
+*Fixed particles being able to spawn in the client world and chunkloading somehow.
 r1.4 158
 *Added a new Mana Lens: Warp. It teleports bursts around. It lets you make quarries (good luck with that).
 *Fixed potions IDs being set to a value over 127 by default and added a check to change the old configs to a new proper value, networking passes the values as a byte, which means anything over 127 got messed up and crashed the game.
