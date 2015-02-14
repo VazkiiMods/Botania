@@ -13,6 +13,7 @@ package vazkii.botania.common.core.handler;
 import java.util.ArrayList;
 import java.util.List;
 
+import vazkii.botania.api.corporea.CorporeaHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -24,17 +25,17 @@ import cpw.mods.fml.common.gameevent.TickEvent.WorldTickEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-// This is legacy code, it used to be used for the old terrasteel crafting
-// mechanic. For the new one check TileTerraPlate
 public final class CommonTickHandler {
 
 	@SubscribeEvent
 	public void onTick(WorldTickEvent event) {
 		if(event.phase == Phase.END) {
-			List<Entity> entities = new ArrayList(event.world.loadedEntityList);
+			/*List<Entity> entities = new ArrayList(event.world.loadedEntityList);
 			for(Entity entity : entities)
 				if(entity instanceof EntityItem)
-					TerrasteelCraftingHandler.onEntityUpdate((EntityItem) entity);
+					TerrasteelCraftingHandler.onEntityUpdate((EntityItem) entity);*/
+			
+			CorporeaHelper.clearCache();
 		}
 	}
 
@@ -42,14 +43,15 @@ public final class CommonTickHandler {
 	@SubscribeEvent
 	public void onTick(ClientTickEvent event) {
 		if(event.phase == Phase.END) {
-			World world = Minecraft.getMinecraft().theWorld;
+			/*World world = Minecraft.getMinecraft().theWorld;
 			if(world != null) {
 				List<Entity> entities = new ArrayList(world.loadedEntityList);
 				for(Entity entity : entities)
 					if(entity instanceof EntityItem)
 						TerrasteelCraftingHandler.onEntityUpdate((EntityItem) entity);
-			}
-
+			}*/
+			
+			CorporeaHelper.clearCache();
 		}
 	}
 

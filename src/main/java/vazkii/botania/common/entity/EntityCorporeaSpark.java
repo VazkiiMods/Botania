@@ -17,12 +17,15 @@ import java.util.List;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.item.ModItems;
@@ -70,8 +73,13 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 			return;
 		}
 		
-		if(isMaster())
+		if(isMaster()) {
 			master = this;
+			System.out.println(CorporeaHelper.getCountInNetwork(new ItemStack(Items.apple), this, false));
+			ItemStack request = CorporeaHelper.requestItem(new ItemStack(Items.apple), this, false, true);
+			if(request != null)
+				InventoryHelper.insertItemIntoInventory(getInventory(), request);
+		}
 		
 		if(firstUpdate) {
 			if(isMaster())
