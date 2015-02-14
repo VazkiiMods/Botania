@@ -71,30 +71,8 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 		List<ISparkEntity> allSparks = SparkHelper.getSparksAround(worldObj, posX, posY, posZ);
 		if(worldObj.isRemote && !didStartupParticles) {
-			for(ISparkEntity spark : allSparks) {
-				Entity e = (Entity) spark;
-				Vector3 orig = new Vector3(e.posX , e.posY + 0.25, e.posZ);
-				Vector3 end = new Vector3(posX, posY + 0.25, posZ);
-				Vector3 diff = end.copy().sub(orig);
-				Vector3 movement = diff.copy().normalize().multiply(0.05);
-				int iters = (int) (diff.mag() / movement.mag());
-				float huePer = 1F / iters;
-				float hueSum = (float) Math.random();
-
-				Vector3 currentPos = orig.copy();
-				for(int i = 0; i < iters; i++) {
-					float hue = i * huePer + hueSum;
-					Color color = Color.getHSBColor(hue, 1F, 1F);
-					float r = Math.min(1F, color.getRed() / 255F + 0.4F);
-					float g = Math.min(1F, color.getGreen() / 255F + 0.4F);
-					float b = Math.min(1F, color.getBlue() / 255F + 0.4F);
-
-					Botania.proxy.setSparkleFXNoClip(true);
-					Botania.proxy.sparkleFX(worldObj, currentPos.x, currentPos.y, currentPos.z, r, g, b, 0.6F, 12);
-					Botania.proxy.setSparkleFXNoClip(false);
-					currentPos.add(movement);
-				}
-			}
+			for(ISparkEntity spark : allSparks)
+				particleBeam(this, (Entity) spark);
 
 			didStartupParticles = true;
 		}
@@ -228,6 +206,33 @@ public class EntitySpark extends Entity implements ISparkEntity {
 		float size = 0.125F + 0.125F * (float) Math.random();
 
 		Botania.proxy.wispFX(worldObj, thisVec.x, thisVec.y, thisVec.z, r, g, b, size, (float) motion.x, (float) motion.y, (float) motion.z);
+	}
+	
+	public static void particleBeam(Entity e1, Entity e2) {
+		if(e1 == null || e2 == null)
+			return;
+		
+		Vector3 orig = new Vector3(e1.posX , e1.posY + 0.25, e1.posZ);
+		Vector3 end = new Vector3(e2.posX, e2.posY + 0.25, e2.posZ);
+		Vector3 diff = end.copy().sub(orig);
+		Vector3 movement = diff.copy().normalize().multiply(0.05);
+		int iters = (int) (diff.mag() / movement.mag());
+		float huePer = 1F / iters;
+		float hueSum = (float) Math.random();
+
+		Vector3 currentPos = orig.copy();
+		for(int i = 0; i < iters; i++) {
+			float hue = i * huePer + hueSum;
+			Color color = Color.getHSBColor(hue, 1F, 1F);
+			float r = Math.min(1F, color.getRed() / 255F + 0.4F);
+			float g = Math.min(1F, color.getGreen() / 255F + 0.4F);
+			float b = Math.min(1F, color.getBlue() / 255F + 0.4F);
+
+			Botania.proxy.setSparkleFXNoClip(true);
+			Botania.proxy.sparkleFX(e1.worldObj, currentPos.x, currentPos.y, currentPos.z, r, g, b, 0.6F, 12);
+			Botania.proxy.setSparkleFXNoClip(false);
+			currentPos.add(movement);
+		}
 	}
 
 	@Override

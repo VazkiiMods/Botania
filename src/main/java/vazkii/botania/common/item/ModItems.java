@@ -201,6 +201,7 @@ public final class ModItems {
 	public static Item overgrowthSeed;
 	public static Item craftPattern;
 	public static Item ancientWill;
+	public static Item corporeaSpark;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -310,6 +311,7 @@ public final class ModItems {
 		overgrowthSeed = new ItemOvergrowthSeed();
 		craftPattern = new ItemCraftPattern();
 		ancientWill = new ItemAncientWill();
+		corporeaSpark = new ItemCorporeaSpark();
 
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {

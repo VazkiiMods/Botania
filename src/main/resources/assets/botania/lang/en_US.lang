@@ -296,6 +296,7 @@ entity.Botania.botania:spark.name=Spark
 entity.Botania.botania:thrownItem.name=Thrown Item
 entity.Botania.botania:magicMissile.name=Magic Missile
 entity.Botania.botania:thornChakram.name=Thorn Chakram
+entity.Botania.botania:corporeaSpark.name=Corporea Spark
 
 # ACHIEVEMENT NAMES + DESC
 achievement.botania:flowerPickup=Sky of Beginning
@@ -1012,6 +1013,8 @@ item.botania:ancientWill2.name=Will of Guthan
 item.botania:ancientWill3.name=Will of Torag
 item.botania:ancientWill4.name=Will of Verac
 item.botania:ancientWill5.name=Will of Karil
+item.botania:corporeaSpark0.name=Corporea Spark
+item.botania:corporeaSpark1.name=Master Corporea Spark
 
 # BREW NAMES
 botania.brew.fallback=Fallback
