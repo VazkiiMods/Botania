@@ -34,8 +34,11 @@ public final class CorporeaHelper {
 			return empty;
 		List<ICorporeaSpark> network = master.getConnections();	
 
-		if(cachedNetworks.containsKey(network))
-			return cachedNetworks.get(network);
+		if(cachedNetworks.containsKey(network)) {
+			List<IInventory> cache = cachedNetworks.get(network);
+			if(cache != null)
+				return cache;
+		}
 
 		List<IInventory> inventories = new ArrayList();
 		if(network != null)
