@@ -25,7 +25,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 public class ItemBlockTinyPotato extends ItemBlockMod {
 
 	private static final List<String> TYPOS = Arrays.asList(new String[] {
-			"vaskii", "vazki", "voskii", "vazkkii", "vazkki", "vazzki", "vaskki", "vozkii"
+			"vaskii", "vazki", "voskii", "vazkkii", "vazkki", "vazzki", "vaskki", "vozkii", "vazkil", "vaskil", "vazkill", "vaskill"
 	});
 
 	private static final String NOT_MY_NAME[] = {
