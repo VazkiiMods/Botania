@@ -73,7 +73,7 @@ public class RenderLexicon implements IItemRenderer {
 		if(ticks < 3) {
 			FontRenderer font = Minecraft.getMinecraft().fontRenderer;
 			GL11.glRotatef(180F, 0F, 0F, 1F);
-			GL11.glTranslatef(-0.3F, -0.2F, -0.07F);
+			GL11.glTranslatef(-0.3F, -0.21F, -0.07F);
 			GL11.glScalef(0.0035F, 0.0035F, -0.0035F);
 			boolean bevo = Minecraft.getMinecraft().thePlayer.getCommandSenderName().equalsIgnoreCase("BevoLJ");
 			boolean saice = Minecraft.getMinecraft().thePlayer.getCommandSenderName().equalsIgnoreCase("saice");
@@ -99,14 +99,7 @@ public class RenderLexicon implements IItemRenderer {
 			GL11.glTranslatef(0F, 10F, 0F);
 			font.drawString(EnumChatFormatting.UNDERLINE + StatCollector.translateToLocal("botaniamisc.lexiconcover1"), 0, 0, 0x79ff92);
 
-			GL11.glTranslatef(0F, 25F, 0F);
-			GL11.glPushMatrix();
-			GL11.glScalef(6F, 6F, 6F);
-			GL11.glTranslatef(5F, -0.3F, 0F);
-			font.drawString(EnumChatFormatting.BOLD + "~", 0, 0, 0x002206);
-			GL11.glPopMatrix();
-
-			GL11.glTranslatef(0F, 25F, 0F);
+			GL11.glTranslatef(0F, 50F, 0F);
 			font.drawString(StatCollector.translateToLocal("botaniamisc.lexiconcover2"), 0, 0, 0x79ff92);
 			GL11.glTranslatef(0F, 10F, 0F);
 			font.drawString(EnumChatFormatting.ITALIC + StatCollector.translateToLocal("botaniamisc.lexiconcover3"), 0, 0, 0x79ff92);
