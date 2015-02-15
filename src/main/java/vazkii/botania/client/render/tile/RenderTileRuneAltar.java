@@ -112,7 +112,7 @@ public class RenderTileRuneAltar extends TileEntitySpecialRenderer {
 		cubes.renderSpinningCubes(2, repeat, repeat);
 		GL11.glPopMatrix();
 
-		GL11.glTranslatef(0F, 1.2F, 2F);
+		GL11.glTranslatef(0F, 0.2F, 0F);
 		float scale = altar.getTargetMana() == 0 ? 0 : (float) altar.getCurrentMana() / (float) altar.getTargetMana() / 75F;
 
 		if(scale != 0) {

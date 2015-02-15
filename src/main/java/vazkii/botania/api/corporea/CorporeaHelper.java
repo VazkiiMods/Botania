@@ -18,6 +18,8 @@ import java.util.WeakHashMap;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.world.World;
 
 public final class CorporeaHelper {
 
@@ -163,6 +165,23 @@ public final class CorporeaHelper {
 		return retStack;
 	}
 
+	/**
+	 * Gets the spark attached to the block in the coords passed in. Note that the coords passed
+	 * in are for the block that the spark will be on, not the coords of the spark itself.
+	 */
+	public static ICorporeaSpark getSparkForBlock(World world, int x, int y, int z) {
+		List<ICorporeaSpark> sparks = world.getEntitiesWithinAABB(ICorporeaSpark.class, AxisAlignedBB.getBoundingBox(x, y + 1, z, x + 1, y + 2, z + 1));
+		return sparks.isEmpty() ? null : sparks.get(0);
+	}
+	
+	/**
+	 * Gets if the block in the coords passed in has a spark attached. Note that the coords passed
+	 * in are for the block that the spark will be on, not the coords of the spark itself.
+	 */
+	public static boolean doesBlockHaveSpark(World world, int x, int y, int z) {
+		return getSparkForBlock(world, x, y, z) != null;
+	}
+	
 	/**
 	 * Gets if the slot passed in can be extracted from by a spark.
 	 */

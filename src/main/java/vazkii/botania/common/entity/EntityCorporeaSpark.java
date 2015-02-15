@@ -73,13 +73,8 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 			return;
 		}
 		
-		if(isMaster()) {
+		if(isMaster())
 			master = this;
-			System.out.println(CorporeaHelper.getCountInNetwork(new ItemStack(Items.apple), this, false));
-			ItemStack request = CorporeaHelper.requestItem(new ItemStack(Items.apple), this, false, true);
-			if(request != null)
-				InventoryHelper.insertItemIntoInventory(getInventory(), request);
-		}
 		
 		if(firstUpdate) {
 			if(isMaster())

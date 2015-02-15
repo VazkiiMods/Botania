@@ -21,5 +21,6 @@ public final class LibRenderIDs {
 	public static int idTinyPotato = -1;
 	public static int idSpawnerClaw = -1;
 	public static int idBrewery = -1;
+	public static int idCorporeaIndex = -1;
 
 }

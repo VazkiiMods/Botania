@@ -110,7 +110,6 @@ public class PageEntity extends LexiconPage{
 			try {
 				dummyEntity = (Entity) entityConstructor.newInstance(new Object[] {Minecraft.getMinecraft().theWorld});
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

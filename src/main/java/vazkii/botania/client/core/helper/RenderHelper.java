@@ -161,7 +161,6 @@ public final class RenderHelper {
 		GL11.glDisable(GL11.GL_ALPHA_TEST);
 		GL11.glEnable(GL11.GL_CULL_FACE);
 		GL11.glDepthMask(false);
-		GL11.glTranslatef(0F, -1F, -2F);
 		GL11.glScalef(xScale, yScale, zScale);
 
 		for (int i = 0; i < (f1 + f1 * f1) / 2F * 90F + 30F; i++) {
