@@ -116,7 +116,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 		List<ICorporeaSpark> sparks = getNearbySparks();
 		relatives.clear();
 		for(ICorporeaSpark spark : sparks) {
-			if(spark == null || connections.contains(spark) || spark.getNetwork() != getNetwork() || spark.isMaster())
+			if(spark == null || connections.contains(spark) || spark.getNetwork() != getNetwork() || spark.isMaster() || ((Entity) spark).isDead)
 				continue;
 			
 			connections.add(spark);
