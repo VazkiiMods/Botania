@@ -8,5 +8,5 @@ Hey there. Looks like you want to contribute with an issue. Great. Here's what y
   * Do not tag your issues' names. "Something Broke" is prefered to "[Bug] Something Broke"  because there's a proper label system in place.
 * [Report the Issue](https://github.com/Vazkii/Botania/issues)!
 
-Ideas I do not have any intention of adding or don't like will be closed.
+Ideas I do not have any intention of adding or don't like will be closed.  
 You can find me at most times on [#vazkii @ irc.esper.net](http://webchat.esper.net/?channels=vazkii), if you need to speak with me about the issue you would report.
