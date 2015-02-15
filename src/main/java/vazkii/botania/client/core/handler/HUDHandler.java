@@ -15,6 +15,8 @@ import java.awt.Color;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -32,6 +34,7 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexicon;
@@ -47,6 +50,7 @@ import vazkii.botania.api.wiki.WikiHooks;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.item.ItemCraftingHalo;
 import vazkii.botania.common.item.ItemTwigWand;
@@ -89,6 +93,12 @@ public final class HUDHandler {
 					else if(tile != null && tile instanceof TilePool)
 						renderPoolRecipeHUD(event.resolution, (TilePool) tile, equippedStack);
 				}
+			}
+			
+			if(!TileCorporeaIndex.input.getNearbyIndexes(mc.thePlayer).isEmpty() && mc.currentScreen != null && mc.currentScreen instanceof GuiChat) {
+				profiler.startSection("nearIndex");
+				renderNearIndexDisplay(event.resolution);
+				profiler.endSection();
 			}
 
 			if(equippedStack != null && equippedStack.getItem() == ModItems.craftingHalo) {
@@ -290,6 +300,28 @@ public final class HUDHandler {
 		GL11.glDisable(GL11.GL_BLEND);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		profiler.endSection();
+	}
+	
+	private void renderNearIndexDisplay(ScaledResolution res) {
+		Minecraft mc = Minecraft.getMinecraft();
+		String txt0 = StatCollector.translateToLocal("botaniamisc.nearIndex0");
+		String txt1 = EnumChatFormatting.GRAY + StatCollector.translateToLocal("botaniamisc.nearIndex1");
+		String txt2 = EnumChatFormatting.GRAY + StatCollector.translateToLocal("botaniamisc.nearIndex2");
+
+		int l = Math.max(mc.fontRenderer.getStringWidth(txt0), Math.max(mc.fontRenderer.getStringWidth(txt1), mc.fontRenderer.getStringWidth(txt2))) + 20;
+		int x = res.getScaledWidth() / 2 - l / 2;
+		int y = res.getScaledHeight() - 95;
+
+		Gui.drawRect(x - 6, y - 6, x + l + 6, y + 37, 0x44000000);
+		Gui.drawRect(x - 4, y - 4, x + l + 4, y + 35, 0x44000000);
+		net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
+		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+		RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, new ItemStack(ModBlocks.corporeaIndex), res.getScaledWidth() / 2 - l / 2, y + 10);
+		net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
+
+		mc.fontRenderer.drawStringWithShadow(txt0, x + 20, y, 0xFFFFFF);
+		mc.fontRenderer.drawStringWithShadow(txt1, x + 20, y + 14, 0xFFFFFF);
+		mc.fontRenderer.drawStringWithShadow(txt2, x + 20, y + 24, 0xFFFFFF);
 	}
 
 	public static void drawSimpleManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res) {
