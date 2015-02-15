@@ -46,7 +46,7 @@ public class RenderTileCorporeaIndex extends TileEntitySpecialRenderer {
 		if(index.closeby > 0F) {
 			float starScale = 0.02F;
 			float starRadius = (float) TileCorporeaIndex.RADIUS * index.closeby + (index.closeby == 1F ? 0F : index.hasCloseby ? partticks : -partticks) * 0.2F;
-			double rads = (index.ticksWithCloseby * 2 + partticks) * Math.PI / 180;
+			double rads = ((index.ticksWithCloseby + partticks) * 2) * Math.PI / 180;
 			double starX = Math.cos(rads) * starRadius;
 			double starZ = Math.sin(rads) * starRadius;
 			int color = 0xFF00FF;
