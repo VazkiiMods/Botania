@@ -20,8 +20,11 @@ import java.util.WeakHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.text.WordUtils;
+
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentTranslation;
@@ -243,7 +246,7 @@ public class TileCorporeaIndex extends TileCorporeaBase {
 								index.worldObj.spawnEntityInWorld(item);
 							}
 						
-						event.player.addChatMessage(new ChatComponentTranslation("botaniamisc.requestMsg", count, name, CorporeaHelper.lastRequestMatches, CorporeaHelper.lastRequestExtractions).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.LIGHT_PURPLE)));
+						event.player.addChatMessage(new ChatComponentTranslation("botaniamisc.requestMsg", count, WordUtils.capitalizeFully(name), CorporeaHelper.lastRequestMatches, CorporeaHelper.lastRequestExtractions).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.LIGHT_PURPLE)));
 					}
 				}
 
