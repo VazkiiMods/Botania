@@ -30,6 +30,15 @@ public final class CorporeaHelper {
 	private static final WeakHashMap<List<ICorporeaSpark>, List<IInventory>> cachedNetworks = new WeakHashMap();
 
 	/**
+	 * How many items were matched in the last request. If java had "out" params like C# this wouldn't be needed :V
+	 */
+	public static int lastRequestMatches = 0;
+	/**
+	 * How many items were extracted in the last request.
+	 */
+	public static int lastRequestExtractions = 0;
+	
+	/**
 	 * Gets a list of all the inventories on this spark network. This list is cached for use once every tick, 
 	 * and if something changes during that tick it'll still have the first result.
 	 */
@@ -113,7 +122,7 @@ public final class CorporeaHelper {
 			for(int i = 0; i < inv.getSizeInventory(); i++) {
 				if(!isValidSlot(inv, i))
 					continue;
-				
+
 				ItemStack stackAt = inv.getStackInSlot(i);
 				if(stacksMatch(stack, stackAt, checkNBT))
 					count += stackAt.stackSize;
@@ -132,7 +141,7 @@ public final class CorporeaHelper {
 	public static List<ItemStack> requestItem(ItemStack stack, ICorporeaSpark spark, boolean checkNBT, boolean doit) {
 		return requestItem(stack, stack.stackSize, spark, checkNBT, doit);
 	}
-	
+
 	/**
 	 * Bridge for requestItem() using a String and an item count.
 	 */
@@ -152,35 +161,42 @@ public final class CorporeaHelper {
 	public static List<ItemStack> requestItem(Object matcher, int itemCount, ICorporeaSpark spark, boolean checkNBT, boolean doit) {
 		List<IInventory> inventories = getInventoriesOnNetwork(spark);
 		List<ItemStack> stacks = new ArrayList();
+
+		lastRequestMatches = 0;
+		lastRequestExtractions = 0;
 		
 		int count = itemCount;
-		checkInvs : {
-			for(IInventory inv : inventories) {
-				for(int i = 0; i < inv.getSizeInventory(); i++) {
-					if(!isValidSlot(inv, i))
-						continue;
+		for(IInventory inv : inventories) {
+			for(int i = 0; i < inv.getSizeInventory(); i++) {
+				if(!isValidSlot(inv, i))
+					continue;
 
-					ItemStack stackAt = inv.getStackInSlot(i);
-					if(matcher instanceof ItemStack ? stacksMatch((ItemStack) matcher, stackAt, checkNBT) : matcher instanceof String ? stacksMatch(stackAt, (String) matcher) : false) {
-						int rem = Math.min(stackAt.stackSize, count);
-						stacks.add(stackAt.copy());
-						if(doit) {
-							stackAt.stackSize -= rem;
-							if(stackAt.stackSize == 0)
-								inv.setInventorySlotContents(i, null);
-						}
-						count -= rem;
+				ItemStack stackAt = inv.getStackInSlot(i);
+				if(matcher instanceof ItemStack ? stacksMatch((ItemStack) matcher, stackAt, checkNBT) : matcher instanceof String ? stacksMatch(stackAt, (String) matcher) : false) {
+					int rem = Math.min(stackAt.stackSize, count);
 
-						if(count <= 0)
-							break checkInvs;
+					if(rem > 0) {
+						ItemStack copy = stackAt.copy();
+						if(rem < copy.stackSize)
+							copy.stackSize = rem;
+						stacks.add(copy);
 					}
+
+					lastRequestMatches += stackAt.stackSize;
+					lastRequestExtractions += rem;
+					if(doit && rem > 0) {
+						stackAt.stackSize -= rem;
+						if(stackAt.stackSize == 0)
+							inv.setInventorySlotContents(i, null);
+					}
+					count -= rem;
 				}
 			}
 		}
 
 		return stacks;
 	}
-	
+
 	/**
 	 * Gets the spark attached to the block in the coords passed in. Note that the coords passed
 	 * in are for the block that the spark will be on, not the coords of the spark itself.
@@ -189,7 +205,7 @@ public final class CorporeaHelper {
 		List<ICorporeaSpark> sparks = world.getEntitiesWithinAABB(ICorporeaSpark.class, AxisAlignedBB.getBoundingBox(x, y + 1, z, x + 1, y + 2, z + 1));
 		return sparks.isEmpty() ? null : sparks.get(0);
 	}
-	
+
 	/**
 	 * Gets if the block in the coords passed in has a spark attached. Note that the coords passed
 	 * in are for the block that the spark will be on, not the coords of the spark itself.
@@ -197,28 +213,28 @@ public final class CorporeaHelper {
 	public static boolean doesBlockHaveSpark(World world, int x, int y, int z) {
 		return getSparkForBlock(world, x, y, z) != null;
 	}
-	
+
 	/**
 	 * Gets if the slot passed in can be extracted from by a spark.
 	 */
 	public static boolean isValidSlot(IInventory inv, int slot) {
 		return !(inv instanceof ISidedInventory) || arrayHas(((ISidedInventory) inv).getAccessibleSlotsFromSide(ForgeDirection.UP.ordinal()), slot);
 	}
-	
+
 	/**
 	 * Gets if two stacks match.
 	 */
 	public static boolean stacksMatch(ItemStack stack1, ItemStack stack2, boolean checkNBT) {
 		return stack1 != null && stack2 != null && stack1.isItemEqual(stack2) && (!checkNBT || ItemStack.areItemStackTagsEqual(stack1, stack2));
 	}
-	
+
 	/**
 	 * Gets if the name of a stack matches the string passed in.
 	 */
 	public static boolean stacksMatch(ItemStack stack, String s) {
 		if(stack == null)
 			return false;
-		
+
 		String name = stack.getDisplayName().toLowerCase().trim();
 		return name.equals(s) || (name + "s").equals(s) || (name + "es").equals(s) || (name.endsWith("y") && (name.substring(0, name.length() - 1) + "ies").equals(s));
 	}
@@ -230,7 +246,7 @@ public final class CorporeaHelper {
 	public static void clearCache() {
 		cachedNetworks.clear();
 	}
-	
+
 	/**
 	 * Helper method to check if an int array contains an int.
 	 */
@@ -238,7 +254,7 @@ public final class CorporeaHelper {
 		for(int i = 0; i < arr.length; i++)
 			if(arr[i] == val)
 				return true;
-		
+
 		return false;
 	}
 }

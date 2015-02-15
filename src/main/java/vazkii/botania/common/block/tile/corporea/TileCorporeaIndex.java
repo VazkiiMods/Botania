@@ -12,43 +12,141 @@ package vazkii.botania.common.block.tile.corporea;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.world.World;
+import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.ChatStyle;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.event.ServerChatEvent;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaSpark;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.MathHelper;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class TileCorporeaIndex extends TileCorporeaBase {
 
 	public static final double RADIUS = 2.5;
-	
+
 	public static final InputHandler input = new InputHandler();
 	public static final Set<TileCorporeaIndex> indexes = Collections.newSetFromMap(new WeakHashMap());
-	
+
+	private static final Map<Pattern, IRegexStacker> patterns = new LinkedHashMap();
+
+	/**
+	 * (name) = Item name, or "this" for the name of the item in your hand
+	 * (n), (n1), (n2), etc = Numbers
+	 * [text] = Optional
+	 * <a/b> = Either a or b
+	 */
+	static {
+		// (name) = 1
+		addPattern("(.+)", new IRegexStacker() {
+			@Override public int getCount(Matcher m) { return 1; }
+			@Override public String getName(Matcher m) { return m.group(1); }
+		});
+
+		// [a][n] (name) = 1
+		addPattern("a??n?? (.+)", new IRegexStacker() {
+			@Override public int getCount(Matcher m) { return 1; }
+			@Override public String getName(Matcher m) { return m.group(1); }
+		});
+		
+		//(n)[x][ of] (name) = n
+		addPattern("(\\d+)x?(?: of)? (.+)", new IRegexStacker() {
+			@Override public int getCount(Matcher m) { return i(m, 1); }
+			@Override public String getName(Matcher m) { return m.group(2); }
+		});
+		
+		// [a ]stack[ of] (name) = 64
+		addPattern("(?:a )?stack(?: of)? (.+)", new IRegexStacker() {
+			@Override public int getCount(Matcher m) { return 64; }
+			@Override public String getName(Matcher m) { return m.group(1); }
+		});
+		
+		// (n)[x] stack[s][ of] (name) = n * 64
+		addPattern("(\\d+)x?? stacks?(?: of)? (.+)", new IRegexStacker() {
+			@Override public int getCount(Matcher m) { return 64 * i(m, 1); }
+			@Override public String getName(Matcher m) { return m.group(2); }
+		});
+		
+		// [a ]stack <and/+> (n)[x][ of] (name) = 64 + n
+		addPattern("(?:a )?stack (?:(?:and)|(?:\\+)) (\\d+)(?: of)? (.+)", new IRegexStacker() {
+			@Override public int getCount(Matcher m) { return 64 + i(m, 1); }
+			@Override public String getName(Matcher m) { return m.group(2); }
+		});
+		
+		// (n1)[x] stack[s] <and/+> (n2)[x][ of] (name) = n1 * 64 + n2
+		addPattern("(\\d+)x?? stacks? (?:(?:and)|(?:\\+)) (\\d+)x?(?: of)? (.+)", new IRegexStacker() {
+			@Override public int getCount(Matcher m) { return 64 * i(m, 1) + i(m, 2); }
+			@Override public String getName(Matcher m) { return m.group(3); }
+		});
+		
+		// [a ]half [of ][a ]stack[ of] (name) = 32
+		addPattern("(?:a )?half (?:of )?(?:a )?stack(?: of)? (.+)", new IRegexStacker() {
+			@Override public int getCount(Matcher m) { return 32; }
+			@Override public String getName(Matcher m) { return m.group(1); }
+		});
+		
+		// [a ]quarter [of ][a ]stack[ of] (name) = 16
+		addPattern("(?:a )?quarter (?:of )?(?:a )?stack(?: of)? (.+)", new IRegexStacker() {
+			@Override public int getCount(Matcher m) { return 16; }
+			@Override public String getName(Matcher m) { return m.group(1); }
+		});
+		
+		// [a ]dozen[ of] (name) = 12
+		addPattern("(?:a )?dozen(?: of)? (.+)", new IRegexStacker() {
+			@Override public int getCount(Matcher m) { return 12; }
+			@Override public String getName(Matcher m) { return m.group(1); }
+		});
+		
+		// (n)[x] dozen[s][ of] (name) = n * 12
+		addPattern("(\\d+)x?? dozens?(?: of)? (.+)", new IRegexStacker() {
+			@Override public int getCount(Matcher m) { return 12 * i(m, 1); }
+			@Override public String getName(Matcher m) { return m.group(2); }
+		});
+		
+		// <all/every> [<of/the> ](name) = 2147483647
+		addPattern("(?:all|every) (?:(?:of|the) )?(.+)", new IRegexStacker() {
+			@Override public int getCount(Matcher m) { return Integer.MAX_VALUE; }
+			@Override public String getName(Matcher m) { return m.group(1); }
+		});
+		
+		// [the ]answer to life[,] the universe and everything [of ](name) = 42
+		addPattern("(?:the )?answer to life,? the universe and everything (?:of )?(.+)", new IRegexStacker() {
+			@Override public int getCount(Matcher m) { return 42; }
+			@Override public String getName(Matcher m) { return m.group(1); }
+		});
+		
+		// <count/show/display/tell> (name) = 0 (display only)
+		addPattern("(?:count|show|display|tell) (.+)", new IRegexStacker() {
+			@Override public int getCount(Matcher m) { return 0; }
+			@Override public String getName(Matcher m) { return m.group(1); }
+		});
+	}
+
 	public int ticks = 0;
 	public int ticksWithCloseby = 0;
 	public float closeby = 0F;
 	public boolean hasCloseby;
-	
+
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		
+
 		double x = xCoord + 0.5;
 		double y = yCoord + 0.5;
 		double z = zCoord + 0.5;
-		
+
 		List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(x - RADIUS, y - RADIUS, z - RADIUS, x + RADIUS, y + RADIUS, z + RADIUS));
 		hasCloseby = false;
 		for(EntityPlayer player : players)
@@ -56,7 +154,7 @@ public class TileCorporeaIndex extends TileCorporeaBase {
 				hasCloseby = true;
 				break;
 			}
-		
+
 		float step = 0.2F;
 		ticks++;
 		if(hasCloseby) {
@@ -65,11 +163,11 @@ public class TileCorporeaIndex extends TileCorporeaBase {
 				closeby += step;
 		} else if(closeby > 0F)
 			closeby -= step;
-		
+
 		if(!isInvalid() && !indexes.contains(this))
 			indexes.add(this);
 	}
-	
+
 	@Override
 	public void invalidate() {
 		super.invalidate();
@@ -81,7 +179,7 @@ public class TileCorporeaIndex extends TileCorporeaBase {
 		super.onChunkUnload();
 		indexes.remove(this);
 	}
-	
+
 	@Override
 	public int getSizeInventory() {
 		return 1;
@@ -91,13 +189,26 @@ public class TileCorporeaIndex extends TileCorporeaBase {
 	public String getInventoryName() {
 		return null;
 	}
-	
+
 	public static boolean isInRangeOfIndex(EntityPlayer player, TileCorporeaIndex index) {
 		return MathHelper.pointDistanceSpace(index.xCoord + 0.5, index.yCoord + 0.5, index.zCoord + 0.5, player.posX, player.posY, player.posZ) < RADIUS;
 	}
-	
+
+	public static void addPattern(String pattern, IRegexStacker stacker) {
+		patterns.put(Pattern.compile(pattern), stacker);
+	}
+
+	public static int i(Matcher m, int g) {
+		try {
+			int i = Math.abs(Integer.parseInt(m.group(g)));
+			return i;
+		} catch(NumberFormatException e) {
+			return 0;
+		}
+	}
+
 	public static final class InputHandler {
-		
+
 		@SubscribeEvent
 		public void onChatMessage(ServerChatEvent event) {
 			List<TileCorporeaIndex> nearbyIndexes = getNearbyIndexes(event.player);
@@ -106,19 +217,40 @@ public class TileCorporeaIndex extends TileCorporeaBase {
 				for(TileCorporeaIndex index : nearbyIndexes) {
 					ICorporeaSpark spark = index.getSpark();
 					if(spark != null) {
-						List<ItemStack> stacks = CorporeaHelper.requestItem(msg, 64, spark, true);
+						String matchedPattern = "";
+						String name = "";
+						int count = 0;
+						for(Pattern pattern : patterns.keySet()) {
+							Matcher matcher = pattern.matcher(msg);
+							if(matcher.matches()) {
+								IRegexStacker stacker = patterns.get(pattern);
+								count = stacker.getCount(matcher);
+								name = stacker.getName(matcher).toLowerCase().trim();
+								matchedPattern = pattern.toString();
+							}
+						}
+						
+						if(name.equals("this")) {
+							ItemStack stack = event.player.getCurrentEquippedItem();
+							if(stack != null)
+								name = stack.getDisplayName().toLowerCase().trim();
+						}
+						
+						List<ItemStack> stacks = CorporeaHelper.requestItem(name, count, spark, true);
 						for(ItemStack stack : stacks)
 							if(stack != null) {
 								EntityItem item = new EntityItem(index.worldObj, index.xCoord + 0.5, index.yCoord + 1.5, index.zCoord + 0.5, stack);
 								index.worldObj.spawnEntityInWorld(item);
 							}
+						
+						event.player.addChatMessage(new ChatComponentTranslation("botaniamisc.requestMsg", count, name, CorporeaHelper.lastRequestMatches, CorporeaHelper.lastRequestExtractions).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.LIGHT_PURPLE)));
 					}
 				}
-				
+
 				event.setCanceled(true);
 			}
 		}
-		
+
 		public List<TileCorporeaIndex> getNearbyIndexes(EntityPlayer player) {
 			List<TileCorporeaIndex> indexList = new ArrayList();
 			for(TileCorporeaIndex index : indexes)
@@ -126,7 +258,15 @@ public class TileCorporeaIndex extends TileCorporeaBase {
 					indexList.add(index);
 			return indexList;
 		}
-		
+
+	}
+
+	public static interface IRegexStacker {
+
+		public int getCount(Matcher m);
+
+		public String getName(Matcher m);
+
 	}
 
 }

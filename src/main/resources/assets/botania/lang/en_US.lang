@@ -76,6 +76,7 @@ botaniamisc.hasClip=&6Has Lens Clip
 botaniamisc.clipEmpty=(Empty)
 botaniamisc.armorset=&bArmor Set&r:
 botaniamisc.craftToAddWill=&aCraft with a Terrasteel Helmet to add the following effect:
+botaniamisc.requestMsg=Requested %d x "%s" out of %d. %d taken.
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
