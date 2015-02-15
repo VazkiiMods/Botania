@@ -28,7 +28,7 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemCorporeaSpark extends ItemMod {
 
-	public static IIcon invIcon, worldIcon, invIconMaster, worldIconMaster;
+	public static IIcon invIcon, worldIcon, invIconMaster, worldIconMaster, iconColorStar;
 
 	public ItemCorporeaSpark() {
 		setUnlocalizedName(LibItemNames.CORPOREA_SPARK);
@@ -65,6 +65,7 @@ public class ItemCorporeaSpark extends ItemMod {
 		worldIcon = IconHelper.forItem(par1IconRegister, this, 1);
 		invIconMaster = IconHelper.forItem(par1IconRegister, this, 2);
 		worldIconMaster = IconHelper.forItem(par1IconRegister, this, 3);
+		iconColorStar = IconHelper.forItem(par1IconRegister, this, "Star");
 	}
 
 	@Override

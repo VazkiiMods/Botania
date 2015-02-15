@@ -100,6 +100,9 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 			displayRelatives(new ArrayList(), master);
 			didStartupParticles = true;
 		}
+		
+		if(master != null && master.getNetwork() != getNetwork())
+			master = null;
 	}
 	
 	@Override
@@ -133,8 +136,15 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	}
 	
 	public void restartNetwork() {
-		if(master != null)
-			master.registerConnections(master, this, new ArrayList());
+		connections = new ArrayList();
+		relatives = new ArrayList();
+
+		if(master != null) {
+			ICorporeaSpark oldMaster = master;
+			master = null;
+
+			oldMaster.registerConnections(oldMaster, this, new ArrayList());
+		}
 	}
 	
 	void displayRelatives(ArrayList<ICorporeaSpark> checked, ICorporeaSpark spark) {
@@ -208,7 +218,17 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 					didStartupParticles = false;
 					return true;
 				}
-			} // TODO Dyeing
+			} else if(stack.getItem() == ModItems.dye) {
+				int color = stack.getItemDamage();
+				if(color != getNetwork()) {
+					setNetwork(color);
+					restartNetwork();
+					stack.stackSize--;
+					firstUpdate = true;
+					if(player.worldObj.isRemote)
+						player.swingItem();
+				}
+			}
 		}
 
 		return false;

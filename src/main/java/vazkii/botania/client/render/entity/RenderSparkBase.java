@@ -58,6 +58,7 @@ public class RenderSparkBase<T extends Entity> extends RenderEntity {
 		if(spinningIcon != null) {
 			GL11.glTranslatef(-0.02F + (float) Math.sin(time / 20) * 0.2F, 0.24F + (float) Math.cos(time / 20) * 0.2F, 0.005F);
 			GL11.glScalef(0.2F, 0.2F, 0.2F);
+			colorSpinningIcon(tEntity);
 			func_77026_a(tessellator, spinningIcon);
 		}
 		
@@ -70,6 +71,10 @@ public class RenderSparkBase<T extends Entity> extends RenderEntity {
 	
 	public IIcon getBaseIcon(T entity) {
 		return ItemSpark.worldIcon;
+	}
+	
+	public void colorSpinningIcon(T entity) {
+		// NO-OP
 	}
 	
 	public IIcon getSpinningIcon(T entity) {
