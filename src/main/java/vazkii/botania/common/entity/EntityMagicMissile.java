@@ -62,7 +62,7 @@ public class EntityMagicMissile extends EntityThrowable {
 	public void onUpdate() {
 		super.onUpdate();
 
-		if(!worldObj.isRemote && !getTarget()) {
+		if(!worldObj.isRemote && (!getTarget() || ticksExisted > 40)) {
 			setDead();
 			return;
 		}
