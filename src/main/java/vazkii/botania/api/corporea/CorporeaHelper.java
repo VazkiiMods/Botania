@@ -127,47 +127,60 @@ public final class CorporeaHelper {
 	}
 
 	/**
-	 * Requests an ItemStack of the type passed in from the network, or tries to, checking NBT or not.
-	 * This will remove the items from the adequate inventories unless the "doit" parameter is false.
-	 * Returns a new ItemStack of the item acquired or null if none was found.
+	 * Bridge for requestItem() using an ItemStack.
 	 */
-	public static ItemStack requestItem(ItemStack stack, ICorporeaSpark spark, boolean checkNBT, boolean doit) {
-		Map<IInventory, Integer> inventories = getInventoriesWithItemInNetwork(stack, spark, checkNBT);
-		int count = getCountInNetwork(stack, inventories, checkNBT);
-		int size = Math.min(count, stack.stackSize);
-		if(size == 0)
-			return null;
+	public static List<ItemStack> requestItem(ItemStack stack, ICorporeaSpark spark, boolean checkNBT, boolean doit) {
+		return requestItem(stack, stack.stackSize, spark, checkNBT, doit);
+	}
+	
+	/**
+	 * Bridge for requestItem() using a String and an item count.
+	 */
+	public static List<ItemStack> requestItem(String name, int count, ICorporeaSpark spark, boolean doit) {
+		return requestItem(name, count, spark, false, doit);
+	}
 
-		ItemStack retStack = stack.copy();
-		retStack.stackSize = size;
-		if(!doit)
-			return retStack;
-
-		int remove = size;
+	/**
+	 * Requests list of ItemStacks of the type passed in from the network, or tries to, checking NBT or not.
+	 * This will remove the items from the adequate inventories unless the "doit" parameter is false.
+	 * Returns a new list of ItemStacks of the items acquired or an empty list if none was found.
+	 * <br><br>
+	 * The "matcher" parameter has to be an ItemStack or a String, if the first it'll check if the
+	 * two stacks are similar using the "checkNBT" parameter, else it'll check if the name of the item
+	 * equals or matches (case a regex is passed in) the matcher string.
+	 */
+	public static List<ItemStack> requestItem(Object matcher, int itemCount, ICorporeaSpark spark, boolean checkNBT, boolean doit) {
+		List<IInventory> inventories = getInventoriesOnNetwork(spark);
+		List<ItemStack> stacks = new ArrayList();
+		
+		int count = itemCount;
 		checkInvs : {
-			for(IInventory inv : inventories.keySet()) {
+			for(IInventory inv : inventories) {
 				for(int i = 0; i < inv.getSizeInventory(); i++) {
 					if(!isValidSlot(inv, i))
 						continue;
 
 					ItemStack stackAt = inv.getStackInSlot(i);
-					if(stacksMatch(stack, stackAt, checkNBT)) {
-						int rem = Math.min(stackAt.stackSize, remove);
-						stackAt.stackSize -= rem;
-						remove -= rem;
+					if(matcher instanceof ItemStack ? stacksMatch((ItemStack) matcher, stackAt, checkNBT) : matcher instanceof String ? stacksMatch(stackAt, (String) matcher) : false) {
+						int rem = Math.min(stackAt.stackSize, count);
+						stacks.add(stackAt.copy());
+						if(doit) {
+							stackAt.stackSize -= rem;
+							if(stackAt.stackSize == 0)
+								inv.setInventorySlotContents(i, null);
+						}
+						count -= rem;
 
-						if(stackAt.stackSize == 0)
-							inv.setInventorySlotContents(i, null);
-						if(remove <= 0)
+						if(count <= 0)
 							break checkInvs;
 					}
 				}
 			}
 		}
 
-		return retStack;
+		return stacks;
 	}
-
+	
 	/**
 	 * Gets the spark attached to the block in the coords passed in. Note that the coords passed
 	 * in are for the block that the spark will be on, not the coords of the spark itself.
@@ -197,6 +210,17 @@ public final class CorporeaHelper {
 	 */
 	public static boolean stacksMatch(ItemStack stack1, ItemStack stack2, boolean checkNBT) {
 		return stack1 != null && stack2 != null && stack1.isItemEqual(stack2) && (!checkNBT || ItemStack.areItemStackTagsEqual(stack1, stack2));
+	}
+	
+	/**
+	 * Gets if the name of a stack matches the string passed in.
+	 */
+	public static boolean stacksMatch(ItemStack stack, String s) {
+		if(stack == null)
+			return false;
+		
+		String name = stack.getDisplayName().toLowerCase().trim();
+		return name.equals(s) || (name + "s").equals(s) || (name + "es").equals(s) || (name.endsWith("y") && (name.substring(0, name.length() - 1) + "ies").equals(s));
 	}
 
 	/**

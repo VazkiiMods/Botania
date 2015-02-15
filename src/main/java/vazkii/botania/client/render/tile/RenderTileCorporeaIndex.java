@@ -36,7 +36,7 @@ public class RenderTileCorporeaIndex extends TileEntitySpecialRenderer {
 		GL11.glTranslated(x + 0.5, y, z + 0.5);
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 		
-		float translation = move ? (float) ((Math.cos((float) index.ticksWithCloseby / 10F) * 0.5 + 0.5) * 0.25) : 0F;
+		float translation = move ? (float) ((Math.cos((float) (index.ticksWithCloseby + (index.hasCloseby ? partticks : 0)) / 10F) * 0.5 + 0.5) * 0.25) : 0F;
 		float rotation = move ? (index.ticks * 2 + partticks) : 0F;
 		float scale = 0.6F;
 		GL11.glScalef(scale, scale, scale);

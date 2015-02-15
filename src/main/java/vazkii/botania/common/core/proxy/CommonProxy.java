@@ -24,6 +24,7 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.subtile.generating.SubTileNarslimmus;
+import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.core.command.CommandDownloadLatest;
@@ -98,7 +99,8 @@ public class CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new SheddingHandler());
 		MinecraftForge.EVENT_BUS.register(new SpawnerChangingHandler());
 		MinecraftForge.EVENT_BUS.register(new SubTileNarslimmus.SpawnIntercepter());
-		
+		MinecraftForge.EVENT_BUS.register(TileCorporeaIndex.input);
+
 		FMLCommonHandler.instance().bus().register(new CommonTickHandler());
 		
 		FMLInterModComms.sendMessage("ProjectE", "interdictionblacklist", EntityManaBurst.class.getCanonicalName());
