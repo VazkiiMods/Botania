@@ -167,7 +167,7 @@ public final class CorporeaHelper {
 		
 		int count = itemCount;
 		for(IInventory inv : inventories) {
-			for(int i = 0; i < inv.getSizeInventory(); i++) {
+			for(int i = inv.getSizeInventory() - 1; i >= 0; i--) {
 				if(!isValidSlot(inv, i))
 					continue;
 
@@ -234,11 +234,21 @@ public final class CorporeaHelper {
 	public static boolean stacksMatch(ItemStack stack, String s) {
 		if(stack == null)
 			return false;
-
+		
+		boolean contains = false;
+		if(s.endsWith("...")) {
+			contains = true;
+			s = s.substring(0, s.length() - 3); 
+		}
+		if(s.startsWith("...")) {
+			contains = true;
+			s = s.substring(3);
+		}
+		
 		String name = stack.getDisplayName().toLowerCase().trim();
-		return name.equals(s) || (name + "s").equals(s) || (name + "es").equals(s) || (name.endsWith("y") && (name.substring(0, name.length() - 1) + "ies").equals(s));
+		return equalOrContain(name, s, contains) || equalOrContain(name + "s", s, contains) || equalOrContain(name + "es", s, contains) || (name.endsWith("y") && equalOrContain(name.substring(0, name.length() - 1) + "ies", s, contains));
 	}
-
+	
 	/**
 	 * Clears the cached networks, called once per tick, should not be called outside
 	 * of the botania code.
@@ -256,5 +266,12 @@ public final class CorporeaHelper {
 				return true;
 
 		return false;
+	}
+	
+	/**
+	 * Helper method to make stacksMatch() less messy.
+	 */ 
+	public static boolean equalOrContain(String s1, String s2, boolean contain) {
+		return contain ? s1.contains(s2) : s1.equals(s2);
 	}
 }
