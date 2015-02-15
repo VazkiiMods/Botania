@@ -16,10 +16,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
+import scala.actors.threadpool.Arrays;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public final class CorporeaHelper {
 
@@ -186,7 +189,7 @@ public final class CorporeaHelper {
 	 * Gets if the slot passed in can be extracted from by a spark.
 	 */
 	public static boolean isValidSlot(IInventory inv, int slot) {
-		return true;
+		return !(inv instanceof ISidedInventory) || arrayHas(((ISidedInventory) inv).getAccessibleSlotsFromSide(ForgeDirection.UP.ordinal()), slot);
 	}
 	
 	/**
@@ -202,5 +205,16 @@ public final class CorporeaHelper {
 	 */
 	public static void clearCache() {
 		cachedNetworks.clear();
+	}
+	
+	/**
+	 * Helper method to check if an int array contains an int.
+	 */
+	public static boolean arrayHas(int[] arr, int val) {
+		for(int i = 0; i < arr.length; i++)
+			if(arr[i] == val)
+				return true;
+		
+		return false;
 	}
 }
