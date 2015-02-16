@@ -73,6 +73,7 @@ public final class LibBlockNames {
 	public static final String BIOME_STONE_B = "biomeStoneB";
 	public static final String PETAL_BLOCK = "petalBlock";
 	public static final String CORPOREA_INDEX = "corporeaIndex";
+	public static final String CORPOREA_FUNNEL = "corporeaFunnel";
 
 	public static final String SUBTILE_PUREDAISY = "puredaisy";
 	public static final String SUBTILE_MANASTAR = "manastar";

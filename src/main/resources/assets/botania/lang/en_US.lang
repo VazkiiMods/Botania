@@ -689,6 +689,7 @@ tile.botania:petalBlock13.name=Green Petal Block
 tile.botania:petalBlock14.name=Red Petal Block
 tile.botania:petalBlock15.name=Black Petal Block
 tile.botania:corporeaIndex.name=Corporea Index
+tile.botania:corporeaFunnel.name=Corporea Funnel
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower

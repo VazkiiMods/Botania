@@ -22,11 +22,11 @@ import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
 
-public abstract class BlockCorporea extends BlockModContainer<TileCorporeaBase> {
+public abstract class BlockCorporeaBase extends BlockModContainer<TileCorporeaBase> {
 
 	Random random;
 	
-	public BlockCorporea(Material material, String name) {
+	public BlockCorporeaBase(Material material, String name) {
 		super(material);
 		setBlockName(name);
 		

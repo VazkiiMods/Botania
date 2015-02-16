@@ -34,6 +34,7 @@ import net.minecraftforge.event.ServerChatEvent;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.common.core.helper.MathHelper;
+import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class TileCorporeaIndex extends TileCorporeaBase {
@@ -185,12 +186,12 @@ public class TileCorporeaIndex extends TileCorporeaBase {
 
 	@Override
 	public int getSizeInventory() {
-		return 1;
+		return 0;
 	}
 
 	@Override
 	public String getInventoryName() {
-		return null;
+		return LibBlockNames.CORPOREA_INDEX;
 	}
 
 	public static boolean isInRangeOfIndex(EntityPlayer player, TileCorporeaIndex index) {

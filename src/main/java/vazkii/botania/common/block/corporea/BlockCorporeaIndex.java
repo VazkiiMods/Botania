@@ -19,7 +19,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class BlockCorporeaIndex extends BlockCorporea {
+public class BlockCorporeaIndex extends BlockCorporeaBase {
 
 	public BlockCorporeaIndex() {
 		super(Material.iron, LibBlockNames.CORPOREA_INDEX);

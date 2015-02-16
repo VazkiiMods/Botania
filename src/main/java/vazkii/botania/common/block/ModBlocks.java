@@ -19,6 +19,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.block.corporea.BlockCorporeaFunnel;
 import vazkii.botania.common.block.corporea.BlockCorporeaIndex;
 import vazkii.botania.common.block.decor.BlockBuriedPetals;
 import vazkii.botania.common.block.decor.BlockCustomBrick;
@@ -118,6 +119,7 @@ import vazkii.botania.common.block.tile.TileStarfield;
 import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.block.tile.TileTinyPlanet;
 import vazkii.botania.common.block.tile.TileTinyPotato;
+import vazkii.botania.common.block.tile.corporea.TileCorporeaFunnel;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.block.tile.mana.TileDistributor;
 import vazkii.botania.common.block.tile.mana.TileManaDetector;
@@ -197,6 +199,7 @@ public final class ModBlocks {
 	public static Block enchantedSoil;
 	public static Block petalBlock;
 	public static Block corporeaIndex;
+	public static Block corporeaFunnel;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -257,6 +260,7 @@ public final class ModBlocks {
 		enchantedSoil = new BlockEnchantedSoil();
 		petalBlock = new BlockPetalBlock();
 		corporeaIndex = new BlockCorporeaIndex();
+		corporeaFunnel = new BlockCorporeaFunnel();
 		
 		ModFluffBlocks.init();
 
@@ -324,6 +328,7 @@ public final class ModBlocks {
 		registerTile(TileManaFlame.class, LibBlockNames.MANA_FLAME);
 		registerTile(TilePrism.class, LibBlockNames.PRISM);
 		registerTile(TileCorporeaIndex.class, LibBlockNames.CORPOREA_INDEX);
+		registerTile(TileCorporeaFunnel.class, LibBlockNames.CORPOREA_FUNNEL);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MANASTAR, SubTileManastar.class);
