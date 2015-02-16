@@ -173,6 +173,7 @@ public final class LexiconData {
 	public static LexiconEntry corporea;
 	public static LexiconEntry corporeaIndex;
 	public static LexiconEntry corporeaFunnel;
+	public static LexiconEntry endStoneDecor;
 
 	public static LexiconEntry baublesIntro;
 	public static LexiconEntry tinyPlanet;
@@ -669,6 +670,9 @@ public final class LexiconData {
 		
 		corporeaFunnel = new ALexiconEntry(LibLexicon.ENDER_CORPOREA_FUNNEL, categoryEnder);
 		corporeaFunnel.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeCorporeaFunnel));
+		
+		endStoneDecor = new BLexiconEntry(LibLexicon.ENDER_END_STONE_DECOR, categoryEnder);
+		endStoneDecor.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeEndStoneBricks), new PageCraftingRecipe("2", ModCraftingRecipes.recipeEndStoneChiseledBricks));
 		
 		// BAUBLES ENTRIES
 		baublesIntro = new BLexiconEntry(LibLexicon.BAUBLE_INTRO, categoryBaubles);

@@ -232,6 +232,8 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeMasterCorporeaSpark;
 	public static IRecipe recipeCorporeaIndex;
 	public static IRecipe recipeCorporeaFunnel;
+	public static IRecipe recipeEndStoneBricks;
+	public static IRecipe recipeEndStoneChiseledBricks;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1529,6 +1531,17 @@ public final class ModCraftingRecipes {
 		addShapelessOreDictRecipe(new ItemStack(ModBlocks.corporeaFunnel), new ItemStack(Blocks.dropper), new ItemStack(ModItems.corporeaSpark));
 		recipeCorporeaFunnel = BotaniaAPI.getLatestAddedRecipe();
 		
+		// End Stone Brick Recipes
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.endStoneBrick, 4), 
+				"SS", "SS",
+				'S', new ItemStack(Blocks.end_stone));
+		recipeEndStoneBricks = BotaniaAPI.getLatestAddedRecipe();
+		
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.endStoneBrick, 1, 1),
+				"S", "S",
+				'S', new ItemStack(ModFluffBlocks.endStoneSlab));
+		recipeEndStoneChiseledBricks = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",
@@ -1576,6 +1589,7 @@ public final class ModCraftingRecipes {
 		addStairsAndSlabs(ModBlocks.customBrick, 1, ModFluffBlocks.soulBrickStairs, ModFluffBlocks.soulBrickSlab);
 		addStairsAndSlabs(ModBlocks.customBrick, 2, ModFluffBlocks.snowBrickStairs, ModFluffBlocks.snowBrickSlab);
 		addStairsAndSlabs(ModBlocks.customBrick, 3, ModFluffBlocks.tileStairs, ModFluffBlocks.tileSlab);
+		addStairsAndSlabs(ModBlocks.endStoneBrick, 0, ModFluffBlocks.endStoneStairs, ModFluffBlocks.endStoneSlab);
 
 		// Biome Stone Recipes
 		for(int i = 0; i < 8; i++) {

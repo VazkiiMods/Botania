@@ -155,6 +155,7 @@ public final class LibLexicon {
 	public static final String ENDER_CORPOREA = "corporea";
 	public static final String ENDER_CORPOREA_INDEX = "corporeaIndex";
 	public static final String ENDER_CORPOREA_FUNNEL = "corporeaFunnel";
+	public static final String ENDER_END_STONE_DECOR = "endStoneDecor";
 
 	public static final String BAUBLE_INTRO = "bIntro";
 	public static final String BAUBLE_TINY_PLANET = "tinyPlanet";

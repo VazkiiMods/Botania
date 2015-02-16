@@ -691,6 +691,10 @@ tile.botania:petalBlock14.name=Red Petal Block
 tile.botania:petalBlock15.name=Black Petal Block
 tile.botania:corporeaIndex.name=Corporea Index
 tile.botania:corporeaFunnel.name=Corporea Funnel
+tile.botania:endStoneBrick0.name=End Stone Bricks
+tile.botania:endStoneBrick1.name=Chiseled End Stone Brick
+tile.botania:endStoneBrick0Slab.name=End Stone Brick Slab
+tile.botania:endStoneBrick0Stairs.name=End Stone Brick Stairs
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
@@ -1991,6 +1995,12 @@ botania.entry.corporeaFunnel=Corporea Funnel
 botania.page.corporeaFunnel0=A simpler block that utilizes the prospects of the &4Corporea Network&0 is the &1Corporea Funnel&0, when given access to a network through a &1Corporea Spark&0 on top, it'll pull a single item from the network when given a redstone signal.<br>This item is put into an inventory 1 or 2 blocks below it, or case one doesn't exist or is full, tossed into the world right above the funnel.
 botania.page.corporeaFunnel1=The &1Corporea Funnel&0 may only pull items that match its filter, similarly to a &1Hopperhock&0, the filter is designated by items contained on &1Item Frames&0 placed on it. The item pulled is one of the various items in the frames at random.
 botania.page.corporeaFunnel2=Energistically applied
+
+# -- DECORATIVE END BLOCKS
+botania.entry.endStoneDecor=Decorative End Blocks
+botania.page.endStoneDecor0=Similarly to other stone blocks, &1End Stone&0 can be converted into bricks and chiseled bricks, the bricks can be used as stairs or slabs just like normal &1Stone Bricks&0 would.
+botania.page.endStoneDecor1=Making &1End Stone Bricks&0
+botania.page.endStoneDecor2=Making &1Chiseled End Stone Bricks&0
 
 # - BAUBLES AND ACESSORIES
 # -- AN INTRODUCTION TO BAUBLES
