@@ -228,6 +228,10 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeDirtPathSlab;
 	public static List<IRecipe> recipesPatterns;
 	public static IRecipe recipeGaiaIngot;
+	public static IRecipe recipeCorporeaSpark;
+	public static IRecipe recipeMasterCorporeaSpark;
+	public static IRecipe recipeCorporeaIndex;
+	public static IRecipe recipeCorporeaFunnel;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1504,6 +1508,27 @@ public final class ModCraftingRecipes {
 				'I', LibOreDict.TERRA_STEEL);
 		recipeGaiaIngot = BotaniaAPI.getLatestAddedRecipe();
 
+		// Corporea Spark Recipe
+		addShapelessOreDictRecipe(new ItemStack(ModItems.corporeaSpark), new ItemStack(ModItems.spark), LibOreDict.PIXIE_DUST, LibOreDict.ENDER_AIR_BOTTLE);
+		recipeCorporeaSpark = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Master Corporea Spark Recipe
+		addShapelessOreDictRecipe(new ItemStack(ModItems.corporeaSpark, 1, 1), new ItemStack(ModItems.corporeaSpark), LibOreDict.DRAGONSTONE);
+		recipeMasterCorporeaSpark = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Corporea Index Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.corporeaIndex), 
+				"AOA", "OSO", "DOD",
+				'A', LibOreDict.ENDER_AIR_BOTTLE,
+				'O', new ItemStack(Blocks.obsidian),
+				'S', new ItemStack(ModItems.corporeaSpark),
+				'D', LibOreDict.DRAGONSTONE);
+		recipeCorporeaIndex = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Corporea Funnel Recipe
+		addShapelessOreDictRecipe(new ItemStack(ModBlocks.corporeaFunnel), new ItemStack(Blocks.dropper), new ItemStack(ModItems.corporeaSpark));
+		recipeCorporeaFunnel = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",

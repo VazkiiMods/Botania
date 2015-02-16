@@ -170,7 +170,10 @@ public final class LexiconData {
 	public static LexiconEntry spawnerClaw;
 	public static LexiconEntry redString;
 	public static LexiconEntry flightTiara;
-	
+	public static LexiconEntry corporea;
+	public static LexiconEntry corporeaIndex;
+	public static LexiconEntry corporeaFunnel;
+
 	public static LexiconEntry baublesIntro;
 	public static LexiconEntry tinyPlanet;
 	public static LexiconEntry manaRing;
@@ -657,6 +660,15 @@ public final class LexiconData {
 
 		flightTiara = new ALexiconEntry(LibLexicon.ENDER_FLIGHT_TIARA, categoryEnder);
 		flightTiara.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeFlightTiara), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipesWings));
+		
+		corporea = new ALexiconEntry(LibLexicon.ENDER_CORPOREA, categoryEnder);
+		corporea.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageText("3"), new PageText("4"), new PageText("5"), new PageText("6"), new PageCraftingRecipe("7", ModCraftingRecipes.recipeCorporeaSpark), new PageCraftingRecipe("8", ModCraftingRecipes.recipeMasterCorporeaSpark));
+
+		corporeaIndex = new ALexiconEntry(LibLexicon.ENDER_CORPOREA_INDEX, categoryEnder);
+		corporeaIndex.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageText("3"), new PageText("4"), new PageText("5"), new PageCraftingRecipe("6", ModCraftingRecipes.recipeCorporeaIndex));
+		
+		corporeaFunnel = new ALexiconEntry(LibLexicon.ENDER_CORPOREA_FUNNEL, categoryEnder);
+		corporeaFunnel.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeCorporeaFunnel));
 		
 		// BAUBLES ENTRIES
 		baublesIntro = new BLexiconEntry(LibLexicon.BAUBLE_INTRO, categoryBaubles);

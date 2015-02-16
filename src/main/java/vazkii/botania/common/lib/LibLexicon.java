@@ -152,7 +152,10 @@ public final class LibLexicon {
 	public static final String ENDER_SPAWNER_CLAW = "spawnerClaw";
 	public static final String ENDER_RED_STRING = "redString";
 	public static final String ENDER_FLIGHT_TIARA = "flightTiara";
-	
+	public static final String ENDER_CORPOREA = "corporea";
+	public static final String ENDER_CORPOREA_INDEX = "corporeaIndex";
+	public static final String ENDER_CORPOREA_FUNNEL = "corporeaFunnel";
+
 	public static final String BAUBLE_INTRO = "bIntro";
 	public static final String BAUBLE_TINY_PLANET = "tinyPlanet";
 	public static final String BAUBLE_MANA_RING = "manaRing";

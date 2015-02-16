@@ -10,16 +10,21 @@
  */
 package vazkii.botania.common.block.corporea;
 
+import vazkii.botania.api.lexicon.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
+import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class BlockCorporeaIndex extends BlockCorporeaBase {
+public class BlockCorporeaIndex extends BlockCorporeaBase implements ILexiconable {
 
 	public BlockCorporeaIndex() {
 		super(Material.iron, LibBlockNames.CORPOREA_INDEX);
@@ -50,6 +55,11 @@ public class BlockCorporeaIndex extends BlockCorporeaBase {
 	@Override
 	public TileCorporeaBase createNewTileEntity(World world, int meta) {
 		return new TileCorporeaIndex();
+	}
+
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return LexiconData.corporeaIndex;
 	}
 
 }

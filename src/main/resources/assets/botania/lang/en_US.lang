@@ -1964,6 +1964,34 @@ botania.page.flightTiara1=Forty thousand books from another world
 botania.page.flightTiara2=Combining the Tiara with a variety of Quartz species allows for it to create various different kinds of aesthetic wings, one for each style of quartz.<br>The recipes for the various types of quartz can be found in the &4Decorative Blocks&0 entry under &4Misclaneous&0, &1Elven Quartz&0 is acquired by trading &1Nether Quartz&0 with the elves.
 botania.page.flightTiara3=Adding Wings (they can be swapped any time)
 
+# -- BASICS OF CORPOREA
+botania.entry.corporea=Basics of Corporea
+botania.page.corporea0=&4Corporea&0 is a magical system that utilizes the energy of the end and the empty space in the world to transport items from point A to point B instantly and without any connecting parts.<br>The system works through a variant of &1Sparks&0, &1Corporea Sparks&0. These share some similarities with normal &1Sparks&0 but also a fair few differences.
+botania.page.corporea1=Starting off, they can go on top of any &4Inventory&0, like a &1Chest&0 or a &1Dispenser&0 as opposed to &4Mana Containers&0, secondly, there's two types of &1Corporea Sparks&0, the basic &1Corporea Spark&0 and the &1Master Corporea Spark&0. These sparks work in a network-like system, each &1Master Corporea Spark&0 designates a &4Corporea Network&0, in which any spark can communicate with other sparks present in it.
+botania.page.corporea2=When a &1Corporea Spark&0 is placed or polled, each spark will poll any nearby sparks, adding them to the network designated by the single &1Master Corporea Spark&0 and also polling other nearby sparks, in a chain. While each individual spark can only reach a few blocks, combined, the entire network can go for a virtually infinite distance.
+botania.page.corporea3=&1Corporea Sparks&0 have a view of the inventory directly below them, but can only access items from the top side. Each &1Corporea Spark&0 has the ability to view every other spark in the network and its contents, and the ability to request them as necessary, depending on the type of block below it.
+botania.page.corporea4=It's to note that the &1Master Corporea Spark&0, while being part of the network, can not have the items in its inventory extracted from.<br>Futhermore, no requests for items in the network are ever done passively. Corporea does not have the ability to add new items to the network, those should be inserted physically through &1Hoppers&0 or other methods.
+botania.page.corporea5=Similarly to normal &1Sparks&0, &1Corporea Sparks&0 have a method of augmentation, that being the ability to color them. While in the world, there's an icon floating around the spark that shows which color it has, this can be changed by right clicking on the spark with a piece of &1Floral Powder&0. These colors define networks. A spark may only be in the same network as another spark if the two have the same color. 
+botania.page.corporea6=The ability to color sparks allows for multiple different &4Corporea Networks&0 to be together in a close area, without interfering with each other.<br>Viewing the network and removing the spark works exactly the same as a normal spark. Lastly, having two &1Master Corporea Sparks&0 of the same color nearby, while possible, is a bad idea and will cause conflicts and odd behaviour.
+botania.page.corporea7=Creating &1Corporea Sparks&0
+botania.page.corporea8=And &1Master Corporea Sparks&0
+
+# -- CORPOREA INDEX
+botania.entry.corporeaIndex=Corporea Index
+botania.page.corporeaIndex0=The biggest ability of a &4Corporea Network&0 is the ability to vocally request items from it by name. The &1Corporea Index&0 is an ender-crystal like block that can interface with a given &4Corporea Network&0 by having a &1Corporea Spark&0 placed on top of it.<br>While in the world, approaching it will cause it to activate and show the radius in which it will stay activated.
+botania.page.corporeaIndex1=While activated, the index will intercept any &4Chat Messages&0 sent by nearby players, taking them in as &4requests&0 and preventing them to be broadcasted to chat. From this, it'll request, from the network, items whose name matches the request. For example, writing "iron ingot" will have the index look through the network for a single &1Iron Ingot&0 and transport it towards itself, materializing it in the world.
+botania.page.corporeaIndex2=Writing "iron..." will have it search for any items whose name contains "iron", such as &1Iron Ingot&0, &1Iron Pickaxe&0, and so on. Writing "this" will search for items whose name equals the name of the item in the player's hand.<br>Requests can be more complex than just a single item. For example "10 apples" will request, as described, 10 &1Apples&0.
+botania.page.corporeaIndex3=The plural form of an item's name may only be used case it's a regular noun when it comes to the plural (suffixed by "-s", "-es" or "-ies"), the singular version works just as well for requests of multiple items, such as "10 apple".<br>"10 of this" requests 10 items whose name equals the item in the player's hand, as expected.
+botania.page.corporeaIndex4=Examples of complex requests include "10 apples", "a stack of apples", "2 stacks of apples", "2 stacks and 20 apples", "half a stack of apples", "a dozen apples", and so on.<br>The index will also recognise more or less verbose forms of request, so "2x stacks and 20x of apples" is equal to "2 stack 2 apple" or "2 stacks + 2 apples".
+botania.page.corporeaIndex5=Requesting with "all" or "every" will deliver every single item in the network that matches the criteria, so "all apples" will deliver all the apples in the network.<br>On the other side, requesting "count", "show", "display" or "tell" won't request any, but will tell the requester how many exist in the network.
+botania.page.corporeaIndex6=A certain magical one at that
+
+# -- CORPOREA FUNNEL
+botania.entry.corporeaFunnel=Corporea Funnel
+botania.page.corporeaFunnel0=A simpler block that utilizes the prospects of the &4Corporea Network&0 is the &1Corporea Funnel&0, when given access to a network through a &1Corporea Spark&0 on top, it'll pull a single item from the network when given a redstone signal.<br>This item is put into an inventory 1 or 2 blocks below it, or case one doesn't exist or is full, tossed into the world right above the funnel.
+botania.page.corporeaFunnel1=The &1Corporea Funnel&0 may only pull items that match its filter, similarly to a &1Hopperhock&0, the filter is designated by items contained on &1Item Frames&0 placed on it. The item pulled is one of the various items in the frames at random.
+botania.page.corporeaFunnel2=Energistically applied
+
 # - BAUBLES AND ACESSORIES
 # -- AN INTRODUCTION TO BAUBLES
 botania.entry.bIntro=An Introduction to Baubles
