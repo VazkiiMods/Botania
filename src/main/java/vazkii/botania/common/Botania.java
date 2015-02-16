@@ -30,6 +30,7 @@ public class Botania {
 
 	public static boolean thaumcraftLoaded = false;
 	public static boolean bcTriggersLoaded = false;
+	public static boolean bloodMagicLoaded = false;
 
 	@Instance(LibMisc.MOD_ID)
 	public static Botania instance;
@@ -41,7 +42,8 @@ public class Botania {
 	public void preInit(FMLPreInitializationEvent event) {
 		thaumcraftLoaded = Loader.isModLoaded("Thaumcraft");
 		bcTriggersLoaded = ModAPIManager.INSTANCE.hasAPI("BuildCraftAPI|statements");
-
+		bloodMagicLoaded = Loader.isModLoaded("AWWayofTime"); // Psh, noob
+		
 		proxy.preInit(event);
 	}
 

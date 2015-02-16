@@ -372,7 +372,7 @@ public final class LexiconData {
 
 		if(ConfigHandler.fallenKanadeEnabled) {
 			fallenKanade = new BLexiconEntry(LibLexicon.FFLOWER_FALLEN_KANADE, categoryFunctionalFlowers);
-			fallenKanade.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.fallenKanadeRecipe), new PageText("2"));
+			fallenKanade.setLexiconPages(new PageText(Botania.bloodMagicLoaded ? "0a" : "0"), new PagePetalRecipe("1", ModPetalRecipes.fallenKanadeRecipe), new PageText("2"));
 		}
 
 		exoflame = new BLexiconEntry(LibLexicon.FFLOWER_EXOFLAME, categoryFunctionalFlowers);

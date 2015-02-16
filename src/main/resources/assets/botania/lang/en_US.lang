@@ -1365,6 +1365,7 @@ botania.page.orechid1=&oNot dragon poop&r.
 # -- FALLEN KANADE
 botania.entry.fallenKanade=Fallen Kanade
 botania.page.fallenKanade0=The &1Fallen Kanade&0 is a flower with angelic properties, it'll use &4Mana&0 from nearby &4Mana Pools&0 in order to apply a regeneration effect to any &4players&0 nearby.
+botania.page.fallenKanade0a=The &1Fallen Kanade&0 is a flower with angelic properties, it'll use &4Mana&0 from nearby &4Mana Pools&0 in order to apply a regeneration effect to any &4players&0 nearby.<br>Interestingly enough, &4Blood Mages&0 have been known to place odd hexes on their altars which cause this flower to malfunction, that might be something to keep in mind.
 botania.page.fallenKanade1=&oHand Sonic, version four&r.
 botania.page.fallenKanade2=&oI'll marry you. No matter what kind of sickness you have, even if you can't walk or stand, or even if you can't have kids, I'll still marry you. No matter where or how I met you, I'll fall in love with you.<br>If I can meet you again, against the six billion to one odds, and even if your body can't move, I'll marry you.
 
@@ -1728,7 +1729,7 @@ botania.page.terraformRod3=Quite a justicar
 # -- MANASTEEL EQUIPMENT
 botania.entry.manaGear=Manasteel Equipment
 botania.page.manaGear0=&1Manasteel&0, alike other metals, can be shaped into tools and armor alike.<br>Tools or armor crafted from this material will share their properties with &1Iron&0, albeit somewhat superior in enchantability and durability. Whenever a &1Manasteel&0 item is to take damage, if there's &4Mana&0 available in the inventory (such as a &1Mana Tablet&0), it'll use that instead.
-botania.page.manaGear10=Some pieces of the toolset have an ability when right clicked. The &1Pickaxe&0 will place a torch from the user's inventory, the &1Axe&0 will do the same for a sapling and the &1Shovel&0 will till the earth, similarly to a hoe.
+botania.page.manaGear10=Some pieces of the toolset have an ability when right clicked. The &1Pickaxe&0 will place a torch from the user's inventory, the &1Axe&0 will do the same for a sapling and the &1Shovel&0 will till the earth, similarly to a hoe.<br>A detail to keep in mind is that &1Shears&0 made of mana materials will trigger tripwire, unlike iron ones.
 botania.page.manaGear1=The &1Manasteel Pickaxe&0
 botania.page.manaGear2=The &1Manasteel Shovel&0
 botania.page.manaGear3=The &1Manasteel Axe&0
