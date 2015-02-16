@@ -112,7 +112,6 @@ public final class LexiconData {
 	public static LexiconEntry narslimmus;
 	public static LexiconEntry spectrolus;
 
-	public static LexiconEntry pistonRelay;
 	public static LexiconEntry pylon;
 	public static LexiconEntry manaEnchanting;
 	public static LexiconEntry turntable;
@@ -124,13 +123,10 @@ public final class LexiconData {
 	public static LexiconEntry conjurationCatalyst;
 	public static LexiconEntry spectralPlatform;
 	public static LexiconEntry gatherDrum;
-	public static LexiconEntry spawnerClaw;
 	public static LexiconEntry craftCrate;
-	public static LexiconEntry enderEyeBlock;
 	public static LexiconEntry brewery;
 	public static LexiconEntry flasks;
 	public static LexiconEntry complexBrews;
-	public static LexiconEntry redString;
 
 	public static LexiconEntry manaBlaster;
 	public static LexiconEntry grassSeeds;
@@ -141,7 +137,6 @@ public final class LexiconData {
 	public static LexiconEntry grassHorn;
 	public static LexiconEntry terraBlade;
 	public static LexiconEntry terraPick;
-	public static LexiconEntry enderDagger;
 	public static LexiconEntry waterRod;
 	public static LexiconEntry elfGear;
 	public static LexiconEntry openBucket;
@@ -153,7 +148,6 @@ public final class LexiconData {
 	public static LexiconEntry laputaShard;
 	public static LexiconEntry virus;
 	public static LexiconEntry skyDirtRod;
-	public static LexiconEntry enderHand;
 	public static LexiconEntry glassPick;
 	public static LexiconEntry diviningRod;
 	public static LexiconEntry gravityRod;
@@ -167,7 +161,16 @@ public final class LexiconData {
 	public static LexiconEntry spellCloth;
 	public static LexiconEntry thornChakram;
 	public static LexiconEntry overgrowthSeed;
-
+	
+	public static LexiconEntry enderAir;
+	public static LexiconEntry enderEyeBlock;
+	public static LexiconEntry pistonRelay;
+	public static LexiconEntry enderHand;
+	public static LexiconEntry enderDagger;
+	public static LexiconEntry spawnerClaw;
+	public static LexiconEntry redString;
+	public static LexiconEntry flightTiara;
+	
 	public static LexiconEntry baublesIntro;
 	public static LexiconEntry tinyPlanet;
 	public static LexiconEntry manaRing;
@@ -181,7 +184,6 @@ public final class LexiconData {
 	public static LexiconEntry miningRing;
 	public static LexiconEntry magnetRing;
 	public static LexiconEntry divaCharm;
-	public static LexiconEntry flightTiara;
 	public static LexiconEntry pixieRing;
 	public static LexiconEntry superTravelBelt;
 	public static LexiconEntry reachRing;
@@ -218,8 +220,9 @@ public final class LexiconData {
 		BotaniaAPI.addCategory(BotaniaAPI.categoryGenerationFlowers = new BLexiconCategory(LibLexicon.CATEGORY_GENERATION_FLOWERS, 5));
 		BotaniaAPI.addCategory(BotaniaAPI.categoryFunctionalFlowers = new BLexiconCategory(LibLexicon.CATEGORY_FUNCTIONAL_FLOWERS, 5));
 		BotaniaAPI.addCategory(BotaniaAPI.categoryDevices = new BLexiconCategory(LibLexicon.CATEGORY_DEVICES, 5));
-		BotaniaAPI.addCategory(BotaniaAPI.categoryTools = new BLexiconCategory(LibLexicon.CATEGORY_TOOLS, 0));
+		BotaniaAPI.addCategory(BotaniaAPI.categoryTools = new BLexiconCategory(LibLexicon.CATEGORY_TOOLS, 5));
 		BotaniaAPI.addCategory(BotaniaAPI.categoryBaubles = new BLexiconCategory(LibLexicon.CATEGORY_BAUBLES, 5));
+		BotaniaAPI.addCategory(BotaniaAPI.categoryEnder = new BLexiconCategory(LibLexicon.CATEGORY_ENDER, 5));
 		BotaniaAPI.addCategory(BotaniaAPI.categoryAlfhomancy = new BLexiconCategory(LibLexicon.CATEGORY_ALFHOMANCY, 5));
 		BotaniaAPI.addCategory(BotaniaAPI.categoryMisc = new BLexiconCategory(LibLexicon.CATEGORY_MISC, 0));
 
@@ -230,6 +233,7 @@ public final class LexiconData {
 		LexiconCategory categoryDevices = BotaniaAPI.categoryDevices;
 		LexiconCategory categoryTools = BotaniaAPI.categoryTools;
 		LexiconCategory categoryBaubles = BotaniaAPI.categoryBaubles;
+		LexiconCategory categoryEnder = BotaniaAPI.categoryEnder;
 		LexiconCategory categoryAlfhomancy = BotaniaAPI.categoryAlfhomancy;
 		LexiconCategory categoryMisc = BotaniaAPI.categoryMisc;
 
@@ -453,9 +457,6 @@ public final class LexiconData {
 		spectrolus.setLexiconPages(new PageText("0"), new PageText("1"), new PagePetalRecipe("2", ModPetalRecipes.spectrolusRecipe));
 
 		// DEVICES ENTRIES
-		pistonRelay = new BLexiconEntry(LibLexicon.DEVICE_PISTON_RELAY, categoryDevices);
-		pistonRelay.setLexiconPages(new PageText("0"), new PageText("1"), new PageManaInfusionRecipe("2", ModManaInfusionRecipes.pistonRelayRecipe));
-
 		pylon = new BLexiconEntry(LibLexicon.DEVICE_PYLON, categoryDevices);
 		pylon.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipePylon));
 
@@ -500,14 +501,8 @@ public final class LexiconData {
 		gatherDrum = new ALexiconEntry(LibLexicon.DEVICE_GATHER_DRUM, categoryDevices);
 		gatherDrum.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeGatherDrum));
 
-		spawnerClaw = new ALexiconEntry(LibLexicon.DEVICE_SPAWNER_CLAW, categoryDevices);
-		spawnerClaw.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeSpawnerClaw));
-
 		craftCrate = new ALexiconEntry(LibLexicon.DEVICE_CRAFT_CRATE, categoryDevices);
 		craftCrate.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipePlaceholder), new PageText("3"), new PageText("4"), new PageText("7"), new PageImage("5", LibResources.ENTRY_CRAFT_CRATE), new PageCraftingRecipe("6", ModCraftingRecipes.recipeCraftCrate), new PageText("8"), new PageCraftingRecipe("9", ModCraftingRecipes.recipesPatterns));
-
-		enderEyeBlock = new BLexiconEntry(LibLexicon.DEVICE_ENDER_EYE_BLOCK, categoryDevices);
-		enderEyeBlock.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeEnderEyeBlock));
 
 		brewery = new BLexiconEntry(LibLexicon.DEVICE_BREWERY, categoryDevices);
 		brewery.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeBrewery), new PageCraftingRecipe("3", ModCraftingRecipes.recipeVial), new PageText("4"),
@@ -527,14 +522,6 @@ public final class LexiconData {
 				new PageBrew(ModBrewRecipes.overloadBrew, "1a", "1b"), new PageBrew(ModBrewRecipes.soulCrossBrew, "2a", "2b"),
 				new PageBrew(ModBrewRecipes.featherFeetBrew, "3a", "3b"), new PageBrew(ModBrewRecipes.emptinessBrew, "4a", "4b"),
 				new PageBrew(ModBrewRecipes.bloodthirstBrew, "5a", "5b"), new PageBrew(ModBrewRecipes.allureBrew, "6a", "6b"));
-
-		redString = new ALexiconEntry(LibLexicon.DEVICE_RED_STRING, categoryDevices);
-		redString.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeRedString),
-				new PageText("3"), new PageCraftingRecipe("4", ModCraftingRecipes.recipeRedStringContainer),
-				new PageText("5"), new PageCraftingRecipe("6", ModCraftingRecipes.recipeRedStringDispenser),
-				new PageText("7"), new PageCraftingRecipe("8", ModCraftingRecipes.recipeRedStringFertilizer),
-				new PageText("9"), new PageCraftingRecipe("10", ModCraftingRecipes.recipeRedStringComparator),
-				new PageText("11"), new PageCraftingRecipe("12", ModCraftingRecipes.recipeRedStringRelay));
 
 		// TOOLS ENTRIES
 		manaBlaster = new BLexiconEntry(LibLexicon.TOOL_MANA_BLASTER, categoryTools);
@@ -565,9 +552,6 @@ public final class LexiconData {
 
 		terraPick = new BLexiconEntry(LibLexicon.TOOL_TERRA_PICK, categoryTools);
 		terraPick.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageText("3"), new PageText("4"), new PageCraftingRecipe("5", ModCraftingRecipes.recipeTerraPick));
-
-		enderDagger = new BLexiconEntry(LibLexicon.TOOL_ENDER_DAGGER, categoryTools);
-		enderDagger.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeEnderDagger));
 
 		waterRod = new BLexiconEntry(LibLexicon.TOOL_WATER_ROD, categoryTools);
 		waterRod.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeWaterRod));
@@ -603,9 +587,6 @@ public final class LexiconData {
 
 		skyDirtRod = new ALexiconEntry(LibLexicon.TOOL_SKY_DIRT_ROD, categoryTools);
 		skyDirtRod.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeSkyDirtRod));
-
-		enderHand = new BLexiconEntry(LibLexicon.TOOL_ENDER_HAND, categoryTools);
-		enderHand.setLexiconPages(new PageText(ConfigHandler.enderPickpocketEnabled ? "0" : "0a"), new PageCraftingRecipe(ConfigHandler.enderPickpocketEnabled ? "1" : "1a", ModCraftingRecipes.recipeEnderHand));
 
 		glassPick = new BLexiconEntry(LibLexicon.TOOL_GLASS_PICK, categoryTools);
 		glassPick.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeGlassPick));
@@ -646,6 +627,37 @@ public final class LexiconData {
 		overgrowthSeed = new BLexiconEntry(LibLexicon.TOOL_OVERGROWTH_SEED, categoryTools);
 		overgrowthSeed.setLexiconPages(new PageText("0"));
 
+		// ENDER ENTRIES
+		enderAir = new BLexiconEntry(LibLexicon.ENDER_AIR, categoryEnder);
+		enderAir.setPriority().setLexiconPages(new PageText("0"));
+		LexiconRecipeMappings.map(new ItemStack(ModItems.manaResource, 1, 15), enderAir, 0);
+
+		enderEyeBlock = new BLexiconEntry(LibLexicon.ENDER_ENDER_EYE_BLOCK, categoryEnder);
+		enderEyeBlock.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeEnderEyeBlock));
+		
+		pistonRelay = new BLexiconEntry(LibLexicon.ENDER_PISTON_RELAY, categoryEnder);
+		pistonRelay.setLexiconPages(new PageText("0"), new PageText("1"), new PageManaInfusionRecipe("2", ModManaInfusionRecipes.pistonRelayRecipe));
+		
+		enderHand = new BLexiconEntry(LibLexicon.ENDER_ENDER_HAND, categoryEnder);
+		enderHand.setLexiconPages(new PageText(ConfigHandler.enderPickpocketEnabled ? "0" : "0a"), new PageCraftingRecipe(ConfigHandler.enderPickpocketEnabled ? "1" : "1a", ModCraftingRecipes.recipeEnderHand));
+		
+		enderDagger = new BLexiconEntry(LibLexicon.ENDER_ENDER_DAGGER, categoryEnder);
+		enderDagger.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeEnderDagger));
+
+		spawnerClaw = new ALexiconEntry(LibLexicon.ENDER_SPAWNER_CLAW, categoryEnder);
+		spawnerClaw.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeSpawnerClaw));
+
+		redString = new ALexiconEntry(LibLexicon.ENDER_RED_STRING, categoryEnder);
+		redString.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeRedString),
+				new PageText("3"), new PageCraftingRecipe("4", ModCraftingRecipes.recipeRedStringContainer),
+				new PageText("5"), new PageCraftingRecipe("6", ModCraftingRecipes.recipeRedStringDispenser),
+				new PageText("7"), new PageCraftingRecipe("8", ModCraftingRecipes.recipeRedStringFertilizer),
+				new PageText("9"), new PageCraftingRecipe("10", ModCraftingRecipes.recipeRedStringComparator),
+				new PageText("11"), new PageCraftingRecipe("12", ModCraftingRecipes.recipeRedStringRelay));
+
+		flightTiara = new ALexiconEntry(LibLexicon.ENDER_FLIGHT_TIARA, categoryEnder);
+		flightTiara.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeFlightTiara), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipesWings));
+		
 		// BAUBLES ENTRIES
 		baublesIntro = new BLexiconEntry(LibLexicon.BAUBLE_INTRO, categoryBaubles);
 		baublesIntro.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_BAUBLES), new PageText("2"));
@@ -685,9 +697,6 @@ public final class LexiconData {
 
 		divaCharm = new ALexiconEntry(LibLexicon.BAUBLE_DIVA_CHARM, categoryBaubles);
 		divaCharm.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeDivaCharm));
-
-		flightTiara = new ALexiconEntry(LibLexicon.BAUBLE_FLIGHT_TIARA, categoryBaubles);
-		flightTiara.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeFlightTiara), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipesWings));
 
 		pixieRing = new ALexiconEntry(LibLexicon.BAUBLE_PIXIE_RING, categoryBaubles);
 		pixieRing.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipePixieRing));

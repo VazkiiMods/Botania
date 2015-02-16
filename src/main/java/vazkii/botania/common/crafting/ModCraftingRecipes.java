@@ -750,10 +750,11 @@ public final class ModCraftingRecipes {
 
 		// Flugel Tiara Recipe
 		addOreDictRecipe(new ItemStack(ModItems.flightTiara),
-				"LLL", "ILI", "FIF",
+				"LLL", "ILI", "FEF",
 				'L', LibOreDict.LIFE_ESSENCE,
 				'I', LibOreDict.ELEMENTIUM,
-				'F', new ItemStack(Items.feather));
+				'F', new ItemStack(Items.feather),
+				'E', LibOreDict.ENDER_AIR_BOTTLE);
 		recipeFlightTiara = BotaniaAPI.getLatestAddedRecipe();
 
 		// Glimmering Flowers Recipes
@@ -1086,11 +1087,12 @@ public final class ModCraftingRecipes {
 
 		// Life Imbuer Recipe
 		addOreDictRecipe(new ItemStack(ModBlocks.spawnerClaw),
-				"BSB", "PMP", "P P",
+				"BSB", "PMP", "PEP",
 				'B', new ItemStack(Items.blaze_rod),
 				'S', LibOreDict.ELEMENTIUM,
 				'P', new ItemStack(ModBlocks.prismarine, 1, 2),
-				'M', new ItemStack(ModBlocks.storage));
+				'M', new ItemStack(ModBlocks.storage),
+				'E', LibOreDict.ENDER_AIR_BOTTLE);
 		recipeSpawnerClaw = BotaniaAPI.getLatestAddedRecipe();
 
 		// Crafty Crate Recipe
@@ -1304,10 +1306,10 @@ public final class ModCraftingRecipes {
 		recipeTerraPlate = BotaniaAPI.getLatestAddedRecipe();
 
 		// Red String Recipe
-		addShapelessOreDictRecipe(new ItemStack(ModItems.manaResource, 1, 12), new ItemStack(Items.string), new ItemStack(Blocks.redstone_block), LibOreDict.PIXIE_DUST);
+		addShapelessOreDictRecipe(new ItemStack(ModItems.manaResource, 1, 12), new ItemStack(Items.string), new ItemStack(Blocks.redstone_block), LibOreDict.PIXIE_DUST, LibOreDict.ENDER_AIR_BOTTLE);
 		recipeRedString = BotaniaAPI.getLatestAddedRecipe();
 		// Are you in a pinch?
-		addShapelessOreDictRecipe(new ItemStack(ModItems.manaResource, 1, 12), new ItemStack(Items.string), new ItemStack(Blocks.redstone_block), LibOreDict.PIXIE_DUST, new ItemStack(Blocks.pumpkin));
+		addShapelessOreDictRecipe(new ItemStack(ModItems.manaResource, 1, 12), new ItemStack(Items.string), new ItemStack(Blocks.redstone_block), LibOreDict.PIXIE_DUST, LibOreDict.ENDER_AIR_BOTTLE, new ItemStack(Blocks.pumpkin));
 
 		// Red String Container Recipe
 		addOreDictRecipe(new ItemStack(ModBlocks.redStringContainer),

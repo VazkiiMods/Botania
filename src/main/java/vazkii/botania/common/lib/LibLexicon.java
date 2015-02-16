@@ -21,6 +21,7 @@ public final class LibLexicon {
 	public static final String CATEGORY_DEVICES = "devices";
 	public static final String CATEGORY_TOOLS = "tools";
 	public static final String CATEGORY_BAUBLES = "baubles";
+	public static final String CATEGORY_ENDER = "ender";
 	public static final String CATEGORY_ALFHOMANCY = "alfhomancy";
 	public static final String CATEGORY_MISC = "misc";
 
@@ -93,7 +94,6 @@ public final class LibLexicon {
 	public static final String GFLOWER_NARSLIMMUS = "narslimmus";
 	public static final String GFLOWER_SPECTROLUS = "spectrolus";
 
-	public static final String DEVICE_PISTON_RELAY = "pistonRelay";
 	public static final String DEVICE_PYLON = "pylon";
 	public static final String DEVICE_MANA_ENCHANTING = "manaEnchanting";
 	public static final String DEVICE_TURNTABLE = "turntable";
@@ -105,13 +105,10 @@ public final class LibLexicon {
 	public static final String DEVICE_MANA_CONJURATION = "manaConjuration";
 	public static final String DEVICE_SPECTRAL_PLATFORM = "spectralPlatform";
 	public static final String DEVICE_GATHER_DRUM = "gatherDrum";
-	public static final String DEVICE_SPAWNER_CLAW = "spawnerClaw";
 	public static final String DEVICE_CRAFT_CRATE = "craftCrate";
-	public static final String DEVICE_ENDER_EYE_BLOCK = "enderEyeBlock";
 	public static final String DEVICE_BREWERY = "brewery";
 	public static final String DEVICE_FLASKS = "flasks";
 	public static final String DEVICE_COMPLEX_BREWS = "complexBrews";
-	public static final String DEVICE_RED_STRING = "redString";
 
 	public static final String TOOL_MANA_BLASTER = "manaBlaster";
 	public static final String TOOL_GRASS_SEEDS = "grassSeeds";
@@ -122,7 +119,6 @@ public final class LibLexicon {
 	public static final String TOOL_GRASS_HORN = "grassHorn";
 	public static final String TOOL_TERRA_SWORD = "terraSword";
 	public static final String TOOL_TERRA_PICK = "terraPick";
-	public static final String TOOL_ENDER_DAGGER = "enderDagger";
 	public static final String TOOL_WATER_ROD = "waterRod";
 	public static final String TOOL_ELF_GEAR = "elfGear";
 	public static final String TOOL_OPEN_BUCKET = "openBucket";
@@ -134,7 +130,6 @@ public final class LibLexicon {
 	public static final String TOOL_LAPUTA_SHARD = "laputaShard";
 	public static final String TOOL_VIRUS = "virus";
 	public static final String TOOL_SKY_DIRT_ROD = "skyDirtRod";
-	public static final String TOOL_ENDER_HAND = "enderHand";
 	public static final String TOOL_GLASS_PICK = "glassPick";
 	public static final String TOOL_DIVINING_ROD = "diviningRod";
 	public static final String TOOL_GRAVITY_ROD = "gravityRod";
@@ -149,6 +144,15 @@ public final class LibLexicon {
 	public static final String TOOL_THORN_CHAKRAM = "thornChakram";
 	public static final String TOOL_OVERGROWTH_SEED = "overgrowthSeed";
 
+	public static final String ENDER_AIR = "enderAir";
+	public static final String ENDER_ENDER_EYE_BLOCK = "enderEyeBlock";
+	public static final String ENDER_PISTON_RELAY = "pistonRelay";
+	public static final String ENDER_ENDER_HAND = "enderHand";
+	public static final String ENDER_ENDER_DAGGER = "enderDagger";
+	public static final String ENDER_SPAWNER_CLAW = "spawnerClaw";
+	public static final String ENDER_RED_STRING = "redString";
+	public static final String ENDER_FLIGHT_TIARA = "flightTiara";
+	
 	public static final String BAUBLE_INTRO = "bIntro";
 	public static final String BAUBLE_TINY_PLANET = "tinyPlanet";
 	public static final String BAUBLE_MANA_RING = "manaRing";
@@ -162,7 +166,6 @@ public final class LibLexicon {
 	public static final String BAUBLE_MINING_RING = "miningRing";
 	public static final String BAUBLE_MAGNET_RING = "magnetRing";
 	public static final String BAUBLE_DIVA_CHARM = "divaCharm";
-	public static final String BAUBLE_FLIGHT_TIARA = "flightTiara";
 	public static final String BAUBLE_PIXIE_RING = "pixieRing";
 	public static final String BAUBLE_SUPER_TRAVEL_BELT = "superTravelBelt";
 	public static final String BAUBLE_REACH_RING = "reachRing";

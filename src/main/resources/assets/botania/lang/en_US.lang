@@ -1024,6 +1024,7 @@ item.botania:ancientWill4.name=Will of Verac
 item.botania:ancientWill5.name=Will of Karil
 item.botania:corporeaSpark0.name=Corporea Spark
 item.botania:corporeaSpark1.name=Master Corporea Spark
+item.botania:enderAirBottle.name=Ender Air Bottle
 
 # BREW NAMES
 botania.brew.fallback=Fallback
@@ -1067,6 +1068,7 @@ botania.category.generationFlowers=Generating Flora
 botania.category.devices=Natural Apparatus
 botania.category.tools=Mystical Items
 botania.category.baubles=Baubles and Acessories
+botania.category.ender=Ender Artefacts
 botania.category.alfhomancy=Alfhomancy
 botania.category.misc=Miscellaneous
 
@@ -1524,12 +1526,6 @@ botania.page.spectrolus1=While it consumes all &1Wool&0 around, it'll only creat
 botania.page.spectrolus2=&oTaste the Rainbow&r.
 
 # - MAGICAL APPARATUS
-# -- FORCE RELAY
-botania.entry.pistonRelay=Force Relay
-botania.page.pistonRelay0=It seems that infusing &1Pistons&0 with &4Mana&0 results in some interesting adverse effects.<br>This block tears the fabric of space, relaying any piston force applied to it to the block it's bound to.
-botania.page.pistonRelay1=To bind it to a block, right click it with a &1Wand of the Forest&0, and right click on the block you want to bind it to.<br>Furthermore, this block is highly unstable, and may create uncanny effects, care is to be taken, it is also resistant to glue, both in pulling and pushing. This allows for a "frame" like setup.
-botania.page.pistonRelay2=Infusing a &1Piston&0 with &4Mana&0.
-
 # -- MANA PYLON
 botania.entry.pylon=Mana Pylon
 botania.page.pylon0=A &1Mana Pylon&0 is a structure that can pull energies from the earth and use them to power enchanting processes.<br>For one, setting one adjusted to an &1Enchanting Table&0 as if it was a &1Bookshelf&0 will drastically increase the power it can convey, just 2 of these are enough for it to reach &4Level 30&0.
@@ -1684,12 +1680,6 @@ botania.entry.gatherDrum=Drum of the Gathering
 botania.page.gatherDrum0=The &1Drum of the Gathering&0 is, in short terms, a &1Drum of the Wild&0 for livestock.<br>When a &4Mana Burst&0 collides with it, it'll shear any &4Sheep&0 around with grown fleece. Any &4Cows&0, with &1Empty Buckets&0 below them will have their milk transfered to the buckets.
 botania.page.gatherDrum1=Tap your lands
 
-# -- LIFE IMBUER
-botania.entry.spawnerClaw=Life Imbuer
-botania.page.spawnerClaw0=&1Monster Spawners&0 are an interesting bunch. They have the ability to bring out life from thin air, but somehow, this only manifests when there's a player nearby.<br>This, of course, tends to be a rather limiting factor in the onslaught of any creatures that they can create.
-botania.page.spawnerClaw1=By placing a &1Life Imbuer&0 on top of a &1Monster Spawner&0 and giving it a rather decent chunk of &4Mana&0 through a &1Mana Spreader&0, when there aren't any players in the nearby vicinity, the &4Mana&0 will power the spawner, just as if there were players around.
-botania.page.spawnerClaw2=Something something shadow dragon
-
 # -- CRAFTY CRATE
 botania.entry.craftCrate=Crafty Crate
 botania.page.craftCrate0=As the name suggests, the &1Crafty Crate&0 is a counterpart to the &1Open Crate&0 with the ability to assemble items into other items similarly to a &1Crafting Table&0.<br>Like a &1Crafting Table&0, it has a 9 slot inventory, which can be filled with items in the pattern of a recipe.
@@ -1702,27 +1692,6 @@ botania.page.craftCrate5=An example of crafting a &1Diamond Pickaxe&0
 botania.page.craftCrate6=Made in Portugal
 botania.page.craftCrate8=The &1Crafty Crate&0 can also be augmented with patterns. A pattern locks specific slots in the recipe, disallowing items from going into those slots and making them count as if there were placeholders there.<br>There's only a few basic patterns, which can be applied by right clicking on the crate (this doesn't consume them).
 botania.page.craftCrate9=9 different patterns
-
-# -- ENDER OVERSEER
-botania.entry.enderEyeBlock=Ender Overseer
-botania.page.enderEyeBlock0=The eyes of an &4Enderman&0 have an interesting sensitivity to being watched. A block out of these will simply output a &4redstone signal&0 if a player within a 64 block radius is looking directly at it.<br>Of course, wearing a &1Pumpkin&0 negates this effect.
-botania.page.enderEyeBlock1=MY BRAND
-
-# -- RED STRING
-botania.entry.redString=Red String
-botania.page.redString0=Lore says the Gods tie a red string around the ankles of people who are supposed to affect each others lives. This led inventors to come up with a way of connecting blocks over the air, called, of course, &1Red String&0. Blocks created with this exquisite material can face in all 6 basic directions and bind to the first available and compatible block they can find, given a range.
-botania.page.redString1=Each &4Red Stringed&0 block has a different criteria to what it'll bind to, but the distance in which they'll bind stays constant between the variations. The string can be viewed, if a block is bound, by holding a &1Wand of the Forest&0.<br>Blocks being in the way will not break the connection. Lastly, &1Red String&0 blocks can't be chained.
-botania.page.redString2=Are you in a pinch?
-botania.page.redString3=Starting off, the &1Red Stringed Container&0 will bind to any inventory (&1Chests&0, &1Furnaces&0, &1Hoppers&0, etc), items can be put into it using &1Hoppers&0 or any other means of insertion. The items will end up in the block it's bound to, and will enter from the same side as they were put on the &1Red Stringed Container&0 itself.
-botania.page.redString4=The &1Red Stringed Container&0.
-botania.page.redString5=The &1Red Stringed Dispenser&0 can be bound to &1Dispensers&0 or &1Droppers&0, it functions similarly to the &1Red Stringed Container&0 where items can also be placed in the bound block through it. When a redstone signal is given to it, the &1Dispenser&0 or &1Dropper&0 in the end will fire.
-botania.page.redString6=The &1Red Stringed Dispenser&0.
-botania.page.redString7=The &1Red Stringed Nutrifier&0 can be bound to any block that can be fertilized with &1Bone Meal&0. Using &1Bone Meal&0 on the block will fertilize the bound block instead.
-botania.page.redString8=The &1Red Stringed Nutrifier&0.
-botania.page.redString9=The &1Red Stringed Comparator&0 can be bound to any block whose status can be read with a &1Container&0, such as &1Chests&0, &1Mana Pools&0, &1Runic Altars&0, etc. Placing a &1Comparator&0 pointing outwards of this block will send the signal equal to the signal a &1Comparator&0 would send on the bound block.
-botania.page.redString10=The &1Red Stringed Comparator&0.
-botania.page.redString11=Lastly, the &1Red Stringed Spoofer&0 is an interesting one. Any flower with an effect can be placed on it. The block will bind to any flowers or mushrooms. While there's a flower on top of the block, that flower will not do anything, but the bound block will take all of that flower's properties and work as if it was the flower itself.
-botania.page.redString12=The &1Red Stringed Spoofer&0.
 
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
@@ -1792,12 +1761,6 @@ botania.page.terraPick2=To advance from rank &4C&0 to rank &4B&0, a full &1Mana 
 botania.page.terraPick3=While the tool is active, it enables it to break blocks in an extended area. At rank &4C&0 it's a small column, which increases to a square at rank &4B&0, that gets larger trough the ranks. It's to note that the rank &4D&0 tool does not have the active ability.<br>Having the tool active consumes &4Mana&0 from its storage passively, even if not being used to mine.
 botania.page.terraPick4=Lastly, the tool takes damage for every single block broken, so a good supply of &4Mana&0 in the wielder's inventory is a must for the higher ranks, as the tool does function like normal &1Manasteel Tools&0, in which it'll use &4Mana&0 instead of actually taking damage, given it's made of &1Terrasteel&0.<br>It also won't despawn like regular dropped items.
 botania.page.terraPick5=WE'RE MINING IN THE DATABASE WOW WOW
-
-# -- SOULSCRIBE
-botania.entry.enderDagger=Soulscribe
-botania.page.enderDagger0=Those &4Endermen&0. They're the second more pesky thing since &4Creepers&0. I swear, the person who came up with them must have taken a &onotch&r too much of their drink.<br>However, by infusing a standard dagger with some of their energy, one can create the &1Soulscribe&0, a dagger that tears through &1Endermen&0 as if they were butter.
-botania.page.enderDagger1=Due of the type of infusion, though, the dagger only lasts for a few kills, and the energy that radiates from it prevents the &1Manasteel&0 from gathering &4Mana&0 to avoid damage, like typical tools would. Still, all in the name of killing those monsters.
-botania.page.enderDagger2=Strike my Soul
 
 # -- ROD OF THE SEAS
 botania.entry.waterRod=Rod of the Seas
@@ -1874,13 +1837,6 @@ botania.entry.skyDirtRod=Rod of the Highlands
 botania.page.skyDirtRod0=While the &1Rod of the Lands&0 is all well and good, being able to place &1Dirt&0 without something to hold it would be great.<br>The &1Rod of the Highlands&0 does just that, while maintaining the original power of the &1Rod of the Lands&0, it can also place &1Dirt&0 in mid air, for an increased &4Mana&0 cost.
 botania.page.skyDirtRod1=Dirty Stick mk2
 
-# -- HAND OF ENDER
-botania.entry.enderHand=Hand of Ender
-botania.page.enderHand0=The &1Hand of Ender&0 allows the user to access the interdimensional ender field, on other words, their &1Ender Chest&0 inventory. This can be done anywhere by right clicking with the hand at the cost of some &4Mana&0.<br>Using the hand on another player will open up &otheir&r inventory instead, at a lot higher &4Mana&0 cost.
-botania.page.enderHand0a=The &1Hand of Ender&0 allows the user to access the interdimensional ender field, on other words, their &1Ender Chest&0 inventory. This can be done anywhere by right clicking with the hand at the cost of some &4Mana&0.
-botania.page.enderHand1=Zezima hates him!
-botania.page.enderHand1a=It's like the 4G of Ender Chests
-
 # -- VITREOUS PICKAXE
 botania.entry.glassPick=Vitreous Pickaxe
 botania.page.glassPick0=Placing down &1Glass&0 and having to break it again can be a heartbreaking experience. Luckily, by creating a &1Vitreous Pickaxe&0, one can gather the &1Glass&0 back by mining it with the pick, it's like cheap &4Silk Touch&0 for glass!
@@ -1949,7 +1905,65 @@ botania.page.thornChakram1=Spores and stingers
 botania.entry.overgrowthSeed=Overgrowth Seed
 botania.page.overgrowthSeed0=An &1Overgrowth Seed&0 is an elusive item, which can be used to enchant a piece of &1Grass&0, via right clicking on it in the world, creating &1Enchanted Soil&0. Flowers that are rooted on this &1Enchanted Soil&0 will function at double the normal speed.<br>There's one problem, though. No known method of creating these exists, but they have been spotted in ancient structures and the like.
 
-# - BAUBLES
+# - ENDER ARTEFACTS
+# -- EXTRACTING ENDER AIR
+botania.entry.enderAir=Extracting Ender Air
+botania.page.enderAir0=The air present in the void of the &1End&0 seems to have some mutating properties. Right clicking with an empty &1Glass Bottle&0 while in the &1End&0 will capture some of that air, which can then later be tossed similarly to a splash potion, turning nearby &1Stone&0 on the landing point into &1End Stone&0. 
+
+# -- ENDER OVERSEER
+botania.entry.enderEyeBlock=Ender Overseer
+botania.page.enderEyeBlock0=The eyes of an &4Enderman&0 have an interesting sensitivity to being watched. A block out of these will simply output a &4redstone signal&0 if a player within a 64 block radius is looking directly at it.<br>Of course, wearing a &1Pumpkin&0 negates this effect.
+botania.page.enderEyeBlock1=MY BRAND
+
+# -- FORCE RELAY
+botania.entry.pistonRelay=Force Relay
+botania.page.pistonRelay0=It seems that infusing &1Pistons&0 with &4Mana&0 results in some interesting adverse effects.<br>This block tears the fabric of space, relaying any piston force applied to it to the block it's bound to.
+botania.page.pistonRelay1=To bind it to a block, right click it with a &1Wand of the Forest&0, and right click on the block you want to bind it to.<br>Furthermore, this block is highly unstable, and may create uncanny effects, care is to be taken, it is also resistant to glue, both in pulling and pushing. This allows for a "frame" like setup.
+botania.page.pistonRelay2=Infusing a &1Piston&0 with &4Mana&0.
+
+# -- HAND OF ENDER
+botania.entry.enderHand=Hand of Ender
+botania.page.enderHand0=The &1Hand of Ender&0 allows the user to access the interdimensional ender field, on other words, their &1Ender Chest&0 inventory. This can be done anywhere by right clicking with the hand at the cost of some &4Mana&0.<br>Using the hand on another player will open up &otheir&r inventory instead, at a lot higher &4Mana&0 cost.
+botania.page.enderHand0a=The &1Hand of Ender&0 allows the user to access the interdimensional ender field, on other words, their &1Ender Chest&0 inventory. This can be done anywhere by right clicking with the hand at the cost of some &4Mana&0.
+botania.page.enderHand1=Zezima hates him!
+botania.page.enderHand1a=It's like the 4G of Ender Chests
+
+# -- SOULSCRIBE
+botania.entry.enderDagger=Soulscribe
+botania.page.enderDagger0=Those &4Endermen&0. They're the second more pesky thing since &4Creepers&0. I swear, the person who came up with them must have taken a &onotch&r too much of their drink.<br>However, by infusing a standard dagger with some of their energy, one can create the &1Soulscribe&0, a dagger that tears through &1Endermen&0 as if they were butter.
+botania.page.enderDagger1=Due of the type of infusion, though, the dagger only lasts for a few kills, and the energy that radiates from it prevents the &1Manasteel&0 from gathering &4Mana&0 to avoid damage, like typical tools would. Still, all in the name of killing those monsters.
+botania.page.enderDagger2=Strike my Soul
+
+# -- LIFE IMBUER
+botania.entry.spawnerClaw=Life Imbuer
+botania.page.spawnerClaw0=&1Monster Spawners&0 are an interesting bunch. They have the ability to bring out life from thin air, but somehow, this only manifests when there's a player nearby.<br>This, of course, tends to be a rather limiting factor in the onslaught of any creatures that they can create.
+botania.page.spawnerClaw1=By placing a &1Life Imbuer&0 on top of a &1Monster Spawner&0 and giving it a rather decent chunk of &4Mana&0 through a &1Mana Spreader&0, when there aren't any players in the nearby vicinity, the &4Mana&0 will power the spawner, just as if there were players around.
+botania.page.spawnerClaw2=Something something shadow dragon
+
+# -- RED STRING
+botania.entry.redString=Red String
+botania.page.redString0=Lore says the Gods tie a red string around the ankles of people who are supposed to affect each others lives. This led inventors to come up with a way of connecting blocks over the air, called, of course, &1Red String&0. Blocks created with this exquisite material can face in all 6 basic directions and bind to the first available and compatible block they can find, given a range.
+botania.page.redString1=Each &4Red Stringed&0 block has a different criteria to what it'll bind to, but the distance in which they'll bind stays constant between the variations. The string can be viewed, if a block is bound, by holding a &1Wand of the Forest&0.<br>Blocks being in the way will not break the connection. Lastly, &1Red String&0 blocks can't be chained.
+botania.page.redString2=Are you in a pinch?
+botania.page.redString3=Starting off, the &1Red Stringed Container&0 will bind to any inventory (&1Chests&0, &1Furnaces&0, &1Hoppers&0, etc), items can be put into it using &1Hoppers&0 or any other means of insertion. The items will end up in the block it's bound to, and will enter from the same side as they were put on the &1Red Stringed Container&0 itself.
+botania.page.redString4=The &1Red Stringed Container&0.
+botania.page.redString5=The &1Red Stringed Dispenser&0 can be bound to &1Dispensers&0 or &1Droppers&0, it functions similarly to the &1Red Stringed Container&0 where items can also be placed in the bound block through it. When a redstone signal is given to it, the &1Dispenser&0 or &1Dropper&0 in the end will fire.
+botania.page.redString6=The &1Red Stringed Dispenser&0.
+botania.page.redString7=The &1Red Stringed Nutrifier&0 can be bound to any block that can be fertilized with &1Bone Meal&0. Using &1Bone Meal&0 on the block will fertilize the bound block instead.
+botania.page.redString8=The &1Red Stringed Nutrifier&0.
+botania.page.redString9=The &1Red Stringed Comparator&0 can be bound to any block whose status can be read with a &1Container&0, such as &1Chests&0, &1Mana Pools&0, &1Runic Altars&0, etc. Placing a &1Comparator&0 pointing outwards of this block will send the signal equal to the signal a &1Comparator&0 would send on the bound block.
+botania.page.redString10=The &1Red Stringed Comparator&0.
+botania.page.redString11=Lastly, the &1Red Stringed Spoofer&0 is an interesting one. Any flower with an effect can be placed on it. The block will bind to any flowers or mushrooms. While there's a flower on top of the block, that flower will not do anything, but the bound block will take all of that flower's properties and work as if it was the flower itself.
+botania.page.redString12=The &1Red Stringed Spoofer&0.
+
+# -- FLUGEL TIARA
+botania.entry.flightTiara=Flügel Tiara
+botania.page.flightTiara0=The &4Flügel&0 were once a dominant species in the lands, now they're but a race past extinct, once created as godslayers, who possessed the ability of flight.<br>The usage of &1Gaia Spirits&0 allows for a small replica of their power, in the form of the &1Flügel Tiara&0, which, at the cost of &4Mana&0 allows for flight.
+botania.page.flightTiara1=Forty thousand books from another world
+botania.page.flightTiara2=Combining the Tiara with a variety of Quartz species allows for it to create various different kinds of aesthetic wings, one for each style of quartz.<br>The recipes for the various types of quartz can be found in the &4Decorative Blocks&0 entry under &4Misclaneous&0, &1Elven Quartz&0 is acquired by trading &1Nether Quartz&0 with the elves.
+botania.page.flightTiara3=Adding Wings (they can be swapped any time)
+
+# - BAUBLES AND ACESSORIES
 # -- AN INTRODUCTION TO BAUBLES
 botania.entry.bIntro=An Introduction to Baubles
 botania.page.bIntro0=&4Baubles&0, also commonly referred to as &4Trinkets&0 or &4Charms&0 are pieces of equipment which offer all sorts of different effects, when worn.<br>To equip them, one can press the &4B&0 (configurable) key. There's four slots, one &4Amulet&0 slot, two &4Ring&0 slots and one &4Belt&0 slot.
@@ -2023,13 +2037,6 @@ botania.page.reachRing1=Fire and Blood
 botania.entry.divaCharm=Charm of the Diva
 botania.page.divaCharm0=The &1Charm of the Diva&0 blesses the wearer with the ability to have any attacked mob follow the attacker's will, and, case there are any nearby enemies, go after them instead. This process, of course, requires a bit of &4Mana&0 from the wearer's inventory in order to function.
 botania.page.divaCharm1=You shall not disrespect Big Sister
-
-# -- FLUGEL TIARA
-botania.entry.flightTiara=Flügel Tiara
-botania.page.flightTiara0=The &4Flügel&0 were once a dominant species in the lands, now they're but a race past extinct, once created as godslayers, who possessed the ability of flight.<br>The usage of &1Gaia Spirits&0 allows for a small replica of their power, in the form of the &1Flügel Tiara&0, which, at the cost of &4Mana&0 allows for flight.
-botania.page.flightTiara1=Forty thousand books from another world
-botania.page.flightTiara2=Combining the Tiara with a variety of Quartz species allows for it to create various different kinds of aesthetic wings, one for each style of quartz.<br>The recipes for the various types of quartz can be found in the &4Decorative Blocks&0 entry under &4Misclaneous&0, &1Elven Quartz&0 is acquired by trading &1Nether Quartz&0 with the elves.
-botania.page.flightTiara3=Adding Wings (they can be swapped any time)
 
 # -- GREAT FAIRY RING
 botania.entry.pixieRing=Great Fairy Ring

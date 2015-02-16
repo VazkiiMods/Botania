@@ -17,12 +17,16 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -31,17 +35,44 @@ import vazkii.botania.common.achievement.IPickupAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.item.ItemMod;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemManaResource extends ItemMod implements IFlowerComponent, IElvenItem, IPickupAchievement {
 
-	final int types = 15;
+	final int types = 16;
 	IIcon[] icons;
 
 	public ItemManaResource() {
 		super();
 		setUnlocalizedName(LibItemNames.MANA_RESOURCE);
 		setHasSubtypes(true);
+		MinecraftForge.EVENT_BUS.register(this);
+	}
+	
+	@SubscribeEvent
+	public void onPlayerInteract(PlayerInteractEvent event) {
+		boolean rightEvent = event.action == Action.RIGHT_CLICK_AIR;
+		ItemStack stack = event.entityPlayer.getCurrentEquippedItem();
+		boolean correctStack = stack != null && stack.getItem() == Items.glass_bottle;
+		boolean ender = event.world.provider.dimensionId == 1; 
+		
+		if(rightEvent && correctStack && ender) {
+				ItemStack stack1 = new ItemStack(this, 1, 15);
+				if(!event.entityPlayer.inventory.addItemStackToInventory(stack1))
+					event.entityPlayer.dropPlayerItemWithRandomChoice(stack1, true);
+
+				stack.stackSize--;
+				if(stack.stackSize == 0)
+					event.entityPlayer.inventory.setInventorySlotContents(event.entityPlayer.inventory.currentItem, null);
+				
+				if(event.world.isRemote)
+					event.entityPlayer.swingItem();
+				else event.world.playSoundAtEntity(event.entityPlayer, "random.pop", 0.5F, 1F);
+		}
 	}
 
 	@Override
@@ -53,12 +84,14 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
 		for(int i = 0; i < types; i++)
 			par3List.add(new ItemStack(par1, 1, i));
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister par1IconRegister) {
 		icons = new IIcon[types];
 		for(int i = 0; i < icons.length; i++)
@@ -66,6 +99,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
 		if(par1ItemStack.getItemDamage() == 5 || par1ItemStack.getItemDamage() == 14)
 			return Color.HSBtoRGB(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 0.25F, 1F);
@@ -79,6 +113,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public IIcon getIconFromDamage(int par1) {
 		return icons[Math.min(icons.length - 1, par1)];
 	}

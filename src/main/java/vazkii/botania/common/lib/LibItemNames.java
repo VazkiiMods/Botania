@@ -159,6 +159,7 @@ public final class LibItemNames {
 		"placeholder",
 		"redString",
 		"dreamwoodTwig",
-		"gaiaIngot"
+		"gaiaIngot",
+		"enderAirBottle"
 	};
 }

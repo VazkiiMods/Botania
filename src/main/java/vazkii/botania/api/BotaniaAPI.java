@@ -93,6 +93,7 @@ public final class BotaniaAPI {
 	public static LexiconCategory categoryDevices;
 	public static LexiconCategory categoryTools;
 	public static LexiconCategory categoryBaubles;
+	public static LexiconCategory categoryEnder;
 	public static LexiconCategory categoryAlfhomancy;
 	public static LexiconCategory categoryMisc;
 

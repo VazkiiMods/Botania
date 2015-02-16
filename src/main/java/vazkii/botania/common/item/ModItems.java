@@ -336,6 +336,7 @@ public final class ModItems {
 		OreDictionary.registerOre(LibOreDict.RED_STRING, new ItemStack(manaResource, 1, 12));
 		OreDictionary.registerOre(LibOreDict.DREAMWOOD_TWIG, new ItemStack(manaResource, 1, 13));
 		OreDictionary.registerOre(LibOreDict.GAIA_INGOT, new ItemStack(manaResource, 1, 14));
+		OreDictionary.registerOre(LibOreDict.ENDER_AIR_BOTTLE, new ItemStack(manaResource, 1, 15));
 
 		OreDictionary.registerOre(LibOreDict.VIAL, new ItemStack(vial, 1, 0));
 		OreDictionary.registerOre(LibOreDict.FLASK, new ItemStack(vial, 1, 1));

@@ -33,6 +33,7 @@ public final class LibOreDict {
 	public static final String RED_STRING = "bRedString";
 	public static final String DREAMWOOD_TWIG = "dreamwoodTwig";
 	public static final String GAIA_INGOT = "gaiaIngot";
+	public static final String ENDER_AIR_BOTTLE = "bEnderAirBottle";
 
 	public static final String VIAL = "bVial";
 	public static final String FLASK = "bFlask";
