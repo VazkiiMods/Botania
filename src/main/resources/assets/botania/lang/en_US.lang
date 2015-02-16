@@ -80,6 +80,9 @@ botaniamisc.requestMsg=Requested %d x "%s" out of %d. %d taken.
 botaniamisc.nearIndex0=Corporea Index nearby!
 botaniamisc.nearIndex1=Anything you say will be
 botaniamisc.nearIndex2=intercepted as a request
+botaniamisc.startTutorial=Start Tutorial
+botaniamisc.tutorialStarted=You have started your tutorial, follow the red arrows to be guides through the basics of Botania!
+botaniamisc.tutorialEnded=Your tutorial is over, you should now have a basic idea of how Botania works, make sure to read through the other pages at your leisure to learn more ways of using the mod.
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
@@ -1069,6 +1072,10 @@ botania.category.misc=Miscellaneous
 # LEXICON ENTRIES
 
 # - BASIC
+# -- TUTORIAL OF THE BASICS
+botania.entry.tutorial=A Tutorial of the Basics
+botania.page.tutorial0=While one could just go through the various entries in the book at their issue, there's also a "guided tour" of sorts available. Clicking the button below will guide you through the pages useful to getting the gist of the basic concepts of Botania.
+
 # -- AN INTRODUCTORY CLIP
 botania.entry.introVideo=An Introductory Clip
 botania.page.introVideo0=For those readers who are not quite readers, a short video guide covering the basics of Botania is also available. It's to keep in note that this guide acts as an aid and not a substitution for the contents of the &1Lexica Botania&0.

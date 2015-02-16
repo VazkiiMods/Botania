@@ -15,6 +15,8 @@ import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 
@@ -22,6 +24,7 @@ import org.lwjgl.input.Mouse;
 
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.IAddonEntry;
+import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -50,8 +53,8 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	}
 
 	@Override
-	public void initGui() {
-		super.initGui();
+	public void onInitGui() {
+		super.onInitGui();
 
 		buttonList.add(backButton = new GuiButtonBackWithShift(0, left + guiWidth / 2 - 8, top + guiHeight + 2));
 		buttonList.add(leftButton = new GuiButtonPage(1, left, top + guiHeight - 10, false));
@@ -161,6 +164,31 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	public void updateScreen() {
 		LexiconPage page = entry.pages.get(this.page);
 		page.updateScreen(this);
+		
+		
+		if(this.page == entry.pages.size() - 1) {
+			LexiconEntry entry = tutorial.peek();
+			if(entry == this.entry) {
+				tutorial.poll();
+				positionTutorialArrow();
+				if(tutorial.isEmpty()) {
+					mc.thePlayer.addChatMessage(new ChatComponentTranslation("botaniamisc.tutorialEnded").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
+					hasTutorialArrow = false;
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void positionTutorialArrow() {
+		LexiconEntry entry = tutorial.peek();
+		if(entry != this.entry) {
+			orientTutorialArrowWithButton(backButton);
+			return;
+		}
+
+		if(rightButton.enabled && rightButton.visible)
+			orientTutorialArrowWithButton(rightButton);
 	}
 
 	@Override

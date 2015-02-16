@@ -10,10 +10,12 @@
  */
 package vazkii.botania.client.gui.lexicon;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Queue;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -28,6 +30,7 @@ import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconCategory;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.proxy.ClientProxy;
@@ -35,7 +38,9 @@ import vazkii.botania.client.gui.lexicon.button.GuiButtonBookmark;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonCategory;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonInvisible;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.core.handler.SheddingHandler;
 import vazkii.botania.common.item.ItemLexicon;
+import vazkii.botania.common.lexicon.LexiconData;
 
 public class GuiLexicon extends GuiScreen {
 
@@ -46,12 +51,19 @@ public class GuiLexicon extends GuiScreen {
 	public static List<GuiLexicon> bookmarks = new ArrayList();
 	boolean bookmarksNeedPopulation = false;
 
+	public static Queue<LexiconEntry> tutorial = new ArrayDeque();
+
 	public static final ResourceLocation texture = new ResourceLocation(LibResources.GUI_LEXICON);
 	public static final ResourceLocation textureToff = new ResourceLocation(LibResources.GUI_TOFF);
 
 	public float lastTime = 0F;
 	public float partialTicks = 0F;
 	public float timeDelta = 0F;
+
+	private static final int TUTORIAL_ARROW_WIDTH = 10;
+	private static final int TUTORIAL_ARROW_HEIGHT = 12;
+	boolean hasTutorialArrow;
+	int tutorialArrowX, tutorialArrowY;
 
 	List<LexiconCategory> allCategories;
 
@@ -61,9 +73,15 @@ public class GuiLexicon extends GuiScreen {
 	int left, top;
 
 	@Override
-	public void initGui() {
+	public final void initGui() {
 		super.initGui();
 
+		onInitGui();
+		
+		putTutorialArrow();
+	}
+	
+	public void onInitGui() {
 		allCategories = new ArrayList(BotaniaAPI.getAllCategories());
 		Collections.sort(allCategories);
 
@@ -152,8 +170,17 @@ public class GuiLexicon extends GuiScreen {
 				RenderHelper.renderTooltip(par1, par2, Arrays.asList(EnumChatFormatting.GOLD + "#goldfishchris", EnumChatFormatting.RED + "INTENSIFY HIM"));
 			}
 		}
-
+		
 		super.drawScreen(par1, par2, par3);
+		
+		if(hasTutorialArrow) {
+			mc.renderEngine.bindTexture(texture);
+			GL11.glEnable(GL11.GL_BLEND);
+			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			GL11.glColor4f(1F, 1F, 1F, 0.7F + (float) (Math.sin((float) (ClientTickHandler.ticksInGame + par3) * 0.3F) + 1) * 0.15F);
+			drawTexturedModalRect(tutorialArrowX, tutorialArrowY, 20, 200, TUTORIAL_ARROW_WIDTH, TUTORIAL_ARROW_HEIGHT);
+			GL11.glDisable(GL11.GL_BLEND);
+		}
 	}
 
 	public void drawBookmark(int x, int y, String s, boolean drawLeft) {
@@ -294,6 +321,56 @@ public class GuiLexicon extends GuiScreen {
 		}
 	}
 
+	public static void startTutorial() {
+		tutorial.clear();
+		tutorial.add(LexiconData.lexicon);
+		tutorial.add(LexiconData.flowers);
+		tutorial.add(LexiconData.apothecary);
+		tutorial.add(LexiconData.pureDaisy);
+		tutorial.add(LexiconData.wand);
+		tutorial.add(LexiconData.manaIntro);
+		tutorial.add(LexiconData.pool);
+		tutorial.add(LexiconData.spreader);
+		tutorial.add(LexiconData.generatingIntro);
+		tutorial.add(LexiconData.daybloom);
+		tutorial.add(LexiconData.endoflame);
+		tutorial.add(LexiconData.openCrate);
+		tutorial.add(LexiconData.functionalIntro);
+		tutorial.add(LexiconData.runicAltar);
+		tutorial.add(LexiconData.baublesIntro);
+		tutorial.add(LexiconData.manaTransport);
+		tutorial.add(LexiconData.manasteelGear);
+		tutorial.add(LexiconData.dispenserTweaks);
+		if(SheddingHandler.hasShedding())
+			tutorial.add(LexiconData.shedding);
+	}
+
+	public final void putTutorialArrow() {
+		hasTutorialArrow = !tutorial.isEmpty();
+		if(hasTutorialArrow)
+			positionTutorialArrow();
+	}
+
+	public void positionTutorialArrow() {
+		LexiconEntry entry = tutorial.peek();
+		LexiconCategory category = entry.category;
+		
+		List<GuiButton> buttons = buttonList;
+		for(GuiButton button : buttons)
+			if(button instanceof GuiButtonCategory) {
+				GuiButtonCategory catButton = (GuiButtonCategory) button;
+				if(catButton.getCategory() == category) {
+					orientTutorialArrowWithButton(button);
+					break;
+				}
+			}
+	}
+
+	public void orientTutorialArrowWithButton(GuiButton button) {
+		tutorialArrowX = button.xPosition - TUTORIAL_ARROW_WIDTH;
+		tutorialArrowY = button.yPosition - TUTORIAL_ARROW_HEIGHT;
+	}
+
 	boolean closeScreenOnInvKey() {
 		return true;
 	}
@@ -323,3 +400,4 @@ public class GuiLexicon extends GuiScreen {
 		return entryGui.page < entryGui.entry.pages.size();
 	}
 }
+

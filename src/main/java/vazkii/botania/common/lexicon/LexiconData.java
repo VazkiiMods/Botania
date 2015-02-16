@@ -44,7 +44,9 @@ import vazkii.botania.common.lib.LibLexicon;
 
 public final class LexiconData {
 
+	public static LexiconEntry tutorial;
 	public static LexiconEntry introVideo;
+	
 	public static LexiconEntry flowers;
 	public static LexiconEntry apothecary;
 	public static LexiconEntry lexicon;
@@ -232,6 +234,8 @@ public final class LexiconData {
 		LexiconCategory categoryMisc = BotaniaAPI.categoryMisc;
 
 		// BASICS ENTRIES
+		tutorial = new TLexiconEntry();
+		
 		introVideo = new BLexiconEntry(LibLexicon.BASICS_INTRO_VIDEO, categoryBasics);
 		introVideo.setPriority().setLexiconPages(new PageGuide("0"));
 

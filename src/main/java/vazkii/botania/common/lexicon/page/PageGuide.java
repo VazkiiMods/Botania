@@ -46,5 +46,4 @@ public class PageGuide extends PageText {
 			} catch(Exception e) { }
 	}
 
-
 }
