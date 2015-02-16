@@ -207,11 +207,11 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 		Botania.proxy.wispFX(worldObj, thisVec.x, thisVec.y, thisVec.z, r, g, b, size, (float) motion.x, (float) motion.y, (float) motion.z);
 	}
-	
+
 	public static void particleBeam(Entity e1, Entity e2) {
 		if(e1 == null || e2 == null)
 			return;
-		
+
 		Vector3 orig = new Vector3(e1.posX , e1.posY + 0.25, e1.posZ);
 		Vector3 end = new Vector3(e2.posX, e2.posY + 0.25, e2.posZ);
 		Vector3 diff = end.copy().sub(orig);

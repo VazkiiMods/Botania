@@ -761,7 +761,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		if(!hasAlreadyCollidedAt(x, y, z))
 			alreadyCollidedAt.add(getCollisionLocString(x, y, z));
 	}
-	
+
 	private String getCollisionLocString(int x, int y, int z) {
 		return x + ":" + y + ":" + z;
 	}

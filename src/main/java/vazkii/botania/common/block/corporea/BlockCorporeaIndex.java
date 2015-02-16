@@ -10,6 +10,11 @@
  */
 package vazkii.botania.common.block.corporea;
 
+import net.minecraft.block.material.Material;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.lib.LibRenderIDs;
@@ -18,11 +23,6 @@ import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
-import net.minecraft.world.World;
 
 public class BlockCorporeaIndex extends BlockCorporeaBase implements ILexiconable {
 
@@ -31,7 +31,7 @@ public class BlockCorporeaIndex extends BlockCorporeaBase implements ILexiconabl
 		setHardness(5.5F);
 		setStepSound(soundTypeMetal);
 	}
-	
+
 	@Override
 	public boolean isOpaqueCube() {
 		return false;
@@ -41,7 +41,7 @@ public class BlockCorporeaIndex extends BlockCorporeaBase implements ILexiconabl
 	public boolean renderAsNormalBlock() {
 		return false;
 	}
-	
+
 	@Override
 	public IIcon getIcon(int side, int meta) {
 		return ModBlocks.storage.getIcon(0, 2);

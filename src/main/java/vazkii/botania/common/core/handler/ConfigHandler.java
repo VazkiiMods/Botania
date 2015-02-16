@@ -23,7 +23,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 public final class ConfigHandler {
 
 	public static Configuration config;
-	
+
 	private static final String CATEGORY_POTIONS = "potions";
 
 	public static boolean useShaders = true;
@@ -58,7 +58,7 @@ public final class ConfigHandler {
 
 	public static int flowerQuantity = 2;
 	public static int flowerDensity = 16;
-	
+
 	public static int potionIDSoulCross = 91;
 	public static int potionIDFeatherfeet = 92;
 	public static int potionIDEmptiness = 93;
@@ -195,7 +195,7 @@ public final class ConfigHandler {
 		prop.comment = desc;
 		return prop.getBoolean(default_);
 	}
-	
+
 	public static int loadPropPotionId(String propName, int default_) {
 		Property prop = config.get(CATEGORY_POTIONS, propName, default_);
 		int val = prop.getInt(default_);
@@ -203,7 +203,7 @@ public final class ConfigHandler {
 			val = default_;
 			prop.set(default_);
 		}
-		
+
 		return val;
 	}
 

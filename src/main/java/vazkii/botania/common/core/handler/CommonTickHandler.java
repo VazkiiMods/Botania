@@ -10,14 +10,7 @@
  */
 package vazkii.botania.common.core.handler;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import vazkii.botania.api.corporea.CorporeaHelper;
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.world.World;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
@@ -34,7 +27,7 @@ public final class CommonTickHandler {
 			for(Entity entity : entities)
 				if(entity instanceof EntityItem)
 					TerrasteelCraftingHandler.onEntityUpdate((EntityItem) entity);*/
-			
+
 			CorporeaHelper.clearCache();
 		}
 	}
@@ -50,7 +43,7 @@ public final class CommonTickHandler {
 					if(entity instanceof EntityItem)
 						TerrasteelCraftingHandler.onEntityUpdate((EntityItem) entity);
 			}*/
-			
+
 			CorporeaHelper.clearCache();
 		}
 	}

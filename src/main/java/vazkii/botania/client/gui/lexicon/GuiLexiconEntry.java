@@ -24,7 +24,6 @@ import org.lwjgl.input.Mouse;
 
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.IAddonEntry;
-import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -164,8 +163,8 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	public void updateScreen() {
 		LexiconPage page = entry.pages.get(this.page);
 		page.updateScreen(this);
-		
-		
+
+
 		if(this.page == entry.pages.size() - 1) {
 			LexiconEntry entry = tutorial.peek();
 			if(entry == this.entry) {
@@ -178,7 +177,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 			}
 		}
 	}
-	
+
 	@Override
 	public void positionTutorialArrow() {
 		LexiconEntry entry = tutorial.peek();

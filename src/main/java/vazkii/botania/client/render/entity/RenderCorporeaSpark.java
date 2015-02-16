@@ -24,7 +24,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
-import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.entity.EntityCorporeaSpark;
 import vazkii.botania.common.item.ItemCorporeaSpark;
 
@@ -40,20 +39,20 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 		int network = Math.min(15, entity.getNetwork());
 		GL11.glColor3f(EntitySheep.fleeceColorTable[network][0], EntitySheep.fleeceColorTable[network][1], EntitySheep.fleeceColorTable[network][2]);
 	}
-	
+
 	@Override
 	public IIcon getSpinningIcon(EntityCorporeaSpark entity) {
 		return ItemCorporeaSpark.iconColorStar;
 	}
-	
+
 	@Override
 	public void renderCallback(EntityCorporeaSpark entity, float pticks) {
 		int time = entity.getItemDisplayTicks();
 		if(time == 0)
 			return;
-		
+
 		float absTime = Math.abs(time) - pticks;
-		
+
 		GL11.glPushMatrix();
 		GL11.glRotated(90F, 1F, 0F, 0F);
 		float scalef = 1F / 6F;
@@ -62,27 +61,27 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GL11.glColor4f(1F, 1F, 1F, absTime / 10);
 		GL11.glTranslatef(0F, 0F, -2F + (time < 0 ? -absTime : absTime) / 6);
-		
+
 		ItemStack stack = entity.getDisplayedItem();
 		if(stack == null)
 			return;
-		
+
 		Item item = stack.getItem();
 		boolean block = item instanceof ItemBlock;
 		Minecraft.getMinecraft().renderEngine.bindTexture(block ? TextureMap.locationBlocksTexture : TextureMap.locationItemsTexture);
 		IIcon icon = block ? Block.getBlockFromItem(item).getBlockTextureFromSide(ForgeDirection.UP.ordinal()) : item.getIcon(stack, 0);
-		
+
 		float minU = icon.getMinU();
 		float maxU = icon.getMaxU();
 		float minV = icon.getMinV();
 		float maxV = icon.getMaxV();
-		
+
 		int pieces = 8;
 		float stepU = (maxU - minU) / pieces;
 		float stepV = (maxV - minV) / pieces;
 		float gap = 1F + (time > 0 ? 10F - absTime : absTime) * 0.2F;
 		int shift = pieces / 2;
-		
+
 		float scale = 1F / pieces * 3F;
 		GL11.glScalef(scale, scale, 1F);
 		for(int i = -shift; i < shift; i++) {
@@ -94,9 +93,9 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 			}
 			GL11.glTranslated(-gap * i, 0F, 0F);
 		}
-			
+
 		GL11.glDisable(GL11.GL_BLEND);
 		GL11.glPopMatrix();
 	}
-	
+
 }

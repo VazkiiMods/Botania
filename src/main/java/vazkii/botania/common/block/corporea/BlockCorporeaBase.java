@@ -25,11 +25,11 @@ import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
 public abstract class BlockCorporeaBase extends BlockModContainer<TileCorporeaBase> {
 
 	Random random;
-	
+
 	public BlockCorporeaBase(Material material, String name) {
 		super(material);
 		setBlockName(name);
-		
+
 		random = new Random();
 	}
 
@@ -70,5 +70,5 @@ public abstract class BlockCorporeaBase extends BlockModContainer<TileCorporeaBa
 
 		super.breakBlock(par1World, par2, par3, par4, par5, par6);
 	}
-	
+
 }

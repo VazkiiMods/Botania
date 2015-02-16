@@ -20,7 +20,7 @@ public class TileFloatingSpecialFlower extends TileSpecialFlower implements IFlo
 	public boolean isOnSpecialSoil() {
 		return false;
 	}
-	
+
 	@Override
 	public ItemStack getDisplayStack() {
 		return ItemBlockSpecialFlower.ofType(subTileName);

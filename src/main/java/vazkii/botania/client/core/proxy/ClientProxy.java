@@ -121,7 +121,6 @@ import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.relauncher.ReflectionHelper;
@@ -231,7 +230,7 @@ public class ClientProxy extends CommonProxy {
 	public void setEntryToOpen(LexiconEntry entry) {
 		GuiLexicon.currentOpenLexicon = new GuiLexiconEntry(entry, new GuiLexiconIndex(entry.category));
 	}
-	
+
 	@Override
 	public void setLexiconStack(ItemStack stack) {
 		GuiLexicon.stackUsed = stack;
@@ -349,7 +348,7 @@ public class ClientProxy extends CommonProxy {
 	private boolean doParticle(World world) {
 		if(!world.isRemote)
 			return false;
-		
+
 		if(!ConfigHandler.useVanillaParticleLimiter)
 			return true;
 

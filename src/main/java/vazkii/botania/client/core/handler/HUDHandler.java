@@ -94,7 +94,7 @@ public final class HUDHandler {
 						renderPoolRecipeHUD(event.resolution, (TilePool) tile, equippedStack);
 				}
 			}
-			
+
 			if(!TileCorporeaIndex.input.getNearbyIndexes(mc.thePlayer).isEmpty() && mc.currentScreen != null && mc.currentScreen instanceof GuiChat) {
 				profiler.startSection("nearIndex");
 				renderNearIndexDisplay(event.resolution);
@@ -301,7 +301,7 @@ public final class HUDHandler {
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		profiler.endSection();
 	}
-	
+
 	private void renderNearIndexDisplay(ScaledResolution res) {
 		Minecraft mc = Minecraft.getMinecraft();
 		String txt0 = StatCollector.translateToLocal("botaniamisc.nearIndex0");

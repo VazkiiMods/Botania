@@ -11,9 +11,6 @@
 package vazkii.botania.client.render.entity;
 
 import net.minecraft.util.IIcon;
-
-import org.lwjgl.opengl.GL11;
-
 import vazkii.botania.common.entity.EntitySpark;
 import vazkii.botania.common.item.ItemSparkUpgrade;
 
@@ -24,5 +21,5 @@ public class RenderSpark extends RenderSparkBase<EntitySpark> {
 		int upgrade = entity.getUpgrade() - 1;
 		return upgrade >= 0 && upgrade < ItemSparkUpgrade.worldIcons.length ? ItemSparkUpgrade.worldIcons[upgrade] : null;
 	}
-	
+
 }

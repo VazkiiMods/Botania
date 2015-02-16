@@ -10,9 +10,6 @@
  */
 package vazkii.botania.common.lexicon.page;
 
-import java.awt.Desktop;
-import java.net.URI;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ChatComponentTranslation;
@@ -49,5 +46,5 @@ public class PageTutorial extends PageText {
 			Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentTranslation("botaniamisc.tutorialStarted").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.GREEN)));
 		}
 	}
-	
+
 }

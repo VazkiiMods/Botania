@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-import scala.actors.threadpool.Arrays;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -38,16 +37,16 @@ public final class CorporeaHelper {
 	 * How many items were extracted in the last request.
 	 */
 	public static int lastRequestExtractions = 0;
-	
+
 	/**
-	 * Gets a list of all the inventories on this spark network. This list is cached for use once every tick, 
+	 * Gets a list of all the inventories on this spark network. This list is cached for use once every tick,
 	 * and if something changes during that tick it'll still have the first result.
 	 */
 	public static List<IInventory> getInventoriesOnNetwork(ICorporeaSpark spark) {
 		ICorporeaSpark master = spark.getMaster();
 		if(master == null)
 			return empty;
-		List<ICorporeaSpark> network = master.getConnections();	
+		List<ICorporeaSpark> network = master.getConnections();
 
 		if(cachedNetworks.containsKey(network)) {
 			List<IInventory> cache = cachedNetworks.get(network);
@@ -71,7 +70,7 @@ public final class CorporeaHelper {
 	/**
 	 * Gets the amount of available items in the network of the type passed in, checking NBT or not.
 	 * The higher level functions that use a List< IInventory > or a Map< IInventory, Integer > should be
-	 * called instead if the context for those exists to avoid having to get the values again. 
+	 * called instead if the context for those exists to avoid having to get the values again.
 	 */
 	public static int getCountInNetwork(ItemStack stack, ICorporeaSpark spark, boolean checkNBT) {
 		List<IInventory> inventories = getInventoriesOnNetwork(spark);
@@ -81,8 +80,8 @@ public final class CorporeaHelper {
 	/**
 	 * Gets the amount of available items in the network of the type passed in, checking NBT or not.
 	 * The higher level function that use a Map< IInventory, Integer > should be
-	 * called instead if the context for this exists to avoid having to get the value again. 
-	 */	
+	 * called instead if the context for this exists to avoid having to get the value again.
+	 */
 	public static int getCountInNetwork(ItemStack stack, List<IInventory> inventories, boolean checkNBT) {
 		Map<IInventory, Integer> map = getInventoriesWithItemInNetwork(stack, inventories, checkNBT);
 		return getCountInNetwork(stack, map, checkNBT);
@@ -103,7 +102,7 @@ public final class CorporeaHelper {
 	/**
 	 * Gets a Map mapping IInventories to the amount of items of the type passed in that exist
 	 * The higher level function that use a List< IInventory > should be
-	 * called instead if the context for this exists to avoid having to get the value again. 
+	 * called instead if the context for this exists to avoid having to get the value again.
 	 */
 	public static Map<IInventory, Integer> getInventoriesWithItemInNetwork(ItemStack stack, ICorporeaSpark spark, boolean checkNBT) {
 		List<IInventory> inventories = getInventoriesOnNetwork(spark);
@@ -113,7 +112,7 @@ public final class CorporeaHelper {
 	/**
 	 * Gets a Map mapping IInventories to the amount of items of the type passed in that exist
 	 * The deeper level function that use a List< IInventory > should be
-	 * called instead if the context for this exists to avoid having to get the value again. 
+	 * called instead if the context for this exists to avoid having to get the value again.
 	 */
 	public static Map<IInventory, Integer> getInventoriesWithItemInNetwork(ItemStack stack, List<IInventory> inventories, boolean checkNBT) {
 		Map<IInventory, Integer> countMap = new HashMap();
@@ -165,7 +164,7 @@ public final class CorporeaHelper {
 
 		lastRequestMatches = 0;
 		lastRequestExtractions = 0;
-		
+
 		int count = itemCount;
 		for(IInventory inv : inventories) {
 			ICorporeaSpark invSpark = getSparkForInventory(inv);
@@ -200,14 +199,14 @@ public final class CorporeaHelper {
 
 		return stacks;
 	}
-	
+
 	/**
 	 * Gets the spark attached to the inventory passed case it's a TileEntity.
 	 */
 	public static ICorporeaSpark getSparkForInventory(IInventory inv) {
 		if(!(inv instanceof TileEntity))
 			return null;
-		
+
 		TileEntity tile = (TileEntity) inv;
 		return getSparkForBlock(tile.getWorldObj(), tile.xCoord, tile.yCoord, tile.zCoord);
 	}
@@ -249,21 +248,21 @@ public final class CorporeaHelper {
 	public static boolean stacksMatch(ItemStack stack, String s) {
 		if(stack == null)
 			return false;
-		
+
 		boolean contains = false;
 		if(s.endsWith("...")) {
 			contains = true;
-			s = s.substring(0, s.length() - 3); 
+			s = s.substring(0, s.length() - 3);
 		}
 		if(s.startsWith("...")) {
 			contains = true;
 			s = s.substring(3);
 		}
-		
+
 		String name = stack.getDisplayName().toLowerCase().trim();
-		return equalOrContain(name, s, contains) || equalOrContain(name + "s", s, contains) || equalOrContain(name + "es", s, contains) || (name.endsWith("y") && equalOrContain(name.substring(0, name.length() - 1) + "ies", s, contains));
+		return equalOrContain(name, s, contains) || equalOrContain(name + "s", s, contains) || equalOrContain(name + "es", s, contains) || name.endsWith("y") && equalOrContain(name.substring(0, name.length() - 1) + "ies", s, contains);
 	}
-	
+
 	/**
 	 * Clears the cached networks, called once per tick, should not be called outside
 	 * of the botania code.
@@ -276,16 +275,16 @@ public final class CorporeaHelper {
 	 * Helper method to check if an int array contains an int.
 	 */
 	public static boolean arrayHas(int[] arr, int val) {
-		for(int i = 0; i < arr.length; i++)
-			if(arr[i] == val)
+		for (int element : arr)
+			if(element == val)
 				return true;
 
 		return false;
 	}
-	
+
 	/**
 	 * Helper method to make stacksMatch() less messy.
-	 */ 
+	 */
 	public static boolean equalOrContain(String s1, String s2, boolean contain) {
 		return contain ? s1.contains(s2) : s1.equals(s2);
 	}

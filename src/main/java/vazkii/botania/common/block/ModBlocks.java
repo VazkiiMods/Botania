@@ -264,7 +264,7 @@ public final class ModBlocks {
 		corporeaIndex = new BlockCorporeaIndex();
 		corporeaFunnel = new BlockCorporeaFunnel();
 		endStoneBrick = new BlockEndStoneBrick();
-		
+
 		ModFluffBlocks.init();
 
 		for(int i = 0; i < 16; i++)

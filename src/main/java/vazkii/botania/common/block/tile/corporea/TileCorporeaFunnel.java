@@ -13,13 +13,10 @@ package vazkii.botania.common.block.tile.corporea;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.corporea.CorporeaHelper;
@@ -36,11 +33,11 @@ public class TileCorporeaFunnel extends TileCorporeaBase {
 			IInventory inv = InventoryHelper.getInventory(worldObj, xCoord, yCoord - 1, zCoord);
 			if(inv == null)
 				inv = InventoryHelper.getInventory(worldObj, xCoord, yCoord - 2, zCoord);
-			
+
 			List<ItemStack> filter = getFilter();
 			if(!filter.isEmpty()) {
 				ItemStack stack = filter.get(worldObj.rand.nextInt(filter.size()));
-				
+
 				List<ItemStack> stacks = CorporeaHelper.requestItem(stack, spark, true, true);
 				spark.onItemsRequested(stacks);
 				for(ItemStack reqStack : stacks)
@@ -55,7 +52,7 @@ public class TileCorporeaFunnel extends TileCorporeaBase {
 			}
 		}
 	}
-	
+
 	public List<ItemStack> getFilter() {
 		List<ItemStack> filter = new ArrayList();
 
@@ -74,7 +71,7 @@ public class TileCorporeaFunnel extends TileCorporeaBase {
 
 		return filter;
 	}
-	
+
 	@Override
 	public int getSizeInventory() {
 		return 1;

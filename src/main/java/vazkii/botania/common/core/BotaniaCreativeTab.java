@@ -212,12 +212,12 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.manaGun);
 		addItem(ModItems.clip);
 		addItem(ModItems.lens);
-		
+
 		addItem(ModItems.corporeaSpark);
 		addBlock(ModBlocks.corporeaIndex);
-		
+
 		// FLUFF
-		
+
 		addBlock(ModBlocks.shinyFlower);
 		addBlock(ModBlocks.floatingFlower);
 		addBlock(ModBlocks.floatingSpecialFlower);
@@ -228,7 +228,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 
 		addBlock(ModBlocks.dirtPath);
 		addBlock(ModFluffBlocks.dirtPathSlab);
-		
+
 		addBlock(ModBlocks.prismarine);
 		addBlock(ModBlocks.seaLamp);
 		addBlock(ModFluffBlocks.prismarineStairs);

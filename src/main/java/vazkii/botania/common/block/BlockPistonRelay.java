@@ -195,7 +195,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 				decrCoords(s);
 				if(checkedCoords.contains(s))
 					continue;
-				
+
 				Block block = getBlockAt(s);
 				if(block == Blocks.piston_extension) {
 					int meta = getBlockMetaAt(s);

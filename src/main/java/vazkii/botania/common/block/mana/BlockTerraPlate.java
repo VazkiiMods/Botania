@@ -49,7 +49,7 @@ public class BlockTerraPlate extends BlockModContainer implements ILexiconable {
 	public boolean isOpaqueCube() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean getBlocksMovement(IBlockAccess p_149655_1_, int p_149655_2_, int p_149655_3_, int p_149655_4_) {
 		return false;

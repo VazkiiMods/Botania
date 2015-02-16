@@ -42,7 +42,7 @@ public class SubTileHydroangeas extends SubTileGenerating {
 				Botania.proxy.wispFX(supertile.getWorldObj(), supertile.xCoord + 0.5 + Math.random() * 0.2 - 0.1, supertile.yCoord + 0.5 + Math.random() * 0.2 - 0.1, supertile.zCoord + 0.5 + Math.random() * 0.2 - 0.1, 0.1F, 0.1F, 0.1F, (float) Math.random() / 6, (float) -Math.random() / 30);
 			return;
 		}
-		
+
 		boolean didSomething = false;
 
 		if(burnTime == 0) {
@@ -83,7 +83,7 @@ public class SubTileHydroangeas extends SubTileGenerating {
 				didSomething = true;
 			}
 		}
-		
+
 		if(didSomething)
 			sync();
 	}
@@ -151,13 +151,13 @@ public class SubTileHydroangeas extends SubTileGenerating {
 			ItemNBTHelper.setInt(drops.get(0), TAG_COOLDOWN, getCooldown());
 		return drops;
 	}
-	
+
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
 		super.onBlockPlacedBy(world, x, y, z, entity, stack);
 		cooldown = ItemNBTHelper.getInt(stack, TAG_COOLDOWN, 0);
 	}
-	
+
 	@Override
 	public boolean canGeneratePassively() {
 		return burnTime > 0;
@@ -168,7 +168,7 @@ public class SubTileHydroangeas extends SubTileGenerating {
 		boolean rain = supertile.getWorldObj().getWorldChunkManager().getBiomeGenAt(supertile.xCoord, supertile.zCoord).getIntRainfall() > 0 && (supertile.getWorldObj().isRaining() || supertile.getWorldObj().isThundering());
 		return rain ? 3 : 4;
 	}
-	
+
 	public int getCooldown() {
 		return 0;
 	}

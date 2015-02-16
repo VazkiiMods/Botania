@@ -43,7 +43,7 @@ public class Botania {
 		thaumcraftLoaded = Loader.isModLoaded("Thaumcraft");
 		bcTriggersLoaded = ModAPIManager.INSTANCE.hasAPI("BuildCraftAPI|statements");
 		bloodMagicLoaded = Loader.isModLoaded("AWWayofTime"); // Psh, noob
-		
+
 		proxy.preInit(event);
 	}
 

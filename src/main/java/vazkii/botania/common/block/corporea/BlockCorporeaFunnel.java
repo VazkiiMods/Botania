@@ -28,13 +28,13 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockCorporeaFunnel extends BlockCorporeaBase implements ILexiconable {
 
 	IIcon[] icons;
-	
+
 	public BlockCorporeaFunnel() {
 		super(Material.iron, LibBlockNames.CORPOREA_FUNNEL);
 		setHardness(5.5F);
 		setStepSound(soundTypeMetal);
 	}
-	
+
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		icons = new IIcon[3];
@@ -54,12 +54,12 @@ public class BlockCorporeaFunnel extends BlockCorporeaBase implements ILexiconab
 		} else if(!power && powered)
 			world.setBlockMetadataWithNotify(x, y, z, meta & -9, 4);
 	}
-	
+
 	@Override
 	public IIcon getIcon(int par1, int par2) {
 		return icons[Math.min(2, par1)];
 	}
-	
+
 	@Override
 	public TileCorporeaBase createNewTileEntity(World world, int meta) {
 		return new TileCorporeaFunnel();

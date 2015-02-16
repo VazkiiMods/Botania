@@ -140,7 +140,7 @@ public final class ModFluffBlocks {
 	public static Block[] biomeStoneStairs = new Block[24];
 	public static Block[] biomeStoneSlabs = new Block[24];
 	public static Block[] biomeStoneFullSlabs = new Block[24];
-	
+
 	public static Block endStoneSlab;
 	public static Block endStoneSlabFull;
 	public static Block endStoneStairs;
@@ -240,7 +240,7 @@ public final class ModFluffBlocks {
 		endStoneSlab = new BlockEndStoneSlab(false);
 		endStoneSlabFull = new BlockEndStoneSlab(true);
 		endStoneStairs = new BlockEndStoneStairs();
-		
+
 		if(ConfigHandler.darkQuartzEnabled) {
 			((BlockModSlab) darkQuartzSlab).register();
 			((BlockModSlab) darkQuartzSlabFull).register();
@@ -292,7 +292,7 @@ public final class ModFluffBlocks {
 
 		((BlockModSlab) dirtPathSlab).register();
 		((BlockModSlab) dirtPathSlabFull).register();
-		
+
 		((BlockModSlab) endStoneSlab).register();
 		((BlockModSlab) endStoneSlabFull).register();
 

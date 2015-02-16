@@ -24,7 +24,6 @@ import org.lwjgl.opengl.GL12;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.item.ItemSpark;
-import vazkii.botania.common.item.ItemSparkUpgrade;
 
 public class RenderSparkBase<T extends Entity> extends RenderEntity {
 
@@ -70,15 +69,15 @@ public class RenderSparkBase<T extends Entity> extends RenderEntity {
 		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 		GL11.glPopMatrix();
 	}
-	
+
 	public IIcon getBaseIcon(T entity) {
 		return ItemSpark.worldIcon;
 	}
-	
+
 	public void colorSpinningIcon(T entity) {
 		// NO-OP
 	}
-	
+
 	public IIcon getSpinningIcon(T entity) {
 		return null;
 	}
@@ -86,7 +85,7 @@ public class RenderSparkBase<T extends Entity> extends RenderEntity {
 	public void renderCallback(T entity, float pticks) {
 		// NO-OP
 	}
-	
+
 	@Override
 	protected ResourceLocation getEntityTexture(Entity p_110775_1_) {
 		return TextureMap.locationItemsTexture;

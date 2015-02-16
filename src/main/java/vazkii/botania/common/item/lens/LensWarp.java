@@ -24,7 +24,7 @@ public class LensWarp extends Lens {
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		if(burst.isFake())
 			return dead;
-			
+
 		Block block = entity.worldObj.getBlock(pos.blockX, pos.blockY, pos.blockZ);
 		if(block == ModBlocks.pistonRelay) {
 			String key = BlockPistonRelay.mappedPositions.get(BlockPistonRelay.getCoordsAsString(entity.worldObj.provider.dimensionId, pos.blockX, pos.blockY, pos.blockZ));
@@ -40,5 +40,5 @@ public class LensWarp extends Lens {
 		}
 		return dead;
 	}
-	
+
 }

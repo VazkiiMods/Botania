@@ -38,13 +38,13 @@ public class BlockPetalBlock extends BlockMod implements ILexiconable {
 		setStepSound(soundTypeGrass);
 		setBlockName(LibBlockNames.PETAL_BLOCK);
 	}
-	
+
 	@Override
 	public void getSubBlocks(Item item, CreativeTabs tab, List list) {
 		for(int i = 0; i < 16; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
-	
+
 	@Override
 	protected boolean shouldRegisterInNameSet() {
 		return false;
@@ -55,17 +55,17 @@ public class BlockPetalBlock extends BlockMod implements ILexiconable {
 		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
 		return super.setBlockName(par1Str);
 	}
-	
+
 	@Override
 	public int getRenderColor(int meta) {
-		return new Color(EntitySheep.fleeceColorTable[meta][0], EntitySheep.fleeceColorTable[meta][1], EntitySheep.fleeceColorTable[meta][2]).getRGB(); 
+		return new Color(EntitySheep.fleeceColorTable[meta][0], EntitySheep.fleeceColorTable[meta][1], EntitySheep.fleeceColorTable[meta][2]).getRGB();
 	}
-	
+
 	@Override
 	public int colorMultiplier(IBlockAccess world, int x, int y, int z) {
 		return getRenderColor(world.getBlockMetadata(x, y, z));
 	}
-	
+
 	@Override
 	public int damageDropped(int meta) {
 		return meta;
@@ -75,5 +75,5 @@ public class BlockPetalBlock extends BlockMod implements ILexiconable {
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.flowers;
 	}
-	
+
 }

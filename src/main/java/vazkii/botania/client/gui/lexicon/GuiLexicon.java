@@ -77,10 +77,10 @@ public class GuiLexicon extends GuiScreen {
 		super.initGui();
 
 		onInitGui();
-		
+
 		putTutorialArrow();
 	}
-	
+
 	public void onInitGui() {
 		allCategories = new ArrayList(BotaniaAPI.getAllCategories());
 		Collections.sort(allCategories);
@@ -170,14 +170,14 @@ public class GuiLexicon extends GuiScreen {
 				RenderHelper.renderTooltip(par1, par2, Arrays.asList(EnumChatFormatting.GOLD + "#goldfishchris", EnumChatFormatting.RED + "INTENSIFY HIM"));
 			}
 		}
-		
+
 		super.drawScreen(par1, par2, par3);
-		
+
 		if(hasTutorialArrow) {
 			mc.renderEngine.bindTexture(texture);
 			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			GL11.glColor4f(1F, 1F, 1F, 0.7F + (float) (Math.sin((float) (ClientTickHandler.ticksInGame + par3) * 0.3F) + 1) * 0.15F);
+			GL11.glColor4f(1F, 1F, 1F, 0.7F + (float) (Math.sin((ClientTickHandler.ticksInGame + par3) * 0.3F) + 1) * 0.15F);
 			drawTexturedModalRect(tutorialArrowX, tutorialArrowY, 20, 200, TUTORIAL_ARROW_WIDTH, TUTORIAL_ARROW_HEIGHT);
 			GL11.glDisable(GL11.GL_BLEND);
 		}
@@ -354,7 +354,7 @@ public class GuiLexicon extends GuiScreen {
 	public void positionTutorialArrow() {
 		LexiconEntry entry = tutorial.peek();
 		LexiconCategory category = entry.category;
-		
+
 		List<GuiButton> buttons = buttonList;
 		for(GuiButton button : buttons)
 			if(button instanceof GuiButtonCategory) {

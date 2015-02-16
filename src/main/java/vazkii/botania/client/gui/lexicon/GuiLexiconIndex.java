@@ -28,7 +28,6 @@ import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonBack;
-import vazkii.botania.client.gui.lexicon.button.GuiButtonCategory;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonInvisible;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonPage;
 
@@ -131,7 +130,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			drawTexturedModalRect(left + 134, top + guiHeight - 26, 86, 180, 12, 12);
 		}
 	}
-	
+
 	@Override
 	public void positionTutorialArrow() {
 		LexiconEntry entry = tutorial.peek();
@@ -140,13 +139,13 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			orientTutorialArrowWithButton(backButton);
 			return;
 		}
-		
+
 		List<GuiButton> buttons = buttonList;
 		for(GuiButton button : buttons) {
 			int index = button.id + page * 12;
 			if(index >= entriesToDisplay.size())
 				continue;
-			
+
 			if(entry == entriesToDisplay.get(index)) {
 				orientTutorialArrowWithButton(button);
 				break;

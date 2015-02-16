@@ -20,17 +20,17 @@ import java.util.WeakHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang3.text.WordUtils;
-
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.event.ServerChatEvent;
+
+import org.apache.commons.lang3.text.WordUtils;
+
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.common.core.helper.MathHelper;
@@ -64,73 +64,73 @@ public class TileCorporeaIndex extends TileCorporeaBase {
 			@Override public int getCount(Matcher m) { return 1; }
 			@Override public String getName(Matcher m) { return m.group(1); }
 		});
-		
+
 		//(n)[x][ of] (name) = n
 		addPattern("(\\d+)x?(?: of)? (.+)", new IRegexStacker() {
 			@Override public int getCount(Matcher m) { return i(m, 1); }
 			@Override public String getName(Matcher m) { return m.group(2); }
 		});
-		
+
 		// [a ]stack[ of] (name) = 64
 		addPattern("(?:a )?stack(?: of)? (.+)", new IRegexStacker() {
 			@Override public int getCount(Matcher m) { return 64; }
 			@Override public String getName(Matcher m) { return m.group(1); }
 		});
-		
+
 		// (n)[x] stack[s][ of] (name) = n * 64
 		addPattern("(\\d+)x?? stacks?(?: of)? (.+)", new IRegexStacker() {
 			@Override public int getCount(Matcher m) { return 64 * i(m, 1); }
 			@Override public String getName(Matcher m) { return m.group(2); }
 		});
-		
+
 		// [a ]stack <and/+> (n)[x][ of] (name) = 64 + n
 		addPattern("(?:a )?stack (?:(?:and)|(?:\\+)) (\\d+)(?: of)? (.+)", new IRegexStacker() {
 			@Override public int getCount(Matcher m) { return 64 + i(m, 1); }
 			@Override public String getName(Matcher m) { return m.group(2); }
 		});
-		
+
 		// (n1)[x] stack[s] <and/+> (n2)[x][ of] (name) = n1 * 64 + n2
 		addPattern("(\\d+)x?? stacks? (?:(?:and)|(?:\\+)) (\\d+)x?(?: of)? (.+)", new IRegexStacker() {
 			@Override public int getCount(Matcher m) { return 64 * i(m, 1) + i(m, 2); }
 			@Override public String getName(Matcher m) { return m.group(3); }
 		});
-		
+
 		// [a ]half [of ][a ]stack[ of] (name) = 32
 		addPattern("(?:a )?half (?:of )?(?:a )?stack(?: of)? (.+)", new IRegexStacker() {
 			@Override public int getCount(Matcher m) { return 32; }
 			@Override public String getName(Matcher m) { return m.group(1); }
 		});
-		
+
 		// [a ]quarter [of ][a ]stack[ of] (name) = 16
 		addPattern("(?:a )?quarter (?:of )?(?:a )?stack(?: of)? (.+)", new IRegexStacker() {
 			@Override public int getCount(Matcher m) { return 16; }
 			@Override public String getName(Matcher m) { return m.group(1); }
 		});
-		
+
 		// [a ]dozen[ of] (name) = 12
 		addPattern("(?:a )?dozen(?: of)? (.+)", new IRegexStacker() {
 			@Override public int getCount(Matcher m) { return 12; }
 			@Override public String getName(Matcher m) { return m.group(1); }
 		});
-		
+
 		// (n)[x] dozen[s][ of] (name) = n * 12
 		addPattern("(\\d+)x?? dozens?(?: of)? (.+)", new IRegexStacker() {
 			@Override public int getCount(Matcher m) { return 12 * i(m, 1); }
 			@Override public String getName(Matcher m) { return m.group(2); }
 		});
-		
+
 		// <all/every> [<of/the> ](name) = 2147483647
 		addPattern("(?:all|every) (?:(?:of|the) )?(.+)", new IRegexStacker() {
 			@Override public int getCount(Matcher m) { return Integer.MAX_VALUE; }
 			@Override public String getName(Matcher m) { return m.group(1); }
 		});
-		
+
 		// [the ]answer to life[,] the universe and everything [of ](name) = 42
 		addPattern("(?:the )?answer to life,? the universe and everything (?:of )?(.+)", new IRegexStacker() {
 			@Override public int getCount(Matcher m) { return 42; }
 			@Override public String getName(Matcher m) { return m.group(1); }
 		});
-		
+
 		// <count/show/display/tell> (name) = 0 (display only)
 		addPattern("(?:count|show|display|tell) (.+)", new IRegexStacker() {
 			@Override public int getCount(Matcher m) { return 0; }
@@ -221,10 +221,9 @@ public class TileCorporeaIndex extends TileCorporeaBase {
 				for(TileCorporeaIndex index : nearbyIndexes) {
 					if(index.worldObj.isRemote)
 						continue;
-					
+
 					ICorporeaSpark spark = index.getSpark();
 					if(spark != null) {
-						String matchedPattern = "";
 						String name = "";
 						int count = 0;
 						for(Pattern pattern : patterns.keySet()) {
@@ -233,16 +232,16 @@ public class TileCorporeaIndex extends TileCorporeaBase {
 								IRegexStacker stacker = patterns.get(pattern);
 								count = stacker.getCount(matcher);
 								name = stacker.getName(matcher).toLowerCase().trim();
-								matchedPattern = pattern.toString();
+								pattern.toString();
 							}
 						}
-						
+
 						if(name.equals("this")) {
 							ItemStack stack = event.player.getCurrentEquippedItem();
 							if(stack != null)
 								name = stack.getDisplayName().toLowerCase().trim();
 						}
-						
+
 						List<ItemStack> stacks = CorporeaHelper.requestItem(name, count, spark, true);
 						spark.onItemsRequested(stacks);
 						for(ItemStack stack : stacks)
@@ -250,7 +249,7 @@ public class TileCorporeaIndex extends TileCorporeaBase {
 								EntityItem item = new EntityItem(index.worldObj, index.xCoord + 0.5, index.yCoord + 1.5, index.zCoord + 0.5, stack);
 								index.worldObj.spawnEntityInWorld(item);
 							}
-						
+
 						event.player.addChatMessage(new ChatComponentTranslation("botaniamisc.requestMsg", count, WordUtils.capitalizeFully(name), CorporeaHelper.lastRequestMatches, CorporeaHelper.lastRequestExtractions).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.LIGHT_PURPLE)));
 					}
 				}

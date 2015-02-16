@@ -14,7 +14,6 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileThermalily extends SubTileHydroangeas {
@@ -68,7 +67,7 @@ public class SubTileThermalily extends SubTileHydroangeas {
 	public int getMaxMana() {
 		return 250;
 	}
-	
+
 	@Override
 	public int getCooldown() {
 		return 9600;

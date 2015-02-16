@@ -98,7 +98,7 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 	public boolean isOnSpecialSoil() {
 		return worldObj.getBlock(xCoord, yCoord - 1, zCoord) == ModBlocks.enchantedSoil;
 	}
-	
+
 	@Override
 	public boolean canUpdate() {
 		return subTile == null || subTile.canUpdate();

@@ -104,7 +104,7 @@ public class LightningHandler {
 
 		GL11.glTranslated(interpPosX, interpPosY, interpPosZ);
 		GL11.glPopMatrix();
-                
+
 		profiler.endSection();
 		profiler.endSection();
 

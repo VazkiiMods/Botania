@@ -46,7 +46,7 @@ public final class LexiconData {
 
 	public static LexiconEntry tutorial;
 	public static LexiconEntry introVideo;
-	
+
 	public static LexiconEntry flowers;
 	public static LexiconEntry apothecary;
 	public static LexiconEntry lexicon;
@@ -161,7 +161,7 @@ public final class LexiconData {
 	public static LexiconEntry spellCloth;
 	public static LexiconEntry thornChakram;
 	public static LexiconEntry overgrowthSeed;
-	
+
 	public static LexiconEntry enderAir;
 	public static LexiconEntry enderEyeBlock;
 	public static LexiconEntry pistonRelay;
@@ -243,7 +243,7 @@ public final class LexiconData {
 
 		// BASICS ENTRIES
 		tutorial = new TLexiconEntry();
-		
+
 		introVideo = new BLexiconEntry(LibLexicon.BASICS_INTRO_VIDEO, categoryBasics);
 		introVideo.setPriority().setLexiconPages(new PageGuide("0"));
 
@@ -344,7 +344,7 @@ public final class LexiconData {
 
 		warpLens = new ALexiconEntry(LibLexicon.MANA_WARP_LENS, categoryMana);
 		warpLens.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeLensWarp));
-		
+
 		prism = new ALexiconEntry(LibLexicon.MANA_PRISM, categoryMana);
 		prism.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipePrism));
 
@@ -638,13 +638,13 @@ public final class LexiconData {
 
 		enderEyeBlock = new BLexiconEntry(LibLexicon.ENDER_ENDER_EYE_BLOCK, categoryEnder);
 		enderEyeBlock.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeEnderEyeBlock));
-		
+
 		pistonRelay = new BLexiconEntry(LibLexicon.ENDER_PISTON_RELAY, categoryEnder);
 		pistonRelay.setLexiconPages(new PageText("0"), new PageText("1"), new PageManaInfusionRecipe("2", ModManaInfusionRecipes.pistonRelayRecipe));
-		
+
 		enderHand = new BLexiconEntry(LibLexicon.ENDER_ENDER_HAND, categoryEnder);
 		enderHand.setLexiconPages(new PageText(ConfigHandler.enderPickpocketEnabled ? "0" : "0a"), new PageCraftingRecipe(ConfigHandler.enderPickpocketEnabled ? "1" : "1a", ModCraftingRecipes.recipeEnderHand));
-		
+
 		enderDagger = new BLexiconEntry(LibLexicon.ENDER_ENDER_DAGGER, categoryEnder);
 		enderDagger.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeEnderDagger));
 
@@ -661,19 +661,19 @@ public final class LexiconData {
 
 		flightTiara = new ALexiconEntry(LibLexicon.ENDER_FLIGHT_TIARA, categoryEnder);
 		flightTiara.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeFlightTiara), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipesWings));
-		
+
 		corporea = new ALexiconEntry(LibLexicon.ENDER_CORPOREA, categoryEnder);
 		corporea.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageText("3"), new PageText("4"), new PageText("5"), new PageText("6"), new PageCraftingRecipe("7", ModCraftingRecipes.recipeCorporeaSpark), new PageCraftingRecipe("8", ModCraftingRecipes.recipeMasterCorporeaSpark));
 
 		corporeaIndex = new ALexiconEntry(LibLexicon.ENDER_CORPOREA_INDEX, categoryEnder);
 		corporeaIndex.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageText("3"), new PageText("4"), new PageText("5"), new PageCraftingRecipe("6", ModCraftingRecipes.recipeCorporeaIndex));
-		
+
 		corporeaFunnel = new ALexiconEntry(LibLexicon.ENDER_CORPOREA_FUNNEL, categoryEnder);
 		corporeaFunnel.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeCorporeaFunnel));
-		
+
 		endStoneDecor = new BLexiconEntry(LibLexicon.ENDER_END_STONE_DECOR, categoryEnder);
 		endStoneDecor.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeEndStoneBricks), new PageCraftingRecipe("2", ModCraftingRecipes.recipeEndStoneChiseledBricks));
-		
+
 		// BAUBLES ENTRIES
 		baublesIntro = new BLexiconEntry(LibLexicon.BAUBLE_INTRO, categoryBaubles);
 		baublesIntro.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_BAUBLES), new PageText("2"));

@@ -251,11 +251,11 @@ public final class ModCraftingRecipes {
 
 		// Petal Block Recipes
 		for(int i = 0; i < 16; i++)
-			addOreDictRecipe(new ItemStack(ModBlocks.petalBlock, 1, i), 
+			addOreDictRecipe(new ItemStack(ModBlocks.petalBlock, 1, i),
 					"PPP", "PPP", "PPP", // PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
-					'P', LibOreDict.PETAL[i]); 
+					'P', LibOreDict.PETAL[i]);
 		recipesPetalBlocks = BotaniaAPI.getLatestAddedRecipes(16);
-			
+
 		// Pestle and Mortar Recipe
 		addOreDictRecipe(new ItemStack(ModItems.pestleAndMortar),
 				" S", "W ", "B ",
@@ -1022,7 +1022,7 @@ public final class ModCraftingRecipes {
 		// Warp Lens Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 1, 18), new ItemStack(ModItems.lens), LibOreDict.PIXIE_DUST);
 		recipeLensWarp = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Mini Island Recipes
 		for(int i = 0; i < 16; i++)
 			GameRegistry.addRecipe(new ItemStack(ModBlocks.floatingFlower, 1, i),
@@ -1513,35 +1513,35 @@ public final class ModCraftingRecipes {
 		// Corporea Spark Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.corporeaSpark), new ItemStack(ModItems.spark), LibOreDict.PIXIE_DUST, LibOreDict.ENDER_AIR_BOTTLE);
 		recipeCorporeaSpark = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Master Corporea Spark Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.corporeaSpark, 1, 1), new ItemStack(ModItems.corporeaSpark), LibOreDict.DRAGONSTONE);
 		recipeMasterCorporeaSpark = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Corporea Index Recipe
-		addOreDictRecipe(new ItemStack(ModBlocks.corporeaIndex), 
+		addOreDictRecipe(new ItemStack(ModBlocks.corporeaIndex),
 				"AOA", "OSO", "DOD",
 				'A', LibOreDict.ENDER_AIR_BOTTLE,
 				'O', new ItemStack(Blocks.obsidian),
 				'S', new ItemStack(ModItems.corporeaSpark),
 				'D', LibOreDict.DRAGONSTONE);
 		recipeCorporeaIndex = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Corporea Funnel Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModBlocks.corporeaFunnel), new ItemStack(Blocks.dropper), new ItemStack(ModItems.corporeaSpark));
 		recipeCorporeaFunnel = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// End Stone Brick Recipes
-		GameRegistry.addRecipe(new ItemStack(ModBlocks.endStoneBrick, 4), 
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.endStoneBrick, 4),
 				"SS", "SS",
 				'S', new ItemStack(Blocks.end_stone));
 		recipeEndStoneBricks = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		GameRegistry.addRecipe(new ItemStack(ModBlocks.endStoneBrick, 1, 1),
 				"S", "S",
 				'S', new ItemStack(ModFluffBlocks.endStoneSlab));
 		recipeEndStoneChiseledBricks = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",

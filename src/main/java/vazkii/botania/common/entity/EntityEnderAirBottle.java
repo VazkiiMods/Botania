@@ -26,7 +26,7 @@ public class EntityEnderAirBottle extends EntityThrowable {
 	public EntityEnderAirBottle(World world) {
 		super(world);
 	}
-	
+
 	public EntityEnderAirBottle(World world, EntityLivingBase entity) {
 		super(world, entity);
 	}
@@ -35,7 +35,7 @@ public class EntityEnderAirBottle extends EntityThrowable {
 	protected void onImpact(MovingObjectPosition pos) {
 		if(pos.entityHit == null && !worldObj.isRemote) {
 			List<ChunkCoordinates> coordsList = getCoordsToPut(pos.blockX, pos.blockY, pos.blockZ);
-            this.worldObj.playAuxSFX(2002, (int)Math.round(this.posX), (int)Math.round(this.posY), (int)Math.round(this.posZ), 8);
+			worldObj.playAuxSFX(2002, (int)Math.round(posX), (int)Math.round(posY), (int)Math.round(posZ), 8);
 
 			for(ChunkCoordinates coords : coordsList) {
 				worldObj.setBlock(coords.posX, coords.posY, coords.posZ, Blocks.end_stone);
@@ -65,12 +65,12 @@ public class EntityEnderAirBottle extends EntityThrowable {
 
 		int count = 64;
 		while(!possibleCoords.isEmpty() && count > 0) {
-			ChunkCoordinates coords = possibleCoords.get(worldObj.rand.nextInt(possibleCoords.size())); 
+			ChunkCoordinates coords = possibleCoords.get(worldObj.rand.nextInt(possibleCoords.size()));
 			possibleCoords.remove(coords);
 			selectedCoords.add(coords);
 			count--;
 		}
 		return selectedCoords;
 	}
-	
+
 }

@@ -10,11 +10,6 @@
  */
 package vazkii.botania.common.block.tile.corporea;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.World;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
@@ -24,5 +19,5 @@ public abstract class TileCorporeaBase extends TileSimpleInventory {
 	public ICorporeaSpark getSpark() {
 		return CorporeaHelper.getSparkForBlock(worldObj, xCoord, yCoord, zCoord);
 	}
-	
+
 }

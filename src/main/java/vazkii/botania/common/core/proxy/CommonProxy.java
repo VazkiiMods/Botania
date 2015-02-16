@@ -102,9 +102,9 @@ public class CommonProxy {
 		MinecraftForge.EVENT_BUS.register(TileCorporeaIndex.input);
 
 		FMLCommonHandler.instance().bus().register(new CommonTickHandler());
-		
+
 		FMLInterModComms.sendMessage("ProjectE", "interdictionblacklist", EntityManaBurst.class.getCanonicalName());
-		
+
 		if(Botania.bcTriggersLoaded)
 			new StatementAPIPlugin();
 	}
@@ -135,7 +135,7 @@ public class CommonProxy {
 	public void setEntryToOpen(LexiconEntry entry) {
 		// NO-OP
 	}
-	
+
 	public void setLexiconStack(ItemStack stack) {
 		// NO-OP
 	}
