@@ -218,6 +218,9 @@ public class TileCorporeaIndex extends TileCorporeaBase {
 			if(!nearbyIndexes.isEmpty()) {
 				String msg = event.message.toLowerCase().trim();
 				for(TileCorporeaIndex index : nearbyIndexes) {
+					if(index.worldObj.isRemote)
+						continue;
+					
 					ICorporeaSpark spark = index.getSpark();
 					if(spark != null) {
 						String matchedPattern = "";
@@ -240,6 +243,7 @@ public class TileCorporeaIndex extends TileCorporeaBase {
 						}
 						
 						List<ItemStack> stacks = CorporeaHelper.requestItem(name, count, spark, true);
+						spark.onItemsRequested(stacks);
 						for(ItemStack stack : stacks)
 							if(stack != null) {
 								EntityItem item = new EntityItem(index.worldObj, index.xCoord + 0.5, index.yCoord + 1.5, index.zCoord + 0.5, stack);

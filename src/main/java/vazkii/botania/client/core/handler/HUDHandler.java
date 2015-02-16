@@ -309,14 +309,14 @@ public final class HUDHandler {
 		String txt2 = EnumChatFormatting.GRAY + StatCollector.translateToLocal("botaniamisc.nearIndex2");
 
 		int l = Math.max(mc.fontRenderer.getStringWidth(txt0), Math.max(mc.fontRenderer.getStringWidth(txt1), mc.fontRenderer.getStringWidth(txt2))) + 20;
-		int x = res.getScaledWidth() / 2 - l / 2;
-		int y = res.getScaledHeight() - 95;
+		int x = res.getScaledWidth() - l - 20;
+		int y = res.getScaledHeight() - 60;
 
 		Gui.drawRect(x - 6, y - 6, x + l + 6, y + 37, 0x44000000);
 		Gui.drawRect(x - 4, y - 4, x + l + 4, y + 35, 0x44000000);
 		net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, new ItemStack(ModBlocks.corporeaIndex), res.getScaledWidth() / 2 - l / 2, y + 10);
+		RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, new ItemStack(ModBlocks.corporeaIndex), x, y + 10);
 		net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
 		mc.fontRenderer.drawStringWithShadow(txt0, x + 20, y, 0xFFFFFF);

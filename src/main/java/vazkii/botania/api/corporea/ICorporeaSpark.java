@@ -13,6 +13,7 @@ package vazkii.botania.api.corporea;
 import java.util.List;
 
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
 
 /**
  * An interface for a Corporea Spark. Includes functions for handling
@@ -60,6 +61,17 @@ public interface ICorporeaSpark {
 	 * in the network. 
 	 */
 	public ICorporeaSpark getMaster();
+	
+	/**
+	 * Called when an item is extracted from the inventory this spark is attached to through this
+	 * spark.
+	 */
+	public void onItemExtracted(ItemStack stack);
+	
+	/**
+	 * Called when this spark requests items, passes in the result of the request and not the actual requested stack(s).
+	 */
+	public void onItemsRequested(List<ItemStack> stacks);
 	
 	/**
 	 * Gets if this spark is considered a master spark.

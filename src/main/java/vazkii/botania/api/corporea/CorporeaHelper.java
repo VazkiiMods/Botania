@@ -20,6 +20,7 @@ import scala.actors.threadpool.Arrays;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -167,6 +168,7 @@ public final class CorporeaHelper {
 		
 		int count = itemCount;
 		for(IInventory inv : inventories) {
+			ICorporeaSpark invSpark = getSparkForInventory(inv);
 			for(int i = inv.getSizeInventory() - 1; i >= 0; i--) {
 				if(!isValidSlot(inv, i))
 					continue;
@@ -188,6 +190,8 @@ public final class CorporeaHelper {
 						stackAt.stackSize -= rem;
 						if(stackAt.stackSize == 0)
 							inv.setInventorySlotContents(i, null);
+						if(invSpark != null)
+							invSpark.onItemExtracted(stackAt);
 					}
 					count -= rem;
 				}
@@ -195,6 +199,17 @@ public final class CorporeaHelper {
 		}
 
 		return stacks;
+	}
+	
+	/**
+	 * Gets the spark attached to the inventory passed case it's a TileEntity.
+	 */
+	public static ICorporeaSpark getSparkForInventory(IInventory inv) {
+		if(!(inv instanceof TileEntity))
+			return null;
+		
+		TileEntity tile = (TileEntity) inv;
+		return getSparkForBlock(tile.getWorldObj(), tile.xCoord, tile.yCoord, tile.zCoord);
 	}
 
 	/**

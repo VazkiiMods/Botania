@@ -49,6 +49,7 @@ public class RenderSparkBase<T extends Entity> extends RenderEntity {
 		bindEntityTexture(par1Entity);
 		Tessellator tessellator = Tessellator.instance;
 
+		GL11.glPushMatrix();
 		float r = 180.0F - renderManager.playerViewY;
 		GL11.glRotatef(r, 0.0F, 1.0F, 0.0F);
 		GL11.glRotatef(-renderManager.playerViewX, 1F, 0F, 0F);
@@ -61,8 +62,9 @@ public class RenderSparkBase<T extends Entity> extends RenderEntity {
 			colorSpinningIcon(tEntity);
 			func_77026_a(tessellator, spinningIcon);
 		}
-		
-		GL11.glRotatef(-r, 0.0F, 1.0F, 0.0F);
+		GL11.glPopMatrix();
+		GL11.glColor4f(1F, 1F, 1F, 1F);
+		renderCallback(tEntity, par9);
 
 		GL11.glDisable(GL11.GL_BLEND);
 		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
@@ -81,6 +83,10 @@ public class RenderSparkBase<T extends Entity> extends RenderEntity {
 		return null;
 	}
 
+	public void renderCallback(T entity, float pticks) {
+		// NO-OP
+	}
+	
 	@Override
 	protected ResourceLocation getEntityTexture(Entity p_110775_1_) {
 		return TextureMap.locationItemsTexture;

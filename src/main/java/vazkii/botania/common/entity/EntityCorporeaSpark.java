@@ -33,36 +33,42 @@ import vazkii.botania.common.item.ModItems;
 public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 
 	private static final int SCAN_RANGE = 8;
-	
+
 	private static final String TAG_MASTER = "master";
 	private static final String TAG_NETWORK = "network";
-	
+
 	ICorporeaSpark master;
 	List<ICorporeaSpark> connections = new ArrayList();
+	List<ICorporeaSpark> connectionsClient = new ArrayList();
 	List<ICorporeaSpark> relatives = new ArrayList();
-	boolean firstUpdate = true;
+	boolean firstUpdateClient = true;
+	boolean firstUpdateServer = true;
 	boolean didStartupParticles = false;
-	
+
 	public EntityCorporeaSpark(World world) {
 		super(world);
 		isImmuneToFire = true;
 	}
-	
+
 	@Override
 	protected void entityInit() {
 		setSize(0.5F, 0.5F);
 		dataWatcher.addObject(28, 0);
 		dataWatcher.addObject(29, 0);
+		dataWatcher.addObject(30, 0);
+		dataWatcher.addObject(31, new ItemStack(Blocks.stone, 0, 0));
 
 		dataWatcher.setObjectWatched(28);
 		dataWatcher.setObjectWatched(29);
+		dataWatcher.setObjectWatched(30);
+		dataWatcher.setObjectWatched(31);
 	}
-	
+
 	@Override
 	public boolean canBeCollidedWith() {
 		return true;
 	}
-	
+
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
@@ -72,45 +78,42 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 				setDead();
 			return;
 		}
-		
+
 		if(isMaster())
 			master = this;
-		
-		if(firstUpdate) {
+
+		if(worldObj.isRemote ? firstUpdateClient : firstUpdateServer) {
 			if(isMaster())
 				restartNetwork();
-			else {
-				List<ICorporeaSpark> sparks = getNearbySparks();
-				if(sparks.size() > 0) {
-					for(ICorporeaSpark spark : sparks) {
-						ICorporeaSpark master = spark.getMaster();
-						if(master != null) {
-							this.master = master;
-							restartNetwork();
-							break;
-						}
-					}
-				}
-			}
-			
-			firstUpdate = false;
+			else findNetwork();
+
+			if(worldObj.isRemote)
+				firstUpdateClient = false;
+			else firstUpdateServer = false;
 		}
-		
+
 		if(!didStartupParticles) {
 			displayRelatives(new ArrayList(), master);
 			didStartupParticles = true;
 		}
-		
+
 		if(master != null && master.getNetwork() != getNetwork())
 			master = null;
+
+		int displayTicks = getItemDisplayTicks();
+		if(displayTicks > 0)
+			setItemDisplayTicks(displayTicks - 1);
+		else if(displayTicks < 0)
+			setItemDisplayTicks(displayTicks + 1);
 	}
-	
+
 	@Override
 	public void setDead() {
 		super.setDead();
 		if(!worldObj.isRemote)
 			entityDropItem(new ItemStack(ModItems.corporeaSpark, 1, isMaster() ? 1 : 0), 0F);
 		connections.remove(this);
+		connectionsClient.remove(this);
 		restartNetwork();
 	}
 
@@ -121,22 +124,26 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 		for(ICorporeaSpark spark : sparks) {
 			if(spark == null || connections.contains(spark) || spark.getNetwork() != getNetwork() || spark.isMaster() || ((Entity) spark).isDead)
 				continue;
-			
+
 			connections.add(spark);
 			relatives.add(spark);
 			spark.registerConnections(master, this, connections);
 		}
-		
+
 		this.master = master;
-		this.connections = connections;
+		if(worldObj.isRemote)
+			connectionsClient = connections;
+		else this.connections = connections;
 	}
-	
+
 	List<ICorporeaSpark> getNearbySparks() {
 		return worldObj.getEntitiesWithinAABB(ICorporeaSpark.class, AxisAlignedBB.getBoundingBox(posX - SCAN_RANGE, posY - SCAN_RANGE, posZ - SCAN_RANGE, posX + SCAN_RANGE, posY + SCAN_RANGE, posZ + SCAN_RANGE));
 	}
-	
-	public void restartNetwork() {
-		connections = new ArrayList();
+
+	void restartNetwork() {
+		if(worldObj.isRemote)
+			connectionsClient = new ArrayList();
+		else connections = new ArrayList();
 		relatives = new ArrayList();
 
 		if(master != null) {
@@ -146,11 +153,27 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 			oldMaster.registerConnections(oldMaster, this, new ArrayList());
 		}
 	}
-	
+
+	void findNetwork() {
+		List<ICorporeaSpark> sparks = getNearbySparks();
+		if(sparks.size() > 0) {
+			for(ICorporeaSpark spark : sparks)
+				if(spark.getNetwork() == getNetwork()) {
+					ICorporeaSpark master = spark.getMaster();
+					if(master != null) {
+						this.master = master;
+						restartNetwork();
+						
+						break;
+					}
+				}
+		}
+	}
+
 	void displayRelatives(ArrayList<ICorporeaSpark> checked, ICorporeaSpark spark) {
 		if(spark == null)
 			return;
-		
+
 		List<ICorporeaSpark> sparks = spark.getRelatives();
 		if(sparks.isEmpty())
 			EntitySpark.particleBeam((Entity) spark, (Entity) spark.getMaster());
@@ -173,14 +196,28 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 
 	@Override
 	public List<ICorporeaSpark> getConnections() {
-		return connections;
+		return worldObj.isRemote ? connectionsClient : connections;
 	}
 
 	@Override
 	public List<ICorporeaSpark> getRelatives() {
 		return relatives;
 	}
-	
+
+	@Override
+	public void onItemExtracted(ItemStack stack) {
+		setItemDisplayTicks(10);
+		setDisplayedItem(stack);
+	}
+
+	@Override
+	public void onItemsRequested(List<ItemStack> stacks) {
+		if(!stacks.isEmpty()) {
+			setItemDisplayTicks(-10);
+			setDisplayedItem(stacks.get(0));
+		}
+	}
+
 	@Override
 	public ICorporeaSpark getMaster() {
 		return master;
@@ -189,12 +226,12 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	public void setMaster(boolean master) {
 		dataWatcher.updateObject(28, master ? 1 : 0);
 	}
-	
+
 	@Override
 	public boolean isMaster() {
 		return dataWatcher.getWatchableObjectInt(28) == 1;
 	}
-	
+
 	public void setNetwork(int network) {
 		dataWatcher.updateObject(29, network);
 	}
@@ -203,7 +240,23 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	public int getNetwork() {
 		return dataWatcher.getWatchableObjectInt(29);
 	}
-	
+
+	public int getItemDisplayTicks() {
+		return dataWatcher.getWatchableObjectInt(30);
+	}
+
+	public void setItemDisplayTicks(int ticks) {
+		dataWatcher.updateObject(30, ticks);
+	}
+
+	public ItemStack getDisplayedItem() {
+		return dataWatcher.getWatchableObjectItemStack(31);
+	}
+
+	public void setDisplayedItem(ItemStack stack) {
+		dataWatcher.updateObject(31, stack);
+	}
+
 	@Override
 	public boolean interactFirst(EntityPlayer player) {
 		ItemStack stack = player.getCurrentEquippedItem();
@@ -222,9 +275,12 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 				int color = stack.getItemDamage();
 				if(color != getNetwork()) {
 					setNetwork(color);
-					restartNetwork();
+
+					if(master != null)
+						restartNetwork();
+					else findNetwork();
+
 					stack.stackSize--;
-					firstUpdate = true;
 					if(player.worldObj.isRemote)
 						player.swingItem();
 				}
@@ -233,7 +289,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 
 		return false;
 	}
-	
+
 	@Override
 	protected void readEntityFromNBT(NBTTagCompound cmp) {
 		setMaster(cmp.getBoolean(TAG_MASTER));
