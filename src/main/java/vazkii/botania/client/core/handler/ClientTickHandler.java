@@ -22,6 +22,8 @@ import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.TileSignature;
 import vazkii.botania.client.core.handler.LightningHandler.LightningBolt;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
+import vazkii.botania.common.block.subtile.functional.SubTileVinculotus;
+import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.item.ItemTwigWand;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -49,8 +51,11 @@ public class ClientTickHandler {
 			RedStringRenderer.tick();
 			ItemsRemainingRenderHandler.tick();
 
-			if(Minecraft.getMinecraft().theWorld == null)
+			if(Minecraft.getMinecraft().theWorld == null) {
 				ManaNetworkHandler.instance.clear();
+				TileCorporeaIndex.indexes.clear();
+				SubTileVinculotus.existingFlowers.clear();
+			}
 
 			GuiScreen gui = Minecraft.getMinecraft().currentScreen;
 			if(gui == null || !gui.doesGuiPauseGame()) {
