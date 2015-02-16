@@ -355,9 +355,9 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			float mv = 0.35F;
 
 			float rad = i * (float) Math.PI / 180F;
-			double x = source.posX - 0.5 - Math.cos(rad) * range;
-			double y = source.posY - 0.5;
-			double z = source.posZ - 0.5 - Math.sin(rad) * range;
+			double x = source.posX + 0.5 - Math.cos(rad) * range;
+			double y = source.posY + 0.5;
+			double z = source.posZ + 0.5 - Math.sin(rad) * range;
 
 			Botania.proxy.wispFX(worldObj, x, y, z, r, g, b, 0.5F, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * mv, (float) (Math.random() - 0.5F) * m);
 		}
