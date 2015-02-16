@@ -237,6 +237,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.elementiumLegs);
 		addItem(ModItems.elementiumBoots);
 		addItem(ModItems.terraSword);
+		addItem(ModItems.thornChakram);
 		addItem(ModItems.terraPick);
 		addItem(ModItems.terrasteelHelm);
 		if(Botania.thaumcraftLoaded)
