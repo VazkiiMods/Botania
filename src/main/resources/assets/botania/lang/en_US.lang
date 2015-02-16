@@ -304,6 +304,7 @@ entity.Botania.botania:thrownItem.name=Thrown Item
 entity.Botania.botania:magicMissile.name=Magic Missile
 entity.Botania.botania:thornChakram.name=Thorn Chakram
 entity.Botania.botania:corporeaSpark.name=Corporea Spark
+entity.Botania.botania:enderAirBottle.name=Bottle of Ender Air
 
 # ACHIEVEMENT NAMES + DESC
 achievement.botania:flowerPickup=Sky of Beginning

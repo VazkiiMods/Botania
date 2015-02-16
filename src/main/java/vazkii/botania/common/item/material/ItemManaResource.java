@@ -15,6 +15,7 @@ import java.util.List;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.item.EntityExpBottle;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -34,6 +35,7 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.IPickupAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.entity.EntityDoppleganger;
+import vazkii.botania.common.entity.EntityEnderAirBottle;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
@@ -61,17 +63,17 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 		boolean ender = event.world.provider.dimensionId == 1; 
 		
 		if(rightEvent && correctStack && ender) {
-				ItemStack stack1 = new ItemStack(this, 1, 15);
-				if(!event.entityPlayer.inventory.addItemStackToInventory(stack1))
-					event.entityPlayer.dropPlayerItemWithRandomChoice(stack1, true);
+			ItemStack stack1 = new ItemStack(this, 1, 15);
+			if(!event.entityPlayer.inventory.addItemStackToInventory(stack1))
+				event.entityPlayer.dropPlayerItemWithRandomChoice(stack1, true);
 
-				stack.stackSize--;
-				if(stack.stackSize == 0)
-					event.entityPlayer.inventory.setInventorySlotContents(event.entityPlayer.inventory.currentItem, null);
-				
-				if(event.world.isRemote)
-					event.entityPlayer.swingItem();
-				else event.world.playSoundAtEntity(event.entityPlayer, "random.pop", 0.5F, 1F);
+			stack.stackSize--;
+			if(stack.stackSize == 0)
+				event.entityPlayer.inventory.setInventorySlotContents(event.entityPlayer.inventory.currentItem, null);
+			
+			if(event.world.isRemote)
+				event.entityPlayer.swingItem();
+			else event.world.playSoundAtEntity(event.entityPlayer, "random.pop", 0.5F, 1F);
 		}
 	}
 
@@ -79,8 +81,24 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
 		if(par1ItemStack.getItemDamage() == 4 || par1ItemStack.getItemDamage() == 14)
 			return EntityDoppleganger.spawn(par2EntityPlayer, par1ItemStack, par3World, par4, par5, par6, par1ItemStack.getItemDamage() == 14);
-
+		
 		return super.onItemUse(par1ItemStack, par2EntityPlayer, par3World, par4, par5, par6, par7, par8, par9, par10);
+	}
+	
+	@Override
+	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par3World, EntityPlayer par2EntityPlayer) {
+		if(par1ItemStack.getItemDamage() == 15) {
+	        if(!par2EntityPlayer.capabilities.isCreativeMode)
+	            --par1ItemStack.stackSize;
+
+	        par3World.playSoundAtEntity(par2EntityPlayer, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+
+	        if(!par3World.isRemote)
+	            par3World.spawnEntityInWorld(new EntityEnderAirBottle(par3World, par2EntityPlayer));
+	        else par2EntityPlayer.swingItem();
+		}
+		
+		return par1ItemStack;
 	}
 
 	@Override

@@ -109,6 +109,7 @@ import vazkii.botania.common.core.proxy.CommonProxy;
 import vazkii.botania.common.core.version.VersionChecker;
 import vazkii.botania.common.entity.EntityCorporeaSpark;
 import vazkii.botania.common.entity.EntityDoppleganger;
+import vazkii.botania.common.entity.EntityEnderAirBottle;
 import vazkii.botania.common.entity.EntityPixie;
 import vazkii.botania.common.entity.EntitySpark;
 import vazkii.botania.common.entity.EntityThornChakram;
@@ -216,6 +217,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntitySpark.class, new RenderSpark());
 		RenderingRegistry.registerEntityRenderingHandler(EntityThornChakram.class, new RenderSnowball(ModItems.thornChakram));
 		RenderingRegistry.registerEntityRenderingHandler(EntityCorporeaSpark.class, new RenderCorporeaSpark());
+		RenderingRegistry.registerEntityRenderingHandler(EntityEnderAirBottle.class, new RenderSnowball(ModItems.manaResource, 15));
 
 		ShaderHelper.initShaders();
 	}

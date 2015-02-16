@@ -31,6 +31,7 @@ public final class ModEntities {
 		EntityRegistry.registerModEntity(EntityMagicMissile.class, LibEntityNames.MAGIC_MISSILE, id++, Botania.instance, 64, 10, true);
 		EntityRegistry.registerModEntity(EntityThornChakram.class, LibEntityNames.THORN_CHAKRAM, id++, Botania.instance, 64, 10, true);
 		EntityRegistry.registerModEntity(EntityCorporeaSpark.class, LibEntityNames.CORPOREA_SPARK, id++, Botania.instance, 64, 10, false);
+		EntityRegistry.registerModEntity(EntityEnderAirBottle.class, LibEntityNames.ENDER_AIR_BOTTLE, id++, Botania.instance, 64, 10, true);
 	}
 
 }
