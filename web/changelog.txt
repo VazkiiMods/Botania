@@ -1,3 +1,22 @@
+r1.5 160
+*<i>Huh, 1.4 was shortlived.</i>
+*<b>Added a new "Ender Artefacts" category to the Lexica Botania</b>, it contains new and old ender related things. Some entries from other categories have been moved over to this.
+*<b>Added a Tutorial Mode</b> which guides you through the pages you should read, in order, to get a good understanding of the mod's basics.
+*<b>Added Corporea, a new mechanic that allows for item verbal requesting.</b> <a href="https://www.youtube.com/watch?v=1HcUMVJKoX8">Here</a>'s a video of it in action while it was still in development, it looks a bit cooler now.<i>This is by no means meant to be an AE replacement or competitor, just throwing it out there.</i>
+*Added a Bottle of Ender Air, used as a crafting material and as means to create renewable End Stone.
+*Added End Stone Bricks and Chiseled End Stone Bricks. <i>It's totally a good addition, stop judging me!</i>
+*Added more alternate textures in the Unity texture pack style by Tobbvald to join those by Futureazoo, you can enable them in the config file.
+*Added some disclaimers to the lexicon that shears made of mana materials will trigger tripwire and that blood magic messes with the fallen kanade (if BM is loaded).
+*Changed some recipes to use a Bottle of Ender Air.
+*Changed the creative tab so all the fluff (decorative blocks and the like) is right at the end rather than in the middle.
+*Changed the texture for Livingwood, Dreamwood and the Lexica Botania to new, more detailed textures also by Tobbvald.
+*Fixed a timing related dupe with Force Relays.
+*Fixed the barrier display of the Gaia Guardian being 1 block off.
+*Fixed the Hardmode Gaia Guardian's missiles never despawning and causing a load on the server.
+*Fixed the Thorn Chakram and Enchanted Soil not being in the creative tab.
+*[API] Added hooks for corporea stuff.
+*[API] Added the new ender category to the api.
+*[API] Fixed the tools category being priority 0 rather than 5.
 r1.4 159
 *Added Petal Blocks of all 16 colors, purely decorative blocks made out of petals.
 *Changed the textures of the elfen rods to be made of dreamwood instead of livingwood.
