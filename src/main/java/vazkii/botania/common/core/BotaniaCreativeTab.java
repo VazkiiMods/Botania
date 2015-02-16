@@ -92,6 +92,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.regenIvy);
 		addItem(ModItems.worldSeed);
 		addItem(ModItems.overgrowthSeed);
+		addBlock(ModBlocks.enchantedSoil);
 		if(Botania.thaumcraftLoaded)
 			addItem(ModItems.manaInkwell);
 		addBlock(ModBlocks.forestDrum);
