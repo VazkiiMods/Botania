@@ -107,6 +107,15 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 				par1World.func_147453_f(par2, par3, par4, this);
 
 				return true;
+			} else if(stack != null && stack.getItem() == Items.bucket) {
+				if (!par5EntityPlayer.capabilities.isCreativeMode)
+					par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, getContainer(stack));
+				else
+					par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, new ItemStack(Items.water_bucket));
+				tile.setWater(false);
+				par1World.func_147453_f(par2, par3, par4, this);
+
+				return true;
 			}
 		}
 
