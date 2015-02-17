@@ -1,3 +1,8 @@
+r1.5 162
+*<i>This line is here only to make the changelog look larger than it actually is. Did it work?</i>
+*Fixed the Corporea Funnel not being in the creative tab.
+*Fixed the Ring of Magnetization not ignoring AE2 crystal seeds. <i>Fireball tricked me with the wrong IDs last time but this time I foiled his plans to foil my plans by getting them right, muahahaha! ...I'm tired.</i>
+*Reordered some things in the mana part of the creative tab to make more sense. <i>I'm very perfectionist.</i>
 r1.5 161
 *Fixed server crash >.<
 r1.5 160
