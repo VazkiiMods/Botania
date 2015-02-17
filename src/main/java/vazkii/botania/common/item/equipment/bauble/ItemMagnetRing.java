@@ -46,15 +46,7 @@ public class ItemMagnetRing extends ItemBauble {
 	private static final String TAG_COOLDOWN = "cooldown";
 
 	private static final List<String> BLACKLIST = Arrays.asList(new String[] {
-			"appliedenergistics2:ItemCrystalSeed.Certus",
-			"appliedenergistics2:ItemCrystalSeed.Certus2",
-			"appliedenergistics2:ItemCrystalSeed.Certus3",
-			"appliedenergistics2:ItemCrystalSeed.Nether",
-			"appliedenergistics2:ItemCrystalSeed.Nether2",
-			"appliedenergistics2:ItemCrystalSeed.Nether3",
-			"appliedenergistics2:ItemCrystalSeed.Fluix",
-			"appliedenergistics2:ItemCrystalSeed.Fluix2",
-			"appliedenergistics2:ItemCrystalSeed.Fluix3",
+			"appliedenergistics2:item.ItemCrystalSeed",
 	});
 
 	public ItemMagnetRing() {
