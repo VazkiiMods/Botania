@@ -1114,8 +1114,8 @@ botania.page.apothecary0=In order for a botanist to create plantlife that can do
 botania.page.apothecary1=The &1Petal Apothecary&0.
 botania.page.apothecary2=This block, when placed in the world and given some water (by use of a &1Water Bucket&0), will accept any &1Mystical Petals&0 thrown at it, releasing their energies.<br>Once one has set the correct petals in, throwing some &1Seeds&0 in will finalize the proccess.<br>Tossing in the full bucket will also fill the recipient with water.
 botania.page.apothecary3=Quite a few plants can be made using this method, for more information, read on the &4Functional Flora&0 and &4Generation Flora&0 sections of this Lexicon.<br>Shift-right clicking the &1Petal Apothecary&0 with an empty hand will remove the last item thrown in.
-botania.page.apothecary4=Instead of &1Water&0, one can place &1Lava&0 in this block, if that is done, it'll serve as a brazier and incinerator, destroying any items that come in contact.<br>Lastly, tossing in &1Vines&0 also gives the block an overgrown visual.
-botania.page.apothecary5=Additionally, right clicking the &1Petal Apothecary&0 with an empty bucket will empty the &1Petal Apothecary&0 of water.<br>Finally, redstone comaparators can be used to indicate if the &1Petal Apothecary&0 contains water.
+botania.page.apothecary4=Instead of &1Water&0, one can place &1Lava&0 in this block, if that is done, it'll serve as a brazier and incinerator, destroying any items that come in contact.<br>Tossing in &1Vines&0 also gives the block an overgrown visual.
+botania.page.apothecary5=Additionally, right clicking the &1Petal Apothecary&0 with an &1Empty Bucket&0 will empty the &1Petal Apothecary&0 of water.<br>Finally, &4redstone comparators%0 can be used to indicate if the &1Petal Apothecary&0 contains water.
 botania.page.apothecary6=Crafting the &1Petal Apothecary&0.
 
 # -- PURE DAISY
