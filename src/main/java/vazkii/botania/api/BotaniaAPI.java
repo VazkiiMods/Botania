@@ -116,6 +116,7 @@ public final class BotaniaAPI {
 		addOreWeight("oreCoal", 46525); // Vanilla
 		addOreWeight("oreCooperite", 5); // GregTech
 		addOreWeight("oreCopper", 8325); // IC2, Thermal Expansion, Tinkers' Construct, etc.
+		addOreWeight("oreDark", 1350); // EvilCraft
 		addOreWeight("oreDarkIron", 1700); // Factorization
 		addOreWeight("oreDiamond", 1265); // Vanilla
 		addOreWeight("oreEmerald", 780); // Vanilla
