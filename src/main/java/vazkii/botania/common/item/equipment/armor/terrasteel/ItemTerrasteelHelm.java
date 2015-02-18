@@ -111,6 +111,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 	@SideOnly(Side.CLIENT)
 	public static void renderOnPlayer(ItemStack stack, RenderPlayerEvent event) {
 		if(hasAnyWill(stack)) {
+			GL11.glPushMatrix();
 			float f = willIcon.getMinU();
 			float f1 = willIcon.getMaxU();
 			float f2 = willIcon.getMinV();
@@ -122,6 +123,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 			GL11.glTranslatef(-0.26F, 0.3F, -0.29F);
 			GL11.glScalef(0.5F, 0.5F, 0.5F);
 			ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, willIcon.getIconWidth(), willIcon.getIconHeight(), 1F / 16F);
+			GL11.glPopMatrix();
 		}
 	}
 

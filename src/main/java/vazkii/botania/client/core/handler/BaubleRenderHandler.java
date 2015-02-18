@@ -28,9 +28,12 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.item.IBaubleRender.Helper;
 import vazkii.botania.api.item.IBaubleRender.RenderType;
+import vazkii.botania.common.block.BlockModFlower;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
+import vazkii.botania.common.item.material.ItemManaResource;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -62,6 +65,8 @@ public final class BaubleRenderHandler {
 		ItemStack helm = player.inventory.armorItemInSlot(3);
 		if(helm != null && helm.getItem() instanceof ItemTerrasteelHelm)
 			ItemTerrasteelHelm.renderOnPlayer(helm, event);
+		if(event.entityPlayer.getCommandSenderName().equals("Vazkii"))
+			renderFancyExclusiveDevStuffBecauseImAnEvilDevWhoDoesntCareAboutTheCommunityBooo(event);
 		GL11.glPopMatrix();
 	}
 
@@ -116,6 +121,51 @@ public final class BaubleRenderHandler {
 				renderedOne = true;
 			}
 		}
+	}
+	
+	private void renderFancyExclusiveDevStuffBecauseImAnEvilDevWhoDoesntCareAboutTheCommunityBooo(RenderPlayerEvent event) {
+		GL11.glPushMatrix();
+		IIcon icon = ((ItemManaResource) ModItems.manaResource).tailIcon;
+		float f = icon.getMinU();
+		float f1 = icon.getMaxU();
+		float f2 = icon.getMinV();
+		float f3 = icon.getMaxV();
+		Helper.translateToHeadLevel(event.entityPlayer);
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
+		GL11.glPushMatrix();
+		GL11.glRotatef(90F, 0F, 1F, 0F);
+		float t = 0.13F;
+		GL11.glTranslatef(t, -0.5F, -0.1F);
+		if(event.entityPlayer.motionY < 0)
+			GL11.glRotatef((float) event.entityPlayer.motionY * 20F, 1F, 0F, 0F);
+
+		float r = -18F + (float) Math.sin(((float) ClientTickHandler.ticksInGame + event.partialRenderTick) * 0.05F) * 2F;
+		GL11.glRotatef(r, 0F, 0F, 1F);
+		float s = 0.9F;
+		GL11.glScalef(s, s, s);
+		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+		GL11.glRotatef(-r, 0F, 0F, 1F);
+		GL11.glTranslatef(-t, -0F, 0F);
+		GL11.glScalef(-1F, 1F, 1F);
+		GL11.glTranslatef(t, -0F, 0F);
+		GL11.glRotatef(r, 0F, 0F, 1F);
+		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+		GL11.glPopMatrix();
+		
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+		icon = ((BlockModFlower) ModBlocks.flower).icons[6];
+		f = icon.getMinU();
+		f1 = icon.getMaxU();
+		f2 = icon.getMinV();
+		f3 = icon.getMaxV();
+		GL11.glRotatef(180F, 0F, 0F, 1F);
+		GL11.glRotatef(90F, 0F, 1F, 0F);
+		GL11.glScalef(0.5F, 0.5F, 0.5F);
+		GL11.glTranslatef(-0.5F, 0.7F, 0F);
+
+		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+
+		GL11.glPopMatrix();
 	}
 
 }

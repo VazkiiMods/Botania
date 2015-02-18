@@ -46,6 +46,8 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	final int types = 16;
 	IIcon[] icons;
 
+	public IIcon tailIcon = null;
+	
 	public ItemManaResource() {
 		super();
 		setUnlocalizedName(LibItemNames.MANA_RESOURCE);
@@ -112,6 +114,8 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 		icons = new IIcon[types];
 		for(int i = 0; i < icons.length; i++)
 			icons[i] = IconHelper.forName(par1IconRegister, LibItemNames.MANA_RESOURCE_NAMES[i]);
+		
+		tailIcon = IconHelper.forName(par1IconRegister, "tail");
 	}
 
 	@Override
