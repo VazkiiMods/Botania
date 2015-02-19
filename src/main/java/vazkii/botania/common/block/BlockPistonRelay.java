@@ -19,6 +19,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -211,7 +212,12 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 							String[] tokens = s.split(":");
 							int worldId = Integer.parseInt(tokens[0]), x = Integer.parseInt(tokens[1]), y = Integer.parseInt(tokens[2]), z = Integer.parseInt(tokens[3]);
 							World world = server.worldServerForDimension(worldId);
-							world.setBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ, ModBlocks.pistonRelay);
+							if(world.isAirBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ))	
+								world.setBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ, ModBlocks.pistonRelay);
+							else if(!world.isRemote) {
+								ItemStack stack = new ItemStack(ModBlocks.pistonRelay);
+								world.spawnEntityInWorld(new EntityItem(world, x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ, stack));
+							}
 							checkedCoords.add(s);
 							newPos = getCoordsAsString(world.provider.dimensionId, x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
 						}
@@ -251,7 +257,8 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 		ArrayList<String> remove = new ArrayList(removeThese);
 		for(String s : remove) {
 			coordsToCheck.remove(s);
-			checkedCoords.remove(s);
+			if(checkedCoords.contains(s))
+				checkedCoords.remove(s);
 		}
 		removeThese.clear();
 	}
