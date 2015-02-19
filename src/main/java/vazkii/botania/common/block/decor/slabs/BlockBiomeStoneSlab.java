@@ -26,6 +26,8 @@ public class BlockBiomeStoneSlab extends BlockLivingSlab {
 	public BlockBiomeStoneSlab(boolean full, Block source, int meta, int index) {
 		super(full, source, meta);
 		this.index = index;
+		setHardness(1.5F);
+		setResistance(10F);
 	}
 
 	@Override
