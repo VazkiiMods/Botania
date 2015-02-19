@@ -1,3 +1,12 @@
+r1.5 163
+*Added kawaii.
+*Fancified the lexicon index pages.
+*Fixed Metamorphic Stone Slabs breaking in one click.
+*Fixed the Force Relay being able to destroy blocks in the world (Bedrock included). Also fixed a rare crash that happened randomly it seems.
+*Right clicking on a Petal Apothecary with an empty bucket removes the water. (gr8pefish)
+*[API] Added an icon ItemStack to LexiconEntry. This is automatically initialized through recipe outputs through LexiconRecipeMappings.
+*[API] Added oreDark (from Evilcraft) to the orechid weight map.
+*[API] Increased version number to 33.
 r1.5 162
 *<i>This line is here only to make the changelog look larger than it actually is. Did it work?</i>
 *Fixed the Corporea Funnel not being in the creative tab.
