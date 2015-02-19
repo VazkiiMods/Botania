@@ -98,7 +98,7 @@ public class GuiLexicon extends GuiScreen {
 			int x = 18;
 			for(int i = 0; i < 12; i++) {
 				int y = 16 + i * 12;
-				buttonList.add(new GuiButtonInvisible(i, left + x, top + y, 110, 10, ""));
+				buttonList.add(new GuiButtonInvisible(this, i, left + x, top + y, 110, 10, ""));
 			}
 			populateIndex();
 		} else if(isCategoryIndex()) {

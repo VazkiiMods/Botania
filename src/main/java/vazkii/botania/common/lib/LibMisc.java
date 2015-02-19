@@ -32,5 +32,12 @@ public final class LibMisc {
 	public static final ForgeDirection[] CARDINAL_DIRECTIONS = new ForgeDirection[] {
 		ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST
 	};
+	
+	public static final int[] CONTROL_CODE_COLORS = new int[] {
+		0x000000, 0x0000AA, 0x00AA00, 0x00AAAA,
+		0xAA0000, 0xAA00AA, 0xFFAA00, 0xAAAAAA,
+		0x555555, 0x5555FF, 0x55FF55, 0x55FFFF,
+		0xFF5555, 0xFF55FF, 0xFFFF55, 0xFFFFFF
+	};
 
 }

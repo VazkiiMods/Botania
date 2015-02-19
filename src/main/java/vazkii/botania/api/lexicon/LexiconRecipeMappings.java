@@ -33,6 +33,8 @@ public final class LexiconRecipeMappings {
 
 		if(force || !mappings.containsKey(str))
 			mappings.put(str, data);
+		if(entry.getIcon() == null)
+			entry.setIcon(stack.copy());
 	}
 
 	public static void map(ItemStack stack, LexiconEntry entry, int page) {
