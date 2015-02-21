@@ -1029,7 +1029,8 @@ item.botania:ancientWill4.name=Will of Verac
 item.botania:ancientWill5.name=Will of Karil
 item.botania:corporeaSpark0.name=Corporea Spark
 item.botania:corporeaSpark1.name=Master Corporea Spark
-item.botania:enderAirBottle.name=Ender Air Bottle
+item.botania:enderAirBottle.name=Ender Air Botte
+item.botania:livingwoodBow.name=Livingwood Bow
 
 # BREW NAMES
 botania.brew.fallback=Fallback

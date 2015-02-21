@@ -56,6 +56,7 @@ import vazkii.botania.common.item.equipment.tool.ItemEnderDagger;
 import vazkii.botania.common.item.equipment.tool.ItemGlassPick;
 import vazkii.botania.common.item.equipment.tool.ItemTerraPick;
 import vazkii.botania.common.item.equipment.tool.ItemTerraSword;
+import vazkii.botania.common.item.equipment.tool.bow.ItemLivingwoodBow;
 import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumAxe;
 import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumPick;
 import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumShears;
@@ -202,6 +203,7 @@ public final class ModItems {
 	public static Item craftPattern;
 	public static Item ancientWill;
 	public static Item corporeaSpark;
+	public static Item livingwoodBow;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -312,6 +314,7 @@ public final class ModItems {
 		craftPattern = new ItemCraftPattern();
 		ancientWill = new ItemAncientWill();
 		corporeaSpark = new ItemCorporeaSpark();
+		livingwoodBow = new ItemLivingwoodBow();
 
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {

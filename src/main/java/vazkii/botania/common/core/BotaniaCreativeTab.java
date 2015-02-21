@@ -141,6 +141,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.manasteelShears);
 		addItem(ModItems.manasteelSword);
 		addItem(ModItems.enderDagger);
+		addItem(ModItems.livingwoodBow);
 		addItem(ModItems.manasteelHelm);
 		if(Botania.thaumcraftLoaded)
 			addItem(ModItems.manasteelHelmRevealing);
