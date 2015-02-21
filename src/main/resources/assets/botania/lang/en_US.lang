@@ -1031,6 +1031,7 @@ item.botania:corporeaSpark0.name=Corporea Spark
 item.botania:corporeaSpark1.name=Master Corporea Spark
 item.botania:enderAirBottle.name=Ender Air Botte
 item.botania:livingwoodBow.name=Livingwood Bow
+item.botania:crystalBow.name=Crystal Bow
 
 # BREW NAMES
 botania.brew.fallback=Fallback
