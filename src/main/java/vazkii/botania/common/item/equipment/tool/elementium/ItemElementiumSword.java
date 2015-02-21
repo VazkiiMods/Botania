@@ -14,7 +14,7 @@ public class ItemElementiumSword extends ItemManasteelSword implements IPixieSpa
 
 	@Override
 	public float getPixieChance(ItemStack stack) {
-		return 0.5F;
+		return 0.05F;
 	}
 
 }
