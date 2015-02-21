@@ -56,6 +56,9 @@ public class GuiButtonInvisible extends GuiButtonLexicon {
 		String format = FontHelper.getFormatFromString(displayString);
 		if(format.length() > 1) {
 			char key = format.charAt(format.length() - 1);
+			if(key == 'o' && format.length() > 3)
+				key = format.charAt(1);
+			
 			for(EnumChatFormatting ecf : EnumChatFormatting.class.getEnumConstants())
 				if(ecf.getFormattingCode() == key) {
 					if(ecf.ordinal() > 15)
