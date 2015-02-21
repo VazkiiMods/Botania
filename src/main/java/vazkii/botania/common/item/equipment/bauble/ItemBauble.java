@@ -20,6 +20,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.item.ItemMod;
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
@@ -40,6 +41,9 @@ public abstract class ItemBauble extends ItemMod implements IBauble {
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+		if(!EntityDoppleganger.isTruePlayer(par3EntityPlayer))
+			return par1ItemStack;
+		
 		InventoryBaubles baubles = PlayerHandler.getPlayerBaubles(par3EntityPlayer);
 		for(int i = 0; i < baubles.getSizeInventory(); i++) {
 			if(baubles.isItemValidForSlot(i, par1ItemStack)) {
