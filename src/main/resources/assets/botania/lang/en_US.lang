@@ -1065,6 +1065,7 @@ item.botania:cosmetic28.name=Thick Eyebrows
 item.botania:cosmetic29.name=Lusitanic Shield
 item.botania:cosmetic30.name=Tiny Potato Mask
 item.botania:cosmetic31.name=Questgiver Mark
+item.botania:manaString.name=Mana Infused String
 
 # BREW NAMES
 botania.brew.fallback=Fallback
@@ -1236,6 +1237,7 @@ botania.page.pool4=Infusing &1Mana Pearls&0
 botania.page.pool5=Infusing &1Mana Diamonds&0
 botania.page.pool6=Infusing &1Mana Petals&0
 botania.page.pool11=Infusing &1Managlass&0, clear seamless glass.
+botania.page.pool12=Infusing &1String&0
 botania.page.pool7=Infusing &1Mana Cookies&0, pretty good food.
 
 # -- SPARKS
@@ -1945,6 +1947,16 @@ botania.page.thornChakram1=Spores and stingers
 # -- OVERGROWTH SEED
 botania.entry.overgrowthSeed=Overgrowth Seed
 botania.page.overgrowthSeed0=An &1Overgrowth Seed&0 is an elusive item, which can be used to enchant a piece of &1Grass&0, via right clicking on it in the world, creating &1Enchanted Soil&0. Flowers that are rooted on this &1Enchanted Soil&0 will function at double the normal speed.<br>There's one problem, though. No known method of creating these exists, but they have been spotted in ancient structures and the like.
+
+# -- LIVINGWOOD BOW
+botania.entry.livingwoodBow=Livingwood Bow
+botania.page.livingwoodBow0=The &1Livingwood Bow&0 is, as the name describes, a bow made of &1Livingwood&0 strung with &1Mana Infused String&0. Due to its componenets, it will last for longer than a normal &1Bow&0, it'll also repair itself using &4Mana&0, similarly to &1Manasteel Tools&0.
+botania.page.livingwoodBow1=Does it shoot airplanes?
+
+# -- CRYSTAL BOW
+botania.entry.crystalBow=Crystal Bow
+botania.page.crystalBow0=Crafted with &1Dragonstone&0, the &1Crystal Bow&0 is a ranged weapon with the capacity to generate arrows from &4Mana&0. Similarly to the &1Livingwood Bow&0, it'll repair using &4Mana&0 as well, but carrying &1Arrows&0 is not required as they are created through the magical energies.
+botania.page.crystalBow1=The elves are roving
 
 # - ENDER ARTEFACTS
 # -- EXTRACTING ENDER AIR

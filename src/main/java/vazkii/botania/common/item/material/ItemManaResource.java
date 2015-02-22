@@ -43,7 +43,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemManaResource extends ItemMod implements IFlowerComponent, IElvenItem, IPickupAchievement {
 
-	final int types = 16;
+	final int types = 17;
 	IIcon[] icons;
 
 	public IIcon tailIcon = null;

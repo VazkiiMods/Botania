@@ -234,7 +234,9 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeCorporeaFunnel;
 	public static IRecipe recipeEndStoneBricks;
 	public static IRecipe recipeEndStoneChiseledBricks;
-
+	public static IRecipe recipeLivingwoodBow;
+	public static IRecipe recipeCrystalBow;
+	
 	public static void init() {
 		// Lexicon Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lexicon), "treeSapling", Items.book);
@@ -1542,6 +1544,21 @@ public final class ModCraftingRecipes {
 				'S', new ItemStack(ModFluffBlocks.endStoneSlab));
 		recipeEndStoneChiseledBricks = BotaniaAPI.getLatestAddedRecipe();
 
+		// Livingwood Bow Recipe
+		addOreDictRecipe(new ItemStack(ModItems.livingwoodBow), 
+				" TS", "T S", " TS",
+				'T', LibOreDict.LIVINGWOOD_TWIG,
+				'S', LibOreDict.MANA_STRING);
+		recipeLivingwoodBow = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Crystal Bow Recipe
+		addOreDictRecipe(new ItemStack(ModItems.crystalBow), 
+				" DS", "T S", " DS",
+				'T', LibOreDict.LIVINGWOOD_TWIG,
+				'D', LibOreDict.DRAGONSTONE,
+				'S', LibOreDict.MANA_STRING);
+		recipeCrystalBow = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",
