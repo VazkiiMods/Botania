@@ -104,15 +104,20 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 					par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, getContainer(stack));
 
 				tile.setLava(true);
+				tile.setWater(false);
 				par1World.func_147453_f(par2, par3, par4, this);
 
 				return true;
-			} else if(stack != null && stack.getItem() == Items.bucket) {
-				if (!par5EntityPlayer.capabilities.isCreativeMode)
-					par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, getContainer(stack));
-				else
-					par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, new ItemStack(Items.water_bucket));
-				tile.setWater(false);
+			} else if(stack != null && stack.getItem() == Items.bucket && (tile.hasWater || tile.hasLava)) {
+				ItemStack bucket = tile.hasLava ? new ItemStack(Items.lava_bucket) : new ItemStack(Items.water_bucket);
+				if(stack.stackSize == 1)
+					par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, bucket);
+				else if(!par5EntityPlayer.inventory.addItemStackToInventory(bucket))
+					par5EntityPlayer.dropPlayerItemWithRandomChoice(bucket, false);
+				
+				if(tile.hasLava)
+					tile.setLava(false);
+				else tile.setWater(false);
 				par1World.func_147453_f(par2, par3, par4, this);
 
 				return true;
