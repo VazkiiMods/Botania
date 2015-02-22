@@ -28,6 +28,7 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.item.IBaubleRender.Helper;
 import vazkii.botania.api.item.IBaubleRender.RenderType;
+import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -73,11 +74,27 @@ public final class BaubleRenderHandler {
 	private void dispatchRenders(InventoryBaubles inv, RenderPlayerEvent event, RenderType type) {
 		for(int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
-			if(stack != null && stack.getItem() instanceof IBaubleRender) {
-				GL11.glPushMatrix();
-				GL11.glColor4f(1F, 1F, 1F, 1F);
-				((IBaubleRender) stack.getItem()).onPlayerBaubleRender(stack, event, type);
-				GL11.glPopMatrix();
+			if(stack != null) {
+				Item item = stack.getItem();
+
+				if(item instanceof ICosmeticAttachable) {
+					ICosmeticAttachable attachable = (ICosmeticAttachable) item;
+					ItemStack cosmetic = attachable.getCosmeticItem(stack);
+					if(cosmetic != null) {
+						GL11.glPushMatrix();
+						GL11.glColor4f(1F, 1F, 1F, 1F);
+						((IBaubleRender) cosmetic.getItem()).onPlayerBaubleRender(cosmetic, event, type);
+						GL11.glPopMatrix();
+						continue;
+					}
+				}
+				
+				if(item instanceof IBaubleRender) {
+					GL11.glPushMatrix();
+					GL11.glColor4f(1F, 1F, 1F, 1F);
+					((IBaubleRender) stack.getItem()).onPlayerBaubleRender(stack, event, type);
+					GL11.glPopMatrix();	
+				}
 			}
 		}
 	}

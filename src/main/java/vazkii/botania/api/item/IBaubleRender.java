@@ -32,7 +32,8 @@ public interface IBaubleRender {
 	 * Called for the rendering of the bauble on the player. The player instance can be
 	 * acquired through the event parameter. Transformations are already applied for
 	 * the RenderType passed in. Make sure to check against the type parameter for
-	 * rendering.
+	 * rendering. Will not be called if the item is a ICosmeticAttachable and
+	 * has a cosmetic bauble attached to it.
 	 */
 	@SideOnly(Side.CLIENT)
 	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type);

@@ -16,8 +16,10 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityDoppleganger;
@@ -29,9 +31,10 @@ import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public abstract class ItemBauble extends ItemMod implements IBauble {
+public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAttachable {
 
 	private static final String TAG_HASHCODE = "playerHashcode";
+	private static final String TAG_COSMETIC_ITEM = "cosmeticItem";
 
 	public ItemBauble(String name) {
 		super();
@@ -85,6 +88,10 @@ public abstract class ItemBauble extends ItemMod implements IBauble {
 
 		if(key != null)
 			addStringToTooltip(StatCollector.translateToLocal("botania.baubletooltip").replaceAll("%key%", key), par3List);
+		
+		ItemStack cosmetic = getCosmeticItem(par1ItemStack);
+		if(cosmetic != null)
+			addStringToTooltip(String.format(StatCollector.translateToLocal("botaniamisc.hasCosmetic"), cosmetic.getDisplayName()), par3List);
 	}
 
 	void addStringToTooltip(String s, List<String> tooltip) {
@@ -130,6 +137,37 @@ public abstract class ItemBauble extends ItemMod implements IBauble {
 		// NO-OP
 	}
 
+	@Override
+	public ItemStack getCosmeticItem(ItemStack stack) {
+		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_COSMETIC_ITEM, true);
+		if(cmp == null)
+			return null;
+		return ItemStack.loadItemStackFromNBT(cmp);
+	}
+	
+	@Override
+	public void setCosmeticItem(ItemStack stack, ItemStack cosmetic) {
+		NBTTagCompound cmp = new NBTTagCompound();
+		if(cosmetic != null)
+			cosmetic.writeToNBT(cmp);
+		ItemNBTHelper.setCompound(stack, TAG_COSMETIC_ITEM, cmp);
+	}
+	
+	@Override
+	public boolean hasContainerItem(ItemStack stack) {
+		return getContainerItem(stack) != null;
+	}
+	
+	@Override
+	public ItemStack getContainerItem(ItemStack itemStack) {
+		return getCosmeticItem(itemStack);
+	}
+	
+	@Override
+	public boolean doesContainerItemLeaveCraftingGrid(ItemStack p_77630_1_) {
+		return false;
+	}
+	
 	public int getLastPlayerHashcode(ItemStack stack) {
 		return ItemNBTHelper.getInt(stack, TAG_HASHCODE, 0);
 	}

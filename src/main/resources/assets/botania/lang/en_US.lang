@@ -84,6 +84,7 @@ botaniamisc.startTutorial=Start Tutorial
 botaniamisc.tutorialStarted=You have started your tutorial, follow the red arrows and read the contents to be guided through the basics of Botania!
 botaniamisc.tutorialEnded=Your tutorial is over, you should now have a basic idea of how Botania works, make sure to read through the other pages at your leisure to learn more ways of using the mod.
 botaniamisc.cosmeticBauble=&oCosmetic
+botaniamisc.hasCosmetic=&oHas Cosmetic Override: &r%s
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery

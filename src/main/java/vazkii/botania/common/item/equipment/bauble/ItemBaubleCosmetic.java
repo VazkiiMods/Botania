@@ -14,6 +14,7 @@ import java.util.List;
 
 import org.lwjgl.opengl.GL11;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
@@ -26,10 +27,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.client.event.RenderPlayerEvent;
+import net.minecraftforge.oredict.RecipeSorter;
+import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.api.item.ICosmeticBauble;
 import vazkii.botania.api.item.IBaubleRender.Helper;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.common.crafting.recipe.CosmeticAttachRecipe;
+import vazkii.botania.common.crafting.recipe.CosmeticRemoveRecipe;
+import vazkii.botania.common.crafting.recipe.ManaGunClipRecipe;
+import vazkii.botania.common.crafting.recipe.ManaGunLensRecipe;
+import vazkii.botania.common.crafting.recipe.ManaGunRemoveLensRecipe;
 import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
 
@@ -41,6 +49,11 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 	public ItemBaubleCosmetic() {
 		super(LibItemNames.COSMETIC);
 		setHasSubtypes(true);
+		
+		GameRegistry.addRecipe(new CosmeticAttachRecipe());
+		GameRegistry.addRecipe(new CosmeticRemoveRecipe());
+		RecipeSorter.register("botania:cosmeticAttach", CosmeticAttachRecipe.class, Category.SHAPELESS, "");
+		RecipeSorter.register("botania:cosmeticRemove", CosmeticRemoveRecipe.class, Category.SHAPELESS, "");
 	}
 
 	@Override
