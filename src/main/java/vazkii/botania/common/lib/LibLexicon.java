@@ -160,6 +160,7 @@ public final class LibLexicon {
 	public static final String ENDER_END_STONE_DECOR = "endStoneDecor";
 
 	public static final String BAUBLE_INTRO = "bIntro";
+	public static final String BAUBLE_COSMETIC = "cosmeticBaubles";
 	public static final String BAUBLE_TINY_PLANET = "tinyPlanet";
 	public static final String BAUBLE_MANA_RING = "manaRing";
 	public static final String BAUBLE_AURA_RING = "auraRing";

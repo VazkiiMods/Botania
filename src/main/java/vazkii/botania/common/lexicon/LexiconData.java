@@ -10,6 +10,9 @@
  */
 package vazkii.botania.common.lexicon;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -17,6 +20,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.IBrewContainer;
 import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.api.lexicon.LexiconRecipeMappings;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
@@ -33,7 +37,6 @@ import vazkii.botania.common.crafting.ModManaInfusionRecipes;
 import vazkii.botania.common.crafting.ModPetalRecipes;
 import vazkii.botania.common.crafting.ModRuneRecipes;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.brew.ItemBrewBase;
 import vazkii.botania.common.lexicon.page.PageBrew;
 import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
 import vazkii.botania.common.lexicon.page.PageElvenRecipe;
@@ -183,6 +186,7 @@ public final class LexiconData {
 	public static LexiconEntry endStoneDecor;
 
 	public static LexiconEntry baublesIntro;
+	public static LexiconEntry cosmeticBaubles;
 	public static LexiconEntry tinyPlanet;
 	public static LexiconEntry manaRing;
 	public static LexiconEntry auraRing;
@@ -691,6 +695,16 @@ public final class LexiconData {
 		baublesIntro = new BLexiconEntry(LibLexicon.BAUBLE_INTRO, categoryBaubles);
 		baublesIntro.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_BAUBLES), new PageText("2"));
 
+		cosmeticBaubles = new BLexiconEntry(LibLexicon.BAUBLE_COSMETIC, categoryBaubles);
+		{
+			List<LexiconPage> pages = new ArrayList();
+			pages.add(new PageText("0"));
+			pages.add(new PageText("1"));
+			for(int i = 0; i < 32; i++)
+				pages.add(new PageCraftingRecipe("" + (i + 2), ModCraftingRecipes.recipesCosmeticItems.get(i)));
+			cosmeticBaubles.setPriority().setLexiconPages(pages.toArray(new LexiconPage[pages.size()]));
+		}
+		
 		tinyPlanet = new BLexiconEntry(LibLexicon.BAUBLE_TINY_PLANET, categoryBaubles);
 		tinyPlanet.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeTinyPlanet), new PageCraftingRecipe("2", ModCraftingRecipes.recipeTinyPlanetBlock));
 
