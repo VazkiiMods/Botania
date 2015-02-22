@@ -87,7 +87,7 @@ public abstract class ItemBauble extends ItemMod implements IBauble {
 			addStringToTooltip(StatCollector.translateToLocal("botania.baubletooltip").replaceAll("%key%", key), par3List);
 	}
 
-	protected void addStringToTooltip(String s, List<String> tooltip) {
+	void addStringToTooltip(String s, List<String> tooltip) {
 		tooltip.add(s.replaceAll("&", "\u00a7"));
 	}
 

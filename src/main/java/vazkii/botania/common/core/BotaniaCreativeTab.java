@@ -303,6 +303,8 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.endStoneBrick);
 		addBlock(ModFluffBlocks.endStoneSlab);
 		addBlock(ModFluffBlocks.endStoneStairs);
+		
+		addItem(ModItems.cosmetic);
 	}
 
 	private void addItem(Item item) {

@@ -83,6 +83,7 @@ botaniamisc.nearIndex2=intercepted as a request
 botaniamisc.startTutorial=Start Tutorial
 botaniamisc.tutorialStarted=You have started your tutorial, follow the red arrows and read the contents to be guided through the basics of Botania!
 botaniamisc.tutorialEnded=Your tutorial is over, you should now have a basic idea of how Botania works, make sure to read through the other pages at your leisure to learn more ways of using the mod.
+botaniamisc.cosmeticBauble=&oCosmetic
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
@@ -1032,6 +1033,38 @@ item.botania:corporeaSpark1.name=Master Corporea Spark
 item.botania:enderAirBottle.name=Ender Air Botte
 item.botania:livingwoodBow.name=Livingwood Bow
 item.botania:crystalBow.name=Crystal Bow
+item.botania:cosmetic0.name=Black Bowtie
+item.botania:cosmetic1.name=Black Tie
+item.botania:cosmetic2.name=Red Glasses
+item.botania:cosmetic3.name=Puffy Scarf
+item.botania:cosmetic4.name=Engineer Goggles
+item.botania:cosmetic5.name=Eyepatch
+item.botania:cosmetic6.name=Wicked Eyepatch
+item.botania:cosmetic7.name=Red Ribbons
+item.botania:cosmetic8.name=Pink Flower
+item.botania:cosmetic9.name=Polka-Dotted Bows
+item.botania:cosmetic10.name=Blue Butterfly
+item.botania:cosmetic11.name=Cat Ears
+item.botania:cosmetic12.name=Witch Pin
+item.botania:cosmetic13.name=Devil Tail
+item.botania:cosmetic14.name=Kamui Eye
+item.botania:cosmetic15.name=Googly Eyes
+item.botania:cosmetic16.name=Four-Leafed Clover
+item.botania:cosmetic17.name=Clock Eye
+item.botania:cosmetic18.name=Unicorn Horn
+item.botania:cosmetic19.name=Devil Horns
+item.botania:cosmetic20.name=Hyper Plus 
+item.botania:cosmetic21.name=Botanist Emblem
+item.botania:cosmetic22.name=Ancient Mask
+item.botania:cosmetic23.name=Eerie Mask
+item.botania:cosmetic24.name=Alien Antenna
+item.botania:cosmetic25.name=Anaglyph Glasses
+item.botania:cosmetic26.name=Orange Shades
+item.botania:cosmetic27.name=Groucho Glasses
+item.botania:cosmetic28.name=Thick Eyebrows
+item.botania:cosmetic29.name=Lusitanic Shield
+item.botania:cosmetic30.name=Tiny Potato Mask
+item.botania:cosmetic31.name=Questgiver Mark
 
 # BREW NAMES
 botania.brew.fallback=Fallback

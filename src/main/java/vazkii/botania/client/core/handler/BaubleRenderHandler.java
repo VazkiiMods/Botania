@@ -65,8 +65,8 @@ public final class BaubleRenderHandler {
 		ItemStack helm = player.inventory.armorItemInSlot(3);
 		if(helm != null && helm.getItem() instanceof ItemTerrasteelHelm)
 			ItemTerrasteelHelm.renderOnPlayer(helm, event);
-		if(event.entityPlayer.getCommandSenderName().equals("Vazkii"))
-			renderFancyExclusiveDevStuffBecauseImAnEvilDevWhoDoesntCareAboutTheCommunityBooo(event);
+		//if(event.entityPlayer.getCommandSenderName().equals("Vazkii"))
+			//renderFancyExclusiveDevStuffBecauseImAnEvilDevWhoDoesntCareAboutTheCommunityBooo(event);
 		GL11.glPopMatrix();
 	}
 

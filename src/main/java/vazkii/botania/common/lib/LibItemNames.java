@@ -123,6 +123,7 @@ public final class LibItemNames {
 	public static final String CORPOREA_SPARK = "corporeaSpark";
 	public static final String LIVINGWOOD_BOW = "livingwoodBow";
 	public static final String CRYSTAL_BOW = "crystalBow";
+	public static final String COSMETIC = "cosmetic";
 
 	public static final String[] LENS_NAMES = new String[] {
 		"lensNormal",
