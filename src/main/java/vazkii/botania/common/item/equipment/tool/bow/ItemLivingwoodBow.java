@@ -24,6 +24,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
+import net.minecraftforge.event.entity.player.ArrowNockEvent;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -64,6 +65,19 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 	}
 	
 	@Override
+    public ItemStack onItemRightClick(ItemStack p_77659_1_, World p_77659_2_, EntityPlayer p_77659_3_) {
+        ArrowNockEvent event = new ArrowNockEvent(p_77659_3_, p_77659_1_);
+        MinecraftForge.EVENT_BUS.post(event);
+        if(event.isCanceled())
+            return event.result;
+
+        if(canFire(p_77659_1_, p_77659_2_, p_77659_3_, 0))
+            p_77659_3_.setItemInUse(p_77659_1_, this.getMaxItemUseDuration(p_77659_1_));
+
+        return p_77659_1_;
+    }
+	
+	@Override
     public void onPlayerStoppedUsing(ItemStack p_77615_1_, World p_77615_2_, EntityPlayer p_77615_3_, int p_77615_4_) {
         int j = this.getMaxItemUseDuration(p_77615_1_) - p_77615_4_;
 
@@ -73,9 +87,9 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
             return;
         j = event.charge;
 
-        boolean flag = p_77615_3_.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, p_77615_1_) > 0;
+        boolean flag = canFire(p_77615_1_, p_77615_2_, p_77615_3_, p_77615_4_);
 
-        if(flag || p_77615_3_.inventory.hasItem(Items.arrow)) {
+        if(flag) {
             float f = (float)j / 20.0F;
             f = (f * f + f * 2.0F) / 3.0F;
 
@@ -106,9 +120,7 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
             ToolCommons.damageItem(p_77615_1_, 1, p_77615_3_, MANA_PER_DAMAGE);
             p_77615_2_.playSoundAtEntity(p_77615_3_, "random.bow", 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
 
-            if(flag)
-                entityarrow.canBePickedUp = 2;
-            else p_77615_3_.inventory.consumeInventoryItem(Items.arrow);
+            onFire(p_77615_1_, p_77615_2_, p_77615_3_, p_77615_4_, flag, entityarrow);
 
             if(!p_77615_2_.isRemote)
                 p_77615_2_.spawnEntityInWorld(entityarrow);
@@ -122,7 +134,17 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 	EntityArrow makeArrow(ItemStack p_77615_1_, World p_77615_2_, EntityPlayer p_77615_3_, int p_77615_4_, float f) {
 		return new EntityArrow(p_77615_2_, p_77615_3_, f * 2.0F);
 	}
+	
+	boolean canFire(ItemStack p_77615_1_, World p_77615_2_, EntityPlayer p_77615_3_, int p_77615_4_) {
+		return p_77615_3_.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, p_77615_1_) > 0 || p_77615_3_.inventory.hasItem(Items.arrow);
+	}
 
+	void onFire(ItemStack p_77615_1_, World p_77615_2_, EntityPlayer p_77615_3_, int p_77615_4_, boolean infinity, EntityArrow arrow) {
+        if(infinity)
+        	arrow.canBePickedUp = 2;
+        else p_77615_3_.inventory.consumeInventoryItem(Items.arrow);
+	}
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister par1IconRegister) {
