@@ -35,6 +35,7 @@ import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lib.LibBlockNames;
+import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class TileCorporeaIndex extends TileCorporeaBase {
@@ -213,7 +214,7 @@ public class TileCorporeaIndex extends TileCorporeaBase {
 
 	public static final class InputHandler {
 
-		@SubscribeEvent
+		@SubscribeEvent(priority = EventPriority.HIGHEST)
 		public void onChatMessage(ServerChatEvent event) {
 			List<TileCorporeaIndex> nearbyIndexes = getNearbyIndexes(event.player);
 			if(!nearbyIndexes.isEmpty()) {
