@@ -1570,11 +1570,13 @@ public final class ModCraftingRecipes {
 				'S', LibOreDict.MANA_STRING);
 		recipesCosmeticItems = BotaniaAPI.getLatestAddedRecipes(32);
 		
+		// Shimmering Mushroom Recipes
 		for(int i = 0; i < 16; i++) {
 			GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.mushroom, 1, i), new ItemStack(Blocks.red_mushroom), new ItemStack(ModItems.dye, 1, i));
 			GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.mushroom, 1, i), new ItemStack(Blocks.brown_mushroom), new ItemStack(ModItems.dye, 1, i));
 		}
 		recipesMushrooms = BotaniaAPI.getLatestAddedRecipes(32);
+		GameRegistry.addShapelessRecipe(new ItemStack(Items.mushroom_stew), new ItemStack(ModBlocks.mushroom, 1, Short.MAX_VALUE), new ItemStack(ModBlocks.mushroom, 1, Short.MAX_VALUE), new ItemStack(Items.bowl));
 		
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
