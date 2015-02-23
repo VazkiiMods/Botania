@@ -30,6 +30,7 @@ import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.decor.BlockManaBeacon;
 import vazkii.botania.common.block.decor.BlockManaFlame;
 import vazkii.botania.common.block.decor.BlockManaGlass;
+import vazkii.botania.common.block.decor.BlockModMushroom;
 import vazkii.botania.common.block.decor.BlockPetalBlock;
 import vazkii.botania.common.block.decor.BlockPrismarine;
 import vazkii.botania.common.block.decor.BlockReeds;
@@ -202,6 +203,7 @@ public final class ModBlocks {
 	public static Block corporeaIndex;
 	public static Block corporeaFunnel;
 	public static Block endStoneBrick;
+	public static Block mushroom;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -264,7 +266,8 @@ public final class ModBlocks {
 		corporeaIndex = new BlockCorporeaIndex();
 		corporeaFunnel = new BlockCorporeaFunnel();
 		endStoneBrick = new BlockEndStoneBrick();
-
+		mushroom = new BlockModMushroom();
+		
 		ModFluffBlocks.init();
 
 		for(int i = 0; i < 16; i++)

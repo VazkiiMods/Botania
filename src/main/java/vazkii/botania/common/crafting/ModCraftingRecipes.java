@@ -238,6 +238,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeLivingwoodBow;
 	public static IRecipe recipeCrystalBow;
 	public static List<IRecipe> recipesCosmeticItems;
+	public static List<IRecipe> recipesMushrooms;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1562,13 +1563,18 @@ public final class ModCraftingRecipes {
 		recipeCrystalBow = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Cosmetic Items Recipes
-		recipesCosmeticItems = new ArrayList();
 		for(int i = 0; i < 32; i++)
 			addOreDictRecipe(new ItemStack(ModItems.cosmetic, 1, i), 
 				"PPP", "PSP", "PPP",
 				'P', new ItemStack(i < 16 ? ModItems.petal : ModItems.manaPetal, 1, i % 16),
 				'S', LibOreDict.MANA_STRING);
 		recipesCosmeticItems = BotaniaAPI.getLatestAddedRecipes(32);
+		
+		for(int i = 0; i < 16; i++) {
+			GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.mushroom, 1, i), new ItemStack(Blocks.red_mushroom), new ItemStack(ModItems.dye, 1, i));
+			GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.mushroom, 1, i), new ItemStack(Blocks.brown_mushroom), new ItemStack(ModItems.dye, 1, i));
+		}
+		recipesMushrooms = BotaniaAPI.getLatestAddedRecipes(32);
 		
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

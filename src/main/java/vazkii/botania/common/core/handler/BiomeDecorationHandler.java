@@ -44,9 +44,19 @@ public class BiomeDecorationHandler {
 					int y1 = y + event.rand.nextInt(4) - event.rand.nextInt(4);
 					int z1 = z + event.rand.nextInt(8) - event.rand.nextInt(8);
 
-					if (flowers && event.world.isAirBlock(x1, y1, z1) && (!event.world.provider.hasNoSky || y1 < 127) && ModBlocks.flower.canBlockStay(event.world, x1, y1, z1))
+					if (event.world.isAirBlock(x1, y1, z1) && (!event.world.provider.hasNoSky || y1 < 127) && ModBlocks.flower.canBlockStay(event.world, x1, y1, z1))
 						event.world.setBlock(x1, y1, z1, ModBlocks.flower, color, 2);
 				}
+			}
+			
+			for(int i = 0; i < ConfigHandler.mushroomQuantity; i++) {
+				int x = event.chunkX + event.rand.nextInt(16) + 8;
+				int z = event.chunkZ + event.rand.nextInt(16) + 8;
+				int y = event.rand.nextInt(26) + 4;
+
+				int color = event.rand.nextInt(16);
+				if(event.world.isAirBlock(x, y, z) && ModBlocks.mushroom.canBlockStay(event.world, x, y, z))
+					event.world.setBlock(x, y, z, ModBlocks.mushroom, color, 2);
 			}
 		}
 	}
