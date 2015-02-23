@@ -1,3 +1,20 @@
+r1.5 164
+*Added <b>32</b> cosmetic override items that can be crafted with baubles to replace the bauble's look with the one of the cosmetic item.
+*Added a Crystal Bow, a bow that creates arrows with mana and fires faster than normal.
+*Added a Livingwood Bow that acts as a normal bow but repairs with mana.
+*Added decorative glowing mushrooms of all 16 colors. You can also find them underground. (Yes there's a config, get off my lawn!)
+*Added Mana Infused String as a crafting component.
+*Added the Ring of Correction. A ring that will swap your active tool (the one you have in hand) with the correct one for the block you're trying to break, works for mana tools only.
+*Changed the Terrasteel crafting page to say that there actually is a piece of livingrock below the plate, since nobody seems to get it.
+*Fixed fake players being able to equip baubles via right click, which led to a crash with Autonomous Activators from TE.
+*Fixed the background of lexicon entry buttons being black if the entry is priority elven knowledge.
+*Fixed the Elementium Sword giving a 50% boost to pixie spawn chance rather than 5%.
+*Fixed the Petal Apothecary eating Buckets. Also it being able to have water AND lava at once, what's up with that?
+*Fixed the Terra Blade not being able to actively repair with mana.
+*Increased the priority of the Corporea Index chat interceptor so it happens before serverside ForgeIRC has a chance to broadcast the message over to the channel.
+*Optimized Spark code.
+*[API] Added ICosmeticBauble, ICosmeticAttachable, ISortableTool.
+*[API] Increased version number to 34.
 r1.5 163
 *Added kawaii.
 *Fancified the lexicon index pages.
