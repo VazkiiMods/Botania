@@ -2220,6 +2220,11 @@ botania.entry.monocle=Manaseer Monocle
 botania.page.monocle0=A handy acessory for one who requires a thorough window into where their &4Mana Bursts&0 are going is the &1Manaseer Monocle&0. Not only is it a rather fancy eyepiece but it also allows the wearer to see all nearby &4Mana Bursts&0, even if their line of sight towards them is blocked by something.
 botania.page.monocle1=Why hello there old chap
 
+# -- RING OF CORRECTION
+botania.entry.swapRing=Ring of Correction
+botania.page.swapRing0=Switching tools is a pain. People often find themselves shoveling away at dirt with... a pick? Using the &1Ring of Correction&0 is a great way to, well, correct that.<br>While this ring is worn, the tool in hand will always be the right one for the block being broken, be it a pick, axe or shovel. This only works with tools that can use &4Mana&0.
+botania.page.swapRing1=Use the right tools
+
 # - ALFHOMANCY
 # -- THE PORTAL TO ALFHEIM
 botania.entry.aIntro=The Portal to Alfheim

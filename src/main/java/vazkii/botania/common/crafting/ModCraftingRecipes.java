@@ -239,7 +239,8 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeCrystalBow;
 	public static List<IRecipe> recipesCosmeticItems;
 	public static List<IRecipe> recipesMushrooms;
-
+	public static IRecipe recipeSwapRing;
+	
 	public static void init() {
 		// Lexicon Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lexicon), "treeSapling", Items.book);
@@ -1577,6 +1578,13 @@ public final class ModCraftingRecipes {
 		}
 		recipesMushrooms = BotaniaAPI.getLatestAddedRecipes(32);
 		GameRegistry.addShapelessRecipe(new ItemStack(Items.mushroom_stew), new ItemStack(ModBlocks.mushroom, 1, Short.MAX_VALUE), new ItemStack(ModBlocks.mushroom, 1, Short.MAX_VALUE), new ItemStack(Items.bowl));
+		
+		// Ring of Correction Recipe
+		addOreDictRecipe(new ItemStack(ModItems.swapRing), 
+				"CM ", "M M", " M ",
+				'C', new ItemStack(Blocks.clay),
+				'M', LibOreDict.MANA_STEEL);
+		recipeSwapRing = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
