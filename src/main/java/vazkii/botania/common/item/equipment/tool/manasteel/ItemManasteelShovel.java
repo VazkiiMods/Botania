@@ -23,6 +23,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.UseHoeEvent;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.item.ISortableTool;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -36,7 +37,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemManasteelShovel extends ItemSpade implements IManaUsingItem {
+public class ItemManasteelShovel extends ItemSpade implements IManaUsingItem, ISortableTool {
 
 	private static final int MANA_PER_DAMAGE = 60;
 
@@ -128,6 +129,16 @@ public class ItemManasteelShovel extends ItemSpade implements IManaUsingItem {
 	@Override
 	public boolean usesMana(ItemStack stack) {
 		return true;
+	}
+
+	@Override
+	public ToolType getSortingType(ItemStack stack) {
+		return ToolType.SHOVEL;
+	}
+
+	@Override
+	public int getSortingPriority(ItemStack stack) {
+		return ToolCommons.getToolPriority(stack);
 	}
 
 }

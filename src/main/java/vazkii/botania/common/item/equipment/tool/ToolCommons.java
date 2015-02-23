@@ -12,20 +12,31 @@ package vazkii.botania.common.item.equipment.tool;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTool;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumPick;
 
 public final class ToolCommons {
 
+    public static Material[] materialsPick = new Material[]{ Material.rock, Material.iron, Material.ice, Material.glass, Material.piston, Material.anvil };
+    public static Material[] materialsShovel = new Material[]{ Material.grass, Material.ground, Material.sand, Material.snow, Material.craftedSnow, Material.clay };
+    public static Material[] materialsAxe = new Material[]{ Material.coral, Material.leaves, Material.plants, Material.wood };
+	
 	public static void damageItem(ItemStack stack, int dmg, EntityLivingBase entity, int manaPerDamage) {
 		int manaToRequest = dmg * manaPerDamage;
 		boolean manaRequested = entity instanceof EntityPlayer ? ManaItemHandler.requestManaExactForTool(stack, (EntityPlayer) entity, manaToRequest, true) : false;
@@ -83,6 +94,32 @@ public final class ToolCommons {
 			if(ConfigHandler.blockBreakParticles && ConfigHandler.blockBreakParticlesTool && !world.isRemote)
 				world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(blk) + (meta << 12));
 		}
+	}
+	
+	public static int getToolPriority(ItemStack stack) {
+		if(stack == null)
+			return 0;
+		
+		Item item = stack.getItem();
+		if(!(item instanceof ItemTool))
+			return 0;
+
+		ItemTool tool = (ItemTool) item;
+		ToolMaterial material = tool.func_150913_i();
+		int materialLevel = 0;
+		if(material == BotaniaAPI.manasteelToolMaterial)
+			materialLevel = 10;
+		if(material == BotaniaAPI.elementiumToolMaterial)
+			materialLevel = 11;
+		if(material == BotaniaAPI.terrasteelToolMaterial)
+			materialLevel = 20;
+		
+		int modifier = 0;
+		if(item == ModItems.terraPick)
+			modifier = ItemTerraPick.getLevel(stack);
+		
+		int efficiency = EnchantmentHelper.getEnchantmentLevel(Enchantment.efficiency.effectId, stack);
+		return materialLevel * 100 + modifier * 10 + efficiency;
 	}
 
 	/**

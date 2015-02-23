@@ -205,11 +205,15 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem {
 
 	@Override
 	public int getMana(ItemStack stack) {
+		return getMana_(stack);
+	}
+	
+	public static int getMana_(ItemStack stack) {
 		return ItemNBTHelper.getInt(stack, TAG_MANA, 0);
 	}
 
-	public int getLevel(ItemStack stack) {
-		int mana = getMana(stack);
+	public static int getLevel(ItemStack stack) {
+		int mana = getMana_(stack);
 		for(int i = LEVELS.length - 1; i > 0; i--)
 			if(mana >= LEVELS[i])
 				return i;

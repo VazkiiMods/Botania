@@ -23,6 +23,8 @@ import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.item.ISortableTool;
+import vazkii.botania.api.item.ISortableTool.ToolType;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
@@ -36,7 +38,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemManasteelPick extends ItemPickaxe implements IManaUsingItem {
+public class ItemManasteelPick extends ItemPickaxe implements IManaUsingItem, ISortableTool {
 
 	private static final Pattern TORCH_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)torch)|(?:(?:[a-z-_.:]|^)Torch))(?:[A-Z-_.:]|$)");
 
@@ -115,6 +117,16 @@ public class ItemManasteelPick extends ItemPickaxe implements IManaUsingItem {
 	@Override
 	public boolean usesMana(ItemStack stack) {
 		return true;
+	}
+	
+	@Override
+	public ToolType getSortingType(ItemStack stack) {
+		return ToolType.PICK;
+	}
+
+	@Override
+	public int getSortingPriority(ItemStack stack) {
+		return ToolCommons.getToolPriority(stack);
 	}
 
 }

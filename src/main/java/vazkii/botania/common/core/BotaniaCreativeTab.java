@@ -180,6 +180,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.waterRing);
 		addItem(ModItems.miningRing);
 		addItem(ModItems.magnetRing);
+		addItem(ModItems.swapRing);
 		addItem(ModItems.reachRing);
 		addItem(ModItems.pixieRing);
 		addItem(ModItems.travelBelt);
@@ -318,4 +319,3 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 	}
 
 }
-

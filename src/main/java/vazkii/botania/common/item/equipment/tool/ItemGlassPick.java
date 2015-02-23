@@ -46,5 +46,10 @@ public class ItemGlassPick extends ItemManasteelPick {
 	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
 		return par2ItemStack.getItem() == Item.getItemFromBlock(Blocks.glass) ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
 	}
+	
+	@Override
+	public int getSortingPriority(ItemStack stack) {
+		return 0;
+	}
 
 }

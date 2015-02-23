@@ -23,6 +23,7 @@ import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.item.ISortableTool;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
@@ -36,7 +37,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemManasteelAxe extends ItemAxe implements IManaUsingItem {
+public class ItemManasteelAxe extends ItemAxe implements IManaUsingItem, ISortableTool {
 
 	private static final Pattern SAPLING_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)sapling)|(?:(?:[a-z-_.:]|^)Sapling))(?:[A-Z-_.:]|$)");
 
@@ -112,6 +113,16 @@ public class ItemManasteelAxe extends ItemAxe implements IManaUsingItem {
 	@Override
 	public boolean usesMana(ItemStack stack) {
 		return true;
+	}
+
+	@Override
+	public ToolType getSortingType(ItemStack stack) {
+		return ToolType.AXE;
+	}
+
+	@Override
+	public int getSortingPriority(ItemStack stack) {
+		return ToolCommons.getToolPriority(stack);
 	}
 
 }
