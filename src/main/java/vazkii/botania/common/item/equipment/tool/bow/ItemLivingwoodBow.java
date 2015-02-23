@@ -79,7 +79,7 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 	
 	@Override
     public void onPlayerStoppedUsing(ItemStack p_77615_1_, World p_77615_2_, EntityPlayer p_77615_3_, int p_77615_4_) {
-        int j = this.getMaxItemUseDuration(p_77615_1_) - p_77615_4_;
+		int j = (int) ((getMaxItemUseDuration(p_77615_1_) - p_77615_4_) * chargeVelocityMultiplier());
 
         ArrowLooseEvent event = new ArrowLooseEvent(p_77615_3_, p_77615_1_, j);
         MinecraftForge.EVENT_BUS.post(event);
@@ -126,6 +126,10 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
                 p_77615_2_.spawnEntityInWorld(entityarrow);
         }
     }
+	
+	float chargeVelocityMultiplier() {
+		return 1F;
+	}
 	
 	boolean postsEvent() {
 		return true;
@@ -174,7 +178,7 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 		if(stack != usingItem)
 			return itemIcon;
 		
-		int j = getMaxItemUseDuration(stack) - useRemaining;
+		int j = (int) ((getMaxItemUseDuration(stack) - useRemaining) * chargeVelocityMultiplier());
 
         if(j >= 18)
             return pullIcons[2];

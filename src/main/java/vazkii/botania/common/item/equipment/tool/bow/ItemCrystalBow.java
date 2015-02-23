@@ -28,6 +28,11 @@ public class ItemCrystalBow extends ItemLivingwoodBow {
 	}
 	
 	@Override
+	float chargeVelocityMultiplier() {
+		return 2F;
+	}
+	
+	@Override
 	boolean postsEvent() {
 		return false;
 	}
