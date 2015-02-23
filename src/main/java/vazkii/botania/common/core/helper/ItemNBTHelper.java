@@ -15,6 +15,7 @@ package vazkii.botania.common.core.helper;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 
 public final class ItemNBTHelper {
 
@@ -82,6 +83,10 @@ public final class ItemNBTHelper {
 	public static void setString(ItemStack stack, String tag, String s) {
 		getNBT(stack).setString(tag, s);
 	}
+	
+	public static void setList(ItemStack stack, String tag, NBTTagList list) {
+		getNBT(stack).setTag(tag, list);
+	}
 
 	// GETTERS ///////////////////////////////////////////////////////////////////
 
@@ -125,6 +130,10 @@ public final class ItemNBTHelper {
 
 	public static String getString(ItemStack stack, String tag, String defaultExpected) {
 		return verifyExistance(stack, tag) ? getNBT(stack).getString(tag) : defaultExpected;
+	}
+	
+	public static NBTTagList getList(ItemStack stack, String tag, int objtype, boolean nullifyOnFail) {
+		return (NBTTagList) (verifyExistance(stack, tag) ? getNBT(stack).getTagList(tag, objtype) : nullifyOnFail ? null : new NBTTagList());
 	}
 
 }
