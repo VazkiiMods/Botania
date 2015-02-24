@@ -88,7 +88,8 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
         j = event.charge;
 
         boolean flag = canFire(p_77615_1_, p_77615_2_, p_77615_3_, p_77615_4_);
-
+        boolean infinity = EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, p_77615_1_) > 0;
+        
         if(flag) {
             float f = (float)j / 20.0F;
             f = (f * f + f * 2.0F) / 3.0F;
@@ -120,7 +121,7 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
             ToolCommons.damageItem(p_77615_1_, 1, p_77615_3_, MANA_PER_DAMAGE);
             p_77615_2_.playSoundAtEntity(p_77615_3_, "random.bow", 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
 
-            onFire(p_77615_1_, p_77615_2_, p_77615_3_, p_77615_4_, flag, entityarrow);
+            onFire(p_77615_1_, p_77615_2_, p_77615_3_, p_77615_4_, infinity, entityarrow);
 
             if(!p_77615_2_.isRemote)
                 p_77615_2_.spawnEntityInWorld(entityarrow);
