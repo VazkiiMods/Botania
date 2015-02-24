@@ -156,13 +156,13 @@ public final class ConfigHandler {
 		desc = "Set to false to disable the Mana Enchanter. Since some people find it OP or something. This only disables the entry and creation. Old ones that are already in the world will stay.";
 		enchanterEnabled = loadPropBool("manaEnchanter.enabled", desc, enchanterEnabled);
 
-		desc = "The quanity of flower patches to generate in the world, defaults to 2, the lower the number the less patches generate.";
+		desc = "The quanity of botania flower patches to generate in the world, defaults to 2, the lower the number the less patches generate.";
 		flowerQuantity = loadPropInt("worldgen.flower.quantity", desc, flowerQuantity);
 
-		desc = "The density of each flower patch generataed, defaults to 16, the lower the number, the less each patch will have.";
+		desc = "The density of each botania flower patch generataed, defaults to 16, the lower the number, the less each patch will have.";
 		flowerDensity = loadPropInt("worldgen.flower.density", desc, flowerDensity);
 
-		desc = "The quantity of mushrooms to generate underground, in the world, defaults to 10, the lower the number the less patches generate.";
+		desc = "The quantity of botania mushrooms to generate underground, in the world, defaults to 40, the lower the number the less patches generate.";
 		mushroomQuantity = loadPropInt("worldgen.mushroom.quantity", desc, mushroomQuantity);
 		
 		potionIDSoulCross = loadPropPotionId(LibPotionNames.SOUL_CROSS, potionIDSoulCross);
