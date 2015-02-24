@@ -90,7 +90,7 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[17];
+		icons = new IIcon[16];
 
 		for(int i = 0; i < icons.length; i++)
 			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);

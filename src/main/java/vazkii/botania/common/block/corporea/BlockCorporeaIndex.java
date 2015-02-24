@@ -11,6 +11,7 @@
 package vazkii.botania.common.block.corporea;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -40,6 +41,11 @@ public class BlockCorporeaIndex extends BlockCorporeaBase implements ILexiconabl
 	@Override
 	public boolean renderAsNormalBlock() {
 		return false;
+	}
+	
+	@Override
+	public void registerBlockIcons(IIconRegister par1IconRegister) {
+		// NO-OP
 	}
 
 	@Override
