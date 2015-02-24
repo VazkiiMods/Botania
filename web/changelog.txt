@@ -1,3 +1,8 @@
+r1.5 165
+*Fixed a spark crash when trying to remove an augment.
+*Fixed Livingwood Bows not consuming arrows.
+*Fixed missing icons "mushroom16" and "corporeaIndex" being thrown to the console. <i>I take this very seriously, it's annoying >.<</i>
+*Fixed the config option for mushrooms being documented as having the 10 as the default rather than 40. Also added "botania" as a prefix to the worldgen options' descriptions to prevent confusion.
 r1.5 164
 *Added <b>32</b> cosmetic override items that can be crafted with baubles to replace the bauble's look with the one of the cosmetic item.
 *Added a Crystal Bow, a bow that creates arrows with mana and fires faster than normal.
