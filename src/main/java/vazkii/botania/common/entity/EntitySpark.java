@@ -264,7 +264,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 							entityDropItem(new ItemStack(ModItems.sparkUpgrade, 1, upgrade - 1), 0F);
 						setUpgrade(0);
 
-						dataWatcher.updateObject(29, "");
+						setTransferDataContainer(new ItemStack(Blocks.stone, 0, 0));
 						removeTransferants = 2;
 					} else setDead();
 					if(player.worldObj.isRemote)
