@@ -1048,7 +1048,7 @@ item.botania:ancientWill4.name=Will of Verac
 item.botania:ancientWill5.name=Will of Karil
 item.botania:corporeaSpark0.name=Corporea Spark
 item.botania:corporeaSpark1.name=Master Corporea Spark
-item.botania:enderAirBottle.name=Ender Air Botte
+item.botania:enderAirBottle.name=Ender Air Bottle
 item.botania:livingwoodBow.name=Livingwood Bow
 item.botania:crystalBow.name=Crystal Bow
 item.botania:cosmetic0.name=Black Bowtie
@@ -1681,7 +1681,7 @@ botania.page.flasks2=Get one under the bridge
 
 # -- COMPLEX BREWING
 botania.entry.complexBrews=Complex Brews
-botania.page.complexBrews0=Apart from the standard, run of the mill &1Brews&0 that can don't pass from mimics of the &1Potions&0 that can be made in a &1Brewing Stand&0 there's also some more complex brews which apply either a combination of effects or new, beneficial effects altogether.
+botania.page.complexBrews0=Apart from the standard, run of the mill &1Brews&0 that don't pass from mimics of the &1Potions&0 that can be made in a &1Brewing Stand&0 there's also some more complex brews which apply either a combination of effects or new, beneficial effects altogether.
 botania.page.complexBrews1a=A brew that applies both positive and negative effects. Taking it leaves the affected individual in a state of power, but also vulnerability.
 botania.page.complexBrews1b=96 Herblore
 botania.page.complexBrews2a=An entity affected with this brew's effect will regain HP whenever they slay any other creature.
