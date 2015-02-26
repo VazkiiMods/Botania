@@ -89,6 +89,7 @@ botaniamisc.hasCosmetic=&oHas Cosmetic Override: &r%s
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
 botania.nei.elvenTrade=Elven Trade
+botania.nei.floatingFlowers=Floating Flower Crafting
 botania.nei.manaPool=Mana Infusion
 botania.nei.petalApothecary=Petal Apothecary
 botania.nei.runicAltar=Runic Altar
