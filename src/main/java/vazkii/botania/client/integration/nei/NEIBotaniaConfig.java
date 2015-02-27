@@ -18,6 +18,9 @@ public class NEIBotaniaConfig implements IConfigureNEI {
 
 	@Override
 	public void loadConfig() {
+		API.registerRecipeHandler(new RecipeHandlerFloatingFlowers());
+		API.registerUsageHandler(new RecipeHandlerFloatingFlowers());
+
 		API.registerRecipeHandler(new RecipeHandlerPetalApothecary());
 		API.registerUsageHandler(new RecipeHandlerPetalApothecary());
 
