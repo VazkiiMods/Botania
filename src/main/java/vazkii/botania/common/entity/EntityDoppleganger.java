@@ -14,6 +14,7 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -248,6 +249,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		return false;
 	}
 
+	private static final Pattern FAKE_PLAYER_PATTERN = Pattern.compile("^(?:\\[.*\\])|(?:ComputerCraft)$");
 	public static boolean isTruePlayer(Entity e) {
 		if(!(e instanceof EntityPlayer))
 			return false;
@@ -255,7 +257,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		EntityPlayer player = (EntityPlayer) e;
 
 		String name = player.getCommandSenderName();
-		return !(player instanceof FakePlayer || name.contains("[CoFH]") || name.contains("[Thaumcraft"));
+		return !(player instanceof FakePlayer || FAKE_PLAYER_PATTERN.matcher(name).matches());
 	}
 
 	@Override
