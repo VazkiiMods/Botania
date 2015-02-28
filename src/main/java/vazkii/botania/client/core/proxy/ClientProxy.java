@@ -64,6 +64,7 @@ import vazkii.botania.client.render.entity.RenderCorporeaSpark;
 import vazkii.botania.client.render.entity.RenderDoppleganger;
 import vazkii.botania.client.render.entity.RenderPixie;
 import vazkii.botania.client.render.entity.RenderSpark;
+import vazkii.botania.client.render.item.RenderBow;
 import vazkii.botania.client.render.item.RenderFloatingFlowerItem;
 import vazkii.botania.client.render.item.RenderLens;
 import vazkii.botania.client.render.item.RenderLexicon;
@@ -179,6 +180,7 @@ public class ClientProxy extends CommonProxy {
 
 		RenderTransparentItem renderTransparentItem = new RenderTransparentItem();
 		RenderFloatingFlowerItem renderFloatingFlower = new RenderFloatingFlowerItem();
+		RenderBow renderBow = new RenderBow();
 
 		MinecraftForgeClient.registerItemRenderer(ModItems.lens, new RenderLens());
 		if(ConfigHandler.lexicon3dModel)
@@ -187,6 +189,8 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForgeClient.registerItemRenderer(ModItems.spark, renderTransparentItem);
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.floatingFlower), renderFloatingFlower);
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.floatingSpecialFlower), renderFloatingFlower);
+		MinecraftForgeClient.registerItemRenderer(ModItems.livingwoodBow, renderBow);
+		MinecraftForgeClient.registerItemRenderer(ModItems.crystalBow, renderBow);
 
 		RenderTileFloatingFlower renderTileFloatingFlower = new RenderTileFloatingFlower();
 		ClientRegistry.bindTileEntitySpecialRenderer(TileAltar.class, new RenderTileAltar());

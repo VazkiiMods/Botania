@@ -43,6 +43,7 @@ public final class LibObfuscation {
 
 	// EntityPlayer
 	public static final String[] ITEM_IN_USE = new String[] { "itemInUse", "field_71074_e", "f" };
+	public static final String[] ITEM_IN_USE_COUNT = new String[] { "itemInUseCount", "field_71072_f", "g" };
 
 	// Potion
 	public static final String[] IS_BAD_EFFECT = new String[] { "isBadEffect", "field_76418_K", "J" };
