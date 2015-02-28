@@ -37,6 +37,8 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 	String title;
 	int page = 0;
 
+	int tutPage = -1;
+	
 	GuiButton leftButton, rightButton, backButton;
 	GuiLexicon parent;
 	GuiTextField searchField;
@@ -110,12 +112,16 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 
 	@Override
 	void populateIndex() {
+		LexiconEntry tutEntry = tutorial != null && !tutorial.isEmpty() ? tutorial.peek() : null;
+		
 		for(int i = page * 12; i < (page + 1) * 12; i++) {
 			GuiButtonInvisible button = (GuiButtonInvisible) buttonList.get(i - page * 12);
 			LexiconEntry entry = i >= entriesToDisplay.size() ? null : entriesToDisplay.get(i);
 			if(entry != null) {
 				button.displayString = entry.getKnowledgeType().color + "" + (entry.isPriority() ? EnumChatFormatting.ITALIC : "") + StatCollector.translateToLocal(entry.getUnlocalizedName());
 				button.displayStack = entry.getIcon();
+				if(entry == tutEntry)
+					tutPage = page;
 			} else button.displayString = "";
 		}
 	}
@@ -140,15 +146,21 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			orientTutorialArrowWithButton(backButton);
 			return;
 		}
+		
+		if(tutPage != -1 && tutPage != page) {
+			orientTutorialArrowWithButton(tutPage < page ? leftButton : rightButton);
+			return;
+		}
 
 		List<GuiButton> buttons = buttonList;
 		for(GuiButton button : buttons) {
-			int index = button.id + page * 12;
+			int id = button.id;
+			int index = id + page * 12;
 			if(index >= entriesToDisplay.size())
 				continue;
 
 			if(entry == entriesToDisplay.get(index)) {
-				orientTutorialArrowWithButton(button);
+				orientTutorialArrowWithButton(id >= 12 ? rightButton : button);
 				break;
 			}
 		}
@@ -194,6 +206,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 	public void updatePageButtons() {
 		leftButton.enabled = page != 0;
 		rightButton.enabled = page < (entriesToDisplay.size() - 1) / 12;
+		putTutorialArrow();
 	}
 
 	@Override
