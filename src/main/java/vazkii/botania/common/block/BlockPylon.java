@@ -42,6 +42,7 @@ public class BlockPylon extends BlockModContainer implements ILexiconable, IInfu
 		setHardness(5.5F);
 		setStepSound(soundTypeMetal);
 		setBlockName(LibBlockNames.PYLON);
+		setLightLevel(0.5F);
 
 		float f = 1F / 16F * 2F;
 		setBlockBounds(f, 0F, f, 1F - f, 1F / 16F * 21F, 1F - f);
