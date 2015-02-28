@@ -402,8 +402,10 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 				for(int i = 0; i < 2; i++)
 					spawnExplosionParticle();
 
-			setHealth(getHealth() + (MAX_HP - 1F) / SPAWN_TICKS);
-			setInvulTime(invul - 1);
+			if(!worldObj.isRemote) {
+				setHealth(getHealth() + (MAX_HP - 1F) / SPAWN_TICKS);
+				setInvulTime(invul - 1);
+			}
 			motionY = 0;
 		} else {
 			if(isAggored()) {
