@@ -65,6 +65,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	private static final String TAG_REQUEST_UPDATE = "requestUpdate";
 	private static final String TAG_ROTATION_X = "rotationX";
 	private static final String TAG_ROTATION_Y = "rotationY";
+	private static final String TAG_PADDING_COLOR = "paddingColor";
 
 	private static final String TAG_FORCE_CLIENT_BINDING_X = "forceClientBindingX";
 	private static final String TAG_FORCE_CLIENT_BINDING_Y = "forceClientBindingY";
@@ -103,6 +104,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	int mana;
 	int knownMana = -1;
 	public float rotationX, rotationY;
+	public int paddingColor = -1;
 
 	boolean requestsClientUpdate = false;
 	boolean hasReceivedInitialPacket = false;
@@ -199,6 +201,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		cmp.setFloat(TAG_ROTATION_X, rotationX);
 		cmp.setFloat(TAG_ROTATION_Y, rotationY);
 		cmp.setBoolean(TAG_REQUEST_UPDATE, requestsClientUpdate);
+		cmp.setInteger(TAG_PADDING_COLOR, paddingColor);
 
 		cmp.setString(TAG_INPUT_KEY, inputKey);
 		cmp.setString(TAG_OUTPUT_KEY, outputKey);
@@ -241,6 +244,8 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 		if(cmp.hasKey(TAG_KNOWN_MANA))
 			knownMana = cmp.getInteger(TAG_KNOWN_MANA);
+		if(cmp.hasKey(TAG_PADDING_COLOR))
+			paddingColor = cmp.getInteger(TAG_PADDING_COLOR);
 
 		if(requestsClientUpdate && worldObj != null) {
 			int x = cmp.getInteger(TAG_FORCE_CLIENT_BINDING_X);
@@ -331,7 +336,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 						mana -= burst.getStartingMana();
 						worldObj.spawnEntityInWorld(burst);
 						if(!ConfigHandler.silentSpreaders)
-							worldObj.playSoundEffect(xCoord, yCoord, zCoord, "botania:spreaderFire", 0.2F, 0.7F + 0.3F * (float) Math.random());
+							worldObj.playSoundEffect(xCoord, yCoord, zCoord, "botania:spreaderFire", 0.05F * (paddingColor != -1 ? 0.2F : 1F), 0.7F + 0.3F * (float) Math.random());
 					}
 
 					canShootBurst = false;

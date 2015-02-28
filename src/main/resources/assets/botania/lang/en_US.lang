@@ -1245,6 +1245,7 @@ botania.page.spreader3=Holding a &1Wand of the Forest&0 displays a beam which sh
 botania.page.spreader4=The spreader only fires one burst at once, it'll only fire another one when the last one hits the target.<br>Furthermore, the bursts also start suffering &4mana loss&0 after a small amount of time. This can be seen in the beam, which becomes a lot thinner when this happens. There is also a small amount of &4mana loss&0 when a beam enters a spreader.
 botania.page.spreader11=Applying a &4Redstone Signal&0 to the spreader will have it cease to function. Case better control is required, a &1Redstone Mana Spreader&0 is recommended, as it can fire bursts without a target block and works on redstone pulses.
 botania.page.spreader5=Crafting the &1Mana Spreader&0
+botania.page.spreader10=Right clicking the spreader with a piece of &1Wool&0 will sleeve it. Aside from making it look fancier, it'll also muffle the sound when a burst is shot, making it much less obnoxious when there's a large amount of spreaders in one area.<br>Right clicking with an empty hand will remove the sleeve.
 
 # -- MANA POOL
 botania.entry.pool=Mana Pool

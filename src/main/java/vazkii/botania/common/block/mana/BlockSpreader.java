@@ -23,6 +23,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -144,6 +145,7 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 		ItemStack lens = spreader.getStackInSlot(0);
 		ItemStack heldItem = par5EntityPlayer.getCurrentEquippedItem();
 		boolean isHeldItemLens = heldItem != null && heldItem.getItem() instanceof ILens;
+		boolean wool = heldItem != null && heldItem.getItem() == Item.getItemFromBlock(Blocks.wool);
 
 		if(heldItem != null)
 			if(heldItem.getItem() == ModItems.twigWand)
@@ -153,11 +155,24 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 			par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, null);
 			spreader.setInventorySlotContents(0, heldItem.copy());
 			spreader.markDirty();
-		} else if(lens != null) {
+		} else if(lens != null && !wool) {
 			ItemStack add = lens.copy();
 			if(!par5EntityPlayer.inventory.addItemStackToInventory(add))
 				par5EntityPlayer.dropPlayerItemWithRandomChoice(add, false);
 			spreader.setInventorySlotContents(0, null);
+			spreader.markDirty();
+		}
+
+		if(wool && spreader.paddingColor == -1) {
+			spreader.paddingColor = heldItem.getItemDamage();
+			heldItem.stackSize--;
+			if(heldItem.stackSize == 0)
+				par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, null);
+		} else if(heldItem == null && spreader.paddingColor != -1 && lens == null) {
+			ItemStack pad = new ItemStack(Blocks.wool, 1, spreader.paddingColor);
+			if(!par5EntityPlayer.inventory.addItemStackToInventory(pad))
+				par5EntityPlayer.dropPlayerItemWithRandomChoice(pad, false);
+			spreader.paddingColor = -1;
 			spreader.markDirty();
 		}
 
@@ -167,16 +182,16 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 	@Override
 	public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6) {
 		TileEntity tile = par1World.getTileEntity(par2, par3, par4);
-		if(!(tile instanceof TileSimpleInventory))
+		if(!(tile instanceof TileSpreader))
 			return;
 
-		TileSimpleInventory inv = (TileSimpleInventory) tile;
+		TileSpreader inv = (TileSpreader) tile;
 
 		if (inv != null) {
-			for (int j1 = 0; j1 < inv.getSizeInventory(); ++j1) {
-				ItemStack itemstack = inv.getStackInSlot(j1);
+			for (int j1 = 0; j1 < inv.getSizeInventory() + 1; ++j1) {
+				ItemStack itemstack = j1 >= inv.getSizeInventory() ? new ItemStack(Blocks.wool, 1, inv.paddingColor) : inv.getStackInSlot(j1);
 
-				if (itemstack != null) {
+				if (itemstack != null && itemstack.getItemDamage() == -1) {
 					float f = random.nextFloat() * 0.8F + 0.1F;
 					float f1 = random.nextFloat() * 0.8F + 0.1F;
 					EntityItem entityitem;

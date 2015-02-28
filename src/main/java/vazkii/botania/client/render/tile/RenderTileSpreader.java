@@ -13,9 +13,12 @@ package vazkii.botania.client.render.tile;
 import java.awt.Color;
 import java.util.Random;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
@@ -39,7 +42,7 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer {
 	private static final ModelSpreader model = new ModelSpreader();
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f) {
+	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float ticks) {
 		TileSpreader spreader = (TileSpreader) tileentity;
 		GL11.glPushMatrix();
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
@@ -55,7 +58,7 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer {
 		Minecraft.getMinecraft().renderEngine.bindTexture(spreader.isRedstone() ? textureRs : spreader.isDreamwood() ? textureDw : texture);
 		GL11.glScalef(1F, -1F, -1F);
 
-		double time = ClientTickHandler.ticksInGame + f;
+		double time = ClientTickHandler.ticksInGame + ticks;
 
 		if(spreader.isULTRA_SPREADER()) {
 			Color color = Color.getHSBColor((float) ((time * 5 + new Random(spreader.xCoord ^ spreader.yCoord ^ spreader.zCoord).nextInt(10000)) % 360) / 360F, 0.4F, 0.9F);
@@ -82,6 +85,34 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer {
 			RenderLens.render(stack, lens.getLensColor(stack));
 			GL11.glPopMatrix();
 		}
+		
+		if(spreader.paddingColor != -1) {
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+
+			Block block = Blocks.carpet;
+			int color = spreader.paddingColor;
+			RenderBlocks render = RenderBlocks.getInstance();
+			float f = 1F / 16F;
+			GL11.glTranslatef(0F, -f, 0F);
+			render.renderBlockAsItem(block, color, 1F);
+			GL11.glTranslatef(0F, -f * 15, 0F);
+			render.renderBlockAsItem(block, color, 1F);
+			GL11.glRotatef(90F, 1F, 0F, 0F);
+			GL11.glRotatef(90F, 0F, 1F, 0F);
+			
+			GL11.glPushMatrix();
+			GL11.glScalef(f * 14F, 1F, 1F);
+			render.renderBlockAsItem(block, color, 1F);
+			GL11.glPopMatrix();
+			
+			GL11.glRotatef(90F, 1F, 0F, 0F);
+			GL11.glTranslatef(0F, 0F, -f / 2);
+			GL11.glScalef(f * 14F, 1F, f * 15F);
+			render.renderBlockAsItem(block, color, 1F);
+			GL11.glTranslatef(0F, f * 15F, 0F);
+			render.renderBlockAsItem(block, color, 1F);
+		}
+		
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glPopMatrix();
 	}
