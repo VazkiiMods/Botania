@@ -135,6 +135,12 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			mc.renderEngine.bindTexture(texture);
 			GL11.glColor4f(1F, 1F, 1F, 1F);
 			drawTexturedModalRect(left + 134, top + guiHeight - 26, 86, 180, 12, 12);
+		} else {
+			boolean unicode = mc.fontRenderer.getUnicodeFlag();
+			mc.fontRenderer.setUnicodeFlag(true);
+			String s = StatCollector.translateToLocal("botaniamisc.typeToSearch");
+			mc.fontRenderer.drawString(s, left + 120 - mc.fontRenderer.getStringWidth(s), top + guiHeight - 18, 0x666666);
+			mc.fontRenderer.setUnicodeFlag(unicode);	
 		}
 	}
 

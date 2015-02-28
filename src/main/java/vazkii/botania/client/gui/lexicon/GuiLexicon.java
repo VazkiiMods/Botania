@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Queue;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -47,6 +48,7 @@ public class GuiLexicon extends GuiScreen {
 	public static GuiLexicon currentOpenLexicon = new GuiLexicon();
 	public static ItemStack stackUsed;
 
+	private static final int[] KONAMI_CODE = { 200, 200, 208, 208, 203, 205, 203, 205, 48, 30 };
 	public static final int BOOKMARK_START = 1337;
 	public static List<GuiLexicon> bookmarks = new ArrayList();
 	boolean bookmarksNeedPopulation = false;
@@ -64,7 +66,8 @@ public class GuiLexicon extends GuiScreen {
 	private static final int TUTORIAL_ARROW_HEIGHT = 12;
 	boolean hasTutorialArrow;
 	int tutorialArrowX, tutorialArrowY;
-
+	int konamiIndex;
+	
 	List<LexiconCategory> allCategories;
 
 	String title;
@@ -381,7 +384,16 @@ public class GuiLexicon extends GuiScreen {
 			mc.displayGuiScreen(null);
 			mc.setIngameFocus();
 		}
-
+		
+		System.out.println(par2);
+		if(par2 == KONAMI_CODE[konamiIndex]) {
+			konamiIndex++;
+			if(konamiIndex >= KONAMI_CODE.length) {
+				mc.getSoundHandler().playSound(PositionedSoundRecord.func_147673_a(new ResourceLocation("botania:way")));
+				konamiIndex = 0;
+			}
+		} else konamiIndex = 0;
+		
 		super.keyTyped(par1, par2);
 	}
 

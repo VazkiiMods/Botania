@@ -20,6 +20,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -60,7 +61,8 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	private static final int COST = 35;
 
 	public static IIcon[] wingIcons;
-	private static final int WING_TYPES = 7;
+	private static final int SUBTYPES = 7;
+	private static final int WING_TYPES = 8;
 
 	public ItemFlightTiara() {
 		super(LibItemNames.FLIGHT_TIARA);
@@ -85,7 +87,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 
 	@Override
 	public void getSubItems(Item item, CreativeTabs tab, List list) {
-		for(int i = 0; i < WING_TYPES + 1; i++)
+		for(int i = 0; i < SUBTYPES + 1; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
 
@@ -94,6 +96,15 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 		par3List.add(StatCollector.translateToLocal("botania.wings" + par1ItemStack.getItemDamage()));
 	}
 
+	@Override
+	public void onWornTick(ItemStack stack, EntityLivingBase player) {
+		super.onWornTick(stack, player);
+		if(stack.getItemDamage() != 8 && stack.getDisplayName().hashCode() == 0x7867EB0B) {
+			stack.setItemDamage(8);
+			stack.getTagCompound().removeTag("display");
+		}
+	}
+	
 	@SubscribeEvent
 	public void updatePlayerFlyStatus(LivingUpdateEvent event) {
 		if(event.entityLiving instanceof EntityPlayer) {
@@ -150,6 +161,12 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 								r = 0.2F;
 								g = 0.6F;
 								b = 0.2F;
+								break;
+							}
+							case 8 : {
+								r = 0F;
+								b = 0F;
+								break;
 							}
 							}
 
@@ -216,6 +233,9 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 				GL11.glColor4f(1F, 1F, 1F, 1F);
 
+				int light = 15728880;
+				int lightmapX = light % 65536;
+				int lightmapY = light / 65536;
 				switch(meta) {
 				case 1 : { // Jibril
 					h = 0.4F;
@@ -233,9 +253,6 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 					break;
 				}
 				case 4 : { // Fire
-					int light = 15728880;
-					int lightmapX = light % 65536;
-					int lightmapY = light / 65536;
 					OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
 					break;
 				}
@@ -258,6 +275,14 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 					rx = 0F;
 					GL11.glColor4f(1F, 1F, 1F, 0.5F + (float) Math.cos((double) (event.entityPlayer.ticksExisted + event.partialRenderTick) * 0.3F) * 0.2F);
 					break;
+				}
+				case 8 : { // The One
+					OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
+					rz = 180F;
+					rx = 0F;
+					s = 1.5F;
+					h = 1.2F;
+					GL11.glColor4f(1F, 1F, 1F, 0.5F + (flying ? ((float) Math.cos((double) (event.entityPlayer.ticksExisted + event.partialRenderTick) * 0.3F) * 0.25F) + 0.25F : 0F));
 				}
 				}
 
@@ -333,6 +358,5 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
 		return stack.getItemDamage() == 1 ? ModAchievements.tiaraWings : null;
 	}
-
 
 }

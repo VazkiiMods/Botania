@@ -85,6 +85,7 @@ botaniamisc.tutorialStarted=You have started your tutorial, follow the red arrow
 botaniamisc.tutorialEnded=Your tutorial is over, you should now have a basic idea of how Botania works, make sure to read through the other pages at your leisure to learn more ways of using the mod.
 botaniamisc.cosmeticBauble=&oCosmetic
 botaniamisc.hasCosmetic=&oHas Cosmetic Override: &r%s
+botaniamisc.typeToSearch=(type to search)
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
@@ -138,6 +139,7 @@ botania.wings4=Wings: Firelord
 botania.wings5=Wings: Black Snow Princess
 botania.wings6=Wings: Lord of the Pit
 botania.wings7=Wings: Sylph
+botania.wings8=Wings: The One
 
 # ARMOR SETS
 botania.armorset.manasteel.name=Mana Affinity
