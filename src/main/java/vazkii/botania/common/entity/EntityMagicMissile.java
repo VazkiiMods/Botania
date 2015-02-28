@@ -20,6 +20,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
@@ -31,8 +32,11 @@ import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class EntityMagicMissile extends EntityThrowable {
 
+	private static final String TAG_TIME = "time";
+	
 	EntityLivingBase target;
 	double lockX, lockY = -1, lockZ;
+	int time = 0;
 
 	public EntityMagicMissile(World world) {
 		super(world);
@@ -62,11 +66,11 @@ public class EntityMagicMissile extends EntityThrowable {
 	public void onUpdate() {
 		super.onUpdate();
 
-		if(!worldObj.isRemote && (!getTarget() || ticksExisted > 40)) {
+		if(!worldObj.isRemote && (!getTarget() || time > 40)) {
 			setDead();
 			return;
 		}
-
+		
 		boolean evil = isEvil();
 		Vector3 thisVec = Vector3.fromEntityCenter(this);
 		Vector3 oldPos = new Vector3(lastTickPosX, lastTickPosY, lastTickPosZ);
@@ -97,7 +101,7 @@ public class EntityMagicMissile extends EntityThrowable {
 			Vector3 motionVec = diffVec.copy().normalize().multiply(evil ? 0.5 : 0.6);
 			motionX = motionVec.x;
 			motionY = motionVec.y;
-			if(ticksExisted < 10)
+			if(time < 10)
 				motionY = Math.abs(motionY);
 			motionZ = motionVec.z;
 
@@ -112,7 +116,22 @@ public class EntityMagicMissile extends EntityThrowable {
 			if(evil && diffVec.mag() < 1)
 				setDead();
 		}
+		
+		time++;
 	}
+	
+	@Override
+	public void writeEntityToNBT(NBTTagCompound cmp) {
+		super.writeEntityToNBT(cmp);
+		cmp.setInteger(TAG_TIME, time);
+	}
+	
+	@Override
+	public void readEntityFromNBT(NBTTagCompound cmp) {
+		super.readEntityFromNBT(cmp);
+		time = cmp.getInteger(TAG_TIME);
+	}
+	
 
 	public boolean getTarget() {
 		if(target != null && target.getHealth() > 0 && !target.isDead && worldObj.loadedEntityList.contains(target))
