@@ -87,6 +87,9 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 
 	@Override
 	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
+		if(par2World.isRemote)
+			return;
+		
 		IManaPool pool = getManaPool(par1ItemStack);
 		if(!(pool instanceof DummyPool)) {
 			if(pool == null)
