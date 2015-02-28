@@ -38,7 +38,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 	int page = 0;
 
 	int tutPage = -1;
-	
+
 	GuiButton leftButton, rightButton, backButton;
 	GuiLexicon parent;
 	GuiTextField searchField;
@@ -113,7 +113,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 	@Override
 	void populateIndex() {
 		LexiconEntry tutEntry = tutorial != null && !tutorial.isEmpty() ? tutorial.peek() : null;
-		
+
 		for(int i = page * 12; i < (page + 1) * 12; i++) {
 			GuiButtonInvisible button = (GuiButtonInvisible) buttonList.get(i - page * 12);
 			LexiconEntry entry = i >= entriesToDisplay.size() ? null : entriesToDisplay.get(i);
@@ -140,7 +140,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			mc.fontRenderer.setUnicodeFlag(true);
 			String s = StatCollector.translateToLocal("botaniamisc.typeToSearch");
 			mc.fontRenderer.drawString(s, left + 120 - mc.fontRenderer.getStringWidth(s), top + guiHeight - 18, 0x666666);
-			mc.fontRenderer.setUnicodeFlag(unicode);	
+			mc.fontRenderer.setUnicodeFlag(unicode);
 		}
 	}
 
@@ -152,7 +152,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			orientTutorialArrowWithButton(backButton);
 			return;
 		}
-		
+
 		if(tutPage != -1 && tutPage != page) {
 			orientTutorialArrowWithButton(tutPage < page ? leftButton : rightButton);
 			return;

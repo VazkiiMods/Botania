@@ -43,7 +43,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 	private static final int TRANSFER_RATE = 1000;
 	private static final String TAG_UPGRADE = "upgrade";
-	
+
 	private static final String TAG_TRANSFERS = "tfs";
 	private static final String TAG_TRANSFER_ID = "id";
 
@@ -81,7 +81,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 		List<ISparkEntity> allSparks = null;
 		if(first || upgrade == 2 || upgrade == 3)
 			allSparks = SparkHelper.getSparksAround(worldObj, posX, posY, posZ);
-		
+
 		if(first) {
 			for(ISparkEntity spark : allSparks)
 				particleBeam(this, (Entity) spark);
@@ -91,7 +91,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 		Collection<ISparkEntity> transfers = getTransfers();
 
-		
+
 		if(upgrade != 0) {
 			switch(upgrade) {
 			case 1 : { // Dispersive
@@ -327,11 +327,11 @@ public class EntitySpark extends Entity implements ISparkEntity {
 		ItemStack transferDataContainer = getTransferDataContainer();
 		NBTTagList list = ItemNBTHelper.getList(transferDataContainer, TAG_TRANSFERS, 10, false);
 		NBTTagList newTransfers = new NBTTagList();
-		
+
 		for(int i = 0; i < list.tagCount(); i++) {
 			NBTTagCompound cmp = list.getCompoundTagAt(i);
 			int id = cmp.getInteger(TAG_TRANSFER_ID);
-			
+
 			boolean added = false;
 			Entity e = worldObj.getEntityByID(id);
 			if(e != null && e instanceof ISparkEntity) {
@@ -339,7 +339,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 				int upgr = getUpgrade();
 				int supgr = spark.getUpgrade();
 				ISparkAttachable atile = spark.getAttachedTile();
-						
+
 				if(spark != this && !spark.areIncomingTransfersDone() && atile != null && !atile.isFull() && (upgr == 0 && supgr == 2 || upgr == 3 && (supgr == 0 || supgr == 1) || !(atile instanceof IManaPool))) {
 					entities.add((ISparkEntity) e);
 					added = true;
@@ -350,23 +350,23 @@ public class EntitySpark extends Entity implements ISparkEntity {
 				NBTTagCompound cmp_ = new NBTTagCompound();
 				cmp_.setInteger(TAG_TRANSFER_ID, id);
 				newTransfers.appendTag(cmp_);
-				
+
 			}
 		}
 
 		ItemStack stack = transferDataContainer.copy();
 		ItemNBTHelper.setList(stack, TAG_TRANSFERS, list);
 		setTransferDataContainer(stack);
-		
+
 		return entities;
 	}
-	
+
 	private boolean hasTransfer(ISparkEntity entity) {
 		ItemStack transferDataContainer = getTransferDataContainer();
 		NBTTagList list = ItemNBTHelper.getList(transferDataContainer, TAG_TRANSFERS, 10, false);
-		NBTTagList newTransfers = new NBTTagList();
+		new NBTTagList();
 		int id = ((Entity) entity).getEntityId();
-		
+
 		for(int i = 0; i < list.tagCount(); i++) {
 			NBTTagCompound cmp = list.getCompoundTagAt(i);
 			int tid = cmp.getInteger(TAG_TRANSFER_ID);
@@ -386,7 +386,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 		NBTTagCompound cmp_ = new NBTTagCompound();
 		cmp_.setInteger(TAG_TRANSFER_ID, ((Entity) entity).getEntityId());
 		list.appendTag(cmp_);
-		
+
 		ItemStack stack = transferDataContainer.copy();
 		ItemNBTHelper.setList(stack, TAG_TRANSFERS, list);
 		setTransferDataContainer(stack);
@@ -401,11 +401,11 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	public void setUpgrade(int upgrade) {
 		dataWatcher.updateObject(28, upgrade);
 	}
-	
+
 	public ItemStack getTransferDataContainer() {
 		return dataWatcher.getWatchableObjectItemStack(29);
 	}
-	
+
 	public void setTransferDataContainer(ItemStack stack) {
 		dataWatcher.updateObject(29, stack);
 	}

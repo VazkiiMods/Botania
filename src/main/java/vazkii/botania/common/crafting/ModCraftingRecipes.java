@@ -32,7 +32,6 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ItemSignalFlare;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibOreDict;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -240,7 +239,7 @@ public final class ModCraftingRecipes {
 	public static List<IRecipe> recipesCosmeticItems;
 	public static List<IRecipe> recipesMushrooms;
 	public static IRecipe recipeSwapRing;
-	
+
 	public static void init() {
 		// Lexicon Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lexicon), "treeSapling", Items.book);
@@ -1549,28 +1548,28 @@ public final class ModCraftingRecipes {
 		recipeEndStoneChiseledBricks = BotaniaAPI.getLatestAddedRecipe();
 
 		// Livingwood Bow Recipe
-		addOreDictRecipe(new ItemStack(ModItems.livingwoodBow), 
+		addOreDictRecipe(new ItemStack(ModItems.livingwoodBow),
 				" TS", "T S", " TS",
 				'T', LibOreDict.LIVINGWOOD_TWIG,
 				'S', LibOreDict.MANA_STRING);
 		recipeLivingwoodBow = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Crystal Bow Recipe
-		addOreDictRecipe(new ItemStack(ModItems.crystalBow), 
+		addOreDictRecipe(new ItemStack(ModItems.crystalBow),
 				" DS", "T S", " DS",
 				'T', LibOreDict.LIVINGWOOD_TWIG,
 				'D', LibOreDict.DRAGONSTONE,
 				'S', LibOreDict.MANA_STRING);
 		recipeCrystalBow = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Cosmetic Items Recipes
 		for(int i = 0; i < 32; i++)
-			addOreDictRecipe(new ItemStack(ModItems.cosmetic, 1, i), 
-				"PPP", "PSP", "PPP",
-				'P', new ItemStack(i < 16 ? ModItems.petal : ModItems.manaPetal, 1, i % 16),
-				'S', LibOreDict.MANA_STRING);
+			addOreDictRecipe(new ItemStack(ModItems.cosmetic, 1, i),
+					"PPP", "PSP", "PPP",
+					'P', new ItemStack(i < 16 ? ModItems.petal : ModItems.manaPetal, 1, i % 16),
+					'S', LibOreDict.MANA_STRING);
 		recipesCosmeticItems = BotaniaAPI.getLatestAddedRecipes(32);
-		
+
 		// Shimmering Mushroom Recipes
 		for(int i = 0; i < 16; i++) {
 			GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.mushroom, 1, i), new ItemStack(Blocks.red_mushroom), new ItemStack(ModItems.dye, 1, i));
@@ -1578,14 +1577,14 @@ public final class ModCraftingRecipes {
 		}
 		recipesMushrooms = BotaniaAPI.getLatestAddedRecipes(32);
 		GameRegistry.addShapelessRecipe(new ItemStack(Items.mushroom_stew), new ItemStack(ModBlocks.mushroom, 1, Short.MAX_VALUE), new ItemStack(ModBlocks.mushroom, 1, Short.MAX_VALUE), new ItemStack(Items.bowl));
-		
+
 		// Ring of Correction Recipe
-		addOreDictRecipe(new ItemStack(ModItems.swapRing), 
+		addOreDictRecipe(new ItemStack(ModItems.swapRing),
 				"CM ", "M M", " M ",
 				'C', new ItemStack(Blocks.clay),
 				'M', LibOreDict.MANA_STEEL);
 		recipeSwapRing = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",

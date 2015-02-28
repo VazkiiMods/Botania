@@ -33,7 +33,7 @@ import cpw.mods.fml.relauncher.ReflectionHelper;
 public class EntityMagicMissile extends EntityThrowable {
 
 	private static final String TAG_TIME = "time";
-	
+
 	EntityLivingBase target;
 	double lockX, lockY = -1, lockZ;
 	int time = 0;
@@ -70,7 +70,7 @@ public class EntityMagicMissile extends EntityThrowable {
 			setDead();
 			return;
 		}
-		
+
 		boolean evil = isEvil();
 		Vector3 thisVec = Vector3.fromEntityCenter(this);
 		Vector3 oldPos = new Vector3(lastTickPosX, lastTickPosY, lastTickPosZ);
@@ -116,22 +116,22 @@ public class EntityMagicMissile extends EntityThrowable {
 			if(evil && diffVec.mag() < 1)
 				setDead();
 		}
-		
+
 		time++;
 	}
-	
+
 	@Override
 	public void writeEntityToNBT(NBTTagCompound cmp) {
 		super.writeEntityToNBT(cmp);
 		cmp.setInteger(TAG_TIME, time);
 	}
-	
+
 	@Override
 	public void readEntityFromNBT(NBTTagCompound cmp) {
 		super.readEntityFromNBT(cmp);
 		time = cmp.getInteger(TAG_TIME);
 	}
-	
+
 
 	public boolean getTarget() {
 		if(target != null && target.getHealth() > 0 && !target.isDead && worldObj.loadedEntityList.contains(target))

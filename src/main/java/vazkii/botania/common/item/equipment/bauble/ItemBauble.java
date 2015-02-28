@@ -46,7 +46,7 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
 		if(!EntityDoppleganger.isTruePlayer(par3EntityPlayer))
 			return par1ItemStack;
-		
+
 		InventoryBaubles baubles = PlayerHandler.getPlayerBaubles(par3EntityPlayer);
 		for(int i = 0; i < baubles.getSizeInventory(); i++) {
 			if(baubles.isItemValidForSlot(i, par1ItemStack)) {
@@ -88,7 +88,7 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 
 		if(key != null)
 			addStringToTooltip(StatCollector.translateToLocal("botania.baubletooltip").replaceAll("%key%", key), par3List);
-		
+
 		ItemStack cosmetic = getCosmeticItem(par1ItemStack);
 		if(cosmetic != null)
 			addStringToTooltip(String.format(StatCollector.translateToLocal("botaniamisc.hasCosmetic"), cosmetic.getDisplayName()), par3List);
@@ -144,7 +144,7 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 			return null;
 		return ItemStack.loadItemStackFromNBT(cmp);
 	}
-	
+
 	@Override
 	public void setCosmeticItem(ItemStack stack, ItemStack cosmetic) {
 		NBTTagCompound cmp = new NBTTagCompound();
@@ -152,22 +152,22 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 			cosmetic.writeToNBT(cmp);
 		ItemNBTHelper.setCompound(stack, TAG_COSMETIC_ITEM, cmp);
 	}
-	
+
 	@Override
 	public boolean hasContainerItem(ItemStack stack) {
 		return getContainerItem(stack) != null;
 	}
-	
+
 	@Override
 	public ItemStack getContainerItem(ItemStack itemStack) {
 		return getCosmeticItem(itemStack);
 	}
-	
+
 	@Override
 	public boolean doesContainerItemLeaveCraftingGrid(ItemStack p_77630_1_) {
 		return false;
 	}
-	
+
 	public int getLastPlayerHashcode(ItemStack stack) {
 		return ItemNBTHelper.getInt(stack, TAG_HASHCODE, 0);
 	}

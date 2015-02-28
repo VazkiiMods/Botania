@@ -267,7 +267,7 @@ public final class ModBlocks {
 		corporeaFunnel = new BlockCorporeaFunnel();
 		endStoneBrick = new BlockEndStoneBrick();
 		mushroom = new BlockModMushroom();
-		
+
 		ModFluffBlocks.init();
 
 		for(int i = 0; i < 16; i++)

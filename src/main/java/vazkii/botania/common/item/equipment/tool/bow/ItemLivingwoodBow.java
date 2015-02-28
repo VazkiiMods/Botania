@@ -41,7 +41,7 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 
 	public static final int MANA_PER_DAMAGE = 40;
 	IIcon[] pullIcons = new IIcon[3];
-	
+
 	public ItemLivingwoodBow() {
 		this(LibItemNames.LIVINGWOOD_BOW);
 	}
@@ -64,93 +64,93 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 	public String getUnlocalizedNameInefficiently(ItemStack par1ItemStack) {
 		return super.getUnlocalizedNameInefficiently(par1ItemStack).replaceAll("item.", "item." + LibResources.PREFIX_MOD);
 	}
-	
-	@Override
-    public ItemStack onItemRightClick(ItemStack p_77659_1_, World p_77659_2_, EntityPlayer p_77659_3_) {
-        ArrowNockEvent event = new ArrowNockEvent(p_77659_3_, p_77659_1_);
-        MinecraftForge.EVENT_BUS.post(event);
-        if(event.isCanceled())
-            return event.result;
 
-        if(canFire(p_77659_1_, p_77659_2_, p_77659_3_, 0))
-            p_77659_3_.setItemInUse(p_77659_1_, this.getMaxItemUseDuration(p_77659_1_));
-
-        return p_77659_1_;
-    }
-	
 	@Override
-    public void onPlayerStoppedUsing(ItemStack p_77615_1_, World p_77615_2_, EntityPlayer p_77615_3_, int p_77615_4_) {
+	public ItemStack onItemRightClick(ItemStack p_77659_1_, World p_77659_2_, EntityPlayer p_77659_3_) {
+		ArrowNockEvent event = new ArrowNockEvent(p_77659_3_, p_77659_1_);
+		MinecraftForge.EVENT_BUS.post(event);
+		if(event.isCanceled())
+			return event.result;
+
+		if(canFire(p_77659_1_, p_77659_2_, p_77659_3_, 0))
+			p_77659_3_.setItemInUse(p_77659_1_, getMaxItemUseDuration(p_77659_1_));
+
+		return p_77659_1_;
+	}
+
+	@Override
+	public void onPlayerStoppedUsing(ItemStack p_77615_1_, World p_77615_2_, EntityPlayer p_77615_3_, int p_77615_4_) {
 		int j = (int) ((getMaxItemUseDuration(p_77615_1_) - p_77615_4_) * chargeVelocityMultiplier());
 
-        ArrowLooseEvent event = new ArrowLooseEvent(p_77615_3_, p_77615_1_, j);
-        MinecraftForge.EVENT_BUS.post(event);
-        if(event.isCanceled())
-            return;
-        j = event.charge;
+		ArrowLooseEvent event = new ArrowLooseEvent(p_77615_3_, p_77615_1_, j);
+		MinecraftForge.EVENT_BUS.post(event);
+		if(event.isCanceled())
+			return;
+		j = event.charge;
 
-        boolean flag = canFire(p_77615_1_, p_77615_2_, p_77615_3_, p_77615_4_);
-        boolean infinity = EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, p_77615_1_) > 0;
-        
-        if(flag) {
-            float f = (float)j / 20.0F;
-            f = (f * f + f * 2.0F) / 3.0F;
+		boolean flag = canFire(p_77615_1_, p_77615_2_, p_77615_3_, p_77615_4_);
+		boolean infinity = EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, p_77615_1_) > 0;
 
-            if((double)f < 0.1D)
-                return;
+		if(flag) {
+			float f = j / 20.0F;
+			f = (f * f + f * 2.0F) / 3.0F;
 
-            if(f > 1.0F)
-                f = 1.0F;
+			if(f < 0.1D)
+				return;
 
-            EntityArrow entityarrow = makeArrow(p_77615_1_, p_77615_2_, p_77615_3_, p_77615_4_, f);
+			if(f > 1.0F)
+				f = 1.0F;
 
-            if(f == 1.0F)
-                entityarrow.setIsCritical(true);
+			EntityArrow entityarrow = makeArrow(p_77615_1_, p_77615_2_, p_77615_3_, p_77615_4_, f);
 
-            int k = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, p_77615_1_);
+			if(f == 1.0F)
+				entityarrow.setIsCritical(true);
 
-            if(k > 0)
-                entityarrow.setDamage(entityarrow.getDamage() + (double)k * 0.5D + 0.5D);
+			int k = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, p_77615_1_);
 
-            int l = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, p_77615_1_);
+			if(k > 0)
+				entityarrow.setDamage(entityarrow.getDamage() + k * 0.5D + 0.5D);
 
-            if(l > 0)
-                entityarrow.setKnockbackStrength(l);
+			int l = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, p_77615_1_);
 
-            if(EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, p_77615_1_) > 0)
-                entityarrow.setFire(100);
+			if(l > 0)
+				entityarrow.setKnockbackStrength(l);
 
-            ToolCommons.damageItem(p_77615_1_, 1, p_77615_3_, MANA_PER_DAMAGE);
-            p_77615_2_.playSoundAtEntity(p_77615_3_, "random.bow", 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+			if(EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, p_77615_1_) > 0)
+				entityarrow.setFire(100);
 
-            onFire(p_77615_1_, p_77615_2_, p_77615_3_, p_77615_4_, infinity, entityarrow);
+			ToolCommons.damageItem(p_77615_1_, 1, p_77615_3_, MANA_PER_DAMAGE);
+			p_77615_2_.playSoundAtEntity(p_77615_3_, "random.bow", 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
 
-            if(!p_77615_2_.isRemote)
-                p_77615_2_.spawnEntityInWorld(entityarrow);
-        }
-    }
-	
+			onFire(p_77615_1_, p_77615_2_, p_77615_3_, p_77615_4_, infinity, entityarrow);
+
+			if(!p_77615_2_.isRemote)
+				p_77615_2_.spawnEntityInWorld(entityarrow);
+		}
+	}
+
 	float chargeVelocityMultiplier() {
 		return 1F;
 	}
-	
+
 	boolean postsEvent() {
 		return true;
 	}
-	
+
 	EntityArrow makeArrow(ItemStack p_77615_1_, World p_77615_2_, EntityPlayer p_77615_3_, int p_77615_4_, float f) {
 		return new EntityArrow(p_77615_2_, p_77615_3_, f * 2.0F);
 	}
-	
+
 	boolean canFire(ItemStack p_77615_1_, World p_77615_2_, EntityPlayer p_77615_3_, int p_77615_4_) {
 		return p_77615_3_.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, p_77615_1_) > 0 || p_77615_3_.inventory.hasItem(Items.arrow);
 	}
 
 	void onFire(ItemStack p_77615_1_, World p_77615_2_, EntityPlayer p_77615_3_, int p_77615_4_, boolean infinity, EntityArrow arrow) {
-        if(infinity)
-        	arrow.canBePickedUp = 2;
-        else p_77615_3_.inventory.consumeInventoryItem(Items.arrow);
+		if(infinity)
+			arrow.canBePickedUp = 2;
+		else p_77615_3_.inventory.consumeInventoryItem(Items.arrow);
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister par1IconRegister) {
@@ -174,22 +174,22 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 	public boolean usesMana(ItemStack stack) {
 		return true;
 	}
-	
+
 	@Override
 	public IIcon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining) {
 		if(stack != usingItem)
 			return itemIcon;
-		
+
 		int j = (int) ((getMaxItemUseDuration(stack) - useRemaining) * chargeVelocityMultiplier());
 
-        if(j >= 18)
-            return pullIcons[2];
-        if(j > 13)
-            return pullIcons[1];
-        if(j > 0)
-            return pullIcons[0];
-        
+		if(j >= 18)
+			return pullIcons[2];
+		if(j > 13)
+			return pullIcons[1];
+		if(j > 0)
+			return pullIcons[0];
+
 		return itemIcon;
 	}
-	
+
 }

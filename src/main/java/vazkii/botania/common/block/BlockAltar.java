@@ -114,7 +114,7 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 					par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, bucket);
 				else if(!par5EntityPlayer.inventory.addItemStackToInventory(bucket))
 					par5EntityPlayer.dropPlayerItemWithRandomChoice(bucket, false);
-				
+
 				if(tile.hasLava)
 					tile.setLava(false);
 				else tile.setWater(false);

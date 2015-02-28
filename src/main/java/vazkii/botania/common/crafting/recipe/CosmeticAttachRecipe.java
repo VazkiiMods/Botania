@@ -14,10 +14,8 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
-import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.ICosmeticBauble;
-import vazkii.botania.common.item.ModItems;
 
 public class CosmeticAttachRecipe implements IRecipe {
 

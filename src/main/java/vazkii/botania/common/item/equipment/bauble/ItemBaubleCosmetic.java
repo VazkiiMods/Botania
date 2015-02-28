@@ -12,9 +12,6 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import java.util.List;
 
-import org.lwjgl.opengl.GL11;
-
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
@@ -29,27 +26,26 @@ import net.minecraft.util.StatCollector;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
+
+import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.api.item.ICosmeticBauble;
-import vazkii.botania.api.item.IBaubleRender.Helper;
-import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.crafting.recipe.CosmeticAttachRecipe;
 import vazkii.botania.common.crafting.recipe.CosmeticRemoveRecipe;
-import vazkii.botania.common.crafting.recipe.ManaGunClipRecipe;
-import vazkii.botania.common.crafting.recipe.ManaGunLensRecipe;
-import vazkii.botania.common.crafting.recipe.ManaGunRemoveLensRecipe;
 import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 
 	private static final int SUBTYPES = 32;
 	IIcon[] icons;
-	
+
 	public ItemBaubleCosmetic() {
 		super(LibItemNames.COSMETIC);
 		setHasSubtypes(true);
-		
+
 		GameRegistry.addRecipe(new CosmeticAttachRecipe());
 		GameRegistry.addRecipe(new CosmeticRemoveRecipe());
 		RecipeSorter.register("botania:cosmeticAttach", CosmeticAttachRecipe.class, Category.SHAPELESS, "");
@@ -62,18 +58,18 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 		for(int i = 0; i < SUBTYPES; i++)
 			icons[i] = IconHelper.forItem(par1IconRegister, this, i);
 	}
-	
+
 	@Override
 	public void getSubItems(Item item, CreativeTabs tab, List list) {
 		for(int i = 0; i < SUBTYPES; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
-	
+
 	@Override
 	public IIcon getIconFromDamage(int dmg) {
 		return icons[Math.min(SUBTYPES - 1, dmg)];
 	}
-	
+
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
 		return super.getUnlocalizedName(par1ItemStack) + par1ItemStack.getItemDamage();
@@ -89,7 +85,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 	public BaubleType getBaubleType(ItemStack arg0) {
 		return BaubleType.AMULET;
 	}
-	
+
 	@Override
 	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type) {
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
@@ -272,20 +268,20 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 				GL11.glTranslatef(0.35F, 0.3F, 0F);
 				renderIcon(3);
 				break;
-			case 12: 
+			case 12:
 				chestTranslate();
 				scale(0.225F);
 				GL11.glTranslatef(1.2F, 1.9F, 0F);
 				renderIcon(12);
 				break;
-			case 13: 
+			case 13:
 				chestTranslate();
 				GL11.glRotatef(-90F, 0F, 1F, 0F);
 				scale(0.5F);
 				GL11.glTranslatef(-1.3F, -0.4F, -1F);
 				renderIcon(13);
 				break;
-			case 14: 
+			case 14:
 				chestTranslate();
 				scale(0.5F);
 				GL11.glTranslatef(2.3F, 1F, -0.05F);
@@ -296,19 +292,19 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 				GL11.glTranslatef(-2.6F, 0F, 0.05F);
 				renderIcon(14);
 				break;
-			case 16: 
+			case 16:
 				chestTranslate();
 				scale(0.225F);
 				GL11.glTranslatef(2.3F, 1.9F, 0F);
 				renderIcon(16);
 				break;
-			case 21: 
+			case 21:
 				chestTranslate();
 				scale(0.3F);
 				GL11.glTranslatef(1.2F, 0.5F, 0F);
 				renderIcon(21);
 				break;
-			case 29: 
+			case 29:
 				chestTranslate();
 				scale(0.8F);
 				GL11.glTranslatef(0.2F, -0.2F, -0.35F);
@@ -318,13 +314,13 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 			}
 		}
 	}
-	
+
 	public void faceTranslate() {
 		GL11.glRotatef(90F, 0F, 1F, 0F);
 		GL11.glRotatef(180F, 1F, 0F, 0F);
 		GL11.glTranslatef(-0.4F, 0.1F, -0.25F);
 	}
-	
+
 	public void chestTranslate() {
 		GL11.glRotatef(180F, 1F, 0F, 0F);
 		GL11.glTranslatef(-0.5F, -0.7F, 0.15F);
@@ -333,7 +329,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 	public void scale(float f) {
 		GL11.glScalef(f, f, f);
 	}
-	
+
 	public void renderIcon(int i) {
 		IIcon icon = icons[i];
 		float f = icon.getMinU();

@@ -66,5 +66,5 @@ public class CosmeticRemoveRecipe implements IRecipe {
 	public ItemStack getRecipeOutput() {
 		return null;
 	}
-	
+
 }

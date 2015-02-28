@@ -13,23 +13,6 @@ package vazkii.botania.common.block.decor;
 import java.util.List;
 import java.util.Random;
 
-import thaumcraft.api.crafting.IInfusionStabiliser;
-import vazkii.botania.api.item.IGrassHornExcempt;
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.client.core.helper.IconHelper;
-import vazkii.botania.client.lib.LibRenderIDs;
-import vazkii.botania.common.Botania;
-import vazkii.botania.common.core.BotaniaCreativeTab;
-import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.integration.coloredlights.ColoredLightHelper;
-import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
-import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibBlockNames;
-import cpw.mods.fml.common.Optional;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockMushroom;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -43,6 +26,22 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import thaumcraft.api.crafting.IInfusionStabiliser;
+import vazkii.botania.api.item.IGrassHornExcempt;
+import vazkii.botania.api.lexicon.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.BotaniaCreativeTab;
+import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.integration.coloredlights.ColoredLightHelper;
+import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
+import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibBlockNames;
+import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser", striprefs = true)
 public class BlockModMushroom extends BlockMushroom implements IInfusionStabiliser, IGrassHornExcempt, ILexiconable {
@@ -107,7 +106,7 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 	public int getLightValue(IBlockAccess world, int x, int y, int z) {
 		return ColoredLightHelper.getPackedColor(world.getBlockMetadata(x, y, z), originalLight);
 	}
-	
+
 	@Override
 	public IIcon getIcon(int par1, int par2) {
 		return icons[par2];

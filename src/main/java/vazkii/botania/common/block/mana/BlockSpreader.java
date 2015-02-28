@@ -40,7 +40,6 @@ import vazkii.botania.api.wand.IWireframeAABBProvider;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;

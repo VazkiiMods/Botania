@@ -30,7 +30,6 @@ import vazkii.botania.api.item.IBaubleRender.Helper;
 import vazkii.botania.api.item.IBaubleRender.RenderType;
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.common.block.BlockModFlower;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
@@ -88,12 +87,12 @@ public final class BaubleRenderHandler {
 						continue;
 					}
 				}
-				
+
 				if(item instanceof IBaubleRender) {
 					GL11.glPushMatrix();
 					GL11.glColor4f(1F, 1F, 1F, 1F);
 					((IBaubleRender) stack.getItem()).onPlayerBaubleRender(stack, event, type);
-					GL11.glPopMatrix();	
+					GL11.glPopMatrix();
 				}
 			}
 		}
@@ -139,7 +138,7 @@ public final class BaubleRenderHandler {
 			}
 		}
 	}
-	
+
 	private void renderFancyExclusiveDevStuffBecauseImAnEvilDevWhoDoesntCareAboutTheCommunityBooo(RenderPlayerEvent event) {
 		GL11.glPushMatrix();
 		IIcon icon = ((ItemManaResource) ModItems.manaResource).tailIcon;
@@ -156,7 +155,7 @@ public final class BaubleRenderHandler {
 		if(event.entityPlayer.motionY < 0)
 			GL11.glRotatef((float) event.entityPlayer.motionY * 20F, 1F, 0F, 0F);
 
-		float r = -18F + (float) Math.sin(((float) ClientTickHandler.ticksInGame + event.partialRenderTick) * 0.05F) * 2F;
+		float r = -18F + (float) Math.sin((ClientTickHandler.ticksInGame + event.partialRenderTick) * 0.05F) * 2F;
 		GL11.glRotatef(r, 0F, 0F, 1F);
 		float s = 0.9F;
 		GL11.glScalef(s, s, s);
@@ -168,9 +167,9 @@ public final class BaubleRenderHandler {
 		GL11.glRotatef(r, 0F, 0F, 1F);
 		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
 		GL11.glPopMatrix();
-		
+
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-		icon = ((BlockModFlower) ModBlocks.flower).icons[6];
+		icon = BlockModFlower.icons[6];
 		f = icon.getMinU();
 		f1 = icon.getMaxU();
 		f2 = icon.getMinV();

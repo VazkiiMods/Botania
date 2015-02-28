@@ -13,7 +13,7 @@ package vazkii.botania.api.item;
 /**
  * A bauble that counts as a cosmetic only item. These can be added to
  * other baubles to add the render to them. Other cosmetic baubles
- * can't be stacked on this. 
+ * can't be stacked on this.
  */
 public interface ICosmeticBauble extends IBaubleRender {
 

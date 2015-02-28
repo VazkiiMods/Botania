@@ -24,7 +24,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISortableTool;
-import vazkii.botania.api.item.ISortableTool.ToolType;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
@@ -118,7 +117,7 @@ public class ItemManasteelPick extends ItemPickaxe implements IManaUsingItem, IS
 	public boolean usesMana(ItemStack stack) {
 		return true;
 	}
-	
+
 	@Override
 	public ToolType getSortingType(ItemStack stack) {
 		return ToolType.PICK;

@@ -48,7 +48,7 @@ public class BiomeDecorationHandler {
 						event.world.setBlock(x1, y1, z1, ModBlocks.flower, color, 2);
 				}
 			}
-			
+
 			for(int i = 0; i < ConfigHandler.mushroomQuantity; i++) {
 				int x = event.chunkX + event.rand.nextInt(16) + 8;
 				int z = event.chunkZ + event.rand.nextInt(16) + 8;

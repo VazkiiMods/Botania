@@ -24,11 +24,11 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 	public final LexiconCategory category;
 
 	private KnowledgeType type = BotaniaAPI.basicKnowledge;
-	
+
 	public List<LexiconPage> pages = new ArrayList<LexiconPage>();
 	private boolean priority = false;
 	private ItemStack icon = null;
-	
+
 	/**
 	 * @param unlocalizedName The unlocalized name of this entry. This will be localized by the client display.
 	 */
@@ -56,7 +56,7 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 	public KnowledgeType getKnowledgeType() {
 		return type;
 	}
-	
+
 	/**
 	 * Sets the display icon for this entry. Overriding the one already there. When adding recipe pages to the
 	 * entry, this will be called once for the result of the first found recipe.
@@ -64,7 +64,7 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 	public void setIcon(ItemStack stack) {
 		icon = stack;
 	}
-	
+
 	public ItemStack getIcon() {
 		return icon;
 	}

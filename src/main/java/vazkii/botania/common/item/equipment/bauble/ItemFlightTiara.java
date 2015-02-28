@@ -104,7 +104,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 			stack.getTagCompound().removeTag("display");
 		}
 	}
-	
+
 	@SubscribeEvent
 	public void updatePlayerFlyStatus(LivingUpdateEvent event) {
 		if(event.entityLiving instanceof EntityPlayer) {
@@ -282,7 +282,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 					rx = 0F;
 					s = 1.5F;
 					h = 1.2F;
-					GL11.glColor4f(1F, 1F, 1F, 0.5F + (flying ? ((float) Math.cos((double) (event.entityPlayer.ticksExisted + event.partialRenderTick) * 0.3F) * 0.25F) + 0.25F : 0F));
+					GL11.glColor4f(1F, 1F, 1F, 0.5F + (flying ? (float) Math.cos((double) (event.entityPlayer.ticksExisted + event.partialRenderTick) * 0.3F) * 0.25F + 0.25F : 0F));
 				}
 				}
 

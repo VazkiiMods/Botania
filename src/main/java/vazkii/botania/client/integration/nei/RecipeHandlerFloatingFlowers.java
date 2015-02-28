@@ -24,20 +24,20 @@ public class RecipeHandlerFloatingFlowers extends TemplateRecipeHandler {
 
 		public CachedFloatingFlowerRecipe(ItemStack floatingFlower,
 				ItemStack specialFlower, ItemStack output) {
-			this.inputs.add(new PositionedStack(floatingFlower, 25, 6));
-			this.inputs.add(new PositionedStack(specialFlower, 43, 6));
+			inputs.add(new PositionedStack(floatingFlower, 25, 6));
+			inputs.add(new PositionedStack(specialFlower, 43, 6));
 			this.output = new PositionedStack(output, 119, 24);
 			this.output.setMaxSize(1);
 		}
 
 		@Override
 		public List<PositionedStack> getIngredients() {
-			return this.getCycledIngredients(cycleticks / 20, this.inputs);
+			return getCycledIngredients(cycleticks / 20, inputs);
 		}
 
 		@Override
 		public PositionedStack getResult() {
-			return this.output;
+			return output;
 		}
 
 	}
@@ -67,7 +67,7 @@ public class RecipeHandlerFloatingFlowers extends TemplateRecipeHandler {
 			specialFlower.setTagCompound((NBTTagCompound) result
 					.getTagCompound().copy());
 
-			this.arecipes.add(new CachedFloatingFlowerRecipe(floatingFlower,
+			arecipes.add(new CachedFloatingFlowerRecipe(floatingFlower,
 					specialFlower, result.copy()));
 		}
 	}
@@ -81,7 +81,7 @@ public class RecipeHandlerFloatingFlowers extends TemplateRecipeHandler {
 			result.setTagCompound((NBTTagCompound) ingredient.getTagCompound()
 					.copy());
 
-			this.arecipes.add(new CachedFloatingFlowerRecipe(floatingFlower,
+			arecipes.add(new CachedFloatingFlowerRecipe(floatingFlower,
 					ingredient.copy(), result));
 		}
 	}

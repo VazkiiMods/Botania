@@ -67,7 +67,7 @@ public class GuiLexicon extends GuiScreen {
 	boolean hasTutorialArrow;
 	int tutorialArrowX, tutorialArrowY;
 	int konamiIndex;
-	
+
 	List<LexiconCategory> allCategories;
 
 	String title;
@@ -384,7 +384,7 @@ public class GuiLexicon extends GuiScreen {
 			mc.displayGuiScreen(null);
 			mc.setIngameFocus();
 		}
-		
+
 		System.out.println(par2);
 		if(par2 == KONAMI_CODE[konamiIndex]) {
 			konamiIndex++;
@@ -393,7 +393,7 @@ public class GuiLexicon extends GuiScreen {
 				konamiIndex = 0;
 			}
 		} else konamiIndex = 0;
-		
+
 		super.keyTyped(par1, par2);
 	}
 

@@ -164,7 +164,7 @@ public final class ConfigHandler {
 
 		desc = "The quantity of botania mushrooms to generate underground, in the world, defaults to 40, the lower the number the less patches generate.";
 		mushroomQuantity = loadPropInt("worldgen.mushroom.quantity", desc, mushroomQuantity);
-		
+
 		potionIDSoulCross = loadPropPotionId(LibPotionNames.SOUL_CROSS, potionIDSoulCross);
 		potionIDFeatherfeet = loadPropPotionId(LibPotionNames.FEATHER_FEET, potionIDFeatherfeet);
 		potionIDEmptiness = loadPropPotionId(LibPotionNames.EMPTINESS, potionIDEmptiness);

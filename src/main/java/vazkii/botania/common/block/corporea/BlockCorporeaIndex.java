@@ -42,7 +42,7 @@ public class BlockCorporeaIndex extends BlockCorporeaBase implements ILexiconabl
 	public boolean renderAsNormalBlock() {
 		return false;
 	}
-	
+
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		// NO-OP

@@ -212,7 +212,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 							String[] tokens = s.split(":");
 							int worldId = Integer.parseInt(tokens[0]), x = Integer.parseInt(tokens[1]), y = Integer.parseInt(tokens[2]), z = Integer.parseInt(tokens[3]);
 							World world = server.worldServerForDimension(worldId);
-							if(world.isAirBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ))	
+							if(world.isAirBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ))
 								world.setBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ, ModBlocks.pistonRelay);
 							else if(!world.isRemote) {
 								ItemStack stack = new ItemStack(ModBlocks.pistonRelay);

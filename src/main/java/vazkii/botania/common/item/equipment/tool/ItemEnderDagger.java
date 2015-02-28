@@ -83,5 +83,5 @@ public class ItemEnderDagger extends ItemManasteelSword {
 	public boolean usesMana(ItemStack stack) {
 		return false;
 	}
-	
+
 }

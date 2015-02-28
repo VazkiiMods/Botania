@@ -85,7 +85,7 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer {
 			RenderLens.render(stack, lens.getLensColor(stack));
 			GL11.glPopMatrix();
 		}
-		
+
 		if(spreader.paddingColor != -1) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 
@@ -99,12 +99,12 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer {
 			render.renderBlockAsItem(block, color, 1F);
 			GL11.glRotatef(90F, 1F, 0F, 0F);
 			GL11.glRotatef(90F, 0F, 1F, 0F);
-			
+
 			GL11.glPushMatrix();
 			GL11.glScalef(f * 14F, 1F, 1F);
 			render.renderBlockAsItem(block, color, 1F);
 			GL11.glPopMatrix();
-			
+
 			GL11.glRotatef(90F, 1F, 0F, 0F);
 			GL11.glTranslatef(0F, 0F, -f / 2);
 			GL11.glScalef(f * 14F, 1F, f * 15F);
@@ -112,7 +112,7 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer {
 			GL11.glTranslatef(0F, f * 15F, 0F);
 			render.renderBlockAsItem(block, color, 1F);
 		}
-		
+
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glPopMatrix();
 	}
