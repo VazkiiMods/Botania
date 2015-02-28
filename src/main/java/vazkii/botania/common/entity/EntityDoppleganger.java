@@ -325,7 +325,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 				if(Math.random() < 0.7)
 					entityDropItem(new ItemStack(ModItems.manaResource, 8 + rand.nextInt(6), 1), 1F);
 				if(Math.random() < 0.5)
-					entityDropItem(new ItemStack(ModItems.manaResource, 4 + rand.nextInt(3), 1), 1F);
+					entityDropItem(new ItemStack(ModItems.manaResource, 4 + rand.nextInt(3), 2), 1F);
 				if(Math.random() < 0.3)
 					entityDropItem(new ItemStack(ModItems.rune, 2 + rand.nextInt(3), rand.nextInt(16)), 1F);
 			}
