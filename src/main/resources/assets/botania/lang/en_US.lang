@@ -315,7 +315,7 @@ entity.Botania.botania:enderAirBottle.name=Bottle of Ender Air
 # ACHIEVEMENT NAMES + DESC
 achievement.botania:flowerPickup=Sky of Beginning
 achievement.botania:flowerPickup.desc=Pick up a Mystical Flower from the world
-achievement.botania:lexiconUse=Outer Science
+achievement.botania:lexiconUse=A Realistical Logical Ideologist
 achievement.botania:lexiconUse.desc=Open a Lexica Botania and have a look through the index
 achievement.botania:daybloomPickup=Daybreak Arrival
 achievement.botania:daybloomPickup.desc=Make a Daybloom in a Petal Apothecary
@@ -331,7 +331,7 @@ achievement.botania:baubleWear=Inner Arts
 achievement.botania:baubleWear.desc=Craft any variety of Bauble and wear it
 achievement.botania:manaCookieEat=Rotten Heresy and Chocolate
 achievement.botania:manaCookieEat.desc=Infuse and eat a delicions Mana Cookie
-achievement.botania:runePickup=Lilium Dolls
+achievement.botania:runePickup=Lilium Doll
 achievement.botania:runePickup.desc=Use a Runic Altar to create a Rune
 achievement.botania:manaBlasterShoot=M'aider Stranded Girl
 achievement.botania:manaBlasterShoot.desc=Craft and fire a Mana Blaster
