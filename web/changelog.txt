@@ -1,3 +1,20 @@
+r1.5 166
+*Added a little note to the bottom of the lexicon pointing to the fact that you can search. The search bar has been there for ages but it's often overlooked.
+*Added NEI recipe handling for floating special flower recipes. (Tonius)
+*Added some secret codes. <i>(these are client only, server owners don't need to worry :3)</i>
+*Fixed a crash when the alfheim portal is clicked with a wand of the forest from a dispenser.
+*Fixed all sounds depending on the "Friendly Creatures" volume bar and actually split them properly.
+*Fixed some typos. <i>I can into english</i>.
+*Fixed the Gaia Guardian's health bar flickering weirdly when it's spawning in multiplayer.
+*Fixed the Hardmode Gaia Guardian's drop table having Mana Pearls twice rather than Mana Pearls and Mana Diamonds.
+*Fixed the Livingwood and Crystal bows not having a proper render.
+*Fixed the Mana Mirror trying to update on the server side, causing some desyncs sometimes. I think. I can't reproduce this issue so this is just a wild guess.
+*Fixed the tutorial arrows never pointing properly to the next/prev page buttons in the index pages, causing the tutorial to get stuck if the book had elven knowledge.
+*Implemented regex based fake player checking. Not 100%, but should catch most of them.
+*Mana Spreaders can now be sleeved with wool by right clicking them with a wool block. This makes them colorful and fancy and also muffles the shooting sound.
+*Pylons now give out some light.
+*Renamed some achievements.
+*Replaced instances of ticksExisted with an internal timer in the magic missile class used by the hardmode Gaia Guardian and the Rod of the Unstable Reservoir. May or may not fix hangs with cauldron servers.
 r1.5 165
 *Fixed a spark crash when trying to remove an augment.
 *Fixed Livingwood Bows not consuming arrows.
