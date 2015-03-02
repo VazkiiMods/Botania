@@ -1,1 +1,1 @@
-gradle deployWeb
+sh gradlew deployWeb

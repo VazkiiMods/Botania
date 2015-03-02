@@ -1,2 +1,2 @@
-gradle
+sh gradlew
 pause
