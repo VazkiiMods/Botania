@@ -39,7 +39,6 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	List<ICorporeaSpark> relatives = new ArrayList();
 	boolean firstUpdateClient = true;
 	boolean firstUpdateServer = true;
-	boolean didStartupParticles = false;
 
 	public EntityCorporeaSpark(World world) {
 		super(world);
@@ -86,11 +85,6 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 			if(worldObj.isRemote)
 				firstUpdateClient = false;
 			else firstUpdateServer = false;
-		}
-
-		if(!didStartupParticles) {
-			displayRelatives(new ArrayList(), master);
-			didStartupParticles = true;
 		}
 
 		if(master != null && master.getNetwork() != getNetwork())
@@ -264,7 +258,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 						player.swingItem();
 					return true;
 				} else {
-					didStartupParticles = false;
+					displayRelatives(new ArrayList(), master);
 					return true;
 				}
 			} else if(stack.getItem() == ModItems.dye) {

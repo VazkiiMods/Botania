@@ -48,7 +48,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	private static final String TAG_TRANSFER_ID = "id";
 
 	int removeTransferants = 2;
-	boolean didStartupParticles = false;
+	boolean firstTick = false;
 
 	public EntitySpark(World world) {
 		super(world);
@@ -76,18 +76,14 @@ public class EntitySpark extends Entity implements ISparkEntity {
 			return;
 		}
 
-		boolean first = worldObj.isRemote && !didStartupParticles;
+		boolean first = worldObj.isRemote && !firstTick;
 		int upgrade = getUpgrade();
 		List<ISparkEntity> allSparks = null;
 		if(first || upgrade == 2 || upgrade == 3)
 			allSparks = SparkHelper.getSparksAround(worldObj, posX, posY, posZ);
 
-		if(first) {
-			for(ISparkEntity spark : allSparks)
-				particleBeam(this, (Entity) spark);
-
-			didStartupParticles = true;
-		}
+		if(first)
+			first = true;
 
 		Collection<ISparkEntity> transfers = getTransfers();
 
@@ -271,7 +267,9 @@ public class EntitySpark extends Entity implements ISparkEntity {
 						player.swingItem();
 					return true;
 				} else {
-					didStartupParticles = false;
+					List<ISparkEntity> allSparks = SparkHelper.getSparksAround(worldObj, posX, posY, posZ);
+					for(ISparkEntity spark : allSparks)
+						particleBeam(this, (Entity) spark);
 					return true;
 				}
 			} else if(stack.getItem() == ModItems.sparkUpgrade && upgrade == 0) {
