@@ -52,7 +52,7 @@ public class SubTileGenerating extends SubTileEntity {
 
 		if(canGeneratePassively()) {
 			int delay = getDelayBetweenPassiveGeneration();
-			if(delay > 0 && ticksExisted % delay == 0) {
+			if(delay > 0 && ticksExisted % delay == 0 && !supertile.getWorldObj().isRemote) {
 				if(shouldSyncPassiveGeneration())
 					sync();
 				addMana(getValueForPassiveGeneration());
