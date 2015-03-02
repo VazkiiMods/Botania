@@ -10,16 +10,22 @@
  */
 package vazkii.botania.common.core.proxy;
 
+import org.apache.logging.log4j.Level;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemDoublePlant;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.lexicon.ITwoNamedPage;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.ModBlocks;
@@ -55,6 +61,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.network.GuiHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -120,6 +127,20 @@ public class CommonProxy {
 		LexiconData.postInit();
 
 		registerNEIStuff();
+		
+		int words = 0;
+		for(LexiconEntry entry : BotaniaAPI.getAllEntries())
+			for(LexiconPage page : entry.pages) {
+				words += countWords(page.getUnlocalizedName());
+				if(page instanceof ITwoNamedPage)
+					words += countWords(((ITwoNamedPage) page).getSecondUnlocalizedName()); 
+			}
+		FMLLog.log(Level.INFO, "[Botania] The Lexica Botania has %d words.", words);
+	}
+	
+	private int countWords(String s) {
+		String s1 = StatCollector.translateToLocal(s);
+		return s1.split(" ").length;
 	}
 
 	public void serverStarting(FMLServerStartingEvent event) {
