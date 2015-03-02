@@ -52,8 +52,8 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 	}
 
 	@Override
-	void drawHeader() {
-		// NO-OP
+	boolean isMainPage() {
+		return false;
 	}
 
 	@Override

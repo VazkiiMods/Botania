@@ -86,6 +86,10 @@ botaniamisc.tutorialEnded=Your tutorial is over, you should now have a basic ide
 botaniamisc.cosmeticBauble=&oCosmetic
 botaniamisc.hasCosmetic=&oHas Cosmetic Override: &r%s
 botaniamisc.typeToSearch=(type to search)
+botaniamisc.viewOnline=View Online
+botaniamisc.history=History
+botaniamisc.historyLong=Lookup History
+botaniamisc.historyDesc=See the last entries visited
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery

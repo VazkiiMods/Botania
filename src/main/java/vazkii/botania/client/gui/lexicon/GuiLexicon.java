@@ -37,6 +37,7 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonBookmark;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonCategory;
+import vazkii.botania.client.gui.lexicon.button.GuiButtonHistory;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonInvisible;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.SheddingHandler;
@@ -49,7 +50,9 @@ public class GuiLexicon extends GuiScreen {
 	public static ItemStack stackUsed;
 
 	private static final int[] KONAMI_CODE = { 200, 200, 208, 208, 203, 205, 203, 205, 48, 30 };
+	
 	public static final int BOOKMARK_START = 1337;
+	public static final int MAX_BOOKMARK_COUNT = 8;
 	public static List<GuiLexicon> bookmarks = new ArrayList();
 	boolean bookmarksNeedPopulation = false;
 
@@ -142,7 +145,8 @@ public class GuiLexicon extends GuiScreen {
 			GL11.glScalef(2F, 2F, 1F);
 		}
 
-		drawHeader();
+		if(isMainPage())
+			drawHeader();
 
 		if(bookmarksNeedPopulation) {
 			populateBookmarks();
@@ -218,12 +222,19 @@ public class GuiLexicon extends GuiScreen {
 		fontRendererObj.drawSplitString(String.format(StatCollector.translateToLocal("botania.gui.lexicon.header"), ItemLexicon.getEdition()), left + 18, top + 12, 110, 0);
 		fontRendererObj.setUnicodeFlag(unicode);
 	}
+	
+	boolean isMainPage() {
+		return true;
+	}
 
 	@Override
 	protected void actionPerformed(GuiButton par1GuiButton) {
-		if(par1GuiButton.id >= BOOKMARK_START)
-			handleBookmark(par1GuiButton);
-		else if(par1GuiButton instanceof GuiButtonCategory) {
+		if(par1GuiButton.id >= BOOKMARK_START) {
+			if(par1GuiButton.id >= BOOKMARK_START + MAX_BOOKMARK_COUNT) {
+				mc.displayGuiScreen(new GuiLexiconHistory());
+				ClientTickHandler.notifyPageChange();
+			} else handleBookmark(par1GuiButton);
+		} else if(par1GuiButton instanceof GuiButtonCategory) {
 			LexiconCategory category = ((GuiButtonCategory) par1GuiButton).getCategory();
 
 			mc.displayGuiScreen(new GuiLexiconIndex(category));
@@ -316,12 +327,15 @@ public class GuiLexicon extends GuiScreen {
 			if(lex.getTitle().equals(getTitle()))
 				thisExists = true;
 
-		boolean addEnabled = len < 8 && this instanceof IParented && !thisExists;
+		boolean addEnabled = len < MAX_BOOKMARK_COUNT && this instanceof IParented && !thisExists;
 		for(int i = 0; i < len + (addEnabled ? 1 : 0); i++) {
 			boolean isAdd = i == bookmarks.size();
 			GuiLexicon gui = isAdd ? null : bookmarks.get(i);
 			buttonList.add(new GuiButtonBookmark(BOOKMARK_START + i, left + 138, top + 18 + 14 * i, gui == null ? this : gui, gui == null ? "+" : gui.getTitle()));
 		}
+		
+		if(isMainPage())
+			buttonList.add(new GuiButtonHistory(BOOKMARK_START + MAX_BOOKMARK_COUNT, left + 138, top + guiHeight - 24, StatCollector.translateToLocal("botaniamisc.history"), this));	
 	}
 
 	public static void startTutorial() {
@@ -385,7 +399,6 @@ public class GuiLexicon extends GuiScreen {
 			mc.setIngameFocus();
 		}
 
-		System.out.println(par2);
 		if(par2 == KONAMI_CODE[konamiIndex]) {
 			konamiIndex++;
 			if(konamiIndex >= KONAMI_CODE.length) {
@@ -402,13 +415,15 @@ public class GuiLexicon extends GuiScreen {
 			return true;
 		if(gui.isIndex()) {
 			GuiLexiconIndex indexGui=(GuiLexiconIndex)gui;
-			if(indexGui.category==null)
+			if(indexGui.category == null)
 				return true;
 			return BotaniaAPI.getAllCategories().contains(indexGui.category);
 		}
-		GuiLexiconEntry entryGui=(GuiLexiconEntry)gui;
+		
+		GuiLexiconEntry entryGui = (GuiLexiconEntry) gui;
 		if(!BotaniaAPI.getAllEntries().contains(entryGui.entry))
 			return false;
+		
 		return entryGui.page < entryGui.entry.pages.size();
 	}
 }

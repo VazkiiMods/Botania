@@ -10,6 +10,10 @@
  */
 package vazkii.botania.client.gui.lexicon;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
@@ -30,6 +34,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonBackWithShift;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonPage;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonShare;
+import vazkii.botania.client.gui.lexicon.button.GuiButtonViewOnline;
 
 public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IParented {
 
@@ -39,7 +44,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	String title;
 	String subtitle;
 
-	GuiButton leftButton, rightButton, backButton, shareButton;
+	GuiButton leftButton, rightButton, backButton;
 
 	public GuiLexiconEntry(LexiconEntry entry, GuiScreen parent) {
 		this.entry = entry;
@@ -58,7 +63,8 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 		buttonList.add(backButton = new GuiButtonBackWithShift(0, left + guiWidth / 2 - 8, top + guiHeight + 2));
 		buttonList.add(leftButton = new GuiButtonPage(1, left, top + guiHeight - 10, false));
 		buttonList.add(rightButton = new GuiButtonPage(2, left + guiWidth - 18, top + guiHeight - 10, true));
-		buttonList.add(shareButton = new GuiButtonShare(3, left + guiWidth - 6, top - 2));
+		buttonList.add(new GuiButtonShare(3, left + guiWidth - 6, top - 2));
+		buttonList.add(new GuiButtonViewOnline(4, left - 8, top + 8));
 
 		if(!GuiLexicon.isValidLexiconGui(this))	{
 			currentOpenLexicon = new GuiLexicon();
@@ -71,6 +77,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 
 		page.onOpened(this);
 		updatePageButtons();
+		GuiLexiconHistory.visit(entry);
 	}
 
 	@Override
@@ -84,8 +91,8 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	}
 
 	@Override
-	void drawHeader() {
-		// NO-OP
+	boolean isMainPage() {
+		return false;
 	}
 
 	@Override
@@ -140,6 +147,13 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 				mc.ingameGUI.getChatGUI().addToSentMessages(cmd);
 				mc.thePlayer.sendChatMessage(cmd);
 				break;
+			case 4 : 
+				try {
+					if(Desktop.isDesktopSupported())
+						Desktop.getDesktop().browse(new URI("http://botaniamod.net/lexicon.php#" + entry.unlocalizedName));
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
 			}
 
 		updatePageButtons();
