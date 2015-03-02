@@ -1,3 +1,17 @@
+r1.5 167
+*Added a Word Counter thing that gets written to the log saying how many words the Lexica Botania has. <i>Don't ask me why, I just felt like it >.<</i>
+*Added feature creep to the Lexica Botania in the form of a "View Online" button as well as a Lookup History (similar to your browser's history).
+*Fixed a crash with looking at a block that doesn't have a mod registered to it somehow with the Lexica Botania.
+*Fixed Dayblooms and Nightshades not showing the particles for diminishing returns.
+*Fixed the Pure Daisy having the wrong icon in the lexicon index.
+*Fixed the recipe for Metamorphic Stone Bricks outputting 1 rather than 4.
+*Removed debug print in the lexicon.
+*Sparks no longer emit particle beams when placed in the world, they still do when right clicked with a wand.
+*The Terra Shatterer can now mine Ardite and Cobalt from Tinkers Construct as well as other ores of harvest level 4.
+*[API] Added failsafe for WikiHooks.getWikiFor
+*[API] Increased TERRASTEEL armor material's harvest level to 4.
+*[API] The passive generation on SubTileGenerating will now only work in !World.isRemote. Furthermore, overrides of canGeneratePassively() should no longer check for World.isRemote.
+*[API] Increased version number to 35.
 r1.5 166
 *Added a little note to the bottom of the lexicon pointing to the fact that you can search. The search bar has been there for ages but it's often overlooked.
 *Added NEI recipe handling for floating special flower recipes. (Tonius)
