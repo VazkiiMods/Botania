@@ -37,6 +37,7 @@ import vazkii.botania.common.crafting.ModManaInfusionRecipes;
 import vazkii.botania.common.crafting.ModPetalRecipes;
 import vazkii.botania.common.crafting.ModRuneRecipes;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lexicon.page.PageBrew;
 import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
 import vazkii.botania.common.lexicon.page.PageElvenRecipe;
@@ -48,6 +49,7 @@ import vazkii.botania.common.lexicon.page.PagePetalRecipe;
 import vazkii.botania.common.lexicon.page.PageRuneRecipe;
 import vazkii.botania.common.lexicon.page.PageTerrasteel;
 import vazkii.botania.common.lexicon.page.PageText;
+import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibLexicon;
 
 public final class LexiconData {
@@ -274,7 +276,7 @@ public final class LexiconData {
 		wand.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipesTwigWand));
 
 		pureDaisy = new BLexiconEntry(LibLexicon.BASICS_PURE_DAISY, categoryBasics);
-		pureDaisy.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_PURE_DAISY), new PageCraftingRecipe("2", ModCraftingRecipes.recipeLivingwoodTwig), new PagePetalRecipe("3", ModPetalRecipes.pureDaisyRecipe));
+		pureDaisy.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_PURE_DAISY), new PageCraftingRecipe("2", ModCraftingRecipes.recipeLivingwoodTwig), new PagePetalRecipe("3", ModPetalRecipes.pureDaisyRecipe)).setIcon(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_PUREDAISY));
 		LexiconRecipeMappings.map(new ItemStack(ModBlocks.livingwood), pureDaisy, 1);
 		LexiconRecipeMappings.map(new ItemStack(ModBlocks.livingrock), pureDaisy, 1);
 
