@@ -25,7 +25,7 @@ public class WikiHooks {
 
 	public static IWikiProvider getWikiFor(Block block) {
 		UniqueIdentifier mod = GameRegistry.findUniqueIdentifierFor(block);
-		return getWikiFor(mod.modId.toLowerCase());
+		return getWikiFor(mod == null ? "" : mod.modId.toLowerCase());
 	}
 
 	public static IWikiProvider getWikiFor(String mod) {
