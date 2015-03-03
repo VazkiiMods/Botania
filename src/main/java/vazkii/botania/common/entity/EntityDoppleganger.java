@@ -442,12 +442,13 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 								break;
 							}
 							case 3 : {
-								for(int j = 0; j < 1 + worldObj.rand.nextInt(hard ? 8 : 5); j++) {
-									EntityPixie pixie = new EntityPixie(worldObj);
-									pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
-									pixie.setPosition(posX + width / 2, posY + 2, posZ + width / 2);
-									worldObj.spawnEntityInWorld(pixie);
-								}
+								if(!players.isEmpty())
+									for(int j = 0; j < 1 + worldObj.rand.nextInt(hard ? 8 : 5); j++) {
+										EntityPixie pixie = new EntityPixie(worldObj);
+										pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
+										pixie.setPosition(posX + width / 2, posY + 2, posZ + width / 2);
+										worldObj.spawnEntityInWorld(pixie);
+									}
 							}
 							}
 
@@ -490,12 +491,13 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 								worldObj.spawnEntityInWorld(landmine);
 							}
 
-						for(int i = 0; i < (spawnPixies ? worldObj.rand.nextInt(hard ? 6 : 3) : 1); i++) {
-							EntityPixie pixie = new EntityPixie(worldObj);
-							pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
-							pixie.setPosition(posX + width / 2, posY + 2, posZ + width / 2);
-							worldObj.spawnEntityInWorld(pixie);
-						}
+						if(!players.isEmpty())
+							for(int i = 0; i < (spawnPixies ? worldObj.rand.nextInt(hard ? 6 : 3) : 1); i++) {
+								EntityPixie pixie = new EntityPixie(worldObj);
+								pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
+								pixie.setPosition(posX + width / 2, posY + 2, posZ + width / 2);
+								worldObj.spawnEntityInWorld(pixie);
+							}
 
 						setTPDelay(hard ? dying ? 20 : 45 : dying ? 40 : 60);
 						spawnLandmines = true;
