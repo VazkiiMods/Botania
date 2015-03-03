@@ -1,3 +1,5 @@
+r1.5 168
+*Fixed a (recurring) crash with the Gaia Guardian that would happen if there were no players around it. Naturally this only affected servers, but it's a big problem so I decided to make a build to fix it. <i>And it was also crashing forgecraft :T</i>
 r1.5 167
 *Added a Word Counter thing that gets written to the log saying how many words the Lexica Botania has. <i>Don't ask me why, I just felt like it >.<</i>
 *Added feature creep to the Lexica Botania in the form of a "View Online" button as well as a Lookup History (similar to your browser's history).
