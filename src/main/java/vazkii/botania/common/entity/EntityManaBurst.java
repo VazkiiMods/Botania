@@ -110,7 +110,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	public EntityManaBurst(EntityPlayer player) {
 		this(player.worldObj);
 
-		setBurstSourceCoords(0, -1, 0);
+		setBurstSourceCoords((int) player.posX, (int) (player.posY + player.getEyeHeight()),(int) player.posZ);
 		setLocationAndAngles(player.posX, player.posY + player.getEyeHeight(), player.posZ, player.rotationYaw + 180, -player.rotationPitch);
 
 		posX -= MathHelper.cos((rotationYaw + 180) / 180.0F * (float) Math.PI) * 0.16F;
