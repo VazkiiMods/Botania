@@ -368,17 +368,17 @@ tile.botania:flower13.name=Fleur Mystique Verte
 tile.botania:flower14.name=Fleur Mystique Rouge
 tile.botania:flower15.name=Fleur Mystique Noire
 tile.botania:altar.name=Autel à Pétales
-tile.botania:livingrock0.name=Roche de Vie
-tile.botania:livingrock1.name=Brique de Roche de Vie
-tile.botania:livingrock2.name=Brique de Roche de Vie moussue
-tile.botania:livingrock3.name=Brique de Roche de Vie craquelée
-tile.botania:livingrock4.name=Brique de Roche de Vie sculptée
-tile.botania:livingwood0.name=Bois de Vie
-tile.botania:livingwood1.name=Planches de Bois de Vie
-tile.botania:livingwood2.name=Planches de Bois de Vie moussues
-tile.botania:livingwood3.name=Planches de Bois de Vie encadrées
-tile.botania:livingwood4.name=Planches de Bois de Vie décorées
-tile.botania:livingwood5.name=Bois de Vie Scintillant
+tile.botania:livingrock0.name=Viveroche
+tile.botania:livingrock1.name=Brique de Viveroche
+tile.botania:livingrock2.name=Brique de Viveroche moussue
+tile.botania:livingrock3.name=Brique de Viveroche craquelée
+tile.botania:livingrock4.name=Brique de Viveroche sculptée
+tile.botania:livingwood0.name=Vivebois
+tile.botania:livingwood1.name=Planches de Vivebois
+tile.botania:livingwood2.name=Planches de Vivebois moussues
+tile.botania:livingwood3.name=Planches de Vivebois encadrées
+tile.botania:livingwood4.name=Planches de Vivebois décorées
+tile.botania:livingwood5.name=Vivebois Scintillant
 tile.botania:spreader0.name=Diffuseur de Mana
 tile.botania:spreader1.name=Diffuseur de Mana de Redstone
 tile.botania:spreader2.name=Diffuseur de Mana Elfique
@@ -432,11 +432,11 @@ tile.botania:alchemyCatalyst.name=Catalyseur Alchimique
 tile.botania:openCrate0.name=Open Crate
 tile.botania:openCrate1.name=Crafty Crate
 tile.botania:forestEye.name=Œil des Anciens
-tile.botania:storage0.name=Bloc de Manasteel
-tile.botania:storage1.name=Bloc de Terrasteel
-tile.botania:storage2.name=Bloc de Elementium
+tile.botania:storage0.name=Bloc de Manacier
+tile.botania:storage1.name=Bloc de Terracier
+tile.botania:storage2.name=Bloc d'Élementium
 tile.botania:storage3.name=Bloc de Mana Diamond
-tile.botania:storage4.name=Bloc de Dragonstone
+tile.botania:storage4.name=Bloc de Draquepierre
 tile.botania:forestDrum0.name=Drum of the Wild
 tile.botania:forestDrum1.name=Drum of the Gathering
 tile.botania:shinyFlower0.name=Fleur Blanche Scintillante
@@ -458,51 +458,51 @@ tile.botania:shinyFlower15.name=Fleur Noire Scintillante
 tile.botania:platform0.name=Plateforme Mystérieuse
 tile.botania:platform1.name=Plateforme Spectrale
 tile.botania:platform2.name=Infrangible Platform
-tile.botania:alfheimPortal.name=Elven Gateway Core
-tile.botania:blockDarkQuartz.name=Block of Smokey Quartz
-tile.botania:chiseledDarkQuartz.name=Chiseled Smokey Quartz Block
-tile.botania:pillarDarkQuartz.name=Pillar Smokey Quartz Block
-tile.botania:quartzSlabDarkHalf.name=Smokey Quartz Slab
-tile.botania:quartzStairsDark.name=Smokey Quartz Stairs
-tile.botania:blockManaQuartz.name=Block of Mana Quartz
-tile.botania:chiseledManaQuartz.name=Chiseled Mana Quartz Block
-tile.botania:pillarManaQuartz.name=Pillar Mana Quartz Block
-tile.botania:quartzSlabManaHalf.name=Mana Quartz Slab
-tile.botania:quartzStairsMana.name=Mana Quartz Stairs
-tile.botania:blockBlazeQuartz.name=Block of Blaze Quartz
-tile.botania:chiseledBlazeQuartz.name=Chiseled Blaze Quartz Block
-tile.botania:pillarBlazeQuartz.name=Pillar Blaze Quartz Block
-tile.botania:quartzSlabBlazeHalf.name=Blaze Quartz Slab
-tile.botania:quartzStairsBlaze.name=Blaze Quartz Stairs
-tile.botania:blockLavenderQuartz.name=Block of Lavender Quartz
-tile.botania:chiseledLavenderQuartz.name=Chiseled Lavender Quartz Block
-tile.botania:pillarLavenderQuartz.name=Pillar Lavender Quartz Block
-tile.botania:quartzSlabLavenderHalf.name=Lavender Quartz Slab
-tile.botania:quartzStairsLavender.name=Lavender Quartz Stairs
-tile.botania:blockRedQuartz.name=Block of Redquartz
-tile.botania:chiseledRedQuartz.name=Chiseled Redquartz Block
-tile.botania:pillarRedQuartz.name=Pillar Redquartz Block
-tile.botania:quartzSlabRedHalf.name=Redquartz Slab
-tile.botania:quartzStairsRed.name=Redquartz Stairs
-tile.botania:blockElfQuartz.name=Block of Elven Quartz
-tile.botania:chiseledElfQuartz.name=Chiseled Elven Quartz Block
-tile.botania:pillarElfQuartz.name=Pillar Elven Quartz Block
-tile.botania:quartzSlabElfHalf.name=Elven Quartz Slab
-tile.botania:quartzStairsElf.name=Elven Quartz Stairs
+tile.botania:alfheimPortal.name=Coeur du Portail Elfique
+tile.botania:blockDarkQuartz.name=Bloc de Quartz fumé
+tile.botania:chiseledDarkQuartz.name=Bloc de Quartz fumé ciselé
+tile.botania:pillarDarkQuartz.name=Pilier de Quartz fumé
+tile.botania:quartzSlabDarkHalf.name=Dalle de Quartz fumé
+tile.botania:quartzStairsDark.name=Escalier de Quartz fumé
+tile.botania:blockManaQuartz.name=Bloc de Quartz de Mana
+tile.botania:chiseledManaQuartz.name=Bloc de Quartz de Mana ciselé
+tile.botania:pillarManaQuartz.name=Pilier de Quartz de Mana
+tile.botania:quartzSlabManaHalf.name=Dalle de Quartz de Mana
+tile.botania:quartzStairsMana.name=Escalier de Quartz de Mana
+tile.botania:blockBlazeQuartz.name=Bloc de Braisequartz
+tile.botania:chiseledBlazeQuartz.name=Bloc de Braisequartz ciselé
+tile.botania:pillarBlazeQuartz.name=Pilier de Braisequartz
+tile.botania:quartzSlabBlazeHalf.name=Dalle de Braisequartz
+tile.botania:quartzStairsBlaze.name=Escalier de Braisequartz
+tile.botania:blockLavenderQuartz.name=Bloc de Quartz de Lavande
+tile.botania:chiseledLavenderQuartz.name=Bloc de Quartz de Lavande ciselé
+tile.botania:pillarLavenderQuartz.name=Pilier de Quartz de Lavande
+tile.botania:quartzSlabLavenderHalf.name=Dalle de Quartz de Lavande
+tile.botania:quartzStairsLavender.name=Escalier de Quartz de Lavande
+tile.botania:blockRedQuartz.name=Bloc de Rougequartz
+tile.botania:chiseledRedQuartz.name=Bloc de Rougequartz ciselé
+tile.botania:pillarRedQuartz.name=Pilier de Rougequartz
+tile.botania:quartzSlabRedHalf.name=Dalle de Rougequartz
+tile.botania:quartzStairsRed.name=Escalier de Rougequartz
+tile.botania:blockElfQuartz.name=Bloc d'Elfequartz
+tile.botania:chiseledElfQuartz.name=Bloc d'Elfequartz ciselé
+tile.botania:pillarElfQuartz.name=Pilier d'Elfequartz
+tile.botania:quartzSlabElfHalf.name=Dalle d'Elfequartz
+tile.botania:quartzStairsElf.name=Escalier d'Elfequartz
 tile.botania:dreamwood0.name=Bois des rêves
 tile.botania:dreamwood1.name=Planches de Bois des Rêves
 tile.botania:dreamwood2.name=Planches de Bois des Rêves Moussues
 tile.botania:dreamwood3.name=Framed Dreamwood
 tile.botania:dreamwood4.name=Pattern Framed Dreamwood
 tile.botania:dreamwood5.name=Glimmering Dreamwood
-tile.botania:livingwood0Stairs.name=Escaliers en Bois de Vie
-tile.botania:livingwood0Slab.name=Dalles en Bois de Vie
-tile.botania:livingwood1Stairs.name=Escaliers en Planches de Bois de Vie
-tile.botania:livingwood1Slab.name=Dalles en Planches de Bois de Vie
-tile.botania:livingrock0Stairs.name=Escaliers en Roche de Vie
-tile.botania:livingrock0Slab.name=Dalles en Roche de Vie
-tile.botania:livingrock1Stairs.name=Escaliers en Briques de Roche de Vie
-tile.botania:livingrock1Slab.name=Dalles en Briques de Roche de Vie
+tile.botania:livingwood0Stairs.name=Escaliers en Vivebois
+tile.botania:livingwood0Slab.name=Dalles en Vivebois
+tile.botania:livingwood1Stairs.name=Escaliers en Planches de Vivebois
+tile.botania:livingwood1Slab.name=Dalles en Planches de Vivebois
+tile.botania:livingrock0Stairs.name=Escaliers en Viveroche
+tile.botania:livingrock0Slab.name=Dalles en Viveroche
+tile.botania:livingrock1Stairs.name=Escaliers en Briques de Viveroche
+tile.botania:livingrock1Slab.name=Dalles en Briques de Viveroche
 tile.botania:dreamwood0Stairs.name=Escaliers en Bois des Rêves
 tile.botania:dreamwood0Slab.name=Dalles en Bois des Rêves
 tile.botania:dreamwood1Stairs.name=Escaliers en Planches de Bois des Rêves
@@ -567,7 +567,7 @@ tile.botania:customBrick13.name=Azulejo
 tile.botania:customBrick14.name=Azulejo
 tile.botania:customBrick15.name=Azulejo
 tile.botania:enderEyeBlock.name=Surveillant du Néant
-tile.botania:starfield.name=Starfield Creator
+tile.botania:starfield.name=Créateur de Champ Stellaire
 tile.botania:rfGenerator.name=Convertisseur
 tile.botania:elfGlass.name=Elfeverre
 tile.botania:brewery.name=Brasserie Botanique
@@ -853,7 +853,7 @@ item.botania:rune12.name=Rune de la Paresse
 item.botania:rune13.name=Rune de la Colère
 item.botania:rune14.name=Rune de l'Envie
 item.botania:rune15.name=Rune de l'Orgueil
-item.botania:signalFlare.name=Signal Flare
+item.botania:signalFlare.name=Feu de Position
 item.botania:manaTablet.name=Mana Tablet
 item.botania:manaGun.name=Blaster à Mana
 item.botania:compositeLens.name=Composite Mana Lens: %s %s
@@ -862,7 +862,7 @@ item.botania:fertilizer.name=Fertilisant Floral
 item.botania:grassSeeds0.name=Graines de pâturage
 item.botania:grassSeeds1.name=Graines de Podzol
 item.botania:grassSeeds2.name=Spores Infectieuses
-item.botania:livingwoodTwig.name=Branche en Bois de vie
+item.botania:livingwoodTwig.name=Branche de Vivebois
 item.botania:dirtRod.name=Bâton des Terres
 item.botania:terraformRod.name=Terra Firma Rod
 item.botania:manaMirror.name=Miroir à Mana
@@ -891,9 +891,9 @@ item.botania:auraRingGreater.name=Greater Band of Aura
 item.botania:travelBelt.name=Soujourner's Sash
 item.botania:knockbackBelt.name=Tectonic Girdle
 item.botania:icePendant.name=Snowflake Pendant
-item.botania:lavaPendant.name=Pyroclast Pendant
+item.botania:lavaPendant.name=Pendentif de pryoclaste
 item.botania:lifeEssence.name=Gaia Spirit
-item.botania:goldenLaurel.name=Golden Laurel Crown
+item.botania:goldenLaurel.name=Couronne de lauriers dorée
 item.botania:redstoneRoot.name=Redstone Root
 item.botania:magnetRing.name=Ring of Magnetization
 item.botania:waterRing.name=Ring of Chordata
@@ -903,15 +903,15 @@ item.botania:terraPick.name=Terra Shatterer
 item.botania:divaCharm.name=Charm of the Diva
 item.botania:flightTiara.name=Flügel Tiara
 item.botania:enderDagger.name=Soulscribe
-item.botania:quartz0.name=Smokey Quartz
-item.botania:quartz1.name=Mana Quartz
-item.botania:quartz2.name=Blaze Quartz
-item.botania:quartz3.name=Lavender Quartz
-item.botania:quartz4.name=Redquartz
-item.botania:quartz5.name=Elven Quartz
+item.botania:quartz0.name=Quartz fumé
+item.botania:quartz1.name=Quartz de Mana
+item.botania:quartz2.name=Braisequartz
+item.botania:quartz3.name=Quartz de Lavande
+item.botania:quartz4.name=Rougequartz
+item.botania:quartz5.name=Elfequartz
 item.botania:elementium.name=Lingot d'Élémentium
 item.botania:pixieDust.name=Pixie Dust
-item.botania:dragonstone.name=Dragonstone
+item.botania:dragonstone.name=Draquepierre
 item.botania:waterRod.name=Bâton des Mers
 item.botania:elementiumHelm.name=Casque en Elementium
 item.botania:elementiumChest.name=Plastron en Élémentium
@@ -932,7 +932,7 @@ item.botania:fireRod.name=Bâton des Enfers
 item.botania:vineBall.name=Boule de Lianes
 item.botania:slingshot.name=Livingwood Slingshot
 item.botania:manaBottle.name=Mana in a Bottle
-item.botania:prismarineShard.name=Prismarine Shard
+item.botania:prismarineShard.name=Éclat de Prismarin
 item.botania:laputaShard.name=Shard of Laputa
 item.botania:virus0.name=Necrodermal Virus
 item.botania:virus1.name=Nullodermal Virus
@@ -942,7 +942,7 @@ item.botania:manasteelHelmReveal.name=Manasteel Helmet of Revealing
 item.botania:terrasteelHelmReveal.name=Terrasteel Helmet of Revealing
 item.botania:elementiumHelmReveal.name=Elementium Helmet of Revealing
 item.botania:itemFinder.name=The Spectator
-item.botania:superLavaPendant.name=Crimson Pendant
+item.botania:superLavaPendant.name=Pendentif Écarlate
 item.botania:enderHand.name=Main du Néant
 item.botania:glassPick.name=Vitreous Pickaxe
 item.botania:spark.name=Etincelle
@@ -953,7 +953,7 @@ item.botania:sparkUpgrade3.name=Amérlioration d'Etincelle: Isolée
 item.botania:diviningRod.name=Bâton de Divination
 item.botania:gravityRod.name=Rod of the Black Mesa
 item.botania:regenIvy.name=Timeless Ivy
-item.botania:manaInkwell.name=Botanurgist's Inkwell
+item.botania:manaInkwell.name=Encrier du Botaniste
 item.botania:vial0.name=Managlass Vial
 item.botania:vial1.name=Flasque d'Elfeverre
 item.botania:brewVial.name=Fiole of %s (%s)
@@ -961,12 +961,12 @@ item.botania:brewFlask.name=Flasque of %s (%s)
 item.botania:bloodPendant.name=Tainted Blood Pendant
 item.botania:redString.name=Red String
 item.botania:missileRod.name=Rod of the Unstable Reservoir
-item.botania:holyCloak.name=Cloak of Virtue
-item.botania:unholyCloak.name=Cloak of Sin
+item.botania:holyCloak.name=Cape de Vertu
+item.botania:unholyCloak.name=Cape de Péché
 item.botania:craftingHalo.name=Assembly Halo
-item.botania:blackLotus0.name=Black Lotus
+item.botania:blackLotus0.name=Lotus noir
 item.botania:blackLotus1.name=Void Lotus
-item.botania:dreamwoodTwig.name=Dreamwood Twig
+item.botania:dreamwoodTwig.name=Branche de bois des Rêves
 item.botania:monocle.name=Monocle du Cherche-Mana
 item.botania:clip.name=Lens Clip
 item.botania:cobbleRod.name=Rod of the Depths
@@ -1273,7 +1273,7 @@ botania.page.prism3=Another pixel in the wall
 
 # - FUNCTIONAL FLOWERS
 # -- AN INTRODUCTION TO FUNCTION
-botania.entry.fIntro=Intro : Les Fleurs Foncionnelles
+botania.entry.fIntro=Intro : Les Fleurs Fonctionnelles
 botania.page.fIntro0=Il existe de nombreuses manières d'utiliser le &4Mana&0 pour un botaniste. Parmi elles, les &4Fleurs Fonctionnelles&0.<br>Ces fleurs draineront du &4Mana&0 d'un &1Réservoir&0 proche afin d'effectuer la tâche pour laquelle elles ont été conçues.<br>Elle ne peuvent recevoir directement leur pouvoir d'un &1Diffuseur de Mana&0.
 botania.page.fIntro1=Toutes les &4Fleurs Fonctionnelles&0, comme les &4Fleurs Génératrices&0, contiennent une petite réserve de &4Mana&0.<br>Comme toujours, un clic droit avec une &1Baguette Sylvestre&0 vous indiquera la quantité de Mana présente.
 botania.page.fIntro2=Il faut savoir que ces fleurs mémorisent le &1Réservoir&0 duquel elle tirent leur &4Mana&0. Elle tireront du Mana du réservoir le plus proche d'elles à l'instant où elles sont placées, et aucun autre réservoir, jusqu'à ce qu'il soit retiré. Vous pouvez bien sûr réassocier les fleurs grâce au mode association d'une &1Baguette Sylvestre&0.
@@ -1435,9 +1435,9 @@ botania.page.hydroangeas2=Un simple système d'&1Aquanémones&0.
 botania.page.hydroangeas1=&oFrom some Hyperdimension&r?
 
 # -- THERMALILY
-botania.entry.thermalily=Thermalily
-botania.page.thermalily0=Il arrive un moment où la génération de &1Mana&0 lente comme avec les &1Aquanémones&0 ou les &1Endoflammes&0 ne suffisent plus. La &1Thermalily&0, elle, fonctionne comme &1L'Aquanémone&0, mais avec de la &1Lave&0.
-botania.page.thermalily0a=Il arrive un moment où la génération de &1Mana&0 lente comme avec les &1Aquanémones&0 ou les &1Endoflammes&0 ne suffisent plus. La &1Thermalily&0, elle, fonctionne comme &1L'Aquanémone&0, mais avec de la &1Lave&0.<br>La chaleur que la &1Lave&0 produit nécessite qu'il faille un bloc d'&1Obsidienne&0 en-dessous d'elle pour que cela fonctionne.
+botania.entry.thermalily=Thermolilas
+botania.page.thermalily0=Il arrive un moment où la génération de &1Mana&0 lente comme avec les &1Aquanémones&0 ou les &1Endoflammes&0 ne suffisent plus. Le &1Thermolilas&0, elle, fonctionne comme &1L'Aquanémone&0, mais avec de la &1Lave&0.
+botania.page.thermalily0a=Il arrive un moment où la génération de &1Mana&0 lente comme avec les &1Aquanémones&0 ou les &1Endoflammes&0 ne suffisent plus. Le &1Thermolilas&0, elle, fonctionne comme &1L'Aquanémone&0, mais avec de la &1Lave&0.<br>La chaleur que la &1Lave&0 produit nécessite qu'il faille un bloc d'&1Obsidienne&0 en-dessous d'elle pour que cela fonctionne.
 botania.page.thermalily1=&oChaud, chaud&r.
 
 # -- ROSA ARCANA
@@ -1763,7 +1763,7 @@ botania.page.rainbowRod2=Going my way!! Cut open a path and go!
 # -- ROD OF THE SKIES
 botania.entry.tornadoRod=Bâton des Cieux
 botania.page.tornadoRod0=Le &1Bâton des Cieux&0 est un objet magique qui peut propulser un joueur dans les airs grâce au &4Mana&0.<br>Pour ce faire, il faut le charger tel un arc.<br>Le Bâton mettra un certain temps à se recharger, durant lequel son porteur ne subira pas de dégâts de chute.
-botania.page.tornadoRod1=A treasure from Lorule
+botania.page.tornadoRod1=Cadeau de Lorule
 
 # -- ROD OF THE HELLS
 botania.entry.fireRod=Bâton des Enfers
@@ -1916,9 +1916,9 @@ botania.page.lavaPendant0=The &1Pyroclast Pendant&0 is a &4Bauble&0 that absorbs
 botania.page.lavaPendant1=Hanako could have used one of these
 
 # -- GOLDEN LAUREL CROWN
-botania.entry.goldenLaurel=Golden Laurel Crown
-botania.page.goldenLaurel0=One of the uses for &1Gaia Spririts&0 is to, grant a layer of immortality to one that uses them, while wearing a &1Golden Laurel Crown&0, if the wearer were to die, the crown will shatter, regenerating all of their health and giving them a short period of invincibility.
-botania.page.goldenLaurel1=Given the theme, probably Viridi
+botania.entry.goldenLaurel=Couronne de lauriers dorée
+botania.page.goldenLaurel0=L'une des utilisations des &1Esprits de Gaia&0 est d'offrir un voile d'immprtalité, permettant à celui qui porte une &1Couronne de lauriers dorée&0, s'il venait à trépasser, de régénérer l'entièreté de sa vie et de profiter d'un court moment d'invincibilité, au prix de la destruction de la couronne
+botania.page.goldenLaurel1=À en juger par le nom, sans doute du Viridi
 
 # -- RING OF CHORDATA
 botania.entry.waterRing=Ring of Chordata
@@ -1969,8 +1969,8 @@ botania.page.itemFinder1=&o(...)&r &4players&0 who have the item in their invent
 botania.page.itemFinder2=Do you hear their voices?
 
 # -- CRIMSON PENDANT
-botania.entry.superLavaPendant=Crimson Pendant
-botania.page.superLavaPendant0=The &1Crimson Pendant&0 is, in simple terms, an upgraded counterpart to the &1Pyroclast Pendant&0, wearing it provides the wearer immunity to all fire and lava damage, instead of just extinguishing them.
+botania.entry.superLavaPendant=Pendentif Écarlate
+botania.page.superLavaPendant0=Le &1Pendentif Écarlate&0 est, pour faire simple, une version améliorée du &1Pendentif de Pyroclaste&0, conférant à son porteur une immunité contre tous les dommages de feu et de lave, au lieu de juste les éteindre.
 botania.page.superLavaPendant1=Runner-up on Monolith Code
 
 # -- TAINTED BLOOD PENDANT
@@ -1980,11 +1980,11 @@ botania.page.bloodPendant1=To infuse the pendant with a &4Brew&0 the normal proc
 botania.page.bloodPendant2=I'll get Saber for sure
 
 # -- CLOAKS OF JUDGEMENT
-botania.entry.judgementCloaks=Cloaks of Judgement
-botania.page.judgementCloaks0=The &1Cloaks of Judgement&0 are a pair of cloaks that can be worn instead of a belt (and thus, they go in the Belt slot). Their strength triggers when their wearer takes damage. After that, they'll go in a ten second recharge period in which their effects won't trigger.
-botania.page.judgementCloaks1=The &1Cloak of Virtue&0 will, when active, block the full extent of a piece of damage taken. This does not apply to magic damage.<br>The &1Cloak of Sin&0 will damage all nearby hostile mobs for the same amount of damage that was taken.
-botania.page.judgementCloaks2=A Holy Mantle
-botania.page.judgementCloaks3=Taste Vengance!
+botania.entry.judgementCloaks=Capes du Jugement
+botania.page.judgementCloaks0= Les &1Capes du Jugement&0 sont deux capes qui peuvent être portées en lieu et place d'une ceinture (et vont ainsi dans l'emplacement Ceintures). Leur pouvoir s'active lorsque leur porteur subit des dommage. Après cela, elles vont entrer dans une période de rechargement de 10 secondes, pendant lesquelles leurs effets ne se produiront pas.
+botania.page.judgementCloaks1=La &Cape de Vertu&0, lorsqu'active, bloquera l'entièreté d'un dommage reçu, exception faite des dommages magiques.<br>La &1Cape de Péché&0 infligera des dommages égaux aux dégâts reçus à tous les monstres hostiles.
+botania.page.judgementCloaks2=Un Sacré Manteau
+botania.page.judgementCloaks3=Le Goût de la Vengeance
 
 # -- MANASEER MONOCLE
 botania.entry.monocle=Monocle du Cherche-Mana
@@ -1993,19 +1993,19 @@ botania.page.monocle1=Bien le bonjour, mon bon monsieur.
 
 # - ALFHOMANCY
 # -- THE PORTAL TO ALFHEIM
-botania.entry.aIntro=The Portal to Alfheim
-botania.page.aIntro0=Once, in olden times, &4Elves&0 used to share the world with us &4Minecrafters&0. Due to unknown events, they have been banished back to their own world, &4Alfheim&0.<br>Experimentation has been done in atempt to bridge the gap between the two worlds, and means of creating a portal that does just that have been devised.
-botania.page.aIntro1=Creating this portal proves not to be an easy task, as quite a few exquisite resources are necessary. The requirements are as follows: 8 &1Livingwood&0 blocks, 3 &1Glimmering Livingwood&0 blocks, 1 &1Elven Gateway Core&0 (read on), 2 &1Mana Pools&0 and 2 &1Natura Pylons&0 (read on).
-botania.page.aIntro2=Creating the &1Elven Gateway Core&0
-botania.page.aIntro3=Creating &1Natura Pylons&0
-botania.page.aIntro4=Make a frame of &1Livingwood&0
-botania.page.aIntro5=Add &1Glimmering Livingwood&0
-botania.page.aIntro6=Place the &1Elven Gateway Core&0
-botania.page.aIntro7=Add &1Mana Pools&0
-botania.page.aIntro8=Place &1Natura Pylons&0 above the pools
-botania.page.aIntro9=To open up the portal, simply right click the core with a &1Baguette Sylvestre&0.<br>The portal requires a substantial amount of &4Mana&0 deposited in both the pools to open up, after that, it'll slowly drain some to keep itself powered. If it runs out of &4Mana&0, the connection will be broken.
-botania.page.aIntro10=The amount of &4Mana&0 required to open up the portal is orders of magnitude higher than that to keep it maintained, thus closing the portal to prevent &4Mana&0 loss is a poor strategy.<br>Furthermore, the link isn't strong enough to allow living beings to go through it, but it seems that &4items&0 can.
-botania.page.aIntro11=The amount of information about &1Alfheim&0 stored in this lexicon is resumed to this entry alone, perhaps &4letting the Elves have a look at it&0 might prove beneficial.
+botania.entry.aIntro=Le portail vers Alfhein
+botania.page.aIntro0=Il y a fort longtemps, les &4Elfes&0 partagaient le monde avec nous autres &4Minecraftiens&0. À cause d'évènements inconnus, Ils ont été bannis dans leur monde d'origine, l'&4Alfheim&0. <br>Des expériences ont été menées dans le but de créer un pont entre les deux mondes, et un portail permettant tout juste de faire cela vient d'être inventé.
+botania.page.aIntro1=Créer ce portail ne sera pas tâche facile, cu que certaines ressources exotiques sont nécessaires. Pour le portail, il faut: 8 blocs de &1Vivebois&0, 3 blocs de &1Vivebois Scintillant&0, 1 &1Coeur du Portail Eflique&0 (détaillés plus bas), 2 &1Réservoirs de Mana&0 et 2 &1Pylônes Naturels&0 (détaillés plus bas).
+botania.page.aIntro2=Comment créer le &1Coeur du Portail Elfique&0
+botania.page.aIntro3=Comment créer un &1Pylône Naturel&0
+botania.page.aIntro4=Créez un cadre de &1Vivebois&0
+botania.page.aIntro5=Ajoutez du &1Vivebois scintillant&0
+botania.page.aIntro6=Placez &1Coeur du Portail Elfique&0
+botania.page.aIntro7=Ajoutez les &1Réservoirs de Mana&0
+botania.page.aIntro8=Placez les &1Pylônes Naturels&0 sur les Réservoirs
+botania.page.aIntro9=Pour ouvrir le portail, faites un clic droit avec une &1Baguette Sylvestre&0 sur le Coeur du Portail.<br>Le portail requiert une quantité importante de &4Mana&0 dans les Réservoirs pour s'ouvrir, et après, le portail continuera de drainer du Mana pour rester ouvert. Si le &4Mana&0 venait à manquer, la connexion se couperait.
+botania.page.aIntro10=La quantité de &4Mana&0 demandée pour maintenir le portail ouvert est négligeable devant celle demandée pour l'ouvrir, donc fermer le portail pour économiser du &4Mana&0 est inutile.<br>De plus, le lien est trop ténu pour que les êtres vivants puissent emprunter e portail, mais visiblement, les &4objets&0 peuvent.
+botania.page.aIntro11=Les informations sur &1Alfheim&0 sont consignées dans cette entrée, peut-être &4laisser les Elfes lire le Lexique&0 pourrait être bénéfique.
 
 # -- A MESSAGE FROM ELVEN GARDE
 botania.entry.elfMessage=Missive de l'Elfegarde
@@ -2019,17 +2019,17 @@ botania.page.elfMessage5=&oNous avons pris la liberté de demander à nos meille
 botania.page.elfMessage6=&oEnfin, nous souhaitons vous avertir que si vous veniez à nous envoyer quelque chose qui n'était pas dans notre accord de commerce, nous prendrons cela comme un présent et le garderons pour nous. Nous avons hâte de pouvoir échanger des ressources avec vous.<br>Sincères salutations, le Haut-Conseil de l'Elfegarde.
 
 # -- THE RESOURCES OF ALFHEIM
-botania.entry.elfResources=The Resources of Alfheim
-botania.page.elfResources0=&4Alfheim&0 contains a very varied amount of exquisite resources. Sadly though, most of them are extremely scarce and hard to come by due to competition between the various clans. The elves are interested in trading some materials, such as &1Dreamwood&0, &1Elementium&0, &1Pixie Dust&0 or &1Dragonstone&0, resources native to their lands.
-botania.page.elfResources1=Trading for &1Dreamwood&0
-botania.page.elfResources2=&1Dreamwood&0, similarly to &1Livingwood&0 can be turned into various &4Decorative Blocks&0, have a look through the &4Decorative Blocks&0 entry under &4Miscelaneous&0 for the recipes.
-botania.page.elfResources3=Trading for &1Elementium&0
-botania.page.elfResources4=Trading for &1Pixie Dust&0
-botania.page.elfResources5=Trading for &1Dragonstone&0
-botania.page.elfResources6=The &1Elves&0 are also quite keen on the white posh block from the &4Nether&0, &1Nether Quartz&0, the ones they have on their world are tinted green. This quartz works just like any other quartz, be it normal &1Nether Quartz&0 or any of the decorative variants you can find on the &4Decorative Blocks&0 entry under &4Miscelaneous&0.
-botania.page.elfResources7=Trading for &1Elven Quartz&0
-botania.page.elfResources8=Alfheim also has its own variant of &1Glass&0, in the form of &1Alfglass&0. Its look is rather light and its patterns are randomized depending on where it's placed.
-botania.page.elfResources9=Trading for &1Alfglass&0
+botania.entry.elfResources=Les ressources d'Alfheim
+botania.page.elfResources0=&4Alfheim&0 contient une pléthore de ressources exotiques. Hélas, la plupart sont extrêmement éparses et difficiles à trouver, à cause des compétitions entre les différents clans. Les elfes sont néanmoins enclins à échanger certains matériaux, tels que le &1Bois des Rêves&0, l'&1Élémentium&0, la &1Poudre de Fée&0 ou la &1Draquepierre&0, qui sont nativement présentes sur leurs terres.
+botania.page.elfResources1=Échange pour du &1Bois des Rêves&0
+botania.page.elfResources2=Le &1Bois des Rêves&0, de la même manière que le &1Vivebois&0, peut être transformé en différents &4Blocs Décoratifs&0. Pour plus d'informations, l'entrée "&4Blocs Décoratifs&0" de la section "&4Divers&0" du Lexique est toute indiquée.
+botania.page.elfResources3=Échange pour de l'&1Élémentium&0
+botania.page.elfResources4=Échange pour de la &1Poudre de Fée&0
+botania.page.elfResources5=Échange pour de la &1Draquepierre&0
+botania.page.elfResources6=Les &1Elfes&0 aiment aussi beaucoup cet élégant bloc blanc venant du &4Nether&0, le &1Quartz du Nether&0, ceux de leur monde étant teintés en vert. Ce quartz fonctionne comme toutes les autres variantes, que ce soit du &1Quartz du Nether&0 blanc ou n'importe quelle variante décorative citée dans l'entrée "&4Blocs Décoratifs&0" de la section "&4Divers&0" du Lexique.
+botania.page.elfResources7=Échange pour de l'&1Elfequartz&0
+botania.page.elfResources8=Alfheim dispose aussi de son propre &1Verre&0, sous la forme de l'&1Elfeverre&0. Il a l'air assez léger et ses motifs changent en fonction de l'endroit où il est placé.
+botania.page.elfResources9=Échange pour de l'&1Elfeverre&0
 
 # -- RITUAL OF GAIA
 botania.entry.gaiaRitual=Ritual of Gaia
@@ -2058,70 +2058,70 @@ botania.page.elvenLore7=&oThe collapse of the Bifrost broke any interaction betw
 
 # - MISCLANEOUS
 # -- UNSTABLE CUBE
-botania.entry.unstableBlocks=Unstable Cubes
-botania.page.unstableBlocks0=Fiddling with highly powerful &4Mana&0 infused objects has lead to the creation of these strange cubes. They seem to emit some visual radiation in the form of colorful lightning, but it doesn't seem like it has any effects other than visual appeal.
-botania.page.unstableBlocks1=They look fancy
-botania.page.unstableBlocks2=And they come in all 16 colors
-botania.page.unstableBlocks3=There's also a way of creating a different version of these that releases an extremely larger amount of energy, this time in the form of a beam towards the sky that extends into a cloud of sorts. This one also seems to be disableable via a &4Redstone Signal&0, it's called an &1Unstable Beacon&0, as it looks like one somehow.
-botania.page.unstableBlocks4=Fireworks?
-botania.page.unstableBlocks5=Combined entropy
-botania.page.unstableBlocks6=It's also possible, by using the &1Unstable Beacons&0, to turn them into a manageable and portable utility, in the form of the &1Signal Flare&0.<br>This gun of sorts shoots a colored round into the sky that lasts a few seconds, it also stuns any nearby enemies for just as long.
-botania.page.unstableBlocks7=Shoot in case of titan
+botania.entry.unstableBlocks=Cubes Instables
+botania.page.unstableBlocks0=Trifouiller avec des objets infusés avec du &4Mana&0 a causé la création de ces étranges cubes. Ils semblent émettre des rayonnements lumineux sous forme colorée, mais ils ne semblent avoir aucun autre effet.
+botania.page.unstableBlocks1=Ils ont l'air sympa
+botania.page.unstableBlocks2=Disponibles en 16 couleurs
+botania.page.unstableBlocks3=On peut aussi créer une version différente de ces objets qui libère une quantité bien plus importante d'énergie, sous forme d'un rayon en direction des cieux qui finit par se diffuser en un nuage. Il semblerait qu'on puisse aussi le désactiver via un &4Signal de Redstone&0. À cause de ses ressemblances avec une balise, le nom de &1Balise Instable&0 lui a été donné.
+botania.page.unstableBlocks4=Des feux d'artifices?
+botania.page.unstableBlocks5=L'entropie de l'univers tend vers un maximum
+botania.page.unstableBlocks6=Il est aussi possible, en utilisant une &1Balise Instable&0, de les transformer en un outil portable, sous la forme du &1Feu de Position&0.<br>Ce petit pistolet tire une balle colorée vers les cieux qui durent quelques secondes, hébétant les ennemis proches pour la même durée.
+botania.page.unstableBlocks7=En cas de titan, tirez!
 
 # -- DECORATIVE BLOCKS
-botania.entry.decorativeBlocks=Decorative Blocks
-botania.page.decorativeBlocks0=Past functionality, quite a few decorative blocks are available to make your builds look better.<br>Starting off. It's possible to turn blocks of &1Livingrock&0 and &1Livingwood&0 into decorative blocks. Each of them features 4 different decorative variations.
-botania.page.decorativeBlocks1=Livingrock bricks.
-botania.page.decorativeBlocks2=Mossing the bricks
-botania.page.decorativeBlocks3=Cracking the bricks
-botania.page.decorativeBlocks4=Framing the bricks
-botania.page.decorativeBlocks5=Turning wood into planks
-botania.page.decorativeBlocks6=Mossing the planks
-botania.page.decorativeBlocks7=Framing the planks
-botania.page.decorativeBlocks8=Pattern planks
-botania.page.decorativeBlocks9=Glimmering livingwood
-botania.page.decorativeBlocks10=Carrying on, by combining &1Nether Quartz&0 with all sorts of other substances, it's possible to create a wide array of other decorative &1Quartz&0 blocks.<br>As expected, all these items can be crafted into all their decorative block counterparts just like regular &1Quartz&0 blocks are crafted.
-botania.page.decorativeBlocks11=Smokey Quartz
-botania.page.decorativeBlocks12=Mana Quartz
-botania.page.decorativeBlocks13=Blaze Quartz
-botania.page.decorativeBlocks14=Lavender Quartz
-botania.page.decorativeBlocks15=Redquartz
-botania.page.decorativeBlocks16=A few blocks can be organized in methods different than normal to create new building blocks, such as &1Reed Blocks&0, &1Thatch&0, &1Roof Tiles&0 and a few new &1Bricks&0.<br>All these also can be crafted into both stairs and slabs.
-botania.page.decorativeBlocks17=Crafting &1Reed Blocks&0
-botania.page.decorativeBlocks18=Crafting &1Thatch&0
-botania.page.decorativeBlocks19=Crafting &1Roof Tiles&0
-botania.page.decorativeBlocks20=Crafting &1Hellish Bricks&0
-botania.page.decorativeBlocks21=Crafting &1Soul Bricks&0
-botania.page.decorativeBlocks22=Crafting &1Frosty Bricks&0
+botania.entry.decorativeBlocks=Blocs décoratifs
+botania.page.decorativeBlocks0=Sans nécessairement avoir une fonction, quelques blocs décoratifs sont disponibles pour embellir vos constructions.<br>Tout d'abord, il est possible de transformer des blocs de &1Viveroche&0 et de &1Vivebois&0 en blocs décoratifs. Chacun vient en 4 variation décoratives.
+botania.page.decorativeBlocks1=Briques de Viveroche
+botania.page.decorativeBlocks2=Appliquer de la mousse sur les briques
+botania.page.decorativeBlocks3=Craqueler les briques
+botania.page.decorativeBlocks4=Sculpter les briques
+botania.page.decorativeBlocks5=Transformer le bois en planches
+botania.page.decorativeBlocks6=Appliquer de la mousse sur les briques
+botania.page.decorativeBlocks7=Sculpter les planches
+botania.page.decorativeBlocks8=Planches à motifs
+botania.page.decorativeBlocks9=Vivebois scintillant
+botania.page.decorativeBlocks10=De plus, en combinant du &1Quartz du Nether&0 avec toutes sortes d'autres substances, on peut créer un grand nombre d'autres blocs de &1Quartz&0 à visée décorative.<br>Comme attendu, tous ces objets peuvent être ciselés en leurs variantes de la même manière que le &1Quartz&0 blanc.
+botania.page.decorativeBlocks11=Quartz fumé
+botania.page.decorativeBlocks12=Quartz de Mana
+botania.page.decorativeBlocks13=Braisequartz
+botania.page.decorativeBlocks14=Quartz de Lavande
+botania.page.decorativeBlocks15=Rougequartz
+botania.page.decorativeBlocks16=Quelques blocs peuvent être organisés grâces à d'autres méthodes pour donner de nouveaux blocs de construction, comme les &1Blocs de Roseau&0, la &1Chaume&0, les &1Tuiles de toit&0 et quelques &1Briques&0.<br>Et tous peuvent être ciselés en escaliers et en dalles.
+botania.page.decorativeBlocks17=Comment fabriquer des &1Blocs de Roseaux&0
+botania.page.decorativeBlocks18=Comment fabriquer de la &1Chaume&0
+botania.page.decorativeBlocks19=Comment fabriquer des &1Tuiles de toit&0
+botania.page.decorativeBlocks20=Comment fabriquer des &1Briques infernales&0
+botania.page.decorativeBlocks21=Comment fabriquer des &1Briques d'âme&0
+botania.page.decorativeBlocks22=Comment fabriquer des &1Briques gelées&0
 
 # -- DISPENSER TWEAKS
 botania.entry.dispenserTweaks=Dispenser Tweaks
 botania.page.dispenserTweaks0=&1Dispensers&0, among their normal abilities, can also plant all sorts of crops, from &1Seeds&0, &1Potatos&0 or &1Carrots&0 to even &1Nether Wart&0. The crop is planted in the block right in front of the dispenser.<br>The &1Dispensers&0 can also use the &1Baguette Sylvestre&0 for some specific tasks such as triggering a &1Runic Altar&0.
 
 # -- GLIMMERING FLOWERS
-botania.entry.shinyFlowers=Glimmering Flowers
-botania.page.shinyFlowers0=By combining your typical &1Mystical Flowers&0 with some &1Glowstone Dust&0, you can make them sparkle even brighter, and emit actual physical light, of the same brightness as a &1Glowstone Block&0.<br>With some &1Dirt&0 and &1Pasture Seeds&0 it's possible to turn them into a miniature floating island that will not only emit light, but also look very fancy indeed.
-botania.page.shinyFlowers1=Pretty Pretty Shiny Shiny
-botania.page.shinyFlowers2=Like Laputa but (a lot) tinier
+botania.entry.shinyFlowers=Fleurs Scintillantes
+botania.page.shinyFlowers0=En combinant les traditionnelles &1Fleurs Mystiques&0 avec un peu de &1Poudre de Luminite&0, vous pourrez les faire briller encore plus et émettre de la véritable lumière, les rendant aussi brillantes qu'un &1Bloc de Luminite&0.<br>Avec de la &1Terre&0 et des &1Graînes de Paturâge&0, on peut les transformer en de petits ilôts flottant qui non seulement émettront de la lumière, mais qui auront aussi l'air sympathique.
+botania.page.shinyFlowers1=Une fleur qui illuminera votre journée
+botania.page.shinyFlowers2=Comme de la Laputa mais en (beaucoup) plus petit
 
 # -- PRISMARINE
-botania.entry.prismarine=Prismarine
-botania.page.prismarine0=&1Prismarine&0 is an interesting component and building block. Some scholars even go as far as to say it comes from &4the future&0.<br>To create it, one requires an &1Alchemy Catalyst&0. Simply tossing some &1Nether Quartz&0 into a &1Mana Pool&0 with the catalyst attached to it will get some of this material.
-botania.page.prismarine1=There's various building blocks that can be created using the &1Prismarine Shards&0, to which all but the &1Sea Lantern&0 can be turned into their &1Stair&0 and &1Slab&0 variants.
-botania.page.prismarine2=Creating &1Prismarine Shards&0
-botania.page.prismarine3=Crafting &1Prismarine&0
-botania.page.prismarine4=Crafting &1Prismarine Bricks&0
-botania.page.prismarine5=Crafting &1Dark Prismarine&0
-botania.page.prismarine6=Crafting the &1Sea Lantern&0
+botania.entry.prismarine=Prismarin
+botania.page.prismarine0=Le &1Prismarin&0 est un composant ainsi qu'un bloc de construction intéressants. Quelques érudits vont même jusqu'à dire qu'il vient du &4futur&0.<br>Pour pouvoir le créer, il faut un &1Catalyseur Alchimique&0. Jeter un peu de &1Quartz du Nether&0 dans un &1Réservoir de Mana&0 avec le catalyseur attaché suffit pour en obtenir.
+botania.page.prismarine1=Différents blocs peuvent être créés avec les &1Eclats de Prismarin&0, et tous sauf la &1Lanterne Marine&0 peuvent être ciselés en &1Escaliers&0 et en &1Dalles&0.
+botania.page.prismarine2=Comment créer des &1Eclats de Prismarin&0
+botania.page.prismarine3=Comment fabriquer du &1Prismarin&0
+botania.page.prismarine4=Comment fabriquer des &1Briques de Prismarin&0
+botania.page.prismarine5=Comment fabriquer du &1Prismarin sombre&0
+botania.page.prismarine6=Comment fabriquer la &1Lanterne Marine&0
 
 # -- NATURAL SHEDDING
 botania.entry.shedding=Natural Shedding
 botania.page.shedding0=The living and unliving beings that inhabit our lands don't live in a static state. It's common for pieces of their body to fall out, or for them to drop things, or for them to extrude substances. The following pages list some such items that can come from such entities.
 
 # -- TINY POTATO
-botania.entry.tinyPotato=Tiny Potato
-botania.page.tinyPotato0=It's a tiny potato, it believes in you, you can do the thing.<br>No really, that's it, by tossing a &1Potato&0 in a &1Mana Pool&0, the potato gains a little lively essence and happy feeling. It's a lively one, giving it a right click will make it even more so!
-botania.page.tinyPotato1=Put it on Kickstarter, it'll work
+botania.entry.tinyPotato=Petite Patate
+botania.page.tinyPotato0=C'est une petite patate, elle croit en toi, tu peux le faire.<br>Non, c'est vraiment ça, jette une &1Patate&0 dans un &1Réservoir de Mana&0, et elle gagne un peu d'essence de vie et un peu de joie. C'en est une joyeuse, donne-lui un clic droit et elle sera encore plus joyeuse!
+botania.page.tinyPotato1=Mettez ce truc sur Kickstarter, ça va marcher
 
 # -- HEAD CREATION
 botania.entry.headCreating=Head Creation
@@ -2136,9 +2136,9 @@ botania.page.azulejo2=Crafting a block of &1Azulejo&0
 botania.page.azulejo3=Cycling between the patterns
 
 # -- STARFIELD CREATOR
-botania.entry.starfield=Starfield Creator
-botania.page.starfield0=The &1Starfield Creator&0 does exactly as it says, by releasing elven energies into the air, if it's placed in the world, during night time it will create a starry sky that extends for a fair distance.
-botania.page.starfield1=Twinkle twinkle
+botania.entry.starfield=Créateur de Champ Stellaire
+botania.page.starfield0=Le &1Créateur de Champ Stellaire&0 fait ce que son nom indique. Quand il est placé quelque part dans le monde, en libérant de l'énergie elfique dans les airs, il crééra un ciel étoilé qui s'étendra sur une bonne distance pendant la nuit.
+botania.page.starfield1=Brillez, brillez, petites étoiles
 
 # -- TRODDEN DIRT
 botania.entry.dirtPath=Trodden Dirt
@@ -2147,13 +2147,13 @@ botania.page.dirtPath1=Follow the yellow dirt road
 botania.page.dirtPath2=Also available in slabs
 
 # -- THAUMCRAFT INTEGRATION
-botania.entry.tcIntegration=Thaumcraft Integration
-botania.page.tcIntegration0=Often enough, the paths of &4Botany&0 and &4Thaumaturgy&0 cross together. Mixing some of the artifacts mentioned in this book as well as any from the school of &5Thaumcraft&0 can allow for combinations of these to form.
-botania.page.tcIntegration1=First and foremost, combining any of the &1Mana Metal&0 helms with a set of &1Goggles of Revealing&0 allows for a combination of both.<br>The protection and regenerability of the armor works alongside the Goggles' abilities, but the &4Vis&0 discount is loss.
-botania.page.tcIntegration2=Helmets of Revealing (works with any Botania helm)
-botania.page.tcIntegration3=Carrying on, &4Mana&0 can also serve as an interesting type of Ink. Infusing a set of black &1Scribing Tools&0 with &4Mana&0 from a &1Mana Pool&0 allows for them to use said &4Mana&0 as their source of color.<br>Refilling these tools works similarly to a &1Mana Tablet&0, done by tossing it on top of the pool.
-botania.page.tcIntegration4=Making the &1Botanurgist's Inkwell
-botania.page.tcIntegration5=Last but not least, there's a few varied resources or constructs that can work as paraphernalia for an &1Infusion Altar&0, to lower its' instability.<br>These come in the form of &1Glimmering Flowers, Floating Flowers and any variety of Pylons&0.
+botania.entry.tcIntegration=Interactions thaumaturgiques
+botania.page.tcIntegration0=Bien souvent, les chemins de la &4Botanique&0 et de la &4Thaumaturgie&0 se croisent. Il est en effet possible de combiner certains artéfacts mentionnés dans ce livre avec certains issus de l'école de  &5Thaumcraft&0.
+botania.page.tcIntegration1=Tout d'abord, combiner n'importe quel casque de &1Métal de Mana&0 avec des &1Lunettes de Révélation&0 permet de bénéficier des effets des deux objets.<br>La protection offerte par l'armure ainsi que sa capacité autorégénérative fonctionnent en sus des capacités des Lunettes, mais le décompte de &4Vis&0 est perdu.
+botania.page.tcIntegration2=Casques de Révélation (fonctionne avec tous les casques de Botania)
+botania.page.tcIntegration3=De plus, le &4Mana&0 peut aussi servir d'ersatz à l'Encre. Infuser des &1Outils d'Écriture&0 avec du &4Mana&0 d'un &1Réservoir de Mana&0 leur permet d'utiliser du &4Mana&0 comme source de couleur. <br>Reremplir ces outils se fait de la même manière qu'une &1Tablette de Mana&0, en la jetant dans un Réservoir.
+botania.page.tcIntegration4=Comment créer un &1Encrier de Botaniste
+botania.page.tcIntegration5=Dernier mais non des moindres, certaines ressources ou constructions peuvent êtres adjointes à un &1Autel d'Infusion&0 pour réduire son instabilité.<br>Il s'agit principalement des &Fleurs scintillantes, Fleurs flottantes et de toutes les variétés de Pylônes&0.
 
 # -- BUILDCRAFT INTEGRATION
 botania.entry.bcIntegration=Buildcraft Integration
