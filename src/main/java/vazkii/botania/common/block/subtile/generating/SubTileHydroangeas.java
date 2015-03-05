@@ -142,6 +142,10 @@ public class SubTileHydroangeas extends SubTileGenerating {
 	@Override
 	public ArrayList<ItemStack> getDrops(ArrayList<ItemStack> list) {
 		ArrayList<ItemStack> drops = super.getDrops(list);
+		int cooldown = this.cooldown;
+		if(burnTime > 0)
+			cooldown = getCooldown();
+		
 		if(cooldown > 0)
 			ItemNBTHelper.setInt(drops.get(0), TAG_COOLDOWN, getCooldown());
 		return drops;
