@@ -210,6 +210,7 @@ boundBlock.wireframe.enabled=Bound Block Wireframe
 darkQuartz.enabled=Enable Smokey Quartz
 fallenKanade.enabled=Enable Fallen Kanade
 manaEnchanter.enabled=Enable Mana Enchanter
+manaFluxfield.enabled=Enabel Mana Fluxfield
 flower.forceCheck=Flower Force Checking
 enderPickpocket.enabled=Enable Ender Pickpocketting
 thermalily.obsidian=Thermalily Needs Obsidian

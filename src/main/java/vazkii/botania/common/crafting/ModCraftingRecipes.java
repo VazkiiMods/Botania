@@ -1268,12 +1268,14 @@ public final class ModCraftingRecipes {
 		recipesWings = BotaniaAPI.getLatestAddedRecipes(7);
 
 		// Mana Fluxfield Recipe
-		addOreDictRecipe(new ItemStack(ModBlocks.rfGenerator),
-				"SRS", "RMR", "SRS",
-				'S', LibOreDict.LIVING_ROCK,
-				'M', LibOreDict.MANA_STEEL,
-				'R', new ItemStack(Blocks.redstone_block));
-		recipeRFGenerator = BotaniaAPI.getLatestAddedRecipe();
+		if(ConfigHandler.fluxfieldEnabled) {
+			addOreDictRecipe(new ItemStack(ModBlocks.rfGenerator),
+					"SRS", "RMR", "SRS",
+					'S', LibOreDict.LIVING_ROCK,
+					'M', LibOreDict.MANA_STEEL,
+					'R', new ItemStack(Blocks.redstone_block));
+			recipeRFGenerator = BotaniaAPI.getLatestAddedRecipe();	
+		}
 
 		// Vial Recipe
 		GameRegistry.addRecipe(new ItemStack(ModItems.vial, 3, 0),

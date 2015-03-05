@@ -55,6 +55,7 @@ public final class ConfigHandler {
 	public static boolean fallenKanadeEnabled = true;
 	public static boolean darkQuartzEnabled = true;
 	public static boolean enchanterEnabled = true;
+	public static boolean fluxfieldEnabled = true;
 
 	public static int flowerQuantity = 2;
 	public static int flowerDensity = 16;
@@ -156,6 +157,9 @@ public final class ConfigHandler {
 		desc = "Set to false to disable the Mana Enchanter. Since some people find it OP or something. This only disables the entry and creation. Old ones that are already in the world will stay.";
 		enchanterEnabled = loadPropBool("manaEnchanter.enabled", desc, enchanterEnabled);
 
+		desc = "Set to false to disable the Mana Fluxfield (generates RF from mana). This only disables the entry and creation. Old ones that are already in the world will stay.";
+		fluxfieldEnabled = loadPropBool("manaFluxfield.enabled", desc, fluxfieldEnabled);
+		
 		desc = "The quanity of botania flower patches to generate in the world, defaults to 2, the lower the number the less patches generate.";
 		flowerQuantity = loadPropInt("worldgen.flower.quantity", desc, flowerQuantity);
 
