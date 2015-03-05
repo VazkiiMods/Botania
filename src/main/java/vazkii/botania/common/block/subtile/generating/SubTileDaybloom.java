@@ -36,7 +36,7 @@ public class SubTileDaybloom extends SubTileGenerating {
 
 	@Override
 	public int getDelayBetweenPassiveGeneration() {
-		return 30 + (int) (getSurroundingFlowers() * 7.5);
+		return 25 + (int) (getSurroundingFlowers() * 7.5);
 	}
 
 	@Override

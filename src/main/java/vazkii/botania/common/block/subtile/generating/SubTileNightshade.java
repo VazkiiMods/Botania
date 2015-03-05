@@ -17,7 +17,7 @@ public class SubTileNightshade extends SubTileDaybloom {
 
 	@Override
 	public int getDelayBetweenPassiveGeneration() {
-		return super.getDelayBetweenPassiveGeneration() * 2;
+		return (int) super.getDelayBetweenPassiveGeneration();
 	}
 
 	@Override

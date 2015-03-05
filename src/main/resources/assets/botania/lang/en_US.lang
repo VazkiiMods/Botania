@@ -1532,8 +1532,8 @@ botania.page.daybloom5=&oHow could it be that what you need the most can leave y
 
 # -- NIGHTSHADE
 botania.entry.nightshade=Nightshade
-botania.page.nightshade0=The &1Nightshade&0 is the dark counterpart of the &1Daybloom&0, as it generates &4Mana&0 passively in any situation the &1Daybloom&0 can not, as long as it's nighttime, albeit at half the speed.<br>Similarly to their shining counterpart, they suffer diminishing returns from having any adjacent.
-botania.page.nightshade0a=The &1Nightshade&0 is the dark counterpart of the &1Daybloom&0, as it generates &4Mana&0 passively in any situation the &1Daybloom&0 can not, as long as it's nighttime, albeit at half the speed.Alike its shining counterpart, they suffer diminishing returns from having any adjacent and are not very resistant, and some time they'll wither and die off.
+botania.page.nightshade0=The &1Nightshade&0 is the dark counterpart of the &1Daybloom&0, as it generates &4Mana&0 passively in any situation the &1Daybloom&0 can not, as long as it's nighttime<br>Similarly to their shining counterpart, they suffer diminishing returns from having any adjacent.
+botania.page.nightshade0a=The &1Nightshade&0 is the dark counterpart of the &1Daybloom&0, as it generates &4Mana&0 passively in any situation the &1Daybloom&0 can not, as long as it's nighttime. Alike its shining counterpart, they suffer diminishing returns from having any adjacent and are not very resistant, and some time they'll wither and die off.
 botania.page.nightshade1=&oThe shadow of the day&r.
 
 # -- ENDOFLAME
@@ -1562,7 +1562,8 @@ botania.page.arcanerose1=&oWhen this card is Summoned, toss a coin&r.
 # -- MUNCHDEW
 botania.entry.munchdew=Munchdew
 botania.page.munchdew0=Generating the form of natural energy that is &4Mana&0 should be a pretty good process when done via other living materials. By using the &1Munchdew&0, any &1Leaves&0 near the flower will get munched up and converted into &4Mana&0.<br>It's to note that, though, no saplings or any other items will be dropped from the leaves.
-botania.page.munchdew1=&oYou pay for dinner, Shibazaki&r.
+botania.page.munchdew1=This flower outputs a hefty amount of mana per tree eaten.<br>However, after if finishes eating all the available leaves, when left without any, it'll take a break from doing so and will only be able to eat again after a bit over a minute.
+botania.page.munchdew2=&oYou pay for dinner, Shibazaki&r.
 
 # -- ENTROPINNYUM
 botania.entry.entropinnyum=Entropinnyum

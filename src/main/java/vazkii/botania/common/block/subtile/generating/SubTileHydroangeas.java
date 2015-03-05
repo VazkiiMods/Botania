@@ -11,7 +11,9 @@
 package vazkii.botania.common.block.subtile.generating;
 
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
@@ -30,6 +32,8 @@ public class SubTileHydroangeas extends SubTileGenerating {
 	private static final String TAG_BURN_TIME = "burnTime";
 	private static final String TAG_COOLDOWN = "cooldown";
 
+	private static final int[][] OFFSETS = { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 }, { -1, 1 }, { -1, -1 }, { 1, 1 }, { 1, -1 } };
+	
 	int burnTime, cooldown;
 
 	@Override
@@ -46,34 +50,25 @@ public class SubTileHydroangeas extends SubTileGenerating {
 		boolean didSomething = false;
 
 		if(burnTime == 0) {
-			if(ticksExisted % 10L == 0)
-				if(mana < getMaxMana() && !supertile.getWorldObj().isRemote) {
-					Random random = new Random();
-					int randomInt = random.nextInt(3);
-					int randomInt2 = random.nextInt(3);
-					int randomBoolean = random.nextBoolean() ? 1 : -1;
-					int[] positions = new int[] {supertile.xCoord + randomBoolean, supertile.zCoord + random.nextInt(1) };
-					if(randomInt == 0)
-						positions[0] = supertile.xCoord;
-					else if(randomInt == 1)
-						positions[0] = supertile.xCoord + 1;
-					else if(randomInt == 2)
-						positions[0] = supertile.xCoord - 1;
-
-					if(randomInt2 == 0)
-						positions[1] = supertile.zCoord;
-					else if(randomInt2 == 1)
-						positions[1] = supertile.zCoord + 1;
-					else if(randomInt2 == 2)
-						positions[1] = supertile.zCoord - 1;
-
+			if(mana < getMaxMana() && !supertile.getWorldObj().isRemote) {
+				List<int[]> offsets = Arrays.asList(OFFSETS);
+				Collections.shuffle(offsets);
+				
+				for(int[] offsetArray : offsets) {
+					int[] positions = {
+						supertile.xCoord + offsetArray[0],
+						supertile.zCoord + offsetArray[1]
+					};
 					if(supertile.getWorldObj().getBlock(positions[0], supertile.yCoord, positions[1]) == getBlockToSearchFor() && (getBlockToSearchBelow() == null || supertile.getWorldObj().getBlock(positions[0], supertile.yCoord - 1, positions[1]) == getBlockToSearchBelow()) && supertile.getWorldObj().getBlockMetadata(positions[0], supertile.yCoord, positions[1]) == 0) {
 						supertile.getWorldObj().setBlockToAir(positions[0], supertile.yCoord, positions[1]);
 						didSomething = true;
 						burnTime += getBurnTime();
 						playSound();
+						break;
 					}
 				}
+				
+			}
 		} else {
 			if(supertile.getWorldObj().rand.nextInt(8) == 0)
 				doBurnParticles();
@@ -106,11 +101,11 @@ public class SubTileHydroangeas extends SubTileGenerating {
 	}
 
 	public void playSound() {
-		supertile.getWorldObj().playSoundEffect(supertile.xCoord, supertile.yCoord, supertile.zCoord, "random.drink", 0.05F, 0.5F + (float) Math.random() * 0.5F);
+		supertile.getWorldObj().playSoundEffect(supertile.xCoord, supertile.yCoord, supertile.zCoord, "random.drink", 0.02F, 0.5F + (float) Math.random() * 0.5F);
 	}
 
 	public int getBurnTime() {
-		return 10;
+		return 40;
 	}
 
 	@Override
