@@ -33,7 +33,7 @@ public class SubTileEntropinnyum extends SubTileGenerating {
 					if(!supertile.getWorldObj().isRemote) {
 						tnt.setDead();
 						mana += getMaxMana();
-						supertile.getWorldObj().playSoundEffect(tnt.posX, tnt.posY, tnt.posZ, "random.explode", 4F, (1F + (supertile.getWorldObj().rand.nextFloat() - supertile.getWorldObj().rand.nextFloat()) * 0.2F) * 0.7F);
+						supertile.getWorldObj().playSoundEffect(tnt.posX, tnt.posY, tnt.posZ, "random.explode", 0.2F, (1F + (supertile.getWorldObj().rand.nextFloat() - supertile.getWorldObj().rand.nextFloat()) * 0.2F) * 0.7F);
 						sync();
 					}
 
