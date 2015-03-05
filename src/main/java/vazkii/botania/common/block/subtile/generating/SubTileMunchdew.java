@@ -42,7 +42,6 @@ public class SubTileMunchdew extends SubTileGenerating {
 		super.onUpdate();
 
 		if(cooldown > 0) {
-			System.out.println(cooldown);
 			cooldown--;
 			ticksWithoutEating = 0;
 			return;
