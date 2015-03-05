@@ -71,6 +71,8 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	List<String> alreadyCollidedAt = new ArrayList();
 
 	boolean fullManaLastTick = true;
+    
+	private EntityPlayer sourcePlayer;
 
 	int _ticksExisted = 0;
 	boolean scanBeam = false;
@@ -109,7 +111,9 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 	public EntityManaBurst(EntityPlayer player) {
 		this(player.worldObj);
-
+        
+        	sourcePlayer = player;
+        
 		setBurstSourceCoords(0, -1, 0);
 		setLocationAndAngles(player.posX, player.posY + player.getEyeHeight(), player.posZ, player.rotationYaw + 180, -player.rotationPitch);
 
@@ -741,6 +745,8 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 		return null;
 	}
+
+	public EntityPlayer getSourcePlayer() { return sourcePlayer; }
 
 	final int motionStart = dataWatcherStart + 10;
 
