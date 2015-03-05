@@ -62,9 +62,11 @@ public class LensMine extends Lens {
 					if(ConfigHandler.blockBreakParticles)
 						entity.worldObj.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
 
-					int dropX = warp ? coords.posX : x;
-					int dropY = warp ? coords.posY : y;
-					int dropZ = warp ? coords.posZ : z;
+					boolean offBounds = coords.posY < 0;
+					boolean doWarp = warp && !offBounds;
+					int dropX = doWarp ? coords.posX : x;
+					int dropY = doWarp ? coords.posY : y;
+					int dropZ = doWarp ? coords.posZ : z;
 
 					for(ItemStack stack_ : items)
 						world.spawnEntityInWorld(new EntityItem(world, dropX + 0.5, dropY + 0.5, dropZ + 0.5, stack_));
