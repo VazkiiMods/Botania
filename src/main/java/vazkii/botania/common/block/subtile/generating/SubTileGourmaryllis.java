@@ -44,7 +44,7 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 			List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord - range, supertile.zCoord - range, supertile.xCoord + range + 1, supertile.yCoord + range + 1, supertile.zCoord + range + 1));
 			for(EntityItem item : items) {
 				ItemStack stack = item.getEntityItem();
-				if(stack != null && stack.getItem() instanceof ItemFood) {
+				if(stack != null && stack.getItem() instanceof ItemFood && !item.isDead) {
 					if(cooldown == 0) {
 						int val = ((ItemFood) stack.getItem()).func_150905_g(stack);
 						storedMana = val * val * 64;
