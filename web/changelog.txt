@@ -1,3 +1,12 @@
+r1.5 169
+*<b>Rebalanced mana generation.</b> All values are relative to the values previous to this release. These numbers may change back slightly if any of the changes proves too drastic.<ul><li>Dayblooms had their delay reduced, now 20% faster overall.</li><li>Nightshades produce exactly as much as Dayblooms. So 140% faster overall.</li><li>Hydroangeas will instantly grab water after they're done with the last drink. A single block of water lasts for 4x as long to prevent sound/update spam. 127% faster overall.</li><li>Rosa Arcanas will produce twice as much mana per XP point. They also have 4x as much of an internal buffer. 100% faster overall.</li><li>Endoflames had no changes.</li><li>Munchdews had the amount that a leaf produces increased tenfold and their internal buffer increased fiftyfold. If they spend more than 5 ticks without eating any leaves they'll go in a 80 second cooldown period. 900% faster overall.</li><li>Gourmaryllises have a higher multiplier for the amount that a piece of food produces and a larger internal buffer. 255% faster overall.</li><li>Narslimmuses have a higher multiplier for the amount that a slime produces. 412% faster overall.</li><li>Thermalilies had their cooldown lowered from 8 minutes to 6 minutes. 31% (+ a negligible number thanks to inheriting the dilligence upgrade from the Hydroangeas) faster overall.</li><li>Entropinnyums had no changes.</li><li>Kekimuruses had their cooldown increased and amount of mana per slice drastically increased. 75% faster and 181 more resource efficient.</li><li>Spectrolususe had no changes.</li></ul>
+*Added an options button to the Lexica Botania's main page.
+*Added justified text to the Lexica Botania's text pages as a config option.
+*Entropinnyums now muffle the sound of an absorbed TNT explosion.
+*Fixed an exploit where Thermalilies could be broken before the cooldown period starts, skipping the cooldown entirely.
+*Fixed an exploit with the  Gourmaryllis where more than one can eat a single item at once, producing much more mana than intended.
+*Fixed Mana Bursts with Bore Warp lenses fired from a Mana Spreader destroying dropped items.
+*Rewrote the text rendering algorithm for the Lexica Botania's text pages to be less of a mess and not bug out around some formatting codes.
 r1.5 168
 *Fixed a (recurring) crash with the Gaia Guardian that would happen if there were no players around it. Naturally this only affected servers, but it's a big problem so I decided to make a build to fix it. <i>And it was also crashing forgecraft :T</i>
 r1.5 167
