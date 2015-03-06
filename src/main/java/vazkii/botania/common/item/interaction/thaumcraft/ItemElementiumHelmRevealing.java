@@ -14,6 +14,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import thaumcraft.api.IGoggles;
+import thaumcraft.api.IVisDiscountGear;
+import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.nodes.IRevealer;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumHelm;
@@ -22,8 +24,9 @@ import cpw.mods.fml.common.Optional;
 
 @Optional.InterfaceList({
 	@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.IGoggles", striprefs = true),
-	@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.nodes.IRevealer", striprefs = true)})
-public class ItemElementiumHelmRevealing extends ItemElementiumHelm implements IGoggles, IRevealer {
+	@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.nodes.IRevealer", striprefs = true),
+	@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.IVisDiscountGear", striprefs = true)})
+public class ItemElementiumHelmRevealing extends ItemElementiumHelm implements IGoggles, IRevealer, IVisDiscountGear {
 
 	public ItemElementiumHelmRevealing() {
 		super(LibItemNames.ELEMENTIUM_HELM_R);
@@ -42,6 +45,11 @@ public class ItemElementiumHelmRevealing extends ItemElementiumHelm implements I
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
 		return LibResources.MODEL_ELEMENTIUM_2;
+	}
+
+	@Override
+	public int getVisDiscount(ItemStack stack, EntityPlayer player, Aspect aspect) {
+		return 5;
 	}
 
 }
