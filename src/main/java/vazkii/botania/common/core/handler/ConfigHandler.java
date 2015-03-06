@@ -28,7 +28,7 @@ public final class ConfigHandler {
 
 	public static boolean useShaders = true;
 	public static boolean lexiconRotatingItems = true;
-	public static boolean lexiconJustifiedText = true;
+	public static boolean lexiconJustifiedText = false;
 	public static boolean subtlePowerSystem = false;
 	public static boolean staticWandBeam = false;
 	public static boolean boundBlockWireframe = true;
@@ -86,7 +86,7 @@ public final class ConfigHandler {
 		desc = "Set to false to disable the rotating items in the petal and rune entries in the Lexica Botania.";
 		lexiconRotatingItems = loadPropBool("lexicon.enable.rotatingItems", desc, lexiconRotatingItems);
 
-		desc = "Set to false to disable the justified text in the Lexica Botania's text pages.";
+		desc = "Set to true to enable justified text in the Lexica Botania's text pages.";
 		lexiconJustifiedText = loadPropBool("lexicon.enable.justifiedText", desc, lexiconJustifiedText);
 		
 		desc = "Set to true to set the power system's particles to be a lot more subtle. Good for low-end systems, if the particles are causing lag.";
