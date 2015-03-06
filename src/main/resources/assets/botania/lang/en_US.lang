@@ -217,6 +217,7 @@ thermalily.obsidian=Thermalily Needs Obsidian
 passiveWither.time=Passive Wither Time
 flowerParticles.frequency=Flower Particle Frequency
 lexicon.enable.rotatingItems=Lexicon Rotating Items
+lexicon.enable.justifiedText=Lexicon Justified Text
 lexicon.render.3D=3D Lexicon Render
 powerSystem.subtle=Use Subtle Power System
 pylonModel.old=Use Old Pylon Model

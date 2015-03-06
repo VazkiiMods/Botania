@@ -15,11 +15,13 @@ import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
-import vazkii.botania.client.core.helper.FontHelper;
+import vazkii.botania.common.core.handler.ConfigHandler;
+
+import com.google.common.base.Joiner;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -32,7 +34,7 @@ public class PageText extends LexiconPage {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void renderScreen(IGuiLexiconEntry gui, int mx, int my) {
-		int width = gui.getWidth() - 34;
+		int width = gui.getWidth() - 30;
 		int x = gui.getLeft() + 16;
 		int y = gui.getTop() + 2;
 
@@ -41,60 +43,85 @@ public class PageText extends LexiconPage {
 
 	@SideOnly(Side.CLIENT)
 	public static void renderText(int x, int y, int width, int height, String unlocalizedText) {
-		FontRenderer renderer = Minecraft.getMinecraft().fontRenderer;
-		boolean unicode = renderer.getUnicodeFlag();
-		renderer.setUnicodeFlag(true);
+		x += 2;
+		y += 10;
+		width -= 4;
+		
+		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
+		boolean unicode = font.getUnicodeFlag();
+		font.setUnicodeFlag(true);
 		String text = StatCollector.translateToLocal(unlocalizedText).replaceAll("&", "\u00a7");
 		String[] textEntries = text.split("<br>");
-
-		String lastFormat = "";
-		String pendingFormat = "";
+		
+		List<List<String>> lines = new ArrayList();
+		
+		String controlCodes = "";
 		for(String s : textEntries) {
-			List<String> wrappedLines = new ArrayList();
-			String workingOn = "";
-
-			int i = 0;
+			List<String> words = new ArrayList();
+			String lineStr = "";
 			String[] tokens = s.split(" ");
-			for(String s1 : tokens) {
-				boolean skipPending = false;
-				String format = FontHelper.getFormatFromString(s1);
-
-				if(!format.isEmpty() && s1.length() > 0 && s1.charAt(0) != '\u00a7') {
-					skipPending = true;
-					pendingFormat = format;
-					format = "";
+			for(String token : tokens) {
+				String prev = lineStr;
+				String spaced = token + " ";
+				lineStr += spaced;
+				if(font.getStringWidth(lineStr) > width) {
+					String addLine = toControlCodes(controlCodes) + prev;
+					lines.add(words);
+					lineStr = spaced;
+					words = new ArrayList();
 				}
-
-				if(!pendingFormat.isEmpty() && !skipPending) {
-					format = pendingFormat;
-					pendingFormat = "";
-				}
-
-				if(MathHelper.stringNullOrLengthZero(format))
-					format = lastFormat;
-
-				if(renderer.getStringWidth(workingOn + " " + s1) >= width) {
-					wrappedLines.add(workingOn);
-					workingOn = "";
-				}
-				workingOn = workingOn + format + " " + s1;
-
-				if(i == tokens.length - 1)
-					wrappedLines.add(workingOn);
-
-				++i;
-				lastFormat = format;
+				controlCodes = getControlCodes(prev);
+				words.add(toControlCodes(controlCodes) + token);
 			}
-
-			for(String s1 : wrappedLines) {
-				y += 10;
-				renderer.drawString(s1, x, y, 0);
-			}
-
-			y += 10;
+			
+			if(!lineStr.isEmpty())
+				lines.add(words);
+			lines.add(new ArrayList());
 		}
 
-		renderer.setUnicodeFlag(unicode);
+		int i = 0;
+		for(List<String> words : lines) {
+			int count = words.size();
+			int xi = x;
+			int spacing = 4;
+			int wcount = words.size();
+			int compensationSpaces = 0;
+			boolean justify = ConfigHandler.lexiconJustifiedText && wcount > 0 && (lines.size() > i && !lines.get(i + 1).isEmpty());
+			
+			if(justify) {
+				String s = Joiner.on("").join(words);
+				int swidth = font.getStringWidth(s);
+				int space = width - swidth;
+				
+				spacing = space / (wcount - 1);
+				compensationSpaces = space % (wcount - 1);
+			}
+			
+			for(String s : words) {
+				int extra = 0;
+				if(compensationSpaces > 0) {
+					compensationSpaces--;
+					extra++;
+				}
+				font.drawString(s, xi, y, 0);
+				xi += font.getStringWidth(s) + spacing + extra;
+			}
+			
+			y += 10;
+			i++;
+		}
+			
+		font.setUnicodeFlag(unicode);
+	}
+	
+	public static String getControlCodes(String s) {
+		String controls = s.replaceAll("(?<!\u00a7)(.)", "");
+		String wiped = controls.replaceAll(".*r", "r");
+		return wiped;
+	}
+	
+	public static String toControlCodes(String s) {
+		return s.replaceAll(".", "\u00a7$0");
 	}
 
 }
