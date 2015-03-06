@@ -90,6 +90,9 @@ botaniamisc.viewOnline=View Online
 botaniamisc.history=History
 botaniamisc.historyLong=Lookup History
 botaniamisc.historyDesc=See the last entries visited
+botaniamisc.lexiconOptions0=Botania Options
+botaniamisc.lexiconOptions1=Configure Botania from ingame
+botaniamisc.lexiconOptions2=Some options might need a game restart
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
