@@ -69,10 +69,35 @@ botaniamisc.peacefulNoob=你嘗試提供泰拉鋼錠,但是被和平模式世界
 botaniamisc.notInfused=未灌注
 botaniamisc.getALife=獲得一條生命
 botaniamisc.floatingPrefix=浮空%s
+botaniamisc.unsetRecipe=[No Recipe] Right click to set:
+botaniamisc.cantCraft=Not enough Materials!
+botaniamisc.lotusDesc=It emits strong magical vibes
+botaniamisc.hasClip=&6Has Lens Clip
+botaniamisc.clipEmpty=(Empty)
+botaniamisc.armorset=&bArmor Set&r:
+botaniamisc.craftToAddWill=&aCraft with a Terrasteel Helmet to add the following effect:
+botaniamisc.requestMsg=Requested %d x "%s" out of %d. %d taken.
+botaniamisc.nearIndex0=Corporea Index nearby!
+botaniamisc.nearIndex1=Anything you say will be
+botaniamisc.nearIndex2=intercepted as a request
+botaniamisc.startTutorial=Start Tutorial
+botaniamisc.tutorialStarted=You have started your tutorial, follow the red arrows and read the contents to be guided through the basics of Botania!
+botaniamisc.tutorialEnded=Your tutorial is over, you should now have a basic idea of how Botania works, make sure to read through the other pages at your leisure to learn more ways of using the mod.
+botaniamisc.cosmeticBauble=&oCosmetic
+botaniamisc.hasCosmetic=&oHas Cosmetic Override: &r%s
+botaniamisc.typeToSearch=(type to search)
+botaniamisc.viewOnline=View Online
+botaniamisc.history=History
+botaniamisc.historyLong=Lookup History
+botaniamisc.historyDesc=See the last entries visited
+botaniamisc.lexiconOptions0=Botania Options
+botaniamisc.lexiconOptions1=Configure Botania from ingame
+botaniamisc.lexiconOptions2=Some options might need a game restart
 
 # NEI INTEGRATION
 botania.nei.brewery=植物釀造
 botania.nei.elvenTrade=精靈交易
+botania.nei.floatingFlowers=Floating Flower Crafting
 botania.nei.manaPool=魔力灌注
 botania.nei.petalApothecary=花瓣煉製
 botania.nei.runicAltar=符文祭壇
@@ -121,6 +146,28 @@ botania.wings4=翼:炎魔
 botania.wings5=翼:黑雪姬
 botania.wings6=翼:深淵領主
 botania.wings7=翼:仙女
+botania.wings8=Wings: The One
+
+# ARMOR SETS
+botania.armorset.manasteel.name=Mana Affinity
+botania.armorset.manasteel.desc=10% less Mana cost on Mana Tools
+botania.armorset.elementium.name=Great Fairy's Blessing
+botania.armorset.elementium.desc=Chance for pixies to apply potion effects
+botania.armorset.terrasteel.name=Will of the Ancients
+botania.armorset.terrasteel.desc0=20% less Mana cost on Mana Tools
+botania.armorset.terrasteel.desc1=Regen even if hunger isn't topped off
+botania.armorset.will0.desc=Critical Hits apply a strong weakness effect (Will of Ahrim)
+botania.armorset.will1.desc=Critical Hit damage increases with lower HP (Will of Dharok)
+botania.armorset.will2.desc=Critical Hits heal for a portion of damage dealt (Will of Guthan)
+botania.armorset.will3.desc=Critical Hits apply a strong slowness effect (Will of Torag)
+botania.armorset.will4.desc=Critical Hits pierce through armor (Will of Verac)
+botania.armorset.will5.desc=Critical Hits apply a wither effect (Will of Karil)
+botania.armorset.will0.shortDesc=Critical Hits apply a strong weakness effect
+botania.armorset.will1.shortDesc=Critical Hit damage increases with lower HP
+botania.armorset.will2.shortDesc=Critical Hits heal for a portion of damage dealt
+botania.armorset.will3.shortDesc=Critical Hits apply a strong slowness effect
+botania.armorset.will4.shortDesc=Critical Hits pierce through armor
+botania.armorset.will5.shortDesc=Critical Hits apply a wither effect
 
 # ROMAN NUMERALS
 botania.roman0=
@@ -166,12 +213,14 @@ boundBlock.wireframe.enabled=綁定方塊線框
 darkQuartz.enabled=啟用煙熏石英
 fallenKanade.enabled=啟用天降之奏
 manaEnchanter.enabled=啟用魔力附魔台
+manaFluxfield.enabled=Enabel Mana Fluxfield
 flower.forceCheck=花的對象檢查
 enderPickpocket.enabled=啟用末影扒手
 thermalily.obsidian=熾玫瑰吸收黑曜石上的岩漿
 passiveWither.time=被動枯萎時間
 flowerParticles.frequency=花粒子頻率
 lexicon.enable.rotatingItems=辭典頁面物品旋轉特效
+lexicon.enable.justifiedText=Lexicon Justified Text
 lexicon.render.3D=3D辭典渲染
 powerSystem.subtle=使用微量粒子能量系統
 pylonModel.old=使用舊的水晶模型
@@ -183,24 +232,18 @@ flowerTextures.alt=替換花的貼圖
 matrixMode.enabled=啟用矩陣模式
 references.enabled=啟用工具提示文本
 shaders.enabled=啟用光影支持
+baubleRender.enabled=Enable Bauble Rendering
 spreader.posShift=發射器位置移動
 versionChecking.enabled=啟用版本檢查
 wandBeam.static=啟用靜態法杖光線
 worldgen.flower.density=世界生成器花密度
 worldgen.flower.quantity=世界生成器花數量
-shedRate.chicken=脫落率:雞
-shedRate.squid=脫落率:墨魚
-shedRate.villager=脫落率:村民
-shedRate.spider=脫落率:蜘蛛
-shedRate.blaze=脫落率:烈焰人
-shedRate.ghast=脫落率:惡魂
-shedRate.skeleton=脫落率:骷髏射手
-shedRate.slime=脫落率:史萊姆
+worldgen.mushroom.quantity=Worldgen Mushroom Quantity
 
 # VERSION CHECKING
 botania.versioning.flavour0=(つд⊂)なにそれ!?植物魔法版版本落後了!?
 botania.versioning.flavour1=你難道不知道自己的植物魔法版本落後了,你這個笨蛋?
-botania.versioning.flavour2=植物魔法好像不像落後版本,ばっばか!
+botania.versioning.flavour2=植物魔法好像不像落後版本,ばっ,ばか!
 botania.versioning.flavour3=讓我高興高興.我們有新版本了.
 botania.versioning.flavour4=植物魔法更新:汝是否以Vazkii為汝之主.
 botania.versioning.flavour5=嘿,植物魔法更新了,難道不是很少見麼?
@@ -271,6 +314,65 @@ entity.Botania.botania:flameRing.name=火焰圈
 entity.Botania.botania:vineBall.name=籐蔓球
 entity.Botania.botania:doppleganger.name=蓋亞守護者
 entity.Botania.botania:magicLandmine.name=蓋亞陷阱
+entity.Botania.botania:spark.name=Spark
+entity.Botania.botania:thrownItem.name=Thrown Item
+entity.Botania.botania:magicMissile.name=Magic Missile
+entity.Botania.botania:thornChakram.name=Thorn Chakram
+entity.Botania.botania:corporeaSpark.name=Corporea Spark
+entity.Botania.botania:enderAirBottle.name=Bottle of Ender Air
+
+# ACHIEVEMENT NAMES + DESC
+achievement.botania:flowerPickup=Sky of Beginning
+achievement.botania:flowerPickup.desc=Pick up a Mystical Flower from the world
+achievement.botania:lexiconUse=A Realistical Logical Ideologist
+achievement.botania:lexiconUse.desc=Open a Lexica Botania and have a look through the index
+achievement.botania:daybloomPickup=Daybreak Arrival
+achievement.botania:daybloomPickup.desc=Make a Daybloom in a Petal Apothecary
+achievement.botania:manaPoolPickup=Vivid Wave
+achievement.botania:manaPoolPickup.desc=Upgrade a Diluted Mana Pool to a normal one
+achievement.botania:endoflamePickup=Meltdown
+achievement.botania:endoflamePickup.desc=Create an Endoflame to boost Mana production
+achievement.botania:tinyPotatoPet=Just Be Friends
+achievement.botania:tinyPotatoPet.desc=Make a Tiny Potato and pet it
+achievement.botania:sparkCraft=Live Drive
+achievement.botania:sparkCraft.desc=Make a Spark to help transfer Mana around
+achievement.botania:baubleWear=Inner Arts
+achievement.botania:baubleWear.desc=Craft any variety of Bauble and wear it
+achievement.botania:manaCookieEat=Rotten Heresy and Chocolate
+achievement.botania:manaCookieEat.desc=Infuse and eat a delicious Mana Cookie
+achievement.botania:runePickup=Lilium Doll
+achievement.botania:runePickup.desc=Use a Runic Altar to create a Rune
+achievement.botania:manaBlasterShoot=M'aider Stranded Girl
+achievement.botania:manaBlasterShoot.desc=Craft and fire a Mana Blaster
+achievement.botania:tiaraWings=Heart Shooter
+achievement.botania:tiaraWings.desc=Craft and addorn a Flügel Tiara with Flügel Wings
+achievement.botania:terrasteelPickup=Dancer in the Dark
+achievement.botania:terrasteelPickup.desc=Conjure a Terrasteel Ingot using a Terrestrial Agglomeration Plate
+achievement.botania:elfPortalOpen=World Calling
+achievement.botania:elfPortalOpen.desc=Open a portal to the realm of Alfheim
+achievement.botania:gaiaGuardianKill=Dead and Seek
+achievement.botania:gaiaGuardianKill.desc=Summon and slay a Gaia Guardian for a Ritual of Gaia
+achievement.botania:terrasteelWeaponCraft=Remote Paranoia
+achievement.botania:terrasteelWeaponCraft.desc=Arm yourself with a weapon made of Terrasteel
+achievement.botania:kekimurusPickup=After-School Stride
+achievement.botania:kekimurusPickup.desc=Create a Kekimurus to help produce large quantities of Mana
+achievement.botania:heiseiDreamPickup=Heisei Cataclysm
+achievement.botania:heiseiDreamPickup.desc=Create a Heisei Dream to cause havoc on mobs
+achievement.botania:dirtRodCraft=Rockbell
+achievement.botania:dirtRodCraft.desc=Craft a dirty sti- er... Rod of the Lands
+achievement.botania:spawnerMoverUse=I can take off my (redacted)
+achievement.botania:spawnerMoverUse.desc=Use a Life Aggregator to transport a Monster Spawner
+achievement.botania:signalFlareStun=See the Lights
+achievement.botania:signalFlareStun.desc=Stun 100 or more mobs at once with a Signal Flare
+achievement.botania:l20ShardUse=Out of Step
+achievement.botania:l20ShardUse.desc=Raise the ground up to the sky with a Power XX Shard of Laputa
+achievement.botania:gaiaGuardianNoArmor=Mythologia's End
+achievement.botania:gaiaGuardianNoArmor.desc=Slay a Gaia Guardian without wearing any armor at any point during the fight
+achievement.botania:rankSSPick=Talent Shredder
+achievement.botania:rankSSPick.desc=Dig through the world using a rank SS Terra Shatterer
+achievement.botania:desuGun=Two-Faced Lovers
+achievement.botania:desuGun.desc=ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
+#                                 ^ Don't localize
 
 # BLOCK NAMES
 tile.botania:flower0.name=白色神秘花
@@ -358,6 +460,8 @@ tile.botania:forestEye.name=遠古之眼
 tile.botania:storage0.name=魔力鋼塊
 tile.botania:storage1.name=泰拉鋼塊
 tile.botania:storage2.name=源質鋼塊
+tile.botania:storage3.name=Block of Mana Diamond
+tile.botania:storage4.name=Block of Dragonstone
 tile.botania:forestDrum0.name=狂野之鼓
 tile.botania:forestDrum1.name=收集之鼓
 tile.botania:shinyFlower0.name=白色螢光花
@@ -499,6 +603,129 @@ tile.botania:redStringDispenser.name=紅線發射器
 tile.botania:redStringFertilizer.name=紅線施肥器
 tile.botania:redStringComparator.name=紅線比較器
 tile.botania:redStringRelay.name=紅線繼電器
+tile.botania:manaFlame.name=Mana Flash
+tile.botania:prism.name=Mana Prism
+tile.botania:dirtPath.name=Trodden Dirt
+tile.botania:enchantedSoil.name=Enchanted Soil
+tile.botania:dirtPath0Slab.name=Trodden Dirt Slab
+tile.botania:biomeStoneA0.name=Metamorphic Forest Stone
+tile.botania:biomeStoneA1.name=Metamorphic Plains Stone
+tile.botania:biomeStoneA2.name=Metamorphic Mountain Stone
+tile.botania:biomeStoneA3.name=Metamorphic Fungal Stone
+tile.botania:biomeStoneA4.name=Metamorphic Swamp Stone
+tile.botania:biomeStoneA5.name=Metamorphic Desert Stone
+tile.botania:biomeStoneA6.name=Metamorphic Taiga Stone
+tile.botania:biomeStoneA7.name=Metamorphic Mesa Stone
+tile.botania:biomeStoneA8.name=Metamorphic Forest Cobblestone
+tile.botania:biomeStoneA9.name=Metamorphic Plains Cobblestone
+tile.botania:biomeStoneA10.name=Metamorphic Mountain Cobblestone
+tile.botania:biomeStoneA11.name=Metamorphic Fungal Cobblestone
+tile.botania:biomeStoneA12.name=Metamorphic Swamp Cobblestone
+tile.botania:biomeStoneA13.name=Metamorphic Desert Cobblestone
+tile.botania:biomeStoneA14.name=Metamorphic Taiga Cobblestone
+tile.botania:biomeStoneA15.name=Metamorphic Mesa Cobblestone
+tile.botania:biomeStoneB0.name=Metamorphic Forest Stone Bricks
+tile.botania:biomeStoneB1.name=Metamorphic Plains Stone Bricks
+tile.botania:biomeStoneB2.name=Metamorphic Mountain Stone Bricks
+tile.botania:biomeStoneB3.name=Metamorphic Fungal Stone Bricks
+tile.botania:biomeStoneB4.name=Metamorphic Swamp Stone Bricks
+tile.botania:biomeStoneB5.name=Metamorphic Desert Stone Bricks
+tile.botania:biomeStoneB6.name=Metamorphic Taiga Stone Bricks
+tile.botania:biomeStoneB7.name=Metamorphic Mesa Stone Bricks
+tile.botania:biomeStoneB8.name=Chiseled Metamorphic Forest Stone Brick
+tile.botania:biomeStoneB9.name=Chiseled Metamorphic Plains Stone Brick
+tile.botania:biomeStoneB10.name=Chiseled Metamorphic Mountain Stone Brick
+tile.botania:biomeStoneB11.name=Chiseled Metamorphic Fungal Stone Brick
+tile.botania:biomeStoneB12.name=Chiseled Metamorphic Swamp Stone Brick
+tile.botania:biomeStoneB13.name=Chiseled Metamorphic Desert Stone Brick
+tile.botania:biomeStoneB14.name=Chiseled Metamorphic Taiga Stone Brick
+tile.botania:biomeStoneB15.name=Chiseled Metamorphic Mesa Stone Brick
+tile.botania:biomeStoneA0Stairs.name=Metamorphic Forest Stone Stairs
+tile.botania:biomeStoneA1Stairs.name=Metamorphic Plains Stone Stairs
+tile.botania:biomeStoneA2Stairs.name=Metamorphic Mountain Stone Stairs
+tile.botania:biomeStoneA3Stairs.name=Metamorphic Fungal Stone Stairs
+tile.botania:biomeStoneA4Stairs.name=Metamorphic Swamp Stone Stairs
+tile.botania:biomeStoneA5Stairs.name=Metamorphic Desert Stone Stairs
+tile.botania:biomeStoneA6Stairs.name=Metamorphic Taiga Stone Stairs
+tile.botania:biomeStoneA7Stairs.name=Metamorphic Mesa Stone Stairs
+tile.botania:biomeStoneA8Stairs.name=Metamorphic Forest Cobblestone Stairs
+tile.botania:biomeStoneA9Stairs.name=Metamorphic Plains Cobblestone Stairs
+tile.botania:biomeStoneA10Stairs.name=Metamorphic Mountain Cobblestone Stairs
+tile.botania:biomeStoneA11Stairs.name=Metamorphic Fungal Cobblestone Stairs
+tile.botania:biomeStoneA12Stairs.name=Metamorphic Swamp Cobblestone Stairs
+tile.botania:biomeStoneA13Stairs.name=Metamorphic Desert Cobblestone Stairs
+tile.botania:biomeStoneA14Stairs.name=Metamorphic Taiga Cobblestone Stairs
+tile.botania:biomeStoneA15Stairs.name=Metamorphic Mesa Cobblestone Stairs
+tile.botania:biomeStoneB0Stairs.name=Metamorphic Forest Stone Brick Stairs
+tile.botania:biomeStoneB1Stairs.name=Metamorphic Plains Stone Brick Stairs
+tile.botania:biomeStoneB2Stairs.name=Metamorphic Mountain Stone Brick Stairs
+tile.botania:biomeStoneB3Stairs.name=Metamorphic Fungal Stone Brick Stairs
+tile.botania:biomeStoneB4Stairs.name=Metamorphic Swamp Stone Brick Stairs
+tile.botania:biomeStoneB5Stairs.name=Metamorphic Desert Stone Brick Stairs
+tile.botania:biomeStoneB6Stairs.name=Metamorphic Taiga Stone Brick Stairs
+tile.botania:biomeStoneB7Stairs.name=Metamorphic Mesa Stone Bricks Stairs
+tile.botania:biomeStoneA0Slab.name=Metamorphic Forest Stone Slab
+tile.botania:biomeStoneA1Slab.name=Metamorphic Plains Stone Slab
+tile.botania:biomeStoneA2Slab.name=Metamorphic Mountain Stone Slab
+tile.botania:biomeStoneA3Slab.name=Metamorphic Fungal Stone Slab
+tile.botania:biomeStoneA4Slab.name=Metamorphic Swamp Stone Slab
+tile.botania:biomeStoneA5Slab.name=Metamorphic Desert Stone Slab
+tile.botania:biomeStoneA6Slab.name=Metamorphic Taiga Stone Slab
+tile.botania:biomeStoneA7Slab.name=Metamorphic Mesa Stone Slab
+tile.botania:biomeStoneA8Slab.name=Metamorphic Forest Cobblestone Slab
+tile.botania:biomeStoneA9Slab.name=Metamorphic Plains Cobblestone Slab
+tile.botania:biomeStoneA10Slab.name=Metamorphic Mountain Cobblestone Slab
+tile.botania:biomeStoneA11Slab.name=Metamorphic Fungal Cobblestone Slab
+tile.botania:biomeStoneA12Slab.name=Metamorphic Swamp Cobblestone Slab
+tile.botania:biomeStoneA13Slab.name=Metamorphic Desert Cobblestone Slab
+tile.botania:biomeStoneA14Slab.name=Metamorphic Taiga Cobblestone Slab
+tile.botania:biomeStoneA15Slab.name=Metamorphic Mesa Cobblestone Slab
+tile.botania:biomeStoneB0Slab.name=Metamorphic Forest Stone Brick Slab
+tile.botania:biomeStoneB1Slab.name=Metamorphic Plains Stone Brick Slab
+tile.botania:biomeStoneB2Slab.name=Metamorphic Mountain Stone Brick Slab
+tile.botania:biomeStoneB3Slab.name=Metamorphic Fungal Stone Brick Slab
+tile.botania:biomeStoneB4Slab.name=Metamorphic Swamp Stone Brick Slab
+tile.botania:biomeStoneB5Slab.name=Metamorphic Desert Stone Brick Slab
+tile.botania:biomeStoneB6Slab.name=Metamorphic Taiga Stone Brick Slab
+tile.botania:biomeStoneB7Slab.name=Metamorphic Mesa Stone Bricks Slab
+tile.botania:petalBlock0.name=White Petal Block
+tile.botania:petalBlock1.name=Orange Petal Block
+tile.botania:petalBlock2.name=Magenta Petal Block
+tile.botania:petalBlock3.name=Light Blue Petal Block
+tile.botania:petalBlock4.name=Yellow Petal Block
+tile.botania:petalBlock5.name=Lime Petal Block
+tile.botania:petalBlock6.name=Pink Petal Block
+tile.botania:petalBlock7.name=Gray Petal Block
+tile.botania:petalBlock8.name=Light Gray Petal Block
+tile.botania:petalBlock9.name=Cyan Petal Block
+tile.botania:petalBlock10.name=Purple Petal Block
+tile.botania:petalBlock11.name=Blue Petal Block
+tile.botania:petalBlock12.name=Brown Petal Block
+tile.botania:petalBlock13.name=Green Petal Block
+tile.botania:petalBlock14.name=Red Petal Block
+tile.botania:petalBlock15.name=Black Petal Block
+tile.botania:corporeaIndex.name=Corporea Index
+tile.botania:corporeaFunnel.name=Corporea Funnel
+tile.botania:endStoneBrick0.name=End Stone Bricks
+tile.botania:endStoneBrick1.name=Chiseled End Stone Brick
+tile.botania:endStoneBrick0Slab.name=End Stone Brick Slab
+tile.botania:endStoneBrick0Stairs.name=End Stone Brick Stairs
+tile.botania:mushroom0.name=White Shimmering Mushroom
+tile.botania:mushroom1.name=Orange Shimmering Mushroom
+tile.botania:mushroom2.name=Magenta Shimmering Mushroom
+tile.botania:mushroom3.name=Light Blue Shimmering Mushroom
+tile.botania:mushroom4.name=Yellow Shimmering Mushroom
+tile.botania:mushroom5.name=Lime Shimmering Mushroom
+tile.botania:mushroom6.name=Pink Shimmering Mushroom
+tile.botania:mushroom7.name=Gray Shimmering Mushroom
+tile.botania:mushroom8.name=Light Gray Shimmering Mushroom
+tile.botania:mushroom9.name=Cyan Shimmering Mushroom
+tile.botania:mushroom10.name=Purple Shimmering Mushroom
+tile.botania:mushroom11.name=Blue Shimmering Mushroom
+tile.botania:mushroom12.name=Brown Shimmering Mushroom
+tile.botania:mushroom13.name=Green Shimmering Mushroom
+tile.botania:mushroom14.name=Red Shimmering Mushroom
+tile.botania:mushroom15.name=Black Shimmering Mushroom
 
 # FLOWER NAMES
 tile.botania:flower..name=植物魔法花
@@ -532,6 +759,10 @@ tile.botania:flower.kekimurus.name=貪食花
 tile.botania:flower.kekimurus.reference=這朵花是個謊言
 tile.botania:flower.gourmaryllis.name=彼方蘭
 tile.botania:flower.gourmaryllis.reference=不愉快です
+tile.botania:flower.narslimmus.name=Narslimmus
+tile.botania:flower.narslimmus.reference=What's this? It's all sticky
+tile.botania:flower.spectrolus.name=Spectrolus
+tile.botania:flower.spectrolus.reference=Profiting off Hate
 
 # - FUNCTIONAL
 tile.botania:flower.bellethorn.name=嬌媚之刺
@@ -572,6 +803,12 @@ tile.botania:flower.daffomill.name=扇水仙
 tile.botania:flower.daffomill.reference=廚師的好幫手
 tile.botania:flower.vinculotus.name=誘引蓮
 tile.botania:flower.vinculotus.reference=完全就是抄襲更多實用設備
+tile.botania:flower.spectranthemum.name=Spectranthemum
+tile.botania:flower.spectranthemum.reference=In the shell
+tile.botania:flower.medumone.name=Medumone
+tile.botania:flower.medumone.reference='Twas Hades all along
+tile.botania:flower.marimorphosis.name=Marimorphosis
+tile.botania:flower.marimorphosis.reference=Solid as a rock
 
 # ITEM NAMES
 item.botania:lexicon.name=植物魔法辭典
@@ -647,6 +884,10 @@ item.botania:lensFire.name=魔力透鏡:引燃
 item.botania:lensFire.short=引燃
 item.botania:lensPiston.name=魔力透鏡:力量
 item.botania:lensPiston.short=力量
+item.botania:lensLight.name=Mana Lens: Flash
+item.botania:lensLight.short=Flash
+item.botania:lensWarp.name=Mana Lens: Warp
+item.botania:lensWarp.short=Warp
 item.botania:manaPetal0.name=白色魔力花瓣
 item.botania:manaPetal1.name=橙色魔力花瓣
 item.botania:manaPetal2.name=品紅色魔力花瓣
@@ -786,7 +1027,76 @@ item.botania:brewVial.name=裝有%s (%s)的小瓶
 item.botania:brewFlask.name=裝有%s (%s)的燒瓶
 item.botania:bloodPendant.name=污血吊墜
 item.botania:redString.name=紅線
-item.botania:missileRod.name=Missile Rod Thingymajig (WIP)
+item.botania:missileRod.name=Rod of the Unstable Reservoir
+item.botania:holyCloak.name=Cloak of Virtue
+item.botania:unholyCloak.name=Cloak of Sin
+item.botania:craftingHalo.name=Assembly Halo
+item.botania:blackLotus0.name=Black Lotus
+item.botania:blackLotus1.name=Void Lotus
+item.botania:dreamwoodTwig.name=Dreamwood Twig
+item.botania:monocle.name=Manaseer Monocle
+item.botania:clip.name=Lens Clip
+item.botania:cobbleRod.name=Rod of the Depths
+item.botania:smeltRod.name=Rod of the Molten Core
+item.botania:worldSeed.name=World Seed
+item.botania:spellCloth.name=Spellbinding Cloth
+item.botania:thornChakram.name=Thorn Chakram
+item.botania:overgrowthSeed.name=Overgrowth Seed
+item.botania:craftPattern0.name=Crafting Pattern #1: 1x1
+item.botania:craftPattern1.name=Crafting Pattern #2: 2x2
+item.botania:craftPattern2.name=Crafting Pattern #3: 1x2
+item.botania:craftPattern3.name=Crafting Pattern #4: 2x1
+item.botania:craftPattern4.name=Crafting Pattern #5: 1x3
+item.botania:craftPattern5.name=Crafting Pattern #6: 3x1
+item.botania:craftPattern6.name=Crafting Pattern #7: 2x3
+item.botania:craftPattern7.name=Crafting Pattern #8: 3x2
+item.botania:craftPattern8.name=Crafting Pattern #9: Donut
+item.botania:gaiaIngot.name=Gaia Spirit Ingot
+item.botania:ancientWill0.name=Will of Ahrim
+item.botania:ancientWill1.name=Will of Dharok
+item.botania:ancientWill2.name=Will of Guthan
+item.botania:ancientWill3.name=Will of Torag
+item.botania:ancientWill4.name=Will of Verac
+item.botania:ancientWill5.name=Will of Karil
+item.botania:corporeaSpark0.name=Corporea Spark
+item.botania:corporeaSpark1.name=Master Corporea Spark
+item.botania:enderAirBottle.name=Ender Air Bottle
+item.botania:livingwoodBow.name=Livingwood Bow
+item.botania:crystalBow.name=Crystal Bow
+item.botania:cosmetic0.name=Black Bowtie
+item.botania:cosmetic1.name=Black Tie
+item.botania:cosmetic2.name=Red Glasses
+item.botania:cosmetic3.name=Puffy Scarf
+item.botania:cosmetic4.name=Engineer Goggles
+item.botania:cosmetic5.name=Eyepatch
+item.botania:cosmetic6.name=Wicked Eyepatch
+item.botania:cosmetic7.name=Red Ribbons
+item.botania:cosmetic8.name=Pink Flower Bud
+item.botania:cosmetic9.name=Polka-Dotted Bows
+item.botania:cosmetic10.name=Blue Butterfly
+item.botania:cosmetic11.name=Cat Ears
+item.botania:cosmetic12.name=Witch Pin
+item.botania:cosmetic13.name=Devil Tail
+item.botania:cosmetic14.name=Kamui Eye
+item.botania:cosmetic15.name=Googly Eyes
+item.botania:cosmetic16.name=Four-Leafed Clover
+item.botania:cosmetic17.name=Clock Eye
+item.botania:cosmetic18.name=Unicorn Horn
+item.botania:cosmetic19.name=Devil Horns
+item.botania:cosmetic20.name=Hyper Plus 
+item.botania:cosmetic21.name=Botanist Emblem
+item.botania:cosmetic22.name=Ancient Mask
+item.botania:cosmetic23.name=Eerie Mask
+item.botania:cosmetic24.name=Alien Antenna
+item.botania:cosmetic25.name=Anaglyph Glasses
+item.botania:cosmetic26.name=Orange Shades
+item.botania:cosmetic27.name=Groucho Glasses
+item.botania:cosmetic28.name=Thick Eyebrows
+item.botania:cosmetic29.name=Lusitanic Shield
+item.botania:cosmetic30.name=Tiny Potato Mask
+item.botania:cosmetic31.name=Questgiver Mark
+item.botania:manaString.name=Mana Infused String
+item.botania:swapRing.name=Ring of Correction
 
 # BREW NAMES
 botania.brew.fallback=退卻
@@ -806,23 +1116,17 @@ botania.brew.absorption=護盾
 botania.brew.soulCross=交叉靈魂
 botania.brew.featherFeet=羽毛腿
 botania.brew.emptiness=虛榮之空虛
-botania.brew.fulfilment=虛榮之滿足
+botania.brew.bloodthirst=Crimson Shade
 botania.brew.overload=過載
-botania.brew.livingReactor=Living Reactive
-botania.brew.manashock=魔力休克
-botania.brew.gravitation=扭曲重力
-botania.brew.cleansing=淨化
+botania.brew.allure=Marine Allure
 botania.brew.warpWard=理智思想
 
 # POTION NAMES
 botania.potion.soulCross=靈魂十字
 botania.potion.featherFeet=羽毛腿
 botania.potion.emptiness=空虛
-botania.potion.fulfilment=滿足
-botania.potion.livingReactor=Living Reactor
-botania.potion.manashock=魔力休克
-botania.potion.gravitation=重力
-botania.potion.cleansing=淨化
+botania.potion.bloodthirst=Bloodthirst
+botania.potion.allure=Allure
 
 # GUI TEXT
 botania.gui.lexicon.header=植物魔法辭典, %s 版目錄
@@ -836,12 +1140,17 @@ botania.category.generationFlowers=產能類植物
 botania.category.devices=自然裝置
 botania.category.tools=神秘工具
 botania.category.baubles=飾品和配件
+botania.category.ender=Ender Artefacts
 botania.category.alfhomancy=精靈學
 botania.category.misc=雜項
 
 # LEXICON ENTRIES
 
 # - BASIC
+# -- TUTORIAL OF THE BASICS
+botania.entry.tutorial=A Tutorial of the Basics
+botania.page.tutorial0=While one could just go through the various entries in the book at their issue, there's also a "guided tour" of sorts available. Clicking the button below will guide you through the pages useful to getting the gist of the basic concepts of Botania.
+
 # -- AN INTRODUCTORY CLIP
 botania.entry.introVideo=簡介片段
 botania.page.introVideo0=對於並不喜歡圖文的讀者,我 們也準備了一個涵蓋植物魔 法基礎的短片,注意這只是個 指南而不是&1植物魔法辭典&0內容的替代 品.
@@ -919,6 +1228,10 @@ botania.page.terrasteel1=製作泰拉凝聚板
 botania.page.terrasteel2=泰拉凝聚板放置好且已做好接 收&4魔力&0的準備之後,將一個&1魔 力鋼錠,魔力鑽石與魔力珍珠&0 擲於其頂部即可開始注魔.<br>此過程中拾起任何物品均會使 注魔驟停,導致嚴重的 &4魔力流失&0.注魔將會使用一半 &1魔力池&0的魔力以製作一小塊 &4泰拉鋼&0,多個&1火花&0可加快注魔 速度.
 botania.page.terrasteel3=製作&1泰拉鋼&0的模型
 
+# -- BLACK LOTUS
+botania.entry.blackLotus=Black Lotus
+botania.page.blackLotus0=An elusive flower by the name of &1Black Lotus&0 is known to exist, however, it does not grow or reproduce. Where they can be found or come from is not known.<br>It is known, however, that it contains a strong amount of concentrated &4Mana&0, that can be released by putting it in contact with a &1Mana Pool&0 that already has some in it. Just tossing it would do. 
+
 # -- WRAP
 botania.entry.wrap=扭曲
 botania.page.wrap0=看樣子這個模組的作者決心 以&1扭曲&0的形式增加種遊戲機 制.我不太清楚它會怎樣,很有 可能是什麼壞的東西.:/<br>你所說的"第四面牆"是什麼 ...?(十八世紀的法國劇作家 提出了第四面牆Fourth Wall 的觀念,他殷殷叮囑營造幻覺 的重要性)
@@ -939,6 +1252,7 @@ botania.page.spreader3=手持&1森林法杖&0將會顯示一條 發射器朝向�
 botania.page.spreader4=魔力發射器每次只發射一波 脈衝,直到上一波命中目標才 會發射下一波.<br>此外,一段時間後脈衝也會受 &4魔力流失&0的影響.在光線中變 稀薄的部分就開始發生流失 了.當光線進入一個發射器時 也會有少量&4魔力流失&0.
 botania.page.spreader11=提供一個&4紅石信號&0給魔力發 射器會讓它停止工作.在需要 更好的控制時推薦&1紅石魔力&0 &1發射器&0,因為它可以在沒有目 標方塊的情況經由紅石脈衝 激活發射脈衝.
 botania.page.spreader5=合成&1魔力發射器&0
+botania.page.spreader10=Right clicking the spreader with a piece of &1Wool&0 will sleeve it. Aside from making it look fancier, it'll also muffle the sound when a burst is shot, making it much less obnoxious when there's a large amount of spreaders in one area.<br>Right clicking with an empty hand will remove the sleeve.
 
 # -- MANA POOL
 botania.entry.pool=魔力池
@@ -952,7 +1266,8 @@ botania.page.pool3=製作&1魔力鋼&0
 botania.page.pool4=製作&1魔力珍珠&0
 botania.page.pool5=製作&1魔力鑽石&0
 botania.page.pool6=製作&1魔力花瓣&0
-botania.page.pool7=&1魔力曲奇&0能填飽你的肚子
+botania.page.pool11=Infusing &1Managlass&0, clear seamless glass.
+botania.page.pool12=Infusing &1String&0
 botania.page.pool7=注魔&1魔力曲奇&0,味道好極了.
 
 # -- SPARKS
@@ -1023,6 +1338,8 @@ botania.page.lens32=&1引燃透鏡&0被注入了燃燒的火 花,它會點燃所
 botania.page.lens33=引燃透鏡
 botania.page.lens34=&1力量透鏡&0就像&1活塞&0一樣,當它 撞上了能被活塞推動的方塊, 就會推動那個方塊.
 botania.page.lens35=力量透鏡
+botania.page.lens36=The &1Flash Lens&0, in contact with a block, creates a flame of the same color as the burst that caused it. The flame provides light and is purely decorative.<br>If it hits one of these flames, it puts it out instead.
+botania.page.lens37=Flash Lens
 
 # -- PORTABLE MANA TRANSPORT
 botania.entry.manaTransport=便攜式魔力運輸
@@ -1058,6 +1375,18 @@ botania.page.dreamwoodSpreader3=終極發射器
 botania.entry.paintLens=塗色透鏡
 botania.page.paintLens0=&4精靈&0真是一群手巧的傢伙.不 同於其他的透鏡.&1塗色透鏡&0需 要染成十六種顏色之一才能 工作.當它碰到了一個可 染色的方塊(&1羊毛,硬化粘土 或是玻璃&0...)它會將任何方塊 染成與&4魔力脈衝&0本身相同的 顏色.看起來對&4羊&0同樣有效.
 botania.page.paintLens1=A M'AIDER Stranded Girl
+
+# -- WARP LENS
+botania.entry.warpLens=Warp Lens
+botania.page.warpLens0=The &1Mana Lens: Warp&0 is an interesting one. A &4Mana Burst&0 with its effect, when colliding with a &1Force Relay&0 will teleport to the end position of said &1Force Relay&0, maintaining its momentum. Furthermore, when it's used as a composite material to a &1Bore Lens&0 (the &1Bore Lens&0 must be visible) it'll make the lens not break &1Force Relays&0 or &1Pistons&0, as well as teleport any blocks to the spot where the burst was fired.
+botania.page.warpLens1=Hakase Quarries
+
+# -- MANA PRISM
+botania.entry.prism=Mana Prism
+botania.page.prism0=The concept of &1Mana Lens&0 allows for the manipulation of the power convyed through &4Mana Bursts&0, the &1Mana Prism&0 works on that technology to allow a burst to have its lens effect switched on the fly.<br>Using a &1Spectral Platform&0 as a component, this block does not have a physical presence, entities and bursts can go through it as if it doesn't exist.
+botania.page.prism1=Right clicking it with any variety of &1Mana Lens&0 sets the lens in the prism. Whenever a &4Mana Burst&0 goes through the prism, its color and effect will be set to that of the lens in the prism. Case the lens is not dyed, the burst will turn white.<br>Using any of the four basic lenses also increases the time the burst can go before losing &4Mana&0, allowing it to go further.
+botania.page.prism2=It can also be turned off by the use of a redstone signal.
+botania.page.prism3=Another pixel in the wall
 
 # - FUNCTIONAL FLOWERS
 # -- AN INTRODUCTION TO FUNCTION
@@ -1168,6 +1497,24 @@ botania.entry.vinculotus=誘引蓮
 botania.page.vinculotus0=&1誘引蓮&0有著干擾大範圍內的 &4末影人&0瞬移的能力.消耗一些 &4魔力&0,當&4末影人&0要瞬移到某處 時,它們只會被傳送到&1誘引蓮&0 的所在處.
 botania.page.vinculotus1=用你的指尖輕觸這朵黑蓮
 
+# -- SPECTRANTHEMUM
+botania.entry.spectranthemum=Spectranthemum
+botania.page.spectranthemum0=Transporting items a long distance can be an arduous task. Water channels and &1Daffomills&0 won't cut it forever.<br>The &1Spectranthemum&0, at the cost of &4Mana&0 wraps the fabric of reality of any dropped items around it, teleporting them somewhere else in the world.
+botania.page.spectranthemum1=In order to specify where the items go, one would use a &1Wand of the Forest&0 in bind mode and bind the flower to a block somewhere, similarly to binding it to a pool.<br>In order to view what block the flower is bound to rather than the pool it's pulling &4Mana&0, one would sneak while looking at it with a wand.
+botania.page.spectranthemum2=This flower is governed by the &4axiom of chunkloading&0, by which it'll not function on chunks not loaded. This topic is not addressed in full extent this lexicon.<br>&oRecommended Reading: "Chunks and Chicken", "Anchors of the World".
+botania.page.spectranthemum3=&o(n)spooky(n+2)me&r.
+
+# -- MEDUMONE
+botania.entry.medumone=Medumone
+botania.page.medumone0=The &1Medumone&0 is a flower with the ability to completely halt a creature's movement.<br>While it receives &4Mana&0, it'll halt any nearby entities in their tracks with a powerful slowness effect, provided they are not players. 
+botania.page.medumone1=&oThose credits look fake&r...
+
+# -- MARIMORPHOSIS
+botania.entry.marimorphosis=Marimorphosis
+botania.page.marimorphosis0=The &1Marimorphosis&0 is a flower that executes metamorphic transformations on nearby &1Stone&0 blocks. These blocks get metamorphised into one of 8 different types of &1Metamorphic Stone&0. All 8 types will generate, but the type(s) that generate more often depend on the biome. All of these can be used to make bricks, chiseled bricks, slabs and stairs.
+botania.page.marimorphosis1=The various flavours of &1Metamorphic Stone&0
+botania.page.marimorphosis2=&oThis flower is pretty gneiss&r.
+
 # - GENERATING FLOWERS
 # -- AN INTRODUCTION TO GENERATION
 botania.entry.gIntro=產能的介紹
@@ -1207,7 +1554,6 @@ botania.page.hydroangeas1=&o超次元來物&r?
 # -- THERMALILY
 botania.entry.thermalily=熾玫瑰
 botania.page.thermalily0=有時候產能速度太慢了,就像 &1水繡球&0和&1火紅蓮&0.這個問題的 答案就是&1熾玫瑰&0,原理類似&1水&0 &1繡球&0,但它吸收的是&1岩漿&0.
-botania.page.thermalily0a=有時候產能速度太慢了,就像 &1水繡球&0和&1火紅蓮&0.這個問題的 答案就是&1熾玫瑰&0,原理類似&1水&0 &1繡球&0,但它吸收的是&1岩漿&0.<br>由於&1岩漿&0產生的熱量過高,巖 漿下方需要有一個&1黑曜石&0才 能讓花吸收.
 botania.page.thermalily1=&o0108 Style&r.
 
 # -- ROSA ARCANA
@@ -1219,6 +1565,7 @@ botania.page.arcanerose1=&o該卡被召喚時,投擲硬幣&r.
 botania.entry.munchdew=咀葉花
 botania.page.munchdew0=通過其它生物材料生產自然 能量形式的&4魔力&0是極好的.利 用&1咀葉花&0,靠近花的一切&1樹葉&0 都會被啃食並轉為&4魔力&0.<br>需要注意,被啃食的樹葉不會 掉落樹苗和其它物品.
 botania.page.munchdew1=&o你付飯錢吧,柴崎&r.
+botania.page.munchdew2=
 
 # -- ENTROPINNYUM
 botania.entry.entropinnyum=熱爆花
@@ -1240,13 +1587,18 @@ botania.page.gourmaryllis4=&oWell, if Men ate themselves after death, one would 
 botania.page.gourmaryllis5=&oSee a man of those who are followed by claims or accused of crimes, and behold all who are eating them. The bailiff eats him, the jailer eats him, the scribe eats him, the requestor eats him, the lawyer eats him, the inquirer eats him, the witness eats him, the judge eats him and he's not even sentenced he's already eaten. Worse are the Men than the crows. (...)
 botania.page.gourmaryllis6=&oThe sad one who was hanged, only eat him the crows past his execution and death, while the one who's being judged, not even executed or sentenced and he's already eaten.<br>The true evil are the Man who eat eachother, and those who commit to it are the largest, those who eat the smallest. For that you, Man, vos estis sal terrae.
 
-# - MAGICAL APPARATUS
-# -- FORCE RELAY
-botania.entry.pistonRelay=力量傳遞器
-botania.page.pistonRelay0=看樣子給&1活塞&0注入&4魔力&0會產 生有趣的副作用.<br>這個方塊會撕裂空間構造,將 任何活塞給它的推力傳給綁 定方塊.
-botania.page.pistonRelay1=將它綁定到方塊,用&1森林法杖&0 右擊它,再右擊要綁定的方塊.<br>此外,這個方塊高度不穩定, 並且有可能出現預料外的情 況,務必小心,它也不能被粘 性活塞推拉.
-botania.page.pistonRelay2=給&1活塞&0注入&4魔力&0.
+# -- NARSLIMMUS
+botania.entry.narslimmus=Narslimmus
+botania.page.narslimmus0=There's some sort of unbeknownst power in the universe that creates &1Slimes&0 at seemingly random spots. The &1Narslimmus&0 is a flower that has the ability to tap into that energy. If placed down near a &1Slime&0 created by that power, it'll destroy it, collecting all the &4Mana&0 generated by the entropy. The larger the &1Slime&0, the more &4Mana&0 is created. It also makes a bit of a sticky mess.
+botania.page.narslimmus1=&oStick around, would ye&r? 
 
+# -- SPECTROLUS
+botania.entry.spectrolus=Spectrolus
+botania.page.spectrolus0=The &1Spectrolus&0 is a flower that's particularly fond of the various tones of &1Wool&0. It'll absorb any and all &1Wool&0 blocks dropped nearby and create &4Mana&0 from them.<br>There's a caveat though. It's picky as to what colors it wants. Starting at white, after it absorbs one piece of &1Wool&0, it'll rotate to the next color in the spectrum.
+botania.page.spectrolus1=While it consumes all &1Wool&0 around, it'll only create any mana if its of the color it wants, so haphazardly tossing &1Wool&0 at it is a wasteful strategy.<br>The color it'll absorb properly next can be seen by hovering over the flower with a &1Wand of the Forest&0.
+botania.page.spectrolus2=&oTaste the Rainbow&r.
+
+# - MAGICAL APPARATUS
 # -- MANA PYLON
 botania.entry.pylon=魔法水晶
 botania.page.pylon0=&1魔法水晶&0是一個能將能量從 地下中抽出用於供給附魔過 程的裝置.<br>舉例來說,將一個臨近&1附魔台&0 放置會起到和&1書架&0一樣的作 用,會大幅增加附魔等級,2個 魔法水晶就足夠達到&4Level30&0.
@@ -1296,6 +1648,7 @@ botania.page.manaAlchemy19=&1螢石粉&0和&1紅石&0間轉化
 botania.page.manaAlchemy20=將&1圓石&0粉碎成&1沙子&0
 botania.page.manaAlchemy21=將&1硬化粘土&0變成&1紅沙&0
 botania.page.manaAlchemy22=製作&1劣質土&0
+botania.page.manaAlchemy23=Making &1Coarse Dirt&0
 
 # -- BOTANICAL BREWERY
 botania.entry.brewery=植物釀造
@@ -1336,6 +1689,22 @@ botania.entry.flasks=釀藥燒瓶
 botania.page.flasks0=&1精靈玻璃&0看起來比用於製作 &1玻璃小瓶&0的&1魔力玻璃&0更具韌性 .使用&1精靈玻璃&0製作的&1燒瓶&0是 精靈一族用於存放&4魔法藥水&0的 典型容器,並且可存儲6瓶劑 量,遠超只能存儲4瓶劑量的 &1小瓶&0.
 botania.page.flasks1=但是使用&1燒瓶&0釀造藥水所需的 材料消耗更少,但是&4魔力&0是其 兩倍.<br>最後,鑒於&1燒瓶&0的瓶頸比&1小瓶&0 的要大出很多,裡面的藥水也 因此會被更快飲用.
 botania.page.flasks2=在橋下找到一瓶
+
+# -- COMPLEX BREWING
+botania.entry.complexBrews=Complex Brews
+botania.page.complexBrews0=Apart from the standard, run of the mill &1Brews&0 that don't pass from mimics of the &1Potions&0 that can be made in a &1Brewing Stand&0 there's also some more complex brews which apply either a combination of effects or new, beneficial effects altogether.
+botania.page.complexBrews1a=A brew that applies both positive and negative effects. Taking it leaves the affected individual in a state of power, but also vulnerability.
+botania.page.complexBrews1b=96 Herblore
+botania.page.complexBrews2a=An entity affected with this brew's effect will regain HP whenever they slay any other creature.
+botania.page.complexBrews2b=killy killy JOKER
+botania.page.complexBrews3a=An entity affected with this brew's effect will be completely immune to any fall damage.
+botania.page.complexBrews3b=And I call it magic
+botania.page.complexBrews4a=This brew casts an aura of emptiness around any entity that has its effect. In a 128 block radius, mobs will not be allowed to spawn naturally.
+botania.page.complexBrews4b=50$ for a common!?
+botania.page.complexBrews5a=This brew casts an aura of emptiness around any entity that has its effect. In a 64 block radius, mobs will be allowed to spawn regardless of light or other conditions. This won't work with &1Emptiness&0.
+botania.page.complexBrews5b=Shall we pray for a miracle? 
+botania.page.complexBrews6a=A player affected with this brew's effect will have much higher profiency at fishing and will catch fish and other loot twice as fast.
+botania.page.complexBrews6b=Maybe you'll catch a Chris
 
 # -- EYE OF THE ANCIENTS
 botania.entry.forestEye=遠古之眼
@@ -1384,12 +1753,6 @@ botania.entry.gatherDrum=收集之鼓
 botania.page.gatherDrum0=所謂的&1收集之鼓&0,短期來說,就 是一個為牲畜而準備的&1狂野&0 &1之鼓&0.<br>當有&4魔力脈衝&0撞上它時,它會 給周圍長毛的&4羊&0剪毛.所有的&4牛&0 ,下方若有&1空桶&0的話,牛奶就會 被裝入桶中.
 botania.page.gatherDrum1=輕叩你的土地
 
-# -- LIFE IMBUER
-botania.entry.spawnerClaw=生命灌注器
-botania.page.spawnerClaw0=&1刷怪籠&0是個有趣的東西.它們 能從稀薄的空氣中抽取出生 命,但不知何故,只在附近有 玩家時才會運行.<br>當然這會在某些程度上限制 它生成生物的速度.
-botania.page.spawnerClaw1=將一個&1生命灌注器&0放在刷怪 籠的頂端並用&1魔力發射器&0提 供大量的&4魔力&0,當附近無玩家 時,&4魔力&0就會驅動刷怪籠, 就好像有玩家存在一樣.
-botania.page.spawnerClaw2=Something something shadow dragon
-
 # -- CRAFTY CRATE
 botania.entry.craftCrate=機巧箱
 botania.page.craftCrate0=就如它的名字所示,&1機巧箱&0對 應著&1花格箱&0但它能像&1工作台&0 那樣將物品組裝成其他物品.<br>就像&1工作台&0那樣它有9個物品 欄,可以將物品在其中擺成指 定合成配方.
@@ -1400,27 +1763,8 @@ botania.page.craftCrate4=用&1森林法杖&0右擊這個箱子(注 意:&1發射�
 botania.page.craftCrate7=使箱子連接&1比較器&0會根據內 部的物品數輸出紅石信號,在 用其製造機械時這非常有價 值.
 botania.page.craftCrate5=合成&1鑽石鎬&0的示例
 botania.page.craftCrate6=葡萄牙製造
-
-# -- ENDER OVERSEER
-botania.entry.enderEyeBlock=末影監視者
-botania.page.enderEyeBlock0=&4末影人&0的眼睛被看見時十分 敏感.由此製成的方塊在64格 內被玩家直視時就會發出&4紅&0 &4石信號&0.<br>當然,頭戴&1南瓜&0時可以避免.
-botania.page.enderEyeBlock1=MY BRAND
-
-# -- RED STRING
-botania.entry.redString=紅線
-botania.page.redString0=Lore說過上帝將一條紅線繫在了 那些命中注定會互相影響各自 生命的人們的腳踝處.這啟發 了發明家們想出了一種遠程連 接方塊的方法,並命名為&1紅線&0 .用這種精緻的材料製成的方 塊可面朝6個基礎方向,並且 在一定範圍內與它能找到的第 一個有效且可相容的方塊綁定.
-botania.page.redString1=每個&4紅線&0方塊都有自己不同的 綁定標準,但是每個變體都有 相同的綁定距離要求.如果方 塊已建立綁定,則玩家手持 &1森林法杖&0就會看到線.<br>中間的 方塊不會阻擋方塊之間的連接 .最後,&1紅線&0方塊不能被綁定
-botania.page.redString2=你是否正處於緊要關頭?
-botania.page.redString3=首先,&1紅線容器&0可以任何容器 (&1箱子&0,&1熔爐&0,&1漏斗&0等)綁定 ,物品可用&1漏斗&0或者其它方法 放入其中.物品會被放入與之 綁定的容器中,並且會從與導 入&紅線容器&0相同的方位進入到 對應的容器中.
-botania.page.redString4=&1紅線容器&0.
-botania.page.redString5=&1紅線發射器&0與&1發射器&0或&1投擲器&0 綁定,它的功能與&1紅線容器&0相 似,物品會從與導入 &紅線發射器&0相同的方位進入到 對應的容器中.當給它一個紅 石信號時, &1發射器&0或&1投擲器&0便 會發射.
-botania.page.redString6=&1紅線發射器&0.
-botania.page.redString7=&1紅線施肥器&0可以與任何能被 &1骨粉&0催熟的方塊綁定.對著 &1紅線施肥器&0使用&1骨粉&0 會對與之 綁定的方塊施肥.
-botania.page.redString8=&1紅線施肥器&0.
-botania.page.redString9=&1紅線比較器&0可與任何狀態可被 讀取的&1容器&0,比如&1箱子&0, &1魔力池&0, &1符文祭壇&0等綁定.將 一個&1比較器&0向外指著這個方塊 放置會發出與&1比較器&0抵著與之 綁定方塊放置相同的信號.
-botania.page.redString10=&1紅線比較器&0.
-botania.page.redString11=最後,&1紅線繼電器&0是個有趣的 方塊.任何帶效果的花均可放 置於其上.該方塊會與任何花 綁定當該方塊頂部有一朵花時 ,這朵花不會做任何事,該方 塊會獲取這朵花的所有屬性, 並且將像那朵花一樣運作, 彷彿其自身就是一朵花.
-botania.page.redString12=&1紅線繼電器&0.
+botania.page.craftCrate8=The &1Crafty Crate&0 can also be augmented with patterns. A pattern locks specific slots in the recipe, disallowing items from going into those slots and making them count as if there were placeholders there.<br>There's only a few basic patterns, which can be applied by right clicking on the crate (this doesn't consume them).
+botania.page.craftCrate9=9 different patterns
 
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
@@ -1452,6 +1796,7 @@ botania.page.terraformRod3=這就是審判
 # -- MANASTEEL EQUIPMENT
 botania.entry.manaGear=魔鋼裝備
 botania.page.manaGear0=&1魔鋼&0,和其他金屬一樣,能做 成類似的工具和護甲.<br>這種金屬製作的工具和護甲 會保有&1鐵&0的性能,但附魔能力 和耐久度優越.當&1魔鋼&0製品受 損時,如果物品欄中有可用的 &4魔力&0(比如&1魔力石板&0),就會優 先消耗魔力.
+botania.page.manaGear10=Some pieces of the toolset have an ability when right clicked. The &1Pickaxe&0 will place a torch from the user's inventory, the &1Axe&0 will do the same for a sapling and the &1Shovel&0 will till the earth, similarly to a hoe.<br>A detail to keep in mind is that &1Shears&0 made of mana materials will trigger tripwire, unlike iron ones.
 botania.page.manaGear1=&1魔鋼鎬&0
 botania.page.manaGear2=&1魔鋼鏟&0
 botania.page.manaGear3=&1魔鋼斧&0
@@ -1489,12 +1834,6 @@ botania.page.terraPick2=從&4C&0升至&4B&0,需要一個滿的&1魔力&0 &1池&0
 botania.page.terraPick3=當工具激活時,它能破壞區域 內的方塊.階位&4C&0還是一小塊 ,到了&4B&0就成了一個區域, 隨著 階位升高區域也會增大.注意 階位&4D&0的工具不能激活.<br>激活時會消耗工具儲存的&4魔&0 &4力&0,哪怕不是用於挖掘.
 botania.page.terraPick4=最後,工具每次破壞方塊時都 會受到磨損,所以最好物品欄 有與階位相應的&4魔力&0儲存,工 具的功能又像&1魔鋼工具&0,因為 它使用&4魔力&0抵消磨損,製作原 料是&1泰拉鋼&0.<br>它也不會像普通掉落物品那 樣消失.
 botania.page.terraPick5=WE'RE MINING IN THE DATABASE WOW WOW(ログ ホライズン)
-
-# -- SOULSCRIBE
-botania.entry.enderDagger=靈魂匕首
-botania.page.enderDagger0=那些&4末影人&0.他們是繼&4爬行者&0 之後第二惱人的.我詛咒,想 出它的人一定是和&onotch&r喝多 了.<br>然而,給一般的匕首注入它們 的能量,就能做出&1靈魂匕首&0, 一把能像切黃油般對付&1末影&0 &1人&0的匕首.
-botania.page.enderDagger1=由於注魔的關係這把匕首只 能承受很少的擊殺量,並且所 用的能量阻止了&1魔鋼&0獲取&4魔&0 &4力&0預防磨損,它就和普通的工 具一樣了.一切都是為了那個 怪物.
-botania.page.enderDagger2=靈魂的衝擊
 
 # -- ROD OF THE SEAS
 botania.entry.waterRod=海洋法杖
@@ -1571,13 +1910,6 @@ botania.entry.skyDirtRod=高原法杖
 botania.page.skyDirtRod0=儘管&1大地法杖&0十分出色,但若能不依靠其他東西而放置&1泥土&0就更好了.<br>&1高原法杖&0就是那樣的,保有&1大地法杖&0原本的力量同時,它也能在半空中放置&1泥土&0,多消耗一點&4魔力&0.
 botania.page.skyDirtRod1=mk2型泥土棍
 
-# -- HAND OF ENDER
-botania.entry.enderHand=末影之手
-botania.page.enderHand0=&1末影之手&0讓使用者能跨維度 觸及末界,換言之就是&1末影箱&0 的物品欄.無論何地只需用這 個手右擊並消耗一些&4魔力&0.<br>若對其他玩家使用則會相應 打開&o他們的&r末影物品欄,消耗 更多的&4魔力&0.
-botania.page.enderHand0a=&1末影之手&0讓使用者能跨維度 觸及末界,換言之就是&1末影箱&0 的物品欄.無論何地只需用這 個手右擊並消耗一些&4魔力&0.
-botania.page.enderHand1=Zezima hates him!
-botania.page.enderHand1a=就像是4G版的末影箱
-
 # -- VITREOUS PICKAXE
 botania.entry.glassPick=玻璃鎬
 botania.page.glassPick0=將&1玻璃&0放置下來後還不得不 破壞掉真是心碎的經歷,幸運 的是,做出一把&1玻璃鎬&0採集就 不會破壞掉玻璃,這就像是為 玻璃而生的廉價的&4精準採集&0.
@@ -1600,12 +1932,197 @@ botania.page.regenIvy0=儘管&1魔鋼&0和&1源質鋼&0能用&4魔力&0 保護�
 botania.page.regenIvy1=使用的話,只需將常春籐和3 個修理工具的材料合成並在 鐵砧中修理(比如&1鑽石鎬&0用的 就是&1鑽石&0)<br>由於沒有直接連接到材料,這 樣消耗的&4魔力&0比起&1魔鋼&0的會多很多.
 botania.page.regenIvy2=Bring your Inferno Adze
 
-# - BAUBLES
+# -- ROD OF THE ARCANE BARRAGE
+botania.entry.missileRod=Rod of the Unstable Reservoir
+botania.page.missileRod0=The &1Rod of the Unstable Reservoir&0 is a rather powerful weapon against a large crowd of foes. Channeling its power will materialize countless arcane missiles that home in on targets at random, at a pretty hefty cost of &4Mana&0.
+botania.page.missileRod1=Zapzapzapzap
+
+# -- ASSEMBLY HALO
+botania.entry.craftingHalo=Assembly Halo
+botania.page.craftingHalo0=Carrying a &1Crafting Table&0 around generally can be troublesome. The &1Assembly Halo&0 acts not only as a portable &1Crafting Table&0 but as a quick crafting method. Having the item in hand displays a "halo" of recipes around the holder.<br>First off, right clicking on the &1Crafting Table&0 will open up a crafting interface.
+botania.page.craftingHalo1=As long as the item is present in the inventory the last crafting recipe done will be stored in it.<br>Right clicking an empty slot of the halo will set the last recipe on it. Right clicking a slot with a recipe will try to do it using items from the inventory. Removing a recipe can be done through shift-left click.
+botania.page.craftingHalo2=It has no taste if you cook it from the menu
+
+# -- LENS CLIP
+botania.entry.clip=Lens Clip
+botania.page.clip0=While a formidable and versatile tool, the &1Mana Blaster&0's greatest downfall is the lack of an ability to store more than one &1Lens&0 at once. Not any more. The &1Lens Clip&0 will attach to a &1Mana Blaster&0 in a crafting grid and allow it to store up to 6 lenses rather than just one.<br>As they say, Russian Roulette is not the same without a gun...
+botania.page.clip1=Adding and removing &1Lenses&0 works just as it did previously, with one detail. The lens will be added or removed in the slot that the clip is currently on.<br>To change this slot, simply shift-right click the &1Mana Blaster&0 in the air. This will also change which lens is selected, case there is one in that slot.
+botania.page.clip2=Since we're dubbed by 4Kids we must make do without one
+
+# -- ROD OF THE DEPTHS
+botania.entry.cobbleRod=Rod of the Depths
+botania.page.cobbleRod0=The &1Rod of the Depths&0 acts pretty much as a variant to the the &1Rod of the Lands&0. It does exactly the same thing but with &1Cobblestone&0 for a bit of a higher price.
+botania.page.cobbleRod1=It's cobbling time
+
+# -- ROD OF THE MOLTEN CORE
+botania.entry.smeltRod=Rod of the Molten Core
+botania.page.smeltRod0=The &1Rod of the Molten Core&0 has the ability to expel heat provenient from the world's core. Holding it via right click and pointing at a block in the world that can be smelted into a different type of block will quickly turn it into that.<br>For some examples, &1Cobblestone&0 turns into &1Stone&0, &1Sand&0 into &1Glass&0, so on.
+botania.page.smeltRod1=Stolen from Efreet
+
+# -- WORLD SEED
+botania.entry.worldSeed=World Seed
+botania.page.worldSeed0=The &1World Seed&0 is a piece of elemental energized matter containing the ability to return its user to the world spawn.<br>Case the person who is using it is farther than 24 blocks from the world's spawn point, using the seed, via right click, will instantly teleport them there, consuming the seed.
+botania.page.worldSeed1=Where the heart is
+
+# -- SPELLBINDING CLOTH
+botania.entry.spellCloth=Spellbinding Cloth
+botania.page.spellCloth0=Combining &1Wool&0 with some &4Mana&0 in the form of a &1Mana Pearl&0 allows for one to create a type of cloth that will absorb any &4Enchantments&0 it comes in contact with.<br>Combining the &1Spellbinding Cloth&0 with any enchanted item in a crafting table will remove all enchants from that item at the cost of some of the cloth's durability.
+botania.page.spellCloth1=Oldest item in the book
+
+# -- THORN CHAKRAM
+botania.entry.thornChakram=Thorn Chakram
+botania.page.thornChakram0=The &1Thorn Chakram&0 is a thrown weapon made of &1Terrasteel&0 and plant matter. After thrown it'll pierce through enemies, damaging them and sometimes poisoning them, and bounce on blocks a few times before returning to the thrower, similarly to a boomerang.
+botania.page.thornChakram1=Spores and stingers
+
+# -- OVERGROWTH SEED
+botania.entry.overgrowthSeed=Overgrowth Seed
+botania.page.overgrowthSeed0=An &1Overgrowth Seed&0 is an elusive item, which can be used to enchant a piece of &1Grass&0, via right clicking on it in the world, creating &1Enchanted Soil&0. Flowers that are rooted on this &1Enchanted Soil&0 will function at double the normal speed.<br>There's one problem, though. No known method of creating these exists, but they have been spotted in ancient structures and the like.
+
+# -- LIVINGWOOD BOW
+botania.entry.livingwoodBow=Livingwood Bow
+botania.page.livingwoodBow0=The &1Livingwood Bow&0 is, as the name describes, a bow made of &1Livingwood&0 strung with &1Mana Infused String&0. Due to its componenets, it will last for longer than a normal &1Bow&0, it'll also repair itself using &4Mana&0, similarly to &1Manasteel Tools&0.
+botania.page.livingwoodBow1=Does it shoot airplanes?
+
+# -- CRYSTAL BOW
+botania.entry.crystalBow=Crystal Bow
+botania.page.crystalBow0=Crafted with &1Dragonstone&0, the &1Crystal Bow&0 is a ranged weapon with the capacity to generate arrows from &4Mana&0. Similarly to the &1Livingwood Bow&0, it'll repair using &4Mana&0 as well, but carrying &1Arrows&0 is not required as they are created through the magical energies.<br>Given the lightweight and flexible structure of the bow, it can also fire at a much increased velocity than a conventional wooden one.
+botania.page.crystalBow1=The elves are roving
+
+# - ENDER ARTEFACTS
+# -- EXTRACTING ENDER AIR
+botania.entry.enderAir=Extracting Ender Air
+botania.page.enderAir0=The air present in the void of the &1End&0 seems to have some mutating properties. Right clicking with an empty &1Glass Bottle&0 while in the &1End&0 will capture some of that air, which can then later be tossed similarly to a splash potion, turning nearby &1Stone&0 on the landing point into &1End Stone&0. 
+
+# -- ENDER OVERSEER
+botania.entry.enderEyeBlock=末影監視者
+botania.page.enderEyeBlock0=&4末影人&0的眼睛被看見時十分 敏感.由此製成的方塊在64格 內被玩家直視時就會發出&4紅&0 &4石信號&0.<br>當然,頭戴&1南瓜&0時可以避免.
+botania.page.enderEyeBlock1=MY BRAND
+
+# -- FORCE RELAY
+botania.entry.pistonRelay=力量傳遞器
+botania.page.pistonRelay0=看樣子給&1活塞&0注入&4魔力&0會產 生有趣的副作用.<br>這個方塊會撕裂空間構造,將 任何活塞給它的推力傳給綁 定方塊.
+botania.page.pistonRelay1=將它綁定到方塊,用&1森林法杖&0 右擊它,再右擊要綁定的方塊.<br>此外,這個方塊高度不穩定, 並且有可能出現預料外的情 況,務必小心,它也不能被粘 性活塞推拉.
+botania.page.pistonRelay2=給&1活塞&0注入&4魔力&0.
+
+# -- HAND OF ENDER
+botania.entry.enderHand=末影之手
+botania.page.enderHand0=&1末影之手&0讓使用者能跨維度 觸及末界,換言之就是&1末影箱&0 的物品欄.無論何地只需用這 個手右擊並消耗一些&4魔力&0.<br>若對其他玩家使用則會相應 打開&o他們的&r末影物品欄,消耗 更多的&4魔力&0.
+botania.page.enderHand0a=&1末影之手&0讓使用者能跨維度 觸及末界,換言之就是&1末影箱&0 的物品欄.無論何地只需用這 個手右擊並消耗一些&4魔力&0.
+botania.page.enderHand1=Zezima hates him!
+botania.page.enderHand1a=就像是4G版的末影箱
+
+# -- SOULSCRIBE
+botania.entry.enderDagger=靈魂匕首
+botania.page.enderDagger0=那些&4末影人&0.他們是繼&4爬行者&0 之後第二惱人的.我詛咒,想 出它的人一定是和&onotch&r喝多 了.<br>然而,給一般的匕首注入它們 的能量,就能做出&1靈魂匕首&0, 一把能像切黃油般對付&1末影&0 &1人&0的匕首.
+botania.page.enderDagger1=由於注魔的關係這把匕首只 能承受很少的擊殺量,並且所 用的能量阻止了&1魔鋼&0獲取&4魔&0 &4力&0預防磨損,它就和普通的工 具一樣了.一切都是為了那個 怪物.
+botania.page.enderDagger2=靈魂的衝擊
+
+# -- LIFE IMBUER
+botania.entry.spawnerClaw=生命灌注器
+botania.page.spawnerClaw0=&1刷怪籠&0是個有趣的東西.它們 能從稀薄的空氣中抽取出生 命,但不知何故,只在附近有 玩家時才會運行.<br>當然這會在某些程度上限制 它生成生物的速度.
+botania.page.spawnerClaw1=將一個&1生命灌注器&0放在刷怪 籠的頂端並用&1魔力發射器&0提 供大量的&4魔力&0,當附近無玩家 時,&4魔力&0就會驅動刷怪籠, 就好像有玩家存在一樣.
+botania.page.spawnerClaw2=Something something shadow dragon
+
+# -- RED STRING
+botania.entry.redString=紅線
+botania.page.redString0=Lore說過上帝將一條紅線繫在了 那些命中注定會互相影響各自 生命的人們的腳踝處.這啟發 了發明家們想出了一種遠程連 接方塊的方法,並命名為&1紅線&0 .用這種精緻的材料製成的方 塊可面朝6個基礎方向,並且 在一定範圍內與它能找到的第 一個有效且可相容的方塊綁定.
+botania.page.redString1=每個&4紅線&0方塊都有自己不同的 綁定標準,但是每個變體都有 相同的綁定距離要求.如果方 塊已建立綁定,則玩家手持 &1森林法杖&0就會看到線.<br>中間的 方塊不會阻擋方塊之間的連接 .最後,&1紅線&0方塊不能被綁定
+botania.page.redString2=你是否正處於緊要關頭?
+botania.page.redString3=首先,&1紅線容器&0可以任何容器 (&1箱子&0,&1熔爐&0,&1漏斗&0等)綁定 ,物品可用&1漏斗&0或者其它方法 放入其中.物品會被放入與之 綁定的容器中,並且會從與導 入&紅線容器&0相同的方位進入到 對應的容器中.
+botania.page.redString4=&1紅線容器&0.
+botania.page.redString5=&1紅線發射器&0與&1發射器&0或&1投擲器&0 綁定,它的功能與&1紅線容器&0相 似,物品會從與導入 &紅線發射器&0相同的方位進入到 對應的容器中.當給它一個紅 石信號時, &1發射器&0或&1投擲器&0便 會發射.
+botania.page.redString6=&1紅線發射器&0.
+botania.page.redString7=&1紅線施肥器&0可以與任何能被 &1骨粉&0催熟的方塊綁定.對著 &1紅線施肥器&0使用&1骨粉&0 會對與之 綁定的方塊施肥.
+botania.page.redString8=&1紅線施肥器&0.
+botania.page.redString9=&1紅線比較器&0可與任何狀態可被 讀取的&1容器&0,比如&1箱子&0, &1魔力池&0, &1符文祭壇&0等綁定.將 一個&1比較器&0向外指著這個方塊 放置會發出與&1比較器&0抵著與之 綁定方塊放置相同的信號.
+botania.page.redString10=&1紅線比較器&0.
+botania.page.redString11=最後,&1紅線繼電器&0是個有趣的 方塊.任何帶效果的花均可放 置於其上.該方塊會與任何花 綁定當該方塊頂部有一朵花時 ,這朵花不會做任何事,該方 塊會獲取這朵花的所有屬性, 並且將像那朵花一樣運作, 彷彿其自身就是一朵花.
+botania.page.redString12=&1紅線繼電器&0.
+
+# -- FLUGEL TIARA
+botania.entry.flightTiara=天翼族之冠
+botania.page.flightTiara0=&4天翼族&0一度支配著這片土地, 現在卻是瀕臨滅絕的種族,作 為弒神者而被創造出來,擁有 著飛行的能力.<br>使用&1蓋亞之魂&0能複製出一點 她們的力量,那就是以&1天翼族&0 &1之冠&0的形式,消耗&4魔力&0就能飛 行.
+botania.page.flightTiara1=異世界的四萬本書
+botania.page.flightTiara2=將頭冠配上各種石英碎片就 能做出各種漂亮的翅膀,每種 石英對應一種.<br>各種石英的合成可在&4雜項&0下 的&4裝飾方塊&0章節找到,&1精靈石&0 &1英&0是與精靈貿易&1下界石英&0而 獲得的.
+botania.page.flightTiara3=添上羽翼(它們隨時都可以切換)
+
+# -- BASICS OF CORPOREA
+botania.entry.corporea=Basics of Corporea
+botania.page.corporea0=&4Corporea&0 is a magical system that utilizes the energy of the end and the empty space in the world to transport items from point A to point B instantly and without any connecting parts.<br>The system works through a variant of &1Sparks&0, &1Corporea Sparks&0. These share some similarities with normal &1Sparks&0 but also a fair few differences.
+botania.page.corporea1=Starting off, they can go on top of any &4Inventory&0, like a &1Chest&0 or a &1Dispenser&0 as opposed to &4Mana Containers&0, secondly, there's two types of &1Corporea Sparks&0, the basic &1Corporea Spark&0 and the &1Master Corporea Spark&0. These sparks work in a network-like system, each &1Master Corporea Spark&0 designates a &4Corporea Network&0, in which any spark can communicate with other sparks present in it.
+botania.page.corporea2=When a &1Corporea Spark&0 is placed or polled, each spark will poll any nearby sparks, adding them to the network designated by the single &1Master Corporea Spark&0 and also polling other nearby sparks, in a chain. While each individual spark can only reach a few blocks, combined, the entire network can go for a virtually infinite distance.
+botania.page.corporea3=&1Corporea Sparks&0 have a view of the inventory directly below them, but can only access items from the top side. Each &1Corporea Spark&0 has the ability to view every other spark in the network and its contents, and the ability to request them as necessary, depending on the type of block below it.
+botania.page.corporea4=It's to note that the &1Master Corporea Spark&0, while being part of the network, can not have the items in its inventory extracted from.<br>Futhermore, no requests for items in the network are ever done passively. Corporea does not have the ability to add new items to the network, those should be inserted physically through &1Hoppers&0 or other methods.
+botania.page.corporea5=Similarly to normal &1Sparks&0, &1Corporea Sparks&0 have a method of augmentation, that being the ability to color them. While in the world, there's an icon floating around the spark that shows which color it has, this can be changed by right clicking on the spark with a piece of &1Floral Powder&0. These colors define networks. A spark may only be in the same network as another spark if the two have the same color. 
+botania.page.corporea6=The ability to color sparks allows for multiple different &4Corporea Networks&0 to be together in a close area, without interfering with each other.<br>Viewing the network and removing the spark works exactly the same as a normal spark. Lastly, having two &1Master Corporea Sparks&0 of the same color nearby, while possible, is a bad idea and will cause conflicts and odd behaviour.
+botania.page.corporea7=Creating &1Corporea Sparks&0
+botania.page.corporea8=And &1Master Corporea Sparks&0
+
+# -- CORPOREA INDEX
+botania.entry.corporeaIndex=Corporea Index
+botania.page.corporeaIndex0=The biggest ability of a &4Corporea Network&0 is the ability to vocally request items from it by name. The &1Corporea Index&0 is an ender-crystal like block that can interface with a given &4Corporea Network&0 by having a &1Corporea Spark&0 placed on top of it.<br>While in the world, approaching it will cause it to activate and show the radius in which it will stay activated.
+botania.page.corporeaIndex1=While activated, the index will intercept any &4Chat Messages&0 sent by nearby players, taking them in as &4requests&0 and preventing them to be broadcasted to chat. From this, it'll request, from the network, items whose name matches the request. For example, writing "iron ingot" will have the index look through the network for a single &1Iron Ingot&0 and transport it towards itself, materializing it in the world.
+botania.page.corporeaIndex2=Writing "iron..." will have it search for any items whose name contains "iron", such as &1Iron Ingot&0, &1Iron Pickaxe&0, and so on. Writing "this" will search for items whose name equals the name of the item in the player's hand.<br>Requests can be more complex than just a single item. For example "10 apples" will request, as described, 10 &1Apples&0.
+botania.page.corporeaIndex3=The plural form of an item's name may only be used case it's a regular noun when it comes to the plural (suffixed by "-s", "-es" or "-ies"), the singular version works just as well for requests of multiple items, such as "10 apple".<br>"10 of this" requests 10 items whose name equals the item in the player's hand, as expected.
+botania.page.corporeaIndex4=Examples of complex requests include "10 apples", "a stack of apples", "2 stacks of apples", "2 stacks and 20 apples", "half a stack of apples", "a dozen apples", and so on.<br>The index will also recognise more or less verbose forms of request, so "2x stacks and 20x of apples" is equal to "2 stack 2 apple" or "2 stacks + 2 apples".
+botania.page.corporeaIndex5=Requesting with "all" or "every" will deliver every single item in the network that matches the criteria, so "all apples" will deliver all the apples in the network.<br>On the other side, requesting "count", "show", "display" or "tell" won't request any, but will tell the requester how many exist in the network.
+botania.page.corporeaIndex6=A certain magical one at that
+
+# -- CORPOREA FUNNEL
+botania.entry.corporeaFunnel=Corporea Funnel
+botania.page.corporeaFunnel0=A simpler block that utilizes the prospects of the &4Corporea Network&0 is the &1Corporea Funnel&0, when given access to a network through a &1Corporea Spark&0 on top, it'll pull a single item from the network when given a redstone signal.<br>This item is put into an inventory 1 or 2 blocks below it, or case one doesn't exist or is full, tossed into the world right above the funnel.
+botania.page.corporeaFunnel1=The &1Corporea Funnel&0 may only pull items that match its filter, similarly to a &1Hopperhock&0, the filter is designated by items contained on &1Item Frames&0 placed on it. The item pulled is one of the various items in the frames at random.
+botania.page.corporeaFunnel2=Energistically applied
+
+# -- DECORATIVE END BLOCKS
+botania.entry.endStoneDecor=Decorative End Blocks
+botania.page.endStoneDecor0=Similarly to other stone blocks, &1End Stone&0 can be converted into bricks and chiseled bricks, the bricks can be used as stairs or slabs just like normal &1Stone Bricks&0 would.
+botania.page.endStoneDecor1=Making &1End Stone Bricks&0
+botania.page.endStoneDecor2=Making &1Chiseled End Stone Bricks&0
+
+# - BAUBLES AND ACESSORIES
 # -- AN INTRODUCTION TO BAUBLES
 botania.entry.bIntro=飾品介紹
 botania.page.bIntro0=&4飾品(Baubles)&0,平常也指&4小&0 &4飾品&0或者&4護身符&0這樣在穿戴 時提供不同效果的裝備.<br>要裝備只需按&4B&0鍵(可修改). 有四個欄,一個&4項鏈&0欄,兩個 &4戒指&0欄和一個&4腰帶&0欄.
 botania.page.bIntro1=&4飾品欄界面&0
 botania.page.bIntro2=注意,如果&4神秘時代&0或其他使 用Baubles的模組也安裝了 的話,這個欄會與它們共享.
+
+# -- COSMETIC BAUBLES
+botania.entry.cosmeticBaubles=Cosmetic Baubles
+botania.page.cosmeticBaubles0=A large selection of &1Cosmetic Baubles&0 is available to change or add style to any baubles a player has equipped. These can both be worn by themselves, on the amulet slot, or crafted alongside another &4Bauble&0 in a crafting grid to change the look of the bauble to the new &4Cosmetic Override&0. Removing &4Cosmetic Overrides&0 can be done through putting the bauble back in the crafting grid.
+botania.page.cosmeticBaubles1=Creating these is done through an interesting method, weaving a specific color of petal around some &1Mana Infused String&0 creates an item. The type of item created doesn't seem to have anything to do with the color.<br>How this works really isn't too well known, it's like the person that came up with this didn't bother to use better materials or something, who knows.
+botania.page.cosmeticBaubles2=They're cool
+botania.page.cosmeticBaubles3=My desires are... unconventional
+botania.page.cosmeticBaubles4=How unpleasant
+botania.page.cosmeticBaubles5=It's cold in Kalos
+botania.page.cosmeticBaubles6=Do they reveal anything?
+botania.page.cosmeticBaubles7=Shut up Alexander and the Trajan
+botania.page.cosmeticBaubles8=The eye has to be hidden
+botania.page.cosmeticBaubles9=Not for bean sprouts
+botania.page.cosmeticBaubles10=The best color
+botania.page.cosmeticBaubles11=Tilting the umbrella too much
+botania.page.cosmeticBaubles12=The Neighbours' Club
+botania.page.cosmeticBaubles13=Nyaa
+botania.page.cosmeticBaubles14=Don't get too ahead of yourself
+botania.page.cosmeticBaubles15=Evil up!
+botania.page.cosmeticBaubles16=Nudistoooooooooo
+botania.page.cosmeticBaubles17=(insert reference here)
+botania.page.cosmeticBaubles18=Lurk moar
+botania.page.cosmeticBaubles19=I need your time
+botania.page.cosmeticBaubles20=So rare
+botania.page.cosmeticBaubles21=Oh hey, Loki
+botania.page.cosmeticBaubles22=Challenge up!
+botania.page.cosmeticBaubles23=Representing!
+botania.page.cosmeticBaubles24=Reminds me of a puzzle
+botania.page.cosmeticBaubles25=You've met with a terrible fate, haven't you?
+botania.page.cosmeticBaubles26=Thanks for the gold stranger
+botania.page.cosmeticBaubles27=Woah, colors
+botania.page.cosmeticBaubles28=Who the hell do you think I am?
+botania.page.cosmeticBaubles29=Nothing suspicious here, nope
+botania.page.cosmeticBaubles30=I can fly with these
+botania.page.cosmeticBaubles31=Not actually part of spain
+botania.page.cosmeticBaubles32=Now you too can believe
+botania.page.cosmeticBaubles33=Get on the treadmill, angbadang
 
 # -- TINY PLANET
 botania.entry.tinyPlanet=行星項鏈
@@ -1675,13 +2192,6 @@ botania.entry.divaCharm=女王項鏈
 botania.page.divaCharm0=在周圍有其他敵對生物時, &1女王項鏈&0讓穿戴者獲得控制 被攻擊的怪物的能力,受控制 的怪物會追隨其他敵對生物. 當然這個過程需要一點的&4魔&0 &4力&0來生效.
 botania.page.divaCharm1=你應該尊重大姐頭
 
-# -- FLUGEL TIARA
-botania.entry.flightTiara=天翼族之冠
-botania.page.flightTiara0=&4天翼族&0一度支配著這片土地, 現在卻是瀕臨滅絕的種族,作 為弒神者而被創造出來,擁有 著飛行的能力.<br>使用&1蓋亞之魂&0能複製出一點 她們的力量,那就是以&1天翼族&0 &1之冠&0的形式,消耗&4魔力&0就能飛 行.
-botania.page.flightTiara1=異世界的四萬本書
-botania.page.flightTiara2=將頭冠配上各種石英碎片就 能做出各種漂亮的翅膀,每種 石英對應一種.<br>各種石英的合成可在&4雜項&0下 的&4裝飾方塊&0章節找到,&1精靈石&0 &1英&0是與精靈貿易&1下界石英&0而 獲得的.
-botania.page.flightTiara3=添上羽翼(它們隨時都可以切換)
-
 # -- GREAT FAIRY RING
 botania.entry.pixieRing=精靈指環
 botania.page.pixieRing0=這個指環類似&1源質鋼護甲&0,使 用之前最好還是先瞭解它的 力量.穿戴時&1精靈指環&0會增加 裝備者受攻擊時&4小精靈&0出現 的幾率,即便沒有裝備&1源質鋼&0 &1護甲&0也是有效的.
@@ -1703,12 +2213,28 @@ botania.entry.superLavaPendant=緋紅項鏈
 botania.page.superLavaPendant0=&1緋紅項鏈&0簡而言之,就是&1火石&0 &1項鏈&0的升級版,穿著時能提供 對火和岩漿的免疫力,而不是 單純的滅火.
 botania.page.superLavaPendant1=[秘碑解碼]亞軍
 
-
 # -- TAINED BLOOD PENDANT
 botania.entry.bloodPendant=污血吊墜
 botania.page.bloodPendant0=Messing around with the original source of the &4Potion&0 design, the Nether, seems to work fairly well at harnessing that very power.<br>The &1Tainted Blood Pendant&0 allows one to store a &4Brew&0 in a condensed, wearable state. Infusing this pendant with one and wearing it will apply the effect while it's worn, for the cost of &4Mana&0 depending on the power of the &4Brew&0.
 botania.page.bloodPendant1=To infuse the pendant with a &4Brew&0 the normal procedure of infusing one on a &1Vial&0 is what's required. The cost increases by a tenfold, though.<br>However, the pendant will not accept any and all effects, a few don't seem to behave well, such as &4Instant Health&0 or &4Absorption&0. Lastly, &4Brews&0 with more than one effect will fail as well.
 botania.page.bloodPendant2=I'll get Saber for sure
+
+# -- CLOAKS OF JUDGEMENT
+botania.entry.judgementCloaks=Cloaks of Judgement
+botania.page.judgementCloaks0=The &1Cloaks of Judgement&0 are a pair of cloaks that can be worn instead of a belt (and thus, they go in the Belt slot). Their strength triggers when their wearer takes damage. After that, they'll go in a ten second recharge period in which their effects won't trigger.
+botania.page.judgementCloaks1=The &1Cloak of Virtue&0 will, when active, block the full extent of a piece of damage taken. This does not apply to magic damage.<br>The &1Cloak of Sin&0 will damage all nearby hostile mobs for the same amount of damage that was taken.
+botania.page.judgementCloaks2=A Holy Mantle
+botania.page.judgementCloaks3=Taste Vengance!
+
+# -- MANASEER MONOCLE
+botania.entry.monocle=Manaseer Monocle
+botania.page.monocle0=A handy acessory for one who requires a thorough window into where their &4Mana Bursts&0 are going is the &1Manaseer Monocle&0. Not only is it a rather fancy eyepiece but it also allows the wearer to see all nearby &4Mana Bursts&0, even if their line of sight towards them is blocked by something.
+botania.page.monocle1=Why hello there old chap
+
+# -- RING OF CORRECTION
+botania.entry.swapRing=Ring of Correction
+botania.page.swapRing0=Switching tools is a pain. People often find themselves shoveling away at dirt with... a pick? Using the &1Ring of Correction&0 is a great way to, well, correct that.<br>While this ring is worn, the tool in hand will always be the right one for the block being broken, be it a pick, axe or shovel. This only works with tools that can use &4Mana&0.
+botania.page.swapRing1=Use the right tools
 
 # - ALFHOMANCY
 # -- THE PORTAL TO ALFHEIM
@@ -1742,6 +2268,7 @@ botania.entry.elfResources=精靈的交易
 botania.page.elfResources0=&4艾爾夫海姆&0有許多高級的材 料.可惜的是,大多數由於部 族間的競爭而變得稀缺.精靈 們樂於交易一些材料,比如&1夢&0 &1之木&0,&1源質鋼錠&0,&1精靈塵&0和&1龍&0 &1石&0,這些都是他們那裡的本土 資源. 
 botania.page.elfResources1=交換&1夢之木&0
 botania.page.elfResources2=&1夢之木&0,類似&1活木&0能製成不同 的&4裝飾方塊&0,在&4雜項&0里瀏覽&4裝&0 &4飾方塊&0章節以查看合成.
+botania.page.elfResources10=&1Dreamwood Twigs&0
 botania.page.elfResources3=交換&1源質鋼&0
 botania.page.elfResources4=交換&1精靈塵&0
 botania.page.elfResources5=交換&1龍石&0
@@ -1757,6 +2284,12 @@ botania.page.gaiaRitual1=製作&1蓋亞水晶&0
 botania.page.gaiaRitual2=放置水晶(比信標高一格)
 botania.page.gaiaRitual3=要啟動儀式,需手持&1泰拉鋼錠&0 shift右擊&1信標&0,再退後幾步准 備開戰.這需要極好的準備工 作,與&4蓋亞守護者&0的戰鬥會比 與&4凋零&0的還要艱難.一旦擊敗 了&4守護者&0,就能獲得他們的獎 勵:一些&1蓋亞之魂&0.
 botania.page.gaiaRitual4=你最好記住以下幾點.首先極 力推薦附魔的&1源質鋼護甲&0,遠 優於傳統的&1鑽石護甲&0因為它 能刷出&1小精靈&0. 其次力推&1泰拉之刃&0, &4魔法藥水&0與各類&4飾品&0. <br>其次,&1信標&0提供的效果在戰鬥 期間會被消除,準備階段時最 好記住.<br>最後,遠離那些紫色的東西. (蓋亞陷阱)
+
+# -- RITUAL OF GAIA II
+botania.entry.gaiaRitualHardmode=Ritual of Gaia II
+botania.page.gaiaRitualHardmode0=One would think that combining two of the most powerful resources known to existance, in the form of &1Terrasteel&0 and &1Gaia Spirits&0 would create an unstoppable material. It seems that the material is very much stoppable, though. In fact, the two forces cancel eachother out when combined into an ingot, creating an utterly useless alloy.
+botania.page.gaiaRitualHardmode1=This ingot, though, due to the concentrated energy and power in it, does allow for the summoning of a stronger &1Gaia Guardian&0, with more resistance, strength and speed.<br>For all of this, it also drops more &1Gaia Spirits&0 than normal, as well as a handful of goodies and rare treasure, making it a worthwhile foe.
+botania.page.gaiaRitualHardmode2=Creating the &1Gaia Spirit Ingot&0.
 
 # -- ELVEN LORE - THE SHATTERING
 botania.entry.elvenLore=Elven Lore - The Shattering
@@ -1853,6 +2386,17 @@ botania.page.azulejo3=各種樣式間循環
 botania.entry.starfield=星空製造器
 botania.page.starfield0=&1星空製造器&0就像它的名字一 樣,通過將精靈的能量釋放到 空中,置於世界上時,會在夜 晚創造出一片距離很遠的星 空.
 botania.page.starfield=一閃一閃
+
+# -- TRODDEN DIRT
+botania.entry.dirtPath=Trodden Dirt
+botania.page.dirtPath0=&1Trodden Dirt&0 is a type of soil that works perfectly for the creation of natural looking artificial paths through landscape. Similarly to &1Farmland&0, it's slightly inset into the ground, walking on it also provides a small speed boost.
+botania.page.dirtPath1=Follow the yellow dirt road
+botania.page.dirtPath2=Also available in slabs
+
+# -- SHIMMERING MUSHROOMS
+botania.entry.mushrooms=Shimmering Mushrooms
+botania.page.mushrooms0=Sprinkling some &1Floral Powder&0 on &1Mushrooms&0 seems to have the interesting effect of them mutating into the respective color of powder, gaining a new shape and getting the ability to emit dim light. They don't seem to do anything besides look interesting.<br>These can also be seldom found deep underground in isolated patches.
+botania.page.mushrooms1=They don't make you bigger
 
 # -- THAUMCRAFT INTEGRATION
 botania.entry.tcIntegration=秘術學相關
