@@ -243,6 +243,39 @@ iframe {
 	margin-left: 10px;
 }
 
+.reddit-card {
+	width: 520px;
+	padding: 10px 10px 10px 10px;
+	background-color: white;
+	box-shadow: 0px 1px 2px rgba(0,0,0,0.2);
+}
+
+.reddit-alien {
+	display: inline-block;
+	vertical-align: top;
+	width: 60px;
+	height: 60px;
+}
+
+.reddit-alien img {
+	width: 100%;
+	height: 100%;
+}
+
+.reddit-info {
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 20px;
+}
+
+.reddit-header {
+	font-size: 20px;
+}
+
+.reddit-desc {
+	margin-left: 4px;
+}
+
 .footer {
 	text-align: center;
 	padding-top: 5px;

@@ -64,7 +64,15 @@
 	$days_int = round($days_passed);
 	$daily_dls = round($total_dls / $days_passed, 2);
 	
-	print("<div class='total-dls'><span class='glyphicon glyphicon-star moe-scroll'></span> Botania has been downloaded a total of <b class='moe-scroll'>$total_dl_str</b> times over $days_int days. (About <i>$daily_dls</i> dls/day)</div><span class='warning-txt'>Botania requires <a href='http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1294623-baubles-1-0-1-5-updated-20-8-2014'>Baubles</a> to work properly, make sure you have it!<br><a href='http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/wip-mods/1445251-1-7-10-beta-wip-colored-light-progress-and'>Colored Lights</a> is also supported, get it if you want <a href='http://puu.sh/dKozh/323db4f589.png'>colors</a>!<br><br><span class='whore-txt'>Enjoy the mod? Why not support my endeavours on <a href='http://www.patreon.com/Vazkii'>Patreon</a>?</span></span><br><br><font size='5'>Latest Download</font><br>");
+	print("<div class='total-dls'><span class='glyphicon glyphicon-star moe-scroll'></span> Botania has been downloaded a total of <b class='moe-scroll'>$total_dl_str</b> times over $days_int days. (About <i>$daily_dls</i> dls/day)</div>
+		<span class='warning-txt'>Botania requires <a href='http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1294623-baubles-1-0-1-5-updated-20-8-2014'>Baubles</a> to work properly, make sure you have it!<br>
+		<a href='http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/wip-mods/1445251-1-7-10-beta-wip-colored-light-progress-and'>Colored Lights</a> is also supported, get it if you want <a href='http://puu.sh/dKozh/323db4f589.png'>colors</a>!
+		<br><br>
+		<span class='whore-txt'>Enjoy the mod? Why not support my endeavours on <a href='http://www.patreon.com/Vazkii'>Patreon</a>?</span></span>
+		<br><br>
+		<div class='reddit-card'><div class='reddit-alien'><img src='img/reddit-alien.svg'></img></div><div class='reddit-info'><div class='reddit-header'><a href='http://reddit.com/r/botania'>/r/botania</a> is a thing now!</div><div class='reddit-desc'>Come discuss the mod on reddit!<br>The subreddit is still new but will hopefully grow as time passes!</div></div></div>
+		<br></br>
+		<font size='5'>Latest Download</font><br>");
 	print($downloads_str);
 	
 	$nekos = '<br><hr><br><div id="moe-counter">';
