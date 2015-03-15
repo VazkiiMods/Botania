@@ -11,19 +11,23 @@
 package vazkii.botania.api.subtile;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaCollector;
+import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 /**
  * The basic class for a Generating Flower.
@@ -31,6 +35,9 @@ import vazkii.botania.api.mana.IManaCollector;
 public class SubTileGenerating extends SubTileEntity {
 
 	private static final String TAG_MANA = "mana";
+
+
+	private static final String TAG_DECAY_TICKS = "decayTicks";
 
 	private static final String TAG_COLLECTOR_X = "collectorX";
 	private static final String TAG_COLLECTOR_Y = "collectorY";
@@ -41,6 +48,8 @@ public class SubTileGenerating extends SubTileEntity {
 	int sizeLastCheck = -1;
 	protected TileEntity linkedCollector = null;
 	public int knownMana = -1;
+	
+	public int decayTicks = 0; 
 
 	ChunkCoordinates cachedCollectorCoordinates = null;
 
@@ -49,6 +58,8 @@ public class SubTileGenerating extends SubTileEntity {
 		super.onUpdate();
 
 		linkCollector();
+		
+		
 
 		if(canGeneratePassively()) {
 			int delay = getDelayBetweenPassiveGeneration();
@@ -70,7 +81,11 @@ public class SubTileGenerating extends SubTileEntity {
 		if(!supertile.getWorldObj().isRemote) {
 			int muhBalance = BotaniaAPI.internalHandler.getPassiveFlowerDecay();
 
-			if(isPassiveFlower() && muhBalance > 0 && ticksExisted > muhBalance) {
+			if(muhBalance > 0){
+				decayTicks += 1;
+			}
+			
+			if(isPassiveFlower() && muhBalance > 0 && decayTicks > muhBalance) {
 				supertile.getWorldObj().playAuxSFX(2001, supertile.xCoord, supertile.yCoord, supertile.zCoord, Block.getIdFromBlock(supertile.getBlockType()));
 				supertile.getWorldObj().setBlockToAir(supertile.xCoord, supertile.yCoord, supertile.zCoord);
 			}
@@ -175,12 +190,14 @@ public class SubTileGenerating extends SubTileEntity {
 		mana = cmp.getInteger(TAG_MANA);
 		if(!cmp.hasKey(TAG_TICKS_EXISTED))
 			ticksExisted = cmp.getInteger(TAG_TICKS_EXISTED);
-
+		
 		int x = cmp.getInteger(TAG_COLLECTOR_X);
 		int y = cmp.getInteger(TAG_COLLECTOR_Y);
 		int z = cmp.getInteger(TAG_COLLECTOR_Z);
 
 		cachedCollectorCoordinates = new ChunkCoordinates(x, y, z);
+		
+		decayTicks = cmp.getInteger(TAG_DECAY_TICKS);
 	}
 
 	@Override
@@ -195,6 +212,8 @@ public class SubTileGenerating extends SubTileEntity {
 		cmp.setInteger(TAG_COLLECTOR_X, x);
 		cmp.setInteger(TAG_COLLECTOR_Y, y);
 		cmp.setInteger(TAG_COLLECTOR_Z, z);
+		
+		cmp.setInteger(TAG_DECAY_TICKS, decayTicks);
 	}
 
 	@Override
@@ -224,6 +243,25 @@ public class SubTileGenerating extends SubTileEntity {
 		}
 
 		return false;
+	}
+
+	@Override
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
+		super.onBlockPlacedBy(world, x, y, z, entity, stack);
+		
+		if(BotaniaAPI.internalHandler.getPassiveFlowerDecay() != -1) {
+			decayTicks = ItemNBTHelper.getInt(stack, TAG_DECAY_TICKS, 0);
+		}
+	}
+
+	@Override
+	public ArrayList<ItemStack> getDrops(ArrayList<ItemStack> list) {
+		ArrayList<ItemStack> drops = super.getDrops(list);
+
+		if(BotaniaAPI.internalHandler.getPassiveFlowerDecay() != -1) {
+			ItemNBTHelper.setInt(drops.get(0), TAG_DECAY_TICKS, decayTicks);
+		}
+		return drops;
 	}
 
 	@Override
