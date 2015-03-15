@@ -239,6 +239,7 @@ public final class ModCraftingRecipes {
 	public static List<IRecipe> recipesCosmeticItems;
 	public static List<IRecipe> recipesMushrooms;
 	public static IRecipe recipeSwapRing;
+	public static IRecipe recipeSnowHorn;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1587,6 +1588,10 @@ public final class ModCraftingRecipes {
 				'M', LibOreDict.MANA_STEEL);
 		recipeSwapRing = BotaniaAPI.getLatestAddedRecipe();
 
+		// Horn of the Covering Recipe
+		addShapelessOreDictRecipe(new ItemStack(ModItems.grassHorn, 1, 2), new ItemStack(ModItems.grassHorn), new ItemStack(Items.snowball));
+		recipeSnowHorn = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",

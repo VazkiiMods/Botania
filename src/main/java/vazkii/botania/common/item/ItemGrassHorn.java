@@ -22,6 +22,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -36,7 +37,7 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemGrassHorn extends ItemMod {
 
-	private static final int SUBTYPES = 2;
+	private static final int SUBTYPES = 3;
 	IIcon[] icons;
 
 	public ItemGrassHorn() {
@@ -112,7 +113,7 @@ public class ItemGrassHorn extends ItemMod {
 					int z = srcz + j;
 
 					Block block = world.getBlock(x, y, z);
-					if(stackDmg == 0 && block instanceof BlockBush && !(block instanceof ISpecialFlower) && (!(block instanceof IGrassHornExcempt) || ((IGrassHornExcempt) block).canUproot(world, x, y, z)) || stackDmg == 1 && block instanceof BlockLeavesBase)
+					if((stackDmg == 0 && block instanceof BlockBush && !(block instanceof ISpecialFlower) && (!(block instanceof IGrassHornExcempt) || ((IGrassHornExcempt) block).canUproot(world, x, y, z))) || (stackDmg == 1 && block instanceof BlockLeavesBase) || (stackDmg == 2 && block == Blocks.snow_layer))
 						coords.add(new ChunkCoordinates(x, y, z));
 				}
 

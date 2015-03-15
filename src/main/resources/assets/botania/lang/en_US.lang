@@ -944,6 +944,7 @@ item.botania:manasteelSword.name=Manasteel Sword
 item.botania:manasteelShears.name=Manasteel Shears
 item.botania:grassHorn0.name=Horn of the Wild
 item.botania:grassHorn1.name=Horn of the Canopy
+item.botania:grassHorn2.name=Horn of the Covering
 item.botania:terrasteel.name=Terrasteel Ingot
 item.botania:terrasteelHelm.name=Terrasteel Helmet
 item.botania:terrasteelChest.name=Terrasteel Chestplate
@@ -1812,9 +1813,10 @@ botania.page.manaGear9=The &1Manasteel Boots&0
 
 # -- HORN OF THE WILD
 botania.entry.grassHorn=Horn of the Wild
-botania.page.grassHorn0=Clearing out &1Tall Grass&0 by hand can definitely be a nuisance.<br>Simply blowing the &1Horn of the Wild&0 will quickly cause any nearby vegetation to uproot, leaving behind drops as if it had been broken by hand.<br>With some modifications, the horn can be modified to break leaves instead.
+botania.page.grassHorn0=Clearing out &1Tall Grass&0 by hand can definitely be a nuisance.<br>Simply blowing the &1Horn of the Wild&0 will quickly cause any nearby vegetation to uproot, leaving behind drops as if it had been broken by hand.<br>With some modifications, the horn can be modified to break leaves or snow instead.
 botania.page.grassHorn1=Crafting the horn
-botania.page.grassHorn2=Modifying the horn
+botania.page.grassHorn2=Modifying to break &1Leaves&0
+botania.page.grassHorn3=Modifying to break &1Snow&0
 
 # -- TERRASTEEL ARMOR
 botania.entry.terrasteelArmor=Terrasteel Armor
