@@ -1236,6 +1236,11 @@ botania.page.terrasteel3=Creating &1Terrasteel&0 (there's &1Livingrock&0 under t
 botania.entry.blackLotus=Black Lotus
 botania.page.blackLotus0=An elusive flower by the name of &1Black Lotus&0 is known to exist, however, it does not grow or reproduce. Where they can be found or come from is not known.<br>It is known, however, that it contains a strong amount of concentrated &4Mana&0, that can be released by putting it in contact with a &1Mana Pool&0 that already has some in it. Just tossing it would do. 
 
+# -- FLOWER POUCH
+botania.entry.flowerBag=Flower Pouch
+botania.page.flowerBag0=The laws of physics regarding one's &4Inventory&0 are somewhat skewed in this world. Thanks to that, carrying an array of different colors of flowers turns out to be a major hassle. Luckilly, a &1Flower Pouch&0 takes care of all those issues. It can store up to one stack of each color of &1Mystical Flower&0, not only that but it'll passively catch any that enter the holder's inventory.
+botania.page.flowerBag1=Pull a copter out of it (any colors work)
+
 # -- WRAP
 botania.entry.wrap=Wrap
 botania.page.wrap0=It seems like the creator of this mod decided to add a weird game mechanic in the form of &1Wrap&0. I don't really know what it does, probably something bad. :/<br>What's this "Fourth Wall" you're talking about...?

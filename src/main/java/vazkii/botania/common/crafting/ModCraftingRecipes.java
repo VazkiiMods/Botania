@@ -240,6 +240,7 @@ public final class ModCraftingRecipes {
 	public static List<IRecipe> recipesMushrooms;
 	public static IRecipe recipeSwapRing;
 	public static IRecipe recipeSnowHorn;
+	public static IRecipe recipeFlowerBag;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1591,6 +1592,13 @@ public final class ModCraftingRecipes {
 		// Horn of the Covering Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.grassHorn, 1, 2), new ItemStack(ModItems.grassHorn), new ItemStack(Items.snowball));
 		recipeSnowHorn = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Flower Pouch Recipe
+		GameRegistry.addShapedRecipe(new ItemStack(ModItems.flowerBag), 
+				"WPW", "W W", " W ",
+				'P', new ItemStack(ModItems.petal, 1, Short.MAX_VALUE),
+				'W', new ItemStack(Blocks.wool, 1, Short.MAX_VALUE));
+		recipeFlowerBag = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

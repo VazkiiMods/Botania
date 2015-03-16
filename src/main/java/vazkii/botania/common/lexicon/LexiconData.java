@@ -66,6 +66,7 @@ public final class LexiconData {
 	public static LexiconEntry runicAltar;
 	public static LexiconEntry terrasteel;
 	public static LexiconEntry blackLotus;
+	public static LexiconEntry flowerBag;
 
 	public static LexiconEntry manaIntro;
 	public static LexiconEntry spreader;
@@ -292,6 +293,9 @@ public final class LexiconData {
 		blackLotus = new BLexiconEntry(LibLexicon.BASICS_BLACK_LOTUS, categoryBasics);
 		blackLotus.setLexiconPages(new PageText("0")).setIcon(new ItemStack(ModItems.blackLotus));
 
+		flowerBag = new BLexiconEntry(LibLexicon.BASICS_FLOWER_BAG, categoryBasics);
+		flowerBag.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeFlowerBag));
+		
 		if(Botania.thaumcraftLoaded)
 			new BLexiconEntry("wrap", categoryBasics).setLexiconPages(new PageText("0")); // lel
 
