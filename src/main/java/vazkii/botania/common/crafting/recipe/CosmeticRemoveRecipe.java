@@ -26,12 +26,9 @@ public class CosmeticRemoveRecipe implements IRecipe {
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
 			if(stack != null) {
-				if(!foundAttachable) {
-					if(stack.getItem() instanceof ICosmeticAttachable && !(stack.getItem() instanceof ICosmeticBauble) && ((ICosmeticAttachable) stack.getItem()).getCosmeticItem(stack) != null) {
-						foundAttachable = true;
-						break;
-					} else return false;
-				}
+				if(stack.getItem() instanceof ICosmeticAttachable && !(stack.getItem() instanceof ICosmeticBauble) && ((ICosmeticAttachable) stack.getItem()).getCosmeticItem(stack) != null)
+					foundAttachable = true;
+				else return false;
 			}
 		}
 
