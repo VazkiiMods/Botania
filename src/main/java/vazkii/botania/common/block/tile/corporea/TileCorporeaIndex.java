@@ -196,7 +196,7 @@ public class TileCorporeaIndex extends TileCorporeaBase {
 	}
 
 	public static boolean isInRangeOfIndex(EntityPlayer player, TileCorporeaIndex index) {
-		return MathHelper.pointDistanceSpace(index.xCoord + 0.5, index.yCoord + 0.5, index.zCoord + 0.5, player.posX, player.posY, player.posZ) < RADIUS;
+		return MathHelper.pointDistanceSpace(index.xCoord + 0.5, index.yCoord + 0.5, index.zCoord + 0.5, player.posX, player.posY + (player.worldObj.isRemote ? 0 : 1.6), player.posZ) < RADIUS;
 	}
 
 	public static void addPattern(String pattern, IRegexStacker stacker) {
