@@ -33,7 +33,6 @@ public class SubTileArcaneRose extends SubTileGenerating {
 			if(ExperienceHelper.getPlayerXP(player) >= 1 && player.onGround) {
 				ExperienceHelper.drainPlayerXP(player, 1);
 				mana += 24;
-				sync();
 				return;
 			}
 	}
