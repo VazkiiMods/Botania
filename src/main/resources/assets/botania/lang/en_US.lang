@@ -1098,6 +1098,7 @@ item.botania:cosmetic30.name=Tiny Potato Mask
 item.botania:cosmetic31.name=Questgiver Mark
 item.botania:manaString.name=Mana Infused String
 item.botania:swapRing.name=Ring of Correction
+item.botania:flowerBag.name=Flower Pouch
 
 # BREW NAMES
 botania.brew.fallback=Fallback

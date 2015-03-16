@@ -12,6 +12,8 @@ package vazkii.botania.common.network;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+import vazkii.botania.client.gui.bag.ContainerFlowerBag;
+import vazkii.botania.client.gui.bag.GuiFlowerBag;
 import vazkii.botania.client.gui.crafting.ContainerCraftingHalo;
 import vazkii.botania.client.gui.crafting.GuiCraftingHalo;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
@@ -23,9 +25,10 @@ public class GuiHandler implements IGuiHandler {
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		switch(ID) {
-		case LibGuiIDs.CRAFTING_HALO : {
+		case LibGuiIDs.CRAFTING_HALO :
 			return new ContainerCraftingHalo(player.inventory, world);
-		}
+		case LibGuiIDs.FLOWER_BAG :
+			return new ContainerFlowerBag(player);
 		}
 
 		return null;
@@ -34,13 +37,13 @@ public class GuiHandler implements IGuiHandler {
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		switch(ID) {
-		case LibGuiIDs.LEXICON : {
+		case LibGuiIDs.LEXICON :
 			GuiLexicon lex = GuiLexicon.currentOpenLexicon;
 			return lex;
-		}
-		case LibGuiIDs.CRAFTING_HALO : {
+		case LibGuiIDs.CRAFTING_HALO :
 			return new GuiCraftingHalo(player.inventory, world);
-		}
+		case LibGuiIDs.FLOWER_BAG :
+			return new GuiFlowerBag(player);
 		}
 
 		return null;
