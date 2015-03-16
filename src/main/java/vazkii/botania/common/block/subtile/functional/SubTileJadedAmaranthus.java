@@ -37,9 +37,8 @@ public class SubTileJadedAmaranthus extends SubTileFunctional {
 			int z = supertile.zCoord - range + supertile.getWorldObj().rand.nextInt(range * 2 + 1);
 
 			for(int i = 0; i < range * 2; i++) {
-				Block block = supertile.getWorldObj().getBlock(x, y, z);
 				Block blockAbove = supertile.getWorldObj().getBlock(x, y + 1, z);
-				if((block == Blocks.grass || block == Blocks.dirt || block == Blocks.farmland) && (supertile.getWorldObj().isAirBlock(x, y + 1, z) || blockAbove.isReplaceable(supertile.getWorldObj(), x, y + 1, z) && blockAbove.getMaterial() != Material.water)) {
+				if((supertile.getWorldObj().isAirBlock(x, y + 1, z) || blockAbove.isReplaceable(supertile.getWorldObj(), x, y + 1, z)) && blockAbove.getMaterial() != Material.water && ModBlocks.flower.canPlaceBlockAt(supertile.getWorldObj(), x, y + 1, z)) {
 					int color = supertile.getWorldObj().rand.nextInt(16);
 					if(ModBlocks.flower.canBlockStay(supertile.getWorldObj(), x, y + 1, z)) {
 						if(ConfigHandler.blockBreakParticles)
