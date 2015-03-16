@@ -21,7 +21,7 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
-public class SubTileDaybloom extends SubTileGenerating {
+public class SubTileDaybloom extends SubTilePassiveGenerating {
 
 	@Override
 	public int getColor() {
@@ -37,11 +37,6 @@ public class SubTileDaybloom extends SubTileGenerating {
 	@Override
 	public int getDelayBetweenPassiveGeneration() {
 		return 25 + (int) (getSurroundingFlowers() * 7.5);
-	}
-
-	@Override
-	public boolean isPassiveFlower() {
-		return true;
 	}
 
 	public int getSurroundingFlowers() {

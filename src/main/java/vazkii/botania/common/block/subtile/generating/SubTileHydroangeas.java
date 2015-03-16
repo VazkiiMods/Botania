@@ -27,7 +27,7 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 
-public class SubTileHydroangeas extends SubTileGenerating {
+public class SubTileHydroangeas extends SubTilePassiveGenerating {
 
 	private static final String TAG_BURN_TIME = "burnTime";
 	private static final String TAG_COOLDOWN = "cooldown";
@@ -83,11 +83,6 @@ public class SubTileHydroangeas extends SubTileGenerating {
 			sync();
 	}
 
-	@Override
-	public boolean isPassiveFlower() {
-		return true;
-	}
-
 	public void doBurnParticles() {
 		Botania.proxy.wispFX(supertile.getWorldObj(), supertile.xCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.yCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.zCoord + 0.5, 0.05F, 0.05F, 0.7F, (float) Math.random() / 6, (float) -Math.random() / 60);
 	}
@@ -140,15 +135,14 @@ public class SubTileHydroangeas extends SubTileGenerating {
 	}
 
 	@Override
-	public ArrayList<ItemStack> getDrops(ArrayList<ItemStack> list) {
-		ArrayList<ItemStack> drops = super.getDrops(list);
+	public void populateDropStackNBTs(List<ItemStack> drops) {
+		super.populateDropStackNBTs(drops);
 		int cooldown = this.cooldown;
 		if(burnTime > 0)
 			cooldown = getCooldown();
 		
 		if(cooldown > 0)
 			ItemNBTHelper.setInt(drops.get(0), TAG_COOLDOWN, getCooldown());
-		return drops;
 	}
 
 	@Override

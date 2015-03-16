@@ -197,7 +197,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 			removeTransferants--;
 		getTransfers();
 	}
-
+	
 	void particlesTowards(Entity e) {
 		Vector3 thisVec = Vector3.fromEntityCenter(this).add(0, 0, 0);
 		Vector3 receiverVec = Vector3.fromEntityCenter(e).add(0, 0, 0);
