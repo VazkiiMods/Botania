@@ -59,7 +59,6 @@ public class ItemSwapRing extends ItemBauble {
 
 		if(typeToFind == null)
 			return;
-		System.out.println(typeToFind);
 
 		ItemStack bestTool = currentStack;
 		int bestToolPriority = tool.getSortingType(currentStack) == typeToFind ? tool.getSortingPriority(currentStack) : -1;
