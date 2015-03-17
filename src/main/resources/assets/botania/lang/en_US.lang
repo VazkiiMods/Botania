@@ -321,6 +321,7 @@ entity.Botania.botania:magicMissile.name=Magic Missile
 entity.Botania.botania:thornChakram.name=Thorn Chakram
 entity.Botania.botania:corporeaSpark.name=Corporea Spark
 entity.Botania.botania:enderAirBottle.name=Bottle of Ender Air
+entity.Botania.botania:poolMinecart.name=Mana Pool Minecart
 
 # ACHIEVEMENT NAMES + DESC
 achievement.botania:flowerPickup=Sky of Beginning
@@ -1101,6 +1102,7 @@ item.botania:manaString.name=Mana Infused String
 item.botania:swapRing.name=Ring of Correction
 item.botania:flowerBag.name=Flower Pouch
 item.botania:phantomInk.name=Phantom Ink
+item.botania:poolMinecart.name=Minecart with Mana Pool
 
 # BREW NAMES
 botania.brew.fallback=Fallback

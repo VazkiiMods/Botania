@@ -127,7 +127,8 @@ public final class LibItemNames {
 	public static final String SWAP_RING = "swapRing";
 	public static final String FLOWER_BAG = "flowerBag";
 	public static final String PHANTOM_INK = "phantomInk";
-	
+	public static final String POOL_MINECART = "poolMinecart";
+
 	public static final String[] LENS_NAMES = new String[] {
 		"lensNormal",
 		"lensSpeed",
