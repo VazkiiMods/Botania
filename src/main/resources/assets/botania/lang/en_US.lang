@@ -1240,7 +1240,7 @@ botania.page.blackLotus0=An elusive flower by the name of &1Black Lotus&0 is kno
 
 # -- FLOWER POUCH
 botania.entry.flowerBag=Flower Pouch
-botania.page.flowerBag0=The laws of physics regarding one's &4Inventory&0 are somewhat skewed in this world. Thanks to that, carrying an array of different colors of flowers turns out to be a major hassle. Luckilly, a &1Flower Pouch&0 takes care of all those issues. It can store up to one stack of each color of &1Mystical Flower&0, not only that but it'll passively catch any that enter the holder's inventory.
+botania.page.flowerBag0=The laws of physics regarding one's &4Inventory&0 are somewhat skewed in this world. Thanks to that, carrying an array of different colors of flowers turns out to be a major hassle. Luckily, a &1Flower Pouch&0 takes care of all those issues. It can store up to one stack of each color of &1Mystical Flower&0, not only that but it'll passively catch any that enter the holder's inventory.
 botania.page.flowerBag1=Pull a copter out of it (any colors work)
 
 # -- WRAP
@@ -2312,7 +2312,7 @@ botania.page.elvenLore2=&opreviously in the very opposite corner of the World Tr
 botania.page.elvenLore3=&oJotunheim opened all around, massacring a great portion of the Giants who lived there, its current status remains unknown. Niflheim seemed to stay in place, unlike Muspelheim, interestingly enough. Since it contained no known lifeforms, we can admit that damage is irrelevant. Lastly, ourselves, the (...)
 botania.page.elvenLore4=&oelves of Alfheim, the damage on our world was somewhat split. The Salamander and Undine clans suffered a massive cut on their population, due to the unstableness of their volcanic and aquatic environments, respectively. Most of the Sylph were completely intact due to their extraordinary flight capabilities, the (...)
 botania.page.elvenLore5=&oSpriggan also had fairly small scale consequences. During that time our civilization prospects were fairly weak and our choices of residence were mostly just huts made of Dreamwood, so, luckily, rebuilding was little of a chore. Allewyn, our emissary in Asgard witnessed this happening, everything happened faster (...)
-botania.page.elvenLore6=&othan the birth of a Pixie. Thor shattering the Bifrost with Mjolnir, her command to evacuate all of the elven civilization residing in Midgard, luckilly she was here unscathed, or at least that's what records say, regardless, a few millennia later, she's passed off long ago. Right now our major concern is the status of Midgard. (...)
+botania.page.elvenLore6=&othan the birth of a Pixie. Thor shattering the Bifrost with Mjolnir, her command to evacuate all of the elven civilization residing in Midgard, luckily she was here unscathed, or at least that's what records say, regardless, a few millennia later, she's passed off long ago. Right now our major concern is the status of Midgard. (...)
 botania.page.elvenLore7=&oThe collapse of the Bifrost broke any interaction between the various worlds, but the sheer quantity of Mana residues we have left behind will surely have lingered and infused the world with life all over again, be it animal, floral or fungal, natural or magical in essence. We hope it's enough to create intelligent life that can properly harness it though.
 
 # - MISCLANEOUS
