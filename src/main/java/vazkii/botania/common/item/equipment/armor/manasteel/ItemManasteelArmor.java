@@ -26,21 +26,25 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.item.IPhantomInkable;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.BotaniaCreativeTab;
+import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IManaUsingItem {
+public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IManaUsingItem, IPhantomInkable {
 
 	private static final int MANA_PER_DAMAGE = 70;
 
+	private static final String TAG_PHANTOM_INK = "phantomInk";
+	
 	public ItemManasteelArmor(int type, String name) {
 		this(type, name, BotaniaAPI.manasteelArmorMaterial);
 	}
@@ -96,7 +100,11 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 	}
 
 	@Override
-	public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
+	public final String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
+		return hasPhantomInk(stack) ? LibResources.MODEL_INVISIBLE_ARMOR : getArmorTextureAfterInk(stack, slot);
+	}
+	
+	public String getArmorTextureAfterInk(ItemStack stack, int slot) {
 		return slot == 2 ? LibResources.MODEL_MANASTEEL_1 : LibResources.MODEL_MANASTEEL_0;
 	}
 
@@ -118,6 +126,8 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 			ItemStack[] stacks = getArmorSetStacks();
 			for(int i = 0; i < stacks.length; i++)
 				addStringToTooltip((hasArmorSetItem(player, i) ? EnumChatFormatting.GREEN : "") + " - " + stacks[i].getDisplayName(), list);
+			if(hasPhantomInk(stack))
+				addStringToTooltip(StatCollector.translateToLocal("botaniamisc.hasPhantomInk"), list);
 		} else addStringToTooltip(StatCollector.translateToLocal("botaniamisc.shiftinfo"), list);
 	}
 
@@ -177,6 +187,16 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 
 	public void addArmorSetDescription(ItemStack stack, List<String> list) {
 		addStringToTooltip(StatCollector.translateToLocal("botania.armorset.manasteel.desc"), list);
+	}
+
+	@Override
+	public boolean hasPhantomInk(ItemStack stack) {
+		return ItemNBTHelper.getBoolean(stack, TAG_PHANTOM_INK, false);
+	}
+
+	@Override
+	public void setPhantomInk(ItemStack stack, boolean ink) {
+		ItemNBTHelper.setBoolean(stack, TAG_PHANTOM_INK, true);
 	}
 
 }

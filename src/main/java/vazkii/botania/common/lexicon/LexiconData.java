@@ -232,6 +232,7 @@ public final class LexiconData {
 	public static LexiconEntry starfield;
 	public static LexiconEntry dirtPath;
 	public static LexiconEntry mushrooms;
+	public static LexiconEntry phantomInk;
 	public static LexiconEntry tcIntegration;
 	public static LexiconEntry bcIntegration;
 
@@ -843,6 +844,9 @@ public final class LexiconData {
 		mushrooms = new BLexiconEntry(LibLexicon.MISC_MUSHROOMS, categoryMisc);
 		mushrooms.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipesMushrooms));
 
+		phantomInk = new BLexiconEntry(LibLexicon.MISC_PHANTOM_INK, categoryMisc);
+		phantomInk.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipePhantomInk));
+		
 		if(Botania.bcTriggersLoaded) {
 			bcIntegration = new BLexiconEntry(LibLexicon.MISC_BC_INTEGRATION, categoryMisc);
 			bcIntegration.setLexiconPages(new PageText("0")).setIcon(new ItemStack(Items.redstone));

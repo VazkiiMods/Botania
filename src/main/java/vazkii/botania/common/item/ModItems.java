@@ -211,7 +211,8 @@ public final class ModItems {
 	public static Item cosmetic;
 	public static Item swapRing;
 	public static Item flowerBag;
-	
+	public static Item phantomInk;
+
 	public static void init() {
 		lexicon = new ItemLexicon();
 		petal = new ItemPetal();
@@ -326,6 +327,7 @@ public final class ModItems {
 		cosmetic = new ItemBaubleCosmetic();
 		swapRing = new ItemSwapRing();
 		flowerBag = new ItemFlowerBag();
+		phantomInk = new ItemPhantomInk();
 		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {

@@ -102,7 +102,8 @@ public final class LibResources {
 	public static final String MODEL_HOLY_CLOAK = PREFIX_MODEL + "holyCloak.png";
 	public static final String MODEL_UNHOLY_CLOAK = PREFIX_MODEL + "unholyCloak.png";
 	public static final String MODEL_CORPOREA_INDEX = PREFIX_MODEL + "corporeaIndex.png";
-
+	public static final String MODEL_INVISIBLE_ARMOR = PREFIX_MODEL + "invisibleArmor.png";
+	
 	public static final String MODEL_CAPE = "/assets/botania/textures/model/cape.png";
 
 	public static final String MISC_PARTICLES = PREFIX_MISC + "particles.png";

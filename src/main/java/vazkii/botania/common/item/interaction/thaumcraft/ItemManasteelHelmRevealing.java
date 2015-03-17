@@ -40,7 +40,7 @@ public class ItemManasteelHelmRevealing extends ItemManasteelHelm implements IGo
 	}
 
 	@Override
-	public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
+	public String getArmorTextureAfterInk(ItemStack stack, int slot) {
 		return LibResources.MODEL_MANASTEEL_2;
 	}
 

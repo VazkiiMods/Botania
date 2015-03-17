@@ -93,6 +93,7 @@ botaniamisc.historyDesc=See the last entries visited
 botaniamisc.lexiconOptions0=Botania Options
 botaniamisc.lexiconOptions1=Configure Botania from ingame
 botaniamisc.lexiconOptions2=Some options might need a game restart
+botaniamisc.hasPhantomInk=&bTinged with Phantom Ink
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
@@ -1099,6 +1100,7 @@ item.botania:cosmetic31.name=Questgiver Mark
 item.botania:manaString.name=Mana Infused String
 item.botania:swapRing.name=Ring of Correction
 item.botania:flowerBag.name=Flower Pouch
+item.botania:phantomInk.name=Phantom Ink
 
 # BREW NAMES
 botania.brew.fallback=Fallback
@@ -2408,6 +2410,11 @@ botania.page.dirtPath2=Also available in slabs
 botania.entry.mushrooms=Shimmering Mushrooms
 botania.page.mushrooms0=Sprinkling some &1Floral Powder&0 on &1Mushrooms&0 seems to have the interesting effect of them mutating into the respective color of powder, gaining a new shape and getting the ability to emit dim light. They don't seem to do anything besides look interesting.<br>These can also be seldom found deep underground in isolated patches.
 botania.page.mushrooms1=They don't make you bigger
+
+# -- PHANTOM INK
+botania.entry.phantomInk=Phantom Ink
+botania.page.phantomInk0=Having your beautiful skin and acessories under a set of metal armor is nobody's dream. It's bulky, flat, and worst of all, not fashionable!<br>Luckilly, by tinging this horrendous armor with &1Phantom Ink&0 in a crafting grid, the armor will be completely invisible, while still providing all of its benefits. This will onlt work with armor sets that can use &4Mana&0.
+botania.page.phantomInk1=Who you gonna call?
 
 # -- THAUMCRAFT INTEGRATION
 botania.entry.tcIntegration=Thaumcraft Integration

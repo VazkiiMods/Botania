@@ -241,6 +241,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeSwapRing;
 	public static IRecipe recipeSnowHorn;
 	public static IRecipe recipeFlowerBag;
+	public static IRecipe recipePhantomInk;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1599,6 +1600,10 @@ public final class ModCraftingRecipes {
 				'P', new ItemStack(ModItems.petal, 1, Short.MAX_VALUE),
 				'W', new ItemStack(Blocks.wool, 1, Short.MAX_VALUE));
 		recipeFlowerBag = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Phantom Ink Recipe
+		addShapelessOreDictRecipe(new ItemStack(ModItems.phantomInk, 4), LibOreDict.MANA_PEARL, new ItemStack(Items.dye), new ItemStack(Blocks.glass), new ItemStack(Items.glass_bottle), new ItemStack(Items.glass_bottle), new ItemStack(Items.glass_bottle), new ItemStack(Items.glass_bottle));
+		recipePhantomInk = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

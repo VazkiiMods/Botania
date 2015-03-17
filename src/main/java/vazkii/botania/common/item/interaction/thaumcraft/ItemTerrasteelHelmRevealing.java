@@ -40,7 +40,7 @@ public class ItemTerrasteelHelmRevealing extends ItemTerrasteelHelm implements I
 	}
 
 	@Override
-	public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
+	public String getArmorTextureAfterInk(ItemStack stack, int slot) {
 		return LibResources.MODEL_TERRASTEEL_2;
 	}
 

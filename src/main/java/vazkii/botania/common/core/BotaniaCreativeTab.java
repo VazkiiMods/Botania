@@ -63,6 +63,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.pestleAndMortar);
 		addItem(ModItems.dye);
 		addItem(ModItems.fertilizer);
+		addItem(ModItems.flowerBag);
 		addItem(ModItems.grassSeeds);
 		addItem(ModItems.blackLotus);
 		addItem(ModItems.twigWand);
@@ -170,6 +171,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.terrasteelLegs);
 		addItem(ModItems.terrasteelBoots);
 		addItem(ModItems.ancientWill);
+		addItem(ModItems.phantomInk);
 
 		addItem(ModItems.tinyPlanet);
 		addBlock(ModBlocks.tinyPlanet);
