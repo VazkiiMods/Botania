@@ -32,6 +32,7 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.common.block.decor.IFloatingFlower;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibObfuscation;
@@ -120,7 +121,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 	}
 
 	public BlockData getUnderlyingBlock() {
-		return new BlockData(supertile.getWorldObj(), supertile.xCoord, supertile.yCoord - 2, supertile.zCoord);
+		return new BlockData(supertile.getWorldObj(), supertile.xCoord, supertile.yCoord - (supertile instanceof IFloatingFlower ? 1 : 2), supertile.zCoord);
 	}
 
 	@Override
