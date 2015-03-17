@@ -728,6 +728,7 @@ tile.botania:mushroom12.name=Brown Shimmering Mushroom
 tile.botania:mushroom13.name=Green Shimmering Mushroom
 tile.botania:mushroom14.name=Red Shimmering Mushroom
 tile.botania:mushroom15.name=Black Shimmering Mushroom
+tile.botania:pump.name=Mana Pump
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower

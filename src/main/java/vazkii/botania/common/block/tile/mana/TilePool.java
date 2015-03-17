@@ -93,7 +93,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 	public void recieveMana(int mana) {
 		boolean full = getCurrentMana() >= manaCap;
 
-		this.mana = Math.min(getCurrentMana() + mana, manaCap);
+		this.mana = Math.max(0, Math.min(getCurrentMana() + mana, manaCap));
 		if(!full)
 			worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 	}

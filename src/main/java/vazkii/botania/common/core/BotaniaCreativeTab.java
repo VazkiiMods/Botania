@@ -208,6 +208,8 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.distributor);
 		addBlock(ModBlocks.manaVoid);
 		addBlock(ModBlocks.manaDetector);
+		addItem(ModItems.poolMinecart);
+		addBlock(ModBlocks.pump);
 		addBlock(ModBlocks.rfGenerator);
 		addBlock(ModBlocks.spreader);
 		addBlock(ModBlocks.turntable);
@@ -215,7 +217,6 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.lens);
 		addItem(ModItems.manaGun);
 		addItem(ModItems.clip);
-		addItem(ModItems.poolMinecart);
 		addItem(ModItems.spark);
 		addItem(ModItems.sparkUpgrade);
 		addItem(ModItems.corporeaSpark);

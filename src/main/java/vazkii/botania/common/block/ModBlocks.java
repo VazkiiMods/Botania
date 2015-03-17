@@ -52,6 +52,7 @@ import vazkii.botania.common.block.mana.BlockManaDetector;
 import vazkii.botania.common.block.mana.BlockManaVoid;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.mana.BlockPrism;
+import vazkii.botania.common.block.mana.BlockPump;
 import vazkii.botania.common.block.mana.BlockRFGenerator;
 import vazkii.botania.common.block.mana.BlockRuneAltar;
 import vazkii.botania.common.block.mana.BlockSpawnerClaw;
@@ -204,6 +205,7 @@ public final class ModBlocks {
 	public static Block corporeaFunnel;
 	public static Block endStoneBrick;
 	public static Block mushroom;
+	public static Block pump;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -267,6 +269,7 @@ public final class ModBlocks {
 		corporeaFunnel = new BlockCorporeaFunnel();
 		endStoneBrick = new BlockEndStoneBrick();
 		mushroom = new BlockModMushroom();
+		pump = new BlockPump();
 
 		ModFluffBlocks.init();
 

@@ -43,6 +43,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 
 	public static int forceMeta = 0;
 	public static boolean forceMana = false;
+	public static int forceManaNumber = -1;
 
 	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f) {
@@ -69,7 +70,14 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 
-		float waterLevel = (float) pool.getCurrentMana() / (float) pool.manaCap * 0.4F;
+		int mana = pool.getCurrentMana();
+		if(forceManaNumber > -1)
+			mana = forceManaNumber;
+		int cap = pool.manaCap;
+		if(cap == -1)
+			cap = TilePool.MAX_MANA;
+		
+		float waterLevel = (float) mana / (float) cap * 0.4F;
 		if(forceMana)
 			waterLevel = 0.4F;
 
@@ -125,6 +133,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 
 		forceMeta = 0;
 		forceMana = false;
+		forceManaNumber = -1;
 	}
 
 	public void renderIcon(int par1, int par2, IIcon par3Icon, int par4, int par5, int brightness) {
