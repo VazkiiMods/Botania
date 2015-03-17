@@ -13,6 +13,7 @@ package vazkii.botania.common.entity;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.item.Item;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
@@ -25,6 +26,7 @@ import vazkii.botania.common.lib.LibMisc;
 public class EntityPoolMinecart extends EntityMinecart {
 	
 	private static final int TRANSFER_RATE = 10000;
+	private static final String TAG_MANA = "mana";
 
     private boolean isBlocked = true;
 	
@@ -104,6 +106,18 @@ public class EntityPoolMinecart extends EntityMinecart {
 			}
 		}
 	}
+	
+	@Override
+    protected void writeEntityToNBT(NBTTagCompound p_70014_1_) {
+        super.writeEntityToNBT(p_70014_1_);
+        p_70014_1_.setInteger(TAG_MANA, getMana());
+    }
+
+	@Override
+    protected void readEntityFromNBT(NBTTagCompound p_70037_1_) {
+        super.readEntityFromNBT(p_70037_1_);
+        setMana(p_70037_1_.getInteger(TAG_MANA));
+    }
 	
 	public int getMana() {
 		return dataWatcher.getWatchableObjectInt(16);
