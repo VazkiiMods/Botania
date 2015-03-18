@@ -68,9 +68,8 @@ public class SubtileOrechid extends SubTileFunctional {
 
 		for(ItemStack stack : ores) {
 			Item item = stack.getItem();
-			if(item.getClass().getName().startsWith("gregtech"))
-				continue;
-			
+			String clname = item.getClass().getName();
+
 			// This poem is dedicated to Greg
 			//
 			// Greg.
@@ -78,6 +77,10 @@ public class SubtileOrechid extends SubTileFunctional {
 			// others say it's a grind.
 			// But take your TE ores
 			// and stick them in your behind.
+			if(clname.startsWith("gregtech") || clname.startsWith("gregapi"))
+				continue;
+			
+			return stack;
 		}
 		
 		return getOreToPut();
