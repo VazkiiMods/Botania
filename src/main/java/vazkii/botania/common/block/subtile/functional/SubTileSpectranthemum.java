@@ -15,11 +15,13 @@ import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChunkCoordinates;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
 import cpw.mods.fml.relauncher.Side;
@@ -53,6 +55,10 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 
 				ItemStack stack = item.getEntityItem();
 				if(stack != null) {
+					Item sitem = stack.getItem();
+					if(sitem instanceof IManaItem)
+						continue;
+					
 					int cost = stack.stackSize * COST;
 					if(mana >= cost) {
 						spawnExplosionParticles(item);
