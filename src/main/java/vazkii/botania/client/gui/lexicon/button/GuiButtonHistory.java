@@ -20,7 +20,7 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 
 public class GuiButtonHistory extends GuiButtonLexicon {
-	
+
 	GuiLexicon gui;
 
 	public GuiButtonHistory(int par1, int par2, int par3, String str, GuiLexicon gui) {
@@ -42,5 +42,5 @@ public class GuiButtonHistory extends GuiButtonLexicon {
 		if(k == 2)
 			RenderHelper.renderTooltip(par2, par3 + tooltipY, tooltip);
 	}
-	
+
 }

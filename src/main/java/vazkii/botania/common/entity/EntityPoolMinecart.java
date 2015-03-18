@@ -25,12 +25,10 @@ import vazkii.botania.common.block.tile.mana.TilePump;
 import vazkii.botania.common.lib.LibMisc;
 
 public class EntityPoolMinecart extends EntityMinecart {
-	
+
 	private static final int TRANSFER_RATE = 10000;
 	private static final String TAG_MANA = "mana";
 
-    private boolean isBlocked = true;
-	
 	public EntityPoolMinecart(World p_i1712_1_) {
 		super(p_i1712_1_);
 	}
@@ -38,11 +36,12 @@ public class EntityPoolMinecart extends EntityMinecart {
 	public EntityPoolMinecart(World p_i1715_1_, double p_i1715_2_, double p_i1715_4_, double p_i1715_6_) {
 		super(p_i1715_1_, p_i1715_2_, p_i1715_4_, p_i1715_6_);
 	}
-	
-    protected void entityInit() {
-        super.entityInit();
-        dataWatcher.addObject(16, 0);
-    }
+
+	@Override
+	protected void entityInit() {
+		super.entityInit();
+		dataWatcher.addObject(16, 0);
+	}
 
 	@Override
 	public Block func_145817_o() {
@@ -57,7 +56,7 @@ public class EntityPoolMinecart extends EntityMinecart {
 	@Override
 	public void killMinecart(DamageSource p_94095_1_) {
 		super.killMinecart(p_94095_1_);
-		this.func_145778_a(Item.getItemFromBlock(ModBlocks.pool), 1, 0.0F);
+		func_145778_a(Item.getItemFromBlock(ModBlocks.pool), 1, 0.0F);
 	}
 
 	@Override
@@ -68,7 +67,7 @@ public class EntityPoolMinecart extends EntityMinecart {
 	@Override
 	public void moveMinecartOnRail(int x, int y, int z, double par4) {
 		super.moveMinecartOnRail(x, y, z, par4);
-		
+
 		for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) {
 			int xp = x + dir.offsetX;
 			int zp = z + dir.offsetZ;
@@ -82,7 +81,7 @@ public class EntityPoolMinecart extends EntityMinecart {
 					IManaPool pool = (IManaPool) tile;
 					ForgeDirection pumpDir = ForgeDirection.getOrientation(meta);
 					boolean did = false;
-					
+
 					if(pumpDir == dir) { // Pool -> Cart
 						int cartMana = getMana();
 						int poolMana = pool.getCurrentMana();
@@ -99,10 +98,10 @@ public class EntityPoolMinecart extends EntityMinecart {
 						if(transfer > 0) {
 							pool.recieveMana(transfer);
 							setMana(cartMana - transfer);
-							did = true;							
+							did = true;
 						}
 					}
-					
+
 					if(did) {
 						worldObj.markBlockForUpdate(xp_, y, zp_);
 						TileEntity tile_ = worldObj.getTileEntity(xp, y, zp);
@@ -117,25 +116,25 @@ public class EntityPoolMinecart extends EntityMinecart {
 			}
 		}
 	}
-	
-	@Override
-    protected void writeEntityToNBT(NBTTagCompound p_70014_1_) {
-        super.writeEntityToNBT(p_70014_1_);
-        p_70014_1_.setInteger(TAG_MANA, getMana());
-    }
 
 	@Override
-    protected void readEntityFromNBT(NBTTagCompound p_70037_1_) {
-        super.readEntityFromNBT(p_70037_1_);
-        setMana(p_70037_1_.getInteger(TAG_MANA));
-    }
-	
+	protected void writeEntityToNBT(NBTTagCompound p_70014_1_) {
+		super.writeEntityToNBT(p_70014_1_);
+		p_70014_1_.setInteger(TAG_MANA, getMana());
+	}
+
+	@Override
+	protected void readEntityFromNBT(NBTTagCompound p_70037_1_) {
+		super.readEntityFromNBT(p_70037_1_);
+		setMana(p_70037_1_.getInteger(TAG_MANA));
+	}
+
 	public int getMana() {
 		return dataWatcher.getWatchableObjectInt(16);
 	}
-	
+
 	public void setMana(int mana) {
 		dataWatcher.updateObject(16, mana);
 	}
-	
+
 }

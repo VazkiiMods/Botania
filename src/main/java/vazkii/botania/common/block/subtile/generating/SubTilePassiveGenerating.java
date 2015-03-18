@@ -26,14 +26,14 @@ public class SubTilePassiveGenerating extends SubTileGenerating {
 	public boolean isPassiveFlower() {
 		return true;
 	}
-	
+
 	@Override
 	public ArrayList<ItemStack> getDrops(ArrayList<ItemStack> list) {
 		ArrayList<ItemStack> drops = super.getDrops(list);
 		populateDropStackNBTs(drops);
 		return drops;
 	}
-	
+
 	public void populateDropStackNBTs(List<ItemStack> drops) {
 		if(isPassiveFlower() && ticksExisted > 0 && ConfigHandler.hardcorePassiveGeneration > 0)
 			ItemNBTHelper.setInt(drops.get(0), TAG_TICKS_EXISTED, ticksExisted);
@@ -44,5 +44,5 @@ public class SubTilePassiveGenerating extends SubTileGenerating {
 		super.onBlockPlacedBy(world, x, y, z, entity, stack);
 		ticksExisted = ItemNBTHelper.getInt(stack, TAG_TICKS_EXISTED, 0);
 	}
-	
+
 }

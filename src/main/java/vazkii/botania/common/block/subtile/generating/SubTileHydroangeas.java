@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -22,7 +21,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -33,7 +31,7 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 	private static final String TAG_COOLDOWN = "cooldown";
 
 	private static final int[][] OFFSETS = { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 }, { -1, 1 }, { -1, -1 }, { 1, 1 }, { 1, -1 } };
-	
+
 	int burnTime, cooldown;
 
 	@Override
@@ -53,11 +51,11 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 			if(mana < getMaxMana() && !supertile.getWorldObj().isRemote) {
 				List<int[]> offsets = Arrays.asList(OFFSETS);
 				Collections.shuffle(offsets);
-				
+
 				for(int[] offsetArray : offsets) {
 					int[] positions = {
-						supertile.xCoord + offsetArray[0],
-						supertile.zCoord + offsetArray[1]
+							supertile.xCoord + offsetArray[0],
+							supertile.zCoord + offsetArray[1]
 					};
 					if(supertile.getWorldObj().getBlock(positions[0], supertile.yCoord, positions[1]) == getBlockToSearchFor() && (getBlockToSearchBelow() == null || supertile.getWorldObj().getBlock(positions[0], supertile.yCoord - 1, positions[1]) == getBlockToSearchBelow()) && supertile.getWorldObj().getBlockMetadata(positions[0], supertile.yCoord, positions[1]) == 0) {
 						supertile.getWorldObj().setBlockToAir(positions[0], supertile.yCoord, positions[1]);
@@ -67,7 +65,7 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 						break;
 					}
 				}
-				
+
 			}
 		} else {
 			if(supertile.getWorldObj().rand.nextInt(8) == 0)
@@ -140,7 +138,7 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 		int cooldown = this.cooldown;
 		if(burnTime > 0)
 			cooldown = getCooldown();
-		
+
 		if(cooldown > 0)
 			ItemNBTHelper.setInt(drops.get(0), TAG_COOLDOWN, getCooldown());
 	}

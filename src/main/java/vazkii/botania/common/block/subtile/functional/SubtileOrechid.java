@@ -79,10 +79,10 @@ public class SubtileOrechid extends SubTileFunctional {
 			// and stick them in your behind.
 			if(clname.startsWith("gregtech") || clname.startsWith("gregapi"))
 				continue;
-			
+
 			return stack;
 		}
-		
+
 		return getOreToPut();
 	}
 

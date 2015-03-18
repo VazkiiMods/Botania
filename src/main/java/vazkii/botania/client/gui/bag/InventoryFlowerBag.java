@@ -13,7 +13,6 @@ package vazkii.botania.client.gui.bag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemFlowerBag;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
@@ -21,14 +20,14 @@ import vazkii.botania.common.lib.LibItemNames;
 public class InventoryFlowerBag implements IInventory {
 
 	private static final ItemStack[] FALLBACK_INVENTORY = new ItemStack[16];
-	
+
 	EntityPlayer player;
 	int slot;
 	ItemStack[] stacks = null;
-	
+
 	boolean invPushed = false;
 	ItemStack storedInv = null;
-	
+
 	public InventoryFlowerBag(EntityPlayer player, int slot) {
 		this.player = player;
 		this.slot = slot;
@@ -37,48 +36,48 @@ public class InventoryFlowerBag implements IInventory {
 	public static boolean isFlowerBag(ItemStack stack) {
 		return stack != null && stack.getItem() == ModItems.flowerBag;
 	}
-	
+
 	ItemStack getStack() {
 		ItemStack stack = player.inventory.getStackInSlot(slot);
 		if(stack != null)
 			storedInv = stack;
-		return stack; 
+		return stack;
 	}
-	
+
 	ItemStack[] getInventory() {
 		if(stacks != null)
 			return stacks;
-		
+
 		ItemStack stack = getStack();
 		if(isFlowerBag(getStack())) {
 			stacks = ItemFlowerBag.loadStacks(stack);
 			return stacks;
 		}
-		
+
 		return FALLBACK_INVENTORY;
 	}
-	
+
 	public void pushInventory() {
 		if(invPushed)
 			return;
-		
+
 		ItemStack stack = getStack();
 		if(stack == null)
 			stack = storedInv;
-		
+
 		if(stack != null) {
 			ItemStack[] inv = getInventory();
 			ItemFlowerBag.setStacks(stack, inv);
 		}
-	
+
 		invPushed = true;
 	}
-	
+
 	@Override
 	public int getSizeInventory() {
 		return 16;
 	}
-	
+
 	@Override
 	public ItemStack getStackInSlot(int i) {
 		return getInventory()[i];

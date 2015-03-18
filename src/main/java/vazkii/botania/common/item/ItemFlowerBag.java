@@ -23,11 +23,10 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibGuiIDs;
 import vazkii.botania.common.lib.LibItemNames;
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class ItemFlowerBag extends ItemMod {
-	
+
 	private static final String TAG_ITEMS = "InvItems";
 	private static final String TAG_SLOT = "Slot";
 
@@ -36,7 +35,7 @@ public class ItemFlowerBag extends ItemMod {
 		setMaxStackSize(1);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
-	
+
 	@SubscribeEvent
 	public void onPickupItem(EntityItemPickupEvent event) {
 		ItemStack stack = event.item.getEntityItem();
@@ -44,11 +43,11 @@ public class ItemFlowerBag extends ItemMod {
 			int color = stack.getItemDamage();
 			if(color > 15)
 				return;
-			
+
 			for(int i = 0; i < event.entityPlayer.inventory.getSizeInventory(); i++) {
 				if(i == event.entityPlayer.inventory.currentItem)
 					continue; // prevent item deletion
-				
+
 				ItemStack invStack = event.entityPlayer.inventory.getStackInSlot(i);
 				if(invStack != null && invStack.getItem() == this) {
 					ItemStack[] bagInv = loadStacks(invStack);
@@ -69,23 +68,23 @@ public class ItemFlowerBag extends ItemMod {
 							didChange = true;
 						}
 					}
-					
+
 					if(didChange)
 						setStacks(invStack, bagInv);
 				}
-				
+
 				if(stack.stackSize == 0)
 					return;
 			}
 		}
 	}
-	
+
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
 		player.openGui(Botania.instance, LibGuiIDs.FLOWER_BAG, world, 0, 0, 0);
 		return stack;
 	}
-	
+
 	public static ItemStack[] loadStacks(ItemStack stack) {
 		NBTTagList var2 = ItemNBTHelper.getList(stack, TAG_ITEMS, 10, false);
 		ItemStack[] inventorySlots = new ItemStack[16];
@@ -95,10 +94,10 @@ public class ItemFlowerBag extends ItemMod {
 			if(var5 >= 0 && var5 < inventorySlots.length)
 				inventorySlots[var5] = ItemStack.loadItemStackFromNBT(var4);
 		}
-		
+
 		return inventorySlots;
 	}
-	
+
 	public static void setStacks(ItemStack stack, ItemStack[] inventorySlots) {
 		NBTTagList var2 = new NBTTagList();
 		for(int var3 = 0; var3 < inventorySlots.length; ++var3)
@@ -108,8 +107,8 @@ public class ItemFlowerBag extends ItemMod {
 				inventorySlots[var3].writeToNBT(var4);
 				var2.appendTag(var4);
 			}
-		
+
 		ItemNBTHelper.setList(stack, TAG_ITEMS, var2);
 	}
-	
+
 }

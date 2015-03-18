@@ -13,7 +13,6 @@ package vazkii.botania.common.lexicon;
 import java.util.ArrayList;
 import java.util.List;
 
-import baubles.common.Config;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -87,7 +86,7 @@ public final class LexiconData {
 	public static LexiconEntry rfGenerator;
 	public static LexiconEntry prism;
 	public static LexiconEntry poolCart;
-	
+
 	public static LexiconEntry functionalIntro;
 	public static LexiconEntry jadedAmaranthus;
 	public static LexiconEntry bellethorne;
@@ -298,7 +297,7 @@ public final class LexiconData {
 
 		flowerBag = new BLexiconEntry(LibLexicon.BASICS_FLOWER_BAG, categoryBasics);
 		flowerBag.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeFlowerBag));
-		
+
 		if(Botania.thaumcraftLoaded)
 			new BLexiconEntry("wrap", categoryBasics).setLexiconPages(new PageText("0")); // lel
 
@@ -320,7 +319,7 @@ public final class LexiconData {
 
 		if(ConfigHandler.fluxfieldEnabled) {
 			rfGenerator = new BLexiconEntry(LibLexicon.MANA_RF_GENERATOR, categoryMana);
-			rfGenerator.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeRFGenerator));	
+			rfGenerator.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeRFGenerator));
 		}
 
 		lenses = new BLexiconEntry(LibLexicon.MANA_LENSES, categoryMana);
@@ -353,7 +352,7 @@ public final class LexiconData {
 
 		manaMirror = new BLexiconEntry(LibLexicon.MANA_MIRROR, categoryMana);
 		manaMirror.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeManaMirror));
-		
+
 		manaDetector = new BLexiconEntry(LibLexicon.MANA_DETECTOR, categoryMana);
 		manaDetector.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeManaDetector));
 
@@ -377,7 +376,7 @@ public final class LexiconData {
 
 		poolCart = new BLexiconEntry(LibLexicon.MANA_POOL_CART, categoryMana);
 		poolCart.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipePoolCart), new PageCraftingRecipe("4", ModCraftingRecipes.recipePump));
-		
+
 		// FUNCTIONAL FLOWERS ENTRIES
 		functionalIntro = new BLexiconEntry(LibLexicon.FFLOWER_INTRO, categoryFunctionalFlowers);
 		functionalIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageText("3"), new PageCraftingRecipe("4", ModCraftingRecipes.recipeRedstoneRoot)).setIcon(null);;
@@ -853,7 +852,7 @@ public final class LexiconData {
 
 		phantomInk = new BLexiconEntry(LibLexicon.MISC_PHANTOM_INK, categoryMisc);
 		phantomInk.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipePhantomInk));
-		
+
 		if(Botania.bcTriggersLoaded) {
 			bcIntegration = new BLexiconEntry(LibLexicon.MISC_BC_INTEGRATION, categoryMisc);
 			bcIntegration.setLexiconPages(new PageText("0")).setIcon(new ItemStack(Items.redstone));

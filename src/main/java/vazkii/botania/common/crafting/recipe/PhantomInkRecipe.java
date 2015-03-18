@@ -10,13 +10,12 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import vazkii.botania.api.item.IAncientWillContainer;
-import vazkii.botania.api.item.IPhantomInkable;
-import vazkii.botania.common.item.ModItems;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
+import vazkii.botania.api.item.IPhantomInkable;
+import vazkii.botania.common.item.ModItems;
 
 public class PhantomInkRecipe implements IRecipe {
 

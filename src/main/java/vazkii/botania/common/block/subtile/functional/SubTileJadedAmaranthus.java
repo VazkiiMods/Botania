@@ -12,7 +12,6 @@ package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.block.ModBlocks;

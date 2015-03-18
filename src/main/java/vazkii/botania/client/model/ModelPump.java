@@ -33,7 +33,7 @@ public class ModelPump extends ModelBase{
 		for(float r = 0; r <= Math.PI * 2; r += Math.PI) {
 			ModelRenderer side = new ModelRenderer(this, 22, 0);
 
-			side.addBox(-4.0F, -4.0F, 7.0F, 8, 8, 1);   
+			side.addBox(-4.0F, -4.0F, 7.0F, 8, 8, 1);
 			side.setRotationPoint(0.0F, 0.0F, 0.0F);
 			side.rotateAngleY = r;
 			main.addChild(side);
@@ -59,9 +59,9 @@ public class ModelPump extends ModelBase{
 
 		parts.add(main);
 
-	}  
+	}
 
-	public void render(float ringPos) { 
+	public void render(float ringPos) {
 		for(ModelRenderer iRing : innerRing)
 			iRing.rotationPointZ = ringPos;
 

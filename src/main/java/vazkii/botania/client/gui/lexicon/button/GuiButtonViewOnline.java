@@ -27,7 +27,7 @@ public class GuiButtonViewOnline extends GuiButtonLexicon {
 	public GuiButtonViewOnline(int id, int x, int y) {
 		super(id, x, y, 11, 11, "");
 	}
-	
+
 	@Override
 	public void drawButton(Minecraft par1Minecraft, int par2, int par3) {
 		field_146123_n = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;

@@ -12,7 +12,6 @@ package vazkii.botania.common.item;
 
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
-import vazkii.botania.common.crafting.recipe.ManaGunLensRecipe;
 import vazkii.botania.common.crafting.recipe.PhantomInkRecipe;
 import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -24,5 +23,5 @@ public class ItemPhantomInk extends ItemMod {
 		GameRegistry.addRecipe(new PhantomInkRecipe());
 		RecipeSorter.register("botania:phantomInk", PhantomInkRecipe.class, Category.SHAPELESS, "");
 	}
-	
+
 }

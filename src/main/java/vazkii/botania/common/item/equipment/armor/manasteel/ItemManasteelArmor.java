@@ -44,7 +44,7 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 	private static final int MANA_PER_DAMAGE = 70;
 
 	private static final String TAG_PHANTOM_INK = "phantomInk";
-	
+
 	public ItemManasteelArmor(int type, String name) {
 		this(type, name, BotaniaAPI.manasteelArmorMaterial);
 	}
@@ -103,7 +103,7 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 	public final String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
 		return hasPhantomInk(stack) ? LibResources.MODEL_INVISIBLE_ARMOR : getArmorTextureAfterInk(stack, slot);
 	}
-	
+
 	public String getArmorTextureAfterInk(ItemStack stack, int slot) {
 		return slot == 2 ? LibResources.MODEL_MANASTEEL_1 : LibResources.MODEL_MANASTEEL_0;
 	}

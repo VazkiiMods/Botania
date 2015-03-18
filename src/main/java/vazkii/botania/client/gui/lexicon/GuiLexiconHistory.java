@@ -20,12 +20,12 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 public class GuiLexiconHistory extends GuiLexiconIndex {
 
 	public static List<LexiconEntry> history = new ArrayList();
-	
+
 	public GuiLexiconHistory() {
 		super(null);
 		title = StatCollector.translateToLocal("botaniamisc.historyLong");
 	}
-	
+
 	@Override
 	void buildEntries() {
 		entriesToDisplay.clear();
@@ -36,7 +36,7 @@ public class GuiLexiconHistory extends GuiLexiconIndex {
 				entriesToDisplay.add(entry);
 		}
 	}
-	
+
 	public static void visit(LexiconEntry entry) {
 		if(history.contains(entry))
 			history.remove(entry);

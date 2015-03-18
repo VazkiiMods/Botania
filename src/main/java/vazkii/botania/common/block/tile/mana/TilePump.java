@@ -14,21 +14,21 @@ import net.minecraft.nbt.NBTTagCompound;
 import vazkii.botania.common.block.tile.TileMod;
 
 public class TilePump extends TileMod {
-	
+
 	private static final String TAG_ACTIVE = "active";
 
 	public float innerRingPos;
 	public boolean active = false;
 	public boolean hasCart = false;
 	public float moving = 0F;
-	
+
 	@Override
 	public void updateEntity() {
 		float max = 8F;
 		float min = 0F;
-		
+
 		float incr = max / 10F;
-		
+
 		if(innerRingPos < max && active && moving >= 0F) {
 			innerRingPos += incr;
 			moving = incr;
@@ -44,29 +44,29 @@ public class TilePump extends TileMod {
 				moving = 0F;
 			}
 		}
-		
+
 		if(!hasCart && active)
 			setActive(false);
 		hasCart = false;
-		
+
 		super.updateEntity();
 	}
-	
+
 	@Override
 	public void writeCustomNBT(NBTTagCompound cmp) {
 		cmp.setBoolean(TAG_ACTIVE, active);
 	}
-	
+
 	@Override
 	public void readCustomNBT(NBTTagCompound cmp) {
 		active = cmp.getBoolean(TAG_ACTIVE);
 	}
-	
+
 	public void setActive(boolean active) {
 		if(!worldObj.isRemote) {
 			this.active = active;
-			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);			
+			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 		}
 	}
-	
+
 }

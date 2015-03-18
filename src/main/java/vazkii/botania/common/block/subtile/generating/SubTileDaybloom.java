@@ -16,7 +16,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.ISubTileContainer;
-import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;

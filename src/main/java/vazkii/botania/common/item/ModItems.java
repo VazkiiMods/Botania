@@ -330,7 +330,7 @@ public final class ModItems {
 		flowerBag = new ItemFlowerBag();
 		phantomInk = new ItemPhantomInk();
 		poolMinecart = new ItemPoolMinecart();
-		
+
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));

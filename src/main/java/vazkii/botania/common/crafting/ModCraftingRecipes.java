@@ -1279,7 +1279,7 @@ public final class ModCraftingRecipes {
 					'S', LibOreDict.LIVING_ROCK,
 					'M', LibOreDict.MANA_STEEL,
 					'R', new ItemStack(Blocks.redstone_block));
-			recipeRFGenerator = BotaniaAPI.getLatestAddedRecipe();	
+			recipeRFGenerator = BotaniaAPI.getLatestAddedRecipe();
 		}
 
 		// Vial Recipe
@@ -1595,30 +1595,30 @@ public final class ModCraftingRecipes {
 		// Horn of the Covering Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.grassHorn, 1, 2), new ItemStack(ModItems.grassHorn), new ItemStack(Items.snowball));
 		recipeSnowHorn = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Flower Pouch Recipe
-		GameRegistry.addShapedRecipe(new ItemStack(ModItems.flowerBag), 
+		GameRegistry.addShapedRecipe(new ItemStack(ModItems.flowerBag),
 				"WPW", "W W", " W ",
 				'P', new ItemStack(ModItems.petal, 1, Short.MAX_VALUE),
 				'W', new ItemStack(Blocks.wool, 1, Short.MAX_VALUE));
 		recipeFlowerBag = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Phantom Ink Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.phantomInk, 4), LibOreDict.MANA_PEARL, new ItemStack(Items.dye), new ItemStack(Blocks.glass), new ItemStack(Items.glass_bottle), new ItemStack(Items.glass_bottle), new ItemStack(Items.glass_bottle), new ItemStack(Items.glass_bottle));
 		recipePhantomInk = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Minecart with Mana Pool Recipe
 		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.poolMinecart), new ItemStack(Items.minecart), new ItemStack(ModBlocks.pool));
 		recipePoolCart = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Mana Pump Recipe
-		addOreDictRecipe(new ItemStack(ModBlocks.pump), 
+		addOreDictRecipe(new ItemStack(ModBlocks.pump),
 				"SSS", "IBI", "SSS",
 				'S', LibOreDict.LIVING_ROCK,
 				'I', LibOreDict.MANA_STEEL,
 				'B', new ItemStack(Items.bucket));
 		recipePump = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",

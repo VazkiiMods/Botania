@@ -88,7 +88,7 @@ public final class ConfigHandler {
 
 		desc = "Set this to true to enable justified text in the Lexica Botania's text pages.";
 		lexiconJustifiedText = loadPropBool("lexicon.enable.justifiedText", desc, lexiconJustifiedText);
-		
+
 		desc = "Set this to true to set the power system's particles to be a lot more subtle. Good for low-end systems, if the particles are causing lag.";
 		subtlePowerSystem = loadPropBool("powerSystem.subtle", desc, subtlePowerSystem);
 
@@ -163,7 +163,7 @@ public final class ConfigHandler {
 
 		desc = "Set this to false to disable the Mana Fluxfield (generates RF from mana). This only disables the entry and creation. Old ones that are already in the world will stay.";
 		fluxfieldEnabled = loadPropBool("manaFluxfield.enabled", desc, fluxfieldEnabled);
-		
+
 		desc = "The quantity of Botania flower patches to generate in the world, defaults to 2, the lower the number the less patches generate.";
 		flowerQuantity = loadPropInt("worldgen.flower.quantity", desc, flowerQuantity);
 

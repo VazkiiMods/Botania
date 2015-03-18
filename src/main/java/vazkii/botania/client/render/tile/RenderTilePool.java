@@ -76,7 +76,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 		int cap = pool.manaCap;
 		if(cap == -1)
 			cap = TilePool.MAX_MANA;
-		
+
 		float waterLevel = (float) mana / (float) cap * 0.4F;
 		if(forceMana)
 			waterLevel = 0.4F;

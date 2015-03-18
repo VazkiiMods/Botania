@@ -10,18 +10,18 @@
  */
 package vazkii.botania.common.core.proxy;
 
-import org.apache.logging.log4j.Level;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.ItemDoublePlant;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+
+import org.apache.logging.log4j.Level;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ITwoNamedPage;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -127,17 +127,17 @@ public class CommonProxy {
 		LexiconData.postInit();
 
 		registerNEIStuff();
-		
+
 		int words = 0;
 		for(LexiconEntry entry : BotaniaAPI.getAllEntries())
 			for(LexiconPage page : entry.pages) {
 				words += countWords(page.getUnlocalizedName());
 				if(page instanceof ITwoNamedPage)
-					words += countWords(((ITwoNamedPage) page).getSecondUnlocalizedName()); 
+					words += countWords(((ITwoNamedPage) page).getSecondUnlocalizedName());
 			}
 		FMLLog.log(Level.INFO, "[Botania] The Lexica Botania has %d words.", words);
 	}
-	
+
 	private int countWords(String s) {
 		String s1 = StatCollector.translateToLocal(s);
 		return s1.split(" ").length;

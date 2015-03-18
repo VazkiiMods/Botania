@@ -40,7 +40,6 @@ import vazkii.botania.client.gui.lexicon.button.GuiButtonBookmark;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonCategory;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonHistory;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonInvisible;
-import vazkii.botania.client.gui.lexicon.button.GuiButtonLexicon;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonOptions;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.SheddingHandler;
@@ -342,7 +341,7 @@ public class GuiLexicon extends GuiScreen {
 		}
 
 		if(isMainPage())
-			buttonList.add(new GuiButtonHistory(BOOKMARK_START + MAX_BOOKMARK_COUNT, left + 138, top + guiHeight - 24, StatCollector.translateToLocal("botaniamisc.history"), this));	
+			buttonList.add(new GuiButtonHistory(BOOKMARK_START + MAX_BOOKMARK_COUNT, left + 138, top + guiHeight - 24, StatCollector.translateToLocal("botaniamisc.history"), this));
 	}
 
 	public static void startTutorial() {

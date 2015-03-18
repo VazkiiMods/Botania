@@ -11,9 +11,7 @@
 package vazkii.botania.client.gui.lexicon;
 
 import java.awt.Desktop;
-import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
@@ -147,7 +145,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 				mc.ingameGUI.getChatGUI().addToSentMessages(cmd);
 				mc.thePlayer.sendChatMessage(cmd);
 				break;
-			case 4 : 
+			case 4 :
 				try {
 					if(Desktop.isDesktopSupported())
 						Desktop.getDesktop().browse(new URI("http://botaniamod.net/lexicon.php#" + entry.unlocalizedName));

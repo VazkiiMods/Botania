@@ -32,7 +32,7 @@ public class SubTileMunchdew extends SubTileGenerating {
 
 	private static final String TAG_COOLDOWN = "cooldown";
 	private static final String TAG_ATE_ONCE = "ateOnce";
-	
+
 	boolean ateOnce = false;
 	int ticksWithoutEating = -1;
 	int cooldown = 0;
@@ -46,7 +46,7 @@ public class SubTileMunchdew extends SubTileGenerating {
 			ticksWithoutEating = 0;
 			return;
 		}
-		
+
 		int manaPerLeaf = 160;
 		eatLeaves : {
 			if(getMaxMana() - mana >= manaPerLeaf && !supertile.getWorldObj().isRemote && ticksExisted % 4 == 0) {
@@ -99,7 +99,7 @@ public class SubTileMunchdew extends SubTileGenerating {
 			if(ticksWithoutEating >= 5)
 				cooldown = 1600;
 		}
-		
+
 	}
 
 	@Override
