@@ -1355,13 +1355,16 @@ botania.page.lens35=Force Lens
 botania.page.lens36=The &1Flash Lens&0, in contact with a block, creates a flame of the same color as the burst that caused it. The flame provides light and is purely decorative.<br>If it hits one of these flames, it puts it out instead.
 botania.page.lens37=Flash Lens
 
-# -- PORTABLE MANA TRANSPORT
-botania.entry.manaTransport=Portable Mana Transport
-botania.page.manaTransport0=While using &1Mana Spreaders&0 to transport &4Mana&0 around is all well and good, there is also a way of doing it in a different manner.<br>The &1Mana Tablet&0 is a portable object which can carry &4Mana&0 on itself.
-botania.page.manaTransport1=Tossing one of these on top of a &1Mana Pool&0 will allow for transport of &4Mana&0 between one and another.<br>Shift-right clicking the &1Mana Pool&0 with a &1Wand of the Forest&0 will change in which way the &4Mana&0 flows.<br>Lastly, unlike normal items, these will never despawn when dropped on the floor.
-botania.page.manaTransport2=Don't put it on your pocket, it might bend
-botania.page.manaTransport3=It's also possible to indirectly access the &4Mana&0 reserves of a &1Mana Pool&0, through using a &1Mana Mirror&0, items will pull out of the pool itself.<br>To bind a mirror to a pool, one would simply &4shift right-click&0 a pool with the mirror.<br>The mirror can't put mana in or take mana out of pools in any other way.
-botania.page.manaTransport4=Mirror mirror on the wall...
+# -- MANA TABLET
+botania.entry.manaTablet=Mana Tablet
+botania.page.manaTablet0=While using &1Mana Spreaders&0 to transport &4Mana&0 around is all well and good, there is also a way of doing it in a different manner.<br>The &1Mana Tablet&0 is a portable object which can carry &4Mana&0 on itself.<br>Not only that, but other items can also pull from it as they need it for their uses, making this an essential tool.
+botania.page.manaTablet1=Tossing one of these on top of a &1Mana Pool&0 will allow for transport of &4Mana&0 between one and another.<br>Shift-right clicking the &1Mana Pool&0 with a &1Wand of the Forest&0 will change in which way the &4Mana&0 flows.<br>Lastly, unlike normal items, these will never despawn when dropped on the floor.
+botania.page.manaTablet2=Don't put it on your pocket, it might bend
+
+# -- MANA MIRROR
+botania.entry.manaMirror=Mana Mirror
+botania.page.manaMirror0=A &1Mana Mirror&0 is an alternative to &4Mana&0 containing items such as a &1Mana Tablet&0. It can be bound to a &1Mana Pool&0 in the world and items will pull out of the pool itself when needing &4Mana&0.<br>To bind a mirror to a pool, one would simply &4shift right-click&0 a pool with the mirror. The mirror can't put mana in or take mana out of pools in any other way.
+botania.page.manaMirror1=Mirror mirror on the wall...
 
 # -- MANA DETECTOR
 botania.entry.manaDetector=Mana Detector

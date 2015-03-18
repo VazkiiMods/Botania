@@ -362,7 +362,7 @@ public class GuiLexicon extends GuiScreen {
 		tutorial.add(LexiconData.functionalIntro);
 		tutorial.add(LexiconData.runicAltar);
 		tutorial.add(LexiconData.baublesIntro);
-		tutorial.add(LexiconData.manaTransport);
+		tutorial.add(LexiconData.manaTablet);
 		tutorial.add(LexiconData.manasteelGear);
 		tutorial.add(LexiconData.dispenserTweaks);
 		if(SheddingHandler.hasShedding())

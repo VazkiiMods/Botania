@@ -74,7 +74,8 @@ public final class LexiconData {
 	public static LexiconEntry lenses;
 	public static LexiconEntry distributor;
 	public static LexiconEntry manaVoid;
-	public static LexiconEntry manaTransport;
+	public static LexiconEntry manaTablet;
+	public static LexiconEntry manaMirror;
 	public static LexiconEntry manaDetector;
 	public static LexiconEntry redstoneSpreader;
 	public static LexiconEntry manastar;
@@ -347,10 +348,12 @@ public final class LexiconData {
 		manaVoid = new BLexiconEntry(LibLexicon.MANA_VOID, categoryMana);
 		manaVoid.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeManaVoid));
 
-		manaTransport = new BLexiconEntry(LibLexicon.MANA_TRANSPORT, categoryMana);
-		manaTransport.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipesManaTablet),
-				new PageText("3"), new PageCraftingRecipe("4", ModCraftingRecipes.recipeManaMirror));
+		manaTablet = new BLexiconEntry(LibLexicon.MANA_TABLET, categoryMana);
+		manaTablet.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipesManaTablet));
 
+		manaMirror = new BLexiconEntry(LibLexicon.MANA_MIRROR, categoryMana);
+		manaMirror.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeManaMirror));
+		
 		manaDetector = new BLexiconEntry(LibLexicon.MANA_DETECTOR, categoryMana);
 		manaDetector.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeManaDetector));
 
