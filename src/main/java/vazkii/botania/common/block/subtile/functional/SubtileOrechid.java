@@ -16,6 +16,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.WeightedRandom;
@@ -64,10 +65,22 @@ public class SubtileOrechid extends SubTileFunctional {
 		String ore = ((StringRandomItem) WeightedRandom.getRandomItem(supertile.getWorldObj().rand, values)).s;
 
 		List<ItemStack> ores = OreDictionary.getOres(ore);
-		if(ores.isEmpty())
-			return getOreToPut();
 
-		return ores.get(0);
+		for(ItemStack stack : ores) {
+			Item item = stack.getItem();
+			if(item.getClass().getName().startsWith("gregtech"))
+				continue;
+			
+			// This poem is dedicated to Greg
+			//
+			// Greg.
+			// I get what you do when
+			// others say it's a grind.
+			// But take your TE ores
+			// and stick them in your behind.
+		}
+		
+		return getOreToPut();
 	}
 
 	public ChunkCoordinates getCoordsToPut() {
