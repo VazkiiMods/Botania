@@ -55,6 +55,7 @@ import vazkii.botania.client.render.block.RenderBrewery;
 import vazkii.botania.client.render.block.RenderCorporeaIndex;
 import vazkii.botania.client.render.block.RenderFloatingFlower;
 import vazkii.botania.client.render.block.RenderPool;
+import vazkii.botania.client.render.block.RenderPump;
 import vazkii.botania.client.render.block.RenderPylon;
 import vazkii.botania.client.render.block.RenderSpawnerClaw;
 import vazkii.botania.client.render.block.RenderSpecialFlower;
@@ -78,6 +79,7 @@ import vazkii.botania.client.render.tile.RenderTileEnchanter;
 import vazkii.botania.client.render.tile.RenderTileFloatingFlower;
 import vazkii.botania.client.render.tile.RenderTilePool;
 import vazkii.botania.client.render.tile.RenderTilePrism;
+import vazkii.botania.client.render.tile.RenderTilePump;
 import vazkii.botania.client.render.tile.RenderTilePylon;
 import vazkii.botania.client.render.tile.RenderTileRedString;
 import vazkii.botania.client.render.tile.RenderTileRuneAltar;
@@ -103,6 +105,7 @@ import vazkii.botania.common.block.tile.TileTinyPotato;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.block.tile.mana.TilePrism;
+import vazkii.botania.common.block.tile.mana.TilePump;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -168,6 +171,7 @@ public class ClientProxy extends CommonProxy {
 		LibRenderIDs.idSpawnerClaw = RenderingRegistry.getNextAvailableRenderId();
 		LibRenderIDs.idBrewery = RenderingRegistry.getNextAvailableRenderId();
 		LibRenderIDs.idCorporeaIndex = RenderingRegistry.getNextAvailableRenderId();
+		LibRenderIDs.idPump = RenderingRegistry.getNextAvailableRenderId();
 
 		RenderingRegistry.registerBlockHandler(new RenderAltar());
 		RenderingRegistry.registerBlockHandler(new RenderSpecialFlower(LibRenderIDs.idSpecialFlower));
@@ -179,6 +183,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerBlockHandler(new RenderSpawnerClaw());
 		RenderingRegistry.registerBlockHandler(new RenderBrewery());
 		RenderingRegistry.registerBlockHandler(new RenderCorporeaIndex());
+		RenderingRegistry.registerBlockHandler(new RenderPump());
 
 		RenderTransparentItem renderTransparentItem = new RenderTransparentItem();
 		RenderFloatingFlowerItem renderFloatingFlower = new RenderFloatingFlowerItem();
@@ -212,6 +217,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileRedString.class, new RenderTileRedString());
 		ClientRegistry.bindTileEntitySpecialRenderer(TilePrism.class, new RenderTilePrism());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileCorporeaIndex.class, new RenderTileCorporeaIndex());
+		ClientRegistry.bindTileEntitySpecialRenderer(TilePump.class, new RenderTilePump());
 
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySkull.class, new RenderTileSkullOverride());
 

@@ -130,6 +130,7 @@ import vazkii.botania.common.block.tile.mana.TileManaDetector;
 import vazkii.botania.common.block.tile.mana.TileManaVoid;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.block.tile.mana.TilePrism;
+import vazkii.botania.common.block.tile.mana.TilePump;
 import vazkii.botania.common.block.tile.mana.TileRFGenerator;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.block.tile.mana.TileTurntable;
@@ -340,6 +341,7 @@ public final class ModBlocks {
 		registerTile(TilePrism.class, LibBlockNames.PRISM);
 		registerTile(TileCorporeaIndex.class, LibBlockNames.CORPOREA_INDEX);
 		registerTile(TileCorporeaFunnel.class, LibBlockNames.CORPOREA_FUNNEL);
+		registerTile(TilePump.class, LibBlockNames.PUMP);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MANASTAR, SubTileManastar.class);

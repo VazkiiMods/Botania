@@ -10,55 +10,95 @@
  */
 package vazkii.botania.common.block.mana;
 
-import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.MathHelper;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import vazkii.botania.client.core.helper.IconHelper;
-import vazkii.botania.common.block.BlockMod;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.common.util.RotationHelper;
+import vazkii.botania.api.lexicon.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.client.lib.LibRenderIDs;
+import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.tile.mana.TilePump;
+import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockPump extends BlockMod {
+public class BlockPump extends BlockModContainer implements ILexiconable {
 
-	private static final int[][] ICON_ORIENTATIONS = {
-		{ 4, 3, 1, 2 },
-		{ 3, 4, 2, 1 },
-		{ 2, 1, 4, 3 },
-		{ 1, 2, 3, 4 }
-	};
+	private static final int[] META_ROTATIONS = new int[] { 2, 5, 3, 4 }; 
 	
-	IIcon[] icons = new IIcon[5];
-
 	public BlockPump() {
 		super(Material.rock);
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setStepSound(soundTypeStone);
 		setBlockName(LibBlockNames.PUMP);
+		setBlockBounds(true);
 	}
 
 	@Override
-	public void onBlockPlacedBy(World par1World, int par2, int par3, int par4, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack) {
-		int orientation = Math.max(2, BlockPistonBase.determineOrientation(par1World, par2, par3, par4, par5EntityLivingBase));
-		par1World.setBlockMetadataWithNotify(par2, par3, par4, orientation, 1 | 2);
+	public void onBlockPlacedBy(World p_149689_1_, int p_149689_2_, int p_149689_3_, int p_149689_4_, EntityLivingBase p_149689_5_, ItemStack p_149689_6_) {
+		int l = MathHelper.floor_double((double)(p_149689_5_.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+		p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, META_ROTATIONS[l], 2); 
 	}
 
+	@Override
+	public void setBlockBoundsBasedOnState(IBlockAccess w, 	int x, int y, int z) {
+		setBlockBounds(w.getBlockMetadata(x, y, z) < 4);
+	}
+
+	public void setBlockBounds(boolean horiz) {
+		if(horiz)
+			setBlockBounds(0.25F, 0F, 0F, 0.75F, 0.5F, 1F);
+		else setBlockBounds(0F, 0F, 0.25F, 1F, 0.5F, 0.75F);
+	}
+
+	@Override
+	public boolean rotateBlock(World worldObj, int x, int y, int z, ForgeDirection axis) {
+        return RotationHelper.rotateVanillaBlock(Blocks.furnace, worldObj, x, y, z, axis);
+	}
+	
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
+		// NO-OP
 	}
 
 	@Override
 	public IIcon getIcon(int par1, int par2) {
-		return par1 < 2 ? icons[0] : icons[ICON_ORIENTATIONS[Math.max(0, par2 - 2)][par1 - 2]];
+		return ModBlocks.livingrock.getIcon(0, 0);
 	}
 
-	public int getOrientation(World w, int x, int y, int z) {
-		return w.getBlockMetadata(x, y, z);
+	@Override
+	public int getRenderType() {
+		return LibRenderIDs.idPump;
+	}
+
+	@Override
+	public boolean isOpaqueCube() {
+		return false;
+	}
+
+	@Override
+	public boolean renderAsNormalBlock() {
+		return false;
+	}
+
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return LexiconData.poolCart;
+	}
+
+	@Override
+	public TileEntity createNewTileEntity(World world, int meta) {
+		return new TilePump();
 	}
 }

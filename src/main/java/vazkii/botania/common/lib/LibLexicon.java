@@ -56,6 +56,7 @@ public final class LibLexicon {
 	public static final String MANA_SPARKS = "sparks";
 	public static final String MANA_SPARK_UPGRADES = "sparkUpgrades";
 	public static final String MANA_PRISM = "prism";
+	public static final String MANA_POOL_CART = "poolCart";
 
 	public static final String FFLOWER_INTRO = "fIntro";
 	public static final String FFLOWER_JADED_AMARANTHUS = "jadedAmaranthus";

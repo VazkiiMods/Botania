@@ -242,6 +242,8 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeSnowHorn;
 	public static IRecipe recipeFlowerBag;
 	public static IRecipe recipePhantomInk;
+	public static IRecipe recipePoolCart;
+	public static IRecipe recipePump;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1604,6 +1606,18 @@ public final class ModCraftingRecipes {
 		// Phantom Ink Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.phantomInk, 4), LibOreDict.MANA_PEARL, new ItemStack(Items.dye), new ItemStack(Blocks.glass), new ItemStack(Items.glass_bottle), new ItemStack(Items.glass_bottle), new ItemStack(Items.glass_bottle), new ItemStack(Items.glass_bottle));
 		recipePhantomInk = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Minecart with Mana Pool Recipe
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.poolMinecart), new ItemStack(Items.minecart), new ItemStack(ModBlocks.pool));
+		recipePoolCart = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Mana Pump Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.pump), 
+				"SSS", "IBI", "SSS",
+				'S', LibOreDict.LIVING_ROCK,
+				'I', LibOreDict.MANA_STEEL,
+				'B', new ItemStack(Items.bucket));
+		recipePump = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

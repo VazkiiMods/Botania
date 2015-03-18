@@ -21,6 +21,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.block.tile.mana.TilePump;
 import vazkii.botania.common.lib.LibMisc;
 
 public class EntityPoolMinecart extends EntityMinecart {
@@ -95,13 +96,23 @@ public class EntityPoolMinecart extends EntityMinecart {
 					} else if(pumpDir == dir.getOpposite() && !pool.isFull()) { // Cart -> Pool
 						int cartMana = getMana();
 						int transfer = Math.min(TRANSFER_RATE, cartMana);
-						pool.recieveMana(transfer);
-						setMana(cartMana - transfer);
-						did = true;
+						if(transfer > 0) {
+							pool.recieveMana(transfer);
+							setMana(cartMana - transfer);
+							did = true;							
+						}
 					}
 					
-					if(did)
+					if(did) {
 						worldObj.markBlockForUpdate(xp_, y, zp_);
+						TileEntity tile_ = worldObj.getTileEntity(xp, y, zp);
+						if(tile_ != null && tile_ instanceof TilePump) {
+							TilePump pump = (TilePump) tile_;
+							pump.hasCart = true;
+							if(!pump.active)
+								pump.setActive(true);
+						}
+					}
 				}
 			}
 		}
