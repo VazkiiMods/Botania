@@ -225,6 +225,8 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 
 		// FLUFF
 
+		addBlock(ModBlocks.doubleFlower1);
+		addBlock(ModBlocks.doubleFlower2);
 		addBlock(ModBlocks.shinyFlower);
 		addBlock(ModBlocks.floatingFlower);
 		addBlock(ModBlocks.floatingSpecialFlower);

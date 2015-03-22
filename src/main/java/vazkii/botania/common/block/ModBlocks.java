@@ -208,6 +208,8 @@ public final class ModBlocks {
 	public static Block endStoneBrick;
 	public static Block mushroom;
 	public static Block pump;
+	public static Block doubleFlower1;
+	public static Block doubleFlower2;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -272,7 +274,9 @@ public final class ModBlocks {
 		endStoneBrick = new BlockEndStoneBrick();
 		mushroom = new BlockModMushroom();
 		pump = new BlockPump();
-
+		doubleFlower1 = new BlockModDoubleFlower(false);
+		doubleFlower2 = new BlockModDoubleFlower(true);
+		
 		ModFluffBlocks.init();
 
 		for(int i = 0; i < 16; i++)

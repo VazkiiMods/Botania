@@ -729,6 +729,22 @@ tile.botania:mushroom13.name=Green Shimmering Mushroom
 tile.botania:mushroom14.name=Red Shimmering Mushroom
 tile.botania:mushroom15.name=Black Shimmering Mushroom
 tile.botania:pump.name=Mana Pump
+tile.botania:doubleFlower10.name=Tall Mystical White Flower
+tile.botania:doubleFlower11.name=Tall Mystical Orange Flower
+tile.botania:doubleFlower12.name=Tall Mystical Magenta Flower
+tile.botania:doubleFlower13.name=Tall Mystical Light Blue Flower
+tile.botania:doubleFlower14.name=Tall Mystical Yellow Flower
+tile.botania:doubleFlower15.name=Tall Mystical Lime Flower
+tile.botania:doubleFlower16.name=Tall Mystical Pink Flower
+tile.botania:doubleFlower17.name=Tall Mystical Gray Flower
+tile.botania:doubleFlower20.name=Tall Mystical Light Gray Flower
+tile.botania:doubleFlower21.name=Tall Mystical Cyan Flower
+tile.botania:doubleFlower22.name=Tall Mystical Purple Flower
+tile.botania:doubleFlower23.name=Tall Mystical Blue Flower
+tile.botania:doubleFlower24.name=Tall Mystical Brown Flower
+tile.botania:doubleFlower25.name=Tall Mystical Green Flower
+tile.botania:doubleFlower26.name=Tall Mystical Red Flower
+tile.botania:doubleFlower27.name=Tall Mystical Black Flower
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower

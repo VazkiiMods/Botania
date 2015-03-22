@@ -37,7 +37,7 @@ public class RenderSpecialFlower implements ISimpleBlockRenderingHandler {
 	}
 
 	// Copied from RenderBlocks
-	public boolean renderCrossedSquares(IBlockAccess blockAccess, Block par1Block, int par2, int par3, int par4, RenderBlocks render) {
+	public static boolean renderCrossedSquares(IBlockAccess blockAccess, Block par1Block, int par2, int par3, int par4, RenderBlocks render) {
 		Tessellator tessellator = Tessellator.instance;
 		tessellator.setBrightness(par1Block.getMixedBrightnessForBlock(blockAccess, par2, par3, par4));
 		float f = 1.0F;
@@ -73,7 +73,7 @@ public class RenderSpecialFlower implements ISimpleBlockRenderingHandler {
 	}
 
 	// Copied from RenderBlocks
-	public void drawCrossedSquares(IBlockAccess blockAccess, Block par1Block, int x, int y, int z, double par3, double par5, double par7, float par9, RenderBlocks render) {
+	public static void drawCrossedSquares(IBlockAccess blockAccess, Block par1Block, int x, int y, int z, double par3, double par5, double par7, float par9, RenderBlocks render) {
 		Tessellator tessellator = Tessellator.instance;
 
 		// Only change here, to use xyz rather than side/meta

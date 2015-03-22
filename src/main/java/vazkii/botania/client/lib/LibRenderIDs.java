@@ -23,5 +23,6 @@ public final class LibRenderIDs {
 	public static int idBrewery = -1;
 	public static int idCorporeaIndex = -1;
 	public static int idPump = -1;
+	public static int idDoubleFlower = -1;
 
 }

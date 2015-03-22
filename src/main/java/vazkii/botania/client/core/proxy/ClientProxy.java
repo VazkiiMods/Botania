@@ -53,6 +53,7 @@ import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.client.render.block.RenderAltar;
 import vazkii.botania.client.render.block.RenderBrewery;
 import vazkii.botania.client.render.block.RenderCorporeaIndex;
+import vazkii.botania.client.render.block.RenderDoubleFlower;
 import vazkii.botania.client.render.block.RenderFloatingFlower;
 import vazkii.botania.client.render.block.RenderPool;
 import vazkii.botania.client.render.block.RenderPump;
@@ -172,6 +173,7 @@ public class ClientProxy extends CommonProxy {
 		LibRenderIDs.idBrewery = RenderingRegistry.getNextAvailableRenderId();
 		LibRenderIDs.idCorporeaIndex = RenderingRegistry.getNextAvailableRenderId();
 		LibRenderIDs.idPump = RenderingRegistry.getNextAvailableRenderId();
+		LibRenderIDs.idDoubleFlower = RenderingRegistry.getNextAvailableRenderId();
 
 		RenderingRegistry.registerBlockHandler(new RenderAltar());
 		RenderingRegistry.registerBlockHandler(new RenderSpecialFlower(LibRenderIDs.idSpecialFlower));
@@ -184,6 +186,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerBlockHandler(new RenderBrewery());
 		RenderingRegistry.registerBlockHandler(new RenderCorporeaIndex());
 		RenderingRegistry.registerBlockHandler(new RenderPump());
+		RenderingRegistry.registerBlockHandler(new RenderDoubleFlower());
 
 		RenderTransparentItem renderTransparentItem = new RenderTransparentItem();
 		RenderFloatingFlowerItem renderFloatingFlower = new RenderFloatingFlowerItem();
