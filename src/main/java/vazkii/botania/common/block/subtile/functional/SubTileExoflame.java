@@ -10,7 +10,9 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockFurnace;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntity;
@@ -37,8 +39,9 @@ public class SubTileExoflame extends SubTileFunctional {
 						int z = supertile.zCoord + k;
 
 						TileEntity tile = supertile.getWorldObj().getTileEntity(x, y, z);
+						Block block = supertile.getWorldObj().getBlock(x, y, z);
 						if(tile != null) {
-							if(tile instanceof TileEntityFurnace) {
+							if(tile instanceof TileEntityFurnace && (block == Blocks.furnace || block == Blocks.lit_furnace)) {
 								TileEntityFurnace furnace = (TileEntityFurnace) tile;
 								boolean canSmelt = canFurnaceSmelt(furnace);
 								if(canSmelt && mana > 2) {
