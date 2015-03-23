@@ -65,7 +65,8 @@ public class SubTilePureDaisy extends SubTileEntity {
 					Botania.proxy.sparkleFX(supertile.getWorldObj(), coords.posX + Math.random(), coords.posY + Math.random(), coords.posZ + Math.random(), 1F, 1F, 1F, (float) Math.random(), 5);
 
 					if(ticksRemaining[positionAt] <= 0) {
-						supertile.getWorldObj().setBlock(coords.posX, coords.posY, coords.posZ, output);
+						if(!supertile.getWorldObj().isRemote)
+							supertile.getWorldObj().setBlock(coords.posX, coords.posY, coords.posZ, output);
 						ticksRemaining[positionAt] = 200;
 
 						for(int i = 0; i < 25; i++) {
