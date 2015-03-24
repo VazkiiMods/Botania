@@ -286,6 +286,11 @@ public final class ModBlocks {
 		OreDictionary.registerOre(LibOreDict.LIVING_WOOD, livingwood);
 		OreDictionary.registerOre(LibOreDict.DREAM_WOOD, dreamwood);
 
+		for(int i = 0; i < 8; i++) {
+			OreDictionary.registerOre(LibOreDict.DOUBLE_FLOWER[i], new ItemStack(doubleFlower1, 1, i));
+			OreDictionary.registerOre(LibOreDict.DOUBLE_FLOWER[i + 8], new ItemStack(doubleFlower2, 1, i));
+		}
+		
 		// Vanilla OreDict entries
 		OreDictionary.registerOre("dirt", Blocks.dirt);
 		OreDictionary.registerOre("grass", Blocks.grass);

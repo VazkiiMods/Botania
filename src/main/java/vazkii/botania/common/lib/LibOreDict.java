@@ -45,25 +45,33 @@ public final class LibOreDict {
 		"mysticFlowerPink", "mysticFlowerGray", "mysticFlowerLightGray",
 		"mysticFlowerCyan", "mysticFlowerPurple", "mysticFlowerBlue",
 		"mysticFlowerBrown", "mysticFlowerGreen", "mysticFlowerRed",
-		"mysticFlowerBlack", };
+		"mysticFlowerBlack" };
+	
+	public static final String[] DOUBLE_FLOWER = new String[] { "mysticFlowerWhiteDouble",
+		"mysticFlowerOrangeDouble", "mysticFlowerMagentaDouble",
+		"mysticFlowerLightBlueDouble", "mysticFlowerYellowDouble", "mysticFlowerLimeDouble",
+		"mysticFlowerPinkDouble", "mysticFlowerGrayDouble", "mysticFlowerLightGrayDouble",
+		"mysticFlowerCyanDouble", "mysticFlowerPurpleDouble", "mysticFlowerBlueDouble",
+		"mysticFlowerBrownDouble", "mysticFlowerGreenDouble", "mysticFlowerRedDouble",
+		"mysticFlowerBlackDouble" };
 
 	public static final String[] PETAL = new String[] { "petalWhite",
 		"petalOrange", "petalMagenta", "petalLightBlue", "petalYellow",
 		"petalLime", "petalPink", "petalGray", "petalLightGray",
 		"petalCyan", "petalPurple", "petalBlue", "petalBrown",
-		"petalGreen", "petalRed", "petalBlack", };
+		"petalGreen", "petalRed", "petalBlack" };
 
 	public static final String[] DYE = new String[] { "dyeWhite", "dyeOrange",
 		"dyeMagenta", "dyeLightBlue", "dyeYellow", "dyeLime", "dyePink",
 		"dyeGray", "dyeLightGray", "dyeCyan", "dyePurple", "dyeBlue",
-		"dyeBrown", "dyeGreen", "dyeRed", "dyeBlack", };
+		"dyeBrown", "dyeGreen", "dyeRed", "dyeBlack" };
 
 	public static final String[] MANA_PETAL = new String[] { "manaPetalWhite",
 		"manaPetalOrange", "manaPetalMagenta", "manaPetalLightBlue",
 		"manaPetalYellow", "manaPetalLime", "manaPetalPink",
 		"manaPetalGray", "manaPetalLightGray", "manaPetalCyan",
 		"manaPetalPurple", "manaPetalBlue", "manaPetalBrown",
-		"manaPetalGreen", "manaPetalRed", "manaPetalBlack", };
+		"manaPetalGreen", "manaPetalRed", "manaPetalBlack" };
 
 	public static final String[] RUNE = new String[] { "runeWaterB",
 		"runeFireB", "runeEarthB", "runeAirB", "runeSpringB",

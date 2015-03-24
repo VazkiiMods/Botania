@@ -15,6 +15,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
+import net.minecraft.block.IGrowable;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
@@ -41,7 +42,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockModFlower extends BlockFlower implements ILexiconable, IPickupAchievement {
+public class BlockModFlower extends BlockFlower implements ILexiconable, IPickupAchievement, IGrowable {
 
 	public static IIcon[] icons;
 	public static IIcon[] iconsAlt;
@@ -131,4 +132,24 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 	public Achievement getAchievementOnPickup(ItemStack stack, EntityPlayer player, EntityItem item) {
 		return ModAchievements.flowerPickup;
 	}
+
+	@Override
+	public boolean func_149851_a(World world, int x, int y, int z, boolean fuckifiknow) {
+		return world.isAirBlock(x, y + 1, z);
+	}
+
+	@Override
+	public boolean func_149852_a(World world, Random rand, int x, int y, int z) {
+		return func_149851_a(world, x, y, z, false);
+	}
+
+	@Override
+	public void func_149853_b(World world, Random rand, int x, int y, int z) {
+		int meta = world.getBlockMetadata(x, y, z);
+		Block flower = meta >= 8 ? ModBlocks.doubleFlower2 : ModBlocks.doubleFlower1;
+		int placeMeta = meta & 7;
+		world.setBlock(x, y, z, flower, placeMeta, 1 | 2);
+		world.setBlock(x, y + 1, z, flower, placeMeta | 8, 1 | 2);
+	}
+	
 }

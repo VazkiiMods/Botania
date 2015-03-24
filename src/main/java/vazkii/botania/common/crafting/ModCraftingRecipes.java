@@ -244,6 +244,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipePhantomInk;
 	public static IRecipe recipePoolCart;
 	public static IRecipe recipePump;
+	public static List<IRecipe> recipesPetalsDouble;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1618,6 +1619,11 @@ public final class ModCraftingRecipes {
 				'I', LibOreDict.MANA_STEEL,
 				'B', new ItemStack(Items.bucket));
 		recipePump = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Double Petal Recipes
+		for(int i = 0; i < 16; i++)
+			addShapelessOreDictRecipe(new ItemStack(ModItems.petal, 4, i), LibOreDict.DOUBLE_FLOWER[i]);
+		recipesPetalsDouble = BotaniaAPI.getLatestAddedRecipes(16);
 
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

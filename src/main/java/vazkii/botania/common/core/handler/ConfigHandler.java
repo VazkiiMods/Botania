@@ -60,6 +60,9 @@ public final class ConfigHandler {
 
 	public static int flowerQuantity = 2;
 	public static int flowerDensity = 16;
+	public static int flowerPatchSize = 6;
+	public static int flowerPatchChance = 4;
+	public static double flowerTallChance = 0.1;
 	public static int mushroomQuantity = 40;
 
 	public static int potionIDSoulCross = 91;
@@ -169,7 +172,16 @@ public final class ConfigHandler {
 
 		desc = "The density of each Botania flower patch generated, defaults to 16, the lower the number, the less each patch will have.";
 		flowerDensity = loadPropInt("worldgen.flower.density", desc, flowerDensity);
+		
+		desc = "The size of each Botania flower patch. The larger this is the farther the each patch can spread";
+		flowerPatchSize = loadPropInt("worldgen.flower.patchSize", desc, flowerPatchSize);
 
+		desc = "The chance for a Botania flower patch to be generated. The higher this value is the less patches will exist and the more flower each will have.";
+		flowerPatchChance = loadPropInt("worldgen.flower.patchChance", desc, flowerPatchChance);
+		
+		desc = "The chance for a Botania flower generated in a patch to be a tall flowe. 0.1 is 10%, 1 is 100%.";
+		flowerTallChance = loadPropDouble("worldgen.flower.tallChance", desc, flowerTallChance);
+		
 		desc = "The quantity of Botania mushrooms to generate underground, in the world, defaults to 40, the lower the number the less patches generate.";
 		mushroomQuantity = loadPropInt("worldgen.mushroom.quantity", desc, mushroomQuantity);
 
