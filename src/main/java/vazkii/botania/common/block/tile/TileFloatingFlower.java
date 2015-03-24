@@ -11,13 +11,16 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.IFloatingFlower;
 
-public class TileFloatingFlower extends TileEntity implements IFloatingFlower {
+public class TileFloatingFlower extends TileMod implements IFloatingFlower {
 
+	public static final String TAG_ISLAND_TYPE = "islandType";
 	public static ItemStack forcedStack = null;
+	IslandType type = IslandType.GRASS;
 
 	@Override
 	public ItemStack getDisplayStack() {
@@ -33,6 +36,26 @@ public class TileFloatingFlower extends TileEntity implements IFloatingFlower {
 	@Override
 	public boolean canUpdate() {
 		return false;
+	}
+
+	@Override
+	public IslandType getIslandType() {
+		return type;
+	}
+
+	@Override
+	public void setIslandType(IslandType type) {
+		this.type = type;
+	}
+	
+	@Override
+	public void writeCustomNBT(NBTTagCompound cmp) {
+		cmp.setString(TAG_ISLAND_TYPE, type.toString());
+	}
+	
+	@Override
+	public void readCustomNBT(NBTTagCompound cmp) {
+		type = IslandType.ofType(cmp.getString(TAG_ISLAND_TYPE));
 	}
 
 }

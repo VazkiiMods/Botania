@@ -28,6 +28,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.decor.IFloatingFlower.IslandType;
 import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -40,6 +41,10 @@ public class ItemGrassSeeds extends ItemMod {
 
 	private static Map<Integer, List<BlockSwapper>> blockSwappers = new HashMap();
 
+	private static final IslandType[] ISLAND_TYPES = {
+		IslandType.GRASS, IslandType.PODZOL, IslandType.MYCEL
+	};
+	
 	private static final int types = 3;
 	IIcon[] icons;
 
@@ -201,6 +206,10 @@ public class ItemGrassSeeds extends ItemMod {
 			if(ticksExisted >= 80)
 				list.remove(this);
 		}
+	}
+	
+	public static IslandType getIslandType(ItemStack stack) {
+		return ISLAND_TYPES[Math.min(stack.getItemDamage(), ISLAND_TYPES.length - 1)];
 	}
 
 }

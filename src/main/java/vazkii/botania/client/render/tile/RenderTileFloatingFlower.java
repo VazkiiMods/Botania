@@ -31,7 +31,6 @@ import vazkii.botania.common.block.decor.IFloatingFlower;
 
 public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 
-	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_MINI_ISLAND);
 	private static final ModelMiniIsland model = new ModelMiniIsland();
 
 	@Override
@@ -54,7 +53,7 @@ public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 			GL11.glRotatef(4F * (float) Math.sin(worldTime * 0.04F), 1F, 0F, 0F);
 		}
 
-		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
+		Minecraft.getMinecraft().renderEngine.bindTexture(flower.getIslandType().getResource());
 		GL11.glPushMatrix();
 		GL11.glTranslatef(0.5F, 1.4F, 0.5F);
 		GL11.glScalef(1F, -1F, -1F);

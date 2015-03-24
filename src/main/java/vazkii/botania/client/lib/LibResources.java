@@ -92,7 +92,6 @@ public final class LibResources {
 	public static final String MODEL_ELEMENTIUM_1 = PREFIX_MODEL + "elementium1.png";
 	public static final String MODEL_ELEMENTIUM_2 = PREFIX_MODEL + "elementium2.png";
 	public static final String MODEL_PIXIE = PREFIX_MODEL + "pixie.png";
-	public static final String MODEL_MINI_ISLAND = PREFIX_MODEL + "miniIsland.png";
 	public static final String MODEL_TINY_POTATO = PREFIX_MODEL + "tinyPotato.png";
 	public static final String MODEL_SPAWNER_CLAW = PREFIX_MODEL + "spawnerClaw.png";
 	public static final String MODEL_BREWERY = PREFIX_MODEL + "brewery.png";
@@ -104,8 +103,10 @@ public final class LibResources {
 	public static final String MODEL_CORPOREA_INDEX = PREFIX_MODEL + "corporeaIndex.png";
 	public static final String MODEL_INVISIBLE_ARMOR = PREFIX_MODEL + "invisibleArmor.png";
 	public static final String MODEL_PUMP = PREFIX_MODEL + "pump.png";
-
-	public static final String MODEL_CAPE = "/assets/botania/textures/model/cape.png";
+	public static final String MODEL_MINI_ISLAND = PREFIX_MODEL + "miniIsland.png";
+	public static final String MODEL_MINI_ISLAND_PODZOL = PREFIX_MODEL + "miniIslandPodzol.png";
+	public static final String MODEL_MINI_ISLAND_MYCEL = PREFIX_MODEL + "miniIslandMycelium.png";
+	public static final String MODEL_MINI_ISLAND_SNOW = PREFIX_MODEL + "miniIslandSnow.png";
 
 	public static final String MISC_PARTICLES = PREFIX_MISC + "particles.png";
 	public static final String MISC_WISP_LARGE = PREFIX_MISC + "wispLarge.png";

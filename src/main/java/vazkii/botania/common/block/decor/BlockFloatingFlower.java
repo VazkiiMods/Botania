@@ -20,6 +20,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -32,9 +33,13 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockModContainer;
+import vazkii.botania.common.block.decor.IFloatingFlower.IslandType;
 import vazkii.botania.common.block.tile.TileFloatingFlower;
+import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.integration.coloredlights.ColoredLightHelper;
+import vazkii.botania.common.item.ItemGrassSeeds;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -120,6 +125,31 @@ public class BlockFloatingFlower extends BlockModContainer implements ILexiconab
 		return Blocks.dirt.getIcon(par1, par2);
 	}
 
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+		ItemStack stack = player.getCurrentEquippedItem();
+		if(stack != null) {
+			TileFloatingFlower flower = (TileFloatingFlower) world.getTileEntity(x, y, z);
+			IslandType type = null;
+			if(stack.getItem() == Items.snowball)
+				type = IslandType.SNOW;
+			else if(stack.getItem() == ModItems.grassSeeds)
+				type = ItemGrassSeeds.getIslandType(stack);
+			
+			if(type != null && type != flower.getIslandType()) {
+				if(!world.isRemote) {
+					flower.setIslandType(type);
+					world.markBlockForUpdate(x, y, z);
+				}
+				
+				if(!player.capabilities.isCreativeMode) 
+					stack.stackSize--;
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	@Override
 	public int getRenderType() {
 		return LibRenderIDs.idMiniIsland;
