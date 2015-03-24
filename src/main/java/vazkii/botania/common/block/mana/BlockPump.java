@@ -91,6 +91,16 @@ public class BlockPump extends BlockModContainer implements ILexiconable {
 	public boolean renderAsNormalBlock() {
 		return false;
 	}
+	
+	@Override
+	public boolean hasComparatorInputOverride() {
+		return true;
+	}
+	
+	@Override
+	public int getComparatorInputOverride(World world, int x, int y, int z, int side) {
+		return ((TilePump) world.getTileEntity(x, y, z)).comparator;
+	}
 
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {

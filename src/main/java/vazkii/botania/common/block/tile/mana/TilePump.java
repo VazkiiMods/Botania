@@ -11,6 +11,7 @@
 package vazkii.botania.common.block.tile.mana;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.common.block.tile.TileMod;
 
 public class TilePump extends TileMod {
@@ -21,9 +22,22 @@ public class TilePump extends TileMod {
 	public boolean active = false;
 	public boolean hasCart = false;
 	public float moving = 0F;
-
+	
+	public int comparator;
+	public boolean hasRedstone = false;
+	int lastComparator = 0;
+	
 	@Override
 	public void updateEntity() {
+		hasRedstone = false;
+		for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+			int redstoneSide = worldObj.getIndirectPowerLevelTo(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ, dir.ordinal());
+			if(redstoneSide > 0) {
+				hasRedstone = true;
+				break;
+			}
+		}
+		
 		float max = 8F;
 		float min = 0F;
 
@@ -45,10 +59,19 @@ public class TilePump extends TileMod {
 			}
 		}
 
-		if(!hasCart && active)
+		if(!hasCart) {
+			comparator = 0;
+			if(active)
+				setActive(false);
+		}
+		if(active && hasRedstone)
 			setActive(false);
 		hasCart = false;
 
+		if(comparator != lastComparator)
+			worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
+		lastComparator = comparator;
+		
 		super.updateEntity();
 	}
 

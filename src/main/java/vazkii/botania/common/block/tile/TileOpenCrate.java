@@ -34,8 +34,10 @@ public class TileOpenCrate extends TileSimpleInventory {
 		boolean redstone = false;
 		for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
 			int redstoneSide = worldObj.getIndirectPowerLevelTo(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ, dir.ordinal());
-			if(redstoneSide > 0)
+			if(redstoneSide > 0) {
 				redstone = true;
+				break;
+			}
 		}
 
 		if(canEject()) {

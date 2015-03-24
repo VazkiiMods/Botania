@@ -77,7 +77,10 @@ public class EntityPoolMinecart extends EntityMinecart {
 				int zp_ = zp + dir.offsetZ;
 				int meta = worldObj.getBlockMetadata(xp, y, zp);
 				TileEntity tile = worldObj.getTileEntity(xp_, y, zp_);
-				if(tile != null && tile instanceof IManaPool) {
+				TileEntity tile_ = worldObj.getTileEntity(xp, y, zp);
+				TilePump pump = (TilePump) tile_;
+
+				if(tile != null && tile instanceof IManaPool && !pump.hasRedstone) {
 					IManaPool pool = (IManaPool) tile;
 					ForgeDirection pumpDir = ForgeDirection.getOrientation(meta);
 					boolean did = false;
@@ -104,13 +107,10 @@ public class EntityPoolMinecart extends EntityMinecart {
 
 					if(did) {
 						worldObj.markBlockForUpdate(xp_, y, zp_);
-						TileEntity tile_ = worldObj.getTileEntity(xp, y, zp);
-						if(tile_ != null && tile_ instanceof TilePump) {
-							TilePump pump = (TilePump) tile_;
-							pump.hasCart = true;
-							if(!pump.active)
-								pump.setActive(true);
-						}
+						pump.hasCart = true;
+						pump.comparator = (int) (((double) getMana() / (double) TilePool.MAX_MANA) * 15);
+						if(!pump.active)
+							pump.setActive(true);
 					}
 				}
 			}
