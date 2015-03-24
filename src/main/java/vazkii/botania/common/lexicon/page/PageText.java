@@ -92,8 +92,8 @@ public class PageText extends LexiconPage {
 				int swidth = font.getStringWidth(s);
 				int space = width - swidth;
 
-				spacing = space / (wcount - 1);
-				compensationSpaces = space % (wcount - 1);
+				spacing = wcount == 1 ? 0 : space / (wcount - 1);
+				compensationSpaces = wcount == 1 ? 0 : space % (wcount - 1);
 			}
 
 			for(String s : words) {
