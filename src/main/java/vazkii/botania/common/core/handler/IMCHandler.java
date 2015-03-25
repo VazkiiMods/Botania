@@ -13,9 +13,9 @@ public final class IMCHandler {
 
     public static void processMessages(ImmutableList<IMCMessage> messageList) {
         Iterator<IMCMessage> iterator = messageList.iterator();
-        while (iterator.hasNext()) {
+        while(iterator.hasNext()) {
             IMCMessage message = iterator.next();
-            if (message.key.equals(LibMisc.BLACKLIST_ITEM) && message.isStringMessage()) {
+            if(message != null && message.key != null && message.key.equals(LibMisc.BLACKLIST_ITEM) && message.isStringMessage()) {
                 String value = message.getStringValue();
                 ItemMagnetRing.addItemToBlackList(value);
             }
