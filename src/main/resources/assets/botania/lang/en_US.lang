@@ -365,6 +365,11 @@ achievement.botania:dirtRodCraft=Rockbell
 achievement.botania:dirtRodCraft.desc=Craft a dirty sti- er... Rod of the Lands
 achievement.botania:spawnerMoverUse=I can take off my (redacted)
 achievement.botania:spawnerMoverUse.desc=Use a Life Aggregator to transport a Monster Spawner
+achievement.botania:enderAirMake=Imitation Air
+achievement.botania:enderAirMake.desc=Collect a Bottle of Ender Air
+achievement.botania:corporeaCraft=Drop Pop Candy
+achievement.botania:corporeaCraft.desc=Craft a block that makes use of the Corporea Network
+
 achievement.botania:signalFlareStun=See the Lights
 achievement.botania:signalFlareStun.desc=Stun 100 or more mobs at once with a Signal Flare
 achievement.botania:l20ShardUse=Out of Step
@@ -373,6 +378,11 @@ achievement.botania:gaiaGuardianNoArmor=Mythologia's End
 achievement.botania:gaiaGuardianNoArmor.desc=Slay a Gaia Guardian without wearing any armor at any point during the fight
 achievement.botania:rankSSPick=Talent Shredder
 achievement.botania:rankSSPick.desc=Dig through the world using a rank SS Terra Shatterer
+achievement.botania:superCorporeaRequest=Invader Girl
+achievement.botania:superCorporeaRequest.desc=Successfuly request 50,000 or more of a single item in a Corporea Index
+achievement.botania:pinkinator=Decorator
+achievement.botania:pinkinator.desc=Put to use The Pinkinator
+
 achievement.botania:desuGun=Two-Faced Lovers
 achievement.botania:desuGun.desc=ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
 #                                 ^ Don't localize

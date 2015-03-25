@@ -46,11 +46,15 @@ public final class ModAchievements {
 	public static Achievement gaiaGuardianKill;
 	public static Achievement spawnerMoverUse;
 	public static Achievement tiaraWings;
+	public static Achievement enderAirMake;
+	public static Achievement corporeaCraft;
 
 	public static Achievement signalFlareStun;
 	public static Achievement l20ShardUse;
 	public static Achievement gaiaGuardianNoArmor;
 	public static Achievement rankSSPick;
+	public static Achievement superCorporeaRequest;
+	public static Achievement pinkinator;
 
 	public static Achievement desuGun;
 
@@ -76,6 +80,9 @@ public final class ModAchievements {
 
 		kekimurusPickup = new AchievementMod(LibAchievementNames.KEKIMURUS_PICKUP, 3, 6, ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_KEKIMURUS), elfPortalOpen);
 		heiseiDreamPickup = new AchievementMod(LibAchievementNames.HEISEI_DREAM_PICKUP, 5, 6, ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_HEISEI_DREAM), elfPortalOpen);
+		enderAirMake = new AchievementMod(LibAchievementNames.ENDER_AIR_MAKE, 4, 8, new ItemStack(ModItems.manaResource, 1, 15), elfPortalOpen);
+		corporeaCraft = new AchievementMod(LibAchievementNames.CORPOREA_CRAFT, 2, 8, ModBlocks.corporeaFunnel, enderAirMake);
+		
 		gaiaGuardianKill = new AchievementMod(LibAchievementNames.GAIA_GUARDIAN_KILL, 2, 4, new ItemStack(ModItems.manaResource, 1, 5), elfPortalOpen).setSpecial();
 
 		spawnerMoverUse = new AchievementMod(LibAchievementNames.SPAWNER_MOVER_USE, -1, 5, ModItems.spawnerMover, gaiaGuardianKill);
@@ -85,6 +92,8 @@ public final class ModAchievements {
 		l20ShardUse = new AchievementMod(LibAchievementNames.L20_SHARD_USE, -5, -1, ModItems.laputaShard, null).setSpecial();
 		gaiaGuardianNoArmor = new AchievementMod(LibAchievementNames.GAIA_GUARDIAN_NO_ARMOR, -5, -3, new ItemStack(Items.skull, 1, 3), null).setSpecial();
 		rankSSPick = new AchievementMod(LibAchievementNames.RANK_SS_PICK, -3, -1, ModItems.terraPick, null).setSpecial();
+		superCorporeaRequest = new AchievementMod(LibAchievementNames.SUPER_CORPOREA_REQUEST, -3, -5, ModBlocks.corporeaIndex, null).setSpecial();
+		pinkinator = new AchievementMod(LibAchievementNames.PINKINATOR, -5, -5, ModItems.pinkinator, null).setSpecial();
 
 		ItemStack desu = new ItemStack(ModItems.manaGun);
 		desu.setStackDisplayName("desu gun");

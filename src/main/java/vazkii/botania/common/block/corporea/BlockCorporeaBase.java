@@ -15,14 +15,19 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.stats.Achievement;
 import net.minecraft.world.World;
+import vazkii.botania.common.achievement.ICraftAchievement;
+import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
 
-public abstract class BlockCorporeaBase extends BlockModContainer<TileCorporeaBase> {
+public abstract class BlockCorporeaBase extends BlockModContainer<TileCorporeaBase> implements ICraftAchievement {
 
 	Random random;
 
@@ -71,4 +76,9 @@ public abstract class BlockCorporeaBase extends BlockModContainer<TileCorporeaBa
 		super.breakBlock(par1World, par2, par3, par4, par5, par6);
 	}
 
+	@Override
+	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
+		return ModAchievements.corporeaCraft;
+	}
+	
 }

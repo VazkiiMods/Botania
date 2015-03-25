@@ -64,6 +64,8 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 
 		if(rightEvent && correctStack && ender) {
 			ItemStack stack1 = new ItemStack(this, 1, 15);
+			event.entityPlayer.addStat(ModAchievements.enderAirMake, 1);
+
 			if(!event.entityPlayer.inventory.addItemStackToInventory(stack1))
 				event.entityPlayer.dropPlayerItemWithRandomChoice(stack1, true);
 

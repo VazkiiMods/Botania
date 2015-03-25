@@ -33,6 +33,7 @@ import org.apache.commons.lang3.text.WordUtils;
 
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaSpark;
+import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.eventhandler.EventPriority;
@@ -252,6 +253,8 @@ public class TileCorporeaIndex extends TileCorporeaBase {
 							}
 
 						event.player.addChatMessage(new ChatComponentTranslation("botaniamisc.requestMsg", count, WordUtils.capitalizeFully(name), CorporeaHelper.lastRequestMatches, CorporeaHelper.lastRequestExtractions).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.LIGHT_PURPLE)));
+						if(CorporeaHelper.lastRequestExtractions >= 50000)
+							event.player.addStat(ModAchievements.superCorporeaRequest, 1);
 					}
 				}
 
