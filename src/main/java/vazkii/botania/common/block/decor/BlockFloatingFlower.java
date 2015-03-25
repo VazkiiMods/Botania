@@ -129,7 +129,7 @@ public class BlockFloatingFlower extends BlockModContainer implements ILexiconab
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
 		ItemStack stack = player.getCurrentEquippedItem();
 		if(stack != null) {
-			TileFloatingFlower flower = (TileFloatingFlower) world.getTileEntity(x, y, z);
+			IFloatingFlower flower = (IFloatingFlower) world.getTileEntity(x, y, z);
 			IslandType type = null;
 			if(stack.getItem() == Items.snowball)
 				type = IslandType.SNOW;
