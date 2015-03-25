@@ -67,6 +67,11 @@ public class Botania {
 		ManaNetworkHandler.instance.clear();
 	}
 
+	@EventHandler
+	public void handleIMC(FMLInterModComms.IMCEvent event) {
+		IMCHandler.processMessages(event.getMessages());
+	}
+
 	/*@EventHandler
 	public void missingMappings(FMLMissingMappingsEvent event) {
 		AliasHandler.onMissingMappings(event);
