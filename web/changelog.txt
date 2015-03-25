@@ -1,3 +1,15 @@
+r1.5 171
+*Added 4 new achievements.
+*Added Double Flowers. They're tall and pretty, can be made into double the petals and can be grown with Bone Meal on normal flowers. They can only be harvested with shears, please understand.
+*Added The Pinkinator. What does it do? How do you get it? Heck if I know...
+*Changed the flower world generator to generate flowers in patches and also generate the double flowers. There's 3 new config options to tweak this new method. Old configs will still work but results will be different, modpack makers should check that the results are still satisfactory.
+*Fixed a bucket dupe in the petal apothecary.
+*Fixed possible division by zero when justified text is enabled.
+*Right clicking on a Floating Flower with Pasture Seeds, Boreal Seeds, Infestation Spores or Snowballs will change its look.
+*The Exoflame will now ignore other mods' Furnace blocks unless they specifically opt in with the API interface. Fixes a dupe with Natura Nether Furnaces.
+*The Mana Pump can now be controlled with Redstone and will output through a Comparator the amount of mana in the cart.
+*The Pure Daisy will only place blocks in server worlds, fixes it happening too soon in clients connected to servers with subpar tps.
+*(Technical) Added an IMC handler for blacklisting items from the Ring of Magnetization. (Lomeli12)
 r1.5 170
 *Added a Minecart with Mana Pool and a Mana Pump to go along with it.
 *Added Phantom Ink. Can be crafted with a piece of botania armor to hide the armor model in the player.
