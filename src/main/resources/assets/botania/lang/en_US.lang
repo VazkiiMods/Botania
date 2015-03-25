@@ -94,6 +94,7 @@ botaniamisc.lexiconOptions0=Botania Options
 botaniamisc.lexiconOptions1=Configure Botania from ingame
 botaniamisc.lexiconOptions2=Some options might need a game restart
 botaniamisc.hasPhantomInk=&bTinged with Phantom Ink
+botaniamisc.pinkinatorDesc=Apply directly to Wither
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
@@ -1120,6 +1121,7 @@ item.botania:swapRing.name=Ring of Correction
 item.botania:flowerBag.name=Flower Pouch
 item.botania:phantomInk.name=Phantom Ink
 item.botania:poolMinecart.name=Minecart with Mana Pool
+item.botania:pinkinator.name=The Pinkinator
 
 # BREW NAMES
 botania.brew.fallback=Fallback
