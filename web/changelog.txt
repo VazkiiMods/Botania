@@ -1,3 +1,7 @@
+r1.5 172
+*Fixed a crash when right clicking a special Floating Flower.
+*Fixed a crash when using a Corporea Funnel with an empty Item Frame.
+*Fixed a localization issue with the double flowers that ticked WAILA off. (61352151511)
 r1.5 171
 *Added 4 new achievements.
 *Added Double Flowers. They're tall and pretty, can be made into double the petals and can be grown with Bone Meal on normal flowers. They can only be harvested with shears, please understand.
