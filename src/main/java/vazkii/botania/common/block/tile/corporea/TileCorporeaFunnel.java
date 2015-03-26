@@ -38,17 +38,19 @@ public class TileCorporeaFunnel extends TileCorporeaBase {
 			if(!filter.isEmpty()) {
 				ItemStack stack = filter.get(worldObj.rand.nextInt(filter.size()));
 
-				List<ItemStack> stacks = CorporeaHelper.requestItem(stack, spark, true, true);
-				spark.onItemsRequested(stacks);
-				for(ItemStack reqStack : stacks)
-					if(stack != null) {
-						if(inv != null && reqStack.stackSize == InventoryHelper.testInventoryInsertion(inv, stack, ForgeDirection.UP))
-							InventoryHelper.insertItemIntoInventory(inv, reqStack);
-						else {
-							EntityItem item = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, stack);
-							worldObj.spawnEntityInWorld(item);
+				if(stack != null) {
+					List<ItemStack> stacks = CorporeaHelper.requestItem(stack, spark, true, true);
+					spark.onItemsRequested(stacks);
+					for(ItemStack reqStack : stacks)
+						if(stack != null) {
+							if(inv != null && reqStack.stackSize == InventoryHelper.testInventoryInsertion(inv, stack, ForgeDirection.UP))
+								InventoryHelper.insertItemIntoInventory(inv, reqStack);
+							else {
+								EntityItem item = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, stack);
+								worldObj.spawnEntityInWorld(item);
+							}
 						}
-					}
+				}
 			}
 		}
 	}
