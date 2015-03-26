@@ -756,6 +756,22 @@ tile.botania:doubleFlower24.name=Tall Mystical Brown Flower
 tile.botania:doubleFlower25.name=Tall Mystical Green Flower
 tile.botania:doubleFlower26.name=Tall Mystical Red Flower
 tile.botania:doubleFlower27.name=Tall Mystical Black Flower
+tile.botania:doubleFlower18.name=Tall Mystical White Flower
+tile.botania:doubleFlower19.name=Tall Mystical Orange Flower
+tile.botania:doubleFlower110.name=Tall Mystical Magenta Flower
+tile.botania:doubleFlower111.name=Tall Mystical Light Blue Flower
+tile.botania:doubleFlower112.name=Tall Mystical Yellow Flower
+tile.botania:doubleFlower113.name=Tall Mystical Lime Flower
+tile.botania:doubleFlower114.name=Tall Mystical Pink Flower
+tile.botania:doubleFlower115.name=Tall Mystical Gray Flower
+tile.botania:doubleFlower28.name=Tall Mystical Light Gray Flower
+tile.botania:doubleFlower29.name=Tall Mystical Cyan Flower
+tile.botania:doubleFlower210.name=Tall Mystical Purple Flower
+tile.botania:doubleFlower211.name=Tall Mystical Blue Flower
+tile.botania:doubleFlower212.name=Tall Mystical Brown Flower
+tile.botania:doubleFlower213.name=Tall Mystical Green Flower
+tile.botania:doubleFlower214.name=Tall Mystical Red Flower
+tile.botania:doubleFlower215.name=Tall Mystical Black Flower
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
