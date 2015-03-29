@@ -82,6 +82,13 @@ import vazkii.botania.common.item.material.ItemPestleAndMortar;
 import vazkii.botania.common.item.material.ItemPetal;
 import vazkii.botania.common.item.material.ItemQuartz;
 import vazkii.botania.common.item.material.ItemRune;
+import vazkii.botania.common.item.relic.ItemAesirRing;
+import vazkii.botania.common.item.relic.ItemExcaliber;
+import vazkii.botania.common.item.relic.ItemFlugelEye;
+import vazkii.botania.common.item.relic.ItemInfiniteFruit;
+import vazkii.botania.common.item.relic.ItemLokiRing;
+import vazkii.botania.common.item.relic.ItemOdinRing;
+import vazkii.botania.common.item.relic.ItemThorRing;
 import vazkii.botania.common.item.rod.ItemCobbleRod;
 import vazkii.botania.common.item.rod.ItemDirtRod;
 import vazkii.botania.common.item.rod.ItemDiviningRod;
@@ -214,6 +221,13 @@ public final class ModItems {
 	public static Item phantomInk;
 	public static Item poolMinecart;
 	public static Item pinkinator;
+	public static Item infiniteFruit;
+	public static Item excaliber;
+	public static Item flugelEye;
+	public static Item thorRing;
+	public static Item odinRing;
+	public static Item lokiRing;
+	public static Item aesirRing;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -332,7 +346,14 @@ public final class ModItems {
 		phantomInk = new ItemPhantomInk();
 		poolMinecart = new ItemPoolMinecart();
 		pinkinator = new ItemPinkinator();
-		
+		infiniteFruit = new ItemInfiniteFruit();
+		excaliber = new ItemExcaliber();
+		flugelEye = new ItemFlugelEye();
+		thorRing = new ItemThorRing();
+		odinRing = new ItemOdinRing();
+		lokiRing = new ItemLokiRing();
+		aesirRing = new ItemAesirRing();
+
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));

@@ -95,6 +95,9 @@ botaniamisc.lexiconOptions1=Configure Botania from ingame
 botaniamisc.lexiconOptions2=Some options might need a game restart
 botaniamisc.hasPhantomInk=&bTinged with Phantom Ink
 botaniamisc.pinkinatorDesc=Apply directly to Wither
+botaniamisc.relicUnbound=&6Relic&7, Unbound
+botaniamisc.relicSoulbound=&6Relic&7, Soulbound to &f%s
+botaniamisc.notYourSagittarius=&4This relic is not yours
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
@@ -307,6 +310,9 @@ botania.baubletype.amulet=Equippable in the &aAmulet&7 slot
 botania.baubletype.ring=Equippable in the &aRing&7 slot
 botania.baubletype.belt=Equippable in the &aBelt&7 slot
 botania.baubletooltip=Press &b%key%&7 to open the Baubles menu
+
+# DEATH MESSAGES
+death.attack.botania-relic=%s was punished for using a relic that isn't theirs
 
 # ENTITY NAMES
 entity.Botania.botania:manaBurst.name=Mana Burst
@@ -1148,6 +1154,14 @@ item.botania:flowerBag.name=Flower Pouch
 item.botania:phantomInk.name=Phantom Ink
 item.botania:poolMinecart.name=Minecart with Mana Pool
 item.botania:pinkinator.name=The Pinkinator
+item.botania:infiniteFruit.name=The Fruit of Grisaia
+item.botania:excaliber.name=Holy Sword Excaliber
+item.botania:flugelEye.name=Eye of the Flügel
+item.botania:thorRing.name=Ring of Thor
+item.botania:odinRing.name=Ring of Odin
+item.botania:lokiRing.name=Ring of Loki
+item.botania:aesirRing.name=Ring of the Aesir
+item.botania:relicDice.name=Dice of Fate
 
 # BREW NAMES
 botania.brew.fallback=Fallback
