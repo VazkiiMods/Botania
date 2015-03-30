@@ -8,17 +8,30 @@
  * 
  * File Created @ [Mar 29, 2015, 7:17:41 PM (GMT)]
  */
-package vazkii.botania.common.item.relic;
+package vazkii.botania.api.item;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 
+/**
+ * An item that implements this counts as a Relic item. This is purely for interaction
+ * and other mod items should not implement this interface.
+ */
 public interface IRelic {
 
+	/**
+	 * Gets the username of the person this relic is bound to.
+	 */
 	public String getSoulbindUsername(ItemStack stack);
 	
+	/**
+	 * Sets the achievement that this relic binds to.
+	 */
 	public void setBindAchievement(Achievement achievement);
 	
+	/**
+	 * Gets the achievement that this relic binds to.
+	 */
 	public Achievement getBindAchievement();
 	
 }

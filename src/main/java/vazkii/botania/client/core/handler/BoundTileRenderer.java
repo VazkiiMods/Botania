@@ -11,12 +11,14 @@
 package vazkii.botania.client.core.handler;
 
 import java.awt.Color;
+import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChunkCoordinates;
@@ -25,6 +27,8 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.item.IWireframeCoordinateListProvider;
 import vazkii.botania.api.wand.ICoordBoundItem;
 import vazkii.botania.api.wand.IWireframeAABBProvider;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -42,10 +46,33 @@ public final class BoundTileRenderer {
 
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 		ItemStack stack = player.getCurrentEquippedItem();
+		int color = Color.HSBtoRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 		if(stack != null && stack.getItem() instanceof ICoordBoundItem) {
 			ChunkCoordinates coords = ((ICoordBoundItem) stack.getItem()).getBinding(stack);
 			if(coords != null)
-				renderBlockOutlineAt(coords, Color.HSBtoRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F));
+				renderBlockOutlineAt(coords, color);
+		}
+		
+		IInventory mainInv = player.inventory;
+		IInventory baublesInv = BotaniaAPI.internalHandler.getBaublesInventory(player);
+
+		int invSize = mainInv.getSizeInventory();
+		int size = invSize;
+		if(baublesInv != null)
+			size += baublesInv.getSizeInventory();
+
+		for(int i = 0; i < size; i++) {
+			boolean useBaubles = i >= invSize;
+			IInventory inv = useBaubles ? baublesInv : mainInv;
+			ItemStack stackInSlot = inv.getStackInSlot(i - (useBaubles ? invSize : 0));
+			
+			if(stackInSlot != null && stackInSlot.getItem() instanceof IWireframeCoordinateListProvider) {
+				IWireframeCoordinateListProvider provider = (IWireframeCoordinateListProvider) stackInSlot.getItem();
+				List<ChunkCoordinates> coordsList = provider.getWireframesToDraw(player, stackInSlot);
+				if(coordsList != null)
+					for(ChunkCoordinates coords : coordsList)
+						renderBlockOutlineAt(coords, color);
+			}
 		}
 
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
