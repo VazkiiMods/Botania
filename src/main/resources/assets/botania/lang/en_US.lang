@@ -389,6 +389,21 @@ achievement.botania:superCorporeaRequest.desc=Successfuly request 50,000 or more
 achievement.botania:pinkinator=Decorator
 achievement.botania:pinkinator.desc=Put to use The Pinkinator
 
+achievement.botania:infiniteFruit=Innocentia
+achievement.botania:infiniteFruit.desc=Be rewarded The Fruit of Grisaia for a heroic feat
+achievement.botania:excaliber=Streaming Heart
+achievement.botania:excaliber.desc=Be rewarded the Holy Sword Excaliber for a heroic feat
+achievement.botania:flugelEye=Angel of Death
+achievement.botania:flugelEye.desc=Be rewarded the Eye of the Flügel for a heroic feat
+achievement.botania:thorRing=One Step Layered
+achievement.botania:thorRing.desc=Be rewarded the Ring of Thor for a heroic feat
+achievement.botania:odinRing=Lost Time Memory
+achievement.botania:odinRing.desc=Be rewarded the Ring of Odin for a heroic feat
+achievement.botania:lokiRing=Arithmetic
+achievement.botania:lokiRing.desc=Be rewarded the Ring of Loki for a heroic feat
+achievement.botania:aesirRing=As the Gods Say
+achievement.botania:aesirRing.desc=Create the Ring of the Aesir
+
 achievement.botania:desuGun=Two-Faced Lovers
 achievement.botania:desuGun.desc=ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
 #                                 ^ Don't localize

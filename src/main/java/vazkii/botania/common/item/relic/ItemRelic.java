@@ -65,8 +65,12 @@ public class ItemRelic extends ItemMod implements IRelic {
 	}
 	
 	public static void updateRelic(ItemStack stack, EntityPlayer player) {
+		if(stack == null || !(stack.getItem() instanceof IRelic))
+			return;
+		
 		String soulbind = getSoulbindUsernameS(stack);
 		if(soulbind.isEmpty()) {
+			player.addStat(((IRelic) stack.getItem()).getBindAchievement(), 1);
 			bindToPlayer(player, stack);
 			soulbind = getSoulbindUsernameS(stack);
 		}

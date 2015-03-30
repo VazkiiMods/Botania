@@ -56,6 +56,14 @@ public final class ModAchievements {
 	public static Achievement superCorporeaRequest;
 	public static Achievement pinkinator;
 
+	public static Achievement relicInfiniteFruit;
+	public static Achievement relicExcaliber;
+	public static Achievement relicFlugelEye;
+	public static Achievement relicThorRing;
+	public static Achievement relicOdinRing;
+	public static Achievement relicLokiRing;
+	public static Achievement relicAesirRing;
+
 	public static Achievement desuGun;
 
 	public static void init() {
@@ -95,6 +103,14 @@ public final class ModAchievements {
 		superCorporeaRequest = new AchievementMod(LibAchievementNames.SUPER_CORPOREA_REQUEST, -3, -5, ModBlocks.corporeaIndex, null).setSpecial();
 		pinkinator = new AchievementMod(LibAchievementNames.PINKINATOR, -5, -5, ModItems.pinkinator, null).setSpecial();
 
+		relicInfiniteFruit = new AchievementMod(LibAchievementNames.RELIC_INFINITE_FRUIT, -9, 4, ModItems.infiniteFruit, null);
+		relicExcaliber = new AchievementMod(LibAchievementNames.RELIC_EXCALIBER, -7, 7, ModItems.excaliber, null);
+		relicFlugelEye = new AchievementMod(LibAchievementNames.RELIC_FLUGEL_EYE, -5, 4, ModItems.flugelEye, null);
+		relicThorRing = new AchievementMod(LibAchievementNames.RELIC_THOR_RING, -7, 3, ModItems.thorRing, null);
+		relicOdinRing = new AchievementMod(LibAchievementNames.RELIC_ODIN_RING, -9, 6, ModItems.odinRing, null);
+		relicLokiRing = new AchievementMod(LibAchievementNames.RELIC_LOKI_RING, -5, 6, ModItems.lokiRing, null);
+		relicAesirRing = new AchievementMod(LibAchievementNames.RELIC_AESIR_RING, -7, 5, ModItems.aesirRing, null).setSpecial();
+		
 		ItemStack desu = new ItemStack(ModItems.manaGun);
 		desu.setStackDisplayName("desu gun");
 		desuGun = new AchievementMod(LibAchievementNames.DESU_GUN, -8, -2, desu, null).setSpecial();
@@ -106,3 +122,4 @@ public final class ModAchievements {
 	}
 
 }
+

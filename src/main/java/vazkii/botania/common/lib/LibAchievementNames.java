@@ -42,6 +42,14 @@ public final class LibAchievementNames {
 	public static final String SUPER_CORPOREA_REQUEST = "superCorporeaRequest";
 	public static final String PINKINATOR = "pinkinator";
 
+	public static final String RELIC_INFINITE_FRUIT = "infiniteFruit";
+	public static final String RELIC_EXCALIBER = "excaliber";
+	public static final String RELIC_FLUGEL_EYE = "flugelEye";
+	public static final String RELIC_THOR_RING = "thorRing";
+	public static final String RELIC_ODIN_RING = "odinRing";
+	public static final String RELIC_LOKI_RING = "lokiRing";
+	public static final String RELIC_AESIR_RING = "aesirRing";
+	
 	public static final String DESU_GUN = "desuGun";
 
 }
