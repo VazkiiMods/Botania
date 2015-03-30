@@ -13,7 +13,11 @@ package vazkii.botania.common.item.relic;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -21,11 +25,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
+import vazkii.botania.api.item.ISequentialBreaker;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
@@ -88,8 +95,32 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 				int y = lookPos.blockY + cursor.posY;
 				int z = lookPos.blockZ + cursor.posZ;
 				Item item = heldItemStack.getItem();
-				item.onItemUse(player.capabilities.isCreativeMode ? heldItemStack.copy() : heldItemStack, player, player.worldObj, x, y, z, lookPos.sideHit, (float) lookPos.hitVec.xCoord - x, (float) lookPos.hitVec.yCoord - y, (float) lookPos.hitVec.zCoord - z);
+				if(!player.worldObj.isAirBlock(x, y, z))
+					item.onItemUse(player.capabilities.isCreativeMode ? heldItemStack.copy() : heldItemStack, player, player.worldObj, x, y, z, lookPos.sideHit, (float) lookPos.hitVec.xCoord - x, (float) lookPos.hitVec.yCoord - y, (float) lookPos.hitVec.zCoord - z);
 			}
+		}
+	}
+	
+	public static void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, int x, int y, int z, int side) {
+		ItemStack lokiRing = getLokiRing(player);
+		if(lokiRing == null || player.worldObj.isRemote || !(item instanceof ISequentialBreaker))
+			return;
+		
+		List<ChunkCoordinates> cursors = getCursorList(lokiRing);
+		ISequentialBreaker breaker = (ISequentialBreaker) item;
+		World world = player.worldObj;
+		boolean silk = EnchantmentHelper.getEnchantmentLevel(Enchantment.silkTouch.effectId, stack) > 0;
+		int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, stack);
+		boolean dispose = breaker.disposeOfTrashBlocks(stack);
+		
+		for(int i = 0; i < cursors.size(); i++) {
+			ChunkCoordinates coords = cursors.get(i);
+			int xp = x + coords.posX;
+			int yp = y + coords.posY;
+			int zp = z + coords.posZ;
+			Block block = world.getBlock(xp, yp, zp);
+			breaker.breakOtherBlock(player, stack, xp, yp, zp, x, y, z, side);
+			ToolCommons.removeBlockWithDrops(player, stack, player.worldObj, xp, yp, zp, x, y, z, block, new Material[] { block.getMaterial() }, silk, fortune, block.getBlockHardness(world, xp, yp, zp), dispose);
 		}
 	}
 	
@@ -131,27 +162,31 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		return null;
 	}
 	
-	private ItemStack getLokiRing(EntityPlayer player) {
+	private static ItemStack getLokiRing(EntityPlayer player) {
 		InventoryBaubles baubles = PlayerHandler.getPlayerBaubles(player);
 		ItemStack stack1 = baubles.getStackInSlot(1);
 		ItemStack stack2 = baubles.getStackInSlot(2);
-		return (stack1 != null && stack1.getItem() == this) ? stack1 : (stack2 != null && stack2.getItem() == this) ? stack2 : null;
+		return isLokiRing(stack1) ? stack1 : isLokiRing(stack2) ? stack2 : null;
 	}
 	
-	private ChunkCoordinates getOriginPos(ItemStack stack) {
+	private static boolean isLokiRing(ItemStack stack) {
+		return stack != null && (stack.getItem() == ModItems.lokiRing || stack.getItem() == ModItems.aesirRing);
+	}
+	
+	private static ChunkCoordinates getOriginPos(ItemStack stack) {
 		int x = ItemNBTHelper.getInt(stack, TAG_X_ORIGIN, 0);
 		int y = ItemNBTHelper.getInt(stack, TAG_Y_ORIGIN, -1);
 		int z = ItemNBTHelper.getInt(stack, TAG_Z_ORIGIN, 0);
 		return new ChunkCoordinates(x, y, z);
 	}
 	
-	private void setOriginPos(ItemStack stack, int x, int y, int z) {
+	private static void setOriginPos(ItemStack stack, int x, int y, int z) {
 		ItemNBTHelper.setInt(stack, TAG_X_ORIGIN, x);
 		ItemNBTHelper.setInt(stack, TAG_Y_ORIGIN, y);
 		ItemNBTHelper.setInt(stack, TAG_Z_ORIGIN, z);
 	}
 	
-	private List<ChunkCoordinates> getCursorList(ItemStack stack) {
+	private static List<ChunkCoordinates> getCursorList(ItemStack stack) {
 		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_CURSOR_LIST, false);
 		List<ChunkCoordinates> cursors = new ArrayList();
 		
@@ -167,7 +202,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		return cursors;
 	}
 
-	private void setCursorList(ItemStack stack, List<ChunkCoordinates> cursors) {
+	private static void setCursorList(ItemStack stack, List<ChunkCoordinates> cursors) {
 		NBTTagCompound cmp = new NBTTagCompound();
 		if(cursors != null) {
 			int i = 0;
@@ -182,7 +217,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		ItemNBTHelper.setCompound(stack, TAG_CURSOR_LIST, cmp);
 	}
 	
-	private NBTTagCompound cursorToCmp(int x, int y, int z) {
+	private static NBTTagCompound cursorToCmp(int x, int y, int z) {
 		NBTTagCompound cmp = new NBTTagCompound();
 		cmp.setInteger(TAG_X_OFFSET, x);
 		cmp.setInteger(TAG_Y_OFFSET, y);
@@ -190,7 +225,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		return cmp;
 	}
 	
-	private void addCursor(ItemStack stack, int x, int y, int z) {
+	private static void addCursor(ItemStack stack, int x, int y, int z) {
 		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_CURSOR_LIST, false);
 		int count = cmp.getInteger(TAG_CURSOR_COUNT);
 		cmp.setTag(TAG_CURSOR_PREFIX + count, cursorToCmp(x, y, z));

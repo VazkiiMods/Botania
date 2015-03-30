@@ -31,6 +31,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.item.ISequentialBreaker;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.achievement.ModAchievements;
@@ -41,12 +42,13 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemAuraRing;
 import vazkii.botania.common.item.equipment.bauble.ItemGreaterAuraRing;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelPick;
+import vazkii.botania.common.item.relic.ItemLokiRing;
 import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemTerraPick extends ItemManasteelPick implements IManaItem {
+public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequentialBreaker {
 
 	private static final String TAG_ENABLED = "enabled";
 	private static final String TAG_MANA = "mana";
@@ -119,19 +121,30 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem {
 
 	@Override
 	public boolean onBlockStartBreak(ItemStack stack, int x, int y, int z, EntityPlayer player) {
+		MovingObjectPosition raycast = ToolCommons.raytraceFromEntity(player.worldObj, player, true, 10);
+		if(raycast != null) {
+			breakOtherBlock(player, stack, x, y, z, x, y, z, raycast.sideHit);
+			ItemLokiRing.breakOnAllCursors(player, this, stack, x, y, z, raycast.sideHit);
+			// ^ Doable with API access through the IInternalMethodHandler.
+		}
+		
+		return false;
+	}
+	
+	@Override
+	public void breakOtherBlock(EntityPlayer player, ItemStack stack, int x, int y, int z, int originX, int originY, int originZ, int side) {
 		if(!isEnabled(stack))
-			return false;
+			return;
 
 		World world = player.worldObj;
 		Material mat = world.getBlock(x, y, z).getMaterial();
 		if(!ToolCommons.isRightMaterial(mat, MATERIALS))
-			return false;
+			return;
 
-		MovingObjectPosition block = ToolCommons.raytraceFromEntity(world, player, true, 10);
-		if(block == null)
-			return false;
+		if(world.isAirBlock(x, y, z))
+			return;
 
-		ForgeDirection direction = ForgeDirection.getOrientation(block.sideHit);
+		ForgeDirection direction = ForgeDirection.getOrientation(side);
 		int fortune = EnchantmentHelper.getFortuneModifier(player);
 		boolean silk = EnchantmentHelper.getSilkTouchModifier(player);
 		boolean doX = direction.offsetX == 0;
@@ -143,13 +156,11 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem {
 		int rangeY = Math.max(1, range);
 
 		if(range == 0 && level != 1)
-			return false;
+			return;
 
 		ToolCommons.removeBlocksInIteration(player, stack, world, x, y, z, doX ? -range : 0, doY ? -1 : 0, doZ ? -range : 0, doX ? range + 1 : 1, doY ? rangeY * 2 : 1, doZ ? range + 1 : 1, null, MATERIALS, silk, fortune, isTipped(stack));
 		if(level == 5)
 			player.addStat(ModAchievements.rankSSPick, 1);
-
-		return false;
 	}
 
 	@Override
@@ -259,6 +270,11 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem {
 	@Override
 	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
 		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 4 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
+	}
+
+	@Override
+	public boolean disposeOfTrashBlocks(ItemStack stack) {
+		return isTipped(stack);
 	}
 
 }

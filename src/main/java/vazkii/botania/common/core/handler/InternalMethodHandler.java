@@ -17,6 +17,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.tileentity.TileEntity;
@@ -40,6 +41,7 @@ import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.block.BlockSpecialFlower;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
+import vazkii.botania.common.item.relic.ItemLokiRing;
 import vazkii.botania.common.lexicon.page.PageBrew;
 import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
 import vazkii.botania.common.lexicon.page.PageElvenRecipe;
@@ -198,5 +200,10 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	@Optional.Method(modid = "BuildCraft|Transport")
 	public boolean isBuildcraftPipe(TileEntity tile) {
 		return tile instanceof IPipeTile;
+	}
+	
+	@Override
+	public void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, int x, int y, int z, int side) {
+		ItemLokiRing.breakOnAllCursors(player, item, stack, x, y, z, side);
 	}
 }
