@@ -43,6 +43,7 @@ import vazkii.botania.common.item.equipment.bauble.ItemAuraRing;
 import vazkii.botania.common.item.equipment.bauble.ItemGreaterAuraRing;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelPick;
 import vazkii.botania.common.item.relic.ItemLokiRing;
+import vazkii.botania.common.item.relic.ItemThorRing;
 import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -147,9 +148,10 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		ForgeDirection direction = ForgeDirection.getOrientation(side);
 		int fortune = EnchantmentHelper.getFortuneModifier(player);
 		boolean silk = EnchantmentHelper.getSilkTouchModifier(player);
-		boolean doX = direction.offsetX == 0;
-		boolean doY = direction.offsetY == 0;
-		boolean doZ = direction.offsetZ == 0;
+		boolean thor = ItemThorRing.getThorRing(player) != null;
+		boolean doX = thor || direction.offsetX == 0;
+		boolean doY = thor || direction.offsetY == 0;
+		boolean doZ = thor || direction.offsetZ == 0;
 
 		int level = getLevel(stack);
 		int range = Math.max(0, level - 1);
