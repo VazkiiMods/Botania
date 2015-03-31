@@ -66,6 +66,7 @@ public class ItemFlugelEye extends ItemRelic {
 	}
 	
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister par1IconRegister) {
 		super.registerIcons(par1IconRegister);
 		signs = new IIcon[12];
