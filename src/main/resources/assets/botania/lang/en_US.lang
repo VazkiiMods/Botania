@@ -2155,6 +2155,11 @@ botania.entry.crystalBow=Crystal Bow
 botania.page.crystalBow0=Crafted with &1Dragonstone&0, the &1Crystal Bow&0 is a ranged weapon with the capacity to generate arrows from &4Mana&0. Similarly to the &1Livingwood Bow&0, it'll repair using &4Mana&0 as well, but carrying &1Arrows&0 is not required as they are created through the magical energies.<br>Given the lightweight and flexible structure of the bow, it can also fire at a much increased velocity than a conventional wooden one.
 botania.page.crystalBow1=The elves are roving
 
+# -- RESOLUTE IVY
+botania.entry.keepIvy=Resolute Ivy
+botania.page.keepIvy0=Everyone knows that before being ressurected, one's items splatter all over the ground, generally a massive nuisance. The fix for this is rather simple. By attaching a piece of &1Resolute Ivy&0 to an item through a crafting grid, that item will presist on one's inventory through death. The ivy will degenerate after that fact and will need to be applied again if one wishes to have the item survive another downfall.
+botania.page.keepIvy1=Because people die when they are killed
+
 # - ENDER ARTEFACTS
 # -- EXTRACTING ENDER AIR
 botania.entry.enderAir=Extracting Ender Air

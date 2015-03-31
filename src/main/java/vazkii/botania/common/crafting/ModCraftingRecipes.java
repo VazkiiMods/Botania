@@ -245,6 +245,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipePoolCart;
 	public static IRecipe recipePump;
 	public static List<IRecipe> recipesPetalsDouble;
+	public static IRecipe recipeKeepIvy;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1625,6 +1626,10 @@ public final class ModCraftingRecipes {
 			addShapelessOreDictRecipe(new ItemStack(ModItems.petal, 4, i), LibOreDict.DOUBLE_FLOWER[i]);
 		recipesPetalsDouble = BotaniaAPI.getLatestAddedRecipes(16);
 
+		// Resolute Ivy Recipe
+		addShapelessOreDictRecipe(new ItemStack(ModItems.keepIvy), LibOreDict.PIXIE_DUST, new ItemStack(Blocks.vine));
+		recipeKeepIvy = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",

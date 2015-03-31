@@ -176,6 +176,7 @@ public final class LexiconData {
 	public static LexiconEntry overgrowthSeed;
 	public static LexiconEntry livingwoodBow;
 	public static LexiconEntry crystalBow;
+	public static LexiconEntry keepIvy;
 
 	public static LexiconEntry enderAir;
 	public static LexiconEntry enderEyeBlock;
@@ -667,6 +668,9 @@ public final class LexiconData {
 		crystalBow = new ALexiconEntry(LibLexicon.TOOL_CRYSTAL_BOW, categoryTools);
 		crystalBow.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeCrystalBow));
 
+		keepIvy = new ALexiconEntry(LibLexicon.TOOL_KEEP_IVY, categoryTools);
+		keepIvy.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeKeepIvy));
+		
 		// ENDER ENTRIES
 		enderAir = new BLexiconEntry(LibLexicon.ENDER_AIR, categoryEnder);
 		enderAir.setPriority().setLexiconPages(new PageText("0"));
