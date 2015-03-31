@@ -149,6 +149,7 @@ public final class BaubleRenderHandler {
 		Helper.translateToHeadLevel(event.entityPlayer);
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
 		GL11.glPushMatrix();
+		GL11.glColor4f(1F, 1F, 1F, 1F);
 		GL11.glRotatef(90F, 0F, 1F, 0F);
 		float t = 0.13F;
 		GL11.glTranslatef(t, -0.5F, -0.1F);
