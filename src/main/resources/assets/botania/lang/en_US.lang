@@ -2031,11 +2031,6 @@ botania.entry.openBucket=Extrapolated Bucket
 botania.page.openBucket0=By creating a bucket out of &1Elementium&0 one seems to notice an interesting feature. The liquids acquired by it simply vanish into the ether, never to be seen again. This seems like a great clean up tool.
 botania.page.openBucket1=A Souvenir from Lewis
 
-# -- LIFE AGGREGATOR
-botania.entry.spawnerMover=Life Aggregator
-botania.page.spawnerMover0=By arranging &1Dragonstone&0, &1Elementium&0 and &1Gaia Spirits&0 in a specific pattern, one can create a device that can contain the curious energies of a &1Monster Spawner&0 and materialize it in another point in space.<br>It's to note that the device will shatter after being used once.
-botania.page.spawnerMover1=We got the spawner, but this isn't a won run yet
-
 # -- ROD OF BIFROST
 botania.entry.rainbowRod=Rod of the Bifrost
 botania.page.rainbowRod0=&4Bifrost&0, the rainbow bridge that reaches between the world and the realm of the gods.<br>While this item, the &1Rod of the Bifrost&0 doesn't exactly do that, it allows the holder, via a right click and at the cost of some &4Mana&0, to create a rainbow bridge in the direction he or she is looking at.
@@ -2155,11 +2150,6 @@ botania.entry.crystalBow=Crystal Bow
 botania.page.crystalBow0=Crafted with &1Dragonstone&0, the &1Crystal Bow&0 is a ranged weapon with the capacity to generate arrows from &4Mana&0. Similarly to the &1Livingwood Bow&0, it'll repair using &4Mana&0 as well, but carrying &1Arrows&0 is not required as they are created through the magical energies.<br>Given the lightweight and flexible structure of the bow, it can also fire at a much increased velocity than a conventional wooden one.
 botania.page.crystalBow1=The elves are roving
 
-# -- RESOLUTE IVY
-botania.entry.keepIvy=Resolute Ivy
-botania.page.keepIvy0=Everyone knows that before being ressurected, one's items splatter all over the ground, generally a massive nuisance. The fix for this is rather simple. By attaching a piece of &1Resolute Ivy&0 to an item through a crafting grid, that item will presist on one's inventory through death. The ivy will degenerate after that fact and will need to be applied again if one wishes to have the item survive another downfall.
-botania.page.keepIvy1=Because people die when they are killed
-
 # - ENDER ARTEFACTS
 # -- EXTRACTING ENDER AIR
 botania.entry.enderAir=Extracting Ender Air
@@ -2251,6 +2241,16 @@ botania.entry.endStoneDecor=Decorative End Blocks
 botania.page.endStoneDecor0=Similarly to other stone blocks, &1End Stone&0 can be converted into bricks and chiseled bricks, the bricks can be used as stairs or slabs just like normal &1Stone Bricks&0 would.
 botania.page.endStoneDecor1=Making &1End Stone Bricks&0
 botania.page.endStoneDecor2=Making &1Chiseled End Stone Bricks&0
+
+# -- LIFE AGGREGATOR
+botania.entry.spawnerMover=Life Aggregator
+botania.page.spawnerMover0=By arranging &1Dragonstone&0, &1Elementium&0 and &1Gaia Spirits&0 in a specific pattern, one can create a device that can contain the curious energies of a &1Monster Spawner&0 and materialize it in another point in space.<br>It's to note that the device will shatter after being used once.
+botania.page.spawnerMover1=We got the spawner, but this isn't a won run yet
+
+# -- RESOLUTE IVY
+botania.entry.keepIvy=Resolute Ivy
+botania.page.keepIvy0=Everyone knows that before being ressurected, one's items splatter all over the ground, generally a massive nuisance. The fix for this is rather simple. By attaching a piece of &1Resolute Ivy&0 to an item through a crafting grid, that item will presist on one's inventory through death. The ivy will degenerate after that fact and will need to be applied again if one wishes to have the item survive another downfall.
+botania.page.keepIvy1=Because people die when they are killed
 
 # - BAUBLES AND ACESSORIES
 # -- AN INTRODUCTION TO BAUBLES

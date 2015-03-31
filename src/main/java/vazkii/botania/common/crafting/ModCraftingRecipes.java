@@ -903,9 +903,10 @@ public final class ModCraftingRecipes {
 
 		// Life Aggregator Recipe
 		addOreDictRecipe(new ItemStack(ModItems.spawnerMover),
-				"EIE", "IDI", "EIE",
+				"EIE", "ADA", "EIE",
 				'E', LibOreDict.LIFE_ESSENCE,
 				'I', LibOreDict.ELEMENTIUM,
+				'A', LibOreDict.ENDER_AIR_BOTTLE,
 				'D', LibOreDict.DRAGONSTONE);
 		recipeSpawnerMover = BotaniaAPI.getLatestAddedRecipe();
 
@@ -1627,7 +1628,7 @@ public final class ModCraftingRecipes {
 		recipesPetalsDouble = BotaniaAPI.getLatestAddedRecipes(16);
 
 		// Resolute Ivy Recipe
-		addShapelessOreDictRecipe(new ItemStack(ModItems.keepIvy), LibOreDict.PIXIE_DUST, new ItemStack(Blocks.vine));
+		addShapelessOreDictRecipe(new ItemStack(ModItems.keepIvy), LibOreDict.PIXIE_DUST, new ItemStack(Blocks.vine), LibOreDict.ENDER_AIR_BOTTLE);
 		recipeKeepIvy = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Storage Block Recipes

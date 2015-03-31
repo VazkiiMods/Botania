@@ -153,7 +153,6 @@ public final class LexiconData {
 	public static LexiconEntry waterRod;
 	public static LexiconEntry elfGear;
 	public static LexiconEntry openBucket;
-	public static LexiconEntry spawnerMover;
 	public static LexiconEntry rainbowRod;
 	public static LexiconEntry tornadoRod;
 	public static LexiconEntry fireRod;
@@ -176,7 +175,6 @@ public final class LexiconData {
 	public static LexiconEntry overgrowthSeed;
 	public static LexiconEntry livingwoodBow;
 	public static LexiconEntry crystalBow;
-	public static LexiconEntry keepIvy;
 
 	public static LexiconEntry enderAir;
 	public static LexiconEntry enderEyeBlock;
@@ -190,6 +188,8 @@ public final class LexiconData {
 	public static LexiconEntry corporeaIndex;
 	public static LexiconEntry corporeaFunnel;
 	public static LexiconEntry endStoneDecor;
+	public static LexiconEntry spawnerMover;
+	public static LexiconEntry keepIvy;
 
 	public static LexiconEntry baublesIntro;
 	public static LexiconEntry cosmeticBaubles;
@@ -599,9 +599,6 @@ public final class LexiconData {
 		openBucket = new ALexiconEntry(LibLexicon.TOOL_OPEN_BUCKET, categoryTools);
 		openBucket.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeOpenBucket));
 
-		spawnerMover = new ALexiconEntry(LibLexicon.TOOL_SPAWNER_MOVER, categoryTools);
-		spawnerMover.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeSpawnerMover));
-
 		rainbowRod = new ALexiconEntry(LibLexicon.TOOL_RAINBOW_ROD, categoryTools);
 		rainbowRod.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeRainbowRod));
 
@@ -667,9 +664,6 @@ public final class LexiconData {
 
 		crystalBow = new ALexiconEntry(LibLexicon.TOOL_CRYSTAL_BOW, categoryTools);
 		crystalBow.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeCrystalBow));
-
-		keepIvy = new ALexiconEntry(LibLexicon.TOOL_KEEP_IVY, categoryTools);
-		keepIvy.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeKeepIvy));
 		
 		// ENDER ENTRIES
 		enderAir = new BLexiconEntry(LibLexicon.ENDER_AIR, categoryEnder);
@@ -714,6 +708,12 @@ public final class LexiconData {
 		endStoneDecor = new BLexiconEntry(LibLexicon.ENDER_END_STONE_DECOR, categoryEnder);
 		endStoneDecor.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeEndStoneBricks), new PageCraftingRecipe("2", ModCraftingRecipes.recipeEndStoneChiseledBricks));
 
+		spawnerMover = new ALexiconEntry(LibLexicon.TOOL_SPAWNER_MOVER, categoryEnder);
+		spawnerMover.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeSpawnerMover));
+
+		keepIvy = new ALexiconEntry(LibLexicon.TOOL_KEEP_IVY, categoryEnder);
+		keepIvy.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeKeepIvy));
+		
 		// BAUBLES ENTRIES
 		baublesIntro = new BLexiconEntry(LibLexicon.BAUBLE_INTRO, categoryBaubles);
 		baublesIntro.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_BAUBLES), new PageText("2"));
