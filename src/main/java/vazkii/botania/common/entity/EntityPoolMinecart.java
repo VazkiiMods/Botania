@@ -108,10 +108,11 @@ public class EntityPoolMinecart extends EntityMinecart {
 					if(did) {
 						worldObj.markBlockForUpdate(xp_, y, zp_);
 						pump.hasCart = true;
-						pump.comparator = (int) (((double) getMana() / (double) TilePool.MAX_MANA) * 15);
 						if(!pump.active)
 							pump.setActive(true);
 					}
+					pump.hasCartOnTop = true;
+					pump.comparator = (int) (((double) getMana() / (double) TilePool.MAX_MANA) * 15);
 				}
 			}
 		}

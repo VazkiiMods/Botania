@@ -21,6 +21,7 @@ public class TilePump extends TileMod {
 	public float innerRingPos;
 	public boolean active = false;
 	public boolean hasCart = false;
+	public boolean hasCartOnTop = false;
 	public float moving = 0F;
 	
 	public int comparator;
@@ -59,15 +60,16 @@ public class TilePump extends TileMod {
 			}
 		}
 
-		if(!hasCart) {
+		if(!hasCartOnTop)
 			comparator = 0;
-			if(active)
-				setActive(false);
-		}
+		if(!hasCart && active)
+			setActive(false);
 		if(active && hasRedstone)
 			setActive(false);
+		
 		hasCart = false;
-
+		hasCartOnTop = false;
+		
 		if(comparator != lastComparator)
 			worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 		lastComparator = comparator;
