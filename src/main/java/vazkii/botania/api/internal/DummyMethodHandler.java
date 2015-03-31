@@ -183,6 +183,6 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	public void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, int x, int y, int z, int side) {
 		// NO-OP
 	}
-	
-	
+
+
 }

@@ -29,7 +29,6 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
-import vazkii.botania.api.subtile.RadiusDescriptor.Square;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileSpectrolus extends SubTileGenerating {
@@ -67,7 +66,7 @@ public class SubTileSpectrolus extends SubTileGenerating {
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
 	}
-	
+
 	@Override
 	public int getMaxMana() {
 		return 2000;

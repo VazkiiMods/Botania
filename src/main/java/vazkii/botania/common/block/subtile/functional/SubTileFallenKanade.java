@@ -16,17 +16,15 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChunkCoordinates;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
-import vazkii.botania.api.subtile.RadiusDescriptor.Square;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileFallenKanade extends SubTileFunctional {
 
 	private static final int RANGE = 2;
-	
+
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
@@ -48,7 +46,7 @@ public class SubTileFallenKanade extends SubTileFunctional {
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
 	}
-	
+
 	@Override
 	public int getColor() {
 		return 0xFFFF00;

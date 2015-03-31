@@ -25,7 +25,7 @@ public class SubTileExoflame extends SubTileFunctional {
 
 	private static final int RANGE = 5;
 	private static final int RANGE_Y = 2;
-	
+
 	@Override
 	public void onUpdate() {
 		super.onUpdate();

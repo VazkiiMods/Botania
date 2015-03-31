@@ -85,7 +85,7 @@ public class EntityPoolMinecart extends EntityMinecart {
 					ForgeDirection pumpDir = ForgeDirection.getOrientation(meta);
 					boolean did = false;
 					boolean can = false;
-					
+
 					if(pumpDir == dir) { // Pool -> Cart
 						can = true;
 						int cartMana = getMana();
@@ -106,7 +106,7 @@ public class EntityPoolMinecart extends EntityMinecart {
 								pool.recieveMana(transfer);
 								setMana(cartMana - transfer);
 								did = true;
-							}	
+							}
 						}
 					}
 
@@ -116,12 +116,12 @@ public class EntityPoolMinecart extends EntityMinecart {
 						if(!pump.active)
 							pump.setActive(true);
 					}
-					
+
 					if(can) {
 						pump.hasCartOnTop = true;
-						pump.comparator = (int) (((double) getMana() / (double) TilePool.MAX_MANA) * 15);
+						pump.comparator = (int) ((double) getMana() / (double) TilePool.MAX_MANA * 15);
 					}
-					
+
 				}
 			}
 		}

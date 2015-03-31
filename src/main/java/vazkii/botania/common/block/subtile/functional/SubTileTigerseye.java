@@ -12,7 +12,6 @@ package vazkii.botania.common.block.subtile.functional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
@@ -23,11 +22,9 @@ import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChunkCoordinates;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
-import vazkii.botania.api.subtile.RadiusDescriptor.Square;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibObfuscation;
 import cpw.mods.fml.relauncher.ReflectionHelper;
@@ -36,7 +33,7 @@ public class SubTileTigerseye extends SubTileFunctional {
 
 	private static final int RANGE = 10;
 	private static final int RANGE_Y = 4;
-	
+
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
@@ -90,7 +87,7 @@ public class SubTileTigerseye extends SubTileFunctional {
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
 	}
-	
+
 	@Override
 	public int getColor() {
 		return 0xB1A618;

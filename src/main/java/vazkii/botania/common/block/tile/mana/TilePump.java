@@ -23,11 +23,11 @@ public class TilePump extends TileMod {
 	public boolean hasCart = false;
 	public boolean hasCartOnTop = false;
 	public float moving = 0F;
-	
+
 	public int comparator;
 	public boolean hasRedstone = false;
 	int lastComparator = 0;
-	
+
 	@Override
 	public void updateEntity() {
 		hasRedstone = false;
@@ -38,7 +38,7 @@ public class TilePump extends TileMod {
 				break;
 			}
 		}
-		
+
 		float max = 8F;
 		float min = 0F;
 
@@ -66,14 +66,14 @@ public class TilePump extends TileMod {
 			setActive(false);
 		if(active && hasRedstone)
 			setActive(false);
-		
+
 		hasCart = false;
 		hasCartOnTop = false;
-		
+
 		if(comparator != lastComparator)
 			worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 		lastComparator = comparator;
-		
+
 		super.updateEntity();
 	}
 

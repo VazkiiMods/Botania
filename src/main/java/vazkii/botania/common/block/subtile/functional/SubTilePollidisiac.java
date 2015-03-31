@@ -18,7 +18,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.RadiusDescriptor.Square;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibObfuscation;
@@ -27,7 +26,7 @@ import cpw.mods.fml.relauncher.ReflectionHelper;
 public class SubTilePollidisiac extends SubTileFunctional {
 
 	private static final int RANGE = 6;
-	
+
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
@@ -64,7 +63,7 @@ public class SubTilePollidisiac extends SubTileFunctional {
 			}
 		}
 	}
-	
+
 	@Override
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);

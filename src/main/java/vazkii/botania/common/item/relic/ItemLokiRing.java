@@ -58,18 +58,18 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		super(LibItemNames.LOKI_RING);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
-	
+
 	@SubscribeEvent
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		EntityPlayer player = event.entityPlayer;
 		ItemStack lokiRing = getLokiRing(player);
 		if(lokiRing == null || player.worldObj.isRemote)
 			return;
-		
+
 		ItemStack heldItemStack = player.getCurrentEquippedItem();
 		ChunkCoordinates originCoords = getOriginPos(lokiRing);
 		MovingObjectPosition lookPos = ToolCommons.raytraceFromEntity(player.worldObj, player, true, 4.5F);
-		
+
 		if(heldItemStack == null && event.action == Action.RIGHT_CLICK_BLOCK && player.isSneaking()) {
 			if(originCoords.posY == -1 && lookPos != null) {
 				setOriginPos(lokiRing, lookPos.blockX, lookPos.blockY, lookPos.blockZ);
@@ -83,7 +83,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 						for(ChunkCoordinates cursor : cursors)
 							if(cursor.posX == lookPos.blockX && cursor.posY == lookPos.blockY && cursor.posZ == lookPos.blockZ)
 								break addCursor;
-						
+
 						addCursor(lokiRing, lookPos.blockX - originCoords.posX, lookPos.blockY - originCoords.posY, lookPos.blockZ - originCoords.posZ);
 					}
 				}
@@ -100,19 +100,19 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 			}
 		}
 	}
-	
+
 	public static void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, int x, int y, int z, int side) {
 		ItemStack lokiRing = getLokiRing(player);
 		if(lokiRing == null || player.worldObj.isRemote || !(item instanceof ISequentialBreaker))
 			return;
-		
+
 		List<ChunkCoordinates> cursors = getCursorList(lokiRing);
 		ISequentialBreaker breaker = (ISequentialBreaker) item;
 		World world = player.worldObj;
 		boolean silk = EnchantmentHelper.getEnchantmentLevel(Enchantment.silkTouch.effectId, stack) > 0;
 		int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, stack);
 		boolean dispose = breaker.disposeOfTrashBlocks(stack);
-		
+
 		for(int i = 0; i < cursors.size(); i++) {
 			ChunkCoordinates coords = cursors.get(i);
 			int xp = x + coords.posX;
@@ -123,7 +123,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 			ToolCommons.removeBlockWithDrops(player, stack, player.worldObj, xp, yp, zp, x, y, z, block, new Material[] { block.getMaterial() }, silk, fortune, block.getBlockHardness(world, xp, yp, zp), dispose);
 		}
 	}
-	
+
 	@Override
 	public BaubleType getBaubleType(ItemStack arg0) {
 		return BaubleType.RING;
@@ -133,7 +133,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
 		setCursorList(stack, null);
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public List<ChunkCoordinates> getWireframesToDraw(EntityPlayer player, ItemStack stack) {
@@ -142,7 +142,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		if(lookPos != null && !player.worldObj.isAirBlock(lookPos.blockX, lookPos.blockY, lookPos.blockZ) && lookPos.entityHit == null) {
 			List<ChunkCoordinates> list = getCursorList(stack);
 			ChunkCoordinates origin = getOriginPos(stack);
-						
+
 			if(origin.posY != -1) {
 				for(ChunkCoordinates coords : list) {
 					coords.posX += origin.posX;
@@ -155,41 +155,41 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 				coords.posY += lookPos.blockY;
 				coords.posZ += lookPos.blockZ;
 			}
-			
+
 			return list;
 		}
-		
+
 		return null;
 	}
-	
+
 	private static ItemStack getLokiRing(EntityPlayer player) {
 		InventoryBaubles baubles = PlayerHandler.getPlayerBaubles(player);
 		ItemStack stack1 = baubles.getStackInSlot(1);
 		ItemStack stack2 = baubles.getStackInSlot(2);
 		return isLokiRing(stack1) ? stack1 : isLokiRing(stack2) ? stack2 : null;
 	}
-	
+
 	private static boolean isLokiRing(ItemStack stack) {
 		return stack != null && (stack.getItem() == ModItems.lokiRing || stack.getItem() == ModItems.aesirRing);
 	}
-	
+
 	private static ChunkCoordinates getOriginPos(ItemStack stack) {
 		int x = ItemNBTHelper.getInt(stack, TAG_X_ORIGIN, 0);
 		int y = ItemNBTHelper.getInt(stack, TAG_Y_ORIGIN, -1);
 		int z = ItemNBTHelper.getInt(stack, TAG_Z_ORIGIN, 0);
 		return new ChunkCoordinates(x, y, z);
 	}
-	
+
 	private static void setOriginPos(ItemStack stack, int x, int y, int z) {
 		ItemNBTHelper.setInt(stack, TAG_X_ORIGIN, x);
 		ItemNBTHelper.setInt(stack, TAG_Y_ORIGIN, y);
 		ItemNBTHelper.setInt(stack, TAG_Z_ORIGIN, z);
 	}
-	
+
 	private static List<ChunkCoordinates> getCursorList(ItemStack stack) {
 		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_CURSOR_LIST, false);
 		List<ChunkCoordinates> cursors = new ArrayList();
-		
+
 		int count = cmp.getInteger(TAG_CURSOR_COUNT);
 		for(int i = 0; i < count; i++) {
 			NBTTagCompound cursorCmp = cmp.getCompoundTag(TAG_CURSOR_PREFIX + i);
@@ -198,7 +198,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 			int z = cursorCmp.getInteger(TAG_Z_OFFSET);
 			cursors.add(new ChunkCoordinates(x, y, z));
 		}
-		
+
 		return cursors;
 	}
 
@@ -213,10 +213,10 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 			}
 			cmp.setInteger(TAG_CURSOR_COUNT, i);
 		}
-		
+
 		ItemNBTHelper.setCompound(stack, TAG_CURSOR_LIST, cmp);
 	}
-	
+
 	private static NBTTagCompound cursorToCmp(int x, int y, int z) {
 		NBTTagCompound cmp = new NBTTagCompound();
 		cmp.setInteger(TAG_X_OFFSET, x);
@@ -224,7 +224,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		cmp.setInteger(TAG_Z_OFFSET, z);
 		return cmp;
 	}
-	
+
 	private static void addCursor(ItemStack stack, int x, int y, int z) {
 		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_CURSOR_LIST, false);
 		int count = cmp.getInteger(TAG_CURSOR_COUNT);

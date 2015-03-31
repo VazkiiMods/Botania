@@ -130,7 +130,7 @@ public class ItemMagnetRing extends ItemBauble {
 	public static void setCooldown(ItemStack stack, int cooldown) {
 		ItemNBTHelper.setInt(stack, TAG_COOLDOWN, cooldown);
 	}
-    
+
 	public static void addItemToBlackList(String item) {
 		BLACKLIST.add(item);
 	}

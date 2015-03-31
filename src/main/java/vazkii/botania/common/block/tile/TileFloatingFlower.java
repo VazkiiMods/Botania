@@ -12,7 +12,6 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.IFloatingFlower;
 
@@ -47,12 +46,12 @@ public class TileFloatingFlower extends TileMod implements IFloatingFlower {
 	public void setIslandType(IslandType type) {
 		this.type = type;
 	}
-	
+
 	@Override
 	public void writeCustomNBT(NBTTagCompound cmp) {
 		cmp.setString(TAG_ISLAND_TYPE, type.toString());
 	}
-	
+
 	@Override
 	public void readCustomNBT(NBTTagCompound cmp) {
 		type = IslandType.ofType(cmp.getString(TAG_ISLAND_TYPE));

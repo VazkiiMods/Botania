@@ -107,7 +107,7 @@ public final class HUDHandler {
 				ItemCraftingHalo.renderHUD(event.resolution, mc.thePlayer, equippedStack);
 				profiler.endSection();
 			}
-			
+
 			if(equippedStack != null && equippedStack.getItem() == ModItems.flugelEye) {
 				profiler.startSection("flugelEye");
 				ItemFlugelEye.renderHUD(event.resolution, mc.thePlayer, equippedStack);

@@ -10,12 +10,8 @@
  */
 package vazkii.botania.common.item.relic;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
@@ -32,12 +28,12 @@ public class ItemDice extends ItemRelic {
 	private static final int[] SIDES_FOR_MOON_PHASES = new int[] {
 		-1, 0, 1, 2, -1, 2, 3, 4
 	};
-	
+
 	final ItemStack[] relicStacks;
-	
+
 	public ItemDice() {
 		super(LibItemNames.DICE);
-		
+
 		relicStacks = new ItemStack[] {
 				new ItemStack(ModItems.infiniteFruit),
 				new ItemStack(ModItems.excaliber),
@@ -58,29 +54,29 @@ public class ItemDice extends ItemRelic {
 				relic = world.rand.nextInt(6);
 
 			world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (world.rand.nextFloat() * 0.4F + 0.8F));
-			
+
 			if(hasRelicAlready(player, relic)) {
-				player.addChatMessage(new ChatComponentTranslation("botaniamisc.dudDiceRoll", (relic + 1)).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.DARK_GREEN)));
+				player.addChatMessage(new ChatComponentTranslation("botaniamisc.dudDiceRoll", relic + 1).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.DARK_GREEN)));
 				stack.stackSize--;
 				return stack;
 			}
-			
-			player.addChatMessage(new ChatComponentTranslation("botaniamisc.diceRoll", (relic + 1)).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.DARK_GREEN)));
+
+			player.addChatMessage(new ChatComponentTranslation("botaniamisc.diceRoll", relic + 1).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.DARK_GREEN)));
 			return relicStacks[relic].copy();
 		}
-		
+
 		return stack;
 	}
-	
+
 	boolean hasRelicAlready(EntityPlayer player, int relic) {
 		if(relic < 0 || relic > 5 || !(player instanceof EntityPlayerMP))
 			return true;
-		
+
 		EntityPlayerMP mpPlayer = (EntityPlayerMP) player;
 		Item item = relicStacks[relic].getItem();
 		IRelic irelic = (IRelic) item;
 		Achievement achievement = irelic.getBindAchievement();
 		return mpPlayer.func_147099_x().hasAchievementUnlocked(achievement);
 	}
-	
+
 }

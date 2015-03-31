@@ -152,7 +152,7 @@ public class SubTileEntity {
 	public ChunkCoordinates getBinding() {
 		return null;
 	}
-	
+
 	/**
 	 * Returns a descriptor for the radius of this sub tile. This is called while a player
 	 * is looking at the block with a Manaseer Monocle (IBurstViewerBauble).
@@ -161,7 +161,7 @@ public class SubTileEntity {
 	public RadiusDescriptor getRadius() {
 		return null;
 	}
-	
+
 	/**
 	 * Gets a ChunkCoordinates instance with the position of this sub tile.
 	 */

@@ -80,5 +80,5 @@ public abstract class BlockCorporeaBase extends BlockModContainer<TileCorporeaBa
 	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
 		return ModAchievements.corporeaCraft;
 	}
-	
+
 }

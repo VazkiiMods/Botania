@@ -90,7 +90,7 @@ public final class ModAchievements {
 		heiseiDreamPickup = new AchievementMod(LibAchievementNames.HEISEI_DREAM_PICKUP, 5, 6, ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_HEISEI_DREAM), elfPortalOpen);
 		enderAirMake = new AchievementMod(LibAchievementNames.ENDER_AIR_MAKE, 4, 8, new ItemStack(ModItems.manaResource, 1, 15), elfPortalOpen);
 		corporeaCraft = new AchievementMod(LibAchievementNames.CORPOREA_CRAFT, 2, 8, ModBlocks.corporeaFunnel, enderAirMake);
-		
+
 		gaiaGuardianKill = new AchievementMod(LibAchievementNames.GAIA_GUARDIAN_KILL, 2, 4, new ItemStack(ModItems.manaResource, 1, 5), elfPortalOpen).setSpecial();
 
 		spawnerMoverUse = new AchievementMod(LibAchievementNames.SPAWNER_MOVER_USE, -1, 5, ModItems.spawnerMover, gaiaGuardianKill);
@@ -110,7 +110,7 @@ public final class ModAchievements {
 		relicOdinRing = new AchievementMod(LibAchievementNames.RELIC_ODIN_RING, -9, 6, ModItems.odinRing, null);
 		relicLokiRing = new AchievementMod(LibAchievementNames.RELIC_LOKI_RING, -5, 6, ModItems.lokiRing, null);
 		relicAesirRing = new AchievementMod(LibAchievementNames.RELIC_AESIR_RING, -7, 5, ModItems.aesirRing, null).setSpecial();
-		
+
 		ItemStack desu = new ItemStack(ModItems.manaGun);
 		desu.setStackDisplayName("desu gun");
 		desuGun = new AchievementMod(LibAchievementNames.DESU_GUN, -8, -2, desu, null).setSpecial();

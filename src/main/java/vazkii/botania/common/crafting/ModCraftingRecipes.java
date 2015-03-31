@@ -1622,7 +1622,7 @@ public final class ModCraftingRecipes {
 				'I', LibOreDict.MANA_STEEL,
 				'B', new ItemStack(Items.bucket));
 		recipePump = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Double Petal Recipes
 		for(int i = 0; i < 16; i++)
 			addShapelessOreDictRecipe(new ItemStack(ModItems.petal, 4, i), LibOreDict.DOUBLE_FLOWER[i]);
@@ -1631,15 +1631,15 @@ public final class ModCraftingRecipes {
 		// Resolute Ivy Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.keepIvy), LibOreDict.PIXIE_DUST, new ItemStack(Blocks.vine), LibOreDict.ENDER_AIR_BOTTLE);
 		recipeKeepIvy = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Black Hole Talisman Recipe
-		addOreDictRecipe(new ItemStack(ModItems.blackHoleTalisman), 
+		addOreDictRecipe(new ItemStack(ModItems.blackHoleTalisman),
 				" G ", "EAE", " E ",
 				'G', LibOreDict.LIFE_ESSENCE,
 				'E', LibOreDict.ELEMENTIUM,
 				'A', LibOreDict.ENDER_AIR_BOTTLE);
 		recipeBlackHoleTalisman = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",

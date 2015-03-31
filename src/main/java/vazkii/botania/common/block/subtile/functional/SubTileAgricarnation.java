@@ -19,14 +19,13 @@ import net.minecraft.init.Blocks;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
-import vazkii.botania.api.subtile.RadiusDescriptor.Square;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileAgricarnation extends SubTileFunctional {
 
 	private static final int RANGE = 5;
-	
+
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
@@ -83,7 +82,7 @@ public class SubTileAgricarnation extends SubTileFunctional {
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry() {
 		return LexiconData.agricarnation;

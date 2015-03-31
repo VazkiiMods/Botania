@@ -26,7 +26,7 @@ import vazkii.botania.common.item.equipment.bauble.ItemBauble;
 public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 
 	Achievement achievement;
-	
+
 	public ItemRelicBauble(String name) {
 		super(name);
 	}
@@ -36,7 +36,7 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 		if(p_77663_3_ instanceof EntityPlayer)
 			ItemRelic.updateRelic(p_77663_1_, (EntityPlayer) p_77663_3_);
 	}
-	
+
 	@Override
 	public void onWornTick(ItemStack stack, EntityLivingBase player) {
 		super.onWornTick(stack, player);
@@ -47,17 +47,17 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 				onValidPlayerWornTick(stack, ePlayer);
 		}
 	}
-	
+
 	@Override
 	public void addHiddenTooltip(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
 		super.addHiddenTooltip(par1ItemStack, par2EntityPlayer, par3List, par4);
 		ItemRelic.addBindInfo(par3List, par1ItemStack, par2EntityPlayer);
 	}
-	
+
 	public void onValidPlayerWornTick(ItemStack stack, EntityPlayer player) {
 		// NO-OP
 	}
-	
+
 	@Override
 	public boolean canEquip(ItemStack stack, EntityLivingBase player) {
 		return player instanceof EntityPlayer && ItemRelic.isRightPlayer((EntityPlayer) player, stack);
@@ -67,7 +67,7 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 	public void bindToUsername(String playerName, ItemStack stack) {
 		ItemRelic.bindToUsernameS(playerName, stack);
 	}
-	
+
 	@Override
 	public String getSoulbindUsername(ItemStack stack) {
 		return ItemRelic.getSoulbindUsernameS(stack);
@@ -82,10 +82,10 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 	public void setBindAchievement(Achievement achievement) {
 		this.achievement = achievement;
 	}
-	
+
 	@Override
 	public EnumRarity getRarity(ItemStack p_77613_1_) {
 		return BotaniaAPI.rarityRelic;
 	}
-	
+
 }

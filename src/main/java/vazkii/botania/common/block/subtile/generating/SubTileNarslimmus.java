@@ -30,7 +30,7 @@ public class SubTileNarslimmus extends SubTileGenerating {
 	public static final String TAG_WORLD_SPAWNED = "Botania:WorldSpawned";
 
 	private static final int RANGE = 2;
-	
+
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
@@ -62,7 +62,7 @@ public class SubTileNarslimmus extends SubTileGenerating {
 			}
 		}
 	}
-	
+
 	@Override
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);

@@ -13,11 +13,11 @@ package vazkii.botania.common.achievement;
 import java.util.ArrayList;
 import java.util.List;
 
-import vazkii.botania.api.item.IRelic;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
+import vazkii.botania.api.item.IRelic;
 
 public class AchievementMod extends Achievement {
 
@@ -27,7 +27,7 @@ public class AchievementMod extends Achievement {
 		super("achievement.botania:" + name, "botania:" + name, x, y, icon, parent);
 		achievements.add(this);
 		registerStat();
-		
+
 		if(icon.getItem() instanceof IRelic)
 			((IRelic) icon.getItem()).setBindAchievement(this);
 	}

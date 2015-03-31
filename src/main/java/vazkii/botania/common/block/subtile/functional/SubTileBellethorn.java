@@ -17,7 +17,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.DamageSource;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -27,7 +26,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 public class SubTileBellethorn extends SubTileFunctional {
 
 	public static final int RANGE = 6;
-	
+
 	@Override
 	public int getColor() {
 		return 0xBA3421;
@@ -88,7 +87,7 @@ public class SubTileBellethorn extends SubTileFunctional {
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry() {
 		return LexiconData.bellethorne;

@@ -15,13 +15,12 @@ import net.minecraft.block.BlockCake;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
-import vazkii.botania.api.subtile.RadiusDescriptor.Square;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileKekimurus extends SubTileGenerating {
 
 	private static final int RANGE = 5;
-	
+
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
@@ -51,7 +50,7 @@ public class SubTileKekimurus extends SubTileGenerating {
 					}
 		}
 	}
-	
+
 	@Override
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);

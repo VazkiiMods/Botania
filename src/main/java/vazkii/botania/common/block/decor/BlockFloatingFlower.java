@@ -35,7 +35,6 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.decor.IFloatingFlower.IslandType;
 import vazkii.botania.common.block.tile.TileFloatingFlower;
-import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.integration.coloredlights.ColoredLightHelper;
 import vazkii.botania.common.item.ItemGrassSeeds;
@@ -135,21 +134,21 @@ public class BlockFloatingFlower extends BlockModContainer implements ILexiconab
 				type = IslandType.SNOW;
 			else if(stack.getItem() == ModItems.grassSeeds)
 				type = ItemGrassSeeds.getIslandType(stack);
-			
+
 			if(type != null && type != flower.getIslandType()) {
 				if(!world.isRemote) {
 					flower.setIslandType(type);
 					world.markBlockForUpdate(x, y, z);
 				}
-				
-				if(!player.capabilities.isCreativeMode) 
+
+				if(!player.capabilities.isCreativeMode)
 					stack.stackSize--;
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	@Override
 	public int getRenderType() {
 		return LibRenderIDs.idMiniIsland;

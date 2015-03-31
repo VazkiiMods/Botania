@@ -73,7 +73,7 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 
 		return par1ItemStack;
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {

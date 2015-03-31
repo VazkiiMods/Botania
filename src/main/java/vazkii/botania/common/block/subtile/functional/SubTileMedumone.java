@@ -23,9 +23,9 @@ import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileMedumone extends SubTileFunctional {
-	
+
 	private static final int RANGE = 6;
-	
+
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
@@ -52,7 +52,7 @@ public class SubTileMedumone extends SubTileFunctional {
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
 	}
-	
+
 	@Override
 	public int getColor() {
 		return 0x3D2204;

@@ -21,16 +21,11 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.StatList;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.event.ForgeEventFactory;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -65,34 +60,33 @@ public class BlockModDoubleFlower extends BlockDoublePlant implements ILexiconab
 			GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
 		return super.setBlockName(par1Str);
 	}
-	
+
 	@Override
-    public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
+	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
 		return null;
-    }
+	}
 
 	@Override
-    public int damageDropped(int p_149692_1_) {
-        return p_149692_1_ & 7;
-    }
-	
-	@Override
-    public void func_149889_c(World p_149889_1_, int p_149889_2_, int p_149889_3_, int p_149889_4_, int p_149889_5_, int p_149889_6_) {
-        p_149889_1_.setBlock(p_149889_2_, p_149889_3_, p_149889_4_, this, p_149889_5_, p_149889_6_);
-        p_149889_1_.setBlock(p_149889_2_, p_149889_3_ + 1, p_149889_4_, this, p_149889_5_ | 8, p_149889_6_);
-    }
+	public int damageDropped(int p_149692_1_) {
+		return p_149692_1_ & 7;
+	}
 
 	@Override
-    public void onBlockPlacedBy(World p_149689_1_, int p_149689_2_, int p_149689_3_, int p_149689_4_, EntityLivingBase p_149689_5_, ItemStack p_149689_6_) {
-        int l = ((MathHelper.floor_double((double)(p_149689_5_.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3) + 2) % 4;
-        p_149689_1_.setBlock(p_149689_2_, p_149689_3_ + 1, p_149689_4_, this, p_149689_6_.getItemDamage() | 8, 2);
-    }
-	
+	public void func_149889_c(World p_149889_1_, int p_149889_2_, int p_149889_3_, int p_149889_4_, int p_149889_5_, int p_149889_6_) {
+		p_149889_1_.setBlock(p_149889_2_, p_149889_3_, p_149889_4_, this, p_149889_5_, p_149889_6_);
+		p_149889_1_.setBlock(p_149889_2_, p_149889_3_ + 1, p_149889_4_, this, p_149889_5_ | 8, p_149889_6_);
+	}
+
+	@Override
+	public void onBlockPlacedBy(World p_149689_1_, int p_149689_2_, int p_149689_3_, int p_149689_4_, EntityLivingBase p_149689_5_, ItemStack p_149689_6_) {
+		p_149689_1_.setBlock(p_149689_2_, p_149689_3_ + 1, p_149689_4_, this, p_149689_6_.getItemDamage() | 8, 2);
+	}
+
 	@Override
 	public boolean func_149851_a(World world, int x, int y, int z, boolean fuckifiknow) {
 		return false;
 	}
-	
+
 	@Override
 	public boolean isShearable(ItemStack item, IBlockAccess world, int x, int y, int z) {
 		return true;
@@ -104,7 +98,7 @@ public class BlockModDoubleFlower extends BlockDoublePlant implements ILexiconab
 		ret.add(new ItemStack(this, 1, world.getBlockMetadata(x, y, z) & 7));
 		return ret;
 	}
-	
+
 	@Override
 	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int meta, int fortune) {
 		return new ArrayList();

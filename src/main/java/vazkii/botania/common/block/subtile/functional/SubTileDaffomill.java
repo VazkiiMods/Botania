@@ -68,7 +68,7 @@ public class SubTileDaffomill extends SubTileFunctional {
 		int w = 2;
 		int h = 3;
 		int l = 16;
-		
+
 		AxisAlignedBB axis = null;
 		switch(orientation) {
 		case 0 :
@@ -85,7 +85,7 @@ public class SubTileDaffomill extends SubTileFunctional {
 		}
 		return axis;
 	}
-	
+
 	@Override
 	public boolean acceptsRedstone() {
 		return true;
@@ -105,7 +105,7 @@ public class SubTileDaffomill extends SubTileFunctional {
 			return true;
 		} else return super.onWanded(player, wand);
 	}
-	
+
 	@Override
 	public RadiusDescriptor getRadius() {
 		AxisAlignedBB aabb = aabbForOrientation();

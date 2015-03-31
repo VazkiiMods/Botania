@@ -665,7 +665,7 @@ public final class LexiconData {
 
 		crystalBow = new ALexiconEntry(LibLexicon.TOOL_CRYSTAL_BOW, categoryTools);
 		crystalBow.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeCrystalBow));
-		
+
 		// ENDER ENTRIES
 		enderAir = new BLexiconEntry(LibLexicon.ENDER_AIR, categoryEnder);
 		enderAir.setPriority().setLexiconPages(new PageText("0"));
@@ -714,10 +714,10 @@ public final class LexiconData {
 
 		keepIvy = new ALexiconEntry(LibLexicon.ENDER_KEEP_IVY, categoryEnder);
 		keepIvy.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeKeepIvy));
-		
+
 		blackHoleTalisman = new ALexiconEntry(LibLexicon.ENDER_BLACK_HOLE_TALISMAN, categoryEnder);
 		blackHoleTalisman.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipeBlackHoleTalisman));
-		
+
 		// BAUBLES ENTRIES
 		baublesIntro = new BLexiconEntry(LibLexicon.BAUBLE_INTRO, categoryBaubles);
 		baublesIntro.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_BAUBLES), new PageText("2"));
@@ -816,10 +816,10 @@ public final class LexiconData {
 
 		elvenLore = new ALexiconEntry(LibLexicon.ALF_LORE, categoryAlfhomancy);
 		elvenLore.setLexiconPages(new PageText("0"), new PageLoreText("1"), new PageLoreText("2"), new PageLoreText("3"), new PageLoreText("4"), new PageLoreText("5"), new PageLoreText("6"), new PageLoreText("7")).setIcon(new ItemStack(Items.writable_book));
-		
+
 		relics = new ALexiconEntry(LibLexicon.ALF_RELICS, categoryAlfhomancy);
 		relics.setLexiconPages(new PageText("0")).setIcon(new ItemStack(ModItems.dice));
-		
+
 		// MISCLENAEOUS ENTRIES
 		unstableBlocks = new BLexiconEntry(LibLexicon.MISC_UNSTABLE_BLOCKS, categoryMisc);
 		unstableBlocks.setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_UNSTABLE_BLOCK), new PageCraftingRecipe("2", ModCraftingRecipes.recipesUnstableBlocks), new PageText("3"), new PageImage("4", LibResources.ENTRY_UNSTABLE_BEACON), new PageCraftingRecipe("5", ModCraftingRecipes.recipesManaBeacons), new PageText("6"), new PageCraftingRecipe("7", ModCraftingRecipes.recipesSignalFlares));

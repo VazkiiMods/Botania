@@ -21,9 +21,9 @@ import vazkii.botania.common.core.helper.ExperienceHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileArcaneRose extends SubTileGenerating {
-	
+
 	private static final int RANGE = 1;
-	
+
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
@@ -39,7 +39,7 @@ public class SubTileArcaneRose extends SubTileGenerating {
 				return;
 			}
 	}
-	
+
 	@Override
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);

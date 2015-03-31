@@ -59,12 +59,12 @@ public class ItemFlugelEye extends ItemRelic {
 	private static final String TAG_DIMENSION = "dim";
 
 	IIcon[] signs;
-	
+
 	public ItemFlugelEye() {
 		super(LibItemNames.FLUGEL_EYE);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister par1IconRegister) {
@@ -84,7 +84,7 @@ public class ItemFlugelEye extends ItemRelic {
 				world.playSoundAtEntity(player, "mob.endermen.portal", 1F, 1F);
 			}
 		} else setWarpPoint(stack, segment, player.posX, player.posY, player.posZ, world.provider.dimensionId);
-		
+
 		return stack;
 	}
 
@@ -98,7 +98,7 @@ public class ItemFlugelEye extends ItemRelic {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
 
@@ -168,7 +168,7 @@ public class ItemFlugelEye extends ItemRelic {
 	public static void setRotationBase(ItemStack stack, float rotation) {
 		ItemNBTHelper.setFloat(stack, TAG_ROTATION_BASE, rotation);
 	}
-	
+
 	public static void setWarpPoint(ItemStack stack, int warp, double x, double y, double z, int dim) {
 		NBTTagCompound cmp = new NBTTagCompound();
 		cmp.setDouble(TAG_POS_X, x);
@@ -177,12 +177,12 @@ public class ItemFlugelEye extends ItemRelic {
 		cmp.setInteger(TAG_DIMENSION, dim);
 		ItemNBTHelper.setCompound(stack, TAG_WARP_PREFIX + warp, cmp);
 	}
-	
+
 	public static MultiversePosition getWarpPoint(ItemStack stack, int warp) {
 		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_WARP_PREFIX + warp, true);
 		if(cmp == null)
 			return FALLBACK_POSITION;
-		
+
 		double x = cmp.getDouble(TAG_POS_X);
 		double y = cmp.getDouble(TAG_POS_Y);
 		double z = cmp.getDouble(TAG_POS_Z);
@@ -240,11 +240,10 @@ public class ItemFlugelEye extends ItemRelic {
 			GL11.glPushMatrix();
 			GL11.glRotatef(rotationAngle, 0F, 1F, 0F);
 			GL11.glTranslatef(s * m, -0.75F, 0F);
-			
+
 			mc.renderEngine.bindTexture(TextureMap.locationItemsTexture);
 			GL11.glScalef(0.75F, 0.75F, 0.75F);
 			GL11.glTranslatef(0F, 0F, 0.5F);
-			int renderPass = 0;
 			IIcon icon = signs[seg];
 			GL11.glRotatef(90F, 0F, 1F, 0F);
 			GL11.glColor4f(1F, 1F, 1F, getWarpPoint(stack, seg).isValid() ? 1F : 0.2F);
@@ -253,7 +252,7 @@ public class ItemFlugelEye extends ItemRelic {
 			float f2 = icon.getMinV();
 			float f3 = icon.getMaxV();
 			ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
-			
+
 			GL11.glColor3f(1F, 1F, 1F);
 			GL11.glPopMatrix();
 
@@ -295,17 +294,17 @@ public class ItemFlugelEye extends ItemRelic {
 
 	@SideOnly(Side.CLIENT)
 	public static void renderHUD(ScaledResolution resolution, EntityPlayer player, ItemStack stack) {
-		Minecraft mc = Minecraft.getMinecraft();
+		Minecraft.getMinecraft();
 		int slot = getSegmentLookedAt(stack, player);
 		MultiversePosition pos = getWarpPoint(stack, slot);
-		
+
 		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
 		String s = StatCollector.translateToLocal("botania.sign" + slot);
 		font.drawStringWithShadow(s, resolution.getScaledWidth() / 2 - font.getStringWidth(s) / 2, resolution.getScaledHeight() / 2 - 55, 0xFFD409);
-		
+
 		if(pos.isValid()) {
 			int dist = (int) vazkii.botania.common.core.helper.MathHelper.pointDistanceSpace(pos.x, pos.y, pos.z, player.posX, player.posY - 1.6, player.posZ);
-			
+
 			s = dist == 1 ? StatCollector.translateToLocal("botaniamisc.blockAway") : String.format(StatCollector.translateToLocal("botaniamisc.blocksAway"), dist);
 			font.drawStringWithShadow(s, resolution.getScaledWidth() / 2 - font.getStringWidth(s) / 2, resolution.getScaledHeight() / 2 - 40, 0x9999FF);
 			s = StatCollector.translateToLocal("botaniamisc.clickToTeleport");
@@ -319,23 +318,23 @@ public class ItemFlugelEye extends ItemRelic {
 			font.drawStringWithShadow(s, resolution.getScaledWidth() / 2 - font.getStringWidth(s) / 2, resolution.getScaledHeight() / 2 - 30, 0xFFFFFF);
 		}
 	}
-	
+
 	private static class MultiversePosition {
-		
+
 		public final double x, y, z;
 		public final int dim;
-		
+
 		public MultiversePosition(double x, double y, double z, int dim) {
 			this.x = x;
 			this.y = y;
 			this.z = z;
 			this.dim = dim;
 		}
-		
+
 		boolean isValid() {
 			return y > 0;
 		}
-		
+
 	}
 
 }

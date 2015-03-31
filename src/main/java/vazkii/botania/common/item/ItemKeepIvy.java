@@ -32,11 +32,11 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class ItemKeepIvy extends ItemMod {
 
 	public static final String TAG_KEEP = "Botania_keepIvy";
-	
+
 	private static final String TAG_PLAYER_KEPT_DROPS = "Botania_playerKeptDrops";
 	private static final String TAG_DROP_COUNT = "dropCount";
 	private static final String TAG_DROP_PREFIX = "dropPrefix";
-	
+
 	public ItemKeepIvy() {
 		setUnlocalizedName(LibItemNames.KEEP_IVY);
 		GameRegistry.addRecipe(new KeepIvyRecipe());
@@ -44,7 +44,7 @@ public class ItemKeepIvy extends ItemMod {
 		MinecraftForge.EVENT_BUS.register(this);
 		FMLCommonHandler.instance().bus().register(this);
 	}
-	
+
 	@SubscribeEvent
 	public void onPlayerDrops(PlayerDropsEvent event) {
 		List<EntityItem> keeps = new ArrayList();
@@ -53,14 +53,14 @@ public class ItemKeepIvy extends ItemMod {
 			if(stack != null && ItemNBTHelper.detectNBT(stack) && ItemNBTHelper.getBoolean(stack, TAG_KEEP, false))
 				keeps.add(item);
 		}
-		
+
 		if(keeps.size() > 0) {
 			event.drops.removeAll(keeps);
-			
+
 
 			NBTTagCompound cmp = new NBTTagCompound();
 			cmp.setInteger(TAG_DROP_COUNT, keeps.size());
-			
+
 			int i = 0;
 			for(EntityItem keep : keeps) {
 				ItemStack stack = keep.getEntityItem();
@@ -69,23 +69,23 @@ public class ItemKeepIvy extends ItemMod {
 				cmp.setTag(TAG_DROP_PREFIX + i, cmp1);
 				i++;
 			}
-			
+
 			NBTTagCompound data = event.entityPlayer.getEntityData();
 			if(!data.hasKey(EntityPlayer.PERSISTED_NBT_TAG))
 				data.setTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
-			
+
 			NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
 			persist.setTag(TAG_PLAYER_KEPT_DROPS, cmp);
 		}
 	}
-	
+
 	@SubscribeEvent
 	public void onPlayerRespawn(PlayerRespawnEvent event) {
 		NBTTagCompound data = event.player.getEntityData();
 		if(data.hasKey(EntityPlayer.PERSISTED_NBT_TAG)) {
 			NBTTagCompound cmp = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
 			NBTTagCompound cmp1 = cmp.getCompoundTag(TAG_PLAYER_KEPT_DROPS);
-			
+
 			int count = cmp1.getInteger(TAG_DROP_COUNT);
 			for(int i = 0; i < count; i++) {
 				NBTTagCompound cmp2 = cmp1.getCompoundTag(TAG_DROP_PREFIX + i);
@@ -96,9 +96,9 @@ public class ItemKeepIvy extends ItemMod {
 					event.player.inventory.addItemStackToInventory(copy);
 				}
 			}
-			
+
 			cmp.setTag(TAG_PLAYER_KEPT_DROPS, new NBTTagCompound());
 		}
 	}
-	
+
 }

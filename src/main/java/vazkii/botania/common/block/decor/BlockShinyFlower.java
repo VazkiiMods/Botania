@@ -54,7 +54,7 @@ public class BlockShinyFlower extends BlockModFlower implements IInfusionStabili
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.shinyFlowers;
 	}
-	
+
 	@Override
 	public boolean func_149851_a(World world, int x, int y, int z, boolean fuckifiknow) {
 		return false;

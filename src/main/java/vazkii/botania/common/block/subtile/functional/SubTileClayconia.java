@@ -28,7 +28,7 @@ public class SubTileClayconia extends SubTileFunctional {
 
 	private static final int RANGE = 5;
 	private static final int RANGE_Y = 3;
-	
+
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
@@ -72,7 +72,7 @@ public class SubTileClayconia extends SubTileFunctional {
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
 	}
-	
+
 	@Override
 	public int getColor() {
 		return 0x7B8792;

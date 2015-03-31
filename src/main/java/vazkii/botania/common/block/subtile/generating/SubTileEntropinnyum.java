@@ -16,7 +16,6 @@ import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.util.AxisAlignedBB;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.RadiusDescriptor.Square;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -64,7 +63,7 @@ public class SubTileEntropinnyum extends SubTileGenerating {
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
 	};
-	
+
 	@Override
 	public LexiconEntry getEntry() {
 		return LexiconData.entropinnyum;

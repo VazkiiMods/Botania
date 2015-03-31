@@ -91,7 +91,7 @@ public class SubTileEndoflame extends SubTileGenerating {
 	public int getColor() {
 		return 0x785000;
 	}
-	
+
 	@Override
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);

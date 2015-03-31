@@ -36,7 +36,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 public class ItemOdinRing extends ItemRelicBauble {
 
 	public static List<String> damageNegations = new ArrayList();
-	
+
 	static {
 		damageNegations.add(DamageSource.drown.damageType);
 		damageNegations.add(DamageSource.fall.damageType);
@@ -46,15 +46,15 @@ public class ItemOdinRing extends ItemRelicBauble {
 		damageNegations.add(DamageSource.inWall.damageType);
 		damageNegations.add(DamageSource.starve.damageType);
 	}
-	
+
 	Multimap<String, AttributeModifier> attributes = HashMultimap.create();
-	
+
 	public ItemOdinRing() {
 		super(LibItemNames.ODIN_RING);
 		fillModifiers(attributes);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
-	
+
 	@Override
 	public void onValidPlayerWornTick(ItemStack stack, EntityPlayer player) {
 		if(player.ticksExisted % 10 == 0)
@@ -62,7 +62,7 @@ public class ItemOdinRing extends ItemRelicBauble {
 		if(player.isBurning())
 			player.extinguish();
 	}
-	
+
 	@SubscribeEvent
 	public void onPlayerAttacked(LivingAttackEvent event) {
 		if(event.entityLiving instanceof EntityPlayer) {
@@ -71,23 +71,23 @@ public class ItemOdinRing extends ItemRelicBauble {
 				event.setCanceled(true);
 		}
 	}
-	
+
 	@Override
 	public BaubleType getBaubleType(ItemStack arg0) {
 		return BaubleType.RING;
 	}
-	
+
 	public static ItemStack getOdinRing(EntityPlayer player) {
 		InventoryBaubles baubles = PlayerHandler.getPlayerBaubles(player);
 		ItemStack stack1 = baubles.getStackInSlot(1);
 		ItemStack stack2 = baubles.getStackInSlot(2);
 		return isOdinRing(stack1) ? stack1 : isOdinRing(stack2) ? stack2 : null;
 	}
-	
+
 	private static boolean isOdinRing(ItemStack stack) {
 		return stack != null && (stack.getItem() == ModItems.odinRing || stack.getItem() == ModItems.aesirRing);
 	}
-	
+
 	@Override
 	public void onEquippedOrLoadedIntoWorld(ItemStack stack, EntityLivingBase player) {
 		player.getAttributeMap().applyAttributeModifiers(attributes);

@@ -201,7 +201,7 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	public boolean isBuildcraftPipe(TileEntity tile) {
 		return tile instanceof IPipeTile;
 	}
-	
+
 	@Override
 	public void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, int x, int y, int z, int side) {
 		ItemLokiRing.breakOnAllCursors(player, item, stack, x, y, z, side);

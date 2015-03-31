@@ -14,7 +14,6 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
-import vazkii.botania.api.item.IPhantomInkable;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemKeepIvy;
 import vazkii.botania.common.item.ModItems;
@@ -64,5 +63,5 @@ public class KeepIvyRecipe implements IRecipe {
 	public ItemStack getRecipeOutput() {
 		return null;
 	}
-	
+
 }

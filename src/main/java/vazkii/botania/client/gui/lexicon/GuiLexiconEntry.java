@@ -33,7 +33,6 @@ import vazkii.botania.client.gui.lexicon.button.GuiButtonBackWithShift;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonPage;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonShare;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonViewOnline;
-import vazkii.botania.common.lexicon.LexiconData;
 
 public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IParented {
 

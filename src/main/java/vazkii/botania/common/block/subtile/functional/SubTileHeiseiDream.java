@@ -30,7 +30,7 @@ import cpw.mods.fml.relauncher.ReflectionHelper;
 public class SubTileHeiseiDream extends SubTileFunctional {
 
 	private static final int RANGE = 5;
-	
+
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
@@ -89,7 +89,7 @@ public class SubTileHeiseiDream extends SubTileFunctional {
 	private static void messWithAttackOnCollideAI(EntityAIAttackOnCollide aiEntry) {
 		ReflectionHelper.setPrivateValue(EntityAIAttackOnCollide.class, aiEntry, IMob.class, LibObfuscation.CLASS_TARGET);
 	}
-	
+
 	@Override
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);

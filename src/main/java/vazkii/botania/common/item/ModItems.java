@@ -360,7 +360,7 @@ public final class ModItems {
 		dice = new ItemDice();
 		keepIvy = new ItemKeepIvy();
 		blackHoleTalisman = new ItemBlackHoleTalisman();
-		
+
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));

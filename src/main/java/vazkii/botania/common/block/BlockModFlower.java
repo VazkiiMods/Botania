@@ -151,5 +151,5 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 		world.setBlock(x, y, z, flower, placeMeta, 1 | 2);
 		world.setBlock(x, y + 1, z, flower, placeMeta | 8, 1 | 2);
 	}
-	
+
 }

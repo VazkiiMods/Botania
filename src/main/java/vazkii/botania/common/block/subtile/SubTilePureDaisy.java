@@ -97,7 +97,7 @@ public class SubTilePureDaisy extends SubTileEntity {
 
 		return false;
 	}
-	
+
 	@Override
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Square(toChunkCoordinates(), 1);

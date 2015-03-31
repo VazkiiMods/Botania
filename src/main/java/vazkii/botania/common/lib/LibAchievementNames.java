@@ -49,7 +49,7 @@ public final class LibAchievementNames {
 	public static final String RELIC_ODIN_RING = "odinRing";
 	public static final String RELIC_LOKI_RING = "lokiRing";
 	public static final String RELIC_AESIR_RING = "aesirRing";
-	
+
 	public static final String DESU_GUN = "desuGun";
 
 }

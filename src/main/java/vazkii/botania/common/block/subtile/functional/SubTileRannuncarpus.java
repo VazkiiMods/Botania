@@ -33,7 +33,6 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
-import vazkii.botania.api.subtile.RadiusDescriptor.Square;
 import vazkii.botania.common.block.decor.IFloatingFlower;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -47,7 +46,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 	private static final int RANGE_PLACE_MANA = 8;
 	private static final int RANGE_PLACE = 6;
 	private static final int RANGE_PLACE_Y = 6;
-	
+
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
@@ -160,7 +159,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 		GL11.glDisable(GL11.GL_LIGHTING);
 		GL11.glDisable(GL11.GL_BLEND);
 	}
-	
+
 	@Override
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Square(toChunkCoordinates(), mana > 0 ? RANGE_PLACE_MANA : RANGE_PLACE);

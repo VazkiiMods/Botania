@@ -22,7 +22,7 @@ import net.minecraft.util.ChunkCoordinates;
  * armor slot or bauble slots.
  */
 public interface IWireframeCoordinateListProvider {
-	
+
 	/**
 	 * Returns a list of ChunkCoordinates for the wireframes to draw.
 	 * Can be null.

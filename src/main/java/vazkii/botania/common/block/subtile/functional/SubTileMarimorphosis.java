@@ -32,7 +32,7 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 	private static final int COST = 12;
 	private static final int RANGE = 8;
 	private static final int RANGE_Y = 5;
-	
+
 	private static final Type[] TYPES = new Type[] {
 		Type.FOREST,
 		Type.PLAINS,
@@ -107,7 +107,7 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
 	}
-	
+
 	@Override
 	public int getColor() {
 		return 0x769897;

@@ -76,7 +76,7 @@ public class SubTileTangleberrie extends SubTileFunctional {
 	float getMotionVelocity() {
 		return 0.05F;
 	}
-	
+
 	@Override
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Circle(toChunkCoordinates(), getRange());

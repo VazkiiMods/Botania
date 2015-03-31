@@ -12,30 +12,30 @@ package vazkii.botania.common.item.relic;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
-import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemThorRing extends ItemRelicBauble {
 
 	public ItemThorRing() {
 		super(LibItemNames.THOR_RING);
 	}
-	
+
 	@Override
 	public BaubleType getBaubleType(ItemStack arg0) {
 		return BaubleType.RING;
 	}
-	
+
 	public static ItemStack getThorRing(EntityPlayer player) {
 		InventoryBaubles baubles = PlayerHandler.getPlayerBaubles(player);
 		ItemStack stack1 = baubles.getStackInSlot(1);
 		ItemStack stack2 = baubles.getStackInSlot(2);
 		return isThorRing(stack1) ? stack1 : isThorRing(stack2) ? stack2 : null;
 	}
-	
+
 	private static boolean isThorRing(ItemStack stack) {
 		return stack != null && (stack.getItem() == ModItems.thorRing || stack.getItem() == ModItems.aesirRing);
 	}

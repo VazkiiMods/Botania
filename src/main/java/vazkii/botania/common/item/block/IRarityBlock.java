@@ -16,5 +16,5 @@ import net.minecraft.item.ItemStack;
 public interface IRarityBlock {
 
 	public EnumRarity getRarity(ItemStack stack);
-	
+
 }

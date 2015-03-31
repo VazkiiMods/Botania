@@ -128,10 +128,10 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 			ItemLokiRing.breakOnAllCursors(player, this, stack, x, y, z, raycast.sideHit);
 			// ^ Doable with API access through the IInternalMethodHandler.
 		}
-		
+
 		return false;
 	}
-	
+
 	@Override
 	public void breakOtherBlock(EntityPlayer player, ItemStack stack, int x, int y, int z, int originX, int originY, int originZ, int side) {
 		if(!isEnabled(stack))

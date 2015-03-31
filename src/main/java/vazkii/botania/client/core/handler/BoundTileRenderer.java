@@ -52,7 +52,7 @@ public final class BoundTileRenderer {
 			if(coords != null)
 				renderBlockOutlineAt(coords, color);
 		}
-		
+
 		IInventory mainInv = player.inventory;
 		IInventory baublesInv = BotaniaAPI.internalHandler.getBaublesInventory(player);
 
@@ -65,7 +65,7 @@ public final class BoundTileRenderer {
 			boolean useBaubles = i >= invSize;
 			IInventory inv = useBaubles ? baublesInv : mainInv;
 			ItemStack stackInSlot = inv.getStackInSlot(i - (useBaubles ? invSize : 0));
-			
+
 			if(stackInSlot != null && stackInSlot.getItem() instanceof IWireframeCoordinateListProvider) {
 				IWireframeCoordinateListProvider provider = (IWireframeCoordinateListProvider) stackInSlot.getItem();
 				List<ChunkCoordinates> coordsList = provider.getWireframesToDraw(player, stackInSlot);

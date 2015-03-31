@@ -15,7 +15,6 @@ import net.minecraft.block.material.Material;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
-import vazkii.botania.api.subtile.RadiusDescriptor.Square;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -67,7 +66,7 @@ public class SubTileJadedAmaranthus extends SubTileFunctional {
 	public int getColor() {
 		return 0x961283;
 	}
-	
+
 	@Override
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);

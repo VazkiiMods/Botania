@@ -276,7 +276,7 @@ public final class ModBlocks {
 		pump = new BlockPump();
 		doubleFlower1 = new BlockModDoubleFlower(false);
 		doubleFlower2 = new BlockModDoubleFlower(true);
-		
+
 		ModFluffBlocks.init();
 
 		for(int i = 0; i < 16; i++)
@@ -290,7 +290,7 @@ public final class ModBlocks {
 			OreDictionary.registerOre(LibOreDict.DOUBLE_FLOWER[i], new ItemStack(doubleFlower1, 1, i));
 			OreDictionary.registerOre(LibOreDict.DOUBLE_FLOWER[i + 8], new ItemStack(doubleFlower2, 1, i));
 		}
-		
+
 		// Vanilla OreDict entries
 		OreDictionary.registerOre("dirt", Blocks.dirt);
 		OreDictionary.registerOre("grass", Blocks.grass);

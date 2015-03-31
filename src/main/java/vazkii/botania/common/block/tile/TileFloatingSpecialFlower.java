@@ -13,14 +13,13 @@ package vazkii.botania.common.block.tile;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import vazkii.botania.common.block.decor.IFloatingFlower;
-import vazkii.botania.common.block.decor.IFloatingFlower.IslandType;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 
 public class TileFloatingSpecialFlower extends TileSpecialFlower implements IFloatingFlower {
 
 	public static final String TAG_ISLAND_TYPE = "islandType";
 	IslandType type = IslandType.GRASS;
-	
+
 	@Override
 	public boolean isOnSpecialSoil() {
 		return false;
@@ -40,13 +39,13 @@ public class TileFloatingSpecialFlower extends TileSpecialFlower implements IFlo
 	public void setIslandType(IslandType type) {
 		this.type = type;
 	}
-	
+
 	@Override
 	public void writeCustomNBT(NBTTagCompound cmp) {
 		super.writeCustomNBT(cmp);
 		cmp.setString(TAG_ISLAND_TYPE, type.toString());
 	}
-	
+
 	@Override
 	public void readCustomNBT(NBTTagCompound cmp) {
 		super.readCustomNBT(cmp);

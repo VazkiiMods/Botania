@@ -87,7 +87,7 @@ public interface IInternalMethodHandler {
 	public IInventory getBaublesInventory(EntityPlayer player);
 
 	public void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, int x, int y, int z, int side);
-	
+
 	@SideOnly(Side.CLIENT)
 	public void drawSimpleManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res);
 

@@ -10,15 +10,12 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import vazkii.botania.api.item.IRelic;
-import vazkii.botania.api.mana.ILens;
-import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.lens.ItemLens;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
+import vazkii.botania.api.item.IRelic;
+import vazkii.botania.common.item.ModItems;
 
 public class AesirRingRecipe implements IRecipe {
 
@@ -47,7 +44,7 @@ public class AesirRingRecipe implements IRecipe {
 	@Override
 	public ItemStack getCraftingResult(InventoryCrafting var1) {
 		String soulbind = null;
-		
+
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
 			if(stack != null) {
@@ -58,7 +55,7 @@ public class AesirRingRecipe implements IRecipe {
 					else if(!soulbind.equals(bind))
 						return null;
 				} else return null;
-			} 
+			}
 		}
 
 		ItemStack stack = new ItemStack(ModItems.aesirRing);

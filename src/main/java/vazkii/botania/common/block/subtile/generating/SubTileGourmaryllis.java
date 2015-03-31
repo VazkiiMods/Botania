@@ -78,7 +78,7 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
 	}
-	
+
 	@Override
 	public int getMaxMana() {
 		return 8000;

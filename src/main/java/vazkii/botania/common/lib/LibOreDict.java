@@ -45,15 +45,15 @@ public final class LibOreDict {
 		"mysticFlowerPink", "mysticFlowerGray", "mysticFlowerLightGray",
 		"mysticFlowerCyan", "mysticFlowerPurple", "mysticFlowerBlue",
 		"mysticFlowerBrown", "mysticFlowerGreen", "mysticFlowerRed",
-		"mysticFlowerBlack" };
-	
+	"mysticFlowerBlack" };
+
 	public static final String[] DOUBLE_FLOWER = new String[] { "mysticFlowerWhiteDouble",
 		"mysticFlowerOrangeDouble", "mysticFlowerMagentaDouble",
 		"mysticFlowerLightBlueDouble", "mysticFlowerYellowDouble", "mysticFlowerLimeDouble",
 		"mysticFlowerPinkDouble", "mysticFlowerGrayDouble", "mysticFlowerLightGrayDouble",
 		"mysticFlowerCyanDouble", "mysticFlowerPurpleDouble", "mysticFlowerBlueDouble",
 		"mysticFlowerBrownDouble", "mysticFlowerGreenDouble", "mysticFlowerRedDouble",
-		"mysticFlowerBlackDouble" };
+	"mysticFlowerBlackDouble" };
 
 	public static final String[] PETAL = new String[] { "petalWhite",
 		"petalOrange", "petalMagenta", "petalLightBlue", "petalYellow",

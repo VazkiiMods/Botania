@@ -25,7 +25,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
-import vazkii.botania.api.subtile.RadiusDescriptor.Square;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -37,7 +36,7 @@ public class SubTileMunchdew extends SubTileGenerating {
 
 	private static final int RANGE = 8;
 	private static final int RANGE_Y = 16;
-	
+
 	boolean ateOnce = false;
 	int ticksWithoutEating = -1;
 	int cooldown = 0;
@@ -107,7 +106,7 @@ public class SubTileMunchdew extends SubTileGenerating {
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
 	}
-	
+
 	@Override
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		super.writeToPacketNBT(cmp);

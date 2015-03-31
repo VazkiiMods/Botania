@@ -44,7 +44,7 @@ public class ItemGrassSeeds extends ItemMod {
 	private static final IslandType[] ISLAND_TYPES = {
 		IslandType.GRASS, IslandType.PODZOL, IslandType.MYCEL
 	};
-	
+
 	private static final int types = 3;
 	IIcon[] icons;
 
@@ -207,7 +207,7 @@ public class ItemGrassSeeds extends ItemMod {
 				list.remove(this);
 		}
 	}
-	
+
 	public static IslandType getIslandType(ItemStack stack) {
 		return ISLAND_TYPES[Math.min(stack.getItemDamage(), ISLAND_TYPES.length - 1)];
 	}

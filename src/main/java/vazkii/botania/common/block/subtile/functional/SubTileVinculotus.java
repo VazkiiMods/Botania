@@ -31,7 +31,7 @@ public class SubTileVinculotus extends SubTileFunctional {
 	public static Set<SubTileVinculotus> existingFlowers = Collections.newSetFromMap(new WeakHashMap());
 	private static boolean registered = false;
 	private static final int RANGE = 64;
-	
+
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
@@ -49,7 +49,7 @@ public class SubTileVinculotus extends SubTileFunctional {
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Circle(toChunkCoordinates(), RANGE);
 	}
-	
+
 	@Override
 	public boolean acceptsRedstone() {
 		return true;

@@ -85,7 +85,7 @@ public final class BotaniaAPI {
 	public static ToolMaterial terrasteelToolMaterial = EnumHelper.addToolMaterial("TERRASTEEL", 4, 2300, 9F, 3F, 26);
 
 	public static EnumRarity rarityRelic = EnumHelper.addRarity("RELIC", EnumChatFormatting.GOLD, "Relic");
-	
+
 	public static KnowledgeType basicKnowledge, elvenKnowledge;
 
 	// All of these categories are initialized during botania's PreInit stage.

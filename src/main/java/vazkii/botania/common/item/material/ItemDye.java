@@ -11,7 +11,6 @@
 package vazkii.botania.common.item.material;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockColored;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntitySheep;

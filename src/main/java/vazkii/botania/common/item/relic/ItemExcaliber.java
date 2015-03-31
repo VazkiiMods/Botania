@@ -45,17 +45,17 @@ import com.google.common.collect.Multimap;
 
 public class ItemExcaliber extends ItemManasteelSword implements IRelic, ILensEffect {
 
-	private static final String TAG_ATTACKER_USERNAME = "attackerUsername";	
-	private static final String TAG_HOME_ID = "homeID";	
+	private static final String TAG_ATTACKER_USERNAME = "attackerUsername";
+	private static final String TAG_HOME_ID = "homeID";
 
 	public static ToolMaterial toolMaterial = EnumHelper.addToolMaterial("B_EXCALIBER", 3, -1, 6.2F, 6F, 40);
-	
+
 	Achievement achievement;
-	
+
 	public ItemExcaliber() {
 		super(toolMaterial, LibItemNames.EXCALIBER);
 	}
-	
+
 	@Override
 	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
 		if(par3Entity instanceof EntityPlayer) {
@@ -73,12 +73,12 @@ public class ItemExcaliber extends ItemManasteelSword implements IRelic, ILensEf
 			}
 		}
 	}
-	
+
 	@Override
 	public void addInformation(ItemStack p_77624_1_, EntityPlayer p_77624_2_, List p_77624_3_, boolean p_77624_4_) {
 		ItemRelic.addBindInfo(p_77624_3_, p_77624_1_, p_77624_2_);
 	}
-	
+
 	@Override
 	public void bindToUsername(String playerName, ItemStack stack) {
 		ItemRelic.bindToUsernameS(playerName, stack);
@@ -98,21 +98,21 @@ public class ItemExcaliber extends ItemManasteelSword implements IRelic, ILensEf
 	public void setBindAchievement(Achievement achievement) {
 		this.achievement = achievement;
 	}
-	
+
 	@Override
 	public boolean usesMana(ItemStack stack) {
 		return false;
 	}
-	
-    @Override
-    public Multimap getItemAttributeModifiers() {
-        Multimap multimap = HashMultimap.create();
-        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Weapon modifier", 10, 0));
-        multimap.put(SharedMonsterAttributes.movementSpeed.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Weapon modifier", 0.3, 1));
-        return multimap;
-    }
 
-    public EntityManaBurst getBurst(EntityPlayer player, ItemStack stack) {
+	@Override
+	public Multimap getItemAttributeModifiers() {
+		Multimap multimap = HashMultimap.create();
+		multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Weapon modifier", 10, 0));
+		multimap.put(SharedMonsterAttributes.movementSpeed.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Weapon modifier", 0.3, 1));
+		return multimap;
+	}
+
+	public EntityManaBurst getBurst(EntityPlayer player, ItemStack stack) {
 		EntityManaBurst burst = new EntityManaBurst(player);
 
 		float motionModifier = 7F;
@@ -145,7 +145,7 @@ public class ItemExcaliber extends ItemManasteelSword implements IRelic, ILensEf
 	public void updateBurst(IManaBurst burst, ItemStack stack) {
 		EntityThrowable entity = (EntityThrowable) burst;
 		AxisAlignedBB axis = AxisAlignedBB.getBoundingBox(entity.posX, entity.posY, entity.posZ, entity.lastTickPosX, entity.lastTickPosY, entity.lastTickPosZ).expand(1, 1, 1);
-		
+
 		String attacker = ItemNBTHelper.getString(burst.getSourceLens(), TAG_ATTACKER_USERNAME, "");
 		int homeID = ItemNBTHelper.getInt(stack, TAG_HOME_ID, -1);
 		if(homeID == -1) {
@@ -154,13 +154,13 @@ public class ItemExcaliber extends ItemManasteelSword implements IRelic, ILensEf
 			for(EntityLivingBase living : entities) {
 				if(living instanceof EntityPlayer && (((EntityPlayer) living).getCommandSenderName().equals(attacker) || MinecraftServer.getServer() != null && !MinecraftServer.getServer().isPVPEnabled()) || living.hurtTime != 0)
 					continue;
-				
+
 				homeID = living.getEntityId();
 				ItemNBTHelper.setInt(stack, TAG_HOME_ID, homeID);
 				break;
 			}
 		}
-		
+
 		List<EntityLivingBase> entities = entity.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, axis);
 
 		if(homeID != -1) {
@@ -170,12 +170,12 @@ public class ItemExcaliber extends ItemManasteelSword implements IRelic, ILensEf
 				Vector3 vecThis = Vector3.fromEntityCenter(entity);
 				Vector3 vecMotion = vecEntity.sub(vecThis);
 				Vector3 vecCurrentMotion = new Vector3(entity.motionX, entity.motionY, entity.motionZ);
-				
+
 				vecMotion.normalize().multiply(vecCurrentMotion.mag());
 				burst.setMotion(vecMotion.x, vecMotion.y, vecMotion.z);
 			}
 		}
-		
+
 		for(EntityLivingBase living : entities) {
 			if(living instanceof EntityPlayer && (((EntityPlayer) living).getCommandSenderName().equals(attacker) || MinecraftServer.getServer() != null && !MinecraftServer.getServer().isPVPEnabled()))
 				continue;
@@ -201,7 +201,7 @@ public class ItemExcaliber extends ItemManasteelSword implements IRelic, ILensEf
 	public boolean doParticles(IManaBurst burst, ItemStack stack) {
 		return true;
 	}
-	
+
 	@Override
 	public EnumRarity getRarity(ItemStack p_77613_1_) {
 		return BotaniaAPI.rarityRelic;

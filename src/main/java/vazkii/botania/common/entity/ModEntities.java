@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.entity;
 
-import net.minecraft.entity.boss.EntityWither;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibEntityNames;
 import cpw.mods.fml.common.registry.EntityRegistry;

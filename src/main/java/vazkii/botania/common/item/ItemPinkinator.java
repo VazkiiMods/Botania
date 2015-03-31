@@ -18,7 +18,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.entity.EntityPinkWither;
 import vazkii.botania.common.lib.LibItemNames;
@@ -45,12 +44,12 @@ public class ItemPinkinator extends ItemMod {
 					world.playSoundAtEntity(wither, "random.explode", 4F, (1F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
 				}
 				player.addStat(ModAchievements.pinkinator, 1);
-				
+
 				world.spawnParticle("hugeexplosion", wither.posX, wither.posY, wither.posZ, 1D, 0D, 0D);
 				stack.stackSize--;
 				return stack;
 			}
-		
+
 		return stack;
 	}
 
