@@ -11,7 +11,10 @@
 package vazkii.botania.common.item.material;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockColored;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -53,6 +56,22 @@ public class ItemDye extends Item16Colors implements IManaDissolvable {
 				item.worldObj.markBlockForUpdate(tile.xCoord, tile.yCoord, tile.zCoord);
 			}
 		}
+	}
+
+	@Override
+	public boolean itemInteractionForEntity(ItemStack p_111207_1_, EntityPlayer p_111207_2_, EntityLivingBase p_111207_3_) {
+		if(p_111207_3_ instanceof EntitySheep) {
+			EntitySheep entitysheep = (EntitySheep)p_111207_3_;
+			int i = p_111207_1_.getItemDamage();
+
+			if(!entitysheep.getSheared() && entitysheep.getFleeceColor() != i) {
+				entitysheep.setFleeceColor(i);
+				--p_111207_1_.stackSize;
+			}
+
+			return true;
+		}
+		return false;
 	}
 
 }
