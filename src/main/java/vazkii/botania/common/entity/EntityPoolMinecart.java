@@ -84,8 +84,10 @@ public class EntityPoolMinecart extends EntityMinecart {
 					IManaPool pool = (IManaPool) tile;
 					ForgeDirection pumpDir = ForgeDirection.getOrientation(meta);
 					boolean did = false;
-
+					boolean can = false;
+					
 					if(pumpDir == dir) { // Pool -> Cart
+						can = true;
 						int cartMana = getMana();
 						int poolMana = pool.getCurrentMana();
 						int transfer = Math.min(TRANSFER_RATE, poolMana);
@@ -95,13 +97,16 @@ public class EntityPoolMinecart extends EntityMinecart {
 							setMana(cartMana + actualTransfer);
 							did = true;
 						}
-					} else if(pumpDir == dir.getOpposite() && !pool.isFull()) { // Cart -> Pool
-						int cartMana = getMana();
-						int transfer = Math.min(TRANSFER_RATE, cartMana);
-						if(transfer > 0) {
-							pool.recieveMana(transfer);
-							setMana(cartMana - transfer);
-							did = true;
+					} else if(pumpDir == dir.getOpposite()) { // Cart -> Pool
+						can = true;
+						if(!pool.isFull()) {
+							int cartMana = getMana();
+							int transfer = Math.min(TRANSFER_RATE, cartMana);
+							if(transfer > 0) {
+								pool.recieveMana(transfer);
+								setMana(cartMana - transfer);
+								did = true;
+							}	
 						}
 					}
 
@@ -111,8 +116,12 @@ public class EntityPoolMinecart extends EntityMinecart {
 						if(!pump.active)
 							pump.setActive(true);
 					}
-					pump.hasCartOnTop = true;
-					pump.comparator = (int) (((double) getMana() / (double) TilePool.MAX_MANA) * 15);
+					
+					if(can) {
+						pump.hasCartOnTop = true;
+						pump.comparator = (int) (((double) getMana() / (double) TilePool.MAX_MANA) * 15);
+					}
+					
 				}
 			}
 		}
