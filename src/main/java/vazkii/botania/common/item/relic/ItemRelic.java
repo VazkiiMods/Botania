@@ -15,12 +15,14 @@ import java.util.List;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemMod;
@@ -117,6 +119,11 @@ public class ItemRelic extends ItemMod implements IRelic {
 	@Override
 	public void setBindAchievement(Achievement achievement) {
 		this.achievement = achievement;
+	}
+	
+	@Override
+	public EnumRarity getRarity(ItemStack p_77613_1_) {
+		return BotaniaAPI.rarityRelic;
 	}
 
 }

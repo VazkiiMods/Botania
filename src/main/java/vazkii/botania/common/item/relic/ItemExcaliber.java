@@ -18,6 +18,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -28,6 +29,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.api.mana.BurstProperties;
@@ -193,6 +195,11 @@ public class ItemExcaliber extends ItemManasteelSword implements IRelic, ILensEf
 	@Override
 	public boolean doParticles(IManaBurst burst, ItemStack stack) {
 		return true;
+	}
+	
+	@Override
+	public EnumRarity getRarity(ItemStack p_77613_1_) {
+		return BotaniaAPI.rarityRelic;
 	}
 
 }
