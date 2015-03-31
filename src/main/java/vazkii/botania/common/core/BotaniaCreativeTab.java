@@ -173,6 +173,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.phantomInk);
 		addItem(ModItems.ancientWill);
 		addItem(ModItems.pinkinator);
+		addItem(ModItems.dice);
 		addItem(ModItems.infiniteFruit);
 		addItem(ModItems.excaliber);
 		addItem(ModItems.flugelEye);

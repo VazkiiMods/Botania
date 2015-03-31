@@ -98,6 +98,8 @@ botaniamisc.pinkinatorDesc=Apply directly to Wither
 botaniamisc.relicUnbound=&6Relic&7, Unbound
 botaniamisc.relicSoulbound=&6Relic&7, Soulbound to &f%s
 botaniamisc.notYourSagittarius=&4This relic is not yours
+botaniamisc.diceRoll=The dice lands on a %s, you notice that it transforms into something else.
+botaniamisc.dudDiceRoll=The dice lands on a %s, it seemed to vanish into thin air afterward.
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
@@ -310,6 +312,9 @@ botania.baubletype.amulet=Equippable in the &aAmulet&7 slot
 botania.baubletype.ring=Equippable in the &aRing&7 slot
 botania.baubletype.belt=Equippable in the &aBelt&7 slot
 botania.baubletooltip=Press &b%key%&7 to open the Baubles menu
+
+# RELIC POEMS
+
 
 # DEATH MESSAGES
 death.attack.botania-relic=%s was punished for using a relic that isn't theirs
@@ -1176,7 +1181,7 @@ item.botania:thorRing.name=Ring of Thor
 item.botania:odinRing.name=Ring of Odin
 item.botania:lokiRing.name=Ring of Loki
 item.botania:aesirRing.name=Ring of the Aesir
-item.botania:relicDice.name=Dice of Fate
+item.botania:dice.name=Dice of Fate
 
 # BREW NAMES
 botania.brew.fallback=Fallback
