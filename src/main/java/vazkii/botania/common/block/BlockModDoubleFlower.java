@@ -89,6 +89,11 @@ public class BlockModDoubleFlower extends BlockDoublePlant implements ILexiconab
     }
 	
 	@Override
+	public boolean func_149851_a(World world, int x, int y, int z, boolean fuckifiknow) {
+		return false;
+	}
+	
+	@Override
 	public boolean isShearable(ItemStack item, IBlockAccess world, int x, int y, int z) {
 		return true;
 	}
