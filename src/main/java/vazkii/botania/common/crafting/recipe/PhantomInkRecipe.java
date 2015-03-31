@@ -33,7 +33,7 @@ public class PhantomInkRecipe implements IRecipe {
 					if(stack.getItem() instanceof IPhantomInkable)
 						foundItem = true;
 					else return false;
-				}
+				} else return false;
 			}
 		}
 
