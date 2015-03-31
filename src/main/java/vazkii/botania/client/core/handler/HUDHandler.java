@@ -55,6 +55,7 @@ import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.item.ItemCraftingHalo;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.relic.ItemFlugelEye;
 import vazkii.botania.common.lib.LibObfuscation;
 import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -104,6 +105,12 @@ public final class HUDHandler {
 			if(equippedStack != null && equippedStack.getItem() == ModItems.craftingHalo) {
 				profiler.startSection("craftingHalo");
 				ItemCraftingHalo.renderHUD(event.resolution, mc.thePlayer, equippedStack);
+				profiler.endSection();
+			}
+			
+			if(equippedStack != null && equippedStack.getItem() == ModItems.flugelEye) {
+				profiler.startSection("flugelEye");
+				ItemFlugelEye.renderHUD(event.resolution, mc.thePlayer, equippedStack);
 				profiler.endSection();
 			}
 

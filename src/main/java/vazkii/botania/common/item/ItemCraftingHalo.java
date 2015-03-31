@@ -64,7 +64,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemCraftingHalo extends ItemMod {
 
-	private static final ResourceLocation glowTexture = new ResourceLocation(LibResources.MISC_GLOW);
+	private static final ResourceLocation glowTexture = new ResourceLocation(LibResources.MISC_GLOW_PINK);
 	private static final ItemStack craftingTable = new ItemStack(Blocks.crafting_table);
 
 	private static final int SEGMENTS = 12;

@@ -100,6 +100,12 @@ botaniamisc.relicSoulbound=&6Relic&7, Soulbound to &f%s
 botaniamisc.notYourSagittarius=&4This relic is not yours
 botaniamisc.diceRoll=The dice lands on a %s, you notice that it transforms into something else.
 botaniamisc.dudDiceRoll=The dice lands on a %s, it seemed to vanish into thin air afterward.
+botaniamisc.blockAway=1 Block Away
+botaniamisc.blocksAway=%s Blocks Away
+botaniamisc.clickToTeleport=Right click to Teleport
+botaniamisc.clickToRemoveWarp=Shift-left click to Remove
+botaniamisc.unboundWarp=Unbound Warp Point
+botaniamisc.clickToAddWarp=Right click to bind to this position
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
@@ -143,6 +149,20 @@ botania.rank2=&bB
 botania.rank3=&aA
 botania.rank4=&dS
 botania.rank5=&6SS
+
+# ZODIAC SIGNS
+botania.sign0=Aires
+botania.sign1=Taurus
+botania.sign2=Gemini
+botania.sign3=Cancer
+botania.sign4=Leo
+botania.sign5=Virgo
+botania.sign6=Libra
+botania.sign7=Scorpio
+botania.sign8=Sagittarius
+botania.sign9=Aquarius
+botania.sign10=Capricorn
+botania.sign11=Pisces
 
 # WINGS
 botania.wings0=No Wings
