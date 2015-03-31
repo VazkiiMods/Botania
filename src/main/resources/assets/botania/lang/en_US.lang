@@ -314,7 +314,45 @@ botania.baubletype.belt=Equippable in the &aBelt&7 slot
 botania.baubletooltip=Press &b%key%&7 to open the Baubles menu
 
 # RELIC POEMS
+item.infiniteFruit.poem0=The fruit of the forbidden garden
+item.infiniteFruit.poem1=Eternally cleanses one's hunger,
+item.infiniteFruit.poem2=For that it rebuilds its pulp
+item.infiniteFruit.poem3=And makes itself younger.
 
+item.excaliber.poem0=A sword of a true hero
+item.excaliber.poem1=Fit for only one of the kind,
+item.excaliber.poem2=Sharp and magic conjuring,
+item.excaliber.poem3=Enemies it will quickly find.
+
+item.flugelEye.poem0=A vision of the past on one's mind,
+item.flugelEye.poem1=Round and round is the memory matrix,
+item.flugelEye.poem2=And their viable interactions
+item.flugelEye.poem3=Will take the psyche back to basics.
+
+item.thorRing.poem0=The force of the Thunder God
+item.thorRing.poem1=Will shatter the salt of the terra,
+item.thorRing.poem2=With unstoppable strength
+item.thorRing.poem3=It'll begin anew a new era.
+
+item.odinRing.poem0=The wise old God lays its blessings,
+item.odinRing.poem1=Of virtue, life and divinity,
+item.odinRing.poem2=With the hindrance of death on one's hands,
+item.odinRing.poem3=They'll form the Holy Trinity.
+
+item.lokiRing.poem0=The bare hand is the key for this door,
+item.lokiRing.poem1=Sneaking and interacting, one would walk,
+item.lokiRing.poem2=First on the origin, around and then back,
+item.lokiRing.poem3=And only then, will omnipresence unlock.
+
+item.aesirRing.poem0=The forces of the Gods
+item.aesirRing.poem1=In this band form as one,
+item.aesirRing.poem2=And when combined all together
+item.aesirRing.poem3=Above them will be none.
+
+item.dice.poem0=He deals the cards to find the answer,
+item.dice.poem1=The sacred geometry of chance,
+item.dice.poem2=The hidden laws of a probable outcome,
+item.dice.poem3=The numbers lead a dance.
 
 # DEATH MESSAGES
 death.attack.botania-relic=%s was punished for using a relic that isn't theirs

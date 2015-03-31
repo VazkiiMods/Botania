@@ -12,11 +12,13 @@ package vazkii.botania.common.item.relic;
 
 import java.util.List;
 
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import vazkii.botania.api.item.IRelic;
@@ -46,14 +48,21 @@ public class ItemRelic extends ItemMod implements IRelic {
 	}
 	
 	public static void addBindInfo(List list, ItemStack stack, EntityPlayer player) {
-		String bind = getSoulbindUsernameS(stack);
-		if(bind.isEmpty())
-			addStringToTooltip(StatCollector.translateToLocal("botaniamisc.relicUnbound"), list);
-		else {
-			addStringToTooltip(String.format(StatCollector.translateToLocal("botaniamisc.relicSoulbound"), bind), list);
-			if(!isRightPlayer(player, stack))
-				addStringToTooltip(String.format(StatCollector.translateToLocal("botaniamisc.notYourSagittarius"), bind), list);
-		}
+		if(GuiScreen.isShiftKeyDown()) {
+			String bind = getSoulbindUsernameS(stack);
+			if(bind.isEmpty())
+				addStringToTooltip(StatCollector.translateToLocal("botaniamisc.relicUnbound"), list);
+			else {
+				addStringToTooltip(String.format(StatCollector.translateToLocal("botaniamisc.relicSoulbound"), bind), list);
+				if(!isRightPlayer(player, stack))
+					addStringToTooltip(String.format(StatCollector.translateToLocal("botaniamisc.notYourSagittarius"), bind), list);
+			}
+			
+			addStringToTooltip("", list);
+			String name = stack.getUnlocalizedName() + ".poem";
+			for(int i = 0; i < 4; i++)
+				addStringToTooltip(EnumChatFormatting.ITALIC + StatCollector.translateToLocal(name + i), list);
+		} else addStringToTooltip(StatCollector.translateToLocal("botaniamisc.shiftinfo"), list);
 	}
 	
 	static void addStringToTooltip(String s, List<String> tooltip) {
