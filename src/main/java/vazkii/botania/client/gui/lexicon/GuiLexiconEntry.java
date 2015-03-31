@@ -33,6 +33,7 @@ import vazkii.botania.client.gui.lexicon.button.GuiButtonBackWithShift;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonPage;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonShare;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonViewOnline;
+import vazkii.botania.common.lexicon.LexiconData;
 
 public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IParented {
 
@@ -62,7 +63,8 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 		buttonList.add(leftButton = new GuiButtonPage(1, left, top + guiHeight - 10, false));
 		buttonList.add(rightButton = new GuiButtonPage(2, left + guiWidth - 18, top + guiHeight - 10, true));
 		buttonList.add(new GuiButtonShare(3, left + guiWidth - 6, top - 2));
-		buttonList.add(new GuiButtonViewOnline(4, left - 8, top + 8));
+		if(!(entry instanceof IAddonEntry))
+			buttonList.add(new GuiButtonViewOnline(4, left - 8, top + 8));
 
 		if(!GuiLexicon.isValidLexiconGui(this))	{
 			currentOpenLexicon = new GuiLexicon();
