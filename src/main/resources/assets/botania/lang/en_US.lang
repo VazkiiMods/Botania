@@ -2456,6 +2456,10 @@ botania.page.gaiaRitualHardmode0=One would think that combining two of the most 
 botania.page.gaiaRitualHardmode1=This ingot, though, due to the concentrated energy and power in it, does allow for the summoning of a stronger &1Gaia Guardian&0, with more resistance, strength and speed.<br>For all of this, it also drops more &1Gaia Spirits&0 than normal, as well as a handful of goodies and rare treasure, making it a worthwhile foe.
 botania.page.gaiaRitualHardmode2=Creating the &1Gaia Spirit Ingot&0.
 
+# -- THE RELICS OF THE AESIR
+botania.entry.relics=The Relics of the Aesir
+botania.page.relics0=There's an old tale from the high clans of Alfheim. It says something among the lines of "The one who rolls the Dice of Fate is to be rewarded with the Gifts of the Gods". These so called &1Relics of the Aesir&0 are rumored to be unique and soulbound, by which only one will ever be awarded to any one individual and only they might use it.<br>But then again, it's probably just folklore.
+
 # -- ELVEN LORE - THE SHATTERING
 botania.entry.elvenLore=Elven Lore - The Shattering
 botania.page.elvenLore0=It seems this section of the lexicon is just a bunch of pieces of paper. By the looks of them, they seem like they were taken from a document from the libraries of Elven Garde.<br>Their contents should contain historical knowledge, but doubtfully anything important to the studies of botany itself.

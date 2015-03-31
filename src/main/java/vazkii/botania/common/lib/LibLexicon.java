@@ -192,6 +192,7 @@ public final class LibLexicon {
 	public static final String ALF_GAIA_RITUAL = "gaiaRitual";
 	public static final String ALF_GAIA_RITUAL_HARDMODE = "gaiaRitualHardmode";
 	public static final String ALF_LORE = "elvenLore";
+	public static final String ALF_RELICS = "relics";
 
 	public static final String MISC_UNSTABLE_BLOCKS = "unstableBlocks";
 	public static final String MISC_DECORATIVE_BLOCKS = "decorativeBlocks";
