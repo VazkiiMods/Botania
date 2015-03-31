@@ -17,6 +17,7 @@ import net.minecraft.entity.boss.IBossDisplayData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.MathHelper;
@@ -74,6 +75,11 @@ public class SubTileTangleberrie extends SubTileFunctional {
 
 	float getMotionVelocity() {
 		return 0.05F;
+	}
+	
+	@Override
+	public RadiusDescriptor getRadius() {
+		return new RadiusDescriptor.Circle(toChunkCoordinates(), getRange());
 	}
 
 	@Override

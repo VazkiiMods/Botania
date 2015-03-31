@@ -22,6 +22,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChunkCoordinates;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaItem;
+import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
 import cpw.mods.fml.relauncher.Side;
@@ -34,6 +35,8 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 	private static final String TAG_BIND_Z = "bindZ";
 
 	private static final int COST = 24;
+	private static final int RANGE = 2;
+
 	int bindX, bindY = -1, bindZ;
 
 	@Override
@@ -41,14 +44,12 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 		super.onUpdate();
 
 		if(redstoneSignal == 0 && supertile.getWorldObj().blockExists(bindX, bindY, bindZ)) {
-			int range = 2;
-
 			int x = supertile.xCoord;
 			int y = supertile.yCoord;
 			int z = supertile.zCoord;
 
 			boolean did = false;
-			List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range + 1, y + range, z + range + 1));
+			List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x - RANGE, y - RANGE, z - RANGE, x + RANGE + 1, y + RANGE, z + RANGE + 1));
 			for(EntityItem item : items) {
 				if(item.age < 60 || item.isDead)
 					continue;
@@ -87,6 +88,11 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 			double d3 = 10.0D;
 			item.worldObj.spawnParticle("explode", item.posX + item.worldObj.rand.nextFloat() * item.width * 2.0F - item.width - d0 * d3, item.posY + item.worldObj.rand.nextFloat() * item.height - d1 * d3, item.posZ + item.worldObj.rand.nextFloat() * item.width * 2.0F - item.width - d2 * d3, d0, d1, d2);
 		}
+	}
+	
+	@Override
+	public RadiusDescriptor getRadius() {
+		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
 	}
 
 	@Override

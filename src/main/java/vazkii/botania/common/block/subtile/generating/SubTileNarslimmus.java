@@ -19,6 +19,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.lexicon.LexiconData;
 import cpw.mods.fml.common.eventhandler.Event.Result;
@@ -28,13 +29,14 @@ public class SubTileNarslimmus extends SubTileGenerating {
 
 	public static final String TAG_WORLD_SPAWNED = "Botania:WorldSpawned";
 
+	private static final int RANGE = 2;
+	
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
 
 		if(ticksExisted % 5 == 0) {
-			float range = 2F;
-			List<EntitySlime> slimes = supertile.getWorldObj().getEntitiesWithinAABB(EntitySlime.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord - range, supertile.zCoord - range, supertile.xCoord + range, supertile.yCoord + range, supertile.zCoord + range));
+			List<EntitySlime> slimes = supertile.getWorldObj().getEntitiesWithinAABB(EntitySlime.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - RANGE, supertile.yCoord - RANGE, supertile.zCoord - RANGE, supertile.xCoord + RANGE + 1, supertile.yCoord + RANGE, supertile.zCoord + RANGE + 1));
 			for(EntitySlime slime : slimes) {
 				if(slime.getEntityData().getBoolean(TAG_WORLD_SPAWNED)) {
 					int size = slime.getSlimeSize();
@@ -59,6 +61,11 @@ public class SubTileNarslimmus extends SubTileGenerating {
 				}
 			}
 		}
+	}
+	
+	@Override
+	public RadiusDescriptor getRadius() {
+		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
 	}
 
 	@Override

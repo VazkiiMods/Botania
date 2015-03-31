@@ -21,6 +21,7 @@ import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.util.AxisAlignedBB;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibObfuscation;
@@ -28,14 +29,15 @@ import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class SubTileHeiseiDream extends SubTileFunctional {
 
+	private static final int RANGE = 5;
+	
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
 
-		final int range = 5;
 		final int cost = 100;
 
-		List<IMob> mobs = supertile.getWorldObj().getEntitiesWithinAABB(IMob.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord - range, supertile.zCoord - range, supertile.xCoord + range, supertile.yCoord + range, supertile.zCoord + range));
+		List<IMob> mobs = supertile.getWorldObj().getEntitiesWithinAABB(IMob.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - RANGE, supertile.yCoord - RANGE, supertile.zCoord - RANGE, supertile.xCoord + RANGE, supertile.yCoord + RANGE, supertile.zCoord + RANGE));
 		if(mobs.size() > 1 && mana >= cost)
 			for(IMob mob : mobs) {
 				if(mob instanceof EntityLiving) {
@@ -86,6 +88,11 @@ public class SubTileHeiseiDream extends SubTileFunctional {
 
 	private static void messWithAttackOnCollideAI(EntityAIAttackOnCollide aiEntry) {
 		ReflectionHelper.setPrivateValue(EntityAIAttackOnCollide.class, aiEntry, IMob.class, LibObfuscation.CLASS_TARGET);
+	}
+	
+	@Override
+	public RadiusDescriptor getRadius() {
+		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
 	}
 
 	@Override

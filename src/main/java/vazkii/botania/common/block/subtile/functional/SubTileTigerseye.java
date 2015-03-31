@@ -12,6 +12,7 @@ package vazkii.botania.common.block.subtile.functional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
@@ -22,25 +23,28 @@ import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.ChunkCoordinates;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.api.subtile.RadiusDescriptor.Square;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibObfuscation;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class SubTileTigerseye extends SubTileFunctional {
 
+	private static final int RANGE = 10;
+	private static final int RANGE_Y = 4;
+	
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-
-		final int range = 10;
-		final int rangeY = 4;
 		final int cost = 70;
 
 		boolean shouldAfffect = mana >= cost;
 
-		List<EntityLiving> entities = supertile.getWorldObj().getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord - rangeY, supertile.zCoord - range, supertile.xCoord + range, supertile.yCoord + rangeY, supertile.zCoord + range));
+		List<EntityLiving> entities = supertile.getWorldObj().getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - RANGE, supertile.yCoord - RANGE_Y, supertile.zCoord - RANGE, supertile.xCoord + RANGE + 1, supertile.yCoord + RANGE_Y, supertile.zCoord + RANGE));
 
 		for(EntityLiving entity : entities) {
 			List<EntityAITaskEntry> entries = new ArrayList(entity.tasks.taskEntries);
@@ -82,6 +86,11 @@ public class SubTileTigerseye extends SubTileFunctional {
 			ReflectionHelper.setPrivateValue(EntityAINearestAttackableTarget.class, aiEntry, EntityEnderCrystal.class, LibObfuscation.TARGET_CLASS); // Something random that won't be around
 	}
 
+	@Override
+	public RadiusDescriptor getRadius() {
+		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
+	}
+	
 	@Override
 	public int getColor() {
 		return 0xB1A618;

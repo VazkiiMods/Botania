@@ -15,12 +15,15 @@ import java.util.List;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.core.helper.ExperienceHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileArcaneRose extends SubTileGenerating {
-
+	
+	private static final int RANGE = 1;
+	
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
@@ -28,13 +31,18 @@ public class SubTileArcaneRose extends SubTileGenerating {
 		if(mana >= getMaxMana())
 			return;
 
-		List<EntityPlayer> players = supertile.getWorldObj().getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - 1, supertile.yCoord, supertile.zCoord - 1, supertile.xCoord + 2, supertile.yCoord + 1, supertile.zCoord + 2));
+		List<EntityPlayer> players = supertile.getWorldObj().getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - RANGE, supertile.yCoord, supertile.zCoord - RANGE, supertile.xCoord + RANGE + 1, supertile.yCoord + 1, supertile.zCoord + RANGE + 1));
 		for(EntityPlayer player : players)
 			if(ExperienceHelper.getPlayerXP(player) >= 1 && player.onGround) {
 				ExperienceHelper.drainPlayerXP(player, 1);
 				mana += 24;
 				return;
 			}
+	}
+	
+	@Override
+	public RadiusDescriptor getRadius() {
+		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
 	}
 
 	@Override

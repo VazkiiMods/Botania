@@ -19,6 +19,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -45,27 +46,7 @@ public class SubTileDaffomill extends SubTileFunctional {
 		}
 
 		if(windTicks > 0 && redstoneSignal == 0) {
-			int x = supertile.xCoord;
-			int y = supertile.yCoord;
-			int z = supertile.zCoord;
-			int w = 2;
-			int h = 3;
-			int l = 16;
-
-			AxisAlignedBB axis = null;
-			switch(orientation) {
-			case 0 :
-				axis = AxisAlignedBB.getBoundingBox(x - w, y - h, z - l, x + w + 1, y + h, z);
-				break;
-			case 1 :
-				axis = AxisAlignedBB.getBoundingBox(x - w, y - h, z + 1, x + w + 1, y + h, z + l + 1);
-				break;
-			case 2 :
-				axis = AxisAlignedBB.getBoundingBox(x - l, y - h, z - w, x, y + h, z + w + 1);
-				break;
-			case 3 :
-				axis = AxisAlignedBB.getBoundingBox(x + 1, y - h, z - w, x + l + 1, y + h, z + w + 1);
-			}
+			AxisAlignedBB axis = aabbForOrientation();
 
 			if(axis != null) {
 				List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, axis);
@@ -80,6 +61,31 @@ public class SubTileDaffomill extends SubTileFunctional {
 		}
 	}
 
+	AxisAlignedBB aabbForOrientation() {
+		int x = supertile.xCoord;
+		int y = supertile.yCoord;
+		int z = supertile.zCoord;
+		int w = 2;
+		int h = 3;
+		int l = 16;
+		
+		AxisAlignedBB axis = null;
+		switch(orientation) {
+		case 0 :
+			axis = AxisAlignedBB.getBoundingBox(x - w, y - h, z - l, x + w + 1, y + h, z);
+			break;
+		case 1 :
+			axis = AxisAlignedBB.getBoundingBox(x - w, y - h, z + 1, x + w + 1, y + h, z + l + 1);
+			break;
+		case 2 :
+			axis = AxisAlignedBB.getBoundingBox(x - l, y - h, z - w, x, y + h, z + w + 1);
+			break;
+		case 3 :
+			axis = AxisAlignedBB.getBoundingBox(x + 1, y - h, z - w, x + l + 1, y + h, z + w + 1);
+		}
+		return axis;
+	}
+	
 	@Override
 	public boolean acceptsRedstone() {
 		return true;
@@ -98,6 +104,13 @@ public class SubTileDaffomill extends SubTileFunctional {
 
 			return true;
 		} else return super.onWanded(player, wand);
+	}
+	
+	@Override
+	public RadiusDescriptor getRadius() {
+		AxisAlignedBB aabb = aabbForOrientation();
+		aabb.minY = supertile.yCoord;
+		return new RadiusDescriptor.Rectangle(toChunkCoordinates(), aabb);
 	}
 
 	@Override

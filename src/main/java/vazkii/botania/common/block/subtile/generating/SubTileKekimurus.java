@@ -13,11 +13,15 @@ package vazkii.botania.common.block.subtile.generating;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCake;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
+import vazkii.botania.api.subtile.RadiusDescriptor.Square;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileKekimurus extends SubTileGenerating {
 
+	private static final int RANGE = 5;
+	
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
@@ -25,13 +29,12 @@ public class SubTileKekimurus extends SubTileGenerating {
 		int mana = 1800;
 
 		if(getMaxMana() - this.mana >= mana && !supertile.getWorldObj().isRemote && ticksExisted % 80 == 0) {
-			int range = 5;
-			for(int i = 0; i < range * 2 + 1; i++)
-				for(int j = 0; j < range * 2 + 1; j++)
-					for(int k = 0; k < range * 2 + 1; k++) {
-						int x = supertile.xCoord + i - range;
-						int y = supertile.yCoord + j - range;
-						int z = supertile.zCoord + k - range;
+			for(int i = 0; i < RANGE * 2 + 1; i++)
+				for(int j = 0; j < RANGE * 2 + 1; j++)
+					for(int k = 0; k < RANGE * 2 + 1; k++) {
+						int x = supertile.xCoord + i - RANGE;
+						int y = supertile.yCoord + j - RANGE;
+						int z = supertile.zCoord + k - RANGE;
 						Block block = supertile.getWorldObj().getBlock(x, y, z);
 						if(block instanceof BlockCake) {
 							int meta = supertile.getWorldObj().getBlockMetadata(x, y, z) + 1;
@@ -47,6 +50,11 @@ public class SubTileKekimurus extends SubTileGenerating {
 						}
 					}
 		}
+	}
+	
+	@Override
+	public RadiusDescriptor getRadius() {
+		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
 	}
 
 	@Override

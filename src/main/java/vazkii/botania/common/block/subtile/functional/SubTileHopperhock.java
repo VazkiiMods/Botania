@@ -31,7 +31,9 @@ import net.minecraftforge.common.util.ForgeDirection;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.api.subtile.RadiusDescriptor.Square;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
@@ -39,7 +41,9 @@ import vazkii.botania.common.lib.LibMisc;
 public class SubTileHopperhock extends SubTileFunctional {
 
 	private static final String TAG_FILTER_TYPE = "filterType";
-
+	private static final int RANGE_MANA = 10;
+	private static final int RANGE = 6;
+	
 	int filterType = 0;
 
 	@Override
@@ -104,7 +108,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 		if(pulledAny && mana > 1)
 			mana--;
 	}
-
+	
 	public boolean canAcceptItem(ItemStack stack, List<ItemStack> filter, int filterType) {
 		if(stack == null)
 			return false;
@@ -181,6 +185,11 @@ public class SubTileHopperhock extends SubTileFunctional {
 		else return super.onWanded(player, wand);
 	}
 
+	@Override
+	public RadiusDescriptor getRadius() {
+		return new RadiusDescriptor.Square(toChunkCoordinates(), mana > 0 ? RANGE_MANA : RANGE);
+	}
+	
 	@Override
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		super.writeToPacketNBT(cmp);

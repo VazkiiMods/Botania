@@ -27,12 +27,16 @@ import net.minecraft.util.AxisAlignedBB;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
+import vazkii.botania.api.subtile.RadiusDescriptor.Square;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileSpectrolus extends SubTileGenerating {
 
 	private static final String TAG_NEXT_COLOR = "nextColor";
+
+	private static final int RANGE = 1;
 
 	int nextColor;
 
@@ -41,9 +45,8 @@ public class SubTileSpectrolus extends SubTileGenerating {
 		super.onUpdate();
 
 		if(!supertile.getWorldObj().isRemote) {
-			int range = 1;
 			Item wool = Item.getItemFromBlock(Blocks.wool);
-			List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord - range, supertile.zCoord - range, supertile.xCoord + range + 1, supertile.yCoord + range + 1, supertile.zCoord + range + 1));
+			List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - RANGE, supertile.yCoord - RANGE, supertile.zCoord - RANGE, supertile.xCoord + RANGE + 1, supertile.yCoord + RANGE + 1, supertile.zCoord + RANGE + 1));
 			for(EntityItem item : items) {
 				ItemStack stack = item.getEntityItem();
 				if(stack != null && stack.getItem() == wool) {
@@ -60,6 +63,11 @@ public class SubTileSpectrolus extends SubTileGenerating {
 		}
 	}
 
+	@Override
+	public RadiusDescriptor getRadius() {
+		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
+	}
+	
 	@Override
 	public int getMaxMana() {
 		return 2000;

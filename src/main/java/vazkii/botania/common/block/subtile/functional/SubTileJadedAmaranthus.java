@@ -13,7 +13,9 @@ package vazkii.botania.common.block.subtile.functional;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.api.subtile.RadiusDescriptor.Square;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -21,6 +23,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 public class SubTileJadedAmaranthus extends SubTileFunctional {
 
 	private static final int COST = 100;
+	int RANGE = 4;
 
 	@Override
 	public void onUpdate() {
@@ -30,12 +33,11 @@ public class SubTileJadedAmaranthus extends SubTileFunctional {
 			return;
 
 		if(mana >= COST && !supertile.getWorldObj().isRemote && ticksExisted % 30 == 0) {
-			int range = 4;
-			int x = supertile.xCoord - range + supertile.getWorldObj().rand.nextInt(range * 2 + 1);
-			int y = supertile.yCoord + range;
-			int z = supertile.zCoord - range + supertile.getWorldObj().rand.nextInt(range * 2 + 1);
+			int x = supertile.xCoord - RANGE + supertile.getWorldObj().rand.nextInt(RANGE * 2 + 1);
+			int y = supertile.yCoord + RANGE;
+			int z = supertile.zCoord - RANGE + supertile.getWorldObj().rand.nextInt(RANGE * 2 + 1);
 
-			for(int i = 0; i < range * 2; i++) {
+			for(int i = 0; i < RANGE * 2; i++) {
 				Block blockAbove = supertile.getWorldObj().getBlock(x, y + 1, z);
 				if((supertile.getWorldObj().isAirBlock(x, y + 1, z) || blockAbove.isReplaceable(supertile.getWorldObj(), x, y + 1, z)) && blockAbove.getMaterial() != Material.water && ModBlocks.flower.canPlaceBlockAt(supertile.getWorldObj(), x, y + 1, z)) {
 					int color = supertile.getWorldObj().rand.nextInt(16);
@@ -64,6 +66,11 @@ public class SubTileJadedAmaranthus extends SubTileFunctional {
 	@Override
 	public int getColor() {
 		return 0x961283;
+	}
+	
+	@Override
+	public RadiusDescriptor getRadius() {
+		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
 	}
 
 	@Override

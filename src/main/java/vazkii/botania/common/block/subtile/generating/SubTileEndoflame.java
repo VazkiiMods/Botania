@@ -19,6 +19,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.AxisAlignedBB;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
@@ -27,6 +28,8 @@ import vazkii.botania.common.lexicon.LexiconData;
 public class SubTileEndoflame extends SubTileGenerating {
 
 	private static final String TAG_BURN_TIME = "burnTime";
+	private static final int RANGE = 3;
+
 	int burnTime = 0;
 
 	@Override
@@ -36,10 +39,9 @@ public class SubTileEndoflame extends SubTileGenerating {
 		if(linkedCollector != null) {
 			if(burnTime == 0) {
 				if(mana < getMaxMana() && !supertile.getWorldObj().isRemote) {
-					final int range = 3;
 					boolean didSomething = false;
 
-					List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord - range, supertile.zCoord - range, supertile.xCoord + range + 1, supertile.yCoord + range + 1, supertile.zCoord + range + 1));
+					List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - RANGE, supertile.yCoord - RANGE, supertile.zCoord - RANGE, supertile.xCoord + RANGE + 1, supertile.yCoord + RANGE + 1, supertile.zCoord + RANGE + 1));
 					for(EntityItem item : items) {
 						if(item.age >= 59 && !item.isDead) {
 							ItemStack stack = item.getEntityItem();
@@ -88,6 +90,11 @@ public class SubTileEndoflame extends SubTileGenerating {
 	@Override
 	public int getColor() {
 		return 0x785000;
+	}
+	
+	@Override
+	public RadiusDescriptor getRadius() {
+		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
 	}
 
 	@Override

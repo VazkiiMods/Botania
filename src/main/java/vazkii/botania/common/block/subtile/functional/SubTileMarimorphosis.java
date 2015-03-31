@@ -21,6 +21,7 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -29,6 +30,9 @@ import vazkii.botania.common.lexicon.LexiconData;
 public class SubTileMarimorphosis extends SubTileFunctional {
 
 	private static final int COST = 12;
+	private static final int RANGE = 8;
+	private static final int RANGE_Y = 5;
+	
 	private static final Type[] TYPES = new Type[] {
 		Type.FOREST,
 		Type.PLAINS,
@@ -82,12 +86,10 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 
 	public ChunkCoordinates getCoordsToPut() {
 		List<ChunkCoordinates> possibleCoords = new ArrayList();
-		int range = 8;
-		int rangeY = 5;
 
-		for(int i = -range; i < range + 1; i++)
-			for(int j = -rangeY; j < rangeY; j++)
-				for(int k = -range; k < range + 1; k++) {
+		for(int i = -RANGE; i < RANGE + 1; i++)
+			for(int j = -RANGE_Y; j < RANGE_Y; j++)
+				for(int k = -RANGE; k < RANGE + 1; k++) {
 					int x = supertile.xCoord + i;
 					int y = supertile.yCoord + j;
 					int z = supertile.zCoord + k;
@@ -101,6 +103,11 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 		return possibleCoords.get(supertile.getWorldObj().rand.nextInt(possibleCoords.size()));
 	}
 
+	@Override
+	public RadiusDescriptor getRadius() {
+		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
+	}
+	
 	@Override
 	public int getColor() {
 		return 0x769897;

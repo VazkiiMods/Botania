@@ -17,13 +17,17 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.DamageSource;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileBellethorn extends SubTileFunctional {
 
+	public static final int RANGE = 6;
+	
 	@Override
 	public int getColor() {
 		return 0xBA3421;
@@ -41,11 +45,10 @@ public class SubTileBellethorn extends SubTileFunctional {
 		if(redstoneSignal > 0)
 			return;
 
-		final int range = 6;
 		final int manaToUse = getManaCost();
 
 		if(ticksExisted % 5 == 0) {
-			List<EntityLivingBase> entities = supertile.getWorldObj().getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord, supertile.zCoord - range, supertile.xCoord + range, supertile.yCoord + 1, supertile.zCoord + range));
+			List<EntityLivingBase> entities = supertile.getWorldObj().getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - RANGE, supertile.yCoord, supertile.zCoord - RANGE, supertile.xCoord + RANGE, supertile.yCoord + 1, supertile.zCoord + RANGE));
 			IEntitySelector selector = getSelector();
 
 			for(EntityLivingBase entity : entities) {
@@ -81,6 +84,11 @@ public class SubTileBellethorn extends SubTileFunctional {
 		};
 	}
 
+	@Override
+	public RadiusDescriptor getRadius() {
+		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
+	}
+	
 	@Override
 	public LexiconEntry getEntry() {
 		return LexiconData.bellethorne;

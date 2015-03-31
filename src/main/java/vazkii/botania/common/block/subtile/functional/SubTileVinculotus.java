@@ -20,6 +20,7 @@ import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.EnderTeleportEvent;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -29,7 +30,8 @@ public class SubTileVinculotus extends SubTileFunctional {
 
 	public static Set<SubTileVinculotus> existingFlowers = Collections.newSetFromMap(new WeakHashMap());
 	private static boolean registered = false;
-
+	private static final int RANGE = 64;
+	
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
@@ -43,6 +45,11 @@ public class SubTileVinculotus extends SubTileFunctional {
 		}
 	}
 
+	@Override
+	public RadiusDescriptor getRadius() {
+		return new RadiusDescriptor.Circle(toChunkCoordinates(), RANGE);
+	}
+	
 	@Override
 	public boolean acceptsRedstone() {
 		return true;
@@ -71,7 +78,6 @@ public class SubTileVinculotus extends SubTileFunctional {
 				return;
 
 			int cost = 50;
-			int range = 64;
 
 			if(event.entity instanceof EntityEnderman) {
 				List<SubTileVinculotus> possibleFlowers = new ArrayList();
@@ -83,7 +89,7 @@ public class SubTileVinculotus extends SubTileFunctional {
 					double y = flower.supertile.yCoord + 1.5;
 					double z = flower.supertile.zCoord + 0.5;
 
-					if(MathHelper.pointDistanceSpace(x, y, z, event.targetX, event.targetY, event.targetZ) < range)
+					if(MathHelper.pointDistanceSpace(x, y, z, event.targetX, event.targetY, event.targetZ) < RANGE)
 						possibleFlowers.add(flower);
 				}
 

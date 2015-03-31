@@ -18,12 +18,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileGourmaryllis extends SubTileGenerating {
 
 	private static final String TAG_COOLDOWN = "cooldown";
+	private static final int RANGE = 1;
+
 	int cooldown = 0;
 	int storedMana = 0;
 
@@ -40,8 +43,7 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 		}
 
 		if(!supertile.getWorldObj().isRemote) {
-			int range = 1;
-			List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord - range, supertile.zCoord - range, supertile.xCoord + range + 1, supertile.yCoord + range + 1, supertile.zCoord + range + 1));
+			List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - RANGE, supertile.yCoord - RANGE, supertile.zCoord - RANGE, supertile.xCoord + RANGE + 1, supertile.yCoord + RANGE + 1, supertile.zCoord + RANGE + 1));
 			for(EntityItem item : items) {
 				ItemStack stack = item.getEntityItem();
 				if(stack != null && stack.getItem() instanceof ItemFood && !item.isDead) {
@@ -72,6 +74,11 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 		cooldown = cmp.getInteger(TAG_COOLDOWN);
 	}
 
+	@Override
+	public RadiusDescriptor getRadius() {
+		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
+	}
+	
 	@Override
 	public int getMaxMana() {
 		return 8000;

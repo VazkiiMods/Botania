@@ -18,22 +18,24 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import vazkii.botania.api.item.IExoflameHeatable;
+import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 
 public class SubTileExoflame extends SubTileFunctional {
 
+	private static final int RANGE = 5;
+	private static final int RANGE_Y = 2;
+	
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
 
-		int range = 5;
-		int rangeY = 2;
 		boolean did = false;
 
 		fireFurnaces : {
-			for(int i = -range + 1; i < range + 1; i++)
-				for(int j = -rangeY; j < rangeY + 1; j++)
-					for(int k = -range + 1; k < range + 1; k++) {
+			for(int i = -RANGE + 1; i < RANGE + 1; i++)
+				for(int j = -RANGE_Y; j < RANGE_Y + 1; j++)
+					for(int k = -RANGE + 1; k < RANGE + 1; k++) {
 						int x = supertile.xCoord + i;
 						int y = supertile.yCoord + j;
 						int z = supertile.zCoord + k;
@@ -102,6 +104,10 @@ public class SubTileExoflame extends SubTileFunctional {
 		}
 	}
 
+	@Override
+	public RadiusDescriptor getRadius() {
+		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
+	}
 
 	@Override
 	public int getMaxMana() {

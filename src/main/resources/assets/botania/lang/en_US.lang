@@ -2373,7 +2373,7 @@ botania.page.judgementCloaks3=Taste Vengance!
 
 # -- MANASEER MONOCLE
 botania.entry.monocle=Manaseer Monocle
-botania.page.monocle0=A handy acessory for one who requires a thorough window into where their &4Mana Bursts&0 are going is the &1Manaseer Monocle&0. Not only is it a rather fancy eyepiece but it also allows the wearer to see all nearby &4Mana Bursts&0, even if their line of sight towards them is blocked by something.
+botania.page.monocle0=A handy acessory for one who requires a thorough window into where their &4Mana Bursts&0 are going is the &1Manaseer Monocle&0. Not only is it a rather fancy eyepiece but it also allows the wearer to see all nearby &4Mana Bursts&0, even if their line of sight towards them is blocked by something. More important, perhaps, is that when someone wearing this monocle looks at a flower they'll be able to see its functional radius.
 botania.page.monocle1=Why hello there old chap
 
 # -- RING OF CORRECTION

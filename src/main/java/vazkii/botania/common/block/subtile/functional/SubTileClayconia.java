@@ -19,12 +19,16 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileClayconia extends SubTileFunctional {
 
+	private static final int RANGE = 5;
+	private static final int RANGE_Y = 3;
+	
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
@@ -47,12 +51,10 @@ public class SubTileClayconia extends SubTileFunctional {
 
 	public ChunkCoordinates getCoordsToPut() {
 		List<ChunkCoordinates> possibleCoords = new ArrayList();
-		int range = 5;
-		int rangeY = 3;
 
-		for(int i = -range; i < range + 1; i++)
-			for(int j = -rangeY; j < rangeY + 1; j++)
-				for(int k = -range; k < range + 1; k++) {
+		for(int i = -RANGE; i < RANGE + 1; i++)
+			for(int j = -RANGE_Y; j < RANGE_Y + 1; j++)
+				for(int k = -RANGE; k < RANGE + 1; k++) {
 					int x = supertile.xCoord + i;
 					int y = supertile.yCoord + j;
 					int z = supertile.zCoord + k;
@@ -66,6 +68,11 @@ public class SubTileClayconia extends SubTileFunctional {
 		return possibleCoords.get(supertile.getWorldObj().rand.nextInt(possibleCoords.size()));
 	}
 
+	@Override
+	public RadiusDescriptor getRadius() {
+		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
+	}
+	
 	@Override
 	public int getColor() {
 		return 0x7B8792;

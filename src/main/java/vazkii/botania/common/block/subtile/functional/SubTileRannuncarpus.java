@@ -31,7 +31,9 @@ import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.ISpecialFlower;
+import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.api.subtile.RadiusDescriptor.Square;
 import vazkii.botania.common.block.decor.IFloatingFlower;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -40,6 +42,12 @@ import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class SubTileRannuncarpus extends SubTileFunctional {
 
+	private static final int RANGE = 2;
+	private static final int RANGE_Y = 3;
+	private static final int RANGE_PLACE_MANA = 8;
+	private static final int RANGE_PLACE = 6;
+	private static final int RANGE_PLACE_Y = 6;
+	
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
@@ -53,15 +61,13 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 			boolean scanned = false;
 			List<ChunkCoordinates> validPositions = new ArrayList();
 
-			int range = 2;
-			int rangePlace = mana > 0 ? 8 : 6;
-			int rangePlaceY = 6;
+			int rangePlace = mana > 0 ? RANGE_PLACE_MANA : RANGE_PLACE;
 
 			int x = supertile.xCoord;
 			int y = supertile.yCoord;
 			int z = supertile.zCoord;
 
-			List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x - range, y - 3, z - range, x + range + 1, y + 3, z + range + 1));
+			List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x - RANGE, y - RANGE_Y, z - RANGE, x + RANGE + 1, y + RANGE_Y, z + RANGE + 1));
 			for(EntityItem item : items) {
 				if(item.age < 60 || item.isDead)
 					continue;
@@ -71,7 +77,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 				if(stackItem instanceof ItemBlock || stackItem instanceof ItemReed) {
 					if(!scanned) {
 						for(int i = -rangePlace; i < rangePlace + 1; i++)
-							for(int j = -rangePlaceY; j < rangePlaceY + 1; j++)
+							for(int j = -RANGE_PLACE_Y; j < RANGE_PLACE_Y + 1; j++)
 								for(int l = -rangePlace; l < rangePlace + 1; l++) {
 									int xp = x + i;
 									int yp = y + j;
@@ -153,6 +159,11 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 
 		GL11.glDisable(GL11.GL_LIGHTING);
 		GL11.glDisable(GL11.GL_BLEND);
+	}
+	
+	@Override
+	public RadiusDescriptor getRadius() {
+		return new RadiusDescriptor.Square(toChunkCoordinates(), mana > 0 ? RANGE_PLACE_MANA : RANGE_PLACE);
 	}
 
 	@Override

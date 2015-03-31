@@ -17,20 +17,23 @@ import net.minecraft.block.BlockSapling;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.api.subtile.RadiusDescriptor.Square;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileAgricarnation extends SubTileFunctional {
 
+	private static final int RANGE = 5;
+	
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
 
 		if(ticksExisted % 6 == 0 && redstoneSignal == 0) {
-			int range = 5;
-			int x = supertile.xCoord + supertile.getWorldObj().rand.nextInt(range * 2 + 1) - range;
-			int z = supertile.zCoord + supertile.getWorldObj().rand.nextInt(range * 2 + 1) - range;
+			int x = supertile.xCoord + supertile.getWorldObj().rand.nextInt(RANGE * 2 + 1) - RANGE;
+			int z = supertile.zCoord + supertile.getWorldObj().rand.nextInt(RANGE * 2 + 1) - RANGE;
 
 			for(int i = 4; i > -2; i--) {
 				int y = supertile.yCoord + i;
@@ -76,6 +79,11 @@ public class SubTileAgricarnation extends SubTileFunctional {
 		return 200;
 	}
 
+	@Override
+	public RadiusDescriptor getRadius() {
+		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
+	}
+	
 	@Override
 	public LexiconEntry getEntry() {
 		return LexiconData.agricarnation;

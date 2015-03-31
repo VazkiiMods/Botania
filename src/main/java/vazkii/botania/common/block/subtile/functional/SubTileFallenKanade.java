@@ -16,23 +16,27 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.ChunkCoordinates;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.api.subtile.RadiusDescriptor.Square;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileFallenKanade extends SubTileFunctional {
 
+	private static final int RANGE = 2;
+	
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
 
-		final int range = 2;
 		final int cost = 120;
 
 		if(!supertile.getWorldObj().isRemote && supertile.getWorldObj().provider.dimensionId != 1) {
-			List<EntityPlayer> players = supertile.getWorldObj().getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord - range, supertile.zCoord - range, supertile.xCoord + range + 1, supertile.yCoord + range + 1, supertile.zCoord + range + 1));
+			List<EntityPlayer> players = supertile.getWorldObj().getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - RANGE, supertile.yCoord - RANGE, supertile.zCoord - RANGE, supertile.xCoord + RANGE + 1, supertile.yCoord + RANGE + 1, supertile.zCoord + RANGE + 1));
 			for(EntityPlayer player : players) {
-				if(player.getActivePotionEffect(Potion.regeneration) == null && mana >= cost) {
+				if(player.getActivePotionEffect(Potion.regeneration) == null && mana >= cost ) {
 					player.addPotionEffect(new PotionEffect(Potion.regeneration.id, 60, 2));
 					mana -= cost;
 				}
@@ -40,6 +44,11 @@ public class SubTileFallenKanade extends SubTileFunctional {
 		}
 	}
 
+	@Override
+	public RadiusDescriptor getRadius() {
+		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
+	}
+	
 	@Override
 	public int getColor() {
 		return 0xFFFF00;

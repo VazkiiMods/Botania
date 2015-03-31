@@ -23,13 +23,17 @@ import net.minecraft.util.WeightedRandom;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.api.subtile.RadiusDescriptor.Square;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubtileOrechid extends SubTileFunctional {
 
 	private static final int COST = 17500;
+	private static final int RANGE = 5;
+	private static final int RANGE_Y = 3;
 
 	@Override
 	public void onUpdate() {
@@ -88,12 +92,10 @@ public class SubtileOrechid extends SubTileFunctional {
 
 	public ChunkCoordinates getCoordsToPut() {
 		List<ChunkCoordinates> possibleCoords = new ArrayList();
-		int range = 5;
-		int rangeY = 3;
 
-		for(int i = -range; i < range + 1; i++)
-			for(int j = -rangeY; j < rangeY; j++)
-				for(int k = -range; k < range + 1; k++) {
+		for(int i = -RANGE; i < RANGE + 1; i++)
+			for(int j = -RANGE_Y; j < RANGE_Y; j++)
+				for(int k = -RANGE; k < RANGE + 1; k++) {
 					int x = supertile.xCoord + i;
 					int y = supertile.yCoord + j;
 					int z = supertile.zCoord + k;
@@ -107,6 +109,11 @@ public class SubtileOrechid extends SubTileFunctional {
 		return possibleCoords.get(supertile.getWorldObj().rand.nextInt(possibleCoords.size()));
 	}
 
+	@Override
+	public RadiusDescriptor getRadius() {
+		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
+	}
+	
 	@Override
 	public boolean acceptsRedstone() {
 		return true;
