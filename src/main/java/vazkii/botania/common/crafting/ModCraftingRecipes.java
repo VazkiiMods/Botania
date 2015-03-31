@@ -246,6 +246,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipePump;
 	public static List<IRecipe> recipesPetalsDouble;
 	public static IRecipe recipeKeepIvy;
+	public static IRecipe recipeBlackHoleTalisman;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1630,6 +1631,14 @@ public final class ModCraftingRecipes {
 		// Resolute Ivy Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.keepIvy), LibOreDict.PIXIE_DUST, new ItemStack(Blocks.vine), LibOreDict.ENDER_AIR_BOTTLE);
 		recipeKeepIvy = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Black Hole Talisman Recipe
+		addOreDictRecipe(new ItemStack(ModItems.blackHoleTalisman), 
+				" G ", "EAE", " E ",
+				'G', LibOreDict.LIFE_ESSENCE,
+				'E', LibOreDict.ELEMENTIUM,
+				'A', LibOreDict.ENDER_AIR_BOTTLE);
+		recipeBlackHoleTalisman = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
