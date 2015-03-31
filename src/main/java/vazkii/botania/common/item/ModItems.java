@@ -230,6 +230,7 @@ public final class ModItems {
 	public static Item lokiRing;
 	public static Item aesirRing;
 	public static Item dice;
+	public static Item keepIvy;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -356,6 +357,7 @@ public final class ModItems {
 		lokiRing = new ItemLokiRing();
 		aesirRing = new ItemAesirRing();
 		dice = new ItemDice();
+		keepIvy = new ItemKeepIvy();
 		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {

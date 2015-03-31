@@ -15,6 +15,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.item.ItemKeepIvy;
 import vazkii.botania.common.item.ItemRegenIvy;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -31,6 +32,8 @@ public final class TooltipHandler {
 
 		if(ItemNBTHelper.detectNBT(event.itemStack) && ItemNBTHelper.getBoolean(event.itemStack, ItemRegenIvy.TAG_REGEN, false))
 			event.toolTip.add(StatCollector.translateToLocal("botaniamisc.hasIvy"));
+		if(ItemNBTHelper.detectNBT(event.itemStack) && ItemNBTHelper.getBoolean(event.itemStack, ItemKeepIvy.TAG_KEEP, false))
+			event.toolTip.add(StatCollector.translateToLocal("botaniamisc.hasKeepIvy"));
 	}
 
 }

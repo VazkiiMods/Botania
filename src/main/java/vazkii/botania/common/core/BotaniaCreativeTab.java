@@ -91,6 +91,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.slingshot);
 		addItem(ModItems.vineBall);
 		addItem(ModItems.regenIvy);
+		addItem(ModItems.keepIvy);
 		addItem(ModItems.worldSeed);
 		addItem(ModItems.overgrowthSeed);
 		addBlock(ModBlocks.enchantedSoil);
