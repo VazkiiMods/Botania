@@ -78,6 +78,11 @@ public class ItemExcaliber extends ItemManasteelSword implements IRelic, ILensEf
 	public void addInformation(ItemStack p_77624_1_, EntityPlayer p_77624_2_, List p_77624_3_, boolean p_77624_4_) {
 		ItemRelic.addBindInfo(p_77624_3_, p_77624_1_, p_77624_2_);
 	}
+	
+	@Override
+	public void bindToUsername(String playerName, ItemStack stack) {
+		ItemRelic.bindToUsernameS(playerName, stack);
+	}
 
 	@Override
 	public String getSoulbindUsername(ItemStack stack) {

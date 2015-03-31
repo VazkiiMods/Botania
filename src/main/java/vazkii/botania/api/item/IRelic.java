@@ -10,6 +10,7 @@
  */
 package vazkii.botania.api.item;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 
@@ -19,6 +20,11 @@ import net.minecraft.stats.Achievement;
  */
 public interface IRelic {
 
+	/**
+	 * Binds to the player name passed in.
+	 */
+	public void bindToUsername(String playerName, ItemStack stack);
+	
 	/**
 	 * Gets the username of the person this relic is bound to.
 	 */

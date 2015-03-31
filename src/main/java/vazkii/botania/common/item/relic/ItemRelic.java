@@ -89,9 +89,13 @@ public class ItemRelic extends ItemMod implements IRelic {
 		if(!isRightPlayer(player, stack) && player.ticksExisted % 10 == 0)
 			player.attackEntityFrom(damageSource(), 6);
 	}
-	
+
 	public static void bindToPlayer(EntityPlayer player, ItemStack stack) {
-		ItemNBTHelper.setString(stack, TAG_SOULBIND, player.getCommandSenderName());
+		bindToUsernameS(player.getCommandSenderName(), stack);
+	}
+	
+	public static void bindToUsernameS(String username, ItemStack stack) {
+		ItemNBTHelper.setString(stack, TAG_SOULBIND, username);
 	}
 	
 	public static boolean isRightPlayer(EntityPlayer player, ItemStack stack) {
@@ -104,6 +108,11 @@ public class ItemRelic extends ItemMod implements IRelic {
 	
 	public static DamageSource damageSource() {
 		return new DamageSource("botania-relic");
+	}
+	
+	@Override
+	public void bindToUsername(String playerName, ItemStack stack) {
+		bindToUsernameS(playerName, stack);
 	}
 	
 	@Override
