@@ -138,7 +138,8 @@ public final class LibItemNames {
 	public static final String AESIR_RING = "aesirRing";
 	public static final String DICE = "dice";
 	public static final String KEEP_IVY = "keepIvy";
-
+	public static final String BLACK_HOLE_TALISMAN = "blackHoleTalisman";
+	
 	public static final String[] LENS_NAMES = new String[] {
 		"lensNormal",
 		"lensSpeed",

@@ -107,6 +107,8 @@ botaniamisc.clickToRemoveWarp=Shift-left click to Remove
 botaniamisc.unboundWarp=Unbound Warp Point
 botaniamisc.clickToAddWarp=Right click to bind to this position
 botaniamisc.hasKeepIvy=Has Resolute Ivy
+botaniamisc.active=&aActive
+botaniamisc.inactive=&cInactive
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
@@ -1242,6 +1244,7 @@ item.botania:lokiRing.name=Ring of Loki
 item.botania:aesirRing.name=Ring of the Aesir
 item.botania:dice.name=Dice of Fate
 item.botania:keepIvy.name=Resolute Ivy
+item.botania:blackHoleTalisman.name=Black Hole Talisman
 
 # BREW NAMES
 botania.brew.fallback=Fallback
