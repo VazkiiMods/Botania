@@ -1,3 +1,32 @@
+r1.6 173
+*<b>Added Relics.</b> New unique, soulbound items with really powerful effects. There's currently 6 of them along with 2 extras.
+*<span class='april-fools'><b>Added the ability to enter the Alfheim dimension through the portal if you have a specific item...</b></span>
+*<span class='april-fools'>Added fluid mana that you can store in railcraft, buildcraft, and so on, tanks. The conversion rate isn't 1:1 if you do it both ways.</span>
+*<span class='april-fools'>Added multiblock mana pools, 3x3, 5x5 and even 7x7. They store way more than normal ones, as expected.</span>
+*Added radius viewer functionality to the Manaseer Monocle. While looking at a flower with it equipped one will be able to see the flower's effective range visually.
+*Added the Black Hole Talisman. It's the unlimited cobblestone works. <i>Wait, that's from thaumic tinkerer. STOP STEALING CODE FROM YOURSELF VAZKII YOU SCUMLORD</i>
+*Added the Resolute Ivy, an Ivy item similar to the Timeless Ivy that lets you keep the item it's attached to through death.
+*<span class='april-fools'>Added the Reverse Mana Fluxfield that transforms RF to mana. Again, the conversion rate isn't too generous so get your big reactors dusted.</span>
+*<span class='april-fools'>Added the Spriggan Mana Tablet, an upgrade to the normal Mana Tablet using Dragonstones that holds 10x as much.</span>
+*Botania tile entities no longer register non-prefixed names (eg, "pump" rather than "botania:pump"). This fixes incompatibilities with mods that have similar names. Since both names were registered previously, transition will work with no problems.
+*<span class='april-fools'>Changed the Gaia Guardian to be able to be killed by fake players after I got spammed with requests for it.</span>
+*Edited the Thaumcraft Integration page to tell the user that the Botanurgist's Inkwell needs to be charged when created.
+*Entries that come from botania addons will not have the "View Online" button.
+*Fixed Ancient Wills rendering on a Terrasteel Helmet that has Phantom Ink.
+*Fixed double flowers being able to be duplicated through bone meal.
+*Fixed glimmering flowers being able to be bonemealed to create double flowers.
+*Fixed the Hyacidus, Pollidisiac, Tigerseye, Narslimmus and Medumone having their range be lower in one side.
+*Fixed the Phantom Ink recipe working if more than one piece of armor is put in the grid.
+*Floral Powder can now dye sheep.
+*Moved the Life Aggregator to the Ender Artifacts section and made it require two Bottles of Ender Air.
+*<span class='april-fools'>Redid all the flowers, spreaders and pool HUDs. They now show exactly (in numbers) how much mana the blocks have, are producing and are receiving.</span>
+*<span class='april-fools'>Removed the cooldown on Thermalilies and returned their production rate to the original speed they were at before.</span>
+*The Mana Pump will not stop outputting a comparator signal once it stops pumping as long as it has a cart on the rail.
+*<span class='april-fools'>[API] Added IManaFluidContainer and IRFManaAcceptor for compatibility.</span>
+*[API] Added IRelic, IWireframeCoordinateListProvider, ISequentialBreaker.
+*[API] Added RELIC EnumRarity.
+*[API] Added breakOnAllCursors() to the internal method handler.
+*[API] Increased version number to 37.
 r1.5 172
 *Fixed a crash when right clicking a special Floating Flower.
 *Fixed a crash when using a Corporea Funnel with an empty Item Frame.
