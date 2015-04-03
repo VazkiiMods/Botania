@@ -35,10 +35,10 @@ import vazkii.botania.api.item.IRelic;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILensEffect;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 import vazkii.botania.common.lib.LibItemNames;
-import codechicken.lib.vec.Vector3;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
