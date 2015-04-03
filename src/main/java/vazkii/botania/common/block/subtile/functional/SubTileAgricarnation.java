@@ -14,6 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.BlockSapling;
+import net.minecraft.block.IGrowable;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -65,7 +66,7 @@ public class SubTileAgricarnation extends SubTileFunctional {
 			return false;
 
 		Material mat = block.getMaterial();
-		return mat != null && (mat == Material.plants || mat == Material.cactus || mat == Material.grass || mat == Material.leaves || mat == Material.gourd);
+		return mat != null && (mat == Material.plants || mat == Material.cactus || mat == Material.grass || mat == Material.leaves || mat == Material.gourd) && block instanceof IGrowable && ((IGrowable) block).func_149851_a(supertile.getWorldObj(), x, y, z, supertile.getWorldObj().isRemote);
 	}
 
 	@Override
