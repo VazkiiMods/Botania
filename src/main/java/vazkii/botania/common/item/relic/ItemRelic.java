@@ -66,7 +66,7 @@ public class ItemRelic extends ItemMod implements IRelic {
 				addStringToTooltip(EnumChatFormatting.ITALIC + StatCollector.translateToLocal(name + i), list);
 		} else addStringToTooltip(StatCollector.translateToLocal("botaniamisc.shiftinfo"), list);
 	}
-	
+
 	@Override
 	public int getEntityLifespan(ItemStack itemStack, World world) {
 		return Integer.MAX_VALUE;

@@ -83,7 +83,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 						int relX = lookPos.blockX - originCoords.posX;
 						int relY = lookPos.blockY - originCoords.posY;
 						int relZ = lookPos.blockZ - originCoords.posZ;
-						
+
 						for(ChunkCoordinates cursor : cursors)
 							if(cursor.posX == relX && cursor.posY == relY && cursor.posZ == relZ) {
 								cursors.remove(cursor);

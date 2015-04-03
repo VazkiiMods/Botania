@@ -129,7 +129,7 @@ public class BlockModDoubleFlower extends BlockDoublePlant implements ILexiconab
 			doublePlantBottomIcons[i] = IconHelper.forName(register, "flower" + off + "Tall1");
 		}
 	}
-	
+
 	@Override
 	public int colorMultiplier(IBlockAccess blockAccess, int x, int y, int z) {
 		return 16777215;

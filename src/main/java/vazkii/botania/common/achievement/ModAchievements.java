@@ -26,7 +26,7 @@ public final class ModAchievements {
 
 	public static AchievementPage botaniaPage;
 	public static int pageIndex;
-	
+
 	public static Achievement flowerPickup;
 	public static Achievement lexiconUse;
 	public static Achievement daybloomPickup;

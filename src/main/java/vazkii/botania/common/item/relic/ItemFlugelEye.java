@@ -86,7 +86,7 @@ public class ItemFlugelEye extends ItemRelic {
 				}
 			} else setWarpPoint(stack, segment, player.posX, player.posY, player.posZ, world.provider.dimensionId);
 		}
-		
+
 		return stack;
 	}
 

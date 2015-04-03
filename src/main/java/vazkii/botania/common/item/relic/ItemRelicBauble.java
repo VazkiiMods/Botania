@@ -92,5 +92,5 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 	public int getEntityLifespan(ItemStack itemStack, World world) {
 		return Integer.MAX_VALUE;
 	}
-	
+
 }

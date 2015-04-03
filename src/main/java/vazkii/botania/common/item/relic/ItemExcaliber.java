@@ -103,7 +103,7 @@ public class ItemExcaliber extends ItemManasteelSword implements IRelic, ILensEf
 	public boolean usesMana(ItemStack stack) {
 		return false;
 	}
-	
+
 	@Override
 	public boolean isItemTool(ItemStack p_77616_1_) {
 		return true;
@@ -113,7 +113,7 @@ public class ItemExcaliber extends ItemManasteelSword implements IRelic, ILensEf
 	public int getEntityLifespan(ItemStack itemStack, World world) {
 		return Integer.MAX_VALUE;
 	}
-	
+
 	@Override
 	public Multimap getItemAttributeModifiers() {
 		Multimap multimap = HashMultimap.create();
