@@ -2,15 +2,6 @@ const censorChars = 'abcdefghijklmnopqrstuvwxyz';
 var animating = false;
 
 $(function() {
-	var location = document.location;
-	var ignoreRegex = /(?:(?:http:\/\/localhost\/xampp\/mod\/Botania)|(?:http:\/\/(?:www\.)?botaniamod.net))(\/.*)/;
-	var elseRegex = /.+(\/.*)$/;
-	
-	if(elseRegex.test(location) && !ignoreRegex.test(location)) {
-		var elseMatch = elseRegex.exec(location);
-		document.location = 'http://botaniamod.net' + elseMatch[1];
-	}
-
 	setInterval(changeCensor, 100);
 	
 	var hash = document.location.hash.substring(1);
