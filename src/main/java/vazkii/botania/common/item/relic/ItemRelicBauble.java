@@ -88,4 +88,9 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 		return BotaniaAPI.rarityRelic;
 	}
 
+	@Override
+	public int getEntityLifespan(ItemStack itemStack, World world) {
+		return Integer.MAX_VALUE;
+	}
+	
 }
