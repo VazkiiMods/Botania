@@ -103,6 +103,11 @@ public class ItemExcaliber extends ItemManasteelSword implements IRelic, ILensEf
 	public boolean usesMana(ItemStack stack) {
 		return false;
 	}
+	
+	@Override
+	public boolean isItemTool(ItemStack p_77616_1_) {
+		return true;
+	}
 
 	@Override
 	public Multimap getItemAttributeModifiers() {
