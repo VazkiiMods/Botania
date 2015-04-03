@@ -1,3 +1,14 @@
+r1.6 174
+*Added an achievement button to the lexicon main page.
+*Agricarnations will only fertilize blocks that can normally be grown with bone meal.
+*Changed the documentation for Daybloom diminishing returns to say that it doesn't apply to other flowers, since people don't seem to get it :V
+*Fixed a dependency on codechickencore when using the Excaliber.
+*Fixed the Excaliber not being enchantable.
+*Fixed the Eye of the Flugel not binding to a player.
+*Fixed the Ring of Loki not working past the 4.5 block range of survival.
+*Relic items no longer despawn naturally. They can still be destroyed by explosions, lava, etc, so you should still be careful.
+*Shift-right clicking a cursor while editing with the Ring of Loki will now remove it.
+*Subtle change to the ring of thor's tooltip to make it a bit more obvious.
 r1.6 173
 *<b>Added Relics.</b> New unique, soulbound items with really powerful effects. There's currently 6 of them along with 2 extras.
 *<span class='april-fools'><b>Added the ability to enter the Alfheim dimension through the portal if you have a specific item...</b></span>
