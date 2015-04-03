@@ -68,7 +68,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 
 		ItemStack heldItemStack = player.getCurrentEquippedItem();
 		ChunkCoordinates originCoords = getOriginPos(lokiRing);
-		MovingObjectPosition lookPos = ToolCommons.raytraceFromEntity(player.worldObj, player, true, 4.5F);
+		MovingObjectPosition lookPos = ToolCommons.raytraceFromEntity(player.worldObj, player, true, 10F);
 
 		if(heldItemStack == null && event.action == Action.RIGHT_CLICK_BLOCK && player.isSneaking()) {
 			if(originCoords.posY == -1 && lookPos != null) {
@@ -80,11 +80,18 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 				else {
 					List<ChunkCoordinates> cursors = getCursorList(lokiRing);
 					addCursor : {
+						int relX = lookPos.blockX - originCoords.posX;
+						int relY = lookPos.blockY - originCoords.posY;
+						int relZ = lookPos.blockZ - originCoords.posZ;
+						
 						for(ChunkCoordinates cursor : cursors)
-							if(cursor.posX == lookPos.blockX && cursor.posY == lookPos.blockY && cursor.posZ == lookPos.blockZ)
+							if(cursor.posX == relX && cursor.posY == relY && cursor.posZ == relZ) {
+								cursors.remove(cursor);
+								setCursorList(lokiRing, cursors);
 								break addCursor;
+							}
 
-						addCursor(lokiRing, lookPos.blockX - originCoords.posX, lookPos.blockY - originCoords.posY, lookPos.blockZ - originCoords.posZ);
+						addCursor(lokiRing, relX, relY, relZ);
 					}
 				}
 			}
