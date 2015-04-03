@@ -76,21 +76,23 @@ public class ItemFlugelEye extends ItemRelic {
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		int segment = getSegmentLookedAt(stack, player);
-		MultiversePosition pos = getWarpPoint(stack, segment);
-		if(pos.isValid()) {
-			if(pos.dim == world.provider.dimensionId && player instanceof EntityPlayerMP) {
-				((EntityPlayerMP) player).playerNetServerHandler.setPlayerLocation(pos.x, pos.y, pos.z, player.rotationYaw, player.rotationPitch);
-				world.playSoundAtEntity(player, "mob.endermen.portal", 1F, 1F);
-			}
-		} else setWarpPoint(stack, segment, player.posX, player.posY, player.posZ, world.provider.dimensionId);
-
+		if(isRightPlayer(player, stack)) {
+			int segment = getSegmentLookedAt(stack, player);
+			MultiversePosition pos = getWarpPoint(stack, segment);
+			if(pos.isValid()) {
+				if(pos.dim == world.provider.dimensionId && player instanceof EntityPlayerMP) {
+					((EntityPlayerMP) player).playerNetServerHandler.setPlayerLocation(pos.x, pos.y, pos.z, player.rotationYaw, player.rotationPitch);
+					world.playSoundAtEntity(player, "mob.endermen.portal", 1F, 1F);
+				}
+			} else setWarpPoint(stack, segment, player.posX, player.posY, player.posZ, world.provider.dimensionId);
+		}
+		
 		return stack;
 	}
 
 	@Override
 	public boolean onEntitySwing(EntityLivingBase player, ItemStack stack) {
-		if(player.isSneaking()) {
+		if(player.isSneaking() && player instanceof EntityPlayer && isRightPlayer((EntityPlayer) player, stack)) {
 			int segment = getSegmentLookedAt(stack, player);
 			MultiversePosition pos = getWarpPoint(stack, segment);
 			if(pos.isValid()) {
@@ -104,6 +106,7 @@ public class ItemFlugelEye extends ItemRelic {
 
 	@Override
 	public void onUpdate(ItemStack stack, World world, Entity entity, int pos, boolean equipped) {
+		super.onUpdate(stack, world, entity, pos, equipped);
 		boolean eqLastTick = wasEquipped(stack);
 		if(eqLastTick != equipped)
 			setEquipped(stack, equipped);
