@@ -25,7 +25,8 @@ import cpw.mods.fml.common.FMLCommonHandler;
 public final class ModAchievements {
 
 	public static AchievementPage botaniaPage;
-
+	public static int pageIndex;
+	
 	public static Achievement flowerPickup;
 	public static Achievement lexiconUse;
 	public static Achievement daybloomPickup;
@@ -115,6 +116,7 @@ public final class ModAchievements {
 		desu.setStackDisplayName("desu gun");
 		desuGun = new AchievementMod(LibAchievementNames.DESU_GUN, -8, -2, desu, null).setSpecial();
 
+		pageIndex = AchievementPage.getAchievementPages().size();
 		botaniaPage = new AchievementPage(LibMisc.MOD_NAME, AchievementMod.achievements.toArray(new Achievement[AchievementMod.achievements.size()]));
 		AchievementPage.registerAchievementPage(botaniaPage);
 

@@ -22,6 +22,7 @@ import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.achievement.GuiAchievements;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
@@ -35,7 +36,9 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.proxy.ClientProxy;
+import vazkii.botania.client.gui.GuiAchievementsHacky;
 import vazkii.botania.client.gui.GuiBotaniaConfig;
+import vazkii.botania.client.gui.lexicon.button.GuiButtonAchievement;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonBookmark;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonCategory;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonHistory;
@@ -123,9 +126,10 @@ public class GuiLexicon extends GuiScreen {
 			}
 		}
 		populateBookmarks();
-		if(isMainPage())
-			buttonList.add(new GuiButtonOptions(-1, left, top));
-
+		if(isMainPage()) {
+			buttonList.add(new GuiButtonOptions(-1, left - 6, top + 5));
+			buttonList.add(new GuiButtonAchievement(-2, left - 6, top + 18));
+		}
 	}
 
 	@Override
@@ -246,6 +250,8 @@ public class GuiLexicon extends GuiScreen {
 			ClientTickHandler.notifyPageChange();
 		} else if(par1GuiButton.id ==  -1)
 			mc.displayGuiScreen(new GuiBotaniaConfig(this));
+		else if(par1GuiButton.id == -2)
+			mc.displayGuiScreen(new GuiAchievementsHacky(this, mc.thePlayer.getStatFileWriter()));
 	}
 
 	public void handleBookmark(GuiButton par1GuiButton) {

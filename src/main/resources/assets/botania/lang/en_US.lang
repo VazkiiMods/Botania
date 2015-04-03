@@ -109,6 +109,7 @@ botaniamisc.clickToAddWarp=Right click to bind to this position
 botaniamisc.hasKeepIvy=Has Resolute Ivy
 botaniamisc.active=&aActive
 botaniamisc.inactive=&cInactive
+botaniamisc.achievements=Botania Achievements
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
