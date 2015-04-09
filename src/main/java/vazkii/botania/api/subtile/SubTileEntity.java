@@ -23,6 +23,7 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.wand.IWandBindable;
 import cpw.mods.fml.relauncher.Side;
@@ -81,7 +82,7 @@ public class SubTileEntity {
 	public void readFromPacketNBT(NBTTagCompound cmp) { }
 
 	public void sync() {
-		supertile.getWorldObj().markBlockForUpdate(supertile.xCoord, supertile.yCoord, supertile.zCoord);
+		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(supertile);
 	}
 
 	public String getUnlocalizedName() {
