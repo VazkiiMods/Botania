@@ -46,7 +46,7 @@ public class ItemInfiniteFruit extends ItemRelic {
 		super.onUsingTick(stack, player, count);
 
 		if(count % 5 == 0)
-			player.getFoodStats().addStats(1, 0.1F);
+			player.getFoodStats().addStats(1, 1F);
 
 		if(count == 5)
 			if(player.canEat(false))
