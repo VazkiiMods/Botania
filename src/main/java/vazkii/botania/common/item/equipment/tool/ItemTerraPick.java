@@ -153,7 +153,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		boolean doY = thor || direction.offsetY == 0;
 		boolean doZ = thor || direction.offsetZ == 0;
 
-		int level = getLevel(stack);
+		int level = getLevel(stack) + (thor ? 1 : 0);
 		int range = Math.max(0, level - 1);
 		int rangeY = Math.max(1, range);
 
