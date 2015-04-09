@@ -30,6 +30,7 @@ import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
@@ -332,7 +333,12 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 					entityDropItem(new ItemStack(ModItems.rune, 2 + rand.nextInt(3), rand.nextInt(16)), 1F);
 				if(Math.random() < 0.2)
 					entityDropItem(new ItemStack(ModItems.pinkinator), 1F);
-
+				if(Math.random() < 0.3) {
+		            int i = Item.getIdFromItem(Items.record_13);
+		            int j = Item.getIdFromItem(Items.record_wait);
+		            int k = i + this.rand.nextInt(j - i + 1);
+		            entityDropItem(new ItemStack(Item.getItemById(k)), 1F);
+				}
 			}
 		}
 	}
