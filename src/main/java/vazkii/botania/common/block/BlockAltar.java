@@ -24,6 +24,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -67,6 +68,12 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 			TileAltar tile = (TileAltar) par1World.getTileEntity(par2, par3, par4);
 			tile.collideEntityItem((EntityItem) par5Entity);
 		}
+	}
+	
+	@Override
+	public int getLightValue(IBlockAccess world, int x, int y, int z) {
+		TileAltar tile = (TileAltar) world.getTileEntity(x, y, z);
+		return tile.hasLava ? 15 : 0;
 	}
 
 	@Override
