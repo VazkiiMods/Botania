@@ -26,10 +26,15 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.RecipeSorter;
+import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
+import vazkii.botania.common.crafting.recipe.BlackHoleTalismanExtractRecipe;
 import vazkii.botania.common.lib.LibItemNames;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -45,36 +50,11 @@ public class ItemBlackHoleTalisman extends ItemMod {
 		setUnlocalizedName(LibItemNames.BLACK_HOLE_TALISMAN);
 		setMaxStackSize(1);
 		setHasSubtypes(true);
+		
+		GameRegistry.addRecipe(new BlackHoleTalismanExtractRecipe());
+		RecipeSorter.register("botania:blackHoleTalismanExtract", BlackHoleTalismanExtractRecipe.class, Category.SHAPELESS, "");
 	}
-
-	private static void setCount(ItemStack stack, int count) {
-		ItemNBTHelper.setInt(stack, TAG_BLOCK_COUNT, count);
-	}
-
-	public static int remove(ItemStack stack, int count) {
-		int current = getBlockCount(stack);
-		setCount(stack, Math.max(current - count, 0));
-
-		return Math.min(current, count);
-	}
-
-	public static String getBlockName(ItemStack stack) {
-		return ItemNBTHelper.getString(stack, TAG_BLOCK_NAME, "");
-	}
-
-	public static Block getBlock(ItemStack stack) {
-		Block block = Block.getBlockFromName(getBlockName(stack));
-		return block;
-	}
-
-	public static int getBlockMeta(ItemStack stack) {
-		return ItemNBTHelper.getInt(stack, TAG_BLOCK_META, 0);
-	}
-
-	public static int getBlockCount(ItemStack stack) {
-		return ItemNBTHelper.getInt(stack, TAG_BLOCK_COUNT, 0);
-	}
-
+	
 	@Override
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
 		if(getBlock(par1ItemStack) != Blocks.air && par3EntityPlayer.isSneaking()) {
@@ -164,32 +144,62 @@ public class ItemBlackHoleTalisman extends ItemMod {
 			}
 
 			if(highest == -1) {
-				ItemStack heldItem = player.inventory.getItemStack();
+				/*ItemStack heldItem = player.inventory.getItemStack();
 				if(hasFreeSlot && (heldItem == null || Item.getItemFromBlock(block) == heldItem.getItem() || heldItem.getItemDamage() != meta)) {
 					ItemStack stack = new ItemStack(block, remove(itemstack, 64), meta);
 					if(stack.stackSize != 0)
 						player.inventory.addItemStackToInventory(stack);
-				}
+				}*/
+				// Used to keep one stack, disabled for now
 			} else {
 				for(int i = 0; i < counts.length; i++) {
 					int count = counts[i];
 
-					if(i == highest || count == 0)
+					// highest is used to keep one stack, disabled for now
+					if(/*i == highest || */count == 0)
 						continue;
 
 					add(itemstack, count);
 					player.inventory.setInventorySlotContents(i, null);
 				}
 
-				int countInHighest = counts[highest];
+				/*int countInHighest = counts[highest];
 				int maxSize = new ItemStack(block, 1, meta).getMaxStackSize();
 				if(countInHighest < maxSize) {
 					int missing = maxSize - countInHighest;
 					ItemStack stackInHighest = player.inventory.getStackInSlot(highest);
 					stackInHighest.stackSize += remove(itemstack, missing);
-				}
+				}*/
+				// Used to keep one stack, disabled for now
 			}
 		}
+	}
+	
+	@Override
+	public ItemStack getContainerItem(ItemStack itemStack) {
+		int count = getBlockCount(itemStack);
+		if(count == 0)
+			return null;
+		
+		int extract = Math.min(64, count);
+		ItemStack copy = itemStack.copy();
+		remove(copy, extract);
+		
+		int dmg = copy.getItemDamage();
+		if(dmg == 1)
+			copy.setItemDamage(0);
+			
+		return copy;
+	}
+	
+	@Override
+	public boolean hasContainerItem(ItemStack stack) {
+		return getContainerItem(stack) != null;
+	}
+	
+	@Override
+	public boolean doesContainerItemLeaveCraftingGrid(ItemStack p_77630_1_) {
+		return false;
 	}
 
 	private boolean setBlock(ItemStack stack, Block block, int meta) {
@@ -235,6 +245,34 @@ public class ItemBlackHoleTalisman extends ItemMod {
 
 	void addStringToTooltip(String s, List<String> tooltip) {
 		tooltip.add(s.replaceAll("&", "\u00a7"));
+	}
+
+	private static void setCount(ItemStack stack, int count) {
+		ItemNBTHelper.setInt(stack, TAG_BLOCK_COUNT, count);
+	}
+
+	public static int remove(ItemStack stack, int count) {
+		int current = getBlockCount(stack);
+		setCount(stack, Math.max(current - count, 0));
+
+		return Math.min(current, count);
+	}
+
+	public static String getBlockName(ItemStack stack) {
+		return ItemNBTHelper.getString(stack, TAG_BLOCK_NAME, "");
+	}
+
+	public static Block getBlock(ItemStack stack) {
+		Block block = Block.getBlockFromName(getBlockName(stack));
+		return block;
+	}
+
+	public static int getBlockMeta(ItemStack stack) {
+		return ItemNBTHelper.getInt(stack, TAG_BLOCK_META, 0);
+	}
+
+	public static int getBlockCount(ItemStack stack) {
+		return ItemNBTHelper.getInt(stack, TAG_BLOCK_COUNT, 0);
 	}
 
 }
