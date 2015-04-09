@@ -57,6 +57,7 @@ public final class ConfigHandler {
 	public static boolean darkQuartzEnabled = true;
 	public static boolean enchanterEnabled = true;
 	public static boolean fluxfieldEnabled = true;
+	public static boolean relicsEnabled = true;
 
 	public static int flowerQuantity = 2;
 	public static int flowerDensity = 16;
@@ -167,6 +168,9 @@ public final class ConfigHandler {
 		desc = "Set this to false to disable the Mana Fluxfield (generates RF from mana). This only disables the entry and creation. Old ones that are already in the world will stay.";
 		fluxfieldEnabled = loadPropBool("manaFluxfield.enabled", desc, fluxfieldEnabled);
 
+		desc = "Set this to false to disable the Relic System. This only disables the entries, drops and achievements. Old ones that are already in the world will stay.";
+		relicsEnabled = loadPropBool("relics.enabled", desc, relicsEnabled);
+		
 		desc = "The quantity of Botania flower patches to generate in the world, defaults to 2, the lower the number the less patches generate.";
 		flowerQuantity = loadPropInt("worldgen.flower.quantity", desc, flowerQuantity);
 

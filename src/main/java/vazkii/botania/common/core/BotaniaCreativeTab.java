@@ -175,14 +175,16 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.phantomInk);
 		addItem(ModItems.ancientWill);
 		addItem(ModItems.pinkinator);
-		addItem(ModItems.dice);
-		addItem(ModItems.infiniteFruit);
-		addItem(ModItems.excaliber);
-		addItem(ModItems.flugelEye);
-		addItem(ModItems.thorRing);
-		addItem(ModItems.odinRing);
-		addItem(ModItems.lokiRing);
-		addItem(ModItems.aesirRing);
+		if(ConfigHandler.relicsEnabled) {
+			addItem(ModItems.dice);
+			addItem(ModItems.infiniteFruit);
+			addItem(ModItems.excaliber);
+			addItem(ModItems.flugelEye);
+			addItem(ModItems.thorRing);
+			addItem(ModItems.odinRing);
+			addItem(ModItems.lokiRing);
+			addItem(ModItems.aesirRing);
+		}
 
 		addItem(ModItems.tinyPlanet);
 		addBlock(ModBlocks.tinyPlanet);

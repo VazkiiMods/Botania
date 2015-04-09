@@ -817,8 +817,10 @@ public final class LexiconData {
 		elvenLore = new ALexiconEntry(LibLexicon.ALF_LORE, categoryAlfhomancy);
 		elvenLore.setLexiconPages(new PageText("0"), new PageLoreText("1"), new PageLoreText("2"), new PageLoreText("3"), new PageLoreText("4"), new PageLoreText("5"), new PageLoreText("6"), new PageLoreText("7")).setIcon(new ItemStack(Items.writable_book));
 
-		relics = new ALexiconEntry(LibLexicon.ALF_RELICS, categoryAlfhomancy);
-		relics.setLexiconPages(new PageText("0")).setIcon(new ItemStack(ModItems.dice));
+		if(ConfigHandler.relicsEnabled) {
+			relics = new ALexiconEntry(LibLexicon.ALF_RELICS, categoryAlfhomancy);
+			relics.setLexiconPages(new PageText("0")).setIcon(new ItemStack(ModItems.dice));	
+		}
 
 		// MISCLENAEOUS ENTRIES
 		unstableBlocks = new BLexiconEntry(LibLexicon.MISC_UNSTABLE_BLOCKS, categoryMisc);

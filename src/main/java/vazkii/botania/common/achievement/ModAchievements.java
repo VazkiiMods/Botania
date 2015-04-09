@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraftforge.common.AchievementPage;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibAchievementNames;
@@ -104,14 +105,16 @@ public final class ModAchievements {
 		superCorporeaRequest = new AchievementMod(LibAchievementNames.SUPER_CORPOREA_REQUEST, -3, -5, ModBlocks.corporeaIndex, null).setSpecial();
 		pinkinator = new AchievementMod(LibAchievementNames.PINKINATOR, -5, -5, ModItems.pinkinator, null).setSpecial();
 
-		relicInfiniteFruit = new AchievementMod(LibAchievementNames.RELIC_INFINITE_FRUIT, -9, 4, ModItems.infiniteFruit, null);
-		relicExcaliber = new AchievementMod(LibAchievementNames.RELIC_EXCALIBER, -7, 7, ModItems.excaliber, null);
-		relicFlugelEye = new AchievementMod(LibAchievementNames.RELIC_FLUGEL_EYE, -5, 4, ModItems.flugelEye, null);
-		relicThorRing = new AchievementMod(LibAchievementNames.RELIC_THOR_RING, -7, 3, ModItems.thorRing, null);
-		relicOdinRing = new AchievementMod(LibAchievementNames.RELIC_ODIN_RING, -9, 6, ModItems.odinRing, null);
-		relicLokiRing = new AchievementMod(LibAchievementNames.RELIC_LOKI_RING, -5, 6, ModItems.lokiRing, null);
-		relicAesirRing = new AchievementMod(LibAchievementNames.RELIC_AESIR_RING, -7, 5, ModItems.aesirRing, null).setSpecial();
-
+		if(ConfigHandler.relicsEnabled) {
+			relicInfiniteFruit = new AchievementMod(LibAchievementNames.RELIC_INFINITE_FRUIT, -9, 4, ModItems.infiniteFruit, null);
+			relicExcaliber = new AchievementMod(LibAchievementNames.RELIC_EXCALIBER, -7, 7, ModItems.excaliber, null);
+			relicFlugelEye = new AchievementMod(LibAchievementNames.RELIC_FLUGEL_EYE, -5, 4, ModItems.flugelEye, null);
+			relicThorRing = new AchievementMod(LibAchievementNames.RELIC_THOR_RING, -7, 3, ModItems.thorRing, null);
+			relicOdinRing = new AchievementMod(LibAchievementNames.RELIC_ODIN_RING, -9, 6, ModItems.odinRing, null);
+			relicLokiRing = new AchievementMod(LibAchievementNames.RELIC_LOKI_RING, -5, 6, ModItems.lokiRing, null);
+			relicAesirRing = new AchievementMod(LibAchievementNames.RELIC_AESIR_RING, -7, 5, ModItems.aesirRing, null).setSpecial();
+		}
+		
 		ItemStack desu = new ItemStack(ModItems.manaGun);
 		desu.setStackDisplayName("desu gun");
 		desuGun = new AchievementMod(LibAchievementNames.DESU_GUN, -8, -2, desu, null).setSpecial();

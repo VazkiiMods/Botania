@@ -56,6 +56,7 @@ import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibObfuscation;
@@ -315,7 +316,8 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 			if(hard) {
 				entityDropItem(new ItemStack(ModItems.ancientWill, 1, rand.nextInt(6)), 1F);
-				entityDropItem(new ItemStack(ModItems.dice), 1F);
+				if(ConfigHandler.relicsEnabled)
+					entityDropItem(new ItemStack(ModItems.dice), 1F);
 
 				if(Math.random() < 0.25)
 					entityDropItem(new ItemStack(ModItems.overgrowthSeed, rand.nextInt(3) + 1), 1F);
