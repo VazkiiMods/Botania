@@ -2260,7 +2260,7 @@ botania.page.keepIvy1=Because people die when they are killed
 # -- BLACK HOLE TALISMAN
 botania.entry.blackHoleTalisman=Black Hole Talisman
 botania.page.blackHoleTalisman0=The void is a massive space full of... void, really. There's nothing there. But with some ingenuity, this space can be used to store items to your heart's content.<br>The &1Black Hole Talisman&0 utilizes powerful Gaia and Ender magic to allow for a virtually infinite quantity of a single type of block to be stored in this space.
-botania.page.blackHoleTalisman1=Right clicking a block in the world will set the talisman to store that type of block. This can only be done if the talisman is empty. Next off, shift-right clicking the talisman in the air will enable or disable it. Whilst enabled and in the user's inventory, it'll try to keep a stack, and only a stack, of the block type in question, pulling and pushing blocks between the inventory and the void.
+botania.page.blackHoleTalisman1=Right clicking a block in the world will set the talisman to store that type of block. This can only be done if the talisman is empty. Next off, shift-right clicking the talisman in the air will enable or disable it. Whilst enabled and in the user's inventory it'll absorb any blocks of the type into it.<br>Placing the item in a crafting grid allows one to extract stacks of the blocks in it.
 botania.page.blackHoleTalisman2=While the talisman has any contents in it, the blocks in it can be placed as if they were normal blocks stored in the inventory via a simple right click with it.<br>Right clicking an inventory will try to fill it with the blocks stored in the talisman.
 botania.page.blackHoleTalisman3=Like a Rageki but twice as fun
 
