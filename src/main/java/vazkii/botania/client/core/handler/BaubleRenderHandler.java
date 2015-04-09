@@ -65,8 +65,8 @@ public final class BaubleRenderHandler {
 		ItemStack helm = player.inventory.armorItemInSlot(3);
 		if(helm != null && helm.getItem() instanceof ItemTerrasteelHelm)
 			ItemTerrasteelHelm.renderOnPlayer(helm, event);
-		if(event.entityPlayer.getCommandSenderName().equals("Vazkii"))
-			renderFancyExclusiveDevStuffBecauseImAnEvilDevWhoDoesntCareAboutTheCommunityBooo(event);
+
+		ContributorFancinessHandler.render(event);
 		GL11.glPopMatrix();
 	}
 
@@ -139,50 +139,5 @@ public final class BaubleRenderHandler {
 		}
 	}
 
-	private void renderFancyExclusiveDevStuffBecauseImAnEvilDevWhoDoesntCareAboutTheCommunityBooo(RenderPlayerEvent event) {
-		GL11.glPushMatrix();
-		IIcon icon = ((ItemManaResource) ModItems.manaResource).tailIcon;
-		float f = icon.getMinU();
-		float f1 = icon.getMaxU();
-		float f2 = icon.getMinV();
-		float f3 = icon.getMaxV();
-		Helper.translateToHeadLevel(event.entityPlayer);
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
-		GL11.glPushMatrix();
-		GL11.glColor4f(1F, 1F, 1F, 1F);
-		GL11.glRotatef(90F, 0F, 1F, 0F);
-		float t = 0.13F;
-		GL11.glTranslatef(t, -0.5F, -0.1F);
-		if(event.entityPlayer.motionY < 0)
-			GL11.glRotatef((float) event.entityPlayer.motionY * 20F, 1F, 0F, 0F);
-
-		float r = -18F + (float) Math.sin((ClientTickHandler.ticksInGame + event.partialRenderTick) * 0.05F) * 2F;
-		GL11.glRotatef(r, 0F, 0F, 1F);
-		float s = 0.9F;
-		GL11.glScalef(s, s, s);
-		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
-		GL11.glRotatef(-r, 0F, 0F, 1F);
-		GL11.glTranslatef(-t, -0F, 0F);
-		GL11.glScalef(-1F, 1F, 1F);
-		GL11.glTranslatef(t, -0F, 0F);
-		GL11.glRotatef(r, 0F, 0F, 1F);
-		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
-		GL11.glPopMatrix();
-
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-		icon = BlockModFlower.icons[6];
-		f = icon.getMinU();
-		f1 = icon.getMaxU();
-		f2 = icon.getMinV();
-		f3 = icon.getMaxV();
-		GL11.glRotatef(180F, 0F, 0F, 1F);
-		GL11.glRotatef(90F, 0F, 1F, 0F);
-		GL11.glScalef(0.5F, 0.5F, 0.5F);
-		GL11.glTranslatef(-0.5F, 0.7F, 0F);
-
-		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
-
-		GL11.glPopMatrix();
-	}
 
 }
