@@ -22,6 +22,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -64,7 +65,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 			}
 
 		if(did)
-			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
 
 		return true;
 	}
@@ -127,7 +128,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 
 		if(manaToGet != this.manaToGet) {
 			worldObj.playSoundEffect(xCoord, yCoord, zCoord, "botania:runeAltarStart", 1F, 1F);
-			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
 		}
 	}
 

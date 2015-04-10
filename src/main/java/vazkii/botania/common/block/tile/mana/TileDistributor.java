@@ -15,6 +15,7 @@ import java.util.List;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.block.tile.TileMod;
@@ -55,7 +56,7 @@ public class TileDistributor extends TileMod implements IManaReceiver {
 			for(IManaReceiver pool : validPools) {
 				pool.recieveMana(manaForEach);
 				TileEntity tile = (TileEntity) pool;
-				worldObj.markBlockForUpdate(tile.xCoord, tile.yCoord, tile.zCoord);
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, tile.xCoord, tile.yCoord, tile.zCoord);
 			}
 		}
 	}

@@ -28,6 +28,7 @@ import net.minecraft.stats.Achievement;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.wand.IWandHUD;
@@ -111,7 +112,7 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 		if(par5Entity instanceof EntityItem) {
 			TilePool tile = (TilePool) par1World.getTileEntity(par2, par3, par4);
 			if(tile.collideEntityItem((EntityItem) par5Entity))
-				par1World.markBlockForUpdate(par2, par3, par4);
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(par1World, par2, par3, par4);
 		}
 	}
 

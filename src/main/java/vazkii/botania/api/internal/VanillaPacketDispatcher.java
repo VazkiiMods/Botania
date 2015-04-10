@@ -29,4 +29,10 @@ public final class VanillaPacketDispatcher {
 				((EntityPlayerMP) player).playerNetServerHandler.sendPacket(tile.getDescriptionPacket());
 	}
 	
+	public static void dispatchTEToNearbyPlayers(World world, int x, int y, int z) {
+		TileEntity tile = world.getTileEntity(x, y, z);
+		if(tile != null)
+			dispatchTEToNearbyPlayers(tile);
+	}
+	
 }

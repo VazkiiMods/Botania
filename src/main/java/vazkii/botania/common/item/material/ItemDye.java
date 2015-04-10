@@ -19,6 +19,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IDyablePool;
 import vazkii.botania.api.item.IManaDissolvable;
 import vazkii.botania.api.mana.IManaPool;
@@ -52,7 +53,7 @@ public class ItemDye extends Item16Colors implements IManaDissolvable {
 			if(meta != dyable.getColor()) {
 				dyable.setColor(meta);
 				stack.stackSize--;
-				item.worldObj.markBlockForUpdate(tile.xCoord, tile.yCoord, tile.zCoord);
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(item.worldObj, tile.xCoord, tile.yCoord, tile.zCoord);
 			}
 		}
 	}

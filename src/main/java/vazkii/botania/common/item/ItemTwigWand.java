@@ -31,6 +31,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.wand.ICoordBoundItem;
 import vazkii.botania.api.wand.ITileBound;
 import vazkii.botania.api.wand.IWandBindable;
@@ -94,7 +95,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 						}
 					}
 
-					par3World.markBlockForUpdate(boundTile.posX, boundTile.posY, boundTile.posZ);
+					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(par3World, boundTile.posX, boundTile.posY, boundTile.posZ);
 					setBoundTile(par1ItemStack, 0, -1, 0);
 				}
 

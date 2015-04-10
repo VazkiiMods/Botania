@@ -23,6 +23,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.ModAchievements;
@@ -195,7 +196,7 @@ public class ItemSpawnerMover extends ItemMod {
 			tag.setInteger("y", y);
 			tag.setInteger("z", z);
 			te.readFromNBT(tag);
-			world.markBlockForUpdate(x, y, z);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, x, y, z);
 		}
 
 		return true;

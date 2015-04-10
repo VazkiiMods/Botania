@@ -24,6 +24,7 @@ import net.minecraft.util.AxisAlignedBB;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.IBrewContainer;
 import vazkii.botania.api.brew.IBrewItem;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.recipe.RecipeBrew;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -63,7 +64,7 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 			}
 
 		if(did) {
-			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
 			for(RecipeBrew recipe : BotaniaAPI.brewRecipes)
 				if(recipe.matches(this) && recipe.getOutput(getStackInSlot(0)) != null) {
 					this.recipe = recipe;

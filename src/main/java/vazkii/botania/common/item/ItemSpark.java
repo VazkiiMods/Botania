@@ -18,6 +18,7 @@ import net.minecraft.stats.Achievement;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.achievement.ICraftAchievement;
@@ -45,7 +46,7 @@ public class ItemSpark extends ItemMod implements ICraftAchievement {
 					spark.setPosition(x + 0.5, y + 1.5, z + 0.5);
 					world.spawnEntityInWorld(spark);
 					attach.attachSpark(spark);
-					world.markBlockForUpdate(x, y, z);
+					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, x, y, z);
 				}
 				return true;
 			}

@@ -23,6 +23,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.api.recipe.RecipePetals;
@@ -54,7 +55,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 				stack.stackSize--;
 				if(stack.stackSize == 0)
 					item.setDead();
-				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
 			}
 		}
 
@@ -144,7 +145,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 			didChange = collideEntityItem(item) || didChange;
 
 		if(didChange)
-			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
 
 		for(int i = 0; i < getSizeInventory(); i++) {
 			ItemStack stackAt = getStackInSlot(i);
@@ -226,12 +227,12 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 	@Override
 	public void setWater(boolean water) {
 		hasWater = water;
-		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
 	}
 
 	public void setLava(boolean lava) {
 		hasLava = lava;
-		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
 	}
 
 	@Override

@@ -18,6 +18,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
@@ -111,7 +112,7 @@ public class EntityPoolMinecart extends EntityMinecart {
 					}
 
 					if(did) {
-						worldObj.markBlockForUpdate(xp_, y, zp_);
+						VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xp_, y, zp_);
 						pump.hasCart = true;
 						if(!pump.active)
 							pump.setActive(true);

@@ -30,6 +30,7 @@ import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IDyablePool;
 import vazkii.botania.api.item.IManaDissolvable;
 import vazkii.botania.api.mana.IKeyLocked;
@@ -281,7 +282,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 
 		if(player.isSneaking()) {
 			outputting = !outputting;
-			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
 		}
 
 		if(!worldObj.isRemote) {

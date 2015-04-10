@@ -21,6 +21,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.TileMod;
 
 public class TileTurntable extends TileMod {
@@ -72,7 +73,7 @@ public class TileTurntable extends TileMod {
 		if(player.isSneaking())
 			backwards = !backwards;
 		else speed = speed == 6 ? 1 : speed + 1;
-		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
 	}
 
 	public void renderHUD(Minecraft mc, ScaledResolution res) {

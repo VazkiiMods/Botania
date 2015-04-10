@@ -19,6 +19,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IManaDissolvable;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.common.Botania;
@@ -61,7 +62,7 @@ public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
 		if(!item.worldObj.isRemote) {
 			pool.recieveMana(t2 ? MANA_PER_T2 : MANA_PER);
 			stack.stackSize--;
-			item.worldObj.markBlockForUpdate(tile.xCoord, tile.yCoord, tile.zCoord);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(item.worldObj, tile.xCoord, tile.yCoord, tile.zCoord);
 		}
 
 		for(int i = 0; i < 50; i++) {

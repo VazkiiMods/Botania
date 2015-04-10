@@ -12,6 +12,7 @@ package vazkii.botania.common.block.tile.mana;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.TileMod;
 
 public class TilePump extends TileMod {
@@ -90,7 +91,7 @@ public class TilePump extends TileMod {
 	public void setActive(boolean active) {
 		if(!worldObj.isRemote) {
 			this.active = active;
-			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
 		}
 	}
 

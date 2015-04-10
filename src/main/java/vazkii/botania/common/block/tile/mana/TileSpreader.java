@@ -35,6 +35,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.IKeyLocked;
 import vazkii.botania.api.mana.ILens;
@@ -187,7 +188,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 		if(receiverLastTick != receiver && !worldObj.isRemote) {
 			requestsClientUpdate = true;
-			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
 		}
 
 		redstoneLastTick = redstone;
@@ -308,7 +309,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 				checkForReceiver();
 				requestsClientUpdate = true;
-				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
 			}
 		}
 	}
@@ -515,7 +516,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	@Override
 	public void markDirty() {
 		checkForReceiver();
-		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
 	}
 
 	@Override

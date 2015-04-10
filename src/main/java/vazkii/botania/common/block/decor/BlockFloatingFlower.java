@@ -28,6 +28,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import thaumcraft.api.crafting.IInfusionStabiliser;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.lib.LibRenderIDs;
@@ -138,7 +139,7 @@ public class BlockFloatingFlower extends BlockModContainer implements ILexiconab
 			if(type != null && type != flower.getIslandType()) {
 				if(!world.isRemote) {
 					flower.setIslandType(type);
-					world.markBlockForUpdate(x, y, z);
+					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, x, y, z);
 				}
 
 				if(!player.capabilities.isCreativeMode)

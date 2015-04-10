@@ -19,6 +19,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
@@ -73,7 +74,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 						else item.setEntityItemStack(new ItemStack(ModItems.manaResource, 1, 4));
 					item.worldObj.playSoundAtEntity(item, "botania:terrasteelCraft", 1F, 1F);
 					mana = 0;
-					worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
 				}
 			}
 		}
