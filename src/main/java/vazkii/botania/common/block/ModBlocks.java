@@ -109,6 +109,7 @@ import vazkii.botania.common.block.tile.TileBrewery;
 import vazkii.botania.common.block.tile.TileCraftCrate;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.block.tile.TileEnderEye;
+import vazkii.botania.common.block.tile.TileFakeAir;
 import vazkii.botania.common.block.tile.TileFloatingFlower;
 import vazkii.botania.common.block.tile.TileFloatingSpecialFlower;
 import vazkii.botania.common.block.tile.TileForestEye;
@@ -354,6 +355,7 @@ public final class ModBlocks {
 		registerTile(TileCorporeaIndex.class, LibBlockNames.CORPOREA_INDEX);
 		registerTile(TileCorporeaFunnel.class, LibBlockNames.CORPOREA_FUNNEL);
 		registerTile(TilePump.class, LibBlockNames.PUMP);
+		registerTile(TileFakeAir.class, LibBlockNames.FAKE_AIR);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MANASTAR, SubTileManastar.class);
