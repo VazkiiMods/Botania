@@ -20,6 +20,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -87,7 +88,7 @@ public class BlockEnchanter extends BlockModContainer implements IWandable, ILex
 		if(stack != null && stack.getItem() == ModItems.twigWand)
 			return false;
 
-		boolean stackEnchantable = stack != null && stack.isItemEnchantable() && stack.stackSize == 1 && stack.getItem().getItemEnchantability() > 0;
+		boolean stackEnchantable = stack != null && stack.getItem() != Items.book && stack.isItemEnchantable() && stack.stackSize == 1 && stack.getItem().getItemEnchantability() > 0;
 
 		if(enchanter.itemToEnchant == null) {
 			if(stackEnchantable) {
