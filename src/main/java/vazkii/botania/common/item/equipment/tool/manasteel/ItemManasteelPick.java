@@ -90,6 +90,9 @@ public class ItemManasteelPick extends ItemPickaxe implements IManaUsingItem, IS
 			ItemStack stackAt = player.inventory.getStackInSlot(i);
 			if(stackAt != null && TORCH_PATTERN.matcher(stackAt.getItem().getUnlocalizedName()).find()) {
 				boolean did = stackAt.getItem().onItemUse(stackAt, player, world, x, y, z, s, sx, sy, sz);
+				if(stackAt.stackSize == 0)
+					player.inventory.setInventorySlotContents(i, null);
+				
 				ItemsRemainingRenderHandler.set(player, new ItemStack(Blocks.torch), TORCH_PATTERN);
 				return did;
 			}
