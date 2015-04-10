@@ -976,6 +976,8 @@ tile.botania:flower.medumone.name=Medumone
 tile.botania:flower.medumone.reference='Twas Hades all along
 tile.botania:flower.marimorphosis.name=Marimorphosis
 tile.botania:flower.marimorphosis.reference=Solid as a rock
+tile.botania:flower.bubbell.name=Bubbell
+tile.botania:flower.bubbell.reference=And whistle
 
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania

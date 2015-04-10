@@ -69,6 +69,7 @@ import vazkii.botania.common.block.subtile.SubTileManastar;
 import vazkii.botania.common.block.subtile.SubTilePureDaisy;
 import vazkii.botania.common.block.subtile.functional.SubTileAgricarnation;
 import vazkii.botania.common.block.subtile.functional.SubTileBellethorn;
+import vazkii.botania.common.block.subtile.functional.SubTileBubbell;
 import vazkii.botania.common.block.subtile.functional.SubTileClayconia;
 import vazkii.botania.common.block.subtile.functional.SubTileDaffomill;
 import vazkii.botania.common.block.subtile.functional.SubTileDreadthorn;
@@ -210,6 +211,7 @@ public final class ModBlocks {
 	public static Block pump;
 	public static Block doubleFlower1;
 	public static Block doubleFlower2;
+	public static Block fakeAir;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -276,7 +278,8 @@ public final class ModBlocks {
 		pump = new BlockPump();
 		doubleFlower1 = new BlockModDoubleFlower(false);
 		doubleFlower2 = new BlockModDoubleFlower(true);
-
+		fakeAir = new BlockFakeAir();
+		
 		ModFluffBlocks.init();
 
 		for(int i = 0; i < 16; i++)
@@ -390,6 +393,7 @@ public final class ModBlocks {
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_SPECTRANTHEMUM, SubTileSpectranthemum.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MEDUMONE, SubTileMedumone.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MARIMORPHOSIS, SubTileMarimorphosis.class);
+		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_BUBBELL, SubTileBubbell.class);
 	}
 
 	private static void registerTile(Class<? extends TileEntity> clazz, String key) {

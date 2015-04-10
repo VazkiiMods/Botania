@@ -79,6 +79,7 @@ public final class LibBlockNames {
 	public static final String PUMP = "pump";
 	public static final String DOUBLE_FLOWER = "doubleFlower";
 	public static final String STONE = "stone";
+	public static final String FAKE_AIR = "fakeAir";
 
 	public static final String SUBTILE_PUREDAISY = "puredaisy";
 	public static final String SUBTILE_MANASTAR = "manastar";
@@ -118,6 +119,7 @@ public final class LibBlockNames {
 	public static final String SUBTILE_SPECTRANTHEMUM = "spectranthemum";
 	public static final String SUBTILE_MEDUMONE = "medumone";
 	public static final String SUBTILE_MARIMORPHOSIS = "marimorphosis";
+	public static final String SUBTILE_BUBBELL = "bubbell";
 
 	public static final String QUARTZ_DARK = "Dark";
 	public static final String QUARTZ_MANA = "Mana";
