@@ -64,7 +64,7 @@ public class ThreadDownloadMod extends Thread {
 			webReader = url.openStream();
 
 			File dir = new File(".", "mods");
-			File f = new File(dir, fileName);
+			File f = new File(dir, fileName + ".dl");
 			f.createNewFile();
 
 			FileOutputStream outputStream = new FileOutputStream(f.getAbsolutePath());
@@ -74,15 +74,19 @@ public class ThreadDownloadMod extends Thread {
 				buffer = new byte[10240];
 				totalBytesDownloaded += bytesJustDownloaded;
 			}
+			outputStream.close();
+			webReader.close();
 
+			File f1 = new File(dir, fileName);
+			if(!f1.exists())
+				f.renameTo(f1);
+			
 			if(Minecraft.getMinecraft().thePlayer != null)
 				Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentTranslation("botania.versioning.doneDownloading", fileName).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.GREEN)));
 
 			Desktop.getDesktop().open(dir);
 			VersionChecker.downloadedFile = true;
-
-			outputStream.close();
-			webReader.close();
+			
 			finalize();
 		} catch(Throwable e) {
 			e.printStackTrace();
