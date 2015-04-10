@@ -42,7 +42,6 @@ public class ItemAesirRing extends ItemRelicBauble implements IWireframeCoordina
 
 	public ItemAesirRing() {
 		super(LibItemNames.AESIR_RING);
-		fillModifiers(attributes);
 		GameRegistry.addRecipe(new AesirRingRecipe());
 		RecipeSorter.register("botania:aesirRing", AesirRingRecipe.class, Category.SHAPELESS, "");
 	}
@@ -64,16 +63,21 @@ public class ItemAesirRing extends ItemRelicBauble implements IWireframeCoordina
 
 	@Override
 	public void onEquippedOrLoadedIntoWorld(ItemStack stack, EntityLivingBase player) {
+		attributes.clear();
+		fillModifiers(attributes, stack);
 		player.getAttributeMap().applyAttributeModifiers(attributes);
 	}
 
 	@Override
 	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
+		attributes.clear();
+		fillModifiers(attributes, stack);
 		player.getAttributeMap().removeAttributeModifiers(attributes);
 	}
 
-	void fillModifiers(Multimap<String, AttributeModifier> attributes) {
-		attributes.put(SharedMonsterAttributes.maxHealth.getAttributeUnlocalizedName(), new AttributeModifier(new UUID(2756708 /** Random number **/, 43873), "Bauble modifier", 20, 0));
+
+	void fillModifiers(Multimap<String, AttributeModifier> attributes, ItemStack stack) {
+		attributes.put(SharedMonsterAttributes.maxHealth.getAttributeUnlocalizedName(), new AttributeModifier(getBaubleUUID(stack), "Bauble modifier", 20, 0));
 	}
 
 	@Override

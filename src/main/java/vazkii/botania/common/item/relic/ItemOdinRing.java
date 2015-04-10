@@ -51,7 +51,6 @@ public class ItemOdinRing extends ItemRelicBauble {
 
 	public ItemOdinRing() {
 		super(LibItemNames.ODIN_RING);
-		fillModifiers(attributes);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 
@@ -90,16 +89,21 @@ public class ItemOdinRing extends ItemRelicBauble {
 
 	@Override
 	public void onEquippedOrLoadedIntoWorld(ItemStack stack, EntityLivingBase player) {
+		attributes.clear();
+		fillModifiers(attributes, stack);
 		player.getAttributeMap().applyAttributeModifiers(attributes);
 	}
 
 	@Override
 	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
+		attributes.clear();
+		fillModifiers(attributes, stack);
 		player.getAttributeMap().removeAttributeModifiers(attributes);
 	}
 
-	void fillModifiers(Multimap<String, AttributeModifier> attributes) {
-		attributes.put(SharedMonsterAttributes.maxHealth.getAttributeUnlocalizedName(), new AttributeModifier(new UUID(2755708 /** Random number **/, 43843), "Bauble modifier", 20, 0));
+
+	void fillModifiers(Multimap<String, AttributeModifier> attributes, ItemStack stack) {
+		attributes.put(SharedMonsterAttributes.maxHealth.getAttributeUnlocalizedName(), new AttributeModifier(getBaubleUUID(stack), "Bauble modifier", 20, 0));
 	}
 
 }

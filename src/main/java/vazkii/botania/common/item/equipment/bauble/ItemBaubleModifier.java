@@ -23,19 +23,22 @@ public abstract class ItemBaubleModifier extends ItemBauble {
 
 	public ItemBaubleModifier(String name) {
 		super(name);
-		fillModifiers(attributes);
 	}
 
 	@Override
 	public void onEquippedOrLoadedIntoWorld(ItemStack stack, EntityLivingBase player) {
+		attributes.clear();
+		fillModifiers(attributes, stack);
 		player.getAttributeMap().applyAttributeModifiers(attributes);
 	}
 
 	@Override
 	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
+		attributes.clear();
+		fillModifiers(attributes, stack);
 		player.getAttributeMap().removeAttributeModifiers(attributes);
 	}
 
-	abstract void fillModifiers(Multimap<String, AttributeModifier> attributes);
+	abstract void fillModifiers(Multimap<String, AttributeModifier> attributes, ItemStack stack);
 
 }

@@ -47,8 +47,8 @@ public class ItemKnockbackBelt extends ItemBaubleModifier implements IBaubleRend
 	}
 
 	@Override
-	void fillModifiers(Multimap<String, AttributeModifier> attributes) {
-		attributes.put(SharedMonsterAttributes.knockbackResistance.getAttributeUnlocalizedName(), new AttributeModifier(new UUID(2745708 /** Random number **/, 43743), "Bauble modifier", 1, 0));
+	void fillModifiers(Multimap<String, AttributeModifier> attributes, ItemStack stack) {
+		attributes.put(SharedMonsterAttributes.knockbackResistance.getAttributeUnlocalizedName(), new AttributeModifier(getBaubleUUID(stack), "Bauble modifier", 1, 0));
 	}
 
 	@Override

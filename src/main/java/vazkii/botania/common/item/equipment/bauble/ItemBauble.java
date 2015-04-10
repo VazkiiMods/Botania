@@ -11,6 +11,7 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import java.util.List;
+import java.util.UUID;
 
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.EntityLivingBase;
@@ -34,6 +35,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAttachable {
 
 	private static final String TAG_HASHCODE = "playerHashcode";
+	private static final String TAG_BAUBLE_UUID_MOST = "baubleUUIDMost";
+	private static final String TAG_BAUBLE_UUID_LEAST = "baubleUUIDLeast";
 	private static final String TAG_COSMETIC_ITEM = "cosmeticItem";
 
 	public ItemBauble(String name) {
@@ -169,12 +172,25 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 	public boolean doesContainerItemLeaveCraftingGrid(ItemStack p_77630_1_) {
 		return false;
 	}
+	
+	public static UUID getBaubleUUID(ItemStack stack) {
+		long most = ItemNBTHelper.getLong(stack, TAG_BAUBLE_UUID_MOST, 0);
+		if(most == 0) {
+			UUID uuid = UUID.randomUUID();
+			ItemNBTHelper.setLong(stack, TAG_BAUBLE_UUID_MOST, uuid.getMostSignificantBits());
+			ItemNBTHelper.setLong(stack, TAG_BAUBLE_UUID_LEAST, uuid.getLeastSignificantBits());
+			return getBaubleUUID(stack);
+		}
+		
+		long least = ItemNBTHelper.getLong(stack, TAG_BAUBLE_UUID_LEAST, 0);
+		return new UUID(most, least);
+	}
 
-	public int getLastPlayerHashcode(ItemStack stack) {
+	public static int getLastPlayerHashcode(ItemStack stack) {
 		return ItemNBTHelper.getInt(stack, TAG_HASHCODE, 0);
 	}
 
-	public void setLastPlayerHashcode(ItemStack stack, int hash) {
+	public static void setLastPlayerHashcode(ItemStack stack, int hash) {
 		ItemNBTHelper.setInt(stack, TAG_HASHCODE, hash);
 	}
 
