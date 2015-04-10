@@ -40,7 +40,7 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 		Type.MUSHROOM,
 		Type.SWAMP,
 		Type.SANDY,
-		Type.SNOWY,
+		Type.COLD,
 		Type.MESA
 	};
 
