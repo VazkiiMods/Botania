@@ -18,10 +18,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.WeakHashMap;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -34,7 +35,6 @@ import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.api.mana.spark.SparkHelper;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import baubles.common.lib.PlayerHandler;
@@ -44,9 +44,8 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	private static final int TRANSFER_RATE = 1000;
 	private static final String TAG_UPGRADE = "upgrade";
 
-	private static final String TAG_TRANSFERS = "tfs";
-	private static final String TAG_TRANSFER_ID = "id";
-
+	Set<ISparkEntity> transfers = Collections.newSetFromMap(new WeakHashMap());
+	
 	int removeTransferants = 2;
 	boolean firstTick = false;
 
@@ -59,10 +58,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	protected void entityInit() {
 		setSize(0.5F, 0.5F);
 		dataWatcher.addObject(28, 0);
-		dataWatcher.addObject(29, new ItemStack(Blocks.stone, 0, 0));
-
 		dataWatcher.setObjectWatched(28);
-		dataWatcher.setObjectWatched(29);
 	}
 
 	@Override
@@ -260,7 +256,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 							entityDropItem(new ItemStack(ModItems.sparkUpgrade, 1, upgrade - 1), 0F);
 						setUpgrade(0);
 
-						setTransferDataContainer(new ItemStack(Blocks.stone, 0, 0));
+						transfers.clear();
 						removeTransferants = 2;
 					} else setDead();
 					if(player.worldObj.isRemote)
@@ -321,73 +317,34 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 	@Override
 	public Collection<ISparkEntity> getTransfers() {
-		Collection<ISparkEntity> entities = new ArrayList();
-		ItemStack transferDataContainer = getTransferDataContainer();
-		NBTTagList list = ItemNBTHelper.getList(transferDataContainer, TAG_TRANSFERS, 10, false);
+		Collection<ISparkEntity> removals = new ArrayList();
 		NBTTagList newTransfers = new NBTTagList();
 
-		for(int i = 0; i < list.tagCount(); i++) {
-			NBTTagCompound cmp = list.getCompoundTagAt(i);
-			int id = cmp.getInteger(TAG_TRANSFER_ID);
+		for(ISparkEntity e : transfers) {
+			ISparkEntity spark = (ISparkEntity) e;
+			int upgr = getUpgrade();
+			int supgr = spark.getUpgrade();
+			ISparkAttachable atile = spark.getAttachedTile();
 
-			boolean added = false;
-			Entity e = worldObj.getEntityByID(id);
-			if(e != null && e instanceof ISparkEntity) {
-				ISparkEntity spark = (ISparkEntity) e;
-				int upgr = getUpgrade();
-				int supgr = spark.getUpgrade();
-				ISparkAttachable atile = spark.getAttachedTile();
-
-				if(spark != this && !spark.areIncomingTransfersDone() && atile != null && !atile.isFull() && (upgr == 0 && supgr == 2 || upgr == 3 && (supgr == 0 || supgr == 1) || !(atile instanceof IManaPool))) {
-					entities.add((ISparkEntity) e);
-					added = true;
-				}
-			}
-
-			if(added) {
-				NBTTagCompound cmp_ = new NBTTagCompound();
-				cmp_.setInteger(TAG_TRANSFER_ID, id);
-				newTransfers.appendTag(cmp_);
-
-			}
+			if(!(spark != this && !spark.areIncomingTransfersDone() && atile != null && !atile.isFull() && (upgr == 0 && supgr == 2 || upgr == 3 && (supgr == 0 || supgr == 1) || !(atile instanceof IManaPool))))
+				removals.add((ISparkEntity) e);
 		}
+		
+		if(!removals.isEmpty())
+			transfers.removeAll(removals);
 
-		ItemStack stack = transferDataContainer.copy();
-		ItemNBTHelper.setList(stack, TAG_TRANSFERS, list);
-		setTransferDataContainer(stack);
-
-		return entities;
+		return transfers;
 	}
 
 	private boolean hasTransfer(ISparkEntity entity) {
-		ItemStack transferDataContainer = getTransferDataContainer();
-		NBTTagList list = ItemNBTHelper.getList(transferDataContainer, TAG_TRANSFERS, 10, false);
-		new NBTTagList();
-		int id = ((Entity) entity).getEntityId();
-
-		for(int i = 0; i < list.tagCount(); i++) {
-			NBTTagCompound cmp = list.getCompoundTagAt(i);
-			int tid = cmp.getInteger(TAG_TRANSFER_ID);
-			if(id == tid)
-				return true;
-		}
-		return false;
+		return transfers.contains(entity);
 	}
 
 	@Override
 	public void registerTransfer(ISparkEntity entity) {
-		if(worldObj.isRemote || hasTransfer(entity))
+		if(hasTransfer(entity))
 			return;
-
-		ItemStack transferDataContainer = getTransferDataContainer();
-		NBTTagList list = ItemNBTHelper.getList(transferDataContainer, TAG_TRANSFERS, 10, false);
-		NBTTagCompound cmp_ = new NBTTagCompound();
-		cmp_.setInteger(TAG_TRANSFER_ID, ((Entity) entity).getEntityId());
-		list.appendTag(cmp_);
-
-		ItemStack stack = transferDataContainer.copy();
-		ItemNBTHelper.setList(stack, TAG_TRANSFERS, list);
-		setTransferDataContainer(stack);
+		transfers.add(entity);
 	}
 
 	@Override
@@ -398,14 +355,6 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	@Override
 	public void setUpgrade(int upgrade) {
 		dataWatcher.updateObject(28, upgrade);
-	}
-
-	public ItemStack getTransferDataContainer() {
-		return dataWatcher.getWatchableObjectItemStack(29);
-	}
-
-	public void setTransferDataContainer(ItemStack stack) {
-		dataWatcher.updateObject(29, stack);
 	}
 
 	@Override
