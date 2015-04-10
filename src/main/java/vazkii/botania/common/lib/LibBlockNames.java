@@ -78,6 +78,7 @@ public final class LibBlockNames {
 	public static final String MUSHROOM = "mushroom";
 	public static final String PUMP = "pump";
 	public static final String DOUBLE_FLOWER = "doubleFlower";
+	public static final String STONE = "stone";
 
 	public static final String SUBTILE_PUREDAISY = "puredaisy";
 	public static final String SUBTILE_MANASTAR = "manastar";

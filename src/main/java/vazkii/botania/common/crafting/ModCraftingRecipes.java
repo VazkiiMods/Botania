@@ -247,6 +247,9 @@ public final class ModCraftingRecipes {
 	public static List<IRecipe> recipesPetalsDouble;
 	public static IRecipe recipeKeepIvy;
 	public static IRecipe recipeBlackHoleTalisman;
+	public static List<IRecipe> recipe18StonePolish;
+	public static List<IRecipe> recipe18StoneBrick;
+	public static List<IRecipe> recipe18StoneChisel;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1640,6 +1643,27 @@ public final class ModCraftingRecipes {
 				'A', LibOreDict.ENDER_AIR_BOTTLE);
 		recipeBlackHoleTalisman = BotaniaAPI.getLatestAddedRecipe();
 
+		// 1.8 Stone Recipes
+		recipe18StonePolish = new ArrayList();
+		recipe18StoneBrick = new ArrayList();
+		recipe18StoneChisel = new ArrayList();
+		for(int i = 0; i < 4; i++) {
+			addOreDictRecipe(new ItemStack(ModFluffBlocks.stone, 8, i + 4), 
+					"SSS", "S S", "SSS",
+					'S', new ItemStack(ModFluffBlocks.stone, 1, i));
+			recipe18StonePolish.add(BotaniaAPI.getLatestAddedRecipe());
+
+			addOreDictRecipe(new ItemStack(ModFluffBlocks.stone, 4, i + 8), 
+					"SS", "SS",
+					'S', new ItemStack(ModFluffBlocks.stone, 1, i));
+			recipe18StoneBrick.add(BotaniaAPI.getLatestAddedRecipe());
+			
+			addOreDictRecipe(new ItemStack(ModFluffBlocks.stone, 1, i + 12), 
+					"S", "S",
+					'S', new ItemStack(ModFluffBlocks.stoneSlabs[i + 4], 1, i));
+			recipe18StoneChisel.add(BotaniaAPI.getLatestAddedRecipe());
+		}
+
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",
@@ -1697,6 +1721,12 @@ public final class ModCraftingRecipes {
 			addStairsAndSlabs(ModFluffBlocks.biomeStoneA, i, ModFluffBlocks.biomeStoneStairs[i], ModFluffBlocks.biomeStoneSlabs[i]);
 			addStairsAndSlabs(ModFluffBlocks.biomeStoneA, i + 8, ModFluffBlocks.biomeStoneStairs[i + 8], ModFluffBlocks.biomeStoneSlabs[i + 8]);
 			addStairsAndSlabs(ModFluffBlocks.biomeStoneB, i, ModFluffBlocks.biomeStoneStairs[i + 16], ModFluffBlocks.biomeStoneSlabs[i + 16]);
+		}
+
+		// 1.8 Block Stone Stairs & Slabs
+		for(int i = 0; i < 4; i++) {
+			addStairsAndSlabs(ModFluffBlocks.stone, i, ModFluffBlocks.stoneStairs[i], ModFluffBlocks.stoneSlabs[i]);
+			addStairsAndSlabs(ModFluffBlocks.stone, i + 8, ModFluffBlocks.stoneStairs[i + 4], ModFluffBlocks.stoneSlabs[i + 4]);
 		}
 
 		// Misc Recipes

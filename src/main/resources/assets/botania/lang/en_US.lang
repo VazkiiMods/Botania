@@ -861,6 +861,38 @@ tile.botania:doubleFlower212.name=Tall Mystical Brown Flower
 tile.botania:doubleFlower213.name=Tall Mystical Green Flower
 tile.botania:doubleFlower214.name=Tall Mystical Red Flower
 tile.botania:doubleFlower215.name=Tall Mystical Black Flower
+tile.botania:stone0.name=Andesite
+tile.botania:stone1.name=Basalt
+tile.botania:stone2.name=Diorite
+tile.botania:stone3.name=Granite
+tile.botania:stone4.name=Polished Andesite
+tile.botania:stone5.name=Polished Basalt
+tile.botania:stone6.name=Polished Diorite
+tile.botania:stone7.name=Polished Granite
+tile.botania:stone8.name=Andesite Bricks
+tile.botania:stone9.name=Basalt Bricks
+tile.botania:stone10.name=Diorite Bricks
+tile.botania:stone11.name=Granite Bricks
+tile.botania:stone12.name=Chiseled Andesite Brick
+tile.botania:stone13.name=Chiseled Basalt Brick
+tile.botania:stone14.name=Chiseled Diorite Brick
+tile.botania:stone15.name=Chiseled Granite Brick
+tile.botania:stone0Stairs.name=Andesite Stairs
+tile.botania:stone1Stairs.name=Basalt Stairs
+tile.botania:stone2Stairs.name=Diorite Stairs
+tile.botania:stone3Stairs.name=Granite Stairs
+tile.botania:stone8Stairs.name=Andesite Brick Stairs
+tile.botania:stone9Stairs.name=Basalt Brick Stairs
+tile.botania:stone10Stairs.name=Diorite Brick Stairs
+tile.botania:stone11Stairs.name=Granite Brick Stairs
+tile.botania:stone0Slab.name=Andesite Slab
+tile.botania:stone1Slab.name=Basalt Slab
+tile.botania:stone2Slab.name=Diorite Slab
+tile.botania:stone3Slab.name=Granite Slab
+tile.botania:stone8Slab.name=Andesite Brick Slab
+tile.botania:stone9Slab.name=Basalt Brick Slab
+tile.botania:stone10Slab.name=Diorite Brick Slab
+tile.botania:stone11Slab.name=Granite Brick Slab
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
@@ -2590,6 +2622,14 @@ botania.page.mushrooms1=They don't make you bigger
 botania.entry.phantomInk=Phantom Ink
 botania.page.phantomInk0=Having your beautiful skin and acessories under a set of metal armor is nobody's dream. It's bulky, flat, and worst of all, not fashionable!<br>Luckilly, by tinging this horrendous armor with &1Phantom Ink&0 in a crafting grid, the armor will be completely invisible, while still providing all of its benefits. This will onlt work with armor sets that can use &4Mana&0.
 botania.page.phantomInk1=Who you gonna call?
+
+# -- STONE ALCHEMY
+botania.entry.stoneAlchemy=Stone Alchemy
+botania.page.stoneAlchemy0=Using an &1Alchemy Catalyst&0 proves to be a decently functional method of generating new types of &1Stone&0. Simple deal, tossing a piece of &1Stone&0 into the catalized pool will transform it into another in a cyle.<br>Similarly to &1Prismarine&0, some scholars admit that this technique came from the future. Stairs and slabs can be made from the rough and brick variants of these.
+botania.page.stoneAlchemy1=Creating the stones
+botania.page.stoneAlchemy2=Polish
+botania.page.stoneAlchemy3=Brickage
+botania.page.stoneAlchemy4=Chiseling
 
 # -- THAUMCRAFT INTEGRATION
 botania.entry.tcIntegration=Thaumcraft Integration
