@@ -16,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.item.ItemKeepIvy;
 import vazkii.botania.common.item.ItemRegenIvy;
 import vazkii.botania.common.item.ModItems;
 
@@ -30,7 +31,7 @@ public class RegenIvyRecipe implements IRecipe {
 			ItemStack stack = var1.getStackInSlot(i);
 			if(stack != null) {
 				Item item = stack.getItem();
-				if(item.isRepairable())
+				if(item.isRepairable() && !(ItemNBTHelper.detectNBT(stack) && ItemNBTHelper.getBoolean(stack, ItemRegenIvy.TAG_REGEN, false)))
 					tool = stack;
 
 				else if(item == ModItems.regenIvy)
