@@ -61,8 +61,8 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	private static final int COST = 35;
 
 	public static IIcon[] wingIcons;
-	private static final int SUBTYPES = 7;
-	private static final int WING_TYPES = 8;
+	private static final int SUBTYPES = 8;
+	private static final int WING_TYPES = 9;
 
 	public ItemFlightTiara() {
 		super(LibItemNames.FLIGHT_TIARA);
@@ -90,17 +90,18 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 		for(int i = 0; i < SUBTYPES + 1; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
-
+	
 	@Override
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+	public void addHiddenTooltip(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+		super.addHiddenTooltip(par1ItemStack, par2EntityPlayer, par3List, par4);
 		par3List.add(StatCollector.translateToLocal("botania.wings" + par1ItemStack.getItemDamage()));
 	}
 
 	@Override
 	public void onWornTick(ItemStack stack, EntityLivingBase player) {
 		super.onWornTick(stack, player);
-		if(stack.getItemDamage() != 8 && stack.getDisplayName().hashCode() == 0x7867EB0B) {
-			stack.setItemDamage(8);
+		if(stack.getItemDamage() != WING_TYPES && stack.getDisplayName().hashCode() == 0x7867EB0B) {
+			stack.setItemDamage(WING_TYPES);
 			stack.getTagCompound().removeTag("display");
 		}
 	}
@@ -137,7 +138,6 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 							case 3 : {
 								r = 0F;
 								g = 0.6F;
-								b = 1F;
 								break;
 							}
 							case 4 : {
@@ -164,6 +164,11 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 								break;
 							}
 							case 8 : {
+								b = 0.85F;
+								g = 0.1F;
+								break;
+							}
+							case 9 : {
 								r = 0F;
 								b = 0F;
 								break;
@@ -252,7 +257,11 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 					i = 0.3F;
 					break;
 				}
-				case 4 : { // Fire
+				case 4 : { // Phoenix
+					rz = 180F;
+					h = 0.5F;
+					rx = 20F;
+					ry = -(float) ((Math.sin((double) (event.entityPlayer.ticksExisted + event.partialRenderTick) * (flying ? 0.4F : 0.2F)) + 0.6F) * (flying ? 30F : 5F));
 					OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
 					break;
 				}
@@ -276,7 +285,11 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 					GL11.glColor4f(1F, 1F, 1F, 0.5F + (float) Math.cos((double) (event.entityPlayer.ticksExisted + event.partialRenderTick) * 0.3F) * 0.2F);
 					break;
 				}
-				case 8 : { // The One
+				case 8 : { // Mega Ultra Chicken
+					h = 0.1F;
+					break;
+				}
+				case 9 : { // The One
 					OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
 					rz = 180F;
 					rx = 0F;
