@@ -1,3 +1,46 @@
+r1.6 175
+*Added 1.8 stones (Andesite, Diorite, Granite and an extra, Basalt) as mana infusion recipes alongside with some variants and stairs/slabs.
+*Added a config option to disable Relics.
+*Added a config option to disable the fire resist for the Ring of Odin.
+*Added shiny golden flower renders to the heads of contributors.
+*Added Sunny Quartz, new yellow quartz made with Sunflowers. It has corresponding wings too.
+*Added the Bubbell, a new flower that makes underwater bubbles of air where you can build.
+*Added the Solegnolia, a flower that can disable the Ring of Magnetization's effect.
+*Added two awesome tracks of battle music by Kain Vinosec to the Gaia Guardian fight. You can also get these tracks in music disc form as a drop.
+*Brazier Petal Apotecaries now emit light.
+*Changed the Marimorphosis' biome dictionary tag for the Taiga stone from SNOWY to COLD so it works properly in Taiga biomes.
+*Changed the text in the Lexica Botania's landing page a bit.
+*Changed the url in the mcmod.info file from vazkii.us to botaniamod.net.
+*Corporea Sparks will now properly respect the ISidedInventory protocol and not pull items from slots that can't be extracted from the top.
+*Fixed a Stack Overflow crash when a player with a Cloak of Sin attacks or is attacked by a mob from Infernal Mobs with the Vengance attribute.
+*Fixed being able to add Timeless or Resolute Ivy to an item that already has it.
+*Fixed Books being able to go in the Mana Enchanter.
+*Fixed Corporea Sparks not behaving properly with JABBA Barrels and Storage Drawers (from the mod that name). They'll only see 64 of the item but will not destroy items any more like they used to.
+*Fixed Double Flowers sometimes dropping Tallgrass and other things like that when sheared.
+*Fixed Mana Spreaders not dropping their lens or sleeve when broken.
+*Fixed the Changelog and Website buttons in the auto-updater using the old website instead of the new one.
+*Fixed the Flugel Tiara's tooltip not having the "SHIFT for more info" that all the other baubles have.
+*Fixed the Lexicon's lookup feature picking up liquids and fake air blocks.
+*Fixed the Loonium not having a display when looked at with the Manaseer Monocle.
+*Fixed the Manasteel/Elementium Pick and Axe not removing the last item from the inventory but a ghost stack instead when their right click ability is used.
+*Fixed the Resolute Ivy being able to dupe items in the crafting grid.
+*Fixed the Ring of Odin displaying a fake player death animation when unequipped.
+*Having the <span class="censored">----</span> <span class="censored">--</span> <span class="censored">----</span> equipped increases the Terra Shatterer's level by 1.
+*Increased <span class="censored">---</span> <span class="censored">-----</span> <span>--</span> <span class="censored">-------</span>'s saturation output.
+*Increased Thermalily cooldown from 6 minutes to 7 minutes.
+*Made the <span class="censored">----</span> <span class="censored">--</span> <span class="censored">----</span>'s regen effect slower.
+*Optimized flower (and other botania tile entities) client load on syncing by not marking blocks for update and rather directly sending packets to nearby players.
+*Optimized spark network usage and processing. They should work a lot better, both fps and tps wise.
+*Replaced Flugel Tiara Firelord Wings with Phoenix Wings.
+*The Black Hole Talisman will no longer keep a stack of the specified block in the inventory, block placing is done through right clicking with it exclusively now. Putting the talisman in a crafting table will allow one to extract a stack of the block at once.
+*The Hardmode Gaia Guardian can now drop records.
+*The ingame downloader now downloads the file as a .jar.dl and renames it to a .jar when done to prevent loading of broken mods if any interruptions happen.
+*[API] Added a blacklist for the Loonium.
+*[API] Added canExtractItem check to CorporeaHelper.isValidSlot.
+*[API] Added VanillaPacketDispatcher to the internal namespace.
+*[API] Increased version number to 38.
+*[API] Replaced dumb stack size subtractor from CorporeaHelper in favor of a decrStackSize() call.
+*[API] SubTileEntity.sync() now calls the method from VanillaPacketDispatcher rather then using markBlockForUpdate().
 r1.6 174
 *Added an achievement button to the lexicon main page.
 *Agricarnations will only fertilize blocks that can normally be grown with bone meal.
