@@ -120,7 +120,7 @@ public class GuiLexicon extends GuiScreen {
 				int y = i / 4;
 
 				int size = 27;
-				GuiButtonCategory button = new GuiButtonCategory(i, left + 18 + x * size, top + 35 + y * size, this, category);
+				GuiButtonCategory button = new GuiButtonCategory(i, left + 18 + x * size, top + 37 + y * size, this, category);
 				buttonList.add(button);
 			}
 		}
@@ -225,10 +225,16 @@ public class GuiLexicon extends GuiScreen {
 	}
 
 	void drawHeader() {
+		GL11.glPushMatrix();
+		float s = 1.5F;
+		GL11.glScalef(s, s, s);
 		boolean unicode = fontRendererObj.getUnicodeFlag();
 		fontRendererObj.setUnicodeFlag(true);
-		fontRendererObj.drawSplitString(String.format(StatCollector.translateToLocal("botania.gui.lexicon.header"), ItemLexicon.getEdition()), left + 18, top + 12, 110, 0);
+		fontRendererObj.drawString(title, (int) ((left + 18) / s), (int) ((top + 10) / s), 0);
+		GL11.glScalef(1F / s, 1F / s, 1F / s);
+		fontRendererObj.drawString(String.format(StatCollector.translateToLocal("botaniamisc.edition"), ItemLexicon.getEdition()), left + 24, top + 23, 0);
 		fontRendererObj.setUnicodeFlag(unicode);
+		GL11.glPopMatrix();
 	}
 
 	boolean isMainPage() {
