@@ -16,20 +16,24 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.ChestGenHooks;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.subtile.RadiusDescriptor;
+import vazkii.botania.api.subtile.RadiusDescriptor.Square;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileLoonuim extends SubTileFunctional {
 
 	private static final int COST = 35000;
-
+	private static final int RANGE = 3;
+	
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
 		if(redstoneSignal == 0 && ticksExisted % 200 == 0 && mana >= COST) {
 			Random rand = supertile.getWorldObj().rand;
 			ItemStack stack = ChestGenHooks.getOneItem(ChestGenHooks.DUNGEON_CHEST, rand);
-			EntityItem entity = new EntityItem(supertile.getWorldObj(), supertile.xCoord - 3 + rand.nextInt(7) , supertile.yCoord + 1, supertile.zCoord - 3 + rand.nextInt(7), stack);
+			int bound = RANGE * 2 + 1;
+			EntityItem entity = new EntityItem(supertile.getWorldObj(), supertile.xCoord - RANGE + rand.nextInt(bound) , supertile.yCoord + 1, supertile.zCoord - RANGE + rand.nextInt(bound), stack);
 			entity.motionX = 0;
 			entity.motionY = 0;
 			entity.motionZ = 0;
@@ -60,6 +64,11 @@ public class SubTileLoonuim extends SubTileFunctional {
 	@Override
 	public boolean acceptsRedstone() {
 		return true;
+	}
+	
+	@Override
+	public RadiusDescriptor getRadius() {
+		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
 	}
 
 }
