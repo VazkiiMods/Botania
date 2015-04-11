@@ -18,6 +18,7 @@ No project is done with only one member, Botania is no exception, here's the cas
 <li><b>Futureazoo</b> for the Terra Shatterer texture and the alternate textures in the Unity texture pack style that are available in the config.<br></li>
 <li><b>Gelbooru</b> (nsfw) for the cute catgirls in the downloads page.<br></li>
 <li><b>Haighyorkie</b> for being a goldfish and always being supportive with making videos to show off the mod.<br></li>
+<li><b>Kain Vinosec</b> for the music, from <i>The Nothing Battles</i> used in the Gaia Guardian fight.<br></li>
 <li><b>Le_Alchemist</b> for providing many hours of shameless fun.<br></li>
 <li><b>Lorc</b> of <a href="http://game-icons.net/">game-icons.net</a> for the icons used in the main lexicon page.<br></li>
 <li><b>MCPBot</b> for always being there for my obfuscation woes.<br></li>
