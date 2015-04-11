@@ -15,6 +15,7 @@ import java.util.Random;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.ChestGenHooks;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.RadiusDescriptor.Square;
@@ -31,7 +32,12 @@ public class SubTileLoonuim extends SubTileFunctional {
 		super.onUpdate();
 		if(redstoneSignal == 0 && ticksExisted % 200 == 0 && mana >= COST) {
 			Random rand = supertile.getWorldObj().rand;
-			ItemStack stack = ChestGenHooks.getOneItem(ChestGenHooks.DUNGEON_CHEST, rand);
+			
+			ItemStack stack;
+			do {
+				stack = ChestGenHooks.getOneItem(ChestGenHooks.DUNGEON_CHEST, rand);
+			} while(stack == null || BotaniaAPI.looniumBlacklist.contains(stack.getItem()));
+			
 			int bound = RANGE * 2 + 1;
 			EntityItem entity = new EntityItem(supertile.getWorldObj(), supertile.xCoord - RANGE + rand.nextInt(bound) , supertile.yCoord + 1, supertile.zCoord - RANGE + rand.nextInt(bound), stack);
 			entity.motionX = 0;

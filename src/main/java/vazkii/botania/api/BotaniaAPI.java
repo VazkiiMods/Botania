@@ -72,8 +72,8 @@ public final class BotaniaAPI {
 	public static Set<String> subtilesForCreativeMenu = new LinkedHashSet();
 
 	public static Map<String, Integer> oreWeights = new HashMap<String, Integer>();
-
 	public static Map<Item, Block> seeds = new HashMap();
+	public static Set<Item> looniumBlacklist = new LinkedHashSet();
 
 	public static ArmorMaterial manasteelArmorMaterial = EnumHelper.addArmorMaterial("MANASTEEL", 16, new int[] { 2, 6, 5, 2 }, 18);
 	public static ToolMaterial manasteelToolMaterial = EnumHelper.addToolMaterial("MANASTEEL", 3, 300, 6.2F, 2F, 20);
@@ -405,6 +405,13 @@ public final class BotaniaAPI {
 		seeds.put(item, block);
 	}
 
+	/**
+	 * Blacklists an item from the Loonium drop table.
+	 */
+	public static void blackListItemFromLoonium(Item item) {
+		looniumBlacklist.add(item);
+	}
+	
 	/**
 	 * Gets the last recipe to have been added to the recipe list.
 	 */
