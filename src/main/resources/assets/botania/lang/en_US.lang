@@ -2186,7 +2186,7 @@ botania.page.overgrowthSeed0=An &1Overgrowth Seed&0 is an elusive item, which ca
 
 # -- LIVINGWOOD BOW
 botania.entry.livingwoodBow=Livingwood Bow
-botania.page.livingwoodBow0=The &1Livingwood Bow&0 is, as the name describes, a bow made of &1Livingwood&0 strung with &1Mana Infused String&0. Due to its componenets, it will last for longer than a normal &1Bow&0, it'll also repair itself using &4Mana&0, similarly to &1Manasteel Tools&0.
+botania.page.livingwoodBow0=The &1Livingwood Bow&0 is, as the name describes, a bow made of &1Livingwood&0 strung with &1Mana Infused String&0. Due to its componenets, it will last for longer than a normal &1Bow&0. It'll also repair itself using &4Mana&0, similarly to &1Manasteel Tools&0.
 botania.page.livingwoodBow1=Does it shoot airplanes?
 
 # -- CRYSTAL BOW
