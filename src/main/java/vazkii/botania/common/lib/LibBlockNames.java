@@ -128,5 +128,6 @@ public final class LibBlockNames {
 	public static final String QUARTZ_LAVENDER = "Lavender";
 	public static final String QUARTZ_RED = "Red";
 	public static final String QUARTZ_ELF = "Elf";
+	public static final String QUARTZ_SUNNY = "Sunny";
 
 }

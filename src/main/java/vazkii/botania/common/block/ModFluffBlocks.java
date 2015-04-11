@@ -133,7 +133,11 @@ public final class ModFluffBlocks {
 	public static Block elfQuartzSlab;
 	public static Block elfQuartzSlabFull;
 	public static Block elfQuartzStairs;
-
+	public static Block sunnyQuartz;
+	public static Block sunnyQuartzSlab;
+	public static Block sunnyQuartzSlabFull;
+	public static Block sunnyQuartzStairs;
+	
 	public static Block dirtPathSlab;
 	public static Block dirtPathSlabFull;
 
@@ -234,7 +238,11 @@ public final class ModFluffBlocks {
 		elfQuartzSlab = new BlockSpecialQuartzSlab(elfQuartz, false);
 		elfQuartzSlabFull = new BlockSpecialQuartzSlab(elfQuartz, true);
 		elfQuartzStairs = new BlockSpecialQuartzStairs(elfQuartz);
-
+		sunnyQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_SUNNY);
+		sunnyQuartzSlab = new BlockSpecialQuartzSlab(sunnyQuartz, false);
+		sunnyQuartzSlabFull = new BlockSpecialQuartzSlab(sunnyQuartz, true);
+		sunnyQuartzStairs = new BlockSpecialQuartzStairs(sunnyQuartz);
+		
 		dirtPathSlab = new BlockDirtPathSlab(false);
 		dirtPathSlabFull = new BlockDirtPathSlab(true);
 
@@ -271,7 +279,9 @@ public final class ModFluffBlocks {
 		((BlockModSlab) redQuartzSlabFull).register();
 		((BlockModSlab) elfQuartzSlab).register();
 		((BlockModSlab) elfQuartzSlabFull).register();
-
+		((BlockModSlab) sunnyQuartzSlab).register();
+		((BlockModSlab) sunnyQuartzSlabFull).register();
+		
 		((BlockModSlab) livingwoodSlab).register();
 		((BlockModSlab) livingwoodSlabFull).register();
 		((BlockModSlab) livingwoodPlankSlab).register();

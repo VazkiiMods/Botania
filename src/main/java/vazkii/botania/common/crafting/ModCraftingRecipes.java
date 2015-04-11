@@ -129,6 +129,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeBlazeQuartz;
 	public static List<IRecipe> recipesLavenderQuartz;
 	public static IRecipe recipeRedQuartz;
+	public static IRecipe recipeSunnyQuartz;
 	public static IRecipe recipeAlfPortal;
 	public static IRecipe recipeNaturaPylon;
 	public static IRecipe recipeWaterRod;
@@ -829,6 +830,8 @@ public final class ModCraftingRecipes {
 		recipeRedQuartz = addQuartzRecipes(4, Items.redstone, ModFluffBlocks.redQuartz, ModFluffBlocks.redQuartzStairs, ModFluffBlocks.redQuartzSlab);
 		addQuartzRecipes(5, null, ModFluffBlocks.elfQuartz, ModFluffBlocks.elfQuartzStairs, ModFluffBlocks.elfQuartzSlab);
 
+		recipeSunnyQuartz = addQuartzRecipes(6, Item.getItemFromBlock(Blocks.double_plant), ModFluffBlocks.sunnyQuartz, ModFluffBlocks.sunnyQuartzStairs, ModFluffBlocks.sunnyQuartzSlab);
+		
 		// Alfheim Portal Recipe
 		addOreDictRecipe(new ItemStack(ModBlocks.alfPortal),
 				"WWW", "WTW", "WWW",
@@ -1275,9 +1278,9 @@ public final class ModCraftingRecipes {
 
 		// Wing Recipes
 		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.flightTiara, 1, 1), new ItemStack(ModItems.flightTiara, 1, Short.MAX_VALUE), new ItemStack(Items.quartz));
-		for(int i = 0; i < 6; i++)
+		for(int i = 0; i < 7; i++)
 			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.flightTiara, 1, 2 + i), new ItemStack(ModItems.flightTiara, 1, Short.MAX_VALUE), new ItemStack(ModItems.quartz, 1, i));
-		recipesWings = BotaniaAPI.getLatestAddedRecipes(7);
+		recipesWings = BotaniaAPI.getLatestAddedRecipes(8);
 
 		// Mana Fluxfield Recipe
 		if(ConfigHandler.fluxfieldEnabled) {

@@ -313,7 +313,10 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModFluffBlocks.elfQuartz);
 		addBlock(ModFluffBlocks.elfQuartzSlab);
 		addBlock(ModFluffBlocks.elfQuartzStairs);
-
+		addBlock(ModFluffBlocks.sunnyQuartz);
+		addBlock(ModFluffBlocks.sunnyQuartzSlab);
+		addBlock(ModFluffBlocks.sunnyQuartzStairs);
+		
 		addBlock(ModFluffBlocks.stone);
 		for(int i= 0; i < 8; i++)
 			addBlock(ModFluffBlocks.stoneStairs[i]);

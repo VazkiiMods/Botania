@@ -54,6 +54,8 @@ public class BlockSpecialQuartzSlab extends BlockModSlab {
 			return (BlockSlab) ModFluffBlocks.redQuartzSlabFull;
 		if(source == ModFluffBlocks.elfQuartz)
 			return (BlockSlab) ModFluffBlocks.elfQuartzSlabFull;
+		if(source == ModFluffBlocks.sunnyQuartz)
+			return (BlockSlab) ModFluffBlocks.sunnyQuartzSlabFull;
 
 		return this;
 	}
@@ -72,6 +74,8 @@ public class BlockSpecialQuartzSlab extends BlockModSlab {
 			return (BlockSlab) ModFluffBlocks.redQuartzSlab;
 		if(source == ModFluffBlocks.elfQuartz)
 			return (BlockSlab) ModFluffBlocks.elfQuartzSlab;
+		if(source == ModFluffBlocks.sunnyQuartz)
+			return (BlockSlab) ModFluffBlocks.sunnyQuartzSlab;
 
 		return this;
 	}
