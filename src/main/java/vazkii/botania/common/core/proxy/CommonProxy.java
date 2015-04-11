@@ -178,7 +178,7 @@ public class CommonProxy {
 	public boolean openWikiPage(World world, Block block, MovingObjectPosition pos) {
 		return false;
 	}
-	
+
 	public void playRecordClientSided(World world, int x, int y, int z, ItemRecord record) {
 		// NO-OP
 	}

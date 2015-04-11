@@ -457,10 +457,10 @@ public final class LexiconData {
 
 		bubbell = new ALexiconEntry(LibLexicon.FFLOWER_BUBBELL, categoryFunctionalFlowers);
 		bubbell.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.bubbellRecipe));
-		
+
 		solegnolia = new BLexiconEntry(LibLexicon.FFLOWER_SOLEGNOLIA, categoryFunctionalFlowers);
 		solegnolia.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.solegnoliaRecipe));
-		
+
 		// GENERATING FLOWERS ENTRIES
 		generatingIntro = new BLexiconEntry(LibLexicon.GFLOWER_INTRO, categoryGenerationFlowers);
 		generatingIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"));
@@ -828,7 +828,7 @@ public final class LexiconData {
 
 		if(ConfigHandler.relicsEnabled) {
 			relics = new ALexiconEntry(LibLexicon.ALF_RELICS, categoryAlfhomancy);
-			relics.setLexiconPages(new PageText("0")).setIcon(new ItemStack(ModItems.dice));	
+			relics.setLexiconPages(new PageText("0")).setIcon(new ItemStack(ModItems.dice));
 		}
 
 		// MISCLENAEOUS ENTRIES
@@ -878,7 +878,7 @@ public final class LexiconData {
 
 		stoneAlchemy = new BLexiconEntry(LibLexicon.MISC_STONE_ALCHEMY, categoryMisc);
 		stoneAlchemy.setLexiconPages(new PageText("0"), new PageManaInfusionRecipe("1", ModManaAlchemyRecipes.stoneRecipes), new PageCraftingRecipe("2", ModCraftingRecipes.recipe18StonePolish), new PageCraftingRecipe("3", ModCraftingRecipes.recipe18StoneBrick), new PageCraftingRecipe("4", ModCraftingRecipes.recipe18StoneChisel));
-		
+
 		if(Botania.bcTriggersLoaded) {
 			bcIntegration = new BLexiconEntry(LibLexicon.MISC_BC_INTEGRATION, categoryMisc);
 			bcIntegration.setLexiconPages(new PageText("0")).setIcon(new ItemStack(Items.redstone));

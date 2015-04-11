@@ -366,7 +366,7 @@ public final class ModItems {
 		blackHoleTalisman = new ItemBlackHoleTalisman();
 		recordGaia1 = new ItemRecordGaia1();
 		recordGaia2 = new ItemRecordGaia2();
-		
+
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));

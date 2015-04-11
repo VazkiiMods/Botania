@@ -12,12 +12,11 @@ package vazkii.botania.api.internal;
 
 import java.util.List;
 
-import vazkii.botania.common.core.helper.MathHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
+import vazkii.botania.common.core.helper.MathHelper;
 
 public final class VanillaPacketDispatcher {
 
@@ -28,11 +27,11 @@ public final class VanillaPacketDispatcher {
 			if(MathHelper.pointDistancePlane(player.posX, player.posZ, tile.xCoord + 0.5, tile.zCoord + 0.5) < 64 && player instanceof EntityPlayerMP)
 				((EntityPlayerMP) player).playerNetServerHandler.sendPacket(tile.getDescriptionPacket());
 	}
-	
+
 	public static void dispatchTEToNearbyPlayers(World world, int x, int y, int z) {
 		TileEntity tile = world.getTileEntity(x, y, z);
 		if(tile != null)
 			dispatchTEToNearbyPlayers(tile);
 	}
-	
+
 }

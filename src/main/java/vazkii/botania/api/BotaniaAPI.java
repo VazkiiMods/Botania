@@ -411,7 +411,7 @@ public final class BotaniaAPI {
 	public static void blackListItemFromLoonium(Item item) {
 		looniumBlacklist.add(item);
 	}
-	
+
 	/**
 	 * Gets the last recipe to have been added to the recipe list.
 	 */

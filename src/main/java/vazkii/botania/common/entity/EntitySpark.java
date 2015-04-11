@@ -45,7 +45,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	private static final String TAG_UPGRADE = "upgrade";
 
 	Set<ISparkEntity> transfers = Collections.newSetFromMap(new WeakHashMap());
-	
+
 	int removeTransferants = 2;
 	boolean firstTick = false;
 
@@ -318,18 +318,18 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	@Override
 	public Collection<ISparkEntity> getTransfers() {
 		Collection<ISparkEntity> removals = new ArrayList();
-		NBTTagList newTransfers = new NBTTagList();
+		new NBTTagList();
 
 		for(ISparkEntity e : transfers) {
-			ISparkEntity spark = (ISparkEntity) e;
+			ISparkEntity spark = e;
 			int upgr = getUpgrade();
 			int supgr = spark.getUpgrade();
 			ISparkAttachable atile = spark.getAttachedTile();
 
 			if(!(spark != this && !spark.areIncomingTransfersDone() && atile != null && !atile.isFull() && (upgr == 0 && supgr == 2 || upgr == 3 && (supgr == 0 || supgr == 1) || !(atile instanceof IManaPool))))
-				removals.add((ISparkEntity) e);
+				removals.add(e);
 		}
-		
+
 		if(!removals.isEmpty())
 			transfers.removeAll(removals);
 

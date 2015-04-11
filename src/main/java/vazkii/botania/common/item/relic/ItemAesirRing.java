@@ -11,7 +11,6 @@
 package vazkii.botania.common.item.relic;
 
 import java.util.List;
-import java.util.UUID;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;

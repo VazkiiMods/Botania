@@ -281,7 +281,7 @@ public final class ModBlocks {
 		doubleFlower1 = new BlockModDoubleFlower(false);
 		doubleFlower2 = new BlockModDoubleFlower(true);
 		fakeAir = new BlockFakeAir();
-		
+
 		ModFluffBlocks.init();
 
 		for(int i = 0; i < 16; i++)

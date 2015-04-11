@@ -172,7 +172,7 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 	public boolean doesContainerItemLeaveCraftingGrid(ItemStack p_77630_1_) {
 		return false;
 	}
-	
+
 	public static UUID getBaubleUUID(ItemStack stack) {
 		long most = ItemNBTHelper.getLong(stack, TAG_BAUBLE_UUID_MOST, 0);
 		if(most == 0) {
@@ -181,7 +181,7 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 			ItemNBTHelper.setLong(stack, TAG_BAUBLE_UUID_LEAST, uuid.getLeastSignificantBits());
 			return getBaubleUUID(stack);
 		}
-		
+
 		long least = ItemNBTHelper.getLong(stack, TAG_BAUBLE_UUID_LEAST, 0);
 		return new UUID(most, least);
 	}

@@ -31,7 +31,6 @@ import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
 import vazkii.botania.common.crafting.recipe.BlackHoleTalismanExtractRecipe;
 import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -50,11 +49,11 @@ public class ItemBlackHoleTalisman extends ItemMod {
 		setUnlocalizedName(LibItemNames.BLACK_HOLE_TALISMAN);
 		setMaxStackSize(1);
 		setHasSubtypes(true);
-		
+
 		GameRegistry.addRecipe(new BlackHoleTalismanExtractRecipe());
 		RecipeSorter.register("botania:blackHoleTalismanExtract", BlackHoleTalismanExtractRecipe.class, Category.SHAPELESS, "");
 	}
-	
+
 	@Override
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
 		if(getBlock(par1ItemStack) != Blocks.air && par3EntityPlayer.isSneaking()) {
@@ -124,14 +123,12 @@ public class ItemBlackHoleTalisman extends ItemMod {
 			int meta = getBlockMeta(itemstack);
 
 			int highest = -1;
-			boolean hasFreeSlot = false;
 			int[] counts = new int[player.inventory.getSizeInventory() - player.inventory.armorInventory.length];
 			Arrays.fill(counts, 0);
 
 			for(int i = 0; i < counts.length; i++) {
 				ItemStack stack = player.inventory.getStackInSlot(i);
 				if(stack == null) {
-					hasFreeSlot = true;
 					continue;
 				}
 
@@ -174,29 +171,29 @@ public class ItemBlackHoleTalisman extends ItemMod {
 			}
 		}
 	}
-	
+
 	@Override
 	public ItemStack getContainerItem(ItemStack itemStack) {
 		int count = getBlockCount(itemStack);
 		if(count == 0)
 			return null;
-		
+
 		int extract = Math.min(64, count);
 		ItemStack copy = itemStack.copy();
 		remove(copy, extract);
-		
+
 		int dmg = copy.getItemDamage();
 		if(dmg == 1)
 			copy.setItemDamage(0);
-			
+
 		return copy;
 	}
-	
+
 	@Override
 	public boolean hasContainerItem(ItemStack stack) {
 		return getContainerItem(stack) != null;
 	}
-	
+
 	@Override
 	public boolean doesContainerItemLeaveCraftingGrid(ItemStack p_77630_1_) {
 		return false;

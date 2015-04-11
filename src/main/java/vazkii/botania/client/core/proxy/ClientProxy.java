@@ -26,7 +26,6 @@ import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings.GameType;
 import net.minecraftforge.client.MinecraftForgeClient;
@@ -263,7 +262,7 @@ public class ClientProxy extends CommonProxy {
 	public boolean isTheClientPlayer(EntityLivingBase entity) {
 		return entity == Minecraft.getMinecraft().thePlayer;
 	}
-	
+
 	@Override
 	public boolean isClientPlayerWearingMonocle() {
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
@@ -320,7 +319,7 @@ public class ClientProxy extends CommonProxy {
 			mc.ingameGUI.setRecordPlayingMessage(record.getRecordNameLocal());
 		}
 	}
-	
+
 	@Override
 	public long getWorldElapsedTicks() {
 		return ClientTickHandler.ticksInGame;

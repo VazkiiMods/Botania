@@ -16,14 +16,13 @@ import java.util.WeakHashMap;
 
 import net.minecraft.entity.Entity;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.RadiusDescriptor.Circle;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.core.helper.MathHelper;
 
 public class SubTileSolegnolia extends SubTileFunctional {
 
 	private static final int RANGE = 5;
-	
+
 	public static Set<SubTileSolegnolia> existingFlowers = Collections.newSetFromMap(new WeakHashMap());
 	private static boolean registered = false;
 
@@ -36,41 +35,41 @@ public class SubTileSolegnolia extends SubTileFunctional {
 			if(!registered)
 				registered = true;
 		}
-		
+
 		if(ticksExisted % 10 == 0 && mana > 0)
 			mana--;
 	}
-	
+
 	@Override
 	public boolean acceptsRedstone() {
 		return true;
 	}
-	
+
 	public static boolean hasSolegnoliaAround(Entity e) {
 		for(SubTileSolegnolia flower : existingFlowers) {
 			if(flower.mana == 0 || flower.redstoneSignal > 0 || flower.supertile.getWorldObj() != e.worldObj || flower.supertile.getWorldObj().getTileEntity(flower.supertile.xCoord, flower.supertile.yCoord, flower.supertile.zCoord) != flower.supertile)
 				continue;
-			
+
 			if(MathHelper.pointDistanceSpace(e.posX, e.posY, e.posZ, flower.supertile.xCoord + 0.5, flower.supertile.yCoord + 0.5, flower.supertile.zCoord + 0.5) <= RANGE)
 				return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	@Override
 	public int getMaxMana() {
 		return 20;
 	}
-	
+
 	@Override
 	public int getColor() {
 		return 0xC99C4D;
 	}
-	
+
 	@Override
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Circle(toChunkCoordinates(), RANGE);
 	}
-	
+
 }

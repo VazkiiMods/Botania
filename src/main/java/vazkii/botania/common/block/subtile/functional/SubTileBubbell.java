@@ -18,7 +18,6 @@ import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.ISubTileContainer;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.RadiusDescriptor.Circle;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileFakeAir;
@@ -91,7 +90,7 @@ public class SubTileBubbell extends SubTileFunctional {
 	public int getColor() {
 		return 0x0DCF89;
 	}
-	
+
 	@Override
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Circle(toChunkCoordinates(), RANGE);
@@ -101,5 +100,5 @@ public class SubTileBubbell extends SubTileFunctional {
 	public LexiconEntry getEntry() {
 		return LexiconData.bubbell;
 	}
-	
+
 }

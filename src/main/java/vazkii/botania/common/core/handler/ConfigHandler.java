@@ -171,10 +171,10 @@ public final class ConfigHandler {
 
 		desc = "Set this to false to disable the Relic System. This only disables the entries, drops and achievements. Old ones that are already in the world will stay.";
 		relicsEnabled = loadPropBool("relics.enabled", desc, relicsEnabled);
-		
+
 		desc = "Set this to false to make the Ring of Odin not apply fire resistance. Mostly for people who use Witchery transformations.";
 		ringOfOdinFireResist = loadPropBool("ringOfOdin.fireResist", desc, ringOfOdinFireResist);
-		
+
 		desc = "The quantity of Botania flower patches to generate in the world, defaults to 2, the lower the number the less patches generate.";
 		flowerQuantity = loadPropInt("worldgen.flower.quantity", desc, flowerQuantity);
 

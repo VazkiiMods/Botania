@@ -137,7 +137,7 @@ public final class ModFluffBlocks {
 	public static Block sunnyQuartzSlab;
 	public static Block sunnyQuartzSlabFull;
 	public static Block sunnyQuartzStairs;
-	
+
 	public static Block dirtPathSlab;
 	public static Block dirtPathSlabFull;
 
@@ -152,7 +152,7 @@ public final class ModFluffBlocks {
 	public static Block[] stoneStairs = new Block[8];
 	public static Block[] stoneSlabs = new Block[8];
 	public static Block[] stoneFullSlabs = new Block[8];
-	
+
 	public static Block endStoneSlab;
 	public static Block endStoneSlabFull;
 	public static Block endStoneStairs;
@@ -210,7 +210,7 @@ public final class ModFluffBlocks {
 		biomeStoneA = new BlockBiomeStoneA();
 		biomeStoneB = new BlockBiomeStoneB();
 		stone = new Block18Stone();
-		
+
 		if(ConfigHandler.darkQuartzEnabled) {
 			darkQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_DARK);
 			darkQuartzSlab = new BlockSpecialQuartzSlab(darkQuartz, false);
@@ -242,7 +242,7 @@ public final class ModFluffBlocks {
 		sunnyQuartzSlab = new BlockSpecialQuartzSlab(sunnyQuartz, false);
 		sunnyQuartzSlabFull = new BlockSpecialQuartzSlab(sunnyQuartz, true);
 		sunnyQuartzStairs = new BlockSpecialQuartzStairs(sunnyQuartz);
-		
+
 		dirtPathSlab = new BlockDirtPathSlab(false);
 		dirtPathSlabFull = new BlockDirtPathSlab(true);
 
@@ -253,7 +253,7 @@ public final class ModFluffBlocks {
 			biomeStoneSlabs[i] = new BlockBiomeStoneSlab(false, block, meta, i);
 			biomeStoneFullSlabs[i] = new BlockBiomeStoneSlab(true, block, meta, i);
 		}
-		
+
 		for(int i = 0; i < 8; i++) {
 			int meta = i > 3 ? i + 4 : i;
 			stoneStairs[i] = new Block18StoneStairs(meta);
@@ -281,7 +281,7 @@ public final class ModFluffBlocks {
 		((BlockModSlab) elfQuartzSlabFull).register();
 		((BlockModSlab) sunnyQuartzSlab).register();
 		((BlockModSlab) sunnyQuartzSlabFull).register();
-		
+
 		((BlockModSlab) livingwoodSlab).register();
 		((BlockModSlab) livingwoodSlabFull).register();
 		((BlockModSlab) livingwoodPlankSlab).register();
@@ -326,7 +326,7 @@ public final class ModFluffBlocks {
 			((BlockModSlab) biomeStoneSlabs[i]).register();
 			((BlockModSlab) biomeStoneFullSlabs[i]).register();
 		}
-		
+
 		for(int i = 0; i < 8; i++) {
 			((BlockModSlab) stoneSlabs[i]).register();
 			((BlockModSlab) stoneFullSlabs[i]).register();

@@ -52,7 +52,7 @@ public class BlackHoleTalismanExtractRecipe implements IRecipe {
 			int meta = ItemBlackHoleTalisman.getBlockMeta(talisman);
 			return new ItemStack(block, Math.min(64, count), meta);
 		}
-		
+
 		return null;
 	}
 

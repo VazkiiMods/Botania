@@ -114,7 +114,7 @@ public final class ModAchievements {
 			relicLokiRing = new AchievementMod(LibAchievementNames.RELIC_LOKI_RING, -5, 6, ModItems.lokiRing, null);
 			relicAesirRing = new AchievementMod(LibAchievementNames.RELIC_AESIR_RING, -7, 5, ModItems.aesirRing, null).setSpecial();
 		}
-		
+
 		ItemStack desu = new ItemStack(ModItems.manaGun);
 		desu.setStackDisplayName("desu gun");
 		desuGun = new AchievementMod(LibAchievementNames.DESU_GUN, -8, -2, desu, null).setSpecial();

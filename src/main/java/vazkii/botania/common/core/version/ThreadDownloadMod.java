@@ -80,13 +80,13 @@ public class ThreadDownloadMod extends Thread {
 			File f1 = new File(dir, fileName);
 			if(!f1.exists())
 				f.renameTo(f1);
-			
+
 			if(Minecraft.getMinecraft().thePlayer != null)
 				Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentTranslation("botania.versioning.doneDownloading", fileName).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.GREEN)));
 
 			Desktop.getDesktop().open(dir);
 			VersionChecker.downloadedFile = true;
-			
+
 			finalize();
 		} catch(Throwable e) {
 			e.printStackTrace();

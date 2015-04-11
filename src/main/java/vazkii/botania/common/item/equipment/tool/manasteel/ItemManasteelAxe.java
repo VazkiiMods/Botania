@@ -92,7 +92,7 @@ public class ItemManasteelAxe extends ItemAxe implements IManaUsingItem, ISortab
 				boolean did = stackAt.getItem().onItemUse(stackAt, player, world, x, y, z, s, sx, sy, sz);
 				if(stackAt.stackSize == 0)
 					player.inventory.setInventorySlotContents(i, null);
-				
+
 				ItemsRemainingRenderHandler.set(player, new ItemStack(Blocks.sapling), SAPLING_PATTERN);
 				return did;
 			}

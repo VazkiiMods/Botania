@@ -831,7 +831,7 @@ public final class ModCraftingRecipes {
 		addQuartzRecipes(5, null, ModFluffBlocks.elfQuartz, ModFluffBlocks.elfQuartzStairs, ModFluffBlocks.elfQuartzSlab);
 
 		recipeSunnyQuartz = addQuartzRecipes(6, Item.getItemFromBlock(Blocks.double_plant), ModFluffBlocks.sunnyQuartz, ModFluffBlocks.sunnyQuartzStairs, ModFluffBlocks.sunnyQuartzSlab);
-		
+
 		// Alfheim Portal Recipe
 		addOreDictRecipe(new ItemStack(ModBlocks.alfPortal),
 				"WWW", "WTW", "WWW",
@@ -1651,17 +1651,17 @@ public final class ModCraftingRecipes {
 		recipe18StoneBrick = new ArrayList();
 		recipe18StoneChisel = new ArrayList();
 		for(int i = 0; i < 4; i++) {
-			addOreDictRecipe(new ItemStack(ModFluffBlocks.stone, 8, i + 4), 
+			addOreDictRecipe(new ItemStack(ModFluffBlocks.stone, 8, i + 4),
 					"SSS", "S S", "SSS",
 					'S', new ItemStack(ModFluffBlocks.stone, 1, i));
 			recipe18StonePolish.add(BotaniaAPI.getLatestAddedRecipe());
 
-			addOreDictRecipe(new ItemStack(ModFluffBlocks.stone, 4, i + 8), 
+			addOreDictRecipe(new ItemStack(ModFluffBlocks.stone, 4, i + 8),
 					"SS", "SS",
 					'S', new ItemStack(ModFluffBlocks.stone, 1, i));
 			recipe18StoneBrick.add(BotaniaAPI.getLatestAddedRecipe());
-			
-			addOreDictRecipe(new ItemStack(ModFluffBlocks.stone, 1, i + 12), 
+
+			addOreDictRecipe(new ItemStack(ModFluffBlocks.stone, 1, i + 12),
 					"S", "S",
 					'S', new ItemStack(ModFluffBlocks.stoneSlabs[i + 4], 1, i));
 			recipe18StoneChisel.add(BotaniaAPI.getLatestAddedRecipe());

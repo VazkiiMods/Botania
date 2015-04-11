@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.block.decor.slabs;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -39,10 +38,10 @@ public class Block18StoneSlab extends BlockLivingSlab {
 	public BlockSlab getSingleBlock() {
 		return (BlockSlab) ModFluffBlocks.stoneSlabs[index];
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.stoneAlchemy;
 	}
-	
+
 }

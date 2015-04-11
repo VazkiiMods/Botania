@@ -69,7 +69,7 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 			tile.collideEntityItem((EntityItem) par5Entity);
 		}
 	}
-	
+
 	@Override
 	public int getLightValue(IBlockAccess world, int x, int y, int z) {
 		TileAltar tile = (TileAltar) world.getTileEntity(x, y, z);

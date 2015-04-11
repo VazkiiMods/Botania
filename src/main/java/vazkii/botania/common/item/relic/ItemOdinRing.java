@@ -12,7 +12,6 @@ package vazkii.botania.common.item.relic;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -26,7 +25,6 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
-import baubles.common.Config;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
 
@@ -44,7 +42,7 @@ public class ItemOdinRing extends ItemRelicBauble {
 	public ItemOdinRing() {
 		super(LibItemNames.ODIN_RING);
 		MinecraftForge.EVENT_BUS.register(this);
-		
+
 		damageNegations.add(DamageSource.drown.damageType);
 		damageNegations.add(DamageSource.fall.damageType);
 		damageNegations.add(DamageSource.lava.damageType);

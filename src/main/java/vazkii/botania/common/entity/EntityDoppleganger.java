@@ -282,11 +282,11 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 				setTPDelay(4);
 				spawnPixies = isAggored();
 			}
-			
+
 			setAggroed(true);
 		}
 	}
-	
+
 	@Override
 	public void onDeath(DamageSource p_70645_1_) {
 		super.onDeath(p_70645_1_);
@@ -296,7 +296,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			if(!anyWithArmor)
 				((EntityPlayer) entitylivingbase).addStat(ModAchievements.gaiaGuardianNoArmor, 1);
 		}
-		
+
 		worldObj.playSoundAtEntity(this, "random.explode", 20F, (1F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
 		worldObj.spawnParticle("hugeexplosion", posX, posY, posZ, 1D, 0D, 0D);
 	}
@@ -320,7 +320,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			boolean hard = isHardMode();
 			entityDropItem(new ItemStack(ModItems.manaResource, hard ? 16 : 8, 5), 1F);
 			boolean droppedRecord = false;
-			
+
 			if(hard) {
 				entityDropItem(new ItemStack(ModItems.ancientWill, 1, rand.nextInt(6)), 1F);
 				if(ConfigHandler.relicsEnabled)
@@ -345,12 +345,12 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 				if(Math.random() < 0.3) {
 					int i = Item.getIdFromItem(Items.record_13);
 					int j = Item.getIdFromItem(Items.record_wait);
-					int k = i + this.rand.nextInt(j - i + 1);
+					int k = i + rand.nextInt(j - i + 1);
 					entityDropItem(new ItemStack(Item.getItemById(k)), 1F);
 					droppedRecord = true;
 				}
 			}
-			
+
 			if(!droppedRecord && Math.random() < 0.2)
 				entityDropItem(new ItemStack(hard ? ModItems.recordGaia2 : ModItems.recordGaia1), 1F);
 		}

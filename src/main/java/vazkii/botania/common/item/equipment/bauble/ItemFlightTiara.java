@@ -90,7 +90,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 		for(int i = 0; i < SUBTYPES + 1; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
-	
+
 	@Override
 	public void addHiddenTooltip(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
 		super.addHiddenTooltip(par1ItemStack, par2EntityPlayer, par3List, par4);

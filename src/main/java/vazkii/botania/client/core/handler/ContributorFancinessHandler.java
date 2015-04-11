@@ -16,20 +16,19 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.client.event.RenderPlayerEvent;
+
+import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IBaubleRender.Helper;
 import vazkii.botania.api.subtile.signature.SubTileSignature;
 import vazkii.botania.client.core.helper.ShaderHelper;
-import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.version.VersionChecker;
 import vazkii.botania.common.item.ModItems;
@@ -41,28 +40,28 @@ public final class ContributorFancinessHandler {
 
 	private volatile static Map<String, IIcon> flowerMap = null;
 	private static boolean startedLoading = false;
-	
+
 	public static void render(RenderPlayerEvent.Specials event) {
 		if(!startedLoading) {
 			new ThreadContributorListLoader();
 			startedLoading = true;
 		}
-		
+
 		String name = event.entityPlayer.getDisplayName();
-		
+
 		if(name.equals("Vazkii"))
 			renderFancyExclusiveDevStuffBecauseImAnEvilDevWhoDoesntCareAboutTheCommunityBooo(event);
-		
+
 		name = name.toLowerCase();
 		if(flowerMap != null && flowerMap.containsKey(name))
 			renderFlower(event, flowerMap.get(name));
 	}
-	
+
 	public static void load(Properties props) {
 		flowerMap = new HashMap();
 		for(String key : props.stringPropertyNames()) {
 			String value = props.getProperty(key);
-			
+
 			try {
 				int i = Integer.parseInt(value);
 				if(i < 0 || i >= 16)
@@ -75,7 +74,7 @@ public final class ContributorFancinessHandler {
 			}
 		}
 	}
-	
+
 
 	private static void renderFancyExclusiveDevStuffBecauseImAnEvilDevWhoDoesntCareAboutTheCommunityBooo(RenderPlayerEvent event) {
 		GL11.glPushMatrix();
@@ -106,7 +105,7 @@ public final class ContributorFancinessHandler {
 		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
 		GL11.glPopMatrix();
 	}
-	
+
 	private static void renderFlower(RenderPlayerEvent event, IIcon icon) {
 		GL11.glPushMatrix();
 		Helper.translateToHeadLevel(event.entityPlayer);
@@ -125,7 +124,7 @@ public final class ContributorFancinessHandler {
 		ShaderHelper.releaseShader();
 		GL11.glPopMatrix();
 	}
-	
+
 	public static class ThreadContributorListLoader extends Thread {
 
 		public ThreadContributorListLoader() {

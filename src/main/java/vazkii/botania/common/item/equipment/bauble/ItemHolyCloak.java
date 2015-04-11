@@ -61,7 +61,7 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 			if(belt != null && belt.getItem() instanceof ItemHolyCloak && !isInEffect(belt)) {
 				ItemHolyCloak cloak = (ItemHolyCloak) belt.getItem();
 				int cooldown = getCooldown(belt);
-				
+
 				// Used to prevent StackOverflows with mobs that deal damage when damaged
 				setInEffect(belt, true);
 				if(cooldown == 0 && cloak.effectOnDamage(event, player, belt))
@@ -111,11 +111,11 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 	public static void setCooldown(ItemStack stack, int cooldown) {
 		ItemNBTHelper.setInt(stack, TAG_COOLDOWN, cooldown);
 	}
-	
+
 	public static boolean isInEffect(ItemStack stack) {
 		return ItemNBTHelper.getBoolean(stack, TAG_IN_EFFECT, false);
 	}
-	
+
 	public static void setInEffect(ItemStack stack, boolean effect) {
 		ItemNBTHelper.setBoolean(stack, TAG_IN_EFFECT, effect);
 	}
