@@ -351,7 +351,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 				}
 			}
 			
-			if(!droppedRecord && Math.random() < 0.20)
+			if(!droppedRecord && Math.random() < 0.2)
 				entityDropItem(new ItemStack(hard ? ModItems.recordGaia2 : ModItems.recordGaia1), 1F);
 		}
 	}
