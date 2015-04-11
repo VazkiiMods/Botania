@@ -186,9 +186,7 @@ public final class CorporeaHelper {
 					lastRequestMatches += stackAt.stackSize;
 					lastRequestExtractions += rem;
 					if(doit && rem > 0) {
-						stackAt.stackSize -= rem;
-						if(stackAt.stackSize == 0)
-							inv.setInventorySlotContents(i, null);
+						inv.decrStackSize(i, rem);
 						if(invSpark != null)
 							invSpark.onItemExtracted(stackAt);
 					}
