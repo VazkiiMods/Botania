@@ -82,6 +82,7 @@ public final class LibLexicon {
 	public static final String FFLOWER_SPECTRANTHEMUN = "spectranthemum";
 	public static final String FFLOWER_MEDUMONE = "medumone";
 	public static final String FFLOWER_MARIMORPHOSIS = "marimorphosis";
+	public static final String FFLOWER_BUBBELL = "bubbell";
 
 	public static final String GFLOWER_INTRO = "gIntro";
 	public static final String GFLOWER_DAYBLOOM = "daybloom";

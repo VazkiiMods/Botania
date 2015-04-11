@@ -15,11 +15,15 @@ import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.ISubTileContainer;
+import vazkii.botania.api.subtile.RadiusDescriptor;
+import vazkii.botania.api.subtile.RadiusDescriptor.Circle;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileFakeAir;
 import vazkii.botania.common.core.helper.MathHelper;
+import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileBubbell extends SubTileFunctional {
 
@@ -28,7 +32,6 @@ public class SubTileBubbell extends SubTileFunctional {
 	private static final String TAG_RANGE = "range";
 
 	int range = 2;
-	boolean hadMana = false;
 
 	@Override
 	public void onUpdate() {
@@ -36,7 +39,6 @@ public class SubTileBubbell extends SubTileFunctional {
 
 		if(mana > COST_PER_TICK) {
 			mana -= COST_PER_TICK;
-			hadMana = true;
 
 			if(ticksExisted % 10 == 0 && range < RANGE)
 				range++;
@@ -52,18 +54,6 @@ public class SubTileBubbell extends SubTileFunctional {
 								air.setFlower(supertile);
 							}
 						}
-		} else { 
-			if(hadMana) {
-				for(int i = -range; i < range + 1; i++)
-					for(int j = -range; j < range + 1; j++)
-						for(int k = -range; k < range + 1; k++)
-							if(MathHelper.pointDistanceSpace(i, j, k, 0, 0, 0) < range && supertile.getWorldObj().getBlock(supertile.xCoord + i, supertile.yCoord + j, supertile.zCoord + k) == ModBlocks.fakeAir) {
-								supertile.getWorldObj().setBlock(supertile.xCoord + i, supertile.yCoord + j, supertile.zCoord + k, Blocks.water);
-								break;
-							}
-			}
-
-			hadMana = false;
 		}
 	}
 
@@ -101,5 +91,15 @@ public class SubTileBubbell extends SubTileFunctional {
 	public int getColor() {
 		return 0x0DCF89;
 	}
+	
+	@Override
+	public RadiusDescriptor getRadius() {
+		return new RadiusDescriptor.Circle(toChunkCoordinates(), RANGE);
+	}
 
+	@Override
+	public LexiconEntry getEntry() {
+		return LexiconData.bubbell;
+	}
+	
 }

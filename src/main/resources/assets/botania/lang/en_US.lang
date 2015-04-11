@@ -1720,6 +1720,11 @@ botania.page.marimorphosis0=The &1Marimorphosis&0 is a flower that executes meta
 botania.page.marimorphosis1=The various flavours of &1Metamorphic Stone&0
 botania.page.marimorphosis2=&oThis flower is pretty gneiss&r.
 
+# -- BUBBELL
+botania.entry.bubbell=Bubbell
+botania.page.bubbell0=Building underwater is a no small task. Clearing air under the sea is incredibly troublesome and time consuming. Placing down a &1Bubbell&0 underwater and providing it with &4Mana&0 (preferably a priori) will have it start to create a dome of air which will keep water at bay. The dome has about twelve blocks of radius. &4Mana&0 is required constantly to keep it up and going.
+botania.page.bubbell1=&oLike some casual game&r.
+
 # - GENERATING FLOWERS
 # -- AN INTRODUCTION TO GENERATION
 botania.entry.gIntro=An Introduction to Generation
