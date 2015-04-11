@@ -979,6 +979,8 @@ tile.botania:flower.marimorphosis.name=Marimorphosis
 tile.botania:flower.marimorphosis.reference=Solid as a rock
 tile.botania:flower.bubbell.name=Bubbell
 tile.botania:flower.bubbell.reference=And whistle
+tile.botania:flower.solegnolia.name=Solegnolia
+tile.botania:flower.solegnolia.reference=WIP 
 
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania

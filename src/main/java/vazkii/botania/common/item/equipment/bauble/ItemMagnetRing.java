@@ -26,6 +26,7 @@ import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
@@ -107,7 +108,7 @@ public class ItemMagnetRing extends ItemBauble {
 	}
 
 	private boolean canPullItem(EntityItem item) {
-		if(item.isDead)
+		if(item.isDead || SubTileSolegnolia.hasSolegnoliaAround(item))
 			return false;
 
 		ItemStack stack = item.getEntityItem();

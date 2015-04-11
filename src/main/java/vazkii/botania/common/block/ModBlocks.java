@@ -85,6 +85,7 @@ import vazkii.botania.common.block.subtile.functional.SubTileMarimorphosis;
 import vazkii.botania.common.block.subtile.functional.SubTileMedumone;
 import vazkii.botania.common.block.subtile.functional.SubTilePollidisiac;
 import vazkii.botania.common.block.subtile.functional.SubTileRannuncarpus;
+import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
 import vazkii.botania.common.block.subtile.functional.SubTileSpectranthemum;
 import vazkii.botania.common.block.subtile.functional.SubTileTangleberrie;
 import vazkii.botania.common.block.subtile.functional.SubTileTigerseye;
@@ -396,6 +397,7 @@ public final class ModBlocks {
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MEDUMONE, SubTileMedumone.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MARIMORPHOSIS, SubTileMarimorphosis.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_BUBBELL, SubTileBubbell.class);
+		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_SOLEGNOLIA, SubTileSolegnolia.class);
 	}
 
 	private static void registerTile(Class<? extends TileEntity> clazz, String key) {
