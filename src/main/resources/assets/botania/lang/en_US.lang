@@ -980,7 +980,7 @@ tile.botania:flower.marimorphosis.reference=Solid as a rock
 tile.botania:flower.bubbell.name=Bubbell
 tile.botania:flower.bubbell.reference=And whistle
 tile.botania:flower.solegnolia.name=Solegnolia
-tile.botania:flower.solegnolia.reference=WIP 
+tile.botania:flower.solegnolia.reference=All your magnets are belong to us
 
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania
@@ -1728,6 +1728,11 @@ botania.entry.bubbell=Bubbell
 botania.page.bubbell0=Building underwater is a no small task. Clearing air under the sea is incredibly troublesome and time consuming. Placing down a &1Bubbell&0 underwater and providing it with &4Mana&0 (preferably a priori) will have it start to create a dome of air which will keep water at bay. The dome has about twelve blocks of radius. &4Mana&0 is required constantly to keep it up and going.
 botania.page.bubbell1=&oLike some casual game&r.
 
+# -- SOLEGNOLIA
+botania.entry.solegnolia=Solegnolia
+botania.page.solegnolia0=The &1Ring of Magnetization&0 is a rather handy tool for anyone digging or collecting. It does, however, fall into the problem that it picks up unwanted items near complex systems.<br>The &1Solegnolia&0 disrupts the ring and prevents any items around it from being pulled towards a wearer of one. It uses up a small bit of &4Mana&0 for this, but nothing considerate.
+botania.page.solegnolia1=On/Off
+
 # - GENERATING FLOWERS
 # -- AN INTRODUCTION TO GENERATION
 botania.entry.gIntro=An Introduction to Generation
@@ -2405,7 +2410,7 @@ botania.page.miningRing1=Diggy diggy hole
 
 # -- RING OF MAGNETIZATION
 botania.entry.magnetRing=Ring of Magnetization
-botania.page.magnetRing0=By turning a &1Magnetizing Lens&0 into a wearable ring, one can use it to magnetize nearby items. While equipped, this ring will make any nearby items magnetize towards the wearer if they're not sneaking.<br>A notable feature of this piece is that it'll negate its effect for 5 seconds after the wearer tosses an item so as to not interfere with whatever means it was tossed for.
+botania.page.magnetRing0=By turning a &1Magnetizing Lens&0 into a wearable ring, one can use it to magnetize nearby items. While equipped, this ring will make any nearby items magnetize towards the wearer if they're not sneaking. A notable feature of this piece is that it'll negate its effect for 5 seconds after the wearer tosses an item so as to not interfere with whatever means it was tossed for. A &1Solegnolia&0 can disrupt this ring's functionality.
 botania.page.magnetRing1=How do they work?
 
 # -- RING OF FAR REACH

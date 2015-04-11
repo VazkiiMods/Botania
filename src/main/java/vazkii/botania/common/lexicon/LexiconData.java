@@ -111,6 +111,7 @@ public final class LexiconData {
 	public static LexiconEntry medumone;
 	public static LexiconEntry marimorphosis;
 	public static LexiconEntry bubbell;
+	public static LexiconEntry solegnolia;
 
 	public static LexiconEntry generatingIntro;
 	public static LexiconEntry daybloom;
@@ -456,6 +457,9 @@ public final class LexiconData {
 
 		bubbell = new ALexiconEntry(LibLexicon.FFLOWER_BUBBELL, categoryFunctionalFlowers);
 		bubbell.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.bubbellRecipe));
+		
+		solegnolia = new BLexiconEntry(LibLexicon.FFLOWER_SOLEGNOLIA, categoryFunctionalFlowers);
+		solegnolia.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.solegnoliaRecipe));
 		
 		// GENERATING FLOWERS ENTRIES
 		generatingIntro = new BLexiconEntry(LibLexicon.GFLOWER_INTRO, categoryGenerationFlowers);

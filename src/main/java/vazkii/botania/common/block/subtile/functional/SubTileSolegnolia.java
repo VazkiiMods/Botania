@@ -41,9 +41,14 @@ public class SubTileSolegnolia extends SubTileFunctional {
 			mana--;
 	}
 	
+	@Override
+	public boolean acceptsRedstone() {
+		return true;
+	}
+	
 	public static boolean hasSolegnoliaAround(Entity e) {
 		for(SubTileSolegnolia flower : existingFlowers) {
-			if(flower.mana == 0 || flower.supertile.getWorldObj() != e.worldObj || flower.supertile.getWorldObj().getTileEntity(flower.supertile.xCoord, flower.supertile.yCoord, flower.supertile.zCoord) != flower.supertile)
+			if(flower.mana == 0 || flower.redstoneSignal > 0 || flower.supertile.getWorldObj() != e.worldObj || flower.supertile.getWorldObj().getTileEntity(flower.supertile.xCoord, flower.supertile.yCoord, flower.supertile.zCoord) != flower.supertile)
 				continue;
 			
 			if(MathHelper.pointDistanceSpace(e.posX, e.posY, e.posZ, flower.supertile.xCoord + 0.5, flower.supertile.yCoord + 0.5, flower.supertile.zCoord + 0.5) <= RANGE)

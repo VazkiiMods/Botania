@@ -69,6 +69,7 @@ public final class ModPetalRecipes {
 	public static RecipePetals medumoneRecipe;
 	public static RecipePetals marimorphosisRecipe;
 	public static RecipePetals bubbellRecipe;
+	public static RecipePetals solegnoliaRecipe;
 
 	public static void init() {
 		pureDaisyRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_PUREDAISY), white, white, white, white);
@@ -111,6 +112,7 @@ public final class ModPetalRecipes {
 		medumoneRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_MEDUMONE), brown, brown, brownMana, gray, grayMana, runeEarth, redstoneRoot);
 		marimorphosisRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_MARIMORPHOSIS), grayMana, yellow, green, lime, lightBlue, red, runeEarth, runeFire, redstoneRoot);
 		bubbellRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_BUBBELL), cyanMana, cyan, blue, lightBlue, lightBlueMana, runeWater, runeSummer, pixieDust);
+		solegnoliaRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_SOLEGNOLIA), brown, red, brownMana, red, blue, redstoneRoot);
 		
 		ItemStack stack = new ItemStack(Items.skull, 1, 3);
 		ItemNBTHelper.setString(stack, "SkullOwner", "Vazkii");
