@@ -26,7 +26,7 @@ r1.6 175
 *Fixed the Resolute Ivy being able to dupe items in the crafting grid.
 *Fixed the Ring of Odin displaying a fake player death animation when unequipped.
 *Having the <span class="censored">----</span> <span class="censored">--</span> <span class="censored">----</span> equipped increases the Terra Shatterer's level by 1.
-*Increased <span class="censored">---</span> <span class="censored">-----</span> <span>--</span> <span class="censored">-------</span>'s saturation output.
+*Increased <span class="censored">---</span> <span class="censored">-----</span> <span class="censored">--</span> <span class="censored">-------</span>'s saturation output.
 *Increased Thermalily cooldown from 6 minutes to 7 minutes.
 *Made the <span class="censored">----</span> <span class="censored">--</span> <span class="censored">----</span>'s regen effect slower.
 *Optimized flower (and other botania tile entities) client load on syncing by not marking blocks for update and rather directly sending packets to nearby players.
