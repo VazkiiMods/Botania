@@ -246,6 +246,7 @@ fallenKanade.enabled=Enable Fallen Kanade
 manaEnchanter.enabled=Enable Mana Enchanter
 manaFluxfield.enabled=Enable Mana Fluxfield
 relics.enabled=Enable Relics
+ringOfOdin.fireResist=Enable Ring of Odin Fire Resist
 flower.forceCheck=Flower Force Checking
 enderPickpocket.enabled=Enable Ender Pickpocketting
 thermalily.obsidian=Thermalily Needs Obsidian

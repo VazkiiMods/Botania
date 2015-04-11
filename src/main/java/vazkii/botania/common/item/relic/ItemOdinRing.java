@@ -22,9 +22,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
+import baubles.common.Config;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
 
@@ -37,21 +39,22 @@ public class ItemOdinRing extends ItemRelicBauble {
 
 	public static List<String> damageNegations = new ArrayList();
 
-	static {
-		damageNegations.add(DamageSource.drown.damageType);
-		damageNegations.add(DamageSource.fall.damageType);
-		damageNegations.add(DamageSource.lava.damageType);
-		damageNegations.add(DamageSource.inFire.damageType);
-		damageNegations.add(DamageSource.onFire.damageType);
-		damageNegations.add(DamageSource.inWall.damageType);
-		damageNegations.add(DamageSource.starve.damageType);
-	}
-
 	Multimap<String, AttributeModifier> attributes = HashMultimap.create();
 
 	public ItemOdinRing() {
 		super(LibItemNames.ODIN_RING);
 		MinecraftForge.EVENT_BUS.register(this);
+		
+		damageNegations.add(DamageSource.drown.damageType);
+		damageNegations.add(DamageSource.fall.damageType);
+		damageNegations.add(DamageSource.lava.damageType);
+		if(ConfigHandler.ringOfOdinFireResist) {
+			damageNegations.add(DamageSource.inFire.damageType);
+			damageNegations.add(DamageSource.onFire.damageType);
+		}
+
+		damageNegations.add(DamageSource.inWall.damageType);
+		damageNegations.add(DamageSource.starve.damageType);
 	}
 
 	@Override
