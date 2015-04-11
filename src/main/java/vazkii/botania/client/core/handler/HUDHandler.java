@@ -13,6 +13,7 @@ package vazkii.botania.client.core.handler;
 import java.awt.Color;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockLiquid;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
@@ -282,13 +283,15 @@ public final class HUDHandler {
 
 		if(!draw && pos.entityHit == null) {
 			profiler.startSection("wikiLookup");
-			IWikiProvider provider = WikiHooks.getWikiFor(block);
-			String url = provider.getWikiURL(mc.theWorld, pos);
-			if(url != null && !url.isEmpty()) {
-				String name = provider.getBlockName(mc.theWorld, pos);
-				String wikiName = provider.getWikiName(mc.theWorld, pos);
-				drawStr = name + " @ " + EnumChatFormatting.AQUA + wikiName;
-				draw = true;
+			if(!block.isAir(mc.theWorld, pos.blockX, pos.blockY, pos.blockZ) && !(block instanceof BlockLiquid)) {
+				IWikiProvider provider = WikiHooks.getWikiFor(block);
+				String url = provider.getWikiURL(mc.theWorld, pos);
+				if(url != null && !url.isEmpty()) {
+					String name = provider.getBlockName(mc.theWorld, pos);
+					String wikiName = provider.getWikiName(mc.theWorld, pos);
+					drawStr = name + " @ " + EnumChatFormatting.AQUA + wikiName;
+					draw = true;
+				}
 			}
 			profiler.endSection();
 		}
