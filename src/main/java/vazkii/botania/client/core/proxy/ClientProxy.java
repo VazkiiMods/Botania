@@ -22,9 +22,11 @@ import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings.GameType;
 import net.minecraftforge.client.MinecraftForgeClient;
@@ -261,7 +263,7 @@ public class ClientProxy extends CommonProxy {
 	public boolean isTheClientPlayer(EntityLivingBase entity) {
 		return entity == Minecraft.getMinecraft().thePlayer;
 	}
-
+	
 	@Override
 	public boolean isClientPlayerWearingMonocle() {
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
@@ -308,6 +310,17 @@ public class ClientProxy extends CommonProxy {
 		return false;
 	}
 
+	@Override
+	public void playRecordClientSided(World world, int x, int y, int z, ItemRecord record) {
+		Minecraft mc = Minecraft.getMinecraft();
+		if(record == null)
+			world.playAuxSFXAtEntity(null, 1005, x, y, z, 0);
+		else {
+			world.playAuxSFXAtEntity(null, 1005, x, y, z, Item.getIdFromItem(record));
+			mc.ingameGUI.setRecordPlayingMessage(record.getRecordNameLocal());
+		}
+	}
+	
 	@Override
 	public long getWorldElapsedTicks() {
 		return ClientTickHandler.ticksInGame;

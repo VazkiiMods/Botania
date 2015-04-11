@@ -1291,6 +1291,8 @@ item.botania:aesirRing.name=Ring of the Aesir
 item.botania:dice.name=Dice of Fate
 item.botania:keepIvy.name=Resolute Ivy
 item.botania:blackHoleTalisman.name=Black Hole Talisman
+item.botania:recordGaia1.name=Scathed Music Disc
+item.botania:recordGaia2.name=Scathed Music Disc
 
 # BREW NAMES
 botania.brew.fallback=Fallback
@@ -1325,6 +1327,10 @@ botania.potion.allure=Allure
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania, %s Edition Table of Contents
 botania.gui.lexicon.wip=(This entry is a Work In Progress. It's not even its final form)
+
+# MUSIC DISCS
+item.record.botania:gaia1.desc=Kain Vinosec - Endure Emptiness
+item.record.botania:gaia2.desc=Kain Vinosec - Fight For Quiescence
 
 # LEXICON CATEGORIES
 botania.category.basics=Basics and Mechanics

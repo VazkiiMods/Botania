@@ -31,6 +31,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
@@ -95,6 +96,8 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	boolean spawnLandmines = false;
 	boolean spawnPixies = false;
 	boolean anyWithArmor = false;
+
+	private static boolean isPlayingMusic = false;
 
 	public EntityDoppleganger(World par1World) {
 		super(par1World);
@@ -279,11 +282,11 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 				setTPDelay(4);
 				spawnPixies = isAggored();
 			}
-
+			
 			setAggroed(true);
 		}
 	}
-
+	
 	@Override
 	public void onDeath(DamageSource p_70645_1_) {
 		super.onDeath(p_70645_1_);
@@ -293,6 +296,9 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			if(!anyWithArmor)
 				((EntityPlayer) entitylivingbase).addStat(ModAchievements.gaiaGuardianNoArmor, 1);
 		}
+		
+		worldObj.playSoundAtEntity(this, "random.explode", 20F, (1F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
+		worldObj.spawnParticle("hugeexplosion", posX, posY, posZ, 1D, 0D, 0D);
 	}
 
 	@Override
@@ -313,7 +319,8 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		if(par1) {
 			boolean hard = isHardMode();
 			entityDropItem(new ItemStack(ModItems.manaResource, hard ? 16 : 8, 5), 1F);
-
+			boolean droppedRecord = false;
+			
 			if(hard) {
 				entityDropItem(new ItemStack(ModItems.ancientWill, 1, rand.nextInt(6)), 1F);
 				if(ConfigHandler.relicsEnabled)
@@ -336,13 +343,25 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 				if(Math.random() < 0.2)
 					entityDropItem(new ItemStack(ModItems.pinkinator), 1F);
 				if(Math.random() < 0.3) {
-		            int i = Item.getIdFromItem(Items.record_13);
-		            int j = Item.getIdFromItem(Items.record_wait);
-		            int k = i + this.rand.nextInt(j - i + 1);
-		            entityDropItem(new ItemStack(Item.getItemById(k)), 1F);
+					int i = Item.getIdFromItem(Items.record_13);
+					int j = Item.getIdFromItem(Items.record_wait);
+					int k = i + this.rand.nextInt(j - i + 1);
+					entityDropItem(new ItemStack(Item.getItemById(k)), 1F);
+					droppedRecord = true;
 				}
 			}
+			
+			if(!droppedRecord && Math.random() < 0.20)
+				entityDropItem(new ItemStack(hard ? ModItems.recordGaia2 : ModItems.recordGaia1), 1F);
 		}
+	}
+
+	@Override
+	public void setDead() {
+		ChunkCoordinates source = getSource();
+		Botania.proxy.playRecordClientSided(worldObj, source.posX, source.posY, source.posZ, null);
+		isPlayingMusic = false;
+		super.setDead();
 	}
 
 	@Override
@@ -354,6 +373,11 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 		ChunkCoordinates source = getSource();
 		boolean hard = isHardMode();
+
+		if(worldObj.isRemote && !isPlayingMusic && !isDead) {
+			Botania.proxy.playRecordClientSided(worldObj, source.posX, source.posY, source.posZ, (ItemRecord) (hard ? ModItems.recordGaia2 : ModItems.recordGaia1));
+			isPlayingMusic = true;
+		}
 
 		float range = 32F;
 		List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(source.posX + 0.5 - range, source.posY + 0.5 - range, source.posZ + 0.5 - range, source.posX + 0.5 + range, source.posY + 0.5 + range, source.posZ + 0.5 + range));

@@ -49,7 +49,7 @@ public class EntityMagicLandmine extends Entity {
 			Botania.proxy.wispFX(worldObj, posX - range + Math.random() * range * 2, posY, posZ - range + Math.random() * range * 2, r, g, b, 0.4F, -0.015F, 1);
 
 		if(ticksExisted >= 55) {
-			worldObj.playSoundEffect(posX, posY, posZ, "botania:gaiaTrap", 0.6F, 1F);
+			worldObj.playSoundEffect(posX, posY, posZ, "botania:gaiaTrap", 0.3F, 1F);
 
 			float m = 0.35F;
 			g = 0.4F;

@@ -31,5 +31,8 @@
     "terrasteelCraft": { "category": "block", "sounds":["terrasteelCraft"] },
     "thermalily": { "category": "block", "sounds":["thermalily"] },
 	"unholyCloak": { "category": "player", "sounds":["unholyCloak"] },
-	"way": { "category": "master", "sounds":["way"] }
+	"way": { "category": "master", "sounds":["way"] },
+	
+	"music.gaia1": { "category": "record", "sounds":[{"name": "music/EndureEmptiness", "stream": true}] },
+	"music.gaia2": { "category": "record", "sounds":[{"name": "music/FightForQuiescence", "stream": true}] }
 }

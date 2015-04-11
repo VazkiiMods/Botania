@@ -13,6 +13,7 @@ package vazkii.botania.common.core.proxy;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.MovingObjectPosition;
@@ -176,6 +177,10 @@ public class CommonProxy {
 
 	public boolean openWikiPage(World world, Block block, MovingObjectPosition pos) {
 		return false;
+	}
+	
+	public void playRecordClientSided(World world, int x, int y, int z, ItemRecord record) {
+		// NO-OP
 	}
 
 	public long getWorldElapsedTicks() {

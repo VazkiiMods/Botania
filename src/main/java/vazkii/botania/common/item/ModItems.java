@@ -82,6 +82,8 @@ import vazkii.botania.common.item.material.ItemPestleAndMortar;
 import vazkii.botania.common.item.material.ItemPetal;
 import vazkii.botania.common.item.material.ItemQuartz;
 import vazkii.botania.common.item.material.ItemRune;
+import vazkii.botania.common.item.record.ItemRecordGaia1;
+import vazkii.botania.common.item.record.ItemRecordGaia2;
 import vazkii.botania.common.item.relic.ItemAesirRing;
 import vazkii.botania.common.item.relic.ItemDice;
 import vazkii.botania.common.item.relic.ItemExcaliber;
@@ -232,6 +234,8 @@ public final class ModItems {
 	public static Item dice;
 	public static Item keepIvy;
 	public static Item blackHoleTalisman;
+	public static Item recordGaia1;
+	public static Item recordGaia2;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -360,7 +364,9 @@ public final class ModItems {
 		dice = new ItemDice();
 		keepIvy = new ItemKeepIvy();
 		blackHoleTalisman = new ItemBlackHoleTalisman();
-
+		recordGaia1 = new ItemRecordGaia1();
+		recordGaia2 = new ItemRecordGaia2();
+		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));
