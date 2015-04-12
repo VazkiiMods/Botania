@@ -1,3 +1,14 @@
+r1.6 176
+*Added some code to atempt to fix chunkloading conundrums with the Mana Spreader. This might fix the bug where a bunch of bursts pile up in one position when there's a chunkloader there. I can't tell for sure.
+*Fixed Mana Spreaders dropping wool every time when broken.
+*Hydroangeas now detect when they have an infinite water source and don't remove the water or cause block updates in that case. Better performance!
+*Mana Pool packet load when receiving bursts is now throttled to one packet per 10 ticks. Previously it would send a packet per burst.
+*Mana Spreaders no longer send packets when they receive bursts. That wasn't needed since it doesn't have a visual change.
+*Right clicking with a water bottle on a water block in the end will no longer create a bottle of ender air.
+*Tweaked the packet dispatcher to maybe work with GalacticCraft when some other mod that changes stuff is loaded. Don't ask me if it works or not because I have no clue. There was a weird crash somewhere in there.
+*[API] Added IThrottledPacket.
+*[API] Removed generic type from the world.playerEntities list in VanillaPacketDispatcher with hopes to please some mod's dumb ASM nonsense.
+*[API] Increased version number to 39.
 r1.6 175
 *Added 1.8 stones (Andesite, Diorite, Granite and an extra, Basalt) as mana infusion recipes alongside with some variants and stairs/slabs.
 *Added a config option to disable Relics.
