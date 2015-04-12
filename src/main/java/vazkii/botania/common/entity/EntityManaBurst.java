@@ -804,6 +804,8 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		public final ChunkCoordinates coords;
 		public final Block block;
 		public final int meta;
+		
+		public boolean invalid = false;
 
 		public PositionProperties(Entity entity) {
 			int x = MathHelper.floor_double(entity.posX);
@@ -819,6 +821,11 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		}
 
 		public boolean contentsEqual(World world) {
+			if(!world.blockExists(coords.posX, coords.posY, coords.posZ)) {
+				invalid = true;
+				return false;
+			}
+			
 			Block block = world.getBlock(coords.posX , coords.posY, coords.posZ);
 			int meta = world.getBlockMetadata(coords.posX, coords.posY, coords.posZ);
 			return block == this.block && meta == this.meta;

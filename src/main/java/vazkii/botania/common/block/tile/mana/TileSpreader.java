@@ -120,6 +120,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	public int burstParticleTick = 0;
 
 	List<PositionProperties> lastTentativeBurst;
+	boolean invalidTentativeBurst = false;
 
 	@Override
 	public boolean isFull() {
@@ -323,14 +324,16 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			return true;
 
 		for(PositionProperties props : lastTentativeBurst)
-			if(!props.contentsEqual(worldObj))
-				return true;
+			if(!props.contentsEqual(worldObj)) {
+				invalidTentativeBurst = props.invalid;
+				return !invalidTentativeBurst;
+			}
 
 		return false;
 	}
 
 	public void tryShootBurst() {
-		if(receiver != null || isRedstone()) {
+		if((receiver != null || isRedstone()) && !invalidTentativeBurst) {
 			if(canShootBurst && (isRedstone() || receiver.canRecieveManaFromBursts() && !receiver.isFull())) {
 				EntityManaBurst burst = getBurst(false);
 				if(burst != null) {
