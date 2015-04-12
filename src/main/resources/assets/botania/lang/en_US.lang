@@ -2494,7 +2494,7 @@ botania.page.aIntro7=Add &1Mana Pools&0
 botania.page.aIntro8=Place &1Natura Pylons&0 above the pools
 botania.page.aIntro9=To open up the portal, simply right click the core with a &1Wand of the Forest&0.<br>The portal requires a substantial amount of &4Mana&0 deposited in both the pools to open up, after that, it'll slowly drain some to keep itself powered. If it runs out of &4Mana&0, the connection will be broken.
 botania.page.aIntro10=The amount of &4Mana&0 required to open up the portal is orders of magnitude higher than that to keep it maintained, thus closing the portal to prevent &4Mana&0 loss is a poor strategy.<br>Furthermore, the link isn't strong enough to allow living beings to go through it, but it seems that &4items&0 can.
-botania.page.aIntro11=The amount of information about &1Alfheim&0 stored in this lexicon is resumed to this entry alone, perhaps &4letting the Elves have a look at it&0 might prove beneficial.<br>Perhaps they'd also return a good amount of knowledge of their mystical constructs.
+botania.page.aIntro11=The amount of information about &1Alfheim&0 stored in this lexicon is limited to this entry alone. Perhaps &4letting the Elves have a look at it&0 might prove beneficial.<br>Perhaps they'd also return a good amount of knowledge of their mystical constructs.
 
 # -- A MESSAGE FROM ELVEN GARDE
 botania.entry.elfMessage=A Message from Elven Garde
