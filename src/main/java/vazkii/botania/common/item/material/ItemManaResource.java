@@ -23,6 +23,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -36,6 +37,7 @@ import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.EntityEnderAirBottle;
 import vazkii.botania.common.item.ItemMod;
+import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
@@ -63,19 +65,23 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 		boolean ender = event.world.provider.dimensionId == 1;
 
 		if(rightEvent && correctStack && ender) {
-			ItemStack stack1 = new ItemStack(this, 1, 15);
-			event.entityPlayer.addStat(ModAchievements.enderAirMake, 1);
+			MovingObjectPosition pos = ToolCommons.raytraceFromEntity(event.world, event.entityPlayer, false, 5F);
+			
+			if(pos == null) {
+				ItemStack stack1 = new ItemStack(this, 1, 15);
+				event.entityPlayer.addStat(ModAchievements.enderAirMake, 1);
 
-			if(!event.entityPlayer.inventory.addItemStackToInventory(stack1))
-				event.entityPlayer.dropPlayerItemWithRandomChoice(stack1, true);
+				if(!event.entityPlayer.inventory.addItemStackToInventory(stack1))
+					event.entityPlayer.dropPlayerItemWithRandomChoice(stack1, true);
 
-			stack.stackSize--;
-			if(stack.stackSize == 0)
-				event.entityPlayer.inventory.setInventorySlotContents(event.entityPlayer.inventory.currentItem, null);
+				stack.stackSize--;
+				if(stack.stackSize == 0)
+					event.entityPlayer.inventory.setInventorySlotContents(event.entityPlayer.inventory.currentItem, null);
 
-			if(event.world.isRemote)
-				event.entityPlayer.swingItem();
-			else event.world.playSoundAtEntity(event.entityPlayer, "random.pop", 0.5F, 1F);
+				if(event.world.isRemote)
+					event.entityPlayer.swingItem();
+				else event.world.playSoundAtEntity(event.entityPlayer, "random.pop", 0.5F, 1F);
+			}
 		}
 	}
 
