@@ -43,6 +43,7 @@ import vazkii.botania.api.mana.ILensEffect;
 import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.IManaReceiver;
+import vazkii.botania.api.mana.IThrottledPacket;
 import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.client.core.handler.HUDHandler;
@@ -56,7 +57,7 @@ import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.entity.EntityManaBurst.PositionProperties;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class TileSpreader extends TileSimpleInventory implements IManaCollector, IWandBindable, IKeyLocked {
+public class TileSpreader extends TileSimpleInventory implements IManaCollector, IWandBindable, IKeyLocked, IThrottledPacket {
 
 	private static final int MAX_MANA = 1000;
 	private static final int ULTRA_MAX_MANA = 6400;
@@ -578,5 +579,10 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 		checkForReceiver();
 		return true;
+	}
+
+	@Override
+	public void markDispatchable() {
+		// NO-OP
 	}
 }

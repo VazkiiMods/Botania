@@ -20,11 +20,13 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileHydroangeas extends SubTilePassiveGenerating {
 
@@ -46,8 +48,6 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 			return;
 		}
 
-		boolean didSomething = false;
-
 		if(burnTime == 0) {
 			if(mana < getMaxMana() && !supertile.getWorldObj().isRemote) {
 				List<int[]> offsets = Arrays.asList(OFFSETS);
@@ -58,15 +58,27 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 							supertile.xCoord + offsetArray[0],
 							supertile.zCoord + offsetArray[1]
 					};
-					if(supertile.getWorldObj().getBlock(positions[0], supertile.yCoord, positions[1]) == getBlockToSearchFor() && (getBlockToSearchBelow() == null || supertile.getWorldObj().getBlock(positions[0], supertile.yCoord - 1, positions[1]) == getBlockToSearchBelow()) && supertile.getWorldObj().getBlockMetadata(positions[0], supertile.yCoord, positions[1]) == 0) {
-						supertile.getWorldObj().setBlockToAir(positions[0], supertile.yCoord, positions[1]);
-						didSomething = true;
+					
+					Block search = getBlockToSearchFor();
+					if(supertile.getWorldObj().getBlock(positions[0], supertile.yCoord, positions[1]) == search && (getBlockToSearchBelow() == null || supertile.getWorldObj().getBlock(positions[0], supertile.yCoord - 1, positions[1]) == getBlockToSearchBelow()) && supertile.getWorldObj().getBlockMetadata(positions[0], supertile.yCoord, positions[1]) == 0) {
+						if(search != Blocks.water)
+							supertile.getWorldObj().setBlockToAir(positions[0], supertile.yCoord, positions[1]);
+						else {
+							int waterAround = 0;
+							for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS)
+								if(supertile.getWorldObj().getBlock(positions[0] + dir.offsetX, supertile.yCoord, positions[1] + dir.offsetZ) == search)
+									waterAround++;
+							
+							if(waterAround < 2)
+								supertile.getWorldObj().setBlockToAir(positions[0], supertile.yCoord, positions[1]);
+						}
+						
 						burnTime += getBurnTime();
+						sync();
 						playSound();
 						break;
 					}
 				}
-
 			}
 		} else {
 			if(supertile.getWorldObj().rand.nextInt(8) == 0)
@@ -74,12 +86,9 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 			burnTime--;
 			if(burnTime == 0) {
 				cooldown = getCooldown();
-				didSomething = true;
+				sync();
 			}
 		}
-
-		if(didSomething)
-			sync();
 	}
 
 	public void doBurnParticles() {

@@ -36,6 +36,7 @@ import vazkii.botania.api.item.IManaDissolvable;
 import vazkii.botania.api.mana.IKeyLocked;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaPool;
+import vazkii.botania.api.mana.IThrottledPacket;
 import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
@@ -50,7 +51,7 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.helper.Vector3;
 
-public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLocked, ISparkAttachable {
+public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLocked, ISparkAttachable, IThrottledPacket {
 
 	public static final int MAX_MANA = 1000000;
 	public static final int MAX_MANA_DILLUTED = 10000;
@@ -83,6 +84,9 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 
 	String inputKey = "";
 	String outputKey = "";
+	
+	int ticks = 0;
+	boolean sendPacket = false;
 
 	@Override
 	public boolean isFull() {
@@ -188,6 +192,9 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 			if(Math.random() > particleChance)
 				Botania.proxy.wispFX(worldObj, xCoord + 0.3 + Math.random() * 0.5, yCoord + 0.6 + Math.random() * 0.25, zCoord + Math.random(), color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random() / 3F, (float) -Math.random() / 25F, 2F);
 		}
+		
+		if(sendPacket && ticks % 10 == 0)
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 
 		alchemy = worldObj.getBlock(xCoord, yCoord - 1, zCoord) == ModBlocks.alchemyCatalyst;
 		conjuration = worldObj.getBlock(xCoord, yCoord - 1, zCoord) == ModBlocks.conjurationCatalyst;
@@ -236,6 +243,8 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 				}
 			}
 		}
+		
+		ticks++;
 	}
 
 	@Override
@@ -374,5 +383,10 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 	@Override
 	public void setColor(int color) {
 		this.color = color;
+	}
+
+	@Override
+	public void markDispatchable() {
+		sendPacket = true;
 	}
 }

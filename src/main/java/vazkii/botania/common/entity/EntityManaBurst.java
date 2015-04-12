@@ -41,6 +41,7 @@ import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.mana.IManaTrigger;
+import vazkii.botania.api.mana.IThrottledPacket;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -569,7 +570,9 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 						mana *= ((IManaCollector) tile).getManaYieldMultiplier(this);
 
 					((IManaReceiver) tile).recieveMana(mana);
-					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, tile.xCoord, tile.yCoord, tile.zCoord);
+					if(tile instanceof IThrottledPacket)
+						((IThrottledPacket) tile).markDispatchable();
+					else VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, tile.xCoord, tile.yCoord, tile.zCoord);
 				}
 
 				if(block instanceof IManaTrigger)
