@@ -22,10 +22,13 @@ public final class VanillaPacketDispatcher {
 
 	public static void dispatchTEToNearbyPlayers(TileEntity tile) {
 		World world = tile.getWorldObj();
-		List<EntityPlayer> players = world.playerEntities;
-		for(EntityPlayer player : players)
-			if(MathHelper.pointDistancePlane(player.posX, player.posZ, tile.xCoord + 0.5, tile.zCoord + 0.5) < 64 && player instanceof EntityPlayerMP)
-				((EntityPlayerMP) player).playerNetServerHandler.sendPacket(tile.getDescriptionPacket());
+		List players = world.playerEntities;
+		for(Object player : players)
+			if(player instanceof EntityPlayerMP) {
+				EntityPlayerMP mp = (EntityPlayerMP) player; 
+				if(MathHelper.pointDistancePlane(mp.posX, mp.posZ, tile.xCoord + 0.5, tile.zCoord + 0.5) < 64)
+					((EntityPlayerMP) player).playerNetServerHandler.sendPacket(tile.getDescriptionPacket());
+			}
 	}
 
 	public static void dispatchTEToNearbyPlayers(World world, int x, int y, int z) {
