@@ -21,6 +21,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.corporea.BlockCorporeaFunnel;
 import vazkii.botania.common.block.corporea.BlockCorporeaIndex;
+import vazkii.botania.common.block.decor.BlockBlaze;
 import vazkii.botania.common.block.decor.BlockBuriedPetals;
 import vazkii.botania.common.block.decor.BlockCustomBrick;
 import vazkii.botania.common.block.decor.BlockDirtPath;
@@ -214,6 +215,7 @@ public final class ModBlocks {
 	public static Block doubleFlower1;
 	public static Block doubleFlower2;
 	public static Block fakeAir;
+	public static Block blazeBlock;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -281,7 +283,8 @@ public final class ModBlocks {
 		doubleFlower1 = new BlockModDoubleFlower(false);
 		doubleFlower2 = new BlockModDoubleFlower(true);
 		fakeAir = new BlockFakeAir();
-
+		blazeBlock = new BlockBlaze();
+		
 		ModFluffBlocks.init();
 
 		for(int i = 0; i < 16; i++)
@@ -297,6 +300,7 @@ public final class ModBlocks {
 		}
 		
 		OreDictionary.registerOre(LibOreDict.PRISMARINE_BLOCK, new ItemStack(prismarine, 1, OreDictionary.WILDCARD_VALUE));
+		OreDictionary.registerOre(LibOreDict.BLAZE_BLOCK, blazeBlock);
 
 		for(int i = 0; i < 16; i++)
 			OreDictionary.registerOre(LibOreDict.STONE_18_VARIANTS[i], new ItemStack(ModFluffBlocks.stone, 1, i));

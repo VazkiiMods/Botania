@@ -240,6 +240,7 @@ public final class LexiconData {
 	public static LexiconEntry mushrooms;
 	public static LexiconEntry phantomInk;
 	public static LexiconEntry stoneAlchemy;
+	public static LexiconEntry blazeBlock;
 	public static LexiconEntry tcIntegration;
 	public static LexiconEntry bcIntegration;
 
@@ -880,6 +881,10 @@ public final class LexiconData {
 			stoneAlchemy = new BLexiconEntry(LibLexicon.MISC_STONE_ALCHEMY, categoryMisc);
 			stoneAlchemy.setLexiconPages(new PageText("0"), new PageManaInfusionRecipe("1", ModManaAlchemyRecipes.stoneRecipes), new PageCraftingRecipe("2", ModCraftingRecipes.recipe18StonePolish), new PageCraftingRecipe("3", ModCraftingRecipes.recipe18StoneBrick), new PageCraftingRecipe("4", ModCraftingRecipes.recipe18StoneChisel));
 		}
+		
+		blazeBlock = new BLexiconEntry(LibLexicon.MISC_BLAZE_BLOCK, categoryMisc);
+		blazeBlock.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeBlazeBlock));
+		LexiconRecipeMappings.map(new ItemStack(Blocks.obsidian), blazeBlock, 0);
 		
 		if(Botania.bcTriggersLoaded) {
 			bcIntegration = new BLexiconEntry(LibLexicon.MISC_BC_INTEGRATION, categoryMisc);

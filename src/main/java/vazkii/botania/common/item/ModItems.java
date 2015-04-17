@@ -405,5 +405,7 @@ public final class ModItems {
 		int max = Item.getIdFromItem(Items.record_wait);
 		for(int i = min; i <= max; i++)
 			BotaniaAPI.blackListItemFromLoonium(Item.getItemById(i));
+		
+		OreDictionary.registerOre("rodBlaze", Items.blaze_rod);
 	}
 }

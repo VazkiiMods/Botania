@@ -252,6 +252,7 @@ public final class ModCraftingRecipes {
 	public static List<IRecipe> recipe18StonePolish;
 	public static List<IRecipe> recipe18StoneBrick;
 	public static List<IRecipe> recipe18StoneChisel;
+	public static IRecipe recipeBlazeBlock;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1672,6 +1673,13 @@ public final class ModCraftingRecipes {
 			recipe18StoneChisel.add(BotaniaAPI.getLatestAddedRecipe());
 		}
 
+		// Blaze Light Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.blazeBlock), 
+				"BBB", "BBB", "BBB",
+				'B', "rodBlaze");
+		recipeBlazeBlock = BotaniaAPI.getLatestAddedRecipe();
+		addShapelessOreDictRecipe(new ItemStack(Items.blaze_rod, 9), LibOreDict.BLAZE_BLOCK);
+		
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",
