@@ -240,6 +240,13 @@ public final class BotaniaAPI {
 		return recipe;
 	}
 	
+	/**
+	 * Registers a Pure Daisy Recipe.
+	 * @param input The block that works as an input for the recipe. Can be a Block or an oredict String.
+	 * @param output The block to be placed upon recipe completion.
+	 * @param outputMeta The metadata to be placed upon recipe completion.
+	 * @return The recipe created.
+	 */
 	public static RecipePureDaisy registerPureDaisyRecipe(Object input, Block output, int outputMeta) {
 		RecipePureDaisy recipe = new RecipePureDaisy(input, output, outputMeta);
 		pureDaisyRecipes.add(recipe);
@@ -247,7 +254,7 @@ public final class BotaniaAPI {
 	}
 
 	/**
-	 * Registers a Rune Altar
+	 * Registers a Rune Altar Recipe.
 	 * @param output The ItemStack to craft.
 	 * @param mana The amount of mana required. Don't go over 100000!
 	 * @param inputs The objects for crafting. Can be ItemStack, MappableStackWrapper

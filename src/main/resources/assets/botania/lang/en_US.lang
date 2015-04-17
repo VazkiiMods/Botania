@@ -114,10 +114,11 @@ botaniamisc.achievements=Botania Achievements
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
 botania.nei.elvenTrade=Elven Trade
-botania.nei.floatingFlowers=Floating Flower Crafting
+botania.nei.floatingFlowers=Floating Flowers
 botania.nei.manaPool=Mana Infusion
 botania.nei.petalApothecary=Petal Apothecary
 botania.nei.runicAltar=Runic Altar
+botania.nei.pureDaisy=Pure Daisy
 
 # BUILDCRAFT INTEGRATION
 botania.triggers.manaDetector=Mana Burst

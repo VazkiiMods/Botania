@@ -31,6 +31,9 @@ public class RecipePureDaisy {
 			throw new IllegalArgumentException("input must be an oredict String or a Block.");
 	}
 	
+	/**
+	 * This gets called every tick, please be careful with your checks.
+	 */
 	public boolean matches(World world, int x, int y, int z, SubTileEntity pureDaisy) {
 		Block block = world.getBlock(x, y, z);
 		int meta = world.getBlockMetadata(x, y, z);
@@ -42,7 +45,7 @@ public class RecipePureDaisy {
 		return isOreDict(stack, oredict);
 	}
 	
-	private boolean isOreDict(ItemStack stack, String entry) {
+	public boolean isOreDict(ItemStack stack, String entry) {
 		for(ItemStack ostack : OreDictionary.getOres(entry)) {
 			ItemStack cstack = ostack.copy();
 			if(cstack.getItemDamage() == Short.MAX_VALUE)
