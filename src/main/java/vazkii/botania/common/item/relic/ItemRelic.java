@@ -92,7 +92,7 @@ public class ItemRelic extends ItemMod implements IRelic {
 		}
 
 		if(!isRightPlayer(player, stack) && player.ticksExisted % 10 == 0)
-			player.attackEntityFrom(damageSource(), 6);
+			player.attackEntityFrom(damageSource(), 2);
 	}
 
 	public static void bindToPlayer(EntityPlayer player, ItemStack stack) {
