@@ -149,6 +149,9 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	@Override
 	@SideOnly(Side.CLIENT)
 	public List<ChunkCoordinates> getWireframesToDraw(EntityPlayer player, ItemStack stack) {
+		if(getLokiRing(player) != stack)
+			return null;
+		
 		MovingObjectPosition lookPos = Minecraft.getMinecraft().objectMouseOver;
 
 		if(lookPos != null && !player.worldObj.isAirBlock(lookPos.blockX, lookPos.blockY, lookPos.blockZ) && lookPos.entityHit == null) {
