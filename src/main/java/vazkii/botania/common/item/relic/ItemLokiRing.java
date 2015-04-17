@@ -102,8 +102,13 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 				int y = lookPos.blockY + cursor.posY;
 				int z = lookPos.blockZ + cursor.posZ;
 				Item item = heldItemStack.getItem();
-				if(!player.worldObj.isAirBlock(x, y, z))
+				if(!player.worldObj.isAirBlock(x, y, z)) {
 					item.onItemUse(player.capabilities.isCreativeMode ? heldItemStack.copy() : heldItemStack, player, player.worldObj, x, y, z, lookPos.sideHit, (float) lookPos.hitVec.xCoord - x, (float) lookPos.hitVec.yCoord - y, (float) lookPos.hitVec.zCoord - z);
+					if(heldItemStack.stackSize == 0) {
+						event.setCanceled(true);
+						return;
+					}
+				}
 			}
 		}
 	}
