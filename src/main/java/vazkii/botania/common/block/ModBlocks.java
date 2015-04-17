@@ -311,6 +311,8 @@ public final class ModBlocks {
 		OreDictionary.registerOre("mycelium", Blocks.mycelium);
 		OreDictionary.registerOre("podzol", new ItemStack(Blocks.dirt, 1, 2));
 		OreDictionary.registerOre("netherrack", Blocks.netherrack);
+		OreDictionary.registerOre("soulSand", Blocks.soul_sand);
+		OreDictionary.registerOre("ice", Blocks.ice);
 
 		initTileEntities();
 	}

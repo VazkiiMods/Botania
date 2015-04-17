@@ -10,8 +10,8 @@
  */
 package vazkii.botania.common.crafting;
 
+import net.minecraft.init.Blocks;
 import vazkii.botania.common.block.ModBlocks;
-
 import vazkii.botania.api.BotaniaAPI;
 
 public final class ModPureDaisyRecipes {
@@ -19,6 +19,10 @@ public final class ModPureDaisyRecipes {
 	public static void init() {
 		BotaniaAPI.registerPureDaisyRecipe("stone", ModBlocks.livingrock, 0);
 		BotaniaAPI.registerPureDaisyRecipe("logWood", ModBlocks.livingwood, 0);
+		
+		BotaniaAPI.registerPureDaisyRecipe("netherrack", Blocks.cobblestone, 0);
+		BotaniaAPI.registerPureDaisyRecipe("soulSand", Blocks.sand, 0);
+		BotaniaAPI.registerPureDaisyRecipe("ice", Blocks.packed_ice, 0);
 	}
 	
 }
