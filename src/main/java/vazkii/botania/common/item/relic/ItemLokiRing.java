@@ -20,6 +20,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -38,6 +39,8 @@ import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
+import baubles.common.network.PacketHandler;
+import baubles.common.network.PacketSyncBauble;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -65,6 +68,16 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		ItemStack lokiRing = getLokiRing(player);
 		if(lokiRing == null || player.worldObj.isRemote)
 			return;
+		
+		int slot = -1;
+		InventoryBaubles inv = PlayerHandler.getPlayerBaubles(player);
+		for(int i = 0; i < inv.getSizeInventory(); i++) {
+			ItemStack stack = inv.getStackInSlot(i);
+			if(stack == lokiRing) {
+				slot = i;
+				break;
+			}
+		}
 
 		ItemStack heldItemStack = player.getCurrentEquippedItem();
 		ChunkCoordinates originCoords = getOriginPos(lokiRing);
@@ -74,10 +87,14 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 			if(originCoords.posY == -1 && lookPos != null) {
 				setOriginPos(lokiRing, lookPos.blockX, lookPos.blockY, lookPos.blockZ);
 				setCursorList(lokiRing, null);
+				if(player instanceof EntityPlayerMP)
+					PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, slot), (EntityPlayerMP) player);
 			} else if(lookPos != null) {
-				if(originCoords.posX == lookPos.blockX && originCoords.posY == lookPos.blockY && originCoords.posZ == lookPos.blockZ)
+				if(originCoords.posX == lookPos.blockX && originCoords.posY == lookPos.blockY && originCoords.posZ == lookPos.blockZ) {
 					setOriginPos(lokiRing, 0, -1, 0);
-				else {
+					if(player instanceof EntityPlayerMP)
+						PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, slot), (EntityPlayerMP) player);
+				} else {
 					List<ChunkCoordinates> cursors = getCursorList(lokiRing);
 					addCursor : {
 						int relX = lookPos.blockX - originCoords.posX;
@@ -88,10 +105,14 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 							if(cursor.posX == relX && cursor.posY == relY && cursor.posZ == relZ) {
 								cursors.remove(cursor);
 								setCursorList(lokiRing, cursors);
+								if(player instanceof EntityPlayerMP)
+									PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, slot), (EntityPlayerMP) player);
 								break addCursor;
 							}
 
 						addCursor(lokiRing, relX, relY, relZ);
+						if(player instanceof EntityPlayerMP)
+							PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, slot), (EntityPlayerMP) player);
 					}
 				}
 			}
