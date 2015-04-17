@@ -129,9 +129,11 @@ public final class ModManaAlchemyRecipes {
 
 		prismarineRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(ModItems.manaResource, 1, 10), new ItemStack(Items.quartz), 200);
 
-		stoneRecipes = new ArrayList();
-		stoneRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(ModFluffBlocks.stone), "stone", 200));
-		for(int i = 0; i < 4; i++)
-			stoneRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(ModFluffBlocks.stone, 1, i), new ItemStack(ModFluffBlocks.stone, 1, i == 0 ? 3 : i - 1), 200));
+		if(ConfigHandler.stones18Enabled) {
+			stoneRecipes = new ArrayList();
+			stoneRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(ModFluffBlocks.stone), "stone", 200));
+			for(int i = 0; i < 4; i++)
+				stoneRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(ModFluffBlocks.stone, 1, i), new ItemStack(ModFluffBlocks.stone, 1, i == 0 ? 3 : i - 1), 200));
+		}
 	}
 }

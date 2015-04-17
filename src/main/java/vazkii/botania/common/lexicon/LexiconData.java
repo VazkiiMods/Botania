@@ -876,9 +876,11 @@ public final class LexiconData {
 		phantomInk = new BLexiconEntry(LibLexicon.MISC_PHANTOM_INK, categoryMisc);
 		phantomInk.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipePhantomInk));
 
-		stoneAlchemy = new BLexiconEntry(LibLexicon.MISC_STONE_ALCHEMY, categoryMisc);
-		stoneAlchemy.setLexiconPages(new PageText("0"), new PageManaInfusionRecipe("1", ModManaAlchemyRecipes.stoneRecipes), new PageCraftingRecipe("2", ModCraftingRecipes.recipe18StonePolish), new PageCraftingRecipe("3", ModCraftingRecipes.recipe18StoneBrick), new PageCraftingRecipe("4", ModCraftingRecipes.recipe18StoneChisel));
-
+		if(ConfigHandler.stones18Enabled) {
+			stoneAlchemy = new BLexiconEntry(LibLexicon.MISC_STONE_ALCHEMY, categoryMisc);
+			stoneAlchemy.setLexiconPages(new PageText("0"), new PageManaInfusionRecipe("1", ModManaAlchemyRecipes.stoneRecipes), new PageCraftingRecipe("2", ModCraftingRecipes.recipe18StonePolish), new PageCraftingRecipe("3", ModCraftingRecipes.recipe18StoneBrick), new PageCraftingRecipe("4", ModCraftingRecipes.recipe18StoneChisel));
+		}
+		
 		if(Botania.bcTriggersLoaded) {
 			bcIntegration = new BLexiconEntry(LibLexicon.MISC_BC_INTEGRATION, categoryMisc);
 			bcIntegration.setLexiconPages(new PageText("0")).setIcon(new ItemStack(Items.redstone));
