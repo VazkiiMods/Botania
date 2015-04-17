@@ -193,8 +193,10 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 				Botania.proxy.wispFX(worldObj, xCoord + 0.3 + Math.random() * 0.5, yCoord + 0.6 + Math.random() * 0.25, zCoord + Math.random(), color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random() / 3F, (float) -Math.random() / 25F, 2F);
 		}
 		
-		if(sendPacket && ticks % 10 == 0)
+		if(sendPacket && ticks % 10 == 0) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+			sendPacket = false;
+		}
 
 		alchemy = worldObj.getBlock(xCoord, yCoord - 1, zCoord) == ModBlocks.alchemyCatalyst;
 		conjuration = worldObj.getBlock(xCoord, yCoord - 1, zCoord) == ModBlocks.conjurationCatalyst;
