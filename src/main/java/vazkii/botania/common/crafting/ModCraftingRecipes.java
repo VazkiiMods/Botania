@@ -154,6 +154,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeFireRod;
 	public static IRecipe recipeVineBall;
 	public static IRecipe recipeSlingshot;
+	public static IRecipe recipeMossStone;
 	public static IRecipe recipePrismarine;
 	public static IRecipe recipePrismarineBrick;
 	public static IRecipe recipeDarkPrismarine;
@@ -987,6 +988,10 @@ public final class ModCraftingRecipes {
 				'A', LibOreDict.RUNE[3]);
 		recipeSlingshot = BotaniaAPI.getLatestAddedRecipe();
 
+		// Moss Stone Recipe
+		addShapelessOreDictRecipe(new ItemStack(Blocks.mossy_cobblestone), "cobblestone", new ItemStack(ModItems.vineBall));
+		recipeMossStone = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Prismarine Recipe
 		addOreDictRecipe(new ItemStack(ModBlocks.prismarine, 1, 0),
 				" S ", "SBS", " S ",

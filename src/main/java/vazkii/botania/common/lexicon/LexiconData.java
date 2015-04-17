@@ -619,7 +619,7 @@ public final class LexiconData {
 		fireRod.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeFireRod));
 
 		vineBall = new BLexiconEntry(LibLexicon.TOOL_VINE_BALL, categoryTools);
-		vineBall.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeVineBall), new PageCraftingRecipe("3", ModCraftingRecipes.recipeSlingshot));
+		vineBall.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeVineBall), new PageCraftingRecipe("3", ModCraftingRecipes.recipeSlingshot), new PageCraftingRecipe("4", ModCraftingRecipes.recipeMossStone));
 
 		laputaShard = new ALexiconEntry(LibLexicon.TOOL_LAPUTA_SHARD, categoryTools);
 		laputaShard.setLexiconPages(new PageText("0"), new PageText("2"), new PageCraftingRecipe("1", ModCraftingRecipes.recipesLaputaShard), new PageCraftingRecipe("3", ModCraftingRecipes.recipesLaputaShardUpgrade));
