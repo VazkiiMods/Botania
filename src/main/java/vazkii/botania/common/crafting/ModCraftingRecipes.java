@@ -1653,12 +1653,12 @@ public final class ModCraftingRecipes {
 		for(int i = 0; i < 4; i++) {
 			addOreDictRecipe(new ItemStack(ModFluffBlocks.stone, 8, i + 4),
 					"SSS", "S S", "SSS",
-					'S', new ItemStack(ModFluffBlocks.stone, 1, i));
+					'S', LibOreDict.STONE_18_VARIANTS[i]);
 			recipe18StonePolish.add(BotaniaAPI.getLatestAddedRecipe());
 
 			addOreDictRecipe(new ItemStack(ModFluffBlocks.stone, 4, i + 8),
 					"SS", "SS",
-					'S', new ItemStack(ModFluffBlocks.stone, 1, i));
+					'S', LibOreDict.STONE_18_VARIANTS[i]);
 			recipe18StoneBrick.add(BotaniaAPI.getLatestAddedRecipe());
 
 			addOreDictRecipe(new ItemStack(ModFluffBlocks.stone, 1, i + 12),
