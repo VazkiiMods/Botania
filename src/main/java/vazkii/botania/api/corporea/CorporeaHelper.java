@@ -29,7 +29,7 @@ public final class CorporeaHelper {
 	private static final List<IInventory> empty = Collections.unmodifiableList(new ArrayList());
 	private static final WeakHashMap<List<ICorporeaSpark>, List<IInventory>> cachedNetworks = new WeakHashMap();
 
-	private static final String[] WILDCARD_STRINGS = new String[] {
+	public static final String[] WILDCARD_STRINGS = new String[] {
 		"...", "~", "+", "?" 
 	};
 	
