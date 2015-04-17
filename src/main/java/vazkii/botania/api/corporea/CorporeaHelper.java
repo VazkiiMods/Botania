@@ -29,6 +29,10 @@ public final class CorporeaHelper {
 	private static final List<IInventory> empty = Collections.unmodifiableList(new ArrayList());
 	private static final WeakHashMap<List<ICorporeaSpark>, List<IInventory>> cachedNetworks = new WeakHashMap();
 
+	private static final String[] WILDCARD_STRINGS = new String[] {
+		"...", "~", "+", "?" 
+	};
+	
 	/**
 	 * How many items were matched in the last request. If java had "out" params like C# this wouldn't be needed :V
 	 */
@@ -248,14 +252,20 @@ public final class CorporeaHelper {
 			return false;
 
 		boolean contains = false;
-		if(s.endsWith("...")) {
-			contains = true;
-			s = s.substring(0, s.length() - 3);
+		for(String wc : WILDCARD_STRINGS) {
+			if(s.endsWith(wc)) {
+				contains = true;
+				s = s.substring(0, s.length() - wc.length());
+			}
+			else if(s.startsWith(wc)) {
+				contains = true;
+				s = s.substring(wc.length());
+			}
+			
+			if(contains)
+				break;
 		}
-		if(s.startsWith("...")) {
-			contains = true;
-			s = s.substring(3);
-		}
+		
 
 		String name = stack.getDisplayName().toLowerCase().trim();
 		return equalOrContain(name, s, contains) || equalOrContain(name + "s", s, contains) || equalOrContain(name + "es", s, contains) || name.endsWith("y") && equalOrContain(name.substring(0, name.length() - 1) + "ies", s, contains);
