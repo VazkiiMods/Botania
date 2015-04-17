@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -22,6 +23,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexicon;
+import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
 import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.common.Botania;
@@ -100,13 +102,16 @@ public class TileAlfPortal extends TileMod {
 
 		if(!hasUnloadedParts) {
 			ticksOpen++;
-
+			
+			AxisAlignedBB aabb = getPortalAABB();
+			boolean open = ticksOpen > 60;
+			ElvenPortalUpdateEvent event = new ElvenPortalUpdateEvent(this, aabb, open, stacksIn);
+			
 			if(ticksOpen > 60) {
 				ticksSinceLastItem++;
 				if(ConfigHandler.elfPortalParticlesEnabled)
 					blockParticle(meta);
 
-				AxisAlignedBB aabb = getPortalAABB();
 				List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, aabb);
 				if(!worldObj.isRemote)
 					for(EntityItem item : items) {
