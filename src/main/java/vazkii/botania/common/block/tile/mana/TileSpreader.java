@@ -68,6 +68,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	private static final String TAG_ROTATION_X = "rotationX";
 	private static final String TAG_ROTATION_Y = "rotationY";
 	private static final String TAG_PADDING_COLOR = "paddingColor";
+	private static final String TAG_CAN_SHOOT_BURST = "canShootBurst";
 
 	private static final String TAG_FORCE_CLIENT_BINDING_X = "forceClientBindingX";
 	private static final String TAG_FORCE_CLIENT_BINDING_Y = "forceClientBindingY";
@@ -205,7 +206,8 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		cmp.setFloat(TAG_ROTATION_Y, rotationY);
 		cmp.setBoolean(TAG_REQUEST_UPDATE, requestsClientUpdate);
 		cmp.setInteger(TAG_PADDING_COLOR, paddingColor);
-
+		cmp.setBoolean(TAG_CAN_SHOOT_BURST, canShootBurst);
+		
 		cmp.setString(TAG_INPUT_KEY, inputKey);
 		cmp.setString(TAG_OUTPUT_KEY, outputKey);
 
@@ -249,6 +251,8 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			knownMana = cmp.getInteger(TAG_KNOWN_MANA);
 		if(cmp.hasKey(TAG_PADDING_COLOR))
 			paddingColor = cmp.getInteger(TAG_PADDING_COLOR);
+		if(cmp.hasKey(TAG_CAN_SHOOT_BURST))
+			canShootBurst = cmp.getBoolean(TAG_CAN_SHOOT_BURST);
 
 		if(requestsClientUpdate && worldObj != null) {
 			int x = cmp.getInteger(TAG_FORCE_CLIENT_BINDING_X);
