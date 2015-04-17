@@ -12,7 +12,7 @@ buildscript {
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
-    }
+    }v
 }
 
 repositories {
@@ -211,7 +211,7 @@ curse {
     apiKey = priv.cfkey
     projectId = "225643"
     changelog = """
-		See http://vazkii.us/mod/Botania/changelog.php#${version}
+		See http://botaniamod.net/changelog.php#${version}
     """
     releaseType = "release"
 }
