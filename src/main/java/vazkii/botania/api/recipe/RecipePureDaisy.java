@@ -64,7 +64,7 @@ public class RecipePureDaisy {
 	 * it otherwise. You may return false to cancel the normal particles and do your own. 
 	 */
 	public boolean set(World world, int x, int y, int z, SubTileEntity pureDaisy) {
-		if(world.isRemote)
+		if(!world.isRemote)
 			world.setBlock(x, y, z, output, outputMeta, 1 | 2);
 		return true;
 	}
