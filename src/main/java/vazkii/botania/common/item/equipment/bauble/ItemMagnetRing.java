@@ -22,6 +22,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
+import vazkii.botania.api.item.IRelic;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
@@ -112,7 +113,7 @@ public class ItemMagnetRing extends ItemBauble {
 			return false;
 
 		ItemStack stack = item.getEntityItem();
-		if(stack == null || stack.getItem() instanceof IManaItem || BLACKLIST.contains(itemRegistry.getNameForObject(stack.getItem())))
+		if(stack == null || stack.getItem() instanceof IManaItem || stack.getItem() instanceof IRelic || BLACKLIST.contains(itemRegistry.getNameForObject(stack.getItem())))
 			return false;
 
 		int x = net.minecraft.util.MathHelper.floor_double(item.posX);
