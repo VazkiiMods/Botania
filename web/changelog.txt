@@ -1,3 +1,20 @@
+r1.6 177
+*Added a config option to disable the 1.8 stones.
+*Added oredict entries for the 1.8 stone and prismarine blocks for better compatibility with Gany's Surface.
+*Fixed Ancient Wills only rendering on the Terrasteel Helm if it has Phantom Ink, rather than only rendering when it doesn't have Phantom Ink.
+*Fixed Enchanted Soil being able to be picked up with Silk Touch.
+*Fixed a crash when shift-clicking damanged non-flower items into the Flower Pouch.
+*Fixed a dupe with the Ring of Loki that allowed for seeds, and potentially other items of the sort, to be infinitely generated.
+*Fixed crash with Corporea Sparks and buildcraft gates.
+*Fixed the Mana Pool sending way more packets than it should because I forgot to reset the flag >_>
+*Fixed the Ring of Loki not syncing properly in multiplayer.
+*Fixed the Solegnolia not being shift-right clickable to open its lexicon entry.
+*Fixed the wireframes for the Ring of Loki rendering when it's not equipped.
+*Hydroangeas now get Daybloom/Nightshade like diminishing returns in all 8 directions.
+*Made some lexicon text and relic poem changes.
+*Relics kill you slower if you're not their owner.
+*The Elven Portal will now stop functioning if any of its components are in unloaded chunks, it will not dismantle itself like it did before.
+*The following items can no longer drop from the Loonium: Lexica Botania, Black Lotus, Overgrowth Seed and all records.
 r1.6 176
 *Added some code to atempt to fix chunkloading conundrums with the Mana Spreader. This might fix the bug where a bunch of bursts pile up in one position when there's a chunkloader there. I can't tell for sure.
 *Fixed Mana Spreaders dropping wool every time when broken.
