@@ -69,7 +69,7 @@ public class BlockEnchantedSoil extends BlockMod implements ILexiconable {
 
 	@Override
 	protected boolean canSilkHarvest() {
-		return true;
+		return false;
 	}
 
 	@Override
