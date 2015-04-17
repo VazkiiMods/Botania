@@ -10,9 +10,11 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.item.brew.ItemBrewFlask;
 import vazkii.botania.common.item.brew.ItemBrewVial;
 import vazkii.botania.common.item.brew.ItemVial;
@@ -395,5 +397,13 @@ public final class ModItems {
 
 		OreDictionary.registerOre(LibOreDict.VIAL, new ItemStack(vial, 1, 0));
 		OreDictionary.registerOre(LibOreDict.FLASK, new ItemStack(vial, 1, 1));
+		
+		BotaniaAPI.blackListItemFromLoonium(lexicon);
+		BotaniaAPI.blackListItemFromLoonium(overgrowthSeed);
+		BotaniaAPI.blackListItemFromLoonium(blackLotus);
+		int min = Item.getIdFromItem(Items.record_13);
+		int max = Item.getIdFromItem(Items.record_wait);
+		for(int i = min; i <= max; i++)
+			BotaniaAPI.blackListItemFromLoonium(Item.getItemById(i));
 	}
 }
