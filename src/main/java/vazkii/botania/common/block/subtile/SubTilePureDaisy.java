@@ -12,16 +12,15 @@ package vazkii.botania.common.block.subtile;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChunkCoordinates;
-import net.minecraftforge.oredict.OreDictionary;
+import net.minecraft.world.World;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.recipe.RecipePureDaisy;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
 
@@ -54,22 +53,25 @@ public class SubTilePureDaisy extends SubTileEntity {
 
 		int[] acoords = POSITIONS[positionAt];
 		ChunkCoordinates coords = new ChunkCoordinates(supertile.xCoord + acoords[0], supertile.yCoord + acoords[1], supertile.zCoord + acoords[2]);
-		Block block = supertile.getWorldObj().getBlock(coords.posX, coords.posY, coords.posZ);
-		if(block != Blocks.air) {
-			Item item = Item.getItemFromBlock(block);
-			if(item != null) {
-				ItemStack stack = new ItemStack(item, 1, supertile.getWorldObj().getBlockMetadata(coords.posX, coords.posY, coords.posZ));
-				Block output = isOreDict(stack, "stone") ? ModBlocks.livingrock : isOreDict(stack, "logWood") ? ModBlocks.livingwood : null;
-				if(output != null) {
-					ticksRemaining[positionAt] = ticksRemaining[positionAt] - 1;
+		World world = supertile.getWorldObj();
+		if(!world.isAirBlock(coords.posX, coords.posY, coords.posZ)) {
+			RecipePureDaisy recipe = null;
+			for(RecipePureDaisy recipe_ : BotaniaAPI.pureDaisyRecipes) 
+				if(recipe_.matches(world, coords.posX, coords.posY, coords.posZ, this)) {
+					recipe = recipe_;
+					break;
+				}
 
-					Botania.proxy.sparkleFX(supertile.getWorldObj(), coords.posX + Math.random(), coords.posY + Math.random(), coords.posZ + Math.random(), 1F, 1F, 1F, (float) Math.random(), 5);
 
-					if(ticksRemaining[positionAt] <= 0) {
-						if(!supertile.getWorldObj().isRemote)
-							supertile.getWorldObj().setBlock(coords.posX, coords.posY, coords.posZ, output);
-						ticksRemaining[positionAt] = 200;
+			if(recipe != null) {
+				ticksRemaining[positionAt] = ticksRemaining[positionAt] - 1;
 
+				Botania.proxy.sparkleFX(supertile.getWorldObj(), coords.posX + Math.random(), coords.posY + Math.random(), coords.posZ + Math.random(), 1F, 1F, 1F, (float) Math.random(), 5);
+
+				if(ticksRemaining[positionAt] <= 0) {
+					ticksRemaining[positionAt] = 200;
+
+					if(recipe.set(world,coords.posX, coords.posY, coords.posZ, this)) {
 						for(int i = 0; i < 25; i++) {
 							double x = coords.posX + Math.random();
 							double y = coords.posY + Math.random() + 0.5;
@@ -78,24 +80,11 @@ public class SubTilePureDaisy extends SubTileEntity {
 							Botania.proxy.wispFX(supertile.getWorldObj(), x, y, z, 1F, 1F, 1F, (float) Math.random() / 2F);
 						}
 						if(ConfigHandler.blockBreakParticles)
-							supertile.getWorldObj().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(block) + (supertile.getWorldObj().getBlockMetadata(coords.posX, coords.posY, coords.posZ) << 12));
+							supertile.getWorldObj().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(recipe.getOutput()) + (recipe.getOutputMeta() << 12));
 					}
-				} else ticksRemaining[positionAt] = 200;
-			}
+				}
+			} else ticksRemaining[positionAt] = 200;
 		}
-	}
-
-	private boolean isOreDict(ItemStack stack, String entry) {
-		for(ItemStack ostack : OreDictionary.getOres(entry)) {
-			ItemStack cstack = ostack.copy();
-			if(cstack.getItemDamage() == Short.MAX_VALUE)
-				cstack.setItemDamage(stack.getItemDamage());
-
-			if(stack.isItemEqual(cstack))
-				return true;
-		}
-
-		return false;
 	}
 
 	@Override

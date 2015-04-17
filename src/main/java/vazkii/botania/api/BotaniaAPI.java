@@ -41,6 +41,7 @@ import vazkii.botania.api.recipe.RecipeBrew;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
+import vazkii.botania.api.recipe.RecipePureDaisy;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.subtile.signature.BasicSignature;
@@ -62,8 +63,9 @@ public final class BotaniaAPI {
 	public static Map<String, Brew> brewMap = new LinkedHashMap<String, Brew>();
 
 	public static List<RecipePetals> petalRecipes = new ArrayList<RecipePetals>();
-	public static List<RecipeRuneAltar> runeAltarRecipes = new ArrayList<RecipeRuneAltar>();
+	public static List<RecipePureDaisy> pureDaisyRecipes = new ArrayList<RecipePureDaisy>();
 	public static List<RecipeManaInfusion> manaInfusionRecipes = new ArrayList<RecipeManaInfusion>();
+	public static List<RecipeRuneAltar> runeAltarRecipes = new ArrayList<RecipeRuneAltar>();
 	public static List<RecipeElvenTrade> elvenTradeRecipes = new ArrayList<RecipeElvenTrade>();
 	public static List<RecipeBrew> brewRecipes = new ArrayList<RecipeBrew>();
 
@@ -235,6 +237,12 @@ public final class BotaniaAPI {
 	public static RecipePetals registerPetalRecipe(ItemStack output, Object... inputs) {
 		RecipePetals recipe = new RecipePetals(output, inputs);
 		petalRecipes.add(recipe);
+		return recipe;
+	}
+	
+	public static RecipePureDaisy registerPureDaisyRecipe(Object input, Block output, int outputMeta) {
+		RecipePureDaisy recipe = new RecipePureDaisy(input, output, outputMeta);
+		pureDaisyRecipes.add(recipe);
 		return recipe;
 	}
 
