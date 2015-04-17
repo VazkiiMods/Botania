@@ -1,3 +1,7 @@
+r1.6 179
+*Fixed the Pure Daisy not working >_>
+*[API] Flipped world.isRemote check in RecipePureDaisy.
+*[API] Increased version number to 41.
 r1.6 178
 *Added a Blaze Light, a light source block that also works as fuel and can be put next to a Pure Daisy to make Obsidian.
 *Added a Pure Daisy NEI recipe handler.
