@@ -71,27 +71,29 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 		Minecraft.getMinecraft().renderEngine.bindTexture(block ? TextureMap.locationBlocksTexture : TextureMap.locationItemsTexture);
 		IIcon icon = block ? Block.getBlockFromItem(item).getBlockTextureFromSide(ForgeDirection.UP.ordinal()) : item.getIcon(stack, 0);
 
-		float minU = icon.getMinU();
-		float maxU = icon.getMaxU();
-		float minV = icon.getMinV();
-		float maxV = icon.getMaxV();
+		if(icon != null) {
+			float minU = icon.getMinU();
+			float maxU = icon.getMaxU();
+			float minV = icon.getMinV();
+			float maxV = icon.getMaxV();
 
-		int pieces = 8;
-		float stepU = (maxU - minU) / pieces;
-		float stepV = (maxV - minV) / pieces;
-		float gap = 1F + (time > 0 ? 10F - absTime : absTime) * 0.2F;
-		int shift = pieces / 2;
+			int pieces = 8;
+			float stepU = (maxU - minU) / pieces;
+			float stepV = (maxV - minV) / pieces;
+			float gap = 1F + (time > 0 ? 10F - absTime : absTime) * 0.2F;
+			int shift = pieces / 2;
 
-		float scale = 1F / pieces * 3F;
-		GL11.glScalef(scale, scale, 1F);
-		for(int i = -shift; i < shift; i++) {
-			GL11.glTranslated(gap * i, 0F, 0F);
-			for(int j = -shift; j < shift; j++) {
-				GL11.glTranslated(0F, gap * j, 0F);
-				ItemRenderer.renderItemIn2D(Tessellator.instance, minU + stepU * (i + shift), minV + stepV * (j + shift + 1), minU + stepU * (i + shift + 1), minV + stepV * (j + shift), icon.getIconWidth() / pieces, icon.getIconHeight() / pieces, 1F / 8F);
-				GL11.glTranslated(0F, -gap * j, 0F);
+			float scale = 1F / pieces * 3F;
+			GL11.glScalef(scale, scale, 1F);
+			for(int i = -shift; i < shift; i++) {
+				GL11.glTranslated(gap * i, 0F, 0F);
+				for(int j = -shift; j < shift; j++) {
+					GL11.glTranslated(0F, gap * j, 0F);
+					ItemRenderer.renderItemIn2D(Tessellator.instance, minU + stepU * (i + shift), minV + stepV * (j + shift + 1), minU + stepU * (i + shift + 1), minV + stepV * (j + shift), icon.getIconWidth() / pieces, icon.getIconHeight() / pieces, 1F / 8F);
+					GL11.glTranslated(0F, -gap * j, 0F);
+				}
+				GL11.glTranslated(-gap * i, 0F, 0F);
 			}
-			GL11.glTranslated(-gap * i, 0F, 0F);
 		}
 
 		GL11.glDisable(GL11.GL_BLEND);
