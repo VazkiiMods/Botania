@@ -1781,6 +1781,7 @@ botania.entry.hydroangeas=Hydroangeas
 botania.page.hydroangeas0=While passive &4Mana&0 generation can be easily achieved through &1Dayblooms&0, different means of doing so might come in handy. The &1Hydroangeas&0 will suck up any &1Still Water&0 in a 3x3 area around it, on the same height, creating &4Mana&0 from it. They also seem to function faster during &4Rain&0, who'd have thought?
 botania.page.hydroangeas0a=The &1Hydroangeas&0 will suck up any &1Still Water&0 in a 3x3 area around it, on the same height, creating &4Mana&0 from it. They also seem to function faster during &4Rain&0, who'd have thought?<br>Similarly to the &1Daybloom&0, these flowers are not very resistant, and after some time they'll wither and die off.
 botania.page.hydroangeas2=A simple &1Hydroangeas&0 system
+botania.page.hydroangeas3=These flowers, similarly to &1Dayblooms&0 or &1Nightshades&0 will receive a portion of diminishing returns if put in too compact of a pattern. Having any two &1Hydroangeas&0 one block away from eachother, including diagonals, will drastically reduce the production rate of both, as the roots get tangled. Having even more in the short space will further weaken their potency. The blue particles between them indicate this. 
 botania.page.hydroangeas1=&oFrom some Hyperdimension&r?
 
 # -- THERMALILY

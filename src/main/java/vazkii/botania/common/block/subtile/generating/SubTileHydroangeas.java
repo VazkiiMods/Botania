@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
+import java.awt.Color;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -19,9 +20,11 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.subtile.ISubTileContainer;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -91,6 +94,30 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 		}
 	}
 
+	public int getSurroundingFlowers() {
+		int flowers = 0;
+		for(int[] offsetArray : OFFSETS) {
+			TileEntity tile = supertile.getWorldObj().getTileEntity(supertile.xCoord + offsetArray[0], supertile.yCoord, supertile.zCoord + offsetArray[1]);
+			if(tile != null && tile instanceof ISubTileContainer) {
+				ISubTileContainer flower = (ISubTileContainer) tile;
+				if(flower.getSubTile() != null && flower.getSubTile().getClass() == getClass()) {
+					flowers++;
+
+					Color color = new Color(getColor());
+					float r = color.getRed() / 255F;
+					float g = color.getGreen() / 255F;
+					float b = color.getBlue() / 255F;
+
+					float m = 0.045F;
+					if(ticksExisted % 10 == 0)
+						Botania.proxy.wispFX(supertile.getWorldObj(), supertile.xCoord + 0.5, supertile.yCoord + 0.05, supertile.zCoord + 0.5, r, g, b, 0.1F, offsetArray[0] * m, 0, offsetArray[1] * m);
+				}
+			}
+		}
+
+		return flowers;
+	}
+	
 	public void doBurnParticles() {
 		Botania.proxy.wispFX(supertile.getWorldObj(), supertile.xCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.yCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.zCoord + 0.5, 0.05F, 0.05F, 0.7F, (float) Math.random() / 6, (float) -Math.random() / 60);
 	}
@@ -102,7 +129,7 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 	public Block getBlockToSearchBelow() {
 		return null;
 	}
-
+	
 	public void playSound() {
 		supertile.getWorldObj().playSoundEffect(supertile.xCoord, supertile.yCoord, supertile.zCoord, "random.drink", 0.02F, 0.5F + (float) Math.random() * 0.5F);
 	}
@@ -166,7 +193,8 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 
 	@Override
 	public boolean canGeneratePassively() {
-		return burnTime > 0;
+		int adj = getSurroundingFlowers();
+		return supertile.getWorldObj().rand.nextInt(adj + 1) == 0 && burnTime > 0;
 	}
 
 	@Override
