@@ -66,6 +66,7 @@ public class TileAlfPortal extends TileMod {
 	public int ticksOpen = 0;
 	int ticksSinceLastItem = 0;
 	private boolean closeNow = false;
+	private boolean hasUnloadedParts = false;
 
 	private static final Function<int[], int[]> CONVERTER_X_Z = new Function<int[], int[]>() {
 		@Override
@@ -95,36 +96,38 @@ public class TileAlfPortal extends TileMod {
 			ticksOpen = 0;
 			return;
 		}
-
-		ticksOpen++;
-
-		if(ticksOpen > 60) {
-			ticksSinceLastItem++;
-			if(ConfigHandler.elfPortalParticlesEnabled)
-				blockParticle(meta);
-
-			AxisAlignedBB aabb = getPortalAABB();
-			List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, aabb);
-			if(!worldObj.isRemote)
-				for(EntityItem item : items) {
-					if(item.isDead)
-						continue;
-
-					ItemStack stack = item.getEntityItem();
-					if(stack != null && (!(stack.getItem() instanceof IElvenItem) || !((IElvenItem) stack.getItem()).isElvenItem(stack)) && !item.getEntityData().hasKey(TAG_PORTAL_FLAG)) {
-						item.setDead();
-						addItem(stack);
-						ticksSinceLastItem = 0;
-					}
-				}
-
-			if(ticksSinceLastItem >= 20) {
-				if(!worldObj.isRemote)
-					resolveRecipes();
-			}
-		}
-
 		int newMeta = getValidMetadata();
+
+		if(!hasUnloadedParts) {
+			ticksOpen++;
+
+			if(ticksOpen > 60) {
+				ticksSinceLastItem++;
+				if(ConfigHandler.elfPortalParticlesEnabled)
+					blockParticle(meta);
+
+				AxisAlignedBB aabb = getPortalAABB();
+				List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, aabb);
+				if(!worldObj.isRemote)
+					for(EntityItem item : items) {
+						if(item.isDead)
+							continue;
+
+						ItemStack stack = item.getEntityItem();
+						if(stack != null && (!(stack.getItem() instanceof IElvenItem) || !((IElvenItem) stack.getItem()).isElvenItem(stack)) && !item.getEntityData().hasKey(TAG_PORTAL_FLAG)) {
+							item.setDead();
+							addItem(stack);
+							ticksSinceLastItem = 0;
+						}
+					}
+
+				if(ticksSinceLastItem >= 20) {
+					if(!worldObj.isRemote)
+						resolveRecipes();
+				}
+			}
+		} else closeNow = false;
+		
 		if(closeNow) {
 			worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 0, 1 | 2);
 			for(int i = 0; i < 36; i++)
@@ -136,6 +139,8 @@ public class TileAlfPortal extends TileMod {
 					blockParticle(meta);
 			worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, newMeta, 1 | 2);
 		}
+		
+		hasUnloadedParts = false;
 	}
 
 	private void blockParticle(int meta) {
@@ -324,6 +329,11 @@ public class TileAlfPortal extends TileMod {
 		int x = xCoord + pos[0];
 		int y = yCoord + pos[1];
 		int z = zCoord + pos[2];
+		if(!worldObj.blockExists(x, y, z)) {
+			hasUnloadedParts = true;
+			return true; // Don't fuck everything up if there's a chunk unload
+		}
+		
 		Block blockat = worldObj.getBlock(x, y, z);
 		if(block == Blocks.air ? blockat.isAir(worldObj, x, y, z) : blockat == block) {
 			if(meta == -1)
