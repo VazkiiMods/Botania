@@ -71,9 +71,11 @@ public class ContainerFlowerBag extends Container {
 					return null;
 			} else {
 				int i = itemstack.getItemDamage();
-				Slot slot1 = (Slot)inventorySlots.get(i);
-				if(slot1.isItemValid(itemstack) && !mergeItemStack(itemstack1, i, i + 1, true))
-					return null;
+				if(i < 16) {
+					Slot slot1 = (Slot)inventorySlots.get(i);
+					if(slot1.isItemValid(itemstack) && !mergeItemStack(itemstack1, i, i + 1, true))
+						return null;
+				}
 			}
 
 			if(itemstack1.stackSize == 0)
