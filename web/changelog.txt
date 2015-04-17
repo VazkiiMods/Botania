@@ -1,3 +1,16 @@
+r1.6 178
+*Added a Blaze Light, a light source block that also works as fuel and can be put next to a Pure Daisy to make Obsidian.
+*Added a Pure Daisy NEI recipe handler.
+*Aside from "...", "~", "+" and "?" can now also be used as Corporea Index wildcards.
+*Disabling capes in Multiplayer Options disables the golden head flowers for contributors too.
+*Fixed a bug relating to weird chunkloading behaviour where spreaders would create thousands of burst entities in the same place that would simply exist, not update, and nom at the server's tickrate, a lot.
+*The Pure Daisy now uses a proper recipe system instead of the two hardcoded values it had previously. To that there's a few new recipes such as Netherrack to Cobblestone, Soul Sand to Sand or Ice to Packed Ice.
+*The Ring of Magnetization will no longer pull Relics.
+*Vine Balls can now be used to craft Mossy Stone.
+*[API] Added a RecipePureDaisy and a list of these. I don't really need to explain what it does, right?
+*[API] Added a WILDCARD_STRINGS array to CorporeaHelper and changed the wildcard check to reference it.
+*[API] Added ElvenPortalUpdateEvent.
+*[API] Increased version number to 40.
 r1.6 177
 *Added a config option to disable the 1.8 stones.
 *Added oredict entries for the 1.8 stone and prismarine blocks for better compatibility with Gany's Surface.
