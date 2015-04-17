@@ -20,6 +20,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.settings.GameSettings.Options;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 
@@ -53,7 +54,7 @@ public final class ContributorFancinessHandler {
 			renderFancyExclusiveDevStuffBecauseImAnEvilDevWhoDoesntCareAboutTheCommunityBooo(event);
 
 		name = name.toLowerCase();
-		if(flowerMap != null && flowerMap.containsKey(name))
+		if(Minecraft.getMinecraft().gameSettings.getOptionOrdinalValue(Options.SHOW_CAPE) && flowerMap != null && flowerMap.containsKey(name))
 			renderFlower(event, flowerMap.get(name));
 	}
 
