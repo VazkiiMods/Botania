@@ -1,3 +1,12 @@
+r1.6 180
+*Added "*" as a corporea wildcard. (shadowfacts)
+*Added vuvuzela.
+*Fixed a crash when pushing blocks towards the pure daisy with a piston under some odd circumstances I don't properly know.
+*Fixed Thermalilies getting the same diminishing returns as hydroangeas.
+*(Technical) Fixed ElvenPortalUpdateEvent never getting posted to the event bus.
+*[API] Added "*" to the WILDCARD_STRINGS array in CorporeaHelper. (shadowfacts)
+*[API] Added a null check the ItemStack and its Item for RecipePureDaisy.isOreDict.
+*[API] Increased version number to 42.
 r1.6 179
 *Fixed the Pure Daisy not working >_>
 *[API] Flipped world.isRemote check in RecipePureDaisy.
