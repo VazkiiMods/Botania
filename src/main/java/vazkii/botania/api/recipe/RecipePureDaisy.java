@@ -46,6 +46,9 @@ public class RecipePureDaisy {
 	}
 	
 	public boolean isOreDict(ItemStack stack, String entry) {
+		if(stack == null || stack.getItem() == null)
+			return false;
+		
 		for(ItemStack ostack : OreDictionary.getOres(entry)) {
 			ItemStack cstack = ostack.copy();
 			if(cstack.getItemDamage() == Short.MAX_VALUE)
