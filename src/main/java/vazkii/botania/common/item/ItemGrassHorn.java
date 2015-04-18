@@ -39,7 +39,8 @@ public class ItemGrassHorn extends ItemMod {
 
 	private static final int SUBTYPES = 3;
 	IIcon[] icons;
-
+	IIcon vuvuzelaIcon;
+	
 	public ItemGrassHorn() {
 		super();
 		setMaxStackSize(1);
@@ -58,6 +59,17 @@ public class ItemGrassHorn extends ItemMod {
 		icons = new IIcon[SUBTYPES];
 		for(int i = 0; i < icons.length; i++)
 			icons[i] = IconHelper.forItem(par1IconRegister, this, i);
+		vuvuzelaIcon = IconHelper.forName(par1IconRegister, "vuvuzela");
+	}
+
+	@Override
+	public IIcon getIconIndex(ItemStack par1ItemStack) {
+		return par1ItemStack.getDisplayName().toLowerCase().contains("vuvuzela") ? vuvuzelaIcon : super.getIconIndex(par1ItemStack);
+	}
+	
+	@Override
+	public IIcon getIcon(ItemStack stack, int pass) {
+		return getIconIndex(stack);
 	}
 
 	@Override
@@ -136,5 +148,10 @@ public class ItemGrassHorn extends ItemMod {
 					world.spawnEntityInWorld(new EntityItem(world, currCoords.posX + 0.5, currCoords.posY + 0.5, currCoords.posZ + 0.5, stack_));
 			}
 		}
+	}
+	
+	@Override
+	public boolean isFull3D() {
+		return true;
 	}
 }
