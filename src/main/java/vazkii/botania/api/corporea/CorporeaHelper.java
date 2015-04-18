@@ -30,7 +30,7 @@ public final class CorporeaHelper {
 	private static final WeakHashMap<List<ICorporeaSpark>, List<IInventory>> cachedNetworks = new WeakHashMap();
 
 	public static final String[] WILDCARD_STRINGS = new String[] {
-		"...", "~", "+", "?" 
+		"...", "~", "+", "?" , "*"
 	};
 	
 	/**
