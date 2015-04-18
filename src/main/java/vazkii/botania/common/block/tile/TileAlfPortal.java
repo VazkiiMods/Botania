@@ -14,13 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
@@ -106,6 +106,7 @@ public class TileAlfPortal extends TileMod {
 			AxisAlignedBB aabb = getPortalAABB();
 			boolean open = ticksOpen > 60;
 			ElvenPortalUpdateEvent event = new ElvenPortalUpdateEvent(this, aabb, open, stacksIn);
+			MinecraftForge.EVENT_BUS.post(event);
 			
 			if(ticksOpen > 60) {
 				ticksSinceLastItem++;
