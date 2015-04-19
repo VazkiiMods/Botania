@@ -30,6 +30,7 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.event.world.ChunkDataEvent.Load;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.DummyMethodHandler;
 import vazkii.botania.api.internal.DummySubTile;
@@ -53,6 +54,8 @@ import vazkii.botania.api.wiki.WikiHooks;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
+import cpw.mods.fml.common.Loader;
+
 public final class BotaniaAPI {
 
 	private static List<LexiconCategory> categories = new ArrayList<LexiconCategory>();
@@ -72,6 +75,7 @@ public final class BotaniaAPI {
 	private static BiMap<String, Class<? extends SubTileEntity>> subTiles = HashBiMap.<String, Class<? extends SubTileEntity>> create();
 	private static Map<Class<? extends SubTileEntity>, SubTileSignature> subTileSignatures = new HashMap<Class<? extends SubTileEntity>, SubTileSignature>();
 	public static Set<String> subtilesForCreativeMenu = new LinkedHashSet();
+	public static Map<String, String> subTileMods = new HashMap<String, String>();
 
 	public static Map<String, Integer> oreWeights = new HashMap<String, Integer>();
 	public static Map<Item, Block> seeds = new HashMap();
@@ -327,9 +331,11 @@ public final class BotaniaAPI {
 
 	/**
 	 * Registers a SubTileEntity, a new special flower. Look in the subtile package of the API.
+	 * If you call this after PostInit you're a failiure and we are very disappointed in you.
 	 */
 	public static void registerSubTile(String key, Class<? extends SubTileEntity> subtileClass) {
 		subTiles.put(key, subtileClass);
+		subTileMods.put(key, Loader.instance().activeModContainer().getModId());
 	}
 
 	/**

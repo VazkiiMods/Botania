@@ -32,6 +32,7 @@ import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyProvider {
 
@@ -80,13 +81,19 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		SubTileSignature sig = BotaniaAPI.getSignatureForName(getType(par1ItemStack));
+		String type = getType(par1ItemStack);
+		SubTileSignature sig = BotaniaAPI.getSignatureForName(type);
+		
 		if(ConfigHandler.referencesEnabled) {
 			String refUnlocalized = sig.getUnlocalizedLoreTextForStack(par1ItemStack);
 			String refLocalized = StatCollector.translateToLocal(refUnlocalized);
 			if(!refLocalized.equals(refUnlocalized))
 				par3List.add(EnumChatFormatting.ITALIC + refLocalized);
 		}
+		
+		String mod = BotaniaAPI.subTileMods.get(type);
+		if(!mod.equals(LibMisc.MOD_ID))
+			par3List.add(EnumChatFormatting.ITALIC + "[" + mod + "]");
 		sig.addTooltip(par1ItemStack, par2EntityPlayer, par3List);
 	}
 
