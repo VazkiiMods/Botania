@@ -14,12 +14,12 @@ public class BlockDreamwoodSlab extends BlockLivingSlab {
 
 	@Override
 	public BlockSlab getFullBlock() {
-		return (BlockSlab) ModFluffBlocks.dreamwoodPlankSlabFull;
+		return (BlockSlab) ModFluffBlocks.dreamwoodSlabFull;
 	}
 
 	@Override
 	public BlockSlab getSingleBlock() {
-		return (BlockSlab) ModFluffBlocks.dreamwoodPlankSlab;
+		return (BlockSlab) ModFluffBlocks.dreamwoodSlab;
 	}
 
 }
