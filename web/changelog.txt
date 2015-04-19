@@ -1,3 +1,17 @@
+r1.6 181
+*Added the Corporea Interceptor, a new corporea block that intercepts requests and emits a redstone signal if they're not successful. Automation~
+*Changed Corporea Funnel texture sides.
+*Fixed Dreamwood Slab and Dreamwood Plank Slab's pick block in creative being flipped.
+*Flowers that come from addon mods will now have a line in the tooltip saying so.
+*Made the Soujourner's Sash not aggressively set the player's step height again. This fixes it not resetting when it's unequipped.
+*[API] Added ICorporeaInterceptor for corporea blocks that wish to intercept requests.
+*[API] Added IManaSpreader for Mana Spreader blocks and mana burst interaction. (SoundLogic).
+*[API] Added setFake() to IManaBurst. (SoundLogic)
+*[API] Fixed VanillaPacketDispatcher depending on the internal MathHelper class.
+*[API] LexiconEntries now have a getWebLink() function that can be used to have a custom "View Online" button. This removes the need to check for IAddonEntry when adding the button.
+*[API] Registering a SubTile now binds the current mod ID to the key.
+*[API] SubTileSignatures now have access to the tooltip list.
+*[API] Increased version number to 43
 r1.6 180
 *Added "*" as a corporea wildcard. (shadowfacts)
 *Added vuvuzela.
