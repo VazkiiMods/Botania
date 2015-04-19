@@ -40,10 +40,10 @@ import vazkii.botania.api.mana.ILensEffect;
 import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.mana.IManaReceiver;
+import vazkii.botania.api.mana.IManaSpreader;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.api.mana.IThrottledPacket;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
@@ -93,14 +93,14 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		}
 	}
 
-	public EntityManaBurst(TileSpreader spreader, boolean fake) {
+	public EntityManaBurst(IManaSpreader spreader, boolean fake) {
 		this(spreader.getWorldObj());
 		this.fake = fake;
 
-		setBurstSourceCoords(spreader.xCoord, spreader.yCoord, spreader.zCoord);
-		setLocationAndAngles(spreader.xCoord + 0.5, spreader.yCoord + 0.5, spreader.zCoord + 0.5, 0, 0);
-		rotationYaw = -(spreader.rotationX + 90F);
-		rotationPitch = spreader.rotationY;
+		setBurstSourceCoords(spreader.getxCoord(), spreader.getyCoord(), spreader.getzCoord());
+		setLocationAndAngles(spreader.getxCoord() + 0.5, spreader.getyCoord() + 0.5, spreader.getzCoord() + 0.5, 0, 0);
+		rotationYaw = -(spreader.getRotationX() + 90F);
+		rotationPitch = spreader.getRotationY();
 
 		float f = 0.4F;
 		double mx = MathHelper.sin(rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float) Math.PI) * f / 2D;
@@ -352,8 +352,8 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		if(!fake && !isDead) {
 			ChunkCoordinates coords = getBurstSourceChunkCoordinates();
 			TileEntity tile = worldObj.getTileEntity(coords.posX, coords.posY, coords.posZ);
-			if(tile != null && tile instanceof TileSpreader)
-				((TileSpreader) tile).canShootBurst = false;
+			if(tile != null && tile instanceof IManaSpreader)
+				((IManaSpreader) tile).setCanShoot(false);
 		}
 
 		ILensEffect lens = getLensInstance();
@@ -394,8 +394,8 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		return false;
 	}
 
-	TileEntity collidedTile = null;
-	boolean noParticles = false;
+	public TileEntity collidedTile = null;
+	public boolean noParticles = false;
 
 	public TileEntity getCollidedTile(boolean noParticles) {
 		this.noParticles = noParticles;
@@ -622,8 +622,8 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		if(!fake) {
 			ChunkCoordinates coords = getBurstSourceChunkCoordinates();
 			TileEntity tile = worldObj.getTileEntity(coords.posX, coords.posY, coords.posZ);
-			if(tile != null && tile instanceof TileSpreader)
-				((TileSpreader) tile).canShootBurst = true;
+			if(tile != null && tile instanceof IManaSpreader)
+				((IManaSpreader) tile).setCanShoot(true);
 		} else setDeathTicksForFakeParticle();
 	}
 
@@ -637,6 +637,11 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		return fake;
 	}
 
+	@Override
+	public void setFake(boolean fake) {
+		this.fake=fake;
+	}
+	
 	public void setScanBeam() {
 		scanBeam = true;
 	}
@@ -770,33 +775,33 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		return x + ":" + y + ":" + z;
 	}
 
-	private boolean shouldDoFakeParticles() {
+	protected boolean shouldDoFakeParticles() {
 		if(ConfigHandler.staticWandBeam)
 			return true;
 
 		ChunkCoordinates coords = getBurstSourceChunkCoordinates();
 		TileEntity tile = worldObj.getTileEntity(coords.posX, coords.posY, coords.posZ);
-		if(tile != null && tile instanceof TileSpreader)
-			return getMana() != getStartingMana() && fullManaLastTick || Math.abs(((TileSpreader) tile).burstParticleTick - getTicksExisted()) < 4;
+		if(tile != null && tile instanceof IManaSpreader)
+			return getMana() != getStartingMana() && fullManaLastTick || Math.abs(((IManaSpreader) tile).getBurstParticleTick() - getTicksExisted()) < 4;
 		return false;
 	}
 
-	private void incrementFakeParticleTick() {
+	protected void incrementFakeParticleTick() {
 		ChunkCoordinates coords = getBurstSourceChunkCoordinates();
 		TileEntity tile = worldObj.getTileEntity(coords.posX, coords.posY, coords.posZ);
-		if(tile != null && tile instanceof TileSpreader) {
-			TileSpreader spreader = (TileSpreader) tile;
-			spreader.burstParticleTick += 2;
-			if(spreader.lastBurstDeathTick != -1 && spreader.burstParticleTick > spreader.lastBurstDeathTick)
-				spreader.burstParticleTick = 0;
+		if(tile != null && tile instanceof IManaSpreader) {
+			IManaSpreader spreader = (IManaSpreader) tile;
+			spreader.setBurstParticleTick(spreader.getBurstParticleTick()+2);
+			if(spreader.getLastBurstDeathTick() != -1 && spreader.getBurstParticleTick() > spreader.getLastBurstDeathTick())
+				spreader.setBurstParticleTick(0);
 		}
 	}
 
-	private void setDeathTicksForFakeParticle() {
+	protected void setDeathTicksForFakeParticle() {
 		ChunkCoordinates coords = getBurstSourceChunkCoordinates();
 		TileEntity tile = worldObj.getTileEntity(coords.posX, coords.posY, coords.posZ);
-		if(tile != null && tile instanceof TileSpreader)
-			((TileSpreader) tile).lastBurstDeathTick = getTicksExisted();
+		if(tile != null && tile instanceof IManaSpreader)
+			((IManaSpreader) tile).setLastBurstDeathTick(getTicksExisted());
 	}
 
 	public static class PositionProperties {
