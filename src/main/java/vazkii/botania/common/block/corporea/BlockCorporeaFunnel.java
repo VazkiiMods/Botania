@@ -37,7 +37,7 @@ public class BlockCorporeaFunnel extends BlockCorporeaBase implements ILexiconab
 
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[3];
+		icons = new IIcon[2];
 		for(int i = 0; i < icons.length; i++)
 			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
 	}
@@ -57,7 +57,7 @@ public class BlockCorporeaFunnel extends BlockCorporeaBase implements ILexiconab
 
 	@Override
 	public IIcon getIcon(int par1, int par2) {
-		return icons[Math.min(2, par1)];
+		return icons[par1 > 1 ? 1 : 0];
 	}
 
 	@Override
