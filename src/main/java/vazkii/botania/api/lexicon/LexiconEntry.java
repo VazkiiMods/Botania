@@ -93,6 +93,15 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 	}
 
 	/**
+	 * Returns the web link for this entry. If this isn't null, looking at this entry will
+	 * show a "View Online" button in the book. The String returned should be the URL to
+	 * open when the button is clicked.
+	 */
+	public String getWebLink() {
+		return null;
+	}
+	
+	/**
 	 * Adds a page to the list of pages.
 	 */
 	public void addPage(LexiconPage page) {
@@ -107,4 +116,5 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 	public int compareTo(LexiconEntry o) {
 		return getNameForSorting().compareTo(o.getNameForSorting());
 	}
+	
 }

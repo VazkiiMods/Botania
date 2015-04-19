@@ -62,7 +62,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 		buttonList.add(leftButton = new GuiButtonPage(1, left, top + guiHeight - 10, false));
 		buttonList.add(rightButton = new GuiButtonPage(2, left + guiWidth - 18, top + guiHeight - 10, true));
 		buttonList.add(new GuiButtonShare(3, left + guiWidth - 6, top - 2));
-		if(!(entry instanceof IAddonEntry))
+		if(entry.getWebLink() != null)
 			buttonList.add(new GuiButtonViewOnline(4, left - 8, top + 8));
 
 		if(!GuiLexicon.isValidLexiconGui(this))	{
@@ -149,7 +149,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 			case 4 :
 				try {
 					if(Desktop.isDesktopSupported())
-						Desktop.getDesktop().browse(new URI("http://botaniamod.net/lexicon.php#" + entry.unlocalizedName));
+						Desktop.getDesktop().browse(new URI(entry.getWebLink()));
 				} catch(Exception e) {
 					e.printStackTrace();
 				}
