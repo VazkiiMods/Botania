@@ -70,7 +70,7 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender {
 
 			if(player.isSneaking())
 				player.stepHeight = 0.50001F; // Not 0.5F because that is the default
-			else if(player.stepHeight <= 0.50001F)
+			else if(player.stepHeight == 0.50001F)
 				player.stepHeight = 1F;
 		}
 	}
@@ -89,10 +89,16 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender {
 	}
 
 	@Override
+	public void onEquippedOrLoadedIntoWorld(ItemStack stack, EntityLivingBase player) {
+		super.onEquippedOrLoadedIntoWorld(stack, player);
+		player.stepHeight = 1F;
+	}
+	 
+	@Override
 	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
 		player.stepHeight = 0.5F;
 	}
-
+	
 	@SideOnly(Side.CLIENT)
 	ResourceLocation getRenderTexture() {
 		return texture;
