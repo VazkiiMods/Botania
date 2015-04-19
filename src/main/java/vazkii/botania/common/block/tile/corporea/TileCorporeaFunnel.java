@@ -75,6 +75,11 @@ public class TileCorporeaFunnel extends TileCorporeaBase {
 	}
 
 	@Override
+	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
+		return false;
+	}
+	
+	@Override
 	public int getSizeInventory() {
 		return 1;
 	}

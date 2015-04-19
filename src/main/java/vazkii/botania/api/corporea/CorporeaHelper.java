@@ -165,13 +165,21 @@ public final class CorporeaHelper {
 	public static List<ItemStack> requestItem(Object matcher, int itemCount, ICorporeaSpark spark, boolean checkNBT, boolean doit) {
 		List<IInventory> inventories = getInventoriesOnNetwork(spark);
 		List<ItemStack> stacks = new ArrayList();
-
+		Map<ICorporeaInterceptor, ICorporeaSpark> interceptors = new HashMap();
+		
 		lastRequestMatches = 0;
 		lastRequestExtractions = 0;
 
 		int count = itemCount;
 		for(IInventory inv : inventories) {
 			ICorporeaSpark invSpark = getSparkForInventory(inv);
+			
+			if(inv instanceof ICorporeaInterceptor) {
+				ICorporeaInterceptor interceptor = (ICorporeaInterceptor) inv;
+				interceptor.interceptRequest(matcher, itemCount, invSpark, spark, stacks, inventories, doit);
+				interceptors.put(interceptor, invSpark);
+			}
+			
 			for(int i = inv.getSizeInventory() - 1; i >= 0; i--) {
 				if(!isValidSlot(inv, i))
 					continue;
@@ -198,6 +206,9 @@ public final class CorporeaHelper {
 				}
 			}
 		}
+		
+		for(ICorporeaInterceptor interceptor : interceptors.keySet())
+			interceptor.interceptRequestLast(matcher, itemCount, interceptors.get(interceptor), spark, stacks, inventories, doit);
 
 		return stacks;
 	}
