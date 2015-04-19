@@ -234,6 +234,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeMasterCorporeaSpark;
 	public static IRecipe recipeCorporeaIndex;
 	public static IRecipe recipeCorporeaFunnel;
+	public static IRecipe recipeCorporeaInterceptor;
 	public static IRecipe recipeEndStoneBricks;
 	public static IRecipe recipeEndStoneChiseledBricks;
 	public static IRecipe recipeLivingwoodBow;
@@ -1559,6 +1560,10 @@ public final class ModCraftingRecipes {
 		addShapelessOreDictRecipe(new ItemStack(ModBlocks.corporeaFunnel), new ItemStack(Blocks.dropper), new ItemStack(ModItems.corporeaSpark));
 		recipeCorporeaFunnel = BotaniaAPI.getLatestAddedRecipe();
 
+		// Corporea Funnel Recipe
+		addShapelessOreDictRecipe(new ItemStack(ModBlocks.corporeaInterceptor), new ItemStack(Blocks.redstone_block), new ItemStack(ModItems.corporeaSpark));
+		recipeCorporeaInterceptor = BotaniaAPI.getLatestAddedRecipe();
+		
 		// End Stone Brick Recipes
 		GameRegistry.addRecipe(new ItemStack(ModBlocks.endStoneBrick, 4),
 				"SS", "SS",

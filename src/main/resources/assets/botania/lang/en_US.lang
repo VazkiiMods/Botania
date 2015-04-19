@@ -2308,6 +2308,12 @@ botania.page.corporeaFunnel0=A simpler block that utilizes the prospects of the 
 botania.page.corporeaFunnel1=The &1Corporea Funnel&0 may only pull items that match its filter, similarly to a &1Hopperhock&0, the filter is designated by items contained on &1Item Frames&0 placed on it. The item pulled is one of the various items in the frames at random.
 botania.page.corporeaFunnel2=Energistically applied
 
+# -- CORPOREA INTERCEPTOR
+botania.entry.corporeaInterceptor=Corporea Interceptor
+botania.page.corporeaInterceptor0=The &1Corporea Interceptor&0 does exactly as the name suggests, it intercepts corporea requests. First and foremost, &1Item Frames&0 with items need be attached around the block, these define what items will trigger the interceptor.<br>Whenever a request is fired to the corporea network, be it from an Index, Funnel, etc, and there's no items in the network that can fulfil it this block will be triggered.
+botania.page.corporeaInterceptor1=Of course, the the block is only triggered if the item requested matches one of items in the &1Item Frames&0 about it. When the block is triggered it'll emit a short redstone pulse. This can be used to do all sorts of things, such as craft the required item using &1Crafty Crates&0 or light up a lamp indicating that the inventory for a resource is out.
+botania.page.corporeaInterceptor2=So many automation prospects
+
 # -- DECORATIVE END BLOCKS
 botania.entry.endStoneDecor=Decorative End Blocks
 botania.page.endStoneDecor0=Similarly to other stone blocks, &1End Stone&0 can be converted into bricks and chiseled bricks, the bricks can be used as stairs or slabs just like normal &1Stone Bricks&0 would.

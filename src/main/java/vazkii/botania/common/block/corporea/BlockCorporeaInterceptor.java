@@ -12,6 +12,7 @@ package vazkii.botania.common.block.corporea;
 
 import java.util.Random;
 
+import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
@@ -28,7 +29,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockCorporeaInterceptor extends BlockCorporeaBase {
+public class BlockCorporeaInterceptor extends BlockCorporeaBase implements ILexiconable {
 
 	IIcon[] icons;
 
@@ -73,6 +74,11 @@ public class BlockCorporeaInterceptor extends BlockCorporeaBase {
 	@Override
 	public TileCorporeaBase createNewTileEntity(World world, int meta) {
 		return new TileCorporeaInterceptor();
+	}
+
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return LexiconData.corporeaInterceptor;
 	}
 
 }

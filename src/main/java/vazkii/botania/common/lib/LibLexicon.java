@@ -161,6 +161,7 @@ public final class LibLexicon {
 	public static final String ENDER_CORPOREA = "corporea";
 	public static final String ENDER_CORPOREA_INDEX = "corporeaIndex";
 	public static final String ENDER_CORPOREA_FUNNEL = "corporeaFunnel";
+	public static final String ENDER_CORPOREA_INTERCEPTOR = "corporeaInterceptor";
 	public static final String ENDER_END_STONE_DECOR = "endStoneDecor";
 	public static final String ENDER_SPAWNER_MOVER = "spawnerMover";
 	public static final String ENDER_KEEP_IVY = "keepIvy";
