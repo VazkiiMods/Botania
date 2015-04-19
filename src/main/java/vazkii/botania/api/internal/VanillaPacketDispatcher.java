@@ -12,11 +12,9 @@ package vazkii.botania.api.internal;
 
 import java.util.List;
 
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import vazkii.botania.common.core.helper.MathHelper;
 
 public final class VanillaPacketDispatcher {
 
@@ -26,7 +24,7 @@ public final class VanillaPacketDispatcher {
 		for(Object player : players)
 			if(player instanceof EntityPlayerMP) {
 				EntityPlayerMP mp = (EntityPlayerMP) player; 
-				if(MathHelper.pointDistancePlane(mp.posX, mp.posZ, tile.xCoord + 0.5, tile.zCoord + 0.5) < 64)
+				if(pointDistancePlane(mp.posX, mp.posZ, tile.xCoord + 0.5, tile.zCoord + 0.5) < 64)
 					((EntityPlayerMP) player).playerNetServerHandler.sendPacket(tile.getDescriptionPacket());
 			}
 	}
@@ -35,6 +33,10 @@ public final class VanillaPacketDispatcher {
 		TileEntity tile = world.getTileEntity(x, y, z);
 		if(tile != null)
 			dispatchTEToNearbyPlayers(tile);
+	}
+	
+	public static float pointDistancePlane(double x1, double y1, double x2, double y2) {
+		return (float) Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
 	}
 
 }
