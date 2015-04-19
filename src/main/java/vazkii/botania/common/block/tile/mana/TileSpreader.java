@@ -595,21 +595,6 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	@Override
-	public int getxCoord() {
-		return xCoord;
-	}
-
-	@Override
-	public int getyCoord() {
-		return yCoord;
-	}
-
-	@Override
-	public int getzCoord() {
-		return zCoord;
-	}
-
-	@Override
 	public float getRotationX() {
 		return rotationX;
 	}
@@ -621,7 +606,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 	@Override
 	public void setCanShoot(boolean canShoot) {
-		canShootBurst=canShoot;
+		canShootBurst = canShoot;
 	}
 
 	@Override
@@ -631,7 +616,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 	@Override
 	public void setBurstParticleTick(int i) {
-		burstParticleTick=i;
+		burstParticleTick = i;
 	}
 
 	@Override
@@ -641,6 +626,6 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 	@Override
 	public void setLastBurstDeathTick(int i) {
-		lastBurstDeathTick=i;
+		lastBurstDeathTick = i;
 	}
 }

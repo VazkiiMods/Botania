@@ -94,11 +94,11 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	}
 
 	public EntityManaBurst(IManaSpreader spreader, boolean fake) {
-		this(spreader.getWorldObj());
+		this( ((TileEntity)spreader).getWorldObj());
 		this.fake = fake;
 
-		setBurstSourceCoords(spreader.getxCoord(), spreader.getyCoord(), spreader.getzCoord());
-		setLocationAndAngles(spreader.getxCoord() + 0.5, spreader.getyCoord() + 0.5, spreader.getzCoord() + 0.5, 0, 0);
+		setBurstSourceCoords(((TileEntity)spreader).xCoord, ((TileEntity)spreader).yCoord, ((TileEntity)spreader).zCoord);
+		setLocationAndAngles(((TileEntity)spreader).xCoord + 0.5, ((TileEntity)spreader).yCoord + 0.5, ((TileEntity)spreader).zCoord + 0.5, 0, 0);
 		rotationYaw = -(spreader.getRotationX() + 90F);
 		rotationPitch = spreader.getRotationY();
 
@@ -642,7 +642,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 	@Override
 	public void setFake(boolean fake) {
-		this.fake=fake;
+		this.fake = fake;
 	}
 	
 	public void setScanBeam() {
@@ -778,7 +778,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		return x + ":" + y + ":" + z;
 	}
 
-	protected boolean shouldDoFakeParticles() {
+	public boolean shouldDoFakeParticles() {
 		if(ConfigHandler.staticWandBeam)
 			return true;
 
@@ -789,7 +789,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		return false;
 	}
 
-	protected void incrementFakeParticleTick() {
+	public void incrementFakeParticleTick() {
 		ChunkCoordinates coords = getBurstSourceChunkCoordinates();
 		TileEntity tile = worldObj.getTileEntity(coords.posX, coords.posY, coords.posZ);
 		if(tile != null && tile instanceof IManaSpreader) {
@@ -800,7 +800,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		}
 	}
 
-	protected void setDeathTicksForFakeParticle() {
+	public void setDeathTicksForFakeParticle() {
 		ChunkCoordinates coords = getBurstSourceChunkCoordinates();
 		TileEntity tile = worldObj.getTileEntity(coords.posX, coords.posY, coords.posZ);
 		if(tile != null && tile instanceof IManaSpreader)
