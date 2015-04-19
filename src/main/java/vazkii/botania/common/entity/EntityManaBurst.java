@@ -94,11 +94,14 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	}
 
 	public EntityManaBurst(IManaSpreader spreader, boolean fake) {
-		this( ((TileEntity)spreader).getWorldObj());
+		this(((TileEntity)spreader).getWorldObj());
+
+		TileEntity tile = (TileEntity) spreader;
+		
 		this.fake = fake;
 
-		setBurstSourceCoords(((TileEntity)spreader).xCoord, ((TileEntity)spreader).yCoord, ((TileEntity)spreader).zCoord);
-		setLocationAndAngles(((TileEntity)spreader).xCoord + 0.5, ((TileEntity)spreader).yCoord + 0.5, ((TileEntity)spreader).zCoord + 0.5, 0, 0);
+		setBurstSourceCoords(tile.xCoord, tile.yCoord, tile.zCoord);
+		setLocationAndAngles(tile.xCoord + 0.5, tile.yCoord + 0.5, tile.zCoord + 0.5, 0, 0);
 		rotationYaw = -(spreader.getRotationX() + 90F);
 		rotationPitch = spreader.getRotationY();
 
