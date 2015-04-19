@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.core.helper;
 
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import net.minecraft.entity.Entity;
 
 public final class MathHelper {
@@ -18,8 +19,9 @@ public final class MathHelper {
 		return (float) Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2) + Math.pow(z1 - z2, 2));
 	}
 
+	// Backwards compatibility
 	public static float pointDistancePlane(double x1, double y1, double x2, double y2) {
-		return (float) Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+		return VanillaPacketDispatcher.pointDistancePlane(x1, y1, x2, y2);
 	}
 
 	public static void setEntityMotionFromVector(Entity entity, Vector3 originalPosVector, float modifier) {
