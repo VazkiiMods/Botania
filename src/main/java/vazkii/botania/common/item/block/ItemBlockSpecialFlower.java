@@ -25,6 +25,7 @@ import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.IRecipeKeyProvider;
 import vazkii.botania.api.subtile.SubTileEntity;
+import vazkii.botania.api.subtile.signature.SubTileSignature;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
@@ -79,12 +80,14 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+		SubTileSignature sig = BotaniaAPI.getSignatureForName(getType(par1ItemStack));
 		if(ConfigHandler.referencesEnabled) {
-			String refUnlocalized = BotaniaAPI.getSignatureForName(getType(par1ItemStack)).getUnlocalizedLoreTextForStack(par1ItemStack);
+			String refUnlocalized = sig.getUnlocalizedLoreTextForStack(par1ItemStack);
 			String refLocalized = StatCollector.translateToLocal(refUnlocalized);
 			if(!refLocalized.equals(refUnlocalized))
 				par3List.add(EnumChatFormatting.ITALIC + refLocalized);
 		}
+		sig.addTooltip(par1ItemStack, par2EntityPlayer, par3List);
 	}
 
 	public static String getType(ItemStack stack) {
