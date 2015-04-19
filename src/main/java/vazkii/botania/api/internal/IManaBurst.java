@@ -60,4 +60,6 @@ public interface IManaBurst {
 
 	public int getTicksExisted();
 
+	public void setFake(boolean fake);
+
 }
