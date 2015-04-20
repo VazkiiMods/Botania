@@ -1491,13 +1491,13 @@ botania.page.sparks1=Placing a &1Spark&0 on top of a &1Mana Pool&0 and another o
 botania.page.sparks2=&oholds up spork&r
 
 # -- SPARK AUGMENTATION
-botania.entry.sparkUpgrades=Spark Agumentation
+botania.entry.sparkUpgrades=Spark Augmentation
 botania.page.sparkUpgrades0=As it seems, &1Sparks&0 are a bit more versatile than it was known previously. A variety of &1Augments&0 can be applied to them to enhance their abilities. It's to note that Augments can only be applied to &1Sparks&0 that lie on &1Mana Pools&0.<br>A &1Spark&0 can only have a single &1Augment&0 at any given time.
 botania.page.sparkUpgrades1=Starting off, the &1Dispersive Augment&0 has the &1Spark&0 use up the &4Mana&0 in the pool below, to charge any nearby players' &4Mana&0 containing items.
 botania.page.sparkUpgrades2=The &1Dominant Augment&0 will have the &1Spark&0 pull any &4Mana&0 from nearby non-augmented &1Sparks'&0 pools into its own, until it's completely full.
 botania.page.sparkUpgrades3=The &1Recessive Augment&0 will have the &1Spark&0 output all of the &4Mana&0 in its pool into any nearby non-augmented or Dispersive &1Sparks'&0 pools until it's completely empty.
 botania.page.sparkUpgrades4=Lastly, the &1Isolated Augment&0 will prevent the &1Spark&0 from interacting with any Dominant or Recessive &1Sparks&0, but still allow it to interact with blocks that can receive their &4Mana&0 through the &1Spark&0 network.
-botania.page.sparkUpgrades5=Crafting the Aguments
+botania.page.sparkUpgrades5=Crafting the Augments
 
 # -- MANA DISTRIBUTOR
 botania.entry.distributor=Mana Distributor
@@ -1940,7 +1940,7 @@ botania.page.complexBrews4a=This brew casts an aura of emptiness around any enti
 botania.page.complexBrews4b=50$ for a common!?
 botania.page.complexBrews5a=This brew casts an aura of emptiness around any entity that has its effect. In a 64 block radius, mobs will be allowed to spawn regardless of light or other conditions. This won't work with &1Emptiness&0.
 botania.page.complexBrews5b=Shall we pray for a miracle? 
-botania.page.complexBrews6a=A player affected with this brew's effect will have much higher profiency at fishing and will catch fish and other loot twice as fast.
+botania.page.complexBrews6a=A player affected with this brew's effect will have much higher proficiency at fishing and will catch fish and other loot twice as fast.
 botania.page.complexBrews6b=Maybe you'll catch a Chris
 
 # -- EYE OF THE ANCIENTS
@@ -2214,7 +2214,7 @@ botania.page.overgrowthSeed0=An &1Overgrowth Seed&0 is an elusive item, which ca
 
 # -- LIVINGWOOD BOW
 botania.entry.livingwoodBow=Livingwood Bow
-botania.page.livingwoodBow0=The &1Livingwood Bow&0 is, as the name describes, a bow made of &1Livingwood&0 strung with &1Mana Infused String&0. Due to its componenets, it will last for longer than a normal &1Bow&0. It'll also repair itself using &4Mana&0, similarly to &1Manasteel Tools&0.
+botania.page.livingwoodBow0=The &1Livingwood Bow&0 is, as the name describes, a bow made of &1Livingwood&0 strung with &1Mana Infused String&0. Due to its components, it will last for longer than a normal &1Bow&0. It'll also repair itself using &4Mana&0, similarly to &1Manasteel Tools&0.
 botania.page.livingwoodBow1=Does it shoot airplanes?
 
 # -- CRYSTAL BOW
@@ -2481,7 +2481,7 @@ botania.entry.judgementCloaks=Cloaks of Judgement
 botania.page.judgementCloaks0=The &1Cloaks of Judgement&0 are a pair of cloaks that can be worn instead of a belt (and thus, they go in the Belt slot). Their strength triggers when their wearer takes damage. After that, they'll go in a ten second recharge period in which their effects won't trigger.
 botania.page.judgementCloaks1=The &1Cloak of Virtue&0 will, when active, block the full extent of a piece of damage taken. This does not apply to magic damage.<br>The &1Cloak of Sin&0 will damage all nearby hostile mobs for the same amount of damage that was taken.
 botania.page.judgementCloaks2=A Holy Mantle
-botania.page.judgementCloaks3=Taste Vengance!
+botania.page.judgementCloaks3=Taste Vengeance!
 
 # -- MANASEER MONOCLE
 botania.entry.monocle=Manaseer Monocle
@@ -2662,7 +2662,7 @@ botania.page.mushrooms1=They don't make you bigger
 
 # -- PHANTOM INK
 botania.entry.phantomInk=Phantom Ink
-botania.page.phantomInk0=Having your beautiful skin and acessories under a set of metal armor is nobody's dream. It's bulky, flat, and worst of all, not fashionable!<br>Luckilly, by tinging this horrendous armor with &1Phantom Ink&0 in a crafting grid, the armor will be completely invisible, while still providing all of its benefits. This will onlt work with armor sets that can use &4Mana&0.
+botania.page.phantomInk0=Having your beautiful skin and acessories under a set of metal armor is nobody's dream. It's bulky, flat, and worst of all, not fashionable!<br>Luckilly, by tinging this horrendous armor with &1Phantom Ink&0 in a crafting grid, the armor will be completely invisible, while still providing all of its benefits. This will only work with armor sets that can use &4Mana&0.
 botania.page.phantomInk1=Who you gonna call?
 
 # -- STONE ALCHEMY
