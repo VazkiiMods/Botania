@@ -13,6 +13,7 @@ package vazkii.botania.common.entity;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
@@ -23,6 +24,7 @@ import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.block.tile.mana.TilePump;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 
 public class EntityPoolMinecart extends EntityMinecart {
@@ -47,6 +49,11 @@ public class EntityPoolMinecart extends EntityMinecart {
 	@Override
 	public Block func_145817_o() {
 		return ModBlocks.pool;
+	}
+	
+	@Override
+	public ItemStack getCartItem() {
+		return new ItemStack(ModItems.poolMinecart);
 	}
 
 	@Override
