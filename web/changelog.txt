@@ -1,3 +1,20 @@
+r1.6 182
+*Added Petite flowers, small variants of functional flowers that have a smaller range. Currently there's 6: Agricarnation, Bellethorne, Bubbell, Hopperhock, Marimorphosis and Rannuncarpus.
+*Baubles can now have Phantom Ink.
+*Fixed Corporea Funnels destroying items if there's no inventory for them to put stuff in.
+*Fixed the Corporea Interceptor crashing the game if an invalid request is thrown.
+*Fixed the Minecart with a Mana Pool returning a normal Minecart when right clicked.
+*Fixed the Soujourner's and Globetrotter's sashes needing to be re-equipped on login and dimension change.
+*Shift-right clicking a flower pouch into a chest or other container drops all of its contents into it.
+*The Lexica Botania will no longer prompt you to shift click to view a recipe if that recipe lies in an entry from a knowledge source you haven't unlocked yet.
+*Tyopo fixes. (MrKunji)
+*Typo fixes 2: Electric Boogaloo. (Xottab-DUTY)
+*Typpo fixes 3: Letter Revolution. (Nincodedo)
+*(Technical) All SubTileEntities registered now get their signature's registerIcons method called, not only those that were set to show up in the creative menu.
+*[API] Added getAllSubTiles().
+*[API] Added getStackSubTileKey() to the internal method handler.
+*[API] Added support for petite flowers in the form of a mapping, recipe list and a new RecipeMiniFlower class.
+*[API] Increased version number to 44.
 r1.6 181
 *Added the Corporea Interceptor, a new corporea block that intercepts requests and emits a redstone signal if they're not successful. Automation~
 *Changed Corporea Funnel texture sides.
