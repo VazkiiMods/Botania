@@ -26,7 +26,9 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
+import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.api.lexicon.LexiconRecipeMappings;
 import vazkii.botania.api.lexicon.LexiconRecipeMappings.EntryData;
@@ -153,7 +155,9 @@ public class PageRecipe extends LexiconPage {
 			tooltipStack = stack;
 
 			EntryData data = LexiconRecipeMappings.getDataForStack(tooltipStack);
-			if(data != null && (data.entry != gui.getEntry() || data.page != gui.getPageOn())) {
+			ItemStack book = Minecraft.getMinecraft().thePlayer.getCurrentEquippedItem();
+			boolean hasKnowledge = book != null && book.getItem() instanceof ILexicon && ((ILexicon) book.getItem()).isKnowledgeUnlocked(book, data.entry.getKnowledgeType());
+			if(data != null && (data.entry != gui.getEntry() || data.page != gui.getPageOn()) && hasKnowledge) {
 				tooltipEntry = true;
 
 				if(!mouseDownLastTick && mouseDown && GuiScreen.isShiftKeyDown()) {
