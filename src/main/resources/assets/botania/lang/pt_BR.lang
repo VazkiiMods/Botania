@@ -13,9 +13,9 @@ botaniamisc.oredict=Usa o Ore Dictionary
 botaniamisc.statusUnknown=Status desconhecido
 botaniamisc.color=Cor: %s
 botaniamisc.manaUsage=Uso de Mana
-botaniamisc.shiftToRead=Shiftclique direito para ler
-botaniamisc.clickToRecipe=Shiftclique para ver a receita
-botaniamisc.clickToIndex=Shiftclique para o índice
+botaniamisc.shiftToRead=Shift-clique direito para ler
+botaniamisc.clickToRecipe=Shift-clique para ver a receita
+botaniamisc.clickToIndex=Shift-clique para o índice
 botaniamisc.flareColor=Projéteis: %s
 botaniamisc.outputtingPower=Enviando Mana para Itens
 botaniamisc.inputtingPower=Aceitando Mana de itens
@@ -93,6 +93,23 @@ botaniamisc.historyDesc=Ver os últimos tópicos visitados
 botaniamisc.lexiconOptions0=Opções do Botania
 botaniamisc.lexiconOptions1=Configure o Botania durante o jogo
 botaniamisc.lexiconOptions2=Algumas opções requerm reabrir o jogo
+botaniamisc.hasPhantomInk=&bTingido com Tinta Fantasma
+botaniamisc.pinkinatorDesc=Aplicar diretamente ao Wither
+botaniamisc.relicUnbound=&6Relíquia&7, Desconexa
+botaniamisc.relicSoulbound=&6Relíquia&7, Conectada com &f%s
+botaniamisc.notYourSagittarius=&4Essa relíquia não lhe pertence
+botaniamisc.diceRoll=O dado para em %s, você nota que ele se transforma em algo.
+botaniamisc.dudDiceRoll=O dado para em %s, ele parece desaparecer no ar.
+botaniamisc.blockAway=1 bloco de distânica
+botaniamisc.blocksAway=%s blocos de distânicia
+botaniamisc.clickToTeleport=Clique direito para teleportar
+botaniamisc.clickToRemoveWarp=Shift-clique esquerdo para remover
+botaniamisc.unboundWarp=Ponto de Viagem desvinculado
+botaniamisc.clickToAddWarp=Clique direito para marcar essa posição
+botaniamisc.hasKeepIvy=Possúi Hera Resoluta
+botaniamisc.active=&aAtivo
+botaniamisc.inactive=&cInativo
+botaniamisc.achievements=Conquistas
 
 # NEI INTEGRATION
 botania.nei.brewery=Fermentador Botânico
@@ -101,6 +118,7 @@ botania.nei.floatingFlowers=Criação de Flor Flutuante
 botania.nei.manaPool=Infusão com Mana
 botania.nei.petalApothecary=Boticário de Pétalas
 botania.nei.runicAltar=Altar Rúnico
+botania.nei.pureDaisy=Pure Daisy
 
 # BUILDCRAFT INTEGRATION
 botania.trigger.manaDetector=Pulso de Mana
@@ -137,6 +155,20 @@ botania.rank3=&aA
 botania.rank4=&dS
 botania.rank5=&6SS
 
+# ZODIAC SIGNS
+botania.sign0=Áries
+botania.sign1=Touro
+botania.sign2=Gêmeos
+botania.sign3=Câncer
+botania.sign4=Leão
+botania.sign5=Virgem
+botania.sign6=Libra
+botania.sign7=Escorpião
+botania.sign8=Sagitário
+botania.sign9=Aquário
+botania.sign10=Capricórnio
+botania.sign11=Peixes
+
 # WINGS
 botania.wings0=Sem asas
 botania.wings1=Asas: Flügel
@@ -146,7 +178,8 @@ botania.wings4=Asas: Lorde das chamas
 botania.wings5=Asas: Princesa sombria das neves
 botania.wings6=Asas: Lorde do Abismo
 botania.wings7=Asas: Sylph
-botania.wings8=Asas: O Escolhido
+botania.wings8=Asas: Mega Ultra Chicken
+botania.wings9=Asas: O Escolhido
 
 # ARMOR SETS
 botania.armorset.manasteel.name=Afinidade com Mana
@@ -214,6 +247,9 @@ darkQuartz.enabled=Permitir Quartzo Escuro
 fallenKanade.enabled=Permitir Fallen Kanade
 manaEnchanter.enabled=Permitir Encantador de Mana
 manaFluxfield.enabled=Permitir Fluxo-Campo de Mana
+relics.enabled=Permitir Relíquias
+18stones.enabled=Permitir pedras da 1.8
+ringOfOdin.fireResist=Permitir Resistência ao Fogo do Anel de Odin
 flower.forceCheck=Forçar checagem em plantas
 enderPickpocket.enabled=Permitir 'Roubo do Fim'
 thermalily.obsidian=Thermalily requer Obsidiana
@@ -306,6 +342,50 @@ botania.baubletype.ring=Equipável no slot de &aAnéis&7
 botania.baubletype.belt=Equipável no slot de &aCintos&7
 botania.baubletooltip=Aperte &b%key%&7 para abrir o menu do Baubles
 
+# RELIC POEMS
+item.infiniteFruit.poem0=The fruit of the forbidden garden
+item.infiniteFruit.poem1=Eternally cleanses one's hunger,
+item.infiniteFruit.poem2=For that it rebuilds its pulp
+item.infiniteFruit.poem3=And makes itself younger.
+
+item.excaliber.poem0=A sword of a true hero
+item.excaliber.poem1=Fit for only one of the kind,
+item.excaliber.poem2=Sharp and magic conjuring,
+item.excaliber.poem3=Enemies it will quickly find.
+
+item.flugelEye.poem0=A vision of the past on one's mind,
+item.flugelEye.poem1=Round and round is the memory matrix,
+item.flugelEye.poem2=And their viable interactions
+item.flugelEye.poem3=Will take the psyche back to basics.
+
+item.thorRing.poem0=The force of the Thunder God
+item.thorRing.poem1=Will Shatter the salt of the Terra,
+item.thorRing.poem2=With unstoppable strength
+item.thorRing.poem3=It'll begin anew a new era.
+
+item.odinRing.poem0=The wise old God lays its blessings,
+item.odinRing.poem1=Of virtue, life and divinity,
+item.odinRing.poem2=With the hindrance of death on one's hands,
+item.odinRing.poem3=They'll form the Holy Trinity.
+
+item.lokiRing.poem0=Empty handed, a sneaking interaction,
+item.lokiRing.poem1=Once on the center, then around the track,
+item.lokiRing.poem2=Back to the start one'd go to complete
+item.lokiRing.poem3=The power of creating back-to-back.
+
+item.aesirRing.poem0=The forces of the Gods
+item.aesirRing.poem1=In this band form as one,
+item.aesirRing.poem2=And when combined all together
+item.aesirRing.poem3=Above them will be none.
+
+item.dice.poem0=He deals the cards to find the answer,
+item.dice.poem1=The sacred geometry of chance,
+item.dice.poem2=The hidden laws of a probable outcome,
+item.dice.poem3=The numbers lead a dance.
+
+# DEATH MESSAGES
+death.attack.botania-relic=%s foi punido por usar uma relíquia que não lhe pertencia
+
 # ENTITY NAMES
 entity.Botania.botania:manaBurst.name=Pulso de Mana
 entity.Botania.botania:signalFlare.name=Fagulhas Sinalizadoras
@@ -320,8 +400,9 @@ entity.Botania.botania:magicMissile.name=Míssel Mágico
 entity.Botania.botania:thornChakram.name=Chakram Espinhento
 entity.Botania.botania:corporeaSpark.name=Fagulha Corporea
 entity.Botania.botania:enderAirBottle.name=Garrafa de ar do Fim
+entity.Botania.botania:poolMinecart.name=Carrinho com Poço de Mana
 
-# ACHIEVEMENT NAMES  DESC
+# ACHIEVEMENT NAMES + DESC
 achievement.botania:flowerPickup=Céus do início
 achievement.botania:flowerPickup.desc=Colete uma Flor Mística no mundo
 achievement.botania:lexiconUse=Uma situação lógica real
@@ -362,14 +443,39 @@ achievement.botania:dirtRodCraft=Rockbell
 achievement.botania:dirtRodCraft.desc=Crie um graveto su- er... Cajado das Terras
 achievement.botania:spawnerMoverUse=Eu posso pegar (removido)
 achievement.botania:spawnerMoverUse.desc=Use um Agregador de Vida para transportar um Invocador de Monstros
+achievement.botania:enderAirMake=Ar de mentira
+achievement.botania:enderAirMake.desc=Colete uma Garrafa de ar do Fim
+achievement.botania:corporeaCraft=Drop Pop Candy
+achievement.botania:corporeaCraft.desc=Crie um bloco que faça parte da Rede de Corporea
+
 achievement.botania:signalFlareStun=Veja as luzes
 achievement.botania:signalFlareStun.desc=Atordoe 100 ou mais monstros com uma única Fagulha Sinalizadora
-achievement.botania:l20ShardUse=Fora do chão
-achievement.botania:l20ShardUse.desc=Ergua a solo ao céu com uma Fragmento de Laputa Nível XX
+achievement.botania:l20ShardUse=Castelo no céu
+achievement.botania:l20ShardUse.desc=Ergua o solo ao céu com um Fragmento de Laputa Nível XX
 achievement.botania:gaiaGuardianNoArmor=O fim da mitologia
 achievement.botania:gaiaGuardianNoArmor.desc=Mate um Guardião de Gaia sem usar armadura em qualquer parte da luta
 achievement.botania:rankSSPick=Triturador de talentos
-achievement.botania:rankSSPick.desc=Minere usando um Terra-Destruidor nível SS
+achievement.botania:rankSSPick.desc=Minere usando um Terra-Destruídor nível SS
+achievement.botania:superCorporeaRequest=Invasora
+achievement.botania:superCorporeaRequest.desc=Requisite 50000 ou mais de um único item com o Índice Corporea
+achievement.botania:pinkinator=Decorador
+achievement.botania:pinkinator.desc=Dê um uso ao Pinkinator
+
+achievement.botania:infiniteFruit=Innocentia
+achievement.botania:infiniteFruit.desc=Seja recompensado com uma Fruta de Grisaia por um ato heróico
+achievement.botania:excaliber=Streaming Heart
+achievement.botania:excaliber.desc=Seja recompensado com a Espada Sagrada Excaliber por um ato heróico
+achievement.botania:flugelEye=Anjo da Morte
+achievement.botania:flugelEye.desc=Seja recompensado com um Olho dos Flügel por um ato heróico
+achievement.botania:thorRing=Um passo dado
+achievement.botania:thorRing.desc=Seja recompensado com o Anel de Thor por um ato heróico
+achievement.botania:odinRing=Memórias perdidas no tempo
+achievement.botania:odinRing.desc=Seja recompensado com o Anel de Odin por um ato heróico
+achievement.botania:lokiRing=Aritmético
+achievement.botania:lokiRing.desc=Seja recompensado com o Anel de Loki por um ato heróico
+achievement.botania:aesirRing=Como os deuses dizem
+achievement.botania:aesirRing.desc=Crie um Anel de Aesir com os três anéis dos deuses
+
 achievement.botania:desuGun=Amantes de duas caras
 achievement.botania:desuGun.desc=ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
 #                                 ^ Don't localize
@@ -514,6 +620,11 @@ tile.botania:chiseledElfQuartz.name=Bloco de Quartzo Élfico Talhado
 tile.botania:pillarElfQuartz.name=Pilar de Quartzo Élfico
 tile.botania:quartzSlabElfHalf.name=Laje de Quartzo Élfico
 tile.botania:quartzStairsElf.name=Escadas de Quartzo Élfico
+tile.botania:blockSunnyQuartz.name=Bloco de Quartzo Solar
+tile.botania:chiseledSunnyQuartz.name=Bloco de Quartzo Solar Talhado
+tile.botania:pillarSunnyQuartz.name=Pilar de Quartzo Solar
+tile.botania:quartzSlabSunnyHalf.name=Laje de Quartzo Solar
+tile.botania:quartzStairsSunny.name=Escadas de Quartzo Solar
 tile.botania:dreamwood0.name=Madeira dos Sonhos
 tile.botania:dreamwood1.name=Tábuas de Madeira dos Sonhos
 tile.botania:dreamwood2.name=Tábuas de Madeira dos Sonhos com musgo
@@ -759,6 +870,40 @@ tile.botania:doubleFlower212.name=Flor Mística Alta Marrom
 tile.botania:doubleFlower213.name=Flor Mística Alta Verde
 tile.botania:doubleFlower214.name=Flor Mística Alta Vermelha
 tile.botania:doubleFlower215.name=Flor Mística Alta Preta
+tile.botania:stone0.name=Andesito
+tile.botania:stone1.name=Basalto
+tile.botania:stone2.name=Diorito
+tile.botania:stone3.name=Granito
+tile.botania:stone4.name=Andesito Polido
+tile.botania:stone5.name=Basalto Polido
+tile.botania:stone6.name=Diorito Polido
+tile.botania:stone7.name=Granito Polido
+tile.botania:stone8.name=Tijolos de Andesito
+tile.botania:stone9.name=Tijolos de Basalto
+tile.botania:stone10.name=Tijoloes de Diorito
+tile.botania:stone11.name=Tijolos de Granito
+tile.botania:stone12.name=Tijolos de Andesito Talhados
+tile.botania:stone13.name=Tijolos de Basalto Talhados
+tile.botania:stone14.name=Tijolos de Diorito Talhados
+tile.botania:stone15.name=Tijolos de Granito Talhados
+tile.botania:stone0Stairs.name=Escadas de Andesito
+tile.botania:stone1Stairs.name=Escadas de Basalto
+tile.botania:stone2Stairs.name=Escadas de Diorito
+tile.botania:stone3Stairs.name=Escadas de Granito
+tile.botania:stone8Stairs.name=Escadas de Tijolos de Andesito
+tile.botania:stone9Stairs.name=Escadas de Tijolos de Basalto
+tile.botania:stone10Stairs.name=Escadas de Tijolos de Diorito
+tile.botania:stone11Stairs.name=Escadas de Tijolos de Granito
+tile.botania:stone0Slab.name=Laje de Andesito
+tile.botania:stone1Slab.name=Laje de Basalto
+tile.botania:stone2Slab.name=Laje de Diorito
+tile.botania:stone3Slab.name=Laje de Granito
+tile.botania:stone8Slab.name=Laje de Tijolos de Andesito
+tile.botania:stone9Slab.name=Laje de Tijolos de Basalto
+tile.botania:stone10Slab.name=Laje de Tijolos de Diorito
+tile.botania:stone11Slab.name=Laje de Tijolos de Granito
+tile.botania:blazeBlock.name=Lâmpada Infernal
+tile.botania:corporeaInterceptor.name=Interceptador Corporea
 
 # FLOWER NAMES
 tile.botania:flower..name=Flor do Botania
@@ -800,6 +945,8 @@ tile.botania:flower.spectrolus.reference=Lucrando com o Ódio
 # - FUNCTIONAL
 tile.botania:flower.bellethorn.name=Bellethorne
 tile.botania:flower.bellethorn.reference=world's end, girl's rondo
+tile.botania:flower.bellethornChibi.name=Bellethorne Petite
+tile.botania:flower.bellethornChibi.reference=world's end, girl's rondo
 tile.botania:flower.dreadthorn.name=Dreadthorne
 tile.botania:flower.dreadthorn.reference=Plano C!
 tile.botania:flower.heiseiDream.name=Heisei Dream
@@ -815,15 +962,21 @@ tile.botania:flower.fallenKanade.reference=Não sou um anjo
 tile.botania:flower.exoflame.name=Exoflame
 tile.botania:flower.exoflame.reference=Usando suas fitas pretas
 tile.botania:flower.agricarnation.name=Agricarnation
-tile.botania:flower.agricarnation.reference=Vista em 25 de abril
+tile.botania:flower.agricarnation.reference=Viva o 25 de abril
+tile.botania:flower.agricarnationChibi.name=Agricarnation Petite
+tile.botania:flower.agricarnationChibi.reference=Viva o 25 de Abril
 tile.botania:flower.hopperhock.name=Hopperhock
 tile.botania:flower.hopperhock.reference=Tudo cai aqui
+tile.botania:flower.hopperhockChibi.name=Hopperhock Petite
+tile.botania:flower.hopperhockChibi.reference=Tudo cai aqui
 tile.botania:flower.tangleberrie.name=Tangleberrie
 tile.botania:flower.tangleberrie.reference=Proibido o uso de frigideiras
 tile.botania:flower.jiyuulia.name=Jiyuulia
 tile.botania:flower.jiyuulia.reference=Flügel der Freiheit
 tile.botania:flower.rannuncarpus.name=Rannuncarpus
 tile.botania:flower.rannuncarpus.reference=Útil
+tile.botania:flower.rannuncarpusChibi.name=Rannuncarpus Petite
+tile.botania:flower.rannuncarpusChibi.reference=Útil
 tile.botania:flower.hyacidus.name=Hyacidus
 tile.botania:flower.hyacidus.reference=Se você não andar, não machuca
 tile.botania:flower.pollidisiac.name=Pollidisiac
@@ -842,6 +995,14 @@ tile.botania:flower.medumone.name=Medumone
 tile.botania:flower.medumone.reference=Tudo culpa de Hades
 tile.botania:flower.marimorphosis.name=Marimorphosis
 tile.botania:flower.marimorphosis.reference=Sólida como pedra
+tile.botania:flower.marimorphosisChibi.name=Marimorphosis Petite
+tile.botania:flower.marimorphosisChibi.reference=Sólida com pedra
+tile.botania:flower.bubbell.name=Bubbell
+tile.botania:flower.bubbell.reference=And whistle
+tile.botania:flower.bubbellChibi.name=Bubbell Petite
+tile.botania:flower.bubbellChibi.reference=And whistle
+tile.botania:flower.solegnolia.name=Solegnolia
+tile.botania:flower.solegnolia.reference=All your magnets are belong to us
 
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania
@@ -1010,6 +1171,7 @@ item.botania:quartz2.name=Quartzo Flamejante
 item.botania:quartz3.name=Quartzo de Lavanda
 item.botania:quartz4.name=Quartzo-vermelho
 item.botania:quartz5.name=Quartzo Élfico
+item.botania:quartz6.name=Quartzo Solar
 item.botania:elementium.name=Barra de Elementium
 item.botania:pixieDust.name=Pó de Fada
 item.botania:dragonstone.name=Pedra Draconiana
@@ -1144,6 +1306,9 @@ item.botania:lokiRing.name=Anel de Loki
 item.botania:aesirRing.name=Anel de Aesir
 item.botania:dice.name=Dado do Destino
 item.botania:keepIvy.name=Hera Resoluta
+item.botania:blackHoleTalisman.name=Talismã do Buraco-negro
+item.botania:recordGaia1.name=Disco de Música
+item.botania:recordGaia2.name=Disco de Música
 
 # BREW NAMES
 botania.brew.fallback=Fallback
@@ -1178,6 +1343,10 @@ botania.potion.allure=Sedução
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania, %sª Edição - Índice
 botania.gui.lexicon.wip=(Esse tópico está em progresso. Nem ao menos está na forma final)
+
+# MUSIC DISCS
+item.record.botania:gaia1.desc=Kain Vinosec - Endure Emptiness
+item.record.botania:gaia2.desc=Kain Vinosec - Fight For Quiescence
 
 # LEXICON CATEGORIES
 botania.category.basics=Mecânicas e Informações básicas
