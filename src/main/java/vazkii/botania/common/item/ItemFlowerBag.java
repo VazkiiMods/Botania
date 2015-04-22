@@ -11,15 +11,20 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibGuiIDs;
 import vazkii.botania.common.lib.LibItemNames;
@@ -83,6 +88,46 @@ public class ItemFlowerBag extends ItemMod {
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
 		player.openGui(Botania.instance, LibGuiIDs.FLOWER_BAG, world, 0, 0, 0);
 		return stack;
+	}
+	
+	@Override
+	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int s, float xs, float ys, float zs) {
+		TileEntity tile = world.getTileEntity(x, y, z);
+		if(tile != null && tile instanceof IInventory) {
+			if(!world.isRemote) {
+				ForgeDirection side = ForgeDirection.getOrientation(s);
+				IInventory inv = (IInventory) tile;
+				ItemStack[] stacks = loadStacks(stack);
+				ItemStack[] newStacks = new ItemStack[stacks.length];
+				boolean putAny = false;
+				
+				int i = 0;
+				for(ItemStack petal : stacks) {
+					if(petal != null) {
+						int count = InventoryHelper.testInventoryInsertion(inv, petal, side);
+						InventoryHelper.insertItemIntoInventory(inv, petal, side, -1);
+						
+						ItemStack newPetal = petal.copy();
+						if(newPetal.stackSize == 0)
+							newPetal = null;
+						
+						newStacks[i] = newPetal;
+						putAny |= count > 0;
+					}
+					
+					i++;
+				}
+				
+				setStacks(stack, newStacks);
+				if(putAny && inv instanceof TileEntityChest) {
+					TileEntityChest chest = (TileEntityChest) inv;
+					player.displayGUIChest(chest);
+				}
+			}
+			
+			return true;
+		}
+		return false;
 	}
 
 	public static ItemStack[] loadStacks(ItemStack stack) {
