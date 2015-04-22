@@ -63,7 +63,7 @@ public class RecipePureDaisy {
 	
 	/**
 	 * Returns true if the block was placed (and if the Pure Daisy should do particles and stuffs).
-	 * Should only place the block if world.isRemote, but should return true if it would've placed
+	 * Should only place the block if !world.isRemote, but should return true if it would've placed
 	 * it otherwise. You may return false to cancel the normal particles and do your own. 
 	 */
 	public boolean set(World world, int x, int y, int z, SubTileEntity pureDaisy) {

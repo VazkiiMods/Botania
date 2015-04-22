@@ -76,6 +76,8 @@ public interface IInternalMethodHandler {
 
 	public ItemStack getSubTileAsFloatingFlowerStack(String subTile);
 
+	public String getStackSubTileKey(ItemStack stack);
+	
 	public IIcon getSubTileIconForName(String name);
 
 	public void registerBasicSignatureIcons(String name, IIconRegister register);

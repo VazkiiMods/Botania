@@ -32,6 +32,9 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 	private static final int COST = 12;
 	private static final int RANGE = 8;
 	private static final int RANGE_Y = 5;
+	
+	private static final int RANGE_MINI = 2;
+	private static final int RANGE_Y_MINI = 1;
 
 	private static final Type[] TYPES = new Type[] {
 		Type.FOREST,
@@ -87,9 +90,12 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 	public ChunkCoordinates getCoordsToPut() {
 		List<ChunkCoordinates> possibleCoords = new ArrayList();
 
-		for(int i = -RANGE; i < RANGE + 1; i++)
-			for(int j = -RANGE_Y; j < RANGE_Y; j++)
-				for(int k = -RANGE; k < RANGE + 1; k++) {
+		int range = getRange();
+		int rangeY = getRangeY();
+		
+		for(int i = -range; i < range + 1; i++)
+			for(int j = -range; j < rangeY; j++)
+				for(int k = -range; k < range + 1; k++) {
 					int x = supertile.xCoord + i;
 					int y = supertile.yCoord + j;
 					int z = supertile.zCoord + k;
@@ -105,7 +111,15 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
+		return new RadiusDescriptor.Square(toChunkCoordinates(), getRange());
+	}
+	
+	public int getRange() {
+		return RANGE;
+	}
+	
+	public int getRangeY() {
+		return RANGE_Y;
 	}
 
 	@Override
@@ -128,4 +142,9 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 		return LexiconData.marimorphosis;
 	}
 
+	public static class Mini extends SubTileMarimorphosis {		
+		@Override public int getRange() { return RANGE_MINI; }
+		@Override public int getRangeY() { return RANGE_Y_MINI; }
+	}
+	
 }

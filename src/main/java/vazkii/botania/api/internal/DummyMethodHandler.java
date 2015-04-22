@@ -119,6 +119,11 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	}
 
 	@Override
+	public String getStackSubTileKey(ItemStack stack) {
+		return null;
+	}
+	
+	@Override
 	public IIcon getSubTileIconForName(String name) {
 		return Blocks.red_flower.getIcon(0, 0);
 	}

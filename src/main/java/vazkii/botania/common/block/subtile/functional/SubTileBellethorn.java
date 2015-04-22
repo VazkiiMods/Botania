@@ -26,6 +26,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 public class SubTileBellethorn extends SubTileFunctional {
 
 	public static final int RANGE = 6;
+	public static final int RANGE_MINI = 1;
 
 	@Override
 	public int getColor() {
@@ -47,7 +48,8 @@ public class SubTileBellethorn extends SubTileFunctional {
 		final int manaToUse = getManaCost();
 
 		if(ticksExisted % 5 == 0) {
-			List<EntityLivingBase> entities = supertile.getWorldObj().getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - RANGE, supertile.yCoord, supertile.zCoord - RANGE, supertile.xCoord + RANGE, supertile.yCoord + 1, supertile.zCoord + RANGE));
+			int range = getRange();
+			List<EntityLivingBase> entities = supertile.getWorldObj().getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord, supertile.zCoord - range, supertile.xCoord + range, supertile.yCoord + 1, supertile.zCoord + range));
 			IEntitySelector selector = getSelector();
 
 			for(EntityLivingBase entity : entities) {
@@ -71,6 +73,10 @@ public class SubTileBellethorn extends SubTileFunctional {
 	public int getManaCost() {
 		return 24;
 	}
+	
+	public int getRange() {
+		return RANGE;
+	}
 
 	public IEntitySelector getSelector() {
 		return new IEntitySelector() {
@@ -85,12 +91,16 @@ public class SubTileBellethorn extends SubTileFunctional {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
+		return new RadiusDescriptor.Square(toChunkCoordinates(), getRange());
 	}
 
 	@Override
 	public LexiconEntry getEntry() {
 		return LexiconData.bellethorne;
+	}
+	
+	public static class Mini extends SubTileBellethorn {		
+		@Override public int getRange() { return RANGE_MINI; }
 	}
 
 }

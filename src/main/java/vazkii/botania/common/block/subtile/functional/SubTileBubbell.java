@@ -27,6 +27,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 public class SubTileBubbell extends SubTileFunctional {
 
 	private static final int RANGE = 12;
+	private static final int RANGE_MINI = 6;
 	private static final int COST_PER_TICK = 4;
 	private static final String TAG_RANGE = "range";
 
@@ -39,7 +40,7 @@ public class SubTileBubbell extends SubTileFunctional {
 		if(mana > COST_PER_TICK) {
 			mana -= COST_PER_TICK;
 
-			if(ticksExisted % 10 == 0 && range < RANGE)
+			if(ticksExisted % 10 == 0 && range < getRange())
 				range++;
 
 			for(int i = -range; i < range + 1; i++)
@@ -90,15 +91,23 @@ public class SubTileBubbell extends SubTileFunctional {
 	public int getColor() {
 		return 0x0DCF89;
 	}
+	
+	public int getRange() {
+		return RANGE;
+	}
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Circle(toChunkCoordinates(), RANGE);
+		return new RadiusDescriptor.Circle(toChunkCoordinates(), range);
 	}
 
 	@Override
 	public LexiconEntry getEntry() {
 		return LexiconData.bubbell;
+	}
+	
+	public static class Mini extends SubTileBubbell {		
+		@Override public int getRange() { return RANGE_MINI; }
 	}
 
 }

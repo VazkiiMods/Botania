@@ -30,7 +30,6 @@ public class RecipeManaInfusion {
 	}
 
 	public boolean matches(ItemStack stack) {
-
 		if(input instanceof ItemStack) {
 			ItemStack inputCopy = ((ItemStack) input).copy();
 			if(inputCopy.getItemDamage() == Short.MAX_VALUE)

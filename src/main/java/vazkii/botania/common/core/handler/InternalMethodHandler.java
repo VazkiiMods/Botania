@@ -152,6 +152,11 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	}
 
 	@Override
+	public String getStackSubTileKey(ItemStack stack) {
+		return ItemBlockSpecialFlower.getType(stack);
+	}
+	
+	@Override
 	public IManaNetwork getManaNetworkInstance() {
 		return ManaNetworkHandler.instance;
 	}

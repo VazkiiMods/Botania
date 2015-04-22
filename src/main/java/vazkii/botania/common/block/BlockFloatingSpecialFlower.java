@@ -56,8 +56,11 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 
 	@Override
 	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
-		for(String s : BotaniaAPI.subtilesForCreativeMenu)
+		for(String s : BotaniaAPI.subtilesForCreativeMenu) {
 			par3List.add(ItemBlockSpecialFlower.ofType(new ItemStack(par1), s));
+			if(BotaniaAPI.miniFlowers.containsKey(s))
+				par3List.add(ItemBlockSpecialFlower.ofType(new ItemStack(par1), BotaniaAPI.miniFlowers.get(s)));
+		}
 	}
 
 	@Override

@@ -46,6 +46,10 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 	private static final int RANGE_PLACE_MANA = 8;
 	private static final int RANGE_PLACE = 6;
 	private static final int RANGE_PLACE_Y = 6;
+	
+	private static final int RANGE_PLACE_MANA_MINI = 3;
+	private static final int RANGE_PLACE_MINI = 2;
+	private static final int RANGE_PLACE_Y_MINI = 2;
 
 	@Override
 	public void onUpdate() {
@@ -60,7 +64,8 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 			boolean scanned = false;
 			List<ChunkCoordinates> validPositions = new ArrayList();
 
-			int rangePlace = mana > 0 ? RANGE_PLACE_MANA : RANGE_PLACE;
+			int rangePlace = getRange();
+			int rangePlaceY = getRangeY();
 
 			int x = supertile.xCoord;
 			int y = supertile.yCoord;
@@ -76,7 +81,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 				if(stackItem instanceof ItemBlock || stackItem instanceof ItemReed) {
 					if(!scanned) {
 						for(int i = -rangePlace; i < rangePlace + 1; i++)
-							for(int j = -RANGE_PLACE_Y; j < RANGE_PLACE_Y + 1; j++)
+							for(int j = -rangePlaceY; j < rangePlaceY + 1; j++)
 								for(int l = -rangePlace; l < rangePlace + 1; l++) {
 									int xp = x + i;
 									int yp = y + j;
@@ -162,9 +167,17 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toChunkCoordinates(), mana > 0 ? RANGE_PLACE_MANA : RANGE_PLACE);
+		return new RadiusDescriptor.Square(toChunkCoordinates(), getRange());
 	}
 
+	public int getRange() {
+		return mana > 0 ? RANGE_PLACE_MANA : RANGE_PLACE;
+	}
+	
+	public int getRangeY() {
+		return RANGE_PLACE_Y;
+	}
+	
 	@Override
 	public int getMaxMana() {
 		return 20;
@@ -180,6 +193,11 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 		return LexiconData.rannuncarpus;
 	}
 
+	public static class Mini extends SubTileRannuncarpus {		
+		@Override public int getRange() { return RANGE_PLACE_MINI; }
+		@Override public int getRangeY() { return RANGE_PLACE_Y_MINI; }
+	}
+	
 	static class BlockData {
 
 		Block block;
@@ -199,5 +217,5 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 		}
 
 	}
-
+	
 }

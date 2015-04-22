@@ -26,14 +26,16 @@ import vazkii.botania.common.lexicon.LexiconData;
 public class SubTileAgricarnation extends SubTileFunctional {
 
 	private static final int RANGE = 5;
+	private static final int RANGE_MINI = 2;
 
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
 
 		if(ticksExisted % 6 == 0 && redstoneSignal == 0) {
-			int x = supertile.xCoord + supertile.getWorldObj().rand.nextInt(RANGE * 2 + 1) - RANGE;
-			int z = supertile.zCoord + supertile.getWorldObj().rand.nextInt(RANGE * 2 + 1) - RANGE;
+			int range = getRange();
+			int x = supertile.xCoord + supertile.getWorldObj().rand.nextInt(RANGE * 2 + 1) - range;
+			int z = supertile.zCoord + supertile.getWorldObj().rand.nextInt(RANGE * 2 + 1) - range;
 
 			for(int i = 4; i > -2; i--) {
 				int y = supertile.yCoord + i;
@@ -78,10 +80,14 @@ public class SubTileAgricarnation extends SubTileFunctional {
 	public int getMaxMana() {
 		return 200;
 	}
+	
+	public int getRange() {
+		return RANGE;
+	}
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
+		return new RadiusDescriptor.Square(toChunkCoordinates(), getRange());
 	}
 
 	@Override
@@ -89,4 +95,8 @@ public class SubTileAgricarnation extends SubTileFunctional {
 		return LexiconData.agricarnation;
 	}
 
+	public static class Mini extends SubTileAgricarnation {		
+		@Override public int getRange() { return RANGE_MINI; }
+	}
+	
 }

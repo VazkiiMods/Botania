@@ -30,7 +30,6 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.util.EnumHelper;
-import net.minecraftforge.event.world.ChunkDataEvent.Load;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.DummyMethodHandler;
 import vazkii.botania.api.internal.DummySubTile;
@@ -41,6 +40,7 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.recipe.RecipeBrew;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
+import vazkii.botania.api.recipe.RecipeMiniFlower;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipePureDaisy;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
@@ -71,11 +71,13 @@ public final class BotaniaAPI {
 	public static List<RecipeRuneAltar> runeAltarRecipes = new ArrayList<RecipeRuneAltar>();
 	public static List<RecipeElvenTrade> elvenTradeRecipes = new ArrayList<RecipeElvenTrade>();
 	public static List<RecipeBrew> brewRecipes = new ArrayList<RecipeBrew>();
+	public static List<RecipeManaInfusion> miniFlowerRecipes = new ArrayList<RecipeManaInfusion>();
 
 	private static BiMap<String, Class<? extends SubTileEntity>> subTiles = HashBiMap.<String, Class<? extends SubTileEntity>> create();
 	private static Map<Class<? extends SubTileEntity>, SubTileSignature> subTileSignatures = new HashMap<Class<? extends SubTileEntity>, SubTileSignature>();
 	public static Set<String> subtilesForCreativeMenu = new LinkedHashSet();
 	public static Map<String, String> subTileMods = new HashMap<String, String>();
+	public static BiMap<String, String> miniFlowers = HashBiMap.<String, String> create();
 
 	public static Map<String, Integer> oreWeights = new HashMap<String, Integer>();
 	public static Map<Item, Block> seeds = new HashMap();
@@ -337,6 +339,20 @@ public final class BotaniaAPI {
 		subTiles.put(key, subtileClass);
 		subTileMods.put(key, Loader.instance().activeModContainer().getModId());
 	}
+	
+	/**
+	 * Register a SubTileEntity and makes it a mini flower. Also adds the recipe and returns it.
+	 * @see BotaniaAPI#registerSubTile
+	 */
+	public static RecipeManaInfusion registerMiniSubTile(String key, Class<? extends SubTileEntity> subtileClass, String original) {
+		registerSubTile(key, subtileClass);
+		miniFlowers.put(original, key);
+		
+		RecipeMiniFlower recipe = new RecipeMiniFlower(key, original, 2500);
+		manaInfusionRecipes.add(recipe);
+		miniFlowerRecipes.add(recipe);
+		return recipe;
+	}
 
 	/**
 	 * Registers a SubTileEntity's signature.
@@ -368,7 +384,8 @@ public final class BotaniaAPI {
 
 	/**
 	 * Adds the key for a SubTileEntity into the creative menu. This goes into the
-	 * subtilesForCreativeMenu Set.
+	 * subtilesForCreativeMenu Set. This does not need to be called for mini flowers,
+	 * those will just use the mini flower map to add themselves next to the source.
 	 */
 	public static void addSubTileToCreativeMenu(String key) {
 		subtilesForCreativeMenu.add(key);
@@ -470,5 +487,9 @@ public final class BotaniaAPI {
 
 	public static String getSubTileStringMapping(Class<? extends SubTileEntity> clazz) {
 		return subTiles.inverse().get(clazz);
+	}
+	
+	public static Set<String> getAllSubTiles() {
+		return subTiles.keySet();
 	}
 }
