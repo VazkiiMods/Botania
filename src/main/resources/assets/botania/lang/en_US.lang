@@ -1634,6 +1634,11 @@ botania.page.fIntro2=It is important to keep in mind that these flowers memorize
 botania.page.fIntro3=Lastly, some functional flowers utilize a &1Redstone Root&0 in their creation. If they do, the flower's effect can be toggled with a redstone signal.
 botania.page.fIntro4=&1Redstone Root&0 for Redstone Control
 
+# -- FLOWER SHRINKING
+botania.entry.flowerShrinking=Flower Shrinking
+botania.page.flowerShrinking0=Some functional flowers have a bit too much reach. Sometimes one might not want that to be the case. Tossing one of those few flowers into a &1Mana Pool&0 with an &1Alchemy Catalyst&0 will, at the cost of some &4Mana&0, shrink it, making its radius smaller. Every other function remains the same.
+botania.page.flowerShrinking1=Like a nendoroid
+
 # -- JADED AMARANTHUS
 botania.entry.jadedAmaranthus=Jaded Amaranthus
 botania.page.jadedAmaranthus0=Everyone likes flowers right? The &1Jaded Amaranthus&0 is made just for that purpose.<br>Feeding it with &4Mana&0 from &1Mana Pools&0 will have it quickly grow new &1Mystical Flowers&0 around it, in any spots it can.
