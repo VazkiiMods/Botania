@@ -197,8 +197,8 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	@SubscribeEvent
 	public void playerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
 		String username = event.player.getGameProfile().getName();
-		ItemFlightTiara.playersWithFlight.remove(username + ":false");
-		ItemFlightTiara.playersWithFlight.remove(username + ":true");
+		playersWithFlight.remove(username + ":false");
+		playersWithFlight.remove(username + ":true");
 	}
 
 	public static String playerStr(EntityPlayer player) {

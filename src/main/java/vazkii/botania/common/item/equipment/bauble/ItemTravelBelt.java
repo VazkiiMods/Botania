@@ -10,6 +10,9 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
@@ -20,15 +23,19 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.item.IBaubleRender;
+import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
 import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -38,12 +45,15 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender {
 	@SideOnly(Side.CLIENT)
 	private static ModelBiped model;
 
+	public static List<String> playersWithStepup = new ArrayList();
+
 	final float speed;
 	final float jump;
 	final float fallBuffer;
 
 	public ItemTravelBelt() {
 		this(LibItemNames.TRAVEL_BELT, 0.035F, 0.2F, 2F);
+		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	public ItemTravelBelt(String name, float speed, float jump, float fallBuffer) {
@@ -51,7 +61,6 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender {
 		this.speed = speed;
 		this.jump = jump;
 		this.fallBuffer = fallBuffer;
-		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	@Override
@@ -59,19 +68,29 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender {
 		return BaubleType.BELT;
 	}
 
-	@Override
-	public void onWornTick(ItemStack stack, EntityLivingBase entity) {
-		super.onWornTick(stack, entity);
+	@SubscribeEvent
+	public void updatePlayerStepStatus(LivingUpdateEvent event) {
+		if(event.entityLiving instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) event.entityLiving;
 
-		if(entity instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) entity;
-			if((player.onGround || player.capabilities.isFlying) && player.moveForward > 0F && !player.isInsideOfMaterial(Material.water))
-				player.moveFlying(0F, 1F, player.capabilities.isFlying ? speed : speed * 2);
+			ItemStack belt = PlayerHandler.getPlayerBaubles(player).getStackInSlot(3);
+			if(playersWithStepup.contains(playerStr(player))) {
+				if(shouldPlayerHaveStepup(player)) {
+					if((player.onGround || player.capabilities.isFlying) && player.moveForward > 0F && !player.isInsideOfMaterial(Material.water))
+						player.moveFlying(0F, 1F, player.capabilities.isFlying ? ((ItemTravelBelt) belt.getItem()).speed : ((ItemTravelBelt) belt.getItem()).speed * 2);
 
-			if(player.isSneaking())
-				player.stepHeight = 0.50001F; // Not 0.5F because that is the default
-			else if(player.stepHeight == 0.50001F)
+					if(player.isSneaking())
+						player.stepHeight = 0.50001F; // Not 0.5F because that is the default
+					else if(player.stepHeight == 0.50001F)
+						player.stepHeight = 1F;
+				} else {
+					player.stepHeight = 0.5F;
+					playersWithStepup.remove(playerStr(player));
+				} 
+			} else if(shouldPlayerHaveStepup(player)) {
+				playersWithStepup.add(playerStr(player));
 				player.stepHeight = 1F;
+			}
 		}
 	}
 
@@ -80,25 +99,30 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender {
 		if(event.entityLiving instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
 			ItemStack belt = PlayerHandler.getPlayerBaubles(player).getStackInSlot(3);
-
-			if(belt != null && belt.getItem() == this) {
-				player.motionY += jump;
-				player.fallDistance = -fallBuffer;
+			
+			if(belt != null && belt.getItem() instanceof ItemTravelBelt) {
+				player.motionY += ((ItemTravelBelt) belt.getItem()).jump;
+				player.fallDistance = -((ItemTravelBelt) belt.getItem()).fallBuffer;
 			}
 		}
 	}
 
-	@Override
-	public void onEquippedOrLoadedIntoWorld(ItemStack stack, EntityLivingBase player) {
-		super.onEquippedOrLoadedIntoWorld(stack, player);
-		player.stepHeight = 1F;
+	private boolean shouldPlayerHaveStepup(EntityPlayer player) {
+		ItemStack armor = PlayerHandler.getPlayerBaubles(player).getStackInSlot(3);
+		return armor != null && armor.getItem() instanceof ItemTravelBelt;
 	}
-	 
-	@Override
-	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
-		player.stepHeight = 0.5F;
+
+	@SubscribeEvent
+	public void playerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
+		String username = event.player.getGameProfile().getName();
+		playersWithStepup.remove(username + ":false");
+		playersWithStepup.remove(username + ":true");
 	}
-	
+
+	public static String playerStr(EntityPlayer player) {
+		return player.getGameProfile().getName() + ":" + player.worldObj.isRemote;
+	}
+
 	@SideOnly(Side.CLIENT)
 	ResourceLocation getRenderTexture() {
 		return texture;
