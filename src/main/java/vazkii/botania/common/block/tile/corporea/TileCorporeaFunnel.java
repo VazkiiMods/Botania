@@ -46,7 +46,7 @@ public class TileCorporeaFunnel extends TileCorporeaBase {
 							if(inv != null && reqStack.stackSize == InventoryHelper.testInventoryInsertion(inv, stack, ForgeDirection.UP))
 								InventoryHelper.insertItemIntoInventory(inv, reqStack);
 							else {
-								EntityItem item = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, stack);
+								EntityItem item = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, reqStack);
 								worldObj.spawnEntityInWorld(item);
 							}
 						}
