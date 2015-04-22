@@ -21,6 +21,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import vazkii.botania.api.item.ICosmeticAttachable;
+import vazkii.botania.api.item.IPhantomInkable;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityDoppleganger;
@@ -32,12 +33,13 @@ import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAttachable {
+public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAttachable, IPhantomInkable {
 
 	private static final String TAG_HASHCODE = "playerHashcode";
 	private static final String TAG_BAUBLE_UUID_MOST = "baubleUUIDMost";
 	private static final String TAG_BAUBLE_UUID_LEAST = "baubleUUIDLeast";
 	private static final String TAG_COSMETIC_ITEM = "cosmeticItem";
+	private static final String TAG_PHANTOM_INK = "phantomInk";
 
 	public ItemBauble(String name) {
 		super();
@@ -97,6 +99,9 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 		ItemStack cosmetic = getCosmeticItem(par1ItemStack);
 		if(cosmetic != null)
 			addStringToTooltip(String.format(StatCollector.translateToLocal("botaniamisc.hasCosmetic"), cosmetic.getDisplayName()), par3List);
+		
+		if(hasPhantomInk(par1ItemStack))
+			addStringToTooltip(StatCollector.translateToLocal("botaniamisc.hasPhantomInk"), par3List);
 	}
 
 	void addStringToTooltip(String s, List<String> tooltip) {
@@ -192,6 +197,16 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 
 	public static void setLastPlayerHashcode(ItemStack stack, int hash) {
 		ItemNBTHelper.setInt(stack, TAG_HASHCODE, hash);
+	}
+	
+	@Override
+	public boolean hasPhantomInk(ItemStack stack) {
+		return ItemNBTHelper.getBoolean(stack, TAG_PHANTOM_INK, false);
+	}
+	
+	@Override
+	public void setPhantomInk(ItemStack stack, boolean ink) {
+		ItemNBTHelper.setBoolean(stack, TAG_PHANTOM_INK, ink);
 	}
 
 }
