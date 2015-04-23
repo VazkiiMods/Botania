@@ -39,9 +39,10 @@ public class ClientTickHandler {
 	public static float partialTicks = 0;
 
 	@SubscribeEvent
-	public void renderTickStart(RenderTickEvent event) {
+	public void renderTick(RenderTickEvent event) {
 		if(event.phase == Phase.START)
 			partialTicks = event.renderTickTime;
+		else TerraPickRankDisplayHandler.render();
 	}
 
 	@SubscribeEvent

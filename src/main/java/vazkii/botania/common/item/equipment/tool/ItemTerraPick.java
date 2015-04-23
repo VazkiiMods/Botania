@@ -59,7 +59,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 
 	private static final Material[] MATERIALS = new Material[] { Material.rock, Material.iron, Material.ice, Material.glass, Material.piston, Material.anvil, Material.grass, Material.ground, Material.sand, Material.snow, Material.craftedSnow, Material.clay };
 
-	private static final int[] LEVELS = new int[] {
+	public static final int[] LEVELS = new int[] {
 		0, 10000, 1000000, 10000000, 100000000, 1000000000
 	};
 
