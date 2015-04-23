@@ -72,23 +72,23 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender {
 	public void updatePlayerStepStatus(LivingUpdateEvent event) {
 		if(event.entityLiving instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
-
+			String s = playerStr(player);
+			
 			ItemStack belt = PlayerHandler.getPlayerBaubles(player).getStackInSlot(3);
-			if(playersWithStepup.contains(playerStr(player))) {
+			if(playersWithStepup.contains(s)) {
 				if(shouldPlayerHaveStepup(player)) {
 					if((player.onGround || player.capabilities.isFlying) && player.moveForward > 0F && !player.isInsideOfMaterial(Material.water))
 						player.moveFlying(0F, 1F, player.capabilities.isFlying ? ((ItemTravelBelt) belt.getItem()).speed : ((ItemTravelBelt) belt.getItem()).speed * 2);
 
 					if(player.isSneaking())
 						player.stepHeight = 0.50001F; // Not 0.5F because that is the default
-					else if(player.stepHeight == 0.50001F)
-						player.stepHeight = 1F;
+					else player.stepHeight = 1F;
 				} else {
 					player.stepHeight = 0.5F;
-					playersWithStepup.remove(playerStr(player));
+					playersWithStepup.remove(s);
 				} 
 			} else if(shouldPlayerHaveStepup(player)) {
-				playersWithStepup.add(playerStr(player));
+				playersWithStepup.add(s);
 				player.stepHeight = 1F;
 			}
 		}
