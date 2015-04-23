@@ -1,3 +1,10 @@
+r1.6 183
+*Added Petal Apothecary variants craftable using the stone acquired with the Marimorphosis.
+*Fixed a crash when looking at an item in the lexicon that doesn't have a recipe present elsewhere.
+*Fixed Petite Rannuncarpus's range not being affected by mana. (xaeroverse)
+*Fixed the sashes resetting step height when changing dimensions, again >_>
+*Hashed all the codes.
+*Hovering over a Terra Shatterer now shows a bar that displays how much mana it has relative to the next level.
 r1.6 182
 *Added Petite flowers, small variants of functional flowers that have a smaller range. Currently there's 6: Agricarnation, Bellethorne, Bubbell, Hopperhock, Marimorphosis and Rannuncarpus.
 *Baubles can now have Phantom Ink.
