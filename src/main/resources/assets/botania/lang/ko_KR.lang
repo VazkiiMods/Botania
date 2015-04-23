@@ -945,6 +945,8 @@ tile.botania:flower.spectrolus.reference=Profiting off Hate
 # - FUNCTIONAL
 tile.botania:flower.bellethorn.name=미인가시꽃
 tile.botania:flower.bellethorn.reference=세계의 끝에서 부르는 여성들의 론도
+tile.botania:flower.bellethornChibi.name=작은 미인가시꽃
+tile.botania:flower.bellethornChibi.reference=world's end, girl's rondo
 tile.botania:flower.dreadthorn.name=공포의 덤불
 tile.botania:flower.dreadthorn.reference=플랜 C!
 tile.botania:flower.heiseiDream.name=길몽초
@@ -961,14 +963,20 @@ tile.botania:flower.exoflame.name=바깥불꽃
 tile.botania:flower.exoflame.reference=Wearing her black ribbons
 tile.botania:flower.agricarnation.name=성장의 카네이션
 tile.botania:flower.agricarnation.reference=5월8일에 부모님깨 달아드리자
+tile.botania:flower.agricarnationChibi.name=작은 성장의 카네이션
+tile.botania:flower.agricarnationChibi.reference=Wear on the 25th of april
 tile.botania:flower.hopperhock.name=호퍼록
 tile.botania:flower.hopperhock.reference=It all funnels into it
+tile.botania:flower.hopperhockChibi.name=작은 호퍼록
+tile.botania:flower.hopperhockChibi.reference=It all funnels into it
 tile.botania:flower.tangleberrie.name=탱글베리
 tile.botania:flower.tangleberrie.reference=No frying pans allowed
 tile.botania:flower.jiyuulia.name=Jiyuulia
 tile.botania:flower.jiyuulia.reference=자유의 날개
 tile.botania:flower.rannuncarpus.name=Rannuncarpus
 tile.botania:flower.rannuncarpus.reference=That's handy
+tile.botania:flower.rannuncarpusChibi.name=Rannuncarpus Petite
+tile.botania:flower.rannuncarpusChibi.reference=That's handy
 tile.botania:flower.hyacidus.name=Hyacidus
 tile.botania:flower.hyacidus.reference=If you don't walk, it doesn't hurt
 tile.botania:flower.pollidisiac.name=Pollidisiac
@@ -987,8 +995,12 @@ tile.botania:flower.medumone.name=Medumone
 tile.botania:flower.medumone.reference='Twas Hades all along
 tile.botania:flower.marimorphosis.name=Marimorphosis
 tile.botania:flower.marimorphosis.reference=Solid as a rock
+tile.botania:flower.marimorphosisChibi.name=Marimorphosis Petite
+tile.botania:flower.marimorphosisChibi.reference=Solid as a rock
 tile.botania:flower.bubbell.name=Bubbell
 tile.botania:flower.bubbell.reference=And whistle
+tile.botania:flower.bubbellChibi.name=Bubbell Petite
+tile.botania:flower.bubbellChibi.reference=And whistle
 tile.botania:flower.solegnolia.name=Solegnolia
 tile.botania:flower.solegnolia.reference=All your magnets are belong to us
 
@@ -1621,6 +1633,11 @@ botania.page.fIntro1=All &4Functional Flowers&0, alike the &4Generating Flowers&
 botania.page.fIntro2=It is important to keep in mind that these flowers memorize the &1Mana Pool&0 from which they should pull &4Mana&0 out of. They'll only pull from the nearest pool present at the time of the flower being placed (or the closest placed afterward, if none was present), and none other, unless that one is removed. It can be bound to another pool with a wand in &4Bind Mode&0.
 botania.page.fIntro3=Lastly, some functional flowers utilize a &1Redstone Root&0 in their creation. If they do, the flower's effect can be toggled with a redstone signal.
 botania.page.fIntro4=&1Redstone Root&0 for Redstone Control
+
+# -- FLOWER SHRINKING
+botania.entry.flowerShrinking=꽃 수축
+botania.page.flowerShrinking0=Some functional flowers have a bit too much reach. Sometimes one might not want that to be the case. Tossing one of those few flowers into a &1Mana Pool&0 with an &1Alchemy Catalyst&0 will, at the cost of some &4Mana&0, shrink it, making its radius smaller. Every other function remains the same.
+botania.page.flowerShrinking1=넨드로이드 같아
 
 # -- JADED AMARANTHUS
 botania.entry.jadedAmaranthus=Jaded Amaranthus
@@ -2337,7 +2354,7 @@ botania.page.blackHoleTalisman1=Right clicking a block in the world will set the
 botania.page.blackHoleTalisman2=While the talisman has any contents in it, the blocks in it can be placed as if they were normal blocks stored in the inventory via a simple right click with it.<br>Right clicking an inventory will try to fill it with the blocks stored in the talisman.
 botania.page.blackHoleTalisman3=Like a Rageki but twice as fun
 
-# - BAUBLES AND ACESSORIES
+# - BAUBLES AND ACCESSORIES
 # -- AN INTRODUCTION TO BAUBLES
 botania.entry.bIntro=An Introduction to Baubles
 botania.page.bIntro0=&4Baubles&0, also commonly referred to as &4Trinkets&0 or &4Charms&0 are pieces of equipment which offer all sorts of different effects, when worn.<br>To equip them, one can press the &4B&0 (configurable) key. There's four slots, one &4Amulet&0 slot, two &4Ring&0 slots and one &4Belt&0 slot.
@@ -2485,7 +2502,7 @@ botania.page.judgementCloaks3=Taste Vengeance!
 
 # -- MANASEER MONOCLE
 botania.entry.monocle=Manaseer Monocle
-botania.page.monocle0=A handy acessory for one who requires a thorough window into where their &4Mana Bursts&0 are going is the &1Manaseer Monocle&0. Not only is it a rather fancy eyepiece but it also allows the wearer to see all nearby &4Mana Bursts&0, even if their line of sight towards them is blocked by something. More important, perhaps, is that when someone wearing this monocle looks at a flower they'll be able to see its functional radius.
+botania.page.monocle0=A handy accessory for one who requires a thorough window into where their &4Mana Bursts&0 are going is the &1Manaseer Monocle&0. Not only is it a rather fancy eyepiece but it also allows the wearer to see all nearby &4Mana Bursts&0, even if their line of sight towards them is blocked by something. More important, perhaps, is that when someone wearing this monocle looks at a flower they'll be able to see its functional radius.
 botania.page.monocle1=Why hello there old chap
 
 # -- RING OF CORRECTION
@@ -2662,7 +2679,7 @@ botania.page.mushrooms1=They don't make you bigger
 
 # -- PHANTOM INK
 botania.entry.phantomInk=Phantom Ink
-botania.page.phantomInk0=Having your beautiful skin and acessories under a set of metal armor is nobody's dream. It's bulky, flat, and worst of all, not fashionable!<br>Luckilly, by tinging this horrendous armor with &1Phantom Ink&0 in a crafting grid, the armor will be completely invisible, while still providing all of its benefits. This will only work with armor sets that can use &4Mana&0.
+botania.page.phantomInk0=Having your beautiful skin and accessories under a set of metal armor is nobody's dream. It's bulky, flat, and worst of all, not fashionable!<br>Luckilly, by tinging this horrendous armor with &1Phantom Ink&0 in a crafting grid, the armor will be completely invisible, while still providing all of its benefits. This will only work with armor sets that can use &4Mana&0.
 botania.page.phantomInk1=Who you gonna call?
 
 # -- STONE ALCHEMY

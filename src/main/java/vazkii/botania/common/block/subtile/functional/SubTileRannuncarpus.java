@@ -194,7 +194,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 	}
 
 	public static class Mini extends SubTileRannuncarpus {		
-		@Override public int getRange() { return RANGE_PLACE_MINI; }
+		@Override public int getRange() { return mana > 0 ? RANGE_PLACE_MANA_MINI : RANGE_PLACE_MINI; }
 		@Override public int getRangeY() { return RANGE_PLACE_Y_MINI; }
 	}
 	
