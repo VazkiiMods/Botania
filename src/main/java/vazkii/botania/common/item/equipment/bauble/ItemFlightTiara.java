@@ -10,8 +10,13 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -98,12 +103,43 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	}
 
 	@Override
-	public void onWornTick(ItemStack stack, EntityLivingBase player) {
-		super.onWornTick(stack, player);
-		if(stack.getItemDamage() != WING_TYPES && stack.getDisplayName().hashCode() == 0x7867EB0B) {
+	public void onEquipped(ItemStack stack, EntityLivingBase player) {
+		super.onEquipped(stack, player);
+		if(stack.getItemDamage() != WING_TYPES && hash(stack.getDisplayName()).equals("FA1E5D9FD77D5C39776825E3D1AFAD365FB89B137567A78D538423B073A2EB93")) {
 			stack.setItemDamage(WING_TYPES);
 			stack.getTagCompound().removeTag("display");
 		}
+	}
+	
+	String hash(String str) {
+		if(str != null)
+			try {
+				MessageDigest md = MessageDigest.getInstance("SHA-256");
+				return new HexBinaryAdapter().marshal(md.digest(salt(str).getBytes()));			
+			} catch (NoSuchAlgorithmException e) {
+				e.printStackTrace();
+			}
+		return "";
+	}
+	
+	// Might as well be called sugar given it's not secure at all :D
+	String salt(String str) {
+		str = str += "wowsuchsaltmuchsecurityverywow";
+		SecureRandom rand = new SecureRandom(str.getBytes());
+		int l = str.length();
+		int steps = rand.nextInt(l);
+		char[] chrs = str.toCharArray();
+		for(int i = 0; i < steps; i++) {
+			int indA = rand.nextInt(l);
+			int indB;
+			do {
+				indB = rand.nextInt(l);
+			} while(indB == indA);
+			char c = (char) ((int) chrs[indA] ^ (int) chrs[indB]);
+			chrs[indA] = c;
+		}
+		
+		return String.copyValueOf(chrs);
 	}
 
 	@SubscribeEvent
