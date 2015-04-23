@@ -48,7 +48,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 		if(stack == null || item.isDead)
 			return false;
 
-		if(!isMossy) {
+		if(!isMossy && getBlockMetadata() == 0) {
 			if(stack.getItem() == Item.getItemFromBlock(Blocks.vine) && !worldObj.isRemote) {
 				isMossy = true;
 				worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));

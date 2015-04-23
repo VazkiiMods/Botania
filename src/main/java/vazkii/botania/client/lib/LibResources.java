@@ -69,6 +69,7 @@ public final class LibResources {
 	public static final String ENTRY_METAMORPHIC_STONES = PREFIX_ENTRIES + "metamorphicStones.png";
 
 	public static final String MODEL_ALTAR = PREFIX_MODEL + "altar.png";
+	public static final String MODEL_ALTAR_META = PREFIX_MODEL + "altarMeta%d.png";
 	public static final String MODEL_ALTAR_MOSSY = PREFIX_MODEL + "altarMossy.png";
 	public static final String MODEL_SPREADER = PREFIX_MODEL + "spreader.png";
 	public static final String MODEL_SPREADER_REDSTONE = PREFIX_MODEL + "spreaderRedstone.png";

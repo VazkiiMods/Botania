@@ -459,7 +459,7 @@ public final class LexiconData {
 		medumone.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.medumoneRecipe));
 
 		marimorphosis = new BLexiconEntry(LibLexicon.FFLOWER_MARIMORPHOSIS, categoryFunctionalFlowers);
-		marimorphosis.setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_METAMORPHIC_STONES), new PagePetalRecipe("2", ModPetalRecipes.marimorphosisRecipe));
+		marimorphosis.setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_METAMORPHIC_STONES), new PagePetalRecipe("2", ModPetalRecipes.marimorphosisRecipe), new PageCraftingRecipe("3", ModCraftingRecipes.recipesAltarMeta));
 
 		bubbell = new ALexiconEntry(LibLexicon.FFLOWER_BUBBELL, categoryFunctionalFlowers);
 		bubbell.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.bubbellRecipe));

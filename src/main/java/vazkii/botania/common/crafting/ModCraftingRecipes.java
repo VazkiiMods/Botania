@@ -254,6 +254,7 @@ public final class ModCraftingRecipes {
 	public static List<IRecipe> recipe18StoneBrick;
 	public static List<IRecipe> recipe18StoneChisel;
 	public static IRecipe recipeBlazeBlock;
+	public static List<IRecipe> recipesAltarMeta;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1684,6 +1685,14 @@ public final class ModCraftingRecipes {
 				'B', "rodBlaze");
 		recipeBlazeBlock = BotaniaAPI.getLatestAddedRecipe();
 		addShapelessOreDictRecipe(new ItemStack(Items.blaze_rod, 9), LibOreDict.BLAZE_BLOCK);
+		
+		// Metamorphic Petal Apothecary Recipes
+		for(int i = 0; i < 8; i++)
+			GameRegistry.addRecipe(new ItemStack(ModBlocks.altar, 1, i + 1),
+					"SSS", "SAS", "SSS",
+					'S', new ItemStack(ModFluffBlocks.biomeStoneA, 1, i + 8),
+					'A', new ItemStack(ModBlocks.altar));
+		recipesAltarMeta = BotaniaAPI.getLatestAddedRecipes(8);
 		
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
