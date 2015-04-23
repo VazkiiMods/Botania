@@ -156,8 +156,8 @@ public class PageRecipe extends LexiconPage {
 
 			EntryData data = LexiconRecipeMappings.getDataForStack(tooltipStack);
 			ItemStack book = Minecraft.getMinecraft().thePlayer.getCurrentEquippedItem();
-			boolean hasKnowledge = book != null && book.getItem() instanceof ILexicon && ((ILexicon) book.getItem()).isKnowledgeUnlocked(book, data.entry.getKnowledgeType());
-			if(data != null && (data.entry != gui.getEntry() || data.page != gui.getPageOn()) && hasKnowledge) {
+
+			if(data != null && (data.entry != gui.getEntry() || data.page != gui.getPageOn()) && book != null && book.getItem() instanceof ILexicon && ((ILexicon) book.getItem()).isKnowledgeUnlocked(book, data.entry.getKnowledgeType())) {
 				tooltipEntry = true;
 
 				if(!mouseDownLastTick && mouseDown && GuiScreen.isShiftKeyDown()) {
