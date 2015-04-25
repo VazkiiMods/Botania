@@ -146,10 +146,14 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 	@Override
 	public void func_149853_b(World world, Random rand, int x, int y, int z) {
 		int meta = world.getBlockMetadata(x, y, z);
+		placeDoubleFlower(world, x, y, z, meta, 1 | 2);
+	}
+	
+	public static void placeDoubleFlower(World world, int x, int y, int z, int meta, int flags) {
 		Block flower = meta >= 8 ? ModBlocks.doubleFlower2 : ModBlocks.doubleFlower1;
 		int placeMeta = meta & 7;
-		world.setBlock(x, y, z, flower, placeMeta, 1 | 2);
-		world.setBlock(x, y + 1, z, flower, placeMeta | 8, 1 | 2);
+		world.setBlock(x, y, z, flower, placeMeta, flags);
+		world.setBlock(x, y + 1, z, flower, placeMeta | 8, flags);
 	}
-
+	
 }

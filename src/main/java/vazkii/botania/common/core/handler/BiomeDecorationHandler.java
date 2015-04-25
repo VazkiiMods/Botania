@@ -50,7 +50,7 @@ public class BiomeDecorationHandler {
 						if (event.world.isAirBlock(x1, y1, z1) && (!event.world.provider.hasNoSky || y1 < 127) && ModBlocks.flower.canBlockStay(event.world, x1, y1, z1)) {
 							event.world.setBlock(x1, y1, z1, ModBlocks.flower, color, 2);
 							if(event.rand.nextDouble() < ConfigHandler.flowerTallChance && ((BlockModFlower) ModBlocks.flower).func_149851_a(event.world, x1, y1, z1, false))
-								((BlockModFlower) ModBlocks.flower).func_149853_b(event.world, event.world.rand, x1, y1, z1);
+								BlockModFlower.placeDoubleFlower(event.world, x1, y1, z1, color, 0);
 						}
 					}
 				}
