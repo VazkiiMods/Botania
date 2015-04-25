@@ -322,6 +322,7 @@ public final class ModBlocks {
 		OreDictionary.registerOre("netherrack", Blocks.netherrack);
 		OreDictionary.registerOre("soulSand", Blocks.soul_sand);
 		OreDictionary.registerOre("ice", Blocks.ice);
+		OreDictionary.registerOre("slabCobblestone", new ItemStack(Blocks.stone_slab, 1, 3));
 
 		initTileEntities();
 	}

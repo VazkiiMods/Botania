@@ -300,7 +300,7 @@ public final class ModCraftingRecipes {
 		for(int i = 0; i < 16; i++)
 			addOreDictRecipe(new ItemStack(ModBlocks.altar),
 					"SPS", " C ", "CCC",
-					'S', new ItemStack(Blocks.stone_slab, 1, 3),
+					'S', "slabCobblestone",
 					'P', LibOreDict.PETAL[i],
 					'C', "cobblestone");
 		recipesApothecary = BotaniaAPI.getLatestAddedRecipes(16);
