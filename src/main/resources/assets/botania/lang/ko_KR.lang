@@ -1,3 +1,4 @@
+#번역시 주의 점: 현재 꽃이름을 제외한 발음표기는 대부분 패러디로 무리한 한글화를 진행하지 말아주세요(Ex.Tiny Potato) 한글정발을 제외한 모든 패러디는 발음대로 적어주시길 바랍니다.
 # MISC
 itemGroup.Botania=보타니아 [Botania]
 
@@ -246,7 +247,7 @@ boundBlock.wireframe.enabled=바인드된 블럭의 와이어 프레임
 darkQuartz.enabled=스모크 석영 활성화
 fallenKanade.enabled=천상의연주가 활성화
 manaEnchanter.enabled=마나 인첸터 활성화
-manaFluxfield.enabled=마나 플럭스 필드 활성화
+manaFluxfield.enabled=마나 플럭스변환기 활성화
 relics.enabled=유물 활성화
 18stones.enabled=프리스마린 활성화
 ringOfOdin.fireResist=오딘의 불저항 반지 활성화
@@ -263,7 +264,7 @@ pylonModel.old=예전 송전탑 모델 사용
 elfPortal.particles.enabled=포탈 파티클 활성화
 chargeAnimation.enabled=충전 애니메이션 활성화
 vanillaParticleConfig.enabled=바닐라 파티클 설정 활성화
-manaSpreaders.silent=무음 마나 분배기
+manaSpreaders.silent=무음 마나 공급기
 flowerTextures.alt=Alternate 꽃 텍스쳐
 matrixMode.enabled=매트릭스 모드 활성화
 references.enabled=참고 툴팁 활성화
@@ -351,7 +352,7 @@ item.infiniteFruit.poem3=스스로 어려지는..
 item.excaliber.poem0=약속된 승리의 검
 item.excaliber.poem1=과거, 현재, 미래를 통틀어 전장에서 스러져가는 모든 용사들이 임종의 순간에 품었던 애달프고도 고귀한 꿈.
 item.excaliber.poem2=그 의지를 긍지로서 드높이며, 그 신의를 관철하며
-item.excaliber.poem3=E지금 언제나 승리해왔던 왕은 드높게 손에 쥔 기적의 진명을 노래한다.
+item.excaliber.poem3=지금 언제나 승리해왔던 왕은 드높게 손에 쥔 기적의 진명을 노래한다.
 
 item.flugelEye.poem0=A vision of the past on one's mind,
 item.flugelEye.poem1=Round and round is the memory matrix,
@@ -498,6 +499,15 @@ tile.botania:flower13.name=신비로운 초록색 꽃
 tile.botania:flower14.name=신비로운 빨강색 꽃
 tile.botania:flower15.name=신비로운 검은색 꽃
 tile.botania:altar.name=꽃잎 연금술기
+tile.botania:altar0.name=꽃잎 연금술기
+tile.botania:altar1.name=숲 꽃잎 연금술기
+tile.botania:altar2.name=평원 꽃잎 연금술기
+tile.botania:altar3.name=산 꽃잎 연금술기
+ile.botania:altar4.name=균사 꽃잎 연금술기
+tile.botania:altar5.name=늪 꽃잎 연금술기
+tile.botania:altar6.name=사막 꽃잎 연금술기
+tile.botania:altar7.name=타이가 꽃잎 연금술기
+tile.botania:altar8.name=메사 꽃잎 연금술기
 tile.botania:livingrock0.name=생명의 돌
 tile.botania:livingrock1.name=생명의 벽돌
 tile.botania:livingrock2.name=이끼 낀 생명의 벽돌
@@ -509,10 +519,10 @@ tile.botania:livingwood2.name=이끼 낀 생명의 나무 목재
 tile.botania:livingwood3.name=테두리 생명의 나무
 tile.botania:livingwood4.name=무늬가 있는 생명의 나무
 tile.botania:livingwood5.name=빛나는 생명의 나무
-tile.botania:spreader0.name=마나 분배기
-tile.botania:spreader1.name=레드스톤 마나 분배기
-tile.botania:spreader2.name=요정의 마나 분배기
-tile.botania:spreader3.name=대지의 마나 분배기
+tile.botania:spreader0.name=마나 공급기
+tile.botania:spreader1.name=레드스톤 마나 공급기
+tile.botania:spreader2.name=요정의 마나 공급기
+tile.botania:spreader3.name=대지의 마나 공급기
 tile.botania:pool0.name=마나 웅덩이
 tile.botania:pool1.name=영원한 속죄의 웅덩이
 tile.botania:pool2.name=희박한 마나 웅덩이
@@ -534,7 +544,7 @@ tile.botania:unstableBlock13.name=초록색 불안정한 큐브
 tile.botania:unstableBlock14.name=빨강색 불안정한 큐브
 tile.botania:unstableBlock15.name=검은색 불안정한 큐브
 tile.botania:pistonRelay.name=힘 전달기
-tile.botania:distributor.name=마나 배급기
+tile.botania:distributor.name=마나 분산기
 tile.botania:pylon0.name=마나 송전탑
 tile.botania:pylon1.name=자연 송전탑
 tile.botania:pylon2.name=대지 송전탑
@@ -557,11 +567,11 @@ tile.botania:manaBeacon15.name=검은색 불안정한 신호기
 tile.botania:manaVoid.name=마나의 공허
 tile.botania:manaDetector.name=마나 탐지기
 tile.botania:enchanter.name=마나 인첸트기
-tile.botania:turntable.name=회전 분배기
+tile.botania:turntable.name=회전 공급기
 tile.botania:tinyPlanetBlock.name=작은 유성
 tile.botania:alchemyCatalyst.name=연금술 촉매
 tile.botania:openCrate0.name=오픈 그레이트
-tile.botania:openCrate1.name=크래프티 그레이트
+tile.botania:openCrate1.name=제작 그레이트
 tile.botania:forestEye.name=고대인의 눈
 tile.botania:storage0.name=마나 합금 블럭
 tile.botania:storage1.name=테라스틸 블럭
@@ -587,7 +597,7 @@ tile.botania:shinyFlower13.name=빛나는 초록색 꽃
 tile.botania:shinyFlower14.name=빛나는 빨강색 꽃
 tile.botania:shinyFlower15.name=빛나는 검은색 꽃
 tile.botania:platform0.name=난해한 플랫폼
-tile.botania:platform1.name=유령의 플랫폼
+tile.botania:platform1.name=유령 플랫폼
 tile.botania:platform2.name=강한 플랫폼
 tile.botania:alfheimPortal.name=요정의 게이트 코어
 tile.botania:blockDarkQuartz.name=스모키석영 블럭
@@ -670,7 +680,7 @@ tile.botania:miniIsland12.name=부유 갈색 꽃
 tile.botania:miniIsland13.name=부유 초록색 꽃
 tile.botania:miniIsland14.name=부유 빨간색 꽃
 tile.botania:miniIsland15.name=부유 검은색 꽃
-tile.botania:tinyPotato.name=작은 감자
+tile.botania:tinyPotato.name=타이니 포테이토
 tile.botania:spawnerClaw.name=생명 침투
 tile.botania:reedBlock.name=수수 블럭
 tile.botania:reedBlock0Stairs.name=수수 계단
@@ -704,7 +714,7 @@ tile.botania:customBrick14.name=타일
 tile.botania:customBrick15.name=타일
 tile.botania:enderEyeBlock.name=엔더 감독관
 tile.botania:starfield.name=별 생성기
-tile.botania:rfGenerator.name=마나 플럭스필드
+tile.botania:rfGenerator.name=마나 플럭스변환기
 tile.botania:elfGlass.name=엘프유리
 tile.botania:brewery.name=식물학 양조기
 tile.botania:manaGlass.name=마나유리
@@ -921,7 +931,7 @@ tile.botania:flower.daybloom.name=해맞이 꽃
 tile.botania:flower.daybloom.reference=빛의 함정
 tile.botania:flower.endoflame.name=불먹이 꽃
 tile.botania:flower.endoflame.reference=샤나(*역자 : 애니 '작안의 샤나' 주인공 이름) 같은 불꽃
-tile.botania:flower.hydroangeas.name=물먹이 꽃
+tile.botania:flower.hydroangeas.name=수국
 tile.botania:flower.hydroangeas.reference=갑각류들의 친구
 tile.botania:flower.thermalily.name=열백합
 tile.botania:flower.thermalily.reference=사실 백합이 아닌 진홍색 장미
@@ -1072,8 +1082,8 @@ item.botania:lensInfluence.name=마나렌즈: 영향
 item.botania:lensInfluence.short=영향
 item.botania:lensWeight.name=마나렌즈: 무게
 item.botania:lensWeight.short=무게
-item.botania:lensPaint.name=마나렌즈: 패인트
-item.botania:lensPaint.short=패인트
+item.botania:lensPaint.name=마나렌즈: 페인트
+item.botania:lensPaint.short=페인트
 item.botania:lensFire.name=마나렌즈: 광원
 item.botania:lensFire.short=빛남
 item.botania:lensPiston.name=마나렌즈: 강제
@@ -1105,7 +1115,7 @@ item.botania:rune3.name=대기의 룬
 item.botania:rune4.name=봄의 룬
 item.botania:rune5.name=여름의 룬
 item.botania:rune6.name=가을의 룬
-item.botania:rune7.name=겨을의 룬
+item.botania:rune7.name=겨울의 룬
 item.botania:rune8.name=마나 룬
 item.botania:rune9.name=욕망 룬
 item.botania:rune10.name=폭식의 룬
@@ -1161,7 +1171,7 @@ item.botania:magnetRing.name=자기력의 반지
 item.botania:waterRing.name=난폭의 반지
 item.botania:miningRing.name=맨틀의 반지
 item.botania:reachRing.name=장거리의 반지
-item.botania:terraPick.name=대지의 파괴
+item.botania:terraPick.name=대지 파괴
 item.botania:divaCharm.name=디바의 매력
 item.botania:flightTiara.name=류겔 티아라
 item.botania:enderDagger.name=영혼 스크라이브
@@ -1185,7 +1195,7 @@ item.botania:elementiumShovel.name=엘레멘티움 삽
 item.botania:elementiumAxe.name=엘레멘티움 도끼
 item.botania:elementiumSword.name=엘레멘티움 검
 item.botania:elementiumShears.name=엘레멘티움 가위
-item.botania:openBucket.name=원소의 양동이
+item.botania:openBucket.name=추론의 양동이
 item.botania:spawnerMover.name=생명 수집기
 item.botania:pixieRing.name=큰 요정의 반지
 item.botania:superTravelBelt.name=여행자의 띠
@@ -1196,7 +1206,7 @@ item.botania:vineBall.name=덩굴 공
 item.botania:slingshot.name=생명의나무 개총
 item.botania:manaBottle.name=마나가 들어있는 병
 item.botania:prismarineShard.name=프리스마린 샤드
-item.botania:laputaShard.name=라퓨타의 샤드
+item.botania:laputaShard.name=라퓨타의 조각
 item.botania:virus0.name=Necrodermal 바이러스
 item.botania:virus1.name=Nullodermal 바이러스
 item.botania:skyDirtRod.name=고지의 막대
@@ -1227,8 +1237,8 @@ item.botania:missileRod.name=불안정한 저장소의 막대
 item.botania:holyCloak.name=선행의 망토
 item.botania:unholyCloak.name=죄악의 망토
 item.botania:craftingHalo.name=조립 광륜
-item.botania:blackLotus0.name=검은 연꽃
-item.botania:blackLotus1.name=검은 연꽃
+item.botania:blackLotus0.name=검은 수련
+item.botania:blackLotus1.name=검은 수련
 item.botania:dreamwoodTwig.name=Dreamwood Twig
 item.botania:monocle.name=마나관측 모노클
 item.botania:clip.name=렌즈 클립
@@ -1364,37 +1374,37 @@ botania.category.misc=기타
 
 # - BASIC
 # -- TUTORIAL OF THE BASICS
-botania.entry.tutorial=A Tutorial of the Basics
-botania.page.tutorial0=While one could just go through the various entries in the book at their issue, there's also a "guided tour" of sorts available. Clicking the button below will guide you through the pages useful to getting the gist of the basic concepts of Botania.
+botania.entry.tutorial=기본 사용 지침서
+botania.page.tutorial0=&4본 모드는 덕질패러디가 넘쳐납니다.&0<br>아래의 버튼을 통해서 "가이드 투어"가 가능합니다 :D<br>처음 시작하시는 분이라면 아래의 버튼을 한번 눌러보지않겠는가..?
 
 # -- AN INTRODUCTORY CLIP
-botania.entry.introVideo=An Introductory Clip
-botania.page.introVideo0=For those readers who are not quite readers, a short video guide covering the basics of Botania is also available. It's to keep in note that this guide acts as an aid and not a substitution for the contents of the &1Lexica Botania&0.
+botania.entry.introVideo=소개 동영상
+botania.page.introVideo0=보타니아의 기본적인 내용을 영상으로 보여줍니다.(영문)
 
 # -- LEXICA BOTANIA
-botania.entry.lexicon=Lexica Botania
-botania.page.lexicon0=The &1Lexica Botania&0 is the repository of all knowledge for all botany related matters. But you probably knew that already.<br>All information is stored here, as expected. For convenience, if a block happens to have an entry, it can be shift-right clicked with the &1Lexica Botania&0 to open that entry.
-botania.page.lexicon3=Any entries typed in &oItalics&r are &4basic&0 entries, which contain the very basic knowledge required to playing Botania. They should be prioritized over others, most of the sections contain one or more, so a good look through through them is a good idea.
-botania.page.lexicon1=Crafting the &1Lexica Botania&0.
-botania.page.lexicon2=The &1Lexica Botania&0's title can also be customized. By placing it in an &1Anvil&0 and renaming it, one can not only change its cover, but also the title.<br>The Edition of the lexica shown equates to the version of the &4Botania&0 you're running, and no, I don't care about the fourth wall.
+botania.entry.lexicon=보타니아 사전
+botania.page.lexicon0=&1보타니아 사전&0은 모든 지식의 저장고입니다. 보타니아를 제외한 다른 모드들 까지 말이죠!<br>사전을 열어 보타니아에 관련된 지식을 얻을 수 있고 심지어 사전을 들고 해당하는 아이템에 커서를 맞춘 후 쉬프트-우클릭하면 위키가 열립니다!
+botania.page.lexicon3=&o기울림&r으로 되어있는 항목은 가장 &4기본적&0인 항목입니다. 보타니아를 즐기기 위해서는 필독해주세요.
+botania.page.lexicon1=&1보타니아 사전&0 제작하기
+botania.page.lexicon2=&1보타니아 사전&0의 제목을 변경할 수 도 있습니다. &1모루&0를 이름을 바꾸는 간단한 방법으로 말이죠. 하지만 커버는 바꿀 수 없으니 주의!<br>제본판은 현재 실행되고 있는 &4보타니아&0의 버전을 말합니다.
 
 # -- MYSTICAL FLOWERS
-botania.entry.flowers=Mystical Flowers
-botania.page.flowers0=Around the world, you may stumble upon a large variety of Mystical Flora. Spotting these doesn't take much work as the flowers themselves emit a fair amount of shine.<br>They come in a total of &416 &0different colors.<br>It's also possible to grow these flowers using &1Floral Fertlizer&0 (read on).
-botania.page.flowers1=Flowers as far as the eye can see...
-botania.page.flowers2=These flowers can be plucked for &1Mystical Petals&0, that can be used for making magical instruments and plants alike.<br>Right clicking a petal on the ground will &4bury it&0, having it emit particles.<br>These petals can also be crushed into &1Floral Powder&0, which functions much alike any mundane piece of dye.
-botania.page.flowers3=Plucking Petals off Flowers.
-botania.page.flowers4=Crafting the &1Pestle and Mortar&0.
-botania.page.flowers5=Grinding Petals into Powder.
-botania.page.flowers6=Right clicking the &1Floral Powder&0 in any &1Wool&0 or &1Carpet&0 changes its color to the color of the powder.<br>By mixing the &1Floral Powder&0 with some &1Bone Meal&0, it's possible to create a different type of fertilizer. The &1Floral Fertlizer&0 will grow a small amount of &1Mystical Flowers&0 in the nearby vicinity, if you ever run low on them.
-botania.page.flowers7=Making fertilizer (any powder colors work)
-botania.page.flowers8=Using typical flower substances also works
-botania.page.flowers10=There's also some taller variants of the typical &1Mystical Flowers&0, spread around the place. These can only be gathered with &1Shears&0, but can be used to obtain twice the amount of petals a normal flower would yield. They're a bit too big for dye, though.<br>They can be made manually by fertilizing a &1Mystical Flower&0 with &1Bone Meal&0.
-botania.page.flowers11=Prepare for trouble
-botania.page.flowers9=Petals can also be made into blocks
+botania.entry.flowers=신비로운 꽃
+botania.page.flowers0=세상을 돌아다니다 보면 당신은 신비로운 식물을 발견하실 수 있습니다. 그 식물들은 빛을 방출하여 멀리서도 알아보기 쉽습니다.<br>꽃들은 총&416 &0가지의 색상을 가지고있으며<br>&1꽃의 비료&0(후술)을 통해서 재배할 수 도있습니다.
+botania.page.flowers1=당신은 멀리서도 그 꽃들을 보실 수 있습니다.
+botania.page.flowers2=이 꽃들로 &1신비로운 꽃잎&0을 추출할 수 있습니다. 이 꽃잎들로는 마법의 도구나 새로운 꽃들을 만드는데 사용됩니다.<br>이 꽃잎을 땅위에 우클릭할 경우 땅에 &4숨겨집니다&0. 숨겨진 땅에는 꽃잎색에 따라 파티클이 생깁니다.<br>꽃잎을 부셔서 &1꽃가루&0로 만들 수 있는데 이 꽃가루들은 염료로 사용됩니다.
+botania.page.flowers3=날 사랑한다...사랑하지 않는다...사랑한다..사랑하지 않는다...
+botania.page.flowers4=&1막자사발&0 제작하기
+botania.page.flowers5=꽃잎을 넣고 갈아버렷-!
+botania.page.flowers6=&1꽃가루&0를 들고 모든 &1양털&0 혹은 &1카펫&0에 우클릭하면 그 색상으로 바뀝니다.<br>&1꽃가루&0와 &1뼛가루&0를 섞으면 뼛가루와는 다른 새로운 비료가 만들어지는데 이 비료는 약간의 &1신비로운 꽃&0들을 생성합니다. 최대 중첩 크기는 7x7입니다.
+botania.page.flowers7=&1꽃의비료&0 제작하기(모든 색상 가능)
+botania.page.flowers8=일반 염료로도 가능합니다.
+botania.page.flowers10=가끔씩 큰&1신비로운 꽃&0을 발견하실 수 있습니다. 그 꽃들은 &1가위&0를 통해서만 채집할 수 있다는 단점이 있지만 다른 꽃보다 꽃잎을 더욱 많이 줍니다.<br>&1신비로운 꽃&0에 &1뼛가루&0를 조합하는 것으로 인위적으로 생성 가능합니다.
+botania.page.flowers11=문제에 대한 준비
+botania.page.flowers9=꽃잎으로 꽃잎 블럭을 만들 수 있습니다.
 
 # -- PETAL APOTHECARY
-botania.entry.apothecary=Petal Apothecary
+botania.entry.apothecary=꽃잎 연금술기
 botania.page.apothecary0=In order for a botanist to create plantlife that can do its bidding, one would need special means of infusing plants with mystical energy.<br>Luckily, the &1Petal Apothecary&0 does just that.
 botania.page.apothecary1=The &1Petal Apothecary&0.
 botania.page.apothecary2=This block, when placed in the world and given some water (by use of a &1Water Bucket&0), will accept any &1Mystical Petals&0 thrown at it, releasing their energies.<br>Once one has set the correct petals in, throwing some &1Seeds&0 in will finalize the proccess.<br>Tossing in the full bucket will also fill the recipient with water.
@@ -1403,7 +1413,7 @@ botania.page.apothecary4=Instead of &1Water&0, one can place &1Lava&0 in this bl
 botania.page.apothecary5=Crafting the &1Petal Apothecary&0.
 
 # -- PURE DAISY
-botania.entry.pureDaisy=Pure Daisy
+botania.entry.pureDaisy=정화의 데이지
 botania.page.pureDaisy0=The &1Pure Daisy&0 is not only the most basic, but also the most important flower a botanist can have.<br>This flower will purify any adjacent &1Wood&0 and &1Stone&0 blocks, as seen on the next page, into their purified counterparts, &1Livingwood&0 and &1Livingrock&0, which can be used for crafting.  
 botania.page.pureDaisy1=Just give it &4a minute&0 or so...
 botania.page.pureDaisy2=&1Livingwood&0 can be turned into twigs
@@ -1411,50 +1421,50 @@ botania.page.pureDaisy4=A few other blocks can also be purified by placing them 
 botania.page.pureDaisy3=White is bright and pure
 
 # -- WAND OF THE FOREST
-botania.entry.wand=Wand of the Forest
+botania.entry.wand=숲의 지팡이
 botania.page.wand0=The general multi-use tool for a botanist is the &1Wand of the Forest&0.<br>This wand, made by, effectively, strapping a pair of &1Mystical Petals&0 of any color to a few &1Livingwood Twigs&0, is required for a good amount of tasks.
 botania.page.wand1=The wand has two modes, &4Bind Mode&0 and &4Function Mode&0. In &4Bind Mode&0 it can be shift-right clicked on a compatible block to select it. Shift-right clicking elsewhere binds the two blocks. In &4Function Mode&0 it'll simply not do that for shift-right clicking.<br>The two modes can be switched freely by shift-right clicking on air.
 botania.page.wand2=If the wand isn't bound to anything, shift-right clicking a block allows it to be rotated around the axis of the side it's clicked on.<br>For example, clicking on the top of a &1Chest&0 rotates it around. Most blocks which can be rotated should work.
 botania.page.wand3=The petals used determine the colors of the wand
 
 # -- RUNIC ALTAR
-botania.entry.runeAltar=Runic Altar
+botania.entry.runeAltar=신비로운 제단
 botania.page.runeAltar21=Runic creation is a rather important complex in the advancement of the botanical magics. First and foremost, though, this type of crafting requires a decent knowledge of &4Mana Manipulation&0. Before proceeding further, a read through the important entries (those in &oItalics&r) on that section of the &1Lexica Botania&0 might prove enlightening.
 botania.page.runeAltar0=&1Runes&0 are extremely important components of complex magical devices or flora.<br>In order to create these, one would require a &1Runic Altar&0.<br>To utilize this &1Runic Altar&0, start by placing, via either a right click or simply tossing, the components to the rune you want to create.
 botania.page.runeAltar1=Proceed by linking a &1Mana Spreader&0 to the altar, and right click it with a &1Wand of the Forest&0.<br>It should be apparent when the altar has received enough &4Mana&0. When that happens, just drop a piece of &1Livingrock&0 on top of it and use the wand on it again to collect your rune.
 botania.page.runeAltar2=Crafting the &1Runic Altar&0.
 botania.page.runeAltar3=A total of 16 &1Runes&0 exist.<br>The most basic and elementary runes are named after the &4Four Elements&0. The intermediate runes are named after the &4Four Seasons&0, and the most advanced runes are named after the &4Seven Deadly Sins&0. A separate &1Rune of Mana&0 also exists.
 botania.page.runeAltar20=Sneaking and right-clicking the &1Runic Altar&0 with an empty hand while it's not accepting mana will remove the last item put into it.<br>Last but not least, attaching a &1Comparator&0 to it will emit signal strength &41&0 if the altar is accepting &4Mana&0 and signal strength &42&0 if it's ready to craft the rune.
-botania.page.runeAltar4=The &1Rune of Water&0.
-botania.page.runeAltar5=The &1Rune of Earth&0.
-botania.page.runeAltar6=The &1Rune of Air&0.
-botania.page.runeAltar7=The &1Rune of Fire&0.
-botania.page.runeAltar8=The &1Rune of Spring&0.
-botania.page.runeAltar9=The &1Rune of Summer&0.
-botania.page.runeAltar10=The &1Rune of Autumn&0.
-botania.page.runeAltar11=The &1Rune of Winter&0.
-botania.page.runeAltar12=The &1Rune of Mana&0.
-botania.page.runeAltar13=The &1Rune of Lust&0.
-botania.page.runeAltar14=The &1Rune of Gluttony&0.
-botania.page.runeAltar15=The &1Rune of Greed&0.
-botania.page.runeAltar16=The &1Rune of Sloth&0.
-botania.page.runeAltar17=The &1Rune of Wrath&0.
-botania.page.runeAltar18=The &1Rune of Envy&0.
-botania.page.runeAltar19=The &1Rune of Pride&0.
+botania.page.runeAltar4=&1물의 룬&0.
+botania.page.runeAltar5=&1대지의 룬&0.
+botania.page.runeAltar6=&1대기의 룬&0.
+botania.page.runeAltar7=&1불의 룬&0.
+botania.page.runeAltar8=&1봄의 룬&0.
+botania.page.runeAltar9=&1여름의 룬&0.
+botania.page.runeAltar10=&1가을의 룬&0.
+botania.page.runeAltar11=&1겨울의 룬&0.
+botania.page.runeAltar12=&1마나의 룬&0.
+botania.page.runeAltar13=&1욕망의 룬&0.
+botania.page.runeAltar14=&1폭식의 룬&0.
+botania.page.runeAltar15=&1탐욕의 룬&0.
+botania.page.runeAltar16=&1게으름의 룬&0.
+botania.page.runeAltar17=&1격노의 룬&0.
+botania.page.runeAltar18=&1질투의 룬&0.
+botania.page.runeAltar19=&1교만의 룬&0.
 
 # -- TERRASTEEL
-botania.entry.terrasteel=Terrasteel
+botania.entry.terrasteel=테라스틸
 botania.page.terrasteel0=&1Terrasteel&0 is a complex magical alloy, infused with a great amount of &4Mana&0. Conjuring it proves not to be a small task. For starters, to create it, one would require a &1Terrestrial Agglomeration Plate&0, set on top of a checkerboard pattern of &1Lapis Lazuli Blocks&0 and &1Livingrock&0. &4Mana&0 would need to be provided to this block, &1Sparks&0 would be the most effective way..
 botania.page.terrasteel1=Creating the plate
 botania.page.terrasteel2=After the plate is set up and ready to receive &4Mana&0, tossing a single &1Manasteel Ingot, Mana Diamond and Mana Pearl&0 on top of it will begin the infusion.<br>Picking up any of the items will halt the infusion causing severe &4Mana Loss&0. The infusion uses half a &1Mana Pool&0 total to create a single piece of &4Terrasteel&0, multiple &1Sparks&0 would make it go faster, too.
 botania.page.terrasteel3=Creating &1Terrasteel&0 (there's &1Livingrock&0 under the plate)
 
 # -- BLACK LOTUS
-botania.entry.blackLotus=Black Lotus
+botania.entry.blackLotus=검은 수련
 botania.page.blackLotus0=An elusive flower by the name of &1Black Lotus&0 is known to exist, however, it does not grow or reproduce. Where they can be found or come from is not known.<br>It is known, however, that it contains a strong amount of concentrated &4Mana&0, that can be released by putting it in contact with a &1Mana Pool&0 that already has some in it. Just tossing it would do. 
 
 # -- FLOWER POUCH
-botania.entry.flowerBag=Flower Pouch
+botania.entry.flowerBag=꽃 주머니
 botania.page.flowerBag0=The laws of physics regarding one's &4Inventory&0 are somewhat skewed in this world. Thanks to that, carrying an array of different colors of flowers turns out to be a major hassle. Luckily, a &1Flower Pouch&0 takes care of all those issues. It can store up to one stack of each color of &1Mystical Flower&0, not only that but it'll passively catch any that enter the holder's inventory.
 botania.page.flowerBag1=Pull a copter out of it (any colors work)
 
@@ -1464,13 +1474,13 @@ botania.page.wrap0=It seems like the creator of this mod decided to add a weird 
 
 # - MANA
 # -- AN INTRODUCTION TO MANA
-botania.entry.mIntro=An Introduction to Mana
+botania.entry.mIntro=마나에 대한 소개
 botania.page.mIntro0=&4Mana&0 is an ethereal substance. In layman's terms, it is a form of &4mystical energy&0. Its sensorial existence is inconstant, and its color depends on the environment its put in.<br>Mastering &4Mana&0 is one of the most important skills a botanist needs to master.
 botania.page.mIntro1=In order to create &4Mana&0, one would require a set of &4Generating Flowers&0 (read the respective section). This &4Mana&0 can be dispersed by utilizing &1Mana Spreaders&0 and stored in &1Mana Pools&0. &4Mana&0 can be used for a myriad of different things. For starters, it can be used for &4Functional Flowers&0 (read the respective section).
 botania.page.mIntro2=To get started with mastering the art of &4Mana&0, one would start by learning how to use &1Dayblooms&0, &1Mana Spreaders&0 and &1Mana Pools&0.<br>These form a basic infrastructure for mana, which can be used for all sorts of purposes. Have a read at the &4Functional Flora&0 and &4Magical Apparatus&0 sections of this Lexicon. 
 
 # -- MANA SPREADER
-botania.entry.spreader=Mana Spreader
+botania.entry.spreader=마나 공급기
 botania.page.spreader0=The &1Mana Spreader&0 is the most important component in manipulating &4Mana&0.<br>This is the block that allows &4Mana&0 to travel from point A to point B. When this block is placed on the ground, it'll face one of 6 basic directions. By holding shift-right on it with a &1Wand of the Forest&0, one can orient it to the opposite of where it was clicked. It can be pointed to other blocks with a wand in &4Bind Mode&0.
 botania.page.spreader1=Holding a &1Wand of the Forest&0
 botania.page.spreader2=The &1Mana Spreader&0 has a small internal buffer of &4Mana&0, which will get filled by nearby &4Generating Flowers&0. This buffer can be viewed by looking at the &1Spreader&0 with a &1Wand of the Forest&0, as demonstrated in the last page.<br>Note that the block needs to be right clicked with a wand to get accurate and adequate values.  
@@ -1481,7 +1491,7 @@ botania.page.spreader5=Crafting the &1Mana Spreader&0
 botania.page.spreader10=Right clicking the spreader with a piece of &1Wool&0 will sleeve it. Aside from making it look fancier, it'll also muffle the sound when a burst is shot, making it much less obnoxious when there's a large amount of spreaders in one area.<br>Right clicking with an empty hand will remove the sleeve.
 
 # -- MANA POOL
-botania.entry.pool=Mana Pool
+botania.entry.pool=마나 웅덩이
 botania.page.pool0=The &1Mana Pool&0 is, simply put, a storage of &4Mana&0.<br>Mana can be inserted into it by usage of a &1Mana Spreader&0, and any adjacent &1Mana Spreaders&0 will pull mana from it to increase their internal buffer automatically.<br>Any &4Functional Flowers&0 require a nearby &1Mana Pool&0 to draw power from.
 botania.page.pool9=&1Mana Pools&0 come in two varieties, a weaker, &1Diluted&0 variety which only stores a very small amount of &4Mana&0 and isn't able to infuse items, and a &1Normal&0 variety, which can store as much as a hundred times more than the dilluted one and can infuse items.<br>Whenever "Mana Pool" is refered elsewhere for scale, it refers to a normal one.
 botania.page.pool1=Making a &1Dilluted Mana Pool&0.
@@ -1497,13 +1507,13 @@ botania.page.pool12=Infusing &1String&0
 botania.page.pool7=Infusing &1Mana Cookies&0, pretty good food.
 
 # -- SPARKS
-botania.entry.sparks=Sparks
+botania.entry.sparks=스파크
 botania.page.sparks0=&1Sparks&0 are interesting entities. Created from a combination of raw energy and &4Mana&0, they have the ability to be placed on top of a few specific &4Mana&0 containing or accepting blocks, mainly, &1Mana Pools&0.<br>Some blocks have the ability to harness &4Mana&0 from &1Sparks&0, but the uses for them seem limited to a few blocks right now.
 botania.page.sparks1=Placing a &1Spark&0 on top of a &1Mana Pool&0 and another on top of a block that can accept it will allow for the latter to remotely access the reservoirs of the &1Mana Pool&0 when needed, given it's not too far away.<br>To remove a &1Spark&0 simply shift-right click it with a &1Wand of the Forest&0. Regular right clicking shows which other &1Sparks&0 it can transfer to.
 botania.page.sparks2=&oholds up spork&r
 
 # -- SPARK AUGMENTATION
-botania.entry.sparkUpgrades=Spark Augmentation
+botania.entry.sparkUpgrades=스파크 어그먼트
 botania.page.sparkUpgrades0=As it seems, &1Sparks&0 are a bit more versatile than it was known previously. A variety of &1Augments&0 can be applied to them to enhance their abilities. It's to note that Augments can only be applied to &1Sparks&0 that lie on &1Mana Pools&0.<br>A &1Spark&0 can only have a single &1Augment&0 at any given time.
 botania.page.sparkUpgrades1=Starting off, the &1Dispersive Augment&0 has the &1Spark&0 use up the &4Mana&0 in the pool below, to charge any nearby players' &4Mana&0 containing items.
 botania.page.sparkUpgrades2=The &1Dominant Augment&0 will have the &1Spark&0 pull any &4Mana&0 from nearby non-augmented &1Sparks'&0 pools into its own, until it's completely full.
@@ -1512,22 +1522,22 @@ botania.page.sparkUpgrades4=Lastly, the &1Isolated Augment&0 will prevent the &1
 botania.page.sparkUpgrades5=Crafting the Augments
 
 # -- MANA DISTRIBUTOR
-botania.entry.distributor=Mana Distributor
+botania.entry.distributor=마나 분산기
 botania.page.distributor0=Any botanist will eventually reach a point where a single &1Mana Pool&0 setup is not enough.<br>The &1Mana Distributor&0 will fix all those issues. By placing it adjacently to a few &1Mana Pools&0 on its sides, when it receives &4Mana&0 through &4Mana Bursts&0 it'll equally spread it to the adjacent pools. 
 botania.page.distributor1=Crafting the distributor
 
 # -- MANA VOID
-botania.entry.manaVoid=Mana Void
+botania.entry.manaVoid=마나의 공허
 botania.page.manaVoid0=The &1Mana Void&0 is, in layman's terms, the grave for &4Mana&0. Any &4Mana&0 shot into this block will simply vanish into the void, never to be seen again.<br>Placing one of these under a &1Mana Pool&0 allows the pool to always accept &4Mana&0, but disposing any it can't hold.
 botania.page.manaVoid1=Even Chad from accounting?
 
 # -- MANA FLUXFIELD
-botania.entry.rfGenerator=Mana Fluxfield
+botania.entry.rfGenerator=마나 플럭스변환기
 botania.page.rfGenerator0=By passing &4Mana&0 through a field of redstone energy, its state can change from a natural energy source to &4Redstone Flux&0.<br>Simply pointing a spreader at this block will have it shoot at it, converting the &4Mana&0 that lands on it into &4RF&0. It can then be pulled out with any &4RF&0 transporter.
 botania.page.rfGenerator1=The bullet guys. I bit it.
 
 # -- MANA LENSES
-botania.entry.lens=Mana Lenses
+botania.entry.lens=마나렌즈
 botania.page.lens0=In order to upgrade the potential a &1Mana Spreader&0, one can apply &1Mana Lenses&0. The very basic mana lens does absolutely nothing.<br>Lenses can be &4dyed&0, in a workbench, all the 16 colors of the spectrum, or combined with a &1Mana Pearl&0 to create a &1Rainbow Lens&0. These will change the color of the burst.
 botania.page.lens1=The basic lens, it doesn't do anything.
 botania.page.lens2=&4Dying&0 lenses!
@@ -1568,57 +1578,57 @@ botania.page.lens36=The &1Flash Lens&0, in contact with a block, creates a flame
 botania.page.lens37=Flash Lens
 
 # -- MANA TABLET
-botania.entry.manaTablet=Mana Tablet
+botania.entry.manaTablet=마나 태블릿
 botania.page.manaTablet0=While using &1Mana Spreaders&0 to transport &4Mana&0 around is all well and good, there is also a way of doing it in a different manner.<br>The &1Mana Tablet&0 is a portable object which can carry &4Mana&0 on itself.<br>Not only that, but other items can also pull from it as they need it for their uses, making this an essential tool.
 botania.page.manaTablet1=Tossing one of these on top of a &1Mana Pool&0 will allow for transport of &4Mana&0 between one and another.<br>Shift-right clicking the &1Mana Pool&0 with a &1Wand of the Forest&0 will change in which way the &4Mana&0 flows.<br>Lastly, unlike normal items, these will never despawn when dropped on the floor.
 botania.page.manaTablet2=Don't put it on your pocket, it might bend
 
 # -- MANA MIRROR
-botania.entry.manaMirror=Mana Mirror
+botania.entry.manaMirror=마나 거울
 botania.page.manaMirror0=A &1Mana Mirror&0 is an alternative to &4Mana&0 containing items such as a &1Mana Tablet&0. It can be bound to a &1Mana Pool&0 in the world and items will pull out of the pool itself when needing &4Mana&0.<br>To bind a mirror to a pool, one would simply &4shift right-click&0 a pool with the mirror. The mirror can't put mana in or take mana out of pools in any other way.
 botania.page.manaMirror1=Mirror mirror on the wall...
 
 # -- MANA DETECTOR
-botania.entry.manaDetector=Mana Detector
+botania.entry.manaDetector=마나 감지기
 botania.page.manaDetector0=A device like the &1Mana Detector&0 is capable to detect when a &4Mana Burst&0 starts flowing through it (the burst doesn't dissipate on collision with this block) and provide a redstone signal when that is the case.
 botania.page.manaDetector1=Crafting the detector
 
 # -- REDSTONE MANA SPREADER
-botania.entry.redstoneSpreader=Redstone Mana Spreader
+botania.entry.redstoneSpreader=레드스톤 마나 공급기
 botania.page.redstoneSpreader0=By combining a &1Mana Spreader&0 with a piece of &1Redstone&0, it's possible to create a &1Redstone Mana Spreader&0, which fires only when given a &4Redstone signal&0, regardless of having a block in the end to put the mana or not.<br>It's to keep in note that this doesn't let the spreader shoot a burst until the last one dissipates or is absorbed.
 botania.page.redstoneSpreader1=Just add redstone
 
 # -- MANASTAR
-botania.entry.manastar=Manastar
+botania.entry.manastar=마나의 별
 botania.page.manastar0=The imprecise measurements of the &1Wand of the Forest&0 sometimes won't cut it for telling if you're turning a profit or loss in your &1Mana Pools&0.<br>Creating a &1Manastar&0 and placing it next to your pools will have it shine red if there's a loss or blue if there's a profit. The measurement happens every few seconds.
 botania.page.manastar1=&rI'm a shooting star leaping through the skies&r.
 
 # -- ELVEN MANA SPREADERS
-botania.entry.dreamwoodSpreader=Elven Mana Spreaders
+botania.entry.dreamwoodSpreader=엘프의 마나 공급기
 botania.page.dreamwoodSpreader0=Simply put, &1Dreamwood&0 conducts &4Mana&0 better than &1Livingwood&0. Add in some adjustments like &1Elementium&0 or &1Mana Petals&0 and what you get is a &1Mana Spreader&0 that can conduct more &4Mana&0, faster and for more time without &4Mana loss&0.<br>On the negative side, it can't be turned into a &1Redstone Mana Spreader&0.
 botania.page.dreamwoodSpreader1=Better spreaders, that's it
 botania.page.dreamwoodSpreader2=By combining this already powerful spreader with a &1Gaia Spirit&0 and a &1Dragonstone&0 gem, one can create an even more potent variant. The &1Gaia Spreader&0 is within the top percentage of Mana Spreaders, with pretty much upgrades all round.<br>It's to note that these spreaders fire a larger payload at once and thus, might fire less often.
 botania.page.dreamwoodSpreader3=ULTRA_SPREADER
 
 # -- PAINTSLINGER LENS
-botania.entry.paintLens=Paintslinger Lens
+botania.entry.paintLens=페인트 렌즈
 botania.page.paintLens0=The &4Elves&0 are one crafty bunch. This lens is somewhat unique in comparison to the other lenses. The &1Paintslinger Lens&0 needs to be dyed one of the 16 colors of the spectrum to function. When it hits a colorable block (&1Wool, Stained Clay or Glass&0...) it'll turn any blocks connected, of the same type and color, into the color of the &4Mana Burst&0 itself. It seems to work with &4Sheep&0 too.
 botania.page.paintLens1=A M'AIDER Stranded Girl
 
 # -- WARP LENS
-botania.entry.warpLens=Warp Lens
+botania.entry.warpLens=뒤틀림 렌즈
 botania.page.warpLens0=The &1Mana Lens: Warp&0 is an interesting one. A &4Mana Burst&0 with its effect, when colliding with a &1Force Relay&0 will teleport to the end position of said &1Force Relay&0, maintaining its momentum. Furthermore, when it's used as a composite material to a &1Bore Lens&0 (the &1Bore Lens&0 must be visible) it'll make the lens not break &1Force Relays&0 or &1Pistons&0, as well as teleport any blocks to the spot where the burst was fired.
 botania.page.warpLens1=Hakase Quarries
 
 # -- MANA PRISM
-botania.entry.prism=Mana Prism
+botania.entry.prism=마나 프리즘
 botania.page.prism0=The concept of &1Mana Lens&0 allows for the manipulation of the power convyed through &4Mana Bursts&0, the &1Mana Prism&0 works on that technology to allow a burst to have its lens effect switched on the fly.<br>Using a &1Spectral Platform&0 as a component, this block does not have a physical presence, entities and bursts can go through it as if it doesn't exist.
 botania.page.prism1=Right clicking it with any variety of &1Mana Lens&0 sets the lens in the prism. Whenever a &4Mana Burst&0 goes through the prism, its color and effect will be set to that of the lens in the prism. Case the lens is not dyed, the burst will turn white.<br>Using any of the four basic lenses also increases the time the burst can go before losing &4Mana&0, allowing it to go further.
 botania.page.prism2=It can also be turned off by the use of a redstone signal.
 botania.page.prism3=Another pixel in the wall
 
 # -- MANA ON RAILS
-botania.entry.poolCart=Mana on Rails
+botania.entry.poolCart=레일 위를 달리는 마나
 botania.page.poolCart0=What could be an easier way to transport &4Mana&0 over large distances than attaching a &1Mana Pool&0 to a &1Minecart&0 and watch it do the merry-go-round? It's simple. Similarly to other types of carts, one can create a &1Minecart with Mana Pool&0 that can store and transport &4Mana&0 on rails.<br>Breaking the cart while there's any &4Mana&0 in it will waste the &4Mana&0, care should be taken with it.
 botania.page.poolCart1=Transfering &4Mana&0 between the cart and a pool is done with a &1Mana Pump&0. It can face any of the four cardinal directions and will transfer &4Mana&0 between a pool adjacent to it and a cart with a pool on an rail opposite to the target pool.<br>The transfer rate is extremely fast due to the mechanical nature, so fast that overflow is possible, causing &4Mana Loss&0.
 botania.page.poolCart2=The side of the pump where the &4Mana&0 will go towards is the pink one, &4Mana&0 is pulled from the blue side.<br>The pump can be turned off with redstone, and a &1Comparator&0 on it will output how much &4Mana&0 exists in the cart.<br>Lastly, a pool on a cart serves purely for transport, and can not receive, send, transfer or infuse any items with its &4Mana&0.
@@ -1627,7 +1637,7 @@ botania.page.poolCart4=This is not a pipe
 
 # - FUNCTIONAL FLOWERS
 # -- AN INTRODUCTION TO FUNCTION
-botania.entry.fIntro=An Introduction to Function
+botania.entry.fIntro=기능성 식물 소개
 botania.page.fIntro0=There are various places in which the &4Mana&0 a botanist generates can be put to use, one of them is an assortment of &4Functional Flowers&0.<br>These flowers will drain &4Mana&0 from a nearby &1Mana Pool&0 into themselves, in order to do whatever task they were created for.<br>It's to note that these can't receive power directly through &1Mana Spreaders&0.
 botania.page.fIntro1=All &4Functional Flowers&0, alike the &4Generating Flowers&0 contain a small buffer of &4Mana&0.<br>Standard rules for &4Mana&0 reading apply, right clicking with a &1Wand of the Forest&0 will update the mana readings.
 botania.page.fIntro2=It is important to keep in mind that these flowers memorize the &1Mana Pool&0 from which they should pull &4Mana&0 out of. They'll only pull from the nearest pool present at the time of the flower being placed (or the closest placed afterward, if none was present), and none other, unless that one is removed. It can be bound to another pool with a wand in &4Bind Mode&0.
@@ -1640,62 +1650,62 @@ botania.page.flowerShrinking0=Some functional flowers have a bit too much reach.
 botania.page.flowerShrinking1=넨드로이드 같아
 
 # -- JADED AMARANTHUS
-botania.entry.jadedAmaranthus=Jaded Amaranthus
+botania.entry.jadedAmaranthus=보라색 비름
 botania.page.jadedAmaranthus0=Everyone likes flowers right? The &1Jaded Amaranthus&0 is made just for that purpose.<br>Feeding it with &4Mana&0 from &1Mana Pools&0 will have it quickly grow new &1Mystical Flowers&0 around it, in any spots it can.
 botania.page.jadedAmaranthus1=&oIt was this or clematis.&r
 botania.page.jadedAmaranthus2=&oWait a minute, did you just summon a bunch of flowers in one turn?<br>Yeah, so?<br>That's against the rules, isn't it?<br>Screw the rules, I have Mana!
 
 # -- BELLETHRONE
-botania.entry.bellethorne=Bellethorne
+botania.entry.bellethorne=미인가시꽃
 botania.page.bellethorne0=The &1Bellethorne&0 is a malevelous flower. By utilizing &4Mana&0 it slowly inflicts harm in any living beings (save for &4players&0) around it.
 botania.page.bellethorne1=&oEvery rose has its thorn&r.
 
 # -- DREADTHORNE
-botania.entry.dreadthorne=Dreadthorne
+botania.entry.dreadthorne=공포의 덤불
 botania.page.dreadthorne0=The &1Dreadthorne&0 is a slightly more specific counterpart to the &1Bellethrorne&0, by which, instead of all mobs around, it'll only hurt &4adult&0 animals and none else. 
 botania.page.dreadthorne1=&oNo Mr.Bond, I expect you to die&r.
 
 # -- HEISEI DREAM
-botania.entry.heiseiDream=Heisei Dream
+botania.entry.heiseiDream=길몽초
 botania.page.heiseiDream0=The &1Heisei Dream&0 will, by utilizing &4Mana&0, awaken feelings of anger and revenge in any nearby &4mobs&0, turning them against eachother.
 botania.page.heiseiDream1=&oA pleasant era will murder people&r.
 botania.page.heiseiDream2=&oHeisei, was broken, broken. Who was the one who lied about peace? See, it's forgotten, forgotten, even the punishement blamed on the altar. Hey, it's breaking, breaking, at the end, even the meaning of shaking is killed.<br>Well, where shall we go? Let's go somewhere, whose ally are you? Whose replacement am I?
 
 # -- TIGERSEYE
-botania.entry.tigerseye=Tigerseye
+botania.entry.tigerseye=호랑눈꽃
 botania.page.tigerseye0=It's a known fact that &4Creepers&0 are terrified of &4cats&0.<br>The &1Tigerseye&0 exploits that very weakness, by emitting a feline aura, petrifying any nearby &4Creepers&0, preventing them from exploding. It also has the effect of making them run away from &4players&0.
 botania.page.tigerseye1=&oRisin' up to the challenge of our rivals&r.
 
 # -- ORECHID
-botania.entry.orechid=Orechid
+botania.entry.orechid=광물난초
 botania.page.orechid0=While going mining is all good, a renewable means of getting ore is due. The &1Orechid&0 will use (a massive amount of) &4Mana&0 to generate &4ores&0 in nearby &1Stone&0 blocks.<br>The ores it generates are random, but seem to be biased towards more common ores rather than rarer ones.
 botania.page.orechid1=&oNot dragon poop&r.
 
 # -- FALLEN KANADE
-botania.entry.fallenKanade=Fallen Kanade
+botania.entry.fallenKanade=생명의 연주자
 botania.page.fallenKanade0=The &1Fallen Kanade&0 is a flower with angelic properties, it'll use &4Mana&0 from nearby &4Mana Pools&0 in order to apply a regeneration effect to any &4players&0 nearby.
 botania.page.fallenKanade0a=The &1Fallen Kanade&0 is a flower with angelic properties, it'll use &4Mana&0 from nearby &4Mana Pools&0 in order to apply a regeneration effect to any &4players&0 nearby.<br>Interestingly enough, &4Blood Mages&0 have been known to place odd hexes on their altars which cause this flower to malfunction, that might be something to keep in mind.
 botania.page.fallenKanade1=&oHand Sonic, version four&r.
 botania.page.fallenKanade2=&oI'll marry you. No matter what kind of sickness you have, even if you can't walk or stand, or even if you can't have kids, I'll still marry you. No matter where or how I met you, I'll fall in love with you.<br>If I can meet you again, against the six billion to one odds, and even if your body can't move, I'll marry you.
 
 # -- EXOFLAME
-botania.entry.exoflame=Exoflame
+botania.entry.exoflame=바깥불꽃
 botania.page.exoflame0=Unlike its generating counterpart, the &1Exoflame&0 utilizes &4Mana&0 with means to generate heat.<br>Any &1Furnaces&0 nearby to the &1Exoflame&0 will be fueled, and given an efficiency boost, for the cost of some &4Mana&0.
 botania.page.exoflame1=&oBut we should be going nowhere fast&r.
 
 # -- AGRICARNATION
-botania.entry.agricarnation=Agricarnation
+botania.entry.agricarnation=성장의 카네이션
 botania.page.agricarnation0=The slow growth of crops is always a problem to feed the masses. The &1Agricarnation&0 is a flower that turns &4Mana&0 into a type of natural fertilizer, causing nearby plantlife to grow at a faster rate.
 botania.page.agricarnation1=&oGrandola Vila Morena&r...
 
 # -- HOPPERHOCK
-botania.entry.hopperhock=Hopperhock
+botania.entry.hopperhock=호퍼록
 botania.page.hopperhock0=The &1Hopperhock&0 will pick up items around it. Giving it &4Mana&0 is optional, but it'll increase its range.<br>Items picked up will be put in adjacent inventories (e.g. &1Chests&0). Placing &1Item Frames&0 in any of the inventories will specify which items can or can't go in them.
 botania.page.hopperhock1=Any inventory which has no &1Item Frame&0 adjacent to it can accept any items, but labelled inventories will take priority.<br>The rule using to sort items can be changed by shift-right clicking the flower with a &1Wand of the Forest&0.
 botania.page.hopperhock2=&oI guess I'll be talking my loli and leaving&r.
 
 # -- TANGLEBERRIE
-botania.entry.tangleberrie=Tangleberrie
+botania.entry.tangleberrie=탱글베리
 botania.page.tangleberrie0=The &1Tangleberrie&0 is a flower that, at the cost of a small amount of &4Mana&0, will keep any nearby animals or monsters within a circle ward, preventing them from getting out. 
 botania.page.tangleberrie1=&oTangled, brave and frozen&r.
 
@@ -1776,7 +1786,7 @@ botania.page.gIntro1=All &4Generating Flowers&0, alike the &4Functional Flowers&
 botania.page.gIntro2=It is important to keep in mind that these flowers memorize the &1Mana Spreader&0 into which they should put &4Mana&0 into. They'll only store into the nearest spreader present at the time of the flower being placed (or the closest placed afterward, if none was present), and none other, unless that one is removed. It can be bound to another spreader with a wand in &4Bind Mode&0.
 
 # -- DAYBLOOM
-botania.entry.daybloom=Daybloom
+botania.entry.daybloom=해맞이 꽃
 botania.page.daybloom0=The &1Daybloom&0 is the most basic and rudimentary &4Generating Flower&0. Simply put, it performs a modified photosynthesis process, in order to transform sunlight into &4Mana&0.<br>The process is rather slow, about ten or a dozen of these should get the job done, for now.
 botania.page.daybloom1=These flowers tend to compete among themselves for what sunlight hits an area, thus having any other of the same type adjacent to it on any of the four cardinal directions will result in diminishing returns of &4Mana&0 production. This fact only applies to &1Dayblooms&0 and &1Nightshades&0. They also don't produce much to begin with, so perhaps hastily upgrading to &1Endoflames&0 or others might be a good idea.
 botania.page.daybloom1a=Having any other &1Dayblooms&0 adjacent to it on any of the four cardinal directions will result in diminishing returns of &4Mana&0 production.<br>These flowers are not very resistant, and after some time they'll wither and die off. This only applies to &1Dayblooms&0 and &1Nightshades&0. They also don't produce much to begin with, so perhaps hastily upgrading to &1Endoflames&0 or others might be a good idea.
@@ -1786,19 +1796,19 @@ botania.page.daybloom4=&oHow many of you people out there been hurt in some kind
 botania.page.daybloom5=&oHow could it be that what you need the most can leave you feeling just like a ghost? You never want to feel so sad and lost again. One day you could be looking through an old book in rainy weather. You see a picture of her smiling at you when you were still together. You could be walking down the street and who should you chance to meet. But that same old smile that you've been thinking of all day...
 
 # -- NIGHTSHADE
-botania.entry.nightshade=Nightshade
+botania.entry.nightshade=밤초롱꽃
 botania.page.nightshade0=The &1Nightshade&0 is the dark counterpart of the &1Daybloom&0, as it generates &4Mana&0 passively in any situation the &1Daybloom&0 can not, as long as it's nighttime<br>Similarly to their shining counterpart, they suffer diminishing returns from having any adjacent.
 botania.page.nightshade0a=The &1Nightshade&0 is the dark counterpart of the &1Daybloom&0, as it generates &4Mana&0 passively in any situation the &1Daybloom&0 can not, as long as it's nighttime. Alike its shining counterpart, they suffer diminishing returns from having any adjacent and are not very resistant, and some time they'll wither and die off.
 botania.page.nightshade1=&oThe shadow of the day&r.
 
 # -- ENDOFLAME
-botania.entry.endoflame=Endoflame
+botania.entry.endoflame=불먹이꽃
 botania.page.endoflame0=While the &1Daybloom&0 is all well and good, a botanist requires more effective means of generating &4Mana&0.<br>The &1Endoflame&0 does that exactly, it will absorb any combustible items or blocks dropped on the nearby vicinity (albeit only one at a time) and burn through them to passively generate mana while the fuel lasts.
 botania.page.endoflame1=There is a small caveat though, the &1Endoflame&0 will not burn anything that returns a byproduct, an example are &1Lava Buckets&0, that have empty &1Buckets&0 as a byproduct.<br>Due to their behaviour, an &1Open Crate&0, which you read about on the &4Magical Apparatus&0 section, might be a good step on getting it to be self-sustainable.
 botania.page.endoflame2=&oNot nitor&r.
 
 # -- HYDROANGEAS
-botania.entry.hydroangeas=Hydroangeas
+botania.entry.hydroangeas=수국
 botania.page.hydroangeas0=While passive &4Mana&0 generation can be easily achieved through &1Dayblooms&0, different means of doing so might come in handy. The &1Hydroangeas&0 will suck up any &1Still Water&0 in a 3x3 area around it, on the same height, creating &4Mana&0 from it. They also seem to function faster during &4Rain&0, who'd have thought?
 botania.page.hydroangeas0a=The &1Hydroangeas&0 will suck up any &1Still Water&0 in a 3x3 area around it, on the same height, creating &4Mana&0 from it. They also seem to function faster during &4Rain&0, who'd have thought?<br>Similarly to the &1Daybloom&0, these flowers are not very resistant, and after some time they'll wither and die off.
 botania.page.hydroangeas2=A simple &1Hydroangeas&0 system
@@ -1806,33 +1816,33 @@ botania.page.hydroangeas3=These flowers, similarly to &1Dayblooms&0 or &1Nightsh
 botania.page.hydroangeas1=&oFrom some Hyperdimension&r?
 
 # -- THERMALILY
-botania.entry.thermalily=Thermalily
+botania.entry.thermalily=열백합
 botania.page.thermalily0=There comes a point where slow generating power, like the &1Hydroangeas&0 or the &1Endoflame&0 is not enough. An answer to that is the &1Thermalily&0, which works similarly to the &1Hydroangeas&0, except with &1Lava&0, it'll produce a very large amount of &1Mana&0 at a spurt when it consumes &1Lava&0, doing this heats up the flower, and it'll need some time to cool down before it can begin the cycle anew.
 botania.page.thermalily1=&o0108 Style&r.
 
 # -- ROSA ARCANA
-botania.entry.arcanerose=Rosa Arcana
+botania.entry.arcanerose=신비로운 장미
 botania.page.arcanerose0=&4Experience Points&0 are a form of magic of sorts. The &1Rosa Arcana&0 can tap into it and absorb the experience of players on the ground around it, turning it into &1Mana&0. 
 botania.page.arcanerose1=&oWhen this card is Summoned, toss a coin&r.
 
 # -- MUNCHDEW
-botania.entry.munchdew=Munchdew
+botania.entry.munchdew=이슬삯이
 botania.page.munchdew0=Generating the form of natural energy that is &4Mana&0 should be a pretty good process when done via other living materials. By using the &1Munchdew&0, any &1Leaves&0 near the flower will get munched up and converted into &4Mana&0.<br>It's to note that, though, no saplings or any other items will be dropped from the leaves.
 botania.page.munchdew1=This flower outputs a hefty amount of mana per tree eaten.<br>However, after if finishes eating all the available leaves, when left without any, it'll take a break from doing so and will only be able to eat again after a bit over a minute.
 botania.page.munchdew2=&oYou pay for dinner, Shibazaki&r.
 
 # -- ENTROPINNYUM
-botania.entry.entropinnyum=Entropinnyum
+botania.entry.entropinnyum=엔트로피늄
 botania.page.entropinnyum0=In order to generate a blast of &4Mana&0, one might in fact, require a blast nearby.<br>Igniting a block of &1TNT&0 in the near an &1Entropinnyum&0 will have the latter absorb all the entropy generated by the blast into itself, creating a large amount of &4Mana&0 and nullifying any possible damage. Lastly, to absorb the explosion, the flower must not have any &4Mana&0 stored in it or the process will fail.
 botania.page.entropinnyum1=&oCool guys don't look at explosions&r.
 
 # -- KEKIMURUS
-botania.entry.kekimurus=Kekimurus
+botania.entry.kekimurus=케키머러스
 botania.page.kekimurus0=&1Cake&0 is delicious, everyone loves it, flowers included.<br>The &1Kekimurus&0 is one of these &1Cake&0 aficionados, and will eat any it spots nearby, using its enriching nutrients to create &4Mana&0.
 botania.page.kekimurus1=&otop kek&r
 
 # -- GOURMARYLLIS
-botania.entry.gourmaryllis=Gourmaryllis
+botania.entry.gourmaryllis=구어머릴러스
 botania.page.gourmaryllis0=The &1Gourmaryllis&0 is one hungry flower. It'll eat up any food in a small area around it, and turn it into &4Mana&0.<br>There's a catch, though, it can only digest a single food at any given time, the &4Mana&0 is created when it's done. Any other food it finds, it'll also devour, but not create any mana from it.
 botania.page.gourmaryllis1=The amount of time it takes to digest a delicacy depends on its nutritional value, in layman's terms, the amount of food points it restores.<br>So, a &1Steak&0 will take four seconds to digest, a &1Carrot&0 will take two, a loaf of &1Bread&0 will take two and a half, so on. 
 botania.page.gourmaryllis2=The amount of &4Mana&0 created also makes use of this value, but in a way where the more nutritious the food is, the more efficient it is. For example, a single &1Steak&0 will produce more &1Mana&0 from two &1Carrots&0, both absolutely and per second.
@@ -1842,24 +1852,24 @@ botania.page.gourmaryllis5=&oSee a man of those who are followed by claims or ac
 botania.page.gourmaryllis6=&oThe sad one who was hanged, only eat him the crows past his execution and death, while the one who's being judged, not even executed or sentenced and he's already eaten.<br>The true evil are the Man who eat eachother, and those who commit to it are the largest, those who eat the smallest. For that you, Man, vos estis sal terrae.
 
 # -- NARSLIMMUS
-botania.entry.narslimmus=Narslimmus
+botania.entry.narslimmus=나아슬리머스
 botania.page.narslimmus0=There's some sort of unbeknownst power in the universe that creates &1Slimes&0 at seemingly random spots. &4Slime Chunks&0, they call it. The &1Narslimmus&0 is a flower that has the ability to tap into that energy. If placed down near a &1Slime&0 created by that power, it'll destroy it, collecting all the &4Mana&0 generated by the entropy. The larger the &1Slime&0, the more &4Mana&0 is created. It also makes a bit of a sticky mess.
 botania.page.narslimmus1=&oStick around, would ye&r? 
 
 # -- SPECTROLUS
-botania.entry.spectrolus=Spectrolus
+botania.entry.spectrolus=스펙트럴러스
 botania.page.spectrolus0=The &1Spectrolus&0 is a flower that's particularly fond of the various tones of &1Wool&0. It'll absorb any and all &1Wool&0 blocks dropped nearby and create &4Mana&0 from them.<br>There's a caveat though. It's picky as to what colors it wants. Starting at white, after it absorbs one piece of &1Wool&0, it'll rotate to the next color in the spectrum.
 botania.page.spectrolus1=While it consumes all &1Wool&0 around, it'll only create any mana if its of the color it wants, so haphazardly tossing &1Wool&0 at it is a wasteful strategy.<br>The color it'll absorb properly next can be seen by hovering over the flower with a &1Wand of the Forest&0.
 botania.page.spectrolus2=&oTaste the Rainbow&r.
 
 # - MAGICAL APPARATUS
 # -- MANA PYLON
-botania.entry.pylon=Mana Pylon
+botania.entry.pylon=마나 송전탑
 botania.page.pylon0=A &1Mana Pylon&0 is a structure that can pull energies from the earth and use them to power enchanting processes.<br>For one, setting one adjusted to an &1Enchanting Table&0 as if it was a &1Bookshelf&0 will drastically increase the power it can convey, just 2 of these are enough for it to reach &4Level 30&0.
 botania.page.pylon1=&oYou must construct additional pylons!&r
 
 # -- MANA ENCHANTING
-botania.entry.manaEnchanting=Enchanting with Mana
+botania.entry.manaEnchanting=마나로 하는 마법부여
 botania.page.manaEnchanting0=By utilizing the magical power emitted from &1Mana Pylons&0, a structure that can enchant items with books without consuming them can be created, called the &1Mana Enchanter&0.<br>Constructing one of these requires a fair amount of space and materials alike.
 botania.page.manaEnchanting1=To construct the &1Mana Enchanter&0, one requires, as well as fair amount of space, 17 &1Obsidian&0 blocks, 10 &1Mystical Flowers&0 of any color, 6 &1Mana Pylons&0 and a &1Lapis Lazuli Block&0.<br>The instructions on how to assemble this structure are in the following pages.
 botania.page.manaEnchanting2=Start by making an &1Obsidian&0 circle.
@@ -1873,12 +1883,12 @@ botania.page.manaEnchanting9=When enough &4Mana&0 is gathered, the enchanting pr
 botania.page.manaEnchanting10=During the enchanting process, the item can not be removed, but it can after the process has been completed.<br>Note that if at any point, any component of the construct is removed, it'll revert to its original &1Lapis Lazuli Block&0 form.
 
 # -- SPREADER TURNTABLE
-botania.entry.turntable=Spreader Turntable
+botania.entry.turntable=회전 분배기
 botania.page.turntable0=The &1Spreader Turntable&0, as its name implies, can turn &1Mana Spreaders&0 around and around. Placing a spreader above the turntable will rotate it, given that a redstone signal isn't applied.<br>To change the speed of the turntable, right click with a &1Wand of the Forest&0, shift-right clicking will invert the movement.
 botania.page.turntable1=You spin me right round
 
 # -- ALCHEMISING WITH MANA
-botania.entry.manaAlchemy=Alchemising with Mana
+botania.entry.manaAlchemy=마나로 하는 연금술
 botania.page.manaAlchemy0=&4Mana&0 is an extremely volatile substance, to a point that its complete properties and abilities are unknown.<br>One of them is known, though, by attaching an &1Alchemy Catalyst&0, created with a mixture of otherworldly materials to the bottom of a &1Mana Pool&0, it enables the pool to perform &4Alchemy&0.
 botania.page.manaAlchemy1=Creating the &1Catalyst&0
 botania.page.manaAlchemy2=&1Rotten Flesh&0 to &1Leather&0
@@ -1905,7 +1915,7 @@ botania.page.manaAlchemy22=Breaking down &1Clay&0 and &1Bricks&0
 botania.page.manaAlchemy23=Making &1Coarse Dirt&0
 
 # -- BOTANICAL BREWERY
-botania.entry.brewery=Botanical Brewery
+botania.entry.brewery=식물학 양조
 botania.page.brewery0=Given the versatility of &4Mana&0, the fact that it can be used to conjure some sort of &4Potions&0 comes to nobody's surprise. &4Brews&0 are a variant of &4Potions&0, to put it simply. They're created using &4Mana&0 and a set of ingredients.<br>Unlike &4Potions&0, &4Brews&0 have defined recipes, and each vial contains multiple doses.
 botania.page.brewery1=In order to create &4Brews&0 one would require a &1Botanical Brewery&0, &1Vials&0 and of course, the reagents defined in the recipe.<br>The &4Mana&0 functions as the both the solvent and energy source and is given through &4Mana Bursts&0, simply pointing a &1Mana Spreader&0 at the &1Brewery&0 will work just fine.
 botania.page.brewery2=Crafting the &1Botanical Brewery&0
@@ -1939,13 +1949,13 @@ botania.page.brewery16a=A simple brew, it mimics a &1Potion of Absorption&0, whe
 botania.page.brewery16b=You're gonna catch a cold
 
 # -- BREWING FLASKS
-botania.entry.flasks=Brewing Flasks
+botania.entry.flasks=양조 플라스크
 botania.page.flasks0=&1Alfglass&0 seems to be more maleable than the typical &1Managlass&0 used for &1Vials&0. A &1Flask&0, made with &1Alfglass&0 is the typical elven container for &4Brews&0, and can contain 6 doses of one, rather than the 4 a &1Vial&0 does.
 botania.page.flasks1=While the ingredient cost to brew something in a &1Flask&0 is smaller, the &4Mana&0 cost is double that of a regular &1Vial&0.<br>Lastly, given that the bottleneck of a &1Flask&0 is larger than that of a &1Vial&0, the contents can be consumed faster.
 botania.page.flasks2=Get one under the bridge
 
 # -- COMPLEX BREWING
-botania.entry.complexBrews=Complex Brews
+botania.entry.complexBrews=복합 양조
 botania.page.complexBrews0=Apart from the standard, run of the mill &1Brews&0 that don't pass from mimics of the &1Potions&0 that can be made in a &1Brewing Stand&0 there's also some more complex brews which apply either a combination of effects or new, beneficial effects altogether.
 botania.page.complexBrews1a=A brew that applies both positive and negative effects. Taking it leaves the affected individual in a state of power, but also vulnerability.
 botania.page.complexBrews1b=96 Herblore
@@ -1961,31 +1971,31 @@ botania.page.complexBrews6a=A player affected with this brew's effect will have 
 botania.page.complexBrews6b=Maybe you'll catch a Chris
 
 # -- EYE OF THE ANCIENTS
-botania.entry.forestEye=Eye of the Ancients
+botania.entry.forestEye=고대인의 눈
 botania.page.forestEye0=As the Ancients who used to watch over the world always looked for the living beings on it, this block, the &1Eye of the Ancients&0, will do just that.<br>By attaching a &1Comparator&0 next to it, it'll send out a redstone signal equivalent to the amount of animals it can find.
 botania.page.forestEye1=The counting only starts at 2, so, with 2 animals around, it'd output a signal of strength 1, with 3 animals, of strength 2 and so on.<br>Lastly, the time has worn down the sight of the Ancients, so this block can only see animals in about 6 blocks in any direction.
 botania.page.forestEye2=Now you see me...
 
 # -- OPEN CRATE
-botania.entry.openCrate=Open Crate
+botania.entry.openCrate=오픈 그레이트
 botania.page.openCrate0=Sometimes devices like &1Droppers&0 or &1Dispensers&0 aren't precise or fast enough. A simple solution is to make a crate and punch a hole in the bottom.<br>Yeah, it's that simple. The &1Open Crate&0 accepts items from &1Hoppers&0 or any other means of inserting items, and obviously, drops them directly below it.
 botania.page.openCrate1=A little interesting effect the &1Open Crate&0 can do is that, when given a redstone signal, any items it drops are prevented from being caught by flowers like the &1Hopperhock&0, &1Rannuncarpus&0 or &1Pollidisiac&0 for around ten seconds more than usual.
 botania.page.openCrate2=A super crate box
 
 # -- DRUM OF THE WILD
-botania.entry.forestDrum=Drum of the Wild
+botania.entry.forestDrum=야행의 드럼
 botania.page.forestDrum0=The &1Drum of the Wild&0 is, in layman's terms, the percussion counterpart of the &1Horn of the Wild&0. It serves the exact same purpose as the handheld horn, but is placed in world.<br>To trigger a beat and break nearby foliage, one would fire a &4Mana Burst&0 at the drum.
 botania.page.forestDrum1=It's to note that the drum does not store mana, hence, in order to trigger it, a &1Redstone Mana Spreader&0 or a &1Mana Blaster&0 is required.
 botania.page.forestDrum2=But if you close your eyes...
 
 # -- ABSTRUSE PLATFORM
-botania.entry.platform=Abstruse Platform
+botania.entry.platform=난해한 플랫폼
 botania.page.platform0=By laying &1Livingwood&0 on a very specific format it's possible to create a platform of sorts, that only has a physical body for whoever is on top of it and isn't sneaking. For anyone else, it's like it's not there. &4Mana Bursts&0 will always travel through it without any trouble.<br>It's also possible to camouflage this block as any other simple block by simply right clicking it.
 botania.page.platform2=Right clicking a platform with a block in it with a &1Wand of the Forest&0 will change all connected platforms with no block set to them to the block on the one clicked. Shift-right clicking removes all blocks.
 botania.page.platform1=It would be Ethereal but the name was taken
 
 # -- CONJURING WITH MANA
-botania.entry.manaConjuration=Conjuring with Mana
+botania.entry.manaConjuration=마나로 하는 마술
 botania.page.manaConjuration0=Similar to the ability to &4Alchemise with Mana&0, a catalyst also exists for &4Conjuration&0, the magic of materializing resources from magical energy only. The mechanism works in a similar way to the &1Alchemy Catalyst&0 where one tosses an item into the pool with the catalyst below.
 botania.page.manaConjuration1=Creating the catalyst
 botania.page.manaConjuration2=Conjuring &1Redstone&0
@@ -1998,17 +2008,17 @@ botania.page.manaConjuration8=Conjuring &1Soul Sand&0
 botania.page.manaConjuration9=Conjuring &1Gravel&0
 
 # -- SPECTRAL PLATFORM
-botania.entry.spectralPlatform=Spectral Platform
+botania.entry.spectralPlatform=유령 플랫폼
 botania.page.spectralPlatform0=The &1Spectral Platform&0 isn't more than an &1Abstruse Platform&0 with no physical body whatsoever. Whereas the &1Abstruse Platform&0 would have a physical body in some cases, the &1Spectral Platform&0 lets anything go through it, regardless of their position.
 botania.page.spectralPlatform1=This reminds me of a Puzzle
 
 # -- DRUM OF THE GATHERING
-botania.entry.gatherDrum=Drum of the Gathering
+botania.entry.gatherDrum=호출의 드럼
 botania.page.gatherDrum0=The &1Drum of the Gathering&0 is, in short terms, a &1Drum of the Wild&0 for livestock.<br>When a &4Mana Burst&0 collides with it, it'll shear any &4Sheep&0 around with grown fleece. Any &4Cows&0, with &1Empty Buckets&0 below them will have their milk transfered to the buckets.
 botania.page.gatherDrum1=Tap your lands
 
 # -- CRAFTY CRATE
-botania.entry.craftCrate=Crafty Crate
+botania.entry.craftCrate=제작 그레이트
 botania.page.craftCrate0=As the name suggests, the &1Crafty Crate&0 is a counterpart to the &1Open Crate&0 with the ability to assemble items into other items similarly to a &1Crafting Table&0.<br>Like a &1Crafting Table&0, it has a 9 slot inventory, which can be filled with items in the pattern of a recipe.
 botania.page.craftCrate1=The items go in from left to right and top to bottom (illustration further in this entry), to that, there's a special item, named the &1Crafting Placeholder&0, which, when placed in, counts as an empty slot in the recipe. This is used to allow for recipes with gaps (eg, furnace, chest, pickaxe...) to also be doable.
 botania.page.craftCrate2=Creating the placeholder
@@ -2022,33 +2032,33 @@ botania.page.craftCrate9=9 different patterns
 
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
-botania.entry.manaBlaster=Mana Blaster
+botania.entry.manaBlaster=마나 블래스터
 botania.page.manaBlaster0=The &1Mana Blaster&0 is like a portable &1Mana Spreader&0, while shaped like a pistol for easy handling, it's not exactly a firearm, as much as it is just a portable spreader.<br>By utilizing &4Mana&0 from &4Mana carrying items&0 in the holder's inventory, it can shoot a mana burst when one is looking at.
 botania.page.manaBlaster1=This burst is a bit different from the one fired from speaders, as it's faster, but carries only three quarters of the mana a spreader burst would. There's also a short cooldown period after firing the blaster until another burst can be shot.
 botania.page.manaBlaster2=&1Mana Lenses&0 also function with the blaster, to attach one to it, put them side by side on a crafting table, to remove it, simply place the &1Mana Blaster&0 back on the crafting grid.
 botania.page.manaBlaster3=We need more dakka
 
 # -- PASTURE SEEDS
-botania.entry.grassSeeds=Pasture Seeds
+botania.entry.grassSeeds=초원의 씨
 botania.page.grassSeeds0=Watching grass spread is seldom a fun activity. By infusing some &1Tall Grass&0 with &4Mana&0, it's possible to create &1Pasture Seeds&0, which will grow grass in any barren area, via a simple right click on dirt.<br>Other types of foliage can also be grown, such a &1Podzol&0 or &1Mycellium&0 with alternate seeds.
 botania.page.grassSeeds1=&1Pasture Seeds&0 for grass
 botania.page.grassSeeds2=&1Boreal Seeds&0 for podzol
 botania.page.grassSeeds3=&1Infestation Spores&0 for mycellium
 
 # -- ROD THE LANDS
-botania.entry.dirtRod=Rod of the Lands
+botania.entry.dirtRod=땅의 막대
 botania.page.dirtRod0=The &1Rod of the Lands&0 is a rather simpleton tool, by utilizing &4Mana&0 from the user's inventory (via a &1Mana Tablet&0 or others), it can materialize and place a &1Dirt&0 block down.
 botania.page.dirtRod1=That's dirty
 
 # -- TERRA FIRMA ROD
-botania.entry.terraformRod=Rod of the Terra Firma
+botania.entry.terraformRod=땅의 기둥막대
 botania.page.terraformRod0=While digging away at dirt with a shovel is definitely functional, flattening huge tracts of land can get somewhat tortuous at times.<br>By utilizing the &1Rod of the Terra Firma&0, it's possible to terraform in a quick and environmental friendly manner.
 botania.page.terraformRod1=This rod, will, at the cost of some &4Mana&0 from the user's inventory, flatten the land to the level you are standing. For this to happen, charge it by &4holding right-click&0 and, slowly but surely, the nearby terrain will be flattened to your level, either by placing &1Dirt&0 or by removing blocks.
 botania.page.terraformRod2=Note that blocks removed by the rod are non-recuperable. The terrain will adapt to the changes as best as it can, up to a distance limit, to avoid cuts in hills and the like, for this, the flattening will work in the terrain's natural look.<br>Lastly, the rod will cease to function whatsoever below sea level.
 botania.page.terraformRod3=Quite a justicar
 
 # -- MANASTEEL EQUIPMENT
-botania.entry.manaGear=Manasteel Equipment
+botania.entry.manaGear=마나합금 장비
 botania.page.manaGear0=&1Manasteel&0, alike other metals, can be shaped into tools and armor alike.<br>Tools or armor crafted from this material will share their properties with &1Iron&0, albeit somewhat superior in enchantability and durability. Whenever a &1Manasteel&0 item is to take damage, if there's &4Mana&0 available in the inventory (such as a &1Mana Tablet&0), it'll use that instead.
 botania.page.manaGear10=Some pieces of the toolset have an ability when right clicked. The &1Pickaxe&0 will place a torch from the user's inventory, the &1Axe&0 will do the same for a sapling and the &1Shovel&0 will till the earth, similarly to a hoe.<br>A detail to keep in mind is that &1Shears&0 made of mana materials will trigger tripwire, unlike iron ones.
 botania.page.manaGear1=The &1Manasteel Pickaxe&0
@@ -2062,14 +2072,14 @@ botania.page.manaGear8=The &1Manasteel Leggings&0
 botania.page.manaGear9=The &1Manasteel Boots&0
 
 # -- HORN OF THE WILD
-botania.entry.grassHorn=Horn of the Wild
+botania.entry.grassHorn=야생의 혼
 botania.page.grassHorn0=Clearing out &1Tall Grass&0 by hand can definitely be a nuisance.<br>Simply blowing the &1Horn of the Wild&0 will quickly cause any nearby vegetation to uproot, leaving behind drops as if it had been broken by hand.<br>With some modifications, the horn can be modified to break leaves or snow instead.
 botania.page.grassHorn1=Crafting the horn
 botania.page.grassHorn2=Modifying to break &1Leaves&0
 botania.page.grassHorn3=Modifying to break &1Snow&0
 
 # -- TERRASTEEL ARMOR
-botania.entry.terrasteelArmor=Terrasteel Armor
+botania.entry.terrasteelArmor=테라스틸 갑옷
 botania.page.terrasteelArmor0=Armor made out of &1Terrasteel&0, much alike the &1Manasteel&0 counterpart, can utilize &4Mana&0 from the inventory instead of taking damage.<br>This armor, however, has properties more alike &1Diamond&0 instead of &1Iron&0.
 botania.page.terrasteelArmor1=The &1Terrasteel Helmet&0
 botania.page.terrasteelArmor2=The &1Terrasteel Chestplate&0
@@ -2077,12 +2087,12 @@ botania.page.terrasteelArmor3=The &1Terrasteel Leggings&0
 botania.page.terrasteelArmor4=The &1Terrasteel Boots&0
 
 # -- TERRA BLADE
-botania.entry.terraSword=Terra Blade
+botania.entry.terraSword=테라 블레이드
 botania.page.terraSword0=The &1Terra Blade&0, crafted from &1Terrasteel Ingots&0, is a sword infused with natural strength. Not only does it par with a &1Diamond Sword&0 in terms of strength and it uses &4Mana&0 from the inventory like &1Manasteel Tools&0, but when swung, there's a chance for it to create a beam that will deal as much damage as a melee hit.
 botania.page.terraSword1=No Broken Hero Sword
 
 # -- TERRA SHATTERER
-botania.entry.terraPick=Terra Shatterer
+botania.entry.terraPick=대지 파괴
 botania.page.terraPick0=The &1Terra Shatterer&0 is a tool that can amass insane quantities of mana on itself, due to the amount of &1Terrasteel&0 required for its creation.<br>The tool functions very much like a &1Mana Tablet&0 by which it can amass &4Mana&0 by being tossed on a &1Mana Pool&0, it can't give the &4Mana&0 back, though, so it doesn't function as a storage method.
 botania.page.terraPick1=The amount of &4Mana&0 stored on the tool defines its &4Rank&0. Ranks go as follows: &4D&0, &4C&0, &4B&0, &4A&0, &4S&0, &4SS&0. &4D&0 being the default rank.<br>The amount of &4Mana&0 required to advance from rank to rank increases as the rank does. To advance from &4D&0 to &4C&0, for example, it requires just a few seconds of exposition to a &1Mana Pool&0.
 botania.page.terraPick2=To advance from rank &4C&0 to rank &4B&0, a full &1Mana Pool&0 is required, and the cost increases by a tenfold per rank from there on in, all the way to &4SS&0.<br>The rank of the tool does not change its speed, but instead, it increases the power of its &4Active Ability&0.<br>Toggling the tool's ability can be done via right click.
@@ -2091,12 +2101,12 @@ botania.page.terraPick4=Lastly, the tool takes damage for every single block bro
 botania.page.terraPick5=WE'RE MINING IN THE DATABASE WOW WOW
 
 # -- ROD OF THE SEAS
-botania.entry.waterRod=Rod of the Seas
+botania.entry.waterRod=바다의 막대
 botania.page.waterRod0=Similarly to its land counterpart, the &1Rod of the Seas&0 will, at the cost of some &4Mana&0, place down a &1Water&0 block wherever it's used on. Furthermore, it can also be used to refill a &1Petal Apothecary&0.
 botania.page.waterRod1=Keep the Earth clean, it isn't Uranus
 
 # -- ELEMENTIUM EQUIPMENT
-botania.entry.elfGear=Elementium Equipment
+botania.entry.elfGear=엘레멘티움 장비
 botania.page.elfGear0=Similarly to other metals, as expected, &1Elementium&0 can, too, be shaped into tools and armor.<br>These pieces of equipment have a decent resistance to damage, about half of that of diamond, as well as the ability to drain &4Mana&0 to prevent damage.
 botania.page.elfGear1=Each of the tools come with their own ability or power of sorts which makes them unique. The armor allows the wearer to, when hit, have a chance to spawn a &1Pixie&0 that goes after the attacker, dealing decent damage.<br>The more pieces of &1Elementium Armor&0 equipped, the higher the chance.
 botania.page.elfGear2=Starting off, the &1Elementium Pickaxe&0 will destroy any &1Cobblestone&0, &1Dirt&0, &1Netherrack&0 and other mundane materials, leaving behind only the ores and fine resources.<br>Combining the &1Elementium Pickaxe&0 with a &1Terra Shatterer&0 in a crafting square allows for the latter to also get this power. This can't be undone.
@@ -2115,28 +2125,28 @@ botania.page.elfGear14=Good People Die
 botania.page.elfGear15=The out of Infinity
 
 # -- EXTRAPOLATED BUCKET
-botania.entry.openBucket=Extrapolated Bucket
+botania.entry.openBucket=추론의 양동이
 botania.page.openBucket0=By creating a bucket out of &1Elementium&0 one seems to notice an interesting feature. The liquids acquired by it simply vanish into the ether, never to be seen again. This seems like a great clean up tool.
 botania.page.openBucket1=A Souvenir from Lewis
 
 # -- ROD OF BIFROST
-botania.entry.rainbowRod=Rod of the Bifrost
+botania.entry.rainbowRod=비프로스트의 막대
 botania.page.rainbowRod0=&4Bifrost&0, the rainbow bridge that reaches between the world and the realm of the gods.<br>While this item, the &1Rod of the Bifrost&0 doesn't exactly do that, it allows the holder, via a right click and at the cost of some &4Mana&0, to create a rainbow bridge in the direction he or she is looking at.
 botania.page.rainbowRod1=This bridge extends as far as a hundred blocks, and will vanish after about fifteen seconds.<br>Only one bridge can be created for any given &1Rod of the Bifrost&0 at a time, as soon as the old bridge vanishes, a new one can be created.
 botania.page.rainbowRod2=Going my way!! Cut open a path and go!
 
 # -- ROD OF THE SKIES
-botania.entry.tornadoRod=Rod of the Skies
+botania.entry.tornadoRod=하늘의 막대
 botania.page.tornadoRod0=The &1Rod of the Skies&0 is a magical instrument with the ability to propel one in the air at fast velocity for the cost of some &4Mana&0.<br>To do so, one would simply hold it like a bow and watch as their momentum increases.<br>The rod takes a small amount of time to recharge, but during that time it'll block any fall damage, keeping the user safe.
 botania.page.tornadoRod1=A treasure from Lorule
 
 # -- ROD OF THE HELLS
-botania.entry.fireRod=Rod of the Hells
+botania.entry.fireRod=지옥의 막대
 botania.page.fireRod0=The &1Rod of the Hells&0 contains the essence of a burning flame, using it on the ground will create a circle of fire that burns anything inside it, for a decent cost of &4Mana&0.<br>The ring has a decent radius, and takes a small amount of time to fully propagate, it's to note that after that time it burns anything living in it, the caster included.
 botania.page.fireRod1=Megu Megu Fire Endless Night
 
 # -- VINE BALLS
-botania.entry.vineBall=Vine Balls
+botania.entry.vineBall=덩굴 공
 botania.page.vineBall0=&1Ladders&0 can't stand up on their own, they require something on their back, whereas &1Vines&0 don't. Normally, though, &1Vines&0 aren't strong enough for someone to climb them when they're freestanding.<br>By combining a few &1Vines&0, it's possible to create a ball that can be thrown, to create a climbable ladder of strong &1Vines&0 where it hits.
 botania.page.vineBall1=It's also possible, by combining some materials such as &1Livingwood&0 or a &1Rune of Air&0 to create a slingshot that lets these &1Vine Balls&0 be shot while completely ignoring the force of gravity.
 botania.page.vineBall2=This would be in Vineacraft...
@@ -2144,35 +2154,35 @@ botania.page.vineBall3=...if that actually existed.
 botania.page.vineBall4=Oh, and you can make &1Moss Stone&0 too
 
 # -- SHARD OF LAPUTA
-botania.entry.laputaShard=Shard of Laputa
+botania.entry.laputaShard=라퓨타의 조각
 botania.page.laputaShard0=Via a somewhat complex magic activation sequence, combining a few interesting resources, including &1Gaia Spirits&0 would allow one to create a shard that, when used on the ground, will lift an almost spherical area around that point up into the air.<br>This process consumes the shard and can take upwards of ten minutes depending on the mass of land.
 botania.page.laputaShard2=The radius of the island creates start at 14 blocks, on other words, 28 blocks of diameter. It's possible to increase the size by upgrading the shard with additional &1Gaia Spirits&0, each one adds 1 block to the radius, or 2 to the diameter.
 botania.page.laputaShard1=Look Shiro, Laputa exists!
 botania.page.laputaShard3=Size does matter
 
 # -- EQUESTRIAN VIRUS
-botania.entry.virus=Equestrian Virus
+botania.entry.virus=승마 바이러스
 botania.page.virus0=Through the mixing of some ingredients, a type of virus that can alter the genetic code of equestrian life can be made.<br>Using one of these viruses on a &1Horse&0 will alter its genetic code, turning it into either a &1Zombie&0 or &1Skeleton Horse&0. Not only will it do that, but it will vastly increase all the &1Horse&0's genetic attributes.
 botania.page.virus1=No ponies here
 botania.page.virus2=None here either
 
 # -- ROD OF THE HIGHLANDS
-botania.entry.skyDirtRod=Rod of the Highlands
+botania.entry.skyDirtRod=고지의 막대
 botania.page.skyDirtRod0=While the &1Rod of the Lands&0 is all well and good, being able to place &1Dirt&0 without something to hold it would be great.<br>The &1Rod of the Highlands&0 does just that, while maintaining the original power of the &1Rod of the Lands&0, it can also place &1Dirt&0 in mid air, for an increased &4Mana&0 cost.
 botania.page.skyDirtRod1=Dirty Stick mk2
 
 # -- VITREOUS PICKAXE
-botania.entry.glassPick=Vitreous Pickaxe
+botania.entry.glassPick=유리질 곡괭이
 botania.page.glassPick0=Placing down &1Glass&0 and having to break it again can be a heartbreaking experience. Luckily, by creating a &1Vitreous Pickaxe&0, one can gather the &1Glass&0 back by mining it with the pick, it's like cheap &4Silk Touch&0 for glass!
 botania.page.glassPick1=Trapped inside with food
 
 # -- ROD OF DIVINING
-botania.entry.diviningRod=Rod of the Plentiful Mantle
+botania.entry.diviningRod=나눗셈의 막대
 botania.page.diviningRod0=The &1Rod of the Plentiful Mantle&0 has the ability to divine in a decently large radius around the user to find any ores. These will shine for a little bit, allowing their location.<br>This process, obviously, requires a decent amount of &4Mana&0 from the user's inventory.
 botania.page.diviningRod1=inb4 ee3 
 
 # -- ROD OF THE BLACK MESA
-botania.entry.gravityRod=Rod of the Shaded Mesa
+botania.entry.gravityRod=블랙메사의 막대
 botania.page.gravityRod0=The &1Rod of the Shaded Mesa&0 is a powerful relic, legend says that the first of these devices was found atop a dark mesa, along with a crowbar.<br>To use this device, the user may right click and hold on a monster or item to pick it up. Releasing right click will drop the selected entity, while left click will fire it in a powerful burst.
 botania.page.gravityRod1=This power does not come free, of course. It requires significant amounts of &4Mana&0 from the user's inventory.
 botania.page.gravityRod2=bun pls
