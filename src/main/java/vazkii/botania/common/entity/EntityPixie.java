@@ -85,7 +85,7 @@ public class EntityPixie extends EntityFlyingCreature {
 						target.attackEntityFrom(DamageSource.causeMobDamage(summoner), damage);
 					}
 				} else target.attackEntityFrom(DamageSource.causeMobDamage(this), damage);
-				if(effect != null)
+				if(effect != null && !(target instanceof EntityPlayer))
 					target.addPotionEffect(effect);
 				die();
 			}
