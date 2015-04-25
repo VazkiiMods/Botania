@@ -116,15 +116,15 @@ public final class SheddingHandler {
 			lexiconSize = defaultPattern.lexiconSize;
 		}
 
-		Property prop=config.get("Shedding", key + ".item", itemName);
+		Property prop = config.get("Shedding", key + ".item", itemName);
 		prop.comment = "Configuration of Shedding for "+key;
 		itemName = prop.getString();
 		rate = config.get("Shedding", key + ".rate", rate).getInt();
 		metadata = config.get("Shedding", key + ".metadata", metadata).getInt();
 		lexiconSize = config.get("Shedding", key + ".lexiconDisplaySize", lexiconSize).getInt();
 
-		if(itemName != "" && rate != -1)
-			patterns.add(new ShedPattern((Class)EntityList.stringToClassMapping.get(key), new ItemStack((Item) Item.itemRegistry.getObject(itemName), 1, metadata), rate, lexiconSize));
+		if(itemName != null && !itemName.isEmpty() && rate != -1)
+			patterns.add(new ShedPattern((Class<?>) EntityList.stringToClassMapping.get(key), new ItemStack((Item) Item.itemRegistry.getObject(itemName), 1, metadata), rate, lexiconSize));
 	}
 
 	public static class ShedPattern {
