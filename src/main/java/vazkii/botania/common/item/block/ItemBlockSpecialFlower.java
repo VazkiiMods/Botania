@@ -98,7 +98,7 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 	}
 
 	public static String getType(ItemStack stack) {
-		return ItemNBTHelper.getString(stack, SubTileEntity.TAG_TYPE, "");
+		return ItemNBTHelper.detectNBT(stack) ? ItemNBTHelper.getString(stack, SubTileEntity.TAG_TYPE, "") : "";
 	}
 
 	public static ItemStack ofType(String type) {
