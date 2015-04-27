@@ -1,3 +1,10 @@
+r1.6 184
+*Baubles no longer render on players with the invisibility effect enabled.
+*Fixed tossing items in mana pools when there's no mana ending up in the items not being stackable with other items.
+*Pixies no longer apply potion effects to players. Easiest fix for a crash when a player takes damage from a ComputerCraft turtle.
+*Setting an entity's shedding item to an empty value while not setting the rate to -1 will no longer crash the game when opening that entity's page in the shedding entry.
+*The Petal Apothecary can now be crafted with any ore dictionary cobblestone slab. Took me long enough.
+*Tweaked the way double flowers are placed a bit. This won't have any effect in gameplay but should fix a rare crash on worldgen.
 r1.6 183
 *Added Petal Apothecary variants craftable using the stone acquired with the Marimorphosis.
 *Fixed a crash when looking at an item in the lexicon that doesn't have a recipe present elsewhere.
