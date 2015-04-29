@@ -118,7 +118,7 @@ botania.nei.floatingFlowers=Criação de Flor Flutuante
 botania.nei.manaPool=Infusão com Mana
 botania.nei.petalApothecary=Boticário de Pétalas
 botania.nei.runicAltar=Altar Rúnico
-botania.nei.pureDaisy=Pure Daisy
+botania.nei.pureDaisy=Margarida Pura
 
 # BUILDCRAFT INTEGRATION
 botania.trigger.manaDetector=Pulso de Mana
@@ -1228,7 +1228,7 @@ item.botania:holyCloak.name=Capa da Virtude
 item.botania:unholyCloak.name=Capa do Pecado
 item.botania:craftingHalo.name=Aureóla da Criação
 item.botania:blackLotus0.name=Lótus Negra
-item.botania:blackLotus1.name=Lótus Vazia
+item.botania:blackLotus1.name=Lótus Profunda
 item.botania:dreamwoodTwig.name=Graveto de Madeira dos Sonhos
 item.botania:monocle.name=Monóculo de Mana
 item.botania:clip.name=Clipe de Lentes
