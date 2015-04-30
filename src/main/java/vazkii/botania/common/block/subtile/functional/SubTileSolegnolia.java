@@ -38,7 +38,7 @@ public class SubTileSolegnolia extends SubTileFunctional {
 				registered = true;
 		}
 
-		if(ticksExisted % 10 == 0 && mana > 0)
+		if(ticksExisted % 10 == 0 && mana > 0 && redstoneSignal == 0)
 			mana--;
 	}
 
