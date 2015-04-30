@@ -243,8 +243,17 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 
 		searchField.mouseClicked(par1, par2, par3);
 		fx = par1;
-		if(par3 == 1)
+		switch(par3) {
+		case 1:
 			back();
+			break;
+		case 3:
+			nextPage();
+			break;
+		case 4:
+			prevPage();
+			break;
+		}
 	}
 
 	@Override
