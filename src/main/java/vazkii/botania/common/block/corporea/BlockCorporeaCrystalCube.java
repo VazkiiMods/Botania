@@ -16,18 +16,23 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import vazkii.botania.api.lexicon.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
+import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockCorporeaCrystalCube extends BlockCorporeaBase {
+public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexiconable {
 
 	public BlockCorporeaCrystalCube() {
 		super(Material.iron, LibBlockNames.CORPOREA_CRYSTAL_CUBE);
 		setHardness(5.5F);
-		setStepSound(soundTypeMetal);	
+		setStepSound(soundTypeMetal);
+		float f = (1F - 10F / 16F) / 2F;
+		setBlockBounds(f, 0F, f, 1F - f, 1F, 1F - f);
 	}
 	
 	@Override
@@ -41,6 +46,7 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase {
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int s, float xs, float ys, float zs) {
 		ItemStack stack = player.getCurrentEquippedItem();
+
 		if(stack != null) {
 			TileCorporeaCrystalCube cube = (TileCorporeaCrystalCube) world.getTileEntity(x, y, z);
 			cube.setRequestTarget(stack);
@@ -77,6 +83,11 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase {
 	@Override
 	public TileCorporeaBase createNewTileEntity(World world, int meta) {
 		return new TileCorporeaCrystalCube();
+	}
+
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return LexiconData.corporeaCrystalCube;
 	}
 
 }

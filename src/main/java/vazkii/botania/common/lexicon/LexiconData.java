@@ -196,6 +196,7 @@ public final class LexiconData {
 	public static LexiconEntry spawnerMover;
 	public static LexiconEntry keepIvy;
 	public static LexiconEntry blackHoleTalisman;
+	public static LexiconEntry corporeaCrystalCube;
 
 	public static LexiconEntry baublesIntro;
 	public static LexiconEntry cosmeticBaubles;
@@ -740,6 +741,9 @@ public final class LexiconData {
 		blackHoleTalisman = new ALexiconEntry(LibLexicon.ENDER_BLACK_HOLE_TALISMAN, categoryEnder);
 		blackHoleTalisman.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipeBlackHoleTalisman));
 
+		corporeaCrystalCube = new ALexiconEntry(LibLexicon.ENDER_CORPOREA_CRYSTAL_CUBE, categoryEnder);
+		corporeaCrystalCube.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeCorporeaCrystalCube));
+		
 		// BAUBLES ENTRIES
 		baublesIntro = new BLexiconEntry(LibLexicon.BAUBLE_INTRO, categoryBaubles);
 		baublesIntro.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_BAUBLES), new PageText("2"));

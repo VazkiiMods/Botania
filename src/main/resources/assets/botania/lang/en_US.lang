@@ -2348,6 +2348,12 @@ botania.page.corporeaInterceptor0=The &1Corporea Interceptor&0 does exactly as t
 botania.page.corporeaInterceptor1=Of course, the the block is only triggered if the item requested matches one of items in the &1Item Frames&0 about it. When the block is triggered it'll emit a short redstone pulse. This can be used to do all sorts of things, such as craft the required item using &1Crafty Crates&0 or light up a lamp indicating that the inventory for a resource is out.
 botania.page.corporeaInterceptor2=So many automation prospects
 
+# -- CORPOREA CRYSTAL CUBE
+botania.entry.corporeaCrystalCube=Corporea Crystal Cube
+botania.page.corporeaCrystalCube0=A seer usually looks through a crystal ball to see the future. Well, a corporea handler would look through a crystal cube to see the present. The &1Corporea Crystal Cube&0 acts as a visual medium to interact ith one's &4Corporea Network&0. Placing the block down and giving it a &1Corporea Spark&0 is the obvious first step to hooking it up to the network. 
+botania.page.corporeaCrystalCube1=When the block is connected, right clicking it with any sort of item will have it monitor that item, allowing someone who's looking at it see how many exist in the network. The display updates about once every second.<br>While there's an item selected, left clicking the block will request one of that item from the network. Shift-left clicking requests a whole stack.
+botania.page.corporeaCrystalCube2=I can see forever
+
 # -- DECORATIVE END BLOCKS
 botania.entry.endStoneDecor=Decorative End Blocks
 botania.page.endStoneDecor0=Similarly to other stone blocks, &1End Stone&0 can be converted into bricks and chiseled bricks, the bricks can be used as stairs or slabs just like normal &1Stone Bricks&0 would.

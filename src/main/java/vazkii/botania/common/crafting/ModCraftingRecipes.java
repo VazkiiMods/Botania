@@ -255,6 +255,7 @@ public final class ModCraftingRecipes {
 	public static List<IRecipe> recipe18StoneChisel;
 	public static IRecipe recipeBlazeBlock;
 	public static List<IRecipe> recipesAltarMeta;
+	public static IRecipe recipeCorporeaCrystalCube;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1693,6 +1694,14 @@ public final class ModCraftingRecipes {
 					'S', new ItemStack(ModFluffBlocks.biomeStoneA, 1, i + 8),
 					'A', new ItemStack(ModBlocks.altar));
 		recipesAltarMeta = BotaniaAPI.getLatestAddedRecipes(8);
+		
+		// Corporea Crystal Cube Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.corporeaCrystalCube), 
+				"C", "G", "W",
+				'C', new ItemStack(ModItems.corporeaSpark),
+				'G', new ItemStack(ModBlocks.elfGlass),
+				'W', LibOreDict.DREAM_WOOD);
+		recipeCorporeaCrystalCube = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
