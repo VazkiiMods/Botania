@@ -43,7 +43,7 @@ public class TileCorporeaFunnel extends TileCorporeaBase {
 					spark.onItemsRequested(stacks);
 					for(ItemStack reqStack : stacks)
 						if(stack != null) {
-							if(inv != null && reqStack.stackSize == InventoryHelper.testInventoryInsertion(inv, stack, ForgeDirection.UP))
+							if(inv != null && reqStack.stackSize == InventoryHelper.testInventoryInsertion(inv, reqStack, ForgeDirection.UP))
 								InventoryHelper.insertItemIntoInventory(inv, reqStack);
 							else {
 								EntityItem item = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, reqStack);
@@ -61,13 +61,19 @@ public class TileCorporeaFunnel extends TileCorporeaBase {
 		final int[] orientationToDir = new int[] {
 				3, 4, 2, 5
 		};
+		final int[] rotationToStackSize = new int[] {
+				1, 16, 32, 64
+		};
 
 		for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) {
 			List<EntityItemFrame> frames = worldObj.getEntitiesWithinAABB(EntityItemFrame.class, AxisAlignedBB.getBoundingBox(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ, xCoord + dir.offsetX + 1, yCoord + dir.offsetY + 1, zCoord + dir.offsetZ + 1));
 			for(EntityItemFrame frame : frames) {
 				int orientation = frame.hangingDirection;
-				if(orientationToDir[orientation] == dir.ordinal())
-					filter.add(frame.getDisplayedItem());
+				if(orientationToDir[orientation] == dir.ordinal()) {
+					ItemStack copy = frame.getDisplayedItem().copy();
+					copy.stackSize = rotationToStackSize[frame.getRotation()];
+					filter.add(copy);
+				}
 			}
 		}
 
