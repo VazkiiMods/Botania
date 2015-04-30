@@ -38,6 +38,11 @@ public class BlockDirtPath extends BlockMod implements ILexiconable {
 		setBlockName(LibBlockNames.DIRT_PATH);
 		useNeighborBrightness = true;
 	}
+	
+	@Override
+	public boolean isToolEffective(String type, int metadata) {
+		return type.equals("shovel");
+	}
 
 	@Override
 	public void onEntityWalking(World world, int x, int y, int z, Entity entity) {
