@@ -159,6 +159,7 @@ public final class CorporeaHelper {
 	 * Requests list of ItemStacks of the type passed in from the network, or tries to, checking NBT or not.
 	 * This will remove the items from the adequate inventories unless the "doit" parameter is false.
 	 * Returns a new list of ItemStacks of the items acquired or an empty list if none was found.
+	 * Case itemCount is -1 it'll find EVERY item it can.
 	 * <br><br>
 	 * The "matcher" parameter has to be an ItemStack or a String, if the first it'll check if the
 	 * two stacks are similar using the "checkNBT" parameter, else it'll check if the name of the item
@@ -192,7 +193,7 @@ public final class CorporeaHelper {
 
 				ItemStack stackAt = inv.getStackInSlot(i);
 				if(matcher instanceof ItemStack ? stacksMatch((ItemStack) matcher, stackAt, checkNBT) : matcher instanceof String ? stacksMatch(stackAt, (String) matcher) : false) {
-					int rem = Math.min(stackAt.stackSize, count);
+					int rem = Math.min(stackAt.stackSize, count == -1 ? stackAt.stackSize : count);
 
 					if(rem > 0) {
 						ItemStack copy = stackAt.copy();
@@ -208,7 +209,8 @@ public final class CorporeaHelper {
 						if(invSpark != null)
 							invSpark.onItemExtracted(stackAt);
 					}
-					count -= rem;
+					if(count != -1)
+						count -= rem;
 				}
 			}
 		}

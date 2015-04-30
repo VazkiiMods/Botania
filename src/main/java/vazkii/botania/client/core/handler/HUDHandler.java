@@ -51,6 +51,7 @@ import vazkii.botania.api.wiki.WikiHooks;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.item.ItemCraftingHalo;
@@ -95,6 +96,8 @@ public final class HUDHandler {
 					else if(tile != null && tile instanceof TilePool)
 						renderPoolRecipeHUD(event.resolution, (TilePool) tile, equippedStack);
 				}
+				if(tile != null && tile instanceof TileCorporeaCrystalCube)
+					renderCrystalCubeHUD(event.resolution, (TileCorporeaCrystalCube) tile);
 			}
 
 			if(!TileCorporeaIndex.input.getNearbyIndexes(mc.thePlayer).isEmpty() && mc.currentScreen != null && mc.currentScreen instanceof GuiChat) {
@@ -253,6 +256,32 @@ public final class HUDHandler {
 				}
 			}
 		}
+		profiler.endSection();
+	}
+	
+	private void renderCrystalCubeHUD(ScaledResolution res, TileCorporeaCrystalCube tile) {
+		Minecraft mc = Minecraft.getMinecraft();
+		Profiler profiler = mc.mcProfiler;
+
+		profiler.startSection("crystalCube");
+		ItemStack target = tile.getRequestTarget();
+		if(target != null) {
+			String s1 = target.getDisplayName();
+			String s2 = tile.getItemCount() + "x";
+			int strlen = Math.max(mc.fontRenderer.getStringWidth(s1), mc.fontRenderer.getStringWidth(s2));
+			int w = res.getScaledWidth();
+			int h = res.getScaledHeight();
+			Gui.drawRect(w / 2 + 8, h / 2 - 12, w / 2 + strlen + 32, h / 2 + 10, 0x44000000);
+			Gui.drawRect(w / 2 + 6, h / 2 - 14, w / 2 + strlen + 34, h / 2 + 12, 0x44000000);
+			
+			mc.fontRenderer.drawStringWithShadow(target.getDisplayName(), w / 2 + 30, h / 2 - 10, 0x6666FF);
+			mc.fontRenderer.drawStringWithShadow(tile.getItemCount() + "x", w / 2 + 30, h / 2, 0xFFFFFF);
+			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
+			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+			RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, target, w / 2 + 10, h / 2 - 10);
+			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
+		}
+		
 		profiler.endSection();
 	}
 

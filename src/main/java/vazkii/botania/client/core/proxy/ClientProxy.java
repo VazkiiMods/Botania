@@ -54,6 +54,7 @@ import vazkii.botania.client.integration.nei.NEIGuiHooks;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.client.render.block.RenderAltar;
 import vazkii.botania.client.render.block.RenderBrewery;
+import vazkii.botania.client.render.block.RenderCorporeaCrystalCube;
 import vazkii.botania.client.render.block.RenderCorporeaIndex;
 import vazkii.botania.client.render.block.RenderDoubleFlower;
 import vazkii.botania.client.render.block.RenderFloatingFlower;
@@ -195,6 +196,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerBlockHandler(new RenderCorporeaIndex());
 		RenderingRegistry.registerBlockHandler(new RenderPump());
 		RenderingRegistry.registerBlockHandler(new RenderDoubleFlower());
+		RenderingRegistry.registerBlockHandler(new RenderCorporeaCrystalCube());
 
 		RenderTransparentItem renderTransparentItem = new RenderTransparentItem();
 		RenderFloatingFlowerItem renderFloatingFlower = new RenderFloatingFlowerItem();
