@@ -20,6 +20,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.block.corporea.BlockCorporeaCrystalCube;
 import vazkii.botania.common.block.corporea.BlockCorporeaFunnel;
 import vazkii.botania.common.block.corporea.BlockCorporeaIndex;
 import vazkii.botania.common.block.corporea.BlockCorporeaInterceptor;
@@ -221,6 +222,7 @@ public final class ModBlocks {
 	public static Block fakeAir;
 	public static Block blazeBlock;
 	public static Block corporeaInterceptor;
+	public static Block corporeaCrystalCube;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -290,6 +292,7 @@ public final class ModBlocks {
 		fakeAir = new BlockFakeAir();
 		blazeBlock = new BlockBlaze();
 		corporeaInterceptor = new BlockCorporeaInterceptor();
+		corporeaCrystalCube = new BlockCorporeaCrystalCube();
 		
 		ModFluffBlocks.init();
 

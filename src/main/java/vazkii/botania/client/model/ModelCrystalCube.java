@@ -34,10 +34,14 @@ public class ModelCrystalCube extends ModelBase {
         this.base1.addChild(this.base2);
     }
 
-    @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
-        this.cube.render(f5);
+    public void renderBase() {
+    	float f5 = 1F / 16F;
         this.base1.render(f5);
+    }
+    
+    public void renderCube() {
+    	float f5 = 1F / 16F;
+    	this.cube.render(f5);
     }
 
     public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {

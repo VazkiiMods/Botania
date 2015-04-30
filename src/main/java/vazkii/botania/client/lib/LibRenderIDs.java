@@ -24,5 +24,6 @@ public final class LibRenderIDs {
 	public static int idCorporeaIndex = -1;
 	public static int idPump = -1;
 	public static int idDoubleFlower = -1;
+	public static int idCorporeaCrystalCybe = -1;
 
 }

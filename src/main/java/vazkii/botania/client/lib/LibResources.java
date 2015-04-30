@@ -110,6 +110,7 @@ public final class LibResources {
 	public static final String MODEL_MINI_ISLAND_MYCEL = PREFIX_MODEL + "miniIslandMycelium.png";
 	public static final String MODEL_MINI_ISLAND_SNOW = PREFIX_MODEL + "miniIslandSnow.png";
 	public static final String MODEL_PINK_WITHER = PREFIX_MODEL + "pinkWither.png";
+	public static final String MODEL_CRYSTAL_CUBE = PREFIX_MODEL + "crystalCube.png";
 
 	public static final String MISC_PARTICLES = PREFIX_MISC + "particles.png";
 	public static final String MISC_WISP_LARGE = PREFIX_MISC + "wispLarge.png";

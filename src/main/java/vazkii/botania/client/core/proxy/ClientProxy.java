@@ -78,6 +78,7 @@ import vazkii.botania.client.render.item.RenderTransparentItem;
 import vazkii.botania.client.render.tile.RenderTileAlfPortal;
 import vazkii.botania.client.render.tile.RenderTileAltar;
 import vazkii.botania.client.render.tile.RenderTileBrewery;
+import vazkii.botania.client.render.tile.RenderTileCorporeaCrystalCube;
 import vazkii.botania.client.render.tile.RenderTileCorporeaIndex;
 import vazkii.botania.client.render.tile.RenderTileEnchanter;
 import vazkii.botania.client.render.tile.RenderTileFloatingFlower;
@@ -106,6 +107,7 @@ import vazkii.botania.common.block.tile.TileSpawnerClaw;
 import vazkii.botania.common.block.tile.TileStarfield;
 import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.block.tile.TileTinyPotato;
+import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.block.tile.mana.TilePrism;
@@ -179,6 +181,7 @@ public class ClientProxy extends CommonProxy {
 		LibRenderIDs.idCorporeaIndex = RenderingRegistry.getNextAvailableRenderId();
 		LibRenderIDs.idPump = RenderingRegistry.getNextAvailableRenderId();
 		LibRenderIDs.idDoubleFlower = RenderingRegistry.getNextAvailableRenderId();
+		LibRenderIDs.idCorporeaCrystalCybe = RenderingRegistry.getNextAvailableRenderId();
 
 		RenderingRegistry.registerBlockHandler(new RenderAltar());
 		RenderingRegistry.registerBlockHandler(new RenderSpecialFlower(LibRenderIDs.idSpecialFlower));
@@ -226,6 +229,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TilePrism.class, new RenderTilePrism());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileCorporeaIndex.class, new RenderTileCorporeaIndex());
 		ClientRegistry.bindTileEntitySpecialRenderer(TilePump.class, new RenderTilePump());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileCorporeaCrystalCube.class, new RenderTileCorporeaCrystalCube());
 
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySkull.class, new RenderTileSkullOverride());
 

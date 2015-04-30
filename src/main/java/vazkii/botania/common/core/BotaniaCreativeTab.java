@@ -238,6 +238,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.corporeaIndex);
 		addBlock(ModBlocks.corporeaFunnel);
 		addBlock(ModBlocks.corporeaInterceptor);
+		addBlock(ModBlocks.corporeaCrystalCube);
 
 		// FLUFF
 
