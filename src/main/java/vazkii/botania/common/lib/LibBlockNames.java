@@ -123,6 +123,7 @@ public final class LibBlockNames {
 	public static final String SUBTILE_MARIMORPHOSIS = "marimorphosis";
 	public static final String SUBTILE_BUBBELL = "bubbell";
 	public static final String SUBTILE_SOLEGNOLIA = "solegnolia";
+	public static final String SUBTILE_ORECHID_IGNEM = "orechidIgnem";
 
 	public static final String QUARTZ_DARK = "Dark";
 	public static final String QUARTZ_MANA = "Mana";

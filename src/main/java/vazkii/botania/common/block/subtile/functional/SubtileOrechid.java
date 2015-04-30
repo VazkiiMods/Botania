@@ -13,6 +13,7 @@ package vazkii.botania.common.block.subtile.functional;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -28,7 +29,7 @@ import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
 
-public class SubtileOrechid extends SubTileFunctional {
+public class SubTileOrechid extends SubTileFunctional {
 
 	private static final int COST = 17500;
 	private static final int RANGE = 5;
@@ -38,7 +39,7 @@ public class SubtileOrechid extends SubTileFunctional {
 	public void onUpdate() {
 		super.onUpdate();
 
-		if(redstoneSignal > 0)
+		if(redstoneSignal > 0 || !canOperate())
 			return;
 
 		if(!supertile.getWorldObj().isRemote && mana >= COST && ticksExisted % 100 == 0) {
@@ -62,8 +63,9 @@ public class SubtileOrechid extends SubTileFunctional {
 
 	public ItemStack getOreToPut() {
 		Collection<WeightedRandom.Item> values = new ArrayList();
-		for(String s : BotaniaAPI.oreWeights.keySet())
-			values.add(new StringRandomItem(BotaniaAPI.oreWeights.get(s), s));
+		Map<String, Integer> map = getOreMap();
+		for(String s : map.keySet())
+			values.add(new StringRandomItem(map.get(s), s));
 
 		String ore = ((StringRandomItem) WeightedRandom.getRandomItem(supertile.getWorldObj().rand, values)).s;
 
@@ -92,6 +94,7 @@ public class SubtileOrechid extends SubTileFunctional {
 	public ChunkCoordinates getCoordsToPut() {
 		List<ChunkCoordinates> possibleCoords = new ArrayList();
 
+		Block source = getSourceBlock();
 		for(int i = -RANGE; i < RANGE + 1; i++)
 			for(int j = -RANGE_Y; j < RANGE_Y; j++)
 				for(int k = -RANGE; k < RANGE + 1; k++) {
@@ -99,13 +102,29 @@ public class SubtileOrechid extends SubTileFunctional {
 					int y = supertile.yCoord + j;
 					int z = supertile.zCoord + k;
 					Block block = supertile.getWorldObj().getBlock(x, y, z);
-					if(block != null && block.isReplaceableOreGen(supertile.getWorldObj(), x, y, z, Blocks.stone))
+					if(block != null && block.isReplaceableOreGen(supertile.getWorldObj(), x, y, z, source))
 						possibleCoords.add(new ChunkCoordinates(x, y, z));
 				}
 
 		if(possibleCoords.isEmpty())
 			return null;
 		return possibleCoords.get(supertile.getWorldObj().rand.nextInt(possibleCoords.size()));
+	}
+	
+	public boolean canOperate() {
+		return true;
+	}
+	
+	public Map<String, Integer> getOreMap() {
+		return BotaniaAPI.oreWeights;
+	}
+	
+	public Block getSourceBlock() {
+		return Blocks.stone;
+	}
+	
+	public int getCost() {
+		return COST;
 	}
 
 	@Override
@@ -125,7 +144,7 @@ public class SubtileOrechid extends SubTileFunctional {
 
 	@Override
 	public int getMaxMana() {
-		return COST;
+		return getCost();
 	}
 
 	@Override

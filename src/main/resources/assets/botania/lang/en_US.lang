@@ -965,6 +965,8 @@ tile.botania:flower.jadedAmaranthus.name=Jaded Amaranthus
 tile.botania:flower.jadedAmaranthus.reference=A couple died for this
 tile.botania:flower.orechid.name=Orechid
 tile.botania:flower.orechid.reference=I seed what you did there
+tile.botania:flower.orechidIgnem.name=Orechid Ignem
+tile.botania:flower.orechidIgnem.reference=Red like roses
 tile.botania:flower.fallenKanade.name=Fallen Kanade
 tile.botania:flower.fallenKanade.reference=I'm not an Angel
 tile.botania:flower.exoflame.name=Exoflame
@@ -1678,6 +1680,11 @@ botania.page.tigerseye1=&oRisin' up to the challenge of our rivals&r.
 botania.entry.orechid=Orechid
 botania.page.orechid0=While going mining is all good, a renewable means of getting ore is due. The &1Orechid&0 will use (a massive amount of) &4Mana&0 to generate &4ores&0 in nearby &1Stone&0 blocks.<br>The ores it generates are random, but seem to be biased towards more common ores rather than rarer ones.
 botania.page.orechid1=&oNot dragon poop&r.
+
+# -- ORECHID IGNEM
+botania.entry.orechidIgnem=Orechid Ignem
+botania.page.orechidIgnem0=The &1Orechid&0 is a great flower. The ability to create raw ores with &4Mana&0 can be a great boon to any sedentary botanist's life. It, however, can't create ores from the &4Nether&0. Getting that sorted out is easy, by switching the petals a bit, it'll create &4Nether&0 ores in &1Netherrack&0 instead. The flower must be in the &4Nether&0 to work.
+botania.page.orechidIgnem1=&oGetting hot in here&r.
 
 # -- FALLEN KANADE
 botania.entry.fallenKanade=Fallen Kanade

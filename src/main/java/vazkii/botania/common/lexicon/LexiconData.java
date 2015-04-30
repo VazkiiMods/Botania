@@ -95,6 +95,7 @@ public final class LexiconData {
 	public static LexiconEntry heiseiDream;
 	public static LexiconEntry tigerseye;
 	public static LexiconEntry orechid;
+	public static LexiconEntry orechidIgnem;
 	public static LexiconEntry fallenKanade;
 	public static LexiconEntry exoflame;
 	public static LexiconEntry agricarnation;
@@ -411,6 +412,9 @@ public final class LexiconData {
 		orechid = new ALexiconEntry(LibLexicon.FFLOWER_ORECHID, categoryFunctionalFlowers);
 		orechid.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.orechidRecipe));
 
+		orechidIgnem = new ALexiconEntry(LibLexicon.FFLOWER_ORECHID_IGNEM, categoryFunctionalFlowers);
+		orechidIgnem.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.orechidIgnemRecipe));
+		
 		if(ConfigHandler.fallenKanadeEnabled) {
 			fallenKanade = new BLexiconEntry(LibLexicon.FFLOWER_FALLEN_KANADE, categoryFunctionalFlowers);
 			fallenKanade.setLexiconPages(new PageText(Botania.bloodMagicLoaded ? "0a" : "0"), new PagePetalRecipe("1", ModPetalRecipes.fallenKanadeRecipe), new PageText("2"));
