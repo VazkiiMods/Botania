@@ -22,8 +22,7 @@ public class RecipeHandlerFloatingFlowers extends TemplateRecipeHandler {
 		public List<PositionedStack> inputs = new ArrayList<PositionedStack>();
 		public PositionedStack output;
 
-		public CachedFloatingFlowerRecipe(ItemStack floatingFlower,
-				ItemStack specialFlower, ItemStack output) {
+		public CachedFloatingFlowerRecipe(ItemStack floatingFlower, ItemStack specialFlower, ItemStack output) {
 			inputs.add(new PositionedStack(floatingFlower, 25, 6));
 			inputs.add(new PositionedStack(specialFlower, 43, 6));
 			this.output = new PositionedStack(output, 119, 24);
@@ -49,8 +48,7 @@ public class RecipeHandlerFloatingFlowers extends TemplateRecipeHandler {
 
 	@Override
 	public void loadTransferRects() {
-		transferRects.add(new RecipeTransferRect(new Rectangle(84, 23, 24, 18),
-				"crafting"));
+		transferRects.add(new RecipeTransferRect(new Rectangle(84, 23, 24, 18), "crafting"));
 	}
 
 	@Override
@@ -60,29 +58,23 @@ public class RecipeHandlerFloatingFlowers extends TemplateRecipeHandler {
 
 	@Override
 	public void loadCraftingRecipes(ItemStack result) {
-		if (Block.getBlockFromItem(result.getItem()) instanceof BlockFloatingSpecialFlower) {
-			ItemStack floatingFlower = new ItemStack(ModBlocks.floatingFlower,
-					1, OreDictionary.WILDCARD_VALUE);
+		if(Block.getBlockFromItem(result.getItem()) instanceof BlockFloatingSpecialFlower) {
+			ItemStack floatingFlower = new ItemStack(ModBlocks.floatingFlower, 1, OreDictionary.WILDCARD_VALUE);
 			ItemStack specialFlower = new ItemStack(ModBlocks.specialFlower);
-			specialFlower.setTagCompound((NBTTagCompound) result
-					.getTagCompound().copy());
+			specialFlower.setTagCompound((NBTTagCompound) result.getTagCompound().copy());
 
-			arecipes.add(new CachedFloatingFlowerRecipe(floatingFlower,
-					specialFlower, result.copy()));
+			arecipes.add(new CachedFloatingFlowerRecipe(floatingFlower, specialFlower, result.copy()));
 		}
 	}
 
 	@Override
 	public void loadUsageRecipes(ItemStack ingredient) {
-		if (Block.getBlockFromItem(ingredient.getItem()) instanceof BlockSpecialFlower) {
-			ItemStack floatingFlower = new ItemStack(ModBlocks.floatingFlower,
-					1, OreDictionary.WILDCARD_VALUE);
+		if(Block.getBlockFromItem(ingredient.getItem()) instanceof BlockSpecialFlower) {
+			ItemStack floatingFlower = new ItemStack(ModBlocks.floatingFlower, 1, OreDictionary.WILDCARD_VALUE);
 			ItemStack result = new ItemStack(ModBlocks.floatingSpecialFlower);
-			result.setTagCompound((NBTTagCompound) ingredient.getTagCompound()
-					.copy());
+			result.setTagCompound((NBTTagCompound) ingredient.getTagCompound().copy());
 
-			arecipes.add(new CachedFloatingFlowerRecipe(floatingFlower,
-					ingredient.copy(), result));
+			arecipes.add(new CachedFloatingFlowerRecipe(floatingFlower, ingredient.copy(), result));
 		}
 	}
 

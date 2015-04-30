@@ -32,6 +32,9 @@ public class RecipeHandlerElvenTrade extends TemplateRecipeHandler {
 		public PositionedStack output;
 
 		public CachedElvenTradeRecipe(RecipeElvenTrade recipe) {
+			if(recipe == null)
+				return;
+			
 			setIngredients(recipe.getInputs());
 			output = new PositionedStack(recipe.getOutput(), 107, 46);
 		}

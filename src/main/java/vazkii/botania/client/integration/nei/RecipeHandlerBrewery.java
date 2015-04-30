@@ -29,6 +29,9 @@ public class RecipeHandlerBrewery extends TemplateRecipeHandler {
 		public int mana;
 
 		public CachedBreweryRecipe(RecipeBrew recipe, ItemStack vial) {
+			if(recipe == null)
+				return;
+			
 			setIngredients(recipe.getInputs());
 			ItemStack toVial;
 			if (vial == null)

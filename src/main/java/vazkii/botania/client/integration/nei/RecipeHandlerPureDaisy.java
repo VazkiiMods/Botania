@@ -34,6 +34,8 @@ public class RecipeHandlerPureDaisy extends TemplateRecipeHandler {
 		public List<PositionedStack> otherStacks = new ArrayList<PositionedStack>();
 
 		public CachedPureDaisyRecipe(RecipePureDaisy recipe) {
+			if(recipe == null)
+				return;
 			inputs.add(new PositionedStack(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_PUREDAISY), 71, 23));
 
 			if(recipe.getInput() instanceof String)

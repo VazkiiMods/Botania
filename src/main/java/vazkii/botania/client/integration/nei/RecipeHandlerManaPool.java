@@ -34,6 +34,8 @@ public class RecipeHandlerManaPool extends TemplateRecipeHandler {
 		public int mana;
 
 		public CachedManaPoolRecipe(RecipeManaInfusion recipe) {
+			if(recipe == null)
+				return;
 			inputs.add(new PositionedStack(new ItemStack(ModBlocks.pool, 1, recipe.getOutput().getItem() == Item.getItemFromBlock(ModBlocks.pool) ? 2 : 0), 71, 37));
 
 			if(recipe.getInput() instanceof String)

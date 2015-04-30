@@ -20,6 +20,8 @@ public class RecipeHandlerRunicAltar extends RecipeHandlerPetalApothecary {
 
 		public CachedRunicAltarRecipe(RecipeRuneAltar recipe) {
 			super(recipe, false);
+			if(recipe == null)
+				return;
 			manaUsage = recipe.getManaUsage();
 			inputs.add(new PositionedStack(new ItemStack(ModBlocks.runeAltar), 73, 55));
 		}
