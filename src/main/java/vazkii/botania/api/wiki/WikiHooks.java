@@ -19,7 +19,7 @@ import cpw.mods.fml.common.registry.GameRegistry.UniqueIdentifier;
 
 public class WikiHooks {
 
-	private static final IWikiProvider FALLBACK_PROVIDER = new SimpleWikiProvider("FTB Wiki", "http://wiki.feed-the-beast.com/%s");
+	private static final IWikiProvider FALLBACK_PROVIDER = new SimpleWikiProvider("FTB Wiki", "http://ftb.gamepedia.com/%s");
 
 	private static final Map<String, IWikiProvider> modWikis = new HashMap();
 
