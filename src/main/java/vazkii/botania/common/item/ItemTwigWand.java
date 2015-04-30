@@ -153,7 +153,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 			}
 
 			return wanded;
-		} else if(BlockPistonRelay.playerPositions.containsKey(par2EntityPlayer.getCommandSenderName())) {
+		} else if(BlockPistonRelay.playerPositions.containsKey(par2EntityPlayer.getCommandSenderName()) && !par3World.isRemote) {
 			String bindPos = BlockPistonRelay.playerPositions.get(par2EntityPlayer.getCommandSenderName());
 			String currentPos = BlockPistonRelay.getCoordsAsString(par3World.provider.dimensionId, par4, par5, par6);
 
