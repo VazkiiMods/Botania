@@ -111,7 +111,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 	public static boolean spawn(EntityPlayer player, ItemStack par1ItemStack, World par3World, int par4, int par5, int par6, boolean hard) {
 		Block block = par3World.getBlock(par4, par5, par6);
-		if(block == Blocks.beacon && !par3World.isRemote) {
+		if(block == Blocks.beacon && isTruePlayer(player) && !par3World.isRemote) {
 			if(par3World.difficultySetting == EnumDifficulty.PEACEFUL) {
 				player.addChatMessage(new ChatComponentTranslation("botaniamisc.peacefulNoob").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
 				return false;
