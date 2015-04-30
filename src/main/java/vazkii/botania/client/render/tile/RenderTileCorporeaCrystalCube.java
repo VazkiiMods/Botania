@@ -41,14 +41,14 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer {
 
 		if(entity == null)
 			entity = new EntityItem(cube.getWorldObj(), cube.xCoord, cube.yCoord, cube.zCoord, new ItemStack(Blocks.stone));
-		
+
 		entity.age = ClientTickHandler.ticksInGame;
 		ItemStack stack = cube.getRequestTarget();
 		entity.setEntityItemStack(stack);
-		
+
 		double time = ClientTickHandler.ticksInGame + f;
 		double worldTicks = tileentity.getWorldObj() == null ? 0 : time;
-		
+
 		GL11.glPushMatrix();
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glEnable(GL11.GL_BLEND);
@@ -66,8 +66,8 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer {
 			GL11.glTranslatef(0F, 0.8F, 0F);
 			GL11.glScalef(s, s, s);
 			GL11.glRotatef(180F, 0F, 0F, 1F);
-	        ((Render) RenderManager.instance.entityRenderMap.get(EntityItem.class)).doRender(entity, 0, 0, 0, 1F, f);
-	        GL11.glPopMatrix();
+			((Render) RenderManager.instance.entityRenderMap.get(EntityItem.class)).doRender(entity, 0, 0, 0, 1F, f);
+			GL11.glPopMatrix();
 			Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 		}
 

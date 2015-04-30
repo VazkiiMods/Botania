@@ -394,7 +394,7 @@ public final class LexiconData {
 
 		flowerShrinking = new BLexiconEntry(LibLexicon.FFLOWER_SHRINKING, categoryFunctionalFlowers);
 		flowerShrinking.setPriority().setLexiconPages(new PageText("0"), new PageManaInfusionRecipe("1", BotaniaAPI.miniFlowerRecipes));
-		
+
 		jadedAmaranthus = new BLexiconEntry(LibLexicon.FFLOWER_JADED_AMARANTHUS, categoryFunctionalFlowers);
 		jadedAmaranthus.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.jadedAmaranthusRecipe), new PageText("2"));
 
@@ -415,7 +415,7 @@ public final class LexiconData {
 
 		orechidIgnem = new ALexiconEntry(LibLexicon.FFLOWER_ORECHID_IGNEM, categoryFunctionalFlowers);
 		orechidIgnem.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.orechidIgnemRecipe));
-		
+
 		if(ConfigHandler.fallenKanadeEnabled) {
 			fallenKanade = new BLexiconEntry(LibLexicon.FFLOWER_FALLEN_KANADE, categoryFunctionalFlowers);
 			fallenKanade.setLexiconPages(new PageText(Botania.bloodMagicLoaded ? "0a" : "0"), new PagePetalRecipe("1", ModPetalRecipes.fallenKanadeRecipe), new PageText("2"));
@@ -728,7 +728,7 @@ public final class LexiconData {
 
 		corporeaInterceptor = new ALexiconEntry(LibLexicon.ENDER_CORPOREA_INTERCEPTOR, categoryEnder);
 		corporeaInterceptor.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeCorporeaInterceptor));
-		
+
 		endStoneDecor = new BLexiconEntry(LibLexicon.ENDER_END_STONE_DECOR, categoryEnder);
 		endStoneDecor.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeEndStoneBricks), new PageCraftingRecipe("2", ModCraftingRecipes.recipeEndStoneChiseledBricks));
 
@@ -743,7 +743,7 @@ public final class LexiconData {
 
 		corporeaCrystalCube = new ALexiconEntry(LibLexicon.ENDER_CORPOREA_CRYSTAL_CUBE, categoryEnder);
 		corporeaCrystalCube.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeCorporeaCrystalCube));
-		
+
 		// BAUBLES ENTRIES
 		baublesIntro = new BLexiconEntry(LibLexicon.BAUBLE_INTRO, categoryBaubles);
 		baublesIntro.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_BAUBLES), new PageText("2"));
@@ -897,11 +897,11 @@ public final class LexiconData {
 			stoneAlchemy = new BLexiconEntry(LibLexicon.MISC_STONE_ALCHEMY, categoryMisc);
 			stoneAlchemy.setLexiconPages(new PageText("0"), new PageManaInfusionRecipe("1", ModManaAlchemyRecipes.stoneRecipes), new PageCraftingRecipe("2", ModCraftingRecipes.recipe18StonePolish), new PageCraftingRecipe("3", ModCraftingRecipes.recipe18StoneBrick), new PageCraftingRecipe("4", ModCraftingRecipes.recipe18StoneChisel));
 		}
-		
+
 		blazeBlock = new BLexiconEntry(LibLexicon.MISC_BLAZE_BLOCK, categoryMisc);
 		blazeBlock.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeBlazeBlock));
 		LexiconRecipeMappings.map(new ItemStack(Blocks.obsidian), blazeBlock, 0);
-		
+
 		if(Botania.bcTriggersLoaded) {
 			bcIntegration = new BLexiconEntry(LibLexicon.MISC_BC_INTEGRATION, categoryMisc);
 			bcIntegration.setLexiconPages(new PageText("0")).setIcon(new ItemStack(Items.redstone));

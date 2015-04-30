@@ -61,7 +61,7 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 							supertile.xCoord + offsetArray[0],
 							supertile.zCoord + offsetArray[1]
 					};
-					
+
 					Block search = getBlockToSearchFor();
 					if(supertile.getWorldObj().getBlock(positions[0], supertile.yCoord, positions[1]) == search && (getBlockToSearchBelow() == null || supertile.getWorldObj().getBlock(positions[0], supertile.yCoord - 1, positions[1]) == getBlockToSearchBelow()) && supertile.getWorldObj().getBlockMetadata(positions[0], supertile.yCoord, positions[1]) == 0) {
 						if(search != Blocks.water)
@@ -71,11 +71,11 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 							for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS)
 								if(supertile.getWorldObj().getBlock(positions[0] + dir.offsetX, supertile.yCoord, positions[1] + dir.offsetZ) == search)
 									waterAround++;
-							
+
 							if(waterAround < 2)
 								supertile.getWorldObj().setBlockToAir(positions[0], supertile.yCoord, positions[1]);
 						}
-						
+
 						burnTime += getBurnTime();
 						sync();
 						playSound();
@@ -117,7 +117,7 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 
 		return flowers;
 	}
-	
+
 	public void doBurnParticles() {
 		Botania.proxy.wispFX(supertile.getWorldObj(), supertile.xCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.yCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.zCoord + 0.5, 0.05F, 0.05F, 0.7F, (float) Math.random() / 6, (float) -Math.random() / 60);
 	}
@@ -129,7 +129,7 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 	public Block getBlockToSearchBelow() {
 		return null;
 	}
-	
+
 	public void playSound() {
 		supertile.getWorldObj().playSoundEffect(supertile.xCoord, supertile.yCoord, supertile.zCoord, "random.drink", 0.02F, 0.5F + (float) Math.random() * 0.5F);
 	}

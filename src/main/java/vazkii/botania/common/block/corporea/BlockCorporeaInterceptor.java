@@ -12,15 +12,6 @@ package vazkii.botania.common.block.corporea;
 
 import java.util.Random;
 
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.client.core.helper.IconHelper;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaFunnel;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaInterceptor;
-import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibBlockNames;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -28,6 +19,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import vazkii.botania.api.lexicon.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
+import vazkii.botania.common.block.tile.corporea.TileCorporeaInterceptor;
+import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockCorporeaInterceptor extends BlockCorporeaBase implements ILexiconable {
 
@@ -50,27 +48,27 @@ public class BlockCorporeaInterceptor extends BlockCorporeaBase implements ILexi
 	public IIcon getIcon(int par1, int par2) {
 		return icons[par1 > 1 ? 1 : 0];
 	}
-	
+
 	@Override
 	public void updateTick(World world, int x, int y, int z, Random rand) {
 		world.setBlockMetadataWithNotify(x, y, z, 0, 1 | 2);
 	}
-	
+
 	@Override
 	public boolean canProvidePower() {
 		return true;
 	}
-	
+
 	@Override
 	public int isProvidingWeakPower(IBlockAccess world, int x, int y, int z, int side) {
 		return world.getBlockMetadata(x, y, z) != 0 ? 15 : 0;
 	}
-	
+
 	@Override
 	public int tickRate(World p_149738_1_) {
 		return 2;
 	}
-	
+
 	@Override
 	public TileCorporeaBase createNewTileEntity(World world, int meta) {
 		return new TileCorporeaInterceptor();

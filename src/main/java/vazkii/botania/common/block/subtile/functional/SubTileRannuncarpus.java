@@ -46,7 +46,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 	private static final int RANGE_PLACE_MANA = 8;
 	private static final int RANGE_PLACE = 6;
 	private static final int RANGE_PLACE_Y = 6;
-	
+
 	private static final int RANGE_PLACE_MANA_MINI = 3;
 	private static final int RANGE_PLACE_MINI = 2;
 	private static final int RANGE_PLACE_Y_MINI = 2;
@@ -173,11 +173,11 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 	public int getRange() {
 		return mana > 0 ? RANGE_PLACE_MANA : RANGE_PLACE;
 	}
-	
+
 	public int getRangeY() {
 		return RANGE_PLACE_Y;
 	}
-	
+
 	@Override
 	public int getMaxMana() {
 		return 20;
@@ -193,11 +193,11 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 		return LexiconData.rannuncarpus;
 	}
 
-	public static class Mini extends SubTileRannuncarpus {		
+	public static class Mini extends SubTileRannuncarpus {
 		@Override public int getRange() { return mana > 0 ? RANGE_PLACE_MANA_MINI : RANGE_PLACE_MINI; }
 		@Override public int getRangeY() { return RANGE_PLACE_Y_MINI; }
 	}
-	
+
 	static class BlockData {
 
 		Block block;
@@ -217,5 +217,5 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 		}
 
 	}
-	
+
 }

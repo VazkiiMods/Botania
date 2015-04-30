@@ -73,7 +73,7 @@ public class SubTileBellethorn extends SubTileFunctional {
 	public int getManaCost() {
 		return 24;
 	}
-	
+
 	public int getRange() {
 		return RANGE;
 	}
@@ -98,8 +98,8 @@ public class SubTileBellethorn extends SubTileFunctional {
 	public LexiconEntry getEntry() {
 		return LexiconData.bellethorne;
 	}
-	
-	public static class Mini extends SubTileBellethorn {		
+
+	public static class Mini extends SubTileBellethorn {
 		@Override public int getRange() { return RANGE_MINI; }
 	}
 

@@ -42,7 +42,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 	private static final String TAG_FILTER_TYPE = "filterType";
 	private static final int RANGE_MANA = 10;
 	private static final int RANGE = 6;
-	
+
 	private static final int RANGE_MANA_MINI = 2;
 	private static final int RANGE_MINI = 1;
 
@@ -191,7 +191,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Square(toChunkCoordinates(), getRange());
 	}
-	
+
 	public int getRange() {
 		return mana > 0 ? RANGE_MANA : RANGE;
 	}
@@ -239,8 +239,8 @@ public class SubTileHopperhock extends SubTileFunctional {
 	public int getColor() {
 		return 0x3F3F3F;
 	}
-	
-	public static class Mini extends SubTileHopperhock {		
+
+	public static class Mini extends SubTileHopperhock {
 		@Override public int getRange() { return mana > 0 ? RANGE_MANA_MINI : RANGE_MINI; }
 	}
 }

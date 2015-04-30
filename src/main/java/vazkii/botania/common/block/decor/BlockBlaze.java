@@ -26,7 +26,7 @@ import cpw.mods.fml.common.IFuelHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class BlockBlaze extends BlockMod implements ILexiconable, IFuelHandler {
- 
+
 	public BlockBlaze() {
 		super(Material.iron);
 		setHardness(3F);
@@ -36,7 +36,7 @@ public class BlockBlaze extends BlockMod implements ILexiconable, IFuelHandler {
 		setBlockName(LibBlockNames.BLAZE_BLOCK);
 		GameRegistry.registerFuelHandler(this);
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.blazeBlock;
@@ -46,5 +46,5 @@ public class BlockBlaze extends BlockMod implements ILexiconable, IFuelHandler {
 	public int getBurnTime(ItemStack fuel) {
 		return fuel.getItem() == Item.getItemFromBlock(this) ? TileEntityFurnace.getItemBurnTime(new ItemStack(Items.blaze_rod)) * 9 : 0;
 	}
-	
+
 }

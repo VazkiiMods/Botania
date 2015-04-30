@@ -112,7 +112,7 @@ public class ItemFlugelEye extends ItemRelic {
 		boolean firstTick = isFirstTick(stack);
 		if(eqLastTick != equipped)
 			setEquipped(stack, equipped);
-		
+
 		if((!equipped || firstTick) && entity instanceof EntityLivingBase) {
 			int angles = 360;
 			int segAngles = angles / SEGMENTS;
@@ -125,7 +125,7 @@ public class ItemFlugelEye extends ItemRelic {
 
 	private static int getSegmentLookedAt(ItemStack stack, EntityLivingBase player) {
 		float yaw = getCheckingAngle(player, getRotationBase(stack));
-		
+
 		int angles = 360;
 		int segAngles = angles / SEGMENTS;
 		for(int seg = 0; seg < SEGMENTS; seg++) {
@@ -162,11 +162,11 @@ public class ItemFlugelEye extends ItemRelic {
 	public static boolean isFirstTick(ItemStack stack) {
 		return ItemNBTHelper.getBoolean(stack, TAG_FIRST_TICK, true);
 	}
-	
+
 	public static void tickFirst(ItemStack stack) {
 		ItemNBTHelper.setBoolean(stack, TAG_FIRST_TICK, false);
 	}
-	
+
 	public static boolean wasEquipped(ItemStack stack) {
 		return ItemNBTHelper.getBoolean(stack, TAG_EQUIPPED, false);
 	}

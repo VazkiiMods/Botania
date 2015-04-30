@@ -35,7 +35,7 @@ public class NEIBotaniaConfig implements IConfigureNEI {
 
 		API.registerRecipeHandler(new RecipeHandlerBrewery());
 		API.registerUsageHandler(new RecipeHandlerBrewery());
-		
+
 		API.registerRecipeHandler(new RecipeHandlerPureDaisy());
 		API.registerUsageHandler(new RecipeHandlerPureDaisy());
 	}

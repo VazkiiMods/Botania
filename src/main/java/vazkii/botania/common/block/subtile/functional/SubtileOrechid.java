@@ -110,19 +110,19 @@ public class SubTileOrechid extends SubTileFunctional {
 			return null;
 		return possibleCoords.get(supertile.getWorldObj().rand.nextInt(possibleCoords.size()));
 	}
-	
+
 	public boolean canOperate() {
 		return true;
 	}
-	
+
 	public Map<String, Integer> getOreMap() {
 		return BotaniaAPI.oreWeights;
 	}
-	
+
 	public Block getSourceBlock() {
 		return Blocks.stone;
 	}
-	
+
 	public int getCost() {
 		return COST;
 	}

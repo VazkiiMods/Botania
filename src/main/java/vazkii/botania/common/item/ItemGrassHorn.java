@@ -40,7 +40,7 @@ public class ItemGrassHorn extends ItemMod {
 	private static final int SUBTYPES = 3;
 	IIcon[] icons;
 	IIcon vuvuzelaIcon;
-	
+
 	public ItemGrassHorn() {
 		super();
 		setMaxStackSize(1);
@@ -66,7 +66,7 @@ public class ItemGrassHorn extends ItemMod {
 	public IIcon getIconIndex(ItemStack par1ItemStack) {
 		return par1ItemStack.getDisplayName().toLowerCase().contains("vuvuzela") ? vuvuzelaIcon : super.getIconIndex(par1ItemStack);
 	}
-	
+
 	@Override
 	public IIcon getIcon(ItemStack stack, int pass) {
 		return getIconIndex(stack);
@@ -149,7 +149,7 @@ public class ItemGrassHorn extends ItemMod {
 			}
 		}
 	}
-	
+
 	@Override
 	public boolean isFull3D() {
 		return true;

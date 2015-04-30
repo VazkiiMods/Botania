@@ -188,7 +188,7 @@ public class BlockSpreader extends BlockModContainer implements IWandable, IWand
 
 		if (inv != null) {
 			for (int j1 = 0; j1 < inv.getSizeInventory() + 1; ++j1) {
-				ItemStack itemstack = j1 >= inv.getSizeInventory() ? (inv.paddingColor == -1 ? null : new ItemStack(Blocks.wool, 1, inv.paddingColor)) : inv.getStackInSlot(j1);
+				ItemStack itemstack = j1 >= inv.getSizeInventory() ? inv.paddingColor == -1 ? null : new ItemStack(Blocks.wool, 1, inv.paddingColor) : inv.getStackInSlot(j1);
 
 				if(itemstack != null) {
 					float f = random.nextFloat() * 0.8F + 0.1F;

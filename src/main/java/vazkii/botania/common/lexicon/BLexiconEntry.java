@@ -49,5 +49,5 @@ public class BLexiconEntry extends LexiconEntry {
 	public String getWebLink() {
 		return "http://botaniamod.net/lexicon.php#" + unlocalizedName;
 	}
-	
+
 }

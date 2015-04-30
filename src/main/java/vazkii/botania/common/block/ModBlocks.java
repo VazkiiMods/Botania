@@ -294,7 +294,7 @@ public final class ModBlocks {
 		blazeBlock = new BlockBlaze();
 		corporeaInterceptor = new BlockCorporeaInterceptor();
 		corporeaCrystalCube = new BlockCorporeaCrystalCube();
-		
+
 		ModFluffBlocks.init();
 
 		for(int i = 0; i < 16; i++)
@@ -308,13 +308,13 @@ public final class ModBlocks {
 			OreDictionary.registerOre(LibOreDict.DOUBLE_FLOWER[i], new ItemStack(doubleFlower1, 1, i));
 			OreDictionary.registerOre(LibOreDict.DOUBLE_FLOWER[i + 8], new ItemStack(doubleFlower2, 1, i));
 		}
-		
+
 		OreDictionary.registerOre(LibOreDict.PRISMARINE_BLOCK, new ItemStack(prismarine, 1, OreDictionary.WILDCARD_VALUE));
 		OreDictionary.registerOre(LibOreDict.BLAZE_BLOCK, blazeBlock);
 
 		for(int i = 0; i < 16; i++)
 			OreDictionary.registerOre(LibOreDict.STONE_18_VARIANTS[i], new ItemStack(ModFluffBlocks.stone, 1, i));
-		
+
 		// Vanilla OreDict entries
 		OreDictionary.registerOre("dirt", Blocks.dirt);
 		OreDictionary.registerOre("grass", Blocks.grass);
@@ -427,12 +427,12 @@ public final class ModBlocks {
 
 	private static void registerSubTileWithMini(String key, Class<? extends SubTileEntity> clazz) {
 		BotaniaAPI.registerSubTile(key, clazz);
-		
+
 		for(Class innerClazz : clazz.getDeclaredClasses())
 			if(innerClazz.getSimpleName().equals("Mini"))
 				BotaniaAPI.registerMiniSubTile(key + "Chibi", innerClazz, key);
 	}
-	
+
 	private static void registerTile(Class<? extends TileEntity> clazz, String key) {
 		GameRegistry.registerTileEntity(clazz, LibResources.PREFIX_MOD + key);
 	}

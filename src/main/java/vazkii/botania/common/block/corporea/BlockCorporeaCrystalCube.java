@@ -34,7 +34,7 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 		float f = (1F - 10F / 16F) / 2F;
 		setBlockBounds(f, 0F, f, 1F - f, 1F, 1F - f);
 	}
-	
+
 	@Override
 	public void onBlockClicked(World world, int x, int y, int z, EntityPlayer player) {
 		if(!world.isRemote) {
@@ -42,7 +42,7 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 			cube.doRequest(player.isSneaking());
 		}
 	}
-	
+
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int s, float xs, float ys, float zs) {
 		ItemStack stack = player.getCurrentEquippedItem();
@@ -64,7 +64,7 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 	public boolean renderAsNormalBlock() {
 		return false;
 	}
-	
+
 	@Override
 	public int getRenderType() {
 		return LibRenderIDs.idCorporeaCrystalCybe;
@@ -79,7 +79,7 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 	public IIcon getIcon(int side, int meta) {
 		return ModBlocks.storage.getIcon(0, 2);
 	}
-	
+
 	@Override
 	public TileCorporeaBase createNewTileEntity(World world, int meta) {
 		return new TileCorporeaCrystalCube();

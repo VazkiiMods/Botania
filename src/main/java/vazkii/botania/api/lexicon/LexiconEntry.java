@@ -100,7 +100,7 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 	public String getWebLink() {
 		return null;
 	}
-	
+
 	/**
 	 * Adds a page to the list of pages.
 	 */
@@ -116,5 +116,5 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 	public int compareTo(LexiconEntry o) {
 		return getNameForSorting().compareTo(o.getNameForSorting());
 	}
-	
+
 }

@@ -68,7 +68,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 		ItemStack lokiRing = getLokiRing(player);
 		if(lokiRing == null || player.worldObj.isRemote)
 			return;
-		
+
 		int slot = -1;
 		InventoryBaubles inv = PlayerHandler.getPlayerBaubles(player);
 		for(int i = 0; i < inv.getSizeInventory(); i++) {
@@ -172,7 +172,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 	public List<ChunkCoordinates> getWireframesToDraw(EntityPlayer player, ItemStack stack) {
 		if(getLokiRing(player) != stack)
 			return null;
-		
+
 		MovingObjectPosition lookPos = Minecraft.getMinecraft().objectMouseOver;
 
 		if(lookPos != null && !player.worldObj.isAirBlock(lookPos.blockX, lookPos.blockY, lookPos.blockZ) && lookPos.entityHit == null) {
@@ -196,7 +196,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 
 		return null;
 	}
-	
+
 	@Override
 	public ChunkCoordinates getSourceWireframe(EntityPlayer player, ItemStack stack) {
 		return getOriginPos(stack);

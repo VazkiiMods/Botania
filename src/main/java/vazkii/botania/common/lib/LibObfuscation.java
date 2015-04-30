@@ -69,7 +69,7 @@ public final class LibObfuscation {
 
 	// EntityThrowable
 	public static final String[] THROWER = new String[] { "thrower", "field_70192_c", "g" };
-	
+
 	// GuiContainer
 	public static final String[] THE_SLOT = new String[] { "theSlot", "field_147006_u", "u" };
 }

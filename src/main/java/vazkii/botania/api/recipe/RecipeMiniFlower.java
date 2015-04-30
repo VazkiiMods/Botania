@@ -10,8 +10,8 @@
  */
 package vazkii.botania.api.recipe;
 
-import vazkii.botania.api.BotaniaAPI;
 import net.minecraft.item.ItemStack;
+import vazkii.botania.api.BotaniaAPI;
 
 public class RecipeMiniFlower extends RecipeManaInfusion {
 
@@ -19,7 +19,7 @@ public class RecipeMiniFlower extends RecipeManaInfusion {
 		super(BotaniaAPI.internalHandler.getSubTileAsStack(flower), BotaniaAPI.internalHandler.getSubTileAsStack(mini), mana);
 		setAlchemy(true);
 	}
-	
+
 	@Override
 	public boolean matches(ItemStack stack) {
 		String key = BotaniaAPI.internalHandler.getStackSubTileKey(stack);

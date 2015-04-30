@@ -50,7 +50,7 @@ public class EntityPoolMinecart extends EntityMinecart {
 	public Block func_145817_o() {
 		return ModBlocks.pool;
 	}
-	
+
 	@Override
 	public ItemStack getCartItem() {
 		return new ItemStack(ModItems.poolMinecart);

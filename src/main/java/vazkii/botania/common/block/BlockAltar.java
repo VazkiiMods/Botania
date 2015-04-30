@@ -13,7 +13,6 @@ package vazkii.botania.common.block;
 import java.util.List;
 import java.util.Random;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -45,6 +44,7 @@ import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.item.rod.ItemWaterRod;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class BlockAltar extends BlockModContainer implements ILexiconable {
 
@@ -71,19 +71,19 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 	protected boolean shouldRegisterInNameSet() {
 		return false;
 	}
-	
+
 	@Override
 	public Block setBlockName(String par1Str) {
 		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
 		return super.setBlockName(par1Str);
 	}
-	
+
 	@Override
 	public void getSubBlocks(Item item, CreativeTabs tab, List list) {
 		for(int i = 0; i < 9; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
-	
+
 	@Override
 	public void onEntityCollidedWithBlock(World par1World, int par2, int par3, int par4, Entity par5Entity) {
 		if(par5Entity instanceof EntityItem) {
@@ -163,7 +163,7 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 	public int damageDropped(int meta) {
 		return meta;
 	}
-	
+
 	private boolean isValidWaterContainer(ItemStack stack) {
 		if (stack.stackSize != 1)
 			return false;

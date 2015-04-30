@@ -208,7 +208,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		cmp.setBoolean(TAG_REQUEST_UPDATE, requestsClientUpdate);
 		cmp.setInteger(TAG_PADDING_COLOR, paddingColor);
 		cmp.setBoolean(TAG_CAN_SHOOT_BURST, canShootBurst);
-		
+
 		cmp.setString(TAG_INPUT_KEY, inputKey);
 		cmp.setString(TAG_OUTPUT_KEY, outputKey);
 

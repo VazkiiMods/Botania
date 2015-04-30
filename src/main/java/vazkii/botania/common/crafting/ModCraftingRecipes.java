@@ -995,7 +995,7 @@ public final class ModCraftingRecipes {
 		// Moss Stone Recipe
 		addShapelessOreDictRecipe(new ItemStack(Blocks.mossy_cobblestone), "cobblestone", new ItemStack(ModItems.vineBall));
 		recipeMossStone = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Prismarine Recipe
 		addOreDictRecipe(new ItemStack(ModBlocks.prismarine, 1, 0),
 				" S ", "SBS", " S ",
@@ -1565,7 +1565,7 @@ public final class ModCraftingRecipes {
 		// Corporea Funnel Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModBlocks.corporeaInterceptor), new ItemStack(Blocks.redstone_block), new ItemStack(ModItems.corporeaSpark));
 		recipeCorporeaInterceptor = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// End Stone Brick Recipes
 		GameRegistry.addRecipe(new ItemStack(ModBlocks.endStoneBrick, 4),
 				"SS", "SS",
@@ -1681,12 +1681,12 @@ public final class ModCraftingRecipes {
 		}
 
 		// Blaze Light Recipe
-		addOreDictRecipe(new ItemStack(ModBlocks.blazeBlock), 
+		addOreDictRecipe(new ItemStack(ModBlocks.blazeBlock),
 				"BBB", "BBB", "BBB",
 				'B', "rodBlaze");
 		recipeBlazeBlock = BotaniaAPI.getLatestAddedRecipe();
 		addShapelessOreDictRecipe(new ItemStack(Items.blaze_rod, 9), LibOreDict.BLAZE_BLOCK);
-		
+
 		// Metamorphic Petal Apothecary Recipes
 		for(int i = 0; i < 8; i++)
 			GameRegistry.addRecipe(new ItemStack(ModBlocks.altar, 1, i + 1),
@@ -1694,15 +1694,15 @@ public final class ModCraftingRecipes {
 					'S', new ItemStack(ModFluffBlocks.biomeStoneA, 1, i + 8),
 					'A', new ItemStack(ModBlocks.altar));
 		recipesAltarMeta = BotaniaAPI.getLatestAddedRecipes(8);
-		
+
 		// Corporea Crystal Cube Recipe
-		addOreDictRecipe(new ItemStack(ModBlocks.corporeaCrystalCube), 
+		addOreDictRecipe(new ItemStack(ModBlocks.corporeaCrystalCube),
 				"C", "G", "W",
 				'C', new ItemStack(ModItems.corporeaSpark),
 				'G', new ItemStack(ModBlocks.elfGlass),
 				'W', LibOreDict.DREAM_WOOD);
 		recipeCorporeaCrystalCube = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",

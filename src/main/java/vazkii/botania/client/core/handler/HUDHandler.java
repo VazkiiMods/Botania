@@ -258,7 +258,7 @@ public final class HUDHandler {
 		}
 		profiler.endSection();
 	}
-	
+
 	private void renderCrystalCubeHUD(ScaledResolution res, TileCorporeaCrystalCube tile) {
 		Minecraft mc = Minecraft.getMinecraft();
 		Profiler profiler = mc.mcProfiler;
@@ -273,7 +273,7 @@ public final class HUDHandler {
 			int h = res.getScaledHeight();
 			Gui.drawRect(w / 2 + 8, h / 2 - 12, w / 2 + strlen + 32, h / 2 + 10, 0x44000000);
 			Gui.drawRect(w / 2 + 6, h / 2 - 14, w / 2 + strlen + 34, h / 2 + 12, 0x44000000);
-			
+
 			mc.fontRenderer.drawStringWithShadow(target.getDisplayName(), w / 2 + 30, h / 2 - 10, 0x6666FF);
 			mc.fontRenderer.drawStringWithShadow(tile.getItemCount() + "x", w / 2 + 30, h / 2, 0xFFFFFF);
 			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
@@ -281,7 +281,7 @@ public final class HUDHandler {
 			RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, target, w / 2 + 10, h / 2 - 10);
 			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 		}
-		
+
 		profiler.endSection();
 	}
 

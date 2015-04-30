@@ -397,7 +397,7 @@ public final class ModItems {
 
 		OreDictionary.registerOre(LibOreDict.VIAL, new ItemStack(vial, 1, 0));
 		OreDictionary.registerOre(LibOreDict.FLASK, new ItemStack(vial, 1, 1));
-		
+
 		BotaniaAPI.blackListItemFromLoonium(lexicon);
 		BotaniaAPI.blackListItemFromLoonium(overgrowthSeed);
 		BotaniaAPI.blackListItemFromLoonium(blackLotus);
@@ -405,7 +405,7 @@ public final class ModItems {
 		int max = Item.getIdFromItem(Items.record_wait);
 		for(int i = min; i <= max; i++)
 			BotaniaAPI.blackListItemFromLoonium(Item.getItemById(i));
-		
+
 		OreDictionary.registerOre("rodBlaze", Items.blaze_rod);
 	}
 }

@@ -46,13 +46,13 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 		new ResourceLocation(String.format(LibResources.MODEL_ALTAR_META, 6)),
 		new ResourceLocation(String.format(LibResources.MODEL_ALTAR_META, 7))
 	};
-	
+
 	private static final ResourceLocation textureMossy = new ResourceLocation(LibResources.MODEL_ALTAR_MOSSY);
-	
+
 	ModelAltar model = new ModelAltar();
 	RenderItem renderItem = new RenderItem();
 	public static int forceMeta = -1;
-	
+
 	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float pticks) {
 		TileAltar altar = (TileAltar) tileentity;
@@ -61,7 +61,7 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		Minecraft.getMinecraft().renderEngine.bindTexture(altar.isMossy ? textureMossy : textures[Math.min(textures.length - 1, forceMeta == -1 ? tileentity.getBlockMetadata() : forceMeta)]);
-		
+
 		GL11.glTranslated(d0 + 0.5, d1 + 1.5, d2 + 0.5);
 		GL11.glScalef(1F, -1F, -1F);
 		model.render();
@@ -163,7 +163,7 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 			GL11.glPopMatrix();
 		}
 		GL11.glPopMatrix();
-		
+
 		forceMeta = -1;
 	}
 

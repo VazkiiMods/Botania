@@ -10,8 +10,8 @@
  */
 package vazkii.botania.common.core.helper;
 
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import net.minecraft.entity.Entity;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 
 public final class MathHelper {
 

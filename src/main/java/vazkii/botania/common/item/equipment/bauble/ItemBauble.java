@@ -99,7 +99,7 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 		ItemStack cosmetic = getCosmeticItem(par1ItemStack);
 		if(cosmetic != null)
 			addStringToTooltip(String.format(StatCollector.translateToLocal("botaniamisc.hasCosmetic"), cosmetic.getDisplayName()), par3List);
-		
+
 		if(hasPhantomInk(par1ItemStack))
 			addStringToTooltip(StatCollector.translateToLocal("botaniamisc.hasPhantomInk"), par3List);
 	}
@@ -198,12 +198,12 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 	public static void setLastPlayerHashcode(ItemStack stack, int hash) {
 		ItemNBTHelper.setInt(stack, TAG_HASHCODE, hash);
 	}
-	
+
 	@Override
 	public boolean hasPhantomInk(ItemStack stack) {
 		return ItemNBTHelper.getBoolean(stack, TAG_PHANTOM_INK, false);
 	}
-	
+
 	@Override
 	public void setPhantomInk(ItemStack stack, boolean ink) {
 		ItemNBTHelper.setBoolean(stack, TAG_PHANTOM_INK, ink);

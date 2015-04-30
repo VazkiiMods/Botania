@@ -10,7 +10,6 @@
  */
 package vazkii.botania.api.mana;
 
-import net.minecraft.world.World;
 
 /**
  * Any TileEntity that implements this is considered a Mana Spreader,
@@ -20,17 +19,17 @@ import net.minecraft.world.World;
 public interface IManaSpreader extends IManaBlock {
 
 	public float getRotationX();
-	
+
 	public float getRotationY();
-	
+
 	public void setCanShoot(boolean canShoot);
-	
+
 	public int getBurstParticleTick();
-	
+
 	public void setBurstParticleTick(int i);
-	
+
 	public int getLastBurstDeathTick();
-	
+
 	public void setLastBurstDeathTick(int ticksExisted);
 
 }

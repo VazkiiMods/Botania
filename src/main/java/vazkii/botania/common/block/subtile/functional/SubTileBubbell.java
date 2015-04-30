@@ -91,7 +91,7 @@ public class SubTileBubbell extends SubTileFunctional {
 	public int getColor() {
 		return 0x0DCF89;
 	}
-	
+
 	public int getRange() {
 		return RANGE;
 	}
@@ -105,8 +105,8 @@ public class SubTileBubbell extends SubTileFunctional {
 	public LexiconEntry getEntry() {
 		return LexiconData.bubbell;
 	}
-	
-	public static class Mini extends SubTileBubbell {		
+
+	public static class Mini extends SubTileBubbell {
 		@Override public int getRange() { return RANGE_MINI; }
 	}
 

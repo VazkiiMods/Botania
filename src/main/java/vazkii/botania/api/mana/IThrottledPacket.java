@@ -18,5 +18,5 @@ package vazkii.botania.api.mana;
 public interface IThrottledPacket {
 
 	public void markDispatchable();
-	
+
 }

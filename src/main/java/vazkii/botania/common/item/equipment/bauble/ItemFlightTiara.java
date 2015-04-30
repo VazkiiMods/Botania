@@ -110,18 +110,18 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 			stack.getTagCompound().removeTag("display");
 		}
 	}
-	
+
 	String hash(String str) {
 		if(str != null)
 			try {
 				MessageDigest md = MessageDigest.getInstance("SHA-256");
-				return new HexBinaryAdapter().marshal(md.digest(salt(str).getBytes()));			
+				return new HexBinaryAdapter().marshal(md.digest(salt(str).getBytes()));
 			} catch (NoSuchAlgorithmException e) {
 				e.printStackTrace();
 			}
 		return "";
 	}
-	
+
 	// Might as well be called sugar given it's not secure at all :D
 	String salt(String str) {
 		str = str += "wowsuchsaltmuchsecurityverywow";
@@ -135,10 +135,10 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 			do {
 				indB = rand.nextInt(l);
 			} while(indB == indA);
-			char c = (char) ((int) chrs[indA] ^ (int) chrs[indB]);
+			char c = (char) (chrs[indA] ^ chrs[indB]);
 			chrs[indA] = c;
 		}
-		
+
 		return String.copyValueOf(chrs);
 	}
 

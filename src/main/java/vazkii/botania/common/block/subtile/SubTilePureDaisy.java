@@ -11,7 +11,6 @@
 package vazkii.botania.common.block.subtile;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
@@ -56,7 +55,7 @@ public class SubTilePureDaisy extends SubTileEntity {
 		World world = supertile.getWorldObj();
 		if(!world.isAirBlock(coords.posX, coords.posY, coords.posZ)) {
 			RecipePureDaisy recipe = null;
-			for(RecipePureDaisy recipe_ : BotaniaAPI.pureDaisyRecipes) 
+			for(RecipePureDaisy recipe_ : BotaniaAPI.pureDaisyRecipes)
 				if(recipe_.matches(world, coords.posX, coords.posY, coords.posZ, this)) {
 					recipe = recipe_;
 					break;

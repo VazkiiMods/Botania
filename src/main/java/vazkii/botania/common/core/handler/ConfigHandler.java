@@ -175,7 +175,7 @@ public final class ConfigHandler {
 
 		desc = "Set this to false to disable the 1.8 Stones available as mana alchemy recipes. This only disables the recipes and entries. Old ones that are already in the world will stay.";
 		stones18Enabled = loadPropBool("18stones.enabled", desc, stones18Enabled);
-		
+
 		desc = "Set this to false to make the Ring of Odin not apply fire resistance. Mostly for people who use Witchery transformations.";
 		ringOfOdinFireResist = loadPropBool("ringOfOdin.fireResist", desc, ringOfOdinFireResist);
 

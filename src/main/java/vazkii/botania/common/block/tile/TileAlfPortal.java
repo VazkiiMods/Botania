@@ -102,12 +102,12 @@ public class TileAlfPortal extends TileMod {
 
 		if(!hasUnloadedParts) {
 			ticksOpen++;
-			
+
 			AxisAlignedBB aabb = getPortalAABB();
 			boolean open = ticksOpen > 60;
 			ElvenPortalUpdateEvent event = new ElvenPortalUpdateEvent(this, aabb, open, stacksIn);
 			MinecraftForge.EVENT_BUS.post(event);
-			
+
 			if(ticksOpen > 60) {
 				ticksSinceLastItem++;
 				if(ConfigHandler.elfPortalParticlesEnabled)
@@ -133,7 +133,7 @@ public class TileAlfPortal extends TileMod {
 				}
 			}
 		} else closeNow = false;
-		
+
 		if(closeNow) {
 			worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 0, 1 | 2);
 			for(int i = 0; i < 36; i++)
@@ -145,7 +145,7 @@ public class TileAlfPortal extends TileMod {
 					blockParticle(meta);
 			worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, newMeta, 1 | 2);
 		}
-		
+
 		hasUnloadedParts = false;
 	}
 
@@ -339,7 +339,7 @@ public class TileAlfPortal extends TileMod {
 			hasUnloadedParts = true;
 			return true; // Don't fuck everything up if there's a chunk unload
 		}
-		
+
 		Block blockat = worldObj.getBlock(x, y, z);
 		if(block == Blocks.air ? blockat.isAir(worldObj, x, y, z) : blockat == block) {
 			if(meta == -1)

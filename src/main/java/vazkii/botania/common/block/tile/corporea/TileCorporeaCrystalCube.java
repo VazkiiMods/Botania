@@ -12,23 +12,13 @@ package vazkii.botania.common.block.tile.corporea;
 
 import java.util.List;
 
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.api.wand.IWandHUD;
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.lib.LibBlockNames;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.IIcon;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileCorporeaCrystalCube extends TileCorporeaBase {
 
@@ -38,14 +28,14 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase {
 	ItemStack requestTarget;
 	int itemCount = 0;
 	int ticks = 0;
-	
+
 	@Override
 	public void updateEntity() {
 		++ticks;
 		if(ticks % 20 == 0)
 			updateCount();
 	}
-	
+
 	public void setRequestTarget(ItemStack stack) {
 		if(stack != null) {
 			ItemStack copy = stack.copy();
@@ -55,13 +45,13 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase {
 			if(!worldObj.isRemote)
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
-		
+
 	}
 
 	public ItemStack getRequestTarget() {
 		return requestTarget;
 	}
-	
+
 	public int getItemCount() {
 		return itemCount;
 	}
@@ -69,7 +59,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase {
 	public void doRequest(boolean fullStack) {
 		if(worldObj.isRemote)
 			return;
-		
+
 		ICorporeaSpark spark = getSpark();
 		if(spark != null && spark.getMaster() != null && requestTarget != null) {
 			List<ItemStack> stacks = CorporeaHelper.requestItem(requestTarget, fullStack ? requestTarget.getMaxStackSize() : 1, spark, true, true);
@@ -89,14 +79,14 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase {
 	private void updateCount() {
 		if(worldObj.isRemote)
 			return;
-		
+
 		itemCount = 0;
 		ICorporeaSpark spark = getSpark();
 		if(spark != null && spark.getMaster() != null && requestTarget != null) {
 			List<ItemStack> stacks = CorporeaHelper.requestItem(requestTarget, -1, spark, true, false);
 			for(ItemStack stack : stacks)
 				itemCount += stack.stackSize;
-			
+
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
 	}

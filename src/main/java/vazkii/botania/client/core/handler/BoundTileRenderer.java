@@ -73,7 +73,7 @@ public final class BoundTileRenderer {
 				if(coordsList != null)
 					for(ChunkCoordinates coords : coordsList)
 						renderBlockOutlineAt(coords, color);
-				
+
 				if(stackInSlot.getItem() instanceof IExtendedWireframeCoordinateListProvider) {
 					ChunkCoordinates coords = ((IExtendedWireframeCoordinateListProvider) stackInSlot.getItem()).getSourceWireframe(player, stackInSlot);
 					if(coords != null)
@@ -91,7 +91,7 @@ public final class BoundTileRenderer {
 	private void renderBlockOutlineAt(ChunkCoordinates pos, int color) {
 		renderBlockOutlineAt(pos, color, 1F);
 	}
-	
+
 	private void renderBlockOutlineAt(ChunkCoordinates pos, int color, float thickness) {
 		GL11.glPushMatrix();
 		GL11.glTranslated(pos.posX - RenderManager.renderPosX, pos.posY - RenderManager.renderPosY, pos.posZ - RenderManager.renderPosZ + 1);

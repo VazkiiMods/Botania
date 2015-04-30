@@ -80,7 +80,7 @@ public class SubTileAgricarnation extends SubTileFunctional {
 	public int getMaxMana() {
 		return 200;
 	}
-	
+
 	public int getRange() {
 		return RANGE;
 	}
@@ -95,8 +95,8 @@ public class SubTileAgricarnation extends SubTileFunctional {
 		return LexiconData.agricarnation;
 	}
 
-	public static class Mini extends SubTileAgricarnation {		
+	public static class Mini extends SubTileAgricarnation {
 		@Override public int getRange() { return RANGE_MINI; }
 	}
-	
+
 }

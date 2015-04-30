@@ -18,9 +18,7 @@ import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.lib.LibRenderIDs;
-import vazkii.botania.client.render.tile.RenderTileCorporeaIndex;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class RenderCorporeaCrystalCube implements ISimpleBlockRenderingHandler {

@@ -89,7 +89,7 @@ public class ItemFlowerBag extends ItemMod {
 		player.openGui(Botania.instance, LibGuiIDs.FLOWER_BAG, world, 0, 0, 0);
 		return stack;
 	}
-	
+
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int s, float xs, float ys, float zs) {
 		TileEntity tile = world.getTileEntity(x, y, z);
@@ -100,31 +100,31 @@ public class ItemFlowerBag extends ItemMod {
 				ItemStack[] stacks = loadStacks(stack);
 				ItemStack[] newStacks = new ItemStack[stacks.length];
 				boolean putAny = false;
-				
+
 				int i = 0;
 				for(ItemStack petal : stacks) {
 					if(petal != null) {
 						int count = InventoryHelper.testInventoryInsertion(inv, petal, side);
 						InventoryHelper.insertItemIntoInventory(inv, petal, side, -1);
-						
+
 						ItemStack newPetal = petal.copy();
 						if(newPetal.stackSize == 0)
 							newPetal = null;
-						
+
 						newStacks[i] = newPetal;
 						putAny |= count > 0;
 					}
-					
+
 					i++;
 				}
-				
+
 				setStacks(stack, newStacks);
 				if(putAny && inv instanceof TileEntityChest) {
 					TileEntityChest chest = (TileEntityChest) inv;
 					player.displayGUIChest(chest);
 				}
 			}
-			
+
 			return true;
 		}
 		return false;

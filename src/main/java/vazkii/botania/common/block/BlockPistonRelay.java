@@ -144,7 +144,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 	public void onWorldLoad(WorldEvent.Load event) {
 		WorldData.get(event.world);
 	}
-	
+
 	@SubscribeEvent
 	public void onWorldUnload(WorldEvent.Unload event) {
 		WorldData.get(event.world).markDirty();
@@ -271,7 +271,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 		if(data != null)
 			data.markDirty();
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.pistonRelay;

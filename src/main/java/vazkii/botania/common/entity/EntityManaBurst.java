@@ -97,7 +97,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		this(((TileEntity)spreader).getWorldObj());
 
 		TileEntity tile = (TileEntity) spreader;
-		
+
 		this.fake = fake;
 
 		setBurstSourceCoords(tile.xCoord, tile.yCoord, tile.zCoord);
@@ -609,7 +609,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			setDead();
 		}
 	}
-	
+
 	protected void onRecieverImpact(IManaReceiver tile, int x, int y, int z) {
 		int mana = getMana();
 		if(tile instanceof IManaCollector)
@@ -647,7 +647,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	public void setFake(boolean fake) {
 		this.fake = fake;
 	}
-	
+
 	public void setScanBeam() {
 		scanBeam = true;
 	}
@@ -815,7 +815,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		public final ChunkCoordinates coords;
 		public final Block block;
 		public final int meta;
-		
+
 		public boolean invalid = false;
 
 		public PositionProperties(Entity entity) {
@@ -836,7 +836,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 				invalid = true;
 				return false;
 			}
-			
+
 			Block block = world.getBlock(coords.posX , coords.posY, coords.posZ);
 			int meta = world.getBlockMetadata(coords.posX, coords.posY, coords.posZ);
 			return block == this.block && meta == this.meta;

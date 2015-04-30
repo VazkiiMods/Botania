@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -34,7 +33,7 @@ public final class CorporeaHelper {
 	public static final String[] WILDCARD_STRINGS = new String[] {
 		"...", "~", "+", "?" , "*"
 	};
-	
+
 	/**
 	 * How many items were matched in the last request. If java had "out" params like C# this wouldn't be needed :V
 	 */
@@ -170,23 +169,23 @@ public final class CorporeaHelper {
 		CorporeaRequestEvent event = new CorporeaRequestEvent(matcher, itemCount, spark, checkNBT, doit);
 		if(MinecraftForge.EVENT_BUS.post(event))
 			return stacks;
-		
+
 		List<IInventory> inventories = getInventoriesOnNetwork(spark);
 		Map<ICorporeaInterceptor, ICorporeaSpark> interceptors = new HashMap();
-		
+
 		lastRequestMatches = 0;
 		lastRequestExtractions = 0;
 
 		int count = itemCount;
 		for(IInventory inv : inventories) {
 			ICorporeaSpark invSpark = getSparkForInventory(inv);
-			
+
 			if(inv instanceof ICorporeaInterceptor) {
 				ICorporeaInterceptor interceptor = (ICorporeaInterceptor) inv;
 				interceptor.interceptRequest(matcher, itemCount, invSpark, spark, stacks, inventories, doit);
 				interceptors.put(interceptor, invSpark);
 			}
-			
+
 			for(int i = inv.getSizeInventory() - 1; i >= 0; i--) {
 				if(!isValidSlot(inv, i))
 					continue;
@@ -214,7 +213,7 @@ public final class CorporeaHelper {
 				}
 			}
 		}
-		
+
 		for(ICorporeaInterceptor interceptor : interceptors.keySet())
 			interceptor.interceptRequestLast(matcher, itemCount, interceptors.get(interceptor), spark, stacks, inventories, doit);
 
@@ -280,11 +279,11 @@ public final class CorporeaHelper {
 				contains = true;
 				s = s.substring(wc.length());
 			}
-			
+
 			if(contains)
 				break;
 		}
-		
+
 
 		String name = stack.getDisplayName().toLowerCase().trim();
 		return equalOrContain(name, s, contains) || equalOrContain(name + "s", s, contains) || equalOrContain(name + "es", s, contains) || name.endsWith("y") && equalOrContain(name.substring(0, name.length() - 1) + "ies", s, contains);

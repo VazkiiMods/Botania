@@ -173,7 +173,7 @@ public final class BotaniaAPI {
 		addOreWeightNether("oreNetherSilver", 1550); // Nether Ores
 		addOreWeightNether("oreNetherSteel", 1690); // Nether Ores
 		addOreWeightNether("oreNetherTin", 3750); // Nether Ores
-		
+
 		addSeed(Items.wheat_seeds, Blocks.wheat);
 		addSeed(Items.potato, Blocks.potatoes);
 		addSeed(Items.carrot, Blocks.carrots);
@@ -258,7 +258,7 @@ public final class BotaniaAPI {
 		petalRecipes.add(recipe);
 		return recipe;
 	}
-	
+
 	/**
 	 * Registers a Pure Daisy Recipe.
 	 * @param input The block that works as an input for the recipe. Can be a Block or an oredict String.
@@ -352,7 +352,7 @@ public final class BotaniaAPI {
 		subTiles.put(key, subtileClass);
 		subTileMods.put(key, Loader.instance().activeModContainer().getModId());
 	}
-	
+
 	/**
 	 * Register a SubTileEntity and makes it a mini flower. Also adds the recipe and returns it.
 	 * @see BotaniaAPI#registerSubTile
@@ -360,7 +360,7 @@ public final class BotaniaAPI {
 	public static RecipeManaInfusion registerMiniSubTile(String key, Class<? extends SubTileEntity> subtileClass, String original) {
 		registerSubTile(key, subtileClass);
 		miniFlowers.put(original, key);
-		
+
 		RecipeMiniFlower recipe = new RecipeMiniFlower(key, original, 2500);
 		manaInfusionRecipes.add(recipe);
 		miniFlowerRecipes.add(recipe);
@@ -443,7 +443,7 @@ public final class BotaniaAPI {
 	public static void addOreWeight(String ore, int weight) {
 		oreWeights.put(ore, weight);
 	}
-	
+
 	/**
 	 * Maps an ore (ore dictionary key) to it's weight on the nether world generation. This
 	 * is used for the Orechid Ignem flower. Check the static block in the BotaniaAPI class
@@ -462,7 +462,7 @@ public final class BotaniaAPI {
 	public static int getOreWeightNether(String ore) {
 		return oreWeightsNether.get(ore);
 	}
-	
+
 	/**
 	 * Allows an item to be counted as a seed. Any item in this list can be
 	 * dispensed by a dispenser, the block is the block to be placed.
@@ -516,7 +516,7 @@ public final class BotaniaAPI {
 	public static String getSubTileStringMapping(Class<? extends SubTileEntity> clazz) {
 		return subTiles.inverse().get(clazz);
 	}
-	
+
 	public static Set<String> getAllSubTiles() {
 		return subTiles.keySet();
 	}

@@ -32,7 +32,7 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 	private static final int COST = 12;
 	private static final int RANGE = 8;
 	private static final int RANGE_Y = 5;
-	
+
 	private static final int RANGE_MINI = 2;
 	private static final int RANGE_Y_MINI = 1;
 
@@ -92,7 +92,7 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 
 		int range = getRange();
 		int rangeY = getRangeY();
-		
+
 		for(int i = -range; i < range + 1; i++)
 			for(int j = -range; j < rangeY; j++)
 				for(int k = -range; k < range + 1; k++) {
@@ -113,11 +113,11 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Square(toChunkCoordinates(), getRange());
 	}
-	
+
 	public int getRange() {
 		return RANGE;
 	}
-	
+
 	public int getRangeY() {
 		return RANGE_Y;
 	}
@@ -142,9 +142,9 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 		return LexiconData.marimorphosis;
 	}
 
-	public static class Mini extends SubTileMarimorphosis {		
+	public static class Mini extends SubTileMarimorphosis {
 		@Override public int getRange() { return RANGE_MINI; }
 		@Override public int getRangeY() { return RANGE_Y_MINI; }
 	}
-	
+
 }

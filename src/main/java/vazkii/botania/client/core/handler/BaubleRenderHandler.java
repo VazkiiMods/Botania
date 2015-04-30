@@ -27,10 +27,10 @@ import net.minecraftforge.client.event.RenderPlayerEvent;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.item.IBaubleRender;
-import vazkii.botania.api.item.IPhantomInkable;
 import vazkii.botania.api.item.IBaubleRender.Helper;
 import vazkii.botania.api.item.IBaubleRender.RenderType;
 import vazkii.botania.api.item.ICosmeticAttachable;
+import vazkii.botania.api.item.IPhantomInkable;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
@@ -81,7 +81,7 @@ public final class BaubleRenderHandler {
 					if(inkable.hasPhantomInk(stack))
 						continue;
 				}
-				
+
 				if(item instanceof ICosmeticAttachable) {
 					ICosmeticAttachable attachable = (ICosmeticAttachable) item;
 					ItemStack cosmetic = attachable.getCosmeticItem(stack);

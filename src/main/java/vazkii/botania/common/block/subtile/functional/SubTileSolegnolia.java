@@ -73,7 +73,7 @@ public class SubTileSolegnolia extends SubTileFunctional {
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Circle(toChunkCoordinates(), RANGE);
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry() {
 		return LexiconData.solegnolia;

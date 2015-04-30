@@ -13,11 +13,7 @@ import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipePureDaisy;
-import vazkii.botania.client.core.handler.HUDHandler;
-import vazkii.botania.client.integration.nei.RecipeHandlerManaPool.CachedManaPoolRecipe;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.client.render.tile.RenderTilePool;
-import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
 import codechicken.lib.gui.GuiDraw;
@@ -63,8 +59,6 @@ public class RecipeHandlerPureDaisy extends TemplateRecipeHandler {
 		@Override
 		public boolean contains(Collection<PositionedStack> ingredients, ItemStack ingredient) {
 			if(ingredients == inputs) {
-				boolean skippedPool = false;
-
 				for(PositionedStack stack : ingredients)
 					if(stack.contains(ingredient))
 						return true;

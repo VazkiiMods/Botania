@@ -16,7 +16,6 @@ import java.util.List;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -28,9 +27,7 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.item.IBaubleRender;
-import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
 import baubles.common.lib.PlayerHandler;
@@ -73,7 +70,7 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender {
 		if(event.entityLiving instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
 			String s = playerStr(player);
-			
+
 			ItemStack belt = PlayerHandler.getPlayerBaubles(player).getStackInSlot(3);
 			if(playersWithStepup.contains(s)) {
 				if(shouldPlayerHaveStepup(player)) {
@@ -86,7 +83,7 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender {
 				} else {
 					player.stepHeight = 0.5F;
 					playersWithStepup.remove(s);
-				} 
+				}
 			} else if(shouldPlayerHaveStepup(player)) {
 				playersWithStepup.add(s);
 				player.stepHeight = 1F;
@@ -99,7 +96,7 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender {
 		if(event.entityLiving instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
 			ItemStack belt = PlayerHandler.getPlayerBaubles(player).getStackInSlot(3);
-			
+
 			if(belt != null && belt.getItem() instanceof ItemTravelBelt) {
 				player.motionY += ((ItemTravelBelt) belt.getItem()).jump;
 				player.fallDistance = -((ItemTravelBelt) belt.getItem()).fallBuffer;

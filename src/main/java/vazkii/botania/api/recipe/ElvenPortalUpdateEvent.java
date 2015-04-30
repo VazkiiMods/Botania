@@ -19,8 +19,8 @@ import cpw.mods.fml.common.eventhandler.Event;
 
 /**
  * An event fired when an Elven Portal TE updates. The portal's
- * relevant AABB and other stuff is passed in for convenience. This 
- * is fired in MinecraftForge.EVENT_BUS. 
+ * relevant AABB and other stuff is passed in for convenience. This
+ * is fired in MinecraftForge.EVENT_BUS.
  */
 public class ElvenPortalUpdateEvent extends Event {
 
@@ -31,12 +31,12 @@ public class ElvenPortalUpdateEvent extends Event {
 	public final AxisAlignedBB aabb;
 	public boolean open;
 	public final List<ItemStack> stacksInside;
-	
+
 	public ElvenPortalUpdateEvent(TileEntity te, AxisAlignedBB aabb, boolean open, List<ItemStack> stacks) {
 		portalTile = te;
 		this.aabb = aabb;
 		this.open = open;
 		stacksInside = stacks;
 	}
-	
+
 }

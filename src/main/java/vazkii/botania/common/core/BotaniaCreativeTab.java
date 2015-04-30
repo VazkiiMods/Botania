@@ -266,7 +266,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModFluffBlocks.darkPrismarineSlab);
 
 		addBlock(ModBlocks.blazeBlock);
-		
+
 		addBlock(ModBlocks.reedBlock);
 		addBlock(ModFluffBlocks.reedStairs);
 		addBlock(ModFluffBlocks.reedSlab);
@@ -322,7 +322,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModFluffBlocks.sunnyQuartz);
 		addBlock(ModFluffBlocks.sunnyQuartzSlab);
 		addBlock(ModFluffBlocks.sunnyQuartzStairs);
-		
+
 		if(ConfigHandler.stones18Enabled) {
 			addBlock(ModFluffBlocks.stone);
 			for(int i= 0; i < 8; i++)
@@ -330,7 +330,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 			for(int i= 0; i < 8; i++)
 				addBlock(ModFluffBlocks.stoneSlabs[i]);
 		}
-		
+
 		addBlock(ModFluffBlocks.biomeStoneA);
 		addBlock(ModFluffBlocks.biomeStoneB);
 		for(int i = 0; i < 24; i++)

@@ -13,7 +13,6 @@ package vazkii.botania.common.block.tile.corporea;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -31,7 +30,7 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
 		return false;
 	}
-	
+
 	@Override
 	public int getSizeInventory() {
 		return 1;
@@ -55,16 +54,16 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 				int missing = count;
 				for(ItemStack stack_ : stacks)
 					missing -= stack_.stackSize;
-				
+
 				if(missing > 0 && getBlockMetadata() == 0) {
 					worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 1, 1 | 2);
 					worldObj.scheduleBlockUpdate(xCoord, yCoord, zCoord, getBlockType(), 2);
 					return;
 				}
 			}
-			
+
 	}
-	
+
 	public boolean requestMatches(Object request, ItemStack filter) {
 		if(request instanceof ItemStack) {
 			ItemStack stack = (ItemStack) request;
@@ -74,7 +73,7 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 		String name = (String) request;
 		return CorporeaHelper.stacksMatch(filter, name);
 	}
-	
+
 	public List<ItemStack> getFilter() {
 		List<ItemStack> filter = new ArrayList();
 

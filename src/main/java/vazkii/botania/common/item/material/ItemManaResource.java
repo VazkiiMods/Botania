@@ -66,7 +66,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 
 		if(rightEvent && correctStack && ender) {
 			MovingObjectPosition pos = ToolCommons.raytraceFromEntity(event.world, event.entityPlayer, false, 5F);
-			
+
 			if(pos == null) {
 				ItemStack stack1 = new ItemStack(this, 1, 15);
 				event.entityPlayer.addStat(ModAchievements.enderAirMake, 1);

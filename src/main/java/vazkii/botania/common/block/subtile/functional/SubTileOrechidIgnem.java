@@ -12,44 +12,44 @@ package vazkii.botania.common.block.subtile.functional;
 
 import java.util.Map;
 
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.lexicon.LexiconData;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 
 public class SubTileOrechidIgnem extends SubTileOrechid {
 
 	private static final int COST = 20000;
-	
+
 	@Override
 	public boolean canOperate() {
 		return supertile.getWorldObj().provider.isHellWorld;
 	}
-	
+
 	@Override
 	public Map<String, Integer> getOreMap() {
 		return BotaniaAPI.oreWeightsNether;
 	}
-	
+
 	@Override
 	public Block getSourceBlock() {
 		return Blocks.netherrack;
 	}
-	
+
 	@Override
 	public int getCost() {
 		return COST;
 	}
-	
+
 	@Override
 	public int getColor() {
 		return 0xAE3030;
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry() {
 		return LexiconData.orechidIgnem;
 	}
-	
+
 }
