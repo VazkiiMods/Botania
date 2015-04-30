@@ -23,6 +23,7 @@ public class RecipeMiniFlower extends RecipeManaInfusion {
 	@Override
 	public boolean matches(ItemStack stack) {
 		String key = BotaniaAPI.internalHandler.getStackSubTileKey(stack);
+		String input = this.input instanceof String ? (String) this.input : BotaniaAPI.internalHandler.getStackSubTileKey((ItemStack) this.input);
 		return key != null && key.equals(input);
 	}
 
