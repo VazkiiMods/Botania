@@ -16,12 +16,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public final class CorporeaHelper {
@@ -163,8 +165,12 @@ public final class CorporeaHelper {
 	 * equals or matches (case a regex is passed in) the matcher string.
 	 */
 	public static List<ItemStack> requestItem(Object matcher, int itemCount, ICorporeaSpark spark, boolean checkNBT, boolean doit) {
-		List<IInventory> inventories = getInventoriesOnNetwork(spark);
 		List<ItemStack> stacks = new ArrayList();
+		CorporeaRequestEvent event = new CorporeaRequestEvent(matcher, itemCount, spark, checkNBT, doit);
+		if(MinecraftForge.EVENT_BUS.post(event))
+			return stacks;
+		
+		List<IInventory> inventories = getInventoriesOnNetwork(spark);
 		Map<ICorporeaInterceptor, ICorporeaSpark> interceptors = new HashMap();
 		
 		lastRequestMatches = 0;
