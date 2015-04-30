@@ -1,19 +1,25 @@
-package model;
+/**
+ * This class was created by <wiiv>. It's distributed as
+ * part of the Botania Mod. Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ * 
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ * 
+ * File Created @ [? (GMT)]
+ */
+package vazkii.botania.client.model;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-/**
- * crystalCube - wiiv
- * Created using Tabula 4.1.1
- */
-public class crystalCube extends ModelBase {
+public class ModelCrystalCube extends ModelBase {
     public ModelRenderer cube;
     public ModelRenderer base1;
     public ModelRenderer base2;
 
-    public crystalCube() {
+    public ModelCrystalCube() {
         this.textureWidth = 48;
         this.textureHeight = 32;
         this.cube = new ModelRenderer(this, 0, 0);
@@ -34,9 +40,6 @@ public class crystalCube extends ModelBase {
         this.base1.render(f5);
     }
 
-    /**
-     * This is a helper function from Tabula to set the rotation of model parts
-     */
     public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
