@@ -28,6 +28,7 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.item.IExtendedWireframeCoordinateListProvider;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
 import vazkii.botania.api.wand.ICoordBoundItem;
 import vazkii.botania.api.wand.IWireframeAABBProvider;
@@ -72,6 +73,12 @@ public final class BoundTileRenderer {
 				if(coordsList != null)
 					for(ChunkCoordinates coords : coordsList)
 						renderBlockOutlineAt(coords, color);
+				
+				if(stackInSlot.getItem() instanceof IExtendedWireframeCoordinateListProvider) {
+					ChunkCoordinates coords = ((IExtendedWireframeCoordinateListProvider) stackInSlot.getItem()).getSourceWireframe(player, stackInSlot);
+					if(coords != null)
+						renderBlockOutlineAt(coords, color, 5F);
+				}
 			}
 		}
 
@@ -82,6 +89,10 @@ public final class BoundTileRenderer {
 	}
 
 	private void renderBlockOutlineAt(ChunkCoordinates pos, int color) {
+		renderBlockOutlineAt(pos, color, 1F);
+	}
+	
+	private void renderBlockOutlineAt(ChunkCoordinates pos, int color, float thickness) {
 		GL11.glPushMatrix();
 		GL11.glTranslated(pos.posX - RenderManager.renderPosX, pos.posY - RenderManager.renderPosY, pos.posZ - RenderManager.renderPosZ + 1);
 		Color colorRGB = new Color(color);
@@ -109,10 +120,10 @@ public final class BoundTileRenderer {
 
 				GL11.glScalef(1F, 1F, 1F);
 
-				GL11.glLineWidth(1F);
+				GL11.glLineWidth(thickness);
 				renderBlockOutline(axis);
 
-				GL11.glLineWidth(4F);
+				GL11.glLineWidth(thickness + 3F);
 				GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 64);
 				renderBlockOutline(axis);
 			}

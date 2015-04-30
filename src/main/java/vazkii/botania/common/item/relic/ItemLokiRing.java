@@ -30,8 +30,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
+import vazkii.botania.api.item.IExtendedWireframeCoordinateListProvider;
 import vazkii.botania.api.item.ISequentialBreaker;
-import vazkii.botania.api.item.IWireframeCoordinateListProvider;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
@@ -45,7 +45,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinateListProvider {
+public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeCoordinateListProvider {
 
 	private static final String TAG_CURSOR_LIST = "cursorList";
 	private static final String TAG_CURSOR_PREFIX = "cursor";
@@ -116,7 +116,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 					}
 				}
 			}
-		} else if(heldItemStack != null && event.action == Action.RIGHT_CLICK_BLOCK && lookPos != null) {
+		} else if(originCoords.posY == -1 && heldItemStack != null && event.action == Action.RIGHT_CLICK_BLOCK && lookPos != null && player.isSneaking()) {
 			List<ChunkCoordinates> cursors = getCursorList(lokiRing);
 			for(ChunkCoordinates cursor : cursors) {
 				int x = lookPos.blockX + cursor.posX;
@@ -185,7 +185,6 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 					coords.posY += origin.posY;
 					coords.posZ += origin.posZ;
 				}
-				list.add(origin);
 			} else for(ChunkCoordinates coords : list) {
 				coords.posX += lookPos.blockX;
 				coords.posY += lookPos.blockY;
@@ -196,6 +195,11 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		}
 
 		return null;
+	}
+	
+	@Override
+	public ChunkCoordinates getSourceWireframe(EntityPlayer player, ItemStack stack) {
+		return getOriginPos(stack);
 	}
 
 	private static ItemStack getLokiRing(EntityPlayer player) {
