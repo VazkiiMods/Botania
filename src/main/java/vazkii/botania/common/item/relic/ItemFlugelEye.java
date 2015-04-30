@@ -57,6 +57,7 @@ public class ItemFlugelEye extends ItemRelic {
 	private static final String TAG_POS_Y = "posY";
 	private static final String TAG_POS_Z = "posZ";
 	private static final String TAG_DIMENSION = "dim";
+	private static final String TAG_FIRST_TICK = "firstTick";
 
 	IIcon[] signs;
 
@@ -108,21 +109,23 @@ public class ItemFlugelEye extends ItemRelic {
 	public void onUpdate(ItemStack stack, World world, Entity entity, int pos, boolean equipped) {
 		super.onUpdate(stack, world, entity, pos, equipped);
 		boolean eqLastTick = wasEquipped(stack);
+		boolean firstTick = isFirstTick(stack);
 		if(eqLastTick != equipped)
 			setEquipped(stack, equipped);
-
-		if(!equipped && entity instanceof EntityLivingBase) {
+		
+		if((!equipped || firstTick) && entity instanceof EntityLivingBase) {
 			int angles = 360;
 			int segAngles = angles / SEGMENTS;
 			float shift = segAngles / 2;
 			setRotationBase(stack, getCheckingAngle((EntityLivingBase) entity) - shift);
+			if(firstTick)
+				tickFirst(stack);
 		}
 	}
 
 	private static int getSegmentLookedAt(ItemStack stack, EntityLivingBase player) {
-		getRotationBase(stack);
 		float yaw = getCheckingAngle(player, getRotationBase(stack));
-
+		
 		int angles = 360;
 		int segAngles = angles / SEGMENTS;
 		for(int seg = 0; seg < SEGMENTS; seg++) {
@@ -156,6 +159,14 @@ public class ItemFlugelEye extends ItemRelic {
 		return angle;
 	}
 
+	public static boolean isFirstTick(ItemStack stack) {
+		return ItemNBTHelper.getBoolean(stack, TAG_FIRST_TICK, true);
+	}
+	
+	public static void tickFirst(ItemStack stack) {
+		ItemNBTHelper.setBoolean(stack, TAG_FIRST_TICK, false);
+	}
+	
 	public static boolean wasEquipped(ItemStack stack) {
 		return ItemNBTHelper.getBoolean(stack, TAG_EQUIPPED, false);
 	}
