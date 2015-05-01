@@ -1,3 +1,27 @@
+r1.6 185
+*Added M4/M5 (the buttons of the side of the mouse) support to the Lexica Botania.
+*Added the Corporea Crystal Cube, a new corporea block that allows for visualization and quick extraction of items from the network.
+*Added the Orechid Ignem, a nether version of the Orechid.
+*Changed the wireframes produced by the Ring of Loki so that the center one is thicker and easier to distinguish.
+*Fake players can no longer spawn Gaia Guardians.
+*Fixed a crash when viewing item uses on NEI sometimes.
+*Fixed looking up blocks in the FTB wiki redirecting to the Gamepedia homepage.
+*Fixed Petite Flowers not being craftable.
+*Fixed shovels not being effective against Trodden Dirt.
+*Fixed the Eye of the Flugel not working when acquired and needing to be deselected and selected again.
+*Fixed the Force Relay's bindings not properly saving to the world's data if not pushed by a piston.
+*Fixed the Solegnolia consuming mana even if disabled with redstone.
+*Rotating the items in the Item Frames around a Corporea Funnel now changes how many are pulled per request. (1, 16, 32 and 64 for each of the possible rotations)
+*The Ring of Loki will now only place blocks when the player is sneaking and the bindings have been set to follow the cursor.
+*Tweaked the textures for the cloaks a bit.
+*[API] Added an ore table for nether ores for the Orechid Ignem.
+*[API] Added CorporeaRequestEvent.
+*[API] Added IExtendedWireframeCoordinateListProvider. These names are getting ridiculous.
+*[API] Changed the wiki fallback to ftb.gamepedia.com rather than wiki.feed-the-beast.com.
+*[API] Fixed the check in RecipeMiniFlower targetting the output stack rather than the output subtile name.
+*[API] Removed GregTech ores from the Orechid ore table.
+*[API] Using -1 as the itemCount parameter for CorporeaHelper.requestItem() will find every single item it can that matches the matcher passed in.
+*[API] Incrased version number to 45.
 r1.6 184
 *Baubles no longer render on players with the invisibility effect enabled.
 *Fixed tossing items in mana pools when there's no mana ending up in the items not being stackable with other items.
