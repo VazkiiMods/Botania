@@ -700,18 +700,18 @@ tile.botania:customBrick0Slab.name=지옥 벽돌 반블럭
 tile.botania:customBrick1Slab.name=영혼 벽돌 반블럭
 tile.botania:customBrick2Slab.name=서리 벽돌 반블럭
 tile.botania:customBrick3Slab.name=기와 반블럭
-tile.botania:customBrick4.name=타일
-tile.botania:customBrick5.name=타일
-tile.botania:customBrick6.name=타일
-tile.botania:customBrick7.name=타일
-tile.botania:customBrick8.name=타일
-tile.botania:customBrick9.name=타일
-tile.botania:customBrick10.name=타일
-tile.botania:customBrick11.name=타일
-tile.botania:customBrick12.name=타일
-tile.botania:customBrick13.name=타일
-tile.botania:customBrick14.name=타일
-tile.botania:customBrick15.name=타일
+tile.botania:customBrick4.name=아줄레주
+tile.botania:customBrick5.name=아줄레주
+tile.botania:customBrick6.name=아줄레주
+tile.botania:customBrick7.name=아줄레주
+tile.botania:customBrick8.name=아줄레주
+tile.botania:customBrick9.name=아줄레주
+tile.botania:customBrick10.name=아줄레주
+tile.botania:customBrick11.name=아줄레주
+tile.botania:customBrick12.name=아줄레주
+tile.botania:customBrick13.name=아줄레주
+tile.botania:customBrick14.name=아줄레주
+tile.botania:customBrick15.name=아줄레주
 tile.botania:enderEyeBlock.name=엔더 감독관
 tile.botania:starfield.name=별 생성기
 tile.botania:rfGenerator.name=마나 플럭스변환기
@@ -914,6 +914,7 @@ tile.botania:stone10Slab.name=섬록암 벽돌 반블럭
 tile.botania:stone11Slab.name=화강암 벽돌 반블럭
 tile.botania:blazeBlock.name=블레이즈 램프
 tile.botania:corporeaInterceptor.name=Corporea Interceptor
+tile.botania:corporeaCrystalCube.name=Corporea 크리스탈 큐브
 
 # FLOWER NAMES
 tile.botania:flower..name=보타니아 꽃
@@ -967,6 +968,8 @@ tile.botania:flower.jadedAmaranthus.name=보라색 비름
 tile.botania:flower.jadedAmaranthus.reference=솔로천국! 커플지옥!
 tile.botania:flower.orechid.name=광물난초
 tile.botania:flower.orechid.reference=나는 당신이 무엇을 하는지 다 알고있어
+tile.botania:flower.orechidIgnem.name=불타는 광물난초
+tile.botania:flower.orechidIgnem.reference=장미색깔
 tile.botania:flower.fallenKanade.name=생명의 연주자
 tile.botania:flower.fallenKanade.reference=나는 천사가 아니야
 tile.botania:flower.exoflame.name=바깥불꽃
@@ -988,7 +991,7 @@ tile.botania:flower.rannuncarpus.reference=이건 손이죠. 네.
 tile.botania:flower.rannuncarpusChibi.name=작은 장난꾸러기꽃
 tile.botania:flower.rannuncarpusChibi.reference=이건 손이죠. 네.
 tile.botania:flower.hyacidus.name=하이시더스
-tile.botania:flower.hyacidus.reference=If you don't walk, it doesn't hurt
+tile.botania:flower.hyacidus.reference=움직이지 않는다면 사냥할 수도 없어
 tile.botania:flower.pollidisiac.name=사랑나눔꽃
 tile.botania:flower.pollidisiac.reference=버드 앤 비(*역자:영어의 완곡어법으로 '구애'와'성교'룰 뜻함)
 tile.botania:flower.clayconia.name=점토코니아
@@ -1064,12 +1067,12 @@ item.botania:lensTime.name=마나렌즈: 저항
 item.botania:lensTime.short=저항
 item.botania:lensEfficiency.name=마나렌즈: 효율
 item.botania:lensEfficiency.short=효율
-item.botania:lensBounce.name=마나 렌즈: 산란
+item.botania:lensBounce.name=마나렌즈: 산란
 item.botania:lensBounce.short=산란
 item.botania:lensGravity.name=마나렌즈: 중력
 item.botania:lensGravity.short=중력
-item.botania:lensMine.name=마나 렌즈: 관통
-item.botania:lensMine.short=관통
+item.botania:lensMine.name=마나렌즈: 채굴
+item.botania:lensMine.short=채굴
 item.botania:lensDamage.name=마나렌즈: 데미지
 item.botania:lensDamage.short=데미지
 item.botania:lensPhantom.name=마나 렌즈: 환상
@@ -1088,9 +1091,9 @@ item.botania:lensFire.name=마나렌즈: 광원
 item.botania:lensFire.short=빛남
 item.botania:lensPiston.name=마나렌즈: 강제
 item.botania:lensPiston.short=강제
-item.botania:lensLight.name=마나 렌즈: 플래시
+item.botania:lensLight.name=마나렌즈: 플래시
 item.botania:lensLight.short=플래시
-item.botania:lensWarp.name=마나 렌즈: 뒤틀림
+item.botania:lensWarp.name=마나렌즈: 뒤틀림
 item.botania:lensWarp.short=뒤틀림
 item.botania:manaPetal0.name=하얀색 마나 꽃잎
 item.botania:manaPetal1.name=주황색 마나 꽃잎
@@ -1117,7 +1120,7 @@ item.botania:rune5.name=여름의 룬
 item.botania:rune6.name=가을의 룬
 item.botania:rune7.name=겨울의 룬
 item.botania:rune8.name=마나 룬
-item.botania:rune9.name=욕망 룬
+item.botania:rune9.name=욕망의 룬
 item.botania:rune10.name=폭식의 룬
 item.botania:rune11.name=탐욕의 룬
 item.botania:rune12.name=게으름의 룬
@@ -1367,7 +1370,7 @@ botania.category.devices=자연기기의 운용
 botania.category.tools=신비로운 도구들
 botania.category.baubles=악세사리들
 botania.category.ender=엔더 유물
-botania.category.alfhomancy=요정의기술
+botania.category.alfhomancy=요정의 기술
 botania.category.misc=기타
 
 # LEXICON ENTRIES
@@ -1678,8 +1681,13 @@ botania.page.tigerseye1=&oRisin' up to the challenge of our rivals&r.
 
 # -- ORECHID
 botania.entry.orechid=광물난초
-botania.page.orechid0=While going mining is all good, a renewable means of getting ore is due. The &1Orechid&0 will use (a massive amount of) &4Mana&0 to generate &4ores&0 in nearby &1Stone&0 blocks.<br>The ores it generates are random, but seem to be biased towards more common ores rather than rarer ones.
-botania.page.orechid1=&oNot dragon poop&r.
+botania.page.orechid0=이 꽃은 광물을 얻기 위한 신개념 수단입니다. &1광물난초&0는 (아주 많은 양의) &4마나&0를 사용해서 &1돌&0블럭을 &4광석&0으로 바꿉니다.<br>바뀌는 광물들은 랜덤이지만, 희귀한 광물보다는 일반적인 광물들이 더욱 많이 나올 것 입니다.
+botania.page.orechid1=&o드래곤의 똥은 아닙니다&r.
+ 
+# -- ORECHID IGNEM
+botania.entry.orechidIgnem=불타는 광물난초
+botania.page.orechidIgnem0=&1광물난초&0은 좋은 꽃입니다. &4마나&0를 통해 광석을 만들 수 있다는 점은 매일 앉아있는 식물학자들의 삶에 큰 보탬이 될 수 있었지만, &4지옥&0광석은 수급할 수 없다는 단점이 있었습니다. 그래서 &1광물난초&0를 만들때 필요한 꽃잎을 약간 바꿔서 쉽게 &1네더랙&0을 통해서 &4지옥&0광물을 만들 수 있게 되었습니다. &4지옥&0에서만 사용할 수 있지만 직접 찾는게 아닌게 어딘가요?
+botania.page.orechidIgnem1=&o이곳이 뜨거워&r...
 
 # -- FALLEN KANADE
 botania.entry.fallenKanade=생명의 연주자
@@ -2332,7 +2340,7 @@ botania.page.corporeaIndex6=A certain magical one at that
 # -- CORPOREA FUNNEL
 botania.entry.corporeaFunnel=Corporea Funnel
 botania.page.corporeaFunnel0=A simpler block that utilizes the prospects of the &4Corporea Network&0 is the &1Corporea Funnel&0, when given access to a network through a &1Corporea Spark&0 on top, it'll pull a single item from the network when given a redstone signal.<br>This item is put into an inventory 1 or 2 blocks below it, or case one doesn't exist or is full, tossed into the world right above the funnel.
-botania.page.corporeaFunnel1=The &1Corporea Funnel&0 may only pull items that match its filter, similarly to a &1Hopperhock&0, the filter is designated by items contained on &1Item Frames&0 placed on it. The item pulled is one of the various items in the frames at random.
+botania.page.corporeaFunnel1=The &1Corporea Funnel&0 may only pull items that match its filter, similarly to a &1Hopperhock&0, the filter is designated by items contained on &1Item Frames&0 placed on it. The item pulled is one of the various items in the frames at random.<br>Rotating the item changes how many will be requested at once, starting at 1, rotating once, twice and three times will pull 16, 32 and 64, respectively.
 botania.page.corporeaFunnel2=Energistically applied
 
 # -- CORPOREA INTERCEPTOR
@@ -2340,6 +2348,12 @@ botania.entry.corporeaInterceptor=Corporea Interceptor
 botania.page.corporeaInterceptor0=The &1Corporea Interceptor&0 does exactly as the name suggests, it intercepts corporea requests. First and foremost, &1Item Frames&0 with items need be attached around the block, these define what items will trigger the interceptor.<br>Whenever a request is fired to the corporea network, be it from an Index, Funnel, etc, and there's no items in the network that can fulfil it this block will be triggered.
 botania.page.corporeaInterceptor1=Of course, the the block is only triggered if the item requested matches one of items in the &1Item Frames&0 about it. When the block is triggered it'll emit a short redstone pulse. This can be used to do all sorts of things, such as craft the required item using &1Crafty Crates&0 or light up a lamp indicating that the inventory for a resource is out.
 botania.page.corporeaInterceptor2=So many automation prospects
+
+# -- CORPOREA CRYSTAL CUBE
+botania.entry.corporeaCrystalCube=Corporea Crystal Cube
+botania.page.corporeaCrystalCube0=A seer usually looks through a crystal ball to see the future. Well, a corporea handler would look through a crystal cube to see the present. The &1Corporea Crystal Cube&0 acts as a visual medium to interact ith one's &4Corporea Network&0. Placing the block down and giving it a &1Corporea Spark&0 is the obvious first step to hooking it up to the network. 
+botania.page.corporeaCrystalCube1=When the block is connected, right clicking it with any sort of item will have it monitor that item, allowing someone who's looking at it see how many exist in the network. The display updates about once every second.<br>While there's an item selected, left clicking the block will request one of that item from the network. Shift-left clicking requests a whole stack.
+botania.page.corporeaCrystalCube2=I can see forever
 
 # -- DECORATIVE END BLOCKS
 botania.entry.endStoneDecor=Decorative End Blocks
