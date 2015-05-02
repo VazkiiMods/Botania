@@ -106,6 +106,11 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 
 		return par1ItemStack;
 	}
+	
+	@Override
+	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int s, float sx, float sy, float sz) {
+		return player.isSneaking() && super.onItemUse(stack, player, world, x, y, z, s, sx, sy, sz);
+	}
 
 	@Override
 	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
