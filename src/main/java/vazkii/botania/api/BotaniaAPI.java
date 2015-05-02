@@ -154,7 +154,10 @@ public final class BotaniaAPI {
 		addOreWeight("oreVinteum", 5925); // Ars Magica
 		addOreWeight("oreYellorite", 3520); // Big Reactors
 		addOreWeight("oreZinc", 6485); // Flaxbeard's Steam Power
-
+		addOreWeight("oreMythril", 6485); // Simple Ores2
+		addOreWeight("oreAdamantium", 2275); // Simple Ores2
+		addOreWeight("oreTungsten", 3520); // Simple Tungsten
+		
 		addOreWeightNether("oreQuartz", 19600); // Vanilla
 		addOreWeightNether("oreCobalt", 500); // Tinker's Construct
 		addOreWeightNether("oreArdite", 500); // Tinker's Construct
@@ -173,6 +176,13 @@ public final class BotaniaAPI {
 		addOreWeightNether("oreNetherSilver", 1550); // Nether Ores
 		addOreWeightNether("oreNetherSteel", 1690); // Nether Ores
 		addOreWeightNether("oreNetherTin", 3750); // Nether Ores
+		addOreWeightNether("oreFyrite", 1000); // Netherrocks
+		addOreWeightNether("oreMalachite", 1000); // Netherrocks
+		addOreWeightNether("oreAshstone", 1000); // Netherrocks
+		addOreWeightNether("oreDragonstone", 175); // Netherrocks
+		addOreWeightNether("oreArgonite", 1000); // Netherrocks
+		addOreWeightNether("oreOnyx", 500); // SimpleOres 2
+		addOreWeightNether("oreHaditeCoal", 500); // Hadite
 
 		addSeed(Items.wheat_seeds, Blocks.wheat);
 		addSeed(Items.potato, Blocks.potatoes);
