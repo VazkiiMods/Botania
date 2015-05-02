@@ -50,6 +50,7 @@ public final class LibAchievementNames {
 	public static final String RELIC_LOKI_RING = "lokiRing";
 	public static final String RELIC_AESIR_RING = "aesirRing";
 
+	public static final String NULL_FLOWER = "nullFlower";
 	public static final String DESU_GUN = "desuGun";
 
 }

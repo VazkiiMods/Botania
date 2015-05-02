@@ -66,6 +66,7 @@ public final class ModAchievements {
 	public static Achievement relicLokiRing;
 	public static Achievement relicAesirRing;
 
+	public static Achievement nullFlower;
 	public static Achievement desuGun;
 
 	public static void init() {
@@ -114,6 +115,9 @@ public final class ModAchievements {
 			relicLokiRing = new AchievementMod(LibAchievementNames.RELIC_LOKI_RING, -5, 6, ModItems.lokiRing, null);
 			relicAesirRing = new AchievementMod(LibAchievementNames.RELIC_AESIR_RING, -7, 5, ModItems.aesirRing, null).setSpecial();
 		}
+
+		
+		nullFlower = new AchievementMod(LibAchievementNames.NULL_FLOWER, -8, -4, ModBlocks.specialFlower, null).setSpecial();
 
 		ItemStack desu = new ItemStack(ModItems.manaGun);
 		desu.setStackDisplayName("desu gun");

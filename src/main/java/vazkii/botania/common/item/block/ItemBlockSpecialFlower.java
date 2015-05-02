@@ -126,6 +126,8 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 			return ModAchievements.kekimurusPickup;
 		else if(type.equals(LibBlockNames.SUBTILE_HEISEI_DREAM))
 			return ModAchievements.heiseiDreamPickup;
+		else if(type.equals(""))
+			return ModAchievements.nullFlower;
 		return null;
 	}
 
