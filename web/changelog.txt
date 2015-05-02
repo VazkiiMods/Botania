@@ -1,3 +1,12 @@
+r1.6 186
+*Fixed a horrible horrible typo in the "Elven Lore - The Shattering" entry. Previously it would say that Muspelheim collided with Asgard. That's <b>wrong</b>, Muspelheim collided with Midgard. Muspelheim is the Nether, Midgard is the overworld, that's why players can travel between the two with a simple portal.
+*Fixed flowers sometimes binding to the wrong pool or spreader when their chunk is loaded.
+*Fixed the Exoflame's radius being off one block.
+*Fixed the Ring of the Aesir not displaying the center wireframe.
+*The Terra Shatterer now only places torches when sneaking. Clicking normally toggles it on and off.
+*Tweaked the Spark bounding box a bit so it doesn't get in the way as much.
+*[API] Fixed broken logic in collector/pool position caching that caused flowers to bind to the wrong collector or pool thanks to chunkloading.
+*[API] Increased version number to 46.
 r1.6 185
 *Added M4/M5 (the buttons of the side of the mouse) support to the Lexica Botania.
 *Added the Corporea Crystal Cube, a new corporea block that allows for visualization and quick extraction of items from the network.
