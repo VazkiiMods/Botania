@@ -105,7 +105,7 @@ public class SubTileFunctional extends SubTileEntity {
 		}
 	}
 
-	if(!needsNew) {
+	if(!needsNew && linkedPool != null) {
 		TileEntity tileAt = supertile.getWorldObj().getTileEntity(linkedPool.xCoord, linkedPool.yCoord, linkedPool.zCoord);
 		if(!(tileAt instanceof IManaPool)) {
 			linkedPool = null;

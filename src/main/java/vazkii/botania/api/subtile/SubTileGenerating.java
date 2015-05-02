@@ -98,7 +98,7 @@ public class SubTileGenerating extends SubTileEntity {
 			}
 		}
 
-		if(!needsNew) {
+		if(!needsNew && linkedCollector != null) {
 			TileEntity tileAt = supertile.getWorldObj().getTileEntity(linkedCollector.xCoord, linkedCollector.yCoord, linkedCollector.zCoord);
 			if(!(tileAt instanceof IManaCollector)) {
 				linkedCollector = null;
