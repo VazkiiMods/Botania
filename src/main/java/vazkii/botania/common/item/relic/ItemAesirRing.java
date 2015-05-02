@@ -22,6 +22,7 @@ import net.minecraft.stats.Achievement;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
+import vazkii.botania.api.item.IExtendedWireframeCoordinateListProvider;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
 import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
@@ -35,7 +36,7 @@ import com.google.common.collect.Multimap;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class ItemAesirRing extends ItemRelicBauble implements IWireframeCoordinateListProvider, ICraftAchievement {
+public class ItemAesirRing extends ItemRelicBauble implements IExtendedWireframeCoordinateListProvider, ICraftAchievement {
 
 	Multimap<String, AttributeModifier> attributes = HashMultimap.create();
 
@@ -58,6 +59,11 @@ public class ItemAesirRing extends ItemRelicBauble implements IWireframeCoordina
 	@Override
 	public List<ChunkCoordinates> getWireframesToDraw(EntityPlayer player, ItemStack stack) {
 		return ((IWireframeCoordinateListProvider) ModItems.lokiRing).getWireframesToDraw(player, stack);
+	}
+	
+	@Override
+	public ChunkCoordinates getSourceWireframe(EntityPlayer player, ItemStack stack) {
+		return ((IExtendedWireframeCoordinateListProvider) ModItems.lokiRing).getSourceWireframe(player, stack);
 	}
 
 	@Override
