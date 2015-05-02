@@ -1,3 +1,8 @@
+r1.6 187
+*Added an achievement for breaking the game.
+*Fixed a crash when placing down a flower.
+*[API] Added a null check to the target collectors or pools in the flower code to prevent NPEs.
+*[API] Increased version number to 47.
 r1.6 186
 *Fixed a horrible horrible typo in the "Elven Lore - The Shattering" entry. Previously it would say that Muspelheim collided with Asgard. That's <b>wrong</b>, Muspelheim collided with Midgard. Muspelheim is the Nether, Midgard is the overworld, that's why players can travel between the two with a simple portal.
 *Fixed flowers sometimes binding to the wrong pool or spreader when their chunk is loaded.
