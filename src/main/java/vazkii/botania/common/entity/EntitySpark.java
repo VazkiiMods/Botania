@@ -56,7 +56,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 	@Override
 	protected void entityInit() {
-		setSize(0.5F, 0.5F);
+		setSize(0.1F, 0.5F);
 		dataWatcher.addObject(28, 0);
 		dataWatcher.setObjectWatched(28);
 	}
