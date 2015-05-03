@@ -1379,22 +1379,22 @@ botania.category.misc=기타
 
 # - BASIC
 # -- TUTORIAL OF THE BASICS
-botania.entry.tutorial=기본 사용 지침서
-botania.page.tutorial0=&4본 모드는 덕질패러디가 넘쳐납니다.&0<br>아래의 버튼을 통해서 "가이드 투어"가 가능합니다 :D<br>처음 시작하시는 분이라면 아래의 버튼을 한번 눌러보지않겠는가..?
+botania.entry.tutorial=A.기본 사용 지침서
+botania.page.tutorial0=&4본 모드는 덕질패러디가 넘쳐납니다.&0<br>아래의 버튼을 통해서 "가이드 투어"가 가능합니다 :D<br>처음 시작하시는 분이라면 아래의 버튼을 한번 눌러보세요!(내용이 100%번역된 항목은 ABCD순서가 나뉘어져 있습니다.)
 
 # -- AN INTRODUCTORY CLIP
-botania.entry.introVideo=소개 동영상
+botania.entry.introVideo=B.소개 동영상
 botania.page.introVideo0=보타니아의 기본적인 내용을 영상으로 보여줍니다.(영문)
 
 # -- LEXICA BOTANIA
-botania.entry.lexicon=보타니아 사전
+botania.entry.lexicon=C.보타니아 사전
 botania.page.lexicon0=&1보타니아 사전&0은 모든 지식의 저장고입니다. 보타니아를 제외한 다른 모드들 까지 말이죠!<br>사전을 열어 보타니아에 관련된 지식을 얻을 수 있고 심지어 사전을 들고 해당하는 아이템에 커서를 맞춘 후 쉬프트-우클릭하면 위키가 열립니다!
 botania.page.lexicon3=&o기울림&r으로 되어있는 항목은 가장 &4기본적&0인 항목입니다. 보타니아를 즐기기 위해서는 필독해주세요.
 botania.page.lexicon1=&1보타니아 사전&0 제작하기
 botania.page.lexicon2=&1보타니아 사전&0의 제목을 변경할 수 도 있습니다. &1모루&0를 이름을 바꾸는 간단한 방법으로 말이죠. 하지만 커버는 바꿀 수 없으니 주의!<br>제본판은 현재 실행되고 있는 &4보타니아&0의 버전을 말합니다.
 
 # -- MYSTICAL FLOWERS
-botania.entry.flowers=신비로운 꽃
+botania.entry.flowers=D.신비로운 꽃
 botania.page.flowers0=세상을 돌아다니다 보면 당신은 신비로운 식물을 발견하실 수 있습니다. 그 식물들은 빛을 방출하여 멀리서도 알아보기 쉽습니다.<br>꽃들은 총&416 &0가지의 색상을 가지고있으며<br>&1꽃의 비료&0(후술)을 통해서 재배할 수 도있습니다.
 botania.page.flowers1=당신은 멀리서도 그 꽃들을 보실 수 있습니다.
 botania.page.flowers2=이 꽃들로 &1신비로운 꽃잎&0을 추출할 수 있습니다. 이 꽃잎들로는 마법의 도구나 새로운 꽃들을 만드는데 사용됩니다.<br>이 꽃잎을 땅위에 우클릭할 경우 땅에 &4숨겨집니다&0. 숨겨진 땅에는 꽃잎색에 따라 파티클이 생깁니다.<br>꽃잎을 부셔서 &1꽃가루&0로 만들 수 있는데 이 꽃가루들은 염료로 사용됩니다.
@@ -1409,21 +1409,21 @@ botania.page.flowers11=문제에 대한 준비
 botania.page.flowers9=꽃잎으로 꽃잎 블럭을 만들 수 있습니다.
 
 # -- PETAL APOTHECARY
-botania.entry.apothecary=꽃잎 연금술기
-botania.page.apothecary0=In order for a botanist to create plantlife that can do its bidding, one would need special means of infusing plants with mystical energy.<br>Luckily, the &1Petal Apothecary&0 does just that.
-botania.page.apothecary1=The &1Petal Apothecary&0.
-botania.page.apothecary2=This block, when placed in the world and given some water (by use of a &1Water Bucket&0), will accept any &1Mystical Petals&0 thrown at it, releasing their energies.<br>Once one has set the correct petals in, throwing some &1Seeds&0 in will finalize the proccess.<br>Tossing in the full bucket will also fill the recipient with water.
-botania.page.apothecary3=Quite a few plants can be made using this method, for more information, read on the &4Functional Flora&0 and &4Generation Flora&0 sections of this Lexicon.<br>Shift-right clicking the &1Petal Apothecary&0 with an empty hand will remove the last item thrown in.
-botania.page.apothecary4=Instead of &1Water&0, one can place &1Lava&0 in this block, if that is done, it'll serve as a brazier and incinerator, destroying any items that come in contact.<br>Lastly, tossing in &1Vines&0 also gives the block an overgrown visual.
-botania.page.apothecary5=Crafting the &1Petal Apothecary&0.
+botania.entry.apothecary=E.꽃잎 연금술기
+botania.page.apothecary0=식물학자는 식물을 만들기 위해 식물에 마법의 힘을 주입하는데에 특별한 수단을 필요로 합니다.<br>다행히 &1꽃잎 연금술기&0는 이걸 대신해줍니다.
+botania.page.apothecary1=&1꽃잎 연금술기&0
+botania.page.apothecary2=꽃잎 연금술기를 월드에 설치하고 약간의 물을 제공한다면 (&1물 양동이 1개&0 분량) 모든 종류의 &1신비로운 꽃잎&0을 연금술기에 던지면 그들의 에너지를 방출하면서 수용할 것입니다.<br>올바른 &1신비로운 꽃잎&0이 들어가고 나면, &1씨앗&0 하나를 던져 완성할 수 있습니다.<br>꽉찬 양동이를 뿌리는 것 또한 약제기를 물로 채웁니다.
+botania.page.apothecary3=대부분의 식물들은 이러한 방법으로 제조할 수 있습니다, 자세한 정보를 원한다면 이 사전에서 &1기능성 식물&0 그리고 &0생산성 식물&1란을 읽도록 하세요.<br>쉬프트-우클릭으로 연금술기에 넣은 아이템을 다시 수거할 수 있습니다.
+botania.page.apothecary4=연금술기에는 &1물&0 대신에 &1용암&0을 둘수 있는데, 용암을 두게 되면 접촉하는 모든 아이템을 파괴하는 소각로 역할을 합니다.(마치 선인장 처럼 말이죠).<br>마지막으로, 덩굴을 설치하는 것으로 이끼가 낀 듯한 시각 효과를 만들어 냅니다.
+botania.page.apothecary5=&1꽃잎 연금술기 제작&0.
 
 # -- PURE DAISY
-botania.entry.pureDaisy=정화의 데이지
-botania.page.pureDaisy0=The &1Pure Daisy&0 is not only the most basic, but also the most important flower a botanist can have.<br>This flower will purify any adjacent &1Wood&0 and &1Stone&0 blocks, as seen on the next page, into their purified counterparts, &1Livingwood&0 and &1Livingrock&0, which can be used for crafting.  
-botania.page.pureDaisy1=Just give it &4a minute&0 or so...
-botania.page.pureDaisy2=&1Livingwood&0 can be turned into twigs
-botania.page.pureDaisy4=A few other blocks can also be purified by placing them around the flower. While not as unique and essential as the living blocks, perhaps this might come in handy. This includes &1Netherrack&0 into &1Cobblestone&0, &1Soul Sand&0 into &1Sand&0 or &1Ice&0 into &1Packed Ice&0.
-botania.page.pureDaisy3=White is bright and pure
+botania.entry.pureDaisy=F.정화의 데이지
+botania.page.pureDaisy0=&1정화의 데이지&0는 식물학에서 가장 기본적이며 가장 중요한 꽃이라고 할 수 있습니다.<br>&1정화의 데이지&0는 주변의 &1돌&0과 &1나무&0를 정화하는 능력이 있으며 정화된 돌과 나무는 &1생명의 돌&0 혹은 &1생명의 나무&0로 변형되어 조합에 사용됩니다.
+botania.page.pureDaisy1=&4몇 분&0의 시간이 지나야...
+botania.page.pureDaisy2=&1생명의 나무&0를 나뭇가지로 바꿀 수 있습니다.
+botania.page.pureDaisy4=몇몇개의 다른 아이템들도 꽃 주위에 있으면 정제하는데 살아있는 블록들은 필수적인 반면에 이 블록들은 단지 유용하게 쓰일 뿐입니다. 예를들어 &1네더랙&0을 &1조약돌&0로 바꾸거나 &1소울샌드&0을 &1모래&0로 바꾸거나 &1얼음&0을 &1단단한 얼음&0으로 바꾸는 것 등이 가능합니다.
+botania.page.pureDaisy3=하얀색은 순수하고 깨끗함의 상징이죠.
 
 # -- WAND OF THE FOREST
 botania.entry.wand=숲의 지팡이
@@ -1465,7 +1465,7 @@ botania.page.terrasteel2=After the plate is set up and ready to receive &4Mana&0
 botania.page.terrasteel3=Creating &1Terrasteel&0 (there's &1Livingrock&0 under the plate)
 
 # -- BLACK LOTUS
-botania.entry.blackLotus=검은 연꽃
+botania.entry.blackLotus=G.검은 연꽃
 botania.page.blackLotus0=&1검은 연꽃&0이라는 이름을 가진 알수없는 식물은 그 어떤 수단을 쓰던지 키우거나 번식시킬 수 없는 특이한 꽃으로 예상치 못한 곳에서 발견되곤 합니다.<br>&1검은 연꽃&0에 대해 알려진 또 다른 한가지는 &4마나&0와 만나면 마나로 변한다는 점입니다. &1검은 연꽃&0에서 나오는 마나를 얻기 위해서는 간단히 마나가 조금이라도 있는 &1마나 웅덩이&0에 던지면 됩니다. 
 
 # -- FLOWER POUCH
@@ -1473,16 +1473,16 @@ botania.entry.flowerBag=꽃 주머니
 botania.page.flowerBag0=The laws of physics regarding one's &4Inventory&0 are somewhat skewed in this world. Thanks to that, carrying an array of different colors of flowers turns out to be a major hassle. Luckily, a &1Flower Pouch&0 takes care of all those issues. It can store up to one stack of each color of &1Mystical Flower&0, not only that but it'll passively catch any that enter the holder's inventory.
 botania.page.flowerBag1=Pull a copter out of it (any colors work)
 
-# -- WRAP
-botania.entry.wrap=Wrap
-botania.page.wrap0=It seems like the creator of this mod decided to add a weird game mechanic in the form of &1Wrap&0. I don't really know what it does, probably something bad. :/<br>What's this "Fourth Wall" you're talking about...?
+# -- WRAP 
+botania.entry.wrap=뒤틀림
+botania.page.wrap0=이 게임의 개발자 바즈키는 당신이 사움크래프트를 안다면 익숙할 &1뒤틀림&0이라는 괴의한 형태의 메카니즘을 추가하기로 결정 한 것 같습니다. 아마 이것은 사악한 일일지도 모르겠습니다 :/<br>당신은 "제4의 벽"에 대해 어떻게 생각하세요...?
 
 # - MANA
 # -- AN INTRODUCTION TO MANA
-botania.entry.mIntro=마나에 대한 소개
-botania.page.mIntro0=&4Mana&0 is an ethereal substance. In layman's terms, it is a form of &4mystical energy&0. Its sensorial existence is inconstant, and its color depends on the environment its put in.<br>Mastering &4Mana&0 is one of the most important skills a botanist needs to master.
-botania.page.mIntro1=In order to create &4Mana&0, one would require a set of &4Generating Flowers&0 (read the respective section). This &4Mana&0 can be dispersed by utilizing &1Mana Spreaders&0 and stored in &1Mana Pools&0. &4Mana&0 can be used for a myriad of different things. For starters, it can be used for &4Functional Flowers&0 (read the respective section).
-botania.page.mIntro2=To get started with mastering the art of &4Mana&0, one would start by learning how to use &1Dayblooms&0, &1Mana Spreaders&0 and &1Mana Pools&0.<br>These form a basic infrastructure for mana, which can be used for all sorts of purposes. Have a read at the &4Functional Flora&0 and &4Magical Apparatus&0 sections of this Lexicon. 
+botania.entry.mIntro=A.마나에 대한 소개
+botania.page.mIntro0=&4마나&0는 매우 미묘한 물질입니다. 마나를 쉽게 설명하자면 대충 &4신비로운 힘&0정도가 되겠네요. 이 물질은 매우 변덕쟁이라서 환경이나 여건에 따라 자신의 색상을 바꿉니다.<br>완벽한 &4마나&0조작은 식물학자가 마스터해야하는 가장 중요한 기술 중에 하나입니다.
+botania.page.mIntro1=&4마나&0를 생성하기 위해서는 &4생산성 식물&0이 필요합니다(자세한 내용은 해당 탭을 참고해 주세요). 여기서 생산된 &4마나&0는 &1마나 공급기&0를 통해 옮겨져 &1마나웅덩이&0에 저장됩니다. &4마나&0를 사용하는 방법은 무수히 많습니다. 한가지 예로 &4기능성 식물&0등이 있죠(자세한 사항은 해당탭 참고).
+botania.page.mIntro2=이런 예술적인 &4마나&0를 마스터 하기위해서 시작으로 &1해맞이 꽃&0,&1마나 공급기&0 그리고 &1희미한 마나웅덩이&0를 만들어서 예습을 해 봅시다 <br>가장 기본적인 마나에 대해 알아보았습니다. 이 마나를 사용하는 방법에 대해서는 &4생산성 식물&0혹은 &4기능성 식물&0탭을 확인해 주세요.
 
 # -- MANA SPREADER
 botania.entry.spreader=마나 공급기
