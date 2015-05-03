@@ -102,6 +102,7 @@ botaniamisc.diceRoll=The dice lands on a %s, you notice that it transforms into 
 botaniamisc.dudDiceRoll=The dice lands on a %s, it seemed to vanish into thin air afterward.
 botaniamisc.blockAway=1 Block Away
 botaniamisc.blocksAway=%s Blocks Away
+botaniamisc.cords=[%x, %y, %z]
 botaniamisc.clickToTeleport=Right click to Teleport
 botaniamisc.clickToRemoveWarp=Shift-left click to Remove
 botaniamisc.unboundWarp=Unbound Warp Point
