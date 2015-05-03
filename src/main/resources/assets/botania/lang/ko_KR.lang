@@ -1,4 +1,4 @@
-#번역시 주의 점: 현재 꽃이름을 제외한 발음표기는 대부분 패러디로 무리한 한글화를 진행하지 말아주세요(Ex.Tiny Potato) 한글정발을 제외한 모든 패러디는 발음대로 적어주시길 바랍니다.
+﻿#번역시 주의 점: 현재 꽃이름을 제외한 발음표기는 대부분 패러디로 무리한 한글화를 진행하지 말아주세요(Ex.Tiny Potato) 한글정발을 제외한 모든 패러디는 발음대로 적어주시길 바랍니다.
 # MISC
 itemGroup.Botania=보타니아 [Botania]
 
@@ -166,8 +166,8 @@ botania.sign5=처녀궁
 botania.sign6=천칭궁
 botania.sign7=천갈궁
 botania.sign8=사수궁
-botania.sign9=수병궁
-botania.sign10=마강궁
+botania.sign9=마강궁
+botania.sign10=수병궁
 botania.sign11=쌍어궁
 
 # WINGS

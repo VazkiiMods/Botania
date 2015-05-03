@@ -1,4 +1,4 @@
-# MISC
+﻿# MISC
 itemGroup.Botania=Botania
 
 # Something that is not localized, translators, do NOT change this line.
@@ -165,8 +165,8 @@ botania.sign5=Virgo
 botania.sign6=Libra
 botania.sign7=Scorpio
 botania.sign8=Sagittarius
-botania.sign9=Aquarius
-botania.sign10=Capricorn
+botania.sign9=Capricorn
+botania.sign10=Aquarius
 botania.sign11=Pisces
 
 # WINGS
