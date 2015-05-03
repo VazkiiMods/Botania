@@ -100,9 +100,9 @@ botaniamisc.relicUnbound=&6유물&7, 귀속되지 않음
 botaniamisc.relicSoulbound=&6유물&7, &f%s에게 귀속
 botaniamisc.notYourSagittarius=&4이 유물은 당신의 소유가 아닙니다!
 botaniamisc.diceRoll=당신은 주사위를 굴려서 숫자 %s가 나왔습니다. 주사위는 무언가로 변한 듯 합니다.
-botaniamisc.dudDiceRoll=The dice lands on a %s, it seemed to vanish into thin air afterward.
-botaniamisc.blockAway=1 블럭 전
-botaniamisc.blocksAway=%s 블럭 전
+botaniamisc.dudDiceRoll=당신은 주사위를 굴려서 숫자 %s가 나왔습니다, 허공으로 사라져버렸습니다..!?
+botaniamisc.blockAway=한블럭 전
+botaniamisc.blocksAway=%s블럭 전
 botaniamisc.clickToTeleport=우클릭으로 텔레포트
 botaniamisc.clickToRemoveWarp=쉬프트-왼클릭으로 삭제
 botaniamisc.unboundWarp=설정되지 않은 워프 포인트
@@ -274,12 +274,12 @@ spreader.posShift=Spreader Pos Shift
 versionChecking.enabled=버전 체크 활성화
 wandBeam.static=Enable Static Wand Beam
 worldgen.flower.density=꽃의 밀도
-worldgen.flower.quantity=꽃의 량
-worldgen.mushroom.quantity=버섯의 량
+worldgen.flower.quantity=꽃의 양
+worldgen.mushroom.quantity=버섯의 양
 
 # VERSION CHECKING
 botania.versioning.flavour0=나니 소레!? 보타니아가 구버전이라니!?
-botania.versioning.flavour1=What do you mean Botania is outdated, you ignorant fool?
+botania.versioning.flavour1=보타니아가 이렇게 까지 오래될때 까지 뭐하셨어요? 바보입니까?
 botania.versioning.flavour2=그 누구도 구버전 보타니아를 좋아하지 않아, 바카!!
 botania.versioning.flavour3=나를 전송시켜줘 스코티. 우리는 새로운 보타니아의 버전이 있어.
 botania.versioning.flavour4=The Botania update asks if you have you accepted Vazkii as your lord and saviour.
@@ -290,9 +290,9 @@ botania.versioning.flavour8=Because having a life is too mainstream, here's a Bo
 botania.versioning.flavour9=보타니아 업데이트를 해줘서 감사합니다.
 botania.versioning.flavour10=Two hundred updates, that's why they call me Mister Fahrenheit.
 botania.versioning.flavour11=Perry the Platypus, I present to you, Botania-update-inator.
-botania.versioning.flavour12=Botania updated. #hoennconfirmed
+botania.versioning.flavour12=보타니아 업데이트! #허니버터칩
 botania.versioning.flavour13=흑형의 함정카드발동! 뜬↗뜬↘뜬↗ 이제 보타니아를 즐기게 된다!
-botania.versioning.flavour14=Let's play a drinking game, have a drink every time Botania updates. *hic*
+botania.versioning.flavour14=음주게임을 시작해봅시다, 보타니아 업데이트 마다 한병씩 히끅...
 botania.versioning.flavour15=Pay no attention to the Botania update behind the curtain.
 botania.versioning.flavour16=You get an update! You get an update! EVERYONE GETS AN UPDATE! 
 botania.versioning.flavour17=Your build's unbalanced and your hair's a Kuriboh! Hey. Hoo. 
@@ -310,8 +310,8 @@ botania.versioning.flavour28=BotaniaWow! You'll say wow every time! As seen on y
 botania.versioning.flavour29=그냥 보타니아를 업데이트, 업데이트, 업데이트 , 업데이트 하세요! 구버전따위 원하는 사람은 없습니다!
 botania.versioning.flavour30=보타니아가 업데이트를 시전했다! 효과가 엄청났다! 
 botania.versioning.flavour31=A new Botania update is available, now 20% cooler.
-botania.versioning.flavour32=Congratulations! You're the 100,000th Botania player with an outdated version, click HERE for a free iPad!
-botania.versioning.flavour33=당신의 보타니아 버전을 업데이트하기 전에, ask툴바를 설치하시겠습니까??
+botania.versioning.flavour32=축하드립니다! 당신은 100,000째 구버전 보타니아를 사용하고 계십니다, 이곳을 클릭해서 아이패드를 받아가세요!
+botania.versioning.flavour33=당신의 보타니아 버전을 업데이트하기 전에, ask툴바를 설치하시겠습니까?
 botania.versioning.flavour34=Back on the Botania update treadmill. No fun required. #angbadang
 botania.versioning.flavour35=나와 보타니아를 하고 마법소녀가 되어줘!
 botania.versioning.flavour36=Why did the Botania Update cross the road? To get to the client side.
@@ -334,7 +334,7 @@ botania.versioning.startingDownload=%s의 다운로드를 시작합니다. 하�
 botania.versioning.doneDownloading=%s의 다운로드가 끝났습니다. 당신의 보타니아 구버젼 MODNAME.jar 을 제거해주시고 업데이트를 위해 마인크래프트를 재시작 해주세요
 botania.versioning.downloadedAlready=당신은 이미 최신 버젼을 다운로드 하셨습니다. 게임을 종료하시고, .minecraft - mods 에서 구버젼을 삭제해주세요, 그리고 게임을 재시작 해주세요!
 botania.versioning.downloadingAlready=이미 다운로드 중입니다. 조금만 더 시간을 주세요.
-botania.versioning.error=앗! Botania 업데이트 파일 다운로드중 오류가 생긴거 같습니다. botaniamod.net에서 받아주세요
+botania.versioning.error=앗! 보타니아 업데이트 파일 다운로드중 오류가 생긴거 같습니다. botaniamod.net에서 받아주세요
 botania.versioning.disabled=Sorry. This feature is currently disabled due to server host problems, it should be back soon.
 
 # BAUBLE TOOLTIPS
@@ -445,7 +445,7 @@ achievement.botania:dirtRodCraft.desc=Craft a dirty sti- er... Rod of the Lands
 achievement.botania:spawnerMoverUse=(검열삭제)를 벗을 수 있는 걸
 achievement.botania:spawnerMoverUse.desc=Use a Life Aggregator to transport a Monster Spawner
 achievement.botania:enderAirMake=Imitation Air
-achievement.botania:enderAirMake.desc=Collect a Bottle of Ender Air
+achievement.botania:enderAirMake.desc=엔더의 공기를 병에 넣어보세요
 achievement.botania:corporeaCraft=Drop Pop Candy
 achievement.botania:corporeaCraft.desc=Craft a block that makes use of the Corporea Network
 
@@ -477,6 +477,8 @@ achievement.botania:lokiRing.desc=Be rewarded the Ring of Loki for a heroic feat
 achievement.botania:aesirRing=신이 내린 뜻대로
 achievement.botania:aesirRing.desc=Create the Ring of the Aesir by combining the Rings of the Gods
 
+achievement.botania:nullFlower=Take it Easy
+achievement.botania:nullFlower.desc=정의되지 않은 보타니아 꽃들의 버그를 찾고 보고해보세요!
 achievement.botania:desuGun=겉과 속이 다른 러버즈
 achievement.botania:desuGun.desc=ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
 #                                 ^ Don't localize
@@ -1319,7 +1321,7 @@ item.botania:lokiRing.name=로키의 반지
 item.botania:aesirRing.name=아사의 반지
 item.botania:dice.name=운명의 주사위
 item.botania:keepIvy.name=단호한 아이비
-item.botania:blackHoleTalisman.name=검은색 성스러운 부적
+item.botania:blackHoleTalisman.name=성스러운 검은색 부적
 item.botania:recordGaia1.name=손상된 디스크
 item.botania:recordGaia2.name=손상된 디스크
 
@@ -2597,7 +2599,7 @@ botania.page.relics0=There's an old tale from the high clans of Alfheim. It says
 botania.entry.elvenLore=Elven Lore - The Shattering
 botania.page.elvenLore0=It seems this section of the lexicon is just a bunch of pieces of paper. By the looks of them, they seem like they were taken from a document from the libraries of Elven Garde.<br>Their contents should contain historical knowledge, but doubtfully anything important to the studies of botany itself.
 botania.page.elvenLore1=&oA few millennia have passed since The Shattering. The amount of us who actually know about what really happened that day is rather minute. Nidavellir broke down, and while the Dwarves' incredible resistance helped, a great part of their technology and civilization was eradicated. Muspelheim, what was (...)
-botania.page.elvenLore2=&opreviously in the very opposite corner of the World Tree herself collided with Asgard, merging the two worlds in an apocalypse, eradicating any life remaining in that world. There's theories that state Hel was also involved in the event, although none were ever confirmed. Fissures in the ground of (...)
+botania.page.elvenLore2=&opreviously in the very opposite corner of the World Tree herself collided with Midgard, merging the two worlds in an apocalypse, eradicating any life remaining in that world. There's theories that state Hel was also involved in the event, although none were ever confirmed. Fissures in the ground of (...)
 botania.page.elvenLore3=&oJotunheim opened all around, massacring a great portion of the Giants who lived there, its current status remains unknown. Niflheim seemed to stay in place, unlike Muspelheim, interestingly enough. Since it contained no known lifeforms, we can admit that damage is irrelevant. Lastly, ourselves, the (...)
 botania.page.elvenLore4=&oelves of Alfheim, the damage on our world was somewhat split. The Salamander and Undine clans suffered a massive cut on their population, due to the unstableness of their volcanic and aquatic environments, respectively. Most of the Sylph were completely intact due to their extraordinary flight capabilities, the (...)
 botania.page.elvenLore5=&oSpriggan also had fairly small scale consequences. During that time our civilization prospects were fairly weak and our choices of residence were mostly just huts made of Dreamwood, so, luckily, rebuilding was little of a chore. Allewyn, our emissary in Asgard witnessed this happening, everything happened faster (...)
@@ -2617,7 +2619,7 @@ botania.page.unstableBlocks6=It's also possible, by using the &1Unstable Beacons
 botania.page.unstableBlocks7=Shoot in case of titan
 
 # -- DECORATIVE BLOCKS
-botania.entry.decorativeBlocks=Decorative Blocks
+botania.entry.decorativeBlocks=데코레이션 블럭
 botania.page.decorativeBlocks0=Past functionality, quite a few decorative blocks are available to make your builds look better.<br>Starting off. It's possible to turn blocks of &1Livingrock&0 and &1Livingwood&0 into decorative blocks. Each of them features 4 different decorative variations.
 botania.page.decorativeBlocks1=Livingrock bricks.
 botania.page.decorativeBlocks2=Mossing the bricks
