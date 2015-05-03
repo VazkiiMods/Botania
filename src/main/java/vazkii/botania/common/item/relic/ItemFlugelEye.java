@@ -322,8 +322,8 @@ public class ItemFlugelEye extends ItemRelic {
 			int ypos = pos.y;
 			int zpos = pos.z;
 			
-			coordsString.format(StatCollector.translateToLocal("botaniamisc.cords"), xpos, ypos, zpos);
-			font.drawStringWithShadow(cords, resolution.getScaledWidth() / 2 - font.getStringWidth(s) / 2, resolution.getScaledHeight() / 2 - 40, 0x4C4C7F);
+			coords = String.format(StatCollector.translateToLocal("botaniamisc.cords"), xpos, ypos, zpos);
+			font.drawStringWithShadow(co0rds, resolution.getScaledWidth() / 2 - font.getStringWidth(s) / 2, resolution.getScaledHeight() / 2 - 40, 0x4C4C7F);
 			s = dist == 1 ? StatCollector.translateToLocal("botaniamisc.blockAway") : String.format(StatCollector.translateToLocal("botaniamisc.blocksAway"), dist);
 			font.drawStringWithShadow(s, resolution.getScaledWidth() / 2 - font.getStringWidth(s) / 2, resolution.getScaledHeight() / 2 - 30, 0x9999FF);
 			s = StatCollector.translateToLocal("botaniamisc.clickToTeleport");
