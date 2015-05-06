@@ -18,6 +18,9 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelHelm;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumHelm;
+import vazkii.botania.common.item.interaction.thaumcraft.ItemElementiumHelmRevealing;
+import vazkii.botania.common.item.interaction.thaumcraft.ItemManasteelHelmRevealing;
+import vazkii.botania.common.item.interaction.thaumcraft.ItemTerrasteelHelmRevealing;
 
 public class HelmRevealingRecipe implements IRecipe {
 
@@ -56,13 +59,21 @@ public class HelmRevealingRecipe implements IRecipe {
 			return null;
 
 		ItemStack helmCopy = Helm.copy();
-		ItemStack newHelm = 
-		return terraPickCopy;
+		switch (checkHelm(helmCopy)):
+			case 1:	ItemStack newHelm = new ItemManasteelHelmRevealing(helmCopy);
+				break;
+			case 2: ItemStack newHelm = new ItemTerrasteelHelmRevealing(helmCopy);
+				break;
+			case 3: ItemStack newHelm = new ItemElementiumHelmRevealing(helmCopy);
+				break;
+			default: ItemStack newHelm = null;
+				break;
+		return newHelm;
 	}
 
 	@Override
 	public int getRecipeSize() {
-		return 10;
+		return 10; //WTF does this do?
 	}
 
 	@Override
@@ -70,10 +81,11 @@ public class HelmRevealingRecipe implements IRecipe {
 		return null;
 	}
 	
-	private boolean checkHelm(ItemStack helmStack){
+	private int checkHelm(ItemStack helmStack) { //Tried to do a switch/case but got too complex
 	if(helmStack instanceof ItemManasteelHelm){return 1;}
-	if(helmStack instanceof ItemManasteelHelm){return 1;}
-	return (helmStack instanceof ItemManasteelHelm || helmStack instanceof ItemTerrasteelHelm || helmStack instanceof ItemElementiumHelm);
+	if(helmStack instanceof ItemTerrasteelHelm){return 2;}
+	if(helmStack instanceof ItemElementiumHelm){return 3;}
+	return 0;
 	}
 
 }
