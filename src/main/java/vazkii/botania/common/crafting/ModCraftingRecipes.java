@@ -21,6 +21,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.oredict.RecipeSorter;
+import net.minecraftforge.oredict.RecipeSorter.Category;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import vazkii.botania.api.BotaniaAPI;
@@ -29,10 +32,12 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.tile.TileCraftCrate;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.crafting.recipe.HelmRevealingRecipe;
 import vazkii.botania.common.item.ItemSignalFlare;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibOreDict;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public final class ModCraftingRecipes {
@@ -201,6 +206,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeRegenIvy;
 	public static IRecipe recipeUltraSpreader;
 	public static IRecipe recipeHelmetOfRevealing;
+	public static IRecipe recipeFakeHelmetOfRevealing;
 	public static IRecipe recipeVial;
 	public static IRecipe recipeFlask;
 	public static IRecipe recipeBrewery;
@@ -256,7 +262,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeBlazeBlock;
 	public static List<IRecipe> recipesAltarMeta;
 	public static IRecipe recipeCorporeaCrystalCube;
-
+	private static ItemStack impossibleHelm;
 	public static void init() {
 		// Lexicon Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lexicon), "treeSapling", Items.book);
@@ -1727,11 +1733,10 @@ public final class ModCraftingRecipes {
 
 		// Revealing Helmet Recipes
 		if(Botania.thaumcraftLoaded) {
-			Item goggles = (Item) Item.itemRegistry.getObject("Thaumcraft:ItemGoggles");
-			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manasteelHelmRevealing), new ItemStack(ModItems.manasteelHelm), new ItemStack(goggles));
-			recipeHelmetOfRevealing = BotaniaAPI.getLatestAddedRecipe();
-			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.terrasteelHelmRevealing), new ItemStack(ModItems.terrasteelHelm), new ItemStack(goggles));
-			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.elementiumHelmRevealing), new ItemStack(ModItems.elementiumHelm), new ItemStack(goggles));
+			impossibleHelm = new ItemStack(ModItems.manasteelHelm);
+			impossibleHelm.setItemDamage(5);
+			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manasteelHelmRevealing), impossibleHelm, (Item) Item.itemRegistry.getObject("Thaumcraft:ItemGoggles"));
+			recipeFakeHelmetOfRevealing = BotaniaAPI.getLatestAddedRecipe();
 		}
 
 		// Slab & Stair Recipes
