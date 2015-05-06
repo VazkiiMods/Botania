@@ -53,6 +53,8 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 
 	public ItemTerrasteelHelm(String name) {
 		super(0, name);
+		GameRegistry.addRecipe(new TerrasteelHelmRevealingRecipe());
+		RecipeSorter.register("botania:terraHelmRevealing", TerrasteelHelmRevealingRecipe.class, Category.SHAPELESS, "");
 	}
 
 	@Override
