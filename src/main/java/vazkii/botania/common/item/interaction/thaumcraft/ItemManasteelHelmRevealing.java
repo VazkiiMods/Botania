@@ -28,6 +28,14 @@ public class ItemManasteelHelmRevealing extends ItemManasteelHelm implements IGo
 		super(LibItemNames.MANASTEEL_HELM_R);
 	}
 
+	public ItemManasteelHelmRevealing(ItemManasteelHelm oldHelm) { //Used when crafting
+
+		super(LibItemNames.MANASTEEL_HELM_R);
+
+		ItemNBTHelper.injectNBT(this, ItemNBTHelper.getNBT(oldHelm)); //Nuke the defaults and add the old
+
+	}
+
 	@Override
 	public boolean showNodes(ItemStack itemstack, EntityLivingBase player) {
 		return true;

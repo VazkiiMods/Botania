@@ -28,6 +28,14 @@ public class ItemTerrasteelHelmRevealing extends ItemTerrasteelHelm implements I
 		super(LibItemNames.TERRASTEEL_HELM_R);
 	}
 
+	public ItemTerrasteelHelmRevealing(ItemTerrasteelHelm oldHelm) { //Used when crafting
+
+		super(LibItemNames.TERRASTEEL_HELM_R);
+
+		ItemNBTHelper.injectNBT(this, ItemNBTHelper.getNBT(oldHelm)); //Nuke the defaults and add the old
+
+	}
+	
 	@Override
 	public boolean showNodes(ItemStack itemstack, EntityLivingBase player) {
 		return true;
