@@ -32,6 +32,7 @@ public class ItemElementiumHelmRevealing extends ItemElementiumHelm implements I
 
 		super(LibItemNames.ELEMENTIUM_HELM_R);
 
+		ItemNBTHelper.injectNBT(this, ItemNBTHelper.getNBT(oldHelm)); //Nuke the defaults and add the old
 
 	}
 
