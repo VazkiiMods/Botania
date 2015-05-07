@@ -28,6 +28,14 @@ public class ItemElementiumHelmRevealing extends ItemElementiumHelm implements I
 		super(LibItemNames.ELEMENTIUM_HELM_R);
 	}
 
+	public ItemElementiumHelmRevealing(ItemElementiumHelm oldHelm) { //Used when crafting
+
+		super(LibItemNames.ELEMENTIUM_HELM_R);
+
+		ItemNBTHelper.injectNBT(this, ItemNBTHelper.getNBT(oldHelm)); //Nuke the defaults and add the old
+
+	}
+
 	@Override
 	public boolean showNodes(ItemStack itemstack, EntityLivingBase player) {
 		return true;
