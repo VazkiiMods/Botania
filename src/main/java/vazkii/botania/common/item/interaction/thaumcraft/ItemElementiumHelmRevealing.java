@@ -12,11 +12,14 @@ package vazkii.botania.common.item.interaction.thaumcraft;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
 import thaumcraft.api.IGoggles;
 import thaumcraft.api.nodes.IRevealer;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumHelm;
 import vazkii.botania.common.lib.LibItemNames;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Optional;
 
 @Optional.InterfaceList({
