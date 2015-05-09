@@ -8,6 +8,21 @@ Hey there. Looks like you want to contribute with an issue. Great. Here's what y
   * Duplicate issues or issues that have been solved already (use the search feature!) will be closed without asking.
   * Do not tag your issues' names. "Something Broke" is prefered to "[Bug] Something Broke"  because there's a proper label system in place.
   * Post suggestions or ideas on reddit or the forums. This is for bugs, not ideas.
-* [Report the Issue](https://github.com/Vazkii/Botania/issues)!
+
+The following *bugs* are not accepted:
+* Intended Behaviour
+  * The e in Excaliber
+  * Double tall flowers need be harvested with shears to not clutter the inventory
+* Already fixed but people keep reporting it for some reason
+  * Wearing a Ring of Loki or Ring of the Aesir shows a wireframe below bedrock
+* Not a botania problem/Not fixable
+  * Crash on startup with ChromatiCraft is installed (update CC) 
+  * Crash on opening the Lexica Botania with Enchiridion installed (update Enchiridion)
+  * Flowers don't render (Optifine issue)
+  * Mana Bursts get destroyed on Cauldron by the ClearLagg plugin (add botania:manaBurst to the ClearLagg blacklist)
+  * Force Relays destroy blocks when used very fast (Can't fix due to the nature of the block)
+  * Terrasteel crafting won't start (make sure your checkerboard is correct, there's Livingrock under the plate)
+
+[Report the Issue](https://github.com/Vazkii/Botania/issues)!
 
 You can find me at most times on [#vazkii @ irc.esper.net](http://webchat.esper.net/?channels=vazkii), if you need to speak with me about the issue you would report.
