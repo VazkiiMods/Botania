@@ -12,20 +12,12 @@ package vazkii.botania.common.item.interaction.thaumcraft;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.oredict.RecipeSorter;
-import net.minecraftforge.oredict.RecipeSorter.Category;
 import thaumcraft.api.IGoggles;
 import thaumcraft.api.nodes.IRevealer;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.crafting.recipe.TerraPickTippingRecipe;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
 import vazkii.botania.common.lib.LibItemNames;
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Optional;
-import cpw.mods.fml.common.registry.GameRegistry;
-import vazkii.botania.common.crafting.recipe.HelmRevealingRecipe;
 
 @Optional.InterfaceList({
 	@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.IGoggles", striprefs = true),
@@ -34,10 +26,8 @@ public class ItemTerrasteelHelmRevealing extends ItemTerrasteelHelm implements I
 
 	public ItemTerrasteelHelmRevealing() {
 		super(LibItemNames.TERRASTEEL_HELM_R);
-		GameRegistry.addRecipe(new HelmRevealingRecipe());
-		RecipeSorter.register("botania:helmRevealingRecipe", HelmRevealingRecipe.class, Category.SHAPELESS, "");
 	}
-	
+
 	@Override
 	public boolean showNodes(ItemStack itemstack, EntityLivingBase player) {
 		return true;

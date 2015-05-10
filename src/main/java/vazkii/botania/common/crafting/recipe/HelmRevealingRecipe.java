@@ -29,7 +29,7 @@ public class HelmRevealingRecipe implements IRecipe {
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
 			if(stack != null) {
-				if(checkHelm(stack) != 0)
+				if(checkHelm(stack))
 					foundHelm = true;
 
 				else if(stack.getItem() == (Item) Item.itemRegistry.getObject("Thaumcraft:ItemGoggles"))
@@ -47,7 +47,7 @@ public class HelmRevealingRecipe implements IRecipe {
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null && checkHelm(stack) != 0)
+			if(stack != null && checkHelm(stack))
 				helm = stack;
 		}
 
@@ -55,26 +55,35 @@ public class HelmRevealingRecipe implements IRecipe {
 			return null;
 
 		ItemStack helmCopy = helm.copy();
+		Item helmItem = helmCopy.getItem();
+
 		ItemStack newHelm;
-		switch (checkHelm(helmCopy)) {
-			case 1:	newHelm = new ItemStack(ModItems.manasteelHelmRevealing);
-				break;
-			case 2: newHelm = new ItemStack(ModItems.terrasteelHelmRevealing);
-				break;
-			case 3: newHelm = new ItemStack(ModItems.elementiumHelmRevealing);
-				break;
-			default: newHelm = null;
-				break;
+		
+		if(helmItem == ModItems.manasteelHelm){	
+			newHelm = new ItemStack(ModItems.manasteelHelmRevealing);
 		}
+		
+		else if(helmItem == ModItems.terrasteelHelm){	
+			newHelm = new ItemStack(ModItems.terrasteelHelmRevealing);
+		}
+		
+		else if(helmItem == ModItems.elementiumHelm){	
+			newHelm = new ItemStack(ModItems.elementiumHelmRevealing);
+		}
+		else{
+			return null;
+		}
+		
+		//Copy Ancient Wills
 		for(int i = 0; i < 6; i++){
-			if(ItemNBTHelper.getBoolean(helmCopy, "AncientWill" + i, false)){
+			if(ItemNBTHelper.getBoolean(helmCopy, "AncientWill" + i, false))
 				ItemNBTHelper.setBoolean(newHelm, "AncientWill" + i, true);
-			}
 		}
+		//Copy Enchantments
 		NBTTagList enchList = ItemNBTHelper.getList(helmCopy, "ench", 10, true);
-		if(enchList != null){
+		if(enchList != null)
 			ItemNBTHelper.setList(newHelm, "ench", enchList);
-		}
+		
 		return newHelm;
 	}
 
@@ -85,14 +94,12 @@ public class HelmRevealingRecipe implements IRecipe {
 
 	@Override
 	public ItemStack getRecipeOutput() {
-		return null;
+		return new ItemStack(ModItems.manasteelHelmRevealing);
 	}
 	
-	private int checkHelm(ItemStack helmStack) {
-		if(helmStack.getUnlocalizedName().contains("item.manasteelHelm") && !helmStack.getUnlocalizedName().contains("Reveal")){return 1;}
-		if(helmStack.getUnlocalizedName().contains("item.terrasteelHelm") && !helmStack.getUnlocalizedName().contains("Reveal")){return 2;}
-		if(helmStack.getUnlocalizedName().contains("item.elementiumHelm") && !helmStack.getUnlocalizedName().contains("Reveal")){return 3;}
-		return 0;
+	private boolean checkHelm(ItemStack helmStack) {
+		Item helmItem = helmStack.getItem();
+		return (helmItem == ModItems.manasteelHelm || helmItem == ModItems.terrasteelHelm || helmItem == ModItems.elementiumHelm);
 	}
 
 }

@@ -21,9 +21,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.oredict.RecipeSorter;
-import net.minecraftforge.oredict.RecipeSorter.Category;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import vazkii.botania.api.BotaniaAPI;
@@ -32,12 +29,10 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.tile.TileCraftCrate;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.crafting.recipe.HelmRevealingRecipe;
 import vazkii.botania.common.item.ItemSignalFlare;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibOreDict;
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public final class ModCraftingRecipes {
@@ -1733,10 +1728,10 @@ public final class ModCraftingRecipes {
 
 		// Revealing Helmet Recipes
 		if(Botania.thaumcraftLoaded) {
-			impossibleHelm = new ItemStack(ModItems.manasteelHelm);
-			impossibleHelm.setItemDamage(5);
-			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manasteelHelmRevealing), impossibleHelm, (Item) Item.itemRegistry.getObject("Thaumcraft:ItemGoggles"));
-			recipeFakeHelmetOfRevealing = BotaniaAPI.getLatestAddedRecipe();
+			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manasteelHelmRevealing), new ItemStack(ModItems.manasteelHelm), (Item) Item.itemRegistry.getObject("Thaumcraft:ItemGoggles"));
+			recipeHelmetOfRevealing = BotaniaAPI.getLatestAddedRecipe(); //We want manasteel to show in the Lexicon
+			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.terrasteelHelmRevealing), new ItemStack(ModItems.terrasteelHelm), (Item) Item.itemRegistry.getObject("Thaumcraft:ItemGoggles"));
+			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.elementiumHelmRevealing), new ItemStack(ModItems.elementiumHelm), (Item) Item.itemRegistry.getObject("Thaumcraft:ItemGoggles"));
 		}
 
 		// Slab & Stair Recipes
