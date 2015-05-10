@@ -256,7 +256,10 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeBlazeBlock;
 	public static List<IRecipe> recipesAltarMeta;
 	public static IRecipe recipeCorporeaCrystalCube;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3ae95c2fb2c80ffcc2db8a3e9438bb1410af1fa0
 	public static void init() {
 		// Lexicon Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lexicon), "treeSapling", Items.book);
