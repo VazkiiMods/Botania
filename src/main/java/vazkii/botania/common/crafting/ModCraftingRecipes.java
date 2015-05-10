@@ -201,7 +201,6 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeRegenIvy;
 	public static IRecipe recipeUltraSpreader;
 	public static IRecipe recipeHelmetOfRevealing;
-	public static IRecipe recipeFakeHelmetOfRevealing;
 	public static IRecipe recipeVial;
 	public static IRecipe recipeFlask;
 	public static IRecipe recipeBrewery;
@@ -257,7 +256,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeBlazeBlock;
 	public static List<IRecipe> recipesAltarMeta;
 	public static IRecipe recipeCorporeaCrystalCube;
-	private static ItemStack impossibleHelm;
+
 	public static void init() {
 		// Lexicon Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lexicon), "treeSapling", Items.book);
