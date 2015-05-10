@@ -97,7 +97,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 						break;
 					}
 			}
-		} else if(stack.getItem() != null && SEED_PATTERN.matcher(stack.getItem().getUnlocalizedName()).find()) {
+		} else if(stack.getItem() != null && SEED_PATTERN.matcher(stack.getItem().getUnlocalizedName(stack)).find()) {
 			for(RecipePetals recipe : BotaniaAPI.petalRecipes) {
 				if(recipe.matches(this)) {
 					for(int i = 0; i < getSizeInventory(); i++)
