@@ -162,7 +162,7 @@ public class ItemExcaliber extends ItemManasteelSword implements IRelic, ILensEf
 			AxisAlignedBB axis1 = AxisAlignedBB.getBoundingBox(entity.posX, entity.posY, entity.posZ, entity.lastTickPosX, entity.lastTickPosY, entity.lastTickPosZ).expand(5, 5, 5);
 			List<EntityLivingBase> entities = entity.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, axis1);
 			for(EntityLivingBase living : entities) {
-				if(living instanceof EntityPlayer && (((EntityPlayer) living).getCommandSenderName().equals(attacker) || MinecraftServer.getServer() != null && !MinecraftServer.getServer().isPVPEnabled()) || living.hurtTime != 0)
+				if(!(living instanceof EntityPlayer) && living.hurtTime != 0)
 					continue;
 
 				homeID = living.getEntityId();
