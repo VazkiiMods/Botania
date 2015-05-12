@@ -109,7 +109,7 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 
 		if(world.getBlockMetadata(x, y, z) == 0)
 			ItemGrassHorn.breakGrass(world, 0, x, y, z);
-		else {
+		else if(!world.isRemote) {
 			int range = 10;
 			List<EntityLiving> entities = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range + 1, y + range + 1, z + range + 1));
 			List<EntityLiving> shearables = new ArrayList();
@@ -144,7 +144,7 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 					break;
 
 				List<ItemStack> stacks = ((IShearable) entity).onSheared(stack, world, (int) entity.posX, (int) entity.posY, (int) entity.posZ, 0);
-				if(stacks != null && !world.isRemote)
+				if(stacks != null)
 					for(ItemStack wool : stacks) {
 						EntityItem ent = entity.entityDropItem(wool, 1.0F);
 						ent.motionY += world.rand.nextFloat() * 0.05F;
