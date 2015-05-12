@@ -10,10 +10,11 @@
  */
 package vazkii.botania.common.block.tile.string;
 
-import vazkii.botania.api.subtile.ISubTileContainer;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.BlockMushroom;
+import net.minecraft.tileentity.TileEntity;
+import vazkii.botania.api.subtile.ISubTileContainer;
 
 public class TileRedStringRelay extends TileRedString {
 
@@ -23,7 +24,8 @@ public class TileRedStringRelay extends TileRedString {
 			return false;
 
 		Block block = worldObj.getBlock(x, y, z);
-		return (block instanceof BlockFlower || block instanceof BlockMushroom) && !(block instanceof ISubTileContainer);
+		TileEntity tile = worldObj.getTileEntity(x, y, z);
+		return (block instanceof BlockFlower || block instanceof BlockMushroom) && (tile == null || !(tile instanceof ISubTileContainer));
 	}
 
 }
