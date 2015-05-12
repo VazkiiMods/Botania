@@ -1323,6 +1323,7 @@ item.botania:keepIvy.name=Resolute Ivy
 item.botania:blackHoleTalisman.name=Black Hole Talisman
 item.botania:recordGaia1.name=Scathed Music Disc
 item.botania:recordGaia2.name=Scathed Music Disc
+item.botania:temperanceStone.name=Stone of Temperance
 
 # BREW NAMES
 botania.brew.fallback=Fallback
@@ -2258,6 +2259,11 @@ botania.page.livingwoodBow1=Does it shoot airplanes?
 botania.entry.crystalBow=Crystal Bow
 botania.page.crystalBow0=Crafted with &1Dragonstone&0, the &1Crystal Bow&0 is a ranged weapon with the capacity to generate arrows from &4Mana&0. Similarly to the &1Livingwood Bow&0, it'll repair using &4Mana&0 as well, but carrying &1Arrows&0 is not required as they are created through the magical energies.<br>Given the lightweight and flexible structure of the bow, it can also fire at a much increased velocity than a conventional wooden one.
 botania.page.crystalBow1=The elves are roving
+
+# -- STONE OF TEMPERANCE
+botania.entry.temperanceStone=Stone of Temperance
+botania.page.temperanceStone0=The &1Terra Shatterer&0 is able to destroy huge tracts of land when charged to its maximum potential, however, this might not always be the user's intent. A small, 3x3 tunnel might be more fitting in some cases. Having an active &1Stone of Temperance&0 in one's inventory will prevent their shatterer from breaking any more than a 3x3 area. The stone can be toggled on and off by shift-right clicking.
+botania.page.temperanceStone1=Don't lose it
 
 # - ENDER ARTEFACTS
 # -- EXTRACTING ENDER AIR

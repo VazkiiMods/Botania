@@ -38,6 +38,7 @@ import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.recipe.TerraPickTippingRecipe;
 import vazkii.botania.common.item.ItemSpark;
+import vazkii.botania.common.item.ItemTemperanceStone;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemAuraRing;
 import vazkii.botania.common.item.equipment.bauble.ItemGreaterAuraRing;
@@ -158,7 +159,11 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		boolean doY = thor || direction.offsetY == 0;
 		boolean doZ = thor || direction.offsetZ == 0;
 
-		int level = getLevel(stack) + (thor ? 1 : 0);
+		int origLevel = getLevel(stack);
+		int level = origLevel + (thor ? 1 : 0);
+		if(ItemTemperanceStone.hasTemperanceActive(player) && level > 2)
+			level = 2;
+		
 		int range = Math.max(0, level - 1);
 		int rangeY = Math.max(1, range);
 
@@ -166,7 +171,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 			return;
 
 		ToolCommons.removeBlocksInIteration(player, stack, world, x, y, z, doX ? -range : 0, doY ? -1 : 0, doZ ? -range : 0, doX ? range + 1 : 1, doY ? rangeY * 2 : 1, doZ ? range + 1 : 1, null, MATERIALS, silk, fortune, isTipped(stack));
-		if(getLevel(stack) == 5)
+		if(origLevel == 5)
 			player.addStat(ModAchievements.rankSSPick, 1);
 	}
 

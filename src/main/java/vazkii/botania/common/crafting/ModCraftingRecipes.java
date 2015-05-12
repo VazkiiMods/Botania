@@ -256,6 +256,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeBlazeBlock;
 	public static List<IRecipe> recipesAltarMeta;
 	public static IRecipe recipeCorporeaCrystalCube;
+	public static IRecipe recipeTemperanceStone;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1703,6 +1704,13 @@ public final class ModCraftingRecipes {
 				'W', LibOreDict.DREAM_WOOD);
 		recipeCorporeaCrystalCube = BotaniaAPI.getLatestAddedRecipe();
 
+		// Stone of Temperance Recipe
+		addOreDictRecipe(new ItemStack(ModItems.temperanceStone), 
+				" S ", "SRS", " S ",
+				'S', "stone",
+				'R', LibOreDict.RUNE[2]);
+		recipeTemperanceStone = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",
