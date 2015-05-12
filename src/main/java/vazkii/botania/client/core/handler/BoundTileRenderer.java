@@ -76,7 +76,7 @@ public final class BoundTileRenderer {
 
 				if(stackInSlot.getItem() instanceof IExtendedWireframeCoordinateListProvider) {
 					ChunkCoordinates coords = ((IExtendedWireframeCoordinateListProvider) stackInSlot.getItem()).getSourceWireframe(player, stackInSlot);
-					if(coords != null && coords.y > -1)
+					if(coords != null && coords.posY > -1)
 						renderBlockOutlineAt(coords, color, 5F);
 				}
 			}
