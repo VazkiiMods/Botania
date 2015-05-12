@@ -1727,10 +1727,11 @@ public final class ModCraftingRecipes {
 
 		// Revealing Helmet Recipes
 		if(Botania.thaumcraftLoaded) {
-			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manasteelHelmRevealing), new ItemStack(ModItems.manasteelHelm), (Item) Item.itemRegistry.getObject("Thaumcraft:ItemGoggles"));
+			Item goggles = (Item) Item.itemRegistry.getObject("Thaumcraft:ItemGoggles");
+			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manasteelHelmRevealing), new ItemStack(ModItems.manasteelHelm), goggles);
 			recipeHelmetOfRevealing = BotaniaAPI.getLatestAddedRecipe(); //We want manasteel to show in the Lexicon
-			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.terrasteelHelmRevealing), new ItemStack(ModItems.terrasteelHelm), (Item) Item.itemRegistry.getObject("Thaumcraft:ItemGoggles"));
-			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.elementiumHelmRevealing), new ItemStack(ModItems.elementiumHelm), (Item) Item.itemRegistry.getObject("Thaumcraft:ItemGoggles"));
+			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.terrasteelHelmRevealing), new ItemStack(ModItems.terrasteelHelm), goggles);
+			GameRegistry.addShapelessRecipe(new ItemStack(ModItems.elementiumHelmRevealing), new ItemStack(ModItems.elementiumHelm), goggles);
 		}
 
 		// Slab & Stair Recipes

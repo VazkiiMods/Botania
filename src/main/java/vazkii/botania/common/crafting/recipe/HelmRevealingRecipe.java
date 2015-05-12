@@ -23,6 +23,9 @@ public class HelmRevealingRecipe implements IRecipe {
 
 	@Override
 	public boolean matches(InventoryCrafting var1, World var2) {
+		Item goggles = (Item) Item.itemRegistry.getObject("Thaumcraft:ItemGoggles");
+		if(goggles == null)
+			return false; // NO TC loaded
 		
 		boolean foundGoggles = false;
 		boolean foundHelm = false;
@@ -31,10 +34,8 @@ public class HelmRevealingRecipe implements IRecipe {
 			if(stack != null) {
 				if(checkHelm(stack))
 					foundHelm = true;
-
-				else if(stack.getItem() == (Item) Item.itemRegistry.getObject("Thaumcraft:ItemGoggles"))
+				else if(stack.getItem() == goggles)
 					foundGoggles = true;
-
 				else return false; // Found an invalid item, breaking the recipe
 			}
 		}
@@ -59,26 +60,19 @@ public class HelmRevealingRecipe implements IRecipe {
 
 		ItemStack newHelm;
 		
-		if(helmItem == ModItems.manasteelHelm){	
+		if(helmItem == ModItems.manasteelHelm)
 			newHelm = new ItemStack(ModItems.manasteelHelmRevealing);
-		}
-		
-		else if(helmItem == ModItems.terrasteelHelm){	
+		else if(helmItem == ModItems.terrasteelHelm)	
 			newHelm = new ItemStack(ModItems.terrasteelHelmRevealing);
-		}
-		
-		else if(helmItem == ModItems.elementiumHelm){	
+		else if(helmItem == ModItems.elementiumHelm)	
 			newHelm = new ItemStack(ModItems.elementiumHelmRevealing);
-		}
-		else{
-			return null;
-		}
+		else return null;
 		
 		//Copy Ancient Wills
-		for(int i = 0; i < 6; i++){
+		for(int i = 0; i < 6; i++)
 			if(ItemNBTHelper.getBoolean(helmCopy, "AncientWill" + i, false))
 				ItemNBTHelper.setBoolean(newHelm, "AncientWill" + i, true);
-		}
+
 		//Copy Enchantments
 		NBTTagList enchList = ItemNBTHelper.getList(helmCopy, "ench", 10, true);
 		if(enchList != null)
@@ -99,7 +93,7 @@ public class HelmRevealingRecipe implements IRecipe {
 	
 	private boolean checkHelm(ItemStack helmStack) {
 		Item helmItem = helmStack.getItem();
-		return (helmItem == ModItems.manasteelHelm || helmItem == ModItems.terrasteelHelm || helmItem == ModItems.elementiumHelm);
+		return helmItem == ModItems.manasteelHelm || helmItem == ModItems.terrasteelHelm || helmItem == ModItems.elementiumHelm;
 	}
 
 }
