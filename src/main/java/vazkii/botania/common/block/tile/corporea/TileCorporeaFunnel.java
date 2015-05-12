@@ -70,9 +70,12 @@ public class TileCorporeaFunnel extends TileCorporeaBase {
 			for(EntityItemFrame frame : frames) {
 				int orientation = frame.hangingDirection;
 				if(orientationToDir[orientation] == dir.ordinal()) {
-					ItemStack copy = frame.getDisplayedItem().copy();
-					copy.stackSize = rotationToStackSize[frame.getRotation()];
-					filter.add(copy);
+					ItemStack stack = frame.getDisplayedItem();
+					if(stack != null) {
+						ItemStack copy = stack.copy();
+						copy.stackSize = rotationToStackSize[frame.getRotation()];
+						filter.add(copy);
+					}
 				}
 			}
 		}

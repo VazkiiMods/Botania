@@ -65,6 +65,9 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 	}
 
 	public boolean requestMatches(Object request, ItemStack filter) {
+		if(filter == null)
+			return false;
+		
 		if(request instanceof ItemStack) {
 			ItemStack stack = (ItemStack) request;
 			return stack != null && stack.isItemEqual(filter) && ItemStack.areItemStacksEqual(filter, stack);
