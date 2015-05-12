@@ -1,4 +1,4 @@
-r1.8 188
+r1.6 188
 *Added Simple Ores and Netherrocks support for the Orechid. (Sinhika)
 *Added tall and petite flower alternate textures by Futureazoo.
 *Added the Stone of Temperance. A new "upgrade" item that will make the Terra Shatterer not break more than a 3x3 area.
