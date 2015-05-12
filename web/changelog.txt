@@ -1,3 +1,24 @@
+r1.8 188
+*Added Simple Ores and Netherrocks support for the Orechid. (Sinhika)
+*Added tall and petite flower alternate textures by Futureazoo.
+*Added the Stone of Temperance. A new "upgrade" item that will make the Terra Shatterer not break more than a 3x3 area.
+*Beams from Excaliber no longer home on players.
+*Dropping the Ring of the Aesir reverts it into its base components.
+*Fixed a crash when Corporea Interceptors or Funnels with an empty item frame are triggered.
+*Fixed Capricorn and Aquarius being backwards in the Eye of the Flugel. (Lazersmoke)
+*Fixed crafting mana Helmets of Revealing removing enchants and ancient wills. (Lazersmoke)
+*Fixed petal apothecary not checking properly for the item's name. KitchenCraft seeds now work with it. (tterag1098)
+*Fixed the Drum of the Gathering working on the client side and spawning fake cows when used on mooshrooms.
+*Fixed the Ring of Loki and Aesir rendering a wireframe below bedrock. (Lazersmoke)
+*Fixed the Ring of Loki and Ring of the Aesir displaying the source bounding box when in the inventory and not equipped.
+*Fixed the Talent Shredder achievement being achievable with rank S with a specific item. (Lazersmoke)
+*Made the Dice of Fate be biased towards positive results.
+*Red Stringed Spoofers can't connect to botania special flowers any more.
+*The Crafty Crate now automatically ejects its contents if full and no matching recipe is found.
+*The Gaia Guardian now only removes ambient potion effects (the ones with transparent particles).
+*Typo fixes. (MrKunji)
+*[API] Added ore weights to the orechid table for Simple Ores and Netherrocks. (Sinhika)
+*[API] Increased version number to 48.
 r1.6 187
 *Added an achievement for breaking the game.
 *Fixed a crash when placing down a flower.
