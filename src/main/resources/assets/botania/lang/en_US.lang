@@ -110,6 +110,7 @@ botaniamisc.hasKeepIvy=Has Resolute Ivy
 botaniamisc.active=&aActive
 botaniamisc.inactive=&cInactive
 botaniamisc.achievements=Botania Achievements
+botaniamisc.dropIkea=&bDropping this item will break it down into its components
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery

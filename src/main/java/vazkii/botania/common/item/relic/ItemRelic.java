@@ -26,6 +26,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemMod;
+import vazkii.botania.common.item.ModItems;
 
 public class ItemRelic extends ItemMod implements IRelic {
 
@@ -60,6 +61,9 @@ public class ItemRelic extends ItemMod implements IRelic {
 					addStringToTooltip(String.format(StatCollector.translateToLocal("botaniamisc.notYourSagittarius"), bind), list);
 			}
 
+			if(stack.getItem() == ModItems.aesirRing)
+				addStringToTooltip(StatCollector.translateToLocal("botaniamisc.dropIkea"), list);
+			
 			addStringToTooltip("", list);
 			String name = stack.getUnlocalizedName() + ".poem";
 			for(int i = 0; i < 4; i++)
