@@ -199,7 +199,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 
 	@Override
 	public ChunkCoordinates getSourceWireframe(EntityPlayer player, ItemStack stack) {
-		return getOriginPos(stack);
+		return getLokiRing(player) == stack ? getOriginPos(stack) : null;
 	}
 
 	private static ItemStack getLokiRing(EntityPlayer player) {
