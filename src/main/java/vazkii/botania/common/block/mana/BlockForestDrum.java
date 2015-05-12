@@ -138,21 +138,25 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 
 			Collections.shuffle(shearables);
 			int sheared = 0;
-
-			for(EntityLiving entity : shearables) {
-				if(sheared > 4)
-					break;
-
-				List<ItemStack> stacks = ((IShearable) entity).onSheared(stack, world, (int) entity.posX, (int) entity.posY, (int) entity.posZ, 0);
-				if(stacks != null && !world.isRemote)
-					for(ItemStack wool : stacks) {
-						EntityItem ent = entity.entityDropItem(wool, 1.0F);
-						ent.motionY += world.rand.nextFloat() * 0.05F;
-						ent.motionX += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F;
-						ent.motionZ += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F;
-					}
-				++sheared;
+			
+			if (!world.isRemote)
+			{
+				for(EntityLiving entity : shearables) {
+					if(sheared > 4)
+						break;
+	
+					List<ItemStack> stacks = ((IShearable) entity).onSheared(stack, world, (int) entity.posX, (int) entity.posY, (int) entity.posZ, 0);
+					if(stacks != null && !world.isRemote)
+						for(ItemStack wool : stacks) {
+							EntityItem ent = entity.entityDropItem(wool, 1.0F);
+							ent.motionY += world.rand.nextFloat() * 0.05F;
+							ent.motionX += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F;
+							ent.motionZ += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F;
+						}
+					++sheared;
+				}
 			}
+			//TODO:Sync?
 		}
 
 		if(!world.isRemote)
