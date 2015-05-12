@@ -10,6 +10,9 @@
  */
 package vazkii.botania.common.item.relic;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
@@ -50,8 +53,18 @@ public class ItemDice extends ItemRelic {
 			int moonPhase = world.provider.getMoonPhase(world.getWorldTime());
 			int side = SIDES_FOR_MOON_PHASES[moonPhase];
 			int relic = side;
-			if(hasRelicAlready(player, relic))
-				relic = world.rand.nextInt(6);
+			if(hasRelicAlready(player, relic)) {
+				List<Integer> possible = new ArrayList();
+				List<Integer> alreadyHas = new ArrayList();
+				for(int i = 0; i < 6; i++)
+					if(hasRelicAlready(player, i))
+						alreadyHas.add(i);
+					else possible.add(i);
+				
+				if(alreadyHas.size() > 0)
+					possible.add(alreadyHas.get(world.rand.nextInt(alreadyHas.size())));
+				relic = possible.get(world.rand.nextInt(possible.size()));
+			}
 
 			world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (world.rand.nextFloat() * 0.4F + 0.8F));
 
