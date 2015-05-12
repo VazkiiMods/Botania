@@ -18,9 +18,12 @@ import vazkii.botania.client.lib.LibResources;
 
 public final class IconHelper {
 
-
 	public static IIcon forName(IIconRegister ir, String name) {
 		return ir.registerIcon(LibResources.PREFIX_MOD + name);
+	}
+	
+	public static IIcon forName(IIconRegister ir, String name, String dir) {
+		return ir.registerIcon(LibResources.PREFIX_MOD + dir + "/" + name);
 	}
 
 	public static IIcon forBlock(IIconRegister ir, Block block) {
@@ -40,7 +43,7 @@ public final class IconHelper {
 	}
 
 	public static IIcon forBlock(IIconRegister ir, Block block, String s, String dir) {
-		return forName(ir, dir + "/" + block.getUnlocalizedName().replaceAll("tile\\.", "") + s);
+		return forName(ir, block.getUnlocalizedName().replaceAll("tile\\.", "") + s, dir);
 	}
 
 	public static IIcon forItem(IIconRegister ir, Item item) {
