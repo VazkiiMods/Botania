@@ -4,12 +4,12 @@ Hey there. Looks like you want to contribute with an issue. Great. Here's what y
 * Note the following points:
   * Issues regarding MCPC+/Cauldron that are not reproducible with forge only are **not accepted**;
   * Issues regarding outdated versions of the mod are **not accepted**;
-  * Unless you manually update every mod on the pack to the latest, issues regarding the direwolf20 modpack are  **not accepted**;
+  * Unless you manually update every mod on the pack to the latest, issues regarding any public modpack that is not officially maintained or supported by the botania developers (the ones in the modpack section of the website are not) are **not accepted**;
   * Duplicate issues or issues that have been solved already (use the search feature!) will be closed without asking.
   * Do not tag your issues' names. "Something Broke" is prefered to "[Bug] Something Broke"  because there's a proper label system in place.
   * Post suggestions or ideas on reddit or the forums. This is for bugs, not ideas.
 
-The following *bugs* are not accepted:
+The following "bugs" are not accepted:
 * Intended Behaviour
   * The e in Excaliber
   * Double tall flowers need be harvested with shears to not clutter the inventory
@@ -28,7 +28,7 @@ The following *bugs* are not accepted:
 
 [Report the Issue](https://github.com/Vazkii/Botania/issues)!
 
-You can find me at most times on [#vazkii @ irc.esper.net](http://webchat.esper.net/?channels=vazkii), if you need to speak with me about the issue you would report.
+You can find me at most times on [#vazkii @ irc.esper.net](http://webchat.esper.net/?channels=vazkii), if you need to speak with me about the issue you would report. Just make sure to use common sense and read what the bot tells you.
 
 ---
 
