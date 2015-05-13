@@ -22,7 +22,20 @@ The following *bugs* are not accepted:
   * Mana Bursts get destroyed on Cauldron by the ClearLagg plugin (add botania:manaBurst to the ClearLagg blacklist)
   * Force Relays destroy blocks when used very fast (Can't fix due to the nature of the block)
   * Terrasteel crafting won't start (make sure your checkerboard is correct, there's Livingrock under the plate)
+  * The speed tooltip on Excaliber scales with the Sharpness enchant (Vanilla bug)
+  * The Horn of the Canopy doesn't break Thaumcraft leaves (Thaumcraft doesn't use the typical class or material)
+  * Some Baubles don't work properly on LAN (Baubles bug)
 
 [Report the Issue](https://github.com/Vazkii/Botania/issues)!
 
 You can find me at most times on [#vazkii @ irc.esper.net](http://webchat.esper.net/?channels=vazkii), if you need to speak with me about the issue you would report.
+
+---
+
+If you want to make a Pull Request keep these in mind:
+* Do NOT use the github editor. Test your damn PRs before you submit them.
+* I'm very strict when it comes to syntax. Make sure your PR's syntax matches the syntax of the rest of the code. That includes spacing after if/for/(etc), proper bracket usage, camel casing and copyleft headers on new classes.
+* If your pull request edits very small chunks of code and isn't flawless I'll close it as it'll probably take less time to fix it myself rather than pull yours and change the code.
+* Unless you have a very good reason for it, keep your PRs all in one commit. You can do it with [rebase](https://git-scm.com/docs/git-rebase).
+
+
