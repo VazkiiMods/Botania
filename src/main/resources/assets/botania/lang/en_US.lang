@@ -916,6 +916,7 @@ tile.botania:stone11Slab.name=Granite Brick Slab
 tile.botania:blazeBlock.name=Blaze Lamp
 tile.botania:corporeaInterceptor.name=Corporea Interceptor
 tile.botania:corporeaCrystalCube.name=Corporea Crystal Cube
+tile.botania:incensePlate.name=Incense Plate
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower

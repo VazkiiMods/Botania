@@ -53,7 +53,7 @@ public class ModBrews {
 		waterBreathing = new BrewMod(LibBrewNames.WATER_BREATHING, 0x84A7CF, 4000, new PotionEffect(Potion.waterBreathing.id, 9600, 0));
 		invisibility = new BrewMod(LibBrewNames.INVISIBILITY, 0xAEAEAE, 8000, new PotionEffect(Potion.invisibility.id, 9600, 0));
 		nightVision = new BrewMod(LibBrewNames.NIGHT_VISION, 0x7C4BEB, 4000, new PotionEffect(Potion.nightVision.id, 9600, 0));
-		absorption = new BrewMod(LibBrewNames.ABSORPTION, 0xF2EB23, 7000, new PotionEffect(Potion.field_76444_x.id, 1800, 3)).setNotBloodPendantInfusable();
+		absorption = new BrewMod(LibBrewNames.ABSORPTION, 0xF2EB23, 7000, new PotionEffect(Potion.field_76444_x.id, 1800, 3)).setNotBloodPendantInfusable().setNotIncenseInfusable();
 
 		overload = new BrewMod(LibBrewNames.OVERLOAD, 0x232323, 12000, new PotionEffect(Potion.damageBoost.id, 1800, 3), new PotionEffect(Potion.moveSpeed.id, 1800, 2), new PotionEffect(Potion.weakness.id, 2400, 2), new PotionEffect(Potion.hunger.id, 200, 2));
 		soulCross = new BrewModPotion(LibBrewNames.SOUL_CROSS, 10000, new PotionEffect(ModPotions.soulCross.id, 1800, 0));

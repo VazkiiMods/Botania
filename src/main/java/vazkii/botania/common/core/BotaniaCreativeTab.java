@@ -120,6 +120,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.vial);
 		addItem(ModItems.brewVial);
 		addItem(ModItems.brewFlask);
+		addBlock(ModBlocks.incensePlate);
 		addItem(ModItems.incenseStick);
 		addItem(ModItems.bloodPendant);
 		addBlock(ModBlocks.pylon);
