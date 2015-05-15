@@ -114,7 +114,7 @@ public class ItemGrassHorn extends ItemMod {
 	public static void breakGrass(World world, int stackDmg, int srcx, int srcy, int srcz) {
 		Random rand = new Random(srcx ^ srcy ^ srcz);
 		int range = 12 - stackDmg * 3;
-		int rangeY = 3 + stackDmg * 2;
+		int rangeY = 3 + stackDmg * 4;
 		List<ChunkCoordinates> coords = new ArrayList();
 
 		for(int i = -range; i < range + 1; i++)
@@ -125,7 +125,7 @@ public class ItemGrassHorn extends ItemMod {
 					int z = srcz + j;
 
 					Block block = world.getBlock(x, y, z);
-					if(stackDmg == 0 && block instanceof BlockBush && !(block instanceof ISpecialFlower) && (!(block instanceof IGrassHornExcempt) || ((IGrassHornExcempt) block).canUproot(world, x, y, z)) || stackDmg == 1 && block instanceof BlockLeavesBase || stackDmg == 2 && block == Blocks.snow_layer)
+					if(stackDmg == 0 && block instanceof BlockBush && !(block instanceof ISpecialFlower) && (!(block instanceof IGrassHornExcempt) || ((IGrassHornExcempt) block).canUproot(world, x, y, z)) || stackDmg == 1 && block.isLeaves(world, x, y, z) || stackDmg == 2 && block == Blocks.snow_layer)
 						coords.add(new ChunkCoordinates(x, y, z));
 				}
 
