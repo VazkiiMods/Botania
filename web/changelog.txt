@@ -1,3 +1,17 @@
+r1.6 189
+*Added Incense Sticks and an Incense Plate to burn them on. They provide AoE brew effects. <i>It's as they say, Incense is Wincense.</i>
+*Added the Terra Truncator (Terrasteel Axe), as you'd expect, it breaks whole trees.
+*Excaliber's beams now only home on enemy mobs.
+*Fixed an exploit involving the Ring of the Aesir and Ring of Odin that allowed the player to get infinite health. Due to its nature, damage already done can't be reversed without save editing tools.
+*Fixed botania armorsets supposedly protecting against unblockable damage. (mDiyo)
+*Fixed Excaliber's beams only homing on players.
+*Fixed more NEI crashes. I think, I can't reproduce them.
+*Right clicking a Petal Apothecary or Runic Altar with an empty hand after a recipe is completed places the components of that recipe from your inventory into the block again for another crafting. <a href="https://www.youtube.com/watch?v=GjjZGyYcH9E">And there was much rejoicing</a>, again.
+*Terrasteel tools now take more mana to maintain than Manasteel ones.
+*The Horn of the Canopy now has a better way to check for leaves. It might even pick up Thaumcraft leaves now, who knows. It also reaches a bit higher.
+*The Red Stringed Relay can now connect to double tall flowers.
+*[API] Added a function to Brew to prevent it from being infused into incense.
+*[API] Increased version number to 49.
 r1.6 188
 *Added Simple Ores and Netherrocks support for the Orechid. (Sinhika)
 *Added tall and petite flower alternate textures by Futureazoo.
