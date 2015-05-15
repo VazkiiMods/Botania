@@ -916,6 +916,7 @@ tile.botania:stone11Slab.name=Laje de Tijolos de Granito
 tile.botania:blazeBlock.name=Lâmpada Infernal
 tile.botania:corporeaInterceptor.name=Interceptador Corporea
 tile.botania:corporeaCrystalCube.name=Cubo de Cristal Corporea
+tile.botania:incensePlate.name=Bandeja de Incensos
 
 # FLOWER NAMES
 tile.botania:flower..name=Flor do Botania
@@ -1324,6 +1325,7 @@ item.botania:blackHoleTalisman.name=Talismã do Buraco-negro
 item.botania:recordGaia1.name=Disco de Música
 item.botania:recordGaia2.name=Disco de Música
 item.botania:temperanceStone.name=Pedra da Moderação
+item.botania:incenseStick.name=Incenso
 
 # BREW NAMES
 botania.brew.fallback=Fallback
@@ -1415,6 +1417,7 @@ botania.page.apothecary1=O &1Boticário de Pétalas&0.
 botania.page.apothecary2=Este bloco, quando colocado no mundo e abastecido com água (usando um &1Balde de Água&0), aceita qualquer &1Pétala Mística&0 jogado nele, liberando suas energias.<br>Quando as pétalas certas forem unidas, jogar &1Sementes&0 conclui o processo.<br>Jogar um balde cheio também enche o recipiente com água.
 botania.page.apothecary3=Quite a few plants can be made using this method, for more information, read on the &4Functional Flora&0 and &4Generation Flora&0 sections of this Lexicon.<br>Shift-right clicking the &1Petal Apothecary&0 with an empty hand will remove the last item thrown in.
 botania.page.apothecary4=Ao invés de &1Água&0, pode-se colocar &1Lava&0 nesse bloco, feito isso, ele serve como incenerador, destuindo qualquer item que faz contato com ele.<br>Finalmente, jogar &1Vinhas&0 dá um visual mais rústico ao bloco.
+botania.page.apothecary6=Um truque para melhor eficiência, se em até vinte segundos, clicar no bloco prepare o mesmo padrão da flor anterior, perfeito para criação em massa. Isso só funciona se o Boticário possuir água.
 botania.page.apothecary5=Criando o &Boticário de Pétalas&0.
 
 # -- PURE DAISY
@@ -1440,6 +1443,7 @@ botania.page.runeAltar1=Prossiga ligando um &1Dispersor de Mana&0 ao altar, e cl
 botania.page.runeAltar2=Criando o &1Altar Rúnico&0.
 botania.page.runeAltar3=Existem 16 &1Runas&0 no total.<br>As mais básicas possuem o nome dos &4Quatro Elementos&0. As runas intermediárias possuem os nomes das &4Quatro Estações&0, e as runas mais avançadas possuem os nomes dos &4Sete Pecados Capitais&0. Uma &1Runa de Mana&0 também existe.
 botania.page.runeAltar20=Clicar com o botão direito segurando shift no &1Altar Rúnico&0 com as mãos vazias enquanto não recebe mana remove o último item colocado.<br>Finalmente, colocando um &1Comparador&0 ao lado emite um sinal de redstone igual a &41&0 se o altar estiver recebendo &4Mana&0 e um sinal de &42&0 se ele estiver pronto para criar a runa.
+botania.page.runeAltar21=Similar ao &1Boticário de Pétalas&0, clicar nesse bloco com a mão vazia depois de terminar prepara o padrão anterior.
 botania.page.runeAltar4=A &1Runa da Água&0.
 botania.page.runeAltar5=A &1Runa da Terra&0.
 botania.page.runeAltar6=A &1Runa do Ar&0.
