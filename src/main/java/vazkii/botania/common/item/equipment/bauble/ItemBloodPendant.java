@@ -169,7 +169,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 			return null;
 
 		ItemStack brewStack = new ItemStack(this);
-		ItemBrewBase.setBrew(brewStack, brew);
+		setBrew(brewStack, brew);
 		return brewStack;
 	}
 

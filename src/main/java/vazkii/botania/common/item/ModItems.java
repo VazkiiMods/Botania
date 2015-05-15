@@ -17,6 +17,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.item.brew.ItemBrewFlask;
 import vazkii.botania.common.item.brew.ItemBrewVial;
+import vazkii.botania.common.item.brew.ItemIncenseStick;
 import vazkii.botania.common.item.brew.ItemVial;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumBoots;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumChest;
@@ -239,7 +240,8 @@ public final class ModItems {
 	public static Item recordGaia1;
 	public static Item recordGaia2;
 	public static Item temperanceStone;
-	
+	public static Item incenseStick;
+
 	public static void init() {
 		lexicon = new ItemLexicon();
 		petal = new ItemPetal();
@@ -370,7 +372,8 @@ public final class ModItems {
 		recordGaia1 = new ItemRecordGaia1();
 		recordGaia2 = new ItemRecordGaia2();
 		temperanceStone = new ItemTemperanceStone();
-		
+		incenseStick = new ItemIncenseStick();
+
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));

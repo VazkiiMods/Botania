@@ -28,6 +28,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
+import vazkii.botania.api.brew.Brew;
+import vazkii.botania.api.brew.IBrewContainer;
 import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -173,4 +175,5 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	public Achievement getAchievementOnPickup(ItemStack stack, EntityPlayer player, EntityItem item) {
 		return stack.getItemDamage() == 4 ? ModAchievements.terrasteelPickup : null;
 	}
+
 }
