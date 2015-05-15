@@ -26,13 +26,16 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.common.util.RotationHelper;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.api.lexicon.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.TileIncensePlate;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.brew.ItemIncenseStick;
+import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockIncensePlate extends BlockModContainer {
+public class BlockIncensePlate extends BlockModContainer implements ILexiconable {
 
 	private static final int[] META_ROTATIONS = new int[] { 2, 5, 3, 4 };
 
@@ -136,6 +139,11 @@ public class BlockIncensePlate extends BlockModContainer {
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileIncensePlate();
+	}
+
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return LexiconData.incense;
 	}
 
 }

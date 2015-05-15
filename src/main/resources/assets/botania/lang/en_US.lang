@@ -1985,6 +1985,14 @@ botania.page.complexBrews5b=Shall we pray for a miracle?
 botania.page.complexBrews6a=A player affected with this brew's effect will have much higher proficiency at fishing and will catch fish and other loot twice as fast.
 botania.page.complexBrews6b=Maybe you'll catch a Chris
 
+# -- BREW INCENSES
+botania.entry.incense=Brew Incenses
+botania.page.incense0=&4Brews&0 can provide a great variety of effects when in liquid form. They, however, don't last long, and take up inventory space. Utilizing &1Incense Sticks&0 instead of flasks mitigates that problem, these can be infused with &4Brew&0 effects just like a normal flask would, but take around ten times as much &4Mana&0 to do so.
+botania.page.incense1=An &1Incense Stick&0 can be placed on an &1Incense Plate&0 by right clicking on it, a simple click with a &1Flint and Steel&0 will light it up. Once lit, the stick can not be retrieved.<br>A single stick of incense will burn for sixty times as long as as the liquid counterpart before needing to be replaced.  
+botania.page.incense2=&1Incense Plates&0 that are burning &1Incense Sticks&0 will provide the effects of the &4Brew&0 infused in the stick to any players on a 24 block radius of the plate.<br>Not all &4Brews&0 can be infused into &1Incense Sticks&0, for example, &4Instant Health&0 or &1Absorption&0 can't, nor can any with more than one effect.
+botania.page.incense3=Incense is wincense
+botania.page.incense4=I can incense it
+
 # -- EYE OF THE ANCIENTS
 botania.entry.forestEye=Eye of the Ancients
 botania.page.forestEye0=As the Ancients who used to watch over the world always looked for the living beings on it, this block, the &1Eye of the Ancients&0, will do just that.<br>By attaching a &1Comparator&0 next to it, it'll send out a redstone signal equivalent to the amount of animals it can find.

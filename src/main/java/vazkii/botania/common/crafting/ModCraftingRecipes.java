@@ -257,6 +257,8 @@ public final class ModCraftingRecipes {
 	public static List<IRecipe> recipesAltarMeta;
 	public static IRecipe recipeCorporeaCrystalCube;
 	public static IRecipe recipeTemperanceStone;
+	public static IRecipe recipeIncenseStick;
+	public static IRecipe recipeIncensePlate;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1710,6 +1712,21 @@ public final class ModCraftingRecipes {
 				'S', "stone",
 				'R', LibOreDict.RUNE[2]);
 		recipeTemperanceStone = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Incense Stick Recipe
+		addOreDictRecipe(new ItemStack(ModItems.incenseStick), 
+				"  G", " B ", "T  ",
+				'G', new ItemStack(Items.ghast_tear),
+				'B', new ItemStack(Items.blaze_powder),
+				'T', LibOreDict.LIVINGWOOD_TWIG);
+		recipeIncenseStick = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Incense Plate Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.incensePlate), 
+				"WSS",
+				'W', LibOreDict.LIVING_WOOD,
+				'S', new ItemStack(ModFluffBlocks.livingwoodSlab));
+		recipeIncensePlate = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

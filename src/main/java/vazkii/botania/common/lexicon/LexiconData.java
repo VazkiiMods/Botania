@@ -144,6 +144,7 @@ public final class LexiconData {
 	public static LexiconEntry brewery;
 	public static LexiconEntry flasks;
 	public static LexiconEntry complexBrews;
+	public static LexiconEntry incense;
 
 	public static LexiconEntry manaBlaster;
 	public static LexiconEntry grassSeeds;
@@ -580,6 +581,9 @@ public final class LexiconData {
 				new PageBrew(ModBrewRecipes.featherFeetBrew, "3a", "3b"), new PageBrew(ModBrewRecipes.emptinessBrew, "4a", "4b"),
 				new PageBrew(ModBrewRecipes.bloodthirstBrew, "5a", "5b"), new PageBrew(ModBrewRecipes.allureBrew, "6a", "6b")).setIcon(((IBrewContainer) ModItems.vial).getItemForBrew(ModBrews.jumpBoost, new ItemStack(ModItems.vial)));
 
+		incense = new BLexiconEntry(LibLexicon.DEVICE_INCENSE, categoryDevices);
+		incense.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipeIncenseStick), new PageCraftingRecipe("4", ModCraftingRecipes.recipeIncensePlate));
+		
 		// TOOLS ENTRIES
 		manaBlaster = new BLexiconEntry(LibLexicon.TOOL_MANA_BLASTER, categoryTools);
 		manaBlaster.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipeManaBlaster));
