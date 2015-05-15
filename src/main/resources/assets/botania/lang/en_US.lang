@@ -1415,6 +1415,7 @@ botania.page.apothecary1=The &1Petal Apothecary&0.
 botania.page.apothecary2=This block, when placed in the world and given some water (by use of a &1Water Bucket&0), will accept any &1Mystical Petals&0 thrown at it, releasing their energies.<br>Once one has set the correct petals in, throwing some &1Seeds&0 in will finalize the proccess.<br>Tossing in the full bucket will also fill the recipient with water.
 botania.page.apothecary3=Quite a few plants can be made using this method, for more information, read on the &4Functional Flora&0 and &4Generation Flora&0 sections of this Lexicon.<br>Shift-right clicking the &1Petal Apothecary&0 with an empty hand will remove the last item thrown in.
 botania.page.apothecary4=Instead of &1Water&0, one can place &1Lava&0 in this block, if that is done, it'll serve as a brazier and incinerator, destroying any items that come in contact.<br>Lastly, tossing in &1Vines&0 also gives the block an overgrown visual.
+botania.page.apothecary6=A simple tip for those who want to squeeze the biggest efficiency out of every block is as follows, up to twenty seconds after crafting a flower in this block, right clicking it with an empty hand will pull the items from the inventory required for the recipe and put them into it for quick mass crafting. This only works if it has water.
 botania.page.apothecary5=Crafting the &1Petal Apothecary&0.
 
 # -- PURE DAISY
@@ -1440,6 +1441,7 @@ botania.page.runeAltar1=Proceed by linking a &1Mana Spreader&0 to the altar, and
 botania.page.runeAltar2=Crafting the &1Runic Altar&0.
 botania.page.runeAltar3=A total of 16 &1Runes&0 exist.<br>The most basic and elementary runes are named after the &4Four Elements&0. The intermediate runes are named after the &4Four Seasons&0, and the most advanced runes are named after the &4Seven Deadly Sins&0. A separate &1Rune of Mana&0 also exists.
 botania.page.runeAltar20=Sneaking and right-clicking the &1Runic Altar&0 with an empty hand while it's not accepting mana will remove the last item put into it.<br>Last but not least, attaching a &1Comparator&0 to it will emit signal strength &41&0 if the altar is accepting &4Mana&0 and signal strength &42&0 if it's ready to craft the rune.
+botania.page.runeAltar21=Similarly to the &1Petal Apothecary&0, right clicking this block with an empty hand after a recipe is complete will place back the items used for the last recipe for faster mass crafting.
 botania.page.runeAltar4=The &1Rune of Water&0.
 botania.page.runeAltar5=The &1Rune of Earth&0.
 botania.page.runeAltar6=The &1Rune of Air&0.

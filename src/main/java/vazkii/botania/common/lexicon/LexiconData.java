@@ -283,7 +283,7 @@ public final class LexiconData {
 				new PageText("6"), new PageCraftingRecipe("7", ModCraftingRecipes.recipeFertilizerPowder), new PageCraftingRecipe("8", ModCraftingRecipes.recipeFerilizerDye), new PageText("10"), new PageCraftingRecipe("11", ModCraftingRecipes.recipesPetalsDouble), new PageCraftingRecipe("9", ModCraftingRecipes.recipesPetalBlocks)).setIcon(new ItemStack(ModBlocks.flower, 1, 6));
 
 		apothecary = new BLexiconEntry(LibLexicon.BASICS_APOTHECARY, categoryBasics);
-		apothecary.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_APOTHECARY), new PageText("2"), new PageText("3"), new PageText("4"), new PageCraftingRecipe("5", ModCraftingRecipes.recipesApothecary));
+		apothecary.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_APOTHECARY), new PageText("2"), new PageText("3"), new PageText("4"), new PageText("6"), new PageCraftingRecipe("5", ModCraftingRecipes.recipesApothecary));
 
 		lexicon = new BLexiconEntry(LibLexicon.BASICS_LEXICON, categoryBasics);
 		lexicon.setPriority().setLexiconPages(new PageText("0"), new PageText("3"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeLexicon), new PageText("2"));
@@ -297,7 +297,7 @@ public final class LexiconData {
 		LexiconRecipeMappings.map(new ItemStack(ModBlocks.livingrock), pureDaisy, 1);
 
 		runicAltar = new BLexiconEntry(LibLexicon.BASICS_RUNE_ALTAR, categoryBasics);
-		runicAltar.setPriority().setLexiconPages(new PageText("21"), new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipesRuneAltar), new PageText("3"), new PageText("20"), new PageRuneRecipe("4", ModRuneRecipes.recipeWaterRune), new PageRuneRecipe("5", ModRuneRecipes.recipesEarthRune), new PageRuneRecipe("6", ModRuneRecipes.recipesAirRune), new PageRuneRecipe("7", ModRuneRecipes.recipeFireRune),
+		runicAltar.setPriority().setLexiconPages(new PageText("21"), new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipesRuneAltar), new PageText("3"), new PageText("20"), new PageText("21"), new PageRuneRecipe("4", ModRuneRecipes.recipeWaterRune), new PageRuneRecipe("5", ModRuneRecipes.recipesEarthRune), new PageRuneRecipe("6", ModRuneRecipes.recipesAirRune), new PageRuneRecipe("7", ModRuneRecipes.recipeFireRune),
 				new PageRuneRecipe("8", ModRuneRecipes.recipeSpringRune), new PageRuneRecipe("9", ModRuneRecipes.recipeSummerRune), new PageRuneRecipe("10", ModRuneRecipes.recipeAutumnRune), new PageRuneRecipe("11", ModRuneRecipes.recipesWinterRune),  new PageRuneRecipe("12", ModRuneRecipes.recipeManaRune),
 				new PageRuneRecipe("13", ModRuneRecipes.recipeLustRune), new PageRuneRecipe("14", ModRuneRecipes.recipeGluttonyRune), new PageRuneRecipe("15", ModRuneRecipes.recipeGreedRune), new PageRuneRecipe("16", ModRuneRecipes.recipeSlothRune), new PageRuneRecipe("17", ModRuneRecipes.recipeWrathRune), new PageRuneRecipe("18", ModRuneRecipes.recipeEnvyRune), new PageRuneRecipe("19", ModRuneRecipes.recipePrideRune));
 

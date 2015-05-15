@@ -115,7 +115,9 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 					break;
 				}
 			}
-		} else {
+		} else if(tile.isEmpty() && stack == null)
+			tile.trySetLastRecipe(par5EntityPlayer);
+		else {
 			if(stack != null && (isValidWaterContainer(stack) || stack.getItem() == ModItems.waterRod && ManaItemHandler.requestManaExact(stack, par5EntityPlayer, ItemWaterRod.COST, false))) {
 				if(!tile.hasWater) {
 					if(stack.getItem() == ModItems.waterRod)

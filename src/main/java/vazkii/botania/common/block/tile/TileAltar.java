@@ -11,12 +11,16 @@
 package vazkii.botania.common.block.tile;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -28,6 +32,7 @@ import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.lib.LibBlockNames;
 
 public class TileAltar extends TileSimpleInventory implements ISidedInventory, IPetalApothecary {
@@ -42,7 +47,10 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 	public boolean hasLava = false;
 
 	public boolean isMossy = false;
-
+	
+	List<ItemStack> lastRecipe = null;
+	int recipeKeepTicks = 0;
+	
 	public boolean collideEntityItem(EntityItem item) {
 		ItemStack stack = item.getEntityItem();
 		if(stack == null || item.isDead)
@@ -100,6 +108,8 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 		} else if(stack.getItem() != null && SEED_PATTERN.matcher(stack.getItem().getUnlocalizedName(stack)).find()) {
 			for(RecipePetals recipe : BotaniaAPI.petalRecipes) {
 				if(recipe.matches(this)) {
+					saveLastRecipe();
+					
 					for(int i = 0; i < getSizeInventory(); i++)
 						setInventorySlotContents(i, null);
 
@@ -117,12 +127,67 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 					setWater(false);
 					worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 					didChange = true;
+					
 					break;
 				}
 			}
 		}
 
 		return didChange;
+	}
+	
+	public void saveLastRecipe() {
+		lastRecipe = new ArrayList();
+		for(int i = 0; i < getSizeInventory(); i++) {
+			ItemStack stack = getStackInSlot(i);
+			if(stack == null)
+				break;
+			lastRecipe.add(stack);
+		}
+		recipeKeepTicks = 400;
+	}
+	
+	public void trySetLastRecipe(EntityPlayer player) {
+		tryToSetLastRecipe(player, this, lastRecipe);
+		if(!isEmpty())
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
+	}
+	
+	public static void tryToSetLastRecipe(EntityPlayer player, IInventory inv, List<ItemStack> lastRecipe) {
+		if(lastRecipe == null || lastRecipe.isEmpty() || player.worldObj.isRemote)
+			return;
+		
+		int index = 0;
+		boolean didAny = false;
+		for(ItemStack stack : lastRecipe) {
+			if(stack == null) 
+				continue;
+			
+			for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
+				ItemStack pstack = player.inventory.getStackInSlot(i);
+				if(pstack != null && pstack.isItemEqual(stack) && ItemStack.areItemStackTagsEqual(stack, pstack)) {
+					pstack.stackSize--;
+					if(pstack.stackSize == 0)
+						player.inventory.setInventorySlotContents(i, null);
+					
+					ItemStack stackToPut = pstack.copy();
+					stackToPut.stackSize = 1;
+					inv.setInventorySlotContents(index, stackToPut);
+					didAny = true;
+					index++;
+					break;
+				}
+			}
+		}
+		
+		if(didAny) {
+			if(inv instanceof TileAltar)
+				player.worldObj.playSoundAtEntity(player, "game.neutral.swim.splash", 0.1F, 1F);
+			if(player instanceof EntityPlayerMP) {
+				EntityPlayerMP mp = (EntityPlayerMP) player;
+				mp.inventoryContainer.detectAndSendChanges();
+			}
+		}
 	}
 
 	public void craftingFanciness() {
@@ -133,6 +198,14 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 			float blue = (float) Math.random();
 			Botania.proxy.sparkleFX(worldObj, xCoord + 0.5 + Math.random() * 0.4 - 0.2, yCoord + 1, zCoord + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
 		}
+	}
+	
+	public boolean isEmpty() {
+		for(int i = 0; i < getSizeInventory(); i++)
+			if(getStackInSlot(i) != null)
+				return false;
+		
+		return true;
 	}
 
 	@Override
@@ -169,6 +242,10 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 			if(Math.random() > 0.9)
 				worldObj.spawnParticle("lava", xCoord + 0.5 + Math.random() * 0.4 - 0.2, yCoord + 1, zCoord + 0.5 + Math.random() * 0.4 - 0.2, 0, 0.01, 0);
 		}
+		
+		if(recipeKeepTicks > 0)
+			--recipeKeepTicks;
+		else lastRecipe = null;
 	}
 
 	@Override

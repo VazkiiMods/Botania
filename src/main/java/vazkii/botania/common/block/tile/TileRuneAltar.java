@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block.tile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
@@ -42,6 +43,9 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 	int cooldown = 0;
 	public int signal = 0;
 
+	List<ItemStack> lastRecipe = null;
+	int recipeKeepTicks = 0;
+	
 	public boolean addItem(EntityPlayer player, ItemStack stack) {
 		if(cooldown > 0 || stack.getItem() == ModItems.twigWand || stack.getItem() == ModItems.lexicon || manaToGet != 0)
 			return false;
@@ -112,6 +116,10 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 			signal = newSignal;
 			worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 		}
+		
+		if(recipeKeepTicks > 0)
+			--recipeKeepTicks;
+		else lastRecipe = null;
 	}
 
 	public void updateRecipe() {
@@ -131,10 +139,28 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
 		}
 	}
+	
+	public void saveLastRecipe() {
+		lastRecipe = new ArrayList();
+		for(int i = 0; i < getSizeInventory(); i++) {
+			ItemStack stack = getStackInSlot(i);
+			if(stack == null)
+				break;
+			lastRecipe.add(stack);
+		}
+		recipeKeepTicks = 400;
+	}
+	
+	public void trySetLastRecipe(EntityPlayer player) {
+		TileAltar.tryToSetLastRecipe(player, this, lastRecipe);
+		if(!isEmpty())
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
+	}
 
 	public boolean hasValidRecipe() {
 		for(RecipeRuneAltar recipe : BotaniaAPI.runeAltarRecipes)
-			if(recipe.matches(this)) return true;
+			if(recipe.matches(this)) 
+				return true;
 
 		return false;
 	}
@@ -170,6 +196,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 					cooldown = 60;
 				}
 
+				saveLastRecipe();
 				for(int i = 0; i < getSizeInventory(); i++)
 					setInventorySlotContents(i, null);
 
@@ -195,6 +222,14 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 			float blue = (float) Math.random();
 			Botania.proxy.sparkleFX(worldObj, xCoord + 0.5 + Math.random() * 0.4 - 0.2, yCoord + 1, zCoord + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
 		}
+	}
+	
+	public boolean isEmpty() {
+		for(int i = 0; i < getSizeInventory(); i++)
+			if(getStackInSlot(i) != null)
+				return false;
+		
+		return true;
 	}
 
 	@Override
