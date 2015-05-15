@@ -111,36 +111,41 @@ public class RecipeHandlerElvenTrade extends TemplateRecipeHandler {
 
 	@Override
 	public void loadCraftingRecipes(String outputId, Object... results) {
-		if (outputId.equals("botania.elvenTrade") && hasElvenKnowledge()) {
-			if (hasElvenKnowledge()) {
-				for (RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes) {
+		if(outputId.equals("botania.elvenTrade") && hasElvenKnowledge()) {
+			if(hasElvenKnowledge()) {
+				for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes) {
+					if(recipe == null)
+						continue;
+					
 					arecipes.add(new CachedElvenTradeRecipe(recipe));
 				}
 			}
-		} else {
-			super.loadCraftingRecipes(outputId, results);
-		}
+		} else super.loadCraftingRecipes(outputId, results);
 	}
 
 	@Override
 	public void loadCraftingRecipes(ItemStack result) {
-		if (hasElvenKnowledge()) {
-			for (RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes) {
-				if (NEIServerUtils.areStacksSameTypeCrafting(recipe.getOutput(), result)) {
+		if(hasElvenKnowledge()) {
+			for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes) {
+				if(recipe == null)
+					continue;
+				
+				if(NEIServerUtils.areStacksSameTypeCrafting(recipe.getOutput(), result))
 					arecipes.add(new CachedElvenTradeRecipe(recipe));
-				}
 			}
 		}
 	}
 
 	@Override
 	public void loadUsageRecipes(ItemStack ingredient) {
-		if (hasElvenKnowledge()) {
-			for (RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes) {
+		if(hasElvenKnowledge()) {
+			for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes) {
+				if(recipe == null)
+					continue;
+				
 				CachedElvenTradeRecipe crecipe = new CachedElvenTradeRecipe(recipe);
-				if (crecipe.contains(crecipe.inputs, ingredient)) {
+				if(crecipe.contains(crecipe.inputs, ingredient))
 					arecipes.add(crecipe);
-				}
 			}
 		}
 	}

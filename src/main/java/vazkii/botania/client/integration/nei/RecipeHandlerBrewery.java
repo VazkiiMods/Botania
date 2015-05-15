@@ -98,34 +98,42 @@ public class RecipeHandlerBrewery extends TemplateRecipeHandler {
 
 	@Override
 	public void loadCraftingRecipes(String outputId, Object... results) {
-		if (outputId.equals("botania.brewery"))
-			for (RecipeBrew recipe : BotaniaAPI.brewRecipes)
+		if(outputId.equals("botania.brewery"))
+			for(RecipeBrew recipe : BotaniaAPI.brewRecipes)
 				arecipes.add(new CachedBreweryRecipe(recipe));
-		else
-			super.loadCraftingRecipes(outputId, results);
+		else super.loadCraftingRecipes(outputId, results);
 	}
 
 	@Override
 	public void loadCraftingRecipes(ItemStack result) {
-		if (result.getItem() instanceof IBrewItem)
-			for (RecipeBrew recipe : BotaniaAPI.brewRecipes)
-				if (((IBrewItem) result.getItem()).getBrew(result) == recipe.getBrew())
+		if(result.getItem() instanceof IBrewItem)
+			for(RecipeBrew recipe : BotaniaAPI.brewRecipes) {
+				if(recipe == null)
+					continue;
+				
+				if(((IBrewItem) result.getItem()).getBrew(result) == recipe.getBrew())
 					arecipes.add(new CachedBreweryRecipe(recipe));
+			}
 	}
 
 	@Override
 	public void loadUsageRecipes(ItemStack ingredient) {
-		if (ingredient.getItem() instanceof IBrewContainer) {
+		if(ingredient.getItem() instanceof IBrewContainer) {
 			for(RecipeBrew recipe : BotaniaAPI.brewRecipes) {
+				if(recipe == null)
+					continue;
+
 				if(recipe.getOutput(ingredient) != null)
 					arecipes.add(new CachedBreweryRecipe(recipe, ingredient));
 			}
-		} else
-			for (RecipeBrew recipe : BotaniaAPI.brewRecipes) {
-				CachedBreweryRecipe crecipe = new CachedBreweryRecipe(recipe);
-				if (crecipe.contains(crecipe.inputs, ingredient))
-					arecipes.add(crecipe);
-			}
+		} else for(RecipeBrew recipe : BotaniaAPI.brewRecipes) {
+			if(recipe == null)
+				continue;
+
+			CachedBreweryRecipe crecipe = new CachedBreweryRecipe(recipe);
+			if(crecipe.contains(crecipe.inputs, ingredient))
+				arecipes.add(crecipe);
+		}
 	}
 
 }

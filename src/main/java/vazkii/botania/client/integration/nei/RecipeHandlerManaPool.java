@@ -121,21 +121,32 @@ public class RecipeHandlerManaPool extends TemplateRecipeHandler {
 	@Override
 	public void loadCraftingRecipes(String outputId, Object... results) {
 		if(outputId.equals("botania.manaPool")) {
-			for(RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes)
+			for(RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes) {
+				if(recipe == null)
+					continue;
+				
 				arecipes.add(new CachedManaPoolRecipe(recipe));
+			}
 		} else super.loadCraftingRecipes(outputId, results);
 	}
 
 	@Override
 	public void loadCraftingRecipes(ItemStack result) {
-		for(RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes)
+		for(RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes) {
+			if(recipe == null)
+				continue;
+			
 			if(NEIServerUtils.areStacksSameTypeCrafting(recipe.getOutput(), result))
 				arecipes.add(new CachedManaPoolRecipe(recipe));
+		}
 	}
 
 	@Override
 	public void loadUsageRecipes(ItemStack ingredient) {
 		for(RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes) {
+			if(recipe == null)
+				continue;
+			
 			CachedManaPoolRecipe crecipe = new CachedManaPoolRecipe(recipe);
 			if(crecipe.contains(crecipe.getIngredients(), ingredient) || crecipe.contains(crecipe.getOtherStacks(), ingredient))
 				arecipes.add(crecipe);

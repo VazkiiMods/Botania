@@ -117,14 +117,21 @@ public class RecipeHandlerPetalApothecary extends TemplateRecipeHandler {
 
 	@Override
 	public void loadCraftingRecipes(ItemStack result) {
-		for(RecipePetals recipe : getRecipes())
+		for(RecipePetals recipe : getRecipes()){
+			if(recipe == null)
+				continue;
+			
 			if(recipe.getOutput().stackTagCompound != null && NEIServerUtils.areStacksSameType(recipe.getOutput(), result) || recipe.getOutput().stackTagCompound == null && NEIServerUtils.areStacksSameTypeCrafting(recipe.getOutput(), result) && recipe.getOutput().getItem() != Items.skull)
 				arecipes.add(getCachedRecipe(recipe));
+		}
 	}
 
 	@Override
 	public void loadUsageRecipes(ItemStack ingredient) {
 		for(RecipePetals recipe : getRecipes()) {
+			if(recipe == null)
+				continue;
+			
 			CachedPetalApothecaryRecipe crecipe = getCachedRecipe(recipe);
 			if(crecipe.contains(crecipe.inputs, ingredient) && recipe.getOutput().getItem() != Items.skull)
 				arecipes.add(crecipe);

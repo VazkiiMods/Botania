@@ -101,21 +101,32 @@ public class RecipeHandlerPureDaisy extends TemplateRecipeHandler {
 	@Override
 	public void loadCraftingRecipes(String outputId, Object... results) {
 		if(outputId.equals("botania.pureDaisy")) {
-			for(RecipePureDaisy recipe : BotaniaAPI.pureDaisyRecipes)
+			for(RecipePureDaisy recipe : BotaniaAPI.pureDaisyRecipes) {
+				if(recipe == null)
+					continue;
+				
 				arecipes.add(new CachedPureDaisyRecipe(recipe));
+			}
 		} else super.loadCraftingRecipes(outputId, results);
 	}
 
 	@Override
 	public void loadCraftingRecipes(ItemStack result) {
-		for(RecipePureDaisy recipe : BotaniaAPI.pureDaisyRecipes)
+		for(RecipePureDaisy recipe : BotaniaAPI.pureDaisyRecipes) {
+			if(recipe == null)
+				continue;
+			
 			if(NEIServerUtils.areStacksSameTypeCrafting(new ItemStack(recipe.getOutput()), result))
 				arecipes.add(new CachedPureDaisyRecipe(recipe));
+		}
 	}
 
 	@Override
 	public void loadUsageRecipes(ItemStack ingredient) {
 		for(RecipePureDaisy recipe : BotaniaAPI.pureDaisyRecipes) {
+			if(recipe == null)
+				continue;
+			
 			CachedPureDaisyRecipe crecipe = new CachedPureDaisyRecipe(recipe);
 			if(crecipe.contains(crecipe.getIngredients(), ingredient) || crecipe.contains(crecipe.getOtherStacks(), ingredient))
 				arecipes.add(crecipe);
