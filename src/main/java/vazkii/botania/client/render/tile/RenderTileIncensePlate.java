@@ -69,7 +69,7 @@ public class RenderTileIncensePlate extends TileEntitySpecialRenderer {
 			GL11.glPushMatrix();
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
 			float s = 0.4F;
-			GL11.glTranslatef(0.1F, -1.45F, 0F);
+			GL11.glTranslatef(0.1F, -1.46F, 0F);
 			GL11.glScalef(s, s, s);
 			GL11.glRotatef(180F, 0F, 1F, 0F);
 			
