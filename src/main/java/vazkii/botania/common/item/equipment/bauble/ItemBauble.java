@@ -64,8 +64,6 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 								par3EntityPlayer.inventory.setInventorySlotContents(par3EntityPlayer.inventory.currentItem, null);
 						}
 
-						onEquipped(par1ItemStack, par3EntityPlayer);
-
 						if(stackInSlot != null) {
 							((IBauble) stackInSlot.getItem()).onUnequipped(stackInSlot, par3EntityPlayer);
 							return stackInSlot.copy();
