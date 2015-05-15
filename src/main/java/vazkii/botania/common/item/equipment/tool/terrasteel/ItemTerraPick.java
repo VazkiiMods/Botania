@@ -109,7 +109,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 
 		return par1ItemStack;
 	}
-	
+
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int s, float sx, float sy, float sz) {
 		return player.isSneaking() && super.onItemUse(stack, player, world, x, y, z, s, sx, sy, sz);
@@ -144,7 +144,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	public int getManaPerDmg() {
 		return MANA_PER_DAMAGE;
 	}
-	
+
 	@Override
 	public void breakOtherBlock(EntityPlayer player, ItemStack stack, int x, int y, int z, int originX, int originY, int originZ, int side) {
 		if(!isEnabled(stack))
@@ -170,7 +170,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		int level = origLevel + (thor ? 1 : 0);
 		if(ItemTemperanceStone.hasTemperanceActive(player) && level > 2)
 			level = 2;
-		
+
 		int range = Math.max(0, level - 1);
 		int rangeY = Math.max(1, range);
 

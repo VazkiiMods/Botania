@@ -45,14 +45,14 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 
 	private static final int MANA_PER_DAMAGE = 100;
 	private static Map<Integer, List<BlockSwapper>> blockSwappers = new HashMap();
-	
+
 	IIcon iconOn, iconOff;
-	
+
 	public ItemTerraAxe() {
 		super(BotaniaAPI.terrasteelToolMaterial, LibItemNames.TERRA_AXE);
 		FMLCommonHandler.instance().bus().register(this);
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister par1IconRegister) {
@@ -64,16 +64,16 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	public IIcon getIconFromDamage(int p_77617_1_) {
 		return iconOn;
 	}
-	
+
 	@Override
 	public IIcon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining) {
 		return shouldBreak(player) ? iconOn : iconOff;
 	}
-	
+
 	public boolean shouldBreak(EntityPlayer player) {
 		return !player.isSneaking() && !ItemTemperanceStone.hasTemperanceActive(player);
 	}
-	
+
 	@Override
 	public boolean onBlockStartBreak(ItemStack stack, int x, int y, int z, EntityPlayer player) {
 		MovingObjectPosition raycast = ToolCommons.raytraceFromEntity(player.worldObj, player, true, 10);
@@ -84,17 +84,17 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 
 		return false;
 	}
-	
+
 	@Override
 	public int getManaPerDamage() {
 		return MANA_PER_DAMAGE;
 	}
-	
+
 	@Override
 	public void breakOtherBlock(EntityPlayer player, ItemStack stack, int x, int y, int z, int originX, int originY, int originZ, int side) {
 		if(shouldBreak(player)) {
 			ChunkCoordinates coords = new ChunkCoordinates(x, y, z);
-			addBlockSwapper(player.worldObj, player, stack, coords, coords, 32, false, true, new ArrayList());	
+			addBlockSwapper(player.worldObj, player, stack, coords, coords, 32, false, true, new ArrayList());
 		}
 	}
 
@@ -102,7 +102,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	public boolean disposeOfTrashBlocks(ItemStack stack) {
 		return false;
 	}
-	
+
 	@SubscribeEvent
 	public void onTickEnd(TickEvent.WorldTickEvent event) {
 		if(event.phase == Phase.END) {
@@ -111,7 +111,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 				List<BlockSwapper> swappers = blockSwappers.get(dim);
 				List<BlockSwapper> swappersSafe = new ArrayList(swappers);
 				swappers.clear();
-				
+
 				for(BlockSwapper s : swappersSafe)
 					if(s != null)
 						s.tick();
@@ -141,8 +141,6 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		final boolean leaves;
 		final boolean force;
 		final List<String> posChecked;
-		int ticks = 2;
-
 		BlockSwapper(World world, EntityPlayer player, ItemStack stack, ChunkCoordinates origCoords, ChunkCoordinates coords, int steps, boolean leaves, boolean force, List<String> posChecked) {
 			this.world = world;
 			this.player = player;
@@ -159,12 +157,12 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 			Block blockat = world.getBlock(coords.posX, coords.posY, coords.posZ);
 			if(!force && blockat.isAir(world, coords.posX, coords.posY, coords.posZ))
 				return;
-			
+
 			ToolCommons.removeBlockWithDrops(player, stack, world, coords.posX, coords.posY, coords.posZ, origCoords.posX, origCoords.posY, origCoords.posZ, null, ToolCommons.materialsAxe, EnchantmentHelper.getEnchantmentLevel(Enchantment.silkTouch.effectId, stack) > 0, EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, stack), 0F, false, !leaves);
-			
+
 			if(steps == 0)
 				return;
-			
+
 			for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
 				int x = coords.posX + dir.offsetX;
 				int y = coords.posY + dir.offsetY;
@@ -172,22 +170,22 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 				String pstr = posStr(x, y, z);
 				if(posChecked.contains(pstr))
 					continue;
-				
+
 				Block block = world.getBlock(x, y, z);
 				boolean log = block.isWood(world, x, y, z);
 				boolean leaf = block.isLeaves(world, x, y, z);
 				if(log || leaf) {
 					int steps = this.steps - 1;
-					steps = leaf ? this.leaves ? steps : 3 : steps;
+					steps = leaf ? leaves ? steps : 3 : steps;
 					addBlockSwapper(world, player, stack, origCoords, new ChunkCoordinates(x, y, z), steps, leaf, false, posChecked);
 					posChecked.add(pstr);
 				}
 			}
 		}
-		
+
 		String posStr(int x, int y, int z) {
 			return x + ":" + y + ":" + z;
 		}
 	}
-	
+
 }

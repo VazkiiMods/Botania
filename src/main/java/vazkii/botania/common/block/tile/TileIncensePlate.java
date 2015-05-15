@@ -55,7 +55,7 @@ public class TileIncensePlate extends TileSimpleInventory implements ISidedInven
 							player.addPotionEffect(applyEffect);
 						}
 					}
-					
+
 					if(worldObj.rand.nextInt(20) == 0)
 						worldObj.playSoundEffect(xCoord + 0.5, yCoord + 0.1, zCoord + 0.5, "fire.fire", 0.1F, 1F);
 				} else {

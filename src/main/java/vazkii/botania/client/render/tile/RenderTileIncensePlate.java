@@ -12,45 +12,38 @@ package vazkii.botania.client.render.tile;
 
 import java.awt.Color;
 
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
-import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.lib.LibRenderIDs;
-import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.client.model.ModelIncensePlate;
-import vazkii.botania.common.block.tile.TileIncensePlate;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
+
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
+
+import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.model.ModelIncensePlate;
+import vazkii.botania.common.block.tile.TileIncensePlate;
 
 public class RenderTileIncensePlate extends TileEntitySpecialRenderer {
 
 	private static final float[] ROTATIONS = new float[] {
 		180F, 0F, 90F, 270F
 	};
-	
+
 	ResourceLocation texture = new ResourceLocation(LibResources.MODEL_INCENSE_PLATE);
 	ModelIncensePlate model = new ModelIncensePlate();
 
 	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float ticks) {
 		TileIncensePlate plate = (TileIncensePlate) tileentity;
-		
+
 		int meta = plate.getWorldObj() != null ? plate.getBlockMetadata() : 0;
-		
+
 		GL11.glPushMatrix();
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glEnable(GL11.GL_BLEND);
@@ -72,7 +65,7 @@ public class RenderTileIncensePlate extends TileEntitySpecialRenderer {
 			GL11.glTranslatef(0.1F, -1.46F, 0F);
 			GL11.glScalef(s, s, s);
 			GL11.glRotatef(180F, 0F, 1F, 0F);
-			
+
 			int renderPass = 0;
 			do {
 				IIcon icon = stack.getItem().getIcon(stack, renderPass);

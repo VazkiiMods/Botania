@@ -45,7 +45,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 
 	List<ItemStack> lastRecipe = null;
 	int recipeKeepTicks = 0;
-	
+
 	public boolean addItem(EntityPlayer player, ItemStack stack) {
 		if(cooldown > 0 || stack.getItem() == ModItems.twigWand || stack.getItem() == ModItems.lexicon || manaToGet != 0)
 			return false;
@@ -116,7 +116,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 			signal = newSignal;
 			worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 		}
-		
+
 		if(recipeKeepTicks > 0)
 			--recipeKeepTicks;
 		else lastRecipe = null;
@@ -139,7 +139,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
 		}
 	}
-	
+
 	public void saveLastRecipe() {
 		lastRecipe = new ArrayList();
 		for(int i = 0; i < getSizeInventory(); i++) {
@@ -150,7 +150,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 		}
 		recipeKeepTicks = 400;
 	}
-	
+
 	public void trySetLastRecipe(EntityPlayer player) {
 		TileAltar.tryToSetLastRecipe(player, this, lastRecipe);
 		if(!isEmpty())
@@ -159,7 +159,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 
 	public boolean hasValidRecipe() {
 		for(RecipeRuneAltar recipe : BotaniaAPI.runeAltarRecipes)
-			if(recipe.matches(this)) 
+			if(recipe.matches(this))
 				return true;
 
 		return false;
@@ -223,12 +223,12 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 			Botania.proxy.sparkleFX(worldObj, xCoord + 0.5 + Math.random() * 0.4 - 0.2, yCoord + 1, zCoord + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
 		}
 	}
-	
+
 	public boolean isEmpty() {
 		for(int i = 0; i < getSizeInventory(); i++)
 			if(getStackInSlot(i) != null)
 				return false;
-		
+
 		return true;
 	}
 

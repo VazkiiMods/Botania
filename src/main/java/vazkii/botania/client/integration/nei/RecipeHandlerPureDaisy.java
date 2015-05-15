@@ -104,7 +104,7 @@ public class RecipeHandlerPureDaisy extends TemplateRecipeHandler {
 			for(RecipePureDaisy recipe : BotaniaAPI.pureDaisyRecipes) {
 				if(recipe == null)
 					continue;
-				
+
 				arecipes.add(new CachedPureDaisyRecipe(recipe));
 			}
 		} else super.loadCraftingRecipes(outputId, results);
@@ -115,7 +115,7 @@ public class RecipeHandlerPureDaisy extends TemplateRecipeHandler {
 		for(RecipePureDaisy recipe : BotaniaAPI.pureDaisyRecipes) {
 			if(recipe == null)
 				continue;
-			
+
 			if(NEIServerUtils.areStacksSameTypeCrafting(new ItemStack(recipe.getOutput()), result))
 				arecipes.add(new CachedPureDaisyRecipe(recipe));
 		}
@@ -126,7 +126,7 @@ public class RecipeHandlerPureDaisy extends TemplateRecipeHandler {
 		for(RecipePureDaisy recipe : BotaniaAPI.pureDaisyRecipes) {
 			if(recipe == null)
 				continue;
-			
+
 			CachedPureDaisyRecipe crecipe = new CachedPureDaisyRecipe(recipe);
 			if(crecipe.contains(crecipe.getIngredients(), ingredient) || crecipe.contains(crecipe.getOtherStacks(), ingredient))
 				arecipes.add(crecipe);

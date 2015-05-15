@@ -157,7 +157,7 @@ public final class BotaniaAPI {
 		addOreWeight("oreMythril", 6485); // Simple Ores2
 		addOreWeight("oreAdamantium", 2275); // Simple Ores2
 		addOreWeight("oreTungsten", 3520); // Simple Tungsten
-		
+
 		addOreWeightNether("oreQuartz", 19600); // Vanilla
 		addOreWeightNether("oreCobalt", 500); // Tinker's Construct
 		addOreWeightNether("oreArdite", 500); // Tinker's Construct

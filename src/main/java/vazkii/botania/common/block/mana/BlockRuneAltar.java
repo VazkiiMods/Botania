@@ -89,7 +89,7 @@ public class BlockRuneAltar extends BlockModContainer implements IWandable, IWan
 		} else if(altar.isEmpty() && stack == null)
 			altar.trySetLastRecipe(par5EntityPlayer);
 		else if(stack != null)
-				return altar.addItem(par5EntityPlayer, stack);
+			return altar.addItem(par5EntityPlayer, stack);
 		return false;
 	}
 

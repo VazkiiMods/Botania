@@ -11,13 +11,13 @@
 package vazkii.botania.common.crafting.recipe;
 
 import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.world.World;
-import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.world.World;
+import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.item.ModItems;
 
 public class HelmRevealingRecipe implements IRecipe {
 
@@ -26,7 +26,7 @@ public class HelmRevealingRecipe implements IRecipe {
 		Item goggles = (Item) Item.itemRegistry.getObject("Thaumcraft:ItemGoggles");
 		if(goggles == null)
 			return false; // NO TC loaded
-		
+
 		boolean foundGoggles = false;
 		boolean foundHelm = false;
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
@@ -59,15 +59,15 @@ public class HelmRevealingRecipe implements IRecipe {
 		Item helmItem = helmCopy.getItem();
 
 		ItemStack newHelm;
-		
+
 		if(helmItem == ModItems.manasteelHelm)
 			newHelm = new ItemStack(ModItems.manasteelHelmRevealing);
-		else if(helmItem == ModItems.terrasteelHelm)	
+		else if(helmItem == ModItems.terrasteelHelm)
 			newHelm = new ItemStack(ModItems.terrasteelHelmRevealing);
-		else if(helmItem == ModItems.elementiumHelm)	
+		else if(helmItem == ModItems.elementiumHelm)
 			newHelm = new ItemStack(ModItems.elementiumHelmRevealing);
 		else return null;
-		
+
 		//Copy Ancient Wills
 		for(int i = 0; i < 6; i++)
 			if(ItemNBTHelper.getBoolean(helmCopy, "AncientWill" + i, false))
@@ -77,7 +77,7 @@ public class HelmRevealingRecipe implements IRecipe {
 		NBTTagList enchList = ItemNBTHelper.getList(helmCopy, "ench", 10, true);
 		if(enchList != null)
 			ItemNBTHelper.setList(newHelm, "ench", enchList);
-		
+
 		return newHelm;
 	}
 
@@ -90,7 +90,7 @@ public class HelmRevealingRecipe implements IRecipe {
 	public ItemStack getRecipeOutput() {
 		return new ItemStack(ModItems.manasteelHelmRevealing);
 	}
-	
+
 	private boolean checkHelm(ItemStack helmStack) {
 		Item helmItem = helmStack.getItem();
 		return helmItem == ModItems.manasteelHelm || helmItem == ModItems.terrasteelHelm || helmItem == ModItems.elementiumHelm;

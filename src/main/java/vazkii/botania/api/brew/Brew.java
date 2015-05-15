@@ -52,7 +52,7 @@ public class Brew {
 		canInfuseBloodPendant = false;
 		return this;
 	}
-	
+
 	/**
 	 * Sets this brew to not be able to be infused onto Incense Sticks.
 	 */
@@ -64,7 +64,7 @@ public class Brew {
 	public boolean canInfuseBloodPendant() {
 		return canInfuseBloodPendant;
 	}
-	
+
 	public boolean canInfuseIncense() {
 		return canInfuseIncense;
 	}

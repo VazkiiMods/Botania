@@ -18,9 +18,7 @@ import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.lib.LibRenderIDs;
-import vazkii.botania.client.render.tile.RenderTilePool;
 import vazkii.botania.common.block.tile.TileIncensePlate;
-import vazkii.botania.common.block.tile.mana.TilePool;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class RenderIncensePlate implements ISimpleBlockRenderingHandler{
@@ -48,5 +46,5 @@ public class RenderIncensePlate implements ISimpleBlockRenderingHandler{
 	public boolean shouldRender3DInInventory(int modelId) {
 		return true;
 	}
-	
+
 }

@@ -31,7 +31,6 @@ import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibRenderIDs;
-import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -137,7 +136,7 @@ public class BlockModDoubleFlower extends BlockDoublePlant implements ILexiconab
 	@Override
 	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
 		boolean top = func_149887_c(p_149691_2_);
-		return (ConfigHandler.altFlowerTextures ? (top ? doublePlantTopIconsAlt : doublePlantBottomIconsAlt) : (top ? doublePlantTopIcons : doublePlantBottomIcons))[p_149691_2_ & 7];
+		return (ConfigHandler.altFlowerTextures ? top ? doublePlantTopIconsAlt : doublePlantBottomIconsAlt : top ? doublePlantTopIcons : doublePlantBottomIcons)[p_149691_2_ & 7];
 	}
 
 	@Override
@@ -147,7 +146,7 @@ public class BlockModDoubleFlower extends BlockDoublePlant implements ILexiconab
 		if(top)
 			meta = world.getBlockMetadata(x, y - 1, z);
 
-		return (ConfigHandler.altFlowerTextures ? (top ? doublePlantBottomIconsAlt : doublePlantTopIconsAlt) : (top ? doublePlantBottomIcons : doublePlantTopIcons))[meta & 7];
+		return (ConfigHandler.altFlowerTextures ? top ? doublePlantBottomIconsAlt : doublePlantTopIconsAlt : top ? doublePlantBottomIcons : doublePlantTopIcons)[meta & 7];
 	}
 
 	@Override

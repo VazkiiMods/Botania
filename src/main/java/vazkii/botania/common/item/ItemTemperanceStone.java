@@ -67,7 +67,7 @@ public class ItemTemperanceStone extends ItemMod {
 	void addStringToTooltip(String s, List<String> tooltip) {
 		tooltip.add(s.replaceAll("&", "\u00a7"));
 	}
-	
+
 	public static boolean hasTemperanceActive(EntityPlayer player) {
 		IInventory inv = player.inventory;
 		for(int i = 0; i < inv.getSizeInventory(); i++) {
@@ -75,8 +75,8 @@ public class ItemTemperanceStone extends ItemMod {
 			if(stack != null && stack.getItem() == ModItems.temperanceStone && stack.getItemDamage() == 1)
 				return true;
 		}
-		
+
 		return false;
 	}
-	
+
 }

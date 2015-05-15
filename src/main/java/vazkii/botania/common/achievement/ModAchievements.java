@@ -116,7 +116,7 @@ public final class ModAchievements {
 			relicAesirRing = new AchievementMod(LibAchievementNames.RELIC_AESIR_RING, -7, 5, ModItems.aesirRing, null).setSpecial();
 		}
 
-		
+
 		nullFlower = new AchievementMod(LibAchievementNames.NULL_FLOWER, -8, -4, ModBlocks.specialFlower, null).setSpecial();
 
 		ItemStack desu = new ItemStack(ModItems.manaGun);

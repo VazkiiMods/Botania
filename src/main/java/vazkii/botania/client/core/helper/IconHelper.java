@@ -21,7 +21,7 @@ public final class IconHelper {
 	public static IIcon forName(IIconRegister ir, String name) {
 		return ir.registerIcon(LibResources.PREFIX_MOD + name);
 	}
-	
+
 	public static IIcon forName(IIconRegister ir, String name, String dir) {
 		return ir.registerIcon(LibResources.PREFIX_MOD + dir + "/" + name);
 	}

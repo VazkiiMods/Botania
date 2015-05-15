@@ -83,7 +83,7 @@ public class ItemManasteelAxe extends ItemAxe implements IManaUsingItem, ISortab
 
 		return true;
 	}
-	
+
 	public int getManaPerDamage() {
 		return MANA_PER_DAMAGE;
 	}

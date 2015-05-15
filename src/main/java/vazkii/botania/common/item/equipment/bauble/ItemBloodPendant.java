@@ -43,7 +43,6 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.item.brew.ItemBrewBase;
 import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
 

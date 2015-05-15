@@ -60,7 +60,7 @@ public class ItemDice extends ItemRelic {
 					if(hasRelicAlready(player, i))
 						alreadyHas.add(i);
 					else possible.add(i);
-				
+
 				if(alreadyHas.size() > 0)
 					possible.add(alreadyHas.get(world.rand.nextInt(alreadyHas.size())));
 				relic = possible.get(world.rand.nextInt(possible.size()));

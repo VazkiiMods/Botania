@@ -584,7 +584,7 @@ public final class LexiconData {
 
 		incense = new BLexiconEntry(LibLexicon.DEVICE_INCENSE, categoryDevices);
 		incense.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipeIncenseStick), new PageCraftingRecipe("4", ModCraftingRecipes.recipeIncensePlate));
-		
+
 		// TOOLS ENTRIES
 		manaBlaster = new BLexiconEntry(LibLexicon.TOOL_MANA_BLASTER, categoryTools);
 		manaBlaster.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipeManaBlaster));
@@ -694,10 +694,10 @@ public final class LexiconData {
 
 		temperanceStone = new BLexiconEntry(LibLexicon.TOOL_TEMPERANCE_STONE, categoryTools);
 		temperanceStone.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeTemperanceStone));
-		
+
 		terraAxe = new BLexiconEntry(LibLexicon.TOOL_TERRA_AXE, categoryTools);
 		terraAxe.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeTerraAxe));
-		
+
 		// ENDER ENTRIES
 		enderAir = new BLexiconEntry(LibLexicon.ENDER_AIR, categoryEnder);
 		enderAir.setPriority().setLexiconPages(new PageText("0"));

@@ -116,7 +116,7 @@ public class RecipeHandlerElvenTrade extends TemplateRecipeHandler {
 				for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes) {
 					if(recipe == null)
 						continue;
-					
+
 					arecipes.add(new CachedElvenTradeRecipe(recipe));
 				}
 			}
@@ -129,7 +129,7 @@ public class RecipeHandlerElvenTrade extends TemplateRecipeHandler {
 			for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes) {
 				if(recipe == null)
 					continue;
-				
+
 				if(NEIServerUtils.areStacksSameTypeCrafting(recipe.getOutput(), result))
 					arecipes.add(new CachedElvenTradeRecipe(recipe));
 			}
@@ -142,7 +142,7 @@ public class RecipeHandlerElvenTrade extends TemplateRecipeHandler {
 			for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes) {
 				if(recipe == null)
 					continue;
-				
+
 				CachedElvenTradeRecipe crecipe = new CachedElvenTradeRecipe(recipe);
 				if(crecipe.contains(crecipe.inputs, ingredient))
 					arecipes.add(crecipe);

@@ -31,21 +31,20 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemMod;
-import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemIncenseStick extends ItemMod implements IBrewItem, IBrewContainer {
 
 	private static final String TAG_BREW_KEY = "brewKey";
 	public static final int TIME_MULTIPLIER = 60;
-	
+
 	IIcon[] icons;
 
 	public ItemIncenseStick() {
 		setUnlocalizedName(LibItemNames.INCENSE_STICK);
 		setMaxStackSize(1);
 	}
-	
+
 	@Override
 	public void getSubItems(Item item, CreativeTabs tab, List list) {
 		super.getSubItems(item, tab, list);
@@ -108,11 +107,11 @@ public class ItemIncenseStick extends ItemMod implements IBrewItem, IBrewContain
 			addStringToTooltip(" " + format + StatCollector.translateToLocal(effect.getEffectName()) + (effect.getAmplifier() == 0 ? "" : " " + StatCollector.translateToLocal("botania.roman" + (effect.getAmplifier() + 1))) + EnumChatFormatting.GRAY + (potion.isInstant() ? "" : " (" + Potion.getDurationString(longEffect) + ")"), list);
 		}
 	}
-	
+
 	void addStringToTooltip(String s, List<String> tooltip) {
 		tooltip.add(s.replaceAll("&", "\u00a7"));
 	}
-	
+
 	@Override
 	public Brew getBrew(ItemStack stack) {
 		String key = ItemNBTHelper.getString(stack, TAG_BREW_KEY, "");
@@ -126,7 +125,7 @@ public class ItemIncenseStick extends ItemMod implements IBrewItem, IBrewContain
 	public static void setBrew(ItemStack stack, String brew) {
 		ItemNBTHelper.setString(stack, TAG_BREW_KEY, brew);
 	}
-	
+
 	@Override
 	public ItemStack getItemForBrew(Brew brew, ItemStack stack) {
 		if(!brew.canInfuseIncense() || brew.getPotionEffects(stack).size() != 1 || Potion.potionTypes[brew.getPotionEffects(stack).get(0).getPotionID()].isInstant())

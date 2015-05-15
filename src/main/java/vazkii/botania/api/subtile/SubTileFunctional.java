@@ -102,109 +102,109 @@ public class SubTileFunctional extends SubTileEntity {
 					}
 					cachedPoolCoordinates = null;
 				}
+			}
+		}
+
+		if(!needsNew && linkedPool != null) {
+			TileEntity tileAt = supertile.getWorldObj().getTileEntity(linkedPool.xCoord, linkedPool.yCoord, linkedPool.zCoord);
+			if(!(tileAt instanceof IManaPool)) {
+				linkedPool = null;
+				needsNew = true;
+			} else linkedPool = tileAt;
+		}
+
+		if(needsNew) {
+			IManaNetwork network = BotaniaAPI.internalHandler.getManaNetworkInstance();
+			int size = network.getAllPoolsInWorld(supertile.getWorldObj()).size();
+			if(BotaniaAPI.internalHandler.shouldForceCheck() || size != sizeLastCheck) {
+				ChunkCoordinates coords = new ChunkCoordinates(supertile.xCoord, supertile.yCoord, supertile.zCoord);
+				linkedPool = network.getClosestPool(coords, supertile.getWorldObj(), range);
+				sizeLastCheck = size;
+			}
 		}
 	}
 
-	if(!needsNew && linkedPool != null) {
-		TileEntity tileAt = supertile.getWorldObj().getTileEntity(linkedPool.xCoord, linkedPool.yCoord, linkedPool.zCoord);
-		if(!(tileAt instanceof IManaPool)) {
-			linkedPool = null;
-			needsNew = true;
-		} else linkedPool = tileAt;
+	public void addMana(int mana) {
+		this.mana = Math.min(getMaxMana(), this.mana + mana);
 	}
 
-	if(needsNew) {
-		IManaNetwork network = BotaniaAPI.internalHandler.getManaNetworkInstance();
-		int size = network.getAllPoolsInWorld(supertile.getWorldObj()).size();
-		if(BotaniaAPI.internalHandler.shouldForceCheck() || size != sizeLastCheck) {
-			ChunkCoordinates coords = new ChunkCoordinates(supertile.xCoord, supertile.yCoord, supertile.zCoord);
-			linkedPool = network.getClosestPool(coords, supertile.getWorldObj(), range);
-			sizeLastCheck = size;
+	@Override
+	public boolean onWanded(EntityPlayer player, ItemStack wand) {
+		if(player == null)
+			return false;
+
+		knownMana = mana;
+		player.worldObj.playSoundAtEntity(player, "botania:ding", 0.1F, 1F);
+
+		return super.onWanded(player, wand);
+	}
+
+	public int getMaxMana() {
+		return 20;
+	}
+
+	public int getColor() {
+		return 0xFFFFFF;
+	}
+
+	@Override
+	public void readFromPacketNBT(NBTTagCompound cmp) {
+		mana = cmp.getInteger(TAG_MANA);
+
+		int x = cmp.getInteger(TAG_POOL_X);
+		int y = cmp.getInteger(TAG_POOL_Y);
+		int z = cmp.getInteger(TAG_POOL_Z);
+
+		cachedPoolCoordinates = new ChunkCoordinates(x, y, z);
+	}
+
+	@Override
+	public void writeToPacketNBT(NBTTagCompound cmp) {
+		cmp.setInteger(TAG_MANA, mana);
+
+		int x = linkedPool == null ? 0 : linkedPool.xCoord;
+		int y = linkedPool == null ? -1 : linkedPool.yCoord;
+		int z = linkedPool == null ? 0 : linkedPool.zCoord;
+
+		cmp.setInteger(TAG_POOL_X, x);
+		cmp.setInteger(TAG_POOL_Y, y);
+		cmp.setInteger(TAG_POOL_Z, z);
+	}
+
+	@Override
+	public ChunkCoordinates getBinding() {
+		if(linkedPool == null)
+			return null;
+		return new ChunkCoordinates(linkedPool.xCoord, linkedPool.yCoord, linkedPool.zCoord);
+	}
+
+	@Override
+	public boolean canSelect(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
+		return true;
+	}
+
+	@Override
+	public boolean bindTo(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
+		int range = 10;
+		range *= range;
+
+		double dist = (x - supertile.xCoord) * (x - supertile.xCoord) + (y - supertile.yCoord) * (y - supertile.yCoord) + (z - supertile.zCoord) * (z - supertile.zCoord);
+		if(range >= dist) {
+			TileEntity tile = player.worldObj.getTileEntity(x, y, z);
+			if(tile instanceof IManaPool) {
+				linkedPool = tile;
+				return true;
+			}
 		}
-	}
-}
 
-public void addMana(int mana) {
-	this.mana = Math.min(getMaxMana(), this.mana + mana);
-}
-
-@Override
-public boolean onWanded(EntityPlayer player, ItemStack wand) {
-	if(player == null)
 		return false;
-
-	knownMana = mana;
-	player.worldObj.playSoundAtEntity(player, "botania:ding", 0.1F, 1F);
-
-	return super.onWanded(player, wand);
-}
-
-public int getMaxMana() {
-	return 20;
-}
-
-public int getColor() {
-	return 0xFFFFFF;
-}
-
-@Override
-public void readFromPacketNBT(NBTTagCompound cmp) {
-	mana = cmp.getInteger(TAG_MANA);
-
-	int x = cmp.getInteger(TAG_POOL_X);
-	int y = cmp.getInteger(TAG_POOL_Y);
-	int z = cmp.getInteger(TAG_POOL_Z);
-
-	cachedPoolCoordinates = new ChunkCoordinates(x, y, z);
-}
-
-@Override
-public void writeToPacketNBT(NBTTagCompound cmp) {
-	cmp.setInteger(TAG_MANA, mana);
-
-	int x = linkedPool == null ? 0 : linkedPool.xCoord;
-	int y = linkedPool == null ? -1 : linkedPool.yCoord;
-	int z = linkedPool == null ? 0 : linkedPool.zCoord;
-
-	cmp.setInteger(TAG_POOL_X, x);
-	cmp.setInteger(TAG_POOL_Y, y);
-	cmp.setInteger(TAG_POOL_Z, z);
-}
-
-@Override
-public ChunkCoordinates getBinding() {
-	if(linkedPool == null)
-		return null;
-	return new ChunkCoordinates(linkedPool.xCoord, linkedPool.yCoord, linkedPool.zCoord);
-}
-
-@Override
-public boolean canSelect(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
-	return true;
-}
-
-@Override
-public boolean bindTo(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
-	int range = 10;
-	range *= range;
-
-	double dist = (x - supertile.xCoord) * (x - supertile.xCoord) + (y - supertile.yCoord) * (y - supertile.yCoord) + (z - supertile.zCoord) * (z - supertile.zCoord);
-	if(range >= dist) {
-		TileEntity tile = player.worldObj.getTileEntity(x, y, z);
-		if(tile instanceof IManaPool) {
-			linkedPool = tile;
-			return true;
-		}
 	}
 
-	return false;
-}
-
-@Override
-public void renderHUD(Minecraft mc, ScaledResolution res) {
-	String name = StatCollector.translateToLocal("tile.botania:flower." + getUnlocalizedName() + ".name");
-	int color = getColor();
-	BotaniaAPI.internalHandler.drawSimpleManaHUD(color, knownMana, getMaxMana(), name, res);
-}
+	@Override
+	public void renderHUD(Minecraft mc, ScaledResolution res) {
+		String name = StatCollector.translateToLocal("tile.botania:flower." + getUnlocalizedName() + ".name");
+		int color = getColor();
+		BotaniaAPI.internalHandler.drawSimpleManaHUD(color, knownMana, getMaxMana(), name, res);
+	}
 
 }

@@ -110,7 +110,7 @@ public class RecipeHandlerBrewery extends TemplateRecipeHandler {
 			for(RecipeBrew recipe : BotaniaAPI.brewRecipes) {
 				if(recipe == null)
 					continue;
-				
+
 				if(((IBrewItem) result.getItem()).getBrew(result) == recipe.getBrew())
 					arecipes.add(new CachedBreweryRecipe(recipe));
 			}

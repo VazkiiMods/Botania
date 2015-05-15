@@ -97,7 +97,7 @@ public class ItemManasteelSword extends ItemSword implements IManaUsingItem {
 		if(!world.isRemote && player instanceof EntityPlayer && stack.getItemDamage() > 0 && ManaItemHandler.requestManaExactForTool(stack, (EntityPlayer) player, getManaPerDamage() * 2, true))
 			stack.setItemDamage(stack.getItemDamage() - 1);
 	}
-	
+
 	public int getManaPerDamage() {
 		return MANA_PER_DAMAGE;
 	}

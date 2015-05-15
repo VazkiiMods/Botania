@@ -124,7 +124,7 @@ public class RecipeHandlerManaPool extends TemplateRecipeHandler {
 			for(RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes) {
 				if(recipe == null)
 					continue;
-				
+
 				arecipes.add(new CachedManaPoolRecipe(recipe));
 			}
 		} else super.loadCraftingRecipes(outputId, results);
@@ -135,7 +135,7 @@ public class RecipeHandlerManaPool extends TemplateRecipeHandler {
 		for(RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes) {
 			if(recipe == null)
 				continue;
-			
+
 			if(NEIServerUtils.areStacksSameTypeCrafting(recipe.getOutput(), result))
 				arecipes.add(new CachedManaPoolRecipe(recipe));
 		}
@@ -146,7 +146,7 @@ public class RecipeHandlerManaPool extends TemplateRecipeHandler {
 		for(RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes) {
 			if(recipe == null)
 				continue;
-			
+
 			CachedManaPoolRecipe crecipe = new CachedManaPoolRecipe(recipe);
 			if(crecipe.contains(crecipe.getIngredients(), ingredient) || crecipe.contains(crecipe.getOtherStacks(), ingredient))
 				arecipes.add(crecipe);

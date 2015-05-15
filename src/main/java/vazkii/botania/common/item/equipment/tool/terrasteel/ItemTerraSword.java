@@ -42,9 +42,9 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemTerraSword extends ItemManasteelSword implements ILensEffect, ICraftAchievement {
 
 	private static final String TAG_ATTACKER_USERNAME = "attackerUsername";
-	
+
 	private static final int MANA_PER_DAMAGE = 100;
-	
+
 	public ItemTerraSword() {
 		super(BotaniaAPI.terrasteelToolMaterial, LibItemNames.TERRA_SWORD);
 	}
@@ -65,7 +65,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect, I
 			}
 		}
 	}
-	
+
 	@Override
 	public int getManaPerDamage() {
 		return MANA_PER_DAMAGE;

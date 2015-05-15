@@ -1708,35 +1708,35 @@ public final class ModCraftingRecipes {
 		recipeCorporeaCrystalCube = BotaniaAPI.getLatestAddedRecipe();
 
 		// Stone of Temperance Recipe
-		addOreDictRecipe(new ItemStack(ModItems.temperanceStone), 
+		addOreDictRecipe(new ItemStack(ModItems.temperanceStone),
 				" S ", "SRS", " S ",
 				'S', "stone",
 				'R', LibOreDict.RUNE[2]);
 		recipeTemperanceStone = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Incense Stick Recipe
-		addOreDictRecipe(new ItemStack(ModItems.incenseStick), 
+		addOreDictRecipe(new ItemStack(ModItems.incenseStick),
 				"  G", " B ", "T  ",
 				'G', new ItemStack(Items.ghast_tear),
 				'B', new ItemStack(Items.blaze_powder),
 				'T', LibOreDict.LIVINGWOOD_TWIG);
 		recipeIncenseStick = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Incense Plate Recipe
-		addOreDictRecipe(new ItemStack(ModBlocks.incensePlate), 
+		addOreDictRecipe(new ItemStack(ModBlocks.incensePlate),
 				"WSS",
 				'W', LibOreDict.LIVING_WOOD,
 				'S', new ItemStack(ModFluffBlocks.livingwoodSlab));
 		recipeIncensePlate = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Terra Truncator Recipe
-		addOreDictRecipe(new ItemStack(ModItems.terraAxe), 
+		addOreDictRecipe(new ItemStack(ModItems.terraAxe),
 				"TTG", "TST", " S ",
 				'T', LibOreDict.TERRA_STEEL,
 				'G', new ItemStack(Blocks.glowstone),
 				'S', LibOreDict.LIVINGWOOD_TWIG);
 		recipeTerraAxe = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",

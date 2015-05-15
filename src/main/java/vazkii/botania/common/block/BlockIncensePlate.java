@@ -65,7 +65,7 @@ public class BlockIncensePlate extends BlockModContainer implements ILexiconable
 			if(stack != null && stack.getItem() == Items.flint_and_steel) {
 				plate.burning = true;
 				Brew brew = ((ItemIncenseStick) ModItems.incenseStick).getBrew(plateStack);
-				plate.timeLeft = brew.getPotionEffects(plateStack).get(0).getDuration() * ItemIncenseStick.TIME_MULTIPLIER; 
+				plate.timeLeft = brew.getPotionEffects(plateStack).get(0).getDuration() * ItemIncenseStick.TIME_MULTIPLIER;
 				stack.damageItem(1, player);
 				did = true;
 			} else {
