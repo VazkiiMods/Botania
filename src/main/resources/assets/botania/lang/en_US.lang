@@ -2275,8 +2275,13 @@ botania.page.crystalBow1=The elves are roving
 
 # -- STONE OF TEMPERANCE
 botania.entry.temperanceStone=Stone of Temperance
-botania.page.temperanceStone0=The &1Terra Shatterer&0 is able to destroy huge tracts of land when charged to its maximum potential, however, this might not always be the user's intent. A small, 3x3 tunnel might be more fitting in some cases. Having an active &1Stone of Temperance&0 in one's inventory will prevent their shatterer from breaking any more than a 3x3 area. The stone can be toggled on and off by shift-right clicking.
+botania.page.temperanceStone0=The &1Terra Shatterer&0 is able to destroy huge tracts of land when charged to its maximum potential, however, this might not always be the user's intent. A small, 3x3 tunnel might be more fitting in some cases. Having an active &1Stone of Temperance&0 in one's inventory will prevent their shatterer from breaking any more than a 3x3 area. This also affects the &1Terra Truncator&0. The stone can be toggled on and off by shift-right clicking.
 botania.page.temperanceStone1=Don't lose it
+
+# -- TERRA TRUNCATOR
+botania.entry.terraAxe=Terra Truncator
+botania.page.terraAxe0=The &1Terra Truncator&0 is a greataxe of premium quality achievable only with &1Terrasteel&0. When hitting a tree it'll take the whole thing down with speed, bringing all the logs and leaves along with it. Of course, this comes at a hefty cost of &4Mana&0.<br>This effect doesn't happen while sneaking or if the user has a &1Stone of Temperance&0.
+botania.page.terraAxe1=It's not a Dead END
 
 # - ENDER ARTEFACTS
 # -- EXTRACTING ENDER AIR

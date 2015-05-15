@@ -153,7 +153,8 @@ public final class LibLexicon {
 	public static final String TOOL_LIVINGWOOD_BOW = "livingwoodBow";
 	public static final String TOOL_CRYSTAL_BOW = "crystalBow";
 	public static final String TOOL_TEMPERANCE_STONE = "temperanceStone";
-	
+	public static final String TOOL_TERRA_AXE = "terraAxe";
+
 	public static final String ENDER_AIR = "enderAir";
 	public static final String ENDER_ENDER_EYE_BLOCK = "enderEyeBlock";
 	public static final String ENDER_PISTON_RELAY = "pistonRelay";

@@ -181,6 +181,7 @@ public final class LexiconData {
 	public static LexiconEntry livingwoodBow;
 	public static LexiconEntry crystalBow;
 	public static LexiconEntry temperanceStone;
+	public static LexiconEntry terraAxe;
 
 	public static LexiconEntry enderAir;
 	public static LexiconEntry enderEyeBlock;
@@ -693,6 +694,9 @@ public final class LexiconData {
 
 		temperanceStone = new BLexiconEntry(LibLexicon.TOOL_TEMPERANCE_STONE, categoryTools);
 		temperanceStone.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeTemperanceStone));
+		
+		terraAxe = new BLexiconEntry(LibLexicon.TOOL_TERRA_AXE, categoryTools);
+		terraAxe.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeTerraAxe));
 		
 		// ENDER ENTRIES
 		enderAir = new BLexiconEntry(LibLexicon.ENDER_AIR, categoryEnder);

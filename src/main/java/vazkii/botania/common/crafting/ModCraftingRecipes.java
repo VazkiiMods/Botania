@@ -259,6 +259,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeTemperanceStone;
 	public static IRecipe recipeIncenseStick;
 	public static IRecipe recipeIncensePlate;
+	public static IRecipe recipeTerraAxe;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1727,6 +1728,14 @@ public final class ModCraftingRecipes {
 				'W', LibOreDict.LIVING_WOOD,
 				'S', new ItemStack(ModFluffBlocks.livingwoodSlab));
 		recipeIncensePlate = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Terra Truncator Recipe
+		addOreDictRecipe(new ItemStack(ModItems.terraAxe), 
+				"TTG", "TST", " S ",
+				'T', LibOreDict.TERRA_STEEL,
+				'G', new ItemStack(Blocks.glowstone),
+				'S', LibOreDict.LIVINGWOOD_TWIG);
+		recipeTerraAxe = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

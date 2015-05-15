@@ -29,6 +29,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISequentialBreaker;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.common.item.ItemTemperanceStone;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelAxe;
 import vazkii.botania.common.item.relic.ItemLokiRing;
@@ -66,9 +67,12 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	
 	@Override
 	public IIcon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining) {
-		return player.isSneaking() ? iconOff : iconOn;
+		return shouldBreak(player) ? iconOn : iconOff;
 	}
 	
+	public boolean shouldBreak(EntityPlayer player) {
+		return !player.isSneaking() && !ItemTemperanceStone.hasTemperanceActive(player);
+	}
 	
 	@Override
 	public boolean onBlockStartBreak(ItemStack stack, int x, int y, int z, EntityPlayer player) {
@@ -88,7 +92,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	
 	@Override
 	public void breakOtherBlock(EntityPlayer player, ItemStack stack, int x, int y, int z, int originX, int originY, int originZ, int side) {
-		if(!player.isSneaking()) {
+		if(shouldBreak(player)) {
 			ChunkCoordinates coords = new ChunkCoordinates(x, y, z);
 			addBlockSwapper(player.worldObj, player, stack, coords, coords, 32, false, true, new ArrayList());	
 		}
