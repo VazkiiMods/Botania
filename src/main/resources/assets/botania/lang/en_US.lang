@@ -1326,6 +1326,7 @@ item.botania:recordGaia1.name=Scathed Music Disc
 item.botania:recordGaia2.name=Scathed Music Disc
 item.botania:temperanceStone.name=Stone of Temperance
 item.botania:incenseStick.name=Incense Stick
+item.botania:terraAxe.name=Terra Truncator
 
 # BREW NAMES
 botania.brew.fallback=Fallback

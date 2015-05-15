@@ -35,7 +35,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemManasteelSword extends ItemSword implements IManaUsingItem {
 
-	public static final int MANA_PER_DAMAGE = 51;
+	public static final int MANA_PER_DAMAGE = 60;
 
 	IIcon elucidatorIcon;
 
@@ -70,7 +70,7 @@ public class ItemManasteelSword extends ItemSword implements IManaUsingItem {
 	@Override
 	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase) {
 		if(usesMana(par1ItemStack))
-			ToolCommons.damageItem(par1ItemStack, 1, par3EntityLivingBase, MANA_PER_DAMAGE);
+			ToolCommons.damageItem(par1ItemStack, 1, par3EntityLivingBase, getManaPerDamage());
 		return true;
 	}
 
@@ -87,15 +87,19 @@ public class ItemManasteelSword extends ItemSword implements IManaUsingItem {
 	@Override
 	public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int x, int y, int z, EntityLivingBase entity) {
 		if(usesMana(stack) && block.getBlockHardness(world, x, y, z) != 0F)
-			ToolCommons.damageItem(stack, 1, entity, MANA_PER_DAMAGE);
+			ToolCommons.damageItem(stack, 1, entity, getManaPerDamage());
 
 		return true;
 	}
 
 	@Override
 	public void onUpdate(ItemStack stack, World world, Entity player, int par4, boolean par5) {
-		if(!world.isRemote && player instanceof EntityPlayer && stack.getItemDamage() > 0 && ManaItemHandler.requestManaExactForTool(stack, (EntityPlayer) player, MANA_PER_DAMAGE * 2, true))
+		if(!world.isRemote && player instanceof EntityPlayer && stack.getItemDamage() > 0 && ManaItemHandler.requestManaExactForTool(stack, (EntityPlayer) player, getManaPerDamage() * 2, true))
 			stack.setItemDamage(stack.getItemDamage() - 1);
+	}
+	
+	public int getManaPerDamage() {
+		return MANA_PER_DAMAGE;
 	}
 
 	@Override

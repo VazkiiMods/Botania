@@ -30,6 +30,7 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumPick;
+import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 
 public final class ToolCommons {
 
@@ -63,6 +64,10 @@ public final class ToolCommons {
 	}
 
 	public static void removeBlockWithDrops(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int bx, int by, int bz, Block block, Material[] materialsListing, boolean silk, int fortune, float blockHardness, boolean dispose) {
+		removeBlockWithDrops(player, stack, world, x, y, z, bx, by, bz, block, materialsListing, silk, fortune, blockHardness, dispose, true);
+	}
+	
+	public static void removeBlockWithDrops(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int bx, int by, int bz, Block block, Material[] materialsListing, boolean silk, int fortune, float blockHardness, boolean dispose, boolean particles) {
 		if(!world.blockExists(x, y, z))
 			return;
 
@@ -91,7 +96,7 @@ public final class ToolCommons {
 				damageItem(stack, 1, player, 80);
 			} else world.setBlockToAir(x, y, z);
 
-			if(ConfigHandler.blockBreakParticles && ConfigHandler.blockBreakParticlesTool && !world.isRemote)
+			if(particles && !world.isRemote && ConfigHandler.blockBreakParticles && ConfigHandler.blockBreakParticlesTool)
 				world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(blk) + (meta << 12));
 		}
 	}

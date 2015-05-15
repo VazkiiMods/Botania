@@ -143,6 +143,7 @@ public final class LibItemNames {
 	public static final String RECORD_GAIA2 = "recordGaia2";
 	public static final String TEMPERANCE_STONE = "temperanceStone";
 	public static final String INCENSE_STICK = "incenseStick";
+	public static final String TERRA_AXE = "terraAxe";
 
 	public static final String[] LENS_NAMES = new String[] {
 		"lensNormal",

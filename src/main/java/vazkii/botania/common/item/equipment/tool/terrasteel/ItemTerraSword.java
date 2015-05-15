@@ -8,7 +8,7 @@
  * 
  * File Created @ [Apr 14, 2014, 7:34:56 PM (GMT)]
  */
-package vazkii.botania.common.item.equipment.tool;
+package vazkii.botania.common.item.equipment.tool.terrasteel;
 
 import java.util.List;
 
@@ -35,13 +35,16 @@ import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemTerraSword extends ItemManasteelSword implements ILensEffect, ICraftAchievement {
 
 	private static final String TAG_ATTACKER_USERNAME = "attackerUsername";
-
+	
+	private static final int MANA_PER_DAMAGE = 100;
+	
 	public ItemTerraSword() {
 		super(BotaniaAPI.terrasteelToolMaterial, LibItemNames.TERRA_SWORD);
 	}
@@ -61,6 +64,11 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect, I
 				par2World.playSoundAtEntity(player, "botania:terraBlade", 0.4F, 1.4F);
 			}
 		}
+	}
+	
+	@Override
+	public int getManaPerDamage() {
+		return MANA_PER_DAMAGE;
 	}
 
 	public EntityManaBurst getBurst(EntityPlayer player, ItemStack stack) {

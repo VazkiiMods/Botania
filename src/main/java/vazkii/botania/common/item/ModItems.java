@@ -59,8 +59,6 @@ import vazkii.botania.common.item.equipment.bauble.ItemUnholyCloak;
 import vazkii.botania.common.item.equipment.bauble.ItemWaterRing;
 import vazkii.botania.common.item.equipment.tool.ItemEnderDagger;
 import vazkii.botania.common.item.equipment.tool.ItemGlassPick;
-import vazkii.botania.common.item.equipment.tool.ItemTerraPick;
-import vazkii.botania.common.item.equipment.tool.ItemTerraSword;
 import vazkii.botania.common.item.equipment.tool.bow.ItemCrystalBow;
 import vazkii.botania.common.item.equipment.tool.bow.ItemLivingwoodBow;
 import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumAxe;
@@ -73,6 +71,9 @@ import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelPick;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelShears;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelShovel;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
+import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraAxe;
+import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
+import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraSword;
 import vazkii.botania.common.item.interaction.thaumcraft.ItemElementiumHelmRevealing;
 import vazkii.botania.common.item.interaction.thaumcraft.ItemManaInkwell;
 import vazkii.botania.common.item.interaction.thaumcraft.ItemManasteelHelmRevealing;
@@ -241,6 +242,7 @@ public final class ModItems {
 	public static Item recordGaia2;
 	public static Item temperanceStone;
 	public static Item incenseStick;
+	public static Item terraAxe;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -373,6 +375,7 @@ public final class ModItems {
 		recordGaia2 = new ItemRecordGaia2();
 		temperanceStone = new ItemTemperanceStone();
 		incenseStick = new ItemIncenseStick();
+		terraAxe = new ItemTerraAxe();
 
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {

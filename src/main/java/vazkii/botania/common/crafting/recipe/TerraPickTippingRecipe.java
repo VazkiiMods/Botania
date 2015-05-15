@@ -15,7 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.equipment.tool.ItemTerraPick;
+import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 
 public class TerraPickTippingRecipe implements IRecipe {
 

@@ -8,7 +8,7 @@
  * 
  * File Created @ [May 20, 2014, 10:56:14 PM (GMT)]
  */
-package vazkii.botania.common.item.equipment.tool;
+package vazkii.botania.common.item.equipment.tool.terrasteel;
 
 import java.awt.Color;
 import java.util.List;
@@ -42,6 +42,7 @@ import vazkii.botania.common.item.ItemTemperanceStone;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemAuraRing;
 import vazkii.botania.common.item.equipment.bauble.ItemGreaterAuraRing;
+import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelPick;
 import vazkii.botania.common.item.relic.ItemLokiRing;
 import vazkii.botania.common.item.relic.ItemThorRing;
@@ -57,6 +58,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	private static final String TAG_TIPPED = "tipped";
 
 	private static final int MAX_MANA = Integer.MAX_VALUE;
+	private static final int MANA_PER_DAMAGE = 100;
 
 	private static final Material[] MATERIALS = new Material[] { Material.rock, Material.iron, Material.ice, Material.glass, Material.piston, Material.anvil, Material.grass, Material.ground, Material.sand, Material.snow, Material.craftedSnow, Material.clay };
 
@@ -138,6 +140,11 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		return false;
 	}
 
+	@Override
+	public int getManaPerDmg() {
+		return MANA_PER_DAMAGE;
+	}
+	
 	@Override
 	public void breakOtherBlock(EntityPlayer player, ItemStack stack, int x, int y, int z, int originX, int originY, int originZ, int side) {
 		if(!isEnabled(stack))
