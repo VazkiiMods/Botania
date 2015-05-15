@@ -16,6 +16,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.EnumRarity;
@@ -162,7 +163,7 @@ public class ItemExcaliber extends ItemManasteelSword implements IRelic, ILensEf
 			AxisAlignedBB axis1 = AxisAlignedBB.getBoundingBox(entity.posX, entity.posY, entity.posZ, entity.lastTickPosX, entity.lastTickPosY, entity.lastTickPosZ).expand(5, 5, 5);
 			List<EntityLivingBase> entities = entity.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, axis1);
 			for(EntityLivingBase living : entities) {
-				if(!(living instanceof EntityPlayer) && living.hurtTime != 0)
+				if(living instanceof EntityPlayer || !(living instanceof IMob) || living.hurtTime != 0)
 					continue;
 
 				homeID = living.getEntityId();
