@@ -16,8 +16,7 @@ package vazkii.botania.common.integration.coloredlights;
 public class LightHelperVanilla implements ILightHelper {
 
 	@Override
-	public int makeRGBLightValue(float r, float g, float b,
-			int currentLightValue) {
+	public int makeRGBLightValue(float r, float g, float b, int currentLightValue) {
 		return currentLightValue;
 	}
 
