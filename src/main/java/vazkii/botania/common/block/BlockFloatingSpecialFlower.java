@@ -70,19 +70,19 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 	}
 
 	@Override
-    public int isProvidingWeakPower(IBlockAccess world, int x, int y, int z, int side) {
-    	return ((TileSpecialFlower) world.getTileEntity(x, y, z)).getPowerLevel(side);
-    }
+	public int isProvidingWeakPower(IBlockAccess world, int x, int y, int z, int side) {
+		return ((TileSpecialFlower) world.getTileEntity(x, y, z)).getPowerLevel(side);
+	}
 
 	@Override
-    public int isProvidingStrongPower(IBlockAccess world, int x, int y, int z, int side) {
-        return this.isProvidingWeakPower(world, x, y, z, side);
-    }
+	public int isProvidingStrongPower(IBlockAccess world, int x, int y, int z, int side) {
+		return this.isProvidingWeakPower(world, x, y, z, side);
+	}
     
 	@Override
-    public boolean canProvidePower() {
-        return true;
-    }
+	public boolean canProvidePower() {
+		return true;
+	}
 
 	@Override
 	public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random) {
