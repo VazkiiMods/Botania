@@ -52,7 +52,7 @@ public class Botania {
 		bcTriggersLoaded = ModAPIManager.INSTANCE.hasAPI("BuildCraftAPI|statements");
 		bloodMagicLoaded = Loader.isModLoaded("AWWayofTime"); // Psh, noob
 		
-		if(lightHelper==null)
+		if(lightHelper == null)
 			lightHelper = new LightHelperVanilla();
 
 		proxy.preInit(event);
@@ -61,6 +61,7 @@ public class Botania {
 	@EventHandler
 	@Optional.Method(modid = "easycoloredlights")
 	public void preInitColoredLights(FMLPreInitializationEvent event) {
+		System.out.println("easycolor!");
 		lightHelper = new LightHelperColored();
 	}
 	
