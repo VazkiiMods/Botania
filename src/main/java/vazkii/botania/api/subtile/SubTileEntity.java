@@ -192,4 +192,27 @@ public class SubTileEntity {
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		// NO-OP
 	}
+	
+	/**
+	 * Gets the light value for this SubTileEntity, this is a int (-1 to default to the flower)
+	 */
+	public int getLightValue() {
+		return -1;
+	}
+
+	/**
+	 * Gets the comparator input value for this SubTileEntity
+	 */
+	public int getComparatorInputOverride(int side) {
+		return 0;
+	}
+
+	/**
+	 * Gets the redstone power level for this SubTileEntity
+	 */
+	public int getPowerLevel(int side) {
+		return 0;
+	}
+
+	
 }
