@@ -20,13 +20,18 @@ public final class SparkHelper {
 	public static final int SPARK_SCAN_RANGE = 12;
 
 	public static List<ISparkEntity> getSparksAround(World world, double x, double y, double z) {
-		return SparkHelper.getEntitiesAround(ISparkEntity.class, world, x, y, z);
+		return SparkHelper.getSparksAround(world, x, y, z, SPARK_SCAN_RANGE);
+	}	
+	
+	public static List<ISparkEntity> getSparksAround(World world, double x, double y, double z, int range) {
+		return SparkHelper.getEntitiesAround(ISparkEntity.class, world, x, y, z, range);
 	}
 
-	public static <T> List<T> getEntitiesAround(Class<? extends T> clazz, World world, double x, double y, double z) {
-		int r = SPARK_SCAN_RANGE;
+	public static <T> List<T> getEntitiesAround(Class<? extends T> clazz, World world, double x, double y, double z, int r) {
 		List<T> entities = world.getEntitiesWithinAABB(clazz, AxisAlignedBB.getBoundingBox(x - r, y - r, z - r, x + r, y + r, z + r));
 		return entities;
 	}
+	
+
 
 }
