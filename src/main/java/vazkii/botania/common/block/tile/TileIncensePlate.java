@@ -37,6 +37,8 @@ public class TileIncensePlate extends TileSimpleInventory implements ISidedInven
 	public int timeLeft = 0;
 	public boolean burning = false;
 
+	public int comparatorOutput = 0;
+	
 	@Override
 	public void updateEntity() {
 		ItemStack stack = getStackInSlot(0);
@@ -75,6 +77,26 @@ public class TileIncensePlate extends TileSimpleInventory implements ISidedInven
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 			}
 		} else timeLeft = 0;
+		
+		int newComparator = 0;
+		if(stack != null)
+			newComparator = 1;
+		if(burning)
+			newComparator = 2;
+		if(comparatorOutput != newComparator) {
+			comparatorOutput = newComparator;
+			worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
+		}
+	}
+	
+	public void ignite() {
+		ItemStack stack = getStackInSlot(0);
+		if(stack == null || burning)
+			return;
+		
+		burning = true;
+		Brew brew = ((ItemIncenseStick) ModItems.incenseStick).getBrew(stack);
+		timeLeft = brew.getPotionEffects(stack).get(0).getDuration() * ItemIncenseStick.TIME_MULTIPLIER;
 	}
 
 	@Override
@@ -120,5 +142,12 @@ public class TileIncensePlate extends TileSimpleInventory implements ISidedInven
 	public boolean canExtractItem(int p_102008_1_, ItemStack p_102008_2_, int p_102008_3_) {
 		return false;
 	}
-
+	
+	@Override
+	public void markDirty() {
+		super.markDirty();
+		if(!worldObj.isRemote)
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+	}
+	
 }
