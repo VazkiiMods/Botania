@@ -37,7 +37,8 @@ public class Botania {
 	public static boolean thaumcraftLoaded = false;
 	public static boolean bcTriggersLoaded = false;
 	public static boolean bloodMagicLoaded = false;
-	
+	public static boolean coloredLightsLoaded = false;
+
 	public static ILightHelper lightHelper;
 
 	@Instance(LibMisc.MOD_ID)
@@ -51,20 +52,12 @@ public class Botania {
 		thaumcraftLoaded = Loader.isModLoaded("Thaumcraft");
 		bcTriggersLoaded = ModAPIManager.INSTANCE.hasAPI("BuildCraftAPI|statements");
 		bloodMagicLoaded = Loader.isModLoaded("AWWayofTime"); // Psh, noob
-		
-		if(lightHelper == null)
-			lightHelper = new LightHelperVanilla();
+		coloredLightsLoaded = Loader.isModLoaded("easycoloredlights");
+		 
+		lightHelper = coloredLightsLoaded ? new LightHelperColored() : new LightHelperVanilla();
 
 		proxy.preInit(event);
 	}
-
-	@EventHandler
-	@Optional.Method(modid = "easycoloredlights")
-	public void preInitColoredLights(FMLPreInitializationEvent event) {
-		System.out.println("easycolor!");
-		lightHelper = new LightHelperColored();
-	}
-	
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		proxy.init(event);
