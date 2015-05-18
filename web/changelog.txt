@@ -1,3 +1,15 @@
+r1.6 190
+*Added a bit more info to the Flower Pouch page, it should've been there to begin with but I forgot >_>
+*Added the ability to light an Incense Plate with a Flash Lens. It also has a comparator output now.
+*Fixed being able to re-do petal apothecary recipes if the apothecary doesn't have water.
+*Fixed Incense Stick missing texture log spam.
+*Fixed the Flower Pouch showing a single chest interface when depositing the items in a double chest.
+*Fixed the Incense Plate not syncing its inventory to the client when it receives an item from a hopper.
+*Lowered goldfish.
+*Mana Bursts with the Flash lens can now create flashes in tall grass and other replaceable blocks.
+*Retextured the Terra Blade, Crafting Patterns and Placeholders.
+*[API] Added hooks for SubTiles to control redstone behavior and light. (SoundLogic)
+*[API] Increased version number to 50.
 r1.6 189
 *Added Incense Sticks and an Incense Plate to burn them on. They provide AoE brew effects. <i>It's as they say, Incense is Wincense.</i>
 *Added the Terra Truncator (Terrasteel Axe), as you'd expect, it breaks whole trees.
