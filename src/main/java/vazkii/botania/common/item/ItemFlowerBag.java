@@ -120,8 +120,8 @@ public class ItemFlowerBag extends ItemMod {
 
 				setStacks(stack, newStacks);
 				if(putAny && inv instanceof TileEntityChest) {
-					TileEntityChest chest = (TileEntityChest) inv;
-					player.displayGUIChest(chest);
+					inv = InventoryHelper.getInventory(inv);
+					player.displayGUIChest(inv);
 				}
 			}
 
