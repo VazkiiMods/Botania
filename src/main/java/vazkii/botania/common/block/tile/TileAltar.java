@@ -153,7 +153,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 	}
 
 	public static void tryToSetLastRecipe(EntityPlayer player, IInventory inv, List<ItemStack> lastRecipe) {
-		if(lastRecipe == null || lastRecipe.isEmpty() || !hasWater || player.worldObj.isRemote)
+		if(lastRecipe == null || lastRecipe.isEmpty() || player.worldObj.isRemote)
 			return;
 
 		int index = 0;
