@@ -57,8 +57,8 @@ public class ItemIncenseStick extends ItemMod implements IBrewItem, IBrewContain
 
 	@Override
 	public void registerIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[4];
-		for(int i = 0; i < 4; i++)
+		icons = new IIcon[2];
+		for(int i = 0; i < icons.length; i++)
 			icons[i] = IconHelper.forItem(par1IconRegister, this, i);
 	}
 
