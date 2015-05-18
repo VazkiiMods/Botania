@@ -1476,6 +1476,7 @@ botania.page.blackLotus0=An elusive flower by the name of &1Black Lotus&0 is kno
 # -- FLOWER POUCH
 botania.entry.flowerBag=Flower Pouch
 botania.page.flowerBag0=The laws of physics regarding one's &4Inventory&0 are somewhat skewed in this world. Thanks to that, carrying an array of different colors of flowers turns out to be a major hassle. Luckily, a &1Flower Pouch&0 takes care of all those issues. It can store up to one stack of each color of &1Mystical Flower&0, not only that but it'll passively catch any that enter the holder's inventory.
+botania.page.flowerBag2=Items won't be added automatically to the pouch if that's the item being held.<br>Furthermore, shift-right clicking the pouch into a &1Chest&0 or other inventory will store the flowers it contains into said inventory. 
 botania.page.flowerBag1=Pull a copter out of it (any colors work)
 
 # -- WRAP

@@ -310,7 +310,7 @@ public final class LexiconData {
 		blackLotus.setLexiconPages(new PageText("0")).setIcon(new ItemStack(ModItems.blackLotus));
 
 		flowerBag = new BLexiconEntry(LibLexicon.BASICS_FLOWER_BAG, categoryBasics);
-		flowerBag.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeFlowerBag));
+		flowerBag.setLexiconPages(new PageText("0"), new PageText("2"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeFlowerBag));
 
 		if(Botania.thaumcraftLoaded)
 			new BLexiconEntry("wrap", categoryBasics).setLexiconPages(new PageText("0")); // lel
