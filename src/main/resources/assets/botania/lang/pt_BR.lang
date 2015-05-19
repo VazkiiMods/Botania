@@ -404,82 +404,82 @@ entity.Botania.botania:enderAirBottle.name=Garrafa de ar do Fim
 entity.Botania.botania:poolMinecart.name=Carrinho com Poço de Mana
 
 # ACHIEVEMENT NAMES + DESC
-achievement.botania:flowerPickup=Céus do início
+achievement.botania:flowerPickup=Sky of Beginning
 achievement.botania:flowerPickup.desc=Colete uma Flor Mística no mundo
-achievement.botania:lexiconUse=Uma situação lógica real
+achievement.botania:lexiconUse=A Realistical Logical Ideologist
 achievement.botania:lexiconUse.desc=Olhe o índice do Lexica Botania
-achievement.botania:daybloomPickup=Chegada do Daybreak
+achievement.botania:daybloomPickup=Daybreak Arrival
 achievement.botania:daybloomPickup.desc=Crie uma Daybloom no Boticário de Pétalas
-achievement.botania:manaPoolPickup=Onda vívida
+achievement.botania:manaPoolPickup=Vivid Wave
 achievement.botania:manaPoolPickup.desc=Melhore um Poço de Mana Diluído para um normal
-achievement.botania:endoflamePickup=Ponto de fusão
+achievement.botania:endoflamePickup=Meltdown
 achievement.botania:endoflamePickup.desc=Crie uma Endoflame para uma melhor produção de Mana
-achievement.botania:tinyPotatoPet=Sejam amigos
+achievement.botania:tinyPotatoPet=Just Be Friends
 achievement.botania:tinyPotatoPet.desc=Domestique uma Batatinha
-achievement.botania:sparkCraft=Partícula da vida
+achievement.botania:sparkCraft=Live Drive
 achievement.botania:sparkCraft.desc=Crie uma Fagulha para ajudar na transferência de Mana
-achievement.botania:baubleWear=Artes plásticas
+achievement.botania:baubleWear=Inner Arts
 achievement.botania:baubleWear.desc=Crie qualquer Bauble e equipe
-achievement.botania:manaCookieEat=Heresia podre e chocolate
+achievement.botania:manaCookieEat=Rotten Heresy and Chocolate
 achievement.botania:manaCookieEat.desc=Infunda e coma um Biscoito de Mana
 achievement.botania:runePickup=Lilium Doll
 achievement.botania:runePickup.desc=Use o Altar Rúnico para criar uma Runa
 achievement.botania:manaBlasterShoot=M'aider Stranded Girl
 achievement.botania:manaBlasterShoot.desc=Crie e use um Disparador de Mana
-achievement.botania:tiaraWings=Tiro ao coração
+achievement.botania:tiaraWings=Heart Shooter
 achievement.botania:tiaraWings.desc=Crie e adorne uma Tiara de Flügel com asas
-achievement.botania:terrasteelPickup=Dançando no escuro
+achievement.botania:terrasteelPickup=Dancer in the Dark
 achievement.botania:terrasteelPickup.desc=Conjure uma Barra de Terrasteel usando a Placa de Aglomeração Terrestre
-achievement.botania:elfPortalOpen=Chamado mundial
+achievement.botania:elfPortalOpen=World Calling
 achievement.botania:elfPortalOpen.desc=Abra um portal para o reino de Alfheim
-achievement.botania:gaiaGuardianKill=Pique-esconde dos mortos
+achievement.botania:gaiaGuardianKill=Dead and Seek
 achievement.botania:gaiaGuardianKill.desc=Invoque e mate um Guardião de Gaia
-achievement.botania:terrasteelWeaponCraft=Paranóia remota
+achievement.botania:terrasteelWeaponCraft=Remote Paranoia
 achievement.botania:terrasteelWeaponCraft.desc=Arme-se com uma arma feita de Terrasteel
-achievement.botania:kekimurusPickup=Caminhada depois da escola
+achievement.botania:kekimurusPickup=After-School Stride
 achievement.botania:kekimurusPickup.desc=Crie uma Kekimurus para produzir grandes quantidades de Mana
-achievement.botania:heiseiDreamPickup=Cataclismo de Heisei
+achievement.botania:heiseiDreamPickup=Heisei Cataclysm
 achievement.botania:heiseiDreamPickup.desc=Crie uma Heisei Dream para causar uma rebelião entre os monstros
 achievement.botania:dirtRodCraft=Rockbell
 achievement.botania:dirtRodCraft.desc=Crie um graveto su- er... Cajado das Terras
 achievement.botania:spawnerMoverUse=I can take off my (redacted)
 achievement.botania:spawnerMoverUse.desc=Use um Agregador de Vida para transportar um Invocador de Monstros
-achievement.botania:enderAirMake=Ar de mentira
+achievement.botania:enderAirMake=Imitation Air
 achievement.botania:enderAirMake.desc=Colete uma Garrafa de ar do Fim
 achievement.botania:corporeaCraft=Drop Pop Candy
 achievement.botania:corporeaCraft.desc=Crie um bloco que faça parte da Rede de Corporea
 
-achievement.botania:signalFlareStun=Veja as luzes
+achievement.botania:signalFlareStun=See the Lights
 achievement.botania:signalFlareStun.desc=Atordoe 100 ou mais monstros com uma única Fagulha Sinalizadora
-achievement.botania:l20ShardUse=Castelo no céu
+achievement.botania:l20ShardUse=Out of Step
 achievement.botania:l20ShardUse.desc=Ergua o solo ao céu com um Fragmento de Laputa Nível XX
-achievement.botania:gaiaGuardianNoArmor=O fim da mitologia
+achievement.botania:gaiaGuardianNoArmor=Mythologia's End
 achievement.botania:gaiaGuardianNoArmor.desc=Mate um Guardião de Gaia sem usar armadura em qualquer parte da luta
-achievement.botania:rankSSPick=Triturador de talentos
+achievement.botania:rankSSPick=Talent Shredder
 achievement.botania:rankSSPick.desc=Minere usando um Terra-Destruídor nível SS
-achievement.botania:superCorporeaRequest=Invasora
+achievement.botania:superCorporeaRequest=Invader Girl
 achievement.botania:superCorporeaRequest.desc=Requisite 50000 ou mais de um único item com o Índice Corporea
-achievement.botania:pinkinator=Decorador
+achievement.botania:pinkinator=Decorator
 achievement.botania:pinkinator.desc=Dê um uso ao Pinkinator
 
 achievement.botania:infiniteFruit=Innocentia
 achievement.botania:infiniteFruit.desc=Seja recompensado com uma Fruta de Grisaia por um ato heróico
 achievement.botania:excaliber=Streaming Heart
 achievement.botania:excaliber.desc=Seja recompensado com a Espada Sagrada Excaliber por um ato heróico
-achievement.botania:flugelEye=Anjo da Morte
+achievement.botania:flugelEye=Angel of Death
 achievement.botania:flugelEye.desc=Seja recompensado com um Olho dos Flügel por um ato heróico
-achievement.botania:thorRing=Um passo dado
+achievement.botania:thorRing=One Step Layered
 achievement.botania:thorRing.desc=Seja recompensado com o Anel de Thor por um ato heróico
-achievement.botania:odinRing=Memórias perdidas no tempo
+achievement.botania:odinRing=Lost Time Memory
 achievement.botania:odinRing.desc=Seja recompensado com o Anel de Odin por um ato heróico
-achievement.botania:lokiRing=Aritmético
+achievement.botania:lokiRing=Arithmetic
 achievement.botania:lokiRing.desc=Seja recompensado com o Anel de Loki por um ato heróico
-achievement.botania:aesirRing=Como os deuses dizem
+achievement.botania:aesirRing=As the Gods Say
 achievement.botania:aesirRing.desc=Crie um Anel de Aesir com os três anéis dos deuses
 
 achievement.botania:nullFlower=Take it Easy
 achievement.botania:nullFlower.desc=Encontre algum bug que faça você conseguir uma flor indefinida. Não esqueça de reportá-lo!
-achievement.botania:desuGun=Amantes de duas caras
+achievement.botania:desuGun=Two-Faced Lovers
 achievement.botania:desuGun.desc=ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
 #                                 ^ Don't localize
 
@@ -654,7 +654,7 @@ tile.botania:dreamwood0Stairs.name=Escadas de Madeira dos Sonhos
 tile.botania:dreamwood0Slab.name=Laje de Madeira dos Sonhos
 tile.botania:dreamwood1Stairs.name=Escadas de Tábuas de Madeira dos Sonhos
 tile.botania:dreamwood1Slab.name=Laje de Tábuas de Madeira dos Sonhos
-tile.botania:conjurationCatalyst.name=Catalista de Conjurações
+tile.botania:conjurationCatalyst.name=Catalizador de Conjurações
 tile.botania:prismarine0.name=Prismarinho
 tile.botania:prismarine1.name=Tijolos de Prismarinho
 tile.botania:prismarine2.name=Prismarinho Escuro
@@ -1326,6 +1326,7 @@ item.botania:recordGaia1.name=Disco de Música
 item.botania:recordGaia2.name=Disco de Música
 item.botania:temperanceStone.name=Pedra da Moderação
 item.botania:incenseStick.name=Incenso
+item.botania:terraAxe.name=Terra-Truncador
 
 # BREW NAMES
 botania.brew.fallback=Fallback
@@ -1643,3 +1644,87 @@ botania.page.poolCart1=A tranferência de &4Mana&0 entre o carrinho e o Poço é
 botania.page.poolCart2=O lado de saída de &4Mana&0 é o rosa, &4Mana&0 é puxada pelo lado azul.<br>A Bomba pode ser desligada com redstone, e um &1Comparador&0 emite sinal baseado em quanta &4Mana&0 existe no carrinho.<br>O Poço no carrinho serve exclusivamente para transoprte, não pode receber, enviar, transferir ou infundir itens com &4Mana&0.
 botania.page.poolCart3=I like trains
 botania.page.poolCart4=Isso não é um tubo
+
+# - FUNCTIONAL FLOWERS
+# -- AN INTRODUCTION TO FUNCTION
+botania.entry.fIntro=Introdução a Função
+botania.page.fIntro0=Há vários lugares onde a &4Mana&0 que um botanista gera pode ser usada, uma dessas áreas são as &4Flores Funcionais&0.<br>Essas flores drenam &4Mana&0 de um &1Poço de Mana&0 próximo, para poderem realizarem a função designada a elas.<br>Vale lembrar que elas não recebem Mana diretamente de um &1Dispersor de Mana&0.
+botania.page.fIntro1=Todas &4Flores Funcionais&0, assim como as &4Flores Geradoras&0 possuem um pequeno reservatório de &4Mana&0.<br>As regras de leitura de &4Mana&0 se aplicam normalmente, clicar em uma flor com uma &1Varinha da Floresta&0 atualiza os status de Mana.
+botania.page.fIntro2=É importante lembrar que essas flores memorizam de qual &1Poço de Mana&0 elas devem extrair &4Mana&0. Elas só drenam do Poço mais próximo no momento que são plantadas (ou um Poço colocado por perto, caso antes não estivesse), e de nenhum outro, a não ser que seja removido. Elas podem ser ligadas em outro Poço com uma varinha em &4Modo de Vínculo&0.
+botania.page.fIntro3=Por último, algumas flores funcionais usam &1Raíz de Redstone&0 em sua criação. As flores que usam isso podem ser desligadas com um sinal de redstone.
+botania.page.fIntro4=&1Raíz de Redstone&0 para controle por redstone
+
+# -- FLOWER SHRINKING
+botania.entry.flowerShrinking=Encolhimento de Flores
+botania.page.flowerShrinking0=Algumas das flores funcionais possuem um alcance grande de mais. Para algumas aplicações isso não é bom. Jogando algumas dessas flores em um &1Poço de Mana&0 com um &1Catalizador Alquímico&0, ao custo de um pouco de &4Mana&0, a encolhe, fazendo sua área de efeito menor. Todas funções da flor permanecem normais.
+botania.page.flowerShrinking1=Igual um nendoroid
+
+# -- JADED AMARANTHUS
+botania.entry.jadedAmaranthus=Jaded Amaranthus
+botania.page.jadedAmaranthus0=Todos gostam de flores, certo? A &1Jaded Amaranthus&0 foi feita para esse propósito.<br>Alimentando-a com &4Mana&0 de um &1Poço de Mana&0 causa o crescimento de novas &1Flores Místicas&0 ao redor, nos lugares possíveis.
+botania.page.jadedAmaranthus1=&oEra isso ou Clematis.&r
+botania.page.jadedAmaranthus2=&oEspera um pouco, você acabou de invocar um monte de flores em um turno?<br>Sim, por que?<br>Isso é contra as regras, não?<br>Dane-se as regras, eu tenho Mana!
+
+# -- BELLETHRONE
+botania.entry.bellethorne=Bellethorne
+botania.page.bellethorne0=A &1Bellethorne&0 é uma flor marivilhosa. Usando &4Mana&0 ela causa dano lentamente em qualqer ser vivo (menos &4jogadores&0) ao redor.
+botania.page.bellethorne1=&oToda rosa tem seus espinhos&r.
+
+# -- DREADTHORNE
+botania.entry.dreadthorne=Dreadthorne
+botania.page.dreadthorne0=A &1Dreadthorne&0 é um pouca mais específica que a &1Bellethrorne&0, ao invés de qualquer mob, ela só causa dano em animais &4adultos&0 e nada mais.
+botania.page.dreadthorne1=&oNão Senhor Bond, eu esperava que você morresse&r.
+
+# -- HEISEI DREAM
+botania.entry.heiseiDream=Heisei Dream
+botania.page.heiseiDream0=A &1Heisei Dream&0, ao custo de &4Mana&0, desperta raiva e vingança entre qualquer &4monstro&0, os fazendo lutar entre si.
+botania.page.heiseiDream1=&oUma prazerosa era mata pessoas&r.
+botania.page.heiseiDream2=&oHeisei, was broken, broken. Who was the one who lied about peace? See, it's forgotten, forgotten, even the punishement blamed on the altar. Hey, it's breaking, breaking, at the end, even the meaning of shaking is killed.<br>Well, where shall we go? Let's go somewhere, whose ally are you? Whose replacement am I?
+
+# -- TIGERSEYE
+botania.entry.tigerseye=Tigerseye
+botania.page.tigerseye0=É um fato comprovado de que &4Creepers&0 têm medo de &4gatos&0.<br>A &1Tigerseye&0 se aproveita dessa fraqueza, emitindo uma aura felina, petrificando qualquer &4Creeper&0 ao redor, os impedindo de explodir. Ela também tem o efeito de fazê-los correr de &4jogadores&0.
+botania.page.tigerseye1=&oAceitando o desafio de nossos rivais&r.
+
+# -- ORECHID
+botania.entry.orechid=Orechid
+botania.page.orechid0=Enquanto minerar é bom, um meio renovável de conseguir minérios é bem vindo. A &1Orechid&0 usa (uma quantidade massiva de) &4Mana&0 para gerar &4minérios&0 em blocs de &1Pedra&0 adjacentes.<br>Os minérios gerados são aleatórios, mas parecem tender aos mais comuns do que os mais raros.
+botania.page.orechid1=&oNot dragon poop&r.
+
+# -- ORECHID IGNEM
+botania.entry.orechidIgnem=Orechid Ignem
+botania.page.orechidIgnem0=A &1Orechid&0 é uma boa flor. A habilidade de criar minérios com &4Mana&0 pode ser uma benção para qualquer botanista sedentério. Entretano, não cria minérios do &4Nether&0. Isso é resolvido facilmente, trocando algumas pétalas, elas cria minérios do &4Nether&0 em &1Rocha do Nether&0. A flor deve estar no Nether para funcionar.
+botania.page.orechidIgnem1=&oTá meio quente aqui&r.
+
+# -- FALLEN KANADE
+botania.entry.fallenKanade=Fallen Kanade
+botania.page.fallenKanade0=A &1Fallen Kanade&0 é uma flor com propriedades celestiais, ela usa &4Mana&0 de um &4Poço de Mana&0 para aplicar um forte efeito de regeneração para qualquer &4jogador&0 ao redor.
+botania.page.fallenKanade0a=A &1Fallen Kanade&0 é uma flor com propriedades celestiais, ela usa &4Mana&0 de um &4Poço de Mana&0 para aplicar um forte efeito de regeneração para qualquer &4jogador&0 ao redor.<br>Interessantemente, &4Magos de Sangue&0 são conhecidos por colocar estranhas runas em volta de seus altares, fazendo a flor não funcionar, isso talvez seja útil lembrar.
+botania.page.fallenKanade1=&oHand Sonic, version four&r.
+botania.page.fallenKanade2=&oI'll marry you. No matter what kind of sickness you have, even if you can't walk or stand, or even if you can't have kids, I'll still marry you. No matter where or how I met you, I'll fall in love with you.<br>If I can meet you again, against the six billion to one odds, and even if your body can't move, I'll marry you.
+
+# -- EXOFLAME
+botania.entry.exoflame=Exoflame
+botania.page.exoflame0=Diferente de sua variante geradora, a &1Exoflame&0 usa &4Mana&0 para gerar calor.<br>Qualquer &1Fornalha&0 na área da &1Exoflame&0 é aquecida, e ganha mais eficiência, ao custo de &4Mana&0.
+botania.page.exoflame1=&oNão deveriamos ter tanta pressa&r.
+
+# -- AGRICARNATION
+botania.entry.agricarnation=Agricarnation
+botania.page.agricarnation0=O lento crescimento de plantações é um problema para alimentação mundial. A &1Agricarnation&0 torna &4Mana&0 em um tipo de fertilizante natural, fazendo plantas próximas crescerem mais rápido.
+botania.page.agricarnation1=&oGrandola Vila Morena&r...
+
+# -- HOPPERHOCK
+botania.entry.hopperhock=Hopperhock
+botania.page.hopperhock0=A &1Hopperhock&0 coloeta itens ao seu redor. Usar &4Mana&0 é opcional, mas aumenta seu alcance.<br>Itens coloetados são colocados em um inventário adjacente(ex.: &1Baús&0). Pendurando uma &1Moldura&0 no inventário, pode-se especificar que itens podem ou não podem ser coletados.
+botania.page.hopperhock1=Qualquer inventário sem &1Moldura&0 adjacente aceita qualquer item, mas invetários rotulados possuem prioridade.<br>A regra usada para organizar pode ser mudada com shift-clique direito na flor com uma &1Varinha da Floresta&0.
+botania.page.hopperhock2=&oI guess I'll be talking my loli and leaving&r.
+
+# -- TANGLEBERRIE
+botania.entry.tangleberrie=Tangleberrie
+botania.page.tangleberrie0=A &1Tangleberrie&0 é uma flor que, a um pequeno custo de &4Mana&0, mantém animais e monstros dentro de um círculo, os impedindo de sair. 
+botania.page.tangleberrie1=&oTangled, brave and frozen&r.
+
+# -- JIYUULIA
+botania.entry.jiyuulia=Jiyuulia
+botania.page.jiyuulia0=A &1Jiyuulia&0 é uma flor, que a um pequeno custo de &4Mana&0, afasta animais e monstros, protejendo uma área circular, os impedindo de entrar.
+botania.page.jiyuulia1=&oHR HD DT Masterpiece&r.
