@@ -60,6 +60,7 @@ public final class ConfigHandler {
 	public static boolean relicsEnabled = true;
 	public static boolean stones18Enabled = true;
 	public static boolean ringOfOdinFireResist = true;
+	public static int flightTiaraManaCost = 35;
 
 	public static int flowerQuantity = 2;
 	public static int flowerDensity = 16;
@@ -178,6 +179,9 @@ public final class ConfigHandler {
 
 		desc = "Set this to false to make the Ring of Odin not apply fire resistance. Mostly for people who use Witchery transformations.";
 		ringOfOdinFireResist = loadPropBool("ringOfOdin.fireResist", desc, ringOfOdinFireResist);
+
+		desc = "The mana cost of Flugel tiara. Default: 35.";
+		flightTiaraManaCost = loadPropInt("flightTiara.manaCost", desc, flightTiaraManaCost);
 
 		desc = "The quantity of Botania flower patches to generate in the world, defaults to 2, the lower the number the less patches generate.";
 		flowerQuantity = loadPropInt("worldgen.flower.quantity", desc, flowerQuantity);
