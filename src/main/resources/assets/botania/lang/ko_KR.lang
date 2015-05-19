@@ -190,10 +190,10 @@ botania.armorset.elementium.name=위대한 요정의 축복
 botania.armorset.elementium.desc=픽시의 포션 효과가 변경됩니다.
 botania.armorset.terrasteel.name=고대의 의지
 botania.armorset.terrasteel.desc0=마나를 사용하는 도구의 마나 사용량이 20% 감소합니다.
-botania.armorset.terrasteel.desc1=Regen even if hunger isn't topped off
+botania.armorset.terrasteel.desc1=포만도와 상관없이 채력이 차오릅니다.
 botania.armorset.will0.desc=치명타 공격시 상대방에게 강한 나약함 효과(아림의 의지)
 botania.armorset.will1.desc=치명타 공격시 상대방의 채력 회복속도가 늦어짐(더락의 의지)
-botania.armorset.will2.desc=Critical Hits heal for a portion of damage dealt (규선의 의지)
+botania.armorset.will2.desc=치명타 공격시 데미지에 비례해서 체력을 회복합니다. (규선의 의지)
 botania.armorset.will3.desc=치명타 공격시 상대방에게 강한 구속 효과(토어래그의 의지)
 botania.armorset.will4.desc=Critical Hits pierce through armor (버랙의 의지)
 botania.armorset.will5.desc=치명타 공격시 상대방에게 위더 효과 (캐럴의 의지)
@@ -201,7 +201,7 @@ botania.armorset.will0.shortDesc=치명타 공격시 상대방에게 강력한 �
 botania.armorset.will1.shortDesc=치명타 공격시 상대방의 채력 회복속도가 늦어짐
 botania.armorset.will2.shortDesc=Critical Hits heal for a portion of damage dealt
 botania.armorset.will3.shortDesc=치명타 공격시 상대방에게 강한 구속 효과
-botania.armorset.will4.shortDesc=Critical Hits pierce through armor
+botania.armorset.will4.shortDesc=치명타 공격시 상대방의 방어력을 무시합니다.
 botania.armorset.will5.shortDesc=치명타 공격시 상대방에게 위더 효과
 
 # ROMAN NUMERALS
@@ -1478,6 +1478,7 @@ botania.page.blackLotus0=&1검은 연꽃&0이라는 이름을 가진 알수없�
 # -- FLOWER POUCH
 botania.entry.flowerBag=꽃 주머니
 botania.page.flowerBag0=The laws of physics regarding one's &4Inventory&0 are somewhat skewed in this world. Thanks to that, carrying an array of different colors of flowers turns out to be a major hassle. Luckily, a &1Flower Pouch&0 takes care of all those issues. It can store up to one stack of each color of &1Mystical Flower&0, not only that but it'll passively catch any that enter the holder's inventory.
+botania.page.flowerBag2=Items won't be added automatically to the pouch if that's the item being held.<br>Furthermore, shift-right clicking the pouch into a &1Chest&0 or other inventory will store the flowers it contains into said inventory. 
 botania.page.flowerBag1=Pull a copter out of it (any colors work)
 
 # -- WRAP 
@@ -1987,11 +1988,12 @@ botania.page.complexBrews5b=Shall we pray for a miracle?
 botania.page.complexBrews6a=A player affected with this brew's effect will have much higher proficiency at fishing and will catch fish and other loot twice as fast.
 botania.page.complexBrews6b=Maybe you'll catch a Chris
 
-+# -- BREW INCENSES
+# -- BREW INCENSES
 botania.entry.incense=Brew Incenses
 botania.page.incense0=&4Brews&0 can provide a great variety of effects when in liquid form. They, however, don't last long, and take up inventory space. Utilizing &1Incense Sticks&0 instead of flasks mitigates that problem, these can be infused with &4Brew&0 effects just like a normal flask would, but take around ten times as much &4Mana&0 to do so.
 botania.page.incense1=An &1Incense Stick&0 can be placed on an &1Incense Plate&0 by right clicking on it, a simple click with a &1Flint and Steel&0 will light it up. Once lit, the stick can not be retrieved.<br>A single stick of incense will burn for sixty times as long as as the liquid counterpart before needing to be replaced.  
 botania.page.incense2=&1Incense Plates&0 that are burning &1Incense Sticks&0 will provide the effects of the &4Brew&0 infused in the stick to any players on a 24 block radius of the plate.<br>Not all &4Brews&0 can be infused into &1Incense Sticks&0, for example, &4Instant Health&0 or &1Absorption&0 can't, nor can any with more than one effect.
+botania.page.incense5=For the incense lovers who are also automation junkies, the &1Incense Plate&0 can receive items through &1Hoppers&0 or other input. It'll output a &1Comparator&0 signal of 1 when it has a stick and 2 when it's burning it.<br>Lastly, if a &4Mana Burst&0 with a &1Kindle Lens&0 hits the plate while there's a stick on it, it'll start burning it.
 botania.page.incense3=Incense is wincense
 botania.page.incense4=I can incense it
 
