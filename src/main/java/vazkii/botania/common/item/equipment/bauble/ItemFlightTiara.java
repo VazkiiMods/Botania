@@ -47,7 +47,6 @@ import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.lib.LibItemNames;
@@ -64,6 +63,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	private static ResourceLocation textureHalo = new ResourceLocation(LibResources.MISC_HALO);
 
 	public static List<String> playersWithFlight = new ArrayList();
+	private static final int COST = 35;
 
 	public static IIcon[] wingIcons;
 	private static final int SUBTYPES = 8;
@@ -153,7 +153,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 					player.capabilities.allowFlying = true;
 					if(player.capabilities.isFlying) {
 						if(!player.worldObj.isRemote)
-							ManaItemHandler.requestManaExact(tiara, player, ConfigHandler.flightTiaraManaCost, true);
+							ManaItemHandler.requestManaExact(tiara, player, COST, true);
 						else if(Math.abs(player.motionX) > 0.1 || Math.abs(player.motionZ) > 0.1) {
 							double x = event.entityLiving.posX - 0.5;
 							double y = event.entityLiving.posY - 1.7;
