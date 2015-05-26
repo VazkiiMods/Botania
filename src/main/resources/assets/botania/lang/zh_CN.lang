@@ -1477,7 +1477,7 @@ botania.page.blackLotus0=叫做&1黑莲花&0的一种不可思议 的花朵是�
 botania.entry.flowerBag=花袋
 botania.page.flowerBag0=物理学关于人的&4物品栏&0的定 律对这个世界有了一些倾斜. 因而,携带不同颜色的花朵变 成了一个巨大的麻烦.幸运的 是,&1花袋&0解决了所有这些问题. 它可以存储一组各色&1神秘花&0, 不仅如此,它还会自动捕捉进 入所有者物品栏的花朵.
 botania.page.flowerBag1=拉出一架直升机(任何颜色都可以)
-botania.page.flowerBag2=Items won't be added automatically to the pouch if that's the item being held.<br>Furthermore, shift-right clicking the pouch into a &1Chest&0 or other inventory will store the flowers it contains into said inventory. 
+botania.page.flowerBag2=手持的物品不会被自动添加 到花袋当中.<br>此外,手持花袋shift+右键一个 &1箱子&0或其他储物方块会将花 袋中的花存入该储物方块中. 
 
 # -- WRAP
 botania.entry.wrap=扭曲
@@ -1994,7 +1994,7 @@ botania.page.incense1=&1熏香&0可以通过右击放在&1香盘&0 上,用&1打�
 botania.page.incense2=装有点燃&1熏香&0的&1香盘&0会向以 盘为中心的24格半径内的玩 家提供&4药水&0效果.<br>不是所有&4药水&0都可注入&1熏香&0, 例如,不可以使用&4瞬间治疗&0或 &1伤害吸收&0,也不可以拥有1个 以上的效果.
 botania.page.incense3=这熏香是云香
 botania.page.incense4=我可以很香哒
-botania.page.incense5=For the incense lovers who are also automation junkies, the &1Incense Plate&0 can receive items through &1Hoppers&0 or other input. It'll output a &1Comparator&0 signal of 1 when it has a stick and 2 when it's burning it.<br>Lastly, if a &4Mana Burst&0 with a &1Kindle Lens&0 hits the plate while there's a stick on it, it'll start burning it.
+botania.page.incense5=对于熏香爱好者和自动化狂 热者来说,&1香盘&0能够接收来自 &1漏斗&0或其它输入端的物品.当 它内部有一根熏香时,它会向 邻近&1比较器&0输出一个强度为 1的信号,当熏香燃烧时输出 强度为2的信号.<br>最后,如果一束&4魔力脉冲&0穿过 &1引燃透镜&0击中含有熏香的香 盘时,它会点燃熏香.
 
 # -- EYE OF THE ANCIENTS
 botania.entry.forestEye=远古之眼
