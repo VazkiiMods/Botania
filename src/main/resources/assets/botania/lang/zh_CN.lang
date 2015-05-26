@@ -169,6 +169,7 @@ botania.sign8=射手座
 botania.sign9=摩羯座
 botania.sign10=水瓶座
 botania.sign11=双鱼座
+
 # WINGS
 botania.wings0=无翼
 botania.wings1=翼:天翼族
@@ -447,6 +448,7 @@ achievement.botania:enderAirMake=Imitation Air
 achievement.botania:enderAirMake.desc=收集一瓶末地空气
 achievement.botania:corporeaCraft=Drop Pop Candy
 achievement.botania:corporeaCraft.desc=合成一个方块来使用多媒体网络
+
 achievement.botania:signalFlareStun=See the Lights
 achievement.botania:signalFlareStun.desc=仅使用一发信号弹眩晕100+生物
 achievement.botania:l20ShardUse=Out of Step
@@ -474,11 +476,13 @@ achievement.botania:lokiRing=Arithmetic
 achievement.botania:lokiRing.desc=获得英雄战奖品:洛基之戒
 achievement.botania:aesirRing=As the Gods Say
 achievement.botania:aesirRing.desc=通过混合诸神之戒创造泰坦之戒
+
 achievement.botania:nullFlower=Take it Easy
 achievement.botania:nullFlower.desc=发现一个错误,得到一个未定义的植物魔法花朵.别忘记汇报哦!
 achievement.botania:desuGun=Two-Faced Lovers
 achievement.botania:desuGun.desc=ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
 #                                 ^ Don't localize
+
 # BLOCK NAMES
 tile.botania:flower0.name=白色神秘花
 tile.botania:flower1.name=橙色神秘花
@@ -1381,7 +1385,6 @@ botania.category.misc=杂项
 botania.entry.tutorial=基础教程
 botania.page.tutorial0=虽然玩家可以根据自己的问 题查询书中条目，但还是提供 了一个“指导教程”。点击下面 的按钮，将引导您通过书页获 得植物魔法的基本概念要点。
 
-
 # -- AN INTRODUCTORY CLIP
 botania.entry.introVideo=简介片段
 botania.page.introVideo0=对于并不喜欢图文的读者,我 们也准备了一个涵盖植物魔 法基础的短片,注意这只是个 指南而不是&1植物魔法辞典&0内 容的替代品.
@@ -1469,10 +1472,13 @@ botania.page.terrasteel3=制作&1泰拉钢&0的模型
 # -- BLACK LOTUS
 botania.entry.blackLotus=黑莲花
 botania.page.blackLotus0=叫做&1黑莲花&0的一种不可思议 的花朵是众所周知的存在,但 是,它不会生长繁殖.它们怎么 找到或从哪里来尚未得知.<br>唯一知道的是,它包含着大量 的浓缩&4魔力&0,通过与已经有一 些魔力的&1魔力池&0接触就会释 放.只需扔掉它即可. 
+
 # -- FLOWER POUCH
 botania.entry.flowerBag=花袋
 botania.page.flowerBag0=物理学关于人的&4物品栏&0的定 律对这个世界有了一些倾斜. 因而,携带不同颜色的花朵变 成了一个巨大的麻烦.幸运的 是,&1花袋&0解决了所有这些问题. 它可以存储一组各色&1神秘花&0, 不仅如此,它还会自动捕捉进 入所有者物品栏的花朵.
 botania.page.flowerBag1=拉出一架直升机(任何颜色都可以)
+botania.page.flowerBag2=Items won't be added automatically to the pouch if that's the item being held.<br>Furthermore, shift-right clicking the pouch into a &1Chest&0 or other inventory will store the flowers it contains into said inventory. 
+
 # -- WRAP
 botania.entry.wrap=扭曲
 botania.page.wrap0=看样子这个模组的作者决心 以&1扭曲&0的形式增加种游戏机 制.我不太清楚它会怎样,很有 可能是什么坏的东西.:/<br>你所说的"第四面墙"是什么 ...?(十八世纪的法国剧作家 提出了第四面墙Fourth Wall 的观念,他殷殷叮嘱营造幻觉 的重要性)
@@ -1587,6 +1593,7 @@ botania.entry.manaTablet=魔力石板
 botania.page.manaTablet0=尽管用&1魔力发射器&0传输&4魔力&0 还不错,还有种方法能做到同 样的事.<br>&1魔力石板&0就是一个能储存 &4魔力&0的便携品.
 botania.page.manaTablet1=将它扔在&1魔力池&0上就会使两 者间进行&1魔力&0传输.<br>用&1森林法杖&0shift右击&1魔力池&0 就可以改变&4魔力&0的流向.<br>最后,不像普通的物品,落在 地上的魔力石板不会消失.
 botania.page.manaTablet2=别把它放在口袋里,它有可能 会折弯
+
 # -- MANA MIRROR
 botania.entry.manaMirror=魔力镜子
 botania.page.manaMirror0=&1魔力镜子&0是一种可选的存储 &4魔力&0的物品,类似&1魔力石板&0.可 以绑定到世界中的&1魔力池&0当 需要&1魔力&0时会抽取池子.<br>将镜子绑定到魔力池,只需简 单用镜子&4shift右击&0池子. 镜子无法通过其他方式向池 内输入魔力或取出魔力.
@@ -1630,6 +1637,7 @@ botania.page.prism0=&1魔力透镜&0的原理使得能量可 以通过控制&4�
 botania.page.prism1=使用任何类型的&1魔力透镜&0右 击它可以将其套在棱镜上.当 &4魔力脉冲&0穿过棱镜时,它的颜 色和效果就会被设置成透镜 的.假如透镜未染色,脉冲就会 变成白色.<br>使用4个基础透镜同样可以 增加脉冲损失&4魔力&0前飞行的 时间,让它飞的更远.
 botania.page.prism2=它可以使用红石信号关闭.
 botania.page.prism3=墙上另一个像素
+
 # -- MANA ON RAILS
 botania.entry.poolCart=轨道上的魔力
 botania.page.poolCart0=还有什么比把&1魔力池&0装在&1矿&0 &1车&0里更简单的方式来长途传 输&4魔力&0然后看着它旋转呢?这 很简单.就像其他类型矿车一 样,制造&1魔力池矿车&0,它可以在 轨道上装载传输&4魔力&0.<br>破坏装有&4魔力&0的矿车会浪费 掉&4魔力&0,对待它应注意.
@@ -1637,6 +1645,7 @@ botania.page.poolCart1=在矿车和池子间传输&4魔力&0需 要&1魔力泵&0
 botania.page.poolCart2=在泵上,&4魔力&0流动方向的一边 是粉色的,&4魔力&0会从蓝色端吸 取.<br>泵可以用红石关闭,&1比较器&0会 根据矿车内&4魔力&0含量输出信 号.<br>最后,魔力池矿车纯粹为了运 输,不能将其中的&4魔力&0收集,发 送,传输或注入任何物品.
 botania.page.poolCart3=我爱火车
 botania.page.poolCart4=这不是管子
+
 # - FUNCTIONAL FLOWERS
 # -- AN INTRODUCTION TO FUNCTION
 botania.entry.fIntro=功能的介绍
@@ -1650,6 +1659,7 @@ botania.page.fIntro4=&1红石根&0方便红石控制
 botania.entry.flowerShrinking=微型花
 botania.page.flowerShrinking0=一些功能性花朵的范围有一 点大了.有时候人们不太想出 现这种情况.把这几种花扔进 有&1炼金催化器&0的&1魔力池&0,消耗 一些&4魔力&0,将它缩小,让它的半 径变小.但是其它功能保持不 变.
 botania.page.flowerShrinking1=就像粘土人
+
 # -- JADED AMARANTHUS
 botania.entry.jadedAmaranthus=杰迪德苋
 botania.page.jadedAmaranthus0=每个人都喜欢花对吧?&1杰迪德&0 &1苋&0就是为此而生的.<br>用&1魔力池&0给它提供&4魔力&0会让 它在周围快速长出新的&1神秘&0 &1花&0,在范围内的任何一处.
@@ -1774,6 +1784,7 @@ botania.page.marimorphosis0=&1异构之海&0是将附近&1石质&0方块 进行�
 botania.page.marimorphosis1=&1变质岩&0的花样趣味
 botania.page.marimorphosis3=多彩得像ClariS歌曲
 botania.page.marimorphosis2=&o这花是漂亮的片麻岩&r.
+
 # -- BUBBELL
 botania.entry.bubbell=水铃花
 botania.page.bubbell0=在水下建造不是个简单的任 务.清除海底的水格外地麻烦 和费时.在水下放置&1水铃花&0并 为之提供&4魔力&0(最好先验)会让 它形成充满空气的圆顶空间. 圆顶具有约12格半径的范围. &4魔力&0需要持续供应方可运作.
@@ -1783,6 +1794,7 @@ botania.page.bubbell1=&o像一些休闲游戏&r.
 botania.entry.solegnolia=紊乱兰
 botania.page.solegnolia0=&1磁化指环&0对任何采掘和收集 中的人来说都是一个相当方 便的工具.但是,它却导致了一 个问题,会捡起高级系统附近 不想要的掉落物.<br>&1紊乱兰&0干扰了该指环从而避 免周围物品被佩戴者吸引.它 需要一丁点&4魔力&0运作,但是无 关紧要.
 botania.page.solegnolia1=开/关
+
 # - GENERATING FLOWERS
 # -- AN INTRODUCTION TO GENERATION
 botania.entry.gIntro=产能的介绍
@@ -1982,6 +1994,7 @@ botania.page.incense1=&1熏香&0可以通过右击放在&1香盘&0 上,用&1打�
 botania.page.incense2=装有点燃&1熏香&0的&1香盘&0会向以 盘为中心的24格半径内的玩 家提供&4药水&0效果.<br>不是所有&4药水&0都可注入&1熏香&0, 例如,不可以使用&4瞬间治疗&0或 &1伤害吸收&0,也不可以拥有1个 以上的效果.
 botania.page.incense3=这熏香是云香
 botania.page.incense4=我可以很香哒
+botania.page.incense5=For the incense lovers who are also automation junkies, the &1Incense Plate&0 can receive items through &1Hoppers&0 or other input. It'll output a &1Comparator&0 signal of 1 when it has a stick and 2 when it's burning it.<br>Lastly, if a &4Mana Burst&0 with a &1Kindle Lens&0 hits the plate while there's a stick on it, it'll start burning it.
 
 # -- EYE OF THE ANCIENTS
 botania.entry.forestEye=远古之眼
@@ -2142,8 +2155,6 @@ botania.entry.openBucket=无底桶
 botania.page.openBucket0=用&1元素钢锭&0似乎能做出一个 有趣的桶.它所获得的液体都 会消失于虚空,再也不会出现 .看起来是个不错的清理工具.
 botania.page.openBucket1=Lewis的纪念品
 
-
-
 # -- ROD OF BIFROST
 botania.entry.rainbowRod=彩虹桥法杖
 botania.page.rainbowRod0=&4彩虹桥&0,连接人界与神域的桥 梁.<br>尽管这个物品,&1彩虹桥法杖&0不 是用来那么做的,它让持有者 通过消耗一些&4魔力&0右击,向他 所看的方向延伸出一座彩虹 桥.
@@ -2185,7 +2196,6 @@ botania.page.virus2=也不在这儿
 botania.entry.skyDirtRod=高原法杖
 botania.page.skyDirtRod0=尽管&1大地法杖&0十分出色,但若 能不依靠其他东西而放置&1泥&0 &1土&0就更好了.<br>&1高原法杖&0就是那样的,保有&1大&0 &1地法杖&0原本的力量同时,它也 能在半空中放置&1泥土&0,多消耗 一点&4魔力&0.
 botania.page.skyDirtRod1=mk2型泥土棍
-
 
 # -- VITREOUS PICKAXE
 botania.entry.glassPick=玻璃镐
@@ -2366,11 +2376,13 @@ botania.entry.corporeaInterceptor=多媒体拦截器
 botania.page.corporeaInterceptor0=&1多媒体拦截器&0顾名思义,它会 拦截多媒体需求.首先,包含物 品的&1物品展示框&0需要接触 这个方块,这决定了哪种物品 会触发拦截器.<br>当有一个请求发送到多媒体 网络,包括索引,漏斗,等,并且网 络内没有相应的物品,这种方 块就会被触发.
 botania.page.corporeaInterceptor1=当然,这个方块只会在需求物 品匹配&1物品展示框&0内物品的 时候触发.当该方块触发的时 候会发射短暂红石脉冲信号. 可以用于做各种事情,例如用&1机&0 &1巧箱&0合成需求物品或者点亮 一盏灯显示库存已经没了.
 botania.page.corporeaInterceptor2=如此多自动化的前景
+
 # -- CORPOREA CRYSTAL CUBE
 botania.entry.corporeaCrystalCube=多媒体水晶魔方
 botania.page.corporeaCrystalCube0=先知通常使用水晶球来预见 未来.而多媒体控制者则通过 水晶魔方观察现在.&1多媒体水&0 &1晶魔方&0通过视觉互动作用于 某人的&4多媒体网络&0.放下这个 方块并给它一个&1多媒体火花&0 是将其加入网络的第一步. 
 botania.page.corporeaCrystalCube1=当它被连接后,用任何物品右 击它都会让它监视该物品,让 人看到网络里存在多少物品. 该显示大约每秒更新一次.<br>当没有物品被选择时,左击该 方块会从网络里提取一个这 种物品.Shift-左击则会提取 整整一组.
 botania.page.corporeaCrystalCube2=我能看到永恒
+
 # -- DECORATIVE END BLOCKS
 botania.entry.endStoneDecor=装饰性末地方块
 botania.page.endStoneDecor0=类似于其它石质方块,&1末地石&0 也能制成砖块和錾制石砖,砖 块可以跟&1石砖&0一样用于制作 楼梯和台阶.
@@ -2381,6 +2393,7 @@ botania.page.endStoneDecor2=制作&1錾制末地石砖&0
 botania.entry.spawnerMover=生命聚合器
 botania.page.spawnerMover0=通过特殊形式组合&1龙石&0,&1源质&0 &1铁锭&0和&1盖亚之魂&0,能制作出一 个可以容纳&1刷怪笼&0的能量并 将它放置在其他地方的装置.<br>注意这个装置用一次就会碎 掉.
 botania.page.spawnerMover1=我们得到了刷怪笼,但好像不 太值.
+
 # -- RESOLUTE IVY
 botania.entry.keepIvy=坚定之藤
 botania.page.keepIvy0=每个人都知道,在复活之前东 西洒了一地,通常是个极大的 麻烦.解决办法十分简单.通过 将&1坚定之藤&0与物品在合成台 合成,该物品就会在人死的时 候保留在物品栏.在此之后 藤蔓会变质需要再次添加,如 果想让物品再次保留的话.
@@ -2392,8 +2405,8 @@ botania.page.blackHoleTalisman0=虚空是一个充满了...虚空 的空间,真�
 botania.page.blackHoleTalisman1=对着地上的方块右击可以将 符文设定为这种方块.只有在 符文空的时候才有效.完成后, 对着空气shift右击符文可以 激活或关闭.当启用后放在物 品栏,它会尝试保留一组,只有 一组,对应的方块,在物品栏和虚 空间传输物品.
 botania.page.blackHoleTalisman2=当符文内有任何物品时,里面 的方块可以被放置,就像放在 物品栏的普通方块一样简单 右击即可.<br>右击物品栏会试图从符文内 提取方块填充.
 botania.page.blackHoleTalisman3=就像Rageki一样但是双倍效果
-# - BAUBLES AND ACESSORIES
 
+# - BAUBLES AND ACESSORIES
 # -- AN INTRODUCTION TO BAUBLES
 botania.entry.bIntro=饰品介绍
 botania.page.bIntro0=&4饰品(Baubles)&0,平常也指&4小&0 &4饰品&0或者&4护身符&0这样在穿戴 时提供不同效果的装备.<br>要装备只需按&4B&0键(可修改). 有四个栏,一个&4项链&0栏,两个 &4戒指&0栏和一个&4腰带&0栏.
@@ -2436,6 +2449,7 @@ botania.page.cosmeticBaubles30=我可以用这个飞
 botania.page.cosmeticBaubles31=确实不是西班牙的一部分
 botania.page.cosmeticBaubles32=现在你也可以相信
 botania.page.cosmeticBaubles33=上了跑步机,angbadang
+
 # -- TINY PLANET
 botania.entry.tinyPlanet=行星项链
 botania.page.tinyPlanet0=&1行星项链&0是一个有着引力能 力的&4饰品&0,装备时&1行星项链&0 会将附近的&4魔力脉冲&0引向装 备者,使它们围绕其转动.<br>用些&1石头&0增加它的质量,它也 能放置下来,有同样的功能.
@@ -2525,7 +2539,6 @@ botania.entry.superLavaPendant=绯红项链
 botania.page.superLavaPendant0=&1绯红项链&0简而言之,就是&1火石&0 &1项链&0的升级版,穿着时能提供 对火和岩浆的免疫力,而不是 单纯的灭火.
 botania.page.superLavaPendant1=[秘碑解码]亚军
 
-
 # -- TAINED BLOOD PENDANT
 botania.entry.bloodPendant=污血吊坠
 botania.page.bloodPendant0=采用原始的&4药水&0材料制作,下 界,看起来很容易利用这份力 量.<br>&1污血吊坠&0允许在饰品栏头饰 槽穿戴的使用者产生浓缩的 &4药剂效果&0.当吊坠被装备时会 吸收使用者的魔力并产生效 果,&4魔力&0消耗取决于&4药剂效果&0 的等级.
@@ -2548,6 +2561,7 @@ botania.page.monocle1=Why hello there old chap
 botania.entry.swapRing=矫正指环
 botania.page.swapRing0=切换工具十分痛苦.人们经常 发现自己挖泥土的时候用... 镐?使用&1矫正指环&0是极好的方 式,嘛,修正它.<br>当佩戴该指环时,手中的工具 将永远是正确匹配所破坏方 块的,无论是镐,斧头还是铲子. 只对需要&4魔力&0的工具起效.
 botania.page.swapRing1=使用正确的工具
+
 # - ALFHOMANCY
 # -- THE PORTAL TO ALFHEIM
 botania.entry.aIntro=精灵传送门
@@ -2602,9 +2616,11 @@ botania.entry.gaiaRitualHardmode=盖亚仪式II
 botania.page.gaiaRitualHardmode0=有人认为,以&1泰拉钢&0和&1盖亚之&0 &1魂&0的形式结合两种已知的最 强大能源,可以创建一个无敌 的材料.看起来这个材料极其 强劲.事实上,当两种材料相互 抵消结合形成锭的时候,创造 了一个完全无用的合金.
 botania.page.gaiaRitualHardmode1=这种锭,由于集中了能量和魔 力,或许会召唤一个更强大的 &1盖亚守护者&0,拥有更大的引力, 力量和速度.<br>因此,它也会比平常的掉落更 多的&1盖亚之魂&0,还有少量美味 佳肴和稀世珍宝,这都让它成 为一个有价值的敌人.
 botania.page.gaiaRitualHardmode2=制作&1盖亚灵魂锭&0.
+
 # -- THE RELICS OF THE AESIR
 botania.entry.relics=泰坦族的遗物
 botania.page.relics0=这是一个关于亚尔夫海姆巨 大种族的古老传说.它描 述了一句话,"转动命运骰子的 人会获得神的礼物".所谓的&1泰&0 &1坦族遗物&0据说十分独特并具 有灵魂绑定,它将永远只传给 一个人,并只有这个人才能使 用.<br>但是话又说回来,这可能只是 个传说.
+
 # -- ELVEN LORE - THE SHATTERING
 botania.entry.elvenLore=精灵传说 - 破碎
 botania.page.elvenLore0=看起来这部分只是一堆纸片. 从外表分辨,它们似乎来自于 精灵花园的图书馆文档.<br>内容应该包括历史知识,但质 疑任何事物是植物魔法研究 自身的需要.
@@ -2712,6 +2728,7 @@ botania.page.dirtPath2=也可以制成台阶
 botania.entry.mushrooms=闪光蘑菇
 botania.page.mushrooms0=撒一些&1花粉&0在&1蘑菇上&0看起来 有有趣的效果,会变异成对应 的色彩,获得新的形状和发出 昏暗光线的能力.看起来除 了有趣没其他用途了.<br>它们偶尔 也有可能在偏远区域的地下 深处被发现.
 botania.page.mushrooms1=它们不会让你变大
+
 # -- PHANTOM INK
 botania.entry.phantomInk=幻影墨水
 botania.page.phantomInk0=让你展示漂亮的皮肤并且保 持穿戴装甲是小人物的梦想. 这很远大,空洞,极其差劲,一点 也不时尚!<br>幸运的是,通过将装甲与&1幻影&0 &1墨水&0在合成格合成后,装甲会 变得完全隐形,但仍拥有全部 功能.这只对使用&4魔力&0的装甲 有效.
