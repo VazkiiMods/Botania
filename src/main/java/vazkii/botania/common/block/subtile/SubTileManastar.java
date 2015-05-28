@@ -13,11 +13,10 @@ package vazkii.botania.common.block.subtile;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.mana.IManaPool;
+import vazkii.botania.api.mana.IManaBlock;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileManastar extends SubTileEntity {
 
@@ -28,10 +27,11 @@ public class SubTileManastar extends SubTileEntity {
 		super.onUpdate();
 
 		int mana = 0;
-		for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) {
-			TileEntity tile = supertile.getWorldObj().getTileEntity(supertile.xCoord + dir.offsetX, supertile.yCoord, supertile.zCoord + dir.offsetZ);
-			if(tile instanceof IManaPool)
-				mana += ((IManaPool) tile).getCurrentMana();
+		ForgeDirection[] directions = {ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST, ForgeDirection.UP};
+		for(ForgeDirection dir : directions) {
+			TileEntity tile = supertile.getWorldObj().getTileEntity(supertile.xCoord + dir.offsetX, supertile.yCoord + dir.offsetY, supertile.zCoord + dir.offsetZ);
+			if(tile instanceof IManaBlock)
+				mana += ((IManaBlock) tile).getCurrentMana();
 		}
 
 		if(manaLastTick != -1 && mana != manaLastTick && Math.random() > 0.6) {
