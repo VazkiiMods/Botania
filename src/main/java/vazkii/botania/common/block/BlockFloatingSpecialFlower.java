@@ -29,6 +29,7 @@ import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
@@ -168,4 +169,8 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 		return new TileFloatingSpecialFlower();
 	}
 
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return ((TileSpecialFlower) world.getTileEntity(x, y, z)).getEntry();
+	}
 }
