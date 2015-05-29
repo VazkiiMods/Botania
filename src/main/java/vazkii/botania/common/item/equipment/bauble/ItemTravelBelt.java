@@ -27,6 +27,7 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.item.IBaubleRender;
+import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
@@ -42,6 +43,9 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender {
 	@SideOnly(Side.CLIENT)
 	private static ModelBiped model;
 
+	private static final int COST = 1;
+	private static final int COST_INTERVAL = 10;
+	
 	public static List<String> playersWithStepup = new ArrayList();
 
 	final float speed;
@@ -80,6 +84,9 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender {
 					if(player.isSneaking())
 						player.stepHeight = 0.50001F; // Not 0.5F because that is the default
 					else player.stepHeight = 1F;
+					
+					if(player.ticksExisted % COST_INTERVAL == 0)
+						ManaItemHandler.requestManaExact(belt, player, COST, true);
 				} else {
 					player.stepHeight = 0.5F;
 					playersWithStepup.remove(s);
@@ -106,7 +113,7 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender {
 
 	private boolean shouldPlayerHaveStepup(EntityPlayer player) {
 		ItemStack armor = PlayerHandler.getPlayerBaubles(player).getStackInSlot(3);
-		return armor != null && armor.getItem() instanceof ItemTravelBelt;
+		return armor != null && armor.getItem() instanceof ItemTravelBelt && ManaItemHandler.requestManaExact(armor, player, COST, false);
 	}
 
 	@SubscribeEvent
