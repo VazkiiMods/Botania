@@ -1611,7 +1611,7 @@ botania.page.redstoneSpreader1=Just add redstone
 
 # -- MANASTAR
 botania.entry.manastar=Manastar
-botania.page.manastar0=The imprecise measurements of the &1Wand of the Forest&0 sometimes won't cut it for telling if you're turning a profit or loss in your &1Mana Pools&0.<br>Creating a &1Manastar&0 and placing it next to your pools will have it shine red if there's a loss or blue if there's a profit. The measurement happens every few seconds.
+botania.page.manastar0=The imprecise measurements of the &1Wand of the Forest&0 sometimes won't cut it for telling if you're turning a profit or loss in your &1Mana Pools&0.<br>Creating a &1Manastar&0 and placing it next to or below your pools (or other mana containing blocks) will have it shine red if there's a loss or blue if there's a profit. The measurement happens every few seconds.
 botania.page.manastar1=&rI'm a shooting star leaping through the skies&r.
 
 # -- ELVEN MANA SPREADERS
