@@ -1,5 +1,5 @@
 Hey there. Looks like you want to contribute with an issue. Great. Here's what you have to do:
-* Have a look through the [Botania FAQ](http://vazkii.us/mod/Botania/faq.php), to see if your issue has been solved already;
+* Have a look through the [Botania FAQ](http://botaniamod.net/faq.php), to see if your issue has been solved already;
 * Read through the steps on [Bug Reporting 101](http://vazkii.us/br101/) (You may skip this if you're already familiar with reporting issues, but it's good for newcomers);
 * Note the following points:
   * Issues regarding MCPC+/Cauldron that are not reproducible with forge only are **not accepted**;
