@@ -84,6 +84,7 @@ public final class LibBlockNames {
 	public static final String CORPOREA_INTERCEPTOR = "corporeaInterceptor";
 	public static final String CORPOREA_CRYSTAL_CUBE = "corporeaCrystalCube";
 	public static final String INCENSE_PLATE = "incensePlate";
+	public static final String HOURGLASS = "hourglass";
 
 	public static final String SUBTILE_PUREDAISY = "puredaisy";
 	public static final String SUBTILE_MANASTAR = "manastar";

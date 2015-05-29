@@ -119,6 +119,7 @@ import vazkii.botania.common.block.tile.TileFakeAir;
 import vazkii.botania.common.block.tile.TileFloatingFlower;
 import vazkii.botania.common.block.tile.TileFloatingSpecialFlower;
 import vazkii.botania.common.block.tile.TileForestEye;
+import vazkii.botania.common.block.tile.TileHourglass;
 import vazkii.botania.common.block.tile.TileIncensePlate;
 import vazkii.botania.common.block.tile.TileManaBeacon;
 import vazkii.botania.common.block.tile.TileManaFlame;
@@ -226,6 +227,7 @@ public final class ModBlocks {
 	public static Block corporeaInterceptor;
 	public static Block corporeaCrystalCube;
 	public static Block incensePlate;
+	public static Block hourglass;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -297,7 +299,8 @@ public final class ModBlocks {
 		corporeaInterceptor = new BlockCorporeaInterceptor();
 		corporeaCrystalCube = new BlockCorporeaCrystalCube();
 		incensePlate = new BlockIncensePlate();
-
+		hourglass = new BlockHourglass();
+		
 		ModFluffBlocks.init();
 
 		for(int i = 0; i < 16; i++)
@@ -385,6 +388,7 @@ public final class ModBlocks {
 		registerTile(TileCorporeaInterceptor.class, LibBlockNames.CORPOREA_INTERCEPTOR);
 		registerTile(TileCorporeaCrystalCube.class, LibBlockNames.CORPOREA_CRYSTAL_CUBE);
 		registerTile(TileIncensePlate.class, LibBlockNames.INCENSE_PLATE);
+		registerTile(TileHourglass.class, LibBlockNames.HOURGLASS);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MANASTAR, SubTileManastar.class);

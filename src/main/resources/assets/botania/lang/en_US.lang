@@ -917,6 +917,7 @@ tile.botania:blazeBlock.name=Blaze Lamp
 tile.botania:corporeaInterceptor.name=Corporea Interceptor
 tile.botania:corporeaCrystalCube.name=Corporea Crystal Cube
 tile.botania:incensePlate.name=Incense Plate
+tile.botania:hourglass.name=Hovering Hourglass
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
