@@ -1,4 +1,4 @@
-#번역시 주의 점: 현재 꽃이름을 제외한 발음표기는 대부분 패러디로 무리한 한글화를 진행하지 말아주세요(Ex.Tiny Potato) 한글정발을 제외한 모든 패러디는 발음대로 적어주시길 바랍니다.
+#번역시 주의 점: 현재 꽃이름을 제외한 음역은 대부분 패러디로 무리한 한글화를 진행하지 말아주세요(Ex.Tiny Potato) 한글정발을 제외한 모든 패러디는 발음대로 적어주시길 바랍니다.
 # MISC
 itemGroup.Botania=보타니아 [Botania]
 
@@ -112,6 +112,10 @@ botaniamisc.active=&a활성화
 botaniamisc.inactive=&c비활성화
 botaniamisc.achievements=보타니아 업적
 botaniamisc.dropIkea=&b이 아이템을 떨어트리면 구성요소는 붕괴될 것 입니다.
+botaniamisc.hourglassLock=이 모래시계는 잠겨있습니다. 우클릭을 통해 활성화하세요.
+botaniamisc.locked=잠겨있음
+botaniamisc.stopped=멈춤
+botaniamisc.lockedStopped=잠겨있음, 멈춤
 
 # NEI INTEGRATION
 botania.nei.brewery=보타니아 양조기
@@ -252,7 +256,7 @@ manaFluxfield.enabled=마나 플럭스변환기 활성화
 relics.enabled=유물 활성화
 18stones.enabled=프리스마린 활성화
 ringOfOdin.fireResist=오딘의 불저항 반지 활성화
-flightTiara.manaCost=Flügel Tiara Mana Cost
+flightTiara.manaCost=플뤼겔 티아라 마나 사용량
 flower.forceCheck=꽃 강제 체크
 enderPickpocket.enabled=엔더의 손 활성화
 thermalily.obsidian=불먹이 꽃이 옵시디언을 필요로 함
@@ -1386,22 +1390,34 @@ botania.category.misc=기타
 
 # - BASIC
 # -- TUTORIAL OF THE BASICS
-botania.entry.tutorial=A.기본 사용 지침서
+# -- WELCOME TO BOTANIA
+botania.entry.welcome=A.보타니아를 시작하신 것을 진심으로 환영합니다.
+botania.page.welcome0=&oWhat is peace? Is it truly just a lack of combat? Is it years of sitting quietly in a garden, surrounded by flowers? Is it watching over a kingdom that you are able to call your own? Is it the completion of almost every task known to man? Is it the ability to watch numbers of resources steadily rise as you watch your collection grow?
+botania.page.welcome1=&oIs peace something that can be obtained easily, without work - or is it something difficult to obtain?<br>Let's say for a moment - not even a second - that peace is truly just a lack of work; peaceful days surrounded by flowers.
+botania.page.welcome2=&oYears spent watching time tick by while you watch your flora perform every single task imaginable, without outside help from polluting machines or computers tangled in cables and pipes.<br>Now imagine that everything we just talked about was possible.
+botania.page.welcome3=&oImagine that through your hard labor - your cultivation of flowers, your manipulation of mana, your knowledge of the mechanisms of the world and redstone - you could obtain that dreamlike state. Imagine that you could have everything you could ever desire automated with flora. Flora, some magic, and your own ingenuity.
+botania.page.welcome4=&oWith the help of this book, your dreams will become a reality.<br>The name of this book is deceptive. Despite being called the Lexica Botania, this tome focuses on far more than just flowers. It focuses on a variety of devices, both magical and bordering on technological.
+botania.page.welcome5=&oIt holds the secrets of the elves, who have long ago fled from this world, as well as possible clues to the origins of the very world itself. For anyone with a basic knowledge of redstone and the creativity to put it to use, this book offers answers to nearly every problem known to man, without the need to use foreign schools of magic or machinery.
+botania.page.welcome6=&oThis book contains instructions on how to perform nearly every task that one could ever need, with only the use of what's in it, and available in the world of Minecraft, assuming you're up to the task of putting them together in ingenious ways.<br>Try it out, you'll be amazed at what you can do without outside interference.
+botania.page.welcome7=&oThe school of botany does not solely apply to those with a knack for complex thought processes.<br>Introduction to the art is simple, and the rewards are vast. A wide range of magical accessories and instruments allow for empowering of one who decides to study the various options therein.
+botania.page.welcome8=&oDear reader, I welcome you to the realm of Botania.&r<br> - Written by &nGideon Seymour&r, guest writer. (Adapted for use)
+
+botania.entry.tutorial=B.기본 사용 지침서
 botania.page.tutorial0=&4본 모드는 덕질패러디가 넘쳐납니다.&0<br>아래의 버튼을 통해서 "가이드 투어"가 가능합니다 :D<br>처음 시작하시는 분이라면 아래의 버튼을 한번 눌러보세요!(내용이 100%번역된 항목은 ABCD순서가 나뉘어져 있습니다.)
 
 # -- AN INTRODUCTORY CLIP
-botania.entry.introVideo=B.소개 동영상
+botania.entry.introVideo=C.소개 동영상
 botania.page.introVideo0=보타니아의 기본적인 내용을 영상으로 보여줍니다.(영문)
 
 # -- LEXICA BOTANIA
-botania.entry.lexicon=C.보타니아 사전
+botania.entry.lexicon=D.보타니아 사전
 botania.page.lexicon0=&1보타니아 사전&0은 모든 지식의 저장고입니다. 보타니아를 제외한 다른 모드들 까지 말이죠!<br>사전을 열어 보타니아에 관련된 지식을 얻을 수 있고 심지어 사전을 들고 해당하는 아이템에 커서를 맞춘 후 쉬프트-우클릭하면 위키가 열립니다!
 botania.page.lexicon3=&o기울림&r으로 되어있는 항목은 가장 &4기본적&0인 항목입니다. 보타니아를 즐기기 위해서는 필독해주세요.
 botania.page.lexicon1=&1보타니아 사전&0 제작하기
 botania.page.lexicon2=&1보타니아 사전&0의 제목을 변경할 수 도 있습니다. &1모루&0를 이름을 바꾸는 간단한 방법으로 말이죠. 하지만 커버는 바꿀 수 없으니 주의!<br>제본판은 현재 실행되고 있는 &4보타니아&0의 버전을 말합니다.
 
 # -- MYSTICAL FLOWERS
-botania.entry.flowers=D.신비로운 꽃
+botania.entry.flowers=E.신비로운 꽃
 botania.page.flowers0=세상을 돌아다니다 보면 당신은 신비로운 식물을 발견하실 수 있습니다. 그 식물들은 빛을 방출하여 멀리서도 알아보기 쉽습니다.<br>꽃들은 총&416 &0가지의 색상을 가지고있으며<br>&1꽃의 비료&0(후술)을 통해서 재배할 수 도있습니다.
 botania.page.flowers1=당신은 멀리서도 그 꽃들을 보실 수 있습니다.
 botania.page.flowers2=이 꽃들로 &1신비로운 꽃잎&0을 추출할 수 있습니다. 이 꽃잎들로는 마법의 도구나 새로운 꽃들을 만드는데 사용됩니다.<br>이 꽃잎을 땅위에 우클릭할 경우 땅에 &4숨겨집니다&0. 숨겨진 땅에는 꽃잎색에 따라 파티클이 생깁니다.<br>꽃잎을 부셔서 &1꽃가루&0로 만들 수 있는데 이 꽃가루들은 염료로 사용됩니다.
@@ -1416,7 +1432,7 @@ botania.page.flowers11=문제에 대한 준비
 botania.page.flowers9=꽃잎으로 꽃잎 블럭을 만들 수 있습니다.
 
 # -- PETAL APOTHECARY
-botania.entry.apothecary=E.꽃잎 연금술기
+botania.entry.apothecary=F.꽃잎 연금술기
 botania.page.apothecary0=식물학자는 식물을 만들기 위해 식물에 마법의 힘을 주입하는데에 특별한 수단을 필요로 합니다.<br>다행히 &1꽃잎 연금술기&0는 이걸 대신해줍니다.
 botania.page.apothecary1=&1꽃잎 연금술기&0
 botania.page.apothecary2=꽃잎 연금술기를 월드에 설치하고 약간의 물을 제공한다면 (&1물 양동이 1개&0 분량) 모든 종류의 &1신비로운 꽃잎&0을 연금술기에 던지면 그들의 에너지를 방출하면서 수용할 것입니다.<br>올바른 &1신비로운 꽃잎&0이 들어가고 나면, &1씨앗&0 하나를 던져 완성할 수 있습니다.<br>꽉찬 양동이를 뿌리는 것 또한 약제기를 물로 채웁니다.
@@ -1426,7 +1442,7 @@ botania.page.apothecary6=A simple tip for those who want to squeeze the biggest 
 botania.page.apothecary5=&1꽃잎 연금술기 제작&0.
 
 # -- PURE DAISY
-botania.entry.pureDaisy=F.정화의 데이지
+botania.entry.pureDaisy=G.정화의 데이지
 botania.page.pureDaisy0=&1정화의 데이지&0는 식물학에서 가장 기본적이며 가장 중요한 꽃이라고 할 수 있습니다.<br>&1정화의 데이지&0는 주변의 &1돌&0과 &1나무&0를 정화하는 능력이 있으며 정화된 돌과 나무는 &1생명의 돌&0 혹은 &1생명의 나무&0로 변형되어 조합에 사용됩니다.
 botania.page.pureDaisy1=&4몇 분&0의 시간이 지나야...
 botania.page.pureDaisy2=&1생명의 나무&0를 나뭇가지로 바꿀 수 있습니다.
@@ -1434,7 +1450,7 @@ botania.page.pureDaisy4=몇몇개의 다른 아이템들도 꽃 주위에 있으
 botania.page.pureDaisy3=하얀색은 순수하고 깨끗함의 상징이죠.
 
 # -- WAND OF THE FOREST
-botania.entry.wand=G.숲의 지팡이
+botania.entry.wand=H.숲의 지팡이
 botania.page.wand0=식물학자를 위한 다용도 도구는 &1숲의 지팡이&0입니다.<br>살아있는 나뭇가지에 한 쌍의 꽃잎을 감아 만든 이 지팡이는 많은 일들에 필요로 합니다.
 botania.page.wand1=이 지팡이에는 두 모드가 있는데, &4연결모드&0 그리고 &4기능모드&0입니다. &4연결모드&0는 호환되는 블럭을 선택하기 위해서 shift 우클릭을 할 수 있는데 그 다음 쉬프트 우클릭을 다른 장소에 해서 두 블럭을 연결할 수 있으며 &4기능모드&0는 기능 모드에선 간단히 shift 우클릭을 위해 하지 않을겁니다.<br>두 모드는 공중에서 쉬프트 우클릭하는 것으로 교체할 수 있다.
 botania.page.wand2=지팡이가 아무것에도 연결되지 않았을 경우 , 블록에 우클릭하는 것은 블록이 클릭되었을때 한 면의 축을 중심으로 회전합니다.<br>예를 들어 &1상자&0의 맨위를 쉬프트 우클릭하면 여러방향으로 회전합니다.
@@ -2059,6 +2075,15 @@ botania.page.craftCrate5=An example of crafting a &1Diamond Pickaxe&0
 botania.page.craftCrate6=Made in Portugal
 botania.page.craftCrate8=The &1Crafty Crate&0 can also be augmented with patterns. A pattern locks specific slots in the recipe, disallowing items from going into those slots and making them count as if there were placeholders there.<br>There's only a few basic patterns, which can be applied by right clicking on the crate (this doesn't consume them).
 botania.page.craftCrate9=9 different patterns
+
+# -- HOVERING HOURGLASS
+botania.entry.hourglass=Hovering Hourglass
+botania.page.hourglass0=The ability to count time is an essential one to anyone who wishes to develop any redstonic contraptions. A single timer, however, can take a up both a lot of space and be slow in general. The &1Hovering Hourglass&0 is a simple, accurate, sand based timer. As the name implies, it's a hourglass that hovers and turns by itself.
+botania.page.hourglass1=The hourglass contains an inventory, in which up to a stack of &1Sand&0, &1Red Sand&0 or &1Soul Sand&0 can be added via a right click. Right clicking again removes it. The sand will then fall from one of the chambers into another, and when is done, release a single redstone pulse and turn over, starting the process again.
+botania.page.hourglass2=The amount of time for each pulse is dependent on how much and what type of sand is in the chamber. &1Sand&0 will count for one second per block, &1Red Sand&0 ten seconds per and &1Soul Sand&0 one minute per. Sand types can't be mixed. The time for each pulse can be seen by hovering over the block with a &1Wand of the Forest&0.
+botania.page.hourglass3=Note that the sand is added all at once, so the size of the stack to be added needs to be set in the inventory.<br>Sand can't be added to the hourglass after it already has some in, trying to do so will end up removing the sand there instead. The sand in the block can be taken and added by &1Hoppers&0 or other methods.
+botania.page.hourglass4=Right clicking the block with a &1Wand of the Forest&0 locks (and unlocks) it. When locked, sand can't be added or removed, just in case someone right clicks it on accident.<br>If a &4Mana Burst&0 collides with the block, it'll stop the flow of sand and pause the timer, colliding again continues it.
+botania.page.hourglass5=The sands of time
 
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
