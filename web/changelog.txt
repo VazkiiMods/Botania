@@ -1,3 +1,12 @@
+r1.6 191
+*Added a "Welcome To Botania" entry written by GideonSeymour, it's the first entry in the book and sets the tone for new players.
+*Added icons to the tutorial pages, they deserve them, good pages.
+*Added the Hovering Hourglass, a new sand based timer.
+*Fixed 1.8 Stones' Chiselsed Bricks not being craftable.
+*Fixed the Terra Shatterer's rank bar displaying if the player has an item in their cursor.
+*Fixed the text highlighter being bad at highlighting text in multiple lines. (the message from alfheim page will no longer only be half italicized)
+*Made the Soujourner's Sash a little bit of Mana to work.
+*Shift right clicking a special Floating Flower with the Lexica Botania takes you the flower's page rather than the Glimmering Flowers page. (TheWhiteWolves)
 r1.6 190
 *Added a bit more info to the Flower Pouch page, it should've been there to begin with but I forgot >_>
 *Added the ability to light an Incense Plate with a Flash Lens. It also has a comparator output now.
