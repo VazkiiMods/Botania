@@ -14,21 +14,30 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.api.mana.IManaTrigger;
+import vazkii.botania.api.wand.IWandHUD;
+import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.TileHourglass;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockHourglass extends BlockModContainer {
+public class BlockHourglass extends BlockModContainer implements IManaTrigger, IWandable, IWandHUD {
 
 	Random random;
 	
@@ -51,6 +60,15 @@ public class BlockHourglass extends BlockModContainer {
 		TileHourglass hourglass = (TileHourglass) world.getTileEntity(x, y, z);
 		ItemStack hgStack = hourglass.getStackInSlot(0);
 		ItemStack stack = player.getCurrentEquippedItem();
+		if(stack != null && stack.getItem() == ModItems.twigWand)
+			return false;
+		
+		if(hourglass.lock) {
+			if(!player.worldObj.isRemote)
+				player.addChatMessage(new ChatComponentTranslation("botaniamisc.hourglassLock"));
+			return true;
+		}
+		
 		if(hgStack == null && hourglass.getStackItemTime(stack) > 0) {
 			hourglass.setInventorySlotContents(0, stack.copy());
 			hourglass.markDirty();
@@ -154,6 +172,28 @@ public class BlockHourglass extends BlockModContainer {
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileHourglass();
+	}
+
+	@Override
+	public void onBurstCollision(IManaBurst burst, World world, int x, int y, int z) {
+		if(!world.isRemote && !burst.isFake()) {
+			TileHourglass tile = (TileHourglass) world.getTileEntity(x, y, z);
+			tile.move = !tile.move;
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile);
+		}
+	}
+
+	@Override
+	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
+		TileHourglass tile = (TileHourglass) world.getTileEntity(x, y, z);
+		tile.lock = !tile.lock;
+		return false;
+	}
+
+	@Override
+	public void renderHUD(Minecraft mc, ScaledResolution res, World world, int x, int y, int z) {
+		TileHourglass tile = (TileHourglass) world.getTileEntity(x, y, z);
+		tile.renderHUD(res);
 	}
 	
 }

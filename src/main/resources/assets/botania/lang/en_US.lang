@@ -111,6 +111,10 @@ botaniamisc.active=&aActive
 botaniamisc.inactive=&cInactive
 botaniamisc.achievements=Botania Achievements
 botaniamisc.dropIkea=&bDropping this item will break it down into its components
+botaniamisc.hourglassLock=This Hourglass is locked. Right click it with a Wand of the Forest to unlock it.
+botaniamisc.locked=Locked
+botaniamisc.stopped=Stopped
+botaniamisc.lockedStopped=Locked, Stopped
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
