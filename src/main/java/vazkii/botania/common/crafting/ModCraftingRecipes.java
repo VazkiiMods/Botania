@@ -260,6 +260,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeIncenseStick;
 	public static IRecipe recipeIncensePlate;
 	public static IRecipe recipeTerraAxe;
+	public static IRecipe recipeHourglass;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1737,6 +1738,15 @@ public final class ModCraftingRecipes {
 				'S', LibOreDict.LIVINGWOOD_TWIG);
 		recipeTerraAxe = BotaniaAPI.getLatestAddedRecipe();
 
+		// Hovering Hourglass Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.hourglass), 
+				"GMG", "RSR", "GMG",
+				'G', "ingotGold",
+				'M', new ItemStack(ModBlocks.manaGlass),
+				'R', new ItemStack(Items.redstone),
+				'S', LibOreDict.MANA_STEEL);
+		recipeHourglass = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",

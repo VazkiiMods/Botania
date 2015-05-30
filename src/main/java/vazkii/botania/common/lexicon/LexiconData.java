@@ -145,6 +145,7 @@ public final class LexiconData {
 	public static LexiconEntry flasks;
 	public static LexiconEntry complexBrews;
 	public static LexiconEntry incense;
+	public static LexiconEntry hourglass;
 
 	public static LexiconEntry manaBlaster;
 	public static LexiconEntry grassSeeds;
@@ -585,6 +586,9 @@ public final class LexiconData {
 		incense = new BLexiconEntry(LibLexicon.DEVICE_INCENSE, categoryDevices);
 		incense.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageText("5"), new PageCraftingRecipe("3", ModCraftingRecipes.recipeIncenseStick), new PageCraftingRecipe("4", ModCraftingRecipes.recipeIncensePlate));
 
+		hourglass = new BLexiconEntry(LibLexicon.DEVICE_HOURGLASS, categoryDevices);
+		hourglass.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageText("3"), new PageText("4"), new PageCraftingRecipe("5", ModCraftingRecipes.recipeHourglass));
+		
 		// TOOLS ENTRIES
 		manaBlaster = new BLexiconEntry(LibLexicon.TOOL_MANA_BLASTER, categoryTools);
 		manaBlaster.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipeManaBlaster));
