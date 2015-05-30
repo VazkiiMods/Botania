@@ -1680,7 +1680,7 @@ public final class ModCraftingRecipes {
 
 			addOreDictRecipe(new ItemStack(ModFluffBlocks.stone, 1, i + 12),
 					"S", "S",
-					'S', new ItemStack(ModFluffBlocks.stoneSlabs[i + 4], 1, i));
+					'S', new ItemStack(ModFluffBlocks.stoneSlabs[i + 4], 1, 0));
 			recipe18StoneChisel.add(BotaniaAPI.getLatestAddedRecipe());
 		}
 
