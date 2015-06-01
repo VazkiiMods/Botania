@@ -5,7 +5,7 @@ r1.6 191
 *Fixed 1.8 Stones' Chiselsed Bricks not being craftable.
 *Fixed the Terra Shatterer's rank bar displaying if the player has an item in their cursor.
 *Fixed the text highlighter being bad at highlighting text in multiple lines. (the message from alfheim page will no longer only be half italicized)
-*Made the Soujourner's Sash a little bit of Mana to work.
+*Made the Soujourner's Sash require a little bit of Mana to work.
 *Shift right clicking a special Floating Flower with the Lexica Botania takes you the flower's page rather than the Glimmering Flowers page. (TheWhiteWolves)
 r1.6 190
 *Added a bit more info to the Flower Pouch page, it should've been there to begin with but I forgot >_>
