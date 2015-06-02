@@ -256,9 +256,9 @@ relics.enabled=启用遗物
 18stones.enabled=启用1.8石头
 ringOfOdin.fireResist=启用奥丁之戒防火效果
 flower.forceCheck=花的对象检查
-enderPickpocket.enabled=启用末影扒手
+enderPickpocket.enabled=启用末影之手
 thermalily.obsidian=炽玫瑰吸收黑曜石上的岩浆
-passiveWither.time=被动枯萎时间
+passiveWither.time=被动凋零时间
 flowerParticles.frequency=花粒子频率
 lexicon.enable.rotatingItems=辞典页面物品旋转特效
 lexicon.enable.justifiedText=词典页面文本对齐
@@ -278,7 +278,10 @@ spreader.posShift=发射器位置移动
 versionChecking.enabled=启用版本检查
 wandBeam.static=启用静态法杖光线
 worldgen.flower.density=世界生成器花密度
+worldgen.flower.patchChance=花朵补充几率
+worldgen.flower.patchSize=花朵补充范围
 worldgen.flower.quantity=世界生成器花数量
+worldgen.flower.tallChance=花朵增高几率
 worldgen.mushroom.quantity=世界生成器蘑菇数量
 
 # VERSION CHECKING
@@ -975,7 +978,7 @@ tile.botania:flower.jadedAmaranthus.name=杰迪德苋
 tile.botania:flower.jadedAmaranthus.reference=一对情侣因此而死
 tile.botania:flower.orechid.name=凝矿兰
 tile.botania:flower.orechid.reference=你挖了什么我就种了什么
-tile.botania:flower.orechidIgnem.name=Orechid Ignem
+tile.botania:flower.orechidIgnem.name=炎矿兰
 tile.botania:flower.orechidIgnem.reference=红得像玫瑰一样
 tile.botania:flower.fallenKanade.name=天降之奏
 tile.botania:flower.fallenKanade.reference=我不是天使
@@ -1266,7 +1269,7 @@ item.botania:craftPattern4.name=合成样板 #5: 1x3
 item.botania:craftPattern5.name=合成样板 #6: 3x1
 item.botania:craftPattern6.name=合成样板 #7: 2x3
 item.botania:craftPattern7.name=合成样板 #8: 3x2
-item.botania:craftPattern8.name=合成样板 #9: Donut
+item.botania:craftPattern8.name=合成样板 #9: 环型
 item.botania:gaiaIngot.name=盖亚灵魂锭
 item.botania:ancientWill0.name=Ahrim的祝福
 item.botania:ancientWill1.name=Dharok的祝福
@@ -2579,7 +2582,7 @@ botania.page.judgementCloaks3=尝尝我的复仇!
 # -- MANASEER MONOCLE
 botania.entry.monocle=预言之镜
 botania.page.monocle0=观察&4魔力脉冲&0去向一个极其 方便的工具就是&1预言之镜&0.它 不仅是一个奇特的护目镜,还 可以让装备者看到附近所有 &4魔力脉冲&0,即便他们视线被什 么东西挡住了.
-botania.page.monocle1=Why hello there old chap
+botania.page.monocle1=老伙计你怎么在这
 
 # -- RING OF CORRECTION
 botania.entry.swapRing=矫正指环
