@@ -51,10 +51,19 @@ public final class TerraPickRankDisplayHandler {
 					int width = 0;
 					for(String s : tooltip)
 						width = Math.max(width, font.getStringWidth(s));
-
+					int tooltipHeight = (tooltip.size() - 1) * 10 + 5;
+					
+					int height = 3;
 					int offx = 11;
 					int offy = 17;
-					int height = 3;
+
+					boolean offscreen = mouseX + width + 19 >= res.getScaledWidth();
+					
+					int fixY = res.getScaledHeight() - (mouseY + tooltipHeight);
+					if(fixY < 0)
+						offy -= fixY;
+					if(offscreen)
+						offx = -13 - width;
 
 					int level = ItemTerraPick.getLevel(stack);
 					int max = ItemTerraPick.LEVELS[Math.min(ItemTerraPick.LEVELS.length - 1, level + 1)];
