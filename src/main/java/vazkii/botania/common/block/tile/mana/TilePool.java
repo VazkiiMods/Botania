@@ -112,7 +112,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 	@Override
 	public void onChunkUnload() {
 		super.onChunkUnload();
-		ManaNetworkEvent.removePool(this);
+		invalidate();
 	}
 
 	public boolean collideEntityItem(EntityItem item) {
@@ -180,7 +180,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 		if(manaCap == -1)
 			manaCap = getBlockMetadata() == 2 ? MAX_MANA_DILLUTED : MAX_MANA;
 
-		if(!ManaNetworkHandler.instance.isPoolIn(this))
+		if(!ManaNetworkHandler.instance.isPoolIn(this) && !isInvalid())
 			ManaNetworkEvent.addPool(this);
 
 		if(soundTicks > 0)
