@@ -84,17 +84,13 @@ public class SubTileGenerating extends SubTileEntity {
 		if(linkedCollector == null) {
 			needsNew = true;
 
-			if(cachedCollectorCoordinates != null) {
-				needsNew = false;
-				if(supertile.getWorldObj().blockExists(cachedCollectorCoordinates.posX, cachedCollectorCoordinates.posY, cachedCollectorCoordinates.posZ)) {
-					needsNew = true;
-					TileEntity tileAt = supertile.getWorldObj().getTileEntity(cachedCollectorCoordinates.posX, cachedCollectorCoordinates.posY, cachedCollectorCoordinates.posZ);
-					if(tileAt != null && tileAt instanceof IManaCollector) {
-						linkedCollector = tileAt;
-						needsNew = false;
-					}
-					cachedCollectorCoordinates = null;
+			if(cachedCollectorCoordinates != null && supertile.getWorldObj().blockExists(cachedCollectorCoordinates.posX, cachedCollectorCoordinates.posY, cachedCollectorCoordinates.posZ)) {
+				TileEntity tileAt = supertile.getWorldObj().getTileEntity(cachedCollectorCoordinates.posX, cachedCollectorCoordinates.posY, cachedCollectorCoordinates.posZ);
+				if(tileAt != null && tileAt instanceof IManaCollector) {
+					linkedCollector = tileAt;
+					needsNew = false;
 				}
+				cachedCollectorCoordinates = null;
 			}
 		}
 
