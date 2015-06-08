@@ -24,6 +24,7 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -36,6 +37,9 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 
 	private static final int COST = 24;
 	private static final int RANGE = 2;
+	private static final int BIND_RANGE = 12;
+	
+	private static final String TAG_TELEPORTED = "Botania_TPd";
 
 	int bindX, bindY = -1, bindZ;
 
@@ -51,7 +55,7 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 			boolean did = false;
 			List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x - RANGE, y - RANGE, z - RANGE, x + RANGE + 1, y + RANGE, z + RANGE + 1));
 			for(EntityItem item : items) {
-				if(item.age < 60 || item.isDead)
+				if(item.age < 60 || item.isDead || item.getEntityData().getBoolean(TAG_TELEPORTED))
 					continue;
 
 				ItemStack stack = item.getEntityItem();
@@ -64,6 +68,7 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 					if(mana >= cost) {
 						spawnExplosionParticles(item);
 						item.setPosition(bindX + 0.5, bindY + 1.5, bindZ + 0.5);
+						item.getEntityData().setBoolean(TAG_TELEPORTED, true);
 						item.motionX = item.motionY = item.motionZ = 0;
 						spawnExplosionParticles(item);
 						if(!supertile.getWorldObj().isRemote) {
@@ -129,7 +134,8 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 	@Override
 	public boolean bindTo(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
 		boolean bound = super.bindTo(player, wand, x, y, z, side);
-		if(!bound && (x != bindX || y != bindY || z != bindZ) && (x != supertile.xCoord || y != supertile.yCoord || z != supertile.zCoord)) {
+		
+		if(!bound && (x != bindX || y != bindY || z != bindZ) && MathHelper.pointDistanceSpace(x, y, z, supertile.xCoord, supertile.yCoord, supertile.zCoord) <= BIND_RANGE && (x != supertile.xCoord || y != supertile.yCoord || z != supertile.zCoord)) {
 			bindX = x;
 			bindY = y;
 			bindZ = z;
