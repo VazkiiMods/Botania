@@ -178,6 +178,7 @@ public final class CorporeaHelper {
 
 		int count = itemCount;
 		for(IInventory inv : inventories) {
+			boolean removedAny = false;
 			ICorporeaSpark invSpark = getSparkForInventory(inv);
 
 			if(inv instanceof ICorporeaInterceptor) {
@@ -205,6 +206,7 @@ public final class CorporeaHelper {
 					lastRequestExtractions += rem;
 					if(doit && rem > 0) {
 						inv.decrStackSize(i, rem);
+						removedAny = true;
 						if(invSpark != null)
 							invSpark.onItemExtracted(stackAt);
 					}
@@ -212,6 +214,9 @@ public final class CorporeaHelper {
 						count -= rem;
 				}
 			}
+			
+			if(removedAny)
+				inv.markDirty();
 		}
 
 		for(ICorporeaInterceptor interceptor : interceptors.keySet())
