@@ -200,8 +200,9 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 								break;
 							}
 							case 8 : {
-								b = 0.85F;
-								g = 0.1F;
+								r = 0.85F;
+								g = 0.85F;
+								b = 0F;
 								break;
 							}
 							case 9 : {
