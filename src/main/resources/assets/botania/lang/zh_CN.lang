@@ -1,6 +1,6 @@
 # MISC
 itemGroup.Botania=植物魔法
-# 汉化:绿冰,2015.6.2
+# 汉化:绿冰,2015.6.8
 #并非本地化条目,请翻译者不要修改此行文本.
 botaniamisc.noloc=botaniamisc.noloc
 
@@ -386,7 +386,7 @@ item.aesirRing.poem1=用它合为一体,
 item.aesirRing.poem2=当集齐所有
 item.aesirRing.poem3=它们都会消失.
 
-item.dice.poem0=他出牌来寻找答案,
+item.dice.poem0=用占卜来寻找答案,
 item.dice.poem1=神奇的几何概率,
 item.dice.poem2=可能结果的隐藏规律,
 item.dice.poem3=数字在起舞.
@@ -507,7 +507,7 @@ tile.botania:flower12.name=棕色神秘花
 tile.botania:flower13.name=绿色神秘花
 tile.botania:flower14.name=红色神秘花
 tile.botania:flower15.name=黑色神秘花
-tile.botania:altar.name=花瓣药剂台
+tile.botania:altar0.name=花瓣药剂台
 tile.botania:altar1.name=丛林花瓣药剂台
 tile.botania:altar2.name=平原花瓣药剂台
 tile.botania:altar3.name=高山花瓣药剂台
@@ -1323,7 +1323,7 @@ item.botania:pinkinator.name=粉红终结者
 item.botania:infiniteFruit.name=灰色的果实
 item.botania:excaliber.name=王者之剑
 item.botania:flugelEye.name=天翼族之眼
-item.botania:thorRing.name雷神之戒
+item.botania:thorRing.name=雷神之戒
 item.botania:odinRing.name=奥丁之戒
 item.botania:lokiRing.name=洛基之戒
 item.botania:aesirRing.name=泰坦之戒
