@@ -925,6 +925,7 @@ tile.botania:corporeaInterceptor.name=Corporea Interceptor
 tile.botania:corporeaCrystalCube.name=Corporea 크리스탈 큐브
 tile.botania:incensePlate.name=향 받침대
 tile.botania:hourglass.name=유영 모래시계
+tile.botania:ghostRail.name=스펙트럼 레일
 
 # FLOWER NAMES
 tile.botania:flower..name=보타니아 꽃
@@ -1788,8 +1789,8 @@ botania.page.vinculotus1=&oTouch this black lotus with your fingers&r.
 
 # -- SPECTRANTHEMUM
 botania.entry.spectranthemum=Spectranthemum
-botania.page.spectranthemum0=Transporting items a long distance can be an arduous task. Water channels and &1Daffomills&0 won't cut it forever.<br>The &1Spectranthemum&0, at the cost of &4Mana&0 wraps the fabric of reality of any dropped items that do not contain &4Mana&0 around it, teleporting them somewhere else in the world.
-botania.page.spectranthemum1=In order to specify where the items go, one would use a &1Wand of the Forest&0 in bind mode and bind the flower to a block somewhere, similarly to binding it to a pool.<br>In order to view what block the flower is bound to rather than the pool it's pulling &4Mana&0, one would sneak while looking at it with a wand.
+botania.page.spectranthemum0=Transporting items a long distance can be an arduous task. Water channels and &1Daffomills&0 won't cut it forever. The &1Spectranthemum&0, at the cost of &4Mana&0 wraps the fabric of reality of any dropped items that do not contain &4Mana&0 around it, teleporting them somewhere else in the world. After teleported once, another of these flowers can't be used on the same item.
+botania.page.spectranthemum1=In order to specify where the items go, one would use a &1Wand of the Forest&0 in bind mode and bind the flower to a block somewhere, similarly to binding it to a pool. This only works within 12 blocks. In order to view what block the flower is bound to rather than the pool it's pulling &4Mana&0, one would sneak while looking at it with a wand.
 botania.page.spectranthemum2=This flower is governed by the &4axiom of chunkloading&0, by which it'll not function on chunks not loaded. This topic is not addressed in full extent this lexicon.<br>&oRecommended Reading: "Chunks and Chicken", "Anchors of the World".
 botania.page.spectranthemum3=&o(n)spooky(n+2)me&r.
 
@@ -2084,6 +2085,11 @@ botania.page.hourglass2=The amount of time for each pulse is dependent on how mu
 botania.page.hourglass3=Note that the sand is added all at once, so the size of the stack to be added needs to be set in the inventory.<br>Sand can't be added to the hourglass after it already has some in, trying to do so will end up removing the sand there instead. The sand in the block can be taken and added by &1Hoppers&0 or other methods.
 botania.page.hourglass4=Right clicking the block with a &1Wand of the Forest&0 locks (and unlocks) it. When locked, sand can't be added or removed, just in case someone right clicks it on accident.<br>If a &4Mana Burst&0 collides with the block, it'll stop the flow of sand and pause the timer, colliding again continues it.
 botania.page.hourglass5=The sands of time
+
+# -- SPECTRAL RAIL
+botania.entry.ghostRail=스펙트럼 레일
+botania.page.ghostRail0=Using a &1Spectral Platform&0 as a &1Rail&0 component gives some interesting abilities to a &1Minecart&0 that passes through it: when launched off the rail, the cart will float for a bit, it'll also be able to pass through walls.<br>This effect stops if the cart lands on a rail or collides with any variant of &1Dreamwood&0.
+botania.page.ghostRail1=Spirit Tracks, you could say
 
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
