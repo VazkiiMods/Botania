@@ -472,7 +472,7 @@ achievement.botania:excaliber=Streaming Heart
 achievement.botania:excaliber.desc=获得战利品:王者圣剑
 achievement.botania:flugelEye=Angel of Death
 achievement.botania:flugelEye.desc=获得战利品:天翼族之眼
-achievement.botania:thorRing==One Step Layered
+achievement.botania:thorRing=One Step Layered
 achievement.botania:thorRing.desc=获得战利品:托尔之戒
 achievement.botania:odinRing=回忆补时
 achievement.botania:odinRing.desc=获得战利品:奥丁之戒
@@ -922,6 +922,7 @@ tile.botania:corporeaInterceptor.name=多媒体拦截器
 tile.botania:corporeaCrystalCube.name=多媒体水晶魔方
 tile.botania:incensePlate.name=香盘
 tile.botania:hourglass.name=悬浮沙漏
+tile.botania:ghostRail.name=幻影轨道
 
 # FLOWER NAMES
 tile.botania:flower..name=植物魔法花
@@ -1394,9 +1395,9 @@ botania.page.welcome2=&o看着你的植物们如预期般的 完成各自的任�
 botania.page.welcome3=&o想象下,经过你的一番努力- 对植物的精心培养,对魔力的 使用,对于这个世界和红石的 知识运用-你就能达到那种梦 寐以求的境界.想象下你所需 求的一切都能通过植物来实 现自动化.植物,加上些魔法, 还有你的智慧.
 botania.page.welcome4=&o有了这本书,你就能梦想成真 了.<br>书名只是表面的.尽管称它植 物魔法辞典,但它所涉及的可 不仅仅都是花.其中也涵盖了 各种魔法和近似科技的装置.
 botania.page.welcome5=&o它里面也蕴藏着精灵的秘密, 而精灵们却早已带着世界起 源的线索一同消失在了这个 世界上.对于每一个有着基础 红石知识并能将其投入实践 的人而言,这本书为每一个人 们所知的问题给出了答案,有 了它你就再也不需要学习那 些不明所以的魔法和机械知 识了.
-botania.page.welcome6=&o书的内容也包括了你所要进 行的每一项任务的解释说明, 只需要用上书中的东西,确保 在Minecraft的世界里可行,然 后动用你的聪明才智,难题就 都不是问题了.<br>试试看,你会吃惊于自己在没 有外界干扰的情况下竟然可 以做到这么多.
+botania.page.welcome6=&o书的内容也包括了你所要进 行的每一项任务的解释说明, 只需要用上书中的东西,确保 在Minecraft的世界里可行, 然后动用你的聪明才智,难题 就都不是问题了.<br>试试看,你会吃惊于自己在没 有外界干扰的情况下竟然可 以做到这么多.
 botania.page.welcome7=&o植物学的知识不仅适用于那 些需要动脑筋的思考的家伙.<br>言虽简,报颇丰.各式各样的 魔法饰品和工具想必也能让 其他人自由选择他们想要的.
-botania.page.welcome8=&o尊敬的读者,我诚挚地欢迎您 来到植物魔法的世界.&r<br> -特约撰稿人 &nGideon Seymour&r 作.
+botania.page.welcome8=&o尊敬的读者,我诚挚地欢迎您 来到植物魔法的世界.&r<br> - 特约撰稿人 &nGideon Seymour&r作.
 
 # -- TUTORIAL OF THE BASICS
 botania.entry.tutorial=基础教程
@@ -1785,8 +1786,8 @@ botania.page.vinculotus1=用你的指尖轻触这朵黑莲
 
 # -- SPECTRANTHEMUM
 botania.entry.spectranthemum=凌空蓟
-botania.page.spectranthemum0=长途运输物品是一个艰巨的 任务.水路和&1扇水仙&0也没法简 单完成这个任务.<br>&1凌空蓟&0会消耗少量&4魔力&0将周 围的掉落物传送到另一个地 点.
-botania.page.spectranthemum1=为了指定物品的去向,可以使 用&1森林法杖&0的绑定模式来绑 定这朵花和某个方块,就像绑 到魔力池上一样.<br>查看这朵花绑定的方块就像 查看魔力池传输&4魔力&0那样,潜 行时用法杖指向它即可.
+botania.page.spectranthemum0=长途运输物品是一个艰巨的 任务.水路和&1扇水仙&0也没法简 单完成这个任务.&1凌空蓟&0会消 耗少量&4魔力&0将周围的掉落物 传送到另一个地点.传送过一 次之后,其他同类的花就不能 用于传送该种物品.
+botania.page.spectranthemum1=为了指定物品的去向,可以使 用&1森林法杖&0的绑定模式来绑 定这朵花和某个方块,就像绑 到魔力池上一样.仅在12格以 内有效.查看这朵花绑定的方 块就像查看魔力池传输&4魔力&0 那样,潜行时用法杖指向它即 可.
 botania.page.spectranthemum2=这朵花受&4区块加载机制&0所限, 因此它不会作用于未加载的 区块.这里就不多加叙述了.<br>&o推荐查询: "Chunks and Chicken", "Anchors of the World".
 botania.page.spectranthemum3=&o(n)spooky(n+2)me&r.
 
@@ -2081,6 +2082,11 @@ botania.page.hourglass2=每道脉冲的间隔时间取决于 使用的沙子数�
 botania.page.hourglass3=注意沙子是一次性加入的,因 此你必须在自己的物品栏内 设定好所需的数量.<br>不能向已有沙子的沙漏内添 入新的沙子,否则就会移除之 前加入的沙子.沙漏内的沙子 可以通过&1漏斗&0和其他途径取 出或添入.
 botania.page.hourglass4=用&1森林法杖&0右击则会将它锁 定(或解锁).锁定时,无法添 加或移除沙子,以免有人不小 心右击到.<br>如果一道&4魔力脉冲&0击中该方 块,则会让沙子停止流动,再 次击中则会继续流动.
 botania.page.hourglass5=时光之沙
+
+# -- SPECTRAL RAIL
+botania.entry.ghostRail=幻影轨道
+botania.page.ghostRail0=将&1铁轨&0铺在&1幻影平台&0上会给 经过其上的&1矿车&0附加有趣的 能力:当它驶过这段轨道时, 矿车会略微的浮空,此时它也 能穿墙而过.<br>该效果会在矿车着陆于另一 段铁轨或撞上&1梦之木&0一类的 方块时消失.
+botania.page.ghostRail1=你可以称它:灵魂轨迹
 
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
