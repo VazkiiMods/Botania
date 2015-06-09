@@ -29,7 +29,8 @@ public final class CorporeaHelper {
 
 	private static final List<IInventory> empty = Collections.unmodifiableList(new ArrayList());
 	private static final WeakHashMap<List<ICorporeaSpark>, List<IInventory>> cachedNetworks = new WeakHashMap();
-
+	private static final List<ICorporeaAutoCompleteController> autoCompleteControllers = new ArrayList<ICorporeaAutoCompleteController>();
+	
 	public static final String[] WILDCARD_STRINGS = new String[] {
 		"...", "~", "+", "?" , "*"
 	};
@@ -313,5 +314,22 @@ public final class CorporeaHelper {
 	 */
 	public static boolean equalOrContain(String s1, String s2, boolean contain) {
 		return contain ? s1.contains(s2) : s1.equals(s2);
+	}
+
+	/**
+	 * Registers a ICorporeaAutoCompleteController
+	 */
+	public static void registerAutoCompleteController(ICorporeaAutoCompleteController controller) {
+		autoCompleteControllers.add(controller);
+	}
+
+	/**
+	 * Returns if the auto complete helper should run
+	 */
+	public static boolean shouldAutoComplete() {
+		for(ICorporeaAutoCompleteController controller : autoCompleteControllers)
+			if(controller.shouldAutoComplete())
+				return true;
+		return false;
 	}
 }
