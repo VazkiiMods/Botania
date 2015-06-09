@@ -10,7 +10,11 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockRail;
+import net.minecraft.block.BlockRailBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -18,9 +22,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.event.entity.minecart.MinecartUpdateEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;

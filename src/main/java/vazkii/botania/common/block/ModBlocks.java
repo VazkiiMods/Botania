@@ -228,6 +228,7 @@ public final class ModBlocks {
 	public static Block corporeaCrystalCube;
 	public static Block incensePlate;
 	public static Block hourglass;
+	public static Block ghostRail;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -300,6 +301,7 @@ public final class ModBlocks {
 		corporeaCrystalCube = new BlockCorporeaCrystalCube();
 		incensePlate = new BlockIncensePlate();
 		hourglass = new BlockHourglass();
+		ghostRail = new BlockGhostRail();
 		
 		ModFluffBlocks.init();
 

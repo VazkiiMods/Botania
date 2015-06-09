@@ -261,6 +261,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeIncensePlate;
 	public static IRecipe recipeTerraAxe;
 	public static IRecipe recipeHourglass;
+	public static IRecipe recipeGhostRail;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1746,6 +1747,10 @@ public final class ModCraftingRecipes {
 				'R', new ItemStack(Items.redstone),
 				'S', LibOreDict.MANA_STEEL);
 		recipeHourglass = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Spectral Rail Recipe
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.ghostRail), new ItemStack(Blocks.rail), new ItemStack(ModBlocks.platform, 1, 1));
+		recipeGhostRail = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

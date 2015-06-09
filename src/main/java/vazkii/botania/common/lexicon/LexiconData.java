@@ -147,6 +147,7 @@ public final class LexiconData {
 	public static LexiconEntry complexBrews;
 	public static LexiconEntry incense;
 	public static LexiconEntry hourglass;
+	public static LexiconEntry ghostRail;
 
 	public static LexiconEntry manaBlaster;
 	public static LexiconEntry grassSeeds;
@@ -590,6 +591,9 @@ public final class LexiconData {
 
 		hourglass = new BLexiconEntry(LibLexicon.DEVICE_HOURGLASS, categoryDevices);
 		hourglass.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageText("3"), new PageText("4"), new PageCraftingRecipe("5", ModCraftingRecipes.recipeHourglass));
+		
+		ghostRail = new ALexiconEntry(LibLexicon.DEVICE_GHOST_RAIL, categoryDevices);
+		ghostRail.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeGhostRail));
 		
 		// TOOLS ENTRIES
 		manaBlaster = new BLexiconEntry(LibLexicon.TOOL_MANA_BLASTER, categoryTools);
