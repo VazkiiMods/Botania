@@ -56,6 +56,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 	public static final int MAX_MANA = 1000000;
 	public static final int MAX_MANA_DILLUTED = 10000;
 
+	private static final Color particleColor = new Color(0x00C6FF);
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_KNOWN_MANA = "knownMana";
 	private static final String TAG_OUTPUTTING = "outputting";
@@ -188,9 +189,8 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 
 		if(worldObj.isRemote) {
 			double particleChance = 1F - (double) getCurrentMana() / (double) manaCap * 0.1;
-			Color color = new Color(0x00C6FF);
 			if(Math.random() > particleChance)
-				Botania.proxy.wispFX(worldObj, xCoord + 0.3 + Math.random() * 0.5, yCoord + 0.6 + Math.random() * 0.25, zCoord + Math.random(), color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random() / 3F, (float) -Math.random() / 25F, 2F);
+				Botania.proxy.wispFX(worldObj, xCoord + 0.3 + Math.random() * 0.5, yCoord + 0.6 + Math.random() * 0.25, zCoord + Math.random(), particleColor.getRed() / 255F, particleColor.getGreen() / 255F, particleColor.getBlue() / 255F, (float) Math.random() / 3F, (float) -Math.random() / 25F, 2F);
 		}
 
 		if(sendPacket && ticks % 10 == 0) {
