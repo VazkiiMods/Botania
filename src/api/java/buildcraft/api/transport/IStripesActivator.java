@@ -6,7 +6,12 @@
  * Please check the contents of the license, which should be located
  * as "LICENSE.API" in the BuildCraft source code distribution.
  */
-@API(apiVersion = "1.5", owner = "BuildCraft|Core", provides = "BuildCraftAPI|core")
-package buildcraft.api.core;
-import cpw.mods.fml.common.API;
+package buildcraft.api.transport;
 
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.util.ForgeDirection;
+
+public interface IStripesActivator {
+	void sendItem(ItemStack itemStack, ForgeDirection direction);
+	void dropItem(ItemStack itemStack, ForgeDirection direction);
+}

@@ -1,10 +1,10 @@
 /**
- * Copyright (c) 2011-2014, SpaceToad and the BuildCraft Team
+ * Copyright (c) 2011-2015, SpaceToad and the BuildCraft Team
  * http://www.mod-buildcraft.com
  *
- * BuildCraft is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+ * The BuildCraft API is distributed under the terms of the MIT License.
+ * Please check the contents of the license, which should be located
+ * as "LICENSE.API" in the BuildCraft source code distribution.
  */
 package buildcraft.api.core;
 
@@ -87,7 +87,7 @@ public final class StackKey {
 			}
 		}
 		if (fluidStack != null) {
-			if (fluidStack.fluidID != k.fluidStack.fluidID ||
+			if (fluidStack.getFluid().getID() != k.fluidStack.getFluid().getID() ||
 					fluidStack.amount != k.fluidStack.amount ||
 					!objectsEqual(fluidStack.tag, k.fluidStack.tag)) {
 				return false;
@@ -106,7 +106,7 @@ public final class StackKey {
 		}
 		result = 31 * result + 7;
 		if (fluidStack != null) {
-			result = 31 * result + fluidStack.fluidID;
+			result = 31 * result + fluidStack.getFluid().getID();
 			result = 31 * result + fluidStack.amount;
 			result = 31 * result + objectHashCode(fluidStack.tag);
 		}
