@@ -45,6 +45,7 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 
 	IIcon iconBases, iconFaces;
 	IIcon iconBasesA, iconFacesA;
+	IIcon iconBasesB, iconFacesB;
 
 	public BlockForestDrum() {
 		super(Material.wood);
@@ -88,18 +89,21 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 		iconFaces = IconHelper.forBlock(par1IconRegister, this, 1);
 		iconBasesA = IconHelper.forBlock(par1IconRegister, this, 2);
 		iconFacesA = IconHelper.forBlock(par1IconRegister, this, 3);
+		iconBasesB = IconHelper.forBlock(par1IconRegister, this, 4);
+		iconFacesB = IconHelper.forBlock(par1IconRegister, this, 5);
 	}
 
 	@Override
 	public void getSubBlocks(Item item, CreativeTabs tab, List list) {
-		for(int i = 0; i < 2; i++)
+		for(int i = 0; i < 3; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
 
 	@Override
 	public IIcon getIcon(int side, int meta) {
 		boolean animal = meta == 1;
-		return side < 2 ? animal ? iconBasesA : iconBases : animal ? iconFacesA : iconFaces;
+		boolean tree = meta == 2;
+		return side < 2 ? animal ? iconBasesA : tree ? iconBasesB : iconBases : animal ? iconFacesA : tree ? iconFacesB : iconFaces;
 	}
 
 	@Override
@@ -109,6 +113,8 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 
 		if(world.getBlockMetadata(x, y, z) == 0)
 			ItemGrassHorn.breakGrass(world, 0, x, y, z);
+		else if(world.getBlockMetadata(x, y, z) == 2)
+			ItemGrassHorn.breakGrass(world, 1, x, y, z);
 		else if(!world.isRemote) {
 			int range = 10;
 			List<EntityLiving> entities = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range + 1, y + range + 1, z + range + 1));
