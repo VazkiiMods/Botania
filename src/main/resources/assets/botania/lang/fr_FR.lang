@@ -389,7 +389,7 @@ item.dice.poem2=The hidden laws of a probable outcome,
 item.dice.poem3=The numbers lead a dance.
 
 # DEATH MESSAGES
-death.attack.botania-relic=%s was punished for using a relic that isn't theirs
+death.attack.botania-relic=%s a été puni en utilisant une relique qui n'était pas la sienne
 
 # ENTITY NAMES
 entity.Botania.botania:manaBurst.name=Explosion de mana
@@ -922,6 +922,7 @@ tile.botania:corporeaInterceptor.name=Intercepteur de Corporea
 tile.botania:corporeaCrystalCube.name=Cube de cristal Corporea
 tile.botania:incensePlate.name=Assiette d'encens
 tile.botania:hourglass.name=Sablier plannant
+tile.botania:ghostRail.name=Rail spectral
 
 # FLOWER NAMES
 tile.botania:flower..name=Fleur Botania
@@ -2082,7 +2083,12 @@ botania.page.hourglass3=Note that the sand is added all at once, so the size of 
 botania.page.hourglass4=Right clicking the block with a &1Wand of the Forest&0 locks (and unlocks) it. When locked, sand can't be added or removed, just in case someone right clicks it on accident.<br>If a &4Mana Burst&0 collides with the block, it'll stop the flow of sand and pause the timer, colliding again continues it.
 botania.page.hourglass5=The sands of time
 
-# - Fleur mystique INSTRUMENTS
+# -- SPECTRAL RAIL
+botania.entry.ghostRail=Rail spectral
+botania.page.ghostRail0=Utiliser une &1Plateforme spectral&0 comme un composant de &1Rail&0 donne quelques habilités interressantes au &1Chariot&0 qui passerai à travers lui : lorsqu'il est éjecté de ce rail, le chariot flotte un instant, il sera aussi capable de passer à travers les murs.<br>Cet effet s'arrêtera si le chariot atterri sur un rail ou rentre en collision avec n'importe quelle variété de &1Boisrève&0.
+botania.page.ghostRail1=Voie de l'esprit, pourriez-vous dire
+
+# - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
 botania.entry.manaBlaster=Mana Blaster
 botania.page.manaBlaster0=The &1Mana Blaster&0 is like a portable &1Diffuseur de mana&0, while shaped like a pistol for easy handling, it's not exactly a firearm, as much as it is just a portable spreader.<br>By utilizing &4Mana&0 from &4Mana carrying items&0 in the holder's inventory, it can shoot a mana burst when one is looking at.
