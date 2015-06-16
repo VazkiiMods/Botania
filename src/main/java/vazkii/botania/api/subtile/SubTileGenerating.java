@@ -84,23 +84,18 @@ public class SubTileGenerating extends SubTileEntity {
 		if(linkedCollector == null) {
 			needsNew = true;
 
-			if(cachedCollectorCoordinates != null) {
-				needsNew = false;
-				if(supertile.getWorldObj().blockExists(cachedCollectorCoordinates.posX, cachedCollectorCoordinates.posY, cachedCollectorCoordinates.posZ)) {
-					needsNew = true;
-					TileEntity tileAt = supertile.getWorldObj().getTileEntity(cachedCollectorCoordinates.posX, cachedCollectorCoordinates.posY, cachedCollectorCoordinates.posZ);
-					if(tileAt != null && tileAt instanceof IManaCollector && !tileAt.isInvalid()) {
-						linkedCollector = tileAt;
-						needsNew = false;
-					}
-					cachedCollectorCoordinates = null;
-				}
+			if(cachedCollectorCoordinates != null) {				
+        TileEntity tileAt = supertile.getWorldObj().getTileEntity(cachedCollectorCoordinates.posX, cachedCollectorCoordinates.posY, cachedCollectorCoordinates.posZ);
+        if(tileAt != null && tileAt instanceof IManaCollector && !tileAt.isInvalid()) {
+          linkedCollector = tileAt;
+          needsNew = false;
+        }
+        cachedCollectorCoordinates = null;				
 			}
 		}
-
-		if(!needsNew && linkedCollector != null) {
+    else {
 			TileEntity tileAt = supertile.getWorldObj().getTileEntity(linkedCollector.xCoord, linkedCollector.yCoord, linkedCollector.zCoord);
-			if(!(tileAt instanceof IManaCollector) || tileAt.isInvalid()) {
+			if(tileAt == null || !(tileAt instanceof IManaCollector) || tileAt.isInvalid()) {
 				linkedCollector = null;
 				needsNew = true;
 			} else linkedCollector = tileAt;
@@ -184,7 +179,10 @@ public class SubTileGenerating extends SubTileEntity {
 		int y = cmp.getInteger(TAG_COLLECTOR_Y);
 		int z = cmp.getInteger(TAG_COLLECTOR_Z);
 
-		cachedCollectorCoordinates = new ChunkCoordinates(x, y, z);
+    
+		cachedCollectorCoordinates = (x!= 0 && y != -1 && z != 0) ? new ChunkCoordinates(x, y, z) : null;
+    
+    
 	}
 
 	@Override
@@ -192,13 +190,16 @@ public class SubTileGenerating extends SubTileEntity {
 		cmp.setInteger(TAG_MANA, mana);
 		cmp.setInteger(TAG_TICKS_EXISTED, ticksExisted);
 
-		int x = linkedCollector == null ? 0 : linkedCollector.xCoord;
-		int y = linkedCollector == null ? -1 : linkedCollector.yCoord;
-		int z = linkedCollector == null ? 0 : linkedCollector.zCoord;
-
-		cmp.setInteger(TAG_COLLECTOR_X, x);
-		cmp.setInteger(TAG_COLLECTOR_Y, y);
-		cmp.setInteger(TAG_COLLECTOR_Z, z);
+    if (linkedCollector == null){
+      cmp.setInteger(TAG_COLLECTOR_X, 0);
+      cmp.setInteger(TAG_COLLECTOR_Y, -1);
+      cmp.setInteger(TAG_COLLECTOR_Z, 0);
+    }
+    else{
+      cmp.setInteger(TAG_COLLECTOR_X, linkedCollector.xCoord);
+      cmp.setInteger(TAG_COLLECTOR_Y, linkedCollector.yCoord);
+      cmp.setInteger(TAG_COLLECTOR_Z, linkedCollector.zCoord);
+    }
 	}
 
 	@Override
