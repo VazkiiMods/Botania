@@ -585,6 +585,7 @@ tile.botania:storage3.name=魔力钻石块
 tile.botania:storage4.name=龙石块
 tile.botania:forestDrum0.name=狂野之鼓
 tile.botania:forestDrum1.name=收集之鼓
+tile.botania:forestDrum2.name=林冠之鼓
 tile.botania:shinyFlower0.name=白色荧光花
 tile.botania:shinyFlower1.name=橙色荧光花
 tile.botania:shinyFlower2.name=品红色荧光花
@@ -2087,6 +2088,12 @@ botania.page.hourglass5=时光之沙
 botania.entry.ghostRail=幻影轨道
 botania.page.ghostRail0=将&1铁轨&0铺在&1幻影平台&0上会给 经过其上的&1矿车&0附加有趣的 能力:当它驶过这段轨道时, 矿车会略微的浮空,此时它也 能穿墙而过.<br>该效果会在矿车着陆于另一 段铁轨或撞上&1梦之木&0一类的 方块时消失.
 botania.page.ghostRail1=你可以称它:灵魂轨迹
+
+# -- DRUM OF THE CANOPY
+botania.entry.canopyDrum=林冠之鼓
+botania.page.canopyDrum0=&1林冠之鼓&0就像&1狂野之鼓&0一样, 不过它所用的是&1林冠号角&0.它 的功能和手持的号角相同,不 过它需要放置下来.<br>若要让它发出振动破坏周围 的树叶,你需要向其发射一道 &4魔力脉冲&0.
+botania.page.canopyDrum1=鼓本身不会储存魔力,因此激 活它就需要一个&1红石魔力发&0 &1射器&0或&1魔力发射器&0.
+botania.page.canopyDrum2=修出我的范儿
 
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
