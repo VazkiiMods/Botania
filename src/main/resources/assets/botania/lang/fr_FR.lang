@@ -4,32 +4,32 @@ itemGroup.Botania=Botania
 # Something that is not localized, translators, do NOT change this line.
 botaniamisc.noloc=botaniamisc.noloc
 
-botaniamisc.nextPage=Next Page
-botaniamisc.prevPage=Previous Page
-botaniamisc.back=Back
-botaniamisc.craftingContainer=Returns on Crafting
-botaniamisc.shapeless=Shapeless Recipe
-botaniamisc.oredict=Ore Dictionary Recipe
-botaniamisc.statusUnknown=Unknown Status
-botaniamisc.color=%s Tinted
-botaniamisc.manaUsage=Mana Usage
-botaniamisc.shiftToRead=Shift-right click to read more
-botaniamisc.clickToRecipe=Shift click to see recipe
-botaniamisc.clickToIndex=Shift click for index
-botaniamisc.flareColor=%s Rounds
-botaniamisc.outputtingPower=Sparing Mana to Items
-botaniamisc.inputtingPower=Accepting Mana from Items
-botaniamisc.creative=Creative
-botaniamisc.invFull=Your inventory is full.
-botaniamisc.compositeLens=Composite with %s
-botaniamisc.filter0=Pickup only items in Frames
-botaniamisc.filter1=Pickup only items not in Frames
-botaniamisc.filter2=Pickup any items
-botaniamisc.creativePool0=Creative Mana Pool, has infinite Mana
-botaniamisc.creativePool1=Worthy of an Egoist
-botaniamisc.savedByLaurel=Your Golden Laurel Crown shatters, as it saves you from death.
-botaniamisc.toolRank=%s&7 Rank
-botaniamisc.edition=%s Edition
+botaniamisc.nextPage=Page suivante
+botaniamisc.prevPage=Page précédante
+botaniamisc.back=Retour
+botaniamisc.craftingContainer=Retoune à la fabrication
+botaniamisc.shapeless=Recette sans forme
+botaniamisc.oredict=Recette du dictionnaire de minerai
+botaniamisc.statusUnknown=Statut inconnu
+botaniamisc.color=%s teinté
+botaniamisc.manaUsage=Utilisation de mana
+botaniamisc.shiftToRead=Maj-cliquez droit pour lire plus
+botaniamisc.clickToRecipe=Maj-cliquez vour voir la recette
+botaniamisc.clickToIndex=Maj-cliquez pour l'index
+botaniamisc.flareColor=%s tours
+botaniamisc.outputtingPower=Partage le mana aux éléments
+botaniamisc.inputtingPower=Accepte du mana des éléments
+botaniamisc.creative=Créatif
+botaniamisc.invFull=Votre inventaire est plein.
+botaniamisc.compositeLens=Composé avec %s
+botaniamisc.filter0=Ramassage seulement des éléments en cadres
+botaniamisc.filter1=Ramassage seulement des éléments hors cadres
+botaniamisc.filter2=Ramassage de tous les éléments
+botaniamisc.creativePool0=Bassin de mana créatif, a du mana à l'infini
+botaniamisc.creativePool1=Digne d'un égoïste
+botaniamisc.savedByLaurel=Votre couronne de laurier d'or vole en éclats, dès qu'elle vous sauve de la mort.
+botaniamisc.toolRank=%s&7 rang
+botaniamisc.edition=%s édition
 # ^ Leave this empty for no edition display
 botaniamisc.devEdition=Writer's
 botaniamisc.lexiconcover0=Your guide to all
@@ -584,7 +584,8 @@ tile.botania:storage2.name=Bloc d'élémentium
 tile.botania:storage3.name=Bloc de mana diamant
 tile.botania:storage4.name=Bloc de dragonite
 tile.botania:forestDrum0.name=Tambour sauvage
-tile.botania:forestDrum1.name=tambour de récolte
+tile.botania:forestDrum1.name=Tambour de récolte
+tile.botania:forestDrum2.name=Tambour de la canopée
 tile.botania:shinyFlower0.name=Fleur chatoyante blanche
 tile.botania:shinyFlower1.name=Fleur chatoyante orange
 tile.botania:shinyFlower2.name=Fleur chatoyante magenta
@@ -2088,10 +2089,16 @@ botania.entry.ghostRail=Rail spectral
 botania.page.ghostRail0=Utiliser une &1Plateforme spectral&0 comme un composant de &1Rail&0 donne quelques habilités interressantes au &1Chariot&0 qui passerai à travers lui : lorsqu'il est éjecté de ce rail, le chariot flotte un instant, il sera aussi capable de passer à travers les murs.<br>Cet effet s'arrêtera si le chariot atterri sur un rail ou rentre en collision avec n'importe quelle variété de &1Boisrève&0.
 botania.page.ghostRail1=Voie de l'esprit, pourriez-vous dire
 
+# -- DRUM OF THE CANOPY  
+botania.entry.canopyDrum=Tambour de la canopée  
+botania.page.canopyDrum0=Le &1Tambour de la canopée&0 est comme le &1Tambour sauvage&0 en celà qu'il est l'équivalent percution de la &1Corne de la canopée&0. Il sert à la même chose que la corne en main, mais placé dans le monde.<br>Pour déclencher un rythme et casser les feuilles alentour, quelqu'un doit tirer une *4Explosion de mana*0 sur le tambour.
+botania.page.canopyDrum1=Il est a noter que ce tambour ne stocke pas de mana, d'où, pour le déclencher, un &1Diffuseur de mana redstone&0 ou un &1Exploseur de mana&0 est requis.  
+botania.page.canopyDrum2=Émondage avec style  
+
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
-botania.entry.manaBlaster=Mana Blaster
-botania.page.manaBlaster0=The &1Mana Blaster&0 is like a portable &1Diffuseur de mana&0, while shaped like a pistol for easy handling, it's not exactly a firearm, as much as it is just a portable spreader.<br>By utilizing &4Mana&0 from &4Mana carrying items&0 in the holder's inventory, it can shoot a mana burst when one is looking at.
+botania.entry.manaBlaster=Exploseur de mana
+botania.page.manaBlaster0=The &1Exploseur de mana&0 is like a portable &1Diffuseur de mana&0, while shaped like a pistol for easy handling, it's not exactly a firearm, as much as it is just a portable spreader.<br>By utilizing &4Mana&0 from &4Mana carrying items&0 in the holder's inventory, it can shoot a mana burst when one is looking at.
 botania.page.manaBlaster1=This burst is a bit different from the one fired from speaders, as it's faster, but carries only three quarters of the mana a spreader burst would. There's also a short cooldown period after firing the blaster until another burst can be shot.
 botania.page.manaBlaster2=&1Mana Lenses&0 also function with the blaster, to attach one to it, put them side by side on a crafting table, to remove it, simply place the &1Mana Blaster&0 back on the crafting grid.
 botania.page.manaBlaster3=We need more dakka
