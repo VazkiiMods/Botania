@@ -7,7 +7,7 @@ botaniamisc.noloc=botaniamisc.noloc
 botaniamisc.nextPage=Page suivante
 botaniamisc.prevPage=Page précédante
 botaniamisc.back=Retour
-botaniamisc.craftingContainer=Retoune à la fabrication
+botaniamisc.craftingContainer=Retour à la fabrication
 botaniamisc.shapeless=Recette sans forme
 botaniamisc.oredict=Recette du dictionnaire de minerai
 botaniamisc.statusUnknown=Statut inconnu
@@ -31,38 +31,38 @@ botaniamisc.savedByLaurel=Votre couronne de laurier d'or vole en éclats, dès q
 botaniamisc.toolRank=%s&7 rang
 botaniamisc.edition=%s édition
 # ^ Leave this empty for no edition display
-botaniamisc.devEdition=Writer's
-botaniamisc.lexiconcover0=Your guide to all
-botaniamisc.lexiconcover1=Botanical needs
-botaniamisc.lexiconcover2=From Bestselling author
+botaniamisc.devEdition=L'auteur est
+botaniamisc.lexiconcover0=Votre guide pour tout
+botaniamisc.lexiconcover1=vos besoins botaniques
+botaniamisc.lexiconcover2=De l'auteur à succès
 botaniamisc.lexiconcover3=Lizbeth "Vazkii" Rika
-botaniamisc.lexiconcover4=Edited by BevoLJ
-botaniamisc.lexiconcover5=Edited by Saice
-botaniamisc.shiftinfo=Hold &bSHIFT&7 for more info
-botaniamisc.knowledgeTypesSingular=Contains %s School of Knowledge
-botaniamisc.knowledgeTypesPlural=Contains %s Schools of Knowledge
-botaniamisc.bookmark=Bookmark #%s
-botaniamisc.clickToSee=Click to read
-botaniamisc.shiftToRemove=Shift-click to remove
-botaniamisc.clickToAdd=Add Bookmark
+botaniamisc.lexiconcover4=Edité par BevoLJ
+botaniamisc.lexiconcover5=Edité par Saice
+botaniamisc.shiftinfo=Appuyez sur &bMaj&7 pour plus d'info
+botaniamisc.knowledgeTypesSingular=Contient %s savoir scolaire
+botaniamisc.knowledgeTypesPlural=Contient %s savoirs scolaires
+botaniamisc.bookmark=Marque-page #%s
+botaniamisc.clickToSee=Cliquez pour lire
+botaniamisc.shiftToRemove=Maj-cliquez pour retirer
+botaniamisc.clickToAdd=Marquez la page
 botaniamisc.ratio=Zoom: %sx
 botaniamisc.bottleTooltip=It has an acquired taste
 botaniamisc.coarseDirt0=Coarse Dirt, grass
 botaniamisc.coarseDirt1=won't grow on it
 botaniamisc.spawnerTip=Tip: Use a Spawn Egg to change the mob
 botaniamisc.shardLevel=Shard Power %s
-botaniamisc.lexiconIndex=Lexicon Index
+botaniamisc.lexiconIndex=Index du lexique
 botaniamisc.hasIvy=Has Timeless Ivy
 botaniamisc.shareMsg=[{"text":"%name%","color":"light_purple"},{"text":" has shared a ","color":"blue"},{"text":"Lexica Botania","color":"green","hoverEvent":{"action":"show_text","value":{"text":"You can make one using a Book and a Sapling!","color":"aqua"}}},{"text":" entry, click to see it: ","color":"blue"},{"text":"[%entryname%]","color":"green","clickEvent":{"action":"run_command","value":"/botania-open %entry%"},"hoverEvent":{"action":"show_text","value":{"text":"Click to read about this","color":"aqua"}}}]
 botaniamisc.noLexicon=You need a Lexica Botania in-hand to read this.
 botaniamisc.cantOpen=It doesn't seem like your Lexica Botania has this page. Perhaps it comes from an outside source...?
-botaniamisc.clickToShare=Share
-botaniamisc.drop=Drop
+botaniamisc.clickToShare=Partagez
+botaniamisc.drop=Jeter
 botaniamisc.dropTip0=Tip: You can press %key% in your inv to drop
 botaniamisc.dropTip1=CTRL-%key% will drop a full stack
 botaniamisc.wandMode.bind=Bind Mode
 botaniamisc.wandMode.function=Function Mode
-botaniamisc.playVideo=Play Video
+botaniamisc.playVideo=Jouer la vidéo
 botaniamisc.brewOf=Brew of %s
 botaniamisc.needsCatalysts=No matter how hard you try to push the Ingot into the Beacon, nothing seems to happen, perhaps your configuration of catalyst pylons might be off.
 botaniamisc.peacefulNoob=You try to offer the Ingot, but the peaceful vibes of your world prevent you from doing so. Perhaps you should do something about that.
@@ -175,7 +175,7 @@ botania.sign10=Verseau
 botania.sign11=Poisson
 
 # WINGS
-botania.wings0=No Wings
+botania.wings0=Pas d'ailes
 botania.wings1=Wings: Flügel
 botania.wings2=Wings: One-Winged Angel
 botania.wings3=Wings: Ice Fairy
@@ -187,7 +187,7 @@ botania.wings8=Wings: Mega Ultra Chicken
 botania.wings9=Wings: The One
 
 # ARMOR SETS
-botania.armorset.manasteel.name=Mana Affinity
+botania.armorset.manasteel.name=Affinité au mana
 botania.armorset.manasteel.desc=10% less Mana cost on Mana Tools
 botania.armorset.elementium.name=Great Fairy's Blessing
 botania.armorset.elementium.desc=Chance for pixies to apply potion effects
@@ -241,8 +241,8 @@ botania.roman29=XXIX
 botania.roman30=XXX
 
 # KNOWLEDGE
-botania.knowledge.minecraft=Minecraftian Knowledge
-botania.knowledge.alfheim=&aElven&7 Knowledge
+botania.knowledge.minecraft=Savoir Minecraftien
+botania.knowledge.alfheim=Savoir &aElfique&7
 
 # CONFIGURATION
 blockBreakingParticles.enabled=Block Break Particles
@@ -408,10 +408,10 @@ entity.Botania.botania:enderAirBottle.name=Bouteille d'air du néant
 entity.Botania.botania:poolMinecart.name=Wagonnet à bassin de mana
 
 # ACHIEVEMENT NAMES + DESC
-achievement.botania:flowerPickup=Sky of Beginning
-achievement.botania:flowerPickup.desc=Pick up a Fleur mystique Flower from the world
+achievement.botania:flowerPickup=Ciel du Commencement
+achievement.botania:flowerPickup.desc=Cueuillez une Fleur mystique de ce monde
 achievement.botania:lexiconUse=A Realistical Logical Ideologist
-achievement.botania:lexiconUse.desc=Open a Lexica Botania and have a look through the index
+achievement.botania:lexiconUse.desc=Ouvrez un Lexica Botania et jetez un oeil à l'index
 achievement.botania:daybloomPickup=Daybreak Arrival
 achievement.botania:daybloomPickup.desc=Make a Daybloom in a Petal Apothecary
 achievement.botania:manaPoolPickup=Vivid Wave
