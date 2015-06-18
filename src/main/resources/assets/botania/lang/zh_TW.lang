@@ -26,7 +26,7 @@ botaniamisc.filter0=只拾取物品展示框內物品
 botaniamisc.filter1=只拾取物品展示框以外物品
 botaniamisc.filter2=拾取所有物品
 botaniamisc.creativePool0=創造模式瑪那池,有無限瑪那
-botaniamisc.creativePool1=與自我主義相配的
+botaniamisc.creativePool1=創造模式獨享
 botaniamisc.savedByLaurel=你的金冠破碎了,但它救了你的命.
 botaniamisc.toolRank=%s&7 級
 botaniamisc.edition=%s 版本
@@ -251,14 +251,14 @@ boundBlock.wireframe.enabled=綁定方塊線框
 darkQuartz.enabled=啟用煙熏石英
 fallenKanade.enabled=啟用天降之奏
 manaEnchanter.enabled=啟用瑪那附魔台
-manaFluxfield.enabled=開啟瑪那轉換器
-relics.enabled=啟用遺物
+manaFluxfield.enabled=啟用瑪那轉換器
+relics.enabled=啟用諸神遺物
 18stones.enabled=啟用1.8版本的石頭
 ringOfOdin.fireResist=啟用奧丁之戒的抗火效果
 flower.forceCheck=花的對象檢查
-enderPickpocket.enabled=啟用終界扒手
+enderPickpocket.enabled=啟用終界之手
 thermalily.obsidian=熾玫瑰吸收黑曜石上的岩漿
-passiveWither.time=被動枯萎時間
+passiveWither.time=被動產能花凋零時間
 flowerParticles.frequency=花粒子頻率
 lexicon.enable.rotatingItems=辭典頁面物品旋轉特效
 lexicon.enable.justifiedText=辭典文本調整
@@ -585,6 +585,7 @@ tile.botania:storage3.name=瑪那鑽石塊
 tile.botania:storage4.name=龍石塊
 tile.botania:forestDrum0.name=狂野之鼓
 tile.botania:forestDrum1.name=收集之鼓
+tile.botania:forestDrum2.name=林冠之鼓
 tile.botania:shinyFlower0.name=白色螢光花
 tile.botania:shinyFlower1.name=橙色螢光花
 tile.botania:shinyFlower2.name=洋紅色螢光花
@@ -971,7 +972,7 @@ tile.botania:flower.dreadthorn.reference=C計劃
 tile.botania:flower.heiseiDream.name=平成之夢
 tile.botania:flower.heiseiDream.reference=平成,平成,崩壞...
 tile.botania:flower.tigerseye.name=虎之眼
-tile.botania:flower.tigerseye.reference=掌上老虎
+tile.botania:flower.tigerseye.reference=掌中老虎
 tile.botania:flower.jadedAmaranthus.name=翡翠莧
 tile.botania:flower.jadedAmaranthus.reference=一對情侶因此而死
 tile.botania:flower.orechid.name=凝礦蘭
@@ -1702,7 +1703,7 @@ botania.page.heiseiDream2=&o平成壞れちゃって,壞れちゃ って.平和�
 
 # -- TIGERSEYE
 botania.entry.tigerseye=虎之眼
-botania.page.tigerseye0=我們都知道&4爬行者&0害怕&4貓&0.<br>&1虎之眼&0利用非常微弱的,通過 散發出貓的氣味,恐嚇附近的 &4爬行者&0,阻止它們爆炸.也會 讓它們主動逃離&4玩家&0.
+botania.page.tigerseye0=我們都知道&4苦力怕&0害怕&4貓&0.<br>&1虎之眼&0利用非常微弱的,通過 散發出貓的氣味,恐嚇附近的 &4苦力怕&0,阻止它們爆炸.也會 讓它們主動逃離&4玩家&0.
 botania.page.tigerseye1=&o是時候向敵人反擊了&r.
 
 # -- ORECHID
@@ -1711,7 +1712,7 @@ botania.page.orechid0=儘管挖礦很好,我們應想些可 再生的方法.&1�
 botania.page.orechid1=&o這可不是龍的便便(SAO)&r.
 
 # -- ORECHID IGNEM
-botania.entry.orechidIgnem=地獄凝礦蘭
+botania.entry.orechidIgnem=炎礦蘭
 botania.page.orechidIgnem0=&1凝礦蘭&0是朵不錯的花.用&4瑪那&0 來產生原礦,對誰而言都是極 好的.然而它卻不能產生來自 &4地獄&0的礦物.通過改變花瓣的 配方,你解決了這個問題.現 在它就能利用&1地獄岩&0來產生 &4地獄&0礦物.花必須在&4地獄&0才能 工作
 botania.page.orechidIgnem1=&o變熱吧&r.
 
@@ -2088,6 +2089,12 @@ botania.entry.ghostRail=幻影軌道
 botania.page.ghostRail0=將&1鐵軌&0鋪在&1幻影平台&0上會給 經過其上的&1礦車&0附加有趣的 能力:當它駛過這段軌道時, 礦車會略微的浮空,此時它也 能穿牆而過.<br>該效果會在礦車著陸於另一 段鐵軌或撞上&1夢之木&0一類的 方塊時消失.
 botania.page.ghostRail1=你可以稱它:靈魂軌跡
 
+# -- DRUM OF THE CANOPY
+botania.entry.canopyDrum=林冠之鼓
+botania.page.canopyDrum0=&1林冠之鼓&0就像&1狂野之鼓&0一樣, 不過它所用的是&1林冠號角&0.它 的功能和手持的號角相同,不 過它需要放置下來.<br>若要讓它發出振動破壞周圍 的樹葉,你需要向其發射一道 &4瑪那脈衝&0.
+botania.page.canopyDrum1=鼓本身不會儲存魔力,因此激 活它就需要一個&1紅石瑪那發&0 &1射器&0或&1瑪那發射器&0.
+botania.page.canopyDrum2=修出我的范兒
+
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
 botania.entry.manaBlaster=瑪那脈衝槍
@@ -2156,7 +2163,7 @@ botania.page.terraPick1=工具裡儲存的&4瑪那&0量決定了 它的&4階位&
 botania.page.terraPick2=從&4C&0升至&4B&0,需要一個滿的&1瑪那&0 &1池&0,每級是上一級的十倍消耗 ,最終到達&4SS&0.<br>工具的階位不會改變它的速 度,但會增強&4激活能力&0.<br>可以通過右擊開啟工具的能 力.
 botania.page.terraPick3=當工具激活時,它能破壞區域 內的方塊.階位&4C&0還是一小塊 ,到了&4B&0就成了一個區域, 隨著 階位升高區域也會增大.注意 階位&4D&0的工具不能激活.<br>激活時會消耗工具儲存的&4魔&0 &4力&0,哪怕不是用於挖掘.
 botania.page.terraPick4=最後,工具每次破壞方塊時都 會受到磨損,所以最好物品欄 有與階位相應的&4瑪那&0儲存,工 具的功能又像&1魔鋼工具&0,因為 它使用&4瑪那&0抵消磨損,製作原 料是&1泰拉鋼&0.<br>它也不會像普通掉落物品那 樣消失.
-botania.page.terraPick5=WE'RE MINING IN THE DATABASE WOW WOW (紀錄的地平線)
+botania.page.terraPick5=WE'RE MINING IN THE DATABASE WOW WOW(紀錄的地平線)
 
 # -- ROD OF THE SEAS
 botania.entry.waterRod=海洋法杖
@@ -2463,7 +2470,7 @@ botania.page.cosmeticBaubles12=鄰人部
 botania.page.cosmeticBaubles13=喵
 botania.page.cosmeticBaubles14=別讓自己太前衛了
 botania.page.cosmeticBaubles15=邪惡吧!
-botania.page.cosmeticBaubles16=裸哦哦哦哦哦...
+botania.page.cosmeticBaubles16=Nudistoooooooooo
 botania.page.cosmeticBaubles17=誰說我是死魚眼的
 botania.page.cosmeticBaubles18=Lurk moar
 botania.page.cosmeticBaubles19=我需要你的時間
