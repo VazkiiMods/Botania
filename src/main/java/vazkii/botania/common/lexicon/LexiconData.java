@@ -597,7 +597,7 @@ public final class LexiconData {
 		ghostRail.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeGhostRail));
 		
 		canopyDrum = new BLexiconEntry(LibLexicon.DEVICE_CANOPY_DRUM, categoryDevices);
-		canopyDrum.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeCanopyDrum));
+		canopyDrum.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeCanopyDrum));
 		
 		// TOOLS ENTRIES
 		manaBlaster = new BLexiconEntry(LibLexicon.TOOL_MANA_BLASTER, categoryTools);

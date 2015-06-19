@@ -1828,7 +1828,7 @@ botania.page.gIntro2=It is important to keep in mind that these flowers memorize
 botania.entry.daybloom=Daybloom
 botania.page.daybloom0=The &1Daybloom&0 is the most basic and rudimentary &4Generating Flower&0. Simply put, it performs a modified photosynthesis process, in order to transform sunlight into &4Mana&0.<br>The process is rather slow, about ten or a dozen of these should get the job done, for now.
 botania.page.daybloom1=These flowers tend to compete among themselves for what sunlight hits an area, thus having any other of the same type adjacent to it on any of the four cardinal directions will result in diminishing returns of &4Mana&0 production. This fact only applies to &1Dayblooms&0 and &1Nightshades&0. They also don't produce much to begin with, so perhaps hastily upgrading to &1Endoflames&0 or others might be a good idea.
-botania.page.daybloom1a=Having any other &1Dayblooms&0 adjacent to it on any of the four cardinal directions will result in diminishing returns of &4Mana&0 production.<br>These flowers are not very resistant, and after some time they'll wither and die off. This only applies to &1Dayblooms&0 and &1Nightshades&0. They also don't produce much to begin with, so perhaps hastily upgrading to &1Endoflames&0 or others might be a good idea.
+botania.page.daybloom1a=Having any other &1Dayblooms&0 adjacent to it on any of the four cardinal directions will result in diminishing returns of &4Mana&0 production. This only applies to &1Dayblooms&0 and &1Nightshades&0.<br>&1Dayblooms&0 are not very resistant, and after some time they'll wither and die off. They also don't produce much to begin with, so perhaps hastily upgrading to &1Endoflames&0 or others might be a good idea.
 botania.page.daybloom3=Diminishing Returns
 botania.page.daybloom2=&oStarting up a brand new day&r.
 botania.page.daybloom4=&oHow many of you people out there been hurt in some kind of love affair? And how many times do you swear that you'll never love again? How many lonely, sleepless nights? How many lies? How many fights? And why would you want to put yourself through all that again? "Love is pain," I hear you say. Love has a cruel and bitter way of paying you back for all the faith you ever had in your brain. (...)
@@ -1837,7 +1837,7 @@ botania.page.daybloom5=&oHow could it be that what you need the most can leave y
 # -- NIGHTSHADE
 botania.entry.nightshade=Nightshade
 botania.page.nightshade0=The &1Nightshade&0 is the dark counterpart of the &1Daybloom&0, as it generates &4Mana&0 passively in any situation the &1Daybloom&0 can not, as long as it's nighttime<br>Similarly to their shining counterpart, they suffer diminishing returns from having any adjacent.
-botania.page.nightshade0a=The &1Nightshade&0 is the dark counterpart of the &1Daybloom&0, as it generates &4Mana&0 passively in any situation the &1Daybloom&0 can not, as long as it's nighttime. Alike its shining counterpart, they suffer diminishing returns from having any adjacent and are not very resistant, and some time they'll wither and die off.
+botania.page.nightshade0a=The &1Nightshade&0 is the dark counterpart of the &1Daybloom&0, as it generates &4Mana&0 passively in any situation the &1Daybloom&0 can not, as long as it's nighttime.<br>Alike its shining counterpart, they suffer diminishing returns from having any adjacent and are not very resistant, after some time they'll wither and die off.
 botania.page.nightshade1=&oThe shadow of the day&r.
 
 # -- ENDOFLAME
@@ -2094,9 +2094,8 @@ botania.page.ghostRail1=Spirit Tracks, you could say
 
 # -- DRUM OF THE CANOPY
 botania.entry.canopyDrum=Drum of the Canopy
-botania.page.canopyDrum0=The &1Drum of the Canopy&0 is like the &1Drum of the Wild&0 in that it is the percussion counterpart of the &1Horn of the Canopy&0. It serves the exact same purpose as the handheld horn, but is placed in world.<br>To trigger a beat and break nearby leaves, one would fire a &4Mana Burst&0 at the drum.
-botania.page.canopyDrum1=It's to note that the drum does not store mana, hence, in order to trigger it, a &1Redstone Mana Spreader&0 or a &1Mana Blaster&0 is required.
-botania.page.canopyDrum2=Pruning with style
+botania.page.canopyDrum0=The &1Drum of the Canopy&0 is like the &1Drum of the Wild&0 in that it is the percussion counterpart of the &1Horn of the Canopy&0. It serves the exact same purpose as the handheld horn, but is placed in world.<br>All the functionality is similar to the &1Drum of the Wild&0
+botania.page.canopyDrum1=The Pinking Drum
 
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
