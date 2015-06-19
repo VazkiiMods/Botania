@@ -51,7 +51,7 @@ public final class ConfigHandler {
 	public static int spreaderPositionShift = 1;
 	public static boolean flowerForceCheck = true;
 	public static boolean enderPickpocketEnabled = true;
-	public static int hardcorePassiveGeneration = -1;
+	public static int hardcorePassiveGeneration = 24000;
 
 	public static boolean fallenKanadeEnabled = true;
 	public static boolean darkQuartzEnabled = true;
