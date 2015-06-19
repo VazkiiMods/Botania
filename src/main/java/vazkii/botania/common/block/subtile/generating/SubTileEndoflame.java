@@ -84,7 +84,7 @@ public class SubTileEndoflame extends SubTileGenerating {
 
 	@Override
 	public int getValueForPassiveGeneration() {
-		return 2;
+		return 3;
 	}
 
 	@Override
@@ -123,7 +123,7 @@ public class SubTileEndoflame extends SubTileGenerating {
 
 	@Override
 	public int getDelayBetweenPassiveGeneration() {
-		return 1;
+		return 2;
 	}
 
 }

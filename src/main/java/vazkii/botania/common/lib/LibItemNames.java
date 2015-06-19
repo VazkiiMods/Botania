@@ -184,6 +184,9 @@ public final class LibItemNames {
 		"dreamwoodTwig",
 		"gaiaIngot",
 		"enderAirBottle",
-		"manaString"
+		"manaString",
+		"manasteelNugget",
+		"terrasteelNugget",
+		"elementiumNugget"
 	};
 }

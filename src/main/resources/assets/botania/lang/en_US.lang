@@ -1334,6 +1334,9 @@ item.botania:recordGaia2.name=Scathed Music Disc
 item.botania:temperanceStone.name=Stone of Temperance
 item.botania:incenseStick.name=Incense Stick
 item.botania:terraAxe.name=Terra Truncator
+item.botania:manasteelNugget.name=Manasteel Nugget
+item.botania:terrasteelNugget.name=Terrasteel Nugget
+item.botania:elementiumNugget.name=Elementium Nugget
 
 # BREW NAMES
 botania.brew.fallback=Fallback
@@ -1527,7 +1530,7 @@ botania.page.pool9=&1Mana Pools&0 come in two varieties, a weaker, &1Diluted&0 v
 botania.page.pool1=Making a &1Dilluted Mana Pool&0.
 botania.page.pool10=Infusing a normal &1Mana Pool&0
 botania.page.pool2=Tossing in some resources into a normal &1Mana Pool&0 will cause them to get infused with &4Mana&0, turning them into more powerful forms.<br>A few examples are &1Iron Ingots&0 or &1Mystical Petals&0.<br>&4Mana&0 reading for this block functions like the &1Mana Spreader&0. A &1Redstone Comparator&0 can also output a signal based on the contents.
-botania.page.pool8=For the artistic types, tossing any color of &1Floral Powder&0 in the pool will have it take its color, all sixteen colors are viable for decoration and/or easy labelling.
+botania.page.pool8=&1Manasteel&0 Ingots and other ingots based on it, can be converted into both blocks or nuggets through the normal conversion recipes.<br>For the artistic types, tossing any color of &1Floral Powder&0 in the pool will have it take its color, all sixteen colors are viable for decoration and/or easy labelling.
 botania.page.pool3=Infusing &1Manasteel&0
 botania.page.pool4=Infusing &1Mana Pearls&0
 botania.page.pool5=Infusing &1Mana Diamonds&0

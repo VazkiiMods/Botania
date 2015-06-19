@@ -35,6 +35,9 @@ public final class LibOreDict {
 	public static final String GAIA_INGOT = "gaiaIngot";
 	public static final String ENDER_AIR_BOTTLE = "bEnderAirBottle";
 	public static final String MANA_STRING = "manaString";
+	public static final String MANASTEEL_NUGGET = "nuggetManasteel";
+	public static final String TERRASTEEL_NUGGET = "nuggetTerrasteel";
+	public static final String ELEMENTIUM_NUGGET = "nuggetElvenElementium";
 
 	public static final String VIAL = "bVial";
 	public static final String FLASK = "bFlask";
