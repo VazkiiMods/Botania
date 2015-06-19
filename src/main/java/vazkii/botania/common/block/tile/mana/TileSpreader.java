@@ -11,6 +11,7 @@
 package vazkii.botania.common.block.tile.mana;
 
 import java.util.List;
+import java.util.UUID;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -62,7 +63,12 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 	private static final int MAX_MANA = 1000;
 	private static final int ULTRA_MAX_MANA = 6400;
+	private static final int TICKS_ALLOWED_WITHOUT_PINGBACK = 20;
+	private static final double PINGBACK_EXPIRED_SEARCH_DISTANCE = 0.5;
 
+	private static final String TAG_HAS_IDENTITY = "hasIdentity";
+	private static final String TAG_UUID_MOST = "uuidMost";
+	private static final String TAG_UUID_LEAST = "uuidLeast";
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_KNOWN_MANA = "knownMana";
 	private static final String TAG_REQUEST_UPDATE = "requestUpdate";
@@ -70,6 +76,10 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	private static final String TAG_ROTATION_Y = "rotationY";
 	private static final String TAG_PADDING_COLOR = "paddingColor";
 	private static final String TAG_CAN_SHOOT_BURST = "canShootBurst";
+	private static final String TAG_PINGBACK_TICKS = "pingbackTicks";
+	private static final String TAG_LAST_PINGBACK_X = "lastPingbackX";
+	private static final String TAG_LAST_PINGBACK_Y = "lastPingbackY";
+	private static final String TAG_LAST_PINGBACK_Z = "lastPingbackZ";
 
 	private static final String TAG_FORCE_CLIENT_BINDING_X = "forceClientBindingX";
 	private static final String TAG_FORCE_CLIENT_BINDING_Y = "forceClientBindingY";
@@ -105,6 +115,8 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	public static boolean staticDreamwood = false;
 	public static boolean staticUltra = false;
 
+	UUID identity;
+	
 	int mana;
 	int knownMana = -1;
 	public float rotationX, rotationY;
@@ -120,7 +132,12 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	public boolean canShootBurst = true;
 	public int lastBurstDeathTick = -1;
 	public int burstParticleTick = 0;
-
+	
+	public int pingbackTicks = 0;
+	public double lastPingbackX = 0;
+	public double lastPingbackY = -1;
+	public double lastPingbackZ = 0;
+	
 	List<PositionProperties> lastTentativeBurst;
 	boolean invalidTentativeBurst = false;
 
@@ -179,8 +196,28 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		if(needsNewBurstSimulation())
 			checkForReceiver();
 
+		if(!canShootBurst)
+			if(pingbackTicks <= 0) {
+				double x = lastPingbackX;
+				double y = lastPingbackY;
+				double z = lastPingbackZ;
+				AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(x, y, z, x, y, z).expand(PINGBACK_EXPIRED_SEARCH_DISTANCE, PINGBACK_EXPIRED_SEARCH_DISTANCE, PINGBACK_EXPIRED_SEARCH_DISTANCE);
+				List<IManaBurst> bursts = worldObj.getEntitiesWithinAABB(IManaBurst.class, aabb);
+				IManaBurst found = null;
+				UUID identity = getIdentifier();
+				for(IManaBurst burst : bursts)
+					if(burst != null && identity.equals(burst.getShooterUIID())) {
+						found = burst;
+						break;
+					}
+				
+				if(found != null)
+					found.ping();
+				else setCanShoot(true);
+			} else pingbackTicks--;
+		
 		boolean shouldShoot = !redstone;
-
+		
 		if(isRedstone())
 			shouldShoot = redstone && !redstoneLastTick;
 
@@ -202,12 +239,23 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	@Override
 	public void writeCustomNBT(NBTTagCompound cmp) {
 		super.writeCustomNBT(cmp);
+		
+		UUID identity = getIdentifier();
+		cmp.setBoolean(TAG_HAS_IDENTITY, true);
+		cmp.setLong(TAG_UUID_MOST, identity.getMostSignificantBits());
+		cmp.setLong(TAG_UUID_LEAST, identity.getLeastSignificantBits());
+		
 		cmp.setInteger(TAG_MANA, mana);
 		cmp.setFloat(TAG_ROTATION_X, rotationX);
 		cmp.setFloat(TAG_ROTATION_Y, rotationY);
 		cmp.setBoolean(TAG_REQUEST_UPDATE, requestsClientUpdate);
 		cmp.setInteger(TAG_PADDING_COLOR, paddingColor);
 		cmp.setBoolean(TAG_CAN_SHOOT_BURST, canShootBurst);
+		
+		cmp.setInteger(TAG_PINGBACK_TICKS, pingbackTicks);
+		cmp.setDouble(TAG_LAST_PINGBACK_X, lastPingbackX);
+		cmp.setDouble(TAG_LAST_PINGBACK_Y, lastPingbackY);
+		cmp.setDouble(TAG_LAST_PINGBACK_Z, lastPingbackZ);
 
 		cmp.setString(TAG_INPUT_KEY, inputKey);
 		cmp.setString(TAG_OUTPUT_KEY, outputKey);
@@ -223,13 +271,22 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		cmp.setFloat(TAG_FORCED_MANA_LOSS_PER_TICK, mmForcedManaLossPerTick);
 		cmp.setFloat(TAG_FORCED_GRAVITY, mmForcedGravity);
 		cmp.setFloat(TAG_FORCED_VELOCITY_MULTIPLIER, mmForcedVelocityMultiplier);
-
+		
 		requestsClientUpdate = false;
 	}
 
 	@Override
 	public void readCustomNBT(NBTTagCompound cmp) {
 		super.readCustomNBT(cmp);
+	
+		if(cmp.getBoolean(TAG_HAS_IDENTITY)) {
+			long most = cmp.getLong(TAG_UUID_MOST);
+			long least = cmp.getLong(TAG_UUID_LEAST);
+			UUID identity = getIdentifierUnsafe();
+			if(identity == null || most != identity.getMostSignificantBits() || least != identity.getLeastSignificantBits())
+				identity = new UUID(most, least);
+		} else getIdentifier();
+		
 		mana = cmp.getInteger(TAG_MANA);
 		rotationX = cmp.getFloat(TAG_ROTATION_X);
 		rotationY = cmp.getFloat(TAG_ROTATION_Y);
@@ -254,6 +311,11 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			paddingColor = cmp.getInteger(TAG_PADDING_COLOR);
 		if(cmp.hasKey(TAG_CAN_SHOOT_BURST))
 			canShootBurst = cmp.getBoolean(TAG_CAN_SHOOT_BURST);
+		
+		pingbackTicks = cmp.getInteger(TAG_PINGBACK_TICKS);
+		lastPingbackX = cmp.getDouble(TAG_LAST_PINGBACK_X);
+		lastPingbackY = cmp.getDouble(TAG_LAST_PINGBACK_Y);
+		lastPingbackZ = cmp.getDouble(TAG_LAST_PINGBACK_Z);
 
 		if(requestsClientUpdate && worldObj != null) {
 			int x = cmp.getInteger(TAG_FORCE_CLIENT_BINDING_X);
@@ -344,12 +406,12 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 				if(burst != null) {
 					if(!worldObj.isRemote) {
 						mana -= burst.getStartingMana();
+						burst.setShooterUUID(getIdentifier());
 						worldObj.spawnEntityInWorld(burst);
+						burst.ping();
 						if(!ConfigHandler.silentSpreaders)
 							worldObj.playSoundEffect(xCoord, yCoord, zCoord, "botania:spreaderFire", 0.05F * (paddingColor != -1 ? 0.2F : 1F), 0.7F + 0.3F * (float) Math.random());
 					}
-
-					canShootBurst = false;
 				}
 			}
 		}
@@ -627,5 +689,28 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	@Override
 	public void setLastBurstDeathTick(int i) {
 		lastBurstDeathTick = i;
+	}
+
+	@Override
+	public void pingback(IManaBurst burst, UUID expectedIdentity) {
+		if(getIdentifier().equals(expectedIdentity)) {
+			pingbackTicks = TICKS_ALLOWED_WITHOUT_PINGBACK;
+			Entity e = (Entity) burst;
+			lastPingbackX = e.posX;
+			lastPingbackY = e.posY;
+			lastPingbackZ = e.posZ;
+			setCanShoot(false);
+		}
+	}
+
+	@Override
+	public UUID getIdentifier() {
+		if(identity == null)
+			identity = UUID.randomUUID();
+		return identity;
+	}
+	
+	public UUID getIdentifierUnsafe() {
+		return identity;
 	}
 }

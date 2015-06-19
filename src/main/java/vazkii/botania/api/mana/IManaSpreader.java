@@ -16,7 +16,7 @@ package vazkii.botania.api.mana;
  * by which can fire mana bursts as a spreader.
  * 
  */
-public interface IManaSpreader extends IManaBlock {
+public interface IManaSpreader extends IManaBlock, IPingable {
 
 	public float getRotationX();
 
