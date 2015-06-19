@@ -262,6 +262,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeTerraAxe;
 	public static IRecipe recipeHourglass;
 	public static IRecipe recipeGhostRail;
+	public static IRecipe recipeCanopyDrum;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1751,6 +1752,14 @@ public final class ModCraftingRecipes {
 		// Spectral Rail Recipe
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.ghostRail), new ItemStack(Blocks.rail), new ItemStack(ModBlocks.platform, 1, 1));
 		recipeGhostRail = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Drum of the Canopy Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.forestDrum, 1, 2),
+				"WLW", "WHW", "WLW",
+				'W', LibOreDict.LIVING_WOOD,
+				'L', new ItemStack(Items.leather),
+				'H', new ItemStack(ModItems.grassHorn, 1, 1));
+		recipeCanopyDrum = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Storage Block Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

@@ -585,6 +585,7 @@ tile.botania:storage3.name=Block of Mana Diamond
 tile.botania:storage4.name=Block of Dragonstone
 tile.botania:forestDrum0.name=Drum of the Wild
 tile.botania:forestDrum1.name=Drum of the Gathering
+tile.botania:forestDrum2.name=Drum of the Canopy
 tile.botania:shinyFlower0.name=Glimmering White Flower
 tile.botania:shinyFlower1.name=Glimmering Orange Flower
 tile.botania:shinyFlower2.name=Glimmering Magenta Flower
@@ -2087,6 +2088,12 @@ botania.page.hourglass5=The sands of time
 botania.entry.ghostRail=Spectral Rail
 botania.page.ghostRail0=Using a &1Spectral Platform&0 as a &1Rail&0 component gives some interesting abilities to a &1Minecart&0 that passes through it: when launched off the rail, the cart will float for a bit, it'll also be able to pass through walls.<br>This effect stops if the cart lands on a rail or collides with any variant of &1Dreamwood&0.
 botania.page.ghostRail1=Spirit Tracks, you could say
+
+# -- DRUM OF THE CANOPY
+botania.entry.canopyDrum=Drum of the Canopy
+botania.page.canopyDrum0=The &1Drum of the Canopy&0 is like the &1Drum of the Wild&0 in that it is the percussion counterpart of the &1Horn of the Canopy&0. It serves the exact same purpose as the handheld horn, but is placed in world.<br>To trigger a beat and break nearby leaves, one would fire a &4Mana Burst&0 at the drum.
+botania.page.canopyDrum1=It's to note that the drum does not store mana, hence, in order to trigger it, a &1Redstone Mana Spreader&0 or a &1Mana Blaster&0 is required.
+botania.page.canopyDrum2=Pruning with style
 
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER

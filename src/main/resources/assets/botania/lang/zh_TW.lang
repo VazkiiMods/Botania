@@ -26,7 +26,7 @@ botaniamisc.filter0=只拾取物品展示框內物品
 botaniamisc.filter1=只拾取物品展示框以外物品
 botaniamisc.filter2=拾取所有物品
 botaniamisc.creativePool0=創造模式瑪那池,有無限瑪那
-botaniamisc.creativePool1=與自我主義相配的
+botaniamisc.creativePool1=創造模式獨享
 botaniamisc.savedByLaurel=你的金冠破碎了,但它救了你的命.
 botaniamisc.toolRank=%s&7 級
 botaniamisc.edition=%s 版本
@@ -111,10 +111,10 @@ botaniamisc.active=&a啟動
 botaniamisc.inactive=&c關閉
 botaniamisc.achievements=植物魔法成就
 botaniamisc.dropIkea=&b將它扔出去會分裂開來
-botaniamisc.hourglassLock=This Hourglass is locked. Right click it with a Wand of the Forest to unlock it.
-botaniamisc.locked=Locked
-botaniamisc.stopped=Stopped
-botaniamisc.lockedStopped=Locked, Stopped
+botaniamisc.hourglassLock=沙漏已鎖定.用森林法杖右擊可解鎖.
+botaniamisc.locked=鎖定
+botaniamisc.stopped=停止
+botaniamisc.lockedStopped=鎖定,停止
 
 # NEI INTEGRATION
 botania.nei.brewery=植物釀造
@@ -251,14 +251,14 @@ boundBlock.wireframe.enabled=綁定方塊線框
 darkQuartz.enabled=啟用煙熏石英
 fallenKanade.enabled=啟用天降之奏
 manaEnchanter.enabled=啟用瑪那附魔台
-manaFluxfield.enabled=開啟瑪那轉換器
-relics.enabled=啟用遺物
+manaFluxfield.enabled=啟用瑪那轉換器
+relics.enabled=啟用諸神遺物
 18stones.enabled=啟用1.8版本的石頭
 ringOfOdin.fireResist=啟用奧丁之戒的抗火效果
 flower.forceCheck=花的對象檢查
-enderPickpocket.enabled=啟用終界扒手
+enderPickpocket.enabled=啟用終界之手
 thermalily.obsidian=熾玫瑰吸收黑曜石上的岩漿
-passiveWither.time=被動枯萎時間
+passiveWither.time=被動產能花凋零時間
 flowerParticles.frequency=花粒子頻率
 lexicon.enable.rotatingItems=辭典頁面物品旋轉特效
 lexicon.enable.justifiedText=辭典文本調整
@@ -328,7 +328,7 @@ botania.versioning.flavour42=如果你打開語言文件後發現這條趣味文
 botania.versioning.flavour43=植物魔法更新不可能會有問題的,絕對不可能.它可是葡萄牙產的.
 botania.versioning.flavour44=看著更新,現在回過頭看著我,現在再回過頭去看著更新.那裡有個下載按鈕,呆瓜.
 botania.versioning.flavour45=很遺憾,你不會因為更新植物魔法而獲得薯條.
-botania.versioning.flavour46=你妄想著植物魔法還是最新版本的,但我又來了! Dio!
+botania.versioning.flavour46=你妄想著植物魔法還是最新版本的,但又是我! Dio!
 botania.versioning.flavour47=江湖傳言如果你能移動一輛卡車,你就能在卡車下找到一個植物魔法的更新.
 botania.versioning.flavour48=我很好奇BevoLJ什麼時候會更新他的整合包...
 botania.versioning.flavour49=1個植物魔法的更新在牆上,1個植物魔法的更新在牆上.
@@ -410,80 +410,80 @@ entity.Botania.botania:poolMinecart.name=瑪那池礦車
 # ACHIEVEMENT NAMES + DESC
 achievement.botania:flowerPickup=Sky of Beginning
 achievement.botania:flowerPickup.desc=拾取一朵神秘花
-achievement.botania:lexiconUse=有邏輯的理論家
+achievement.botania:lexiconUse=現實的論理主義者
 achievement.botania:lexiconUse.desc=打開一本植物魔法辭典並瀏覽目錄
-achievement.botania:daybloomPickup=黎明到來
+achievement.botania:daybloomPickup=拂曉抵達
 achievement.botania:daybloomPickup.desc=在花藥台製作一朵太陽花
-achievement.botania:manaPoolPickup=微波蕩漾
+achievement.botania:manaPoolPickup=Vivid Wave
 achievement.botania:manaPoolPickup.desc=將稀釋瑪那池升級為普通的瑪那池
-achievement.botania:endoflamePickup=熔化吧
+achievement.botania:endoflamePickup=爐心融解
 achievement.botania:endoflamePickup.desc=做出一朵火紅蓮來加速瑪那生產
-achievement.botania:tinyPotatoPet=做個朋友
+achievement.botania:tinyPotatoPet=Just Be Friends
 achievement.botania:tinyPotatoPet.desc=做出一個小土豆再愛撫它
-achievement.botania:sparkCraft=活的驅動器
+achievement.botania:sparkCraft=Live Drive
 achievement.botania:sparkCraft.desc=製作火花協助傳輸瑪那
-achievement.botania:baubleWear=藝術精神
+achievement.botania:baubleWear=Inner Arts
 achievement.botania:baubleWear.desc=做出一件飾品並佩戴
-achievement.botania:manaCookieEat=墮落的異端和巧克力
+achievement.botania:manaCookieEat=腐れ外道とチョコレゐト
 achievement.botania:manaCookieEat.desc=注魔一塊瑪那曲奇並吃掉
 achievement.botania:runePickup=Lilium Doll
 achievement.botania:runePickup.desc=用符文祭壇製作符文
-achievement.botania:manaBlasterShoot=M'aider Stranded Girl
+achievement.botania:manaBlasterShoot=M′AIDER遭難ガール
 achievement.botania:manaBlasterShoot.desc=合成瑪那脈衝槍再發射脈衝
-achievement.botania:tiaraWings=愛心射手
+achievement.botania:tiaraWings=Heart Shooter
 achievement.botania:tiaraWings.desc=製作天翼族之冠並用翅膀裝飾它
-achievement.botania:terrasteelPickup=暗中起舞
+achievement.botania:terrasteelPickup=Dancer in the Dark
 achievement.botania:terrasteelPickup.desc=用泰拉凝聚板製作一塊泰拉錠
-achievement.botania:elfPortalOpen=世界的呼喚
+achievement.botania:elfPortalOpen=World Calling
 achievement.botania:elfPortalOpen.desc=打開通往精靈王國的傳送門
 achievement.botania:gaiaGuardianKill=Dead and Seek
 achievement.botania:gaiaGuardianKill.desc=在蓋亞儀式中召喚並擊殺一隻蓋亞守護者
-achievement.botania:terrasteelWeaponCraft=遠程攻擊的偏執
+achievement.botania:terrasteelWeaponCraft=Remote Paranoia
 achievement.botania:terrasteelWeaponCraft.desc=用泰拉錠製作的武器武裝你自己
-achievement.botania:kekimurusPickup=After-School Stride
+achievement.botania:kekimurusPickup=放課後ストライド
 achievement.botania:kekimurusPickup.desc=製作一朵貪食花來提供大量瑪那
-achievement.botania:heiseiDreamPickup=平成之災
+achievement.botania:heiseiDreamPickup=Heisei Cataclysm
 achievement.botania:heiseiDreamPickup.desc=製作一朵平成之夢讓怪物們窩裡鬥
 achievement.botania:dirtRodCraft=Rockbell
 achievement.botania:dirtRodCraft.desc=製作一根泥棍子...哦不,是大地法杖
 achievement.botania:spawnerMoverUse=I can take off my (redacted)
 achievement.botania:spawnerMoverUse.desc=用一個生命聚合器來轉移刷怪籠
-achievement.botania:enderAirMake=仿製空氣
+achievement.botania:enderAirMake=Imitation Air
 achievement.botania:enderAirMake.desc=收集一瓶終界之氣
 achievement.botania:corporeaCraft=Drop Pop Candy
 achievement.botania:corporeaCraft.desc=合成一個使用多媒體網絡的方塊
 
-achievement.botania:signalFlareStun=光的力量
+achievement.botania:signalFlareStun=See the Lights
 achievement.botania:signalFlareStun.desc=用一發信號彈讓至少100隻怪物眩暈
-achievement.botania:l20ShardUse=飛起來
+achievement.botania:l20ShardUse=Out of Step
 achievement.botania:l20ShardUse.desc=用能量為XX的拉普達碎片將地面升至天空
-achievement.botania:gaiaGuardianNoArmor=神話結局
+achievement.botania:gaiaGuardianNoArmor=Mythologia's End
 achievement.botania:gaiaGuardianNoArmor.desc=戰鬥從頭至尾不穿任何護甲擊殺一隻蓋亞守護者
-achievement.botania:rankSSPick=破壞天才
+achievement.botania:rankSSPick=Talent Shredder
 achievement.botania:rankSSPick.desc=用SS級的泰拉粉碎者挖穿世界
-achievement.botania:superCorporeaRequest=侵略少女
+achievement.botania:superCorporeaRequest=Invader Girl
 achievement.botania:superCorporeaRequest.desc=成功從多媒體索引處請求單種物品至少50,000個
-achievement.botania:pinkinator=裝飾品
+achievement.botania:pinkinator=Decorator
 achievement.botania:pinkinator.desc=使用粉色手炮
 
-achievement.botania:infiniteFruit=無罪之人
-achievement.botania:infiniteFruit.desc=獲得禁忌之果的獎勵
-achievement.botania:excaliber=流動之心
-achievement.botania:excaliber.desc=獲得王者聖劍的獎勵
-achievement.botania:flugelEye=死亡天使
-achievement.botania:flugelEye.desc=獲得天翼族之眼的獎勵
-achievement.botania:thorRing=疊加一層
-achievement.botania:thorRing.desc=獲得托爾之戒的獎勵
-achievement.botania:odinRing=流逝的記憶
-achievement.botania:odinRing.desc=獲得奧丁之戒的獎勵
-achievement.botania:lokiRing=幾何算法
-achievement.botania:lokiRing.desc=獲得洛基之戒的獎勵
-achievement.botania:aesirRing=謹遵神諭
+achievement.botania:infiniteFruit=Innocentia
+achievement.botania:infiniteFruit.desc=獲得戰利品:灰色的果實
+achievement.botania:excaliber=Streaming Heart
+achievement.botania:excaliber.desc=獲得戰利品:王者聖劍
+achievement.botania:flugelEye=Angel of Death
+achievement.botania:flugelEye.desc=獲得戰利品:天翼族之眼
+achievement.botania:thorRing=One Step Layered
+achievement.botania:thorRing.desc=獲得戰利品:托爾之戒
+achievement.botania:odinRing=回憶補時
+achievement.botania:odinRing.desc=獲得戰利品:奧丁之戒
+achievement.botania:lokiRing=Arithmetic
+achievement.botania:lokiRing.desc=獲得戰利品:洛基之戒
+achievement.botania:aesirRing=神のまにまに
 achievement.botania:aesirRing.desc=通過合成做出諸神之戒
 
-achievement.botania:nullFlower=放輕鬆
+achievement.botania:nullFlower=Take it Easy
 achievement.botania:nullFlower.desc=發現一個bug導致你有了一朵未定義的植物魔法花.別忘了提交!
-achievement.botania:desuGun=Two-Faced Lovers
+achievement.botania:desuGun=裏表ラバーズ
 achievement.botania:desuGun.desc=ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
 #                                 ^ Don't localize
 
@@ -585,6 +585,7 @@ tile.botania:storage3.name=瑪那鑽石塊
 tile.botania:storage4.name=龍石塊
 tile.botania:forestDrum0.name=狂野之鼓
 tile.botania:forestDrum1.name=收集之鼓
+tile.botania:forestDrum2.name=林冠之鼓
 tile.botania:shinyFlower0.name=白色螢光花
 tile.botania:shinyFlower1.name=橙色螢光花
 tile.botania:shinyFlower2.name=洋紅色螢光花
@@ -921,7 +922,8 @@ tile.botania:blazeBlock.name=烈焰燈
 tile.botania:corporeaInterceptor.name=多媒體攔截器
 tile.botania:corporeaCrystalCube.name=多媒體水晶魔方
 tile.botania:incensePlate.name=香盤
-tile.botania:hourglass.name=Hovering Hourglass
+tile.botania:hourglass.name=懸浮沙漏
+tile.botania:ghostRail.name=幻影軌道
 
 # FLOWER NAMES
 tile.botania:flower..name=植物魔法花
@@ -970,12 +972,12 @@ tile.botania:flower.dreadthorn.reference=C計劃
 tile.botania:flower.heiseiDream.name=平成之夢
 tile.botania:flower.heiseiDream.reference=平成,平成,崩壞...
 tile.botania:flower.tigerseye.name=虎之眼
-tile.botania:flower.tigerseye.reference=掌上老虎
-tile.botania:flower.jadedAmaranthus.name=傑迪德莧
+tile.botania:flower.tigerseye.reference=掌中老虎
+tile.botania:flower.jadedAmaranthus.name=翡翠莧
 tile.botania:flower.jadedAmaranthus.reference=一對情侶因此而死
 tile.botania:flower.orechid.name=凝礦蘭
 tile.botania:flower.orechid.reference=你挖了什麼我就種了什麼
-tile.botania:flower.orechidIgnem.name=地獄凝礦蘭
+tile.botania:flower.orechidIgnem.name=炎礦蘭
 tile.botania:flower.orechidIgnem.reference=如玫瑰般紅
 tile.botania:flower.fallenKanade.name=天降之奏
 tile.botania:flower.fallenKanade.reference=我不是天使
@@ -1250,7 +1252,7 @@ item.botania:craftingHalo.name=合成環
 item.botania:blackLotus0.name=黑蓮花
 item.botania:blackLotus1.name=暗黑蓮花
 item.botania:dreamwoodTwig.name=夢之木棍
-item.botania:monocle.name=窺魔單片鏡
+item.botania:monocle.name=窺魔之鏡
 item.botania:clip.name=透鏡夾
 item.botania:cobbleRod.name=深淵法杖
 item.botania:smeltRod.name=熾心法杖
@@ -1267,7 +1269,7 @@ item.botania:craftPattern5.name=合成模板#6: 3x1
 item.botania:craftPattern6.name=合成模板#7: 2x3
 item.botania:craftPattern7.name=合成模板#8: 3x2
 item.botania:craftPattern8.name=合成模板#9: 圈形
-item.botania:gaiaIngot.name=蓋亞錠
+item.botania:gaiaIngot.name=蓋亞魂錠
 item.botania:ancientWill0.name=艾琳的意志
 item.botania:ancientWill1.name=達洛克的意志
 item.botania:ancientWill2.name=古讚的意志
@@ -1343,24 +1345,24 @@ botania.brew.jumpBoost=上湧
 botania.brew.regen=再生
 botania.brew.regenWeak=恢復
 botania.brew.resistance=剛毅
-botania.brew.fireResistance=熔岩外皮
+botania.brew.fireResistance=炎膚
 botania.brew.waterBreathing=魚鰓
 botania.brew.invisibility=隱身
 botania.brew.nightVision=梟眼
 botania.brew.absorption=護盾
-botania.brew.soulCross=交叉靈魂
+botania.brew.soulCross=噬魂
 botania.brew.featherFeet=羽翼
-botania.brew.emptiness=虛榮之空虛
-botania.brew.bloodthirst=紅色陰影
+botania.brew.emptiness=虛空之影
+botania.brew.bloodthirst=腥紅之影
 botania.brew.overload=過載
 botania.brew.allure=誘惑
-botania.brew.warpWard=理智思想
+botania.brew.warpWard=理智
 
 # POTION NAMES
-botania.potion.soulCross=靈魂十字
-botania.potion.featherFeet=羽毛腿
+botania.potion.soulCross=噬魂
+botania.potion.featherFeet=羽翼
 botania.potion.emptiness=空虛
-botania.potion.bloodthirst=血之渴望
+botania.potion.bloodthirst=嗜血
 botania.potion.allure=引誘
 
 # GUI TEXT
@@ -1387,16 +1389,16 @@ botania.category.misc=雜項
 
 # - BASIC
 # -- WELCOME TO BOTANIA
-botania.entry.welcome=Welcome To Botania
-botania.page.welcome0=&oWhat is peace? Is it truly just a lack of combat? Is it years of sitting quietly in a garden, surrounded by flowers? Is it watching over a kingdom that you are able to call your own? Is it the completion of almost every task known to man? Is it the ability to watch numbers of resources steadily rise as you watch your collection grow?
-botania.page.welcome1=&oIs peace something that can be obtained easily, without work - or is it something difficult to obtain?<br>Let's say for a moment - not even a second - that peace is truly just a lack of work; peaceful days surrounded by flowers.
-botania.page.welcome2=&oYears spent watching time tick by while you watch your flora perform every single task imaginable, without outside help from polluting machines or computers tangled in cables and pipes.<br>Now imagine that everything we just talked about was possible.
-botania.page.welcome3=&oImagine that through your hard labor - your cultivation of flowers, your manipulation of mana, your knowledge of the mechanisms of the world and redstone - you could obtain that dreamlike state. Imagine that you could have everything you could ever desire automated with flora. Flora, some magic, and your own ingenuity.
-botania.page.welcome4=&oWith the help of this book, your dreams will become a reality.<br>The name of this book is deceptive. Despite being called the Lexica Botania, this tome focuses on far more than just flowers. It focuses on a variety of devices, both magical and bordering on technological.
-botania.page.welcome5=&oIt holds the secrets of the elves, who have long ago fled from this world, as well as possible clues to the origins of the very world itself. For anyone with a basic knowledge of redstone and the creativity to put it to use, this book offers answers to nearly every problem known to man, without the need to use foreign schools of magic or machinery.
-botania.page.welcome6=&oThis book contains instructions on how to perform nearly every task that one could ever need, with only the use of what's in it, and available in the world of Minecraft, assuming you're up to the task of putting them together in ingenious ways.<br>Try it out, you'll be amazed at what you can do without outside interference.
-botania.page.welcome7=&oThe school of botany does not solely apply to those with a knack for complex thought processes.<br>Introduction to the art is simple, and the rewards are vast. A wide range of magical accessories and instruments allow for empowering of one who decides to study the various options therein.
-botania.page.welcome8=&oDear reader, I welcome you to the realm of Botania.&r<br> - Written by &nGideon Seymour&r, guest writer. (Adapted for use)
+botania.entry.welcome=歡迎來到植物魔法
+botania.page.welcome0=&o什麼是和平?是沒有鬥爭?是 年復一年的待在鮮花環繞的 花園裡?是看管著你所謂的王 國?是完成已知的所有任務? 是看著自己收集的資源越來 越多?
+botania.page.welcome1=&o和平是不需勞作就能獲得之 物-又或是難以獲得之物?<br>讓我們來簡單地說說-只需要 一會兒-和平其實就是無需工 作;可以過著被花朵所包圍的 和平日子.
+botania.page.welcome2=&o看著你的植物們如預期般的 完成各自的任務,就這樣感受 著時間的流逝,沒有嘈雜且污 染四布的機器和電腦,也沒有 密佈的線纜和管道.<br>現在想像一下,我們所討論的 這一切都是可能實現的.
+botania.page.welcome3=&o想像下,經過你的一番努力- 對植物的精心培養,對魔力的 使用,對於這個世界和紅石的 知識運用-你就能達到那種夢 寐以求的境界.想像下你所需 求的一切都能通過植物來實 現自動化.植物,加上些魔法, 還有你的智慧.
+botania.page.welcome4=&o有了這本書,你就能夢想成真 了.<br>書名只是表面的.儘管稱它植 物魔法辭典,但它所涉及的可 不僅僅都是花.其中也涵蓋了 各種魔法和近似科技的裝置.
+botania.page.welcome5=&o它裡面也蘊藏著精靈的秘密, 而精靈們卻早已帶著世界起 源的線索一同消失在了這個 世界上.對於每一個有著基礎 紅石知識並能將其投入實踐 的人而言,這本書為每一個人 們所知的問題給出了答案,有 了它你就再也不需要學習那 些不明所以的魔法和機械知 識了.
+botania.page.welcome6=&o書的內容也包括了你所要進 行的每一項任務的解釋說明, 只需要用上書中的東西,確保 在Minecraft的世界裡可行, 然後動用你的聰明才智,難題 就都不是問題了.<br>試試看,你會吃驚於自己在沒 有外界干擾的情況下竟然可 以做到這麼多.
+botania.page.welcome7=&o植物學的知識不僅適用於那 些需要動腦筋的思考的傢伙.<br>言雖簡,報頗豐.各式各樣的 魔法飾品和工具想必也能讓 其他人自由選擇他們想要的.
+botania.page.welcome8=&o尊敬的讀者,我誠摯地歡迎您 來到植物魔法的世界.&r<br> - 特約撰稿人 &nGideon Seymour&r作.
 
 # -- TUTORIAL OF THE BASICS
 botania.entry.tutorial=基礎教程
@@ -1415,7 +1417,7 @@ botania.page.lexicon2=&1植物魔法辭典&0標題也可以定 制.將它放入&
 
 # -- MYSTICAL FLOWERS
 botania.entry.flowers=神秘花
-botania.page.flowers0=世界各地,你都能遇到大量的 神秘花.找到它們並不困難因 為它們總是閃爍著亮光.<br>它們有著共計&416&0種不同的顏 色.<br>也可以使用&1花肥&0(往下看)種 出這些花.
+botania.page.flowers0=世界各地,你都能遇到大量的 神秘花.找到它們並不困難因 為它們總是閃爍著亮光.<br>它們有著共計&416&0種不同的顏色.<br>也可以使用&1花肥&0(往下看)種 出這些花.
 botania.page.flowers1=它們看起來是這樣的...
 botania.page.flowers2=這些花可以採摘用於獲取&1神&0 &1秘花瓣&0,可以用來製成魔法工 具或是類似的植物.<br>這些花瓣也能磨成&1花粉&0,使用 &1杵和臼&0,功能和所有的普通染 料相似.
 botania.page.flowers3=摘取花瓣.
@@ -1701,7 +1703,7 @@ botania.page.heiseiDream2=&o平成壞れちゃって,壞れちゃ って.平和�
 
 # -- TIGERSEYE
 botania.entry.tigerseye=虎之眼
-botania.page.tigerseye0=我們都知道&4爬行者&0害怕&4貓&0.<br>&1虎之眼&0利用非常微弱的,通過 散發出貓的氣味,恐嚇附近的 &4爬行者&0,阻止它們爆炸.也會 讓它們主動逃離&4玩家&0.
+botania.page.tigerseye0=我們都知道&4苦力怕&0害怕&4貓&0.<br>&1虎之眼&0利用非常微弱的,通過 散發出貓的氣味,恐嚇附近的 &4苦力怕&0,阻止它們爆炸.也會 讓它們主動逃離&4玩家&0.
 botania.page.tigerseye1=&o是時候向敵人反擊了&r.
 
 # -- ORECHID
@@ -1710,7 +1712,7 @@ botania.page.orechid0=儘管挖礦很好,我們應想些可 再生的方法.&1�
 botania.page.orechid1=&o這可不是龍的便便(SAO)&r.
 
 # -- ORECHID IGNEM
-botania.entry.orechidIgnem=地獄凝礦蘭
+botania.entry.orechidIgnem=炎礦蘭
 botania.page.orechidIgnem0=&1凝礦蘭&0是朵不錯的花.用&4瑪那&0 來產生原礦,對誰而言都是極 好的.然而它卻不能產生來自 &4地獄&0的礦物.通過改變花瓣的 配方,你解決了這個問題.現 在它就能利用&1地獄岩&0來產生 &4地獄&0礦物.花必須在&4地獄&0才能 工作
 botania.page.orechidIgnem1=&o變熱吧&r.
 
@@ -2074,13 +2076,24 @@ botania.page.craftCrate8=&1機巧箱&0也能裝上模板.用於鎖 定配方中�
 botania.page.craftCrate9=9種不同的模板
 
 # -- HOVERING HOURGLASS
-botania.entry.hourglass=Hovering Hourglass
-botania.page.hourglass0=The ability to count time is an essential one to anyone who wishes to develop any redstonic contraptions. A single timer, however, can take a up both a lot of space and be slow in general. The &1Hovering Hourglass&0 is a simple, accurate, sand based timer. As the name implies, it's a hourglass that hovers and turns by itself.
-botania.page.hourglass1=The hourglass contains an inventory, in which up to a stack of &1Sand&0, &1Red Sand&0 or &1Soul Sand&0 can be added via a right click. Right clicking again removes it. The sand will then fall from one of the chambers into another, and when is done, release a single redstone pulse and turn over, starting the process again.
-botania.page.hourglass2=The amount of time for each pulse is dependent on how much and what type of sand is in the chamber. &1Sand&0 will count for one second per block, &1Red Sand&0 ten seconds per and &1Soul Sand&0 one minute per. Sand types can't be mixed. The time for each pulse can be seen by hovering over the block with a &1Wand of the Forest&0.
-botania.page.hourglass3=Note that the sand is added all at once, so the size of the stack to be added needs to be set in the inventory.<br>Sand can't be added to the hourglass after it already has some in, trying to do so will end up removing the sand there instead. The sand in the block can be taken and added by &1Hoppers&0 or other methods.
-botania.page.hourglass4=Right clicking the block with a &1Wand of the Forest&0 locks (and unlocks) it. When locked, sand can't be added or removed, just in case someone right clicks it on accident.<br>If a &4Mana Burst&0 collides with the block, it'll stop the flow of sand and pause the timer, colliding again continues it.
-botania.page.hourglass5=The sands of time
+botania.entry.hourglass=懸浮沙漏
+botania.page.hourglass0=對於任何一個想要鑽研紅石 電路的人而言,計時器是必經 之路.一個單獨的時鐘電路就 會佔用不少空間,並且運作緩 慢.而&1懸浮沙漏&0就是一個基於 沙子的計時器,簡單而精確. 如名字所示,它能自行懸浮並 倒置.
+botania.page.hourglass1=沙漏自身有一個物品欄,可通 過右擊存入最多1組&1沙子&0,&1紅&0 &1沙&0或&1靈魂沙&0.再次右擊就會取 出.放入沙子後,它們就會流 向沙漏的另一端,全部流下時 輸出一個紅石脈衝並顛倒沙 漏,重置整個計時.
+botania.page.hourglass2=每道脈衝的間隔時間取決於 使用的沙子數量和種類.普通 的&1沙子&0每個計做1秒,&1紅沙&0每 個計做10秒,&1靈魂沙&0每個計做 1分鐘.各種沙子不能混合使 用.手持&1森林法杖&0指向沙漏方 塊可以查看每次脈衝的間隔 時間.
+botania.page.hourglass3=注意沙子是一次性加入的,因 此你必須在自己的物品欄內 設定好所需的數量.<br>不能向已有沙子的沙漏內添 入新的沙子,否則就會移除之 前加入的沙子.沙漏內的沙子 可以通過&1漏斗&0和其他途逕取 出或添入.
+botania.page.hourglass4=用&1森林法杖&0右擊則會將它鎖 定(或解鎖).鎖定時,無法添 加或移除沙子,以免有人不小 心右擊到.<br>如果一道&4魔力脈衝&0擊中該方 塊,則會讓沙子停止流動,再 次擊中則會繼續流動.
+botania.page.hourglass5=時之沙
+
+# -- SPECTRAL RAIL
+botania.entry.ghostRail=幻影軌道
+botania.page.ghostRail0=將&1鐵軌&0鋪在&1幻影平台&0上會給 經過其上的&1礦車&0附加有趣的 能力:當它駛過這段軌道時, 礦車會略微的浮空,此時它也 能穿牆而過.<br>該效果會在礦車著陸於另一 段鐵軌或撞上&1夢之木&0一類的 方塊時消失.
+botania.page.ghostRail1=你可以稱它:靈魂軌跡
+
+# -- DRUM OF THE CANOPY
+botania.entry.canopyDrum=林冠之鼓
+botania.page.canopyDrum0=&1林冠之鼓&0就像&1狂野之鼓&0一樣, 不過它所用的是&1林冠號角&0.它 的功能和手持的號角相同,不 過它需要放置下來.<br>若要讓它發出振動破壞周圍 的樹葉,你需要向其發射一道 &4瑪那脈衝&0.
+botania.page.canopyDrum1=鼓本身不會儲存魔力,因此激 活它就需要一個&1紅石瑪那發&0 &1射器&0或&1瑪那發射器&0.
+botania.page.canopyDrum2=修出我的范兒
 
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
@@ -2150,7 +2163,7 @@ botania.page.terraPick1=工具裡儲存的&4瑪那&0量決定了 它的&4階位&
 botania.page.terraPick2=從&4C&0升至&4B&0,需要一個滿的&1瑪那&0 &1池&0,每級是上一級的十倍消耗 ,最終到達&4SS&0.<br>工具的階位不會改變它的速 度,但會增強&4激活能力&0.<br>可以通過右擊開啟工具的能 力.
 botania.page.terraPick3=當工具激活時,它能破壞區域 內的方塊.階位&4C&0還是一小塊 ,到了&4B&0就成了一個區域, 隨著 階位升高區域也會增大.注意 階位&4D&0的工具不能激活.<br>激活時會消耗工具儲存的&4魔&0 &4力&0,哪怕不是用於挖掘.
 botania.page.terraPick4=最後,工具每次破壞方塊時都 會受到磨損,所以最好物品欄 有與階位相應的&4瑪那&0儲存,工 具的功能又像&1魔鋼工具&0,因為 它使用&4瑪那&0抵消磨損,製作原 料是&1泰拉鋼&0.<br>它也不會像普通掉落物品那 樣消失.
-botania.page.terraPick5=WE'RE MINING IN THE DATABASE WOW WOW (紀錄的地平線)
+botania.page.terraPick5=WE'RE MINING IN THE DATABASE WOW WOW(紀錄的地平線)
 
 # -- ROD OF THE SEAS
 botania.entry.waterRod=海洋法杖
@@ -2319,7 +2332,7 @@ botania.page.enderAir0=&1終界&0的空氣看起來有一些變 異的特性.如
 # -- ENDER OVERSEER
 botania.entry.enderEyeBlock=終界監視者
 botania.page.enderEyeBlock0=&4終界使者&0的眼睛被看見時十分 敏感.由此製成的方塊在64格 內被玩家直視時就會發出&4紅&0 &4石信號&0.<br>當然,頭戴&1南瓜&0時可以避免.
-botania.page.enderEyeBlock1=我的品牌
+botania.page.enderEyeBlock1=MY BRAND
 
 # -- FORCE RELAY
 botania.entry.pistonRelay=力量傳遞器
@@ -2457,7 +2470,7 @@ botania.page.cosmeticBaubles12=鄰人部
 botania.page.cosmeticBaubles13=喵
 botania.page.cosmeticBaubles14=別讓自己太前衛了
 botania.page.cosmeticBaubles15=邪惡吧!
-botania.page.cosmeticBaubles16=裸哦哦哦哦哦...
+botania.page.cosmeticBaubles16=Nudistoooooooooo
 botania.page.cosmeticBaubles17=誰說我是死魚眼的
 botania.page.cosmeticBaubles18=Lurk moar
 botania.page.cosmeticBaubles19=我需要你的時間
@@ -2579,7 +2592,7 @@ botania.page.judgementCloaks2=神聖的斗篷
 botania.page.judgementCloaks3=嘗嘗我的復仇!
 
 # -- MANASEER MONOCLE
-botania.entry.monocle=窺魔單片鏡
+botania.entry.monocle=窺魔之鏡
 botania.page.monocle0=觀察&4瑪那脈衝&0去向一個極其 方便的工具就是&1窺魔單片鏡&0. 它不僅是一個奇特的護目鏡, 還可以讓裝備者看到附近所 有的&4瑪那脈衝&0,即便他們視線 被擋住了.更重要的是,或許 戴著它看向花時能知曉其作 用的範圍.
 botania.page.monocle1=Why hello there old chap
 
@@ -2641,7 +2654,7 @@ botania.page.gaiaRitual4=你最好記住以下幾點.首先極 力推薦附魔�
 botania.entry.gaiaRitualHardmode=蓋亞儀式II
 botania.page.gaiaRitualHardmode0=有人認為,以&1泰拉鋼&0和&1蓋亞之&0 &1魂&0的形式結合兩種已知的最 強大能源,可以製造一種無敵 的材料.看起來這種材料極其 強勁.事實上,當兩種材料相互 抵消結合形成錠的時候,創造 了一種完全無用的合金.
 botania.page.gaiaRitualHardmode1=這種錠,由於集中了能量和瑪 那,或許能召喚出更加強大的 &1蓋亞守護者&0,擁有更強的韌性, 力量和速度.<br>因此,它也會比平常的掉落更 多的&1蓋亞之魂&0,還有少量稀世 珍寶,這都讓它成為一個有價 值的敵人.
-botania.page.gaiaRitualHardmode2=製作&1蓋亞錠&0.
+botania.page.gaiaRitualHardmode2=製作&1蓋亞魂錠&0.
 
 # -- THE RELICS OF THE AESIR
 botania.entry.relics=諸神的遺物
