@@ -49,6 +49,8 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	IIcon[] icons;
 
 	public IIcon tailIcon = null;
+	public IIcon phiFlowerIcon = null;
+	public IIcon goldfishIcon = null;
 
 	public ItemManaResource() {
 		super();
@@ -124,6 +126,8 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 			icons[i] = IconHelper.forName(par1IconRegister, LibItemNames.MANA_RESOURCE_NAMES[i]);
 
 		tailIcon = IconHelper.forName(par1IconRegister, "tail");
+		phiFlowerIcon = IconHelper.forName(par1IconRegister, "phiFlower");
+		goldfishIcon = IconHelper.forName(par1IconRegister, "goldfish");
 	}
 
 	@Override

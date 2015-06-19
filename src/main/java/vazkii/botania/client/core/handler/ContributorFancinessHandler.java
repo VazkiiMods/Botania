@@ -51,7 +51,11 @@ public final class ContributorFancinessHandler {
 		String name = event.entityPlayer.getDisplayName();
 
 		if(name.equals("Vazkii"))
-			renderFancyExclusiveDevStuffBecauseImAnEvilDevWhoDoesntCareAboutTheCommunityBooo(event);
+			renderTwintails(event);
+		else if(name.equals("_phi"))
+			renderPhiFlower(event);
+		else if(name.equals("haighyorkie"))
+			renderGoldfish(event);
 
 		name = name.toLowerCase();
 		if(Minecraft.getMinecraft().gameSettings.getOptionOrdinalValue(Options.SHOW_CAPE) && flowerMap != null && flowerMap.containsKey(name))
@@ -76,8 +80,7 @@ public final class ContributorFancinessHandler {
 		}
 	}
 
-
-	private static void renderFancyExclusiveDevStuffBecauseImAnEvilDevWhoDoesntCareAboutTheCommunityBooo(RenderPlayerEvent event) {
+	private static void renderTwintails(RenderPlayerEvent event) {
 		GL11.glPushMatrix();
 		IIcon icon = ((ItemManaResource) ModItems.manaResource).tailIcon;
 		float f = icon.getMinU();
@@ -107,6 +110,43 @@ public final class ContributorFancinessHandler {
 		GL11.glPopMatrix();
 	}
 
+	private static void renderPhiFlower(RenderPlayerEvent event) {
+		GL11.glPushMatrix();
+		IIcon icon = ((ItemManaResource) ModItems.manaResource).phiFlowerIcon;
+		float f = icon.getMinU();
+		float f1 = icon.getMaxU();
+		float f2 = icon.getMinV();
+		float f3 = icon.getMaxV();
+		Helper.translateToHeadLevel(event.entityPlayer);
+		GL11.glRotatef(90F, 0F, 1F, 0F);
+		GL11.glRotatef(180F, 1F, 0F, 0F);
+		GL11.glTranslatef(-0.4F, 0.1F, -0.25F);
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);		
+		GL11.glRotatef(90F, 0F, 1F, 0F);
+		GL11.glScalef(0.4F, 0.4F, 0.4F);
+		GL11.glTranslatef(-1.2F, 0.2F, 0.2F);
+		GL11.glRotatef(20F, 1F, 0F, 0F);
+		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+		GL11.glPopMatrix();
+	}
+
+	private static void renderGoldfish(RenderPlayerEvent event) {
+		GL11.glPushMatrix();
+		IIcon icon = ((ItemManaResource) ModItems.manaResource).goldfishIcon;
+		float f = icon.getMinU();
+		float f1 = icon.getMaxU();
+		float f2 = icon.getMinV();
+		float f3 = icon.getMaxV();
+		Helper.rotateIfSneaking(event.entityPlayer);
+		GL11.glRotatef(90F, 0F, 1F, 0F);
+		GL11.glRotatef(180F, 0F, 0F, 1F);
+		GL11.glTranslatef(-0.75F, 0.5F, 0F);
+		GL11.glScalef(0.4F, 0.4F, 0.4F);
+		GL11.glTranslatef(1.2F, 0.5F, 0F);
+		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+		GL11.glPopMatrix();
+	}
+	
 	private static void renderFlower(RenderPlayerEvent event, IIcon icon) {
 		GL11.glPushMatrix();
 		Helper.translateToHeadLevel(event.entityPlayer);
