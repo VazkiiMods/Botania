@@ -177,14 +177,12 @@ public class SubTileGenerating extends SubTileEntity {
 	@Override
 	public void readFromPacketNBT(NBTTagCompound cmp) {
 		mana = cmp.getInteger(TAG_MANA);
-		if(!cmp.hasKey(TAG_TICKS_EXISTED))
-			ticksExisted = cmp.getInteger(TAG_TICKS_EXISTED);
 
 		int x = cmp.getInteger(TAG_COLLECTOR_X);
 		int y = cmp.getInteger(TAG_COLLECTOR_Y);
 		int z = cmp.getInteger(TAG_COLLECTOR_Z);
 
-		cachedCollectorCoordinates = new ChunkCoordinates(x, y, z);
+		cachedCollectorCoordinates = y < 0 ? null : new ChunkCoordinates(x, y, z);
 	}
 
 	@Override

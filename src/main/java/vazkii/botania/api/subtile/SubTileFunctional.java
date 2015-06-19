@@ -155,7 +155,7 @@ public class SubTileFunctional extends SubTileEntity {
 		int y = cmp.getInteger(TAG_POOL_Y);
 		int z = cmp.getInteger(TAG_POOL_Z);
 
-		cachedPoolCoordinates = new ChunkCoordinates(x, y, z);
+		cachedPoolCoordinates = y < 0 ? null : new ChunkCoordinates(x, y, z);
 	}
 
 	@Override
