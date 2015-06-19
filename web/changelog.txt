@@ -1,3 +1,17 @@
+r1.6 192
+*Added the Spectral Rail. A new rail that makes carts fly. Woooosh~
+*Changed the Spectranthemum to have a limited range and not be chainable. Use minecarts for long range yo.
+*Fixed a memory leak with the Hovering Hourglass' render.
+*Fixed Corporea requests not updating inventories.
+*Fixed lenses being consumed when adding them to spreaders in creative.
+*Fixed the Black Hole Talisman being able to place blocks inside the player.
+*Fixed the Terra Shatterer's mana display overlapping tooltips when they would go off screen.
+*Fixed the yellow quartz Flugel Tiara having pink particles.
+*Made the Clayconia's texture more visible.
+*Made the mana network, spreaders, pools and flowers more aware of TileEntity invalidation. This may or may not fix the chunkloading issues.
+*[API] Added a bunch of isInvalid() checks to SubTileGenerating and SubTileFunctional.
+*[API] Corporea properly calls markDirty().
+*[API] Increased version number to 51.
 r1.6 191
 *Added a "Welcome To Botania" entry written by GideonSeymour, it's the first entry in the book and sets the tone for new players.
 *Added icons to the tutorial pages, they deserve them, good pages.
