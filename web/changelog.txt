@@ -1,5 +1,22 @@
 r1.6 193
-
+*Added evil dev stuff. And more goldfish.
+*Added Nuggets for Manasteel, Terrasteel and Elementium.
+*Added the Drum of the Canopy. (TheWhiteWolves)
+*Changed some lexicon text about the decay mechanic a bit to be more obvious how it works.
+*Changed the procedure for flower binding a little. This may fix flowers sometimes being unable to bind to spreaders after a chunk unload or world reload.
+*Changed the way Mana Spreaders and the bursts they fire communicate. This may fix spreaders sometimes being unable to fire after a chunk unload or world reload.
+*Fixed the Ring of Loki not working properly. (TheWhiteWolves)
+*Hardcore Passive Generation is now enabled by default at 2 days (24000 ticks). This is the config that makes passive flowers decay after some time. Old configs won't be affected, but you should change yours to reflect this, especially if you're a modpack author (please D:).
+*Made the Elven Portal's components' recipes to be easier to make.
+*Made the Endoflame produce a bit less.
+*Mana Petals are now cheaper, making starting off a lot easier.
+*The Force Relay now gives a ding sound when properly bound. (TheWhiteWolves)
+*(Technical) Introduced a <a href="https://github.com/Vazkii/Botania/commit/cb113050a7aaa8ac88e3326cf59859b33cab9e2d">Pinging system</a> between Mana Spreaders and Mana Bursts. Addon authors must adapt.
+*[API] Added IIdentifiable and IPingable.
+*[API] IManaSpreader now extends IPingable for the new Pinging system. Addon authors must adapt.
+*[API] Modified IManaBurst with new methods for the Pinging system. Addon authors must adapt.
+*[API] SubTileGenerating and SubTileFunctional's NBT reads now set the cached spreader/pool to null if the pos Y tag is -1.
+*[API] Increased version number to 52.
 r1.6 192
 *Added the Spectral Rail. A new rail that makes carts fly. Woooosh~
 *Changed the Spectranthemum to have a limited range and not be chainable. Use minecarts for long range yo.
