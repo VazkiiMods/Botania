@@ -91,8 +91,7 @@ public class CorporeaAutoCompleteHandler {
 			if(tabLastTick)
 				return;
 			tabLastTick = true;
-		} 
-		else {
+		} else {
 			tabLastTick = false;
 			return;
 		}
@@ -129,15 +128,15 @@ public class CorporeaAutoCompleteHandler {
 			return;
 		this.position = -1;
 		ReflectionHelper.setPrivateValue(GuiChat.class, chat, true, LibObfuscation.COMPLETE_FLAG);
-        StringBuilder stringbuilder = new StringBuilder();
-        CompletionData data;
-        for(Iterator<CompletionData> iterator = completions.iterator(); iterator.hasNext(); stringbuilder.append(data.string)) {
-            data = iterator.next();
-            if(stringbuilder.length() > 0)
-                stringbuilder.append(", ");
-        }
-        
-        Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(new ChatComponentText(stringbuilder.toString()), 1);
+		StringBuilder stringbuilder = new StringBuilder();
+		CompletionData data;
+		for(Iterator<CompletionData> iterator = completions.iterator(); iterator.hasNext(); stringbuilder.append(data.string)) {
+			data = iterator.next();
+			if(stringbuilder.length() > 0)
+				stringbuilder.append(", ");
+		}
+		
+		Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(new ChatComponentText(stringbuilder.toString()), 1);
 		isAutoCompleted = true;
 		originalString = inputField.getText();
 	}
