@@ -57,14 +57,14 @@ public class CorporeaAutoCompleteHandler {
 		Iterator<Item> iterator = Item.itemRegistry.iterator();
 		ArrayList<ItemStack> curList = new ArrayList<ItemStack>();
 
-		while (iterator.hasNext()) {
+		while(iterator.hasNext()) {
 			Item item = iterator.next();
 
-			if (item != null && item.getCreativeTab() != null) {
+			if(item != null && item.getCreativeTab() != null) {
 				curList.clear();
 				try {
 					item.getSubItems(item, (CreativeTabs) null, curList);
-					for (ItemStack stack : curList)
+					for(ItemStack stack : curList)
 						itemNames.add(stack.getDisplayName().trim());
 				}
 				catch (Exception e) {}
@@ -74,21 +74,21 @@ public class CorporeaAutoCompleteHandler {
 
 	@SubscribeEvent
 	public void onTick(ClientTickEvent event) {
-		if (event.phase != Phase.END)
+		if(event.phase != Phase.END)
 			return;
 		GuiScreen screen = Minecraft.getMinecraft().currentScreen;
-		if (!(screen instanceof GuiChat)) {
+		if(!(screen instanceof GuiChat)) {
 			isAutoCompleted = false;
 			return;
 		}
 		GuiChat chat = (GuiChat) screen;
-		if (isAutoCompleted) {
+		if(isAutoCompleted) {
 			boolean valid = ReflectionHelper.getPrivateValue(GuiChat.class, chat, LibObfuscation.COMPLETE_FLAG);
-			if (!valid)
+			if(!valid)
 				isAutoCompleted = false;
 		}
-		if (Keyboard.isKeyDown(15)) {
-			if (tabLastTick)
+		if(Keyboard.isKeyDown(15)) {
+			if(tabLastTick)
 				return;
 			tabLastTick = true;
 		} 
@@ -97,19 +97,19 @@ public class CorporeaAutoCompleteHandler {
 			return;
 		}
 
-		if (!CorporeaHelper.shouldAutoComplete())
+		if(!CorporeaHelper.shouldAutoComplete())
 			return;
 		
 		GuiTextField inputField = ReflectionHelper.getPrivateValue(GuiChat.class, chat, LibObfuscation.INPUT_FIELD);
-		if (!isAutoCompleted && GuiScreen.isShiftKeyDown())
+		if(!isAutoCompleted && GuiScreen.isShiftKeyDown())
 			buildAutoCompletes(inputField, chat);
-		if (isAutoCompleted && !completions.isEmpty())
+		if(isAutoCompleted && !completions.isEmpty())
 			advanceAutoComplete(inputField, chat);
 	}
 
 	private void advanceAutoComplete(GuiTextField inputField, GuiChat chat) {
 		this.position++;
-		if (this.position >= completions.size())
+		if(this.position >= completions.size())
 			this.position -= completions.size();
 		CompletionData data = completions.get(position);
 		String str = originalString.substring(0, originalString.length() - data.prefixLength) + data.string;
@@ -118,11 +118,11 @@ public class CorporeaAutoCompleteHandler {
 
 	private void buildAutoCompletes(GuiTextField inputField, GuiChat chat) {
 		String leftOfCursor;
-		if (inputField.getCursorPosition() == 0)
+		if(inputField.getCursorPosition() == 0)
 			leftOfCursor = "";
 		else
 			leftOfCursor = inputField.getText().substring(0, inputField.getCursorPosition());
-		if (leftOfCursor.length() == 0 || leftOfCursor.charAt(0) == '/')
+		if(leftOfCursor.length() == 0 || leftOfCursor.charAt(0) == '/')
 			return;
 		this.completions = getNames(leftOfCursor);
 		if(completions.isEmpty())
@@ -131,9 +131,9 @@ public class CorporeaAutoCompleteHandler {
 		ReflectionHelper.setPrivateValue(GuiChat.class, chat, true, LibObfuscation.COMPLETE_FLAG);
         StringBuilder stringbuilder = new StringBuilder();
         CompletionData data;
-        for (Iterator<CompletionData> iterator = completions.iterator(); iterator.hasNext(); stringbuilder.append(data.string)) {
+        for(Iterator<CompletionData> iterator = completions.iterator(); iterator.hasNext(); stringbuilder.append(data.string)) {
             data = iterator.next();
-            if (stringbuilder.length() > 0)
+            if(stringbuilder.length() > 0)
                 stringbuilder.append(", ");
         }
         
@@ -147,10 +147,10 @@ public class CorporeaAutoCompleteHandler {
 		String[] words = prefix.split(" ");
 		int i = words.length - 1;
 		String curPrefix = words[i];
-		while (i >= 0) {
+		while(i >= 0) {
 			result.addAll(getNamesStartingWith(curPrefix.toLowerCase()));
 			i--;
-			if (i >= 0)
+			if(i >= 0)
 				curPrefix = words[i] + " " + curPrefix;
 		}
 		return new ArrayList<CompletionData>(result);
@@ -160,8 +160,8 @@ public class CorporeaAutoCompleteHandler {
 		ArrayList<CompletionData> result = new ArrayList<CompletionData>();
 		int length = prefix.length();
 		SortedSet<String> after = itemNames.tailSet(prefix);
-		for (String str : after) {
-			if (str.toLowerCase().startsWith(prefix))
+		for(String str : after) {
+			if(str.toLowerCase().startsWith(prefix))
 				result.add(new CompletionData(str, length));
 			else return result;
 		}
