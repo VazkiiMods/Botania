@@ -111,6 +111,10 @@ botaniamisc.active=&aAtivo
 botaniamisc.inactive=&cInativo
 botaniamisc.achievements=Conquistas
 botaniamisc.dropIkea=&bDerrubar esse item o desmontará nos seus componentes originais
+botaniamisc.hourglassLock=Essa Ampulheta está travada. Clique com uma Varinha da Floresta para destravá-la.
+botaniamisc.locked=Travada
+botaniamisc.stopped=Parada
+botaniamisc.lockedStopped=Travada, Parada
 
 # NEI INTEGRATION
 botania.nei.brewery=Fermentador Botânico
@@ -581,6 +585,7 @@ tile.botania:storage3.name=Bloco de Diamante de Mana
 tile.botania:storage4.name=Bloco of Pedra Draconiana
 tile.botania:forestDrum0.name=Tambor da Vida Selvagem
 tile.botania:forestDrum1.name=Tambor da União
+tile.botania:forestDrum2.name=Tambor do Toldo
 tile.botania:shinyFlower0.name=Flor Branca Reluzente
 tile.botania:shinyFlower1.name=Flor Laranja Reluzente
 tile.botania:shinyFlower2.name=Flor Magenta Reluzente
@@ -917,6 +922,8 @@ tile.botania:blazeBlock.name=Lâmpada Infernal
 tile.botania:corporeaInterceptor.name=Interceptador Corporea
 tile.botania:corporeaCrystalCube.name=Cubo de Cristal Corporea
 tile.botania:incensePlate.name=Bandeja de Incensos
+tile.botania:hourglass.name=Ampulheta Flutuante
+tile.botania:ghostRail.name=Trilho Espectral
 
 # FLOWER NAMES
 tile.botania:flower..name=Flor do Botania
@@ -1246,7 +1253,7 @@ item.botania:blackLotus0.name=Lótus Negra
 item.botania:blackLotus1.name=Lótus Profunda
 item.botania:dreamwoodTwig.name=Graveto de Madeira dos Sonhos
 item.botania:monocle.name=Monóculo de Mana
-item.botania:clip.name=Clipe de Lentes
+item.botania:clip.name=Pente de Lentes
 item.botania:cobbleRod.name=Cajado das Profundezas
 item.botania:smeltRod.name=Cajado do Núcleo Derretido
 item.botania:worldSeed.name=Semente do Mundo
@@ -1327,6 +1334,9 @@ item.botania:recordGaia2.name=Disco de Música
 item.botania:temperanceStone.name=Pedra da Moderação
 item.botania:incenseStick.name=Incenso
 item.botania:terraAxe.name=Terra-Truncador
+item.botania:manasteelNugget.name=Pepita de Manasteel
+item.botania:terrasteelNugget.name=Pepita de Terrasteel
+item.botania:elementiumNugget.name=Pepita de Elementium
 
 # BREW NAMES
 botania.brew.fallback=Fallback
@@ -1381,6 +1391,18 @@ botania.category.misc=Conteúdo Diverso
 # LEXICON ENTRIES
 
 # - BASIC
+# -- WELCOME TO BOTANIA
+botania.entry.welcome=Welcome To Botania
+botania.page.welcome0=&oWhat is peace? Is it truly just a lack of combat? Is it years of sitting quietly in a garden, surrounded by flowers? Is it watching over a kingdom that you are able to call your own? Is it the completion of almost every task known to man? Is it the ability to watch numbers of resources steadily rise as you watch your collection grow?
+botania.page.welcome1=&oIs peace something that can be obtained easily, without work - or is it something difficult to obtain?<br>Let's say for a moment - not even a second - that peace is truly just a lack of work; peaceful days surrounded by flowers.
+botania.page.welcome2=&oYears spent watching time tick by while you watch your flora perform every single task imaginable, without outside help from polluting machines or computers tangled in cables and pipes.<br>Now imagine that everything we just talked about was possible.
+botania.page.welcome3=&oImagine that through your hard labor - your cultivation of flowers, your manipulation of mana, your knowledge of the mechanisms of the world and redstone - you could obtain that dreamlike state. Imagine that you could have everything you could ever desire automated with flora. Flora, some magic, and your own ingenuity.
+botania.page.welcome4=&oWith the help of this book, your dreams will become a reality.<br>The name of this book is deceptive. Despite being called the Lexica Botania, this tome focuses on far more than just flowers. It focuses on a variety of devices, both magical and bordering on technological.
+botania.page.welcome5=&oIt holds the secrets of the elves, who have long ago fled from this world, as well as possible clues to the origins of the very world itself. For anyone with a basic knowledge of redstone and the creativity to put it to use, this book offers answers to nearly every problem known to man, without the need to use foreign schools of magic or machinery.
+botania.page.welcome6=&oThis book contains instructions on how to perform nearly every task that one could ever need, with only the use of what's in it, and available in the world of Minecraft, assuming you're up to the task of putting them together in ingenious ways.<br>Try it out, you'll be amazed at what you can do without outside interference.
+botania.page.welcome7=&oThe school of botany does not solely apply to those with a knack for complex thought processes.<br>Introduction to the art is simple, and the rewards are vast. A wide range of magical accessories and instruments allow for empowering of one who decides to study the various options therein.
+botania.page.welcome8=&oDear reader, I welcome you to the realm of Botania.&r<br> - Written by &nGideon Seymour&r, guest writer. (Adapted for use)
+
 # -- TUTORIAL OF THE BASICS
 botania.entry.tutorial=Tutorial de mecânicas básicas
 botania.page.tutorial0=Enquanto qualquer um pode facilmente ler o livro, também há um "tour guiado" disponível. Clicar no botão abaixo o guiará pelas páginas mais úteis sobre os conceitos básicos do Botania.
@@ -1467,7 +1489,7 @@ botania.entry.terrasteel=Terrasteel
 botania.page.terrasteel0=&1Terrasteel&0 é uma liga mágica complexa, infundida com uma grande quantidade de &4Mana&0. Conjurá-la não é uma tarefa simples. Para começar, crie uma &1Placa de Aglomeração Terrestre&0 e coloque-a no topo de um padrão cruzado de &1Blocos de Lápis Lazúli&0 e &1Rocha-viva&0. &4Mana&0 é necessária para esse bloco, &1Fagulhas&0 são a maneira mais eficiente.
 botania.page.terrasteel1=Criando a Placa
 botania.page.terrasteel2=Depois que a Placa for colocada e receber &4Mana&0, jogar uma &1Barra de Manasteel, um Diamante de Mana e uma Pérola de Mana&0 em cima dela começa o processo de infusão.<br>Coletar qualquer um dos itens irá parar a infusão e causar uma grande &4Perda de Mana&0. A infusão usa metade de um &1Poço de Mana&0 para criar uma única barra de &4Terrasteel&0, usar várias &1Fagulhas&0 acelera o processo.
-botania.page.terrasteel3=O padrão para criar &1Terrasteel&0
+botania.page.terrasteel3=O padrão para criar &1Terrasteel&0 (há &1Rocha-viva&0 abaixo da Placa)
 
 # -- BLACK LOTUS
 botania.entry.blackLotus=Lótus Negra
@@ -1475,6 +1497,7 @@ botania.page.blackLotus0=Sabe-se que existe uma planta rara, conhecida como &1L�
 
 # -- FLOWER POUCH
 botania.entry.flowerBag=Flower Pouch
+botania.page.flowerBag2=Itens não serem coletados caso o cesto esteja ativamente na mão do jogador.<br>Além disso, shift-clique direito com o cesto em um &1Baú&0 ou em outro inventário armazena as flores no inventário clicado. 
 botania.page.flowerBag0=As leis da física sobre o &4Inventário&0 são um pouco rígidas nesse mundo. Graças a isso, carregar uma gama de flores diferentes pode ser uma dor de cabeça. Felizmente, um &1Cesto de Flores&0 resolve esse problema. Ele pode guardar 64 de cada cor de &1Flor Mística&0, não apenas isso, mas qualquer flor coletada automaticamente entra no cesto.
 botania.page.flowerBag1=Puxe uma hélice de dentro (qualquer cor funciona)
 
@@ -1715,7 +1738,7 @@ botania.page.agricarnation1=&oGrandola Vila Morena&r...
 
 # -- HOPPERHOCK
 botania.entry.hopperhock=Hopperhock
-botania.page.hopperhock0=A &1Hopperhock&0 coloeta itens ao seu redor. Usar &4Mana&0 é opcional, mas aumenta seu alcance.<br>Itens coloetados são colocados em um inventário adjacente(ex.: &1Baús&0). Pendurando uma &1Moldura&0 no inventário, pode-se especificar que itens podem ou não podem ser coletados.
+botania.page.hopperhock0=A &1Hopperhock&0 coleta itens ao seu redor. Usar &4Mana&0 é opcional, mas aumenta seu alcance.<br>Itens coloetados são colocados em um inventário adjacente(ex.: &1Baús&0). Pendurando uma &1Moldura&0 no inventário, pode-se especificar que itens podem ou não podem ser coletados.
 botania.page.hopperhock1=Qualquer inventário sem &1Moldura&0 adjacente aceita qualquer item, mas invetários rotulados possuem prioridade.<br>A regra usada para organizar pode ser mudada com shift-clique direito na flor com uma &1Varinha da Floresta&0.
 botania.page.hopperhock2=&oI guess I'll be talking my loli and leaving&r.
 
@@ -1728,3 +1751,39 @@ botania.page.tangleberrie1=&oTangled, brave and frozen&r.
 botania.entry.jiyuulia=Jiyuulia
 botania.page.jiyuulia0=A &1Jiyuulia&0 é uma flor, que a um pequeno custo de &4Mana&0, afasta animais e monstros, protejendo uma área circular, os impedindo de entrar.
 botania.page.jiyuulia1=&oHR HD DT Masterpiece&r.
+
+# -- RANNUNCARPUS
+botania.entry.rannuncarpus=Rannuncarpus
+botania.page.rannuncarpus0=Uma flor útil de fato, a &1Rannuncarpus&0 pega qualquer bloco em forma de item no chão e os coloca em algum lugar próximo. Entretanto, ela só coloca os blocos em cima de blocos especificados, para especificar tal bloco, coloque em baixo da terra onde a planta está plantada.
+botania.page.rannuncarpus1=Itens que são blocos, como &1Canas-de-açúcar&0 também funcionam, mas, como qualquer outro bloco, só conseguem ser colocadosem locais que normalmente os suportam.<br>Por último, fornecer &4Mana&0 para a flor é opcional, mas aumenta o seu alcance.
+botania.page.rannuncarpus2=&oO Banco de Areia de Yanille&r?
+
+# -- HYACIDUS
+botania.entry.hyacidus=Hyacidus
+botania.page.hyacidus0=Por alguma razão, veneno não é muito mortal. A &1Hyacidus&0, para isso, pode ser usada para envenenar monstros próximos, os fazendo fracos o suficiente para morrerem em um único golpe.
+botania.page.hyacidus1=&oO tipo Aço é imune&r.
+
+# -- POLLIDISIAC
+botania.entry.pollidisiac=Pollidisiac
+botania.page.pollidisiac0=Animais amam comer, isso é o que eles fazem todo o tempo, sério. Um comportamento interessante é que eles só comem o que lhes oferecem.<br>A &1Pollidisiac&0 simplesmente, ao custo de um pouco de mana, alimenta os animais em volta com comida apropriada (&1Trigo&0, &1Cenouras&0, etc), os deixando &obem humorados&r.
+botania.page.pollidisiac1=&oCozinha do Inferno&r.
+
+# -- CLAYCONIA
+botania.entry.clayconia=Clayconia
+botania.page.clayconia0=A &1Clayconia&0 é uma flor simples, em essência. Ela humedece a &1Areia&0 em volta, criando &1Argila&0, esse processo usa uma decente quantidade de &4Mana&0, mas nada insano.
+botania.page.clayconia1=&oQue piada assassina&r.
+
+# -- LOONIUM
+botania.entry.loonium=Loonium
+botania.page.loonium0=Qualquer aventureiro sabe que &4Masmorras&0 podem possuir coisas valiosas. A &1Loonium&0, a um extremo custo de &4Mana&0, materializa esses itens ao redor.
+botania.page.loonium1=&oTanque Tanque Cura Tanque&r!
+
+# -- DAFFOMILL
+botania.entry.daffomill=Daffomill
+botania.page.daffomill0=A &1Daffomill&0 funciona como um ventilador. Ela empurra, a um baixo custo de &4Mana&0, qualquer item na sua frente.<br>Shift-clique direito com uma &1Varinha da Floresta&0 muda a direção. A direção atual pode ser vista pelas partículas de ar.
+botania.page.daffomill1=&oWind Turbines? I'm a big fan&r.
+
+# -- VINCULOTUS
+botania.entry.vinculotus=Vinculotus
+botania.page.vinculotus0=A &1Vinculotus&0 tem o poder de causar perturbações no teleporte de &4Endermen&0 em uma decente área. Por um custo de &4Mana&0, sempre que um &4Enderman&0 se teleportar, ele será puxado para o local da &1Vinculotus&0.
+botania.page.vinculotus1=&oTouch this black lotus with your fingers&r.
