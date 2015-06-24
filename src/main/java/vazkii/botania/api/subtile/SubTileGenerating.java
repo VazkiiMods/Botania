@@ -99,11 +99,16 @@ public class SubTileGenerating extends SubTileEntity {
 		}
 
 		if(!needsNew && linkedCollector != null) {
-			TileEntity tileAt = supertile.getWorldObj().getTileEntity(linkedCollector.xCoord, linkedCollector.yCoord, linkedCollector.zCoord);
-			if(!(tileAt instanceof IManaCollector) || tileAt.isInvalid()) {
+			if(supertile.getWorldObj().blockExists(linkedCollector.xCoord, linkedCollector.yCoord, linkedCollector.zCoord) && !linkedCollector.isInvalid()) {
+				TileEntity tileAt = supertile.getWorldObj().getTileEntity(linkedCollector.xCoord, linkedCollector.yCoord, linkedCollector.zCoord);
+				if(!(tileAt instanceof IManaCollector) || tileAt.isInvalid()) {
+					linkedCollector = null;
+					needsNew = true;
+				} else linkedCollector = tileAt;
+			} else {
+				cachedCollectorCoordinates = new ChunkCoordinates(linkedCollector.xCoord, linkedCollector.yCoord, linkedCollector.zCoord);
 				linkedCollector = null;
-				needsNew = true;
-			} else linkedCollector = tileAt;
+			}
 		}
 
 		if(needsNew) {
@@ -190,13 +195,19 @@ public class SubTileGenerating extends SubTileEntity {
 		cmp.setInteger(TAG_MANA, mana);
 		cmp.setInteger(TAG_TICKS_EXISTED, ticksExisted);
 
-		int x = linkedCollector == null ? 0 : linkedCollector.xCoord;
-		int y = linkedCollector == null ? -1 : linkedCollector.yCoord;
-		int z = linkedCollector == null ? 0 : linkedCollector.zCoord;
+		if(cachedCollectorCoordinates != null) {
+			cmp.setInteger(TAG_COLLECTOR_X, cachedCollectorCoordinates.posX);
+			cmp.setInteger(TAG_COLLECTOR_Y, cachedCollectorCoordinates.posY);
+			cmp.setInteger(TAG_COLLECTOR_Z, cachedCollectorCoordinates.posZ);
+		} else {
+			int x = linkedCollector == null ? 0 : linkedCollector.xCoord;
+			int y = linkedCollector == null ? -1 : linkedCollector.yCoord;
+			int z = linkedCollector == null ? 0 : linkedCollector.zCoord;
 
-		cmp.setInteger(TAG_COLLECTOR_X, x);
-		cmp.setInteger(TAG_COLLECTOR_Y, y);
-		cmp.setInteger(TAG_COLLECTOR_Z, z);
+			cmp.setInteger(TAG_COLLECTOR_X, x);
+			cmp.setInteger(TAG_COLLECTOR_Y, y);
+			cmp.setInteger(TAG_COLLECTOR_Z, z);
+		}
 	}
 
 	@Override

@@ -106,11 +106,16 @@ public class SubTileFunctional extends SubTileEntity {
 		}
 
 		if(!needsNew && linkedPool != null) {
-			TileEntity tileAt = supertile.getWorldObj().getTileEntity(linkedPool.xCoord, linkedPool.yCoord, linkedPool.zCoord);
-			if(!(tileAt instanceof IManaPool) || tileAt.isInvalid()) {
+			if(supertile.getWorldObj().blockExists(linkedPool.xCoord, linkedPool.yCoord, linkedPool.zCoord) && !linkedPool.isInvalid()) {
+				TileEntity tileAt = supertile.getWorldObj().getTileEntity(linkedPool.xCoord, linkedPool.yCoord, linkedPool.zCoord);
+				if(!(tileAt instanceof IManaPool) || tileAt.isInvalid()) {
+					linkedPool = null;
+					needsNew = true;
+				} else linkedPool = tileAt;
+			} else {
+				cachedPoolCoordinates = new ChunkCoordinates(linkedPool.xCoord, linkedPool.yCoord, linkedPool.zCoord);
 				linkedPool = null;
-				needsNew = true;
-			} else linkedPool = tileAt;
+			}
 		}
 
 		if(needsNew) {
@@ -162,13 +167,19 @@ public class SubTileFunctional extends SubTileEntity {
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		cmp.setInteger(TAG_MANA, mana);
 
-		int x = linkedPool == null ? 0 : linkedPool.xCoord;
-		int y = linkedPool == null ? -1 : linkedPool.yCoord;
-		int z = linkedPool == null ? 0 : linkedPool.zCoord;
+		if(cachedPoolCoordinates != null) {
+			cmp.setInteger(TAG_POOL_X, cachedPoolCoordinates.posX);
+			cmp.setInteger(TAG_POOL_Y, cachedPoolCoordinates.posY);
+			cmp.setInteger(TAG_POOL_Z, cachedPoolCoordinates.posZ);
+		} else {
+			int x = linkedPool == null ? 0 : linkedPool.xCoord;
+			int y = linkedPool == null ? -1 : linkedPool.yCoord;
+			int z = linkedPool == null ? 0 : linkedPool.zCoord;
 
-		cmp.setInteger(TAG_POOL_X, x);
-		cmp.setInteger(TAG_POOL_Y, y);
-		cmp.setInteger(TAG_POOL_Z, z);
+			cmp.setInteger(TAG_POOL_X, x);
+			cmp.setInteger(TAG_POOL_Y, y);
+			cmp.setInteger(TAG_POOL_Z, z);
+		}
 	}
 
 	@Override
