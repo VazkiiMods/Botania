@@ -36,7 +36,7 @@ public class LensPiston extends Lens {
 				int meta = entity.worldObj.getBlockMetadata(pos.blockX, pos.blockY, pos.blockZ);
 				TileEntity tile = entity.worldObj.getTileEntity(pos.blockX, pos.blockY, pos.blockZ);
 
-				if(block.getMobilityFlag() == 0 && block != Blocks.obsidian && tile == null) {
+				if(block.getMobilityFlag() == 0 && block != Blocks.obsidian && block.getBlockHardness(entity.worldObj, pos.blockX, pos.blockY, pos.blockZ) >= 0 && tile == null) {
 					entity.worldObj.setBlockToAir(pos.blockX, pos.blockY, pos.blockZ);
 					entity.worldObj.setBlock(x, y, z, block, meta, 1 | 2);
 					entity.worldObj.playAuxSFX(2001, pos.blockX, pos.blockY, pos.blockZ, Block.getIdFromBlock(block) + (meta << 12));
