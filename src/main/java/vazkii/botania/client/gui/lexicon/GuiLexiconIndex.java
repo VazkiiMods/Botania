@@ -16,6 +16,7 @@ import java.util.List;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 
@@ -32,7 +33,10 @@ import vazkii.botania.client.gui.lexicon.button.GuiButtonInvisible;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonPage;
 
 public class GuiLexiconIndex extends GuiLexicon implements IParented {
-
+	
+	private static final String TAG_CATEGORY = "category";
+	private static final String TAG_PAGE = "page";
+	
 	LexiconCategory category;
 	String title;
 	int page = 0;
@@ -45,10 +49,18 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 
 	List<LexiconEntry> entriesToDisplay = new ArrayList();
 
+	public GuiLexiconIndex() {
+		parent = new GuiLexicon();
+	}
+	
 	public GuiLexiconIndex(LexiconCategory category) {
 		this.category = category;
-		title = StatCollector.translateToLocal(category == null ? "botaniamisc.lexiconIndex" : category.getUnlocalizedName());
 		parent = new GuiLexicon();
+		setTitle();
+	}
+	
+	public void setTitle() {
+		title = StatCollector.translateToLocal(category == null ? "botaniamisc.lexiconIndex" : category.getUnlocalizedName());
 	}
 
 	@Override
@@ -316,5 +328,35 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			actionPerformed(leftButton);
 			leftButton.func_146113_a(mc.getSoundHandler());
 		}
+	}
+
+	@Override
+	public void serialize(NBTTagCompound cmp) {
+		super.serialize(cmp);
+		cmp.setString(TAG_CATEGORY, category == null ? "" : category.getUnlocalizedName());
+		cmp.setInteger(TAG_PAGE, page);
+	}
+	
+	@Override
+	public void load(NBTTagCompound cmp) {
+		super.load(cmp);
+		String categoryStr = cmp.getString(TAG_CATEGORY);
+		if(categoryStr.isEmpty())
+			category = null;
+		else for(LexiconCategory cat : BotaniaAPI.getAllCategories())
+				if(cat.getUnlocalizedName().equals(categoryStr)) {
+					category = cat;
+					break;
+				}
+		page = cmp.getInteger(TAG_PAGE);
+		setTitle();
+	}
+	
+	@Override
+	public GuiLexicon copy() {
+		GuiLexiconIndex gui = new GuiLexiconIndex(category);
+		gui.page = page;
+		gui.setTitle();
+		return gui;
 	}
 }

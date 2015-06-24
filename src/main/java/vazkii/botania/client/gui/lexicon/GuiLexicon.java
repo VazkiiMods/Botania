@@ -23,6 +23,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -33,6 +34,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.core.handler.PresistantVariableHelper;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.gui.GuiAchievementsHacky;
@@ -53,6 +55,8 @@ public class GuiLexicon extends GuiScreen {
 	public static GuiLexicon currentOpenLexicon = new GuiLexicon();
 	public static ItemStack stackUsed;
 
+	private static final String TAG_TYPE = "type";
+	
 	private static final int[] KONAMI_CODE = { 200, 200, 208, 208, 203, 205, 203, 205, 48, 30 };
 
 	public static final int BOOKMARK_START = 1337;
@@ -260,15 +264,19 @@ public class GuiLexicon extends GuiScreen {
 	}
 
 	public void handleBookmark(GuiButton par1GuiButton) {
+		boolean modified = false;
 		int i = par1GuiButton.id - BOOKMARK_START;
 		if(i == bookmarks.size()) {
-			if(!bookmarks.contains(this))
+			if(!bookmarks.contains(this)) {
 				bookmarks.add(this);
+				modified = true;
+			}
 		} else {
-			if(isShiftKeyDown())
+			if(isShiftKeyDown()) {
 				bookmarks.remove(i);
-			else {
-				GuiLexicon bookmark = bookmarks.get(i);
+				modified = true;
+			} else {
+				GuiLexicon bookmark = bookmarks.get(i).copy();
 				Minecraft.getMinecraft().displayGuiScreen(bookmark);
 				if(!bookmark.getTitle().equals(getTitle())) {
 					if(bookmark instanceof IParented)
@@ -279,6 +287,8 @@ public class GuiLexicon extends GuiScreen {
 		}
 
 		bookmarksNeedPopulation = true;
+		if(modified)
+			PresistantVariableHelper.saveSafe();
 	}
 
 	@Override
@@ -287,6 +297,9 @@ public class GuiLexicon extends GuiScreen {
 	}
 
 	public int bookmarkWidth(String b) {
+		if(fontRendererObj == null)
+			fontRendererObj = Minecraft.getMinecraft().fontRenderer;
+		
 		boolean unicode = fontRendererObj.getUnicodeFlag();
 		fontRendererObj.setUnicodeFlag(true);
 		int width = fontRendererObj.getStringWidth(b) + 15;
@@ -426,12 +439,41 @@ public class GuiLexicon extends GuiScreen {
 
 		super.keyTyped(par1, par2);
 	}
+	
+	public static GuiLexicon create(NBTTagCompound cmp) {
+		String type = cmp.getString(TAG_TYPE);
+		try {
+			GuiLexicon lex = (GuiLexicon) Class.forName(type).newInstance();
+			if(lex != null)
+				lex.load(cmp);
+			if(isValidLexiconGui(lex))
+				return lex;
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
+	public void serialize(NBTTagCompound cmp) {
+		cmp.setString(TAG_TYPE, getClass().getName());
+	}
+	
+	public void load(NBTTagCompound cmp) {
+		// NO-OP
+	}
+	
+	public GuiLexicon copy() {
+		return new GuiLexicon();
+	}
+	
 	public static boolean isValidLexiconGui(GuiLexicon gui)	{
+		if(gui == null)
+			return false;
 		if(gui.isCategoryIndex())
 			return true;
 		if(gui.isIndex()) {
-			GuiLexiconIndex indexGui=(GuiLexiconIndex)gui;
+			GuiLexiconIndex indexGui = (GuiLexiconIndex) gui;
 			if(indexGui.category == null)
 				return true;
 			return BotaniaAPI.getAllCategories().contains(indexGui.category);

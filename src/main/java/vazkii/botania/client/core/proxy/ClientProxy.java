@@ -11,6 +11,8 @@
 package vazkii.botania.client.core.proxy;
 
 import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 import java.util.Calendar;
 
@@ -42,6 +44,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.DebugHandler;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.handler.LightningHandler;
+import vazkii.botania.client.core.handler.PresistantVariableHelper;
 import vazkii.botania.client.core.handler.SubTileRadiusRenderHandler;
 import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
@@ -141,14 +144,23 @@ import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class ClientProxy extends CommonProxy {
 
 	public static boolean singAnnoyingChristmasSongsTillVazkiisHeadExplodesFromAllTheDamnJingle = false;
 
+	@Override
+	public void preInit(FMLPreInitializationEvent event) {
+		super.preInit(event);
+		
+		PresistantVariableHelper.setCacheFile(new File(event.getModConfigurationDirectory().getParent(), "BotaniaVars.dat"));
+	}
+	
 	@Override
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
@@ -173,6 +185,13 @@ public class ClientProxy extends CommonProxy {
 			singAnnoyingChristmasSongsTillVazkiisHeadExplodesFromAllTheDamnJingle = true;
 
 		initRenderers();
+		
+		try {
+			PresistantVariableHelper.load();
+		} catch (IOException e) {
+			FMLLog.severe("Botania's Presistant Variables couldn't load!");
+			e.printStackTrace();
+		}
 	}
 
 	private void initRenderers() {
