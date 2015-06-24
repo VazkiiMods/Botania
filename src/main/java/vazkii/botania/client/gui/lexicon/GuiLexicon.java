@@ -27,6 +27,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.client.event.GuiScreenEvent.ActionPerformedEvent.Pre;
 
 import org.lwjgl.opengl.GL11;
 
@@ -90,6 +91,11 @@ public class GuiLexicon extends GuiScreen {
 	public final void initGui() {
 		super.initGui();
 
+		if(PresistantVariableHelper.firstLoad) {
+			PresistantVariableHelper.firstLoad = false;
+			PresistantVariableHelper.saveSafe();
+		}
+		
 		onInitGui();
 
 		putTutorialArrow();

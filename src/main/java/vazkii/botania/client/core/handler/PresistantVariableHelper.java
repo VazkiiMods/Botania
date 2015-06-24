@@ -19,6 +19,8 @@ import java.util.List;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
+import vazkii.botania.client.gui.lexicon.GuiLexiconEntry;
+import vazkii.botania.common.lexicon.LexiconData;
 
 public final class PresistantVariableHelper {
 
@@ -66,6 +68,8 @@ public final class PresistantVariableHelper {
 		}
 		
 		firstLoad = cmp.hasKey(TAG_FIRST_LOAD) ? cmp.getBoolean(TAG_FIRST_LOAD) : firstLoad;
+		if(firstLoad)
+			GuiLexicon.currentOpenLexicon = new GuiLexiconEntry(LexiconData.welcome, new GuiLexicon());
 	}
 	
 	public static void saveSafe() {
