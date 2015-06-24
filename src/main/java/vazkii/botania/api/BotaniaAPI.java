@@ -30,6 +30,7 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.DummyMethodHandler;
 import vazkii.botania.api.internal.DummySubTile;
@@ -177,7 +178,6 @@ public final class BotaniaAPI {
 		addOreWeightNether("oreNetherSteel", 1690); // Nether Ores
 		addOreWeightNether("oreNetherTin", 3750); // Nether Ores
 		addOreWeightNether("oreFyrite", 1000); // Netherrocks
-		addOreWeightNether("oreMalachite", 1000); // Netherrocks
 		addOreWeightNether("oreAshstone", 1000); // Netherrocks
 		addOreWeightNether("oreDragonstone", 175); // Netherrocks
 		addOreWeightNether("oreArgonite", 1000); // Netherrocks
@@ -462,6 +462,9 @@ public final class BotaniaAPI {
 	 * https://gist.github.com/Vazkii/9493322
 	 */
 	public static void addOreWeightNether(String ore, int weight) {
+		 if(ore.contains("Nether") && OreDictionary.getOres(ore.replace("Nether", "")).size() == 0)
+	            return;
+	            
 		oreWeightsNether.put(ore, weight);
 	}
 
