@@ -72,5 +72,9 @@ public final class LibObfuscation {
 
 	// GuiContainer
 	public static final String[] THE_SLOT = new String[] { "theSlot", "field_147006_u", "u" };
+
+	// GuiChat
+	public static final String[] INPUT_FIELD = new String[] { "inputField", "field_146415_a", "a" };
+	public static final String[] COMPLETE_FLAG = new String[] { "field_146414_r", "r" };
 }
 
