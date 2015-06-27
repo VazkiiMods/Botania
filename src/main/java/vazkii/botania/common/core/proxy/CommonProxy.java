@@ -30,6 +30,7 @@ import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.ModMultiblocks;
 import vazkii.botania.common.block.subtile.generating.SubTileNarslimmus;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.brew.ModBrews;
@@ -94,6 +95,7 @@ public class CommonProxy {
 		ModElvenTradeRecipes.init();
 		ModBrewRecipes.init();
 		ModAchievements.init();
+		ModMultiblocks.init();
 
 		ChestGenHandler.init();
 

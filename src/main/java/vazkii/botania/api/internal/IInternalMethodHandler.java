@@ -105,5 +105,7 @@ public interface IInternalMethodHandler {
 	public boolean isBuildcraftPipe(TileEntity tile);
 
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m);
+	
+	public long getWorldElapsedTicks();
 
 }

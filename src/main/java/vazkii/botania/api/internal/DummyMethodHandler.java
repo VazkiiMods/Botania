@@ -189,5 +189,9 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 		// NO-OP
 	}
 
+	@Override
+	public long getWorldElapsedTicks() {
+		return 0;
+	}
 
 }
