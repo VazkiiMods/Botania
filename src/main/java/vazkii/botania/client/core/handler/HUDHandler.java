@@ -54,6 +54,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ItemCraftingHalo;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
@@ -203,7 +204,7 @@ public final class HUDHandler {
 		Minecraft mc = Minecraft.getMinecraft();
 		int width = 182;
 		int x = res.getScaledWidth() / 2 - width / 2;
-		int y = res.getScaledHeight() - 29;
+		int y = res.getScaledHeight() - ConfigHandler.manaBarHeight;
 
 		if(!hasCreative) {
 			if(totalMaxMana == 0)

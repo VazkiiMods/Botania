@@ -42,6 +42,7 @@ public final class ConfigHandler {
 	public static boolean useVanillaParticleLimiter = true;
 	public static boolean silentSpreaders = false;
 	public static boolean renderBaubles = true;
+	public static int manaBarHeight = 29;
 
 	public static boolean altFlowerTextures = false;
 	public static boolean matrixMode = false;
@@ -134,6 +135,9 @@ public final class ConfigHandler {
 		desc = "Set this to false to disable rendering of baubles in the player.";
 		renderBaubles = loadPropBool("baubleRender.enabled", desc, renderBaubles);
 
+		desc = "The height of the mana display bar in above the XP bar. You can change this if you have a mod that changes where the XP bar is.";
+		manaBarHeight = loadPropInt("manaBar.height", desc, manaBarHeight);
+		
 		desc = "Set this to true to use alternate flower textures by Futureazoo, not all flowers are textured. http://redd.it/2b3o3f";
 		altFlowerTextures = loadPropBool("flowerTextures.alt", desc, altFlowerTextures);
 
