@@ -16,11 +16,8 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.ChatStyle;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
@@ -33,7 +30,7 @@ import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
-import vazkii.botania.client.gui.lexicon.GuiLexicon;
+import vazkii.botania.client.core.handler.MultiblockRenderHandler;
 import vazkii.botania.client.lib.LibResources;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -43,16 +40,14 @@ public class PageMultiblock extends LexiconPage {
 	private static final ResourceLocation multiblockOverlay = new ResourceLocation(LibResources.GUI_MULTIBLOCK_OVERLAY);
 	
 	GuiButton button;
+	MultiblockSet set;
 	Multiblock mb;
 	int ticksElapsed;
 
-	public PageMultiblock(String unlocalizedName, Multiblock mb) {
+	public PageMultiblock(String unlocalizedName, MultiblockSet set) {
 		super(unlocalizedName);
-		this.mb = mb;
-	}
-
-	public PageMultiblock(String unlocalizedName, MultiblockSet mb) {
-		this(unlocalizedName, mb.getForIndex(0));
+		this.mb = set.getForIndex(0);
+		this.set = set;
 	}
 	
 	@Override
@@ -110,8 +105,12 @@ public class PageMultiblock extends LexiconPage {
 	
 	@Override
 	public void onOpened(IGuiLexiconEntry gui) {
-		button = new GuiButton(101, gui.getLeft() + 30, gui.getTop() + gui.getHeight() - 50, gui.getWidth() - 60, 20, StatCollector.translateToLocal("botaniamisc.visualize"));
+		button = new GuiButton(101, gui.getLeft() + 30, gui.getTop() + gui.getHeight() - 50, gui.getWidth() - 60, 20, getButtonStr());
 		gui.getButtonList().add(button);
+	}
+	
+	String getButtonStr() {
+		return StatCollector.translateToLocal(MultiblockRenderHandler.currentMultiblock == set ? "botaniamisc.unvisualize" : "botaniamisc.visualize");
 	}
 
 	@Override
@@ -123,7 +122,10 @@ public class PageMultiblock extends LexiconPage {
 	@SideOnly(Side.CLIENT)
 	public void onActionPerformed(IGuiLexiconEntry gui, GuiButton button) {
 		if(button == this.button) {
-			// TODO
+			if(MultiblockRenderHandler.currentMultiblock == set)
+				MultiblockRenderHandler.setMultiblock(null);
+			else MultiblockRenderHandler.setMultiblock(set);
+			button.displayString = getButtonStr();
 		}
 	}
 	

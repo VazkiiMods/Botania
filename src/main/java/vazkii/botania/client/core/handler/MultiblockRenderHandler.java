@@ -33,12 +33,21 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public final class MultiblockRenderHandler {
 
-	RenderBlocks blockRender = new RenderBlocks();
-	MultiblockSet currentMultiblock;
-	ChunkCoordinates anchor;
-	int angle;
-	int blocksPlaced;
+	public static boolean rendering = false;
+	
+	private static RenderBlocks blockRender = RenderBlocks.getInstance();
+	public static MultiblockSet currentMultiblock;
+	public static ChunkCoordinates anchor;
+	public static int angle;
+	public static int blocksPlaced;
 
+	public static void setMultiblock(MultiblockSet set) {
+		currentMultiblock = set;
+		anchor = null;
+		angle = 0;
+		blocksPlaced = 0;
+	}
+	
 	@SubscribeEvent
 	public void onWorldRenderLast(RenderWorldLastEvent event) {
 		Minecraft mc = Minecraft.getMinecraft();
@@ -50,9 +59,11 @@ public final class MultiblockRenderHandler {
 
 	private void renderPlayerLook(EntityPlayer player, MovingObjectPosition src) {
 		if(currentMultiblock != null) {
+			rendering = true;
 			Multiblock mb = currentMultiblock.getForEntity(player);
 			for(MultiblockComponent comp : mb.getComponents())
 				renderComponent(player.worldObj, mb, comp, src);
+			rendering = false;
 		}
 	}
 

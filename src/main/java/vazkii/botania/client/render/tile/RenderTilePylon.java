@@ -22,6 +22,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.core.handler.MultiblockRenderHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.IPylonModel;
@@ -53,7 +54,8 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			GL11.glColor4f(1F, 1F, 1F, 1F);
+			float a = MultiblockRenderHandler.rendering ? 0.6F : 1F;
+			GL11.glColor4f(1F, 1F, 1F, a);
 			if(tileentity.getWorldObj() != null) {
 				green = tileentity.getBlockMetadata() == 1;
 				pink = tileentity.getBlockMetadata() == 2;
@@ -105,14 +107,14 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 			GL11.glDisable(GL11.GL_CULL_FACE);
 			model.renderCrystal();
 
-			GL11.glColor4f(1F, 1F, 1F, 1F);
+			GL11.glColor4f(1F, 1F, 1F, a);
 			if(!ShaderHelper.useShaders()) {
 				int light = 15728880;
 				int lightmapX = light % 65536;
 				int lightmapY = light / 65536;
 				OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
 				float alpha = (float) ((Math.sin(worldTime / 20D) / 2D + 0.5) / (ConfigHandler.oldPylonModel ? 1D : 2D));
-				GL11.glColor4f(1F, 1F, 1F, alpha + 0.183F);
+				GL11.glColor4f(1F, 1F, 1F, a * (alpha + 0.183F));
 			}
 
 			GL11.glDisable(GL11.GL_ALPHA_TEST);

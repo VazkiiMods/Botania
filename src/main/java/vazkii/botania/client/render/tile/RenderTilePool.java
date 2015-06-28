@@ -27,6 +27,7 @@ import org.lwjgl.opengl.GL12;
 
 import vazkii.botania.api.mana.IPoolOverlayProvider;
 import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.core.handler.MultiblockRenderHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelPool;
@@ -50,8 +51,10 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 		TilePool pool = (TilePool) tileentity;
 
 		GL11.glPushMatrix();
+		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		float a = MultiblockRenderHandler.rendering ? 0.6F : 1F;
+		GL11.glColor4f(1F, 1F, 1F, a);
 		GL11.glTranslated(d0, d1, d2);
 		boolean inf = tileentity.getWorldObj() == null ? forceMeta == 1 : tileentity.getBlockMetadata() == 1;
 		boolean dil = tileentity.getWorldObj() == null ? forceMeta == 2 : tileentity.getBlockMetadata() == 2;
@@ -62,9 +65,9 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 		GL11.glScalef(1F, -1F, -1F);
 		int color = pool.color;
 		float[] acolor = EntitySheep.fleeceColorTable[color];
-		GL11.glColor3f(acolor[0], acolor[1], acolor[2]);
+		GL11.glColor4f(acolor[0], acolor[1], acolor[2], a);
 		model.render();
-		GL11.glColor3f(1F, 1F, 1F);
+		GL11.glColor4f(1F, 1F, 1F, a);
 		GL11.glScalef(1F, -1F, -1F);
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 
@@ -94,7 +97,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 					GL11.glEnable(GL11.GL_BLEND);
 					GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 					GL11.glDisable(GL11.GL_ALPHA_TEST);
-					GL11.glColor4f(1F, 1F, 1F, (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 20.0) + 1) * 0.3 + 0.2));
+					GL11.glColor4f(1F, 1F, 1F, a * (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 20.0) + 1) * 0.3 + 0.2));
 					GL11.glTranslatef(-0.5F, -1F - 0.43F, -0.5F);
 					GL11.glRotatef(90F, 1F, 0F, 0F);
 					GL11.glScalef(s, s, s);
@@ -114,7 +117,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			GL11.glDisable(GL11.GL_ALPHA_TEST);
-			GL11.glColor4f(1F, 1F, 1F, 1F);
+			GL11.glColor4f(1F, 1F, 1F, a);
 			GL11.glTranslatef(w, -1F - (0.43F - waterLevel), w);
 			GL11.glRotatef(90F, 1F, 0F, 0F);
 			GL11.glScalef(s, s, s);

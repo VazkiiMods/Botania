@@ -116,6 +116,7 @@ botaniamisc.locked=Locked
 botaniamisc.stopped=Stopped
 botaniamisc.lockedStopped=Locked, Stopped
 botaniamisc.visualize=Visualize
+botaniamisc.unvisualize=Unvisualize
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
