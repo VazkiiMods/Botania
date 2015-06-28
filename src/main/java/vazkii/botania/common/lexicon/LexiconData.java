@@ -89,6 +89,7 @@ public final class LexiconData {
 	public static LexiconEntry rfGenerator;
 	public static LexiconEntry prism;
 	public static LexiconEntry poolCart;
+	public static LexiconEntry sparkChanger;
 
 	public static LexiconEntry functionalIntro;
 	public static LexiconEntry flowerShrinking;
@@ -398,6 +399,9 @@ public final class LexiconData {
 		poolCart = new BLexiconEntry(LibLexicon.MANA_POOL_CART, categoryMana);
 		poolCart.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipePoolCart), new PageCraftingRecipe("4", ModCraftingRecipes.recipePump));
 
+		sparkChanger = new ALexiconEntry(LibLexicon.MANA_SPARK_CHANGER, categoryMana);
+		sparkChanger.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeSparkChanger));
+		
 		// FUNCTIONAL FLOWERS ENTRIES
 		functionalIntro = new BLexiconEntry(LibLexicon.FFLOWER_INTRO, categoryFunctionalFlowers);
 		functionalIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageText("3"), new PageCraftingRecipe("4", ModCraftingRecipes.recipeRedstoneRoot)).setIcon(null);;

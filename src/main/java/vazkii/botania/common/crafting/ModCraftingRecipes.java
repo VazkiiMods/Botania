@@ -263,6 +263,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeHourglass;
 	public static IRecipe recipeGhostRail;
 	public static IRecipe recipeCanopyDrum;
+	public static IRecipe recipeSparkChanger;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1764,6 +1765,14 @@ public final class ModCraftingRecipes {
 				'L', new ItemStack(Items.leather),
 				'H', new ItemStack(ModItems.grassHorn, 1, 1));
 		recipeCanopyDrum = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Spark Changer Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.sparkChanger), 
+				"ESE", "SRS",
+				'S', LibOreDict.LIVING_ROCK,
+				'E', LibOreDict.ELEMENTIUM,
+				'R', new ItemStack(Items.redstone));
+		recipeSparkChanger = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Storage Block/Nugget Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

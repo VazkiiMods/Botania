@@ -11,6 +11,7 @@
 package vazkii.botania.common.block.tile;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import net.minecraft.item.ItemStack;
@@ -52,6 +53,9 @@ public class TileSparkChanger extends TileSimpleInventory {
 			ItemStack sparkStack = upg == 0 ? null : new ItemStack(ModItems.sparkUpgrade, 1, upg - 1);
 			int newUpg = changeStack == null ? 0 : changeStack.getItemDamage() + 1;
 			spark.setUpgrade(newUpg);
+			Collection transfers = spark.getTransfers();
+			if(transfers != null)
+				transfers.clear();
 			setInventorySlotContents(0, sparkStack);
 			markDirty();
 		}

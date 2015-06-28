@@ -318,7 +318,6 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	@Override
 	public Collection<ISparkEntity> getTransfers() {
 		Collection<ISparkEntity> removals = new ArrayList();
-		new NBTTagList();
 
 		for(ISparkEntity e : transfers) {
 			ISparkEntity spark = e;
