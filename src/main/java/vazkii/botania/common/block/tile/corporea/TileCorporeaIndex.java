@@ -20,6 +20,7 @@ import java.util.WeakHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -32,6 +33,7 @@ import net.minecraftforge.event.ServerChatEvent;
 import org.apache.commons.lang3.text.WordUtils;
 
 import vazkii.botania.api.corporea.CorporeaHelper;
+import vazkii.botania.api.corporea.ICorporeaAutoCompleteController;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.MathHelper;
@@ -213,8 +215,12 @@ public class TileCorporeaIndex extends TileCorporeaBase {
 		}
 	}
 
-	public static final class InputHandler {
+	public static final class InputHandler implements ICorporeaAutoCompleteController {
 
+		public InputHandler() {
+			CorporeaHelper.registerAutoCompleteController(this);
+		}
+		
 		@SubscribeEvent(priority = EventPriority.HIGHEST)
 		public void onChatMessage(ServerChatEvent event) {
 			List<TileCorporeaIndex> nearbyIndexes = getNearbyIndexes(event.player);
@@ -268,6 +274,11 @@ public class TileCorporeaIndex extends TileCorporeaBase {
 				if(isInRangeOfIndex(player, index) && index.worldObj.isRemote == player.worldObj.isRemote)
 					indexList.add(index);
 			return indexList;
+		}
+
+		@Override
+		public boolean shouldAutoComplete() {
+			return !getNearbyIndexes(Minecraft.getMinecraft().thePlayer).isEmpty();
 		}
 
 	}

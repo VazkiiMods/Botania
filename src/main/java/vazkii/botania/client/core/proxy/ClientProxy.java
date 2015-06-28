@@ -43,6 +43,7 @@ import vazkii.botania.client.core.handler.BaubleRenderHandler;
 import vazkii.botania.client.core.handler.BotaniaPlayerController;
 import vazkii.botania.client.core.handler.BoundTileRenderer;
 import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.core.handler.CorporeaAutoCompleteHandler;
 import vazkii.botania.client.core.handler.DebugHandler;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.handler.LightningHandler;
@@ -151,6 +152,7 @@ import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class ClientProxy extends CommonProxy {
@@ -178,6 +180,7 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new DebugHandler());
 		MinecraftForge.EVENT_BUS.register(new SubTileRadiusRenderHandler());
 		MinecraftForge.EVENT_BUS.register(new MultiblockRenderHandler());
+		FMLCommonHandler.instance().bus().register(new CorporeaAutoCompleteHandler());
 
 		if(ConfigHandler.versionCheckEnabled)
 			new VersionChecker().init();
@@ -195,6 +198,11 @@ public class ClientProxy extends CommonProxy {
 			FMLLog.severe("Botania's Presistant Variables couldn't load!");
 			e.printStackTrace();
 		}
+	}
+	@Override
+	public void postInit(FMLPostInitializationEvent event) {
+		super.postInit(event);
+		CorporeaAutoCompleteHandler.updateItemList();
 	}
 
 	private void initRenderers() {
