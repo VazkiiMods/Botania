@@ -10,16 +10,15 @@
  */
 package vazkii.botania.common.block;
 
-import vazkii.botania.api.lexicon.multiblock.Multiblock;
-import vazkii.botania.api.lexicon.multiblock.MultiblockComponent;
+import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
 import vazkii.botania.common.block.tile.TileEnchanter;
 
 public final class ModMultiblocks {
 
-	public static Multiblock[] enchanter; 
+	public static MultiblockSet enchanter; 
 	
 	public static void init() {
-		enchanter = TileEnchanter.makeMultiblockInstance();
+		enchanter = TileEnchanter.makeMultiblockSet();
 	}
 	
 }

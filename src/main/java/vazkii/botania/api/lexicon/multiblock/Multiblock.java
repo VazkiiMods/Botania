@@ -82,4 +82,12 @@ public class Multiblock {
 		return blocks;
 	}
 	
+	/**
+	 * Makes a MultiblockSet from this Multiblock and its rotations using
+	 * createRotations().
+	 */
+	public MultiblockSet makeSet() {
+		return new MultiblockSet(this);
+	}
+	
 }

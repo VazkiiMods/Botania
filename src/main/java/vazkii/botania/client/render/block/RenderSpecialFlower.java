@@ -16,9 +16,11 @@ import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import vazkii.botania.api.lexicon.multiblock.IMultiblockRenderHook;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
-public class RenderSpecialFlower implements ISimpleBlockRenderingHandler {
+public class RenderSpecialFlower implements ISimpleBlockRenderingHandler, IMultiblockRenderHook {
 
 	int id;
 
@@ -67,17 +69,17 @@ public class RenderSpecialFlower implements ISimpleBlockRenderingHandler {
 		d2 += (sh >> 32 & 15L) / 15.0F * -0.15D;
 		d0 += ((sh >> 24 & 15L) / 15.0F - 0.5D) * 0.3D;
 
-		drawCrossedSquares(blockAccess, par1Block, par2, par3, par4, d1, d2, d0, 1.0F, render);
+
+		// Only change here, to use xyz rather than side/meta
+		IIcon icon = render.getBlockIcon(par1Block, blockAccess, par2, par3, par4, 0);
+		drawCrossedSquares(blockAccess, par1Block, icon, par2, par3, par4, d1, d2, d0, 1.0F, render);
 
 		return true;
 	}
 
 	// Copied from RenderBlocks
-	public static void drawCrossedSquares(IBlockAccess blockAccess, Block par1Block, int x, int y, int z, double par3, double par5, double par7, float par9, RenderBlocks render) {
+	public static void drawCrossedSquares(IBlockAccess blockAccess, Block par1Block, IIcon icon, int x, int y, int z, double par3, double par5, double par7, float par9, RenderBlocks render) {
 		Tessellator tessellator = Tessellator.instance;
-
-		// Only change here, to use xyz rather than side/meta
-		IIcon icon = render.getBlockIcon(par1Block, blockAccess, x, y, z, 0);
 
 		double d3 = icon.getMinU();
 		double d4 = icon.getMinV();
@@ -114,6 +116,14 @@ public class RenderSpecialFlower implements ISimpleBlockRenderingHandler {
 	@Override
 	public boolean shouldRender3DInInventory(int modelId) {
 		return false;
+	}
+
+	@Override
+	public void renderBlockForMultiblock(World world, Block block, int meta, RenderBlocks renderBlocks) {
+		Tessellator tess = Tessellator.instance;
+		tess.startDrawingQuads();
+		drawCrossedSquares(world, block, block.getIcon(0, meta), 0, 0, 0, -0.5, 0.5, -0.5, 1F, renderBlocks);
+		tess.draw();
 	}
 
 }

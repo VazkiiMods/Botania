@@ -23,6 +23,7 @@ import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
@@ -35,6 +36,7 @@ import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.item.IBurstViewerBauble;
 import vazkii.botania.api.item.IExtendedPlayerController;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.lexicon.multiblock.IMultiblockRenderHook;
 import vazkii.botania.api.wiki.IWikiProvider;
 import vazkii.botania.api.wiki.WikiHooks;
 import vazkii.botania.client.core.handler.BaubleRenderHandler;
@@ -44,6 +46,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.DebugHandler;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.handler.LightningHandler;
+import vazkii.botania.client.core.handler.MultiblockRenderHandler;
 import vazkii.botania.client.core.handler.PresistantVariableHelper;
 import vazkii.botania.client.core.handler.SubTileRadiusRenderHandler;
 import vazkii.botania.client.core.handler.TooltipHandler;
@@ -174,10 +177,10 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new BaubleRenderHandler());
 		MinecraftForge.EVENT_BUS.register(new DebugHandler());
 		MinecraftForge.EVENT_BUS.register(new SubTileRadiusRenderHandler());
+		MinecraftForge.EVENT_BUS.register(new MultiblockRenderHandler());
 
 		if(ConfigHandler.versionCheckEnabled)
 			new VersionChecker().init();
-
 
 		// Jingle bells jingle bells
 		Calendar calendar = Calendar.getInstance();
@@ -211,8 +214,9 @@ public class ClientProxy extends CommonProxy {
 		LibRenderIDs.idIncensePlate = RenderingRegistry.getNextAvailableRenderId();
 		LibRenderIDs.idHourglass = RenderingRegistry.getNextAvailableRenderId();
 
+		RenderSpecialFlower specialFlowerRender = new RenderSpecialFlower(LibRenderIDs.idSpecialFlower);
 		RenderingRegistry.registerBlockHandler(new RenderAltar());
-		RenderingRegistry.registerBlockHandler(new RenderSpecialFlower(LibRenderIDs.idSpecialFlower));
+		RenderingRegistry.registerBlockHandler(specialFlowerRender);
 		RenderingRegistry.registerBlockHandler(new RenderSpreader());
 		RenderingRegistry.registerBlockHandler(new RenderPool());
 		RenderingRegistry.registerBlockHandler(new RenderPylon());
@@ -227,6 +231,9 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerBlockHandler(new RenderIncensePlate());
 		RenderingRegistry.registerBlockHandler(new RenderHourglass());
 
+		IMultiblockRenderHook.renderHooks.put(ModBlocks.flower, specialFlowerRender);
+		IMultiblockRenderHook.renderHooks.put(ModBlocks.shinyFlower, specialFlowerRender);
+		
 		RenderTransparentItem renderTransparentItem = new RenderTransparentItem();
 		RenderFloatingFlowerItem renderFloatingFlower = new RenderFloatingFlowerItem();
 		RenderBow renderBow = new RenderBow();
@@ -278,7 +285,7 @@ public class ClientProxy extends CommonProxy {
 
 		ShaderHelper.initShaders();
 	}
-
+	
 	@Override
 	@Optional.Method(modid = "NotEnoughItems")
 	public void registerNEIStuff() {
