@@ -40,12 +40,14 @@ import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class TileCorporeaIndex extends TileCorporeaBase {
 
 	public static final double RADIUS = 2.5;
 
-	public static final InputHandler input = new InputHandler();
+	private static InputHandler input;
 	public static final Set<TileCorporeaIndex> indexes = Collections.newSetFromMap(new WeakHashMap());
 
 	private static final Map<Pattern, IRegexStacker> patterns = new LinkedHashMap();
@@ -215,6 +217,12 @@ public class TileCorporeaIndex extends TileCorporeaBase {
 		}
 	}
 
+	public static InputHandler getInputHandler() {
+		if(input == null)
+			input = new InputHandler();
+		return input;
+	}
+	
 	public static final class InputHandler implements ICorporeaAutoCompleteController {
 
 		public InputHandler() {
@@ -277,6 +285,7 @@ public class TileCorporeaIndex extends TileCorporeaBase {
 		}
 
 		@Override
+		@SideOnly(Side.CLIENT)
 		public boolean shouldAutoComplete() {
 			return !getNearbyIndexes(Minecraft.getMinecraft().thePlayer).isEmpty();
 		}

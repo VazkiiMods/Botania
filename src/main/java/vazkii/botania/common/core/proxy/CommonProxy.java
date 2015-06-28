@@ -111,7 +111,7 @@ public class CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new SheddingHandler());
 		MinecraftForge.EVENT_BUS.register(new SpawnerChangingHandler());
 		MinecraftForge.EVENT_BUS.register(new SubTileNarslimmus.SpawnIntercepter());
-		MinecraftForge.EVENT_BUS.register(TileCorporeaIndex.input);
+		MinecraftForge.EVENT_BUS.register(TileCorporeaIndex.getInputHandler());
 
 		FMLCommonHandler.instance().bus().register(new CommonTickHandler());
 
