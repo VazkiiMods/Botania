@@ -55,11 +55,11 @@ public final class MultiblockRenderHandler {
 		if(currentMultiblock != null) {
 			Multiblock mb = currentMultiblock.getForEntity(player);
 			for(MultiblockComponent comp : mb.getComponents())
-				renderComponent(player.worldObj, comp, src);
+				renderComponent(player.worldObj, mb, comp, src);
 		}
 	}
 
-	private void renderComponent(World world, MultiblockComponent comp, MovingObjectPosition src) {
+	private void renderComponent(World world, Multiblock mb, MultiblockComponent comp, MovingObjectPosition src) {
 		ChunkCoordinates pos = comp.getRelativePosition();
 		GL11.glPushMatrix();
 		GL11.glEnable(GL11.GL_BLEND);
@@ -71,7 +71,7 @@ public final class MultiblockRenderHandler {
 		blockRender.useInventoryTint = false;
 		Block block = comp.getBlock();
 		if(IMultiblockRenderHook.renderHooks.containsKey(block))
-			IMultiblockRenderHook.renderHooks.get(block).renderBlockForMultiblock(world, block, comp.getMeta(), blockRender);
+			IMultiblockRenderHook.renderHooks.get(block).renderBlockForMultiblock(world, mb, block, comp.getMeta(), blockRender);
 		else blockRender.renderBlockAsItem(comp.getBlock(), comp.getMeta(), 1F);
 
 		GL11.glPopMatrix();

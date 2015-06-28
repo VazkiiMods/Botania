@@ -18,6 +18,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.multiblock.IMultiblockRenderHook;
+import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class RenderSpecialFlower implements ISimpleBlockRenderingHandler, IMultiblockRenderHook {
@@ -119,7 +120,7 @@ public class RenderSpecialFlower implements ISimpleBlockRenderingHandler, IMulti
 	}
 
 	@Override
-	public void renderBlockForMultiblock(World world, Block block, int meta, RenderBlocks renderBlocks) {
+	public void renderBlockForMultiblock(IBlockAccess world, Multiblock mb, Block block, int meta, RenderBlocks renderBlocks) {
 		Tessellator tess = Tessellator.instance;
 		tess.startDrawingQuads();
 		drawCrossedSquares(world, block, block.getIcon(0, meta), 0, 0, 0, -0.5, 0.5, -0.5, 1F, renderBlocks);
