@@ -10,20 +10,28 @@
  */
 package vazkii.botania.common.lexicon.page;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
@@ -67,7 +75,7 @@ public class PageMultiblock extends LexiconPage {
 		
 		final float maxX = 90, maxY = 60;
 		GL11.glPushMatrix();
-		GL11.glTranslatef(gui.getLeft() + gui.getWidth() / 2, gui.getTop() + 90, gui.getZLevel() + 500F);
+		GL11.glTranslatef(gui.getLeft() + gui.getWidth() / 2, gui.getTop() + 90, gui.getZLevel() + 100F);
 
 		float diag = (float) Math.sqrt(mb.getXSize() * mb.getXSize() + mb.getZSize() * mb.getZSize());
 		float height = mb.getYSize();
@@ -91,6 +99,30 @@ public class PageMultiblock extends LexiconPage {
 		font.setUnicodeFlag(true);
 		font.drawString(s, gui.getLeft() + gui.getWidth() / 2 - font.getStringWidth(s) / 2, gui.getTop() + 16, 0x000000);
 		font.setUnicodeFlag(unicode);
+		
+		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+		RenderHelper.enableGUIStandardItemLighting();
+		int x = gui.getLeft() + 15;
+		int y = gui.getTop() + 25;
+		RenderItem.getInstance().renderItemIntoGUI(font, render, new ItemStack(Blocks.stonebrick), x, y);
+		RenderHelper.disableStandardItemLighting();
+		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+		
+		GL11.glPushMatrix();
+		GL11.glTranslatef(0F, 0F, 200F);
+		if(mx >= x && mx < x + 16 && my >= y && my < y + 16) {
+			List<String> mats = new ArrayList();
+			mats.add(StatCollector.translateToLocal("botaniamisc.materialsRequired"));
+			for(ItemStack stack : mb.materials) {
+				String size = "" + stack.stackSize;
+				if(size.length() < 2)
+					size = "0" + size;
+				mats.add(" " + EnumChatFormatting.AQUA + size + " " + EnumChatFormatting.GRAY + stack.getDisplayName());
+			}
+				
+			vazkii.botania.client.core.helper.RenderHelper.renderTooltip(mx, my, mats);
+		}
+		GL11.glPopMatrix();
 	}
 
 	public void renderBlock(Block block, int meta, int x, int y, int z) {

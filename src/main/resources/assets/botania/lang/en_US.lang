@@ -119,6 +119,7 @@ botaniamisc.visualize=Visualize
 botaniamisc.unvisualize=Unvisualize
 botaniamisc.rightClickToAnchor=Right click any block to anchor this Structure Preview to it
 botaniamisc.structureComplete=Structure Complete!
+botaniamisc.materialsRequired=Materials Required
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery

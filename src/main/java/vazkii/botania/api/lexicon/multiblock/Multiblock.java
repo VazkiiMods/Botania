@@ -13,12 +13,10 @@ package vazkii.botania.api.lexicon.multiblock;
 import java.util.ArrayList;
 import java.util.List;
 
-import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
-
-import com.sun.org.apache.xpath.internal.operations.Mult;
-
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
+import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 
 /**
  * This class describes a Mutiblock object. It's used to display a
@@ -28,6 +26,7 @@ import net.minecraft.util.ChunkCoordinates;
 public class Multiblock {
 	
 	public List<MultiblockComponent> components = new ArrayList();
+	public List<ItemStack> materials = new ArrayList();
 	
 	public int minX, minY, minZ, maxX, maxY, maxZ, offX, offY, offZ;
 	
@@ -38,6 +37,7 @@ public class Multiblock {
 	public void addComponent(MultiblockComponent component) {
 		components.add(component);
 		changeAxisForNewComponent(component.relPos.posX, component.relPos.posY, component.relPos.posZ);
+		calculateCostForNewComponent(component);
 	}
 
 	/**
@@ -63,6 +63,26 @@ public class Multiblock {
 			minZ = z;
 		else if(z > maxZ)
 			maxZ = z;
+	}
+	
+	private void calculateCostForNewComponent(MultiblockComponent comp) {
+		ItemStack[] materials = comp.getMaterials();
+		if(materials != null)
+			for(ItemStack stack : materials)
+				addStack(stack);
+	}
+	
+	private void addStack(ItemStack stack) {
+		if(stack == null)
+			return;
+		
+		for(ItemStack oStack : materials)
+			if(oStack.isItemEqual(stack) && ItemStack.areItemStackTagsEqual(oStack, stack)) {
+				oStack.stackSize += stack.stackSize;
+				return;
+			}
+				
+		materials.add(stack);
 	}
 	
 	public void setRenderOffset(int x, int y, int z) {

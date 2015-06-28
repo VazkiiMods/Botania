@@ -11,10 +11,9 @@
 package vazkii.botania.api.lexicon.multiblock.component;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * A component of a multiblock, the normal one
@@ -46,6 +45,10 @@ public class MultiblockComponent {
 	
 	public boolean matches(World world, int x, int y, int z) {
 		return world.getBlock(x, y, z) == getBlock() && (meta == -1 || world.getBlockMetadata(x, y, z) == meta);
+	}
+	
+	public ItemStack[] getMaterials() {
+		return new ItemStack[] { new ItemStack(block, 1, meta) };
 	}
 	
 	public void rotate(double angle) {
