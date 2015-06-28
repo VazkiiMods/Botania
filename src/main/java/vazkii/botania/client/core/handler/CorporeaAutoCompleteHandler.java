@@ -100,7 +100,7 @@ public class CorporeaAutoCompleteHandler {
 			return;
 		
 		GuiTextField inputField = ReflectionHelper.getPrivateValue(GuiChat.class, chat, LibObfuscation.INPUT_FIELD);
-		if(!isAutoCompleted && GuiScreen.isShiftKeyDown())
+		if(!isAutoCompleted)
 			buildAutoCompletes(inputField, chat);
 		if(isAutoCompleted && !completions.isEmpty())
 			advanceAutoComplete(inputField, chat);
