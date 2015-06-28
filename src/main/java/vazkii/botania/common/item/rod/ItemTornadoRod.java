@@ -31,6 +31,7 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem {
 
 	private static final int FLY_TIME = 20;
 	private static final int FALL_MULTIPLIER = 3;
+	private static final int MAX_DAMAGE = FLY_TIME * FALL_MULTIPLIER;
 	private static final int COST = 350;
 
 	private static final String TAG_FLYING = "flying";
@@ -38,7 +39,7 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem {
 	IIcon iconIdle, iconFlying;
 
 	public ItemTornadoRod() {
-		setMaxDamage(FLY_TIME * FALL_MULTIPLIER);
+		setMaxDamage(MAX_DAMAGE);
 		setUnlocalizedName(LibItemNames.TORNADO_ROD);
 		setMaxStackSize(1);
 	}
@@ -47,15 +48,32 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem {
 	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
 		if(par3Entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) par3Entity;
-			ItemStack itemInUse = ReflectionHelper.getPrivateValue(EntityPlayer.class, player, LibObfuscation.ITEM_IN_USE);
+			ItemStack itemInUse = player.getCurrentEquippedItem();
 			boolean damaged = par1ItemStack.getItemDamage() > 0;
 
-			if(itemInUse != par1ItemStack) {
-				if(damaged)
-					par1ItemStack.setItemDamage(par1ItemStack.getItemDamage() - 1);
+			if(damaged && !isFlying(par1ItemStack))
+				par1ItemStack.setItemDamage(par1ItemStack.getItemDamage() - 1);
+			
+			if(itemInUse != par1ItemStack)
 				setFlying(par1ItemStack, false);
+			else {
+				int max = FALL_MULTIPLIER * FLY_TIME;
+				if(par1ItemStack.getItemDamage() >= max) {
+					setFlying(par1ItemStack, false);
+					player.stopUsingItem();
+				} else if(isFlying(par1ItemStack)) {
+					player.fallDistance = 0F;
+					player.motionY = 1.25;
+					par1ItemStack.setItemDamage(Math.min(max, par1ItemStack.getItemDamage() + FALL_MULTIPLIER));
+					System.out.println(par1ItemStack.getItemDamage());
+					if(par1ItemStack.getItemDamage() == MAX_DAMAGE)
+						setFlying(par1ItemStack, false);
+					player.worldObj.playSoundAtEntity(player, "botania:airRod", 0.1F, 0.25F);
+					for(int i = 0; i < 5; i++)
+						Botania.proxy.wispFX(player.worldObj, player.posX, player.posY, player.posZ, 0.25F, 0.25F, 0.25F, 0.35F + (float) Math.random() * 0.1F, 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
+				}
 			}
-
+		
 			if(damaged)
 				player.fallDistance = 0;
 		}
@@ -72,30 +90,12 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem {
 			}
 		}
 
-
 		return par1ItemStack;
 	}
 
 	@Override
 	public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {
-		int max = FALL_MULTIPLIER * FLY_TIME;
-		if(stack.getItemDamage() >= max) {
-			setFlying(stack, false);
-			player.stopUsingItem();
-		} else if(isFlying(stack)) {
-			player.fallDistance = 0F;
-			player.motionY = 1.25;
-			stack.setItemDamage(Math.min(max, stack.getItemDamage() + FALL_MULTIPLIER));
-			player.worldObj.playSoundAtEntity(player, "botania:airRod", 0.1F, 0.25F);
-			for(int i = 0; i < 5; i++)
-				Botania.proxy.wispFX(player.worldObj, player.posX, player.posY, player.posZ, 0.25F, 0.25F, 0.25F, 0.35F + (float) Math.random() * 0.1F, 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
-		}
-	}
 
-	@Override
-	public ItemStack onEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		setFlying(par1ItemStack, false);
-		return par1ItemStack;
 	}
 
 	@Override
