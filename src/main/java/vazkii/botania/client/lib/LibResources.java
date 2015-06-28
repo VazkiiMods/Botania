@@ -36,6 +36,7 @@ public final class LibResources {
 	public static final String GUI_TERRASTEEL_OVERLAY = PREFIX_GUI + "terrasteelOverlay.png";
 	public static final String GUI_ELVEN_TRADE_OVERLAY = PREFIX_GUI + "elvenTradeOverlay.png";
 	public static final String GUI_SHEDDING_OVERLAY = PREFIX_GUI + "sheddingOverlay.png";
+	public static final String GUI_MULTIBLOCK_OVERLAY = PREFIX_GUI + "multiblockOverlay.png";
 	public static final String GUI_CREATIVE = "botania.png";
 	public static final String GUI_TOFF = PREFIX_GUI + "toff.png";
 	public static final String GUI_BOSS_BAR = PREFIX_GUI + "bossBar.png";
@@ -50,18 +51,8 @@ public final class LibResources {
 	public static final String ENTRY_SPREADER = PREFIX_ENTRIES + "spreader.png";
 	public static final String ENTRY_UNSTABLE_BLOCK = PREFIX_ENTRIES + "unstableBlock.png";
 	public static final String ENTRY_UNSTABLE_BEACON = PREFIX_ENTRIES + "unstableBeacon.png";
-	public static final String ENTRY_ENCHANTER0 = PREFIX_ENTRIES + "enchanter0.png";
-	public static final String ENTRY_ENCHANTER1 = PREFIX_ENTRIES + "enchanter1.png";
-	public static final String ENTRY_ENCHANTER2 = PREFIX_ENTRIES + "enchanter2.png";
-	public static final String ENTRY_ENCHANTER3 = PREFIX_ENTRIES + "enchanter3.png";
 	public static final String ENTRY_BAUBLES = PREFIX_ENTRIES + "baubles.png";
-	public static final String ENTRY_PORTAL0 = PREFIX_ENTRIES + "portal0.png";
-	public static final String ENTRY_PORTAL1 = PREFIX_ENTRIES + "portal1.png";
-	public static final String ENTRY_PORTAL2 = PREFIX_ENTRIES + "portal2.png";
-	public static final String ENTRY_PORTAL3 = PREFIX_ENTRIES + "portal3.png";
-	public static final String ENTRY_PORTAL4 = PREFIX_ENTRIES + "portal4.png";
 	public static final String ENTRY_ELVEN_GARDE = PREFIX_ENTRIES + "elvenGarde.png";
-	public static final String ENTRY_GAIA_RITUAL = PREFIX_ENTRIES + "gaiaRitual.png";
 	public static final String ENTRY_DIMINISHING_RETURNS = PREFIX_ENTRIES + "diminishingReturns.png";
 	public static final String ENTRY_HYDROANGEAS = PREFIX_ENTRIES + "hydroangeas.png";
 	public static final String ENTRY_CRAFT_CRATE = PREFIX_ENTRIES + "craftCrate.png";

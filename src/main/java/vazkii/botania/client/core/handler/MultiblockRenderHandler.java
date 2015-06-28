@@ -49,9 +49,6 @@ public final class MultiblockRenderHandler {
 	}
 
 	private void renderPlayerLook(EntityPlayer player, MovingObjectPosition src) {
-		//if(currentMultiblock == null) // TODO Remove debug
-			currentMultiblock = ModMultiblocks.gaiaRitual;
-
 		if(currentMultiblock != null) {
 			Multiblock mb = currentMultiblock.getForEntity(player);
 			for(MultiblockComponent comp : mb.getComponents())
@@ -73,7 +70,6 @@ public final class MultiblockRenderHandler {
 		if(IMultiblockRenderHook.renderHooks.containsKey(block))
 			IMultiblockRenderHook.renderHooks.get(block).renderBlockForMultiblock(world, mb, block, comp.getMeta(), blockRender);
 		else blockRender.renderBlockAsItem(comp.getBlock(), comp.getMeta(), 1F);
-
 		GL11.glPopMatrix();
 	}
 

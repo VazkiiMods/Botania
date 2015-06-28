@@ -29,12 +29,15 @@ public class Multiblock {
 	
 	public List<MultiblockComponent> components = new ArrayList();
 	
+	public int minX, minY, minZ, maxX, maxY, maxZ, offX, offY, offZ;
+	
 	/**
 	 * Adds a multiblock component to this multiblock. The component's x y z
 	 * coords should be pivoted to the center of the structure. 
 	 */
 	public void addComponent(MultiblockComponent component) {
 		components.add(component);
+		changeAxisForNewComponent(component.relPos.posX, component.relPos.posY, component.relPos.posZ);
 	}
 
 	/**
@@ -42,7 +45,30 @@ public class Multiblock {
 	 * coords should be pivoted to the center of the structure.
 	 */
 	public void addComponent(int x, int y, int z, Block block, int meta) {
-		components.add(new MultiblockComponent(new ChunkCoordinates(x, y, z), block, meta));
+		addComponent(new MultiblockComponent(new ChunkCoordinates(x, y, z), block, meta));
+	}
+	
+	private void changeAxisForNewComponent(int x, int y, int z) {
+		if(x < minX)
+			minX = x;
+		else if(x > maxX)
+			maxX = x;
+		
+		if(y < minY)
+			minY = y;
+		else if(y > maxY)
+			maxY = y;
+		
+		if(z < minZ)
+			minZ = z;
+		else if(z > maxZ)
+			maxZ = z;
+	}
+	
+	public void setRenderOffset(int x, int y, int z) {
+		offX = x;
+		offY = y;
+		offZ = z;
 	}
 	
 	public List<MultiblockComponent> getComponents() {
@@ -90,6 +116,18 @@ public class Multiblock {
 	 */
 	public MultiblockSet makeSet() {
 		return new MultiblockSet(this);
+	}
+	
+	public int getXSize() {
+		return Math.abs(minX) + Math.abs(maxX) + 1;
+	}
+
+	public int getYSize() {
+		return Math.abs(minY) + Math.abs(maxY) + 1;
+	}
+	
+	public int getZSize() {
+		return Math.abs(minZ) + Math.abs(maxZ) + 1;
 	}
 	
 }

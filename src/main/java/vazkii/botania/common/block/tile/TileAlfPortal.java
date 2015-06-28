@@ -108,7 +108,8 @@ public class TileAlfPortal extends TileMod {
 			mb.addComponent(-p[0], p[1] + 1, -p[2], ModBlocks.pool, 0);
 		
 		mb.addComponent(0, 1, 0, ModBlocks.alfPortal, 0);
-
+		mb.setRenderOffset(0, -1, 0);
+		
 		return mb.makeSet();
 	}
 

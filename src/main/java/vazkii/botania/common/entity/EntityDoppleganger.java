@@ -122,6 +122,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 				mb.addComponent(i - 1, 0, j - 1, Blocks.iron_block, 0);
 		
 		mb.addComponent(0, 1, 0, Blocks.beacon, 0);
+		mb.setRenderOffset(0, -1, 0);
 
 		return mb.makeSet();
 	}

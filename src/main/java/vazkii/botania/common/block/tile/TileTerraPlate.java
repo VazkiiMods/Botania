@@ -55,7 +55,8 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 			mb.addComponent(l[0], 0, l[1], ModBlocks.livingrock, 0);
 		
 		mb.addComponent(0, 1, 0, ModBlocks.terraPlate, 0);
-
+		mb.setRenderOffset(0, 1, 0);
+		
 		return mb.makeSet();
 	}
 	

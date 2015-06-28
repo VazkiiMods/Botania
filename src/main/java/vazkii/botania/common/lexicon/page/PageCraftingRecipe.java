@@ -70,7 +70,6 @@ public class PageCraftingRecipe extends PageRecipe {
 		IRecipe recipe = recipes.get(recipeAt);
 		renderCraftingRecipe(gui, recipe);
 
-
 		TextureManager render = Minecraft.getMinecraft().renderEngine;
 		render.bindTexture(craftingOverlay);
 

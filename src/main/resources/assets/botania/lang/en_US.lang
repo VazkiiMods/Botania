@@ -115,6 +115,7 @@ botaniamisc.hourglassLock=This Hourglass is locked. Right click it with a Wand o
 botaniamisc.locked=Locked
 botaniamisc.stopped=Stopped
 botaniamisc.lockedStopped=Locked, Stopped
+botaniamisc.visualize=Visualize
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
@@ -1490,6 +1491,7 @@ botania.page.terrasteel0=&1Terrasteel&0 is a complex magical alloy, infused with
 botania.page.terrasteel1=Creating the plate
 botania.page.terrasteel2=After the plate is set up and ready to receive &4Mana&0, tossing a single &1Manasteel Ingot, Mana Diamond and Mana Pearl&0 on top of it will begin the infusion.<br>Picking up any of the items will halt the infusion causing severe &4Mana Loss&0. The infusion uses half a &1Mana Pool&0 total to create a single piece of &4Terrasteel&0, multiple &1Sparks&0 would make it go faster, too.
 botania.page.terrasteel3=Creating &1Terrasteel&0 (there's &1Livingrock&0 under the plate)
+botania.page.terrasteel4=T.A. Plate
 
 # -- BLACK LOTUS
 botania.entry.blackLotus=Black Lotus
@@ -1911,15 +1913,12 @@ botania.page.pylon1=&oYou must construct additional pylons!&r
 botania.entry.manaEnchanting=Enchanting with Mana
 botania.page.manaEnchanting0=By utilizing the magical power emitted from &1Mana Pylons&0, a structure that can enchant items with books without consuming them can be created, called the &1Mana Enchanter&0.<br>Constructing one of these requires a fair amount of space and materials alike.
 botania.page.manaEnchanting1=To construct the &1Mana Enchanter&0, one requires, as well as fair amount of space, 17 &1Obsidian&0 blocks, 10 &1Mystical Flowers&0 of any color, 6 &1Mana Pylons&0 and a &1Lapis Lazuli Block&0.<br>The instructions on how to assemble this structure are in the following pages.
-botania.page.manaEnchanting2=Start by making an &1Obsidian&0 circle.
-botania.page.manaEnchanting3=Put &1Mana Pylons&0 1 block in the air where marked.
-botania.page.manaEnchanting4=Put flowers under the pylons and in the center
-botania.page.manaEnchanting5=Place a &1Lapis Lazuli Block&0 in the center.
-botania.page.manaEnchanting6=After the construct is done, right click the Lapis block with a &1Wand of the Forest&0 and the enchanter should form.<br>In order to utilize the enchanter, one would place (via right click) the item to be enchanted in the enchanter itself and drop &1Enchanted Books&0 inside the circle around it.
-botania.page.manaEnchanting7=Items that are already enchanted can't be placed in the enchanter.<br>To start the enchanting, right click the enchanter with a &1Wand of the Forest&0. It'll scan the books around, and once it's done, a spell circle of sorts will appear around it, indicating the books can be safely picked up again.
-botania.page.manaEnchanting8=After the enchanting begins, the enchanter will require &4Mana&0.<br>It can be fed via one of two ways, either via &4Mana Bursts&0 or nearby &1Sparks&0, by placing a &1Spark&0 on top of the enchanter. The later being much faster.
-botania.page.manaEnchanting9=When enough &4Mana&0 is gathered, the enchanting process will finalize, and the enchantments will be applied to the item.<br>The amount of &4Mana&0 required depends on the rarity of the enchantments being applied, their level, and the total amount of enchantments.<br>If any book has more than one enchantment, only the first will be accounted for.
-botania.page.manaEnchanting10=During the enchanting process, the item can not be removed, but it can after the process has been completed.<br>Note that if at any point, any component of the construct is removed, it'll revert to its original &1Lapis Lazuli Block&0 form.
+botania.page.manaEnchanting2=Mana Enchanter
+botania.page.manaEnchanting5=After the construct is done, right click the Lapis block with a &1Wand of the Forest&0 and the enchanter should form.<br>In order to utilize the enchanter, one would place (via right click) the item to be enchanted in the enchanter itself and drop &1Enchanted Books&0 inside the circle around it.
+botania.page.manaEnchanting6=Items that are already enchanted can't be placed in the enchanter.<br>To start the enchanting, right click the enchanter with a &1Wand of the Forest&0. It'll scan the books around, and once it's done, a spell circle of sorts will appear around it, indicating the books can be safely picked up again.
+botania.page.manaEnchanting7=After the enchanting begins, the enchanter will require &4Mana&0.<br>It can be fed via one of two ways, either via &4Mana Bursts&0 or nearby &1Sparks&0, by placing a &1Spark&0 on top of the enchanter. The later being much faster.
+botania.page.manaEnchanting8=When enough &4Mana&0 is gathered, the enchanting process will finalize, and the enchantments will be applied to the item.<br>The amount of &4Mana&0 required depends on the rarity of the enchantments being applied, their level, and the total amount of enchantments.<br>If any book has more than one enchantment, only the first will be accounted for.
+botania.page.manaEnchanting9=During the enchanting process, the item can not be removed, but it can after the process has been completed.<br>Note that if at any point, any component of the construct is removed, it'll revert to its original &1Lapis Lazuli Block&0 form.
 
 # -- SPREADER TURNTABLE
 botania.entry.turntable=Spreader Turntable
@@ -2610,14 +2609,10 @@ botania.page.aIntro0=It's said that once, &4Elves&0 used to share the world with
 botania.page.aIntro1=Creating this portal proves not to be an easy task, as quite a few exquisite resources are necessary. The requirements are as follows: 8 &1Livingwood&0 blocks, 3 &1Glimmering Livingwood&0 blocks, 1 &1Elven Gateway Core&0 (read on), 2 &1Mana Pools&0 and 2 &1Natura Pylons&0 (read on).
 botania.page.aIntro2=Creating the &1Elven Gateway Core&0
 botania.page.aIntro3=Creating &1Natura Pylons&0
-botania.page.aIntro4=Make a frame of &1Livingwood&0
-botania.page.aIntro5=Add &1Glimmering Livingwood&0
-botania.page.aIntro6=Place the &1Elven Gateway Core&0
-botania.page.aIntro7=Add &1Mana Pools&0
-botania.page.aIntro8=Place &1Natura Pylons&0 above the pools
-botania.page.aIntro9=To open up the portal, simply right click the core with a &1Wand of the Forest&0.<br>The portal requires a substantial amount of &4Mana&0 deposited in both the pools to open up, after that, it'll slowly drain some to keep itself powered. If it runs out of &4Mana&0, the connection will be broken.
-botania.page.aIntro10=The amount of &4Mana&0 required to open up the portal is orders of magnitude higher than that to keep it maintained, thus closing the portal to prevent &4Mana&0 loss is a poor strategy.<br>Furthermore, the link isn't strong enough to allow living beings to go through it, but it seems that &4items&0 can.
-botania.page.aIntro11=The amount of information about &1Alfheim&0 stored in this lexicon is limited to this entry alone. Perhaps &4letting the&0 &4Elves have a look at it&0 might prove beneficial.<br>Perhaps they'd also return a good amount of knowledge of their mystical constructs.
+botania.page.aIntro4=Alfheim Portal
+botania.page.aIntro5=To open up the portal, simply right click the core with a &1Wand of the Forest&0.<br>The portal requires a substantial amount of &4Mana&0 deposited in both the pools to open up, after that, it'll slowly drain some to keep itself powered. If it runs out of &4Mana&0, the connection will be broken.
+botania.page.aIntro6=The amount of &4Mana&0 required to open up the portal is orders of magnitude higher than that to keep it maintained, thus closing the portal to prevent &4Mana&0 loss is a poor strategy.<br>Furthermore, the link isn't strong enough to allow living beings to go through it, but it seems that &4items&0 can.
+botania.page.aIntro7=The amount of information about &1Alfheim&0 stored in this lexicon is limited to this entry alone. Perhaps &4letting the&0 &4Elves have a look at it&0 might prove beneficial.<br>Perhaps they'd also return a good amount of knowledge of their mystical constructs.
 
 # -- A MESSAGE FROM ELVEN GARDE
 botania.entry.elfMessage=A Message from Elven Garde
@@ -2648,7 +2643,7 @@ botania.page.elfResources9=Trading for &1Alfglass&0
 botania.entry.gaiaRitual=Ritual of Gaia
 botania.page.gaiaRitual0=The &4Ritual of Gaia&0 is a procedure often enacted by the elves, which is the only way to acquire &1Gaia Spirits&0, which are essences of the power of the Goddess of Gaia herself.<br>This ritual required an &4Active&0 &1Beacon&0 with some &1Gaia Pylons&0 (read on) one level above the beacon as the altar, as well as a single &1Terrasteel Ingot&0 as a sacrifice.
 botania.page.gaiaRitual1=Creating &1Gaia Pylons&0
-botania.page.gaiaRitual2=Place the pylons (1 block above the beacon)
+botania.page.gaiaRitual2=Ritual of Gaia
 botania.page.gaiaRitual3=To start the ritual, simply shift-right click the &1Beacon&0 block with a &1Terrasteel Ingot&0, take a step back and prepare to fight for your life. Good preparation is required, as the fight with the &4Guardian of Gaia&0 can be even harder than that of the &4Wither&0. Upon defeating the &4Guardian&0, one can collect their prize, a handful of &1Spirits of Gaia&0.
 botania.page.gaiaRitual4=The common attire for this ritual is a set of Enchanted &1Elementium Armor&0, a &1Terra Blade&0 and a large assortment of &4Brews&0 and &4Baubles&0.<br>The effect of the &1Beacon&0 is nullified during the battle, so that should be taken in mind. Lastly, staying away from the purple might be a good idea. 
 
