@@ -27,6 +27,7 @@ import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
+import vazkii.botania.api.lexicon.multiblock.IMultiblockRenderHook;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
@@ -98,7 +99,11 @@ public class PageMultiblock extends LexiconPage {
 
 			GL11.glPushMatrix();
 			GL11.glTranslatef(x, y, z);
-			RenderBlocks.getInstance().renderBlockAsItem(block, meta, 0.8F);
+			
+			RenderBlocks blockRender = RenderBlocks.getInstance();
+			if(IMultiblockRenderHook.renderHooks.containsKey(block))
+				IMultiblockRenderHook.renderHooks.get(block).renderBlockForMultiblock(Minecraft.getMinecraft().theWorld, mb, block, meta, blockRender);
+			else blockRender.renderBlockAsItem(block, meta, 0.8F);
 			GL11.glPopMatrix();
 		}
 	}

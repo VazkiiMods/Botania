@@ -528,7 +528,7 @@ public final class LexiconData {
 
 		if(ConfigHandler.enchanterEnabled) {
 			manaEnchanting = new BLexiconEntry(LibLexicon.DEVICE_MANA_ENCHANTING, categoryDevices);
-			manaEnchanting.setLexiconPages(new PageText("0"), new PageText("1"), new PageMultiblock("2", ModMultiblocks.enchanter), new PageText("3"), new PageText("4"), new PageText("5"), new PageText("6"), new PageText("7")).setIcon(new ItemStack(ModBlocks.enchanter));
+			manaEnchanting.setLexiconPages(new PageText("0"), new PageText("1"), new PageMultiblock("2", ModMultiblocks.enchanter), new PageText("5"), new PageText("6"), new PageText("7")).setIcon(new ItemStack(ModBlocks.enchanter));
 		}
 
 		turntable = new BLexiconEntry(LibLexicon.DEVICE_TURNTABLE, categoryDevices);

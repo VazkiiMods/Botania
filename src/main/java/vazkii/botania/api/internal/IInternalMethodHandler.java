@@ -108,4 +108,6 @@ public interface IInternalMethodHandler {
 	
 	public long getWorldElapsedTicks();
 
+	public boolean isBotaniaFlower(World world, int x, int y, int z);
+	
 }

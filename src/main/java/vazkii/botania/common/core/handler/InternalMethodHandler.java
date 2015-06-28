@@ -12,6 +12,7 @@ package vazkii.botania.common.core.handler;
 
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -215,5 +216,11 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	@Override
 	public long getWorldElapsedTicks() {
 		return Botania.proxy.getWorldElapsedTicks();
+	}
+	
+	@Override
+	public boolean isBotaniaFlower(World world, int x, int y, int z) {
+		Block block = world.getBlock(x, y, z);
+		return block == ModBlocks.flower || block == ModBlocks.shinyFlower || block == ModBlocks.specialFlower;
 	}
 }

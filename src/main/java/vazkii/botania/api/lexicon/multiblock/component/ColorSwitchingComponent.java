@@ -11,7 +11,9 @@
 package vazkii.botania.api.lexicon.multiblock.component;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.Botania;
 import cpw.mods.fml.relauncher.Side;
@@ -30,6 +32,11 @@ public class ColorSwitchingComponent extends MultiblockComponent {
 	@Override
 	public int getMeta() {
 		return (int) (BotaniaAPI.internalHandler.getWorldElapsedTicks() / 20) % 16;
+	}
+	
+	@Override
+	public boolean matches(World world, int x, int y, int z) {
+		return world.getBlock(x, y, z) == getBlock();
 	}
 	
 	@Override

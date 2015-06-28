@@ -193,5 +193,10 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	public long getWorldElapsedTicks() {
 		return 0;
 	}
+	
+	@Override
+	public boolean isBotaniaFlower(World world, int x, int y, int z) {
+		return false;
+	}
 
 }

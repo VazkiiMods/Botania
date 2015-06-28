@@ -117,6 +117,8 @@ botaniamisc.stopped=Stopped
 botaniamisc.lockedStopped=Locked, Stopped
 botaniamisc.visualize=Visualize
 botaniamisc.unvisualize=Unvisualize
+botaniamisc.rightClickToAnchor=Right click any block to anchor this Structure Preview to it
+botaniamisc.structureComplete=Structure Complete!
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery

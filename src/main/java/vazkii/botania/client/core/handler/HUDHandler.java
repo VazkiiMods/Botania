@@ -106,6 +106,13 @@ public final class HUDHandler {
 				profiler.endSection();
 			}
 
+			if(MultiblockRenderHandler.currentMultiblock != null && MultiblockRenderHandler.anchor == null) {
+				profiler.startSection("multiblockRightClick");
+				String s = StatCollector.translateToLocal("botaniamisc.rightClickToAnchor");
+				mc.fontRenderer.drawStringWithShadow(s, event.resolution.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(s) / 2, event.resolution.getScaledHeight() / 2 - 30, 0xFFFFFF);
+				profiler.endSection();
+			}
+			
 			if(equippedStack != null && equippedStack.getItem() == ModItems.craftingHalo) {
 				profiler.startSection("craftingHalo");
 				ItemCraftingHalo.renderHUD(event.resolution, mc.thePlayer, equippedStack);

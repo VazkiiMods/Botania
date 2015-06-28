@@ -123,7 +123,7 @@ public class RenderSpecialFlower implements ISimpleBlockRenderingHandler, IMulti
 	public void renderBlockForMultiblock(IBlockAccess world, Multiblock mb, Block block, int meta, RenderBlocks renderBlocks) {
 		Tessellator tess = Tessellator.instance;
 		tess.startDrawingQuads();
-		drawCrossedSquares(world, block, block.getIcon(0, meta), 0, 0, 0, -0.5, 0.5, -0.5, 1F, renderBlocks);
+		drawCrossedSquares(world, block, block.getIcon(0, meta), 0, 0, 0, -0.5, -0.5, -0.5, 1F, renderBlocks);
 		tess.draw();
 	}
 
