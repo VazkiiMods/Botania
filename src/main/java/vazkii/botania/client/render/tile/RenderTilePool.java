@@ -52,6 +52,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 
 		GL11.glPushMatrix();
 		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		float a = MultiblockRenderHandler.rendering ? 0.6F : 1F;
 		GL11.glColor4f(1F, 1F, 1F, a);
