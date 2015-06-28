@@ -930,6 +930,7 @@ tile.botania:corporeaCrystalCube.name=Corporea Crystal Cube
 tile.botania:incensePlate.name=Incense Plate
 tile.botania:hourglass.name=Hovering Hourglass
 tile.botania:ghostRail.name=Spectral Rail
+tile.botania:sparkChanger.name=Spark Tinkerer
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower

@@ -86,6 +86,7 @@ public final class LibBlockNames {
 	public static final String INCENSE_PLATE = "incensePlate";
 	public static final String HOURGLASS = "hourglass";
 	public static final String GHOST_RAIL = "ghostRail";
+	public static final String SPARK_CHANGER = "sparkChanger";
 
 	public static final String SUBTILE_PUREDAISY = "puredaisy";
 	public static final String SUBTILE_MANASTAR = "manastar";

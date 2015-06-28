@@ -127,6 +127,7 @@ import vazkii.botania.common.block.tile.TileOpenCrate;
 import vazkii.botania.common.block.tile.TilePlatform;
 import vazkii.botania.common.block.tile.TilePylon;
 import vazkii.botania.common.block.tile.TileRuneAltar;
+import vazkii.botania.common.block.tile.TileSparkChanger;
 import vazkii.botania.common.block.tile.TileSpawnerClaw;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.block.tile.TileStarfield;
@@ -229,6 +230,7 @@ public final class ModBlocks {
 	public static Block incensePlate;
 	public static Block hourglass;
 	public static Block ghostRail;
+	public static Block sparkChanger;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -302,6 +304,7 @@ public final class ModBlocks {
 		incensePlate = new BlockIncensePlate();
 		hourglass = new BlockHourglass();
 		ghostRail = new BlockGhostRail();
+		sparkChanger = new BlockSparkChanger();
 		
 		ModFluffBlocks.init();
 
@@ -391,6 +394,7 @@ public final class ModBlocks {
 		registerTile(TileCorporeaCrystalCube.class, LibBlockNames.CORPOREA_CRYSTAL_CUBE);
 		registerTile(TileIncensePlate.class, LibBlockNames.INCENSE_PLATE);
 		registerTile(TileHourglass.class, LibBlockNames.HOURGLASS);
+		registerTile(TileSparkChanger.class, LibBlockNames.SPARK_CHANGER);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MANASTAR, SubTileManastar.class);
