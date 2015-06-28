@@ -1,3 +1,17 @@
+r1.6 195
+*Added a config to change the height of the mana bar for people who use Dual Hotbars or other mods that change the HUD.
+*Added a Multiblock Preview system, that lets you view botania multiblocks in the world as a guideline for building.
+*Added the Spark Tinkerer, a new block that can change the augments in Sparks.
+*Fixed the Narslimmus being able to absorb slimes that have been absorbed by other Narslimmus already.
+*Fixed the Rod of the Skies being abusable for infinite flight.
+*Fixed the Soujouner's Sash jump feature not requiring mana. (TheWhiteWolves)
+*Replaced every multiblock instruction picture in the lexicon with a 3D render of the multiblock.
+*The Gaia Guardian now breaks whatever block its on, it if happens to be inside any. Sorry Bear Trap users.
+*When next to a Corporea Index, using TAB will autocomplete the name of the item being written in chat. (SoundLogic)
+*[API] Added corporea autocompletion functions to CorporeaHelper and ICorporeaAutoCompleteController. (SoundLogic)
+*[API] Added getWorldElapsedTicks() and isBotaniaFlower() to the internal method handler.
+*[API] Added Multiblock framework.
+*[API] Increased version number to 54.
 r1.6 194
 *Added some new cache handling methods for generating/functional flowers. Trying to fix the good old chunkloading bugs where the flowers change their bindings on chunk unload >_>
 *Bookmarks now presist through sessions. <i>(this is saved in BotaniaVars.dat in your minecraft directory root)</i>
