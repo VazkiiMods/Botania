@@ -52,6 +52,8 @@ import org.lwjgl.opengl.ARBShaderObjects;
 
 import vazkii.botania.api.boss.IBotaniaBossWithShader;
 import vazkii.botania.api.internal.ShaderCallback;
+import vazkii.botania.api.lexicon.multiblock.Multiblock;
+import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
 import vazkii.botania.client.core.handler.BossBarHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.Botania;
@@ -107,6 +109,21 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, Float.MAX_VALUE));
 		isImmuneToFire = true;
 		experienceValue = 825;
+	}
+	
+	public static MultiblockSet makeMultiblockSet() {
+		Multiblock mb = new Multiblock();
+		
+		for(int[] p : PYLON_LOCATIONS)
+			mb.addComponent(p[0], p[1] + 1, p[2], ModBlocks.pylon, 2);
+		
+		for(int i = 0; i < 3; i++)
+			for(int j = 0; j < 3; j++)
+				mb.addComponent(i - 1, 0, j - 1, Blocks.iron_block, 0);
+		
+		mb.addComponent(0, 1, 0, Blocks.beacon, 0);
+
+		return mb.makeSet();
 	}
 
 	public static boolean spawn(EntityPlayer player, ItemStack par1ItemStack, World par3World, int par4, int par5, int par6, boolean hard) {

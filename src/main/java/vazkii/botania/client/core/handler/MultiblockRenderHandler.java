@@ -26,8 +26,8 @@ import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.lexicon.multiblock.IMultiblockRenderHook;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
-import vazkii.botania.api.lexicon.multiblock.MultiblockComponent;
 import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
+import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 import vazkii.botania.common.block.ModMultiblocks;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
@@ -49,8 +49,8 @@ public final class MultiblockRenderHandler {
 	}
 
 	private void renderPlayerLook(EntityPlayer player, MovingObjectPosition src) {
-		if(currentMultiblock == null) // TODO Remove debug
-			currentMultiblock = ModMultiblocks.enchanter;
+		//if(currentMultiblock == null) // TODO Remove debug
+			currentMultiblock = ModMultiblocks.gaiaRitual;
 
 		if(currentMultiblock != null) {
 			Multiblock mb = currentMultiblock.getForEntity(player);

@@ -8,7 +8,7 @@
  * 
  * File Created @ [Jun 27, 2015, 7:20:09 PM (GMT)]
  */
-package vazkii.botania.api.lexicon.multiblock;
+package vazkii.botania.api.lexicon.multiblock.component;
 
 import net.minecraft.block.Block;
 import net.minecraft.util.ChunkCoordinates;

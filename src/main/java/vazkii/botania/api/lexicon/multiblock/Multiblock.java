@@ -13,6 +13,8 @@ package vazkii.botania.api.lexicon.multiblock;
 import java.util.ArrayList;
 import java.util.List;
 
+import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
+
 import com.sun.org.apache.xpath.internal.operations.Mult;
 
 import net.minecraft.block.Block;
