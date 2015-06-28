@@ -391,7 +391,6 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		if(!worldObj.isRemote && worldObj.difficultySetting == EnumDifficulty.PEACEFUL)
 			setDead();
 		
-		// TODO Test this
 		int posXInt = MathHelper.floor_double(posX);
 		int posYInt = MathHelper.floor_double(posY);
 		int posZInt = MathHelper.floor_double(posZ);
