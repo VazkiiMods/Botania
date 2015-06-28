@@ -24,6 +24,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.monster.EntityZombie;
@@ -62,6 +63,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibObfuscation;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
@@ -388,7 +390,22 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 		if(!worldObj.isRemote && worldObj.difficultySetting == EnumDifficulty.PEACEFUL)
 			setDead();
-
+		
+		// TODO Test this
+		int posXInt = MathHelper.floor_double(posX);
+		int posYInt = MathHelper.floor_double(posY);
+		int posZInt = MathHelper.floor_double(posZ);
+		Block block = worldObj.getBlock(posXInt, posYInt, posZInt);
+		if(block.getBlockHardness(worldObj, posXInt, posYInt, posZInt) >= 0) {
+			List<ItemStack> items = block.getDrops(worldObj, posXInt, posYInt, posZInt, 0, 0);
+			for(ItemStack stack : items) {
+				if(ConfigHandler.blockBreakParticles)
+					worldObj.playAuxSFX(2001, posXInt, posYInt, posZInt, Block.getIdFromBlock(block) + (worldObj.getBlockMetadata(posXInt, posYInt, posZInt) << 12));
+				worldObj.spawnEntityInWorld(new EntityItem(worldObj, posXInt + 0.5, posYInt + 0.5, posZInt + 0.5, stack));
+			}
+			worldObj.setBlockToAir(posXInt, posYInt, posZInt);
+		}
+		
 		ChunkCoordinates source = getSource();
 		boolean hard = isHardMode();
 
