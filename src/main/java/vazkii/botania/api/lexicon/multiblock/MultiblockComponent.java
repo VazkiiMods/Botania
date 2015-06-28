@@ -44,14 +44,14 @@ public class MultiblockComponent {
 	}
 	
 	public void rotate(double angle) {
-		int x = relPos.posX;
-		int z = relPos.posZ;
+		double x = relPos.posX;
+		double z = relPos.posZ;
 		double sin = Math.sin(angle);
 		double cos = Math.cos(angle);
 		
 		double xn = x * cos - z * sin;
 		double zn = x * sin + z * cos;
-		relPos = new ChunkCoordinates((int) xn, relPos.posY, (int) zn);
+		relPos = new ChunkCoordinates((int) Math.round(xn), relPos.posY, (int) Math.round(zn));
 	}
 	
 	public MultiblockComponent copy() {

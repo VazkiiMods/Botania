@@ -31,5 +31,10 @@ public class ColorSwitchingComponent extends MultiblockComponent {
 	public int getMeta() {
 		return (int) (BotaniaAPI.internalHandler.getWorldElapsedTicks() / 20) % 16;
 	}
+	
+	@Override
+	public MultiblockComponent copy() {
+		return new ColorSwitchingComponent(relPos, block);
+	}
 
 }

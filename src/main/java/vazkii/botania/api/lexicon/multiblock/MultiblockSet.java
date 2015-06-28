@@ -11,6 +11,7 @@
 package vazkii.botania.api.lexicon.multiblock;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.util.MathHelper;
 
 /**
  * A set of Multiblock objects for various rotations.
@@ -18,23 +19,24 @@ import net.minecraft.entity.Entity;
 public class MultiblockSet {
 
 	private final Multiblock[] mbs;
-	
+
 	public MultiblockSet(Multiblock[] mbs) {
 		this.mbs = mbs;
 	}
-	
+
 	public MultiblockSet(Multiblock mb) {
 		this(mb.createRotations());
 	}
-	
+
 	public Multiblock getForEntity(Entity e) {
-		return getForRotation(e.rotationPitch);
+		return getForRotation(e.rotationYaw);
 	}
-	
+
 	public Multiblock getForRotation(double rotation) {
-		return getForIndex(0);
+		int facing = MathHelper.floor_double((rotation * 4.0 / 360.0) + 0.5) & 3;
+		return getForIndex(facing);
 	}
-	
+
 	public Multiblock getForIndex(int index) {
 		return mbs[index];
 	}
