@@ -106,7 +106,7 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 	@Override
 	protected void actionPerformed(GuiButton par1GuiButton) {
 		if(par1GuiButton.id >= BOOKMARK_START)
-			handleBookmark(par1GuiButton);
+			super.actionPerformed(par1GuiButton);
 		else if(par1GuiButton.id == 12) {
 			mc.displayGuiScreen(parent);
 			ClientTickHandler.notifyPageChange();
