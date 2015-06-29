@@ -65,7 +65,6 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem {
 					player.fallDistance = 0F;
 					player.motionY = 1.25;
 					par1ItemStack.setItemDamage(Math.min(max, par1ItemStack.getItemDamage() + FALL_MULTIPLIER));
-					System.out.println(par1ItemStack.getItemDamage());
 					if(par1ItemStack.getItemDamage() == MAX_DAMAGE)
 						setFlying(par1ItemStack, false);
 					player.worldObj.playSoundAtEntity(player, "botania:airRod", 0.1F, 0.25F);
