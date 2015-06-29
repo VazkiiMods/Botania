@@ -125,6 +125,8 @@ botaniamisc.markCompleted=Mark Completed
 botaniamisc.markNotCompleted=Mark Not Completed
 botaniamisc.completed=Completed
 botaniamisc.notCompleted=Not Completed
+botaniamisc.info=Info
+botaniamisc.challengeInfo=Learn about the challenges
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery

@@ -43,6 +43,7 @@ import vazkii.botania.client.gui.GuiBotaniaConfig;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonAchievement;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonBookmark;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonCategory;
+import vazkii.botania.client.gui.lexicon.button.GuiButtonChallengeInfo;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonChallenges;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonHistory;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonInvisible;
@@ -257,7 +258,9 @@ public class GuiLexicon extends GuiScreen {
 	protected void actionPerformed(GuiButton par1GuiButton) {
 		if(par1GuiButton.id >= BOOKMARK_START) {
 			if(par1GuiButton.id >= BOOKMARK_START + MAX_BOOKMARK_COUNT) {
-				mc.displayGuiScreen(new GuiLexiconHistory());
+				if(par1GuiButton instanceof GuiButtonChallengeInfo)
+					mc.displayGuiScreen(new GuiLexiconEntry(LexiconData.challenges, this));
+				else mc.displayGuiScreen(new GuiLexiconHistory());
 				ClientTickHandler.notifyPageChange();
 			} else handleBookmark(par1GuiButton);
 		} else if(par1GuiButton instanceof GuiButtonCategory) {
@@ -380,6 +383,8 @@ public class GuiLexicon extends GuiScreen {
 
 		if(isMainPage())
 			buttonList.add(new GuiButtonHistory(BOOKMARK_START + MAX_BOOKMARK_COUNT, left + 138, top + guiHeight - 24, StatCollector.translateToLocal("botaniamisc.history"), this));
+		else if(isChallenge())
+			buttonList.add(new GuiButtonChallengeInfo(BOOKMARK_START + MAX_BOOKMARK_COUNT, left + 138, top + guiHeight - 24, StatCollector.translateToLocal("botaniamisc.info"), this));
 	}
 
 	public static void startTutorial() {
