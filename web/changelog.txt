@@ -1,3 +1,12 @@
+r1.6 196
+*<i>I wanted to get this version out today because Terraria 1.3 is coming out and I want to play that. Since the new FTB pack with botania is coming out I wanted to sneak in this feature before I allowed for Terraria to eat up all of my time.</i>
+*Added a challenge system, a new section in the lexicon with suggestions for challenges you can try to test your expertise of redstone and botania mechanics. These should be done using vanilla and botania only, of course.
+*Added the ability to duplicate Leaves using the Conjuration Catalyst.
+*Removed a debug print I left behind in the Rod of the Skies' code.
+*Some of the more important entries in the Misc section are now prioritized.
+*The Entropinnyum will no longer make mana if the TNT falls in water.
+*[API] Added multiblockPage() to the internal method handler because I forgot last time D:
+*[API] Increased version number to 55.
 r1.6 195
 *Added a config to change the height of the mana bar for people who use Dual Hotbars or other mods that change the HUD.
 *Added a Multiblock Preview system, that lets you view botania multiblocks in the world as a guideline for building.
