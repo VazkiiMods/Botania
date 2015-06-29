@@ -255,6 +255,7 @@ public final class LexiconData {
 	public static LexiconEntry phantomInk;
 	public static LexiconEntry stoneAlchemy;
 	public static LexiconEntry blazeBlock;
+	public static LexiconEntry challenges;
 	public static LexiconEntry tcIntegration;
 	public static LexiconEntry bcIntegration;
 
@@ -893,7 +894,7 @@ public final class LexiconData {
 				new PageText("16"), new PageCraftingRecipe("17", ModCraftingRecipes.recipeReedBlock), new PageCraftingRecipe("18", ModCraftingRecipes.recipeThatch), new PageCraftingRecipe("19", ModCraftingRecipes.recipeRoofTile), new PageCraftingRecipe("20", ModCraftingRecipes.recipeNetherBrick), new PageCraftingRecipe("21", ModCraftingRecipes.recipeSoulBrick), new PageCraftingRecipe("22", ModCraftingRecipes.recipeSnowBrick));
 
 		dispenserTweaks = new BLexiconEntry(LibLexicon.MISC_DISPENSER_TWEAKS, categoryMisc);
-		dispenserTweaks.setLexiconPages(new PageText("0")).setIcon(new ItemStack(Blocks.dispenser));
+		dispenserTweaks.setLexiconPages(new PageText("0")).setPriority().setIcon(new ItemStack(Blocks.dispenser));
 
 		shinyFlowers = new BLexiconEntry(LibLexicon.MISC_SHINY_FLOWERS, categoryMisc);
 		shinyFlowers.setLexiconPages(new PageText("0"), new PageText("3"), new PageCraftingRecipe("1", ModCraftingRecipes.recipesShinyFlowers), new PageCraftingRecipe("2", ModCraftingRecipes.recipesMiniIsland));
@@ -931,6 +932,9 @@ public final class LexiconData {
 		blazeBlock.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeBlazeBlock));
 		LexiconRecipeMappings.map(new ItemStack(Blocks.obsidian), blazeBlock, 0);
 
+		challenges = new BLexiconEntry(LibLexicon.MISC_CHALLENGES, categoryMisc);
+		challenges.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2")).setPriority().setIcon(new ItemStack(ModItems.cosmetic, 1, 31));
+		
 		if(Botania.bcTriggersLoaded) {
 			bcIntegration = new CLexiconEntry(LibLexicon.MISC_BC_INTEGRATION, categoryMisc, "BuildCraft");
 			bcIntegration.setLexiconPages(new PageText("0")).setIcon(new ItemStack(Items.redstone));
@@ -940,7 +944,7 @@ public final class LexiconData {
 	public static void postInit() {
 		if(SheddingHandler.hasShedding()) {
 			shedding = new BLexiconEntry(LibLexicon.MISC_SHEDDING, BotaniaAPI.categoryMisc);
-			shedding.setLexiconPages(new PageText("0")).setIcon(new ItemStack(Items.feather));
+			shedding.setLexiconPages(new PageText("0")).setPriority().setIcon(new ItemStack(Items.feather));
 			SheddingHandler.addToLexicon();
 		}
 

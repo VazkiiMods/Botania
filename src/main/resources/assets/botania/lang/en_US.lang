@@ -2851,6 +2851,12 @@ botania.entry.blazeBlock=Blaze Light
 botania.page.blazeBlock0=Smashing a bunch of &1Blaze Rods&0 together makes a usable decorative light block. A crude one, admittedly, but a source of light non the less.<br>Naturally, like a &1Block of Coal&0, the &1Blaze Light&0 can also be used to fuel furnaces and other fuel consumers alike. Putting it next to a &1Pure Daisy&0 converts it into &1Obsidian&0, strangely enough.
 botania.page.blazeBlock1=0x1a4
 
+# -- CHALLENGES
+botania.entry.challenges=Challenges
+botania.page.challenges0=&1Challenges&0 are available in the &1Lexica Botania&0 by clicking the icon in the right of the landing page shaped like a cup. These, as the name says, challenge the player to create a mechanism using the features only available in &1Botania&0 and &1Minecraft&0 itself.<br>Of course, you can use items from other mods to complete them, but that's no fun.
+botania.page.challenges1=All of the challenges are possible, of course. They just require some thinking and knowledge of the ins and outs of redstone and the &1Botania&0 mechanics themselves.<br>It's highly recommended that they're done without using features from external mods, as they have been created with that in mind, and aren't really challenges if you put down a block that solves them instantly.
+botania.page.challenges2=The challenges aren't obligatory in any way, and do not provide any material reward. They're purely suggestions as to what &1Botania&0 can do, automation wise, and are but scratching the surface of that topic. Challenges need be marked completed manually.<br>It should be kept in mind that the boundaries of this world are one's imagination, so don't stop at the ideas in there!
+
 # -- THAUMCRAFT INTEGRATION
 botania.entry.tcIntegration=Thaumcraft Integration
 botania.page.tcIntegration0=Often enough, the paths of &4Botany&0 and &4Thaumaturgy&0 cross together. Mixing some of the artifacts mentioned in this book as well as any from the school of &5Thaumcraft&0 can allow for combinations of these to form.

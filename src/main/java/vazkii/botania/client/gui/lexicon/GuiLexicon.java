@@ -404,6 +404,7 @@ public class GuiLexicon extends GuiScreen {
 		tutorial.add(LexiconData.dispenserTweaks);
 		if(SheddingHandler.hasShedding())
 			tutorial.add(LexiconData.shedding);
+		tutorial.add(LexiconData.challenges);
 	}
 
 	public final void putTutorialArrow() {
