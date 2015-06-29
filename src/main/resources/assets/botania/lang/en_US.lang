@@ -120,6 +120,7 @@ botaniamisc.unvisualize=Unvisualize
 botaniamisc.rightClickToAnchor=Right click any block to anchor this Structure Preview to it
 botaniamisc.structureComplete=Structure Complete!
 botaniamisc.materialsRequired=Materials Required
+botaniamisc.challenges=Challenges
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
@@ -492,6 +493,12 @@ achievement.botania:nullFlower.desc=Find a bug that lets you have an undefined B
 achievement.botania:desuGun=Two-Faced Lovers
 achievement.botania:desuGun.desc=ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
 #                                 ^ Don't localize
+
+# CHALLENGE STUFF
+botania.challengelevel.easy=Easy
+botania.challengelevel.normal=Normal
+botania.challengelevel.hard=Hard
+botania.challengelevel.lunatic=Lunatic
 
 # BLOCK NAMES
 tile.botania:flower0.name=Mystical White Flower

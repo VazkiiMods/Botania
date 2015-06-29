@@ -35,7 +35,7 @@ public class GuiButtonAchievement extends GuiButtonLexicon {
 
 		par1Minecraft.renderEngine.bindTexture(GuiLexicon.texture);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
-		drawTexturedModalRect(xPosition, yPosition, k == 2 ? 110 : 99, 191, 11, 11);
+		drawTexturedModalRect(xPosition, yPosition, k == 2 ? 109 : 98, 191, 11, 11);
 
 		List<String> tooltip = new ArrayList();
 		tooltip.add(EnumChatFormatting.YELLOW + StatCollector.translateToLocal("botaniamisc.achievements"));

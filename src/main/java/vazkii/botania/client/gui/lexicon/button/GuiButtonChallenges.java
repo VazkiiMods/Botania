@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  * 
- * File Created @ [Mar 6, 2015, 1:14:05 PM (GMT)]
+ * File Created @ [Jun 29, 2015, 4:16:09 PM (GMT)]
  */
 package vazkii.botania.client.gui.lexicon.button;
 
@@ -22,9 +22,9 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 
-public class GuiButtonOptions extends GuiButtonLexicon {
+public class GuiButtonChallenges extends GuiButtonLexicon {
 
-	public GuiButtonOptions(int id, int x, int y) {
+	public GuiButtonChallenges(int id, int x, int y) {
 		super(id, x, y, 11, 11, "");
 	}
 
@@ -35,11 +35,10 @@ public class GuiButtonOptions extends GuiButtonLexicon {
 
 		par1Minecraft.renderEngine.bindTexture(GuiLexicon.texture);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
-		drawTexturedModalRect(xPosition, yPosition, k == 2 ? 109 : 98, 180, 11, 11);
+		drawTexturedModalRect(xPosition, yPosition, k == 2 ? 131 : 120, 180, 11, 11);
 
 		List<String> tooltip = new ArrayList();
-		for(int i = 0; i < 3; i++)
-			tooltip.add((i == 0 ? EnumChatFormatting.RED : EnumChatFormatting.GRAY) + StatCollector.translateToLocal("botaniamisc.lexiconOptions" + i));
+		tooltip.add(EnumChatFormatting.YELLOW + StatCollector.translateToLocal("botaniamisc.challenges"));
 
 		int tooltipY = (tooltip.size() - 1) * 10;
 		if(k == 2)

@@ -43,6 +43,7 @@ import vazkii.botania.client.gui.GuiBotaniaConfig;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonAchievement;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonBookmark;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonCategory;
+import vazkii.botania.client.gui.lexicon.button.GuiButtonChallenges;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonHistory;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonInvisible;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonOptions;
@@ -138,6 +139,7 @@ public class GuiLexicon extends GuiScreen {
 		if(isMainPage()) {
 			buttonList.add(new GuiButtonOptions(-1, left - 6, top + 5));
 			buttonList.add(new GuiButtonAchievement(-2, left - 6, top + 18));
+			buttonList.add(new GuiButtonChallenges(-3, left - 6, top + 32));
 		}
 	}
 
@@ -267,6 +269,8 @@ public class GuiLexicon extends GuiScreen {
 			mc.displayGuiScreen(new GuiBotaniaConfig(this));
 		else if(par1GuiButton.id == -2)
 			mc.displayGuiScreen(new GuiAchievementsHacky(this, mc.thePlayer.getStatFileWriter()));
+		else if(par1GuiButton.id == -3)
+			mc.displayGuiScreen(new GuiLexiconChallengesList());
 	}
 
 	public void handleBookmark(GuiButton par1GuiButton) {
@@ -326,6 +330,10 @@ public class GuiLexicon extends GuiScreen {
 	}
 
 	boolean isIndex() {
+		return false;
+	}
+	
+	boolean isChallenge() {
 		return false;
 	}
 
@@ -476,7 +484,7 @@ public class GuiLexicon extends GuiScreen {
 	public static boolean isValidLexiconGui(GuiLexicon gui)	{
 		if(gui == null)
 			return false;
-		if(gui.isCategoryIndex())
+		if(gui.isCategoryIndex() || gui.isChallenge())
 			return true;
 		if(gui.isIndex()) {
 			GuiLexiconIndex indexGui = (GuiLexiconIndex) gui;
