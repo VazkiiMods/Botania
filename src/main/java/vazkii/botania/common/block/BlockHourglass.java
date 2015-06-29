@@ -43,18 +43,18 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockHourglass extends BlockModContainer implements IManaTrigger, IWandable, IWandHUD, ILexiconable {
 
 	Random random;
-	
+
 	protected BlockHourglass() {
 		super(Material.iron);
 		setBlockName(LibBlockNames.HOURGLASS);
 		setHardness(2.0F);
 		setStepSound(soundTypeMetal);
-		
+
 		float f = 1F / 16F;
 		float w = 8F * f;
 		float d = (1F - w) / 2;
 		setBlockBounds(d, 0F, d, 1F - d, 1.15F, 1F - d);
-		
+
 		random = new Random();
 	}
 
@@ -65,14 +65,14 @@ public class BlockHourglass extends BlockModContainer implements IManaTrigger, I
 		ItemStack stack = player.getCurrentEquippedItem();
 		if(stack != null && stack.getItem() == ModItems.twigWand)
 			return false;
-		
+
 		if(hourglass.lock) {
 			if(!player.worldObj.isRemote)
 				player.addChatMessage(new ChatComponentTranslation("botaniamisc.hourglassLock"));
 			return true;
 		}
-		
-		if(hgStack == null && hourglass.getStackItemTime(stack) > 0) {
+
+		if(hgStack == null && TileHourglass.getStackItemTime(stack) > 0) {
 			hourglass.setInventorySlotContents(0, stack.copy());
 			hourglass.markDirty();
 			stack.stackSize = 0;
@@ -85,30 +85,30 @@ public class BlockHourglass extends BlockModContainer implements IManaTrigger, I
 			hourglass.markDirty();
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	@Override
 	public boolean canProvidePower() {
 		return true;
 	}
-	
+
 	@Override
 	public int isProvidingWeakPower(IBlockAccess world, int x, int y, int z, int side) {
 		return world.getBlockMetadata(x, y, z) == 0 ? 0 : 15;
 	}
-	
+
 	@Override
 	public int tickRate(World world) {
 		return 4;
 	}
-	
+
 	@Override
 	public void updateTick(World world, int x, int y, int z, Random rand) {
 		world.setBlockMetadataWithNotify(x, y, z, 0, 1 | 2);
 	}
-	
+
 	@Override
 	public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6) {
 		TileSimpleInventory inv = (TileSimpleInventory) par1World.getTileEntity(par2, par3, par4);
@@ -146,7 +146,7 @@ public class BlockHourglass extends BlockModContainer implements IManaTrigger, I
 
 		super.breakBlock(par1World, par2, par3, par4, par5, par6);
 	}
-	
+
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		// NO-OP
@@ -203,5 +203,5 @@ public class BlockHourglass extends BlockModContainer implements IManaTrigger, I
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.hourglass;
 	}
-	
+
 }

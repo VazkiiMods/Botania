@@ -21,21 +21,21 @@ import vazkii.botania.common.lib.LibLexicon;
 public class WLexiconEntry extends BLexiconEntry {
 
 	private static final int PAGES = 9;
-	
+
 	public WLexiconEntry() {
 		super(LibLexicon.BASICS_WELCOME, BotaniaAPI.categoryBasics);
 		setPriority();
 		setIcon(new ItemStack(ModItems.cosmetic, 1, 31));
-		
+
 		LexiconPage[] pages = new LexiconPage[PAGES];
 		for(int i = 0; i < PAGES; i++)
 			pages[i] = new PageText("" + i);
 		setLexiconPages(pages);
-	}		
+	}
 
 	@Override
 	public int compareTo(LexiconEntry o) {
 		return -1;
 	}
-	
+
 }

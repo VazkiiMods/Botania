@@ -192,7 +192,7 @@ public class SubTileEntity {
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		// NO-OP
 	}
-	
+
 	/**
 	 * Gets the light value for this SubTileEntity, this is a int (-1 to default to the flower)
 	 */
@@ -214,5 +214,5 @@ public class SubTileEntity {
 		return 0;
 	}
 
-	
+
 }

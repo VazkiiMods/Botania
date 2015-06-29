@@ -45,7 +45,7 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender {
 
 	private static final int COST = 1;
 	private static final int COST_INTERVAL = 10;
-	
+
 	public static List<String> playersWithStepup = new ArrayList();
 
 	final float speed;
@@ -84,7 +84,7 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender {
 					if(player.isSneaking())
 						player.stepHeight = 0.50001F; // Not 0.5F because that is the default
 					else player.stepHeight = 1F;
-					
+
 					if(player.ticksExisted % COST_INTERVAL == 0)
 						ManaItemHandler.requestManaExact(belt, player, COST, true);
 				} else {

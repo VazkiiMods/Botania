@@ -25,9 +25,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.event.entity.minecart.MinecartUpdateEvent;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.decor.IFloatingFlower.IslandType;
@@ -134,7 +132,7 @@ public class ItemGrassSeeds extends ItemMod {
 			}
 		}
 	}
-	
+
 	private static BlockSwapper addBlockSwapper(World world, int x, int y, int z, int meta) {
 		BlockSwapper swapper = swapperFromMeta(world, x, y, z, meta);
 

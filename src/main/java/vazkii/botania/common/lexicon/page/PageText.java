@@ -64,14 +64,14 @@ public class PageText extends LexiconPage {
 				String prev = lineStr;
 				String spaced = token + " ";
 				lineStr += spaced;
-				
+
 				controlCodes = toControlCodes(getControlCodes(prev));
 				if(font.getStringWidth(lineStr) > width) {
 					lines.add(words);
 					lineStr = controlCodes + spaced;
 					words = new ArrayList();
 				}
-				
+
 				words.add(controlCodes + token);
 			}
 

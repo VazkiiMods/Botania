@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
@@ -33,7 +32,7 @@ public class GuiButtonChallengeInfo extends GuiButtonLexicon {
 		gui.drawBookmark(xPosition, yPosition, displayString, false);
 		field_146123_n = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
 		int k = getHoverState(field_146123_n);
-		
+
 		List<String> tooltip = new ArrayList();
 		tooltip.add(StatCollector.translateToLocal("botaniamisc.challengeInfo"));
 

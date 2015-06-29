@@ -16,7 +16,6 @@ import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChatStyle;
 import net.minecraft.util.ChunkCoordinates;
@@ -34,13 +33,12 @@ import vazkii.botania.api.lexicon.multiblock.IMultiblockRenderHook;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
-import vazkii.botania.common.block.ModMultiblocks;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public final class MultiblockRenderHandler {
 
 	public static boolean rendering = false;
-	
+
 	private static RenderBlocks blockRender = RenderBlocks.getInstance();
 	public static MultiblockSet currentMultiblock;
 	public static ChunkCoordinates anchor;
@@ -51,21 +49,21 @@ public final class MultiblockRenderHandler {
 		anchor = null;
 		angle = 0;
 	}
-	
+
 	@SubscribeEvent
 	public void onWorldRenderLast(RenderWorldLastEvent event) {
 		Minecraft mc = Minecraft.getMinecraft();
 		if(mc.thePlayer != null && mc.objectMouseOver != null && (!mc.thePlayer.isSneaking() || anchor != null)) {
-			ItemStack currentStack = mc.thePlayer.getCurrentEquippedItem();
+			mc.thePlayer.getCurrentEquippedItem();
 			renderPlayerLook(mc.thePlayer, mc.objectMouseOver);
 		}
 	}
-	
+
 	@SubscribeEvent
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		if(currentMultiblock != null && anchor == null && event.action == Action.RIGHT_CLICK_BLOCK) {
 			anchor = new ChunkCoordinates(event.x, event.y, event.z);
-			angle = MathHelper.floor_double((event.entityPlayer.rotationYaw * 4.0 / 360.0) + 0.5) & 3;
+			angle = MathHelper.floor_double(event.entityPlayer.rotationYaw * 4.0 / 360.0 + 0.5) & 3;
 			event.setCanceled(true);
 		}
 	}
@@ -75,7 +73,7 @@ public final class MultiblockRenderHandler {
 			int anchorX = anchor != null ? anchor.posX : src.blockX;
 			int anchorY = anchor != null ? anchor.posY : src.blockY;
 			int anchorZ = anchor != null ? anchor.posZ : src.blockZ;
-			
+
 			rendering = true;
 			Multiblock mb = anchor != null ? currentMultiblock.getForIndex(angle) : currentMultiblock.getForEntity(player);
 			boolean didAny = false;
@@ -83,7 +81,7 @@ public final class MultiblockRenderHandler {
 				if(renderComponent(player.worldObj, mb, comp, anchorX, anchorY, anchorZ))
 					didAny = true;
 			rendering = false;
-			
+
 			if(!didAny) {
 				setMultiblock(null);
 				player.addChatComponentMessage(new ChatComponentTranslation("botaniamisc.structureComplete").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.GREEN)));
@@ -98,7 +96,7 @@ public final class MultiblockRenderHandler {
 		int z = pos.posZ + anchorZ;
 		if(anchor != null && comp.matches(world, x, y, z))
 			return false;
-		
+
 		GL11.glPushMatrix();
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -106,7 +104,7 @@ public final class MultiblockRenderHandler {
 		GL11.glColor4f(1F, 1F, 1F, 0.4F);
 		GL11.glTranslated(x + 0.5 - RenderManager.renderPosX, y + 0.5 - RenderManager.renderPosY, z + 0.5 - RenderManager.renderPosZ);
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-		
+
 		blockRender.useInventoryTint = false;
 		Block block = comp.getBlock();
 		if(IMultiblockRenderHook.renderHooks.containsKey(block))

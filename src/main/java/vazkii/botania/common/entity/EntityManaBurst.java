@@ -439,7 +439,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		par1nbtTagCompound.setDouble(TAG_LAST_MOTION_X, motionX);
 		par1nbtTagCompound.setDouble(TAG_LAST_MOTION_Y, motionY);
 		par1nbtTagCompound.setDouble(TAG_LAST_MOTION_Z, motionZ);
-		
+
 		UUID identity = getShooterUIID();
 		boolean hasShooter = identity != null;
 		par1nbtTagCompound.setBoolean(TAG_HAS_SHOOTER, hasShooter);
@@ -477,7 +477,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		double lastMotionZ = par1nbtTagCompound.getDouble(TAG_LAST_MOTION_Z);
 
 		setMotion(lastMotionX, lastMotionY, lastMotionZ);
-		
+
 		boolean hasShooter = par1nbtTagCompound.getBoolean(TAG_HAS_SHOOTER);
 		if(hasShooter) {
 			long most = par1nbtTagCompound.getLong(TAG_SHOOTER_UUID_MOST);
@@ -650,7 +650,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 				((IManaSpreader) tile).setCanShoot(true);
 		} else setDeathTicksForFakeParticle();
 	}
-	
+
 	public TileEntity getShooter() {
 		ChunkCoordinates coords = getBurstSourceChunkCoordinates();
 		TileEntity tile = worldObj.getTileEntity(coords.posX, coords.posY, coords.posZ);

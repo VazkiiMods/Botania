@@ -17,7 +17,7 @@ import vazkii.botania.common.lib.LibMisc;
 public class CLexiconEntry extends BLexiconEntry implements IAddonEntry {
 
 	String mod;
-	
+
 	public CLexiconEntry(String unlocalizedName, LexiconCategory category, String mod) {
 		super(unlocalizedName, category);
 		this.mod = mod;

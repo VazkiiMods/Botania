@@ -24,8 +24,6 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
-import vazkii.botania.common.lib.LibObfuscation;
-import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class ItemTornadoRod extends ItemMod implements IManaUsingItem {
 
@@ -53,7 +51,7 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem {
 
 			if(damaged && !isFlying(par1ItemStack))
 				par1ItemStack.setItemDamage(par1ItemStack.getItemDamage() - 1);
-			
+
 			if(itemInUse != par1ItemStack)
 				setFlying(par1ItemStack, false);
 			else {
@@ -72,7 +70,7 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem {
 						Botania.proxy.wispFX(player.worldObj, player.posX, player.posY, player.posZ, 0.25F, 0.25F, 0.25F, 0.35F + (float) Math.random() * 0.1F, 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
 				}
 			}
-		
+
 			if(damaged)
 				player.fallDistance = 0;
 		}

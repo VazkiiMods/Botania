@@ -29,7 +29,7 @@ public class TileSparkChanger extends TileSimpleInventory {
 	public void doSwap() {
 		if(worldObj.isRemote)
 			return;
-		
+
 		ItemStack changeStack = getStackInSlot(0);
 		List<ISparkAttachable> attachables = new ArrayList();
 		for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) {
@@ -60,17 +60,17 @@ public class TileSparkChanger extends TileSimpleInventory {
 			markDirty();
 		}
 	}
-	
+
 	@Override
 	public int getSizeInventory() {
 		return 1;
 	}
-	
+
 	@Override
 	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
 		return itemstack != null && itemstack.getItem() == ModItems.sparkUpgrade;
 	}
-	
+
 	@Override
 	public int getInventoryStackLimit() {
 		return 1;
@@ -81,7 +81,7 @@ public class TileSparkChanger extends TileSimpleInventory {
 		super.markDirty();
 		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 	}
-	
+
 	@Override
 	public String getInventoryName() {
 		return LibBlockNames.SPARK_CHANGER;

@@ -27,7 +27,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.client.event.GuiScreenEvent.ActionPerformedEvent.Pre;
 
 import org.lwjgl.opengl.GL11;
 
@@ -59,7 +58,7 @@ public class GuiLexicon extends GuiScreen {
 	public static ItemStack stackUsed;
 
 	private static final String TAG_TYPE = "type";
-	
+
 	private static final int[] KONAMI_CODE = { 200, 200, 208, 208, 203, 205, 203, 205, 48, 30 };
 
 	public static final int BOOKMARK_START = 1337;
@@ -97,7 +96,7 @@ public class GuiLexicon extends GuiScreen {
 			PresistantVariableHelper.firstLoad = false;
 			PresistantVariableHelper.saveSafe();
 		}
-		
+
 		onInitGui();
 
 		putTutorialArrow();
@@ -312,7 +311,7 @@ public class GuiLexicon extends GuiScreen {
 	public int bookmarkWidth(String b) {
 		if(fontRendererObj == null)
 			fontRendererObj = Minecraft.getMinecraft().fontRenderer;
-		
+
 		boolean unicode = fontRendererObj.getUnicodeFlag();
 		fontRendererObj.setUnicodeFlag(true);
 		int width = fontRendererObj.getStringWidth(b) + 15;
@@ -335,7 +334,7 @@ public class GuiLexicon extends GuiScreen {
 	boolean isIndex() {
 		return false;
 	}
-	
+
 	boolean isChallenge() {
 		return false;
 	}
@@ -459,7 +458,7 @@ public class GuiLexicon extends GuiScreen {
 
 		super.keyTyped(par1, par2);
 	}
-	
+
 	public static GuiLexicon create(NBTTagCompound cmp) {
 		String type = cmp.getString(TAG_TYPE);
 		try {
@@ -478,15 +477,15 @@ public class GuiLexicon extends GuiScreen {
 	public void serialize(NBTTagCompound cmp) {
 		cmp.setString(TAG_TYPE, getClass().getName());
 	}
-	
+
 	public void load(NBTTagCompound cmp) {
 		// NO-OP
 	}
-	
+
 	public GuiLexicon copy() {
 		return new GuiLexicon();
 	}
-	
+
 	public static boolean isValidLexiconGui(GuiLexicon gui)	{
 		if(gui == null)
 			return false;

@@ -38,7 +38,7 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 	private static final int COST = 24;
 	private static final int RANGE = 2;
 	private static final int BIND_RANGE = 12;
-	
+
 	private static final String TAG_TELEPORTED = "Botania_TPd";
 
 	int bindX, bindY = -1, bindZ;
@@ -134,7 +134,7 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 	@Override
 	public boolean bindTo(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
 		boolean bound = super.bindTo(player, wand, x, y, z, side);
-		
+
 		if(!bound && (x != bindX || y != bindY || z != bindZ) && MathHelper.pointDistanceSpace(x, y, z, supertile.xCoord, supertile.yCoord, supertile.zCoord) <= BIND_RANGE && (x != supertile.xCoord || y != supertile.yCoord || z != supertile.zCoord)) {
 			bindX = x;
 			bindY = y;

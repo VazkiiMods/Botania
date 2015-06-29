@@ -33,7 +33,7 @@ public class MultiblockSet {
 	}
 
 	public Multiblock getForRotation(double rotation) {
-		int facing = MathHelper.floor_double((rotation * 4.0 / 360.0) + 0.5) & 3;
+		int facing = MathHelper.floor_double(rotation * 4.0 / 360.0 + 0.5) & 3;
 		return getForIndex(facing);
 	}
 

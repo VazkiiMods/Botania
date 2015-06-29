@@ -19,7 +19,6 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.inventory.ContainerPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
@@ -52,13 +51,13 @@ public final class TerraPickRankDisplayHandler {
 					for(String s : tooltip)
 						width = Math.max(width, font.getStringWidth(s));
 					int tooltipHeight = (tooltip.size() - 1) * 10 + 5;
-					
+
 					int height = 3;
 					int offx = 11;
 					int offy = 17;
 
 					boolean offscreen = mouseX + width + 19 >= res.getScaledWidth();
-					
+
 					int fixY = res.getScaledHeight() - (mouseY + tooltipHeight);
 					if(fixY < 0)
 						offy -= fixY;

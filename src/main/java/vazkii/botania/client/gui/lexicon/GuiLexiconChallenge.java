@@ -30,7 +30,7 @@ import vazkii.botania.common.lexicon.page.PageText;
 public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 
 	private static final String TAG_CHALLENGE = "challenge";
-	
+
 	Challenge challenge;
 	GuiLexicon parent;
 	GuiButton backButton, completeButton;
@@ -74,7 +74,7 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 		fontRendererObj.setUnicodeFlag(true);
 		fontRendererObj.drawString(EnumChatFormatting.BOLD + StatCollector.translateToLocal(challenge.unlocalizedName), left + 38, top + 13, 0);
 		fontRendererObj.drawString(StatCollector.translateToLocal(challenge.level.getName()) + " / " + (challenge.complete ? EnumChatFormatting.DARK_GREEN : EnumChatFormatting.DARK_RED) + StatCollector.translateToLocal(challenge.complete ? "botaniamisc.completed" : "botaniamisc.notCompleted"), left + 38, top + 23, 0);
-		
+
 		int width = guiWidth - 30;
 		int x = left + 16;
 		int y = top + 28;
@@ -116,7 +116,7 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 			PresistantVariableHelper.saveSafe();
 		}
 	}
-	
+
 	void setCompleteButtonTitle() {
 		completeButton.displayString = StatCollector.translateToLocal(challenge.complete ? "botaniamisc.markNotCompleted" : "botaniamisc.markCompleted");
 	}
@@ -163,7 +163,7 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 		super.serialize(cmp);
 		cmp.setString(TAG_CHALLENGE, challenge.unlocalizedName);
 	}
-	
+
 	@Override
 	public void load(NBTTagCompound cmp) {
 		super.load(cmp);
@@ -172,5 +172,5 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 		challenge = c;
 		setTitle();
 	}
-	
+
 }

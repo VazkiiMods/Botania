@@ -63,11 +63,11 @@ public interface IManaBurst {
 	public int getTicksExisted();
 
 	public void setFake(boolean fake);
-	
+
 	public void setShooterUUID(UUID uuid);
-	
+
 	public UUID getShooterUIID();
-	
+
 	public void ping();
 
 }

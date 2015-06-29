@@ -16,9 +16,6 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
-import vazkii.botania.client.core.helper.ShaderHelper;
 
 public class ModelHourglass extends ModelBase {
 
@@ -56,13 +53,13 @@ public class ModelHourglass extends ModelBase {
 		glass2.addBox(-3.0F, 0.501F, -3.0F, 6, 6, 6, 0.0F);
 	}
 
-	public void render(float fract1, float fract2, boolean flip, int color) { 
+	public void render(float fract1, float fract2, boolean flip, int color) {
 		if(flip) {
 			float fract3 = fract1;
 			fract1 = fract2;
 			fract2 = fract3;
 		}
-		
+
 		float f = 1F / 16F;
 		ring.render(f);
 		base1.render(f);
@@ -71,7 +68,7 @@ public class ModelHourglass extends ModelBase {
 		GL11.glColor3ub((byte) c.getRed(), (byte) c.getGreen(), (byte) c.getBlue());
 		boolean normalize = GL11.glGetBoolean(GL11.GL_NORMALIZE);
 		GL11.glEnable(GL11.GL_NORMALIZE);
-		
+
 		if(fract1 > 0) {
 			GL11.glPushMatrix();
 			if(flip)
@@ -85,7 +82,7 @@ public class ModelHourglass extends ModelBase {
 			sand1.render(f);
 			GL11.glPopMatrix();
 		}
-		
+
 		if(fract2 > 0) {
 			GL11.glPushMatrix();
 			if(flip)
@@ -94,12 +91,12 @@ public class ModelHourglass extends ModelBase {
 				GL11.glRotatef(180F, 0F, 0F, 1F);
 				GL11.glTranslatef(-2.5F * f, 1.0F * f, -2.5F * f);
 			}
-			
+
 			GL11.glScalef(1F, fract2, 1F);
 			sand2.render(f);
 			GL11.glPopMatrix();
 		}
-		
+
 		if(!normalize)
 			GL11.glDisable(GL11.GL_NORMALIZE);
 		GL11.glColor3f(1F, 1F, 1F);

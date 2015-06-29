@@ -41,11 +41,9 @@ import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.core.BotaniaCreativeTab;
-import vazkii.botania.common.integration.coloredlights.ColoredLightHelper;
 import vazkii.botania.common.integration.coloredlights.LightHelper;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
-import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvider, ISpecialFlower, IWandable, ILexiconable, IWandHUD {
@@ -131,21 +129,21 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 	}
 
 	@Override
-    public int isProvidingWeakPower(IBlockAccess world, int x, int y, int z, int side) {
-    	return ((TileSpecialFlower) world.getTileEntity(x, y, z)).getPowerLevel(side);
-    }
+	public int isProvidingWeakPower(IBlockAccess world, int x, int y, int z, int side) {
+		return ((TileSpecialFlower) world.getTileEntity(x, y, z)).getPowerLevel(side);
+	}
 
 	@Override
-    public int isProvidingStrongPower(IBlockAccess world, int x, int y, int z, int side) {
-        return this.isProvidingWeakPower(world, x, y, z, side);
-    }
-    
-	@Override
-    public boolean canProvidePower() {
-        return true;
-    }
+	public int isProvidingStrongPower(IBlockAccess world, int x, int y, int z, int side) {
+		return isProvidingWeakPower(world, x, y, z, side);
+	}
 
-    @Override
+	@Override
+	public boolean canProvidePower() {
+		return true;
+	}
+
+	@Override
 	public int getRenderType() {
 		return LibRenderIDs.idSpecialFlower;
 	}

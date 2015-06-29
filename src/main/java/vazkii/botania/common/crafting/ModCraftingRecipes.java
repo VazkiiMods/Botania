@@ -853,8 +853,8 @@ public final class ModCraftingRecipes {
 		recipeAlfPortal = BotaniaAPI.getLatestAddedRecipe();
 
 		// Natura Pylon Recipe
-		addOreDictRecipe(new ItemStack(ModBlocks.pylon, 1, 1), 
-				" T ", "TPT", " E ", 
+		addOreDictRecipe(new ItemStack(ModBlocks.pylon, 1, 1),
+				" T ", "TPT", " E ",
 				'T', LibOreDict.TERRASTEEL_NUGGET,
 				'P', new ItemStack(ModBlocks.pylon),
 				'E', new ItemStack(Items.ender_eye));
@@ -1746,18 +1746,18 @@ public final class ModCraftingRecipes {
 		recipeTerraAxe = BotaniaAPI.getLatestAddedRecipe();
 
 		// Hovering Hourglass Recipe
-		addOreDictRecipe(new ItemStack(ModBlocks.hourglass), 
+		addOreDictRecipe(new ItemStack(ModBlocks.hourglass),
 				"GMG", "RSR", "GMG",
 				'G', "ingotGold",
 				'M', new ItemStack(ModBlocks.manaGlass),
 				'R', new ItemStack(Items.redstone),
 				'S', LibOreDict.MANA_STEEL);
 		recipeHourglass = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Spectral Rail Recipe
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.ghostRail), new ItemStack(Blocks.rail), new ItemStack(ModBlocks.platform, 1, 1));
 		recipeGhostRail = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Drum of the Canopy Recipe
 		addOreDictRecipe(new ItemStack(ModBlocks.forestDrum, 1, 2),
 				"WLW", "WHW", "WLW",
@@ -1765,15 +1765,15 @@ public final class ModCraftingRecipes {
 				'L', new ItemStack(Items.leather),
 				'H', new ItemStack(ModItems.grassHorn, 1, 1));
 		recipeCanopyDrum = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Spark Changer Recipe
-		addOreDictRecipe(new ItemStack(ModBlocks.sparkChanger), 
+		addOreDictRecipe(new ItemStack(ModBlocks.sparkChanger),
 				"ESE", "SRS",
 				'S', LibOreDict.LIVING_ROCK,
 				'E', LibOreDict.ELEMENTIUM,
 				'R', new ItemStack(Items.redstone));
 		recipeSparkChanger = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Storage Block/Nugget Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",
@@ -1808,7 +1808,7 @@ public final class ModCraftingRecipes {
 		addShapelessOreDictRecipe(new ItemStack(ModItems.manaResource, 9, 17), LibOreDict.MANA_STEEL);
 		addShapelessOreDictRecipe(new ItemStack(ModItems.manaResource, 9, 18), LibOreDict.TERRA_STEEL);
 		addShapelessOreDictRecipe(new ItemStack(ModItems.manaResource, 9, 19), LibOreDict.ELEMENTIUM);
-		
+
 		// Revealing Helmet Recipes
 		if(Botania.thaumcraftLoaded) {
 			Item goggles = (Item) Item.itemRegistry.getObject("Thaumcraft:ItemGoggles");

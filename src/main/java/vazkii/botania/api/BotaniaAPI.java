@@ -462,9 +462,9 @@ public final class BotaniaAPI {
 	 * https://gist.github.com/Vazkii/9493322
 	 */
 	public static void addOreWeightNether(String ore, int weight) {
-		 if(ore.contains("Nether") && OreDictionary.getOres(ore.replace("Nether", "")).size() == 0)
-	            return;
-	            
+		if(ore.contains("Nether") && OreDictionary.getOres(ore.replace("Nether", "")).size() == 0)
+			return;
+
 		oreWeightsNether.put(ore, weight);
 	}
 

@@ -31,14 +31,14 @@ public final class PresistantVariableHelper {
 	private static final String TAG_BOOKMARKS = "bookmarks";
 	private static final String TAG_CHALLENGES = "challenges";
 	private static final String TAG_FIRST_LOAD = "firstLoad";
-	
+
 	private static File cacheFile;
-	
+
 	public static boolean firstLoad = true;
-	
+
 	public static void save() throws IOException {
 		NBTTagCompound cmp = new NBTTagCompound();
-		
+
 		List<GuiLexicon> bookmarks = GuiLexicon.bookmarks;
 		int count = bookmarks.size();
 		cmp.setInteger(TAG_BOOKMARK_COUNT, count);
@@ -50,20 +50,20 @@ public final class PresistantVariableHelper {
 			bookmarksCmp.setTag(TAG_BOOKMARK_PREFIX + i, bookmarkCmp);
 		}
 		cmp.setTag(TAG_BOOKMARKS, bookmarksCmp);
-		
+
 		NBTTagCompound challengesCmp = new NBTTagCompound();
 		for(Challenge c : ModChallenges.challengeLookup.values())
 			c.writeToNBT(challengesCmp);
 		cmp.setTag(TAG_CHALLENGES, challengesCmp);
-		
+
 		cmp.setBoolean(TAG_FIRST_LOAD, firstLoad);
-		
+
 		injectNBTToFile(cmp, getCacheFile());
 	}
-	
+
 	public static void load() throws IOException {
 		NBTTagCompound cmp = getCacheCompound();
-		
+
 		int count = cmp.getInteger(TAG_BOOKMARK_COUNT);
 		GuiLexicon.bookmarks.clear();
 		if(count > 0) {
@@ -75,18 +75,18 @@ public final class PresistantVariableHelper {
 					GuiLexicon.bookmarks.add(gui);
 			}
 		}
-		
+
 		if(cmp.hasKey(TAG_CHALLENGES)) {
 			NBTTagCompound challengesCmp = cmp.getCompoundTag(TAG_CHALLENGES);
 			for(Challenge c : ModChallenges.challengeLookup.values())
 				c.readFromNBT(challengesCmp);
 		}
-		
+
 		firstLoad = cmp.hasKey(TAG_FIRST_LOAD) ? cmp.getBoolean(TAG_FIRST_LOAD) : firstLoad;
 		if(firstLoad)
 			GuiLexicon.currentOpenLexicon = new GuiLexiconEntry(LexiconData.welcome, new GuiLexicon());
 	}
-	
+
 	public static void saveSafe() {
 		try {
 			save();
@@ -94,22 +94,22 @@ public final class PresistantVariableHelper {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void setCacheFile(File f) {
 		cacheFile = f;
 	}
-	
+
 	public static File getCacheFile() throws IOException {
 		if(!cacheFile.exists())
 			cacheFile.createNewFile();
-		
+
 		return cacheFile;
 	}
-	
+
 	public static NBTTagCompound getCacheCompound() throws IOException {
 		return getCacheCompound(getCacheFile());
 	}
-	
+
 	public static NBTTagCompound getCacheCompound(File cache) throws IOException {
 		if(cache == null)
 			throw new RuntimeException("No cache file!");
@@ -131,5 +131,5 @@ public final class PresistantVariableHelper {
 			e.printStackTrace();
 		}
 	}
-	
+
 }

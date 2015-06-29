@@ -47,7 +47,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class PageMultiblock extends LexiconPage {
 
 	private static final ResourceLocation multiblockOverlay = new ResourceLocation(LibResources.GUI_MULTIBLOCK_OVERLAY);
-	
+
 	GuiButton button;
 	MultiblockSet set;
 	Multiblock mb;
@@ -55,10 +55,10 @@ public class PageMultiblock extends LexiconPage {
 
 	public PageMultiblock(String unlocalizedName, MultiblockSet set) {
 		super(unlocalizedName);
-		this.mb = set.getForIndex(0);
+		mb = set.getForIndex(0);
 		this.set = set;
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void renderScreen(IGuiLexiconEntry gui, int mx, int my) {
@@ -72,7 +72,7 @@ public class PageMultiblock extends LexiconPage {
 		((GuiScreen) gui).drawTexturedModalRect(gui.getLeft(), gui.getTop(), 0, 0, gui.getWidth(), gui.getHeight());
 		GL11.glDisable(GL11.GL_BLEND);
 		GL11.glEnable(GL11.GL_ALPHA_TEST);
-		
+
 		final float maxX = 90, maxY = 60;
 		GL11.glPushMatrix();
 		GL11.glTranslatef(gui.getLeft() + gui.getWidth() / 2, gui.getTop() + 90, gui.getZLevel() + 100F);
@@ -86,20 +86,20 @@ public class PageMultiblock extends LexiconPage {
 
 		GL11.glRotatef(-20F, 1, 0, 0);
 		GL11.glRotatef(gui.getElapsedTicks(), 0, 1, 0);
-		
+
 		for(MultiblockComponent comp : mb.getComponents()) {
 			ChunkCoordinates pos = comp.getRelativePosition();
 			renderBlock(comp.getBlock(), comp.getMeta(), pos.posX + mb.offX, pos.posY + mb.offY, pos.posZ + mb.offZ);
 		}
 		GL11.glPopMatrix();
-		
+
 		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
 		boolean unicode = font.getUnicodeFlag();
 		String s = EnumChatFormatting.BOLD + StatCollector.translateToLocal(getUnlocalizedName());
 		font.setUnicodeFlag(true);
 		font.drawString(s, gui.getLeft() + gui.getWidth() / 2 - font.getStringWidth(s) / 2, gui.getTop() + 16, 0x000000);
 		font.setUnicodeFlag(unicode);
-		
+
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		RenderHelper.enableGUIStandardItemLighting();
 		int x = gui.getLeft() + 15;
@@ -107,7 +107,7 @@ public class PageMultiblock extends LexiconPage {
 		RenderItem.getInstance().renderItemIntoGUI(font, render, new ItemStack(Blocks.stonebrick), x, y);
 		RenderHelper.disableStandardItemLighting();
 		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-		
+
 		GL11.glPushMatrix();
 		GL11.glTranslatef(0F, 0F, 200F);
 		if(mx >= x && mx < x + 16 && my >= y && my < y + 16) {
@@ -119,7 +119,7 @@ public class PageMultiblock extends LexiconPage {
 					size = "0" + size;
 				mats.add(" " + EnumChatFormatting.AQUA + size + " " + EnumChatFormatting.GRAY + stack.getDisplayName());
 			}
-				
+
 			vazkii.botania.client.core.helper.RenderHelper.renderTooltip(mx, my, mats);
 		}
 		GL11.glPopMatrix();
@@ -131,7 +131,7 @@ public class PageMultiblock extends LexiconPage {
 
 			GL11.glPushMatrix();
 			GL11.glTranslatef(x, y, z);
-			
+
 			RenderBlocks blockRender = RenderBlocks.getInstance();
 			if(IMultiblockRenderHook.renderHooks.containsKey(block))
 				IMultiblockRenderHook.renderHooks.get(block).renderBlockForMultiblock(Minecraft.getMinecraft().theWorld, mb, block, meta, blockRender);
@@ -139,13 +139,13 @@ public class PageMultiblock extends LexiconPage {
 			GL11.glPopMatrix();
 		}
 	}
-	
+
 	@Override
 	public void onOpened(IGuiLexiconEntry gui) {
 		button = new GuiButton(101, gui.getLeft() + 30, gui.getTop() + gui.getHeight() - 50, gui.getWidth() - 60, 20, getButtonStr());
 		gui.getButtonList().add(button);
 	}
-	
+
 	String getButtonStr() {
 		return StatCollector.translateToLocal(MultiblockRenderHandler.currentMultiblock == set ? "botaniamisc.unvisualize" : "botaniamisc.visualize");
 	}
@@ -165,7 +165,7 @@ public class PageMultiblock extends LexiconPage {
 			button.displayString = getButtonStr();
 		}
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void updateScreen() {

@@ -21,7 +21,6 @@ import vazkii.botania.client.challenge.ModChallenges;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonBack;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonChallengeIcon;
-import vazkii.botania.client.gui.lexicon.button.GuiButtonChallengeInfo;
 
 public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 
@@ -46,7 +45,7 @@ public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 		for(EnumChallengeLevel level : EnumChallengeLevel.class.getEnumConstants()) {
 			int j = 0;
 			for(Challenge c : ModChallenges.challenges.get(level)) {
-				buttonList.add(new GuiButtonChallengeIcon(i, left + 20 + (j % perline) * 18, y + (j / perline) * 17, c));
+				buttonList.add(new GuiButtonChallengeIcon(i, left + 20 + j % perline * 18, y + j / perline * 17, c));
 				i++;
 				j++;
 			}

@@ -19,7 +19,6 @@ import vazkii.botania.common.integration.coloredlights.LightHelperVanilla;
 import vazkii.botania.common.lib.LibMisc;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.ModAPIManager;
@@ -53,7 +52,7 @@ public class Botania {
 		bcTriggersLoaded = ModAPIManager.INSTANCE.hasAPI("BuildCraftAPI|statements");
 		bloodMagicLoaded = Loader.isModLoaded("AWWayofTime"); // Psh, noob
 		coloredLightsLoaded = Loader.isModLoaded("easycoloredlights");
-		 
+
 		lightHelper = coloredLightsLoaded ? new LightHelperColored() : new LightHelperVanilla();
 
 		proxy.preInit(event);

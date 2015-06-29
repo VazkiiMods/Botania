@@ -11,13 +11,9 @@
 package vazkii.botania.api.lexicon.multiblock.component;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.Botania;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * A multiblock component that switches through the 16 colors of the
@@ -28,17 +24,17 @@ public class ColorSwitchingComponent extends MultiblockComponent {
 	public ColorSwitchingComponent(ChunkCoordinates relPos, Block block) {
 		super(relPos, block, -1);
 	}
-	
+
 	@Override
 	public int getMeta() {
 		return (int) (BotaniaAPI.internalHandler.getWorldElapsedTicks() / 20) % 16;
 	}
-	
+
 	@Override
 	public boolean matches(World world, int x, int y, int z) {
 		return world.getBlock(x, y, z) == getBlock();
 	}
-	
+
 	@Override
 	public MultiblockComponent copy() {
 		return new ColorSwitchingComponent(relPos, block);

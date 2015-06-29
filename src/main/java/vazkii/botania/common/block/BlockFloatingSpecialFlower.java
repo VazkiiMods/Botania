@@ -77,9 +77,9 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 
 	@Override
 	public int isProvidingStrongPower(IBlockAccess world, int x, int y, int z, int side) {
-		return this.isProvidingWeakPower(world, x, y, z, side);
+		return isProvidingWeakPower(world, x, y, z, side);
 	}
-    
+
 	@Override
 	public boolean canProvidePower() {
 		return true;

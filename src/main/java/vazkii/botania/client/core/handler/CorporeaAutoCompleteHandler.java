@@ -98,7 +98,7 @@ public class CorporeaAutoCompleteHandler {
 
 		if(!CorporeaHelper.shouldAutoComplete())
 			return;
-		
+
 		GuiTextField inputField = ReflectionHelper.getPrivateValue(GuiChat.class, chat, LibObfuscation.INPUT_FIELD);
 		if(!isAutoCompleted)
 			buildAutoCompletes(inputField, chat);
@@ -107,9 +107,9 @@ public class CorporeaAutoCompleteHandler {
 	}
 
 	private void advanceAutoComplete(GuiTextField inputField, GuiChat chat) {
-		this.position++;
-		if(this.position >= completions.size())
-			this.position -= completions.size();
+		position++;
+		if(position >= completions.size())
+			position -= completions.size();
 		CompletionData data = completions.get(position);
 		String str = originalString.substring(0, originalString.length() - data.prefixLength) + data.string;
 		inputField.setText(str);
@@ -123,10 +123,10 @@ public class CorporeaAutoCompleteHandler {
 			leftOfCursor = inputField.getText().substring(0, inputField.getCursorPosition());
 		if(leftOfCursor.length() == 0 || leftOfCursor.charAt(0) == '/')
 			return;
-		this.completions = getNames(leftOfCursor);
+		completions = getNames(leftOfCursor);
 		if(completions.isEmpty())
 			return;
-		this.position = -1;
+		position = -1;
 		ReflectionHelper.setPrivateValue(GuiChat.class, chat, true, LibObfuscation.COMPLETE_FLAG);
 		StringBuilder stringbuilder = new StringBuilder();
 		CompletionData data;
@@ -135,7 +135,7 @@ public class CorporeaAutoCompleteHandler {
 			if(stringbuilder.length() > 0)
 				stringbuilder.append(", ");
 		}
-		
+
 		Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(new ChatComponentText(stringbuilder.toString()), 1);
 		isAutoCompleted = true;
 		originalString = inputField.getText();

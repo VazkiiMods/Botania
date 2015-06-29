@@ -18,8 +18,8 @@ import vazkii.botania.common.entity.EntityDoppleganger;
 
 public final class ModMultiblocks {
 
-	public static MultiblockSet enchanter; 
-	public static MultiblockSet alfPortal; 
+	public static MultiblockSet enchanter;
+	public static MultiblockSet alfPortal;
 	public static MultiblockSet terrasteelPlate;
 	public static MultiblockSet gaiaRitual;
 
@@ -29,5 +29,5 @@ public final class ModMultiblocks {
 		terrasteelPlate = TileTerraPlate.makeMultiblockSet();
 		gaiaRitual = EntityDoppleganger.makeMultiblockSet();
 	}
-	
+
 }

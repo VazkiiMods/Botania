@@ -33,10 +33,10 @@ import vazkii.botania.client.gui.lexicon.button.GuiButtonInvisible;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonPage;
 
 public class GuiLexiconIndex extends GuiLexicon implements IParented {
-	
+
 	private static final String TAG_CATEGORY = "category";
 	private static final String TAG_PAGE = "page";
-	
+
 	LexiconCategory category;
 	String title;
 	int page = 0;
@@ -52,13 +52,13 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 	public GuiLexiconIndex() {
 		parent = new GuiLexicon();
 	}
-	
+
 	public GuiLexiconIndex(LexiconCategory category) {
 		this.category = category;
 		parent = new GuiLexicon();
 		setTitle();
 	}
-	
+
 	public void setTitle() {
 		title = StatCollector.translateToLocal(category == null ? "botaniamisc.lexiconIndex" : category.getUnlocalizedName());
 	}
@@ -336,7 +336,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		cmp.setString(TAG_CATEGORY, category == null ? "" : category.getUnlocalizedName());
 		cmp.setInteger(TAG_PAGE, page);
 	}
-	
+
 	@Override
 	public void load(NBTTagCompound cmp) {
 		super.load(cmp);
@@ -344,14 +344,14 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		if(categoryStr.isEmpty())
 			category = null;
 		else for(LexiconCategory cat : BotaniaAPI.getAllCategories())
-				if(cat.getUnlocalizedName().equals(categoryStr)) {
-					category = cat;
-					break;
-				}
+			if(cat.getUnlocalizedName().equals(categoryStr)) {
+				category = cat;
+				break;
+			}
 		page = cmp.getInteger(TAG_PAGE);
 		setTitle();
 	}
-	
+
 	@Override
 	public GuiLexicon copy() {
 		GuiLexiconIndex gui = new GuiLexiconIndex(category);

@@ -43,7 +43,7 @@ public class GuiButtonChallengeIcon extends GuiButtonLexicon {
 		RenderItem.getInstance().renderItemIntoGUI(par1Minecraft.fontRenderer, par1Minecraft.renderEngine, challenge.icon, xPosition, yPosition);
 		RenderHelper.disableStandardItemLighting();
 		GL11.glEnable(GL11.GL_BLEND);
-		
+
 		if(challenge.complete) {
 			GL11.glDisable(GL11.GL_DEPTH_TEST);
 			par1Minecraft.fontRenderer.drawStringWithShadow("\u2714", xPosition + 10, yPosition + 9, 0x004C00);

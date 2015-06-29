@@ -20,13 +20,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChunkCoordinates;
 import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
-import vazkii.botania.api.lexicon.multiblock.component.ColorSwitchingComponent;
 import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
 import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
@@ -94,10 +92,10 @@ public class TileAlfPortal extends TileMod {
 			return new int[] { input[0], input[1], -input[2] };
 		}
 	};
-	
+
 	public static MultiblockSet makeMultiblockSet() {
 		Multiblock mb = new Multiblock();
-		
+
 		for(int[] l : LIVINGWOOD_POSITIONS)
 			mb.addComponent(l[0], l[1] + 1, l[2], ModBlocks.livingwood, 0);
 		for(int[] g : GLIMMERING_LIVINGWOOD_POSITIONS)
@@ -106,10 +104,10 @@ public class TileAlfPortal extends TileMod {
 			mb.addComponent(-p[0], p[1] + 1, -p[2], ModBlocks.pylon, 1);
 		for(int[] p : POOL_POSITIONS)
 			mb.addComponent(-p[0], p[1] + 1, -p[2], ModBlocks.pool, 0);
-		
+
 		mb.addComponent(0, 1, 0, ModBlocks.alfPortal, 0);
 		mb.setRenderOffset(0, -1, 0);
-		
+
 		return mb.makeSet();
 	}
 

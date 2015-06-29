@@ -116,7 +116,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	public static boolean staticUltra = false;
 
 	UUID identity;
-	
+
 	int mana;
 	int knownMana = -1;
 	public float rotationX, rotationY;
@@ -132,12 +132,12 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	public boolean canShootBurst = true;
 	public int lastBurstDeathTick = -1;
 	public int burstParticleTick = 0;
-	
+
 	public int pingbackTicks = 0;
 	public double lastPingbackX = 0;
 	public double lastPingbackY = -1;
 	public double lastPingbackZ = 0;
-	
+
 	List<PositionProperties> lastTentativeBurst;
 	boolean invalidTentativeBurst = false;
 
@@ -210,14 +210,14 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 						found = burst;
 						break;
 					}
-				
+
 				if(found != null)
 					found.ping();
 				else setCanShoot(true);
 			} else pingbackTicks--;
-		
+
 		boolean shouldShoot = !redstone;
-		
+
 		if(isRedstone())
 			shouldShoot = redstone && !redstoneLastTick;
 
@@ -239,19 +239,19 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	@Override
 	public void writeCustomNBT(NBTTagCompound cmp) {
 		super.writeCustomNBT(cmp);
-		
+
 		UUID identity = getIdentifier();
 		cmp.setBoolean(TAG_HAS_IDENTITY, true);
 		cmp.setLong(TAG_UUID_MOST, identity.getMostSignificantBits());
 		cmp.setLong(TAG_UUID_LEAST, identity.getLeastSignificantBits());
-		
+
 		cmp.setInteger(TAG_MANA, mana);
 		cmp.setFloat(TAG_ROTATION_X, rotationX);
 		cmp.setFloat(TAG_ROTATION_Y, rotationY);
 		cmp.setBoolean(TAG_REQUEST_UPDATE, requestsClientUpdate);
 		cmp.setInteger(TAG_PADDING_COLOR, paddingColor);
 		cmp.setBoolean(TAG_CAN_SHOOT_BURST, canShootBurst);
-		
+
 		cmp.setInteger(TAG_PINGBACK_TICKS, pingbackTicks);
 		cmp.setDouble(TAG_LAST_PINGBACK_X, lastPingbackX);
 		cmp.setDouble(TAG_LAST_PINGBACK_Y, lastPingbackY);
@@ -271,14 +271,14 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		cmp.setFloat(TAG_FORCED_MANA_LOSS_PER_TICK, mmForcedManaLossPerTick);
 		cmp.setFloat(TAG_FORCED_GRAVITY, mmForcedGravity);
 		cmp.setFloat(TAG_FORCED_VELOCITY_MULTIPLIER, mmForcedVelocityMultiplier);
-		
+
 		requestsClientUpdate = false;
 	}
 
 	@Override
 	public void readCustomNBT(NBTTagCompound cmp) {
 		super.readCustomNBT(cmp);
-	
+
 		if(cmp.getBoolean(TAG_HAS_IDENTITY)) {
 			long most = cmp.getLong(TAG_UUID_MOST);
 			long least = cmp.getLong(TAG_UUID_LEAST);
@@ -286,7 +286,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			if(identity == null || most != identity.getMostSignificantBits() || least != identity.getLeastSignificantBits())
 				identity = new UUID(most, least);
 		} else getIdentifier();
-		
+
 		mana = cmp.getInteger(TAG_MANA);
 		rotationX = cmp.getFloat(TAG_ROTATION_X);
 		rotationY = cmp.getFloat(TAG_ROTATION_Y);
@@ -311,7 +311,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			paddingColor = cmp.getInteger(TAG_PADDING_COLOR);
 		if(cmp.hasKey(TAG_CAN_SHOOT_BURST))
 			canShootBurst = cmp.getBoolean(TAG_CAN_SHOOT_BURST);
-		
+
 		pingbackTicks = cmp.getInteger(TAG_PINGBACK_TICKS);
 		lastPingbackX = cmp.getDouble(TAG_LAST_PINGBACK_X);
 		lastPingbackY = cmp.getDouble(TAG_LAST_PINGBACK_Y);
@@ -709,7 +709,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			identity = UUID.randomUUID();
 		return identity;
 	}
-	
+
 	public UUID getIdentifierUnsafe() {
 		return identity;
 	}

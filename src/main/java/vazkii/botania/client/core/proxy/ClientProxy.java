@@ -164,14 +164,14 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		super.preInit(event);
-		
+
 		PresistantVariableHelper.setCacheFile(new File(event.getModConfigurationDirectory().getParent(), "BotaniaVars.dat"));
 	}
-	
+
 	@Override
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
-		
+
 		ModChallenges.init();
 
 		FMLCommonHandler.instance().bus().register(new ClientTickHandler());
@@ -195,7 +195,7 @@ public class ClientProxy extends CommonProxy {
 			singAnnoyingChristmasSongsTillVazkiisHeadExplodesFromAllTheDamnJingle = true;
 
 		initRenderers();
-		
+
 		try {
 			PresistantVariableHelper.load();
 		} catch (IOException e) {
@@ -245,7 +245,7 @@ public class ClientProxy extends CommonProxy {
 
 		IMultiblockRenderHook.renderHooks.put(ModBlocks.flower, specialFlowerRender);
 		IMultiblockRenderHook.renderHooks.put(ModBlocks.shinyFlower, specialFlowerRender);
-		
+
 		RenderTransparentItem renderTransparentItem = new RenderTransparentItem();
 		RenderFloatingFlowerItem renderFloatingFlower = new RenderFloatingFlowerItem();
 		RenderBow renderBow = new RenderBow();
@@ -298,7 +298,7 @@ public class ClientProxy extends CommonProxy {
 
 		ShaderHelper.initShaders();
 	}
-	
+
 	@Override
 	@Optional.Method(modid = "NotEnoughItems")
 	public void registerNEIStuff() {

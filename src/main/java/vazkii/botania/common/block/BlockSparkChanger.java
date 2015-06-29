@@ -28,8 +28,6 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.TileSparkChanger;
-import vazkii.botania.common.block.tile.TileTerraPlate;
-import vazkii.botania.common.block.tile.string.TileRedStringDispenser;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -46,7 +44,7 @@ public class BlockSparkChanger extends BlockModContainer implements ILexiconable
 		setResistance(10.0F);
 		setStepSound(soundTypeStone);
 		setBlockName(LibBlockNames.SPARK_CHANGER);
-		
+
 		random = new Random();
 	}
 
@@ -76,7 +74,7 @@ public class BlockSparkChanger extends BlockModContainer implements ILexiconable
 	public IIcon getIcon(int par1, int par2) {
 		return icons[Math.min(2, par1)];
 	}
-	
+
 	@Override
 	public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
 		boolean power = world.isBlockIndirectlyGettingPowered(x, y, z) || world.isBlockIndirectlyGettingPowered(x, y + 1, z);
@@ -89,7 +87,7 @@ public class BlockSparkChanger extends BlockModContainer implements ILexiconable
 		} else if(!power && powered)
 			world.setBlockMetadataWithNotify(x, y, z, meta & -9, 4);
 	}
-	
+
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int s, float xs, float ys, float zs) {
 		TileSparkChanger changer = (TileSparkChanger) world.getTileEntity(x, y, z);
@@ -98,11 +96,11 @@ public class BlockSparkChanger extends BlockModContainer implements ILexiconable
 		if(pstack != null && pstack.getItem() == ModItems.sparkUpgrade) {
 			changer.setInventorySlotContents(0, pstack.copy());
 			changer.markDirty();
-			
+
 			pstack.stackSize--;
 			if(pstack.stackSize == 0)
 				player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
-			
+
 			if(cstack != null && !player.inventory.addItemStackToInventory(cstack))
 				player.dropPlayerItemWithRandomChoice(cstack, false);
 			return true;
@@ -113,10 +111,10 @@ public class BlockSparkChanger extends BlockModContainer implements ILexiconable
 				player.dropPlayerItemWithRandomChoice(cstack, false);
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	@Override
 	public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6) {
 		TileSimpleInventory inv = (TileSimpleInventory) par1World.getTileEntity(par2, par3, par4);
@@ -159,7 +157,7 @@ public class BlockSparkChanger extends BlockModContainer implements ILexiconable
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileSparkChanger();
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.sparkChanger;

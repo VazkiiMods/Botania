@@ -12,8 +12,6 @@ package vazkii.botania.common.block.subtile.generating;
 
 import java.util.List;
 
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialLiquid;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;

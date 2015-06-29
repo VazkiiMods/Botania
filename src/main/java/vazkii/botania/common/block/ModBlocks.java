@@ -305,7 +305,7 @@ public final class ModBlocks {
 		hourglass = new BlockHourglass();
 		ghostRail = new BlockGhostRail();
 		sparkChanger = new BlockSparkChanger();
-		
+
 		ModFluffBlocks.init();
 
 		for(int i = 0; i < 16; i++)

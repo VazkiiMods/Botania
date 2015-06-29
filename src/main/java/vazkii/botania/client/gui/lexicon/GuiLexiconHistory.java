@@ -48,7 +48,7 @@ public class GuiLexiconHistory extends GuiLexiconIndex {
 	public GuiLexicon copy() {
 		return new GuiLexiconHistory();
 	}
-	
+
 	@Override
 	public void load(NBTTagCompound cmp) {
 		// NO-OP

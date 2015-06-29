@@ -160,7 +160,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 			BlockPistonRelay.playerPositions.remove(par2EntityPlayer.getCommandSenderName());
 			BlockPistonRelay.mappedPositions.put(bindPos, currentPos);
 			BlockPistonRelay.WorldData.get(par3World).markDirty();
-			
+
 			par3World.playSoundAtEntity(par2EntityPlayer, "botania:ding", 1F, 1F);
 		}
 

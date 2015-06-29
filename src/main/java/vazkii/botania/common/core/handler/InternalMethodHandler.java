@@ -148,7 +148,7 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	public LexiconPage multiblockPage(String key, MultiblockSet mb) {
 		return new PageMultiblock(key, mb);
 	}
-	
+
 	@Override
 	public ItemStack getSubTileAsStack(String subTile) {
 		return ItemBlockSpecialFlower.ofType(subTile);
@@ -219,12 +219,12 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	public void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, int x, int y, int z, int side) {
 		ItemLokiRing.breakOnAllCursors(player, item, stack, x, y, z, side);
 	}
-	
+
 	@Override
 	public long getWorldElapsedTicks() {
 		return Botania.proxy.getWorldElapsedTicks();
 	}
-	
+
 	@Override
 	public boolean isBotaniaFlower(World world, int x, int y, int z) {
 		Block block = world.getBlock(x, y, z);

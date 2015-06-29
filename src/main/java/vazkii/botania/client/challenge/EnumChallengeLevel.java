@@ -18,7 +18,7 @@ public enum EnumChallengeLevel {
 	LUNATIC("botania.challengelevel.lunatic");
 
 	String name;
-	
+
 	private EnumChallengeLevel(String name) {
 		this.name = name;
 	}
@@ -26,5 +26,5 @@ public enum EnumChallengeLevel {
 	public String getName() {
 		return name;
 	}
-	
+
 }

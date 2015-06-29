@@ -222,13 +222,13 @@ public class TileCorporeaIndex extends TileCorporeaBase {
 			input = new InputHandler();
 		return input;
 	}
-	
+
 	public static final class InputHandler implements ICorporeaAutoCompleteController {
 
 		public InputHandler() {
 			CorporeaHelper.registerAutoCompleteController(this);
 		}
-		
+
 		@SubscribeEvent(priority = EventPriority.HIGHEST)
 		public void onChatMessage(ServerChatEvent event) {
 			List<TileCorporeaIndex> nearbyIndexes = getNearbyIndexes(event.player);

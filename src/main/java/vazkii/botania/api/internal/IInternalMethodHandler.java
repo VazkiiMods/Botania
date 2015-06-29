@@ -72,7 +72,7 @@ public interface IInternalMethodHandler {
 	public LexiconPage brewPage(String key, String bottomText, RecipeBrew recipe);
 
 	public LexiconPage multiblockPage(String key, MultiblockSet mb);
-	
+
 	public IManaNetwork getManaNetworkInstance();
 
 	public ItemStack getSubTileAsStack(String subTile);
@@ -108,9 +108,9 @@ public interface IInternalMethodHandler {
 	public boolean isBuildcraftPipe(TileEntity tile);
 
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m);
-	
+
 	public long getWorldElapsedTicks();
 
 	public boolean isBotaniaFlower(World world, int x, int y, int z);
-	
+
 }

@@ -10,12 +10,8 @@
  */
 package vazkii.botania.api.corporea;
 
-import java.util.List;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
 
 /**
  * An interface for systems which may control if the item auto complete system should be active

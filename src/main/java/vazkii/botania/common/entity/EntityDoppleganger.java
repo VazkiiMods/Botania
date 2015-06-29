@@ -63,7 +63,6 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibObfuscation;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
@@ -112,17 +111,17 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		isImmuneToFire = true;
 		experienceValue = 825;
 	}
-	
+
 	public static MultiblockSet makeMultiblockSet() {
 		Multiblock mb = new Multiblock();
-		
+
 		for(int[] p : PYLON_LOCATIONS)
 			mb.addComponent(p[0], p[1] + 1, p[2], ModBlocks.pylon, 2);
-		
+
 		for(int i = 0; i < 3; i++)
 			for(int j = 0; j < 3; j++)
 				mb.addComponent(i - 1, 0, j - 1, Blocks.iron_block, 0);
-		
+
 		mb.addComponent(0, 1, 0, Blocks.beacon, 0);
 		mb.setRenderOffset(0, -1, 0);
 
@@ -390,7 +389,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 		if(!worldObj.isRemote && worldObj.difficultySetting == EnumDifficulty.PEACEFUL)
 			setDead();
-		
+
 		int posXInt = MathHelper.floor_double(posX);
 		int posYInt = MathHelper.floor_double(posY);
 		int posZInt = MathHelper.floor_double(posZ);
@@ -404,7 +403,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			}
 			worldObj.setBlockToAir(posXInt, posYInt, posZInt);
 		}
-		
+
 		ChunkCoordinates source = getSource();
 		boolean hard = isHardMode();
 

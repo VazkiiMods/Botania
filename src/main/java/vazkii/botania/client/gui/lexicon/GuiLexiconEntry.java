@@ -40,7 +40,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 
 	private static final String TAG_ENTRY = "entry";
 	private static final String TAG_PAGE = "page";
-	
+
 	public int page = 0;
 	LexiconEntry entry;
 	GuiScreen parent;
@@ -53,19 +53,19 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 		parent = new GuiLexicon();
 		setTitle();
 	}
-	
+
 	public GuiLexiconEntry(LexiconEntry entry, GuiScreen parent) {
 		this.entry = entry;
 		this.parent = parent;
 		setTitle();
 	}
-	
+
 	public void setTitle() {
 		if(entry == null) {
 			title = "(null)";
 			return;
 		}
-		
+
 		title = StatCollector.translateToLocal(entry.getUnlocalizedName());
 		if(entry instanceof IAddonEntry)
 			subtitle = StatCollector.translateToLocal(((IAddonEntry) entry).getSubtitle());
@@ -359,30 +359,30 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	public float getTickDelta() {
 		return timeDelta;
 	}
-	
+
 	@Override
 	public void serialize(NBTTagCompound cmp) {
 		super.serialize(cmp);
 		cmp.setString(TAG_ENTRY, entry.getUnlocalizedName());
 		cmp.setInteger(TAG_PAGE, page);
 	}
-	
+
 	@Override
 	public void load(NBTTagCompound cmp) {
 		super.load(cmp);
-		
+
 		String entryStr = cmp.getString(TAG_ENTRY);
 		for(LexiconEntry entry : BotaniaAPI.getAllEntries())
 			if(entry.getUnlocalizedName().equals(entryStr)) {
 				this.entry = entry;
 				break;
 			}
-		
+
 		page = cmp.getInteger(TAG_PAGE);
-		
+
 		setTitle();
 	}
-	
+
 	@Override
 	public GuiLexicon copy() {
 		GuiLexiconEntry gui = new GuiLexiconEntry(entry, new GuiScreen());

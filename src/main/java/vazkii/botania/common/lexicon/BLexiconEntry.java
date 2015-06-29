@@ -49,7 +49,7 @@ public class BLexiconEntry extends LexiconEntry {
 	public String getWebLink() {
 		return "http://botaniamod.net/lexicon.php#" + unlocalizedName;
 	}
-	
+
 	@Override
 	public int compareTo(LexiconEntry o) {
 		return o instanceof WLexiconEntry ? 1 : super.compareTo(o);

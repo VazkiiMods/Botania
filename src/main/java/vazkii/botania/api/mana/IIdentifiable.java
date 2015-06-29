@@ -17,7 +17,7 @@ import java.util.UUID;
  * an UUID. This UUID must presist between sessions.
  */
 public interface IIdentifiable {
-	
+
 	public UUID getIdentifier();
 
 }

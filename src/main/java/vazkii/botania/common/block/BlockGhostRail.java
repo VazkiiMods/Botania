@@ -10,12 +10,19 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockRailBase;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.MathHelper;
+import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.minecart.MinecartUpdateEvent;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.BotaniaCreativeTab;
-import vazkii.botania.common.item.block.ItemBlockElven;
 import vazkii.botania.common.item.block.ItemBlockMod;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -23,22 +30,11 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRailBase;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.MathHelper;
-import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.minecart.MinecartUpdateEvent;
 
 public class BlockGhostRail extends BlockRailBase implements ILexiconable {
 
 	private static final String TAG_FLOAT_TICKS = "Botania_FloatTicks";
-	
+
 	public BlockGhostRail() {
 		super(true);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
@@ -75,11 +71,11 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable {
 				event.entity.worldObj.playAuxSFX(2003, x, y, z, 0);
 		}
 		floatTicks = event.entity.getEntityData().getInteger(TAG_FLOAT_TICKS);
-		
+
 		if(floatTicks > 0) {
 			Block blockBelow = event.entity.worldObj.getBlock(x, y - 1, z);
 			boolean airBelow = blockBelow.isAir(event.entity.worldObj, x, y - 1, z);
-			if((air && airBelow) || !air && !(airBelow))
+			if(air && airBelow || !air && !airBelow)
 				event.entity.noClip = true;
 			event.entity.motionY = 0.2;
 			event.entity.motionX *= 1.4;
@@ -93,5 +89,5 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable {
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.ghostRail;
 	}
-	
+
 }
