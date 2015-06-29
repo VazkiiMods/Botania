@@ -29,6 +29,7 @@ import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.internal.DummyMethodHandler;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.lexicon.LexiconPage;
+import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
 import vazkii.botania.api.recipe.RecipeBrew;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
@@ -49,6 +50,7 @@ import vazkii.botania.common.lexicon.page.PageElvenRecipe;
 import vazkii.botania.common.lexicon.page.PageImage;
 import vazkii.botania.common.lexicon.page.PageLoreText;
 import vazkii.botania.common.lexicon.page.PageManaInfusionRecipe;
+import vazkii.botania.common.lexicon.page.PageMultiblock;
 import vazkii.botania.common.lexicon.page.PagePetalRecipe;
 import vazkii.botania.common.lexicon.page.PageRuneRecipe;
 import vazkii.botania.common.lexicon.page.PageText;
@@ -142,6 +144,11 @@ public class InternalMethodHandler extends DummyMethodHandler {
 		return new PageBrew(recipe, key, bottomText);
 	}
 
+	@Override
+	public LexiconPage multiblockPage(String key, MultiblockSet mb) {
+		return new PageMultiblock(key, mb);
+	}
+	
 	@Override
 	public ItemStack getSubTileAsStack(String subTile) {
 		return ItemBlockSpecialFlower.ofType(subTile);
