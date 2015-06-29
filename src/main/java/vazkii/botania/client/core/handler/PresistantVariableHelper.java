@@ -18,6 +18,8 @@ import java.util.List;
 
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
+import vazkii.botania.client.challenge.Challenge;
+import vazkii.botania.client.challenge.ModChallenges;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 import vazkii.botania.client.gui.lexicon.GuiLexiconEntry;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -27,6 +29,7 @@ public final class PresistantVariableHelper {
 	private static final String TAG_BOOKMARK_COUNT = "bookmarkCount";
 	private static final String TAG_BOOKMARK_PREFIX = "bookmark";
 	private static final String TAG_BOOKMARKS = "bookmarks";
+	private static final String TAG_CHALLENGES = "challenges";
 	private static final String TAG_FIRST_LOAD = "firstLoad";
 	
 	private static File cacheFile;
@@ -47,6 +50,12 @@ public final class PresistantVariableHelper {
 			bookmarksCmp.setTag(TAG_BOOKMARK_PREFIX + i, bookmarkCmp);
 		}
 		cmp.setTag(TAG_BOOKMARKS, bookmarksCmp);
+		
+		NBTTagCompound challengesCmp = new NBTTagCompound();
+		for(Challenge c : ModChallenges.challengeLookup.values())
+			c.writeToNBT(challengesCmp);
+		cmp.setTag(TAG_CHALLENGES, challengesCmp);
+		
 		cmp.setBoolean(TAG_FIRST_LOAD, firstLoad);
 		
 		injectNBTToFile(cmp, getCacheFile());
@@ -65,6 +74,12 @@ public final class PresistantVariableHelper {
 				if(gui != null)
 					GuiLexicon.bookmarks.add(gui);
 			}
+		}
+		
+		if(cmp.hasKey(TAG_CHALLENGES)) {
+			NBTTagCompound challengesCmp = cmp.getCompoundTag(TAG_CHALLENGES);
+			for(Challenge c : ModChallenges.challengeLookup.values())
+				c.readFromNBT(challengesCmp);
 		}
 		
 		firstLoad = cmp.hasKey(TAG_FIRST_LOAD) ? cmp.getBoolean(TAG_FIRST_LOAD) : firstLoad;

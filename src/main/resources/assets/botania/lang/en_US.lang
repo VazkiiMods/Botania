@@ -121,6 +121,10 @@ botaniamisc.rightClickToAnchor=Right click any block to anchor this Structure Pr
 botaniamisc.structureComplete=Structure Complete!
 botaniamisc.materialsRequired=Materials Required
 botaniamisc.challenges=Challenges
+botaniamisc.markCompleted=Mark Completed
+botaniamisc.markNotCompleted=Mark Not Completed
+botaniamisc.completed=Completed
+botaniamisc.notCompleted=Not Completed
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
@@ -494,11 +498,55 @@ achievement.botania:desuGun=Two-Faced Lovers
 achievement.botania:desuGun.desc=ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
 #                                 ^ Don't localize
 
-# CHALLENGE STUFF
+# CHALLENGE LEVELS
 botania.challengelevel.easy=Easy
 botania.challengelevel.normal=Normal
 botania.challengelevel.hard=Hard
 botania.challengelevel.lunatic=Lunatic
+
+# CHALLENGE TEXT
+botania.challenge.flowerFarm=Flower Farm
+botania.challenge.flowerFarm.desc=Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id justo tincidunt nisl suscipit malesuada. Nulla sed euismod tellus. Fusce ac porttitor mauris.
+botania.challenge.recordFarm=Record Farm
+botania.challenge.recordFarm.desc=Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id justo tincidunt nisl suscipit malesuada. Nulla sed euismod tellus. Fusce ac porttitor mauris.
+botania.challenge.reedFarm=Sugar Cane Farm
+botania.challenge.reedFarm.desc=Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id justo tincidunt nisl suscipit malesuada. Nulla sed euismod tellus. Fusce ac porttitor mauris.
+botania.challenge.cobbleGen=Cobble Generator
+botania.challenge.cobbleGen.desc=Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id justo tincidunt nisl suscipit malesuada. Nulla sed euismod tellus. Fusce ac porttitor mauris.
+botania.challenge.pureDaisy=Auto Pure Daisy
+botania.challenge.pureDaisy.desc=Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id justo tincidunt nisl suscipit malesuada. Nulla sed euismod tellus. Fusce ac porttitor mauris.
+botania.challenge.battery=Mana Battery
+botania.challenge.battery.desc=Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id justo tincidunt nisl suscipit malesuada. Nulla sed euismod tellus. Fusce ac porttitor mauris.
+
+botania.challenge.apothecaryRefill=Apothecary Refiller
+botania.challenge.apothecaryRefill.desc=Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id justo tincidunt nisl suscipit malesuada. Nulla sed euismod tellus. Fusce ac porttitor mauris.
+botania.challenge.treeFarm=Tree Farm
+botania.challenge.treeFarm.desc=Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id justo tincidunt nisl suscipit malesuada. Nulla sed euismod tellus. Fusce ac porttitor mauris.
+botania.challenge.fullCropFarm=Full Crop Farm
+botania.challenge.fullCropFarm.desc=Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id justo tincidunt nisl suscipit malesuada. Nulla sed euismod tellus. Fusce ac porttitor mauris.
+botania.challenge.animalFarm=Animal Farm
+botania.challenge.animalFarm.desc=Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id justo tincidunt nisl suscipit malesuada. Nulla sed euismod tellus. Fusce ac porttitor mauris.
+botania.challenge.battery.desc=Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id justo tincidunt nisl suscipit malesuada. Nulla sed euismod tellus. Fusce ac porttitor mauris.
+botania.challenge.boneMealFarm=Bone Meal-type Farm
+botania.challenge.boneMealFarm.desc=Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id justo tincidunt nisl suscipit malesuada. Nulla sed euismod tellus. Fusce ac porttitor mauris.
+botania.challenge.orechid=Automated Orechid
+botania.challenge.orechid.desc=Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id justo tincidunt nisl suscipit malesuada. Nulla sed euismod tellus. Fusce ac porttitor mauris.
+
+botania.challenge.mobTower=Spawning Tower
+botania.challenge.mobTower.desc=Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id justo tincidunt nisl suscipit malesuada. Nulla sed euismod tellus. Fusce ac porttitor mauris.
+botania.challenge.entropinnyumSetup=Entropinnyum Setup
+botania.challenge.entropinnyumSetup.desc=Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id justo tincidunt nisl suscipit malesuada. Nulla sed euismod tellus. Fusce ac porttitor mauris.
+botania.challenge.spectrolusSetup=Spectrolus Setup
+botania.challenge.spectrolusSetup.desc=Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id justo tincidunt nisl suscipit malesuada. Nulla sed euismod tellus. Fusce ac porttitor mauris.
+botania.challenge.potionBrewer=Automated Brewing
+botania.challenge.potionBrewer.desc=Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id justo tincidunt nisl suscipit malesuada. Nulla sed euismod tellus. Fusce ac porttitor mauris.
+
+botania.challenge.autoQuarry=Automated Quarry
+botania.challenge.autoQuarry.desc=Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id justo tincidunt nisl suscipit malesuada. Nulla sed euismod tellus. Fusce ac porttitor mauris.
+botania.challenge.runeCrafter=Mana Battery
+botania.challenge.runeCrafter.desc=Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id justo tincidunt nisl suscipit malesuada. Nulla sed euismod tellus. Fusce ac porttitor mauris.
+botania.challenge.kekimurusSetup=Kekimurus Setup
+botania.challenge.kekimurusSetup.desc=Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id justo tincidunt nisl suscipit malesuada. Nulla sed euismod tellus. Fusce ac porttitor mauris.
 
 # BLOCK NAMES
 tile.botania:flower0.name=Mystical White Flower

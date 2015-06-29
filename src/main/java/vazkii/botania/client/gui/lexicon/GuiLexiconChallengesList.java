@@ -10,7 +10,10 @@
  */
 package vazkii.botania.client.gui.lexicon;
 
+import java.util.List;
+
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import vazkii.botania.client.challenge.Challenge;
 import vazkii.botania.client.challenge.EnumChallengeLevel;
@@ -32,15 +35,17 @@ public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 	@Override
 	public void onInitGui() {
 		super.onInitGui();
+		title = StatCollector.translateToLocal("botaniamisc.challenges");
 
 		buttonList.add(backButton = new GuiButtonBack(12, left + guiWidth / 2 - 8, top + guiHeight + 2));
 		
+		int perline = 6;
 		int i = 13;
-		int y = top + 21;
+		int y = top + 20;
 		for(EnumChallengeLevel level : EnumChallengeLevel.class.getEnumConstants()) {
 			int j = 0;
 			for(Challenge c : ModChallenges.challenges.get(level)) {
-				buttonList.add(new GuiButtonChallengeIcon(i, left + 20 + (j % 6) * 18, y + (j / 6) * 17, c));
+				buttonList.add(new GuiButtonChallengeIcon(i, left + 20 + (j % perline) * 18, y + (j / perline) * 17, c));
 				i++;
 				j++;
 			}
@@ -52,8 +57,18 @@ public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 	public void drawScreen(int par1, int par2, float par3) {
 		super.drawScreen(par1, par2, par3);
 		
-		for(EnumChallengeLevel level : EnumChallengeLevel.class.getEnumConstants())
-			fontRendererObj.drawString(StatCollector.translateToLocal(level.getName()), left + 20, top + 12 + level.ordinal() * 44, 0);
+		boolean unicode = fontRendererObj.getUnicodeFlag();
+		fontRendererObj.setUnicodeFlag(true);
+		for(EnumChallengeLevel level : EnumChallengeLevel.class.getEnumConstants()) {
+			List<Challenge> list = ModChallenges.challenges.get(level);
+			int complete = 0;
+			for(Challenge c : list)
+				if(c.complete)
+					complete++;
+			
+			fontRendererObj.drawString(EnumChatFormatting.BOLD + StatCollector.translateToLocal(level.getName()) + EnumChatFormatting.RESET + " (" + complete + "/" + list.size() + ")", left + 20, top + 11 + level.ordinal() * 44, 0);
+		}
+		fontRendererObj.setUnicodeFlag(unicode);
 	}
 	
 	@Override
@@ -81,14 +96,12 @@ public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 		if(par1GuiButton.id >= BOOKMARK_START)
 			handleBookmark(par1GuiButton);
 		else
-			switch(par1GuiButton.id) {
-			case 12 :
+			if(par1GuiButton.id == 12) {
 				mc.displayGuiScreen(parent);
 				ClientTickHandler.notifyPageChange();
-				break;
-			default :
-				//int index = par1GuiButton.id + page * 12;
-				//openEntry(index);
+			} else if(par1GuiButton instanceof GuiButtonChallengeIcon) {
+				GuiButtonChallengeIcon cbutton = (GuiButtonChallengeIcon) par1GuiButton;
+				mc.displayGuiScreen(new GuiLexiconChallenge(this, cbutton.challenge));
 			}
 	}
 	
@@ -123,7 +136,6 @@ public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 	boolean isCategoryIndex() {
 		return false;
 	}
-	
 
 	@Override
 	public GuiLexicon copy() {

@@ -11,17 +11,27 @@
 package vazkii.botania.client.challenge;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 public class Challenge {
 	
 	public final String unlocalizedName;
 	public final ItemStack icon;
 	public final EnumChallengeLevel level;
+	public boolean complete = false;
 
 	public Challenge(String unlocalizedName, ItemStack icon, EnumChallengeLevel level) {
 		this.unlocalizedName = unlocalizedName;
 		this.icon = icon;
 		this.level = level;
+	}
+	
+	public void writeToNBT(NBTTagCompound cmp) {
+		cmp.setBoolean(unlocalizedName, complete);
+	}
+	
+	public void readFromNBT(NBTTagCompound cmp) {
+		complete = cmp.getBoolean(unlocalizedName);
 	}
 	
 }

@@ -26,7 +26,7 @@ import vazkii.botania.client.challenge.Challenge;
 
 public class GuiButtonChallengeIcon extends GuiButtonLexicon {
 
-	Challenge challenge;
+	public Challenge challenge;
 
 	public GuiButtonChallengeIcon(int id, int x, int y, Challenge challenge) {
 		super(id, x, y, 16, 16, "");
@@ -43,6 +43,14 @@ public class GuiButtonChallengeIcon extends GuiButtonLexicon {
 		RenderItem.getInstance().renderItemIntoGUI(par1Minecraft.fontRenderer, par1Minecraft.renderEngine, challenge.icon, xPosition, yPosition);
 		RenderHelper.disableStandardItemLighting();
 		GL11.glEnable(GL11.GL_BLEND);
+		
+		if(challenge.complete) {
+			GL11.glDisable(GL11.GL_DEPTH_TEST);
+			par1Minecraft.fontRenderer.drawStringWithShadow("\u2714", xPosition + 10, yPosition + 9, 0x004C00);
+			par1Minecraft.fontRenderer.drawStringWithShadow("\u2714", xPosition + 10, yPosition + 8, 0x0BD20D);
+			GL11.glEnable(GL11.GL_DEPTH_TEST);
+		}
+
 
 		List<String> tooltip = new ArrayList();
 		tooltip.add(EnumChatFormatting.AQUA + StatCollector.translateToLocal(challenge.unlocalizedName));
