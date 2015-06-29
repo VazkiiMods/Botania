@@ -10,6 +10,9 @@
  */
 package vazkii.botania.common.crafting;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -27,6 +30,7 @@ public class ModManaConjurationRecipes {
 	public static RecipeManaInfusion netherrackRecipe;
 	public static RecipeManaInfusion soulSandRecipe;
 	public static RecipeManaInfusion gravelRecipe;
+	public static List<RecipeManaInfusion> leavesRecipes;
 
 	public static void init() {
 		redstoneRecipe = BotaniaAPI.registerManaConjurationRecipe(new ItemStack(Items.redstone, 2), new ItemStack(Items.redstone), 5000);
@@ -37,6 +41,12 @@ public class ModManaConjurationRecipes {
 		netherrackRecipe = BotaniaAPI.registerManaConjurationRecipe(new ItemStack(Blocks.netherrack, 2), new ItemStack(Blocks.netherrack), 200);
 		soulSandRecipe = BotaniaAPI.registerManaConjurationRecipe(new ItemStack(Blocks.soul_sand, 2), new ItemStack(Blocks.soul_sand), 1500);
 		gravelRecipe = BotaniaAPI.registerManaConjurationRecipe(new ItemStack(Block.getBlockFromName("gravel"), 2), new ItemStack(Block.getBlockFromName("gravel")), 720);
+		
+		leavesRecipes = new ArrayList();
+		for(int i = 0; i < 4; i++)
+			leavesRecipes.add(BotaniaAPI.registerManaConjurationRecipe(new ItemStack(Blocks.leaves, 2, i), new ItemStack(Blocks.leaves, 1, i), 2000));
+		for(int i = 0; i < 2; i++)
+			leavesRecipes.add(BotaniaAPI.registerManaConjurationRecipe(new ItemStack(Blocks.leaves2, 2, i), new ItemStack(Blocks.leaves2, 1, i), 2000));
 	}
 
 }
