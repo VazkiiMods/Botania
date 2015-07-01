@@ -115,6 +115,18 @@ botaniamisc.hourglassLock=Essa Ampulheta está travada. Clique com uma Varinha d
 botaniamisc.locked=Travada
 botaniamisc.stopped=Parada
 botaniamisc.lockedStopped=Travada, Parada
+botaniamisc.visualize=Visualizar
+botaniamisc.unvisualize=Desvisualizar
+botaniamisc.rightClickToAnchor=Clique em algum bloco para ancorar essa Previsão Estrutural
+botaniamisc.structureComplete=Estrutura completa!
+botaniamisc.materialsRequired=Materiais necessários
+botaniamisc.challenges=Desafios
+botaniamisc.markCompleted=Marcar completo
+botaniamisc.markNotCompleted=Marcar como não completo
+botaniamisc.completed=Completo
+botaniamisc.notCompleted=Não completo
+botaniamisc.info=Info.
+botaniamisc.challengeInfo=Aprenda sobre os desafios
 
 # NEI INTEGRATION
 botania.nei.brewery=Fermentador Botânico
@@ -486,6 +498,55 @@ achievement.botania:nullFlower.desc=Encontre algum bug que faça você conseguir
 achievement.botania:desuGun=Two-Faced Lovers
 achievement.botania:desuGun.desc=ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
 #                                 ^ Don't localize
+
+# CHALLENGE LEVELS
+botania.challengelevel.easy=Fácil
+botania.challengelevel.normal=Normal
+botania.challengelevel.hard=Difícl
+botania.challengelevel.lunatic=Lunático
+
+# CHALLENGE TEXT
+botania.challenge.flowerFarm=Flower Farm
+botania.challenge.flowerFarm.desc=Crie uma farm automática das 16 cores de flores básicas do Botania. Pontos extras se elas forem organizadas.
+botania.challenge.recordFarm=Record Farm
+botania.challenge.recordFarm.desc=Crie um sistema que produza discos matando Creepers com Esqueletos. Pontos extras se isso não precisar da presença do jogador.
+botania.challenge.reedFarm=Sugar Cane Farm
+botania.challenge.reedFarm.desc=Crie uma plantação automática de cana. Pontos extras se não usar pistões.
+botania.challenge.cobbleGen=Cobble Generator
+botania.challenge.cobbleGen.desc=Faça uma criação automática de pedregulhos com geração e coleção. Pontos extras se criar pedra normal sem usar fornalhas.
+botania.challenge.pureDaisy=Auto Pure Daisy
+botania.challenge.pureDaisy.desc=Completamente automatize a Margarida Pura. Pontos extras se apenas um Dispersor for usado e/ou se a entrada/saída de pedra/madeira também for automatizada.
+botania.challenge.battery=Mana Battery
+botania.challenge.battery.desc=Crie uma Bateria de Mana, um sistema em que mana entra em um Poço e sái em outro, usando vários Poços como reserva. Pontos extras se ambas entrada e saída podem ser aternadas.
+
+botania.challenge.apothecaryRefill=Apothecary Refiller
+botania.challenge.apothecaryRefill.desc=Crie um sistema que encha o Boticário de Pétalas com água se estiver vazio. Pontos extras se o sistema também criar plantas, quando dados os componentes.
+botania.challenge.treeFarm=Tree Farm
+botania.challenge.treeFarm.desc=Crie uma plantação auto-suficiente de madeira. Pontos extras se vários tipos de árvores forem usadas.
+botania.challenge.fullCropFarm=Full Crop Farm
+botania.challenge.fullCropFarm.desc=Crie uma plantação de todos tipos de vegetais (trigo, cenoura, batata, melância, abóbora, cacau e fungo do Nether) que funcione em total eficiência. Pontos extras se os resultados forem organizados.
+botania.challenge.animalFarm=Animal Farm
+botania.challenge.animalFarm.desc=Crie uma fazenda de animais com todos animais reproduzíveis. Pontos extras se a comida for inserida no sistema automaticamente.
+botania.challenge.boneMealFarm=Bone Meal-type Farm
+botania.challenge.boneMealFarm.desc=Crie uma plantação que use farinha de osso para crescer plantas em demanda. Pontos extras se o Tambor da Vida Selvagem não for usado.
+botania.challenge.orechid=Automated Orechid
+botania.challenge.orechid.desc=Crie um sistema que automatize a Orechid. Pontos extras se os minérios forem derretidos e organizados.
+
+botania.challenge.mobTower=Spawning Tower
+botania.challenge.mobTower.desc=Crie uma mob farm em estilo torre. Mobs precisam ser organizados em câmaras específicas. Invocadores podem ser usados. Pontos extras se isso não precisar do jogador e funcionar em máxima eficiência.
+botania.challenge.entropinnyumSetup=Entropinnyum Setup
+botania.challenge.entropinnyumSetup.desc=Crie um sistema que monte e exploda seguramente Dinamite para uma Entropinnyum, criando mana. Pontos extras se a areia e a pólvora da dinamite são inseridas no sistema automaticamente.
+botania.challenge.spectrolusSetup=Spectrolus Setup
+botania.challenge.spectrolusSetup.desc=Crie um sistema que alimente uma Spectrolus, gerando mana. Exceto mana, nenhum item deve ser inserido de fora do sistema. Pontos extras se operar em máxima eficiênica, sem desperdiçar lã.
+botania.challenge.potionBrewer=Automated Brewing
+botania.challenge.potionBrewer.desc=Crie um sistema que prepare todas poções em demanda. Pontos extras o sistema manter incensos acesos na base do jogador.
+
+botania.challenge.kekimurusSetup=Kekimurus Setup
+botania.challenge.kekimurusSetup.desc=Completamente automatize uma Kekimurus, todas partes do sistema devem ser automáticas e auto-suficientes. Pontos extras se apenas um Caixote Inteligente for usado.
+botania.challenge.autoQuarry=Automated Quarry
+botania.challenge.autoQuarry.desc=Crie um minerador automático que colete pedra e minérios do subterrâneo. O sistema deve cavar pedaços do mundo e os resultados, organizados. Pontos extras se o sistema se relocar automaticamente depois de terminar uma área.
+botania.challenge.runeCrafter=Rune Crafter
+botania.challenge.runeCrafter.desc=Crie um sistema que crie em demanda ou que armazene certa quantidade de runas. Todas partes desse sistema devem ser automaticas e auto-suficientes, incluindo a entrada de itens. Pontos extras se apenas um Altar Rúnico for usado. Você não deve ter limites pra tentar isso.
 
 # BLOCK NAMES
 tile.botania:flower0.name=Flor Mística Branca
@@ -1668,6 +1729,12 @@ botania.page.poolCart2=O lado de saída de &4Mana&0 é o rosa, &4Mana&0 é puxad
 botania.page.poolCart3=I like trains
 botania.page.poolCart4=Isso não é um tubo
 
+# -- SPARK TINKERER
+botania.entry.sparkChanger=Modificador de Fagulhas
+botania.page.sparkChanger0=O &1Modificador de Fagulhas&0 é um bloco com a habilidade de modificar &1Melhorias&0 colocadas em &1Fagulhas&0. Colocando-o adjacente a um &1Poço de Mana&0 ou qualquer outro bloco com uma &1Fagulha&0 equipada o conecta a esses blocos.<br>Clicar no &1Modificador e Fagulhas&0 com uma &1Melhoria de Fagulha&0 coloca a melhoria no bloco, clicar novamente remove a melhoria.
+botania.page.sparkChanger1=Quando o &1Modificador de Fagulhas&0 recebe um sinal de redstone ele aleatoriamente escolhe uma &1Fagulha&0, entre todas que estão conectadas e que tenham uma melhoria diferente do que a do bloco, e troca de melhoria com a &1Fagulha&0.<br>A melhoria armazenada pode ser retirada ou colocada com &1Funis&0 ou outro método de automação.
+botania.page.sparkChanger2=Hahahaha, fogo na água...
+
 # - FUNCTIONAL FLOWERS
 # -- AN INTRODUCTION TO FUNCTION
 botania.entry.fIntro=Introdução a Função
@@ -1787,3 +1854,4 @@ botania.page.daffomill1=&oWind Turbines? I'm a big fan&r.
 botania.entry.vinculotus=Vinculotus
 botania.page.vinculotus0=A &1Vinculotus&0 tem o poder de causar perturbações no teleporte de &4Endermen&0 em uma decente área. Por um custo de &4Mana&0, sempre que um &4Enderman&0 se teleportar, ele será puxado para o local da &1Vinculotus&0.
 botania.page.vinculotus1=&oTouch this black lotus with your fingers&r.
+
