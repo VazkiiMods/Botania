@@ -212,7 +212,7 @@ public class TileAlfPortal extends TileMod {
 	void resolveRecipes() {
 		int i = 0;
 		for(ItemStack stack : stacksIn) {
-			if(stack.getItem() instanceof ILexicon) {
+			if(stack != null && stack.getItem() instanceof ILexicon) {
 				((ILexicon) stack.getItem()).unlockKnowledge(stack, BotaniaAPI.elvenKnowledge);
 				ItemLexicon.setForcedPage(stack, LexiconData.elvenMessage.unlocalizedName);
 				spawnItem(stack);
