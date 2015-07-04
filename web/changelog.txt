@@ -1,3 +1,6 @@
+r1.6 198
+*Fixed a crash related to the Elven Portal that someone managed to get and I'm still astounded as to how they managed to do so.
+*Fixed the Gaia Guardian breaking blocks on the client side.
 r1.6 197
 *Fixed a crash when clicking the Info button in the gui for a challenge. 
 r1.6 196
