@@ -265,6 +265,12 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeCanopyDrum;
 	public static IRecipe recipeSparkChanger;
 
+	// Garden of Glass
+	public static IRecipe recipeRootToSapling;
+	public static IRecipe recipeRootToFertilizer;
+	public static IRecipe recipePebbleCobblestone;
+	public static IRecipe recipeMagmaToSlimeball;
+
 	public static void init() {
 		// Lexicon Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lexicon), "treeSapling", Items.book);
@@ -320,7 +326,7 @@ public final class ModCraftingRecipes {
 					"WWW", "GP ", "WWW",
 					'W', LibOreDict.LIVING_WOOD,
 					'P', LibOreDict.PETAL[i],
-					'G', "ingotGold");
+					'G', Botania.gardenOfGlassLoaded ? LibOreDict.LIVING_WOOD : "ingotGold");
 		recipesSpreader = BotaniaAPI.getLatestAddedRecipes(16);
 
 		// Mana Lens Recipe
@@ -507,7 +513,7 @@ public final class ModCraftingRecipes {
 		recipeTurntable = BotaniaAPI.getLatestAddedRecipe();
 
 		// Fertilizer Recipes
-		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.fertilizer), new ItemStack(Items.dye, 1, 15), new ItemStack(ModItems.dye, 1, Short.MAX_VALUE), new ItemStack(ModItems.dye, 1, Short.MAX_VALUE), new ItemStack(ModItems.dye, 1, Short.MAX_VALUE), new ItemStack(ModItems.dye, 1, Short.MAX_VALUE));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.fertilizer, Botania.gardenOfGlassLoaded ? 3 : 1), new ItemStack(Items.dye, 1, 15), new ItemStack(ModItems.dye, 1, Short.MAX_VALUE), new ItemStack(ModItems.dye, 1, Short.MAX_VALUE), new ItemStack(ModItems.dye, 1, Short.MAX_VALUE), new ItemStack(ModItems.dye, 1, Short.MAX_VALUE));
 		recipeFertilizerPowder = BotaniaAPI.getLatestAddedRecipe();
 		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.fertilizer), new ItemStack(Items.dye, 1, 15), new ItemStack(Items.dye, 1, 11), new ItemStack(Items.dye, 1, 11), new ItemStack(Items.dye, 1, 1), new ItemStack(Items.dye, 1, 1));
 		recipeFerilizerDye = BotaniaAPI.getLatestAddedRecipe();
@@ -1695,9 +1701,9 @@ public final class ModCraftingRecipes {
 		// Blaze Light Recipe
 		addOreDictRecipe(new ItemStack(ModBlocks.blazeBlock),
 				"BBB", "BBB", "BBB",
-				'B', "rodBlaze");
+				'B', Botania.gardenOfGlassLoaded ? "powderBlaze" : "rodBlaze");
 		recipeBlazeBlock = BotaniaAPI.getLatestAddedRecipe();
-		addShapelessOreDictRecipe(new ItemStack(Items.blaze_rod, 9), LibOreDict.BLAZE_BLOCK);
+		addShapelessOreDictRecipe(new ItemStack(Botania.gardenOfGlassLoaded ? Items.blaze_powder : Items.blaze_rod, 9), LibOreDict.BLAZE_BLOCK);
 
 		// Metamorphic Petal Apothecary Recipes
 		for(int i = 0; i < 8; i++)
@@ -1855,8 +1861,29 @@ public final class ModCraftingRecipes {
 		// Misc Recipes
 		GameRegistry.addShapelessRecipe(new ItemStack(Items.reeds, 9, 0), new ItemStack(ModBlocks.reedBlock));
 		GameRegistry.addShapelessRecipe(new ItemStack(Items.wheat, 4, 0), new ItemStack(ModBlocks.thatch));
+		
+		if(Botania.gardenOfGlassLoaded)
+			initGardenOfGlass();
 	}
 
+	private static void initGardenOfGlass() {
+		// Root to Sapling
+		addShapelessOreDictRecipe(new ItemStack(Blocks.sapling), LibOreDict.ROOT, LibOreDict.ROOT, LibOreDict.ROOT, LibOreDict.ROOT);
+		recipeRootToSapling = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Root to Fertilizer
+		addShapelessOreDictRecipe(new ItemStack(ModItems.fertilizer), LibOreDict.ROOT);
+		recipeRootToFertilizer = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Pebble to Cobble
+		addShapelessOreDictRecipe(new ItemStack(Blocks.cobblestone), LibOreDict.PEBBLE, LibOreDict.PEBBLE, LibOreDict.PEBBLE, LibOreDict.PEBBLE);
+		recipePebbleCobblestone = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Magma Pearl to Slimeball
+		addShapelessOreDictRecipe(new ItemStack(Items.slime_ball), new ItemStack(Items.magma_cream), new ItemStack(Items.water_bucket));
+		recipeMagmaToSlimeball = BotaniaAPI.getLatestAddedRecipe();
+	}
+	
 	private static void addStairsAndSlabs(Block block, int meta, Block stairs, Block slab) {
 		GameRegistry.addRecipe(new ItemStack(slab, 6),
 				"QQQ",

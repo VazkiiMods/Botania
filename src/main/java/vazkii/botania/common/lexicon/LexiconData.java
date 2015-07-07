@@ -425,8 +425,10 @@ public final class LexiconData {
 		tigerseye = new BLexiconEntry(LibLexicon.FFLOWER_TIGERSEYE, categoryFunctionalFlowers);
 		tigerseye.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.tigerseyeRecipe));
 
-		orechid = new ALexiconEntry(LibLexicon.FFLOWER_ORECHID, categoryFunctionalFlowers);
+		orechid = Botania.gardenOfGlassLoaded ? new BLexiconEntry(LibLexicon.FFLOWER_ORECHID, categoryFunctionalFlowers) : new ALexiconEntry(LibLexicon.FFLOWER_ORECHID, categoryFunctionalFlowers);
 		orechid.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.orechidRecipe));
+		if(Botania.gardenOfGlassLoaded)
+			orechid.setPriority();
 
 		orechidIgnem = new ALexiconEntry(LibLexicon.FFLOWER_ORECHID_IGNEM, categoryFunctionalFlowers);
 		orechidIgnem.setLexiconPages(new PageText("0"), new PagePetalRecipe("1", ModPetalRecipes.orechidIgnemRecipe));
@@ -546,7 +548,7 @@ public final class LexiconData {
 				new PageManaInfusionRecipe("10", ModManaAlchemyRecipes.fishRecipes), new PageManaInfusionRecipe("11", ModManaAlchemyRecipes.cropRecipes), new PageManaInfusionRecipe("12", ModManaAlchemyRecipes.potatoRecipe), new PageManaInfusionRecipe("13", ModManaAlchemyRecipes.netherWartRecipe),
 				new PageManaInfusionRecipe("14", ModManaAlchemyRecipes.gunpowderAndFlintRecipes), new PageManaInfusionRecipe("15", ModManaAlchemyRecipes.nameTagRecipe), new PageManaInfusionRecipe("16", ModManaAlchemyRecipes.stringRecipes), new PageManaInfusionRecipe("17", ModManaAlchemyRecipes.slimeballCactusRecipes),
 				new PageManaInfusionRecipe("18", ModManaAlchemyRecipes.enderPearlRecipe), new PageManaInfusionRecipe("19", ModManaAlchemyRecipes.redstoneToGlowstoneRecipes), new PageManaInfusionRecipe("20", ModManaAlchemyRecipes.sandRecipe), new PageManaInfusionRecipe("21", ModManaAlchemyRecipes.redSandRecipe),
-				new PageManaInfusionRecipe("22", ModManaAlchemyRecipes.clayBreakdownRecipes), new PageManaInfusionRecipe("23", ModManaAlchemyRecipes.coarseDirtRecipe));
+				new PageManaInfusionRecipe("22", ModManaAlchemyRecipes.clayBreakdownRecipes), new PageManaInfusionRecipe("24", ModManaAlchemyRecipes.tallgrassRecipes), new PageManaInfusionRecipe("23", ModManaAlchemyRecipes.coarseDirtRecipe));
 
 		openCrate = new BLexiconEntry(LibLexicon.DEVICE_OPEN_CRATE, categoryDevices);
 		openCrate.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeOpenCrate));

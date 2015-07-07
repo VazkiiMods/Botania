@@ -49,6 +49,7 @@ public final class ModManaAlchemyRecipes {
 	public static RecipeManaInfusion coarseDirtRecipe;
 	public static RecipeManaInfusion prismarineRecipe;
 	public static List<RecipeManaInfusion> stoneRecipes;
+	public static List<RecipeManaInfusion> tallgrassRecipes;
 
 	public static void init() {
 		leatherRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.leather), new ItemStack(Items.rotten_flesh), 600);
@@ -135,5 +136,10 @@ public final class ModManaAlchemyRecipes {
 			for(int i = 0; i < 4; i++)
 				stoneRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(ModFluffBlocks.stone, 1, i), new ItemStack(ModFluffBlocks.stone, 1, i == 0 ? 3 : i - 1), 200));
 		}
+		
+		tallgrassRecipes = new ArrayList();
+		tallgrassRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.deadbush), new ItemStack(Blocks.tallgrass, 1, 2), 500));
+		tallgrassRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.tallgrass, 1, 1), new ItemStack(Blocks.deadbush), 500));
+		tallgrassRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.tallgrass, 1, 2), new ItemStack(Blocks.tallgrass, 1, 1), 500));
 	}
 }

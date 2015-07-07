@@ -26,12 +26,16 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileOrechid extends SubTileFunctional {
 
 	private static final int COST = 17500;
+	private static final int COST_GOG = 250;
+	private static final int DELAY = 100;
+	private static final int DELAY_GOG = 2;
 	private static final int RANGE = 5;
 	private static final int RANGE_Y = 3;
 
@@ -42,7 +46,8 @@ public class SubTileOrechid extends SubTileFunctional {
 		if(redstoneSignal > 0 || !canOperate())
 			return;
 
-		if(!supertile.getWorldObj().isRemote && mana >= COST && ticksExisted % 100 == 0) {
+		int cost = getCost();
+		if(!supertile.getWorldObj().isRemote && mana >= cost && ticksExisted % getDelay() == 0) {
 			ChunkCoordinates coords = getCoordsToPut();
 			if(coords != null) {
 				ItemStack stack = getOreToPut();
@@ -54,7 +59,7 @@ public class SubTileOrechid extends SubTileFunctional {
 						supertile.getWorldObj().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(block) + (meta << 12));
 					supertile.getWorldObj().playSoundEffect(supertile.xCoord, supertile.yCoord, supertile.zCoord, "botania:orechid", 2F, 1F);
 
-					mana -= COST;
+					mana -= cost;
 					sync();
 				}
 			}
@@ -124,9 +129,13 @@ public class SubTileOrechid extends SubTileFunctional {
 	}
 
 	public int getCost() {
-		return COST;
+		return Botania.gardenOfGlassLoaded ? COST_GOG : COST;
 	}
 
+	public int getDelay() {
+		return Botania.gardenOfGlassLoaded ? DELAY_GOG : DELAY;
+	}
+	
 	@Override
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);

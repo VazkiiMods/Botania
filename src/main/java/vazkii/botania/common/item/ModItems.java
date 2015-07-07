@@ -420,5 +420,6 @@ public final class ModItems {
 			BotaniaAPI.blackListItemFromLoonium(Item.getItemById(i));
 
 		OreDictionary.registerOre("rodBlaze", Items.blaze_rod);
+		OreDictionary.registerOre("powderBlaze", Items.blaze_powder);
 	}
 }

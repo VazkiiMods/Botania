@@ -16,6 +16,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipePetals;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
@@ -94,7 +95,11 @@ public final class ModPetalRecipes {
 		dreadthorneRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_DREADTHORN), blackMana, purpleMana, cyan, cyan, black, purple, redstoneRoot);
 		heiseiDreamRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_HEISEI_DREAM), purpleMana, pinkMana, magentaMana, purple, pink, magenta, runeWrath, pixieDust);
 		tigerseyeRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_TIGERSEYE), yellow, brownMana, orangeMana, lime, runeAutumn);
-		orechidRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ORECHID), gray, grayMana, lightGray, lightGrayMana, lightBlue, yellow, green, red, runePride, runeSloth, redstoneRoot, pixieDust);
+		
+		if(Botania.gardenOfGlassLoaded)
+			orechidRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ORECHID), gray, grayMana, lightGray, lightGrayMana, lightBlue, yellow, green, red);
+		else orechidRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ORECHID), gray, grayMana, lightGray, lightGrayMana, lightBlue, yellow, green, red, runePride, runeSloth, redstoneRoot, pixieDust);
+		
 		orechidIgnemRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ORECHID_IGNEM), red, redMana, black, blackMana, white, white, blue, yellow, runePride, runeSloth, redstoneRoot, pixieDust);
 		if(ConfigHandler.fallenKanadeEnabled)
 			fallenKanadeRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_FALLEN_KANADE), white, whiteMana, whiteMana, yellowMana, orangeMana, brownMana, runeSpring);

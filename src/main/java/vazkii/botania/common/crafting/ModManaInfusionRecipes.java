@@ -43,6 +43,8 @@ public final class ModManaInfusionRecipes {
 	public static RecipeManaInfusion managlassRecipe;
 	public static RecipeManaInfusion manaStringRecipe;
 
+	public static RecipeManaInfusion sugarCaneRecipe;
+	
 	public static void init() {
 		poolRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.pool), new ItemStack(ModBlocks.pool, 1, 2), 320);
 
@@ -80,6 +82,9 @@ public final class ModManaInfusionRecipes {
 		managlassRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.manaGlass), new ItemStack(Blocks.glass), 150);
 		manaStringRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 16), new ItemStack(Items.string), 5000);
 
+		if(Botania.gardenOfGlassLoaded)
+			sugarCaneRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(Items.reeds), new ItemStack(Blocks.hay_block), 2000);
+		
 		BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaBottle), new ItemStack(Items.glass_bottle), 5000);
 	}
 

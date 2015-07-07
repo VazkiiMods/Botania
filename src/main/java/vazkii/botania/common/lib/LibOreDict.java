@@ -38,7 +38,7 @@ public final class LibOreDict {
 	public static final String MANASTEEL_NUGGET = "nuggetManasteel";
 	public static final String TERRASTEEL_NUGGET = "nuggetTerrasteel";
 	public static final String ELEMENTIUM_NUGGET = "nuggetElvenElementium";
-	public static final String ROOT = "root";
+	public static final String ROOT = "livingRoot";
 	public static final String PEBBLE = "pebble";
 
 	public static final String VIAL = "bVial";

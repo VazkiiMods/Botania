@@ -29,7 +29,7 @@ public class WorldTypeSkyblock extends WorldType {
 
 	public WorldTypeSkyblock() {
 		super("botania-skyblock");
-		MinecraftForge.EVENT_BUS.register(this);
+		MinecraftForge.EVENT_BUS.register(new SkyblockWorldEvents());
 	}
 	
 	public static boolean isWorldSkyblock(World world) {
@@ -61,57 +61,9 @@ public class WorldTypeSkyblock extends WorldType {
 		return 260f;
 	}
 	
-
 	@Override
 	public IChunkProvider getChunkGenerator(World world, String generatorOptions) {
 		return new ChunkProviderFlat(world, world.getSeed(), false, "2;1x0;");
-	}
-	
-	@SubscribeEvent
-	public void onPlayerUpdate(LivingUpdateEvent event) {
-		if(event.entityLiving instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) event.entityLiving;
-			World world = player.worldObj;
-			if(isWorldSkyblock(world)) {
-				ChunkCoordinates coords = world.getSpawnPoint();
-				if(world.getBlock(coords.posX, coords.posY - 4, coords.posZ) != Blocks.bedrock) {
-					createSkyblock(world, coords.posX, coords.posY, coords.posZ);
-
-					if(player instanceof EntityPlayerMP) {
-						EntityPlayerMP pmp = (EntityPlayerMP) player;
-						pmp.setPositionAndUpdate(coords.posX + 0.5, coords.posY + 1.6, coords.posZ + 0.5);
-						pmp.inventory.addItemStackToInventory(new ItemStack(ModItems.lexicon));
-					}
-				}
-			}
-		}
-	}
-	
-	public void createSkyblock(World world, int x, int y, int z) {
-		for(int i = 0; i < 3; i++)
-			for(int j = 0; j < 4; j++)
-				for(int k = 0; k < 3; k++)
-					world.setBlock(x - 1 + i, y - 1 - j, z - 1 + k, j == 0 ? Blocks.grass : Blocks.dirt);
-		world.setBlock(x - 1, y - 2, z, Blocks.flowing_water);
-		world.setBlock(x + 1, y + 2, z + 1, ModBlocks.manaFlame);
-		
-		int[][] rootPositions = new int[][] {
-				{ -1, -3, -1 },
-				{ -2, -4, -1 },
-				{ -2, -4, -2 },
-				{ +1, -4, -1 },
-				{ +1, -5, -1 },
-				{ +2, -5, -1 },
-				{ +2, -6, +0 },
-				{ +0, -4, +2 },
-				{ +0, -5, +2 },
-				{ +0, -5, +3 },
-				{ +0, -6, +3 },
-		};
-		for(int[] root : rootPositions)
-			world.setBlock(x + root[0], y + root[1], z + root[2], ModBlocks.root);
-		
-		world.setBlock(x, y - 4, z, Blocks.bedrock);
 	}
 	
 }
