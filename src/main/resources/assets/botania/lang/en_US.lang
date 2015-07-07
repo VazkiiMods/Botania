@@ -1,5 +1,6 @@
-﻿# MISC
+# MISC
 itemGroup.Botania=Botania
+generator.botania-skyblock=Garden of Glass
 
 # Something that is not localized, translators, do NOT change this line.
 botaniamisc.noloc=botaniamisc.noloc

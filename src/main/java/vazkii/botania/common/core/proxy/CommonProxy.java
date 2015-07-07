@@ -19,6 +19,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldType;
 import net.minecraftforge.common.MinecraftForge;
 
 import org.apache.logging.log4j.Level;
@@ -63,6 +64,7 @@ import vazkii.botania.common.integration.buildcraft.StatementAPIPlugin;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.network.GuiHandler;
+import vazkii.botania.common.world.WorldTypeSkyblock;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -100,6 +102,9 @@ public class CommonProxy {
 		ChestGenHandler.init();
 
 		LexiconData.init();
+		
+		if(Botania.gardenOfGlassLoaded)
+			new WorldTypeSkyblock();
 	}
 
 	public void init(FMLInitializationEvent event) {

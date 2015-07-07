@@ -33,6 +33,8 @@ import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 @Mod(modid = LibMisc.MOD_ID, name = LibMisc.MOD_NAME, version = LibMisc.VERSION, dependencies = LibMisc.DEPENDENCIES, guiFactory = LibMisc.GUI_FACTORY)
 public class Botania {
 
+	public static boolean gardenOfGlassLoaded = false;
+	
 	public static boolean thaumcraftLoaded = false;
 	public static boolean bcTriggersLoaded = false;
 	public static boolean bloodMagicLoaded = false;
@@ -48,11 +50,13 @@ public class Botania {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+		gardenOfGlassLoaded = true; //Loader.isModLoaded("GardenOfGlass"); TODO
+		
 		thaumcraftLoaded = Loader.isModLoaded("Thaumcraft");
 		bcTriggersLoaded = ModAPIManager.INSTANCE.hasAPI("BuildCraftAPI|statements");
 		bloodMagicLoaded = Loader.isModLoaded("AWWayofTime"); // Psh, noob
 		coloredLightsLoaded = Loader.isModLoaded("easycoloredlights");
-
+		
 		lightHelper = coloredLightsLoaded ? new LightHelperColored() : new LightHelperVanilla();
 
 		proxy.preInit(event);
