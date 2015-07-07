@@ -899,8 +899,12 @@ tile.botania:corporeaIndex.name=Corporea Index
 tile.botania:corporeaFunnel.name=Corporea Funnel
 tile.botania:endStoneBrick0.name=End Stone Bricks
 tile.botania:endStoneBrick1.name=Chiseled End Stone Brick
+tile.botania:endStoneBrick2.name=Ender Bricks
+tile.botania:endStoneBrick3.name=Pillar End Bricks
 tile.botania:endStoneBrick0Slab.name=End Stone Brick Slab
 tile.botania:endStoneBrick0Stairs.name=End Stone Brick Stairs
+tile.botania:endStoneBrick2Slab.name=Ender Brick Slab
+tile.botania:endStoneBrick2Stairs.name=Ender Brick Stairs
 tile.botania:mushroom0.name=White Shimmering Mushroom
 tile.botania:mushroom1.name=Orange Shimmering Mushroom
 tile.botania:mushroom2.name=Magenta Shimmering Mushroom
@@ -2516,9 +2520,11 @@ botania.page.corporeaCrystalCube2=I can see forever
 
 # -- DECORATIVE END BLOCKS
 botania.entry.endStoneDecor=Decorative End Blocks
-botania.page.endStoneDecor0=Similarly to other stone blocks, &1End Stone&0 can be converted into bricks and chiseled bricks, the bricks can be used as stairs or slabs just like normal &1Stone Bricks&0 would.
+botania.page.endStoneDecor0=Similarly to other stone blocks, &1End Stone&0 can be converted into bricks and chiseled bricks, the bricks can be used as stairs or slabs just like normal &1Stone Bricks&0 would.<br>&1Ender Pearls&0 can be combined with the bricks to create &1Ender Brick&0 blocks, which can also can be used for stairs or slabs.
 botania.page.endStoneDecor1=Making &1End Stone Bricks&0
 botania.page.endStoneDecor2=Making &1Chiseled End Stone Bricks&0
+botania.page.endStoneDecor3=Making &1Ender Bricks&0
+botania.page.endStoneDecor4=Making &1Pillar Ender Bricks&0
 
 # -- LIFE AGGREGATOR
 botania.entry.spawnerMover=Life Aggregator

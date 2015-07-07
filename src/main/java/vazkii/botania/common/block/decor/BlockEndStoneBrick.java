@@ -33,7 +33,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public class BlockEndStoneBrick extends BlockMod implements ILexiconable {
 
-	private static IIcon[] icons = new IIcon[2];
+	private static IIcon[] icons = new IIcon[5];
 
 	public BlockEndStoneBrick() {
 		super(Material.rock);
@@ -45,20 +45,20 @@ public class BlockEndStoneBrick extends BlockMod implements ILexiconable {
 
 	@Override
 	public void registerBlockIcons(IIconRegister register) {
-		for(int i = 0; i < 2; i++) {
+		for(int i = 0; i < icons.length; i++) {
 			icons[i] = IconHelper.forBlock(register, this, i);
 		}
 	}
 
 	@Override
 	public void getSubBlocks(Item item, CreativeTabs tab, List list) {
-		for(int i = 0; i < 2; i++)
+		for(int i = 0; i < 4; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
 
 	@Override
 	public IIcon getIcon(int side, int meta) {
-		return icons[Math.min(icons.length - 1, meta)];
+		return meta == 3 ? icons[side == 0 || side == 1 ? 4 : 3] : icons[Math.min(icons.length - 1, meta)];
 	}
 
 	@Override

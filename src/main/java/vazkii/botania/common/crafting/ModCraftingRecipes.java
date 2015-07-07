@@ -237,6 +237,8 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeCorporeaInterceptor;
 	public static IRecipe recipeEndStoneBricks;
 	public static IRecipe recipeEndStoneChiseledBricks;
+	public static IRecipe recipeEnderBricks;
+	public static IRecipe recipePillarEnderBricks;
 	public static IRecipe recipeLivingwoodBow;
 	public static IRecipe recipeCrystalBow;
 	public static List<IRecipe> recipesCosmeticItems;
@@ -1596,6 +1598,17 @@ public final class ModCraftingRecipes {
 				'S', new ItemStack(ModFluffBlocks.endStoneSlab));
 		recipeEndStoneChiseledBricks = BotaniaAPI.getLatestAddedRecipe();
 
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.endStoneBrick, 4, 2),
+				" B ", "BPB", " B ",
+				'B', new ItemStack(ModBlocks.endStoneBrick),
+				'P', new ItemStack(Items.ender_pearl));
+		recipeEnderBricks = BotaniaAPI.getLatestAddedRecipe();
+		
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.endStoneBrick, 2, 3),
+				"B", "B",
+				'B', new ItemStack(ModBlocks.endStoneBrick, 1, 2));
+		recipePillarEnderBricks = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Livingwood Bow Recipe
 		addOreDictRecipe(new ItemStack(ModItems.livingwoodBow),
 				" TS", "T S", " TS",
