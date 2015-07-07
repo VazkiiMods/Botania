@@ -11,6 +11,7 @@
 package vazkii.botania.common.crafting;
 
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibOreDict;
@@ -25,6 +26,7 @@ public final class ModPureDaisyRecipes {
 		BotaniaAPI.registerPureDaisyRecipe("soulSand", Blocks.sand, 0);
 		BotaniaAPI.registerPureDaisyRecipe("ice", Blocks.packed_ice, 0);
 		BotaniaAPI.registerPureDaisyRecipe(LibOreDict.BLAZE_BLOCK, Blocks.obsidian, 0);
+		BotaniaAPI.registerPureDaisyRecipe(Blocks.water, Blocks.snow, 0);
 	}
 
 }

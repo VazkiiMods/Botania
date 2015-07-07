@@ -54,9 +54,11 @@ public class SubTilePureDaisy extends SubTileEntity {
 		ChunkCoordinates coords = new ChunkCoordinates(supertile.xCoord + acoords[0], supertile.yCoord + acoords[1], supertile.zCoord + acoords[2]);
 		World world = supertile.getWorldObj();
 		if(!world.isAirBlock(coords.posX, coords.posY, coords.posZ)) {
+			Block block = world.getBlock(coords.posX, coords.posY, coords.posZ);
+			int meta = world.getBlockMetadata(coords.posX, coords.posY, coords.posZ);
 			RecipePureDaisy recipe = null;
 			for(RecipePureDaisy recipe_ : BotaniaAPI.pureDaisyRecipes)
-				if(recipe_.matches(world, coords.posX, coords.posY, coords.posZ, this)) {
+				if(recipe_.matches(world, coords.posX, coords.posY, coords.posZ, this, block, meta)) {
 					recipe = recipe_;
 					break;
 				}
