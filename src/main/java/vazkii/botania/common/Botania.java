@@ -50,7 +50,7 @@ public class Botania {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		gardenOfGlassLoaded = true; //Loader.isModLoaded("GardenOfGlass"); TODO
+		gardenOfGlassLoaded = Loader.isModLoaded("GardenOfGlass");
 		
 		thaumcraftLoaded = Loader.isModLoaded("Thaumcraft");
 		bcTriggersLoaded = ModAPIManager.INSTANCE.hasAPI("BuildCraftAPI|statements");

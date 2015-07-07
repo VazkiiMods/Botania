@@ -25,3 +25,4 @@ Thumbs.db
 ## Jars
 *.jar
 !/gradle/wrapper/gradle-wrapper.jar
+!GardenOfGlass.jar
