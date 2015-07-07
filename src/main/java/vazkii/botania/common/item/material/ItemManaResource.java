@@ -45,7 +45,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemManaResource extends ItemMod implements IFlowerComponent, IElvenItem, IPickupAchievement {
 
-	final int types = 20;
+	final int types = 22;
 	IIcon[] icons;
 
 	public IIcon tailIcon = null;
@@ -115,7 +115,8 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
 		for(int i = 0; i < types; i++)
-			par3List.add(new ItemStack(par1, 1, i));
+			if(Botania.gardenOfGlassLoaded || (i != 20 && i != 21))
+				par3List.add(new ItemStack(par1, 1, i));
 	}
 
 	@Override

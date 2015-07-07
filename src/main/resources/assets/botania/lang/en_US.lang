@@ -989,6 +989,7 @@ tile.botania:incensePlate.name=Incense Plate
 tile.botania:hourglass.name=Hovering Hourglass
 tile.botania:ghostRail.name=Spectral Rail
 tile.botania:sparkChanger.name=Spark Tinkerer
+tile.botania:livingRoot.name=Living Root
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
@@ -1402,6 +1403,8 @@ item.botania:terraAxe.name=Terra Truncator
 item.botania:manasteelNugget.name=Manasteel Nugget
 item.botania:terrasteelNugget.name=Terrasteel Nugget
 item.botania:elementiumNugget.name=Elementium Nugget
+item.botania:root.name=Living Root
+item.botania:pebble.name=Pebble
 
 # BREW NAMES
 botania.brew.fallback=Fallback

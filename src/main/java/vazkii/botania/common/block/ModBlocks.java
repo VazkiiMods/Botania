@@ -231,6 +231,7 @@ public final class ModBlocks {
 	public static Block hourglass;
 	public static Block ghostRail;
 	public static Block sparkChanger;
+	public static Block root;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -305,7 +306,8 @@ public final class ModBlocks {
 		hourglass = new BlockHourglass();
 		ghostRail = new BlockGhostRail();
 		sparkChanger = new BlockSparkChanger();
-
+		root = new BlockRoot();
+		
 		ModFluffBlocks.init();
 
 		for(int i = 0; i < 16; i++)

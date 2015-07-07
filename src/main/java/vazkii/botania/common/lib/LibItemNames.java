@@ -187,6 +187,8 @@ public final class LibItemNames {
 		"manaString",
 		"manasteelNugget",
 		"terrasteelNugget",
-		"elementiumNugget"
+		"elementiumNugget",
+		"root",
+		"pebble"
 	};
 }
