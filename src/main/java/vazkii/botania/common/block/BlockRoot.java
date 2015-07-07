@@ -13,14 +13,18 @@ package vazkii.botania.common.block;
 import java.util.ArrayList;
 import java.util.Random;
 
+import vazkii.botania.api.lexicon.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class BlockRoot extends BlockMod {
+public class BlockRoot extends BlockMod implements ILexiconable {
 
 	public BlockRoot() {
 		super(Material.plants);
@@ -43,6 +47,11 @@ public class BlockRoot extends BlockMod {
 	@Override
 	public int quantityDropped(Random r) {
 		return 2 + r.nextInt(3);
+	}
+	
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return LexiconData.gardenOfGlass;
 	}
 	
 }
