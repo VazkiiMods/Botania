@@ -232,6 +232,7 @@ public final class ModBlocks {
 	public static Block ghostRail;
 	public static Block sparkChanger;
 	public static Block root;
+	public static Block felPumpkin;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -307,6 +308,7 @@ public final class ModBlocks {
 		ghostRail = new BlockGhostRail();
 		sparkChanger = new BlockSparkChanger();
 		root = new BlockRoot();
+		felPumpkin = new BlockFelPumpkin();
 		
 		ModFluffBlocks.init();
 

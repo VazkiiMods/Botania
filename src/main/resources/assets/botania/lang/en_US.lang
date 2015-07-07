@@ -989,7 +989,8 @@ tile.botania:incensePlate.name=Incense Plate
 tile.botania:hourglass.name=Hovering Hourglass
 tile.botania:ghostRail.name=Spectral Rail
 tile.botania:sparkChanger.name=Spark Tinkerer
-tile.botania:livingRoot.name=Living Root
+tile.botania:root.name=Living Root
+tile.botania:felPumpkin.name=Fel Pumpkin
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
