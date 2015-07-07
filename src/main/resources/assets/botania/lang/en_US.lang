@@ -1480,6 +1480,20 @@ botania.page.tutorial0=While one could just go through the various entries in th
 botania.entry.introVideo=An Introductory Clip
 botania.page.introVideo0=For those readers who are not quite readers, a short video guide covering the basics of Botania is also available. It's to keep in note that this guide acts as an aid and not a substitution for the contents of the &1Lexica Botania&0.
 
+# -- GARDEN OF GLASS
+botania.entry.gardenOfGlass=Garden of Glass
+botania.page.gardenOfGlass0=In the &2Garden of Glass&0 nobody can hear you scream.<br>You're alone in space.<br>How exciting.
+botania.page.gardenOfGlass1=The &2Garden of Glass&0 is a skyblock mode for Botania. It's advised only for players who are somewhat experienced in the mod, but if you're new to it, you're more than welcome to try it out anyway.<br>Most of the mod functions the same, but some tweaks have been put in place to allow for the skyblock style game. They'll be listed in the following pages. 
+botania.page.gardenOfGlass2=After spawning in the &1Garden of Glass&0 you'll find &1Living Roots&0 below the landing area. These can be used to create &1Saplings&0 and &1Floral Fertilizer&0. They also work as &1Bone Meal&0.<br>Shift-right clicking a &1Dirt&0 or &1Grass&0 block with an empty hand will have you rummage through the soil, doing this long will wield you some &1Pebbles&0, that can be converted into &1Cobblestone&0.
+botania.page.gardenOfGlass3=Creating &1Saplings&0
+botania.page.gardenOfGlass4=Creating &1Floral Fertilizer&0
+botania.page.gardenOfGlass5=Creating &1Cobblestone&0
+botania.page.gardenOfGlass6=Aside from that, some things in Botania are different to fit the Skyblock play: The &1Orechid&0 is easier to make, faster and much cheaper; &1Mana Spreaders&0 don't need gold; the &1Blaze Lamp&0, which can be used to create &1Obsidian&0, uses powder instead of rods; melon or pumpkin seeds may drop from tall grass; floral fertilizer creates more per craft, and &1Sugar Canes&0 and &1Slimeballs&0 can be crafted.
+botania.page.gardenOfGlass7=Creating &1Sugar Canes&0
+botania.page.gardenOfGlass8=Creating &1Slimeballs&0
+botania.page.gardenOfGlass9=Lastly, it's possible to infuse a &1Pumpkin&0 with the fel spirits of monster slain, creating a &1Fel Pumpkin&0. This can be placed atop two &1Iron Bars&0, in a similar fashion to a &1Snow Golem&0, to spawn a &1Blaze&0.<br>&1Blazes&0 spawned with this method drop &1Blaze Powder&0 instead of &1Blaze Rods&0.
+botania.page.gardenOfGlass10=Nerfing warlocks again
+
 # -- LEXICA BOTANIA
 botania.entry.lexicon=Lexica Botania
 botania.page.lexicon0=The &1Lexica Botania&0 is the repository of all knowledge for all botany related matters. But you probably knew that already.<br>All information is stored here, as expected. For convenience, if a block happens to have an entry, it can be shift-right clicked with the &1Lexica Botania&0 to open that entry.
@@ -2857,7 +2871,7 @@ botania.page.stoneAlchemy4=Chiseling
 
 # -- BLAZE LIGHT
 botania.entry.blazeBlock=Blaze Light
-botania.page.blazeBlock0=Smashing a bunch of &1Blaze Rods&0 together makes a usable decorative light block. A crude one, admittedly, but a source of light non the less.<br>Naturally, like a &1Block of Coal&0, the &1Blaze Light&0 can also be used to fuel furnaces and other fuel consumers alike. Putting it next to a &1Pure Daisy&0 converts it into &1Obsidian&0, strangely enough.
+botania.page.blazeBlock0=Smashing a bunch of blazing material together makes a usable decorative light block. A crude one, admittedly, but a source of light non the less.<br>Naturally, like a &1Block of Coal&0, the &1Blaze Light&0 can also be used to fuel furnaces and other fuel consumers alike. Putting it next to a &1Pure Daisy&0 converts it into &1Obsidian&0, strangely enough.
 botania.page.blazeBlock1=0x1a4
 
 # -- CHALLENGES

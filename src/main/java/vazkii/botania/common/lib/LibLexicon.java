@@ -38,6 +38,7 @@ public final class LibLexicon {
 	public static final String BASICS_TERRASTEEL = "terrasteel";
 	public static final String BASICS_BLACK_LOTUS = "blackLotus";
 	public static final String BASICS_FLOWER_BAG = "flowerBag";
+	public static final String BASICS_GARDEN_OF_GLASS = "gardenOfGlass";
 
 	public static final String MANA_INTRO = "mIntro";
 	public static final String MANA_SPREADER = "spreader";

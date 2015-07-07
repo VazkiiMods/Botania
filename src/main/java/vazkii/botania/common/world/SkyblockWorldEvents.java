@@ -58,10 +58,11 @@ public final class SkyblockWorldEvents {
 			if(block == Blocks.grass || block == Blocks.dirt) {
 				if(event.world.isRemote)
 					event.entityPlayer.swingItem();
-				else event.world.playSoundEffect(event.x + 0.5, event.y + 0.5, event.z + 0.5, block.stepSound.getBreakSound(), block.stepSound.getVolume() * 0.4F, block.stepSound.getPitch() + (float) (Math.random() * 0.2 - 0.1));
-				
-				if(event.world.rand.nextInt(3) == 0)
-					event.entityPlayer.inventory.addItemStackToInventory(new ItemStack(ModItems.manaResource, 1, 21));
+				else {
+					event.world.playSoundEffect(event.x + 0.5, event.y + 0.5, event.z + 0.5, block.stepSound.getBreakSound(), block.stepSound.getVolume() * 0.4F, block.stepSound.getPitch() + (float) (Math.random() * 0.2 - 0.1));
+					if(Math.random() < 0.4)
+						event.entityPlayer.dropPlayerItemWithRandomChoice(new ItemStack(ModItems.manaResource, 1, 21), false);
+				}
 			}
 		}
 	}

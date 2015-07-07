@@ -69,6 +69,7 @@ public final class LexiconData {
 	public static LexiconEntry terrasteel;
 	public static LexiconEntry blackLotus;
 	public static LexiconEntry flowerBag;
+	public static LexiconEntry gardenOfGlass;
 
 	public static LexiconEntry manaIntro;
 	public static LexiconEntry spreader;
@@ -321,6 +322,12 @@ public final class LexiconData {
 		flowerBag = new BLexiconEntry(LibLexicon.BASICS_FLOWER_BAG, categoryBasics);
 		flowerBag.setLexiconPages(new PageText("0"), new PageText("2"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeFlowerBag));
 
+		if(Botania.gardenOfGlassLoaded) {
+			gardenOfGlass = new BLexiconEntry(LibLexicon.BASICS_GARDEN_OF_GLASS, categoryBasics);
+			gardenOfGlass.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipeRootToSapling), new PageCraftingRecipe("4", ModCraftingRecipes.recipeRootToFertilizer), new PageCraftingRecipe("5", ModCraftingRecipes.recipePebbleCobblestone), new PageText("6"), new PageManaInfusionRecipe("7", ModManaInfusionRecipes.sugarCaneRecipe), new PageCraftingRecipe("8", ModCraftingRecipes.recipeMagmaToSlimeball), new PageText("9"), new PageCraftingRecipe("10", ModCraftingRecipes.recipeFelPumpkin));
+			gardenOfGlass.setPriority().setIcon(new ItemStack(ModItems.manaResource, 1, 20));
+		}
+		
 		if(Botania.thaumcraftLoaded)
 			new CLexiconEntry("wrap", categoryBasics, "Thaumcraft").setLexiconPages(new PageText("0")); // lel
 

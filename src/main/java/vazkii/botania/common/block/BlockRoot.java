@@ -42,7 +42,7 @@ public class BlockRoot extends BlockMod {
 	
 	@Override
 	public int quantityDropped(Random r) {
-		return 2 + r.nextInt(2);
+		return 2 + r.nextInt(3);
 	}
 	
 }
