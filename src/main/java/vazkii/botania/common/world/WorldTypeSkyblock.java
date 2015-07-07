@@ -36,6 +36,11 @@ public class WorldTypeSkyblock extends WorldType {
 	}
 	
 	@Override
+	public boolean showWorldInfoNotice() {
+		return true;
+	}
+	
+	@Override
 	public boolean hasVoidParticles(boolean flag) {
 		return false;
 	}
@@ -43,11 +48,6 @@ public class WorldTypeSkyblock extends WorldType {
 	@Override
 	public int getMinimumSpawnHeight(World world) {
 		return 86;
-	}
-	
-	@Override
-	public double voidFadeMagnitude() {
-		return 1.0;
 	}
 	
 	@Override
@@ -60,10 +60,6 @@ public class WorldTypeSkyblock extends WorldType {
 		return 260f;
 	}
 	
-	@Override
-	public WorldChunkManager getChunkManager(World world) {
-		return super.getChunkManager(world);
-	}
 
 	@Override
 	public IChunkProvider getChunkGenerator(World world, String generatorOptions) {
