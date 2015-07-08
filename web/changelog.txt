@@ -1,3 +1,6 @@
+r1.7 200
+*In Garden of Glass using a Bowl in water will create a Bowl of Water that can be used to fill the Petal Apothecary. <i>I can't believe I forgot that >_></i>
+*<i>Happy 200th build... yay...</i>
 r1.7 199
 *<b>Added the Garden of Glass</b>. A new skyblock world type with recipe tweaks and some new blocks. This requires a separate jar file to be installed. Check <a href="gardenofglass.php">the page</a> for more info.
 *Added a recipe to create snow blocks using water and the Pure Daisy.
