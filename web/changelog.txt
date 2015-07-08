@@ -1,3 +1,15 @@
+r1.7 199
+*<b>Added the Garden of Glass</b>. A new skyblock world type with recipe tweaks and some new blocks. This requires a separate jar file to be installed. Check <a href="gardenofglass.php">the page</a> for more info.
+*Added a recipe to create snow blocks using water and the Pure Daisy.
+*Added Alchemy Recipes to switch between all types of tall grass.
+*Added the 1.9 Ender Bricks to the Decorative Ender Blocks section. Textures may not be 100% percise as they were reproduced from the low quality screenshots available.
+*Added the Cocoon of Caprice, a new block that can spawn baby animals.
+*Changed the End Stone Bricks' textures to be similar to the ones announced for 1.9.
+*Fixed a crash with the Pure Daisy's NEI lookup when a recipe with a Block input is registered.
+*Made the Pure Daisy more performant.
+*Platform blocks now accept any solid block. This includes chisel's but they won't have connected textures.
+*[API] Rewrote some code in RecipePureDaisy to be more performant. The matches() signature changed, mod authors must adapt if overriding.
+*[API] Increased version number to 56.
 r1.6 198
 *Fixed a crash related to the Elven Portal that someone managed to get and I'm still astounded as to how they managed to do so.
 *Fixed the Gaia Guardian breaking blocks on the client side.
