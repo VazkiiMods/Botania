@@ -12,7 +12,7 @@
 	$old = false;
 	
 	foreach($files as $file)
-		if(strlen($file) > 2 && substr($file, -4) == '.jar') {
+		if(strlen($file) > 2 && substr($file, -4) == '.jar' && !strpos($file, 'Glass')) {
 			$dls_num = get_dls($file);
 			$total_dls += intval($dls_num);
 			$dls = number_format($dls_num);
@@ -72,6 +72,9 @@
 		<br><br>
 		<div class='reddit-card'><div class='reddit-alien'><img src='img/reddit-alien.svg'></img></div><div class='reddit-info'><div class='reddit-header'><a href='http://reddit.com/r/botania'>/r/botania</a> is a thing now!</div><div class='reddit-desc'>Come discuss the mod on reddit!<br>The subreddit is still new but will hopefully grow as time passes!</div></div></div>
 		<br></br>
+		<font size='4'>Misc Downloads</font><br>
+		<div class='btn-group'><a href='http://www.curseforge.com/projects/225643/' class='btn btn-material-orange'><b>CurseForge</b></a><a href='dl.php?file=GardenOfGlass.jar' class='btn btn-material-cyan'><b>Garden of Glass</b></a></div> <a href='gardenofglass.php' class='btn btn-flat btn-material-cyan withripple' style='width:260px'><b>What's Garden of Glass?</b></a>
+		<br><br>
 		<font size='5'>Latest Download</font><br>");
 	print($downloads_str);
 	
