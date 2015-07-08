@@ -995,6 +995,7 @@ tile.botania:ghostRail.name=Spectral Rail
 tile.botania:sparkChanger.name=Spark Tinkerer
 tile.botania:root.name=Living Root
 tile.botania:felPumpkin.name=Fel Pumpkin
+tile.botania:cocoon.name=Cocoon of Caprice
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower

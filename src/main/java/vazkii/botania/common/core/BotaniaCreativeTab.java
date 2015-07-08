@@ -105,6 +105,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.craftingHalo);
 		addItem(ModItems.spawnerMover);
 		addBlock(ModBlocks.spawnerClaw);
+		addBlock(ModBlocks.cocoon);
 		addItem(ModItems.blackHoleTalisman);
 
 		if(Botania.gardenOfGlassLoaded)

@@ -27,5 +27,6 @@ public final class LibRenderIDs {
 	public static int idCorporeaCrystalCybe = -1;
 	public static int idIncensePlate = -1;
 	public static int idHourglass = -1;
+	public static int idCocoon = -1;
 
 }

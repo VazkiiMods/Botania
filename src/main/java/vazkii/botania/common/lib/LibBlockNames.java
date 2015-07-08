@@ -89,6 +89,7 @@ public final class LibBlockNames {
 	public static final String SPARK_CHANGER = "sparkChanger";
 	public static final String ROOT = "root";
 	public static final String FEL_PUMPKIN = "felPumpkin";
+	public static final String COCOON = "cocoon";
 
 	public static final String SUBTILE_PUREDAISY = "puredaisy";
 	public static final String SUBTILE_MANASTAR = "manastar";

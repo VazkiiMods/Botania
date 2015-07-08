@@ -112,6 +112,7 @@ import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.block.tile.TileBifrost;
 import vazkii.botania.common.block.tile.TileBrewery;
+import vazkii.botania.common.block.tile.TileCocoon;
 import vazkii.botania.common.block.tile.TileCraftCrate;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.block.tile.TileEnderEye;
@@ -233,6 +234,7 @@ public final class ModBlocks {
 	public static Block sparkChanger;
 	public static Block root;
 	public static Block felPumpkin;
+	public static Block cocoon;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -309,6 +311,7 @@ public final class ModBlocks {
 		sparkChanger = new BlockSparkChanger();
 		root = new BlockRoot();
 		felPumpkin = new BlockFelPumpkin();
+		cocoon = new BlockCocoon();
 		
 		ModFluffBlocks.init();
 
@@ -399,6 +402,7 @@ public final class ModBlocks {
 		registerTile(TileIncensePlate.class, LibBlockNames.INCENSE_PLATE);
 		registerTile(TileHourglass.class, LibBlockNames.HOURGLASS);
 		registerTile(TileSparkChanger.class, LibBlockNames.SPARK_CHANGER);
+		registerTile(TileCocoon.class, LibBlockNames.COCOON);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MANASTAR, SubTileManastar.class);

@@ -88,6 +88,7 @@ import vazkii.botania.client.render.item.RenderTransparentItem;
 import vazkii.botania.client.render.tile.RenderTileAlfPortal;
 import vazkii.botania.client.render.tile.RenderTileAltar;
 import vazkii.botania.client.render.tile.RenderTileBrewery;
+import vazkii.botania.client.render.tile.RenderTileCocoon;
 import vazkii.botania.client.render.tile.RenderTileCorporeaCrystalCube;
 import vazkii.botania.client.render.tile.RenderTileCorporeaIndex;
 import vazkii.botania.client.render.tile.RenderTileEnchanter;
@@ -111,6 +112,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.block.tile.TileBrewery;
+import vazkii.botania.common.block.tile.TileCocoon;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.block.tile.TileFloatingFlower;
 import vazkii.botania.common.block.tile.TileFloatingSpecialFlower;
@@ -225,6 +227,7 @@ public class ClientProxy extends CommonProxy {
 		LibRenderIDs.idCorporeaCrystalCybe = RenderingRegistry.getNextAvailableRenderId();
 		LibRenderIDs.idIncensePlate = RenderingRegistry.getNextAvailableRenderId();
 		LibRenderIDs.idHourglass = RenderingRegistry.getNextAvailableRenderId();
+		LibRenderIDs.idCocoon = RenderingRegistry.getNextAvailableRenderId();
 
 		RenderSpecialFlower specialFlowerRender = new RenderSpecialFlower(LibRenderIDs.idSpecialFlower);
 		RenderingRegistry.registerBlockHandler(new RenderAltar());
@@ -283,6 +286,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileIncensePlate.class, new RenderTileIncensePlate());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileHourglass.class, new RenderTileHourglass());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileSparkChanger.class, new RenderTileSparkChanger());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileCocoon.class, new RenderTileCocoon());
 
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySkull.class, new RenderTileSkullOverride());
 
