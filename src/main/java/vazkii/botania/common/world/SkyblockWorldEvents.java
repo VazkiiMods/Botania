@@ -19,6 +19,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.S2FPacketSetSlot;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MovingObjectPosition;
@@ -36,22 +37,34 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public final class SkyblockWorldEvents {
 
+	private static final String TAG_MADE_ISLAND = "Botania-MadeIsland";
+	
 	@SubscribeEvent
 	public void onPlayerUpdate(LivingUpdateEvent event) {
-		if(event.entityLiving instanceof EntityPlayer) {
+		if(event.entityLiving instanceof EntityPlayer && !event.entity.worldObj.isRemote) {
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
-			World world = player.worldObj;
-			if(WorldTypeSkyblock.isWorldSkyblock(world)) {
-				ChunkCoordinates coords = world.getSpawnPoint();
-				if(world.getBlock(coords.posX, coords.posY - 4, coords.posZ) != Blocks.bedrock) {
-					createSkyblock(world, coords.posX, coords.posY, coords.posZ);
+			NBTTagCompound data = player.getEntityData();
+			if(!data.hasKey(EntityPlayer.PERSISTED_NBT_TAG))
+				data.setTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
 
-					if(player instanceof EntityPlayerMP) {
-						EntityPlayerMP pmp = (EntityPlayerMP) player;
-						pmp.setPositionAndUpdate(coords.posX + 0.5, coords.posY + 1.6, coords.posZ + 0.5);
-						pmp.inventory.addItemStackToInventory(new ItemStack(ModItems.lexicon));
+			NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+			if(player.ticksExisted > 3 && !persist.getBoolean(TAG_MADE_ISLAND)) {
+				World world = player.worldObj;
+				if(WorldTypeSkyblock.isWorldSkyblock(world)) {
+					ChunkCoordinates coords = world.getSpawnPoint();
+					if(world.getBlock(coords.posX, coords.posY - 4, coords.posZ) != Blocks.bedrock && world.provider.dimensionId == 0) {
+						createSkyblock(world, coords.posX, coords.posY, coords.posZ);
+
+						if(player instanceof EntityPlayerMP) {
+							EntityPlayerMP pmp = (EntityPlayerMP) player;
+							pmp.setPositionAndUpdate(coords.posX + 0.5, coords.posY + 1.6, coords.posZ + 0.5);
+							pmp.inventory.addItemStackToInventory(new ItemStack(ModItems.lexicon));
+						}
 					}
 				}
+				
+
+				persist.setBoolean(TAG_MADE_ISLAND, true);
 			}
 		}
 	}
@@ -111,6 +124,9 @@ public final class SkyblockWorldEvents {
 	}
 
 	public void createSkyblock(World world, int x, int y, int z) {
+		if(!world.blockExists(x, y, z))
+			return;
+		
 		for(int i = 0; i < 3; i++)
 			for(int j = 0; j < 4; j++)
 				for(int k = 0; k < 3; k++)
