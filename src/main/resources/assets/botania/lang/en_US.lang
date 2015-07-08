@@ -1493,7 +1493,7 @@ botania.page.gardenOfGlass2=After spawning in the &1Garden of Glass&0 you'll fin
 botania.page.gardenOfGlass3=Creating &1Saplings&0
 botania.page.gardenOfGlass4=Creating &1Floral Fertilizer&0
 botania.page.gardenOfGlass5=Creating &1Cobblestone&0
-botania.page.gardenOfGlass6=Aside from that, some things in Botania are different to fit the Skyblock play: The &1Orechid&0 is easier to make, faster and much cheaper; &1Mana Spreaders&0 don't need gold; the &1Blaze Lamp&0, which can be used to create &1Obsidian&0, uses powder instead of rods; melon or pumpkin seeds may drop from tall grass; floral fertilizer creates more per craft, and &1Sugar Canes&0 and &1Slimeballs&0 can be crafted.
+botania.page.gardenOfGlass6=Aside from that, some things in Botania are different to fit the Skyblock play: The &1Orechid&0 is easier to make, faster and much cheaper; The &1Cocoon of Caprice&0 and the &1Mana Spreader&0 have different recipes; the &1Blaze Lamp&0, which can be used to create &1Obsidian&0, uses powder instead of rods; melon or pumpkin seeds may drop from tall grass; floral fertilizer creates more per craft, and &1Sugar Canes&0 and &1Slimeballs&0 can be crafted.
 botania.page.gardenOfGlass7=Creating &1Sugar Canes&0
 botania.page.gardenOfGlass8=Creating &1Slimeballs&0
 botania.page.gardenOfGlass9=Lastly, it's possible to infuse a &1Pumpkin&0 with the fel spirits of monster slain, creating a &1Fel Pumpkin&0. This can be placed atop two &1Iron Bars&0, in a similar fashion to a &1Snow Golem&0, to spawn a &1Blaze&0.<br>&1Blazes&0 spawned with this method drop &1Blaze Powder&0 instead of &1Blaze Rods&0.
@@ -2190,6 +2190,11 @@ botania.page.ghostRail1=Spirit Tracks, you could say
 botania.entry.canopyDrum=Drum of the Canopy
 botania.page.canopyDrum0=The &1Drum of the Canopy&0 is like the &1Drum of the Wild&0 in that it is the percussion counterpart of the &1Horn of the Canopy&0. It serves the exact same purpose as the handheld horn, but is placed in world.<br>All the functionality is similar to the &1Drum of the Wild&0
 botania.page.canopyDrum1=The Pinking Drum
+
+# -- COCOON OF CAPRICE
+botania.entry.cocoon=Cocoon of Caprice
+botania.page.cocoon0=A cocoon is usually a symbol of change, of evolution.<br>Creating a &1Cocoon of Carpice&0 and placing it down will slowly evolve the rudimentary contents inside it into a &1Baby Animal&0. More often than not the animal hatched will be a farm animal, but on rare ocasions, different animals such as &1Wolves&0 or &1Horses&0 may be created.  
+botania.page.cocoon1=New World, Perfect World
 
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER

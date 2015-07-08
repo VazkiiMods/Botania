@@ -13,18 +13,22 @@ package vazkii.botania.common.block;
 import java.util.ArrayList;
 import java.util.Random;
 
+import vazkii.botania.api.lexicon.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.TileCocoon;
+import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class BlockCocoon extends BlockModContainer {
+public class BlockCocoon extends BlockModContainer implements ILexiconable {
 
 	protected BlockCocoon() {
 		super(Material.cloth);
@@ -75,6 +79,11 @@ public class BlockCocoon extends BlockModContainer {
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileCocoon();
+	}
+
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return LexiconData.cocoon;
 	}
 
 }

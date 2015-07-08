@@ -266,6 +266,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeGhostRail;
 	public static IRecipe recipeCanopyDrum;
 	public static IRecipe recipeSparkChanger;
+	public static IRecipe recipeCocoon;
 
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;
@@ -1794,6 +1795,20 @@ public final class ModCraftingRecipes {
 				'R', new ItemStack(Items.redstone));
 		recipeSparkChanger = BotaniaAPI.getLatestAddedRecipe();
 
+		// Cocoon of Caprice Recipe
+		if(Botania.gardenOfGlassLoaded)
+			addOreDictRecipe(new ItemStack(ModBlocks.cocoon), 
+					"SSS", "SFS", "SIS",
+					'S', new ItemStack(Items.string),
+					'F', new ItemStack(ModBlocks.felPumpkin),
+					'I', LibOreDict.MANA_STEEL);
+		else addOreDictRecipe(new ItemStack(ModBlocks.cocoon), 
+				"SSS", "SPS", "SDS",
+				'S', new ItemStack(Items.string),
+				'P', LibOreDict.PIXIE_DUST,
+				'D', LibOreDict.DRAGONSTONE);
+		recipeCocoon = BotaniaAPI.getLatestAddedRecipe();
+		
 		// Storage Block/Nugget Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",

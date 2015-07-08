@@ -153,6 +153,7 @@ public final class LexiconData {
 	public static LexiconEntry hourglass;
 	public static LexiconEntry ghostRail;
 	public static LexiconEntry canopyDrum;
+	public static LexiconEntry cocoon;
 
 	public static LexiconEntry manaBlaster;
 	public static LexiconEntry grassSeeds;
@@ -613,6 +614,9 @@ public final class LexiconData {
 		canopyDrum = new BLexiconEntry(LibLexicon.DEVICE_CANOPY_DRUM, categoryDevices);
 		canopyDrum.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeCanopyDrum));
 
+		cocoon = Botania.gardenOfGlassLoaded ? new BLexiconEntry(LibLexicon.DEVICE_COCOON, categoryDevices) : new ALexiconEntry(LibLexicon.DEVICE_COCOON, categoryDevices);
+		cocoon.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeCocoon));
+		
 		// TOOLS ENTRIES
 		manaBlaster = new BLexiconEntry(LibLexicon.TOOL_MANA_BLASTER, categoryTools);
 		manaBlaster.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipeManaBlaster));
