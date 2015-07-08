@@ -1411,6 +1411,7 @@ item.botania:terrasteelNugget.name=Terrasteel Nugget
 item.botania:elementiumNugget.name=Elementium Nugget
 item.botania:root.name=Living Root
 item.botania:pebble.name=Pebble
+item.botania:waterBowl.name=Bowl of Water
 
 # BREW NAMES
 botania.brew.fallback=Fallback
@@ -1489,7 +1490,7 @@ botania.page.introVideo0=For those readers who are not quite readers, a short vi
 botania.entry.gardenOfGlass=Garden of Glass
 botania.page.gardenOfGlass0=In the &2Garden of Glass&0 nobody can hear you scream.<br>You're alone in space.<br>How exciting.
 botania.page.gardenOfGlass1=The &2Garden of Glass&0 is a skyblock mode for Botania. It's advised only for players who are somewhat experienced in the mod, but if you're new to it, you're more than welcome to try it out anyway.<br>Most of the mod functions the same, but some tweaks have been put in place to allow for the skyblock style game. They'll be listed in the following pages. 
-botania.page.gardenOfGlass2=After spawning in the &1Garden of Glass&0 you'll find &1Living Roots&0 below the landing area. These can be used to create &1Saplings&0 and &1Floral Fertilizer&0. They also work as &1Bone Meal&0.<br>Shift-right clicking a &1Dirt&0 or &1Grass&0 block with an empty hand will have you rummage through the soil, doing this long will wield you some &1Pebbles&0, that can be converted into &1Cobblestone&0.
+botania.page.gardenOfGlass2=After spawning in the &1Garden of Glass&0 you'll find &1Living Roots&0 below the landing area. These can be used to create &1Saplings&0 and &1Floral Fertilizer&0. They also work as &1Bone Meal&0. Shift-right clicking a &1Dirt&0 or &1Grass&0 block with an empty hand will have you rummage through the soil, finding some &1Pebbles&0, that can be converted into &1Cobblestone&0. Filling a &1Petal Apothecary&0 can be done with a &1Bowl&0 by clicking on a water block.
 botania.page.gardenOfGlass3=Creating &1Saplings&0
 botania.page.gardenOfGlass4=Creating &1Floral Fertilizer&0
 botania.page.gardenOfGlass5=Creating &1Cobblestone&0

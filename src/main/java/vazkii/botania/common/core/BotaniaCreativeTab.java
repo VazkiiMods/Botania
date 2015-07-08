@@ -108,12 +108,14 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.cocoon);
 		addItem(ModItems.blackHoleTalisman);
 
-		if(Botania.gardenOfGlassLoaded)
+		if(Botania.gardenOfGlassLoaded) {
 			addBlock(ModBlocks.root);
+			addBlock(ModBlocks.felPumpkin);
+			addItem(ModItems.waterBowl);
+		}
+			
 		addBlock(ModBlocks.livingrock);
 		addBlock(ModBlocks.livingwood);
-		if(Botania.gardenOfGlassLoaded)
-			addBlock(ModBlocks.felPumpkin);
 		addBlock(ModBlocks.openCrate);
 		addItem(ModItems.craftPattern);
 		addBlock(ModBlocks.platform);

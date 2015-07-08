@@ -243,6 +243,7 @@ public final class ModItems {
 	public static Item temperanceStone;
 	public static Item incenseStick;
 	public static Item terraAxe;
+	public static Item waterBowl;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -376,7 +377,8 @@ public final class ModItems {
 		temperanceStone = new ItemTemperanceStone();
 		incenseStick = new ItemIncenseStick();
 		terraAxe = new ItemTerraAxe();
-
+		waterBowl = new ItemWaterBowl();
+		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));
