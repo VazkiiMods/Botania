@@ -1,3 +1,6 @@
+r1.7 201
+*Added an end portal recipe to Garden of Glass.
+*Fixed a crash when leaving the nether in a Garden of Glass world.
 r1.7 200
 *In Garden of Glass using a Bowl in water will create a Bowl of Water that can be used to fill the Petal Apothecary. <i>I can't believe I forgot that >_></i>
 *<i>Happy 200th build... yay...</i>
