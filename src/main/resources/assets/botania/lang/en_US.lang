@@ -1499,6 +1499,7 @@ botania.page.gardenOfGlass7=Creating &1Sugar Canes&0
 botania.page.gardenOfGlass8=Creating &1Slimeballs&0
 botania.page.gardenOfGlass9=Lastly, it's possible to infuse a &1Pumpkin&0 with the fel spirits of monster slain, creating a &1Fel Pumpkin&0. This can be placed atop two &1Iron Bars&0, in a similar fashion to a &1Snow Golem&0, to spawn a &1Blaze&0.<br>&1Blazes&0 spawned with this method drop &1Blaze Powder&0 instead of &1Blaze Rods&0.
 botania.page.gardenOfGlass10=Nerfing warlocks again
+botania.page.gardenOfGlass11=Lastly, &1End Portal&0 recipe
 
 # -- LEXICA BOTANIA
 botania.entry.lexicon=Lexica Botania

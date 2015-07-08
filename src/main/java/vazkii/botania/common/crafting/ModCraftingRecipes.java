@@ -274,6 +274,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipePebbleCobblestone;
 	public static IRecipe recipeMagmaToSlimeball;
 	public static IRecipe recipeFelPumpkin;
+	public static IRecipe recipeEndPortal;
 
 	public static void init() {
 		// Lexicon Recipe
@@ -1921,6 +1922,13 @@ public final class ModCraftingRecipes {
 				'F', new ItemStack(Items.rotten_flesh),
 				'G', new ItemStack(Items.gunpowder));
 		recipeFelPumpkin = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Ender Portal
+		addOreDictRecipe(new ItemStack(Blocks.end_portal_frame),
+				"OGO",
+				'O', new ItemStack(Blocks.obsidian),
+				'G', LibOreDict.LIFE_ESSENCE);
+		recipeEndPortal = BotaniaAPI.getLatestAddedRecipe();
 	}
 	
 	private static void addStairsAndSlabs(Block block, int meta, Block stairs, Block slab) {
