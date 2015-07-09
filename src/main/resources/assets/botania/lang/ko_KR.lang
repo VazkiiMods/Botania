@@ -1,6 +1,8 @@
 #번역시 주의 점: 현재 꽃이름을 제외한 음역은 대부분 패러디로 무리한 한글화를 진행하지 말아주세요(Ex.Tiny Potato) 한글정발을 제외한 모든 패러디는 발음대로 적어주시길 바랍니다.
 # MISC
 itemGroup.Botania=보타니아 [Botania]
+generator.botania-skyblock=잔디의 정원
+generator.botania-skyblock.info=보타니아를 처음하는 분에게는 권장하지 않습니다.
 
 # Something that is not localized, translators, do NOT change this line.
 botaniamisc.noloc=botaniamisc.noloc
@@ -364,9 +366,9 @@ botania.baubletooltip=&b%key%&7로 버블즈 인벤토리를 여세요
 
 # RELIC POEMS
 item.infiniteFruit.poem0=금지된 정원의 열매
-item.infiniteFruit.poem1=끝없이 허기를 채워주는..
-item.infiniteFruit.poem2=과육이 재생되는..
-item.infiniteFruit.poem3=스스로 어려지는..
+item.infiniteFruit.poem1=허기에서 해방시켜주며,
+item.infiniteFruit.poem2=끝없이 과육이 재생되고,
+item.infiniteFruit.poem3=언제나 싱싱한..
 
 item.excaliber.poem0=약속된 승리의 검
 item.excaliber.poem1=전장에서 스러져가는 모든 용사들이 임종의 순간에 품었던 애달프고도 고귀한 꿈,
@@ -383,7 +385,7 @@ item.thorRing.poem1=Will Shatter the salt of the Terra,
 item.thorRing.poem2=With unstoppable strength
 item.thorRing.poem3=It'll begin anew a new era.
 
-item.odinRing.poem0=현명하고 나이든 신들의 왕
+item.odinRing.poem0=현명한 신들의 왕
 item.odinRing.poem1=Of virtue, life and divinity,
 item.odinRing.poem2=With the hindrance of death on one's hands,
 item.odinRing.poem3=They'll form the Holy Trinity.
@@ -470,7 +472,7 @@ achievement.botania:corporeaCraft.desc=Corporea Network 블럭을 만들고 사�
 
 achievement.botania:signalFlareStun=See the Lights
 achievement.botania:signalFlareStun.desc=Stun 100 or more mobs at once with a Signal Flare
-achievement.botania:l20ShardUse=어긋나간다
+achievement.botania:l20ShardUse=어.긋.나.간.다
 achievement.botania:l20ShardUse.desc=Raise the ground up to the sky with a Power XX Shard of Laputa
 achievement.botania:gaiaGuardianNoArmor=종말
 achievement.botania:gaiaGuardianNoArmor.desc=Slay a Gaia Guardian without wearing any armor at any point during the fight
@@ -509,14 +511,14 @@ botania.challengelevel.hard=어려움
 botania.challengelevel.lunatic=마조히스트
 
 # CHALLENGE TEXT
-botania.challenge.flowerFarm=Flower Farm
-botania.challenge.flowerFarm.desc=Create an automated farm of all 16 colors of botania flowers. Bonus points if the flowers are sorted.
+botania.challenge.flowerFarm=꽃 농장
+botania.challenge.flowerFarm.desc=자동으로 16가지 색상의 신비로운 꽃을 생산하는 농장을 만들어 보세요! 분류까지 한다면 보너스 포인트!
 botania.challenge.recordFarm=Record Farm
 botania.challenge.recordFarm.desc=Create a system that produces records through the death of creepers at the hand of skeletons. Bonus points if it doesn't require a player's presence.
-botania.challenge.reedFarm=Sugar Cane Farm
-botania.challenge.reedFarm.desc=Create an automated sugar cane farm. Bonus points for not using pistons.
-botania.challenge.cobbleGen=Cobble Generator
-botania.challenge.cobbleGen.desc=Create an automated cobblestone generator and harvester. Bonus points if it also creates smooth stone without a furnace.
+botania.challenge.reedFarm=사탕수수 농장
+botania.challenge.reedFarm.desc=자동으로 사탕수수 농장을 만들어보세요! 피스톤을 사용하지 않았다면 보너스 포인트!
+botania.challenge.cobbleGen=조약돌 생성기
+botania.challenge.cobbleGen.desc=자동으로 조약돌을 생성한뒤 캐주세요. 조약돌을 화로에 굽는 것 까지 완성한다면 보너스 포인트!
 botania.challenge.pureDaisy=Auto Pure Daisy
 botania.challenge.pureDaisy.desc=Completely automate the Pure Daisy. Bonus points if only one spreader is used and/or if the wood/stone input is also automated.
 botania.challenge.battery=Mana Battery
@@ -898,10 +900,10 @@ tile.botania:petalBlock14.name=빨강색 꽃잎 블럭
 tile.botania:petalBlock15.name=검은색 꽃잎 블럭
 tile.botania:corporeaIndex.name=Corporea Index
 tile.botania:corporeaFunnel.name=Corporea Funnel
-tile.botania:endStoneBrick0.name=엔드 석재벽돌
-tile.botania:endStoneBrick1.name=조각된 엔드 석재벽돌
-tile.botania:endStoneBrick0Slab.name=엔드 석재벽돌 반블럭
-tile.botania:endStoneBrick0Stairs.name=엔드 석재벽돌 계단
+tile.botania:endStoneBrick0.name=엔더 석재벽돌
+tile.botania:endStoneBrick1.name=조각된 엔더 석재벽돌
+tile.botania:endStoneBrick0Slab.name=엔더 석재벽돌 반블럭
+tile.botania:endStoneBrick0Stairs.name=엔더 석재벽돌 계단
 tile.botania:mushroom0.name=하얀색 반짝이는 버섯
 tile.botania:mushroom1.name=주황색 반짝이는 버섯
 tile.botania:mushroom2.name=자홍색 반짝이는 버섯
@@ -990,6 +992,10 @@ tile.botania:incensePlate.name=향 받침대
 tile.botania:hourglass.name=유영 모래시계
 tile.botania:ghostRail.name=스펙트럼 레일
 tile.botania:sparkChanger.name=스파크 편집기
+tile.botania:root.name=생명의 뿌리
+tile.botania:felPumpkin.name=쓴 호박
+tile.botania:cocoon.name=변덕의 고치
+
 
 # FLOWER NAMES
 tile.botania:flower..name=보타니아 꽃
@@ -1403,6 +1409,9 @@ item.botania:terraAxe.name=대지 절단
 item.botania:manasteelNugget.name=마나합금 조각
 item.botania:terrasteelNugget.name=테라스틸 조각
 item.botania:elementiumNugget.name=엘레멘티움 조각
+item.botania:root.name=생명의 뿌리
+item.botania:pebble.name=옥석
+item.botania:waterBowl.name=물이 담긴 그릇
 
 # BREW NAMES
 botania.brew.fallback=대비
@@ -1477,6 +1486,21 @@ botania.page.tutorial0=&4본 모드는 덕질패러디가 넘쳐납니다.&0<br>
 botania.entry.introVideo=C.소개 동영상
 botania.page.introVideo0=보타니아의 기본적인 내용을 영상으로 보여줍니다.(영문)
 
+# -- GARDEN OF GLASS
+botania.entry.gardenOfGlass=Garden of Glass
+botania.page.gardenOfGlass0=In the &2Garden of Glass&0 nobody can hear you scream.<br>You're alone in space.<br>How exciting.
+botania.page.gardenOfGlass1=The &2Garden of Glass&0 is a skyblock mode for Botania. It's advised only for players who are somewhat experienced in the mod, but if you're new to it, you're more than welcome to try it out anyway.<br>Most of the mod functions the same, but some tweaks have been put in place to allow for the skyblock style game. They'll be listed in the following pages. 
+botania.page.gardenOfGlass2=botania.page.gardenOfGlass2=After spawning in the &1Garden of Glass&0 you'll find &1Living Roots&0 below the landing area. These can be used to create &1Saplings&0 and &1Floral Fertilizer&0. They also work as &1Bone Meal&0. Shift-right clicking a &1Dirt&0 or &1Grass&0 block with an empty hand will have you rummage through the soil, finding some &1Pebbles&0, that can be converted into &1Cobblestone&0. Filling a &1Petal Apothecary&0 can be done with a &1Bowl&0 by clicking on a water block.
+botania.page.gardenOfGlass3=Creating &1Saplings&0
+botania.page.gardenOfGlass4=Creating &1Floral Fertilizer&0
+botania.page.gardenOfGlass5=Creating &1Cobblestone&0
+botania.page.gardenOfGlass6=Aside from that, some things in Botania are different to fit the Skyblock play: The &1Orechid&0 is easier to make, faster and much cheaper; &1Mana Spreaders&0 don't need gold; the &1Blaze Lamp&0, which can be used to create &1Obsidian&0, uses powder instead of rods; melon or pumpkin seeds may drop from tall grass; floral fertilizer creates more per craft, and &1Sugar Canes&0 and &1Slimeballs&0 can be crafted.
+botania.page.gardenOfGlass7=Creating &1Sugar Canes&0
+botania.page.gardenOfGlass8=Creating &1Slimeballs&0
+botania.page.gardenOfGlass9=Lastly, it's possible to infuse a &1Pumpkin&0 with the fel spirits of monster slain, creating a &1Fel Pumpkin&0. This can be placed atop two &1Iron Bars&0, in a similar fashion to a &1Snow Golem&0, to spawn a &1Blaze&0.<br>&1Blazes&0 spawned with this method drop &1Blaze Powder&0 instead of &1Blaze Rods&0.
+botania.page.gardenOfGlass10=Nerfing warlocks again
+botania.page.gardenOfGlass11=Lastly, &1End Portal&0 recipe
+
 # -- LEXICA BOTANIA
 botania.entry.lexicon=D.보타니아 사전
 botania.page.lexicon0=&1보타니아 사전&0은 모든 지식의 저장고입니다. 보타니아를 제외한 다른 모드들 까지 말이죠!<br>사전을 열어 보타니아에 관련된 지식을 얻을 수 있고 심지어 사전을 들고 해당하는 아이템에 커서를 맞춘 후 쉬프트-우클릭하면 위키가 열립니다!
@@ -1514,7 +1538,7 @@ botania.entry.pureDaisy=G.정화의 데이지
 botania.page.pureDaisy0=&1정화의 데이지&0는 식물학에서 가장 기본적이며 가장 중요한 꽃이라고 할 수 있습니다.<br>&1정화의 데이지&0는 주변의 &1돌&0과 &1나무&0를 정화하는 능력이 있으며 정화된 돌과 나무는 &1생명의 돌&0 혹은 &1생명의 나무&0로 변형되어 조합에 사용됩니다.
 botania.page.pureDaisy1=&4몇 분&0의 시간이 지나야...
 botania.page.pureDaisy2=&1생명의 나무&0를 나뭇가지로 바꿀 수 있습니다.
-botania.page.pureDaisy4=몇몇개의 다른 아이템들도 꽃 주위에 있으면 정제하는데 살아있는 블록들은 필수적인 반면에 이 블록들은 단지 유용하게 쓰일 뿐입니다. 예를들어 &1네더랙&0을 &1조약돌&0로 바꾸거나 &1소울샌드&0을 &1모래&0로 바꾸거나 &1얼음&0을 &1단단한 얼음&0으로 바꾸는 것 등이 가능합니다.
+botania.page.pureDaisy4=몇몇개의 다른 아이템들도 꽃 주위에 있으면 정제하는데 살아있는 블록들은 필수적인 반면에 이 블록들은 단지 유용하게 쓰일 뿐입니다. 예를들어 &1네더랙&0을 &1조약돌&0로 바꾸거나 &1소울샌드&0을 &1모래&0로 바꾸거나 &1얼음&0을 &1단단한 얼음&0으로 바꾸는 거나 물을 눈으로 바꾸는 것도 가능합니다.
 botania.page.pureDaisy3=하얀색은 순수하고 깨끗함의 상징이죠.
 
 # -- WAND OF THE FOREST
@@ -1783,7 +1807,7 @@ botania.page.tigerseye1=&oRisin' up to the challenge of our rivals&r.
 
 # -- ORECHID
 botania.entry.orechid=Orechid
-botania.page.orechid0=While going mining is all good, a renewable means of getting ore is due. The &1Orechid&0 will use (a massive amount of) &4Mana&0 to generate &4ores&0 in nearby &1Stone&0 blocks.<br>The ores it generates are random, but seem to be biased towards more common ores rather than rarer ones.
+botania.page.orechid0=While going mining is all good, a renewable, sedentary,  means of getting ore is due. The &1Orechid&0 will use (a massive amount of) &4Mana&0 to generate &4ores&0 in nearby &1Stone&0 blocks.<br>The ores it generates are random, but seem to be biased towards more common ores rather than rarer ones.
 botania.page.orechid1=&oNot dragon poop&r.
 
 # -- ORECHID IGNEM
@@ -2021,6 +2045,7 @@ botania.page.manaAlchemy20=Breaking &1Cobblestone&0 into &1Sand&0
 botania.page.manaAlchemy21=Breaking &1Hardened Clay&0 into &1Red Sand&0
 botania.page.manaAlchemy22=Breaking down &1Clay&0 and &1Bricks&0
 botania.page.manaAlchemy23=Making &1Coarse Dirt&0
+botania.page.manaAlchemy24=Transmuting &1Tall Grass&0 types
 
 # -- BOTANICAL BREWERY
 botania.entry.brewery=Botanical Brewery
@@ -2166,6 +2191,11 @@ botania.page.ghostRail1=Spirit Tracks, you could say
 botania.entry.canopyDrum=Drum of the Canopy
 botania.page.canopyDrum0=The &1Drum of the Canopy&0 is like the &1Drum of the Wild&0 in that it is the percussion counterpart of the &1Horn of the Canopy&0. It serves the exact same purpose as the handheld horn, but is placed in world.<br>All the functionality is similar to the &1Drum of the Wild&0
 botania.page.canopyDrum1=The Pinking Drum
+
+# -- COCOON OF CAPRICE
+botania.entry.cocoon=Cocoon of Caprice
+botania.page.cocoon0=A cocoon is usually a symbol of change, of evolution.<br>Creating a &1Cocoon of Carpice&0 and placing it down will slowly evolve the rudimentary contents inside it into a &1Baby Animal&0. More often than not the animal hatched will be a farm animal, but on rare ocasions, different animals such as &1Wolves&0 or &1Horses&0 may be created.  
+botania.page.cocoon1=New World, Perfect World
 
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
@@ -2497,9 +2527,11 @@ botania.page.corporeaCrystalCube2=I can see forever
 
 # -- DECORATIVE END BLOCKS
 botania.entry.endStoneDecor=Decorative End Blocks
-botania.page.endStoneDecor0=Similarly to other stone blocks, &1End Stone&0 can be converted into bricks and chiseled bricks, the bricks can be used as stairs or slabs just like normal &1Stone Bricks&0 would.
+botania.page.endStoneDecor0=Similarly to other stone blocks, &1End Stone&0 can be converted into bricks and chiseled bricks, the bricks can be used as stairs or slabs just like normal &1Stone Bricks&0 would.<br>&1Ender Pearls&0 can be combined with the bricks to create &1Ender Brick&0 blocks, which can also can be used for stairs or slabs.
 botania.page.endStoneDecor1=Making &1End Stone Bricks&0
 botania.page.endStoneDecor2=Making &1Chiseled End Stone Bricks&0
+botania.page.endStoneDecor3=Making &1Ender Bricks&0
+botania.page.endStoneDecor4=Making &1Pillar Ender Bricks&0
 
 # -- LIFE AGGREGATOR
 botania.entry.spawnerMover=Life Aggregator
@@ -2852,7 +2884,7 @@ botania.page.stoneAlchemy4=Chiseling
 
 # -- BLAZE LIGHT
 botania.entry.blazeBlock=Blaze Light
-botania.page.blazeBlock0=Smashing a bunch of &1Blaze Rods&0 together makes a usable decorative light block. A crude one, admittedly, but a source of light non the less.<br>Naturally, like a &1Block of Coal&0, the &1Blaze Light&0 can also be used to fuel furnaces and other fuel consumers alike. Putting it next to a &1Pure Daisy&0 converts it into &1Obsidian&0, strangely enough.
+botania.page.blazeBlock0=Smashing a bunch of blazing material together makes a usable decorative light block. A crude one, admittedly, but a source of light non the less.<br>Naturally, like a &1Block of Coal&0, the &1Blaze Light&0 can also be used to fuel furnaces and other fuel consumers alike. Putting it next to a &1Pure Daisy&0 converts it into &1Obsidian&0, strangely enough.
 botania.page.blazeBlock1=0x1a4
 
 # -- CHALLENGES
