@@ -115,6 +115,18 @@ botaniamisc.hourglassLock=沙漏已锁定.用森林法杖右击可解锁.
 botaniamisc.locked=锁定
 botaniamisc.stopped=停止
 botaniamisc.lockedStopped=锁定,停止
+botaniamisc.visualize=可视化
+botaniamisc.unvisualize=关闭可视化
+botaniamisc.rightClickToAnchor=右击任意方块选定来预览多方块结构
+botaniamisc.structureComplete=多方块结构已完成!
+botaniamisc.materialsRequired=材料需求
+botaniamisc.challenges=挑战
+botaniamisc.markCompleted=标记已完成
+botaniamisc.markNotCompleted=标记未完成
+botaniamisc.completed=已完成
+botaniamisc.notCompleted=未完成
+botaniamisc.info=信息
+botaniamisc.challengeInfo=了解关于挑战
 
 # NEI INTEGRATION
 botania.nei.brewery=植物酿造
@@ -263,6 +275,7 @@ flowerParticles.frequency=花粒子频率
 lexicon.enable.rotatingItems=辞典页面物品旋转特效
 lexicon.enable.justifiedText=辞典文本调整
 lexicon.render.3D=3D辞典渲染
+manaBar.height=魔力条高度
 powerSystem.subtle=使用微量粒子能量系统
 pylonModel.old=使用旧的水晶模型
 elfPortal.particles.enabled=启用传送门粒子
@@ -486,6 +499,55 @@ achievement.botania:nullFlower.desc=发现一个bug导致你有了一朵未定�
 achievement.botania:desuGun=裏表ラバーズ
 achievement.botania:desuGun.desc=ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
 #                                 ^ Don't localize
+
+# CHALLENGE LEVELS
+botania.challengelevel.easy=简单
+botania.challengelevel.normal=普通
+botania.challengelevel.hard=困难
+botania.challengelevel.lunatic=疯狂
+
+# CHALLENGE TEXT
+botania.challenge.flowerFarm=花卉农场
+botania.challenge.flowerFarm.desc=创建一个有着十六种颜色的 植物魔法花的自动化农场.如 果花朵分类分布奖励积分.
+botania.challenge.recordFarm=唱片农场
+botania.challenge.recordFarm.desc=创建一套通过骷髅击杀爬行 者来生产唱片的系统.如果它 不需要玩家在附近奖励积分.
+botania.challenge.reedFarm=甘蔗农场
+botania.challenge.reedFarm.desc=创建一个自动化甘蔗农场.如 果不使用活塞奖励积分.
+botania.challenge.cobbleGen=圆石制造机
+botania.challenge.cobbleGen.desc=创建一个自动化的圆石制造 机和采集器.如果它也能够生 成光滑石头而不需要熔炉奖 励积分.
+botania.challenge.pureDaisy=自动白雏菊
+botania.challenge.pureDaisy.desc=完全使白雏菊自动化.如果只 使用一朵白雏菊并且/或者木 头/石头也能够自动输入奖励 积分.
+botania.challenge.battery=魔力电池
+botania.challenge.battery.desc=创建一个魔力电池,任何地方 的魔力进入一个魔力池且通 过另一个魔力池传出的系统, 且有着大量的魔力池作为缓 冲器.如果能够改变输入和输 出端奖励积分.
+
+botania.challenge.apothecaryRefill=药剂台注水器
+botania.challenge.apothecaryRefill.desc=创建一套当花瓣药剂台空的 时候自动注水的系统.如果这 套系统能够自动制造花朵奖 励积分.
+botania.challenge.treeFarm=树场
+botania.challenge.treeFarm.desc=创建一个自动化的,能够自我 维持的树场.如果能够种植多 种类型的树奖励积分.
+botania.challenge.fullCropFarm=齐全的作物农场
+botania.challenge.fullCropFarm.desc=创建一个有着所有类型作物 (小麦,胡萝卜,马铃薯,西瓜,南瓜, 可可豆和地狱疣)并且能够全 效率运作的农场.如果输出物 品分类奖励积分. 
+botania.challenge.animalFarm=动物农场
+botania.challenge.animalFarm.desc=创建一个有着所有能够饲养 的动物的自动化农场.如果不 需要手动喂养食物奖励积分.
+botania.challenge.boneMealFarm=骨粉农场
+botania.challenge.boneMealFarm.desc=创建一个使用骨粉快速催熟 作物的自动化农场.如果不使 用狂野之鼓奖励积分.
+botania.challenge.orechid=自动凝矿
+botania.challenge.orechid.desc=创建一套允许凝矿兰完全自 动化的系统.如果输出物品分 类奖励奖励积分.
+
+botania.challenge.mobTower=刷怪塔
+botania.challenge.mobTower.desc=创建一个塔状的刷怪场.生物 最终必须被分类在特定的各 自的区域内.可以使用刷怪笼. 如果不需要玩家交互达到 100%效率奖励积分.
+botania.challenge.entropinnyumSetup=热爆装置
+botania.challenge.entropinnyumSetup.desc=创建一套自动合成TNT并且 安全喂食热爆花来生产魔力 的系统.如果TNT需求的沙 子和火药不需要手动放置奖 励积分.
+botania.challenge.spectrolusSetup=斑斓装置
+botania.challenge.spectrolusSetup.desc=创建一套自动喂食斑斓花来 生产魔力的系统.除了最初的 魔力外,任何物品不允许从系 统外部输入.如果它100% 效率运行,不需要为羊毛而等 待等待奖励积分. 
+botania.challenge.potionBrewer=自动酿造
+botania.challenge.potionBrewer.desc=创建一套能够自动制作所有 种类的药水的系统.如果它能 保持总是有一组熏香点燃玩家 基地奖励积分.
+
+botania.challenge.kekimurusSetup=贪食装置
+botania.challenge.kekimurusSetup.desc=完全自动化贪食花,该系统的 每部分都必须是自动化且能 够自我维持.如果仅用一个机 巧箱奖励积分.
+botania.challenge.autoQuarry=自动采矿
+botania.challenge.autoQuarry.desc=创建一个自动采掘地下的矿 石和石头的采矿场.它应该能 够挖掘大片的区域并且自动 输出资源和整理排序.如果它 能够在挖掘完一片区域后自 动转移奖励积分.
+botania.challenge.runeCrafter=符文合成
+botania.challenge.runeCrafter.desc=创建一套能够自动合成全部 符文并且维持其储量的系统. 系统的每个部分都必须自动 化且能自我维持,包括物品输 入.如果只用一个符文祭坛奖 励积分.你必须非常疯狂才能 尝试这个.
 
 # BLOCK NAMES
 tile.botania:flower0.name=白色神秘花
@@ -835,8 +897,12 @@ tile.botania:corporeaIndex.name=多媒体索引
 tile.botania:corporeaFunnel.name=多媒体漏斗
 tile.botania:endStoneBrick0.name=末地石砖
 tile.botania:endStoneBrick1.name=錾制末地石砖
+tile.botania:endStoneBrick2.name=末影石砖
+tile.botania:endStoneBrick3.name=竖纹末影石砖
 tile.botania:endStoneBrick0Slab.name=末地石砖台阶
 tile.botania:endStoneBrick0Stairs.name=末地石砖楼梯
+tile.botania:endStoneBrick2Slab.name=末影石砖台阶
+tile.botania:endStoneBrick2Stairs.name=末影石砖楼梯
 tile.botania:mushroom0.name=白色微光蘑菇
 tile.botania:mushroom1.name=橙色微光蘑菇
 tile.botania:mushroom2.name=品红色微光蘑菇
@@ -924,6 +990,10 @@ tile.botania:corporeaCrystalCube.name=多媒体水晶魔方
 tile.botania:incensePlate.name=香盘
 tile.botania:hourglass.name=悬浮沙漏
 tile.botania:ghostRail.name=幻影轨道
+tile.botania:sparkChanger.name=火花工匠台
+tile.botania:root.name=活根
+tile.botania:felPumpkin.name=恶魔头南瓜
+tile.botania:cocoon.name=随想之茧
 
 # FLOWER NAMES
 tile.botania:flower..name=植物魔法花
@@ -2785,6 +2855,12 @@ botania.page.stoneAlchemy4=錾制
 botania.entry.blazeBlock=烈焰灯
 botania.page.blazeBlock0=将一捆&1烈焰棒&0压实就能得到 一个发光的装饰方块,尽管粗 糙,却是个不错的光源.<br>类似&1煤块&0,&1烈焰灯&0也能用作燃 料.将它放在&1白雏菊&0旁边则会 被转化为&1黑曜石&0,真是见鬼了.
 botania.page.blazeBlock1=0x1a4
+
+# -- CHALLENGES
+botania.entry.challenges=挑战
+botania.page.challenges0=&1挑战&0在&1植物魔法辞典&0首页的 左侧点击形状像杯子的图标 进入.这正如其名,玩家只使用 &1Botania&0和&1Minecraft&0自身的特 性来创建一个机制完成挑战.<br>当然,你也可以运用其它mod的 物品来完成,但是那样就没什 么乐趣了.
+botania.page.challenges1=当然所有的挑战都是有可能 实现的.它们只需要一些关于 红石的思考与知识和&1Botania&0的 装置.<br>强烈建议不要使用其它mod来 完成挑战,如果你仅仅放置下 一个方块就立即解决问题了 的就算不上是真正的挑战.
+botania.page.challenges2=挑战并不是义务,也并不会提 供什么物质上的奖励.它们只 是纯粹地建议用&1Botania&0能出 做什么样的只能的自动化.挑 战项目需要手动标记已完成.<br>它应该让人们记住世界的边 界是人们的想象力,所以不要 在这儿的想法上停止!
 
 # -- THAUMCRAFT INTEGRATION
 botania.entry.tcIntegration=神秘学相关
