@@ -145,7 +145,7 @@ botania.triggers.manaEmpty=Vide de mana
 botania.triggers.manaSpace=Espace pour le mana
 botania.triggers.manaContains=Contient du mana
 botania.triggers.manaFull=Plein de mana
-botania.triggers.runeAltarCanCraft=L'autel peut fabriquer
+botania.triggers.runeAltarCanCraft=L'autel peut fabriquer ca
 
 # COLORS
 botania.color0=Blanc
@@ -195,31 +195,31 @@ botania.wings2=Wings: One-Winged Angel
 botania.wings3=Wings: Fée des glaces
 botania.wings4=Wings: Phénix
 botania.wings5=Wings: Princesse neige noire
-botania.wings6=Wings: Lord of the Pit
+botania.wings6=Wings: Seigneur de la fosse
 botania.wings7=Wings: Sylphe
-botania.wings8=Wings: Mega Ultra Chicken
+botania.wings8=Wings: Méga ultra poulet
 botania.wings9=Wings: The One
 
 # ARMOR SETS
 botania.armorset.manasteel.name=Affinité au mana
-botania.armorset.manasteel.desc=10% less Mana cost on Mana Tools
-botania.armorset.elementium.name=Great Fairy's Blessing
-botania.armorset.elementium.desc=Chance for pixies to apply potion effects
-botania.armorset.terrasteel.name=Will of the Ancients
-botania.armorset.terrasteel.desc0=20% less Mana cost on Mana Tools
+botania.armorset.manasteel.desc=10% de mana en moins sur les outils à mana
+botania.armorset.elementium.name=La bénédiction de la grande fée
+botania.armorset.elementium.desc=Chance pour les elfes d'appliquer les effets de potion
+botania.armorset.terrasteel.name=Volonté des ancients
+botania.armorset.terrasteel.desc0=20% de mana en moins sur les outils à mana
 botania.armorset.terrasteel.desc1=Regen even if hunger isn't topped off
-botania.armorset.will0.desc=Critical Hits apply a strong weakness effect (Will of Ahrim)
-botania.armorset.will1.desc=Critical Hit damage increases with lower HP (Will of Dharok)
-botania.armorset.will2.desc=Critical Hits heal for a portion of damage dealt (Will of Guthan)
-botania.armorset.will3.desc=Critical Hits apply a strong slowness effect (Will of Torag)
-botania.armorset.will4.desc=Critical Hits pierce through armor (Will of Verac)
-botania.armorset.will5.desc=Critical Hits apply a wither effect (Will of Karil)
-botania.armorset.will0.shortDesc=Critical Hits apply a strong weakness effect
-botania.armorset.will1.shortDesc=Critical Hit damage increases with lower HP
-botania.armorset.will2.shortDesc=Critical Hits heal for a portion of damage dealt
-botania.armorset.will3.shortDesc=Critical Hits apply a strong slowness effect
-botania.armorset.will4.shortDesc=Critical Hits pierce through armor
-botania.armorset.will5.shortDesc=Critical Hits apply a wither effect
+botania.armorset.will0.desc=Les coups critiques appliquent un fort effet de faiblesse (Volonté d'Ahrim)
+botania.armorset.will1.desc=Les dégâts de coup critiques augmentent avec l'HP inférieur (Volonté de Dharok)
+botania.armorset.will2.desc=Les coups critiques guérissent une partie de dégâts reçus (Volonté de Guthan)
+botania.armorset.will3.desc=Les coups critiques appliquent un fort effet de lenteur (Volonté de Torag)
+botania.armorset.will4.desc=Les coups critiques transpercent l'armure (Volonté de Verac)
+botania.armorset.will5.desc=Les coups critiques appliquent un effet de décrépitude (Volonté de Karil)
+botania.armorset.will0.shortDesc=Fort effet de faiblesse sur coups critiques
+botania.armorset.will1.shortDesc=Augmente les dégâts critiques avec HP inférieure
+botania.armorset.will2.shortDesc=Guéri une partie de dégâts reçus sur coups critiques
+botania.armorset.will3.shortDesc=Fort effet de lenteur sur coups critiques
+botania.armorset.will4.shortDesc=Transpercent l'armure sur coups critiques
+botania.armorset.will5.shortDesc=Effet de décrépitude sur coups critiques
 
 # ROMAN NUMERALS
 botania.roman0=
@@ -259,41 +259,42 @@ botania.knowledge.minecraft=Savoir Minecraftien
 botania.knowledge.alfheim=Savoir &aElfique&7
 
 # CONFIGURATION
-blockBreakingParticles.enabled=Block Break Particles
-blockBreakingParticlesTool.enabled=Tool Block Break Particles
-boundBlock.wireframe.enabled=Bound Block Wireframe
-darkQuartz.enabled=Enable Smokey Quartz
-fallenKanade.enabled=Enable Fallen Kanade
-manaEnchanter.enabled=Enable Mana Enchanter
-manaFluxfield.enabled=Enable Mana Fluxfield
-relics.enabled=Enable Relics
-18stones.enabled=Enable 1.8 Stones
-ringOfOdin.fireResist=Enable Ring of Odin Fire Resist
-flower.forceCheck=Flower Force Checking
-enderPickpocket.enabled=Enable Ender Pickpocketing
-thermalily.obsidian=Thermalily Needs Obsidian
-passiveWither.time=Passive Wither Time
-flowerParticles.frequency=Flower Particle Frequency
-lexicon.enable.rotatingItems=Lexicon Rotating Items
-lexicon.enable.justifiedText=Lexicon Justified Text
-lexicon.render.3D=3D Lexicon Render
+blockBreakingParticles.enabled=Particules de bloc brisé
+blockBreakingParticlesTool.enabled=Les outils font des particules de bloc brisé
+boundBlock.wireframe.enabled=Cadre de fil de bloc attaché
+darkQuartz.enabled=Activer le quartz fumé
+fallenKanade.enabled=Activer le Kanade tombé
+manaEnchanter.enabled=Activer l'enchanteur à mana
+manaFluxfield.enabled=Activer le champ-flux à mana
+relics.enabled=Activer les reliques
+18stones.enabled=Activer les roches 1.8
+ringOfOdin.fireResist=Activer la résistance au feu de l'anneau d'Odin
+flower.forceCheck=Vérification de force de la fleur
+enderPickpocket.enabled=Activer le vol à la tire du néant
+Fleur de jour.obsidian=Therma-lis a besoin d'obsidienne
+passiveWither.time=Temps de décrépitude passive
+flowerParticles.frequency=Fréquence des particules de fleur
+lexicon.enable.rotatingItems=Les éléments tournent dans le lexique
+lexicon.enable.justifiedText=le texte est justifié dans le lexique
+lexicon.render.3D=Rendu 3D du lexique
+manaBar.height=Hauteur de la barre de mana
 powerSystem.subtle=Use Subtle Power System
-pylonModel.old=Use Old Pylon Model
-elfPortal.particles.enabled=Enable Portal Particles
-chargeAnimation.enabled=Charging Animation Enabled
-vanillaParticleConfig.enabled=Use Vanilla Particle Config
-manaSpreaders.silent=Silent Diffuseur de manas
-flowerTextures.alt=Alternate Flower Textures
-matrixMode.enabled=Enable Matrix Mode
-references.enabled=Enable Tooltip References
-shaders.enabled=Enable Shader Usage
-baubleRender.enabled=Enable Bauble Rendering
-spreader.posShift=Spreader Pos Shift
-versionChecking.enabled=Enable Version Checking
-wandBeam.static=Enable Static Wand Beam
-worldgen.flower.density=Worldgen Flower Density
-worldgen.flower.quantity=Worldgen Flower Quantity
-worldgen.mushroom.quantity=Worldgen Mushroom Quantity
+pylonModel.old=Utiliser l'ancien modèle de pylône
+elfPortal.particles.enabled=Activer Portal Particles
+chargeAnimation.enabled=Animation de chargement activée
+vanillaParticleConfig.enabled=Utiliser la config des particules Vanilla
+manaSpreaders.silent=Diffuseurs de mana silencieux
+flowerTextures.alt=Textures de fleur alternatives
+matrixMode.enabled=Activer le mode matrix
+references.enabled=Activer Tooltip References
+shaders.enabled=Activer l'usage du nuanceur
+baubleRender.enabled=Activer le rendu de Bauble
+spreader.posShift=Pos Maj du diffuseur
+versionChecking.enabled=Activer la vérification de version
+wandBeam.static=Activer le rayon de baquette statique
+worldgen.flower.density=Densité de génération de fleurs
+worldgen.flower.quantity=Quantité de génération de fleurs
+worldgen.mushroom.quantity=Quantité de génération de champignons
 
 # VERSION CHECKING
 botania.versioning.flavour0=NANI SORE!? BOTANIA IS OUTDATED!?
@@ -356,10 +357,10 @@ botania.versioning.error=Woah! It seems like something went wrong while trying t
 botania.versioning.disabled=Sorry. This feature is currently disabled due to server host problems, it should be back soon.
 
 # BAUBLE TOOLTIPS
-botania.baubletype.amulet=Equippable in the &aAmulet&7 slot
-botania.baubletype.ring=Equippable in the &aRing&7 slot
-botania.baubletype.belt=Equippable in the &aBelt&7 slot
-botania.baubletooltip=Press &b%key%&7 to open the Baubles menu
+botania.baubletype.amulet=Equippable dans l'emplacement &aAmulet&7
+botania.baubletype.ring=Equippable dans l'emplacement &aRing&7
+botania.baubletype.belt=Equippable dans l'emplacement &aBelt&7
+botania.baubletooltip=Appuyez &b%key%&7 pour ouvrir le menu Baubles
 
 # RELIC POEMS
 item.infiniteFruit.poem0=The fruit of the forbidden garden
@@ -424,14 +425,14 @@ entity.Botania.botania:poolMinecart.name=Wagonnet à bassin de mana
 # ACHIEVEMENT NAMES + DESC
 achievement.botania:flowerPickup=Ciel du Commencement
 achievement.botania:flowerPickup.desc=Cueuillez une Fleur mystique de ce monde
-achievement.botania:lexiconUse=A Realistical Logical Ideologist
+achievement.botania:lexiconUse=Un idéologiste logique et réaliste
 achievement.botania:lexiconUse.desc=Ouvrez un Lexica Botania et jetez un oeil à l'index
-achievement.botania:daybloomPickup=Daybreak Arrival
-achievement.botania:daybloomPickup.desc=Make a Daybloom in a Petal Apothecary
-achievement.botania:manaPoolPickup=Vivid Wave
-achievement.botania:manaPoolPickup.desc=Upgrade a Diluted Mana Pool to a normal one
+achievement.botania:EndoflammePickup=Arrivée de l'aube
+achievement.botania:daybloomPickup.desc=Faite une Fleur de jour dans l'apoticaire de pétale
+achievement.botania:manaPoolPickup=Vague vive
+achievement.botania:manaPoolPickup.desc=Améliorez un bassin de mana dilué à un normal
 achievement.botania:endoflamePickup=Meltdown
-achievement.botania:endoflamePickup.desc=Create an Endoflame to boost Mana production
+achievement.botania:endoflamePickup.desc=Faite une Endoflamme pour augmenter la production de mana
 achievement.botania:tinyPotatoPet=Just Be Friends
 achievement.botania:tinyPotatoPet.desc=Make a Tiny Potato and pet it
 achievement.botania:sparkCraft=Live Drive
@@ -500,6 +501,55 @@ achievement.botania:nullFlower.desc=Find a bug that lets you have an undefined B
 achievement.botania:desuGun=Two-Faced Lovers
 achievement.botania:desuGun.desc=ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
 #                                 ^ Don't localize
+
+# BLOCK NAMES# CHALLENGE LEVELS
+botania.challengelevel.easy=Facile
+botania.challengelevel.normal=Normal
+botania.challengelevel.hard=Difficile
+botania.challengelevel.lunatic=Lunatique
+
+# CHALLENGE TEXT
+botania.challenge.flowerFarm=Flower Farm
+botania.challenge.flowerFarm.desc=Create an automated farm of all 16 colors of botania flowers. Bonus points if the flowers are sorted.
+botania.challenge.recordFarm=Record Farm
+botania.challenge.recordFarm.desc=Create a system that produces records through the death of creepers at the hand of skeletons. Bonus points if it doesn't require a player's presence.
+botania.challenge.reedFarm=Sugar Cane Farm
+botania.challenge.reedFarm.desc=Create an automated sugar cane farm. Bonus points for not using pistons.
+botania.challenge.cobbleGen=Cobble Generator
+botania.challenge.cobbleGen.desc=Create an automated cobblestone generator and harvester. Bonus points if it also creates smooth stone without a furnace.
+botania.challenge.pureDaisy=Auto Pure Daisy
+botania.challenge.pureDaisy.desc=Completely automate the Pure Daisy. Bonus points if only one spreader is used and/or if the wood/stone input is also automated.
+botania.challenge.battery=Mana Battery
+botania.challenge.battery.desc=Create a Mana Battery, a system where mana enters one pool and comes out of another, with a good amount of pools as a buffer. Bonus points if the input or output can be changed.
+
+botania.challenge.apothecaryRefill=Apothecary Refiller
+botania.challenge.apothecaryRefill.desc=Create a system that automatically refills the Petal Apothecary if it's empty. Bonus points if the system can also automatically create flowers, given the components.
+botania.challenge.treeFarm=Tree Farm
+botania.challenge.treeFarm.desc=Create an automated, self-sustaining tree farm. Bonus points if it can do multiple types of tree.
+botania.challenge.fullCropFarm=Full Crop Farm
+botania.challenge.fullCropFarm.desc=Create a crop farm with all types of crops (wheat, carrot, potato, melon, pumpkin, cocoa and nether wart) that runs at full efficiency. Bonus points if the outputs are sorted. 
+botania.challenge.animalFarm=Animal Farm
+botania.challenge.animalFarm.desc=Create an automated animal farm with all farmable animal types. Bonus points if the food doesn't need to be put in manually.
+botania.challenge.boneMealFarm=Bone Meal-type Farm
+botania.challenge.boneMealFarm.desc=Create an automated farm that utilizes bone meal to quickly grow crops on demand. Bonus points if the Drum of the Wild isn't used.
+botania.challenge.orechid=Automated Orechid
+botania.challenge.orechid.desc=Create a system that allows for the Orechid flower to be fully automated. Bonus points if the output is smelted and sorted.
+
+botania.challenge.mobTower=Spawning Tower
+botania.challenge.mobTower.desc=Create a tower style mob farm. Mobs must be sorted and put into specific chambers at the end. Spawners can be used. Bonus points if the farm functions at 100% efficiency without a player's interaction.
+botania.challenge.entropinnyumSetup=Entropinnyum Setup
+botania.challenge.entropinnyumSetup.desc=Create a system that automatically crafts TNT and safely feeds it to an Entropinnyum flower, creating mana. Bonus points if the sand and gunpowder required for the TNT don't need to be put in manually.
+botania.challenge.spectrolusSetup=Spectrolus Setup
+botania.challenge.spectrolusSetup.desc=Create a system that feeds a Spectrolus, generating mana. Aside from raw mana, no items may be input from outside the system. Bonus points if it operates at 100% efficiency, never wasting any wool. 
+botania.challenge.potionBrewer=Automated Brewing
+botania.challenge.potionBrewer.desc=Create a system that can make all types of brews automatically on demand. Bonus points if it keeps a set of incense always ignited in the player's base.
+
+botania.challenge.kekimurusSetup=Kekimurus Setup
+botania.challenge.kekimurusSetup.desc=Fully automate a Kekimurus, every part of the system must be automated and self-sustaining. Bonus points if only one crafty crate is used.
+botania.challenge.autoQuarry=Automated Quarry
+botania.challenge.autoQuarry.desc=Create a mining quarry that digs for ores and stone underground. It should dig out chunks of land and output all of the mined resources, sorting them. Bonus points if it can relocate automatically after it's done with an area.
+botania.challenge.runeCrafter=Rune Crafter
+botania.challenge.runeCrafter.desc=Create a system that can craft all runes on demand or keep them stocked. Every part of this system must be automated and self-sustaining, including the item inputs. Bonus points if only one Runic Altar block is used. You must be pretty crazy to try this one.
 
 # BLOCK NAMES
 tile.botania:flower0.name=Fleur mystique blanche
@@ -847,10 +897,14 @@ tile.botania:petalBlock14.name=Bloc de pétale rouge
 tile.botania:petalBlock15.name=Bloc de pétale noire
 tile.botania:corporeaIndex.name=Index de Corporea
 tile.botania:corporeaFunnel.name=Cheminée de Corporea
-tile.botania:endStoneBrick0.name=Brique de pierre du néant
-tile.botania:endStoneBrick1.name=Brique de pierre du néant sculptée
-tile.botania:endStoneBrick0Slab.name=Dalle de brique de pierre du néant
-tile.botania:endStoneBrick0Stairs.name=Escaliers de brique de pierre du néant
+tile.botania:endStoneBrick0.name=Brique de pierre du vide
+tile.botania:endStoneBrick1.name=Brique de pierre du vide sculptée
+tile.botania:endStoneBrick2.name=Briques du néant
+tile.botania:endStoneBrick3.name=Pillier de briques du néant
+tile.botania:endStoneBrick0Slab.name=Dalle de brique de pierre du vide
+tile.botania:endStoneBrick0Stairs.name=Escaliers de brique de pierre du vide
+tile.botania:endStoneBrick2Slab.name=Dalle de briques du néant
+tile.botania:endStoneBrick2Stairs.name=Escaliers de briques du néant
 tile.botania:mushroom0.name=Champignon miroitant blanc
 tile.botania:mushroom1.name=Champignon miroitant orange
 tile.botania:mushroom2.name=Champignon miroitant magenta
@@ -938,6 +992,10 @@ tile.botania:corporeaCrystalCube.name=Cube de cristal Corporea
 tile.botania:incensePlate.name=Assiette d'encens
 tile.botania:hourglass.name=Sablier plannant
 tile.botania:ghostRail.name=Rail spectral
+tile.botania:sparkChanger.name=Bricoleur d'étincelle
+tile.botania:root.name=Racine vivante
+tile.botania:felPumpkin.name=Citrouille Fel
+tile.botania:cocoon.name=Cocon de caprice
 
 # FLOWER NAMES
 tile.botania:flower..name=Fleur Botania
@@ -951,13 +1009,13 @@ tile.botania:flower.manastar.name=Étoile de mana
 tile.botania:flower.manastar.reference=Souhaitez sur une étoile
 
 # - GENERATING
-tile.botania:flower.daybloom.name=Daybloom
+tile.botania:flower.daybloom.name=Fleur de jour
 tile.botania:flower.daybloom.reference=A Sting of light
-tile.botania:flower.endoflame.name=Endoflame
+tile.botania:flower.endoflame.name=Endoflamme
 tile.botania:flower.endoflame.reference=Squirting Lag
 tile.botania:flower.hydroangeas.name=Hydroangeas
 tile.botania:flower.hydroangeas.reference=Just friendly crustaceans
-tile.botania:flower.thermalily.name=Thermalily
+tile.botania:flower.thermalily.name=Therma-lis
 tile.botania:flower.thermalily.reference=A Scarlet Rose indeed
 tile.botania:flower.nightshade.name=Nightshade
 tile.botania:flower.nightshade.reference=Ghastly signature
@@ -1284,7 +1342,7 @@ item.botania:craftPattern6.name=Modèle d'artisanat #7: 2x3
 item.botania:craftPattern7.name=Modèle d'artisanat #8: 3x2
 item.botania:craftPattern8.name=Modèle d'artisanat #9: Beignet
 item.botania:gaiaIngot.name=Lingot d'esprit de Gaïa
-item.botania:ancientWill0.name=Volonté de Ahrim
+item.botania:ancientWill0.name=Volonté d'Ahrim
 item.botania:ancientWill1.name=Volonté de Dharok
 item.botania:ancientWill2.name=Volonté de Guthan
 item.botania:ancientWill3.name=Volonté de Torag
@@ -1348,56 +1406,62 @@ item.botania:recordGaia2.name=Mauvais disque musical
 item.botania:temperanceStone.name=Pierre de modération
 item.botania:incenseStick.name=Bâton d'encens
 item.botania:terraAxe.name=Troncateur Terra
+item.botania:manasteelNugget.name=Pépite de manacier
+item.botania:terrasteelNugget.name=Pépite de terracier
+item.botania:elementiumNugget.name=Pépite d'élémentium
+item.botania:root.name=Racine vivante
+item.botania:pebble.name=Caillou
+item.botania:waterBowl.name=bol d'eau
 
 # BREW NAMES
-botania.brew.fallback=Fallback
-botania.brew.speed=Fleetfeet
-botania.brew.strength=Vigor
-botania.brew.haste=Adrenaline
-botania.brew.healing=Mending
-botania.brew.jumpBoost=Upsurging
-botania.brew.regen=Revitalization
-botania.brew.regenWeak=Restoration
-botania.brew.resistance=Fortitude
-botania.brew.fireResistance=Magmaskin
-botania.brew.waterBreathing=Gills
-botania.brew.invisibility=Cloaking
-botania.brew.nightVision=Owlsight
-botania.brew.absorption=Shielding
-botania.brew.soulCross=Crossed Souls
-botania.brew.featherFeet=Feather Feet
-botania.brew.emptiness=Vanity's Emptiness
-botania.brew.bloodthirst=Crimson Shade
-botania.brew.overload=Overload
-botania.brew.allure=Marine Allure
-botania.brew.warpWard=Sane Thoughts
+botania.brew.fallback=Repli
+botania.brew.speed=Agilité
+botania.brew.strength=Vigueur
+botania.brew.haste=Adrénaline
+botania.brew.healing=Raccomodage
+botania.brew.jumpBoost=Augmentation
+botania.brew.regen=Revitalisation
+botania.brew.regenWeak=Restauration
+botania.brew.resistance=Fermeté
+botania.brew.fireResistance=Peau de magma
+botania.brew.waterBreathing=Branchies
+botania.brew.invisibility=Dissimulation
+botania.brew.nightVision=Vue de hibou
+botania.brew.absorption=Protection
+botania.brew.soulCross=Âmes croisées
+botania.brew.featherFeet=Pieds de plume
+botania.brew.emptiness=Le vide de vanité
+botania.brew.bloodthirst=Ombre cramoisie
+botania.brew.overload=Surcharge
+botania.brew.allure=Charme marin
+botania.brew.warpWard=Pensées saines
 
 # POTION NAMES
-botania.potion.soulCross=Soul Cross
-botania.potion.featherFeet=Feather Feet
-botania.potion.emptiness=Emptiness
-botania.potion.bloodthirst=Bloodthirst
-botania.potion.allure=Allure
+botania.potion.soulCross=Croisée d'âme
+botania.potion.featherFeet=Pied de plume
+botania.potion.emptiness=Vide
+botania.potion.bloodthirst=Sanguinaire
+botania.potion.allure=Charme
 
 # GUI TEXT
-botania.gui.lexicon.header=Lexica Botania, %s Edition Table of Contents
-botania.gui.lexicon.wip=(This entry is a Work In Progress. It's not even its final form)
+botania.gui.lexicon.header=Lexica Botania, Edition %s Table des matières
+botania.gui.lexicon.wip=(Ce passage est un travail en cours. Ce n'est même pas sa forme finale)
 
 # MUSIC DISCS
-item.record.botania:gaia1.desc=Kain Vinosec - Endure Emptiness
-item.record.botania:gaia2.desc=Kain Vinosec - Fight For Quiescence
+item.record.botania:gaia1.desc=Kain Vinosec - Supportez le vide
+item.record.botania:gaia2.desc=Kain Vinosec - Combat pour la quiétude
 
 # LEXICON CATEGORIES
-botania.category.basics=Basics and Mechanics
-botania.category.mana=Mana Manipulation
-botania.category.functionalFlowers=Functional Flora
-botania.category.generationFlowers=Generating Flora
-botania.category.devices=Natural Apparatus
-botania.category.tools=Fleur mystique Items
-botania.category.baubles=Baubles and Accessories
-botania.category.ender=Ender Artefacts
-botania.category.alfhomancy=Alfhomancy
-botania.category.misc=Miscellaneous
+botania.category.basics=Bases et mécanismes
+botania.category.mana=Manipulation du mana
+botania.category.functionalFlowers=Flore fonctionnelle
+botania.category.generationFlowers=Flore génératrice
+botania.category.devices=Appareil naturel
+botania.category.tools=Eléments de fleur mystique
+botania.category.baubles=Bibelots et accessoires
+botania.category.ender=Artefacts du néant
+botania.category.alfhomancy=Elfhomancie
+botania.category.misc=Divers
 
 # LEXICON ENTRIES
 
@@ -1421,6 +1485,7 @@ botania.page.tutorial0=While one could just go through the various entries in th
 # -- AN INTRODUCTORY CLIP
 botania.entry.introVideo=An Introductory Clip
 botania.page.introVideo0=For those readers who are not quite readers, a short video guide covering the basics of Botania is also available. It's to keep in note that this guide acts as an aid and not a substitution for the contents of the &1Lexica Botania&0.
+botania.page.gardenOfGlass11=Lastly, &1End Portal&0 recipe
 
 # -- LEXICA BOTANIA
 botania.entry.lexicon=Lexica Botania
@@ -1429,7 +1494,7 @@ botania.page.lexicon3=Any entries typed in &oItalics&r are &4basic&0 entries, wh
 botania.page.lexicon1=Crafting the &1Lexica Botania&0.
 botania.page.lexicon2=The &1Lexica Botania&0's title can also be customized. By placing it in an &1Anvil&0 and renaming it, one can not only change its cover, but also the title.<br>The Edition of the lexica shown equates to the version of the &4Botania&0 you're running, and no, I don't care about the fourth wall.
 
-# -- Fleur mystique FLOWERS
+# -- MYSTICAL FLOWERS
 botania.entry.flowers=Fleur mystique Flowers
 botania.page.flowers0=Around the world, you may stumble upon a large variety of Fleur mystique Flora. Spotting these doesn't take much work as the flowers themselves emit a fair amount of shine.<br>They come in a total of &416 &0different colors.<br>It's also possible to grow these flowers using &1Floral Fertilizer&0 (read on).
 botania.page.flowers1=Flowers as far as the eye can see...
@@ -1521,7 +1586,7 @@ botania.page.wrap0=It seems like the creator of this mod decided to add a weird 
 botania.entry.mIntro=An Introduction to Mana
 botania.page.mIntro0=&4Mana&0 is an ethereal substance. In layman's terms, it is a form of &4Fleur mystique energy&0. Its sensorial existence is inconstant, and its color depends on the environment its put in.<br>Mastering &4Mana&0 is one of the most important skills a botanist needs to master.
 botania.page.mIntro1=In order to create &4Mana&0, one would require a set of &4Generating Flowers&0 (read the respective section). This &4Mana&0 can be dispersed by utilizing &1Diffuseur de manas&0 and stored in &1Mana Pools&0. &4Mana&0 can be used for a myriad of different things. For starters, it can be used for &4Functional Flowers&0 (read the respective section).
-botania.page.mIntro2=To get started with mastering the art of &4Mana&0, one would start by learning how to use &1Dayblooms&0, &1Diffuseur de manas&0 and &1Mana Pools&0.<br>These form a basic infrastructure for mana, which can be used for all sorts of purposes. Have a read at the &4Functional Flora&0 and &4Magical Apparatus&0 sections of this Lexicon. 
+botania.page.mIntro2=To get started with mastering the art of &4Mana&0, one would start by learning how to use &1Fleur de jours&0, &1Diffuseur de manas&0 and &1Mana Pools&0.<br>These form a basic infrastructure for mana, which can be used for all sorts of purposes. Have a read at the &4Functional Flora&0 and &4Magical Apparatus&0 sections of this Lexicon. 
 
 # -- Diffuseur de mana
 botania.entry.spreader=Diffuseur de mana
@@ -1836,10 +1901,10 @@ botania.page.gIntro1=All &4Generating Flowers&0, alike the &4Functional Flowers&
 botania.page.gIntro2=It is important to keep in mind that these flowers memorize the &1Diffuseur de mana&0 into which they should put &4Mana&0 into. They'll only store into the nearest spreader present at the time of the flower being placed (or the closest placed afterward, if none was present), and none other, unless that one is removed. It can be bound to another spreader with a wand in &4Bind Mode&0.
 
 # -- DAYBLOOM
-botania.entry.daybloom=Daybloom
-botania.page.daybloom0=The &1Daybloom&0 is the most basic and rudimentary &4Generating Flower&0. Simply put, it performs a modified photosynthesis process, in order to transform sunlight into &4Mana&0.<br>The process is rather slow, about ten or a dozen of these should get the job done, for now.
-botania.page.daybloom1=These flowers tend to compete among themselves for what sunlight hits an area, thus having any other of the same type adjacent to it on any of the four cardinal directions will result in diminishing returns of &4Mana&0 production. This fact only applies to &1Dayblooms&0 and &1Nightshades&0. They also don't produce much to begin with, so perhaps hastily upgrading to &1Endoflames&0 or others might be a good idea.
-botania.page.daybloom1a=Having any other &1Dayblooms&0 adjacent to it on any of the four cardinal directions will result in diminishing returns of &4Mana&0 production.<br>These flowers are not very resistant, and after some time they'll wither and die off. This only applies to &1Dayblooms&0 and &1Nightshades&0. They also don't produce much to begin with, so perhaps hastily upgrading to &1Endoflames&0 or others might be a good idea.
+botania.entry.daybloom=Fleur de jour
+botania.page.daybloom0=The &1Fleur de jour&0 is the most basic and rudimentary &4Generating Flower&0. Simply put, it performs a modified photosynthesis process, in order to transform sunlight into &4Mana&0.<br>The process is rather slow, about ten or a dozen of these should get the job done, for now.
+botania.page.daybloom1=These flowers tend to compete among themselves for what sunlight hits an area, thus having any other of the same type adjacent to it on any of the four cardinal directions will result in diminishing returns of &4Mana&0 production. This fact only applies to &1Fleur de jours&0 and &1Nightshades&0. They also don't produce much to begin with, so perhaps hastily upgrading to &1Endoflammes&0 or others might be a good idea.
+botania.page.daybloom1a=Having any other &1Fleur de jours&0 adjacent to it on any of the four cardinal directions will result in diminishing returns of &4Mana&0 production.<br>These flowers are not very resistant, and after some time they'll wither and die off. This only applies to &1Fleur de jours&0 and &1Nightshades&0. They also don't produce much to begin with, so perhaps hastily upgrading to &1Endoflammes&0 or others might be a good idea.
 botania.page.daybloom3=Diminishing Returns
 botania.page.daybloom2=&oStarting up a brand new day&r.
 botania.page.daybloom4=&oHow many of you people out there been hurt in some kind of love affair? And how many times do you swear that you'll never love again? How many lonely, sleepless nights? How many lies? How many fights? And why would you want to put yourself through all that again? "Love is pain," I hear you say. Love has a cruel and bitter way of paying you back for all the faith you ever had in your brain. (...)
@@ -1847,27 +1912,27 @@ botania.page.daybloom5=&oHow could it be that what you need the most can leave y
 
 # -- NIGHTSHADE
 botania.entry.nightshade=Nightshade
-botania.page.nightshade0=The &1Nightshade&0 is the dark counterpart of the &1Daybloom&0, as it generates &4Mana&0 passively in any situation the &1Daybloom&0 can not, as long as it's nighttime<br>Similarly to their shining counterpart, they suffer diminishing returns from having any adjacent.
-botania.page.nightshade0a=The &1Nightshade&0 is the dark counterpart of the &1Daybloom&0, as it generates &4Mana&0 passively in any situation the &1Daybloom&0 can not, as long as it's nighttime. Alike its shining counterpart, they suffer diminishing returns from having any adjacent and are not very resistant, and some time they'll wither and die off.
+botania.page.nightshade0=The &1Nightshade&0 is the dark counterpart of the &1Fleur de jour&0, as it generates &4Mana&0 passively in any situation the &1Fleur de jour&0 can not, as long as it's nighttime<br>Similarly to their shining counterpart, they suffer diminishing returns from having any adjacent.
+botania.page.nightshade0a=The &1Nightshade&0 is the dark counterpart of the &1Fleur de jour&0, as it generates &4Mana&0 passively in any situation the &1Fleur de jour&0 can not, as long as it's nighttime. Alike its shining counterpart, they suffer diminishing returns from having any adjacent and are not very resistant, and some time they'll wither and die off.
 botania.page.nightshade1=&oThe shadow of the day&r.
 
 # -- ENDOFLAME
-botania.entry.endoflame=Endoflame
-botania.page.endoflame0=While the &1Daybloom&0 is all well and good, a botanist requires more effective means of generating &4Mana&0.<br>The &1Endoflame&0 does that exactly, it will absorb any combustible items or blocks dropped on the nearby vicinity (albeit only one at a time) and burn through them to passively generate mana while the fuel lasts.
-botania.page.endoflame1=There is a small caveat though, the &1Endoflame&0 will not burn anything that returns a byproduct, an example are &1Lava Buckets&0, that have empty &1Buckets&0 as a byproduct.<br>Due to their behaviour, an &1Open Crate&0, which you read about on the &4Magical Apparatus&0 section, might be a good step on getting it to be self-sustainable.
+botania.entry.endoflame=Endoflamme
+botania.page.endoflame0=While the &1Fleur de jour&0 is all well and good, a botanist requires more effective means of generating &4Mana&0.<br>The &1Endoflamme&0 does that exactly, it will absorb any combustible items or blocks dropped on the nearby vicinity (albeit only one at a time) and burn through them to passively generate mana while the fuel lasts.
+botania.page.endoflame1=There is a small caveat though, the &1Endoflamme&0 will not burn anything that returns a byproduct, an example are &1Lava Buckets&0, that have empty &1Buckets&0 as a byproduct.<br>Due to their behaviour, an &1Open Crate&0, which you read about on the &4Magical Apparatus&0 section, might be a good step on getting it to be self-sustainable.
 botania.page.endoflame2=&oNot nitor&r.
 
 # -- HYDROANGEAS
 botania.entry.hydroangeas=Hydroangeas
-botania.page.hydroangeas0=While passive &4Mana&0 generation can be easily achieved through &1Dayblooms&0, different means of doing so might come in handy. The &1Hydroangeas&0 will suck up any &1Still Water&0 in a 3x3 area around it, on the same height, creating &4Mana&0 from it. They also seem to function faster during &4Rain&0, who'd have thought?
-botania.page.hydroangeas0a=The &1Hydroangeas&0 will suck up any &1Still Water&0 in a 3x3 area around it, on the same height, creating &4Mana&0 from it. They also seem to function faster during &4Rain&0, who'd have thought?<br>Similarly to the &1Daybloom&0, these flowers are not very resistant, and after some time they'll wither and die off.
+botania.page.hydroangeas0=While passive &4Mana&0 generation can be easily achieved through &1Fleur de jours&0, different means of doing so might come in handy. The &1Hydroangeas&0 will suck up any &1Still Water&0 in a 3x3 area around it, on the same height, creating &4Mana&0 from it. They also seem to function faster during &4Rain&0, who'd have thought?
+botania.page.hydroangeas0a=The &1Hydroangeas&0 will suck up any &1Still Water&0 in a 3x3 area around it, on the same height, creating &4Mana&0 from it. They also seem to function faster during &4Rain&0, who'd have thought?<br>Similarly to the &1Fleur de jour&0, these flowers are not very resistant, and after some time they'll wither and die off.
 botania.page.hydroangeas2=A simple &1Hydroangeas&0 system
-botania.page.hydroangeas3=These flowers, similarly to &1Dayblooms&0 or &1Nightshades&0 will receive a portion of diminishing returns if put in too compact of a pattern. Having any two &1Hydroangeas&0 one block away from eachother, including diagonals, will drastically reduce the production rate of both, as the roots get tangled. Having even more in the short space will further weaken their potency. The blue particles between them indicate this. 
+botania.page.hydroangeas3=These flowers, similarly to &1Fleur de jours&0 or &1Nightshades&0 will receive a portion of diminishing returns if put in too compact of a pattern. Having any two &1Hydroangeas&0 one block away from eachother, including diagonals, will drastically reduce the production rate of both, as the roots get tangled. Having even more in the short space will further weaken their potency. The blue particles between them indicate this. 
 botania.page.hydroangeas1=&oFrom some Hyperdimension&r?
 
 # -- THERMALILY
-botania.entry.thermalily=Thermalily
-botania.page.thermalily0=There comes a point where slow generating power, like the &1Hydroangeas&0 or the &1Endoflame&0 is not enough. An answer to that is the &1Thermalily&0, which works similarly to the &1Hydroangeas&0, except with &1Lava&0, it'll produce a very large amount of &1Mana&0 at a spurt when it consumes &1Lava&0, doing this heats up the flower, and it'll need some time to cool down before it can begin the cycle anew.
+botania.entry.thermalily=Therma-lis
+botania.page.thermalily0=There comes a point where slow generating power, like the &1Hydroangeas&0 or the &1Endoflamme&0 is not enough. An answer to that is the &1Therma-lis&0, which works similarly to the &1Hydroangeas&0, except with &1Lava&0, it'll produce a very large amount of &1Mana&0 at a spurt when it consumes &1Lava&0, doing this heats up the flower, and it'll need some time to cool down before it can begin the cycle anew.
 botania.page.thermalily1=&o0108 Style&r.
 
 # -- ROSA ARCANA
@@ -2728,9 +2793,9 @@ botania.page.decorativeBlocks22=Crafting &1Frosty Bricks&0
 botania.entry.dispenserTweaks=Dispenser Tweaks
 botania.page.dispenserTweaks0=&1Dispensers&0, among their normal abilities, can also plant all sorts of crops, from &1Seeds&0, &1Potatos&0 or &1Carrots&0 to even &1Nether Wart&0. The crop is planted in the block right in front of the dispenser.<br>The &1Dispensers&0 can also use the &1Wand of the Forest&0 for some specific tasks such as triggering a &1Runic Altar&0.
 
-# -- Fleur chatoyante FLOWERS
-botania.entry.shinyFlowers=Fleur chatoyante Flowers
-botania.page.shinyFlowers0=By combining your typical &1Fleur mystique Flowers&0 with some &1Glowstone Dust&0, you can make them sparkle even brighter, and emit actual physical light, of the same brightness as a &1Glowstone Block&0.<br>With some &1Dirt&0 and &1Pasture Seeds&0 it's possible to turn them into a miniature Fleur flottante island that will not only emit light, but also look very fancy indeed.
+# -- GLIMMERING FLOWERS
+botania.entry.shinyFlowers=Fleur chatoyante
+botania.page.shinyFlowers0=En combinant votre &1Fleur mystique&0 typique avec un peu de &1Poudre lumineuse&0, vous pouvez les faire miroiter encore plus brillante, et émettre une lumière physique actuelle, de la même brillance comme un &1Bloc lumineux&0.<br>With some &1Dirt&0 and &1Pasture Seeds&0 it's possible to turn them into a miniature Fleur flottante island that will not only emit light, but also look very fancy indeed.
 botania.page.shinyFlowers3=Combining any color of &1Fleur flottante Flower&0 with any flower that has an effect (any &4Functional or Generating Flower&0, etc) in a crafting table will join the two, allowing for both the look and properties of a &1Fleur flottante Flower&0 and the effects of the flower chosen in one block. Lastly, right clicking a Fleur flottante flower in the world with any type of &1Pasture Seed&0 or a &1Snowball&0 will change its look.
 botania.page.shinyFlowers1=Pretty Pretty Shiny Shiny
 botania.page.shinyFlowers2=Like Laputa but (a lot) tinier
@@ -2799,6 +2864,12 @@ botania.page.stoneAlchemy4=Chiseling
 botania.entry.blazeBlock=Blaze Light
 botania.page.blazeBlock0=Smashing a bunch of &1Blaze Rods&0 together makes a usable decorative light block. A crude one, admittedly, but a source of light non the less.<br>Naturally, like a &1Block of Coal&0, the &1Blaze Light&0 can also be used to fuel furnaces and other fuel consumers alike. Putting it next to a &1Pure Daisy&0 converts it into &1Obsidian&0, strangely enough.
 botania.page.blazeBlock1=0x1a4
+
+# -- CHALLENGES
+botania.entry.challenges=Challenges
+botania.page.challenges0=&1Challenges&0 are available in the &1Lexica Botania&0 by clicking the icon in the right of the landing page shaped like a cup. These, as the name says, challenge the player to create a mechanism using the features only available in &1Botania&0 and &1Minecraft&0 itself.<br>Of course, you can use items from other mods to complete them, but that's no fun.
+botania.page.challenges1=All of the challenges are possible, of course. They just require some thinking and knowledge of the ins and outs of redstone and the &1Botania&0 mechanics themselves.<br>It's highly recommended that they're done without using features from external mods, as they have been created with that in mind, and aren't really challenges if you put down a block that solves them instantly.
+botania.page.challenges2=The challenges aren't obligatory in any way, and do not provide any material reward. They're purely suggestions as to what &1Botania&0 can do, automation wise, and are but scratching the surface of that topic. Challenges need be marked completed manually.<br>It should be kept in mind that the boundaries of this world are one's imagination, so don't stop at the ideas in there!
 
 # -- THAUMCRAFT INTEGRATION
 botania.entry.tcIntegration=Thaumcraft Integration
