@@ -1,5 +1,7 @@
 # MISC
 itemGroup.Botania=植物魔法
+generator.botania-skyblock=硝子的花園
+generator.botania-skyblock.info=Not recommended for botania newcomers
 
 #並非本地化條目,請翻譯者不要修改此行文本.
 botaniamisc.noloc=botaniamisc.noloc
@@ -115,6 +117,18 @@ botaniamisc.hourglassLock=沙漏已鎖定.用森林法杖右擊可解鎖.
 botaniamisc.locked=鎖定
 botaniamisc.stopped=停止
 botaniamisc.lockedStopped=鎖定,停止
+botaniamisc.visualize=可視化
+botaniamisc.unvisualize=關閉可視化
+botaniamisc.rightClickToAnchor=右擊任意方塊選定來預覽多方塊結構
+botaniamisc.structureComplete=多方塊結構已完成!
+botaniamisc.materialsRequired=材料需求
+botaniamisc.challenges=挑戰
+botaniamisc.markCompleted=標記已完成
+botaniamisc.markNotCompleted=標記未完成
+botaniamisc.completed=已完成
+botaniamisc.notCompleted=未完成
+botaniamisc.info=信息
+botaniamisc.challengeInfo=瞭解挑戰相關
 
 # NEI INTEGRATION
 botania.nei.brewery=植物釀造
@@ -263,6 +277,7 @@ flowerParticles.frequency=花粒子頻率
 lexicon.enable.rotatingItems=辭典頁面物品旋轉特效
 lexicon.enable.justifiedText=辭典文本調整
 lexicon.render.3D=3D辭典渲染
+manaBar.height=魔力條高度
 powerSystem.subtle=使用微量粒子能量系統
 pylonModel.old=使用舊的水晶模型
 elfPortal.particles.enabled=啟用傳送門粒子
@@ -428,7 +443,7 @@ achievement.botania:manaCookieEat=腐れ外道とチョコレゐト
 achievement.botania:manaCookieEat.desc=注魔一塊瑪那曲奇並吃掉
 achievement.botania:runePickup=Lilium Doll
 achievement.botania:runePickup.desc=用符文祭壇製作符文
-achievement.botania:manaBlasterShoot=M′AIDER遭難ガール
+achievement.botania:manaBlasterShoot=M'aider遭難ガール
 achievement.botania:manaBlasterShoot.desc=合成瑪那脈衝槍再發射脈衝
 achievement.botania:tiaraWings=Heart Shooter
 achievement.botania:tiaraWings.desc=製作天翼族之冠並用翅膀裝飾它
@@ -486,6 +501,55 @@ achievement.botania:nullFlower.desc=發現一個bug導致你有了一朵未定�
 achievement.botania:desuGun=裏表ラバーズ
 achievement.botania:desuGun.desc=ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
 #                                 ^ Don't localize
+
+# CHALLENGE LEVELS
+botania.challengelevel.easy=簡單
+botania.challengelevel.normal=普通
+botania.challengelevel.hard=困難
+botania.challengelevel.lunatic=瘋狂
+
+# CHALLENGE TEXT
+botania.challenge.flowerFarm=花卉農場
+botania.challenge.flowerFarm.desc=創建一個有著十六種顏色的 植物魔法花的自動化農場.如 果花朵分類分佈獎勵積分.
+botania.challenge.recordFarm=唱片農場
+botania.challenge.recordFarm.desc=創建一套通過骷髏擊殺爬行 者來生產唱片的系統.如果它 不需要玩家在附近獎勵積分.
+botania.challenge.reedFarm=甘蔗農場
+botania.challenge.reedFarm.desc=創建一個自動化甘蔗農場.如 果不使用活塞獎勵積分.
+botania.challenge.cobbleGen=圓石製造機
+botania.challenge.cobbleGen.desc=創建一個自動化的圓石製造 機和採集器.如果它也能夠生 成光滑石頭而不需要熔爐獎 勵積分.
+botania.challenge.pureDaisy=自動白雛菊
+botania.challenge.pureDaisy.desc=完全使白雛菊自動化.如果只 使用一朵白雛菊並且/或者木 頭/石頭也能夠自動輸入獎勵 積分.
+botania.challenge.battery=魔力電池
+botania.challenge.battery.desc=創建一個魔力電池,任何地方 的魔力進入一個魔力池且通 過另一個魔力池傳出的系統, 且有著大量的魔力池作為緩 沖器.如果能夠改變輸入和輸 出端獎勵積分.
+
+botania.challenge.apothecaryRefill=藥劑台注水器
+botania.challenge.apothecaryRefill.desc=創建一套當花瓣藥劑台空的 時候自動注水的系統.如果這 套系統能夠自動製造花朵獎 勵積分.
+botania.challenge.treeFarm=樹場
+botania.challenge.treeFarm.desc=創建一個自動化的,能夠自我 維持的樹場.如果能夠種植多 種類型的樹獎勵積分.
+botania.challenge.fullCropFarm=齊全的作物農場
+botania.challenge.fullCropFarm.desc=創建一個有著所有類型作物 (小麥,胡蘿蔔,馬鈴薯,西瓜,南瓜, 可可豆和地獄疣)並且能夠全 效率運作的農場.如果輸出物 品分類獎勵積分. 
+botania.challenge.animalFarm=動物農場
+botania.challenge.animalFarm.desc=創建一個有著所有能夠飼養 的動物的自動化農場.如果不 需要手動餵養食物獎勵積分.
+botania.challenge.boneMealFarm=骨粉農場
+botania.challenge.boneMealFarm.desc=創建一個使用骨粉快速催熟 作物的自動化農場.如果不使 用狂野之鼓獎勵積分.
+botania.challenge.orechid=自動凝礦
+botania.challenge.orechid.desc=創建一套允許凝礦蘭完全自 動化的系統.如果輸出物品分 類獎勵獎勵積分.
+
+botania.challenge.mobTower=刷怪塔
+botania.challenge.mobTower.desc=創建一個塔狀的刷怪場.生物 最終必須被分類在特定的各 自的區域內.可以使用刷怪籠. 如果不需要玩家交互達到 100%效率獎勵積分.
+botania.challenge.entropinnyumSetup=熱爆裝置
+botania.challenge.entropinnyumSetup.desc=創建一套自動合成TNT並且 安全餵食熱爆花來生產魔力 的系統.如果TNT需求的沙 子和火藥不需要手動放置獎 勵積分.
+botania.challenge.spectrolusSetup=斑斕裝置
+botania.challenge.spectrolusSetup.desc=創建一套自動餵食斑斕花來 生產魔力的系統.除了最初的 魔力外,任何物品不允許從系 統外部輸入.如果它100% 效率運行,不需要為羊毛而等 待等待獎勵積分. 
+botania.challenge.potionBrewer=自動釀造
+botania.challenge.potionBrewer.desc=創建一套能夠自動製作所有 種類的藥水的系統.如果它能 保持總是有一組熏香點燃玩家 基地獎勵積分.
+
+botania.challenge.kekimurusSetup=貪食裝置
+botania.challenge.kekimurusSetup.desc=完全自動化貪食花,該系統的 每部分都必須是自動化且能 夠自我維持.如果僅用一個機 巧箱獎勵積分.
+botania.challenge.autoQuarry=自動採礦
+botania.challenge.autoQuarry.desc=創建一個自動採掘地下的礦 石和石頭的採礦場.它應該能 夠挖掘大片的區域並且自動 輸出資源和整理排序.如果它 能夠在挖掘完一片區域後自 動轉移獎勵積分.
+botania.challenge.runeCrafter=符文合成
+botania.challenge.runeCrafter.desc=創建一套能夠自動合成全部 符文並且維持其儲量的系統. 系統的每個部分都必須自動 化且能自我維持,包括物品輸 入.如果只用一個符文祭壇獎 勵積分.你必須非常瘋狂才能 嘗試這個.
 
 # BLOCK NAMES
 tile.botania:flower0.name=白色神秘花
@@ -835,8 +899,12 @@ tile.botania:corporeaIndex.name=多媒體索引
 tile.botania:corporeaFunnel.name=多媒體漏斗
 tile.botania:endStoneBrick0.name=終界石磚
 tile.botania:endStoneBrick1.name=鏨制終界石磚
+tile.botania:endStoneBrick2.name=終界磚
+tile.botania:endStoneBrick3.name=豎紋終界磚
 tile.botania:endStoneBrick0Slab.name=終界石磚台階
 tile.botania:endStoneBrick0Stairs.name=終界石磚樓梯
+tile.botania:endStoneBrick2Slab.name=終界磚台階
+tile.botania:endStoneBrick2Stairs.name=終界磚樓梯
 tile.botania:mushroom0.name=白色微光蘑菇
 tile.botania:mushroom1.name=橙色微光蘑菇
 tile.botania:mushroom2.name=品紅色微光蘑菇
@@ -924,6 +992,10 @@ tile.botania:corporeaCrystalCube.name=多媒體水晶魔方
 tile.botania:incensePlate.name=香盤
 tile.botania:hourglass.name=懸浮沙漏
 tile.botania:ghostRail.name=幻影軌道
+tile.botania:sparkChanger.name=火花工匠台
+tile.botania:root.name=活根
+tile.botania:felPumpkin.name=惡魔頭南瓜
+tile.botania:cocoon.name=隨想之繭
 
 # FLOWER NAMES
 tile.botania:flower..name=植物魔法花
@@ -964,9 +1036,9 @@ tile.botania:flower.spectrolus.reference=挑剔的傢伙
 
 # - FUNCTIONAL
 tile.botania:flower.bellethorn.name=嬌媚之刺
-tile.botania:flower.bellethorn.reference=world's end, girl's rondo
+tile.botania:flower.bellethorn.reference=世界的盡頭,少女的迴旋曲
 tile.botania:flower.bellethornChibi.name=小嬌媚之刺
-tile.botania:flower.bellethornChibi.reference=world's end, girl's rondo
+tile.botania:flower.bellethornChibi.reference=世界的盡頭,少女的迴旋曲
 tile.botania:flower.dreadthorn.name=恐懼之刺
 tile.botania:flower.dreadthorn.reference=C計劃
 tile.botania:flower.heiseiDream.name=平成之夢
@@ -1334,6 +1406,12 @@ item.botania:recordGaia2.name=破損的唱片
 item.botania:temperanceStone.name=節制之石
 item.botania:incenseStick.name=熏香
 item.botania:terraAxe.name=泰拉斷裂者
+item.botania:manasteelNugget.name=Manasteel Nugget
+item.botania:terrasteelNugget.name=Terrasteel Nugget
+item.botania:elementiumNugget.name=Elementium Nugget
+item.botania:root.name=Living Root
+item.botania:pebble.name=Pebble
+item.botania:waterBowl.name=Bowl of Water
 
 # BREW NAMES
 botania.brew.fallback=退卻
@@ -1407,6 +1485,21 @@ botania.page.tutorial0=儘管你可以隨意瀏覽本書的 各個章節,我們�
 # -- AN INTRODUCTORY CLIP
 botania.entry.introVideo=簡介片段
 botania.page.introVideo0=對於並不喜歡圖文的讀者,我 們也準備了一個涵蓋植物魔 法基礎的短片,注意這只是個 指南而不是&1植物魔法辭典&0內容的替代 品.
+
+# -- GARDEN OF GLASS
+botania.entry.gardenOfGlass=Garden of Glass
+botania.page.gardenOfGlass0=In the &2Garden of Glass&0 nobody can hear you scream.<br>You're alone in space.<br>How exciting.
+botania.page.gardenOfGlass1=The &2Garden of Glass&0 is a skyblock mode for Botania. It's advised only for players who are somewhat experienced in the mod, but if you're new to it, you're more than welcome to try it out anyway.<br>Most of the mod functions the same, but some tweaks have been put in place to allow for the skyblock style game. They'll be listed in the following pages. 
+botania.page.gardenOfGlass2=After spawning in the &1Garden of Glass&0 you'll find &1Living Roots&0 below the landing area. These can be used to create &1Saplings&0 and &1Floral Fertilizer&0. They also work as &1Bone Meal&0. Shift-right clicking a &1Dirt&0 or &1Grass&0 block with an empty hand will have you rummage through the soil, finding some &1Pebbles&0, that can be converted into &1Cobblestone&0. Filling a &1Petal Apothecary&0 can be done with a &1Bowl&0 by clicking on a water block.
+botania.page.gardenOfGlass3=Creating &1Saplings&0
+botania.page.gardenOfGlass4=Creating &1Floral Fertilizer&0
+botania.page.gardenOfGlass5=Creating &1Cobblestone&0
+botania.page.gardenOfGlass6=Aside from that, some things in Botania are different to fit the Skyblock play: The &1Orechid&0 is easier to make, faster and much cheaper; The &1Cocoon of Caprice&0 and the &1Mana Spreader&0 have different recipes; the &1Blaze Lamp&0, which can be used to create &1Obsidian&0, uses powder instead of rods; melon or pumpkin seeds may drop from tall grass; floral fertilizer creates more per craft, and &1Sugar Canes&0 and &1Slimeballs&0 can be crafted.
+botania.page.gardenOfGlass7=Creating &1Sugar Canes&0
+botania.page.gardenOfGlass8=Creating &1Slimeballs&0
+botania.page.gardenOfGlass9=Lastly, it's possible to infuse a &1Pumpkin&0 with the fel spirits of monster slain, creating a &1Fel Pumpkin&0. This can be placed atop two &1Iron Bars&0, in a similar fashion to a &1Snow Golem&0, to spawn a &1Blaze&0.<br>&1Blazes&0 spawned with this method drop &1Blaze Powder&0 instead of &1Blaze Rods&0.
+botania.page.gardenOfGlass10=Nerfing warlocks again
+botania.page.gardenOfGlass11=Lastly, &1End Portal&0 recipe
 
 # -- LEXICA BOTANIA
 botania.entry.lexicon=植物魔法辭典
@@ -1487,6 +1580,7 @@ botania.page.terrasteel0=&1泰拉鋼&0是一種複雜的魔法合金 ,需注入�
 botania.page.terrasteel1=製作泰拉凝聚板
 botania.page.terrasteel2=泰拉凝聚板放置好且已做好接 收&4瑪那&0的準備之後,將一個&1瑪 那鋼錠,瑪那鑽石與瑪那珍珠&0 擲於其頂部即可開始注魔.<br>此過程中拾起任何物品均會使 注魔驟停,導致嚴重的 &4瑪那流失&0.注魔將會使用一半 &1瑪那池&0的瑪那以製作一小塊 &4泰拉鋼&0,多個&1火花&0可加快注魔 速度.
 botania.page.terrasteel3=製作&1泰拉鋼&0的模型
+botania.page.terrasteel4=T.A. Plate
 
 # -- BLACK LOTUS
 botania.entry.blackLotus=黑蓮花
@@ -1665,6 +1759,12 @@ botania.page.poolCart2=在泵中,&4瑪那&0流動去向的一側 是粉色的,&4
 botania.page.poolCart3=我愛火車
 botania.page.poolCart4=這不是管子
 
+# -- SPARK TINKERER
+botania.entry.sparkChanger=Spark Tinkerer
+botania.page.sparkChanger0=The &1Spark Tinkerer&0 is a block with the ability to modify the &1Augments&0 placed on &1Sparks&0. Placing it adjacent to &1Mana Pools&0 or other blocks with a &1Spark&0 attached will connect it to those blocks.<br>Right clicking the &1Spark Tinkerer&0 with a &1Spark Augment&0 will put the augment in the block, it can be removed by right clicking again. 
+botania.page.sparkChanger1=When the &1Spark Tinkerer&0 gets a redstone signal it'll randomly pick a &1Spark&0, between all of those it's connected to that have a different augment from the one stored in it, and swap the augment in that &1Spark&0 with the one stored in the block.<br>The stored augment can be withdrawn or deposited with &1Hoppers&0 or other automation methods.
+botania.page.sparkChanger2=Hahahaha, water fire...
+
 # - FUNCTIONAL FLOWERS
 # -- AN INTRODUCTION TO FUNCTION
 botania.entry.fIntro=功能的介紹
@@ -1680,8 +1780,8 @@ botania.page.flowerShrinking0=有些功能花的工作範圍太大 了,而有的
 botania.page.flowerShrinking1=就像手辦一樣
 
 # -- JADED AMARANTHUS
-botania.entry.jadedAmaranthus=傑迪德莧
-botania.page.jadedAmaranthus0=每個人都喜歡花對吧?&1傑迪德&0 &1莧&0就是為此而生的.<br>用&1瑪那池&0給它提供&4瑪那&0會讓 它在周圍快速長出新的&1神秘&0 &1花&0,在範圍內的任何一處.
+botania.entry.jadedAmaranthus=翡翠莧
+botania.page.jadedAmaranthus0=每個人都喜歡花對吧?&1翡翠莧&0 就是為此而生的.<br>用&1瑪那池&0給它提供&4瑪那&0會讓 它在周圍快速長出新的&1神秘&0 &1花&0,在範圍內的任何一處.
 botania.page.jadedAmaranthus1=&o這難道是紫丁香.&r
 botania.page.jadedAmaranthus2=&o等一下,你剛剛是召喚出了一 大堆花麼?<br>是啊,有什麼奇怪的?<br>這不科學,不是麼?<br>我有瑪那,需要什麼科學!
 
@@ -1949,6 +2049,7 @@ botania.page.manaAlchemy20=將&1圓石&0粉碎成&1沙子&0
 botania.page.manaAlchemy21=將&1硬化粘土&0變成&1紅沙&0
 botania.page.manaAlchemy22=粉碎&1粘土&0&1和磚塊&0
 botania.page.manaAlchemy23=製作&1劣質土&0
+botania.page.manaAlchemy24=Transmuting &1Tall Grass&0 types
 
 # -- BOTANICAL BREWERY
 botania.entry.brewery=植物釀造
@@ -2051,6 +2152,7 @@ botania.page.manaConjuration6=煉造&1雪&0
 botania.page.manaConjuration7=煉造&1地獄岩&0
 botania.page.manaConjuration8=煉造&1靈魂沙&0
 botania.page.manaConjuration9=煉造&1砂礫&0
+botania.page.manaConjuration10=煉造&1樹葉&0
 
 # -- SPECTRAL PLATFORM
 botania.entry.spectralPlatform=幻影平台
@@ -2094,6 +2196,11 @@ botania.entry.canopyDrum=林冠之鼓
 botania.page.canopyDrum0=&1林冠之鼓&0就像&1狂野之鼓&0一樣, 不過它所用的是&1林冠號角&0.它 的功能和手持的號角相同,不 過它需要放置下來.<br>若要讓它發出振動破壞周圍 的樹葉,你需要向其發射一道 &4瑪那脈衝&0.
 botania.page.canopyDrum1=鼓本身不會儲存魔力,因此激 活它就需要一個&1紅石瑪那發&0 &1射器&0或&1瑪那發射器&0.
 botania.page.canopyDrum2=修出我的范兒
+
+# -- COCOON OF CAPRICE
+botania.entry.cocoon=Cocoon of Caprice
+botania.page.cocoon0=A cocoon is usually a symbol of change, of evolution.<br>Creating a &1Cocoon of Carpice&0 and placing it down will slowly evolve the rudimentary contents inside it into a &1Baby Animal&0. More often than not the animal hatched will be a farm animal, but on rare ocasions, different animals such as &1Wolves&0 or &1Horses&0 may be created.  
+botania.page.cocoon1=New World, Perfect World
 
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
@@ -2402,7 +2509,8 @@ botania.page.corporeaIndex2=輸入"鐵..."將搜索任何名稱包 括"鐵"的�
 botania.page.corporeaIndex3=物品名稱的複數形式只能在 常規名詞涉及到複數(以"-s", "-es"或"-ies"為後綴)時使用, 當前版本同樣適用於多個物 品請求,例如"10 蘋果".<br>"10 of this"搜索10個等同於 玩家手持物品的物品.
 botania.page.corporeaIndex4=複數請求的例子包括 "10 apples", "a stack of apples", "2 stacks of apples", "2 stacks and 20 apples", "half a stack of apples", "a dozen apples",等等.<br>索引可以識別或多或少的搜 索的繁瑣形式,所以: "2x stacks and 20x of apples"等同於 "2 stack 2 apple"或 "2 stacks + 2 apples".
 botania.page.corporeaIndex5=搜索"all"或"every"會提供網絡 內符合條件的全部物品,所以 "all 蘋果"將提供網絡內所有 蘋果.<br>另外,搜索"count","show","tell" 或"display"不會抽取任何物品, 但會顯示物品庫存.
-botania.page.corporeaIndex6=A certain magical one at that
+botania.page.corporeaIndex6=Lastly, while near a &1Corporea Index&0, writing part of an item's name and pressing TAB in the chat menu will autocomplete the item's name.
+botania.page.corporeaIndex7=A certain magical one at that
 
 # -- CORPOREA FUNNEL
 botania.entry.corporeaFunnel=多媒體漏斗
@@ -2427,6 +2535,8 @@ botania.entry.endStoneDecor=裝飾性終界方塊
 botania.page.endStoneDecor0=類似於其它石質方塊,&1終界石&0 也能製成磚塊和鏨制石磚,磚 塊可以跟&1石磚&0一樣用於製作 樓梯和台階.
 botania.page.endStoneDecor1=製作&1終界石磚&0
 botania.page.endStoneDecor2=製作&1鏨制終界石磚&0
+botania.page.endStoneDecor3=製作&1終界磚&0
+botania.page.endStoneDecor4=製作&1豎紋終界磚&0
 
 # -- LIFE AGGREGATOR
 botania.entry.spawnerMover=生命聚合器
@@ -2755,7 +2865,7 @@ botania.page.azulejo3=各種樣式間循環
 # -- STARFIELD CREATOR
 botania.entry.starfield=星空製造器
 botania.page.starfield0=&1星空製造器&0就像它的名字一 樣,通過將精靈的能量釋放到 空中,置於世界上時,會在夜 晚創造出一片距離很遠的星 空.
-botania.page.starfield=一閃一閃
+botania.page.starfield1=一閃一閃
 
 # -- TRODDEN DIRT
 botania.entry.dirtPath=沙土
@@ -2785,6 +2895,12 @@ botania.page.stoneAlchemy4=鏨制
 botania.entry.blazeBlock=烈焰燈
 botania.page.blazeBlock0=將一捆&1烈焰棒&0壓實就能得到 一個發光的裝飾方塊,儘管粗 糙,卻是個不錯的光源.<br>類似&1煤塊&0,&1烈焰燈&0也能用作燃 料.將它放在&1白雛菊&0旁邊則會 被轉化為&1黑曜石&0,真是見鬼了.
 botania.page.blazeBlock1=0x1a4
+
+# -- CHALLENGES
+botania.entry.challenges=挑戰
+botania.page.challenges0=&1挑戰&0在&1植物魔法辭典&0首頁的 左側點擊形狀像杯子的圖標 進入.這正如其名,玩家只使用 &1Botania&0和&1Minecraft&0自身的特 性來創建一個機制完成挑戰.<br>當然,你也可以運用其它mod的 物品來完成,但是那樣就沒什 麼樂趣了.
+botania.page.challenges1=當然所有的挑戰都是有可能 實現的.它們只需要一些關於 紅石的思考與知識和&1Botania&0的 裝置.<br>強烈建議不要使用其它mod來 完成挑戰,如果你僅僅放置下 一個方塊就立即解決問題了 的就算不上是真正的挑戰.
+botania.page.challenges2=挑戰並不是義務,也並不會提 供什麼物質上的獎勵.它們只 是純粹地建議用&1Botania&0能出 做什麼樣的只能的自動化.挑 戰項目需要手動標記已完成.<br>它應該讓人們記住世界的邊 界是人們的想像力,所以不要 在這兒的想法上停止!
 
 # -- THAUMCRAFT INTEGRATION
 botania.entry.tcIntegration=秘術學相關
