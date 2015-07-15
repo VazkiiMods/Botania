@@ -64,7 +64,7 @@ public class SubTileFunctional extends SubTileEntity {
 			int manaInPool = pool.getCurrentMana();
 			int manaMissing = getMaxMana() - mana;
 			int manaToRemove = Math.min(manaMissing, manaInPool);
-			pool.recieveMana(-manaToRemove);
+			pool.receiveMana(-manaToRemove);
 			addMana(manaToRemove);
 		}
 

@@ -101,7 +101,7 @@ public class EntityPoolMinecart extends EntityMinecart {
 						int transfer = Math.min(TRANSFER_RATE, poolMana);
 						int actualTransfer = Math.min(TilePool.MAX_MANA - cartMana, transfer);
 						if(actualTransfer > 0) {
-							pool.recieveMana(-transfer);
+							pool.receiveMana(-transfer);
 							setMana(cartMana + actualTransfer);
 							did = true;
 						}
@@ -111,7 +111,7 @@ public class EntityPoolMinecart extends EntityMinecart {
 							int cartMana = getMana();
 							int transfer = Math.min(TRANSFER_RATE, cartMana);
 							if(transfer > 0) {
-								pool.recieveMana(transfer);
+								pool.receiveMana(transfer);
 								setMana(cartMana - transfer);
 								did = true;
 							}

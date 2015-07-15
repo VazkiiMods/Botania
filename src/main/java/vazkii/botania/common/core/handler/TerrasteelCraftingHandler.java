@@ -58,7 +58,7 @@ public final class TerrasteelCraftingHandler {
 									IManaPool pool = (IManaPool) tile;
 
 									if(!item.worldObj.isRemote && pool.getCurrentMana() >= MANA_PER_TICK) {
-										pool.recieveMana(-MANA_PER_TICK);
+										pool.receiveMana(-MANA_PER_TICK);
 										item.worldObj.markBlockForUpdate(tile.xCoord, tile.yCoord, tile.zCoord);
 										incrementCraftingTime(item, time);
 										break getManaFromPools;

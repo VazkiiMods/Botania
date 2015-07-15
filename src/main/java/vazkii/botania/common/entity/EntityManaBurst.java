@@ -586,8 +586,8 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 				collidedTile = tile;
 
 			if(tile == null || tile.xCoord != coords.posX || tile.yCoord != coords.posY || tile.zCoord != coords.posZ) {
-				if(!fake && !noParticles && (!worldObj.isRemote || tile instanceof IClientManaHandler) && tile != null && tile instanceof IManaReceiver && ((IManaReceiver) tile).canRecieveManaFromBursts())
-					onRecieverImpact((IManaReceiver) tile, tile.xCoord, tile.yCoord, tile.zCoord);
+				if(!fake && !noParticles && (!worldObj.isRemote || tile instanceof IClientManaHandler) && tile != null && tile instanceof IManaReceiver && ((IManaReceiver) tile).canreceiveManaFromBursts())
+					onreceiverImpact((IManaReceiver) tile, tile.xCoord, tile.yCoord, tile.zCoord);
 
 				if(block instanceof IManaTrigger)
 					((IManaTrigger) block).onBurstCollision(this, worldObj, movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ);
@@ -603,7 +603,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 		ILensEffect lens = getLensInstance();
 		if(lens != null)
-			dead = lens.collideBurst(this, movingobjectposition, collidedTile != null && collidedTile instanceof IManaReceiver && ((IManaReceiver) collidedTile).canRecieveManaFromBursts(), dead, getSourceLens());
+			dead = lens.collideBurst(this, movingobjectposition, collidedTile != null && collidedTile instanceof IManaReceiver && ((IManaReceiver) collidedTile).canreceiveManaFromBursts(), dead, getSourceLens());
 
 		if(collided && !hasAlreadyCollidedAt(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ))
 			alreadyCollidedAt.add(getCollisionLocString(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ));
@@ -629,12 +629,12 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		}
 	}
 
-	protected void onRecieverImpact(IManaReceiver tile, int x, int y, int z) {
+	protected void onreceiverImpact(IManaReceiver tile, int x, int y, int z) {
 		int mana = getMana();
 		if(tile instanceof IManaCollector)
 			mana *= ((IManaCollector) tile).getManaYieldMultiplier(this);
 
-		tile.recieveMana(mana);
+		tile.receiveMana(mana);
 		if(tile instanceof IThrottledPacket)
 			((IThrottledPacket) tile).markDispatchable();
 		else VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, x, y, z);

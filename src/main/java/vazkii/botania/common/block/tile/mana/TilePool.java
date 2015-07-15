@@ -95,7 +95,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 	}
 
 	@Override
-	public void recieveMana(int mana) {
+	public void receiveMana(int mana) {
 		boolean full = getCurrentMana() >= manaCap;
 
 		this.mana = Math.max(0, Math.min(getCurrentMana() + mana, manaCap));
@@ -137,7 +137,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 			if(recipe.matches(stack) && (!recipe.isAlchemy() || alchemy) && (!recipe.isConjuration() || conjuration) && (getBlockMetadata() != 2 || recipe.getOutput().getItem() == Item.getItemFromBlock(getBlockType()))) {
 				int mana = recipe.getManaToConsume();
 				if(getCurrentMana() >= mana) {
-					recieveMana(-mana);
+					receiveMana(-mana);
 
 					if(!worldObj.isRemote) {
 						stack.stackSize--;
@@ -221,7 +221,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 							int manaVal = Math.min(1000, Math.min(getCurrentMana(), mana.getMaxMana(stack) - mana.getMana(stack)));
 							if(!worldObj.isRemote)
 								mana.addMana(stack, manaVal);
-							recieveMana(-manaVal);
+							receiveMana(-manaVal);
 						}
 					} else {
 						if(canAccept) {
@@ -231,7 +231,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 							int manaVal = Math.min(1000, Math.min(manaCap - getCurrentMana(), mana.getMana(stack)));
 							if(!worldObj.isRemote)
 								mana.addMana(stack, -manaVal);
-							recieveMana(manaVal);
+							receiveMana(manaVal);
 						}
 					}
 
@@ -322,7 +322,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 	}
 
 	@Override
-	public boolean canRecieveManaFromBursts() {
+	public boolean canreceiveManaFromBursts() {
 		return true;
 	}
 

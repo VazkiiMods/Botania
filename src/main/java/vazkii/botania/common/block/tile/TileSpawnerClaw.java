@@ -142,12 +142,12 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver {
 	}
 
 	@Override
-	public void recieveMana(int mana) {
+	public void receiveMana(int mana) {
 		this.mana = Math.min(160, this.mana + mana);
 	}
 
 	@Override
-	public boolean canRecieveManaFromBursts() {
+	public boolean canreceiveManaFromBursts() {
 		return true;
 	}
 

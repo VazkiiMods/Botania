@@ -144,20 +144,20 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 		super.renderHUD(mc, res);
 
 		BlockData filter = getUnderlyingBlock();
-		ItemStack recieverStack = new ItemStack(Item.getItemFromBlock(filter.block), 1, filter.meta);
+		ItemStack receiverStack = new ItemStack(Item.getItemFromBlock(filter.block), 1, filter.meta);
 		int color = getColor();
 
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		if(recieverStack != null && recieverStack.getItem() != null) {
-			String stackName = recieverStack.getDisplayName();
+		if(receiverStack != null && receiverStack.getItem() != null) {
+			String stackName = receiverStack.getDisplayName();
 			int width = 16 + mc.fontRenderer.getStringWidth(stackName) / 2;
 			int x = res.getScaledWidth() / 2 - width;
 			int y = res.getScaledHeight() / 2 + 30;
 
 			mc.fontRenderer.drawStringWithShadow(stackName, x + 20, y + 5, color);
 			RenderHelper.enableGUIStandardItemLighting();
-			RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, recieverStack, x, y);
+			RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, receiverStack, x, y);
 			RenderHelper.disableStandardItemLighting();
 		}
 

@@ -32,14 +32,14 @@ public class TileManaVoid extends TileMod implements IClientManaHandler {
 	}
 
 	@Override
-	public void recieveMana(int mana) {
+	public void receiveMana(int mana) {
 		if(mana > 0)
 			for(int i = 0; i < 10; i++)
 				Botania.proxy.sparkleFX(getWorldObj(), xCoord + Math.random(), yCoord + Math.random(), zCoord + Math.random(), 0.2F, 0.2F, 0.2F, 0.7F + 0.5F * (float) Math.random(), 5);
 	}
 
 	@Override
-	public boolean canRecieveManaFromBursts() {
+	public boolean canreceiveManaFromBursts() {
 		return true;
 	}
 

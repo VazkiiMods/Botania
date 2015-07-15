@@ -42,7 +42,7 @@ public interface IManaItem {
 	public boolean canReceiveManaFromPool(ItemStack stack, TileEntity pool);
 
 	/**
-	 * Can this item recieve mana from another item?
+	 * Can this item receive mana from another item?
 	 */
 	public boolean canReceiveManaFromItem(ItemStack stack, ItemStack otherStack);
 

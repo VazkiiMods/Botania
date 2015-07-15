@@ -91,7 +91,7 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 		}
 
 		// Update every tick.
-		recieveMana(0);
+		receiveMana(0);
 
 		if(!worldObj.isRemote && recipe == null) {
 			List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1));
@@ -124,7 +124,7 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 
 				if(mana >= getManaCost() && !worldObj.isRemote) {
 					int mana = getManaCost();
-					recieveMana(-mana);
+					receiveMana(-mana);
 					if(!worldObj.isRemote) {
 						ItemStack output = recipe.getOutput(getStackInSlot(0));
 						EntityItem outputItem = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, output);
@@ -237,12 +237,12 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 	}
 
 	@Override
-	public void recieveMana(int mana) {
+	public void receiveMana(int mana) {
 		this.mana = Math.min(this.mana + mana, getManaCost());
 	}
 
 	@Override
-	public boolean canRecieveManaFromBursts() {
+	public boolean canreceiveManaFromBursts() {
 		return !isFull();
 	}
 

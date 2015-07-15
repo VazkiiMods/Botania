@@ -95,7 +95,7 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 			if(pool == null)
 				setMana(par1ItemStack, 0);
 			else {
-				pool.recieveMana(getManaBacklog(par1ItemStack));
+				pool.receiveMana(getManaBacklog(par1ItemStack));
 				setManaBacklog(par1ItemStack, 0);
 				setMana(par1ItemStack, pool.getCurrentMana());
 			}
@@ -157,7 +157,7 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 	/*public void addMana(ItemStack stack, int mana) {
 		IManaPool pool = getManaPool(stack);
 		if(pool != null) {
-			pool.recieveMana(mana);
+			pool.receiveMana(mana);
 			TileEntity tile = (TileEntity) pool;
 			tile.getWorldObj().func_147453_f(tile.xCoord, tile.yCoord, tile.zCoord, tile.getWorldObj().getBlock(tile.xCoord, tile.yCoord, tile.zCoord));
 		}
@@ -235,12 +235,12 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 		}
 
 		@Override
-		public void recieveMana(int mana) {
+		public void receiveMana(int mana) {
 			// NO-OP
 		}
 
 		@Override
-		public boolean canRecieveManaFromBursts() {
+		public boolean canreceiveManaFromBursts() {
 			return false;
 		}
 
