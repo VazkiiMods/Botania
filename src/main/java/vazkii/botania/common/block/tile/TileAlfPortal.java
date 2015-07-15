@@ -333,7 +333,7 @@ public class TileAlfPortal extends TileMod {
 				if(pool.getCurrentMana() < cost)
 					closeNow = true;
 				else if(!worldObj.isRemote)
-					pool.recieveMana(-cost);
+					pool.receiveMana(-cost);
 			}
 		}
 	}

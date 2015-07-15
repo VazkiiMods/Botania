@@ -79,7 +79,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 		super.updateEntity();
 
 		// Update every tick.
-		recieveMana(0);
+		receiveMana(0);
 
 		if(!worldObj.isRemote && manaToGet == 0) {
 			List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1));
@@ -188,7 +188,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 
 			if(livingrock != null) {
 				int mana = recipe.getManaUsage();
-				recieveMana(-mana);
+				receiveMana(-mana);
 				if(!worldObj.isRemote) {
 					ItemStack output = recipe.getOutput().copy();
 					EntityItem outputItem = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, output);
@@ -299,12 +299,12 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 	}
 
 	@Override
-	public void recieveMana(int mana) {
+	public void receiveMana(int mana) {
 		this.mana = Math.min(this.mana + mana, manaToGet);
 	}
 
 	@Override
-	public boolean canRecieveManaFromBursts() {
+	public boolean canreceiveManaFromBursts() {
 		return !isFull();
 	}
 

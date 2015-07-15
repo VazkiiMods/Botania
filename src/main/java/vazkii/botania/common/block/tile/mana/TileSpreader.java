@@ -147,7 +147,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	@Override
-	public void recieveMana(int mana) {
+	public void receiveMana(int mana) {
 		this.mana = Math.min(this.mana + mana, getMaxMana());
 	}
 
@@ -182,8 +182,8 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 					if(manaInPool > 0 && !isFull()) {
 						int manaMissing = getMaxMana() - mana;
 						int manaToRemove = Math.min(manaInPool, manaMissing);
-						pool.recieveMana(-manaToRemove);
-						recieveMana(manaToRemove);
+						pool.receiveMana(-manaToRemove);
+						receiveMana(manaToRemove);
 					}
 				}
 			}
@@ -334,7 +334,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	@Override
-	public boolean canRecieveManaFromBursts() {
+	public boolean canreceiveManaFromBursts() {
 		return !isFull();
 	}
 
@@ -401,7 +401,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 	public void tryShootBurst() {
 		if((receiver != null || isRedstone()) && !invalidTentativeBurst) {
-			if(canShootBurst && (isRedstone() || receiver.canRecieveManaFromBursts() && !receiver.isFull())) {
+			if(canShootBurst && (isRedstone() || receiver.canreceiveManaFromBursts() && !receiver.isFull())) {
 				EntityManaBurst burst = getBurst(false);
 				if(burst != null) {
 					if(!worldObj.isRemote) {
@@ -529,18 +529,18 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 		if(receiver != null) {
 			TileEntity receiverTile = (TileEntity) receiver;
-			ItemStack recieverStack = new ItemStack(worldObj.getBlock(receiverTile.xCoord, receiverTile.yCoord, receiverTile.zCoord), 1, receiverTile.getBlockMetadata());
+			ItemStack receiverStack = new ItemStack(worldObj.getBlock(receiverTile.xCoord, receiverTile.yCoord, receiverTile.zCoord), 1, receiverTile.getBlockMetadata());
 			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			if(recieverStack != null && recieverStack.getItem() != null) {
-				String stackName = recieverStack.getDisplayName();
+			if(receiverStack != null && receiverStack.getItem() != null) {
+				String stackName = receiverStack.getDisplayName();
 				int width = 16 + mc.fontRenderer.getStringWidth(stackName) / 2;
 				int x = res.getScaledWidth() / 2 - width;
 				int y = res.getScaledHeight() / 2 + 30;
 
 				mc.fontRenderer.drawStringWithShadow(stackName, x + 20, y + 5, color);
 				RenderHelper.enableGUIStandardItemLighting();
-				RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, recieverStack, x, y);
+				RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, receiverStack, x, y);
 				RenderHelper.disableStandardItemLighting();
 			}
 

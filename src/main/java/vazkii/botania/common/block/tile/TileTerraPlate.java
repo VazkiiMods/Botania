@@ -96,7 +96,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 		}
 
 		if(removeMana)
-			recieveMana(-1000);
+			receiveMana(-1000);
 	}
 
 	void doParticles() {
@@ -199,12 +199,12 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 	}
 
 	@Override
-	public void recieveMana(int mana) {
+	public void receiveMana(int mana) {
 		this.mana = Math.max(0, Math.min(MAX_MANA, this.mana + mana));
 	}
 
 	@Override
-	public boolean canRecieveManaFromBursts() {
+	public boolean canreceiveManaFromBursts() {
 		return areItemsValid(getItems());
 	}
 

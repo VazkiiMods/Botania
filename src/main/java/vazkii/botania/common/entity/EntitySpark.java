@@ -130,7 +130,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 					int cost = items.get(stack);
 					int manaToPut = Math.min(getAttachedTile().getCurrentMana(), cost);
 					((IManaItem) stack.getItem()).addMana(stack, manaToPut);
-					getAttachedTile().recieveMana(-manaToPut);
+					getAttachedTile().receiveMana(-manaToPut);
 					particlesTowards(player);
 				}
 
@@ -179,12 +179,12 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 					ISparkAttachable attached = spark.getAttachedTile();
 					int spend = Math.min(attached.getAvailableSpaceForMana(), manaForEach);
-					attached.recieveMana(spend);
+					attached.receiveMana(spend);
 					manaSpent += spend;
 
 					particlesTowards((Entity) spark);
 				}
-				tile.recieveMana(-manaSpent);
+				tile.receiveMana(-manaSpent);
 			}
 		}
 
