@@ -996,6 +996,7 @@ tile.botania:sparkChanger.name=Spark Tinkerer
 tile.botania:root.name=Living Root
 tile.botania:felPumpkin.name=Fel Pumpkin
 tile.botania:cocoon.name=Cocoon of Caprice
+tile.botania:lightRelay.name=Luminizer
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower

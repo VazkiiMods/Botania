@@ -10,6 +10,8 @@
  */
 package vazkii.botania.common.block.tile;
 
+import java.awt.Color;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -43,6 +45,8 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		EntityPlayerMover mover = new EntityPlayerMover(worldObj, xCoord, yCoord, zCoord, bindX, bindY, bindZ);
 		worldObj.spawnEntityInWorld(mover);
 		player.mountEntity(mover);
+		worldObj.playSoundAtEntity(mover, "botania:lightRelay", 0.2F, (float) Math.random() * 0.3F + 0.7F); 
+		
 	}
 	
 	@Override
@@ -151,9 +155,14 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		@Override
 		public void onUpdate() {
 			super.onUpdate();
+			
+			if(ticksExisted % 30 == 0)
+				worldObj.playSoundAtEntity(this, "botania:lightRelay", 0.2F, (float) Math.random() * 0.3F + 0.7F); 
 
-			if(riddenByEntity == null)
+			if(riddenByEntity == null) {
 				setDead();
+				return;
+			}
 			
 			int exitX = getExitX();
 			int exitY = getExitY();
@@ -165,6 +174,8 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 			if(x == exitX && y == exitY && z == exitZ) {
 				TileEntity tile = worldObj.getTileEntity(x, y, z);
 				if(tile != null && tile instanceof TileLightRelay) {
+					worldObj.playSoundAtEntity(this, "random.orb", 0.2F, (float) Math.random() * 0.3F + 0.7F);
+
 					ChunkCoordinates bind = ((TileLightRelay) tile).getBinding();
 					if(bind != null) {
 						setExit(bind.posX, bind.posY, bind.posZ);
@@ -178,7 +189,21 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 				Vector3 thisVec = Vector3.fromEntity(this);
 				Vector3 motVec = thisVec.negate().add(exitX + 0.5, exitY + 0.5, exitZ + 0.5).normalize().multiply(0.5);
 				
-				posX += motVec.x;
+				float partMod = 0F;
+				Color color;
+				
+				int count = 4;
+				for(int i = 0; i < count; i++) {
+					color = Color.getHSBColor((float) (ticksExisted / 36F) + (1F / count * i), 1F, 1F);
+					double rad = Math.PI * 2.0 / count * i + ((double) ticksExisted / Math.PI);
+					double cos = Math.cos(rad);
+					double sin = Math.sin(rad);
+					double s = 0.4;
+					
+					Botania.proxy.sparkleFX(worldObj, posX + cos * s, posY - 0.5, posZ + sin * s, (float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F, 1.2F, 10);
+				}
+
+ 				posX += motVec.x;
 				posY += motVec.y;
 				posZ += motVec.z;
 			}

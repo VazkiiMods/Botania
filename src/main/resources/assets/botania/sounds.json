@@ -17,6 +17,7 @@
 	"laputaStart": { "category": "player", "sounds":["laputaStart"] },
 	"lexiconOpen": { "category": "master", "sounds":["lexiconOpen"] },
 	"lexiconPage": { "category": "master", "sounds":["lexiconPage"] },
+	"lightRelay": { "category": "block", "sounds":["lightRelay"] },
 	"manaBlaster": { "category": "player", "sounds":["manaBlaster"] },
 	"manaPoolCraft": { "category": "block", "sounds":["manaPoolCraft"] },
 	"missile": { "category": "player", "sounds":["missile"] },
