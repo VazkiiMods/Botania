@@ -116,7 +116,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 					}
 				}
 			}
-		} else if(originCoords.posY != -1 && heldItemStack != null && event.action == Action.RIGHT_CLICK_BLOCK && lookPos != null && player.isSneaking()) {
+		} else if(heldItemStack != null && event.action == Action.RIGHT_CLICK_BLOCK && lookPos != null && player.isSneaking()) {
 			List<ChunkCoordinates> cursors = getCursorList(lokiRing);
 			for(ChunkCoordinates cursor : cursors) {
 				int x = lookPos.blockX + cursor.posX;

@@ -1,5 +1,7 @@
 ﻿# MISC
 itemGroup.Botania=Botania
+generator.botania-skyblock=Jardim de Vidro
+generator.botania-skyblock.info=Não recomendado para iniciantes
 
 # Something that is not localized, translators, do NOT change this line.
 botaniamisc.noloc=botaniamisc.noloc
@@ -275,6 +277,7 @@ flowerParticles.frequency=Frequência de partículas em plantas
 lexicon.enable.rotatingItems=Rotção de itens no manual
 lexicon.enable.justifiedText=Texto Justificado no manual
 lexicon.render.3D=Renderização 3D do manual
+manaBar.height=Altura da barra de Mana
 powerSystem.subtle=Usar sistema de energia leve
 pylonModel.old=Usar o modelo antigo do Pilão
 elfPortal.particles.enabled=Permitir partículas do Portal
@@ -896,6 +899,10 @@ tile.botania:corporeaIndex.name=Índice Corporea
 tile.botania:corporeaFunnel.name=Exaustor Corporea
 tile.botania:endStoneBrick0.name=Tijolos de Pedra do Fim
 tile.botania:endStoneBrick1.name=Tijolos de Pedra do Fim Talhados
+tile.botania:endStoneBrick2.name=Tijolos do Fim
+tile.botania:endStoneBrick3.name=Pilar de Tijolos do Fim
+tile.botania:endStoneBrick0Slab.name=Laje de Tijolos do Fim
+tile.botania:endStoneBrick0Stairs.name=Escadas de Tijolos do Fim
 tile.botania:endStoneBrick0Slab.name=Laje de Tijolos de Pedra do Fim
 tile.botania:endStoneBrick0Stairs.name=Escadas de Tijolos de Pedra do Fim
 tile.botania:mushroom0.name=Cogumelo Brilhante Branco
@@ -985,6 +992,10 @@ tile.botania:corporeaCrystalCube.name=Cubo de Cristal Corporea
 tile.botania:incensePlate.name=Bandeja de Incensos
 tile.botania:hourglass.name=Ampulheta Flutuante
 tile.botania:ghostRail.name=Trilho Espectral
+tile.botania:sparkChanger.name=Modificador de Fagulhas
+tile.botania:root.name=Raíz-viva
+tile.botania:felPumpkin.name=Abóbora Fel
+tile.botania:cocoon.name=Casúlo de Caprice
 
 # FLOWER NAMES
 tile.botania:flower..name=Flor do Botania
@@ -1398,6 +1409,9 @@ item.botania:terraAxe.name=Terra-Truncador
 item.botania:manasteelNugget.name=Pepita de Manasteel
 item.botania:terrasteelNugget.name=Pepita de Terrasteel
 item.botania:elementiumNugget.name=Pepita de Elementium
+item.botania:root.name=Raíz-viva
+item.botania:pebble.name=Seixo
+item.botania:waterBowl.name=Tigela de água
 
 # BREW NAMES
 botania.brew.fallback=Fallback
@@ -1471,6 +1485,21 @@ botania.page.tutorial0=Enquanto qualquer um pode facilmente ler o livro, também
 # -- AN INTRODUCTORY CLIP
 botania.entry.introVideo=Clipe Introdutório
 botania.page.introVideo0=Para aqueles leitores que não gostam de ler, um vídeo curto mostrando o básico do Botania também existe. Lembre-se que esse guia serve como apoio, e não como substituto ao conteúdo do &1Lexica Botania&0.
+
+# -- GARDEN OF GLASS
+botania.entry.gardenOfGlass=Jardim de Vidro
+botania.page.gardenOfGlass0=No &2Jardim de Vidro&0 ninguém consegue te ouvir gritar.<br>Você está sozinho no espaço.<br>Quanta emoção;
+botania.page.gardenOfGlass1=O &2Jardim de Vidro&0 é um modo de skyblock para o Botania. Ele foi feito para jogadores que possuem um pouco de experiência com o mod, mas se você é um iniciante, está mais do que convidado para tentar de qualquer jeito.<br>A maioria das funções do mod permanecem as mesmas, mas algumas mudanças foram feitas para adaptar ao skyblock. Elas estão listadas nas páginas a seguir.
+botania.page.gardenOfGlass2=Depois de iniciar no &1Jardim de Vidro&0 procure por &1Raíz-viva&0 abaixo de sua ilha. Elas podem ser usadas para criar &1Mudas&0 e &1Fertilizante Floral&0. Elas também servem como &1Farinha de osso&0. Shift-clique direito em &1Terra&0 ou &1Grama&0 com a mão vazia para procurar por &1Seixos&0, eles podem ser convertidos em &1Pedregulho&0. O enchimento de um &1Boticário de Pétalas&0 pode ser feito com uma &1Tigela&0 clicando em um bloco de água.
+botania.page.gardenOfGlass3=Criando &1Mudas&0
+botania.page.gardenOfGlass4=Criando &1Fertilizante Floral&0
+botania.page.gardenOfGlass5=Criando &1Pedregulho&0
+botania.page.gardenOfGlass6=Além disso, outras coisas no Botania são diferentes para funcionar em skyblock: a &1Orechid&0 é bem mais fácil de se obter; o &1Casúlo de Caprice&0 e o &1Dispersor de Mana&0 possuem receitas diferentes; a &1Lâmpada Infernal&0, que é usada para obter &1Obsidiana&0, usa pó ao invés de varas; sementes de melancia ou abóbora podem ser encontradas em grama alta; fertlizante floral é produzido em maiores quantidades, e &1Cana-de-açúcar&0 e &1Gosma de Slime&0 podem ser criadas.
+botania.page.gardenOfGlass7=Criando &1Canas-de-açúcar&0
+botania.page.gardenOfGlass8=Criando &1Gosma de Slime&0
+botania.page.gardenOfGlass9=É possível infundir uma &1Abóbora&0 com o espírito de monstros derrotados, criando uma &1Abóbora de Fel&0. Ela pode ser colocada sobre duas &1Barras de Iron&0, similar a um &1Golem de Neve&0, para invocar um &1Blaze&0.<br>&1Blazes&0 invocados desse método derrubam &1Pó de Blaze&0 ao invés de &1Varas Incandescentes&0.
+botania.page.gardenOfGlass10=Nerfando warlocks outra vez
+botania.page.gardenOfGlass11=Por último, receita para o &1Portal do Fim&0
 
 # -- LEXICA BOTANIA
 botania.entry.lexicon=Lexica Botania
@@ -1551,6 +1580,7 @@ botania.page.terrasteel0=&1Terrasteel&0 é uma liga mágica complexa, infundida 
 botania.page.terrasteel1=Criando a Placa
 botania.page.terrasteel2=Depois que a Placa for colocada e receber &4Mana&0, jogar uma &1Barra de Manasteel, um Diamante de Mana e uma Pérola de Mana&0 em cima dela começa o processo de infusão.<br>Coletar qualquer um dos itens irá parar a infusão e causar uma grande &4Perda de Mana&0. A infusão usa metade de um &1Poço de Mana&0 para criar uma única barra de &4Terrasteel&0, usar várias &1Fagulhas&0 acelera o processo.
 botania.page.terrasteel3=O padrão para criar &1Terrasteel&0 (há &1Rocha-viva&0 abaixo da Placa)
+botania.page.terrasteel4=Placa A. T.
 
 # -- BLACK LOTUS
 botania.entry.blackLotus=Lótus Negra
@@ -1854,4 +1884,3 @@ botania.page.daffomill1=&oWind Turbines? I'm a big fan&r.
 botania.entry.vinculotus=Vinculotus
 botania.page.vinculotus0=A &1Vinculotus&0 tem o poder de causar perturbações no teleporte de &4Endermen&0 em uma decente área. Por um custo de &4Mana&0, sempre que um &4Enderman&0 se teleportar, ele será puxado para o local da &1Vinculotus&0.
 botania.page.vinculotus1=&oTouch this black lotus with your fingers&r.
-
