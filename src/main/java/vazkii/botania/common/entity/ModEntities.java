@@ -11,6 +11,7 @@
 package vazkii.botania.common.entity;
 
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.tile.TileLightRelay.EntityPlayerMover;
 import vazkii.botania.common.lib.LibEntityNames;
 import cpw.mods.fml.common.registry.EntityRegistry;
 
@@ -34,6 +35,7 @@ public final class ModEntities {
 		EntityRegistry.registerModEntity(EntityEnderAirBottle.class, LibEntityNames.ENDER_AIR_BOTTLE, id++, Botania.instance, 64, 10, true);
 		EntityRegistry.registerModEntity(EntityPoolMinecart.class, LibEntityNames.POOL_MINECART, id++, Botania.instance, 80, 3, true);
 		EntityRegistry.registerModEntity(EntityPinkWither.class, LibEntityNames.PINK_WITHER, id++, Botania.instance, 80, 3, false);
+		EntityRegistry.registerModEntity(EntityPlayerMover.class, LibEntityNames.PlAYER_MOVER, id++, Botania.instance, 16, 3, true);
 	}
 
 }

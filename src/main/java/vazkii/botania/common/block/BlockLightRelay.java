@@ -15,6 +15,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
@@ -35,6 +36,17 @@ public class BlockLightRelay extends BlockModContainer implements IWandable {
 		float f = 5F / 16F;
 		setBlockBounds(f, f, f, 1F - f, 1F - f, 1F - f);
 		setBlockName(LibBlockNames.LIGHT_RELAY);
+	}
+	
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int s, float xs, float ys, float zs) {
+		((TileLightRelay) world.getTileEntity(x, y, z)).playerInteract(player);
+		return true;
+	}
+	
+	@Override
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World p_149668_1_, int p_149668_2_, int p_149668_3_, int p_149668_4_) {
+		return null;
 	}
 	
 	@Override
