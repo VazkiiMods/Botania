@@ -1884,3 +1884,32 @@ botania.page.daffomill1=&oWind Turbines? I'm a big fan&r.
 botania.entry.vinculotus=Vinculotus
 botania.page.vinculotus0=A &1Vinculotus&0 tem o poder de causar perturbações no teleporte de &4Endermen&0 em uma decente área. Por um custo de &4Mana&0, sempre que um &4Enderman&0 se teleportar, ele será puxado para o local da &1Vinculotus&0.
 botania.page.vinculotus1=&oTouch this black lotus with your fingers&r.
+
+# -- SPECTRANTHEMUM
+botania.entry.spectranthemum=Spectranthemum
+botania.page.spectranthemum0=Transportar itens por longas distâncias pode ser uma tarefa árdua. Canais de água e &1Daffomills&0 não servem pra sempre. A &1Spectranthemum&0, ao custo de &4Mana&0 distorce a realidade de qualquer item que não contém &4Mana&0 ao redor, o teleportando para outro lugar no mundo. Depois de teleportado, o mesmo item não pode ser usado por outra flor.
+botania.page.spectranthemum1=Para especificar para onde o item deve ir, use a &1Varinha da Floresta&0 no mode vínculo para ligar a flor a um bloco, igual como se vincula a um Poço. Isso só funciona em um raio de 12 blocos. Para ver a qual bloco a planta está vinculada ao invés do Poço que ele está extraindo &4Mana&0, segure shift enquanto olha com a Varinha.
+botania.page.spectranthemum2=Essa flor é governada pelo &4axioma do carregamento de chunks&0, significando que a planta não envia itens para chunks descarregadas. Esse tópico não é totalmente explicado nesse livro.<br>&oLeituras recomendadas: "Chunks and Chicken", "Anchors of the World".
+botania.page.spectranthemum3=&o(n)spooky(n+2)me&r.
+
+# -- MEDUMONE
+botania.entry.medumone=Medumone
+botania.page.medumone0=A &1Medumone&0 é uma flor com a habilidade de cessar qualquer movimento de criaturas.<br>Enquanto receber &4Mana&0, ela para qualquer entidade próxima com um forte efeito de Lentidão, isso não afeta jogadores.
+botania.page.medumone1=&oEsses créditos parecem falsos&r...
+
+# -- MARIMORPHOSIS
+botania.entry.marimorphosis=Marimorphosis
+botania.page.marimorphosis0=A &1Marimorphosis&0 é uma flor que executa transformações metamórficas em blocos &1Pedra&0 ao redor. Esses blocos se convertem em um dos oito tipos de &1Pedra Metamórfica&0. Todos os oito tipos são gerados, mas ou tipos que mais geram depende do bioma. Todos os tipos podem sem usados para fazer tijolos, tijolos talhados, lajes, escadas e até variantes de &1Boticários de Pétalas&0.
+botania.page.marimorphosis1=Os diferentes tipos de &1Pedra Metamórfica&0
+botania.page.marimorphosis3=Colorida como uma música de ClariS
+botania.page.marimorphosis2=&oEssa flor é bastante gneisse&r.
+
+# -- BUBBELL
+botania.entry.bubbell=Bubbell
+botania.page.bubbell0=Construir abaixo de água não é fácil. Preparar espaço respirável na água é um processo trabalhoso e demorado. Plantando uma &1Bubbell&0 em baixo da água e fornecendo &4Mana&0 (proritariamente) cria um domo de ar que mantém a água longe. O domo tem um raio de alcance de 12 blocos. Requer &4Mana&0 constante para continuar operando.
+botania.page.bubbell1=&oLike some casual game&r.
+
+# -- SOLEGNOLIA
+botania.entry.solegnolia=Solegnolia
+botania.page.solegnolia0=O &1Anel Magnético&0 é uma ferramenta útil para mineração ou coleta. Entretanto, não é bom quando ele puxa itens de sistemas complexos.<br>A &1Solegnolia&0 bloqueia o anel e impede que ele puxe itens para o dono. Ela usa uma quantidade insignificante de &4Mana&0 para isso, mas nada preocupante.
+botania.page.solegnolia1=On/Off
