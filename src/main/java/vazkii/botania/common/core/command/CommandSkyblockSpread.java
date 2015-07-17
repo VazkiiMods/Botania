@@ -41,7 +41,7 @@ public class CommandSkyblockSpread extends CommandBase {
 			ChunkCoordinates spawn = player.worldObj.getSpawnPoint();
 			int x = player.worldObj.rand.nextInt(maxrange) - maxrange / 2 + spawn.posX;
 			int z = player.worldObj.rand.nextInt(maxrange) - maxrange / 2 + spawn.posZ;
-			SkyblockWorldEvents.spawnPlayer(player, x, spawn.posY, z);
+			SkyblockWorldEvents.spawnPlayer(player, x, spawn.posY, z, true);
 		}
 	}
 

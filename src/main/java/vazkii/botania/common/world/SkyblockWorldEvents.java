@@ -57,7 +57,7 @@ public final class SkyblockWorldEvents {
 				if(WorldTypeSkyblock.isWorldSkyblock(world)) {
 					ChunkCoordinates coords = world.getSpawnPoint();
 					if(world.getBlock(coords.posX, coords.posY - 4, coords.posZ) != Blocks.bedrock && world.provider.dimensionId == 0)
-						spawnPlayer(player, coords.posX, coords.posY, coords.posZ);
+						spawnPlayer(player, coords.posX, coords.posY, coords.posZ, false);
 				}
 
 
@@ -120,7 +120,7 @@ public final class SkyblockWorldEvents {
 		}
 	}
 
-	public static void spawnPlayer(EntityPlayer player, int x, int y, int z) {
+	public static void spawnPlayer(EntityPlayer player, int x, int y, int z, boolean fabricated) {
 		NBTTagCompound data = player.getEntityData();
 		if(!data.hasKey(EntityPlayer.PERSISTED_NBT_TAG))
 			data.setTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
@@ -136,10 +136,12 @@ public final class SkyblockWorldEvents {
 				player.inventory.addItemStackToInventory(new ItemStack(ModItems.lexicon));
 			}
 			
-			persist.setBoolean(TAG_HAS_OWN_ISLAND, true);
-			persist.setDouble(TAG_ISLAND_X, player.posX);
-			persist.setDouble(TAG_ISLAND_Y, player.posY);
-			persist.setDouble(TAG_ISLAND_Z, player.posZ);
+			if(fabricated) {
+				persist.setBoolean(TAG_HAS_OWN_ISLAND, true);
+				persist.setDouble(TAG_ISLAND_X, player.posX);
+				persist.setDouble(TAG_ISLAND_Y, player.posY);
+				persist.setDouble(TAG_ISLAND_Z, player.posZ);
+			}
 		} else {
 			double posX = persist.getDouble(TAG_ISLAND_X);
 			double posY = persist.getDouble(TAG_ISLAND_Y);
