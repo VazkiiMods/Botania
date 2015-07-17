@@ -38,7 +38,11 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 public final class SkyblockWorldEvents {
 
 	private static final String TAG_MADE_ISLAND = "Botania-MadeIsland";
-	
+	private static final String TAG_HAS_OWN_ISLAND = "Botania-HasOwnIsland";
+	private static final String TAG_ISLAND_X = "Botania-IslandX";
+	private static final String TAG_ISLAND_Y = "Botania-IslandY";
+	private static final String TAG_ISLAND_Z = "Botania-IslandZ";
+
 	@SubscribeEvent
 	public void onPlayerUpdate(LivingUpdateEvent event) {
 		if(event.entityLiving instanceof EntityPlayer && !event.entity.worldObj.isRemote) {
@@ -52,17 +56,10 @@ public final class SkyblockWorldEvents {
 				World world = player.worldObj;
 				if(WorldTypeSkyblock.isWorldSkyblock(world)) {
 					ChunkCoordinates coords = world.getSpawnPoint();
-					if(world.getBlock(coords.posX, coords.posY - 4, coords.posZ) != Blocks.bedrock && world.provider.dimensionId == 0) {
-						createSkyblock(world, coords.posX, coords.posY, coords.posZ);
-
-						if(player instanceof EntityPlayerMP) {
-							EntityPlayerMP pmp = (EntityPlayerMP) player;
-							pmp.setPositionAndUpdate(coords.posX + 0.5, coords.posY + 1.6, coords.posZ + 0.5);
-							pmp.inventory.addItemStackToInventory(new ItemStack(ModItems.lexicon));
-						}
-					}
+					if(world.getBlock(coords.posX, coords.posY - 4, coords.posZ) != Blocks.bedrock && world.provider.dimensionId == 0)
+						spawnPlayer(player, coords.posX, coords.posY, coords.posZ);
 				}
-				
+
 
 				persist.setBoolean(TAG_MADE_ISLAND, true);
 			}
@@ -105,7 +102,7 @@ public final class SkyblockWorldEvents {
 			}
 		}
 	}
-	
+
 	@SubscribeEvent
 	public void onDrops(HarvestDropsEvent event) {
 		if(WorldTypeSkyblock.isWorldSkyblock(event.world) && event.block == Blocks.tallgrass) {
@@ -123,10 +120,39 @@ public final class SkyblockWorldEvents {
 		}
 	}
 
-	public void createSkyblock(World world, int x, int y, int z) {
-		if(!world.blockExists(x, y, z))
-			return;
-		
+	public static void spawnPlayer(EntityPlayer player, int x, int y, int z) {
+		NBTTagCompound data = player.getEntityData();
+		if(!data.hasKey(EntityPlayer.PERSISTED_NBT_TAG))
+			data.setTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
+		NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+
+		if(!persist.getBoolean(TAG_HAS_OWN_ISLAND)) {
+			createSkyblock(player.worldObj, x, y, z);
+
+			if(player instanceof EntityPlayerMP) {
+				EntityPlayerMP pmp = (EntityPlayerMP) player;
+				pmp.setPositionAndUpdate(x + 0.5, y + 1.6, z + 0.5);
+				pmp.setSpawnChunk(new ChunkCoordinates(x, y, z), true);
+				player.inventory.addItemStackToInventory(new ItemStack(ModItems.lexicon));
+			}
+			
+			persist.setBoolean(TAG_HAS_OWN_ISLAND, true);
+			persist.setDouble(TAG_ISLAND_X, player.posX);
+			persist.setDouble(TAG_ISLAND_Y, player.posY);
+			persist.setDouble(TAG_ISLAND_Z, player.posZ);
+		} else {
+			double posX = persist.getDouble(TAG_ISLAND_X);
+			double posY = persist.getDouble(TAG_ISLAND_Y);
+			double posZ = persist.getDouble(TAG_ISLAND_Z);
+			
+			if(player instanceof EntityPlayerMP) {
+				EntityPlayerMP pmp = (EntityPlayerMP) player;
+				pmp.setPositionAndUpdate(posX, posY, posZ);
+			}
+		}
+	}
+
+	public static void createSkyblock(World world, int x, int y, int z) {
 		for(int i = 0; i < 3; i++)
 			for(int j = 0; j < 4; j++)
 				for(int k = 0; k < 3; k++)

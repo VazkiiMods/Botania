@@ -39,6 +39,7 @@ import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.core.command.CommandDownloadLatest;
 import vazkii.botania.common.core.command.CommandOpen;
 import vazkii.botania.common.core.command.CommandShare;
+import vazkii.botania.common.core.command.CommandSkyblockSpread;
 import vazkii.botania.common.core.handler.BiomeDecorationHandler;
 import vazkii.botania.common.core.handler.ChestGenHandler;
 import vazkii.botania.common.core.handler.CommonTickHandler;
@@ -157,6 +158,8 @@ public class CommonProxy {
 		event.registerServerCommand(new CommandDownloadLatest());
 		event.registerServerCommand(new CommandShare());
 		event.registerServerCommand(new CommandOpen());
+		if(Botania.gardenOfGlassLoaded)
+			event.registerServerCommand(new CommandSkyblockSpread());
 	}
 
 	public void registerNEIStuff() {
