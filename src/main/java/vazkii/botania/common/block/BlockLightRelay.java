@@ -40,7 +40,7 @@ public class BlockLightRelay extends BlockModContainer implements IWandable {
 	
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int s, float xs, float ys, float zs) {
-		((TileLightRelay) world.getTileEntity(x, y, z)).playerInteract(player);
+		((TileLightRelay) world.getTileEntity(x, y, z)).mountEntity(player);
 		return true;
 	}
 	

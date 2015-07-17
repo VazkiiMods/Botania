@@ -11,16 +11,20 @@
 package vazkii.botania.common.block.tile;
 
 import java.awt.Color;
+import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
@@ -38,15 +42,14 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 	int bindX, bindY = -1, bindZ;
 	int ticksElapsed = 0;
 
-	public void playerInteract(EntityPlayer player) {
-		if(player.ridingEntity != null || worldObj.isRemote || bindY == -1)
+	public void mountEntity(EntityLivingBase e) {
+		if(e.ridingEntity != null || worldObj.isRemote || bindY == -1)
 			return;
 		
 		EntityPlayerMover mover = new EntityPlayerMover(worldObj, xCoord, yCoord, zCoord, bindX, bindY, bindZ);
 		worldObj.spawnEntityInWorld(mover);
-		player.mountEntity(mover);
-		worldObj.playSoundAtEntity(mover, "botania:lightRelay", 0.2F, (float) Math.random() * 0.3F + 0.7F); 
-		
+		e.mountEntity(mover);
+		worldObj.playSoundAtEntity(mover, "botania:lightRelay", 0.2F, (float) Math.random() * 0.3F + 0.7F);
 	}
 	
 	@Override
@@ -159,7 +162,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 			if(ticksExisted % 30 == 0)
 				worldObj.playSoundAtEntity(this, "botania:lightRelay", 0.2F, (float) Math.random() * 0.3F + 0.7F); 
 
-			if(riddenByEntity == null) {
+			if(riddenByEntity == null && !worldObj.isRemote) {
 				setDead();
 				return;
 			}

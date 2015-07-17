@@ -29,6 +29,6 @@ public final class LibEntityNames {
 	public static final String ENDER_AIR_BOTTLE = LibResources.PREFIX_MOD + "enderAirBottle";
 	public static final String POOL_MINECART = LibResources.PREFIX_MOD + "poolMinecart";
 	public static final String PINK_WITHER = LibResources.PREFIX_MOD + "pinkWither";
-	public static final String PlAYER_MOVER = LibResources.PREFIX_MOD + "playerMover";
+	public static final String PLAYER_MOVER = LibResources.PREFIX_MOD + "playerMover";
 
 }

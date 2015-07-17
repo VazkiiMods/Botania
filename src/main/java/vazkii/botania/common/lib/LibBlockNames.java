@@ -91,6 +91,7 @@ public final class LibBlockNames {
 	public static final String FEL_PUMPKIN = "felPumpkin";
 	public static final String COCOON = "cocoon";
 	public static final String LIGHT_RELAY = "lightRelay";
+	public static final String LIGHT_LAUNCHER = "lightLauncher";
 
 	public static final String SUBTILE_PUREDAISY = "puredaisy";
 	public static final String SUBTILE_MANASTAR = "manastar";

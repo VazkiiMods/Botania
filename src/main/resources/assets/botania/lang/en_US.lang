@@ -997,6 +997,7 @@ tile.botania:root.name=Living Root
 tile.botania:felPumpkin.name=Fel Pumpkin
 tile.botania:cocoon.name=Cocoon of Caprice
 tile.botania:lightRelay.name=Luminizer
+tile.botania:lightLauncher.name=Luminize Launcher
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower

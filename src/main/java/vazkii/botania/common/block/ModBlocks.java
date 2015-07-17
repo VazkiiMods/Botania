@@ -237,6 +237,7 @@ public final class ModBlocks {
 	public static Block felPumpkin;
 	public static Block cocoon;
 	public static Block lightRelay;
+	public static Block lightLauncher;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -315,7 +316,8 @@ public final class ModBlocks {
 		felPumpkin = new BlockFelPumpkin();
 		cocoon = new BlockCocoon();
 		lightRelay = new BlockLightRelay();
-
+		lightLauncher = new BlockLightLauncher();
+		
 		ModFluffBlocks.init();
 
 		for(int i = 0; i < 16; i++)
