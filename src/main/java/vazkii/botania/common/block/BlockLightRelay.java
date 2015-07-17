@@ -27,15 +27,18 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import vazkii.botania.api.lexicon.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.TileLightRelay;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
+import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockLightRelay extends BlockModContainer implements IWandable {
+public class BlockLightRelay extends BlockModContainer implements IWandable, ILexiconable {
 
 	public static IIcon invIcon, worldIcon, invIconRed, worldIconRed;
 
@@ -60,6 +63,11 @@ public class BlockLightRelay extends BlockModContainer implements IWandable {
 	public void getSubBlocks(Item item, CreativeTabs tab, List list) {
 		for(int i = 0; i < 2; i++)
 			list.add(new ItemStack(item, 1, i));
+	}
+	
+	@Override
+	public int damageDropped(int meta) {
+		return meta == 0 ? 0 : 1;
 	}
 
 	@Override
@@ -140,6 +148,11 @@ public class BlockLightRelay extends BlockModContainer implements IWandable {
 	@Override
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
 		return false;
+	}
+
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return LexiconData.luminizerTransport;
 	}
 
 }

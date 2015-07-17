@@ -267,6 +267,9 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeCanopyDrum;
 	public static IRecipe recipeSparkChanger;
 	public static IRecipe recipeCocoon;
+	public static IRecipe recipeLuminizer;
+	public static IRecipe recipeDetectorLuminizer;
+	public static IRecipe recipeLuminizerLauncher;
 
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;
@@ -1809,6 +1812,21 @@ public final class ModCraftingRecipes {
 				'P', LibOreDict.PIXIE_DUST,
 				'D', LibOreDict.DRAGONSTONE);
 		recipeCocoon = BotaniaAPI.getLatestAddedRecipe();
+
+		// Luminizer Recipe
+		addShapelessOreDictRecipe(new ItemStack(ModBlocks.lightRelay), LibOreDict.RED_STRING, LibOreDict.DRAGONSTONE, new ItemStack(Items.glowstone_dust), new ItemStack(Items.glowstone_dust));
+		recipeLuminizer = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Detector Luminizer Recipe
+		addShapelessOreDictRecipe(new ItemStack(ModBlocks.lightRelay, 1, 1), new ItemStack(ModBlocks.lightRelay), new ItemStack(Items.redstone));
+		recipeDetectorLuminizer = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Luminizer Launcher Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.lightLauncher), 
+				"DDD", "DLD", 
+				'D', LibOreDict.DREAM_WOOD,
+				'L', new ItemStack(ModBlocks.lightRelay));
+		recipeLuminizerLauncher = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Storage Block/Nugget Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
