@@ -1,3 +1,10 @@
+r1.7 202
+*Added a /botania-skyblock-spread command for server owners. It sends the target player randomly into the world and created a GoG skyblock for them.
+*Added Luminizers, new star like blocks that let you transport players and other things around. <a href="https://www.youtube.com/watch?v=jLeKuUeune0">Here's</a> a demo.
+*Added the Detector Luminizer for redstone output on Luminizer paths.
+*Added the Luminizer Launcher to get mobs on the Luminizer paths.
+*Fixed the Ring of Loki being broken, again. (TheWhiteWolves)
+*Retextured the Livingrock Bricks to look less horrible.
 r1.7 201
 *Added an end portal recipe to Garden of Glass.
 *Fixed a crash when leaving the nether in a Garden of Glass world.

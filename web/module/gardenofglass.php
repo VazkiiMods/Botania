@@ -8,6 +8,7 @@ Aside from allowing you to have a skyblock world, a few items and blocks are add
 The goal of this addon is to allow for every single item in the game to be acquired properly in a skyblock evironment.<br>
 The <b>GardenOfGlass.jar</b> file required to play this mode is simply an empty mod, used to signal to the base Botania mod to enable the GoG features.<br>
 This jar doesn't need to be updated, only the base Botania one does. In order for Garden of Glass to work, you need at least <b>Botania r1.7-199</b>.<br><br>
+<b><a href="https://twitter.com/Vazkii/status/622105452457906176">Garden of Glass for Server Owners</a></b><br><br>
 <a class="btn btn-lg btn-material-cyan" href="./downloads.php" role="button" style="width:500px">Download Garden of Glass</a>
 <hr>
 
