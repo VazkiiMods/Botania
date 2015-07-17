@@ -18,6 +18,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.common.block.tile.TileLightRelay;
@@ -36,6 +37,16 @@ public class BlockLightLauncher extends BlockMod {
 
 	@Override
 	public boolean isOpaqueCube() {
+		return false;
+	}
+	
+	@Override
+	public boolean renderAsNormalBlock() {
+		return false;
+	}
+	
+	@Override
+	public boolean getBlocksMovement(IBlockAccess p_149655_1_, int p_149655_2_, int p_149655_3_, int p_149655_4_) {
 		return false;
 	}
 	

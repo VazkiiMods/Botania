@@ -129,6 +129,8 @@ botaniamisc.completed=Completed
 botaniamisc.notCompleted=Not Completed
 botaniamisc.info=Info
 botaniamisc.challengeInfo=Learn about the challenges
+botaniamisc.notSkyblock=You need to be in a Garden of Glass world to do that.
+botaniamisc.alreadyHasSkyblock=You already have a skyblock.
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
@@ -996,8 +998,9 @@ tile.botania:sparkChanger.name=Spark Tinkerer
 tile.botania:root.name=Living Root
 tile.botania:felPumpkin.name=Fel Pumpkin
 tile.botania:cocoon.name=Cocoon of Caprice
-tile.botania:lightRelay.name=Luminizer
-tile.botania:lightLauncher.name=Luminize Launcher
+tile.botania:lightRelay0.name=Luminizer
+tile.botania:lightRelay1.name=Detector Luminizer
+tile.botania:lightLauncher.name=Luminizer Launcher
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower

@@ -29,7 +29,7 @@ public class RenderTileLightRelay extends TileEntitySpecialRenderer {
 	@Override
 	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float pticks) {
 		Minecraft mc = Minecraft.getMinecraft();
-		IIcon iicon = BlockLightRelay.worldIcon;
+		IIcon iicon = tile.getBlockMetadata() > 0 ? BlockLightRelay.worldIconRed : BlockLightRelay.worldIcon;
 
 		GL11.glPushMatrix();
 		GL11.glTranslated(x + 0.5, y + 0.3, z + 0.5);

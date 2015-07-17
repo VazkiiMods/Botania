@@ -179,6 +179,12 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 				if(tile != null && tile instanceof TileLightRelay) {
 					worldObj.playSoundAtEntity(this, "random.orb", 0.2F, (float) Math.random() * 0.3F + 0.7F);
 
+					int meta = worldObj.getBlockMetadata(x, y, z);
+					if(meta > 0) {
+						worldObj.setBlockMetadataWithNotify(x, y, z, meta | 8, 1 | 2);
+						worldObj.scheduleBlockUpdate(x, y, z, tile.getBlockType(), tile.getBlockType().tickRate(worldObj));
+					}
+					
 					ChunkCoordinates bind = ((TileLightRelay) tile).getBinding();
 					if(bind != null) {
 						setExit(bind.posX, bind.posY, bind.posZ);
