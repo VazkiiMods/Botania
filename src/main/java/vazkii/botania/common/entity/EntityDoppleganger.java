@@ -387,7 +387,8 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
 
-		if(!worldObj.isRemote && worldObj.difficultySetting == EnumDifficulty.PEACEFUL)
+		boolean peaceful = worldObj.difficultySetting == EnumDifficulty.PEACEFUL;
+		if(!worldObj.isRemote && peaceful)
 			setDead();
 
 		if(!worldObj.isRemote) {
@@ -408,14 +409,15 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 		ChunkCoordinates source = getSource();
 		boolean hard = isHardMode();
-
-		if(worldObj.isRemote && !isPlayingMusic && !isDead) {
+		
+		float range = 32F;
+		List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(source.posX + 0.5 - range, source.posY + 0.5 - range, source.posZ + 0.5 - range, source.posX + 0.5 + range, source.posY + 0.5 + range, source.posZ + 0.5 + range));
+		
+		if(worldObj.isRemote && !isPlayingMusic && !isDead && !players.isEmpty()) {
 			Botania.proxy.playRecordClientSided(worldObj, source.posX, source.posY, source.posZ, (ItemRecord) (hard ? ModItems.recordGaia2 : ModItems.recordGaia1));
 			isPlayingMusic = true;
 		}
 
-		float range = 32F;
-		List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(source.posX + 0.5 - range, source.posY + 0.5 - range, source.posZ + 0.5 - range, source.posX + 0.5 + range, source.posY + 0.5 + range, source.posZ + 0.5 + range));
 
 		range = 12F;
 		for(int i = 0; i < 360; i += 8) {
