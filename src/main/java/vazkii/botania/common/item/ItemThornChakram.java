@@ -23,7 +23,7 @@ public class ItemThornChakram extends ItemMod implements ICraftAchievement {
 
 	public ItemThornChakram() {
 		setUnlocalizedName(LibItemNames.THORN_CHAKRAM);
-		setMaxStackSize(1);
+		setMaxStackSize(6);
 	}
 
 	@Override

@@ -2405,7 +2405,7 @@ botania.page.spellCloth1=Oldest item in the book
 
 # -- THORN CHAKRAM
 botania.entry.thornChakram=Thorn Chakram
-botania.page.thornChakram0=The &1Thorn Chakram&0 is a thrown weapon made of &1Terrasteel&0 and plant matter. After thrown it'll pierce through enemies, damaging them and sometimes poisoning them, and bounce on blocks a few times before returning to the thrower, similarly to a boomerang.
+botania.page.thornChakram0=The &1Thorn Chakram&0 is a thrown weapon made of &1Terrasteel&0 and plant matter. After thrown it'll pierce through enemies, damaging them and sometimes poisoning them, and bounce on blocks a few times before returning to the thrower, similarly to a boomerang.<br>Up to 6 &1Thorn Chakrams&0 can be stacked together, making them a versatile weapon for closed environments.
 botania.page.thornChakram1=Spores and stingers
 
 # -- OVERGROWTH SEED

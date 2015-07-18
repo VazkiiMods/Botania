@@ -1524,7 +1524,7 @@ public final class ModCraftingRecipes {
 		recipeSpellCloth = BotaniaAPI.getLatestAddedRecipe();
 
 		// Thorn Chakram Recipe
-		addOreDictRecipe(new ItemStack(ModItems.thornChakram),
+		addOreDictRecipe(new ItemStack(ModItems.thornChakram, 2),
 				"VVV", "VTV", "VVV",
 				'V', new ItemStack(Blocks.vine),
 				'T', LibOreDict.TERRA_STEEL);
