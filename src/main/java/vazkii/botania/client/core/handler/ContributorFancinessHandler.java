@@ -41,6 +41,8 @@ public final class ContributorFancinessHandler {
 
 	private volatile static Map<String, IIcon> flowerMap = null;
 	private static boolean startedLoading = false;
+	
+	private static boolean phi = true;
 
 	public static void render(RenderPlayerEvent.Specials event) {
 		if(!startedLoading) {
@@ -50,11 +52,11 @@ public final class ContributorFancinessHandler {
 
 		String name = event.entityPlayer.getDisplayName();
 
-		if(name.equals("Vazkii"))
-			renderTwintails(event);
-		else if(name.equals("_phi"))
-			renderPhiFlower(event);
-		else if(name.equals("haighyorkie"))
+		if(name.equals("Vazkii") || name.equals("_phi")) {
+			if(phi)
+				renderPhiFlower(event);
+			else renderTwintails(event);
+		} else if(name.equals("haighyorkie"))
 			renderGoldfish(event);
 
 		name = name.toLowerCase();
@@ -143,6 +145,7 @@ public final class ContributorFancinessHandler {
 		GL11.glTranslatef(-0.75F, 0.5F, 0F);
 		GL11.glScalef(0.4F, 0.4F, 0.4F);
 		GL11.glTranslatef(1.2F, 0.5F, 0F);
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
 		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
 		GL11.glPopMatrix();
 	}
