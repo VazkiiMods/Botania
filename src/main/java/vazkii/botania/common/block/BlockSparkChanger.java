@@ -93,22 +93,20 @@ public class BlockSparkChanger extends BlockModContainer implements ILexiconable
 		TileSparkChanger changer = (TileSparkChanger) world.getTileEntity(x, y, z);
 		ItemStack cstack = changer.getStackInSlot(0);
 		ItemStack pstack = player.getCurrentEquippedItem();
-		if(pstack != null && pstack.getItem() == ModItems.sparkUpgrade) {
-			changer.setInventorySlotContents(0, pstack.copy());
+		if(cstack != null) {
+			changer.setInventorySlotContents(0, null);
+			changer.markDirty();
+			if(!player.inventory.addItemStackToInventory(cstack))
+				player.dropPlayerItemWithRandomChoice(cstack, false);
+			return true;
+		} else if(pstack != null && pstack.getItem() == ModItems.sparkUpgrade) {
+			changer.setInventorySlotContents(0, pstack.copy().splitStack(1));
 			changer.markDirty();
 
 			pstack.stackSize--;
 			if(pstack.stackSize == 0)
 				player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
 
-			if(cstack != null && !player.inventory.addItemStackToInventory(cstack))
-				player.dropPlayerItemWithRandomChoice(cstack, false);
-			return true;
-		} else if(cstack != null) {
-			changer.setInventorySlotContents(0, null);
-			changer.markDirty();
-			if(!player.inventory.addItemStackToInventory(cstack))
-				player.dropPlayerItemWithRandomChoice(cstack, false);
 			return true;
 		}
 
