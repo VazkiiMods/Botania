@@ -1,3 +1,12 @@
+r1.7 203
+*Added the ability to define the range of /botania-skyblock-spread with a second parameter.
+*Added Walls to the following botania blocks: Livingrock, Livingwood, Dreamwood, Prismarine, Reed Block, Metamorphoic and 1.8 Stones. <i>About time...</i>
+*Doubled the damage the Thorn Chakram does. They can also be stacked up to 6 in a single slot, making them much more usable. The recipe makes 2 instead of 1 as well.
+*Fixed a dupe with the Spark Tinkerer (TheWhiteWolves).
+*Fixed Goldfish ungoldfishifying when it should be goldfishified.
+*Fixed the Blood Magic armor and possible other non-enchantable armors being enchantable with the Mana Enchanter.
+*Fixed the Guardian of Gaia's music resetting if you die to it.
+*The /botania-skyblock-spread command will now check for where the island would be created to prevent it from being created within a 100 block radius of the spawn point.
 r1.7 202
 *Added a /botania-skyblock-spread command for server owners. It sends the target player randomly into the world and created a GoG skyblock for them.
 *Added Luminizers, new star like blocks that let you transport players and other things around. <a href="https://www.youtube.com/watch?v=jLeKuUeune0">Here's</a> a demo.
