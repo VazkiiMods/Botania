@@ -276,6 +276,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.seaLamp);
 		addBlock(ModFluffBlocks.prismarineStairs);
 		addBlock(ModFluffBlocks.prismarineSlab);
+		addBlock(ModFluffBlocks.prismarineWall);
 		addBlock(ModFluffBlocks.prismarineBrickStairs);
 		addBlock(ModFluffBlocks.prismarineBrickSlab);
 		addBlock(ModFluffBlocks.darkPrismarineStairs);
@@ -286,6 +287,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.reedBlock);
 		addBlock(ModFluffBlocks.reedStairs);
 		addBlock(ModFluffBlocks.reedSlab);
+		addBlock(ModFluffBlocks.reedWall);
 		addBlock(ModBlocks.thatch);
 		addBlock(ModFluffBlocks.thatchStairs);
 		addBlock(ModFluffBlocks.thatchSlab);
@@ -302,14 +304,17 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 
 		addBlock(ModFluffBlocks.livingwoodStairs);
 		addBlock(ModFluffBlocks.livingwoodSlab);
+		addBlock(ModFluffBlocks.livingwoodWall);
 		addBlock(ModFluffBlocks.livingwoodPlankStairs);
 		addBlock(ModFluffBlocks.livingwoodPlankSlab);
 		addBlock(ModFluffBlocks.livingrockStairs);
 		addBlock(ModFluffBlocks.livingrockSlab);
+		addBlock(ModFluffBlocks.livingrockWall);
 		addBlock(ModFluffBlocks.livingrockBrickStairs);
 		addBlock(ModFluffBlocks.livingrockBrickSlab);
 		addBlock(ModFluffBlocks.dreamwoodStairs);
 		addBlock(ModFluffBlocks.dreamwoodSlab);
+		addBlock(ModFluffBlocks.dreamwoodWall);
 		addBlock(ModFluffBlocks.dreamwoodPlankStairs);
 		addBlock(ModFluffBlocks.dreamwoodPlankSlab);
 
@@ -346,6 +351,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 			for(int i= 0; i < 8; i++)
 				addBlock(ModFluffBlocks.stoneSlabs[i]);
 		}
+		addBlock(ModFluffBlocks.stoneWall);
 
 		addBlock(ModFluffBlocks.biomeStoneA);
 		addBlock(ModFluffBlocks.biomeStoneB);
@@ -353,7 +359,8 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 			addBlock(ModFluffBlocks.biomeStoneStairs[i]);
 		for(int i = 0; i < 24; i++)
 			addBlock(ModFluffBlocks.biomeStoneSlabs[i]);
-
+		addBlock(ModFluffBlocks.biomeStoneWall);
+		
 		addBlock(ModBlocks.endStoneBrick);
 		addBlock(ModFluffBlocks.endStoneSlab);
 		addBlock(ModFluffBlocks.endStoneStairs);

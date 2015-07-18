@@ -1001,6 +1001,23 @@ tile.botania:cocoon.name=Cocoon of Caprice
 tile.botania:lightRelay0.name=Luminizer
 tile.botania:lightRelay1.name=Detector Luminizer
 tile.botania:lightLauncher.name=Luminizer Launcher
+tile.botania:livingrock0Wall.name=Livingrock Wall
+tile.botania:livingwood0Wall.name=Livingwood Wall
+tile.botania:dreamwood0Wall.name=Dreamwood Wall
+tile.botania:prismarine0Wall.name=Prismarine Wall
+tile.botania:reedBlock0Wall.name=Reed Block Wall
+tile.botania:biomeStoneA0Wall0.name=Metamorphic Forest Cobblestone Wall
+tile.botania:biomeStoneA0Wall1.name=Metamorphic Plains Cobblestone Wall
+tile.botania:biomeStoneA0Wall2.name=Metamorphic Mountain Cobblestone Wall
+tile.botania:biomeStoneA0Wall3.name=Metamorphic Fungal Cobblestone Wall
+tile.botania:biomeStoneA0Wall4.name=Metamorphic Swamp Cobblestone Wall
+tile.botania:biomeStoneA0Wall5.name=Metamorphic Desert Cobblestone Wall
+tile.botania:biomeStoneA0Wall6.name=Metamorphic Taiga Cobblestone Wall
+tile.botania:biomeStoneA0Wall7.name=Metamorphic Mesa Cobblestone Wall
+tile.botania:stone0Wall0.name=Andesite Wall
+tile.botania:stone0Wall1.name=Basalt Wall
+tile.botania:stone0Wall2.name=Diorite Wall
+tile.botania:stone0Wall3.name=Granite Wall
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower

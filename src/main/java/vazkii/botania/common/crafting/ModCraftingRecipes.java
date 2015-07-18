@@ -1890,6 +1890,17 @@ public final class ModCraftingRecipes {
 		addStairsAndSlabs(ModBlocks.customBrick, 3, ModFluffBlocks.tileStairs, ModFluffBlocks.tileSlab);
 		addStairsAndSlabs(ModBlocks.endStoneBrick, 0, ModFluffBlocks.endStoneStairs, ModFluffBlocks.endStoneSlab);
 
+		// Wall Recipes
+		addWall(ModBlocks.livingrock, 0, ModFluffBlocks.livingrockWall, 0);
+		addWall(ModBlocks.livingwood, 0, ModFluffBlocks.livingwoodWall, 0);
+		addWall(ModBlocks.dreamwood, 0, ModFluffBlocks.dreamwoodWall, 0);
+		addWall(ModBlocks.prismarine, 0, ModFluffBlocks.prismarineWall, 0);
+		addWall(ModBlocks.reedBlock, 0, ModFluffBlocks.reedWall, 0);
+		for(int i = 0; i < 8; i++)
+			addWall(ModFluffBlocks.biomeStoneA, i + 8, ModFluffBlocks.biomeStoneWall, i);
+		for(int i = 0; i < 4; i++)
+			addWall(ModFluffBlocks.stone, i, ModFluffBlocks.stoneWall, i);
+		
 		// Biome Stone Recipes
 		for(int i = 0; i < 8; i++) {
 			GameRegistry.addSmelting(new ItemStack(ModFluffBlocks.biomeStoneA, 1, i + 8), new ItemStack(ModFluffBlocks.biomeStoneA, 1, i), 0.1F);
@@ -1959,6 +1970,12 @@ public final class ModCraftingRecipes {
 		GameRegistry.addRecipe(new ItemStack(stairs, 4),
 				"Q  ", "QQ ", "QQQ",
 				'Q', new ItemStack(block, 1, meta));
+	}
+	
+	private static void addWall(Block block, int blockMeta, Block wall, int wallMeta) {
+		GameRegistry.addRecipe(new ItemStack(wall, 6, wallMeta), 
+				"BBB", "BBB", 
+				'B', new ItemStack(block, 1, blockMeta));
 	}
 
 	private static IRecipe addQuartzRecipes(int meta, Item req, Block block, Block stairs, Block slab) {

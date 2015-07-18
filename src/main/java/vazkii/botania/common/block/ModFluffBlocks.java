@@ -57,6 +57,13 @@ import vazkii.botania.common.block.decor.stairs.living.BlockLivingwoodStairs;
 import vazkii.botania.common.block.decor.stairs.prismarine.BlockDarkPrismarineStairs;
 import vazkii.botania.common.block.decor.stairs.prismarine.BlockPrismarineBrickStairs;
 import vazkii.botania.common.block.decor.stairs.prismarine.BlockPrismarineStairs;
+import vazkii.botania.common.block.decor.walls.Block18StoneWall;
+import vazkii.botania.common.block.decor.walls.BlockBiomeStoneWall;
+import vazkii.botania.common.block.decor.walls.BlockPrismarineWall;
+import vazkii.botania.common.block.decor.walls.BlockReedWall;
+import vazkii.botania.common.block.decor.walls.living.BlockDreamwoodWall;
+import vazkii.botania.common.block.decor.walls.living.BlockLivingrockWall;
+import vazkii.botania.common.block.decor.walls.living.BlockLivingwoodWall;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibBlockNames;
 
@@ -65,18 +72,21 @@ public final class ModFluffBlocks {
 	public static Block livingwoodStairs;
 	public static Block livingwoodSlab;
 	public static Block livingwoodSlabFull;
+	public static Block livingwoodWall;
 	public static Block livingwoodPlankStairs;
 	public static Block livingwoodPlankSlab;
 	public static Block livingwoodPlankSlabFull;
 	public static Block livingrockStairs;
 	public static Block livingrockSlab;
 	public static Block livingrockSlabFull;
+	public static Block livingrockWall;
 	public static Block livingrockBrickStairs;
 	public static Block livingrockBrickSlab;
 	public static Block livingrockBrickSlabFull;
 	public static Block dreamwoodStairs;
 	public static Block dreamwoodSlab;
 	public static Block dreamwoodSlabFull;
+	public static Block dreamwoodWall;
 	public static Block dreamwoodPlankStairs;
 	public static Block dreamwoodPlankSlab;
 	public static Block dreamwoodPlankSlabFull;
@@ -84,6 +94,7 @@ public final class ModFluffBlocks {
 	public static Block prismarineStairs;
 	public static Block prismarineSlab;
 	public static Block prismarineSlabFull;
+	public static Block prismarineWall;
 	public static Block prismarineBrickStairs;
 	public static Block prismarineBrickSlab;
 	public static Block prismarineBrickSlabFull;
@@ -94,6 +105,7 @@ public final class ModFluffBlocks {
 	public static Block reedStairs;
 	public static Block reedSlab;
 	public static Block reedSlabFull;
+	public static Block reedWall;
 	public static Block thatchStairs;
 	public static Block thatchSlab;
 	public static Block thatchSlabFull;
@@ -150,11 +162,13 @@ public final class ModFluffBlocks {
 	public static Block[] biomeStoneStairs = new Block[24];
 	public static Block[] biomeStoneSlabs = new Block[24];
 	public static Block[] biomeStoneFullSlabs = new Block[24];
-
+	public static Block biomeStoneWall;
+	
 	public static Block[] stoneStairs = new Block[8];
 	public static Block[] stoneSlabs = new Block[8];
 	public static Block[] stoneFullSlabs = new Block[8];
-
+	public static Block stoneWall;
+	
 	public static Block endStoneSlab;
 	public static Block endStoneSlabFull;
 	public static Block endStoneStairs;
@@ -166,32 +180,29 @@ public final class ModFluffBlocks {
 		livingwoodStairs = new BlockLivingwoodStairs();
 		livingwoodSlab = new BlockLivingwoodSlab(false);
 		livingwoodSlabFull = new BlockLivingwoodSlab(true);
+		livingwoodWall = new BlockLivingwoodWall();
 		livingwoodPlankStairs = new BlockLivingwoodPlankStairs();
 		livingwoodPlankSlab = new BlockLivingwoodPlankSlab(false);
 		livingwoodPlankSlabFull = new BlockLivingwoodPlankSlab(true);
 		livingrockStairs = new BlockLivingrockStairs();
 		livingrockSlab = new BlockLivingrockSlab(false);
 		livingrockSlabFull = new BlockLivingrockSlab(true);
+		livingrockWall = new BlockLivingrockWall();
 		livingrockBrickStairs = new BlockLivingrockBrickStairs();
 		livingrockBrickSlab = new BlockLivingrockBrickSlab(false);
 		livingrockBrickSlabFull = new BlockLivingrockBrickSlab(true);
 		dreamwoodStairs = new BlockDreamwoodStairs();
 		dreamwoodSlab = new BlockDreamwoodSlab(false);
 		dreamwoodSlabFull = new BlockDreamwoodSlab(true);
+		dreamwoodWall = new BlockDreamwoodWall();
 		dreamwoodPlankStairs = new BlockDreamwoodPlankStairs();
 		dreamwoodPlankSlab = new BlockDreamwoodPlankSlab(false);
 		dreamwoodPlankSlabFull = new BlockDreamwoodPlankSlab(true);
 
-		reedStairs = new BlockReedStairs();
-		reedSlab = new BlockReedSlab(false);
-		reedSlabFull = new BlockReedSlab(true);
-		thatchStairs = new BlockThatchStairs();
-		thatchSlab = new BlockThatchSlab(false);
-		thatchSlabFull = new BlockThatchSlab(true);
-
 		prismarineStairs = new BlockPrismarineStairs();
 		prismarineSlab = new BlockPrismarineSlab(false);
 		prismarineSlabFull = new BlockPrismarineSlab(true);
+		prismarineWall = new BlockPrismarineWall();
 		prismarineBrickStairs = new BlockPrismarineBrickStairs();
 		prismarineBrickSlab = new BlockPrismarineBrickSlab(false);
 		prismarineBrickSlabFull = new BlockPrismarineBrickSlab(true);
@@ -199,6 +210,14 @@ public final class ModFluffBlocks {
 		darkPrismarineSlab = new BlockDarkPrismarineSlab(false);
 		darkPrismarineSlabFull = new BlockDarkPrismarineSlab(true);
 
+		reedStairs = new BlockReedStairs();
+		reedSlab = new BlockReedSlab(false);
+		reedSlabFull = new BlockReedSlab(true);
+		reedWall = new BlockReedWall();
+		thatchStairs = new BlockThatchStairs();
+		thatchSlab = new BlockThatchSlab(false);
+		thatchSlabFull = new BlockThatchSlab(true);
+		
 		netherBrickStairs = new BlockCustomBrickStairs();
 		netherBrickSlab = new BlockCustomBrickSlab(false);
 		netherBrickSlabFull = new BlockCustomBrickSlab(true);
@@ -258,6 +277,7 @@ public final class ModFluffBlocks {
 			biomeStoneSlabs[i] = new BlockBiomeStoneSlab(false, block, meta, i);
 			biomeStoneFullSlabs[i] = new BlockBiomeStoneSlab(true, block, meta, i);
 		}
+		biomeStoneWall = new BlockBiomeStoneWall();
 
 		for(int i = 0; i < 8; i++) {
 			int meta = i > 3 ? i + 4 : i;
@@ -265,6 +285,7 @@ public final class ModFluffBlocks {
 			stoneSlabs[i] = new Block18StoneSlab(false, meta, i);
 			stoneFullSlabs[i] = new Block18StoneSlab(true, meta, i);
 		}
+		stoneWall = new Block18StoneWall();
 
 		endStoneSlab = new BlockEndStoneSlab(false);
 		endStoneSlabFull = new BlockEndStoneSlab(true);
