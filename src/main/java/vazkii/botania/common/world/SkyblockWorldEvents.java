@@ -125,8 +125,10 @@ public final class SkyblockWorldEvents {
 		if(!data.hasKey(EntityPlayer.PERSISTED_NBT_TAG))
 			data.setTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
 		NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
-
-		if(!persist.getBoolean(TAG_HAS_OWN_ISLAND)) {
+		
+		final boolean test = false;
+		
+		if(test || !persist.getBoolean(TAG_HAS_OWN_ISLAND)) {
 			createSkyblock(player.worldObj, x, y, z);
 
 			if(player instanceof EntityPlayerMP) {

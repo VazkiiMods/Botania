@@ -129,8 +129,8 @@ botaniamisc.completed=Completed
 botaniamisc.notCompleted=Not Completed
 botaniamisc.info=Info
 botaniamisc.challengeInfo=Learn about the challenges
-botaniamisc.notSkyblock=You need to be in a Garden of Glass world to do that.
-botaniamisc.alreadyHasSkyblock=You already have a skyblock.
+botaniamisc.skyblockRangeTooLow=Invalid range, must be at least 250.
+botaniamisc.skyblockRangeTooHigh=Invalid range, can't be higher than 10000000 (10 million).
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery

@@ -10,11 +10,14 @@
  */
 package vazkii.botania.common.core.command;
 
+import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 import net.minecraft.command.CommandBase;
+import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.StatCollector;
 
 public class CommandSkyblockSpread extends CommandBase {
 
@@ -25,7 +28,7 @@ public class CommandSkyblockSpread extends CommandBase {
 
 	@Override
 	public String getCommandUsage(ICommandSender p_71518_1_) {
-		return "<player>";
+		return "<player> [<range>]";
 	}
 	
 	@Override
@@ -34,13 +37,30 @@ public class CommandSkyblockSpread extends CommandBase {
     }
 
 	@Override
-	public void processCommand(ICommandSender p_71515_1_, String[] p_71515_2_) {
+	public void processCommand(ICommandSender sender, String[] args) {
+		int maxAllowed = 10000000;
+		int minAllowed = 250;
+		int minDist = 100;
+		
 		int maxrange = 2000000;
-		EntityPlayer player = getPlayer(p_71515_1_, p_71515_2_[0]);
+		if(args.length == 2)
+			maxrange = parseInt(sender, args[1]);
+		
+		if(maxrange > maxAllowed)
+			throw new CommandException("botaniamisc.skyblockRangeTooHigh");
+		if(maxrange < minAllowed)
+			throw new CommandException(StatCollector.translateToLocal("botaniamisc.skyblockRangeTooLow"));
+		
+		EntityPlayer player = getPlayer(sender, args[0]);
 		if(player != null) {
 			ChunkCoordinates spawn = player.worldObj.getSpawnPoint();
-			int x = player.worldObj.rand.nextInt(maxrange) - maxrange / 2 + spawn.posX;
-			int z = player.worldObj.rand.nextInt(maxrange) - maxrange / 2 + spawn.posZ;
+			int x, z;
+			
+			do {
+				x = player.worldObj.rand.nextInt(maxrange) - maxrange / 2 + spawn.posX;
+				z = player.worldObj.rand.nextInt(maxrange) - maxrange / 2 + spawn.posZ;
+			} while(MathHelper.pointDistancePlane(x, z, spawn.posX, spawn.posZ) < minDist);
+			
 			SkyblockWorldEvents.spawnPlayer(player, x, spawn.posY, z, true);
 		}
 	}
