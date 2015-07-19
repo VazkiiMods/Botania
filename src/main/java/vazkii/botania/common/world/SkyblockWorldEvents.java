@@ -77,7 +77,7 @@ public final class SkyblockWorldEvents {
 						event.entityPlayer.swingItem();
 					else {
 						event.world.playSoundEffect(event.x + 0.5, event.y + 0.5, event.z + 0.5, block.stepSound.getBreakSound(), block.stepSound.getVolume() * 0.4F, block.stepSound.getPitch() + (float) (Math.random() * 0.2 - 0.1));
-						if(Math.random() < 0.4)
+						if(Math.random() < 0.8)
 							event.entityPlayer.dropPlayerItemWithRandomChoice(new ItemStack(ModItems.manaResource, 1, 21), false);
 					}
 				}
