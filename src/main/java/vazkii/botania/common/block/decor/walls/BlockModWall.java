@@ -40,6 +40,11 @@ public class BlockModWall extends BlockWall implements ILexiconable {
 	}
 
 	@Override
+	public boolean canPlaceTorchOnTop(World world, int x, int y, int z) {
+		return true;
+	}
+	
+	@Override
 	public Block setBlockName(String par1Str) {
 		register(par1Str);
 		return super.setBlockName(par1Str);
