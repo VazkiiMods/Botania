@@ -2933,6 +2933,11 @@ botania.page.challenges0=&1Challenges&0 are available in the &1Lexica Botania&0 
 botania.page.challenges1=All of the challenges are possible, of course. They just require some thinking and knowledge of the ins and outs of redstone and the &1Botania&0 mechanics themselves.<br>It's highly recommended that they're done without using features from external mods, as they have been created with that in mind, and aren't really challenges if you put down a block that solves them instantly.
 botania.page.challenges2=The challenges aren't obligatory in any way, and do not provide any material reward. They're purely suggestions as to what &1Botania&0 can do, automation wise, and are but scratching the surface of that topic. Challenges need be marked completed manually.<br>It should be kept in mind that the boundaries of this world are one's imagination, so don't stop at the ideas in there!
 
+# -- CACOPHONIUM
+botania.entry.cacophonium=Cacophonium
+botania.page.cacophonium0=This interesting instrument, the &1Cacophonium&0, has the ability to mimic almost every living being's cries in nature, allowing for the "musician" to play them at will. Right clicking with it on an entity has the instrument learn its sound. It can then be played by holding right click.<br>Why anyone would ever want to make this, however, is beyond moral comprehension.
+botania.page.cacophonium1=Hibike! Cacophonium
+
 # -- THAUMCRAFT INTEGRATION
 botania.entry.tcIntegration=Thaumcraft Integration
 botania.page.tcIntegration0=Often enough, the paths of &4Botany&0 and &4Thaumaturgy&0 cross together. Mixing some of the artifacts mentioned in this book as well as any from the school of &5Thaumcraft&0 can allow for combinations of these to form.

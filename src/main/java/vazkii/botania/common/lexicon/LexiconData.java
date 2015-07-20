@@ -260,6 +260,7 @@ public final class LexiconData {
 	public static LexiconEntry stoneAlchemy;
 	public static LexiconEntry blazeBlock;
 	public static LexiconEntry challenges;
+	public static LexiconEntry cacophonium;
 	public static LexiconEntry tcIntegration;
 	public static LexiconEntry bcIntegration;
 
@@ -956,6 +957,9 @@ public final class LexiconData {
 		challenges = new BLexiconEntry(LibLexicon.MISC_CHALLENGES, categoryMisc);
 		challenges.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2")).setPriority().setIcon(new ItemStack(ModItems.cosmetic, 1, 31));
 
+		cacophonium = new BLexiconEntry(LibLexicon.MISC_CACOPHONIUM, categoryMisc);
+		cacophonium.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeCacophonium));
+		
 		if(Botania.bcTriggersLoaded) {
 			bcIntegration = new CLexiconEntry(LibLexicon.MISC_BC_INTEGRATION, categoryMisc, "BuildCraft");
 			bcIntegration.setLexiconPages(new PageText("0")).setIcon(new ItemStack(Items.redstone));

@@ -21,6 +21,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import vazkii.botania.api.BotaniaAPI;
@@ -271,6 +272,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeDetectorLuminizer;
 	public static IRecipe recipeLuminizerLauncher;
 	public static IRecipe recipeObedienceStick;
+	public static IRecipe recipeCacophonium;
 
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;
@@ -1835,6 +1837,18 @@ public final class ModCraftingRecipes {
 				'M', LibOreDict.MANA_STEEL,
 				'T', LibOreDict.LIVINGWOOD_TWIG);
 		recipeObedienceStick = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Cacophonium Recipe
+		if(OreDictionary.getOres("ingotBrass").isEmpty())
+			addOreDictRecipe(new ItemStack(ModItems.cacophonium), 
+					" G ", "GNG", "GG ",
+					'G', "ingotGold",
+					'N', new ItemStack(Blocks.noteblock));
+		else addOreDictRecipe(new ItemStack(ModItems.cacophonium), 
+				" G ", "GNG", "GG ",
+				'G', "ingotBrass",
+				'N', new ItemStack(Blocks.noteblock));
+		recipeCacophonium = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Storage Block/Nugget Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

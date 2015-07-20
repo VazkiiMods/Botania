@@ -230,6 +230,7 @@ public final class LibLexicon {
 	public static final String MISC_STONE_ALCHEMY = "stoneAlchemy";
 	public static final String MISC_BLAZE_BLOCK = "blazeBlock";
 	public static final String MISC_CHALLENGES = "challenges";
+	public static final String MISC_CACOPHONIUM = "cacophonium";
 	public static final String MISC_TC_INTEGRATION = "tcIntegration";
 	public static final String MISC_BC_INTEGRATION = "bcIntegration";
 
