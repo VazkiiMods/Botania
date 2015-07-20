@@ -43,7 +43,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 	int ticksElapsed = 0;
 
 	public void mountEntity(EntityLivingBase e) {
-		if(e.ridingEntity != null || worldObj.isRemote || bindY == -1)
+		if(e.ridingEntity != null || worldObj.isRemote || bindY == -1 || !isValidBinding())
 			return;
 		
 		EntityPlayerMover mover = new EntityPlayerMover(worldObj, xCoord, yCoord, zCoord, bindX, bindY, bindZ);
@@ -54,15 +54,9 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 	
 	@Override
 	public void updateEntity() {
-		if(bindY > -1) {
-			Block block = worldObj.getBlock(bindX, bindY, bindZ);
-			if(block != ModBlocks.lightRelay) {
-				bindY = -1;
-				return;
-			}
+		ticksElapsed++;
 
-			ticksElapsed++;
-
+		if(bindY > -1 && isValidBinding()) {
 			Vector3 vec = getMovementVector();
 
 			double dist = 0.1;
@@ -85,6 +79,11 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 				vecTip.add(vecMag);
 			}
 		}
+	}
+	
+	public boolean isValidBinding() {
+		Block block = worldObj.getBlock(bindX, bindY, bindZ);
+		return block == ModBlocks.lightRelay;
 	}
 
 	public Vector3 getMovementVector() {
