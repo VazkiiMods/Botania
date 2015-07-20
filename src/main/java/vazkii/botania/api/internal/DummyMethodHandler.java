@@ -32,6 +32,7 @@ import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
+import vazkii.botania.api.subtile.SubTileEntity;
 
 public class DummyMethodHandler implements IInternalMethodHandler {
 
@@ -148,7 +149,17 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	public void drawSimpleManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res) {
 		// NO-OP
 	}
+	
+	@Override
+	public void drawComplexManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res, ItemStack bindDisplay, boolean properlyBound) {
+		// NO-OP
+	}
 
+	@Override
+	public ItemStack getBindDisplayForFlowerType(SubTileEntity e) {
+		return new ItemStack(Blocks.stone, 0, 0);
+	}
+	
 	@Override
 	public void renderLexiconText(int x, int y, int width, int height, String unlocalizedText) {
 		// NO-OP

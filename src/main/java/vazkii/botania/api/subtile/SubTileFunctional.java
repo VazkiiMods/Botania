@@ -23,6 +23,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaNetwork;
+import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.IManaPool;
 
 /**
@@ -30,6 +31,8 @@ import vazkii.botania.api.mana.IManaPool;
  */
 public class SubTileFunctional extends SubTileEntity {
 
+	public static final int RANGE = 10;
+	
 	private static final String TAG_MANA = "mana";
 
 	private static final String TAG_POOL_X = "poolX";
@@ -85,8 +88,6 @@ public class SubTileFunctional extends SubTileEntity {
 	}
 
 	public void linkPool() {
-		final int range = 10;
-
 		boolean needsNew = false;
 		if(linkedPool == null) {
 			needsNew = true;
@@ -103,30 +104,25 @@ public class SubTileFunctional extends SubTileEntity {
 					cachedPoolCoordinates = null;
 				}
 			}
+		} else {
+			TileEntity tileAt = supertile.getWorldObj().getTileEntity(linkedPool.xCoord, linkedPool.yCoord, linkedPool.zCoord);
+			if(tileAt != null && tileAt instanceof IManaPool)
+				linkedPool = tileAt;
 		}
 
-		if(!needsNew && linkedPool != null) {
-			if(supertile.getWorldObj().blockExists(linkedPool.xCoord, linkedPool.yCoord, linkedPool.zCoord) && !linkedPool.isInvalid()) {
-				TileEntity tileAt = supertile.getWorldObj().getTileEntity(linkedPool.xCoord, linkedPool.yCoord, linkedPool.zCoord);
-				if(!(tileAt instanceof IManaPool) || tileAt.isInvalid()) {
-					linkedPool = null;
-					needsNew = true;
-				} else linkedPool = tileAt;
-			} else {
-				cachedPoolCoordinates = new ChunkCoordinates(linkedPool.xCoord, linkedPool.yCoord, linkedPool.zCoord);
-				linkedPool = null;
-			}
-		}
-
-		if(needsNew) {
+		if(needsNew && ticksExisted == 1) { // Only for new flowers
 			IManaNetwork network = BotaniaAPI.internalHandler.getManaNetworkInstance();
 			int size = network.getAllPoolsInWorld(supertile.getWorldObj()).size();
 			if(BotaniaAPI.internalHandler.shouldForceCheck() || size != sizeLastCheck) {
 				ChunkCoordinates coords = new ChunkCoordinates(supertile.xCoord, supertile.yCoord, supertile.zCoord);
-				linkedPool = network.getClosestPool(coords, supertile.getWorldObj(), range);
+				linkedPool = network.getClosestPool(coords, supertile.getWorldObj(), RANGE);
 				sizeLastCheck = size;
 			}
 		}
+	}
+	
+	public void linkToForcefully(TileEntity pool) {
+		linkedPool = pool;
 	}
 
 	public void addMana(int mana) {
@@ -210,12 +206,16 @@ public class SubTileFunctional extends SubTileEntity {
 
 		return false;
 	}
+	
+	public boolean isValidBinding() {
+		return linkedPool != null && !linkedPool.isInvalid();
+	}
 
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		String name = StatCollector.translateToLocal("tile.botania:flower." + getUnlocalizedName() + ".name");
 		int color = getColor();
-		BotaniaAPI.internalHandler.drawSimpleManaHUD(color, knownMana, getMaxMana(), name, res);
+		BotaniaAPI.internalHandler.drawComplexManaHUD(color, knownMana, getMaxMana(), name, res, BotaniaAPI.internalHandler.getBindDisplayForFlowerType(this), isValidBinding());
 	}
 
 }

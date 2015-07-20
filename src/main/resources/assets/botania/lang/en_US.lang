@@ -1434,6 +1434,7 @@ item.botania:elementiumNugget.name=Elementium Nugget
 item.botania:root.name=Living Root
 item.botania:pebble.name=Pebble
 item.botania:waterBowl.name=Bowl of Water
+item.botania:obedienceStick.name=Floral Obedience Stick
 
 # BREW NAMES
 botania.brew.fallback=Fallback
@@ -1792,7 +1793,7 @@ botania.page.sparkChanger2=Hahahaha, water fire...
 botania.entry.fIntro=An Introduction to Function
 botania.page.fIntro0=There are various places in which the &4Mana&0 a botanist generates can be put to use, one of them is an assortment of &4Functional Flowers&0.<br>These flowers will drain &4Mana&0 from a nearby &1Mana Pool&0 into themselves, in order to do whatever task they were created for.<br>It's to note that these can't receive power directly through &1Mana Spreaders&0.
 botania.page.fIntro1=All &4Functional Flowers&0, alike the &4Generating Flowers&0 contain a small buffer of &4Mana&0.<br>Standard rules for &4Mana&0 reading apply, right clicking with a &1Wand of the Forest&0 will update the mana readings.
-botania.page.fIntro2=It is important to keep in mind that these flowers memorize the &1Mana Pool&0 from which they should pull &4Mana&0 out of. They'll only pull from the nearest pool present at the time of the flower being placed (or the closest placed afterward, if none was present), and none other, unless that one is removed. It can be bound to another pool with a wand in &4Bind Mode&0.
+botania.page.fIntro2=It is important to keep in mind that these flowers memorize the &1Mana Pool&0 from which they should pull &4Mana&0 out of. They'll only pull from the nearest pool present at the time of the flower being placed (or the closest placed afterward, if none was present), and none other. It can be bound to another pool with a wand in &4Bind Mode&0.
 botania.page.fIntro3=Lastly, some functional flowers utilize a &1Redstone Root&0 in their creation. If they do, the flower's effect can be toggled with a redstone signal.
 botania.page.fIntro4=&1Redstone Root&0 for Redstone Control
 
@@ -1941,7 +1942,7 @@ botania.page.solegnolia1=On/Off
 botania.entry.gIntro=An Introduction to Generation
 botania.page.gIntro0=&4Generating Mana&0 should be at the top of the priorities for any botanist. Luckily there's an array of &4Generating Flowers&0 willing to do the job.<br>These flowers, as their name shows, generate &4Mana&0, both passively and actively. Unless stated otherwise, all &4Generating Flowers&0 generate &4Mana&0 passively under certain circumstances.
 botania.page.gIntro1=All &4Generating Flowers&0, alike the &4Functional Flowers&0 contain a small buffer of &4Mana&0.<br>Standard rules for &4Mana&0 reading apply, right clicking with a &1Wand of the Forest&0 will update the mana readings.<br>This mana will be stored in the closest &1Mana Spreader&0 around.
-botania.page.gIntro2=It is important to keep in mind that these flowers memorize the &1Mana Spreader&0 into which they should put &4Mana&0 into. They'll only store into the nearest spreader present at the time of the flower being placed (or the closest placed afterward, if none was present), and none other, unless that one is removed. It can be bound to another spreader with a wand in &4Bind Mode&0.
+botania.page.gIntro2=It is important to keep in mind that these flowers memorize the &1Mana Spreader&0 into which they should put &4Mana&0 into. They'll only store into the nearest spreader present at the time of the flower being placed (or the closest placed afterward, if none was present), and none other. It can be bound to another spreader with a wand in &4Bind Mode&0.
 
 # -- DAYBLOOM
 botania.entry.daybloom=Daybloom
@@ -2448,6 +2449,11 @@ botania.page.temperanceStone1=Don't lose it
 botania.entry.terraAxe=Terra Truncator
 botania.page.terraAxe0=The &1Terra Truncator&0 is a greataxe of premium quality achievable only with &1Terrasteel&0. When hitting a tree it'll take the whole thing down with speed, bringing all the logs and leaves along with it. Of course, this comes at a hefty cost of &4Mana&0.<br>This effect doesn't happen while sneaking or if the user has a &1Stone of Temperance&0.
 botania.page.terraAxe1=It's not a Dead END
+
+# -- FLORAL OBEDIENCE STICK
+botania.entry.obedienceStick=Floral Obedience Stick
+botania.page.obedienceStick0=Nobody knows why, but attaching some &1Manasteel&0 to &1Livingwood Twigs&0 creates a stick type device that can make nearby flowers all bind towards a single focus point.<br>Dubbed the &1Floral Obedience Stick&0, right clicking with it on a &1Mana Spreader&0 or &1Mana Pool&0 in the world will bind all relevant nearby flowers to it.
+botania.page.obedienceStick1=This is not a dumb new age hat
 
 # - ENDER ARTEFACTS
 # -- EXTRACTING ENDER AIR

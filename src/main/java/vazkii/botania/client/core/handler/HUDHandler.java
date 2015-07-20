@@ -394,6 +394,30 @@ public final class HUDHandler {
 
 		GL11.glDisable(GL11.GL_BLEND);
 	}
+	
+	public static void drawComplexManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res, ItemStack bindDisplay, boolean properlyBound) {
+		drawSimpleManaHUD(color, mana, maxMana, name, res);
+		
+		Minecraft mc = Minecraft.getMinecraft();
+
+		int x = res.getScaledWidth() / 2 + 55;
+		int y = res.getScaledHeight() / 2 + 12;
+		
+		net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
+		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+		RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, bindDisplay, x, y);
+		net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
+		
+		GL11.glDisable(GL11.GL_DEPTH_TEST);
+		if(properlyBound) {
+			mc.fontRenderer.drawStringWithShadow("\u2714", x + 10, y + 9, 0x004C00);
+			mc.fontRenderer.drawStringWithShadow("\u2714", x + 10, y + 8, 0x0BD20D);
+		} else {
+			mc.fontRenderer.drawStringWithShadow("\u2718", x + 10, y + 9, 0x4C0000);
+			mc.fontRenderer.drawStringWithShadow("\u2718", x + 10, y + 8, 0xD2080D);
+		}
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
+	}
 
 	public static void renderManaBar(int x, int y, int color, float alpha, int mana, int maxMana) {
 		Minecraft mc = Minecraft.getMinecraft();

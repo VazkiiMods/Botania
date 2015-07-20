@@ -35,6 +35,9 @@ import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
+import vazkii.botania.api.subtile.SubTileEntity;
+import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.client.core.handler.BossBarHandler;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -42,6 +45,7 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.block.BlockSpecialFlower;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.item.relic.ItemLokiRing;
 import vazkii.botania.common.lexicon.page.PageBrew;
@@ -179,6 +183,16 @@ public class InternalMethodHandler extends DummyMethodHandler {
 		HUDHandler.drawSimpleManaHUD(color, mana, maxMana, name, res);
 	}
 
+	@Override
+	public void drawComplexManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res, ItemStack bindDisplay, boolean properlyBound) {
+		HUDHandler.drawComplexManaHUD(color, mana, maxMana, name, res, bindDisplay, properlyBound);
+	}
+	
+	@Override
+	public ItemStack getBindDisplayForFlowerType(SubTileEntity e) {
+		return e instanceof SubTileGenerating ? new ItemStack(ModBlocks.spreader) : e instanceof SubTileFunctional ? new ItemStack(ModBlocks.pool) : new ItemStack(ModItems.twigWand);
+	}
+	
 	@Override
 	public void renderLexiconText(int x, int y, int width, int height, String unlocalizedText) {
 		PageText.renderText(x, y, width, height, unlocalizedText);

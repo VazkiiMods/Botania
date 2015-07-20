@@ -67,6 +67,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.grassSeeds);
 		addItem(ModItems.blackLotus);
 		addItem(ModItems.twigWand);
+		addItem(ModItems.obedienceStick);
 		addItem(ModItems.manaResource);
 		addBlock(ModBlocks.storage);
 		addItem(ModItems.manaCookie);

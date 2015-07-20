@@ -30,6 +30,8 @@ import vazkii.botania.api.mana.IManaCollector;
  */
 public class SubTileGenerating extends SubTileEntity {
 
+	public static final int RANGE = 6;
+	
 	private static final String TAG_MANA = "mana";
 
 	private static final String TAG_COLLECTOR_X = "collectorX";
@@ -78,8 +80,6 @@ public class SubTileGenerating extends SubTileEntity {
 	}
 
 	public void linkCollector() {
-		final int range = 6;
-
 		boolean needsNew = false;
 		if(linkedCollector == null) {
 			needsNew = true;
@@ -96,30 +96,25 @@ public class SubTileGenerating extends SubTileEntity {
 					cachedCollectorCoordinates = null;
 				}
 			}
+		} else {
+			TileEntity tileAt = supertile.getWorldObj().getTileEntity(linkedCollector.xCoord, linkedCollector.yCoord, linkedCollector.zCoord);
+			if(tileAt != null && tileAt instanceof IManaCollector)
+				linkedCollector = tileAt;
 		}
 
-		if(!needsNew && linkedCollector != null) {
-			if(supertile.getWorldObj().blockExists(linkedCollector.xCoord, linkedCollector.yCoord, linkedCollector.zCoord) && !linkedCollector.isInvalid()) {
-				TileEntity tileAt = supertile.getWorldObj().getTileEntity(linkedCollector.xCoord, linkedCollector.yCoord, linkedCollector.zCoord);
-				if(!(tileAt instanceof IManaCollector) || tileAt.isInvalid()) {
-					linkedCollector = null;
-					needsNew = true;
-				} else linkedCollector = tileAt;
-			} else {
-				cachedCollectorCoordinates = new ChunkCoordinates(linkedCollector.xCoord, linkedCollector.yCoord, linkedCollector.zCoord);
-				linkedCollector = null;
-			}
-		}
-
-		if(needsNew) {
+		if(needsNew && ticksExisted == 1) { // New flowers only
 			IManaNetwork network = BotaniaAPI.internalHandler.getManaNetworkInstance();
 			int size = network.getAllCollectorsInWorld(supertile.getWorldObj()).size();
 			if(BotaniaAPI.internalHandler.shouldForceCheck() || size != sizeLastCheck) {
 				ChunkCoordinates coords = new ChunkCoordinates(supertile.xCoord, supertile.yCoord, supertile.zCoord);
-				linkedCollector = network.getClosestCollector(coords, supertile.getWorldObj(), range);
+				linkedCollector = network.getClosestCollector(coords, supertile.getWorldObj(), RANGE);
 				sizeLastCheck = size;
 			}
 		}
+	}
+	
+	public void linkToForcefully(TileEntity collector) {
+		linkedCollector = collector;
 	}
 
 	public void addMana(int mana) {
@@ -239,11 +234,16 @@ public class SubTileGenerating extends SubTileEntity {
 		return false;
 	}
 
+	
+	public boolean isValidBinding() {
+		return linkedCollector != null && !linkedCollector.isInvalid();
+	}
+
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		String name = StatCollector.translateToLocal("tile.botania:flower." + getUnlocalizedName() + ".name");
 		int color = getColor();
-		BotaniaAPI.internalHandler.drawSimpleManaHUD(color, knownMana, getMaxMana(), name, res);
+		BotaniaAPI.internalHandler.drawComplexManaHUD(color, knownMana, getMaxMana(), name, res, BotaniaAPI.internalHandler.getBindDisplayForFlowerType(this), isValidBinding());
 	}
 
 }

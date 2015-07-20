@@ -191,6 +191,7 @@ public final class LexiconData {
 	public static LexiconEntry crystalBow;
 	public static LexiconEntry temperanceStone;
 	public static LexiconEntry terraAxe;
+	public static LexiconEntry obedienceStick;
 
 	public static LexiconEntry enderAir;
 	public static LexiconEntry enderEyeBlock;
@@ -731,6 +732,9 @@ public final class LexiconData {
 		terraAxe = new BLexiconEntry(LibLexicon.TOOL_TERRA_AXE, categoryTools);
 		terraAxe.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeTerraAxe));
 
+		obedienceStick = new BLexiconEntry(LibLexicon.TOOL_OBEDIENCE_STICK, categoryTools);
+		obedienceStick.setPriority().setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeObedienceStick));
+		
 		// ENDER ENTRIES
 		enderAir = new BLexiconEntry(LibLexicon.ENDER_AIR, categoryEnder);
 		enderAir.setPriority().setLexiconPages(new PageText("0"));

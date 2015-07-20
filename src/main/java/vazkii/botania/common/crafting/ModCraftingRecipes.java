@@ -270,6 +270,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeLuminizer;
 	public static IRecipe recipeDetectorLuminizer;
 	public static IRecipe recipeLuminizerLauncher;
+	public static IRecipe recipeObedienceStick;
 
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;
@@ -1827,6 +1828,13 @@ public final class ModCraftingRecipes {
 				'D', LibOreDict.DREAM_WOOD,
 				'L', new ItemStack(ModBlocks.lightRelay));
 		recipeLuminizerLauncher = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Floral Obedience Stick Recipe
+		addOreDictRecipe(new ItemStack(ModItems.obedienceStick), 
+				"  M", " T ", "T  ",
+				'M', LibOreDict.MANA_STEEL,
+				'T', LibOreDict.LIVINGWOOD_TWIG);
+		recipeObedienceStick = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Storage Block/Nugget Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
