@@ -196,8 +196,9 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 
 	@SubscribeEvent
 	public void tickEnd(TickEvent event) {
-		if(event.type == Type.SERVER && event.phase == Phase.END)
-			for(String s : coordsToCheck.keySet()) {
+		if(event.type == Type.SERVER && event.phase == Phase.END) {
+			List<String> coordsToCheckCopy = new ArrayList(coordsToCheck.keySet());
+			for(String s : coordsToCheckCopy) {
 				decrCoords(s);
 				if(checkedCoords.contains(s))
 					continue;
@@ -255,7 +256,8 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 					}
 				}
 			}
-
+		}
+			
 		// ConcurrentModificationException failsafe
 		ArrayList<String> remove = new ArrayList(removeThese);
 		for(String s : remove) {
