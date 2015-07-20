@@ -58,6 +58,9 @@ public class ItemObedienceStick extends ItemMod {
 							}
 						}
 					}
+			
+			if(player.worldObj.isRemote)
+				player.swingItem();
 		}
 		return false;
 	}

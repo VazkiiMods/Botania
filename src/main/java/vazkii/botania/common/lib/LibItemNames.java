@@ -146,6 +146,7 @@ public final class LibItemNames {
 	public static final String TERRA_AXE = "terraAxe";
 	public static final String WATER_BOWL = "waterBowl";
 	public static final String OBEDIENCE_STICK = "obedienceStick";
+	public static final String CACOPHONIUM = "cacophonium";
 
 	public static final String[] LENS_NAMES = new String[] {
 		"lensNormal",

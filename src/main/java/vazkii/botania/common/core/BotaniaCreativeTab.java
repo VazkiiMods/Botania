@@ -186,6 +186,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.terrasteelLegs);
 		addItem(ModItems.terrasteelBoots);
 		addItem(ModItems.phantomInk);
+		addItem(ModItems.cacophonium);
 		addItem(ModItems.recordGaia1);
 		addItem(ModItems.recordGaia2);
 		addItem(ModItems.ancientWill);

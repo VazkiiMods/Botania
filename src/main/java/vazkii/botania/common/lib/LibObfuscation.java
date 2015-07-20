@@ -76,5 +76,7 @@ public final class LibObfuscation {
 	// GuiChat
 	public static final String[] INPUT_FIELD = new String[] { "inputField", "field_146415_a", "a" };
 	public static final String[] COMPLETE_FLAG = new String[] { "field_146414_r", "r" };
+	
+	// Entityliving
+	public static final String[] GET_LIVING_SOUND = new String[] { "getLivingSound", "func_70639_aQ", "t" }; 
 }
-
