@@ -1,3 +1,18 @@
+r1.7 204
+*Added an indicator to the generating and functional flower HUDs that shows if they're properly bound or not.
+*Added the Cacophonium, a <a href="https://www.youtube.com/watch?v=PwXAcA1M_m0">trolly</a> item :3 (don't hate on the terrible icon, wiiv wasn't around :C)
+*Added the Floral Obedience Stick, a way to mass bind flowers, since that's more relevant now.
+*Doubled the Pebble drop rate in Garden of Glass. (TheWhiteWolves)
+*Fixed a crash with the Force Relay.
+*Fixed lens being consumed when attached to a prism in creative mode. (TheWhiteWolves)
+*Fixed luminizers sometimes getting unbound on chunkload.
+*Fixed torches not being able to be placed on top of botania walls. (TheWhiteWolves)
+*Functional and Generating Flowers no longer rebind to the closest spreader/pool if the one they were bound to stops existing. Instead, they'll keep the binding in the position and wait for a new spreader/pool to appear there. Of course you can still rebind manaully. This is a workaround for the bug where flowers would lose or change their binding on chunk unload, which is hopefully fixed now :T
+*[API] Added drawComplexManaHUD() and getBindDisplayForFlowerType() to the internal method handler.
+*[API] Added functions to force bind SubTileGenerating and SubTileFunctional instances.
+*[API] Made the range for SubTileGenerating and SubTileFunctional visible as a constant.
+*[API] Rewote SubTileGenerating/SubTileFunctional binding logic, again.
+*[API] Increased version number to 57.
 r1.7 203
 *Added the ability to define the range of /botania-skyblock-spread with a second parameter.
 *Added Walls to the following botania blocks: Livingrock, Livingwood, Dreamwood, Prismarine, Reed Block, Metamorphoic and 1.8 Stones. <i>About time...</i>
