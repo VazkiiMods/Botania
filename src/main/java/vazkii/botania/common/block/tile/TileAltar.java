@@ -109,10 +109,10 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 				if(recipe.matches(this)) {
 					saveLastRecipe();
 
-					for(int i = 0; i < getSizeInventory(); i++)
-						setInventorySlotContents(i, null);
-
 					if(!worldObj.isRemote) {
+						for(int i = 0; i < getSizeInventory(); i++)
+							setInventorySlotContents(i, null);
+						
 						stack.stackSize--;
 						if(stack.stackSize == 0)
 							item.setDead();
@@ -120,11 +120,12 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 						ItemStack output = recipe.getOutput().copy();
 						EntityItem outputItem = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, output);
 						worldObj.spawnEntityInWorld(outputItem);
+						
+						setWater(false);
+						worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 					}
 
 					craftingFanciness();
-					setWater(false);
-					worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 					didChange = true;
 
 					break;
