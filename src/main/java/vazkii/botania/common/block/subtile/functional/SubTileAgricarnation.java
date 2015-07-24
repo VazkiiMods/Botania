@@ -34,8 +34,8 @@ public class SubTileAgricarnation extends SubTileFunctional {
 
 		if(ticksExisted % 6 == 0 && redstoneSignal == 0) {
 			int range = getRange();
-			int x = supertile.xCoord + supertile.getWorldObj().rand.nextInt(RANGE * 2 + 1) - range;
-			int z = supertile.zCoord + supertile.getWorldObj().rand.nextInt(RANGE * 2 + 1) - range;
+			int x = supertile.xCoord + supertile.getWorldObj().rand.nextInt(range * 2 + 1) - range;
+			int z = supertile.zCoord + supertile.getWorldObj().rand.nextInt(range * 2 + 1) - range;
 
 			for(int i = 4; i > -2; i--) {
 				int y = supertile.yCoord + i;
