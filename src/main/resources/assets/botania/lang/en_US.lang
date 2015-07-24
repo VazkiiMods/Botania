@@ -131,6 +131,9 @@ botaniamisc.info=Info
 botaniamisc.challengeInfo=Learn about the challenges
 botaniamisc.skyblockRangeTooLow=Invalid range, must be at least 250.
 botaniamisc.skyblockRangeTooHigh=Invalid range, can't be higher than 10000000 (10 million).
+botaniamisc.hideNotes=Hide Notes
+botaniamisc.showNotes=Show Notes
+botaniamisc.notes=Notes
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery

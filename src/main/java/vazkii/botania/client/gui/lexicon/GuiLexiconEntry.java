@@ -81,7 +81,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 		buttonList.add(rightButton = new GuiButtonPage(2, left + guiWidth - 18, top + guiHeight - 10, true));
 		buttonList.add(new GuiButtonShare(3, left + guiWidth - 6, top - 2));
 		if(entry.getWebLink() != null)
-			buttonList.add(new GuiButtonViewOnline(4, left - 8, top + 8));
+			buttonList.add(new GuiButtonViewOnline(4, left - 8, top + 12));
 
 		if(!GuiLexicon.isValidLexiconGui(this))	{
 			currentOpenLexicon = new GuiLexicon();
@@ -134,6 +134,8 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 
 		if(par1GuiButton.id >= BOOKMARK_START)
 			handleBookmark(par1GuiButton);
+		else if(par1GuiButton.id == NOTES_BUTTON_ID)
+			notesEnabled = !notesEnabled;
 		else
 			switch(par1GuiButton.id) {
 			case 0 :
@@ -192,9 +194,10 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 
 	@Override
 	public void updateScreen() {
+		super.updateScreen();
+		
 		LexiconPage page = entry.pages.get(this.page);
 		page.updateScreen(this);
-
 
 		if(this.page == entry.pages.size() - 1) {
 			LexiconEntry entry = tutorial.peek();
@@ -302,6 +305,8 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 
 	@Override
 	protected void keyTyped(char par1, int par2) {
+		handleNoteKey(par1, par2);
+		
 		LexiconPage page = entry.pages.get(this.page);
 		page.onKeyPressed(par1, par2);
 
@@ -309,14 +314,12 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 			prevPage();
 		else if(par2 == 205 || par2 == 208 || par2 == 209) // Right, Down Page Down
 			nextPage();
-		else if(par2 == 14) // Backspace
+		if(par2 == 14 && !notesEnabled) // Backspace
 			back();
 		else if(par2 == 199) { // Home
 			mc.displayGuiScreen(new GuiLexicon());
 			ClientTickHandler.notifyPageChange();
 		}
-
-		super.keyTyped(par1, par2);
 	}
 
 	void back() {
@@ -330,6 +333,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 		if(rightButton.enabled) {
 			actionPerformed(rightButton);
 			rightButton.func_146113_a(mc.getSoundHandler());
+			updateNote();
 		}
 	}
 
@@ -337,7 +341,15 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 		if(leftButton.enabled) {
 			actionPerformed(leftButton);
 			leftButton.func_146113_a(mc.getSoundHandler());
+			updateNote();
 		}
+	}
+	
+	void updateNote() {
+		String key = getNotesKey();
+		if(!notes.containsKey(key))
+			note = "";
+		else note = notes.get(key);
 	}
 
 	@Override
@@ -389,5 +401,10 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 		gui.page = page;
 		gui.setTitle();
 		return gui;
+	}
+	
+	@Override
+	public String getNotesKey() {
+		return "entry_" + entry.unlocalizedName + "_" + page;
 	}
 }

@@ -73,7 +73,7 @@ public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 
 	@Override
 	protected void keyTyped(char par1, int par2) {
-		if(par2 == 14) // Backspace
+		if(par2 == 14 && !notesEnabled) // Backspace
 			back();
 		else if(par2 == 199) { // Home
 			mc.displayGuiScreen(new GuiLexicon());
@@ -101,7 +101,8 @@ public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 		} else if(par1GuiButton instanceof GuiButtonChallengeIcon) {
 			GuiButtonChallengeIcon cbutton = (GuiButtonChallengeIcon) par1GuiButton;
 			mc.displayGuiScreen(new GuiLexiconChallenge(this, cbutton.challenge));
-		}
+		} else if(par1GuiButton.id == NOTES_BUTTON_ID)
+			notesEnabled = !notesEnabled;
 	}
 
 	void back() {
@@ -139,6 +140,11 @@ public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 	@Override
 	public GuiLexicon copy() {
 		return new GuiLexiconChallengesList();
+	}
+	
+	@Override
+	public String getNotesKey() {
+		return "challengelist";
 	}
 
 }

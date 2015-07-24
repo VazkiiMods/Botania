@@ -53,5 +53,10 @@ public class GuiLexiconHistory extends GuiLexiconIndex {
 	public void load(NBTTagCompound cmp) {
 		// NO-OP
 	}
+	
+	@Override
+	public String getNotesKey() {
+		return "history";
+	}
 
 }

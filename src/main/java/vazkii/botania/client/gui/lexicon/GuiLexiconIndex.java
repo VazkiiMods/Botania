@@ -188,6 +188,8 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 	protected void actionPerformed(GuiButton par1GuiButton) {
 		if(par1GuiButton.id >= BOOKMARK_START)
 			handleBookmark(par1GuiButton);
+		else if(par1GuiButton.id == NOTES_BUTTON_ID)
+			notesEnabled = !notesEnabled;
 		else
 			switch(par1GuiButton.id) {
 			case 12 :
@@ -293,7 +295,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			prevPage();
 		else if(par2 == 205 || par2 == 208 || par2 == 209) // Right, Down Page Down
 			nextPage();
-		else if(par2 == 14 && searchField.getText().isEmpty()) // Backspace
+		else if(par2 == 14 && !notesEnabled && searchField.getText().isEmpty()) // Backspace
 			back();
 		else if(par2 == 199) { // Home
 			mc.displayGuiScreen(new GuiLexicon());
@@ -301,10 +303,12 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		} else if(par2 == 28 && entriesToDisplay.size() == 1) // Enter
 			openEntry(0);
 
-		String search = searchField.getText();
-		searchField.textboxKeyTyped(par1, par2);
-		if(!searchField.getText().equalsIgnoreCase(search))
-			updateAll();
+		if(!notesEnabled) {
+			String search = searchField.getText();
+			searchField.textboxKeyTyped(par1, par2);
+			if(!searchField.getText().equalsIgnoreCase(search))
+				updateAll();
+		}
 
 		super.keyTyped(par1, par2);
 	}
@@ -358,5 +362,10 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		gui.page = page;
 		gui.setTitle();
 		return gui;
+	}
+	
+	@Override
+	public String getNotesKey() {
+		return "category_" + category.unlocalizedName;
 	}
 }

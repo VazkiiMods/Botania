@@ -59,7 +59,6 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 		setCompleteButtonTitle();
 	}
 
-
 	@Override
 	public void drawScreen(int par1, int par2, float par3) {
 		super.drawScreen(par1, par2, par3);
@@ -85,7 +84,7 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 
 	@Override
 	protected void keyTyped(char par1, int par2) {
-		if(par2 == 14) // Backspace
+		if(par2 == 14 && !notesEnabled) // Backspace
 			back();
 		else if(par2 == 199) { // Home
 			mc.displayGuiScreen(new GuiLexicon());
@@ -114,7 +113,8 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 			challenge.complete = !challenge.complete;
 			setCompleteButtonTitle();
 			PresistantVariableHelper.saveSafe();
-		}
+		} else if(par1GuiButton.id == NOTES_BUTTON_ID)
+			notesEnabled = !notesEnabled;
 	}
 
 	void setCompleteButtonTitle() {
@@ -171,6 +171,11 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 		Challenge c = ModChallenges.challengeLookup.get(challengeName);
 		challenge = c;
 		setTitle();
+	}
+	
+	@Override
+	public String getNotesKey() {
+		return "challenge_" + challenge.unlocalizedName;
 	}
 
 }

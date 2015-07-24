@@ -15,6 +15,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
@@ -30,6 +31,7 @@ public final class PresistantVariableHelper {
 	private static final String TAG_BOOKMARK_PREFIX = "bookmark";
 	private static final String TAG_BOOKMARKS = "bookmarks";
 	private static final String TAG_CHALLENGES = "challenges";
+	private static final String TAG_LEXICON_NOTES = "lexiconNotes";
 	private static final String TAG_FIRST_LOAD = "firstLoad";
 
 	private static File cacheFile;
@@ -56,6 +58,14 @@ public final class PresistantVariableHelper {
 			c.writeToNBT(challengesCmp);
 		cmp.setTag(TAG_CHALLENGES, challengesCmp);
 
+		NBTTagCompound notesCmp = new NBTTagCompound();
+		for(String s : GuiLexicon.notes.keySet()) {
+			String note = GuiLexicon.notes.get(s);
+			if(note != null && !note.trim().isEmpty())
+				notesCmp.setString(s, note);
+		}
+		cmp.setTag(TAG_LEXICON_NOTES, notesCmp);
+		
 		cmp.setBoolean(TAG_FIRST_LOAD, firstLoad);
 
 		injectNBTToFile(cmp, getCacheFile());
@@ -80,6 +90,14 @@ public final class PresistantVariableHelper {
 			NBTTagCompound challengesCmp = cmp.getCompoundTag(TAG_CHALLENGES);
 			for(Challenge c : ModChallenges.challengeLookup.values())
 				c.readFromNBT(challengesCmp);
+		}
+		
+		if(cmp.hasKey(TAG_LEXICON_NOTES)) {
+			NBTTagCompound notesCmp = cmp.getCompoundTag(TAG_LEXICON_NOTES);
+			Set<String> keys = notesCmp.func_150296_c();
+			GuiLexicon.notes.clear();
+			for(String key : keys)
+				GuiLexicon.notes.put(key, notesCmp.getString(key));
 		}
 
 		firstLoad = cmp.hasKey(TAG_FIRST_LOAD) ? cmp.getBoolean(TAG_FIRST_LOAD) : firstLoad;

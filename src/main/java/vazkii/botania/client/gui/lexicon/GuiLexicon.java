@@ -14,6 +14,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Queue;
 
@@ -22,12 +23,15 @@ import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -46,22 +50,27 @@ import vazkii.botania.client.gui.lexicon.button.GuiButtonChallengeInfo;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonChallenges;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonHistory;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonInvisible;
+import vazkii.botania.client.gui.lexicon.button.GuiButtonNotes;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonOptions;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.SheddingHandler;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lexicon.page.PageText;
 
 public class GuiLexicon extends GuiScreen {
 
 	public static GuiLexicon currentOpenLexicon = new GuiLexicon();
 	public static ItemStack stackUsed;
 
+	public static HashMap<String, String> notes = new HashMap();
+	
 	private static final String TAG_TYPE = "type";
 
 	private static final int[] KONAMI_CODE = { 200, 200, 208, 208, 203, 205, 203, 205, 48, 30 };
 
 	public static final int BOOKMARK_START = 1337;
+	public static final int NOTES_BUTTON_ID = 1336; // random button tho
 	public static final int MAX_BOOKMARK_COUNT = 8;
 	public static List<GuiLexicon> bookmarks = new ArrayList();
 	boolean bookmarksNeedPopulation = false;
@@ -81,6 +90,11 @@ public class GuiLexicon extends GuiScreen {
 	int tutorialArrowX, tutorialArrowY;
 	int konamiIndex;
 
+	private static final int NOTE_TWEEN_TIME = 5;
+	public static boolean notesEnabled;
+	static int notesMoveTime;
+	public String note = "";
+	
 	List<LexiconCategory> allCategories;
 
 	String title;
@@ -97,6 +111,10 @@ public class GuiLexicon extends GuiScreen {
 			PresistantVariableHelper.saveSafe();
 		}
 
+		String key = getNotesKey();
+		if(notes.containsKey(key))
+			note = notes.get(key);
+		
 		onInitGui();
 
 		putTutorialArrow();
@@ -137,10 +155,19 @@ public class GuiLexicon extends GuiScreen {
 		}
 		populateBookmarks();
 		if(isMainPage()) {
-			buttonList.add(new GuiButtonOptions(-1, left - 6, top + 5));
-			buttonList.add(new GuiButtonAchievement(-2, left - 6, top + 18));
-			buttonList.add(new GuiButtonChallenges(-3, left - 6, top + 32));
+			buttonList.add(new GuiButtonOptions(-1, left - 6, top + 13));
+			buttonList.add(new GuiButtonAchievement(-2, left - 6, top + 26));
+			buttonList.add(new GuiButtonChallenges(-3, left - 6, top + 40));
 		}
+		buttonList.add(new GuiButtonNotes(this, NOTES_BUTTON_ID, left - 4, top - 4));
+	}
+	
+	@Override
+	public void updateScreen() {
+		if(notesEnabled && notesMoveTime < NOTE_TWEEN_TIME)
+			notesMoveTime++;
+		else if(!notesEnabled && notesMoveTime > 0)
+			notesMoveTime--;
 	}
 
 	@Override
@@ -150,6 +177,10 @@ public class GuiLexicon extends GuiScreen {
 		lastTime = time;
 		partialTicks = par3;
 
+		GL11.glColor4f(1F, 1F, 1F, 1F);
+		mc.renderEngine.bindTexture(texture);
+		drawNotes(par3);
+		
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		mc.renderEngine.bindTexture(texture);
 		drawTexturedModalRect(left, top, 0, 0, guiWidth, guiHeight);
@@ -208,6 +239,36 @@ public class GuiLexicon extends GuiScreen {
 			drawTexturedModalRect(tutorialArrowX, tutorialArrowY, 20, 200, TUTORIAL_ARROW_WIDTH, TUTORIAL_ARROW_HEIGHT);
 			GL11.glDisable(GL11.GL_BLEND);
 		}
+	}
+	
+	public void drawNotes(float part) {
+		int size = 105;
+		
+		float time = notesMoveTime;
+		if(notesMoveTime < NOTE_TWEEN_TIME && notesEnabled)
+			time += part;
+		else if(notesMoveTime > 0 && !notesEnabled)
+			time -= part;
+		
+		int drawSize = (int) ((float) size * time / (float) NOTE_TWEEN_TIME);
+		int x = left - drawSize;
+		int y = top + 10;
+		
+		drawTexturedModalRect(x, y, 146, 0, drawSize, 125);
+		
+		String noteDisplay = note;
+		if(notesEnabled && ClientTickHandler.ticksInGame % 20 < 10)
+			noteDisplay += "&r_";
+		
+		fontRendererObj.drawString(StatCollector.translateToLocal("botaniamisc.notes"), x + 5, y - 7, 0x666666);
+		
+		boolean unicode = fontRendererObj.getUnicodeFlag();
+		fontRendererObj.setUnicodeFlag(true);
+		
+		PageText.renderText(x + 5, y - 3, 92, 120, noteDisplay);
+		
+		//fontRendererObj.drawSplitString(noteDisplay, x + 7, y + 7, 92, 0);
+		fontRendererObj.setUnicodeFlag(unicode);
 	}
 
 	public void drawBookmark(int x, int y, String s, boolean drawLeft) {
@@ -273,6 +334,8 @@ public class GuiLexicon extends GuiScreen {
 			mc.displayGuiScreen(new GuiAchievementsHacky(this, mc.thePlayer.getStatFileWriter()));
 		else if(par1GuiButton.id == -3)
 			mc.displayGuiScreen(new GuiLexiconChallengesList());
+		else if(par1GuiButton.id == NOTES_BUTTON_ID)
+			notesEnabled = !notesEnabled;
 	}
 
 	public void handleBookmark(GuiButton par1GuiButton) {
@@ -443,7 +506,9 @@ public class GuiLexicon extends GuiScreen {
 
 	@Override
 	protected void keyTyped(char par1, int par2) {
-		if(closeScreenOnInvKey() && mc.gameSettings.keyBindInventory.getKeyCode() == par2) {
+		handleNoteKey(par1, par2);
+		
+		if(!notesEnabled && closeScreenOnInvKey() && mc.gameSettings.keyBindInventory.getKeyCode() == par2) {
 			mc.displayGuiScreen(null);
 			mc.setIngameFocus();
 		}
@@ -457,6 +522,34 @@ public class GuiLexicon extends GuiScreen {
 		} else konamiIndex = 0;
 
 		super.keyTyped(par1, par2);
+	}
+	
+	public void handleNoteKey(char par1, int par2) {
+		if(notesEnabled) {
+			Keyboard.enableRepeatEvents(true);
+			boolean changed = false;
+			
+			if(par2 == 14 && note.length() > 0) {
+				if(isCtrlKeyDown())
+					note = "";
+				else {
+					if(note.endsWith("<br>"))
+						note = note.substring(0, note.length() - 5);
+					else note = note.substring(0, note.length() - 1);
+				}
+				changed = true;
+			}
+			
+			if((ChatAllowedCharacters.isAllowedCharacter(par1) || par2 == 28) && note.length() < 250) {
+				note += par2 == 28 ? "<br>" : par1;
+				changed = true;
+			}
+			
+			if(changed) {
+				notes.put(getNotesKey(), note);
+				PresistantVariableHelper.saveSafe();
+			}
+		} else Keyboard.enableRepeatEvents(false);
 	}
 
 	public static GuiLexicon create(NBTTagCompound cmp) {
@@ -478,6 +571,10 @@ public class GuiLexicon extends GuiScreen {
 		cmp.setString(TAG_TYPE, getClass().getName());
 	}
 
+	public String getNotesKey() {
+		return "index";
+	}
+	
 	public void load(NBTTagCompound cmp) {
 		// NO-OP
 	}
