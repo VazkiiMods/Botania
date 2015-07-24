@@ -23,6 +23,9 @@ public class BlockEndStoneSlab extends BlockLivingSlab {
 
 	public BlockEndStoneSlab(boolean full) {
 		super(full, ModBlocks.endStoneBrick, 0);
+		setHardness(1.5F);
+		setResistance(10F);
+		setStepSound(soundTypeStone);
 	}
 
 	@Override
