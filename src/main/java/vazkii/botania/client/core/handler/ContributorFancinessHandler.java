@@ -126,7 +126,7 @@ public final class ContributorFancinessHandler {
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
 		GL11.glRotatef(90F, 0F, 1F, 0F);
 		GL11.glScalef(0.4F, 0.4F, 0.4F);
-		GL11.glTranslatef(-1.2F, 0.2F, 0.2F);
+		GL11.glTranslatef(-1.2F, 0.2F, 0.125F);
 		GL11.glRotatef(20F, 1F, 0F, 0F);
 		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
 		GL11.glPopMatrix();
