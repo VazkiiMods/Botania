@@ -147,7 +147,7 @@ public final class ConfigHandler {
 		desc = "Set this to false to disable the references in the flower tooltips. (You monster D:)";
 		referencesEnabled = loadPropBool("references.enabled", desc, referencesEnabled);
 
-		desc = "Set this to false to disable checking and alerting when new Botania versions come out.";
+		desc = "Set this to false to disable checking and alerting when new Botania versions come out. (keywords for noobs: update notification message)";
 		versionCheckEnabled = loadPropBool("versionChecking.enabled", desc, versionCheckEnabled);
 
 		desc = "Do not ever touch this value if not asked to. Possible symptoms of doing so include your head turning backwards, the appearance of Titans near the walls or you being trapped in a game of Sword Art Online.";
