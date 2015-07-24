@@ -265,9 +265,7 @@ public class GuiLexicon extends GuiScreen {
 		boolean unicode = fontRendererObj.getUnicodeFlag();
 		fontRendererObj.setUnicodeFlag(true);
 		
-		PageText.renderText(x + 5, y - 3, 92, 120, noteDisplay);
-		
-		//fontRendererObj.drawSplitString(noteDisplay, x + 7, y + 7, 92, 0);
+		PageText.renderText(x + 5, y - 3, 92, 120, 0, noteDisplay);
 		fontRendererObj.setUnicodeFlag(unicode);
 	}
 
@@ -534,7 +532,7 @@ public class GuiLexicon extends GuiScreen {
 					note = "";
 				else {
 					if(note.endsWith("<br>"))
-						note = note.substring(0, note.length() - 5);
+						note = note.substring(0, note.length() - 4);
 					else note = note.substring(0, note.length() - 1);
 				}
 				changed = true;

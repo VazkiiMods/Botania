@@ -41,8 +41,12 @@ public class PageText extends LexiconPage {
 		renderText(x, y, width, gui.getHeight(), getUnlocalizedName());
 	}
 
-	@SideOnly(Side.CLIENT)
 	public static void renderText(int x, int y, int width, int height, String unlocalizedText) {
+		renderText(x, y, width, height, 10, unlocalizedText);
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public static void renderText(int x, int y, int width, int height, int paragraphSize, String unlocalizedText) {
 		x += 2;
 		y += 10;
 		width -= 4;
@@ -108,7 +112,7 @@ public class PageText extends LexiconPage {
 				xi += font.getStringWidth(s) + spacing + extra;
 			}
 
-			y += 10;
+			y += words.isEmpty() ? paragraphSize : 10;
 			i++;
 		}
 
