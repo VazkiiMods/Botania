@@ -133,7 +133,7 @@ public class ItemFlugelEye extends ItemRelic {
 			if(yaw >= calcAngle && yaw < calcAngle + segAngles)
 				return seg;
 		}
-		return -1;
+		return 0;
 	}
 
 	private static float getCheckingAngle(EntityLivingBase player) {
