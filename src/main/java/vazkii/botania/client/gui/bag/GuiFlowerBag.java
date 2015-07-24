@@ -65,5 +65,10 @@ public class GuiFlowerBag extends GuiContainer {
 				}
 			}
 	}
+	
+	@Override
+	protected boolean checkHotbarKeys(int p_146983_1_) {
+		return false;
+	}
 
 }
