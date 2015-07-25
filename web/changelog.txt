@@ -1,3 +1,5 @@
+r1.7 206
+*Fixed a crash when opening the Lexicon Index.
 r1.7 205
 *Addded a Brew of Absolution that clears all potion effects.
 *Addded some tiny potato variants :3
