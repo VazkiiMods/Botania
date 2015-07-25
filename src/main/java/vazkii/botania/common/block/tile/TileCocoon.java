@@ -10,7 +10,9 @@
  */
 package vazkii.botania.common.block.tile;
 
+import cpw.mods.fml.common.registry.VillagerRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityChicken;
@@ -20,16 +22,20 @@ import net.minecraft.entity.passive.EntityMooshroom;
 import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class TileCocoon extends TileMod {
 
 	private static final String TAG_TIME_PASSED = "timePassed";
-
+	private static final String TAG_EMERALDS_GIVEN = "timePassed";
+	
 	public static final int TOTAL_TIME = 2400;
+	public static final int MAX_EMERALDS = 20;
 
 	public int timePassed;
+	public int emeraldsGiven;
 
 	@Override
 	public void updateEntity() {
@@ -43,39 +49,47 @@ public class TileCocoon extends TileMod {
 			worldObj.playAuxSFX(2001, xCoord, yCoord, zCoord, Block.getIdFromBlock(getBlockType()));
 			worldObj.setBlockToAir(xCoord, yCoord, zCoord);
 
-			EntityAnimal entity = null;
+			EntityAgeable entity = null;
 			
-			float specialChance = 0.05F;
-			if(Math.random() < specialChance) {
-				int entityType = worldObj.rand.nextInt(3);
-				switch(entityType) {
-				case 0:
-					entity = new EntityHorse(worldObj);
-					break;
-				case 1:
-					entity = new EntityWolf(worldObj);
-					break;
-				case 2:
-					entity = new EntityOcelot(worldObj);
-					break;
-				}
+			float villagerChance = Math.min(1F, (float) emeraldsGiven / (float) MAX_EMERALDS);
+			
+			if(Math.random() < villagerChance) {
+				EntityVillager villager = new EntityVillager(worldObj);
+				VillagerRegistry.applyRandomTrade(villager, worldObj.rand);
+				entity = villager;
 			} else {
-				int entityType = worldObj.rand.nextInt(4);
-				switch(entityType) {
-				case 0:
-					entity = new EntitySheep(worldObj);
-					break;
-				case 1:
-					if(Math.random() < 0.01)
-						entity = new EntityMooshroom(worldObj);
-					else entity = new EntityCow(worldObj);
-					break;
-				case 2:
-					entity = new EntityPig(worldObj);
-					break;
-				case 3:
-					entity = new EntityChicken(worldObj);
-					break;
+				float specialChance = 0.05F;
+				if(Math.random() < specialChance) {
+					int entityType = worldObj.rand.nextInt(3);
+					switch(entityType) {
+					case 0:
+						entity = new EntityHorse(worldObj);
+						break;
+					case 1:
+						entity = new EntityWolf(worldObj);
+						break;
+					case 2:
+						entity = new EntityOcelot(worldObj);
+						break;
+					}
+				} else {
+					int entityType = worldObj.rand.nextInt(4);
+					switch(entityType) {
+					case 0:
+						entity = new EntitySheep(worldObj);
+						break;
+					case 1:
+						if(Math.random() < 0.01)
+							entity = new EntityMooshroom(worldObj);
+						else entity = new EntityCow(worldObj);
+						break;
+					case 2:
+						entity = new EntityPig(worldObj);
+						break;
+					case 3:
+						entity = new EntityChicken(worldObj);
+						break;
+					}
 				}
 			}
 			
@@ -91,11 +105,13 @@ public class TileCocoon extends TileMod {
 	@Override
 	public void writeCustomNBT(NBTTagCompound cmp) {
 		cmp.setInteger(TAG_TIME_PASSED, timePassed);
+		cmp.setInteger(TAG_EMERALDS_GIVEN, emeraldsGiven);
 	}
 
 	@Override
 	public void readCustomNBT(NBTTagCompound cmp) {
 		timePassed = cmp.getInteger(TAG_TIME_PASSED);
+		emeraldsGiven = cmp.getInteger(TAG_EMERALDS_GIVEN);
 	}
 
 }

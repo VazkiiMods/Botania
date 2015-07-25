@@ -619,7 +619,7 @@ public final class LexiconData {
 		canopyDrum.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeCanopyDrum));
 
 		cocoon = Botania.gardenOfGlassLoaded ? new BLexiconEntry(LibLexicon.DEVICE_COCOON, categoryDevices) : new ALexiconEntry(LibLexicon.DEVICE_COCOON, categoryDevices);
-		cocoon.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeCocoon));
+		cocoon.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeCocoon));
 
 		manaBomb = new ALexiconEntry(LibLexicon.DEVICE_MANA_BOMB, categoryDevices);
 		manaBomb.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeManaBomb));

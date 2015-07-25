@@ -23,6 +23,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
@@ -64,6 +65,19 @@ public class BlockCocoon extends BlockModContainer implements ILexiconable {
 	@Override
 	public int getRenderType() {
 		return LibRenderIDs.idCocoon;
+	}
+	
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int s, float xs, float ys, float zs) {
+		TileCocoon cocoon = (TileCocoon) world.getTileEntity(x, y, z);
+		ItemStack item = player.getCurrentEquippedItem();
+		if(cocoon.emeraldsGiven < TileCocoon.MAX_EMERALDS && item != null && item.getItem() == Items.emerald) {
+			if(!player.capabilities.isCreativeMode)
+				item.stackSize--;
+			cocoon.emeraldsGiven++;
+			world.playAuxSFX(2005, x, y, z, 6 + world.rand.nextInt(4));
+		}
+		return false;
 	}
 	
 	@Override
