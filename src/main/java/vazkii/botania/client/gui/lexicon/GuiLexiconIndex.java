@@ -366,6 +366,6 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 	
 	@Override
 	public String getNotesKey() {
-		return "category_" + category.unlocalizedName;
+		return "category_" + category == null ? "lexindex" : category.unlocalizedName;
 	}
 }
