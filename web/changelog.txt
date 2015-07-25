@@ -1,3 +1,28 @@
+r1.7 205
+*Addded a Brew of Absolution that clears all potion effects.
+*Addded some tiny potato variants :3
+*Added "update notification message" to the version checker config option's description for noobs who just CTRL-F.
+*Added the ability to add Emeralds to the Cocoon of Caprice to influence the outcome towards something different.
+*Added the ability to take notes in the lexica botania.
+*Added the Manastorm Charge, a new fun explosive thing that also happens to have another use...
+*Change the Cacophonium texture to not be horrible, thanks wiiv :D
+*Changed the color of the Brew of Vanity's Emptiness to be different from the new Brew of Absolution.
+*Disabled the number keys in the Floral Pouch to fix a dupe.
+*Fixed a visual bug with the Petal Apothecary when a seed is thrown in the middle of two or more Petal Apothecaries that have a complete recipe. <i>I swear, how do people find these things?</i>
+*Fixed ender brick slabs breaking in one hit.
+*Fixed flowers being able to pull mana from and put mana into mana pools or spreaders that no longer exist.
+*Fixed the Agricarnation Petite having the wrong range.
+*Fixed the tiny potato's jump animation being somewhat jaggy.
+*Fixed there being a "botania.sign-1" slot in the Eye of the Flugel under some occasions.
+*If a tiny potato is named, the name will only show up when you're looking at it.
+*If you lose your Lexica Botania in Garden of Glass you can now exchange a Sapling for it by right clicking with it on the Mana Flame.
+*The Endoflame now caps how much each fuel is worth to the value of a Coal Block. It can still accept larger fuels, but they are capped to a Coal Block. <i>Now, before you start raging and raising your pitchforks around at this, please think about what botania tries to do, and how much super condensed fuels like Aeternalis Fuel Blocks negate that. Ok, you chill now?</i>
+*The Influence lens can now move mana bursts. Have fun with this one :3
+*Unclipped secret pretty dev things.
+*[API] Added TinyPotatoRenderEvent, because Vexatos would not stop annoying me.
+*[API] Changed how isValidBinding() checks for SubTileGenerating/SubTileFunctional.
+*[API] SubTileGenerating and SubTileFunctional instances now check isValidBinding() before interacting with the bound collector or pool.
+*[API] Increased version number to 58.
 r1.7 204
 *Added an indicator to the generating and functional flower HUDs that shows if they're properly bound or not.
 *Added the Cacophonium, a <a href="https://www.youtube.com/watch?v=PwXAcA1M_m0">trolly</a> item :3 (don't hate on the terrible icon, wiiv wasn't around :C)
