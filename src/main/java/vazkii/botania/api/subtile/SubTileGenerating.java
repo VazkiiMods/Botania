@@ -122,7 +122,7 @@ public class SubTileGenerating extends SubTileEntity {
 	}
 
 	public void emptyManaIntoCollector() {
-		if(linkedCollector != null) {
+		if(linkedCollector != null && isValidBinding()) {
 			IManaCollector collector = (IManaCollector) linkedCollector;
 			if(!collector.isFull() && mana > 0) {
 				int manaval = Math.min(mana, collector.getMaxMana() - collector.getCurrentMana());
@@ -236,7 +236,7 @@ public class SubTileGenerating extends SubTileEntity {
 
 	
 	public boolean isValidBinding() {
-		return linkedCollector != null && !linkedCollector.isInvalid();
+		return linkedCollector != null && !linkedCollector.isInvalid() && supertile.getWorldObj().getTileEntity(linkedCollector.xCoord, linkedCollector.yCoord, linkedCollector.zCoord) == linkedCollector;
 	}
 
 	@Override

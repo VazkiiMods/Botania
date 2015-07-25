@@ -62,7 +62,7 @@ public class SubTileFunctional extends SubTileEntity {
 
 		linkPool();
 
-		if(linkedPool != null) {
+		if(linkedPool != null && isValidBinding()) {
 			IManaPool pool = (IManaPool) linkedPool;
 			int manaInPool = pool.getCurrentMana();
 			int manaMissing = getMaxMana() - mana;
@@ -208,7 +208,7 @@ public class SubTileFunctional extends SubTileEntity {
 	}
 	
 	public boolean isValidBinding() {
-		return linkedPool != null && !linkedPool.isInvalid();
+		return linkedPool != null && !linkedPool.isInvalid() && supertile.getWorldObj().getTileEntity(linkedPool.xCoord, linkedPool.yCoord, linkedPool.zCoord) == linkedPool;
 	}
 
 	@Override
