@@ -7,6 +7,7 @@
 	"ding": { "category": "block", "sounds":["ding"] },
 	"divaCharm": { "category": "player", "sounds":["divaCharm"] },
 	"divinationRod": { "category": "player", "sounds":["divinationRod"] },
+	"doit": { "category": "block", "sounds":["doit"] },
 	"enchanterBlock": { "category": "block", "sounds":["enchanterBlock"] },
 	"enchanterEnchant": { "category": "block", "sounds":["enchanterEnchant"] },
 	"endoflame": { "category": "block", "sounds":["endoflame"] },

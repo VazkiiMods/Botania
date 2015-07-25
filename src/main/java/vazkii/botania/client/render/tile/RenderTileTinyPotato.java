@@ -11,11 +11,15 @@
 package vazkii.botania.client.render.tile;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.IIcon;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
@@ -24,6 +28,9 @@ import org.lwjgl.opengl.GL12;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelTinyPotato;
 import vazkii.botania.common.block.tile.TileTinyPotato;
+import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.equipment.bauble.ItemBaubleCosmetic;
+import vazkii.botania.common.item.material.ItemManaResource;
 
 public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 
@@ -49,7 +56,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 
 		float jump = potato.jumpTicks;
 		if(jump > 0)
-			jump += var8;
+			jump -= var8;
 
 		float up = (float) -Math.abs(Math.sin(jump / 10 * Math.PI)) * 0.2F;
 		float rotZ = (float) Math.sin(jump / 10 * Math.PI) * 2;
@@ -58,13 +65,64 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 		GL11.glRotatef(rotZ, 0F, 0F, 1F);
 
 		model.render();
-
+		
+		GL11.glPushMatrix();
+		String name = potato.name.toLowerCase();
+		mc.renderEngine.bindTexture(TextureMap.locationItemsTexture);
+		float scale = 1F / 4F;
+		GL11.glTranslatef(0F, 1F, 0F);
+		GL11.glScalef(scale, scale, scale);
+		if(name.equals("phi") || name.equals("vazkii")) {
+			GL11.glTranslatef(0.45F, 0F, 0.4F);
+			GL11.glRotatef(90F, 0F, 1F, 0F);
+			GL11.glRotatef(20F, 1F, 0F, 1F);
+			renderIcon(((ItemManaResource) ModItems.manaResource).phiFlowerIcon);
+		} else if(name.equals("skull kid")) {
+			GL11.glScalef(1.25F, 1.25F, 1.25F);
+			GL11.glRotatef(180F, 0F, 0F, 1F);
+			GL11.glTranslatef(-0.5F, -1.2F, -0.4F);
+			renderIcon(ModItems.cosmetic.getIconFromDamage(23));
+		} else if(name.equals("kamina")) {
+			GL11.glScalef(1.25F, 1.25F, 1.25F);
+			GL11.glRotatef(180F, 0F, 0F, 1F);
+			GL11.glTranslatef(-0.5F, -1.1F, -0.4F);
+			renderIcon(ModItems.cosmetic.getIconFromDamage(26));
+		} else if(name.equals("haighyorkie")) {
+			GL11.glScalef(1.25F, 1.25F, 1.25F);
+			GL11.glRotatef(180F, 0F, 0F, 1F);
+			GL11.glRotatef(90F, 0F, 1F, 0F);
+			GL11.glTranslatef(-0.5F, -1.2F, -0.4F);
+			renderIcon(((ItemManaResource) ModItems.manaResource).goldfishIcon);
+		} else if(name.equals("chitoge")) {
+			GL11.glScalef(1.25F, 1.25F, 1.25F);
+			GL11.glRotatef(180F, 0F, 0F, 1F);
+			GL11.glTranslatef(-0.5F, -0.7F, 0.1F);
+			renderIcon(ModItems.cosmetic.getIconFromDamage(7));
+		} else if(name.equals("direwolf20")) {
+			GL11.glRotatef(180F, 0F, 0F, 1F);
+			GL11.glTranslatef(-0.5F, -2.2F, -0.5F);
+			renderIcon(ModItems.cosmetic.getIconFromDamage(0));
+		} else if(name.equals("doctor")) {
+			GL11.glScalef(1.25F, 1.25F, 1.25F);
+			GL11.glRotatef(180F, 0F, 0F, 1F);
+			GL11.glTranslatef(-0.5F, -1.15F, -0.4F);
+			renderIcon(ModItems.cosmetic.getIconFromDamage(25));
+		} else if(name.equals("snoo")) {
+			GL11.glScalef(1.25F, 1.25F, 1.25F);
+			GL11.glRotatef(180F, 0F, 0F, 1F);
+			GL11.glTranslatef(-0.5F, -0.7F, 0.1F);
+			GL11.glRotatef(20F, 0F, 0F, 1F);
+			renderIcon(ModItems.cosmetic.getIconFromDamage(24));
+		}
+		GL11.glPopMatrix();
+		
 		GL11.glRotatef(-rotZ, 0F, 0F, 1F);
 		GL11.glRotatef(-rotY, 0F, 1F, 0F);
 		GL11.glColor3f(1F, 1F, 1F);
 		GL11.glScalef(1F, -1F, -1F);
 
-		if(!potato.name.isEmpty()) {
+		MovingObjectPosition pos = mc.objectMouseOver;
+		if(!name.isEmpty() && pos != null && pos.blockX == potato.xCoord && pos.blockY == potato.yCoord && pos.blockZ == potato.zCoord) {
 			GL11.glPushMatrix();
 			GL11.glTranslatef(0F, -0.6F, 0F);
 			GL11.glRotatef(-RenderManager.instance.playerViewY, 0.0F, 1.0F, 0.0F);
@@ -98,5 +156,13 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 		}
 
 		GL11.glPopMatrix();
+	}
+	
+	public void renderIcon(IIcon icon) {
+		float f = icon.getMinU();
+		float f1 = icon.getMaxU();
+		float f2 = icon.getMinV();
+		float f3 = icon.getMaxV();
+		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
 	}
 }
