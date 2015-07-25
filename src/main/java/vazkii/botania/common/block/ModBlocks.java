@@ -238,6 +238,7 @@ public final class ModBlocks {
 	public static Block cocoon;
 	public static Block lightRelay;
 	public static Block lightLauncher;
+	public static Block manaBomb;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -317,6 +318,7 @@ public final class ModBlocks {
 		cocoon = new BlockCocoon();
 		lightRelay = new BlockLightRelay();
 		lightLauncher = new BlockLightLauncher();
+		manaBomb = new BlockManaBomb();
 		
 		ModFluffBlocks.init();
 

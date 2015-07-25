@@ -77,6 +77,7 @@ import vazkii.botania.client.render.block.RenderSpreader;
 import vazkii.botania.client.render.block.RenderTinyPotato;
 import vazkii.botania.client.render.entity.RenderCorporeaSpark;
 import vazkii.botania.client.render.entity.RenderDoppleganger;
+import vazkii.botania.client.render.entity.RenderManaStorm;
 import vazkii.botania.client.render.entity.RenderPinkWither;
 import vazkii.botania.client.render.entity.RenderPixie;
 import vazkii.botania.client.render.entity.RenderPoolMinecart;
@@ -142,6 +143,7 @@ import vazkii.botania.common.core.version.VersionChecker;
 import vazkii.botania.common.entity.EntityCorporeaSpark;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.EntityEnderAirBottle;
+import vazkii.botania.common.entity.EntityManaStorm;
 import vazkii.botania.common.entity.EntityPinkWither;
 import vazkii.botania.common.entity.EntityPixie;
 import vazkii.botania.common.entity.EntityPoolMinecart;
@@ -304,6 +306,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityEnderAirBottle.class, new RenderSnowball(ModItems.manaResource, 15));
 		RenderingRegistry.registerEntityRenderingHandler(EntityPoolMinecart.class, new RenderPoolMinecart());
 		RenderingRegistry.registerEntityRenderingHandler(EntityPinkWither.class, new RenderPinkWither());
+		RenderingRegistry.registerEntityRenderingHandler(EntityManaStorm.class, new RenderManaStorm());
 
 		ShaderHelper.initShaders();
 	}

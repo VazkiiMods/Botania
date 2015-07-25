@@ -1021,6 +1021,7 @@ tile.botania:stone0Wall0.name=Andesite Wall
 tile.botania:stone0Wall1.name=Basalt Wall
 tile.botania:stone0Wall2.name=Diorite Wall
 tile.botania:stone0Wall3.name=Granite Wall
+tile.botania:manaBomb.name=Manastorm Charge
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower

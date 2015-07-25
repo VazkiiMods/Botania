@@ -29,6 +29,7 @@ import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
+import vazkii.botania.api.mana.ITinyPlanetExcempt;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -38,7 +39,7 @@ import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class ItemLens extends ItemMod implements ILens {
+public class ItemLens extends ItemMod implements ILens, ITinyPlanetExcempt {
 
 	public static final int SUBTYPES = 19;
 
@@ -61,6 +62,8 @@ public class ItemLens extends ItemMod implements ILens {
 			PISTON = 16,
 			LIGHT = 17,
 			WARP = 18;
+	
+	public static final int STORM = 5000;
 
 	private static final int PROP_NONE = 0,
 			PROP_POWER = 1,
@@ -72,6 +75,7 @@ public class ItemLens extends ItemMod implements ILens {
 	private static final int[] props = new int[SUBTYPES];
 	private static final Lens[] lenses = new Lens[SUBTYPES];
 	private static Lens fallbackLens = new Lens();
+	private static Lens stormLens = new LensStorm();
 
 	static {
 		setProps(NORMAL, PROP_NONE);
@@ -276,6 +280,9 @@ public class ItemLens extends ItemMod implements ILens {
 	}
 
 	public static Lens getLens(int index) {
+		if(index == STORM)
+			return stormLens;
+		
 		Lens lens = lenses[index];
 		return lens == null ? fallbackLens : lens;
 	}
@@ -308,5 +315,10 @@ public class ItemLens extends ItemMod implements ILens {
 		ItemNBTHelper.setCompound(sourceLens, TAG_COMPOSITE_LENS, cmp);
 
 		return sourceLens;
+	}
+	
+	@Override
+	public boolean shouldPull(ItemStack stack) {
+		return stack.getItemDamage() != STORM;
 	}
 }
