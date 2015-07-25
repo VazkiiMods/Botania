@@ -1,3 +1,5 @@
+r1.7 207
+*Fixed another crash when opening the Lexicon Index >_>
 r1.7 206
 *Fixed a crash when opening the Lexicon Index.
 r1.7 205
