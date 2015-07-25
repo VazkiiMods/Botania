@@ -57,7 +57,7 @@ public class EntityManaStorm extends Entity {
 			deathTime++;
 			if(deathTime >= DEATH_TIME) {
 				setDead();
-				worldObj.createExplosion(this, posX, posY, posZ, 10F, true);
+				worldObj.newExplosion(this, posX, posY, posZ, 8F, true, true);
 			}
 		}
 	}
@@ -69,7 +69,7 @@ public class EntityManaStorm extends Entity {
 		float motionModifier = 0.5F;
 		burst.setColor(0x20FF20);
 		burst.setMana(120);
-		burst.setStartingMana(420);
+		burst.setStartingMana(320);
 		burst.setMinManaLoss(50);
 		burst.setManaLossPerTick(1F);
 		burst.setGravity(0F);

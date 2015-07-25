@@ -12,13 +12,18 @@ package vazkii.botania.common.block;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.lexicon.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.common.entity.EntityManaStorm;
+import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockManaBomb extends BlockMod implements IManaTrigger {
+public class BlockManaBomb extends BlockMod implements IManaTrigger, ILexiconable {
 
 	public BlockManaBomb() {
 		super(Material.wood);
@@ -36,6 +41,11 @@ public class BlockManaBomb extends BlockMod implements IManaTrigger {
 			storm.setPosition(x + 0.5, y + 0.5, z + 0.5);
 			world.spawnEntityInWorld(storm);
 		}
+	}
+
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return LexiconData.manaBomb;
 	}
 
 }

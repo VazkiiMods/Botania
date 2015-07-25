@@ -273,6 +273,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeLuminizerLauncher;
 	public static IRecipe recipeObedienceStick;
 	public static IRecipe recipeCacophonium;
+	public static IRecipe recipeManaBomb;
 
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;
@@ -1849,6 +1850,14 @@ public final class ModCraftingRecipes {
 				'G', "ingotBrass",
 				'N', new ItemStack(Blocks.noteblock));
 		recipeCacophonium = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Manastorm Charge Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.manaBomb), 
+				"LTL", "TGT", "LTL",
+				'L', LibOreDict.LIVING_WOOD,
+				'T', new ItemStack(Blocks.tnt),
+				'G', LibOreDict.LIFE_ESSENCE);
+		recipeManaBomb = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Storage Block/Nugget Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
