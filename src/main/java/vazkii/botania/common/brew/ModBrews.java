@@ -37,6 +37,7 @@ public class ModBrews {
 	public static Brew emptiness;
 	public static Brew bloodthirst;
 	public static Brew overload;
+	public static Brew clear;
 
 	public static Brew warpWard;
 
@@ -61,6 +62,7 @@ public class ModBrews {
 		emptiness = new BrewModPotion(LibBrewNames.EMPTINESS, 30000, new PotionEffect(ModPotions.emptiness.id, 7200, 0));
 		bloodthirst = new BrewModPotion(LibBrewNames.BLOODTHIRST, 20000, new PotionEffect(ModPotions.bloodthrst.id, 7200, 0));
 		allure = new BrewModPotion(LibBrewNames.ALLURE, 2000, new PotionEffect(ModPotions.allure.id, 4800, 0));
+		clear = new BrewModPotion(LibBrewNames.CLEAR, 4000, new PotionEffect(ModPotions.clear.id, 0, 0));
 	}
 
 	public static void initTC() {

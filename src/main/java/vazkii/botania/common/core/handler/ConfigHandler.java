@@ -74,6 +74,7 @@ public final class ConfigHandler {
 	public static int potionIDEmptiness = 93;
 	public static int potionIDBloodthirst = 94;
 	public static int potionIDAllure = 95;
+	public static int potionIDClear = 96;
 
 	public static void loadConfig(File configFile) {
 		config = new Configuration(configFile);
@@ -206,6 +207,7 @@ public final class ConfigHandler {
 		potionIDEmptiness = loadPropPotionId(LibPotionNames.EMPTINESS, potionIDEmptiness);
 		potionIDBloodthirst = loadPropPotionId(LibPotionNames.BLOODTHIRST, potionIDBloodthirst);
 		potionIDAllure = loadPropPotionId(LibPotionNames.ALLURE, potionIDAllure);
+		potionIDClear = loadPropPotionId(LibPotionNames.CLEAR, potionIDClear);
 
 		if(config.hasChanged())
 			config.save();

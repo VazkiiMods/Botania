@@ -1463,6 +1463,7 @@ botania.brew.bloodthirst=Crimson Shade
 botania.brew.overload=Overload
 botania.brew.allure=Marine Allure
 botania.brew.warpWard=Sane Thoughts
+botania.brew.clear=Absolution
 
 # POTION NAMES
 botania.potion.soulCross=Soul Cross
@@ -1470,6 +1471,7 @@ botania.potion.featherFeet=Feather Feet
 botania.potion.emptiness=Emptiness
 botania.potion.bloodthirst=Bloodthirst
 botania.potion.allure=Allure
+botania.potion.clear=Absolution
 
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania, %s Edition Table of Contents
@@ -2123,15 +2125,17 @@ botania.page.complexBrews0=Apart from the standard, run of the mill &1Brews&0 th
 botania.page.complexBrews1a=A brew that applies both positive and negative effects. Taking it leaves the affected individual in a state of power, but also vulnerability.
 botania.page.complexBrews1b=96 Herblore
 botania.page.complexBrews2a=An entity affected with this brew's effect will regain HP whenever they slay any other creature.
-botania.page.complexBrews2b=killy killy JOKER
+botania.page.complexBrews2b=It predates the set
 botania.page.complexBrews3a=An entity affected with this brew's effect will be completely immune to any fall damage.
 botania.page.complexBrews3b=And I call it magic
 botania.page.complexBrews4a=This brew casts an aura of emptiness around any entity that has its effect. In a 128 block radius, mobs will not be allowed to spawn naturally.
-botania.page.complexBrews4b=50$ for a common!?
+botania.page.complexBrews4b=Close the floodgates
 botania.page.complexBrews5a=This brew casts an aura of emptiness around any entity that has its effect. In a 64 block radius, mobs will be allowed to spawn regardless of light or other conditions. This won't work with &1Emptiness&0.
 botania.page.complexBrews5b=Shall we pray for a miracle? 
 botania.page.complexBrews6a=A player affected with this brew's effect will have much higher proficiency at fishing and will catch fish and other loot twice as fast.
 botania.page.complexBrews6b=Maybe you'll catch a Chris
+botania.page.complexBrews7a=When drank, this brew will clear all potion effects on the player, negative or otherwise.
+botania.page.complexBrews7b=Absolute sooooooul
 
 # -- BREW INCENSES
 botania.entry.incense=Brew Incenses

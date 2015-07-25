@@ -41,6 +41,7 @@ public class ModBrewRecipes {
 	public static RecipeBrew emptinessBrew;
 	public static RecipeBrew bloodthirstBrew;
 	public static RecipeBrew allureBrew;
+	public static RecipeBrew clearBrew;
 
 	public static RecipeBrew warpWardBrew;
 
@@ -65,6 +66,7 @@ public class ModBrewRecipes {
 		emptinessBrew = BotaniaAPI.registerBrewRecipe(ModBrews.emptiness, new ItemStack(Items.nether_wart), new ItemStack(Items.gunpowder), new ItemStack(Items.rotten_flesh), new ItemStack(Items.bone), new ItemStack(Items.string), new ItemStack(Items.ender_pearl));
 		bloodthirstBrew = BotaniaAPI.registerBrewRecipe(ModBrews.bloodthirst, new ItemStack(Items.nether_wart), new ItemStack(Items.fermented_spider_eye), new ItemStack(Items.dye, 1, 4), new ItemStack(Items.fire_charge), new ItemStack(Items.iron_ingot));
 		allureBrew = BotaniaAPI.registerBrewRecipe(ModBrews.allure, new ItemStack(Items.nether_wart), new ItemStack(Items.fish), new ItemStack(Items.quartz), new ItemStack(Items.golden_carrot));
+		clearBrew = BotaniaAPI.registerBrewRecipe(ModBrews.clear, new ItemStack(Items.nether_wart), new ItemStack(Items.quartz), new ItemStack(Items.emerald), new ItemStack(Items.melon));
 	}
 
 	public static void initTC() {

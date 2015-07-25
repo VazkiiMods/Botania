@@ -604,7 +604,8 @@ public final class LexiconData {
 		complexBrews.setLexiconPages(new PageText("0"),
 				new PageBrew(ModBrewRecipes.overloadBrew, "1a", "1b"), new PageBrew(ModBrewRecipes.soulCrossBrew, "2a", "2b"),
 				new PageBrew(ModBrewRecipes.featherFeetBrew, "3a", "3b"), new PageBrew(ModBrewRecipes.emptinessBrew, "4a", "4b"),
-				new PageBrew(ModBrewRecipes.bloodthirstBrew, "5a", "5b"), new PageBrew(ModBrewRecipes.allureBrew, "6a", "6b")).setIcon(((IBrewContainer) ModItems.vial).getItemForBrew(ModBrews.jumpBoost, new ItemStack(ModItems.vial)));
+				new PageBrew(ModBrewRecipes.bloodthirstBrew, "5a", "5b"), new PageBrew(ModBrewRecipes.allureBrew, "6a", "6b"),
+				new PageBrew(ModBrewRecipes.clearBrew, "7a", "7b")).setIcon(((IBrewContainer) ModItems.vial).getItemForBrew(ModBrews.jumpBoost, new ItemStack(ModItems.vial)));
 
 		incense = new BLexiconEntry(LibLexicon.DEVICE_INCENSE, categoryDevices);
 		incense.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageText("5"), new PageCraftingRecipe("3", ModCraftingRecipes.recipeIncenseStick), new PageCraftingRecipe("4", ModCraftingRecipes.recipeIncensePlate));
