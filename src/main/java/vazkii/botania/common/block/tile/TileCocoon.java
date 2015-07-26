@@ -29,7 +29,7 @@ import net.minecraft.nbt.NBTTagCompound;
 public class TileCocoon extends TileMod {
 
 	private static final String TAG_TIME_PASSED = "timePassed";
-	private static final String TAG_EMERALDS_GIVEN = "timePassed";
+	private static final String TAG_EMERALDS_GIVEN = "emeraldsGiven";
 	
 	public static final int TOTAL_TIME = 2400;
 	public static final int MAX_EMERALDS = 20;
