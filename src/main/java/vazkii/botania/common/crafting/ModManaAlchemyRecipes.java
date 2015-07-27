@@ -114,7 +114,7 @@ public final class ModManaAlchemyRecipes {
 		slimeballCactusRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.slime_ball), new ItemStack(Blocks.cactus), 1200));
 		slimeballCactusRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.cactus), new ItemStack(Items.slime_ball), 1200));
 
-		enderPearlRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.ender_pearl, 2), new ItemStack(Items.ghast_tear), 28000);
+		enderPearlRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.ender_pearl), new ItemStack(Items.ghast_tear), 28000);
 
 		redstoneToGlowstoneRecipes = new ArrayList();
 		redstoneToGlowstoneRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.redstone), new ItemStack(Items.glowstone_dust), 300));
