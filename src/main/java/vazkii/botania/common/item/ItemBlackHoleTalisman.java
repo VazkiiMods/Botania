@@ -25,12 +25,14 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
+import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -110,9 +112,12 @@ public class ItemBlackHoleTalisman extends ItemMod {
 				int entities = par3World.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(par4 + dir.offsetX, par5 + dir.offsetY, par6 + dir.offsetZ, par4 + dir.offsetX + 1, par5 + dir.offsetY + 1, par6 + dir.offsetZ + 1)).size();
 
 				if(entities == 0) {
-					int remove = remove(par1ItemStack, 1);
+					int remove = par2EntityPlayer.capabilities.isCreativeMode ? 1 : remove(par1ItemStack, 1);
 					if(remove > 0) {
-						Item.getItemFromBlock(bBlock).onItemUse(new ItemStack(bBlock, 1, bmeta), par2EntityPlayer, par3World, par4, par5, par6, par7, par8, par9, par10);
+						ItemStack stack = new ItemStack(bBlock, 1, bmeta);
+						ItemsRemainingRenderHandler.set(stack, getBlockCount(par1ItemStack));
+
+						Item.getItemFromBlock(bBlock).onItemUse(stack, par2EntityPlayer, par3World, par4, par5, par6, par7, par8, par9, par10);
 						set = true;
 					}
 				}
@@ -181,6 +186,13 @@ public class ItemBlackHoleTalisman extends ItemMod {
 	}
 
 	@Override
+	public String getItemStackDisplayName(ItemStack par1ItemStack) {
+		Block block = getBlock(par1ItemStack);
+		int meta = getBlockMeta(par1ItemStack);
+		return super.getItemStackDisplayName(par1ItemStack) + (block == null ? "" : " (" + EnumChatFormatting.GREEN + new ItemStack(block, meta).getDisplayName() + EnumChatFormatting.RESET + ")");
+	}
+	
+	@Override
 	public ItemStack getContainerItem(ItemStack itemStack) {
 		int count = getBlockCount(itemStack);
 		if(count == 0)
@@ -240,7 +252,7 @@ public class ItemBlackHoleTalisman extends ItemMod {
 		Block block = getBlock(par1ItemStack);
 		if(block != null && block != Blocks.air) {
 			int count = getBlockCount(par1ItemStack);
-			par3List.add(StatCollector.translateToLocal(new ItemStack(block, 1, getBlockMeta(par1ItemStack)).getUnlocalizedName() + ".name") + " (x" + count + ")");
+			par3List.add(count + " " + StatCollector.translateToLocal(new ItemStack(block, 1, getBlockMeta(par1ItemStack)).getUnlocalizedName() + ".name"));
 		}
 
 		if(par1ItemStack.getItemDamage() == 1)
