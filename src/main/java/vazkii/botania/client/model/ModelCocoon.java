@@ -19,7 +19,7 @@ public class ModelCocoon extends ModelBase {
     public ModelRenderer shape;
 
     public ModelCocoon() {
-        textureWidth = 48;
+        textureWidth = 64;
         textureHeight = 32;
         shape = new ModelRenderer(this, 0, 0);
         shape.setRotationPoint(0.0F, 22.0F, 0.0F);
