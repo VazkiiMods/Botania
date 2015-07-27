@@ -50,6 +50,7 @@ public final class ModManaAlchemyRecipes {
 	public static RecipeManaInfusion prismarineRecipe;
 	public static List<RecipeManaInfusion> stoneRecipes;
 	public static List<RecipeManaInfusion> tallgrassRecipes;
+	public static List<RecipeManaInfusion> flowersRecipes;
 
 	public static void init() {
 		leatherRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.leather), new ItemStack(Items.rotten_flesh), 600);
@@ -141,5 +142,21 @@ public final class ModManaAlchemyRecipes {
 		tallgrassRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.deadbush), new ItemStack(Blocks.tallgrass, 1, 2), 500));
 		tallgrassRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.tallgrass, 1, 1), new ItemStack(Blocks.deadbush), 500));
 		tallgrassRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.tallgrass, 1, 2), new ItemStack(Blocks.tallgrass, 1, 1), 500));
+		
+		flowersRecipes = new ArrayList();
+		flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.red_flower), new ItemStack(Blocks.yellow_flower), 400));
+		flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.red_flower, 1, 1), new ItemStack(Blocks.red_flower), 400));
+		flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.red_flower, 1, 2), new ItemStack(Blocks.red_flower, 1, 1), 400));
+		flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.red_flower, 1, 3), new ItemStack(Blocks.red_flower, 1, 2), 400));
+		flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.red_flower, 1, 4), new ItemStack(Blocks.red_flower, 1, 3), 400));
+		flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.red_flower, 1, 5), new ItemStack(Blocks.red_flower, 1, 4), 400));
+		flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.red_flower, 1, 6), new ItemStack(Blocks.red_flower, 1, 5), 400));
+		flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.red_flower, 1, 7), new ItemStack(Blocks.red_flower, 1, 6), 400));
+		flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.red_flower, 1, 8), new ItemStack(Blocks.red_flower, 1, 7), 400));
+		flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.double_plant), new ItemStack(Blocks.red_flower, 1, 8), 400));
+		flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.double_plant, 1, 1), new ItemStack(Blocks.double_plant), 400));
+		flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.double_plant, 1, 4), new ItemStack(Blocks.double_plant, 1, 1), 400));
+		flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.double_plant, 1, 5), new ItemStack(Blocks.double_plant, 1, 4), 400));
+		flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.yellow_flower), new ItemStack(Blocks.double_plant, 1, 5), 400));
 	}
 }
