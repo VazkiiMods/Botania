@@ -14,6 +14,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.client.lib.LibResources;
@@ -272,6 +273,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.manaBeacon);
 		addItem(ModItems.signalFlare);
 
+		addStack(new ItemStack(Blocks.dirt, 1, 1));
 		addBlock(ModBlocks.dirtPath);
 		addBlock(ModFluffBlocks.dirtPathSlab);
 
@@ -380,6 +382,10 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 	private void addBlock(Block block) {
 		ItemStack stack = new ItemStack(block);
 		block.getSubBlocks(stack.getItem(), this, list);
+	}
+	
+	private void addStack(ItemStack stack) {
+		list.add(stack);
 	}
 
 }
