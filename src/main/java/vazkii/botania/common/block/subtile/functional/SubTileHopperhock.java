@@ -31,6 +31,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.core.helper.InventoryHelper;
@@ -126,7 +127,17 @@ public class SubTileHopperhock extends SubTileFunctional {
 					continue;
 				anyFilter = true;
 
-				if(stack.isItemEqual(filterEntry) && ItemStack.areItemStackTagsEqual(filterEntry, stack))
+				boolean itemEqual = stack.getItem() == filterEntry.getItem();
+				boolean damageEqual = stack.getItemDamage() == filterEntry.getItemDamage();
+				boolean nbtEqual = ItemStack.areItemStackTagsEqual(filterEntry, stack);
+				
+				if(itemEqual && damageEqual && nbtEqual)
+					return true;
+				
+				if(!stack.getHasSubtypes() && stack.isItemStackDamageable() && stack.getMaxStackSize() == 1 && itemEqual && nbtEqual)
+					return true;
+				
+				if(stack.getItem() instanceof IManaItem && itemEqual)
 					return true;
 			}
 
