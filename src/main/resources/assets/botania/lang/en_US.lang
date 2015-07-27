@@ -1022,6 +1022,23 @@ tile.botania:stone0Wall1.name=Basalt Wall
 tile.botania:stone0Wall2.name=Diorite Wall
 tile.botania:stone0Wall3.name=Granite Wall
 tile.botania:manaBomb.name=Manastorm Charge
+tile.botania:buriedPetals0=Buried White Petal
+tile.botania:buriedPetals0.name=Buried White Petal
+tile.botania:buriedPetals1.name=Buried Orange Petal
+tile.botania:buriedPetals2.name=Buried Magenta Petal
+tile.botania:buriedPetals3.name=Buried Light Blue Petal
+tile.botania:buriedPetals4.name=Buried Yellow Petal
+tile.botania:buriedPetals5.name=Buried Lime Petal
+tile.botania:buriedPetals6.name=Buried Pink Petal
+tile.botania:buriedPetals7.name=Buried Gray Petal
+tile.botania:buriedPetals8.name=Buried Light Gray Petal
+tile.botania:buriedPetals9.name=Buried Cyan Petal
+tile.botania:buriedPetals10.name=Buried Purple Petal
+tile.botania:buriedPetals11.name=Buried Blue Petal
+tile.botania:buriedPetals12.name=Buried Brown Petal
+tile.botania:buriedPetals13.name=Buried Green Petal
+tile.botania:buriedPetals14.name=Buried Red Petal
+tile.botania:buriedPetals15.name=Buried Black Petal
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
