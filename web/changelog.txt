@@ -1,3 +1,15 @@
+r1.7 208
+*Added the ability to transmute between all vanilla flowers with the alchemy catalyst.
+*Added the vanilla Coarse Dirt to the botania creative tab, because ya know, it's craftable with botania and stuff.
+*Changed the Blaze Lamp's burn time to be 10x that of a blaze rod rather than 9x. Also made that value half if Garden of Glass is enabled.
+*Changed the Cocoon of Caprice's texture to be 64x32 rather than 48x32, that apparently was making it not display properly in some setups.
+*Changed the endoflame cap to be that of a Block of Coal Coke. That should encompass all non ridiculous fuels.
+*Fixed buried petals displayed an unlocalized name on waila or other name viewing things of the sort.
+*Fixed the Cocoon of Caprice not saving its data properly. (Titanium237458)
+*The Black Hole Talisman no longer uses up items in creative.
+*The Black Hole Talisman now tells you what block is in it in the item's name, it also shows how many are remaining when you place a block.
+*The Ghast Tear to Ender Pearl recipe is now a 1:1 ratio conversion.
+*The Hopperhock now ignores damage on items that stack up to 1 and can be damaged, it'll also ignore the mana value on anything that can store mana.
 r1.7 207
 *Fixed another crash when opening the Lexicon Index >_>
 r1.7 206
