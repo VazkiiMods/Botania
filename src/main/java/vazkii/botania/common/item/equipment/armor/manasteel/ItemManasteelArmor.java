@@ -25,6 +25,7 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
+import thaumcraft.api.IRunicArmor;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IPhantomInkable;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -35,11 +36,13 @@ import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IManaUsingItem, IPhantomInkable {
+@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.IRunicArmor")
+public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IManaUsingItem, IPhantomInkable, IRunicArmor {
 
 	private static final int MANA_PER_DAMAGE = 70;
 
@@ -201,4 +204,9 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 		ItemNBTHelper.setBoolean(stack, TAG_PHANTOM_INK, true);
 	}
 
+	@Override
+	@Optional.Method(modid = "Thaumcraft")
+	public int getRunicCharge(ItemStack itemstack) {
+		return 0;
+	}
 }
