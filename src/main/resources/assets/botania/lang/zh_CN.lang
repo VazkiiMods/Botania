@@ -1,5 +1,7 @@
 # MISC
 itemGroup.Botania=植物魔法
+generator.botania-skyblock=水晶花园
+generator.botania-skyblock.info=不推荐植物魔法新手使用
 
 #并非本地化条目,请翻译者不要修改此行文本.
 botaniamisc.noloc=botaniamisc.noloc
@@ -127,6 +129,11 @@ botaniamisc.completed=已完成
 botaniamisc.notCompleted=未完成
 botaniamisc.info=信息
 botaniamisc.challengeInfo=了解关于挑战
+botaniamisc.skyblockRangeTooLow=无效范围,必须至少为250.
+botaniamisc.skyblockRangeTooHigh=无效范围,不能比10000000(一千万)更大.
+botaniamisc.hideNotes=隐藏笔记
+botaniamisc.showNotes=显示笔记
+botaniamisc.notes=笔记
 
 # NEI INTEGRATION
 botania.nei.brewery=植物酿造
@@ -994,6 +1001,44 @@ tile.botania:sparkChanger.name=火花工匠台
 tile.botania:root.name=活根
 tile.botania:felPumpkin.name=恶魔头南瓜
 tile.botania:cocoon.name=随想之茧
+tile.botania:lightRelay0.name=微光
+tile.botania:lightRelay1.name=探测微光
+tile.botania:lightLauncher.name=微光发射器
+tile.botania:livingrock0Wall.name=活石墙
+tile.botania:livingwood0Wall.name=活木墙
+tile.botania:dreamwood0Wall.name=梦之木墙
+tile.botania:prismarine0Wall.name=海晶石墙
+tile.botania:reedBlock0Wall.name=甘蔗围墙
+tile.botania:biomeStoneA0Wall0.name=变质森林石墙
+tile.botania:biomeStoneA0Wall1.name=变质平原石墙
+tile.botania:biomeStoneA0Wall2.name=变质高山石墙
+tile.botania:biomeStoneA0Wall3.name=变质菌丝石墙
+tile.botania:biomeStoneA0Wall4.name=变质沼泽石墙
+tile.botania:biomeStoneA0Wall5.name=变质沙漠石墙
+tile.botania:biomeStoneA0Wall6.name=变质雪原石墙
+tile.botania:biomeStoneA0Wall7.name=变质高原石墙
+tile.botania:stone0Wall0.name=安山岩石墙
+tile.botania:stone0Wall1.name=玄武岩石墙
+tile.botania:stone0Wall2.name=闪长岩石墙
+tile.botania:stone0Wall3.name=花岗岩石墙
+tile.botania:manaBomb.name=魔力风暴
+tile.botania:buriedPetals0=埋藏白色花瓣
+tile.botania:buriedPetals0.name=埋藏白色花瓣
+tile.botania:buriedPetals1.name=埋藏橙色花瓣
+tile.botania:buriedPetals2.name=埋藏品红色花瓣
+tile.botania:buriedPetals3.name=埋藏淡蓝色花瓣
+tile.botania:buriedPetals4.name=埋藏黄色花瓣
+tile.botania:buriedPetals5.name=埋藏黄绿色花瓣
+tile.botania:buriedPetals6.name=埋藏粉色花瓣
+tile.botania:buriedPetals7.name=埋藏灰色花瓣
+tile.botania:buriedPetals8.name=埋藏淡灰色花瓣
+tile.botania:buriedPetals9.name=埋藏青色花瓣
+tile.botania:buriedPetals10.name=埋藏紫色花瓣
+tile.botania:buriedPetals11.name=埋藏蓝色花瓣
+tile.botania:buriedPetals12.name=埋藏棕色花瓣
+tile.botania:buriedPetals13.name=埋藏绿色花瓣
+tile.botania:buriedPetals14.name=埋藏红色花瓣
+tile.botania:buriedPetals15.name=埋藏黑色花瓣
 
 # FLOWER NAMES
 tile.botania:flower..name=植物魔法花
@@ -1404,6 +1449,14 @@ item.botania:recordGaia2.name=破损的唱片
 item.botania:temperanceStone.name=节制之石
 item.botania:incenseStick.name=熏香
 item.botania:terraAxe.name=泰拉断裂者
+item.botania:manasteelNugget.name=魔钢粒
+item.botania:terrasteelNugget.name=泰拉钢粒
+item.botania:elementiumNugget.name=源质钢粒
+item.botania:root.name=活根
+item.botania:pebble.name=卵石
+item.botania:waterBowl.name=一碗水
+item.botania:obedienceStick.name=植物遵从法杖
+item.botania:cacophonium.name=不和谐之音
 
 # BREW NAMES
 botania.brew.fallback=退却
@@ -1427,6 +1480,7 @@ botania.brew.bloodthirst=腥红之影
 botania.brew.overload=过载
 botania.brew.allure=诱惑
 botania.brew.warpWard=理智
+botania.brew.clear=赦免
 
 # POTION NAMES
 botania.potion.soulCross=噬魂
@@ -1434,6 +1488,7 @@ botania.potion.featherFeet=羽翼
 botania.potion.emptiness=空虚
 botania.potion.bloodthirst=嗜血
 botania.potion.allure=引诱
+botania.potion.clear=赦免
 
 # GUI TEXT
 botania.gui.lexicon.header=植物魔法辞典, %s 版目录
