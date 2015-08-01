@@ -34,7 +34,7 @@ import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
-import vazkii.botania.common.crafting.recipe.LensDyingRecipe;
+import vazkii.botania.common.crafting.recipe.LensDyeingRecipe;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -133,9 +133,9 @@ public class ItemLens extends ItemMod implements ILens, ITinyPlanetExcempt {
 		setHasSubtypes(true);
 
 		GameRegistry.addRecipe(new CompositeLensRecipe());
-		GameRegistry.addRecipe(new LensDyingRecipe());
+		GameRegistry.addRecipe(new LensDyeingRecipe());
 		RecipeSorter.register("botania:compositeLens", CompositeLensRecipe.class, Category.SHAPELESS, "");
-		RecipeSorter.register("botania:lensDying", LensDyingRecipe.class, Category.SHAPELESS, "");
+		RecipeSorter.register("botania:lensDyeing", LensDyeingRecipe.class, Category.SHAPELESS, "");
 	}
 
 	@Override
