@@ -638,7 +638,7 @@ r1.4 154
 *Changed the Gaia Guardian's Landmine particles to look a bit better and not be as tricky to spot.
 *Changed the Trodden Dirt recipe to use Sand instead of Gravel.
 *Fixed a crash regarding dominant sparks when there's no other sparks available for transfer.
-*Fixed dyeing Composite Lenses removing the composite component.<i>Took me long enough.</i>
+*Fixed dying Composite Lenses removing the composite component.<i>Took me long enough.</i>
 *Fixed the Abstruse Platform recipe having stack size 0 for the components and causing divide by zero crashes with the NEI shift-[?] feature. <i>(Why does that even check the stack size? O.o)</i>
 *Fixed the Assembly Halo consuming Blood Magic orbs and potentially other items whose container item is the item itself.
 *Fixed the Life Imbuer spawning client-side only mobs.

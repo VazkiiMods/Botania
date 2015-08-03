@@ -135,7 +135,7 @@ public class ItemLens extends ItemMod implements ILens, ITinyPlanetExcempt {
 		GameRegistry.addRecipe(new CompositeLensRecipe());
 		GameRegistry.addRecipe(new LensDyeingRecipe());
 		RecipeSorter.register("botania:compositeLens", CompositeLensRecipe.class, Category.SHAPELESS, "");
-		RecipeSorter.register("botania:lensDyeing", LensDyeingRecipe.class, Category.SHAPELESS, "");
+		RecipeSorter.register("botania:lensDying", LensDyeingRecipe.class, Category.SHAPELESS, "");
 	}
 
 	@Override
