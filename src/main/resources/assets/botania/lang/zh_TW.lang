@@ -1,7 +1,7 @@
 # MISC
 itemGroup.Botania=植物魔法
-generator.botania-skyblock=硝子的花園
-generator.botania-skyblock.info=Not recommended for botania newcomers
+generator.botania-skyblock=硝子花園
+generator.botania-skyblock.info=不建議植物魔法新手使用
 
 #並非本地化條目,請翻譯者不要修改此行文本.
 botaniamisc.noloc=botaniamisc.noloc
@@ -18,7 +18,7 @@ botaniamisc.manaUsage=瑪那消耗
 botaniamisc.shiftToRead=Shift並右擊瞭解更多
 botaniamisc.clickToRecipe=Shift點擊查看合成
 botaniamisc.clickToIndex=Shift點擊查看目錄
-botaniamisc.flareColor=%s Rounds
+botaniamisc.flareColor=%s 彈藥
 botaniamisc.outputtingPower=給物品輸送能量
 botaniamisc.inputtingPower=接收來自物品的能量
 botaniamisc.creative=創造模式
@@ -129,6 +129,11 @@ botaniamisc.completed=已完成
 botaniamisc.notCompleted=未完成
 botaniamisc.info=信息
 botaniamisc.challengeInfo=瞭解挑戰相關
+botaniamisc.skyblockRangeTooLow=無效範圍,至少需為250.
+botaniamisc.skyblockRangeTooHigh=無效範圍,不能比10000000(一千萬)更大.
+botaniamisc.hideNotes=隱藏筆記
+botaniamisc.showNotes=顯示筆記
+botaniamisc.notes=筆記
 
 # NEI INTEGRATION
 botania.nei.brewery=植物釀造
@@ -996,6 +1001,44 @@ tile.botania:sparkChanger.name=火花工匠台
 tile.botania:root.name=活根
 tile.botania:felPumpkin.name=惡魔頭南瓜
 tile.botania:cocoon.name=隨想之繭
+tile.botania:lightRelay0.name=Luminizer
+tile.botania:lightRelay1.name=Detector Luminizer
+tile.botania:lightLauncher.name=Luminizer Launcher
+tile.botania:livingrock0Wall.name=Livingrock Wall
+tile.botania:livingwood0Wall.name=Livingwood Wall
+tile.botania:dreamwood0Wall.name=Dreamwood Wall
+tile.botania:prismarine0Wall.name=Prismarine Wall
+tile.botania:reedBlock0Wall.name=Reed Block Wall
+tile.botania:biomeStoneA0Wall0.name=Metamorphic Forest Cobblestone Wall
+tile.botania:biomeStoneA0Wall1.name=Metamorphic Plains Cobblestone Wall
+tile.botania:biomeStoneA0Wall2.name=Metamorphic Mountain Cobblestone Wall
+tile.botania:biomeStoneA0Wall3.name=Metamorphic Fungal Cobblestone Wall
+tile.botania:biomeStoneA0Wall4.name=Metamorphic Swamp Cobblestone Wall
+tile.botania:biomeStoneA0Wall5.name=Metamorphic Desert Cobblestone Wall
+tile.botania:biomeStoneA0Wall6.name=Metamorphic Taiga Cobblestone Wall
+tile.botania:biomeStoneA0Wall7.name=Metamorphic Mesa Cobblestone Wall
+tile.botania:stone0Wall0.name=Andesite Wall
+tile.botania:stone0Wall1.name=Basalt Wall
+tile.botania:stone0Wall2.name=Diorite Wall
+tile.botania:stone0Wall3.name=Granite Wall
+tile.botania:manaBomb.name=Manastorm Charge
+tile.botania:buriedPetals0=Buried White Petal
+tile.botania:buriedPetals0.name=Buried White Petal
+tile.botania:buriedPetals1.name=Buried Orange Petal
+tile.botania:buriedPetals2.name=Buried Magenta Petal
+tile.botania:buriedPetals3.name=Buried Light Blue Petal
+tile.botania:buriedPetals4.name=Buried Yellow Petal
+tile.botania:buriedPetals5.name=Buried Lime Petal
+tile.botania:buriedPetals6.name=Buried Pink Petal
+tile.botania:buriedPetals7.name=Buried Gray Petal
+tile.botania:buriedPetals8.name=Buried Light Gray Petal
+tile.botania:buriedPetals9.name=Buried Cyan Petal
+tile.botania:buriedPetals10.name=Buried Purple Petal
+tile.botania:buriedPetals11.name=Buried Blue Petal
+tile.botania:buriedPetals12.name=Buried Brown Petal
+tile.botania:buriedPetals13.name=Buried Green Petal
+tile.botania:buriedPetals14.name=Buried Red Petal
+tile.botania:buriedPetals15.name=Buried Black Petal
 
 # FLOWER NAMES
 tile.botania:flower..name=植物魔法花
@@ -1406,12 +1449,14 @@ item.botania:recordGaia2.name=破損的唱片
 item.botania:temperanceStone.name=節制之石
 item.botania:incenseStick.name=熏香
 item.botania:terraAxe.name=泰拉斷裂者
-item.botania:manasteelNugget.name=Manasteel Nugget
-item.botania:terrasteelNugget.name=Terrasteel Nugget
-item.botania:elementiumNugget.name=Elementium Nugget
-item.botania:root.name=Living Root
-item.botania:pebble.name=Pebble
-item.botania:waterBowl.name=Bowl of Water
+item.botania:manasteelNugget.name=魔鋼粒
+item.botania:terrasteelNugget.name=泰拉鋼粒
+item.botania:elementiumNugget.name=源質鋼粒
+item.botania:root.name=活根
+item.botania:pebble.name=卵石
+item.botania:waterBowl.name=一碗水
+item.botania:obedienceStick.name=植物遵從法杖
+item.botania:cacophonium.name=不和諧之音
 
 # BREW NAMES
 botania.brew.fallback=退卻
@@ -1435,6 +1480,7 @@ botania.brew.bloodthirst=腥紅之影
 botania.brew.overload=過載
 botania.brew.allure=誘惑
 botania.brew.warpWard=理智
+botania.brew.clear=赦免
 
 # POTION NAMES
 botania.potion.soulCross=噬魂
@@ -1442,6 +1488,7 @@ botania.potion.featherFeet=羽翼
 botania.potion.emptiness=空虛
 botania.potion.bloodthirst=嗜血
 botania.potion.allure=引誘
+botania.potion.clear=赦免
 
 # GUI TEXT
 botania.gui.lexicon.header=植物魔法辭典, %s 版目錄
@@ -1497,9 +1544,10 @@ botania.page.gardenOfGlass5=Creating &1Cobblestone&0
 botania.page.gardenOfGlass6=Aside from that, some things in Botania are different to fit the Skyblock play: The &1Orechid&0 is easier to make, faster and much cheaper; The &1Cocoon of Caprice&0 and the &1Mana Spreader&0 have different recipes; the &1Blaze Lamp&0, which can be used to create &1Obsidian&0, uses powder instead of rods; melon or pumpkin seeds may drop from tall grass; floral fertilizer creates more per craft, and &1Sugar Canes&0 and &1Slimeballs&0 can be crafted.
 botania.page.gardenOfGlass7=Creating &1Sugar Canes&0
 botania.page.gardenOfGlass8=Creating &1Slimeballs&0
-botania.page.gardenOfGlass9=Lastly, it's possible to infuse a &1Pumpkin&0 with the fel spirits of monster slain, creating a &1Fel Pumpkin&0. This can be placed atop two &1Iron Bars&0, in a similar fashion to a &1Snow Golem&0, to spawn a &1Blaze&0.<br>&1Blazes&0 spawned with this method drop &1Blaze Powder&0 instead of &1Blaze Rods&0.
+botania.page.gardenOfGlass9=It's possible to infuse a &1Pumpkin&0 with the fel spirits of monster slain, creating a &1Fel Pumpkin&0. This can be placed atop two &1Iron Bars&0, in a similar fashion to a &1Snow Golem&0, to spawn a &1Blaze&0.<br>&1Blazes&0 spawned with this method drop &1Blaze Powder&0 instead of &1Blaze Rods&0.
 botania.page.gardenOfGlass10=Nerfing warlocks again
-botania.page.gardenOfGlass11=Lastly, &1End Portal&0 recipe
+botania.page.gardenOfGlass11=Aside from providing light, the &1Mana Flash&0 present in the starting area allows a player who has lost their &1Lexica Botania&0 to exchange a &1Sapling&0 for it, by right clicking with the &1Sapling&0 on the &1Mana Flame&0.<br>This can only be done if the player doesn't have a &1Lexica Botania&0 on them.
+botania.page.gardenOfGlass12=Lastly, an &1End Portal&0 recipe
 
 # -- LEXICA BOTANIA
 botania.entry.lexicon=植物魔法辭典
@@ -2050,6 +2098,7 @@ botania.page.manaAlchemy21=將&1硬化粘土&0變成&1紅沙&0
 botania.page.manaAlchemy22=粉碎&1粘土&0&1和磚塊&0
 botania.page.manaAlchemy23=製作&1劣質土&0
 botania.page.manaAlchemy24=Transmuting &1Tall Grass&0 types
+botania.page.manaAlchemy25=Transmuting mundane flowers
 
 # -- BOTANICAL BREWERY
 botania.entry.brewery=植物釀造
@@ -2063,7 +2112,7 @@ botania.page.brewery5b=跑得飛起
 botania.page.brewery6a=一種簡單的魔法藥水,它效仿 了&1力量藥水&0,服用後,玩家會 被給予與之相仿的效果,使玩 家獲得一個&4力量II&0的效果.
 botania.page.brewery6b=阿多
 botania.page.brewery7a=一種簡單的魔法藥水,它效仿 了&1急迫藥水&0,服用後,玩家會 被給予與之相仿的效果,使玩 家獲得一個&4急迫II&0的效果.
-botania.page.brewery7b=充滿C9H13NO3
+botania.page.brewery7b=充滿了C9H13NO3
 botania.page.brewery8a=一種簡單的魔法藥水,它效仿 了&1治療藥水&0,服用後,玩家會 被給予與之相仿的效果,使玩 家獲得一個&4立即治癒&0的效果.
 botania.page.brewery8b=He pulled a Truesilver, GG
 botania.page.brewery9a=一種簡單的魔法藥水,它效仿 了&1跳躍藥水&0,服用後,玩家會 被給予與之相仿的效果,使玩 家獲得一個&4跳躍提升II&0的效果.
@@ -2106,6 +2155,8 @@ botania.page.complexBrews5a=這種藥水產生了虛空光環,周 圍任何生�
 botania.page.complexBrews5b=我們應該祈禱奇跡? 
 botania.page.complexBrews6a=有這種藥水效果的玩家會在 釣魚時有更高的熟練度會以 2倍的速度釣到魚和其它戰利 品.
 botania.page.complexBrews6b=也許你會釣到大魚
+botania.page.complexBrews7a=When drank, this brew will clear all potion effects on the player, negative or otherwise.
+botania.page.complexBrews7b=Absolute sooooooul
 
 # -- BREW INCENSES
 botania.entry.incense=藥劑熏香
@@ -2199,8 +2250,14 @@ botania.page.canopyDrum2=修出我的范兒
 
 # -- COCOON OF CAPRICE
 botania.entry.cocoon=Cocoon of Caprice
-botania.page.cocoon0=A cocoon is usually a symbol of change, of evolution.<br>Creating a &1Cocoon of Carpice&0 and placing it down will slowly evolve the rudimentary contents inside it into a &1Baby Animal&0. More often than not the animal hatched will be a farm animal, but on rare ocasions, different animals such as &1Wolves&0 or &1Horses&0 may be created.  
-botania.page.cocoon1=New World, Perfect World
+botania.page.cocoon0=A cocoon is usually a symbol of change, of evolution.<br>Creating a &1Cocoon of Carpice&0 and placing it down will slowly evolve the rudimentary contents inside it into a &1Baby Animal&0. More often than not the animal hatched will be a farm animal, but on rare ocasions, different animals such as &1Wolves&0 or &1Horses&0 may be created.
+botania.page.cocoon1=Speculation says that giving the cocoon &1Emeralds&0 influences the outcome towards something a bit different.<br>What could come out of such experiment is anyone's guess, really.  
+botania.page.cocoon2=New World, Perfect World
+
+# -- MANASTORM CHARGE
+botania.entry.manaBomb=Manastorm Charge
+botania.page.manaBomb0=Putting together some &1TNT&0 and a &1Gaia Spirit&0 creates a &1Manastorm Charge&0, a type of explosive, per say. Ignited with a &1Mana Burst&0, the charge will create an unstable &1Manastorm Epicenter&0, which will, over time, spawn supercharged &1Mana Bursts&0, that explode on contact with other blocks.<br>Needless to say, only a maniac would unleash such a force near anything they care about.
+botania.page.manaBomb1=Prepare to face the mighty...
 
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
@@ -2431,6 +2488,11 @@ botania.entry.terraAxe=泰拉斷裂者
 botania.page.terraAxe0=&1泰拉斷裂者&0是把擁有著&1泰拉&0 &1鋼&0優越性能的巨斧.砍樹時它 會席捲一切,飛速破壞掉所有 的原木與樹葉.當然這伴隨著 巨大的&4瑪那&0消耗.<br>當玩家潛行或帶有&1節制之石&0 的時候不會生效.
 botania.page.terraAxe1=這還沒完呢
 
+# -- FLORAL OBEDIENCE STICK
+botania.entry.obedienceStick=Floral Obedience Stick
+botania.page.obedienceStick0=Nobody knows why, but attaching some &1Manasteel&0 to &1Livingwood Twigs&0 creates a stick type device that can make nearby flowers all bind towards a single focus point.<br>Dubbed the &1Floral Obedience Stick&0, right clicking with it on a &1Mana Spreader&0 or &1Mana Pool&0 in the world will bind all relevant nearby flowers to it.
+botania.page.obedienceStick1=This is not a dumb new age hat
+
 # - ENDER ARTEFACTS
 # -- EXTRACTING ENDER AIR
 botania.entry.enderAir=獲取終界之氣
@@ -2554,6 +2616,16 @@ botania.page.blackHoleTalisman0=虛空是一個充滿了...虛空的 空間,真�
 botania.page.blackHoleTalisman1=對著地上的方塊右擊可以將 護符設定為這種方塊.只有在 護符空的時候才有效.完成後, 對著空氣shift右擊護符可以 激活或關閉.當啟用後放在物 品欄,它會嘗試保留一組,只有 一組,對應的方塊,在物品欄和虛 空間傳輸物品.
 botania.page.blackHoleTalisman2=當護符內有任何物品時,裡面 的方塊可以被放置,就像放在 物品欄的普通方塊一樣簡單 右擊即可.<br>右擊物品欄會試圖從護符內 提取方塊填充.
 botania.page.blackHoleTalisman3=Like a Rageki but twice as fun
+
+# -- LUMINIZER TRANSPORT
+botania.entry.luminizerTransport=Luminizer Transport
+botania.page.luminizerTransport0=&1Luminizers&0 serve as a simple way to transport players and other living things of the sort by having them ride on trails of light.<br>&1Luminizers&0 can be placed in the world as blocks. A &1Luminizer&0, in order to work properly needs to be bound to another one. This can be done with the &1Wand of the Forest&0 in bind mode. Right clicking a &1Luminizer&0 will transport the clicker into the &1Luminizer&0 it's bound to.
+botania.page.luminizerTransport1=&1Luminizers&0 have a range of twenty blocks each, but can be chained to create longer and more complex paths.<br>The connection between two &1Luminizers&0 goes only one way, unless the binding is explicitly done both ways. If the connection does go both ways, an endless loop is created, though.<br>Furthermore, multiple &1Luminizers&0 can target the same one as an endpoint.
+botania.page.luminizerTransport2=Luminize to the future
+botania.page.luminizerTransport3=Adding some redstone to a &1Luminizer&0 creates a &1Detector Luminizer&0. For all intents and purposes, it functions just like a regular &1Luminizer&0, however, it sends out a &4redstone pulse&0 every time something passes through it or reaches it as an endpoint.
+botania.page.luminizerTransport4=Are you ready to draw?
+botania.page.luminizerTransport5=While players can just right click the &1Luminizers&0, in order to get animals or other beings into the trails, a &1Luminizer Launcher&0 is required.<br>This block needs to be placed down adjacent to &1Luminizers&0, and when it receives a &4redstone pulse&0, it'll randomly distribute all living beings on top of it into all of the adjacent &1Luminizers&0, causing them to go on their merry way.
+botania.page.luminizerTransport6=Let's believe it, open the flag
 
 # - BAUBLES AND ACCESSORIES
 # -- AN INTRODUCTION TO BAUBLES
@@ -2902,6 +2974,11 @@ botania.page.challenges0=&1挑戰&0在&1植物魔法辭典&0首頁的 左側點�
 botania.page.challenges1=當然所有的挑戰都是有可能 實現的.它們只需要一些關於 紅石的思考與知識和&1Botania&0的 裝置.<br>強烈建議不要使用其它mod來 完成挑戰,如果你僅僅放置下 一個方塊就立即解決問題了 的就算不上是真正的挑戰.
 botania.page.challenges2=挑戰並不是義務,也並不會提 供什麼物質上的獎勵.它們只 是純粹地建議用&1Botania&0能出 做什麼樣的只能的自動化.挑 戰項目需要手動標記已完成.<br>它應該讓人們記住世界的邊 界是人們的想像力,所以不要 在這兒的想法上停止!
 
+# -- CACOPHONIUM
+botania.entry.cacophonium=Cacophonium
+botania.page.cacophonium0=This interesting instrument, the &1Cacophonium&0, has the ability to mimic almost every living being's cries in nature, allowing for the "musician" to play them at will. Right clicking with it on an entity has the instrument learn its sound. It can then be played by holding right click.<br>Why anyone would ever want to make this, however, is beyond moral comprehension.
+botania.page.cacophonium1=Hibike! Cacophonium
+
 # -- THAUMCRAFT INTEGRATION
 botania.entry.tcIntegration=秘術學相關
 botania.page.tcIntegration0=&4植物學&0與&4秘術學&0常有交叉之 處.使用本書中和&5秘術學&0中 提到的一些東西就能將兩者 結合製造新的物品.
@@ -2916,3 +2993,4 @@ botania.page.tcIntegration6b=a哥要不爽了
 # -- BUILDCRAFT INTEGRATION
 botania.entry.bcIntegration=Buildcraft結合
 botania.page.bcIntegration0=最近在管道技術上的進步使得 &1BC門&0能感知其周圍的&4瑪那&0. &1BC門&0現可感知一個&4瑪那&0容器 是否為空,滿或者是否包含瑪 那.<br>&1BC門&0也可使用&1瑪那探測器&0 觸發來探測是否有瑪那經過管 道.而且,它們也可感知 &1符文祭壇&0是否已可合成符文.
+
