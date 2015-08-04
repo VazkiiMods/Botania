@@ -16,7 +16,8 @@ The following "bugs" are not accepted:
 * Already fixed but people keep reporting it for some reason
   * Wearing a Ring of Loki or Ring of the Aesir shows a wireframe below bedrock
 * Not a botania problem/Not fixable
-  * Crash on startup with ChromatiCraft is installed (update CC) 
+  * Crash on startup with ChromatiCraft installed (update CC) 
+  * Crash on startup with Blocks3D Mod installed
   * Crash on opening the Lexica Botania with Enchiridion installed (update Enchiridion)
   * Flowers don't render (Optifine issue)
   * Mana Bursts get destroyed on Cauldron by the ClearLagg plugin (add botania:manaBurst to the ClearLagg blacklist)
