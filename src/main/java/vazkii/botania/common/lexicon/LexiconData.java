@@ -891,7 +891,7 @@ public final class LexiconData {
 		elvenResources.setPriority().setLexiconPages(new PageText("0"), new PageElvenRecipe("1", ModElvenTradeRecipes.dreamwoodRecipe), new PageText("2"), new PageCraftingRecipe("10", ModCraftingRecipes.recipeDreamwoodTwig), new PageElvenRecipe("3", ModElvenTradeRecipes.elementiumRecipes), new PageElvenRecipe("4", ModElvenTradeRecipes.pixieDustRecipe), new PageElvenRecipe("5", ModElvenTradeRecipes.dragonstoneRecipes), new PageText("6"), new PageElvenRecipe("7", ModElvenTradeRecipes.elvenQuartzRecipe), new PageText("8"), new PageElvenRecipe("9", ModElvenTradeRecipes.alfglassRecipe)).setIcon(new ItemStack(ModItems.manaResource, 1, 9));
 
 		gaiaRitual = new ALexiconEntry(LibLexicon.ALF_GAIA_RITUAL, categoryAlfhomancy);
-		gaiaRitual.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeGaiaPylon), new PageMultiblock("2", ModMultiblocks.gaiaRitual), new PageText("3"), new PageText("4")).setIcon(new ItemStack(ModItems.manaResource, 1, 5));
+		gaiaRitual.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeGaiaPylon), new PageMultiblock("2", ModMultiblocks.gaiaRitual), new PageText("3"), new PageText("4"), new PageText("5")).setIcon(new ItemStack(ModItems.manaResource, 1, 5));
 		LexiconRecipeMappings.map(new ItemStack(ModItems.manaResource, 1, 5), gaiaRitual, 0);
 
 		gaiaRitualHardmode = new ALexiconEntry(LibLexicon.ALF_GAIA_RITUAL_HARDMODE, categoryAlfhomancy);

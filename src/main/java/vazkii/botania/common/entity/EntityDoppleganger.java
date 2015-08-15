@@ -17,6 +17,11 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;
@@ -50,6 +55,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
 
 import org.lwjgl.opengl.ARBShaderObjects;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
 import vazkii.botania.api.boss.IBotaniaBossWithShader;
 import vazkii.botania.api.internal.ShaderCallback;
@@ -63,6 +70,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.relic.ItemRelic;
 import vazkii.botania.common.lib.LibObfuscation;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
@@ -88,6 +96,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	private static final String TAG_SOURCE_Z = "sourcesZ";
 	private static final String TAG_MOB_SPAWN_TICKS = "mobSpawnTicks";
 	private static final String TAG_HARD_MODE = "hardMode";
+	private static final String TAG_PLAYER_COUNT = "playerCount";
 
 	private static final int[][] PYLON_LOCATIONS = new int[][] {
 		{ 4, 1, 4 },
@@ -99,6 +108,8 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	boolean spawnLandmines = false;
 	boolean spawnPixies = false;
 	boolean anyWithArmor = false;
+
+	List<String> playersWhoAttacked = new ArrayList();
 
 	private static boolean isPlayingMusic = false;
 
@@ -157,6 +168,11 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			e.setSource(par4, par5, par6);
 			e.setMobSpawnTicks(MOB_SPAWN_TICKS);
 			e.setHardMode(hard);
+
+			int playerCount = e.getPlayersAround().size();
+			e.setPlayerCount(playerCount);
+			e.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.maxHealth).setBaseValue(MAX_HP * playerCount);
+
 			par3World.playSoundAtEntity(e, "mob.enderdragon.growl", 10F, 0.1F);
 			par3World.spawnEntityInWorld(e);
 			return true;
@@ -181,6 +197,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		dataWatcher.addObject(25, 0); // Source Z
 		dataWatcher.addObject(26, 0); // Ticks spawning mobs
 		dataWatcher.addObject(27, (byte) 0); // Hard Mode
+		dataWatcher.addObject(28, 0); // Player count
 	}
 
 	public int getInvulTime() {
@@ -210,6 +227,10 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		return dataWatcher.getWatchableObjectByte(27) == 1;
 	}
 
+	public int getPlayerCount() {
+		return dataWatcher.getWatchableObjectInt(28);
+	}
+
 	public void setInvulTime(int time) {
 		dataWatcher.updateObject(20, time);
 	}
@@ -236,6 +257,10 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		dataWatcher.updateObject(27, (byte) (hardMode ? 1 : 0));
 	}
 
+	public void setPlayerCount(int count) {
+		dataWatcher.updateObject(28, count);
+	}
+
 	@Override
 	public void writeEntityToNBT(NBTTagCompound par1nbtTagCompound) {
 		super.writeEntityToNBT(par1nbtTagCompound);
@@ -249,6 +274,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		par1nbtTagCompound.setInteger(TAG_SOURCE_Z, source.posZ);
 
 		par1nbtTagCompound.setBoolean(TAG_HARD_MODE, isHardMode());
+		par1nbtTagCompound.setInteger(TAG_PLAYER_COUNT, getPlayerCount());
 	}
 
 	@Override
@@ -264,12 +290,21 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		setSource(x, y, z);
 
 		setHardMode(par1nbtTagCompound.getBoolean(TAG_HARD_MODE));
+		if(par1nbtTagCompound.hasKey(TAG_PLAYER_COUNT))
+			setPlayerCount(par1nbtTagCompound.getInteger(TAG_PLAYER_COUNT));
+		else setPlayerCount(1);
 	}
 
 	@Override
 	public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
-		if((par1DamageSource.damageType.equals("player") || par1DamageSource.getEntity() instanceof EntityPixie) && par1DamageSource.getEntity() != null && isTruePlayer(par1DamageSource.getEntity()) && getInvulTime() == 0)
+		Entity e = par1DamageSource.getEntity();
+		if((par1DamageSource.damageType.equals("player") || e instanceof EntityPixie) && e != null && isTruePlayer(e) && getInvulTime() == 0) {
+			EntityPlayer player = (EntityPlayer) e;
+			if(!playersWhoAttacked.contains(player.getCommandSenderName()))
+				playersWhoAttacked.add(player.getCommandSenderName());
+
 			return super.attackEntityFrom(par1DamageSource, Math.min(12, par2 * (isHardMode() ? 0.6F : 1F)));
+		}
 		return false;
 	}
 
@@ -336,48 +371,51 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	@Override
 	protected void dropFewItems(boolean par1, int par2) {
 		if(par1) {
-			boolean hard = isHardMode();
-			entityDropItem(new ItemStack(ModItems.manaResource, hard ? 16 : 8, 5), 1F);
-			boolean droppedRecord = false;
+			for(int pl = 0; pl < playersWhoAttacked.size(); pl++) {
+				boolean hard = isHardMode();
+				entityDropItem(new ItemStack(ModItems.manaResource, pl == 0 ? (hard ? 16 : 8) : (hard ? 10 : 6), 5), 1F);
+				boolean droppedRecord = false;
 
-			if(hard) {
-				entityDropItem(new ItemStack(ModItems.ancientWill, 1, rand.nextInt(6)), 1F);
-				if(ConfigHandler.relicsEnabled)
-					entityDropItem(new ItemStack(ModItems.dice), 1F);
+				if(hard) {
+					entityDropItem(new ItemStack(ModItems.ancientWill, 1, rand.nextInt(6)), 1F);
+					if(ConfigHandler.relicsEnabled) {
+						ItemStack dice = new ItemStack(ModItems.dice);
+						ItemRelic.bindToUsernameS(playersWhoAttacked.get(pl), dice);
+						entityDropItem(dice, 1F);
+					}
 
-				if(Math.random() < 0.25)
-					entityDropItem(new ItemStack(ModItems.overgrowthSeed, rand.nextInt(3) + 1), 1F);
-				if(Math.random() < 0.5) {
-					boolean voidLotus = Math.random() < 0.3F;
-					entityDropItem(new ItemStack(ModItems.blackLotus, voidLotus ? 1 : rand.nextInt(3) + 1, voidLotus ? 1 : 0), 1F);
-				}
-				if(Math.random() < 0.9)
-					entityDropItem(new ItemStack(ModItems.manaResource, 16 + rand.nextInt(12)), 1F);
-				if(Math.random() < 0.7)
-					entityDropItem(new ItemStack(ModItems.manaResource, 8 + rand.nextInt(6), 1), 1F);
-				if(Math.random() < 0.5)
-					entityDropItem(new ItemStack(ModItems.manaResource, 4 + rand.nextInt(3), 2), 1F);
-				
-				
-				if(Math.random() < 0.3) {
-					int runes = rand.nextInt(5) + 1;
+					if(Math.random() < 0.25)
+						entityDropItem(new ItemStack(ModItems.overgrowthSeed, rand.nextInt(3) + 1), 1F);
+					if(Math.random() < 0.5) {
+						boolean voidLotus = Math.random() < 0.3F;
+						entityDropItem(new ItemStack(ModItems.blackLotus, voidLotus ? 1 : rand.nextInt(3) + 1, voidLotus ? 1 : 0), 1F);
+					}
+					if(Math.random() < 0.9)
+						entityDropItem(new ItemStack(ModItems.manaResource, 16 + rand.nextInt(12)), 1F);
+					if(Math.random() < 0.7)
+						entityDropItem(new ItemStack(ModItems.manaResource, 8 + rand.nextInt(6), 1), 1F);
+					if(Math.random() < 0.5)
+						entityDropItem(new ItemStack(ModItems.manaResource, 4 + rand.nextInt(3), 2), 1F);
+
+					int runes = rand.nextInt(6) + 1;
 					for(int i = 0; i < runes; i++)
-						entityDropItem(new ItemStack(ModItems.rune, 2 + rand.nextInt(3), rand.nextInt(16)), 1F);
-				}
-				
-				if(Math.random() < 0.2)
-					entityDropItem(new ItemStack(ModItems.pinkinator), 1F);
-				if(Math.random() < 0.3) {
-					int i = Item.getIdFromItem(Items.record_13);
-					int j = Item.getIdFromItem(Items.record_wait);
-					int k = i + rand.nextInt(j - i + 1);
-					entityDropItem(new ItemStack(Item.getItemById(k)), 1F);
-					droppedRecord = true;
-				}
-			}
+						if(Math.random() < 0.3)
+							entityDropItem(new ItemStack(ModItems.rune, 2 + rand.nextInt(3), rand.nextInt(16)), 1F);
 
-			if(!droppedRecord && Math.random() < 0.2)
-				entityDropItem(new ItemStack(hard ? ModItems.recordGaia2 : ModItems.recordGaia1), 1F);
+					if(Math.random() < 0.2)
+						entityDropItem(new ItemStack(ModItems.pinkinator), 1F);
+					if(Math.random() < 0.3) {
+						int i = Item.getIdFromItem(Items.record_13);
+						int j = Item.getIdFromItem(Items.record_wait);
+						int k = i + rand.nextInt(j - i + 1);
+						entityDropItem(new ItemStack(Item.getItemById(k)), 1F);
+						droppedRecord = true;
+					}
+				}
+
+				if(!droppedRecord && Math.random() < 0.2)
+					entityDropItem(new ItemStack(hard ? ModItems.recordGaia2 : ModItems.recordGaia1), 1F);
+			}
 		}
 	}
 
@@ -389,10 +427,17 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		super.setDead();
 	}
 
+	public List<EntityPlayer> getPlayersAround() {
+		ChunkCoordinates source = getSource();
+		float range = 32F;
+		List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(source.posX + 0.5 - range, source.posY + 0.5 - range, source.posZ + 0.5 - range, source.posX + 0.5 + range, source.posY + 0.5 + range, source.posZ + 0.5 + range));
+		return players;
+	}
+
 	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
-
+		
 		boolean peaceful = worldObj.difficultySetting == EnumDifficulty.PEACEFUL;
 		if(!worldObj.isRemote && peaceful)
 			setDead();
@@ -415,15 +460,14 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 		ChunkCoordinates source = getSource();
 		boolean hard = isHardMode();
-		
 		float range = 32F;
-		List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(source.posX + 0.5 - range, source.posY + 0.5 - range, source.posZ + 0.5 - range, source.posX + 0.5 + range, source.posY + 0.5 + range, source.posZ + 0.5 + range));
-		
+		List<EntityPlayer> players = getPlayersAround();
+		int playerCount = getPlayerCount();
+
 		if(worldObj.isRemote && !isPlayingMusic && !isDead && !players.isEmpty()) {
 			Botania.proxy.playRecordClientSided(worldObj, source.posX, source.posY, source.posZ, (ItemRecord) (hard ? ModItems.recordGaia2 : ModItems.recordGaia1));
 			isPlayingMusic = true;
 		}
-
 
 		range = 12F;
 		for(int i = 0; i < 360; i += 8) {
@@ -483,7 +527,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 					spawnExplosionParticle();
 
 			if(!worldObj.isRemote) {
-				setHealth(getHealth() + (MAX_HP - 1F) / SPAWN_TICKS);
+				setHealth(getHealth() + (getMaxHealth() - 1F) / SPAWN_TICKS);
 				setInvulTime(invul - 1);
 			}
 			motionY = 0;
@@ -502,45 +546,47 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 					}
 
 					if(reverseTicks > MOB_SPAWN_START_TICKS * 2 && mobTicks > MOB_SPAWN_END_TICKS && mobTicks % MOB_SPAWN_WAVE_TIME == 0 && !worldObj.isRemote) {
-						for(int i = 0; i < 3 + worldObj.rand.nextInt(2); i++) {
-							EntityLiving entity = null;
-							switch(worldObj.rand.nextInt(2)) {
-							case 0 : {
-								entity = new EntityZombie(worldObj);
-								if(worldObj.rand.nextInt(hard ? 9 : 12) == 0)
-									entity = new EntityWitch(worldObj);
+						for(int pl = 0; pl < playerCount; pl++)
+							for(int i = 0; i < 3 + worldObj.rand.nextInt(2); i++) {
+								EntityLiving entity = null;
+								switch(worldObj.rand.nextInt(2)) {
+								case 0 : {
+									entity = new EntityZombie(worldObj);
+									if(worldObj.rand.nextInt(hard ? 9 : 12) == 0)
+										entity = new EntityWitch(worldObj);
 
-								break;
-							}
-							case 1 : {
-								entity = new EntitySkeleton(worldObj);
-								((EntitySkeleton) entity).setCurrentItemOrArmor(0, new ItemStack(Items.bow));
-								if(worldObj.rand.nextInt(8) == 0) {
-									((EntitySkeleton) entity).setSkeletonType(1);
-									((EntitySkeleton) entity).setCurrentItemOrArmor(0, new ItemStack(hard ? ModItems.elementiumSword : Items.stone_sword));
+									break;
 								}
-								break;
-							}
-							case 3 : {
-								if(!players.isEmpty())
-									for(int j = 0; j < 1 + worldObj.rand.nextInt(hard ? 8 : 5); j++) {
-										EntityPixie pixie = new EntityPixie(worldObj);
-										pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
-										pixie.setPosition(posX + width / 2, posY + 2, posZ + width / 2);
-										worldObj.spawnEntityInWorld(pixie);
+								case 1 : {
+									entity = new EntitySkeleton(worldObj);
+									((EntitySkeleton) entity).setCurrentItemOrArmor(0, new ItemStack(Items.bow));
+									if(worldObj.rand.nextInt(8) == 0) {
+										((EntitySkeleton) entity).setSkeletonType(1);
+										((EntitySkeleton) entity).setCurrentItemOrArmor(0, new ItemStack(hard ? ModItems.elementiumSword : Items.stone_sword));
 									}
-							}
-							}
+									break;
+								}
+								case 3 : {
+									if(!players.isEmpty())
+										for(int j = 0; j < 1 + worldObj.rand.nextInt(hard ? 8 : 5); j++) {
+											EntityPixie pixie = new EntityPixie(worldObj);
+											pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
+											pixie.setPosition(posX + width / 2, posY + 2, posZ + width / 2);
+											worldObj.spawnEntityInWorld(pixie);
+										}
+								}
+								}
 
-							if(entity != null) {
-								range = 6F;
-								entity.setPosition(posX + 0.5 + Math.random() * range - range / 2, posY - 1, posZ + 0.5 + Math.random() * range - range / 2);
-								worldObj.spawnEntityInWorld(entity);
+								if(entity != null) {
+									range = 6F;
+									entity.setPosition(posX + 0.5 + Math.random() * range - range / 2, posY - 1, posZ + 0.5 + Math.random() * range - range / 2);
+									worldObj.spawnEntityInWorld(entity);
+								}
 							}
-						}
 
 						if(hard && ticksExisted % 3 < 2) {
-							spawnMissile();
+							for(int i = 0; i < playerCount; i++)
+								spawnMissile();
 							spawnMissiles = false;
 						}
 					}
@@ -572,12 +618,13 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 							}
 
 						if(!players.isEmpty())
-							for(int i = 0; i < (spawnPixies ? worldObj.rand.nextInt(hard ? 6 : 3) : 1); i++) {
-								EntityPixie pixie = new EntityPixie(worldObj);
-								pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
-								pixie.setPosition(posX + width / 2, posY + 2, posZ + width / 2);
-								worldObj.spawnEntityInWorld(pixie);
-							}
+							for(int pl = 0; pl < playerCount; pl++)
+								for(int i = 0; i < (spawnPixies ? worldObj.rand.nextInt(hard ? 6 : 3) : 1); i++) {
+									EntityPixie pixie = new EntityPixie(worldObj);
+									pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
+									pixie.setPosition(posX + width / 2, posY + 2, posZ + width / 2);
+									worldObj.spawnEntityInWorld(pixie);
+								}
 
 						setTPDelay(hard ? dying ? 20 : 45 : dying ? 40 : 60);
 						spawnLandmines = true;
@@ -707,8 +754,24 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void bossBarRenderCallback() {
-		// NO-OP
+	public void bossBarRenderCallback(ScaledResolution res, int x, int y) {
+		GL11.glPushMatrix();
+		int px = x + 160;
+		int py = y + 12;
+		
+		Minecraft mc = Minecraft.getMinecraft();
+		ItemStack stack = new ItemStack(Items.skull, 1, 3);
+		mc.renderEngine.bindTexture(TextureMap.locationItemsTexture);
+		net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
+		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+		RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine, stack, px, py);
+		net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
+		
+		boolean unicode = mc.fontRenderer.getUnicodeFlag();
+		mc.fontRenderer.setUnicodeFlag(true);
+		mc.fontRenderer.drawStringWithShadow("" + getPlayerCount(), px + 15, py + 4, 0xFFFFFF);
+		mc.fontRenderer.setUnicodeFlag(unicode);
+		GL11.glPopMatrix();
 	}
 
 	@Override
