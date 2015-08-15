@@ -58,6 +58,7 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ItemCraftingHalo;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.relic.ItemFlugelEye;
 import vazkii.botania.common.lib.LibObfuscation;
 import baubles.common.lib.PlayerHandler;
@@ -73,7 +74,7 @@ public final class HUDHandler {
 		Minecraft mc = Minecraft.getMinecraft();
 		Profiler profiler = mc.mcProfiler;
 		ItemStack equippedStack = mc.thePlayer.getCurrentEquippedItem();
-
+		
 		if(event.type == ElementType.ALL) {
 			profiler.startSection("botania-hud");
 			MovingObjectPosition pos = mc.objectMouseOver;
@@ -125,7 +126,7 @@ public final class HUDHandler {
 				ItemFlugelEye.renderHUD(event.resolution, mc.thePlayer, equippedStack);
 				profiler.endSection();
 			}
-
+			
 			profiler.startSection("manaBar");
 			EntityPlayer player = mc.thePlayer;
 			int totalMana = 0;
@@ -174,6 +175,15 @@ public final class HUDHandler {
 			profiler.endSection();
 
 			GL11.glColor4f(1F, 1F, 1F, 1F);
+		} else if(event.type == ElementType.HEALTH) {
+			profiler.startSection("botania-hud");
+			ItemStack amulet = PlayerHandler.getPlayerBaubles(mc.thePlayer).getStackInSlot(0);
+			if(amulet != null && amulet.getItem() == ModItems.flightTiara) {
+				profiler.startSection("flugelTiara");
+				ItemFlightTiara.renderHUD(event.resolution, mc.thePlayer, amulet);
+				profiler.endSection();
+			}
+			profiler.endSection();
 		}
 	}
 

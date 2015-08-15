@@ -2544,6 +2544,7 @@ botania.page.redString12=The &1Red Stringed Spoofer&0.
 # -- FLUGEL TIARA
 botania.entry.flightTiara=Flügel Tiara
 botania.page.flightTiara0=The &4Flügel&0 were once a dominant species in the lands, now they're but a race past extinct, once created as godslayers, who possessed the ability of flight.<br>The usage of &1Gaia Spirits&0 allows for a small replica of their power, in the form of the &1Flügel Tiara&0, which, at the cost of &4Mana&0 allows for flight.
+botania.page.flightTiara4=Not all is perfect with reproducing old technology though, the tiara has its flaws, that meaning it can't provide the power of flight constantly. If used for over ten seconds without letting it recharge it'll stop being able to provide the power of flight, it'll also set the wearer aflame.<br>A "flight bar" is displayed on the HUD to help monitor this.
 botania.page.flightTiara1=Forty thousand books from another world
 botania.page.flightTiara2=Combining the Tiara with a variety of Quartz species allows for it to create various different kinds of aesthetic wings, one for each style of quartz.<br>The recipes for the various types of quartz can be found in the &4Decorative Blocks&0 entry under &4Miscellaneous&0, &1Elven Quartz&0 is acquired by trading &1Nether Quartz&0 with the elves.
 botania.page.flightTiara3=Adding Wings (they can be swapped any time)

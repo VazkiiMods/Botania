@@ -19,12 +19,14 @@ import java.util.List;
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -34,6 +36,8 @@ import net.minecraft.stats.Achievement;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
+import net.minecraftforge.client.GuiIngameForge;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
@@ -44,11 +48,13 @@ import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
+import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
 import baubles.common.lib.PlayerHandler;
@@ -60,10 +66,16 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaubleRender, ICraftAchievement {
 
+	private static ResourceLocation textureHud = new ResourceLocation(LibResources.GUI_HUD_ICONS);
 	private static ResourceLocation textureHalo = new ResourceLocation(LibResources.MISC_HALO);
+
+	private static final String TAG_FLYING = "flying";
+	private static final String TAG_TIME_LEFT = "timeLeft";
+	private static final String TAG_INFINITE_FLIGHT = "infiniteFlight";
 
 	public static List<String> playersWithFlight = new ArrayList();
 	private static final int COST = 35;
+	private static final int MAX_FLY_TIME = 400;
 
 	public static IIcon[] wingIcons;
 	private static final int SUBTYPES = 8;
@@ -141,20 +153,44 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 
 		return String.copyValueOf(chrs);
 	}
-
+	
+	@Override
+	public void onWornTick(ItemStack stack, EntityLivingBase player) {
+		super.onWornTick(stack, player);
+		
+		if(player instanceof EntityPlayer) {
+			EntityPlayer p = (EntityPlayer) player;
+			boolean flying = p.capabilities.isFlying;
+			
+			int time = ItemNBTHelper.getInt(stack, TAG_TIME_LEFT, MAX_FLY_TIME);
+			int newTime = time;
+			if(flying && time > 0 && !ItemNBTHelper.getBoolean(stack, TAG_INFINITE_FLIGHT, false))
+				newTime--;
+			else if(!flying && time < MAX_FLY_TIME && player.ticksExisted % 2 == 0)
+				newTime++;
+			
+			ItemNBTHelper.setBoolean(stack, TAG_FLYING, flying);
+			if(newTime != time)
+				ItemNBTHelper.setInt(stack, TAG_TIME_LEFT, newTime);
+		}
+	}
+	
 	@SubscribeEvent
 	public void updatePlayerFlyStatus(LivingUpdateEvent event) {
 		if(event.entityLiving instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
-
 			ItemStack tiara = PlayerHandler.getPlayerBaubles(player).getStackInSlot(0);
+			int left = ItemNBTHelper.getInt(tiara, TAG_TIME_LEFT, MAX_FLY_TIME);
+
 			if(playersWithFlight.contains(playerStr(player))) {
 				if(shouldPlayerHaveFlight(player)) {
 					player.capabilities.allowFlying = true;
 					if(player.capabilities.isFlying) {
-						if(!player.worldObj.isRemote)
+						if(!player.worldObj.isRemote) {
 							ManaItemHandler.requestManaExact(tiara, player, COST, true);
-						else if(Math.abs(player.motionX) > 0.1 || Math.abs(player.motionZ) > 0.1) {
+							if(left < 3)
+								player.setFire(5);
+						} else if(Math.abs(player.motionX) > 0.1 || Math.abs(player.motionZ) > 0.1) {
 							double x = event.entityLiving.posX - 0.5;
 							double y = event.entityLiving.posY - 1.7;
 							double z = event.entityLiving.posZ - 0.5;
@@ -244,7 +280,13 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 
 	private boolean shouldPlayerHaveFlight(EntityPlayer player) {
 		ItemStack armor = PlayerHandler.getPlayerBaubles(player).getStackInSlot(0);
-		return armor != null && armor.getItem() == this && ManaItemHandler.requestManaExact(armor, player, COST, false);
+		if(armor != null && armor.getItem() == this) {
+			int left = ItemNBTHelper.getInt(armor, TAG_TIME_LEFT, MAX_FLY_TIME);
+			boolean flying = ItemNBTHelper.getBoolean(armor, TAG_FLYING, false);
+			return left > (flying ? 0 : MAX_FLY_TIME / 10) && ManaItemHandler.requestManaExact(armor, player, COST, false);
+		}
+		
+		return false;
 	}
 
 	@Override
@@ -402,6 +444,42 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 
 		GL11.glEnable(GL11.GL_LIGHTING);
 		GL11.glShadeModel(GL11.GL_FLAT);
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public static void renderHUD(ScaledResolution resolution, EntityPlayer player, ItemStack stack) {
+		int u = Math.max(1, stack.getItemDamage()) * 9 - 9;
+		int v = 0;
+		
+		Minecraft mc = Minecraft.getMinecraft();
+		mc.renderEngine.bindTexture(textureHud);
+		int x = resolution.getScaledWidth() / 2 + 10;
+		int y = resolution.getScaledHeight() - 49;
+		if(player.getAir() < 300)
+			y -= 10;
+		
+		int left = ItemNBTHelper.getInt(stack, TAG_TIME_LEFT, MAX_FLY_TIME);
+		
+		int segTime = MAX_FLY_TIME / 10;
+		int segs = (left / segTime) + 1;
+		int last = left % segTime;
+		
+		for(int i = 0; i < segs; i++) {
+			float trans = 1F;
+			if(i == segs - 1) {
+				trans = (float) last / (float) segTime;
+				GL11.glEnable(GL11.GL_BLEND);
+				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+				GL11.glDisable(GL11.GL_ALPHA_TEST);
+			}
+			
+			GL11.glColor4f(1F, 1F, 1F, trans);
+			RenderHelper.drawTexturedModalRect(x, y, 0, u, v, 9, 9);
+			x += 8;
+		}
+		GL11.glEnable(GL11.GL_ALPHA_TEST);
+		GL11.glColor4f(1F, 1F, 1F, 1F);
+		mc.renderEngine.bindTexture(GuiIngameForge.icons);
 	}
 
 	@Override
