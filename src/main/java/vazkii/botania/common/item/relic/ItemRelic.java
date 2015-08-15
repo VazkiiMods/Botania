@@ -70,6 +70,10 @@ public class ItemRelic extends ItemMod implements IRelic {
 				addStringToTooltip(EnumChatFormatting.ITALIC + StatCollector.translateToLocal(name + i), list);
 		} else addStringToTooltip(StatCollector.translateToLocal("botaniamisc.shiftinfo"), list);
 	}
+	
+	public boolean shouldDamageWrongPlayer() {
+		return true;
+	}
 
 	@Override
 	public int getEntityLifespan(ItemStack itemStack, World world) {
@@ -95,7 +99,7 @@ public class ItemRelic extends ItemMod implements IRelic {
 			soulbind = getSoulbindUsernameS(stack);
 		}
 
-		if(!isRightPlayer(player, stack) && player.ticksExisted % 10 == 0)
+		if(!isRightPlayer(player, stack) && player.ticksExisted % 10 == 0 && ((ItemRelic) stack.getItem()).shouldDamageWrongPlayer())
 			player.attackEntityFrom(damageSource(), 2);
 	}
 

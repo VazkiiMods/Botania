@@ -80,6 +80,11 @@ public class ItemDice extends ItemRelic {
 
 		return stack;
 	}
+	
+	@Override
+	public boolean shouldDamageWrongPlayer() {
+		return false;
+	}
 
 	boolean hasRelicAlready(EntityPlayer player, int relic) {
 		if(relic < 0 || relic > 5 || !(player instanceof EntityPlayerMP))
