@@ -147,7 +147,7 @@ public class TileAlfPortal extends TileMod {
 						}
 					}
 
-				if(ticksSinceLastItem >= 20) {
+				if(ticksSinceLastItem >= 4) {
 					if(!worldObj.isRemote)
 						resolveRecipes();
 				}
