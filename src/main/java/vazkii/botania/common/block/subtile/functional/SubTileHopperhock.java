@@ -168,7 +168,9 @@ public class SubTileHopperhock extends SubTileFunctional {
 		};
 
 		for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) {
-			List<EntityItemFrame> frames = supertile.getWorldObj().getEntitiesWithinAABB(EntityItemFrame.class, AxisAlignedBB.getBoundingBox(x+ dir.offsetX, y + dir.offsetY, z + dir.offsetZ, x + dir.offsetX + 1, y + dir.offsetY + 1, z + dir.offsetZ + 1));
+			AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ, x + dir.offsetX + 1, y + dir.offsetY + 1, z + dir.offsetZ + 1);
+			List<EntityItemFrame> frames = supertile.getWorldObj().getEntitiesWithinAABB(EntityItemFrame.class, aabb);
+			System.out.println(aabb + " " + frames);
 			for(EntityItemFrame frame : frames) {
 				int orientation = frame.hangingDirection;
 				if(orientationToDir[orientation] == dir.ordinal())
