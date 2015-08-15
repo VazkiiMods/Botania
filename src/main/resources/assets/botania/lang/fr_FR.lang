@@ -1712,7 +1712,7 @@ botania.page.rfGenerator1=The bullet guys. I bit it.
 botania.entry.lens=Mana Lenses
 botania.page.lens0=In order to upgrade the potential a &1Diffuseur de mana&0, one can apply &1Mana Lenses&0. The very basic mana lens does absolutely nothing.<br>Lenses can be &4dyed&0, in a workbench, all the 16 colors of the spectrum, or combined with a &1Mana Pearl&0 to create a &1Rainbow Lens&0. These will change the color of the burst.
 botania.page.lens1=The basic lens, it doesn't do anything.
-botania.page.lens2=&4Dying&0 lenses!
+botania.page.lens2=&4Dyeing&0 lenses!
 botania.page.lens3=&1Rainbow Lens&0 all the way
 botania.page.lens4=But lenses are not only for fancy colors. One can upgrade them with all sorts of materials to create new lens which can do all sorts of effects on the &4Mana Bursts&0.<br>It's to take in mind that, if using a normal &1Diffuseur de mana&0, there needs to be a &4Mana&0 receiving block at the end for the burst to fire. A &1Redstone Diffuseur de mana&0 is recommended for some lenses.
 botania.page.lens5=Sometimes, though, having a single &1Mana Lens&0 in a spreader just isn't enough sometimes. By combining two lenses with a &1Slimeball&0 in a crafting table, it's possible to unite them into one, and keep the effects of both.<br>The first lens used determines the visuals (texture and color). It's to note that some combinations will not work, nor will two lenses of the same type.
@@ -2246,7 +2246,7 @@ botania.page.canopyDrum1=Émondage avec style
 
 # -- COCOON OF CAPRICE
 botania.entry.cocoon=Cocoon of Caprice
-botania.page.cocoon0=A cocoon is usually a symbol of change, of evolution.<br>Creating a &1Cocoon of Carpice&0 and placing it down will slowly evolve the rudimentary contents inside it into a &1Baby Animal&0. More often than not the animal hatched will be a farm animal, but on rare ocasions, different animals such as &1Wolves&0 or &1Horses&0 may be created.
+botania.page.cocoon0=A cocoon is usually a symbol of change, of evolution.<br>Creating a &1Cocoon of Caprice&0 and placing it down will slowly evolve the rudimentary contents inside it into a &1Baby Animal&0. More often than not the animal hatched will be a farm animal, but on rare ocasions, different animals such as &1Wolves&0 or &1Horses&0 may be created.
 botania.page.cocoon1=Speculation says that giving the cocoon &1Emeralds&0 influences the outcome towards something a bit different.<br>What could come out of such experiment is anyone's guess, really.  
 botania.page.cocoon2=New World, Perfect World
 
