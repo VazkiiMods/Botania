@@ -2593,7 +2593,7 @@ botania.entry.endStoneDecor=Decorative End Blocks
 botania.page.endStoneDecor0=Similarly to other stone blocks, &1End Stone&0 can be converted into bricks and chiseled bricks, the bricks can be used as stairs or slabs just like normal &1Stone Bricks&0 would.<br>&1Ender Pearls&0 can be combined with the bricks to create &1Ender Brick&0 blocks, which can also can be used for stairs or slabs.
 botania.page.endStoneDecor1=Making &1End Stone Bricks&0
 botania.page.endStoneDecor2=Making &1Chiseled End Stone Bricks&0
-botania.page.endStoneDecor3=Making &1Ender Bricks&0
+botania.page.endStoneDecor3=&1Ender Bricks&0, Purpur is a silly name
 botania.page.endStoneDecor4=Making &1Pillar Ender Bricks&0
 
 # -- LIFE AGGREGATOR
