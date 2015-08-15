@@ -336,32 +336,34 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	@Override
 	protected void dropFewItems(boolean par1, int par2) {
 		if(par1) {
+			int lChance = Math.max(100, ConfigHandler.bosslootchance);
 			boolean hard = isHardMode();
 			entityDropItem(new ItemStack(ModItems.manaResource, hard ? 16 : 8, 5), 1F);
 			boolean droppedRecord = false;
 
 			if(hard) {
+				if (rand.nextInt(100) <= lChance)
 				entityDropItem(new ItemStack(ModItems.ancientWill, 1, rand.nextInt(6)), 1F);
-				if(ConfigHandler.relicsEnabled)
+				if(ConfigHandler.relicsEnabled && (rand.nextInt(100) <= lChance))
 					entityDropItem(new ItemStack(ModItems.dice), 1F);
 
-				if(Math.random() < 0.25)
+				if(Math.random() < 0.25 && (rand.nextInt(100) <= lChance))
 					entityDropItem(new ItemStack(ModItems.overgrowthSeed, rand.nextInt(3) + 1), 1F);
-				if(Math.random() < 0.5) {
+				if(Math.random() < 0.5 && (rand.nextInt(100) <= lChance)) {
 					boolean voidLotus = Math.random() < 0.3F;
 					entityDropItem(new ItemStack(ModItems.blackLotus, voidLotus ? 1 : rand.nextInt(3) + 1, voidLotus ? 1 : 0), 1F);
 				}
-				if(Math.random() < 0.9)
+				if(Math.random() < 0.9 && (rand.nextInt(100) <= lChance))
 					entityDropItem(new ItemStack(ModItems.manaResource, 16 + rand.nextInt(12)), 1F);
-				if(Math.random() < 0.7)
+				if(Math.random() < 0.7 && (rand.nextInt(100) <= lChance))
 					entityDropItem(new ItemStack(ModItems.manaResource, 8 + rand.nextInt(6), 1), 1F);
-				if(Math.random() < 0.5)
+				if(Math.random() < 0.5 && (rand.nextInt(100) <= lChance))
 					entityDropItem(new ItemStack(ModItems.manaResource, 4 + rand.nextInt(3), 2), 1F);
-				if(Math.random() < 0.3)
+				if(Math.random() < 0.3 && (rand.nextInt(100) <= lChance))
 					entityDropItem(new ItemStack(ModItems.rune, 2 + rand.nextInt(3), rand.nextInt(16)), 1F);
-				if(Math.random() < 0.2)
+				if(Math.random() < 0.2 && (rand.nextInt(100) <= lChance))
 					entityDropItem(new ItemStack(ModItems.pinkinator), 1F);
-				if(Math.random() < 0.3) {
+				if(Math.random() < 0.3 && (rand.nextInt(100) <= lChance)) {
 					int i = Item.getIdFromItem(Items.record_13);
 					int j = Item.getIdFromItem(Items.record_wait);
 					int k = i + rand.nextInt(j - i + 1);
