@@ -14,6 +14,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibObfuscation;
 import cpw.mods.fml.relauncher.ReflectionHelper;
@@ -45,12 +46,14 @@ public class ItemInfiniteFruit extends ItemRelic {
 	public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {
 		super.onUsingTick(stack, player, count);
 
-		if(count % 5 == 0)
-			player.getFoodStats().addStats(1, 1F);
+		if(ManaItemHandler.requestManaExact(stack, player, 1000, true)) {
+			if(count % 5 == 0)
+				player.getFoodStats().addStats(1, 1F);
 
-		if(count == 5)
-			if(player.canEat(false))
-				ReflectionHelper.setPrivateValue(EntityPlayer.class, player, 20, LibObfuscation.ITEM_IN_USE_COUNT);
+			if(count == 5)
+				if(player.canEat(false))
+					ReflectionHelper.setPrivateValue(EntityPlayer.class, player, 20, LibObfuscation.ITEM_IN_USE_COUNT);
+		}
 	}
 
 }

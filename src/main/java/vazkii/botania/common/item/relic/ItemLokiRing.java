@@ -32,6 +32,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import vazkii.botania.api.item.IExtendedWireframeCoordinateListProvider;
 import vazkii.botania.api.item.ISequentialBreaker;
+import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
@@ -82,7 +83,11 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 		ItemStack heldItemStack = player.getCurrentEquippedItem();
 		ChunkCoordinates originCoords = getOriginPos(lokiRing);
 		MovingObjectPosition lookPos = ToolCommons.raytraceFromEntity(player.worldObj, player, true, 10F);
-
+		List<ChunkCoordinates> cursors = getCursorList(lokiRing);
+		int cursorCount = cursors.size();
+		
+		int cost = Math.min(cursorCount, (int) (Math.pow(Math.E, (double) cursorCount * 0.25)));
+		
 		if(heldItemStack == null && event.action == Action.RIGHT_CLICK_BLOCK && player.isSneaking()) {
 			if(originCoords.posY == -1 && lookPos != null) {
 				setOriginPos(lokiRing, lookPos.blockX, lookPos.blockY, lookPos.blockZ);
@@ -95,7 +100,6 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 					if(player instanceof EntityPlayerMP)
 						PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, slot), (EntityPlayerMP) player);
 				} else {
-					List<ChunkCoordinates> cursors = getCursorList(lokiRing);
 					addCursor : {
 						int relX = lookPos.blockX - originCoords.posX;
 						int relY = lookPos.blockY - originCoords.posY;
@@ -117,13 +121,12 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 				}
 			}
 		} else if(heldItemStack != null && event.action == Action.RIGHT_CLICK_BLOCK && lookPos != null && player.isSneaking()) {
-			List<ChunkCoordinates> cursors = getCursorList(lokiRing);
 			for(ChunkCoordinates cursor : cursors) {
 				int x = lookPos.blockX + cursor.posX;
 				int y = lookPos.blockY + cursor.posY;
 				int z = lookPos.blockZ + cursor.posZ;
 				Item item = heldItemStack.getItem();
-				if(!player.worldObj.isAirBlock(x, y, z)) {
+				if(!player.worldObj.isAirBlock(x, y, z) && ManaItemHandler.requestManaExact(lokiRing, player, cost, true)) {
 					item.onItemUse(player.capabilities.isCreativeMode ? heldItemStack.copy() : heldItemStack, player, player.worldObj, x, y, z, lookPos.sideHit, (float) lookPos.hitVec.xCoord - x, (float) lookPos.hitVec.yCoord - y, (float) lookPos.hitVec.zCoord - z);
 					if(heldItemStack.stackSize == 0) {
 						event.setCanceled(true);
