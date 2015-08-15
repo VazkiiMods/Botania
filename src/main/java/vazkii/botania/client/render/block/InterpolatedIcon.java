@@ -12,6 +12,7 @@ package vazkii.botania.client.render.block;
 
 import java.lang.reflect.Field;
 
+import vazkii.botania.common.lib.LibObfuscation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.data.AnimationMetadataSection;
@@ -21,14 +22,14 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 // This is all vanilla code from 1.8, thanks to ganymedes01 porting it to 1.7 :D
 @SideOnly(Side.CLIENT)
-public class PrismarineIcon extends TextureAtlasSprite {
+public class InterpolatedIcon extends TextureAtlasSprite {
 
 	protected int[][] interpolatedFrameData;
 	private Field fanimationMetadata;
 
-	public PrismarineIcon(String name) {
+	public InterpolatedIcon(String name) {
 		super(name);
-		fanimationMetadata = ReflectionHelper.findField(TextureAtlasSprite.class, "animationMetadata", "field_110982_k");
+		fanimationMetadata = ReflectionHelper.findField(TextureAtlasSprite.class, LibObfuscation.ANIMATION_METADATA);
 		fanimationMetadata.setAccessible(true);
 	}
 
@@ -37,7 +38,8 @@ public class PrismarineIcon extends TextureAtlasSprite {
 		super.updateAnimation();
 		try {
 			updateAnimationInterpolated();
-		} catch (Exception e) {
+		} catch(Exception e) {
+			// NO-OP
 		}
 	}
 
@@ -49,18 +51,18 @@ public class PrismarineIcon extends TextureAtlasSprite {
 		int j = animationMetadata.getFrameCount() == 0 ? framesTextureData.size() : animationMetadata.getFrameCount();
 		int k = animationMetadata.getFrameIndex((frameCounter + 1) % j);
 
-		if (i != k && k >= 0 && k < framesTextureData.size()) {
+		if(i != k && k >= 0 && k < framesTextureData.size()) {
 			int[][] aint = (int[][]) framesTextureData.get(i);
 			int[][] aint1 = (int[][]) framesTextureData.get(k);
 
-			if (interpolatedFrameData == null || interpolatedFrameData.length != aint.length)
+			if(interpolatedFrameData == null || interpolatedFrameData.length != aint.length)
 				interpolatedFrameData = new int[aint.length][];
 
-			for (int l = 0; l < aint.length; l++) {
+			for(int l = 0; l < aint.length; l++) {
 				if (interpolatedFrameData[l] == null)
 					interpolatedFrameData[l] = new int[aint[l].length];
 
-				if (l < aint1.length && aint1[l].length == aint[l].length)
+				if(l < aint1.length && aint1[l].length == aint[l].length)
 					for (int i1 = 0; i1 < aint[l].length; ++i1) {
 						int j1 = aint[l][i1];
 						int k1 = aint1[l][i1];

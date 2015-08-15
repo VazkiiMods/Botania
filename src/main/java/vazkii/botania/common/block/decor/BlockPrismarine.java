@@ -28,7 +28,7 @@ import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
-import vazkii.botania.client.render.block.PrismarineIcon;
+import vazkii.botania.client.render.block.InterpolatedIcon;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
@@ -87,7 +87,7 @@ public class BlockPrismarine extends BlockMod implements ILexiconable {
 	@SideOnly(Side.CLIENT)
 	public void loadTextures(TextureStitchEvent.Pre event) {
 		if(event.map.getTextureType() == 0) {
-			TextureAtlasSprite icon = new PrismarineIcon("botania:prismarine0");
+			TextureAtlasSprite icon = new InterpolatedIcon("botania:prismarine0");
 			if(event.map.setTextureEntry("botania:prismarine0", icon))
 				icons[0] = icon;
 		}
