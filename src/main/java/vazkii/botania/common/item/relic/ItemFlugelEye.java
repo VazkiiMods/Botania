@@ -17,13 +17,15 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import vazkii.botania.api.wand.ICoordBoundItem;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemFlugelEye extends ItemRelic {
+public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem {
 
 	public ItemFlugelEye() {
 		super(LibItemNames.FLUGEL_EYE);
@@ -107,6 +109,14 @@ public class ItemFlugelEye extends ItemRelic {
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
 		return EnumAction.block;
+	}
+
+	@Override
+	public ChunkCoordinates getBinding(ItemStack stack) {
+		int x = ItemNBTHelper.getInt(stack, TAG_X, 0);
+		int y = ItemNBTHelper.getInt(stack, TAG_Y, -1);
+		int z = ItemNBTHelper.getInt(stack, TAG_Z, 0);
+		return y == -1 ? null : new ChunkCoordinates(x, y, z);
 	}
 
 	/*
