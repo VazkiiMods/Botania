@@ -22,12 +22,16 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.BlockSnapshot;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import vazkii.botania.api.item.IExtendedWireframeCoordinateListProvider;
@@ -124,7 +128,14 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 				int z = lookPos.blockZ + cursor.posZ;
 				Item item = heldItemStack.getItem();
 				if(!player.worldObj.isAirBlock(x, y, z)) {
-					item.onItemUse(player.capabilities.isCreativeMode ? heldItemStack.copy() : heldItemStack, player, player.worldObj, x, y, z, lookPos.sideHit, (float) lookPos.hitVec.xCoord - x, (float) lookPos.hitVec.yCoord - y, (float) lookPos.hitVec.zCoord - z);
+					boolean used = item.onItemUse(player.capabilities.isCreativeMode ? heldItemStack.copy() : heldItemStack, player, player.worldObj, x, y, z, lookPos.sideHit, (float) lookPos.hitVec.xCoord - x, (float) lookPos.hitVec.yCoord - y, (float) lookPos.hitVec.zCoord - z);
+
+					if (item instanceof ItemBlock && used) {
+						BlockSnapshot blockSnapshot = BlockSnapshot.getBlockSnapshot(player.worldObj, x, y, z);
+						ForgeDirection forgeDirection = ForgeDirection.getOrientation(lookPos.sideHit);
+						ForgeEventFactory.onPlayerBlockPlace(player, blockSnapshot, forgeDirection);
+					}
+
 					if(heldItemStack.stackSize == 0) {
 						event.setCanceled(true);
 						return;
