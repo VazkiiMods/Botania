@@ -55,6 +55,7 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
 import baubles.common.lib.PlayerHandler;
@@ -75,6 +76,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 
 	public static List<String> playersWithFlight = new ArrayList();
 	private static final int COST = 35;
+	private static final int COST_OVERKILL = COST * 3;
 	private static final int MAX_FLY_TIME = 400;
 
 	public static IIcon[] wingIcons;
@@ -187,8 +189,8 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 					player.capabilities.allowFlying = true;
 					if(player.capabilities.isFlying) {
 						if(!player.worldObj.isRemote) {
-							ManaItemHandler.requestManaExact(tiara, player, COST, true);
-							if(left < 3)
+							ManaItemHandler.requestManaExact(tiara, player, getCost(tiara, left), true);
+							if(left < 3 && !player.inventory.hasItem(ModItems.flugelEye))
 								player.setFire(5);
 						} else if(Math.abs(player.motionX) > 0.1 || Math.abs(player.motionZ) > 0.1) {
 							double x = event.entityLiving.posX - 0.5;
@@ -283,10 +285,14 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 		if(armor != null && armor.getItem() == this) {
 			int left = ItemNBTHelper.getInt(armor, TAG_TIME_LEFT, MAX_FLY_TIME);
 			boolean flying = ItemNBTHelper.getBoolean(armor, TAG_FLYING, false);
-			return left > (flying ? 0 : MAX_FLY_TIME / 10) && ManaItemHandler.requestManaExact(armor, player, COST, false);
+			return (left > (flying ? 0 : MAX_FLY_TIME / 10) || player.inventory.hasItem(ModItems.flugelEye)) && ManaItemHandler.requestManaExact(armor, player, getCost(armor, left), false);
 		}
 		
 		return false;
+	}
+	
+	public int getCost(ItemStack stack, int timeLeft) {
+		return timeLeft <= 0 ? COST_OVERKILL : COST;
 	}
 
 	@Override

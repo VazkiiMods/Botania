@@ -121,11 +121,11 @@ public final class HUDHandler {
 				profiler.endSection();
 			}
 
-			if(equippedStack != null && equippedStack.getItem() == ModItems.flugelEye) {
+			/*if(equippedStack != null && equippedStack.getItem() == ModItems.flugelEye) {
 				profiler.startSection("flugelEye");
 				ItemFlugelEye.renderHUD(event.resolution, mc.thePlayer, equippedStack);
 				profiler.endSection();
-			}
+			}*/
 			
 			profiler.startSection("manaBar");
 			EntityPlayer player = mc.thePlayer;
