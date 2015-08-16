@@ -96,7 +96,11 @@ public final class BotaniaAPI {
 
 	public static EnumRarity rarityRelic = EnumHelper.addRarity("RELIC", EnumChatFormatting.GOLD, "Relic");
 
-	public static KnowledgeType basicKnowledge, elvenKnowledge;
+	public static KnowledgeType basicKnowledge;
+	public static KnowledgeType elvenKnowledge;
+	
+	// This is here for completeness sake, but you shouldn't use it
+	public static KnowledgeType relicKnowledge;
 
 	// All of these categories are initialized during botania's PreInit stage.
 	public static LexiconCategory categoryBasics;
@@ -117,6 +121,7 @@ public final class BotaniaAPI {
 
 		basicKnowledge = registerKnowledgeType("minecraft", EnumChatFormatting.RESET, true);
 		elvenKnowledge = registerKnowledgeType("alfheim", EnumChatFormatting.DARK_GREEN, false);
+		relicKnowledge = registerKnowledgeType("relic", EnumChatFormatting.DARK_PURPLE, false);
 
 		addOreWeight("oreAluminum", 3940); // Tinkers' Construct
 		addOreWeight("oreAmber", 2075); // Thaumcraft

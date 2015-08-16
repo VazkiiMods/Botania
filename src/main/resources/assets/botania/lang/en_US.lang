@@ -262,6 +262,7 @@ botania.roman30=XXX
 # KNOWLEDGE
 botania.knowledge.minecraft=Minecraftian Knowledge
 botania.knowledge.alfheim=&aElven&7 Knowledge
+botania.knowledge.relic=&5Relic&7 Knowledge
 
 # CONFIGURATION
 blockBreakingParticles.enabled=Block Break Particles
@@ -368,41 +369,6 @@ botania.baubletype.belt=Equippable in the &aBelt&7 slot
 botania.baubletooltip=Press &b%key%&7 to open the Baubles menu
 
 # RELIC POEMS
-item.infiniteFruit.poem0=The fruit of the forbidden garden
-item.infiniteFruit.poem1=Eternally cleanses one's hunger,
-item.infiniteFruit.poem2=For that it rebuilds its pulp
-item.infiniteFruit.poem3=And makes itself younger.
-
-item.kingKey.poem0=Roses are red.
-item.kingKey.poem1=Unicorns are pencil.
-item.kingKey.poem2=This poem makes no sense.
-item.kingKey.poem3=Toaster.
-
-item.flugelEye.poem0=A vision of the past on one's mind,
-item.flugelEye.poem1=Round and round is the memory matrix,
-item.flugelEye.poem2=And their viable interactions
-item.flugelEye.poem3=Will take the psyche back to basics.
-
-item.thorRing.poem0=The force of the Thunder God
-item.thorRing.poem1=Will Shatter the salt of the Terra,
-item.thorRing.poem2=With unstoppable strength
-item.thorRing.poem3=It'll begin anew a new era.
-
-item.odinRing.poem0=The wise old God lays its blessings,
-item.odinRing.poem1=Of virtue, life and divinity,
-item.odinRing.poem2=With the hindrance of death on one's hands,
-item.odinRing.poem3=They'll form the Holy Trinity.
-
-item.lokiRing.poem0=Empty handed, a sneaking interaction,
-item.lokiRing.poem1=Once on the center, then around the track,
-item.lokiRing.poem2=Back to the start one'd go to complete
-item.lokiRing.poem3=The power of creating back-to-back.
-
-item.aesirRing.poem0=The forces of the Gods
-item.aesirRing.poem1=In this band form as one,
-item.aesirRing.poem2=And when combined all together
-item.aesirRing.poem3=Above them will be none.
-
 item.dice.poem0=He deals the cards to find the answer,
 item.dice.poem1=The sacred geometry of chance,
 item.dice.poem2=The hidden laws of a probable outcome,
@@ -1624,7 +1590,7 @@ botania.page.runeAltar19=The &1Rune of Pride&0.
 
 # -- TERRASTEEL
 botania.entry.terrasteel=Terrasteel
-botania.page.terrasteel0=&1Terrasteel&0 is a complex magical alloy, infused with a great amount of &4Mana&0. Conjuring it proves not to be a small task. For starters, to create it, one would require a &1Terrestrial Agglomeration Plate&0, set on top of a checkerboard pattern of &1Lapis Lazuli Blocks&0 and &1Livingrock&0. &4Mana&0 would need to be provided to this block, &1Sparks&0 would be the most effective way..
+botania.page.terrasteel0=&1Terrasteel&0 is a complex magical alloy, infused with a great amount of &4Mana&0. Conjuring it proves not to be a small task. For starters, to create it, one would require a &1Terrestrial Agglomeration Plate&0, set on top of a checkerboard pattern of &1Lapis Lazuli Blocks&0 and &1Livingrock&0. &4Mana&0 would need to be provided to this block, &1Sparks&0 would be the most effective way.
 botania.page.terrasteel1=Creating the plate
 botania.page.terrasteel2=After the plate is set up and ready to receive &4Mana&0, tossing a single &1Manasteel Ingot, Mana Diamond and Mana Pearl&0 on top of it will begin the infusion.<br>Picking up any of the items will halt the infusion causing severe &4Mana Loss&0. The infusion uses half a &1Mana Pool&0 total to create a single piece of &4Terrasteel&0, multiple &1Sparks&0 would make it go faster, too.
 botania.page.terrasteel3=Creating &1Terrasteel&0 (there's &1Livingrock&0 under the plate)
@@ -2836,6 +2802,39 @@ botania.page.gaiaRitualHardmode2=Creating the &1Gaia Spirit Ingot&0.
 # -- THE RELICS OF THE AESIR
 botania.entry.relics=The Relics of the Aesir
 botania.page.relics0=There's an old tale from the high clans of Alfheim. It says something among the lines of "The one who rolls the Dice of Fate is to be rewarded with the Gifts of the Gods". These so called &1Relics of the Aesir&0 are rumored to be unique and soulbound, by which only one will ever be awarded to any one individual and only they might use it.<br>But then again, it's probably just folklore.
+
+# -- THE RELICS OF THE AESIR II
+botania.entry.relicInfo=The Relics of the Aesir II
+botania.page.relicInfo0=It appears as if the speculated relics are, in fact, real. These items, materialized from rolls of the &1Dice of Fate&0 possess incredible powers, the fact that the dice is six-sided possibly indicates to the existance of six of these.<br>Relics seem to contain knowledge of who earned them, and thus giving someone else a relic that doesn't belong to them might be a poor idea.
+botania.page.relicInfo1=According to the original texts, the same relic may not be awarded to any one person twice, so keeping the item safe is a priority. Perhaps something like &1Resolute Ivy&0 would be a good investment.<br>Interestingly enough, earning a relic also imparts upon this lexicon the knowledge on how to use it. How useful.
+
+# -- THE FRUIT OF GRISAIA   
+botania.entry.infiniteFruit=The Fruit of Grisaia
+botania.page.infiniteFruit0=The relic known as &1The Fruit of Grisaia&0 is bestowed with the power to eternally nourish the brave soul who earned it. It can be eaten similarly to any other piece of food, but instead of utilizing matter to feed, it uses &4Mana&0 from one's inventory.<br>Hope you like the taste of apple though.
+
+# -- KEY OF THE KING'S LAW
+botania.entry.kingKey=Key of the King's Law
+botania.page.kingKey0=The &1Key of the King's Law&0 is a powerful relic with the ability to materialize weapons at command. Holding right click with this key will summon a plenthora of varied weapons from... somewhere. Up to twenty weapons can be created at once. Releasing the grip on the key will launch all the weapons, one at a time, where the summoner is looking at, at high speed. These weapons will create an explosion on contact.
+
+# -- EYE OF THE FLUGEL
+botania.entry.flugelEye=Eye of the Flügel
+botania.page.flugelEye0=Unlike the fabricated &1Flügel Tiara&0, the &1Eye of the Flügel&0 contains primordial &4Flügel&0 magic. Magic strong enough, in fact, to harness the &4Flügels&0' ability to recall themselves to a place they've visited.<br>Shift-right clicking with this eye somewhere will bind it to that position. After that, holding right click for a while will recall the user back to the aforementioned location.
+botania.page.flugelEye1=This teleportation ability not only costs &4Mana&0 but can not be executed across two different dimensions, sadly enough.<br>Aside from that, simply being in possession of an &1Eye of the Flügel&0 allows a wearer of the &1Flügel Tiara&0 to fly past the normal limits, at a higher cost, of course.
+
+# -- RING OF THOR
+botania.entry.thorRing=Ring of Thor
+botania.page.thorRing0=One of the three mythic rings of the &4Aesir&0, the &1Ring of Thor&0, when worn, bestows upon the wearer the might of the Thunder God &4Thor&0. This power drastically increases the strength of area of effect mining with a &1Terra Shatterer&0.<br>This ring can be combined with the other two rings of the &4Aesir&0 in a crafting table to create the ultimate ring.
+
+# -- RING OF LOKI
+botania.entry.lokiRing=Ring of Loki
+botania.page.lokiRing0=One of the three mythic rings of the &4Aesir&0, the &1Ring of Loki&0 allows for the wearer to tap upon the Trickster God &4Loki&0 to effectively be in multiple places at once.<br>The setup for this ability requires, first and foremost, an empty hand. Shift-right clicking on a block with said empty hand while having the &1Ring of Loki&0 equipped begins the procedure.
+botania.page.lokiRing1=Once the source block is selected, shift-right clicking on other blocks in the world will add them to the relative positions affected by this power. In order to finish the procedure, one would shift-right click the original block.<br>Shift-right clicking on one of the blocks that has been selected will remove it. To reset a completed selection, shift-right click the ground twice.
+botania.page.lokiRing2=After the selection is complete, when looking around, one will notice multiple boxes in relative positions to the selected block. When a block is placed, the placing action is mimicked on all of those positions, allowing for one to place a large amount of blocks at once.<br>This ability also extends to destruction using the &1Terra Shatterer&0 or &1Terra Truncator&0.  
+botania.page.lokiRing3=Such a power does not come for free of course. Utilizing this ability costs &4Mana&0 from the user's inventory per each block placed. It's to note that the more blocks that are selected, the more expensive &4each placed block&0 becomes.<br>Lastly, this ring can be combined with the other two rings of the &4Aesir&0 in a crafting table to create the ultimate ring.
+
+# -- RING OF ODIN
+botania.entry.odinRing=Ring of Odin
+botania.page.odinRing0=One of the three mythic rings of the &4Aesir&0, the &1Ring of Odin&0 grants its wearer the vitality and resistance of the Elder God &4Odin&0. As well as the adition of ten extra hearts of health, the &1Ring of Odin&0 protects the wearer from various kinds of elemental damage such as drowning, suffocation, fire or starvation. The ring can also be combined with the other two rings of the &4Aesir&0 in a crafting table to create the ultimate ring. 
 
 # -- ELVEN LORE - THE SHATTERING
 botania.entry.elvenLore=Elven Lore - The Shattering

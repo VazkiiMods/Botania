@@ -38,6 +38,7 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
+import vazkii.botania.common.item.relic.ItemDice;
 import vazkii.botania.common.lib.LibGuiIDs;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -67,10 +68,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 						Botania.proxy.setEntryToOpen(entry);
 						Botania.proxy.setLexiconStack(par1ItemStack);
 
-						par2EntityPlayer.openGui(Botania.instance, LibGuiIDs.LEXICON, par3World, 0, 0, 0);
-						par2EntityPlayer.addStat(ModAchievements.lexiconUse, 1);
-						if(!par3World.isRemote)
-							par3World.playSoundAtEntity(par2EntityPlayer, "botania:lexiconOpen", 0.5F, 1F);
+						openBook(par2EntityPlayer, par1ItemStack, par3World, false);
 						return true;
 					}
 				} else if(par3World.isRemote) {
@@ -138,16 +136,29 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 			setForcedPage(par1ItemStack, "");
 		}
 
-		Botania.proxy.setLexiconStack(par1ItemStack);
-		par3EntityPlayer.addStat(ModAchievements.lexiconUse, 1);
-		par3EntityPlayer.openGui(Botania.instance, LibGuiIDs.LEXICON, par2World, 0, 0, 0);
-		if(!par2World.isRemote && !skipSound)
-			par2World.playSoundAtEntity(par3EntityPlayer, "botania:lexiconOpen", 0.5F, 1F);
+		openBook(par3EntityPlayer, par1ItemStack, par2World, skipSound);
 		skipSound = false;
 
 		return par1ItemStack;
 	}
 
+	public void openBook(EntityPlayer player, ItemStack stack, World world, boolean skipSound) {
+		if(!isKnowledgeUnlocked(stack, BotaniaAPI.relicKnowledge) && isKnowledgeUnlocked(stack, BotaniaAPI.elvenKnowledge))
+			for(ItemStack rstack : ItemDice.relicStacks) {
+				Item item = rstack.getItem();
+				if(player.inventory.hasItem(item)) {
+					unlockKnowledge(stack, BotaniaAPI.relicKnowledge);
+					break;
+				}
+			}
+		
+		Botania.proxy.setLexiconStack(stack);
+		player.addStat(ModAchievements.lexiconUse, 1);
+		player.openGui(Botania.instance, LibGuiIDs.LEXICON, world, 0, 0, 0);
+		if(!world.isRemote && !skipSound)
+			world.playSoundAtEntity(player, "botania:lexiconOpen", 0.5F, 1F);
+	}
+	
 	@Override
 	public void onUpdate(ItemStack stack, World world, Entity entity, int idk, boolean something) {
 		int ticks = getQueueTicks(stack);

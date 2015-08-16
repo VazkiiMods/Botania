@@ -214,6 +214,13 @@ public final class LibLexicon {
 	public static final String ALF_GAIA_RITUAL_HARDMODE = "gaiaRitualHardmode";
 	public static final String ALF_LORE = "elvenLore";
 	public static final String ALF_RELICS = "relics";
+	public static final String ALF_RELIC_INFO = "relicInfo";
+	public static final String ALF_INFINITE_FRUIT = "infiniteFruit";
+	public static final String ALF_KING_KEY = "kingKey";
+	public static final String ALF_FLUGEL_EYE = "flugelEye";
+	public static final String ALF_THOR_RING = "thorRing";
+	public static final String ALF_LOKI_RING = "lokiRing";
+	public static final String ALF_ODIN_RING = "odinRing";
 
 	public static final String MISC_UNSTABLE_BLOCKS = "unstableBlocks";
 	public static final String MISC_DECORATIVE_BLOCKS = "decorativeBlocks";

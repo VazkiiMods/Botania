@@ -116,7 +116,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		entriesToDisplay.clear();
 		ILexicon lex = (ILexicon) stackUsed.getItem();
 		for(LexiconEntry entry : category == null ? BotaniaAPI.getAllEntries() : category.entries) {
-			if(lex.isKnowledgeUnlocked(stackUsed, entry.getKnowledgeType()) && StatCollector.translateToLocal(entry.getUnlocalizedName()).toLowerCase().contains(searchField.getText().toLowerCase().trim()))
+			if(entry.isVisible() && lex.isKnowledgeUnlocked(stackUsed, entry.getKnowledgeType()) && StatCollector.translateToLocal(entry.getUnlocalizedName()).toLowerCase().contains(searchField.getText().toLowerCase().trim()))
 				entriesToDisplay.add(entry);
 		}
 		Collections.sort(entriesToDisplay);

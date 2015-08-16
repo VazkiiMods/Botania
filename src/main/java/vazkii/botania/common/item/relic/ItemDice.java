@@ -33,7 +33,7 @@ public class ItemDice extends ItemRelic {
 		-1, 0, 1, 2, -1, 2, 3, 4
 	};
 
-	final ItemStack[] relicStacks;
+	public static ItemStack[] relicStacks;
 
 	public ItemDice() {
 		super(LibItemNames.DICE);

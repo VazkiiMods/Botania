@@ -64,10 +64,12 @@ public class ItemRelic extends ItemMod implements IRelic {
 			if(stack.getItem() == ModItems.aesirRing)
 				addStringToTooltip(StatCollector.translateToLocal("botaniamisc.dropIkea"), list);
 
-			addStringToTooltip("", list);
-			String name = stack.getUnlocalizedName() + ".poem";
-			for(int i = 0; i < 4; i++)
-				addStringToTooltip(EnumChatFormatting.ITALIC + StatCollector.translateToLocal(name + i), list);
+			if(stack.getItem() == ModItems.dice) {
+				addStringToTooltip("", list);
+				String name = stack.getUnlocalizedName() + ".poem";
+				for(int i = 0; i < 4; i++)
+					addStringToTooltip(EnumChatFormatting.ITALIC + StatCollector.translateToLocal(name + i), list);
+			}
 		} else addStringToTooltip(StatCollector.translateToLocal("botaniamisc.shiftinfo"), list);
 	}
 	

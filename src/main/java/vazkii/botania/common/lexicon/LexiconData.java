@@ -24,6 +24,7 @@ import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.api.lexicon.LexiconRecipeMappings;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModMultiblocks;
 import vazkii.botania.common.brew.ModBrews;
@@ -244,7 +245,14 @@ public final class LexiconData {
 	public static LexiconEntry gaiaRitualHardmode;
 	public static LexiconEntry elvenLore;
 	public static LexiconEntry relics;
-
+	public static LexiconEntry relicInfo;
+	public static LexiconEntry infiniteFruit;
+	public static LexiconEntry kingKey;
+	public static LexiconEntry flugelEye;
+	public static LexiconEntry thorRing;
+	public static LexiconEntry lokiRing;
+	public static LexiconEntry odinRing;
+	
 	public static LexiconEntry unstableBlocks;
 	public static LexiconEntry decorativeBlocks;
 	public static LexiconEntry dispenserTweaks;
@@ -903,6 +911,27 @@ public final class LexiconData {
 		if(ConfigHandler.relicsEnabled) {
 			relics = new ALexiconEntry(LibLexicon.ALF_RELICS, categoryAlfhomancy);
 			relics.setLexiconPages(new PageText("0")).setIcon(new ItemStack(ModItems.dice));
+			
+			relicInfo = new RLexiconEntry(LibLexicon.ALF_RELIC_INFO, categoryAlfhomancy, null);
+			relicInfo.setLexiconPages(new PageText("0"), new PageText("1")).setIcon(new ItemStack(ModItems.dice));
+			
+			infiniteFruit = new RLexiconEntry(LibLexicon.ALF_INFINITE_FRUIT, categoryAlfhomancy, ModAchievements.relicInfiniteFruit);
+			infiniteFruit.setLexiconPages(new PageText("0"));
+			
+			kingKey = new RLexiconEntry(LibLexicon.ALF_KING_KEY, categoryAlfhomancy, ModAchievements.relicKingKey);
+			kingKey.setLexiconPages(new PageText("0"));
+			
+			flugelEye = new RLexiconEntry(LibLexicon.ALF_FLUGEL_EYE, categoryAlfhomancy, ModAchievements.relicFlugelEye);
+			flugelEye.setLexiconPages(new PageText("0"), new PageText("1"));
+			
+			thorRing = new RLexiconEntry(LibLexicon.ALF_THOR_RING, categoryAlfhomancy, ModAchievements.relicThorRing);
+			thorRing.setLexiconPages(new PageText("0"));
+			
+			lokiRing = new RLexiconEntry(LibLexicon.ALF_LOKI_RING, categoryAlfhomancy, ModAchievements.relicLokiRing);
+			lokiRing.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageText("3"));
+			
+			odinRing = new RLexiconEntry(LibLexicon.ALF_ODIN_RING, categoryAlfhomancy, ModAchievements.relicOdinRing);
+			odinRing.setLexiconPages(new PageText("0"));
 		}
 
 		// MISCLENAEOUS ENTRIES

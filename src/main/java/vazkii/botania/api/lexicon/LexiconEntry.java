@@ -17,6 +17,8 @@ import java.util.List;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import vazkii.botania.api.BotaniaAPI;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class LexiconEntry implements Comparable<LexiconEntry> {
 
@@ -75,6 +77,11 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 
 	public String getUnlocalizedName() {
 		return unlocalizedName;
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public boolean isVisible() {
+		return true;
 	}
 
 	/**
