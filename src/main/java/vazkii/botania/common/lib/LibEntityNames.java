@@ -31,5 +31,6 @@ public final class LibEntityNames {
 	public static final String PINK_WITHER = LibResources.PREFIX_MOD + "pinkWither";
 	public static final String PLAYER_MOVER = LibResources.PREFIX_MOD + "playerMover";
 	public static final String MANA_STORM = LibResources.PREFIX_MOD + "manaStorm";
+	public static final String BABYLON_WEAPON = LibResources.PREFIX_MOD + "babylonWeapon";
 
 }

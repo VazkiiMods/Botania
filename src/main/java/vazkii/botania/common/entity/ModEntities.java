@@ -37,6 +37,7 @@ public final class ModEntities {
 		EntityRegistry.registerModEntity(EntityPinkWither.class, LibEntityNames.PINK_WITHER, id++, Botania.instance, 80, 3, false);
 		EntityRegistry.registerModEntity(EntityPlayerMover.class, LibEntityNames.PLAYER_MOVER, id++, Botania.instance, 40, 3, true);
 		EntityRegistry.registerModEntity(EntityManaStorm.class, LibEntityNames.MANA_STORM, id++, Botania.instance, 64, 10, false);
+		EntityRegistry.registerModEntity(EntityBabylonWeapon.class, LibEntityNames.BABYLON_WEAPON, id++, Botania.instance, 64, 10, true);
 	}
 
 }
