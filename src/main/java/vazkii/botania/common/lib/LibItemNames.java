@@ -130,7 +130,7 @@ public final class LibItemNames {
 	public static final String POOL_MINECART = "poolMinecart";
 	public static final String PINKINATOR = "pinkinator";
 	public static final String INFINITE_FRUIT = "infiniteFruit";
-	public static final String EXCALIBER = "excaliber";
+	public static final String KING_KEY = "kingKey";
 	public static final String FLUGEL_EYE = "flugelEye";
 	public static final String THOR_RING = "thorRing";
 	public static final String ODIN_RING = "odinRing";

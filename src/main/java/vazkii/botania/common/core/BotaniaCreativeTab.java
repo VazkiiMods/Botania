@@ -195,7 +195,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		if(ConfigHandler.relicsEnabled) {
 			addItem(ModItems.dice);
 			addItem(ModItems.infiniteFruit);
-			addItem(ModItems.excaliber);
+			addItem(ModItems.kingKey);
 			addItem(ModItems.flugelEye);
 			addItem(ModItems.thorRing);
 			addItem(ModItems.odinRing);

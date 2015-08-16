@@ -43,7 +43,7 @@ public final class LibAchievementNames {
 	public static final String PINKINATOR = "pinkinator";
 
 	public static final String RELIC_INFINITE_FRUIT = "infiniteFruit";
-	public static final String RELIC_EXCALIBER = "excaliber";
+	public static final String RELIC_KING_KEY = "kingKey";
 	public static final String RELIC_FLUGEL_EYE = "flugelEye";
 	public static final String RELIC_THOR_RING = "thorRing";
 	public static final String RELIC_ODIN_RING = "odinRing";

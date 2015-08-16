@@ -373,10 +373,10 @@ item.infiniteFruit.poem1=Eternally cleanses one's hunger,
 item.infiniteFruit.poem2=For that it rebuilds its pulp
 item.infiniteFruit.poem3=And makes itself younger.
 
-item.excaliber.poem0=A sword of a true hero
-item.excaliber.poem1=Fit for only one of the kind,
-item.excaliber.poem2=Sharp and magic conjuring,
-item.excaliber.poem3=Enemies it will quickly find.
+item.kingKey.poem0=Roses are red.
+item.kingKey.poem1=Unicorns are pencil.
+item.kingKey.poem2=This poem makes no sense.
+item.kingKey.poem3=Toaster.
 
 item.flugelEye.poem0=A vision of the past on one's mind,
 item.flugelEye.poem1=Round and round is the memory matrix,
@@ -488,8 +488,8 @@ achievement.botania:pinkinator.desc=Put to use The Pinkinator
 
 achievement.botania:infiniteFruit=Innocentia
 achievement.botania:infiniteFruit.desc=Be rewarded The Fruit of Grisaia for a heroic feat
-achievement.botania:excaliber=Streaming Heart
-achievement.botania:excaliber.desc=Be rewarded the Holy Sword Excaliber for a heroic feat
+achievement.botania:kingKey=Dead Line Circus
+achievement.botania:kingKey.desc=Be rewarded the Key of the King's Law for a heroic feat
 achievement.botania:flugelEye=Angel of Death
 achievement.botania:flugelEye.desc=Be rewarded the Eye of the Flügel for a heroic feat
 achievement.botania:thorRing=One Step Layered
@@ -1435,7 +1435,7 @@ item.botania:phantomInk.name=Phantom Ink
 item.botania:poolMinecart.name=Minecart with Mana Pool
 item.botania:pinkinator.name=The Pinkinator
 item.botania:infiniteFruit.name=The Fruit of Grisaia
-item.botania:excaliber.name=Holy Sword Excaliber
+item.botania:kingKey.name=Key of the King's Law
 item.botania:flugelEye.name=Eye of the Flügel
 item.botania:thorRing.name=Ring of Thor
 item.botania:odinRing.name=Ring of Odin

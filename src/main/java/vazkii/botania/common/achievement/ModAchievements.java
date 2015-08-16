@@ -59,7 +59,7 @@ public final class ModAchievements {
 	public static Achievement pinkinator;
 
 	public static Achievement relicInfiniteFruit;
-	public static Achievement relicExcaliber;
+	public static Achievement relicKingKey;
 	public static Achievement relicFlugelEye;
 	public static Achievement relicThorRing;
 	public static Achievement relicOdinRing;
@@ -108,14 +108,13 @@ public final class ModAchievements {
 
 		if(ConfigHandler.relicsEnabled) {
 			relicInfiniteFruit = new AchievementMod(LibAchievementNames.RELIC_INFINITE_FRUIT, -9, 4, ModItems.infiniteFruit, null);
-			relicExcaliber = new AchievementMod(LibAchievementNames.RELIC_EXCALIBER, -7, 7, ModItems.excaliber, null);
+			relicKingKey = new AchievementMod(LibAchievementNames.RELIC_KING_KEY, -7, 7, ModItems.kingKey, null);
 			relicFlugelEye = new AchievementMod(LibAchievementNames.RELIC_FLUGEL_EYE, -5, 4, ModItems.flugelEye, null);
 			relicThorRing = new AchievementMod(LibAchievementNames.RELIC_THOR_RING, -7, 3, ModItems.thorRing, null);
 			relicOdinRing = new AchievementMod(LibAchievementNames.RELIC_ODIN_RING, -9, 6, ModItems.odinRing, null);
 			relicLokiRing = new AchievementMod(LibAchievementNames.RELIC_LOKI_RING, -5, 6, ModItems.lokiRing, null);
 			relicAesirRing = new AchievementMod(LibAchievementNames.RELIC_AESIR_RING, -7, 5, ModItems.aesirRing, null).setSpecial();
 		}
-
 
 		nullFlower = new AchievementMod(LibAchievementNames.NULL_FLOWER, -8, -4, ModBlocks.specialFlower, null).setSpecial();
 

@@ -90,9 +90,9 @@ import vazkii.botania.common.item.record.ItemRecordGaia1;
 import vazkii.botania.common.item.record.ItemRecordGaia2;
 import vazkii.botania.common.item.relic.ItemAesirRing;
 import vazkii.botania.common.item.relic.ItemDice;
-import vazkii.botania.common.item.relic.ItemExcaliber;
 import vazkii.botania.common.item.relic.ItemFlugelEye;
 import vazkii.botania.common.item.relic.ItemInfiniteFruit;
+import vazkii.botania.common.item.relic.ItemKingKey;
 import vazkii.botania.common.item.relic.ItemLokiRing;
 import vazkii.botania.common.item.relic.ItemOdinRing;
 import vazkii.botania.common.item.relic.ItemThorRing;
@@ -229,7 +229,7 @@ public final class ModItems {
 	public static Item poolMinecart;
 	public static Item pinkinator;
 	public static Item infiniteFruit;
-	public static Item excaliber;
+	public static Item kingKey;
 	public static Item flugelEye;
 	public static Item thorRing;
 	public static Item odinRing;
@@ -365,7 +365,7 @@ public final class ModItems {
 		poolMinecart = new ItemPoolMinecart();
 		pinkinator = new ItemPinkinator();
 		infiniteFruit = new ItemInfiniteFruit();
-		excaliber = new ItemExcaliber();
+		kingKey = new ItemKingKey();
 		flugelEye = new ItemFlugelEye();
 		thorRing = new ItemThorRing();
 		odinRing = new ItemOdinRing();

@@ -15,6 +15,7 @@ import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
@@ -39,7 +40,7 @@ public class ItemDice extends ItemRelic {
 
 		relicStacks = new ItemStack[] {
 				new ItemStack(ModItems.infiniteFruit),
-				new ItemStack(ModItems.excaliber),
+				new ItemStack(ModItems.kingKey),
 				new ItemStack(ModItems.flugelEye),
 				new ItemStack(ModItems.thorRing),
 				new ItemStack(ModItems.odinRing),
