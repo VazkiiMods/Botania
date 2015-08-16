@@ -32,6 +32,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import vazkii.botania.api.item.IExtendedWireframeCoordinateListProvider;
 import vazkii.botania.api.item.ISequentialBreaker;
+import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
@@ -46,7 +47,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeCoordinateListProvider {
+public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeCoordinateListProvider, IManaUsingItem {
 
 	private static final String TAG_CURSOR_LIST = "cursorList";
 	private static final String TAG_CURSOR_PREFIX = "cursor";
@@ -274,6 +275,11 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 		cmp.setTag(TAG_CURSOR_PREFIX + count, cursorToCmp(x, y, z));
 		cmp.setInteger(TAG_CURSOR_COUNT, count + 1);
 		ItemNBTHelper.setCompound(stack, TAG_CURSOR_LIST, cmp);
+	}
+
+	@Override
+	public boolean usesMana(ItemStack stack) {
+		return true;
 	}
 
 }

@@ -20,12 +20,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import vazkii.botania.api.mana.IManaUsingItem;
+import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.wand.ICoordBoundItem;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem {
+public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUsingItem {
 
 	public ItemFlugelEye() {
 		super(LibItemNames.FLUGEL_EYE);
@@ -80,7 +83,9 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem {
 		int z = ItemNBTHelper.getInt(stack, TAG_Z, 0);
 		int dim = ItemNBTHelper.getInt(stack, TAG_DIMENSION, 0);
 		
-		if(y > -1 && dim == world.provider.dimensionId) {
+		int cost = (int) (MathHelper.pointDistanceSpace(x + 0.5, y + 0.5, z + 0.5, player.posX, player.posY, player.posZ) * 10);
+		
+		if(y > -1 && dim == world.provider.dimensionId && ManaItemHandler.requestManaExact(stack, player, cost, true)) {
 			moveParticlesAndSound(player);
 			if(player instanceof EntityPlayerMP && !world.isRemote)
 				((EntityPlayerMP) player).playerNetServerHandler.setPlayerLocation(x + 0.5, y + 1.6, z + 0.5, player.rotationYaw, player.rotationPitch);
@@ -117,6 +122,11 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem {
 		int y = ItemNBTHelper.getInt(stack, TAG_Y, -1);
 		int z = ItemNBTHelper.getInt(stack, TAG_Z, 0);
 		return y == -1 ? null : new ChunkCoordinates(x, y, z);
+	}
+
+	@Override
+	public boolean usesMana(ItemStack stack) {
+		return true;
 	}
 
 	/*

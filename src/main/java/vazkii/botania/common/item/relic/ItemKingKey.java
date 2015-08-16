@@ -19,6 +19,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -26,7 +27,7 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityBabylonWeapon;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemKingKey extends ItemRelic {
+public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 
 	private static final String TAG_WEAPONS_SPAWNED = "weaponsSpawned";
 	private static final String TAG_CHARGING = "charging";
@@ -132,6 +133,11 @@ public class ItemKingKey extends ItemRelic {
 	
 	@Override
 	public boolean isFull3D() {
+		return true;
+	}
+
+	@Override
+	public boolean usesMana(ItemStack stack) {
 		return true;
 	}
 	
