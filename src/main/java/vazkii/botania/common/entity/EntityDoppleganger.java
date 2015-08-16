@@ -341,15 +341,15 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			entityDropItem(new ItemStack(ModItems.manaResource, hard ? 16 : 8, 5), 1F);
 			boolean droppedRecord = false;
 
-			if (lChance > 100)
+			if(lChance > 100)
 				lChance = 100;
-			if (lChance < -1)
+			if(lChance < -1)
 				lChance = -1;
 				
 			if(hard) {
-				if (rand.nextInt(100) < lChance)
+				if(rand.nextInt(100) < lChance)
 				entityDropItem(new ItemStack(ModItems.ancientWill, 1, rand.nextInt(6)), 1F);
-				if(ConfigHandler.relicsEnabled && (rand.nextInt(100) < lChance))
+				if(ConfigHandler.relicsEnabled)
 					entityDropItem(new ItemStack(ModItems.dice), 1F);
 
 				if(Math.random() < 0.25 && (rand.nextInt(100) < lChance))
@@ -364,11 +364,9 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 					entityDropItem(new ItemStack(ModItems.manaResource, 8 + rand.nextInt(6), 1), 1F);
 				if(Math.random() < 0.5 && (rand.nextInt(100) < lChance))
 					entityDropItem(new ItemStack(ModItems.manaResource, 4 + rand.nextInt(3), 2), 1F);
-<<<<<<< HEAD
 				if(Math.random() < 0.3 && (rand.nextInt(100) < lChance))
 					entityDropItem(new ItemStack(ModItems.rune, 2 + rand.nextInt(3), rand.nextInt(16)), 1F);
 				if(Math.random() < 0.2 && (rand.nextInt(100) < lChance))
-=======
 				
 				
 				if(Math.random() < 0.3) {
@@ -378,7 +376,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 				}
 				
 				if(Math.random() < 0.2)
->>>>>>> c2c4350b9448a924389f1762ad172dbb30850d9a
+
 					entityDropItem(new ItemStack(ModItems.pinkinator), 1F);
 				if(Math.random() < 0.3 && (rand.nextInt(100) < lChance)) {
 					int i = Item.getIdFromItem(Items.record_13);
