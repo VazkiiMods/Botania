@@ -15,6 +15,7 @@ import java.util.List;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
@@ -27,8 +28,13 @@ import vazkii.botania.common.item.relic.ItemKingKey;
 
 public class EntityBabylonWeapon extends EntityThrowableCopy {
 
-	// TODO NBT
-
+	private static final String TAG_CHARGING = "charging";
+	private static final String TAG_VARIETY = "variety";
+	private static final String TAG_CHARGE_TICKS = "chargeTicks";
+	private static final String TAG_LIVE_TICKS = "liveTicks";
+	private static final String TAG_DELAY = "delay";
+	private static final String TAG_ROTATION = "rotation";
+	
 	public EntityBabylonWeapon(World world) {
 		super(world);
 	}
@@ -46,12 +52,14 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 		dataWatcher.addObject(22, 0);
 		dataWatcher.addObject(23, 0);
 		dataWatcher.addObject(24, 0);
+		dataWatcher.addObject(25, 0F);
 
 		dataWatcher.setObjectWatched(20);
 		dataWatcher.setObjectWatched(21);
 		dataWatcher.setObjectWatched(22);
 		dataWatcher.setObjectWatched(23);
 		dataWatcher.setObjectWatched(24);
+		dataWatcher.setObjectWatched(25);
 	}
 
 	@Override
@@ -79,7 +87,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 		int liveTime = getLiveTicks();
 		int delay = getDelay();
 		charging &= liveTime == 0;
-		
+
 		if(charging) {
 			motionX = 0;
 			motionY = 0;
@@ -87,12 +95,15 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 
 			int chargeTime = getChargeTicks();
 			setChargeTicks(chargeTime + 1);
+
+			if(worldObj.rand.nextInt(20) == 0)
+				worldObj.playSoundAtEntity(this, "botania:babylonSpawn", 0.1F, 1F + worldObj.rand.nextFloat() * 3F);
 		} else {
 			if(liveTime < delay) {
 				motionX = 0;
 				motionY = 0;
 				motionZ = 0;
-			} else if(liveTime == delay && !worldObj.isRemote && player != null) {
+			} else if (liveTime == delay && player != null) {
 				Vector3 playerLook = null;
 				MovingObjectPosition lookat = ToolCommons.raytraceFromEntity(worldObj, player, true, 64);
 				if(lookat == null)
@@ -105,8 +116,8 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 				x = motionVec.x;
 				y = motionVec.y;
 				z = motionVec.z;
+				worldObj.playSoundAtEntity(this, "botania:babylonAttack", 2F, 0.1F + worldObj.rand.nextFloat() * 3F);
 			}
-
 			setLiveTicks(liveTime + 1);
 
 			if(!worldObj.isRemote) {
@@ -118,8 +129,8 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 
 					if(living.hurtTime == 0) {
 						if(player != null)
-							living.attackEntityFrom(DamageSource.causePlayerDamage(player), 14);
-						else living.attackEntityFrom(DamageSource.generic, 14);
+							living.attackEntityFrom(DamageSource.causePlayerDamage(player), 8);
+						else living.attackEntityFrom(DamageSource.generic, 8);
 						onImpact(new MovingObjectPosition(living));
 						return;
 					}
@@ -128,12 +139,13 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 		}
 
 		super.onUpdate();
-
+		
 		motionX = x;
 		motionY = y;
 		motionZ = z;
 
-		Botania.proxy.wispFX(worldObj, posX, posY, posZ, 1F, 1F, 0F, 0.3F, 0F);
+		if(liveTime > delay)
+			Botania.proxy.wispFX(worldObj, posX, posY, posZ, 1F, 1F, 0F, 0.3F, 0F);
 
 		if(liveTime > (200 + delay))
 			setDead();
@@ -146,6 +158,28 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 			worldObj.createExplosion(this, posX, posY, posZ, 3F, false);
 			setDead();
 		}
+	}
+	
+	@Override
+	public void writeEntityToNBT(NBTTagCompound cmp) {
+		super.writeEntityToNBT(cmp);
+		cmp.setBoolean(TAG_CHARGING, isCharging());
+		cmp.setInteger(TAG_VARIETY, getVariety());
+		cmp.setInteger(TAG_CHARGE_TICKS, getChargeTicks());
+		cmp.setInteger(TAG_LIVE_TICKS, getLiveTicks());
+		cmp.setInteger(TAG_DELAY, getDelay());
+		cmp.setFloat(TAG_ROTATION, getRotation());
+	}
+	
+	@Override
+	public void readEntityFromNBT(NBTTagCompound cmp) {
+		super.readEntityFromNBT(cmp);
+		setCharging(cmp.getBoolean(TAG_CHARGING));
+		setVariety(cmp.getInteger(TAG_VARIETY));
+		setChargeTicks(cmp.getInteger(TAG_CHARGE_TICKS));
+		setLiveTicks(cmp.getInteger(TAG_LIVE_TICKS));
+		setDelay(cmp.getInteger(TAG_DELAY));
+		setRotation(cmp.getFloat(TAG_ROTATION));
 	}
 
 	public boolean isCharging() {
@@ -187,5 +221,13 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 	public void setDelay(int delay) {
 		dataWatcher.updateObject(24, delay);
 	}
+	
+	public float getRotation() {
+		return dataWatcher.getWatchableObjectFloat(25);
+	}
 
+	public void setRotation(float rot) {
+		dataWatcher.updateObject(25, rot);
+	}
+	
 }

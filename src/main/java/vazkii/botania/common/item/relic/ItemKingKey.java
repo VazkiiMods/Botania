@@ -12,11 +12,15 @@ package vazkii.botania.common.item.relic;
 
 import java.util.Random;
 
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import vazkii.botania.common.Botania;
+import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityBabylonWeapon;
@@ -26,9 +30,21 @@ public class ItemKingKey extends ItemRelic {
 
 	private static final String TAG_WEAPONS_SPAWNED = "weaponsSpawned";
 	private static final String TAG_CHARGING = "charging";
+
+	private static final int WEAPON_TYPES = 12;
+	public static IIcon[] weaponIcons;
 	
 	public ItemKingKey() {
 		super(LibItemNames.KING_KEY);
+	}
+	
+	@Override
+	public void registerIcons(IIconRegister par1IconRegister) {
+		super.registerIcons(par1IconRegister);
+		
+		weaponIcons = new IIcon[WEAPON_TYPES];
+		for(int i = 0; i < WEAPON_TYPES; i++)
+			weaponIcons[i] = IconHelper.forName(par1IconRegister, "gateWeapon" + i);
 	}
 
 	@Override
@@ -40,33 +56,49 @@ public class ItemKingKey extends ItemRelic {
 	
 	@Override
 	public void onPlayerStoppedUsing(ItemStack stack, World world, EntityPlayer player, int time) {
-		setCharging(stack, false);
-		setWeaponsSpawned(stack, 0); // TODO probably move this to a ticker
+		int spawned = getWeaponsSpawned(stack);
+		if(spawned == 20) {
+			setCharging(stack, false);
+			setWeaponsSpawned(stack, 0);
+		}
 	}
 	
 	@Override
 	public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {
 		int spawned = getWeaponsSpawned(stack);
-		if(count != getMaxItemUseDuration(stack) && spawned < 20 && !player.worldObj.isRemote) {
+		
+		if(ManaItemHandler.requestManaExact(stack, player, 150, true) && count != getMaxItemUseDuration(stack) && spawned < 20 && !player.worldObj.isRemote) {
 			Vector3 look = new Vector3(player.getLookVec());
 			look.y = 0;
 			look.normalize().negate().multiply(2);
-			Vector3 pl = look.copy().add(Vector3.fromEntityCenter(player)); 
+			int div = spawned / 5;
+			int mod = spawned % 5;
+			
+			Vector3 pl = look.copy().add(Vector3.fromEntityCenter(player)).add(0, 1.6, (double) div * 0.1);
 			
 			Random rand = player.worldObj.rand;
-			Vector3 axis = pl.copy().crossProduct(new Vector3(-1, 0, -1)).normalize();
+			Vector3 axis = look.copy().normalize().crossProduct(new Vector3(-1, 0, -1)).normalize();
 			Vector3 axis1 = axis.copy();
-			axis1.multiply(rand.nextDouble() * 22 + 3).rotate((rand.nextDouble() - 0.5) * Math.PI / 2.0, look);
+
+			double rot = mod * Math.PI / 4 - Math.PI / 2;
+			
+			axis1.multiply(div * 3.5 + 5).rotate(rot, look);
+			if(axis1.y < 0)
+				axis1.y = -axis1.y;
+				
 			Vector3 end = pl.copy().add(axis1);
 			
 			EntityBabylonWeapon weapon = new EntityBabylonWeapon(player.worldObj, player);
 			weapon.posX = end.x;
 			weapon.posY = end.y;
 			weapon.posZ = end.z;
-			weapon.setVariety(rand.nextInt(12));
+			weapon.rotationYaw = player.rotationYaw;
+			weapon.setVariety(rand.nextInt(WEAPON_TYPES));
 			weapon.setDelay(spawned);
+			weapon.setRotation(MathHelper.wrapAngleTo180_float(-player.rotationYaw + 180));
 			
 			player.worldObj.spawnEntityInWorld(weapon);
+			player.worldObj.playSoundAtEntity(weapon, "botania:babylonSpawn", 1F, 1F + player.worldObj.rand.nextFloat() * 3F);
 			setWeaponsSpawned(stack, spawned + 1);
 		}
 	}

@@ -2,6 +2,8 @@
 	"airRod": { "category": "player", "sounds":["airRod"] },
 	"agricarnation": { "category": "block", "sounds":["agricarnation"] },
 	"altarCraft": { "category": "block", "sounds":["altarCraft"] },
+	"babylonAttack": { "category": "player", "sounds":["babylonAttack"] },
+	"babylonSpawn": { "category": "player", "sounds":["babylonSpawn"] },
 	"bifrostRod": { "category": "player", "sounds":["bifrostRod"] },
 	"blackLotus": { "category": "block", "sounds":["blackLotus"] },
 	"ding": { "category": "block", "sounds":["ding"] },
