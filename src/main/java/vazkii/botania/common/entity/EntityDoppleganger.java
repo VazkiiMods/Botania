@@ -423,10 +423,6 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 						entityDropItem(new ItemStack(Item.getItemById(k)), 1F);
 						droppedRecord = true;
 					}
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
 				}
 
 				if(!droppedRecord && Math.random() < 0.2)
