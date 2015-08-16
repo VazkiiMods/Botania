@@ -67,7 +67,7 @@ public class ItemKingKey extends ItemRelic {
 	public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {
 		int spawned = getWeaponsSpawned(stack);
 		
-		if(ManaItemHandler.requestManaExact(stack, player, 150, true) && count != getMaxItemUseDuration(stack) && spawned < 20 && !player.worldObj.isRemote) {
+		if(count != getMaxItemUseDuration(stack) && spawned < 20 && !player.worldObj.isRemote && ManaItemHandler.requestManaExact(stack, player, 150, true)) {
 			Vector3 look = new Vector3(player.getLookVec());
 			look.y = 0;
 			look.normalize().negate().multiply(2);

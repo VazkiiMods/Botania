@@ -129,8 +129,8 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 
 					if(living.hurtTime == 0) {
 						if(player != null)
-							living.attackEntityFrom(DamageSource.causePlayerDamage(player), 8);
-						else living.attackEntityFrom(DamageSource.generic, 8);
+							living.attackEntityFrom(DamageSource.causePlayerDamage(player), 14);
+						else living.attackEntityFrom(DamageSource.generic, 14);
 						onImpact(new MovingObjectPosition(living));
 						return;
 					}
