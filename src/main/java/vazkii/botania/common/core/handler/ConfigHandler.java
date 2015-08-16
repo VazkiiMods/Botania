@@ -52,9 +52,8 @@ public final class ConfigHandler {
 	public static int spreaderPositionShift = 1;
 	public static boolean flowerForceCheck = true;
 	public static boolean enderPickpocketEnabled = true;
-
-	public static int bosslootchance = 100;
 	public static int hardcorePassiveGeneration = 48000;
+	public static int bosslootchance = 100;
 
 	public static boolean fallenKanadeEnabled = true;
 	public static boolean darkQuartzEnabled = true;

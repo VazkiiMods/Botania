@@ -380,7 +380,6 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 				lChance = -1;
 				
 
-			for(int pl = 0; pl < playersWhoAttacked.size(); pl++) {
 				for(int pl = 0; pl < playersWhoAttacked.size(); pl++) {
 				boolean hard = isHardMode();
 				boolean droppedRecord = false;
@@ -424,7 +423,10 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 						entityDropItem(new ItemStack(Item.getItemById(k)), 1F);
 						droppedRecord = true;
 					}
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 				}
 
 				if(!droppedRecord && Math.random() < 0.2)
