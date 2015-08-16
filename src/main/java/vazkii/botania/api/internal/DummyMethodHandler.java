@@ -216,4 +216,9 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 		return false;
 	}
 
+	@Override
+	public void sendBaubleUpdatePacket(EntityPlayer player, int slot) {
+		// NO-OP
+	}
+
 }

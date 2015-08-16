@@ -57,14 +57,14 @@ public final class BossBarHandler {
 		int tx = c - mc.fontRenderer.getStringWidth(name) / 2;
 
 		GL11.glColor4f(1F, 1F, 1F, 1F);
+		currentBoss.bossBarRenderCallback(res, x, y);
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		currentBoss.bossBarRenderCallback();
 		mc.renderEngine.bindTexture(currentBoss.getBossBarTexture());
 		drawBar(x, y, bgRect.x, bgRect.y, bgRect.width, bgRect.height, true);
 		drawBar(xf, yf, fgRect.x, fgRect.y, fw, fgRect.height, false);
 		mc.fontRenderer.drawStringWithShadow(name, tx, y - 10, 0xA2018C);
-		GL11.glDisable(GL11.GL_BLEND);
+		GL11.glEnable(GL11.GL_BLEND);
 
 		Entity e = (Entity) currentBoss;
 		EntityPlayer p = mc.thePlayer;

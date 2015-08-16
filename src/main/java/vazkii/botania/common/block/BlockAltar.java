@@ -37,6 +37,7 @@ import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.lib.LibRenderIDs;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.item.ModItems;
@@ -139,7 +140,7 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 				par1World.func_147453_f(par2, par3, par4, this);
 
 				return true;
-			} else if(stack != null && stack.getItem() == Items.bucket && (tile.hasWater || tile.hasLava)) {
+			} else if(stack != null && stack.getItem() == Items.bucket && (tile.hasWater || tile.hasLava) && !Botania.gardenOfGlassLoaded) {
 				ItemStack bucket = tile.hasLava ? new ItemStack(Items.lava_bucket) : new ItemStack(Items.water_bucket);
 				if(stack.stackSize == 1)
 					par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, bucket);

@@ -66,7 +66,7 @@ import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public final class HUDHandler {
 
-	private static final ResourceLocation manaBar = new ResourceLocation(LibResources.GUI_MANA_HUD);
+	public static final ResourceLocation manaBar = new ResourceLocation(LibResources.GUI_MANA_HUD);
 
 	@SubscribeEvent
 	public void onDrawScreen(RenderGameOverlayEvent.Post event) {

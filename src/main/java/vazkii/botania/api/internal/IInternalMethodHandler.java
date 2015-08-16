@@ -120,4 +120,6 @@ public interface IInternalMethodHandler {
 
 	public boolean isBotaniaFlower(World world, int x, int y, int z);
 
+	public void sendBaubleUpdatePacket(EntityPlayer player, int slot);
+	
 }

@@ -22,6 +22,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -76,8 +77,7 @@ public class ItemMagnetRing extends ItemBauble {
 			ItemStack stack = inv.getStackInSlot(i);
 			if(stack != null && stack.getItem() == this) {
 				setCooldown(stack, 100);
-				if(event.player instanceof EntityPlayerMP)
-					PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(event.player, i), (EntityPlayerMP) event.player);
+				BotaniaAPI.internalHandler.sendBaubleUpdatePacket(event.player, i);
 			}
 		}
 	}

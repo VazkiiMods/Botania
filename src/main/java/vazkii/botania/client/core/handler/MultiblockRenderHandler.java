@@ -61,7 +61,7 @@ public final class MultiblockRenderHandler {
 
 	@SubscribeEvent
 	public void onPlayerInteract(PlayerInteractEvent event) {
-		if(currentMultiblock != null && anchor == null && event.action == Action.RIGHT_CLICK_BLOCK) {
+		if(currentMultiblock != null && anchor == null && event.action == Action.RIGHT_CLICK_BLOCK && event.entityPlayer == Minecraft.getMinecraft().thePlayer) {
 			anchor = new ChunkCoordinates(event.x, event.y, event.z);
 			angle = MathHelper.floor_double(event.entityPlayer.rotationYaw * 4.0 / 360.0 + 0.5) & 3;
 			event.setCanceled(true);

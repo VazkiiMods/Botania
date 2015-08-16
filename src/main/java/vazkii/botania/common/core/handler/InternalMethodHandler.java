@@ -16,6 +16,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -59,6 +60,8 @@ import vazkii.botania.common.lexicon.page.PagePetalRecipe;
 import vazkii.botania.common.lexicon.page.PageRuneRecipe;
 import vazkii.botania.common.lexicon.page.PageText;
 import baubles.common.lib.PlayerHandler;
+import baubles.common.network.PacketHandler;
+import baubles.common.network.PacketSyncBauble;
 import buildcraft.api.transport.IPipeTile;
 import cpw.mods.fml.common.Optional;
 
@@ -243,5 +246,11 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	public boolean isBotaniaFlower(World world, int x, int y, int z) {
 		Block block = world.getBlock(x, y, z);
 		return block == ModBlocks.flower || block == ModBlocks.shinyFlower || block == ModBlocks.specialFlower;
+	}
+	
+	@Override
+	public void sendBaubleUpdatePacket(EntityPlayer player, int slot) {
+		if(player instanceof EntityPlayerMP)
+			PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, slot), (EntityPlayerMP) player);
 	}
 }
