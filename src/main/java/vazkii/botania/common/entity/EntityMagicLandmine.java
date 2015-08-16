@@ -61,7 +61,9 @@ public class EntityMagicLandmine extends Entity {
 				for(EntityPlayer player : players) {
 					player.attackEntityFrom(summoner == null ? DamageSource.generic : DamageSource.causeMobDamage(summoner), 10);
 					player.addPotionEffect(new PotionEffect(Potion.blindness.id, 25, 0));
-					player.addPotionEffect(new PotionEffect(Potion.wither.id, 70, 3));
+					PotionEffect wither = new PotionEffect(Potion.wither.id, 70, 3);
+					wither.getCurativeItems().clear();
+					player.addPotionEffect(wither);
 				}
 			}
 

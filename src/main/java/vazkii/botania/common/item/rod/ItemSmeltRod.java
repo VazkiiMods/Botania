@@ -104,12 +104,15 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 
 				if(!decremented)
 					playerData.put(p, new SmeltData(pos, TIME));
-				else for(int i = 0; i < 2; i++) {
-					double x = pos.blockX + Math.random();
-					double y = pos.blockY + Math.random();
-					double z = pos.blockZ + Math.random();
-					p.worldObj.playSoundAtEntity(p, "fire.fire", (float) Math.random() / 2F + 0.5F, 1F);
-					Botania.proxy.wispFX(p.worldObj, x, y, z, 1F, 0.2F, 0.2F, 0.5F, (float) -Math.random() / 10F);
+				else {
+					for(int i = 0; i < 2; i++) {
+						double x = pos.blockX + Math.random();
+						double y = pos.blockY + Math.random();
+						double z = pos.blockZ + Math.random();
+						Botania.proxy.wispFX(p.worldObj, x, y, z, 1F, 0.2F, 0.2F, 0.5F, (float) -Math.random() / 10F);
+					}
+					if(time % 10 == 0)
+						p.worldObj.playSoundAtEntity(p, "fire.fire", (float) Math.random() / 2F + 0.5F, 1F);
 				}
 			}
 		}

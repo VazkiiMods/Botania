@@ -214,6 +214,7 @@ curse {
 		See http://botaniamod.net/changelog.php#${version}
     """
     releaseType = "release"
+    relatedProject 'baubles': 'requiredLibrary'
 }
 
 //change this so it only increments on upload

@@ -27,6 +27,7 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.item.IBaubleRender;
+import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.lib.LibItemNames;
@@ -37,7 +38,7 @@ import cpw.mods.fml.common.gameevent.PlayerEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemTravelBelt extends ItemBauble implements IBaubleRender {
+public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUsingItem {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_TRAVEL_BELT);
 	@SideOnly(Side.CLIENT)
@@ -148,6 +149,11 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender {
 
 			model.bipedBody.render(1F);
 		}
+	}
+
+	@Override
+	public boolean usesMana(ItemStack stack) {
+		return true;
 	}
 
 }

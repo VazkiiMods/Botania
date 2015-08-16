@@ -62,8 +62,12 @@ public class EntityPinkWither extends EntityWither {
 		return false;
 	}
 
+	@Override
+	protected void dropFewItems(boolean p_70628_1_, int p_70628_2_) {
+		// NO-OP
+	}
+	
 	// COPYPASTA
-
 
 	private double func_82214_u(int p_82214_1_)
 	{

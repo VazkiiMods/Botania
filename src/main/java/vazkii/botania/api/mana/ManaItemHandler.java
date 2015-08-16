@@ -39,7 +39,8 @@ public final class ManaItemHandler {
 		for(int i = 0; i < size; i++) {
 			boolean useBaubles = i >= invSize;
 			IInventory inv = useBaubles ? baublesInv : mainInv;
-			ItemStack stackInSlot = inv.getStackInSlot(i - (useBaubles ? invSize : 0));
+			int slot = i - (useBaubles ? invSize : 0);
+			ItemStack stackInSlot = inv.getStackInSlot(slot);
 			if(stackInSlot == stack)
 				continue;
 
@@ -53,6 +54,8 @@ public final class ManaItemHandler {
 
 					if(remove)
 						manaItem.addMana(stackInSlot, -mana);
+					if(useBaubles)
+						BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, slot);
 
 					return mana;
 				}
@@ -84,7 +87,8 @@ public final class ManaItemHandler {
 		for(int i = 0; i < size; i++) {
 			boolean useBaubles = i >= invSize;
 			IInventory inv = useBaubles ? baublesInv : mainInv;
-			ItemStack stackInSlot = inv.getStackInSlot(i - (useBaubles ? invSize : 0));
+			int slot = i - (useBaubles ? invSize : 0);
+			ItemStack stackInSlot = inv.getStackInSlot(slot);
 			if(stackInSlot == stack)
 				continue;
 
@@ -96,6 +100,8 @@ public final class ManaItemHandler {
 
 					if(remove)
 						manaItemSlot.addMana(stackInSlot, -manaToGet);
+					if(useBaubles)
+						BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, slot);
 
 					return true;
 				}
@@ -127,7 +133,8 @@ public final class ManaItemHandler {
 		for(int i = 0; i < size; i++) {
 			boolean useBaubles = i >= invSize;
 			IInventory inv = useBaubles ? baublesInv : mainInv;
-			ItemStack stackInSlot = inv.getStackInSlot(i - (useBaubles ? invSize : 0));
+			int slot = i - (useBaubles ? invSize : 0);
+			ItemStack stackInSlot = inv.getStackInSlot(slot);
 			if(stackInSlot == stack)
 				continue;
 
@@ -146,6 +153,8 @@ public final class ManaItemHandler {
 
 					if(add)
 						manaItemSlot.addMana(stackInSlot, manaToSend);
+					if(useBaubles)
+						BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, slot);
 
 					return received;
 				}
@@ -177,7 +186,8 @@ public final class ManaItemHandler {
 		for(int i = 0; i < size; i++) {
 			boolean useBaubles = i >= invSize;
 			IInventory inv = useBaubles ? baublesInv : mainInv;
-			ItemStack stackInSlot = inv.getStackInSlot(i - (useBaubles ? invSize : 0));
+			int slot = i - (useBaubles ? invSize : 0);
+			ItemStack stackInSlot = inv.getStackInSlot(slot);
 			if(stackInSlot == stack)
 				continue;
 
@@ -189,6 +199,8 @@ public final class ManaItemHandler {
 
 					if(add)
 						manaItemSlot.addMana(stackInSlot, manaToSend);
+					if(useBaubles)
+						BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, slot);
 
 					return true;
 				}

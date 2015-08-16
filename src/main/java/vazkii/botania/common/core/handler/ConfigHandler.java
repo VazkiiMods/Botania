@@ -52,8 +52,12 @@ public final class ConfigHandler {
 	public static int spreaderPositionShift = 1;
 	public static boolean flowerForceCheck = true;
 	public static boolean enderPickpocketEnabled = true;
+<<<<<<< HEAD
 	public static int hardcorePassiveGeneration = 24000;
 	public static int bosslootchance = 100;
+=======
+	public static int hardcorePassiveGeneration = 48000;
+>>>>>>> c2c4350b9448a924389f1762ad172dbb30850d9a
 
 	public static boolean fallenKanadeEnabled = true;
 	public static boolean darkQuartzEnabled = true;
@@ -161,7 +165,7 @@ public final class ConfigHandler {
 		desc = "Set to false to disable the ability for the Hand of Ender to pickpocket other players' ender chests.";
 		enderPickpocketEnabled = loadPropBool("enderPickpocket.enabled", desc, enderPickpocketEnabled);
 
-		desc = "Set to anything other than -1 for passive generation flowers (dayblooms, nightshades, hydroangeas) to die after a specific amount of ticks. 24000 is 2 Minecraft days, that's a recomended value.";
+		desc = "Set to anything other than -1 for passive generation flowers (dayblooms, nightshades, hydroangeas) to die after a specific amount of ticks. 48000 is 2 Minecraft days, that's a recomended value.";
 		hardcorePassiveGeneration = loadPropInt("passiveWither.time", desc, hardcorePassiveGeneration);
 		
 		desc = "Loot ratio modifier for Gaia Guardians, enter a value from 0-100 100 = standard drop rate 0=no drops";

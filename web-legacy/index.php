@@ -24,7 +24,7 @@
 					  <div class="container">
 						<div class="carousel-caption">
 						  <h1>Beautifully Presented</h1>
-						  <p>Decorate your worlds with colors. Botania generates a total of <b>sixteen</b> new flowers, all of these are used both for decoration and crafting. As a bonus, they have shiny particles and can be used for dying.</p>
+						  <p>Decorate your worlds with colors. Botania generates a total of <b>sixteen</b> new flowers, all of these are used both for decoration and crafting. As a bonus, they have shiny particles and can be used for dyeing.</p>
 						  <p><a class="btn btn-lg btn-success" href="./downloads.php" role="button">Download Now</a></p>
 						</div>
 					  </div>

@@ -78,5 +78,8 @@ public final class LibObfuscation {
 	public static final String[] COMPLETE_FLAG = new String[] { "field_146414_r", "r" };
 	
 	// Entityliving
-	public static final String[] GET_LIVING_SOUND = new String[] { "getLivingSound", "func_70639_aQ", "t" }; 
+	public static final String[] GET_LIVING_SOUND = new String[] { "getLivingSound", "func_70639_aQ", "t" };
+	
+	// TextureAtlasSprite
+	public static final String[] ANIMATION_METADATA = new String[] { "animationMetadata", "field_110982_k", "j" };
 }
