@@ -274,6 +274,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeObedienceStick;
 	public static IRecipe recipeCacophonium;
 	public static IRecipe recipeManaBomb;
+	public static IRecipe recipeCobweb;
 
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;
@@ -1858,6 +1859,13 @@ public final class ModCraftingRecipes {
 				'T', new ItemStack(Blocks.tnt),
 				'G', LibOreDict.LIFE_ESSENCE);
 		recipeManaBomb = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Cobweb Recipe
+		addOreDictRecipe(new ItemStack(Blocks.web), 
+				"S S", " M ", "S S",
+				'S', new ItemStack(Items.string),
+				'M', LibOreDict.MANA_STRING);
+		recipeCobweb = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Storage Block/Nugget Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

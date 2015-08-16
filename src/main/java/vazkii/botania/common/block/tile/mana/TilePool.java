@@ -16,6 +16,7 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -43,6 +44,7 @@ import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.handler.LightningHandler;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
@@ -50,6 +52,8 @@ import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.item.ItemManaTablet;
+import vazkii.botania.common.item.ModItems;
 
 public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLocked, ISparkAttachable, IThrottledPacket {
 
@@ -308,16 +312,33 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 	}
 
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
-		String name = StatCollector.translateToLocal(new ItemStack(ModBlocks.pool, 1, getBlockMetadata()).getUnlocalizedName().replaceAll("tile.", "tile." + LibResources.PREFIX_MOD) + ".name");
+		ItemStack pool = new ItemStack(ModBlocks.pool, 1, getBlockMetadata());
+		String name = StatCollector.translateToLocal(pool.getUnlocalizedName().replaceAll("tile.", "tile." + LibResources.PREFIX_MOD) + ".name");
 		int color = 0x4444FF;
 		HUDHandler.drawSimpleManaHUD(color, knownMana, manaCap, name, res);
 
-		String power = StatCollector.translateToLocal("botaniamisc." + (outputting ? "outputtingPower" : "inputtingPower"));
-		int x = res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(power) / 2;
+		int x = res.getScaledWidth() / 2 - 11;
 		int y = res.getScaledHeight() / 2 + 30;
+
+		int u = outputting ? 22 : 0;
+		int v = 38;
+
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		mc.fontRenderer.drawStringWithShadow(power, x, y, color);
+
+		mc.renderEngine.bindTexture(HUDHandler.manaBar);
+		RenderHelper.drawTexturedModalRect(x, y, 0, u, v, 22, 15);
+		GL11.glColor4f(1F, 1F, 1F, 1F);
+
+		ItemStack tablet = new ItemStack(ModItems.manaTablet);
+		ItemManaTablet.setStackCreative(tablet);
+
+		net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
+		RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, tablet, x - 20, y);
+		RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, pool, x + 26, y);
+		net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
+
+		GL11.glDisable(GL11.GL_LIGHTING);
 		GL11.glDisable(GL11.GL_BLEND);
 	}
 

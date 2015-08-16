@@ -1676,6 +1676,7 @@ botania.page.pool5=Infusing &1Mana Diamonds&0
 botania.page.pool6=Infusing &1Mana Petals&0
 botania.page.pool11=Infusing &1Managlass&0, clear seamless glass.
 botania.page.pool12=Infusing &1String&0
+botania.page.pool13=Used &1Mana Infused String&0 to make &1Cobwebs&0
 botania.page.pool7=Infusing &1Mana Cookies&0, pretty good food.
 
 # -- SPARKS
@@ -2822,7 +2823,8 @@ botania.page.gaiaRitual0=The &4Ritual of Gaia&0 is a procedure often enacted by 
 botania.page.gaiaRitual1=Creating &1Gaia Pylons&0
 botania.page.gaiaRitual2=Ritual of Gaia
 botania.page.gaiaRitual3=To start the ritual, simply shift-right click the &1Beacon&0 block with a &1Terrasteel Ingot&0, take a step back and prepare to fight for your life. Good preparation is required, as the fight with the &4Guardian of Gaia&0 can be even harder than that of the &4Wither&0. Upon defeating the &4Guardian&0, one can collect their prize, a handful of &1Spirits of Gaia&0.
-botania.page.gaiaRitual4=The common attire for this ritual is a set of Enchanted &1Elementium Armor&0, a &1Terra Blade&0 and a large assortment of &4Brews&0 and &4Baubles&0.<br>The effect of the &1Beacon&0 is nullified during the battle, so that should be taken in mind. Lastly, staying away from the purple might be a good idea. 
+botania.page.gaiaRitual4=The common attire for this ritual is a set of Enchanted &1Elementium Armor&0, a &1Terra Blade&0 and a large assortment of &4Brews&0 and &4Baubles&0. The effect of the &1Beacon&0 is nullified during the battle, so that should be taken in mind.
+botania.page.gaiaRitual5=The difficulty and rewards bestowed by the ritual depend on the amount of people participating. Executing the ritual with over five people might be a recipe for disaster due to the chaos created, so collaborative rituals of that scale shouldn't be attempted.<br>Lastly, staying away from the purple might be a good idea.
 
 # -- RITUAL OF GAIA II
 botania.entry.gaiaRitualHardmode=Ritual of Gaia II
