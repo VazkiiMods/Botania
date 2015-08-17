@@ -21,7 +21,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class RLexiconEntry  extends BLexiconEntry {
 
 	Achievement a;
-	
+
 	public RLexiconEntry(String unlocalizedName, LexiconCategory category, Achievement a) {
 		super(unlocalizedName, category);
 		setKnowledgeType(BotaniaAPI.relicKnowledge);
@@ -29,12 +29,12 @@ public class RLexiconEntry  extends BLexiconEntry {
 		if(a != null)
 			setIcon(a.theItemStack.copy());
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public boolean isVisible() {
 		EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
 		return a == null || player.capabilities.isCreativeMode || player.getStatFileWriter().hasAchievementUnlocked(a);
 	}
-	
+
 }

@@ -135,7 +135,7 @@ public class SubTileOrechid extends SubTileFunctional {
 	public int getDelay() {
 		return Botania.gardenOfGlassLoaded ? DELAY_GOG : DELAY;
 	}
-	
+
 	@Override
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);

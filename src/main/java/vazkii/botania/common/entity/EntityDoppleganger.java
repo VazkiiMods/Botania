@@ -19,7 +19,6 @@ import java.util.regex.Pattern;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
@@ -374,7 +373,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		if(par1) {
 			for(int pl = 0; pl < playersWhoAttacked.size(); pl++) {
 				boolean hard = isHardMode();
-				entityDropItem(new ItemStack(ModItems.manaResource, pl == 0 ? (hard ? 16 : 8) : (hard ? 10 : 6), 5), 1F);
+				entityDropItem(new ItemStack(ModItems.manaResource, pl == 0 ? hard ? 16 : 8 : hard ? 10 : 6, 5), 1F);
 				boolean droppedRecord = false;
 
 				if(hard) {
@@ -438,7 +437,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
-		
+
 		boolean peaceful = worldObj.difficultySetting == EnumDifficulty.PEACEFUL;
 		if(!worldObj.isRemote && peaceful)
 			setDead();
@@ -759,7 +758,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		GL11.glPushMatrix();
 		int px = x + 160;
 		int py = y + 12;
-		
+
 		Minecraft mc = Minecraft.getMinecraft();
 		ItemStack stack = new ItemStack(Items.skull, 1, 3);
 		mc.renderEngine.bindTexture(TextureMap.locationItemsTexture);
@@ -767,7 +766,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine, stack, px, py);
 		net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
-		
+
 		boolean unicode = mc.fontRenderer.getUnicodeFlag();
 		mc.fontRenderer.setUnicodeFlag(true);
 		mc.fontRenderer.drawStringWithShadow("" + getPlayerCount(), px + 15, py + 4, 0xFFFFFF);
@@ -806,16 +805,17 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 		return background ? null : shaderCallback;
 	}
-	
+
 	public static class BeaconComponent extends MultiblockComponent {
 
 		public BeaconComponent(ChunkCoordinates relPos) {
 			super(relPos, Blocks.iron_block, 0);
 		}
-		
+
+		@Override
 		public boolean matches(World world, int x, int y, int z) {
 			return world.getBlock(x, y, z).isBeaconBase(world, x, y, z, x - relPos.posX, y - relPos.posY, z - relPos.posZ);
 		};
-		
+
 	}
 }

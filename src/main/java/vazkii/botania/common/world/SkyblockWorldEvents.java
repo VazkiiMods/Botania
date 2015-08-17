@@ -20,7 +20,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.play.server.S2FPacketSetSlot;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -28,7 +27,6 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileManaFlame;
 import vazkii.botania.common.item.ModItems;
@@ -125,9 +123,9 @@ public final class SkyblockWorldEvents {
 		if(!data.hasKey(EntityPlayer.PERSISTED_NBT_TAG))
 			data.setTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
 		NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
-		
+
 		final boolean test = false;
-		
+
 		if(test || !persist.getBoolean(TAG_HAS_OWN_ISLAND)) {
 			createSkyblock(player.worldObj, x, y, z);
 
@@ -137,7 +135,7 @@ public final class SkyblockWorldEvents {
 				pmp.setSpawnChunk(new ChunkCoordinates(x, y, z), true);
 				player.inventory.addItemStackToInventory(new ItemStack(ModItems.lexicon));
 			}
-			
+
 			if(fabricated) {
 				persist.setBoolean(TAG_HAS_OWN_ISLAND, true);
 				persist.setDouble(TAG_ISLAND_X, player.posX);
@@ -148,7 +146,7 @@ public final class SkyblockWorldEvents {
 			double posX = persist.getDouble(TAG_ISLAND_X);
 			double posY = persist.getDouble(TAG_ISLAND_Y);
 			double posZ = persist.getDouble(TAG_ISLAND_Z);
-			
+
 			if(player instanceof EntityPlayerMP) {
 				EntityPlayerMP pmp = (EntityPlayerMP) player;
 				pmp.setPositionAndUpdate(posX, posY, posZ);

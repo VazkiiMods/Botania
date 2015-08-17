@@ -137,12 +137,12 @@ public final class ModManaAlchemyRecipes {
 			for(int i = 0; i < 4; i++)
 				stoneRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(ModFluffBlocks.stone, 1, i), new ItemStack(ModFluffBlocks.stone, 1, i == 0 ? 3 : i - 1), 200));
 		}
-		
+
 		tallgrassRecipes = new ArrayList();
 		tallgrassRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.deadbush), new ItemStack(Blocks.tallgrass, 1, 2), 500));
 		tallgrassRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.tallgrass, 1, 1), new ItemStack(Blocks.deadbush), 500));
 		tallgrassRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.tallgrass, 1, 2), new ItemStack(Blocks.tallgrass, 1, 1), 500));
-		
+
 		flowersRecipes = new ArrayList();
 		flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.red_flower), new ItemStack(Blocks.yellow_flower), 400));
 		flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.red_flower, 1, 1), new ItemStack(Blocks.red_flower), 400));

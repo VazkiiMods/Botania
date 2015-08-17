@@ -32,12 +32,12 @@ public class ItemCacophonium extends ItemMod {
 	private static final String TAG_SOUND = "sound";
 	private static final String TAG_SOUND_NAME = "soundName";
 	private static final String TAG_HAS_SOUND = "hasSound";
-	
+
 	public ItemCacophonium() {
 		setMaxStackSize(1);
 		setUnlocalizedName(LibItemNames.CACOPHONIUM);
 	}
-	
+
 	@Override
 	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase entity) {
 		if(entity instanceof EntityLiving) {
@@ -49,36 +49,36 @@ public class ItemCacophonium extends ItemMod {
 				else if(living instanceof EntitySlime)
 					sound = "mob.slime." + (((EntitySlime) living).getSlimeSize() > 1 ? "big" : "small");
 				else sound = (String) ReflectionHelper.findMethod(EntityLiving.class, living, LibObfuscation.GET_LIVING_SOUND).invoke(living);
-				
+
 				if(sound != null) {
 					String s = EntityList.getEntityString(entity);
-			        if(s == null)
-			            s = "generic";
+					if(s == null)
+						s = "generic";
 
 					ItemNBTHelper.setString(stack, TAG_SOUND, sound);
 					ItemNBTHelper.setString(stack, TAG_SOUND_NAME, "entity." + s + ".name");
 					ItemNBTHelper.setBoolean(stack, TAG_HAS_SOUND, true);
 					player.inventory.setInventorySlotContents(player.inventory.currentItem, stack.copy());
-					
+
 					if(player.worldObj.isRemote)
 						player.swingItem();
-					
+
 					return true;
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean adv) {
 		if(ItemNBTHelper.getBoolean(stack, TAG_HAS_SOUND, false))
 			list.add(StatCollector.translateToLocal(ItemNBTHelper.getString(stack, TAG_SOUND_NAME, "")));
 	}
-	
+
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
 		return EnumAction.block;
@@ -95,7 +95,7 @@ public class ItemCacophonium extends ItemMod {
 			par3EntityPlayer.setItemInUse(par1ItemStack, 72000);
 		return par1ItemStack;
 	}
-	
+
 	@Override
 	public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {
 		String sound = ItemNBTHelper.getString(stack, TAG_SOUND, "");

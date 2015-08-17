@@ -163,12 +163,12 @@ public final class ModFluffBlocks {
 	public static Block[] biomeStoneSlabs = new Block[24];
 	public static Block[] biomeStoneFullSlabs = new Block[24];
 	public static Block biomeStoneWall;
-	
+
 	public static Block[] stoneStairs = new Block[8];
 	public static Block[] stoneSlabs = new Block[8];
 	public static Block[] stoneFullSlabs = new Block[8];
 	public static Block stoneWall;
-	
+
 	public static Block endStoneSlab;
 	public static Block endStoneSlabFull;
 	public static Block endStoneStairs;
@@ -217,7 +217,7 @@ public final class ModFluffBlocks {
 		thatchStairs = new BlockThatchStairs();
 		thatchSlab = new BlockThatchSlab(false);
 		thatchSlabFull = new BlockThatchSlab(true);
-		
+
 		netherBrickStairs = new BlockCustomBrickStairs();
 		netherBrickSlab = new BlockCustomBrickSlab(false);
 		netherBrickSlabFull = new BlockCustomBrickSlab(true);
@@ -293,7 +293,7 @@ public final class ModFluffBlocks {
 		enderBrickSlab = new BlockEnderBrickSlab(false);
 		enderBrickSlabFull = new BlockEnderBrickSlab(true);
 		enderBrickStairs = new BlockEnderBrickStairs();
-		
+
 		if(ConfigHandler.darkQuartzEnabled) {
 			((BlockModSlab) darkQuartzSlab).register();
 			((BlockModSlab) darkQuartzSlabFull).register();
@@ -352,7 +352,7 @@ public final class ModFluffBlocks {
 		((BlockModSlab) endStoneSlabFull).register();
 		((BlockModSlab) enderBrickSlab).register();
 		((BlockModSlab) enderBrickSlabFull).register();
-		
+
 		for(int i = 0; i < 24; i++) {
 			((BlockModSlab) biomeStoneSlabs[i]).register();
 			((BlockModSlab) biomeStoneFullSlabs[i]).register();

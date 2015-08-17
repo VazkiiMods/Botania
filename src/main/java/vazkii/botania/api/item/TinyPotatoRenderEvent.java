@@ -25,7 +25,7 @@ public class TinyPotatoRenderEvent extends Event {
 	public final String name;
 	public final double x, y, z;
 	public final float partTicks;
-	
+
 	public TinyPotatoRenderEvent(TileEntity tile, String name, double x, double y, double z, float partTicks) {
 		this.tile = tile;
 		this.name = name;
@@ -34,5 +34,5 @@ public class TinyPotatoRenderEvent extends Event {
 		this.z = z;
 		this.partTicks = partTicks;
 	}
-	
+
 }

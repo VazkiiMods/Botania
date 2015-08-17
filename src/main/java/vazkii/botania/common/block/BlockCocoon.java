@@ -11,14 +11,7 @@
 package vazkii.botania.common.block;
 
 import java.util.ArrayList;
-import java.util.Random;
 
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.client.lib.LibRenderIDs;
-import vazkii.botania.common.block.tile.TileCocoon;
-import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibBlockNames;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -28,6 +21,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import vazkii.botania.api.lexicon.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.client.lib.LibRenderIDs;
+import vazkii.botania.common.block.tile.TileCocoon;
+import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockCocoon extends BlockModContainer implements ILexiconable {
 
@@ -41,32 +40,32 @@ public class BlockCocoon extends BlockModContainer implements ILexiconable {
 		float f1 = 14F / 16F;
 		setBlockBounds(f, 0F, f, 1F - f, f1, 1F - f);
 	}
-	
+
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		// NO-OP
 	}
-	
+
 	@Override
 	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
 		return Blocks.web.getBlockTextureFromSide(0);
 	}
-	
+
 	@Override
 	public boolean renderAsNormalBlock() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean isOpaqueCube() {
 		return false;
 	}
-	
+
 	@Override
 	public int getRenderType() {
 		return LibRenderIDs.idCocoon;
 	}
-	
+
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int s, float xs, float ys, float zs) {
 		TileCocoon cocoon = (TileCocoon) world.getTileEntity(x, y, z);
@@ -79,17 +78,17 @@ public class BlockCocoon extends BlockModContainer implements ILexiconable {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
 		return new ArrayList();
 	}
-	
+
 	@Override
 	protected boolean canSilkHarvest() {
 		return false;
 	}
-	
+
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileCocoon();

@@ -23,7 +23,6 @@ import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaNetwork;
-import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.IManaPool;
 
 /**
@@ -32,7 +31,7 @@ import vazkii.botania.api.mana.IManaPool;
 public class SubTileFunctional extends SubTileEntity {
 
 	public static final int RANGE = 10;
-	
+
 	private static final String TAG_MANA = "mana";
 
 	private static final String TAG_POOL_X = "poolX";
@@ -120,7 +119,7 @@ public class SubTileFunctional extends SubTileEntity {
 			}
 		}
 	}
-	
+
 	public void linkToForcefully(TileEntity pool) {
 		linkedPool = pool;
 	}
@@ -206,7 +205,7 @@ public class SubTileFunctional extends SubTileEntity {
 
 		return false;
 	}
-	
+
 	public boolean isValidBinding() {
 		return linkedPool != null && !linkedPool.isInvalid() && supertile.getWorldObj().getTileEntity(linkedPool.xCoord, linkedPool.yCoord, linkedPool.zCoord) == linkedPool;
 	}

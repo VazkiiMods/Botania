@@ -116,7 +116,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 			addBlock(ModBlocks.felPumpkin);
 			addItem(ModItems.waterBowl);
 		}
-			
+
 		addBlock(ModBlocks.livingrock);
 		addBlock(ModBlocks.livingwood);
 		addBlock(ModBlocks.openCrate);
@@ -367,13 +367,13 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		for(int i = 0; i < 24; i++)
 			addBlock(ModFluffBlocks.biomeStoneSlabs[i]);
 		addBlock(ModFluffBlocks.biomeStoneWall);
-		
+
 		addBlock(ModBlocks.endStoneBrick);
 		addBlock(ModFluffBlocks.endStoneSlab);
 		addBlock(ModFluffBlocks.endStoneStairs);
 		addBlock(ModFluffBlocks.enderBrickSlab);
 		addBlock(ModFluffBlocks.enderBrickStairs);
-		
+
 		addItem(ModItems.cosmetic);
 	}
 
@@ -385,7 +385,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		ItemStack stack = new ItemStack(block);
 		block.getSubBlocks(stack.getItem(), this, list);
 	}
-	
+
 	private void addStack(ItemStack stack) {
 		list.add(stack);
 	}

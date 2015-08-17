@@ -319,7 +319,7 @@ public final class ModBlocks {
 		lightRelay = new BlockLightRelay();
 		lightLauncher = new BlockLightLauncher();
 		manaBomb = new BlockManaBomb();
-		
+
 		ModFluffBlocks.init();
 
 		for(int i = 0; i < 16; i++)

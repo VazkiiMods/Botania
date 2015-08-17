@@ -60,7 +60,7 @@ public class RecipePureDaisy {
 			ores = OreDictionary.getOres(entry);
 			oreMap.put(entry, ores);
 		}
-		
+
 		for(ItemStack ostack : ores) {
 			ItemStack cstack = ostack.copy();
 			if(cstack.getItemDamage() == Short.MAX_VALUE)

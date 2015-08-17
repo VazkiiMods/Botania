@@ -45,5 +45,5 @@ public class RenderCocoon implements ISimpleBlockRenderingHandler {
 	public boolean shouldRender3DInInventory(int modelId) {
 		return true;
 	}
-	
+
 }

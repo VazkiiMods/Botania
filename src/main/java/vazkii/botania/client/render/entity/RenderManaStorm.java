@@ -10,19 +10,15 @@
  */
 package vazkii.botania.client.render.entity;
 
-import java.util.Random;
+import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.entity.EntityManaStorm;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.ResourceLocation;
 
 public class RenderManaStorm extends Render {
 
@@ -32,7 +28,7 @@ public class RenderManaStorm extends Render {
 		GL11.glTranslated(x, y, z);
 		EntityManaStorm storm = (EntityManaStorm) e;
 		float maxScale = 1.95F;
-		float scale = 0.05F + ((float) storm.burstsFired / EntityManaStorm.TOTAL_BURSTS - (float) ((storm.deathTime == 0 ? 0 : (storm.deathTime + pticks)) / EntityManaStorm.DEATH_TIME)) * maxScale;
+		float scale = 0.05F + ((float) storm.burstsFired / EntityManaStorm.TOTAL_BURSTS - (storm.deathTime == 0 ? 0 : storm.deathTime + pticks) / EntityManaStorm.DEATH_TIME) * maxScale;
 		RenderHelper.renderStar(0x00FF00, scale, scale, scale, e.getUniqueID().getMostSignificantBits());
 		GL11.glDisable(GL11.GL_BLEND);
 		GL11.glDisable(GL12.GL_RESCALE_NORMAL);

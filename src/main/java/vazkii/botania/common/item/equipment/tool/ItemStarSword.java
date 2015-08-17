@@ -10,38 +10,25 @@
  */
 package vazkii.botania.common.item.equipment.tool;
 
-import java.util.List;
-
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.stats.Achievement;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.internal.IManaBurst;
-import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityFallingStar;
-import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemStarSword extends ItemManasteelSword implements ICraftAchievement {
-
-	private static final String TAG_ATTACKER_USERNAME = "attackerUsername";
 
 	private static final int MANA_PER_DAMAGE = 120;
 
@@ -64,14 +51,14 @@ public class ItemStarSword extends ItemManasteelSword implements ICraftAchieveme
 					Vector3 motVec = new Vector3((Math.random() - 0.5) * 18, 24, (Math.random() - 0.5) * 18);
 					posVec.add(motVec);
 					motVec.normalize().negate().multiply(1.5);
-					
+
 					EntityFallingStar star = new EntityFallingStar(par2World, player);
 					star.setPosition(posVec.x, posVec.y, posVec.z);
 					star.motionX = motVec.x;
 					star.motionY = motVec.y;
 					star.motionZ = motVec.z;
 					par2World.spawnEntityInWorld(star);
-					
+
 					ToolCommons.damageItem(par1ItemStack, 1, player, MANA_PER_DAMAGE);
 					par2World.playSoundAtEntity(player, "botania:starcaller", 0.4F, 1.4F);
 				}
@@ -94,5 +81,5 @@ public class ItemStarSword extends ItemManasteelSword implements ICraftAchieveme
 		return ModAchievements.terrasteelWeaponCraft;
 	}
 
-	
+
 }

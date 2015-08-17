@@ -11,7 +11,6 @@
 package vazkii.botania.common.block.decor.walls;
 
 import vazkii.botania.common.block.ModBlocks;
-import net.minecraft.block.Block;
 
 public class BlockReedWall extends BlockModWall {
 

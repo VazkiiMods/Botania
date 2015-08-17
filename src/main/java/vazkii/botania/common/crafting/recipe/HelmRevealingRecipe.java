@@ -81,7 +81,7 @@ public class HelmRevealingRecipe implements IRecipe {
 		//Copy Runic Hardening
 		byte runicHardening = ItemNBTHelper.getByte(helmCopy, "RS.HARDEN", (byte)0);
 		ItemNBTHelper.setByte(newHelm, "RS.HARDEN", runicHardening);
-		
+
 		return newHelm;
 	}
 

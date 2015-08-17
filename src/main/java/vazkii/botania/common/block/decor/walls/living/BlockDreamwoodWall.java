@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.block.decor.walls.living;
 
-import net.minecraft.block.Block;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.walls.BlockModWall;
 

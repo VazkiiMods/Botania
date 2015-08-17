@@ -78,7 +78,7 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 	public String getUnlocalizedName() {
 		return unlocalizedName;
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	public boolean isVisible() {
 		return true;

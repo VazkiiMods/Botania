@@ -33,7 +33,7 @@ import vazkii.botania.api.mana.IManaCollector;
 public class SubTileGenerating extends SubTileEntity {
 
 	public static final int RANGE = 6;
-	
+
 	private static final String TAG_MANA = "mana";
 
 	private static final String TAG_COLLECTOR_X = "collectorX";
@@ -116,7 +116,7 @@ public class SubTileGenerating extends SubTileEntity {
 			}
 		}
 	}
-	
+
 	public void linkToForcefully(TileEntity collector) {
 		linkedCollector = collector;
 	}
@@ -238,7 +238,7 @@ public class SubTileGenerating extends SubTileEntity {
 		return false;
 	}
 
-	
+
 	public boolean isValidBinding() {
 		return linkedCollector != null && !linkedCollector.isInvalid() && supertile.getWorldObj().getTileEntity(linkedCollector.xCoord, linkedCollector.yCoord, linkedCollector.zCoord) == linkedCollector;
 	}

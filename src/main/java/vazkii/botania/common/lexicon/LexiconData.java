@@ -254,7 +254,7 @@ public final class LexiconData {
 	public static LexiconEntry thorRing;
 	public static LexiconEntry lokiRing;
 	public static LexiconEntry odinRing;
-	
+
 	public static LexiconEntry unstableBlocks;
 	public static LexiconEntry decorativeBlocks;
 	public static LexiconEntry dispenserTweaks;
@@ -342,7 +342,7 @@ public final class LexiconData {
 			gardenOfGlass.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipeRootToSapling), new PageCraftingRecipe("4", ModCraftingRecipes.recipeRootToFertilizer), new PageCraftingRecipe("5", ModCraftingRecipes.recipePebbleCobblestone), new PageText("6"), new PageManaInfusionRecipe("7", ModManaInfusionRecipes.sugarCaneRecipe), new PageCraftingRecipe("8", ModCraftingRecipes.recipeMagmaToSlimeball), new PageText("9"), new PageCraftingRecipe("10", ModCraftingRecipes.recipeFelPumpkin), new PageText("11"), new PageCraftingRecipe("12", ModCraftingRecipes.recipeEndPortal));
 			gardenOfGlass.setPriority().setIcon(new ItemStack(ModItems.manaResource, 1, 20));
 		}
-		
+
 		if(Botania.thaumcraftLoaded)
 			new CLexiconEntry("wrap", categoryBasics, "Thaumcraft").setLexiconPages(new PageText("0")); // lel
 
@@ -634,7 +634,7 @@ public final class LexiconData {
 
 		manaBomb = new ALexiconEntry(LibLexicon.DEVICE_MANA_BOMB, categoryDevices);
 		manaBomb.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeManaBomb));
-		
+
 		// TOOLS ENTRIES
 		manaBlaster = new BLexiconEntry(LibLexicon.TOOL_MANA_BLASTER, categoryTools);
 		manaBlaster.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipeManaBlaster));
@@ -750,10 +750,10 @@ public final class LexiconData {
 
 		obedienceStick = new BLexiconEntry(LibLexicon.TOOL_OBEDIENCE_STICK, categoryTools);
 		obedienceStick.setPriority().setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeObedienceStick));
-		
+
 		slimeBottle = new ALexiconEntry(LibLexicon.TOOL_SLIME_BOTTLE, categoryTools);
 		slimeBottle.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeSlimeBottle));
-		
+
 		// ENDER ENTRIES
 		enderAir = new BLexiconEntry(LibLexicon.ENDER_AIR, categoryEnder);
 		enderAir.setPriority().setLexiconPages(new PageText("0"));
@@ -803,7 +803,7 @@ public final class LexiconData {
 		spawnerMover = new ALexiconEntry(LibLexicon.ENDER_SPAWNER_MOVER, categoryEnder);
 		spawnerMover.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeSpawnerMover));
 
-		keepIvy = new ALexiconEntry(LibLexicon.ENDER_KEEP_IVY, categoryEnder); 
+		keepIvy = new ALexiconEntry(LibLexicon.ENDER_KEEP_IVY, categoryEnder);
 		keepIvy.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeKeepIvy));
 
 		blackHoleTalisman = new ALexiconEntry(LibLexicon.ENDER_BLACK_HOLE_TALISMAN, categoryEnder);
@@ -814,10 +814,10 @@ public final class LexiconData {
 
 		luminizerTransport = new ALexiconEntry(LibLexicon.ENDER_LUMINIZER_TRANSPORT, categoryEnder);
 		luminizerTransport.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeLuminizer), new PageText("3"), new PageCraftingRecipe("4", ModCraftingRecipes.recipeDetectorLuminizer), new PageText("5"), new PageCraftingRecipe("6", ModCraftingRecipes.recipeLuminizerLauncher));
-		
+
 		starSword = new ALexiconEntry(LibLexicon.ENDER_STAR_SWORD, categoryEnder);
 		starSword.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeStarSword));
-		
+
 		// BAUBLES ENTRIES
 		baublesIntro = new BLexiconEntry(LibLexicon.BAUBLE_INTRO, categoryBaubles);
 		baublesIntro.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_BAUBLES), new PageText("2"));
@@ -919,25 +919,25 @@ public final class LexiconData {
 		if(ConfigHandler.relicsEnabled) {
 			relics = new ALexiconEntry(LibLexicon.ALF_RELICS, categoryAlfhomancy);
 			relics.setLexiconPages(new PageText("0")).setIcon(new ItemStack(ModItems.dice));
-			
+
 			relicInfo = new RLexiconEntry(LibLexicon.ALF_RELIC_INFO, categoryAlfhomancy, null);
 			relicInfo.setLexiconPages(new PageText("0"), new PageText("1")).setIcon(new ItemStack(ModItems.dice));
-			
+
 			infiniteFruit = new RLexiconEntry(LibLexicon.ALF_INFINITE_FRUIT, categoryAlfhomancy, ModAchievements.relicInfiniteFruit);
 			infiniteFruit.setLexiconPages(new PageText("0"));
-			
+
 			kingKey = new RLexiconEntry(LibLexicon.ALF_KING_KEY, categoryAlfhomancy, ModAchievements.relicKingKey);
 			kingKey.setLexiconPages(new PageText("0"));
-			
+
 			flugelEye = new RLexiconEntry(LibLexicon.ALF_FLUGEL_EYE, categoryAlfhomancy, ModAchievements.relicFlugelEye);
 			flugelEye.setLexiconPages(new PageText("0"), new PageText("1"));
-			
+
 			thorRing = new RLexiconEntry(LibLexicon.ALF_THOR_RING, categoryAlfhomancy, ModAchievements.relicThorRing);
 			thorRing.setLexiconPages(new PageText("0"));
-			
+
 			lokiRing = new RLexiconEntry(LibLexicon.ALF_LOKI_RING, categoryAlfhomancy, ModAchievements.relicLokiRing);
 			lokiRing.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageText("3"));
-			
+
 			odinRing = new RLexiconEntry(LibLexicon.ALF_ODIN_RING, categoryAlfhomancy, ModAchievements.relicOdinRing);
 			odinRing.setLexiconPages(new PageText("0"));
 		}
@@ -1001,7 +1001,7 @@ public final class LexiconData {
 
 		cacophonium = new BLexiconEntry(LibLexicon.MISC_CACOPHONIUM, categoryMisc);
 		cacophonium.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeCacophonium));
-		
+
 		if(Botania.bcTriggersLoaded) {
 			bcIntegration = new CLexiconEntry(LibLexicon.MISC_BC_INTEGRATION, categoryMisc, "BuildCraft");
 			bcIntegration.setLexiconPages(new PageText("0")).setIcon(new ItemStack(Items.redstone));

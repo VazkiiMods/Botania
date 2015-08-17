@@ -141,7 +141,7 @@ public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 	public GuiLexicon copy() {
 		return new GuiLexiconChallengesList();
 	}
-	
+
 	@Override
 	public String getNotesKey() {
 		return "challengelist";

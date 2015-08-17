@@ -190,12 +190,12 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	public void drawComplexManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res, ItemStack bindDisplay, boolean properlyBound) {
 		HUDHandler.drawComplexManaHUD(color, mana, maxMana, name, res, bindDisplay, properlyBound);
 	}
-	
+
 	@Override
 	public ItemStack getBindDisplayForFlowerType(SubTileEntity e) {
 		return e instanceof SubTileGenerating ? new ItemStack(ModBlocks.spreader) : e instanceof SubTileFunctional ? new ItemStack(ModBlocks.pool) : new ItemStack(ModItems.twigWand);
 	}
-	
+
 	@Override
 	public void renderLexiconText(int x, int y, int width, int height, String unlocalizedText) {
 		PageText.renderText(x, y, width, height, unlocalizedText);
@@ -247,7 +247,7 @@ public class InternalMethodHandler extends DummyMethodHandler {
 		Block block = world.getBlock(x, y, z);
 		return block == ModBlocks.flower || block == ModBlocks.shinyFlower || block == ModBlocks.specialFlower;
 	}
-	
+
 	@Override
 	public void sendBaubleUpdatePacket(EntityPlayer player, int slot) {
 		if(player instanceof EntityPlayerMP)

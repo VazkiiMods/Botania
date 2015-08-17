@@ -10,11 +10,8 @@
  */
 package vazkii.botania.common.block.tile;
 
-import cpw.mods.fml.common.registry.VillagerRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityHorse;
@@ -25,12 +22,13 @@ import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.nbt.NBTTagCompound;
+import cpw.mods.fml.common.registry.VillagerRegistry;
 
 public class TileCocoon extends TileMod {
 
 	private static final String TAG_TIME_PASSED = "timePassed";
 	private static final String TAG_EMERALDS_GIVEN = "emeraldsGiven";
-	
+
 	public static final int TOTAL_TIME = 2400;
 	public static final int MAX_EMERALDS = 20;
 
@@ -50,9 +48,9 @@ public class TileCocoon extends TileMod {
 			worldObj.setBlockToAir(xCoord, yCoord, zCoord);
 
 			EntityAgeable entity = null;
-			
+
 			float villagerChance = Math.min(1F, (float) emeraldsGiven / (float) MAX_EMERALDS);
-			
+
 			if(Math.random() < villagerChance) {
 				EntityVillager villager = new EntityVillager(worldObj);
 				VillagerRegistry.applyRandomTrade(villager, worldObj.rand);
@@ -92,7 +90,7 @@ public class TileCocoon extends TileMod {
 					}
 				}
 			}
-			
+
 			if(entity != null) {
 				entity.setPosition(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5);
 				entity.setGrowingAge(-24000);

@@ -363,7 +363,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		gui.setTitle();
 		return gui;
 	}
-	
+
 	@Override
 	public String getNotesKey() {
 		return "category_" + (category == null ? "lexindex" : category.unlocalizedName);

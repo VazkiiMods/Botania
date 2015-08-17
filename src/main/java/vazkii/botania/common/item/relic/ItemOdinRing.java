@@ -58,7 +58,7 @@ public class ItemOdinRing extends ItemRelicBauble {
 	@Override
 	public void onValidPlayerWornTick(ItemStack stack, EntityPlayer player) {
 		//if(player.ticksExisted % 30 == 0)
-			//player.heal(1);
+		//player.heal(1);
 		if(player.isBurning())
 			player.extinguish();
 	}

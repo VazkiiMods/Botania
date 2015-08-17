@@ -10,13 +10,12 @@
  */
 package vazkii.botania.common.block.decor.walls;
 
-import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.lexicon.LexiconData;
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.lexicon.LexiconData;
 
 public class BlockPrismarineWall extends BlockModWall {
 
@@ -26,7 +25,7 @@ public class BlockPrismarineWall extends BlockModWall {
 		setResistance(10.0F);
 		setStepSound(soundTypeStone);
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.prismarine;

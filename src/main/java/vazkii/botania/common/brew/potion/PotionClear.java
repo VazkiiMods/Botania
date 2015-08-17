@@ -21,15 +21,15 @@ public class PotionClear extends PotionMod {
 	public PotionClear() {
 		super(ConfigHandler.potionIDClear, LibPotionNames.CLEAR, false, 0xFFFFFF, 0);
 	}
-	
+
 	@Override
 	public boolean isInstant() {
 		return true;
 	}
-	
+
 	@Override
 	public void affectEntity(EntityLivingBase e, EntityLivingBase e1, int t, double d) {
 		e1.curePotionEffects(new ItemStack(Items.milk_bucket));
 	}
-	
+
 }

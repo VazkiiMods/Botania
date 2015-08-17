@@ -19,6 +19,7 @@ import java.util.List;
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -26,7 +27,6 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -36,8 +36,6 @@ import net.minecraft.stats.Achievement;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import net.minecraft.world.World;
-import net.minecraftforge.client.GuiIngameForge;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
@@ -155,28 +153,28 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 
 		return String.copyValueOf(chrs);
 	}
-	
+
 	@Override
 	public void onWornTick(ItemStack stack, EntityLivingBase player) {
 		super.onWornTick(stack, player);
-		
+
 		if(player instanceof EntityPlayer) {
 			EntityPlayer p = (EntityPlayer) player;
 			boolean flying = p.capabilities.isFlying;
-			
+
 			int time = ItemNBTHelper.getInt(stack, TAG_TIME_LEFT, MAX_FLY_TIME);
 			int newTime = time;
 			if(flying && time > 0 && !ItemNBTHelper.getBoolean(stack, TAG_INFINITE_FLIGHT, false))
 				newTime--;
 			else if(!flying && time < MAX_FLY_TIME && player.ticksExisted % 2 == 0)
 				newTime++;
-			
+
 			ItemNBTHelper.setBoolean(stack, TAG_FLYING, flying);
 			if(newTime != time)
 				ItemNBTHelper.setInt(stack, TAG_TIME_LEFT, newTime);
 		}
 	}
-	
+
 	@SubscribeEvent
 	public void updatePlayerFlyStatus(LivingUpdateEvent event) {
 		if(event.entityLiving instanceof EntityPlayer) {
@@ -287,10 +285,10 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 			boolean flying = ItemNBTHelper.getBoolean(armor, TAG_FLYING, false);
 			return (left > (flying ? 0 : MAX_FLY_TIME / 10) || player.inventory.hasItem(ModItems.flugelEye)) && ManaItemHandler.requestManaExact(armor, player, getCost(armor, left), false);
 		}
-		
+
 		return false;
 	}
-	
+
 	public int getCost(ItemStack stack, int timeLeft) {
 		return timeLeft <= 0 ? COST_OVERKILL : COST;
 	}
@@ -451,25 +449,25 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 		GL11.glEnable(GL11.GL_LIGHTING);
 		GL11.glShadeModel(GL11.GL_FLAT);
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	public static void renderHUD(ScaledResolution resolution, EntityPlayer player, ItemStack stack) {
 		int u = Math.max(1, stack.getItemDamage()) * 9 - 9;
 		int v = 0;
-		
+
 		Minecraft mc = Minecraft.getMinecraft();
 		mc.renderEngine.bindTexture(textureHud);
 		int x = resolution.getScaledWidth() / 2 + 10;
 		int y = resolution.getScaledHeight() - 49;
 		if(player.getAir() < 300)
 			y -= 10;
-		
+
 		int left = ItemNBTHelper.getInt(stack, TAG_TIME_LEFT, MAX_FLY_TIME);
-		
+
 		int segTime = MAX_FLY_TIME / 10;
-		int segs = (left / segTime) + 1;
+		int segs = left / segTime + 1;
 		int last = left % segTime;
-		
+
 		for(int i = 0; i < segs; i++) {
 			float trans = 1F;
 			if(i == segs - 1) {
@@ -478,14 +476,14 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 				GL11.glDisable(GL11.GL_ALPHA_TEST);
 			}
-			
+
 			GL11.glColor4f(1F, 1F, 1F, trans);
 			RenderHelper.drawTexturedModalRect(x, y, 0, u, v, 9, 9);
 			x += 8;
 		}
 		GL11.glEnable(GL11.GL_ALPHA_TEST);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
-		mc.renderEngine.bindTexture(GuiIngameForge.icons);
+		mc.renderEngine.bindTexture(Gui.icons);
 	}
 
 	@Override

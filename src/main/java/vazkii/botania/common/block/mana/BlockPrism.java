@@ -97,9 +97,9 @@ public class BlockPrism extends BlockModContainer implements IManaTrigger, ILexi
 		int meta = par1World.getBlockMetadata(par2, par3, par4);
 
 		if(lens == null && isHeldItemLens) {
-			if(!par5EntityPlayer.capabilities.isCreativeMode) 
+			if(!par5EntityPlayer.capabilities.isCreativeMode)
 				par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, null);
-			
+
 			prism.setInventorySlotContents(0, heldItem.copy());
 			prism.markDirty();
 			par1World.setBlockMetadataWithNotify(par2, par3, par4, meta | 1, 1 | 2);

@@ -130,13 +130,13 @@ public class SubTileHopperhock extends SubTileFunctional {
 				boolean itemEqual = stack.getItem() == filterEntry.getItem();
 				boolean damageEqual = stack.getItemDamage() == filterEntry.getItemDamage();
 				boolean nbtEqual = ItemStack.areItemStackTagsEqual(filterEntry, stack);
-				
+
 				if(itemEqual && damageEqual && nbtEqual)
 					return true;
-				
+
 				if(!stack.getHasSubtypes() && stack.isItemStackDamageable() && stack.getMaxStackSize() == 1 && itemEqual && nbtEqual)
 					return true;
-				
+
 				if(stack.getItem() instanceof IManaItem && itemEqual)
 					return true;
 			}

@@ -28,7 +28,7 @@ public class TileTinyPotato extends TileMod {
 			worldObj.playSoundEffect(xCoord, yCoord, zCoord, "botania:doit", 1F, 1F);
 		}
 	}
-	
+
 	public void jump() {
 		if(jumpTicks == 0)
 			jumpTicks = 20;

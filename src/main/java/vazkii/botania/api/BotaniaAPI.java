@@ -98,7 +98,7 @@ public final class BotaniaAPI {
 
 	public static KnowledgeType basicKnowledge;
 	public static KnowledgeType elvenKnowledge;
-	
+
 	// This is here for completeness sake, but you shouldn't use it
 	public static KnowledgeType relicKnowledge;
 

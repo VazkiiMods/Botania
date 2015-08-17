@@ -172,7 +172,7 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 			return false;
 		if(stack.getItem() == ModItems.waterBowl)
 			return true;
-		
+
 		if(stack.getItem() instanceof IFluidContainerItem) {
 			FluidStack fluidStack = ((IFluidContainerItem) stack.getItem()).getFluid(stack);
 			return fluidStack != null && fluidStack.getFluid() == FluidRegistry.WATER && fluidStack.amount >= FluidContainerRegistry.BUCKET_VOLUME;
@@ -184,7 +184,7 @@ public class BlockAltar extends BlockModContainer implements ILexiconable {
 	private ItemStack getContainer(ItemStack stack) {
 		if(stack.getItem() == ModItems.waterBowl)
 			return new ItemStack(Items.bowl);
-		
+
 		if (stack.getItem().hasContainerItem(stack))
 			return stack.getItem().getContainerItem(stack);
 		else if (stack.getItem() instanceof IFluidContainerItem) {

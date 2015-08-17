@@ -62,7 +62,7 @@ public class ItemLens extends ItemMod implements ILens, ITinyPlanetExcempt {
 			PISTON = 16,
 			LIGHT = 17,
 			WARP = 18;
-	
+
 	public static final int STORM = 5000;
 
 	private static final int PROP_NONE = 0,
@@ -282,7 +282,7 @@ public class ItemLens extends ItemMod implements ILens, ITinyPlanetExcempt {
 	public static Lens getLens(int index) {
 		if(index == STORM)
 			return stormLens;
-		
+
 		Lens lens = lenses[index];
 		return lens == null ? fallbackLens : lens;
 	}
@@ -316,7 +316,7 @@ public class ItemLens extends ItemMod implements ILens, ITinyPlanetExcempt {
 
 		return sourceLens;
 	}
-	
+
 	@Override
 	public boolean shouldPull(ItemStack stack) {
 		return stack.getItemDamage() != STORM;

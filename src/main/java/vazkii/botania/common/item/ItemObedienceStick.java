@@ -30,7 +30,7 @@ public class ItemObedienceStick extends ItemMod {
 		setMaxStackSize(1);
 		setUnlocalizedName(LibItemNames.OBEDIENCE_STICK);
 	}
-	
+
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int s, float xs, float ys, float zs) {
 		TileEntity tileAt = world.getTileEntity(x, y, z);
@@ -38,7 +38,7 @@ public class ItemObedienceStick extends ItemMod {
 			boolean pool = tileAt instanceof IManaPool;
 			Actuator act = pool ? Actuator.functionalActuator : Actuator.generatingActuator;
 			int range = pool ? SubTileFunctional.RANGE : SubTileGenerating.RANGE;
-			
+
 			for(int i = -range; i < range + 1; i++)
 				for(int j = -range; j < range + 1; j++)
 					for(int k = -range; k < range + 1; k++) {
@@ -47,7 +47,7 @@ public class ItemObedienceStick extends ItemMod {
 						int zp = z + k;
 						if(MathHelper.pointDistanceSpace(xp, yp, zp, x, y, z) > range)
 							continue;
-						
+
 						TileEntity tile = world.getTileEntity(xp, yp, zp);
 						if(tile instanceof ISubTileContainer) {
 							SubTileEntity subtile = ((ISubTileContainer) tile).getSubTile();
@@ -58,7 +58,7 @@ public class ItemObedienceStick extends ItemMod {
 							}
 						}
 					}
-			
+
 			if(player.worldObj.isRemote)
 				player.swingItem();
 		}
@@ -67,7 +67,7 @@ public class ItemObedienceStick extends ItemMod {
 
 	public static abstract class Actuator {
 		public static final Actuator generatingActuator = new Actuator() {
-			
+
 			@Override
 			public boolean actuate(SubTileEntity flower, TileEntity tile) {
 				if(flower instanceof SubTileGenerating) {
@@ -76,11 +76,11 @@ public class ItemObedienceStick extends ItemMod {
 				}
 				return false;
 			}
-			
+
 		};
-		
+
 		public static final Actuator functionalActuator = new Actuator() {
-			
+
 			@Override
 			public boolean actuate(SubTileEntity flower, TileEntity tile) {
 				if(flower instanceof SubTileFunctional) {
@@ -89,11 +89,11 @@ public class ItemObedienceStick extends ItemMod {
 				}
 				return false;
 			}
-			
+
 		};
-		
+
 		public abstract boolean actuate(SubTileEntity flower, TileEntity tile);
-		
+
 	}
-	
+
 }

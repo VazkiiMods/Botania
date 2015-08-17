@@ -25,7 +25,7 @@ import vazkii.botania.client.gui.lexicon.GuiLexicon;
 public class GuiButtonNotes extends GuiButtonLexicon {
 
 	GuiLexicon parent;
-	
+
 	public GuiButtonNotes(GuiLexicon parent, int id, int x, int y) {
 		super(id, x, y, 11, 11, "");
 		this.parent = parent;
@@ -48,10 +48,10 @@ public class GuiButtonNotes extends GuiButtonLexicon {
 			if(parent.note != null && !parent.note.isEmpty())
 				Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("!", xPosition + 10, yPosition, 0xFF0000);
 		}
-		
+
 		int tooltipY = (tooltip.size() - 1) * 10;
 		if(k == 2)
 			RenderHelper.renderTooltip(par2, par3 + tooltipY, tooltip);
 	}
-	
+
 }

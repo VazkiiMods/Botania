@@ -146,11 +146,11 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 
 		return false;
 	}
-	
+
 	public static void doParticleBeam(World world, Vector3 orig, Vector3 end) {
 		if(!world.isRemote)
 			return;
-		
+
 		Vector3 diff = end.copy().sub(orig);
 		Vector3 movement = diff.copy().normalize().multiply(0.05);
 		int iters = (int) (diff.mag() / movement.mag());

@@ -149,7 +149,7 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	public void drawSimpleManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res) {
 		// NO-OP
 	}
-	
+
 	@Override
 	public void drawComplexManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res, ItemStack bindDisplay, boolean properlyBound) {
 		// NO-OP
@@ -159,7 +159,7 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	public ItemStack getBindDisplayForFlowerType(SubTileEntity e) {
 		return new ItemStack(Blocks.stone, 0, 0);
 	}
-	
+
 	@Override
 	public void renderLexiconText(int x, int y, int width, int height, String unlocalizedText) {
 		// NO-OP

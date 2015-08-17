@@ -72,7 +72,7 @@ public class ItemRelic extends ItemMod implements IRelic {
 			}
 		} else addStringToTooltip(StatCollector.translateToLocal("botaniamisc.shiftinfo"), list);
 	}
-	
+
 	public boolean shouldDamageWrongPlayer() {
 		return true;
 	}

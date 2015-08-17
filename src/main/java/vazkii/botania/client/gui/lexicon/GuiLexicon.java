@@ -23,7 +23,6 @@ import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChatAllowedCharacters;
@@ -64,7 +63,7 @@ public class GuiLexicon extends GuiScreen {
 	public static ItemStack stackUsed;
 
 	public static HashMap<String, String> notes = new HashMap();
-	
+
 	private static final String TAG_TYPE = "type";
 
 	private static final int[] KONAMI_CODE = { 200, 200, 208, 208, 203, 205, 203, 205, 48, 30 };
@@ -94,7 +93,7 @@ public class GuiLexicon extends GuiScreen {
 	public static boolean notesEnabled;
 	static int notesMoveTime;
 	public String note = "";
-	
+
 	List<LexiconCategory> allCategories;
 
 	String title;
@@ -114,7 +113,7 @@ public class GuiLexicon extends GuiScreen {
 		String key = getNotesKey();
 		if(notes.containsKey(key))
 			note = notes.get(key);
-		
+
 		onInitGui();
 
 		putTutorialArrow();
@@ -161,7 +160,7 @@ public class GuiLexicon extends GuiScreen {
 		}
 		buttonList.add(new GuiButtonNotes(this, NOTES_BUTTON_ID, left - 4, top - 4));
 	}
-	
+
 	@Override
 	public void updateScreen() {
 		if(notesEnabled && notesMoveTime < NOTE_TWEEN_TIME)
@@ -180,7 +179,7 @@ public class GuiLexicon extends GuiScreen {
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		mc.renderEngine.bindTexture(texture);
 		drawNotes(par3);
-		
+
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		mc.renderEngine.bindTexture(texture);
 		drawTexturedModalRect(left, top, 0, 0, guiWidth, guiHeight);
@@ -240,31 +239,31 @@ public class GuiLexicon extends GuiScreen {
 			GL11.glDisable(GL11.GL_BLEND);
 		}
 	}
-	
+
 	public void drawNotes(float part) {
 		int size = 105;
-		
+
 		float time = notesMoveTime;
 		if(notesMoveTime < NOTE_TWEEN_TIME && notesEnabled)
 			time += part;
 		else if(notesMoveTime > 0 && !notesEnabled)
 			time -= part;
-		
-		int drawSize = (int) ((float) size * time / (float) NOTE_TWEEN_TIME);
+
+		int drawSize = (int) (size * time / NOTE_TWEEN_TIME);
 		int x = left - drawSize;
 		int y = top + 10;
-		
+
 		drawTexturedModalRect(x, y, 146, 0, drawSize, 125);
-		
+
 		String noteDisplay = note;
 		if(notesEnabled && ClientTickHandler.ticksInGame % 20 < 10)
 			noteDisplay += "&r_";
-		
+
 		fontRendererObj.drawString(StatCollector.translateToLocal("botaniamisc.notes"), x + 5, y - 7, 0x666666);
-		
+
 		boolean unicode = fontRendererObj.getUnicodeFlag();
 		fontRendererObj.setUnicodeFlag(true);
-		
+
 		PageText.renderText(x + 5, y - 3, 92, 120, 0, noteDisplay);
 		fontRendererObj.setUnicodeFlag(unicode);
 	}
@@ -505,7 +504,7 @@ public class GuiLexicon extends GuiScreen {
 	@Override
 	protected void keyTyped(char par1, int par2) {
 		handleNoteKey(par1, par2);
-		
+
 		if(!notesEnabled && closeScreenOnInvKey() && mc.gameSettings.keyBindInventory.getKeyCode() == par2) {
 			mc.displayGuiScreen(null);
 			mc.setIngameFocus();
@@ -521,12 +520,12 @@ public class GuiLexicon extends GuiScreen {
 
 		super.keyTyped(par1, par2);
 	}
-	
+
 	public void handleNoteKey(char par1, int par2) {
 		if(notesEnabled) {
 			Keyboard.enableRepeatEvents(true);
 			boolean changed = false;
-			
+
 			if(par2 == 14 && note.length() > 0) {
 				if(isCtrlKeyDown())
 					note = "";
@@ -537,12 +536,12 @@ public class GuiLexicon extends GuiScreen {
 				}
 				changed = true;
 			}
-			
+
 			if((ChatAllowedCharacters.isAllowedCharacter(par1) || par2 == 28) && note.length() < 250) {
 				note += par2 == 28 ? "<br>" : par1;
 				changed = true;
 			}
-			
+
 			if(changed) {
 				notes.put(getNotesKey(), note);
 				PresistantVariableHelper.saveSafe();
@@ -572,7 +571,7 @@ public class GuiLexicon extends GuiScreen {
 	public String getNotesKey() {
 		return "index";
 	}
-	
+
 	public void load(NBTTagCompound cmp) {
 		// NO-OP
 	}

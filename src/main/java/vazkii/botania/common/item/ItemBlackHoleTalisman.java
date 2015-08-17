@@ -191,7 +191,7 @@ public class ItemBlackHoleTalisman extends ItemMod {
 		int meta = getBlockMeta(par1ItemStack);
 		return super.getItemStackDisplayName(par1ItemStack) + (block == null ? "" : " (" + EnumChatFormatting.GREEN + new ItemStack(block, meta).getDisplayName() + EnumChatFormatting.RESET + ")");
 	}
-	
+
 	@Override
 	public ItemStack getContainerItem(ItemStack itemStack) {
 		int count = getBlockCount(itemStack);

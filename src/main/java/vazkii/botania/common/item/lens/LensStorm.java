@@ -28,5 +28,5 @@ public class LensStorm extends Lens {
 
 		return dead;
 	}
-	
+
 }

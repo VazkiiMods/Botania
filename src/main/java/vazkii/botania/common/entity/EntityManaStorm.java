@@ -14,7 +14,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.lens.ItemLens;
@@ -27,11 +26,11 @@ public class EntityManaStorm extends Entity {
 
 	public static final int TOTAL_BURSTS = 250;
 	public static final int DEATH_TIME = 200;
-	
+
 	public int liveTime;
 	public int burstsFired;
 	public int deathTime;
-	
+
 	public EntityManaStorm(World p_i1582_1_) {
 		super(p_i1582_1_);
 	}
@@ -40,19 +39,19 @@ public class EntityManaStorm extends Entity {
 	protected void entityInit() {
 		// NO-OP
 	}
-	
+
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
 		liveTime++;
-		
-		int diffTime = Math.max(1, 30 - (int) ((float) liveTime / 45f));
+
+		int diffTime = Math.max(1, 30 - (int) (liveTime / 45f));
 		if(burstsFired < TOTAL_BURSTS && liveTime % diffTime == 0) {
 			if(!worldObj.isRemote)
 				spawnBurst();
 			burstsFired++;
 		}
-		
+
 		if(burstsFired >= TOTAL_BURSTS) {
 			deathTime++;
 			if(deathTime >= DEATH_TIME) {
@@ -61,7 +60,7 @@ public class EntityManaStorm extends Entity {
 			}
 		}
 	}
-	
+
 	public void spawnBurst() {
 		EntityManaBurst burst = new EntityManaBurst(worldObj);
 		burst.setPosition(posX, posY, posZ);
@@ -76,7 +75,7 @@ public class EntityManaStorm extends Entity {
 
 		ItemStack lens = new ItemStack(ModItems.lens, 1, ItemLens.STORM);
 		burst.setSourceLens(lens);
-		
+
 		Vector3 motion = new Vector3(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize().multiply(motionModifier);
 		burst.setMotion(motion.x, motion.y, motion.z);
 		worldObj.spawnEntityInWorld(burst);

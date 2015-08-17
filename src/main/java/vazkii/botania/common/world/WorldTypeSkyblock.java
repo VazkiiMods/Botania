@@ -10,20 +10,11 @@
  */
 package vazkii.botania.common.world;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.ChunkProviderFlat;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.item.ModItems;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class WorldTypeSkyblock extends WorldType {
 
@@ -31,39 +22,39 @@ public class WorldTypeSkyblock extends WorldType {
 		super("botania-skyblock");
 		MinecraftForge.EVENT_BUS.register(new SkyblockWorldEvents());
 	}
-	
+
 	public static boolean isWorldSkyblock(World world) {
 		return world.getWorldInfo().getTerrainType() instanceof WorldTypeSkyblock;
 	}
-	
+
 	@Override
 	public boolean showWorldInfoNotice() {
 		return true;
 	}
-	
+
 	@Override
 	public boolean hasVoidParticles(boolean flag) {
 		return false;
 	}
-	
+
 	@Override
 	public int getMinimumSpawnHeight(World world) {
 		return 86;
 	}
-	
+
 	@Override
 	public int getSpawnFuzz() {
 		return 1;
 	}
-	
+
 	@Override
 	public float getCloudHeight() {
 		return 260f;
 	}
-	
+
 	@Override
 	public IChunkProvider getChunkGenerator(World world, String generatorOptions) {
 		return new ChunkProviderFlat(world, world.getSeed(), false, "2;1x0;");
 	}
-	
+
 }

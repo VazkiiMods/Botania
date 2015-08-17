@@ -107,7 +107,7 @@ public class BlockModDoubleFlower extends BlockDoublePlant implements ILexiconab
 
 		if(this.canSilkHarvest(p_149636_1_, p_149636_2_, p_149636_3_, p_149636_4_, p_149636_5_, p_149636_6_) && EnchantmentHelper.getSilkTouchModifier(p_149636_2_)) {
 			ArrayList<ItemStack> items = new ArrayList<ItemStack>();
-			ItemStack itemstack = this.createStackedBlock(p_149636_6_);
+			ItemStack itemstack = createStackedBlock(p_149636_6_);
 
 			if(itemstack != null)
 				items.add(itemstack);

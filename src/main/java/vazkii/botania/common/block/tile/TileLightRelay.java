@@ -11,20 +11,17 @@
 package vazkii.botania.common.block.tile;
 
 import java.awt.Color;
-import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
@@ -45,13 +42,13 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 	public void mountEntity(EntityLivingBase e) {
 		if(e.ridingEntity != null || worldObj.isRemote || bindY == -1 || !isValidBinding())
 			return;
-		
+
 		EntityPlayerMover mover = new EntityPlayerMover(worldObj, xCoord, yCoord, zCoord, bindX, bindY, bindZ);
 		worldObj.spawnEntityInWorld(mover);
 		e.mountEntity(mover);
 		worldObj.playSoundAtEntity(mover, "botania:lightRelay", 0.2F, (float) Math.random() * 0.3F + 0.7F);
 	}
-	
+
 	@Override
 	public void updateEntity() {
 		ticksElapsed++;
@@ -80,7 +77,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 			}
 		}
 	}
-	
+
 	public boolean isValidBinding() {
 		Block block = worldObj.getBlock(bindX, bindY, bindZ);
 		return block == ModBlocks.lightRelay;
@@ -124,17 +121,17 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		cmp.setInteger(TAG_BIND_Y, bindY);
 		cmp.setInteger(TAG_BIND_Z, bindZ);
 	}
-	
+
 	public static class EntityPlayerMover extends Entity {
 
 		private static final String TAG_EXIT_X = "exitX";
 		private static final String TAG_EXIT_Y = "exitY";
 		private static final String TAG_EXIT_Z = "exitZ";
-		
+
 		public EntityPlayerMover(World world) {
 			super(world);
 		}
-		
+
 		public EntityPlayerMover(World world, int x, int y, int z, int exitX, int exitY, int exitZ) {
 			this(world);
 			setPosition(x + 0.5, y + 0.5, z + 0.5);
@@ -145,7 +142,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		protected void entityInit() {
 			setSize(0F, 0F);
 			noClip = true;
-			
+
 			dataWatcher.addObject(20, 0);
 			dataWatcher.addObject(21, 0);
 			dataWatcher.addObject(22, 0);
@@ -153,23 +150,23 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 			dataWatcher.setObjectWatched(21);
 			dataWatcher.setObjectWatched(22);
 		}
-		
+
 		@Override
 		public void onUpdate() {
 			super.onUpdate();
-			
+
 			if(ticksExisted % 30 == 0)
-				worldObj.playSoundAtEntity(this, "botania:lightRelay", 0.2F, (float) Math.random() * 0.3F + 0.7F); 
+				worldObj.playSoundAtEntity(this, "botania:lightRelay", 0.2F, (float) Math.random() * 0.3F + 0.7F);
 
 			if(riddenByEntity == null && !worldObj.isRemote) {
 				setDead();
 				return;
 			}
-			
+
 			int exitX = getExitX();
 			int exitY = getExitY();
 			int exitZ = getExitZ();
-			
+
 			int x = net.minecraft.util.MathHelper.floor_double(posX);
 			int y = net.minecraft.util.MathHelper.floor_double(posY);
 			int z = net.minecraft.util.MathHelper.floor_double(posZ);
@@ -183,45 +180,44 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 						worldObj.setBlockMetadataWithNotify(x, y, z, meta | 8, 1 | 2);
 						worldObj.scheduleBlockUpdate(x, y, z, tile.getBlockType(), tile.getBlockType().tickRate(worldObj));
 					}
-					
+
 					ChunkCoordinates bind = ((TileLightRelay) tile).getBinding();
 					if(bind != null) {
 						setExit(bind.posX, bind.posY, bind.posZ);
 						return;
 					}
 				}
-				
+
 				posY += 1.5;
 				setDead();
 			} else {
 				Vector3 thisVec = Vector3.fromEntity(this);
 				Vector3 motVec = thisVec.negate().add(exitX + 0.5, exitY + 0.5, exitZ + 0.5).normalize().multiply(0.5);
-				
-				float partMod = 0F;
+
 				Color color;
-				
+
 				int count = 4;
 				for(int i = 0; i < count; i++) {
-					color = Color.getHSBColor((float) (ticksExisted / 36F) + (1F / count * i), 1F, 1F);
-					double rad = Math.PI * 2.0 / count * i + ((double) ticksExisted / Math.PI);
+					color = Color.getHSBColor(ticksExisted / 36F + 1F / count * i, 1F, 1F);
+					double rad = Math.PI * 2.0 / count * i + ticksExisted / Math.PI;
 					double cos = Math.cos(rad);
 					double sin = Math.sin(rad);
 					double s = 0.4;
-					
-					Botania.proxy.sparkleFX(worldObj, posX + cos * s, posY - 0.5, posZ + sin * s, (float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F, 1.2F, 10);
+
+					Botania.proxy.sparkleFX(worldObj, posX + cos * s, posY - 0.5, posZ + sin * s, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, 1.2F, 10);
 				}
 
- 				posX += motVec.x;
+				posX += motVec.x;
 				posY += motVec.y;
 				posZ += motVec.z;
 			}
 		}
-		
+
 		@Override
 		public boolean shouldRiderSit() {
 			return false;
 		}
-		
+
 		@Override
 		public boolean attackEntityFrom(DamageSource p_70097_1_, float p_70097_2_) {
 			return false;
@@ -238,25 +234,25 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 			cmp.setInteger(TAG_EXIT_Y, getExitY());
 			cmp.setInteger(TAG_EXIT_Z, getExitZ());
 		}
-		
+
 		public int getExitX() {
 			return dataWatcher.getWatchableObjectInt(20);
 		}
-		
+
 		public int getExitY() {
 			return dataWatcher.getWatchableObjectInt(21);
 		}
-		
+
 		public int getExitZ() {
 			return dataWatcher.getWatchableObjectInt(22);
 		}
-		
+
 		public void setExit(int x, int y, int z) {
 			dataWatcher.updateObject(20, x);
 			dataWatcher.updateObject(21, y);
 			dataWatcher.updateObject(22, z);
 		}
-		
+
 	}
 
 }

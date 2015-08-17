@@ -172,7 +172,7 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 		challenge = c;
 		setTitle();
 	}
-	
+
 	@Override
 	public String getNotesKey() {
 		return "challenge_" + challenge.unlocalizedName;

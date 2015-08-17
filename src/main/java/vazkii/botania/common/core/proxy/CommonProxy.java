@@ -19,7 +19,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldType;
 import net.minecraftforge.common.MinecraftForge;
 
 import org.apache.logging.log4j.Level;
@@ -103,7 +102,7 @@ public class CommonProxy {
 		ChestGenHandler.init();
 
 		LexiconData.init();
-		
+
 		if(Botania.gardenOfGlassLoaded)
 			new WorldTypeSkyblock();
 	}

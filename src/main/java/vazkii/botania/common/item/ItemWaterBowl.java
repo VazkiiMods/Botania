@@ -18,5 +18,5 @@ public class ItemWaterBowl extends ItemMod {
 		setMaxStackSize(1);
 		setUnlocalizedName(LibItemNames.WATER_BOWL);
 	}
-	
+
 }

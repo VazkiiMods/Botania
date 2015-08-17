@@ -41,7 +41,7 @@ public final class ContributorFancinessHandler {
 
 	private volatile static Map<String, IIcon> flowerMap = null;
 	private static boolean startedLoading = false;
-	
+
 	private static boolean phi = true;
 
 	public static void render(RenderPlayerEvent.Specials event) {

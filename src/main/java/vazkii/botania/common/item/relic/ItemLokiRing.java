@@ -86,9 +86,9 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 		MovingObjectPosition lookPos = ToolCommons.raytraceFromEntity(player.worldObj, player, true, 10F);
 		List<ChunkCoordinates> cursors = getCursorList(lokiRing);
 		int cursorCount = cursors.size();
-		
-		int cost = Math.min(cursorCount, (int) (Math.pow(Math.E, (double) cursorCount * 0.25)));
-		
+
+		int cost = Math.min(cursorCount, (int) Math.pow(Math.E, cursorCount * 0.25));
+
 		if(heldItemStack == null && event.action == Action.RIGHT_CLICK_BLOCK && player.isSneaking()) {
 			if(originCoords.posY == -1 && lookPos != null) {
 				setOriginPos(lokiRing, lookPos.blockX, lookPos.blockY, lookPos.blockZ);
@@ -102,23 +102,23 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 						PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, slot), (EntityPlayerMP) player);
 				} else {
 					addCursor : {
-						int relX = lookPos.blockX - originCoords.posX;
-						int relY = lookPos.blockY - originCoords.posY;
-						int relZ = lookPos.blockZ - originCoords.posZ;
+					int relX = lookPos.blockX - originCoords.posX;
+					int relY = lookPos.blockY - originCoords.posY;
+					int relZ = lookPos.blockZ - originCoords.posZ;
 
-						for(ChunkCoordinates cursor : cursors)
-							if(cursor.posX == relX && cursor.posY == relY && cursor.posZ == relZ) {
-								cursors.remove(cursor);
-								setCursorList(lokiRing, cursors);
-								if(player instanceof EntityPlayerMP)
-									PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, slot), (EntityPlayerMP) player);
-								break addCursor;
-							}
+					for(ChunkCoordinates cursor : cursors)
+						if(cursor.posX == relX && cursor.posY == relY && cursor.posZ == relZ) {
+							cursors.remove(cursor);
+							setCursorList(lokiRing, cursors);
+							if(player instanceof EntityPlayerMP)
+								PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, slot), (EntityPlayerMP) player);
+							break addCursor;
+						}
 
-						addCursor(lokiRing, relX, relY, relZ);
-						if(player instanceof EntityPlayerMP)
-							PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, slot), (EntityPlayerMP) player);
-					}
+					addCursor(lokiRing, relX, relY, relZ);
+					if(player instanceof EntityPlayerMP)
+						PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, slot), (EntityPlayerMP) player);
+				}
 				}
 			}
 		} else if(heldItemStack != null && event.action == Action.RIGHT_CLICK_BLOCK && lookPos != null && player.isSneaking()) {

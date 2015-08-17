@@ -59,7 +59,6 @@ import vazkii.botania.common.item.ItemCraftingHalo;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
-import vazkii.botania.common.item.relic.ItemFlugelEye;
 import vazkii.botania.common.lib.LibObfuscation;
 import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -74,7 +73,7 @@ public final class HUDHandler {
 		Minecraft mc = Minecraft.getMinecraft();
 		Profiler profiler = mc.mcProfiler;
 		ItemStack equippedStack = mc.thePlayer.getCurrentEquippedItem();
-		
+
 		if(event.type == ElementType.ALL) {
 			profiler.startSection("botania-hud");
 			MovingObjectPosition pos = mc.objectMouseOver;
@@ -126,7 +125,7 @@ public final class HUDHandler {
 				ItemFlugelEye.renderHUD(event.resolution, mc.thePlayer, equippedStack);
 				profiler.endSection();
 			}*/
-			
+
 			profiler.startSection("manaBar");
 			EntityPlayer player = mc.thePlayer;
 			int totalMana = 0;
@@ -404,20 +403,20 @@ public final class HUDHandler {
 
 		GL11.glDisable(GL11.GL_BLEND);
 	}
-	
+
 	public static void drawComplexManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res, ItemStack bindDisplay, boolean properlyBound) {
 		drawSimpleManaHUD(color, mana, maxMana, name, res);
-		
+
 		Minecraft mc = Minecraft.getMinecraft();
 
 		int x = res.getScaledWidth() / 2 + 55;
 		int y = res.getScaledHeight() / 2 + 12;
-		
+
 		net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, bindDisplay, x, y);
 		net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
-		
+
 		GL11.glDisable(GL11.GL_DEPTH_TEST);
 		if(properlyBound) {
 			mc.fontRenderer.drawStringWithShadow("\u2714", x + 10, y + 9, 0x004C00);

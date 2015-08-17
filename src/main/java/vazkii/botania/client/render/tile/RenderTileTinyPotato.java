@@ -31,7 +31,6 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelTinyPotato;
 import vazkii.botania.common.block.tile.TileTinyPotato;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.equipment.bauble.ItemBaubleCosmetic;
 import vazkii.botania.common.item.material.ItemManaResource;
 
 public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
@@ -67,10 +66,10 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 		GL11.glRotatef(rotZ, 0F, 0F, 1F);
 
 		model.render();
-		
+
 		GL11.glPushMatrix();
 		String name = potato.name.toLowerCase();
-		
+
 		mc.renderEngine.bindTexture(TextureMap.locationItemsTexture);
 		float scale = 1F / 4F;
 		GL11.glTranslatef(0F, 1F, 0F);
@@ -118,9 +117,9 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 			renderIcon(ModItems.cosmetic.getIconFromDamage(24));
 		}
 		GL11.glPopMatrix();
-		
+
 		MinecraftForge.EVENT_BUS.post(new TinyPotatoRenderEvent(potato, potato.name, d0, d1, d2, var8));
-		
+
 		GL11.glRotatef(-rotZ, 0F, 0F, 1F);
 		GL11.glRotatef(-rotY, 0F, 1F, 0F);
 		GL11.glColor3f(1F, 1F, 1F);
@@ -162,7 +161,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 
 		GL11.glPopMatrix();
 	}
-	
+
 	public void renderIcon(IIcon icon) {
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();

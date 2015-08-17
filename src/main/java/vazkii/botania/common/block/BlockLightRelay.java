@@ -13,7 +13,6 @@ package vazkii.botania.common.block;
 import java.util.List;
 import java.util.Random;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -23,13 +22,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibRenderIDs;
@@ -37,6 +34,7 @@ import vazkii.botania.common.block.tile.TileLightRelay;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class BlockLightRelay extends BlockModContainer implements IWandable, ILexiconable {
 
@@ -64,7 +62,7 @@ public class BlockLightRelay extends BlockModContainer implements IWandable, ILe
 		for(int i = 0; i < 2; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
-	
+
 	@Override
 	public int damageDropped(int meta) {
 		return meta == 0 ? 0 : 1;
@@ -79,7 +77,7 @@ public class BlockLightRelay extends BlockModContainer implements IWandable, ILe
 	public boolean getBlocksMovement(IBlockAccess p_149655_1_, int p_149655_2_, int p_149655_3_, int p_149655_4_) {
 		return false;
 	}
-	
+
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int s, float xs, float ys, float zs) {
 		((TileLightRelay) world.getTileEntity(x, y, z)).mountEntity(player);
@@ -115,9 +113,9 @@ public class BlockLightRelay extends BlockModContainer implements IWandable, ILe
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		invIcon = IconHelper.forBlock(par1IconRegister, this, 0);
-		worldIcon = IconHelper.forBlock(par1IconRegister, this, 1);	
+		worldIcon = IconHelper.forBlock(par1IconRegister, this, 1);
 		invIconRed = IconHelper.forBlock(par1IconRegister, this, 2);
-		worldIconRed = IconHelper.forBlock(par1IconRegister, this, 3);	
+		worldIconRed = IconHelper.forBlock(par1IconRegister, this, 3);
 	}
 
 	@Override

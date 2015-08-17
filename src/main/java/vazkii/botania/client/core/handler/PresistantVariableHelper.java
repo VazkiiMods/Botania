@@ -65,7 +65,7 @@ public final class PresistantVariableHelper {
 				notesCmp.setString(s, note);
 		}
 		cmp.setTag(TAG_LEXICON_NOTES, notesCmp);
-		
+
 		cmp.setBoolean(TAG_FIRST_LOAD, firstLoad);
 
 		injectNBTToFile(cmp, getCacheFile());
@@ -91,7 +91,7 @@ public final class PresistantVariableHelper {
 			for(Challenge c : ModChallenges.challengeLookup.values())
 				c.readFromNBT(challengesCmp);
 		}
-		
+
 		if(cmp.hasKey(TAG_LEXICON_NOTES)) {
 			NBTTagCompound notesCmp = cmp.getCompoundTag(TAG_LEXICON_NOTES);
 			Set<String> keys = notesCmp.func_150296_c();

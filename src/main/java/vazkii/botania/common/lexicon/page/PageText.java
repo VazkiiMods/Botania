@@ -44,7 +44,7 @@ public class PageText extends LexiconPage {
 	public static void renderText(int x, int y, int width, int height, String unlocalizedText) {
 		renderText(x, y, width, height, 10, unlocalizedText);
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	public static void renderText(int x, int y, int width, int height, int paragraphSize, String unlocalizedText) {
 		x += 2;

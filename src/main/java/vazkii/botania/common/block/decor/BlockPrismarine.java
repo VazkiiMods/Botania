@@ -30,7 +30,6 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.render.block.InterpolatedIcon;
 import vazkii.botania.common.block.BlockMod;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -80,7 +79,7 @@ public class BlockPrismarine extends BlockMod implements ILexiconable {
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		icons = new IIcon[TYPES];
 		for(int i = 1; i < TYPES; i++)
-				icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
+			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
 	}
 
 	@SubscribeEvent

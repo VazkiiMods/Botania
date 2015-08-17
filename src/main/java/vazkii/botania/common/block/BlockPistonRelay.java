@@ -257,7 +257,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 				}
 			}
 		}
-			
+
 		// ConcurrentModificationException failsafe
 		ArrayList<String> remove = new ArrayList(removeThese);
 		for(String s : remove) {

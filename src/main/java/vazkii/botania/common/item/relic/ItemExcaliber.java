@@ -220,4 +220,4 @@ public class ItemExcaliber extends ItemManasteelSword implements IRelic, ILensEf
 	}
 
 }
-*/
+ */

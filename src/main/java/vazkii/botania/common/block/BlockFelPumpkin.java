@@ -12,7 +12,6 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityBlaze;
@@ -48,9 +47,10 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
-		return p_149691_1_ == 1 ? top : (p_149691_1_ == 0 ? top : (p_149691_2_ == 2 && p_149691_1_ == 2 ? face : (p_149691_2_ == 3 && p_149691_1_ == 5 ? face : (p_149691_2_ == 0 && p_149691_1_ == 3 ? face : (p_149691_2_ == 1 && p_149691_1_ == 4 ? face : this.blockIcon)))));
+		return p_149691_1_ == 1 ? top : p_149691_1_ == 0 ? top : p_149691_2_ == 2 && p_149691_1_ == 2 ? face : p_149691_2_ == 3 && p_149691_1_ == 5 ? face : p_149691_2_ == 0 && p_149691_1_ == 3 ? face : p_149691_2_ == 1 && p_149691_1_ == 4 ? face : blockIcon;
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 			p_149726_1_.setBlock(p_149726_2_, p_149726_3_ - 1, p_149726_4_, getBlockById(0), 0, 2);
 			p_149726_1_.setBlock(p_149726_2_, p_149726_3_ - 2, p_149726_4_, getBlockById(0), 0, 2);
 			EntityBlaze blaze = new EntityBlaze(p_149726_1_);
-			blaze.setLocationAndAngles((double)p_149726_2_ + 0.5D, (double)p_149726_3_ - 1.95D, (double)p_149726_4_ + 0.5D, 0.0F, 0.0F);
+			blaze.setLocationAndAngles(p_149726_2_ + 0.5D, p_149726_3_ - 1.95D, p_149726_4_ + 0.5D, 0.0F, 0.0F);
 			blaze.getEntityData().setBoolean(TAG_FEL_SPAWNED, true);
 			p_149726_1_.spawnEntityInWorld(blaze);
 			p_149726_1_.notifyBlockChange(p_149726_2_, p_149726_3_, p_149726_4_, getBlockById(0));
@@ -73,15 +73,16 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 
 	@Override
 	public void onBlockPlacedBy(World p_149689_1_, int p_149689_2_, int p_149689_3_, int p_149689_4_, EntityLivingBase p_149689_5_, ItemStack p_149689_6_) {
-		int l = MathHelper.floor_double((double)(p_149689_5_.rotationYaw * 4.0F / 360.0F) + 2.5D) & 3;
+		int l = MathHelper.floor_double(p_149689_5_.rotationYaw * 4.0F / 360.0F + 2.5D) & 3;
 		p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, l, 2);
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister p_149651_1_)  {
 		face = IconHelper.forBlock(p_149651_1_, this);
 		top = Blocks.pumpkin.getIcon(0, 0);
-		this.blockIcon = Blocks.pumpkin.getIcon(2, 0);
+		blockIcon = Blocks.pumpkin.getIcon(2, 0);
 	}
 
 	@SubscribeEvent

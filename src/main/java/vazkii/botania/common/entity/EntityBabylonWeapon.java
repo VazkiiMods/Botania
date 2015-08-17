@@ -34,14 +34,14 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 	private static final String TAG_LIVE_TICKS = "liveTicks";
 	private static final String TAG_DELAY = "delay";
 	private static final String TAG_ROTATION = "rotation";
-	
+
 	public EntityBabylonWeapon(World world) {
 		super(world);
 	}
 
 	public EntityBabylonWeapon(World world, EntityLivingBase thrower) {
 		super(world, thrower);
-	}	
+	}
 
 	@Override
 	protected void entityInit() {
@@ -139,7 +139,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 		}
 
 		super.onUpdate();
-		
+
 		motionX = x;
 		motionY = y;
 		motionZ = z;
@@ -147,7 +147,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 		if(liveTime > delay)
 			Botania.proxy.wispFX(worldObj, posX, posY, posZ, 1F, 1F, 0F, 0.3F, 0F);
 
-		if(liveTime > (200 + delay))
+		if(liveTime > 200 + delay)
 			setDead();
 	}
 
@@ -159,7 +159,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 			setDead();
 		}
 	}
-	
+
 	@Override
 	public void writeEntityToNBT(NBTTagCompound cmp) {
 		super.writeEntityToNBT(cmp);
@@ -170,7 +170,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 		cmp.setInteger(TAG_DELAY, getDelay());
 		cmp.setFloat(TAG_ROTATION, getRotation());
 	}
-	
+
 	@Override
 	public void readEntityFromNBT(NBTTagCompound cmp) {
 		super.readEntityFromNBT(cmp);
@@ -221,7 +221,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 	public void setDelay(int delay) {
 		dataWatcher.updateObject(24, delay);
 	}
-	
+
 	public float getRotation() {
 		return dataWatcher.getWatchableObjectFloat(25);
 	}
@@ -229,5 +229,5 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 	public void setRotation(float rot) {
 		dataWatcher.updateObject(25, rot);
 	}
-	
+
 }

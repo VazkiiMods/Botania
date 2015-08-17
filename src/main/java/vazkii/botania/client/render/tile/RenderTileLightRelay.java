@@ -25,7 +25,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.BlockLightRelay;
 
 public class RenderTileLightRelay extends TileEntitySpecialRenderer {
-	
+
 	@Override
 	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float pticks) {
 		Minecraft mc = Minecraft.getMinecraft();
@@ -49,12 +49,12 @@ public class RenderTileLightRelay extends TileEntitySpecialRenderer {
 		float r = 180.0F - RenderManager.instance.playerViewY;
 		GL11.glRotatef(r, 0F, 1F, 0F);
 		GL11.glRotatef(-RenderManager.instance.playerViewX, 1F, 0F, 0F);
-		
+
 		float off = 0.25F;
 		GL11.glTranslatef(0F, off, 0F);
 		GL11.glRotated(time, 0F, 0F, 1F);
 		GL11.glTranslatef(0F, -off, 0F);
-		
+
 		mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 		func_77026_a(tessellator, iicon);
 		GL11.glPopMatrix();
@@ -63,7 +63,7 @@ public class RenderTileLightRelay extends TileEntitySpecialRenderer {
 		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 		GL11.glPopMatrix();
 	}
-	
+
 	private void func_77026_a(Tessellator p_77026_1_, IIcon p_77026_2_) {
 		float f = p_77026_2_.getMinU();
 		float f1 = p_77026_2_.getMaxU();

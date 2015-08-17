@@ -34,11 +34,11 @@ public class RenderTileCocoon extends TileEntitySpecialRenderer {
 		float rot = 0F;
 		float modval = 60F - (float) cocoon.timePassed / (float) TileCocoon.TOTAL_TIME * 30F;
 		if(cocoon.timePassed % modval < 10) {
-			float mod = (cocoon.timePassed + f) % (float) modval;
-			float v = (float) mod / 5 * (float) Math.PI * 2;
+			float mod = (cocoon.timePassed + f) % modval;
+			float v = mod / 5 * (float) Math.PI * 2;
 			rot = (float) Math.sin(v) * (float) Math.log(cocoon.timePassed + f);
 		}
-		
+
 		GL11.glPushMatrix();
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glEnable(GL11.GL_BLEND);

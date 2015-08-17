@@ -44,17 +44,17 @@ public class BlockLightLauncher extends BlockMod implements ILexiconable {
 	public boolean isOpaqueCube() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean renderAsNormalBlock() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean getBlocksMovement(IBlockAccess p_149655_1_, int p_149655_2_, int p_149655_3_, int p_149655_4_) {
 		return false;
 	}
-	
+
 	@Override
 	public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
 		boolean power = world.isBlockIndirectlyGettingPowered(x, y, z) || world.isBlockIndirectlyGettingPowered(x, y + 1, z);
@@ -67,7 +67,7 @@ public class BlockLightLauncher extends BlockMod implements ILexiconable {
 		} else if(!power && powered)
 			world.setBlockMetadataWithNotify(x, y, z, meta & -9, 4);
 	}
-	
+
 	public void pickUpEntities(World world, int x, int y, int z) {
 		List<TileLightRelay> relays = new ArrayList();
 		for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) {
@@ -78,7 +78,7 @@ public class BlockLightLauncher extends BlockMod implements ILexiconable {
 					relays.add(relay);
 			}
 		}
-		
+
 		if(!relays.isEmpty()) {
 			List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1));
 			if(!entities.isEmpty()) {
@@ -94,5 +94,5 @@ public class BlockLightLauncher extends BlockMod implements ILexiconable {
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.luminizerTransport;
 	}
-	
+
 }

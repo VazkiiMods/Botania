@@ -151,14 +151,14 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 					break;
 				}
 			}
-		
+
 		Botania.proxy.setLexiconStack(stack);
 		player.addStat(ModAchievements.lexiconUse, 1);
 		player.openGui(Botania.instance, LibGuiIDs.LEXICON, world, 0, 0, 0);
 		if(!world.isRemote && !skipSound)
 			world.playSoundAtEntity(player, "botania:lexiconOpen", 0.5F, 1F);
 	}
-	
+
 	@Override
 	public void onUpdate(ItemStack stack, World world, Entity entity, int idk, boolean something) {
 		int ticks = getQueueTicks(stack);

@@ -46,7 +46,7 @@ public final class ItemsRemainingRenderHandler {
 			float alpha = ticks + partTicks > start ? 1F : (ticks + partTicks) / start;
 
 			GL11.glDisable(GL11.GL_ALPHA_TEST);
-			GL11.glEnable(GL11.GL_BLEND);			
+			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 

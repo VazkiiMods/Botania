@@ -38,13 +38,13 @@ public class LensInfluence extends Lens {
 			for(Entity movable : movables) {
 				if(movable == burst)
 					continue;
-				
+
 				if(movable instanceof IManaBurst) {
 					IManaBurst otherBurst = (IManaBurst) movable;
 					ItemStack lens = otherBurst.getSourceLens();
 					if(lens != null && lens.getItem() == ModItems.lens && lens.getItemDamage() == ItemLens.INFLUENCE)
 						continue;
-					
+
 					((IManaBurst) movable).setMotion(entity.motionX, entity.motionY, entity.motionZ);
 				} else {
 					movable.motionX = entity.motionX;

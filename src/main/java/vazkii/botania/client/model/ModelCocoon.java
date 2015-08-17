@@ -12,22 +12,21 @@ package vazkii.botania.client.model;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.entity.Entity;
 
 public class ModelCocoon extends ModelBase {
-	
-    public ModelRenderer shape;
 
-    public ModelCocoon() {
-        textureWidth = 64;
-        textureHeight = 32;
-        shape = new ModelRenderer(this, 0, 0);
-        shape.setRotationPoint(0.0F, 22.0F, 0.0F);
-        shape.addBox(-5.0F, -8.0F, -7.0F, 10, 10, 14, 0.0F);
-    }
+	public ModelRenderer shape;
 
-    public void render() { 
-        shape.render(1F / 16F);
-    }
+	public ModelCocoon() {
+		textureWidth = 64;
+		textureHeight = 32;
+		shape = new ModelRenderer(this, 0, 0);
+		shape.setRotationPoint(0.0F, 22.0F, 0.0F);
+		shape.addBox(-5.0F, -8.0F, -7.0F, 10, 10, 14, 0.0F);
+	}
+
+	public void render() {
+		shape.render(1F / 16F);
+	}
 
 }

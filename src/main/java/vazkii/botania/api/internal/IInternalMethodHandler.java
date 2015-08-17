@@ -99,10 +99,10 @@ public interface IInternalMethodHandler {
 
 	@SideOnly(Side.CLIENT)
 	public void drawComplexManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res, ItemStack bindDisplay, boolean properlyBound);
-	
+
 	@SideOnly(Side.CLIENT)
 	public ItemStack getBindDisplayForFlowerType(SubTileEntity e);
-	
+
 	@SideOnly(Side.CLIENT)
 	public void renderLexiconText(int x, int y, int width, int height, String unlocalizedText);
 
@@ -121,5 +121,5 @@ public interface IInternalMethodHandler {
 	public boolean isBotaniaFlower(World world, int x, int y, int z);
 
 	public void sendBaubleUpdatePacket(EntityPlayer player, int slot);
-	
+
 }

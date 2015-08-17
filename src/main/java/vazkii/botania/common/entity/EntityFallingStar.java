@@ -28,7 +28,7 @@ public class EntityFallingStar extends EntityThrowableCopy {
 		super(world);
 		setSize(0F, 0F);
 	}
-	
+
 	public EntityFallingStar(World world, EntityLivingBase e) {
 		super(world, e);
 		setSize(0F, 0F);
@@ -37,15 +37,15 @@ public class EntityFallingStar extends EntityThrowableCopy {
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		
+
 		float dist = 1.5F;
 		for(int i = 0; i < 10; i++) {
-			float xs = (float) (Math.random() - 0.5) * dist; 
+			float xs = (float) (Math.random() - 0.5) * dist;
 			float ys = (float) (Math.random() - 0.5) * dist;
 			float zs = (float) (Math.random() - 0.5) * dist;
 			Botania.proxy.sparkleFX(worldObj, posX + xs, posY + ys, posZ + zs, 1F, 0.4F, 1F, 2F, 6);
 		}
-		
+
 		EntityLivingBase thrower = getThrower();
 		if(!worldObj.isRemote && thrower != null) {
 			AxisAlignedBB axis = AxisAlignedBB.getBoundingBox(posX, posY, posZ, lastTickPosX, lastTickPosY, lastTickPosZ).expand(2, 2, 2);
@@ -60,7 +60,7 @@ public class EntityFallingStar extends EntityThrowableCopy {
 				}
 			}
 		}
-		
+
 		if(ticksExisted > 200)
 			setDead();
 	}
@@ -73,11 +73,11 @@ public class EntityFallingStar extends EntityThrowableCopy {
 				pos.entityHit.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) thrower), 10);
 			else pos.entityHit.attackEntityFrom(DamageSource.generic, 10);
 		}
-		
+
 		Block block = worldObj.getBlock(pos.blockX, pos.blockY, pos.blockZ);
 		if(ConfigHandler.blockBreakParticles && !block.isAir(worldObj, pos.blockX, pos.blockY, pos.blockZ))
 			worldObj.playAuxSFX(2001, pos.blockX, pos.blockY, pos.blockZ, Block.getIdFromBlock(block) + (worldObj.getBlockMetadata(pos.blockX, pos.blockY, pos.blockZ) << 12));
-		
+
 		setDead();
 	}
 

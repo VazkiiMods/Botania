@@ -10,19 +10,18 @@
  */
 package vazkii.botania.common.block;
 
-import java.util.ArrayList;
 import java.util.Random;
 
-import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibBlockNames;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import vazkii.botania.api.lexicon.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockRoot extends BlockMod implements ILexiconable {
 
@@ -33,25 +32,25 @@ public class BlockRoot extends BlockMod implements ILexiconable {
 		setBlockName(LibBlockNames.ROOT);
 	}
 
-	
+
 	@Override
 	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
 		return ModItems.manaResource;
 	}
-	
+
 	@Override
 	public int damageDropped(int p_149692_1_) {
 		return 20;
 	}
-	
+
 	@Override
 	public int quantityDropped(Random r) {
 		return 2 + r.nextInt(3);
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.gardenOfGlass;
 	}
-	
+
 }
