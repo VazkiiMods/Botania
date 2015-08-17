@@ -148,6 +148,7 @@ public final class LibItemNames {
 	public static final String OBEDIENCE_STICK = "obedienceStick";
 	public static final String CACOPHONIUM = "cacophonium";
 	public static final String SLIME_BOTTLE = "slimeBottle";
+	public static final String STAR_SWORD = "starSword";
 
 	public static final String[] LENS_NAMES = new String[] {
 		"lensNormal",

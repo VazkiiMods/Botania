@@ -1424,6 +1424,7 @@ item.botania:waterBowl.name=Bowl of Water
 item.botania:obedienceStick.name=Floral Obedience Stick
 item.botania:cacophonium.name=Cacophonium
 item.botania:slimeBottle.name=Slime in a Bottle
+item.botania:starSword.name=Starcaller
 
 # BREW NAMES
 botania.brew.fallback=Fallback

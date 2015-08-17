@@ -29,6 +29,7 @@
 	"runeAltarCraft": { "category": "block", "sounds":["runeAltarCraft"] },
 	"runeAltarStart": { "category": "block", "sounds":["runeAltarStart"] },
 	"spreaderFire": { "category": "block", "sounds":["spreaderFire"] },
+	"starcaller": { "category": "player", "sounds":["starcaller"] },
 	"terraBlade": { "category": "player", "sounds":["terraBlade"] },
 	"terraformRod": { "category": "player", "sounds":["terraformRod"] },
 	"terraPickMode": { "category": "player", "sounds":["terraPickMode"] },

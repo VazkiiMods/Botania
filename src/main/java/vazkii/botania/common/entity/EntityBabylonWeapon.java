@@ -124,7 +124,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 				AxisAlignedBB axis = AxisAlignedBB.getBoundingBox(posX, posY, posZ, lastTickPosX, lastTickPosY, lastTickPosZ).expand(2, 2, 2);
 				List<EntityLivingBase> entities = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, axis);
 				for(EntityLivingBase living : entities) {
-					if(living != thrower)
+					if(living == thrower)
 						continue;
 
 					if(living.hurtTime == 0) {
