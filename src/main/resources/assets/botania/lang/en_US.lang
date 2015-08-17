@@ -1423,6 +1423,7 @@ item.botania:pebble.name=Pebble
 item.botania:waterBowl.name=Bowl of Water
 item.botania:obedienceStick.name=Floral Obedience Stick
 item.botania:cacophonium.name=Cacophonium
+item.botania:slimeBottle.name=Slime in a Bottle
 
 # BREW NAMES
 botania.brew.fallback=Fallback
@@ -2455,6 +2456,11 @@ botania.page.terraAxe1=It's not a Dead END
 botania.entry.obedienceStick=Floral Obedience Stick
 botania.page.obedienceStick0=Nobody knows why, but attaching some &1Manasteel&0 to &1Livingwood Twigs&0 creates a stick type device that can make nearby flowers all bind towards a single focus point.<br>Dubbed the &1Floral Obedience Stick&0, right clicking with it on a &1Mana Spreader&0 or &1Mana Pool&0 in the world will bind all relevant nearby flowers to it.
 botania.page.obedienceStick1=This is not a dumb new age hat
+
+# -- SLIME IN A BOTTLE
+botania.entry.slimeBottle=Slime in a Bottle
+botania.page.slimeBottle0=Placing some slime in an &1Elementium Container&0 seems to have an interesting effect on said slime. When in an area where &1Slimes&0 would naturally spawn underground, the inanimate blob of slime starts jumping for some odd reason.<br>This can definitely prove useful for harvesting slimeballs or setting up a &1Narslimmus&0 however.
+botania.page.slimeBottle1=JUMPYDOLL
 
 # - ENDER ARTEFACTS
 # -- EXTRACTING ENDER AIR

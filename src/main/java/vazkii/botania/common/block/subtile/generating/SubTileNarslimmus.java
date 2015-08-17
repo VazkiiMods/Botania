@@ -91,7 +91,7 @@ public class SubTileNarslimmus extends SubTileGenerating {
 				event.entityLiving.getEntityData().setBoolean(TAG_WORLD_SPAWNED, true);
 		}
 
-		public boolean isSlimeChunk(World world, int x, int z) {
+		public static boolean isSlimeChunk(World world, int x, int z) {
 			Chunk chunk = world.getChunkFromBlockCoords(x, z);
 			return chunk.getRandomWithSeed(987234911L).nextInt(10) == 0;
 		}

@@ -246,6 +246,7 @@ public final class ModItems {
 	public static Item waterBowl;
 	public static Item obedienceStick;
 	public static Item cacophonium;
+	public static Item slimeBottle;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -382,6 +383,7 @@ public final class ModItems {
 		waterBowl = new ItemWaterBowl();
 		obedienceStick = new ItemObedienceStick();
 		cacophonium = new ItemCacophonium();
+		slimeBottle = new ItemSlimeBottle();
 		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
