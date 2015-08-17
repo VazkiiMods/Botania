@@ -392,6 +392,11 @@ entity.Botania.botania:thornChakram.name=Thorn Chakram
 entity.Botania.botania:corporeaSpark.name=Corporea Spark
 entity.Botania.botania:enderAirBottle.name=Bottle of Ender Air
 entity.Botania.botania:poolMinecart.name=Mana Pool Minecart
+entity.Botania.botania:pinkWither.name=Pink Wither
+entity.Botania.botania:playerMover.name=Luminizer Beam
+entity.Botania.botania:manaStorm.name=Manastorm Epicenter
+entity.Botania.botania:babylonWeapon.name=Treasury Weapon
+entity.Botania.botania:fallingStar.name=Falling Star
 
 # ACHIEVEMENT NAMES + DESC
 achievement.botania:flowerPickup=Sky of Beginning
@@ -454,7 +459,7 @@ achievement.botania:pinkinator.desc=Put to use The Pinkinator
 
 achievement.botania:infiniteFruit=Innocentia
 achievement.botania:infiniteFruit.desc=Be rewarded The Fruit of Grisaia for a heroic feat
-achievement.botania:kingKey=Dead Line Circus
+achievement.botania:kingKey=A Fake, Fake Psychotropic
 achievement.botania:kingKey.desc=Be rewarded the Key of the King's Law for a heroic feat
 achievement.botania:flugelEye=Angel of Death
 achievement.botania:flugelEye.desc=Be rewarded the Eye of the Flügel for a heroic feat
