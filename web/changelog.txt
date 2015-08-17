@@ -1,3 +1,47 @@
+r1.7 209
+*Added a recipe for cobwebs.
+*Added factorization's new dark iron ore dictionary key to the orechid's list. (TheWhiteWolves)
+*Added Relic Knowledge, a new knowledge type for relics. This knowledge is unlocked by opening the lexicon with a relic in the inventory. The contents update dynamically depending on what relic achievements have so far been acquired. This replaces the poems in the relics' tooltips.
+*Added the ability for botania armor and baubles to have Thaumcraft runic shielding. (ruifung)
+*Added the Slime in a Bottle, effectively a slime chunk detector.
+*Added the Starcaller by very popular request. A new sword that makes shooting stars. Yes, it's the Starfury/Star Wrath from terraria.
+*Changed the 1.9 brick textures to the actual ones from the 1.9 snapshot jar.
+*Changed the element and season runes' textures to new versions in Sosho by miznib.
+*Changed the hardcore passive generation value to 48000 by default instead of 24000. <i>It was supposed to be that to begin with but I can't do math.</i>
+*Dice of Fate dropped by the Gaia Guardian now bind on drop rather than on pickup.
+*Fixed baubles that store mana not updating the mana bar above the XP bar in real time.
+*Fixed being able to remove water from the Petal Apothecary with a bucket in GoG, allowing for water to be acquired a lot earlier.
+*Fixed fake players locking the multiblock display.
+*Fixed more typos.
+*Fixed some botania entities not having proper localizations.
+*Fixed some of the double tall flowers having secondary drops.
+*Fixed the Ritual of Gaia's multiblock display only accepting iron rather than all valid beacon blocks.
+*Fixed the sashes not being counted as mana using items despite using mana.
+*Fixed there being duped text in the runic altar entry.
+*Hydroangeas are now quieter.
+*Increased the Hopperhock's vertical range by one block.
+*Lowered the default and max radius of /botania-skyblock-spread by a tenfold to prevent floating point errors such as hopperhocks not recognising item frames at extreme distances.
+*Made the Rod of the Molten Core's sound a lot less infuriating.
+*Passive flowers now get replaced with Dead Bushes when they despawn rather than getting removed altogether.
+*Prismarine now animates properly.
+*Removed the Holy Sword Excaliber and replaced it with something far cooler.
+*Removed the regen from the Ring of Odin. It already gives you a full heart bar, come on.
+*Replaced the Mana Pool HUD's Sparing/Accepting text with a more pleasing visual.
+*Repurposed the Eye of the Flugel a bit, I wasn't happy with what it did before.
+*The Dice of Fate no longer hurts players if they're not the right owner.
+*The elven portal is now much faster at outputting the stuff you put in.
+*The Flugel Tiara now has a limit of how much you can fly with it.
+*The Fruit of Grisaia, Ring of Loki and Eye of the Flugel now use mana.
+*The Gaia Guardian's difficulty and rewards now scale on the amount of players participating.
+*The hardmode Gaia Guardian now drops a lot more runes.
+*The Pink Wither no longer drops Nether Stars.
+*The Wither effect the Gaia Guardian's purple fire creates can no longer be healed by milk or brew of absorption.
+*[API] Add oreFzDarkIron to the orechid weight table.
+*[API] Addded relic knowledge to the main class, it's there for completeness sake and shouldn't be used.
+*[API] Added LexiconEntry.isVisible(), currently used for the relics but can also be used for other types of dynamic entries.
+*[API] Changed the SubTileGenerating despawn to place a dead bush instead of air.
+*[API] IBotaniaBoss.bossBarRenderCallback now has some params.
+*[API] Increased version number to 59.
 r1.7 208
 *Added the ability to transmute between all vanilla flowers with the alchemy catalyst.
 *Added the vanilla Coarse Dirt to the botania creative tab, because ya know, it's craftable with botania and stuff.
