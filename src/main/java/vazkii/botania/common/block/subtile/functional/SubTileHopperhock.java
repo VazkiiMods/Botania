@@ -74,7 +74,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 			ForgeDirection sideToPutItemIn = ForgeDirection.UNKNOWN;
 			boolean priorityInv = false;
 
-			for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) {
+			for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
 				int x_ = x + dir.offsetX;
 				int y_ = y + dir.offsetY;
 				int z_ = z + dir.offsetZ;
