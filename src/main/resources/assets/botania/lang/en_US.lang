@@ -2598,6 +2598,11 @@ botania.page.luminizerTransport4=Are you ready to draw?
 botania.page.luminizerTransport5=While players can just right click the &1Luminizers&0, in order to get animals or other beings into the trails, a &1Luminizer Launcher&0 is required.<br>This block needs to be placed down adjacent to &1Luminizers&0, and when it receives a &4redstone pulse&0, it'll randomly distribute all living beings on top of it into all of the adjacent &1Luminizers&0, causing them to go on their merry way.
 botania.page.luminizerTransport6=Let's believe it, open the flag
 
+# -- STARCALLER
+botania.entry.starSword=Starcaller
+botania.page.starSword0=The &1Starcaller&0 is a blade with the power to call upon the wrath of the stars, when swung, there's a chance for the blade to summon a falling star heading towards where the wielder is looking, this star will deal damage upon impact with any entities. Creating this sword proves to be no easy task, as it requires &1Ender Air&0 and a &1Terra Blade&0. Keep in mind that the process does wipe the enchantments on the sword used.
+botania.page.starSword1=Caller, fury, whatever...
+
 # - BAUBLES AND ACCESSORIES
 # -- AN INTRODUCTION TO BAUBLES
 botania.entry.bIntro=An Introduction to Baubles

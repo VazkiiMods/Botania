@@ -276,6 +276,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeManaBomb;
 	public static IRecipe recipeCobweb;
 	public static IRecipe recipeSlimeBottle;
+	public static IRecipe recipeStarSword;
 
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;
@@ -1875,6 +1876,15 @@ public final class ModCraftingRecipes {
 				'G', new ItemStack(ModBlocks.elfGlass),
 				'S', new ItemStack(Items.slime_ball));
 		recipeSlimeBottle = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Starcaller Recipe
+		addOreDictRecipe(new ItemStack(ModItems.starSword), 
+				"  I", "AD ", "TA ",
+				'I', LibOreDict.ELEMENTIUM,
+				'D', LibOreDict.DRAGONSTONE,
+				'A', LibOreDict.ENDER_AIR_BOTTLE,
+				'T', new ItemStack(ModItems.terraSword));
+		recipeStarSword = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Storage Block/Nugget Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),

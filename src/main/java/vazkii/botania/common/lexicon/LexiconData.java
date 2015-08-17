@@ -214,6 +214,7 @@ public final class LexiconData {
 	public static LexiconEntry blackHoleTalisman;
 	public static LexiconEntry corporeaCrystalCube;
 	public static LexiconEntry luminizerTransport;
+	public static LexiconEntry starSword;
 
 	public static LexiconEntry baublesIntro;
 	public static LexiconEntry cosmeticBaubles;
@@ -813,6 +814,9 @@ public final class LexiconData {
 
 		luminizerTransport = new ALexiconEntry(LibLexicon.ENDER_LUMINIZER_TRANSPORT, categoryEnder);
 		luminizerTransport.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeLuminizer), new PageText("3"), new PageCraftingRecipe("4", ModCraftingRecipes.recipeDetectorLuminizer), new PageText("5"), new PageCraftingRecipe("6", ModCraftingRecipes.recipeLuminizerLauncher));
+		
+		starSword = new ALexiconEntry(LibLexicon.ENDER_STAR_SWORD, categoryEnder);
+		starSword.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeStarSword));
 		
 		// BAUBLES ENTRIES
 		baublesIntro = new BLexiconEntry(LibLexicon.BAUBLE_INTRO, categoryBaubles);
