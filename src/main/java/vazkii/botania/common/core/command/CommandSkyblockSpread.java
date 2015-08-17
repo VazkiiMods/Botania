@@ -38,11 +38,11 @@ public class CommandSkyblockSpread extends CommandBase {
 
 	@Override
 	public void processCommand(ICommandSender sender, String[] args) {
-		int maxAllowed = 10000000;
+		int maxAllowed = 1000000;
 		int minAllowed = 250;
 		int minDist = 100;
 		
-		int maxrange = 2000000;
+		int maxrange = 200000;
 		if(args.length == 2)
 			maxrange = parseInt(sender, args[1]);
 		
