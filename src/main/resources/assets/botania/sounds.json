@@ -6,6 +6,7 @@
 	"babylonSpawn": { "category": "player", "sounds":["babylonSpawn"] },
 	"bifrostRod": { "category": "player", "sounds":["bifrostRod"] },
 	"blackLotus": { "category": "block", "sounds":["blackLotus"] },
+	"dash": { "category": "player", "sounds":["dash"] },
 	"ding": { "category": "block", "sounds":["ding"] },
 	"divaCharm": { "category": "player", "sounds":["divaCharm"] },
 	"divinationRod": { "category": "player", "sounds":["divinationRod"] },

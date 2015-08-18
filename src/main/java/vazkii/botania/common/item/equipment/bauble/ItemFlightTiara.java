@@ -36,12 +36,14 @@ import net.minecraft.stats.Achievement;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import net.minecraft.util.Vec3;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 
 import org.lwjgl.opengl.GL11;
 
+import codechicken.lib.vec.Vector3;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -71,6 +73,8 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	private static final String TAG_FLYING = "flying";
 	private static final String TAG_TIME_LEFT = "timeLeft";
 	private static final String TAG_INFINITE_FLIGHT = "infiniteFlight";
+	private static final String TAG_DASH_COOLDOWN = "dashCooldown";
+	private static final String TAG_IS_SPRINTING = "isSprinting";
 
 	public static List<String> playersWithFlight = new ArrayList();
 	private static final int COST = 35;
@@ -162,12 +166,48 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 			EntityPlayer p = (EntityPlayer) player;
 			boolean flying = p.capabilities.isFlying;
 
+			boolean wasSprting = ItemNBTHelper.getBoolean(stack, TAG_IS_SPRINTING, false);
+			boolean isSprinting = p.isSprinting();
+			if(isSprinting != wasSprting)
+				ItemNBTHelper.setBoolean(stack, TAG_IS_SPRINTING, isSprinting);
+			
 			int time = ItemNBTHelper.getInt(stack, TAG_TIME_LEFT, MAX_FLY_TIME);
 			int newTime = time;
-			if(flying && time > 0 && !ItemNBTHelper.getBoolean(stack, TAG_INFINITE_FLIGHT, false))
-				newTime--;
-			else if(!flying && time < MAX_FLY_TIME && player.ticksExisted % 2 == 0)
-				newTime++;
+			Vector3 look = new Vector3(p.getLookVec());
+			look.y = 0;
+			look.normalize();
+			
+			if(flying) {
+				if(time > 0 && !ItemNBTHelper.getBoolean(stack, TAG_INFINITE_FLIGHT, false))
+					newTime--;
+				final int maxCd = 60;
+				int cooldown = ItemNBTHelper.getInt(stack, TAG_DASH_COOLDOWN, 0);
+				if(!wasSprting && isSprinting && cooldown == 0) {
+					p.motionX += look.x;
+					p.motionZ += look.z;
+					p.worldObj.playSoundAtEntity(p, "botania:dash", 1F, 1F);
+					ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, maxCd);
+				} else if(cooldown > 0) {
+					if(maxCd - cooldown < 2)
+						player.moveFlying(0F, 1F, 5F);
+					else if(maxCd - cooldown < 10)
+						player.setSprinting(false);
+					ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, cooldown - 1);
+				}
+					
+			} else if(!flying) {
+				boolean doGlide = player.isSneaking() && !player.onGround; 
+				if(time < MAX_FLY_TIME && player.ticksExisted % (doGlide ? 6 : 2) == 0)
+					newTime++;
+				
+				if(doGlide) {
+					player.motionY = Math.max(-0.15F, player.motionY);
+					float mul = 0.6F;
+					player.motionX = look.x * mul;
+					player.motionZ = look.z * mul;
+					player.fallDistance = 0F;
+				}
+			}
 
 			ItemNBTHelper.setBoolean(stack, TAG_FLYING, flying);
 			if(newTime != time)
@@ -186,11 +226,9 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 				if(shouldPlayerHaveFlight(player)) {
 					player.capabilities.allowFlying = true;
 					if(player.capabilities.isFlying) {
-						if(!player.worldObj.isRemote) {
+						if(!player.worldObj.isRemote)
 							ManaItemHandler.requestManaExact(tiara, player, getCost(tiara, left), true);
-							if(left < 3 && !player.inventory.hasItem(ModItems.flugelEye))
-								player.setFire(5);
-						} else if(Math.abs(player.motionX) > 0.1 || Math.abs(player.motionZ) > 0.1) {
+						else if(Math.abs(player.motionX) > 0.1 || Math.abs(player.motionZ) > 0.1) {
 							double x = event.entityLiving.posX - 0.5;
 							double y = event.entityLiving.posY - 1.7;
 							double z = event.entityLiving.posZ - 0.5;
