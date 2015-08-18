@@ -1,3 +1,10 @@
+r1.7 210
+*Added the ability to Dash and Glide to the Flugel Tiara, read on these new abilities in the book!
+*Fixed a major dupe with the Resolute Ivy and container items.
+*Fixed more typos.
+*Fixed the recipe for the spectral platform crashing the client if used with the Shift-? feature in NEI. 
+*Hopperhocks now check all 6 sides instead of only the 4 cardinal directions. (iambob314)
+*The Flugel Tiara no longer sets you on fire if you run out of charge, that was a cool thematic idea but it ended up just being annoying and dumb.
 r1.7 209
 *Added a recipe for cobwebs.
 *Added factorization's new dark iron ore dictionary key to the orechid's list. (TheWhiteWolves)
