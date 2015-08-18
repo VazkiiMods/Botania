@@ -2586,6 +2586,7 @@ botania.page.spawnerMover1=We got the spawner, but this isn't a won run yet
 # -- RESOLUTE IVY
 botania.entry.keepIvy=Resolute Ivy
 botania.page.keepIvy0=Everyone knows that before being ressurected, one's items splatter all over the ground, generally a massive nuisance. The fix for this is rather simple. By attaching a piece of &1Resolute Ivy&0 to an item through a crafting grid, that item will presist on one's inventory through death. The ivy will degenerate after that fact and will need to be applied again if one wishes to have the item survive another downfall.
+botania.page.keepIvy2=There is, however, one restriction to the items in which this ivy can be attached to.<br>For &otechnical reasons&r, the ivy may not be attached to any item that, upon being used in a crafting table, gives something in return, such as &1Buckets of Water&0 or the &1Mortar and Pestle&0.
 botania.page.keepIvy1=Because people die when they are killed
 
 # -- BLACK HOLE TALISMAN

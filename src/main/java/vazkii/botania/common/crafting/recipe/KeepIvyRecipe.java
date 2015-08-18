@@ -30,7 +30,7 @@ public class KeepIvyRecipe implements IRecipe {
 			if(stack != null) {
 				if(stack.getItem() == ModItems.keepIvy)
 					foundIvy = true;
-				else if(!foundItem && !(ItemNBTHelper.detectNBT(stack) && ItemNBTHelper.getBoolean(stack, ItemKeepIvy.TAG_KEEP, false)))
+				else if(!foundItem && !(ItemNBTHelper.detectNBT(stack) && ItemNBTHelper.getBoolean(stack, ItemKeepIvy.TAG_KEEP, false)) && stack.getItem().getContainerItem(stack) == null)
 					foundItem = true;
 				else return false;
 			}
