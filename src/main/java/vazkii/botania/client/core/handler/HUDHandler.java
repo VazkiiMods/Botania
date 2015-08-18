@@ -69,7 +69,24 @@ public final class HUDHandler {
 	public static final ResourceLocation manaBar = new ResourceLocation(LibResources.GUI_MANA_HUD);
 
 	@SubscribeEvent
-	public void onDrawScreen(RenderGameOverlayEvent.Post event) {
+	public void onDrawScreenPre(RenderGameOverlayEvent.Pre event) {
+		Minecraft mc = Minecraft.getMinecraft();
+		Profiler profiler = mc.mcProfiler;
+		
+		if(event.type == ElementType.HEALTH) {
+			profiler.startSection("botania-hud");
+			ItemStack amulet = PlayerHandler.getPlayerBaubles(mc.thePlayer).getStackInSlot(0);
+			if(amulet != null && amulet.getItem() == ModItems.flightTiara) {
+				profiler.startSection("flugelTiara");
+				ItemFlightTiara.renderHUD(event.resolution, mc.thePlayer, amulet);
+				profiler.endSection();
+			}
+			profiler.endSection();
+		}
+	}
+	
+	@SubscribeEvent
+	public void onDrawScreenPost(RenderGameOverlayEvent.Post event) {
 		Minecraft mc = Minecraft.getMinecraft();
 		Profiler profiler = mc.mcProfiler;
 		ItemStack equippedStack = mc.thePlayer.getCurrentEquippedItem();
@@ -174,15 +191,6 @@ public final class HUDHandler {
 			profiler.endSection();
 
 			GL11.glColor4f(1F, 1F, 1F, 1F);
-		} else if(event.type == ElementType.HEALTH) {
-			profiler.startSection("botania-hud");
-			ItemStack amulet = PlayerHandler.getPlayerBaubles(mc.thePlayer).getStackInSlot(0);
-			if(amulet != null && amulet.getItem() == ModItems.flightTiara) {
-				profiler.startSection("flugelTiara");
-				ItemFlightTiara.renderHUD(event.resolution, mc.thePlayer, amulet);
-				profiler.endSection();
-			}
-			profiler.endSection();
 		}
 	}
 
