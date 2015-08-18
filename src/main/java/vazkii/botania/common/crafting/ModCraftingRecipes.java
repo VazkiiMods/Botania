@@ -981,9 +981,9 @@ public final class ModCraftingRecipes {
 		// Spectral Platform Recipe
 		addOreDictRecipe(new ItemStack(ModBlocks.platform, 2, 1),
 				"343", "0D0",
-				'0', new ItemStack(ModBlocks.dreamwood, 0, 0),
-				'3', new ItemStack(ModBlocks.dreamwood, 0, 3),
-				'4', new ItemStack(ModBlocks.dreamwood, 0, 4),
+				'0', new ItemStack(ModBlocks.dreamwood, 1, 0),
+				'3', new ItemStack(ModBlocks.dreamwood, 1, 3),
+				'4', new ItemStack(ModBlocks.dreamwood, 1, 4),
 				'D', LibOreDict.PIXIE_DUST);
 		recipeSpectralPlatform = BotaniaAPI.getLatestAddedRecipe();
 
