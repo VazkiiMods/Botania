@@ -18,8 +18,10 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import vazkii.botania.api.item.IExoflameHeatable;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileExoflame extends SubTileFunctional {
 
@@ -119,4 +121,9 @@ public class SubTileExoflame extends SubTileFunctional {
 		return 0x661600;
 	}
 
+	@Override
+	public LexiconEntry getEntry() {
+		return LexiconData.exoflame;
+	}
+	
 }
