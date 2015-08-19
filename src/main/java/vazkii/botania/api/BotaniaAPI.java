@@ -149,8 +149,10 @@ public final class BotaniaAPI {
 		addOreWeight("oreLapis", 1285); // Vanilla
 		addOreWeight("oreLead", 7985); // IC2, Thermal Expansion, Factorization, etc.
 		addOreWeight("oreMCropsEssence", 3085); // Magical Crops
+		addOreWeight("oreMithril", 8); // Thermal Expansionm
 		addOreWeight("oreNickel", 2275); // Thermal Expansion
 		addOreWeight("oreOlivine", 1100); // Project RED
+		addOreWeight("orePlatinum", 365); // Thermal Expansion
 		addOreWeight("oreRedstone", 6885); // Vanilla
 		addOreWeight("oreRuby", 1100); // Project RED
 		addOreWeight("oreSapphire", 1100); // Project RED
