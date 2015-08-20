@@ -31,6 +31,7 @@ public class ModManaConjurationRecipes {
 	public static RecipeManaInfusion soulSandRecipe;
 	public static RecipeManaInfusion gravelRecipe;
 	public static List<RecipeManaInfusion> leavesRecipes;
+	public static RecipeManaInfusion grassRecipe;
 
 	public static void init() {
 		redstoneRecipe = BotaniaAPI.registerManaConjurationRecipe(new ItemStack(Items.redstone, 2), new ItemStack(Items.redstone), 5000);
@@ -47,6 +48,8 @@ public class ModManaConjurationRecipes {
 			leavesRecipes.add(BotaniaAPI.registerManaConjurationRecipe(new ItemStack(Blocks.leaves, 2, i), new ItemStack(Blocks.leaves, 1, i), 2000));
 		for(int i = 0; i < 2; i++)
 			leavesRecipes.add(BotaniaAPI.registerManaConjurationRecipe(new ItemStack(Blocks.leaves2, 2, i), new ItemStack(Blocks.leaves2, 1, i), 2000));
+		
+		grassRecipe = BotaniaAPI.registerManaConjurationRecipe(new ItemStack(Blocks.tallgrass, 2, 1), new ItemStack(Blocks.tallgrass, 1, 1), 800);
 	}
 
 }
