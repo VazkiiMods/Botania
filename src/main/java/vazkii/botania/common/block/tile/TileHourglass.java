@@ -24,6 +24,7 @@ import net.minecraft.util.StringUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.lib.LibBlockNames;
 
 public class TileHourglass extends TileSimpleInventory {
@@ -95,6 +96,14 @@ public class TileHourglass extends TileSimpleInventory {
 			return 0x5A412f;
 		return 0;
 	}
+	
+	@Override
+	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
+		if(itemstack == null)
+			return false;
+		Item item = itemstack.getItem();
+		return item == Item.getItemFromBlock(Blocks.sand) || item == Item.getItemFromBlock(Blocks.soul_sand);
+	}
 
 	@Override
 	public void writeCustomNBT(NBTTagCompound par1nbtTagCompound) {
@@ -128,6 +137,7 @@ public class TileHourglass extends TileSimpleInventory {
 		super.markDirty();
 		time = 0;
 		timeFraction = 0F;
+		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 	}
 
 	public void renderHUD(ScaledResolution res) {
