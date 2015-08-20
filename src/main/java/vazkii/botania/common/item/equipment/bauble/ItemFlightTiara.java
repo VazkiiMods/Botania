@@ -179,7 +179,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 			if(flying) {
 				if(time > 0 && !ItemNBTHelper.getBoolean(stack, TAG_INFINITE_FLIGHT, false))
 					newTime--;
-				final int maxCd = 60;
+				final int maxCd = 120;
 				int cooldown = ItemNBTHelper.getInt(stack, TAG_DASH_COOLDOWN, 0);
 				if(!wasSprting && isSprinting && cooldown == 0) {
 					p.motionX += look.x;
