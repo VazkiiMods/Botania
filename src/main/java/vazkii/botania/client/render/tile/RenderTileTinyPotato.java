@@ -13,10 +13,13 @@ package vazkii.botania.client.render.tile;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
@@ -29,6 +32,7 @@ import org.lwjgl.opengl.GL12;
 import vazkii.botania.api.item.TinyPotatoRenderEvent;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelTinyPotato;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileTinyPotato;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.material.ItemManaResource;
@@ -48,6 +52,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 
 		Minecraft mc = Minecraft.getMinecraft();
 		mc.renderEngine.bindTexture(texture);
+		String name = potato.name.toLowerCase();
 
 		GL11.glTranslatef(0.5F, 1.5F, 0.5F);
 		GL11.glScalef(1F, -1F, -1F);
@@ -65,10 +70,18 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 		GL11.glTranslatef(0F, up, 0F);
 		GL11.glRotatef(rotZ, 0F, 0F, 1F);
 
-		model.render();
-
 		GL11.glPushMatrix();
-		String name = potato.name.toLowerCase();
+		if(name.equals("pahimar")) {
+			GL11.glScalef(1F, 0.3F, 1F);
+			GL11.glTranslatef(0F, 3.5F, 0F);
+		}
+		
+		boolean render = !(name.equals("mami") || name.equals("soaryn") || (name.equals("eloraam") && jump != 0));
+		if(render)
+			model.render();
+		GL11.glPopMatrix();
+		
+		GL11.glPushMatrix();
 
 		mc.renderEngine.bindTexture(TextureMap.locationItemsTexture);
 		float scale = 1F / 4F;
@@ -79,6 +92,14 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 			GL11.glRotatef(90F, 0F, 1F, 0F);
 			GL11.glRotatef(20F, 1F, 0F, 1F);
 			renderIcon(((ItemManaResource) ModItems.manaResource).phiFlowerIcon);
+			
+			if(name.equals("vazkii")) {
+				GL11.glRotatef(-20F, 1F, 0F, 1F);
+				GL11.glScalef(1.25F, 1.25F, 1.25F);
+				GL11.glRotatef(180F, 0F, 0F, 1F);
+				GL11.glTranslatef(-1.5F, -1.3F, -0.75F);
+				renderIcon(((ItemManaResource) ModItems.manaResource).nerfBatIcon);
+			}
 		} else if(name.equals("skull kid")) {
 			GL11.glScalef(1.25F, 1.25F, 1.25F);
 			GL11.glRotatef(180F, 0F, 0F, 1F);
@@ -115,7 +136,30 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 			GL11.glTranslatef(-0.5F, -0.7F, 0.1F);
 			GL11.glRotatef(20F, 0F, 0F, 1F);
 			renderIcon(ModItems.cosmetic.getIconFromDamage(24));
-		}
+		} else if(name.equals("charlotte")) {
+			GL11.glScalef(1.25F, 1.25F, 1.25F);
+			GL11.glRotatef(180F, 0F, 0F, 1F);
+			GL11.glTranslatef(-0.5F, -1.2F, -0.4F);
+			renderIcon(ModItems.cosmetic.getIconFromDamage(12));
+		} else if(name.equals("greg") || name.equals("gregorioust")) {
+			GL11.glScalef(1.25F, 1.25F, 1.25F);
+			GL11.glRotatef(180F, 0F, 0F, 1F);
+			GL11.glRotatef(90F, 0F, 1F, 0F);
+			GL11.glTranslatef(-0.5F, -1.5F, -0.4F);
+			renderIcon(Items.book.getIconFromDamage(0));
+			
+			mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+			GL11.glTranslatef(0.5F, 0.5F, 0F);
+			GL11.glScalef(0.3F, 0.3F, 0.3F);
+			
+			RenderBlocks.getInstance().renderBlockAsItem(Blocks.iron_ore, 0, 1F);
+		} else if(name.equals("profmobius")) {
+			GL11.glScalef(1.25F, 1.25F, 1.25F);
+			GL11.glRotatef(180F, 0F, 0F, 1F);
+			GL11.glRotatef(90F, 0F, 1F, 0F);
+			GL11.glTranslatef(-0.5F, -1.2F, -0.4F);
+			renderIcon(Items.bread.getIconFromDamage(0));
+		} 
 		GL11.glPopMatrix();
 
 		MinecraftForge.EVENT_BUS.post(new TinyPotatoRenderEvent(potato, potato.name, d0, d1, d2, var8));
@@ -152,6 +196,26 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 			GL11.glEnable(GL11.GL_TEXTURE_2D);
 			GL11.glDepthMask(true);
 			mc.fontRenderer.drawString(potato.name, -mc.fontRenderer.getStringWidth(potato.name) / 2, 0, 0xFFFFFF);
+			if(name.equals("pahimar") || name.equals("soaryn")) {
+				GL11.glTranslatef(0F, 14F, 0F);
+				String s = name.equals("pahimar") ? "[WIP]" : "(soon)";
+				GL11.glDepthMask(false);
+				GL11.glEnable(GL11.GL_BLEND);
+				OpenGlHelper.glBlendFunc(770, 771, 1, 0);
+				GL11.glDisable(GL11.GL_TEXTURE_2D);
+				tessellator.startDrawingQuads();
+				i = mc.fontRenderer.getStringWidth(s) / 2;
+				tessellator.setColorRGBA_F(0.0F, 0.0F, 0.0F, 0.25F);
+				tessellator.addVertex(-i - 1, -1.0D, 0.0D);
+				tessellator.addVertex(-i - 1, 8.0D, 0.0D);
+				tessellator.addVertex(i + 1, 8.0D, 0.0D);
+				tessellator.addVertex(i + 1, -1.0D, 0.0D);
+				tessellator.draw();
+				GL11.glEnable(GL11.GL_TEXTURE_2D);
+				GL11.glDepthMask(true);
+				mc.fontRenderer.drawString(s, -mc.fontRenderer.getStringWidth(s) / 2, 0, 0xFFFFFF);
+			}
+			
 			GL11.glEnable(GL11.GL_LIGHTING);
 			GL11.glDisable(GL11.GL_BLEND);
 			GL11.glColor4f(1F, 1F, 1F, 1F);

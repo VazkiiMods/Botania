@@ -48,10 +48,13 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	final int types = 22;
 	IIcon[] icons;
 
+	// begin dank_memes
 	public IIcon tailIcon = null;
 	public IIcon phiFlowerIcon = null;
 	public IIcon goldfishIcon = null;
-
+	public IIcon nerfBatIcon = null;
+	// end dank_memes
+	
 	public ItemManaResource() {
 		super();
 		setUnlocalizedName(LibItemNames.MANA_RESOURCE);
@@ -135,6 +138,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 		tailIcon = IconHelper.forName(par1IconRegister, "tail");
 		phiFlowerIcon = IconHelper.forName(par1IconRegister, "phiFlower");
 		goldfishIcon = IconHelper.forName(par1IconRegister, "goldfish");
+		nerfBatIcon = IconHelper.forName(par1IconRegister, "nerfBat");
 	}
 
 	@Override
