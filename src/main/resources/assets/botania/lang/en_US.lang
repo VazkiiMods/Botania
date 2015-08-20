@@ -134,6 +134,7 @@ botaniamisc.skyblockRangeTooHigh=Invalid range, can't be higher than 10000000 (1
 botaniamisc.hideNotes=Hide Notes
 botaniamisc.showNotes=Show Notes
 botaniamisc.notes=Notes
+botaniamisc.pay2win=Upgrade your Mana Pool to infuse this item
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
