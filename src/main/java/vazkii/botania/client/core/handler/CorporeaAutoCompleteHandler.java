@@ -42,6 +42,8 @@ public class CorporeaAutoCompleteHandler {
 	List<CompletionData> completions = new ArrayList<CompletionData>();
 	int position;
 
+    private static final String __OBFID = "CL_00001501";
+
 	static TreeSet<String> itemNames = new TreeSet<String>(
 			new Comparator<String>() {
 				@Override
@@ -65,7 +67,7 @@ public class CorporeaAutoCompleteHandler {
 				try {
 					item.getSubItems(item, (CreativeTabs) null, curList);
 					for(ItemStack stack : curList)
-						itemNames.add(stack.getDisplayName().trim());
+						itemNames.add(CorporeaHelper.stripControlCodes(stack.getDisplayName().trim()));
 				}
 				catch (Exception e) {}
 			}
@@ -166,7 +168,7 @@ public class CorporeaAutoCompleteHandler {
 		}
 		return result;
 	}
-
+	
 	private static class CompletionData implements Comparable<CompletionData> {
 
 		private String string;

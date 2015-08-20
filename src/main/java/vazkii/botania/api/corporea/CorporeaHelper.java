@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
+import java.util.regex.Pattern;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -31,6 +32,8 @@ public final class CorporeaHelper {
 	private static final WeakHashMap<List<ICorporeaSpark>, List<IInventory>> cachedNetworks = new WeakHashMap();
 	private static final List<ICorporeaAutoCompleteController> autoCompleteControllers = new ArrayList<ICorporeaAutoCompleteController>();
 
+	private static final Pattern patternControlCode = Pattern.compile("(?i)\\u00A7[0-9A-FK-OR]");
+	
 	public static final String[] WILDCARD_STRINGS = new String[] {
 		"...", "~", "+", "?" , "*"
 	};
@@ -291,7 +294,7 @@ public final class CorporeaHelper {
 		}
 
 
-		String name = stack.getDisplayName().toLowerCase().trim();
+		String name = stripControlCodes(stack.getDisplayName().toLowerCase().trim());
 		return equalOrContain(name, s, contains) || equalOrContain(name + "s", s, contains) || equalOrContain(name + "es", s, contains) || name.endsWith("y") && equalOrContain(name.substring(0, name.length() - 1) + "ies", s, contains);
 	}
 
@@ -337,4 +340,9 @@ public final class CorporeaHelper {
 				return true;
 		return false;
 	}
+	
+    // Copy from StringUtils
+    public static String stripControlCodes(String str) {
+        return patternControlCode.matcher(str).replaceAll("");
+    }
 }
