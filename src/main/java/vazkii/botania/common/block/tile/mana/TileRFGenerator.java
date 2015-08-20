@@ -22,7 +22,8 @@ import cpw.mods.fml.common.Optional;
 @Optional.Interface(iface = "cofh.api.energy.IEnergyConnection", modid = "CoFHAPI|energy")
 public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyConnection {
 
-	private static final int MAX_MANA = 1280;
+	private static final int CONVERSION_RATE = 10;
+	private static final int MAX_MANA = 1280 * CONVERSION_RATE;
 
 	private static final String TAG_MANA = "mana";
 
@@ -48,7 +49,7 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyCo
 			if(deadCache)
 				reCache();
 
-			int transfer = Math.min(mana, 160);
+			int transfer = Math.min(mana, 160 * CONVERSION_RATE);
 			mana -= transfer;
 			mana += transmitEnergy(transfer);
 		}
@@ -56,15 +57,15 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyCo
 
 	@Optional.Method(modid = "CoFHAPI|energy")
 	protected final int transmitEnergy(int energy) {
-		if (receiverCache != null)
+		if(receiverCache != null)
 			for(int i = receiverCache.length; i-- > 0;) {
 				IEnergyReceiver tile = receiverCache[i];
-				if (tile == null)
+				if(tile == null)
 					continue;
 
 				ForgeDirection from = ForgeDirection.VALID_DIRECTIONS[i];
 				if(tile.receiveEnergy(from, energy, true) > 0)
-					energy -= tile.receiveEnergy(from, energy * 10, false) / 10;
+					energy -= tile.receiveEnergy(from, energy, false);
 
 				if(energy <= 0)
 					return 0;
@@ -77,8 +78,7 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyCo
 	private void reCache() {
 		if(deadCache) {
 			for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS)
-				onNeighborTileChange(xCoord + dir.offsetX,
-						yCoord + dir.offsetY, zCoord + dir.offsetZ);
+				onNeighborTileChange(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ);
 			deadCache = false;
 		}
 	}
@@ -125,7 +125,7 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyCo
 
 	@Override
 	public void recieveMana(int mana) {
-		this.mana = Math.min(MAX_MANA, this.mana + mana);
+		this.mana = Math.min(MAX_MANA, this.mana + mana * CONVERSION_RATE);
 	}
 
 	@Override
