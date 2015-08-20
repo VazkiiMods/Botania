@@ -29,6 +29,7 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -42,6 +43,7 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -179,7 +181,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 			if(flying) {
 				if(time > 0 && !ItemNBTHelper.getBoolean(stack, TAG_INFINITE_FLIGHT, false))
 					newTime--;
-				final int maxCd = 120;
+				final int maxCd = 80;
 				int cooldown = ItemNBTHelper.getInt(stack, TAG_DASH_COOLDOWN, 0);
 				if(!wasSprting && isSprinting && cooldown == 0) {
 					p.motionX += look.x;
@@ -191,9 +193,10 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 						player.moveFlying(0F, 1F, 5F);
 					else if(maxCd - cooldown < 10)
 						player.setSprinting(false);
-					ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, cooldown - 1);
+					ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, cooldown - 2);
+					if(player instanceof EntityPlayerMP)
+						BotaniaAPI.internalHandler.sendBaubleUpdatePacket((EntityPlayerMP) player, 0);
 				}
-					
 			} else if(!flying) {
 				boolean doGlide = player.isSneaking() && !player.onGround; 
 				if(time < MAX_FLY_TIME && player.ticksExisted % (doGlide ? 6 : 2) == 0)
