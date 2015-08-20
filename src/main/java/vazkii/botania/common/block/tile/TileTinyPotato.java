@@ -23,9 +23,17 @@ public class TileTinyPotato extends TileMod {
 
 	public void interact() {
 		jump();
-		if(name.equalsIgnoreCase("shia labeouf") && !worldObj.isRemote && nextDoIt == 0) {
+		if(!worldObj.isRemote && nextDoIt == 0)
+		{
 			nextDoIt = 40;
-			worldObj.playSoundEffect(xCoord, yCoord, zCoord, "botania:doit", 1F, 1F);
+			if(name.equalsIgnoreCase("shia labeouf"))
+			{
+				worldObj.playSoundEffect(xCoord, yCoord, zCoord, "botania:doit", 1F, 1F);
+			}
+			else if(name.equalsIgnoreCase("dell conagher"))
+			{
+				worldObj.playSoundEffect(xCoord, yCoord, zCoord, "botania:nope", 1F, 1F);
+			}
 		}
 	}
 
