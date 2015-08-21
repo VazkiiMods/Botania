@@ -2247,9 +2247,9 @@ botania.page.grassSeeds1=&1Pasture Seeds&0 for grass
 botania.page.grassSeeds2=&1Boreal Seeds&0 for podzol
 botania.page.grassSeeds3=&1Infestation Spores&0 for mycellium
 
-# -- ROD THE LANDS
+# -- ROD OF THE LANDS
 botania.entry.dirtRod=Rod of the Lands
-botania.page.dirtRod0=The &1Rod of the Lands&0 is a rather simpleton tool, by utilizing &4Mana&0 from the user's inventory (via a &1Mana Tablet&0 or others), it can materialize and place a &1Dirt&0 block down.
+botania.page.dirtRod0=The &1Rod of the Lands&0 is a rather simpleton tool, by utilizing &4Mana&0 from the user's inventory (via a &1Mana Tablet&0 or others), it can materialize and place a &1Dirt&0 block down.<br>For the same &4Mana&0 cost, this item can provide &1Dirt&0 to the &1Rod of the Shifting Crust&0.
 botania.page.dirtRod1=That's dirty
 
 # -- TERRA FIRMA ROD
@@ -2414,7 +2414,7 @@ botania.page.clip2=Since we're dubbed by 4Kids we must make do without one
 
 # -- ROD OF THE DEPTHS
 botania.entry.cobbleRod=Rod of the Depths
-botania.page.cobbleRod0=The &1Rod of the Depths&0 acts pretty much as a variant to the the &1Rod of the Lands&0. It does exactly the same thing but with &1Cobblestone&0 for a bit of a higher price.
+botania.page.cobbleRod0=The &1Rod of the Depths&0 acts pretty much as a variant to the the &1Rod of the Lands&0. It does exactly the same thing but with &1Cobblestone&0 for a bit of a higher price.<br>For the same &4Mana&0 cost, this item can provide &1Cobblestone&0 to the &1Rod of the Shifting Crust&0.
 botania.page.cobbleRod1=It's cobbling time
 
 # -- ROD OF THE MOLTEN CORE
@@ -2471,6 +2471,13 @@ botania.entry.slimeBottle=Slime in a Bottle
 botania.page.slimeBottle0=Placing some slime in an &1Elementium Container&0 seems to have an interesting effect on said slime. When in an area where &1Slimes&0 would naturally spawn underground, the inanimate blob of slime starts jumping for some odd reason.<br>This can definitely prove useful for harvesting slimeballs or setting up a &1Narslimmus&0 however.
 botania.page.slimeBottle1=JUMPYDOLL
 
+# -- ROD OF THE SHIFTING CRUST
+botania.entry.exchangeRod=Rod of the Shifting Crust
+botania.page.exchangeRod0=&1Rod of the Shifting Crust&0 is a magical device with the ability to swap blocks in the world at very fast speeds. In order to achieve this, one must first select a block to swap with, this is done by shift-right clicking that block in the world.<br>After this block is selected, left clicking any other block in the world will swap it for that block, assuming it's present in the user's inventory.
+botania.page.exchangeRod1=Right clicking on a block in the world will start a larger transformation, which will swap all highlighted blocks into the one selected. Obviously, these blocks do come from the user's inventory as well. Only proper, full size blocks can be used for this swap, so no flowers, torches or other shenenigans of the sort. Using this power does, naturally, require &4Mana&0 from the user's inventory.
+botania.page.exchangeRod2=Other rods or devices can be used to extend the power of the &1Rod of the Shifting Crust&0.<br>For example, having a &1Rod of the Lands&0 in one's inventory provides the &1Rod of the Shifting Crust&0 with an endless supply of &1Dirt&0, assuming the &4Mana&0 cost for the &1Rod of the Lands&0' dirt conjuration is fulfiled.
+botania.page.exchangeRod3=Bootlegged equal trade
+
 # - ENDER ARTEFACTS
 # -- EXTRACTING ENDER AIR
 botania.entry.enderAir=Extracting Ender Air
@@ -2491,6 +2498,7 @@ botania.page.pistonRelay2=Infusing a &1Piston&0 with &4Mana&0.
 botania.entry.enderHand=Hand of Ender
 botania.page.enderHand0=The &1Hand of Ender&0 allows the user to access the interdimensional ender field, on other words, their &1Ender Chest&0 inventory. This can be done anywhere by right clicking with the hand at the cost of some &4Mana&0.<br>Using the hand on another player will open up &otheir&r inventory instead, at a lot higher &4Mana&0 cost.
 botania.page.enderHand0a=The &1Hand of Ender&0 allows the user to access the interdimensional ender field, on other words, their &1Ender Chest&0 inventory. This can be done anywhere by right clicking with the hand at the cost of some &4Mana&0.
+botania.page.enderHand2=Furthermore, simply having a &1Hand of Ender&0 present in one's inventory, allows for the &1Rod of the Shifting Crust&0 to be provided with items from that player's &1Ender Chest&0, this comes at an increased &4Mana&0 cost compared to that of the normal use of the rod.
 botania.page.enderHand1=Zezima hates him!
 botania.page.enderHand1a=It's like the 4G of Ender Chests
 
@@ -2596,7 +2604,7 @@ botania.page.keepIvy1=Because people die when they are killed
 botania.entry.blackHoleTalisman=Black Hole Talisman
 botania.page.blackHoleTalisman0=The void is a massive space full of... void, really. There's nothing there. But with some ingenuity, this space can be used to store items to your heart's content.<br>The &1Black Hole Talisman&0 utilizes powerful Gaia and Ender magic to allow for a virtually infinite quantity of a single type of block to be stored in this space.
 botania.page.blackHoleTalisman1=Right clicking a block in the world will set the talisman to store that type of block. This can only be done if the talisman is empty. Next off, shift-right clicking the talisman in the air will enable or disable it. Whilst enabled and in the user's inventory it'll absorb any blocks of the type into it.<br>Placing the item in a crafting grid allows one to extract stacks of the blocks in it.
-botania.page.blackHoleTalisman2=While the talisman has any contents in it, the blocks in it can be placed as if they were normal blocks stored in the inventory via a simple right click with it.<br>Right clicking an inventory will try to fill it with the blocks stored in the talisman.
+botania.page.blackHoleTalisman2=While the talisman has any contents in it, the blocks in it can be placed as if they were normal blocks stored in the inventory via a simple right click with it.<br>Right clicking an inventory will try to fill it with the blocks stored in the talisman. Lastly, the talisman can provide the &1Rod of the Shifting Crust&0 with the blocks it contains.
 botania.page.blackHoleTalisman3=Like a Rageki but twice as fun
 
 # -- LUMINIZER TRANSPORT

@@ -195,6 +195,7 @@ public final class LexiconData {
 	public static LexiconEntry terraAxe;
 	public static LexiconEntry obedienceStick;
 	public static LexiconEntry slimeBottle;
+	public static LexiconEntry exchangeRod;
 
 	public static LexiconEntry enderAir;
 	public static LexiconEntry enderEyeBlock;
@@ -755,6 +756,9 @@ public final class LexiconData {
 		slimeBottle = new ALexiconEntry(LibLexicon.TOOL_SLIME_BOTTLE, categoryTools);
 		slimeBottle.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeSlimeBottle));
 
+		exchangeRod = new BLexiconEntry(LibLexicon.TOOL_EXCHANGE_ROD, categoryTools);
+		exchangeRod.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipeExchangeRod));
+		
 		// ENDER ENTRIES
 		enderAir = new BLexiconEntry(LibLexicon.ENDER_AIR, categoryEnder);
 		enderAir.setPriority().setLexiconPages(new PageText("0"));
@@ -767,7 +771,7 @@ public final class LexiconData {
 		pistonRelay.setLexiconPages(new PageText("0"), new PageText("1"), new PageManaInfusionRecipe("2", ModManaInfusionRecipes.pistonRelayRecipe));
 
 		enderHand = new BLexiconEntry(LibLexicon.ENDER_ENDER_HAND, categoryEnder);
-		enderHand.setLexiconPages(new PageText(ConfigHandler.enderPickpocketEnabled ? "0" : "0a"), new PageCraftingRecipe(ConfigHandler.enderPickpocketEnabled ? "1" : "1a", ModCraftingRecipes.recipeEnderHand));
+		enderHand.setLexiconPages(new PageText(ConfigHandler.enderPickpocketEnabled ? "0" : "0a"), new PageText("2"), new PageCraftingRecipe(ConfigHandler.enderPickpocketEnabled ? "1" : "1a", ModCraftingRecipes.recipeEnderHand));
 
 		enderDagger = new BLexiconEntry(LibLexicon.ENDER_ENDER_DAGGER, categoryEnder);
 		enderDagger.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeEnderDagger));

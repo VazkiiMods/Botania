@@ -277,6 +277,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeCobweb;
 	public static IRecipe recipeSlimeBottle;
 	public static IRecipe recipeStarSword;
+	public static IRecipe recipeExchangeRod;
 
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;
@@ -1885,6 +1886,14 @@ public final class ModCraftingRecipes {
 				'A', LibOreDict.ENDER_AIR_BOTTLE,
 				'T', new ItemStack(ModItems.terraSword));
 		recipeStarSword = BotaniaAPI.getLatestAddedRecipe();
+
+		// Rod of the Shifting Crust
+		addOreDictRecipe(new ItemStack(ModItems.exchangeRod), 
+				" SR", " TS", "T  ",
+				'T', LibOreDict.LIVINGWOOD_TWIG,
+				'S', "stone",
+				'R', LibOreDict.RUNE[12]);
+		recipeExchangeRod = BotaniaAPI.getLatestAddedRecipe();
 
 		// Storage Block/Nugget Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
