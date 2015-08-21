@@ -101,7 +101,7 @@ public class ItemRelic extends ItemMod implements IRelic {
 			soulbind = getSoulbindUsernameS(stack);
 		}
 
-		if(!isRightPlayer(player, stack) && player.ticksExisted % 10 == 0 && ((ItemRelic) stack.getItem()).shouldDamageWrongPlayer())
+		if(!isRightPlayer(player, stack) && player.ticksExisted % 10 == 0 && (!(stack.getItem() instanceof ItemRelic) || ((ItemRelic) stack.getItem()).shouldDamageWrongPlayer()))
 			player.attackEntityFrom(damageSource(), 2);
 	}
 
