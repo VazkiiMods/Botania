@@ -215,6 +215,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.waterRing);
 		addItem(ModItems.miningRing);
 		addItem(ModItems.magnetRing);
+		addItem(ModItems.magnetRingGreater);
 		addItem(ModItems.swapRing);
 		addItem(ModItems.reachRing);
 		addItem(ModItems.pixieRing);
