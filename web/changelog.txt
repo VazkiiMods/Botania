@@ -1,3 +1,27 @@
+r1.7 211
+*Added even MORE tiny potato variants :D
+*Added Grass conjuration recipe.
+*Added Mithril and Platinum ores to the orechid's list. (phantamanta44)
+*Added the Rod of the Shifting Crust, effectively a copy of the Thaumcraft Wand of Equal trade with a few new things added on.
+*Changed the Rune of Sloth in the Orechid recipe to a Rune of Greed. <i>Turns out I planned the rune recipes really poorly, the only thing you could make with the greed rune for the longest time was the bore lens. Since the new rod uses a sloth rune I moved this around and now all is balanced :D</i>
+*Fixed a crash when you /give yourself a botania flower with the wrong metadata.
+*Fixed more typos.
+*Fixed the Corporea Index kicking you out of the server if you try requesting an item with control codes in the name (such as brews).
+*Fixed the Flugel Tiara rubberbanding in multiplayer. Maybe. Hopefully. Probably not.
+*Fixed the Flugel Tiara using CodeChickenLib Vector3 rather than Botania Vector3, causing crashes if the item is worn without NEI loaded.
+*Fixed the Flugel Tiara's sprint delay being 1.5 seconds rather than the intended 3 seconds, also changed it to 2 seconds, so the intended is now 2 seconds rather than 3 seconds. So this line should read "Fixed the Flugel Tiara's sprint delay being 1.5 seconds rather than the intended 2 seconds", but the intended was 3 seconds before and 2 seconds now because 2 seconds feels better than 3 seconds. I don't even know.
+*Fixed the Hand of Ender being stackable.
+*Fixed the Hovering Hourglass accepting any item through automation and not just sand and not syncing its contents properly when its inventory is changed through automation.
+*Fixed the name suffix of the Black Hole Talisman not using the block's damage value to get the name.
+*Fixed the Tiara flight bar not rendering with Tinkers Construct. (TheWhiteWolves)
+*Rewrote the way the conversion in the Mana Fluxfield works to prevent a dupe with EnderIO capacitors banks.
+*The "Items Remaining" display now has colors to make it easier to read if there's multiple stacks left.
+*Trying to infuse an item with a Diluted Mana Pool now shows a "Upgrade your Mana Pool to infuse this item" indicator.
+*Updated the Force Relay entry to say how to break the block properly.
+*[API] Added IBlockProvider, an interface for items that can provide blocks for the Rod of the Shifting Crust or other things.
+*[API] Added oreMithril and orePlatinum to the orechid weight table. (phantamanta44)
+*[API] IWireframeCoordinateListProvider.getWireframesToDraw is now @SideOnly(Side.CLIENT), because that just makes sense, really.
+*[API] Increased version number to 60.
 r1.7 210
 *Added the ability to Dash and Glide to the Flugel Tiara, read on these new abilities in the book!
 *Fixed a major dupe with the Resolute Ivy and container items.
