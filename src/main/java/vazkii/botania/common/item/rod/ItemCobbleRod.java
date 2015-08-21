@@ -54,7 +54,7 @@ public class ItemCobbleRod extends ItemMod implements IManaUsingItem, IBlockProv
 
 	@Override
 	public int getBlockCount(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta) {
-		if(block == Blocks.dirt && meta == 0)
+		if(block == Blocks.cobblestone && meta == 0)
 			return -1;
 		return 0;
 	}
