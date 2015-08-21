@@ -218,9 +218,9 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 						removeFromInventory(player, stack, blockToSet, metaToSet, true);
 					}
 					world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(blockAt) + (meta << 12));
+					world.setBlock(x, y, z, blockToSet, metaToSet, 1 | 2);
+					blockToSet.onBlockPlacedBy(world, x, y, z, player, placeStack);
 				}
-				world.setBlock(x, y, z, blockToSet, metaToSet, 1 | 2);
-				blockToSet.onBlockPlacedBy(world, x, y, z, player, placeStack);
 				displayRemainderCounter(player, stack);
 				return true;
 			}
