@@ -1432,6 +1432,7 @@ item.botania:cacophonium.name=Cacophonium
 item.botania:slimeBottle.name=Slime in a Bottle
 item.botania:starSword.name=Starcaller
 item.botania:exchangeRod.name=Rod of the Shifting Crust
+item.botania:magnetRingGreater.name=Greater Ring of Magnetization
 
 # BREW NAMES
 botania.brew.fallback=Fallback
@@ -2723,6 +2724,7 @@ botania.page.miningRing1=Diggy diggy hole
 botania.entry.magnetRing=Ring of Magnetization
 botania.page.magnetRing0=By turning a &1Magnetizing Lens&0 into a wearable ring, one can use it to magnetize nearby items. While equipped, this ring will make any nearby items magnetize towards the wearer if they're not sneaking. A notable feature of this piece is that it'll negate its effect for 5 seconds after the wearer tosses an item so as to not interfere with whatever means it was tossed for. A &1Solegnolia&0 can disrupt this ring's functionality.
 botania.page.magnetRing1=How do they work?
+botania.page.magnetRing2=Upgrading the ring for a larger range
 
 # -- RING OF FAR REACH
 botania.entry.reachRing=Ring of Far Reach

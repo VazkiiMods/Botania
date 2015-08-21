@@ -49,9 +49,16 @@ public class ItemMagnetRing extends ItemBauble {
 			"appliedenergistics2:item.ItemCrystalSeed",
 	});
 
+	int range;
+	
 	public ItemMagnetRing() {
-		super(LibItemNames.MAGNET_RING);
+		this(LibItemNames.MAGNET_RING, 6);
 		MinecraftForge.EVENT_BUS.register(this);
+	}
+	
+	public ItemMagnetRing(String name, int range) {
+		super(name);
+		this.range = range;
 	}
 
 	@Override
@@ -72,7 +79,7 @@ public class ItemMagnetRing extends ItemBauble {
 		InventoryBaubles inv = PlayerHandler.getPlayerBaubles(event.player);
 		for(int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
-			if(stack != null && stack.getItem() == this) {
+			if(stack != null && stack.getItem() instanceof ItemMagnetRing) {
 				setCooldown(stack, 100);
 				BotaniaAPI.internalHandler.sendBaubleUpdatePacket(event.player, i);
 			}
@@ -87,7 +94,6 @@ public class ItemMagnetRing extends ItemBauble {
 
 		if(cooldown <= 0) {
 			if(!player.isSneaking()) {
-				int range = 6;
 				double x = player.posX;
 				double y = player.posY -(player.worldObj.isRemote ? 1.62 : 0) + 0.75;
 				double z = player.posZ;
