@@ -43,14 +43,18 @@ public abstract class BlockCamo extends BlockModContainer<TileCamo> {
 		if(tile instanceof TileCamo) {
 			TileCamo camo = (TileCamo) tile;
 			Block block = camo.camo;
-			if(block != null && (block.isOpaqueCube() || isValidRenderType(block.getRenderType())))
+			if(block != null && isValidBlock(block))
 				return block.getIcon(side, camo.camoMeta);
 		}
 
 		return getIconFromSideAfterCheck(tile, meta, side);
 	}
 
-	public boolean isValidRenderType(int type) {
+	public static boolean isValidBlock(Block block) {
+		return block.isOpaqueCube() || isValidRenderType(block.getRenderType());
+	}
+	
+	public static boolean isValidRenderType(int type) {
 		return validRenderTypes.contains(type);
 	}
 
@@ -75,7 +79,7 @@ public abstract class BlockCamo extends BlockModContainer<TileCamo> {
 					}
 
 					block = Block.getBlockFromItem(currentStack.getItem());
-					if(block == null || !(isValidRenderType(block.getRenderType()) || block.isOpaqueCube()) || block instanceof BlockCamo || block.getMaterial() == Material.air)
+					if(block == null || !isValidBlock(block) || block instanceof BlockCamo || block.getMaterial() == Material.air)
 						doChange = false;
 				}
 			}

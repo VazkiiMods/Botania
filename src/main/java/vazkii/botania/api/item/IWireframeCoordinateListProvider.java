@@ -12,6 +12,8 @@ package vazkii.botania.api.item;
 
 import java.util.List;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
@@ -27,6 +29,7 @@ public interface IWireframeCoordinateListProvider {
 	 * Returns a list of ChunkCoordinates for the wireframes to draw.
 	 * Can be null.
 	 */
+	@SideOnly(Side.CLIENT)
 	public List<ChunkCoordinates> getWireframesToDraw(EntityPlayer player, ItemStack stack);
 
 }

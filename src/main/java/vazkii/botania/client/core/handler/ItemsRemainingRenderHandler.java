@@ -70,8 +70,9 @@ public final class ItemsRemainingRenderHandler {
 
 				if(stacks == 0)
 					text = "" + count;
-				else text = count + " (" + stacks + "*" + max + "+" + rem + ")";
-			}
+				else text = count + " (" + EnumChatFormatting.AQUA + stacks + EnumChatFormatting.RESET + "*" + EnumChatFormatting.GRAY + max + EnumChatFormatting.RESET + "+" + EnumChatFormatting.YELLOW + rem + EnumChatFormatting.RESET + ")";
+			} else if(count == -1)
+				text = "\u221E";
 
 			int color = 0x00FFFFFF | (int) (alpha * 0xFF) << 24;
 			mc.fontRenderer.drawStringWithShadow(text, x + 20, y + 6, color);

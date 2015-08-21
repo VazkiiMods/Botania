@@ -20,6 +20,7 @@ import net.minecraft.stats.Achievement;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.Botania;
@@ -28,7 +29,7 @@ import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemDirtRod extends ItemMod implements IManaUsingItem, ICraftAchievement {
+public class ItemDirtRod extends ItemMod implements IManaUsingItem, ICraftAchievement, IBlockProvider {
 
 	static final int COST = 75;
 
@@ -81,5 +82,20 @@ public class ItemDirtRod extends ItemMod implements IManaUsingItem, ICraftAchiev
 	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
 		return ModAchievements.dirtRodCraft;
 	}
+
+	@Override
+	public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta, boolean doit) {
+		if(block == Blocks.dirt && meta == 0)
+			return !doit || ManaItemHandler.requestManaExact(requestor, player, COST, true);
+		return false;
+	}
+
+	@Override
+	public int getBlockCount(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta) {
+		if(block == Blocks.dirt && meta == 0)
+			return -1;
+		return 0;
+	}
+
 
 }

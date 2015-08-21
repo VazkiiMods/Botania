@@ -100,6 +100,7 @@ import vazkii.botania.common.item.relic.ItemThorRing;
 import vazkii.botania.common.item.rod.ItemCobbleRod;
 import vazkii.botania.common.item.rod.ItemDirtRod;
 import vazkii.botania.common.item.rod.ItemDiviningRod;
+import vazkii.botania.common.item.rod.ItemExchangeRod;
 import vazkii.botania.common.item.rod.ItemFireRod;
 import vazkii.botania.common.item.rod.ItemGravityRod;
 import vazkii.botania.common.item.rod.ItemMissileRod;
@@ -249,6 +250,7 @@ public final class ModItems {
 	public static Item cacophonium;
 	public static Item slimeBottle;
 	public static Item starSword;
+	public static Item exchangeRod;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -387,6 +389,7 @@ public final class ModItems {
 		cacophonium = new ItemCacophonium();
 		slimeBottle = new ItemSlimeBottle();
 		starSword = new ItemStarSword();
+		exchangeRod = new ItemExchangeRod();
 
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {

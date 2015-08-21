@@ -1431,6 +1431,7 @@ item.botania:obedienceStick.name=Floral Obedience Stick
 item.botania:cacophonium.name=Cacophonium
 item.botania:slimeBottle.name=Slime in a Bottle
 item.botania:starSword.name=Starcaller
+item.botania:exchangeRod.name=Rod of the Shifting Crust
 
 # BREW NAMES
 botania.brew.fallback=Fallback

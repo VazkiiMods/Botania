@@ -32,6 +32,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
+import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.InventoryHelper;
@@ -42,7 +43,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemBlackHoleTalisman extends ItemMod {
+public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 
 	private static final String TAG_BLOCK_NAME = "blockName";
 	private static final String TAG_BLOCK_META = "blockMeta";
@@ -189,7 +190,7 @@ public class ItemBlackHoleTalisman extends ItemMod {
 	public String getItemStackDisplayName(ItemStack par1ItemStack) {
 		Block block = getBlock(par1ItemStack);
 		int meta = getBlockMeta(par1ItemStack);
-		return super.getItemStackDisplayName(par1ItemStack) + (block == null ? "" : " (" + EnumChatFormatting.GREEN + new ItemStack(block, meta).getDisplayName() + EnumChatFormatting.RESET + ")");
+		return super.getItemStackDisplayName(par1ItemStack) + (block == null ? "" : " (" + EnumChatFormatting.GREEN + new ItemStack(block, 1, meta).getDisplayName() + EnumChatFormatting.RESET + ")");
 	}
 
 	@Override
@@ -290,6 +291,31 @@ public class ItemBlackHoleTalisman extends ItemMod {
 
 	public static int getBlockCount(ItemStack stack) {
 		return ItemNBTHelper.getInt(stack, TAG_BLOCK_COUNT, 0);
+	}
+
+	@Override
+	public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta, boolean doit) {
+		Block stored = getBlock(stack);
+		int storedMeta = getBlockMeta(stack);
+		if(stored == block && storedMeta == meta) {
+			int count = getBlockCount(stack);
+			if(count > 0) {
+				if(doit)
+					setCount(stack, count - 1);
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
+	@Override
+	public int getBlockCount(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta) {
+		Block stored = getBlock(stack);
+		int storedMeta = getBlockMeta(stack);
+		if(stored == block && storedMeta == meta)
+			return getBlockCount(stack);
+		return 0;
 	}
 
 }

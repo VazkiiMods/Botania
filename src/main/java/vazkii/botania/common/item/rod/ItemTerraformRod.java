@@ -24,6 +24,7 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
+import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.subtile.ISpecialFlower;
@@ -32,7 +33,7 @@ import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 
-public class ItemTerraformRod extends ItemMod implements IManaUsingItem {
+public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockProvider {
 
 	private static final int COST_PER = 55;
 
@@ -173,5 +174,20 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem {
 	public boolean usesMana(ItemStack stack) {
 		return true;
 	}
+
+	@Override
+	public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta, boolean doit) {
+		if(block == Blocks.dirt && meta == 0)
+			return !doit || ManaItemHandler.requestManaExact(requestor, player, ItemDirtRod.COST, true);
+		return false;
+	}
+
+	@Override
+	public int getBlockCount(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta) {
+		if(block == Blocks.dirt && meta == 0)
+			return -1;
+		return 0;
+	}
+
 
 }
