@@ -46,7 +46,7 @@ public final class ModCraftingRecipes {
 	public static List<IRecipe> recipesTwigWand;
 	public static List<IRecipe> recipesApothecary;
 	public static List<IRecipe> recipesSpreader;
-	public static IRecipe recipeManaLens;
+	public static List<IRecipe> recipesManaLens;
 	public static IRecipe recipePool;
 	public static List<IRecipe> recipesRuneAltar;
 	public static IRecipe recipeLensVelocity;
@@ -351,7 +351,11 @@ public final class ModCraftingRecipes {
 				" S ", "SGS", " S ",
 				'S', LibOreDict.MANA_STEEL,
 				'G', new ItemStack(Blocks.glass_pane));
-		recipeManaLens = BotaniaAPI.getLatestAddedRecipe();
+		addOreDictRecipe(new ItemStack(ModItems.lens),
+				" S ", "SGS", " S ",
+				'S', LibOreDict.MANA_STEEL,
+				'G', new ItemStack(Blocks.glass));
+		recipesManaLens = BotaniaAPI.getLatestAddedRecipes(2);
 
 		// Mana Pool Recipe
 		addOreDictRecipe(new ItemStack(ModBlocks.pool, 1, 2),
