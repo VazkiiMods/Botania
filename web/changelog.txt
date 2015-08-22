@@ -1,3 +1,9 @@
+r1.7 212
+*Added the Greater Ring of Magnetization with a larger range. Big magnet!
+*Fixed giving another player a relic ring crashing their client.
+*Fixed the Rod of the Depths not showing infinite cobblestone when used with the Rod of the Shifting Crust, but rather, infinite dirt.
+*Fixed the Rod of the Shifting Crust placing fake blocks in the client side.
+*Mana Lenses can now be made with Glass as well as Glass Panes, because if you're low enough that you can't make panes it becomes a pain. <i>Ha, I made a funny.</i>
 r1.7 211
 *Added even MORE tiny potato variants :D
 *Added Grass conjuration recipe.
