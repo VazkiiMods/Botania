@@ -1,3 +1,4 @@
+## Windows
 Thumbs.db
 
 ## gradle
@@ -12,6 +13,7 @@ Thumbs.db
 /.metadata
 /.classpath
 /.project
+/eclipse
 /bin
 
 ## intellij
