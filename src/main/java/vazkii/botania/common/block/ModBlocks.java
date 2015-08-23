@@ -356,6 +356,8 @@ public final class ModBlocks {
 		OreDictionary.registerOre("soulSand", Blocks.soul_sand);
 		OreDictionary.registerOre("ice", Blocks.ice);
 		OreDictionary.registerOre("slabCobblestone", new ItemStack(Blocks.stone_slab, 1, 3));
+		OreDictionary.registerOre("chestWood", Blocks.chest);
+		OreDictionary.registerOre("craftingTableWood", Blocks.crafting_table);
 
 		initTileEntities();
 	}

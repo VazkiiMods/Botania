@@ -138,7 +138,7 @@ task outputDeobf(type: Copy) {
 task forgecraft(type: Copy) {
 	dependsOn "outputDeobf"
 	from "${config.dir_output}/wtf"
-	into file(config.dir_forgecraft)
+	into file(priv.dir_forgecraft)
 }
 
 task sort(type: Delete) {

@@ -115,7 +115,7 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyCo
 
 	@Override
 	public int getCurrentMana() {
-		return mana;
+		return mana / CONVERSION_RATE;
 	}
 
 	@Override
