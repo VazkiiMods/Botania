@@ -802,8 +802,10 @@ public final class LexiconData {
 		corporeaInterceptor = new ALexiconEntry(LibLexicon.ENDER_CORPOREA_INTERCEPTOR, categoryEnder);
 		corporeaInterceptor.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeCorporeaInterceptor));
 
-		endStoneDecor = new BLexiconEntry(LibLexicon.ENDER_END_STONE_DECOR, categoryEnder);
-		endStoneDecor.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeEndStoneBricks), new PageCraftingRecipe("2", ModCraftingRecipes.recipeEndStoneChiseledBricks), new PageCraftingRecipe("3", ModCraftingRecipes.recipeEnderBricks), new PageCraftingRecipe("4", ModCraftingRecipes.recipePillarEnderBricks));
+		if(ConfigHandler.enderStuff19Enabled) {
+			endStoneDecor = new BLexiconEntry(LibLexicon.ENDER_END_STONE_DECOR, categoryEnder);
+			endStoneDecor.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeEndStoneBricks), new PageCraftingRecipe("2", ModCraftingRecipes.recipeEndStoneChiseledBricks), new PageCraftingRecipe("3", ModCraftingRecipes.recipeEnderBricks), new PageCraftingRecipe("4", ModCraftingRecipes.recipePillarEnderBricks));
+		}
 
 		spawnerMover = new ALexiconEntry(LibLexicon.ENDER_SPAWNER_MOVER, categoryEnder);
 		spawnerMover.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeSpawnerMover));

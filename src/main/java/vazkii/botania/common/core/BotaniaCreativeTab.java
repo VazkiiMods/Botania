@@ -370,12 +370,14 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 			addBlock(ModFluffBlocks.biomeStoneSlabs[i]);
 		addBlock(ModFluffBlocks.biomeStoneWall);
 
-		addBlock(ModBlocks.endStoneBrick);
-		addBlock(ModFluffBlocks.endStoneSlab);
-		addBlock(ModFluffBlocks.endStoneStairs);
-		addBlock(ModFluffBlocks.enderBrickSlab);
-		addBlock(ModFluffBlocks.enderBrickStairs);
-
+		if(ConfigHandler.enderStuff19Enabled) {
+			addBlock(ModBlocks.endStoneBrick);
+			addBlock(ModFluffBlocks.endStoneSlab);
+			addBlock(ModFluffBlocks.endStoneStairs);
+			addBlock(ModFluffBlocks.enderBrickSlab);
+			addBlock(ModFluffBlocks.enderBrickStairs);
+		}
+		
 		addItem(ModItems.cosmetic);
 	}
 

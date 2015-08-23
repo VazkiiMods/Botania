@@ -1606,26 +1606,28 @@ public final class ModCraftingRecipes {
 		recipeCorporeaInterceptor = BotaniaAPI.getLatestAddedRecipe();
 
 		// End Stone Brick Recipes
-		GameRegistry.addRecipe(new ItemStack(ModBlocks.endStoneBrick, 4),
-				"SS", "SS",
-				'S', new ItemStack(Blocks.end_stone));
-		recipeEndStoneBricks = BotaniaAPI.getLatestAddedRecipe();
+		if(ConfigHandler.enderStuff19Enabled) {
+			GameRegistry.addRecipe(new ItemStack(ModBlocks.endStoneBrick, 4),
+					"SS", "SS",
+					'S', new ItemStack(Blocks.end_stone));
+			recipeEndStoneBricks = BotaniaAPI.getLatestAddedRecipe();
 
-		GameRegistry.addRecipe(new ItemStack(ModBlocks.endStoneBrick, 1, 1),
-				"S", "S",
-				'S', new ItemStack(ModFluffBlocks.endStoneSlab));
-		recipeEndStoneChiseledBricks = BotaniaAPI.getLatestAddedRecipe();
+			GameRegistry.addRecipe(new ItemStack(ModBlocks.endStoneBrick, 1, 1),
+					"S", "S",
+					'S', new ItemStack(ModFluffBlocks.endStoneSlab));
+			recipeEndStoneChiseledBricks = BotaniaAPI.getLatestAddedRecipe();
 
-		GameRegistry.addRecipe(new ItemStack(ModBlocks.endStoneBrick, 4, 2),
-				" B ", "BPB", " B ",
-				'B', new ItemStack(ModBlocks.endStoneBrick),
-				'P', new ItemStack(Items.ender_pearl));
-		recipeEnderBricks = BotaniaAPI.getLatestAddedRecipe();
+			GameRegistry.addRecipe(new ItemStack(ModBlocks.endStoneBrick, 4, 2),
+					" B ", "BPB", " B ",
+					'B', new ItemStack(ModBlocks.endStoneBrick),
+					'P', new ItemStack(Items.ender_pearl));
+			recipeEnderBricks = BotaniaAPI.getLatestAddedRecipe();
 
-		GameRegistry.addRecipe(new ItemStack(ModBlocks.endStoneBrick, 2, 3),
-				"B", "B",
-				'B', new ItemStack(ModBlocks.endStoneBrick, 1, 2));
-		recipePillarEnderBricks = BotaniaAPI.getLatestAddedRecipe();
+			GameRegistry.addRecipe(new ItemStack(ModBlocks.endStoneBrick, 2, 3),
+					"B", "B",
+					'B', new ItemStack(ModBlocks.endStoneBrick, 1, 2));
+			recipePillarEnderBricks = BotaniaAPI.getLatestAddedRecipe();
+		}
 
 		// Livingwood Bow Recipe
 		addOreDictRecipe(new ItemStack(ModItems.livingwoodBow),
