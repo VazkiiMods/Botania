@@ -1,3 +1,10 @@
+r1.7 213
+*Added a config option to disable the 1.9 ender blocks for if you're using Et Futurum.
+*Added the ability to use a Cacophonium on a Note Block to make a Cacophonium Block.
+*Fixed the Mana Fluxfield not calculating the mana value properly. (LethalRes)
+*Patreon supports now have their head flower on flowers named after them.
+*Strengthened the ranks of the potato army. Nobody expects the potato inquisition!
+*Updated recipes to use the newer ore dictionary keys. (Adaptivity)
 r1.7 212
 *Added the Greater Ring of Magnetization with a larger range. Big magnet!
 *Fixed giving another player a relic ring crashing their client.
