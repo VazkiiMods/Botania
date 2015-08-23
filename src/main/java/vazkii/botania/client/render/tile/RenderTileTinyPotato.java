@@ -10,6 +10,8 @@
  */
 package vazkii.botania.client.render.tile;
 
+import java.nio.FloatBuffer;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -30,16 +32,19 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import vazkii.botania.api.item.TinyPotatoRenderEvent;
+import vazkii.botania.client.core.handler.ContributorFancinessHandler;
+import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelTinyPotato;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileTinyPotato;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.material.ItemManaResource;
 
 public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_TINY_POTATO);
+	private static final ResourceLocation textureGrayscale = new ResourceLocation(LibResources.MODEL_TINY_POTATO_GS);
 	private static final ModelTinyPotato model = new ModelTinyPotato();
 
 	@Override
@@ -76,91 +81,194 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 			GL11.glTranslatef(0F, 3.5F, 0F);
 		}
 		
+		if(name.equals("kyle hyde"))
+			mc.renderEngine.bindTexture(textureGrayscale);
+		
+		if(name.equals("dinnerbone") || name.equals("grumm")) {
+			GL11.glRotatef(180F, 0F, 0F, 1F);
+			GL11.glTranslatef(0F, -2.625F, 0F);
+		}
+
 		boolean render = !(name.equals("mami") || name.equals("soaryn") || (name.equals("eloraam") && jump != 0));
 		if(render)
 			model.render();
 		GL11.glPopMatrix();
-		
-		GL11.glPushMatrix();
 
-		mc.renderEngine.bindTexture(TextureMap.locationItemsTexture);
-		float scale = 1F / 4F;
-		GL11.glTranslatef(0F, 1F, 0F);
-		GL11.glScalef(scale, scale, scale);
-		if(name.equals("phi") || name.equals("vazkii")) {
-			GL11.glTranslatef(0.45F, 0F, 0.4F);
-			GL11.glRotatef(90F, 0F, 1F, 0F);
-			GL11.glRotatef(20F, 1F, 0F, 1F);
-			renderIcon(((ItemManaResource) ModItems.manaResource).phiFlowerIcon);
+		if(!name.isEmpty()) {
+			GL11.glPushMatrix();
+			mc.renderEngine.bindTexture(TextureMap.locationItemsTexture);
+
+			ContributorFancinessHandler.firstStart();
 			
-			if(name.equals("vazkii")) {
-				GL11.glRotatef(-20F, 1F, 0F, 1F);
+			float scale = 1F / 4F;
+			GL11.glTranslatef(0F, 1F, 0F);
+			GL11.glScalef(scale, scale, scale);
+			if(name.equals("phi") || name.equals("vazkii")) {
+				GL11.glTranslatef(0.45F, 0F, 0.4F);
+				GL11.glRotatef(90F, 0F, 1F, 0F);
+				GL11.glRotatef(20F, 1F, 0F, 1F);
+				renderIcon(((ItemManaResource) ModItems.manaResource).phiFlowerIcon);
+				
+				if(name.equals("vazkii")) {
+					GL11.glRotatef(-20F, 1F, 0F, 1F);
+					GL11.glScalef(1.25F, 1.25F, 1.25F);
+					GL11.glRotatef(180F, 0F, 0F, 1F);
+					GL11.glTranslatef(-1.5F, -1.3F, -0.75F);
+					renderIcon(((ItemManaResource) ModItems.manaResource).nerfBatIcon);
+				}
+			} else if(name.equals("skull kid")) {
 				GL11.glScalef(1.25F, 1.25F, 1.25F);
 				GL11.glRotatef(180F, 0F, 0F, 1F);
-				GL11.glTranslatef(-1.5F, -1.3F, -0.75F);
-				renderIcon(((ItemManaResource) ModItems.manaResource).nerfBatIcon);
+				GL11.glTranslatef(-0.5F, -1.2F, -0.4F);
+				renderIcon(ModItems.cosmetic.getIconFromDamage(23));
+			} else if(name.equals("kamina")) {
+				GL11.glScalef(1.25F, 1.25F, 1.25F);
+				GL11.glRotatef(180F, 0F, 0F, 1F);
+				GL11.glTranslatef(-0.5F, -1.1F, -0.4F);
+				renderIcon(ModItems.cosmetic.getIconFromDamage(26));
+			} else if(name.equals("haighyorkie")) {
+				GL11.glScalef(1.25F, 1.25F, 1.25F);
+				GL11.glRotatef(180F, 0F, 0F, 1F);
+				GL11.glRotatef(90F, 0F, 1F, 0F);
+				GL11.glTranslatef(-0.5F, -1.2F, -0.4F);
+				renderIcon(((ItemManaResource) ModItems.manaResource).goldfishIcon);
+			} else if(name.equals("chitoge")) {
+				GL11.glScalef(1.25F, 1.25F, 1.25F);
+				GL11.glRotatef(180F, 0F, 0F, 1F);
+				GL11.glTranslatef(-0.5F, -0.7F, 0.1F);
+				renderIcon(ModItems.cosmetic.getIconFromDamage(7));
+			} else if(name.equals("direwolf20")) {
+				GL11.glRotatef(180F, 0F, 0F, 1F);
+				GL11.glTranslatef(-0.5F, -2.2F, -0.5F);
+				renderIcon(ModItems.cosmetic.getIconFromDamage(0));
+			} else if(name.equals("doctor")) {
+				GL11.glScalef(1.25F, 1.25F, 1.25F);
+				GL11.glRotatef(180F, 0F, 0F, 1F);
+				GL11.glTranslatef(-0.5F, -1.15F, -0.4F);
+				renderIcon(ModItems.cosmetic.getIconFromDamage(25));
+			} else if(name.equals("snoo")) {
+				GL11.glScalef(1.25F, 1.25F, 1.25F);
+				GL11.glRotatef(180F, 0F, 0F, 1F);
+				GL11.glTranslatef(-0.5F, -0.7F, 0.1F);
+				GL11.glRotatef(20F, 0F, 0F, 1F);
+				renderIcon(ModItems.cosmetic.getIconFromDamage(24));
+			} else if(name.equals("charlotte")) {
+				GL11.glScalef(1.25F, 1.25F, 1.25F);
+				GL11.glRotatef(180F, 0F, 0F, 1F);
+				GL11.glTranslatef(-0.5F, -1.2F, -0.4F);
+				renderIcon(ModItems.cosmetic.getIconFromDamage(12));
+			} else if(name.equals("greg") || name.equals("gregorioust")) {
+				GL11.glScalef(1.25F, 1.25F, 1.25F);
+				GL11.glRotatef(180F, 0F, 0F, 1F);
+				GL11.glRotatef(90F, 0F, 1F, 0F);
+				GL11.glTranslatef(-0.5F, -1.5F, -0.4F);
+				renderIcon(Items.book.getIconFromDamage(0));
+				
+				mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+				GL11.glTranslatef(0.5F, 0.5F, 0F);
+				GL11.glScalef(0.3F, 0.3F, 0.3F);
+				
+				RenderBlocks.getInstance().renderBlockAsItem(Blocks.iron_ore, 0, 1F);
+			} else if(name.equals("profmobius")) {
+				GL11.glScalef(1.25F, 1.25F, 1.25F);
+				GL11.glRotatef(180F, 0F, 0F, 1F);
+				GL11.glRotatef(90F, 0F, 1F, 0F);
+				GL11.glTranslatef(-0.5F, -1.2F, -0.4F);
+				renderIcon(Items.bread.getIconFromDamage(0));
+			} else if(name.equals("martysgames") || name.equals("marty")) {
+				GL11.glScalef(0.7F, 0.7F, 0.7F);
+				GL11.glRotatef(180F, 0F, 0F, 1F);
+				GL11.glTranslatef(-0.5F, -2.9F, -0.7F);
+				renderIcon(Items.golden_boots.getIconFromDamage(0));
+			} else if(name.equals("tromped")) {
+				GL11.glScalef(1.25F, 1.25F, 1.25F);
+				GL11.glRotatef(180F, 0F, 0F, 1F);
+				GL11.glRotatef(90F, 0F, 1F, 0F);
+				GL11.glTranslatef(-0.5F, -1.2F, -0.4F);
+				renderIcon(ModItems.cacophonium.getIconFromDamage(0));
+			} else if(name.equals("kain vinosec")) {
+				GL11.glScalef(1.25F, 1.25F, 1.25F);
+				GL11.glRotatef(180F, 0F, 0F, 1F);
+				GL11.glRotatef(90F, 0F, 1F, 0F);
+				GL11.glTranslatef(-0.3F, -1.5F, -0.4F);
+				renderIcon(ModItems.recordGaia1.getIconFromDamage(0));
+				GL11.glTranslatef(0F, 0F, 0.85F);
+				renderIcon(ModItems.recordGaia2.getIconFromDamage(0));
+			} else if(name.equals("mankrik")) {
+				GL11.glScalef(1.25F, 1.25F, 1.25F);
+				GL11.glRotatef(180F, 0F, 0F, 1F);
+				GL11.glTranslatef(-0.5F, -0.2F, -0.1F);
+				renderIcon(ModItems.cosmetic.getIconFromDamage(31));
+			} else if(name.equals("kurumi")) {
+				GL11.glScalef(0.4F, 0.4F, 0.4F);
+				GL11.glRotatef(180F, 0F, 0F, 1F);
+				GL11.glTranslatef(-0.9F, -2.5F, -1.3F);
+				renderIcon(ModItems.cosmetic.getIconFromDamage(17));
+			} else if(name.equals("ichun")) {
+				GL11.glScalef(1.25F, 1.25F, 1.25F);
+				GL11.glRotatef(180F, 0F, 0F, 1F);
+				GL11.glTranslatef(-0.5F, -1.2F, -0.4F);
+				renderIcon(ModItems.cosmetic.getIconFromDamage(15));
+			} else if(name.equals("wiiv") || name.equals("dylan4ever") || name.equals("dylankaiser")) {
+				GL11.glScalef(1.5F, 1.5F, 1.5F);
+				GL11.glRotatef(180F, 0F, 0F, 1F);
+				GL11.glRotatef(90F, 0F, 1F, 0F);
+				GL11.glTranslatef(-0.5F, -1.1F, -0.325F);
+				renderIcon(Items.painting.getIconFromDamage(0));
+			} else if(name.equals("jibril")) {
+				GL11.glScalef(1.5F, 1.5F, 1.5F);
+				GL11.glTranslatef(0F, 0.7F, 0F);
+				GL11.glRotatef(90F, 0F, 1F, 0F);
+				ItemFlightTiara.renderHalo(null, var8);
+			} else if(name.equals("nebris")) {
+				mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+				GL11.glRotatef(180F, 1F, 0F, 0F);
+				RenderBlocks.getInstance().renderBlockAsItem(Blocks.glowstone, 0, 1F);
+			} else if(name.equals("ible")) {
+				mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+				GL11.glScalef(1.2F, 1.2F, 1.2F);
+				GL11.glTranslatef(0F, 0.7F, 0F);
+				GL11.glRotatef(180F, 1F, 0F, 0F);
+				GL11.glEnable(GL11.GL_BLEND);
+				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+				RenderBlocks.getInstance().renderBlockAsItem(Blocks.portal, 0, 1F);
+			} else if(name.equals("razz") || name.equals("razzleberryfox")) {
+				GL11.glScalef(1.25F, 1.25F, 1.25F);
+				GL11.glRotatef(180F, 0F, 0F, 1F);
+				GL11.glRotatef(90F, 0F, 1F, 0F);
+				GL11.glTranslatef(-0.5F, -1F, 0.45F);
+				renderIcon(ModItems.cosmetic.getIconFromDamage(8));
+			} else if(name.equals("etho") || name.equals("ethoslab")) {
+				GL11.glScalef(1.25F, 1.25F, 1.25F);
+				GL11.glRotatef(180F, 0F, 0F, 1F);
+				GL11.glRotatef(90F, 0F, 1F, 0F);
+				GL11.glTranslatef(-0.5F, -1.2F, -0.4F);
+				renderIcon(Items.cookie.getIconFromDamage(0));
+			} else if(name.equals("sethbling")) {
+				mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+				GL11.glScalef(1.2F, 1.2F, 1.2F);
+				GL11.glTranslatef(0F, 0.9F, 0F);
+				GL11.glRotatef(180F, 1F, 0F, 0F);
+				RenderBlocks.getInstance().renderBlockAsItem(Blocks.command_block, 0, 1F);
+			} else if(name.equals("bdoubleo100") || name.equals("bdoubleo")) {
+				GL11.glScalef(1.25F, 1.25F, 1.25F);
+				GL11.glRotatef(180F, 0F, 0F, 1F);
+				GL11.glTranslatef(-1F, -1.1F, -0.1F);
+				renderIcon(Items.stick.getIconFromDamage(0));
+			} else if(ContributorFancinessHandler.flowerMap != null && ContributorFancinessHandler.flowerMap.containsKey(name)) {
+				IIcon icon = ContributorFancinessHandler.flowerMap.get(name);
+				if(icon != null) {
+					mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+					GL11.glRotatef(180F, 1F, 0F, 0F);
+					GL11.glTranslatef(-0.5F, -0.5F, 0F);	
+					ShaderHelper.useShader(ShaderHelper.gold);
+					renderIcon(icon);
+					ShaderHelper.releaseShader();
+				}
 			}
-		} else if(name.equals("skull kid")) {
-			GL11.glScalef(1.25F, 1.25F, 1.25F);
-			GL11.glRotatef(180F, 0F, 0F, 1F);
-			GL11.glTranslatef(-0.5F, -1.2F, -0.4F);
-			renderIcon(ModItems.cosmetic.getIconFromDamage(23));
-		} else if(name.equals("kamina")) {
-			GL11.glScalef(1.25F, 1.25F, 1.25F);
-			GL11.glRotatef(180F, 0F, 0F, 1F);
-			GL11.glTranslatef(-0.5F, -1.1F, -0.4F);
-			renderIcon(ModItems.cosmetic.getIconFromDamage(26));
-		} else if(name.equals("haighyorkie")) {
-			GL11.glScalef(1.25F, 1.25F, 1.25F);
-			GL11.glRotatef(180F, 0F, 0F, 1F);
-			GL11.glRotatef(90F, 0F, 1F, 0F);
-			GL11.glTranslatef(-0.5F, -1.2F, -0.4F);
-			renderIcon(((ItemManaResource) ModItems.manaResource).goldfishIcon);
-		} else if(name.equals("chitoge")) {
-			GL11.glScalef(1.25F, 1.25F, 1.25F);
-			GL11.glRotatef(180F, 0F, 0F, 1F);
-			GL11.glTranslatef(-0.5F, -0.7F, 0.1F);
-			renderIcon(ModItems.cosmetic.getIconFromDamage(7));
-		} else if(name.equals("direwolf20")) {
-			GL11.glRotatef(180F, 0F, 0F, 1F);
-			GL11.glTranslatef(-0.5F, -2.2F, -0.5F);
-			renderIcon(ModItems.cosmetic.getIconFromDamage(0));
-		} else if(name.equals("doctor")) {
-			GL11.glScalef(1.25F, 1.25F, 1.25F);
-			GL11.glRotatef(180F, 0F, 0F, 1F);
-			GL11.glTranslatef(-0.5F, -1.15F, -0.4F);
-			renderIcon(ModItems.cosmetic.getIconFromDamage(25));
-		} else if(name.equals("snoo")) {
-			GL11.glScalef(1.25F, 1.25F, 1.25F);
-			GL11.glRotatef(180F, 0F, 0F, 1F);
-			GL11.glTranslatef(-0.5F, -0.7F, 0.1F);
-			GL11.glRotatef(20F, 0F, 0F, 1F);
-			renderIcon(ModItems.cosmetic.getIconFromDamage(24));
-		} else if(name.equals("charlotte")) {
-			GL11.glScalef(1.25F, 1.25F, 1.25F);
-			GL11.glRotatef(180F, 0F, 0F, 1F);
-			GL11.glTranslatef(-0.5F, -1.2F, -0.4F);
-			renderIcon(ModItems.cosmetic.getIconFromDamage(12));
-		} else if(name.equals("greg") || name.equals("gregorioust")) {
-			GL11.glScalef(1.25F, 1.25F, 1.25F);
-			GL11.glRotatef(180F, 0F, 0F, 1F);
-			GL11.glRotatef(90F, 0F, 1F, 0F);
-			GL11.glTranslatef(-0.5F, -1.5F, -0.4F);
-			renderIcon(Items.book.getIconFromDamage(0));
 			
-			mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-			GL11.glTranslatef(0.5F, 0.5F, 0F);
-			GL11.glScalef(0.3F, 0.3F, 0.3F);
-			
-			RenderBlocks.getInstance().renderBlockAsItem(Blocks.iron_ore, 0, 1F);
-		} else if(name.equals("profmobius")) {
-			GL11.glScalef(1.25F, 1.25F, 1.25F);
-			GL11.glRotatef(180F, 0F, 0F, 1F);
-			GL11.glRotatef(90F, 0F, 1F, 0F);
-			GL11.glTranslatef(-0.5F, -1.2F, -0.4F);
-			renderIcon(Items.bread.getIconFromDamage(0));
-		} 
-		GL11.glPopMatrix();
+			GL11.glPopMatrix();
+		}
 
 		MinecraftForge.EVENT_BUS.post(new TinyPotatoRenderEvent(potato, potato.name, d0, d1, d2, var8));
 

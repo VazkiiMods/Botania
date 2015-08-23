@@ -463,18 +463,24 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	}
 
 	@SideOnly(Side.CLIENT)
-	private void renderHalo(EntityPlayer player, float partialTicks) {
+	public static void renderHalo(EntityPlayer player, float partialTicks) {
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GL11.glShadeModel(GL11.GL_SMOOTH);
 		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240, 240);
 		GL11.glDisable(GL11.GL_LIGHTING);
+		GL11.glDisable(GL11.GL_CULL_FACE);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(textureHalo);
 
-		Helper.translateToHeadLevel(player);
+		if(player != null)
+			Helper.translateToHeadLevel(player);
 		GL11.glRotated(30, 1, 0, -1);
 		GL11.glTranslatef(-0.1F, -0.5F, -0.1F);
-		GL11.glRotatef(player.ticksExisted + partialTicks, 0, 1, 0);
+		if(player != null)
+			GL11.glRotatef(player.ticksExisted + partialTicks, 0, 1, 0);
+		else GL11.glRotatef(Botania.proxy.getWorldElapsedTicks(), 0, 1, 0);
 
 		Tessellator tes = Tessellator.instance;
 		ShaderHelper.useShader(ShaderHelper.halo);
@@ -488,6 +494,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 
 		GL11.glEnable(GL11.GL_LIGHTING);
 		GL11.glShadeModel(GL11.GL_FLAT);
+		GL11.glEnable(GL11.GL_CULL_FACE);
 	}
 
 	@SideOnly(Side.CLIENT)

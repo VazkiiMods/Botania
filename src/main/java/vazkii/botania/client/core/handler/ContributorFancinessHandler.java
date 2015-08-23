@@ -39,17 +39,12 @@ import cpw.mods.fml.common.FMLLog;
 
 public final class ContributorFancinessHandler {
 
-	private volatile static Map<String, IIcon> flowerMap = null;
-	private static boolean startedLoading = false;
+	public volatile static Map<String, IIcon> flowerMap = null;
+	private volatile static boolean startedLoading = false;
 
 	private static boolean phi = true;
 
 	public static void render(RenderPlayerEvent.Specials event) {
-		if(!startedLoading) {
-			new ThreadContributorListLoader();
-			startedLoading = true;
-		}
-
 		String name = event.entityPlayer.getDisplayName();
 
 		if(name.equals("Vazkii") || name.equals("_phi")) {
@@ -62,6 +57,13 @@ public final class ContributorFancinessHandler {
 		name = name.toLowerCase();
 		if(Minecraft.getMinecraft().gameSettings.getOptionOrdinalValue(Options.SHOW_CAPE) && flowerMap != null && flowerMap.containsKey(name))
 			renderFlower(event, flowerMap.get(name));
+	}
+	
+	public static void firstStart() {
+		if(!startedLoading) {
+			new ThreadContributorListLoader();
+			startedLoading = true;
+		}
 	}
 
 	public static void load(Properties props) {
