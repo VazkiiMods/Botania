@@ -1552,10 +1552,10 @@ public final class ModCraftingRecipes {
 		// Pattern Recipes
 		{
 			int count = TileCraftCrate.PATTERNS.length;
-			List<Object> recipeObjects = Arrays.asList(
+			List<Object> recipeObjects = Arrays.asList(new Object[] {
 					'R', "dustRedstone",
 					'P', LibOreDict.PLACEHOLDER
-					);
+			});
 
 			for(int i = 0; i < count; i++) {
 				List<Object> recipe = new ArrayList();
@@ -1903,9 +1903,9 @@ public final class ModCraftingRecipes {
 		// Greater Ring of Magnetization Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.magnetRingGreater), LibOreDict.TERRA_STEEL, new ItemStack(ModItems.magnetRing));
 		recipeGreaterMagnetRing = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
+
 		// Storage Block/Nugget Recipes
 		addOreDictRecipe(new ItemStack(ModBlocks.storage, 1, 0),
 				"III", "III", "III",
