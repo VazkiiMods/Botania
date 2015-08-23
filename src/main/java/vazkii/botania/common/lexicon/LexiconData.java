@@ -1005,7 +1005,7 @@ public final class LexiconData {
 		challenges.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2")).setPriority().setIcon(new ItemStack(ModItems.cosmetic, 1, 31));
 
 		cacophonium = new BLexiconEntry(LibLexicon.MISC_CACOPHONIUM, categoryMisc);
-		cacophonium.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeCacophonium));
+		cacophonium.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeCacophonium), new PageText("2"));
 
 		if(Botania.bcTriggersLoaded) {
 			bcIntegration = new CLexiconEntry(LibLexicon.MISC_BC_INTEGRATION, categoryMisc, "BuildCraft");

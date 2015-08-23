@@ -135,6 +135,7 @@ botaniamisc.hideNotes=Hide Notes
 botaniamisc.showNotes=Show Notes
 botaniamisc.notes=Notes
 botaniamisc.pay2win=Upgrade your Mana Pool to infuse this item
+botaniamisc.justDoIt=DO IT
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
@@ -1011,6 +1012,7 @@ tile.botania:buriedPetals12.name=Buried Brown Petal
 tile.botania:buriedPetals13.name=Buried Green Petal
 tile.botania:buriedPetals14.name=Buried Red Petal
 tile.botania:buriedPetals15.name=Buried Black Petal
+tile.botania:cacophoniumBlock.name=Cacophonium Block
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
@@ -3005,6 +3007,7 @@ botania.page.challenges2=The challenges aren't obligatory in any way, and do not
 botania.entry.cacophonium=Cacophonium
 botania.page.cacophonium0=This interesting instrument, the &1Cacophonium&0, has the ability to mimic almost every living being's cries in nature, allowing for the "musician" to play them at will. Right clicking with it on an entity has the instrument learn its sound. It can then be played by holding right click.<br>Why anyone would ever want to make this, however, is beyond moral comprehension.
 botania.page.cacophonium1=Hibike! Cacophonium
+botania.page.cacophonium2=For maximum cacophony, the &1Cacophonium&0 can be shift-right clicked onto a &1Note Block&0, creating the ability to sound off animal or monster sounds on demand.<br>You monster.
 
 # -- THAUMCRAFT INTEGRATION
 botania.entry.tcIntegration=Thaumcraft Integration
