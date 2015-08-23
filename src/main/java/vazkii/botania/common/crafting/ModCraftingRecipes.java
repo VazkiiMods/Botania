@@ -859,7 +859,7 @@ public final class ModCraftingRecipes {
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.quartz, 8, 3),
 				"QQQ", "QCQ", "QQQ",
 				'Q', "gemQuartz",
-				'C', new ItemStack(Blocks.double_plant, 1, 1));
+				'C', new ItemStack(Blocks.double_plant, 1, 1)));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.quartz, 8, 3),
 				"QQQ", "QCQ", "QQQ",
 				'Q', "gemQuartz",
@@ -1220,7 +1220,7 @@ public final class ModCraftingRecipes {
 		recipeRoofTile = BotaniaAPI.getLatestAddedRecipe();
 
 		// Azulejo Recipe
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModBlocks.customBrick, 1, 4), new ItemStack(Items.dye, 1, 4), "blockQuartz"));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModBlocks.customBrick, 1, 4), "gemLapis", "blockQuartz"));
 		recipeAzulejo = BotaniaAPI.getLatestAddedRecipe();
 
 		// Azulejo Cycling Recipes
