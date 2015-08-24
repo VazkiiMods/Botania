@@ -279,6 +279,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeStarSword;
 	public static IRecipe recipeExchangeRod;
 	public static IRecipe recipeGreaterMagnetRing;
+	public static IRecipe recipeShadowRod;
 
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;
@@ -1901,6 +1902,15 @@ public final class ModCraftingRecipes {
 				'S', "stone",
 				'R', LibOreDict.RUNE[12]);
 		recipeExchangeRod = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Rod of the Corrupted Shadow Recipe
+		addOreDictRecipe(new ItemStack(ModItems.shadowRod),
+				" DI", " TD", "G  ",
+				'T', LibOreDict.DREAMWOOD_TWIG,
+				'D', LibOreDict.DRAGONSTONE,
+				'I', LibOreDict.GAIA_INGOT,
+				'G', LibOreDict.LIFE_ESSENCE);
+		recipeShadowRod = BotaniaAPI.getLatestAddedRecipe();
 
 		// Greater Ring of Magnetization Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.magnetRingGreater), LibOreDict.TERRA_STEEL, new ItemStack(ModItems.magnetRing));
