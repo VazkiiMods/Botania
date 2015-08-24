@@ -399,6 +399,7 @@ entity.Botania.botania:playerMover.name=Luminizer Beam
 entity.Botania.botania:manaStorm.name=Manastorm Epicenter
 entity.Botania.botania:babylonWeapon.name=Treasury Weapon
 entity.Botania.botania:fallingStar.name=Falling Star
+entity.Botania.botania:shadowBeam.name=Shadow Beam
 
 # ACHIEVEMENT NAMES + DESC
 achievement.botania:flowerPickup=Sky of Beginning
@@ -1435,6 +1436,7 @@ item.botania:slimeBottle.name=Slime in a Bottle
 item.botania:starSword.name=Starcaller
 item.botania:exchangeRod.name=Rod of the Shifting Crust
 item.botania:magnetRingGreater.name=Greater Ring of Magnetization
+item.botania:shadowRod.name=Rod of the Umbral Crevice
 
 # BREW NAMES
 botania.brew.fallback=Fallback
@@ -2480,6 +2482,12 @@ botania.page.exchangeRod0=&1Rod of the Shifting Crust&0 is a magical device with
 botania.page.exchangeRod1=Right clicking on a block in the world will start a larger transformation, which will swap all highlighted blocks into the one selected. Obviously, these blocks do come from the user's inventory as well. Only proper, full size blocks can be used for this swap, so no flowers, torches or other shenenigans of the sort. Using this power does, naturally, require &4Mana&0 from the user's inventory.
 botania.page.exchangeRod2=Other rods or devices can be used to extend the power of the &1Rod of the Shifting Crust&0.<br>For example, having a &1Rod of the Lands&0 in one's inventory provides the &1Rod of the Shifting Crust&0 with an endless supply of &1Dirt&0, assuming the &4Mana&0 cost for the &1Rod of the Lands&0' dirt conjuration is fulfiled.
 botania.page.exchangeRod3=Bootlegged equal trade
+
+# -- ROD OF THE UMBRAL CREVICE
+botania.entry.shadowRod=Rod of the Umbral Crevice
+botania.page.shadowRod0=&1Dragonstone&0 is quite the odd substance - it seems to leak magic at its metaphysical "edges". By colliding it with a material that absorbs large amounts of magic, namely the &1Terrasteel Ingot&0, one can create a large amount of raw primal energy.<br>By fashioning such an apparatus into a rod, one can direct this energy to their desire in the form of a beam.
+botania.page.shadowRod1=The beam fired by this rod will travel in a straight line until it strikes a solid surface, at which point it will deflect similarly to a ray of light off a mirror.<br>Naturally, such power does not come without a hefty cost. The rod will consume a good bit of &4Mana&0 from the user's inventory while it's firing.
+botania.page.shadowRod2=Not necromancy
 
 # - ENDER ARTEFACTS
 # -- EXTRACTING ENDER AIR

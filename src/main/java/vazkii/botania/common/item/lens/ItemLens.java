@@ -319,6 +319,6 @@ public class ItemLens extends ItemMod implements ILens, ITinyPlanetExcempt {
 
 	@Override
 	public boolean shouldPull(ItemStack stack) {
-		return stack.getItemDamage() != STORM;
+		return stack.getItemDamage() < 5000;
 	}
 }

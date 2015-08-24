@@ -196,6 +196,7 @@ public final class LexiconData {
 	public static LexiconEntry obedienceStick;
 	public static LexiconEntry slimeBottle;
 	public static LexiconEntry exchangeRod;
+	public static LexiconEntry shadowRod;
 
 	public static LexiconEntry enderAir;
 	public static LexiconEntry enderEyeBlock;
@@ -758,6 +759,9 @@ public final class LexiconData {
 
 		exchangeRod = new BLexiconEntry(LibLexicon.TOOL_EXCHANGE_ROD, categoryTools);
 		exchangeRod.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipeExchangeRod));
+		
+		shadowRod = new ALexiconEntry(LibLexicon.TOOL_SHADOW_ROD, categoryTools);
+		shadowRod.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeShadowRod));
 		
 		// ENDER ENTRIES
 		enderAir = new BLexiconEntry(LibLexicon.ENDER_AIR, categoryEnder);
