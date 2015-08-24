@@ -29,6 +29,7 @@
 	"potionCreate": { "category": "block", "sounds":["potionCreate"] },
 	"runeAltarCraft": { "category": "block", "sounds":["runeAltarCraft"] },
 	"runeAltarStart": { "category": "block", "sounds":["runeAltarStart"] },
+	"shadowBeam": {"category": "player", "sounds":["shadowBeam"] },
 	"spreaderFire": { "category": "block", "sounds":["spreaderFire"] },
 	"starcaller": { "category": "player", "sounds":["starcaller"] },
 	"terraBlade": { "category": "player", "sounds":["terraBlade"] },

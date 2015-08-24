@@ -151,6 +151,7 @@ public final class LibItemNames {
 	public static final String STAR_SWORD = "starSword";
 	public static final String EXCHANGE_ROD = "exchangeRod";
 	public static final String MAGNET_RING_GREATER = "magnetRingGreater";
+	public static final String SHADOW_ROD = "shadowRod";
 
 	public static final String[] LENS_NAMES = new String[] {
 		"lensNormal",
