@@ -24,19 +24,22 @@ import vazkii.botania.client.challenge.ModChallenges;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 import vazkii.botania.client.gui.lexicon.GuiLexiconEntry;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 
 public final class PresistantVariableHelper {
 
+	private static final String TAG_FIRST_LOAD = "firstLoad";
 	private static final String TAG_BOOKMARK_COUNT = "bookmarkCount";
 	private static final String TAG_BOOKMARK_PREFIX = "bookmark";
 	private static final String TAG_BOOKMARKS = "bookmarks";
 	private static final String TAG_CHALLENGES = "challenges";
 	private static final String TAG_LEXICON_NOTES = "lexiconNotes";
-	private static final String TAG_FIRST_LOAD = "firstLoad";
+	private static final String TAG_LAST_BOTANIA_VERSION = "lastBotaniaVersion";
 
 	private static File cacheFile;
 
 	public static boolean firstLoad = true;
+	public static String lastBotaniaVersion = "";
 
 	public static void save() throws IOException {
 		NBTTagCompound cmp = new NBTTagCompound();
@@ -67,6 +70,7 @@ public final class PresistantVariableHelper {
 		cmp.setTag(TAG_LEXICON_NOTES, notesCmp);
 
 		cmp.setBoolean(TAG_FIRST_LOAD, firstLoad);
+		cmp.setString(TAG_LAST_BOTANIA_VERSION, lastBotaniaVersion);
 
 		injectNBTToFile(cmp, getCacheFile());
 	}
@@ -99,10 +103,14 @@ public final class PresistantVariableHelper {
 			for(String key : keys)
 				GuiLexicon.notes.put(key, notesCmp.getString(key));
 		}
-
+		
+		lastBotaniaVersion = cmp.hasKey(TAG_LAST_BOTANIA_VERSION) ? cmp.getString(TAG_LAST_BOTANIA_VERSION) : "(N/A)";
+ 
 		firstLoad = cmp.hasKey(TAG_FIRST_LOAD) ? cmp.getBoolean(TAG_FIRST_LOAD) : firstLoad;
-		if(firstLoad)
+		if(firstLoad) {
 			GuiLexicon.currentOpenLexicon = new GuiLexiconEntry(LexiconData.welcome, new GuiLexicon());
+			lastBotaniaVersion = LibMisc.VERSION;
+		}
 	}
 
 	public static void saveSafe() {

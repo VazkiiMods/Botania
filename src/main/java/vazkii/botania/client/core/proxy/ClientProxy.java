@@ -207,6 +207,7 @@ public class ClientProxy extends CommonProxy {
 
 		try {
 			PresistantVariableHelper.load();
+			PresistantVariableHelper.save();
 		} catch (IOException e) {
 			FMLLog.severe("Botania's Presistant Variables couldn't load!");
 			e.printStackTrace();

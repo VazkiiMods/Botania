@@ -136,6 +136,12 @@ botaniamisc.showNotes=Show Notes
 botaniamisc.notes=Notes
 botaniamisc.pay2win=Upgrade your Mana Pool to infuse this item
 botaniamisc.justDoIt=DO IT
+botaniamisc.changes0=&aBotania&7 has changed since you last used it in this instance!
+botaniamisc.changes1=The last version of &aBotania&7 you used was &b%s&7.
+botaniamisc.changes2=Things change, don't panic. If something seems off, read the entry again.
+botaniamisc.changes3=&oEveryone is afraid of change, yet change is the force that moves us forward.
+botaniamisc.changes4=&fShift-Left Click&7 to read the changes since then
+botaniamisc.changes5=&fLeft Click&7 to dismiss this
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery

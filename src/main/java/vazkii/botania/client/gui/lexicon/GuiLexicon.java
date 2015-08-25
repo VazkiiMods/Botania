@@ -10,6 +10,10 @@
  */
 package vazkii.botania.client.gui.lexicon;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,11 +55,13 @@ import vazkii.botania.client.gui.lexicon.button.GuiButtonHistory;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonInvisible;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonNotes;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonOptions;
+import vazkii.botania.client.gui.lexicon.button.GuiButtonUpdateWarning;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.SheddingHandler;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lexicon.page.PageText;
+import vazkii.botania.common.lib.LibMisc;
 
 public class GuiLexicon extends GuiScreen {
 
@@ -157,6 +163,13 @@ public class GuiLexicon extends GuiScreen {
 			buttonList.add(new GuiButtonOptions(-1, left - 6, top + 13));
 			buttonList.add(new GuiButtonAchievement(-2, left - 6, top + 26));
 			buttonList.add(new GuiButtonChallenges(-3, left - 6, top + 40));
+
+			GuiButtonUpdateWarning button = new GuiButtonUpdateWarning(-4, left - 6, top + 60); 
+			buttonList.add(button);
+			if(PresistantVariableHelper.lastBotaniaVersion.equals(LibMisc.VERSION)) {
+				button.enabled = false;
+				button.visible = false;
+			}
 		}
 		buttonList.add(new GuiButtonNotes(this, NOTES_BUTTON_ID, left - 4, top - 4));
 	}
@@ -207,7 +220,7 @@ public class GuiLexicon extends GuiScreen {
 			GL11.glColor4f(1F, 1F, 1F, 1F);
 			mc.renderEngine.bindTexture(texture);
 			drawTexturedModalRect(left - 19, top + 42, 67, 180, 19, 26);
-			if(par1 >= left - 19 && par1 < left && par2 >= top + 42 && par2 < top + 68) {
+			if(par1 >= left - 19 && par1 < left && par2 >= top + 62 && par2 < top + 88) {
 				mc.renderEngine.bindTexture(textureToff);
 				GL11.glPushMatrix();
 				GL11.glScalef(0.5F, 0.5F, 0.5F);
@@ -325,14 +338,36 @@ public class GuiLexicon extends GuiScreen {
 
 			mc.displayGuiScreen(new GuiLexiconIndex(category));
 			ClientTickHandler.notifyPageChange();
-		} else if(par1GuiButton.id ==  -1)
+		} else switch(par1GuiButton.id) {
+		case -1 :
 			mc.displayGuiScreen(new GuiBotaniaConfig(this));
-		else if(par1GuiButton.id == -2)
+			break;
+		case -2 :
 			mc.displayGuiScreen(new GuiAchievementsHacky(this, mc.thePlayer.getStatFileWriter()));
-		else if(par1GuiButton.id == -3)
+			break;
+		case -3 : 
 			mc.displayGuiScreen(new GuiLexiconChallengesList());
-		else if(par1GuiButton.id == NOTES_BUTTON_ID)
+			break;
+		case -4 : 
+			if(isShiftKeyDown()) {
+				try {
+					if(Desktop.isDesktopSupported())
+						Desktop.getDesktop().browse(new URI("http://botaniamod.net/changelog.php#" + PresistantVariableHelper.lastBotaniaVersion.replaceAll("\\.|\\s", "-")));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else {
+				PresistantVariableHelper.lastBotaniaVersion = LibMisc.VERSION;
+				PresistantVariableHelper.saveSafe();
+				par1GuiButton.visible = false;
+				par1GuiButton.enabled = false;
+			}
+
+			break;
+		case NOTES_BUTTON_ID : 
 			notesEnabled = !notesEnabled;
+			break;
+		}
 	}
 
 	public void handleBookmark(GuiButton par1GuiButton) {
