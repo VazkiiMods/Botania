@@ -1,3 +1,10 @@
+r1.7 214
+*Added a little bar to the Flugel Tiara's flight HUD that shows the dash cooldown.
+*Added a notification to the lexicon's main page when the mod updates to let you know things have changed and not to panic if something doesn't work as it used to.
+*Added support for the 1.8 Banners backported by Et Futurum by adding 15 new banner icons. They're documented in the Misc part of the book if you have Et Futurum installed (which you should!).
+*Lowered goldfish.
+*Lowered the Gaia Guardian's arena player search diameter to 31 blocks (from 65)
+*The Orechid is now more expensive in Garden of Glass to prevent it from being used to infinitely generate ores and mana using the Coal it produces without an external mana supply.
 r1.7 213
 *Added a config option to disable the 1.9 ender blocks for if you're using Et Futurum.
 *Added the ability to use a Cacophonium on a Note Block to make a Cacophonium Block.
