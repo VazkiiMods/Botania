@@ -13,8 +13,10 @@ package vazkii.botania.common.lexicon;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.IBrewContainer;
@@ -275,6 +277,7 @@ public final class LexiconData {
 	public static LexiconEntry cacophonium;
 	public static LexiconEntry tcIntegration;
 	public static LexiconEntry bcIntegration;
+	public static LexiconEntry banners;
 
 	public static void init() {
 		BotaniaAPI.addCategory(BotaniaAPI.categoryBasics = new BLexiconCategory(LibLexicon.CATEGORY_BASICS, 9));
@@ -1025,6 +1028,11 @@ public final class LexiconData {
 		if(Botania.thaumcraftLoaded) {
 			tcIntegration = new CLexiconEntry(LibLexicon.MISC_TC_INTEGRATION, BotaniaAPI.categoryMisc, "Thaumcraft");
 			tcIntegration.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeHelmetOfRevealing), new PageText("3"), new PageManaInfusionRecipe("4", ModManaInfusionRecipes.manaInkwellRecipe), new PageText("5"), new PageBrew(ModBrewRecipes.warpWardBrew, "6a", "6b")).setIcon(new ItemStack(ModItems.manaInkwell));
+		}
+		
+		if(Botania.etFuturumLoaded) {
+			banners = new CLexiconEntry(LibLexicon.MISC_BANNERS, BotaniaAPI.categoryMisc, "EtFuturum");
+			banners.setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_BANNERS)).setIcon(new ItemStack(ModItems.lexicon));
 		}
 	}
 }

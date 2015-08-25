@@ -59,6 +59,7 @@ public final class LibResources {
 	public static final String ENTRY_CRAFT_CRATE = PREFIX_ENTRIES + "craftCrate.png";
 	public static final String ENTRY_AZULEJOS = PREFIX_ENTRIES + "azulejos.png";
 	public static final String ENTRY_METAMORPHIC_STONES = PREFIX_ENTRIES + "metamorphicStones.png";
+	public static final String ENTRY_BANNERS = PREFIX_ENTRIES + "banners.png";
 
 	public static final String MODEL_ALTAR = PREFIX_MODEL + "altar.png";
 	public static final String MODEL_ALTAR_META = PREFIX_MODEL + "altarMeta%d.png";

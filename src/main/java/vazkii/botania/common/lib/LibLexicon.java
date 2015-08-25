@@ -244,6 +244,7 @@ public final class LibLexicon {
 	public static final String MISC_CACOPHONIUM = "cacophonium";
 	public static final String MISC_TC_INTEGRATION = "tcIntegration";
 	public static final String MISC_BC_INTEGRATION = "bcIntegration";
+	public static final String MISC_BANNERS = "banners";
 
 }
 
