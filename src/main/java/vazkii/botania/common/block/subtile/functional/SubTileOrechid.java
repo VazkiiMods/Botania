@@ -33,7 +33,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 public class SubTileOrechid extends SubTileFunctional {
 
 	private static final int COST = 17500;
-	private static final int COST_GOG = 250;
+	private static final int COST_GOG = 700;
 	private static final int DELAY = 100;
 	private static final int DELAY_GOG = 2;
 	private static final int RANGE = 5;
