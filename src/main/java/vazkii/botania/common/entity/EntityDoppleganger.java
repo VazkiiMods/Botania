@@ -429,7 +429,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 	public List<EntityPlayer> getPlayersAround() {
 		ChunkCoordinates source = getSource();
-		float range = 32F;
+		float range = 15F;
 		List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(source.posX + 0.5 - range, source.posY + 0.5 - range, source.posZ + 0.5 - range, source.posX + 0.5 + range, source.posY + 0.5 + range, source.posZ + 0.5 + range));
 		return players;
 	}
@@ -460,7 +460,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 		ChunkCoordinates source = getSource();
 		boolean hard = isHardMode();
-		float range = 32F;
+		float range = 15F;
 		List<EntityPlayer> players = getPlayersAround();
 		int playerCount = getPlayerCount();
 
