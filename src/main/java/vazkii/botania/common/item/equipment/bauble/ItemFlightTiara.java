@@ -504,7 +504,8 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 
 		Minecraft mc = Minecraft.getMinecraft();
 		mc.renderEngine.bindTexture(textureHud);
-		int x = resolution.getScaledWidth() / 2 + 10;
+		int xo = resolution.getScaledWidth() / 2 + 10;
+		int x = xo;
 		int y = resolution.getScaledHeight() - 49;
 		if(player.getAir() < 300)
 			y -= 10;
@@ -528,6 +529,15 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 			RenderHelper.drawTexturedModalRect(x, y, 0, u, v, 9, 9);
 			x += 8;
 		}
+
+		if(player.capabilities.isFlying) {
+			int width = ItemNBTHelper.getInt(stack, TAG_DASH_COOLDOWN, 0);
+			GL11.glColor4f(1F, 1F, 1F, 1F);
+			if(width > 0)
+				Gui.drawRect(xo, y - 2, xo + 80, y - 1, 0x88000000);
+			Gui.drawRect(xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
+		}
+
 		GL11.glEnable(GL11.GL_ALPHA_TEST);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		mc.renderEngine.bindTexture(Gui.icons);
