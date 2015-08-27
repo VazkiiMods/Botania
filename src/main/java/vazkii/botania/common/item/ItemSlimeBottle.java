@@ -43,13 +43,15 @@ public class ItemSlimeBottle extends ItemMod {
 
 	@Override
 	public void onUpdate(ItemStack stack, World world, Entity entity, int something, boolean somethingelse) {
-		int x = MathHelper.floor_double(entity.posX);
-		int z = MathHelper.floor_double(entity.posZ);
-		boolean slime = SubTileNarslimmus.SpawnIntercepter.isSlimeChunk(world, x, z);
-		int meta = stack.getItemDamage();
-		int newMeta = slime ? 1 : 0;
-		if(meta != newMeta)
-			stack.setItemDamage(newMeta);
+		if(!world.isRemote) {
+			int x = MathHelper.floor_double(entity.posX);
+			int z = MathHelper.floor_double(entity.posZ);
+			boolean slime = SubTileNarslimmus.SpawnIntercepter.isSlimeChunk(world, x, z);
+			int meta = stack.getItemDamage();
+			int newMeta = slime ? 1 : 0;
+			if(meta != newMeta)
+				stack.setItemDamage(newMeta);
+		}
 	}
 
 }
