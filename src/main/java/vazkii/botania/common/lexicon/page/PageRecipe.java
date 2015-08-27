@@ -99,7 +99,7 @@ public class PageRecipe extends LexiconPage {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void renderItemAtAngle(IGuiLexiconEntry gui, int angle, ItemStack stack) {
+	public void renderItemAtAngle(IGuiLexiconEntry gui, float angle, ItemStack stack) {
 		if(stack == null || stack.getItem() == null)
 			return;
 
@@ -113,7 +113,7 @@ public class PageRecipe extends LexiconPage {
 		double xPos = gui.getLeft() + Math.cos(angle * Math.PI / 180D) * radius + gui.getWidth() / 2 - 8;
 		double yPos = gui.getTop() + Math.sin(angle * Math.PI / 180D) * radius + 53;
 
-		renderItem(gui, (int) xPos, (int) yPos, workStack, false);
+		renderItem(gui, xPos, yPos, workStack, false);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -135,7 +135,7 @@ public class PageRecipe extends LexiconPage {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void renderItem(IGuiLexiconEntry gui, int xPos, int yPos, ItemStack stack, boolean accountForContainer) {
+	public void renderItem(IGuiLexiconEntry gui, double xPos, double yPos, ItemStack stack, boolean accountForContainer) {
 		RenderItem render = new RenderItem();
 		boolean mouseDown = Mouse.isButtonDown(0);
 
@@ -145,12 +145,17 @@ public class PageRecipe extends LexiconPage {
 		RenderHelper.enableGUIStandardItemLighting();
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
-		render.renderItemAndEffectIntoGUI(Minecraft.getMinecraft().fontRenderer, Minecraft.getMinecraft().getTextureManager(), stack, xPos, yPos);
-		render.renderItemOverlayIntoGUI(Minecraft.getMinecraft().fontRenderer, Minecraft.getMinecraft().getTextureManager(), stack, xPos, yPos);
+		GL11.glPushMatrix();
+		GL11.glTranslated(xPos, yPos, 0);
+		render.renderItemAndEffectIntoGUI(Minecraft.getMinecraft().fontRenderer, Minecraft.getMinecraft().getTextureManager(), stack, 0, 0);
+		render.renderItemOverlayIntoGUI(Minecraft.getMinecraft().fontRenderer, Minecraft.getMinecraft().getTextureManager(), stack, 0, 0);
+		GL11.glPopMatrix();
 		RenderHelper.disableStandardItemLighting();
 		GL11.glPopMatrix();
 
-		if(relativeMouseX >= xPos && relativeMouseY >= yPos && relativeMouseX <= xPos + 16 && relativeMouseY <= yPos + 16) {
+		int xpi = (int) xPos;
+		int ypi = (int) yPos;
+		if(relativeMouseX >= xpi && relativeMouseY >= ypi && relativeMouseX <= xpi + 16 && relativeMouseY <= ypi + 16) {
 			tooltipStack = stack;
 
 			EntryData data = LexiconRecipeMappings.getDataForStack(tooltipStack);

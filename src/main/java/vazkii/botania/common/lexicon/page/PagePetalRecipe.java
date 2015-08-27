@@ -67,7 +67,7 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 
 		List<Object> inputs = recipe.getInputs();
 		int degreePerInput = (int) (360F / inputs.size());
-		int currentDegree = ConfigHandler.lexiconRotatingItems ? (int) ClientTickHandler.ticksInGame : 0;
+		float currentDegree = ConfigHandler.lexiconRotatingItems ? (float) (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) : 0;
 
 		for(Object obj : inputs) {
 			Object input = obj;
