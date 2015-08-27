@@ -3,6 +3,7 @@ package vazkii.botania.common.crafting;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
@@ -34,6 +35,12 @@ public class ModElvenTradeRecipes {
 
 		elvenQuartzRecipe = BotaniaAPI.registerElvenTradeRecipe(new ItemStack(ModItems.quartz, 1, 5), new ItemStack(Items.quartz));
 		alfglassRecipe = BotaniaAPI.registerElvenTradeRecipe(new ItemStack(ModBlocks.elfGlass), new ItemStack(ModBlocks.manaGlass));
+		
+		BotaniaAPI.registerElvenTradeRecipe(new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot));
+		BotaniaAPI.registerElvenTradeRecipe(new ItemStack(Blocks.iron_block), new ItemStack(Blocks.iron_block));
+		BotaniaAPI.registerElvenTradeRecipe(new ItemStack(Items.ender_pearl), new ItemStack(Items.ender_pearl));
+		BotaniaAPI.registerElvenTradeRecipe(new ItemStack(Items.diamond), new ItemStack(Items.diamond));
+		BotaniaAPI.registerElvenTradeRecipe(new ItemStack(Blocks.diamond_block), new ItemStack(Blocks.diamond_block));
 	}
 
 }
