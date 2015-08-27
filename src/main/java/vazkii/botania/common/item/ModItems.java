@@ -61,6 +61,7 @@ import vazkii.botania.common.item.equipment.bauble.ItemWaterRing;
 import vazkii.botania.common.item.equipment.tool.ItemEnderDagger;
 import vazkii.botania.common.item.equipment.tool.ItemGlassPick;
 import vazkii.botania.common.item.equipment.tool.ItemStarSword;
+import vazkii.botania.common.item.equipment.tool.ItemThunderSword;
 import vazkii.botania.common.item.equipment.tool.bow.ItemCrystalBow;
 import vazkii.botania.common.item.equipment.tool.bow.ItemLivingwoodBow;
 import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumAxe;
@@ -253,7 +254,8 @@ public final class ModItems {
 	public static Item starSword;
 	public static Item exchangeRod;
 	public static Item magnetRingGreater;
-	
+	public static Item thunderSword;
+
 	public static void init() {
 		lexicon = new ItemLexicon();
 		petal = new ItemPetal();
@@ -393,7 +395,8 @@ public final class ModItems {
 		starSword = new ItemStarSword();
 		exchangeRod = new ItemExchangeRod();
 		magnetRingGreater = new ItemGreaterMagnetRing();
-
+		thunderSword = new ItemThunderSword();
+		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));

@@ -280,7 +280,8 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeExchangeRod;
 	public static IRecipe recipeGreaterMagnetRing;
 	public static IRecipe recipeFireChakram;
-
+	public static IRecipe recipeThunderSword;
+	
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;
 	public static IRecipe recipeRootToFertilizer;
@@ -1914,6 +1915,15 @@ public final class ModCraftingRecipes {
 				'P', LibOreDict.PIXIE_DUST,
 				'C', new ItemStack(ModItems.thornChakram));
 		recipeFireChakram = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Thundercaller Recipe
+		addOreDictRecipe(new ItemStack(ModItems.thunderSword),
+				"  I", "AD ", "TA ",
+				'I', LibOreDict.ELEMENTIUM,
+				'D', LibOreDict.MANA_DIAMOND,
+				'A', LibOreDict.ENDER_AIR_BOTTLE,
+				'T', new ItemStack(ModItems.terraSword));
+		recipeThunderSword = BotaniaAPI.getLatestAddedRecipe();		
 		
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////
 

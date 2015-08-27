@@ -217,6 +217,7 @@ public final class LexiconData {
 	public static LexiconEntry corporeaCrystalCube;
 	public static LexiconEntry luminizerTransport;
 	public static LexiconEntry starSword;
+	public static LexiconEntry thunderSword;
 
 	public static LexiconEntry baublesIntro;
 	public static LexiconEntry cosmeticBaubles;
@@ -830,6 +831,9 @@ public final class LexiconData {
 		starSword = new ALexiconEntry(LibLexicon.ENDER_STAR_SWORD, categoryEnder);
 		starSword.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeStarSword));
 
+		thunderSword = new ALexiconEntry(LibLexicon.ENDER_THUNDER_SWORD, categoryEnder);
+		thunderSword.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeThunderSword));
+		
 		// BAUBLES ENTRIES
 		baublesIntro = new BLexiconEntry(LibLexicon.BAUBLE_INTRO, categoryBaubles);
 		baublesIntro.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_BAUBLES), new PageText("2"));

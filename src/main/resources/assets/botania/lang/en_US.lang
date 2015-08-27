@@ -1442,6 +1442,7 @@ item.botania:slimeBottle.name=Slime in a Bottle
 item.botania:starSword.name=Starcaller
 item.botania:exchangeRod.name=Rod of the Shifting Crust
 item.botania:magnetRingGreater.name=Greater Ring of Magnetization
+item.botania:thunderSword.name=Thundercaller
 
 # BREW NAMES
 botania.brew.fallback=Fallback
@@ -2892,6 +2893,11 @@ botania.page.luminizerTransport6=Let's believe it, open the flag
 botania.entry.starSword=Starcaller
 botania.page.starSword0=The &1Starcaller&0 is a blade with the power to call upon the wrath of the stars, when swung, there's a chance for the blade to summon a falling star heading towards where the wielder is looking, this star will deal damage upon impact with any entities. Creating this sword proves to be no easy task, as it requires &1Ender Air&0 and a &1Terra Blade&0. Keep in mind that the process does wipe the enchantments on the sword used.
 botania.page.starSword1=Caller, fury, whatever...
+
+# -- THUNDERCALLER
+botania.entry.thunderSword=Thundercaller
+botania.page.thunderSword0=The &1Thundercaller&0 is a dual pronged sword with the ability to conjure lightning. Created using a &1Terra Blade&0, &1Ender Air&0 and some other materials, the &1Thundercaller&0 scarifices the power of long range attacks to be able to zap multiple targets.<br>Attacks initiated with the &1Thundercaller&0 invoke upon chain lightning that homes on nearby hostile mobs, dealing decreasing damage per hit.
+botania.page.thunderSword1=Blessed Blade of the Trade Chat
 
 # - BAUBLES AND ACCESSORIES
 # -- AN INTRODUCTION TO BAUBLES
