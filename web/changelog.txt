@@ -1,3 +1,14 @@
+r1.7 215
+*Added the Flare Chakram, a fire version of the Thorn Chakram.
+*Added the Thundercaller, a new Terra Blade sidegrade that calls upon chain lightning.
+*Botania slab recipes are now revertable.
+*Changed the way the gaia guardian counts players to try to fix the bug where it would scale for more players than those present.
+*Fixed the Slime in a Bottle not detecting slime chunks properly as it was ticking in the client where it doesn't know the world seed.
+*Petal and Rune recipe pages now animate a lot smoother.
+*Pixies (friendly and hostile) are now forced to despawn if they exist for more than 10 seconds.
+*The Head Creation page now links to the <a href="http://heads.freshcoal.com/usernames.php">player head database</a> to give you ideas on what cool stuff you can do with heads.
+*The high council of Elven Garde, after having received countless unintended "gifts" of unenchanted Iron Ingots, Diamonds and Ender Pearls from unskilled skim-reading botanists are now returning those back to the senders.
+*Tweaked the Elven Portal's render a bit. The lighting on it doesn't spazz out and it renders properly when you're in it now.
 r1.7 214
 *Added a little bar to the Flugel Tiara's flight HUD that shows the dash cooldown.
 *Added a notification to the lexicon's main page when the mod updates to let you know things have changed and not to panic if something doesn't work as it used to.
