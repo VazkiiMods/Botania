@@ -2069,6 +2069,9 @@ public final class ModCraftingRecipes {
 		GameRegistry.addRecipe(new ItemStack(stairs, 4),
 				"Q  ", "QQ ", "QQQ",
 				'Q', new ItemStack(block, 1, meta));
+		GameRegistry.addRecipe(new ItemStack(block, 1, meta),
+				"Q", "Q",
+				'Q', new ItemStack(slab));
 	}
 
 	private static void addWall(Block block, int blockMeta, Block wall, int wallMeta) {
