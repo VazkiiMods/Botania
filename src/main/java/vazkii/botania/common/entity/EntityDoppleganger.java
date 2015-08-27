@@ -169,7 +169,12 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			e.setMobSpawnTicks(MOB_SPAWN_TICKS);
 			e.setHardMode(hard);
 
-			int playerCount = e.getPlayersAround().size();
+			List<EntityPlayer> players = e.getPlayersAround();
+			int playerCount = 0;
+			for(EntityPlayer p : players)
+				if(isTruePlayer(p))
+					playerCount++;
+			
 			e.setPlayerCount(playerCount);
 			e.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.maxHealth).setBaseValue(MAX_HP * playerCount);
 
