@@ -33,5 +33,6 @@ public final class LibEntityNames {
 	public static final String MANA_STORM = LibResources.PREFIX_MOD + "manaStorm";
 	public static final String BABYLON_WEAPON = LibResources.PREFIX_MOD + "babylonWeapon";
 	public static final String FALLING_STAR = LibResources.PREFIX_MOD + "fallingStar";
+	public static final String SHADOW_BEAM = LibResources.PREFIX_MOD + "shadowBeam";
 
 }

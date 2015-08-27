@@ -39,6 +39,7 @@ public final class ModEntities {
 		EntityRegistry.registerModEntity(EntityManaStorm.class, LibEntityNames.MANA_STORM, id++, Botania.instance, 64, 10, false);
 		EntityRegistry.registerModEntity(EntityBabylonWeapon.class, LibEntityNames.BABYLON_WEAPON, id++, Botania.instance, 64, 10, true);
 		EntityRegistry.registerModEntity(EntityFallingStar.class, LibEntityNames.FALLING_STAR, id++, Botania.instance, 64, 10, true);
+		EntityRegistry.registerModEntity(EntityShadowBeam.class, LibEntityNames.SHADOW_BEAM, id++, Botania.instance, 64, 10, true);
 	}
 
 }
