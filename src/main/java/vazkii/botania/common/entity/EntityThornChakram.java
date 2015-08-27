@@ -41,7 +41,10 @@ public class EntityThornChakram extends EntityThrowable {
 	@Override
 	protected void entityInit() {
 		dataWatcher.addObject(30, 0);
+		dataWatcher.addObject(31, (byte) 0);
+		
 		dataWatcher.setObjectWatched(30);
+		dataWatcher.setObjectWatched(31);
 	}
 
 	@Override
@@ -51,6 +54,14 @@ public class EntityThornChakram extends EntityThrowable {
 		double mz = motionZ;
 
 		super.onUpdate();
+
+		if(isFire()) {
+			double r = 0.1;
+			double m = 0.1;
+			for(int i = 0; i < 3; i++)
+				worldObj.spawnParticle("flame", posX + r * (Math.random() - 0.5), posY + r * (Math.random() - 0.5), posZ + r * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5));
+		}
+		
 		int bounces = getTimesBounced();
 		if(bounces >= MAX_BOUNCES || ticksExisted > 60) {
 			EntityLivingBase thrower = getThrower();
@@ -92,10 +103,13 @@ public class EntityThornChakram extends EntityThrowable {
 		if(noClip)
 			return;
 
+		boolean fire = isFire();
 		EntityLivingBase thrower = getThrower();
 		if(pos.entityHit != null && pos.entityHit instanceof EntityLivingBase && pos.entityHit != thrower) {
 			((EntityLivingBase) pos.entityHit).attackEntityFrom(thrower != null ? thrower instanceof EntityPlayer ? DamageSource.causePlayerDamage((EntityPlayer) thrower) : DamageSource.causeMobDamage(thrower) : DamageSource.generic, 12);
-			if(worldObj.rand.nextInt(3) == 0)
+			if(fire)
+				((EntityLivingBase) pos.entityHit).setFire(5);
+			else if(worldObj.rand.nextInt(3) == 0)
 				((EntityLivingBase) pos.entityHit).addPotionEffect(new PotionEffect(Potion.poison.id, 60, 0));
 		} else {
 			int bounces = getTimesBounced();
@@ -118,12 +132,20 @@ public class EntityThornChakram extends EntityThrowable {
 		return 0F;
 	}
 
-	int getTimesBounced() {
+	public int getTimesBounced() {
 		return dataWatcher.getWatchableObjectInt(30);
 	}
 
-	void setTimesBounced(int times) {
+	public void setTimesBounced(int times) {
 		dataWatcher.updateObject(30, times);
 	}
-
+	
+	public boolean isFire() {
+		return dataWatcher.getWatchableObjectByte(31) != 0;
+	}
+	
+	public void setFire(boolean fire) {
+		dataWatcher.updateObject(31, (byte) (fire ? 1 : 0));
+	}
+	
 }

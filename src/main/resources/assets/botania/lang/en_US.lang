@@ -1353,7 +1353,8 @@ item.botania:cobbleRod.name=Rod of the Depths
 item.botania:smeltRod.name=Rod of the Molten Core
 item.botania:worldSeed.name=World Seed
 item.botania:spellCloth.name=Spellbinding Cloth
-item.botania:thornChakram.name=Thorn Chakram
+item.botania:thornChakram0.name=Thorn Chakram
+item.botania:thornChakram1.name=Flare Chakram
 item.botania:overgrowthSeed.name=Overgrowth Seed
 item.botania:craftPattern0.name=Crafting Pattern #1: 1x1
 item.botania:craftPattern1.name=Crafting Pattern #2: 2x2
@@ -2701,6 +2702,11 @@ botania.page.spellCloth1=Oldest item in the book
 botania.entry.thornChakram=Thorn Chakram
 botania.page.thornChakram0=The &1Thorn Chakram&0 is a thrown weapon made of &1Terrasteel&0 and plant matter. After thrown it'll pierce through enemies, damaging them and sometimes poisoning them, and bounce on blocks a few times before returning to the thrower, similarly to a boomerang.<br>Up to 6 &1Thorn Chakrams&0 can be stacked together, making them a versatile weapon for closed environments.
 botania.page.thornChakram1=Spores and stingers
+
+# -- FLARE CHAKRAM
+botania.entry.fireChakram=Flare Chakram
+botania.page.fireChakram0=Some &1Blaze Powder&0 and &1Pixie Dust&0 does wonders when applied to a &1Thorn Chakram&0, this combination turns the already potent weapon into a &1Flame Chakram&0.<br>The &1Flame Chakram&0 works exactly the same as the original &1Thorn Chakram&0, the only difference being that it sets any living beings it touches aflame, and after all, you can't make bacon with some just some plants' thorns, can you?
+botania.page.fireChakram1=As fire as fenn's mixtape
 
 # -- OVERGROWTH SEED
 botania.entry.overgrowthSeed=Overgrowth Seed

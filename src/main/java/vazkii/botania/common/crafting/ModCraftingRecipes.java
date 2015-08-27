@@ -279,6 +279,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeStarSword;
 	public static IRecipe recipeExchangeRod;
 	public static IRecipe recipeGreaterMagnetRing;
+	public static IRecipe recipeFireChakram;
 
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;
@@ -1906,6 +1907,14 @@ public final class ModCraftingRecipes {
 		addShapelessOreDictRecipe(new ItemStack(ModItems.magnetRingGreater), LibOreDict.TERRA_STEEL, new ItemStack(ModItems.magnetRing));
 		recipeGreaterMagnetRing = BotaniaAPI.getLatestAddedRecipe();
 
+		// Flare Chakram Recipe
+		addOreDictRecipe(new ItemStack(ModItems.thornChakram, 2, 1), 
+				"BBB", "CPC", "BBB",
+				'B', new ItemStack(Items.blaze_powder),
+				'P', LibOreDict.PIXIE_DUST,
+				'C', new ItemStack(ModItems.thornChakram));
+		recipeFireChakram = BotaniaAPI.getLatestAddedRecipe();
+		
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		// Storage Block/Nugget Recipes

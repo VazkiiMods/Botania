@@ -188,6 +188,7 @@ public final class LexiconData {
 	public static LexiconEntry worldSeed;
 	public static LexiconEntry spellCloth;
 	public static LexiconEntry thornChakram;
+	public static LexiconEntry fireChakram;
 	public static LexiconEntry overgrowthSeed;
 	public static LexiconEntry livingwoodBow;
 	public static LexiconEntry crystalBow;
@@ -736,6 +737,9 @@ public final class LexiconData {
 		thornChakram = new BLexiconEntry(LibLexicon.TOOL_THORN_CHAKRAM, categoryTools);
 		thornChakram.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeThornChakram));
 
+		fireChakram = new ALexiconEntry(LibLexicon.TOOL_FIRE_CHAKRAM, categoryTools);
+		fireChakram.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeFireChakram));
+		
 		overgrowthSeed = new BLexiconEntry(LibLexicon.TOOL_OVERGROWTH_SEED, categoryTools);
 		overgrowthSeed.setLexiconPages(new PageText("0")).setIcon(new ItemStack(ModItems.overgrowthSeed));
 
