@@ -3215,7 +3215,8 @@ botania.page.tinyPotato1=Put it on Kickstarter, it'll work
 
 # -- HEAD CREATION
 botania.entry.headCreating=Head Creation
-botania.page.headCreating0=A typical incantation of the Elves, combining a few resources and a &1Name Tag&0 allows for the creation of a replica of sorts of the head of the person described in the tag. How it works isn't really known, but it seems to be possible to replicate it with a &1Runic Altar&0.
+botania.page.headCreating0=A typical incantation of the Elves, combining a few resources and a &1Name Tag&0 allows for the creation of a replica of sorts of the head of the person described in the tag.<br>How it works isn't really known, but it seems to be possible to replicate it with a &1Runic Altar&0.
+botania.page.headCreating2=A subset of the community has dedicated themselves to creating heads that serve as all sorts of decorations. Unlike any other page in this lexicon, clicking the &1View Online&0 button on the left of this page will take you to a website with a list of names that can be used for this purpose. Note, however, that this list is not affiliated with Botania in any way and is definitely not the only place to find these types of heads.
 botania.page.headCreating1=Get your head in the game
 
 # -- AZULEJO -- http://en.wikipedia.org/wiki/Azulejo
