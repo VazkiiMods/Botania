@@ -19,14 +19,17 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import vazkii.botania.api.lexicon.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TileBellows;
 import vazkii.botania.common.entity.EntityDoppleganger;
+import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockBellows extends BlockModContainer {
+public class BlockBellows extends BlockModContainer implements ILexiconable {
 
 	private static final int[] META_ROTATIONS = new int[] { 3, 4, 2, 5 };
 	
@@ -81,6 +84,11 @@ public class BlockBellows extends BlockModContainer {
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileBellows();
+	}
+
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return LexiconData.bellows;
 	}
 
 }

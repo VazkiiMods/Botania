@@ -281,7 +281,8 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeGreaterMagnetRing;
 	public static IRecipe recipeFireChakram;
 	public static IRecipe recipeThunderSword;
-	
+	public static IRecipe recipeBellows;
+
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;
 	public static IRecipe recipeRootToFertilizer;
@@ -1924,6 +1925,14 @@ public final class ModCraftingRecipes {
 				'A', LibOreDict.ENDER_AIR_BOTTLE,
 				'T', new ItemStack(ModItems.terraSword));
 		recipeThunderSword = BotaniaAPI.getLatestAddedRecipe();		
+		
+		// Manatide Bellows Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.bellows), 
+				"SSS", "RL ", "SSS",
+				'S', new ItemStack(ModFluffBlocks.livingwoodSlab),
+				'R', LibOreDict.RUNE[3],
+				'L', new ItemStack(Items.leather));
+		recipeBellows = BotaniaAPI.getLatestAddedRecipe();
 		
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
