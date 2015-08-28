@@ -35,7 +35,7 @@ public class ModElvenTradeRecipes {
 
 		elvenQuartzRecipe = BotaniaAPI.registerElvenTradeRecipe(new ItemStack(ModItems.quartz, 1, 5), new ItemStack(Items.quartz));
 		alfglassRecipe = BotaniaAPI.registerElvenTradeRecipe(new ItemStack(ModBlocks.elfGlass), new ItemStack(ModBlocks.manaGlass));
-		
+
 		BotaniaAPI.registerElvenTradeRecipe(new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot));
 		BotaniaAPI.registerElvenTradeRecipe(new ItemStack(Blocks.iron_block), new ItemStack(Blocks.iron_block));
 		BotaniaAPI.registerElvenTradeRecipe(new ItemStack(Items.ender_pearl), new ItemStack(Items.ender_pearl));

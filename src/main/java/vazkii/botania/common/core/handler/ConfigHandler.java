@@ -187,7 +187,7 @@ public final class ConfigHandler {
 
 		desc = "Set this to false to disable the 1.9 Ender features available as recipes. This only disables the recipes and entries. Old ones that are already in the world will stay.";
 		enderStuff19Enabled = loadPropBool("19enderStuff.enabled", desc, enderStuff19Enabled);
-		
+
 		desc = "The quantity of Botania flower patches to generate in the world, defaults to 2, the lower the number the less patches generate.";
 		flowerQuantity = loadPropInt("worldgen.flower.quantity", desc, flowerQuantity);
 

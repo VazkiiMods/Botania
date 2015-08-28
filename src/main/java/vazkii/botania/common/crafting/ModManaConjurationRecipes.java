@@ -48,7 +48,7 @@ public class ModManaConjurationRecipes {
 			leavesRecipes.add(BotaniaAPI.registerManaConjurationRecipe(new ItemStack(Blocks.leaves, 2, i), new ItemStack(Blocks.leaves, 1, i), 2000));
 		for(int i = 0; i < 2; i++)
 			leavesRecipes.add(BotaniaAPI.registerManaConjurationRecipe(new ItemStack(Blocks.leaves2, 2, i), new ItemStack(Blocks.leaves2, 1, i), 2000));
-		
+
 		grassRecipe = BotaniaAPI.registerManaConjurationRecipe(new ItemStack(Blocks.tallgrass, 2, 1), new ItemStack(Blocks.tallgrass, 1, 1), 800);
 	}
 

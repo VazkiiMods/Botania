@@ -96,7 +96,7 @@ public class TileHourglass extends TileSimpleInventory {
 			return 0x5A412f;
 		return 0;
 	}
-	
+
 	@Override
 	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
 		if(itemstack == null)

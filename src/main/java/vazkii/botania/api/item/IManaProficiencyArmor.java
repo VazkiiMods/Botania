@@ -24,9 +24,9 @@ import net.minecraft.item.ItemStack;
 public interface IManaProficiencyArmor {
 
 	public boolean shouldGiveProficiency(ItemStack stack, int slot, EntityPlayer player);
-	
+
 	public final static class Helper {
-	
+
 		public static boolean hasProficiency(EntityPlayer player) {
 			for(int i = 0; i < 4; i++) {
 				ItemStack armor = player.getCurrentArmor(i);
@@ -38,7 +38,7 @@ public interface IManaProficiencyArmor {
 			}
 			return false;
 		}
-		
+
 	}
-	
+
 }

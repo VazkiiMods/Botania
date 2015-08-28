@@ -42,7 +42,7 @@ public class EntityThornChakram extends EntityThrowable {
 	protected void entityInit() {
 		dataWatcher.addObject(30, 0);
 		dataWatcher.addObject(31, (byte) 0);
-		
+
 		dataWatcher.setObjectWatched(30);
 		dataWatcher.setObjectWatched(31);
 	}
@@ -61,7 +61,7 @@ public class EntityThornChakram extends EntityThrowable {
 			for(int i = 0; i < 3; i++)
 				worldObj.spawnParticle("flame", posX + r * (Math.random() - 0.5), posY + r * (Math.random() - 0.5), posZ + r * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5));
 		}
-		
+
 		int bounces = getTimesBounced();
 		if(bounces >= MAX_BOUNCES || ticksExisted > 60) {
 			EntityLivingBase thrower = getThrower();
@@ -97,7 +97,7 @@ public class EntityThornChakram extends EntityThrowable {
 			setDead();
 		}
 	}
-	
+
 	private ItemStack getItemStack() {
 		return new ItemStack(ModItems.thornChakram, 1, isFire() ? 1 : 0);
 	}
@@ -143,13 +143,13 @@ public class EntityThornChakram extends EntityThrowable {
 	public void setTimesBounced(int times) {
 		dataWatcher.updateObject(30, times);
 	}
-	
+
 	public boolean isFire() {
 		return dataWatcher.getWatchableObjectByte(31) != 0;
 	}
-	
+
 	public void setFire(boolean fire) {
 		dataWatcher.updateObject(31, (byte) (fire ? 1 : 0));
 	}
-	
+
 }

@@ -64,7 +64,7 @@ public class ItemEnderHand extends ItemMod implements IManaUsingItem, IBlockProv
 	public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta, boolean doit) {
 		if(requestor != null && requestor.getItem() == this)
 			return false;
-		
+
 		ItemStack istack = ItemExchangeRod.removeFromInventory(player, player.getInventoryEnderChest(), stack, block, meta, false);
 		if(istack != null) {
 			boolean mana = ManaItemHandler.requestManaExact(stack, player, COST_PROVIDE, false);
@@ -73,11 +73,11 @@ public class ItemEnderHand extends ItemMod implements IManaUsingItem, IBlockProv
 					ManaItemHandler.requestManaExact(stack, player, COST_PROVIDE, true);
 					ItemExchangeRod.removeFromInventory(player, player.getInventoryEnderChest(), stack, block, meta, true);
 				}
-				
+
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
 
@@ -85,7 +85,7 @@ public class ItemEnderHand extends ItemMod implements IManaUsingItem, IBlockProv
 	public int getBlockCount(EntityPlayer player, ItemStack requestor,  ItemStack stack, Block block, int meta) {
 		if(requestor != null && requestor.getItem() == this)
 			return 0;
-		
+
 		return ItemExchangeRod.getInventoryItemCount(player, player.getInventoryEnderChest(), stack, block, meta);
 	}
 

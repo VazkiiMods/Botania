@@ -171,7 +171,7 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		int meta = world.getBlockMetadata(x, y, z);
-		
+
 		switch(meta) {
 		case 1:
 			return LexiconData.gatherDrum;

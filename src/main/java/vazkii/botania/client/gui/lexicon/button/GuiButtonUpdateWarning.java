@@ -19,7 +19,6 @@ import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.PresistantVariableHelper;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -35,7 +34,7 @@ public class GuiButtonUpdateWarning extends GuiButtonLexicon {
 	public void drawButton(Minecraft par1Minecraft, int par2, int par3) {
 		if(!visible || !enabled)
 			return;
-		
+
 		field_146123_n = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
 		int k = getHoverState(field_146123_n);
 
@@ -52,7 +51,7 @@ public class GuiButtonUpdateWarning extends GuiButtonLexicon {
 			if(i == 3)
 				tooltip.add("");
 		}
-			
+
 		int tooltipY = (tooltip.size() - 1) * 10 - 25;
 		if(k == 2)
 			RenderHelper.renderTooltip(par2 - 125, par3 + tooltipY, tooltip);

@@ -53,7 +53,7 @@ public abstract class BlockCamo extends BlockModContainer<TileCamo> {
 	public static boolean isValidBlock(Block block) {
 		return block.isOpaqueCube() || isValidRenderType(block.getRenderType());
 	}
-	
+
 	public static boolean isValidRenderType(int type) {
 		return validRenderTypes.contains(type);
 	}

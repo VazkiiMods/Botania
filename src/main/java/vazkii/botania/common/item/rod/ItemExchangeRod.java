@@ -18,7 +18,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -120,12 +119,12 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 			return;
 
 		EntityPlayer player = (EntityPlayer) entity;
-		
+
 		int extraRange = ItemNBTHelper.getInt(stack, TAG_EXTRA_RANGE, 1);
-		int extraRangeNew = IManaProficiencyArmor.Helper.hasProficiency(player) ? 3 : 1; 
+		int extraRangeNew = IManaProficiencyArmor.Helper.hasProficiency(player) ? 3 : 1;
 		if(extraRange != extraRangeNew)
 			ItemNBTHelper.setInt(stack, TAG_EXTRA_RANGE, extraRangeNew);
-		
+
 		Block block = getBlock(stack);
 		int meta = getBlockMeta(stack);
 		if(ItemNBTHelper.getBoolean(stack, TAG_SWAPPING, false)) {
@@ -133,7 +132,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 				ItemNBTHelper.setBoolean(stack, TAG_SWAPPING, false);
 				return;
 			}
-			
+
 			int x = ItemNBTHelper.getInt(stack, TAG_SELECT_X, 0);
 			int y = ItemNBTHelper.getInt(stack, TAG_SELECT_Y, 0);
 			int z = ItemNBTHelper.getInt(stack, TAG_SELECT_Z, 0);
@@ -171,9 +170,9 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 					Block block = world.getBlock(x, y, z);
 					int meta = world.getBlockMetadata(x, y, z);
 					boolean invalid = !BlockCamo.isValidBlock(block);
-					if(invalid) 
+					if(invalid)
 						matrix[i][j][k] = true;
-					else if((block == blockToSwap && meta == metaToSwap) || block != targetBlock || meta != targetMeta)
+					else if(block == blockToSwap && meta == metaToSwap || block != targetBlock || meta != targetMeta)
 						matrix[i][j][k] = null;
 					else matrix[i][j][k] = false;
 				}
@@ -256,7 +255,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 					invStack.stackSize--;
 					if(invStack.stackSize == 0)
 						inv.setInventorySlotContents(i, null);
-				}	
+				}
 				return retStack;
 			}
 
@@ -272,11 +271,11 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 
 		return null;
 	}
-	
+
 	public static ItemStack removeFromInventory(EntityPlayer player, ItemStack stack, Block block, int meta, boolean doit) {
 		if(player.capabilities.isCreativeMode)
 			return new ItemStack(block, 1, meta);
-		
+
 		return removeFromInventory(player, player.inventory, stack, block, meta, doit);
 	}
 
@@ -285,7 +284,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 			return -1;
 		return getInventoryItemCount(player, player.inventory, stack, block, meta);
 	}
-	
+
 	public static int getInventoryItemCount(EntityPlayer player, IInventory inv, ItemStack stack, Block block, int meta) {
 		if(player.capabilities.isCreativeMode)
 			return -1;

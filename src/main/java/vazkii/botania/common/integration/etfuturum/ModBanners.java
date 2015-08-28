@@ -10,11 +10,11 @@
  */
 package vazkii.botania.common.integration.etfuturum;
 
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.item.ModItems;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.EnumHelper;
+import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.item.ModItems;
 
 public final class ModBanners {
 
@@ -40,9 +40,9 @@ public final class ModBanners {
 			addPattern(clazz, "sword", "srd", new ItemStack(Items.iron_sword));
 		} catch (ClassNotFoundException e) {
 			// Looks like we don't have EtFuturum around, let's not do any of this nonsense then
-		}	
+		}
 	}
-	
+
 	public static void addPattern(Class<Enum<?>> clazz, String name, String id, ItemStack craftingItem) {
 		name = "botania_" + name;
 		id = "bt_" + id;

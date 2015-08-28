@@ -16,7 +16,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.IPixieSpawner;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;

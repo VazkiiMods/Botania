@@ -10,7 +10,6 @@
  */
 package vazkii.botania.api.item;
 
-import vazkii.botania.api.mana.ManaItemHandler;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -29,7 +28,7 @@ public interface IBlockProvider {
 	 * the requestor as the ItemStack passed in.
 	 */
 	public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta, boolean doit);
-	
+
 	/**
 	 * Gets the amount of blocks of the type passed stored in this item. You must
 	 * check for the block passed in to not give the counter for a wrong block. Returning
@@ -37,5 +36,5 @@ public interface IBlockProvider {
 	 * the Rod of the Lands would return -1 if the block is dirt).
 	 */
 	public int getBlockCount(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta);
-	
+
 }

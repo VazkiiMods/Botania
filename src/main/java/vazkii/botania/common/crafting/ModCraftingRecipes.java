@@ -288,7 +288,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeManaweaveLegs;
 	public static IRecipe recipeManaweaveBoots;
 	public static IRecipe recipeBifrost;
-	
+
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;
 	public static IRecipe recipeRootToFertilizer;
@@ -1904,7 +1904,7 @@ public final class ModCraftingRecipes {
 		recipeStarSword = BotaniaAPI.getLatestAddedRecipe();
 
 		// Rod of the Shifting Crust Recipe
-		addOreDictRecipe(new ItemStack(ModItems.exchangeRod), 
+		addOreDictRecipe(new ItemStack(ModItems.exchangeRod),
 				" SR", " TS", "T  ",
 				'T', LibOreDict.LIVINGWOOD_TWIG,
 				'S', "stone",
@@ -1916,13 +1916,13 @@ public final class ModCraftingRecipes {
 		recipeGreaterMagnetRing = BotaniaAPI.getLatestAddedRecipe();
 
 		// Flare Chakram Recipe
-		addOreDictRecipe(new ItemStack(ModItems.thornChakram, 2, 1), 
+		addOreDictRecipe(new ItemStack(ModItems.thornChakram, 2, 1),
 				"BBB", "CPC", "BBB",
 				'B', new ItemStack(Items.blaze_powder),
 				'P', LibOreDict.PIXIE_DUST,
 				'C', new ItemStack(ModItems.thornChakram));
 		recipeFireChakram = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Thundercaller Recipe
 		addOreDictRecipe(new ItemStack(ModItems.thunderSword),
 				"  I", "AD ", "TA ",
@@ -1930,22 +1930,22 @@ public final class ModCraftingRecipes {
 				'D', LibOreDict.MANA_DIAMOND,
 				'A', LibOreDict.ENDER_AIR_BOTTLE,
 				'T', new ItemStack(ModItems.terraSword));
-		recipeThunderSword = BotaniaAPI.getLatestAddedRecipe();		
-		
+		recipeThunderSword = BotaniaAPI.getLatestAddedRecipe();
+
 		// Manatide Bellows Recipe
-		addOreDictRecipe(new ItemStack(ModBlocks.bellows), 
+		addOreDictRecipe(new ItemStack(ModBlocks.bellows),
 				"SSS", "RL ", "SSS",
 				'S', new ItemStack(ModFluffBlocks.livingwoodSlab),
 				'R', LibOreDict.RUNE[3],
 				'L', new ItemStack(Items.leather));
 		recipeBellows = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Manaweave Cloth Recipe
-		addOreDictRecipe(new ItemStack(ModItems.manaResource, 1, 22), 
+		addOreDictRecipe(new ItemStack(ModItems.manaResource, 1, 22),
 				"SS", "SS",
 				'S', LibOreDict.MANA_STRING);
 		recipeManaweaveCloth = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Manaweave Armor Recipes
 		addOreDictRecipe(new ItemStack(ModItems.manaweaveHelm),
 				"SSS", "S S",
@@ -1967,7 +1967,7 @@ public final class ModCraftingRecipes {
 		// Bifrost Block Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModBlocks.bifrostPerm), new ItemStack(ModItems.rainbowRod), new ItemStack(ModBlocks.elfGlass));
 		recipeBifrost = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		// Storage Block/Nugget Recipes

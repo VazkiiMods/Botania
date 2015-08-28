@@ -17,16 +17,12 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.block.tile.TileBifrost;
-import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
@@ -41,12 +37,12 @@ public class BlockBifrostPerm extends BlockMod implements ILexiconable {
 		setStepSound(soundTypeGlass);
 		setTickRandomly(true);
 	}
-	
+
 	@Override
 	public IIcon getIcon(int side, int meta) {
 		return ModBlocks.bifrost.getIcon(side, meta);
 	}
-	
+
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		// NO-OP
@@ -67,7 +63,7 @@ public class BlockBifrostPerm extends BlockMod implements ILexiconable {
 	public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int p_149646_5_) {
 		return shouldSideBeRendered1(p_149646_1_, p_149646_2_, p_149646_3_, p_149646_4_, 1 - p_149646_5_);
 	}
-	
+
 	@Override
 	public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
 		if(rand.nextBoolean())

@@ -17,5 +17,5 @@ public class ItemGreaterMagnetRing extends ItemMagnetRing {
 	public ItemGreaterMagnetRing() {
 		super(LibItemNames.MAGNET_RING_GREATER, 16);
 	}
-	
+
 }

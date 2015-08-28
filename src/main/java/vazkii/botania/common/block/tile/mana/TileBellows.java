@@ -61,31 +61,31 @@ public class TileBellows extends TileMod {
 					furnace.furnaceCookTime = Math.min(199, furnace.furnaceCookTime + 20);
 					furnace.furnaceBurnTime = Math.max(0, furnace.furnaceBurnTime - 10);
 				}
-					
+
 				if(furnace.getBlockType() == Blocks.lit_furnace) {
 					// Copypasta from BlockFurnace
 					int x = furnace.xCoord;
 					int y = furnace.yCoord;
 					int z = furnace.zCoord;
 					int l = worldObj.getBlockMetadata(x, y, z);
-					float f = (float)x + 0.5F;
-					float f1 = (float)y + 0.0F + worldObj.rand.nextFloat() * 6.0F / 16.0F;
-					float f2 = (float)z + 0.5F;
+					float f = x + 0.5F;
+					float f1 = y + 0.0F + worldObj.rand.nextFloat() * 6.0F / 16.0F;
+					float f2 = z + 0.5F;
 					float f3 = 0.52F;
 					float f4 = worldObj.rand.nextFloat() * 0.6F - 0.3F;
 
 					if(l == 4) {
-						worldObj.spawnParticle("smoke", (double)(f - f3), (double)f1, (double)(f2 + f4), 0.0D, 0.0D, 0.0D);
-						worldObj.spawnParticle("flame", (double)(f - f3), (double)f1, (double)(f2 + f4), 0.0D, 0.0D, 0.0D);
+						worldObj.spawnParticle("smoke", f - f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
+						worldObj.spawnParticle("flame", f - f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
 					} else if(l == 5) {
-						worldObj.spawnParticle("smoke", (double)(f + f3), (double)f1, (double)(f2 + f4), 0.0D, 0.0D, 0.0D);
-						worldObj.spawnParticle("flame", (double)(f + f3), (double)f1, (double)(f2 + f4), 0.0D, 0.0D, 0.0D);
+						worldObj.spawnParticle("smoke", f + f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
+						worldObj.spawnParticle("flame", f + f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
 					} else if(l == 2) {
-						worldObj.spawnParticle("smoke", (double)(f + f4), (double)f1, (double)(f2 - f3), 0.0D, 0.0D, 0.0D);
-						worldObj.spawnParticle("flame", (double)(f + f4), (double)f1, (double)(f2 - f3), 0.0D, 0.0D, 0.0D);
+						worldObj.spawnParticle("smoke", f + f4, f1, f2 - f3, 0.0D, 0.0D, 0.0D);
+						worldObj.spawnParticle("flame", f + f4, f1, f2 - f3, 0.0D, 0.0D, 0.0D);
 					} else if(l == 3) {
-						worldObj.spawnParticle("smoke", (double)(f + f4), (double)f1, (double)(f2 + f3), 0.0D, 0.0D, 0.0D);
-						worldObj.spawnParticle("flame", (double)(f + f4), (double)f1, (double)(f2 + f3), 0.0D, 0.0D, 0.0D);
+						worldObj.spawnParticle("smoke", f + f4, f1, f2 + f3, 0.0D, 0.0D, 0.0D);
+						worldObj.spawnParticle("flame", f + f4, f1, f2 + f3, 0.0D, 0.0D, 0.0D);
 					}
 				}
 			}

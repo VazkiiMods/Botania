@@ -54,7 +54,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	public IIcon goldfishIcon = null;
 	public IIcon nerfBatIcon = null;
 	// end dank_memes
-	
+
 	public ItemManaResource() {
 		super();
 		setUnlocalizedName(LibItemNames.MANA_RESOURCE);

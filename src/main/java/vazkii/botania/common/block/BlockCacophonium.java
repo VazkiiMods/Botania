@@ -23,7 +23,6 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.tile.TileCacophonium;
-import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockCacophonium extends BlockModContainer {
@@ -51,7 +50,7 @@ public class BlockCacophonium extends BlockModContainer {
 	protected boolean canSilkHarvest() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean registerInCreative() {
 		return false;
@@ -66,12 +65,12 @@ public class BlockCacophonium extends BlockModContainer {
 		if(power && !powered) {
 			TileEntity tile = world.getTileEntity(x, y, z);
 			if(tile != null && tile instanceof TileCacophonium)
-				((TileCacophonium) tile).annoyDirewolf();	
+				((TileCacophonium) tile).annoyDirewolf();
 			world.setBlockMetadataWithNotify(x, y, z, meta | 8, 4);
 		} else if(!power && powered)
-			world.setBlockMetadataWithNotify(x, y, z, meta & -9, 4); 
+			world.setBlockMetadataWithNotify(x, y, z, meta & -9, 4);
 	}
-	
+
 	@Override
 	public void onBlockHarvested(World par1World, int par2, int par3, int par4, int par5, EntityPlayer par6EntityPlayer) {
 		if(!par6EntityPlayer.capabilities.isCreativeMode)

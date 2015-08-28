@@ -50,12 +50,12 @@ public class ItemMagnetRing extends ItemBauble {
 	});
 
 	int range;
-	
+
 	public ItemMagnetRing() {
 		this(LibItemNames.MAGNET_RING, 6);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
-	
+
 	public ItemMagnetRing(String name, int range) {
 		super(name);
 		this.range = range;

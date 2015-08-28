@@ -171,13 +171,13 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 			boolean isSprinting = p.isSprinting();
 			if(isSprinting != wasSprting)
 				ItemNBTHelper.setBoolean(stack, TAG_IS_SPRINTING, isSprinting);
-			
+
 			int time = ItemNBTHelper.getInt(stack, TAG_TIME_LEFT, MAX_FLY_TIME);
 			int newTime = time;
 			Vector3 look = new Vector3(p.getLookVec());
 			look.y = 0;
 			look.normalize();
-			
+
 			if(flying) {
 				if(time > 0 && !ItemNBTHelper.getBoolean(stack, TAG_INFINITE_FLIGHT, false))
 					newTime--;
@@ -198,10 +198,10 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 						BotaniaAPI.internalHandler.sendBaubleUpdatePacket((EntityPlayerMP) player, 0);
 				}
 			} else if(!flying) {
-				boolean doGlide = player.isSneaking() && !player.onGround; 
+				boolean doGlide = player.isSneaking() && !player.onGround;
 				if(time < MAX_FLY_TIME && player.ticksExisted % (doGlide ? 6 : 2) == 0)
 					newTime++;
-				
+
 				if(doGlide) {
 					player.motionY = Math.max(-0.15F, player.motionY);
 					float mul = 0.6F;

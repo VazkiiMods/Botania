@@ -72,7 +72,7 @@ public final class HUDHandler {
 	public void onDrawScreenPre(RenderGameOverlayEvent.Pre event) {
 		Minecraft mc = Minecraft.getMinecraft();
 		Profiler profiler = mc.mcProfiler;
-		
+
 		if(event.type == ElementType.HEALTH) {
 			profiler.startSection("botania-hud");
 			ItemStack amulet = PlayerHandler.getPlayerBaubles(mc.thePlayer).getStackInSlot(0);
@@ -84,7 +84,7 @@ public final class HUDHandler {
 			profiler.endSection();
 		}
 	}
-	
+
 	@SubscribeEvent
 	public void onDrawScreenPost(RenderGameOverlayEvent.Post event) {
 		Minecraft mc = Minecraft.getMinecraft();
@@ -276,7 +276,7 @@ public final class HUDHandler {
 					RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, recipe.getOutput(), x + 26, y);
 					RenderItem.getInstance().renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, recipe.getOutput(), x + 26, y);
 					net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
-					
+
 					if(diluted) {
 						String s = StatCollector.translateToLocal("botaniamisc.pay2win");
 						mc.fontRenderer.drawStringWithShadow(s, res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(s) / 2, y + 20, 0xFF8888);

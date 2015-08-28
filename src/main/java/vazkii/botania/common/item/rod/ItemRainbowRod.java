@@ -54,7 +54,7 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem {
 			boolean prof = IManaProficiencyArmor.Helper.hasProficiency(par3EntityPlayer);
 			int maxlen = prof ? 160 : 100;
 			int time = prof ? (int) (TIME * 1.6) : TIME;
-			
+
 			while(count < maxlen && (int) lx == (int) x && (int) ly == (int) y && (int) lz == (int) z || count < 4 || par2World.getBlock((int) x, (int) y, (int) z).isAir(par2World, (int) x, (int) y, (int) z) || par2World.getBlock((int) x, (int) y, (int) z) == place) {
 				if(y >= 256 || y <= 0)
 					break;
@@ -90,17 +90,17 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem {
 
 		return par1ItemStack;
 	}
-	
+
 	@Override
 	public ItemStack getContainerItem(ItemStack itemStack) {
 		return itemStack.copy();
 	}
-	
+
 	@Override
 	public boolean hasContainerItem(ItemStack stack) {
 		return getContainerItem(stack) != null;
 	}
-	
+
 	@Override
 	public boolean doesContainerItemLeaveCraftingGrid(ItemStack par1ItemStack) {
 		return false;

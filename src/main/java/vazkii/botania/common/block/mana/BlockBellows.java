@@ -32,13 +32,13 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class BlockBellows extends BlockModContainer implements ILexiconable {
 
 	private static final int[] META_ROTATIONS = new int[] { 3, 4, 2, 5 };
-	
+
 	public BlockBellows() {
 		super(Material.wood);
 		setHardness(2.0F);
 		setStepSound(soundTypeWood);
 		setBlockName(LibBlockNames.BELLOWS);
-		
+
 		float f = (1F - 10 / 16F) / 2F;
 		setBlockBounds(f, 0F, f, 1F - f, 10F / 16F, 1F - f);
 	}
@@ -48,19 +48,19 @@ public class BlockBellows extends BlockModContainer implements ILexiconable {
 		int l = MathHelper.floor_double(p_149689_5_.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
 		p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, META_ROTATIONS[l], 2);
 	}
-	
+
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		// NO-OP
 	}
-	
+
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int s, float xs, float ys, float zs) {
 		if(EntityDoppleganger.isTruePlayer(player))
 			((TileBellows) world.getTileEntity(x, y, z)).interact();
 		return true;
 	}
-	
+
 	@Override
 	public boolean isOpaqueCube() {
 		return false;
@@ -80,7 +80,7 @@ public class BlockBellows extends BlockModContainer implements ILexiconable {
 	public int getRenderType() {
 		return LibRenderIDs.idBellows;
 	}
-	
+
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileBellows();

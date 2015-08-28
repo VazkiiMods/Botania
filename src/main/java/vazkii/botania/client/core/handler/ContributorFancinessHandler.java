@@ -58,7 +58,7 @@ public final class ContributorFancinessHandler {
 		if(Minecraft.getMinecraft().gameSettings.getOptionOrdinalValue(Options.SHOW_CAPE) && flowerMap != null && flowerMap.containsKey(name))
 			renderFlower(event, flowerMap.get(name));
 	}
-	
+
 	public static void firstStart() {
 		if(!startedLoading) {
 			new ThreadContributorListLoader();

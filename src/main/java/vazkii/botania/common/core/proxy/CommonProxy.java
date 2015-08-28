@@ -99,10 +99,10 @@ public class CommonProxy {
 		ModBrewRecipes.init();
 		ModAchievements.init();
 		ModMultiblocks.init();
-		
+
 		if(Botania.etFuturumLoaded)
 			ModBanners.init();
-		
+
 		ChestGenHandler.init();
 
 		LexiconData.init();

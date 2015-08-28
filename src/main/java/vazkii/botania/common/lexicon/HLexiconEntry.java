@@ -22,5 +22,5 @@ public class HLexiconEntry extends ALexiconEntry {
 	public String getWebLink() {
 		return "http://heads.freshcoal.com/usernames.php";
 	}
-	
+
 }

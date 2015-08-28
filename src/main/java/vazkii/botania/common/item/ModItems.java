@@ -263,7 +263,7 @@ public final class ModItems {
 	public static Item manaweaveChest;
 	public static Item manaweaveLegs;
 	public static Item manaweaveBoots;
-	
+
 	public static void init() {
 		lexicon = new ItemLexicon();
 		petal = new ItemPetal();
@@ -408,7 +408,7 @@ public final class ModItems {
 		manaweaveLegs = new ItemManaweaveLegs();
 		manaweaveChest = new ItemManaweaveChest();
 		manaweaveBoots = new ItemManaweaveBoots();
-		
+
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));

@@ -433,7 +433,7 @@ public final class LexiconData {
 
 		bellows = new BLexiconEntry(LibLexicon.MANA_BELLOWS, categoryMana);
 		bellows.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeBellows));
-		
+
 		// FUNCTIONAL FLOWERS ENTRIES
 		functionalIntro = new BLexiconEntry(LibLexicon.FFLOWER_INTRO, categoryFunctionalFlowers);
 		functionalIntro.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageText("3"), new PageCraftingRecipe("4", ModCraftingRecipes.recipeRedstoneRoot)).setIcon(null);;
@@ -595,7 +595,7 @@ public final class LexiconData {
 
 		conjurationCatalyst = new ALexiconEntry(LibLexicon.DEVICE_MANA_CONJURATION, categoryDevices);
 		conjurationCatalyst.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeConjurationCatalyst), new PageManaInfusionRecipe("2", ModManaConjurationRecipes.redstoneRecipe), new PageManaInfusionRecipe("3", ModManaConjurationRecipes.glowstoneRecipe), new PageManaInfusionRecipe("4", ModManaConjurationRecipes.quartzRecipe),
-				new PageManaInfusionRecipe("5", ModManaConjurationRecipes.coalRecipe), new PageManaInfusionRecipe("6", ModManaConjurationRecipes.snowballRecipe), new PageManaInfusionRecipe("7", ModManaConjurationRecipes.netherrackRecipe), new PageManaInfusionRecipe("8", ModManaConjurationRecipes.soulSandRecipe), new PageManaInfusionRecipe("9", ModManaConjurationRecipes.gravelRecipe), 
+				new PageManaInfusionRecipe("5", ModManaConjurationRecipes.coalRecipe), new PageManaInfusionRecipe("6", ModManaConjurationRecipes.snowballRecipe), new PageManaInfusionRecipe("7", ModManaConjurationRecipes.netherrackRecipe), new PageManaInfusionRecipe("8", ModManaConjurationRecipes.soulSandRecipe), new PageManaInfusionRecipe("9", ModManaConjurationRecipes.gravelRecipe),
 				new PageManaInfusionRecipe("10", ModManaConjurationRecipes.leavesRecipes), new PageManaInfusionRecipe("11", ModManaConjurationRecipes.grassRecipe));
 
 		spectralPlatform = new ALexiconEntry(LibLexicon.DEVICE_SPECTRAL_PLATFORM, categoryDevices);
@@ -745,7 +745,7 @@ public final class LexiconData {
 
 		fireChakram = new ALexiconEntry(LibLexicon.TOOL_FIRE_CHAKRAM, categoryTools);
 		fireChakram.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeFireChakram));
-		
+
 		overgrowthSeed = new BLexiconEntry(LibLexicon.TOOL_OVERGROWTH_SEED, categoryTools);
 		overgrowthSeed.setLexiconPages(new PageText("0")).setIcon(new ItemStack(ModItems.overgrowthSeed));
 
@@ -769,10 +769,10 @@ public final class LexiconData {
 
 		exchangeRod = new BLexiconEntry(LibLexicon.TOOL_EXCHANGE_ROD, categoryTools);
 		exchangeRod.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipeExchangeRod));
-		
+
 		manaweave = new BLexiconEntry(LibLexicon.TOOL_MANAWEAVE, categoryTools);
 		manaweave.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeManaweaveCloth), new PageCraftingRecipe("3", ModCraftingRecipes.recipeManaweaveHelm), new PageCraftingRecipe("4", ModCraftingRecipes.recipeManaweaveChest), new PageCraftingRecipe("5", ModCraftingRecipes.recipeManaweaveLegs), new PageCraftingRecipe("6", ModCraftingRecipes.recipeManaweaveBoots));
-		
+
 		// ENDER ENTRIES
 		enderAir = new BLexiconEntry(LibLexicon.ENDER_AIR, categoryEnder);
 		enderAir.setPriority().setLexiconPages(new PageText("0"));
@@ -841,7 +841,7 @@ public final class LexiconData {
 
 		thunderSword = new ALexiconEntry(LibLexicon.ENDER_THUNDER_SWORD, categoryEnder);
 		thunderSword.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeThunderSword));
-		
+
 		// BAUBLES ENTRIES
 		baublesIntro = new BLexiconEntry(LibLexicon.BAUBLE_INTRO, categoryBaubles);
 		baublesIntro.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_BAUBLES), new PageText("2"));
@@ -1042,7 +1042,7 @@ public final class LexiconData {
 			tcIntegration = new CLexiconEntry(LibLexicon.MISC_TC_INTEGRATION, BotaniaAPI.categoryMisc, "Thaumcraft");
 			tcIntegration.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeHelmetOfRevealing), new PageText("3"), new PageManaInfusionRecipe("4", ModManaInfusionRecipes.manaInkwellRecipe), new PageText("5"), new PageBrew(ModBrewRecipes.warpWardBrew, "6a", "6b")).setIcon(new ItemStack(ModItems.manaInkwell));
 		}
-		
+
 		if(Botania.etFuturumLoaded) {
 			banners = new CLexiconEntry(LibLexicon.MISC_BANNERS, BotaniaAPI.categoryMisc, "EtFuturum");
 			banners.setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_BANNERS)).setIcon(new ItemStack(ModItems.lexicon));

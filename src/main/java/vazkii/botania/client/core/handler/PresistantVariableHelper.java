@@ -103,9 +103,9 @@ public final class PresistantVariableHelper {
 			for(String key : keys)
 				GuiLexicon.notes.put(key, notesCmp.getString(key));
 		}
-		
+
 		lastBotaniaVersion = cmp.hasKey(TAG_LAST_BOTANIA_VERSION) ? cmp.getString(TAG_LAST_BOTANIA_VERSION) : "(N/A)";
- 
+
 		firstLoad = cmp.hasKey(TAG_FIRST_LOAD) ? cmp.getBoolean(TAG_FIRST_LOAD) : firstLoad;
 		if(firstLoad) {
 			GuiLexicon.currentOpenLexicon = new GuiLexiconEntry(LexiconData.welcome, new GuiLexicon());

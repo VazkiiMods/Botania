@@ -174,7 +174,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			for(EntityPlayer p : players)
 				if(isTruePlayer(p))
 					playerCount++;
-			
+
 			e.setPlayerCount(playerCount);
 			e.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.maxHealth).setBaseValue(MAX_HP * playerCount);
 

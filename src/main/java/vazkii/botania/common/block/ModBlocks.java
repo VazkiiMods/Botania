@@ -328,7 +328,7 @@ public final class ModBlocks {
 		cacophonium = new BlockCacophonium();
 		bellows = new BlockBellows();
 		bifrostPerm = new BlockBifrostPerm();
-		
+
 		ModFluffBlocks.init();
 
 		for(int i = 0; i < 16; i++)

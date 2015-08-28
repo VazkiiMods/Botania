@@ -90,13 +90,13 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 	public boolean fragile = false;
 	public boolean isDoingTransfer = false;
 	public int ticksDoingTransfer = 0;
-	
+
 	String inputKey = "";
 	String outputKey = "";
 
 	int ticks = 0;
 	boolean sendPacket = false;
-	
+
 	@Override
 	public boolean isFull() {
 		Block blockBelow = worldObj.getBlock(xCoord, yCoord - 1, zCoord);
@@ -232,7 +232,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 								bellowCount++;
 						}
 					int transfRate = 1000 * (bellowCount + 1);
-					
+
 					if(outputting) {
 						if(canSpare) {
 							if(getCurrentMana() > 0 && mana.getMana(stack) < mana.getMaxMana(stack))
@@ -274,7 +274,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 			if(wasDoingTransfer)
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
-		
+
 		ticks++;
 	}
 

@@ -11,9 +11,7 @@
 package vazkii.botania.client.gui.lexicon;
 
 import java.awt.Desktop;
-import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -164,7 +162,7 @@ public class GuiLexicon extends GuiScreen {
 			buttonList.add(new GuiButtonAchievement(-2, left - 6, top + 26));
 			buttonList.add(new GuiButtonChallenges(-3, left - 6, top + 40));
 
-			GuiButtonUpdateWarning button = new GuiButtonUpdateWarning(-4, left - 6, top + 60); 
+			GuiButtonUpdateWarning button = new GuiButtonUpdateWarning(-4, left - 6, top + 60);
 			buttonList.add(button);
 			if(PresistantVariableHelper.lastBotaniaVersion.equals(LibMisc.VERSION)) {
 				button.enabled = false;
@@ -345,10 +343,10 @@ public class GuiLexicon extends GuiScreen {
 		case -2 :
 			mc.displayGuiScreen(new GuiAchievementsHacky(this, mc.thePlayer.getStatFileWriter()));
 			break;
-		case -3 : 
+		case -3 :
 			mc.displayGuiScreen(new GuiLexiconChallengesList());
 			break;
-		case -4 : 
+		case -4 :
 			if(isShiftKeyDown()) {
 				try {
 					if(Desktop.isDesktopSupported())
@@ -364,7 +362,7 @@ public class GuiLexicon extends GuiScreen {
 			}
 
 			break;
-		case NOTES_BUTTON_ID : 
+		case NOTES_BUTTON_ID :
 			notesEnabled = !notesEnabled;
 			break;
 		}

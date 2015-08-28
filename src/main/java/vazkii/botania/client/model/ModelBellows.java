@@ -10,12 +10,10 @@
  */
 package vazkii.botania.client.model;
 
-import org.lwjgl.opengl.GL11;
-
-import vazkii.botania.client.core.handler.ClientTickHandler;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.entity.Entity;
+
+import org.lwjgl.opengl.GL11;
 
 public class ModelBellows extends ModelBase {
 
@@ -72,17 +70,17 @@ public class ModelBellows extends ModelBase {
 		float f5 = 1F / 16F;
 		Base.render(f5);
 		Pipe.render(f5);
-		
+
 		//float fract = Math.max(0.1F, (float) (Math.sin(((double) ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.2) + 1F) * 0.5F);
 		float mov = (1F - fract) * 0.5F;
-		
+
 		GL11.glTranslatef(0F, mov, 0F);
 		Top.render(f5);
 		Handle1.render(f5);
 		Handle2.render(f5);
 		Handle3.render(f5);
 		GL11.glTranslatef(0F, -mov, 0F);
-		
+
 		GL11.glRotatef(180F, 1F, 0F, 0F);
 		GL11.glTranslatef(-0.19F, -1.375F, -0.19F);
 		GL11.glScalef(1F, fract, 1F);

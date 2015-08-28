@@ -12,9 +12,6 @@ package vazkii.botania.common.block;
 
 import java.util.Random;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -34,6 +31,9 @@ import vazkii.botania.common.block.tile.TileBifrost;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockBifrost extends BlockModContainer implements ILexiconable {
 
@@ -61,7 +61,7 @@ public class BlockBifrost extends BlockModContainer implements ILexiconable {
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
 		return new ItemStack(ModItems.rainbowRod);
 	}
-	
+
 	public boolean shouldSideBeRendered1(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int p_149646_5_) {
 		Block block = p_149646_1_.getBlock(p_149646_2_, p_149646_3_, p_149646_4_);
 
@@ -82,7 +82,7 @@ public class BlockBifrost extends BlockModContainer implements ILexiconable {
 	public int quantityDropped(int meta, int fortune, Random random) {
 		return 0;
 	}
-	
+
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void loadTextures(TextureStitchEvent.Pre event) {
@@ -92,7 +92,7 @@ public class BlockBifrost extends BlockModContainer implements ILexiconable {
 				blockIcon = icon;
 		}
 	}
-	
+
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		// NO-OP

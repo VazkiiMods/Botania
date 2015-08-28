@@ -305,7 +305,7 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
 

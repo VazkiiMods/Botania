@@ -49,7 +49,7 @@ public class ItemFireRod extends ItemMod implements IManaUsingItem {
 
 	@Override
 	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
-		if(par1ItemStack.isItemDamaged() && par3Entity instanceof EntityPlayer) 
+		if(par1ItemStack.isItemDamaged() && par3Entity instanceof EntityPlayer)
 			par1ItemStack.setItemDamage(par1ItemStack.getItemDamage() - (IManaProficiencyArmor.Helper.hasProficiency((EntityPlayer) par3Entity) ? 2 : 1));
 	}
 

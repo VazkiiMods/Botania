@@ -29,30 +29,30 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemThornChakram extends ItemMod implements ICraftAchievement {
 
 	IIcon iconFire;
-	
+
 	public ItemThornChakram() {
 		setUnlocalizedName(LibItemNames.THORN_CHAKRAM);
 		setMaxStackSize(6);
 		setHasSubtypes(true);
 	}
-	
+
 	@Override
 	public void getSubItems(Item item, CreativeTabs tab, List list) {
 		for(int i = 0; i < 2; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
-	
+
 	@Override
 	public void registerIcons(IIconRegister par1IconRegister) {
 		itemIcon = IconHelper.forItem(par1IconRegister, this, 0);
 		iconFire = IconHelper.forItem(par1IconRegister, this, 1);
 	}
-	
+
 	@Override
 	public IIcon getIconFromDamage(int dmg) {
 		return dmg == 0 ? itemIcon : iconFire;
 	}
-	
+
 	@Override
 	public String getUnlocalizedName(ItemStack stack) {
 		return super.getUnlocalizedName() + stack.getItemDamage();
@@ -69,7 +69,7 @@ public class ItemThornChakram extends ItemMod implements ICraftAchievement {
 			c.setFire(p_77659_1_.getItemDamage() != 0);
 			p_77659_2_.spawnEntityInWorld(c);
 		}
-			
+
 
 		return p_77659_1_;
 	}

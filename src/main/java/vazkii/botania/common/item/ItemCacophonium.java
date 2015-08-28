@@ -82,11 +82,11 @@ public class ItemCacophonium extends ItemMod {
 		boolean can = isDOIT(stack);
 		if(!can) {
 			String sound = ItemNBTHelper.getString(stack, TAG_SOUND, "");
-			boolean doit = isDOIT(stack);
+			isDOIT(stack);
 			if(sound != null && !sound.isEmpty())
 				can = true;
 		}
-		
+
 		if(can) {
 			Block block = world.getBlock(x, y, z);
 			if(block == Blocks.noteblock) {
@@ -96,10 +96,10 @@ public class ItemCacophonium extends ItemMod {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean adv) {
 		if(isDOIT(stack))
@@ -130,20 +130,20 @@ public class ItemCacophonium extends ItemMod {
 		if(count % (isDOIT(stack) ? 20 : 6) == 0)
 			playSound(player.worldObj, stack, player.posX, player.posY, player.posZ, 0.9F);
 	}
-	
+
 	public static void playSound(World world, ItemStack stack, double x, double y, double z, float volume) {
 		if(stack == null)
 			return;
-		
+
 		String sound = ItemNBTHelper.getString(stack, TAG_SOUND, "");
 		boolean doit = isDOIT(stack);
 		if(doit)
 			sound = "botania:doit";
-			
+
 		if(sound != null && !sound.isEmpty())
-			world.playSoundEffect(x, y, z, sound, volume, doit ? 1F : ((world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F + 1.0F));
+			world.playSoundEffect(x, y, z, sound, volume, doit ? 1F : (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F + 1.0F);
 	}
-	
+
 	private static boolean isDOIT(ItemStack stack) {
 		return stack != null && stack.getDisplayName().equalsIgnoreCase("shia labeouf");
 	}

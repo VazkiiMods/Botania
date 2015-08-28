@@ -126,5 +126,5 @@ public class SubTileExoflame extends SubTileFunctional {
 	public LexiconEntry getEntry() {
 		return LexiconData.exoflame;
 	}
-	
+
 }

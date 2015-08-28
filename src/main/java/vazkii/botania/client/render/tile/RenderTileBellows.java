@@ -10,18 +10,17 @@
  */
 package vazkii.botania.client.render.tile;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelBellows;
-import vazkii.botania.client.model.ModelPump;
 import vazkii.botania.common.block.tile.mana.TileBellows;
-import vazkii.botania.common.block.tile.mana.TilePump;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
 
 public class RenderTileBellows extends TileEntitySpecialRenderer {
 
@@ -35,7 +34,7 @@ public class RenderTileBellows extends TileEntitySpecialRenderer {
 	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f) {
 		TileBellows bellows = (TileBellows) tileentity;
-		
+
 		GL11.glPushMatrix();
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
@@ -53,5 +52,5 @@ public class RenderTileBellows extends TileEntitySpecialRenderer {
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glPopMatrix();
 	}
-	
+
 }

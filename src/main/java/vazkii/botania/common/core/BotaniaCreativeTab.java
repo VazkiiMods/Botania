@@ -384,7 +384,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 			addBlock(ModFluffBlocks.enderBrickSlab);
 			addBlock(ModFluffBlocks.enderBrickStairs);
 		}
-		
+
 		addItem(ModItems.cosmetic);
 	}
 
