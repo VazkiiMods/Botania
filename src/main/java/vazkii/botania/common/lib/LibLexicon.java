@@ -167,6 +167,7 @@ public final class LibLexicon {
 	public static final String TOOL_OBEDIENCE_STICK = "obedienceStick";
 	public static final String TOOL_SLIME_BOTTLE = "slimeBottle";
 	public static final String TOOL_EXCHANGE_ROD = "exchangeRod";
+	public static final String TOOL_MANAWEAVE = "manaweave";
 
 	public static final String ENDER_AIR = "enderAir";
 	public static final String ENDER_ENDER_EYE_BLOCK = "enderEyeBlock";

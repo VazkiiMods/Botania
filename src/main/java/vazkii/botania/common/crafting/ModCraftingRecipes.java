@@ -282,6 +282,11 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeFireChakram;
 	public static IRecipe recipeThunderSword;
 	public static IRecipe recipeBellows;
+	public static IRecipe recipeManaweaveCloth;
+	public static IRecipe recipeManaweaveHelm;
+	public static IRecipe recipeManaweaveChest;
+	public static IRecipe recipeManaweaveLegs;
+	public static IRecipe recipeManaweaveBoots;
 
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;
@@ -1934,6 +1939,30 @@ public final class ModCraftingRecipes {
 				'L', new ItemStack(Items.leather));
 		recipeBellows = BotaniaAPI.getLatestAddedRecipe();
 		
+		// Manaweave Cloth Recipe
+		addOreDictRecipe(new ItemStack(ModItems.manaResource, 1, 22), 
+				"SS", "SS",
+				'S', LibOreDict.MANA_STRING);
+		recipeManaweaveCloth = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Manaweave Armor Recipes
+		addOreDictRecipe(new ItemStack(ModItems.manaweaveHelm),
+				"SSS", "S S",
+				'S', LibOreDict.MANAWEAVE_CLOTH);
+		recipeManaweaveHelm = BotaniaAPI.getLatestAddedRecipe();
+		addOreDictRecipe(new ItemStack(ModItems.manaweaveChest),
+				"S S", "SSS", "SSS",
+				'S', LibOreDict.MANAWEAVE_CLOTH);
+		recipeManaweaveChest = BotaniaAPI.getLatestAddedRecipe();
+		addOreDictRecipe(new ItemStack(ModItems.manaweaveLegs),
+				"SSS", "S S", "S S",
+				'S', LibOreDict.MANAWEAVE_CLOTH);
+		recipeManaweaveLegs = BotaniaAPI.getLatestAddedRecipe();
+		addOreDictRecipe(new ItemStack(ModItems.manaweaveBoots),
+				"S S", "S S",
+				'S', LibOreDict.MANAWEAVE_CLOTH);
+		recipeManaweaveBoots = BotaniaAPI.getLatestAddedRecipe();
+
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		// Storage Block/Nugget Recipes

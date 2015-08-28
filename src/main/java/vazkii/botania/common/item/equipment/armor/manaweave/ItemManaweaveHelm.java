@@ -10,13 +10,20 @@
  */
 package vazkii.botania.common.item.equipment.armor.manaweave;
 
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
+import net.minecraft.world.World;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaDiscountArmor;
+import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemManaweaveHelm extends ItemManaweaveArmor implements IManaDiscountArmor, IManaProficiencyArmor {
+	
+	private static final int MANA_PER_DAMAGE = 30;
 	
 	public ItemManaweaveHelm() {
 		super(0, LibItemNames.MANAWEAVE_HELM);
@@ -30,6 +37,17 @@ public class ItemManaweaveHelm extends ItemManaweaveArmor implements IManaDiscou
 	@Override
 	public boolean shouldGiveProficiency(ItemStack stack, int slot, EntityPlayer player) {
 		return hasArmorSet(player);
+	}
+	
+	@Override
+	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
+		if(!world.isRemote && stack.getItemDamage() > 0 && ManaItemHandler.requestManaExact(stack, player, MANA_PER_DAMAGE * 2, true))
+			stack.setItemDamage(stack.getItemDamage() - 1);
+	}
+
+	@Override
+	public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot) {
+		ToolCommons.damageItem(stack, damage, entity, MANA_PER_DAMAGE);
 	}
 	
 }

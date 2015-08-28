@@ -2766,6 +2766,16 @@ botania.page.exchangeRod1=Right clicking on a block in the world will start a la
 botania.page.exchangeRod2=Other rods or devices can be used to extend the power of the &1Rod of the Shifting Crust&0.<br>For example, having a &1Rod of the Lands&0 in one's inventory provides the &1Rod of the Shifting Crust&0 with an endless supply of &1Dirt&0, assuming the &4Mana&0 cost for the &1Rod of the Lands&0' dirt conjuration is fulfiled.
 botania.page.exchangeRod3=Bootlegged equal trade
 
+# -- MANAWEAVE CLOTH
+botania.entry.manaweave=Manaweave Cloth
+botania.page.manaweave0=&1Manaweave Cloth&0 is a type of fabric with powerful ties to the primal energies contained in &4Mana&0.<br>Armor can be made of this cloth, &1Manaweave Robes&0, while they aren't very strong when it comes to raw resistance and strength, the robes make up for it with a powerful set bonus, making tools and rods cheaper to use, &4Mana&0 wise, and making the latter more powerful. 
+botania.page.manaweave1=Wearing the full set of &1Manaweave Robes&0 grants the wearer with increased proficiency when operating magical rods, increasing the power or range of them, or just their cost, for some of the more simpleton ones.<br>&1Manaweave Robes&0 can use &4Mana&0 from one's inventory to repair themselves, similarly to &1Manasteel Armor&0, but, due to their affinities with the primal energies, at a lower mana cost.
+botania.page.manaweave2=Weaving the threads of mana
+botania.page.manaweave3=Creating the Cowl
+botania.page.manaweave4=Creating the Robe Top
+botania.page.manaweave5=Creating the Robe Bottom
+botania.page.manaweave6=Creating the Boots
+
 # - ENDER ARTEFACTS
 # -- EXTRACTING ENDER AIR
 botania.entry.enderAir=Extracting Ender Air
