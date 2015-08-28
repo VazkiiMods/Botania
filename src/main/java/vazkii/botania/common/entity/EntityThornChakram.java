@@ -74,7 +74,7 @@ public class EntityThornChakram extends EntityThrowable {
 				motionY = motion.y;
 				motionZ = motion.z;
 				if(MathHelper.pointDistanceSpace(posX, posY, posZ, thrower.posX, thrower.posY, thrower.posZ) < 1)
-					if(!(thrower instanceof EntityPlayer && (((EntityPlayer) thrower).capabilities.isCreativeMode || ((EntityPlayer) thrower).inventory.addItemStackToInventory(new ItemStack(ModItems.thornChakram)))))
+					if(!(thrower instanceof EntityPlayer && (((EntityPlayer) thrower).capabilities.isCreativeMode || ((EntityPlayer) thrower).inventory.addItemStackToInventory(getItemStack()))))
 						dropAndKill();
 					else if(!worldObj.isRemote)
 						setDead();
@@ -91,11 +91,15 @@ public class EntityThornChakram extends EntityThrowable {
 
 	private void dropAndKill() {
 		if(!worldObj.isRemote) {
-			ItemStack stack = new ItemStack(ModItems.thornChakram);
+			ItemStack stack = getItemStack();
 			EntityItem item = new EntityItem(worldObj, posX, posY, posZ, stack);
 			worldObj.spawnEntityInWorld(item);
 			setDead();
 		}
+	}
+	
+	private ItemStack getItemStack() {
+		return new ItemStack(ModItems.thornChakram, 1, isFire() ? 1 : 0);
 	}
 
 	@Override
