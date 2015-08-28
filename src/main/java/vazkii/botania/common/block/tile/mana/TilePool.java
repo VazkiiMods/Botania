@@ -25,8 +25,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
@@ -54,6 +56,7 @@ import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ItemManaTablet;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibMisc;
 
 public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLocked, ISparkAttachable, IThrottledPacket {
 
@@ -85,13 +88,15 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 	boolean canAccept = true;
 	boolean canSpare = true;
 	public boolean fragile = false;
-
+	public boolean isDoingTransfer = false;
+	public int ticksDoingTransfer = 0;
+	
 	String inputKey = "";
 	String outputKey = "";
 
 	int ticks = 0;
 	boolean sendPacket = false;
-
+	
 	@Override
 	public boolean isFull() {
 		Block blockBelow = worldObj.getBlock(xCoord, yCoord - 1, zCoord);
@@ -181,6 +186,8 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 
 	@Override
 	public void updateEntity() {
+		boolean wasDoingTransfer = isDoingTransfer;
+		isDoingTransfer = false;
 		if(manaCap == -1)
 			manaCap = getBlockMetadata() == 2 ? MAX_MANA_DILLUTED : MAX_MANA;
 
@@ -217,12 +224,21 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 				if(outputting && mana.canReceiveManaFromPool(stack, this) || !outputting && mana.canExportManaToPool(stack, this)) {
 					boolean didSomething = false;
 
+					int bellowCount = 0;
+					if(outputting)
+						for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) {
+							TileEntity tile = worldObj.getTileEntity(xCoord + dir.offsetX, yCoord, zCoord + dir.offsetZ);
+							if(tile != null && tile instanceof TileBellows && ((TileBellows) tile).getLinkedTile() == this)
+								bellowCount++;
+						}
+					int transfRate = 1000 * (bellowCount + 1);
+					
 					if(outputting) {
 						if(canSpare) {
 							if(getCurrentMana() > 0 && mana.getMana(stack) < mana.getMaxMana(stack))
 								didSomething = true;
 
-							int manaVal = Math.min(1000, Math.min(getCurrentMana(), mana.getMaxMana(stack) - mana.getMana(stack)));
+							int manaVal = Math.min(transfRate, Math.min(getCurrentMana(), mana.getMaxMana(stack) - mana.getMana(stack)));
 							if(!worldObj.isRemote)
 								mana.addMana(stack, manaVal);
 							recieveMana(-manaVal);
@@ -232,7 +248,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 							if(mana.getMana(stack) > 0 && !isFull())
 								didSomething = true;
 
-							int manaVal = Math.min(1000, Math.min(manaCap - getCurrentMana(), mana.getMana(stack)));
+							int manaVal = Math.min(transfRate, Math.min(manaCap - getCurrentMana(), mana.getMana(stack)));
 							if(!worldObj.isRemote)
 								mana.addMana(stack, -manaVal);
 							recieveMana(manaVal);
@@ -245,11 +261,20 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 							Vector3 tileVec = Vector3.fromTileEntity(this).add(0.2 + Math.random() * 0.6, 0, 0.2 + Math.random() * 0.6);
 							LightningHandler.spawnLightningBolt(worldObj, outputting ? tileVec : itemVec, outputting ? itemVec : tileVec, 80, worldObj.rand.nextLong(), 0x4400799c, 0x4400C6FF);
 						}
+						isDoingTransfer = outputting;
 					}
 				}
 			}
 		}
 
+		if(isDoingTransfer)
+			ticksDoingTransfer++;
+		else {
+			ticksDoingTransfer = 0;
+			if(wasDoingTransfer)
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		}
+		
 		ticks++;
 	}
 

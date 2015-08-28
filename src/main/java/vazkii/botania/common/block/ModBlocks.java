@@ -48,6 +48,7 @@ import vazkii.botania.common.block.dispenser.BehaviourPoolMinecart;
 import vazkii.botania.common.block.dispenser.BehaviourSeeds;
 import vazkii.botania.common.block.dispenser.BehaviourWand;
 import vazkii.botania.common.block.mana.BlockAlchemyCatalyst;
+import vazkii.botania.common.block.mana.BlockBellows;
 import vazkii.botania.common.block.mana.BlockBrewery;
 import vazkii.botania.common.block.mana.BlockConjurationCatalyst;
 import vazkii.botania.common.block.mana.BlockDistributor;
@@ -141,6 +142,7 @@ import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaFunnel;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaInterceptor;
+import vazkii.botania.common.block.tile.mana.TileBellows;
 import vazkii.botania.common.block.tile.mana.TileDistributor;
 import vazkii.botania.common.block.tile.mana.TileManaDetector;
 import vazkii.botania.common.block.tile.mana.TileManaVoid;
@@ -241,6 +243,7 @@ public final class ModBlocks {
 	public static Block lightLauncher;
 	public static Block manaBomb;
 	public static Block cacophonium;
+	public static Block bellows;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -322,6 +325,7 @@ public final class ModBlocks {
 		lightLauncher = new BlockLightLauncher();
 		manaBomb = new BlockManaBomb();
 		cacophonium = new BlockCacophonium();
+		bellows = new BlockBellows();
 		
 		ModFluffBlocks.init();
 
@@ -417,6 +421,7 @@ public final class ModBlocks {
 		registerTile(TileCocoon.class, LibBlockNames.COCOON);
 		registerTile(TileLightRelay.class, LibBlockNames.LIGHT_RELAY);
 		registerTile(TileCacophonium.class, LibBlockNames.CACOPHONIUM);
+		registerTile(TileBellows.class, LibBlockNames.BELLOWS);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MANASTAR, SubTileManastar.class);

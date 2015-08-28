@@ -1019,6 +1019,7 @@ tile.botania:buriedPetals13.name=Buried Green Petal
 tile.botania:buriedPetals14.name=Buried Red Petal
 tile.botania:buriedPetals15.name=Buried Black Petal
 tile.botania:cacophoniumBlock.name=Cacophonium Block
+tile.botania:bellows.name=Manatide Bellows
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower

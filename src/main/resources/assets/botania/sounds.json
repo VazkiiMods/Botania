@@ -4,6 +4,7 @@
 	"altarCraft": { "category": "block", "sounds":["altarCraft"] },
 	"babylonAttack": { "category": "player", "sounds":["babylonAttack"] },
 	"babylonSpawn": { "category": "player", "sounds":["babylonSpawn"] },
+	"bellows": { "category": "block", "sounds":["bellows"] },
 	"bifrostRod": { "category": "player", "sounds":["bifrostRod"] },
 	"blackLotus": { "category": "block", "sounds":["blackLotus"] },
 	"dash": { "category": "player", "sounds":["dash"] },

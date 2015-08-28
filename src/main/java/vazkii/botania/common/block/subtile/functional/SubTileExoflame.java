@@ -86,7 +86,7 @@ public class SubTileExoflame extends SubTileFunctional {
 			sync();
 	}
 
-	public boolean canFurnaceSmelt(TileEntityFurnace furnace){
+	public static boolean canFurnaceSmelt(TileEntityFurnace furnace){
 		if(furnace.getStackInSlot(0) == null)
 			return false;
 		else {

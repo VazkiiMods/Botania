@@ -94,6 +94,7 @@ public final class LibBlockNames {
 	public static final String LIGHT_LAUNCHER = "lightLauncher";
 	public static final String MANA_BOMB = "manaBomb";
 	public static final String CACOPHONIUM = "cacophoniumBlock";
+	public static final String BELLOWS = "bellows";
 
 	public static final String SUBTILE_PUREDAISY = "puredaisy";
 	public static final String SUBTILE_MANASTAR = "manastar";
