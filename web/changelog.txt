@@ -1,3 +1,17 @@
+r1.7 216
+*Added Manweave Cloth and Armor. Manaweave Armor's set bonus gives a 35% discount on tools and rods and makes rods be more powerful or have larger range.
+*Added the Manatide Bellows, a block that increases the speed of Mana Pools' mana output and Furnaces' smelting.
+*Bifrost Blocks are now craftable using a Rod of the Bifrost and Alfglass (you don't lose the rod). They also have a smoother animation now thanks to the interpolated icon (same as the one used for prismarine) and emit light.
+*Fixed Mana Pools leaving sometimes a tiny sliver of mana in the client side if used to charge a mana tablet.
+*Fixed the Flare Chakram returning a Thorn Chakram when picked up instead of the proper Flare Chakram.
+*Fixed the Mana Pump dispatching needless network packets.
+*Increased the amount of time the bridges created by the Rod of the Bifrost to double of what it was before.
+*Made the Exoflame a bit cheaper.
+*Rods are now affected by Armor Sets' mana discounts (like the Manasteel armor set).
+*Spellbinding Cloth is now crafted using Manaweave Cloth.
+*[API] Added IManaProficiencyArmor.
+*[API] Added manaweaveArmorMaterial to the API main class.
+*[API] Increased version number to 61.
 r1.7 215
 *Added the Flare Chakram, a fire version of the Thorn Chakram.
 *Added the Thundercaller, a new Terra Blade sidegrade that calls upon chain lightning.
