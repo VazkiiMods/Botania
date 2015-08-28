@@ -45,7 +45,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemManaResource extends ItemMod implements IFlowerComponent, IElvenItem, IPickupAchievement {
 
-	final int types = 22;
+	final int types = 23;
 	IIcon[] icons;
 
 	// begin dank_memes

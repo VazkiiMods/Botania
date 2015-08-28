@@ -427,6 +427,7 @@ public final class ModItems {
 		OreDictionary.registerOre(LibOreDict.ELEMENTIUM_NUGGET, new ItemStack(manaResource, 1, 19));
 		OreDictionary.registerOre(LibOreDict.ROOT, new ItemStack(manaResource, 1, 20));
 		OreDictionary.registerOre(LibOreDict.PEBBLE, new ItemStack(manaResource, 1, 21));
+		OreDictionary.registerOre(LibOreDict.MANAWEAVE_CLOTH, new ItemStack(manaResource, 1, 22));
 
 		OreDictionary.registerOre(LibOreDict.VIAL, new ItemStack(vial, 1, 0));
 		OreDictionary.registerOre(LibOreDict.FLASK, new ItemStack(vial, 1, 1));

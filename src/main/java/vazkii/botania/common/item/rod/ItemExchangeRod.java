@@ -121,7 +121,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		Block block = getBlock(stack);
 		int meta = getBlockMeta(stack);
 		if(ItemNBTHelper.getBoolean(stack, TAG_SWAPPING, false)) {
-			if(!ManaItemHandler.requestManaExact(stack, player, COST, false)) {
+			if(!ManaItemHandler.requestManaExactForTool(stack, player, COST, false)) {
 				ItemNBTHelper.setBoolean(stack, TAG_SWAPPING, false);
 				return;
 			}
@@ -140,7 +140,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 			ChunkCoordinates coords = swap.get(world.rand.nextInt(swap.size()));
 			boolean exchange = exchange(world, player, coords.posX, coords.posY, coords.posZ, stack, block, meta);
 			if(exchange)
-				ManaItemHandler.requestManaExact(stack, player, COST, true);
+				ManaItemHandler.requestManaExactForTool(stack, player, COST, true);
 			else ItemNBTHelper.setBoolean(stack, TAG_SWAPPING, false);
 		}
 	}

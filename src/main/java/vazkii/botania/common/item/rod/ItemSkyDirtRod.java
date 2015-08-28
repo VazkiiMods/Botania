@@ -30,7 +30,7 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		if(!world.isRemote && ManaItemHandler.requestManaExact(stack, player, COST * 2, false)) {
+		if(!world.isRemote && ManaItemHandler.requestManaExactForTool(stack, player, COST * 2, false)) {
 			Vector3 playerVec = Vector3.fromEntityCenter(player);
 			Vector3 lookVec = new Vector3(player.getLookVec()).multiply(3);
 			Vector3 placeVec = playerVec.copy().add(lookVec);
@@ -46,7 +46,7 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 				stackToPlace.tryPlaceItemIntoWorld(player, world, x, y, z, 0, 0F, 0F, 0F);
 
 				if(stackToPlace.stackSize == 0) {
-					ManaItemHandler.requestManaExact(stack, player, COST * 2, true);
+					ManaItemHandler.requestManaExactForTool(stack, player, COST * 2, true);
 					for(int i = 0; i < 6; i++)
 						Botania.proxy.sparkleFX(world, x + Math.random(), y + Math.random(), z + Math.random(), 0.35F, 0.2F, 0.05F, 1F, 5);
 				}

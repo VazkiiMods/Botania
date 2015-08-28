@@ -37,7 +37,7 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem {
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		if(!par2World.isRemote && par1ItemStack.getItemDamage() == 0 && ManaItemHandler.requestManaExact(par1ItemStack, par3EntityPlayer, MANA_COST, false)) {
+		if(!par2World.isRemote && par1ItemStack.getItemDamage() == 0 && ManaItemHandler.requestManaExactForTool(par1ItemStack, par3EntityPlayer, MANA_COST, false)) {
 			Block place = ModBlocks.bifrost;
 			Vector3 vector = new Vector3(par3EntityPlayer.getLookVec()).normalize();
 
@@ -79,7 +79,7 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem {
 
 			if(count > 0) {
 				par2World.playSoundAtEntity(par3EntityPlayer, "botania:bifrostRod", 0.5F, 0.25F);
-				ManaItemHandler.requestManaExact(par1ItemStack, par3EntityPlayer, MANA_COST, false);
+				ManaItemHandler.requestManaExactForTool(par1ItemStack, par3EntityPlayer, MANA_COST, false);
 				par1ItemStack.setItemDamage(TIME);
 			}
 		}

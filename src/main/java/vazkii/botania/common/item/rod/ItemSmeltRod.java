@@ -59,7 +59,7 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 
 	@Override
 	public void onUsingTick(ItemStack stack, EntityPlayer p, int time) {
-		if(!ManaItemHandler.requestManaExact(stack, p, COST_PER_TICK, false))
+		if(!ManaItemHandler.requestManaExactForTool(stack, p, COST_PER_TICK, false))
 			return;
 
 		MovingObjectPosition pos = ToolCommons.raytraceFromEntity(p.worldObj, p, false, 32);
@@ -86,7 +86,7 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 								p.worldObj.playSoundAtEntity(p, "fire.ignite", 0.6F, 1F);
 								p.worldObj.playSoundAtEntity(p, "fire.fire", 1F, 1F);
 
-								ManaItemHandler.requestManaExact(stack, p, COST_PER_TICK, true);
+								ManaItemHandler.requestManaExactForTool(stack, p, COST_PER_TICK, true);
 								playerData.remove(p.getGameProfile().getName());
 								decremented = false;
 							}

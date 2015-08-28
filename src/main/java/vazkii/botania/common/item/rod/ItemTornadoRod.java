@@ -79,11 +79,11 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem {
 	@Override
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
 		int meta = par1ItemStack.getItemDamage();
-		if(meta != 0 || ManaItemHandler.requestManaExact(par1ItemStack, par3EntityPlayer, COST, false)) {
+		if(meta != 0 || ManaItemHandler.requestManaExactForTool(par1ItemStack, par3EntityPlayer, COST, false)) {
 			par3EntityPlayer.setItemInUse(par1ItemStack, getMaxItemUseDuration(par1ItemStack));
 			if(meta == 0) {
 				setFlying(par1ItemStack, true);
-				ManaItemHandler.requestManaExact(par1ItemStack, par3EntityPlayer, COST, true);
+				ManaItemHandler.requestManaExactForTool(par1ItemStack, par3EntityPlayer, COST, true);
 			}
 		}
 

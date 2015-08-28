@@ -49,7 +49,7 @@ public class ItemDirtRod extends ItemMod implements IManaUsingItem, ICraftAchiev
 	}
 
 	public static boolean place(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10, Block block, int cost, float r, float g, float b) {
-		if(ManaItemHandler.requestManaExact(par1ItemStack, par2EntityPlayer, cost, false)) {
+		if(ManaItemHandler.requestManaExactForTool(par1ItemStack, par2EntityPlayer, cost, false)) {
 			ForgeDirection dir = ForgeDirection.getOrientation(par7);
 			int entities = par3World.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(par4 + dir.offsetX, par5 + dir.offsetY, par6 + dir.offsetZ, par4 + dir.offsetX + 1, par5 + dir.offsetY + 1, par6 + dir.offsetZ + 1)).size();
 
@@ -58,7 +58,7 @@ public class ItemDirtRod extends ItemMod implements IManaUsingItem, ICraftAchiev
 				stackToPlace.tryPlaceItemIntoWorld(par2EntityPlayer, par3World, par4, par5, par6, par7, par8, par9, par10);
 
 				if(stackToPlace.stackSize == 0) {
-					ManaItemHandler.requestManaExact(par1ItemStack, par2EntityPlayer, cost, true);
+					ManaItemHandler.requestManaExactForTool(par1ItemStack, par2EntityPlayer, cost, true);
 					for(int i = 0; i < 6; i++)
 						Botania.proxy.sparkleFX(par3World, par4 + dir.offsetX + Math.random(), par5 + dir.offsetY + Math.random(), par6 + dir.offsetZ + Math.random(), r, g, b, 1F, 5);
 				}
@@ -86,7 +86,7 @@ public class ItemDirtRod extends ItemMod implements IManaUsingItem, ICraftAchiev
 	@Override
 	public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta, boolean doit) {
 		if(block == Blocks.dirt && meta == 0)
-			return !doit || ManaItemHandler.requestManaExact(requestor, player, COST, true);
+			return !doit || ManaItemHandler.requestManaExactForTool(requestor, player, COST, true);
 		return false;
 	}
 

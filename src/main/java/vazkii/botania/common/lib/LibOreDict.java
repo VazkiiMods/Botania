@@ -40,6 +40,7 @@ public final class LibOreDict {
 	public static final String ELEMENTIUM_NUGGET = "nuggetElvenElementium";
 	public static final String ROOT = "livingRoot";
 	public static final String PEBBLE = "pebble";
+	public static final String MANAWEAVE_CLOTH = "clothManaweave";
 
 	public static final String VIAL = "bVial";
 	public static final String FLASK = "bFlask";

@@ -122,7 +122,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 				}
 			}
 
-			if(ManaItemHandler.requestManaExact(stack, player, COST, true) && item != null) {
+			if(ManaItemHandler.requestManaExactForTool(stack, player, COST, true) && item != null) {
 				if(item instanceof EntityItem)
 					((EntityItem)item).delayBeforeCanPickup = 5;
 

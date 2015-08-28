@@ -35,7 +35,7 @@ public class ItemDiviningRod extends ItemMod implements IManaUsingItem {
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer p) {
-		if(ManaItemHandler.requestManaExact(stack, p, COST, true)) {
+		if(ManaItemHandler.requestManaExactForTool(stack, p, COST, true)) {
 			if(world.isRemote) {
 				int x = MathHelper.floor_double(p.posX);
 				int y = MathHelper.floor_double(p.posY);

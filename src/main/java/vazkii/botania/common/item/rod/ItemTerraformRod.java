@@ -140,7 +140,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 
 		int cost = COST_PER * blocks.size();
 
-		if(par2World.isRemote || ManaItemHandler.requestManaExact(par1ItemStack, par3EntityPlayer, cost, true)) {
+		if(par2World.isRemote || ManaItemHandler.requestManaExactForTool(par1ItemStack, par3EntityPlayer, cost, true)) {
 			if(!par2World.isRemote)
 				for(CoordsWithBlock block : blocks)
 					par2World.setBlock(block.posX, block.posY, block.posZ, block.block);
@@ -178,7 +178,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 	@Override
 	public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta, boolean doit) {
 		if(block == Blocks.dirt && meta == 0)
-			return !doit || ManaItemHandler.requestManaExact(requestor, player, ItemDirtRod.COST, true);
+			return !doit || ManaItemHandler.requestManaExactForTool(requestor, player, ItemDirtRod.COST, true);
 		return false;
 	}
 
