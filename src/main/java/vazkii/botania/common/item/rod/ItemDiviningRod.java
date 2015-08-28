@@ -18,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
+import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.Botania;
@@ -40,7 +41,7 @@ public class ItemDiviningRod extends ItemMod implements IManaUsingItem {
 				int x = MathHelper.floor_double(p.posX);
 				int y = MathHelper.floor_double(p.posY);
 				int z = MathHelper.floor_double(p.posZ);
-				int range = 15;
+				int range = IManaProficiencyArmor.Helper.hasProficiency(p) ? 20 : 15;
 				long seedxor = world.rand.nextLong();
 
 				Botania.proxy.setWispFXDepthTest(false);

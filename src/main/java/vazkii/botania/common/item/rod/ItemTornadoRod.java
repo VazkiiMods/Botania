@@ -17,6 +17,7 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -61,7 +62,7 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem {
 					player.stopUsingItem();
 				} else if(isFlying(par1ItemStack)) {
 					player.fallDistance = 0F;
-					player.motionY = 1.25;
+					player.motionY = IManaProficiencyArmor.Helper.hasProficiency(player) ? 1.6 : 1.25;
 					par1ItemStack.setItemDamage(Math.min(max, par1ItemStack.getItemDamage() + FALL_MULTIPLIER));
 					if(par1ItemStack.getItemDamage() == MAX_DAMAGE)
 						setFlying(par1ItemStack, false);

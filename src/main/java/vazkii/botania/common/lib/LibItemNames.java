@@ -152,7 +152,11 @@ public final class LibItemNames {
 	public static final String EXCHANGE_ROD = "exchangeRod";
 	public static final String MAGNET_RING_GREATER = "magnetRingGreater";
 	public static final String THUNDER_SWORD = "thunderSword";
-
+	public static final String MANAWEAVE_HELM = "manaweaveHelm";
+	public static final String MANAWEAVE_CHEST = "manaweaveChest";
+	public static final String MANAWEAVE_LEGS = "manaweaveLegs";
+	public static final String MANAWEAVE_BOOTS = "manaweaveBoots";
+	
 	public static final String[] LENS_NAMES = new String[] {
 		"lensNormal",
 		"lensSpeed",

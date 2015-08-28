@@ -33,6 +33,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import vazkii.botania.api.item.IBlockProvider;
+import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -58,6 +59,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 	private static final String TAG_SELECT_X = "selectX";
 	private static final String TAG_SELECT_Y = "selectY";
 	private static final String TAG_SELECT_Z = "selectZ";
+	private static final String TAG_EXTRA_RANGE = "extraRange";
 
 	public ItemExchangeRod() {
 		setMaxStackSize(1);
@@ -118,6 +120,12 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 			return;
 
 		EntityPlayer player = (EntityPlayer) entity;
+		
+		int extraRange = ItemNBTHelper.getInt(stack, TAG_EXTRA_RANGE, 1);
+		int extraRangeNew = IManaProficiencyArmor.Helper.hasProficiency(player) ? 3 : 1; 
+		if(extraRange != extraRangeNew)
+			ItemNBTHelper.setInt(stack, TAG_EXTRA_RANGE, extraRangeNew);
+		
 		Block block = getBlock(stack);
 		int meta = getBlockMeta(stack);
 		if(ItemNBTHelper.getBoolean(stack, TAG_SWAPPING, false)) {
@@ -151,7 +159,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 			targetMeta = world.getBlockMetadata(xc, yc, zc);
 		}
 
-		int effrange = RANGE + 1;
+		int effrange = RANGE + ItemNBTHelper.getInt(stack, TAG_EXTRA_RANGE, 1);
 		int diameter = effrange * 2 + 1;
 		Boolean[][][] matrix = new Boolean[diameter][diameter][diameter];
 		for(int i = 0; i < diameter; i++)
@@ -177,7 +185,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		List<ChunkCoordinates> coordsList = new ArrayList();
 		Boolean[][][] matrix = createMatrix(world, stack, blockToSwap, metaToSwap, xc, yc, zc, targetBlock, targetMeta);
 
-		int effrange = RANGE + 1;
+		int effrange = RANGE + ItemNBTHelper.getInt(stack, TAG_EXTRA_RANGE, 1);
 		int diameter = effrange * 2;
 		for(int i = 1; i < diameter; i++)
 			for(int j = 1; j < diameter; j++)

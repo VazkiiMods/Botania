@@ -86,6 +86,8 @@ public final class LibResources {
 	public static final String MODEL_ELEMENTIUM_0 = PREFIX_MODEL + "elementium0.png";
 	public static final String MODEL_ELEMENTIUM_1 = PREFIX_MODEL + "elementium1.png";
 	public static final String MODEL_ELEMENTIUM_2 = PREFIX_MODEL + "elementium2.png";
+	public static final String MODEL_MANAWEAVE_0 = PREFIX_MODEL + "manaweave0.png";
+	public static final String MODEL_MANAWEAVE_1 = PREFIX_MODEL + "manaweave1.png";
 	public static final String MODEL_PIXIE = PREFIX_MODEL + "pixie.png";
 	public static final String MODEL_TINY_POTATO = PREFIX_MODEL + "tinyPotato.png";
 	public static final String MODEL_TINY_POTATO_GS = PREFIX_MODEL + "tinyPotatoGray.png";

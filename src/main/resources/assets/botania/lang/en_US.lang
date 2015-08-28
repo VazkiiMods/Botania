@@ -221,6 +221,9 @@ botania.armorset.elementium.desc=Chance for pixies to apply potion effects
 botania.armorset.terrasteel.name=Will of the Ancients
 botania.armorset.terrasteel.desc0=20% less Mana cost on Mana Tools and Rods
 botania.armorset.terrasteel.desc1=Regen even if hunger isn't topped off
+botania.armorset.manaweave.name=Manatide Prowess
+botania.armorset.manaweave.desc0=35% less Mana cost on Mana Tools and Rods
+botania.armorset.manaweave.desc1=Increased proficiency with Magical Rods
 
 botania.armorset.will0.desc=Critical Hits apply a strong weakness effect (Will of Ahrim)
 botania.armorset.will1.desc=Critical Hit damage increases with lower HP (Will of Dharok)
@@ -1446,6 +1449,10 @@ item.botania:exchangeRod.name=Rod of the Shifting Crust
 item.botania:magnetRingGreater.name=Greater Ring of Magnetization
 item.botania:thunderSword.name=Thundercaller
 item.botania:manaweaveCloth.name=Manaweave Cloth
+item.botania:manaweaveHelm.name=Manaweave Cowl
+item.botania:manaweaveChest.name=Manaweave Robe Top
+item.botania:manaweaveLegs.name=Manaweave Robe Bottom
+item.botania:manaweaveBoots.name=Manaweave Boots
 
 # BREW NAMES
 botania.brew.fallback=Fallback

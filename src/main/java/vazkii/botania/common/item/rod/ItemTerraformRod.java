@@ -25,6 +25,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.item.IBlockProvider;
+import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.subtile.ISpecialFlower;
@@ -79,7 +80,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 	}
 
 	public void terraform(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		int range = 16;
+		int range = IManaProficiencyArmor.Helper.hasProficiency(par3EntityPlayer) ? 22 : 16;
 
 		int xCenter = (int) par3EntityPlayer.posX;
 		int yCenter = (int) par3EntityPlayer.posY - (par2World.isRemote ? 2 : 1);

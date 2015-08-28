@@ -15,6 +15,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.Botania;
@@ -27,7 +28,7 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemRainbowRod extends ItemMod implements IManaUsingItem {
 
 	private static final int MANA_COST = 750;
-	private static final int TIME = 300;
+	private static final int TIME = 600;
 
 	public ItemRainbowRod() {
 		setMaxDamage(TIME);
@@ -50,8 +51,11 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem {
 			double lz = 0;
 
 			int count = 0;
-
-			while(count < 100 && (int) lx == (int) x && (int) ly == (int) y && (int) lz == (int) z || count < 4 || par2World.getBlock((int) x, (int) y, (int) z).isAir(par2World, (int) x, (int) y, (int) z) || par2World.getBlock((int) x, (int) y, (int) z) == place) {
+			boolean prof = IManaProficiencyArmor.Helper.hasProficiency(par3EntityPlayer);
+			int maxlen = prof ? 160 : 100;
+			int time = prof ? (int) (TIME * 1.6) : TIME;
+			
+			while(count < maxlen && (int) lx == (int) x && (int) ly == (int) y && (int) lz == (int) z || count < 4 || par2World.getBlock((int) x, (int) y, (int) z).isAir(par2World, (int) x, (int) y, (int) z) || par2World.getBlock((int) x, (int) y, (int) z) == place) {
 				if(y >= 256 || y <= 0)
 					break;
 
@@ -63,7 +67,7 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem {
 							if(tile != null) {
 								for(int k = 0; k < 4; k++)
 									Botania.proxy.sparkleFX(par2World, tile.xCoord + Math.random(), tile.yCoord + Math.random(), tile.zCoord + Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.45F + 0.2F * (float) Math.random(), 6);
-								tile.ticks = TIME;
+								tile.ticks = time;
 							}
 						}
 

@@ -1534,8 +1534,8 @@ public final class ModCraftingRecipes {
 
 		// Spellbinding Cloth Recipe
 		addOreDictRecipe(new ItemStack(ModItems.spellCloth),
-				"WWW", "WPW", "WWW",
-				'W', new ItemStack(Blocks.wool, 1, -1),
+				" C ", "CPC", " C ",
+				'C', LibOreDict.MANAWEAVE_CLOTH,
 				'P', LibOreDict.MANA_PEARL);
 		recipeSpellCloth = BotaniaAPI.getLatestAddedRecipe();
 

@@ -27,6 +27,10 @@ import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelBoots;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelChest;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelHelm;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelLegs;
+import vazkii.botania.common.item.equipment.armor.manaweave.ItemManaweaveBoots;
+import vazkii.botania.common.item.equipment.armor.manaweave.ItemManaweaveChest;
+import vazkii.botania.common.item.equipment.armor.manaweave.ItemManaweaveHelm;
+import vazkii.botania.common.item.equipment.armor.manaweave.ItemManaweaveLegs;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelBoots;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelChest;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
@@ -255,7 +259,11 @@ public final class ModItems {
 	public static Item exchangeRod;
 	public static Item magnetRingGreater;
 	public static Item thunderSword;
-
+	public static Item manaweaveHelm;
+	public static Item manaweaveChest;
+	public static Item manaweaveLegs;
+	public static Item manaweaveBoots;
+	
 	public static void init() {
 		lexicon = new ItemLexicon();
 		petal = new ItemPetal();
@@ -396,6 +404,10 @@ public final class ModItems {
 		exchangeRod = new ItemExchangeRod();
 		magnetRingGreater = new ItemGreaterMagnetRing();
 		thunderSword = new ItemThunderSword();
+		manaweaveHelm = new ItemManaweaveHelm();
+		manaweaveLegs = new ItemManaweaveLegs();
+		manaweaveChest = new ItemManaweaveChest();
+		manaweaveBoots = new ItemManaweaveBoots();
 		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
