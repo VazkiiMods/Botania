@@ -6,50 +6,50 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  * 
- * File Created @ [Jun 20, 2014, 8:23:17 PM (GMT)]
+ * File Created @ [Aug 28, 2015, 10:46:20 PM (GMT)]
  */
 package vazkii.botania.common.block;
 
 import java.util.Random;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.client.render.block.InterpolatedIcon;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileBifrost;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockBifrost extends BlockModContainer implements ILexiconable {
+public class BlockBifrostPerm extends BlockMod implements ILexiconable {
 
-	public BlockBifrost() {
+	public BlockBifrostPerm() {
 		super(Material.glass);
-		setBlockName(LibBlockNames.BIFROST);
+		setBlockName(LibBlockNames.BIFROST_PERM);
 		setLightOpacity(0);
+		setHardness(0.3F);
 		setLightLevel(1F);
-		setBlockUnbreakable();
 		setStepSound(soundTypeGlass);
-		MinecraftForge.EVENT_BUS.register(this);
+		setTickRandomly(true);
 	}
-
+	
 	@Override
-	public boolean registerInCreative() {
-		return false;
+	public IIcon getIcon(int side, int meta) {
+		return ModBlocks.bifrost.getIcon(side, meta);
+	}
+	
+	@Override
+	public void registerBlockIcons(IIconRegister par1IconRegister) {
+		// NO-OP
 	}
 
 	@Override
@@ -57,11 +57,6 @@ public class BlockBifrost extends BlockModContainer implements ILexiconable {
 		return false;
 	}
 
-	@Override
-	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
-		return new ItemStack(ModItems.rainbowRod);
-	}
-	
 	public boolean shouldSideBeRendered1(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int p_149646_5_) {
 		Block block = p_149646_1_.getBlock(p_149646_2_, p_149646_3_, p_149646_4_);
 
@@ -72,35 +67,16 @@ public class BlockBifrost extends BlockModContainer implements ILexiconable {
 	public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int p_149646_5_) {
 		return shouldSideBeRendered1(p_149646_1_, p_149646_2_, p_149646_3_, p_149646_4_, 1 - p_149646_5_);
 	}
+	
+	@Override
+	public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
+		if(rand.nextBoolean())
+			Botania.proxy.sparkleFX(world, x + Math.random(), y + Math.random(), z + Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.45F + 0.2F * (float) Math.random(), 6);
+	}
 
 	@Override
 	public int getRenderBlockPass() {
 		return 1;
-	}
-
-	@Override
-	public int quantityDropped(int meta, int fortune, Random random) {
-		return 0;
-	}
-	
-	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
-	public void loadTextures(TextureStitchEvent.Pre event) {
-		if(event.map.getTextureType() == 0) {
-			TextureAtlasSprite icon = new InterpolatedIcon("botania:bifrost");
-			if(event.map.setTextureEntry("botania:bifrost", icon))
-				blockIcon = icon;
-		}
-	}
-	
-	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		// NO-OP
-	}
-
-	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
-		return new TileBifrost();
 	}
 
 	@Override

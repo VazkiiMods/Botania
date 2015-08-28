@@ -244,6 +244,7 @@ public final class ModBlocks {
 	public static Block manaBomb;
 	public static Block cacophonium;
 	public static Block bellows;
+	public static Block bifrostPerm;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -326,6 +327,7 @@ public final class ModBlocks {
 		manaBomb = new BlockManaBomb();
 		cacophonium = new BlockCacophonium();
 		bellows = new BlockBellows();
+		bifrostPerm = new BlockBifrostPerm();
 		
 		ModFluffBlocks.init();
 

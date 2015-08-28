@@ -90,6 +90,21 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem {
 
 		return par1ItemStack;
 	}
+	
+	@Override
+	public ItemStack getContainerItem(ItemStack itemStack) {
+		return itemStack.copy();
+	}
+	
+	@Override
+	public boolean hasContainerItem(ItemStack stack) {
+		return getContainerItem(stack) != null;
+	}
+	
+	@Override
+	public boolean doesContainerItemLeaveCraftingGrid(ItemStack par1ItemStack) {
+		return false;
+	}
 
 	@Override
 	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
