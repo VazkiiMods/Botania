@@ -1,3 +1,11 @@
+r1.7 218
+*Fixed the Black Hole Talisman crashing the game if used on lit redstone.
+*Fixed the Flugel Tiara HUD not rendering if you have Tinkers Construct and Blood Arsenal. Maybe.
+*Fixed the mana bursts created by the Shard of Laputa and Manastorm Charge being able to be converted to normal ones with prisms.
+*Fixed the Rod of the Shfiting Crust not using mana for the left click function.
+*Fixed the snowflake pendant having no documentation. (MrKunji) <i>I deleted it by accident, ok? D:</i>
+*Having a Haste buff enabled now lowers the Mana Blaster's cooldown.
+*Increased the incense plate range to 30 blocks (from 24).
 r1.7 217
 *Fixed server crash.
 r1.7 216
