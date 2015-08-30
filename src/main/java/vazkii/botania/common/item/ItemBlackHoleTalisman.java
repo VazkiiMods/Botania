@@ -190,7 +190,9 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 	public String getItemStackDisplayName(ItemStack par1ItemStack) {
 		Block block = getBlock(par1ItemStack);
 		int meta = getBlockMeta(par1ItemStack);
-		return super.getItemStackDisplayName(par1ItemStack) + (block == null ? "" : " (" + EnumChatFormatting.GREEN + new ItemStack(block, 1, meta).getDisplayName() + EnumChatFormatting.RESET + ")");
+		ItemStack stack = new ItemStack(block, 1, meta);
+		
+		return super.getItemStackDisplayName(par1ItemStack) + ((stack == null || stack.getItem() == null) ? "" : " (" + EnumChatFormatting.GREEN + stack.getDisplayName() + EnumChatFormatting.RESET + ")");
 	}
 
 	@Override
