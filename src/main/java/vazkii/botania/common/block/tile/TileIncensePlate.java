@@ -32,7 +32,7 @@ public class TileIncensePlate extends TileSimpleInventory implements ISidedInven
 
 	private static final String TAG_TIME_LEFT = "timeLeft";
 	private static final String TAG_BURNING = "burning";
-	private static final int RANGE = 24;
+	private static final int RANGE = 32;
 
 	public int timeLeft = 0;
 	public boolean burning = false;

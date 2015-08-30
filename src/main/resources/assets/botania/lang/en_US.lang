@@ -2420,7 +2420,7 @@ botania.page.complexBrews7b=Absolute sooooooul
 botania.entry.incense=Brew Incenses
 botania.page.incense0=&4Brews&0 can provide a great variety of effects when in liquid form. They, however, don't last long, and take up inventory space. Utilizing &1Incense Sticks&0 instead of flasks mitigates that problem, these can be infused with &4Brew&0 effects just like a normal flask would, but take around ten times as much &4Mana&0 to do so.
 botania.page.incense1=An &1Incense Stick&0 can be placed on an &1Incense Plate&0 by right clicking on it, a simple click with a &1Flint and Steel&0 will light it up. Once lit, the stick can not be retrieved.<br>A single stick of incense will burn for sixty times as long as as the liquid counterpart before needing to be replaced.  
-botania.page.incense2=&1Incense Plates&0 that are burning &1Incense Sticks&0 will provide the effects of the &4Brew&0 infused in the stick to any players on a 24 block radius of the plate.<br>Not all &4Brews&0 can be infused into &1Incense Sticks&0, for example, &4Instant Health&0 or &1Absorption&0 can't, nor can any with more than one effect.
+botania.page.incense2=&1Incense Plates&0 that are burning &1Incense Sticks&0 will provide the effects of the &4Brew&0 infused in the stick to any players on a 30 block radius of the plate.<br>Not all &4Brews&0 can be infused into &1Incense Sticks&0, for example, &4Instant Health&0 or &1Absorption&0 can't, nor can any with more than one effect.
 botania.page.incense5=For the incense lovers who are also automation junkies, the &1Incense Plate&0 can receive items through &1Hoppers&0 or other input. It'll output a &1Comparator&0 signal of 1 when it has a stick and 2 when it's burning it.<br>Lastly, if a &4Mana Burst&0 with a &1Kindle Lens&0 hits the plate while there's a stick on it, it'll start burning it.
 botania.page.incense3=Incense is wincense
 botania.page.incense4=I can incense it
@@ -2522,7 +2522,7 @@ botania.page.manaBomb1=Prepare to face the mighty...
 botania.entry.manaBlaster=Mana Blaster
 botania.page.manaBlaster0=The &1Mana Blaster&0 is like a portable &1Mana Spreader&0, while shaped like a pistol for easy handling, it's not exactly a firearm, as much as it is just a portable spreader.<br>By utilizing &4Mana&0 from &4Mana carrying items&0 in the holder's inventory, it can shoot a mana burst when one is looking at.
 botania.page.manaBlaster1=This burst is a bit different from the one fired from speaders, as it's faster, but carries only three quarters of the mana a spreader burst would. There's also a short cooldown period after firing the blaster until another burst can be shot.
-botania.page.manaBlaster2=&1Mana Lenses&0 also function with the blaster, to attach one to it, put them side by side on a crafting table, to remove it, simply place the &1Mana Blaster&0 back on the crafting grid.
+botania.page.manaBlaster2=&1Mana Lenses&0 also function with the blaster, to attach one to it, put them side by side on a crafting table, to remove it, simply place the &1Mana Blaster&0 back on the crafting grid.<br>If the shooter has a &1Haste&0 effect present on their person, the speed at which they can fire the blaster also increases. 
 botania.page.manaBlaster3=We need more dakka
 
 # -- PASTURE SEEDS
