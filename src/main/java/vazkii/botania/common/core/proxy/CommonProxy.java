@@ -137,6 +137,7 @@ public class CommonProxy {
 		}
 
 		ModBlocks.addDispenserBehaviours();
+		ModBlocks.registerMultiparts();
 		ConfigHandler.loadPostInit();
 		LexiconData.postInit();
 

@@ -160,6 +160,7 @@ import vazkii.botania.common.block.tile.string.TileRedStringRelay;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibOreDict;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public final class ModBlocks {
@@ -466,6 +467,15 @@ public final class ModBlocks {
 		registerSubTileWithMini(LibBlockNames.SUBTILE_MARIMORPHOSIS, SubTileMarimorphosis.class);
 		registerSubTileWithMini(LibBlockNames.SUBTILE_BUBBELL, SubTileBubbell.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_SOLEGNOLIA, SubTileSolegnolia.class);
+	}
+	
+	public static void registerMultiparts() {
+		if(Loader.isModLoaded("ForgeMultipart")) {
+			try {
+				Class clazz = Class.forName("vazkii.botania.common.integration.multipart.MultipartHandler");
+				clazz.newInstance();
+			} catch(Throwable e) {}
+		}
 	}
 
 	private static void registerSubTileWithMini(String key, Class<? extends SubTileEntity> clazz) {
