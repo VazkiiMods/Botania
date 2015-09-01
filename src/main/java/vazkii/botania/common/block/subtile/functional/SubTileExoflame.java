@@ -33,7 +33,8 @@ public class SubTileExoflame extends SubTileFunctional {
 		super.onUpdate();
 
 		boolean did = false;
-
+		int cost = 300;
+		
 		fireFurnaces : {
 			for(int i = -RANGE; i < RANGE + 1; i++)
 				for(int j = -RANGE_Y; j < RANGE_Y + 1; j++)
@@ -53,15 +54,14 @@ public class SubTileExoflame extends SubTileFunctional {
 										if(furnace.furnaceBurnTime == 0)
 											BlockFurnace.updateFurnaceBlockState(true, supertile.getWorldObj(), x, y, z);
 										furnace.furnaceBurnTime = 200;
+										mana = Math.max(0, mana - cost);
 									}
-									if(ticksExisted % 2 == 0) {
+									if(ticksExisted % 2 == 0)
 										furnace.furnaceCookTime = Math.min(199, furnace.furnaceCookTime + 1);
-										mana -= 3;
-									}
 
 									did = true;
 
-									if(mana == 0)
+									if(mana <= 0)
 										break fireFurnaces;
 								}
 							} else if(tile instanceof IExoflameHeatable) {
@@ -70,12 +70,11 @@ public class SubTileExoflame extends SubTileFunctional {
 								if(heatable.canSmelt() && mana > 2) {
 									if(heatable.getBurnTime() == 0)
 										heatable.boostBurnTime();
-									if(ticksExisted % 2 == 0) {
+										mana = Math.max(0, mana - cost);
+									if(ticksExisted % 2 == 0)
 										heatable.boostCookTime();
-										mana -= 3;
-									}
 
-									if(mana == 0)
+									if(mana <= 0)
 										break fireFurnaces;
 								}
 							}
