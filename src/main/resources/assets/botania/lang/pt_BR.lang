@@ -129,6 +129,19 @@ botaniamisc.completed=Completo
 botaniamisc.notCompleted=Não completo
 botaniamisc.info=Info.
 botaniamisc.challengeInfo=Aprenda sobre os desafios
+botaniamisc.skyblockRangeTooLow=Distância inválida, deve ser ao menos 250.
+botaniamisc.skyblockRangeTooHigh=Distânica inválida, não deve ser maior que 10000000 (10 milhões).
+botaniamisc.hideNotes=Ocultar Notas
+botaniamisc.showNotes=Mostrar Notas
+botaniamisc.notes=Notas
+botaniamisc.pay2win=Melhore seu Poço de Mana para infundir esse item
+botaniamisc.justDoIt=DO IT
+botaniamisc.changes0=&aBotania&7 sofreu mudanças desde a última vez que usou essa instância!
+botaniamisc.changes1=A última versão do &aBotania&7 usada foi &b%s&7.
+botaniamisc.changes2=Coisas mudas, não se apavore. Se algo parece estranho, leia a entrada novamente.
+botaniamisc.changes3=&oTodo mundo tem medo de mudanças, mas isso é o que nos move adiante.
+botaniamisc.changes4=&fShift-Clique esquerdo&7 para ler as mudanças recentes
+botaniamisc.changes5=&fClique esquerdo&7 para dispensar
 
 # NEI INTEGRATION
 botania.nei.brewery=Fermentador Botânico
@@ -202,12 +215,16 @@ botania.wings9=Asas: O Escolhido
 
 # ARMOR SETS
 botania.armorset.manasteel.name=Afinidade com Mana
-botania.armorset.manasteel.desc=-10% no custo de Mana em ferramentas
+botania.armorset.manasteel.desc=-10% no custo de Mana em ferramentas e varinhas
 botania.armorset.elementium.name=Benção da Grande Fada
 botania.armorset.elementium.desc=Chance de que fadas apliquem efeito de poções
 botania.armorset.terrasteel.name=Vontade dos Ancestrais
-botania.armorset.terrasteel.desc0=-20% no custo de Mana em ferramentas
+botania.armorset.terrasteel.desc0=-20% no custo de Mana em ferramentas e varinhas
 botania.armorset.terrasteel.desc1=Regeneração contínua mesmo com fome
+botania.armorset.manaweave.name=Proeza da Maré de Mana
+botania.armorset.manaweave.desc0=-35% no custo de Mana em ferramentas e varinhas
+botania.armorset.manaweave.desc1=Proeficiência aumentada com Varinhas
+
 botania.armorset.will0.desc=Golpes críticos aplicam um forte efeito de Fraqueza (Vontade de Ahrim)
 botania.armorset.will1.desc=Golpes críticos se tornam mais fortes com pouca vida (Vontade de Dharok)
 botania.armorset.will2.desc=Golpes críticos absorvem um pouco de vida (Vontade de Guthan)
@@ -257,6 +274,7 @@ botania.roman30=XXX
 # KNOWLEDGE
 botania.knowledge.minecraft=Conhecimento Minecraftiano
 botania.knowledge.alfheim=Conhecimento &aÉflico&7
+botania.knowledge.relic=Conhecimento em &5Relíquias&7
 
 # CONFIGURATION
 blockBreakingParticles.enabled=Partículas de quebra de bloco
@@ -363,45 +381,10 @@ botania.baubletype.belt=Equipável no slot de &aCintos&7
 botania.baubletooltip=Aperte &b%key%&7 para abrir o menu do Baubles
 
 # RELIC POEMS
-item.infiniteFruit.poem0=The fruit of the forbidden garden
-item.infiniteFruit.poem1=Eternally cleanses one's hunger,
-item.infiniteFruit.poem2=For that it rebuilds its pulp
-item.infiniteFruit.poem3=And makes itself younger.
-
-item.excaliber.poem0=A sword of a true hero
-item.excaliber.poem1=Fit for only one of the kind,
-item.excaliber.poem2=Sharp and magic conjuring,
-item.excaliber.poem3=Enemies it will quickly find.
-
-item.flugelEye.poem0=A vision of the past on one's mind,
-item.flugelEye.poem1=Round and round is the memory matrix,
-item.flugelEye.poem2=And their viable interactions
-item.flugelEye.poem3=Will take the psyche back to basics.
-
-item.thorRing.poem0=The force of the Thunder God
-item.thorRing.poem1=Will Shatter the salt of the Terra,
-item.thorRing.poem2=With unstoppable strength
-item.thorRing.poem3=It'll begin anew a new era.
-
-item.odinRing.poem0=The wise old God lays its blessings,
-item.odinRing.poem1=Of virtue, life and divinity,
-item.odinRing.poem2=With the hindrance of death on one's hands,
-item.odinRing.poem3=They'll form the Holy Trinity.
-
-item.lokiRing.poem0=Empty handed, a sneaking interaction,
-item.lokiRing.poem1=Once on the center, then around the track,
-item.lokiRing.poem2=Back to the start one'd go to complete
-item.lokiRing.poem3=The power of creating back-to-back.
-
-item.aesirRing.poem0=The forces of the Gods
-item.aesirRing.poem1=In this band form as one,
-item.aesirRing.poem2=And when combined all together
-item.aesirRing.poem3=Above them will be none.
-
-item.dice.poem0=He deals the cards to find the answer,
-item.dice.poem1=The sacred geometry of chance,
-item.dice.poem2=The hidden laws of a probable outcome,
-item.dice.poem3=The numbers lead a dance.
+item.dice.poem0=Ele oferece as cartas para a resposta,
+item.dice.poem1=Sagrada geometria da chance,
+item.dice.poem2=Leis ocultas de um resultado provável,
+item.dice.poem3=Os números regem uma dança.
 
 # DEATH MESSAGES
 death.attack.botania-relic=%s foi punido por usar uma relíquia que não lhe pertencia
@@ -421,6 +404,11 @@ entity.Botania.botania:thornChakram.name=Chakram Espinhento
 entity.Botania.botania:corporeaSpark.name=Fagulha Corporea
 entity.Botania.botania:enderAirBottle.name=Garrafa de ar do Fim
 entity.Botania.botania:poolMinecart.name=Carrinho com Poço de Mana
+entity.Botania.botania:pinkWither.name=Wither Rosa
+entity.Botania.botania:playerMover.name=Raio de Luminizer
+entity.Botania.botania:manaStorm.name=Epicentro de Manastorm
+entity.Botania.botania:babylonWeapon.name=Arma da Tesouraria
+entity.Botania.botania:fallingStar.name=Estrela Cadente
 
 # ACHIEVEMENT NAMES + DESC
 achievement.botania:flowerPickup=Sky of Beginning
@@ -996,6 +984,48 @@ tile.botania:sparkChanger.name=Modificador de Fagulhas
 tile.botania:root.name=Raíz-viva
 tile.botania:felPumpkin.name=Abóbora Fel
 tile.botania:cocoon.name=Casúlo de Caprice
+tile.botania:lightRelay0.name=Luminizer
+tile.botania:lightRelay1.name=Luminizer Detector
+tile.botania:lightLauncher.name=Lançador Luminizer
+tile.botania:livingrock0Wall.name=Muro de Rocha-viva
+tile.botania:livingwood0Wall.name=Muro de Madeira-viva
+tile.botania:dreamwood0Wall.name=Muro de Madeira dos Sonhos
+tile.botania:prismarine0Wall.name=Muro de Prismarinho
+tile.botania:reedBlock0Wall.name=Muro de Cana-da-açúcar
+tile.botania:biomeStoneA0Wall0.name=Muro de Pedra Metamórfica - Floresta
+tile.botania:biomeStoneA0Wall1.name=Muro de Pedra Metamórfica - Planície
+tile.botania:biomeStoneA0Wall2.name=Muro de Pedra Metamórfica - Montanha
+tile.botania:biomeStoneA0Wall3.name=Muro de Pedra Metamórfica - Fungo
+tile.botania:biomeStoneA0Wall4.name=Muro de Pedra Metamórfica - Pântano
+tile.botania:biomeStoneA0Wall5.name=Muro de Pedra Metamórfica - Deserto
+tile.botania:biomeStoneA0Wall6.name=Muro de Pedra Metamórfica - Taiga 
+tile.botania:biomeStoneA0Wall7.name=Muro de Pedra Metamórfica - Mesa
+tile.botania:stone0Wall0.name=Muro de Andesito
+tile.botania:stone0Wall1.name=Muro de Basalto
+tile.botania:stone0Wall2.name=Muro de Diorito
+tile.botania:stone0Wall3.name=Muro de Granito
+tile.botania:manaBomb.name=Carga de Manastorm
+tile.botania:buriedPetals0=Pétala Enterrada
+tile.botania:buriedPetals0.name=Pétala Branca Enterrada
+tile.botania:buriedPetals1.name=Pétala Laranja Enterrada
+tile.botania:buriedPetals2.name=Pétala Magenta Enterrada
+tile.botania:buriedPetals3.name=Pétala Azul Claro Enterrada
+tile.botania:buriedPetals4.name=Pétala Amarela Enterrada
+tile.botania:buriedPetals5.name=Pétala Lima Enterrada
+tile.botania:buriedPetals6.name=Pétala Rosa Enterrada
+tile.botania:buriedPetals7.name=Pétala Cinza Enterrada
+tile.botania:buriedPetals8.name=Pétala Cinza Claro Enterrada
+tile.botania:buriedPetals9.name=Pétala Ciano Enterrada
+tile.botania:buriedPetals10.name=Pétala Roxa Enterrada
+tile.botania:buriedPetals11.name=Pétala Azul Enterrada
+tile.botania:buriedPetals12.name=Pétala Marrom Enterrada
+tile.botania:buriedPetals13.name=Pétala Verde Enterrada
+tile.botania:buriedPetals14.name=Pétala Vermelha Enterrada
+tile.botania:buriedPetals15.name=Pétala Preta Enterrada
+tile.botania:cacophoniumBlock.name=Bloco de Cacofônio
+tile.botania:bellows.name=Fole da Maré de Mana
+tile.botania:bifrost.name=Bloco de Bifrost Temporário
+tile.botania:bifrostPerm.name=Bloco de Bifrost
 
 # FLOWER NAMES
 tile.botania:flower..name=Flor do Botania
@@ -1068,9 +1098,9 @@ tile.botania:flower.tangleberrie.reference=Proibido o uso de frigideiras
 tile.botania:flower.jiyuulia.name=Jiyuulia
 tile.botania:flower.jiyuulia.reference=Flügel der Freiheit
 tile.botania:flower.rannuncarpus.name=Rannuncarpus
-tile.botania:flower.rannuncarpus.reference=Útil
+tile.botania:flower.rannuncarpus.reference=Uma mão na roda
 tile.botania:flower.rannuncarpusChibi.name=Rannuncarpus Petite
-tile.botania:flower.rannuncarpusChibi.reference=Útil
+tile.botania:flower.rannuncarpusChibi.reference=Uma mão na roda
 tile.botania:flower.hyacidus.name=Hyacidus
 tile.botania:flower.hyacidus.reference=Se você não andar, não machuca
 tile.botania:flower.pollidisiac.name=Pollidisiac
@@ -1242,8 +1272,8 @@ item.botania:terraSword.name=Lâmina da Terra
 item.botania:tinyPlanet.name=Pequeno Planeta
 item.botania:manaRing.name=Bracelete de Mana
 item.botania:auraRing.name=Bracelete de Aura
-item.botania:manaRingGreater.name=Bracelete de Mana Maior
-item.botania:auraRingGreater.name=Bracelete de Aura Maior
+item.botania:manaRingGreater.name=Bracelete de Mana Superior
+item.botania:auraRingGreater.name=Bracelete de Aura Superior
 item.botania:travelBelt.name=Cinta de Soujourner
 item.botania:knockbackBelt.name=Cinturão Tectônico
 item.botania:icePendant.name=Pingente do Floco de Neve
@@ -1331,6 +1361,7 @@ item.botania:smeltRod.name=Cajado do Núcleo Derretido
 item.botania:worldSeed.name=Semente do Mundo
 item.botania:spellCloth.name=Tecido Encantado
 item.botania:thornChakram.name=Chakram Espinhento
+item.botania:thornChakram1.name=Chakram Flamejante
 item.botania:overgrowthSeed.name=Semente do super-crescimento
 item.botania:craftPattern0.name=Padrão de Criação #1: 1x1
 item.botania:craftPattern1.name=Padrão de Criação #2: 2x2
@@ -1392,7 +1423,7 @@ item.botania:phantomInk.name=Tinta Fantasmal
 item.botania:poolMinecart.name=Carrinho com Poço de Mana
 item.botania:pinkinator.name=O Pinkinator
 item.botania:infiniteFruit.name=Fruta de Grisaia
-item.botania:excaliber.name=Espada Sagrada Excaliber
+item.botania:kingKey.name=Chave das Leis do Rei
 item.botania:flugelEye.name=Olho de Flügel
 item.botania:thorRing.name=Anel de Thor
 item.botania:odinRing.name=Anel de Odin
@@ -1412,6 +1443,18 @@ item.botania:elementiumNugget.name=Pepita de Elementium
 item.botania:root.name=Raíz-viva
 item.botania:pebble.name=Seixo
 item.botania:waterBowl.name=Tigela de água
+item.botania:obedienceStick.name=Varinha da Obediência Floral
+item.botania:cacophonium.name=Cacofônio
+item.botania:slimeBottle.name=Slime Engarrafado
+item.botania:starSword.name=Starcaller
+item.botania:exchangeRod.name=Cajado da Crosta Inconstante
+item.botania:magnetRingGreater.name=Anel Magnético Superior
+item.botania:thunderSword.name=Thundercaller
+item.botania:manaweaveCloth.name=Tecido de Mana
+item.botania:manaweaveHelm.name=Capuz de Tecido de Mana
+item.botania:manaweaveChest.name=Robe Superior de Tecido de Mana
+item.botania:manaweaveLegs.name=Robe Inferior de Tecido de Mana
+item.botania:manaweaveBoots.name=Botas de Tecido de Mana
 
 # BREW NAMES
 botania.brew.fallback=Fallback
@@ -1422,7 +1465,7 @@ botania.brew.healing=Cura
 botania.brew.jumpBoost=Super Pulo
 botania.brew.regen=Revitalização
 botania.brew.regenWeak=Restauração
-botania.brew.resistance=Resitência
+botania.brew.resistance=Resistência
 botania.brew.fireResistance=Pele de Magma
 botania.brew.waterBreathing=Guelras
 botania.brew.invisibility=Invisibilidade
@@ -1435,6 +1478,7 @@ botania.brew.bloodthirst=Sombra Carmim
 botania.brew.overload=Sobrecarga
 botania.brew.allure=Sedução marinha
 botania.brew.warpWard=Mente Sã
+botania.brew.clear=Absolução
 
 # POTION NAMES
 botania.potion.soulCross=Almas Cruzadas
@@ -1442,14 +1486,271 @@ botania.potion.featherFeet=Peso Pena
 botania.potion.emptiness=Vazio
 botania.potion.bloodthirst=Sede de Sangue
 botania.potion.allure=Sedução
+botania.potion.clear=Absolução
 
 # GUI TEXT
-botania.gui.lexicon.header=Lexica Botania, %sª Edição - Índice
+botania.gui.lexicon.header=Lexica Botania, Edição %s - Índice
 botania.gui.lexicon.wip=(Esse tópico está em progresso. Nem ao menos está na forma final)
 
 # MUSIC DISCS
 item.record.botania:gaia1.desc=Kain Vinosec - Endure Emptiness
 item.record.botania:gaia2.desc=Kain Vinosec - Fight For Quiescence
+
+# BANNER NAMES
+item.banner.botania_flower.black=Black Mystical Flower
+item.banner.botania_flower.red=Red Mystical Flower
+item.banner.botania_flower.green=Green Mystical Flower
+item.banner.botania_flower.brown=Brown Mystical Flower
+item.banner.botania_flower.blue=Blue Mystical Flower
+item.banner.botania_flower.purple=Purple Mystical Flower
+item.banner.botania_flower.cyan=Cyan Mystical Flower
+item.banner.botania_flower.silver=Light Gray Mystical Flower
+item.banner.botania_flower.gray=Gray Mystical Flower
+item.banner.botania_flower.pink=Pink Mystical Flower
+item.banner.botania_flower.lime=Lime Mystical Flower
+item.banner.botania_flower.yellow=Yellow Mystical Flower
+item.banner.botania_flower.lightBlue=Light Blue Mystical Flower
+item.banner.botania_flower.magenta=Magenta Mystical Flower
+item.banner.botania_flower.orange=Orange Mystical Flower
+item.banner.botania_flower.white=White Mystical Flower
+
+item.banner.botania_lexicon.black=Black Lexicon
+item.banner.botania_lexicon.red=Red Lexicon
+item.banner.botania_lexicon.green=Green Lexicon
+item.banner.botania_lexicon.brown=Brown Lexicon
+item.banner.botania_lexicon.blue=Blue Lexicon
+item.banner.botania_lexicon.purple=Purple Lexicon
+item.banner.botania_lexicon.cyan=Cyan Lexicon
+item.banner.botania_lexicon.silver=Light Gray Lexicon
+item.banner.botania_lexicon.gray=Gray Lexicon
+item.banner.botania_lexicon.pink=Pink Lexicon
+item.banner.botania_lexicon.lime=Lime Lexicon
+item.banner.botania_lexicon.yellow=Yellow Lexicon
+item.banner.botania_lexicon.lightBlue=Light Blue Lexicon
+item.banner.botania_lexicon.magenta=Magenta Lexicon
+item.banner.botania_lexicon.orange=Orange Lexicon
+item.banner.botania_lexicon.white=White Lexicon
+
+item.banner.botania_logo.black=Black Botania
+item.banner.botania_logo.red=Red Botania
+item.banner.botania_logo.green=Green Botania
+item.banner.botania_logo.brown=Brown Botania
+item.banner.botania_logo.blue=Blue Botania
+item.banner.botania_logo.purple=Purple Botania
+item.banner.botania_logo.cyan=Cyan Botania
+item.banner.botania_logo.silver=Light Gray Botania
+item.banner.botania_logo.gray=Gray Botania
+item.banner.botania_logo.pink=Pink Botania
+item.banner.botania_logo.lime=Lime Botania
+item.banner.botania_logo.yellow=Yellow Botania
+item.banner.botania_logo.lightBlue=Light Blue Botania
+item.banner.botania_logo.magenta=Magenta Botania
+item.banner.botania_logo.orange=Orange Botania
+item.banner.botania_logo.white=White Botania
+
+item.banner.botania_sapling.black=Black Tree
+item.banner.botania_sapling.red=Red Tree
+item.banner.botania_sapling.green=Green Tree
+item.banner.botania_sapling.brown=Brown Tree
+item.banner.botania_sapling.blue=Blue Tree
+item.banner.botania_sapling.purple=Purple Tree
+item.banner.botania_sapling.cyan=Cyan Tree
+item.banner.botania_sapling.silver=Light Gray Tree
+item.banner.botania_sapling.gray=Gray Tree
+item.banner.botania_sapling.pink=Pink Tree
+item.banner.botania_sapling.lime=Lime Tree
+item.banner.botania_sapling.yellow=Yellow Tree
+item.banner.botania_sapling.lightBlue=Light Blue Tree
+item.banner.botania_sapling.magenta=Magenta Tree
+item.banner.botania_sapling.orange=Orange Tree
+item.banner.botania_sapling.white=White Tree
+
+item.banner.botania_tiny_potato.black=Black Potato Face
+item.banner.botania_tiny_potato.red=Red Potato Face
+item.banner.botania_tiny_potato.green=Green Potato Face
+item.banner.botania_tiny_potato.brown=Brown Potato Face
+item.banner.botania_tiny_potato.blue=Blue Potato Face
+item.banner.botania_tiny_potato.purple=Purple Potato Face
+item.banner.botania_tiny_potato.cyan=Cyan Potato Face
+item.banner.botania_tiny_potato.silver=Light Gray Potato Face
+item.banner.botania_tiny_potato.gray=Gray Potato Face
+item.banner.botania_tiny_potato.pink=Pink Potato Face
+item.banner.botania_tiny_potato.lime=Lime Potato Face
+item.banner.botania_tiny_potato.yellow=Yellow Potato Face
+item.banner.botania_tiny_potato.lightBlue=Light Blue Potato Face
+item.banner.botania_tiny_potato.magenta=Magenta Potato Face
+item.banner.botania_tiny_potato.orange=Orange Potato Face
+item.banner.botania_tiny_potato.white=White Potato Face
+
+item.banner.botania_spark_dispersive.black=Black Dispersive Symbol
+item.banner.botania_spark_dispersive.red=Red Dispersive Symbol
+item.banner.botania_spark_dispersive.green=Green Dispersive Symbol
+item.banner.botania_spark_dispersive.brown=Brown Dispersive Symbol
+item.banner.botania_spark_dispersive.blue=Blue Dispersive Symbol
+item.banner.botania_spark_dispersive.purple=Purple Dispersive Symbol
+item.banner.botania_spark_dispersive.cyan=Cyan Dispersive Symbol
+item.banner.botania_spark_dispersive.silver=Light Gray Dispersive Symbol
+item.banner.botania_spark_dispersive.gray=Gray Dispersive Symbol
+item.banner.botania_spark_dispersive.pink=Pink Dispersive Symbol
+item.banner.botania_spark_dispersive.lime=Lime Dispersive Symbol
+item.banner.botania_spark_dispersive.yellow=Yellow Dispersive Symbol
+item.banner.botania_spark_dispersive.lightBlue=Light Blue Dispersive Symbol
+item.banner.botania_spark_dispersive.magenta=Magenta Dispersive Symbol
+item.banner.botania_spark_dispersive.orange=Orange Dispersive Symbol
+item.banner.botania_spark_dispersive.white=White Dispersive Symbol
+
+item.banner.botania_spark_dominant.black=Black Dominant Symbol
+item.banner.botania_spark_dominant.red=Red Dominant Symbol
+item.banner.botania_spark_dominant.green=Green Dominant Symbol
+item.banner.botania_spark_dominant.brown=Brown Dominant Symbol
+item.banner.botania_spark_dominant.blue=Blue Dominant Symbol
+item.banner.botania_spark_dominant.purple=Purple Dominant Symbol
+item.banner.botania_spark_dominant.cyan=Cyan Dominant Symbol
+item.banner.botania_spark_dominant.silver=Light Gray Dominant Symbol
+item.banner.botania_spark_dominant.gray=Gray Dominant Symbol
+item.banner.botania_spark_dominant.pink=Pink Dominant Symbol
+item.banner.botania_spark_dominant.lime=Lime Dominant Symbol
+item.banner.botania_spark_dominant.yellow=Yellow Dominant Symbol
+item.banner.botania_spark_dominant.lightBlue=Light Blue Dominant Symbol
+item.banner.botania_spark_dominant.magenta=Magenta Dominant Symbol
+item.banner.botania_spark_dominant.orange=Orange Dominant Symbol
+item.banner.botania_spark_dominant.white=White Dominant Symbol
+
+item.banner.botania_spark_isolated.black=Black Isolated Symbol
+item.banner.botania_spark_isolated.red=Red Isolated Symbol
+item.banner.botania_spark_isolated.green=Green Isolated Symbol
+item.banner.botania_spark_isolated.brown=Brown Isolated Symbol
+item.banner.botania_spark_isolated.blue=Blue Isolated Symbol
+item.banner.botania_spark_isolated.purple=Purple Isolated Symbol
+item.banner.botania_spark_isolated.cyan=Cyan Isolated Symbol
+item.banner.botania_spark_isolated.silver=Light Gray Isolated Symbol
+item.banner.botania_spark_isolated.gray=Gray Isolated Symbol
+item.banner.botania_spark_isolated.pink=Pink Isolated Symbol
+item.banner.botania_spark_isolated.lime=Lime Isolated Symbol
+item.banner.botania_spark_isolated.yellow=Yellow Isolated Symbol
+item.banner.botania_spark_isolated.lightBlue=Light Blue Isolated Symbol
+item.banner.botania_spark_isolated.magenta=Magenta Isolated Symbol
+item.banner.botania_spark_isolated.orange=Orange Isolated Symbol
+item.banner.botania_spark_isolated.white=White Isolated Symbol
+
+item.banner.botania_spark_recessive.black=Black Recessive Symbol
+item.banner.botania_spark_recessive.red=Red Recessive Symbol
+item.banner.botania_spark_recessive.green=Green Recessive Symbol
+item.banner.botania_spark_recessive.brown=Brown Recessive Symbol
+item.banner.botania_spark_recessive.blue=Blue Recessive Symbol
+item.banner.botania_spark_recessive.purple=Purple Recessive Symbol
+item.banner.botania_spark_recessive.cyan=Cyan Recessive Symbol
+item.banner.botania_spark_recessive.silver=Light Gray Recessive Symbol
+item.banner.botania_spark_recessive.gray=Gray Recessive Symbol
+item.banner.botania_spark_recessive.pink=Pink Recessive Symbol
+item.banner.botania_spark_recessive.lime=Lime Recessive Symbol
+item.banner.botania_spark_recessive.yellow=Yellow Recessive Symbol
+item.banner.botania_spark_recessive.lightBlue=Light Blue Recessive Symbol
+item.banner.botania_spark_recessive.magenta=Magenta Recessive Symbol
+item.banner.botania_spark_recessive.orange=Orange Recessive Symbol
+item.banner.botania_spark_recessive.white=White Recessive Symbol
+
+item.banner.botania_fish.black=Black Fish
+item.banner.botania_fish.red=Red Fish
+item.banner.botania_fish.green=Green Fish
+item.banner.botania_fish.brown=Brown Fish
+item.banner.botania_fish.blue=Blue Fish
+item.banner.botania_fish.purple=Purple Fish
+item.banner.botania_fish.cyan=Cyan Fish
+item.banner.botania_fish.silver=Light Gray Fish
+item.banner.botania_fish.gray=Gray Fish
+item.banner.botania_fish.pink=Pink Fish
+item.banner.botania_fish.lime=Lime Fish
+item.banner.botania_fish.yellow=Yellow Fish
+item.banner.botania_fish.lightBlue=Light Blue Fish
+item.banner.botania_fish.magenta=Magenta Fish
+item.banner.botania_fish.orange=Orange Fish
+item.banner.botania_fish.white=White Fish
+
+item.banner.botania_axe.black=Black Axe
+item.banner.botania_axe.red=Red Axe
+item.banner.botania_axe.green=Green Axe
+item.banner.botania_axe.brown=Brown Axe
+item.banner.botania_axe.blue=Blue Axe
+item.banner.botania_axe.purple=Purple Axe
+item.banner.botania_axe.cyan=Cyan Axe
+item.banner.botania_axe.silver=Light Gray Axe
+item.banner.botania_axe.gray=Gray Axe
+item.banner.botania_axe.pink=Pink Axe
+item.banner.botania_axe.lime=Lime Axe
+item.banner.botania_axe.yellow=Yellow Axe
+item.banner.botania_axe.lightBlue=Light Blue Axe
+item.banner.botania_axe.magenta=Magenta Axe
+item.banner.botania_axe.orange=Orange Axe
+item.banner.botania_axe.white=White Axe
+
+item.banner.botania_hoe.black=Black Hoe
+item.banner.botania_hoe.red=Red Hoe
+item.banner.botania_hoe.green=Green Hoe
+item.banner.botania_hoe.brown=Brown Hoe
+item.banner.botania_hoe.blue=Blue Hoe
+item.banner.botania_hoe.purple=Purple Hoe
+item.banner.botania_hoe.cyan=Cyan Hoe
+item.banner.botania_hoe.silver=Light Gray Hoe
+item.banner.botania_hoe.gray=Gray Hoe
+item.banner.botania_hoe.pink=Pink Hoe
+item.banner.botania_hoe.lime=Lime Hoe
+item.banner.botania_hoe.yellow=Yellow Hoe
+item.banner.botania_hoe.lightBlue=Light Blue Hoe
+item.banner.botania_hoe.magenta=Magenta Hoe
+item.banner.botania_hoe.orange=Orange Hoe
+item.banner.botania_hoe.white=White Hoe
+
+item.banner.botania_pickaxe.black=Black Pickaxe
+item.banner.botania_pickaxe.red=Red Pickaxe
+item.banner.botania_pickaxe.green=Green Pickaxe
+item.banner.botania_pickaxe.brown=Brown Pickaxe
+item.banner.botania_pickaxe.blue=Blue Pickaxe
+item.banner.botania_pickaxe.purple=Purple Pickaxe
+item.banner.botania_pickaxe.cyan=Cyan Pickaxe
+item.banner.botania_pickaxe.silver=Light Gray Pickaxe
+item.banner.botania_pickaxe.gray=Gray Pickaxe
+item.banner.botania_pickaxe.pink=Pink Pickaxe
+item.banner.botania_pickaxe.lime=Lime Pickaxe
+item.banner.botania_pickaxe.yellow=Yellow Pickaxe
+item.banner.botania_pickaxe.lightBlue=Light Blue Pickaxe
+item.banner.botania_pickaxe.magenta=Magenta Pickaxe
+item.banner.botania_pickaxe.orange=Orange Pickaxe
+item.banner.botania_pickaxe.white=White Pickaxe
+
+item.banner.botania_shovel.black=Black Shovel
+item.banner.botania_shovel.red=Red Shovel
+item.banner.botania_shovel.green=Green Shovel
+item.banner.botania_shovel.brown=Brown Shovel
+item.banner.botania_shovel.blue=Blue Shovel
+item.banner.botania_shovel.purple=Purple Shovel
+item.banner.botania_shovel.cyan=Cyan Shovel
+item.banner.botania_shovel.silver=Light Gray Shovel
+item.banner.botania_shovel.gray=Gray Shovel
+item.banner.botania_shovel.pink=Pink Shovel
+item.banner.botania_shovel.lime=Lime Shovel
+item.banner.botania_shovel.yellow=Yellow Shovel
+item.banner.botania_shovel.lightBlue=Light Blue Shovel
+item.banner.botania_shovel.magenta=Magenta Shovel
+item.banner.botania_shovel.orange=Orange Shovel
+item.banner.botania_shovel.white=White Shovel
+
+item.banner.botania_sword.black=Black Sword
+item.banner.botania_sword.red=Red Sword
+item.banner.botania_sword.green=Green Sword
+item.banner.botania_sword.brown=Brown Sword
+item.banner.botania_sword.blue=Blue Sword
+item.banner.botania_sword.purple=Purple Sword
+item.banner.botania_sword.cyan=Cyan Sword
+item.banner.botania_sword.silver=Light Gray Sword
+item.banner.botania_sword.gray=Gray Sword
+item.banner.botania_sword.pink=Pink Sword
+item.banner.botania_sword.lime=Lime Sword
+item.banner.botania_sword.yellow=Yellow Sword
+item.banner.botania_sword.lightBlue=Light Blue Sword
+item.banner.botania_sword.magenta=Magenta Sword
+item.banner.botania_sword.orange=Orange Sword
+item.banner.botania_sword.white=White Sword
 
 # LEXICON CATEGORIES
 botania.category.basics=Mecânicas e Informações básicas
@@ -1499,7 +1800,8 @@ botania.page.gardenOfGlass7=Criando &1Canas-de-açúcar&0
 botania.page.gardenOfGlass8=Criando &1Gosma de Slime&0
 botania.page.gardenOfGlass9=É possível infundir uma &1Abóbora&0 com o espírito de monstros derrotados, criando uma &1Abóbora de Fel&0. Ela pode ser colocada sobre duas &1Barras de Iron&0, similar a um &1Golem de Neve&0, para invocar um &1Blaze&0.<br>&1Blazes&0 invocados desse método derrubam &1Pó de Blaze&0 ao invés de &1Varas Incandescentes&0.
 botania.page.gardenOfGlass10=Nerfando warlocks outra vez
-botania.page.gardenOfGlass11=Por último, receita para o &1Portal do Fim&0
+botania.page.gardenOfGlass11=Além de fornecer luz, o &1Clarão de Mana&0 presente na ilha permite o jogador recuperar o &1Lexica Botania&0 em caso de perdas, usando uma &1Muda&0, clicando com ela no &1Clarão de Mana&0.<br>Isso só pode ser feito se o jogador não possuir um &1Lexica Botania&0 com ele.
+botania.page.gardenOfGlass12=Por último, receita para o &1Portal do Fim&0
 
 # -- LEXICA BOTANIA
 botania.entry.lexicon=Lexica Botania
@@ -1556,7 +1858,7 @@ botania.page.runeAltar1=Prossiga ligando um &1Dispersor de Mana&0 ao altar, e cl
 botania.page.runeAltar2=Criando o &1Altar Rúnico&0.
 botania.page.runeAltar3=Existem 16 &1Runas&0 no total.<br>As mais básicas possuem o nome dos &4Quatro Elementos&0. As runas intermediárias possuem os nomes das &4Quatro Estações&0, e as runas mais avançadas possuem os nomes dos &4Sete Pecados Capitais&0. Uma &1Runa de Mana&0 também existe.
 botania.page.runeAltar20=Clicar com o botão direito segurando shift no &1Altar Rúnico&0 com as mãos vazias enquanto não recebe mana remove o último item colocado.<br>Finalmente, colocando um &1Comparador&0 ao lado emite um sinal de redstone igual a &41&0 se o altar estiver recebendo &4Mana&0 e um sinal de &42&0 se ele estiver pronto para criar a runa.
-botania.page.runeAltar21=Similar ao &1Boticário de Pétalas&0, clicar nesse bloco com a mão vazia depois de terminar prepara o padrão anterior.
+botania.page.runeAltar22=Similar ao &1Boticário de Pétalas&0, clicar nesse bloco com a mão vazia depois de terminar prepara o padrão anterior.
 botania.page.runeAltar4=A &1Runa da Água&0.
 botania.page.runeAltar5=A &1Runa da Terra&0.
 botania.page.runeAltar6=A &1Runa do Ar&0.
@@ -1764,6 +2066,12 @@ botania.entry.sparkChanger=Modificador de Fagulhas
 botania.page.sparkChanger0=O &1Modificador de Fagulhas&0 é um bloco com a habilidade de modificar &1Melhorias&0 colocadas em &1Fagulhas&0. Colocando-o adjacente a um &1Poço de Mana&0 ou qualquer outro bloco com uma &1Fagulha&0 equipada o conecta a esses blocos.<br>Clicar no &1Modificador e Fagulhas&0 com uma &1Melhoria de Fagulha&0 coloca a melhoria no bloco, clicar novamente remove a melhoria.
 botania.page.sparkChanger1=Quando o &1Modificador de Fagulhas&0 recebe um sinal de redstone ele aleatoriamente escolhe uma &1Fagulha&0, entre todas que estão conectadas e que tenham uma melhoria diferente do que a do bloco, e troca de melhoria com a &1Fagulha&0.<br>A melhoria armazenada pode ser retirada ou colocada com &1Funis&0 ou outro método de automação.
 botania.page.sparkChanger2=Hahahaha, fogo na água...
+
+# -- MANATIDE BELLOWS
+botania.entry.bellows=Fole da Maré de Mana
+botania.page.bellows0=&1Foles da Maré de Mana&0 são simples dispositivos com o propósito de acelerar a transferência de saída em &1Poços de Mana&0.<br>Colocando esses foles adjacentes a um &1Poço de Mana&0 aumentam a velocidade qe carga de &1Tabletes de Mana&0 ou outros itens. Vários foles aceleram mais ainda o processo.
+botania.page.bellows1=Uma habilidade menos interesasnte do &1Fole da Maré de Mana&0 é ventilar &1Fornalhas&0.<br>&1Foles da Maré de Manas&0 podem ser manualmente acionados com clique direito. Apontar um fole em uma &1Furnalha&0 ativa e o acioná-lo aumenta a velocidade e a eficiência em que os itens na &1Fornalha&0 são esquentados.
+botania.page.bellows2=It is your duty to be stoked
 
 # - FUNCTIONAL FLOWERS
 # -- AN INTRODUCTION TO FUNCTION
