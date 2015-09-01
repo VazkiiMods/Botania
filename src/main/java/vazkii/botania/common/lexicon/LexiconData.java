@@ -1032,6 +1032,9 @@ public final class LexiconData {
 		cacophonium = new BLexiconEntry(LibLexicon.MISC_CACOPHONIUM, categoryMisc);
 		cacophonium.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeCacophonium), new PageText("2"));
 
+		pavement = new BLexiconEntry(LibLexicon.MISC_PAVEMENT, categoryMisc);
+		pavement.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipesPavement));
+		
 		if(Botania.bcTriggersLoaded) {
 			bcIntegration = new CLexiconEntry(LibLexicon.MISC_BC_INTEGRATION, categoryMisc, "BuildCraft");
 			bcIntegration.setLexiconPages(new PageText("0")).setIcon(new ItemStack(Items.redstone));

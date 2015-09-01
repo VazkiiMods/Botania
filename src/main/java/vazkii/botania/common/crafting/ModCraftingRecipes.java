@@ -25,6 +25,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
@@ -289,6 +290,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeManaweaveBoots;
 	public static IRecipe recipeBifrost;
 	public static IRecipe recipeAutocraftingHalo;
+	public static List<IRecipe> recipesPavement;
 
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;
@@ -1973,6 +1975,13 @@ public final class ModCraftingRecipes {
 		addShapelessOreDictRecipe(new ItemStack(ModItems.autocraftingHalo), new ItemStack(ModItems.craftingHalo), LibOreDict.MANA_DIAMOND);
 		recipeAutocraftingHalo = BotaniaAPI.getLatestAddedRecipe();
 		
+		// Pavement Recipes
+		addShapelessOreDictRecipe(new ItemStack(ModFluffBlocks.pavement, 3, 0), LibOreDict.LIVING_ROCK, "stone", "gravel");
+		addShapelessOreDictRecipe(new ItemStack(ModFluffBlocks.pavement, 3, 1), LibOreDict.LIVING_ROCK, "stone", "gravel", new ItemStack(Items.coal));
+		addShapelessOreDictRecipe(new ItemStack(ModFluffBlocks.pavement, 3, 2), LibOreDict.LIVING_ROCK, "stone", "gravel", new ItemStack(Items.dye, 1, 4));
+		addShapelessOreDictRecipe(new ItemStack(ModFluffBlocks.pavement, 3, 3), LibOreDict.LIVING_ROCK, "stone", "gravel", new ItemStack(Items.redstone));
+		recipesPavement = BotaniaAPI.getLatestAddedRecipes(4);
+		
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		// Storage Block/Nugget Recipes
@@ -2064,6 +2073,10 @@ public final class ModCraftingRecipes {
 			addStairsAndSlabs(ModFluffBlocks.stone, i + 8, ModFluffBlocks.stoneStairs[i + 4], ModFluffBlocks.stoneSlabs[i + 4]);
 		}
 
+		// Pavement Stairsm & Stairs
+		for(int i = 0; i < 4; i++)
+			addStairsAndSlabs(ModFluffBlocks.pavement, i, ModFluffBlocks.pavementStairs[i], ModFluffBlocks.pavementSlabs[i]);
+		
 		// Misc Recipes
 		GameRegistry.addShapelessRecipe(new ItemStack(Items.reeds, 9, 0), new ItemStack(ModBlocks.reedBlock));
 		GameRegistry.addShapelessRecipe(new ItemStack(Items.wheat, 4, 0), new ItemStack(ModBlocks.thatch));

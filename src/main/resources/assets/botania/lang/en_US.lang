@@ -3331,6 +3331,11 @@ botania.page.cacophonium0=This interesting instrument, the &1Cacophonium&0, has 
 botania.page.cacophonium1=Hibike! Cacophonium
 botania.page.cacophonium2=For maximum cacophony, the &1Cacophonium&0 can be shift-right clicked onto a &1Note Block&0, creating the ability to sound off animal or monster sounds on demand.<br>You monster.
 
+# -- PORTUGUESE PAVEMENT
+botania.entry.pavement=Portuguese Pavement
+botania.page.pavement0=&1Portuguese Pavement&0 is a type of building block designed to be used to create detailed roads. It comes in four colors, white, black, blue and red, all four of these can be turned into slabs and stairs.<br>For those with experience in the arts of multiparts and microblocks, these blocks provide a great looking method to create patterns.
+botania.page.pavement1=These aren't slippery
+
 # -- THAUMCRAFT INTEGRATION
 botania.entry.tcIntegration=Thaumcraft Integration
 botania.page.tcIntegration0=Often enough, the paths of &4Botany&0 and &4Thaumaturgy&0 cross together. Mixing some of the artifacts mentioned in this book as well as any from the school of &5Thaumcraft&0 can allow for combinations of these to form.
