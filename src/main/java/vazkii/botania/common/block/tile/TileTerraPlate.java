@@ -90,6 +90,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 						else item.setEntityItemStack(new ItemStack(ModItems.manaResource, 1, 4));
 					item.worldObj.playSoundAtEntity(item, "botania:terrasteelCraft", 1F, 1F);
 					mana = 0;
+					worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
 				}
 			}
@@ -201,6 +202,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 	@Override
 	public void recieveMana(int mana) {
 		this.mana = Math.max(0, Math.min(MAX_MANA, this.mana + mana));
+		worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 	}
 
 	@Override
