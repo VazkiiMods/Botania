@@ -11,6 +11,8 @@
 package vazkii.botania.api.lexicon.multiblock;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import net.minecraft.block.Block;
@@ -29,15 +31,21 @@ public class Multiblock {
 	public List<ItemStack> materials = new ArrayList();
 
 	public int minX, minY, minZ, maxX, maxY, maxZ, offX, offY, offZ;
+	
+	public HashMap<List<Integer>, MultiblockComponent> locationCache = new HashMap<List<Integer>, MultiblockComponent>();
 
 	/**
 	 * Adds a multiblock component to this multiblock. The component's x y z
 	 * coords should be pivoted to the center of the structure.
 	 */
 	public void addComponent(MultiblockComponent component) {
+		if(getComponentForLocation(component.relPos.posX, component.relPos.posY, component.relPos.posZ)!=null) {
+			throw new IllegalArgumentException("Location in multiblock already occupied");
+		}
 		components.add(component);
 		changeAxisForNewComponent(component.relPos.posX, component.relPos.posY, component.relPos.posZ);
 		calculateCostForNewComponent(component);
+		addComponentToLocationCache(component);
 	}
 
 	/**
@@ -102,6 +110,7 @@ public class Multiblock {
 	public void rotate(double angle) {
 		for(MultiblockComponent comp : getComponents())
 			comp.rotate(angle);
+		updateLocationCache();
 	}
 
 	public Multiblock copy() {
@@ -149,5 +158,33 @@ public class Multiblock {
 	public int getZSize() {
 		return Math.abs(minZ) + Math.abs(maxZ) + 1;
 	}
+	
+	/**
+	 * Rebuilds the location cache
+	 */
+	public void updateLocationCache() {
+		locationCache.clear();
+		for(MultiblockComponent comp : components) {
+			addComponentToLocationCache(comp);
+		}
+	}
+	
+	/**
+	 * Adds a single component to the location cache
+	 */
+	private void addComponentToLocationCache(MultiblockComponent comp) {
+		ChunkCoordinates pos = comp.getRelativePosition();
+		locationCache.put(Arrays.asList(
+				pos.posX, 
+				pos.posY, 
+				pos.posZ
+		),  comp);
+	}
 
+	/**
+	 * Gets the component for a given location
+	 */
+	public MultiblockComponent getComponentForLocation(int x, int y, int z) {
+		return locationCache.get(Arrays.asList(x, y, z));
+	}
 }

@@ -22,6 +22,7 @@ import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.api.lexicon.LexiconRecipeMappings;
+import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.ModAchievements;
@@ -335,7 +336,14 @@ public final class LexiconData {
 				new PageRuneRecipe("13", ModRuneRecipes.recipeLustRune), new PageRuneRecipe("14", ModRuneRecipes.recipeGluttonyRune), new PageRuneRecipe("15", ModRuneRecipes.recipeGreedRune), new PageRuneRecipe("16", ModRuneRecipes.recipeSlothRune), new PageRuneRecipe("17", ModRuneRecipes.recipeWrathRune), new PageRuneRecipe("18", ModRuneRecipes.recipeEnvyRune), new PageRuneRecipe("19", ModRuneRecipes.recipePrideRune));
 
 		terrasteel = new BLexiconEntry(LibLexicon.BASICS_TERRASTEEL, categoryBasics);
-		terrasteel.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeTerraPlate), new PageText("2"), new PageMultiblock("4", ModMultiblocks.terrasteelPlate), new PageTerrasteel("3")).setIcon(new ItemStack(ModItems.manaResource, 1, 4));
+		terrasteel.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeTerraPlate), new PageText("2"), new PageMultiblock("4", ModMultiblocks.terrasteelPlate), new PageTerrasteel("3"), new PageMultiblock("5", new Multiblock() { {
+			addComponent(0, 0, 0, Blocks.stone_stairs, 0);
+			addComponent(0, 0, 1, Blocks.stone_stairs, 2);
+			addComponent(0, 0, -1, Blocks.stone_stairs, 3);
+			addComponent(1, 0, 0, Blocks.redstone_wire, 0);
+			addComponent(1, 0, 1, Blocks.redstone_wire, 0);
+			addComponent(1, 0, -1, Blocks.redstone_wire, 0);
+		}}.makeSet())).setIcon(new ItemStack(ModItems.manaResource, 1, 4));
 
 		blackLotus = new BLexiconEntry(LibLexicon.BASICS_BLACK_LOTUS, categoryBasics);
 		blackLotus.setLexiconPages(new PageText("0")).setIcon(new ItemStack(ModItems.blackLotus));

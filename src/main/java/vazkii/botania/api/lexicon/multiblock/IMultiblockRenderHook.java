@@ -13,6 +13,7 @@ package vazkii.botania.api.lexicon.multiblock;
 import java.util.HashMap;
 import java.util.Map;
 
+import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.world.IBlockAccess;
@@ -24,6 +25,8 @@ public interface IMultiblockRenderHook {
 
 	public static Map<Block, IMultiblockRenderHook> renderHooks = new HashMap();
 
-	public void renderBlockForMultiblock(IBlockAccess world, Multiblock mb, Block block, int meta, RenderBlocks renderBlocks);
+	public void renderBlockForMultiblock(IBlockAccess world, Multiblock mb, Block block, int meta, RenderBlocks renderBlocks, MultiblockComponent comp, float alpha);
+
+	public boolean needsTranslate(Block block);
 
 }

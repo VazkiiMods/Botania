@@ -86,11 +86,9 @@ public class PageMultiblock extends LexiconPage {
 
 		GL11.glRotatef(-20F, 1, 0, 0);
 		GL11.glRotatef(gui.getElapsedTicks(), 0, 1, 0);
+		
+		MultiblockRenderHandler.renderMultiblockOnPage(mb);
 
-		for(MultiblockComponent comp : mb.getComponents()) {
-			ChunkCoordinates pos = comp.getRelativePosition();
-			renderBlock(comp.getBlock(), comp.getMeta(), pos.posX + mb.offX, pos.posY + mb.offY, pos.posZ + mb.offZ);
-		}
 		GL11.glPopMatrix();
 
 		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
@@ -123,21 +121,6 @@ public class PageMultiblock extends LexiconPage {
 			vazkii.botania.client.core.helper.RenderHelper.renderTooltip(mx, my, mats);
 		}
 		GL11.glPopMatrix();
-	}
-
-	public void renderBlock(Block block, int meta, int x, int y, int z) {
-		if(block != null) {
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-
-			GL11.glPushMatrix();
-			GL11.glTranslatef(x, y, z);
-
-			RenderBlocks blockRender = RenderBlocks.getInstance();
-			if(IMultiblockRenderHook.renderHooks.containsKey(block))
-				IMultiblockRenderHook.renderHooks.get(block).renderBlockForMultiblock(Minecraft.getMinecraft().theWorld, mb, block, meta, blockRender);
-			else blockRender.renderBlockAsItem(block, meta, 0.8F);
-			GL11.glPopMatrix();
-		}
 	}
 
 	@Override
