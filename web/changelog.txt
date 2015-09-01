@@ -1,3 +1,11 @@
+r1.7 219
+*Added comparator support to the T.A. Plate.
+*Added ForgeMultipart microblock support.
+*Added Portuguese Pavement building blocks, they're good for roads (duh) and come in white, black, blue and red, as they do in the streets of Portugal.
+*Added the Manufactory Halo, effectively an automatic Assembly Halo.
+*Capped the flower patch size config option to 8 blocks to prevent worldgen crashes when the generator seeps into other chunks and forces the world to generate a new chunk while already generating one.
+*Changed the Assembly Halo's glow to be green rather than pink, it also properly renders on the outside now.
+*Fixed an exploit that made the Exoflame ridiculously fuel efficient.
 r1.7 218
 *Fixed the Black Hole Talisman crashing the game if used on lit redstone.
 *Fixed the Flugel Tiara HUD not rendering if you have Tinkers Construct and Blood Arsenal. Maybe.
