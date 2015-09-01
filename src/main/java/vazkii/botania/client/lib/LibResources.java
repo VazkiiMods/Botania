@@ -116,7 +116,7 @@ public final class LibResources {
 	public static final String MISC_WISP_LARGE = PREFIX_MISC + "wispLarge.png";
 	public static final String MISC_WISP_SMALL = PREFIX_MISC + "wispSmall.png";
 	public static final String MISC_HALO = PREFIX_MISC + "halo.png";
-	public static final String MISC_GLOW_PINK = PREFIX_MISC + "glow0.png";
+	public static final String MISC_GLOW_GREEN = PREFIX_MISC + "glow0.png";
 	public static final String MISC_GLOW_CYAN = PREFIX_MISC + "glow1.png";
 	public static final String MISC_BABYLON = PREFIX_MISC + "babylon.png";
 

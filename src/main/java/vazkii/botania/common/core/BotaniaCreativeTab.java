@@ -107,6 +107,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.enderHand);
 		addItem(ModItems.spellCloth);
 		addItem(ModItems.craftingHalo);
+		addItem(ModItems.autocraftingHalo);
 		addItem(ModItems.spawnerMover);
 		addBlock(ModBlocks.spawnerClaw);
 		addBlock(ModBlocks.cocoon);

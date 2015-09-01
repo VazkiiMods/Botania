@@ -132,7 +132,7 @@ public final class HUDHandler {
 				profiler.endSection();
 			}
 
-			if(equippedStack != null && equippedStack.getItem() == ModItems.craftingHalo) {
+			if(equippedStack != null && equippedStack.getItem() instanceof ItemCraftingHalo) {
 				profiler.startSection("craftingHalo");
 				ItemCraftingHalo.renderHUD(event.resolution, mc.thePlayer, equippedStack);
 				profiler.endSection();
