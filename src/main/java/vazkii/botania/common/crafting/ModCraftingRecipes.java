@@ -1976,10 +1976,10 @@ public final class ModCraftingRecipes {
 		recipeAutocraftingHalo = BotaniaAPI.getLatestAddedRecipe();
 		
 		// Pavement Recipes
-		addShapelessOreDictRecipe(new ItemStack(ModFluffBlocks.pavement, 3, 0), LibOreDict.LIVING_ROCK, "stone", "gravel");
-		addShapelessOreDictRecipe(new ItemStack(ModFluffBlocks.pavement, 3, 1), LibOreDict.LIVING_ROCK, "stone", "gravel", new ItemStack(Items.coal));
-		addShapelessOreDictRecipe(new ItemStack(ModFluffBlocks.pavement, 3, 2), LibOreDict.LIVING_ROCK, "stone", "gravel", new ItemStack(Items.dye, 1, 4));
-		addShapelessOreDictRecipe(new ItemStack(ModFluffBlocks.pavement, 3, 3), LibOreDict.LIVING_ROCK, "stone", "gravel", new ItemStack(Items.redstone));
+		addShapelessOreDictRecipe(new ItemStack(ModFluffBlocks.pavement, 3, 0), LibOreDict.LIVING_ROCK, "cobblestone", "gravel");
+		addShapelessOreDictRecipe(new ItemStack(ModFluffBlocks.pavement, 3, 1), LibOreDict.LIVING_ROCK, "cobblestone", "gravel", new ItemStack(Items.coal));
+		addShapelessOreDictRecipe(new ItemStack(ModFluffBlocks.pavement, 3, 2), LibOreDict.LIVING_ROCK, "cobblestone", "gravel", new ItemStack(Items.dye, 1, 4));
+		addShapelessOreDictRecipe(new ItemStack(ModFluffBlocks.pavement, 3, 3), LibOreDict.LIVING_ROCK, "cobblestone", "gravel", new ItemStack(Items.redstone));
 		recipesPavement = BotaniaAPI.getLatestAddedRecipes(4);
 		
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////
