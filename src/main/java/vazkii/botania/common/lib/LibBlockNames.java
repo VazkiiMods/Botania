@@ -96,6 +96,7 @@ public final class LibBlockNames {
 	public static final String CACOPHONIUM = "cacophoniumBlock";
 	public static final String BELLOWS = "bellows";
 	public static final String BIFROST_PERM = "bifrostPerm";
+	public static final String PAVEMENT = "pavement";
 
 	public static final String SUBTILE_PUREDAISY = "puredaisy";
 	public static final String SUBTILE_MANASTAR = "manastar";

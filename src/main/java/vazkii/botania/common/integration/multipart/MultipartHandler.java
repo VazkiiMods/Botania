@@ -51,6 +51,7 @@ public class MultipartHandler {
 		registerAllMultiparts(ModFluffBlocks.biomeStoneA);
 		registerAllMultiparts(ModFluffBlocks.biomeStoneB);
 		registerAllMultiparts(ModFluffBlocks.stone);
+		registerAllMultiparts(ModFluffBlocks.pavement);
 	}
 
 	private static void registerAllMultiparts(Block block) {

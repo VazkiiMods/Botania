@@ -1026,6 +1026,18 @@ tile.botania:cacophoniumBlock.name=Cacophonium Block
 tile.botania:bellows.name=Manatide Bellows
 tile.botania:bifrost.name=Temporary Bifrost Block
 tile.botania:bifrostPerm.name=Bifrost Block
+tile.botania:pavement0.name=White Portuguese Pavement
+tile.botania:pavement1.name=Black Portuguese Pavement
+tile.botania:pavement2.name=Blue Portuguese Pavement
+tile.botania:pavement3.name=Red Portuguese Pavement
+tile.botania:pavement0Stairs.name=White Portuguese Pavement Stairs
+tile.botania:pavement1Stairs.name=Black Portuguese Pavement Stairs
+tile.botania:pavement2Stairs.name=Blue Portuguese Pavement Stairs
+tile.botania:pavement3Stairs.name=Red Portuguese Pavement Stairs
+tile.botania:pavement0Slab.name=White Portuguese Pavement Slab
+tile.botania:pavement1Slab.name=Black Portuguese Pavement Slab
+tile.botania:pavement2Slab.name=Blue Portuguese Pavement Slab
+tile.botania:pavement3Slab.name=Red Portuguese Pavement Slab
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower

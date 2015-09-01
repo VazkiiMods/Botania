@@ -278,6 +278,8 @@ public final class LexiconData {
 	public static LexiconEntry blazeBlock;
 	public static LexiconEntry challenges;
 	public static LexiconEntry cacophonium;
+	public static LexiconEntry pavement;
+
 	public static LexiconEntry tcIntegration;
 	public static LexiconEntry bcIntegration;
 	public static LexiconEntry banners;

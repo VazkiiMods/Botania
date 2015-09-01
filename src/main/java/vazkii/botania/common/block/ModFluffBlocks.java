@@ -12,6 +12,7 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
 import vazkii.botania.common.block.decor.Block18Stone;
+import vazkii.botania.common.block.decor.BlockPavement;
 import vazkii.botania.common.block.decor.biomestone.BlockBiomeStoneA;
 import vazkii.botania.common.block.decor.biomestone.BlockBiomeStoneB;
 import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartz;
@@ -23,6 +24,7 @@ import vazkii.botania.common.block.decor.slabs.BlockDirtPathSlab;
 import vazkii.botania.common.block.decor.slabs.BlockEndStoneSlab;
 import vazkii.botania.common.block.decor.slabs.BlockEnderBrickSlab;
 import vazkii.botania.common.block.decor.slabs.BlockModSlab;
+import vazkii.botania.common.block.decor.slabs.BlockPavementSlab;
 import vazkii.botania.common.block.decor.slabs.BlockReedSlab;
 import vazkii.botania.common.block.decor.slabs.BlockThatchSlab;
 import vazkii.botania.common.block.decor.slabs.bricks.BlockCustomBrickSlab;
@@ -42,6 +44,7 @@ import vazkii.botania.common.block.decor.stairs.Block18StoneStairs;
 import vazkii.botania.common.block.decor.stairs.BlockBiomeStoneStairs;
 import vazkii.botania.common.block.decor.stairs.BlockEndStoneStairs;
 import vazkii.botania.common.block.decor.stairs.BlockEnderBrickStairs;
+import vazkii.botania.common.block.decor.stairs.BlockPavementStairs;
 import vazkii.botania.common.block.decor.stairs.BlockReedStairs;
 import vazkii.botania.common.block.decor.stairs.BlockThatchStairs;
 import vazkii.botania.common.block.decor.stairs.bricks.BlockCustomBrickStairs;
@@ -158,6 +161,7 @@ public final class ModFluffBlocks {
 	public static Block biomeStoneA;
 	public static Block biomeStoneB;
 	public static Block stone;
+	public static Block pavement;
 
 	public static Block[] biomeStoneStairs = new Block[24];
 	public static Block[] biomeStoneSlabs = new Block[24];
@@ -169,6 +173,10 @@ public final class ModFluffBlocks {
 	public static Block[] stoneFullSlabs = new Block[8];
 	public static Block stoneWall;
 
+	public static Block[] pavementStairs = new Block[4];
+	public static Block[] pavementSlabs = new Block[4];
+	public static Block[] pavementFullSlabs = new Block[4];
+	
 	public static Block endStoneSlab;
 	public static Block endStoneSlabFull;
 	public static Block endStoneStairs;
@@ -234,7 +242,8 @@ public final class ModFluffBlocks {
 		biomeStoneA = new BlockBiomeStoneA();
 		biomeStoneB = new BlockBiomeStoneB();
 		stone = new Block18Stone();
-
+		pavement = new BlockPavement();
+		
 		if(ConfigHandler.darkQuartzEnabled) {
 			darkQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_DARK);
 			darkQuartzSlab = new BlockSpecialQuartzSlab(darkQuartz, false);
@@ -287,6 +296,12 @@ public final class ModFluffBlocks {
 		}
 		stoneWall = new Block18StoneWall();
 
+		for(int i = 0; i < 4; i++) {
+			pavementStairs[i] = new BlockPavementStairs(i);
+			pavementSlabs[i] = new BlockPavementSlab(false, i, i);
+			pavementFullSlabs[i] = new BlockPavementSlab(true, i, i);
+		}
+		
 		endStoneSlab = new BlockEndStoneSlab(false);
 		endStoneSlabFull = new BlockEndStoneSlab(true);
 		endStoneStairs = new BlockEndStoneStairs();
@@ -361,6 +376,11 @@ public final class ModFluffBlocks {
 		for(int i = 0; i < 8; i++) {
 			((BlockModSlab) stoneSlabs[i]).register();
 			((BlockModSlab) stoneFullSlabs[i]).register();
+		}
+		
+		for(int i = 0; i < 4; i++) {
+			((BlockModSlab) pavementSlabs[i]).register();
+			((BlockModSlab) pavementFullSlabs[i]).register();
 		}
 	}
 

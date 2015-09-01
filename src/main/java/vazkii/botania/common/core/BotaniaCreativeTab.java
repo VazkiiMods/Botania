@@ -318,7 +318,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModFluffBlocks.snowBrickSlab);
 		addBlock(ModFluffBlocks.tileStairs);
 		addBlock(ModFluffBlocks.tileSlab);
-
+		
 		addBlock(ModFluffBlocks.livingwoodStairs);
 		addBlock(ModFluffBlocks.livingwoodSlab);
 		addBlock(ModFluffBlocks.livingwoodWall);
@@ -363,13 +363,13 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 
 		if(ConfigHandler.stones18Enabled) {
 			addBlock(ModFluffBlocks.stone);
-			for(int i= 0; i < 8; i++)
+			for(int i = 0; i < 8; i++)
 				addBlock(ModFluffBlocks.stoneStairs[i]);
-			for(int i= 0; i < 8; i++)
+			for(int i = 0; i < 8; i++)
 				addBlock(ModFluffBlocks.stoneSlabs[i]);
+			addBlock(ModFluffBlocks.stoneWall);
 		}
-		addBlock(ModFluffBlocks.stoneWall);
-
+		
 		addBlock(ModFluffBlocks.biomeStoneA);
 		addBlock(ModFluffBlocks.biomeStoneB);
 		for(int i = 0; i < 24; i++)
@@ -377,6 +377,12 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		for(int i = 0; i < 24; i++)
 			addBlock(ModFluffBlocks.biomeStoneSlabs[i]);
 		addBlock(ModFluffBlocks.biomeStoneWall);
+		
+		addBlock(ModFluffBlocks.pavement);
+		for(int i = 0; i < 4; i++)
+			addBlock(ModFluffBlocks.pavementStairs[i]);
+		for(int i = 0; i < 4; i++)
+			addBlock(ModFluffBlocks.pavementSlabs[i]);
 
 		if(ConfigHandler.enderStuff19Enabled) {
 			addBlock(ModBlocks.endStoneBrick);
