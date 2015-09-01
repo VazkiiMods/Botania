@@ -33,7 +33,8 @@ public class BiomeDecorationHandler {
 
 			if(!flowers)
 				return;
-
+			
+			int dist = Math.min(8, Math.max(1, ConfigHandler.flowerPatchSize));
 			for(int i = 0; i < ConfigHandler.flowerQuantity; i++) {
 				if(event.rand.nextInt(ConfigHandler.flowerPatchChance) == 0) {
 					int x = event.chunkX + event.rand.nextInt(16) + 8;
@@ -42,12 +43,11 @@ public class BiomeDecorationHandler {
 
 					int color = event.rand.nextInt(16);
 					for(int j = 0; j < ConfigHandler.flowerDensity * ConfigHandler.flowerPatchChance; j++) {
-						int dist = ConfigHandler.flowerPatchSize;
 						int x1 = x + event.rand.nextInt(dist * 2) - dist;
 						int y1 = y + event.rand.nextInt(4) - event.rand.nextInt(4);
 						int z1 = z + event.rand.nextInt(dist * 2) - dist;
 
-						if (event.world.isAirBlock(x1, y1, z1) && (!event.world.provider.hasNoSky || y1 < 127) && ModBlocks.flower.canBlockStay(event.world, x1, y1, z1)) {
+						if(event.world.isAirBlock(x1, y1, z1) && (!event.world.provider.hasNoSky || y1 < 127) && ModBlocks.flower.canBlockStay(event.world, x1, y1, z1)) {
 							event.world.setBlock(x1, y1, z1, ModBlocks.flower, color, 2);
 							if(event.rand.nextDouble() < ConfigHandler.flowerTallChance && ((BlockModFlower) ModBlocks.flower).func_149851_a(event.world, x1, y1, z1, false))
 								BlockModFlower.placeDoubleFlower(event.world, x1, y1, z1, color, 0);
