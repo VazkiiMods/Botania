@@ -288,6 +288,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeManaweaveLegs;
 	public static IRecipe recipeManaweaveBoots;
 	public static IRecipe recipeBifrost;
+	public static IRecipe recipeAutocraftingHalo;
 
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;
@@ -1968,6 +1969,10 @@ public final class ModCraftingRecipes {
 		addShapelessOreDictRecipe(new ItemStack(ModBlocks.bifrostPerm), new ItemStack(ModItems.rainbowRod), new ItemStack(ModBlocks.elfGlass));
 		recipeBifrost = BotaniaAPI.getLatestAddedRecipe();
 
+		// Manufactory Halo Recipe
+		addShapelessOreDictRecipe(new ItemStack(ModItems.autocraftingHalo), new ItemStack(ModItems.craftingHalo), LibOreDict.MANA_DIAMOND);
+		recipeAutocraftingHalo = BotaniaAPI.getLatestAddedRecipe();
+		
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		// Storage Block/Nugget Recipes

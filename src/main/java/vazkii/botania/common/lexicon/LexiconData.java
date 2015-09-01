@@ -199,6 +199,7 @@ public final class LexiconData {
 	public static LexiconEntry slimeBottle;
 	public static LexiconEntry exchangeRod;
 	public static LexiconEntry manaweave;
+	public static LexiconEntry autocraftingHalo;
 
 	public static LexiconEntry enderAir;
 	public static LexiconEntry enderEyeBlock;
@@ -773,6 +774,9 @@ public final class LexiconData {
 		manaweave = new BLexiconEntry(LibLexicon.TOOL_MANAWEAVE, categoryTools);
 		manaweave.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeManaweaveCloth), new PageCraftingRecipe("3", ModCraftingRecipes.recipeManaweaveHelm), new PageCraftingRecipe("4", ModCraftingRecipes.recipeManaweaveChest), new PageCraftingRecipe("5", ModCraftingRecipes.recipeManaweaveLegs), new PageCraftingRecipe("6", ModCraftingRecipes.recipeManaweaveBoots));
 
+		autocraftingHalo = new BLexiconEntry(LibLexicon.TOOL_AUTOCRAFTING_HALO, categoryTools);
+		autocraftingHalo.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeAutocraftingHalo));
+		
 		// ENDER ENTRIES
 		enderAir = new BLexiconEntry(LibLexicon.ENDER_AIR, categoryEnder);
 		enderAir.setPriority().setLexiconPages(new PageText("0"));

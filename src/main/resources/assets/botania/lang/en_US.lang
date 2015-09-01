@@ -2780,6 +2780,11 @@ botania.page.manaweave4=Creating the Robe Top
 botania.page.manaweave5=Creating the Robe Bottom
 botania.page.manaweave6=Creating the Boots
 
+# -- MANUFACTORY HALO
+botania.entry.autocraftingHalo=Manufactory Halo
+botania.page.autocraftingHalo0=The &1Manufactory Halo&0 serves as a variation of the &1Assembly Halo&0. Aside from doing all that the &1Assembly Halo&0 can do, the &1Manufactory Halo&0 will automatically try to execute all of the assigned recipes if possible, as long as the item isn't being held.<br>This opens up a few potential uses, such as automatically compressing ores while mining.
+botania.page.autocraftingHalo1=Halo Now Launcher
+
 # - ENDER ARTEFACTS
 # -- EXTRACTING ENDER AIR
 botania.entry.enderAir=Extracting Ender Air
