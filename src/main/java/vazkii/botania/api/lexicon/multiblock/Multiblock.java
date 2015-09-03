@@ -39,9 +39,8 @@ public class Multiblock {
 	 * coords should be pivoted to the center of the structure.
 	 */
 	public void addComponent(MultiblockComponent component) {
-		if(getComponentForLocation(component.relPos.posX, component.relPos.posY, component.relPos.posZ)!=null) {
+		if(getComponentForLocation(component.relPos.posX, component.relPos.posY, component.relPos.posZ) != null)
 			throw new IllegalArgumentException("Location in multiblock already occupied");
-		}
 		components.add(component);
 		changeAxisForNewComponent(component.relPos.posX, component.relPos.posY, component.relPos.posZ);
 		calculateCostForNewComponent(component);
@@ -164,9 +163,8 @@ public class Multiblock {
 	 */
 	public void updateLocationCache() {
 		locationCache.clear();
-		for(MultiblockComponent comp : components) {
+		for(MultiblockComponent comp : components)
 			addComponentToLocationCache(comp);
-		}
 	}
 	
 	/**

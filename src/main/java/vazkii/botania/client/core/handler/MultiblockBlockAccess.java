@@ -119,17 +119,14 @@ public class MultiblockBlockAccess implements IBlockAccess {
 		this.anchorX = anchorX;
 		this.anchorY = anchorY;
 		this.anchorZ = anchorZ;
-		this.hasBlockAccess = access!=null;
+		this.hasBlockAccess = access != null;
 	}
 	
 	/**
 	 * Returns the multiblock component for the coordinates, adjusted based on the anchor
 	 */
 	protected MultiblockComponent getComponent(int x, int y, int z) {
-		MultiblockComponent comp = multiblock.getComponentForLocation(
-				x - anchorX,
-				y - anchorY,
-				z - anchorZ);
+		MultiblockComponent comp = multiblock.getComponentForLocation(x - anchorX, y - anchorY, z - anchorZ);
 		return comp;
 	}
 }

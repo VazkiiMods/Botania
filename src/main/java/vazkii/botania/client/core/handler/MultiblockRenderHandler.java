@@ -40,7 +40,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 public final class MultiblockRenderHandler {
 
 	public static boolean rendering = false;
-	
+
 	private static MultiblockBlockAccess blockAccess = new MultiblockBlockAccess();
 
 	private static RenderBlocks blockRender = RenderBlocks.getInstance();
@@ -81,9 +81,9 @@ public final class MultiblockRenderHandler {
 			rendering = true;
 			Multiblock mb = anchor != null ? currentMultiblock.getForIndex(angle) : currentMultiblock.getForEntity(player);
 			boolean didAny = false;
-			
+
 			blockAccess.update(player.worldObj, mb, anchorX, anchorY, anchorZ);
-			
+
 			for(MultiblockComponent comp : mb.getComponents())
 				if(renderComponentInWorld(player.worldObj, mb, comp, anchorX, anchorY, anchorZ))
 					didAny = true;
@@ -111,7 +111,7 @@ public final class MultiblockRenderHandler {
 		GL11.glPopMatrix();
 		return true;
 	}
-	
+
 	public static void renderMultiblockOnPage(Multiblock mb) {
 		GL11.glTranslated(-0.5, -0.5, -0.5);
 		blockAccess.update(null, mb, mb.offX, mb.offY, mb.offZ);
@@ -142,15 +142,15 @@ public final class MultiblockRenderHandler {
 		else {
 			if(comp.shouldDoFancyRender()) {
 				int color = block.colorMultiplier(blockAccess, x, y, z);
-		        float red = (float)(color >> 16 & 255) / 255.0F;
-		        float green = (float)(color >> 8 & 255) / 255.0F;
-		        float blue = (float)(color & 255) / 255.0F;
+				float red = (float)(color >> 16 & 255) / 255.0F;
+				float green = (float)(color >> 8 & 255) / 255.0F;
+				float blue = (float)(color & 255) / 255.0F;
 				GL11.glColor4f(red, green, blue, alpha);
 				IBlockAccess oldBlockAccess = blockRender.blockAccess;
 				blockRender.blockAccess = blockAccess;
-		        Tessellator tessellator = Tessellator.instance;
+				Tessellator tessellator = Tessellator.instance;
 				blockRender.renderAllFaces = true;
-                tessellator.startDrawingQuads();
+				tessellator.startDrawingQuads();
 				tessellator.disableColor();
 				try {
 					blockRender.renderBlockByRenderType(block, x, y, z);
@@ -158,15 +158,15 @@ public final class MultiblockRenderHandler {
 				catch(Exception e) {
 					comp.doFancyRender = false;
 				}
-                tessellator.draw();
+				tessellator.draw();
 				blockRender.renderAllFaces = false;
 				blockRender.blockAccess = oldBlockAccess;
 			}
 			else {
 				int color = block.getRenderColor(meta);
-		        float red = (float)(color >> 16 & 255) / 255.0F;
-		        float green = (float)(color >> 8 & 255) / 255.0F;
-		        float blue = (float)(color & 255) / 255.0F;
+				float red = (float)(color >> 16 & 255) / 255.0F;
+				float green = (float)(color >> 8 & 255) / 255.0F;
+				float blue = (float)(color & 255) / 255.0F;
 				GL11.glColor4f(red, green, blue, alpha);
 				GL11.glTranslated(x + 0.5, y + 0.5, z + 0.5);
 				blockRender.renderBlockAsItem(block, meta, 1F);
