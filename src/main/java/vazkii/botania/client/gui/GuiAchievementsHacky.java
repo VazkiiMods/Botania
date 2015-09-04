@@ -21,12 +21,12 @@ public class GuiAchievementsHacky extends GuiAchievements {
 
 	public GuiAchievementsHacky(GuiScreen p_i45026_1_, StatFileWriter p_i45026_2_) {
 		super(p_i45026_1_, p_i45026_2_);
+		ReflectionHelper.setPrivateValue(GuiAchievements.class, this, ModAchievements.pageIndex, "currentPage");
 	}
 
 	@Override
 	public void initGui() {
 		super.initGui();
-		ReflectionHelper.setPrivateValue(GuiAchievements.class, this, ModAchievements.pageIndex, "currentPage");
 		((GuiButton) buttonList.get(1)).displayString = ModAchievements.botaniaPage.getName();
 	}
 
