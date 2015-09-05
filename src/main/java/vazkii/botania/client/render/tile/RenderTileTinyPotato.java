@@ -34,6 +34,7 @@ import vazkii.botania.client.core.handler.ContributorFancinessHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelTinyPotato;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileTinyPotato;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
@@ -77,19 +78,22 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 		if(name.equals("pahimar")) {
 			GL11.glScalef(1F, 0.3F, 1F);
 			GL11.glTranslatef(0F, 3.5F, 0F);
-		}
-
-		if(name.equals("kyle hyde"))
+		} else if(name.equals("kyle hyde"))
 			mc.renderEngine.bindTexture(textureGrayscale);
-
-		if(name.equals("dinnerbone") || name.equals("grumm")) {
+		else if(name.equals("dinnerbone") || name.equals("grumm")) {
 			GL11.glRotatef(180F, 0F, 0F, 1F);
 			GL11.glTranslatef(0F, -2.625F, 0F);
-		}
+		} else if(name.equals("aureylian"))
+			GL11.glColor3f(1F, 0.5F, 1F);
+		
 
 		boolean render = !(name.equals("mami") || name.equals("soaryn") || name.equals("eloraam") && jump != 0);
 		if(render)
 			model.render();
+		if(name.equals("kingdaddydmac")) {
+			GL11.glTranslated(0.5F, 0F, 0F);
+			model.render();
+		}
 		GL11.glPopMatrix();
 
 		if(!name.isEmpty()) {
@@ -253,7 +257,31 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 				GL11.glRotatef(180F, 0F, 0F, 1F);
 				GL11.glTranslatef(-1F, -1.1F, -0.1F);
 				renderIcon(Items.stick.getIconFromDamage(0));
-			} else if(ContributorFancinessHandler.flowerMap != null && ContributorFancinessHandler.flowerMap.containsKey(name)) {
+			} else if(name.equals("kingdaddydmac")) {
+				GL11.glScalef(0.5F, 0.5F, 0.5F);
+				GL11.glRotatef(180F, 0F, 0F, 1F);
+				GL11.glRotatef(90F, 0F, 1F, 0F);
+				GL11.glTranslatef(-0.3F, -2.5F, 1.075F);
+				renderIcon(ModItems.manaRing.getIconFromDamage(0));
+				GL11.glTranslatef(0F, 0F, -4F);
+				renderIcon(ModItems.manaRing.getIconFromDamage(0));
+				
+				mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+				GL11.glScalef(1.5F, 1.5F, 1.5F);
+				GL11.glTranslatef(1.5F, -0.5F, 0.7F);
+				RenderBlocks.getInstance().renderBlockAsItem(Blocks.cake, 0, 1F);
+			} else if(name.equals("sjin")) {
+				GL11.glScalef(1.25F, 1.25F, 1.25F);
+				GL11.glRotatef(180F, 0F, 0F, 1F);
+				GL11.glTranslatef(-0.5F, -1.27F, -0.4F);
+				renderIcon(ModItems.cosmetic.getIconFromDamage(27));
+			} else if(name.equals("martyn") || name.equals("inthelittlewood")) {
+				GL11.glScalef(1.25F, 1.25F, 1.25F);
+				GL11.glRotatef(180F, 0F, 0F, 1F);
+				GL11.glTranslatef(-0.5F, -0.45F, -0.1F);
+				mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+				renderIcon(Blocks.sapling.getIcon(0, 0));
+			}else if(ContributorFancinessHandler.flowerMap != null && ContributorFancinessHandler.flowerMap.containsKey(name)) {
 				IIcon icon = ContributorFancinessHandler.flowerMap.get(name);
 				if(icon != null) {
 					mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);

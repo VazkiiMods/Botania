@@ -214,7 +214,7 @@ public class GuiLexicon extends GuiScreen {
 			bookmarksNeedPopulation = false;
 		}
 
-		if(mc.thePlayer.getCommandSenderName().equals("haighyorkie")) {
+		if(mc.thePlayer.getCommandSenderName().equals("vazkii")) {
 			GL11.glColor4f(1F, 1F, 1F, 1F);
 			mc.renderEngine.bindTexture(texture);
 			drawTexturedModalRect(left - 19, top + 42, 67, 180, 19, 26);
@@ -235,7 +235,7 @@ public class GuiLexicon extends GuiScreen {
 				GL11.glDisable(GL11.GL_BLEND);
 				GL11.glPopMatrix();
 
-				RenderHelper.renderTooltip(par1, par2, Arrays.asList(EnumChatFormatting.GOLD + "#goldfishchris", EnumChatFormatting.AQUA + "needs his tits"));
+				RenderHelper.renderTooltip(par1, par2, Arrays.asList(EnumChatFormatting.GOLD + "#goldfishchris", EnumChatFormatting.AQUA + "IT SAYS MANUAL"));
 			}
 		}
 
