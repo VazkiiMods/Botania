@@ -85,7 +85,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 			if(par2World.isRemote)
 				par3EntityPlayer.swingItem();
 			ItemStack lens = getLens(par1ItemStack);
-			ItemsRemainingRenderHandler.set(lens, -1);
+			ItemsRemainingRenderHandler.set(lens, -2);
 			par1ItemStack.setItemDamage(effCd);
 		} else if(par1ItemStack.getItemDamage() == 0) {
 			EntityManaBurst burst = getBurst(par3EntityPlayer, par1ItemStack, true);
