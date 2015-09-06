@@ -20,7 +20,7 @@ import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.core.handler.PresistantVariableHelper;
+import vazkii.botania.client.core.handler.PersistentVariableHelper;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 
@@ -45,7 +45,7 @@ public class GuiButtonUpdateWarning extends GuiButtonLexicon {
 		drawTexturedModalRect(xPosition, yPosition, red ? 153 : 142, 180, 11, 11);
 
 		List<String> tooltip = new ArrayList();
-		String version = PresistantVariableHelper.lastBotaniaVersion;
+		String version = PersistentVariableHelper.lastBotaniaVersion;
 		for(int i = 0; i < 6; i++) {
 			tooltip.add(EnumChatFormatting.GRAY + String.format(StatCollector.translateToLocal("botaniamisc.changes" + i), version).replaceAll("&", "\u00a7"));
 			if(i == 3)

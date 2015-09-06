@@ -48,7 +48,7 @@ import vazkii.botania.client.core.handler.DebugHandler;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.handler.LightningHandler;
 import vazkii.botania.client.core.handler.MultiblockRenderHandler;
-import vazkii.botania.client.core.handler.PresistantVariableHelper;
+import vazkii.botania.client.core.handler.PersistentVariableHelper;
 import vazkii.botania.client.core.handler.SubTileRadiusRenderHandler;
 import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
@@ -178,7 +178,7 @@ public class ClientProxy extends CommonProxy {
 	public void preInit(FMLPreInitializationEvent event) {
 		super.preInit(event);
 
-		PresistantVariableHelper.setCacheFile(new File(event.getModConfigurationDirectory().getParent(), "BotaniaVars.dat"));
+		PersistentVariableHelper.setCacheFile(new File(Minecraft.getMinecraft().mcDataDir, "BotaniaVars.dat"));
 	}
 
 	@Override
@@ -210,10 +210,10 @@ public class ClientProxy extends CommonProxy {
 		initRenderers();
 
 		try {
-			PresistantVariableHelper.load();
-			PresistantVariableHelper.save();
+			PersistentVariableHelper.load();
+			PersistentVariableHelper.save();
 		} catch (IOException e) {
-			FMLLog.severe("Botania's Presistant Variables couldn't load!");
+			FMLLog.severe("Botania's persistent Variables couldn't load!");
 			e.printStackTrace();
 		}
 	}

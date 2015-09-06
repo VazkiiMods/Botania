@@ -23,7 +23,7 @@ import org.lwjgl.opengl.GL12;
 import vazkii.botania.client.challenge.Challenge;
 import vazkii.botania.client.challenge.ModChallenges;
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.core.handler.PresistantVariableHelper;
+import vazkii.botania.client.core.handler.PersistentVariableHelper;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonBack;
 import vazkii.botania.common.lexicon.page.PageText;
 
@@ -112,7 +112,7 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 		} else if(par1GuiButton.id == 13) {
 			challenge.complete = !challenge.complete;
 			setCompleteButtonTitle();
-			PresistantVariableHelper.saveSafe();
+			PersistentVariableHelper.saveSafe();
 		} else if(par1GuiButton.id == NOTES_BUTTON_ID)
 			notesEnabled = !notesEnabled;
 	}

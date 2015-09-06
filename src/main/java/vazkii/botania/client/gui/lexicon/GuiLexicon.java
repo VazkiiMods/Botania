@@ -39,7 +39,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.core.handler.PresistantVariableHelper;
+import vazkii.botania.client.core.handler.PersistentVariableHelper;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.gui.GuiAchievementsHacky;
@@ -109,9 +109,9 @@ public class GuiLexicon extends GuiScreen {
 	public final void initGui() {
 		super.initGui();
 
-		if(PresistantVariableHelper.firstLoad) {
-			PresistantVariableHelper.firstLoad = false;
-			PresistantVariableHelper.saveSafe();
+		if(PersistentVariableHelper.firstLoad) {
+			PersistentVariableHelper.firstLoad = false;
+			PersistentVariableHelper.saveSafe();
 		}
 
 		String key = getNotesKey();
@@ -164,7 +164,7 @@ public class GuiLexicon extends GuiScreen {
 
 			GuiButtonUpdateWarning button = new GuiButtonUpdateWarning(-4, left - 6, top + 60);
 			buttonList.add(button);
-			if(PresistantVariableHelper.lastBotaniaVersion.equals(LibMisc.VERSION)) {
+			if(PersistentVariableHelper.lastBotaniaVersion.equals(LibMisc.VERSION)) {
 				button.enabled = false;
 				button.visible = false;
 			}
@@ -350,13 +350,13 @@ public class GuiLexicon extends GuiScreen {
 			if(isShiftKeyDown()) {
 				try {
 					if(Desktop.isDesktopSupported())
-						Desktop.getDesktop().browse(new URI("http://botaniamod.net/changelog.php#" + PresistantVariableHelper.lastBotaniaVersion.replaceAll("\\.|\\s", "-")));
+						Desktop.getDesktop().browse(new URI("http://botaniamod.net/changelog.php#" + PersistentVariableHelper.lastBotaniaVersion.replaceAll("\\.|\\s", "-")));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			} else {
-				PresistantVariableHelper.lastBotaniaVersion = LibMisc.VERSION;
-				PresistantVariableHelper.saveSafe();
+				PersistentVariableHelper.lastBotaniaVersion = LibMisc.VERSION;
+				PersistentVariableHelper.saveSafe();
 				par1GuiButton.visible = false;
 				par1GuiButton.enabled = false;
 			}
@@ -393,7 +393,7 @@ public class GuiLexicon extends GuiScreen {
 
 		bookmarksNeedPopulation = true;
 		if(modified)
-			PresistantVariableHelper.saveSafe();
+			PersistentVariableHelper.saveSafe();
 	}
 
 	@Override
@@ -577,7 +577,7 @@ public class GuiLexicon extends GuiScreen {
 
 			if(changed) {
 				notes.put(getNotesKey(), note);
-				PresistantVariableHelper.saveSafe();
+				PersistentVariableHelper.saveSafe();
 			}
 		} else Keyboard.enableRepeatEvents(false);
 	}
