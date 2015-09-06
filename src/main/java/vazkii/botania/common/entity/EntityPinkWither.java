@@ -53,8 +53,11 @@ public class EntityPinkWither extends EntityWither {
 
 	@Override
 	protected boolean interact(EntityPlayer player) {
-		player.mountEntity(this);
-		return true;
+		if(!player.isSneaking()) {
+			player.mountEntity(this);
+			return true;
+		} 
+		return false;
 	}
 
 	@Override
