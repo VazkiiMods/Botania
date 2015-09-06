@@ -104,6 +104,7 @@ public final class LibLexicon {
 	public static final String GFLOWER_GOURMARYLLIS = "gourmaryllis";
 	public static final String GFLOWER_NARSLIMMUS = "narslimmus";
 	public static final String GFLOWER_SPECTROLUS = "spectrolus";
+	public static final String GFLOWER_DANDELIFEON = "dandelifeon";
 
 	public static final String DEVICE_PYLON = "pylon";
 	public static final String DEVICE_MANA_ENCHANTING = "manaEnchanting";

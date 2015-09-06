@@ -164,7 +164,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	@Override
 	public boolean canFit(ItemStack stack, IInventory apothecary) {
 		int meta = stack.getItemDamage();
-		return meta == 6 || meta == 8;
+		return meta == 6 || meta == 8 || meta == 5;
 	}
 
 	@Override

@@ -13,17 +13,22 @@ package vazkii.botania.common.block;
 import java.util.ArrayList;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import vazkii.botania.api.lexicon.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.tile.TileCell;
+import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockCell extends BlockModContainer {
+public class BlockCell extends BlockModContainer implements ILexiconable {
 
 	public BlockCell() {
 		super(Material.gourd);
 		setBlockName(LibBlockNames.CELL_BLOCK);
+		setStepSound(soundTypeCloth);
 	}
 	
 	@Override
@@ -34,6 +39,11 @@ public class BlockCell extends BlockModContainer {
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileCell();
+	}
+
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return LexiconData.dandelifeon;
 	}
 
 }

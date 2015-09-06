@@ -291,6 +291,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeBifrost;
 	public static IRecipe recipeAutocraftingHalo;
 	public static List<IRecipe> recipesPavement;
+	public static IRecipe recipeCellBlock;
 
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;
@@ -1981,6 +1982,12 @@ public final class ModCraftingRecipes {
 		addShapelessOreDictRecipe(new ItemStack(ModFluffBlocks.pavement, 3, 2), LibOreDict.LIVING_ROCK, "cobblestone", "gravel", new ItemStack(Items.dye, 1, 4));
 		addShapelessOreDictRecipe(new ItemStack(ModFluffBlocks.pavement, 3, 3), LibOreDict.LIVING_ROCK, "cobblestone", "gravel", new ItemStack(Items.redstone));
 		recipesPavement = BotaniaAPI.getLatestAddedRecipes(4);
+		
+		// Cellular Block Recipe
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.cellBlock, 3),
+				"CC", "CC",
+				'C', new ItemStack(Blocks.cactus));
+		recipeCellBlock = BotaniaAPI.getLatestAddedRecipe();
 		
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
