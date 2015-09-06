@@ -1,3 +1,19 @@
+r1.7 220
+*Added more taters.
+*Added the Dandelifeon, a new generating flower for maniacs that utilizes Conway's Game of Life.
+*Fixed a flower dupe with the Flower Pouch.
+*Fixed BotaniaVars.dat not generating in the right directory when using symlinks. (shadowfacts)
+*Fixed removing a Master Corporea Spark not properly resetting the corporea network.
+*Fixed the Mana Blaster with a Lens Clip showing that you have infinite mana lenses instead of showing you the name of the lens.
+*Fixed the Pink Wither not being able to be named.
+*Holding a Wand of the Forest in bind mode while wearing a Manaseer Monocle shows you the range of the flower the wand is bound to, even if you're not looking at it.
+*Luminizers can now move items.
+*Manastorm Charge mana bursts have more mana.
+*Upgraded goldfish.
+*[API] Added acceptsRedstone() to SubTileGenerating.
+*[API] Bunch of work done on multiblocks to support a custom IBlockAccess for renders like stairs or redstone. (SoundLogic)
+*[API] Changed the IMultiblockRenderHook.renderBlockForMultiblock() signature and added nedsTranslate(). (SoundLogic)
+*[API] Increased version number to 62.
 r1.7 219
 *Added comparator support to the T.A. Plate.
 *Added ForgeMultipart microblock support.
