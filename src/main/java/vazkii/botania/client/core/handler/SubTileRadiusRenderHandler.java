@@ -53,7 +53,6 @@ public final class SubTileRadiusRenderHandler {
 				y = coords.posY;
 				z = coords.posZ;
 			}
-				
 		}
 		
 		TileEntity tile = mc.theWorld.getTileEntity(x, y, z);

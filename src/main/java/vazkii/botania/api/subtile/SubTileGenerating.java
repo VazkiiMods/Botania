@@ -41,6 +41,8 @@ public class SubTileGenerating extends SubTileEntity {
 	private static final String TAG_COLLECTOR_Z = "collectorZ";
 
 	protected int mana;
+	
+	public int redstoneSignal = 0;
 
 	int sizeLastCheck = -1;
 	protected TileEntity linkedCollector = null;
@@ -48,6 +50,13 @@ public class SubTileGenerating extends SubTileEntity {
 
 	ChunkCoordinates cachedCollectorCoordinates = null;
 
+	/**
+	 * If set to true, redstoneSignal will be updated every tick.
+	 */
+	public boolean acceptsRedstone() {
+		return false;
+	}
+	
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
@@ -64,6 +73,14 @@ public class SubTileGenerating extends SubTileEntity {
 		}
 		emptyManaIntoCollector();
 
+		if(acceptsRedstone()) {
+			redstoneSignal = 0;
+			for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+				int redstoneSide = supertile.getWorldObj().getIndirectPowerLevelTo(supertile.xCoord + dir.offsetX, supertile.yCoord + dir.offsetY, supertile.zCoord + dir.offsetZ, dir.ordinal());
+				redstoneSignal = Math.max(redstoneSignal, redstoneSide);
+			}
+		}
+		
 		if(supertile.getWorldObj().isRemote) {
 			double particleChance = 1F - (double) mana / (double) getMaxMana() / 3.5F;
 			Color color = new Color(getColor());

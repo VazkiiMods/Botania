@@ -1038,6 +1038,7 @@ tile.botania:pavement0Slab.name=White Portuguese Pavement Slab
 tile.botania:pavement1Slab.name=Black Portuguese Pavement Slab
 tile.botania:pavement2Slab.name=Blue Portuguese Pavement Slab
 tile.botania:pavement3Slab.name=Red Portuguese Pavement Slab
+tile.botania:cellBlock.name=Cellular Block
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
@@ -1075,6 +1076,8 @@ tile.botania:flower.narslimmus.name=Narslimmus
 tile.botania:flower.narslimmus.reference=What's this? It's all sticky
 tile.botania:flower.spectrolus.name=Spectrolus
 tile.botania:flower.spectrolus.reference=Profiting off Hate
+tile.botania:flower.dandelifeon.name=Dandelifeon
+tile.botania:flower.dandelifeon.reference=C'est la vie
 
 # - FUNCTIONAL
 tile.botania:flower.bellethorn.name=Bellethorne

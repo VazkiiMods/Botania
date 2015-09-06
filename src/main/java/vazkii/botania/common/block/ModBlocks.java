@@ -98,6 +98,7 @@ import vazkii.botania.common.block.subtile.functional.SubTileTangleberrie;
 import vazkii.botania.common.block.subtile.functional.SubTileTigerseye;
 import vazkii.botania.common.block.subtile.functional.SubTileVinculotus;
 import vazkii.botania.common.block.subtile.generating.SubTileArcaneRose;
+import vazkii.botania.common.block.subtile.generating.SubTileDandelifeon;
 import vazkii.botania.common.block.subtile.generating.SubTileDaybloom;
 import vazkii.botania.common.block.subtile.generating.SubTileEndoflame;
 import vazkii.botania.common.block.subtile.generating.SubTileEntropinnyum;
@@ -114,6 +115,7 @@ import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.block.tile.TileBifrost;
 import vazkii.botania.common.block.tile.TileBrewery;
 import vazkii.botania.common.block.tile.TileCacophonium;
+import vazkii.botania.common.block.tile.TileCell;
 import vazkii.botania.common.block.tile.TileCocoon;
 import vazkii.botania.common.block.tile.TileCraftCrate;
 import vazkii.botania.common.block.tile.TileEnchanter;
@@ -246,6 +248,7 @@ public final class ModBlocks {
 	public static Block cacophonium;
 	public static Block bellows;
 	public static Block bifrostPerm;
+	public static Block cellBlock;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -329,7 +332,8 @@ public final class ModBlocks {
 		cacophonium = new BlockCacophonium();
 		bellows = new BlockBellows();
 		bifrostPerm = new BlockBifrostPerm();
-
+		cellBlock = new BlockCell();
+		
 		ModFluffBlocks.init();
 
 		for(int i = 0; i < 16; i++)
@@ -425,6 +429,7 @@ public final class ModBlocks {
 		registerTile(TileLightRelay.class, LibBlockNames.LIGHT_RELAY);
 		registerTile(TileCacophonium.class, LibBlockNames.CACOPHONIUM);
 		registerTile(TileBellows.class, LibBlockNames.BELLOWS);
+		registerTile(TileCell.class, LibBlockNames.CELL_BLOCK);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MANASTAR, SubTileManastar.class);
@@ -441,6 +446,7 @@ public final class ModBlocks {
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_GOURMARYLLIS, SubTileGourmaryllis.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_NARSLIMMUS, SubTileNarslimmus.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_SPECTROLUS, SubTileSpectrolus.class);
+		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_DANDELIFEON, SubTileDandelifeon.class);
 
 		registerSubTileWithMini(LibBlockNames.SUBTILE_BELLETHORN, SubTileBellethorn.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_DREADTHORN, SubTileDreadthorn.class);

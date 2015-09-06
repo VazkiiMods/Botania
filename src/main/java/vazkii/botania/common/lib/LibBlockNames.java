@@ -97,6 +97,7 @@ public final class LibBlockNames {
 	public static final String BELLOWS = "bellows";
 	public static final String BIFROST_PERM = "bifrostPerm";
 	public static final String PAVEMENT = "pavement";
+	public static final String CELL_BLOCK = "cellBlock";
 
 	public static final String SUBTILE_PUREDAISY = "puredaisy";
 	public static final String SUBTILE_MANASTAR = "manastar";
@@ -113,6 +114,7 @@ public final class LibBlockNames {
 	public static final String SUBTILE_GOURMARYLLIS = "gourmaryllis";
 	public static final String SUBTILE_NARSLIMMUS = "narslimmus";
 	public static final String SUBTILE_SPECTROLUS = "spectrolus";
+	public static final String SUBTILE_DANDELIFEON = "dandelifeon";
 
 	public static final String SUBTILE_BELLETHORN = "bellethorn";
 	public static final String SUBTILE_DREADTHORN = "dreadthorn";

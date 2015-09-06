@@ -271,6 +271,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.corporeaCrystalCube);
 		addBlock(ModBlocks.lightRelay);
 		addBlock(ModBlocks.lightLauncher);
+		addBlock(ModBlocks.cellBlock);
 
 		// FLUFF
 
