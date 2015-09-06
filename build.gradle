@@ -58,7 +58,7 @@ dependencies {
     compile files(
             'Baubles-deobf.jar'
     )
-    compile "codechicken:CodeChickenLib:1.7.10-1.1.1.95:dev"
+    compile "codechicken:CodeChickenLib:1.7.10-1.1.1.109:dev"
     compile "codechicken:CodeChickenCore:1.7.10-1.0.2.9:dev"
     compile "codechicken:NotEnoughItems:1.7.10-1.0.2.15:dev"
     compile "codechicken:ForgeMultipart:1.7.10-1.1.1.320:dev"

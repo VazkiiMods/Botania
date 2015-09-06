@@ -26,7 +26,7 @@ import vazkii.botania.client.gui.lexicon.GuiLexiconEntry;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
-public final class PresistantVariableHelper {
+public final class PersistentVariableHelper {
 
 	private static final String TAG_FIRST_LOAD = "firstLoad";
 	private static final String TAG_BOOKMARK_COUNT = "bookmarkCount";
