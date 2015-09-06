@@ -68,7 +68,7 @@ public class EntityManaStorm extends Entity {
 		float motionModifier = 0.5F;
 		burst.setColor(0x20FF20);
 		burst.setMana(120);
-		burst.setStartingMana(320);
+		burst.setStartingMana(340);
 		burst.setMinManaLoss(50);
 		burst.setManaLossPerTick(1F);
 		burst.setGravity(0F);
