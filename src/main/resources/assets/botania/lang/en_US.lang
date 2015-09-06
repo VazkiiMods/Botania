@@ -2933,7 +2933,7 @@ botania.page.luminizerTransport1=&1Luminizers&0 have a range of twenty blocks ea
 botania.page.luminizerTransport2=Luminize to the future
 botania.page.luminizerTransport3=Adding some redstone to a &1Luminizer&0 creates a &1Detector Luminizer&0. For all intents and purposes, it functions just like a regular &1Luminizer&0, however, it sends out a &4redstone pulse&0 every time something passes through it or reaches it as an endpoint.
 botania.page.luminizerTransport4=Are you ready to draw?
-botania.page.luminizerTransport5=While players can just right click the &1Luminizers&0, in order to get animals or other beings into the trails, a &1Luminizer Launcher&0 is required.<br>This block needs to be placed down adjacent to &1Luminizers&0, and when it receives a &4redstone pulse&0, it'll randomly distribute all living beings on top of it into all of the adjacent &1Luminizers&0, causing them to go on their merry way.
+botania.page.luminizerTransport5=While players can just right click the &1Luminizers&0, in order to get animals, dropped items, or other beings into the trails, a &1Luminizer Launcher&0 is required. This block needs to be placed down adjacent to &1Luminizers&0, and when it receives a &4redstone pulse&0, it'll randomly distribute all living beings and dropped items on top of it into all of the adjacent &1Luminizers&0, causing them to go on their merry way.
 botania.page.luminizerTransport6=Let's believe it, open the flag
 
 # -- STARCALLER

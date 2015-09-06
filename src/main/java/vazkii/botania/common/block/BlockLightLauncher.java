@@ -15,7 +15,9 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -80,9 +82,12 @@ public class BlockLightLauncher extends BlockMod implements ILexiconable {
 		}
 
 		if(!relays.isEmpty()) {
-			List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1));
+			AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1);
+			List<Entity> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, aabb);
+			entities.addAll(world.getEntitiesWithinAABB(EntityItem.class, aabb));
+			
 			if(!entities.isEmpty()) {
-				for(EntityLivingBase entity : entities) {
+				for(Entity entity : entities) {
 					TileLightRelay relay = relays.get(world.rand.nextInt(relays.size()));
 					relay.mountEntity(entity);
 				}

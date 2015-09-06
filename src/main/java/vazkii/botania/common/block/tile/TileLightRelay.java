@@ -15,6 +15,7 @@ import java.awt.Color;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -39,14 +40,15 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 	int bindX, bindY = -1, bindZ;
 	int ticksElapsed = 0;
 
-	public void mountEntity(EntityLivingBase e) {
+	public void mountEntity(Entity e) {
 		if(e.ridingEntity != null || worldObj.isRemote || bindY == -1 || !isValidBinding())
 			return;
 
 		EntityPlayerMover mover = new EntityPlayerMover(worldObj, xCoord, yCoord, zCoord, bindX, bindY, bindZ);
 		worldObj.spawnEntityInWorld(mover);
 		e.mountEntity(mover);
-		worldObj.playSoundAtEntity(mover, "botania:lightRelay", 0.2F, (float) Math.random() * 0.3F + 0.7F);
+		if(!(e instanceof EntityItem))
+			worldObj.playSoundAtEntity(mover, "botania:lightRelay", 0.2F, (float) Math.random() * 0.3F + 0.7F);	
 	}
 
 	@Override
@@ -155,14 +157,15 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		public void onUpdate() {
 			super.onUpdate();
 
-			if(ticksExisted % 30 == 0)
-				worldObj.playSoundAtEntity(this, "botania:lightRelay", 0.2F, (float) Math.random() * 0.3F + 0.7F);
-
 			if(riddenByEntity == null && !worldObj.isRemote) {
 				setDead();
 				return;
 			}
-
+			
+			boolean isItem = riddenByEntity instanceof EntityItem;
+			if(!isItem && ticksExisted % 30 == 0)
+				worldObj.playSoundAtEntity(this, "botania:lightRelay", 0.2F, (float) Math.random() * 0.3F + 0.7F);
+			
 			int exitX = getExitX();
 			int exitY = getExitY();
 			int exitZ = getExitZ();
@@ -173,7 +176,8 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 			if(x == exitX && y == exitY && z == exitZ) {
 				TileEntity tile = worldObj.getTileEntity(x, y, z);
 				if(tile != null && tile instanceof TileLightRelay) {
-					worldObj.playSoundAtEntity(this, "random.orb", 0.2F, (float) Math.random() * 0.3F + 0.7F);
+					if(!isItem)
+						worldObj.playSoundAtEntity(this, "random.orb", 0.2F, (float) Math.random() * 0.3F + 0.7F);
 
 					int meta = worldObj.getBlockMetadata(x, y, z);
 					if(meta > 0) {
