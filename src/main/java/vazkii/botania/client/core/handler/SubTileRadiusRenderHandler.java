@@ -15,6 +15,7 @@ import java.awt.Color;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChunkCoordinates;
@@ -27,6 +28,8 @@ import vazkii.botania.api.subtile.ISubTileContainer;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.item.ItemTwigWand;
+import vazkii.botania.common.item.ModItems;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public final class SubTileRadiusRenderHandler {
@@ -38,7 +41,22 @@ public final class SubTileRadiusRenderHandler {
 
 		if(!Botania.proxy.isClientPlayerWearingMonocle() || pos == null || pos.entityHit != null)
 			return;
-		TileEntity tile = mc.theWorld.getTileEntity(pos.blockX, pos.blockY, pos.blockZ);
+		int x = pos.blockX;
+		int y = pos.blockY;
+		int z = pos.blockZ;
+		
+		ItemStack stackHeld = mc.thePlayer.getCurrentEquippedItem();
+		if(stackHeld != null && stackHeld.getItem() == ModItems.twigWand && ItemTwigWand.getBindMode(stackHeld)) {
+			ChunkCoordinates coords = ItemTwigWand.getBoundTile(stackHeld);
+			if(coords.posY != -1) {
+				x = coords.posX;
+				y = coords.posY;
+				z = coords.posZ;
+			}
+				
+		}
+		
+		TileEntity tile = mc.theWorld.getTileEntity(x, y, z);
 		if(tile == null || !(tile instanceof ISubTileContainer))
 			return;
 		ISubTileContainer container = (ISubTileContainer) tile;
