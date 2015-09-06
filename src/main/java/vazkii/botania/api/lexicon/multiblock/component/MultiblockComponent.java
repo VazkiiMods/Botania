@@ -10,8 +10,11 @@
  */
 package vazkii.botania.api.lexicon.multiblock.component;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 
@@ -24,11 +27,27 @@ public class MultiblockComponent {
 	public ChunkCoordinates relPos;
 	public final Block block;
 	public final int meta;
+	public final TileEntity tileEntity;
+	public boolean doFancyRender;
 
 	public MultiblockComponent(ChunkCoordinates relPos, Block block, int meta) {
+		this(relPos, block, meta, null);
+	}
+
+	public MultiblockComponent(ChunkCoordinates relPos, Block block, int meta, boolean doFancyRender) {
+		this(relPos, block, meta, doFancyRender, null);
+	}
+
+	public MultiblockComponent(ChunkCoordinates relPos, Block block, int meta, TileEntity tileEntity) {
+		this(relPos, block, meta, block.hasTileEntity() == (tileEntity != null), tileEntity);
+	}
+	
+	public MultiblockComponent(ChunkCoordinates relPos, Block block, int meta, boolean doFancyRender, TileEntity tileEntity) {
 		this.relPos = relPos;
 		this.block = block;
 		this.meta = meta;
+		this.tileEntity = tileEntity;
+		this.doFancyRender = doFancyRender;
 	}
 
 	public ChunkCoordinates getRelativePosition() {
@@ -63,6 +82,15 @@ public class MultiblockComponent {
 	}
 
 	public MultiblockComponent copy() {
-		return new MultiblockComponent(relPos, block, meta);
+		return new MultiblockComponent(relPos, block, meta, tileEntity);
+	}
+
+	public TileEntity getTileEntity() {
+		return tileEntity;
+	}
+
+	@SideOnly(Side.CLIENT)
+	public boolean shouldDoFancyRender() {
+		return doFancyRender;
 	}
 }
