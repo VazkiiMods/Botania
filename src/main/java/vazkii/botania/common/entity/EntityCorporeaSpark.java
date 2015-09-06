@@ -87,7 +87,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 			else firstUpdateServer = false;
 		}
 
-		if(master != null && master.getNetwork() != getNetwork())
+		if(master != null && (((Entity) master).isDead || master.getNetwork() != getNetwork()))
 			master = null;
 
 		int displayTicks = getItemDisplayTicks();
@@ -148,7 +148,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 		List<ICorporeaSpark> sparks = getNearbySparks();
 		if(sparks.size() > 0) {
 			for(ICorporeaSpark spark : sparks)
-				if(spark.getNetwork() == getNetwork()) {
+				if(spark.getNetwork() == getNetwork() && !((Entity) spark).isDead) {
 					ICorporeaSpark master = spark.getMaster();
 					if(master != null) {
 						this.master = master;
@@ -254,6 +254,8 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 			if(stack.getItem() == ModItems.twigWand) {
 				if(player.isSneaking()) {
 					setDead();
+					if(isMaster())
+						restartNetwork();
 					if(player.worldObj.isRemote)
 						player.swingItem();
 					return true;
