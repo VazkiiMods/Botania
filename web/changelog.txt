@@ -1,3 +1,7 @@
+r1.7 221
+*Added some extra rules to the Dandelifeon to prevent some exploits. Also lowered the mana value of each cellular block.
+*Double slabs are now properly localized. (MrKunji)
+*Made the Dandelifeon's texture not be as horrid as the one I made while wiiv was away :V
 r1.7 220
 *Added more taters.
 *Added the Dandelifeon, a new generating flower for maniacs that utilizes Conway's Game of Life.
