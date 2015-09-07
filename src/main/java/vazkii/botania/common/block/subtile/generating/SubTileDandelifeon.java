@@ -29,7 +29,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 	private static final int RANGE = 12;
 	private static final int SPEED = 10;
 	private static final int MAX_GENERATIONS = 60;
-	private static final int MANA_PER_GEN = 80;
+	private static final int MANA_PER_GEN = 50;
 
 	private static final int[][] ADJACENT_BLOCKS = new int[][] {
 		{ -1, -1 },
@@ -69,9 +69,12 @@ public class SubTileDandelifeon extends SubTileGenerating {
 						newVal = gen + 1;
 				}
 				
-				if(Math.abs(i - RANGE) <= 1 && Math.abs(j - RANGE) <= 1 && newVal > -1) {
+				int xdist = Math.abs(i - RANGE);
+				int zdist = Math.abs(j - RANGE);
+				int allowDist = newVal == 1 ? 2 : 1;
+				if(xdist <= allowDist && zdist <= allowDist && newVal > -1) {
 					gen = newVal;
-					newVal = -2;
+					newVal = gen == 1 ? -1 : -2;
 				}
 				
 				if(newVal != gen)
@@ -162,10 +165,10 @@ public class SubTileDandelifeon extends SubTileGenerating {
 		} else if(blockAt == ModBlocks.cellBlock) {
 			if(gen < 0 || gen > MAX_GENERATIONS)
 				world.setBlockToAir(x, y, z);
-			else ((TileCell) world.getTileEntity(x, y, z)).setGeneration(gen);
+			else ((TileCell) world.getTileEntity(x, y, z)).setGeneration(supertile, gen);
 		} else if(gen >= 0 && blockAt.isAir(supertile.getWorldObj(), x, y, z)) {
 			world.setBlock(x, y, z, ModBlocks.cellBlock);
-			((TileCell) world.getTileEntity(x, y, z)).setGeneration(gen);
+			((TileCell) world.getTileEntity(x, y, z)).setGeneration(supertile, gen);
 		}
 	}
 
