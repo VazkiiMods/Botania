@@ -1,4 +1,4 @@
-﻿# MISC
+# MISC
 itemGroup.Botania=Botania
 generator.botania-skyblock=Jardim de Vidro
 generator.botania-skyblock.info=Não recomendado para iniciantes
@@ -138,7 +138,7 @@ botaniamisc.pay2win=Melhore seu Poço de Mana para infundir esse item
 botaniamisc.justDoIt=DO IT
 botaniamisc.changes0=&aBotania&7 sofreu mudanças desde a última vez que usou essa instância!
 botaniamisc.changes1=A última versão do &aBotania&7 usada foi &b%s&7.
-botaniamisc.changes2=Coisas mudas, não se apavore. Se algo parece estranho, leia a entrada novamente.
+botaniamisc.changes2=Coisas mudam, não se apavore. Se algo parece estranho, leia a entrada novamente.
 botaniamisc.changes3=&oTodo mundo tem medo de mudanças, mas isso é o que nos move adiante.
 botaniamisc.changes4=&fShift-Clique esquerdo&7 para ler as mudanças recentes
 botaniamisc.changes5=&fClique esquerdo&7 para dispensar
@@ -662,36 +662,43 @@ tile.botania:blockDarkQuartz.name=Bloco de Quartzo Escuro
 tile.botania:chiseledDarkQuartz.name=Bloco de Quartzo Escuro Talhado
 tile.botania:pillarDarkQuartz.name=Pilar de Quartzo Escuro
 tile.botania:quartzSlabDarkHalf.name=Laje de Quartzo Escuro
+tile.botania:quartzSlabDarkFull.name=Laje de Quartzo Escuro
 tile.botania:quartzStairsDark.name=Escadas de Quartzo Escuro
 tile.botania:blockManaQuartz.name=Bloco de Quartzo de Mana
 tile.botania:chiseledManaQuartz.name=Bloco de Quartzo de Mana Talhado
 tile.botania:pillarManaQuartz.name=Pilar de Quartzo de Mana
 tile.botania:quartzSlabManaHalf.name=Laje de Quartzo de Mana
+tile.botania:quartzSlabManaFull.name=Laje de Quartzo de Mana
 tile.botania:quartzStairsMana.name=Escadas de Quartzo de Mana
 tile.botania:blockBlazeQuartz.name=Bloco de Quartzo Flamejante
 tile.botania:chiseledBlazeQuartz.name=Bloco de Quartzo Flamejante Talhado
 tile.botania:pillarBlazeQuartz.name=Pilar de Quartzo Flamejante
 tile.botania:quartzSlabBlazeHalf.name=Laje de Quartzo Flamejante
+tile.botania:quartzSlabBlazeFull.name=Laje de Quartzo Flamejante
 tile.botania:quartzStairsBlaze.name=Escadas de Quartzo Flamejante
 tile.botania:blockLavenderQuartz.name=Bloco de Quartzo de Lavanda
 tile.botania:chiseledLavenderQuartz.name=Bloco de Quartzo de Lavanda Talhado
 tile.botania:pillarLavenderQuartz.name=Pilar de Quartzo de Lavanda
 tile.botania:quartzSlabLavenderHalf.name=Laje de Quartzo de Lavanda
+tile.botania:quartzSlabLavenderFull.name=Laje de Quartzo de Lavanda
 tile.botania:quartzStairsLavender.name=Escadas de Quartzo de Lavanda
 tile.botania:blockRedQuartz.name=Bloco de Quartzo-vermelho
 tile.botania:chiseledRedQuartz.name=Bloco de Quartzo-vermelho Talhado
 tile.botania:pillarRedQuartz.name=Pilar de Quartzo-vermelho
 tile.botania:quartzSlabRedHalf.name=Laje de Quartzo-vermelho
+tile.botania:quartzSlabRedFull.name=Laje de Quartzo-vermelho
 tile.botania:quartzStairsRed.name=Escadas de Quartzo-vermelho
 tile.botania:blockElfQuartz.name=Bloco de Quartzo Élfico
 tile.botania:chiseledElfQuartz.name=Bloco de Quartzo Élfico Talhado
 tile.botania:pillarElfQuartz.name=Pilar de Quartzo Élfico
 tile.botania:quartzSlabElfHalf.name=Laje de Quartzo Élfico
+tile.botania:quartzSlabElfFull.name=Laje de Quartzo Élfico
 tile.botania:quartzStairsElf.name=Escadas de Quartzo Élfico
 tile.botania:blockSunnyQuartz.name=Bloco de Quartzo Solar
 tile.botania:chiseledSunnyQuartz.name=Bloco de Quartzo Solar Talhado
 tile.botania:pillarSunnyQuartz.name=Pilar de Quartzo Solar
 tile.botania:quartzSlabSunnyHalf.name=Laje de Quartzo Solar
+tile.botania:quartzSlabSunnyFull.name=Laje de Quartzo Solar
 tile.botania:quartzStairsSunny.name=Escadas de Quartzo Solar
 tile.botania:dreamwood0.name=Madeira dos Sonhos
 tile.botania:dreamwood1.name=Tábuas de Madeira dos Sonhos
@@ -701,26 +708,35 @@ tile.botania:dreamwood4.name=Madeira dos Sonhos com bordas padronizadas
 tile.botania:dreamwood5.name=Madeira dos Sonhos Reluzente
 tile.botania:livingwood0Stairs.name=Escadas de Madeira-viva
 tile.botania:livingwood0Slab.name=Laje de de Madeira-viva
+tile.botania:livingwood0SlabFull.name=Laje de de Madeira-viva
 tile.botania:livingwood1Stairs.name=Escadas de Tábuas de Madeira-viva
 tile.botania:livingwood1Slab.name=Laje de Tábuas de Madeira-viva
+tile.botania:livingwood1SlabFull.name=Laje de Tábuas de Madeira-viva
 tile.botania:livingrock0Stairs.name=Escadas de Rocha-viva
 tile.botania:livingrock0Slab.name=Laje de Rocha-viva
+tile.botania:livingrock0SlabFull.name=Laje de Rocha-viva
 tile.botania:livingrock1Stairs.name=Escadas de Tijolos de Rocha-viva
 tile.botania:livingrock1Slab.name=Laje de Tijolos de Rocha-viva
+tile.botania:livingrock1SlabFull.name=Laje de Tijolos de Rocha-viva
 tile.botania:dreamwood0Stairs.name=Escadas de Madeira dos Sonhos
 tile.botania:dreamwood0Slab.name=Laje de Madeira dos Sonhos
+tile.botania:dreamwood0SlabFull.name=Laje de Madeira dos Sonhos
 tile.botania:dreamwood1Stairs.name=Escadas de Tábuas de Madeira dos Sonhos
 tile.botania:dreamwood1Slab.name=Laje de Tábuas de Madeira dos Sonhos
+tile.botania:dreamwood1SlabFull.name=Laje de Tábuas de Madeira dos Sonhos
 tile.botania:conjurationCatalyst.name=Catalizador de Conjurações
 tile.botania:prismarine0.name=Prismarinho
 tile.botania:prismarine1.name=Tijolos de Prismarinho
 tile.botania:prismarine2.name=Prismarinho Escuro
 tile.botania:prismarine0Stairs.name=Escadas de Prismarinho
 tile.botania:prismarine0Slab.name=Laje de Prismarinho
+tile.botania:prismarine0SlabFull.name=Laje de Prismarinho
 tile.botania:prismarine1Stairs.name=Escadas de Tijolos de Prismarinho
 tile.botania:prismarine1Slab.name=Laje de Tijolos de Prismarinho
+tile.botania:prismarine1SlabFull.name=Laje de Tijolos de Prismarinho
 tile.botania:prismarine2Stairs.name=Escadas de Prismarinho Escuro
 tile.botania:prismarine2Slab.name=Laje de Prismarinho Escuro
+tile.botania:prismarine2SlabFull.name=Laje de Prismarinho Escuro
 tile.botania:seaLamp.name=Lanterna do Mar
 tile.botania:miniIsland0.name=Flor Branca Flutuante
 tile.botania:miniIsland1.name=Flor Laranja Flutuante
@@ -743,9 +759,11 @@ tile.botania:spawnerClaw.name=Imbuidor de Vida
 tile.botania:reedBlock.name=Bloco de Cana-de-açúcar
 tile.botania:reedBlock0Stairs.name=Escadas de Cana-de-açúcar
 tile.botania:reedBlock0Slab.name=Laje de Cana-de-açúcar
+tile.botania:reedBlock0SlabFull.name=Laje de Cana-de-açúcar
 tile.botania:thatch.name=Palha
 tile.botania:thatch0Stairs.name=Escadas de Palha
 tile.botania:thatch0Slab.name=Laje de Palha
+tile.botania:thatch0SlabFull.name=Laje de Palha
 tile.botania:customBrick0.name=Tijolo Infernal
 tile.botania:customBrick1.name=Tijolo da Alma
 tile.botania:customBrick2.name=Tijolo Invernal
@@ -755,9 +773,13 @@ tile.botania:customBrick1Stairs.name=Escadas de Tijolo da Alma
 tile.botania:customBrick2Stairs.name=Escadas de Tijolo Invernal
 tile.botania:customBrick3Stairs.name=Escadas de Ladrilhos de Tijolo
 tile.botania:customBrick0Slab.name=Laje de Tijolo Infernal
+tile.botania:customBrick0SlabFull.name=Laje de Tijolo Infernal
 tile.botania:customBrick1Slab.name=Laje de Tijolo da Alma
+tile.botania:customBrick1SlabFull.name=Laje de Tijolo da Alma
 tile.botania:customBrick2Slab.name=Laje de Tijolo Invernal
+tile.botania:customBrick2SlabFull.name=Laje de Tijolo Invernal
 tile.botania:customBrick3Slab.name=Laje de Ladrilhos de Tijolo
+tile.botania:customBrick3SlabFull.name=Laje de Ladrilhos de Tijolo
 tile.botania:customBrick4.name=Azulejo
 tile.botania:customBrick5.name=Azulejo
 tile.botania:customBrick6.name=Azulejo
@@ -787,6 +809,7 @@ tile.botania:prism.name=Prisma de Mana
 tile.botania:dirtPath.name=Caminho de Terra
 tile.botania:enchantedSoil.name=Solo encantado
 tile.botania:dirtPath0Slab.name=Laje de Caminho de Terra
+tile.botania:dirtPath0SlabFull.name=Laje de Caminho de Terra
 tile.botania:biomeStoneA0.name=Pedra Metamórfica - Floresta
 tile.botania:biomeStoneA1.name=Pedra Metamórfica - Planície
 tile.botania:biomeStoneA2.name=Pedra Metamórfica - Montanha
@@ -867,6 +890,30 @@ tile.botania:biomeStoneB4Slab.name=Laje de Tijolos Metamórficos - Pântano
 tile.botania:biomeStoneB5Slab.name=Laje de Tijolos Metamórficos - Deserto
 tile.botania:biomeStoneB6Slab.name=Laje de Tijolos Metamórficos - Taiga
 tile.botania:biomeStoneB7Slab.name=Laje de Tijolos Metamórficos - Mesa
+tile.botania:biomeStoneA0SlabFull.name=Laje de Pedra Metamórfica - Floresta
+tile.botania:biomeStoneA1SlabFull.name=Laje de Pedra Metamórfica - Planície
+tile.botania:biomeStoneA2SlabFull.name=Laje de Pedra Metamórfica - Montanha
+tile.botania:biomeStoneA3SlabFull.name=Laje de Pedra Metamórfica - Fungos
+tile.botania:biomeStoneA4SlabFull.name=Laje de Pedra Metamórfica - Pântano
+tile.botania:biomeStoneA5SlabFull.name=Laje de Pedra Metamórfica - Deserto
+tile.botania:biomeStoneA6SlabFull.name=Laje de Pedra Metamórfica - Taiga
+tile.botania:biomeStoneA7SlabFull.name=Laje de Pedra Metamórfica - Mesa
+tile.botania:biomeStoneA8SlabFull.name=Laje de Pedregulho Metamórfico - Floresta
+tile.botania:biomeStoneA9SlabFull.name=Laje de Pedregulho Metamórfico - Planície
+tile.botania:biomeStoneA10SlabFull.name=Laje de Pedregulho Metamórfico - Montanha
+tile.botania:biomeStoneA11SlabFull.name=Laje de Pedregulho Metamórfico - Fungos
+tile.botania:biomeStoneA12SlabFull.name=Laje de Pedregulho Metamórfico - Pântano
+tile.botania:biomeStoneA13SlabFull.name=Laje de Pedregulho Metamórfico - Deserto
+tile.botania:biomeStoneA14SlabFull.name=Laje de Pedregulho Metamórfico - Taiga
+tile.botania:biomeStoneA15SlabFull.name=Laje de Pedregulho Metamórfico - Mesa
+tile.botania:biomeStoneB0SlabFull.name=Laje de Tijolos Metamórficos - Floresta
+tile.botania:biomeStoneB1SlabFull.name=Laje de Tijolos Metamórficos - Planície
+tile.botania:biomeStoneB2SlabFull.name=Laje de Tijolos Metamórficos - Montanha
+tile.botania:biomeStoneB3SlabFull.name=Laje de Tijolos Metamórficos - Fungos
+tile.botania:biomeStoneB4SlabFull.name=Laje de Tijolos Metamórficos - Pântano
+tile.botania:biomeStoneB5SlabFull.name=Laje de Tijolos Metamórficos - Deserto
+tile.botania:biomeStoneB6SlabFull.name=Laje de Tijolos Metamórficos - Taiga
+tile.botania:biomeStoneB7SlabFull.name=Laje de Tijolos Metamórficos - Mesa
 tile.botania:petalBlock0.name=Bloco de Pétalas Branco
 tile.botania:petalBlock1.name=Bloco de Pétalas Laranja
 tile.botania:petalBlock2.name=Bloco de Pétalas Magenta
@@ -890,9 +937,11 @@ tile.botania:endStoneBrick1.name=Tijolos de Pedra do Fim Talhados
 tile.botania:endStoneBrick2.name=Tijolos do Fim
 tile.botania:endStoneBrick3.name=Pilar de Tijolos do Fim
 tile.botania:endStoneBrick0Slab.name=Laje de Tijolos do Fim
+tile.botania:endStoneBrick0SlabFull.name=Laje de Tijolos do Fim
 tile.botania:endStoneBrick0Stairs.name=Escadas de Tijolos do Fim
-tile.botania:endStoneBrick0Slab.name=Laje de Tijolos de Pedra do Fim
-tile.botania:endStoneBrick0Stairs.name=Escadas de Tijolos de Pedra do Fim
+tile.botania:endStoneBrick2Slab.name=Laje de Tijolos de Pedra do Fim
+tile.botania:endStoneBrick2SlabFull.name=Laje de Tijolos de Pedra do Fim
+tile.botania:endStoneBrick2Stairs.name=Escadas de Tijolos de Pedra do Fim
 tile.botania:mushroom0.name=Cogumelo Brilhante Branco
 tile.botania:mushroom1.name=Cogumelo Brilhante Laranja
 tile.botania:mushroom2.name=Cogumelo Brilhante Magenta
@@ -974,6 +1023,14 @@ tile.botania:stone8Slab.name=Laje de Tijolos de Andesito
 tile.botania:stone9Slab.name=Laje de Tijolos de Basalto
 tile.botania:stone10Slab.name=Laje de Tijolos de Diorito
 tile.botania:stone11Slab.name=Laje de Tijolos de Granito
+tile.botania:stone0SlabFull.name=Laje de Andesito
+tile.botania:stone1SlabFull.name=Laje de Basalto
+tile.botania:stone2SlabFull.name=Laje de Diorito
+tile.botania:stone3SlabFull.name=Laje de Granito
+tile.botania:stone8SlabFull.name=Laje de Tijolos de Andesito
+tile.botania:stone9SlabFull.name=Laje de Tijolos de Basalto
+tile.botania:stone10SlabFull.name=Laje de Tijolos de Diorito
+tile.botania:stone11SlabFull.name=Laje de Tijolos de Granito
 tile.botania:blazeBlock.name=Lâmpada Infernal
 tile.botania:corporeaInterceptor.name=Interceptador Corporea
 tile.botania:corporeaCrystalCube.name=Cubo de Cristal Corporea
@@ -1026,6 +1083,23 @@ tile.botania:cacophoniumBlock.name=Bloco de Cacofônio
 tile.botania:bellows.name=Fole da Maré de Mana
 tile.botania:bifrost.name=Bloco de Bifrost Temporário
 tile.botania:bifrostPerm.name=Bloco de Bifrost
+tile.botania:pavement0.name=Pavemento Português Branco
+tile.botania:pavement1.name=Pavemento Português Preto
+tile.botania:pavement2.name=Pavemento Português Azul
+tile.botania:pavement3.name=Pavemento Português Vermelho
+tile.botania:pavement0Stairs.name=Escadas de Pavemento Português Branco
+tile.botania:pavement1Stairs.name=Escadas de Pavemento Português Preto
+tile.botania:pavement2Stairs.name=Escadas de Pavemento Português Azul
+tile.botania:pavement3Stairs.name=Escadas de Pavemento Português Vermelho
+tile.botania:pavement0Slab.name=Laje de Pavemento Português Branco
+tile.botania:pavement0SlabFull.name=Laje de Pavemento Português Branco
+tile.botania:pavement1Slab.name=Laje de Pavemento Português Preto
+tile.botania:pavement1SlabFull.name=Laje de Pavemento Português Preto
+tile.botania:pavement2Slab.name=Laje de Pavemento Português Azul
+tile.botania:pavement2SlabFull.name=Laje de Pavemento Português Azul
+tile.botania:pavement3Slab.name=Laje de Pavemento Português Vermelho
+tile.botania:pavement3SlabFull.name=Laje de Pavemento Português Vermelho
+tile.botania:cellBlock.name=Bloco de Célula
 
 # FLOWER NAMES
 tile.botania:flower..name=Flor do Botania
@@ -1063,6 +1137,8 @@ tile.botania:flower.narslimmus.name=Narslimmus
 tile.botania:flower.narslimmus.reference=O que é isso? É grudento
 tile.botania:flower.spectrolus.name=Spectrolus
 tile.botania:flower.spectrolus.reference=Lucrando com o Ódio
+tile.botania:flower.dandelifeon.name=Dandelifeon
+tile.botania:flower.dandelifeon.reference=C'est la vie
 
 # - FUNCTIONAL
 tile.botania:flower.bellethorn.name=Bellethorne
@@ -1351,6 +1427,7 @@ item.botania:missileRod.name=Cajado do Depósito Instável
 item.botania:holyCloak.name=Capa da Virtude
 item.botania:unholyCloak.name=Capa do Pecado
 item.botania:craftingHalo.name=Auréola da Criação
+item.botania:autocraftingHalo.name=Auréola de Manufatura
 item.botania:blackLotus0.name=Lótus Negra
 item.botania:blackLotus1.name=Lótus Profunda
 item.botania:dreamwoodTwig.name=Graveto de Madeira dos Sonhos
@@ -1930,6 +2007,7 @@ botania.page.pool5=Infundindo &1Diamantes de Mana&0
 botania.page.pool6=Infundindo &1Pétalas de Mana&0
 botania.page.pool11=Infundindo &1Managlass&0, vidro transparente.
 botania.page.pool12=Infundindo &1Linha&0
+botania.page.pool13=&1Linha Infundida em Mana&0 para fazer &1Teia&0
 botania.page.pool7=Infundindo &1Biscoitos de Mana&0, uma boa opção de comida.
 
 # -- SPARKS
@@ -2221,3 +2299,87 @@ botania.page.bubbell1=&oLike some casual game&r.
 botania.entry.solegnolia=Solegnolia
 botania.page.solegnolia0=O &1Anel Magnético&0 é uma ferramenta útil para mineração ou coleta. Entretanto, não é bom quando ele puxa itens de sistemas complexos.<br>A &1Solegnolia&0 bloqueia o anel e impede que ele puxe itens para o dono. Ela usa uma quantidade insignificante de &4Mana&0 para isso, mas nada preocupante.
 botania.page.solegnolia1=On/Off
+
+# - GENERATING FLOWERS
+# -- AN INTRODUCTION TO GENERATION
+botania.entry.gIntro=Uma introdução a Geração
+botania.page.gIntro0=&4Gerar Mana&0 é o ponto prioritário para qualquer botanista. Felizmente há uma grande variedade de &4Plantas Geradoras&0 para o serviço.<br>Essas flores, como o nome implica, geram &4Mana&0, tanto passivamente, quanto ativamente. A não ser que afirmado o contrário, toda &4Flora Geradora&0 produz &4Mana&0 passivamente em algumas circunstânicas.
+botania.page.gIntro1=Toda &4Flora Geradora&0, igualmente a &4Flora Funcional&0 contém um pequeno reservatório de &4Mana&0.<br>Regras padrões de leitura de &4Mana&0 se aplicam, clicar com uma &1Varinha da Floresta&0 atualiza a leitura de mana.<br>Essa mana é armazenada no &1Dispersor de Mana&0 mais próximo.
+botania.page.gIntro2=É importante lembrar que essas flores memorizam qual &1Dispersor de Mana&0 elas devem passar &4Mana&0. Elas apenas procuram o Dispersor mais próximo na hora que são plantadas, e nenhum outro. Elas podem ser redirecionadas para outro Dispersor com a varinha em &4Modo de Vínculo&0.
+
+# -- DAYBLOOM
+botania.entry.daybloom=Daybloom
+botania.page.daybloom0=A &1Daybloom&0 é a mais básica e rudimentar das &4Flores Geradoras&0. Simpificando, ela realiza um processo modificado de fotossíntese, convertendo luz em &4Mana&0.<br>Esse processo é bem lento, mais ou menos 10 ou 12 delas devem produzir uma quantidade suficiente para avançar.
+botania.page.daybloom1=Essas flores tendem a competir entre si pela luz da área, fazendo que outra dela nas quatro direções cardinais resulte em retornos diminuídos de &4Mana&0. Isso se aplica apenas para &1Dayblooms&0 e &1Nightshades&0. Elas também não produzem muito, então mudar para &1Endoflames&0 ou outras é uma boa ideia.
+botania.page.daybloom1a=Havendo outra dela nas quatro direções cardinais resulte em retornos diminuídos de &4Mana&0. Isso se aplica apenas para &1Dayblooms&0 e &1Nightshades&0.<br>&1Dayblooms&0 não são muito resistentes, após um tempo elas secam e morrem. Elas também não produzem muito, então mudar para &1Endoflames&0 ou outras é uma boa ideia.
+botania.page.daybloom3=Retornos diminuídos
+botania.page.daybloom2=&oComeçando um novo e belo dia&r.
+botania.page.daybloom4=&oHow many of you people out there been hurt in some kind of love affair? And how many times do you swear that you'll never love again? How many lonely, sleepless nights? How many lies? How many fights? And why would you want to put yourself through all that again? "Love is pain," I hear you say. Love has a cruel and bitter way of paying you back for all the faith you ever had in your brain. (...)
+botania.page.daybloom5=&oHow could it be that what you need the most can leave you feeling just like a ghost? You never want to feel so sad and lost again. One day you could be looking through an old book in rainy weather. You see a picture of her smiling at you when you were still together. You could be walking down the street and who should you chance to meet. But that same old smile that you've been thinking of all day...
+
+# -- NIGHTSHADE
+botania.entry.nightshade=Nightshade
+botania.page.nightshade0=A &1Nightshade&0 é a equivalente sombria da &1Daybloom&0, já que gera &4Mana&0 passivamente em situações em que a &1Daybloom&0 não podem, enquanto seja noite<br>Igualmente a sua equivalente iluminada, ela sofre retornos diminuídos se houver uma igual adjacente.
+botania.page.nightshade0a=A &1Nightshade&0 é a equivalente sombria da &1Daybloom&0, já que gera &4Mana&0 passivamente em situações em que a &1Daybloom&0 não podem, enquanto seja noite<br>Igualmente a sua equivalente iluminada, ela sofre retornos diminuídos se houver uma igual adjacente e não são muito resistentes, após um tempo secam e morrem.
+botania.page.nightshade1=&oA sombra do dia&r.
+
+# -- ENDOFLAME
+botania.entry.endoflame=Endoflame
+botania.page.endoflame0=Enquanto &1Dayblooms&0 são boas e tudo, um botanista precisa de meios mais efetivos de geração de &4Mana&0.<br>A &1Endoflame&0 faz justamente isso, absorvendo qualquer item combustível no solo próximo (apenas um de cada vez) e usando-o para produzir mana enquanto o combustível durar.
+botania.page.endoflame1=Há uma pequena exigência entretanto, a &1Endoflame&0 não consome itens que retornam outros, por exemplo, &1Baldes de Lava&0, que retornam um &1Balde&0 vazio.<br>Devido ao seu comportamento, um &1Caixote Aberto&0, que pode ser visto na seção &4Aparatos Naturais&0, pode ser uma boa escolha para torná-la auto-suficiente.
+botania.page.endoflame2=&oNão é nitor&r.
+
+# -- HYDROANGEAS
+botania.entry.hydroangeas=Hydroangeas
+botania.page.hydroangeas0=Enquanto a geração passiva de &4Mana&0 pode ser facilmente alcançado com &1Dayblooms&0, meios diferentes podem ser úteis. A &1Hydroangeas&0 consome qualquer bloco de &1Água Parada&0 em um área de 3x3 ao redor, na mesma altura, produzindo &4Mana&0. Elas também parecem ser mais rápidas durante &4chuvas&0, quem diria?
+botania.page.hydroangeas0a=A &1Hydroangeas&0 consome qualquer bloco de &1Água Parada&0 em um área de 3x3 ao redor, na mesma altura, produzindo &4Mana&0. Elas também parecem ser mais rápidas durante &4chuvas&0, quem diria?<br>Similar a &1Daybloom&0, essas flores não são muito resistente, e após um tempo secam e morrem.
+botania.page.hydroangeas2=Sistema simples de &1Hydroangeas&0
+botania.page.hydroangeas3=Essas flores, similar a &1Dayblooms&0 ou &1Nightshades&0 sofrem retornos diminuídos se estiverem em uma formação muito compacta. Tendo duas &1Hydroangeas&0 com distância de um bloco de cada uma, incluindo diagonais, drasticamente diminui a produção de ambas, já que as raízes se entrelaçam. Tendo mais ainda, diminui muito mais a potência. As partículas azuis são um indicador. 
+botania.page.hydroangeas1=&oDe alguma Hiperdimensão&r?
+
+# -- THERMALILY
+botania.entry.thermalily=Thermalily
+botania.page.thermalily0=Chega um tempo em que a geração devagar de &1Hydroangeas&0 ou &1Endoflame&0 não é o bastante. Uma resposta para isso é a &1Thermalily&0, que funciona parecido com a &1Hydroangeas&0, exceto que usa &1Lava&0, ela produz uma grande quantidade de &1Mana&0 de uma vez quando consome a &1Lava&0, ela se aquece no processo, precisando esfriar para continuar a produção.
+botania.page.thermalily1=&o0108 Style&r.
+
+# -- ROSA ARCANA
+botania.entry.arcanerose=Rosa Arcana
+botania.page.arcanerose0=&4Pontos de Experiência&0 são uma forma de magia. A &1Rosa Arcana&0 pode aproveitar isso, absorvendo a experiência de jogadores ao redor dela, produzindo &1Mana&0. 
+botania.page.arcanerose1=&oQuando essa carta é ativada, jogue uma moeda&r.
+
+# -- MUNCHDEW
+botania.entry.munchdew=Munchdew
+botania.page.munchdew0=Gerar a forma de energia natural que é &4Mana&0 deve ser bem melhor usando matéria viva. Usando a &1Munchdew&0, qualquer &1Folha&0 na proximidade são mastigadas e transformadas em &4Mana&0.<br>Note que, entretanto, nenhuma muda ou outro item é derrubado das folhas.
+botania.page.munchdew1=Essa flor emite uma grande quantidade de mana por árvore.<br>Contudo, depois de terminar de consumir todas as folhas, se nenhuma sobrar, ela entra em uma pausa e só continua a produção depois de um tempo.
+botania.page.munchdew2=&oVocê paga o jantar, Shibazaki&r.
+
+# -- ENTROPINNYUM
+botania.entry.entropinnyum=Entropinnyum
+botania.page.entropinnyum0=Para gerar uma explosão de &4Mana&0, pode ser necessário de fato, uma explosão. Acendendo um bloco de &1TNT&0 perto de uma &1Entropinnyum&0, desde que ela não caia em água, a faz absorver toda a entropia liberada na explosão, criando uma vasta quantidade de &4Mana&0 e anulando qualquer dano possível. Para que ela absorva a explosão, é necessário que a flor não possua &4Mana&0 armazenada, caso contrário, o processo falhará.
+botania.page.entropinnyum1=&oCaras legais não olham pra explosões&r.
+
+# -- KEKIMURUS
+botania.entry.kekimurus=Kekimurus
+botania.page.kekimurus0=&Bolo&0 é delicioso, todos amam, até as flores.<br>A &1Kekimurus&0 é uma dessas viciadas em &1Bolo&0, comendo qualquer bolo ao redor, usando seus nutrientes para produzir &4Mana&0.
+botania.page.kekimurus1=&otop kek&r
+
+# -- GOURMARYLLIS
+botania.entry.gourmaryllis=Gourmaryllis
+botania.page.gourmaryllis0=A &1Gourmaryllis&0 é uma flor faminta. Ela consome qualquer comida em uma área ao redor, produzindo &4Mana&0.<br>Há um porém, ela só consegue digerir uma única comida por vez, &4Mana&0 só é criada no fim do processo. Qualquer outra comida oferecida é consumida, mas não é convertida em mana.
+botania.page.gourmaryllis1=O tempo que leva para ela digerir depende do valor nutricional, em termos leigos, o valor de fome restaurada.<br>Por isso, &1Carne&0 leva quatro segundos para digerir, &1Cenouras&0 levam dois, &1Pão&0 leva quatro segundos e meio, e assim por diante.
+botania.page.gourmaryllis2=A quantidade de &4Mana&0 criada também depende da saturação. Por exemplo, uma única &1Carne&0 produz mais &1Mana&0 que duas &1Cenouras&0&0, tanto absolutamente, quanto por tempo.
+botania.page.gourmaryllis3=&oUm prato quente para nossos novos residentes&r.
+botania.page.gourmaryllis4=&oWell, if Men ate themselves after death, one would think of less horror and negative feeling matter. But so you know what your cruelty leads to, think, fishes, that even Men eat themselves alive like you.<br>Alive was Job when he said: "Why do you follow me so inhumanely, thou who are eating me alive and getting sick of my flesh?". Do you want to see a Job like this? (...)
+botania.page.gourmaryllis5=&oSee a man of those who are followed by claims or accused of crimes, and behold all who are eating them. The bailiff eats him, the jailer eats him, the scribe eats him, the requestor eats him, the lawyer eats him, the inquirer eats him, the witness eats him, the judge eats him and he's not even sentenced he's already eaten. Worse are the Men than the crows. (...)
+botania.page.gourmaryllis6=&oThe sad one who was hanged, only eat him the crows past his execution and death, while the one who's being judged, not even executed or sentenced and he's already eaten.<br>The true evil are the Man who eat eachother, and those who commit to it are the largest, those who eat the smallest. For that you, Man, vos estis sal terrae.
+
+# -- NARSLIMMUS
+botania.entry.narslimmus=Narslimmus
+botania.page.narslimmus0=Há um poder melhor-não-conhecido que cria &1Slimes&0 em lugares aparentemente aleatórios. São conhecidas com &4Chunks de Slime&0. A &1Narslimmus&0 é uma flor com o poder de catalisar esse fenômeno. Se colocada perto de um &1Slime&0 criado por esse poder, ele é destruído, transformando essa entropia em &4Mana&0. Quanto maior o &1Slime&0, mais &4Mana&0 é criada. Ela também causa uma bagunça grudenta.
+botania.page.narslimmus1=&oCole aqui do meu lado&r? 
+
+# -- SPECTROLUS
+botania.entry.spectrolus=Spectrolus
+botania.page.spectrolus0=A &1Spectrolus&0 é uma flor particualrmente interessada em vários tons de &1Lã&0. Ela absorve toda e qualquer &1Lã&0 em volta e cria &4Mana&0 a partir delas.<br>Há uma exigência, entretanto. Ela é exigente sobre a cor que quer. Começando pela branca, depois que absorve essa &1Lã&0, ela procura pela próxima cor do espectro.
+botania.page.spectrolus1=Mesmo consumindo qualquer &1Lã&0 em volta, ela só produz mana se tal lã é da cor que ela quer, então apenas jogar &1Lã&0 é um ato de desperdício.<br>A próxima cor absorvida pode ser vista visualizando com uma &1Varinha da Floresta&0.
+botania.page.spectrolus2=&oProve do Arco-Íris&r.
