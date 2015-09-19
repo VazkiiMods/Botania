@@ -165,8 +165,12 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 	@Override
 	public void updateEntity() {
-		if(!ManaNetworkHandler.instance.isCollectorIn(this) && !isInvalid())
+		boolean inNetwork = ManaNetworkHandler.instance.isCollectorIn(this);
+		boolean wasInNetwork = inNetwork;
+		if(!inNetwork && !isInvalid()) {
 			ManaNetworkEvent.addCollector(this);
+			inNetwork = true;
+		}
 
 		boolean redstone = false;
 
@@ -174,7 +178,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			TileEntity tileAt = worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ);
 			if(tileAt instanceof IManaPool) {
 				IManaPool pool = (IManaPool) tileAt;
-				if(pool != receiver) {
+				if(wasInNetwork && (pool != receiver || isRedstone())) {
 					if(pool instanceof IKeyLocked && !((IKeyLocked) pool).getOutputKey().equals(getInputKey()))
 						continue;
 
