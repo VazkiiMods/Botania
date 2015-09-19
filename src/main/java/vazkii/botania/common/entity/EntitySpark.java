@@ -218,7 +218,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 		Vector3 orig = new Vector3(e1.posX , e1.posY + 0.25, e1.posZ);
 		Vector3 end = new Vector3(e2.posX, e2.posY + 0.25, e2.posZ);
 		Vector3 diff = end.copy().sub(orig);
-		Vector3 movement = diff.copy().normalize().multiply(0.05);
+		Vector3 movement = diff.copy().normalize().multiply(0.1);
 		int iters = (int) (diff.mag() / movement.mag());
 		float huePer = 1F / iters;
 		float hueSum = (float) Math.random();
@@ -232,7 +232,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 			float b = Math.min(1F, color.getBlue() / 255F + 0.4F);
 
 			Botania.proxy.setSparkleFXNoClip(true);
-			Botania.proxy.sparkleFX(e1.worldObj, currentPos.x, currentPos.y, currentPos.z, r, g, b, 0.6F, 12);
+			Botania.proxy.sparkleFX(e1.worldObj, currentPos.x, currentPos.y, currentPos.z, r, g, b, 1F, 12);
 			Botania.proxy.setSparkleFXNoClip(false);
 			currentPos.add(movement);
 		}
