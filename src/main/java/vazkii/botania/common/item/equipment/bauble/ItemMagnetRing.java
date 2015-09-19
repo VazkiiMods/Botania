@@ -99,13 +99,18 @@ public class ItemMagnetRing extends ItemBauble {
 				double z = player.posZ;
 
 				List<EntityItem> items = player.worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range, y + range, z + range));
+				int pulled = 0;
 				for(EntityItem item : items)
 					if(canPullItem(item)) {
+						if(pulled > 200)
+							break;
+						
 						MathHelper.setEntityMotionFromVector(item, new Vector3(x, y, z), 0.45F);
 						if(player.worldObj.isRemote) {
 							boolean red = player.worldObj.rand.nextBoolean();
 							Botania.proxy.sparkleFX(player.worldObj, item.posX, item.posY, item.posZ, red ? 1F : 0F, 0F, red ? 0F : 1F, 1F, 3);
 						}
+						pulled++;
 					}
 			}
 		} else setCooldown(stack, cooldown - 1);
