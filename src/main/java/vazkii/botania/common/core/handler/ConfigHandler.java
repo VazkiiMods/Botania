@@ -12,12 +12,14 @@ package vazkii.botania.common.core.handler;
 
 import java.io.File;
 
+import net.minecraft.potion.Potion;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.LibPotionNames;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public final class ConfigHandler {
@@ -70,6 +72,9 @@ public final class ConfigHandler {
 	public static double flowerTallChance = 0.1;
 	public static int mushroomQuantity = 40;
 
+	private static boolean verifiedPotionArray = false;
+	private static int potionArrayLimit = 0;
+	
 	public static int potionIDSoulCross = 91;
 	public static int potionIDFeatherfeet = 92;
 	public static int potionIDEmptiness = 93;
@@ -243,14 +248,25 @@ public final class ConfigHandler {
 	}
 
 	public static int loadPropPotionId(String propName, int default_) {
+		if(!verifiedPotionArray)
+			verifyPotionArray();
+		
 		Property prop = config.get(CATEGORY_POTIONS, propName, default_);
 		int val = prop.getInt(default_);
-		if(val > 127) {
+		if(val > potionArrayLimit) {
 			val = default_;
 			prop.set(default_);
 		}
 
 		return val;
+	}
+	
+	private static void verifyPotionArray() {
+		if(Loader.isModLoaded("DragonAPI"))
+			potionArrayLimit = Potion.potionTypes.length;
+		
+		potionArrayLimit = 127;
+		verifiedPotionArray = true;
 	}
 
 	public static class ChangeListener {
