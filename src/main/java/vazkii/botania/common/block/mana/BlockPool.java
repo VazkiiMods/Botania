@@ -33,6 +33,7 @@ import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
+import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.achievement.IPickupAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
@@ -48,6 +49,8 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 
 	boolean lastFragile = false;
 
+	public static IIcon manaIcon;
+	
 	public BlockPool() {
 		super(Material.rock);
 		setHardness(2.0F);
@@ -70,7 +73,7 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		// NO-OP
+		manaIcon = IconHelper.forName(par1IconRegister, "manaWater");
 	}
 
 	@Override

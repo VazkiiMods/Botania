@@ -31,6 +31,7 @@ import vazkii.botania.client.core.handler.MultiblockRenderHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelPool;
+import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.mana.TilePool;
 
 public class RenderTilePool extends TileEntitySpecialRenderer {
@@ -123,10 +124,8 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 			GL11.glRotatef(90F, 1F, 0F, 0F);
 			GL11.glScalef(s, s, s);
 
-			IIcon waterIcon = Blocks.water.getIcon(0, 0);
-
 			ShaderHelper.useShader(ShaderHelper.manaPool);
-			renderIcon(0, 0, waterIcon, 16, 16, 240);
+			renderIcon(0, 0, BlockPool.manaIcon, 16, 16, 240);
 			ShaderHelper.releaseShader();
 
 			GL11.glEnable(GL11.GL_ALPHA_TEST);
