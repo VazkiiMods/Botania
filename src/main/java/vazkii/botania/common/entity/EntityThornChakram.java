@@ -10,6 +10,9 @@
  */
 package vazkii.botania.common.entity;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockBush;
+import net.minecraft.block.BlockLeaves;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,6 +20,7 @@ import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -106,7 +110,12 @@ public class EntityThornChakram extends EntityThrowable {
 	protected void onImpact(MovingObjectPosition pos) {
 		if(noClip)
 			return;
-
+		
+		Block block = worldObj.getBlock(pos.blockX, pos.blockY, pos.blockZ);
+		TileEntity tile = worldObj.getTileEntity(pos.blockX, pos.blockY, pos.blockZ);
+		if(block instanceof BlockBush || block instanceof BlockLeaves)
+			return;
+		
 		boolean fire = isFire();
 		EntityLivingBase thrower = getThrower();
 		if(pos.entityHit != null && pos.entityHit instanceof EntityLivingBase && pos.entityHit != thrower) {
