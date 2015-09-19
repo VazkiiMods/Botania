@@ -29,7 +29,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 	private static final int RANGE = 12;
 	private static final int SPEED = 10;
 	private static final int MAX_GENERATIONS = 60;
-	private static final int MANA_PER_GEN = 50;
+	private static final int MANA_PER_GEN = 35;
 
 	private static final int[][] ADJACENT_BLOCKS = new int[][] {
 		{ -1, -1 },
@@ -71,7 +71,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 				
 				int xdist = Math.abs(i - RANGE);
 				int zdist = Math.abs(j - RANGE);
-				int allowDist = newVal == 1 ? 2 : 1;
+				int allowDist = (newVal == 1 && gen == 0) ? 2 : 1;
 				if(xdist <= allowDist && zdist <= allowDist && newVal > -1) {
 					gen = newVal;
 					newVal = gen == 1 ? -1 : -2;

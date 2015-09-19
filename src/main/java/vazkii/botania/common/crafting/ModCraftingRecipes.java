@@ -1984,9 +1984,7 @@ public final class ModCraftingRecipes {
 		recipesPavement = BotaniaAPI.getLatestAddedRecipes(4);
 		
 		// Cellular Block Recipe
-		GameRegistry.addRecipe(new ItemStack(ModBlocks.cellBlock, 3),
-				"CC", "CC",
-				'C', new ItemStack(Blocks.cactus));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.cellBlock, 3), new ItemStack(Blocks.cactus), new ItemStack(Blocks.cactus), new ItemStack(Blocks.cactus), new ItemStack(Blocks.cactus), new ItemStack(Items.carrot), new ItemStack(Items.potato));
 		recipeCellBlock = BotaniaAPI.getLatestAddedRecipe();
 		
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////
