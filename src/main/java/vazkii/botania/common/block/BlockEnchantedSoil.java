@@ -12,8 +12,12 @@ package vazkii.botania.common.block;
 
 import java.util.Random;
 
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -21,12 +25,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.client.render.block.InterpolatedIcon;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
@@ -39,6 +46,7 @@ public class BlockEnchantedSoil extends BlockMod implements ILexiconable {
 		setHardness(0.6F);
 		setStepSound(soundTypeGrass);
 		setBlockName(LibBlockNames.ENCHANTED_SOIL);
+		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	@Override
@@ -47,12 +55,27 @@ public class BlockEnchantedSoil extends BlockMod implements ILexiconable {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		blockIcon = IconHelper.forBlock(par1IconRegister, this, 0);
-		iconSide = IconHelper.forBlock(par1IconRegister, this, 1);
+		// NO-OP
+	}
+	
+	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+	public void loadTextures(TextureStitchEvent.Pre event) {
+		if(event.map.getTextureType() == 0) {
+			TextureAtlasSprite icon = new InterpolatedIcon("botania:enchantedSoil0");
+			if(event.map.setTextureEntry("botania:enchantedSoil0", icon))
+				blockIcon = icon;
+			
+			icon = new InterpolatedIcon("botania:enchantedSoil1");
+			if(event.map.setTextureEntry("botania:enchantedSoil1", icon))
+				iconSide = icon;
+		}
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
 		return side == 0 ? Blocks.dirt.getIcon(0, 0) : side == 1 ? blockIcon : iconSide;
 	}
