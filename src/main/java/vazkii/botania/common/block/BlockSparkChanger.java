@@ -95,12 +95,14 @@ public class BlockSparkChanger extends BlockModContainer implements ILexiconable
 		ItemStack pstack = player.getCurrentEquippedItem();
 		if(cstack != null) {
 			changer.setInventorySlotContents(0, null);
+			world.func_147453_f(x, y, z, this);
 			changer.markDirty();
 			if(!player.inventory.addItemStackToInventory(cstack))
 				player.dropPlayerItemWithRandomChoice(cstack, false);
 			return true;
 		} else if(pstack != null && pstack.getItem() == ModItems.sparkUpgrade) {
 			changer.setInventorySlotContents(0, pstack.copy().splitStack(1));
+			world.func_147453_f(x, y, z, this);
 			changer.markDirty();
 
 			pstack.stackSize--;
@@ -150,7 +152,21 @@ public class BlockSparkChanger extends BlockModContainer implements ILexiconable
 
 		super.breakBlock(par1World, par2, par3, par4, par5, par6);
 	}
-
+	
+	@Override
+	public boolean hasComparatorInputOverride() {
+		return true;
+	}
+	
+	@Override
+	public int getComparatorInputOverride(World world, int x, int y, int z, int s) {
+		TileSparkChanger changer = (TileSparkChanger) world.getTileEntity(x, y, z);
+		ItemStack stack = changer.getStackInSlot(0);
+		if(stack == null)
+			return 0;
+		return stack.getItemDamage() + 1;
+	}
+	
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileSparkChanger();

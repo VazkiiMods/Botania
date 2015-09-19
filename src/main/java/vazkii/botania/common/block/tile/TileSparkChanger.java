@@ -57,6 +57,7 @@ public class TileSparkChanger extends TileSimpleInventory {
 			if(transfers != null)
 				transfers.clear();
 			setInventorySlotContents(0, sparkStack);
+			worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 			markDirty();
 		}
 	}
