@@ -264,8 +264,8 @@ public final class ConfigHandler {
 	private static void verifyPotionArray() {
 		if(Loader.isModLoaded("DragonAPI"))
 			potionArrayLimit = Potion.potionTypes.length;
-		
-		potionArrayLimit = 127;
+		else potionArrayLimit = 127;
+
 		verifiedPotionArray = true;
 	}
 
