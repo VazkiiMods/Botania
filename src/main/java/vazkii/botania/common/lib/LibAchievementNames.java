@@ -34,7 +34,19 @@ public final class LibAchievementNames {
 	public static final String SPAWNER_MOVER_USE = "spawnerMoverUse";
 	public static final String ENDER_AIR_MAKE = "enderAirMake";
 	public static final String CORPOREA_CRAFT = "corporeaCraft";
-
+	public static final String CACOPHONIUM_CRAFT = "cacophoniumCraft";
+	public static final String MANA_CART_CRAFT = "manaCartCraft";
+	public static final String CRAFTING_HALO_CRAFT = "craftingHaloCraft";
+	public static final String MANAWEAVE_ARMOR_CRAFT = "manaweaveArmorCraft";
+	public static final String ENCHANTER_MAKE = "enchanterMake";
+	public static final String POLLIDISIAC_PICKUP = "pollidisiacPickup";
+	public static final String BREW_PICKUP = "brewPickup";
+	public static final String TERRAFORM_ROD_CRAFT = "terraformRodCraft";
+	public static final String BUBBELL_PICKUP = "bubbellPickup";
+	public static final String LUMINIZER_RIDE = "luminizerRide";
+	public static final String MANA_BOMB_IGNITE = "manaBombIgnite";
+	public static final String DANDELIFEON_PICKUP = "dandelifeonPickup";
+	
 	public static final String SIGNAL_FLARE_STUN = "signalFlareStun";
 	public static final String L20_SHARD_USE = "l20ShardUse";
 	public static final String GAIA_GUARDIAN_NO_ARMOR = "gaiaGuardianNoArmor";

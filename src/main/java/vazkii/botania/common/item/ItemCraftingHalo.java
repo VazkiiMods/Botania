@@ -33,6 +33,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.stats.Achievement;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
@@ -51,6 +52,8 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.gui.crafting.InventoryCraftingHalo;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.achievement.ICraftAchievement;
+import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.core.helper.InventoryHelper.GenericInventory;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -63,7 +66,7 @@ import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemCraftingHalo extends ItemMod {
+public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 
 	private static final ResourceLocation glowTexture = new ResourceLocation(LibResources.MISC_GLOW_GREEN);
 	private static final ItemStack craftingTable = new ItemStack(Blocks.crafting_table);
@@ -593,6 +596,11 @@ public class ItemCraftingHalo extends ItemMod {
 		}
 
 		mc.fontRenderer.drawStringWithShadow(label, resolution.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(label) / 2, resolution.getScaledHeight() / 2 - yoff, 0xFFFFFF);
+	}
+
+	@Override
+	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
+		return ModAchievements.craftingHaloCraft;
 	}
 
 }

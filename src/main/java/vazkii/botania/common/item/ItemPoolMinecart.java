@@ -13,12 +13,16 @@ package vazkii.botania.common.item;
 import net.minecraft.block.BlockRailBase;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.Achievement;
 import net.minecraft.world.World;
+import vazkii.botania.common.achievement.ICraftAchievement;
+import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.entity.EntityPoolMinecart;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemPoolMinecart extends ItemMod {
+public class ItemPoolMinecart extends ItemMod implements ICraftAchievement {
 
 	public ItemPoolMinecart() {
 		setMaxStackSize(1);
@@ -42,6 +46,11 @@ public class ItemPoolMinecart extends ItemMod {
 		}
 
 		return false;
+	}
+
+	@Override
+	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
+		return ModAchievements.manaCartCraft;
 	}
 
 }

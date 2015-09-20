@@ -13,14 +13,18 @@ package vazkii.botania.common.item.equipment.armor.manaweave;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.Achievement;
 import net.minecraft.util.StatCollector;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.achievement.ICraftAchievement;
+import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 
-public class ItemManaweaveArmor extends ItemManasteelArmor {
+public class ItemManaweaveArmor extends ItemManasteelArmor implements ICraftAchievement {
 
 	public ItemManaweaveArmor(int type, String name) {
 		super(type, name, BotaniaAPI.manaweaveArmorMaterial);
@@ -76,5 +80,10 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 	public void addArmorSetDescription(ItemStack stack, List<String> list) {
 		addStringToTooltip(StatCollector.translateToLocal("botania.armorset.manaweave.desc0"), list);
 		addStringToTooltip(StatCollector.translateToLocal("botania.armorset.manaweave.desc1"), list);	}
+
+	@Override
+	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
+		return ModAchievements.manaweaveArmorCraft;
+	}
 
 }

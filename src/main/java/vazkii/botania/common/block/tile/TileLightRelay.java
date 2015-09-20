@@ -25,6 +25,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
@@ -47,8 +48,11 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		EntityPlayerMover mover = new EntityPlayerMover(worldObj, xCoord, yCoord, zCoord, bindX, bindY, bindZ);
 		worldObj.spawnEntityInWorld(mover);
 		e.mountEntity(mover);
-		if(!(e instanceof EntityItem))
-			worldObj.playSoundAtEntity(mover, "botania:lightRelay", 0.2F, (float) Math.random() * 0.3F + 0.7F);	
+		if(!(e instanceof EntityItem)) {
+			worldObj.playSoundAtEntity(mover, "botania:lightRelay", 0.2F, (float) Math.random() * 0.3F + 0.7F);
+			if(e instanceof EntityPlayer)
+				((EntityPlayer) e).addStat(ModAchievements.luminizerRide, 1);
+		}
 	}
 
 	@Override

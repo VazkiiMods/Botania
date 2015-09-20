@@ -18,8 +18,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.Achievement;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -30,11 +32,13 @@ import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.achievement.ICraftAchievement;
+import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 
-public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockProvider {
+public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockProvider, ICraftAchievement{
 
 	private static final int COST_PER = 55;
 
@@ -190,5 +194,9 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 		return 0;
 	}
 
+	@Override
+	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
+		return ModAchievements.terraformRodCraft;
+	}
 
 }

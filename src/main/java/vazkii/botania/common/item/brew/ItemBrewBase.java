@@ -15,12 +15,14 @@ import java.util.List;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.stats.Achievement;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
@@ -30,10 +32,12 @@ import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewItem;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.common.achievement.IPickupAchievement;
+import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemMod;
 
-public abstract class ItemBrewBase extends ItemMod implements IBrewItem {
+public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickupAchievement {
 
 	private static final String TAG_BREW_KEY = "brewKey";
 	private static final String TAG_SWIGS_LEFT = "swigsLeft";
@@ -185,4 +189,9 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem {
 		ItemNBTHelper.setInt(stack, TAG_SWIGS_LEFT, swigs);
 	}
 
+	@Override
+	public Achievement getAchievementOnPickup(ItemStack stack, EntityPlayer player, EntityItem item) {
+		return ModAchievements.brewPickup;
+	}
+	
 }
