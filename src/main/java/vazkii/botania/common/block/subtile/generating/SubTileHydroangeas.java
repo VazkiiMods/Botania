@@ -200,7 +200,7 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 	@Override
 	public int getDelayBetweenPassiveGeneration() {
 		boolean rain = supertile.getWorldObj().getWorldChunkManager().getBiomeGenAt(supertile.xCoord, supertile.zCoord).getIntRainfall() > 0 && (supertile.getWorldObj().isRaining() || supertile.getWorldObj().isThundering());
-		return rain ? 3 : 4;
+		return rain ? 1 : 2;
 	}
 
 	public int getCooldown() {
