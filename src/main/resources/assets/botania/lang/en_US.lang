@@ -829,6 +829,7 @@ tile.botania:redStringDispenser.name=Red Stringed Dispenser
 tile.botania:redStringFertilizer.name=Red Stringed Nutrifier
 tile.botania:redStringComparator.name=Red Stringed Comparator
 tile.botania:redStringRelay.name=Red Stringed Spoofer
+tile.botania:redStringInterceptor.name=Red Stringed Interceptor
 tile.botania:manaFlame.name=Mana Flash
 tile.botania:prism.name=Mana Prism
 tile.botania:dirtPath.name=Trodden Dirt
@@ -2954,8 +2955,10 @@ botania.page.redString7=The &1Red Stringed Nutrifier&0 can be bound to any block
 botania.page.redString8=The &1Red Stringed Nutrifier&0.
 botania.page.redString9=The &1Red Stringed Comparator&0 can be bound to any block whose status can be read with a &1Container&0, such as &1Chests&0, &1Mana Pools&0, &1Runic Altars&0, etc. Placing a &1Comparator&0 pointing outwards of this block will send the signal equal to the signal a &1Comparator&0 would send on the bound block.
 botania.page.redString10=The &1Red Stringed Comparator&0.
-botania.page.redString11=Lastly, the &1Red Stringed Spoofer&0 is an interesting one. Any flower with an effect can be placed on it. The block will bind to any flowers or mushrooms. While there's a flower on top of the block, that flower will not do anything, but the bound block will take all of that flower's properties and work as if it was the flower itself.
+botania.page.redString11=The &1Red Stringed Spoofer&0 is an interesting one. Any flower with an effect can be placed on it. The block will bind to any flowers or mushrooms. While there's a flower on top of the block, that flower will not do anything, but the bound block will take all of that flower's properties and work as if it was the flower itself.
 botania.page.redString12=The &1Red Stringed Spoofer&0.
+botania.page.redString13=Lastly, the &1Red Stringed Interceptor&0 will bind to any complex block (such as a &1Chest&0, &1Furnace&0, &1Petal Apothecary&0, etc). Whenever the block its bound to is right clicked by a player, the interceptor will emit a redstone pulse.
+botania.page.redString14=The &1Red Stringed Interceptor&0.
 
 # -- FLUGEL TIARA
 botania.entry.flightTiara=Flügel Tiara

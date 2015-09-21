@@ -69,6 +69,7 @@ import vazkii.botania.common.block.string.BlockRedStringComparator;
 import vazkii.botania.common.block.string.BlockRedStringContainer;
 import vazkii.botania.common.block.string.BlockRedStringDispenser;
 import vazkii.botania.common.block.string.BlockRedStringFertilizer;
+import vazkii.botania.common.block.string.BlockRedStringInterceptor;
 import vazkii.botania.common.block.string.BlockRedStringRelay;
 import vazkii.botania.common.block.subtile.SubTileManastar;
 import vazkii.botania.common.block.subtile.SubTilePureDaisy;
@@ -158,6 +159,7 @@ import vazkii.botania.common.block.tile.string.TileRedStringComparator;
 import vazkii.botania.common.block.tile.string.TileRedStringContainer;
 import vazkii.botania.common.block.tile.string.TileRedStringDispenser;
 import vazkii.botania.common.block.tile.string.TileRedStringFertilizer;
+import vazkii.botania.common.block.tile.string.TileRedStringInterceptor;
 import vazkii.botania.common.block.tile.string.TileRedStringRelay;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -249,6 +251,7 @@ public final class ModBlocks {
 	public static Block bellows;
 	public static Block bifrostPerm;
 	public static Block cellBlock;
+	public static Block redStringInterceptor;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -333,6 +336,7 @@ public final class ModBlocks {
 		bellows = new BlockBellows();
 		bifrostPerm = new BlockBifrostPerm();
 		cellBlock = new BlockCell();
+		redStringInterceptor = new BlockRedStringInterceptor();
 		
 		ModFluffBlocks.init();
 
@@ -430,6 +434,7 @@ public final class ModBlocks {
 		registerTile(TileCacophonium.class, LibBlockNames.CACOPHONIUM);
 		registerTile(TileBellows.class, LibBlockNames.BELLOWS);
 		registerTile(TileCell.class, LibBlockNames.CELL_BLOCK);
+		registerTile(TileRedStringInterceptor.class, LibBlockNames.RED_STRING_INTERCEPTOR);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MANASTAR, SubTileManastar.class);

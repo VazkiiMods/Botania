@@ -214,6 +214,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeRedStringFertilizer;
 	public static IRecipe recipeRedStringComparator;
 	public static IRecipe recipeRedStringRelay;
+	public static IRecipe recipeRedStringInterceptor;
 	public static IRecipe recipeMissileRod;
 	public static IRecipe recipeHolyCloak;
 	public static IRecipe recipeUnholyCloak;
@@ -1439,6 +1440,14 @@ public final class ModCraftingRecipes {
 				'S', LibOreDict.RED_STRING,
 				'M', new ItemStack(ModBlocks.spreader));
 		recipeRedStringRelay = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Red String Interceptor Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.redStringInterceptor),
+				"RRR", "RMS", "RRR",
+				'R', LibOreDict.LIVING_ROCK,
+				'S', LibOreDict.RED_STRING,
+				'M', new ItemStack(Blocks.stone_button));
+		recipeRedStringInterceptor = BotaniaAPI.getLatestAddedRecipe();
 
 		// Rod of the Arcane Barrage Recipe
 		addOreDictRecipe(new ItemStack(ModItems.missileRod),

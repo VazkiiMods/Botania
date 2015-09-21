@@ -814,7 +814,8 @@ public final class LexiconData {
 				new PageText("5"), new PageCraftingRecipe("6", ModCraftingRecipes.recipeRedStringDispenser),
 				new PageText("7"), new PageCraftingRecipe("8", ModCraftingRecipes.recipeRedStringFertilizer),
 				new PageText("9"), new PageCraftingRecipe("10", ModCraftingRecipes.recipeRedStringComparator),
-				new PageText("11"), new PageCraftingRecipe("12", ModCraftingRecipes.recipeRedStringRelay));
+				new PageText("11"), new PageCraftingRecipe("12", ModCraftingRecipes.recipeRedStringRelay),
+				new PageText("13"), new PageCraftingRecipe("14", ModCraftingRecipes.recipeRedStringInterceptor));
 
 		flightTiara = new ALexiconEntry(LibLexicon.ENDER_FLIGHT_TIARA, categoryEnder);
 		flightTiara.setLexiconPages(new PageText("0"), new PageText("4"), new PageText("5"), new PageText("6"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeFlightTiara), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipesWings));

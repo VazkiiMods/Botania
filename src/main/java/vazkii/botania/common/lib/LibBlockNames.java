@@ -64,6 +64,7 @@ public final class LibBlockNames {
 	public static final String RED_STRING_FERTILIZER = "redStringFertilizer";
 	public static final String RED_STRING_COMPARATOR = "redStringComparator";
 	public static final String RED_STRING_RELAY = "redStringRelay";
+	public static final String RED_STRING_INTERCEPTOR = "redStringInterceptor";
 	public static final String FLOATING_SPECIAL_FLOWER = "floatingSpecialFlower";
 	public static final String MANA_FLAME = "manaFlame";
 	public static final String PRISM = "prism";
