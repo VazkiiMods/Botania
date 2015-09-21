@@ -490,6 +490,7 @@ public class GuiLexicon extends GuiScreen {
 		tutorial.add(LexiconData.pool);
 		tutorial.add(LexiconData.spreader);
 		tutorial.add(LexiconData.generatingIntro);
+		tutorial.add(LexiconData.passiveGen);
 		tutorial.add(LexiconData.daybloom);
 		tutorial.add(LexiconData.endoflame);
 		tutorial.add(LexiconData.openCrate);

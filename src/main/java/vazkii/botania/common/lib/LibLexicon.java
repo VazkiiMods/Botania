@@ -92,6 +92,7 @@ public final class LibLexicon {
 	public static final String FFLOWER_SOLEGNOLIA = "solegnolia";
 
 	public static final String GFLOWER_INTRO = "gIntro";
+	public static final String GFLOWER_PASSIVE_GENERATION = "passiveGen";
 	public static final String GFLOWER_DAYBLOOM = "daybloom";
 	public static final String GFLOWER_NIGHTSHADE = "nightshade";
 	public static final String GFLOWER_ENDOFLAME = "endoflame";
