@@ -142,6 +142,7 @@ botaniamisc.changes2=Things change, don't panic. If something seems off, read th
 botaniamisc.changes3=&oEveryone is afraid of change, yet change is the force that moves us forward.
 botaniamisc.changes4=&fShift-Left Click&7 to read the changes since then
 botaniamisc.changes5=&fLeft Click&7 to dismiss this
+botaniamisc.badArena=As hard as you try, the Beacon will not accept your sacrifice. You believe the ritual grounds might be improper. It might be a good idea to check for obstructions on the nearby area or large gaps on the floor.
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery

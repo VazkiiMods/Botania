@@ -79,6 +79,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWithShader {
 
 	public static final int SPAWN_TICKS = 100;
+	private static final float RANGE = 12F;
+	private static final float MAX_HP = 300F;
 
 	public static final int MOB_SPAWN_START_TICKS = 20;
 	public static final int MOB_SPAWN_END_TICKS = 80;
@@ -86,8 +88,6 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	public static final int MOB_SPAWN_TICKS = MOB_SPAWN_BASE_TICKS + MOB_SPAWN_START_TICKS + MOB_SPAWN_END_TICKS;
 	public static final int MOB_SPAWN_WAVES = 10;
 	public static final int MOB_SPAWN_WAVE_TIME = MOB_SPAWN_BASE_TICKS / MOB_SPAWN_WAVES;
-
-	private static final float MAX_HP = 300F;
 
 	private static final String TAG_INVUL_TIME = "invulTime";
 	private static final String TAG_AGGRO = "aggro";
@@ -159,6 +159,11 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 					return false;
 				}
 			}
+			
+			if(!hasProperArena(par3World, par4, par5, par6)) {
+				player.addChatMessage(new ChatComponentTranslation("botaniamisc.badArena").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
+				return false;
+			}
 
 			par1ItemStack.stackSize--;
 			EntityDoppleganger e = new EntityDoppleganger(par3World);
@@ -184,6 +189,19 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		}
 
 		return false;
+	}
+	
+	private static boolean hasProperArena(World world, int sx, int sy, int sz) {
+		int range = (int) Math.ceil(RANGE);
+		for(int i = -range; i < range + 1; i++)
+			for(int j = -range; j < range + 1; j++) {
+				int x = sx + i;
+				int z = sz + j;
+				int y = world.getTopSolidOrLiquidBlock(x, z);
+				if(Math.abs(y - sy) > 10)
+					return false;
+			}
+		return true;
 	}
 
 	@Override
@@ -465,7 +483,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 		ChunkCoordinates source = getSource();
 		boolean hard = isHardMode();
-		float range = 15F;
+		float range = RANGE + 3F;
 		List<EntityPlayer> players = getPlayersAround();
 		int playerCount = getPlayerCount();
 
@@ -474,7 +492,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			isPlayingMusic = true;
 		}
 
-		range = 12F;
+		range = RANGE;
 		for(int i = 0; i < 360; i += 8) {
 			float r = 0.6F;
 			float g = 0F;
