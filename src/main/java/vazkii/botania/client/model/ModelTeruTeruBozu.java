@@ -1,20 +1,27 @@
-package model;
+/**
+ * This class was created by <wiiv>. It's distributed as
+ * part of the Botania Mod. Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ * 
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ * 
+ * File Created @ [? (GMT)]
+ */
+package vazkii.botania.client.model;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-/**
- * teruTeruBozu - wiiv
- * Created using Tabula 4.1.1
- */
-public class teruTeruBozu extends ModelBase {
+public class ModelTeruTeruBozu extends ModelBase {
+	
     public ModelRenderer shape1;
     public ModelRenderer shape1_1;
     public ModelRenderer shape1_2;
     public ModelRenderer shape1_3;
 
-    public teruTeruBozu() {
+    public ModelTeruTeruBozu() {
         this.textureWidth = 48;
         this.textureHeight = 32;
         this.shape1_3 = new ModelRenderer(this, 0, 12);
@@ -42,9 +49,6 @@ public class teruTeruBozu extends ModelBase {
         this.shape1_2.render(f5);
     }
 
-    /**
-     * This is a helper function from Tabula to set the rotation of model parts
-     */
     public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
