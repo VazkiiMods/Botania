@@ -28,7 +28,7 @@ public final class ConfigHandler {
 
 	private static final String CATEGORY_POTIONS = "potions";
 
-	public static final int hardcorePassiveGeneration = 48000;
+	public static final int hardcorePassiveGeneration = 72000;
 	
 	public static boolean useShaders = true;
 	public static boolean lexiconRotatingItems = true;
