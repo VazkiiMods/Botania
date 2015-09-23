@@ -38,7 +38,9 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileTinyPotato;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
+import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 import vazkii.botania.common.item.material.ItemManaResource;
+import vazkii.botania.common.item.relic.ItemInfiniteFruit;
 
 public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 
@@ -180,8 +182,9 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 			} else if(name.equals("martysgames") || name.equals("marty")) {
 				GL11.glScalef(0.7F, 0.7F, 0.7F);
 				GL11.glRotatef(180F, 0F, 0F, 1F);
-				GL11.glTranslatef(-0.5F, -2.9F, -0.7F);
-				renderIcon(Items.golden_boots.getIconFromDamage(0));
+				GL11.glTranslatef(-0.75F, -2.4F, -0.7F);
+				GL11.glRotatef(10F, 0F, 0F, 1F);
+				renderIcon(ItemInfiniteFruit.dasBootIcon);
 			} else if(name.equals("tromped")) {
 				GL11.glScalef(1.25F, 1.25F, 1.25F);
 				GL11.glRotatef(180F, 0F, 0F, 1F);
