@@ -759,7 +759,7 @@ public final class LexiconData {
 		fireChakram.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeFireChakram));
 
 		overgrowthSeed = new BLexiconEntry(LibLexicon.TOOL_OVERGROWTH_SEED, categoryTools);
-		overgrowthSeed.setLexiconPages(new PageText("0")).setIcon(new ItemStack(ModItems.overgrowthSeed));
+		overgrowthSeed.setLexiconPages(new PageText("0"), new PageText("1")).setIcon(new ItemStack(ModItems.overgrowthSeed));
 
 		livingwoodBow = new BLexiconEntry(LibLexicon.TOOL_LIVINGWOOD_BOW, categoryTools);
 		livingwoodBow.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeLivingwoodBow));

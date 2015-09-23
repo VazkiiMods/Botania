@@ -2852,7 +2852,8 @@ botania.page.fireChakram1=As fire as fenn's mixtape
 
 # -- OVERGROWTH SEED
 botania.entry.overgrowthSeed=Overgrowth Seed
-botania.page.overgrowthSeed0=An &1Overgrowth Seed&0 is an elusive item, which can be used to enchant a piece of &1Grass&0, via right clicking on it in the world, creating &1Enchanted Soil&0. Flowers that are rooted on this &1Enchanted Soil&0 will function at double the normal speed.<br>There's one problem, though. No known method of creating these exists, but they have been spotted in ancient structures and the like.
+botania.page.overgrowthSeed0=An &1Overgrowth Seed&0 is an elusive item, which can be used to enchant a piece of &1Grass&0, via right clicking on it in the world, creating &1Enchanted Soil&0. Flowers that are rooted on this &1Enchanted Soil&0 will function at double the normal speed.<br>&4Passive flowers&0 planted on this soil won't get the speed boost, instead, they will simply not decay.
+botania.page.overgrowthSeed1=There's one problem, though.<br>No known method of creating these exists. They have however, been allegedly spotted by historians in ancient structures and temples. Perhaps that would be a wise guess as to where to find these.
 
 # -- LIVINGWOOD BOW
 botania.entry.livingwoodBow=Livingwood Bow

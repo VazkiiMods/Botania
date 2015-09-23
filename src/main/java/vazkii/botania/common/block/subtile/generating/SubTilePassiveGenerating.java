@@ -27,22 +27,4 @@ public class SubTilePassiveGenerating extends SubTileGenerating {
 		return true;
 	}
 
-	@Override
-	public ArrayList<ItemStack> getDrops(ArrayList<ItemStack> list) {
-		ArrayList<ItemStack> drops = super.getDrops(list);
-		populateDropStackNBTs(drops);
-		return drops;
-	}
-
-	public void populateDropStackNBTs(List<ItemStack> drops) {
-		if(isPassiveFlower() && ticksExisted > 0 && ConfigHandler.hardcorePassiveGeneration > 0)
-			ItemNBTHelper.setInt(drops.get(0), TAG_TICKS_EXISTED, ticksExisted);
-	}
-
-	@Override
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
-		super.onBlockPlacedBy(world, x, y, z, entity, stack);
-		ticksExisted = ItemNBTHelper.getInt(stack, TAG_TICKS_EXISTED, 0);
-	}
-
 }
