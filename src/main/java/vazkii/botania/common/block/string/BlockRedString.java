@@ -10,6 +10,8 @@
  */
 package vazkii.botania.common.block.string;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -45,11 +47,13 @@ public abstract class BlockRedString extends BlockModContainer<TileRedString> im
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		senderIcon = IconHelper.forName(par1IconRegister, "redStringSender");
 		sideIcon = registerSideIcon(par1IconRegister);
 	}
 
+	@SideOnly(Side.CLIENT)
 	public IIcon registerSideIcon(IIconRegister register) {
 		return IconHelper.forBlock(register, this);
 	}
