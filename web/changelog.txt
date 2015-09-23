@@ -1,3 +1,29 @@
+r1.7 222
+*Added 12 new achievements, moved some old ones around to make space.
+*Added arena checking code to the Gaia Guardian to prevent it from being killable with little to no effort underground.
+*Added Comparator Support to the Spark Tinkerer.
+*Added the ability to get the Gaia Guardian's Head. How to do it though...
+*Added the Red Stringed Interceptor, a new block to the Red String arsenal that intercepts right clicks.
+*Buffed hydroangeas' mana production rate.
+*Enchanted Soil now has an interpolated texture, like Prismarine and Bifrost.
+*Fixed a wrong error message for the /botania-skyblock-spread command.
+*Fixed Mana Spreaders being able to pull mana from pools before even being added to the mana network.
+*Fixed the Dandelifeon not having an alt texture.
+*Fixed the Mana in a Bottle allowing for water to be placed in the nether and for the roof of the nether being accessed.
+*Fixed the Weight Lens being able to drop blocks that normally can't be Silk Touched.
+*Overgrowth Seeds no longer speed up passive flowers, instead they prevent their decay.
+*Potion ID configs now work properly with DragonAPI's potion array extending.
+*Redstone Mana Spreaders can now pull mana from their target pools.
+*Removed passive wither config and locked it to 72000 ticks (3 ingame days, 1 IRL hour). Also added an entry to the Generating Flora section to explain it better. You can read about this change and why I made it <a href="http://vazkii.us/uncategorized/sins-of-a-solar-empire-or-the-passive-generation-conundrum/">right here</a>.
+*Some Dandelifeon tweaks, the 5x5 area around it will no longer kill generation 1 cells, the output rate has been lowered a bit and the recipe for Cellular Blocks has been changed.
+*Sparks now produce less, but bigger, particles to make it less likely to reach the particle limit.
+*The Mana Pool's "water" icon is now a different icon and not the one used for water. (it still looks the same, it's just in a different file)
+*The Ring of Magnetism now has a limit of 200 entities it can pull so it doesn't kill your FPS if you manage to get a lot of items in one place for whatever reason.
+*The Thorn and Flare Chakrams now pass through leaves and folliage.
+*[API] Added an "overgrowth" and "overgrowthBoost" variables to SubTileEntity for when it's working on Enchanted Soil.
+*[API] Added isOvergrowthAffected() to SubTileEntity to allow for flowers to opt out of Enchanted Soil.
+*[API] Separated ticksExisted from passiveDecayTicks and moved the internal drop handling code from SubTileGeneratingPassive to SubTileGenerating.
+*[API] Increased version number to 63.
 r1.7 221
 *Added some extra rules to the Dandelifeon to prevent some exploits. Also lowered the mana value of each cellular block.
 *Double slabs are now properly localized. (MrKunji)
