@@ -123,6 +123,7 @@ import vazkii.botania.common.block.tile.TileCocoon;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.block.tile.TileFloatingFlower;
 import vazkii.botania.common.block.tile.TileFloatingSpecialFlower;
+import vazkii.botania.common.block.tile.TileGaiaHead;
 import vazkii.botania.common.block.tile.TileHourglass;
 import vazkii.botania.common.block.tile.TileIncensePlate;
 import vazkii.botania.common.block.tile.TileLightRelay;
@@ -305,6 +306,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileCocoon.class, new RenderTileCocoon());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileLightRelay.class, new RenderTileLightRelay());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileBellows.class, new RenderTileBellows());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileGaiaHead.class, new RenderTileSkullOverride());
 
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySkull.class, new RenderTileSkullOverride());
 

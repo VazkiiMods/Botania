@@ -1126,6 +1126,7 @@ tile.botania:pavement2SlabFull.name=Blue Portuguese Pavement Slab
 tile.botania:pavement3Slab.name=Red Portuguese Pavement Slab
 tile.botania:pavement3SlabFull.name=Red Portuguese Pavement Slab
 tile.botania:cellBlock.name=Cellular Block
+tile.botania:gaiaHeadBlock.name=Gaia Guardian's Head
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
@@ -1558,6 +1559,7 @@ item.botania:manaweaveHelm.name=Manaweave Cowl
 item.botania:manaweaveChest.name=Manaweave Robe Top
 item.botania:manaweaveLegs.name=Manaweave Robe Bottom
 item.botania:manaweaveBoots.name=Manaweave Boots
+item.botania:gaiaHead.name=Gaia Guardian's Head
 
 # BREW NAMES
 botania.brew.fallback=Fallback

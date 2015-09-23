@@ -21,7 +21,10 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.model.ModelSkullOverride;
+import vazkii.botania.client.render.entity.RenderDoppleganger;
+import vazkii.botania.common.block.tile.TileGaiaHead;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
@@ -36,10 +39,13 @@ public class RenderTileSkullOverride extends TileEntitySkullRenderer {
 	}
 
 	public void render(TileEntitySkull skull, float par1, float par2, float par3, int par4, float par5, int par6, GameProfile gameProfile) {
-		if (par6 == 3) {
+		boolean gaia = skull instanceof TileGaiaHead;
+		if(par6 == 3 || gaia) {
 			ResourceLocation resourcelocation = AbstractClientPlayer.locationStevePng;
-			if (gameProfile != null) {
-				Minecraft minecraft = Minecraft.getMinecraft();
+			Minecraft minecraft = Minecraft.getMinecraft();
+			if(gaia)
+				resourcelocation = minecraft.thePlayer.getLocationSkin();
+			else if(gameProfile != null) {
 				Map map = minecraft.func_152342_ad().func_152788_a(gameProfile);
 
 				if (map.containsKey(MinecraftProfileTexture.Type.SKIN)) {
@@ -72,7 +78,13 @@ public class RenderTileSkullOverride extends TileEntitySkullRenderer {
 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 			GL11.glScalef(-1.0F, -1.0F, 1.0F);
 			GL11.glEnable(GL11.GL_ALPHA_TEST);
+			if(gaia)
+				ShaderHelper.useShader(ShaderHelper.doppleganger, RenderDoppleganger.defaultCallback);
+			
 			modelSkull.render(null, 0F, 0F, 0F, par5, 0F, 0.0625F);
+			
+			if(gaia)
+				ShaderHelper.releaseShader();
 			GL11.glPopMatrix();
 		} else super.func_152674_a(par1, par2, par3, par4, par5, par6, gameProfile);
 	}

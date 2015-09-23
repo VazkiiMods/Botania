@@ -25,10 +25,13 @@ import vazkii.botania.common.entity.EntityDoppleganger;
 
 public class RenderDoppleganger extends RenderBiped {
 
-	float grainIntensity = 0.05F;
-	float disfiguration = 0.025F;
+	public static float DEFAULT_GRAIN_INTENSITY = 0.05F; 
+	public static float DEFAULT_DISFIGURATION = 0.025F; 
 
-	ShaderCallback callback = new ShaderCallback() {
+	public static float grainIntensity = DEFAULT_GRAIN_INTENSITY;
+	public static float disfiguration = DEFAULT_DISFIGURATION;
+
+	public static ShaderCallback callback = new ShaderCallback() {
 
 		@Override
 		public void call(int shader) {
@@ -39,6 +42,20 @@ public class RenderDoppleganger extends RenderBiped {
 			// Vert Uniforms
 			int grainIntensityUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "grainIntensity");
 			ARBShaderObjects.glUniform1fARB(grainIntensityUniform, grainIntensity);
+		}
+	};
+	
+	public static ShaderCallback defaultCallback = new ShaderCallback() {
+
+		@Override
+		public void call(int shader) {
+			// Frag Uniforms
+			int disfigurationUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "disfiguration");
+			ARBShaderObjects.glUniform1fARB(disfigurationUniform, DEFAULT_DISFIGURATION);
+
+			// Vert Uniforms
+			int grainIntensityUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "grainIntensity");
+			ARBShaderObjects.glUniform1fARB(grainIntensityUniform, DEFAULT_GRAIN_INTENSITY);
 		}
 	};
 
