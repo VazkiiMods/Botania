@@ -22,101 +22,101 @@ public class TileRedStringContainer extends TileRedString implements ISidedInven
 
 	@Override
 	public boolean acceptBlock(int x, int y, int z) {
-		TileEntity tile = worldObj.getTileEntity(x, y, z);
-		return tile != null && tile instanceof IInventory;
+		TileEntity inv = worldObj.getTileEntity(x, y, z);
+		return inv != null && inv instanceof IInventory;
 	}
 
 	@Override
 	public int getSizeInventory() {
-		TileEntity tile = getTileAtBinding();
-		return tile instanceof IInventory ? ((IInventory) tile).getSizeInventory() : 0;
+		IInventory inv = getInventory();
+		return inv != null ? inv.getSizeInventory() : 0;
 	}
 
 	@Override
 	public ItemStack getStackInSlot(int slot) {
-		TileEntity tile = getTileAtBinding();
-		return tile instanceof IInventory ? ((IInventory) tile).getStackInSlot(slot) : null;
+		IInventory inv = getInventory();
+		return inv != null ? inv.getStackInSlot(slot) : null;
 	}
 
 	@Override
 	public ItemStack decrStackSize(int slot, int count) {
-		TileEntity tile = getTileAtBinding();
-		return tile instanceof IInventory ? ((IInventory) tile).decrStackSize(slot, count) : null;
+		IInventory inv = getInventory();
+		return inv != null ? inv.decrStackSize(slot, count) : null;
 	}
 
 	@Override
 	public ItemStack getStackInSlotOnClosing(int slot) {
-		TileEntity tile = getTileAtBinding();
-		return tile instanceof IInventory ? ((IInventory) tile).getStackInSlotOnClosing(slot) : null;
+		IInventory inv = getInventory();
+		return inv != null ? inv.getStackInSlotOnClosing(slot) : null;
 	}
 
 	@Override
 	public void setInventorySlotContents(int slot, ItemStack stack) {
-		TileEntity tile = getTileAtBinding();
-		if(tile instanceof IInventory)
-			((IInventory) tile).setInventorySlotContents(slot, stack);
+		IInventory inv = getInventory();
+		if(inv != null)
+			inv.setInventorySlotContents(slot, stack);
 	}
 
 	@Override
 	public String getInventoryName() {
-		TileEntity tile = getTileAtBinding();
-		return tile instanceof IInventory ? ((IInventory) tile).getInventoryName() : LibBlockNames.RED_STRING_CONTAINER;
+		IInventory inv = getInventory();
+		return inv != null ? inv.getInventoryName() : LibBlockNames.RED_STRING_CONTAINER;
 	}
 
 	@Override
 	public boolean hasCustomInventoryName() {
-		TileEntity tile = getTileAtBinding();
-		return tile instanceof IInventory ? ((IInventory) tile).hasCustomInventoryName() : false;
+		IInventory inv = getInventory();
+		return inv != null ? inv.hasCustomInventoryName() : false;
 	}
 
 	@Override
 	public int getInventoryStackLimit() {
-		TileEntity tile = getTileAtBinding();
-		return tile instanceof IInventory ? ((IInventory) tile).getInventoryStackLimit() : 0;
+		IInventory inv = getInventory();
+		return inv != null ? inv.getInventoryStackLimit() : 0;
 	}
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer player) {
-		TileEntity tile = getTileAtBinding();
-		return tile instanceof IInventory ? ((IInventory) tile).isUseableByPlayer(player) : false;
+		IInventory inv = getInventory();
+		return inv != null ? inv.isUseableByPlayer(player) : false;
 	}
 
 	@Override
 	public void openInventory() {
-		TileEntity tile = getTileAtBinding();
-		if(tile instanceof IInventory)
-			((IInventory) tile).openInventory();
+		IInventory inv = getInventory();
+		if(inv != null)
+			inv.openInventory();
 	}
 
 	@Override
 	public void closeInventory() {
-		TileEntity tile = getTileAtBinding();
-		if(tile instanceof IInventory)
-			((IInventory) tile).closeInventory();
+		IInventory inv = getInventory();
+		if(inv != null)
+			inv.closeInventory();
 	}
 
 	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack stack) {
-		TileEntity tile = getTileAtBinding();
-		return tile instanceof IInventory ? ((IInventory) tile).isItemValidForSlot(slot, stack) : false;
+		IInventory inv = getInventory();
+		return inv != null ? inv.isItemValidForSlot(slot, stack) : false;
 	}
 
 	@Override
 	public int[] getAccessibleSlotsFromSide(int side) {
-		TileEntity tile = getTileAtBinding();
-		return tile instanceof ISidedInventory ? ((ISidedInventory) tile).getAccessibleSlotsFromSide(side) : tile instanceof IInventory ? InventoryHelper.buildSlotsForLinearInventory((IInventory) tile) : new int[0];
+		IInventory inv = getInventory();
+		return inv instanceof ISidedInventory ? ((ISidedInventory) inv).getAccessibleSlotsFromSide(side) : inv instanceof IInventory ? InventoryHelper.buildSlotsForLinearInventory((IInventory) inv) : new int[0];
 	}
 
 	@Override
 	public boolean canInsertItem(int slot, ItemStack stack, int side) {
-		TileEntity tile = getTileAtBinding();
-		return tile instanceof ISidedInventory ? ((ISidedInventory) tile).canInsertItem(slot, stack, side) : true;
+		IInventory inv = getInventory();
+		return inv instanceof ISidedInventory ? ((ISidedInventory) inv).canInsertItem(slot, stack, side) : true;
 	}
 
 	@Override
 	public boolean canExtractItem(int slot, ItemStack stack, int side) {
-		TileEntity tile = getTileAtBinding();
-		return tile instanceof ISidedInventory ? ((ISidedInventory) tile).canExtractItem(slot, stack, side) : true;
+		IInventory inv = getInventory();
+		return inv instanceof ISidedInventory ? ((ISidedInventory) inv).canExtractItem(slot, stack, side) : true;
 	}
 
 	@Override
@@ -125,6 +125,14 @@ public class TileRedStringContainer extends TileRedString implements ISidedInven
 		TileEntity tile = getTileAtBinding();
 		if(tile != null)
 			tile.markDirty();
+	}
+
+	IInventory getInventory() {
+		TileEntity tile = getTileAtBinding();
+		if(tile == null || !(tile instanceof IInventory))
+			return null;
+		
+		return InventoryHelper.getInventory((IInventory) tile);
 	}
 
 }
