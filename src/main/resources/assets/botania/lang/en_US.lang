@@ -2338,7 +2338,7 @@ botania.page.gIntro2=It is important to keep in mind that these flowers memorize
 # -- CAVEATS OF PASSIVE GENERATION
 botania.entry.passiveGen=Caveats of Passive Generation
 botania.page.passiveGen0=The spectrum of &4Generating Flowers&0 can be arranged in two groups, &4Passive&0 and &4Active&0.<br>&4Passive Flowers&0 are those that simply create &4Mana&0 using a completely free resource, such as the sun, or water. &4Active Flowers&0 require some sort of resource to transform into &4Mana&0, be it renewable or not.
-botania.page.passiveGen1=At the start of a botanist's career, only very basic and rudimentary &4Passive Flowers&0 are available, such as the &1Daybloom&0 or &1Nightshade&0.<br>These flowers are required to advance on to more potent and effective &4Active Flowers&0, but they should not be relied upon aside from being a stepping stone, as all &4Passive Flowers&0 will decay into a &1Dead Bush&0 after two days of work. 
+botania.page.passiveGen1=At the start of a botanist's career, only very basic and rudimentary &4Passive Flowers&0 are available, such as the &1Daybloom&0 or &1Nightshade&0.<br>These flowers are required to advance on to more potent and effective &4Active Flowers&0, but they should not be relied upon aside from being a stepping stone, as all &4Passive Flowers&0 will decay into a &1Dead Bush&0 after three days of work. 
 
 # -- DAYBLOOM
 botania.entry.daybloom=Daybloom
@@ -2897,7 +2897,7 @@ botania.page.exchangeRod3=Bootlegged equal trade
 # -- MANAWEAVE CLOTH
 botania.entry.manaweave=Manaweave Cloth
 botania.page.manaweave0=&1Manaweave Cloth&0 is a type of fabric with powerful ties to the primal energies contained in &4Mana&0.<br>Armor can be made of this cloth, &1Manaweave Robes&0, while they aren't very strong when it comes to raw resistance and strength, the robes make up for it with a powerful set bonus, making tools and rods cheaper to use, &4Mana&0 wise, and making the latter more powerful. 
-botania.page.manaweave1=Wearing the full set of &1Manaweave Robes&0 grants the wearer with increased proficiency when operating magical rods, increasing the power or range of them, or just their cost, for some of the more simpleton ones.<br>&1Manaweave Robes&0 can use &4Mana&0 from one's inventory to repair themselves, similarly to &1Manasteel Armor&0, but, due to their affinities with the primal energies, at a lower mana cost.
+botania.page.manaweave1=Wearing the full set of &1Manaweave Robes&0 grants the wearer with increased proficiency when operating magical rods, increasing the power/range of them, or just their cost, for some of the more simpleton ones.<br>&1Manaweave Robes&0 can use &4Mana&0 from one's inventory to repair themselves, similarly to &1Manasteel Armor&0, but, due to their affinities with the primal energies, at a lower mana cost.
 botania.page.manaweave2=Weaving the threads of mana
 botania.page.manaweave3=Creating the Cowl
 botania.page.manaweave4=Creating the Robe Top
