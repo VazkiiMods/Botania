@@ -231,11 +231,12 @@ public final class BotaniaAPI {
 	}
 
 	/**
-	 * The internal method handler in use. Do not overwrite.
+	 * The internal method handler in use.
+	 * <b>DO NOT OVERWRITE THIS OR YOU'RE GOING TO FEEL MY WRATH WHEN I UPDATE THE API.</b>
+	 * The fact I have to write that means some moron already tried, don't be that moron.
 	 * @see IInternalMethodHandler
 	 */
 	public static IInternalMethodHandler internalHandler = new DummyMethodHandler();
-
 
 	/**
 	 * Registers a new Knowledge Type.
