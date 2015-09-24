@@ -59,6 +59,29 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 		Minecraft mc = Minecraft.getMinecraft();
 		mc.renderEngine.bindTexture(texture);
 		String name = potato.name.toLowerCase();
+		
+		boolean usedShader = false;
+		if(name.startsWith("gaia ")) {
+			ShaderHelper.useShader(ShaderHelper.doppleganger);
+			name = name.substring(5);
+			usedShader = true;
+		} else if(name.startsWith("hot ")) {
+			ShaderHelper.useShader(ShaderHelper.halo);
+			name = name.substring(4);
+			usedShader = true;
+		} else if(name.startsWith("magic ")) {
+			ShaderHelper.useShader(ShaderHelper.enchanterRune);
+			name = name.substring(6);
+			usedShader = true;
+		} else if(name.startsWith("gold ")) {
+			ShaderHelper.useShader(ShaderHelper.gold);
+			name = name.substring(5);
+			usedShader = true;
+		} else if(name.startsWith("snoop ")) {
+			ShaderHelper.useShader(ShaderHelper.terraPlateRune);
+			name = name.substring(6);
+			usedShader = true;
+		} 
 
 		GL11.glTranslatef(0.5F, 1.5F, 0.5F);
 		GL11.glScalef(1F, -1F, -1F);
@@ -96,6 +119,10 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 			GL11.glTranslated(0.5F, 0F, 0F);
 			model.render();
 		}
+
+		if(usedShader)
+			ShaderHelper.releaseShader();
+		
 		GL11.glPopMatrix();
 
 		if(!name.isEmpty()) {
@@ -300,7 +327,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 		}
 
 		MinecraftForge.EVENT_BUS.post(new TinyPotatoRenderEvent(potato, potato.name, d0, d1, d2, var8));
-
+		
 		GL11.glRotatef(-rotZ, 0F, 0F, 1F);
 		GL11.glRotatef(-rotY, 0F, 1F, 0F);
 		GL11.glColor3f(1F, 1F, 1F);
