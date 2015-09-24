@@ -1,3 +1,8 @@
+r1.7 223
+*Added code to safely crash the game if someone overrides the Botania API's Internal Method Handler. Overriding the Internal Method Handler is a sure fire way to crash the game or cause incompatibility problems later down the line, so at least you're getting informed about it with a proper error message. It's sad that I even had to makXe this, to be honest.
+*Fixed a circular dependency chain with DragonAPI not allowing for the game to load.
+*Fixed Red Stringed Conparators only seeing half of a double chest.
+*Reused old botania shaders as new tiny potato variants. <i>You know, this whole potato variant thing is starting to become a good stress relief measure.</i>
 r1.7 222
 *Added 12 new achievements, moved some old ones around to make space.
 *Added arena checking code to the Gaia Guardian to prevent it from being killable with little to no effort underground.
