@@ -14,7 +14,7 @@
 	
 	$clause_waive = build_clause('Waive', 'thumbs-up', 'All restrictive clauses in this license can be ignored with personal permission. Read the above clause.');
 	
-	$clause_extensive =  build_clause('Extensive', 'th-large', "This license applies to $mod_name, the $mod_name website, the legacy $mod_name website and all other code or binaries found on this website or the github repository unless otherwise indicated.");
+	$clause_extensive =  build_clause('Extensive', 'th-large', "This license applies to $mod_name, the $mod_name website, the legacy $mod_name website and all other code, assets or binaries found on this website or the github repository unless otherwise indicated.");
 	
 	$clause_non_court = build_clause('Informal', 'file', 'This license will not hold up in court. I have no intention of suing anyone for breaking it, the worst that can happen to you if you do is that I\'ll get annoyed and ask you to rectify your mistake. If you use a public distribution platform (such as CurseForge) it\'s also possible your project will get taken down. Breaking the license also makes you a jerk, and you don\'t want to be a jerk, do you?');
 	
@@ -82,12 +82,12 @@ If you simply wish to play with the mod and do nothing else, go for it, this pag
 
 	add_clause($clause_attribution);
 	add_clause($clause_non_monetary);
-	print_license_point("If you want to <b>Distribute $mod_name</b>", '"Distribution" refers to making available binaries or source of the mod available from the original sources as part of your modpack or otherwise.');
+	print_license_point("If you want to <b>Distribute $mod_name</b>", '"Distribution" refers to making available binaries, assets, or source of the mod available from the original sources as part of your modpack or otherwise.');
 	
 	add_clause($clause_thief);
-	print_license_point("If you want to <b>Feature $mod_name</b>", "\"Featuring\" refers to using $mod_name in an environment where you do not distribute binaries or source. An example would be a YouTube Let's Play.");
+	print_license_point("If you want to <b>Feature $mod_name</b>", "\"Featuring\" refers to using $mod_name in an environment where you do not distribute binaries, assets, or source. An example would be a YouTube Let's Play.");
 	
 	add_clause($clause_attribution);
 	add_clause($clause_open_source);
-	print_license_point("If you want to <b>Use $mod_name Code</b>", 'Usage of code falls under the Extensive Clause.');
+	print_license_point("If you want to <b>Use $mod_name Code or Assets</b>", 'Usage of code or assets falls under the Extensive Clause.');
 ?>
