@@ -105,7 +105,7 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer {
 				mc.fontRenderer.drawString(countStr, -l / 2, 0, color);
 				GL11.glTranslatef(0F, 0F, 0.1F);
 				mc.fontRenderer.drawString(countStr, -l / 2 + 1, 1, colorShade);
-				GL11.glTranslatef(0F, 0F, -tr + 0.1F);
+				GL11.glTranslatef(0F, 0F, -tr - 0.1F);
 			}
 			GL11.glEnable(GL11.GL_LIGHTING);
 		}
