@@ -24,10 +24,13 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase {
 
 	private static final String TAG_REQUEST_TARGET = "requestTarget";
 	private static final String TAG_ITEM_COUNT = "itemCount";
+	
+	private static final double LOG_2 = Math.log(2);
 
 	ItemStack requestTarget;
 	int itemCount = 0;
 	int ticks = 0;
+	public int compValue = 0;
 
 	@Override
 	public void updateEntity() {
@@ -72,23 +75,36 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase {
 					itemCount -= reqStack.stackSize;
 					did = true;
 				}
-			if(did)
+			
+			if(did) {
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+				onUpdateCount();
+			}
 		}
 	}
+	
 	private void updateCount() {
 		if(worldObj.isRemote)
 			return;
 
+		int oldCount = itemCount;
 		itemCount = 0;
 		ICorporeaSpark spark = getSpark();
 		if(spark != null && spark.getMaster() != null && requestTarget != null) {
 			List<ItemStack> stacks = CorporeaHelper.requestItem(requestTarget, -1, spark, true, false);
 			for(ItemStack stack : stacks)
 				itemCount += stack.stackSize;
-
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
+		
+		if(itemCount != oldCount) {
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+			onUpdateCount();
+		}
+	}
+	
+	private void onUpdateCount() {
+		compValue = getComparatorValue();
+		worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 	}
 
 	@Override
@@ -112,6 +128,12 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase {
 	@Override
 	public int getSizeInventory() {
 		return 1;
+	}
+	
+	public int getComparatorValue() {
+		if(itemCount == 0)
+			return 0;
+		return Math.min(15, (int) Math.floor(Math.log(itemCount) / LOG_2) + 1);
 	}
 
 	@Override
