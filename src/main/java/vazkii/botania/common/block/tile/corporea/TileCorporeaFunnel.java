@@ -20,37 +20,25 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.corporea.CorporeaHelper;
+import vazkii.botania.api.corporea.ICorporeaInterceptor;
+import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
-public class TileCorporeaFunnel extends TileCorporeaBase {
+public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaRequestor {
 
 	public void doRequest() {
 		ICorporeaSpark spark = getSpark();
 		if(spark != null && spark.getMaster() != null) {
-			IInventory inv = InventoryHelper.getInventory(worldObj, xCoord, yCoord - 1, zCoord);
-			if(inv == null)
-				inv = InventoryHelper.getInventory(worldObj, xCoord, yCoord - 2, zCoord);
-
 			List<ItemStack> filter = getFilter();
 			if(!filter.isEmpty()) {
 				ItemStack stack = filter.get(worldObj.rand.nextInt(filter.size()));
 
-				if(stack != null) {
-					List<ItemStack> stacks = CorporeaHelper.requestItem(stack, spark, true, true);
-					spark.onItemsRequested(stacks);
-					for(ItemStack reqStack : stacks)
-						if(stack != null) {
-							if(inv != null && reqStack.stackSize == InventoryHelper.testInventoryInsertion(inv, reqStack, ForgeDirection.UP))
-								InventoryHelper.insertItemIntoInventory(inv, reqStack);
-							else {
-								EntityItem item = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, reqStack);
-								worldObj.spawnEntityInWorld(item);
-							}
-						}
-				}
+				System.out.println("self");
+				if(stack != null)
+					doCorporeaRequest(stack, stack.stackSize, spark);
 			}
 		}
 	}
@@ -96,6 +84,29 @@ public class TileCorporeaFunnel extends TileCorporeaBase {
 	@Override
 	public String getInventoryName() {
 		return LibBlockNames.CORPOREA_FUNNEL;
+	}
+
+	@Override
+	public void doCorporeaRequest(Object request, int count, ICorporeaSpark spark) {
+		System.out.println(request + " " + count);
+		if(!(request instanceof ItemStack))
+			return;
+		
+		IInventory inv = InventoryHelper.getInventory(worldObj, xCoord, yCoord - 1, zCoord);
+		if(inv == null)
+			inv = InventoryHelper.getInventory(worldObj, xCoord, yCoord - 2, zCoord);
+
+		List<ItemStack> stacks = CorporeaHelper.requestItem((ItemStack) request, count, spark, true, true);
+		spark.onItemsRequested(stacks);
+		for(ItemStack reqStack : stacks)
+			if(request != null) {
+				if(inv != null && reqStack.stackSize == InventoryHelper.testInventoryInsertion(inv, reqStack, ForgeDirection.UP))
+					InventoryHelper.insertItemIntoInventory(inv, reqStack);
+				else {
+					EntityItem item = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, reqStack);
+					worldObj.spawnEntityInWorld(item);
+				}
+			}
 	}
 
 }

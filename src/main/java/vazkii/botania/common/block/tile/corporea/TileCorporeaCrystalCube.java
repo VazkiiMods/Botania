@@ -16,11 +16,13 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import vazkii.botania.api.corporea.CorporeaHelper;
+import vazkii.botania.api.corporea.ICorporeaInterceptor;
+import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class TileCorporeaCrystalCube extends TileCorporeaBase {
+public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorporeaRequestor {
 
 	private static final String TAG_REQUEST_TARGET = "requestTarget";
 	private static final String TAG_ITEM_COUNT = "itemCount";
@@ -65,21 +67,8 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase {
 
 		ICorporeaSpark spark = getSpark();
 		if(spark != null && spark.getMaster() != null && requestTarget != null) {
-			List<ItemStack> stacks = CorporeaHelper.requestItem(requestTarget, fullStack ? requestTarget.getMaxStackSize() : 1, spark, true, true);
-			spark.onItemsRequested(stacks);
-			boolean did = false;
-			for(ItemStack reqStack : stacks)
-				if(requestTarget != null) {
-					EntityItem item = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, reqStack);
-					worldObj.spawnEntityInWorld(item);
-					itemCount -= reqStack.stackSize;
-					did = true;
-				}
-			
-			if(did) {
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
-				onUpdateCount();
-			}
+			int count = fullStack ? requestTarget.getMaxStackSize() : 1;
+			doCorporeaRequest(requestTarget, count, spark);
 		}
 	}
 	
@@ -144,6 +133,28 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase {
 	@Override
 	public String getInventoryName() {
 		return LibBlockNames.CORPOREA_CRYSTAL_CUBE;
+	}
+
+	@Override
+	public void doCorporeaRequest(Object request, int count, ICorporeaSpark spark) {
+		if(!(request instanceof ItemStack))
+			return;
+		
+		List<ItemStack> stacks = CorporeaHelper.requestItem((ItemStack) request, count, spark, true, true);
+		spark.onItemsRequested(stacks);
+		boolean did = false;
+		for(ItemStack reqStack : stacks)
+			if(requestTarget != null) {
+				EntityItem item = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, reqStack);
+				worldObj.spawnEntityInWorld(item);
+				itemCount -= reqStack.stackSize;
+				did = true;
+			}
+		
+		if(did) {
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+			onUpdateCount();
+		}
 	}
 
 }

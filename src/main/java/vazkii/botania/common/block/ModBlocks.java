@@ -24,6 +24,7 @@ import vazkii.botania.common.block.corporea.BlockCorporeaCrystalCube;
 import vazkii.botania.common.block.corporea.BlockCorporeaFunnel;
 import vazkii.botania.common.block.corporea.BlockCorporeaIndex;
 import vazkii.botania.common.block.corporea.BlockCorporeaInterceptor;
+import vazkii.botania.common.block.corporea.BlockCorporeaRetainer;
 import vazkii.botania.common.block.decor.BlockBlaze;
 import vazkii.botania.common.block.decor.BlockBuriedPetals;
 import vazkii.botania.common.block.decor.BlockCustomBrick;
@@ -146,6 +147,7 @@ import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaFunnel;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaInterceptor;
+import vazkii.botania.common.block.tile.corporea.TileCorporeaRetainer;
 import vazkii.botania.common.block.tile.mana.TileBellows;
 import vazkii.botania.common.block.tile.mana.TileDistributor;
 import vazkii.botania.common.block.tile.mana.TileManaDetector;
@@ -254,6 +256,7 @@ public final class ModBlocks {
 	public static Block cellBlock;
 	public static Block redStringInterceptor;
 	public static Block gaiaHead;
+	public static Block corporeaRetainer;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -340,6 +343,7 @@ public final class ModBlocks {
 		cellBlock = new BlockCell();
 		redStringInterceptor = new BlockRedStringInterceptor();
 		gaiaHead = new BlockGaiaHead();
+		corporeaRetainer = new BlockCorporeaRetainer();
 		
 		ModFluffBlocks.init();
 
@@ -439,6 +443,7 @@ public final class ModBlocks {
 		registerTile(TileCell.class, LibBlockNames.CELL_BLOCK);
 		registerTile(TileRedStringInterceptor.class, LibBlockNames.RED_STRING_INTERCEPTOR);
 		registerTile(TileGaiaHead.class, LibBlockNames.GAIA_HEAD);
+		registerTile(TileCorporeaRetainer.class, LibBlockNames.CORPOREA_RETAINER);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MANASTAR, SubTileManastar.class);

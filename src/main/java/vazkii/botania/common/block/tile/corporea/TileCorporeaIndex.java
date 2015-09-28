@@ -24,6 +24,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChatStyle;
@@ -34,6 +35,8 @@ import org.apache.commons.lang3.text.WordUtils;
 
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaAutoCompleteController;
+import vazkii.botania.api.corporea.ICorporeaInterceptor;
+import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.MathHelper;
@@ -43,7 +46,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class TileCorporeaIndex extends TileCorporeaBase {
+public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequestor {
 
 	public static final double RADIUS = 2.5;
 
@@ -199,6 +202,20 @@ public class TileCorporeaIndex extends TileCorporeaBase {
 	public String getInventoryName() {
 		return LibBlockNames.CORPOREA_INDEX;
 	}
+	
+	@Override
+	public void doCorporeaRequest(Object request, int count, ICorporeaSpark spark) {
+		if(!(request instanceof String))
+			return;
+		
+		List<ItemStack> stacks = CorporeaHelper.requestItem((String) request, count, spark, true);
+		spark.onItemsRequested(stacks);
+		for(ItemStack stack : stacks)
+			if(stack != null) {
+				EntityItem item = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, stack);
+				worldObj.spawnEntityInWorld(item);
+			}
+	}
 
 	public static boolean isInRangeOfIndex(EntityPlayer player, TileCorporeaIndex index) {
 		return MathHelper.pointDistanceSpace(index.xCoord + 0.5, index.yCoord + 0.5, index.zCoord + 0.5, player.posX, player.posY + (player.worldObj.isRemote ? 0 : 1.6), player.posZ) < RADIUS;
@@ -258,13 +275,7 @@ public class TileCorporeaIndex extends TileCorporeaBase {
 								name = stack.getDisplayName().toLowerCase().trim();
 						}
 
-						List<ItemStack> stacks = CorporeaHelper.requestItem(name, count, spark, true);
-						spark.onItemsRequested(stacks);
-						for(ItemStack stack : stacks)
-							if(stack != null) {
-								EntityItem item = new EntityItem(index.worldObj, index.xCoord + 0.5, index.yCoord + 1.5, index.zCoord + 0.5, stack);
-								index.worldObj.spawnEntityInWorld(item);
-							}
+						index.doCorporeaRequest(name, count, spark);
 
 						event.player.addChatMessage(new ChatComponentTranslation("botaniamisc.requestMsg", count, WordUtils.capitalizeFully(name), CorporeaHelper.lastRequestMatches, CorporeaHelper.lastRequestExtractions).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.LIGHT_PURPLE)));
 						if(CorporeaHelper.lastRequestExtractions >= 50000)

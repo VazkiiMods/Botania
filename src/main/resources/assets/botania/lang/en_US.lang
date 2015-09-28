@@ -1127,6 +1127,7 @@ tile.botania:pavement3Slab.name=Red Portuguese Pavement Slab
 tile.botania:pavement3SlabFull.name=Red Portuguese Pavement Slab
 tile.botania:cellBlock.name=Cellular Block
 tile.botania:gaiaHeadBlock.name=Gaia Guardian's Head
+tile.botania:corporeaRetainer.name=Corporea Retainer
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower

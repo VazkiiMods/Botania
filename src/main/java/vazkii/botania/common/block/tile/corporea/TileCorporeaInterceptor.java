@@ -16,6 +16,7 @@ import java.util.List;
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.corporea.CorporeaHelper;
@@ -58,6 +59,14 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 				if(missing > 0 && getBlockMetadata() == 0) {
 					worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 1, 1 | 2);
 					worldObj.scheduleBlockUpdate(xCoord, yCoord, zCoord, getBlockType(), 2);
+					
+					TileEntity requestor = (TileEntity) source.getInventory();
+					for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) {
+						TileEntity tile = worldObj.getTileEntity(xCoord + dir.offsetX, yCoord, zCoord + dir.offsetZ);
+						if(tile != null && tile instanceof TileCorporeaRetainer)
+							((TileCorporeaRetainer) tile).setPendingRequest(requestor.xCoord, requestor.yCoord, requestor.zCoord, request, count);
+					}
+					
 					return;
 				}
 			}
