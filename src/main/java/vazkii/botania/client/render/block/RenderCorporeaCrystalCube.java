@@ -27,7 +27,9 @@ public class RenderCorporeaCrystalCube implements ISimpleBlockRenderingHandler {
 	public void renderInventoryBlock(Block block, int metadata, int modelId, RenderBlocks renderer) {
 		GL11.glPushMatrix();
 		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
+		GL11.glDisable(GL11.GL_ALPHA_TEST);
 		TileEntityRendererDispatcher.instance.renderTileEntityAt(new TileCorporeaCrystalCube(), 0.0D, 0.0D, 0.0D, 0.0F);
+		GL11.glEnable(GL11.GL_ALPHA_TEST);
 		GL11.glPopMatrix();
 	}
 
