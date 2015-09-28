@@ -1143,14 +1143,20 @@ tile.botania:flower.manastar.reference=Wish upon a star
 # - GENERATING
 tile.botania:flower.daybloom.name=Daybloom
 tile.botania:flower.daybloom.reference=A Sting of light
+tile.botania:flower.daybloomDecor.name=Daybloom Motif
+tile.botania:flower.daybloomDecor.reference=A Sting of light
 tile.botania:flower.endoflame.name=Endoflame
 tile.botania:flower.endoflame.reference=Squirting Lag
 tile.botania:flower.hydroangeas.name=Hydroangeas
 tile.botania:flower.hydroangeas.reference=Just friendly crustaceans
+tile.botania:flower.hydroangeasDecor.name=Hydroangeas Motif
+tile.botania:flower.hydroangeasDecor.reference=Just friendly crustaceans
 tile.botania:flower.thermalily.name=Thermalily
 tile.botania:flower.thermalily.reference=A Scarlet Rose indeed
 tile.botania:flower.nightshade.name=Nightshade
 tile.botania:flower.nightshade.reference=Ghastly signature
+tile.botania:flower.nightshadeDecor.name=Nightshade Motif
+tile.botania:flower.nightshadeDecor.reference=Ghastly signature
 tile.botania:flower.arcanerose.name=Rosa Arcana
 tile.botania:flower.arcanerose.reference=Ten blue orbs in the corner
 tile.botania:flower.munchdew.name=Munchdew
@@ -2191,7 +2197,7 @@ botania.page.fIntro4=&1Redstone Root&0 for Redstone Control
 
 # -- FLOWER SHRINKING
 botania.entry.flowerShrinking=Flower Shrinking
-botania.page.flowerShrinking0=Some functional flowers have a bit too much reach. Sometimes one might not want that to be the case. Tossing one of those few flowers into a &1Mana Pool&0 with an &1Alchemy Catalyst&0 will, at the cost of some &4Mana&0, shrink it, making its radius smaller. Every other function remains the same.
+botania.page.flowerShrinking0=Some functional flowers have a bit too much reach. Sometimes one might not want that to be the case. Tossing one of those few flowers into a &1Mana Pool&0 with an &1Alchemy Catalyst&0 will, at the cost of some &4Mana&0, shrink it, making its radius smaller. Every other function remains the same.<br>This can also be done for passive generating flowers, turning them into decorative versions that don't decay.
 botania.page.flowerShrinking1=Like a nendoroid
 
 # -- JADED AMARANTHUS
