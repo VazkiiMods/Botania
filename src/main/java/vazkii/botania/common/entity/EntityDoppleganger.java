@@ -80,7 +80,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 	public static final int SPAWN_TICKS = 100;
 	private static final float RANGE = 12F;
-	private static final float MAX_HP = 300F;
+	private static final float MAX_HP = 800F;
 
 	public static final int MOB_SPAWN_START_TICKS = 20;
 	public static final int MOB_SPAWN_END_TICKS = 80;
@@ -159,7 +159,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 					return false;
 				}
 			}
-			
+
 			if(!hasProperArena(par3World, par4, par5, par6)) {
 				player.addChatMessage(new ChatComponentTranslation("botaniamisc.badArena").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
 				return false;
@@ -190,7 +190,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 		return false;
 	}
-	
+
 	private static boolean hasProperArena(World world, int sx, int sy, int sz) {
 		int range = (int) Math.ceil(RANGE);
 		for(int i = -range; i < range + 1; i++)
@@ -326,7 +326,15 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			if(!playersWhoAttacked.contains(player.getCommandSenderName()))
 				playersWhoAttacked.add(player.getCommandSenderName());
 
-			return super.attackEntityFrom(par1DamageSource, Math.min(12, par2 * (isHardMode() ? 0.6F : 1F)));
+			float dmg = par2;
+			boolean crit = false;
+			if(e instanceof EntityPlayer) {
+				EntityPlayer p = (EntityPlayer) e;
+				crit = p.fallDistance > 0.0F && !p.onGround && !p.isOnLadder() && !p.isInWater() && !p.isPotionActive(Potion.blindness) && p.ridingEntity == null;
+			}
+
+			int cap = crit ? 50 : 35;
+			return super.attackEntityFrom(par1DamageSource, Math.min(cap, dmg) * (isHardMode() ? 0.6F : 1F));
 		}
 		return false;
 	}
