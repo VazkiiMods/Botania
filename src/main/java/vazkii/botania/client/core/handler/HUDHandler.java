@@ -59,6 +59,7 @@ import vazkii.botania.common.item.ItemCraftingHalo;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
+import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.lib.LibObfuscation;
 import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.common.eventhandler.EventPriority;
@@ -143,6 +144,13 @@ public final class HUDHandler {
 				ItemFlugelEye.renderHUD(event.resolution, mc.thePlayer, equippedStack);
 				profiler.endSection();
 			}*/
+			
+			ItemStack amulet = PlayerHandler.getPlayerBaubles(mc.thePlayer).getStackInSlot(0);
+			if(amulet != null && amulet.getItem() == ModItems.monocle) {
+				profiler.startSection("monocle");
+				ItemMonocle.renderHUD(event.resolution, mc.thePlayer, amulet);
+				profiler.endSection();
+			}
 
 			profiler.startSection("manaBar");
 			EntityPlayer player = mc.thePlayer;

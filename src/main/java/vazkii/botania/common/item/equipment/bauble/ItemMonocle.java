@@ -10,11 +10,21 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityNote;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 
 import org.lwjgl.opengl.GL11;
@@ -23,9 +33,16 @@ import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.item.IBurstViewerBauble;
 import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, IBaubleRender {
 
+	private static final String[] NOTES = new String[] {
+		"F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#",
+		"F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#"
+	};
+	
 	public ItemMonocle() {
 		super(LibItemNames.MONOCLE);
 	}
@@ -51,6 +68,43 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, IBaub
 			GL11.glScalef(0.35F, 0.35F, 0.35F);
 			ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, itemIcon.getIconWidth(), itemIcon.getIconHeight(), 1F / 16F);
 		}
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public static void renderHUD(ScaledResolution resolution, EntityPlayer player, ItemStack stack) {
+		Minecraft mc = Minecraft.getMinecraft();
+		MovingObjectPosition pos = mc.objectMouseOver;
+		if(pos == null)
+			return;
+		Block block = player.worldObj.getBlock(pos.blockX, pos.blockY, pos.blockZ);
+		int meta = player.worldObj.getBlockMetadata(pos.blockX, pos.blockY, pos.blockZ);
+		TileEntity tile = player.worldObj.getTileEntity(pos.blockX, pos.blockY, pos.blockZ);
+		
+		ItemStack dispStack = null;
+		String text = "";
+		
+		if(block == Blocks.redstone_wire) {
+			dispStack = new ItemStack(Items.redstone);
+			text = EnumChatFormatting.RED + "" + meta;
+		} else if(block == Blocks.unpowered_repeater || block == Blocks.powered_repeater) {
+			dispStack = new ItemStack(Items.repeater);
+			text = "" + (((meta & 12) >> 2) + 1);
+		} else if(block == Blocks.unpowered_comparator || block == Blocks.powered_comparator) {
+			dispStack = new ItemStack(Items.comparator);
+			text = ((meta & 4) == 4) ? "-" : "+";
+		}
+		
+		if(dispStack == null)
+			return;
+		
+		int x = resolution.getScaledWidth() / 2 + 15;
+		int y = resolution.getScaledHeight() / 2 - 8;
+		
+		net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
+		RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, dispStack, x, y);
+		net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
+		
+		mc.fontRenderer.drawStringWithShadow(text, x + 20, y + 4, 0xFFFFFF);
 	}
 
 }
