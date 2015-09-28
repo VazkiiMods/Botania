@@ -192,6 +192,7 @@ public final class LibLexicon {
 	public static final String ENDER_LUMINIZER_TRANSPORT = "luminizerTransport";
 	public static final String ENDER_STAR_SWORD = "starSword";
 	public static final String ENDER_THUNDER_SWORD = "thunderSword";
+	public static final String ENDER_CORPOREA_RETAINER = "corporeaRetainer";
 
 	public static final String BAUBLE_INTRO = "bIntro";
 	public static final String BAUBLE_COSMETIC = "cosmeticBaubles";

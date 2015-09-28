@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.logging.log4j.Level;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -35,6 +37,7 @@ import vazkii.botania.common.item.ItemSignalFlare;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibOreDict;
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public final class ModCraftingRecipes {
@@ -293,6 +296,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeAutocraftingHalo;
 	public static List<IRecipe> recipesPavement;
 	public static IRecipe recipeCellBlock;
+	public static IRecipe recipeCorporeaRetainer;
 
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;
@@ -303,6 +307,8 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeEndPortal;
 
 	public static void init() {
+		int recipeListSize = CraftingManager.getInstance().getRecipeList().size();
+		
 		// Lexicon Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lexicon), "treeSapling", Items.book);
 		recipeLexicon = BotaniaAPI.getLatestAddedRecipe();
@@ -1623,7 +1629,7 @@ public final class ModCraftingRecipes {
 		addShapelessOreDictRecipe(new ItemStack(ModBlocks.corporeaFunnel), new ItemStack(Blocks.dropper), new ItemStack(ModItems.corporeaSpark));
 		recipeCorporeaFunnel = BotaniaAPI.getLatestAddedRecipe();
 
-		// Corporea Funnel Recipe
+		// Corporea Interceptor Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModBlocks.corporeaInterceptor), "blockRedstone", new ItemStack(ModItems.corporeaSpark));
 		recipeCorporeaInterceptor = BotaniaAPI.getLatestAddedRecipe();
 
@@ -1996,6 +2002,10 @@ public final class ModCraftingRecipes {
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.cellBlock, 3), new ItemStack(Blocks.cactus), new ItemStack(Blocks.cactus), new ItemStack(Blocks.cactus), new ItemStack(Blocks.cactus), new ItemStack(Items.carrot), new ItemStack(Items.potato));
 		recipeCellBlock = BotaniaAPI.getLatestAddedRecipe();
 		
+		// Corporea Retainer Recipe
+		addShapelessOreDictRecipe(new ItemStack(ModBlocks.corporeaRetainer), new ItemStack(Blocks.chest), new ItemStack(ModItems.corporeaSpark));
+		recipeCorporeaRetainer = BotaniaAPI.getLatestAddedRecipe();
+		
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		// Storage Block/Nugget Recipes
@@ -2097,6 +2107,9 @@ public final class ModCraftingRecipes {
 
 		if(Botania.gardenOfGlassLoaded)
 			initGardenOfGlass();
+		
+		int newRecipeListSize = CraftingManager.getInstance().getRecipeList().size();
+		FMLLog.log(Level.INFO, "[Botania] Registered %d recipes.", newRecipeListSize - recipeListSize);
 	}
 
 	private static void initGardenOfGlass() {

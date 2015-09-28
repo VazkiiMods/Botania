@@ -18,13 +18,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import vazkii.botania.api.lexicon.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaRetainer;
+import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockCorporeaRetainer extends BlockModContainer implements ICraftAchievement {
+public class BlockCorporeaRetainer extends BlockModContainer implements ILexiconable, ICraftAchievement {
 
 	public BlockCorporeaRetainer() {
 		super(Material.iron);
@@ -64,6 +67,11 @@ public class BlockCorporeaRetainer extends BlockModContainer implements ICraftAc
 	@Override
 	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
 		return ModAchievements.corporeaCraft;
+	}
+
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return LexiconData.corporeaRetainer;
 	}
 
 }

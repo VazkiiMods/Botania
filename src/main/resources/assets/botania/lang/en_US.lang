@@ -3013,7 +3013,15 @@ botania.page.corporeaInterceptor2=So many automation prospects
 botania.entry.corporeaCrystalCube=Corporea Crystal Cube
 botania.page.corporeaCrystalCube0=A seer usually looks through a crystal ball to see the future. Well, a corporea handler would look through a crystal cube to see the present. The &1Corporea Crystal Cube&0 acts as a visual medium to interact ith one's &4Corporea Network&0. Placing the block down and giving it a &1Corporea Spark&0 is the obvious first step to hooking it up to the network. 
 botania.page.corporeaCrystalCube1=When the block is connected, right clicking it with any sort of item will have it monitor that item, allowing someone who's looking at it see how many exist in the network. The display updates about once every second.<br>While there's an item selected, left clicking the block will request one of that item from the network. Shift-left clicking requests a whole stack.
+botania.page.corporeaCrystalCube3=The &1Corporea Crystal Cube&0 can be used alongside a &1Redstone Comparator&0. This will output the amount of items of the type it's looking for in the system. The output value follows a logaritmic progression, or on layman's terms, every level requires twice as many of the item as the previous one, starting at 1. 0 items would be signal 0. 1 item for 1, 2 items for 2, 4 items for 3, 8 items for 4, 16 items for 5 and so on up to 15.
 botania.page.corporeaCrystalCube2=I can see forever
+
+# -- CORPOREA RETAINER
+botania.entry.corporeaRetainer=Corporea Retainer
+botania.page.corporeaRetainer0=The &1Corporea Retainer&0 is an addon of sorts to the &1Corporea Interceptor&0. Placing one of these adjacent to an interceptor allows for the interceptor to pass along to it the original corporea request, if it's intercepted.<br>When this happens, the retainer remembers which corporea object in the network initiated the request as well as the contents of said request.
+botania.page.corporeaRetainer1=Once the &1Corporea Retainer&0 receives a redstone signal after it's been informed of a request, it'll have the original requestor redo the exact same request. For example, a funnel might request &1Wooden Planks&0 from the network. An interceptor intercepts the request and passes a signal along to craft the planks. The retainer then gets a signal, allowing for the original funnel to redo the request and get its planks.
+botania.page.corporeaRetainer2=As the &1Corporea Retainer&0 acts as an addon to the interceptor, it can use it to interact with the network, thus not needing a spark itself.<br>The retainer can only hold on to one request at a time, and will not accept another until the last one is fulfiled. A &1Redstone Comparator&0 can read if there's a request to be done or not.
+botania.page.corporeaRetainer3=The nemesis of a goldfish
 
 # -- DECORATIVE END BLOCKS
 botania.entry.endStoneDecor=Decorative End Blocks

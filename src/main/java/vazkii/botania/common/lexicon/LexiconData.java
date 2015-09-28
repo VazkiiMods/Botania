@@ -224,6 +224,7 @@ public final class LexiconData {
 	public static LexiconEntry luminizerTransport;
 	public static LexiconEntry starSword;
 	public static LexiconEntry thunderSword;
+	public static LexiconEntry corporeaRetainer;
 
 	public static LexiconEntry baublesIntro;
 	public static LexiconEntry cosmeticBaubles;
@@ -847,7 +848,7 @@ public final class LexiconData {
 		blackHoleTalisman.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipeBlackHoleTalisman));
 
 		corporeaCrystalCube = new ALexiconEntry(LibLexicon.ENDER_CORPOREA_CRYSTAL_CUBE, categoryEnder);
-		corporeaCrystalCube.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeCorporeaCrystalCube));
+		corporeaCrystalCube.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("3"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeCorporeaCrystalCube));
 
 		luminizerTransport = new ALexiconEntry(LibLexicon.ENDER_LUMINIZER_TRANSPORT, categoryEnder);
 		luminizerTransport.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeLuminizer), new PageText("3"), new PageCraftingRecipe("4", ModCraftingRecipes.recipeDetectorLuminizer), new PageText("5"), new PageCraftingRecipe("6", ModCraftingRecipes.recipeLuminizerLauncher));
@@ -858,6 +859,9 @@ public final class LexiconData {
 		thunderSword = new ALexiconEntry(LibLexicon.ENDER_THUNDER_SWORD, categoryEnder);
 		thunderSword.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeThunderSword));
 
+		corporeaRetainer = new ALexiconEntry(LibLexicon.ENDER_CORPOREA_RETAINER, categoryEnder);
+		corporeaRetainer.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipeCorporeaRetainer));
+		
 		// BAUBLES ENTRIES
 		baublesIntro = new BLexiconEntry(LibLexicon.BAUBLE_INTRO, categoryBaubles);
 		baublesIntro.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_BAUBLES), new PageText("2"));
