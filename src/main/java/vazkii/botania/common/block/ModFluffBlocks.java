@@ -173,9 +173,9 @@ public final class ModFluffBlocks {
 	public static Block[] stoneFullSlabs = new Block[8];
 	public static Block stoneWall;
 
-	public static Block[] pavementStairs = new Block[4];
-	public static Block[] pavementSlabs = new Block[4];
-	public static Block[] pavementFullSlabs = new Block[4];
+	public static Block[] pavementStairs = new Block[BlockPavement.TYPES];
+	public static Block[] pavementSlabs = new Block[BlockPavement.TYPES];
+	public static Block[] pavementFullSlabs = new Block[BlockPavement.TYPES];
 	
 	public static Block endStoneSlab;
 	public static Block endStoneSlabFull;
@@ -296,7 +296,7 @@ public final class ModFluffBlocks {
 		}
 		stoneWall = new Block18StoneWall();
 
-		for(int i = 0; i < 4; i++) {
+		for(int i = 0; i < pavementStairs.length; i++) {
 			pavementStairs[i] = new BlockPavementStairs(i);
 			pavementSlabs[i] = new BlockPavementSlab(false, i, i);
 			pavementFullSlabs[i] = new BlockPavementSlab(true, i, i);
@@ -378,7 +378,7 @@ public final class ModFluffBlocks {
 			((BlockModSlab) stoneFullSlabs[i]).register();
 		}
 		
-		for(int i = 0; i < 4; i++) {
+		for(int i = 0; i < pavementSlabs.length; i++) {
 			((BlockModSlab) pavementSlabs[i]).register();
 			((BlockModSlab) pavementFullSlabs[i]).register();
 		}

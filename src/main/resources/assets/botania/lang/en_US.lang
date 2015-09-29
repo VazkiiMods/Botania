@@ -1113,10 +1113,14 @@ tile.botania:pavement0.name=White Portuguese Pavement
 tile.botania:pavement1.name=Black Portuguese Pavement
 tile.botania:pavement2.name=Blue Portuguese Pavement
 tile.botania:pavement3.name=Red Portuguese Pavement
+tile.botania:pavement4.name=Yellow Portuguese Pavement
+tile.botania:pavement5.name=Green Portuguese Pavement
 tile.botania:pavement0Stairs.name=White Portuguese Pavement Stairs
 tile.botania:pavement1Stairs.name=Black Portuguese Pavement Stairs
 tile.botania:pavement2Stairs.name=Blue Portuguese Pavement Stairs
 tile.botania:pavement3Stairs.name=Red Portuguese Pavement Stairs
+tile.botania:pavement4Stairs.name=Yellow Portuguese Pavement Stairs
+tile.botania:pavement5Stairs.name=Green Portuguese Pavement Stairs
 tile.botania:pavement0Slab.name=White Portuguese Pavement Slab
 tile.botania:pavement0SlabFull.name=White Portuguese Pavement Slab
 tile.botania:pavement1Slab.name=Black Portuguese Pavement Slab
@@ -1125,6 +1129,10 @@ tile.botania:pavement2Slab.name=Blue Portuguese Pavement Slab
 tile.botania:pavement2SlabFull.name=Blue Portuguese Pavement Slab
 tile.botania:pavement3Slab.name=Red Portuguese Pavement Slab
 tile.botania:pavement3SlabFull.name=Red Portuguese Pavement Slab
+tile.botania:pavement4Slab.name=Yellow Portuguese Pavement Slab
+tile.botania:pavement4SlabFull.name=Yellow Portuguese Pavement Slab
+tile.botania:pavement5Slab.name=Green Portuguese Pavement Slab
+tile.botania:pavement5SlabFull.name=Green Portuguese Pavement Slab
 tile.botania:cellBlock.name=Cellular Block
 tile.botania:gaiaHeadBlock.name=Gaia Guardian's Head
 tile.botania:corporeaRetainer.name=Corporea Retainer
@@ -3462,7 +3470,7 @@ botania.page.cacophonium2=For maximum cacophony, the &1Cacophonium&0 can be shif
 
 # -- PORTUGUESE PAVEMENT
 botania.entry.pavement=Portuguese Pavement
-botania.page.pavement0=&1Portuguese Pavement&0 is a type of building block designed to be used to create detailed roads. It comes in four colors, white, black, blue and red, all four of these can be turned into slabs and stairs.<br>For those with experience in the arts of multiparts and microblocks, these blocks provide a great looking method to create patterns.
+botania.page.pavement0=&1Portuguese Pavement&0 is a type of building block designed to be used to create detailed roads. It comes in various colors, all of which can be turned into slabs and stairs.<br>For those with experience in the arts of multiparts and microblocks, these blocks provide a great looking method to create patterns.
 botania.page.pavement1=These aren't slippery
 
 # -- THAUMCRAFT INTEGRATION

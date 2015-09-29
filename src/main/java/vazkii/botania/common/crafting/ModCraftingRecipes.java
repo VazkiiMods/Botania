@@ -1996,7 +1996,9 @@ public final class ModCraftingRecipes {
 		addShapelessOreDictRecipe(new ItemStack(ModFluffBlocks.pavement, 3, 1), LibOreDict.LIVING_ROCK, "cobblestone", "gravel", new ItemStack(Items.coal));
 		addShapelessOreDictRecipe(new ItemStack(ModFluffBlocks.pavement, 3, 2), LibOreDict.LIVING_ROCK, "cobblestone", "gravel", new ItemStack(Items.dye, 1, 4));
 		addShapelessOreDictRecipe(new ItemStack(ModFluffBlocks.pavement, 3, 3), LibOreDict.LIVING_ROCK, "cobblestone", "gravel", new ItemStack(Items.redstone));
-		recipesPavement = BotaniaAPI.getLatestAddedRecipes(4);
+		addShapelessOreDictRecipe(new ItemStack(ModFluffBlocks.pavement, 3, 4), LibOreDict.LIVING_ROCK, "cobblestone", "gravel", new ItemStack(Items.wheat));
+		addShapelessOreDictRecipe(new ItemStack(ModFluffBlocks.pavement, 3, 5), LibOreDict.LIVING_ROCK, "cobblestone", "gravel", new ItemStack(Items.slime_ball));
+		recipesPavement = BotaniaAPI.getLatestAddedRecipes(6);
 		
 		// Cellular Block Recipe
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.cellBlock, 3), new ItemStack(Blocks.cactus), new ItemStack(Blocks.cactus), new ItemStack(Blocks.cactus), new ItemStack(Blocks.cactus), new ItemStack(Items.carrot), new ItemStack(Items.potato));
@@ -2098,7 +2100,7 @@ public final class ModCraftingRecipes {
 		}
 
 		// Pavement Stairsm & Stairs
-		for(int i = 0; i < 4; i++)
+		for(int i = 0; i < ModFluffBlocks.pavementStairs.length; i++)
 			addStairsAndSlabs(ModFluffBlocks.pavement, i, ModFluffBlocks.pavementStairs[i], ModFluffBlocks.pavementSlabs[i]);
 		
 		// Misc Recipes

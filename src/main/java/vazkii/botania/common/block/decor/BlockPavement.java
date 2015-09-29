@@ -40,7 +40,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockPavement extends BlockMod {
 
-	private static final int TYPES = 4;
+	public static final int TYPES = 6;
 	IIcon[] icons;
 
 	public BlockPavement() {

@@ -383,9 +383,9 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModFluffBlocks.biomeStoneWall);
 		
 		addBlock(ModFluffBlocks.pavement);
-		for(int i = 0; i < 4; i++)
+		for(int i = 0; i < ModFluffBlocks.pavementStairs.length; i++)
 			addBlock(ModFluffBlocks.pavementStairs[i]);
-		for(int i = 0; i < 4; i++)
+		for(int i = 0; i < ModFluffBlocks.pavementSlabs.length; i++)
 			addBlock(ModFluffBlocks.pavementSlabs[i]);
 
 		if(ConfigHandler.enderStuff19Enabled) {
