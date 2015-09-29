@@ -23,18 +23,23 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemReed;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.ISpecialFlower;
+import vazkii.botania.api.subtile.ISubTileContainer;
 import vazkii.botania.api.subtile.RadiusDescriptor;
+import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.block.decor.IFloatingFlower;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibObfuscation;
 import cpw.mods.fml.relauncher.ReflectionHelper;
@@ -103,15 +108,21 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 						else if(stackItem instanceof ItemReed)
 							blockToPlace = ReflectionHelper.getPrivateValue(ItemReed.class, (ItemReed) stackItem, LibObfuscation.REED_ITEM);
 						if(blockToPlace != null) {
-							if(blockToPlace instanceof ISpecialFlower)
-								return;
-
 							ChunkCoordinates coords = validPositions.get(supertile.getWorldObj().rand.nextInt(validPositions.size()));
 							if(blockToPlace.canPlaceBlockAt(supertile.getWorldObj(), coords.posX, coords.posY, coords.posZ)) {
 								supertile.getWorldObj().setBlock(coords.posX, coords.posY, coords.posZ, blockToPlace, stack.getItemDamage(), 1 | 2);
 								if(ConfigHandler.blockBreakParticles)
 									supertile.getWorldObj().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(blockToPlace) + (stack.getItemDamage() << 12));
 								validPositions.remove(coords);
+								
+								TileEntity tile = supertile.getWorldObj().getTileEntity(coords.posX, coords.posY, coords.posZ);
+								if(tile != null && tile instanceof ISubTileContainer) {
+									ISubTileContainer container = (ISubTileContainer) tile;
+									String subtileName = ItemBlockSpecialFlower.getType(stack);
+									container.setSubTile(subtileName);
+									SubTileEntity subtile = container.getSubTile();
+									subtile.onBlockPlacedBy(supertile.getWorldObj(), coords.posX, coords.posY, coords.posZ, null, stack);
+								}
 
 								if(!supertile.getWorldObj().isRemote) {
 									stack.stackSize--;
