@@ -15,6 +15,9 @@ import vazkii.botania.common.block.decor.Block18Stone;
 import vazkii.botania.common.block.decor.BlockPavement;
 import vazkii.botania.common.block.decor.biomestone.BlockBiomeStoneA;
 import vazkii.botania.common.block.decor.biomestone.BlockBiomeStoneB;
+import vazkii.botania.common.block.decor.panes.BlockAlfglassPane;
+import vazkii.botania.common.block.decor.panes.BlockBifrostPane;
+import vazkii.botania.common.block.decor.panes.BlockManaglassPane;
 import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartz;
 import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartzSlab;
 import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartzStairs;
@@ -183,6 +186,10 @@ public final class ModFluffBlocks {
 	public static Block enderBrickSlab;
 	public static Block enderBrickSlabFull;
 	public static Block enderBrickStairs;
+	
+	public static Block managlassPane;
+	public static Block alfglassPane;
+	public static Block bifrostPane;
 
 	public static void init() {
 		livingwoodStairs = new BlockLivingwoodStairs();
@@ -309,6 +316,10 @@ public final class ModFluffBlocks {
 		enderBrickSlabFull = new BlockEnderBrickSlab(true);
 		enderBrickStairs = new BlockEnderBrickStairs();
 
+		managlassPane = new BlockManaglassPane();
+		alfglassPane = new BlockAlfglassPane();
+		bifrostPane = new BlockBifrostPane();
+		
 		if(ConfigHandler.darkQuartzEnabled) {
 			((BlockModSlab) darkQuartzSlab).register();
 			((BlockModSlab) darkQuartzSlabFull).register();

@@ -50,6 +50,7 @@ import vazkii.botania.api.wiki.IWikiProvider;
 import vazkii.botania.api.wiki.WikiHooks;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
@@ -145,10 +146,9 @@ public final class HUDHandler {
 				profiler.endSection();
 			}*/
 			
-			ItemStack amulet = PlayerHandler.getPlayerBaubles(mc.thePlayer).getStackInSlot(0);
-			if(amulet != null && amulet.getItem() == ModItems.monocle) {
+			if(Botania.proxy.isClientPlayerWearingMonocle()) {
 				profiler.startSection("monocle");
-				ItemMonocle.renderHUD(event.resolution, mc.thePlayer, amulet);
+				ItemMonocle.renderHUD(event.resolution, mc.thePlayer);
 				profiler.endSection();
 			}
 

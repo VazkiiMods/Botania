@@ -84,6 +84,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.openBucket);
 		addItem(ModItems.rainbowRod);
 		addBlock(ModBlocks.bifrostPerm);
+		addBlock(ModFluffBlocks.bifrostPane);
 		addItem(ModItems.tornadoRod);
 		addItem(ModItems.fireRod);
 		addItem(ModItems.smeltRod);
@@ -152,8 +153,10 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 
 		addBlock(ModBlocks.dreamwood);
 		addBlock(ModBlocks.manaGlass);
+		addBlock(ModFluffBlocks.managlassPane);
 		addBlock(ModBlocks.elfGlass);
-
+		addBlock(ModFluffBlocks.alfglassPane);
+		
 		addItem(ModItems.glassPick);
 		addItem(ModItems.manasteelPick);
 		addItem(ModItems.manasteelShovel);

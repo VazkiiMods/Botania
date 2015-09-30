@@ -2083,6 +2083,11 @@ public final class ModCraftingRecipes {
 		for(int i = 0; i < 4; i++)
 			addWall(ModFluffBlocks.stone, i, ModFluffBlocks.stoneWall, i);
 
+		// Pane Recipes
+		addPane(ModBlocks.manaGlass, ModFluffBlocks.managlassPane);
+		addPane(ModBlocks.elfGlass, ModFluffBlocks.alfglassPane);
+		addPane(ModBlocks.bifrostPerm, ModFluffBlocks.bifrostPane);
+		
 		// Biome Stone Recipes
 		for(int i = 0; i < 8; i++) {
 			GameRegistry.addSmelting(new ItemStack(ModFluffBlocks.biomeStoneA, 1, i + 8), new ItemStack(ModFluffBlocks.biomeStoneA, 1, i), 0.1F);
@@ -2168,6 +2173,12 @@ public final class ModCraftingRecipes {
 		GameRegistry.addRecipe(new ItemStack(wall, 6, wallMeta),
 				"BBB", "BBB",
 				'B', new ItemStack(block, 1, blockMeta));
+	}
+	
+	private static void addPane(Block block, Block pane) {
+		GameRegistry.addRecipe(new ItemStack(pane, 16),
+				"BBB", "BBB",
+				'B', new ItemStack(block, 1));
 	}
 
 	private static IRecipe addQuartzRecipes(int meta, Item req, Block block, Block stairs, Block slab) {

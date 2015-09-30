@@ -20,23 +20,25 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityNote;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 
 import org.lwjgl.opengl.GL11;
 
-import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.item.IBurstViewerBauble;
+import vazkii.botania.api.item.ICosmeticAttachable;
+import vazkii.botania.api.item.ICosmeticBauble;
 import vazkii.botania.common.lib.LibItemNames;
 import baubles.api.BaubleType;
+import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, IBaubleRender {
+public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosmeticBauble {
 
 	private static final String[] NOTES = new String[] {
 		"F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#",
@@ -71,7 +73,7 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, IBaub
 	}
 	
 	@SideOnly(Side.CLIENT)
-	public static void renderHUD(ScaledResolution resolution, EntityPlayer player, ItemStack stack) {
+	public static void renderHUD(ScaledResolution resolution, EntityPlayer player) {
 		Minecraft mc = Minecraft.getMinecraft();
 		MovingObjectPosition pos = mc.objectMouseOver;
 		if(pos == null)
@@ -105,6 +107,26 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, IBaub
 		net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 		
 		mc.fontRenderer.drawStringWithShadow(text, x + 20, y + 4, 0xFFFFFF);
+	}
+	
+	public static boolean hasMonocle(EntityPlayer player) {
+		for(int i = 0; i < 4; i++) {
+			ItemStack stack = PlayerHandler.getPlayerBaubles(player).getStackInSlot(i);
+			if(stack != null) {
+				Item item = stack.getItem();
+				if(item instanceof IBurstViewerBauble)
+					return true;
+				
+				if(item instanceof ICosmeticAttachable) {
+					ICosmeticAttachable attach = (ICosmeticAttachable) item;
+					ItemStack cosmetic = attach.getCosmeticItem(stack);
+					if(cosmetic != null && cosmetic.getItem() instanceof IBurstViewerBauble)
+						return true;
+				}
+			}
+		}
+		
+		return false;
 	}
 
 }

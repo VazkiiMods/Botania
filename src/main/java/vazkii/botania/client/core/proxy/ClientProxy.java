@@ -158,6 +158,7 @@ import vazkii.botania.common.entity.EntitySpark;
 import vazkii.botania.common.entity.EntityThornChakram;
 import vazkii.botania.common.entity.EntityVineBall;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.lib.LibObfuscation;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
@@ -348,10 +349,7 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public boolean isClientPlayerWearingMonocle() {
-		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-		InventoryBaubles inv = PlayerHandler.getPlayerBaubles(player);
-		ItemStack stack = inv.getStackInSlot(0);
-		return stack != null && stack.getItem() instanceof IBurstViewerBauble;
+		return ItemMonocle.hasMonocle(Minecraft.getMinecraft().thePlayer);
 	}
 
 	@Override
