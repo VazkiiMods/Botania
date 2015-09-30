@@ -19,8 +19,10 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemRedstone;
 import net.minecraft.item.ItemReed;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -83,7 +85,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 
 				ItemStack stack = item.getEntityItem();
 				Item stackItem = stack.getItem();
-				if(stackItem instanceof ItemBlock || stackItem instanceof ItemReed) {
+				if(stackItem instanceof ItemBlock || stackItem instanceof ItemReed || stackItem instanceof ItemRedstone) {
 					if(!scanned) {
 						for(int i = -rangePlace; i < rangePlace + 1; i++)
 							for(int j = -rangePlaceY; j < rangePlaceY + 1; j++)
@@ -107,6 +109,9 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 							blockToPlace = ((ItemBlock) stackItem).field_150939_a;
 						else if(stackItem instanceof ItemReed)
 							blockToPlace = ReflectionHelper.getPrivateValue(ItemReed.class, (ItemReed) stackItem, LibObfuscation.REED_ITEM);
+						else if(stackItem instanceof ItemRedstone)
+							blockToPlace = Blocks.redstone_wire;
+						
 						if(blockToPlace != null) {
 							ChunkCoordinates coords = validPositions.get(supertile.getWorldObj().rand.nextInt(validPositions.size()));
 							if(blockToPlace.canPlaceBlockAt(supertile.getWorldObj(), coords.posX, coords.posY, coords.posZ)) {
