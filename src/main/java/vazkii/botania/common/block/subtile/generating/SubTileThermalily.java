@@ -11,6 +11,7 @@
 package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.Botania;
@@ -44,10 +45,10 @@ public class SubTileThermalily extends SubTileHydroangeas {
 	}
 
 	@Override
-	public Block getBlockToSearchFor() {
-		return Blocks.lava;
+	public Material getMaterialToSearchFor() {
+		return Material.lava;
 	}
-
+	
 	@Override
 	public void playSound() {
 		supertile.getWorldObj().playSoundEffect(supertile.xCoord, supertile.yCoord, supertile.zCoord, "botania:thermalily", 0.2F, 1F);

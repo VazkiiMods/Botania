@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -62,14 +63,14 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 							supertile.zCoord + offsetArray[1]
 					};
 
-					Block search = getBlockToSearchFor();
-					if(supertile.getWorldObj().getBlock(positions[0], supertile.yCoord, positions[1]) == search && (getBlockToSearchBelow() == null || supertile.getWorldObj().getBlock(positions[0], supertile.yCoord - 1, positions[1]) == getBlockToSearchBelow()) && supertile.getWorldObj().getBlockMetadata(positions[0], supertile.yCoord, positions[1]) == 0) {
-						if(search != Blocks.water)
+					Material search = getMaterialToSearchFor();
+					if(supertile.getWorldObj().getBlock(positions[0], supertile.yCoord, positions[1]).getMaterial() == search && (getBlockToSearchBelow() == null || supertile.getWorldObj().getBlock(positions[0], supertile.yCoord - 1, positions[1]) == getBlockToSearchBelow()) && supertile.getWorldObj().getBlockMetadata(positions[0], supertile.yCoord, positions[1]) == 0) {
+						if(search != Material.water)
 							supertile.getWorldObj().setBlockToAir(positions[0], supertile.yCoord, positions[1]);
 						else {
 							int waterAround = 0;
 							for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS)
-								if(supertile.getWorldObj().getBlock(positions[0] + dir.offsetX, supertile.yCoord, positions[1] + dir.offsetZ) == search)
+								if(supertile.getWorldObj().getBlock(positions[0] + dir.offsetX, supertile.yCoord, positions[1] + dir.offsetZ).getMaterial() == search)
 									waterAround++;
 
 							if(waterAround < 2)
@@ -122,8 +123,8 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 		Botania.proxy.wispFX(supertile.getWorldObj(), supertile.xCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.yCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.zCoord + 0.5, 0.05F, 0.05F, 0.7F, (float) Math.random() / 6, (float) -Math.random() / 60);
 	}
 
-	public Block getBlockToSearchFor() {
-		return Blocks.water;
+	public Material getMaterialToSearchFor() {
+		return Material.water;
 	}
 
 	public Block getBlockToSearchBelow() {
