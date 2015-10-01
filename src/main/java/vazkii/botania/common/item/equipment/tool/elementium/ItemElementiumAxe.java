@@ -6,6 +6,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
@@ -41,7 +42,7 @@ public class ItemElementiumAxe extends ItemManasteelAxe {
 
 				if(event.entityLiving instanceof EntitySkeleton && rand.nextInt(26) <= 3 + looting)
 					addDrop(event, new ItemStack(Items.skull, 1, ((EntitySkeleton)event.entityLiving).getSkeletonType()));
-				else if(event.entityLiving instanceof EntityZombie && rand.nextInt(26) <= 2 + 2 * looting)
+				else if(event.entityLiving instanceof EntityZombie && !(event.entityLiving instanceof EntityPigZombie) && rand.nextInt(26) <= 2 + 2 * looting)
 					addDrop(event, new ItemStack(Items.skull, 1, 2));
 				else if(event.entityLiving instanceof EntityCreeper && rand.nextInt(26) <= 2 + 2 * looting)
 					addDrop(event, new ItemStack(Items.skull, 1, 4));
