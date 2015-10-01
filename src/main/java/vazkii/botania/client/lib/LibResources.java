@@ -111,6 +111,7 @@ public final class LibResources {
 	public static final String MODEL_HOURGLASS = PREFIX_MODEL + "hourglass.png";
 	public static final String MODEL_COCOON = PREFIX_MODEL + "cocoon.png";
 	public static final String MODEL_BELLOWS = PREFIX_MODEL + "bellows.png";
+	public static final String MODEL_TERU_TERU_BOZU = PREFIX_MODEL + "teruTeruBozu.png";
 
 	public static final String MISC_PARTICLES = PREFIX_MISC + "particles.png";
 	public static final String MISC_WISP_LARGE = PREFIX_MISC + "wispLarge.png";

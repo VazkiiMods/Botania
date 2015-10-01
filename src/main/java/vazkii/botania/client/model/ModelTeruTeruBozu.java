@@ -10,6 +10,7 @@
  */
 package vazkii.botania.client.model;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
@@ -41,10 +42,11 @@ public class ModelTeruTeruBozu extends ModelBase {
         this.setRotateAngle(cloth, 0.7853981633974483F, 2.2689280275926285F, 1.5707963267948966F);
     }
 
-    @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
-        this.sadFace.render(f5);
-        this.happyFace.render(f5);
+    public void render() {
+    	float f5 = 1F / 16F;
+    	if(Minecraft.getMinecraft().theWorld.isRaining())
+    		this.sadFace.render(f5);
+    	else this.happyFace.render(f5);
         this.thread.render(f5);
         this.cloth.render(f5);
     }

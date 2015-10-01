@@ -30,5 +30,6 @@ public final class LibRenderIDs {
 	public static int idCocoon = -1;
 	public static int idLightRelay = -1;
 	public static int idBellows = -1;
+	public static int idTeruTeruBozu = -1;
 
 }

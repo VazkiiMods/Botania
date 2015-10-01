@@ -101,6 +101,7 @@ public final class LibBlockNames {
 	public static final String CELL_BLOCK = "cellBlock";
 	public static final String GAIA_HEAD = "gaiaHeadBlock";
 	public static final String CORPOREA_RETAINER = "corporeaRetainer";
+	public static final String TERU_TERU_BOZU = "teruTeruBozu";
 
 	public static final String SUBTILE_PUREDAISY = "puredaisy";
 	public static final String SUBTILE_MANASTAR = "manastar";

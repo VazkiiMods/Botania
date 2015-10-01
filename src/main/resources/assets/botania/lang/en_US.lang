@@ -1139,6 +1139,7 @@ tile.botania:corporeaRetainer.name=Corporea Retainer
 tile.botania:manaGlassPane.name=Managlass Pane
 tile.botania:elfGlassPane.name=Alfglass Pane
 tile.botania:bifrostPermPane.name=Bifrost Pane
+tile.botania:teruTeruBozu.name=Teru Teru Bozu
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower

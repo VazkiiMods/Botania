@@ -142,6 +142,7 @@ import vazkii.botania.common.block.tile.TileSpawnerClaw;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.block.tile.TileStarfield;
 import vazkii.botania.common.block.tile.TileTerraPlate;
+import vazkii.botania.common.block.tile.TileTeruTeruBozu;
 import vazkii.botania.common.block.tile.TileTinyPlanet;
 import vazkii.botania.common.block.tile.TileTinyPotato;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
@@ -258,6 +259,7 @@ public final class ModBlocks {
 	public static Block redStringInterceptor;
 	public static Block gaiaHead;
 	public static Block corporeaRetainer;
+	public static Block teruTeruBozu;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -345,6 +347,7 @@ public final class ModBlocks {
 		redStringInterceptor = new BlockRedStringInterceptor();
 		gaiaHead = new BlockGaiaHead();
 		corporeaRetainer = new BlockCorporeaRetainer();
+		teruTeruBozu = new BlockTeruTeruBozu();
 		
 		ModFluffBlocks.init();
 
@@ -445,6 +448,7 @@ public final class ModBlocks {
 		registerTile(TileRedStringInterceptor.class, LibBlockNames.RED_STRING_INTERCEPTOR);
 		registerTile(TileGaiaHead.class, LibBlockNames.GAIA_HEAD);
 		registerTile(TileCorporeaRetainer.class, LibBlockNames.CORPOREA_RETAINER);
+		registerTile(TileTeruTeruBozu.class, LibBlockNames.TERU_TERU_BOZU);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MANASTAR, SubTileManastar.class);
