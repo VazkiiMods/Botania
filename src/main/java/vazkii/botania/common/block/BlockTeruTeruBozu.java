@@ -21,11 +21,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import vazkii.botania.api.lexicon.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.TileTeruTeruBozu;
+import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockTeruTeruBozu extends BlockModContainer {
+public class BlockTeruTeruBozu extends BlockModContainer implements ILexiconable {
 
 	public BlockTeruTeruBozu() {
 		super(Material.cloth);
@@ -108,6 +111,11 @@ public class BlockTeruTeruBozu extends BlockModContainer {
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileTeruTeruBozu();
+	}
+
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return LexiconData.teruTeruBozu;
 	}
 
 }

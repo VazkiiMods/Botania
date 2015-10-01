@@ -2660,6 +2660,11 @@ botania.entry.manaBomb=Manastorm Charge
 botania.page.manaBomb0=Putting together some &1TNT&0 and a &1Gaia Spirit&0 creates a &1Manastorm Charge&0, a type of explosive, per say. Ignited with a &1Mana Burst&0, the charge will create an unstable &1Manastorm Epicenter&0, which will, over time, spawn supercharged &1Mana Bursts&0, that explode on contact with other blocks.<br>Needless to say, only a maniac would unleash such a force near anything they care about.
 botania.page.manaBomb1=Prepare to face the mighty...
 
+# -- TERU TERU BOZU
+botania.entry.teruTeruBozu=Teru Teru Bozu
+botania.page.teruTeruBozu0=&1Teru Teru Bozu&0 are known as amulets that can ward away bad weather. Simply creating one of these and placing it in the world will decrease the amount of time that &1Rain&0 or &1Snowstorms&0 will last for. During bad weather, right clicking one with a &1Sunflower&0 or tossing said flower at it will have sun come back. Attaching a &1Redstone Comparator&0 to one of these allows for it to detect bad weather.
+botania.page.teruTeruBozu1=Too spoopy
+
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
 botania.entry.manaBlaster=Mana Blaster

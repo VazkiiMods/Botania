@@ -297,7 +297,8 @@ public final class ModCraftingRecipes {
 	public static List<IRecipe> recipesPavement;
 	public static IRecipe recipeCellBlock;
 	public static IRecipe recipeCorporeaRetainer;
-
+	public static IRecipe recipeTeruTeruBozu;
+	
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;
 	public static IRecipe recipeRootToFertilizer;
@@ -2007,6 +2008,13 @@ public final class ModCraftingRecipes {
 		// Corporea Retainer Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModBlocks.corporeaRetainer), new ItemStack(Blocks.chest), new ItemStack(ModItems.corporeaSpark));
 		recipeCorporeaRetainer = BotaniaAPI.getLatestAddedRecipe();
+		
+		// Teru Teru Bozu Recipe
+		addOreDictRecipe(new ItemStack(ModBlocks.teruTeruBozu),
+				"C", "C", "S",
+				'C', LibOreDict.MANAWEAVE_CLOTH,
+				'S', new ItemStack(Blocks.double_plant));
+		recipeTeruTeruBozu = BotaniaAPI.getLatestAddedRecipe();
 		
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
