@@ -179,14 +179,14 @@ public final class ModFluffBlocks {
 	public static Block[] pavementStairs = new Block[BlockPavement.TYPES];
 	public static Block[] pavementSlabs = new Block[BlockPavement.TYPES];
 	public static Block[] pavementFullSlabs = new Block[BlockPavement.TYPES];
-	
+
 	public static Block endStoneSlab;
 	public static Block endStoneSlabFull;
 	public static Block endStoneStairs;
 	public static Block enderBrickSlab;
 	public static Block enderBrickSlabFull;
 	public static Block enderBrickStairs;
-	
+
 	public static Block managlassPane;
 	public static Block alfglassPane;
 	public static Block bifrostPane;
@@ -250,7 +250,7 @@ public final class ModFluffBlocks {
 		biomeStoneB = new BlockBiomeStoneB();
 		stone = new Block18Stone();
 		pavement = new BlockPavement();
-		
+
 		if(ConfigHandler.darkQuartzEnabled) {
 			darkQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_DARK);
 			darkQuartzSlab = new BlockSpecialQuartzSlab(darkQuartz, false);
@@ -308,7 +308,7 @@ public final class ModFluffBlocks {
 			pavementSlabs[i] = new BlockPavementSlab(false, i, i);
 			pavementFullSlabs[i] = new BlockPavementSlab(true, i, i);
 		}
-		
+
 		endStoneSlab = new BlockEndStoneSlab(false);
 		endStoneSlabFull = new BlockEndStoneSlab(true);
 		endStoneStairs = new BlockEndStoneStairs();
@@ -319,7 +319,7 @@ public final class ModFluffBlocks {
 		managlassPane = new BlockManaglassPane();
 		alfglassPane = new BlockAlfglassPane();
 		bifrostPane = new BlockBifrostPane();
-		
+
 		if(ConfigHandler.darkQuartzEnabled) {
 			((BlockModSlab) darkQuartzSlab).register();
 			((BlockModSlab) darkQuartzSlabFull).register();
@@ -388,7 +388,7 @@ public final class ModFluffBlocks {
 			((BlockModSlab) stoneSlabs[i]).register();
 			((BlockModSlab) stoneFullSlabs[i]).register();
 		}
-		
+
 		for(int i = 0; i < pavementSlabs.length; i++) {
 			((BlockModSlab) pavementSlabs[i]).register();
 			((BlockModSlab) pavementFullSlabs[i]).register();

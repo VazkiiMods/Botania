@@ -56,7 +56,7 @@ public class EntityPinkWither extends EntityWither {
 		if(!player.isSneaking()) {
 			player.mountEntity(this);
 			return true;
-		} 
+		}
 		return false;
 	}
 

@@ -21,5 +21,5 @@ public interface ICorporeaRequestor {
 	 * Executes the passed in request.
 	 */
 	public void doCorporeaRequest(Object request, int count, ICorporeaSpark spark);
-	
+
 }

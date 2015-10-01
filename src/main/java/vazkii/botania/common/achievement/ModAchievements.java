@@ -33,7 +33,7 @@ public final class ModAchievements {
 	public static Achievement daybloomPickup;
 	public static Achievement cacophoniumCraft;
 	public static Achievement manaPoolPickup;
-	
+
 	public static Achievement endoflamePickup;
 	public static Achievement tinyPotatoPet;
 	public static Achievement sparkCraft;
@@ -44,32 +44,32 @@ public final class ModAchievements {
 	public static Achievement manaCartCraft;
 	public static Achievement enchanterMake;
 	public static Achievement runePickup;
-	
+
 	public static Achievement dirtRodCraft;
 	public static Achievement terraformRodCraft;
 	public static Achievement manaBlasterShoot;
 	public static Achievement pollidisiacPickup;
 	public static Achievement brewPickup;
 	public static Achievement terrasteelPickup;
-	
+
 	public static Achievement terrasteelWeaponCraft;
 	public static Achievement elfPortalOpen;
-	
+
 	public static Achievement kekimurusPickup;
 	public static Achievement heiseiDreamPickup;
 	public static Achievement bubbellPickup;
 	public static Achievement luminizerRide;
-	
+
 	public static Achievement enderAirMake;
 	public static Achievement corporeaCraft;
-	
+
 	public static Achievement gaiaGuardianKill;
-	
+
 	public static Achievement spawnerMoverUse;
 	public static Achievement tiaraWings;
 	public static Achievement manaBombIgnite;
 	public static Achievement dandelifeonPickup;
-	
+
 	public static Achievement signalFlareStun;
 	public static Achievement l20ShardUse;
 	public static Achievement gaiaGuardianNoArmor;
@@ -129,7 +129,7 @@ public final class ModAchievements {
 		tiaraWings = new AchievementMod(LibAchievementNames.TIARA_WINGS, -1, 8, ModItems.flightTiara, gaiaGuardianKill);
 		manaBombIgnite = new AchievementMod(LibAchievementNames.MANA_BOMB_IGNITE, 0, 11, ModBlocks.manaBomb, gaiaGuardianKill);
 		dandelifeonPickup = new AchievementMod(LibAchievementNames.DANDELIFEON_PICKUP, 0, 7, ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_DANDELIFEON), gaiaGuardianKill);
-		
+
 		signalFlareStun = new AchievementMod(LibAchievementNames.SIGNAL_FLARE_STUN, -3, 1, ModItems.signalFlare, null).setSpecial();
 		l20ShardUse = new AchievementMod(LibAchievementNames.L20_SHARD_USE, -5, 3, ModItems.laputaShard, null).setSpecial();
 		gaiaGuardianNoArmor = new AchievementMod(LibAchievementNames.GAIA_GUARDIAN_NO_ARMOR, -5, 1, new ItemStack(Items.skull, 1, 3), null).setSpecial();

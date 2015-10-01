@@ -29,7 +29,7 @@ public final class ConfigHandler {
 	private static final String CATEGORY_POTIONS = "potions";
 
 	public static final int hardcorePassiveGeneration = 72000;
-	
+
 	public static boolean useShaders = true;
 	public static boolean lexiconRotatingItems = true;
 	public static boolean lexiconJustifiedText = false;
@@ -75,7 +75,7 @@ public final class ConfigHandler {
 
 	private static boolean verifiedPotionArray = false;
 	private static int potionArrayLimit = 0;
-	
+
 	public static int potionIDSoulCross = 91;
 	public static int potionIDFeatherfeet = 92;
 	public static int potionIDEmptiness = 93;
@@ -248,7 +248,7 @@ public final class ConfigHandler {
 	public static int loadPropPotionId(String propName, int default_) {
 		if(!verifiedPotionArray)
 			verifyPotionArray();
-		
+
 		Property prop = config.get(CATEGORY_POTIONS, propName, default_);
 		int val = prop.getInt(default_);
 		if(val > potionArrayLimit) {
@@ -258,7 +258,7 @@ public final class ConfigHandler {
 
 		return val;
 	}
-	
+
 	private static void verifyPotionArray() {
 		if(Loader.isModLoaded("DragonAPI"))
 			potionArrayLimit = Potion.potionTypes.length;

@@ -348,7 +348,7 @@ public final class ModBlocks {
 		gaiaHead = new BlockGaiaHead();
 		corporeaRetainer = new BlockCorporeaRetainer();
 		teruTeruBozu = new BlockTeruTeruBozu();
-		
+
 		ModFluffBlocks.init();
 
 		for(int i = 0; i < 16; i++)
@@ -493,7 +493,7 @@ public final class ModBlocks {
 		registerSubTileWithMini(LibBlockNames.SUBTILE_BUBBELL, SubTileBubbell.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_SOLEGNOLIA, SubTileSolegnolia.class);
 	}
-	
+
 	public static void registerMultiparts() {
 		if(Loader.isModLoaded("ForgeMultipart")) {
 			try {
@@ -510,12 +510,12 @@ public final class ModBlocks {
 			if(innerClazz.getSimpleName().equals("Mini"))
 				BotaniaAPI.registerMiniSubTile(key + "Chibi", innerClazz, key);
 	}
-	
+
 	private static void registerSubTileWithDecor(String key, Class<? extends SubTileEntity> clazz, Class<? extends SubTileEntity> decor) {
 		BotaniaAPI.registerSubTile(key, clazz);
 		BotaniaAPI.registerMiniSubTile(key + "Decor", decor, key);
 	}
-	
+
 	private static void registerTile(Class<? extends TileEntity> clazz, String key) {
 		GameRegistry.registerTileEntity(clazz, LibResources.PREFIX_MOD + key);
 	}

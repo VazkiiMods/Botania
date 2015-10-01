@@ -10,15 +10,7 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import vazkii.botania.api.subtile.SubTileGenerating;
-import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 public class SubTilePassiveGenerating extends SubTileGenerating {
 

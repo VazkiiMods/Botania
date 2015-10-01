@@ -10,16 +10,15 @@
  */
 package vazkii.botania.common.block.decor.panes;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import vazkii.botania.client.render.block.InterpolatedIcon;
-import vazkii.botania.common.block.ModBlocks;
-import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
+import vazkii.botania.client.render.block.InterpolatedIcon;
+import vazkii.botania.common.block.ModBlocks;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockBifrostPane extends BlockModPane {
 
@@ -27,7 +26,7 @@ public class BlockBifrostPane extends BlockModPane {
 		super(ModBlocks.bifrostPerm);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
-	
+
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void loadTextures(TextureStitchEvent.Pre event) {
@@ -37,7 +36,7 @@ public class BlockBifrostPane extends BlockModPane {
 				iconTop = icon;
 		}
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {

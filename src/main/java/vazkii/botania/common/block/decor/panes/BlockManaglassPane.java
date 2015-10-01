@@ -11,7 +11,6 @@
 package vazkii.botania.common.block.decor.panes;
 
 import vazkii.botania.common.block.ModBlocks;
-import net.minecraft.block.Block;
 
 public class BlockManaglassPane extends BlockModPane {
 

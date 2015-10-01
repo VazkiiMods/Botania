@@ -25,8 +25,8 @@ import vazkii.botania.common.entity.EntityDoppleganger;
 
 public class RenderDoppleganger extends RenderBiped {
 
-	public static float DEFAULT_GRAIN_INTENSITY = 0.05F; 
-	public static float DEFAULT_DISFIGURATION = 0.025F; 
+	public static float DEFAULT_GRAIN_INTENSITY = 0.05F;
+	public static float DEFAULT_DISFIGURATION = 0.025F;
 
 	public static float grainIntensity = DEFAULT_GRAIN_INTENSITY;
 	public static float disfiguration = DEFAULT_DISFIGURATION;
@@ -44,7 +44,7 @@ public class RenderDoppleganger extends RenderBiped {
 			ARBShaderObjects.glUniform1fARB(grainIntensityUniform, grainIntensity);
 		}
 	};
-	
+
 	public static ShaderCallback defaultCallback = new ShaderCallback() {
 
 		@Override

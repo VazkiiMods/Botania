@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.block.string;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -26,6 +24,8 @@ import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.lexicon.LexiconData;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class BlockRedString extends BlockModContainer<TileRedString> implements ILexiconable {
 

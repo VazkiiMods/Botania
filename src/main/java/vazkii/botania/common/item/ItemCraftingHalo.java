@@ -84,7 +84,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 		MinecraftForge.EVENT_BUS.register(this);
 		FMLCommonHandler.instance().bus().register(this);
 	}
-	
+
 	public ItemCraftingHalo(String name) {
 		setUnlocalizedName(name);
 		setMaxStackSize(1);
@@ -105,7 +105,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 
 		return stack;
 	}
-	
+
 	public static IInventory getFakeInv(EntityPlayer player) {
 		GenericInventory tempInv = new GenericInventory("temp", false, player.inventory.getSizeInventory() - 4);
 		tempInv.copyFrom(player.inventory);
@@ -130,7 +130,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 		ItemStack itemForPos = getItemForSlot(stack, slot);
 		if(itemForPos == null)
 			return;
-		
+
 		ItemStack[] recipe = getCraftingItems(stack, slot);
 		if(validate)
 			recipe = validateRecipe(player, stack, recipe, slot);
@@ -164,7 +164,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 
 		if(recipe[9].stackSize != InventoryHelper.testInventoryInsertion(inv, recipe[9], ForgeDirection.UNKNOWN))
 			return false;
-		
+
 		return consumeRecipeIngredients(recipe, inv, null);
 	}
 
@@ -173,9 +173,9 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 		if(!player.inventory.addItemStackToInventory(recipe[9]))
 			player.dropPlayerItemWithRandomChoice(recipe[9], false);
 
-		if(!particles) 
+		if(!particles)
 			return;
-		
+
 		Vec3 lookVec3 = player.getLookVec();
 		Vector3 centerVector = Vector3.fromEntityCenter(player).add(lookVec3.xCoord * 3, 1.3, lookVec3.zCoord * 3);
 		float m = 0.1F;
@@ -517,7 +517,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 	public ResourceLocation getGlowResource() {
 		return glowTexture;
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	public static void renderHUD(ScaledResolution resolution, EntityPlayer player, ItemStack stack) {
 		Minecraft mc = Minecraft.getMinecraft();

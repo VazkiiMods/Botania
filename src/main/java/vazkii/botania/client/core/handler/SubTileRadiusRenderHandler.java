@@ -44,7 +44,7 @@ public final class SubTileRadiusRenderHandler {
 		int x = pos.blockX;
 		int y = pos.blockY;
 		int z = pos.blockZ;
-		
+
 		ItemStack stackHeld = mc.thePlayer.getCurrentEquippedItem();
 		if(stackHeld != null && stackHeld.getItem() == ModItems.twigWand && ItemTwigWand.getBindMode(stackHeld)) {
 			ChunkCoordinates coords = ItemTwigWand.getBoundTile(stackHeld);
@@ -54,7 +54,7 @@ public final class SubTileRadiusRenderHandler {
 				z = coords.posZ;
 			}
 		}
-		
+
 		TileEntity tile = mc.theWorld.getTileEntity(x, y, z);
 		if(tile == null || !(tile instanceof ISubTileContainer))
 			return;

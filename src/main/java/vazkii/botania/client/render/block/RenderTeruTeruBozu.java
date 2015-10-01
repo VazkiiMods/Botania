@@ -18,7 +18,6 @@ import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.lib.LibRenderIDs;
-import vazkii.botania.common.block.tile.TileHourglass;
 import vazkii.botania.common.block.tile.TileTeruTeruBozu;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 

@@ -22,7 +22,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraftforge.client.event.RenderPlayerEvent;
@@ -40,11 +39,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosmeticBauble {
 
-	private static final String[] NOTES = new String[] {
-		"F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#",
-		"F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#"
-	};
-	
 	public ItemMonocle() {
 		super(LibItemNames.MONOCLE);
 	}
@@ -71,7 +65,7 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 			ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, itemIcon.getIconWidth(), itemIcon.getIconHeight(), 1F / 16F);
 		}
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	public static void renderHUD(ScaledResolution resolution, EntityPlayer player) {
 		Minecraft mc = Minecraft.getMinecraft();
@@ -80,11 +74,11 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 			return;
 		Block block = player.worldObj.getBlock(pos.blockX, pos.blockY, pos.blockZ);
 		int meta = player.worldObj.getBlockMetadata(pos.blockX, pos.blockY, pos.blockZ);
-		TileEntity tile = player.worldObj.getTileEntity(pos.blockX, pos.blockY, pos.blockZ);
-		
+		player.worldObj.getTileEntity(pos.blockX, pos.blockY, pos.blockZ);
+
 		ItemStack dispStack = null;
 		String text = "";
-		
+
 		if(block == Blocks.redstone_wire) {
 			dispStack = new ItemStack(Items.redstone);
 			text = EnumChatFormatting.RED + "" + meta;
@@ -93,22 +87,22 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 			text = "" + (((meta & 12) >> 2) + 1);
 		} else if(block == Blocks.unpowered_comparator || block == Blocks.powered_comparator) {
 			dispStack = new ItemStack(Items.comparator);
-			text = ((meta & 4) == 4) ? "-" : "+";
+			text = (meta & 4) == 4 ? "-" : "+";
 		}
-		
+
 		if(dispStack == null)
 			return;
-		
+
 		int x = resolution.getScaledWidth() / 2 + 15;
 		int y = resolution.getScaledHeight() / 2 - 8;
-		
+
 		net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 		RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, dispStack, x, y);
 		net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
-		
+
 		mc.fontRenderer.drawStringWithShadow(text, x + 20, y + 4, 0xFFFFFF);
 	}
-	
+
 	public static boolean hasMonocle(EntityPlayer player) {
 		for(int i = 0; i < 4; i++) {
 			ItemStack stack = PlayerHandler.getPlayerBaubles(player).getStackInSlot(i);
@@ -116,7 +110,7 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 				Item item = stack.getItem();
 				if(item instanceof IBurstViewerBauble)
 					return true;
-				
+
 				if(item instanceof ICosmeticAttachable) {
 					ICosmeticAttachable attach = (ICosmeticAttachable) item;
 					ItemStack cosmetic = attach.getCosmeticItem(stack);
@@ -125,7 +119,7 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 				}
 			}
 		}
-		
+
 		return false;
 	}
 

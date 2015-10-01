@@ -20,7 +20,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.corporea.CorporeaHelper;
-import vazkii.botania.api.corporea.ICorporeaInterceptor;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.common.core.helper.InventoryHelper;
@@ -89,12 +88,12 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 	public void doCorporeaRequest(Object request, int count, ICorporeaSpark spark) {
 		if(!(request instanceof ItemStack))
 			return;
-		
+
 		IInventory inv = InventoryHelper.getInventory(worldObj, xCoord, yCoord - 1, zCoord);
 		if(inv == null)
 			inv = InventoryHelper.getInventory(worldObj, xCoord, yCoord - 2, zCoord);
 
-		List<ItemStack> stacks = CorporeaHelper.requestItem((ItemStack) request, count, spark, true, true);
+		List<ItemStack> stacks = CorporeaHelper.requestItem(request, count, spark, true, true);
 		spark.onItemsRequested(stacks);
 		for(ItemStack reqStack : stacks)
 			if(request != null) {

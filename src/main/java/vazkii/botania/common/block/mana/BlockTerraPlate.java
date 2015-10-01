@@ -23,7 +23,6 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.BlockModContainer;
 import vazkii.botania.common.block.tile.TileTerraPlate;
-import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
@@ -78,7 +77,7 @@ public class BlockTerraPlate extends BlockModContainer implements ILexiconable {
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.terrasteel;
 	}
-	
+
 	@Override
 	public boolean hasComparatorInputOverride() {
 		return true;

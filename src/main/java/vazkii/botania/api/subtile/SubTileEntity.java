@@ -39,7 +39,7 @@ public class SubTileEntity {
 	protected TileEntity supertile;
 
 	public int ticksExisted = 0;
-	
+
 	/** true if this flower is working on Enchanted Soil **/
 	public boolean overgrowth = false;
 	/** true if this flower is working on Enchanted Soil and this is the second tick **/
@@ -218,7 +218,7 @@ public class SubTileEntity {
 	public int getPowerLevel(int side) {
 		return 0;
 	}
-	
+
 	/**
 	 * Gets if this SubTileEntity is affected by Enchanted Soil's speed boost.
 	 */

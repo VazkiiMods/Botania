@@ -77,7 +77,7 @@ public class ItemBottledMana extends ItemMod {
 					player.addPotionEffect(new PotionEffect(Potion.resistance.id, 300, 5));
 				player.motionY = 6;
 			}
-			
+
 			break;
 		}
 		case 5 : { // Randomly set HP

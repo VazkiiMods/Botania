@@ -16,7 +16,6 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import vazkii.botania.api.corporea.CorporeaHelper;
-import vazkii.botania.api.corporea.ICorporeaInterceptor;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -26,7 +25,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 
 	private static final String TAG_REQUEST_TARGET = "requestTarget";
 	private static final String TAG_ITEM_COUNT = "itemCount";
-	
+
 	private static final double LOG_2 = Math.log(2);
 
 	ItemStack requestTarget;
@@ -71,7 +70,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 			doCorporeaRequest(requestTarget, count, spark);
 		}
 	}
-	
+
 	private void updateCount() {
 		if(worldObj.isRemote)
 			return;
@@ -84,13 +83,13 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 			for(ItemStack stack : stacks)
 				itemCount += stack.stackSize;
 		}
-		
+
 		if(itemCount != oldCount) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 			onUpdateCount();
 		}
 	}
-	
+
 	private void onUpdateCount() {
 		compValue = getComparatorValue();
 		worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
@@ -118,7 +117,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	public int getSizeInventory() {
 		return 1;
 	}
-	
+
 	public int getComparatorValue() {
 		if(itemCount == 0)
 			return 0;
@@ -139,8 +138,8 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	public void doCorporeaRequest(Object request, int count, ICorporeaSpark spark) {
 		if(!(request instanceof ItemStack))
 			return;
-		
-		List<ItemStack> stacks = CorporeaHelper.requestItem((ItemStack) request, count, spark, true, true);
+
+		List<ItemStack> stacks = CorporeaHelper.requestItem(request, count, spark, true, true);
 		spark.onItemsRequested(stacks);
 		boolean did = false;
 		for(ItemStack reqStack : stacks)
@@ -150,7 +149,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 				itemCount -= reqStack.stackSize;
 				did = true;
 			}
-		
+
 		if(did) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 			onUpdateCount();

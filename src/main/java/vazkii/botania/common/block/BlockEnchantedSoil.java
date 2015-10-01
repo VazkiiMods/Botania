@@ -12,9 +12,6 @@ package vazkii.botania.common.block;
 
 import java.util.Random;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -32,10 +29,12 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.render.block.InterpolatedIcon;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockEnchantedSoil extends BlockMod implements ILexiconable {
 
@@ -59,7 +58,7 @@ public class BlockEnchantedSoil extends BlockMod implements ILexiconable {
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		// NO-OP
 	}
-	
+
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void loadTextures(TextureStitchEvent.Pre event) {
@@ -67,7 +66,7 @@ public class BlockEnchantedSoil extends BlockMod implements ILexiconable {
 			TextureAtlasSprite icon = new InterpolatedIcon("botania:enchantedSoil0");
 			if(event.map.setTextureEntry("botania:enchantedSoil0", icon))
 				blockIcon = icon;
-			
+
 			icon = new InterpolatedIcon("botania:enchantedSoil1");
 			if(event.map.setTextureEntry("botania:enchantedSoil1", icon))
 				iconSide = icon;

@@ -12,19 +12,17 @@ package vazkii.botania.client.render.tile;
 
 import java.util.Random;
 
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
-import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.client.model.ModelCocoon;
-import vazkii.botania.client.model.ModelTeruTeruBozu;
-import vazkii.botania.common.Botania;
-import vazkii.botania.common.block.tile.TileCocoon;
-import vazkii.botania.common.block.tile.TileTeruTeruBozu;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
+
+import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.model.ModelTeruTeruBozu;
+import vazkii.botania.common.Botania;
 
 public class RenderTileTeruTeruBozu extends TileEntitySpecialRenderer {
 
@@ -33,8 +31,6 @@ public class RenderTileTeruTeruBozu extends TileEntitySpecialRenderer {
 
 	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f) {
-		TileTeruTeruBozu tile = (TileTeruTeruBozu) tileentity;
-		
 		GL11.glPushMatrix();
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glEnable(GL11.GL_BLEND);
@@ -45,18 +41,18 @@ public class RenderTileTeruTeruBozu extends TileEntitySpecialRenderer {
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 		GL11.glRotatef(180F, 1F, 0F, 0F);
 		double time = Botania.proxy.getWorldElapsedTicks() + f;
-		boolean hasWorld = tileentity.getWorldObj() != null; 
+		boolean hasWorld = tileentity.getWorldObj() != null;
 		if(hasWorld)
 			time += new Random(tileentity.xCoord ^ tileentity.yCoord ^ tileentity.zCoord).nextInt(1000);
-		
-		GL11.glTranslatef(0.5F, -1.25F + (hasWorld ? ((float) Math.sin(time * 0.01F) * 0.05F) : 0F), -0.5F);
+
+		GL11.glTranslatef(0.5F, -1.25F + (hasWorld ? (float) Math.sin(time * 0.01F) * 0.05F : 0F), -0.5F);
 		if(hasWorld) {
 			GL11.glRotated(time * 0.3, 0F, 1F, 0F);
 			GL11.glRotatef(4F * (float) Math.sin(time * 0.05F), 0F, 0F, 1F);
 			float s = 0.75F;
-			GL11.glScalef(s, s, s);	
+			GL11.glScalef(s, s, s);
 		}
-		
+
 		model.render();
 		GL11.glColor3f(1F, 1F, 1F);
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);

@@ -10,14 +10,14 @@
  */
 package vazkii.botania.client.core.handler;
 
-import vazkii.botania.api.lexicon.multiblock.Multiblock;
-import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.util.ForgeDirection;
+import vazkii.botania.api.lexicon.multiblock.Multiblock;
+import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 
 /**
  * This class acts as a wrapper around a block access to
@@ -29,7 +29,7 @@ public class MultiblockBlockAccess implements IBlockAccess {
 	protected boolean hasBlockAccess = false;
 	protected Multiblock multiblock;
 	protected int anchorX, anchorY, anchorZ;
-	
+
 	@Override
 	public Block getBlock(int x, int y, int z) {
 		MultiblockComponent comp=getComponent(x, y, z);
@@ -114,14 +114,14 @@ public class MultiblockBlockAccess implements IBlockAccess {
 	 * Updates the block access to the new parameters
 	 */
 	public void update(IBlockAccess access, Multiblock mb, int anchorX, int anchorY, int anchorZ) {
-		this.originalBlockAccess = access;
-		this.multiblock = mb;
+		originalBlockAccess = access;
+		multiblock = mb;
 		this.anchorX = anchorX;
 		this.anchorY = anchorY;
 		this.anchorZ = anchorZ;
-		this.hasBlockAccess = access != null;
+		hasBlockAccess = access != null;
 	}
-	
+
 	/**
 	 * Returns the multiblock component for the coordinates, adjusted based on the anchor
 	 */

@@ -18,9 +18,9 @@ public class SubTileDecor extends SubTileEntity {
 	public boolean canUpdate() {
 		return false;
 	}
-	
+
 	public static class Daybloom extends SubTileDecor { }
 	public static class Nightshade extends SubTileDecor { }
 	public static class Hydroangeas extends SubTileDecor { }
-	
+
 }

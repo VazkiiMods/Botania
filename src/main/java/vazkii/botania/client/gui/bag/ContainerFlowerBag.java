@@ -43,7 +43,7 @@ public class ContainerFlowerBag extends Container {
 				addSlotToContainer(new SlotLocked(playerInv, i, 8 + i * 18, 142));
 			else addSlotToContainer(new Slot(playerInv, i, 8 + i * 18, 142));
 		}
-			
+
 	}
 
 	@Override

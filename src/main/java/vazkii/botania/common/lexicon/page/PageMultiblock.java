@@ -13,19 +13,15 @@ package vazkii.botania.common.lexicon.page;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -35,10 +31,8 @@ import org.lwjgl.opengl.GL12;
 
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
-import vazkii.botania.api.lexicon.multiblock.IMultiblockRenderHook;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
-import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 import vazkii.botania.client.core.handler.MultiblockRenderHandler;
 import vazkii.botania.client.lib.LibResources;
 import cpw.mods.fml.relauncher.Side;
@@ -86,7 +80,7 @@ public class PageMultiblock extends LexiconPage {
 
 		GL11.glRotatef(-20F, 1, 0, 0);
 		GL11.glRotatef(gui.getElapsedTicks(), 0, 1, 0);
-		
+
 		MultiblockRenderHandler.renderMultiblockOnPage(mb);
 
 		GL11.glPopMatrix();

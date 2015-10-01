@@ -145,7 +145,7 @@ public final class HUDHandler {
 				ItemFlugelEye.renderHUD(event.resolution, mc.thePlayer, equippedStack);
 				profiler.endSection();
 			}*/
-			
+
 			if(Botania.proxy.isClientPlayerWearingMonocle()) {
 				profiler.startSection("monocle");
 				ItemMonocle.renderHUD(event.resolution, mc.thePlayer);

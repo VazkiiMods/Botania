@@ -172,7 +172,7 @@ public class CommonProxy {
 			FMLCommonHandler.instance().exitJava(1, true);
 		}
 	}
-	
+
 	public void serverStarting(FMLServerStartingEvent event) {
 		event.registerServerCommand(new CommandDownloadLatest());
 		event.registerServerCommand(new CommandShare());

@@ -78,7 +78,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 		PotionEffect effect = par3EntityPlayer.getActivePotionEffect(Potion.digSpeed);
 		if(effect != null)
 			effCd -= (effect.getAmplifier() + 1) * 8;
-		
+
 		if(par3EntityPlayer.isSneaking() && hasClip(par1ItemStack)) {
 			rotatePos(par1ItemStack);
 			par2World.playSoundAtEntity(par3EntityPlayer, "random.click", 0.6F, (1.0F + (par2World.rand.nextFloat() - par2World.rand.nextFloat()) * 0.2F) * 0.7F);

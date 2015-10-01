@@ -32,9 +32,7 @@ import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.api.subtile.ISubTileContainer;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileEntity;
@@ -111,7 +109,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 							blockToPlace = ReflectionHelper.getPrivateValue(ItemReed.class, (ItemReed) stackItem, LibObfuscation.REED_ITEM);
 						else if(stackItem instanceof ItemRedstone)
 							blockToPlace = Blocks.redstone_wire;
-						
+
 						if(blockToPlace != null) {
 							ChunkCoordinates coords = validPositions.get(supertile.getWorldObj().rand.nextInt(validPositions.size()));
 							if(blockToPlace.canPlaceBlockAt(supertile.getWorldObj(), coords.posX, coords.posY, coords.posZ)) {
@@ -119,7 +117,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 								if(ConfigHandler.blockBreakParticles)
 									supertile.getWorldObj().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(blockToPlace) + (stack.getItemDamage() << 12));
 								validPositions.remove(coords);
-								
+
 								TileEntity tile = supertile.getWorldObj().getTileEntity(coords.posX, coords.posY, coords.posZ);
 								if(tile != null && tile instanceof ISubTileContainer) {
 									ISubTileContainer container = (ISubTileContainer) tile;

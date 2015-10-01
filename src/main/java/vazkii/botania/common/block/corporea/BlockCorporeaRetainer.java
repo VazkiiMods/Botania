@@ -35,7 +35,7 @@ public class BlockCorporeaRetainer extends BlockModContainer implements ILexicon
 		setStepSound(soundTypeMetal);
 		setBlockName(LibBlockNames.CORPOREA_RETAINER);
 	}
-	
+
 	@Override
 	public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
 		boolean power = world.isBlockIndirectlyGettingPowered(x, y, z) || world.isBlockIndirectlyGettingPowered(x, y + 1, z);
@@ -53,17 +53,17 @@ public class BlockCorporeaRetainer extends BlockModContainer implements ILexicon
 	public boolean hasComparatorInputOverride() {
 		return true;
 	}
-	
+
 	@Override
 	public int getComparatorInputOverride(World world, int x, int y, int z, int s) {
 		return ((TileCorporeaRetainer) world.getTileEntity(x, y, z)).hasPendingRequest() ? 15 : 0;
 	}
-	
+
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileCorporeaRetainer();
 	}
-	
+
 	@Override
 	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
 		return ModAchievements.corporeaCraft;

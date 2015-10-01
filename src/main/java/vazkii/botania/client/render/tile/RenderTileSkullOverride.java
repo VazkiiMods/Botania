@@ -80,9 +80,9 @@ public class RenderTileSkullOverride extends TileEntitySkullRenderer {
 			GL11.glEnable(GL11.GL_ALPHA_TEST);
 			if(gaia)
 				ShaderHelper.useShader(ShaderHelper.doppleganger, RenderDoppleganger.defaultCallback);
-			
+
 			modelSkull.render(null, 0F, 0F, 0F, par5, 0F, 0.0625F);
-			
+
 			if(gaia)
 				ShaderHelper.releaseShader();
 			GL11.glPopMatrix();

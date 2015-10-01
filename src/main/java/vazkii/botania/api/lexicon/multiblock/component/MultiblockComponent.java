@@ -10,13 +10,13 @@
  */
 package vazkii.botania.api.lexicon.multiblock.component;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * A component of a multiblock, the normal one
@@ -41,7 +41,7 @@ public class MultiblockComponent {
 	public MultiblockComponent(ChunkCoordinates relPos, Block block, int meta, TileEntity tileEntity) {
 		this(relPos, block, meta, block.hasTileEntity() == (tileEntity != null), tileEntity);
 	}
-	
+
 	public MultiblockComponent(ChunkCoordinates relPos, Block block, int meta, boolean doFancyRender, TileEntity tileEntity) {
 		this.relPos = relPos;
 		this.block = block;

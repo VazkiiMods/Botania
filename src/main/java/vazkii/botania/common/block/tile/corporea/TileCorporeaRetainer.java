@@ -17,7 +17,6 @@ import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.common.block.tile.TileMod;
-import vazkii.botania.common.lib.LibBlockNames;
 
 public class TileCorporeaRetainer extends TileMod {
 
@@ -33,16 +32,16 @@ public class TileCorporeaRetainer extends TileMod {
 	private static final int REQUEST_NULL = 0;
 	private static final int REQUEST_ITEMSTACK = 1;
 	private static final int REQUEST_STRING = 2;
-	
+
 	boolean pendingRequest = false;
 	int requestX, requestY, requestZ;
 	Object request;
 	int requestCount;
-	
+
 	public void setPendingRequest(int x, int y, int z, Object request, int requestCount) {
 		if(pendingRequest)
 			return;
-		
+
 		requestX = x;
 		requestY = y;
 		requestZ = z;
@@ -51,15 +50,15 @@ public class TileCorporeaRetainer extends TileMod {
 		pendingRequest = true;
 		worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 	}
-	
+
 	public boolean hasPendingRequest() {
 		return pendingRequest;
 	}
-	
+
 	public void fulfilRequest() {
 		if(!hasPendingRequest())
 			return;
-		
+
 		ICorporeaSpark spark = CorporeaHelper.getSparkForBlock(worldObj, requestX, requestY, requestZ);
 		if(spark != null) {
 			IInventory inv = spark.getInventory();
@@ -71,11 +70,11 @@ public class TileCorporeaRetainer extends TileMod {
 			}
 		}
 	}
-	
+
 	@Override
 	public void writeCustomNBT(NBTTagCompound cmp) {
 		super.writeCustomNBT(cmp);
-		
+
 		cmp.setBoolean(TAG_PENDING_REQUEST, pendingRequest);
 		cmp.setInteger(TAG_REQUEST_X, requestX);
 		cmp.setInteger(TAG_REQUEST_Y, requestY);
@@ -85,7 +84,7 @@ public class TileCorporeaRetainer extends TileMod {
 		if(request != null)
 			reqType = request instanceof String ? REQUEST_STRING : REQUEST_ITEMSTACK;
 		cmp.setInteger(TAG_REQUEST_TYPE, reqType);
-		
+
 		switch (reqType) {
 		case REQUEST_STRING:
 			cmp.setString(TAG_REQUEST_CONTENTS, (String) request);
@@ -99,16 +98,16 @@ public class TileCorporeaRetainer extends TileMod {
 		}
 		cmp.setInteger(TAG_REQUEST_COUNT, requestCount);
 	}
-	
+
 	@Override
 	public void readCustomNBT(NBTTagCompound cmp) {
 		super.readCustomNBT(cmp);
-		
+
 		pendingRequest = cmp.getBoolean(TAG_PENDING_REQUEST);
 		requestX = cmp.getInteger(TAG_REQUEST_X);
 		requestY = cmp.getInteger(TAG_REQUEST_Y);
 		requestZ = cmp.getInteger(TAG_REQUEST_Z);
-		
+
 		int reqType = cmp.getInteger(TAG_REQUEST_TYPE);
 		switch (reqType) {
 		case REQUEST_STRING:
@@ -122,5 +121,5 @@ public class TileCorporeaRetainer extends TileMod {
 		}
 		requestCount = cmp.getInteger(TAG_REQUEST_COUNT);
 	}
-	
+
 }

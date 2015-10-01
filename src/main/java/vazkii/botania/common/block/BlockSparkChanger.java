@@ -152,12 +152,12 @@ public class BlockSparkChanger extends BlockModContainer implements ILexiconable
 
 		super.breakBlock(par1World, par2, par3, par4, par5, par6);
 	}
-	
+
 	@Override
 	public boolean hasComparatorInputOverride() {
 		return true;
 	}
-	
+
 	@Override
 	public int getComparatorInputOverride(World world, int x, int y, int z, int s) {
 		TileSparkChanger changer = (TileSparkChanger) world.getTileEntity(x, y, z);
@@ -166,7 +166,7 @@ public class BlockSparkChanger extends BlockModContainer implements ILexiconable
 			return 0;
 		return stack.getItemDamage() + 1;
 	}
-	
+
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileSparkChanger();

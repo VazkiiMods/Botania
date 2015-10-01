@@ -10,21 +10,14 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.UUID;
-
 import net.minecraft.block.BlockSkull;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-
-import com.mojang.authlib.GameProfile;
-
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibItemNames;
 
@@ -90,7 +83,7 @@ public class ItemGaiaHead extends ItemMod {
 
 				if (p_77648_7_ == 1)
 				{
-					i1 = MathHelper.floor_double((double)(p_77648_2_.rotationYaw * 16.0F / 360.0F) + 0.5D) & 15;
+					i1 = MathHelper.floor_double(p_77648_2_.rotationYaw * 16.0F / 360.0F + 0.5D) & 15;
 				}
 
 				TileEntity tileentity = p_77648_3_.getTileEntity(p_77648_4_, p_77648_5_, p_77648_6_);

@@ -36,7 +36,7 @@ public class BlockTeruTeruBozu extends BlockModContainer implements ILexiconable
 		float f = 0.25F;
 		setBlockBounds(f, 0.01F, f, 1F - f, 0.99F, 1F - f);
 	}
-	
+
 	@Override
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity e) {
 		if(!world.isRemote && e instanceof EntityItem) {
@@ -49,7 +49,7 @@ public class BlockTeruTeruBozu extends BlockModContainer implements ILexiconable
 			}
 		}
 	}
-	
+
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int s, float xs, float ys, float zs) {
 		ItemStack stack = player.getCurrentEquippedItem();
@@ -60,11 +60,11 @@ public class BlockTeruTeruBozu extends BlockModContainer implements ILexiconable
 		}
 		return false;
 	}
-	
+
 	public boolean isSunflower(ItemStack stack) {
 		return stack.getItem() == Item.getItemFromBlock(Blocks.double_plant) && stack.getItemDamage() == 0;
 	}
-	
+
 	public boolean removeRain(World world) {
 		if(world.isRaining()) {
 			world.getWorldInfo().setRaining(false);
@@ -72,37 +72,37 @@ public class BlockTeruTeruBozu extends BlockModContainer implements ILexiconable
 		}
 		return false;
 	}
-	
+
 	@Override
 	public boolean hasComparatorInputOverride() {
 		return true;
 	}
-	
+
 	@Override
 	public int getComparatorInputOverride(World world, int x, int y, int z, int s) {
 		return world.isRaining() ? 15 : 0;
 	}
-	
+
 	@Override
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		// NO-OP
 	}
-	
+
 	@Override
 	public IIcon getIcon(int side, int meta) {
 		return Blocks.wool.getIcon(0, 0);
 	}
-	
+
 	@Override
 	public boolean isOpaqueCube() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean renderAsNormalBlock() {
 		return false;
 	}
-	
+
 	@Override
 	public int getRenderType() {
 		return LibRenderIDs.idTeruTeruBozu;

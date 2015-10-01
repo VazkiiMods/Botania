@@ -30,7 +30,7 @@ public class BlockCell extends BlockModContainer implements ILexiconable {
 		setBlockName(LibBlockNames.CELL_BLOCK);
 		setStepSound(soundTypeCloth);
 	}
-	
+
 	@Override
 	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
 		return new ArrayList();

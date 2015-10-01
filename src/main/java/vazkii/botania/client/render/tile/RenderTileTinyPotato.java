@@ -34,11 +34,9 @@ import vazkii.botania.client.core.handler.ContributorFancinessHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelTinyPotato;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileTinyPotato;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
-import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 import vazkii.botania.common.item.material.ItemManaResource;
 import vazkii.botania.common.item.relic.ItemInfiniteFruit;
 
@@ -59,7 +57,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 		Minecraft mc = Minecraft.getMinecraft();
 		mc.renderEngine.bindTexture(texture);
 		String name = potato.name.toLowerCase();
-		
+
 		boolean usedShader = false;
 		if(name.startsWith("gaia ")) {
 			ShaderHelper.useShader(ShaderHelper.doppleganger);
@@ -81,7 +79,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 			ShaderHelper.useShader(ShaderHelper.terraPlateRune);
 			name = name.substring(6);
 			usedShader = true;
-		} 
+		}
 
 		GL11.glTranslatef(0.5F, 1.5F, 0.5F);
 		GL11.glScalef(1F, -1F, -1F);
@@ -110,7 +108,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 			GL11.glTranslatef(0F, -2.625F, 0F);
 		} else if(name.equals("aureylian"))
 			GL11.glColor3f(1F, 0.5F, 1F);
-		
+
 
 		boolean render = !(name.equals("mami") || name.equals("soaryn") || name.equals("eloraam") && jump != 0);
 		if(render)
@@ -122,7 +120,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 
 		if(usedShader)
 			ShaderHelper.releaseShader();
-		
+
 		GL11.glPopMatrix();
 
 		if(!name.isEmpty()) {
@@ -295,7 +293,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 				renderIcon(ModItems.manaRing.getIconFromDamage(0));
 				GL11.glTranslatef(0F, 0F, -4F);
 				renderIcon(ModItems.manaRing.getIconFromDamage(0));
-				
+
 				mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 				GL11.glScalef(1.5F, 1.5F, 1.5F);
 				GL11.glTranslatef(1.5F, -0.5F, 0.7F);
@@ -327,7 +325,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 		}
 
 		MinecraftForge.EVENT_BUS.post(new TinyPotatoRenderEvent(potato, potato.name, d0, d1, d2, var8));
-		
+
 		GL11.glRotatef(-rotZ, 0F, 0F, 1F);
 		GL11.glRotatef(-rotY, 0F, 1F, 0F);
 		GL11.glColor3f(1F, 1F, 1F);

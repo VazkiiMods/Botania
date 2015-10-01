@@ -19,7 +19,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
@@ -82,10 +81,10 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer {
 			String countStr = "" + count;
 			int color = 0xFFFFFF;
 			if(count > 9999) {
-				countStr = (count / 1000) + "K";
+				countStr = count / 1000 + "K";
 				color = 0xFFFF00;
 				if(count > 9999999) {
-					countStr = (count / 10000000) + "M";
+					countStr = count / 10000000 + "M";
 					color = 0x00FF00;
 				}
 			}

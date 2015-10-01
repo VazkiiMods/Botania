@@ -34,7 +34,7 @@ public class SubTileExoflame extends SubTileFunctional {
 
 		boolean did = false;
 		int cost = 300;
-		
+
 		fireFurnaces : {
 			for(int i = -RANGE; i < RANGE + 1; i++)
 				for(int j = -RANGE_Y; j < RANGE_Y + 1; j++)
@@ -70,7 +70,7 @@ public class SubTileExoflame extends SubTileFunctional {
 								if(heatable.canSmelt() && mana > 2) {
 									if(heatable.getBurnTime() == 0)
 										heatable.boostBurnTime();
-										mana = Math.max(0, mana - cost);
+									mana = Math.max(0, mana - cost);
 									if(ticksExisted % 2 == 0)
 										heatable.boostCookTime();
 

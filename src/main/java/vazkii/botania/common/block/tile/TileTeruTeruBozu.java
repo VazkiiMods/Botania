@@ -13,7 +13,7 @@ package vazkii.botania.common.block.tile;
 public class TileTeruTeruBozu extends TileMod {
 
 	public boolean wasRaining = false;
-	
+
 	@Override
 	public void updateEntity() {
 		boolean isRaining = worldObj.isRaining();
@@ -24,5 +24,5 @@ public class TileTeruTeruBozu extends TileMod {
 			worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
 		wasRaining = isRaining;
 	}
-	
+
 }

@@ -24,7 +24,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChatStyle;
@@ -35,7 +34,6 @@ import org.apache.commons.lang3.text.WordUtils;
 
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaAutoCompleteController;
-import vazkii.botania.api.corporea.ICorporeaInterceptor;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.common.achievement.ModAchievements;
@@ -202,12 +200,12 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 	public String getInventoryName() {
 		return LibBlockNames.CORPOREA_INDEX;
 	}
-	
+
 	@Override
 	public void doCorporeaRequest(Object request, int count, ICorporeaSpark spark) {
 		if(!(request instanceof String))
 			return;
-		
+
 		List<ItemStack> stacks = CorporeaHelper.requestItem((String) request, count, spark, true);
 		spark.onItemsRequested(stacks);
 		for(ItemStack stack : stacks)

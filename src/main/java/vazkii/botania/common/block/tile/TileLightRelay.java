@@ -14,7 +14,6 @@ import java.awt.Color;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -165,11 +164,11 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 				setDead();
 				return;
 			}
-			
+
 			boolean isItem = riddenByEntity instanceof EntityItem;
 			if(!isItem && ticksExisted % 30 == 0)
 				worldObj.playSoundAtEntity(this, "botania:lightRelay", 0.2F, (float) Math.random() * 0.3F + 0.7F);
-			
+
 			int exitX = getExitX();
 			int exitY = getExitY();
 			int exitZ = getExitZ();

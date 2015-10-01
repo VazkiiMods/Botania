@@ -58,19 +58,14 @@ public class MultipartHandler {
 		List<ItemStack> stacks = new ArrayList();
 		Item item = Item.getItemFromBlock(block);
 		block.getSubBlocks(item, block.getCreativeTabToDisplayOn(), stacks);
-		
-		for(ItemStack stack : stacks) 
+
+		for(ItemStack stack : stacks)
 			if(stack.getItem() == item)
 				registerMultipart(block, stack.getItemDamage());
-	}
-	
-	private static void registerMultipartMetadataLine(Block block, int maxMeta) {
-		for(int i = 0; i < maxMeta; i++)
-			registerMultipart(block, i);
 	}
 
 	private static void registerMultipart(Block block, int meta) {
 		MicroMaterialRegistry.registerMaterial(new BlockMicroMaterial(block, meta), block.getUnlocalizedName() + (meta == 0 ? "" : "_" + meta));
 	}
-	
+
 }

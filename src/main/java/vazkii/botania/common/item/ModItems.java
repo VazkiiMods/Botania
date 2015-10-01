@@ -412,7 +412,7 @@ public final class ModItems {
 		manaweaveBoots = new ItemManaweaveBoots();
 		autocraftingHalo = new ItemAutocraftingHalo();
 		gaiaHead = new ItemGaiaHead();
-		
+
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));

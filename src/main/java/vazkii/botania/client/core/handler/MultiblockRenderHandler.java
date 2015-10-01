@@ -142,9 +142,9 @@ public final class MultiblockRenderHandler {
 		else {
 			if(comp.shouldDoFancyRender()) {
 				int color = block.colorMultiplier(blockAccess, x, y, z);
-				float red = (float)(color >> 16 & 255) / 255.0F;
-				float green = (float)(color >> 8 & 255) / 255.0F;
-				float blue = (float)(color & 255) / 255.0F;
+				float red = (color >> 16 & 255) / 255.0F;
+				float green = (color >> 8 & 255) / 255.0F;
+				float blue = (color & 255) / 255.0F;
 				GL11.glColor4f(red, green, blue, alpha);
 				IBlockAccess oldBlockAccess = blockRender.blockAccess;
 				blockRender.blockAccess = blockAccess;
@@ -164,9 +164,9 @@ public final class MultiblockRenderHandler {
 			}
 			else {
 				int color = block.getRenderColor(meta);
-				float red = (float)(color >> 16 & 255) / 255.0F;
-				float green = (float)(color >> 8 & 255) / 255.0F;
-				float blue = (float)(color & 255) / 255.0F;
+				float red = (color >> 16 & 255) / 255.0F;
+				float green = (color >> 8 & 255) / 255.0F;
+				float blue = (color & 255) / 255.0F;
 				GL11.glColor4f(red, green, blue, alpha);
 				GL11.glTranslated(x + 0.5, y + 0.5, z + 0.5);
 				blockRender.renderBlockAsItem(block, meta, 1F);

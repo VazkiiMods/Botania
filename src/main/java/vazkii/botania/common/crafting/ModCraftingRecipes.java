@@ -14,8 +14,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.logging.log4j.Level;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -26,8 +24,10 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+
+import org.apache.logging.log4j.Level;
+
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
@@ -298,7 +298,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeCellBlock;
 	public static IRecipe recipeCorporeaRetainer;
 	public static IRecipe recipeTeruTeruBozu;
-	
+
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;
 	public static IRecipe recipeRootToFertilizer;
@@ -309,7 +309,7 @@ public final class ModCraftingRecipes {
 
 	public static void init() {
 		int recipeListSize = CraftingManager.getInstance().getRecipeList().size();
-		
+
 		// Lexicon Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.lexicon), "treeSapling", Items.book);
 		recipeLexicon = BotaniaAPI.getLatestAddedRecipe();
@@ -1447,7 +1447,7 @@ public final class ModCraftingRecipes {
 				'S', LibOreDict.RED_STRING,
 				'M', new ItemStack(ModBlocks.spreader));
 		recipeRedStringRelay = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Red String Interceptor Recipe
 		addOreDictRecipe(new ItemStack(ModBlocks.redStringInterceptor),
 				"RRR", "RMS", "RRR",
@@ -1991,7 +1991,7 @@ public final class ModCraftingRecipes {
 		// Manufactory Halo Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.autocraftingHalo), new ItemStack(ModItems.craftingHalo), LibOreDict.MANA_DIAMOND);
 		recipeAutocraftingHalo = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Pavement Recipes
 		addShapelessOreDictRecipe(new ItemStack(ModFluffBlocks.pavement, 3, 0), LibOreDict.LIVING_ROCK, "cobblestone", "gravel");
 		addShapelessOreDictRecipe(new ItemStack(ModFluffBlocks.pavement, 3, 1), LibOreDict.LIVING_ROCK, "cobblestone", "gravel", new ItemStack(Items.coal));
@@ -2000,22 +2000,22 @@ public final class ModCraftingRecipes {
 		addShapelessOreDictRecipe(new ItemStack(ModFluffBlocks.pavement, 3, 4), LibOreDict.LIVING_ROCK, "cobblestone", "gravel", new ItemStack(Items.wheat));
 		addShapelessOreDictRecipe(new ItemStack(ModFluffBlocks.pavement, 3, 5), LibOreDict.LIVING_ROCK, "cobblestone", "gravel", new ItemStack(Items.slime_ball));
 		recipesPavement = BotaniaAPI.getLatestAddedRecipes(6);
-		
+
 		// Cellular Block Recipe
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.cellBlock, 3), new ItemStack(Blocks.cactus), new ItemStack(Blocks.cactus), new ItemStack(Blocks.cactus), new ItemStack(Blocks.cactus), new ItemStack(Items.carrot), new ItemStack(Items.potato));
 		recipeCellBlock = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Corporea Retainer Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModBlocks.corporeaRetainer), new ItemStack(Blocks.chest), new ItemStack(ModItems.corporeaSpark));
 		recipeCorporeaRetainer = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Teru Teru Bozu Recipe
 		addOreDictRecipe(new ItemStack(ModBlocks.teruTeruBozu),
 				"C", "C", "S",
 				'C', LibOreDict.MANAWEAVE_CLOTH,
 				'S', new ItemStack(Blocks.double_plant));
 		recipeTeruTeruBozu = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		// Storage Block/Nugget Recipes
@@ -2095,7 +2095,7 @@ public final class ModCraftingRecipes {
 		addPane(ModBlocks.manaGlass, ModFluffBlocks.managlassPane);
 		addPane(ModBlocks.elfGlass, ModFluffBlocks.alfglassPane);
 		addPane(ModBlocks.bifrostPerm, ModFluffBlocks.bifrostPane);
-		
+
 		// Biome Stone Recipes
 		for(int i = 0; i < 8; i++) {
 			GameRegistry.addSmelting(new ItemStack(ModFluffBlocks.biomeStoneA, 1, i + 8), new ItemStack(ModFluffBlocks.biomeStoneA, 1, i), 0.1F);
@@ -2115,14 +2115,14 @@ public final class ModCraftingRecipes {
 		// Pavement Stairsm & Stairs
 		for(int i = 0; i < ModFluffBlocks.pavementStairs.length; i++)
 			addStairsAndSlabs(ModFluffBlocks.pavement, i, ModFluffBlocks.pavementStairs[i], ModFluffBlocks.pavementSlabs[i]);
-		
+
 		// Misc Recipes
 		GameRegistry.addShapelessRecipe(new ItemStack(Items.reeds, 9, 0), new ItemStack(ModBlocks.reedBlock));
 		GameRegistry.addShapelessRecipe(new ItemStack(Items.wheat, 4, 0), new ItemStack(ModBlocks.thatch));
 
 		if(Botania.gardenOfGlassLoaded)
 			initGardenOfGlass();
-		
+
 		int newRecipeListSize = CraftingManager.getInstance().getRecipeList().size();
 		FMLLog.log(Level.INFO, "[Botania] Registered %d recipes.", newRecipeListSize - recipeListSize);
 	}
@@ -2182,7 +2182,7 @@ public final class ModCraftingRecipes {
 				"BBB", "BBB",
 				'B', new ItemStack(block, 1, blockMeta));
 	}
-	
+
 	private static void addPane(Block block, Block pane) {
 		GameRegistry.addRecipe(new ItemStack(pane, 16),
 				"BBB", "BBB",

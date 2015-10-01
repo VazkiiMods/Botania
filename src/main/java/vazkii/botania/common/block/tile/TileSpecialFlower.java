@@ -89,12 +89,12 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 				}
 			}
 
-			boolean special = isOnSpecialSoil(); 
+			boolean special = isOnSpecialSoil();
 			if(special) {
 				subTile.overgrowth = true;
 				if(subTile.isOvergrowthAffected()) {
 					subTile.onUpdate();
-					subTile.overgrowthBoost = true;	
+					subTile.overgrowthBoost = true;
 				}
 			}
 			subTile.onUpdate();

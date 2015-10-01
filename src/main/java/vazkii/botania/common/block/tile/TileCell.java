@@ -15,7 +15,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 
 public class TileCell extends TileMod {
-	
+
 	private static final String TAG_GENERATION = "generation";
 	private static final String TAG_TICKED = "ticked";
 	private static final String TAG_FLOWER_X = "flowerX";
@@ -24,17 +24,17 @@ public class TileCell extends TileMod {
 	private static final String TAG_VALID_X = "validX";
 	private static final String TAG_VALID_Y = "validY";
 	private static final String TAG_VALID_Z = "validZ";
-	
+
 	private int generation;
 	private boolean ticked;
 	private ChunkCoordinates flowerCoords = new ChunkCoordinates();
 	private ChunkCoordinates validCoords = new ChunkCoordinates();
-	
+
 	@Override
 	public boolean canUpdate() {
 		return false;
 	}
-	
+
 	public void setGeneration(TileEntity flower, int gen) {
 		generation = gen;
 		if(!ticked) {
@@ -48,15 +48,15 @@ public class TileCell extends TileMod {
 		} else if(!matchCoords(validCoords, this) || !matchCoords(flowerCoords, flower))
 			worldObj.setBlockToAir(xCoord, yCoord, zCoord);
 	}
-	
+
 	private boolean matchCoords(ChunkCoordinates coords, TileEntity tile) {
 		return coords.posX == tile.xCoord && coords.posY == tile.yCoord && coords.posZ == tile.zCoord;
 	}
-	
+
 	public int getGeneration() {
 		return generation;
 	}
-	
+
 	@Override
 	public void writeCustomNBT(NBTTagCompound cmp) {
 		cmp.setInteger(TAG_GENERATION, generation);
@@ -70,7 +70,7 @@ public class TileCell extends TileMod {
 			cmp.setInteger(TAG_VALID_Z, validCoords.posZ);
 		}
 	}
-	
+
 	@Override
 	public void readCustomNBT(NBTTagCompound cmp) {
 		generation = cmp.getInteger(TAG_GENERATION);
@@ -84,5 +84,5 @@ public class TileCell extends TileMod {
 			validCoords.posZ = cmp.getInteger(TAG_VALID_Z);
 		}
 	}
-	
+
 }

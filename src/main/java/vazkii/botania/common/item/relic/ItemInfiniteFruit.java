@@ -28,7 +28,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 
 	public static IIcon dasBootIcon;
-	
+
 	public ItemInfiniteFruit() {
 		super(LibItemNames.INFINITE_FRUIT);
 	}
@@ -63,7 +63,7 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 					ReflectionHelper.setPrivateValue(EntityPlayer.class, player, 20, LibObfuscation.ITEM_IN_USE_COUNT);
 		}
 	}
-	
+
 
 	@Override
 	@SideOnly(Side.CLIENT)
@@ -76,7 +76,7 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 	public IIcon getIconIndex(ItemStack par1ItemStack) {
 		return isBoot(par1ItemStack) ? dasBootIcon : super.getIconIndex(par1ItemStack);
 	}
-	
+
 	private boolean isBoot(ItemStack par1ItemStack) {
 		String name = par1ItemStack.getDisplayName().toLowerCase().trim();
 		return name.equals("das boot");

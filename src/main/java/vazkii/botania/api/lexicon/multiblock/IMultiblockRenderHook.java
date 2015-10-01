@@ -13,10 +13,10 @@ package vazkii.botania.api.lexicon.multiblock;
 import java.util.HashMap;
 import java.util.Map;
 
-import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.world.IBlockAccess;
+import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 
 /**
  * A hook for rendering blocks in the multiblock display.

@@ -50,7 +50,7 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 	boolean lastFragile = false;
 
 	public static IIcon manaIcon;
-	
+
 	public BlockPool() {
 		super(Material.rock);
 		setHardness(2.0F);

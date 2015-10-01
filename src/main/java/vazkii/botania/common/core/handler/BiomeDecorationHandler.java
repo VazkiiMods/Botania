@@ -33,7 +33,7 @@ public class BiomeDecorationHandler {
 
 			if(!flowers)
 				return;
-			
+
 			int dist = Math.min(8, Math.max(1, ConfigHandler.flowerPatchSize));
 			for(int i = 0; i < ConfigHandler.flowerQuantity; i++) {
 				if(event.rand.nextInt(ConfigHandler.flowerPatchChance) == 0) {

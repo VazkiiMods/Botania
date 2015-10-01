@@ -21,15 +21,15 @@ import net.minecraft.world.World;
 public class TileRedStringInterceptor extends TileRedString {
 
 	public static List<TileRedStringInterceptor> interceptors = new ArrayList();
-	
+
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-	
+
 		if(!interceptors.contains(this))
 			interceptors.add(this);
 	}
-	
+
 	@Override
 	public boolean acceptBlock(int x, int y, int z) {
 		return worldObj.getTileEntity(x, y, z) != null;
@@ -38,17 +38,17 @@ public class TileRedStringInterceptor extends TileRedString {
 	public boolean removeFromList() {
 		return !tileEntityInvalid && worldObj.getTileEntity(xCoord, yCoord, zCoord) == this;
 	}
-	
+
 	public static void onInteract(EntityPlayer player, World world, int x, int y, int z) {
 		List<TileRedStringInterceptor> remove = new ArrayList();
 		boolean did = false;
-		
+
 		for(TileRedStringInterceptor inter : interceptors) {
 			if(!inter.removeFromList()) {
 				remove.add(inter);
 				continue;
 			}
-			
+
 			if(inter.worldObj == world) {
 				ChunkCoordinates coords = inter.getBinding();
 				if(coords != null && coords.posX == x && coords.posY == y && coords.posZ == z) {
@@ -58,12 +58,12 @@ public class TileRedStringInterceptor extends TileRedString {
 						world.setBlockMetadataWithNotify(inter.xCoord, inter.yCoord, inter.zCoord, meta | 8, 1 | 2);
 						world.scheduleBlockUpdate(inter.xCoord, inter.yCoord, inter.zCoord, block, block.tickRate(world));
 					}
-					
+
 					did = true;
 				}
 			}
 		}
-		
+
 		interceptors.removeAll(remove);
 		if(did) {
 			if(world.isRemote)

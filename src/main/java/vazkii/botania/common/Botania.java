@@ -73,7 +73,7 @@ public class Botania {
 	public void postInit(FMLPostInitializationEvent event) {
 		proxy.postInit(event);
 	}
-	
+
 	@EventHandler
 	public void serverStarting(FMLServerAboutToStartEvent event) {
 		proxy.serverAboutToStart(event);

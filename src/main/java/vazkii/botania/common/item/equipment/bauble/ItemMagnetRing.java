@@ -104,7 +104,7 @@ public class ItemMagnetRing extends ItemBauble {
 					if(canPullItem(item)) {
 						if(pulled > 200)
 							break;
-						
+
 						MathHelper.setEntityMotionFromVector(item, new Vector3(x, y, z), 0.45F);
 						if(player.worldObj.isRemote) {
 							boolean red = player.worldObj.rand.nextBoolean();

@@ -46,7 +46,7 @@ public final class LibAchievementNames {
 	public static final String LUMINIZER_RIDE = "luminizerRide";
 	public static final String MANA_BOMB_IGNITE = "manaBombIgnite";
 	public static final String DANDELIFEON_PICKUP = "dandelifeonPickup";
-	
+
 	public static final String SIGNAL_FLARE_STUN = "signalFlareStun";
 	public static final String L20_SHARD_USE = "l20ShardUse";
 	public static final String GAIA_GUARDIAN_NO_ARMOR = "gaiaGuardianNoArmor";

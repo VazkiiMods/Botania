@@ -157,7 +157,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModFluffBlocks.managlassPane);
 		addBlock(ModBlocks.elfGlass);
 		addBlock(ModFluffBlocks.alfglassPane);
-		
+
 		addItem(ModItems.glassPick);
 		addItem(ModItems.manasteelPick);
 		addItem(ModItems.manasteelShovel);
@@ -326,7 +326,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModFluffBlocks.snowBrickSlab);
 		addBlock(ModFluffBlocks.tileStairs);
 		addBlock(ModFluffBlocks.tileSlab);
-		
+
 		addBlock(ModFluffBlocks.livingwoodStairs);
 		addBlock(ModFluffBlocks.livingwoodSlab);
 		addBlock(ModFluffBlocks.livingwoodWall);
@@ -377,7 +377,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 				addBlock(ModFluffBlocks.stoneSlabs[i]);
 			addBlock(ModFluffBlocks.stoneWall);
 		}
-		
+
 		addBlock(ModFluffBlocks.biomeStoneA);
 		addBlock(ModFluffBlocks.biomeStoneB);
 		for(int i = 0; i < 24; i++)
@@ -385,12 +385,12 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		for(int i = 0; i < 24; i++)
 			addBlock(ModFluffBlocks.biomeStoneSlabs[i]);
 		addBlock(ModFluffBlocks.biomeStoneWall);
-		
+
 		addBlock(ModFluffBlocks.pavement);
-		for(int i = 0; i < ModFluffBlocks.pavementStairs.length; i++)
-			addBlock(ModFluffBlocks.pavementStairs[i]);
-		for(int i = 0; i < ModFluffBlocks.pavementSlabs.length; i++)
-			addBlock(ModFluffBlocks.pavementSlabs[i]);
+		for (Block pavementStair : ModFluffBlocks.pavementStairs)
+			addBlock(pavementStair);
+		for (Block pavementSlab : ModFluffBlocks.pavementSlabs)
+			addBlock(pavementSlab);
 
 		if(ConfigHandler.enderStuff19Enabled) {
 			addBlock(ModBlocks.endStoneBrick);

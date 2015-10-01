@@ -31,7 +31,7 @@ public class Multiblock {
 	public List<ItemStack> materials = new ArrayList();
 
 	public int minX, minY, minZ, maxX, maxY, maxZ, offX, offY, offZ;
-	
+
 	public HashMap<List<Integer>, MultiblockComponent> locationCache = new HashMap<List<Integer>, MultiblockComponent>();
 
 	/**
@@ -157,7 +157,7 @@ public class Multiblock {
 	public int getZSize() {
 		return Math.abs(minZ) + Math.abs(maxZ) + 1;
 	}
-	
+
 	/**
 	 * Rebuilds the location cache
 	 */
@@ -166,17 +166,17 @@ public class Multiblock {
 		for(MultiblockComponent comp : components)
 			addComponentToLocationCache(comp);
 	}
-	
+
 	/**
 	 * Adds a single component to the location cache
 	 */
 	private void addComponentToLocationCache(MultiblockComponent comp) {
 		ChunkCoordinates pos = comp.getRelativePosition();
 		locationCache.put(Arrays.asList(
-				pos.posX, 
-				pos.posY, 
+				pos.posX,
+				pos.posY,
 				pos.posZ
-		),  comp);
+				),  comp);
 	}
 
 	/**

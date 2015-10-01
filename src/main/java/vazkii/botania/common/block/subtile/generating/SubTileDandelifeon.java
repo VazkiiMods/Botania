@@ -22,7 +22,6 @@ import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileCell;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibLexicon;
 
 public class SubTileDandelifeon extends SubTileGenerating {
 
@@ -58,7 +57,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 			for(int j = 0; j < table[0].length; j++) {
 				int gen = table[i][j];
 				int adj = getAdjCells(table, i, j);
-				
+
 				int newVal = gen;
 				if(adj < 2 || adj > 3)
 					newVal = -1;
@@ -68,15 +67,15 @@ public class SubTileDandelifeon extends SubTileGenerating {
 					else if(gen > -1)
 						newVal = gen + 1;
 				}
-				
+
 				int xdist = Math.abs(i - RANGE);
 				int zdist = Math.abs(j - RANGE);
-				int allowDist = (newVal == 1 && gen == 0) ? 3 : 1;
+				int allowDist = newVal == 1 && gen == 0 ? 3 : 1;
 				if(xdist <= allowDist && zdist <= allowDist && newVal > -1) {
 					gen = newVal;
 					newVal = gen == 1 ? -1 : -2;
 				}
-				
+
 				if(newVal != gen)
 					changes.add(new int[] { i, j, newVal, gen });
 			}
@@ -90,7 +89,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 			int pz = z - RANGE + change[1];
 			int val = change[2];
 			int old = change[3];
-			
+
 			setBlockForGeneration(px, y, pz, val, old);
 		}
 	}
@@ -107,7 +106,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 			for(int j = 0; j < diam; j++) {
 				int px = x - RANGE + i;
 				int pz = z - RANGE + j;
-				table[i][j] = getCellGeneration(px, y, pz); 
+				table[i][j] = getCellGeneration(px, y, pz);
 			}
 
 		return table;
@@ -132,7 +131,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 					count++;
 			}
 		}
-		
+
 		return count;
 	}
 
@@ -147,7 +146,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 					max = gen;
 			}
 		}
-		
+
 		return max == -1 ? -1 : max + 1;
 	}
 
@@ -191,7 +190,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 	public int getColor() {
 		return 0x9c0a7e;
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry() {
 		return LexiconData.dandelifeon;
