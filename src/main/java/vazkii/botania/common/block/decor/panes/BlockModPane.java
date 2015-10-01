@@ -17,6 +17,8 @@ import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockMod;
 import vazkii.botania.common.lexicon.LexiconData;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPane;
 import net.minecraft.block.material.Material;
@@ -49,6 +51,7 @@ public class BlockModPane extends BlockPane {
 	}
 	
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
 		iconTop = IconHelper.forBlock(reg, this);
 	}
@@ -68,10 +71,12 @@ public class BlockModPane extends BlockPane {
 		return 1;
 	}
 	
+	@SideOnly(Side.CLIENT)
     public IIcon func_150097_e() {
     	return source.getIcon(0, 0);
     }
     
+	@SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta) {
     	return side >= 2 ? iconTop : source.getIcon(side, meta);  
     }

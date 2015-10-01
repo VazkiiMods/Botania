@@ -39,6 +39,7 @@ public class BlockBifrostPane extends BlockModPane {
 	}
 	
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
 		// NO-OP
 	}
