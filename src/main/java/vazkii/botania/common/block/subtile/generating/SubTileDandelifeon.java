@@ -71,7 +71,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 				
 				int xdist = Math.abs(i - RANGE);
 				int zdist = Math.abs(j - RANGE);
-				int allowDist = (newVal == 1 && gen == 0) ? 2 : 1;
+				int allowDist = (newVal == 1 && gen == 0) ? 3 : 1;
 				if(xdist <= allowDist && zdist <= allowDist && newVal > -1) {
 					gen = newVal;
 					newVal = gen == 1 ? -1 : -2;
