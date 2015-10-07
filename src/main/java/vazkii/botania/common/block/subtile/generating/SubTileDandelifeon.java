@@ -29,6 +29,8 @@ public class SubTileDandelifeon extends SubTileGenerating {
 	private static final int SPEED = 10;
 	private static final int MAX_GENERATIONS = 60;
 	private static final int MANA_PER_GEN = 35;
+	private static final int GEN_0_EXCLUSION_RADIUS = 3;
+	private static final int MAKE_MANA_RADIUS = 1;
 
 	private static final int[][] ADJACENT_BLOCKS = new int[][] {
 		{ -1, -1 },
@@ -70,7 +72,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 
 				int xdist = Math.abs(i - RANGE);
 				int zdist = Math.abs(j - RANGE);
-				int allowDist = newVal == 1 && gen == 0 ? 3 : 1;
+				int allowDist = newVal == 1 && gen == 0 ? GEN_0_EXCLUSION_RADIUS : MAKE_MANA_RADIUS;
 				if(xdist <= allowDist && zdist <= allowDist && newVal > -1) {
 					gen = newVal;
 					newVal = gen == 1 ? -1 : -2;
@@ -127,7 +129,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 			int zp = z + shift[1];
 			if(!isOffBounds(table, xp, zp)) {
 				int gen = table[xp][zp];
-				if(gen >= 0)
+				if(gen > 0 || (gen == 0 && !isInGen0ExclusionZone(xp, zp)))
 					count++;
 			}
 		}
@@ -152,6 +154,10 @@ public class SubTileDandelifeon extends SubTileGenerating {
 
 	boolean isOffBounds(int[][] table, int x, int z) {
 		return x < 0 || z < 0 || x >= table.length || z >= table[0].length;
+	}
+	
+	boolean isInGen0ExclusionZone(int x, int z) {
+		return Math.abs(x - RANGE) <= GEN_0_EXCLUSION_RADIUS && Math.abs(z - RANGE) <= GEN_0_EXCLUSION_RADIUS;
 	}
 
 	void setBlockForGeneration(int x, int y, int z, int gen, int prevGen) {
