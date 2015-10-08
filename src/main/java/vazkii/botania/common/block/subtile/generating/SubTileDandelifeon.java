@@ -12,13 +12,17 @@ package vazkii.botania.common.block.subtile.generating;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
+import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.BlockCell;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileCell;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -43,17 +47,33 @@ public class SubTileDandelifeon extends SubTileGenerating {
 		{ +0, -1 }
 	};
 
+	private int[] blockageLocation = null;
+
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
 
 		if(!supertile.getWorldObj().isRemote && redstoneSignal > 0 && ticksExisted % SPEED == 0)
 			runSimulation();
+		if(redstoneSignal > 0 && blockageLocation != null)
+			spawnBlockageParticles();
 	}
 
 	void runSimulation() {
 		int[][] table = getCellTable();
-		List<int[]> changes = new ArrayList();
+
+		if (blockageLocation != null) {
+			if (table[blockageLocation[0]][blockageLocation[1]] == -1 ||
+					getAdjCells(table, blockageLocation[0], blockageLocation[1]) != 3) {
+				colorBlockageCells(0);
+				blockageLocation = null;
+				sync();
+			} else {
+				return;
+			}
+		}
+
+		List<int[]> changes = new ArrayList<int[]>();
 
 		for(int i = 0; i < table.length; i++)
 			for(int j = 0; j < table[0].length; j++) {
@@ -64,7 +84,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 				if(adj < 2 || adj > 3)
 					newVal = -1;
 				else {
-					if(adj == 3 && gen == -1)
+					if(adj == 3 && gen < 0)
 						newVal = getSpawnCellGeneration(table, i, j);
 					else if(gen > -1)
 						newVal = gen + 1;
@@ -78,8 +98,15 @@ public class SubTileDandelifeon extends SubTileGenerating {
 					newVal = gen == 1 ? -1 : -2;
 				}
 
-				if(newVal != gen)
+				if(newVal != gen) {
+					if (gen == -3 && newVal > -1) {
+						blockageLocation = new int[] { i, j };
+						colorBlockageCells(1);
+						sync();
+						return;
+					}
 					changes.add(new int[] { i, j, newVal, gen });
+				}
 			}
 
 		int x = supertile.xCoord;
@@ -114,10 +141,19 @@ public class SubTileDandelifeon extends SubTileGenerating {
 		return table;
 	}
 
+	/**
+	 * >= 0 - cell
+	 * -1 - air
+	 * -2 - consume this cell for mana
+	 * -3 - not air
+	 */
 	int getCellGeneration(int x, int y, int z) {
-		TileEntity tile = supertile.getWorldObj().getTileEntity(x, y, z);
+		final World world = supertile.getWorldObj();
+		TileEntity tile = world.getTileEntity(x, y, z);
 		if(tile instanceof TileCell)
 			return ((TileCell) tile).getGeneration();
+		if(!world.getBlock(x, y ,z).isAir(world, x, y, z))
+			return -3;
 
 		return -1;
 	}
@@ -177,6 +213,41 @@ public class SubTileDandelifeon extends SubTileGenerating {
 		}
 	}
 
+	void spawnBlockageParticles() {
+		if(supertile.getWorldObj().rand.nextInt(4) == 0) {
+			Random rand = supertile.getWorldObj().rand;
+			int blockageX = supertile.xCoord + (blockageLocation[0] - RANGE);
+			int blockageZ = supertile.zCoord + (blockageLocation[1] - RANGE);
+			Botania.proxy.wispFX(supertile.getWorldObj(),
+					supertile.xCoord + 0.55 + Math.random() * 0.2 - 0.1,
+					supertile.yCoord + 0.5,
+					supertile.zCoord + 0.55 + Math.random() * 0.2 - 0.1,
+					0.6F, 0.03F, 0.03F,
+					(float) Math.random() / 3, (float) -Math.random() / 20);
+			Botania.proxy.wispFX(supertile.getWorldObj(),
+					blockageX + 0.55 + Math.random() * 0.2 - 0.1,
+					supertile.yCoord + 1,
+					blockageZ + 0.55 + Math.random() * 0.2 - 0.1,
+					0.6F, 0.03F, 0.03F,
+					(float) (1 + Math.random()) / 5,
+					(float) rand.nextGaussian() / 20,
+					(float) (0.05 + rand.nextDouble() / 10),
+					(float) rand.nextGaussian() / 20);
+		}
+	}
+
+	void colorBlockageCells(int newMeta) {
+		int blockageX = supertile.xCoord + (blockageLocation[0] - RANGE);
+		int blockageZ = supertile.zCoord + (blockageLocation[1] - RANGE);
+		World world = supertile.getWorldObj();
+		for (int[] shift : ADJACENT_BLOCKS) {
+			Block block = world.getBlock(blockageX + shift[0], supertile.yCoord, blockageZ + shift[1]);
+			if (block instanceof BlockCell) {
+				world.setBlockMetadataWithNotify(blockageX + shift[0], supertile.yCoord, blockageZ + shift[1], newMeta, 2);
+			}
+		}
+	}
+
 	@Override
 	public boolean acceptsRedstone() {
 		return true;
@@ -202,4 +273,30 @@ public class SubTileDandelifeon extends SubTileGenerating {
 		return LexiconData.dandelifeon;
 	}
 
+	private static final String TAG_BLOCKAGE = "blockage";
+	private static final String TAG_BLOCKAGE_X = "blockageX";
+	private static final String TAG_BLOCKAGE_Z = "blockageZ";
+	@Override
+	public void writeToPacketNBT(NBTTagCompound cmp) {
+		super.writeToPacketNBT(cmp);
+
+		if (blockageLocation == null) {
+			cmp.setBoolean(TAG_BLOCKAGE, false);
+		} else {
+			cmp.setBoolean(TAG_BLOCKAGE, true);
+			cmp.setInteger(TAG_BLOCKAGE_X, blockageLocation[0]);
+			cmp.setInteger(TAG_BLOCKAGE_Z, blockageLocation[1]);
+		}
+	}
+
+	@Override
+	public void readFromPacketNBT(NBTTagCompound cmp) {
+		super.readFromPacketNBT(cmp);
+
+		if (cmp.getBoolean(TAG_BLOCKAGE)) {
+			blockageLocation = new int[] { cmp.getInteger(TAG_BLOCKAGE_X), cmp.getInteger(TAG_BLOCKAGE_Z) };
+		} else {
+			blockageLocation = null;
+		}
+	}
 }
