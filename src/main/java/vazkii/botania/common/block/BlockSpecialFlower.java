@@ -24,6 +24,7 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -32,6 +33,9 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import org.lwjgl.util.Color;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -42,6 +46,7 @@ import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.integration.coloredlights.LightHelper;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -245,9 +250,23 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 	public void onBlockAdded(World world, int x, int y, int z) {
 		((TileSpecialFlower) world.getTileEntity(x, y, z)).onBlockAdded(world, x, y, z);
 	}
-
+	
+	@Override
+	public int colorMultiplier(IBlockAccess world, int x, int y, int z) {
+		float[] rgb = EntitySheep.fleeceColorTable[world.getBlockMetadata(x, y, z)];
+		return ((int) (rgb[0] * 255) << 16) + ((int) (rgb[1] * 255) << 8) + ((int) (rgb[2] * 255)); 
+	}
+	
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+		ItemStack stack = player.getCurrentEquippedItem();
+		if(stack != null && stack.getItem() == ModItems.dye) {
+			int newMeta = stack.getItemDamage();
+			int oldMeta = world.getBlockMetadata(x, y, z);
+			if(newMeta != oldMeta)
+				world.setBlockMetadataWithNotify(x, y, z, newMeta, 1 | 2);
+		}
+ 
 		return ((TileSpecialFlower) world.getTileEntity(x, y, z)).onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ);
 	}
 
