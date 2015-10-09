@@ -1,3 +1,24 @@
+r1.7 224
+*Added "Motif" variants of passive flowers. Same as Petite, but instead of being smaller, they don't decay nor produce mana. Since they use the same system, you can find them in the Flower Shrinking page.
+*Added "Redstone Helper" features to the Manaseer Monocle. Looking at redstone things will show you some data about them.
+*Added a recipe counter to the recipe registing code just for fun. You can now see how many recipes botania adds, woohoo.
+*Added comparator support to the Corporea Crystal Cube, it can now detect how many items are in a corporea network with exponential output.
+*Added Managlass, Alfglass and Bifrost Panes.
+*Added the Corporea Retainer, a new corporea block you can place next to a Corporea Interceptor, it'll remember the last intercepted request and have the requestor redo it if it gets a redstone signal.
+*Added the Teru Teru Bozu, a new (cute as hell) block that can send the rain away.
+*Added two new Portuguese Pavement Colors, yellow and green.
+*Changed some checks to use Material instead of Block (such as Hydroangeas and Thermalilies). Should make compatibility with TerraFirmaCraft or other mods' different water and lava blocks work better.
+*Changed the "no mana killzone" of the Dandelifeon from a 5x5 to a 7x7. <i>To be honest, I really don't know where I'm going with this one. It's seeming to me like it's a failed experiment, as the optimal build always ends up being a really simple thing, which I'm not a big fan of. I'm just trying various things and seeing what sticks. I might end up removing it alltogether.</i>
+*Changed the Gaia Guardian's health to 800 (from 300) and the damage cap to 35 (from 12), 50 if it's a crit. In a way, if you're properly prepared, the boss is actually easier now as it's definitely possible to hit that hard with the proper enchants and potions, it just requires preparation.
+*Fixed the Corporea Crystal Cube and Hovering Hourglass not rendering every model piece in the inventory.
+*Fixed the Elementium Axe dropping Zombie Heads from Zombie Pigmen.
+*Fixed typos.
+*The Corporea Crystal Cube now shows how many items are in the network in its render without you having to hover on it.
+*The Corporea Index is now less stingy on how close you need to be to it in the Y axis.
+*The Manaseer Monocle can now be used as a Cosmetic Override to other baubles. Its benefits are not removed when you do this, so you can use the monocle without taking up a slot.
+*The Rannuncarpus can now place botania flowers that do stuff as well as redstone dust.
+*[API] Added ICorporeaRequestor for use with the Corporea Retainer.
+*[API] Increased version number to 64.
 r1.7 223
 *Added code to safely crash the game if someone overrides the Botania API's Internal Method Handler. Overriding the Internal Method Handler is a sure fire way to crash the game or cause incompatibility problems later down the line, so at least you're getting informed about it with a proper error message. It's sad that I even had to makXe this, to be honest.
 *Fixed a circular dependency chain with DragonAPI not allowing for the game to load.
