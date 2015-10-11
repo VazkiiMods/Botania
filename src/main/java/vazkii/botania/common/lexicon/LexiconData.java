@@ -136,6 +136,7 @@ public final class LexiconData {
 	public static LexiconEntry gourmaryllis;
 	public static LexiconEntry narslimmus;
 	public static LexiconEntry spectrolus;
+	public static LexiconEntry rafflowsia;
 	public static LexiconEntry dandelifeon;
 
 	public static LexiconEntry pylon;
@@ -570,6 +571,9 @@ public final class LexiconData {
 		spectrolus = new ALexiconEntry(LibLexicon.GFLOWER_SPECTROLUS, categoryGenerationFlowers);
 		spectrolus.setLexiconPages(new PageText("0"), new PageText("1"), new PagePetalRecipe("2", ModPetalRecipes.spectrolusRecipe));
 
+		rafflowsia = new ALexiconEntry(LibLexicon.GFLOWER_RAFFLOWSIA, categoryGenerationFlowers);
+		rafflowsia.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageText("3"), new PagePetalRecipe("4", ModPetalRecipes.rafflowsiaRecipe));
+		
 		dandelifeon = new ALexiconEntry(LibLexicon.GFLOWER_DANDELIFEON, categoryGenerationFlowers);
 		dandelifeon.setLexiconPages(new PageText("_w"), new PageText("0"), new PageText("1"), new PageText("2"), new PageText("3"), new PageText("4"), new PageText("5"), new PageText("6"), new PageText("10"), new PageText("7"), new PagePetalRecipe("8", ModPetalRecipes.dandelifeonRecipe), new PageCraftingRecipe("9", ModCraftingRecipes.recipeCellBlock));
 

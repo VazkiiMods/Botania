@@ -127,4 +127,9 @@ public class SubTileRafflowsia extends SubTileGenerating {
 		return 6000;
 	}
 	
+	@Override
+	public LexiconEntry getEntry() {
+		return LexiconData.rafflowsia;
+	}
+	
 }
