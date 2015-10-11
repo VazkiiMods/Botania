@@ -28,7 +28,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 	private static final int RANGE = 12;
 	private static final int SPEED = 10;
 	private static final int MAX_GENERATIONS = 60;
-	private static final int MANA_PER_GEN = 35;
+	private static final int MANA_PER_GEN = 150;
 
 	private static final int[][] ADJACENT_BLOCKS = new int[][] {
 		{ -1, -1 },
@@ -52,6 +52,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 	void runSimulation() {
 		int[][] table = getCellTable();
 		List<int[]> changes = new ArrayList();
+		boolean wipe = false;
 
 		for(int i = 0; i < table.length; i++)
 			for(int j = 0; j < table[0].length; j++) {
@@ -70,24 +71,30 @@ public class SubTileDandelifeon extends SubTileGenerating {
 
 				int xdist = Math.abs(i - RANGE);
 				int zdist = Math.abs(j - RANGE);
-				int allowDist = newVal == 1 && gen == 0 ? 3 : 1;
+				int allowDist = 1;
 				if(xdist <= allowDist && zdist <= allowDist && newVal > -1) {
 					gen = newVal;
 					newVal = gen == 1 ? -1 : -2;
 				}
 
-				if(newVal != gen)
+				if(newVal != gen) {
 					changes.add(new int[] { i, j, newVal, gen });
+					if(newVal == -2)
+						wipe = true;
+				}
 			}
 
 		int x = supertile.xCoord;
 		int y = supertile.yCoord;
 		int z = supertile.zCoord;
-
+		
 		for(int[] change : changes) {
 			int px = x - RANGE + change[0];
 			int pz = z - RANGE + change[1];
 			int val = change[2];
+			if(val != -2 && wipe)
+				val = -1;
+				
 			int old = change[3];
 
 			setBlockForGeneration(px, y, pz, val, old);
