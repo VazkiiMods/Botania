@@ -40,6 +40,8 @@ import vazkii.botania.common.block.decor.BlockPetalBlock;
 import vazkii.botania.common.block.decor.BlockPrismarine;
 import vazkii.botania.common.block.decor.BlockReeds;
 import vazkii.botania.common.block.decor.BlockSeaLamp;
+import vazkii.botania.common.block.decor.BlockShimmerrock;
+import vazkii.botania.common.block.decor.BlockShimmerwoodPlanks;
 import vazkii.botania.common.block.decor.BlockShinyFlower;
 import vazkii.botania.common.block.decor.BlockStarfield;
 import vazkii.botania.common.block.decor.BlockThatch;
@@ -260,6 +262,8 @@ public final class ModBlocks {
 	public static Block gaiaHead;
 	public static Block corporeaRetainer;
 	public static Block teruTeruBozu;
+	public static Block shimmerrock;
+	public static Block shimmerwoodPlanks;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -348,6 +352,8 @@ public final class ModBlocks {
 		gaiaHead = new BlockGaiaHead();
 		corporeaRetainer = new BlockCorporeaRetainer();
 		teruTeruBozu = new BlockTeruTeruBozu();
+		shimmerrock = new BlockShimmerrock();
+		shimmerwoodPlanks = new BlockShimmerwoodPlanks();
 
 		ModFluffBlocks.init();
 

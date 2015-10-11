@@ -85,6 +85,8 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.rainbowRod);
 		addBlock(ModBlocks.bifrostPerm);
 		addBlock(ModFluffBlocks.bifrostPane);
+		addBlock(ModBlocks.shimmerrock);
+		addBlock(ModBlocks.shimmerwoodPlanks);
 		addItem(ModItems.tornadoRod);
 		addItem(ModItems.fireRod);
 		addItem(ModItems.smeltRod);
@@ -342,6 +344,10 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModFluffBlocks.dreamwoodWall);
 		addBlock(ModFluffBlocks.dreamwoodPlankStairs);
 		addBlock(ModFluffBlocks.dreamwoodPlankSlab);
+		addBlock(ModFluffBlocks.shimmerwoodPlankStairs);
+		addBlock(ModFluffBlocks.shimmerwoodPlankSlab);
+		addBlock(ModFluffBlocks.shimmerrockStairs);
+		addBlock(ModFluffBlocks.shimmerrockSlab);
 
 		addItem(ModItems.quartz);
 		if(ConfigHandler.darkQuartzEnabled) {

@@ -1140,6 +1140,14 @@ tile.botania:manaGlassPane.name=Managlass Pane
 tile.botania:elfGlassPane.name=Alfglass Pane
 tile.botania:bifrostPermPane.name=Bifrost Pane
 tile.botania:teruTeruBozu.name=Teru Teru Bozu
+tile.botania:shimmerrock.name=Shimmerrock
+tile.botania:shimmerrock0Slab.name=Shimmerrock Slab
+tile.botania:shimmerrock0SlabFull.name=Shimmerrock Slab
+tile.botania:shimmerrock0Stairs.name=Shimmerrock Stairs
+tile.botania:shimmerwoodPlanks.name=Shimmerwood Planks
+tile.botania:shimmerwoodPlanks0Slab.name=Shimmerwood Plank Slab
+tile.botania:shimmerwoodPlanks0SlabFull.name=Shimmerwood Plank Slab
+tile.botania:shimmerwoodPlanks0Stairs.name=Shimmerwood Plank Stairs
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower
@@ -2770,6 +2778,8 @@ botania.page.rainbowRod0=&4Bifrost&0, the rainbow bridge that reaches between th
 botania.page.rainbowRod1=This bridge extends as far as a hundred blocks, and will vanish after about fifteen seconds.<br>Only one bridge can be created for any given &1Rod of the Bifrost&0 at a time, as soon as the old bridge vanishes, a new one can be created.
 botania.page.rainbowRod2=Going my way!! Cut open a path and go!
 botania.page.rainbowRod3=&1Bifrost Blocks&0 for decoration
+botania.page.rainbowRod4=Rainbow &1Shimmerrock&0
+botania.page.rainbowRod5=Rainbow &1Shimmerwood Planks&0
 
 # -- ROD OF THE SKIES
 botania.entry.tornadoRod=Rod of the Skies
