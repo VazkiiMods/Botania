@@ -30,10 +30,10 @@ public class SubTileRafflowsia extends SubTileGenerating {
 
 	private static final String TAG_LAST_FLOWER = "lastFlower";
 	private static final String TAG_LAST_FLOWER_TIMES = "lastFlowerTimes";
-	
+
 	String lastFlower;
 	int lastFlowerTimes;
-	
+
 	private static final int RANGE = 5;
 
 	@Override
@@ -54,7 +54,7 @@ public class SubTileRafflowsia extends SubTileGenerating {
 						if(tile instanceof ISubTileContainer) {
 							SubTileEntity stile = ((ISubTileContainer) tile).getSubTile();
 							String name = stile.getUnlocalizedName();
-							
+
 							if(stile instanceof SubTileGenerating && ((SubTileGenerating) stile).isPassiveFlower()) {
 								boolean last = name.equals(lastFlower);
 								if(last)
@@ -63,7 +63,7 @@ public class SubTileRafflowsia extends SubTileGenerating {
 									lastFlower = name;
 									lastFlowerTimes = 1;
 								}
-								
+
 								float mod = 1F / lastFlowerTimes;
 
 								int meta = supertile.getWorldObj().getBlockMetadata(x, y, z) + 1;
@@ -78,32 +78,32 @@ public class SubTileRafflowsia extends SubTileGenerating {
 					}
 		}
 	}
-	
+
 	@Override
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		super.writeToPacketNBT(cmp);
-		
+
 		cmp.setString(TAG_LAST_FLOWER, lastFlower);
 		cmp.setInteger(TAG_LAST_FLOWER_TIMES, lastFlowerTimes);
 	}
-	
+
 	@Override
 	public void readFromPacketNBT(NBTTagCompound cmp) {
 		super.readFromPacketNBT(cmp);
-		
+
 		lastFlower = cmp.getString(TAG_LAST_FLOWER);
 		lastFlowerTimes = cmp.getInteger(TAG_LAST_FLOWER_TIMES);
 	}
-	
+
 	@Override
 	public void populateDropStackNBTs(List<ItemStack> drops) {
 		super.populateDropStackNBTs(drops);
 
 		ItemStack stack = drops.get(0);
 		ItemNBTHelper.setString(stack, TAG_LAST_FLOWER, lastFlower);
-		ItemNBTHelper.setInt(stack, TAG_LAST_FLOWER_TIMES, lastFlowerTimes);	
+		ItemNBTHelper.setInt(stack, TAG_LAST_FLOWER_TIMES, lastFlowerTimes);
 	}
-	
+
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
 		super.onBlockPlacedBy(world, x, y, z, entity, stack);
@@ -126,10 +126,10 @@ public class SubTileRafflowsia extends SubTileGenerating {
 	public int getMaxMana() {
 		return 6000;
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry() {
 		return LexiconData.rafflowsia;
 	}
-	
+
 }

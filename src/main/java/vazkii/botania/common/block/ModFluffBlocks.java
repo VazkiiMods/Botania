@@ -197,7 +197,7 @@ public final class ModFluffBlocks {
 	public static Block shimmerwoodPlankSlab;
 	public static Block shimmerwoodPlankSlabFull;
 	public static Block shimmerwoodPlankStairs;
-	
+
 	public static Block managlassPane;
 	public static Block alfglassPane;
 	public static Block bifrostPane;
@@ -326,14 +326,14 @@ public final class ModFluffBlocks {
 		enderBrickSlab = new BlockEnderBrickSlab(false);
 		enderBrickSlabFull = new BlockEnderBrickSlab(true);
 		enderBrickStairs = new BlockEnderBrickStairs();
-		
+
 		shimmerrockSlab = new BlockShimmerrockSlab(false);
 		shimmerrockSlabFull = new BlockShimmerrockSlab(true);
 		shimmerrockStairs = new BlockShimmerrockStairs();
 		shimmerwoodPlankSlab = new BlockShimmerwoodPlankSlab(false);
 		shimmerwoodPlankSlabFull = new BlockShimmerwoodPlankSlab(true);
 		shimmerwoodPlankStairs = new BlockShimmerwoodPlankStairs();
-		
+
 		managlassPane = new BlockManaglassPane();
 		alfglassPane = new BlockAlfglassPane();
 		bifrostPane = new BlockBifrostPane();
@@ -401,7 +401,7 @@ public final class ModFluffBlocks {
 		((BlockModSlab) shimmerrockSlabFull).register();
 		((BlockModSlab) shimmerwoodPlankSlab).register();
 		((BlockModSlab) shimmerwoodPlankSlabFull).register();
-		
+
 		for(int i = 0; i < 24; i++) {
 			((BlockModSlab) biomeStoneSlabs[i]).register();
 			((BlockModSlab) biomeStoneFullSlabs[i]).register();

@@ -1993,7 +1993,7 @@ public final class ModCraftingRecipes {
 		recipeShimmerrock = BotaniaAPI.getLatestAddedRecipe();
 		addShapelessOreDictRecipe(new ItemStack(ModBlocks.shimmerwoodPlanks), new ItemStack(ModBlocks.dreamwood, 1, 1), new ItemStack(ModBlocks.bifrostPerm));
 		recipeShimmerwoodPlanks = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		// Manufactory Halo Recipe
 		addShapelessOreDictRecipe(new ItemStack(ModItems.autocraftingHalo), new ItemStack(ModItems.craftingHalo), LibOreDict.MANA_DIAMOND);
 		recipeAutocraftingHalo = BotaniaAPI.getLatestAddedRecipe();

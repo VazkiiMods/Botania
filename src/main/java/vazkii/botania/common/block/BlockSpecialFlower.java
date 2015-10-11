@@ -33,9 +33,6 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import org.lwjgl.util.Color;
-
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -251,13 +248,13 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 	public void onBlockAdded(World world, int x, int y, int z) {
 		((TileSpecialFlower) world.getTileEntity(x, y, z)).onBlockAdded(world, x, y, z);
 	}
-	
+
 	@Override
 	public int colorMultiplier(IBlockAccess world, int x, int y, int z) {
 		float[] rgb = EntitySheep.fleeceColorTable[world.getBlockMetadata(x, y, z)];
-		return ((int) (rgb[0] * 255) << 16) + ((int) (rgb[1] * 255) << 8) + ((int) (rgb[2] * 255)); 
+		return ((int) (rgb[0] * 255) << 16) + ((int) (rgb[1] * 255) << 8) + (int) (rgb[2] * 255);
 	}
-	
+
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
 		ItemStack stack = player.getCurrentEquippedItem();
@@ -267,7 +264,7 @@ public class BlockSpecialFlower extends BlockFlower implements ITileEntityProvid
 			if(newMeta != oldMeta)
 				world.setBlockMetadataWithNotify(x, y, z, newMeta, 1 | 2);
 		}
- 
+
 		return ((TileSpecialFlower) world.getTileEntity(x, y, z)).onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ);
 	}
 

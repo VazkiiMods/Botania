@@ -37,7 +37,7 @@ public class BlockShimmerwoodPlanks  extends BlockMod implements ILexiconable {
 		setBlockName(LibBlockNames.SHIMMERWOOD_PLANKS);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
-	
+
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void loadTextures(TextureStitchEvent.Pre event) {
@@ -53,7 +53,7 @@ public class BlockShimmerwoodPlanks  extends BlockMod implements ILexiconable {
 	public void registerBlockIcons(IIconRegister par1IconRegister) {
 		// NO-OP
 	}
-	
+
 	@Override
 	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.rainbowRod;

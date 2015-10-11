@@ -87,14 +87,14 @@ public class SubTileDandelifeon extends SubTileGenerating {
 		int x = supertile.xCoord;
 		int y = supertile.yCoord;
 		int z = supertile.zCoord;
-		
+
 		for(int[] change : changes) {
 			int px = x - RANGE + change[0];
 			int pz = z - RANGE + change[1];
 			int val = change[2];
 			if(val != -2 && wipe)
 				val = -1;
-				
+
 			int old = change[3];
 
 			setBlockForGeneration(px, y, pz, val, old);

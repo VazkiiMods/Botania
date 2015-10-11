@@ -15,6 +15,7 @@ import java.net.URI;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -49,6 +50,7 @@ import vazkii.botania.client.gui.lexicon.button.GuiButtonBookmark;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonCategory;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonChallengeInfo;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonChallenges;
+import vazkii.botania.client.gui.lexicon.button.GuiButtonDoot;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonHistory;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonInvisible;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonNotes;
@@ -168,7 +170,11 @@ public class GuiLexicon extends GuiScreen {
 				button.enabled = false;
 				button.visible = false;
 			}
+
+			if(Calendar.getInstance().get(Calendar.MONTH) == Calendar.NOVEMBER && Calendar.getInstance().get(Calendar.DATE) == 22)
+				buttonList.add(new GuiButtonDoot(-99, left + 110, top + 12));
 		}
+
 		buttonList.add(new GuiButtonNotes(this, NOTES_BUTTON_ID, left - 4, top - 4));
 	}
 
