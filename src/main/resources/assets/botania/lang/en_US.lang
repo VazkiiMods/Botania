@@ -2035,7 +2035,7 @@ botania.page.wrap0=It seems like the creator of this mod decided to add a weird 
 botania.entry.mIntro=An Introduction to Mana
 botania.page.mIntro0=&4Mana&0 is an ethereal substance. In layman's terms, it is a form of &4mystical energy&0. Its sensorial existence is inconstant, and its color depends on the environment its put in.<br>Mastering &4Mana&0 is one of the most important skills a botanist needs to master.
 botania.page.mIntro1=In order to create &4Mana&0, one would require a set of &4Generating Flowers&0 (read the respective section). This &4Mana&0 can be dispersed by utilizing &1Mana Spreaders&0 and stored in &1Mana Pools&0. &4Mana&0 can be used for a myriad of different things. For starters, it can be used for &4Functional Flowers&0 (read the respective section).
-botania.page.mIntro2=To get started with mastering the art of &4Mana&0, one would start by learning how to use &1Dayblooms&0, &1Mana Spreaders&0 and &1Mana Pools&0.<br>These form a basic infrastructure for mana, which can be used for all sorts of purposes. Have a read at the &4Functional Flora&0 and &4Magical Apparatus&0 sections of this Lexicon. 
+botania.page.mIntro2=To get started with mastering the art of &4Mana&0, one would start by learning how to use &1Dayblooms&0, &1Mana Spreaders&0 and &1Mana Pools&0.<br>These form a basic infrastructure for mana, which can be used for all sorts of purposes. Have a read at the &4Functional Flora&0 and &4Natural Apparatus&0 sections of this Lexicon. 
 
 # -- MANA SPREADER
 botania.entry.spreader=Mana Spreader
@@ -2386,7 +2386,7 @@ botania.page.nightshade1=&oThe shadow of the day&r.
 # -- ENDOFLAME
 botania.entry.endoflame=Endoflame
 botania.page.endoflame0=While the &1Daybloom&0 is all well and good, a botanist requires more effective means of generating &4Mana&0.<br>The &1Endoflame&0 does that exactly, it will absorb any combustible items or blocks dropped on the nearby vicinity (albeit only one at a time) and burn through them to passively generate mana while the fuel lasts.
-botania.page.endoflame1=There is a small caveat though, the &1Endoflame&0 will not burn anything that returns a byproduct, an example are &1Lava Buckets&0, that have empty &1Buckets&0 as a byproduct.<br>Due to their behaviour, an &1Open Crate&0, which you read about on the &4Magical Apparatus&0 section, might be a good step on getting it to be self-sustainable.
+botania.page.endoflame1=There is a small caveat though, the &1Endoflame&0 will not burn anything that returns a byproduct, an example are &1Lava Buckets&0, that have empty &1Buckets&0 as a byproduct.<br>Due to their behaviour, an &1Open Crate&0, which you read about on the &4Natural Apparatus&0 section, might be a good step on getting it to be self-sustainable.
 botania.page.endoflame2=&oNot nitor&r.
 
 # -- HYDROANGEAS
@@ -2458,7 +2458,7 @@ botania.page.dandelifeon7=&1Cellular Blocks&0 are crafted with &1Cactus&0, &1Car
 botania.page.dandelifeon8=&oCellCraft^2&r.
 botania.page.dandelifeon9=Creating &1Cellular Blocks&0
 
-# - MAGICAL APPARATUS
+# - NATURAL APPARATUS
 # -- MANA PYLON
 botania.entry.pylon=Mana Pylon
 botania.page.pylon0=A &1Mana Pylon&0 is a structure that can pull energies from the earth and use them to power enchanting processes.<br>For one, setting one adjusted to an &1Enchanting Table&0 as if it was a &1Bookshelf&0 will drastically increase the power it can convey, just 2 of these are enough for it to reach &4Level 30&0.
