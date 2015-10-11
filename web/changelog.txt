@@ -1,3 +1,11 @@
+r1.7 225
+*Added Shimmerrock and Shimmerwood Planks, rainbow blocks made with Bifrost Blocks.
+*Added the Rafflowsia, a new flower that eats passive flowers for mana. And you thought they were useless!
+*Fixed some entries telling you to go to "Magical Apparatus" when the section is actually called "Natural Apparatus".
+*Flowers can now be dyed using Floral Powder.
+*The Dandelifeon produces a lot more mana per cell now, however, whenever a cell is eaten, the board is wiped. Also added an "warning: experimental" page to the entry.<i>As always, this is still not final.</i>
+*[API] Fixed API dependency on non-API Botania classes.
+*[API] Increased version number to 65
 r1.7 224
 *Added "Motif" variants of passive flowers. Same as Petite, but instead of being smaller, they don't decay nor produce mana. Since they use the same system, you can find them in the Flower Shrinking page.
 *Added "Redstone Helper" features to the Manaseer Monocle. Looking at redstone things will show you some data about them.
