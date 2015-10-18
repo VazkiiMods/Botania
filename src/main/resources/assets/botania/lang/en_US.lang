@@ -429,7 +429,7 @@ achievement.botania:sparkCraft.desc=Make a Spark to help transfer Mana around
 achievement.botania:baubleWear=Inner Arts
 achievement.botania:baubleWear.desc=Craft any variety of Bauble and wear it
 achievement.botania:manaCookieEat=Rotten Heresy and Chocolate
-achievement.botania:manaCookieEat.desc=Infuse and eat a delicious Mana Cookie
+achievement.botania:manaCookieEat.desc=Infuse and eat a delicious Biscuit of Totality
 achievement.botania:runePickup=Lilium Doll
 achievement.botania:runePickup.desc=Use a Runic Altar to create a Rune
 achievement.botania:manaBlasterShoot=M'aider Stranded Girl
@@ -1374,7 +1374,7 @@ item.botania:signalFlare.name=Signal Flare
 item.botania:manaTablet.name=Mana Tablet
 item.botania:manaGun.name=Mana Blaster
 item.botania:compositeLens.name=Composite Mana Lens: %s %s
-item.botania:manaCookie.name=Mana Cookie
+item.botania:manaCookie.name=Biscuit of Totality
 item.botania:fertilizer.name=Floral Fertilizer
 item.botania:grassSeeds0.name=Pasture Seeds
 item.botania:grassSeeds1.name=Boreal Seeds
@@ -2065,7 +2065,7 @@ botania.page.pool6=Infusing &1Mana Petals&0
 botania.page.pool11=Infusing &1Managlass&0, clear seamless glass.
 botania.page.pool12=Infusing &1String&0
 botania.page.pool13=Used &1Mana Infused String&0 to make &1Cobwebs&0
-botania.page.pool7=Infusing &1Mana Cookies&0, pretty good food.
+botania.page.pool7=A total space biscuit
 
 # -- SPARKS
 botania.entry.sparks=Sparks
