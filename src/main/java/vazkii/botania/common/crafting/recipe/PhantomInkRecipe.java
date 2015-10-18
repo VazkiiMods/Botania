@@ -30,7 +30,7 @@ public class PhantomInkRecipe implements IRecipe {
 				if(stack.getItem() == ModItems.phantomInk && !foundInk)
 					foundInk = true;
 				else if(!foundItem) {
-					if(stack.getItem() instanceof IPhantomInkable)
+					if(stack.getItem() instanceof IPhantomInkable && stack.getItem().getContainerItem(stack) == null)
 						foundItem = true;
 					else return false;
 				} else return false;
