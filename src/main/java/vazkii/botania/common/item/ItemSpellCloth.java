@@ -46,8 +46,9 @@ public class ItemSpellCloth extends ItemMod {
 
 	@Override
 	public ItemStack getContainerItem(ItemStack itemStack) {
-		itemStack.setItemDamage(itemStack.getItemDamage() + 1);
-		return itemStack;
+		ItemStack stack = itemStack.copy();
+		stack.setItemDamage(stack.getItemDamage() + 1);
+		return stack;
 	}
 
 	@Override
