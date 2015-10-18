@@ -1,3 +1,10 @@
+r1.7 226
+*Added a config option to disable seasonal (halloween and christmas) features.
+*Fixed the Spellbinding Cloth taking damage simply by putting it in the crafting grid.
+*Phantom Ink and Timless Ivy can no longer be applied to items that have a container item to prevent dupes.
+*Spookied up the place.
+*The Mana Cookie was renamed to Biscuit of Totality.
+*The Rafflowsia produces more mana than before.
 r1.7 225
 *Added Shimmerrock and Shimmerwood Planks, rainbow blocks made with Bifrost Blocks.
 *Added the Rafflowsia, a new flower that eats passive flowers for mana. And you thought they were useless!
