@@ -82,6 +82,7 @@ public class GuiLexicon extends GuiScreen {
 
 	public static Queue<LexiconEntry> tutorial = new ArrayDeque();
 
+	private static boolean checkedDoot = false;
 	public static final ResourceLocation texture = new ResourceLocation(LibResources.GUI_LEXICON);
 	public static final ResourceLocation textureToff = new ResourceLocation(LibResources.GUI_TOFF);
 
@@ -110,7 +111,7 @@ public class GuiLexicon extends GuiScreen {
 	@Override
 	public final void initGui() {
 		super.initGui();
-
+		
 		if(PersistentVariableHelper.firstLoad) {
 			PersistentVariableHelper.firstLoad = false;
 			PersistentVariableHelper.saveSafe();

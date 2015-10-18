@@ -32,6 +32,7 @@ import org.lwjgl.opengl.GL12;
 import vazkii.botania.api.item.TinyPotatoRenderEvent;
 import vazkii.botania.client.core.handler.ContributorFancinessHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
+import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelTinyPotato;
 import vazkii.botania.common.block.tile.TileTinyPotato;
@@ -44,6 +45,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_TINY_POTATO);
 	private static final ResourceLocation textureGrayscale = new ResourceLocation(LibResources.MODEL_TINY_POTATO_GS);
+	private static final ResourceLocation textureHalloween = new ResourceLocation(LibResources.MODEL_TINY_POTATO_HALLOWEEN);
 	private static final ModelTinyPotato model = new ModelTinyPotato();
 
 	@Override
@@ -55,7 +57,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 		GL11.glTranslated(d0, d1, d2);
 
 		Minecraft mc = Minecraft.getMinecraft();
-		mc.renderEngine.bindTexture(texture);
+		mc.renderEngine.bindTexture(ClientProxy.dootDoot ? textureHalloween : texture);
 		String name = potato.name.toLowerCase();
 
 		boolean usedShader = false;

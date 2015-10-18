@@ -20,6 +20,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelTeruTeruBozu;
 import vazkii.botania.common.Botania;
@@ -27,6 +28,7 @@ import vazkii.botania.common.Botania;
 public class RenderTileTeruTeruBozu extends TileEntitySpecialRenderer {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_TERU_TERU_BOZU);
+	private static final ResourceLocation textureHalloween = new ResourceLocation(LibResources.MODEL_TERU_TERU_BOZU_HALLOWEEN);
 	ModelTeruTeruBozu model = new ModelTeruTeruBozu();
 
 	@Override
@@ -38,7 +40,7 @@ public class RenderTileTeruTeruBozu extends TileEntitySpecialRenderer {
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		GL11.glTranslated(d0, d1, d2);
-		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
+		Minecraft.getMinecraft().renderEngine.bindTexture(ClientProxy.dootDoot ? textureHalloween : texture);
 		GL11.glRotatef(180F, 1F, 0F, 0F);
 		double time = Botania.proxy.getWorldElapsedTicks() + f;
 		boolean hasWorld = tileentity.getWorldObj() != null;

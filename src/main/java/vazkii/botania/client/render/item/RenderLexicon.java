@@ -22,6 +22,7 @@ import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.item.ItemLexicon;
