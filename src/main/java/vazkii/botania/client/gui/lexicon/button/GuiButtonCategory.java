@@ -70,7 +70,7 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 	LexiconCategory category;
 	ResourceLocation resource = null;
 	float ticksHovered = 0F;
-	float time = 5F;
+	float time = 12F;
 	int activeTex = 0;
 
 	public GuiButtonCategory(int id, int x, int y, GuiLexicon gui, LexiconCategory category) {
