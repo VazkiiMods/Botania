@@ -22,22 +22,12 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraftforge.common.util.ForgeDirection;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 
 public class LensPaint extends Lens {
-
-	static final List<Block> paintableBlocks = new ArrayList() {{
-		add(Blocks.stained_glass);
-		add(Blocks.stained_glass_pane);
-		add(Blocks.stained_hardened_clay);
-		add(Blocks.wool);
-		add(Blocks.carpet);
-		add(ModBlocks.unstableBlock);
-		add(ModBlocks.manaBeacon);
-	}
-	};
 
 	@Override
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
@@ -54,7 +44,7 @@ public class LensPaint extends Lens {
 				dead = true;
 			} else {
 				Block block = entity.worldObj.getBlock(pos.blockX, pos.blockY, pos.blockZ);
-				if(paintableBlocks.contains(block)) {
+				if(BotaniaAPI.paintableBlocks.contains(block)) {
 					int meta = entity.worldObj.getBlockMetadata(pos.blockX, pos.blockY, pos.blockZ);
 					List<ChunkCoordinates> coordsToPaint = new ArrayList();
 					List<ChunkCoordinates> coordsFound = new ArrayList();
