@@ -42,6 +42,7 @@ public final class ShaderHelper {
 	public static int terraPlateRune = 0;
 	public static int filmGrain = 0;
 	public static int gold = 0;
+	public static int categoryButton = 0;
 
 	public static void initShaders() {
 		if(!useShaders())
@@ -56,6 +57,7 @@ public final class ShaderHelper {
 		terraPlateRune = createProgram(null, LibResources.SHADER_TERRA_PLATE_RUNE_FRAG);
 		filmGrain = createProgram(null, LibResources.SHADER_FILM_GRAIN_FRAG);
 		gold = createProgram(null, LibResources.SHADER_GOLD_FRAG);
+		categoryButton = createProgram(null, LibResources.SHADER_CATEGORY_BUTTON_FRAG);
 	}
 
 	public static void useShader(int shader, ShaderCallback callback) {

@@ -100,6 +100,7 @@ public class GuiLexicon extends GuiScreen {
 	public static boolean notesEnabled;
 	static int notesMoveTime;
 	public String note = "";
+	public String categoryHighlight = "";
 
 	List<LexiconCategory> allCategories;
 
@@ -151,29 +152,31 @@ public class GuiLexicon extends GuiScreen {
 			for(int i = 0; i < categories + 1; i++) {
 				LexiconCategory category = null;
 				category = i >= categories ? null : allCategories.get(i);
-				int x = i % 4;
-				int y = i / 4;
+				int perline = 5;
+				int x = i % perline;
+				int y = i / perline;
 
-				int size = 27;
-				GuiButtonCategory button = new GuiButtonCategory(i, left + 18 + x * size, top + 37 + y * size, this, category);
+				int size = 22;
+				GuiButtonCategory button = new GuiButtonCategory(i, left + 18 + x * size, top + 50 + y * size, this, category);
 				buttonList.add(button);
 			}
 		}
 		populateBookmarks();
 		if(isMainPage()) {
-			buttonList.add(new GuiButtonOptions(-1, left - 6, top + 13));
-			buttonList.add(new GuiButtonAchievement(-2, left - 6, top + 26));
-			buttonList.add(new GuiButtonChallenges(-3, left - 6, top + 40));
+			buttonList.add(new GuiButtonOptions(-1, left - 6, top + guiHeight - 54));
+			buttonList.add(new GuiButtonAchievement(-2, left - 6, top + guiHeight - 40));
+			buttonList.add(new GuiButtonChallenges(-3, left - 6, top + guiHeight - 25));
 
-			GuiButtonUpdateWarning button = new GuiButtonUpdateWarning(-4, left - 6, top + 60);
+			GuiButtonUpdateWarning button = new GuiButtonUpdateWarning(-4, left - 6, top + guiHeight - 70);
 			buttonList.add(button);
+			
 			if(PersistentVariableHelper.lastBotaniaVersion.equals(LibMisc.VERSION)) {
 				button.enabled = false;
 				button.visible = false;
 			}
 
 			if(Calendar.getInstance().get(Calendar.MONTH) == Calendar.NOVEMBER && Calendar.getInstance().get(Calendar.DATE) == 22)
-				buttonList.add(new GuiButtonDoot(-99, left + 110, top + 12));
+				buttonList.add(new GuiButtonDoot(-99, left + 100, top + 12));
 		}
 
 		buttonList.add(new GuiButtonNotes(this, NOTES_BUTTON_ID, left - 4, top - 4));
@@ -314,15 +317,23 @@ public class GuiLexicon extends GuiScreen {
 
 	void drawHeader() {
 		GL11.glPushMatrix();
-		float s = 1.5F;
-		GL11.glScalef(s, s, s);
+		GL11.glColor4f(1F, 1F, 1F, 1F);
+		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
+		drawTexturedModalRect(left - 8, top + 9, 0, 224, 140, 31);
+		
+		int color = 0xffd200;
 		boolean unicode = fontRendererObj.getUnicodeFlag();
+		fontRendererObj.drawString(title, left + 18, top + 13, color);
 		fontRendererObj.setUnicodeFlag(true);
-		fontRendererObj.drawString(title, (int) ((left + 18) / s), (int) ((top + 10) / s), 0);
-		GL11.glScalef(1F / s, 1F / s, 1F / s);
-		fontRendererObj.drawString(String.format(StatCollector.translateToLocal("botaniamisc.edition"), ItemLexicon.getEdition()), left + 24, top + 23, 0);
+		fontRendererObj.drawString(String.format(StatCollector.translateToLocal("botaniamisc.edition"), ItemLexicon.getEdition()), left + 24, top + 22, color);
+		
+		String s = EnumChatFormatting.BOLD + categoryHighlight;
+		fontRendererObj.drawString(s, left + guiWidth / 2 - fontRendererObj.getStringWidth(s) / 2, top + 36, 0);
+
 		fontRendererObj.setUnicodeFlag(unicode);
 		GL11.glPopMatrix();
+		
+		categoryHighlight = "";
 	}
 
 	boolean isMainPage() {

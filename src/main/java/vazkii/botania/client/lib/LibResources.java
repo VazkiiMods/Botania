@@ -45,6 +45,7 @@ public final class LibResources {
 	public static final String GUI_NEI_BREWERY = PREFIX_GUI + "neiBrewery.png";
 	public static final String GUI_FLOWER_BAG = PREFIX_GUI + "flowerBag.png";
 	public static final String GUI_HUD_ICONS = PREFIX_GUI + "hudIcons.png";
+	public static final String GUI_STENCIL = PREFIX_GUI + "stencil.png";
 
 	public static final String ENTRY_FLOWERS = PREFIX_ENTRIES + "flowers.png";
 	public static final String ENTRY_APOTHECARY = PREFIX_ENTRIES + "apothecary.png";
@@ -140,5 +141,6 @@ public final class LibResources {
 	public static final String SHADER_TERRA_PLATE_RUNE_FRAG = PREFIX_SHADER + "terra_plate_rune.frag";
 	public static final String SHADER_FILM_GRAIN_FRAG = PREFIX_SHADER + "film_grain.frag";
 	public static final String SHADER_GOLD_FRAG = PREFIX_SHADER + "gold.frag";
+	public static final String SHADER_CATEGORY_BUTTON_FRAG = PREFIX_SHADER + "category_button.frag";
 	
 }
