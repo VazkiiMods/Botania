@@ -66,7 +66,7 @@ botaniamisc.wandMode.bind=Bind Mode
 botaniamisc.wandMode.function=Function Mode
 botaniamisc.playVideo=Play Video
 botaniamisc.brewOf=Brew of %s
-botaniamisc.needsCatalysts=No matter how hard you try to push the Ingot into the Beacon, nothing seems to happen, perhaps your configuration of catalyst pylons might be off.
+botaniamisc.needsCatalysts=No matter how hard you try to push the Ingot into the Beacon, nothing seems to happen. Perhaps your configuration of catalyst pylons might be off.
 botaniamisc.peacefulNoob=You try to offer the Ingot, but the peaceful vibes of your world prevent you from doing so. Perhaps you should do something about that.
 botaniamisc.notInfused=Not Infused
 botaniamisc.getALife=Get a Life
@@ -83,8 +83,8 @@ botaniamisc.nearIndex0=Corporea Index nearby!
 botaniamisc.nearIndex1=Anything you say will be
 botaniamisc.nearIndex2=intercepted as a request
 botaniamisc.startTutorial=Start Tutorial
-botaniamisc.tutorialStarted=You have started your tutorial, follow the red arrows and read the contents to be guided through the basics of Botania!
-botaniamisc.tutorialEnded=Your tutorial is over, you should now have a basic idea of how Botania works, make sure to read through the other pages at your leisure to learn more ways of using the mod.
+botaniamisc.tutorialStarted=You have started your tutorial. Follow the red arrows and read the contents to be guided through the basics of Botania!
+botaniamisc.tutorialEnded=Your tutorial is over. You should now have a basic idea of how Botania works. Make sure to read through the other pages at your leisure to learn more ways of using the mod.
 botaniamisc.cosmeticBauble=&oCosmetic
 botaniamisc.hasCosmetic=&oHas Cosmetic Override: &r%s
 botaniamisc.typeToSearch=(type to search)
@@ -323,7 +323,7 @@ botania.versioning.flavour3=Beam me up Scotty. We got a new Botania version.
 botania.versioning.flavour4=The Botania update asks if you have you accepted Vazkii as your lord and saviour.
 botania.versioning.flavour5=Hey, a Botania update, that's rare, isn't it?
 botania.versioning.flavour6=What does the scouter say about the Botania update?
-botania.versioning.flavour7=Oi mate, there's a new Botania update. Why am I australian?
+botania.versioning.flavour7=Oi mate, there's a new Botania update. Why am I Australian?
 botania.versioning.flavour8=Because having a life is too mainstream, here's a Botania update.
 botania.versioning.flavour9=Thank you based Botania update.
 botania.versioning.flavour10=Two hundred updates, that's why they call me Mister Fahrenheit.
@@ -339,7 +339,7 @@ botania.versioning.flavour19=By updating botania you must not accept the terms o
 botania.versioning.flavour20=wow such botania so update much fix very content 
 botania.versioning.flavour21=This botania update will self destruct in 3...2...
 botania.versioning.flavour22=There were bugs in botania, but everything changed when the fire nation attacked. Or not. 
-botania.versioning.flavour23=Botania updated. On other news, Germany totally bribed the referee. 
+botania.versioning.flavour23=Botania updated. In other news, Germany totally bribed the referee. 
 botania.versioning.flavour24=Hey! Hey player! Hey player! Hey player hey! Botania update! 
 botania.versioning.flavour25=And what do we say to the Botania update? 
 botania.versioning.flavour26=And I grabbed the Botania update AND I THREW IT ON THE GROUND! MAAAN! 
@@ -357,7 +357,7 @@ botania.versioning.flavour37=Take that old build, watch it burn, sink in the riv
 botania.versioning.flavour38=This new Botania Update fits perfectly in the Super Health Space.
 botania.versioning.flavour39=Introducing the new Botania Update, now with 0% more numbers and GUIs.
 botania.versioning.flavour40=This is my Botania Update. There are many like it but this one is mine.
-botania.versioning.flavour41=What is the air-speed velocity of an unladen Botania Update?
+botania.versioning.flavour41=What is the airspeed velocity of an unladen Botania Update?
 botania.versioning.flavour42=If you go look in the lang files, this flavour text is #42. That means you should install this Update.
 botania.versioning.flavour43=That's impossible, a Botania Update doesn't break down. It's a portuguese.
 botania.versioning.flavour44=Look at the update, now back at me, now back at the update. There's a download button there, moron.
@@ -1218,9 +1218,9 @@ tile.botania:flower.fallenKanade.reference=I'm not an Angel
 tile.botania:flower.exoflame.name=Exoflame
 tile.botania:flower.exoflame.reference=Wearing her black ribbons
 tile.botania:flower.agricarnation.name=Agricarnation
-tile.botania:flower.agricarnation.reference=Wear on the 25th of april
+tile.botania:flower.agricarnation.reference=Wear on the 25th of April
 tile.botania:flower.agricarnationChibi.name=Agricarnation Petite
-tile.botania:flower.agricarnationChibi.reference=Wear on the 25th of april
+tile.botania:flower.agricarnationChibi.reference=Wear on the 25th of April
 tile.botania:flower.hopperhock.name=Hopperhock
 tile.botania:flower.hopperhock.reference=It all funnels into it
 tile.botania:flower.hopperhockChibi.name=Hopperhock Petite
@@ -1915,11 +1915,11 @@ botania.page.welcome8=&oDear reader, I welcome you to the realm of Botania.&r<br
 
 # -- TUTORIAL OF THE BASICS
 botania.entry.tutorial=A Tutorial of the Basics
-botania.page.tutorial0=While one could just go through the various entries in the book at their issue, there's also a "guided tour" of sorts available. Clicking the button below will guide you through the pages useful to getting the gist of the basic concepts of Botania.
+botania.page.tutorial0=While one could just go through the various entries in the book at their leisure, there's also a "guided tour" of sorts available. Clicking the button below will guide you through the pages useful to getting the gist of the basic concepts of Botania.
 
 # -- AN INTRODUCTORY CLIP
 botania.entry.introVideo=An Introductory Clip
-botania.page.introVideo0=For those readers who are not quite readers, a short video guide covering the basics of Botania is also available. It's to keep in note that this guide acts as an aid and not a substitution for the contents of the &1Lexica Botania&0.
+botania.page.introVideo0=For those readers who are not quite readers, a short video guide covering the basics of Botania is also available. Keep in mind that this guide acts as an aid and not a substitute for the contents of the &1Lexica Botania&0.
 
 # -- GARDEN OF GLASS
 botania.entry.gardenOfGlass=Garden of Glass
@@ -1932,7 +1932,7 @@ botania.page.gardenOfGlass5=Creating &1Cobblestone&0
 botania.page.gardenOfGlass6=Aside from that, some things in Botania are different to fit the Skyblock play: The &1Orechid&0 is easier to make, faster and much cheaper; The &1Cocoon of Caprice&0 and the &1Mana Spreader&0 have different recipes; the &1Blaze Lamp&0, which can be used to create &1Obsidian&0, uses powder instead of rods; melon or pumpkin seeds may drop from tall grass; floral fertilizer creates more per craft, and &1Sugar Canes&0 and &1Slimeballs&0 can be crafted.
 botania.page.gardenOfGlass7=Creating &1Sugar Canes&0
 botania.page.gardenOfGlass8=Creating &1Slimeballs&0
-botania.page.gardenOfGlass9=It's possible to infuse a &1Pumpkin&0 with the fel spirits of monster slain, creating a &1Fel Pumpkin&0. This can be placed atop two &1Iron Bars&0, in a similar fashion to a &1Snow Golem&0, to spawn a &1Blaze&0.<br>&1Blazes&0 spawned with this method drop &1Blaze Powder&0 instead of &1Blaze Rods&0.
+botania.page.gardenOfGlass9=It's possible to infuse a &1Pumpkin&0 with the fel spirits of slain monsters, creating a &1Fel Pumpkin&0. This can be placed atop two &1Iron Bars&0, in a similar fashion to a &1Snow Golem&0, to spawn a &1Blaze&0.<br>&1Blazes&0 spawned with this method drop &1Blaze Powder&0 instead of &1Blaze Rods&0.
 botania.page.gardenOfGlass10=Nerfing warlocks again
 botania.page.gardenOfGlass11=Aside from providing light, the &1Mana Flash&0 present in the starting area allows a player who has lost their &1Lexica Botania&0 to exchange a &1Sapling&0 for it, by right clicking with the &1Sapling&0 on the &1Mana Flame&0.<br>This can only be done if the player doesn't have a &1Lexica Botania&0 on them.
 botania.page.gardenOfGlass12=Lastly, an &1End Portal&0 recipe
@@ -1940,33 +1940,33 @@ botania.page.gardenOfGlass12=Lastly, an &1End Portal&0 recipe
 # -- LEXICA BOTANIA
 botania.entry.lexicon=Lexica Botania
 botania.page.lexicon0=The &1Lexica Botania&0 is the repository of all knowledge for all botany related matters. But you probably knew that already.<br>All information is stored here, as expected. For convenience, if a block happens to have an entry, it can be shift-right clicked with the &1Lexica Botania&0 to open that entry.
-botania.page.lexicon3=Any entries typed in &oItalics&r are &4basic&0 entries, which contain the very basic knowledge required to playing Botania. They should be prioritized over others, most of the sections contain one or more, so a good look through through them is a good idea.
+botania.page.lexicon3=Any entries typed in &oItalics&r are &4basic&0 entries, which contain the very basic knowledge required to start playing Botania. They should be prioritized over others. Most of the sections contain one or more, so a thorough look through through them is a good idea.
 botania.page.lexicon1=Crafting the &1Lexica Botania&0.
 botania.page.lexicon2=The &1Lexica Botania&0's title can also be customized. By placing it in an &1Anvil&0 and renaming it, one can not only change its cover, but also the title.<br>The Edition of the lexica shown equates to the version of the &4Botania&0 you're running, and no, I don't care about the fourth wall.
 
 # -- MYSTICAL FLOWERS
 botania.entry.flowers=Mystical Flowers
-botania.page.flowers0=Around the world, you may stumble upon a large variety of Mystical Flora. Spotting these doesn't take much work as the flowers themselves emit a fair amount of shine.<br>They come in a total of &416 &0different colors.<br>It's also possible to grow these flowers using &1Floral Fertilizer&0 (read on).
+botania.page.flowers0=Around the world, you may stumble upon a large variety of Mystical Flora. Spotting these doesn't take much work as the flowers themselves emit a fair amount of light.<br>They come in a total of &416 &0different colors.<br>It's also possible to grow these flowers using &1Floral Fertilizer&0 (read on).
 botania.page.flowers1=Flowers as far as the eye can see...
-botania.page.flowers2=These flowers can be plucked for &1Mystical Petals&0, that can be used for making magical instruments and plants alike.<br>Right clicking a petal on the ground will &4bury it&0, having it emit particles.<br>These petals can also be crushed into &1Floral Powder&0, which functions much alike any mundane piece of dye.
+botania.page.flowers2=These flowers can be plucked for &1Mystical Petals&0, that can be used for making magical instruments and plants alike.<br>Right clicking a petal on the ground will &4bury it&0, having it emit particles.<br>These petals can also be crushed into &1Floral Powder&0, which functions much like any mundane piece of dye.
 botania.page.flowers3=Plucking Petals off Flowers.
 botania.page.flowers4=Crafting the &1Pestle and Mortar&0.
 botania.page.flowers5=Grinding Petals into Powder.
-botania.page.flowers6=Right clicking the &1Floral Powder&0 in any &1Wool&0 or &1Carpet&0 changes its color to the color of the powder.<br>By mixing the &1Floral Powder&0 with some &1Bone Meal&0, it's possible to create a different type of fertilizer. The &1Floral Fertilizer&0 will grow a small amount of &1Mystical Flowers&0 in the nearby vicinity, if you ever run low on them.
+botania.page.flowers6=Right clicking the &1Floral Powder&0 on any &1Wool&0 or &1Carpet&0 changes its color to the color of the powder.<br>By mixing the &1Floral Powder&0 with some &1Bone Meal&0, it's possible to create a different type of fertilizer. The &1Floral Fertilizer&0 can be used to grow a small number of &1Mystical Flowers&0 in your vicinity, if you ever run low on them.
 botania.page.flowers7=Making fertilizer (any powder colors work)
 botania.page.flowers8=Using typical flower substances also works
-botania.page.flowers10=There's also some taller variants of the typical &1Mystical Flowers&0, spread around the place. These can only be gathered with &1Shears&0, but can be used to obtain twice the amount of petals a normal flower would yield. They're a bit too big for dye, though.<br>They can be made manually by fertilizing a &1Mystical Flower&0 with &1Bone Meal&0.
+botania.page.flowers10=There are also some taller variants of the typical &1Mystical Flowers&0, spread around the place. These can only be gathered with &1Shears&0, but can be used to obtain twice the number of petals a normal flower would yield. They're a bit too big for dye, though.<br>They can be made manually by fertilizing a &1Mystical Flower&0 with &1Bone Meal&0.
 botania.page.flowers11=Prepare for trouble
 botania.page.flowers9=Petals can also be made into blocks
 
 # -- PETAL APOTHECARY
 botania.entry.apothecary=Petal Apothecary
-botania.page.apothecary0=In order for a botanist to create plantlife that can do its bidding, one would need special means of infusing plants with mystical energy.<br>Luckily, the &1Petal Apothecary&0 does just that.
+botania.page.apothecary0=In order for a botanist to create plant life that can do their bidding, one would need a special means of infusing plants with mystical energy.<br>Luckily, the &1Petal Apothecary&0 does just that.
 botania.page.apothecary1=The &1Petal Apothecary&0.
-botania.page.apothecary2=This block, when placed in the world and given some water (by use of a &1Water Bucket&0), will accept any &1Mystical Petals&0 thrown at it, releasing their energies.<br>Once one has set the correct petals in, throwing some &1Seeds&0 in will finalize the proccess.<br>Tossing in the full bucket will also fill the recipient with water.
-botania.page.apothecary3=Quite a few plants can be made using this method, for more information, read on the &4Functional Flora&0 and &4Generation Flora&0 sections of this Lexicon.<br>Shift-right clicking the &1Petal Apothecary&0 with an empty hand will remove the last item thrown in.
-botania.page.apothecary4=Instead of &1Water&0, one can place &1Lava&0 in this block, if that is done, it'll serve as a brazier and incinerator, destroying any items that come in contact.<br>Lastly, tossing in &1Vines&0 also gives the block an overgrown visual.
-botania.page.apothecary6=A simple tip for those who want to squeeze the biggest efficiency out of every block is as follows, up to twenty seconds after crafting a flower in this block, right clicking it with an empty hand will pull the items from the inventory required for the recipe and put them into it for quick mass crafting. This only works if it has water.
+botania.page.apothecary2=This block, when placed in the world and given some water (by use of a &1Water Bucket&0), will accept any &1Mystical Petals&0 thrown at it, releasing their energies.<br>Once one has set the correct petals in, throwing some &1Seeds&0 in will finalize the proccess.<br>Tossing in the full bucket will also fill the receptacle with water.
+botania.page.apothecary3=Quite a few plants can be made using this method. For more information, read the &4Functional Flora&0 and &4Generation Flora&0 sections of this Lexicon.<br>Shift-right clicking the &1Petal Apothecary&0 with an empty hand will remove the last item thrown in.
+botania.page.apothecary4=Instead of &1Water&0, one can place &1Lava&0 in this block. If that is done, it'll serve as a brazier and incinerator, destroying any items that come in contact with it.<br>Lastly, tossing in &1Vines&0 also gives the block an overgrown visual.
+botania.page.apothecary6=A simple tip for those who want to squeeze the greatest efficiency out of every block is as follows, up to twenty seconds after crafting a flower in this block, right-clicking it with an empty hand will pull the items required for the recipe from the inventory and put them into it for quick mass crafting. This only works if it has water.
 botania.page.apothecary5=Crafting the &1Petal Apothecary&0.
 
 # -- PURE DAISY
@@ -1979,20 +1979,20 @@ botania.page.pureDaisy3=White is bright and pure
 
 # -- WAND OF THE FOREST
 botania.entry.wand=Wand of the Forest
-botania.page.wand0=The general multi-use tool for a botanist is the &1Wand of the Forest&0.<br>This wand, made by, effectively, strapping a pair of &1Mystical Petals&0 of any color to a few &1Livingwood Twigs&0, is required for a good amount of tasks.
-botania.page.wand1=The wand has two modes, &4Bind Mode&0 and &4Function Mode&0. In &4Bind Mode&0 it can be shift-right clicked on a compatible block to select it. Shift-right clicking elsewhere binds the two blocks. In &4Function Mode&0 it'll simply not do that for shift-right clicking.<br>The two modes can be switched freely by shift-right clicking on air.
-botania.page.wand2=If the wand isn't bound to anything, shift-right clicking a block allows it to be rotated around the axis of the side it's clicked on.<br>For example, clicking on the top of a &1Chest&0 rotates it around. Most blocks which can be rotated should work.
+botania.page.wand0=The general multi-use tool for a botanist is the &1Wand of the Forest&0.<br>This wand, made by, effectively, strapping a pair of &1Mystical Petals&0 of any color to a few &1Livingwood Twigs&0, is required for a good number of tasks.
+botania.page.wand1=The wand has two modes, &4Bind Mode&0 and &4Function Mode&0. In &4Bind Mode&0 it can be shift-rightclicked on a compatible block to select it. Shift-right-clicking elsewhere binds the two blocks. In &4Function Mode&0 it'll simply not do that for shift-right-clicking.<br>The two modes can be freely switched between by shift-right-clicking on air.
+botania.page.wand2=If the wand isn't bound to anything, shift-right-clicking a block allows it to be rotated around the axis of the side it's clicked on.<br>For example, clicking on the top of a &1Chest&0 rotates it around. Most blocks which can be rotated should work.
 botania.page.wand3=The petals used determine the colors of the wand
 
 # -- RUNIC ALTAR
 botania.entry.runeAltar=Runic Altar
-botania.page.runeAltar21=Runic creation is a rather important complex in the advancement of the botanical magics. First and foremost, though, this type of crafting requires a decent knowledge of &4Mana Manipulation&0. Before proceeding further, a read through the important entries (those in &oItalics&r) on that section of the &1Lexica Botania&0 might prove enlightening.
-botania.page.runeAltar0=&1Runes&0 are extremely important components of complex magical devices or flora.<br>In order to create these, one would require a &1Runic Altar&0.<br>To utilize this &1Runic Altar&0, start by placing, via either a right click or simply tossing, the components to the rune you want to create.
+botania.page.runeAltar21=Runic creation is a rather important complex in the advancement of the botanical magics. First and foremost though, this type of crafting requires a decent knowledge of &4Mana Manipulation&0. Before proceeding further, a read through the important entries (those in &oItalics&r) on that section of the &1Lexica Botania&0 might prove enlightening.
+botania.page.runeAltar0=&1Runes&0 are extremely important components of complex magical devices or flora.<br>In order to create them, one would require a &1Runic Altar&0.<br>To utilize this &1Runic Altar&0, start by placing, via either a right click or simply tossing, the components of the rune you want to create.
 botania.page.runeAltar1=Proceed by linking a &1Mana Spreader&0 to the altar, and right click it with a &1Wand of the Forest&0.<br>It should be apparent when the altar has received enough &4Mana&0. When that happens, just drop a piece of &1Livingrock&0 on top of it and use the wand on it again to collect your rune.
 botania.page.runeAltar2=Crafting the &1Runic Altar&0.
 botania.page.runeAltar3=A total of 16 &1Runes&0 exist.<br>The most basic and elementary runes are named after the &4Four Elements&0. The intermediate runes are named after the &4Four Seasons&0, and the most advanced runes are named after the &4Seven Deadly Sins&0. A separate &1Rune of Mana&0 also exists.
 botania.page.runeAltar20=Sneaking and right-clicking the &1Runic Altar&0 with an empty hand while it's not accepting mana will remove the last item put into it.<br>Last but not least, attaching a &1Comparator&0 to it will emit signal strength &41&0 if the altar is accepting &4Mana&0 and signal strength &42&0 if it's ready to craft the rune.
-botania.page.runeAltar22=Similarly to the &1Petal Apothecary&0, right clicking this block with an empty hand after a recipe is complete will place back the items used for the last recipe for faster mass crafting.
+botania.page.runeAltar22=Similarly to the &1Petal Apothecary&0, right-clicking this block with an empty hand after a recipe is complete will place back the items used for the last recipe for faster mass crafting.
 botania.page.runeAltar4=The &1Rune of Water&0.
 botania.page.runeAltar5=The &1Rune of Earth&0.
 botania.page.runeAltar6=The &1Rune of Air&0.
