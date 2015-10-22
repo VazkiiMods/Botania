@@ -144,7 +144,7 @@ public class GuiLexicon extends GuiScreen {
 			int x = 18;
 			for(int i = 0; i < 12; i++) {
 				int y = 16 + i * 12;
-				buttonList.add(new GuiButtonInvisible(this, i, left + x, top + y, 110, 10, ""));
+				buttonList.add(new GuiButtonInvisible((GuiLexiconIndex) this, i, left + x, top + y, 110, 10, ""));
 			}
 			populateIndex();
 		} else if(isCategoryIndex()) {
@@ -290,6 +290,10 @@ public class GuiLexicon extends GuiScreen {
 	}
 
 	public void drawBookmark(int x, int y, String s, boolean drawLeft) {
+		drawBookmark(x, y, s, drawLeft, 0x111111);
+	}
+	
+	public void drawBookmark(int x, int y, String s, boolean drawLeft, int color) {
 		// This function is called from the buttons so I can't use fontRendererObj
 		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
 		boolean unicode = font.getUnicodeFlag();
@@ -311,7 +315,7 @@ public class GuiLexicon extends GuiScreen {
 		for(int i = 0; i < l + 6; i++)
 			drawTexturedModalRect(x - l / 2 - 3 + i, y - 1, 60, 180, 1, 11);
 
-		font.drawString(s, x - l / 2 + fontOff, y, 0x111111, false);
+		font.drawString(s, x - l / 2 + fontOff, y, color, false);
 		font.setUnicodeFlag(unicode);
 	}
 

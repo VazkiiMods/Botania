@@ -145,4 +145,11 @@ public class PageShedding extends PageEntity {
 		GL11.glDisable(GL11.GL_LIGHTING);
 	}
 
+	@Override
+	public List<ItemStack> getDisplayedRecipes() {
+		ArrayList<ItemStack> list = new ArrayList();
+		list.add(shedStack);
+		return list;
+	}
+
 }

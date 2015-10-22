@@ -14,14 +14,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexicon;
@@ -46,7 +51,11 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 	GuiButton leftButton, rightButton, backButton;
 	GuiLexicon parent;
 	GuiTextField searchField;
-
+	
+	GuiButton currentButton;
+	LexiconEntry currentEntry;
+	float infoTime;
+	
 	List<LexiconEntry> entriesToDisplay = new ArrayList();
 
 	public GuiLexiconIndex() {
@@ -137,6 +146,13 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			} else button.displayString = "";
 		}
 	}
+	
+	public void setHoveredButton(GuiButtonInvisible b) {
+		if(b == null)
+			currentEntry = null;
+		else currentEntry = entriesToDisplay.get(b.id + page * 12);
+		currentButton = b;
+	}
 
 	@Override
 	public void drawScreen(int par1, int par2, float par3) {
@@ -153,6 +169,52 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			String s = StatCollector.translateToLocal("botaniamisc.typeToSearch");
 			mc.fontRenderer.drawString(s, left + 120 - mc.fontRenderer.getStringWidth(s), top + guiHeight - 18, 0x666666);
 			mc.fontRenderer.setUnicodeFlag(unicode);
+		}
+		
+		float animationTime = 4F;
+		if(isShiftKeyDown()) {
+			if(currentButton != null)
+				infoTime = Math.min(animationTime, infoTime + timeDelta);
+		} else infoTime = Math.max(0, infoTime - timeDelta);
+		
+		if(currentButton != null && infoTime > 0) {
+			float fract = infoTime / animationTime;
+			
+			int x = currentButton.xPosition;
+			int y = currentButton.yPosition;
+			String s = StatCollector.translateToLocal(currentEntry.getTagline());
+			boolean unicode = mc.fontRenderer.getUnicodeFlag();
+			mc.fontRenderer.setUnicodeFlag(true);
+			int width = mc.fontRenderer.getStringWidth(s);
+			
+			GL11.glPushMatrix();
+			GL11.glTranslatef(x, y, 0);
+			GL11.glScalef(fract, 1F, 1F);
+			Gui.drawRect(12, -30, width + 20, -2, 0x44000000);
+			Gui.drawRect(10, -32, width + 22, -2, 0x44000000);
+			drawBookmark(width / 2 + 16, -8, s, true, 0xFFFFFF);
+			mc.fontRenderer.setUnicodeFlag(unicode);
+			
+			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
+			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+			ItemStack paper = new ItemStack(Items.paper, currentEntry.pages.size());
+			
+			RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, paper, 14, -28);
+			RenderItem.getInstance().renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, paper, 14, -28);
+			
+			List<ItemStack> stacks = currentEntry.getDisplayedRecipes();
+			if(stacks.size() > 0) {
+				int spaceForEach = Math.min(18, (width - 30) / stacks.size());
+				for(int i = 0; i < stacks.size(); i++) {
+					ItemStack stack = stacks.get(i);
+					RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack, 38 + spaceForEach * i, -28);
+				}
+			}
+			
+			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
+			
+			GL11.glPopMatrix();
+			setHoveredButton(null);
 		}
 	}
 
@@ -369,3 +431,4 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		return "category_" + (category == null ? "lexindex" : category.unlocalizedName);
 	}
 }
+

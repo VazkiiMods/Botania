@@ -1,5 +1,6 @@
 package vazkii.botania.common.lexicon.page;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -106,6 +107,15 @@ public class PageElvenRecipe extends PageRecipe {
 				recipeAt = 0;
 		}
 		++ticksElapsed;
+	}
+	
+	@Override
+	public List<ItemStack> getDisplayedRecipes() {
+		ArrayList<ItemStack> list = new ArrayList();
+		for(RecipeElvenTrade r : recipes)
+			list.add(r.getOutput());
+			
+		return list;
 	}
 
 }

@@ -1916,12 +1916,10 @@ botania.page.welcome8=&oDear reader, I welcome you to the realm of Botania.&r<br
 
 # -- TUTORIAL OF THE BASICS
 botania.entry.tutorial=A Tutorial of the Basics
-botania.tagline.tutorial=Get up to speed
 botania.page.tutorial0=While one could just go through the various entries in the book at their issue, there's also a "guided tour" of sorts available. Clicking the button below will guide you through the pages useful to getting the gist of the basic concepts of Botania.
 
 # -- AN INTRODUCTORY CLIP
 botania.entry.introVideo=An Introductory Clip
-botania.tagline.tutorial=This is getting removed anyway
 botania.page.introVideo0=For those readers who are not quite readers, a short video guide covering the basics of Botania is also available. It's to keep in note that this guide acts as an aid and not a substitution for the contents of the &1Lexica Botania&0.
 
 # -- GARDEN OF GLASS
@@ -3049,7 +3047,7 @@ botania.page.crystalBow1=The elves are roving
 
 # -- STONE OF TEMPERANCE
 botania.entry.temperanceStone=Stone of Temperance
-botania.entry.temperanceStone=A limiter for the power of a Terra Shatterer
+botania.tagline.temperanceStone=A limiter for the power of a Terra Shatterer
 botania.page.temperanceStone0=The &1Terra Shatterer&0 is able to destroy huge tracts of land when charged to its maximum potential, however, this might not always be the user's intent. A small, 3x3 tunnel might be more fitting in some cases. Having an active &1Stone of Temperance&0 in one's inventory will prevent their shatterer from breaking any more than a 3x3 area. This also affects the &1Terra Truncator&0. The stone can be toggled on and off by shift-right clicking.
 botania.page.temperanceStone1=Don't lose it
 
@@ -3724,7 +3722,7 @@ botania.page.pavement1=These aren't slippery
 
 # -- THAUMCRAFT INTEGRATION
 botania.entry.tcIntegration=Thaumcraft Integration
-botania.entry.tcIntegration=Tidbits of integration with Thaumcraft
+botania.tagline.tcIntegration=Tidbits of integration with Thaumcraft
 botania.page.tcIntegration0=Often enough, the paths of &4Botany&0 and &4Thaumaturgy&0 cross together. Mixing some of the artifacts mentioned in this book as well as any from the school of &5Thaumcraft&0 can allow for combinations of these to form.
 botania.page.tcIntegration1=First and foremost, combining any of the &1Mana Metal&0 helms with a set of &1Goggles of Revealing&0 allows for a combination of both.<br>The protection and regenerability of the armor works alongside the Goggles' abilities, but the &4Vis&0 discount is lost. 
 botania.page.tcIntegration2=Helmets of Revealing (works with any Botania helm)
@@ -3736,11 +3734,11 @@ botania.page.tcIntegration6b=The official frowny face
 
 # -- BUILDCRAFT INTEGRATION
 botania.entry.bcIntegration=Buildcraft Integration
-botania.entry.bcIntegration=Gates for interaction with Botania
+botania.tagline.bcIntegration=Gates for interaction with Botania
 botania.page.bcIntegration0=Recent advances in piping technology have allowed &1Gates&0 to get a feel of the &4Mana&0 around them. A &1Gate&0 can now sense whether a &4Mana&0 container is empty, full or if it contains any mana.<br>&1Gates&0 can also use the &1Mana Detector&0 trigger to detect if a mana is passing by the pipe block. In addition, they can also sense when a &1Runic Altar&0 is ready to create runes.
 
 # -- BANNER ADDITIONS
 botania.entry.banners=Banner Additions
-botania.entry.banners=Lots of new banner patterns
+botania.tagline.banners=Lots of new banner patterns
 botania.page.banners0=In the presence of the &1Banners&0 from the future, &1Botania&0 adds &415&0 new icons to them, which can be mixed and matched with the original patterns and icons.<br>The following items can be used alongside a dye in the crafting grid to add an icon to a &1Banner&0: &1All Iron Tools&0, &1Spark Augments&0, &1Raw Fish&0, &1Livingwood and Dreamwood Twigs&0, &1Lexica Botania&0, &1Terrasteel&0 and the &1Tiny Potato&0.
 botania.page.banners1=Showcase of the various banners

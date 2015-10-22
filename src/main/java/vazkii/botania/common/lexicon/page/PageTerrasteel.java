@@ -10,6 +10,9 @@
  */
 package vazkii.botania.common.lexicon.page;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
@@ -83,6 +86,13 @@ public class PageTerrasteel extends PageRecipe {
 	@Override
 	public void onPageAdded(LexiconEntry entry, int index) {
 		LexiconRecipeMappings.map(new ItemStack(ModItems.manaResource, 1, 4), entry, index);
+	}
+	
+	@Override
+	public List<ItemStack> getDisplayedRecipes() {
+		ArrayList<ItemStack> list = new ArrayList();
+		list.add(new ItemStack(ModItems.manaResource, 1, 4));
+		return super.getDisplayedRecipes();
 	}
 
 }

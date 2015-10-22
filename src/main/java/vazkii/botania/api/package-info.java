@@ -1,4 +1,3 @@
-@API(owner = "Botania", apiVersion = "65", provides = "BotaniaAPI")
+@API(owner = "Botania", apiVersion = "66", provides = "BotaniaAPI")
 package vazkii.botania.api;
 import cpw.mods.fml.common.API;
-

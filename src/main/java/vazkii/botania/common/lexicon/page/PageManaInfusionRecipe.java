@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.lexicon.page;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -147,4 +148,13 @@ public class PageManaInfusionRecipe extends PageRecipe {
 		++ticksElapsed;
 	}
 
+	@Override
+	public List<ItemStack> getDisplayedRecipes() {
+		ArrayList<ItemStack> list = new ArrayList();
+		for(RecipeManaInfusion r : recipes)
+			list.add(r.getOutput());
+		
+		return list;
+	}
+	
 }

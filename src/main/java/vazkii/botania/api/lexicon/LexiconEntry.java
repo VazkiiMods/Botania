@@ -79,6 +79,10 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 		return unlocalizedName;
 	}
 
+	public String getTagline() {
+		return null; // Override this if you want a tagline. You probably do
+	}
+
 	@SideOnly(Side.CLIENT)
 	public boolean isVisible() {
 		return true;
@@ -117,6 +121,33 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 
 	public final String getNameForSorting() {
 		return (priority ? 0 : 1) + StatCollector.translateToLocal(getUnlocalizedName());
+	}
+
+	public List<ItemStack> getDisplayedRecipes() {
+		ArrayList<ItemStack> list = new ArrayList();
+		for(LexiconPage page : pages) {
+			List<ItemStack> l = page.getDisplayedRecipes();
+			
+			if(l != null) {
+				ArrayList<ItemStack> itemsAddedThisPage = new ArrayList();
+
+				for(ItemStack s : l) {
+					addItem: {
+						for(ItemStack s1 : itemsAddedThisPage)
+							if(s1.getItem() == s.getItem())
+								break addItem;
+						for(ItemStack s1 : list)
+							if(s1.isItemEqual(s) && ItemStack.areItemStackTagsEqual(s1, s))
+								break addItem;
+						
+						itemsAddedThisPage.add(s);
+						list.add(s);
+					}
+				}
+			}
+		}
+
+		return list;
 	}
 
 	@Override
