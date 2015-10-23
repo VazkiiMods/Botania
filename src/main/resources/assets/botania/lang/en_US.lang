@@ -143,6 +143,8 @@ botaniamisc.changes3=&oEveryone is afraid of change, yet change is the force tha
 botaniamisc.changes4=&fShift-Left Click&7 to read the changes since then
 botaniamisc.changes5=&fLeft Click&7 to dismiss this
 botaniamisc.badArena=As hard as you try, the Beacon will not accept your sacrifice. You believe the ritual grounds might be improper. It might be a good idea to check for obstructions on the nearby area or large gaps on the floor.
+botaniamisc.tutorialText=Ingame
+botaniamisc.tutorialVideo=Video
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
@@ -1916,7 +1918,7 @@ botania.page.welcome8=&oDear reader, I welcome you to the realm of Botania.&r<br
 
 # -- TUTORIAL OF THE BASICS
 botania.entry.tutorial=A Tutorial of the Basics
-botania.page.tutorial0=While one could just go through the various entries in the book at their issue, there's also a "guided tour" of sorts available. Clicking the button below will guide you through the pages useful to getting the gist of the basic concepts of Botania.
+botania.page.tutorial0=While one could just go through the various entries in the book at their leisure, there's also a tutorial of sorts available. Clicking the buttons below will guide you through the basic concepts of Botania.<br>You can pick between an ingame guided tour of this book, or a short(-ish) video.
 
 # -- AN INTRODUCTORY CLIP
 botania.entry.introVideo=An Introductory Clip

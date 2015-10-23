@@ -59,7 +59,6 @@ public final class LexiconData {
 
 	public static LexiconEntry welcome;
 	public static LexiconEntry tutorial;
-	public static LexiconEntry introVideo;
 
 	public static LexiconEntry flowers;
 	public static LexiconEntry apothecary;
@@ -315,9 +314,6 @@ public final class LexiconData {
 		// BASICS ENTRIES
 		welcome = new WLexiconEntry();
 		tutorial = new TLexiconEntry();
-
-		introVideo = new BLexiconEntry(LibLexicon.BASICS_INTRO_VIDEO, categoryBasics);
-		introVideo.setPriority().setLexiconPages(new PageGuide("0")).setIcon(new ItemStack(Items.book));
 
 		flowers = new BLexiconEntry(LibLexicon.BASICS_FLOWERS, categoryBasics);
 		flowers.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_FLOWERS), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipesPetals), new PageCraftingRecipe("4", ModCraftingRecipes.recipePestleAndMortar), new PageCraftingRecipe("5", ModCraftingRecipes.recipesDyes),

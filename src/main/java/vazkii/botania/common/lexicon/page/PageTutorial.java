@@ -10,6 +10,11 @@
  */
 package vazkii.botania.common.lexicon.page;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ChatComponentTranslation;
@@ -23,7 +28,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class PageTutorial extends PageText {
 
-	GuiButton button;
+	GuiButton buttonText, buttonVideo;
 
 	public PageTutorial(String unlocalizedName) {
 		super(unlocalizedName);
@@ -31,22 +36,32 @@ public class PageTutorial extends PageText {
 
 	@Override
 	public void onOpened(IGuiLexiconEntry gui) {
-		button = new GuiButton(101, gui.getLeft() + 30, gui.getTop() + gui.getHeight() - 50, gui.getWidth() - 60, 20, StatCollector.translateToLocal("botaniamisc.startTutorial"));
-		gui.getButtonList().add(button);
+		buttonText = new GuiButton(101, gui.getLeft() + 20, gui.getTop() + gui.getHeight() - 40, 50, 20, StatCollector.translateToLocal("botaniamisc.tutorialText"));
+		buttonVideo = new GuiButton(101, gui.getLeft() + 75, gui.getTop() + gui.getHeight() - 40, 50, 20, StatCollector.translateToLocal("botaniamisc.tutorialVideo"));
+
+		gui.getButtonList().add(buttonText);
+		gui.getButtonList().add(buttonVideo);
 	}
 
 	@Override
 	public void onClosed(IGuiLexiconEntry gui) {
-		gui.getButtonList().remove(button);
+		gui.getButtonList().remove(buttonText);
+		gui.getButtonList().remove(buttonVideo);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void onActionPerformed(IGuiLexiconEntry gui, GuiButton button) {
-		if(button == this.button) {
+		if(button == buttonText) {
 			GuiLexicon.startTutorial();
 			Minecraft.getMinecraft().displayGuiScreen(new GuiLexicon());
 			Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentTranslation("botaniamisc.tutorialStarted").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.GREEN)));
+		} else if(button == buttonVideo && Desktop.isDesktopSupported()) {
+			try {
+				Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=rx0xyejC6fI"));
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
