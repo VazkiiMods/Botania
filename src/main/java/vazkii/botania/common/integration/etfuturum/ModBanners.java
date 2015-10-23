@@ -29,8 +29,8 @@ public final class ModBanners {
 
 			addPattern(clazz, "spark_dispersive", "sds", new ItemStack(ModItems.sparkUpgrade, 1, 0));
 			addPattern(clazz, "spark_dominant", "sdm", new ItemStack(ModItems.sparkUpgrade, 1, 1));
-			addPattern(clazz, "spark_isolated", "sis", new ItemStack(ModItems.sparkUpgrade, 1, 2));
-			addPattern(clazz, "spark_recessive", "src", new ItemStack(ModItems.sparkUpgrade, 1, 3));
+			addPattern(clazz, "spark_recessive", "src", new ItemStack(ModItems.sparkUpgrade, 1, 2));
+			addPattern(clazz, "spark_isolated", "sis", new ItemStack(ModItems.sparkUpgrade, 1, 3));
 
 			addPattern(clazz, "fish", "fis", new ItemStack(Items.fish));
 			addPattern(clazz, "axe", "axe", new ItemStack(Items.iron_axe));
