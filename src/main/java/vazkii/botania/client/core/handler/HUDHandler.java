@@ -335,6 +335,7 @@ public final class HUDHandler {
 		FontRenderer font = mc.fontRenderer;
 		boolean draw = false;
 		String drawStr = "";
+		String secondLine = "";
 
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -348,6 +349,7 @@ public final class HUDHandler {
 					font = mc.standardGalacticFontRenderer;
 
 				drawStr = StatCollector.translateToLocal(entry.getUnlocalizedName());
+				secondLine = EnumChatFormatting.ITALIC + StatCollector.translateToLocal(entry.getTagline());
 				draw = true;
 			}
 		}
@@ -370,12 +372,20 @@ public final class HUDHandler {
 		if(draw) {
 			if(!mc.thePlayer.isSneaking()) {
 				drawStr = "?";
+				secondLine = "";
 				font = mc.fontRenderer;
 			}
 
 			RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine, new ItemStack(ModItems.lexicon), sx, sy);
 			GL11.glDisable(GL11.GL_LIGHTING);
 			font.drawStringWithShadow(drawStr, sx + 10, sy + 8, 0xFFFFFFFF);
+			font.drawStringWithShadow(secondLine, sx + 10, sy + 18, 0xFFAAAAAA);
+
+			if(!mc.thePlayer.isSneaking()) {
+				GL11.glScalef(0.5F, 0.5F, 1F);
+				mc.fontRenderer.drawStringWithShadow(EnumChatFormatting.BOLD + "Shift", (sx + 10) * 2 - 16, (sy + 8) * 2 + 20, 0xFFFFFFFF);
+				GL11.glScalef(2F, 2F, 1F);
+			}
 		}
 
 		GL11.glDisable(GL11.GL_BLEND);

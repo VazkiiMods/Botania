@@ -1914,15 +1914,12 @@ botania.page.welcome4=&oWith the help of this book, your dreams will become a re
 botania.page.welcome5=&oIt holds the secrets of the elves, who have long ago fled from this world, as well as possible clues to the origins of the very world itself. For anyone with a basic knowledge of redstone and the creativity to put it to use, this book offers answers to nearly every problem known to man, without the need to use foreign schools of magic or machinery.
 botania.page.welcome6=&oThis book contains instructions on how to perform nearly every task that one could ever need, with only the use of what's in it, and available in the world of Minecraft, assuming you're up to the task of putting them together in ingenious ways.<br>Try it out, you'll be amazed at what you can do without outside interference.
 botania.page.welcome7=&oThe school of botany does not solely apply to those with a knack for complex thought processes.<br>Introduction to the art is simple, and the rewards are vast. A wide range of magical accessories and instruments allow for empowering of one who decides to study the various options therein.
-botania.page.welcome8=&oDear reader, I welcome you to the realm of Botania.&r<br> - Written by &nGideon Seymour&r, guest writer. (Adapted for use)
+botania.page.welcome8=&oDear reader, I welcome you to the realm of Botania.&r<br> - Written by &nGideon Seymour&r, guest writer. (Adapted for use)<br><br>&oClick the "Back" arrow at the bottom to leave this entry
 
 # -- TUTORIAL OF THE BASICS
 botania.entry.tutorial=A Tutorial of the Basics
+botania.tagline.tutorial=Get set up quickly
 botania.page.tutorial0=While one could just go through the various entries in the book at their leisure, there's also a tutorial of sorts available. Clicking the buttons below will guide you through the basic concepts of Botania.<br>You can pick between an ingame guided tour of this book, or a short(-ish) video.
-
-# -- AN INTRODUCTORY CLIP
-botania.entry.introVideo=An Introductory Clip
-botania.page.introVideo0=For those readers who are not quite readers, a short video guide covering the basics of Botania is also available. It's to keep in note that this guide acts as an aid and not a substitution for the contents of the &1Lexica Botania&0.
 
 # -- GARDEN OF GLASS
 botania.entry.gardenOfGlass=Garden of Glass
@@ -2955,7 +2952,7 @@ botania.page.glassPick1=Trapped inside with food
 
 # -- ROD OF DIVINING
 botania.entry.diviningRod=Rod of the Plentiful Mantle
-botania.tagline.divingRod=A rod to find ores
+botania.tagline.diviningRod=A rod to find ores
 botania.page.diviningRod0=The &1Rod of the Plentiful Mantle&0 has the ability to divine in a decently large radius around the user to find any ores. These will shine for a little bit, allowing their location.<br>This process, obviously, requires a decent amount of &4Mana&0 from the user's inventory.
 botania.page.diviningRod1=inb4 ee3 
 
@@ -3574,7 +3571,7 @@ botania.page.elvenLore7=&oThe collapse of the Bifrost broke any interaction betw
 # - MISCLANEOUS
 # -- UNSTABLE CUBE
 botania.entry.unstableBlocks=Unstable Cubes
-botania.tagline.unstableCubes=Fancy accent blocks
+botania.tagline.unstableBlocks=Fancy accent blocks
 botania.page.unstableBlocks0=Fiddling with highly powerful &4Mana&0 infused objects has lead to the creation of these strange cubes. They seem to emit some visual radiation in the form of colorful lightning, but it doesn't seem like it has any effects other than visual appeal.
 botania.page.unstableBlocks1=They look fancy
 botania.page.unstableBlocks2=And they come in all 16 colors

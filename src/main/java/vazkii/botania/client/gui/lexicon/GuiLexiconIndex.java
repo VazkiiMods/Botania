@@ -175,7 +175,22 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		if(isShiftKeyDown()) {
 			if(currentButton != null)
 				infoTime = Math.min(animationTime, infoTime + timeDelta);
-		} else infoTime = Math.max(0, infoTime - timeDelta);
+		} else {
+			infoTime = Math.max(0, infoTime - timeDelta);
+			
+			if(currentButton != null && infoTime == 0) {
+				int x = par1 + 10;
+				int y = par2;
+				
+				x = currentButton.xPosition - 20;
+				y = currentButton.yPosition;
+				
+				mc.fontRenderer.drawStringWithShadow("?", x, y, 0xFFFFFF);
+				GL11.glScalef(0.5F, 0.5F, 1F);
+				mc.fontRenderer.drawStringWithShadow(EnumChatFormatting.BOLD + "Shift", x * 2 - 6, y * 2 + 20, 0xFFFFFF);
+				GL11.glScalef(2F, 2F, 1F);
+			}
+		}
 		
 		if(currentButton != null && infoTime > 0) {
 			float fract = infoTime / animationTime;
@@ -201,8 +216,8 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			
 			RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, paper, 14, -28);
 			RenderItem.getInstance().renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, paper, 14, -28);
-			
 			List<ItemStack> stacks = currentEntry.getDisplayedRecipes();
+			
 			if(stacks.size() > 0) {
 				int spaceForEach = Math.min(18, (width - 30) / stacks.size());
 				for(int i = 0; i < stacks.size(); i++) {
@@ -214,8 +229,9 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 			
 			GL11.glPopMatrix();
-			setHoveredButton(null);
 		}
+		
+		setHoveredButton(null);
 	}
 
 	@Override

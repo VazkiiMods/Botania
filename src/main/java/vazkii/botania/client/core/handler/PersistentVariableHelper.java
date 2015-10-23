@@ -108,7 +108,7 @@ public final class PersistentVariableHelper {
 
 		firstLoad = cmp.hasKey(TAG_FIRST_LOAD) ? cmp.getBoolean(TAG_FIRST_LOAD) : firstLoad;
 		if(firstLoad) {
-			GuiLexicon.currentOpenLexicon = new GuiLexiconEntry(LexiconData.welcome, new GuiLexicon());
+			GuiLexicon.currentOpenLexicon = new GuiLexiconEntry(LexiconData.welcome, new GuiLexiconEntry(LexiconData.tutorial, new GuiLexicon()));
 			lastBotaniaVersion = LibMisc.VERSION;
 		}
 	}
