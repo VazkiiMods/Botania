@@ -42,7 +42,7 @@ public class ClientTickHandler {
 	public void renderTick(RenderTickEvent event) {
 		if(event.phase == Phase.START)
 			partialTicks = event.renderTickTime;
-		else TerraPickRankDisplayHandler.render();
+		else TooltipAdditionDisplayHandler.render();
 	}
 
 	@SubscribeEvent

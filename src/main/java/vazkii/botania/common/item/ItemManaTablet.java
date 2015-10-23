@@ -24,11 +24,12 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.ICreativeManaProvider;
 import vazkii.botania.api.mana.IManaItem;
+import vazkii.botania.api.mana.IManaTooltipDisplay;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaProvider {
+public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaProvider, IManaTooltipDisplay {
 
 	IIcon[] icons;
 
@@ -161,5 +162,10 @@ public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaP
 	@Override
 	public boolean isCreative(ItemStack stack) {
 		return isStackCreative(stack);
+	}
+
+	@Override
+	public float getManaFractionForDisplay(ItemStack stack) {
+		return (float) getMana(stack) / (float) getMaxMana(stack);
 	}
 }
