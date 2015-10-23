@@ -2211,7 +2211,7 @@ botania.page.warpLens1=Hakase Quarries
 
 # -- MANA PRISM
 botania.entry.prism=Mana Prism
-botania.tagline.warpLens=Switch a Mana Burst's effective Lens on the fly
+botania.tagline.prism=Switch a Mana Burst's effective Lens on the fly
 botania.page.prism0=The concept of &1Mana Lens&0 allows for the manipulation of the power convyed through &4Mana Bursts&0, the &1Mana Prism&0 works on that technology to allow a burst to have its lens effect switched on the fly.<br>Using a &1Spectral Platform&0 as a component, this block does not have a physical presence, entities and bursts can go through it as if it doesn't exist.
 botania.page.prism1=Right clicking it with any variety of &1Mana Lens&0 sets the lens in the prism. Whenever a &4Mana Burst&0 goes through the prism, its color and effect will be set to that of the lens in the prism. Case the lens is not dyed, the burst will turn white.<br>Using any of the four basic lenses also increases the time the burst can go before losing &4Mana&0, allowing it to go further.
 botania.page.prism2=It can also be turned off by the use of a redstone signal.
@@ -2728,7 +2728,7 @@ botania.page.gatherDrum1=Tap your lands
 
 # -- CRAFTY CRATE
 botania.entry.craftCrate=Crafty Crate
-botania.tagline.craftyCrate=A way to craft automatically
+botania.tagline.craftCrate=A way to craft automatically
 botania.page.craftCrate0=As the name suggests, the &1Crafty Crate&0 is a counterpart to the &1Open Crate&0 with the ability to assemble items into other items similarly to a &1Crafting Table&0.<br>Like a &1Crafting Table&0, it has a 9 slot inventory, which can be filled with items in the pattern of a recipe.
 botania.page.craftCrate1=The items go in from left to right and top to bottom (illustration further in this entry), to that, there's a special item, named the &1Crafting Placeholder&0, which, when placed in, counts as an empty slot in the recipe. This is used to allow for recipes with gaps (eg, furnace, chest, pickaxe...) to also be doable.
 botania.page.craftCrate2=Creating the placeholder
@@ -2933,7 +2933,7 @@ botania.page.laputaShard3=Size does matter
 
 # -- EQUESTRIAN VIRUS
 botania.entry.virus=Equestrian Virus
-botania.tagline.laputaShard=Super high powered horses
+botania.tagline.virus=Super high powered horses
 botania.page.virus0=Through the mixing of some ingredients, a type of virus that can alter the genetic code of equestrian life can be made.<br>Using one of these viruses on a &1Horse&0 will alter its genetic code, turning it into either a &1Zombie&0 or &1Skeleton Horse&0. Not only will it do that, but it will vastly increase all the &1Horse&0's genetic attributes.
 botania.page.virus1=No ponies here
 botania.page.virus2=None here either
@@ -3409,7 +3409,7 @@ botania.page.pixieRing1=We got square heads, big pointy caps
 
 # -- GLOBETROTTER'S SASH
 botania.entry.superTravelBelt=Globetrotter's Sash
-botania.entry.superTravelBelt=Gotta go fast
+botania.tagline.superTravelBelt=Gotta go fast
 botania.page.superTravelBelt0=The &1Globetrotter's Sash&0 is, in layman's terms, an upgrade to then &1Soujourner's Sash&0, by using &1Gaia Spirits&0 and some Elven resources, this new belt allows the wearer to reach incredible speeds to which the &1Soujourner's Sash&0 doesn't stand a chance.
 botania.page.superTravelBelt1=No time for guessing, follow my plan instead
 

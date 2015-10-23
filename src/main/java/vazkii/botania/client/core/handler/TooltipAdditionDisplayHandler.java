@@ -10,7 +10,10 @@
  */
 package vazkii.botania.client.core.handler;
 
+import ibxm.Player;
+
 import java.awt.Color;
+import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
@@ -19,20 +22,31 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.api.lexicon.ILexicon;
+import vazkii.botania.api.lexicon.LexiconRecipeMappings;
+import vazkii.botania.api.lexicon.LexiconRecipeMappings.EntryData;
 import vazkii.botania.api.mana.IManaTooltipDisplay;
+import vazkii.botania.client.core.helper.RenderHelper;
+import vazkii.botania.common.Botania;
+import vazkii.botania.common.item.ItemLexicon;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.lib.LibObfuscation;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public final class TooltipAdditionDisplayHandler {
 
+	private static float lexiconLookupTime = 0F;
+	
 	public static void render() {
 		Minecraft mc = Minecraft.getMinecraft();
 		GuiScreen gui = mc.currentScreen;
@@ -64,15 +78,89 @@ public final class TooltipAdditionDisplayHandler {
 						offy -= fixY;
 					if(offscreen)
 						offx = -13 - width;
-
 					
 					if(stack.getItem() instanceof ItemTerraPick)
 						drawTerraPick(stack, mouseX, mouseY, offx, offy, width, height, font);
-					if(stack.getItem() instanceof IManaTooltipDisplay)
+					else if(stack.getItem() instanceof IManaTooltipDisplay)
 						drawManaBar(stack, (IManaTooltipDisplay) stack.getItem(), mouseX, mouseY, offx, offy, width, height);
-				}
-			}
-		}
+					
+					EntryData data = LexiconRecipeMappings.getDataForStack(stack);
+					if(data != null) {
+						int lexSlot = -1;
+						ItemStack lexiconStack = null;
+						
+						for(int i = 0; i < mc.thePlayer.inventory.getHotbarSize(); i++) {
+							ItemStack stackAt = mc.thePlayer.inventory.getStackInSlot(i);
+							if(stackAt != null && stackAt.getItem() instanceof ILexicon && ((ILexicon) stackAt.getItem()).isKnowledgeUnlocked(stackAt, data.entry.getKnowledgeType())) {
+								lexiconStack = stackAt;
+								lexSlot = i;
+								break;
+							}
+						}
+						
+						if(lexSlot > -1) {
+							int x = mouseX + offx - 34;
+							int y = mouseY - offy;
+							GL11.glDisable(GL11.GL_DEPTH_TEST);
+
+							Gui.drawRect(x - 4, y - 4, x + 20, y + 26, 0x44000000);
+							Gui.drawRect(x - 6, y - 6, x + 22, y + 28, 0x44000000);
+							
+							if(GuiScreen.isCtrlKeyDown()) {
+								lexiconLookupTime += ClientTickHandler.delta;
+								
+								int cx = x + 8;
+								int cy = y + 8;
+								float r = 12;
+								float time = 30F;
+								float angles = lexiconLookupTime / time * 360F;
+
+								GL11.glDisable(GL11.GL_LIGHTING);
+								GL11.glDisable(GL11.GL_TEXTURE_2D);
+								GL11.glShadeModel(GL11.GL_SMOOTH);
+								GL11.glEnable(GL11.GL_BLEND);
+								GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+								GL11.glBegin(GL11.GL_TRIANGLE_FAN);
+								
+								float a = 0.5F + 0.2F * ((float) Math.cos((double) (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) / 10) * 0.5F + 0.5F);
+								GL11.glColor4f(0F, 0.5F, 0F, a);
+								GL11.glVertex2i(cx, cy);
+								GL11.glColor4f(0F, 1F, 0F, 1F);
+								
+								for(float i = angles; i > 0; i--) {
+									double rad = (i - 90) / 180F * Math.PI;
+									GL11.glVertex2d(cx + Math.cos(rad) * r, cy + Math.sin(rad) * r);
+								}
+								GL11.glVertex2i(cx, cy);
+								GL11.glEnd();
+								
+								GL11.glDisable(GL11.GL_BLEND);
+								GL11.glEnable(GL11.GL_TEXTURE_2D);
+								GL11.glShadeModel(GL11.GL_FLAT);
+								
+								if(lexiconLookupTime >= time) {
+									mc.thePlayer.inventory.currentItem = lexSlot;
+									Botania.proxy.setEntryToOpen(data.entry);
+									Botania.proxy.setLexiconStack(lexiconStack);
+									ItemLexicon.openBook(mc.thePlayer, lexiconStack, mc.theWorld, false);
+									
+								}
+							} else lexiconLookupTime = 0F;
+							
+							RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine, new ItemStack(ModItems.lexicon), x, y);
+							GL11.glDisable(GL11.GL_LIGHTING);
+
+							font.drawStringWithShadow("?", x + 10, y + 8, 0xFFFFFFFF);
+							GL11.glScalef(0.5F, 0.5F, 1F);
+							mc.fontRenderer.drawStringWithShadow(EnumChatFormatting.BOLD + "Ctrl", (x + 10) * 2 - 16, (y + 8) * 2 + 20, 0xFFFFFFFF);
+							GL11.glScalef(2F, 2F, 1F);
+
+							GL11.glEnable(GL11.GL_DEPTH_TEST);
+						} else lexiconLookupTime = 0F;
+					} else lexiconLookupTime = 0F;
+				} else lexiconLookupTime = 0F;
+			} else lexiconLookupTime = 0F;
+		} else lexiconLookupTime = 0F;
 	}
 	
 	private static void drawTerraPick(ItemStack stack, int mouseX, int mouseY, int offx, int offy, int width, int height, FontRenderer font) {

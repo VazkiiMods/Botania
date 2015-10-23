@@ -13,6 +13,7 @@ package vazkii.botania.api.lexicon;
 import java.util.HashMap;
 import java.util.Map;
 
+import vazkii.botania.api.mana.IManaItem;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -53,9 +54,13 @@ public final class LexiconRecipeMappings {
 		if(stack.hasTagCompound() && stack.getItem() instanceof IRecipeKeyProvider)
 			return ((IRecipeKeyProvider) stack.getItem()).getKey(stack);
 
-		return stack.getUnlocalizedName() + "~" + stack.getItemDamage();
+		return stack.getUnlocalizedName() + (ignoreMeta(stack) ? "" : ("~" + stack.getItemDamage()));
 	}
 
+	public static boolean ignoreMeta(ItemStack stack) {
+		return stack.isItemStackDamageable() || stack.getItem() instanceof IManaItem;	
+	}
+	
 	public static class EntryData {
 
 		public final LexiconEntry entry;

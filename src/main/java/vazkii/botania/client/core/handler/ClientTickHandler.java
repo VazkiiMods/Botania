@@ -37,12 +37,17 @@ public class ClientTickHandler {
 	public static int pageFlipTicks = 0;
 	public static int ticksInGame = 0;
 	public static float partialTicks = 0;
-
+	public static float delta = 0;
+	
 	@SubscribeEvent
 	public void renderTick(RenderTickEvent event) {
-		if(event.phase == Phase.START)
-			partialTicks = event.renderTickTime;
-		else TooltipAdditionDisplayHandler.render();
+		if(event.phase == Phase.START) {
+			float newPartialTicks = event.renderTickTime;
+			float newTotalTime = ticksInGame + newPartialTicks;
+			float oldTotalTime = ticksInGame + partialTicks;
+			delta = Math.abs(newTotalTime - oldTotalTime);
+			partialTicks = newPartialTicks;
+		} else TooltipAdditionDisplayHandler.render();
 	}
 
 	@SubscribeEvent
