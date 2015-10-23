@@ -163,24 +163,26 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 			if(steps == 0)
 				return;
 
-			for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-				int x = coords.posX + dir.offsetX;
-				int y = coords.posY + dir.offsetY;
-				int z = coords.posZ + dir.offsetZ;
-				String pstr = posStr(x, y, z);
-				if(posChecked.contains(pstr))
-					continue;
+			for(int i = 0; i < 3; i++) 
+				for(int j = 0; j < 3; j++)
+					for(int k = 0; k < 3; k++) {
+						int x = coords.posX + i - 1;
+						int y = coords.posY + j - 1;
+						int z = coords.posZ + k - 1;
+						String pstr = posStr(x, y, z);
+						if(posChecked.contains(pstr))
+							continue;
 
-				Block block = world.getBlock(x, y, z);
-				boolean log = block.isWood(world, x, y, z);
-				boolean leaf = block.isLeaves(world, x, y, z);
-				if(log || leaf) {
-					int steps = this.steps - 1;
-					steps = leaf ? leaves ? steps : 3 : steps;
-					addBlockSwapper(world, player, stack, origCoords, new ChunkCoordinates(x, y, z), steps, leaf, false, posChecked);
-					posChecked.add(pstr);
-				}
-			}
+						Block block = world.getBlock(x, y, z);
+						boolean log = block.isWood(world, x, y, z);
+						boolean leaf = block.isLeaves(world, x, y, z);
+						if(log || leaf) {
+							int steps = this.steps - 1;
+							steps = leaf ? leaves ? steps : 3 : steps;
+							addBlockSwapper(world, player, stack, origCoords, new ChunkCoordinates(x, y, z), steps, leaf, false, posChecked);
+							posChecked.add(pstr);
+						}
+					}
 		}
 
 		String posStr(int x, int y, int z) {
