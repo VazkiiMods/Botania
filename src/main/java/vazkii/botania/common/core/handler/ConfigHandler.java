@@ -47,6 +47,7 @@ public final class ConfigHandler {
 	public static boolean silentSpreaders = false;
 	public static boolean renderBaubles = true;
 	public static boolean enableSeasonalFeatures = true;
+	public static boolean useShiftForQuickLookup = false;
 	public static int manaBarHeight = 29;
 
 	public static boolean altFlowerTextures = false;
@@ -146,6 +147,9 @@ public final class ConfigHandler {
 
 		desc = "Set this to false to disable seasonal features, such as halloween and christmas.";
 		enableSeasonalFeatures = loadPropBool("seasonalFeatures.enabled", desc, enableSeasonalFeatures);
+		
+		desc = "Set this to true to use Shift instead of Ctrl for the inventory lexica botania quick lookup feature.";
+		useShiftForQuickLookup = loadPropBool("quickLookup.useShift", desc, useShiftForQuickLookup);
 		
 		desc = "The height of the mana display bar in above the XP bar. You can change this if you have a mod that changes where the XP bar is.";
 		manaBarHeight = loadPropInt("manaBar.height", desc, manaBarHeight);

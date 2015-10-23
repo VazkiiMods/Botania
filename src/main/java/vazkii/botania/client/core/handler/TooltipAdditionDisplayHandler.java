@@ -37,6 +37,7 @@ import vazkii.botania.api.lexicon.LexiconRecipeMappings.EntryData;
 import vazkii.botania.api.mana.IManaTooltipDisplay;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
@@ -106,7 +107,7 @@ public final class TooltipAdditionDisplayHandler {
 							Gui.drawRect(x - 4, y - 4, x + 20, y + 26, 0x44000000);
 							Gui.drawRect(x - 6, y - 6, x + 22, y + 28, 0x44000000);
 							
-							if(GuiScreen.isCtrlKeyDown()) {
+							if(ConfigHandler.useShiftForQuickLookup ? GuiScreen.isShiftKeyDown() : GuiScreen.isCtrlKeyDown()) {
 								lexiconLookupTime += ClientTickHandler.delta;
 								
 								int cx = x + 8;
@@ -152,7 +153,7 @@ public final class TooltipAdditionDisplayHandler {
 
 							font.drawStringWithShadow("?", x + 10, y + 8, 0xFFFFFFFF);
 							GL11.glScalef(0.5F, 0.5F, 1F);
-							mc.fontRenderer.drawStringWithShadow(EnumChatFormatting.BOLD + "Ctrl", (x + 10) * 2 - 16, (y + 8) * 2 + 20, 0xFFFFFFFF);
+							mc.fontRenderer.drawStringWithShadow(EnumChatFormatting.BOLD + (ConfigHandler.useShiftForQuickLookup ? "Shift" : "Ctrl"), (x + 10) * 2 - 16, (y + 8) * 2 + 20, 0xFFFFFFFF);
 							GL11.glScalef(2F, 2F, 1F);
 
 							GL11.glEnable(GL11.GL_DEPTH_TEST);
