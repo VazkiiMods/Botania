@@ -392,6 +392,9 @@ public final class ModBlocks {
 		OreDictionary.registerOre("chestWood", Blocks.chest);
 		OreDictionary.registerOre("craftingTableWood", Blocks.crafting_table);
 
+		BotaniaAPI.registerPaintableBlock(unstableBlock);
+		BotaniaAPI.registerPaintableBlock(manaBeacon);
+
 		initTileEntities();
 	}
 
