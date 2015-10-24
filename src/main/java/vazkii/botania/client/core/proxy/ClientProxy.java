@@ -59,6 +59,7 @@ import vazkii.botania.client.gui.lexicon.GuiLexiconIndex;
 import vazkii.botania.client.integration.nei.NEIGuiHooks;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.client.render.block.RenderAltar;
+import vazkii.botania.client.render.block.RenderAvatar;
 import vazkii.botania.client.render.block.RenderBellows;
 import vazkii.botania.client.render.block.RenderBrewery;
 import vazkii.botania.client.render.block.RenderCocoon;
@@ -272,6 +273,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerBlockHandler(new RenderCocoon());
 		RenderingRegistry.registerBlockHandler(new RenderBellows());
 		RenderingRegistry.registerBlockHandler(new RenderTeruTeruBozu());
+		RenderingRegistry.registerBlockHandler(new RenderAvatar());
 
 		IMultiblockRenderHook.renderHooks.put(ModBlocks.flower, specialFlowerRender);
 		IMultiblockRenderHook.renderHooks.put(ModBlocks.shinyFlower, specialFlowerRender);

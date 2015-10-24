@@ -10,11 +10,16 @@
  */
 package vazkii.botania.common.item.rod;
 
+import java.util.List;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -26,6 +31,7 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
@@ -148,6 +154,28 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 
 	@Override
 	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
+		TileEntity te = (TileEntity) tile;
+		World world = te.getWorldObj();
+		if(tile.getCurrentMana() >= COST) {
+			int range = 5;
+			int rangeY = 3;
+			List<EntityPlayer> players = world.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(te.xCoord + 0.5 - range, te.yCoord + 0.5 - rangeY, te.zCoord + 0.5 - range, te.xCoord + 0.5 + range, te.yCoord + 0.5 + rangeY, te.zCoord + 0.5 + range));
+			for(EntityPlayer p : players) {
+				if(p.motionY > 0.3 && p.motionY < 2 && !p.isSneaking()) {
+					p.motionY = 2.8;
+					
+					for(int i = 0; i < 20; i++)
+						for(int j = 0; j < 5; j++)
+							Botania.proxy.wispFX(p.worldObj, p.posX, p.posY + i, p.posZ, 0.25F, 0.25F, 0.25F, 0.35F + (float) Math.random() * 0.1F, 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
+					
+					if(!world.isRemote) {
+						p.worldObj.playSoundAtEntity(p, "botania:dash", 1F, 1F);
+						p.addPotionEffect(new PotionEffect(ModPotions.featherfeet.id, 100, 0));
+						tile.recieveMana(-COST);
+					}
+				}
+			}
+		}
 	}
 
 	@Override

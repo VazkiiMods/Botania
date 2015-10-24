@@ -47,7 +47,6 @@ public class RenderTileAvatar extends TileEntitySpecialRenderer {
 	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float pticks) {
 		TileAvatar avatar = (TileAvatar) tileentity;
-		Block block = avatar.getBlockType();
 		
 		GL11.glPushMatrix();
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
