@@ -1167,6 +1167,8 @@ tile.botania:flower.daybloom.name=Daybloom
 tile.botania:flower.daybloom.reference=A Sting of light
 tile.botania:flower.daybloomDecor.name=Daybloom Motif
 tile.botania:flower.daybloomDecor.reference=A Sting of light
+tile.botania:flower.daybloomPrime.name=Daybloom Primus
+tile.botania:flower.daybloomPrime.reference=You should not have this on you
 tile.botania:flower.endoflame.name=Endoflame
 tile.botania:flower.endoflame.reference=Squirting Lag
 tile.botania:flower.hydroangeas.name=Hydroangeas
@@ -1177,6 +1179,8 @@ tile.botania:flower.thermalily.name=Thermalily
 tile.botania:flower.thermalily.reference=A Scarlet Rose indeed
 tile.botania:flower.nightshade.name=Nightshade
 tile.botania:flower.nightshade.reference=Ghastly signature
+tile.botania:flower.nightshadePrime.name=Nightshade Primus
+tile.botania:flower.nightshadePrime.reference=You should not have this on you
 tile.botania:flower.nightshadeDecor.name=Nightshade Motif
 tile.botania:flower.nightshadeDecor.reference=Ghastly signature
 tile.botania:flower.arcanerose.name=Rosa Arcana
@@ -2429,6 +2433,12 @@ botania.entry.passiveGen=Caveats of Passive Generation
 botania.tagline.passiveGen=It's free or it's good, pick one
 botania.page.passiveGen0=The spectrum of &4Generating Flowers&0 can be arranged in two groups, &4Passive&0 and &4Active&0.<br>&4Passive Flowers&0 are those that simply create &4Mana&0 using a completely free resource, such as the sun, or water. &4Active Flowers&0 require some sort of resource to transform into &4Mana&0, be it renewable or not.
 botania.page.passiveGen1=At the start of a botanist's career, only very basic and rudimentary &4Passive Flowers&0 are available, such as the &1Daybloom&0 or &1Nightshade&0.<br>These flowers are required to advance on to more potent and effective &4Active Flowers&0, but they should not be relied upon aside from being a stepping stone, as all &4Passive Flowers&0 will decay into a &1Dead Bush&0 after three days of work. 
+
+# -- PRIMUS LOCI
+botania.entry.primusLoci=Primus Loci
+botania.tagline.primusLoci=Rare flower patches with non-decaying flowers
+botania.page.primusLoci0=Among one's travels, one might come across an unusual flower patch, with flowers resembling &1Dayblooms&0 and &1Nightshades&0.<br>This is called a &4Primus Locus&0, a rare occurence in the world, where two special generating flora, the &1Daybloom Primus&0 and &1Nightshade Primus&0 can appear. 
+botania.page.primusLoci1=These flowers act as normal &1Dayblooms&0 or &1Nightshades&0, however, they produce mana a little bit faster and do not decay, making them a great find for a fledgling botanist to set up camp around.<br>Primus flowers are incredibly fickle, and as such, attempting to move them off their natural resting place will kill them.
 
 # -- DAYBLOOM
 botania.entry.daybloom=Daybloom

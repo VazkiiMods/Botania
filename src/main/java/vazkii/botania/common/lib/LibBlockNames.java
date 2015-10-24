@@ -109,10 +109,12 @@ public final class LibBlockNames {
 	public static final String SUBTILE_MANASTAR = "manastar";
 
 	public static final String SUBTILE_DAYBLOOM = "daybloom";
+	public static final String SUBTILE_DAYBLOOM_PRIME = "daybloomPrime";
 	public static final String SUBTILE_ENDOFLAME = "endoflame";
 	public static final String SUBTILE_HYDROANGEAS = "hydroangeas";
 	public static final String SUBTILE_THERMALILY = "thermalily";
 	public static final String SUBTILE_NIGHTSHADE = "nightshade";
+	public static final String SUBTILE_NIGHTSHADE_PRIME = "nightshadePrime";
 	public static final String SUBTILE_ARCANE_ROSE = "arcanerose";
 	public static final String SUBTILE_MUNCHDEW = "munchdew";
 	public static final String SUBTILE_ENTROPINNYUM = "entropinnyum";

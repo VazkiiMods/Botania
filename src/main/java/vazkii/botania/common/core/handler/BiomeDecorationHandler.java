@@ -16,6 +16,9 @@ import vazkii.botania.api.item.IFlowerlessBiome;
 import vazkii.botania.api.item.IFlowerlessWorld;
 import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.subtile.generating.SubTileDaybloom;
+import vazkii.botania.common.block.tile.TileSpecialFlower;
+import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -42,15 +45,25 @@ public class BiomeDecorationHandler {
 					int y = event.world.getTopSolidOrLiquidBlock(x, z);
 
 					int color = event.rand.nextInt(16);
+					boolean primus = event.rand.nextInt(500) == 0;
+
 					for(int j = 0; j < ConfigHandler.flowerDensity * ConfigHandler.flowerPatchChance; j++) {
 						int x1 = x + event.rand.nextInt(dist * 2) - dist;
 						int y1 = y + event.rand.nextInt(4) - event.rand.nextInt(4);
 						int z1 = z + event.rand.nextInt(dist * 2) - dist;
 
 						if(event.world.isAirBlock(x1, y1, z1) && (!event.world.provider.hasNoSky || y1 < 127) && ModBlocks.flower.canBlockStay(event.world, x1, y1, z1)) {
-							event.world.setBlock(x1, y1, z1, ModBlocks.flower, color, 2);
-							if(event.rand.nextDouble() < ConfigHandler.flowerTallChance && ((BlockModFlower) ModBlocks.flower).func_149851_a(event.world, x1, y1, z1, false))
-								BlockModFlower.placeDoubleFlower(event.world, x1, y1, z1, color, 0);
+							if(primus) {
+								event.world.setBlock(x1, y1, z1, ModBlocks.specialFlower, 0, 2);
+								TileSpecialFlower flower = (TileSpecialFlower) event.world.getTileEntity(x1, y1, z1);
+								flower.setSubTile(event.rand.nextBoolean() ? LibBlockNames.SUBTILE_NIGHTSHADE_PRIME : LibBlockNames.SUBTILE_DAYBLOOM_PRIME);
+								SubTileDaybloom subtile = (SubTileDaybloom) flower.getSubTile();
+								subtile.setPrimusPosition();
+							} else {
+								event.world.setBlock(x1, y1, z1, ModBlocks.flower, color, 2);
+								if(event.rand.nextDouble() < ConfigHandler.flowerTallChance && ((BlockModFlower) ModBlocks.flower).func_149851_a(event.world, x1, y1, z1, false))
+									BlockModFlower.placeDoubleFlower(event.world, x1, y1, z1, color, 0);	
+							}
 						}
 					}
 				}

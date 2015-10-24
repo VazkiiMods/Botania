@@ -464,10 +464,12 @@ public final class ModBlocks {
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MANASTAR, SubTileManastar.class);
 
 		registerSubTileWithDecor(LibBlockNames.SUBTILE_DAYBLOOM, SubTileDaybloom.class, SubTileDecor.Daybloom.class);
+		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_DAYBLOOM_PRIME, SubTileDaybloom.Prime.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_ENDOFLAME, SubTileEndoflame.class);
 		registerSubTileWithDecor(LibBlockNames.SUBTILE_HYDROANGEAS, SubTileHydroangeas.class, SubTileDecor.Hydroangeas.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_THERMALILY, SubTileThermalily.class);
 		registerSubTileWithDecor(LibBlockNames.SUBTILE_NIGHTSHADE, SubTileNightshade.class, SubTileDecor.Nightshade.class);
+		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_NIGHTSHADE_PRIME, SubTileNightshade.Prime.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_ARCANE_ROSE, SubTileArcaneRose.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MUNCHDEW, SubTileMunchdew.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_ENTROPINNYUM, SubTileEntropinnyum.class);

@@ -11,22 +11,58 @@
 package vazkii.botania.common.block.subtile.generating;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.ISubTileContainer;
+import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileDaybloom extends SubTilePassiveGenerating {
-
+	
+	private static final String TAG_PRIME_POSITION_X = "primePositionX";
+	private static final String TAG_PRIME_POSITION_Y = "primePositionY";
+	private static final String TAG_PRIME_POSITION_Z = "primePositionZ";
+	private static final String TAG_SAVED_POSITION = "savedPosition";
+	
+	int primePositionX, primePositionY, primePositionZ;
+	boolean savedPosition;
+	
 	@Override
 	public int getColor() {
 		return 0xFFFF00;
 	}
 
+	@Override
+	public void onUpdate() {
+		super.onUpdate();
+		
+		if(isPrime() && (!savedPosition || primePositionX != supertile.xCoord || primePositionY != supertile.yCoord || primePositionZ != supertile.zCoord))
+			supertile.getWorldObj().setBlockToAir(supertile.xCoord, supertile.yCoord, supertile.zCoord);
+	}
+	
+	public void setPrimusPosition() {
+		primePositionX = supertile.xCoord; 
+		primePositionY = supertile.yCoord;
+		primePositionZ = supertile.zCoord;
+		
+		savedPosition = true;
+	}
+	
+	@Override
+	public ArrayList<ItemStack> getDrops(ArrayList<ItemStack> list) {
+		if(isPrime())
+			list.clear();
+		
+		return super.getDrops(list);
+	}
+	
 	@Override
 	public boolean canGeneratePassively() {
 		boolean rain = supertile.getWorldObj().getWorldChunkManager().getBiomeGenAt(supertile.xCoord, supertile.zCoord).getIntRainfall() > 0 && (supertile.getWorldObj().isRaining() || supertile.getWorldObj().isThundering());
@@ -35,7 +71,7 @@ public class SubTileDaybloom extends SubTilePassiveGenerating {
 
 	@Override
 	public int getDelayBetweenPassiveGeneration() {
-		return 25 + (int) (getSurroundingFlowers() * 7.5);
+		return isPrime() ? 22 : (25 + (int) (getSurroundingFlowers() * 7.5));
 	}
 
 	public int getSurroundingFlowers() {
@@ -61,15 +97,62 @@ public class SubTileDaybloom extends SubTilePassiveGenerating {
 
 		return flowers;
 	}
+	
+	@Override
+	public void writeToPacketNBT(NBTTagCompound cmp) {
+		super.writeToPacketNBT(cmp);
+		
+		if(isPrime()) {
+			cmp.setInteger(TAG_PRIME_POSITION_X, primePositionX);
+			cmp.setInteger(TAG_PRIME_POSITION_Y, primePositionY);
+			cmp.setInteger(TAG_PRIME_POSITION_Z, primePositionZ);
+			cmp.setBoolean(TAG_SAVED_POSITION, savedPosition);
+		}
+	}
+	
+	@Override
+	public void readFromPacketNBT(NBTTagCompound cmp) {
+		super.readFromPacketNBT(cmp);
+		
+		if(isPrime()) {
+			primePositionX = cmp.getInteger(TAG_PRIME_POSITION_X);
+			primePositionY = cmp.getInteger(TAG_PRIME_POSITION_Y);
+			primePositionZ = cmp.getInteger(TAG_PRIME_POSITION_Z);
+			savedPosition = cmp.getBoolean(TAG_SAVED_POSITION);
+		}
+	}
 
 	@Override
 	public boolean shouldSyncPassiveGeneration() {
 		return true;
 	}
+	
+	@Override
+	public boolean isPassiveFlower() {
+		return !isPrime();
+	}
 
 	@Override
 	public LexiconEntry getEntry() {
 		return LexiconData.daybloom;
+	}
+	
+	public boolean isPrime() {
+		return false;
+	}
+	
+	public static class Prime extends SubTileDaybloom {
+
+		@Override
+		public boolean isPrime() {
+			return true;
+		}
+		
+		@Override
+		public LexiconEntry getEntry() {
+			return LexiconData.primusLoci;
+		}
+		
 	}
 
 }
