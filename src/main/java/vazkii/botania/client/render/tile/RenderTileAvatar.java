@@ -12,7 +12,6 @@ package vazkii.botania.client.render.tile;
 
 import java.awt.Color;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -32,8 +31,6 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelAvatar;
 import vazkii.botania.common.block.tile.TileAvatar;
-import vazkii.botania.common.block.tile.TileSparkChanger;
-import vazkii.botania.common.core.handler.ConfigHandler;
 
 public class RenderTileAvatar extends TileEntitySpecialRenderer {
 
@@ -47,7 +44,7 @@ public class RenderTileAvatar extends TileEntitySpecialRenderer {
 	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float pticks) {
 		TileAvatar avatar = (TileAvatar) tileentity;
-		
+
 		GL11.glPushMatrix();
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
@@ -60,7 +57,7 @@ public class RenderTileAvatar extends TileEntitySpecialRenderer {
 		GL11.glScalef(1F, -1F, -1F);
 		GL11.glRotatef(ROTATIONS[Math.max(Math.min(ROTATIONS.length - 1, meta - 2), 0)], 0F, 1F, 0F);
 		model.render();
-		
+
 		ItemStack stack = avatar.getStackInSlot(0);
 		if(stack != null) {
 			GL11.glPushMatrix();
@@ -88,16 +85,16 @@ public class RenderTileAvatar extends TileEntitySpecialRenderer {
 				renderPass++;
 			} while(renderPass < stack.getItem().getRenderPasses(stack.getItemDamage()));
 			GL11.glPopMatrix();
-			
+
 			IAvatarWieldable wieldable = (IAvatarWieldable) stack.getItem();
 			Minecraft.getMinecraft().renderEngine.bindTexture(wieldable.getOverlayResource(avatar, stack));
 			s = 1.01F;
-			
+
 			GL11.glPushMatrix();
 			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			GL11.glScalef(s, s, s);
-			GL11.glTranslatef(0F, -0.01F, 0F);				
+			GL11.glTranslatef(0F, -0.01F, 0F);
 			int light = 15728880;
 			int lightmapX = light % 65536;
 			int lightmapY = light / 65536;

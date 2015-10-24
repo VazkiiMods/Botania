@@ -29,7 +29,7 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemFireRod extends ItemMod implements IManaUsingItem, IAvatarWieldable {
 
 	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_FIRE);
-	
+
 	private static final int COST = 900;
 	private static final int COOLDOWN = 1200;
 
@@ -74,7 +74,7 @@ public class ItemFireRod extends ItemMod implements IManaUsingItem, IAvatarWield
 	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
 		TileEntity te = (TileEntity) tile;
 		World world = te.getWorldObj();
-		
+
 		if(!world.isRemote && tile.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 300 == 0 && tile.isEnabled()) {
 			EntityFlameRing entity = new EntityFlameRing(world);
 			entity.setPosition(te.xCoord + 0.5, te.yCoord, te.zCoord + 0.5);

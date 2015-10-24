@@ -268,7 +268,7 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 
 		return pool == null || pool instanceof DummyPool ? null : getPoolCoords(stack);
 	}
-	
+
 	@Override
 	public float getManaFractionForDisplay(ItemStack stack) {
 		return (float) getMana(stack) / (float) getMaxMana(stack);

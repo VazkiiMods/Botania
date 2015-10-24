@@ -87,7 +87,7 @@ public class PageTerrasteel extends PageRecipe {
 	public void onPageAdded(LexiconEntry entry, int index) {
 		LexiconRecipeMappings.map(new ItemStack(ModItems.manaResource, 1, 4), entry, index);
 	}
-	
+
 	@Override
 	public List<ItemStack> getDisplayedRecipes() {
 		ArrayList<ItemStack> list = new ArrayList();

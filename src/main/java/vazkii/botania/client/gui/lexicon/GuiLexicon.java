@@ -82,7 +82,6 @@ public class GuiLexicon extends GuiScreen {
 
 	public static Queue<LexiconEntry> tutorial = new ArrayDeque();
 
-	private static boolean checkedDoot = false;
 	public static final ResourceLocation texture = new ResourceLocation(LibResources.GUI_LEXICON);
 	public static final ResourceLocation textureToff = new ResourceLocation(LibResources.GUI_TOFF);
 
@@ -112,7 +111,7 @@ public class GuiLexicon extends GuiScreen {
 	@Override
 	public final void initGui() {
 		super.initGui();
-		
+
 		if(PersistentVariableHelper.firstLoad) {
 			PersistentVariableHelper.firstLoad = false;
 			PersistentVariableHelper.saveSafe();
@@ -169,7 +168,7 @@ public class GuiLexicon extends GuiScreen {
 
 			GuiButtonUpdateWarning button = new GuiButtonUpdateWarning(-4, left - 6, top + guiHeight - 70);
 			buttonList.add(button);
-			
+
 			if(PersistentVariableHelper.lastBotaniaVersion.equals(LibMisc.VERSION)) {
 				button.enabled = false;
 				button.visible = false;
@@ -292,7 +291,7 @@ public class GuiLexicon extends GuiScreen {
 	public void drawBookmark(int x, int y, String s, boolean drawLeft) {
 		drawBookmark(x, y, s, drawLeft, 0x111111);
 	}
-	
+
 	public void drawBookmark(int x, int y, String s, boolean drawLeft, int color) {
 		// This function is called from the buttons so I can't use fontRendererObj
 		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
@@ -324,19 +323,19 @@ public class GuiLexicon extends GuiScreen {
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 		drawTexturedModalRect(left - 8, top + 9, 0, 224, 140, 31);
-		
+
 		int color = 0xffd200;
 		boolean unicode = fontRendererObj.getUnicodeFlag();
 		fontRendererObj.drawString(title, left + 18, top + 13, color);
 		fontRendererObj.setUnicodeFlag(true);
 		fontRendererObj.drawString(String.format(StatCollector.translateToLocal("botaniamisc.edition"), ItemLexicon.getEdition()), left + 24, top + 22, color);
-		
+
 		String s = EnumChatFormatting.BOLD + categoryHighlight;
 		fontRendererObj.drawString(s, left + guiWidth / 2 - fontRendererObj.getStringWidth(s) / 2, top + 36, 0);
 
 		fontRendererObj.setUnicodeFlag(unicode);
 		GL11.glPopMatrix();
-		
+
 		categoryHighlight = "";
 	}
 

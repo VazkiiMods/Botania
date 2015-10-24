@@ -23,10 +23,10 @@ public interface IAvatarTile extends IInventory, IManaReceiver {
 	 * (has redstone signal).
 	 */
 	public int getElapsedFunctionalTicks();
-	
+
 	/**
 	 * Gets if this avatar is enabled (isn't powered by a redstone signal).
 	 */
 	public boolean isEnabled();
-	
+
 }

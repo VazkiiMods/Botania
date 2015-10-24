@@ -110,7 +110,7 @@ public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipD
 	public boolean isNoExport(ItemStack stack) {
 		return false;
 	}
-	
+
 	@Override
 	public float getManaFractionForDisplay(ItemStack stack) {
 		return (float) getMana(stack) / (float) getMaxMana(stack);

@@ -358,7 +358,7 @@ public final class ModBlocks {
 		shimmerrock = new BlockShimmerrock();
 		shimmerwoodPlanks = new BlockShimmerwoodPlanks();
 		avatar = new BlockAvatar();
-		
+
 		ModFluffBlocks.init();
 
 		for(int i = 0; i < 16; i++)

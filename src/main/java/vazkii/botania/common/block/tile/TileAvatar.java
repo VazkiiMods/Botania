@@ -21,19 +21,19 @@ import vazkii.botania.common.lib.LibBlockNames;
 public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ISidedInventory {
 
 	private static final int MAX_MANA = 6400;
-	
+
 	private static final String TAG_ENABLED = "enabled";
 	private static final String TAG_TICKS_ELAPSED = "ticksElapsed";
 	private static final String TAG_MANA = "ticksElapsed";
-	
+
 	boolean enabled;
 	int ticksElapsed;
 	int mana;
-	
+
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		
+
 		enabled = true;
 		for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
 			int redstoneSide = worldObj.getIndirectPowerLevelTo(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ, dir.ordinal());
@@ -42,17 +42,17 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ISid
 				break;
 			}
 		}
-		
+
 		ItemStack stack = getStackInSlot(0);
 		if(stack != null && stack.getItem() instanceof IAvatarWieldable) {
 			IAvatarWieldable wieldable = (IAvatarWieldable) stack.getItem();
 			wieldable.onAvatarUpdate(this, stack);
 		}
-		
+
 		if(enabled)
 			ticksElapsed++;
 	}
-	
+
 	@Override
 	public void writeCustomNBT(NBTTagCompound par1nbtTagCompound) {
 		super.writeCustomNBT(par1nbtTagCompound);
@@ -60,7 +60,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ISid
 		par1nbtTagCompound.setInteger(TAG_TICKS_ELAPSED, ticksElapsed);
 		par1nbtTagCompound.setInteger(TAG_MANA, mana);
 	}
-	
+
 	@Override
 	public void readCustomNBT(NBTTagCompound par1nbtTagCompound) {
 		super.readCustomNBT(par1nbtTagCompound);
@@ -68,7 +68,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ISid
 		ticksElapsed = par1nbtTagCompound.getInteger(TAG_TICKS_ELAPSED);
 		mana = par1nbtTagCompound.getInteger(TAG_MANA);
 	}
-	
+
 	@Override
 	public int getSizeInventory() {
 		return 1;
@@ -78,12 +78,12 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ISid
 	public int getInventoryStackLimit() {
 		return 1;
 	}
-	
+
 	@Override
 	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
 		return itemstack != null && itemstack.getItem() instanceof IAvatarTile;
 	}
-	
+
 	@Override
 	public int[] getAccessibleSlotsFromSide(int p_94128_1_) {
 		return new int[0];
@@ -98,7 +98,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ISid
 	public boolean canExtractItem(int p_102008_1_, ItemStack p_102008_2_, int p_102008_3_) {
 		return false;
 	}
-	
+
 	@Override
 	public String getInventoryName() {
 		return LibBlockNames.AVATAR;

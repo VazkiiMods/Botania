@@ -301,7 +301,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeCorporeaRetainer;
 	public static IRecipe recipeTeruTeruBozu;
 	public static IRecipe recipeAvatar;
-	
+
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;
 	public static IRecipe recipeRootToFertilizer;
@@ -2024,12 +2024,12 @@ public final class ModCraftingRecipes {
 		recipeTeruTeruBozu = BotaniaAPI.getLatestAddedRecipe();
 
 		// Livingwood Avatar Recipe
-		addOreDictRecipe(new ItemStack(ModBlocks.avatar), 
+		addOreDictRecipe(new ItemStack(ModBlocks.avatar),
 				" W ", "WDW", "W W",
 				'W', LibOreDict.LIVING_WOOD,
 				'D', LibOreDict.MANA_DIAMOND);
 		recipeAvatar = BotaniaAPI.getLatestAddedRecipe();
-		
+
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		// Storage Block/Nugget Recipes

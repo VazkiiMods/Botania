@@ -23,7 +23,7 @@ public interface IHornHarvestable {
 	 * Note that the stack param can be null if it's a drum breaking it.
 	 */
 	public boolean canHornHarvest(World world, int x, int y, int z, ItemStack stack, EnumHornType hornType);
-	
+
 	/**
 	 * Returns true if harvestByHorn() should be called. If false it just uses the normal
 	 * block breaking method.
@@ -36,29 +36,29 @@ public interface IHornHarvestable {
 	 * Note that the stack param can be null if it's a drum breaking it.
 	 */
 	public void harvestByHorn(World world, int x, int y, int z, ItemStack stack, EnumHornType hornType);
-	
+
 	public static enum EnumHornType {
-		
+
 		/**
 		 * Horn of the Wild, for grass and crops
 		 */
 		WILD,
-		
+
 		/**
 		 * Horn of the Canopy, for leaves
 		 */
 		CANOPY,
-		
+
 		/**
 		 * Horn of the Covering, for snow
 		 */
 		COVERING;
-		
+
 		public static EnumHornType getTypeForMeta(int meta) {
 			EnumHornType[] values = EnumHornType.values();
 			return values[Math.min(values.length - 1, meta)];
 		}
-		
+
 	};
-	
+
 }

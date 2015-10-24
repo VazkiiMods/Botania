@@ -25,7 +25,6 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISequentialBreaker;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -163,7 +162,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 			if(steps == 0)
 				return;
 
-			for(int i = 0; i < 3; i++) 
+			for(int i = 0; i < 3; i++)
 				for(int j = 0; j < 3; j++)
 					for(int k = 0; k < 3; k++) {
 						int x = coords.posX + i - 1;

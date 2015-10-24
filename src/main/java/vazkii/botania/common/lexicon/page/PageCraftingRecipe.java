@@ -177,13 +177,13 @@ public class PageCraftingRecipe extends PageRecipe {
 
 		renderItemAtGridPos(gui, 2, 0, recipe.getRecipeOutput(), false);
 	}
-	
+
 	@Override
 	public List<ItemStack> getDisplayedRecipes() {
 		ArrayList<ItemStack> list = new ArrayList();
 		for(IRecipe r : recipes)
 			list.add(r.getRecipeOutput());
-		
+
 		return list;
 	}
 }

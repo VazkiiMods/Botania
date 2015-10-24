@@ -40,7 +40,7 @@ public class BLexiconEntry extends LexiconEntry {
 	public String getUnlocalizedName() {
 		return "botania.entry." + super.getUnlocalizedName();
 	}
-	
+
 	@Override
 	public String getTagline() {
 		return "botania.tagline." + super.getUnlocalizedName();

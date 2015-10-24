@@ -70,7 +70,7 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer {
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		GL11.glDisable(GL11.GL_ALPHA_TEST);
 		float alpha = (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 8D) + 1D) / 5D + 0.4D) * alphaMod;
-		
+
 		if(alpha > 0) {
 			if(ShaderHelper.useShaders())
 				GL11.glColor4f(1F, 1F, 1F, alpha);

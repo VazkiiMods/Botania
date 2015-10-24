@@ -127,22 +127,22 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 		ArrayList<ItemStack> list = new ArrayList();
 		for(LexiconPage page : pages) {
 			List<ItemStack> l = page.getDisplayedRecipes();
-			
+
 			if(l != null) {
 				ArrayList<ItemStack> itemsAddedThisPage = new ArrayList();
 
 				for(ItemStack s : l) {
 					addItem: {
-						for(ItemStack s1 : itemsAddedThisPage)
-							if(s1.getItem() == s.getItem())
-								break addItem;
-						for(ItemStack s1 : list)
-							if(s1.isItemEqual(s) && ItemStack.areItemStackTagsEqual(s1, s))
-								break addItem;
-						
-						itemsAddedThisPage.add(s);
-						list.add(s);
-					}
+					for(ItemStack s1 : itemsAddedThisPage)
+						if(s1.getItem() == s.getItem())
+							break addItem;
+					for(ItemStack s1 : list)
+						if(s1.isItemEqual(s) && ItemStack.areItemStackTagsEqual(s1, s))
+							break addItem;
+
+					itemsAddedThisPage.add(s);
+					list.add(s);
+				}
 				}
 			}
 		}

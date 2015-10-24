@@ -39,7 +39,7 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWieldable {
 
 	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_TORNADO);
-	
+
 	private static final int FLY_TIME = 20;
 	private static final int FALL_MULTIPLIER = 3;
 	private static final int MAX_DAMAGE = FLY_TIME * FALL_MULTIPLIER;
@@ -163,11 +163,11 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 			for(EntityPlayer p : players) {
 				if(p.motionY > 0.3 && p.motionY < 2 && !p.isSneaking()) {
 					p.motionY = 2.8;
-					
+
 					for(int i = 0; i < 20; i++)
 						for(int j = 0; j < 5; j++)
 							Botania.proxy.wispFX(p.worldObj, p.posX, p.posY + i, p.posZ, 0.25F, 0.25F, 0.25F, 0.35F + (float) Math.random() * 0.1F, 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
-					
+
 					if(!world.isRemote) {
 						p.worldObj.playSoundAtEntity(p, "botania:dash", 1F, 1F);
 						p.addPotionEffect(new PotionEffect(ModPotions.featherfeet.id, 100, 0));

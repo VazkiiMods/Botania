@@ -57,21 +57,21 @@ public class EntityMagicMissile extends EntityThrowable {
 	public void setEvil(boolean evil) {
 		dataWatcher.updateObject(25, (byte) (evil ? 1 : 0));
 	}
-	
+
 	public boolean isEvil() {
 		return dataWatcher.getWatchableObjectByte(25) == 1;
 	}
-	
+
 	public void setTarget(EntityLivingBase e) {
 		dataWatcher.updateObject(26, e == null ? -1 : e.getEntityId());
 	}
-	
+
 	public EntityLivingBase getTargetEntity() {
 		int id = dataWatcher.getWatchableObjectInt(26);
 		Entity e = worldObj.getEntityByID(id);
 		if(e != null && e instanceof EntityLivingBase)
 			return (EntityLivingBase) e;
-		
+
 		return null;
 	}
 
@@ -80,7 +80,7 @@ public class EntityMagicMissile extends EntityThrowable {
 		double lastTickPosX = this.lastTickPosX;
 		double lastTickPosY = this.lastTickPosY;
 		double lastTickPosZ = this.lastTickPosZ;
-		
+
 		super.onUpdate();
 
 		if(!worldObj.isRemote && (!getTarget() || time > 40)) {

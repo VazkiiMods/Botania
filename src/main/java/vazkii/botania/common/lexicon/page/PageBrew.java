@@ -102,7 +102,7 @@ public class PageBrew extends PageRecipe implements ITwoNamedPage {
 		list.add(recipe.getOutput(new ItemStack(ModItems.vial)));
 		return list;
 	}
-	
+
 	@Override
 	public void setSecondUnlocalizedName(String name) {
 		text = name;

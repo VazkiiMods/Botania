@@ -10,27 +10,18 @@
  */
 package vazkii.botania.client.gui.lexicon.button;
 
-import java.util.Arrays;
-
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.client.renderer.texture.ITextureObject;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.client.MinecraftForgeClient;
 
 import org.lwjgl.opengl.ARBMultitexture;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
-import org.lwjgl.opengl.GL20;
-
-import com.sun.prism.ps.Shader;
 
 import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.api.lexicon.LexiconCategory;
-import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
@@ -96,8 +87,6 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 
 		float s = 1F / 32F;
 		float defAlpha = 0F;
-		float alpha = ticksHovered / time * (1F - defAlpha) + defAlpha;
-
 		GL11.glPushMatrix();
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);

@@ -43,7 +43,6 @@ import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lexicon.page.PageBrew;
 import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
 import vazkii.botania.common.lexicon.page.PageElvenRecipe;
-import vazkii.botania.common.lexicon.page.PageGuide;
 import vazkii.botania.common.lexicon.page.PageImage;
 import vazkii.botania.common.lexicon.page.PageLoreText;
 import vazkii.botania.common.lexicon.page.PageManaInfusionRecipe;
@@ -536,7 +535,7 @@ public final class LexiconData {
 		primusLoci = new BLexiconEntry(LibLexicon.GFLOWER_PRIMUS_LOCI, categoryGenerationFlowers);
 		primusLoci.setPriority().setLexiconPages(new PageText("0"), new PageText("1"));
 		primusLoci.setIcon(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_DAYBLOOM_PRIME));
-		
+
 		daybloom = new BLexiconEntry(LibLexicon.GFLOWER_DAYBLOOM, categoryGenerationFlowers);
 		daybloom.setPriority().setLexiconPages(new PageText("0"), new PageText(ConfigHandler.hardcorePassiveGeneration > 0 ? "1a" : "1"), new PageImage("3", LibResources.ENTRY_DIMINISHING_RETURNS), new PagePetalRecipe("2", ModPetalRecipes.daybloomRecipe), new PageText("4"), new PageText("5"));
 
@@ -669,7 +668,7 @@ public final class LexiconData {
 
 		avatar = new BLexiconEntry(LibLexicon.DEVICE_AVATAR, categoryDevices);
 		avatar.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeAvatar));
-		
+
 		// TOOLS ENTRIES
 		manaBlaster = new BLexiconEntry(LibLexicon.TOOL_MANA_BLASTER, categoryTools);
 		manaBlaster.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipeManaBlaster));

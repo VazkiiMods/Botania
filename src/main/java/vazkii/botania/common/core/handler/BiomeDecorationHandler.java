@@ -62,7 +62,7 @@ public class BiomeDecorationHandler {
 							} else {
 								event.world.setBlock(x1, y1, z1, ModBlocks.flower, color, 2);
 								if(event.rand.nextDouble() < ConfigHandler.flowerTallChance && ((BlockModFlower) ModBlocks.flower).func_149851_a(event.world, x1, y1, z1, false))
-									BlockModFlower.placeDoubleFlower(event.world, x1, y1, z1, color, 0);	
+									BlockModFlower.placeDoubleFlower(event.world, x1, y1, z1, color, 0);
 							}
 						}
 					}

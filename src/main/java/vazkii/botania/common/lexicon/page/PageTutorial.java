@@ -11,9 +11,7 @@
 package vazkii.botania.common.lexicon.page;
 
 import java.awt.Desktop;
-import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;

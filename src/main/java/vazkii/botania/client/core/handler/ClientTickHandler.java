@@ -38,7 +38,7 @@ public class ClientTickHandler {
 	public static int ticksInGame = 0;
 	public static float partialTicks = 0;
 	public static float delta = 0;
-	
+
 	@SubscribeEvent
 	public void renderTick(RenderTickEvent event) {
 		if(event.phase == Phase.START) {

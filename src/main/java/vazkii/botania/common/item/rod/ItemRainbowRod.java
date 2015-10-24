@@ -38,7 +38,7 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWieldable {
 
 	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_RAINBOW);
-	
+
 	private static final int MANA_COST = 750;
 	private static final int MANA_COST_AVATAR = 10;
 	private static final int TIME = 600;
@@ -139,10 +139,10 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
 		TileEntity te = (TileEntity) tile;
 		World world = te.getWorldObj();
-		
+
 		if(world.isRemote || tile.getCurrentMana() < MANA_COST_AVATAR * 25 || !tile.isEnabled())
 			return;
-		
+
 		int x = te.xCoord;
 		int y = te.yCoord;
 		int z = te.zCoord;
@@ -164,40 +164,40 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 		case 3 :
 			axis = AxisAlignedBB.getBoundingBox(x + 1, y - h, z - w, x + l + 1, y + h, z + w + 1);
 		}
-		
+
 		List<EntityPlayer> players = world.getEntitiesWithinAABB(EntityPlayer.class, axis);
 		for(EntityPlayer p : players) {
-			int px = (int) MathHelper.floor_double(p.posX);
-			int py = (int) MathHelper.floor_double(p.posY) - 1;
-			int pz = (int) MathHelper.floor_double(p.posZ);
+			int px = MathHelper.floor_double(p.posX);
+			int py = MathHelper.floor_double(p.posY) - 1;
+			int pz = MathHelper.floor_double(p.posZ);
 			int dist = 5;
 			int diff = dist / 2;
-			
+
 			for(int i = 0; i < dist; i++)
- 				for(int j = 0; j < dist; j++) {
-						int ex = px + i - diff;
-						int ez = pz + j - diff;
-						
-						if(!axis.isVecInside(Vec3.createVectorHelper(ex + 0.5, py + 1, ez + 0.5)))
-							continue;
-						
-						Block block = world.getBlock(ex, py, ez);
-						if(block.isAir(world, ex, py, ez)) {
-							world.setBlock(ex, py, ez, ModBlocks.bifrost);
-							TileBifrost tileBifrost = (TileBifrost) world.getTileEntity(ex, py, ez);
+				for(int j = 0; j < dist; j++) {
+					int ex = px + i - diff;
+					int ez = pz + j - diff;
+
+					if(!axis.isVecInside(Vec3.createVectorHelper(ex + 0.5, py + 1, ez + 0.5)))
+						continue;
+
+					Block block = world.getBlock(ex, py, ez);
+					if(block.isAir(world, ex, py, ez)) {
+						world.setBlock(ex, py, ez, ModBlocks.bifrost);
+						TileBifrost tileBifrost = (TileBifrost) world.getTileEntity(ex, py, ez);
+						tileBifrost.ticks = 10;
+						tile.recieveMana(-MANA_COST_AVATAR);
+					} else if(block == ModBlocks.bifrost) {
+						TileBifrost tileBifrost = (TileBifrost) world.getTileEntity(ex, py, ez);
+						if(tileBifrost.ticks < 2) {
 							tileBifrost.ticks = 10;
 							tile.recieveMana(-MANA_COST_AVATAR);
-						} else if(block == ModBlocks.bifrost) {
-							TileBifrost tileBifrost = (TileBifrost) world.getTileEntity(ex, py, ez);
-							if(tileBifrost.ticks < 2) {
-								tileBifrost.ticks = 10;
-								tile.recieveMana(-MANA_COST_AVATAR);
-							}
 						}
 					}
+				}
 		}
-			
-		
+
+
 	}
 
 	@Override

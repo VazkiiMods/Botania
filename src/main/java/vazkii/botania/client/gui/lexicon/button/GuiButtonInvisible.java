@@ -40,8 +40,8 @@ public class GuiButtonInvisible extends GuiButtonLexicon {
 		field_146123_n = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
 		int k = getHoverState(field_146123_n);
 		boolean showStack = displayStack != null && !displayString.isEmpty();
-		
-		if(!displayString.isEmpty() && k == 2) { 
+
+		if(!displayString.isEmpty() && k == 2) {
 			timeHover = Math.min(5, timeHover + gui.timeDelta);
 			gui.setHoveredButton(this);
 		} else timeHover = Math.max(0, timeHover - gui.timeDelta);

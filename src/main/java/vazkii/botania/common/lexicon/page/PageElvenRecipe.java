@@ -108,13 +108,13 @@ public class PageElvenRecipe extends PageRecipe {
 		}
 		++ticksElapsed;
 	}
-	
+
 	@Override
 	public List<ItemStack> getDisplayedRecipes() {
 		ArrayList<ItemStack> list = new ArrayList();
 		for(RecipeElvenTrade r : recipes)
 			list.add(r.getOutput());
-			
+
 		return list;
 	}
 

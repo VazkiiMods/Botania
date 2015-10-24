@@ -51,11 +51,11 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 	GuiButton leftButton, rightButton, backButton;
 	GuiLexicon parent;
 	GuiTextField searchField;
-	
+
 	GuiButton currentButton;
 	LexiconEntry currentEntry;
 	float infoTime;
-	
+
 	List<LexiconEntry> entriesToDisplay = new ArrayList();
 
 	public GuiLexiconIndex() {
@@ -146,7 +146,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			} else button.displayString = "";
 		}
 	}
-	
+
 	public void setHoveredButton(GuiButtonInvisible b) {
 		if(b == null)
 			currentEntry = null;
@@ -170,38 +170,38 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			mc.fontRenderer.drawString(s, left + 120 - mc.fontRenderer.getStringWidth(s), top + guiHeight - 18, 0x666666);
 			mc.fontRenderer.setUnicodeFlag(unicode);
 		}
-		
+
 		float animationTime = 4F;
 		if(isShiftKeyDown()) {
 			if(currentButton != null)
 				infoTime = Math.min(animationTime, infoTime + timeDelta);
 		} else {
 			infoTime = Math.max(0, infoTime - timeDelta);
-			
+
 			if(currentButton != null && infoTime == 0) {
 				int x = par1 + 10;
 				int y = par2;
-				
+
 				x = currentButton.xPosition - 20;
 				y = currentButton.yPosition;
-				
+
 				mc.fontRenderer.drawStringWithShadow("?", x, y, 0xFFFFFF);
 				GL11.glScalef(0.5F, 0.5F, 1F);
 				mc.fontRenderer.drawStringWithShadow(EnumChatFormatting.BOLD + "Shift", x * 2 - 6, y * 2 + 20, 0xFFFFFF);
 				GL11.glScalef(2F, 2F, 1F);
 			}
 		}
-		
+
 		if(currentButton != null && infoTime > 0) {
 			float fract = infoTime / animationTime;
-			
+
 			int x = currentButton.xPosition;
 			int y = currentButton.yPosition;
 			String s = StatCollector.translateToLocal(currentEntry.getTagline());
 			boolean unicode = mc.fontRenderer.getUnicodeFlag();
 			mc.fontRenderer.setUnicodeFlag(true);
 			int width = mc.fontRenderer.getStringWidth(s);
-			
+
 			GL11.glPushMatrix();
 			GL11.glTranslatef(x, y, 0);
 			GL11.glScalef(fract, 1F, 1F);
@@ -209,15 +209,15 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			Gui.drawRect(10, -32, width + 22, -2, 0x44000000);
 			drawBookmark(width / 2 + 16, -8, s, true, 0xFFFFFF);
 			mc.fontRenderer.setUnicodeFlag(unicode);
-			
+
 			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 			ItemStack paper = new ItemStack(Items.paper, currentEntry.pages.size());
-			
+
 			RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, paper, 14, -28);
 			RenderItem.getInstance().renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, paper, 14, -28);
 			List<ItemStack> stacks = currentEntry.getDisplayedRecipes();
-			
+
 			if(stacks.size() > 0) {
 				int spaceForEach = Math.min(18, (width - 30) / stacks.size());
 				for(int i = 0; i < stacks.size(); i++) {
@@ -225,12 +225,12 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 					RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack, 38 + spaceForEach * i, -28);
 				}
 			}
-			
+
 			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
-			
+
 			GL11.glPopMatrix();
 		}
-		
+
 		setHoveredButton(null);
 	}
 

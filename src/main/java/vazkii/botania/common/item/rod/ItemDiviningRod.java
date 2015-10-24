@@ -33,7 +33,7 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemDiviningRod extends ItemMod implements IManaUsingItem, IAvatarWieldable {
 
 	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_DIVINING);
-	
+
 	static final int COST = 3000;
 
 	public ItemDiviningRod() {
@@ -80,7 +80,7 @@ public class ItemDiviningRod extends ItemMod implements IManaUsingItem, IAvatarW
 				}
 		Botania.proxy.setWispFXDepthTest(true);
 	}
-	
+
 	@Override
 	public boolean usesMana(ItemStack stack) {
 		return true;

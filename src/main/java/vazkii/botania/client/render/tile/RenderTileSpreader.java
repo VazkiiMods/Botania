@@ -43,7 +43,7 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer {
 	private static final ResourceLocation textureHalloween = new ResourceLocation(LibResources.MODEL_SPREADER_HALLOWEEN);
 	private static final ResourceLocation textureRsHalloween = new ResourceLocation(LibResources.MODEL_SPREADER_REDSTONE_HALLOWEEN);
 	private static final ResourceLocation textureDwHalloween = new ResourceLocation(LibResources.MODEL_SPREADER_DREAMWOOD_HALLOWEEN);
-	
+
 	private static final ModelSpreader model = new ModelSpreader();
 
 	@Override
@@ -63,7 +63,7 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer {
 		ResourceLocation r = spreader.isRedstone() ? textureRs : spreader.isDreamwood() ? textureDw : texture;
 		if(ClientProxy.dootDoot)
 			r = spreader.isRedstone() ? textureRsHalloween : spreader.isDreamwood() ? textureDwHalloween : textureHalloween;
-		
+
 		Minecraft.getMinecraft().renderEngine.bindTexture(r);
 		GL11.glScalef(1F, -1F, -1F);
 

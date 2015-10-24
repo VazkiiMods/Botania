@@ -148,5 +148,5 @@ public final class LibResources {
 	public static final String SHADER_FILM_GRAIN_FRAG = PREFIX_SHADER + "film_grain.frag";
 	public static final String SHADER_GOLD_FRAG = PREFIX_SHADER + "gold.frag";
 	public static final String SHADER_CATEGORY_BUTTON_FRAG = PREFIX_SHADER + "category_button.frag";
-	
+
 }

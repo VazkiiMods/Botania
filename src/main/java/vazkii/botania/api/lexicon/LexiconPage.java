@@ -10,7 +10,6 @@
  */
 package vazkii.botania.api.lexicon;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.client.gui.GuiButton;
@@ -94,7 +93,7 @@ public abstract class LexiconPage {
 	public void onPageAdded(LexiconEntry entry, int index) {
 		// NO-OP
 	}
-	
+
 	/**
 	 * Shows the list of recipes present in this page for display in the category
 	 * page. Can return null for an entry with no recipes.

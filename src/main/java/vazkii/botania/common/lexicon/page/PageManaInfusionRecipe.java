@@ -153,8 +153,8 @@ public class PageManaInfusionRecipe extends PageRecipe {
 		ArrayList<ItemStack> list = new ArrayList();
 		for(RecipeManaInfusion r : recipes)
 			list.add(r.getOutput());
-		
+
 		return list;
 	}
-	
+
 }

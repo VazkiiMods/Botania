@@ -31,7 +31,7 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemMissileRod extends ItemMod implements IManaUsingItem, IAvatarWieldable {
 
 	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_MISSILE);
-	
+
 	private static final int COST_PER = 120;
 	private static final int COST_AVATAR = 40;
 
@@ -56,24 +56,24 @@ public class ItemMissileRod extends ItemMod implements IManaUsingItem, IAvatarWi
 		if(count != getMaxItemUseDuration(stack) && count % (IManaProficiencyArmor.Helper.hasProficiency(player) ? 1 : 2) == 0 && !player.worldObj.isRemote && ManaItemHandler.requestManaExactForTool(stack, player, COST_PER, false)) {
 			if(spawnMissile(player.worldObj, player, player.posX + (Math.random() - 0.5 * 0.1), player.posY + 2.4 + (Math.random() - 0.5 * 0.1), player.posZ + (Math.random() - 0.5 * 0.1)))
 				ManaItemHandler.requestManaExactForTool(stack, player, COST_PER, true);
-			
+
 			Botania.proxy.sparkleFX(player.worldObj, player.posX, player.posY + 2.4, player.posZ, 1F, 0.4F, 1F, 6F, 6);
 		}
 	}
-	
+
 	public boolean spawnMissile(World world, EntityLivingBase thrower, double x, double y, double z) {
-		EntityMagicMissile missile; 
+		EntityMagicMissile missile;
 		if(thrower != null)
 			missile = new EntityMagicMissile(thrower, false);
 		else missile = new EntityMagicMissile(world);
-		
+
 		missile.setPosition(x, y, z);
 		if(missile.getTarget()) {
 			if(!world.isRemote) {
 				world.playSoundEffect(x, y, z, "botania:missile", 0.6F, 0.8F + (float) Math.random() * 0.2F);
 				world.spawnEntityInWorld(missile);
 			}
-			
+
 			return true;
 		}
 		return false;
@@ -103,7 +103,7 @@ public class ItemMissileRod extends ItemMod implements IManaUsingItem, IAvatarWi
 			if(spawnMissile(world, null, te.xCoord + 0.5 + (Math.random() - 0.5 * 0.1), te.yCoord + 2.5 + (Math.random() - 0.5 * 0.1), te.zCoord + (Math.random() - 0.5 * 0.1))) {
 				if(!world.isRemote)
 					tile.recieveMana(-COST_AVATAR);
-				Botania.proxy.sparkleFX(world, te.xCoord + 0.5, te.yCoord + 2.5, te.zCoord + 0.5, 1F, 0.4F, 1F, 6F, 6);					
+				Botania.proxy.sparkleFX(world, te.xCoord + 0.5, te.yCoord + 2.5, te.zCoord + 0.5, 1F, 0.4F, 1F, 6F, 6);
 			}
 	}
 

@@ -144,7 +144,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 
 	public static void openBook(EntityPlayer player, ItemStack stack, World world, boolean skipSound) {
 		ILexicon l = (ILexicon) stack.getItem();
-		
+
 		if(!l.isKnowledgeUnlocked(stack, BotaniaAPI.relicKnowledge) && l.isKnowledgeUnlocked(stack, BotaniaAPI.elvenKnowledge))
 			for(ItemStack rstack : ItemDice.relicStacks) {
 				Item item = rstack.getItem();

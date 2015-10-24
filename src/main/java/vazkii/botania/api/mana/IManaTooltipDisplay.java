@@ -22,5 +22,5 @@ public interface IManaTooltipDisplay {
 	 * Returns the fraction of mana in this item for display. From 0 to 1 (exclusive).
 	 */
 	public float getManaFractionForDisplay(ItemStack stack);
-	
+
 }
