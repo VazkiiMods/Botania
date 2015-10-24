@@ -5,10 +5,6 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-/**
- * avatar - wiiv
- * Created using Tabula 4.1.1
- */
 public class avatar extends ModelBase {
     public ModelRenderer body;
     public ModelRenderer rightarm;
