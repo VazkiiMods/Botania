@@ -33,7 +33,7 @@ public class ItemMissileRod extends ItemMod implements IManaUsingItem, IAvatarWi
 	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_MISSILE);
 	
 	private static final int COST_PER = 120;
-	private static final int COST_AVATAR = 70;
+	private static final int COST_AVATAR = 40;
 
 	public ItemMissileRod() {
 		super();
