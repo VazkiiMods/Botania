@@ -116,7 +116,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ISid
 
 	@Override
 	public boolean canRecieveManaFromBursts() {
-		return true;
+		return getStackInSlot(0) != null;
 	}
 
 	@Override

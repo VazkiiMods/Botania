@@ -2792,6 +2792,13 @@ botania.tagline.teruTeruBozu=Weather control and cuteness overload
 botania.page.teruTeruBozu0=&1Teru Teru Bozu&0 are known as amulets that can ward away bad weather. Simply creating one of these and placing it in the world will decrease the amount of time that &1Rain&0 or &1Snowstorms&0 will last for. During bad weather, right clicking one with a &1Sunflower&0 or tossing said flower at it will have sun come back. Attaching a &1Redstone Comparator&0 to one of these allows for it to detect bad weather.
 botania.page.teruTeruBozu1=Too spoopy
 
+# -- LIVINGWOOD AVATAR
+botania.entry.avatar=Livingwood Avatar
+botania.tagline.avatar=Rod effects in a block
+botania.page.avatar0=Cavring some &1Livingwood&0 and combining it with a &1Mana Diamond&0 heart creates an apparatus known as the &1Livingwood Avatar&0. By itself, this block doesn't do anything, aside from looking reasonably pretty.<br>However, giving it a &4Rod&0 can enable it to cast varied magic, depending on which one is given. At the cost of &4Mana&0, from a spreader, of course.
+botania.page.avatar1=Not add &4Rods&0 fit this criteria. Any that do, however, will have an explanation of what they can do when given to a &1Livingwood Avatar&0 on their entry.<br>A few examples of some rods that will work are the &1Rod of the Skies&0, &1Rod of the Hells&0 and &1Rod of the Plentiful Mantle&0.
+botania.page.avatar2=But is it an anime?
+
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
 botania.entry.manaBlaster=Mana Blaster
@@ -2908,6 +2915,7 @@ botania.entry.rainbowRod=Rod of the Bifrost
 botania.tagline.rainbowRod=A rod to create rainbow bridges, and fancy building blocks
 botania.page.rainbowRod0=&4Bifrost&0, the rainbow bridge that reaches between the world and the realm of the gods.<br>While this item, the &1Rod of the Bifrost&0 doesn't exactly do that, it allows the holder, via a right click and at the cost of some &4Mana&0, to create a rainbow bridge in the direction he or she is looking at.
 botania.page.rainbowRod1=This bridge extends as far as a hundred blocks, and will vanish after about fifteen seconds.<br>Only one bridge can be created for any given &1Rod of the Bifrost&0 at a time, as soon as the old bridge vanishes, a new one can be created.
+botania.page.rainbowRod6=This rod can be given to a &1Livingwood Avatar&0. When done so, it'll create a rainbow bridge in front of wherever it's looking, whenever a player tries to walk in that area.<br>This process uses &4Mana&0 from the avatar, and can be disabled by applying redstone to it.
 botania.page.rainbowRod2=Going my way!! Cut open a path and go!
 botania.page.rainbowRod3=&1Bifrost Blocks&0 for decoration
 botania.page.rainbowRod4=Rainbow &1Shimmerrock&0
@@ -2917,13 +2925,15 @@ botania.page.rainbowRod5=Rainbow &1Shimmerwood Planks&0
 botania.entry.tornadoRod=Rod of the Skies
 botania.tagline.tornadoRod=A rod to jump high in the sky
 botania.page.tornadoRod0=The &1Rod of the Skies&0 is a magical instrument with the ability to propel one in the air at fast velocity for the cost of some &4Mana&0.<br>To do so, one would simply hold it like a bow and watch as their momentum increases.<br>The rod takes a small amount of time to recharge, but during that time it'll block any fall damage, keeping the user safe.
+botania.page.tornadoRod2=This rod can be given to a &1Livingwood Avatar&0. When done so, any players near the avatar will be launched high in the air, as if they'd used the rod, whenever they jump.<br>This process uses &4Mana&0 from the avatar, and can be disabled by applying redstone it.
 botania.page.tornadoRod1=A treasure from Lorule
 
 # -- ROD OF THE HELLS
 botania.entry.fireRod=Rod of the Hells
 botania.tagline.fireRod=A rod to create circles of flame
 botania.page.fireRod0=The &1Rod of the Hells&0 contains the essence of a burning flame, using it on the ground will create a circle of fire that burns anything inside it, for a decent cost of &4Mana&0.<br>The ring has a decent radius, and takes a small amount of time to fully propagate, it's to note that after that time it burns anything living in it, the caster included.
-botania.page.fireRod1=Megu Megu Fire Endless Night
+botania.page.fireRod2=This rod can be given to a &1Livingwood Avatar&0. When done so, it'll create a similar ring of flame that the rod creates when used.<br>This process uses &4Mana&0 from the avatar, and can be disabled by applying redstone to it.
+botania.page.fireRod1=Through the fire and the flames
 
 # -- VINE BALLS
 botania.entry.vineBall=Vine Balls
@@ -2965,6 +2975,7 @@ botania.page.glassPick1=Trapped inside with food
 botania.entry.diviningRod=Rod of the Plentiful Mantle
 botania.tagline.diviningRod=A rod to find ores
 botania.page.diviningRod0=The &1Rod of the Plentiful Mantle&0 has the ability to divine in a decently large radius around the user to find any ores. These will shine for a little bit, allowing their location.<br>This process, obviously, requires a decent amount of &4Mana&0 from the user's inventory.
+botania.page.diviningRod2=This rod can be given to a &1Livingwood Avatar&0. When done so, it'll show all nearby ores, as if it was used by a player. The colors, in this case, remain the same if the avatar isn't moved.<br>This process uses &4Mana&0 from the avatar, and can be disabled by applying redstone to it.
 botania.page.diviningRod1=inb4 ee3 
 
 # -- ROD OF THE BLACK MESA
@@ -2985,6 +2996,7 @@ botania.page.regenIvy2=Bring your Inferno Adze
 botania.entry.missileRod=Rod of the Unstable Reservoir
 botania.tagline.missileRod=A rod to pew pew
 botania.page.missileRod0=The &1Rod of the Unstable Reservoir&0 is a rather powerful weapon against a large crowd of foes. Channeling its power will materialize countless arcane missiles that home in on targets at random, at a pretty hefty cost of &4Mana&0.
+botania.page.missileRod2=This rod can be given to a &1Livingwood Avatar&0. When done so, it'll create missiles to attack nearby mobs, as if the rod is used normally.<br>This process uses &4Mana&0 from the avatar, and can be disabled by applying redstone to it.
 botania.page.missileRod1=Zapzapzapzap
 
 # -- ASSEMBLY HALO
