@@ -1,3 +1,26 @@
+r1.7 227
+*Added a "Quick Lookup" feature to the Lexica Botania. You can hold CTRL on an item in your inventory while you have a Lexica Botania in your hotbar to open its entry.
+*Added the Livingwood Avatar, a new block you can give a few rods to and will have effects depending on which one. These are the current effects:<ul><li>Rod of the Bifrost: Creates temporary bifrost bridges in the area directly in front of it where the player would walk to.</li><li>Rod of the Hells: Creates a perpetual fire ring around it, like the rod does.</li><li>Rod of the Plentiful Mantle: Minims the rod's effect of showing nearby ores, the colors stay the same as long as it stays in the same place.</li><li>Rod of the Skies: Any players that jump near it will jump as high as if they had used the rod, as well as get temporary fall damage resistance.</li><li>Rod of the Unstable Reservoir: Shoots magic missiles at nearby mobs, like the rod does.</li></ul>
+*Added Primus Loci. Rare worldgen flower patches with Primus variants of Dayblooms and Nightshades that don't decay.
+*Added Railcraft support to the Mana Pool with Minecart.
+*Buffed the Rafflowsia, again.
+*Fixed Isolated and Recessive Spark banners (Et Futurum Integration) having the wrong recipes.
+*Fixed the Mana Pump's render crashing the game if it's placed with an invalid metadata somehow.
+*Fixed the Terra Shatterer's mana bar being slightly off center. Phew.
+*Fixed transparent blocks not rendering properly under the mana enchanter.
+*Looking at any entry in a Lexica Botania category page and holding shift shows you a preview with a tagline of what it is and what crafting recipes are in the entry.
+*Mana Tablets, Rings and Mirrors now have a similar mana bar to that of the Terra Shatterer.
+*Merged the "A Tutorial of the Basics" and the "An Introductory Video" entries.
+*Redesigned the Lexica Botania main page with smaller, bolder icons and fancier animations.
+*The "missiles" fired by the Rod of the Unstable Reservoir are a bit less choppy now.
+*The Manaseer Monocle's Lexicon Entry now has priority (is in italics).
+*The Terra Truncator now properly breaks around diagonals.
+*[API] Added IHornHarvestable for usage with the various horns. <i>Get on it, Agricraft.</i>
+*[API] Deprecated IGrassHornExcempt in favor of IHornHarvestable.
+*[API] Added IManaTooltipDisplay for items that display a mana bar on the tooltip.
+*[API] Added getTagline() to LexiconEntry.
+*[API] Added paintableBlocks and registerPaintableBlock() to BotaniaAPI for use with the Paintslinger lens. (L0neKitsune)
+*[API] Increased version number to 66.
 r1.7 226
 *Added a config option to disable seasonal (halloween and christmas) features.
 *Fixed the Spellbinding Cloth taking damage simply by putting it in the crafting grid.
