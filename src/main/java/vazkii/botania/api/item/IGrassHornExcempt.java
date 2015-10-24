@@ -15,7 +15,9 @@ import net.minecraft.world.World;
 /**
  * A BlockBush can implement this to check if it can be broken
  * by a Horn/Drum of the Wild or not.
+ * @Deprecated Use IHornHarvestable instead
  */
+@Deprecated
 public interface IGrassHornExcempt {
 
 	public boolean canUproot(World world, int x, int y, int z);

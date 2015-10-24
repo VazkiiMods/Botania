@@ -18,6 +18,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import thaumcraft.api.crafting.IInfusionStabiliser;
 import vazkii.botania.api.item.IGrassHornExcempt;
+import vazkii.botania.api.item.IHornHarvestable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.block.ModBlocks;
@@ -27,7 +28,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.Optional;
 
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser", striprefs = true)
-public class BlockShinyFlower extends BlockModFlower implements IInfusionStabiliser, IGrassHornExcempt {
+public class BlockShinyFlower extends BlockModFlower implements IInfusionStabiliser, IHornHarvestable {
 
 	public BlockShinyFlower() {
 		super(LibBlockNames.SHINY_FLOWER);
@@ -66,8 +67,18 @@ public class BlockShinyFlower extends BlockModFlower implements IInfusionStabili
 	}
 
 	@Override
-	public boolean canUproot(World world, int x, int y, int z) {
+	public boolean canHornHarvest(World world, int x, int y, int z, ItemStack stack, EnumHornType hornType) {
 		return false;
+	}
+
+	@Override
+	public boolean hasSpecialHornHarvest(World world, int x, int y, int z, ItemStack stack, EnumHornType hornType) {
+		return false;
+	}
+
+	@Override
+	public void harvestByHorn(World world, int x, int y, int z, ItemStack stack, EnumHornType hornType) {
+		// NO-OP
 	}
 
 }

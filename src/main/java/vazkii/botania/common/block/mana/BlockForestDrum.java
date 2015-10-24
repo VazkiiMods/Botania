@@ -112,9 +112,9 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 			return;
 
 		if(world.getBlockMetadata(x, y, z) == 0)
-			ItemGrassHorn.breakGrass(world, 0, x, y, z);
+			ItemGrassHorn.breakGrass(world, null, 0, x, y, z);
 		else if(world.getBlockMetadata(x, y, z) == 2)
-			ItemGrassHorn.breakGrass(world, 1, x, y, z);
+			ItemGrassHorn.breakGrass(world, null, 1, x, y, z);
 		else if(!world.isRemote) {
 			int range = 10;
 			List<EntityLiving> entities = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range + 1, y + range + 1, z + range + 1));
