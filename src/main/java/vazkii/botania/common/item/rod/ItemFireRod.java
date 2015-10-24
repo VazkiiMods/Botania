@@ -13,16 +13,23 @@ package vazkii.botania.common.item.rod;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import vazkii.botania.api.item.IAvatarTile;
+import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.entity.EntityFlameRing;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemFireRod extends ItemMod implements IManaUsingItem {
+public class ItemFireRod extends ItemMod implements IManaUsingItem, IAvatarWieldable {
 
+	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_FIRE);
+	
 	private static final int COST = 900;
 	private static final int COOLDOWN = 1200;
 
@@ -61,6 +68,24 @@ public class ItemFireRod extends ItemMod implements IManaUsingItem {
 	@Override
 	public boolean usesMana(ItemStack stack) {
 		return true;
+	}
+
+	@Override
+	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
+		TileEntity te = (TileEntity) tile;
+		World world = te.getWorldObj();
+		
+		if(!world.isRemote && tile.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 300 == 0 && tile.isEnabled()) {
+			EntityFlameRing entity = new EntityFlameRing(world);
+			entity.setPosition(te.xCoord + 0.5, te.yCoord, te.zCoord + 0.5);
+			world.spawnEntityInWorld(entity);
+			tile.recieveMana(-COST);
+		}
+	}
+
+	@Override
+	public ResourceLocation getOverlayResource(IAvatarTile tile, ItemStack stack) {
+		return avatarOverlay;
 	}
 
 }

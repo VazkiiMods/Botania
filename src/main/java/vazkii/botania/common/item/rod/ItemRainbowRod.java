@@ -14,10 +14,14 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import vazkii.botania.api.item.IAvatarTile;
+import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileBifrost;
@@ -25,8 +29,10 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemRainbowRod extends ItemMod implements IManaUsingItem {
+public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWieldable {
 
+	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_RAINBOW);
+	
 	private static final int MANA_COST = 750;
 	private static final int TIME = 600;
 
@@ -120,6 +126,15 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem {
 	@Override
 	public boolean usesMana(ItemStack stack) {
 		return true;
+	}
+
+	@Override
+	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
+	}
+
+	@Override
+	public ResourceLocation getOverlayResource(IAvatarTile tile, ItemStack stack) {
+		return avatarOverlay;
 	}
 
 }

@@ -118,7 +118,13 @@ public final class LibResources {
 	public static final String MODEL_BELLOWS = PREFIX_MODEL + "bellows.png";
 	public static final String MODEL_TERU_TERU_BOZU = PREFIX_MODEL + "teruTeruBozu.png";
 	public static final String MODEL_TERU_TERU_BOZU_HALLOWEEN = PREFIX_MODEL + "teruTeruBozu_halloween.png";
-	
+	public static final String MODEL_AVATAR = PREFIX_MODEL + "avatar.png";
+	public static final String MODEL_AVATAR_DIVINING = PREFIX_MODEL + "avatarDivining.png";
+	public static final String MODEL_AVATAR_FIRE = PREFIX_MODEL + "avatarFire.png";
+	public static final String MODEL_AVATAR_MISSILE = PREFIX_MODEL + "avatarMissile.png";
+	public static final String MODEL_AVATAR_RAINBOW = PREFIX_MODEL + "avatarRainbow.png";
+	public static final String MODEL_AVATAR_TORNADO = PREFIX_MODEL + "avatarTornado.png";
+
 	public static final String MISC_PARTICLES = PREFIX_MISC + "particles.png";
 	public static final String MISC_WISP_LARGE = PREFIX_MISC + "wispLarge.png";
 	public static final String MISC_WISP_SMALL = PREFIX_MISC + "wispSmall.png";

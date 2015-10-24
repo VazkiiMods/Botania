@@ -16,18 +16,24 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import vazkii.botania.api.item.IAvatarTile;
+import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemTornadoRod extends ItemMod implements IManaUsingItem {
+public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWieldable {
 
+	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_TORNADO);
+	
 	private static final int FLY_TIME = 20;
 	private static final int FALL_MULTIPLIER = 3;
 	private static final int MAX_DAMAGE = FLY_TIME * FALL_MULTIPLIER;
@@ -138,6 +144,15 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem {
 	@Override
 	public boolean usesMana(ItemStack stack) {
 		return true;
+	}
+
+	@Override
+	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
+	}
+
+	@Override
+	public ResourceLocation getOverlayResource(IAvatarTile tile, ItemStack stack) {
+		return avatarOverlay;
 	}
 
 }

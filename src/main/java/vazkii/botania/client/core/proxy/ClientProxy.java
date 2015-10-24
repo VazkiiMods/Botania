@@ -92,6 +92,7 @@ import vazkii.botania.client.render.item.RenderLexicon;
 import vazkii.botania.client.render.item.RenderTransparentItem;
 import vazkii.botania.client.render.tile.RenderTileAlfPortal;
 import vazkii.botania.client.render.tile.RenderTileAltar;
+import vazkii.botania.client.render.tile.RenderTileAvatar;
 import vazkii.botania.client.render.tile.RenderTileBellows;
 import vazkii.botania.client.render.tile.RenderTileBrewery;
 import vazkii.botania.client.render.tile.RenderTileCocoon;
@@ -119,6 +120,7 @@ import vazkii.botania.client.render.tile.RenderTileTinyPotato;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.block.tile.TileAltar;
+import vazkii.botania.common.block.tile.TileAvatar;
 import vazkii.botania.common.block.tile.TileBrewery;
 import vazkii.botania.common.block.tile.TileCocoon;
 import vazkii.botania.common.block.tile.TileEnchanter;
@@ -316,6 +318,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileBellows.class, new RenderTileBellows());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileGaiaHead.class, new RenderTileSkullOverride());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileTeruTeruBozu.class, new RenderTileTeruTeruBozu());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileAvatar.class, new RenderTileAvatar());
 
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySkull.class, new RenderTileSkullOverride());
 

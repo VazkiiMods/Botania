@@ -1150,6 +1150,7 @@ tile.botania:shimmerwoodPlanks.name=Shimmerwood Planks
 tile.botania:shimmerwoodPlanks0Slab.name=Shimmerwood Plank Slab
 tile.botania:shimmerwoodPlanks0SlabFull.name=Shimmerwood Plank Slab
 tile.botania:shimmerwoodPlanks0Stairs.name=Shimmerwood Plank Stairs
+tile.botania:avatar.name=Livingwood Avatar
 
 # FLOWER NAMES
 tile.botania:flower..name=Botania Flower

@@ -1,11 +1,21 @@
-/*
-package model;
+/**
+ * This class was created by <wiiv>. It's distributed as
+ * part of the Botania Mod. Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ * 
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ * 
+ * File Created @ [? (GMT)]
+ */
+package vazkii.botania.client.model;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class avatar extends ModelBase {
+public class ModelAvatar extends ModelBase {
+	
     public ModelRenderer body;
     public ModelRenderer rightarm;
     public ModelRenderer leftarm;
@@ -13,7 +23,7 @@ public class avatar extends ModelBase {
     public ModelRenderer leftleg;
     public ModelRenderer head;
 
-    public avatar() {
+    public ModelAvatar() {
         this.textureWidth = 32;
         this.textureHeight = 32;
         this.leftleg = new ModelRenderer(this, 0, 20);
@@ -40,8 +50,8 @@ public class avatar extends ModelBase {
         this.body.addBox(-3.0F, 0.0F, -2.0F, 6, 4, 4, 0.0F);
     }
 
-    @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
+    public void render() {
+    	float f5 = 1F / 15F;
         this.leftleg.render(f5);
         this.rightarm.render(f5);
         this.leftarm.render(f5);
@@ -55,5 +65,5 @@ public class avatar extends ModelBase {
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;
     }
+
 }
-*/
