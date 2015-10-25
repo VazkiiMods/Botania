@@ -1,3 +1,7 @@
+r1.7 228
+*Fixed the Gaia Guardian being able to ride minecarts.
+*Fixed the Livingwood Avatar's render taking over other mod item renders.
+*Fixed typos.
 r1.7 227
 *Added a "Quick Lookup" feature to the Lexica Botania. You can hold CTRL on an item in your inventory while you have a Lexica Botania in your hotbar to open its entry.
 *Added the Livingwood Avatar, a new block you can give a few rods to and will have effects depending on which one. These are the current effects:<ul><li>Rod of the Bifrost: Creates temporary bifrost bridges in the area directly in front of it where the player would walk to.</li><li>Rod of the Hells: Creates a perpetual fire ring around it, like the rod does.</li><li>Rod of the Plentiful Mantle: Minims the rod's effect of showing nearby ores, the colors stay the same as long as it stays in the same place.</li><li>Rod of the Skies: Any players that jump near it will jump as high as if they had used the rod, as well as get temporary fall damage resistance.</li><li>Rod of the Unstable Reservoir: Shoots magic missiles at nearby mobs, like the rod does.</li></ul>
