@@ -253,6 +253,7 @@ public class ClientProxy extends CommonProxy {
 		LibRenderIDs.idLightRelay = RenderingRegistry.getNextAvailableRenderId();
 		LibRenderIDs.idBellows = RenderingRegistry.getNextAvailableRenderId();
 		LibRenderIDs.idTeruTeruBozu = RenderingRegistry.getNextAvailableRenderId();
+		LibRenderIDs.idAvatar = RenderingRegistry.getNextAvailableRenderId();
 
 		RenderSpecialFlower specialFlowerRender = new RenderSpecialFlower(LibRenderIDs.idSpecialFlower);
 		RenderingRegistry.registerBlockHandler(new RenderAltar());
