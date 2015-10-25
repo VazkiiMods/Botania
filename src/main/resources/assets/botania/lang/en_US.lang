@@ -2795,8 +2795,8 @@ botania.page.teruTeruBozu1=Too spoopy
 # -- LIVINGWOOD AVATAR
 botania.entry.avatar=Livingwood Avatar
 botania.tagline.avatar=Rod effects in a block
-botania.page.avatar0=Cavring some &1Livingwood&0 and combining it with a &1Mana Diamond&0 heart creates an apparatus known as the &1Livingwood Avatar&0. By itself, this block doesn't do anything, aside from looking reasonably pretty.<br>However, giving it a &4Rod&0 can enable it to cast varied magic, depending on which one is given. At the cost of &4Mana&0, from a spreader, of course.
-botania.page.avatar1=Not add &4Rods&0 fit this criteria. Any that do, however, will have an explanation of what they can do when given to a &1Livingwood Avatar&0 on their entry.<br>A few examples of some rods that will work are the &1Rod of the Skies&0, &1Rod of the Hells&0 and &1Rod of the Plentiful Mantle&0.
+botania.page.avatar0=Carving some &1Livingwood&0 and combining it with a &1Mana Diamond&0 heart creates an apparatus known as the &1Livingwood Avatar&0. By itself, this block doesn't do anything, aside from looking reasonably pretty.<br>However, giving it a &4Rod&0 can enable it to cast varied magic, depending on which one is given. At the cost of &4Mana&0, from a spreader, of course.
+botania.page.avatar1=Not all &4Rods&0 fit this criteria. Any that do, however, will have an explanation of what they can do when given to a &1Livingwood Avatar&0 on their entry.<br>A few examples of some rods that will work are the &1Rod of the Skies&0, &1Rod of the Hells&0 and &1Rod of the Plentiful Mantle&0.
 botania.page.avatar2=But is it an anime?
 
 # - MYSTICAL INSTRUMENTS
