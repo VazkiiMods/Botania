@@ -21,7 +21,7 @@ public class BlockShimmerwoodPlankSlab extends BlockLivingSlab {
 		super(full, ModBlocks.shimmerwoodPlanks, 0);
 		setHardness(2.0F);
 		setResistance(10.0F);
-		setStepSound(soundTypeStone);
+		setStepSound(soundTypeWood);
 	}
 
 	@Override
