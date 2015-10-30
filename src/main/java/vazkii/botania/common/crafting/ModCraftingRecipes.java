@@ -1305,7 +1305,7 @@ public final class ModCraftingRecipes {
 		// Spark Recipe
 		for(int i = 0; i < 16; i++)
 			addOreDictRecipe(new ItemStack(ModItems.spark),
-					"BPB", "BNB", "BPB",
+					" P ", "BNB", " P ",
 					'B', new ItemStack(Items.blaze_powder),
 					'P', LibOreDict.MANA_PETAL[i],
 					'N', "nuggetGold");
