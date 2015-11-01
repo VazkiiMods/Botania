@@ -143,6 +143,8 @@ botaniamisc.changes3=&oTodo mundo tem medo de mudanças, mas isso é o que nos m
 botaniamisc.changes4=&fShift-Clique esquerdo&7 para ler as mudanças recentes
 botaniamisc.changes5=&fClique esquerdo&7 para dispensar
 botaniamisc.badArena=Você tenta, mas o Sinalizador não aceita seu sacrifício. Talvez a área do ritual esteja errada. É uma boa ideia checar por obstruções ou buracos ao redor.
+botaniamisc.tutorialText=Em-jogo
+botaniamisc.tutorialVideo=Vídeo
 
 # NEI INTEGRATION
 botania.nei.brewery=Fermentador Botânico
@@ -540,7 +542,7 @@ botania.challenge.apothecaryRefill.desc=Crie um sistema que encha o Boticário d
 botania.challenge.treeFarm=Tree Farm
 botania.challenge.treeFarm.desc=Crie uma plantação auto-suficiente de madeira. Pontos extras se vários tipos de árvores forem usadas.
 botania.challenge.fullCropFarm=Full Crop Farm
-botania.challenge.fullCropFarm.desc=Crie uma plantação de todos tipos de vegetais (trigo, cenoura, batata, melância, abóbora, cacau e fungo do Nether) que funcione em total eficiência. Pontos extras se os resultados forem organizados.
+botania.challenge.fullCropFarm.desc=Crie uma plantação de todos tipos de vegetais (trigo, cenoura, batata, melancia, abóbora, cacau e fungo do Nether) que funcione em total eficiência. Pontos extras se os resultados forem organizados.
 botania.challenge.animalFarm=Animal Farm
 botania.challenge.animalFarm.desc=Crie uma fazenda de animais com todos animais reproduzíveis. Pontos extras se a comida for inserida no sistema automaticamente.
 botania.challenge.boneMealFarm=Bone Meal-type Farm
@@ -1148,6 +1150,7 @@ tile.botania:shimmerwoodPlanks.name=Tábuas de Madeira Reluzente
 tile.botania:shimmerwoodPlanks0Slab.name=Laje de Madeira Reluzente
 tile.botania:shimmerwoodPlanks0SlabFull.name=Laje de Madeira Reluzente
 tile.botania:shimmerwoodPlanks0Stairs.name=Escadas de de Madeira Reluzente
+tile.botania:avatar.name=Avatar de Madeira-viva
 
 # FLOWER NAMES
 tile.botania:flower..name=Flor do Botania
@@ -1165,6 +1168,8 @@ tile.botania:flower.daybloom.name=Daybloom
 tile.botania:flower.daybloom.reference=Uma espetada de luz
 tile.botania:flower.daybloomDecor.name=Daybloom Motif
 tile.botania:flower.daybloomDecor.reference=Uma espetada de luz
+tile.botania:flower.daybloomPrime.name=Daybloom Primus
+tile.botania:flower.daybloomPrime.reference=Isso não deveria estar no seu inventário
 tile.botania:flower.endoflame.name=Endoflame
 tile.botania:flower.endoflame.reference=Fluindo lag
 tile.botania:flower.hydroangeas.name=Hydroangeas
@@ -1177,6 +1182,8 @@ tile.botania:flower.nightshade.name=Nightshade
 tile.botania:flower.nightshade.reference=Sinal sobrenatural
 tile.botania:flower.nightshadeDecor.name=Nightshade Motif
 tile.botania:flower.nightshadeDecor.reference=Sinal sobrenatural
+tile.botania:flower.nightshadePrime.name=Nightshade Primus
+tile.botania:flower.nightshadePrime.reference=Isso não deveria estar no seu inventário
 tile.botania:flower.arcanerose.name=Rosa Arcana
 tile.botania:flower.arcanerose.reference=Dez orbes azuis no canto
 tile.botania:flower.munchdew.name=Munchdew
@@ -1916,11 +1923,8 @@ botania.page.welcome8=&oDear reader, I welcome you to the realm of Botania.&r<br
 
 # -- TUTORIAL OF THE BASICS
 botania.entry.tutorial=Tutorial de mecânicas básicas
-botania.page.tutorial0=Enquanto qualquer um pode facilmente ler o livro, também há um "tour guiado" disponível. Clicar no botão abaixo o guiará pelas páginas mais úteis sobre os conceitos básicos do Botania.
-
-# -- AN INTRODUCTORY CLIP
-botania.entry.introVideo=Clipe Introdutório
-botania.page.introVideo0=Para aqueles leitores que não gostam de ler, um vídeo curto mostrando o básico do Botania também existe. Lembre-se que esse guia serve como apoio, e não como substituto ao conteúdo do &1Lexica Botania&0.
+botania.tagline.tutorial=Aprenda rápido
+botania.page.tutorial0=Enquanto qualquer um pode facilmente ler o livro, também há um "tour guiado" disponível. Clicar no botão abaixo o guiará pelas páginas mais úteis sobre os conceitos básicos do Botania.<br>Você pode optar pelo guia em-jogo, ou por um vídeo (relativamente) curto.
 
 # -- GARDEN OF GLASS
 botania.entry.gardenOfGlass=Jardim de Vidro
@@ -2059,7 +2063,7 @@ botania.page.spreader0=O &1Dispersor de Mana&0 é o componente mais importante d
 botania.page.spreader1=Segurando a &1Varinha da Floresta&0
 botania.page.spreader2=O &1Dispersor de Mana&0 tem um pequeno reservatório de &4Mana&0, que se enche por &4Flores Geradoras&0 próximas. Esse reservatório pode ser visto olhando para o &1Dispersor&0 com uma &1Varinha da Floresta&0, como mostrado na última página.<br>Note que o bloco precisa ser clicado com a varinha para conseguir uma medida exata.  
 botania.page.spreader3=Segurar uma &1Varinha da Floresta&0 mostra um feixe onde o Dispersor está apontando. Mirar o bloco mostra o alvo. O brilho que não se apaga é o ponto onde ocorre &4Perda de Mana&0.<br>Se o alvo do Dispersor é um bloco que pode receber &4Mana&0, e não está cheio, o Dispersor dispara um &4Pulso de Mana&0, que atravessa o ar até o alvo, transeferindo &4Mana&0.
-botania.page.spreader4=O Disersor só dispara um pulso de cada vez, e só dispara outro quando o anterior chegar no alvo.<br>Além disso, o pulso começa a sofrer &4perda de Mana&0 depois de um tempo. Isso pode ser visto no feixe, que se torna mais fino quando isso acontece. Também há uma &4perda de Mana&0 quando um pulso entra no Dispersor.
+botania.page.spreader4=O Dispersor só dispara um pulso de cada vez, e só dispara outro quando o anterior chegar no alvo.<br>Além disso, o pulso começa a sofrer &4perda de Mana&0 depois de um tempo. Isso pode ser visto no feixe, que se torna mais fino quando isso acontece. Também há uma &4perda de Mana&0 quando um pulso entra no Dispersor.
 botania.page.spreader11=Aplicando um &4Sinal de Redstone&0 ao Dispersor faz ele parar de funcionar. Necessitando de um melhor controle, um &1Dispersor de Mana por Redstone&0 é recomendado, já que que esse apenas funciona com um pulso de redstone.
 botania.page.spreader5=Criando o &1Dispersor de Mana&0
 botania.page.spreader10=Clicar no Dispersor com uma &1Lã&0 o cobre. Além de fazer ele parecer melhor, os sons de de Pulsos são abafados, melhorando o ambiente quando se há vários Dispersores na área.<br>Clicar com a mão vazia remove a cobertura.
@@ -2431,6 +2435,12 @@ botania.tagline.passiveGen=Ou é de graça, ou é bom, escolha um
 botania.page.passiveGen0=O especro de &4Flores Geradoras&0 pode ser separado em dois grupos, &4Passivas&0 e &4Ativas&0.<br>&4Flores passivas&0 são as que simplesmente geram &4Mana&0 usando recurso completamente fáceis, como o sol, ou a água. &4Flores ativas&0 requerem algum tipo de recurso para produzir &4Mana&0, seja renovável ou não.
 botania.page.passiveGen1=No começo da carreira de um botanista, apenas flores básicas e rudimentares &4flores passivas&0 estão disponíveis, como &1Daybloom&0 ou &1Nightshade&0.<br>Essas flores são necessárias para criar potentes &4flores ativas&0, mas não devem ser usadas além de ajuda, já que todas &4flores passivas&0 secam depois de três dias. 
 
+# -- PRIMUS LOCI
+botania.entry.primusLoci=Primus Loci
+botania.tagline.primusLoci=Flores raras que não secam
+botania.page.primusLoci0=Ao decorrer de suas aventuras, você poderá encontrar flores incomuns, que se assemelham com &1Dayblooms&0 e &1Nightshades&0.<br>Elas são chamadas de &4Primus Locus&0, uma rara ocorrência no mundo, onde duas flores geradoras especiais, a &1Daybloom Primus&0 e a &1Nightshade Primus&0 podem aparecer.
+botania.page.primusLoci1=Essas flores agem como &1Dayblooms&0 ou &1Nightshades&0 normais, entretanto, elas produzem mana mais rápido e não secam, as tornando um recurso valioso para um botanista inexperinte.<br>Flores Primus são incrivelmente instáveis, elas morrem se forem retiradas de seus lugares naturais.
+
 # -- DAYBLOOM
 botania.entry.daybloom=Daybloom
 botania.tagline.daybloom=Mana pelo céu
@@ -2519,3 +2529,83 @@ botania.tagline.spectrolus=Mana por lã
 botania.page.spectrolus0=A &1Spectrolus&0 é uma flor particualrmente interessada em vários tons de &1Lã&0. Ela absorve toda e qualquer &1Lã&0 em volta e cria &4Mana&0 a partir delas.<br>Há uma exigência, entretanto. Ela é exigente sobre a cor que quer. Começando pela branca, depois que absorve essa &1Lã&0, ela procura pela próxima cor do espectro.
 botania.page.spectrolus1=Mesmo consumindo qualquer &1Lã&0 em volta, ela só produz mana se tal lã é da cor que ela quer, então apenas jogar &1Lã&0 é um ato de desperdício.<br>A próxima cor absorvida pode ser vista visualizando com uma &1Varinha da Floresta&0.
 botania.page.spectrolus2=&oProve do Arco-Íris&r.
+
+# -- RAFFLOWSIA
+botania.entry.rafflowsia=Rafflowsia
+botania.tagline.rafflowsia=Mana de flores
+botania.page.rafflowsia0=Uma vez, os plebeus da nação se divertiam em plantar enormes campos de &1Dayblooms&0, &1Nightshades&0 e &1Hydroangeas&0. Os cidadãos inferiores se aprovetiavam do ganho gratuito de &4Mana&0 proveniente de vários elementos.<br>Eles eram felizes com a própria ignorância.
+botania.page.rafflowsia1=Um dia, os plebeus acordaram com seus grandes jardins secos, e todo seu trabalho duro se tornou &1Arbustos Mortos&0.<br>Revoltados com a traição de seus deuses, os homens e mulheres da nação gritaram: "Flores passivas são inúteis agora!"
+botania.page.rafflowsia2=Ou isso eles acreditavam. Em pouco tempo, sábios engenhosos descobriram uma flor que pode utilizar dessas 'flores inutilizadas'.<br>Essa flor foi apelidada de &1Rafflowsia&0.
+botania.page.rafflowsia3=A &1Rafflowsia&0 funciona como a &1Kekimurus&0, mas usando &4flores passivas&0, ela as encontra e as destrói, gerando &4Mana&0.<br>Entretando, há retornos diminuídos nesse processo, para um uso eficiente, o mesmo tipo de flor não deve ser usada várias vezes seguidas.
+botania.page.rafflowsia4=&oUm Novo Amanhecer, assim dizendo&r.
+
+# -- DANDELIFEON
+botania.entry.dandelifeon=Dandelifeon
+botania.tagline.dandelifeon=Mana por vida
+botania.page.dandelifeon_w=Alerta: Essa funcionalidade é experimental.<br>Ela pode e deve mudar futuramente. Não se acostume com ela.
+// WARNING
+//  UNSTABLE
+//
+//
+//
+// This entry will be localized once the flower reachs it's final form
+//
+//
+//
+// This is a placeholder space for convenience sake
+// WARNING
+
+# - NATURAL APPARATUS
+# -- MANA PYLON
+botania.entry.pylon=Pilão de Mana
+botania.tagline.pylon=Expansor de encantamentos
+botania.page.pylon0=O &1Pilão de Mana&0 é uma estrutura que puxa energias da terra e as redirecionam para processos de encantamento.<br>Colocando-o perto de uma &1Mesa de Encantamento&0 como uma &1Estante&0 drasticamente aumenta o poder conseguido, apenas 2 deles são suficientes para &4nível 30&0.
+botania.page.pylon1=&oYou must construct additional pylons!&r
+
+# -- MANA ENCHANTING
+botania.entry.manaEnchanting=Enchanting with Mana
+botania.tagline.manaEnchanting=Usando mana para encantar seus itens
+botania.page.manaEnchanting0=Utilizando a força emitida por &1Pilões de Mana&0, o &1Encantador de Mana&0 é uma estrutura que encanta itens sem consumir os livros.<br>Construir um desses requer bastante espaço e recursos.
+botania.page.manaEnchanting1=Para construir um &1Encantador de Mana&0, é necessário bastante espaço, 17 blocos de &1Obsidiana&0, 10 &1Flores Místicas&0 de qualquer cor, 6 &1Pilões de Mana&0 e um &1Bloco de Lápis Lazúli&0.<br>As instruções de montagem estão nas páginas a seguir.
+botania.page.manaEnchanting2=Encantador de Mana
+botania.page.manaEnchanting5=Depois que a estrutura estiver completa, clique no bloco de Lápis Lazúli com uma &1Varinha da Floresta&0 e o encantador deve formar.<br>Para usar o encantador, coloque (clique direito) o item a ser encantado no próprio encantador e jogue &1Livros Encantados&0 dentro do círculo ao redor.
+botania.page.manaEnchanting6=Itens já encantados não podem ser colocados no encantador.<br>Para começar o encantamento, clique no encantador com uma &1Varinha da Floresta&0. Ele irá procurar os livros em volta, e assim que achar, um círculo mágico aparecerá, indicando que os livros podem ser recolhidos com segurança.
+botania.page.manaEnchanting7=Depois que o processo começa, o encantador precisa de &4Mana&0.<br>Mana pode ser suprida de dois modos, tanto com &4Dispersores de Mana&0 ou &1Fagulhas&0, colocando uma &1Fagulha&0 em cima do encantador. Sendo o segundo método mais rápido.
+botania.page.manaEnchanting8=Quando &4Mana&0 suficiente for reunida, o processo de encantamento terminará, e o encantamento é aplicado ao item.<br>A quantidade de &4Mana&0 necessária depende da força, do nível, e o total de encantamentos aplicados.<br>Se algum livro possuir mais de um encantamento, apenas o primeiro é aplicado.
+botania.page.manaEnchanting9=Durante o processo de encantamento, o item não pode ser removido, mas pode assim que o processo acabar.<br>Note que se em algum momento algum componente for removido, ele reverterá para seu estado de &1Bloco de Lápis Lazúli&0.
+
+# -- SPREADER TURNTABLE
+botania.entry.turntable=Rotator do Dispersor
+botania.tagline.turntable=Gira Dispersores
+botania.page.turntable0=O &1Rotator de Dispersor&0, como o nome implica, pode girar &1Dispersores de Mana&0 no eixo. Colocar um Dispersor acima do Rotator o gira, desde que não haja sinal de redstone.<br>Para mudar a velocidade do giro, clique com uma &1Varinha da Floresta&0, shift-clique inverte o movimento.
+botania.page.turntable1=You spin me right round 
+
+# -- ALCHEMISING WITH MANA
+botania.entry.manaAlchemy=Alquimia com Mana
+botania.tagline.manaAlchemy=Torna A em B. A troca pode ou não ser equivalente
+botania.page.manaAlchemy0=&4Mana&0 é uma substância extremamente volátil, ao ponto em que sua propriedades reais são desconhecidas.<br>Uma delas, entretanto, é conhecida, colocando um &1Catalizador de Alquímico&0, criado com uma mistura de materiais de outro mundo, ao fundo de um &1Poço de Mana&0, permite que o Poço realize &4Alquimia&0.
+botania.page.manaAlchemy1=Criando o &1Catalizador&0
+botania.page.manaAlchemy2=&1Carne Podre&0 para &1Couro&0
+botania.page.manaAlchemy3=Vários tipos de &1Madeira&0
+botania.page.manaAlchemy4=Vários tipos de &1Mudas&0
+botania.page.manaAlchemy5=Desmanchando &1Pedra Luminosa&0
+botania.page.manaAlchemy6=Desmanchando &1Blocos de Quartzo&0
+botania.page.manaAlchemy7=Criando &1Tijolos de Pedra Talhados&0
+botania.page.manaAlchemy8=Resfriando ainda mais de &1Neve&0 para &1Gelo&0
+botania.page.manaAlchemy9=Convertendo entre &1Vinhas&0 e &1Vitória-régia&0
+botania.page.manaAlchemy10=Várias espécies de &1Peixe&0
+botania.page.manaAlchemy11=Transmutando &1Sementes&0 e &1Plantáveis&0
+botania.page.manaAlchemy12=Purificando &1Batatas Venenosas&0
+botania.page.manaAlchemy13=Conjurando &1Fungo do Nether&0
+botania.page.manaAlchemy14=Convertendo entre &1Pólvora&0 e &1Pederneira&0
+botania.page.manaAlchemy15=Criando &1Etiquetas&0
+botania.page.manaAlchemy16=Dividindo &1Lã&0 em &1Linha&0
+botania.page.manaAlchemy17=Convertendo entre &1Bola de Slime&0 e &1Cacto&0
+botania.page.manaAlchemy18=Criando &1Pérolas do Fim&0
+botania.page.manaAlchemy19=Convertendo entre &1Pó de Pedra Luminosa&0 e &1Redstone&0
+botania.page.manaAlchemy20=Quebrando &1Pedregulho&0 em &1Areia&0
+botania.page.manaAlchemy21=Quebrando &1Argila Endurecida&0 em &1Areia Vermelha&0
+botania.page.manaAlchemy22=Quebrando &1Argila&0 e &1Tijolos&0
+botania.page.manaAlchemy23=Fazendo &1Terra Áspera&0
+botania.page.manaAlchemy24=Transmutando &1Grama&0
+botania.page.manaAlchemy25=Transmutando flores mundanas
