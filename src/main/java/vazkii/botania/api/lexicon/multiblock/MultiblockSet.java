@@ -38,6 +38,6 @@ public class MultiblockSet {
 	}
 
 	public Multiblock getForIndex(int index) {
-		return mbs[index];
+		return mbs[Math.min(mbs.length - 1, index)];
 	}
 }

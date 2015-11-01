@@ -158,6 +158,7 @@ public final class LibItemNames {
 	public static final String MANAWEAVE_BOOTS = "manaweaveBoots";
 	public static final String AUTOCRAFTING_HALO = "autocraftingHalo";
 	public static final String GAIA_HEAD = "gaiaHead";
+	public static final String SEXTANT = "sextant";
 
 	public static final String[] LENS_NAMES = new String[] {
 		"lensNormal",

@@ -192,7 +192,7 @@ public class CommonProxy {
 	public void setLexiconStack(ItemStack stack) {
 		// NO-OP
 	}
-
+	
 	public boolean isTheClientPlayer(EntityLivingBase entity) {
 		return false;
 	}
@@ -214,6 +214,14 @@ public class CommonProxy {
 		// NO-OP
 	}
 
+	public void setMultiblock(World world, int x, int y, int z, double radius, Block block) {
+		// NO-OP
+	}
+	
+	public void removeSextantMultiblock() {
+		// NO-OP
+	}
+	
 	public long getWorldElapsedTicks() {
 		return MinecraftServer.getServer().worldServers[0].getTotalWorldTime();
 	}

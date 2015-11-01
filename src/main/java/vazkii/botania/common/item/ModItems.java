@@ -265,6 +265,7 @@ public final class ModItems {
 	public static Item manaweaveBoots;
 	public static Item autocraftingHalo;
 	public static Item gaiaHead;
+	public static Item sextant;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -412,7 +413,8 @@ public final class ModItems {
 		manaweaveBoots = new ItemManaweaveBoots();
 		autocraftingHalo = new ItemAutocraftingHalo();
 		gaiaHead = new ItemGaiaHead();
-
+		sextant = new ItemSextant();
+		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));

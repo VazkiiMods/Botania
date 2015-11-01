@@ -27,6 +27,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntitySkull;
+import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings.GameType;
@@ -35,6 +36,9 @@ import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.item.IExtendedPlayerController;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.multiblock.IMultiblockRenderHook;
+import vazkii.botania.api.lexicon.multiblock.Multiblock;
+import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
+import vazkii.botania.api.lexicon.multiblock.component.AnyComponent;
 import vazkii.botania.api.wiki.IWikiProvider;
 import vazkii.botania.api.wiki.WikiHooks;
 import vazkii.botania.client.challenge.ModChallenges;
@@ -148,6 +152,7 @@ import vazkii.botania.common.block.tile.mana.TilePump;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.core.proxy.CommonProxy;
 import vazkii.botania.common.core.version.VersionChecker;
@@ -163,6 +168,7 @@ import vazkii.botania.common.entity.EntitySpark;
 import vazkii.botania.common.entity.EntityThornChakram;
 import vazkii.botania.common.entity.EntityVineBall;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.ItemSextant.MultiblockSextant;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.lib.LibObfuscation;
 import cpw.mods.fml.client.registry.ClientRegistry;
@@ -418,6 +424,33 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public long getWorldElapsedTicks() {
 		return ClientTickHandler.ticksInGame;
+	}
+	
+	@Override
+	public void setMultiblock(World world, int x, int y, int z, double radius, Block block) {
+		MultiblockSextant mb = new MultiblockSextant();
+		
+		int iradius = (int) radius + 1;
+		for(int i = 0; i < iradius * 2 + 1; i++)
+			for(int j = 0; j < iradius * 2 + 1; j++) {
+				int xp = x + i - iradius;
+				int zp = z + j - iradius;
+				if((int) Math.floor(MathHelper.pointDistancePlane(xp, zp, x, z)) == (iradius - 1))
+					mb.addComponent(new AnyComponent(new ChunkCoordinates(xp - x, 1, zp - z), block, 0));
+			}
+		
+		MultiblockRenderHandler.setMultiblock(mb.makeSet());
+		MultiblockRenderHandler.anchor = new ChunkCoordinates(x, y, z);
+	}
+	
+	@Override
+	public void removeSextantMultiblock() {
+		MultiblockSet set = MultiblockRenderHandler.currentMultiblock;
+		if(set != null) {
+			Multiblock mb = set.getForIndex(0);
+			if(mb instanceof MultiblockSextant)
+				MultiblockRenderHandler.setMultiblock(null);
+		}
 	}
 
 	private static boolean noclipEnabled = false;

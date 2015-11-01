@@ -1596,6 +1596,7 @@ item.botania:manaweaveChest.name=Manaweave Robe Top
 item.botania:manaweaveLegs.name=Manaweave Robe Bottom
 item.botania:manaweaveBoots.name=Manaweave Boots
 item.botania:gaiaHead.name=Gaia Guardian's Head
+item.botania:sextant.name=Worldshaper's Sextant
 
 # BREW NAMES
 botania.brew.fallback=Fallback

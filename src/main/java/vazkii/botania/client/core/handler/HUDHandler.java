@@ -57,6 +57,7 @@ import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ItemCraftingHalo;
+import vazkii.botania.common.item.ItemSextant;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
@@ -137,6 +138,12 @@ public final class HUDHandler {
 			if(equippedStack != null && equippedStack.getItem() instanceof ItemCraftingHalo) {
 				profiler.startSection("craftingHalo");
 				ItemCraftingHalo.renderHUD(event.resolution, mc.thePlayer, equippedStack);
+				profiler.endSection();
+			}
+			
+			if(equippedStack != null && equippedStack.getItem() instanceof ItemSextant) {
+				profiler.startSection("craftingHalo");
+				ItemSextant.renderHUD(event.resolution, mc.thePlayer, equippedStack);
 				profiler.endSection();
 			}
 
