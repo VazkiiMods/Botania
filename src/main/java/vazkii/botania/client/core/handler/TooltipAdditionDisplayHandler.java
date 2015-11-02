@@ -150,7 +150,8 @@ public final class TooltipAdditionDisplayHandler {
 
 							font.drawStringWithShadow("?", x + 10, y + 8, 0xFFFFFFFF);
 							GL11.glScalef(0.5F, 0.5F, 1F);
-							mc.fontRenderer.drawStringWithShadow(EnumChatFormatting.BOLD + (ConfigHandler.useShiftForQuickLookup ? "Shift" : "Ctrl"), (x + 10) * 2 - 16, (y + 8) * 2 + 20, 0xFFFFFFFF);
+							boolean mac = Minecraft.isRunningOnMac;
+							mc.fontRenderer.drawStringWithShadow(EnumChatFormatting.BOLD + (ConfigHandler.useShiftForQuickLookup ? "Shift" : (mac ? "Cmd" : "Ctrl")), (x + 10) * 2 - 16, (y + 8) * 2 + 20, 0xFFFFFFFF);
 							GL11.glScalef(2F, 2F, 1F);
 
 							GL11.glEnable(GL11.GL_DEPTH_TEST);
