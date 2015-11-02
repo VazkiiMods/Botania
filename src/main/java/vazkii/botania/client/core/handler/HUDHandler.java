@@ -142,7 +142,7 @@ public final class HUDHandler {
 			}
 			
 			if(equippedStack != null && equippedStack.getItem() instanceof ItemSextant) {
-				profiler.startSection("craftingHalo");
+				profiler.startSection("sextant");
 				ItemSextant.renderHUD(event.resolution, mc.thePlayer, equippedStack);
 				profiler.endSection();
 			}
