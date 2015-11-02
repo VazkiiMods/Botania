@@ -3122,7 +3122,7 @@ botania.entry.sextant=Worldshaper's Sextant
 botania.tagline.sextant=A tool to help create circles
 botania.page.sextant0=In this cubic world, the art of creating circles often eludes many, to the point where they have to perform the unholy art of "tabbing out" in order to learn the procedures for creating one.<br>The &1Worldshaper's Sextant&0 is a simple tool to, you guessed it, aid in creating circles. To use the item, simply point at a block to set a center and look around to expand the radius.
 botania.page.sextant1=While the item is being used, a blue circle will appear in the world, as a simple preview of where the circle will be placed. Upon letting go, a circle of fake &1Cobblestone&0 blocks will show up as your building guide.<br>Shift-right clicking with this item in hand resets or removes the circle.
-botania.page.sextant2=You sketch a cicle, filling you with determination
+botania.page.sextant2=You sketch a circle, filling you with determination
 
 # - ENDER ARTEFACTS
 # -- EXTRACTING ENDER AIR
