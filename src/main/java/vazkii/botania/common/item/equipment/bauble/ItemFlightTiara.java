@@ -80,7 +80,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	public static List<String> playersWithFlight = new ArrayList();
 	private static final int COST = 35;
 	private static final int COST_OVERKILL = COST * 3;
-	private static final int MAX_FLY_TIME = 400;
+	private static final int MAX_FLY_TIME = 1200;
 
 	public static IIcon[] wingIcons;
 	private static final int SUBTYPES = 8;
