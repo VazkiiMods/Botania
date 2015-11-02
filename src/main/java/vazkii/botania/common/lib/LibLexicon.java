@@ -175,6 +175,7 @@ public final class LibLexicon {
 	public static final String TOOL_EXCHANGE_ROD = "exchangeRod";
 	public static final String TOOL_MANAWEAVE = "manaweave";
 	public static final String TOOL_AUTOCRAFTING_HALO = "autocraftingHalo";
+	public static final String TOOL_SEXTANT = "sextant";
 
 	public static final String ENDER_AIR = "enderAir";
 	public static final String ENDER_ENDER_EYE_BLOCK = "enderEyeBlock";
