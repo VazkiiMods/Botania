@@ -70,7 +70,7 @@ public class SubTileNarslimmus extends SubTileGenerating {
 
 	@Override
 	public int getMaxMana() {
-		return 5000;
+		return 8000;
 	}
 
 	@Override
