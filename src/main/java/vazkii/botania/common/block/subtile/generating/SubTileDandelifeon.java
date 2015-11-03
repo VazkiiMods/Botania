@@ -166,7 +166,9 @@ public class SubTileDandelifeon extends SubTileGenerating {
 		Block blockAt = world.getBlock(x, y, z);
 		if(gen == -2) {
 			int val = prevGen * MANA_PER_GEN;
-			mana = Math.min(getMaxMana(), mana + val);
+			if(((TileCell) world.getTileEntity(x, y, z)).isSameFlower(supertile))
+				mana = Math.min(getMaxMana(), mana + val);
+			
 			world.setBlockToAir(x, y, z);
 		} else if(blockAt == ModBlocks.cellBlock) {
 			if(gen < 0 || gen > MAX_GENERATIONS)
