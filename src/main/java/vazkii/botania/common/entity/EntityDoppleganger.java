@@ -192,15 +192,37 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	}
 
 	private static boolean hasProperArena(World world, int sx, int sy, int sz) {
+		int heightCheck = 3;
+		int heightMin = 2;
 		int range = (int) Math.ceil(RANGE);
 		for(int i = -range; i < range + 1; i++)
 			for(int j = -range; j < range + 1; j++) {
+				if((Math.abs(i) == 4 && Math.abs(j) == 4) || vazkii.botania.common.core.helper.MathHelper.pointDistancePlane(i, j, 0, 0) > RANGE)
+					continue; // Ignore pylons and out of circle
+				
 				int x = sx + i;
 				int z = sz + j;
-				int y = world.getTopSolidOrLiquidBlock(x, z);
-				if(Math.abs(y - sy) > 10)
+				int air = 0;
+				
+				yCheck: {
+					for(int k = heightCheck + heightMin + 1; k >= -heightCheck; k--) {
+						int y = sy + k;
+						boolean isAir = world.getBlock(x, y, z).getCollisionBoundingBoxFromPool(world, x, y, z) == null;
+						if(isAir)
+							air++;
+						else {
+							if(k > heightCheck)
+								continue;
+							else if(air > 2)
+								break yCheck;
+							air = 0;
+						}
+					}
+					
 					return false;
+				}
 			}
+		
 		return true;
 	}
 
