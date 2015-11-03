@@ -38,16 +38,22 @@ public class ClientTickHandler {
 	public static int ticksInGame = 0;
 	public static float partialTicks = 0;
 	public static float delta = 0;
+	public static float total = 0;
 
+	private void calcDelta() {
+		float oldTotal = total;
+		total = ticksInGame + partialTicks;
+		delta = total - oldTotal;
+	}
+	
 	@SubscribeEvent
 	public void renderTick(RenderTickEvent event) {
-		if(event.phase == Phase.START) {
-			float newPartialTicks = event.renderTickTime;
-			float newTotalTime = ticksInGame + newPartialTicks;
-			float oldTotalTime = ticksInGame + partialTicks;
-			delta = Math.abs(newTotalTime - oldTotalTime);
-			partialTicks = newPartialTicks;
-		} else TooltipAdditionDisplayHandler.render();
+		if(event.phase == Phase.START)
+			partialTicks = event.renderTickTime;
+		else {
+			TooltipAdditionDisplayHandler.render();
+			calcDelta();
+		}
 	}
 
 	@SubscribeEvent
@@ -100,6 +106,8 @@ public class ClientTickHandler {
 					ticksWithLexicaOpen--;
 				}
 			}
+			
+			calcDelta();
 		}
 	}
 

@@ -110,7 +110,7 @@ public final class TooltipAdditionDisplayHandler {
 								int cx = x + 8;
 								int cy = y + 8;
 								float r = 12;
-								float time = 30F;
+								float time = 20F;
 								float angles = lexiconLookupTime / time * 360F;
 
 								GL11.glDisable(GL11.GL_LIGHTING);
