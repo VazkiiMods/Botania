@@ -1,3 +1,22 @@
+r1.7 229
+*Added 15 new update flavour messages.
+*Added the Worlshaper's Sextant, a new item to help you make circles.
+*Changed the Flugel Tiara's flight time from 10 seconds to 30 seconds.
+*Fixed Shimmerwood Plank Slabs having the wrong step sound. (SnowShock35)
+*Fixed the Dandelifeon being able to destroy Bedrock and pretty much any other block. 
+*Fixed the Dandelifeon being able to generate mana from cells ticked by other Dandelifeons.
+*Fixed the Enchanting with Mana page missing two pages. (AlterAkima)
+*Fixed the Lexica Botania Quick Lookup key showing up as Ctrl in mac instead of Cmd.
+*Fixed the Lexica Botania Quick Lookup time being dependant on fps, also made it 1 second rather than 1.5.
+*Fixed the Rod of the Skies being able to be used for earlygame infinite flight by item switching.
+*Increased the Narslimmus' mana buffer to not have it overflow when it eats a big slime.
+*Mana Pools should sync better when receiving or sending out mana.
+*Red String Blocks can now be rotated with a Wand of the Forest.
+*Sparks are now cheaper.
+*The Gaia Guardian's arena checking is now less retarded, circular and doesn't require skylight.
+*[API] Added AnyComponent, a MultiblockComponent that matches any non air block.
+*[API] Added support for MultiblockSets with an array with length < 4.
+*[API] Increased version number to 67.
 r1.7 228
 *Fixed the Gaia Guardian being able to ride minecarts.
 *Fixed the Livingwood Avatar's render taking over other mod item renders.
