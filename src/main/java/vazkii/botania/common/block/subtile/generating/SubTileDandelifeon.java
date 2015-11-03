@@ -164,19 +164,23 @@ public class SubTileDandelifeon extends SubTileGenerating {
 	void setBlockForGeneration(int x, int y, int z, int gen, int prevGen) {
 		World world = supertile.getWorldObj();
 		Block blockAt = world.getBlock(x, y, z);
+		TileEntity tile = world.getTileEntity(x, y, z);
 		if(gen == -2) {
 			int val = prevGen * MANA_PER_GEN;
-			if(((TileCell) world.getTileEntity(x, y, z)).isSameFlower(supertile))
-				mana = Math.min(getMaxMana(), mana + val);
-			
-			world.setBlockToAir(x, y, z);
+			if(tile instanceof TileCell) {
+				if(((TileCell) tile).isSameFlower(supertile))
+					mana = Math.min(getMaxMana(), mana + val);
+				world.setBlockToAir(x, y, z);
+
+			}
 		} else if(blockAt == ModBlocks.cellBlock) {
 			if(gen < 0 || gen > MAX_GENERATIONS)
 				world.setBlockToAir(x, y, z);
-			else ((TileCell) world.getTileEntity(x, y, z)).setGeneration(supertile, gen);
+			else ((TileCell) tile).setGeneration(supertile, gen);
 		} else if(gen >= 0 && blockAt.isAir(supertile.getWorldObj(), x, y, z)) {
 			world.setBlock(x, y, z, ModBlocks.cellBlock);
-			((TileCell) world.getTileEntity(x, y, z)).setGeneration(supertile, gen);
+			tile = world.getTileEntity(x, y, z);
+			((TileCell) tile).setGeneration(supertile, gen);
 		}
 	}
 
