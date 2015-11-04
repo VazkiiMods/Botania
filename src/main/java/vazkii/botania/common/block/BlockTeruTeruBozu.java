@@ -47,13 +47,13 @@ public class BlockTeruTeruBozu extends BlockModContainer implements ILexiconable
 				if(stack.stackSize == 0)
 					e.setDead();
 			}
-		}
+ 		}
 	}
 
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int s, float xs, float ys, float zs) {
 		ItemStack stack = player.getCurrentEquippedItem();
-		if(stack != null && isSunflower(stack) && removeRain(world)) {
+		if(stack != null && ((isSunflower(stack) && removeRain(world)) || (isBlueOrchid(stack) && startRain(world)))) {
 			if(!player.capabilities.isCreativeMode)
 				stack.stackSize--;
 			return true;
@@ -64,10 +64,23 @@ public class BlockTeruTeruBozu extends BlockModContainer implements ILexiconable
 	public boolean isSunflower(ItemStack stack) {
 		return stack.getItem() == Item.getItemFromBlock(Blocks.double_plant) && stack.getItemDamage() == 0;
 	}
+	
+	public boolean isBlueOrchid(ItemStack stack) {
+		return stack.getItem() == Item.getItemFromBlock(Blocks.red_flower) && stack.getItemDamage() == 1;
+	}
 
 	public boolean removeRain(World world) {
 		if(world.isRaining()) {
 			world.getWorldInfo().setRaining(false);
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean startRain(World world) {
+		if(!world.isRaining()) {
+			if(world.rand.nextInt(10) == 0)
+				world.getWorldInfo().setRaining(true);
 			return true;
 		}
 		return false;
