@@ -52,6 +52,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 	void runSimulation() {
 		int[][] table = getCellTable();
 		List<int[]> changes = new ArrayList();
+		List<TileCell> cells = new ArrayList();
 		boolean wipe = false;
 
 		for(int i = 0; i < table.length; i++)
@@ -122,7 +123,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 	int getCellGeneration(int x, int y, int z) {
 		TileEntity tile = supertile.getWorldObj().getTileEntity(x, y, z);
 		if(tile instanceof TileCell)
-			return ((TileCell) tile).getGeneration();
+			return ((TileCell) tile).isSameFlower(supertile) ? ((TileCell) tile).getGeneration() : 0;
 
 		return -1;
 	}
@@ -167,12 +168,8 @@ public class SubTileDandelifeon extends SubTileGenerating {
 		TileEntity tile = world.getTileEntity(x, y, z);
 		if(gen == -2) {
 			int val = prevGen * MANA_PER_GEN;
-			if(tile instanceof TileCell) {
-				if(((TileCell) tile).isSameFlower(supertile))
-					mana = Math.min(getMaxMana(), mana + val);
-				world.setBlockToAir(x, y, z);
-
-			}
+			mana = Math.min(getMaxMana(), mana + val);
+			//world.setBlockToAir(x, y, z);
 		} else if(blockAt == ModBlocks.cellBlock) {
 			if(gen < 0 || gen > MAX_GENERATIONS)
 				world.setBlockToAir(x, y, z);
