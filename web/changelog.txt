@@ -1,3 +1,7 @@
+r1.7 230
+*<b>2 MILLION DOWNLOAD HYPE</b>
+*Fixed the Dandelifeon not properly making mana.
+*The Teru Teru Bozu can now be made sad. :(
 r1.7 229
 *Added 15 new update flavour messages.
 *Added the Worlshaper's Sextant, a new item to help you make circles.
