@@ -198,7 +198,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 						BotaniaAPI.internalHandler.sendBaubleUpdatePacket((EntityPlayerMP) player, 0);
 				}
 			} else if(!flying) {
-				boolean doGlide = player.isSneaking() && !player.onGround;
+				boolean doGlide = player.isSneaking() && !player.onGround && player.fallDistance >= 2F;
 				if(time < MAX_FLY_TIME && player.ticksExisted % (doGlide ? 6 : 2) == 0)
 					newTime++;
 
@@ -207,7 +207,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 					float mul = 0.6F;
 					player.motionX = look.x * mul;
 					player.motionZ = look.z * mul;
-					player.fallDistance = 0F;
+					player.fallDistance = 2F;
 				}
 			}
 
