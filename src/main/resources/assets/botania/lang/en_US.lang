@@ -1281,6 +1281,8 @@ tile.botania:flower.bubbellChibi.name=Bubbell Petite
 tile.botania:flower.bubbellChibi.reference=And whistle
 tile.botania:flower.solegnolia.name=Solegnolia
 tile.botania:flower.solegnolia.reference=All your magnets are belong to us
+tile.botania:flower.solegnoliaChibi.name=Solegnolia Petite
+tile.botania:flower.solegnoliaChibi.reference=All your magnets are belong to us
 
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania
