@@ -26,6 +26,7 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.core.handler.ConfigHandler;
 
 public class GuiButtonCategory extends GuiButtonLexicon {
 
@@ -46,10 +47,10 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 			GL11.glBindTexture(GL11.GL_TEXTURE_2D, r.getTexture(resource).getGlTextureId());
 			ARBShaderObjects.glUniform1iARB(imageUniform, 0);
 
-			GL13.glActiveTexture(ARBMultitexture.GL_TEXTURE15_ARB);
+			GL13.glActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB + ConfigHandler.glSecondaryTextureUnit);
 			GL11.glEnable(GL11.GL_TEXTURE_2D);
 			GL11.glBindTexture(GL11.GL_TEXTURE_2D, r.getTexture(stencilResource).getGlTextureId());
-			ARBShaderObjects.glUniform1iARB(maskUniform, 15);
+			ARBShaderObjects.glUniform1iARB(maskUniform, ConfigHandler.glSecondaryTextureUnit);
 
 			ARBShaderObjects.glUniform1fARB(heightMatchUniform, heightMatch);
 			GL13.glActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB);
