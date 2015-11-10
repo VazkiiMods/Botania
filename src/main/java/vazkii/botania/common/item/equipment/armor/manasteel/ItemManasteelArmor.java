@@ -13,6 +13,7 @@ package vazkii.botania.common.item.equipment.armor.manasteel;
 import java.util.List;
 
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -32,7 +33,9 @@ import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.model.armor.ModelArmorManasteel;
 import vazkii.botania.common.core.BotaniaCreativeTab;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
@@ -48,6 +51,8 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 
 	private static final String TAG_PHANTOM_INK = "phantomInk";
 
+	protected ModelBiped[] models = new ModelBiped[4]; 
+	
 	public ItemManasteelArmor(int type, String name) {
 		this(type, name, BotaniaAPI.manasteelArmorMaterial);
 	}
@@ -110,9 +115,35 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 	}
 
 	public String getArmorTextureAfterInk(ItemStack stack, int slot) {
-		return slot == 2 ? LibResources.MODEL_MANASTEEL_1 : LibResources.MODEL_MANASTEEL_0;
+		return ConfigHandler.enableArmorModels ? LibResources.MODEL_MANASTEEL_NEW : (slot == 2 ? LibResources.MODEL_MANASTEEL_1 : LibResources.MODEL_MANASTEEL_0);
 	}
-
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, int armorSlot) {
+		if(ConfigHandler.enableArmorModels) {
+			ModelBiped model = getArmorModelForSlot(entityLiving, itemStack, armorSlot);
+//			if(model == null)
+				model = provideArmorModelForSlot(itemStack, armorSlot);
+			
+			if(model != null)
+				return model;
+		}
+		
+		return super.getArmorModel(entityLiving, itemStack, armorSlot);
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public ModelBiped getArmorModelForSlot(EntityLivingBase entity, ItemStack stack, int slot) {
+		return models[slot];
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public ModelBiped provideArmorModelForSlot(ItemStack stack, int slot) {
+		models[slot] = new ModelArmorManasteel(slot);
+		return models[slot];
+	}
+	
 	@Override
 	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
 		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 0 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);

@@ -12,6 +12,7 @@ package vazkii.botania.common.item.equipment.armor.manaweave;
 
 import java.util.List;
 
+import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -19,20 +20,30 @@ import net.minecraft.stats.Achievement;
 import net.minecraft.util.StatCollector;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.model.armor.ModelArmorManaweave;
 import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemManaweaveArmor extends ItemManasteelArmor implements ICraftAchievement {
 
 	public ItemManaweaveArmor(int type, String name) {
 		super(type, name, BotaniaAPI.manaweaveArmorMaterial);
 	}
+	
+	@SideOnly(Side.CLIENT)
+	public ModelBiped provideArmorModelForSlot(ItemStack stack, int slot) {
+		models[slot] = new ModelArmorManaweave(slot);
+		return models[slot];
+	}
 
 	@Override
 	public String getArmorTextureAfterInk(ItemStack stack, int slot) {
-		return slot == 2 ? LibResources.MODEL_MANAWEAVE_1 : LibResources.MODEL_MANAWEAVE_0;
+		return ConfigHandler.enableArmorModels ? LibResources.MODEL_MANAWEAVE_NEW : (slot == 2 ? LibResources.MODEL_MANAWEAVE_1 : LibResources.MODEL_MANAWEAVE_0);
 	}
 
 	@Override

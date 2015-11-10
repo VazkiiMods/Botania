@@ -48,6 +48,7 @@ public final class ConfigHandler {
 	public static boolean renderBaubles = true;
 	public static boolean enableSeasonalFeatures = true;
 	public static boolean useShiftForQuickLookup = false;
+	public static boolean enableArmorModels = true;
 	public static int manaBarHeight = 29;
 	public static int glSecondaryTextureUnit = 7;
 
@@ -152,6 +153,9 @@ public final class ConfigHandler {
 		desc = "Set this to true to use Shift instead of Ctrl for the inventory lexica botania quick lookup feature.";
 		useShiftForQuickLookup = loadPropBool("quickLookup.useShift", desc, useShiftForQuickLookup);
 
+		desc = "Set this to false to disable custom armor models.";
+		enableArmorModels = loadPropBool("armorModels.enable", desc, enableArmorModels);
+		
 		desc = "The height of the mana display bar in above the XP bar. You can change this if you have a mod that changes where the XP bar is.";
 		manaBarHeight = loadPropInt("manaBar.height", desc, manaBarHeight);
 
