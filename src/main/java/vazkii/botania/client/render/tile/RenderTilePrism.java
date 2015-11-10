@@ -36,12 +36,14 @@ public class RenderTilePrism extends TileEntitySpecialRenderer {
 
 		if(stack != null) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
-			ILens lens = (ILens) stack.getItem();
-			GL11.glPushMatrix();
-			GL11.glRotatef(90F, 1F, 0F, 0F);
-			GL11.glTranslatef(0F, 0F, pos);
-			RenderLens.render(stack, lens.getLensColor(stack));
-			GL11.glPopMatrix();
+			if(stack.getItem() instanceof ILens) {
+				ILens lens = (ILens) stack.getItem();
+				GL11.glPushMatrix();
+				GL11.glRotatef(90F, 1F, 0F, 0F);
+				GL11.glTranslatef(0F, 0F, pos);
+				RenderLens.render(stack, lens.getLensColor(stack));
+				GL11.glPopMatrix();
+			}
 		}
 		GL11.glPopMatrix();
 	}
