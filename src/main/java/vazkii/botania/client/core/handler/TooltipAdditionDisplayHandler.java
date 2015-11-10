@@ -11,6 +11,7 @@
 package vazkii.botania.client.core.handler;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
@@ -59,7 +60,12 @@ public final class TooltipAdditionDisplayHandler {
 					int mouseX = Mouse.getX() * res.getScaledWidth() / mc.displayWidth;
 					int mouseY = res.getScaledHeight() - Mouse.getY() * res.getScaledHeight() / mc.displayHeight;
 
-					List<String> tooltip = stack.getTooltip(mc.thePlayer, mc.gameSettings.advancedItemTooltips);
+					List<String> tooltip;
+					try {
+						tooltip = stack.getTooltip(mc.thePlayer, mc.gameSettings.advancedItemTooltips);
+					} catch(Exception e) {
+						tooltip = new ArrayList();
+					}
 					int width = 0;
 					for(String s : tooltip)
 						width = Math.max(width, font.getStringWidth(s) + 2);
