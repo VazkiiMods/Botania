@@ -40,6 +40,8 @@ public class MultipartHandler {
 		registerAllMultiparts(ModBlocks.blazeBlock);
 		registerAllMultiparts(ModBlocks.livingrock);
 		registerAllMultiparts(ModBlocks.bifrostPerm);
+		registerAllMultiparts(ModBlocks.shimmerrock);
+		registerAllMultiparts(ModBlocks.shimmerwoodPlanks);
 
 		registerAllMultiparts(ModFluffBlocks.darkQuartz);
 		registerAllMultiparts(ModFluffBlocks.manaQuartz);
