@@ -45,12 +45,12 @@ public final class DebugHandler {
 			event.left.add(PREFIX + "netColl: " + ManaNetworkHandler.instance.getAllCollectorsInWorld(world).size() + ", netPool: " + ManaNetworkHandler.instance.getAllPoolsInWorld(world).size() + ", rv: " + version);
 	
 			if(GuiScreen.isCtrlKeyDown() && GuiScreen.isShiftKeyDown()) {
-				event.left.add(PREFIX + "ConfigContext");
+				event.left.add(PREFIX + "Config Context");
 				event.left.add("  shaders.enabled: " + ConfigHandler.useShaders);
 				event.left.add("  shaders.secondaryUnit: " + ConfigHandler.glSecondaryTextureUnit);
 				
 				ContextCapabilities caps = GLContext.getCapabilities();
-				event.left.add(PREFIX + "OpenGLContext");
+				event.left.add(PREFIX + "OpenGL Context");
 				event.left.add("  GL_VERSION: " + GL11.glGetString(GL11.GL_VERSION));
 				event.left.add("  GL_RENDERER: " + GL11.glGetString(GL11.GL_RENDERER));
 				event.left.add("  GL_SHADING_LANGUAGE_VERSION: " + GL11.glGetString(GL20.GL_SHADING_LANGUAGE_VERSION));
@@ -58,8 +58,10 @@ public final class DebugHandler {
 				event.left.add("  GL_ARB_multitexture: " + caps.GL_ARB_multitexture);
 				event.left.add("  GL_ARB_texture_non_power_of_two: " + caps.GL_ARB_texture_non_power_of_two);
 				event.left.add("  OpenGL13: " + caps.OpenGL13);
-			}
-		}
+			} else if(Minecraft.isRunningOnMac)
+				event.left.add(PREFIX + "SHIFT+CMD for context");
+			else event.left.add(PREFIX + "SHIFT+CTRL for context");
+		} 
 	}
 
 
