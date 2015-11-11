@@ -235,7 +235,7 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 
 	@Override
 	public void setPhantomInk(ItemStack stack, boolean ink) {
-		ItemNBTHelper.setBoolean(stack, TAG_PHANTOM_INK, true);
+		ItemNBTHelper.setBoolean(stack, TAG_PHANTOM_INK, ink);
 	}
 
 	@Override
