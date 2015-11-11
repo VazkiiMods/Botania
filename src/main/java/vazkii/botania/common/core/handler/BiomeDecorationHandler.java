@@ -45,7 +45,7 @@ public class BiomeDecorationHandler {
 					int y = event.world.getTopSolidOrLiquidBlock(x, z);
 
 					int color = event.rand.nextInt(16);
-					boolean primus = event.rand.nextInt(500) == 0;
+					boolean primus = event.rand.nextInt(380) == 0;
 
 					for(int j = 0; j < ConfigHandler.flowerDensity * ConfigHandler.flowerPatchChance; j++) {
 						int x1 = x + event.rand.nextInt(dist * 2) - dist;
