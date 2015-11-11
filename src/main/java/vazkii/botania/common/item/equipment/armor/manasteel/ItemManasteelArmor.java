@@ -51,7 +51,7 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 
 	private static final String TAG_PHANTOM_INK = "phantomInk";
 
-	protected ModelBiped[] models = new ModelBiped[4]; 
+	protected ModelBiped[] models = null;
 	
 	public ItemManasteelArmor(int type, String name) {
 		this(type, name, BotaniaAPI.manasteelArmorMaterial);
@@ -123,7 +123,7 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, int armorSlot) {
 		if(ConfigHandler.enableArmorModels) {
 			ModelBiped model = getArmorModelForSlot(entityLiving, itemStack, armorSlot);
-//			if(model == null)
+			if(model == null)
 				model = provideArmorModelForSlot(itemStack, armorSlot);
 			
 			if(model != null)
@@ -135,6 +135,9 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 	
 	@SideOnly(Side.CLIENT)
 	public ModelBiped getArmorModelForSlot(EntityLivingBase entity, ItemStack stack, int slot) {
+		if(models == null)
+			models = new ModelBiped[4];
+		
 		return models[slot];
 	}
 	
