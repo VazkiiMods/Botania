@@ -1,3 +1,13 @@
+r1.7 232
+*Added the botania version to the F3 menu next to the network monitors.
+*Changed the way multitexture is handled on graphics cards that don't support OpenGL 1.3 (using ARB instead).
+*Fixed Corporea Interceptors not intercepting requests from Corporea Funnels for more than item and not checking NBT properly.
+*Fixed the Corporea Index working between dimensions.
+*Holding CTRL+SHIFT on the F3 menu will show you the OpenGL Context and relevant config settings.
+*Luminizers now synergize with Ender Pearls.
+*Primus Loci are a bit less rare now.
+*Using Phantom Ink on an item that already has it will now remove it.
+*You can stand inside mana pools now. <i>update of the year 10/10</i>
 r1.7 231
 *Added new models to all botania sets of armor. You can turn these off in the config if you're mean and hate everything that's fun.
 *Added the Solegnolia Petite. Not much to explain here.
