@@ -1,3 +1,16 @@
+r1.7 231
+*Added new models to all botania sets of armor. You can turn these off in the config if you're mean and hate everything that's fun.
+*Added the Solegnolia Petite. Not much to explain here.
+*Changed the Lexica Botania's Category Icon Shader to use GL Texture Unit 7 rather than 15. Also added a config option to change which unit is used, just in case. This should fix GL errors with old and integrated graphics cards.
+*Fixed a crash with the Worldshaper's Sextant if CodeChickenCore isn't installed. (TheWhiteWolves)
+*Fixed a minor grammar derp. (shadowfacts)
+*Fixed Shimmerrock and Shimmerwood Planks not having microblocks.
+*Fixed the Mana Prism accepting non lens items through automation and crashing the game if any make it in.
+*Fixed the Ring of Loki's entry not telling the player they need to sneak.
+*Looking at a Crafty Crate with a Wand of the Forest now shows you the items inside.
+*Looking at an Applied Energistics Dense Cable while having their config to turn off channels set to false will no longer crash the game. <i>fix yer game ae</i>
+*The Flugel Tiara's Glide ability now only starts if you've fallen at least 2 blocks.
+*The Solegnolia now negates any rings worn by players inside it.
 r1.7 230
 *<b>2 MILLION DOWNLOAD HYPE</b>
 *Fixed the Dandelifeon not properly making mana.
