@@ -11,6 +11,7 @@
 package vazkii.botania.client.gui.lexicon.button;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -43,17 +44,17 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 			int maskUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "mask");
 
 			float heightMatch = ticksHovered / time;
-			GL13.glActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB);
+			OpenGlHelper.setActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB);
 			GL11.glBindTexture(GL11.GL_TEXTURE_2D, r.getTexture(resource).getGlTextureId());
 			ARBShaderObjects.glUniform1iARB(imageUniform, 0);
 
-			GL13.glActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB + ConfigHandler.glSecondaryTextureUnit);
+			OpenGlHelper.setActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB + ConfigHandler.glSecondaryTextureUnit);
 			GL11.glEnable(GL11.GL_TEXTURE_2D);
 			GL11.glBindTexture(GL11.GL_TEXTURE_2D, r.getTexture(stencilResource).getGlTextureId());
 			ARBShaderObjects.glUniform1iARB(maskUniform, ConfigHandler.glSecondaryTextureUnit);
 
 			ARBShaderObjects.glUniform1fARB(heightMatchUniform, heightMatch);
-			GL13.glActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB);
+			OpenGlHelper.setActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB);
 		}
 	};
 	static boolean boundStencil = false;

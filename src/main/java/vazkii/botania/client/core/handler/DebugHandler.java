@@ -57,6 +57,7 @@ public final class DebugHandler {
 				event.left.add("  GL_MAX_TEXTURE_IMAGE_UNITS_ARB: " + GL11.glGetInteger(ARBFragmentShader.GL_MAX_TEXTURE_IMAGE_UNITS_ARB));
 				event.left.add("  GL_ARB_multitexture: " + caps.GL_ARB_multitexture);
 				event.left.add("  GL_ARB_texture_non_power_of_two: " + caps.GL_ARB_texture_non_power_of_two);
+				event.left.add("  OpenGL13: " + caps.OpenGL13);
 			}
 		}
 	}
