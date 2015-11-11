@@ -49,7 +49,6 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 
 	@Override
 	public void interceptRequestLast(Object request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<IInventory> inventories, boolean doit) {
-		System.out.println(request);
 		List<ItemStack> filter = getFilter();
 		for(ItemStack stack : filter)
 			if(requestMatches(request, stack)) {
