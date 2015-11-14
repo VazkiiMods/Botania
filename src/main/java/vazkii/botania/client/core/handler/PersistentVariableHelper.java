@@ -98,7 +98,7 @@ public final class PersistentVariableHelper {
 
 		if(cmp.hasKey(TAG_LEXICON_NOTES)) {
 			NBTTagCompound notesCmp = cmp.getCompoundTag(TAG_LEXICON_NOTES);
-			Set<String> keys = notesCmp.func_150296_c();
+			Set<String> keys = notesCmp.getKeySet();
 			GuiLexicon.notes.clear();
 			for(String key : keys)
 				GuiLexicon.notes.put(key, notesCmp.getString(key));

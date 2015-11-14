@@ -52,7 +52,7 @@ public class LightningHandler {
 	static double interpPosZ;
 
 	private static Vector3 getRelativeViewVector(Vector3 pos) {
-		Entity renderEntity = Minecraft.getMinecraft().renderViewEntity;
+		Entity renderEntity = Minecraft.getMinecraft().getRenderViewEntity();
 		return new Vector3((float) renderEntity.posX - pos.x, (float) renderEntity.posY + renderEntity.getEyeHeight() - pos.y, (float) renderEntity.posZ - pos.z);
 	}
 
@@ -87,16 +87,16 @@ public class LightningHandler {
 
 		render.bindTexture(outsideResource);
 		tessellator.getWorldRenderer().startDrawingQuads();
-		tessellator.setBrightness(0xF000F0);
+		tessellator.getWorldRenderer().setBrightness(0xF000F0);
 		for(LightningBolt bolt : LightningBolt.boltlist)
-			renderBolt(bolt, tessellator, frame, ActiveRenderInfo.rotationX, ActiveRenderInfo.rotationXZ, ActiveRenderInfo.rotationZ, ActiveRenderInfo.rotationXY, 0, false);
+			renderBolt(bolt, tessellator, frame, ActiveRenderInfo.getRotationX(), ActiveRenderInfo.getRotationXZ(), ActiveRenderInfo.getRotationZ(), ActiveRenderInfo.getRotationXY(), 0, false);
 		tessellator.draw();
 
 		render.bindTexture(insideResource);
 		tessellator.getWorldRenderer().startDrawingQuads();
-		tessellator.setBrightness(0xF000F0);
+		tessellator.getWorldRenderer().setBrightness(0xF000F0);
 		for(LightningBolt bolt : LightningBolt.boltlist)
-			renderBolt(bolt, tessellator, frame, ActiveRenderInfo.rotationX, ActiveRenderInfo.rotationXZ, ActiveRenderInfo.rotationZ, ActiveRenderInfo.rotationXY, 1, true);
+			renderBolt(bolt, tessellator, frame, ActiveRenderInfo.getRotationX(), ActiveRenderInfo.getRotationXZ(), ActiveRenderInfo.getRotationZ(), ActiveRenderInfo.getRotationXY(), 1, true);
 		tessellator.draw();
 
 		GL11.glDisable(GL11.GL_BLEND);
@@ -145,7 +145,7 @@ public class LightningHandler {
 			Vector3 endvec = rendersegment.endpoint.point;
 
 			int color = inner ? bolt.colorInner : bolt.colorOuter;
-			tessellator.setColorRGBA_I(color, (int) (mainalpha * rendersegment.light * new Color(color).getAlpha()));
+			tessellator.getWorldRenderer().setColorRGBA_I(color, (int) (mainalpha * rendersegment.light * new Color(color).getAlpha()));
 
 			tessellator.getWorldRenderer().addVertexWithUV(endvec.x - diff2.x, endvec.y - diff2.y, endvec.z - diff2.z, 0.5, 0);
 			tessellator.getWorldRenderer().addVertexWithUV(startvec.x - diff1.x, startvec.y - diff1.y, startvec.z - diff1.z, 0.5, 0);
@@ -324,7 +324,7 @@ public class LightningHandler {
 			particleAge = -(int) (length * speed);
 
 			boundingBox = new AxisAlignedBB(0, 0, 0, 0, 0, 0);
-			boundingBox.setBB(new AxisAlignedBB(Math.min(start.x, end.x), Math.min(start.y, end.y), Math.min(start.z, end.z), Math.max(start.x, end.x), Math.max(start.y, end.y), Math.max(start.z, end.z)).expand(length / 2, length / 2, length / 2));
+			boundingBox = new AxisAlignedBB(Math.min(start.x, end.x), Math.min(start.y, end.y), Math.min(start.z, end.z), Math.max(start.x, end.x), Math.max(start.y, end.y), Math.max(start.z, end.z)).expand(length / 2, length / 2, length / 2);
 
 			segments.add(new Segment(start, end));
 		}
@@ -335,7 +335,7 @@ public class LightningHandler {
 
 		public LightningBolt(World world, Vector3 sourcevec, TileEntity target, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
 			this(world, sourcevec, getFocalPoint(target), ticksPerMeter, seed, colorOuter, colorInner);
-			this.target = new BlockPos(target.xCoord, target.yCoord, target.zCoord);
+			this.target = target.getPos();
 		}
 
 		public void setWrapper(Entity entity) {
@@ -418,9 +418,9 @@ public class LightningHandler {
 				return prevresistance;
 
 			if(mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
-				Block block = world.getBlock(mop.blockX, mop.blockY, mop.blockZ);
+				Block block = world.getBlockState(mop.getBlockPos()).getBlock();
 
-				if(world.isAirBlock(mop.blockX, mop.blockY, mop.blockZ))
+				if(world.isAirBlock(mop.getBlockPos()))
 					return prevresistance;
 
 				return prevresistance + block.getExplosionResistance(source) + 0.3F;

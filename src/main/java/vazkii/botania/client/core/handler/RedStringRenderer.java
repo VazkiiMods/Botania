@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
@@ -67,13 +68,13 @@ public final class RedStringRenderer {
 	}
 
 	private static void renderTile(TileRedString tile) {
-		ForgeDirection dir = ForgeDirection.getOrientation(tile.getBlockMetadata());
+		EnumFacing dir = tile.getOrientation();
 		BlockPos bind = tile.getBinding();
 
 		if(bind != null) {
 			GL11.glPushMatrix();
-			GL11.glTranslated(tile.xCoord + 0.5 - RenderManager.renderPosX, tile.yCoord + 0.5 - RenderManager.renderPosY, tile.zCoord + 0.5 - RenderManager.renderPosZ);
-			Vector3 vecOrig = new Vector3(bind.posX - tile.xCoord, bind.posY - tile.yCoord, bind.posZ - tile.zCoord);
+			GL11.glTranslated(tile.getPos().getX() + 0.5 - RenderManager.renderPosX, tile.getPos().getY() + 0.5 - RenderManager.renderPosY, tile.getPos().getZ() + 0.5 - RenderManager.renderPosZ);
+			Vector3 vecOrig = new Vector3(bind.getX() - tile.getPos().getX(), bind.getY() - tile.getPos().getY(), bind.getZ() - tile.getPos().getZ());
 			Vector3 vecNorm = vecOrig.copy().normalize();
 			Vector3 vecMag = vecNorm.copy().multiply(0.025);
 			Vector3 vecApply = vecMag.copy();
@@ -82,9 +83,9 @@ public final class RedStringRenderer {
 
 			Tessellator tessellator = Tessellator.getInstance();
 			GL11.glLineWidth(1F);
-			tessellator.startDrawing(GL11.GL_LINES);
+			tessellator.getWorldRenderer().startDrawing(GL11.GL_LINES);
 
-			double len = (double) -ClientTickHandler.ticksInGame / 100F + new Random(dir.ordinal() ^ tile.xCoord ^ tile.yCoord ^ tile.zCoord).nextInt(10000);
+			double len = (double) -ClientTickHandler.ticksInGame / 100F + new Random(dir.ordinal() ^ tile.getPos().toLong()).nextInt(10000);
 			double add = vecMag.mag();
 			double rand = Math.random() - 0.5;
 			for(int i = 0; i < stages; i++) {
@@ -101,15 +102,15 @@ public final class RedStringRenderer {
 		}
 	}
 
-	private static void addVertexAtWithTranslation(Tessellator tess, ForgeDirection dir, double xpos, double ypos, double zpos, double rand, double l) {
+	private static void addVertexAtWithTranslation(Tessellator tess, EnumFacing dir, double xpos, double ypos, double zpos, double rand, double l) {
 		double freq = 20;
 		double ampl = (0.15 * (Math.sin(l * 2F) * 0.5 + 0.5) + 0.1) * sizeAlpha;
 		double randMul = 0.05;
-		double x = xpos + Math.sin(l * freq) * ampl * Math.abs(Math.abs(dir.offsetX) - 1) + rand * randMul;
-		double y = ypos + Math.cos(l * freq) * ampl * Math.abs(Math.abs(dir.offsetY) - 1) + rand * randMul;
-		double z = zpos + (dir.offsetY == 0 ? Math.sin(l * freq) : Math.cos(l * freq)) * ampl * Math.abs(Math.abs(dir.offsetZ) - 1) + rand * randMul;
+		double x = xpos + Math.sin(l * freq) * ampl * Math.abs(Math.abs(dir.getFrontOffsetX()) - 1) + rand * randMul;
+		double y = ypos + Math.cos(l * freq) * ampl * Math.abs(Math.abs(dir.getFrontOffsetY()) - 1) + rand * randMul;
+		double z = zpos + (dir.getFrontOffsetY() == 0 ? Math.sin(l * freq) : Math.cos(l * freq)) * ampl * Math.abs(Math.abs(dir.getFrontOffsetZ()) - 1) + rand * randMul;
 
-		tess.addVertex(x, y, z);
+		tess.getWorldRenderer().addVertex(x, y, z);
 	}
 
 }

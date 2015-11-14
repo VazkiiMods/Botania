@@ -93,11 +93,11 @@ public class SubTileSpectrolus extends SubTileGenerating {
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		if(stack != null && stack.getItem() != null) {
 			String stackName = stack.getDisplayName();
-			int width = 16 + mc.fontRenderer.getStringWidth(stackName) / 2;
+			int width = 16 + mc.fontRendererObj.getStringWidth(stackName) / 2;
 			int x = res.getScaledWidth() / 2 - width;
 			int y = res.getScaledHeight() / 2 + 30;
 
-			mc.fontRenderer.drawStringWithShadow(stackName, x + 20, y + 5, color);
+			mc.fontRendererObj.drawStringWithShadow(stackName, x + 20, y + 5, color);
 			RenderHelper.enableGUIStandardItemLighting();
 			RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack, x, y);
 			RenderHelper.disableStandardItemLighting();

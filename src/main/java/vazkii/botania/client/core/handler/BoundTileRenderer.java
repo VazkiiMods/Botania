@@ -76,7 +76,7 @@ public final class BoundTileRenderer {
 
 				if(stackInSlot.getItem() instanceof IExtendedWireframeCoordinateListProvider) {
 					BlockPos coords = ((IExtendedWireframeCoordinateListProvider) stackInSlot.getItem()).getSourceWireframe(player, stackInSlot);
-					if(coords != null && coords.posY > -1)
+					if(coords != null && coords.getY() > -1)
 						renderBlockOutlineAt(coords, color, 5F);
 				}
 			}
@@ -94,29 +94,24 @@ public final class BoundTileRenderer {
 
 	private void renderBlockOutlineAt(BlockPos pos, int color, float thickness) {
 		GL11.glPushMatrix();
-		GL11.glTranslated(pos.posX - RenderManager.renderPosX, pos.posY - RenderManager.renderPosY, pos.posZ - RenderManager.renderPosZ + 1);
+		GL11.glTranslated(pos.getX() - RenderManager.renderPosX, pos.getY() - RenderManager.renderPosY, pos.getZ() - RenderManager.renderPosZ + 1);
 		Color colorRGB = new Color(color);
 		GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 255);
 
 		World world = Minecraft.getMinecraft().theWorld;
-		Block block = world.getBlock(pos.posX, pos.posY, pos.posZ);
+		Block block = world.getBlockState(pos).getBlock();
 		drawWireframe : {
 			if(block != null) {
 				AxisAlignedBB axis;
 
 				if(block instanceof IWireframeAABBProvider)
-					axis = ((IWireframeAABBProvider) block).getWireframeAABB(world, , pos.posX);
-				else axis = block.getSelectedBoundingBoxFromPool(world, pos.posX, pos.posY, pos.posZ);
+					axis = ((IWireframeAABBProvider) block).getWireframeAABB(world, pos);
+				else axis = block.getSelectedBoundingBox(world, pos);
 
 				if(axis == null)
 					break drawWireframe;
 
-				axis.minX -= pos.posX;
-				axis.maxX -= pos.posX;
-				axis.minY -= pos.posY;
-				axis.maxY -= pos.posY;
-				axis.minZ -= pos.posZ + 1;
-				axis.maxZ -= pos.posZ + 1;
+				axis = axis.offset(-pos.getX(), -pos.getY(), -(pos.getZ() + 1));
 
 				GL11.glScalef(1F, 1F, 1F);
 
@@ -142,7 +137,7 @@ public final class BoundTileRenderer {
 		double ay = aabb.maxY;
 		double az = aabb.maxZ;
 
-		tessellator.startDrawing(GL11.GL_LINES);
+		tessellator.getWorldRenderer().startDrawing(GL11.GL_LINES);
 		tessellator.getWorldRenderer().addVertex(ix, iy, iz);
 		tessellator.getWorldRenderer().addVertex(ix, ay, iz);
 

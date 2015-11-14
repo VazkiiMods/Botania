@@ -164,11 +164,11 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			GL11.glColor4f(1F, 1F, 1F, 1F);
 			drawTexturedModalRect(left + 134, top + guiHeight - 26, 86, 180, 12, 12);
 		} else {
-			boolean unicode = mc.fontRenderer.getUnicodeFlag();
-			mc.fontRenderer.setUnicodeFlag(true);
+			boolean unicode = mc.fontRendererObj.getUnicodeFlag();
+			mc.fontRendererObj.setUnicodeFlag(true);
 			String s = StatCollector.translateToLocal("botaniamisc.typeToSearch");
-			mc.fontRenderer.drawString(s, left + 120 - mc.fontRenderer.getStringWidth(s), top + guiHeight - 18, 0x666666);
-			mc.fontRenderer.setUnicodeFlag(unicode);
+			mc.fontRendererObj.drawString(s, left + 120 - mc.fontRendererObj.getStringWidth(s), top + guiHeight - 18, 0x666666);
+			mc.fontRendererObj.setUnicodeFlag(unicode);
 		}
 
 		float animationTime = 4F;
@@ -185,9 +185,9 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 				x = currentButton.xPosition - 20;
 				y = currentButton.yPosition;
 
-				mc.fontRenderer.drawStringWithShadow("?", x, y, 0xFFFFFF);
+				mc.fontRendererObj.drawStringWithShadow("?", x, y, 0xFFFFFF);
 				GL11.glScalef(0.5F, 0.5F, 1F);
-				mc.fontRenderer.drawStringWithShadow(EnumChatFormatting.BOLD + "Shift", x * 2 - 6, y * 2 + 20, 0xFFFFFF);
+				mc.fontRendererObj.drawStringWithShadow(EnumChatFormatting.BOLD + "Shift", x * 2 - 6, y * 2 + 20, 0xFFFFFF);
 				GL11.glScalef(2F, 2F, 1F);
 			}
 		}
@@ -198,9 +198,9 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			int x = currentButton.xPosition;
 			int y = currentButton.yPosition;
 			String s = StatCollector.translateToLocal(currentEntry.getTagline());
-			boolean unicode = mc.fontRenderer.getUnicodeFlag();
-			mc.fontRenderer.setUnicodeFlag(true);
-			int width = mc.fontRenderer.getStringWidth(s);
+			boolean unicode = mc.fontRendererObj.getUnicodeFlag();
+			mc.fontRendererObj.setUnicodeFlag(true);
+			int width = mc.fontRendererObj.getStringWidth(s);
 
 			GL11.glPushMatrix();
 			GL11.glTranslatef(x, y, 0);
@@ -208,7 +208,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			Gui.drawRect(12, -30, width + 20, -2, 0x44000000);
 			Gui.drawRect(10, -32, width + 22, -2, 0x44000000);
 			drawBookmark(width / 2 + 16, -8, s, true, 0xFFFFFF);
-			mc.fontRenderer.setUnicodeFlag(unicode);
+			mc.fontRendererObj.setUnicodeFlag(unicode);
 
 			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);

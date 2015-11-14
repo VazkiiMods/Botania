@@ -527,7 +527,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 
 		if(slot == 0) {
 			String name = craftingTable.getDisplayName();
-			int l = mc.fontRenderer.getStringWidth(name);
+			int l = mc.fontRendererObj.getStringWidth(name);
 			int x = resolution.getScaledWidth() / 2 - l / 2;
 			int y = resolution.getScaledHeight() / 2 - 65;
 
@@ -538,7 +538,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 			RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, craftingTable, resolution.getScaledWidth() / 2 - 8, resolution.getScaledHeight() / 2 - 52);
 			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
-			mc.fontRenderer.drawStringWithShadow(name, x, y, 0xFFFFFF);
+			mc.fontRendererObj.drawStringWithShadow(name, x, y, 0xFFFFFF);
 		} else {
 			ItemStack[] recipe = getCraftingItems(stack, slot);
 			String label = StatCollector.translateToLocal("botaniamisc.unsetRecipe");
@@ -591,11 +591,11 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 		int yoff = 110;
 		if(setRecipe && !canCraft(player, recipe, getFakeInv(player))) {
 			String warning = EnumChatFormatting.RED + StatCollector.translateToLocal("botaniamisc.cantCraft");
-			mc.fontRenderer.drawStringWithShadow(warning, resolution.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(warning) / 2, resolution.getScaledHeight() / 2 - yoff, 0xFFFFFF);
+			mc.fontRendererObj.drawStringWithShadow(warning, resolution.getScaledWidth() / 2 - mc.fontRendererObj.getStringWidth(warning) / 2, resolution.getScaledHeight() / 2 - yoff, 0xFFFFFF);
 			yoff += 12;
 		}
 
-		mc.fontRenderer.drawStringWithShadow(label, resolution.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(label) / 2, resolution.getScaledHeight() / 2 - yoff, 0xFFFFFF);
+		mc.fontRendererObj.drawStringWithShadow(label, resolution.getScaledWidth() / 2 - mc.fontRendererObj.getStringWidth(label) / 2, resolution.getScaledHeight() / 2 - yoff, 0xFFFFFF);
 	}
 
 	@Override

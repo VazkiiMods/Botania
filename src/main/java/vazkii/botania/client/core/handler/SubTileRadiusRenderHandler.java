@@ -41,21 +41,17 @@ public final class SubTileRadiusRenderHandler {
 
 		if(!Botania.proxy.isClientPlayerWearingMonocle() || pos == null || pos.entityHit != null)
 			return;
-		int x = pos.blockX;
-		int y = pos.blockY;
-		int z = pos.blockZ;
+		BlockPos bPos = pos.getBlockPos();
 
 		ItemStack stackHeld = mc.thePlayer.getCurrentEquippedItem();
 		if(stackHeld != null && stackHeld.getItem() == ModItems.twigWand && ItemTwigWand.getBindMode(stackHeld)) {
 			BlockPos coords = ItemTwigWand.getBoundTile(stackHeld);
-			if(coords.posY != -1) {
-				x = coords.posX;
-				y = coords.posY;
-				z = coords.posZ;
+			if(coords.getY() != -1) {
+				bPos = coords;
 			}
 		}
 
-		TileEntity tile = mc.theWorld.getTileEntity(x, y, z);
+		TileEntity tile = mc.theWorld.getTileEntity(bPos);
 		if(tile == null || !(tile instanceof ISubTileContainer))
 			return;
 		ISubTileContainer container = (ISubTileContainer) tile;
@@ -118,9 +114,9 @@ public final class SubTileRadiusRenderHandler {
 
 	public void renderCircle(BlockPos center, double radius) {
 		GL11.glPushMatrix();
-		double x = center.posX + 0.5;
-		double y = center.posY;
-		double z = center.posZ + 0.5;
+		double x = center.getX() + 0.5;
+		double y = center.getY();
+		double z = center.getZ() + 0.5;
 		GL11.glTranslated(x - RenderManager.renderPosX, y - RenderManager.renderPosY, z - RenderManager.renderPosZ);
 		int color = Color.HSBtoRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 
@@ -135,7 +131,7 @@ public final class SubTileRadiusRenderHandler {
 
 		radius -= f;
 		Tessellator tessellator = Tessellator.getInstance();
-		tessellator.startDrawing(GL11.GL_TRIANGLE_FAN);
+		tessellator.getWorldRenderer().startDrawing(GL11.GL_TRIANGLE_FAN);
 		tessellator.getWorldRenderer().addVertex(0, f, 0);
 		for(int i = 0; i < totalAngles + 1; i += step) {
 			double rad = (totalAngles - i) * Math.PI / 180.0;
@@ -149,7 +145,7 @@ public final class SubTileRadiusRenderHandler {
 		radius += f;
 		double f1 = f + f / 4F;
 		GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 64);
-		tessellator.startDrawing(GL11.GL_TRIANGLE_FAN);
+		tessellator.getWorldRenderer().startDrawing(GL11.GL_TRIANGLE_FAN);
 		tessellator.getWorldRenderer().addVertex(0, f1, 0);
 		for(int i = 0; i < totalAngles + 1; i += step) {
 			double rad = (totalAngles - i) * Math.PI / 180.0;

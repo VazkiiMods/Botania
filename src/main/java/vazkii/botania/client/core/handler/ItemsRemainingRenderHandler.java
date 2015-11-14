@@ -55,7 +55,7 @@ public final class ItemsRemainingRenderHandler {
 			int xp = x + (int) (16F * (1F - alpha));
 			GL11.glTranslatef(xp, y, 0F);
 			GL11.glScalef(alpha, 1F, 1F);
-			RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack, 0, 0);
+			mc.getRenderItem().renderItemAndEffectIntoGUI(stack, 0, 0);
 			GL11.glScalef(1F / alpha,1F, 1F);
 			GL11.glTranslatef(-xp, -y, 0F);
 			RenderHelper.disableStandardItemLighting();
@@ -75,7 +75,7 @@ public final class ItemsRemainingRenderHandler {
 				text = "\u221E";
 
 			int color = 0x00FFFFFF | (int) (alpha * 0xFF) << 24;
-			mc.fontRenderer.drawStringWithShadow(text, x + 20, y + 6, color);
+			mc.fontRendererObj.drawStringWithShadow(text, x + 20, y + 6, color);
 
 			GL11.glDisable(GL11.GL_BLEND);
 			GL11.glEnable(GL11.GL_ALPHA_TEST);

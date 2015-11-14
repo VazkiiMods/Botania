@@ -350,7 +350,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 			Tessellator tessellator = Tessellator.getInstance();
 			GL11.glDisable(GL11.GL_TEXTURE_2D);
 			tessellator.getWorldRenderer().startDrawingQuads();
-			int i = mc.fontRenderer.getStringWidth(potato.name) / 2;
+			int i = mc.fontRendererObj.getStringWidth(potato.name) / 2;
 			tessellator.setColorRGBA_F(0.0F, 0.0F, 0.0F, 0.25F);
 			tessellator.getWorldRenderer().addVertex(-i - 1, -1.0D, 0.0D);
 			tessellator.getWorldRenderer().addVertex(-i - 1, 8.0D, 0.0D);
@@ -359,7 +359,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 			tessellator.draw();
 			GL11.glEnable(GL11.GL_TEXTURE_2D);
 			GL11.glDepthMask(true);
-			mc.fontRenderer.drawString(potato.name, -mc.fontRenderer.getStringWidth(potato.name) / 2, 0, 0xFFFFFF);
+			mc.fontRendererObj.drawString(potato.name, -mc.fontRendererObj.getStringWidth(potato.name) / 2, 0, 0xFFFFFF);
 			if(name.equals("pahimar") || name.equals("soaryn")) {
 				GL11.glTranslatef(0F, 14F, 0F);
 				String s = name.equals("pahimar") ? "[WIP]" : "(soon)";
@@ -368,7 +368,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 				OpenGlHelper.glBlendFunc(770, 771, 1, 0);
 				GL11.glDisable(GL11.GL_TEXTURE_2D);
 				tessellator.getWorldRenderer().startDrawingQuads();
-				i = mc.fontRenderer.getStringWidth(s) / 2;
+				i = mc.fontRendererObj.getStringWidth(s) / 2;
 				tessellator.setColorRGBA_F(0.0F, 0.0F, 0.0F, 0.25F);
 				tessellator.getWorldRenderer().addVertex(-i - 1, -1.0D, 0.0D);
 				tessellator.getWorldRenderer().addVertex(-i - 1, 8.0D, 0.0D);
@@ -377,7 +377,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 				tessellator.draw();
 				GL11.glEnable(GL11.GL_TEXTURE_2D);
 				GL11.glDepthMask(true);
-				mc.fontRenderer.drawString(s, -mc.fontRenderer.getStringWidth(s) / 2, 0, 0xFFFFFF);
+				mc.fontRendererObj.drawString(s, -mc.fontRendererObj.getStringWidth(s) / 2, 0, 0xFFFFFF);
 			}
 
 			GL11.glEnable(GL11.GL_LIGHTING);

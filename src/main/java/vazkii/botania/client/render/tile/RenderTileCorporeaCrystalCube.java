@@ -94,16 +94,16 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer {
 			float s = 1F / 64F;
 			GL11.glScalef(s, s, s);
 			GL11.glDisable(GL11.GL_LIGHTING);
-			int l = mc.fontRenderer.getStringWidth(countStr);
+			int l = mc.fontRendererObj.getStringWidth(countStr);
 
 			GL11.glTranslatef(0F, 55F, 0F);
 			float tr = -16.5F;
 			for(int i = 0; i < 4; i++) {
 				GL11.glRotatef(90F, 0F, 1F, 0F);
 				GL11.glTranslatef(0F, 0F, tr);
-				mc.fontRenderer.drawString(countStr, -l / 2, 0, color);
+				mc.fontRendererObj.drawString(countStr, -l / 2, 0, color);
 				GL11.glTranslatef(0F, 0F, 0.1F);
-				mc.fontRenderer.drawString(countStr, -l / 2 + 1, 1, colorShade);
+				mc.fontRendererObj.drawString(countStr, -l / 2 + 1, 1, colorShade);
 				GL11.glTranslatef(0F, 0F, -tr - 0.1F);
 			}
 			GL11.glEnable(GL11.GL_LIGHTING);

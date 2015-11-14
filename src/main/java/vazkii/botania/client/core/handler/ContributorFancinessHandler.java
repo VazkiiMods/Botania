@@ -21,6 +21,7 @@ import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.settings.GameSettings.Options;
+import net.minecraft.entity.player.EnumPlayerModelParts;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 
@@ -45,7 +46,7 @@ public final class ContributorFancinessHandler {
 	private static boolean phi = true;
 
 	public static void render(RenderPlayerEvent.Specials event) {
-		String name = event.entityPlayer.getDisplayName();
+		String name = event.entityPlayer.getDisplayName().getUnformattedText();
 
 		if(name.equals("Vazkii") || name.equals("_phi")) {
 			if(phi)
@@ -55,7 +56,7 @@ public final class ContributorFancinessHandler {
 			renderGoldfish(event);
 
 		name = name.toLowerCase();
-		if(Minecraft.getMinecraft().gameSettings.getOptionOrdinalValue(Options.SHOW_CAPE) && flowerMap != null && flowerMap.containsKey(name))
+		if(event.entityPlayer.isWearing(EnumPlayerModelParts.CAPE) && flowerMap != null && flowerMap.containsKey(name))
 			renderFlower(event, flowerMap.get(name));
 	}
 

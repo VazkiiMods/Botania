@@ -156,7 +156,7 @@ public class TileHourglass extends TileSimpleInventory {
 
 			int time = getTotalTime();
 			String timeStr = StringUtils.ticksToElapsedTime(time);
-			mc.fontRenderer.drawStringWithShadow(timeStr, x + 20, y, getColor());
+			mc.fontRendererObj.drawStringWithShadow(timeStr, x + 20, y, getColor());
 
 			String status = "";
 			if(lock)
@@ -164,7 +164,7 @@ public class TileHourglass extends TileSimpleInventory {
 			if(!move)
 				status = status.isEmpty() ? "stopped" : "lockedStopped";
 			if(!status.isEmpty())
-				mc.fontRenderer.drawStringWithShadow(StatCollector.translateToLocal("botaniamisc." + status), x + 20, y + 12, getColor());
+				mc.fontRendererObj.drawStringWithShadow(StatCollector.translateToLocal("botaniamisc." + status), x + 20, y + 12, getColor());
 		}
 
 	}

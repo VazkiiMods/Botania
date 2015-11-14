@@ -47,14 +47,14 @@ public final class BossBarHandler {
 		Minecraft mc = Minecraft.getMinecraft();
 		Rectangle bgRect = currentBoss.getBossBarTextureRect();
 		Rectangle fgRect = currentBoss.getBossBarHPTextureRect();
-		String name = currentBoss.func_145748_c_().getFormattedText();
+		String name = currentBoss.getDisplayName().getFormattedText();
 		int c = res.getScaledWidth() / 2;
 		int x = c - bgRect.width / 2;
 		int y = 20;
 		int xf = x + (bgRect.width - fgRect.width) / 2;
 		int yf = y + (bgRect.height - fgRect.height) / 2;
 		int fw = (int) ((double) fgRect.width * (currentBoss.getHealth() / currentBoss.getMaxHealth()));
-		int tx = c - mc.fontRenderer.getStringWidth(name) / 2;
+		int tx = c - mc.fontRendererObj.getStringWidth(name) / 2;
 
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		currentBoss.bossBarRenderCallback(res, x, y);
@@ -63,7 +63,7 @@ public final class BossBarHandler {
 		mc.renderEngine.bindTexture(currentBoss.getBossBarTexture());
 		drawBar(x, y, bgRect.x, bgRect.y, bgRect.width, bgRect.height, true);
 		drawBar(xf, yf, fgRect.x, fgRect.y, fw, fgRect.height, false);
-		mc.fontRenderer.drawStringWithShadow(name, tx, y - 10, 0xA2018C);
+		mc.fontRendererObj.drawStringWithShadow(name, tx, y - 10, 0xA2018C);
 		GL11.glEnable(GL11.GL_BLEND);
 
 		Entity e = (Entity) currentBoss;
