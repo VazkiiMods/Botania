@@ -53,7 +53,7 @@ public class SubTileMunchdew extends SubTileGenerating {
 
 		int manaPerLeaf = 160;
 		eatLeaves : {
-			if(getMaxMana() - mana >= manaPerLeaf && !supertile.getWorldObj().isRemote && ticksExisted % 4 == 0) {
+			if(getMaxMana() - mana >= manaPerLeaf && !supertile.getWorld().isRemote && ticksExisted % 4 == 0) {
 				List<ChunkCoordinates> coords = new ArrayList();
 				int x = supertile.xCoord;
 				int y = supertile.yCoord;
@@ -65,11 +65,11 @@ public class SubTileMunchdew extends SubTileGenerating {
 							int xp = x + i;
 							int yp = y + j;
 							int zp = z + k;
-							Block block = supertile.getWorldObj().getBlock(xp, yp, zp);
+							Block block = supertile.getWorld().getBlock(xp, yp, zp);
 							if(block.getMaterial() == Material.leaves) {
 								boolean exposed = false;
 								for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS)
-									if(supertile.getWorldObj().getBlock(xp + dir.offsetX, yp + dir.offsetY, zp + dir.offsetZ).isAir(supertile.getWorldObj(), xp + dir.offsetX, yp + dir.offsetY, zp + dir.offsetZ)) {
+									if(supertile.getWorld().getBlock(xp + dir.offsetX, yp + dir.offsetY, zp + dir.offsetZ).isAir(supertile.getWorld(), xp + dir.offsetX, yp + dir.offsetY, zp + dir.offsetZ)) {
 										exposed = true;
 										break;
 									}
@@ -84,13 +84,13 @@ public class SubTileMunchdew extends SubTileGenerating {
 
 				Collections.shuffle(coords);
 				ChunkCoordinates breakCoords = coords.get(0);
-				Block block = supertile.getWorldObj().getBlock(breakCoords.posX, breakCoords.posY, breakCoords.posZ);
-				int meta = supertile.getWorldObj().getBlockMetadata(breakCoords.posX, breakCoords.posY, breakCoords.posZ);
-				supertile.getWorldObj().setBlockToAir(breakCoords.posX, breakCoords.posY, breakCoords.posZ);
+				Block block = supertile.getWorld().getBlock(breakCoords.posX, breakCoords.posY, breakCoords.posZ);
+				int meta = supertile.getWorld().getBlockMetadata(breakCoords.posX, breakCoords.posY, breakCoords.posZ);
+				supertile.getWorld().setBlockToAir(breakCoords.posX, breakCoords.posY, breakCoords.posZ);
 				ticksWithoutEating = 0;
 				ateOnce = true;
 				if(ConfigHandler.blockBreakParticles)
-					supertile.getWorldObj().playAuxSFX(2001, breakCoords.posX, breakCoords.posY, breakCoords.posZ, Block.getIdFromBlock(block) + (meta << 12));
+					supertile.getWorld().playAuxSFX(2001, breakCoords.posX, breakCoords.posY, breakCoords.posZ, Block.getIdFromBlock(block) + (meta << 12));
 				mana += manaPerLeaf;
 			}
 		}

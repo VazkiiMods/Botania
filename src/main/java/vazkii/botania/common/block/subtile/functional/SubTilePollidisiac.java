@@ -31,11 +31,11 @@ public class SubTilePollidisiac extends SubTileFunctional {
 	public void onUpdate() {
 		super.onUpdate();
 
-		if(!supertile.getWorldObj().isRemote) {
+		if(!supertile.getWorld().isRemote) {
 			int manaCost = 12;
 
-			List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.xCoord - RANGE, supertile.yCoord, supertile.zCoord - RANGE, supertile.xCoord + 1 + RANGE, supertile.yCoord + 1, supertile.zCoord + 1 +RANGE));
-			List<EntityAnimal> animals = supertile.getWorldObj().getEntitiesWithinAABB(EntityAnimal.class, new AxisAlignedBB(supertile.xCoord - RANGE, supertile.yCoord, supertile.zCoord - RANGE, supertile.xCoord + 1 +RANGE, supertile.yCoord + 1, supertile.zCoord + 1 +RANGE));
+			List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.xCoord - RANGE, supertile.yCoord, supertile.zCoord - RANGE, supertile.xCoord + 1 + RANGE, supertile.yCoord + 1, supertile.zCoord + 1 +RANGE));
+			List<EntityAnimal> animals = supertile.getWorld().getEntitiesWithinAABB(EntityAnimal.class, new AxisAlignedBB(supertile.xCoord - RANGE, supertile.yCoord, supertile.zCoord - RANGE, supertile.xCoord + 1 +RANGE, supertile.yCoord + 1, supertile.zCoord + 1 +RANGE));
 			for(EntityAnimal animal : animals) {
 				if(mana < manaCost)
 					break;
@@ -56,7 +56,7 @@ public class SubTilePollidisiac extends SubTileFunctional {
 
 							ReflectionHelper.setPrivateValue(EntityAnimal.class, animal, 1200, LibObfuscation.IN_LOVE);
 							animal.setTarget(null);
-							supertile.getWorldObj().setEntityState(animal, (byte)18);
+							supertile.getWorld().setEntityState(animal, (byte)18);
 						}
 					}
 				}

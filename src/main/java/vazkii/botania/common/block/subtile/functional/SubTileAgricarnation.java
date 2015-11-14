@@ -34,22 +34,22 @@ public class SubTileAgricarnation extends SubTileFunctional {
 
 		if(ticksExisted % 6 == 0 && redstoneSignal == 0) {
 			int range = getRange();
-			int x = supertile.xCoord + supertile.getWorldObj().rand.nextInt(range * 2 + 1) - range;
-			int z = supertile.zCoord + supertile.getWorldObj().rand.nextInt(range * 2 + 1) - range;
+			int x = supertile.xCoord + supertile.getWorld().rand.nextInt(range * 2 + 1) - range;
+			int z = supertile.zCoord + supertile.getWorld().rand.nextInt(range * 2 + 1) - range;
 
 			for(int i = 4; i > -2; i--) {
 				int y = supertile.yCoord + i;
 
-				if(supertile.getWorldObj().isAirBlock(x, y, z))
+				if(supertile.getWorld().isAirBlock(x, y, z))
 					continue;
 
 				if(isPlant(x, y, z) && mana > 5) {
-					Block block = supertile.getWorldObj().getBlock(x, y, z);
+					Block block = supertile.getWorld().getBlock(x, y, z);
 					mana -= 5;
-					supertile.getWorldObj().scheduleBlockUpdate(x, y, z, block, 1);
+					supertile.getWorld().scheduleBlockUpdate(x, y, z, block, 1);
 					if(ConfigHandler.blockBreakParticles)
-						supertile.getWorldObj().playAuxSFX(2005, x, y, z, 6 + supertile.getWorldObj().rand.nextInt(4));
-					supertile.getWorldObj().playSoundEffect(x, y, z, "botania:agricarnation", 0.1F, 0.5F + (float) Math.random() * 0.5F);
+						supertile.getWorld().playAuxSFX(2005, x, y, z, 6 + supertile.getWorld().rand.nextInt(4));
+					supertile.getWorld().playSoundEffect(x, y, z, "botania:agricarnation", 0.1F, 0.5F + (float) Math.random() * 0.5F);
 
 					break;
 				}
@@ -63,12 +63,12 @@ public class SubTileAgricarnation extends SubTileFunctional {
 	}
 
 	boolean isPlant(int x, int y, int z) {
-		Block block = supertile.getWorldObj().getBlock(x, y, z);
+		Block block = supertile.getWorld().getBlock(x, y, z);
 		if(block == Blocks.grass || block == Blocks.leaves || block == Blocks.leaves2 || block instanceof BlockBush && !(block instanceof BlockCrops) && !(block instanceof BlockSapling))
 			return false;
 
 		Material mat = block.getMaterial();
-		return mat != null && (mat == Material.plants || mat == Material.cactus || mat == Material.grass || mat == Material.leaves || mat == Material.gourd) && block instanceof IGrowable && ((IGrowable) block).func_149851_a(supertile.getWorldObj(), x, y, z, supertile.getWorldObj().isRemote);
+		return mat != null && (mat == Material.plants || mat == Material.cactus || mat == Material.grass || mat == Material.leaves || mat == Material.gourd) && block instanceof IGrowable && ((IGrowable) block).func_149851_a(supertile.getWorld(), x, y, z, supertile.getWorld().isRemote);
 	}
 
 	@Override

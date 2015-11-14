@@ -47,13 +47,13 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 	public void onUpdate() {
 		super.onUpdate();
 
-		if(redstoneSignal == 0 && supertile.getWorldObj().blockExists(bindX, bindY, bindZ)) {
+		if(redstoneSignal == 0 && supertile.getWorld().blockExists(bindX, bindY, bindZ)) {
 			int x = supertile.xCoord;
 			int y = supertile.yCoord;
 			int z = supertile.zCoord;
 
 			boolean did = false;
-			List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x - RANGE, y - RANGE, z - RANGE, x + RANGE + 1, y + RANGE, z + RANGE + 1));
+			List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x - RANGE, y - RANGE, z - RANGE, x + RANGE + 1, y + RANGE, z + RANGE + 1));
 			for(EntityItem item : items) {
 				if(item.age < 60 || item.isDead || item.getEntityData().getBoolean(TAG_TELEPORTED))
 					continue;
@@ -71,7 +71,7 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 						item.getEntityData().setBoolean(TAG_TELEPORTED, true);
 						item.motionX = item.motionY = item.motionZ = 0;
 						spawnExplosionParticles(item);
-						if(!supertile.getWorldObj().isRemote) {
+						if(!supertile.getWorld().isRemote) {
 							mana -= cost;
 							did = true;
 						}

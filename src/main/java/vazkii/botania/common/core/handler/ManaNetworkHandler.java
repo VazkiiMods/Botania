@@ -70,7 +70,7 @@ public final class ManaNetworkHandler implements IManaNetwork {
 	}
 
 	private synchronized boolean isIn(TileEntity tile, Map<World, List<TileSignature>> map) {
-		List<TileSignature> list = map.get(tile.getWorldObj());
+		List<TileSignature> list = map.get(tile.getWorld());
 		if(list == null)
 			return false;
 
@@ -106,7 +106,7 @@ public final class ManaNetworkHandler implements IManaNetwork {
 	}
 
 	private synchronized void remove(Map<World, List<TileSignature>> map, TileEntity tile) {
-		World world = tile.getWorldObj();
+		World world = tile.getWorld();
 
 		if(!map.containsKey(world))
 			return;
@@ -120,7 +120,7 @@ public final class ManaNetworkHandler implements IManaNetwork {
 	}
 
 	private synchronized void add(Map<World, List<TileSignature>> map, TileEntity tile) {
-		World world = tile.getWorldObj();
+		World world = tile.getWorld();
 
 		List<TileSignature> tiles;
 		if(!map.containsKey(world))
@@ -129,7 +129,7 @@ public final class ManaNetworkHandler implements IManaNetwork {
 		tiles = map.get(world);
 
 		if(!tiles.contains(tile))
-			tiles.add(new TileSignature(tile, tile.getWorldObj().isRemote));
+			tiles.add(new TileSignature(tile, tile.getWorld().isRemote));
 	}
 
 	@Override

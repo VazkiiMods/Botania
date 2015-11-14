@@ -30,7 +30,7 @@ public class SubTileLoonuim extends SubTileFunctional {
 	public void onUpdate() {
 		super.onUpdate();
 		if(redstoneSignal == 0 && ticksExisted % 200 == 0 && mana >= COST) {
-			Random rand = supertile.getWorldObj().rand;
+			Random rand = supertile.getWorld().rand;
 
 			ItemStack stack;
 			do {
@@ -38,13 +38,13 @@ public class SubTileLoonuim extends SubTileFunctional {
 			} while(stack == null || BotaniaAPI.looniumBlacklist.contains(stack.getItem()));
 
 			int bound = RANGE * 2 + 1;
-			EntityItem entity = new EntityItem(supertile.getWorldObj(), supertile.xCoord - RANGE + rand.nextInt(bound) , supertile.yCoord + 1, supertile.zCoord - RANGE + rand.nextInt(bound), stack);
+			EntityItem entity = new EntityItem(supertile.getWorld(), supertile.xCoord - RANGE + rand.nextInt(bound) , supertile.yCoord + 1, supertile.zCoord - RANGE + rand.nextInt(bound), stack);
 			entity.motionX = 0;
 			entity.motionY = 0;
 			entity.motionZ = 0;
 
-			if(!supertile.getWorldObj().isRemote)
-				supertile.getWorldObj().spawnEntityInWorld(entity);
+			if(!supertile.getWorld().isRemote)
+				supertile.getWorld().spawnEntityInWorld(entity);
 
 			mana -= COST;
 			sync();

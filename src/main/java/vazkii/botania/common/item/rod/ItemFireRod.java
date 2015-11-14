@@ -73,7 +73,7 @@ public class ItemFireRod extends ItemMod implements IManaUsingItem, IAvatarWield
 	@Override
 	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
 		TileEntity te = (TileEntity) tile;
-		World world = te.getWorldObj();
+		World world = te.getWorld();
 
 		if(!world.isRemote && tile.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 300 == 0 && tile.isEnabled()) {
 			EntityFlameRing entity = new EntityFlameRing(world);

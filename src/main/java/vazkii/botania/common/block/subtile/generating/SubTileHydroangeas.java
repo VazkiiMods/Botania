@@ -47,12 +47,12 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 		if(cooldown > 0) {
 			cooldown--;
 			for(int i = 0; i < 3; i++)
-				Botania.proxy.wispFX(supertile.getWorldObj(), supertile.xCoord + 0.5 + Math.random() * 0.2 - 0.1, supertile.yCoord + 0.5 + Math.random() * 0.2 - 0.1, supertile.zCoord + 0.5 + Math.random() * 0.2 - 0.1, 0.1F, 0.1F, 0.1F, (float) Math.random() / 6, (float) -Math.random() / 30);
+				Botania.proxy.wispFX(supertile.getWorld(), supertile.xCoord + 0.5 + Math.random() * 0.2 - 0.1, supertile.yCoord + 0.5 + Math.random() * 0.2 - 0.1, supertile.zCoord + 0.5 + Math.random() * 0.2 - 0.1, 0.1F, 0.1F, 0.1F, (float) Math.random() / 6, (float) -Math.random() / 30);
 			return;
 		}
 
 		if(burnTime == 0) {
-			if(mana < getMaxMana() && !supertile.getWorldObj().isRemote) {
+			if(mana < getMaxMana() && !supertile.getWorld().isRemote) {
 				List<int[]> offsets = Arrays.asList(OFFSETS);
 				Collections.shuffle(offsets);
 
@@ -63,17 +63,17 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 					};
 
 					Material search = getMaterialToSearchFor();
-					if(supertile.getWorldObj().getBlock(positions[0], supertile.yCoord, positions[1]).getMaterial() == search && (getBlockToSearchBelow() == null || supertile.getWorldObj().getBlock(positions[0], supertile.yCoord - 1, positions[1]) == getBlockToSearchBelow()) && supertile.getWorldObj().getBlockMetadata(positions[0], supertile.yCoord, positions[1]) == 0) {
+					if(supertile.getWorld().getBlock(positions[0], supertile.yCoord, positions[1]).getMaterial() == search && (getBlockToSearchBelow() == null || supertile.getWorld().getBlock(positions[0], supertile.yCoord - 1, positions[1]) == getBlockToSearchBelow()) && supertile.getWorld().getBlockMetadata(positions[0], supertile.yCoord, positions[1]) == 0) {
 						if(search != Material.water)
-							supertile.getWorldObj().setBlockToAir(positions[0], supertile.yCoord, positions[1]);
+							supertile.getWorld().setBlockToAir(positions[0], supertile.yCoord, positions[1]);
 						else {
 							int waterAround = 0;
 							for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS)
-								if(supertile.getWorldObj().getBlock(positions[0] + dir.offsetX, supertile.yCoord, positions[1] + dir.offsetZ).getMaterial() == search)
+								if(supertile.getWorld().getBlock(positions[0] + dir.offsetX, supertile.yCoord, positions[1] + dir.offsetZ).getMaterial() == search)
 									waterAround++;
 
 							if(waterAround < 2)
-								supertile.getWorldObj().setBlockToAir(positions[0], supertile.yCoord, positions[1]);
+								supertile.getWorld().setBlockToAir(positions[0], supertile.yCoord, positions[1]);
 						}
 
 						burnTime += getBurnTime();
@@ -84,7 +84,7 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 				}
 			}
 		} else {
-			if(supertile.getWorldObj().rand.nextInt(8) == 0)
+			if(supertile.getWorld().rand.nextInt(8) == 0)
 				doBurnParticles();
 			burnTime--;
 			if(burnTime == 0) {
@@ -97,7 +97,7 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 	public int getSurroundingFlowers() {
 		int flowers = 0;
 		for(int[] offsetArray : OFFSETS) {
-			TileEntity tile = supertile.getWorldObj().getTileEntity(supertile.xCoord + offsetArray[0], supertile.yCoord, supertile.zCoord + offsetArray[1]);
+			TileEntity tile = supertile.getWorld().getTileEntity(supertile.xCoord + offsetArray[0], supertile.yCoord, supertile.zCoord + offsetArray[1]);
 			if(tile != null && tile instanceof ISubTileContainer) {
 				ISubTileContainer flower = (ISubTileContainer) tile;
 				if(flower.getSubTile() != null && flower.getSubTile().getClass() == getClass()) {
@@ -110,7 +110,7 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 
 					float m = 0.045F;
 					if(ticksExisted % 10 == 0)
-						Botania.proxy.wispFX(supertile.getWorldObj(), supertile.xCoord + 0.5, supertile.yCoord + 0.05, supertile.zCoord + 0.5, r, g, b, 0.1F, offsetArray[0] * m, 0, offsetArray[1] * m);
+						Botania.proxy.wispFX(supertile.getWorld(), supertile.xCoord + 0.5, supertile.yCoord + 0.05, supertile.zCoord + 0.5, r, g, b, 0.1F, offsetArray[0] * m, 0, offsetArray[1] * m);
 				}
 			}
 		}
@@ -119,7 +119,7 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 	}
 
 	public void doBurnParticles() {
-		Botania.proxy.wispFX(supertile.getWorldObj(), supertile.xCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.yCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.zCoord + 0.5, 0.05F, 0.05F, 0.7F, (float) Math.random() / 6, (float) -Math.random() / 60);
+		Botania.proxy.wispFX(supertile.getWorld(), supertile.xCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.yCoord + 0.55 + Math.random() * 0.2 - 0.1, supertile.zCoord + 0.5, 0.05F, 0.05F, 0.7F, (float) Math.random() / 6, (float) -Math.random() / 60);
 	}
 
 	public Material getMaterialToSearchFor() {
@@ -131,7 +131,7 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 	}
 
 	public void playSound() {
-		supertile.getWorldObj().playSoundEffect(supertile.xCoord, supertile.yCoord, supertile.zCoord, "random.drink", 0.01F, 0.5F + (float) Math.random() * 0.5F);
+		supertile.getWorld().playSoundEffect(supertile.xCoord, supertile.yCoord, supertile.zCoord, "random.drink", 0.01F, 0.5F + (float) Math.random() * 0.5F);
 	}
 
 	public int getBurnTime() {
@@ -194,12 +194,12 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 	@Override
 	public boolean canGeneratePassively() {
 		int adj = getSurroundingFlowers();
-		return supertile.getWorldObj().rand.nextInt(adj + 1) == 0 && burnTime > 0;
+		return supertile.getWorld().rand.nextInt(adj + 1) == 0 && burnTime > 0;
 	}
 
 	@Override
 	public int getDelayBetweenPassiveGeneration() {
-		boolean rain = supertile.getWorldObj().getWorldChunkManager().getBiomeGenAt(supertile.xCoord, supertile.zCoord).getIntRainfall() > 0 && (supertile.getWorldObj().isRaining() || supertile.getWorldObj().isThundering());
+		boolean rain = supertile.getWorld().getWorldChunkManager().getBiomeGenAt(supertile.xCoord, supertile.zCoord).getIntRainfall() > 0 && (supertile.getWorld().isRaining() || supertile.getWorld().isThundering());
 		return rain ? 1 : 2;
 	}
 

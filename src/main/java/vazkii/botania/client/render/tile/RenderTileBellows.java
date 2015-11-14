@@ -41,7 +41,7 @@ public class RenderTileBellows extends TileEntitySpecialRenderer {
 		GL11.glTranslated(d0, d1, d2);
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
-		int meta = bellows.getWorldObj() != null ? bellows.getBlockMetadata() : 0;
+		int meta = bellows.getWorld() != null ? bellows.getBlockMetadata() : 0;
 
 		GL11.glTranslatef(0.5F, 1.5F, 0.5F);
 		GL11.glScalef(1F, -1F, -1F);

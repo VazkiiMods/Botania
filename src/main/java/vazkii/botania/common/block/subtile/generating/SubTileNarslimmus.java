@@ -36,7 +36,7 @@ public class SubTileNarslimmus extends SubTileGenerating {
 		super.onUpdate();
 
 		if(ticksExisted % 5 == 0) {
-			List<EntitySlime> slimes = supertile.getWorldObj().getEntitiesWithinAABB(EntitySlime.class, new AxisAlignedBB(supertile.xCoord - RANGE, supertile.yCoord - RANGE, supertile.zCoord - RANGE, supertile.xCoord + RANGE + 1, supertile.yCoord + RANGE, supertile.zCoord + RANGE + 1));
+			List<EntitySlime> slimes = supertile.getWorld().getEntitiesWithinAABB(EntitySlime.class, new AxisAlignedBB(supertile.xCoord - RANGE, supertile.yCoord - RANGE, supertile.zCoord - RANGE, supertile.xCoord + RANGE + 1, supertile.yCoord + RANGE, supertile.zCoord + RANGE + 1));
 			for(EntitySlime slime : slimes) {
 				if(slime.getEntityData().getBoolean(TAG_WORLD_SPAWNED) && !slime.isDead) {
 					int size = slime.getSlimeSize();

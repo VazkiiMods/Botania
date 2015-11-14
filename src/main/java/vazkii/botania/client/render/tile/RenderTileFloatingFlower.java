@@ -38,15 +38,15 @@ public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		GL11.glTranslated(d0, d1, d2);
 
-		double worldTime = tile.getWorldObj() == null ? 0 : (double) (ClientTickHandler.ticksInGame + t);
-		if(tile.getWorldObj() != null)
+		double worldTime = tile.getWorld() == null ? 0 : (double) (ClientTickHandler.ticksInGame + t);
+		if(tile.getWorld() != null)
 			worldTime += new Random(tile.xCoord ^ tile.yCoord ^ tile.zCoord).nextInt(1000);
 
 		GL11.glTranslatef(0.5F, 0F, 0.5F);
 		GL11.glRotatef(-((float) worldTime * 0.5F), 0F, 1F, 0F);
 		GL11.glTranslatef(-0.5F, 0F, -0.5F);
 
-		if(tile.getWorldObj() != null) {
+		if(tile.getWorld() != null) {
 			GL11.glTranslatef(0F, (float) Math.sin(worldTime * 0.05F) * 0.1F, 0F);
 			GL11.glRotatef(4F * (float) Math.sin(worldTime * 0.04F), 1F, 0F, 0F);
 		}

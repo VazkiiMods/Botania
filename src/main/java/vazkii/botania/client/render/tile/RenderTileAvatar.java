@@ -51,7 +51,7 @@ public class RenderTileAvatar extends TileEntitySpecialRenderer {
 		GL11.glTranslated(d0, d1, d2);
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
-		int meta = avatar.getWorldObj() != null ? avatar.getBlockMetadata() : 0;
+		int meta = avatar.getWorld() != null ? avatar.getBlockMetadata() : 0;
 
 		GL11.glTranslatef(0.5F, 1.6F, 0.5F);
 		GL11.glScalef(1F, -1F, -1F);

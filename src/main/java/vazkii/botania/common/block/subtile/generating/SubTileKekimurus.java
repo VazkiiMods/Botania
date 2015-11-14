@@ -27,22 +27,22 @@ public class SubTileKekimurus extends SubTileGenerating {
 
 		int mana = 1800;
 
-		if(getMaxMana() - this.mana >= mana && !supertile.getWorldObj().isRemote && ticksExisted % 80 == 0) {
+		if(getMaxMana() - this.mana >= mana && !supertile.getWorld().isRemote && ticksExisted % 80 == 0) {
 			for(int i = 0; i < RANGE * 2 + 1; i++)
 				for(int j = 0; j < RANGE * 2 + 1; j++)
 					for(int k = 0; k < RANGE * 2 + 1; k++) {
 						int x = supertile.xCoord + i - RANGE;
 						int y = supertile.yCoord + j - RANGE;
 						int z = supertile.zCoord + k - RANGE;
-						Block block = supertile.getWorldObj().getBlock(x, y, z);
+						Block block = supertile.getWorld().getBlock(x, y, z);
 						if(block instanceof BlockCake) {
-							int meta = supertile.getWorldObj().getBlockMetadata(x, y, z) + 1;
+							int meta = supertile.getWorld().getBlockMetadata(x, y, z) + 1;
 							if(meta == 6)
-								supertile.getWorldObj().setBlockToAir(x, y, z);
-							else supertile.getWorldObj().setBlockMetadataWithNotify(x, y, z, meta, 1 | 2);
+								supertile.getWorld().setBlockToAir(x, y, z);
+							else supertile.getWorld().setBlockMetadataWithNotify(x, y, z, meta, 1 | 2);
 
-							supertile.getWorldObj().playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
-							supertile.getWorldObj().playSoundEffect(supertile.xCoord, supertile.yCoord, supertile.zCoord, "random.eat", 1F, 0.5F + (float) Math.random() * 0.5F);
+							supertile.getWorld().playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
+							supertile.getWorld().playSoundEffect(supertile.xCoord, supertile.yCoord, supertile.zCoord, "random.eat", 1F, 0.5F + (float) Math.random() * 0.5F);
 							this.mana += mana;
 							sync();
 							return;

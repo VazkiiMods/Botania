@@ -56,7 +56,7 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			float a = MultiblockRenderHandler.rendering ? 0.6F : 1F;
 			GL11.glColor4f(1F, 1F, 1F, a);
-			if(tileentity.getWorldObj() != null) {
+			if(tileentity.getWorld() != null) {
 				green = tileentity.getBlockMetadata() == 1;
 				pink = tileentity.getBlockMetadata() == 2;
 			}
@@ -65,7 +65,7 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 				Minecraft.getMinecraft().renderEngine.bindTexture(pink ? texturePinkOld : green ? textureGreenOld : textureOld);
 			else Minecraft.getMinecraft().renderEngine.bindTexture(pink ? texturePink : green ? textureGreen : texture);
 
-			double worldTime = tileentity.getWorldObj() == null ? 0 : (double) (ClientTickHandler.ticksInGame + pticks);
+			double worldTime = tileentity.getWorld() == null ? 0 : (double) (ClientTickHandler.ticksInGame + pticks);
 
 			if(tileentity != null)
 				worldTime += new Random(tileentity.xCoord ^ tileentity.yCoord ^ tileentity.zCoord).nextInt(360);

@@ -45,7 +45,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 	public void onUpdate() {
 		super.onUpdate();
 
-		if(!supertile.getWorldObj().isRemote && redstoneSignal > 0 && ticksExisted % SPEED == 0)
+		if(!supertile.getWorld().isRemote && redstoneSignal > 0 && ticksExisted % SPEED == 0)
 			runSimulation();
 	}
 
@@ -121,7 +121,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 	}
 
 	int getCellGeneration(int x, int y, int z) {
-		TileEntity tile = supertile.getWorldObj().getTileEntity(x, y, z);
+		TileEntity tile = supertile.getWorld().getTileEntity(x, y, z);
 		if(tile instanceof TileCell)
 			return ((TileCell) tile).isSameFlower(supertile) ? ((TileCell) tile).getGeneration() : 0;
 
@@ -163,7 +163,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 	}
 
 	void setBlockForGeneration(int x, int y, int z, int gen, int prevGen) {
-		World world = supertile.getWorldObj();
+		World world = supertile.getWorld();
 		Block blockAt = world.getBlock(x, y, z);
 		TileEntity tile = world.getTileEntity(x, y, z);
 		if(gen == -2) {
@@ -174,7 +174,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 			if(gen < 0 || gen > MAX_GENERATIONS)
 				world.setBlockToAir(x, y, z);
 			else ((TileCell) tile).setGeneration(supertile, gen);
-		} else if(gen >= 0 && blockAt.isAir(supertile.getWorldObj(), x, y, z)) {
+		} else if(gen >= 0 && blockAt.isAir(supertile.getWorld(), x, y, z)) {
 			world.setBlock(x, y, z, ModBlocks.cellBlock);
 			tile = world.getTileEntity(x, y, z);
 			((TileCell) tile).setGeneration(supertile, gen);

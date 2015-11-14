@@ -37,8 +37,8 @@ public class SubTileDaffomill extends SubTileFunctional {
 		super.onUpdate();
 
 		ForgeDirection dir = ForgeDirection.getOrientation(orientation + 2);
-		if(supertile.getWorldObj().rand.nextInt(4) == 0)
-			Botania.proxy.wispFX(supertile.getWorldObj(), supertile.xCoord + Math.random(), supertile.yCoord + Math.random(), supertile.zCoord + Math.random(), 0.05F, 0.05F, 0.05F, 0.25F + (float) Math.random() * 0.15F, dir.offsetX * 0.1F, dir.offsetY * 0.1F, dir.offsetZ * 0.1F);
+		if(supertile.getWorld().rand.nextInt(4) == 0)
+			Botania.proxy.wispFX(supertile.getWorld(), supertile.xCoord + Math.random(), supertile.yCoord + Math.random(), supertile.zCoord + Math.random(), 0.05F, 0.05F, 0.05F, 0.25F + (float) Math.random() * 0.15F, dir.offsetX * 0.1F, dir.offsetY * 0.1F, dir.offsetZ * 0.1F);
 
 		if(windTicks == 0 && mana > 0) {
 			windTicks = 20;
@@ -49,7 +49,7 @@ public class SubTileDaffomill extends SubTileFunctional {
 			AxisAlignedBB axis = aabbForOrientation();
 
 			if(axis != null) {
-				List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, axis);
+				List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, axis);
 				for(EntityItem item : items) {
 					item.motionX += dir.offsetX * 0.05;
 					item.motionY += dir.offsetY * 0.05;

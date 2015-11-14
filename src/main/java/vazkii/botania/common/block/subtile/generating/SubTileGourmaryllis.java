@@ -36,14 +36,14 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 
 		if(cooldown > 0)
 			cooldown--;
-		if(cooldown == 0 && !supertile.getWorldObj().isRemote) {
+		if(cooldown == 0 && !supertile.getWorld().isRemote) {
 			mana = Math.min(getMaxMana(), mana + storedMana);
 			storedMana = 0;
 			sync();
 		}
 
-		if(!supertile.getWorldObj().isRemote) {
-			List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.xCoord - RANGE, supertile.yCoord - RANGE, supertile.zCoord - RANGE, supertile.xCoord + RANGE + 1, supertile.yCoord + RANGE + 1, supertile.zCoord + RANGE + 1));
+		if(!supertile.getWorld().isRemote) {
+			List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.xCoord - RANGE, supertile.yCoord - RANGE, supertile.zCoord - RANGE, supertile.xCoord + RANGE + 1, supertile.yCoord + RANGE + 1, supertile.zCoord + RANGE + 1));
 			for(EntityItem item : items) {
 				ItemStack stack = item.getEntityItem();
 				if(stack != null && stack.getItem() instanceof ItemFood && !item.isDead) {
@@ -51,7 +51,7 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 						int val = ((ItemFood) stack.getItem()).func_150905_g(stack);
 						storedMana = val * val * 64;
 						cooldown = val * 10;
-						supertile.getWorldObj().playSoundEffect(supertile.xCoord, supertile.yCoord, supertile.zCoord, "random.eat", 0.2F, 0.5F + (float) Math.random() * 0.5F);
+						supertile.getWorld().playSoundEffect(supertile.xCoord, supertile.yCoord, supertile.zCoord, "random.eat", 0.2F, 0.5F + (float) Math.random() * 0.5F);
 						sync();
 					}
 

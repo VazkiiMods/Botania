@@ -77,7 +77,7 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer {
 		GL11.glColor3f(1F, 1F, 1F);
 
 		GL11.glPushMatrix();
-		double worldTicks = tileentity.getWorldObj() == null ? 0 : time;
+		double worldTicks = tileentity.getWorld() == null ? 0 : time;
 		GL11.glRotatef((float) worldTicks % 360, 0F, 1F, 0F);
 		GL11.glTranslatef(0F, (float) Math.sin(worldTicks / 20.0) * 0.05F, 0F);
 		model.renderCube();

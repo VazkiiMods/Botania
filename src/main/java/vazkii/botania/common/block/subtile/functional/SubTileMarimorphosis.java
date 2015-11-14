@@ -53,16 +53,16 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 		if(redstoneSignal > 0)
 			return;
 
-		if(!supertile.getWorldObj().isRemote && mana >= COST && ticksExisted % 2 == 0) {
+		if(!supertile.getWorld().isRemote && mana >= COST && ticksExisted % 2 == 0) {
 			ChunkCoordinates coords = getCoordsToPut();
 			if(coords != null) {
 				ItemStack stack = getStoneToPut(coords);
 				if(stack != null) {
 					Block block = Block.getBlockFromItem(stack.getItem());
 					int meta = stack.getItemDamage();
-					supertile.getWorldObj().setBlock(coords.posX, coords.posY, coords.posZ, block, meta, 1 | 2);
+					supertile.getWorld().setBlock(coords.posX, coords.posY, coords.posZ, block, meta, 1 | 2);
 					if(ConfigHandler.blockBreakParticles)
-						supertile.getWorldObj().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(block) + (meta << 12));
+						supertile.getWorld().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(block) + (meta << 12));
 
 					mana -= COST;
 					sync();
@@ -72,7 +72,7 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 	}
 
 	public ItemStack getStoneToPut(ChunkCoordinates coords) {
-		List<Type> types = Arrays.asList(BiomeDictionary.getTypesForBiome(supertile.getWorldObj().getBiomeGenForCoords(coords.posX, coords.posZ)));
+		List<Type> types = Arrays.asList(BiomeDictionary.getTypesForBiome(supertile.getWorld().getBiomeGenForCoords(coords.posX, coords.posZ)));
 
 		List<Integer> values = new ArrayList();
 		for(int i = 0; i < 8; i++) {
@@ -84,7 +84,7 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 				values.add(i);
 		}
 
-		return new ItemStack(ModFluffBlocks.biomeStoneA, 1, values.get(supertile.getWorldObj().rand.nextInt(values.size())));
+		return new ItemStack(ModFluffBlocks.biomeStoneA, 1, values.get(supertile.getWorld().rand.nextInt(values.size())));
 	}
 
 	public ChunkCoordinates getCoordsToPut() {
@@ -99,14 +99,14 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 					int x = supertile.xCoord + i;
 					int y = supertile.yCoord + j;
 					int z = supertile.zCoord + k;
-					Block block = supertile.getWorldObj().getBlock(x, y, z);
-					if(block != null && block.isReplaceableOreGen(supertile.getWorldObj(), x, y, z, Blocks.stone))
+					Block block = supertile.getWorld().getBlock(x, y, z);
+					if(block != null && block.isReplaceableOreGen(supertile.getWorld(), x, y, z, Blocks.stone))
 						possibleCoords.add(new ChunkCoordinates(x, y, z));
 				}
 
 		if(possibleCoords.isEmpty())
 			return null;
-		return possibleCoords.get(supertile.getWorldObj().rand.nextInt(possibleCoords.size()));
+		return possibleCoords.get(supertile.getWorld().rand.nextInt(possibleCoords.size()));
 	}
 
 	@Override

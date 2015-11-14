@@ -28,7 +28,7 @@ public class TileManaDetector extends TileMod implements IManaCollisionGhost {
 
 			if(expectedMeta == 1)
 				for(int i = 0; i < 4; i++)
-					Botania.proxy.sparkleFX(getWorldObj(), xCoord + Math.random(), yCoord + Math.random(), zCoord + Math.random(), 1F, 0.2F, 0.2F, 0.7F + 0.5F * (float) Math.random(), 5);
+					Botania.proxy.sparkleFX(getWorld(), xCoord + Math.random(), yCoord + Math.random(), zCoord + Math.random(), 1F, 0.2F, 0.2F, 0.7F + 0.5F * (float) Math.random(), 5);
 		}
 	}
 

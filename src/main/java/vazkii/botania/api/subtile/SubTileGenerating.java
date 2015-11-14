@@ -71,7 +71,7 @@ public class SubTileGenerating extends SubTileEntity {
 
 		if(canGeneratePassively()) {
 			int delay = getDelayBetweenPassiveGeneration();
-			if(delay > 0 && ticksExisted % delay == 0 && !supertile.getWorldObj().isRemote) {
+			if(delay > 0 && ticksExisted % delay == 0 && !supertile.getWorld().isRemote) {
 				if(shouldSyncPassiveGeneration())
 					sync();
 				addMana(getValueForPassiveGeneration());
@@ -82,27 +82,27 @@ public class SubTileGenerating extends SubTileEntity {
 		if(acceptsRedstone()) {
 			redstoneSignal = 0;
 			for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-				int redstoneSide = supertile.getWorldObj().getIndirectPowerLevelTo(supertile.xCoord + dir.offsetX, supertile.yCoord + dir.offsetY, supertile.zCoord + dir.offsetZ, dir.ordinal());
+				int redstoneSide = supertile.getWorld().getIndirectPowerLevelTo(supertile.xCoord + dir.offsetX, supertile.yCoord + dir.offsetY, supertile.zCoord + dir.offsetZ, dir.ordinal());
 				redstoneSignal = Math.max(redstoneSignal, redstoneSide);
 			}
 		}
 
-		if(supertile.getWorldObj().isRemote) {
+		if(supertile.getWorld().isRemote) {
 			double particleChance = 1F - (double) mana / (double) getMaxMana() / 3.5F;
 			Color color = new Color(getColor());
 			if(Math.random() > particleChance)
-				BotaniaAPI.internalHandler.sparkleFX(supertile.getWorldObj(), supertile.xCoord + 0.3 + Math.random() * 0.5, supertile.yCoord + 0.5 + Math.random()  * 0.5, supertile.zCoord + 0.3 + Math.random() * 0.5, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random(), 5);
+				BotaniaAPI.internalHandler.sparkleFX(supertile.getWorld(), supertile.xCoord + 0.3 + Math.random() * 0.5, supertile.yCoord + 0.5 + Math.random()  * 0.5, supertile.zCoord + 0.3 + Math.random() * 0.5, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random(), 5);
 		}
 
 		boolean passive = isPassiveFlower();
-		if(!supertile.getWorldObj().isRemote) {
+		if(!supertile.getWorld().isRemote) {
 			int muhBalance = BotaniaAPI.internalHandler.getPassiveFlowerDecay();
 
 			if(passive && muhBalance > 0 && passiveDecayTicks > muhBalance) {
-				supertile.getWorldObj().playAuxSFX(2001, supertile.xCoord, supertile.yCoord, supertile.zCoord, Block.getIdFromBlock(supertile.getBlockType()));
-				if(supertile.getWorldObj().getBlock(supertile.xCoord, supertile.yCoord - 1, supertile.zCoord).isSideSolid(supertile.getWorldObj(), supertile.xCoord, supertile.yCoord - 1, supertile.zCoord, ForgeDirection.UP))
-					supertile.getWorldObj().setBlock(supertile.xCoord, supertile.yCoord, supertile.zCoord, Blocks.deadbush);
-				else supertile.getWorldObj().setBlockToAir(supertile.xCoord, supertile.yCoord, supertile.zCoord);
+				supertile.getWorld().playAuxSFX(2001, supertile.xCoord, supertile.yCoord, supertile.zCoord, Block.getIdFromBlock(supertile.getBlockType()));
+				if(supertile.getWorld().getBlock(supertile.xCoord, supertile.yCoord - 1, supertile.zCoord).isSideSolid(supertile.getWorld(), supertile.xCoord, supertile.yCoord - 1, supertile.zCoord, ForgeDirection.UP))
+					supertile.getWorld().setBlock(supertile.xCoord, supertile.yCoord, supertile.zCoord, Blocks.deadbush);
+				else supertile.getWorld().setBlockToAir(supertile.xCoord, supertile.yCoord, supertile.zCoord);
 			}
 		}
 
@@ -117,9 +117,9 @@ public class SubTileGenerating extends SubTileEntity {
 
 			if(cachedCollectorCoordinates != null) {
 				needsNew = false;
-				if(supertile.getWorldObj().blockExists(cachedCollectorCoordinates.posX, cachedCollectorCoordinates.posY, cachedCollectorCoordinates.posZ)) {
+				if(supertile.getWorld().blockExists(cachedCollectorCoordinates.posX, cachedCollectorCoordinates.posY, cachedCollectorCoordinates.posZ)) {
 					needsNew = true;
-					TileEntity tileAt = supertile.getWorldObj().getTileEntity(cachedCollectorCoordinates.posX, cachedCollectorCoordinates.posY, cachedCollectorCoordinates.posZ);
+					TileEntity tileAt = supertile.getWorld().getTileEntity(cachedCollectorCoordinates.posX, cachedCollectorCoordinates.posY, cachedCollectorCoordinates.posZ);
 					if(tileAt != null && tileAt instanceof IManaCollector && !tileAt.isInvalid()) {
 						linkedCollector = tileAt;
 						needsNew = false;
@@ -128,17 +128,17 @@ public class SubTileGenerating extends SubTileEntity {
 				}
 			}
 		} else {
-			TileEntity tileAt = supertile.getWorldObj().getTileEntity(linkedCollector.xCoord, linkedCollector.yCoord, linkedCollector.zCoord);
+			TileEntity tileAt = supertile.getWorld().getTileEntity(linkedCollector.xCoord, linkedCollector.yCoord, linkedCollector.zCoord);
 			if(tileAt != null && tileAt instanceof IManaCollector)
 				linkedCollector = tileAt;
 		}
 
 		if(needsNew && ticksExisted == 1) { // New flowers only
 			IManaNetwork network = BotaniaAPI.internalHandler.getManaNetworkInstance();
-			int size = network.getAllCollectorsInWorld(supertile.getWorldObj()).size();
+			int size = network.getAllCollectorsInWorld(supertile.getWorld()).size();
 			if(BotaniaAPI.internalHandler.shouldForceCheck() || size != sizeLastCheck) {
 				ChunkCoordinates coords = new ChunkCoordinates(supertile.xCoord, supertile.yCoord, supertile.zCoord);
-				linkedCollector = network.getClosestCollector(coords, supertile.getWorldObj(), RANGE);
+				linkedCollector = network.getClosestCollector(coords, supertile.getWorld(), RANGE);
 				sizeLastCheck = size;
 			}
 		}
@@ -298,7 +298,7 @@ public class SubTileGenerating extends SubTileEntity {
 
 
 	public boolean isValidBinding() {
-		return linkedCollector != null && !linkedCollector.isInvalid() && supertile.getWorldObj().getTileEntity(linkedCollector.xCoord, linkedCollector.yCoord, linkedCollector.zCoord) == linkedCollector;
+		return linkedCollector != null && !linkedCollector.isInvalid() && supertile.getWorld().getTileEntity(linkedCollector.xCoord, linkedCollector.yCoord, linkedCollector.zCoord) == linkedCollector;
 	}
 
 	@Override

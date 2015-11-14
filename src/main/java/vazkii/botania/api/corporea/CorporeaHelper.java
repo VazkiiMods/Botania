@@ -237,7 +237,7 @@ public final class CorporeaHelper {
 			return null;
 
 		TileEntity tile = (TileEntity) inv;
-		return getSparkForBlock(tile.getWorldObj(), tile.xCoord, tile.yCoord, tile.zCoord);
+		return getSparkForBlock(tile.getWorld(), tile.xCoord, tile.yCoord, tile.zCoord);
 	}
 
 	/**

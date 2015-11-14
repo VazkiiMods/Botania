@@ -100,7 +100,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	}
 
 	public EntityManaBurst(IManaSpreader spreader, boolean fake) {
-		this(((TileEntity)spreader).getWorldObj());
+		this(((TileEntity)spreader).getWorld());
 
 		TileEntity tile = (TileEntity) spreader;
 

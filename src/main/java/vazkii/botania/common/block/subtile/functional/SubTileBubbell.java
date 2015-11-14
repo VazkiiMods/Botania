@@ -47,10 +47,10 @@ public class SubTileBubbell extends SubTileFunctional {
 				for(int j = -range; j < range + 1; j++)
 					for(int k = -range; k < range + 1; k++)
 						if(MathHelper.pointDistanceSpace(i, j, k, 0, 0, 0) < range) {
-							Block block = supertile.getWorldObj().getBlock(supertile.xCoord + i, supertile.yCoord + j, supertile.zCoord + k);
+							Block block = supertile.getWorld().getBlock(supertile.xCoord + i, supertile.yCoord + j, supertile.zCoord + k);
 							if(block.getMaterial() == Material.water) {
-								supertile.getWorldObj().setBlock(supertile.xCoord + i, supertile.yCoord + j, supertile.zCoord + k, ModBlocks.fakeAir, 0, 2);
-								TileFakeAir air = (TileFakeAir) supertile.getWorldObj().getTileEntity(supertile.xCoord + i, supertile.yCoord + j, supertile.zCoord + k);
+								supertile.getWorld().setBlock(supertile.xCoord + i, supertile.yCoord + j, supertile.zCoord + k, ModBlocks.fakeAir, 0, 2);
+								TileFakeAir air = (TileFakeAir) supertile.getWorld().getTileEntity(supertile.xCoord + i, supertile.yCoord + j, supertile.zCoord + k);
 								air.setFlower(supertile);
 							}
 						}

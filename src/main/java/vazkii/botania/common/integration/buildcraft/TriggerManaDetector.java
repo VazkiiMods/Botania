@@ -31,7 +31,7 @@ public class TriggerManaDetector extends StatementBase implements ITriggerIntern
 
 	@Override
 	public boolean isTriggerActive(IStatementContainer source, IStatementParameter[] parameters) {
-		World world = source.getTile().getWorldObj();
+		World world = source.getTile().getWorld();
 		int x = source.getTile().xCoord, y = source.getTile().yCoord, z = source.getTile().zCoord;
 
 		boolean output = world.getEntitiesWithinAABB(IManaBurst.class, new AxisAlignedBB(x, y, z, x + 1, y + 1, z + 1)).size() != 0;

@@ -42,7 +42,7 @@ public class RenderTileIncensePlate extends TileEntitySpecialRenderer {
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float ticks) {
 		TileIncensePlate plate = (TileIncensePlate) tileentity;
 
-		int meta = plate.getWorldObj() != null ? plate.getBlockMetadata() : 0;
+		int meta = plate.getWorld() != null ? plate.getBlockMetadata() : 0;
 
 		GL11.glPushMatrix();
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);

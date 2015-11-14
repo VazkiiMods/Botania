@@ -53,7 +53,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 	public void onUpdate() {
 		super.onUpdate();
 
-		if(redstoneSignal > 0 || supertile.getWorldObj().isRemote)
+		if(redstoneSignal > 0 || supertile.getWorld().isRemote)
 			return;
 
 		boolean pulledAny = false;
@@ -63,7 +63,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 		int y = supertile.yCoord;
 		int z = supertile.zCoord;
 
-		List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x - range, y - range, z - range, x + range + 1, y + range + 1, z + range + 1));
+		List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x - range, y - range, z - range, x + range + 1, y + range + 1, z + range + 1));
 		for(EntityItem item : items) {
 			if(item.age < 60 || item.age >= 105 && item.age < 110 || item.isDead)
 				continue;
@@ -79,7 +79,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 				int y_ = y + dir.offsetY;
 				int z_ = z + dir.offsetZ;
 
-				IInventory inv = InventoryHelper.getInventory(supertile.getWorldObj(), x_, y_, z_);
+				IInventory inv = InventoryHelper.getInventory(supertile.getWorld(), x_, y_, z_);
 				if(inv != null) {
 					List<ItemStack> filter = getFilterForInventory(inv, x_, y_, z_, true);
 					boolean canAccept = canAcceptItem(stack, filter, filterType);
@@ -152,13 +152,13 @@ public class SubTileHopperhock extends SubTileFunctional {
 		List<ItemStack> filter = new ArrayList();
 
 		if(recursiveForDoubleChests) {
-			TileEntity tileEntity = supertile.getWorldObj().getTileEntity(x, y, z);
-			Block chest = supertile.getWorldObj().getBlock(x, y, z);
+			TileEntity tileEntity = supertile.getWorld().getTileEntity(x, y, z);
+			Block chest = supertile.getWorld().getBlock(x, y, z);
 
 			if(tileEntity instanceof TileEntityChest)
 				for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS)
-					if(supertile.getWorldObj().getBlock(x + dir.offsetX, y, z + dir.offsetZ) == chest) {
-						filter.addAll(getFilterForInventory((IInventory) supertile.getWorldObj().getTileEntity(x + dir.offsetX, y, z + dir.offsetZ), x + dir.offsetX, y, z + dir.offsetZ, false));
+					if(supertile.getWorld().getBlock(x + dir.offsetX, y, z + dir.offsetZ) == chest) {
+						filter.addAll(getFilterForInventory((IInventory) supertile.getWorld().getTileEntity(x + dir.offsetX, y, z + dir.offsetZ), x + dir.offsetX, y, z + dir.offsetZ, false));
 						break;
 					}
 		}
@@ -169,7 +169,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 
 		for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) {
 			AxisAlignedBB aabb = new AxisAlignedBB(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ, x + dir.offsetX + 1, y + dir.offsetY + 1, z + dir.offsetZ + 1);
-			List<EntityItemFrame> frames = supertile.getWorldObj().getEntitiesWithinAABB(EntityItemFrame.class, aabb);
+			List<EntityItemFrame> frames = supertile.getWorld().getEntitiesWithinAABB(EntityItemFrame.class, aabb);
 			for(EntityItemFrame frame : frames) {
 				int orientation = frame.hangingDirection;
 				if(orientationToDir[orientation] == dir.ordinal())

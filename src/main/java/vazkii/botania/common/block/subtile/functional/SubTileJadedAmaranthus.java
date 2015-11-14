@@ -31,19 +31,19 @@ public class SubTileJadedAmaranthus extends SubTileFunctional {
 		if(redstoneSignal > 0)
 			return;
 
-		if(mana >= COST && !supertile.getWorldObj().isRemote && ticksExisted % 30 == 0) {
-			int x = supertile.xCoord - RANGE + supertile.getWorldObj().rand.nextInt(RANGE * 2 + 1);
+		if(mana >= COST && !supertile.getWorld().isRemote && ticksExisted % 30 == 0) {
+			int x = supertile.xCoord - RANGE + supertile.getWorld().rand.nextInt(RANGE * 2 + 1);
 			int y = supertile.yCoord + RANGE;
-			int z = supertile.zCoord - RANGE + supertile.getWorldObj().rand.nextInt(RANGE * 2 + 1);
+			int z = supertile.zCoord - RANGE + supertile.getWorld().rand.nextInt(RANGE * 2 + 1);
 
 			for(int i = 0; i < RANGE * 2; i++) {
-				Block blockAbove = supertile.getWorldObj().getBlock(x, y + 1, z);
-				if((supertile.getWorldObj().isAirBlock(x, y + 1, z) || blockAbove.isReplaceable(supertile.getWorldObj(), x, y + 1, z)) && blockAbove.getMaterial() != Material.water && ModBlocks.flower.canPlaceBlockAt(supertile.getWorldObj(), x, y + 1, z)) {
-					int color = supertile.getWorldObj().rand.nextInt(16);
-					if(ModBlocks.flower.canBlockStay(supertile.getWorldObj(), x, y + 1, z)) {
+				Block blockAbove = supertile.getWorld().getBlock(x, y + 1, z);
+				if((supertile.getWorld().isAirBlock(x, y + 1, z) || blockAbove.isReplaceable(supertile.getWorld(), x, y + 1, z)) && blockAbove.getMaterial() != Material.water && ModBlocks.flower.canPlaceBlockAt(supertile.getWorld(), x, y + 1, z)) {
+					int color = supertile.getWorld().rand.nextInt(16);
+					if(ModBlocks.flower.canBlockStay(supertile.getWorld(), x, y + 1, z)) {
 						if(ConfigHandler.blockBreakParticles)
-							supertile.getWorldObj().playAuxSFX(2001, x, y + 1, z, Block.getIdFromBlock(ModBlocks.flower) + (color << 12));
-						supertile.getWorldObj().setBlock(x, y + 1, z, ModBlocks.flower, color, 1 | 2);
+							supertile.getWorld().playAuxSFX(2001, x, y + 1, z, Block.getIdFromBlock(ModBlocks.flower) + (color << 12));
+						supertile.getWorld().setBlock(x, y + 1, z, ModBlocks.flower, color, 1 | 2);
 					}
 
 					mana -= COST;

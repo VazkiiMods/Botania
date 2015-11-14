@@ -102,7 +102,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 
 		if(cooldown > 0) {
 			cooldown--;
-			Botania.proxy.wispFX(getWorldObj(), xCoord + Math.random(), yCoord + 0.8, zCoord + Math.random(), 0.2F, 0.2F, 0.2F, 0.2F, -0.025F);
+			Botania.proxy.wispFX(getWorld(), xCoord + Math.random(), yCoord + 0.8, zCoord + Math.random(), 0.2F, 0.2F, 0.2F, 0.2F, -0.025F);
 		}
 
 		int newSignal = 0;

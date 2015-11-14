@@ -42,15 +42,15 @@ public class SubTileRafflowsia extends SubTileGenerating {
 
 		int mana = 2100;
 
-		if(getMaxMana() - this.mana >= mana && !supertile.getWorldObj().isRemote && ticksExisted % 40 == 0) {
+		if(getMaxMana() - this.mana >= mana && !supertile.getWorld().isRemote && ticksExisted % 40 == 0) {
 			for(int i = 0; i < RANGE * 2 + 1; i++)
 				for(int j = 0; j < RANGE * 2 + 1; j++)
 					for(int k = 0; k < RANGE * 2 + 1; k++) {
 						int x = supertile.xCoord + i - RANGE;
 						int y = supertile.yCoord + j - RANGE;
 						int z = supertile.zCoord + k - RANGE;
-						Block block = supertile.getWorldObj().getBlock(x, y, z);
-						TileEntity tile = supertile.getWorldObj().getTileEntity(x, y, z);
+						Block block = supertile.getWorld().getBlock(x, y, z);
+						TileEntity tile = supertile.getWorld().getTileEntity(x, y, z);
 						if(tile instanceof ISubTileContainer) {
 							SubTileEntity stile = ((ISubTileContainer) tile).getSubTile();
 							String name = stile.getUnlocalizedName();
@@ -66,10 +66,10 @@ public class SubTileRafflowsia extends SubTileGenerating {
 
 								float mod = 1F / lastFlowerTimes;
 
-								int meta = supertile.getWorldObj().getBlockMetadata(x, y, z) + 1;
-								supertile.getWorldObj().setBlockToAir(x, y, z);
+								int meta = supertile.getWorld().getBlockMetadata(x, y, z) + 1;
+								supertile.getWorld().setBlockToAir(x, y, z);
 
-								supertile.getWorldObj().playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
+								supertile.getWorld().playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
 								this.mana += mana * mod;
 								sync();
 								return;

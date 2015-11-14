@@ -89,7 +89,7 @@ public class ItemDiviningRod extends ItemMod implements IManaUsingItem, IAvatarW
 	@Override
 	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
 		TileEntity te = (TileEntity) tile;
-		World world = te.getWorldObj();
+		World world = te.getWorld();
 		if(tile.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 200 == 0 && tile.isEnabled()) {
 			doHighlight(world, te.xCoord, te.yCoord, te.zCoord, 18, te.xCoord ^ te.yCoord ^ te.zCoord);
 			tile.recieveMana(-COST);

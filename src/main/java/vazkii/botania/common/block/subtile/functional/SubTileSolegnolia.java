@@ -50,7 +50,7 @@ public class SubTileSolegnolia extends SubTileFunctional {
 
 	public static boolean hasSolegnoliaAround(Entity e) {
 		for(SubTileSolegnolia flower : existingFlowers) {
-			if(flower.mana == 0 || flower.redstoneSignal > 0 || flower.supertile.getWorldObj() != e.worldObj || flower.supertile.getWorldObj().getTileEntity(flower.supertile.xCoord, flower.supertile.yCoord, flower.supertile.zCoord) != flower.supertile)
+			if(flower.mana == 0 || flower.redstoneSignal > 0 || flower.supertile.getWorld() != e.worldObj || flower.supertile.getWorld().getTileEntity(flower.supertile.xCoord, flower.supertile.yCoord, flower.supertile.zCoord) != flower.supertile)
 				continue;
 
 			double range = flower.getRange();

@@ -24,7 +24,7 @@ public class SubTileOrechidIgnem extends SubTileOrechid {
 
 	@Override
 	public boolean canOperate() {
-		return supertile.getWorldObj().provider.isHellWorld;
+		return supertile.getWorld().provider.isHellWorld;
 	}
 
 	@Override

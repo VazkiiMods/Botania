@@ -41,7 +41,7 @@ public class RenderTileHourglass extends TileEntitySpecialRenderer {
 		GL11.glTranslated(d0, d1, d2);
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 
-		int wtime = tileentity.getWorldObj() == null ? 0 : ClientTickHandler.ticksInGame;
+		int wtime = tileentity.getWorld() == null ? 0 : ClientTickHandler.ticksInGame;
 		if(wtime != 0)
 			wtime += new Random(tileentity.xCoord ^ tileentity.yCoord ^ tileentity.zCoord).nextInt(360);
 

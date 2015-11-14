@@ -192,7 +192,7 @@ public class InventoryHelper {
 	public static IInventory getInventory(IInventory inventory) {
 		if(inventory instanceof TileEntityChest) {
 			TileEntity te = (TileEntity)inventory;
-			return getInventory(te.getWorldObj(), te.xCoord, te.yCoord, te.zCoord);
+			return getInventory(te.getWorld(), te.xCoord, te.yCoord, te.zCoord);
 		}
 		return inventory;
 	}

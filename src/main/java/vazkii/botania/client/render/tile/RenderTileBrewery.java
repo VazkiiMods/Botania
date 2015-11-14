@@ -71,7 +71,7 @@ public class RenderTileBrewery extends TileEntitySpecialRenderer {
 			float s = 0.25F;
 			GL11.glScalef(s, s, s);
 			GL11.glScalef(2F, 2F, 2F);
-			if(!ForgeHooksClient.renderEntityItem(new EntityItem(brewery.getWorldObj(), brewery.xCoord, brewery.yCoord, brewery.zCoord, stack), stack, 0F, 0F, brewery.getWorldObj().rand, mc.renderEngine, RenderBlocks.getInstance(), 1)) {
+			if(!ForgeHooksClient.renderEntityItem(new EntityItem(brewery.getWorld(), brewery.xCoord, brewery.yCoord, brewery.zCoord, stack), stack, 0F, 0F, brewery.getWorld().rand, mc.renderEngine, RenderBlocks.getInstance(), 1)) {
 				GL11.glScalef(0.5F, 0.5F, 0.5F);
 				if(stack.getItem() instanceof ItemBlock && RenderBlocks.renderItemIn3d(Block.getBlockFromItem(stack.getItem()).getRenderType())) {
 					GL11.glScalef(0.5F, 0.5F, 0.5F);

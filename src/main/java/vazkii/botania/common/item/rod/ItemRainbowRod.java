@@ -138,7 +138,7 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 	@Override
 	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
 		TileEntity te = (TileEntity) tile;
-		World world = te.getWorldObj();
+		World world = te.getWorld();
 
 		if(world.isRemote || tile.getCurrentMana() < MANA_COST_AVATAR * 25 || !tile.isEnabled())
 			return;

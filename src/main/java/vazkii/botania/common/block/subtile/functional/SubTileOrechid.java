@@ -47,17 +47,17 @@ public class SubTileOrechid extends SubTileFunctional {
 			return;
 
 		int cost = getCost();
-		if(!supertile.getWorldObj().isRemote && mana >= cost && ticksExisted % getDelay() == 0) {
+		if(!supertile.getWorld().isRemote && mana >= cost && ticksExisted % getDelay() == 0) {
 			ChunkCoordinates coords = getCoordsToPut();
 			if(coords != null) {
 				ItemStack stack = getOreToPut();
 				if(stack != null) {
 					Block block = Block.getBlockFromItem(stack.getItem());
 					int meta = stack.getItemDamage();
-					supertile.getWorldObj().setBlock(coords.posX, coords.posY, coords.posZ, block, meta, 1 | 2);
+					supertile.getWorld().setBlock(coords.posX, coords.posY, coords.posZ, block, meta, 1 | 2);
 					if(ConfigHandler.blockBreakParticles)
-						supertile.getWorldObj().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(block) + (meta << 12));
-					supertile.getWorldObj().playSoundEffect(supertile.xCoord, supertile.yCoord, supertile.zCoord, "botania:orechid", 2F, 1F);
+						supertile.getWorld().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(block) + (meta << 12));
+					supertile.getWorld().playSoundEffect(supertile.xCoord, supertile.yCoord, supertile.zCoord, "botania:orechid", 2F, 1F);
 
 					mana -= cost;
 					sync();
@@ -72,7 +72,7 @@ public class SubTileOrechid extends SubTileFunctional {
 		for(String s : map.keySet())
 			values.add(new StringRandomItem(map.get(s), s));
 
-		String ore = ((StringRandomItem) WeightedRandom.getRandomItem(supertile.getWorldObj().rand, values)).s;
+		String ore = ((StringRandomItem) WeightedRandom.getRandomItem(supertile.getWorld().rand, values)).s;
 
 		List<ItemStack> ores = OreDictionary.getOres(ore);
 
@@ -106,14 +106,14 @@ public class SubTileOrechid extends SubTileFunctional {
 					int x = supertile.xCoord + i;
 					int y = supertile.yCoord + j;
 					int z = supertile.zCoord + k;
-					Block block = supertile.getWorldObj().getBlock(x, y, z);
-					if(block != null && block.isReplaceableOreGen(supertile.getWorldObj(), x, y, z, source))
+					Block block = supertile.getWorld().getBlock(x, y, z);
+					if(block != null && block.isReplaceableOreGen(supertile.getWorld(), x, y, z, source))
 						possibleCoords.add(new ChunkCoordinates(x, y, z));
 				}
 
 		if(possibleCoords.isEmpty())
 			return null;
-		return possibleCoords.get(supertile.getWorldObj().rand.nextInt(possibleCoords.size()));
+		return possibleCoords.get(supertile.getWorld().rand.nextInt(possibleCoords.size()));
 	}
 
 	public boolean canOperate() {

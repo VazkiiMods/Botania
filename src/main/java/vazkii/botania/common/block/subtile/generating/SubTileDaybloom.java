@@ -43,7 +43,7 @@ public class SubTileDaybloom extends SubTilePassiveGenerating {
 		super.onUpdate();
 
 		if(isPrime() && (!savedPosition || primePositionX != supertile.xCoord || primePositionY != supertile.yCoord || primePositionZ != supertile.zCoord))
-			supertile.getWorldObj().setBlockToAir(supertile.xCoord, supertile.yCoord, supertile.zCoord);
+			supertile.getWorld().setBlockToAir(supertile.xCoord, supertile.yCoord, supertile.zCoord);
 	}
 
 	public void setPrimusPosition() {
@@ -64,8 +64,8 @@ public class SubTileDaybloom extends SubTilePassiveGenerating {
 
 	@Override
 	public boolean canGeneratePassively() {
-		boolean rain = supertile.getWorldObj().getWorldChunkManager().getBiomeGenAt(supertile.xCoord, supertile.zCoord).getIntRainfall() > 0 && (supertile.getWorldObj().isRaining() || supertile.getWorldObj().isThundering());
-		return supertile.getWorldObj().isDaytime() && !rain && supertile.getWorldObj().canBlockSeeTheSky(supertile.xCoord, supertile.yCoord + 1, supertile.zCoord);
+		boolean rain = supertile.getWorld().getWorldChunkManager().getBiomeGenAt(supertile.xCoord, supertile.zCoord).getIntRainfall() > 0 && (supertile.getWorld().isRaining() || supertile.getWorld().isThundering());
+		return supertile.getWorld().isDaytime() && !rain && supertile.getWorld().canBlockSeeTheSky(supertile.xCoord, supertile.yCoord + 1, supertile.zCoord);
 	}
 
 	@Override
@@ -76,7 +76,7 @@ public class SubTileDaybloom extends SubTilePassiveGenerating {
 	public int getSurroundingFlowers() {
 		int flowers = 0;
 		for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) {
-			TileEntity tile = supertile.getWorldObj().getTileEntity(supertile.xCoord + dir.offsetX, supertile.yCoord, supertile.zCoord + dir.offsetZ);
+			TileEntity tile = supertile.getWorld().getTileEntity(supertile.xCoord + dir.offsetX, supertile.yCoord, supertile.zCoord + dir.offsetZ);
 			if(tile != null && tile instanceof ISubTileContainer) {
 				ISubTileContainer flower = (ISubTileContainer) tile;
 				if(flower.getSubTile() != null && flower.getSubTile().getClass() == getClass()) {
@@ -89,7 +89,7 @@ public class SubTileDaybloom extends SubTilePassiveGenerating {
 
 					float m = 0.045F;
 					if(ticksExisted % 10 == 0)
-						Botania.proxy.wispFX(supertile.getWorldObj(), supertile.xCoord + 0.5, supertile.yCoord + 0.05, supertile.zCoord + 0.5, r, g, b, 0.1F, dir.offsetX * m, dir.offsetY * m, dir.offsetZ * m);
+						Botania.proxy.wispFX(supertile.getWorld(), supertile.xCoord + 0.5, supertile.yCoord + 0.05, supertile.zCoord + 0.5, r, g, b, 0.1F, dir.offsetX * m, dir.offsetY * m, dir.offsetZ * m);
 				}
 			}
 		}

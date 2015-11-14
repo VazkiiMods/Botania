@@ -49,7 +49,7 @@ public class SubTileBellethorn extends SubTileFunctional {
 
 		if(ticksExisted % 5 == 0) {
 			int range = getRange();
-			List<EntityLivingBase> entities = supertile.getWorldObj().getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(supertile.xCoord - range, supertile.yCoord, supertile.zCoord - range, supertile.xCoord + range + 1, supertile.yCoord + 1, supertile.zCoord + range + 1));
+			List<EntityLivingBase> entities = supertile.getWorld().getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(supertile.xCoord - range, supertile.yCoord, supertile.zCoord - range, supertile.xCoord + range + 1, supertile.yCoord + 1, supertile.zCoord + range + 1));
 			IEntitySelector selector = getSelector();
 
 			for(EntityLivingBase entity : entities) {

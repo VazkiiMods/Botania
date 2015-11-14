@@ -82,7 +82,7 @@ public class SubTileVinculotus extends SubTileFunctional {
 			if(event.entity instanceof EntityEnderman) {
 				List<SubTileVinculotus> possibleFlowers = new ArrayList();
 				for(SubTileVinculotus flower : existingFlowers) {
-					if(flower.redstoneSignal > 0 || flower.mana <= cost || flower.supertile.getWorldObj() != event.entity.worldObj || flower.supertile.getWorldObj().getTileEntity(flower.supertile.xCoord, flower.supertile.yCoord, flower.supertile.zCoord) != flower.supertile)
+					if(flower.redstoneSignal > 0 || flower.mana <= cost || flower.supertile.getWorld() != event.entity.worldObj || flower.supertile.getWorld().getTileEntity(flower.supertile.xCoord, flower.supertile.yCoord, flower.supertile.zCoord) != flower.supertile)
 						continue;
 
 					double x = flower.supertile.xCoord + 0.5;

@@ -85,7 +85,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 
 		GL11.glTranslatef(0.5F, 1.5F, 0.5F);
 		GL11.glScalef(1F, -1F, -1F);
-		int meta = potato.getWorldObj() == null ? 3 : potato.getBlockMetadata();
+		int meta = potato.getWorld() == null ? 3 : potato.getBlockMetadata();
 		float rotY = meta * 90F - 180F;
 		GL11.glRotatef(rotY, 0F, 1F, 0F);
 

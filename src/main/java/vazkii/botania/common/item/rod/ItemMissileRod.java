@@ -98,7 +98,7 @@ public class ItemMissileRod extends ItemMod implements IManaUsingItem, IAvatarWi
 	@Override
 	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
 		TileEntity te = (TileEntity) tile;
-		World world = te.getWorldObj();
+		World world = te.getWorld();
 		if(tile.getCurrentMana() >= COST_AVATAR && tile.getElapsedFunctionalTicks() % 3 == 0 && tile.isEnabled())
 			if(spawnMissile(world, null, te.xCoord + 0.5 + (Math.random() - 0.5 * 0.1), te.yCoord + 2.5 + (Math.random() - 0.5 * 0.1), te.zCoord + (Math.random() - 0.5 * 0.1))) {
 				if(!world.isRemote)

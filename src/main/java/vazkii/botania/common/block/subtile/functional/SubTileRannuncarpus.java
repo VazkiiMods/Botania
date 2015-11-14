@@ -76,7 +76,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 			int y = supertile.yCoord;
 			int z = supertile.zCoord;
 
-			List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x - RANGE, y - RANGE_Y, z - RANGE, x + RANGE + 1, y + RANGE_Y, z + RANGE + 1));
+			List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x - RANGE, y - RANGE_Y, z - RANGE, x + RANGE + 1, y + RANGE_Y, z + RANGE + 1));
 			for(EntityItem item : items) {
 				if(item.age < 60 || item.isDead)
 					continue;
@@ -91,9 +91,9 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 									int xp = x + i;
 									int yp = y + j;
 									int zp = z + l;
-									Block blockAbove = supertile.getWorldObj().getBlock(xp, yp + 1, zp);
+									Block blockAbove = supertile.getWorld().getBlock(xp, yp + 1, zp);
 
-									if(filter.equals(supertile.getWorldObj(), xp, yp, zp) && (blockAbove.isAir(supertile.getWorldObj(), xp, yp + 1, zp) || blockAbove.isReplaceable(supertile.getWorldObj(), xp, yp + 1, zp)))
+									if(filter.equals(supertile.getWorld(), xp, yp, zp) && (blockAbove.isAir(supertile.getWorld(), xp, yp + 1, zp) || blockAbove.isReplaceable(supertile.getWorld(), xp, yp + 1, zp)))
 										validPositions.add(new ChunkCoordinates(xp, yp + 1, zp));
 								}
 
@@ -101,7 +101,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 					}
 
 
-					if(!validPositions.isEmpty() && !supertile.getWorldObj().isRemote) {
+					if(!validPositions.isEmpty() && !supertile.getWorld().isRemote) {
 						Block blockToPlace = null;
 						if(stackItem instanceof ItemBlock)
 							blockToPlace = ((ItemBlock) stackItem).field_150939_a;
@@ -111,23 +111,23 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 							blockToPlace = Blocks.redstone_wire;
 
 						if(blockToPlace != null) {
-							ChunkCoordinates coords = validPositions.get(supertile.getWorldObj().rand.nextInt(validPositions.size()));
-							if(blockToPlace.canPlaceBlockAt(supertile.getWorldObj(), coords.posX, coords.posY, coords.posZ)) {
-								supertile.getWorldObj().setBlock(coords.posX, coords.posY, coords.posZ, blockToPlace, stack.getItemDamage(), 1 | 2);
+							ChunkCoordinates coords = validPositions.get(supertile.getWorld().rand.nextInt(validPositions.size()));
+							if(blockToPlace.canPlaceBlockAt(supertile.getWorld(), coords.posX, coords.posY, coords.posZ)) {
+								supertile.getWorld().setBlock(coords.posX, coords.posY, coords.posZ, blockToPlace, stack.getItemDamage(), 1 | 2);
 								if(ConfigHandler.blockBreakParticles)
-									supertile.getWorldObj().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(blockToPlace) + (stack.getItemDamage() << 12));
+									supertile.getWorld().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(blockToPlace) + (stack.getItemDamage() << 12));
 								validPositions.remove(coords);
 
-								TileEntity tile = supertile.getWorldObj().getTileEntity(coords.posX, coords.posY, coords.posZ);
+								TileEntity tile = supertile.getWorld().getTileEntity(coords.posX, coords.posY, coords.posZ);
 								if(tile != null && tile instanceof ISubTileContainer) {
 									ISubTileContainer container = (ISubTileContainer) tile;
 									String subtileName = ItemBlockSpecialFlower.getType(stack);
 									container.setSubTile(subtileName);
 									SubTileEntity subtile = container.getSubTile();
-									subtile.onBlockPlacedBy(supertile.getWorldObj(), coords.posX, coords.posY, coords.posZ, null, stack);
+									subtile.onBlockPlacedBy(supertile.getWorld(), coords.posX, coords.posY, coords.posZ, null, stack);
 								}
 
-								if(!supertile.getWorldObj().isRemote) {
+								if(!supertile.getWorld().isRemote) {
 									stack.stackSize--;
 									if(stack.stackSize == 0)
 										item.setDead();
@@ -145,7 +145,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 	}
 
 	public BlockData getUnderlyingBlock() {
-		return new BlockData(supertile.getWorldObj(), supertile.xCoord, supertile.yCoord - (supertile instanceof IFloatingFlower ? 1 : 2), supertile.zCoord);
+		return new BlockData(supertile.getWorld(), supertile.xCoord, supertile.yCoord - (supertile instanceof IFloatingFlower ? 1 : 2), supertile.zCoord);
 	}
 
 	@Override

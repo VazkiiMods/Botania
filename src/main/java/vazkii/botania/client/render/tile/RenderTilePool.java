@@ -57,8 +57,8 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 		float a = MultiblockRenderHandler.rendering ? 0.6F : 1F;
 		GL11.glColor4f(1F, 1F, 1F, a);
 		GL11.glTranslated(d0, d1, d2);
-		boolean inf = tileentity.getWorldObj() == null ? forceMeta == 1 : tileentity.getBlockMetadata() == 1;
-		boolean dil = tileentity.getWorldObj() == null ? forceMeta == 2 : tileentity.getBlockMetadata() == 2;
+		boolean inf = tileentity.getWorld() == null ? forceMeta == 1 : tileentity.getBlockMetadata() == 1;
+		boolean dil = tileentity.getWorld() == null ? forceMeta == 2 : tileentity.getBlockMetadata() == 2;
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(inf ? textureInf : dil ? textureDil : texture);
 
@@ -89,10 +89,10 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 		float v = 1F / 8F;
 		float w = -v * 3.5F;
 
-		if(pool.getWorldObj() != null) {
-			Block below = pool.getWorldObj().getBlock(pool.xCoord, pool.yCoord - 1, pool.zCoord);
+		if(pool.getWorld() != null) {
+			Block below = pool.getWorld().getBlock(pool.xCoord, pool.yCoord - 1, pool.zCoord);
 			if(below instanceof IPoolOverlayProvider) {
-				IIcon overlay = ((IPoolOverlayProvider) below).getIcon(pool.getWorldObj(), pool.xCoord, pool.yCoord - 1, pool.zCoord);
+				IIcon overlay = ((IPoolOverlayProvider) below).getIcon(pool.getWorld(), pool.xCoord, pool.yCoord - 1, pool.zCoord);
 				if(overlay != null) {
 					GL11.glPushMatrix();
 					GL11.glEnable(GL11.GL_BLEND);

@@ -73,16 +73,16 @@ public class SubTileFunctional extends SubTileEntity {
 		if(acceptsRedstone()) {
 			redstoneSignal = 0;
 			for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-				int redstoneSide = supertile.getWorldObj().getIndirectPowerLevelTo(supertile.xCoord + dir.offsetX, supertile.yCoord + dir.offsetY, supertile.zCoord + dir.offsetZ, dir.ordinal());
+				int redstoneSide = supertile.getWorld().getIndirectPowerLevelTo(supertile.xCoord + dir.offsetX, supertile.yCoord + dir.offsetY, supertile.zCoord + dir.offsetZ, dir.ordinal());
 				redstoneSignal = Math.max(redstoneSignal, redstoneSide);
 			}
 		}
 
-		if(supertile.getWorldObj().isRemote) {
+		if(supertile.getWorld().isRemote) {
 			double particleChance = 1F - (double) mana / (double) getMaxMana() / 3.5F;
 			Color color = new Color(getColor());
 			if(Math.random() > particleChance)
-				BotaniaAPI.internalHandler.sparkleFX(supertile.getWorldObj(), supertile.xCoord + 0.3 + Math.random() * 0.5, supertile.yCoord + 0.5 + Math.random()  * 0.5, supertile.zCoord + 0.3 + Math.random() * 0.5, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random(), 5);
+				BotaniaAPI.internalHandler.sparkleFX(supertile.getWorld(), supertile.xCoord + 0.3 + Math.random() * 0.5, supertile.yCoord + 0.5 + Math.random()  * 0.5, supertile.zCoord + 0.3 + Math.random() * 0.5, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random(), 5);
 		}
 	}
 
@@ -93,9 +93,9 @@ public class SubTileFunctional extends SubTileEntity {
 
 			if(cachedPoolCoordinates != null) {
 				needsNew = false;
-				if(supertile.getWorldObj().blockExists(cachedPoolCoordinates.posX, cachedPoolCoordinates.posY, cachedPoolCoordinates.posZ)) {
+				if(supertile.getWorld().blockExists(cachedPoolCoordinates.posX, cachedPoolCoordinates.posY, cachedPoolCoordinates.posZ)) {
 					needsNew = true;
-					TileEntity tileAt = supertile.getWorldObj().getTileEntity(cachedPoolCoordinates.posX, cachedPoolCoordinates.posY, cachedPoolCoordinates.posZ);
+					TileEntity tileAt = supertile.getWorld().getTileEntity(cachedPoolCoordinates.posX, cachedPoolCoordinates.posY, cachedPoolCoordinates.posZ);
 					if(tileAt != null && tileAt instanceof IManaPool && !tileAt.isInvalid()) {
 						linkedPool = tileAt;
 						needsNew = false;
@@ -104,17 +104,17 @@ public class SubTileFunctional extends SubTileEntity {
 				}
 			}
 		} else {
-			TileEntity tileAt = supertile.getWorldObj().getTileEntity(linkedPool.xCoord, linkedPool.yCoord, linkedPool.zCoord);
+			TileEntity tileAt = supertile.getWorld().getTileEntity(linkedPool.xCoord, linkedPool.yCoord, linkedPool.zCoord);
 			if(tileAt != null && tileAt instanceof IManaPool)
 				linkedPool = tileAt;
 		}
 
 		if(needsNew && ticksExisted == 1) { // Only for new flowers
 			IManaNetwork network = BotaniaAPI.internalHandler.getManaNetworkInstance();
-			int size = network.getAllPoolsInWorld(supertile.getWorldObj()).size();
+			int size = network.getAllPoolsInWorld(supertile.getWorld()).size();
 			if(BotaniaAPI.internalHandler.shouldForceCheck() || size != sizeLastCheck) {
 				ChunkCoordinates coords = new ChunkCoordinates(supertile.xCoord, supertile.yCoord, supertile.zCoord);
-				linkedPool = network.getClosestPool(coords, supertile.getWorldObj(), RANGE);
+				linkedPool = network.getClosestPool(coords, supertile.getWorld(), RANGE);
 				sizeLastCheck = size;
 			}
 		}
@@ -207,7 +207,7 @@ public class SubTileFunctional extends SubTileEntity {
 	}
 
 	public boolean isValidBinding() {
-		return linkedPool != null && !linkedPool.isInvalid() && supertile.getWorldObj().getTileEntity(linkedPool.xCoord, linkedPool.yCoord, linkedPool.zCoord) == linkedPool;
+		return linkedPool != null && !linkedPool.isInvalid() && supertile.getWorld().getTileEntity(linkedPool.xCoord, linkedPool.yCoord, linkedPool.zCoord) == linkedPool;
 	}
 
 	@Override
