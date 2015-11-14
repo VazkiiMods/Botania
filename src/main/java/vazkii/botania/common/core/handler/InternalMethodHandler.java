@@ -24,6 +24,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -234,7 +235,7 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	}
 
 	@Override
-	public void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, int x, int y, int z, int side) {
+	public void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, BlockPos pos, EnumFacing side) {
 		ItemLokiRing.breakOnAllCursors(player, item, stack, x, y, z, side);
 	}
 

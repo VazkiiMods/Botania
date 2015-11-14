@@ -97,15 +97,15 @@ public class TileAlfPortal extends TileMod {
 		Multiblock mb = new Multiblock();
 
 		for(int[] l : LIVINGWOOD_POSITIONS)
-			mb.addComponent(l[0], l[1] + 1, l[2], ModBlocks.livingwood, 0);
+			mb.addComponent(, l[0], ModBlocks.livingwood, 0);
 		for(int[] g : GLIMMERING_LIVINGWOOD_POSITIONS)
-			mb.addComponent(g[0], g[1] + 1, g[2], ModBlocks.livingwood, 5);
+			mb.addComponent(, g[0], ModBlocks.livingwood, 5);
 		for(int[] p : PYLON_POSITIONS)
-			mb.addComponent(-p[0], p[1] + 1, -p[2], ModBlocks.pylon, 1);
+			mb.addComponent(, -p[0], ModBlocks.pylon, 1);
 		for(int[] p : POOL_POSITIONS)
-			mb.addComponent(-p[0], p[1] + 1, -p[2], ModBlocks.pool, 0);
+			mb.addComponent(, -p[0], ModBlocks.pool, 0);
 
-		mb.addComponent(0, 1, 0, ModBlocks.alfPortal, 0);
+		mb.addComponent(, 0, ModBlocks.alfPortal, 0);
 		mb.setRenderOffset(0, -1, 0);
 
 		return mb.makeSet();

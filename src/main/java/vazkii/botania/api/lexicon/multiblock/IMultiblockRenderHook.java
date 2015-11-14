@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.world.IBlockAccess;
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 

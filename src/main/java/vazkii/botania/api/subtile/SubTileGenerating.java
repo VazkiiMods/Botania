@@ -82,7 +82,7 @@ public class SubTileGenerating extends SubTileEntity {
 		if(acceptsRedstone()) {
 			redstoneSignal = 0;
 			for(EnumFacing dir : EnumFacing.VALUES) {
-				int redstoneSide = supertile.getWorld().getIndirectPowerLevelTo(supertile.getPos().offset(dir), dir.ordinal());
+				int redstoneSide = supertile.getWorld().getRedstonePower(supertile.getPos().offset(dir), dir);
 				redstoneSignal = Math.max(redstoneSignal, redstoneSide);
 			}
 		}
@@ -91,7 +91,7 @@ public class SubTileGenerating extends SubTileEntity {
 			double particleChance = 1F - (double) mana / (double) getMaxMana() / 3.5F;
 			Color color = new Color(getColor());
 			if(Math.random() > particleChance)
-				BotaniaAPI.internalHandler.sparkleFX(supertile.getWorld(), supertile.xCoord + 0.3 + Math.random() * 0.5, supertile.yCoord + 0.5 + Math.random()  * 0.5, supertile.zCoord + 0.3 + Math.random() * 0.5, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random(), 5);
+				BotaniaAPI.internalHandler.sparkleFX(supertile.getWorld(), supertile.getPos().getX() + 0.3 + Math.random() * 0.5, supertile.getPos().getY() + 0.5 + Math.random()  * 0.5, supertile.getPos().getZ() + 0.3 + Math.random() * 0.5, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random(), 5);
 		}
 
 		boolean passive = isPassiveFlower();
@@ -99,7 +99,7 @@ public class SubTileGenerating extends SubTileEntity {
 			int muhBalance = BotaniaAPI.internalHandler.getPassiveFlowerDecay();
 
 			if(passive && muhBalance > 0 && passiveDecayTicks > muhBalance) {
-				supertile.getWorld().playAuxSFX(2001, supertile.xCoord, supertile.yCoord, supertile.zCoord, Block.getIdFromBlock(supertile.getBlockType()));
+				supertile.getWorld().playAuxSFX(2001, supertile.getPos(), Block.getIdFromBlock(supertile.getBlockType()));
 				if(supertile.getWorld().getBlockState(supertile.getPos().down()).getBlock().isSideSolid(supertile.getWorld(), supertile.getPos().down(), EnumFacing.DOWN))
 					supertile.getWorld().setBlockState(supertile.getPos(), Blocks.deadbush.getDefaultState());
 				else supertile.getWorld().setBlockToAir(supertile.getPos());
@@ -283,7 +283,7 @@ public class SubTileGenerating extends SubTileEntity {
 		int range = 6;
 		range *= range;
 
-		double dist = (x - supertile.xCoord) * (x - supertile.xCoord) + (y - supertile.yCoord) * (y - supertile.yCoord) + (z - supertile.zCoord) * (z - supertile.zCoord);
+		double dist = pos.distanceSq(supertile.getPos());
 		if(range >= dist) {
 			TileEntity tile = player.worldObj.getTileEntity(pos);
 			if(tile instanceof IManaCollector) {

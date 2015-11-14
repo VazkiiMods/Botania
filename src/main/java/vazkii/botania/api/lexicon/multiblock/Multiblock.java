@@ -32,17 +32,17 @@ public class Multiblock {
 
 	public int minX, minY, minZ, maxX, maxY, maxZ, offX, offY, offZ;
 
-	public HashMap<List<Integer>, MultiblockComponent> locationCache = new HashMap<List<Integer>, MultiblockComponent>();
+	public HashMap<BlockPos, MultiblockComponent> locationCache = new HashMap<BlockPos, MultiblockComponent>();
 
 	/**
 	 * Adds a multiblock component to this multiblock. The component's x y z
 	 * coords should be pivoted to the center of the structure.
 	 */
 	public void addComponent(MultiblockComponent component) {
-		if(getComponentForLocation(component.relPos.posX, component.relPos.posY, component.relPos.posZ) != null)
+		if(getComponentForLocation(component.relPos) != null)
 			throw new IllegalArgumentException("Location in multiblock already occupied");
 		components.add(component);
-		changeAxisForNewComponent(component.relPos.posX, component.relPos.posY, component.relPos.posZ);
+		changeAxisForNewComponent(component.relPos.getX(), component.relPos.getY(), component.relPos.getZ());
 		calculateCostForNewComponent(component);
 		addComponentToLocationCache(component);
 	}
@@ -51,8 +51,8 @@ public class Multiblock {
 	 * Constructs and adds a multiblock component to this multiblock. The x y z
 	 * coords should be pivoted to the center of the structure.
 	 */
-	public void addComponent(int x, int y, int z, Block block, int meta) {
-		addComponent(new MultiblockComponent(new BlockPos(x, y, z), block, meta));
+	public void addComponent(BlockPos pos, Block block, int meta) {
+		addComponent(new MultiblockComponent(pos, block, meta));
 	}
 
 	private void changeAxisForNewComponent(int x, int y, int z) {
@@ -172,17 +172,14 @@ public class Multiblock {
 	 */
 	private void addComponentToLocationCache(MultiblockComponent comp) {
 		BlockPos pos = comp.getRelativePosition();
-		locationCache.put(Arrays.asList(
-				pos.posX,
-				pos.posY,
-				pos.posZ
-				),  comp);
+		locationCache.put(pos, comp);
 	}
 
 	/**
 	 * Gets the component for a given location
+	 * @param pos
 	 */
-	public MultiblockComponent getComponentForLocation(int x, int y, int z) {
-		return locationCache.get(Arrays.asList(x, y, z));
+	public MultiblockComponent getComponentForLocation(BlockPos pos) {
+		return locationCache.get(pos);
 	}
 }
