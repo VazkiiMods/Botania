@@ -42,7 +42,7 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile
 	private int ticksInAir;
 	private static final String __OBFID = "CL_00001723";
 
-	public EntityThrowable(World worldIn)
+	public EntityThrowableCopy(World worldIn)
 	{
 		super(worldIn);
 		this.setSize(0.25F, 0.25F);
@@ -62,7 +62,7 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile
 		return distance < d1 * d1;
 	}
 
-	public EntityThrowable(World worldIn, EntityLivingBase throwerIn)
+	public EntityThrowableCopy(World worldIn, EntityLivingBase throwerIn)
 	{
 		super(worldIn);
 		this.thrower = throwerIn;
@@ -79,7 +79,7 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile
 		this.setThrowableHeading(this.motionX, this.motionY, this.motionZ, this.getVelocity(), 1.0F);
 	}
 
-	public EntityThrowable(World worldIn, double x, double y, double p_i1778_6_)
+	public EntityThrowableCopy(World worldIn, double x, double y, double p_i1778_6_)
 	{
 		super(worldIn);
 		this.ticksInGround = 0;
