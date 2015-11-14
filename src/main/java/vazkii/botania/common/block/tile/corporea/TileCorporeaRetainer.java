@@ -59,7 +59,7 @@ public class TileCorporeaRetainer extends TileMod {
 		if(!hasPendingRequest())
 			return;
 
-		ICorporeaSpark spark = CorporeaHelper.getSparkForBlock(worldObj, requestX, requestY, requestZ);
+		ICorporeaSpark spark = CorporeaHelper.getSparkForBlock(worldObj, , requestX);
 		if(spark != null) {
 			IInventory inv = spark.getInventory();
 			if(inv != null && inv instanceof ICorporeaRequestor) {

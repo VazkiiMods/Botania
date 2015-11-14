@@ -62,7 +62,7 @@ public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
 		if(!item.worldObj.isRemote) {
 			pool.recieveMana(t2 ? MANA_PER_T2 : MANA_PER);
 			stack.stackSize--;
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(item.worldObj, tile.xCoord, tile.yCoord, tile.zCoord);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(item.worldObj, , tile.xCoord);
 		}
 
 		for(int i = 0; i < 50; i++) {

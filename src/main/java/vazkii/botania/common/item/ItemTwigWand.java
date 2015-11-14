@@ -25,6 +25,7 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
@@ -71,12 +72,12 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 		if(boundTile.posY != -1 && par2EntityPlayer.isSneaking() && (boundTile.posX != par4 || boundTile.posY != par5 || boundTile.posZ != par6)) {
 			TileEntity tile = par3World.getTileEntity(boundTile.posX, boundTile.posY, boundTile.posZ);
 			if(tile instanceof IWandBindable) {
-				if(((IWandBindable) tile).bindTo(par2EntityPlayer, par1ItemStack, par4, par5, par6, par7)) {
+				if(((IWandBindable) tile).bindTo(par2EntityPlayer, par1ItemStack, , par4, , par5)) {
 					Vector3 orig = new Vector3(boundTile.posX + 0.5, boundTile.posY + 0.5, boundTile.posZ + 0.5);
 					Vector3 end = new Vector3(par4 + 0.5, par5 + 0.5, par6 + 0.5);
 					doParticleBeam(par3World, orig, end);
 
-					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(par3World, boundTile.posX, boundTile.posY, boundTile.posZ);
+					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(par3World, , boundTile.posX);
 					setBoundTile(par1ItemStack, 0, -1, 0);
 				}
 
@@ -118,7 +119,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 			boolean bindable = tile instanceof IWandBindable;
 
 			boolean wanded = false;
-			if(getBindMode(par1ItemStack) && bindable && par2EntityPlayer.isSneaking() && ((IWandBindable) tile).canSelect(par2EntityPlayer, par1ItemStack, par4, par5, par6, par7)) {
+			if(getBindMode(par1ItemStack) && bindable && par2EntityPlayer.isSneaking() && ((IWandBindable) tile).canSelect(par2EntityPlayer, par1ItemStack, , par4, , par5)) {
 				if(boundTile.posX == par4 && boundTile.posY == par5 && boundTile.posZ == par6)
 					setBoundTile(par1ItemStack, 0, -1, 0);
 				else setBoundTile(par1ItemStack, par4, par5, par6);
@@ -129,7 +130,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 
 				wanded = true;
 			} else {
-				wanded = ((IWandable) block).onUsedByWand(par2EntityPlayer, par1ItemStack, par3World, par4, par5, par6, par7);
+				wanded = ((IWandable) block).onUsedByWand(par2EntityPlayer, par1ItemStack, par3World, , par4, , par5);
 				if(wanded && par3World.isRemote)
 					par2EntityPlayer.swingItem();
 			}
@@ -294,7 +295,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 	}
 
 	@Override
-	public ChunkCoordinates getBinding(ItemStack stack) {
+	public BlockPos getBinding(ItemStack stack) {
 		ChunkCoordinates bound = getBoundTile(stack);
 		if(bound.posY != -1)
 			return bound;

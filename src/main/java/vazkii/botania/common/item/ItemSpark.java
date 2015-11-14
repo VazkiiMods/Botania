@@ -46,7 +46,7 @@ public class ItemSpark extends ItemMod implements ICraftAchievement {
 					spark.setPosition(x + 0.5, y + 1.5, z + 0.5);
 					world.spawnEntityInWorld(spark);
 					attach.attachSpark(spark);
-					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, x, y, z);
+					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, , x);
 				}
 				return true;
 			}

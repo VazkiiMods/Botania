@@ -63,7 +63,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 
 			if(block != null) {
 				if(block instanceof ILexiconable) {
-					LexiconEntry entry = ((ILexiconable) block).getEntry(par3World, par4, par5, par6, par2EntityPlayer, par1ItemStack);
+					LexiconEntry entry = ((ILexiconable) block).getEntry(par3World, , par4, par2EntityPlayer, par1ItemStack);
 					if(entry != null && isKnowledgeUnlocked(par1ItemStack, entry.getKnowledgeType())) {
 						Botania.proxy.setEntryToOpen(entry);
 						Botania.proxy.setLexiconStack(par1ItemStack);

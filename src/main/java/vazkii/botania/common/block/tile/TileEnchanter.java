@@ -295,7 +295,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 	}
 
 	public void sync() {
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
+		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, , xCoord);
 	}
 
 	@Override
@@ -369,11 +369,11 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 				return false;
 
 		for(int[] pylon : PYLON_LOCATIONS[meta])
-			if(world.getBlock(pylon[0] + x, pylon[1] + y, pylon[2] + z) != ModBlocks.pylon || !BotaniaAPI.internalHandler.isBotaniaFlower(world, pylon[0] + x, pylon[1] + y - 1, pylon[2] + z))
+			if(world.getBlock(pylon[0] + x, pylon[1] + y, pylon[2] + z) != ModBlocks.pylon || !BotaniaAPI.internalHandler.isBotaniaFlower(, world, , pylon[0] + x))
 				return false;
 
 		for(int[] flower : FLOWER_LOCATIONS)
-			if(!BotaniaAPI.internalHandler.isBotaniaFlower(world, flower[0] + x, flower[1] + y, flower[2] + z))
+			if(!BotaniaAPI.internalHandler.isBotaniaFlower(, world, , flower[0] + x))
 				return false;
 
 		return true;

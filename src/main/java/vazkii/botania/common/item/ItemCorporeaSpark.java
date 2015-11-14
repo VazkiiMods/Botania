@@ -44,7 +44,7 @@ public class ItemCorporeaSpark extends ItemMod {
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float xv, float yv, float zv) {
 		TileEntity tile = world.getTileEntity(x, y, z);
-		if(tile instanceof IInventory && !CorporeaHelper.doesBlockHaveSpark(world, x, y, z)) {
+		if(tile instanceof IInventory && !CorporeaHelper.doesBlockHaveSpark(world, , x)) {
 			stack.stackSize--;
 			if(!world.isRemote) {
 				EntityCorporeaSpark spark = new EntityCorporeaSpark(world);

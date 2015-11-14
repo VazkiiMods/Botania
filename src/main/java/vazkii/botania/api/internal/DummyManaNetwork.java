@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.TileSignature;
 
@@ -28,12 +28,12 @@ public class DummyManaNetwork implements IManaNetwork {
 	}
 
 	@Override
-	public TileEntity getClosestPool(ChunkCoordinates pos, World world, int limit) {
+	public TileEntity getClosestPool(BlockPos pos, World world, int limit) {
 		return null;
 	}
 
 	@Override
-	public TileEntity getClosestCollector(ChunkCoordinates pos, World world, int limit) {
+	public TileEntity getClosestCollector(BlockPos pos, World world, int limit) {
 		return null;
 	}
 

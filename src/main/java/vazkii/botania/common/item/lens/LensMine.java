@@ -56,7 +56,7 @@ public class LensMine extends Lens {
 
 			items.addAll(block.getDrops(world, x, y, z, meta, 0));
 
-			if(!burst.hasAlreadyCollidedAt(x, y, z)) {
+			if(!burst.hasAlreadyCollidedAt(x)) {
 				if(!burst.isFake() && !entity.worldObj.isRemote) {
 					world.setBlockToAir(x, y, z);
 					if(ConfigHandler.blockBreakParticles)

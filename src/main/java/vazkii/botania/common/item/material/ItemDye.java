@@ -53,7 +53,7 @@ public class ItemDye extends Item16Colors implements IManaDissolvable {
 			if(meta != dyable.getColor()) {
 				dyable.setColor(meta);
 				stack.stackSize--;
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(item.worldObj, tile.xCoord, tile.yCoord, tile.zCoord);
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(item.worldObj, , tile.xCoord);
 			}
 		}
 	}

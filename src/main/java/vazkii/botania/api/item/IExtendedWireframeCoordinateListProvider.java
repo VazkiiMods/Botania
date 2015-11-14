@@ -12,7 +12,7 @@ package vazkii.botania.api.item;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 
 /**
  * An extension of IWireframeCoordinateListProvider that allows for
@@ -23,6 +23,6 @@ public interface IExtendedWireframeCoordinateListProvider extends IWireframeCoor
 	/**
 	 * Gets the source wireframe to draw, this one will be drawn thicker.
 	 */
-	public ChunkCoordinates getSourceWireframe(EntityPlayer player, ItemStack stack);
+	public BlockPos getSourceWireframe(EntityPlayer player, ItemStack stack);
 
 }

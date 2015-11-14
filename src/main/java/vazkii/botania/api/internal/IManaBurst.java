@@ -13,7 +13,7 @@ package vazkii.botania.api.internal;
 import java.util.UUID;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 
 /**
  * Interface for the Mana Burst entity. This can safely be casted to EntityThrowable.
@@ -48,17 +48,17 @@ public interface IManaBurst {
 
 	public void setGravity(float gravity);
 
-	public ChunkCoordinates getBurstSourceChunkCoordinates();
+	public BlockPos getBurstSourceBlockPos();
 
-	public void setBurstSourceCoords(int x, int y, int z);
+	public void setBurstSourceCoords(BlockPos pos);
 
 	public ItemStack getSourceLens();
 
 	public void setSourceLens(ItemStack lens);
 
-	public boolean hasAlreadyCollidedAt(int x, int y, int z);
+	public boolean hasAlreadyCollidedAt(BlockPos pos);
 
-	public void setCollidedAt(int x, int y, int z);
+	public void setCollidedAt(BlockPos pos);
 
 	public int getTicksExisted();
 

@@ -14,6 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.wand.ITileBound;
@@ -69,7 +70,7 @@ public abstract class TileRedString extends TileMod implements ITileBound {
 	}
 
 	@Override
-	public ChunkCoordinates getBinding() {
+	public BlockPos getBinding() {
 		return binding;
 	}
 

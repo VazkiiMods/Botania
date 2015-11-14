@@ -109,7 +109,7 @@ public final class HUDHandler {
 
 						if(block instanceof IWandHUD) {
 							profiler.startSection("wandItem");
-							((IWandHUD) block).renderHUD(mc, event.resolution, mc.theWorld, pos.blockX, pos.blockY, pos.blockZ);
+							((IWandHUD) block).renderHUD(mc, event.resolution, mc.theWorld, , pos.blockX);
 							profiler.endSection();
 						}
 					}
@@ -350,7 +350,7 @@ public final class HUDHandler {
 		int sy = res.getScaledHeight() / 2 + 2;
 
 		if(block instanceof ILexiconable) {
-			LexiconEntry entry = ((ILexiconable) block).getEntry(mc.theWorld, pos.blockX, pos.blockY, pos.blockZ, mc.thePlayer, mc.thePlayer.getCurrentEquippedItem());
+			LexiconEntry entry = ((ILexiconable) block).getEntry(mc.theWorld, , pos.blockX, mc.thePlayer, mc.thePlayer.getCurrentEquippedItem());
 			if(entry != null) {
 				if(!((ILexicon) stack.getItem()).isKnowledgeUnlocked(stack, entry.getKnowledgeType()))
 					font = mc.standardGalacticFontRenderer;

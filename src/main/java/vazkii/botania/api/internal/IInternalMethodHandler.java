@@ -20,6 +20,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -118,7 +119,7 @@ public interface IInternalMethodHandler {
 
 	public long getWorldElapsedTicks();
 
-	public boolean isBotaniaFlower(World world, int x, int y, int z);
+	public boolean isBotaniaFlower(World world, BlockPos pos);
 
 	public void sendBaubleUpdatePacket(EntityPlayer player, int slot);
 

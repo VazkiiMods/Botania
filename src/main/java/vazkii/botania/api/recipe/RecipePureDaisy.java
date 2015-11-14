@@ -16,6 +16,7 @@ import java.util.Map;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.subtile.SubTileEntity;
@@ -78,9 +79,9 @@ public class RecipePureDaisy {
 	 * Should only place the block if !world.isRemote, but should return true if it would've placed
 	 * it otherwise. You may return false to cancel the normal particles and do your own.
 	 */
-	public boolean set(World world, int x, int y, int z, SubTileEntity pureDaisy) {
+	public boolean set(World world, BlockPos pos, SubTileEntity pureDaisy) {
 		if(!world.isRemote)
-			world.setBlock(x, y, z, output, outputMeta, 1 | 2);
+			world.setBlockState(pos, output.getStateFromMeta(outputMeta), 1 | 2); // todo 1.8 - should this remain meta?
 		return true;
 	}
 

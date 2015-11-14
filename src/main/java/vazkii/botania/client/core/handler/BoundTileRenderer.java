@@ -105,7 +105,7 @@ public final class BoundTileRenderer {
 				AxisAlignedBB axis;
 
 				if(block instanceof IWireframeAABBProvider)
-					axis = ((IWireframeAABBProvider) block).getWireframeAABB(world, pos.posX, pos.posY, pos.posZ);
+					axis = ((IWireframeAABBProvider) block).getWireframeAABB(world, , pos.posX);
 				else axis = block.getSelectedBoundingBoxFromPool(world, pos.posX, pos.posY, pos.posZ);
 
 				if(axis == null)

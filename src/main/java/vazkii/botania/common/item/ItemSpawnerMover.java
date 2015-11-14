@@ -196,7 +196,7 @@ public class ItemSpawnerMover extends ItemMod {
 			tag.setInteger("y", y);
 			tag.setInteger("z", z);
 			te.readFromNBT(tag);
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, x, y, z);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, , x);
 		}
 
 		return true;

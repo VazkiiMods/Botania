@@ -11,7 +11,7 @@
 package vazkii.botania.api.lexicon.multiblock.component;
 
 import net.minecraft.block.Block;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 
@@ -20,13 +20,13 @@ import vazkii.botania.api.BotaniaAPI;
  */
 public class FlowerComponent extends ColorSwitchingComponent {
 
-	public FlowerComponent(ChunkCoordinates relPos, Block block) {
+	public FlowerComponent(BlockPos relPos, Block block) {
 		super(relPos, block);
 	}
 
 	@Override
 	public boolean matches(World world, int x, int y, int z) {
-		return BotaniaAPI.internalHandler.isBotaniaFlower(world, x, y, z);
+		return BotaniaAPI.internalHandler.isBotaniaFlower(, world, , x);
 	}
 
 	@Override

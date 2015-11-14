@@ -13,7 +13,7 @@ package vazkii.botania.api.internal;
 import java.util.List;
 
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.TileSignature;
 
@@ -38,7 +38,7 @@ public interface IManaNetwork {
 	 * @param limit The maximum distance the closest block can be, if the closest block
 	 * is farther away than that, null will be returned instead.
 	 */
-	public TileEntity getClosestCollector(ChunkCoordinates pos, World world, int limit);
+	public TileEntity getClosestCollector(BlockPos pos, World world, int limit);
 
 	/**
 	 * Gets the closest Mana Pool in the network to the Chunk Coordinates passed in,
@@ -49,7 +49,7 @@ public interface IManaNetwork {
 	 * @param limit The maximum distance the closest block can be, if the closest block
 	 * is farther away than that, null will be returned instead.
 	 */
-	public TileEntity getClosestPool(ChunkCoordinates pos, World world, int limit);
+	public TileEntity getClosestPool(BlockPos pos, World world, int limit);
 
 	/**
 	 * Gets the list of all Mana Collectors (eg. Mana Spreader) in the dimension

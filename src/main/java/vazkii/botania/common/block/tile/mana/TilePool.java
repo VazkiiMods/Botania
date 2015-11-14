@@ -324,7 +324,7 @@ public class TilePool extends TileMod implements IManaPool, IDyablePool, IKeyLoc
 
 		if(player.isSneaking()) {
 			outputting = !outputting;
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, , xCoord);
 		}
 
 		if(!worldObj.isRemote) {

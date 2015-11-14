@@ -17,7 +17,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 
 /**
@@ -52,7 +52,7 @@ public class Multiblock {
 	 * coords should be pivoted to the center of the structure.
 	 */
 	public void addComponent(int x, int y, int z, Block block, int meta) {
-		addComponent(new MultiblockComponent(new ChunkCoordinates(x, y, z), block, meta));
+		addComponent(new MultiblockComponent(new BlockPos(x, y, z), block, meta));
 	}
 
 	private void changeAxisForNewComponent(int x, int y, int z) {
@@ -171,7 +171,7 @@ public class Multiblock {
 	 * Adds a single component to the location cache
 	 */
 	private void addComponentToLocationCache(MultiblockComponent comp) {
-		ChunkCoordinates pos = comp.getRelativePosition();
+		BlockPos pos = comp.getRelativePosition();
 		locationCache.put(Arrays.asList(
 				pos.posX,
 				pos.posY,

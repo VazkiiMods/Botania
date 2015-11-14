@@ -20,7 +20,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
@@ -182,24 +184,24 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 	}
 
 	@Override
-	public ChunkCoordinates getBinding() {
+	public BlockPos getBinding() {
 		if(subTile == null)
 			return null;
 		return subTile.getBinding();
 	}
 
 	@Override
-	public boolean canSelect(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
+	public boolean canSelect(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side) {
 		if(subTile == null)
 			return false;
-		return subTile.canSelect(player, wand, x, y, z, side);
+		return subTile.canSelect(player, wand, , x, , y);
 	}
 
 	@Override
-	public boolean bindTo(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
+	public boolean bindTo(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side) {
 		if(subTile == null)
 			return false;
-		return subTile.bindTo(player, wand, x, y, z, side);
+		return subTile.bindTo(player, wand, , x, , y);
 	}
 
 	public int getLightValue() {

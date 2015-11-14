@@ -14,7 +14,7 @@ import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -26,10 +26,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public interface IWireframeCoordinateListProvider {
 
 	/**
-	 * Returns a list of ChunkCoordinates for the wireframes to draw.
+	 * Returns a list of BlockPos for the wireframes to draw.
 	 * Can be null.
 	 */
 	@SideOnly(Side.CLIENT)
-	public List<ChunkCoordinates> getWireframesToDraw(EntityPlayer player, ItemStack stack);
+	public List<BlockPos> getWireframesToDraw(EntityPlayer player, ItemStack stack);
 
 }

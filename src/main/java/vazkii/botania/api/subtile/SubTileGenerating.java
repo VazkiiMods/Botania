@@ -23,10 +23,10 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaCollector;
@@ -54,7 +54,7 @@ public class SubTileGenerating extends SubTileEntity {
 	public int knownMana = -1;
 	public int passiveDecayTicks;
 
-	ChunkCoordinates cachedCollectorCoordinates = null;
+	BlockPos cachedCollectorCoordinates = null;
 
 	/**
 	 * If set to true, redstoneSignal will be updated every tick.
@@ -81,8 +81,8 @@ public class SubTileGenerating extends SubTileEntity {
 
 		if(acceptsRedstone()) {
 			redstoneSignal = 0;
-			for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-				int redstoneSide = supertile.getWorld().getIndirectPowerLevelTo(supertile.xCoord + dir.offsetX, supertile.yCoord + dir.offsetY, supertile.zCoord + dir.offsetZ, dir.ordinal());
+			for(EnumFacing dir : EnumFacing.VALUES) {
+				int redstoneSide = supertile.getWorld().getIndirectPowerLevelTo(supertile.getPos().offset(dir), dir.ordinal());
 				redstoneSignal = Math.max(redstoneSignal, redstoneSide);
 			}
 		}
@@ -100,9 +100,9 @@ public class SubTileGenerating extends SubTileEntity {
 
 			if(passive && muhBalance > 0 && passiveDecayTicks > muhBalance) {
 				supertile.getWorld().playAuxSFX(2001, supertile.xCoord, supertile.yCoord, supertile.zCoord, Block.getIdFromBlock(supertile.getBlockType()));
-				if(supertile.getWorld().getBlock(supertile.xCoord, supertile.yCoord - 1, supertile.zCoord).isSideSolid(supertile.getWorld(), supertile.xCoord, supertile.yCoord - 1, supertile.zCoord, ForgeDirection.UP))
-					supertile.getWorld().setBlock(supertile.xCoord, supertile.yCoord, supertile.zCoord, Blocks.deadbush);
-				else supertile.getWorld().setBlockToAir(supertile.xCoord, supertile.yCoord, supertile.zCoord);
+				if(supertile.getWorld().getBlockState(supertile.getPos().down()).getBlock().isSideSolid(supertile.getWorld(), supertile.getPos().down(), EnumFacing.DOWN))
+					supertile.getWorld().setBlockState(supertile.getPos(), Blocks.deadbush.getDefaultState());
+				else supertile.getWorld().setBlockToAir(supertile.getPos());
 			}
 		}
 
@@ -117,9 +117,9 @@ public class SubTileGenerating extends SubTileEntity {
 
 			if(cachedCollectorCoordinates != null) {
 				needsNew = false;
-				if(supertile.getWorld().blockExists(cachedCollectorCoordinates.posX, cachedCollectorCoordinates.posY, cachedCollectorCoordinates.posZ)) {
+				if(supertile.getWorld().isBlockLoaded(cachedCollectorCoordinates)) {
 					needsNew = true;
-					TileEntity tileAt = supertile.getWorld().getTileEntity(cachedCollectorCoordinates.posX, cachedCollectorCoordinates.posY, cachedCollectorCoordinates.posZ);
+					TileEntity tileAt = supertile.getWorld().getTileEntity(cachedCollectorCoordinates);
 					if(tileAt != null && tileAt instanceof IManaCollector && !tileAt.isInvalid()) {
 						linkedCollector = tileAt;
 						needsNew = false;
@@ -128,7 +128,7 @@ public class SubTileGenerating extends SubTileEntity {
 				}
 			}
 		} else {
-			TileEntity tileAt = supertile.getWorld().getTileEntity(linkedCollector.xCoord, linkedCollector.yCoord, linkedCollector.zCoord);
+			TileEntity tileAt = supertile.getWorld().getTileEntity(linkedCollector.getPos());
 			if(tileAt != null && tileAt instanceof IManaCollector)
 				linkedCollector = tileAt;
 		}
@@ -137,8 +137,7 @@ public class SubTileGenerating extends SubTileEntity {
 			IManaNetwork network = BotaniaAPI.internalHandler.getManaNetworkInstance();
 			int size = network.getAllCollectorsInWorld(supertile.getWorld()).size();
 			if(BotaniaAPI.internalHandler.shouldForceCheck() || size != sizeLastCheck) {
-				ChunkCoordinates coords = new ChunkCoordinates(supertile.xCoord, supertile.yCoord, supertile.zCoord);
-				linkedCollector = network.getClosestCollector(coords, supertile.getWorld(), RANGE);
+				linkedCollector = network.getClosestCollector(supertile.getPos(), supertile.getWorld(), RANGE);
 				sizeLastCheck = size;
 			}
 		}
@@ -243,7 +242,7 @@ public class SubTileGenerating extends SubTileEntity {
 		int y = cmp.getInteger(TAG_COLLECTOR_Y);
 		int z = cmp.getInteger(TAG_COLLECTOR_Z);
 
-		cachedCollectorCoordinates = y < 0 ? null : new ChunkCoordinates(x, y, z);
+		cachedCollectorCoordinates = y < 0 ? null : new BlockPos(x, y, z);
 	}
 
 	@Override
@@ -253,13 +252,13 @@ public class SubTileGenerating extends SubTileEntity {
 		cmp.setInteger(TAG_PASSIVE_DECAY_TICKS, passiveDecayTicks);
 
 		if(cachedCollectorCoordinates != null) {
-			cmp.setInteger(TAG_COLLECTOR_X, cachedCollectorCoordinates.posX);
-			cmp.setInteger(TAG_COLLECTOR_Y, cachedCollectorCoordinates.posY);
-			cmp.setInteger(TAG_COLLECTOR_Z, cachedCollectorCoordinates.posZ);
+			cmp.setInteger(TAG_COLLECTOR_X, cachedCollectorCoordinates.getX());
+			cmp.setInteger(TAG_COLLECTOR_Y, cachedCollectorCoordinates.getY());
+			cmp.setInteger(TAG_COLLECTOR_Z, cachedCollectorCoordinates.getZ());
 		} else {
-			int x = linkedCollector == null ? 0 : linkedCollector.xCoord;
-			int y = linkedCollector == null ? -1 : linkedCollector.yCoord;
-			int z = linkedCollector == null ? 0 : linkedCollector.zCoord;
+			int x = linkedCollector == null ? 0 : linkedCollector.getPos().getX();
+			int y = linkedCollector == null ? -1 : linkedCollector.getPos().getY();
+			int z = linkedCollector == null ? 0 : linkedCollector.getPos().getZ();
 
 			cmp.setInteger(TAG_COLLECTOR_X, x);
 			cmp.setInteger(TAG_COLLECTOR_Y, y);
@@ -268,25 +267,25 @@ public class SubTileGenerating extends SubTileEntity {
 	}
 
 	@Override
-	public ChunkCoordinates getBinding() {
+	public BlockPos getBinding() {
 		if(linkedCollector == null)
 			return null;
-		return new ChunkCoordinates(linkedCollector.xCoord, linkedCollector.yCoord, linkedCollector.zCoord);
+		return linkedCollector.getPos();
 	}
 
 	@Override
-	public boolean canSelect(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
+	public boolean canSelect(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side) {
 		return true;
 	}
 
 	@Override
-	public boolean bindTo(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
+	public boolean bindTo(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side) {
 		int range = 6;
 		range *= range;
 
 		double dist = (x - supertile.xCoord) * (x - supertile.xCoord) + (y - supertile.yCoord) * (y - supertile.yCoord) + (z - supertile.zCoord) * (z - supertile.zCoord);
 		if(range >= dist) {
-			TileEntity tile = player.worldObj.getTileEntity(x, y, z);
+			TileEntity tile = player.worldObj.getTileEntity(pos);
 			if(tile instanceof IManaCollector) {
 				linkedCollector = tile;
 				return true;
@@ -298,7 +297,7 @@ public class SubTileGenerating extends SubTileEntity {
 
 
 	public boolean isValidBinding() {
-		return linkedCollector != null && !linkedCollector.isInvalid() && supertile.getWorld().getTileEntity(linkedCollector.xCoord, linkedCollector.yCoord, linkedCollector.zCoord) == linkedCollector;
+		return linkedCollector != null && !linkedCollector.isInvalid() && supertile.getWorld().getTileEntity(linkedCollector.getPos()) == linkedCollector;
 	}
 
 	@Override

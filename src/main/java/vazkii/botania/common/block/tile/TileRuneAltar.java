@@ -69,7 +69,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 			}
 
 		if(did)
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, , xCoord);
 
 		return true;
 	}
@@ -136,7 +136,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 
 		if(manaToGet != this.manaToGet) {
 			worldObj.playSoundEffect(xCoord, yCoord, zCoord, "botania:runeAltarStart", 1F, 1F);
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, , xCoord);
 		}
 	}
 
@@ -154,7 +154,7 @@ public class TileRuneAltar extends TileSimpleInventory implements ISidedInventor
 	public void trySetLastRecipe(EntityPlayer player) {
 		TileAltar.tryToSetLastRecipe(player, this, lastRecipe);
 		if(!isEmpty())
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, , xCoord);
 	}
 
 	public boolean hasValidRecipe() {

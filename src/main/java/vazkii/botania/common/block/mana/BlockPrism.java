@@ -21,6 +21,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaBurst;
@@ -177,14 +178,14 @@ public class BlockPrism extends BlockModContainer implements IManaTrigger, ILexi
 	}
 
 	@Override
-	public void onBurstCollision(IManaBurst burst, World world, int x, int y, int z) {
+	public void onBurstCollision(IManaBurst burst, World world, BlockPos pos) {
 		TileEntity tile = world.getTileEntity(x, y, z);
 		if(tile != null && tile instanceof TilePrism)
 			((TilePrism) tile).onBurstCollision(burst);
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.prism;
 	}
 

@@ -33,7 +33,7 @@ public class LensWarp extends Lens {
 				int worldId = Integer.parseInt(tokens[0]), x = Integer.parseInt(tokens[1]), y = Integer.parseInt(tokens[2]), z = Integer.parseInt(tokens[3]);
 				if(worldId == entity.worldObj.provider.dimensionId) {
 					entity.setPosition(x + 0.5, y + 0.5, z + 0.5);
-					burst.setCollidedAt(x, y, z);
+					burst.setCollidedAt(x);
 					return false;
 				}
 			}

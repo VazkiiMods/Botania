@@ -27,11 +27,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.*;
 import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaBurst;
@@ -106,7 +103,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 		this.fake = fake;
 
-		setBurstSourceCoords(tile.xCoord, tile.yCoord, tile.zCoord);
+		setBurstSourceCoords(tile.xCoord);
 		setLocationAndAngles(tile.xCoord + 0.5, tile.yCoord + 0.5, tile.zCoord + 0.5, 0, 0);
 		rotationYaw = -(spreader.getRotationX() + 90F);
 		rotationPitch = spreader.getRotationY();
@@ -121,7 +118,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	public EntityManaBurst(EntityPlayer player) {
 		this(player.worldObj);
 
-		setBurstSourceCoords(0, -1, 0);
+		setBurstSourceCoords(0);
 		setLocationAndAngles(player.posX, player.posY + player.getEyeHeight(), player.posZ, player.rotationYaw + 180, -player.rotationPitch);
 
 		posX -= MathHelper.cos((rotationYaw + 180) / 180.0F * (float) Math.PI) * 0.16F;
@@ -470,7 +467,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		int y = par1nbtTagCompound.getInteger(TAG_SPREADER_Y);
 		int z = par1nbtTagCompound.getInteger(TAG_SPREADER_Z);
 
-		setBurstSourceCoords(x, y, z);
+		setBurstSourceCoords(x);
 
 		double lastMotionX = par1nbtTagCompound.getDouble(TAG_LAST_MOTION_X);
 		double lastMotionY = par1nbtTagCompound.getDouble(TAG_LAST_MOTION_Y);
@@ -590,7 +587,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 					onRecieverImpact((IManaReceiver) tile, tile.xCoord, tile.yCoord, tile.zCoord);
 
 				if(block instanceof IManaTrigger)
-					((IManaTrigger) block).onBurstCollision(this, worldObj, movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ);
+					((IManaTrigger) block).onBurstCollision(this, worldObj, , movingobjectposition.blockX);
 
 				boolean ghost = tile instanceof IManaCollisionGhost;
 				dead = !ghost;
@@ -605,7 +602,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		if(lens != null)
 			dead = lens.collideBurst(this, movingobjectposition, collidedTile != null && collidedTile instanceof IManaReceiver && ((IManaReceiver) collidedTile).canRecieveManaFromBursts(), dead, getSourceLens());
 
-		if(collided && !hasAlreadyCollidedAt(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ))
+		if(collided && !hasAlreadyCollidedAt(movingobjectposition.blockX))
 			alreadyCollidedAt.add(getCollisionLocString(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ));
 
 		if(dead && !isDead) {
@@ -637,7 +634,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		tile.recieveMana(mana);
 		if(tile instanceof IThrottledPacket)
 			((IThrottledPacket) tile).markDispatchable();
-		else VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, x, y, z);
+		else VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, , x);
 	}
 
 	@Override
@@ -748,7 +745,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	}
 
 	@Override
-	public void setBurstSourceCoords(int x, int y, int z) {
+	public void setBurstSourceCoords(BlockPos pos) {
 		dataWatcher.updateObject(coordsStart, x);
 		dataWatcher.updateObject(coordsStart + 1, y);
 		dataWatcher.updateObject(coordsStart + 2, z);
@@ -791,13 +788,13 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	}
 
 	@Override
-	public boolean hasAlreadyCollidedAt(int x, int y, int z) {
+	public boolean hasAlreadyCollidedAt(BlockPos pos) {
 		return alreadyCollidedAt.contains(getCollisionLocString(x, y, z));
 	}
 
 	@Override
-	public void setCollidedAt(int x, int y, int z) {
-		if(!hasAlreadyCollidedAt(x, y, z))
+	public void setCollidedAt(BlockPos pos) {
+		if(!hasAlreadyCollidedAt(x))
 			alreadyCollidedAt.add(getCollisionLocString(x, y, z));
 	}
 

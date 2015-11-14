@@ -18,9 +18,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaPool;
@@ -46,7 +46,7 @@ public class SubTileFunctional extends SubTileEntity {
 	TileEntity linkedPool = null;
 	public int knownMana = -1;
 
-	ChunkCoordinates cachedPoolCoordinates = null;
+	BlockPos cachedPoolCoordinates = null;
 
 	/**
 	 * If set to true, redstoneSignal will be updated every tick.
@@ -72,8 +72,8 @@ public class SubTileFunctional extends SubTileEntity {
 
 		if(acceptsRedstone()) {
 			redstoneSignal = 0;
-			for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-				int redstoneSide = supertile.getWorld().getIndirectPowerLevelTo(supertile.xCoord + dir.offsetX, supertile.yCoord + dir.offsetY, supertile.zCoord + dir.offsetZ, dir.ordinal());
+			for(EnumFacing dir : EnumFacing.VALUES) {
+				int redstoneSide = supertile.getWorld().getIndirectPowerLevelTo(supertile.getPos().offset(dir), dir.ordinal());
 				redstoneSignal = Math.max(redstoneSignal, redstoneSide);
 			}
 		}
@@ -93,9 +93,9 @@ public class SubTileFunctional extends SubTileEntity {
 
 			if(cachedPoolCoordinates != null) {
 				needsNew = false;
-				if(supertile.getWorld().blockExists(cachedPoolCoordinates.posX, cachedPoolCoordinates.posY, cachedPoolCoordinates.posZ)) {
+				if(supertile.getWorld().isBlockLoaded(cachedPoolCoordinates)) {
 					needsNew = true;
-					TileEntity tileAt = supertile.getWorld().getTileEntity(cachedPoolCoordinates.posX, cachedPoolCoordinates.posY, cachedPoolCoordinates.posZ);
+					TileEntity tileAt = supertile.getWorld().getTileEntity(cachedPoolCoordinates);
 					if(tileAt != null && tileAt instanceof IManaPool && !tileAt.isInvalid()) {
 						linkedPool = tileAt;
 						needsNew = false;
@@ -104,7 +104,7 @@ public class SubTileFunctional extends SubTileEntity {
 				}
 			}
 		} else {
-			TileEntity tileAt = supertile.getWorld().getTileEntity(linkedPool.xCoord, linkedPool.yCoord, linkedPool.zCoord);
+			TileEntity tileAt = supertile.getWorld().getTileEntity(linkedPool.getPos());
 			if(tileAt != null && tileAt instanceof IManaPool)
 				linkedPool = tileAt;
 		}
@@ -113,8 +113,7 @@ public class SubTileFunctional extends SubTileEntity {
 			IManaNetwork network = BotaniaAPI.internalHandler.getManaNetworkInstance();
 			int size = network.getAllPoolsInWorld(supertile.getWorld()).size();
 			if(BotaniaAPI.internalHandler.shouldForceCheck() || size != sizeLastCheck) {
-				ChunkCoordinates coords = new ChunkCoordinates(supertile.xCoord, supertile.yCoord, supertile.zCoord);
-				linkedPool = network.getClosestPool(coords, supertile.getWorld(), RANGE);
+				linkedPool = network.getClosestPool(supertile.getPos(), supertile.getWorld(), RANGE);
 				sizeLastCheck = size;
 			}
 		}
@@ -155,7 +154,7 @@ public class SubTileFunctional extends SubTileEntity {
 		int y = cmp.getInteger(TAG_POOL_Y);
 		int z = cmp.getInteger(TAG_POOL_Z);
 
-		cachedPoolCoordinates = y < 0 ? null : new ChunkCoordinates(x, y, z);
+		cachedPoolCoordinates = y < 0 ? null : new BlockPos(x, y, z);
 	}
 
 	@Override
@@ -163,13 +162,13 @@ public class SubTileFunctional extends SubTileEntity {
 		cmp.setInteger(TAG_MANA, mana);
 
 		if(cachedPoolCoordinates != null) {
-			cmp.setInteger(TAG_POOL_X, cachedPoolCoordinates.posX);
-			cmp.setInteger(TAG_POOL_Y, cachedPoolCoordinates.posY);
-			cmp.setInteger(TAG_POOL_Z, cachedPoolCoordinates.posZ);
+			cmp.setInteger(TAG_POOL_X, cachedPoolCoordinates.getX());
+			cmp.setInteger(TAG_POOL_Y, cachedPoolCoordinates.getY());
+			cmp.setInteger(TAG_POOL_Z, cachedPoolCoordinates.getZ());
 		} else {
-			int x = linkedPool == null ? 0 : linkedPool.xCoord;
-			int y = linkedPool == null ? -1 : linkedPool.yCoord;
-			int z = linkedPool == null ? 0 : linkedPool.zCoord;
+			int x = linkedPool == null ? 0 : linkedPool.getPos().getX();
+			int y = linkedPool == null ? -1 : linkedPool.getPos().getY();
+			int z = linkedPool == null ? 0 : linkedPool.getPos().getZ();
 
 			cmp.setInteger(TAG_POOL_X, x);
 			cmp.setInteger(TAG_POOL_Y, y);
@@ -178,25 +177,25 @@ public class SubTileFunctional extends SubTileEntity {
 	}
 
 	@Override
-	public ChunkCoordinates getBinding() {
+	public BlockPos getBinding() {
 		if(linkedPool == null)
 			return null;
-		return new ChunkCoordinates(linkedPool.xCoord, linkedPool.yCoord, linkedPool.zCoord);
+		return linkedPool.getPos();
 	}
 
 	@Override
-	public boolean canSelect(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
+	public boolean canSelect(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side) {
 		return true;
 	}
 
 	@Override
-	public boolean bindTo(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
+	public boolean bindTo(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side) {
 		int range = 10;
 		range *= range;
 
 		double dist = (x - supertile.xCoord) * (x - supertile.xCoord) + (y - supertile.yCoord) * (y - supertile.yCoord) + (z - supertile.zCoord) * (z - supertile.zCoord);
 		if(range >= dist) {
-			TileEntity tile = player.worldObj.getTileEntity(x, y, z);
+			TileEntity tile = player.worldObj.getTileEntity(pos);
 			if(tile instanceof IManaPool) {
 				linkedPool = tile;
 				return true;
@@ -207,7 +206,7 @@ public class SubTileFunctional extends SubTileEntity {
 	}
 
 	public boolean isValidBinding() {
-		return linkedPool != null && !linkedPool.isInvalid() && supertile.getWorld().getTileEntity(linkedPool.xCoord, linkedPool.yCoord, linkedPool.zCoord) == linkedPool;
+		return linkedPool != null && !linkedPool.isInvalid() && supertile.getWorld().getTileEntity(linkedPool.getPos()) == linkedPool;
 	}
 
 	@Override

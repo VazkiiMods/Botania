@@ -30,7 +30,7 @@ public class BehaviourWand extends BehaviorDefaultDispenseItem {
 		World world = par1IBlockSource.getWorld();
 		Block block = world.getBlock(x, y, z);
 		if(block instanceof IWandable) {
-			((IWandable) block).onUsedByWand(null, par2ItemStack, world, x, y, z, facing.getOpposite().ordinal());
+			((IWandable) block).onUsedByWand(null, par2ItemStack, world, , x, , y);
 			return par2ItemStack;
 		}
 

@@ -11,6 +11,7 @@
 package vazkii.botania.api.wand;
 
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 /**
@@ -19,6 +20,6 @@ import net.minecraft.world.World;
  */
 public interface IWireframeAABBProvider {
 
-	public AxisAlignedBB getWireframeAABB(World world, int x, int y, int z);
+	public AxisAlignedBB getWireframeAABB(World world, BlockPos pos);
 
 }

@@ -19,8 +19,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -155,7 +155,7 @@ public class SubTileEntity {
 	 * when the sub tile is being hovered with a wand of the forest.
 	 */
 	@SideOnly(Side.CLIENT)
-	public ChunkCoordinates getBinding() {
+	public BlockPos getBinding() {
 		return null;
 	}
 
@@ -169,23 +169,23 @@ public class SubTileEntity {
 	}
 
 	/**
-	 * Gets a ChunkCoordinates instance with the position of this sub tile.
+	 * Gets a BlockPos instance with the position of this sub tile.
 	 */
-	public ChunkCoordinates toChunkCoordinates() {
-		return new ChunkCoordinates(supertile.xCoord, supertile.yCoord, supertile.zCoord);
+	public BlockPos toBlockPos() {
+		return supertile.getPos();
 	}
 
 	/**
-	 * @see IWandBindable#canSelect(EntityPlayer, ItemStack, int, int, int, int)
+	 * @see IWandBindable#canSelect(EntityPlayer, ItemStack, net.minecraft.util.BlockPos, net.minecraft.util.EnumFacing)
 	 */
-	public boolean canSelect(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
+	public boolean canSelect(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side) {
 		return false;
 	}
 
 	/**
-	 * @see IWandBindable#bindTo(EntityPlayer, ItemStack, int, int, int, int)
+	 * @see IWandBindable#bindTo(EntityPlayer, ItemStack, net.minecraft.util.BlockPos, net.minecraft.util.EnumFacing)
 	 */
-	public boolean bindTo(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
+	public boolean bindTo(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side) {
 		return false;
 	}
 

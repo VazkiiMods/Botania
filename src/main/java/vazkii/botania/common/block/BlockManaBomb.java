@@ -15,6 +15,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -36,7 +37,7 @@ public class BlockManaBomb extends BlockMod implements IManaTrigger, ILexiconabl
 	}
 
 	@Override
-	public void onBurstCollision(IManaBurst burst, World world, int x, int y, int z) {
+	public void onBurstCollision(IManaBurst burst, World world, BlockPos pos) {
 		if(!burst.isFake() && !world.isRemote) {
 			world.playAuxSFX(2001, x, y, z, getIdFromBlock(this));
 			world.setBlockToAir(x, y, z);
@@ -47,7 +48,7 @@ public class BlockManaBomb extends BlockMod implements IManaTrigger, ILexiconabl
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.manaBomb;
 	}
 

@@ -18,6 +18,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
@@ -263,7 +264,7 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 	}
 
 	@Override
-	public ChunkCoordinates getBinding(ItemStack stack) {
+	public BlockPos getBinding(ItemStack stack) {
 		IManaPool pool = getManaPool(stack);
 
 		return pool == null || pool instanceof DummyPool ? null : getPoolCoords(stack);

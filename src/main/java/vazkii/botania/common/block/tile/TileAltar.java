@@ -62,7 +62,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 				stack.stackSize--;
 				if(stack.stackSize == 0)
 					item.setDead();
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, , xCoord);
 			}
 		}
 
@@ -150,7 +150,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 	public void trySetLastRecipe(EntityPlayer player) {
 		tryToSetLastRecipe(player, this, lastRecipe);
 		if(!isEmpty())
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, , xCoord);
 	}
 
 	public static void tryToSetLastRecipe(EntityPlayer player, IInventory inv, List<ItemStack> lastRecipe) {
@@ -218,7 +218,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 			didChange = collideEntityItem(item) || didChange;
 
 		if(didChange)
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, , xCoord);
 
 		for(int i = 0; i < getSizeInventory(); i++) {
 			ItemStack stackAt = getStackInSlot(i);
@@ -304,12 +304,12 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 	@Override
 	public void setWater(boolean water) {
 		hasWater = water;
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
+		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, , xCoord);
 	}
 
 	public void setLava(boolean lava) {
 		hasLava = lava;
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
+		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, , xCoord);
 	}
 
 	@Override

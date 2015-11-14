@@ -91,7 +91,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 					item.worldObj.playSoundAtEntity(item, "botania:terrasteelCraft", 1F, 1F);
 					mana = 0;
 					worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
-					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
+					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, , xCoord);
 				}
 			}
 		}

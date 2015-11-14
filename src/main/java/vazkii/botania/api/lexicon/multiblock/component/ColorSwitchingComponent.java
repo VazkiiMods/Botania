@@ -11,7 +11,7 @@
 package vazkii.botania.api.lexicon.multiblock.component;
 
 import net.minecraft.block.Block;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 
@@ -21,7 +21,7 @@ import vazkii.botania.api.BotaniaAPI;
  */
 public class ColorSwitchingComponent extends MultiblockComponent {
 
-	public ColorSwitchingComponent(ChunkCoordinates relPos, Block block) {
+	public ColorSwitchingComponent(BlockPos relPos, Block block) {
 		super(relPos, block, -1);
 	}
 

@@ -13,6 +13,8 @@ package vazkii.botania.common.block;
 import java.util.List;
 import java.util.Random;
 
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -172,18 +174,18 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return world.getBlockMetadata(x, y, z) == 0 ? LexiconData.openCrate : LexiconData.craftCrate;
 	}
 
 	@Override
-	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
+	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, BlockPos pos, EnumFacing side) {
 		TileOpenCrate crate = (TileOpenCrate) world.getTileEntity(x, y, z);
 		return crate.onWanded(player, stack);
 	}
 
 	@Override
-	public void renderHUD(Minecraft mc, ScaledResolution res, World world, int x, int y, int z) {
+	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
 		TileEntity tile = world.getTileEntity(x, y, z);
 		if(tile instanceof TileCraftCrate) {
 			TileCraftCrate craft = (TileCraftCrate) tile;

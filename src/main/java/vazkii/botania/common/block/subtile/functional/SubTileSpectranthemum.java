@@ -19,7 +19,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -132,8 +134,8 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 	}
 
 	@Override
-	public boolean bindTo(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
-		boolean bound = super.bindTo(player, wand, x, y, z, side);
+	public boolean bindTo(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side) {
+		boolean bound = super.bindTo(player, wand, pos, side);
 
 		if(!bound && (x != bindX || y != bindY || z != bindZ) && MathHelper.pointDistanceSpace(x, y, z, supertile.xCoord, supertile.yCoord, supertile.zCoord) <= BIND_RANGE && (x != supertile.xCoord || y != supertile.yCoord || z != supertile.zCoord)) {
 			bindX = x;
@@ -149,7 +151,7 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public ChunkCoordinates getBinding() {
+	public BlockPos getBinding() {
 		return Minecraft.getMinecraft().thePlayer.isSneaking() && bindY != -1 ? new ChunkCoordinates(bindX, bindY, bindZ) : super.getBinding();
 	}
 

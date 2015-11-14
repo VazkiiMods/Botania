@@ -27,6 +27,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -116,7 +118,7 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 		if(par5Entity instanceof EntityItem) {
 			TilePool tile = (TilePool) par1World.getTileEntity(par2, par3, par4);
 			if(tile.collideEntityItem((EntityItem) par5Entity))
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(par1World, par2, par3, par4);
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(par1World, , par2);
 		}
 	}
 	
@@ -171,18 +173,18 @@ public class BlockPool extends BlockModContainer implements IWandHUD, IWandable,
 	}
 
 	@Override
-	public void renderHUD(Minecraft mc, ScaledResolution res, World world, int x, int y, int z) {
+	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
 		((TilePool) world.getTileEntity(x, y, z)).renderHUD(mc, res);
 	}
 
 	@Override
-	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
+	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, BlockPos pos, EnumFacing side) {
 		((TilePool) world.getTileEntity(x, y, z)).onWanded(player, stack);
 		return true;
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.pool;
 	}
 

@@ -11,7 +11,7 @@
 package vazkii.botania.api.lexicon.multiblock.component;
 
 import net.minecraft.block.Block;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 /**
@@ -19,7 +19,7 @@ import net.minecraft.world.World;
  */
 public class AnyComponent extends MultiblockComponent {
 
-	public AnyComponent(ChunkCoordinates relPos, Block block, int meta) {
+	public AnyComponent(BlockPos relPos, Block block, int meta) {
 		super(relPos, block, meta);
 	}
 

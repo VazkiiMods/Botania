@@ -1,7 +1,7 @@
 package vazkii.botania.api.wand;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -13,6 +13,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public interface ICoordBoundItem {
 
 	@SideOnly(Side.CLIENT)
-	public ChunkCoordinates getBinding(ItemStack stack);
+	public BlockPos getBinding(ItemStack stack);
 
 }

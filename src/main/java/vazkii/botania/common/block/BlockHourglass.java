@@ -22,7 +22,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -178,7 +180,7 @@ public class BlockHourglass extends BlockModContainer implements IManaTrigger, I
 	}
 
 	@Override
-	public void onBurstCollision(IManaBurst burst, World world, int x, int y, int z) {
+	public void onBurstCollision(IManaBurst burst, World world, BlockPos pos) {
 		if(!world.isRemote && !burst.isFake()) {
 			TileHourglass tile = (TileHourglass) world.getTileEntity(x, y, z);
 			tile.move = !tile.move;
@@ -187,20 +189,20 @@ public class BlockHourglass extends BlockModContainer implements IManaTrigger, I
 	}
 
 	@Override
-	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
+	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, BlockPos pos, EnumFacing side) {
 		TileHourglass tile = (TileHourglass) world.getTileEntity(x, y, z);
 		tile.lock = !tile.lock;
 		return false;
 	}
 
 	@Override
-	public void renderHUD(Minecraft mc, ScaledResolution res, World world, int x, int y, int z) {
+	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
 		TileHourglass tile = (TileHourglass) world.getTileEntity(x, y, z);
 		tile.renderHUD(res);
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.hourglass;
 	}
 

@@ -64,7 +64,7 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 			}
 
 		if(did) {
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, , xCoord);
 			for(RecipeBrew recipe : BotaniaAPI.brewRecipes)
 				if(recipe.matches(this) && recipe.getOutput(getStackInSlot(0)) != null) {
 					this.recipe = recipe;

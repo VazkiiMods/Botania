@@ -56,7 +56,7 @@ public class TileDistributor extends TileMod implements IManaReceiver {
 			for(IManaReceiver pool : validPools) {
 				pool.recieveMana(manaForEach);
 				TileEntity tile = (TileEntity) pool;
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, tile.xCoord, tile.yCoord, tile.zCoord);
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, , tile.xCoord);
 			}
 		}
 	}

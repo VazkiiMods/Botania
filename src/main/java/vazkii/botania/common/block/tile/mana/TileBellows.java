@@ -131,7 +131,7 @@ public class TileBellows extends TileMod {
 			boolean diff = this.active != active;
 			this.active = active;
 			if(diff)
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, , xCoord);
 		}
 	}
 

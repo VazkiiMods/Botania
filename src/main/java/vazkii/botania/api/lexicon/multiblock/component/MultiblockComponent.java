@@ -13,7 +13,7 @@ package vazkii.botania.api.lexicon.multiblock.component;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -24,25 +24,25 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 public class MultiblockComponent {
 
-	public ChunkCoordinates relPos;
+	public BlockPos relPos;
 	public final Block block;
 	public final int meta;
 	public final TileEntity tileEntity;
 	public boolean doFancyRender;
 
-	public MultiblockComponent(ChunkCoordinates relPos, Block block, int meta) {
+	public MultiblockComponent(BlockPos relPos, Block block, int meta) {
 		this(relPos, block, meta, null);
 	}
 
-	public MultiblockComponent(ChunkCoordinates relPos, Block block, int meta, boolean doFancyRender) {
+	public MultiblockComponent(BlockPos relPos, Block block, int meta, boolean doFancyRender) {
 		this(relPos, block, meta, doFancyRender, null);
 	}
 
-	public MultiblockComponent(ChunkCoordinates relPos, Block block, int meta, TileEntity tileEntity) {
+	public MultiblockComponent(BlockPos relPos, Block block, int meta, TileEntity tileEntity) {
 		this(relPos, block, meta, block.hasTileEntity() == (tileEntity != null), tileEntity);
 	}
 
-	public MultiblockComponent(ChunkCoordinates relPos, Block block, int meta, boolean doFancyRender, TileEntity tileEntity) {
+	public MultiblockComponent(BlockPos relPos, Block block, int meta, boolean doFancyRender, TileEntity tileEntity) {
 		this.relPos = relPos;
 		this.block = block;
 		this.meta = meta;
@@ -50,7 +50,7 @@ public class MultiblockComponent {
 		this.doFancyRender = doFancyRender;
 	}
 
-	public ChunkCoordinates getRelativePosition() {
+	public BlockPos getRelativePosition() {
 		return relPos;
 	}
 
@@ -78,7 +78,7 @@ public class MultiblockComponent {
 
 		double xn = x * cos - z * sin;
 		double zn = x * sin + z * cos;
-		relPos = new ChunkCoordinates((int) Math.round(xn), relPos.posY, (int) Math.round(zn));
+		relPos = new BlockPos((int) Math.round(xn), relPos.posY, (int) Math.round(zn));
 	}
 
 	public MultiblockComponent copy() {

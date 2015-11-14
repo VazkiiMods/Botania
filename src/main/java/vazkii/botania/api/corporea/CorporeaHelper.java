@@ -22,9 +22,10 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public final class CorporeaHelper {
 
@@ -237,15 +238,15 @@ public final class CorporeaHelper {
 			return null;
 
 		TileEntity tile = (TileEntity) inv;
-		return getSparkForBlock(tile.getWorld(), tile.xCoord, tile.yCoord, tile.zCoord);
+		return getSparkForBlock(tile.getWorld(), tile.getPos());
 	}
 
 	/**
 	 * Gets the spark attached to the block in the coords passed in. Note that the coords passed
 	 * in are for the block that the spark will be on, not the coords of the spark itself.
 	 */
-	public static ICorporeaSpark getSparkForBlock(World world, int x, int y, int z) {
-		List<ICorporeaSpark> sparks = world.getEntitiesWithinAABB(ICorporeaSpark.class, new AxisAlignedBB(x, y + 1, z, x + 1, y + 2, z + 1));
+	public static ICorporeaSpark getSparkForBlock(World world, BlockPos pos) {
+		List<ICorporeaSpark> sparks = world.getEntitiesWithinAABB(ICorporeaSpark.class, new AxisAlignedBB(pos.up(), pos.add(1, 2, 1)));
 		return sparks.isEmpty() ? null : sparks.get(0);
 	}
 
@@ -253,15 +254,15 @@ public final class CorporeaHelper {
 	 * Gets if the block in the coords passed in has a spark attached. Note that the coords passed
 	 * in are for the block that the spark will be on, not the coords of the spark itself.
 	 */
-	public static boolean doesBlockHaveSpark(World world, int x, int y, int z) {
-		return getSparkForBlock(world, x, y, z) != null;
+	public static boolean doesBlockHaveSpark(World world, BlockPos pos) {
+		return getSparkForBlock(world, pos) != null;
 	}
 
 	/**
 	 * Gets if the slot passed in can be extracted from by a spark.
 	 */
 	public static boolean isValidSlot(IInventory inv, int slot) {
-		return !(inv instanceof ISidedInventory) || arrayHas(((ISidedInventory) inv).getAccessibleSlotsFromSide(ForgeDirection.UP.ordinal()), slot) && ((ISidedInventory) inv).canExtractItem(slot, inv.getStackInSlot(slot), ForgeDirection.UP.ordinal());
+		return !(inv instanceof ISidedInventory) || arrayHas(((ISidedInventory) inv).getSlotsForFace(EnumFacing.UP), slot) && ((ISidedInventory) inv).canExtractItem(slot, inv.getStackInSlot(slot), EnumFacing.UP);
 	}
 
 	/**
