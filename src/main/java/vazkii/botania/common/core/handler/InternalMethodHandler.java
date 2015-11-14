@@ -63,7 +63,7 @@ import baubles.common.lib.PlayerHandler;
 import baubles.common.network.PacketHandler;
 import baubles.common.network.PacketSyncBauble;
 import buildcraft.api.transport.IPipeTile;
-import cpw.mods.fml.common.Optional;
+import net.minecraftforge.fml.common.Optional;
 
 public class InternalMethodHandler extends DummyMethodHandler {
 

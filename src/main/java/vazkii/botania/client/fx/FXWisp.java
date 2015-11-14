@@ -25,7 +25,7 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ObfuscationHelper;
-import cpw.mods.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.client.FMLClientHandler;
 
 public class FXWisp extends EntityFX {
 

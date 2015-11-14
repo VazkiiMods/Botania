@@ -20,7 +20,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.block.tile.string.TileRedStringInterceptor;
 import vazkii.botania.common.lib.LibBlockNames;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class BlockRedStringInterceptor extends BlockRedString {
 

@@ -32,7 +32,7 @@ import vazkii.botania.common.block.tile.TileTinyPotato;
 import vazkii.botania.common.item.block.ItemBlockTinyPotato;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockTinyPotato extends BlockModContainer implements ILexiconable {
 

@@ -24,7 +24,7 @@ import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.integration.coloredlights.ColoredLightHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
-import cpw.mods.fml.common.Optional;
+import net.minecraftforge.fml.common.Optional;
 
 public class BlockBuriedPetals extends BlockModFlower {
 

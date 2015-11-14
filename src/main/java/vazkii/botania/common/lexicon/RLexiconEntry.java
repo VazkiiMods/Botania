@@ -15,8 +15,8 @@ import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.stats.Achievement;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconCategory;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class RLexiconEntry  extends BLexiconEntry {
 

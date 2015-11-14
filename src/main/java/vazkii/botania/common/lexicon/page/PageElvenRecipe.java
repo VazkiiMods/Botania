@@ -22,8 +22,8 @@ import vazkii.botania.api.lexicon.LexiconRecipeMappings;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.BlockAlfPortal;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class PageElvenRecipe extends PageRecipe {
 

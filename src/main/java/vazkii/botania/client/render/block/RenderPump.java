@@ -19,7 +19,7 @@ import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.common.block.tile.mana.TilePump;
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
+import net.minecraftforge.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class RenderPump implements ISimpleBlockRenderingHandler {
 

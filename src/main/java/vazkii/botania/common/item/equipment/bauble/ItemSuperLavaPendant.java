@@ -28,7 +28,7 @@ import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibObfuscation;
 import baubles.api.BaubleType;
-import cpw.mods.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 public class ItemSuperLavaPendant extends ItemBauble implements IBaubleRender {
 

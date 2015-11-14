@@ -31,7 +31,7 @@ import baubles.common.lib.PlayerHandler;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class ItemOdinRing extends ItemRelicBauble {
 

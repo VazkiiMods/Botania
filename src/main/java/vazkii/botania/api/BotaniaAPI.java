@@ -55,7 +55,7 @@ import vazkii.botania.api.wiki.WikiHooks;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
-import cpw.mods.fml.common.Loader;
+import net.minecraftforge.fml.common.Loader;
 
 public final class BotaniaAPI {
 

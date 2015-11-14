@@ -20,7 +20,7 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.client.render.tile.RenderTileAltar;
 import vazkii.botania.common.block.tile.TileAltar;
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
+import net.minecraftforge.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class RenderAltar implements ISimpleBlockRenderingHandler {
 

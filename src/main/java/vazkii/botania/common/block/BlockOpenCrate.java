@@ -44,7 +44,7 @@ import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockOpenCrate extends BlockModContainer implements ILexiconable, IWandable, IWandHUD {
 

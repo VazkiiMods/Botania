@@ -20,7 +20,7 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.lib.LibRenderIDs;
 import vazkii.botania.client.render.tile.RenderTilePylon;
 import vazkii.botania.common.block.tile.TilePylon;
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
+import net.minecraftforge.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class RenderPylon implements ISimpleBlockRenderingHandler {
 

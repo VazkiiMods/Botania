@@ -24,7 +24,7 @@ import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
 import vazkii.botania.common.lib.LibItemNames;
-import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ItemAncientWill extends ItemMod {
 

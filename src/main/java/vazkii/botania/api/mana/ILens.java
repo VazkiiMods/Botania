@@ -11,8 +11,8 @@
 package vazkii.botania.api.mana;
 
 import net.minecraft.item.ItemStack;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * Have an Item implement this to be counted as a lens for the mana spreader.

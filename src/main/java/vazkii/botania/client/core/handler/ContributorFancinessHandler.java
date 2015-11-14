@@ -35,7 +35,7 @@ import vazkii.botania.common.core.version.VersionChecker;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.item.material.ItemManaResource;
-import cpw.mods.fml.common.FMLLog;
+import net.minecraftforge.fml.common.FMLLog;
 
 public final class ContributorFancinessHandler {
 
