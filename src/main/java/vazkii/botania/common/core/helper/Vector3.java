@@ -229,7 +229,7 @@ public class Vector3
 	}
 
 	public Vec3 toVec3D() {
-		return Vec3.createVectorHelper(x, y, z);
+		return new Vec3(x, y, z);
 	}
 
 	public double angle(Vector3 vec) {

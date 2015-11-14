@@ -158,7 +158,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		double y = yCoord + 0.5;
 		double z = zCoord + 0.5;
 
-		List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(x - RADIUS, y - RADIUS, z - RADIUS, x + RADIUS, y + RADIUS, z + RADIUS));
+		List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(x - RADIUS, y - RADIUS, z - RADIUS, x + RADIUS, y + RADIUS, z + RADIUS));
 		hasCloseby = false;
 		for(EntityPlayer player : players)
 			if(isInRangeOfIndex(player, this)) {

@@ -43,7 +43,7 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 		}
 
 		if(!supertile.getWorldObj().isRemote) {
-			List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - RANGE, supertile.yCoord - RANGE, supertile.zCoord - RANGE, supertile.xCoord + RANGE + 1, supertile.yCoord + RANGE + 1, supertile.zCoord + RANGE + 1));
+			List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.xCoord - RANGE, supertile.yCoord - RANGE, supertile.zCoord - RANGE, supertile.xCoord + RANGE + 1, supertile.yCoord + RANGE + 1, supertile.zCoord + RANGE + 1));
 			for(EntityItem item : items) {
 				ItemStack stack = item.getEntityItem();
 				if(stack != null && stack.getItem() instanceof ItemFood && !item.isDead) {

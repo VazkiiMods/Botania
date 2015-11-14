@@ -245,7 +245,7 @@ public final class CorporeaHelper {
 	 * in are for the block that the spark will be on, not the coords of the spark itself.
 	 */
 	public static ICorporeaSpark getSparkForBlock(World world, int x, int y, int z) {
-		List<ICorporeaSpark> sparks = world.getEntitiesWithinAABB(ICorporeaSpark.class, AxisAlignedBB.getBoundingBox(x, y + 1, z, x + 1, y + 2, z + 1));
+		List<ICorporeaSpark> sparks = world.getEntitiesWithinAABB(ICorporeaSpark.class, new AxisAlignedBB(x, y + 1, z, x + 1, y + 2, z + 1));
 		return sparks.isEmpty() ? null : sparks.get(0);
 	}
 

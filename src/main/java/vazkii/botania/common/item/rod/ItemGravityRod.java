@@ -93,7 +93,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 					target.add(new Vector3(player.getLookVec()).multiply(distance));
 
 					target.y += 0.5;
-					entities = player.worldObj.getEntitiesWithinAABBExcludingEntity(player, AxisAlignedBB.getBoundingBox(target.x - RANGE, target.y - RANGE, target.z - RANGE, target.x + RANGE, target.y + RANGE, target.z + RANGE));
+					entities = player.worldObj.getEntitiesWithinAABBExcludingEntity(player, new AxisAlignedBB(target.x - RANGE, target.y - RANGE, target.z - RANGE, target.x + RANGE, target.y + RANGE, target.z + RANGE));
 					distance++;
 					if(entities.contains(taritem))
 						found = true;
@@ -111,7 +111,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 					target.add(new Vector3(player.getLookVec()).multiply(distance));
 
 					target.y += 0.5;
-					entities = player.worldObj.getEntitiesWithinAABBExcludingEntity(player, AxisAlignedBB.getBoundingBox(target.x - RANGE, target.y - RANGE, target.z - RANGE, target.x + RANGE, target.y + RANGE, target.z + RANGE));
+					entities = player.worldObj.getEntitiesWithinAABBExcludingEntity(player, new AxisAlignedBB(target.x - RANGE, target.y - RANGE, target.z - RANGE, target.x + RANGE, target.y + RANGE, target.z + RANGE));
 					distance++;
 				}
 
@@ -197,7 +197,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 					target.add(new Vector3(player.getLookVec()).multiply(distance));
 
 					target.y += 0.5;
-					entities = player.worldObj.getEntitiesWithinAABBExcludingEntity(player, AxisAlignedBB.getBoundingBox(target.x - RANGE, target.y - RANGE, target.z - RANGE, target.x + RANGE, target.y + RANGE, target.z + RANGE));
+					entities = player.worldObj.getEntitiesWithinAABBExcludingEntity(player, new AxisAlignedBB(target.x - RANGE, target.y - RANGE, target.z - RANGE, target.x + RANGE, target.y + RANGE, target.z + RANGE));
 					distance++;
 					if(entities.contains(taritem))
 						found = true;

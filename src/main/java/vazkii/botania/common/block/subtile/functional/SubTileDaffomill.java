@@ -72,16 +72,16 @@ public class SubTileDaffomill extends SubTileFunctional {
 		AxisAlignedBB axis = null;
 		switch(orientation) {
 		case 0 :
-			axis = AxisAlignedBB.getBoundingBox(x - w, y - h, z - l, x + w + 1, y + h, z);
+			axis = new AxisAlignedBB(x - w, y - h, z - l, x + w + 1, y + h, z);
 			break;
 		case 1 :
-			axis = AxisAlignedBB.getBoundingBox(x - w, y - h, z + 1, x + w + 1, y + h, z + l + 1);
+			axis = new AxisAlignedBB(x - w, y - h, z + 1, x + w + 1, y + h, z + l + 1);
 			break;
 		case 2 :
-			axis = AxisAlignedBB.getBoundingBox(x - l, y - h, z - w, x, y + h, z + w + 1);
+			axis = new AxisAlignedBB(x - l, y - h, z - w, x, y + h, z + w + 1);
 			break;
 		case 3 :
-			axis = AxisAlignedBB.getBoundingBox(x + 1, y - h, z - w, x + l + 1, y + h, z + w + 1);
+			axis = new AxisAlignedBB(x + 1, y - h, z - w, x + l + 1, y + h, z + w + 1);
 		}
 		return axis;
 	}

@@ -53,7 +53,7 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 			int z = supertile.zCoord;
 
 			boolean did = false;
-			List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x - RANGE, y - RANGE, z - RANGE, x + RANGE + 1, y + RANGE, z + RANGE + 1));
+			List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x - RANGE, y - RANGE, z - RANGE, x + RANGE + 1, y + RANGE, z + RANGE + 1));
 			for(EntityItem item : items) {
 				if(item.age < 60 || item.isDead || item.getEntityData().getBoolean(TAG_TELEPORTED))
 					continue;

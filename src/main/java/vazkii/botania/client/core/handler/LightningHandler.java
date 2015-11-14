@@ -323,8 +323,8 @@ public class LightningHandler {
 			particleMaxAge = fadetime + rand.nextInt(fadetime) - fadetime / 2;
 			particleAge = -(int) (length * speed);
 
-			boundingBox = AxisAlignedBB.getBoundingBox(0, 0, 0, 0, 0, 0);
-			boundingBox.setBB(AxisAlignedBB.getBoundingBox(Math.min(start.x, end.x), Math.min(start.y, end.y), Math.min(start.z, end.z), Math.max(start.x, end.x), Math.max(start.y, end.y), Math.max(start.z, end.z)).expand(length / 2, length / 2, length / 2));
+			boundingBox = new AxisAlignedBB(0, 0, 0, 0, 0, 0);
+			boundingBox.setBB(new AxisAlignedBB(Math.min(start.x, end.x), Math.min(start.y, end.y), Math.min(start.z, end.z), Math.max(start.x, end.x), Math.max(start.y, end.y), Math.max(start.z, end.z)).expand(length / 2, length / 2, length / 2));
 
 			segments.add(new Segment(start, end));
 		}

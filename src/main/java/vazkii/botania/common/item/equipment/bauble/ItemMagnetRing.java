@@ -104,7 +104,7 @@ public class ItemMagnetRing extends ItemBauble {
 				double y = player.posY -(player.worldObj.isRemote ? 1.62 : 0) + 0.75;
 				double z = player.posZ;
 
-				List<EntityItem> items = player.worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range, y + range, z + range));
+				List<EntityItem> items = player.worldObj.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range));
 				int pulled = 0;
 				for(EntityItem item : items)
 					if(canPullItem(item)) {

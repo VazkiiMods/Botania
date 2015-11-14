@@ -110,7 +110,7 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 				}
 			} else {
 				ForgeDirection dir = ForgeDirection.getOrientation(par7);
-				int entities = par3World.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(par4 + dir.offsetX, par5 + dir.offsetY, par6 + dir.offsetZ, par4 + dir.offsetX + 1, par5 + dir.offsetY + 1, par6 + dir.offsetZ + 1)).size();
+				int entities = par3World.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(par4 + dir.offsetX, par5 + dir.offsetY, par6 + dir.offsetZ, par4 + dir.offsetX + 1, par5 + dir.offsetY + 1, par6 + dir.offsetZ + 1)).size();
 
 				if(entities == 0) {
 					int remove = par2EntityPlayer.capabilities.isCreativeMode ? 1 : remove(par1ItemStack, 1);

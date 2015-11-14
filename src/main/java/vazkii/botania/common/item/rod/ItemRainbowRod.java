@@ -153,16 +153,16 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 		AxisAlignedBB axis = null;
 		switch(te.getBlockMetadata() - 2) {
 		case 0 :
-			axis = AxisAlignedBB.getBoundingBox(x - w, y - h, z - l, x + w + 1, y + h, z);
+			axis = new AxisAlignedBB(x - w, y - h, z - l, x + w + 1, y + h, z);
 			break;
 		case 1 :
-			axis = AxisAlignedBB.getBoundingBox(x - w, y - h, z + 1, x + w + 1, y + h, z + l + 1);
+			axis = new AxisAlignedBB(x - w, y - h, z + 1, x + w + 1, y + h, z + l + 1);
 			break;
 		case 2 :
-			axis = AxisAlignedBB.getBoundingBox(x - l, y - h, z - w, x, y + h, z + w + 1);
+			axis = new AxisAlignedBB(x - l, y - h, z - w, x, y + h, z + w + 1);
 			break;
 		case 3 :
-			axis = AxisAlignedBB.getBoundingBox(x + 1, y - h, z - w, x + l + 1, y + h, z + w + 1);
+			axis = new AxisAlignedBB(x + 1, y - h, z - w, x + l + 1, y + h, z + w + 1);
 		}
 
 		List<EntityPlayer> players = world.getEntitiesWithinAABB(EntityPlayer.class, axis);
@@ -178,7 +178,7 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 					int ex = px + i - diff;
 					int ez = pz + j - diff;
 
-					if(!axis.isVecInside(Vec3.createVectorHelper(ex + 0.5, py + 1, ez + 0.5)))
+					if(!axis.isVecInside(new Vec3(ex + 0.5, py + 1, ez + 0.5)))
 						continue;
 
 					Block block = world.getBlock(ex, py, ez);

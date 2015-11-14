@@ -118,7 +118,7 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 		if(pstack != null || player.isSneaking()) {
 			int range = 24;
 
-			List<Entity> entities = player.worldObj.getEntitiesWithinAABB(Entity.class, AxisAlignedBB.getBoundingBox(player.posX - range, player.posY - range, player.posZ - range, player.posX + range, player.posY + range, player.posZ + range));
+			List<Entity> entities = player.worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(player.posX - range, player.posY - range, player.posZ - range, player.posX + range, player.posY + range, player.posZ + range));
 			for(Entity e : entities) {
 				if(e == player)
 					continue;

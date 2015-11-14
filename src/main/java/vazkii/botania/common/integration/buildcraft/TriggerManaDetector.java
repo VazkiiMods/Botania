@@ -34,7 +34,7 @@ public class TriggerManaDetector extends StatementBase implements ITriggerIntern
 		World world = source.getTile().getWorldObj();
 		int x = source.getTile().xCoord, y = source.getTile().yCoord, z = source.getTile().zCoord;
 
-		boolean output = world.getEntitiesWithinAABB(IManaBurst.class, AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1)).size() != 0;
+		boolean output = world.getEntitiesWithinAABB(IManaBurst.class, new AxisAlignedBB(x, y, z, x + 1, y + 1, z + 1)).size() != 0;
 
 		if(output) for(int i = 0; i < 4; i++)
 			Botania.proxy.sparkleFX(world, x + Math.random(), y + Math.random(), z + Math.random(), 1F, 0.2F, 0.2F, 0.7F + 0.5F * (float) Math.random(), 5);

@@ -61,7 +61,7 @@ public class ItemThunderSword extends ItemManasteelSword implements ICraftAchiev
 			Random rand = new Random(lightningSeed);
 			EntityLivingBase lightningSource = entity;
 			for(int i = 0; i < 4; i++) {
-				List<EntityLivingBase> entities = entity.worldObj.getEntitiesWithinAABBExcludingEntity(lightningSource, AxisAlignedBB.getBoundingBox(lightningSource.posX - range, lightningSource.posY - range, lightningSource.posZ - range, lightningSource.posX + range, lightningSource.posY + range, lightningSource.posZ + range), selector);
+				List<EntityLivingBase> entities = entity.worldObj.getEntitiesWithinAABBExcludingEntity(lightningSource, new AxisAlignedBB(lightningSource.posX - range, lightningSource.posY - range, lightningSource.posZ - range, lightningSource.posX + range, lightningSource.posY + range, lightningSource.posZ + range), selector);
 				if(entities.isEmpty())
 					break;
 

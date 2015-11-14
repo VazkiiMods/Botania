@@ -33,7 +33,7 @@ public class ItemPinkinator extends ItemMod {
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
 		int range = 16;
-		List<EntityWither> withers = world.getEntitiesWithinAABB(EntityWither.class, AxisAlignedBB.getBoundingBox(player.posX - range, player.posY - range, player.posZ - range, player.posX + range, player.posY + range, player.posZ + range));
+		List<EntityWither> withers = world.getEntitiesWithinAABB(EntityWither.class, new AxisAlignedBB(player.posX - range, player.posY - range, player.posZ - range, player.posX + range, player.posY + range, player.posZ + range));
 		for(EntityWither wither : withers)
 			if(!wither.isDead && !(wither instanceof EntityPinkWither)) {
 				if(!world.isRemote) {

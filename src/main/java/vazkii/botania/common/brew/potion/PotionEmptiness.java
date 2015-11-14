@@ -34,7 +34,7 @@ public class PotionEmptiness extends PotionMod {
 	@SubscribeEvent
 	public void onSpawn(LivingSpawnEvent.CheckSpawn event) {
 		if(event.getResult() != Result.ALLOW && event.entityLiving instanceof IMob) {
-			List<EntityPlayer> players = event.world.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(event.x - RANGE, event.y - RANGE, event.z - RANGE, event.x + RANGE, event.y + RANGE, event.z + RANGE));
+			List<EntityPlayer> players = event.world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(event.x - RANGE, event.y - RANGE, event.z - RANGE, event.x + RANGE, event.y + RANGE, event.z + RANGE));
 			for(EntityPlayer player : players)
 				if(hasEffect(player)) {
 					event.setResult(Result.DENY);

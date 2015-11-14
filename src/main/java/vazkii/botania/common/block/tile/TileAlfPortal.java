@@ -195,9 +195,9 @@ public class TileAlfPortal extends TileMod {
 	}
 
 	AxisAlignedBB getPortalAABB() {
-		AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(xCoord - 1, yCoord + 1, zCoord, xCoord + 2, yCoord + 4, zCoord + 1);
+		AxisAlignedBB aabb = new AxisAlignedBB(xCoord - 1, yCoord + 1, zCoord, xCoord + 2, yCoord + 4, zCoord + 1);
 		if(getBlockMetadata() == 2)
-			aabb = AxisAlignedBB.getBoundingBox(xCoord, yCoord + 1, zCoord - 1, xCoord + 1, yCoord + 4, zCoord + 2);
+			aabb = new AxisAlignedBB(xCoord, yCoord + 1, zCoord - 1, xCoord + 1, yCoord + 4, zCoord + 2);
 
 		return aabb;
 	}

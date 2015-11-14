@@ -88,7 +88,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 			ChunkCoordinates endpoint = getEndpoint();
 			if(endpoint != null && !worldObj.isRemote) {
 				float range = 0.5F;
-				List<EntityEnderPearl> enderPearls = worldObj.getEntitiesWithinAABB(EntityEnderPearl.class, AxisAlignedBB.getBoundingBox(xCoord - range, yCoord - range, zCoord - range, xCoord + 1 + range, yCoord + 1 + range, zCoord + 1 + range));
+				List<EntityEnderPearl> enderPearls = worldObj.getEntitiesWithinAABB(EntityEnderPearl.class, new AxisAlignedBB(xCoord - range, yCoord - range, zCoord - range, xCoord + 1 + range, yCoord + 1 + range, zCoord + 1 + range));
 				for(EntityEnderPearl pearl : enderPearls) {
 					pearl.posX = endpoint.posX + pearl.posX - xCoord;
 					pearl.posY = endpoint.posY + pearl.posY - yCoord;

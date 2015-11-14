@@ -30,7 +30,7 @@ public class SubTileEntropinnyum extends SubTileGenerating {
 		super.onUpdate();
 
 		if(mana == 0) {
-			List<EntityTNTPrimed> tnts = supertile.getWorldObj().getEntitiesWithinAABB(EntityTNTPrimed.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - RANGE, supertile.yCoord - RANGE, supertile.zCoord - RANGE, supertile.xCoord + RANGE + 1, supertile.yCoord + RANGE + 1, supertile.zCoord + RANGE + 1));
+			List<EntityTNTPrimed> tnts = supertile.getWorldObj().getEntitiesWithinAABB(EntityTNTPrimed.class, new AxisAlignedBB(supertile.xCoord - RANGE, supertile.yCoord - RANGE, supertile.zCoord - RANGE, supertile.xCoord + RANGE + 1, supertile.yCoord + RANGE + 1, supertile.zCoord + RANGE + 1));
 			for(EntityTNTPrimed tnt : tnts) {
 				if(tnt.fuse == 1 && !tnt.isDead && !supertile.getWorldObj().getBlock(MathHelper.floor_double(tnt.posX), MathHelper.floor_double(tnt.posY), MathHelper.floor_double(tnt.posZ)).getMaterial().isLiquid()) {
 					if(!supertile.getWorldObj().isRemote) {

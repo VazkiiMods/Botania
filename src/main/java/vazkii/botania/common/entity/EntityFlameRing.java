@@ -73,7 +73,7 @@ public class EntityFlameRing extends Entity {
 		}
 
 		if(ticksExisted > 45) {
-			AxisAlignedBB boundingBox = AxisAlignedBB.getBoundingBox(posX, posY, posZ, posX, posY, posZ).expand(radius, radius, radius);
+			AxisAlignedBB boundingBox = new AxisAlignedBB(posX, posY, posZ, posX, posY, posZ).expand(radius, radius, radius);
 			List<EntityLivingBase> entities = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, boundingBox);
 
 			if(entities.isEmpty())

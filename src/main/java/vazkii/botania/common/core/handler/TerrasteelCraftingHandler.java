@@ -86,7 +86,7 @@ public final class TerrasteelCraftingHandler {
 		if(beacon.getLevels() <= 0)
 			return -1;
 
-		List<EntityItem> items = item.worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1));
+		List<EntityItem> items = item.worldObj.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x, y, z, x + 1, y + 1, z + 1));
 
 		EntityItem diamond = null;
 		EntityItem pearl = null;
@@ -178,7 +178,7 @@ public final class TerrasteelCraftingHandler {
 		int y = MathHelper.floor_double(item.posY);
 		int z = MathHelper.floor_double(item.posZ);
 
-		List<EntityItem> items = item.worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1));
+		List<EntityItem> items = item.worldObj.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x, y, z, x + 1, y + 1, z + 1));
 		for(EntityItem otherItem : items)
 			if(otherItem != item)
 				otherItem.setDead();

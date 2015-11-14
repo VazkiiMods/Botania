@@ -47,8 +47,8 @@ public class EntityThrownItem extends EntityItem {
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		Vec3 vec3 = Vec3.createVectorHelper(posX, posY, posZ);
-		Vec3 vec31 = Vec3.createVectorHelper(posX + motionX, posY + motionY, posZ + motionZ);
+		Vec3 vec3 = new Vec3(posX, posY, posZ);
+		Vec3 vec31 = new Vec3(posX + motionX, posY + motionY, posZ + motionZ);
 
 		MovingObjectPosition movingobjectposition = worldObj.rayTraceBlocks(vec3, vec31);
 

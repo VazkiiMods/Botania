@@ -72,7 +72,7 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver {
 					if (entity == null)
 						return;
 
-					int j = logic.getSpawnerWorld().getEntitiesWithinAABB(entity.getClass(), AxisAlignedBB.getBoundingBox(logic.getSpawnerX(), logic.getSpawnerY(), logic.getSpawnerZ(), logic.getSpawnerX() + 1, logic.getSpawnerY() + 1, logic.getSpawnerZ() + 1).expand(spawnRange * 2, 4.0D, spawnRange * 2)).size();
+					int j = logic.getSpawnerWorld().getEntitiesWithinAABB(entity.getClass(), new AxisAlignedBB(logic.getSpawnerX(), logic.getSpawnerY(), logic.getSpawnerZ(), logic.getSpawnerX() + 1, logic.getSpawnerY() + 1, logic.getSpawnerZ() + 1).expand(spawnRange * 2, 4.0D, spawnRange * 2)).size();
 
 					if (j >= maxNearbyEntities) {
 						resetTimer(logic);

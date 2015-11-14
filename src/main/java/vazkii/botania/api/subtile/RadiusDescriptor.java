@@ -81,7 +81,7 @@ public class RadiusDescriptor {
 	public static class Square extends Rectangle {
 
 		public Square(ChunkCoordinates subtileCoords, int expand) {
-			super(subtileCoords, AxisAlignedBB.getBoundingBox(subtileCoords.posX - expand, subtileCoords.posY, subtileCoords.posZ - expand, subtileCoords.posX + 1 + expand, subtileCoords.posY, subtileCoords.posZ + 1 + expand));
+			super(subtileCoords, new AxisAlignedBB(subtileCoords.posX - expand, subtileCoords.posY, subtileCoords.posZ - expand, subtileCoords.posX + 1 + expand, subtileCoords.posY, subtileCoords.posZ + 1 + expand));
 		}
 
 	}

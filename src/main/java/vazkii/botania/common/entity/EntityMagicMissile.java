@@ -123,7 +123,7 @@ public class EntityMagicMissile extends EntityThrowable {
 				motionY = Math.abs(motionY);
 			motionZ = motionVec.z;
 
-			List<EntityLivingBase> targetList = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(posX - 0.5, posY - 0.5, posZ - 0.5, posX + 0.5, posY + 0.5, posZ + 0.5));
+			List<EntityLivingBase> targetList = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(posX - 0.5, posY - 0.5, posZ - 0.5, posX + 0.5, posY + 0.5, posZ + 0.5));
 			if(targetList.contains(target) && target != null) {
 				EntityLivingBase thrower = getThrower();
 				EntityPlayer player = thrower instanceof EntityPlayer ? (EntityPlayer) thrower : null;
@@ -159,7 +159,7 @@ public class EntityMagicMissile extends EntityThrowable {
 			setTarget(null);
 
 		double range = 12;
-		List entities = worldObj.getEntitiesWithinAABB(isEvil() ? EntityPlayer.class : IMob.class, AxisAlignedBB.getBoundingBox(posX - range, posY - range, posZ - range, posX + range, posY + range, posZ + range));
+		List entities = worldObj.getEntitiesWithinAABB(isEvil() ? EntityPlayer.class : IMob.class, new AxisAlignedBB(posX - range, posY - range, posZ - range, posX + range, posY + range, posZ + range));
 		while(entities.size() > 0) {
 			Entity e = (Entity) entities.get(worldObj.rand.nextInt(entities.size()));
 			if(!(e instanceof EntityLivingBase) || e.isDead) { // Just in case...

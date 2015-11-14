@@ -29,7 +29,7 @@ public class TileEnderEye extends TileMod {
 
 		int meta = getBlockMetadata();
 		int range = 80;
-		List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(xCoord - range, yCoord - range, zCoord - range, xCoord + range, yCoord + range, zCoord + range));
+		List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(xCoord - range, yCoord - range, zCoord - range, xCoord + range, yCoord + range, zCoord + range));
 
 		boolean looking = false;
 		for(EntityPlayer player : players) {

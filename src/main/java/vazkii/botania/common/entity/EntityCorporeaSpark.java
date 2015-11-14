@@ -127,7 +127,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	}
 
 	List<ICorporeaSpark> getNearbySparks() {
-		return worldObj.getEntitiesWithinAABB(ICorporeaSpark.class, AxisAlignedBB.getBoundingBox(posX - SCAN_RANGE, posY - SCAN_RANGE, posZ - SCAN_RANGE, posX + SCAN_RANGE, posY + SCAN_RANGE, posZ + SCAN_RANGE));
+		return worldObj.getEntitiesWithinAABB(ICorporeaSpark.class, new AxisAlignedBB(posX - SCAN_RANGE, posY - SCAN_RANGE, posZ - SCAN_RANGE, posX + SCAN_RANGE, posY + SCAN_RANGE, posZ + SCAN_RANGE));
 	}
 
 	void restartNetwork() {

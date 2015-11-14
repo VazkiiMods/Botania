@@ -76,7 +76,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 			int y = supertile.yCoord;
 			int z = supertile.zCoord;
 
-			List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x - RANGE, y - RANGE_Y, z - RANGE, x + RANGE + 1, y + RANGE_Y, z + RANGE + 1));
+			List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x - RANGE, y - RANGE_Y, z - RANGE, x + RANGE + 1, y + RANGE_Y, z + RANGE + 1));
 			for(EntityItem item : items) {
 				if(item.age < 60 || item.isDead)
 					continue;

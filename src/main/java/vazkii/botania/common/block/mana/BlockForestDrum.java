@@ -117,7 +117,7 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 			ItemGrassHorn.breakGrass(world, null, 1, x, y, z);
 		else if(!world.isRemote) {
 			int range = 10;
-			List<EntityLiving> entities = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range + 1, y + range + 1, z + range + 1));
+			List<EntityLiving> entities = world.getEntitiesWithinAABB(EntityLiving.class, new AxisAlignedBB(x - range, y - range, z - range, x + range + 1, y + range + 1, z + range + 1));
 			List<EntityLiving> shearables = new ArrayList();
 			ItemStack stack = new ItemStack(this, 1, 1);
 
@@ -125,7 +125,7 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 				if(entity instanceof IShearable && ((IShearable) entity).isShearable(stack, world, (int) entity.posX, (int) entity.posY, (int) entity.posZ)) {
 					shearables.add(entity);
 				} else if(entity instanceof EntityCow) {
-					List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(entity.posX, entity.posY, entity.posZ, entity.posX + entity.width, entity.posY + entity.height, entity.posZ + entity.width));
+					List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(entity.posX, entity.posY, entity.posZ, entity.posX + entity.width, entity.posY + entity.height, entity.posZ + entity.width));
 					for(EntityItem item : items) {
 						ItemStack itemstack = item.getEntityItem();
 						if(itemstack != null && itemstack.getItem() == Items.bucket && !world.isRemote) {

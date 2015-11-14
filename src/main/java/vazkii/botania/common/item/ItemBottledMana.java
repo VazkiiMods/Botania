@@ -145,7 +145,7 @@ public class ItemBottledMana extends ItemMod {
 				player.worldObj.spawnEntityInWorld(flare);
 
 				int range = 5;
-				List<EntityLivingBase> entities = player.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(player.posX - range, player.posY - range, player.posZ - range, player.posX + range, player.posY + range, player.posZ + range));
+				List<EntityLivingBase> entities = player.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(player.posX - range, player.posY - range, player.posZ - range, player.posX + range, player.posY + range, player.posZ + range));
 				for(EntityLivingBase entity : entities)
 					if(entity != player && (!(entity instanceof EntityPlayer) || MinecraftServer.getServer() == null || MinecraftServer.getServer().isPVPEnabled()))
 						entity.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 50, 5));

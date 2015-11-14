@@ -72,7 +72,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 						return true;
 					}
 				} else if(par3World.isRemote) {
-					MovingObjectPosition pos = new MovingObjectPosition(par4, par5, par6, par7, Vec3.createVectorHelper(par8, par9, par10));
+					MovingObjectPosition pos = new MovingObjectPosition(par4, par5, par6, par7, new Vec3(par8, par9, par10));
 					return Botania.proxy.openWikiPage(par3World, block, pos);
 				}
 			}

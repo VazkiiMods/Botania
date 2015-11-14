@@ -38,7 +38,7 @@ public class SubTileTangleberrie extends SubTileFunctional {
 			double maxDist = getMaxDistance();
 			double range = getRange();
 
-			AxisAlignedBB boundingBox = AxisAlignedBB.getBoundingBox(x1 - range, y1 - range, z1 - range, x1 + range + 1, y1 + range + 1, z1 + range + 1);
+			AxisAlignedBB boundingBox = new AxisAlignedBB(x1 - range, y1 - range, z1 - range, x1 + range + 1, y1 + range + 1, z1 + range + 1);
 			List<EntityLivingBase> entities = supertile.getWorldObj().getEntitiesWithinAABB(EntityLivingBase.class, boundingBox);
 
 			for(EntityLivingBase entity : entities) {

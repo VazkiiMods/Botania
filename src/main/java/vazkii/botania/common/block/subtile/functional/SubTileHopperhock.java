@@ -63,7 +63,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 		int y = supertile.yCoord;
 		int z = supertile.zCoord;
 
-		List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range + 1, y + range + 1, z + range + 1));
+		List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x - range, y - range, z - range, x + range + 1, y + range + 1, z + range + 1));
 		for(EntityItem item : items) {
 			if(item.age < 60 || item.age >= 105 && item.age < 110 || item.isDead)
 				continue;
@@ -168,7 +168,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 		};
 
 		for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) {
-			AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ, x + dir.offsetX + 1, y + dir.offsetY + 1, z + dir.offsetZ + 1);
+			AxisAlignedBB aabb = new AxisAlignedBB(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ, x + dir.offsetX + 1, y + dir.offsetY + 1, z + dir.offsetZ + 1);
 			List<EntityItemFrame> frames = supertile.getWorldObj().getEntitiesWithinAABB(EntityItemFrame.class, aabb);
 			for(EntityItemFrame frame : frames) {
 				int orientation = frame.hangingDirection;

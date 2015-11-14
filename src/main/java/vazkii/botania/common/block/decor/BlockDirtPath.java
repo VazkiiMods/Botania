@@ -77,7 +77,7 @@ public class BlockDirtPath extends BlockMod implements ILexiconable {
 
 	@Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
-		return AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1);
+		return new AxisAlignedBB(x, y, z, x + 1, y + 1, z + 1);
 	}
 
 	@Override

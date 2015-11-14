@@ -94,7 +94,7 @@ public class TileBrewery extends TileSimpleInventory implements ISidedInventory,
 		recieveMana(0);
 
 		if(!worldObj.isRemote && recipe == null) {
-			List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1));
+			List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1));
 			for(EntityItem item : items)
 				if(!item.isDead && item.getEntityItem() != null) {
 					ItemStack stack = item.getEntityItem();

@@ -34,7 +34,7 @@ public class LensPaint extends Lens {
 			if(pos.entityHit != null && pos.entityHit instanceof EntitySheep) {
 				int r = 20;
 				int sheepColor = ((EntitySheep) pos.entityHit).getFleeceColor();
-				List<EntitySheep> sheepList = entity.worldObj.getEntitiesWithinAABB(EntitySheep.class, AxisAlignedBB.getBoundingBox(pos.entityHit.posX - r, pos.entityHit.posY - r, pos.entityHit.posZ - r, pos.entityHit.posX + r, pos.entityHit.posY + r, pos.entityHit.posZ + r));
+				List<EntitySheep> sheepList = entity.worldObj.getEntitiesWithinAABB(EntitySheep.class, new AxisAlignedBB(pos.entityHit.posX - r, pos.entityHit.posY - r, pos.entityHit.posZ - r, pos.entityHit.posX + r, pos.entityHit.posY + r, pos.entityHit.posZ + r));
 				for(EntitySheep sheep : sheepList) {
 					if(sheep.getFleeceColor() == sheepColor)
 						sheep.setFleeceColor(storedColor == 16 ? sheep.worldObj.rand.nextInt(16) : storedColor);

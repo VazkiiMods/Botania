@@ -66,7 +66,7 @@ public class ItemElementiumShears extends ItemManasteelShears {
 
 		if(count != getMaxItemUseDuration(stack) && count % 5 == 0) {
 			int range = 12;
-			List<IShearable> sheep = player.worldObj.getEntitiesWithinAABB(IShearable.class, AxisAlignedBB.getBoundingBox(player.posX - range, player.posY - range, player.posZ - range, player.posX + range, player.posY + range, player.posZ + range));
+			List<IShearable> sheep = player.worldObj.getEntitiesWithinAABB(IShearable.class, new AxisAlignedBB(player.posX - range, player.posY - range, player.posZ - range, player.posX + range, player.posY + range, player.posZ + range));
 			if(sheep.size() > 0) {
 				for(IShearable target : sheep) {
 					Entity entity = (Entity) target;
