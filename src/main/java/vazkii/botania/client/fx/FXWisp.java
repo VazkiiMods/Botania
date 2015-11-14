@@ -16,6 +16,8 @@ import java.util.Queue;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -57,7 +59,7 @@ public class FXWisp extends EntityFX {
 		moteHalfLife = particleMaxAge / 2;
 		noClip = true;
 		setSize(0.01F, 0.01F);
-		EntityLivingBase renderentity = FMLClientHandler.instance().getClient().renderViewEntity;
+		Entity renderentity = FMLClientHandler.instance().getClient().getRenderViewEntity();
 
 		if(distanceLimit) {
 			int visibleDistance = 50;
@@ -117,8 +119,8 @@ public class FXWisp extends EntityFX {
 		float f12 = (float)(prevPosY + (posY - prevPosY) * f - interpPosY);
 		float f13 = (float)(prevPosZ + (posZ - prevPosZ) * f - interpPosZ);
 
-		tessellator.setBrightness(240);
-		tessellator.setColorRGBA_F(particleRed, particleGreen, particleBlue, 0.5F);
+		tessellator.getWorldRenderer().setBrightness(240);
+		tessellator.getWorldRenderer().setColorRGBA_F(particleRed, particleGreen, particleBlue, 0.5F);
 		tessellator.getWorldRenderer().addVertexWithUV(f11 - f1 * f10 - f4 * f10, f12 - f2 * f10, f13 - f3 * f10 - f5 * f10, 0, 1);
 		tessellator.getWorldRenderer().addVertexWithUV(f11 - f1 * f10 + f4 * f10, f12 + f2 * f10, f13 - f3 * f10 + f5 * f10, 1, 1);
 		tessellator.getWorldRenderer().addVertexWithUV(f11 + f1 * f10 + f4 * f10, f12 + f2 * f10, f13 + f3 * f10 + f5 * f10, 1, 0);
@@ -126,7 +128,7 @@ public class FXWisp extends EntityFX {
 	}
 
 	@Override
-	public void renderParticle(Tessellator tessellator, float f, float f1, float f2, float f3, float f4, float f5) {
+	public void renderParticle(WorldRenderer wr, Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
 		this.f = f;
 		this.f1 = f1;
 		this.f2 = f2;

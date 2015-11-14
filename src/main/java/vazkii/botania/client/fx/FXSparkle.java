@@ -16,6 +16,9 @@ import java.util.Queue;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -101,9 +104,9 @@ public class FXSparkle extends EntityFX {
 		float var15 = (float)(prevPosZ + (posZ - prevPosZ) * f - interpPosZ);
 		float var16 = 1.0F;
 
-		tessellator.setBrightness(0x0000f0);
+		tessellator.getWorldRenderer().setBrightness(0x0000f0);
 
-		tessellator.setColorRGBA_F(particleRed * var16, particleGreen * var16, particleBlue * var16, 1);
+		tessellator.getWorldRenderer().setColorRGBA_F(particleRed * var16, particleGreen * var16, particleBlue * var16, 1);
 		tessellator.getWorldRenderer().addVertexWithUV(var13 - f1 * var12 - f4 * var12, var14 - f2 * var12, var15 - f3 * var12 - f5 * var12, var9, var11);
 		tessellator.getWorldRenderer().addVertexWithUV(var13 - f1 * var12 + f4 * var12, var14 + f2 * var12, var15 - f3 * var12 + f5 * var12, var9, var10);
 		tessellator.getWorldRenderer().addVertexWithUV(var13 + f1 * var12 + f4 * var12, var14 + f2 * var12, var15 + f3 * var12 + f5 * var12, var8, var10);
@@ -112,7 +115,7 @@ public class FXSparkle extends EntityFX {
 	}
 
 	@Override
-	public void renderParticle(Tessellator tessellator, float f, float f1, float f2, float f3, float f4, float f5) {
+	public void renderParticle(WorldRenderer worldRendererIn, Entity p_180434_2_, float f, float f1, float f2, float f3, float f4, float f5) {
 		this.f = f;
 		this.f1 = f1;
 		this.f2 = f2;
@@ -137,7 +140,7 @@ public class FXSparkle extends EntityFX {
 		motionY -= 0.04D * particleGravity;
 
 		if (!noClip && !fake)
-			pushOutOfBlocks(posX, (boundingBox.minY + boundingBox.maxY) / 2.0D, posZ);
+			pushOutOfBlocks(posX, (getEntityBoundingBox().minY + getEntityBoundingBox().maxY) / 2.0D, posZ);
 
 		posX += motionX;
 		posY += motionY;
@@ -170,13 +173,14 @@ public class FXSparkle extends EntityFX {
 		double var12 = par3 - var8;
 		double var14 = par5 - var9;
 
-		if (!worldObj.isAirBlock(var7, var8, var9)) {
-			boolean var16 = !worldObj.isBlockNormalCubeDefault(var7 - 1, var8, var9, false);
-			boolean var17 = !worldObj.isBlockNormalCubeDefault(var7 + 1, var8, var9, false);
-			boolean var18 = !worldObj.isBlockNormalCubeDefault(var7, var8 - 1, var9, false);
-			boolean var19 = !worldObj.isBlockNormalCubeDefault(var7, var8 + 1, var9, false);
-			boolean var20 = !worldObj.isBlockNormalCubeDefault(var7, var8, var9 - 1, false);
-			boolean var21 = !worldObj.isBlockNormalCubeDefault(var7, var8, var9 + 1, false);
+		BlockPos bPos = new BlockPos(var7, var8, var9);
+		if (!worldObj.isAirBlock(bPos)) {
+			boolean var16 = !worldObj.isBlockNormalCube(bPos.west(), false);
+			boolean var17 = !worldObj.isBlockNormalCube(bPos.east(), false);
+			boolean var18 = !worldObj.isBlockNormalCube(bPos.down(), false);
+			boolean var19 = !worldObj.isBlockNormalCube(bPos.up(), false);
+			boolean var20 = !worldObj.isBlockNormalCube(bPos.north(), false);
+			boolean var21 = !worldObj.isBlockNormalCube(bPos.south(), false);
 			byte var22 = -1;
 			double var23 = 9999.0D;
 
