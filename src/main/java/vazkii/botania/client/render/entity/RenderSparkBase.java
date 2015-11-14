@@ -46,7 +46,7 @@ public class RenderSparkBase<T extends Entity> extends RenderEntity {
 		float scale = 0.75F + 0.1F * (float) Math.sin(time / 10);
 		GL11.glScalef(scale, scale, scale);
 		bindEntityTexture(par1Entity);
-		Tessellator tessellator = Tessellator.instance;
+		Tessellator tessellator = Tessellator.getInstance();
 
 		GL11.glPushMatrix();
 		float r = 180.0F - renderManager.playerViewY;

@@ -15,14 +15,14 @@ import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.wand.ITileBound;
 import vazkii.botania.common.block.tile.TileMod;
 
 public abstract class TileRedString extends TileMod implements ITileBound {
 
-	private ChunkCoordinates binding;
+	private BlockPos binding;
 
 	@Override
 	public void updateEntity() {
@@ -31,7 +31,7 @@ public abstract class TileRedString extends TileMod implements ITileBound {
 		int y = yCoord;
 		int z = zCoord;
 		int range = getRange();
-		ChunkCoordinates currBinding = getBinding();
+		BlockPos currBinding = getBinding();
 		setBinding(null);
 
 		for(int i = 0; i < range; i++) {
@@ -46,7 +46,7 @@ public abstract class TileRedString extends TileMod implements ITileBound {
 				continue;
 
 			if(acceptBlock(x, y, z)) {
-				setBinding(new ChunkCoordinates(x, y, z));
+				setBinding(new BlockPos(x, y, z));
 				if(currBinding == null || currBinding.posX != x || currBinding.posY != y || currBinding.posZ != z)
 					onBound(x, y, z);
 				break;
@@ -74,7 +74,7 @@ public abstract class TileRedString extends TileMod implements ITileBound {
 		return binding;
 	}
 
-	public void setBinding(ChunkCoordinates binding) {
+	public void setBinding(BlockPos binding) {
 		this.binding = binding;
 	}
 
@@ -83,12 +83,12 @@ public abstract class TileRedString extends TileMod implements ITileBound {
 	}
 
 	public TileEntity getTileAtBinding() {
-		ChunkCoordinates binding = getBinding();
+		BlockPos binding = getBinding();
 		return binding == null ? null : worldObj.getTileEntity(binding.posX, binding.posY, binding.posZ);
 	}
 
 	public Block getBlockAtBinding() {
-		ChunkCoordinates binding = getBinding();
+		BlockPos binding = getBinding();
 		return binding == null ? Blocks.air : worldObj.getBlock(binding.posX, binding.posY, binding.posZ);
 	}
 

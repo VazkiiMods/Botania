@@ -28,7 +28,7 @@ public final class ParticleRenderDispatcher {
 	// Called from LightningHandler.onRenderWorldLast since that was
 	// already registered. /shrug
 	public static void dispatch() {
-		Tessellator tessellator = Tessellator.instance;
+		Tessellator tessellator = Tessellator.getInstance();
 
 		boolean isLightingEnabled = GL11.glGetBoolean(GL11.GL_LIGHTING);
 		Profiler profiler = Minecraft.getMinecraft().mcProfiler;

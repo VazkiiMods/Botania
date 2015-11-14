@@ -79,7 +79,7 @@ public class RenderLens implements IItemRenderer {
 		float scale = 1F / 16F;
 
 		GL11.glColor4f(1F, 1F, 1F, 1F);
-		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), scale);
+		ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), scale);
 
 		GL11.glPushMatrix();
 		GL11.glEnable(GL11.GL_BLEND);
@@ -109,14 +109,14 @@ public class RenderLens implements IItemRenderer {
 		float par4 = 16;
 		float par5 = 16;
 		float zLevel = 0F;
-		Tessellator tessellator = Tessellator.instance;
-		tessellator.startDrawingQuads();
+		Tessellator tessellator = Tessellator.getInstance();
+		tessellator.getWorldRenderer().startDrawingQuads();
 		if(shiny)
 			tessellator.setBrightness(240);
-		tessellator.addVertexWithUV(par1 + 0, par2 + par5, zLevel, icon.getMinU(), icon.getMaxV());
-		tessellator.addVertexWithUV(par1 + par4, par2 + par5, zLevel, icon.getMaxU(), icon.getMaxV());
-		tessellator.addVertexWithUV(par1 + par4, par2 + 0, zLevel, icon.getMaxU(), icon.getMinV());
-		tessellator.addVertexWithUV(par1 + 0, par2 + 0, zLevel, icon.getMinU(), icon.getMinV());
+		tessellator.getWorldRenderer().addVertexWithUV(par1 + 0, par2 + par5, zLevel, icon.getMinU(), icon.getMaxV());
+		tessellator.getWorldRenderer().addVertexWithUV(par1 + par4, par2 + par5, zLevel, icon.getMaxU(), icon.getMaxV());
+		tessellator.getWorldRenderer().addVertexWithUV(par1 + par4, par2 + 0, zLevel, icon.getMaxU(), icon.getMinV());
+		tessellator.getWorldRenderer().addVertexWithUV(par1 + 0, par2 + 0, zLevel, icon.getMinU(), icon.getMinV());
 		tessellator.draw();
 	}
 

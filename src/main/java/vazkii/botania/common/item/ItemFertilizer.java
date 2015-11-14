@@ -15,7 +15,7 @@ import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
@@ -32,7 +32,7 @@ public class ItemFertilizer extends ItemMod {
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
 		final int range = 3;
 		if(!par3World.isRemote) {
-			List<ChunkCoordinates> validCoords = new ArrayList();
+			List<BlockPos> validCoords = new ArrayList();
 
 			for(int i = -range - 1; i < range; i++)
 				for(int j = -range - 1; j < range; j++) {
@@ -41,13 +41,13 @@ public class ItemFertilizer extends ItemMod {
 						int y = par5 + k + 1;
 						int z = par6 + j + 1;
 						if(par3World.isAirBlock(x, y, z) && (!par3World.provider.hasNoSky || y < 255) && ModBlocks.flower.canBlockStay(par3World, x, y, z))
-							validCoords.add(new ChunkCoordinates(x, y, z));
+							validCoords.add(new BlockPos(x, y, z));
 					}
 				}
 
 			int flowerCount = Math.min(validCoords.size(), par3World.rand.nextBoolean() ? 3 : 4);
 			for(int i = 0; i < flowerCount; i++) {
-				ChunkCoordinates coords = validCoords.get(par3World.rand.nextInt(validCoords.size()));
+				BlockPos coords = validCoords.get(par3World.rand.nextInt(validCoords.size()));
 				validCoords.remove(coords);
 				par3World.setBlock(coords.posX, coords.posY, coords.posZ, ModBlocks.flower, par3World.rand.nextInt(16), 1 | 2);
 			}

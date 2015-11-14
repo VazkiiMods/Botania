@@ -63,7 +63,7 @@ public class RenderBabylonWeapon extends Render {
 
 		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240, 240);
 		GL11.glDisable(GL11.GL_LIGHTING);
-		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+		ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
 		GL11.glPopMatrix();
 
 		GL11.glDisable(GL11.GL_CULL_FACE);
@@ -72,7 +72,7 @@ public class RenderBabylonWeapon extends Render {
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(babylon);
 
-		Tessellator tes = Tessellator.instance;
+		Tessellator tes = Tessellator.getInstance();
 		ShaderHelper.useShader(ShaderHelper.halo);
 		Random rand = new Random(weapon.getUniqueID().getMostSignificantBits());
 		GL11.glRotatef(-90F, 1F, 0F, 0F);

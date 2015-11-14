@@ -27,7 +27,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -88,10 +88,10 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 			mb.addComponent(, o[0], Blocks.obsidian, 0);
 		for(int[] p : PYLON_LOCATIONS[0]) {
 			mb.addComponent(, p[0], ModBlocks.pylon, 0);
-			mb.addComponent(new FlowerComponent(new ChunkCoordinates(p[0], p[1], p[2]), ModBlocks.flower));
+			mb.addComponent(new FlowerComponent(new BlockPos(p[0], p[1], p[2]), ModBlocks.flower));
 		}
 		for(int[] f : FLOWER_LOCATIONS)
-			mb.addComponent(new FlowerComponent(new ChunkCoordinates(f[0], f[1] + 1, f[2]), ModBlocks.flower));
+			mb.addComponent(new FlowerComponent(new BlockPos(f[0], f[1] + 1, f[2]), ModBlocks.flower));
 
 		mb.addComponent(, 0, Blocks.lapis_block, 0);
 

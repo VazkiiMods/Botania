@@ -73,7 +73,7 @@ public class SubTileLoonuim extends SubTileFunctional {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
+		return new RadiusDescriptor.Square(toBlockPos(), RANGE);
 	}
 
 }

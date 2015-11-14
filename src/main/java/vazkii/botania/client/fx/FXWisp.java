@@ -81,7 +81,7 @@ public class FXWisp extends EntityFX {
 		Minecraft.getMinecraft().renderEngine.bindTexture(ConfigHandler.matrixMode ? ObfuscationHelper.getParticleTexture() : particles);
 
 		if(!queuedRenders.isEmpty()) {
-			tessellator.startDrawingQuads();
+			tessellator.getWorldRenderer().startDrawingQuads();
 			for(FXWisp wisp : queuedRenders)
 				wisp.renderQueued(tessellator, true);
 			tessellator.draw();
@@ -89,7 +89,7 @@ public class FXWisp extends EntityFX {
 
 		if(!queuedDepthIgnoringRenders.isEmpty()) {
 			GL11.glDisable(GL11.GL_DEPTH_TEST);
-			tessellator.startDrawingQuads();
+			tessellator.getWorldRenderer().startDrawingQuads();
 			for(FXWisp wisp : queuedDepthIgnoringRenders)
 				wisp.renderQueued(tessellator, false);
 			tessellator.draw();
@@ -119,10 +119,10 @@ public class FXWisp extends EntityFX {
 
 		tessellator.setBrightness(240);
 		tessellator.setColorRGBA_F(particleRed, particleGreen, particleBlue, 0.5F);
-		tessellator.addVertexWithUV(f11 - f1 * f10 - f4 * f10, f12 - f2 * f10, f13 - f3 * f10 - f5 * f10, 0, 1);
-		tessellator.addVertexWithUV(f11 - f1 * f10 + f4 * f10, f12 + f2 * f10, f13 - f3 * f10 + f5 * f10, 1, 1);
-		tessellator.addVertexWithUV(f11 + f1 * f10 + f4 * f10, f12 + f2 * f10, f13 + f3 * f10 + f5 * f10, 1, 0);
-		tessellator.addVertexWithUV(f11 + f1 * f10 - f4 * f10, f12 - f2 * f10, f13 + f3 * f10 - f5 * f10, 0, 0);
+		tessellator.getWorldRenderer().addVertexWithUV(f11 - f1 * f10 - f4 * f10, f12 - f2 * f10, f13 - f3 * f10 - f5 * f10, 0, 1);
+		tessellator.getWorldRenderer().addVertexWithUV(f11 - f1 * f10 + f4 * f10, f12 + f2 * f10, f13 - f3 * f10 + f5 * f10, 1, 1);
+		tessellator.getWorldRenderer().addVertexWithUV(f11 + f1 * f10 + f4 * f10, f12 + f2 * f10, f13 + f3 * f10 + f5 * f10, 1, 0);
+		tessellator.getWorldRenderer().addVertexWithUV(f11 + f1 * f10 - f4 * f10, f12 - f2 * f10, f13 + f3 * f10 - f5 * f10, 0, 0);
 	}
 
 	@Override

@@ -89,7 +89,7 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 				GL11.glTranslated(gap * i, 0F, 0F);
 				for(int j = -shift; j < shift; j++) {
 					GL11.glTranslated(0F, gap * j, 0F);
-					ItemRenderer.renderItemIn2D(Tessellator.instance, minU + stepU * (i + shift), minV + stepV * (j + shift + 1), minU + stepU * (i + shift + 1), minV + stepV * (j + shift), icon.getIconWidth() / pieces, icon.getIconHeight() / pieces, 1F / 8F);
+					ItemRenderer.renderItemIn2D(Tessellator.getInstance(), minU + stepU * (i + shift), minV + stepV * (j + shift + 1), minU + stepU * (i + shift + 1), minV + stepV * (j + shift), icon.getIconWidth() / pieces, icon.getIconHeight() / pieces, 1F / 8F);
 					GL11.glTranslated(0F, -gap * j, 0F);
 				}
 				GL11.glTranslated(-gap * i, 0F, 0F);

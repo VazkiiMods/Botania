@@ -12,7 +12,7 @@ package vazkii.botania.common.item.lens;
 
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.internal.IManaBurst;
@@ -23,7 +23,7 @@ public class LensBounce extends Lens {
 	@Override
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		if(!isManaBlock && pos.entityHit == null) {
-			ChunkCoordinates coords = burst.getBurstSourceChunkCoordinates();
+			BlockPos coords = burst.getBurstSourceBlockPos();
 			if(coords.posX != pos.blockX || coords.posY != pos.blockY || coords.posZ != pos.blockZ) {
 				Vector3 currentMovementVec = new Vector3(entity.motionX, entity.motionY, entity.motionZ);
 				ForgeDirection dir = ForgeDirection.getOrientation(pos.sideHit);

@@ -98,7 +98,7 @@ public class SubTileBubbell extends SubTileFunctional {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Circle(toChunkCoordinates(), range);
+		return new RadiusDescriptor.Circle(toBlockPos(), range);
 	}
 
 	@Override

@@ -38,7 +38,7 @@ public class RenderThornChakram extends Render {
 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 			GL11.glScalef(0.5F, 0.5F, 0.5F);
 			bindEntityTexture(p_76986_1_);
-			Tessellator tessellator = Tessellator.instance;
+			Tessellator tessellator = Tessellator.getInstance();
 
 			func_77026_a(tessellator, iicon, fire ? 240 : -1);
 			GL11.glDisable(GL12.GL_RESCALE_NORMAL);

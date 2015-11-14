@@ -23,7 +23,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -146,9 +146,9 @@ public class ItemGrassSeeds extends ItemMod {
 
 	private static BlockSwapper swapperFromMeta(World world, int x, int y, int z, int meta) {
 		switch(meta) {
-		case 1 : return new BlockSwapper(world, new ChunkCoordinates(x, y, z),  Blocks.dirt, 2);
-		case 2 : return new BlockSwapper(world, new ChunkCoordinates(x, y, z),  Blocks.mycelium, 0);
-		default : return new BlockSwapper(world, new ChunkCoordinates(x, y, z),  Blocks.grass, 0);
+		case 1 : return new BlockSwapper(world, new BlockPos(x, y, z),  Blocks.dirt, 2);
+		case 2 : return new BlockSwapper(world, new BlockPos(x, y, z),  Blocks.mycelium, 0);
+		default : return new BlockSwapper(world, new BlockPos(x, y, z),  Blocks.grass, 0);
 		}
 	}
 
@@ -159,10 +159,10 @@ public class ItemGrassSeeds extends ItemMod {
 		final Block blockToSet;
 		final int metaToSet;
 
-		ChunkCoordinates startCoords;
+		BlockPos startCoords;
 		int ticksExisted = 0;
 
-		BlockSwapper(World world, ChunkCoordinates coords, Block block, int meta) {
+		BlockSwapper(World world, BlockPos coords, Block block, int meta) {
 			this.world = world;
 			blockToSet = block;
 			metaToSet = meta;
@@ -184,7 +184,7 @@ public class ItemGrassSeeds extends ItemMod {
 
 					if(block == blockToSet && meta == metaToSet) {
 						if(ticksExisted % 20 == 0) {
-							List<ChunkCoordinates> validCoords = new ArrayList();
+							List<BlockPos> validCoords = new ArrayList();
 							for(int k = -1; k < 2; k++)
 								for(int l = -1; l < 2; l++) {
 									int x1 = x + k;
@@ -192,11 +192,11 @@ public class ItemGrassSeeds extends ItemMod {
 									Block block1 = world.getBlock(x1, y, z1);
 									int meta1 = world.getBlockMetadata(x1, y, z1);
 									if(block1 == Blocks.dirt && meta1 == 0)
-										validCoords.add(new ChunkCoordinates(x1, y, z1));
+										validCoords.add(new BlockPos(x1, y, z1));
 								}
 
 							if(!validCoords.isEmpty() && !world.isRemote) {
-								ChunkCoordinates coords = validCoords.get(rand.nextInt(validCoords.size()));
+								BlockPos coords = validCoords.get(rand.nextInt(validCoords.size()));
 								world.setBlock(coords.posX, coords.posY, coords.posZ, blockToSet, metaToSet, 1 | 2);
 							}
 						}

@@ -79,7 +79,7 @@ public class SubTileTangleberrie extends SubTileFunctional {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Circle(toChunkCoordinates(), getRange());
+		return new RadiusDescriptor.Circle(toBlockPos(), getRange());
 	}
 
 	@Override

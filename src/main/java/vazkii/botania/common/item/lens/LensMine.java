@@ -19,7 +19,7 @@ import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaBurst;
@@ -50,7 +50,7 @@ public class LensMine extends Lens {
 		float hardness = block.getBlockHardness(world, x, y, z);
 		int mana = burst.getMana();
 
-		ChunkCoordinates coords = burst.getBurstSourceChunkCoordinates();
+		BlockPos coords = burst.getBurstSourceBlockPos();
 		if((coords.posX != x || coords.posY != y || coords.posZ != z) && !(tile instanceof IManaBlock) && block != null && hardness != -1 && hardness < 50F && (burst.isFake() || mana >= 24)) {
 			List<ItemStack> items = new ArrayList();
 

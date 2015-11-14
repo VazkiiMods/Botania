@@ -14,7 +14,7 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.StatCollector;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.world.SkyblockWorldEvents;
@@ -53,7 +53,7 @@ public class CommandSkyblockSpread extends CommandBase {
 
 		EntityPlayer player = getPlayer(sender, args[0]);
 		if(player != null) {
-			ChunkCoordinates spawn = player.worldObj.getSpawnPoint();
+			BlockPos spawn = player.worldObj.getSpawnPoint();
 			int x, z;
 
 			do {

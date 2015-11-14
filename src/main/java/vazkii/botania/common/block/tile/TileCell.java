@@ -12,7 +12,7 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 
 public class TileCell extends TileMod {
 
@@ -27,8 +27,8 @@ public class TileCell extends TileMod {
 
 	private int generation;
 	private boolean ticked;
-	private ChunkCoordinates flowerCoords = new ChunkCoordinates();
-	private ChunkCoordinates validCoords = new ChunkCoordinates();
+	private BlockPos flowerCoords = new BlockPos();
+	private BlockPos validCoords = new BlockPos();
 
 	@Override
 	public boolean canUpdate() {
@@ -53,7 +53,7 @@ public class TileCell extends TileMod {
 		return matchCoords(validCoords, this) && matchCoords(flowerCoords, flower);
 	}
 	
-	private boolean matchCoords(ChunkCoordinates coords, TileEntity tile) {
+	private boolean matchCoords(BlockPos coords, TileEntity tile) {
 		return coords.posX == tile.xCoord && coords.posY == tile.yCoord && coords.posZ == tile.zCoord;
 	}
 

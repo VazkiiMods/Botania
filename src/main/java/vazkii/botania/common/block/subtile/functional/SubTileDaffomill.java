@@ -110,7 +110,7 @@ public class SubTileDaffomill extends SubTileFunctional {
 	public RadiusDescriptor getRadius() {
 		AxisAlignedBB aabb = aabbForOrientation();
 		aabb.minY = supertile.yCoord;
-		return new RadiusDescriptor.Rectangle(toChunkCoordinates(), aabb);
+		return new RadiusDescriptor.Rectangle(toBlockPos(), aabb);
 	}
 
 	@Override

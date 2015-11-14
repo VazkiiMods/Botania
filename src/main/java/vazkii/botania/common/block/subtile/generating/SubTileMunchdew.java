@@ -19,7 +19,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -54,7 +54,7 @@ public class SubTileMunchdew extends SubTileGenerating {
 		int manaPerLeaf = 160;
 		eatLeaves : {
 			if(getMaxMana() - mana >= manaPerLeaf && !supertile.getWorld().isRemote && ticksExisted % 4 == 0) {
-				List<ChunkCoordinates> coords = new ArrayList();
+				List<BlockPos> coords = new ArrayList();
 				int x = supertile.xCoord;
 				int y = supertile.yCoord;
 				int z = supertile.zCoord;
@@ -75,7 +75,7 @@ public class SubTileMunchdew extends SubTileGenerating {
 									}
 
 								if(exposed)
-									coords.add(new ChunkCoordinates(xp, yp, zp));
+									coords.add(new BlockPos(xp, yp, zp));
 							}
 						}
 
@@ -83,7 +83,7 @@ public class SubTileMunchdew extends SubTileGenerating {
 					break eatLeaves;
 
 				Collections.shuffle(coords);
-				ChunkCoordinates breakCoords = coords.get(0);
+				BlockPos breakCoords = coords.get(0);
 				Block block = supertile.getWorld().getBlock(breakCoords.posX, breakCoords.posY, breakCoords.posZ);
 				int meta = supertile.getWorld().getBlockMetadata(breakCoords.posX, breakCoords.posY, breakCoords.posZ);
 				supertile.getWorld().setBlockToAir(breakCoords.posX, breakCoords.posY, breakCoords.posZ);
@@ -104,7 +104,7 @@ public class SubTileMunchdew extends SubTileGenerating {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
+		return new RadiusDescriptor.Square(toBlockPos(), RANGE);
 	}
 
 	@Override

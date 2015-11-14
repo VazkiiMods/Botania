@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.WeakHashMap;
 
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.ManaNetworkEvent;
@@ -48,14 +48,14 @@ public final class ManaNetworkHandler implements IManaNetwork {
 	}
 
 	@Override
-	public TileEntity getClosestPool(ChunkCoordinates pos, World world, int limit) {
+	public TileEntity getClosestPool(BlockPos pos, World world, int limit) {
 		if(manaPools.containsKey(world))
 			return getClosest(manaPools.get(world), pos, world.isRemote, limit);
 		return null;
 	}
 
 	@Override
-	public TileEntity getClosestCollector(ChunkCoordinates pos, World world, int limit) {
+	public TileEntity getClosestCollector(BlockPos pos, World world, int limit) {
 		if(manaCollectors.containsKey(world))
 			return getClosest(manaCollectors.get(world), pos, world.isRemote, limit);
 		return null;
@@ -81,7 +81,7 @@ public final class ManaNetworkHandler implements IManaNetwork {
 		return false;
 	}
 
-	private synchronized TileEntity getClosest(List<TileSignature> tiles, ChunkCoordinates pos, boolean remoteCheck, int limit) {
+	private synchronized TileEntity getClosest(List<TileSignature> tiles, BlockPos pos, boolean remoteCheck, int limit) {
 		float closest = Float.MAX_VALUE;
 		TileEntity closestTile = null;
 

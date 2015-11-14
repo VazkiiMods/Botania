@@ -13,7 +13,7 @@ package vazkii.botania.common.item.lens;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.core.helper.MathHelper;
@@ -51,7 +51,7 @@ public class LensMagnet extends Lens {
 
 							IManaReceiver receiver = (IManaReceiver) tile;
 
-							ChunkCoordinates srcCoords = burst.getBurstSourceChunkCoordinates();
+							BlockPos srcCoords = burst.getBurstSourceBlockPos();
 
 							if(MathHelper.pointDistanceSpace(tile.xCoord, tile.yCoord, tile.zCoord, srcCoords.posX, srcCoords.posY, srcCoords.posZ) > 3 && receiver.canRecieveManaFromBursts() && !receiver.isFull()) {
 								Vector3 burstVec = Vector3.fromEntity(entity);

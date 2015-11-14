@@ -111,7 +111,7 @@ public final class RenderHelper {
 		GL11.glDisable(GL11.GL_ALPHA_TEST);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GL11.glShadeModel(GL11.GL_SMOOTH);
-		Tessellator var15 = Tessellator.instance;
+		Tessellator var15 = Tessellator.getInstance();
 		var15.startDrawingQuads();
 		var15.setColorRGBA_F(var8, var9, var10, var7);
 		var15.addVertex(par3, par2, z);
@@ -131,17 +131,17 @@ public final class RenderHelper {
 	}
 
 	public static void drawTexturedModalRect(int par1, int par2, float z, int par3, int par4, int par5, int par6, float f, float f1) {
-		Tessellator tessellator = Tessellator.instance;
-		tessellator.startDrawingQuads();
-		tessellator.addVertexWithUV(par1 + 0, par2 + par6, z, (par3 + 0) * f, (par4 + par6) * f1);
-		tessellator.addVertexWithUV(par1 + par5, par2 + par6, z, (par3 + par5) * f, (par4 + par6) * f1);
-		tessellator.addVertexWithUV(par1 + par5, par2 + 0, z, (par3 + par5) * f, (par4 + 0) * f1);
-		tessellator.addVertexWithUV(par1 + 0, par2 + 0, z, (par3 + 0) * f, (par4 + 0) * f1);
+		Tessellator tessellator = Tessellator.getInstance();
+		tessellator.getWorldRenderer().startDrawingQuads();
+		tessellator.getWorldRenderer().addVertexWithUV(par1 + 0, par2 + par6, z, (par3 + 0) * f, (par4 + par6) * f1);
+		tessellator.getWorldRenderer().addVertexWithUV(par1 + par5, par2 + par6, z, (par3 + par5) * f, (par4 + par6) * f1);
+		tessellator.getWorldRenderer().addVertexWithUV(par1 + par5, par2 + 0, z, (par3 + par5) * f, (par4 + 0) * f1);
+		tessellator.getWorldRenderer().addVertexWithUV(par1 + 0, par2 + 0, z, (par3 + 0) * f, (par4 + 0) * f1);
 		tessellator.draw();
 	}
 
 	public static void renderStar(int color, float xScale, float yScale, float zScale, long seed) {
-		Tessellator tessellator = Tessellator.instance;
+		Tessellator tessellator = Tessellator.getInstance();
 
 		int ticks = ClientTickHandler.ticksInGame % 200;
 		if (ticks >= 100)
@@ -174,12 +174,12 @@ public final class RenderHelper {
 			float f3 = random.nextFloat() * 20F + 5F + f2 * 10F;
 			float f4 = random.nextFloat() * 2F + 1F + f2 * 2F;
 			tessellator.setColorRGBA_I(color, (int) (255F * (1F - f2)));
-			tessellator.addVertex(0, 0, 0);
+			tessellator.getWorldRenderer().addVertex(0, 0, 0);
 			tessellator.setColorRGBA_F(0F, 0F, 0F, 0);
-			tessellator.addVertex(-0.866D * f4, f3, -0.5F * f4);
-			tessellator.addVertex(0.866D * f4, f3, -0.5F * f4);
-			tessellator.addVertex(0, f3, 1F * f4);
-			tessellator.addVertex(-0.866D * f4, f3, -0.5F * f4);
+			tessellator.getWorldRenderer().addVertex(-0.866D * f4, f3, -0.5F * f4);
+			tessellator.getWorldRenderer().addVertex(0.866D * f4, f3, -0.5F * f4);
+			tessellator.getWorldRenderer().addVertex(0, f3, 1F * f4);
+			tessellator.getWorldRenderer().addVertex(-0.866D * f4, f3, -0.5F * f4);
 			tessellator.draw();
 		}
 

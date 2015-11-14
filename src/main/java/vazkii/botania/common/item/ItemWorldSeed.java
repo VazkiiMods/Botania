@@ -12,7 +12,7 @@ package vazkii.botania.common.item;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.MathHelper;
@@ -26,7 +26,7 @@ public class ItemWorldSeed extends ItemMod {
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		ChunkCoordinates coords = world.getSpawnPoint();
+		BlockPos coords = world.getSpawnPoint();
 
 		if(MathHelper.pointDistanceSpace(coords.posX + 0.5, coords.posY + 0.5, coords.posZ + 0.5, player.posX, player.posY, player.posZ) > 24) {
 			player.rotationPitch = 0F;

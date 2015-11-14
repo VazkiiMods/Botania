@@ -59,9 +59,9 @@ public class GuiFlowerBag extends GuiContainer {
 					int x = guiLeft + slotf.xDisplayPosition;
 					int y = guiTop + slotf.yDisplayPosition;
 					RenderHelper.enableGUIStandardItemLighting();
-					RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine, stack, x, y);
+					mc.getRenderItem().renderItemIntoGUI(stack, x, y);
 					RenderHelper.disableStandardItemLighting();
-					mc.fontRenderer.drawStringWithShadow("0", x + 11, y + 9, 0xFF6666);
+					mc.fontRendererObj.drawStringWithShadow("0", x + 11, y + 9, 0xFF6666);
 				}
 			}
 	}

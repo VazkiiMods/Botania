@@ -41,7 +41,7 @@ public class RenderSpecialFlower implements ISimpleBlockRenderingHandler, IMulti
 
 	// Copied from RenderBlocks
 	public static boolean renderCrossedSquares(IBlockAccess blockAccess, Block par1Block, int par2, int par3, int par4, RenderBlocks render) {
-		Tessellator tessellator = Tessellator.instance;
+		Tessellator tessellator = Tessellator.getInstance();
 		tessellator.setBrightness(par1Block.getMixedBrightnessForBlock(blockAccess, par2, par3, par4));
 		float f = 1.0F;
 		int l = par1Block.colorMultiplier(blockAccess, par2, par3, par4);
@@ -80,7 +80,7 @@ public class RenderSpecialFlower implements ISimpleBlockRenderingHandler, IMulti
 
 	// Copied from RenderBlocks
 	public static void drawCrossedSquares(IBlockAccess blockAccess, Block par1Block, IIcon icon, int x, int y, int z, double par3, double par5, double par7, float par9, RenderBlocks render) {
-		Tessellator tessellator = Tessellator.instance;
+		Tessellator tessellator = Tessellator.getInstance();
 
 		double d3 = icon.getMinU();
 		double d4 = icon.getMinV();
@@ -91,22 +91,22 @@ public class RenderSpecialFlower implements ISimpleBlockRenderingHandler, IMulti
 		double d9 = par3 + 0.5D + d7;
 		double d10 = par7 + 0.5D - d7;
 		double d11 = par7 + 0.5D + d7;
-		tessellator.addVertexWithUV(d8, par5 + par9, d10, d3, d4);
-		tessellator.addVertexWithUV(d8, par5 + 0.0D, d10, d3, d6);
-		tessellator.addVertexWithUV(d9, par5 + 0.0D, d11, d5, d6);
-		tessellator.addVertexWithUV(d9, par5 + par9, d11, d5, d4);
-		tessellator.addVertexWithUV(d9, par5 + par9, d11, d3, d4);
-		tessellator.addVertexWithUV(d9, par5 + 0.0D, d11, d3, d6);
-		tessellator.addVertexWithUV(d8, par5 + 0.0D, d10, d5, d6);
-		tessellator.addVertexWithUV(d8, par5 + par9, d10, d5, d4);
-		tessellator.addVertexWithUV(d8, par5 + par9, d11, d3, d4);
-		tessellator.addVertexWithUV(d8, par5 + 0.0D, d11, d3, d6);
-		tessellator.addVertexWithUV(d9, par5 + 0.0D, d10, d5, d6);
-		tessellator.addVertexWithUV(d9, par5 + par9, d10, d5, d4);
-		tessellator.addVertexWithUV(d9, par5 + par9, d10, d3, d4);
-		tessellator.addVertexWithUV(d9, par5 + 0.0D, d10, d3, d6);
-		tessellator.addVertexWithUV(d8, par5 + 0.0D, d11, d5, d6);
-		tessellator.addVertexWithUV(d8, par5 + par9, d11, d5, d4);
+		tessellator.getWorldRenderer().addVertexWithUV(d8, par5 + par9, d10, d3, d4);
+		tessellator.getWorldRenderer().addVertexWithUV(d8, par5 + 0.0D, d10, d3, d6);
+		tessellator.getWorldRenderer().addVertexWithUV(d9, par5 + 0.0D, d11, d5, d6);
+		tessellator.getWorldRenderer().addVertexWithUV(d9, par5 + par9, d11, d5, d4);
+		tessellator.getWorldRenderer().addVertexWithUV(d9, par5 + par9, d11, d3, d4);
+		tessellator.getWorldRenderer().addVertexWithUV(d9, par5 + 0.0D, d11, d3, d6);
+		tessellator.getWorldRenderer().addVertexWithUV(d8, par5 + 0.0D, d10, d5, d6);
+		tessellator.getWorldRenderer().addVertexWithUV(d8, par5 + par9, d10, d5, d4);
+		tessellator.getWorldRenderer().addVertexWithUV(d8, par5 + par9, d11, d3, d4);
+		tessellator.getWorldRenderer().addVertexWithUV(d8, par5 + 0.0D, d11, d3, d6);
+		tessellator.getWorldRenderer().addVertexWithUV(d9, par5 + 0.0D, d10, d5, d6);
+		tessellator.getWorldRenderer().addVertexWithUV(d9, par5 + par9, d10, d5, d4);
+		tessellator.getWorldRenderer().addVertexWithUV(d9, par5 + par9, d10, d3, d4);
+		tessellator.getWorldRenderer().addVertexWithUV(d9, par5 + 0.0D, d10, d3, d6);
+		tessellator.getWorldRenderer().addVertexWithUV(d8, par5 + 0.0D, d11, d5, d6);
+		tessellator.getWorldRenderer().addVertexWithUV(d8, par5 + par9, d11, d5, d4);
 	}
 
 	@Override
@@ -121,7 +121,7 @@ public class RenderSpecialFlower implements ISimpleBlockRenderingHandler, IMulti
 
 	@Override
 	public void renderBlockForMultiblock(IBlockAccess world, Multiblock mb, Block block, int meta, RenderBlocks renderBlocks, MultiblockComponent comp, float alpha) {
-		Tessellator tess = Tessellator.instance;
+		Tessellator tess = Tessellator.getInstance();
 		tess.startDrawingQuads();
 		drawCrossedSquares(world, block, block.getIcon(0, meta), 0, 0, 0, -0.5, -0.5, -0.5, 1F, renderBlocks);
 		tess.draw();

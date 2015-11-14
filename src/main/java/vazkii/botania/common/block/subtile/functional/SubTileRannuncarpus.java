@@ -27,7 +27,7 @@ import net.minecraft.item.ItemReed;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
@@ -67,7 +67,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 			BlockData filter = getUnderlyingBlock();
 
 			boolean scanned = false;
-			List<ChunkCoordinates> validPositions = new ArrayList();
+			List<BlockPos> validPositions = new ArrayList();
 
 			int rangePlace = getRange();
 			int rangePlaceY = getRangeY();
@@ -94,7 +94,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 									Block blockAbove = supertile.getWorld().getBlock(xp, yp + 1, zp);
 
 									if(filter.equals(supertile.getWorld(), xp, yp, zp) && (blockAbove.isAir(supertile.getWorld(), xp, yp + 1, zp) || blockAbove.isReplaceable(supertile.getWorld(), xp, yp + 1, zp)))
-										validPositions.add(new ChunkCoordinates(xp, yp + 1, zp));
+										validPositions.add(new BlockPos(xp, yp + 1, zp));
 								}
 
 						scanned = true;
@@ -111,7 +111,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 							blockToPlace = Blocks.redstone_wire;
 
 						if(blockToPlace != null) {
-							ChunkCoordinates coords = validPositions.get(supertile.getWorld().rand.nextInt(validPositions.size()));
+							BlockPos coords = validPositions.get(supertile.getWorld().rand.nextInt(validPositions.size()));
 							if(blockToPlace.canPlaceBlockAt(supertile.getWorld(), coords.posX, coords.posY, coords.posZ)) {
 								supertile.getWorld().setBlock(coords.posX, coords.posY, coords.posZ, blockToPlace, stack.getItemDamage(), 1 | 2);
 								if(ConfigHandler.blockBreakParticles)
@@ -181,7 +181,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toChunkCoordinates(), getRange());
+		return new RadiusDescriptor.Square(toBlockPos(), getRange());
 	}
 
 	public int getRange() {

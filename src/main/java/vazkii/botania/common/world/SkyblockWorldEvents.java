@@ -20,7 +20,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
@@ -53,7 +53,7 @@ public final class SkyblockWorldEvents {
 			if(player.ticksExisted > 3 && !persist.getBoolean(TAG_MADE_ISLAND)) {
 				World world = player.worldObj;
 				if(WorldTypeSkyblock.isWorldSkyblock(world)) {
-					ChunkCoordinates coords = world.getSpawnPoint();
+					BlockPos coords = world.getSpawnPoint();
 					if(world.getBlock(coords.posX, coords.posY - 4, coords.posZ) != Blocks.bedrock && world.provider.dimensionId == 0)
 						spawnPlayer(player, coords.posX, coords.posY, coords.posZ, false);
 				}
@@ -132,7 +132,7 @@ public final class SkyblockWorldEvents {
 			if(player instanceof EntityPlayerMP) {
 				EntityPlayerMP pmp = (EntityPlayerMP) player;
 				pmp.setPositionAndUpdate(x + 0.5, y + 1.6, z + 0.5);
-				pmp.setSpawnChunk(new ChunkCoordinates(x, y, z), true);
+				pmp.setSpawnChunk(new BlockPos(x, y, z), true);
 				player.inventory.addItemStackToInventory(new ItemStack(ModItems.lexicon));
 			}
 

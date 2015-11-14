@@ -24,7 +24,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
@@ -87,7 +87,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 				vecTip.add(vecMag);
 			}
 			
-			ChunkCoordinates endpoint = getEndpoint();
+			BlockPos endpoint = getEndpoint();
 			if(endpoint != null && !worldObj.isRemote) {
 				float range = 0.5F;
 				List<EntityEnderPearl> enderPearls = worldObj.getEntitiesWithinAABB(EntityEnderPearl.class, new AxisAlignedBB(xCoord - range, yCoord - range, zCoord - range, xCoord + 1 + range, yCoord + 1 + range, zCoord + 1 + range));
@@ -105,10 +105,10 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		return block == ModBlocks.lightRelay;
 	}
 	
-	public ChunkCoordinates getEndpoint() {
+	public BlockPos getEndpoint() {
 		List<TileLightRelay> pointsPassed = new ArrayList();
 		TileLightRelay relay = this;
-		ChunkCoordinates lastCoords = null;
+		BlockPos lastCoords = null;
 		
 		// Doing while(true) gives an unreachable code error
 		boolean run = true;
@@ -117,7 +117,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 				return null; // Circular path
 			pointsPassed.add(relay);
 			
-			ChunkCoordinates coords = relay.getBinding();
+			BlockPos coords = relay.getBinding();
 			if(coords == null)
 				return lastCoords;
 			
@@ -138,7 +138,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 
 	@Override
 	public BlockPos getBinding() {
-		return bindY == -1 ? null : new ChunkCoordinates(bindX, bindY, bindZ);
+		return bindY == -1 ? null : new BlockPos(bindX, bindY, bindZ);
 	}
 
 	@Override
@@ -232,7 +232,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 						worldObj.scheduleBlockUpdate(x, y, z, tile.getBlockType(), tile.getBlockType().tickRate(worldObj));
 					}
 
-					ChunkCoordinates bind = ((TileLightRelay) tile).getBinding();
+					BlockPos bind = ((TileLightRelay) tile).getBinding();
 					if(bind != null) {
 						setExit(bind.posX, bind.posY, bind.posZ);
 						return;

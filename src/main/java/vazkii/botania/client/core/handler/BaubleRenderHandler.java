@@ -21,7 +21,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
-import net.minecraft.util.IIcon;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 
 import org.lwjgl.opengl.GL11;
@@ -131,7 +130,7 @@ public final class BaubleRenderHandler {
 					float f1 = icon.getMaxU();
 					float f2 = icon.getMinV();
 					float f3 = icon.getMaxV();
-					ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+					ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
 
 					Color color = new Color(item.getColorFromItemStack(stack, 1));
 					GL11.glColor3ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());

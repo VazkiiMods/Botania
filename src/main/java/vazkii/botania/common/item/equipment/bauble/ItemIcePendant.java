@@ -25,7 +25,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -79,13 +79,13 @@ public class ItemIcePendant extends ItemBauble implements IBaubleRender {
 						int x1 = x + i;
 						int z1 = z + j;
 
-						addIceBlock(player, new ChunkCoordinates(x1, y, z1));
+						addIceBlock(player, new BlockPos(x1, y, z1));
 					}
 			}
 		}
 	}
 
-	private void addIceBlock(EntityPlayer player, ChunkCoordinates coords) {
+	private void addIceBlock(EntityPlayer player, BlockPos coords) {
 		String user = player.getCommandSenderName();
 		if(!playerIceBlocks.containsKey(user))
 			playerIceBlocks.put(user, new ArrayList());
@@ -124,16 +124,16 @@ public class ItemIcePendant extends ItemBauble implements IBaubleRender {
 			float f1 = gemIcon.getMaxU();
 			float f2 = gemIcon.getMinV();
 			float f3 = gemIcon.getMaxV();
-			ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, gemIcon.getIconWidth(), gemIcon.getIconHeight(), 1F / 32F);
+			ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, gemIcon.getIconWidth(), gemIcon.getIconHeight(), 1F / 32F);
 		}
 	}
 
 	class IceRemover {
 
 		int time = 30;
-		final ChunkCoordinates coords;
+		final BlockPos coords;
 
-		public IceRemover(ChunkCoordinates coords) {
+		public IceRemover(BlockPos coords) {
 			this.coords = coords;
 		}
 

@@ -179,9 +179,9 @@ public class ModelArmorManaweave extends ModelBiped {
             if (itemstack != null && player.getItemInUseCount() > 0) {
                 EnumAction enumaction = itemstack.getItemUseAction();
 
-                if (enumaction == EnumAction.block)
+                if (enumaction == EnumAction.BLOCK)
                     heldItemRight = 3;
-                else if (enumaction == EnumAction.bow)
+                else if (enumaction == EnumAction.BOW)
                    aimedBow = true;
             }
         }

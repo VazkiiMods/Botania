@@ -23,7 +23,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -89,7 +89,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		} else if(canExchange(par1ItemStack) && !ItemNBTHelper.getBoolean(par1ItemStack, TAG_SWAPPING, false)) {
 			Block block = getBlock(par1ItemStack);
 			int meta = getBlockMeta(par1ItemStack);
-			List<ChunkCoordinates> swap = getBlocksToSwap(par3World, par1ItemStack, block, meta, par4, par5, par6, null, 0);
+			List<BlockPos> swap = getBlocksToSwap(par3World, par1ItemStack, block, meta, par4, par5, par6, null, 0);
 			if(swap.size() > 0) {
 				ItemNBTHelper.setBoolean(par1ItemStack, TAG_SWAPPING, true);
 				ItemNBTHelper.setInt(par1ItemStack, TAG_SELECT_X, par4);
@@ -140,13 +140,13 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 			int z = ItemNBTHelper.getInt(stack, TAG_SELECT_Z, 0);
 			Block targetBlock = getTargetBlock(stack);
 			int targetMeta = getTargetBlockMeta(stack);
-			List<ChunkCoordinates> swap = getBlocksToSwap(world, stack, block, meta, x, y, z, targetBlock, targetMeta);
+			List<BlockPos> swap = getBlocksToSwap(world, stack, block, meta, x, y, z, targetBlock, targetMeta);
 			if(swap.size() == 0) {
 				ItemNBTHelper.setBoolean(stack, TAG_SWAPPING, false);
 				return;
 			}
 
-			ChunkCoordinates coords = swap.get(world.rand.nextInt(swap.size()));
+			BlockPos coords = swap.get(world.rand.nextInt(swap.size()));
 			boolean exchange = exchange(world, player, coords.posX, coords.posY, coords.posZ, stack, block, meta);
 			if(exchange)
 				ManaItemHandler.requestManaExactForTool(stack, player, COST, true);
@@ -182,8 +182,8 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		return matrix;
 	}
 
-	public List<ChunkCoordinates> getBlocksToSwap(World world, ItemStack stack, Block blockToSwap, int metaToSwap, int xc, int yc, int zc, Block targetBlock, int targetMeta) {
-		List<ChunkCoordinates> coordsList = new ArrayList();
+	public List<BlockPos> getBlocksToSwap(World world, ItemStack stack, Block blockToSwap, int metaToSwap, int xc, int yc, int zc, Block targetBlock, int targetMeta) {
+		List<BlockPos> coordsList = new ArrayList();
 		Boolean[][][] matrix = createMatrix(world, stack, blockToSwap, metaToSwap, xc, yc, zc, targetBlock, targetMeta);
 
 		int effrange = RANGE + ItemNBTHelper.getInt(stack, TAG_EXTRA_RANGE, 1);
@@ -200,7 +200,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 						for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
 							Boolean obool = matrix[i + dir.offsetX][j + dir.offsetY][k + dir.offsetZ];
 							if(obool != null && obool) {
-								coordsList.add(new ChunkCoordinates(x, y, z));
+								coordsList.add(new BlockPos(x, y, z));
 								break;
 							}
 						}
@@ -378,7 +378,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public List<ChunkCoordinates> getWireframesToDraw(EntityPlayer player, ItemStack stack) {
+	public List<BlockPos> getWireframesToDraw(EntityPlayer player, ItemStack stack) {
 		ItemStack holding = player.getCurrentEquippedItem();
 		if(holding != stack || !canExchange(stack))
 			return null;
@@ -402,8 +402,8 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 			}
 
 			if(!player.worldObj.isAirBlock(x, y, z)) {
-				List<ChunkCoordinates> coordsList = getBlocksToSwap(player.worldObj, stack, block, meta, x, y, z, targetBlock, targetMeta);
-				for(ChunkCoordinates coords : coordsList)
+				List<BlockPos> coordsList = getBlocksToSwap(player.worldObj, stack, block, meta, x, y, z, targetBlock, targetMeta);
+				for(BlockPos coords : coordsList)
 					if(coords.posX == x && coords.posY == y && coords.posZ == z) {
 						coordsList.remove(coords);
 						break;

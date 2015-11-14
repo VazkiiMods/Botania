@@ -96,8 +96,8 @@ public class RenderTileStarfield extends TileEntitySpecialRenderer {
 			GL11.glTranslatef(-f1, -f3, -f2);
 			f9 = f8 + ActiveRenderInfo.objectY;
 			GL11.glTranslatef(ActiveRenderInfo.objectX * f5 / f9, ActiveRenderInfo.objectZ * f5 / f9, -f2);
-			Tessellator tessellator = Tessellator.instance;
-			tessellator.startDrawingQuads();
+			Tessellator tessellator = Tessellator.getInstance();
+			tessellator.getWorldRenderer().startDrawingQuads();
 
 			Color color = Color.getHSBColor(Minecraft.getSystemTime() / 20F % 360 / 360F, 1F, 1F);
 			f11 = color.getRed() / 255F;
@@ -105,10 +105,10 @@ public class RenderTileStarfield extends TileEntitySpecialRenderer {
 			float f13 = color.getBlue() / 255F;
 
 			tessellator.setColorRGBA_F(f11 * f7, f12 * f7, f13 * f7, 1.0F);
-			tessellator.addVertex(p_147500_2_, p_147500_4_ + f4, p_147500_6_);
-			tessellator.addVertex(p_147500_2_, p_147500_4_ + f4, p_147500_6_ + 1.0D);
-			tessellator.addVertex(p_147500_2_ + 1.0D, p_147500_4_ + f4, p_147500_6_ + 1.0D);
-			tessellator.addVertex(p_147500_2_ + 1.0D, p_147500_4_ + f4, p_147500_6_);
+			tessellator.getWorldRenderer().addVertex(p_147500_2_, p_147500_4_ + f4, p_147500_6_);
+			tessellator.getWorldRenderer().addVertex(p_147500_2_, p_147500_4_ + f4, p_147500_6_ + 1.0D);
+			tessellator.getWorldRenderer().addVertex(p_147500_2_ + 1.0D, p_147500_4_ + f4, p_147500_6_ + 1.0D);
+			tessellator.getWorldRenderer().addVertex(p_147500_2_ + 1.0D, p_147500_4_ + f4, p_147500_6_);
 			tessellator.draw();
 			GL11.glPopMatrix();
 			GL11.glMatrixMode(GL11.GL_MODELVIEW);

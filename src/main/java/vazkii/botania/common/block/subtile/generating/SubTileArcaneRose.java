@@ -42,7 +42,7 @@ public class SubTileArcaneRose extends SubTileGenerating {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
+		return new RadiusDescriptor.Square(toBlockPos(), RANGE);
 	}
 
 	@Override

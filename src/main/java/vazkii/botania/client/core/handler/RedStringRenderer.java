@@ -18,7 +18,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
@@ -68,7 +68,7 @@ public final class RedStringRenderer {
 
 	private static void renderTile(TileRedString tile) {
 		ForgeDirection dir = ForgeDirection.getOrientation(tile.getBlockMetadata());
-		ChunkCoordinates bind = tile.getBinding();
+		BlockPos bind = tile.getBinding();
 
 		if(bind != null) {
 			GL11.glPushMatrix();
@@ -80,7 +80,7 @@ public final class RedStringRenderer {
 
 			int stages = (int) (vecOrig.mag() / vecMag.mag());
 
-			Tessellator tessellator = Tessellator.instance;
+			Tessellator tessellator = Tessellator.getInstance();
 			GL11.glLineWidth(1F);
 			tessellator.startDrawing(GL11.GL_LINES);
 

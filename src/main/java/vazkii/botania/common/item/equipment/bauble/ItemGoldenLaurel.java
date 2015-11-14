@@ -82,7 +82,7 @@ public class ItemGoldenLaurel extends ItemBauble implements IBaubleRender {
 				GL11.glScalef(1.1F, 1.1F, 1F);
 				GL11.glTranslatef(-0.05F, -0.1F, 0F);
 			}
-			ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, itemIcon.getIconWidth(), itemIcon.getIconHeight(), 1F / 32F);
+			ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, itemIcon.getIconWidth(), itemIcon.getIconHeight(), 1F / 32F);
 		}
 	}
 }

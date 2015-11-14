@@ -28,7 +28,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaBurst;
@@ -428,7 +428,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			stack.writeToNBT(lensCmp);
 		par1nbtTagCompound.setTag(TAG_LENS_STACK, lensCmp);
 
-		ChunkCoordinates coords = getBurstSourceChunkCoordinates();
+		BlockPos coords = getBurstSourceBlockPos();
 		par1nbtTagCompound.setInteger(TAG_SPREADER_X, coords.posX);
 		par1nbtTagCompound.setInteger(TAG_SPREADER_Y, coords.posY);
 		par1nbtTagCompound.setInteger(TAG_SPREADER_Z, coords.posZ);
@@ -578,7 +578,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			if(BotaniaAPI.internalHandler.isBuildcraftPipe(tile))
 				return;
 
-			ChunkCoordinates coords = getBurstSourceChunkCoordinates();
+			BlockPos coords = getBurstSourceBlockPos();
 			if(tile != null && (tile.xCoord != coords.posX || tile.yCoord != coords.posY || tile.zCoord != coords.posZ))
 				collidedTile = tile;
 
@@ -649,7 +649,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	}
 
 	public TileEntity getShooter() {
-		ChunkCoordinates coords = getBurstSourceChunkCoordinates();
+		BlockPos coords = getBurstSourceBlockPos();
 		TileEntity tile = worldObj.getTileEntity(coords.posX, coords.posY, coords.posZ);
 		return tile;
 	}
@@ -736,12 +736,12 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	final int coordsStart = dataWatcherStart + 6;
 
 	@Override
-	public ChunkCoordinates getBurstSourceChunkCoordinates() {
+	public BlockPos getBurstSourceBlockPos() {
 		int x = dataWatcher.getWatchableObjectInt(coordsStart);
 		int y = dataWatcher.getWatchableObjectInt(coordsStart + 1);
 		int z = dataWatcher.getWatchableObjectInt(coordsStart + 2);
 
-		return new ChunkCoordinates(x, y, z);
+		return new BlockPos(x, y, z);
 	}
 
 	@Override
@@ -840,7 +840,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	}
 
 	public void setDeathTicksForFakeParticle() {
-		ChunkCoordinates coords = getBurstSourceChunkCoordinates();
+		BlockPos coords = getBurstSourceBlockPos();
 		TileEntity tile = worldObj.getTileEntity(coords.posX, coords.posY, coords.posZ);
 		if(tile != null && tile instanceof IManaSpreader)
 			((IManaSpreader) tile).setLastBurstDeathTick(getTicksExisted());
@@ -848,7 +848,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 	public static class PositionProperties {
 
-		public final ChunkCoordinates coords;
+		public final BlockPos coords;
 		public final Block block;
 		public final int meta;
 
@@ -858,7 +858,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			int x = MathHelper.floor_double(entity.posX);
 			int y = MathHelper.floor_double(entity.posY);
 			int z = MathHelper.floor_double(entity.posZ);
-			coords = new ChunkCoordinates(x, y, z);
+			coords = new BlockPos(x, y, z);
 			block = entity.worldObj.getBlock(x, y, z);
 			meta = entity.worldObj.getBlockMetadata(x, y, z);
 		}

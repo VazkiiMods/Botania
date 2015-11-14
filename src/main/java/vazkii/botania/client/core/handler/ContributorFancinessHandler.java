@@ -104,13 +104,13 @@ public final class ContributorFancinessHandler {
 		GL11.glRotatef(r, 0F, 0F, 1F);
 		float s = 0.9F;
 		GL11.glScalef(s, s, s);
-		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+		ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
 		GL11.glRotatef(-r, 0F, 0F, 1F);
 		GL11.glTranslatef(-t, -0F, 0F);
 		GL11.glScalef(-1F, 1F, 1F);
 		GL11.glTranslatef(t, -0F, 0F);
 		GL11.glRotatef(r, 0F, 0F, 1F);
-		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+		ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
 		GL11.glPopMatrix();
 	}
 
@@ -130,7 +130,7 @@ public final class ContributorFancinessHandler {
 		GL11.glScalef(0.4F, 0.4F, 0.4F);
 		GL11.glTranslatef(-1.2F, 0.2F, 0.125F);
 		GL11.glRotatef(20F, 1F, 0F, 0F);
-		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+		ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
 		GL11.glPopMatrix();
 	}
 
@@ -148,7 +148,7 @@ public final class ContributorFancinessHandler {
 		GL11.glScalef(0.4F, 0.4F, 0.4F);
 		GL11.glTranslatef(1.2F, 0.5F, 0F);
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
-		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+		ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
 		GL11.glPopMatrix();
 	}
 
@@ -166,7 +166,7 @@ public final class ContributorFancinessHandler {
 		GL11.glTranslatef(-0.5F, 0.7F, 0F);
 
 		ShaderHelper.useShader(ShaderHelper.gold);
-		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+		ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
 		ShaderHelper.releaseShader();
 		GL11.glPopMatrix();
 	}

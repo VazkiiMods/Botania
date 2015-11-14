@@ -82,7 +82,7 @@ public class RenderBow implements IItemRenderer {
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
-		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), scale);
+		ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), scale);
 
 		GL11.glDisable(GL11.GL_BLEND);
 		GL11.glPopMatrix();

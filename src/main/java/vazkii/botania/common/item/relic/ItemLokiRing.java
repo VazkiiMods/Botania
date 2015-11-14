@@ -24,7 +24,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -82,9 +82,9 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 		}
 
 		ItemStack heldItemStack = player.getCurrentEquippedItem();
-		ChunkCoordinates originCoords = getOriginPos(lokiRing);
+		BlockPos originCoords = getOriginPos(lokiRing);
 		MovingObjectPosition lookPos = ToolCommons.raytraceFromEntity(player.worldObj, player, true, 10F);
-		List<ChunkCoordinates> cursors = getCursorList(lokiRing);
+		List<BlockPos> cursors = getCursorList(lokiRing);
 		int cursorCount = cursors.size();
 
 		int cost = Math.min(cursorCount, (int) Math.pow(Math.E, cursorCount * 0.25));
@@ -106,7 +106,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 					int relY = lookPos.blockY - originCoords.posY;
 					int relZ = lookPos.blockZ - originCoords.posZ;
 
-					for(ChunkCoordinates cursor : cursors)
+					for(BlockPos cursor : cursors)
 						if(cursor.posX == relX && cursor.posY == relY && cursor.posZ == relZ) {
 							cursors.remove(cursor);
 							setCursorList(lokiRing, cursors);
@@ -122,7 +122,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 				}
 			}
 		} else if(heldItemStack != null && event.action == Action.RIGHT_CLICK_BLOCK && lookPos != null && player.isSneaking()) {
-			for(ChunkCoordinates cursor : cursors) {
+			for(BlockPos cursor : cursors) {
 				int x = lookPos.blockX + cursor.posX;
 				int y = lookPos.blockY + cursor.posY;
 				int z = lookPos.blockZ + cursor.posZ;
@@ -143,7 +143,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 		if(lokiRing == null || player.worldObj.isRemote || !(item instanceof ISequentialBreaker))
 			return;
 
-		List<ChunkCoordinates> cursors = getCursorList(lokiRing);
+		List<BlockPos> cursors = getCursorList(lokiRing);
 		ISequentialBreaker breaker = (ISequentialBreaker) item;
 		World world = player.worldObj;
 		boolean silk = EnchantmentHelper.getEnchantmentLevel(Enchantment.silkTouch.effectId, stack) > 0;
@@ -151,7 +151,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 		boolean dispose = breaker.disposeOfTrashBlocks(stack);
 
 		for(int i = 0; i < cursors.size(); i++) {
-			ChunkCoordinates coords = cursors.get(i);
+			BlockPos coords = cursors.get(i);
 			int xp = x + coords.posX;
 			int yp = y + coords.posY;
 			int zp = z + coords.posZ;
@@ -173,23 +173,23 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public List<ChunkCoordinates> getWireframesToDraw(EntityPlayer player, ItemStack stack) {
+	public List<BlockPos> getWireframesToDraw(EntityPlayer player, ItemStack stack) {
 		if(getLokiRing(player) != stack)
 			return null;
 
 		MovingObjectPosition lookPos = Minecraft.getMinecraft().objectMouseOver;
 
 		if(lookPos != null && !player.worldObj.isAirBlock(lookPos.blockX, lookPos.blockY, lookPos.blockZ) && lookPos.entityHit == null) {
-			List<ChunkCoordinates> list = getCursorList(stack);
-			ChunkCoordinates origin = getOriginPos(stack);
+			List<BlockPos> list = getCursorList(stack);
+			BlockPos origin = getOriginPos(stack);
 
 			if(origin.posY != -1) {
-				for(ChunkCoordinates coords : list) {
+				for(BlockPos coords : list) {
 					coords.posX += origin.posX;
 					coords.posY += origin.posY;
 					coords.posZ += origin.posZ;
 				}
-			} else for(ChunkCoordinates coords : list) {
+			} else for(BlockPos coords : list) {
 				coords.posX += lookPos.blockX;
 				coords.posY += lookPos.blockY;
 				coords.posZ += lookPos.blockZ;
@@ -202,7 +202,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 	}
 
 	@Override
-	public ChunkCoordinates getSourceWireframe(EntityPlayer player, ItemStack stack) {
+	public BlockPos getSourceWireframe(EntityPlayer player, ItemStack stack) {
 		return getLokiRing(player) == stack ? getOriginPos(stack) : null;
 	}
 
@@ -217,11 +217,11 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 		return stack != null && (stack.getItem() == ModItems.lokiRing || stack.getItem() == ModItems.aesirRing);
 	}
 
-	private static ChunkCoordinates getOriginPos(ItemStack stack) {
+	private static BlockPos getOriginPos(ItemStack stack) {
 		int x = ItemNBTHelper.getInt(stack, TAG_X_ORIGIN, 0);
 		int y = ItemNBTHelper.getInt(stack, TAG_Y_ORIGIN, -1);
 		int z = ItemNBTHelper.getInt(stack, TAG_Z_ORIGIN, 0);
-		return new ChunkCoordinates(x, y, z);
+		return new BlockPos(x, y, z);
 	}
 
 	private static void setOriginPos(ItemStack stack, int x, int y, int z) {
@@ -230,9 +230,9 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 		ItemNBTHelper.setInt(stack, TAG_Z_ORIGIN, z);
 	}
 
-	private static List<ChunkCoordinates> getCursorList(ItemStack stack) {
+	private static List<BlockPos> getCursorList(ItemStack stack) {
 		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_CURSOR_LIST, false);
-		List<ChunkCoordinates> cursors = new ArrayList();
+		List<BlockPos> cursors = new ArrayList();
 
 		int count = cmp.getInteger(TAG_CURSOR_COUNT);
 		for(int i = 0; i < count; i++) {
@@ -240,17 +240,17 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 			int x = cursorCmp.getInteger(TAG_X_OFFSET);
 			int y = cursorCmp.getInteger(TAG_Y_OFFSET);
 			int z = cursorCmp.getInteger(TAG_Z_OFFSET);
-			cursors.add(new ChunkCoordinates(x, y, z));
+			cursors.add(new BlockPos(x, y, z));
 		}
 
 		return cursors;
 	}
 
-	private static void setCursorList(ItemStack stack, List<ChunkCoordinates> cursors) {
+	private static void setCursorList(ItemStack stack, List<BlockPos> cursors) {
 		NBTTagCompound cmp = new NBTTagCompound();
 		if(cursors != null) {
 			int i = 0;
-			for(ChunkCoordinates cursor : cursors) {
+			for(BlockPos cursor : cursors) {
 				NBTTagCompound cursorCmp = cursorToCmp(cursor.posX, cursor.posY, cursor.posZ);
 				cmp.setTag(TAG_CURSOR_PREFIX + i, cursorCmp);
 				i++;

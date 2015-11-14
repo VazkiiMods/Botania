@@ -436,7 +436,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 				GL11.glRotatef(rx, 1F, 0F, 0F);
 				GL11.glRotatef(ry, 0F, 1F, 0F);
 				GL11.glScalef(s, s, s);
-				ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 32F);
+				ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 32F);
 				GL11.glScalef(sr, sr, sr);
 				GL11.glRotatef(-ry, 0F, 1F, 0F);
 				GL11.glRotatef(-rx, 1F, 0F, 0F);
@@ -448,7 +448,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 					GL11.glRotatef(rx, 1F, 0F, 0F);
 					GL11.glRotatef(ry, 0F, 1F, 0F);
 					GL11.glScalef(s, s, s);
-					ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 32F);
+					ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 32F);
 					GL11.glScalef(sr, sr, sr);
 					GL11.glRotatef(-ry, 1F, 0F, 0F);
 					GL11.glRotatef(-rx, 1F, 0F, 0F);
@@ -482,7 +482,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 			GL11.glRotatef(player.ticksExisted + partialTicks, 0, 1, 0);
 		else GL11.glRotatef(Botania.proxy.getWorldElapsedTicks(), 0, 1, 0);
 
-		Tessellator tes = Tessellator.instance;
+		Tessellator tes = Tessellator.getInstance();
 		ShaderHelper.useShader(ShaderHelper.halo);
 		tes.startDrawingQuads();
 		tes.addVertexWithUV(-0.75, 0, -0.75, 0, 0);

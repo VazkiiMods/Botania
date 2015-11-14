@@ -29,7 +29,7 @@ public class RenderDoubleFlower implements ISimpleBlockRenderingHandler {
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int p_147774_2_, int p_147774_3_, int p_147774_4_, Block block, int modelId, RenderBlocks renderer) {
 		BlockDoublePlant p_147774_1_ = (BlockDoublePlant) block;
-		Tessellator tessellator = Tessellator.instance;
+		Tessellator tessellator = Tessellator.getInstance();
 		tessellator.setBrightness(p_147774_1_.getMixedBrightnessForBlock(world, p_147774_2_, p_147774_3_, p_147774_4_));
 		tessellator.setColorOpaque_F(1F, 1F, 1F);
 		long j1 = p_147774_2_ * 3129871 ^ p_147774_4_ * 116129781L;

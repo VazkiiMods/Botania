@@ -19,7 +19,7 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.WeightedRandom;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
@@ -48,7 +48,7 @@ public class SubTileOrechid extends SubTileFunctional {
 
 		int cost = getCost();
 		if(!supertile.getWorld().isRemote && mana >= cost && ticksExisted % getDelay() == 0) {
-			ChunkCoordinates coords = getCoordsToPut();
+			BlockPos coords = getCoordsToPut();
 			if(coords != null) {
 				ItemStack stack = getOreToPut();
 				if(stack != null) {
@@ -96,8 +96,8 @@ public class SubTileOrechid extends SubTileFunctional {
 		return getOreToPut();
 	}
 
-	public ChunkCoordinates getCoordsToPut() {
-		List<ChunkCoordinates> possibleCoords = new ArrayList();
+	public BlockPos getCoordsToPut() {
+		List<BlockPos> possibleCoords = new ArrayList();
 
 		Block source = getSourceBlock();
 		for(int i = -RANGE; i < RANGE + 1; i++)
@@ -108,7 +108,7 @@ public class SubTileOrechid extends SubTileFunctional {
 					int z = supertile.zCoord + k;
 					Block block = supertile.getWorld().getBlock(x, y, z);
 					if(block != null && block.isReplaceableOreGen(supertile.getWorld(), x, y, z, source))
-						possibleCoords.add(new ChunkCoordinates(x, y, z));
+						possibleCoords.add(new BlockPos(x, y, z));
 				}
 
 		if(possibleCoords.isEmpty())
@@ -138,7 +138,7 @@ public class SubTileOrechid extends SubTileFunctional {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
+		return new RadiusDescriptor.Square(toBlockPos(), RANGE);
 	}
 
 	@Override

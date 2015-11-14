@@ -44,7 +44,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChatStyle;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
@@ -131,7 +131,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 		for(int i = 0; i < 3; i++)
 			for(int j = 0; j < 3; j++)
-				mb.addComponent(new BeaconComponent(new ChunkCoordinates(i - 1, 0, j - 1)));
+				mb.addComponent(new BeaconComponent(new BlockPos(i - 1, 0, j - 1)));
 
 		mb.addComponent(, 0, Blocks.beacon, 0);
 		mb.setRenderOffset(0, -1, 0);
@@ -257,11 +257,11 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		return dataWatcher.getWatchableObjectInt(22);
 	}
 
-	public ChunkCoordinates getSource() {
+	public BlockPos getSource() {
 		int x = dataWatcher.getWatchableObjectInt(23);
 		int y = dataWatcher.getWatchableObjectInt(24);
 		int z = dataWatcher.getWatchableObjectInt(25);
-		return new ChunkCoordinates(x, y, z);
+		return new BlockPos(x, y, z);
 	}
 
 	public int getMobSpawnTicks() {
@@ -313,7 +313,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		par1nbtTagCompound.setBoolean(TAG_AGGRO, isAggored());
 		par1nbtTagCompound.setInteger(TAG_MOB_SPAWN_TICKS, getMobSpawnTicks());
 
-		ChunkCoordinates source = getSource();
+		BlockPos source = getSource();
 		par1nbtTagCompound.setInteger(TAG_SOURCE_X, source.posX);
 		par1nbtTagCompound.setInteger(TAG_SOURCE_Y, source.posY);
 		par1nbtTagCompound.setInteger(TAG_SOURCE_Z, source.posZ);
@@ -474,14 +474,14 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 	@Override
 	public void setDead() {
-		ChunkCoordinates source = getSource();
+		BlockPos source = getSource();
 		Botania.proxy.playRecordClientSided(worldObj, source.posX, source.posY, source.posZ, null);
 		isPlayingMusic = false;
 		super.setDead();
 	}
 
 	public List<EntityPlayer> getPlayersAround() {
-		ChunkCoordinates source = getSource();
+		BlockPos source = getSource();
 		float range = 15F;
 		List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(source.posX + 0.5 - range, source.posY + 0.5 - range, source.posZ + 0.5 - range, source.posX + 0.5 + range, source.posY + 0.5 + range, source.posZ + 0.5 + range));
 		return players;
@@ -517,7 +517,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			}
 		}
 
-		ChunkCoordinates source = getSource();
+		BlockPos source = getSource();
 		boolean hard = isHardMode();
 		float range = RANGE + 3F;
 		List<EntityPlayer> players = getPlayersAround();
@@ -755,7 +755,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 					flag = true;
 
 				// Prevent out of bounds teleporting
-				ChunkCoordinates source = getSource();
+				BlockPos source = getSource();
 				if(vazkii.botania.common.core.helper.MathHelper.pointDistanceSpace(posX, posY, posZ, source.posX, source.posY, source.posZ) > 12)
 					flag = false;
 			}
@@ -867,7 +867,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 
 	public static class BeaconComponent extends MultiblockComponent {
 
-		public BeaconComponent(ChunkCoordinates relPos) {
+		public BeaconComponent(BlockPos relPos) {
 			super(relPos, Blocks.iron_block, 0);
 		}
 

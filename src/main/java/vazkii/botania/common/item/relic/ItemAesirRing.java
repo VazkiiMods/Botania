@@ -21,7 +21,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.oredict.RecipeSorter;
@@ -86,12 +86,12 @@ public class ItemAesirRing extends ItemRelicBauble implements IExtendedWireframe
 	}
 
 	@Override
-	public List<ChunkCoordinates> getWireframesToDraw(EntityPlayer player, ItemStack stack) {
+	public List<BlockPos> getWireframesToDraw(EntityPlayer player, ItemStack stack) {
 		return ((IWireframeCoordinateListProvider) ModItems.lokiRing).getWireframesToDraw(player, stack);
 	}
 
 	@Override
-	public ChunkCoordinates getSourceWireframe(EntityPlayer player, ItemStack stack) {
+	public BlockPos getSourceWireframe(EntityPlayer player, ItemStack stack) {
 		return ((IExtendedWireframeCoordinateListProvider) ModItems.lokiRing).getSourceWireframe(player, stack);
 	}
 

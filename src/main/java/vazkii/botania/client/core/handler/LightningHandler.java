@@ -28,7 +28,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.profiler.Profiler;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -77,7 +77,7 @@ public class LightningHandler {
 		GL11.glPushMatrix();
 		GL11.glTranslated(-interpPosX, -interpPosY, -interpPosZ);
 
-		Tessellator tessellator = Tessellator.instance;
+		Tessellator tessellator = Tessellator.getInstance();
 
 		GL11.glDepthMask(false);
 		GL11.glEnable(GL11.GL_BLEND);
@@ -86,14 +86,14 @@ public class LightningHandler {
 		ParticleRenderDispatcher.lightningCount = 0;
 
 		render.bindTexture(outsideResource);
-		tessellator.startDrawingQuads();
+		tessellator.getWorldRenderer().startDrawingQuads();
 		tessellator.setBrightness(0xF000F0);
 		for(LightningBolt bolt : LightningBolt.boltlist)
 			renderBolt(bolt, tessellator, frame, ActiveRenderInfo.rotationX, ActiveRenderInfo.rotationXZ, ActiveRenderInfo.rotationZ, ActiveRenderInfo.rotationXY, 0, false);
 		tessellator.draw();
 
 		render.bindTexture(insideResource);
-		tessellator.startDrawingQuads();
+		tessellator.getWorldRenderer().startDrawingQuads();
 		tessellator.setBrightness(0xF000F0);
 		for(LightningBolt bolt : LightningBolt.boltlist)
 			renderBolt(bolt, tessellator, frame, ActiveRenderInfo.rotationX, ActiveRenderInfo.rotationXZ, ActiveRenderInfo.rotationZ, ActiveRenderInfo.rotationXY, 1, true);
@@ -147,27 +147,27 @@ public class LightningHandler {
 			int color = inner ? bolt.colorInner : bolt.colorOuter;
 			tessellator.setColorRGBA_I(color, (int) (mainalpha * rendersegment.light * new Color(color).getAlpha()));
 
-			tessellator.addVertexWithUV(endvec.x - diff2.x, endvec.y - diff2.y, endvec.z - diff2.z, 0.5, 0);
-			tessellator.addVertexWithUV(startvec.x - diff1.x, startvec.y - diff1.y, startvec.z - diff1.z, 0.5, 0);
-			tessellator.addVertexWithUV(startvec.x + diff1.x, startvec.y + diff1.y, startvec.z + diff1.z, 0.5, 1);
-			tessellator.addVertexWithUV(endvec.x + diff2.x, endvec.y + diff2.y, endvec.z + diff2.z, 0.5, 1);
+			tessellator.getWorldRenderer().addVertexWithUV(endvec.x - diff2.x, endvec.y - diff2.y, endvec.z - diff2.z, 0.5, 0);
+			tessellator.getWorldRenderer().addVertexWithUV(startvec.x - diff1.x, startvec.y - diff1.y, startvec.z - diff1.z, 0.5, 0);
+			tessellator.getWorldRenderer().addVertexWithUV(startvec.x + diff1.x, startvec.y + diff1.y, startvec.z + diff1.z, 0.5, 1);
+			tessellator.getWorldRenderer().addVertexWithUV(endvec.x + diff2.x, endvec.y + diff2.y, endvec.z + diff2.z, 0.5, 1);
 
 			if(rendersegment.next == null) {
 				Vector3 roundend = rendersegment.endpoint.point.copy().add(rendersegment.diff.copy().normalize().multiply(width));
 
-				tessellator.addVertexWithUV(roundend.x - diff2.x, roundend.y - diff2.y, roundend.z - diff2.z, 0, 0);
-				tessellator.addVertexWithUV(endvec.x - diff2.x, endvec.y - diff2.y, endvec.z - diff2.z, 0.5, 0);
-				tessellator.addVertexWithUV(endvec.x + diff2.x, endvec.y + diff2.y, endvec.z + diff2.z, 0.5, 1);
-				tessellator.addVertexWithUV(roundend.x + diff2.x, roundend.y + diff2.y, roundend.z + diff2.z, 0, 1);
+				tessellator.getWorldRenderer().addVertexWithUV(roundend.x - diff2.x, roundend.y - diff2.y, roundend.z - diff2.z, 0, 0);
+				tessellator.getWorldRenderer().addVertexWithUV(endvec.x - diff2.x, endvec.y - diff2.y, endvec.z - diff2.z, 0.5, 0);
+				tessellator.getWorldRenderer().addVertexWithUV(endvec.x + diff2.x, endvec.y + diff2.y, endvec.z + diff2.z, 0.5, 1);
+				tessellator.getWorldRenderer().addVertexWithUV(roundend.x + diff2.x, roundend.y + diff2.y, roundend.z + diff2.z, 0, 1);
 			}
 
 			if(rendersegment.prev == null) {
 				Vector3 roundend = rendersegment.startpoint.point.copy().subtract(rendersegment.diff.copy().normalize().multiply(width));
 
-				tessellator.addVertexWithUV(startvec.x - diff1.x, startvec.y - diff1.y, startvec.z - diff1.z, 0.5, 0);
-				tessellator.addVertexWithUV(roundend.x - diff1.x, roundend.y - diff1.y, roundend.z - diff1.z, 0, 0);
-				tessellator.addVertexWithUV(roundend.x + diff1.x, roundend.y + diff1.y, roundend.z + diff1.z, 0, 1);
-				tessellator.addVertexWithUV(startvec.x + diff1.x, startvec.y + diff1.y, startvec.z + diff1.z, 0.5, 1);
+				tessellator.getWorldRenderer().addVertexWithUV(startvec.x - diff1.x, startvec.y - diff1.y, startvec.z - diff1.z, 0.5, 0);
+				tessellator.getWorldRenderer().addVertexWithUV(roundend.x - diff1.x, roundend.y - diff1.y, roundend.z - diff1.z, 0, 0);
+				tessellator.getWorldRenderer().addVertexWithUV(roundend.x + diff1.x, roundend.y + diff1.y, roundend.z + diff1.z, 0, 1);
+				tessellator.getWorldRenderer().addVertexWithUV(startvec.x + diff1.x, startvec.y + diff1.y, startvec.z + diff1.z, 0.5, 1);
 			}
 		}
 	}
@@ -177,7 +177,7 @@ public class LightningHandler {
 		public ArrayList<Segment> segments = new ArrayList<Segment>();
 		public Vector3 start;
 		public Vector3 end;
-		ChunkCoordinates target;
+		BlockPos target;
 		HashMap<Integer, Integer> splitparents = new HashMap<Integer, Integer>();
 
 		public double length;
@@ -335,7 +335,7 @@ public class LightningHandler {
 
 		public LightningBolt(World world, Vector3 sourcevec, TileEntity target, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
 			this(world, sourcevec, getFocalPoint(target), ticksPerMeter, seed, colorOuter, colorInner);
-			this.target = new ChunkCoordinates(target.xCoord, target.yCoord, target.zCoord);
+			this.target = new BlockPos(target.xCoord, target.yCoord, target.zCoord);
 		}
 
 		public void setWrapper(Entity entity) {

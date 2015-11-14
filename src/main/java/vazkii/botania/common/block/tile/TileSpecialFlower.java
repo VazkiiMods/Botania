@@ -21,7 +21,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
@@ -74,7 +74,7 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 		if(subTile != null) {
 			TileEntity tileBelow = worldObj.getTileEntity(xCoord, yCoord - 1, zCoord);
 			if(tileBelow instanceof TileRedStringRelay) {
-				ChunkCoordinates coords = ((TileRedStringRelay) tileBelow).getBinding();
+				BlockPos coords = ((TileRedStringRelay) tileBelow).getBinding();
 				if(coords != null) {
 					int currX = xCoord;
 					int currY = yCoord;

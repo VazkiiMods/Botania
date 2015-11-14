@@ -401,7 +401,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 	@SideOnly(Side.CLIENT)
 	public void render(ItemStack stack, EntityPlayer player, float partialTicks) {
 		Minecraft mc = Minecraft.getMinecraft();
-		Tessellator tess = Tessellator.instance;
+		Tessellator tess = Tessellator.getInstance();
 		Tessellator.renderingWorldRenderer = false;
 
 		GL11.glPushMatrix();
@@ -466,7 +466,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 							float f1 = icon.getMaxU();
 							float f2 = icon.getMinV();
 							float f3 = icon.getMaxV();
-							ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+							ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
 							GL11.glColor3f(1F, 1F, 1F);
 						}
 						renderPass++;

@@ -19,7 +19,7 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChatStyle;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
@@ -45,7 +45,7 @@ public final class MultiblockRenderHandler {
 
 	private static RenderBlocks blockRender = RenderBlocks.getInstance();
 	public static MultiblockSet currentMultiblock;
-	public static ChunkCoordinates anchor;
+	public static BlockPos anchor;
 	public static int angle;
 
 	public static void setMultiblock(MultiblockSet set) {
@@ -66,7 +66,7 @@ public final class MultiblockRenderHandler {
 	@SubscribeEvent
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		if(currentMultiblock != null && anchor == null && event.action == Action.RIGHT_CLICK_BLOCK && event.entityPlayer == Minecraft.getMinecraft().thePlayer) {
-			anchor = new ChunkCoordinates(event.x, event.y, event.z);
+			anchor = new BlockPos(event.x, event.y, event.z);
 			angle = MathHelper.floor_double(event.entityPlayer.rotationYaw * 4.0 / 360.0 + 0.5) & 3;
 			event.setCanceled(true);
 		}
@@ -97,7 +97,7 @@ public final class MultiblockRenderHandler {
 	}
 
 	private boolean renderComponentInWorld(World world, Multiblock mb, MultiblockComponent comp, int anchorX, int anchorY, int anchorZ) {
-		ChunkCoordinates pos = comp.getRelativePosition();
+		BlockPos pos = comp.getRelativePosition();
 		int x = pos.posX + anchorX;
 		int y = pos.posY + anchorY;
 		int z = pos.posZ + anchorZ;
@@ -116,7 +116,7 @@ public final class MultiblockRenderHandler {
 		GL11.glTranslated(-0.5, -0.5, -0.5);
 		blockAccess.update(null, mb, mb.offX, mb.offY, mb.offZ);
 		for(MultiblockComponent comp : mb.getComponents()) {
-			ChunkCoordinates pos = comp.getRelativePosition();
+			BlockPos pos = comp.getRelativePosition();
 			doRenderComponent(mb, comp, pos.posX + mb.offX, pos.posY + mb.offY, pos.posZ + mb.offZ, 1);
 		}
 	}
@@ -148,9 +148,9 @@ public final class MultiblockRenderHandler {
 				GL11.glColor4f(red, green, blue, alpha);
 				IBlockAccess oldBlockAccess = blockRender.blockAccess;
 				blockRender.blockAccess = blockAccess;
-				Tessellator tessellator = Tessellator.instance;
+				Tessellator tessellator = Tessellator.getInstance();
 				blockRender.renderAllFaces = true;
-				tessellator.startDrawingQuads();
+				tessellator.getWorldRenderer().startDrawingQuads();
 				tessellator.disableColor();
 				try {
 					blockRender.renderBlockByRenderType(block, x, y, z);

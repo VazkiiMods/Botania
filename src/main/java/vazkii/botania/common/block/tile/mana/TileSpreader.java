@@ -25,7 +25,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -596,7 +596,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			return null;
 
 		TileEntity tile = (TileEntity) receiver;
-		return new ChunkCoordinates(tile.xCoord, tile.yCoord, tile.zCoord);
+		return new BlockPos(tile.xCoord, tile.yCoord, tile.zCoord);
 	}
 
 	@Override

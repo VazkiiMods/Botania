@@ -87,7 +87,7 @@ public class SubTileAgricarnation extends SubTileFunctional {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toChunkCoordinates(), getRange());
+		return new RadiusDescriptor.Square(toBlockPos(), getRange());
 	}
 
 	@Override

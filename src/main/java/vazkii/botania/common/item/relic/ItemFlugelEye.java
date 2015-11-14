@@ -16,7 +16,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -119,7 +119,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 		int x = ItemNBTHelper.getInt(stack, TAG_X, 0);
 		int y = ItemNBTHelper.getInt(stack, TAG_Y, -1);
 		int z = ItemNBTHelper.getInt(stack, TAG_Z, 0);
-		return y == -1 ? null : new ChunkCoordinates(x, y, z);
+		return y == -1 ? null : new BlockPos(x, y, z);
 	}
 
 	@Override
@@ -301,7 +301,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 	@SideOnly(Side.CLIENT)
 	public void render(ItemStack stack, EntityPlayer player, float partialTicks) {
 		Minecraft mc = Minecraft.getMinecraft();
-		Tessellator tess = Tessellator.instance;
+		Tessellator tess = Tessellator.getInstance();
 		Tessellator.renderingWorldRenderer = false;
 
 		GL11.glPushMatrix();
@@ -350,7 +350,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 			float f1 = icon.getMaxU();
 			float f2 = icon.getMinV();
 			float f3 = icon.getMaxV();
-			ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+			ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
 
 			GL11.glColor3f(1F, 1F, 1F);
 			GL11.glPopMatrix();

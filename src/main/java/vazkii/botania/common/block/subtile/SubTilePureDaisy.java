@@ -12,7 +12,7 @@ package vazkii.botania.common.block.subtile;
 
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -51,7 +51,7 @@ public class SubTilePureDaisy extends SubTileEntity {
 			positionAt = 0;
 
 		int[] acoords = POSITIONS[positionAt];
-		ChunkCoordinates coords = new ChunkCoordinates(supertile.xCoord + acoords[0], supertile.yCoord + acoords[1], supertile.zCoord + acoords[2]);
+		BlockPos coords = new BlockPos(supertile.xCoord + acoords[0], supertile.yCoord + acoords[1], supertile.zCoord + acoords[2]);
 		World world = supertile.getWorld();
 		if(!world.isAirBlock(coords.posX, coords.posY, coords.posZ)) {
 			Block block = world.getBlock(coords.posX, coords.posY, coords.posZ);
@@ -90,7 +90,7 @@ public class SubTilePureDaisy extends SubTileEntity {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toChunkCoordinates(), 1);
+		return new RadiusDescriptor.Square(toBlockPos(), 1);
 	}
 
 	@Override

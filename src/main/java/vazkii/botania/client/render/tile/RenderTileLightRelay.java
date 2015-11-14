@@ -43,7 +43,7 @@ public class RenderTileLightRelay extends TileEntitySpecialRenderer {
 
 		float scale = 0.75F;
 		GL11.glScalef(scale, scale, scale);
-		Tessellator tessellator = Tessellator.instance;
+		Tessellator tessellator = Tessellator.getInstance();
 
 		GL11.glPushMatrix();
 		float r = 180.0F - RenderManager.instance.playerViewY;

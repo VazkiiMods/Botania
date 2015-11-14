@@ -201,7 +201,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toChunkCoordinates(), getRange());
+		return new RadiusDescriptor.Square(toBlockPos(), getRange());
 	}
 
 	public int getRange() {

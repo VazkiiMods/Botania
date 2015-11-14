@@ -17,7 +17,7 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -54,7 +54,7 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 			return;
 
 		if(!supertile.getWorld().isRemote && mana >= COST && ticksExisted % 2 == 0) {
-			ChunkCoordinates coords = getCoordsToPut();
+			BlockPos coords = getCoordsToPut();
 			if(coords != null) {
 				ItemStack stack = getStoneToPut(coords);
 				if(stack != null) {
@@ -71,7 +71,7 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 		}
 	}
 
-	public ItemStack getStoneToPut(ChunkCoordinates coords) {
+	public ItemStack getStoneToPut(BlockPos coords) {
 		List<Type> types = Arrays.asList(BiomeDictionary.getTypesForBiome(supertile.getWorld().getBiomeGenForCoords(coords.posX, coords.posZ)));
 
 		List<Integer> values = new ArrayList();
@@ -87,8 +87,8 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 		return new ItemStack(ModFluffBlocks.biomeStoneA, 1, values.get(supertile.getWorld().rand.nextInt(values.size())));
 	}
 
-	public ChunkCoordinates getCoordsToPut() {
-		List<ChunkCoordinates> possibleCoords = new ArrayList();
+	public BlockPos getCoordsToPut() {
+		List<BlockPos> possibleCoords = new ArrayList();
 
 		int range = getRange();
 		int rangeY = getRangeY();
@@ -101,7 +101,7 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 					int z = supertile.zCoord + k;
 					Block block = supertile.getWorld().getBlock(x, y, z);
 					if(block != null && block.isReplaceableOreGen(supertile.getWorld(), x, y, z, Blocks.stone))
-						possibleCoords.add(new ChunkCoordinates(x, y, z));
+						possibleCoords.add(new BlockPos(x, y, z));
 				}
 
 		if(possibleCoords.isEmpty())
@@ -111,7 +111,7 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toChunkCoordinates(), getRange());
+		return new RadiusDescriptor.Square(toBlockPos(), getRange());
 	}
 
 	public int getRange() {

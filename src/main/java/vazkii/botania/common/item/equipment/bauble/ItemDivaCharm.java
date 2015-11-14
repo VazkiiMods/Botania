@@ -109,7 +109,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem, IBauble
 			GL11.glRotatef(180F, 1F, 0F, 0F);
 			GL11.glTranslatef(-0.4F, 0.1F, armor ? -0.35F : -0.3F);
 			GL11.glScalef(0.5F, 0.5F, 0.5F);
-			ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, itemIcon.getIconWidth(), itemIcon.getIconHeight(), 1F / 16F);
+			ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, itemIcon.getIconWidth(), itemIcon.getIconHeight(), 1F / 16F);
 		}
 	}
 

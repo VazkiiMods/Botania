@@ -18,7 +18,7 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 
@@ -47,7 +47,7 @@ public final class SubTileRadiusRenderHandler {
 
 		ItemStack stackHeld = mc.thePlayer.getCurrentEquippedItem();
 		if(stackHeld != null && stackHeld.getItem() == ModItems.twigWand && ItemTwigWand.getBindMode(stackHeld)) {
-			ChunkCoordinates coords = ItemTwigWand.getBoundTile(stackHeld);
+			BlockPos coords = ItemTwigWand.getBoundTile(stackHeld);
 			if(coords.posY != -1) {
 				x = coords.posX;
 				y = coords.posY;
@@ -94,29 +94,29 @@ public final class SubTileRadiusRenderHandler {
 		double x = aabb.maxX - aabb.minX - f;
 		double z = aabb.maxZ - aabb.minZ - f;
 
-		Tessellator tessellator = Tessellator.instance;
-		tessellator.startDrawingQuads();
-		tessellator.addVertex(x, f, f);
-		tessellator.addVertex(f, f, f);
-		tessellator.addVertex(f, f, z);
-		tessellator.addVertex(x, f, z);
+		Tessellator tessellator = Tessellator.getInstance();
+		tessellator.getWorldRenderer().startDrawingQuads();
+		tessellator.getWorldRenderer().addVertex(x, f, f);
+		tessellator.getWorldRenderer().addVertex(f, f, f);
+		tessellator.getWorldRenderer().addVertex(f, f, z);
+		tessellator.getWorldRenderer().addVertex(x, f, z);
 		tessellator.draw();
 
 		x += f;
 		z += f;
 		double f1 = f + f / 4F;
 		GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 64);
-		tessellator.startDrawingQuads();
-		tessellator.addVertex(x, f1, 0);
-		tessellator.addVertex(0, f1, 0);
-		tessellator.addVertex(0, f1, z);
-		tessellator.addVertex(x, f1, z);
+		tessellator.getWorldRenderer().startDrawingQuads();
+		tessellator.getWorldRenderer().addVertex(x, f1, 0);
+		tessellator.getWorldRenderer().addVertex(0, f1, 0);
+		tessellator.getWorldRenderer().addVertex(0, f1, z);
+		tessellator.getWorldRenderer().addVertex(x, f1, z);
 		tessellator.draw();
 
 		GL11.glPopMatrix();
 	}
 
-	public void renderCircle(ChunkCoordinates center, double radius) {
+	public void renderCircle(BlockPos center, double radius) {
 		GL11.glPushMatrix();
 		double x = center.posX + 0.5;
 		double y = center.posY;
@@ -134,30 +134,30 @@ public final class SubTileRadiusRenderHandler {
 		int step = totalAngles / drawAngles;
 
 		radius -= f;
-		Tessellator tessellator = Tessellator.instance;
+		Tessellator tessellator = Tessellator.getInstance();
 		tessellator.startDrawing(GL11.GL_TRIANGLE_FAN);
-		tessellator.addVertex(0, f, 0);
+		tessellator.getWorldRenderer().addVertex(0, f, 0);
 		for(int i = 0; i < totalAngles + 1; i += step) {
 			double rad = (totalAngles - i) * Math.PI / 180.0;
 			double xp = Math.cos(rad) * radius;
 			double zp = Math.sin(rad) * radius;
-			tessellator.addVertex(xp, f, zp);
+			tessellator.getWorldRenderer().addVertex(xp, f, zp);
 		}
-		tessellator.addVertex(0, f, 0);
+		tessellator.getWorldRenderer().addVertex(0, f, 0);
 		tessellator.draw();
 
 		radius += f;
 		double f1 = f + f / 4F;
 		GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 64);
 		tessellator.startDrawing(GL11.GL_TRIANGLE_FAN);
-		tessellator.addVertex(0, f1, 0);
+		tessellator.getWorldRenderer().addVertex(0, f1, 0);
 		for(int i = 0; i < totalAngles + 1; i += step) {
 			double rad = (totalAngles - i) * Math.PI / 180.0;
 			double xp = Math.cos(rad) * radius;
 			double zp = Math.sin(rad) * radius;
-			tessellator.addVertex(xp, f1, zp);
+			tessellator.getWorldRenderer().addVertex(xp, f1, zp);
 		}
-		tessellator.addVertex(0, f1, 0);
+		tessellator.getWorldRenderer().addVertex(0, f1, 0);
 		tessellator.draw();
 		GL11.glPopMatrix();
 	}

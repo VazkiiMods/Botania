@@ -26,7 +26,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
@@ -67,7 +67,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 	@Override
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
 		Block block = par3World.getBlock(par4, par5, par6);
-		ChunkCoordinates boundTile = getBoundTile(par1ItemStack);
+		BlockPos boundTile = getBoundTile(par1ItemStack);
 
 		if(boundTile.posY != -1 && par2EntityPlayer.isSneaking() && (boundTile.posX != par4 || boundTile.posY != par5 || boundTile.posZ != par6)) {
 			TileEntity tile = par3World.getTileEntity(boundTile.posX, boundTile.posY, boundTile.posZ);
@@ -177,7 +177,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 
 	@Override
 	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
-		ChunkCoordinates coords = getBoundTile(par1ItemStack);
+		BlockPos coords = getBoundTile(par1ItemStack);
 		TileEntity tile = par2World.getTileEntity(coords.posX, coords.posY, coords.posZ);
 		if(tile == null || !(tile instanceof IWandBindable))
 			setBoundTile(par1ItemStack, 0, -1, 0);
@@ -275,11 +275,11 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 		ItemNBTHelper.setInt(stack, TAG_BOUND_TILE_Z, z);
 	}
 
-	public static ChunkCoordinates getBoundTile(ItemStack stack) {
+	public static BlockPos getBoundTile(ItemStack stack) {
 		int x = ItemNBTHelper.getInt(stack, TAG_BOUND_TILE_X, 0);
 		int y = ItemNBTHelper.getInt(stack, TAG_BOUND_TILE_Y, -1);
 		int z = ItemNBTHelper.getInt(stack, TAG_BOUND_TILE_Z, 0);
-		return new ChunkCoordinates(x, y, z);
+		return new BlockPos(x, y, z);
 	}
 
 	public static boolean getBindMode(ItemStack stack) {
@@ -296,7 +296,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 
 	@Override
 	public BlockPos getBinding(ItemStack stack) {
-		ChunkCoordinates bound = getBoundTile(stack);
+		BlockPos bound = getBoundTile(stack);
 		if(bound.posY != -1)
 			return bound;
 
@@ -304,7 +304,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 		if(pos != null) {
 			TileEntity tile = Minecraft.getMinecraft().theWorld.getTileEntity(pos.blockX, pos.blockY, pos.blockZ);
 			if(tile != null && tile instanceof ITileBound) {
-				ChunkCoordinates coords = ((ITileBound) tile).getBinding();
+				BlockPos coords = ((ITileBound) tile).getBinding();
 				return coords;
 			}
 		}

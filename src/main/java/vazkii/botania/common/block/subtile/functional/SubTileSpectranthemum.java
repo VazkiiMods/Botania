@@ -20,7 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaItem;
@@ -99,7 +99,7 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
+		return new RadiusDescriptor.Square(toBlockPos(), RANGE);
 	}
 
 	@Override
@@ -152,7 +152,7 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public BlockPos getBinding() {
-		return Minecraft.getMinecraft().thePlayer.isSneaking() && bindY != -1 ? new ChunkCoordinates(bindX, bindY, bindZ) : super.getBinding();
+		return Minecraft.getMinecraft().thePlayer.isSneaking() && bindY != -1 ? new BlockPos(bindX, bindY, bindZ) : super.getBinding();
 	}
 
 	@Override

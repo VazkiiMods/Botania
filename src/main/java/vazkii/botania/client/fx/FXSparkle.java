@@ -67,13 +67,13 @@ public class FXSparkle extends EntityFX {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.75F);
 		Minecraft.getMinecraft().renderEngine.bindTexture(ConfigHandler.matrixMode ? ObfuscationHelper.getParticleTexture() : particles);
 
-		tessellator.startDrawingQuads();
+		tessellator.getWorldRenderer().startDrawingQuads();
 		for(FXSparkle sparkle : queuedRenders)
 			sparkle.renderQueued(tessellator);
 		tessellator.draw();
 
 		ShaderHelper.useShader(ShaderHelper.filmGrain);
-		tessellator.startDrawingQuads();
+		tessellator.getWorldRenderer().startDrawingQuads();
 		for(FXSparkle sparkle : queuedCorruptRenders)
 			sparkle.renderQueued(tessellator);
 		tessellator.draw();
@@ -104,10 +104,10 @@ public class FXSparkle extends EntityFX {
 		tessellator.setBrightness(0x0000f0);
 
 		tessellator.setColorRGBA_F(particleRed * var16, particleGreen * var16, particleBlue * var16, 1);
-		tessellator.addVertexWithUV(var13 - f1 * var12 - f4 * var12, var14 - f2 * var12, var15 - f3 * var12 - f5 * var12, var9, var11);
-		tessellator.addVertexWithUV(var13 - f1 * var12 + f4 * var12, var14 + f2 * var12, var15 - f3 * var12 + f5 * var12, var9, var10);
-		tessellator.addVertexWithUV(var13 + f1 * var12 + f4 * var12, var14 + f2 * var12, var15 + f3 * var12 + f5 * var12, var8, var10);
-		tessellator.addVertexWithUV(var13 + f1 * var12 - f4 * var12, var14 - f2 * var12, var15 + f3 * var12 - f5 * var12, var8, var11);
+		tessellator.getWorldRenderer().addVertexWithUV(var13 - f1 * var12 - f4 * var12, var14 - f2 * var12, var15 - f3 * var12 - f5 * var12, var9, var11);
+		tessellator.getWorldRenderer().addVertexWithUV(var13 - f1 * var12 + f4 * var12, var14 + f2 * var12, var15 - f3 * var12 + f5 * var12, var9, var10);
+		tessellator.getWorldRenderer().addVertexWithUV(var13 + f1 * var12 + f4 * var12, var14 + f2 * var12, var15 + f3 * var12 + f5 * var12, var8, var10);
+		tessellator.getWorldRenderer().addVertexWithUV(var13 + f1 * var12 - f4 * var12, var14 - f2 * var12, var15 + f3 * var12 - f5 * var12, var8, var11);
 
 	}
 

@@ -21,7 +21,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 
@@ -49,7 +49,7 @@ public final class BoundTileRenderer {
 		ItemStack stack = player.getCurrentEquippedItem();
 		int color = Color.HSBtoRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 		if(stack != null && stack.getItem() instanceof ICoordBoundItem) {
-			ChunkCoordinates coords = ((ICoordBoundItem) stack.getItem()).getBinding(stack);
+			BlockPos coords = ((ICoordBoundItem) stack.getItem()).getBinding(stack);
 			if(coords != null)
 				renderBlockOutlineAt(coords, color);
 		}
@@ -69,13 +69,13 @@ public final class BoundTileRenderer {
 
 			if(stackInSlot != null && stackInSlot.getItem() instanceof IWireframeCoordinateListProvider) {
 				IWireframeCoordinateListProvider provider = (IWireframeCoordinateListProvider) stackInSlot.getItem();
-				List<ChunkCoordinates> coordsList = provider.getWireframesToDraw(player, stackInSlot);
+				List<BlockPos> coordsList = provider.getWireframesToDraw(player, stackInSlot);
 				if(coordsList != null)
-					for(ChunkCoordinates coords : coordsList)
+					for(BlockPos coords : coordsList)
 						renderBlockOutlineAt(coords, color);
 
 				if(stackInSlot.getItem() instanceof IExtendedWireframeCoordinateListProvider) {
-					ChunkCoordinates coords = ((IExtendedWireframeCoordinateListProvider) stackInSlot.getItem()).getSourceWireframe(player, stackInSlot);
+					BlockPos coords = ((IExtendedWireframeCoordinateListProvider) stackInSlot.getItem()).getSourceWireframe(player, stackInSlot);
 					if(coords != null && coords.posY > -1)
 						renderBlockOutlineAt(coords, color, 5F);
 				}
@@ -88,11 +88,11 @@ public final class BoundTileRenderer {
 		GL11.glPopMatrix();
 	}
 
-	private void renderBlockOutlineAt(ChunkCoordinates pos, int color) {
+	private void renderBlockOutlineAt(BlockPos pos, int color) {
 		renderBlockOutlineAt(pos, color, 1F);
 	}
 
-	private void renderBlockOutlineAt(ChunkCoordinates pos, int color, float thickness) {
+	private void renderBlockOutlineAt(BlockPos pos, int color, float thickness) {
 		GL11.glPushMatrix();
 		GL11.glTranslated(pos.posX - RenderManager.renderPosX, pos.posY - RenderManager.renderPosY, pos.posZ - RenderManager.renderPosZ + 1);
 		Color colorRGB = new Color(color);
@@ -133,7 +133,7 @@ public final class BoundTileRenderer {
 	}
 
 	private void renderBlockOutline(AxisAlignedBB aabb) {
-		Tessellator tessellator = Tessellator.instance;
+		Tessellator tessellator = Tessellator.getInstance();
 
 		double ix = aabb.minX;
 		double iy = aabb.minY;
@@ -143,41 +143,41 @@ public final class BoundTileRenderer {
 		double az = aabb.maxZ;
 
 		tessellator.startDrawing(GL11.GL_LINES);
-		tessellator.addVertex(ix, iy, iz);
-		tessellator.addVertex(ix, ay, iz);
+		tessellator.getWorldRenderer().addVertex(ix, iy, iz);
+		tessellator.getWorldRenderer().addVertex(ix, ay, iz);
 
-		tessellator.addVertex(ix, ay, iz);
-		tessellator.addVertex(ax, ay, iz);
+		tessellator.getWorldRenderer().addVertex(ix, ay, iz);
+		tessellator.getWorldRenderer().addVertex(ax, ay, iz);
 
-		tessellator.addVertex(ax, ay, iz);
-		tessellator.addVertex(ax, iy, iz);
+		tessellator.getWorldRenderer().addVertex(ax, ay, iz);
+		tessellator.getWorldRenderer().addVertex(ax, iy, iz);
 
-		tessellator.addVertex(ax, iy, iz);
-		tessellator.addVertex(ix, iy, iz);
+		tessellator.getWorldRenderer().addVertex(ax, iy, iz);
+		tessellator.getWorldRenderer().addVertex(ix, iy, iz);
 
-		tessellator.addVertex(ix, iy, az);
-		tessellator.addVertex(ix, ay, az);
+		tessellator.getWorldRenderer().addVertex(ix, iy, az);
+		tessellator.getWorldRenderer().addVertex(ix, ay, az);
 
-		tessellator.addVertex(ix, iy, az);
-		tessellator.addVertex(ax, iy, az);
+		tessellator.getWorldRenderer().addVertex(ix, iy, az);
+		tessellator.getWorldRenderer().addVertex(ax, iy, az);
 
-		tessellator.addVertex(ax, iy, az);
-		tessellator.addVertex(ax, ay, az);
+		tessellator.getWorldRenderer().addVertex(ax, iy, az);
+		tessellator.getWorldRenderer().addVertex(ax, ay, az);
 
-		tessellator.addVertex(ix, ay, az);
-		tessellator.addVertex(ax, ay, az);
+		tessellator.getWorldRenderer().addVertex(ix, ay, az);
+		tessellator.getWorldRenderer().addVertex(ax, ay, az);
 
-		tessellator.addVertex(ix, iy, iz);
-		tessellator.addVertex(ix, iy, az);
+		tessellator.getWorldRenderer().addVertex(ix, iy, iz);
+		tessellator.getWorldRenderer().addVertex(ix, iy, az);
 
-		tessellator.addVertex(ix, ay, iz);
-		tessellator.addVertex(ix, ay, az);
+		tessellator.getWorldRenderer().addVertex(ix, ay, iz);
+		tessellator.getWorldRenderer().addVertex(ix, ay, az);
 
-		tessellator.addVertex(ax, iy, iz);
-		tessellator.addVertex(ax, iy, az);
+		tessellator.getWorldRenderer().addVertex(ax, iy, iz);
+		tessellator.getWorldRenderer().addVertex(ax, iy, az);
 
-		tessellator.addVertex(ax, ay, iz);
-		tessellator.addVertex(ax, ay, az);
+		tessellator.getWorldRenderer().addVertex(ax, ay, iz);
+		tessellator.getWorldRenderer().addVertex(ax, ay, az);
 
 		tessellator.draw();
 	}

@@ -15,7 +15,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class TileRedStringInterceptor extends TileRedString {
@@ -50,7 +50,7 @@ public class TileRedStringInterceptor extends TileRedString {
 			}
 
 			if(inter.worldObj == world) {
-				ChunkCoordinates coords = inter.getBinding();
+				BlockPos coords = inter.getBinding();
 				if(coords != null && coords.posX == x && coords.posY == y && coords.posZ == z) {
 					if(!world.isRemote) {
 						Block block = inter.getBlockType();

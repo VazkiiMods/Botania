@@ -15,7 +15,7 @@ import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.internal.IManaBurst;
@@ -26,7 +26,7 @@ public class LensLight extends Lens {
 
 	@Override
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
-		ChunkCoordinates coords = burst.getBurstSourceChunkCoordinates();
+		BlockPos coords = burst.getBurstSourceBlockPos();
 		if((coords.posX != pos.blockX || coords.posY != pos.blockY || coords.posZ != pos.blockZ) && !burst.isFake() && !isManaBlock) {
 			ForgeDirection dir = ForgeDirection.getOrientation(pos.sideHit);
 

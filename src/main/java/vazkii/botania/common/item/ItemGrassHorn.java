@@ -25,7 +25,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.item.IGrassHornExcempt;
@@ -117,7 +117,7 @@ public class ItemGrassHorn extends ItemMod {
 		Random rand = new Random(srcx ^ srcy ^ srcz);
 		int range = 12 - stackDmg * 3;
 		int rangeY = 3 + stackDmg * 4;
-		List<ChunkCoordinates> coords = new ArrayList();
+		List<BlockPos> coords = new ArrayList();
 
 		for(int i = -range; i < range + 1; i++)
 			for(int j = -range; j < range + 1; j++)
@@ -128,14 +128,14 @@ public class ItemGrassHorn extends ItemMod {
 
 					Block block = world.getBlock(x, y, z);
 					if(block instanceof IHornHarvestable ? ((IHornHarvestable) block).canHornHarvest(world, x, y, z, stack, type) : stackDmg == 0 && block instanceof BlockBush && !(block instanceof ISpecialFlower) && (!(block instanceof IGrassHornExcempt) || ((IGrassHornExcempt) block).canUproot(world, x, y, z)) || stackDmg == 1 && block.isLeaves(world, x, y, z) || stackDmg == 2 && block == Blocks.snow_layer)
-						coords.add(new ChunkCoordinates(x, y, z));
+						coords.add(new BlockPos(x, y, z));
 				}
 
 		Collections.shuffle(coords, rand);
 
 		int count = Math.min(coords.size(), 32 + stackDmg * 16);
 		for(int i = 0; i < count; i++) {
-			ChunkCoordinates currCoords = coords.get(i);
+			BlockPos currCoords = coords.get(i);
 			List<ItemStack> items = new ArrayList();
 			Block block = world.getBlock(currCoords.posX, currCoords.posY, currCoords.posZ);
 			int meta = world.getBlockMetadata(currCoords.posX, currCoords.posY, currCoords.posZ);

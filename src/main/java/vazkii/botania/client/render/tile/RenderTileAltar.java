@@ -129,7 +129,7 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 							float f1 = icon.getMaxU();
 							float f2 = icon.getMinV();
 							float f3 = icon.getMaxV();
-							ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+							ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
 							GL11.glColor3f(1F, 1F, 1F);
 						}
 
@@ -168,14 +168,14 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 	}
 
 	public void renderIcon(int par1, int par2, IIcon par3Icon, int par4, int par5, int brightness) {
-		Tessellator tessellator = Tessellator.instance;
-		tessellator.startDrawingQuads();
+		Tessellator tessellator = Tessellator.getInstance();
+		tessellator.getWorldRenderer().startDrawingQuads();
 		if(brightness != -1)
 			tessellator.setBrightness(brightness);
-		tessellator.addVertexWithUV(par1 + 0, par2 + par5, 0, par3Icon.getMinU(), par3Icon.getMaxV());
-		tessellator.addVertexWithUV(par1 + par4, par2 + par5, 0, par3Icon.getMaxU(), par3Icon.getMaxV());
-		tessellator.addVertexWithUV(par1 + par4, par2 + 0, 0, par3Icon.getMaxU(), par3Icon.getMinV());
-		tessellator.addVertexWithUV(par1 + 0, par2 + 0, 0, par3Icon.getMinU(), par3Icon.getMinV());
+		tessellator.getWorldRenderer().addVertexWithUV(par1 + 0, par2 + par5, 0, par3Icon.getMinU(), par3Icon.getMaxV());
+		tessellator.getWorldRenderer().addVertexWithUV(par1 + par4, par2 + par5, 0, par3Icon.getMaxU(), par3Icon.getMaxV());
+		tessellator.getWorldRenderer().addVertexWithUV(par1 + par4, par2 + 0, 0, par3Icon.getMaxU(), par3Icon.getMinV());
+		tessellator.getWorldRenderer().addVertexWithUV(par1 + 0, par2 + 0, 0, par3Icon.getMinU(), par3Icon.getMinV());
 		tessellator.draw();
 	}
 

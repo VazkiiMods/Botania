@@ -78,7 +78,7 @@ public class ItemSuperLavaPendant extends ItemBauble implements IBaubleRender {
 			float f1 = gemIcon.getMaxU();
 			float f2 = gemIcon.getMinV();
 			float f3 = gemIcon.getMaxV();
-			ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, gemIcon.getIconWidth(), gemIcon.getIconHeight(), 1F / 32F);
+			ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, gemIcon.getIconWidth(), gemIcon.getIconHeight(), 1F / 32F);
 		}
 	}
 }

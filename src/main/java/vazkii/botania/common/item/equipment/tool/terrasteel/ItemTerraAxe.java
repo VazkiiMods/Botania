@@ -21,7 +21,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -92,7 +92,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	@Override
 	public void breakOtherBlock(EntityPlayer player, ItemStack stack, int x, int y, int z, int originX, int originY, int originZ, int side) {
 		if(shouldBreak(player)) {
-			ChunkCoordinates coords = new ChunkCoordinates(x, y, z);
+			BlockPos coords = new BlockPos(x, y, z);
 			addBlockSwapper(player.worldObj, player, stack, coords, coords, 32, false, true, new ArrayList());
 		}
 	}
@@ -118,7 +118,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		}
 	}
 
-	private static BlockSwapper addBlockSwapper(World world, EntityPlayer player, ItemStack stack, ChunkCoordinates origCoords, ChunkCoordinates coords, int steps, boolean leaves, boolean force, List<String> posChecked) {
+	private static BlockSwapper addBlockSwapper(World world, EntityPlayer player, ItemStack stack, BlockPos origCoords, BlockPos coords, int steps, boolean leaves, boolean force, List<String> posChecked) {
 		BlockSwapper swapper = new BlockSwapper(world, player, stack, origCoords, coords, steps, leaves, force, posChecked);
 
 		int dim = world.provider.dimensionId;
@@ -134,13 +134,13 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		final World world;
 		final EntityPlayer player;
 		final ItemStack stack;
-		final ChunkCoordinates origCoords;
+		final BlockPos origCoords;
 		final int steps;
-		final ChunkCoordinates coords;
+		final BlockPos coords;
 		final boolean leaves;
 		final boolean force;
 		final List<String> posChecked;
-		BlockSwapper(World world, EntityPlayer player, ItemStack stack, ChunkCoordinates origCoords, ChunkCoordinates coords, int steps, boolean leaves, boolean force, List<String> posChecked) {
+		BlockSwapper(World world, EntityPlayer player, ItemStack stack, BlockPos origCoords, BlockPos coords, int steps, boolean leaves, boolean force, List<String> posChecked) {
 			this.world = world;
 			this.player = player;
 			this.stack = stack;
@@ -178,7 +178,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 						if(log || leaf) {
 							int steps = this.steps - 1;
 							steps = leaf ? leaves ? steps : 3 : steps;
-							addBlockSwapper(world, player, stack, origCoords, new ChunkCoordinates(x, y, z), steps, leaf, false, posChecked);
+							addBlockSwapper(world, player, stack, origCoords, new BlockPos(x, y, z), steps, leaf, false, posChecked);
 							posChecked.add(pstr);
 						}
 					}

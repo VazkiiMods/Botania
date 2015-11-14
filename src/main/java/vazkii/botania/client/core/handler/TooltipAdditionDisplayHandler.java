@@ -56,7 +56,7 @@ public final class TooltipAdditionDisplayHandler {
 				ItemStack stack = slot.getStack();
 				if(stack != null) {
 					ScaledResolution res = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
-					FontRenderer font = mc.fontRenderer;
+					FontRenderer font = mc.fontRendererObj;
 					int mouseX = Mouse.getX() * res.getScaledWidth() / mc.displayWidth;
 					int mouseY = res.getScaledHeight() - Mouse.getY() * res.getScaledHeight() / mc.displayHeight;
 
@@ -151,13 +151,13 @@ public final class TooltipAdditionDisplayHandler {
 								}
 							} else lexiconLookupTime = 0F;
 
-							RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine, new ItemStack(ModItems.lexicon), x, y);
+							mc.getRenderItem().renderItemIntoGUI(new ItemStack(ModItems.lexicon), x, y);
 							GL11.glDisable(GL11.GL_LIGHTING);
 
 							font.drawStringWithShadow("?", x + 10, y + 8, 0xFFFFFFFF);
 							GL11.glScalef(0.5F, 0.5F, 1F);
 							boolean mac = Minecraft.isRunningOnMac;
-							mc.fontRenderer.drawStringWithShadow(EnumChatFormatting.BOLD + (ConfigHandler.useShiftForQuickLookup ? "Shift" : (mac ? "Cmd" : "Ctrl")), (x + 10) * 2 - 16, (y + 8) * 2 + 20, 0xFFFFFFFF);
+							mc.fontRendererObj.drawStringWithShadow(EnumChatFormatting.BOLD + (ConfigHandler.useShiftForQuickLookup ? "Shift" : (mac ? "Cmd" : "Ctrl")), (x + 10) * 2 - 16, (y + 8) * 2 + 20, 0xFFFFFFFF);
 							GL11.glScalef(2F, 2F, 1F);
 
 							GL11.glEnable(GL11.GL_DEPTH_TEST);

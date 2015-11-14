@@ -121,7 +121,7 @@ public class RecipeHandlerPetalApothecary extends TemplateRecipeHandler {
 			if(recipe == null)
 				continue;
 
-			if(recipe.getOutput().stackTagCompound != null && NEIServerUtils.areStacksSameType(recipe.getOutput(), result) || recipe.getOutput().stackTagCompound == null && NEIServerUtils.areStacksSameTypeCrafting(recipe.getOutput(), result) && recipe.getOutput().getItem() != Items.skull)
+			if(recipe.getOutput().getTagCompound() != null && NEIServerUtils.areStacksSameType(recipe.getOutput(), result) || recipe.getOutput().getTagCompound() == null && NEIServerUtils.areStacksSameTypeCrafting(recipe.getOutput(), result) && recipe.getOutput().getItem() != Items.skull)
 				arecipes.add(getCachedRecipe(recipe));
 		}
 	}

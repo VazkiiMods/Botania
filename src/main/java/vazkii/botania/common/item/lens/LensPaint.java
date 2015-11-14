@@ -18,7 +18,7 @@ import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.BotaniaAPI;
@@ -44,29 +44,29 @@ public class LensPaint extends Lens {
 				Block block = entity.worldObj.getBlock(pos.blockX, pos.blockY, pos.blockZ);
 				if(BotaniaAPI.paintableBlocks.contains(block)) {
 					int meta = entity.worldObj.getBlockMetadata(pos.blockX, pos.blockY, pos.blockZ);
-					List<ChunkCoordinates> coordsToPaint = new ArrayList();
-					List<ChunkCoordinates> coordsFound = new ArrayList();
+					List<BlockPos> coordsToPaint = new ArrayList();
+					List<BlockPos> coordsFound = new ArrayList();
 
-					ChunkCoordinates theseCoords = new ChunkCoordinates(pos.blockX, pos.blockY, pos.blockZ);
+					BlockPos theseCoords = new BlockPos(pos.blockX, pos.blockY, pos.blockZ);
 					coordsFound.add(theseCoords);
 
 					do {
-						List<ChunkCoordinates> iterCoords = new ArrayList(coordsFound);
-						for(ChunkCoordinates coords : iterCoords) {
+						List<BlockPos> iterCoords = new ArrayList(coordsFound);
+						for(BlockPos coords : iterCoords) {
 							coordsFound.remove(coords);
 							coordsToPaint.add(coords);
 
 							for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
 								Block block_ = entity.worldObj.getBlock(coords.posX + dir.offsetX, coords.posY + dir.offsetY, coords.posZ + dir.offsetZ);
 								int meta_ = entity.worldObj.getBlockMetadata(coords.posX + dir.offsetX, coords.posY + dir.offsetY, coords.posZ + dir.offsetZ);
-								ChunkCoordinates coords_ = new ChunkCoordinates(coords.posX + dir.offsetX, coords.posY + dir.offsetY, coords.posZ + dir.offsetZ);
+								BlockPos coords_ = new BlockPos(coords.posX + dir.offsetX, coords.posY + dir.offsetY, coords.posZ + dir.offsetZ);
 								if(block_ == block && meta_ == meta && !coordsFound.contains(coords_) && !coordsToPaint.contains(coords_))
 									coordsFound.add(coords_);
 							}
 						}
 					} while(!coordsFound.isEmpty() && coordsToPaint.size() < 1000);
 
-					for(ChunkCoordinates coords : coordsToPaint) {
+					for(BlockPos coords : coordsToPaint) {
 						int placeColor = storedColor == 16 ? entity.worldObj.rand.nextInt(16) : storedColor;
 						int metaThere = entity.worldObj.getBlockMetadata(coords.posX, coords.posY, coords.posZ);
 

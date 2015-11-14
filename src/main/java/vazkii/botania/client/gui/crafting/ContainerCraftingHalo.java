@@ -15,12 +15,13 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ContainerWorkbench;
 import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotCrafting;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class ContainerCraftingHalo extends ContainerWorkbench {
 
 	public ContainerCraftingHalo(InventoryPlayer p_i1808_1_, World p_i1808_2_) {
-		super(p_i1808_1_, p_i1808_2_, 0, 0, 0);
+		super(p_i1808_1_, p_i1808_2_, BlockPos.ORIGIN); // todo 1.8 verify
 
 		craftMatrix = new InventoryCraftingHalo(this, 3, 3);
 

@@ -17,7 +17,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
@@ -36,7 +36,7 @@ public class SubTileClayconia extends SubTileFunctional {
 		if(!supertile.getWorld().isRemote && ticksExisted % 5 == 0) {
 			int manaCost = 80;
 			if(mana >= manaCost) {
-				ChunkCoordinates coords = getCoordsToPut();
+				BlockPos coords = getCoordsToPut();
 				if(coords != null) {
 					supertile.getWorld().setBlockToAir(coords.posX, coords.posY, coords.posZ);
 					if(ConfigHandler.blockBreakParticles)
@@ -49,8 +49,8 @@ public class SubTileClayconia extends SubTileFunctional {
 		}
 	}
 
-	public ChunkCoordinates getCoordsToPut() {
-		List<ChunkCoordinates> possibleCoords = new ArrayList();
+	public BlockPos getCoordsToPut() {
+		List<BlockPos> possibleCoords = new ArrayList();
 
 		for(int i = -RANGE; i < RANGE + 1; i++)
 			for(int j = -RANGE_Y; j < RANGE_Y + 1; j++)
@@ -60,7 +60,7 @@ public class SubTileClayconia extends SubTileFunctional {
 					int z = supertile.zCoord + k;
 					Block block = supertile.getWorld().getBlock(x, y, z);
 					if(block == Block.getBlockFromName("sand"))
-						possibleCoords.add(new ChunkCoordinates(x, y, z));
+						possibleCoords.add(new BlockPos(x, y, z));
 				}
 
 		if(possibleCoords.isEmpty())
@@ -70,7 +70,7 @@ public class SubTileClayconia extends SubTileFunctional {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
+		return new RadiusDescriptor.Square(toBlockPos(), RANGE);
 	}
 
 	@Override

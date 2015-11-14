@@ -347,15 +347,15 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 			GL11.glDepthMask(false);
 			GL11.glEnable(GL11.GL_BLEND);
 			OpenGlHelper.glBlendFunc(770, 771, 1, 0);
-			Tessellator tessellator = Tessellator.instance;
+			Tessellator tessellator = Tessellator.getInstance();
 			GL11.glDisable(GL11.GL_TEXTURE_2D);
-			tessellator.startDrawingQuads();
+			tessellator.getWorldRenderer().startDrawingQuads();
 			int i = mc.fontRenderer.getStringWidth(potato.name) / 2;
 			tessellator.setColorRGBA_F(0.0F, 0.0F, 0.0F, 0.25F);
-			tessellator.addVertex(-i - 1, -1.0D, 0.0D);
-			tessellator.addVertex(-i - 1, 8.0D, 0.0D);
-			tessellator.addVertex(i + 1, 8.0D, 0.0D);
-			tessellator.addVertex(i + 1, -1.0D, 0.0D);
+			tessellator.getWorldRenderer().addVertex(-i - 1, -1.0D, 0.0D);
+			tessellator.getWorldRenderer().addVertex(-i - 1, 8.0D, 0.0D);
+			tessellator.getWorldRenderer().addVertex(i + 1, 8.0D, 0.0D);
+			tessellator.getWorldRenderer().addVertex(i + 1, -1.0D, 0.0D);
 			tessellator.draw();
 			GL11.glEnable(GL11.GL_TEXTURE_2D);
 			GL11.glDepthMask(true);
@@ -367,13 +367,13 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 				GL11.glEnable(GL11.GL_BLEND);
 				OpenGlHelper.glBlendFunc(770, 771, 1, 0);
 				GL11.glDisable(GL11.GL_TEXTURE_2D);
-				tessellator.startDrawingQuads();
+				tessellator.getWorldRenderer().startDrawingQuads();
 				i = mc.fontRenderer.getStringWidth(s) / 2;
 				tessellator.setColorRGBA_F(0.0F, 0.0F, 0.0F, 0.25F);
-				tessellator.addVertex(-i - 1, -1.0D, 0.0D);
-				tessellator.addVertex(-i - 1, 8.0D, 0.0D);
-				tessellator.addVertex(i + 1, 8.0D, 0.0D);
-				tessellator.addVertex(i + 1, -1.0D, 0.0D);
+				tessellator.getWorldRenderer().addVertex(-i - 1, -1.0D, 0.0D);
+				tessellator.getWorldRenderer().addVertex(-i - 1, 8.0D, 0.0D);
+				tessellator.getWorldRenderer().addVertex(i + 1, 8.0D, 0.0D);
+				tessellator.getWorldRenderer().addVertex(i + 1, -1.0D, 0.0D);
 				tessellator.draw();
 				GL11.glEnable(GL11.GL_TEXTURE_2D);
 				GL11.glDepthMask(true);
@@ -395,6 +395,6 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 		float f1 = icon.getMaxU();
 		float f2 = icon.getMinV();
 		float f3 = icon.getMaxV();
-		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+		ItemRenderer.renderItemIn2D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
 	}
 }

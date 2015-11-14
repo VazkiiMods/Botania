@@ -19,7 +19,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaItem;
@@ -172,11 +172,11 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 		ItemNBTHelper.setInt(stack, TAG_DIM, pool == null ? 0 : pool.getWorld().provider.dimensionId);
 	}
 
-	public ChunkCoordinates getPoolCoords(ItemStack stack) {
+	public BlockPos getPoolCoords(ItemStack stack) {
 		int x = ItemNBTHelper.getInt(stack, TAG_POS_X, 0);
 		int y = ItemNBTHelper.getInt(stack, TAG_POS_Y, -1);
 		int z = ItemNBTHelper.getInt(stack, TAG_POS_Z, 0);
-		return new ChunkCoordinates(x, y, z);
+		return new BlockPos(x, y, z);
 	}
 
 	public int getDimension(ItemStack stack) {
@@ -188,7 +188,7 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 		if(server == null)
 			return fallbackPool;
 
-		ChunkCoordinates coords = getPoolCoords(stack);
+		BlockPos coords = getPoolCoords(stack);
 		if(coords.posY == -1)
 			return null;
 

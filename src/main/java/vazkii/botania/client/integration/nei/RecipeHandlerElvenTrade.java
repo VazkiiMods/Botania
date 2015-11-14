@@ -91,7 +91,7 @@ public class RecipeHandlerElvenTrade extends TemplateRecipeHandler {
 		GuiDraw.drawTexturedModalRect(30, 10, 17, 17, 100, 80);
 		GL11.glDisable(GL11.GL_BLEND);
 		GuiDraw.changeTexture(TextureMap.locationBlocksTexture);
-		RenderItem.getInstance().renderIcon(35, 29, BlockAlfPortal.portalTex, 48, 48);
+		Minecraft.getMinecraft().getRenderItem().renderIcon(35, 29, BlockAlfPortal.portalTex, 48, 48);
 	}
 
 	private static boolean hasElvenKnowledge() {

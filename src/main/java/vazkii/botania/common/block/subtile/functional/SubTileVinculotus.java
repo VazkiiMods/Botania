@@ -47,7 +47,7 @@ public class SubTileVinculotus extends SubTileFunctional {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Circle(toChunkCoordinates(), RANGE);
+		return new RadiusDescriptor.Circle(toBlockPos(), RANGE);
 	}
 
 	@Override

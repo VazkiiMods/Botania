@@ -17,7 +17,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
@@ -34,10 +34,10 @@ public class EntityEnderAirBottle extends EntityThrowable {
 	@Override
 	protected void onImpact(MovingObjectPosition pos) {
 		if(pos.entityHit == null && !worldObj.isRemote) {
-			List<ChunkCoordinates> coordsList = getCoordsToPut(pos.blockX, pos.blockY, pos.blockZ);
+			List<BlockPos> coordsList = getCoordsToPut(pos.blockX, pos.blockY, pos.blockZ);
 			worldObj.playAuxSFX(2002, (int)Math.round(posX), (int)Math.round(posY), (int)Math.round(posZ), 8);
 
-			for(ChunkCoordinates coords : coordsList) {
+			for(BlockPos coords : coordsList) {
 				worldObj.setBlock(coords.posX, coords.posY, coords.posZ, Blocks.end_stone);
 				if(Math.random() < 0.1)
 					worldObj.playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(Blocks.end_stone));
@@ -46,9 +46,9 @@ public class EntityEnderAirBottle extends EntityThrowable {
 		}
 	}
 
-	public List<ChunkCoordinates> getCoordsToPut(int xCoord, int yCoord, int zCoord) {
-		List<ChunkCoordinates> possibleCoords = new ArrayList();
-		List<ChunkCoordinates> selectedCoords = new ArrayList();
+	public List<BlockPos> getCoordsToPut(int xCoord, int yCoord, int zCoord) {
+		List<BlockPos> possibleCoords = new ArrayList();
+		List<BlockPos> selectedCoords = new ArrayList();
 		int range = 4;
 		int rangeY = 4;
 
@@ -60,12 +60,12 @@ public class EntityEnderAirBottle extends EntityThrowable {
 					int z = zCoord + k;
 					Block block = worldObj.getBlock(x, y, z);
 					if(block != null && block.isReplaceableOreGen(worldObj, x, y, z, Blocks.stone))
-						possibleCoords.add(new ChunkCoordinates(x, y, z));
+						possibleCoords.add(new BlockPos(x, y, z));
 				}
 
 		int count = 64;
 		while(!possibleCoords.isEmpty() && count > 0) {
-			ChunkCoordinates coords = possibleCoords.get(worldObj.rand.nextInt(possibleCoords.size()));
+			BlockPos coords = possibleCoords.get(worldObj.rand.nextInt(possibleCoords.size()));
 			possibleCoords.remove(coords);
 			selectedCoords.add(coords);
 			count--;

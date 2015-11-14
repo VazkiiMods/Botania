@@ -22,7 +22,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
@@ -115,7 +115,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 					for(int id : ids)
 						if(validBlocks.contains(OreDictionary.getOreName(id))) {
 							boolean hasAir = false;
-							List<ChunkCoordinates> airBlocks = new ArrayList();
+							List<BlockPos> airBlocks = new ArrayList();
 
 							for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) {
 								int x_ = x + dir.offsetX;
@@ -124,7 +124,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 
 								Block block_ = par2World.getBlock(x_, y_, z_);
 								if(block_.isAir(par2World, x_, y_, z_) || block_.isReplaceable(par2World, x_, y_, z_) || block_ instanceof BlockFlower && !(block_ instanceof ISpecialFlower) || block_ == Blocks.double_plant) {
-									airBlocks.add(new ChunkCoordinates(x_, y_, z_));
+									airBlocks.add(new BlockPos(x_, y_, z_));
 									hasAir = true;
 								}
 							}
@@ -132,7 +132,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 							if(hasAir) {
 								if(y > yCenter)
 									blocks.add(new CoordsWithBlock(x, y, z, Blocks.air));
-								else for(ChunkCoordinates coords : airBlocks) {
+								else for(BlockPos coords : airBlocks) {
 									if(par2World.getBlock(coords.posX, coords.posY - 1, coords.posZ) != Blocks.air)
 										blocks.add(new CoordsWithBlock(coords.posX, coords.posY, coords.posZ, Blocks.dirt));
 								}
@@ -164,7 +164,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 		return true;
 	}
 
-	class CoordsWithBlock extends ChunkCoordinates {
+	class CoordsWithBlock extends BlockPos {
 
 		final Block block;
 

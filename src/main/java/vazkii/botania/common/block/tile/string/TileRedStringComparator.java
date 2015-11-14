@@ -11,7 +11,7 @@
 package vazkii.botania.common.block.tile.string;
 
 import net.minecraft.block.Block;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileRedStringComparator extends TileRedString {
@@ -22,7 +22,7 @@ public class TileRedStringComparator extends TileRedString {
 	public void updateEntity() {
 		super.updateEntity();
 
-		ChunkCoordinates binding = getBinding();
+		BlockPos binding = getBinding();
 		ForgeDirection dir = getOrientation();
 		Block block = getBlockAtBinding();
 		int origVal = comparatorValue;

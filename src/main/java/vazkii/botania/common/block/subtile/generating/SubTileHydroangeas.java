@@ -140,7 +140,7 @@ public class SubTileHydroangeas extends SubTilePassiveGenerating {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toChunkCoordinates(), 1);
+		return new RadiusDescriptor.Square(toBlockPos(), 1);
 	}
 
 	@Override
