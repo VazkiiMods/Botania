@@ -54,8 +54,8 @@ public final class SkyblockWorldEvents {
 				World world = player.worldObj;
 				if(WorldTypeSkyblock.isWorldSkyblock(world)) {
 					BlockPos coords = world.getSpawnPoint();
-					if(world.getBlock(coords.posX, coords.posY - 4, coords.posZ) != Blocks.bedrock && world.provider.dimensionId == 0)
-						spawnPlayer(player, coords.posX, coords.posY, coords.posZ, false);
+					if(world.getBlockState(coords.down(4)).getBlock() != Blocks.bedrock && world.provider.getDimensionId() == 0)
+						spawnPlayer(player, coords, false);
 				}
 
 
@@ -69,12 +69,12 @@ public final class SkyblockWorldEvents {
 		if(WorldTypeSkyblock.isWorldSkyblock(event.world)) {
 			ItemStack equipped = event.entityPlayer.getCurrentEquippedItem();
 			if(event.action == Action.RIGHT_CLICK_BLOCK && equipped == null && event.entityPlayer.isSneaking()) {
-				Block block = event.world.getBlock(event.x, event.y, event.z);
+				Block block = event.world.getBlockState(event.pos).getBlock();
 				if(block == Blocks.grass || block == Blocks.dirt) {
 					if(event.world.isRemote)
 						event.entityPlayer.swingItem();
 					else {
-						event.world.playSoundEffect(event.x + 0.5, event.y + 0.5, event.z + 0.5, block.stepSound.getBreakSound(), block.stepSound.getVolume() * 0.4F, block.stepSound.getPitch() + (float) (Math.random() * 0.2 - 0.1));
+						event.world.playSoundEffect(event.pos.getX() + 0.5, event.pos.getY() + 0.5, event.pos.getZ() + 0.5, block.stepSound.getBreakSound(), block.stepSound.getVolume() * 0.4F, block.stepSound.getFrequency() + (float) (Math.random() * 0.2 - 0.1));
 						if(Math.random() < 0.8)
 							event.entityPlayer.dropPlayerItemWithRandomChoice(new ItemStack(ModItems.manaResource, 1, 21), false);
 					}
@@ -84,11 +84,7 @@ public final class SkyblockWorldEvents {
 
 				if(movingobjectposition != null) {
 					if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && !event.world.isRemote) {
-						int i = movingobjectposition.blockX;
-						int j = movingobjectposition.blockY;
-						int k = movingobjectposition.blockZ;
-
-						if(event.world.getBlock(i, j, k).getMaterial() == Material.water) {
+						if(event.world.getBlockState(event.pos).getBlock().getMaterial() == Material.water) {
 							--equipped.stackSize;
 
 							if(equipped.stackSize <= 0)
@@ -103,7 +99,7 @@ public final class SkyblockWorldEvents {
 
 	@SubscribeEvent
 	public void onDrops(HarvestDropsEvent event) {
-		if(WorldTypeSkyblock.isWorldSkyblock(event.world) && event.block == Blocks.tallgrass) {
+		if(WorldTypeSkyblock.isWorldSkyblock(event.world) && event.state.getBlock() == Blocks.tallgrass) {
 			ItemStack stackToRemove = null;
 			for(ItemStack stack : event.drops)
 				if(stack.getItem() == Items.wheat_seeds && event.world.rand.nextInt(10) == 0) {
@@ -118,7 +114,7 @@ public final class SkyblockWorldEvents {
 		}
 	}
 
-	public static void spawnPlayer(EntityPlayer player, int x, int y, int z, boolean fabricated) {
+	public static void spawnPlayer(EntityPlayer player, BlockPos pos, boolean fabricated) {
 		NBTTagCompound data = player.getEntityData();
 		if(!data.hasKey(EntityPlayer.PERSISTED_NBT_TAG))
 			data.setTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
@@ -127,12 +123,12 @@ public final class SkyblockWorldEvents {
 		final boolean test = false;
 
 		if(test || !persist.getBoolean(TAG_HAS_OWN_ISLAND)) {
-			createSkyblock(player.worldObj, x, y, z);
+			createSkyblock(player.worldObj, pos);
 
 			if(player instanceof EntityPlayerMP) {
 				EntityPlayerMP pmp = (EntityPlayerMP) player;
-				pmp.setPositionAndUpdate(x + 0.5, y + 1.6, z + 0.5);
-				pmp.setSpawnChunk(new BlockPos(x, y, z), true);
+				pmp.setPositionAndUpdate(pos.getX() + 0.5, pos.getY() + 1.6, pos.getZ() + 0.5);
+				pmp.setSpawnChunk(pos, true, 0); // todo 1.8 verify last parm
 				player.inventory.addItemStackToInventory(new ItemStack(ModItems.lexicon));
 			}
 
@@ -154,14 +150,14 @@ public final class SkyblockWorldEvents {
 		}
 	}
 
-	public static void createSkyblock(World world, int x, int y, int z) {
+	public static void createSkyblock(World world, BlockPos pos) {
 		for(int i = 0; i < 3; i++)
 			for(int j = 0; j < 4; j++)
 				for(int k = 0; k < 3; k++)
-					world.setBlock(x - 1 + i, y - 1 - j, z - 1 + k, j == 0 ? Blocks.grass : Blocks.dirt);
-		world.setBlock(x - 1, y - 2, z, Blocks.flowing_water);
-		world.setBlock(x + 1, y + 2, z + 1, ModBlocks.manaFlame);
-		((TileManaFlame) world.getTileEntity(x + 1, y + 2, z + 1)).setColor(new Color(70 + world.rand.nextInt(185), 70 + world.rand.nextInt(185), 70 + world.rand.nextInt(185)).getRGB());
+					world.setBlockState(pos.add(-1 + i, -1 - j, -1 + k), j == 0 ? Blocks.grass.getDefaultState() : Blocks.dirt.getDefaultState());
+		world.setBlockState(pos.add(-1, -2, 0), Blocks.flowing_water.getDefaultState());
+		world.setBlockState(pos.add(1, 2, 1), ModBlocks.manaFlame.getDefaultState());
+		((TileManaFlame) world.getTileEntity(pos.add(1, 2, 1))).setColor(new Color(70 + world.rand.nextInt(185), 70 + world.rand.nextInt(185), 70 + world.rand.nextInt(185)).getRGB());
 
 		int[][] rootPositions = new int[][] {
 				{ -1, -3, -1 },
@@ -177,9 +173,9 @@ public final class SkyblockWorldEvents {
 				{ +0, -6, +3 },
 		};
 		for(int[] root : rootPositions)
-			world.setBlock(x + root[0], y + root[1], z + root[2], ModBlocks.root);
+			world.setBlockState(pos.add(root[0], root[1], root[2]), ModBlocks.root.getDefaultState());
 
-		world.setBlock(x, y - 4, z, Blocks.bedrock);
+		world.setBlockState(pos.down(4), Blocks.bedrock.getDefaultState());
 	}
 
 }

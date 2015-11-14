@@ -33,11 +33,6 @@ public class WorldTypeSkyblock extends WorldType {
 	}
 
 	@Override
-	public boolean hasVoidParticles(boolean flag) {
-		return false;
-	}
-
-	@Override
 	public int getMinimumSpawnHeight(World world) {
 		return 86;
 	}

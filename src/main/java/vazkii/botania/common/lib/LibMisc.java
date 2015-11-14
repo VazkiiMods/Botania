@@ -10,7 +10,7 @@
  */
 package vazkii.botania.common.lib;
 
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 
 public final class LibMisc {
 
@@ -32,9 +32,7 @@ public final class LibMisc {
 	// IMC Keys
 	public static final String BLACKLIST_ITEM = "blackListItem";
 
-	public static final ForgeDirection[] CARDINAL_DIRECTIONS = new ForgeDirection[] {
-		ForgeDirection.NORTH, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.WEST
-	};
+	public static final EnumFacing[] CARDINAL_DIRECTIONS = EnumFacing.HORIZONTALS;
 
 	public static final int[] CONTROL_CODE_COLORS = new int[] {
 		0x000000, 0x0000AA, 0x00AA00, 0x00AAAA,
