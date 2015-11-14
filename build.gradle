@@ -58,10 +58,10 @@ dependencies {
     compile files(
             'Baubles-deobf.jar'
     )
-    compile "codechicken:CodeChickenLib:1.7.10-1.1.1.109:dev"
-    compile "codechicken:CodeChickenCore:1.7.10-1.0.2.9:dev"
-    compile "codechicken:NotEnoughItems:1.7.10-1.0.2.15:dev"
-    compile "codechicken:ForgeMultipart:1.7.10-1.1.1.320:dev"
+    compile "codechicken:CodeChickenLib:1.8-1.1.2.139:dev"
+    compile "codechicken:CodeChickenCore:1.8-1.0.5.36:dev"
+    compile "codechicken:NotEnoughItems:1.8-1.0.5.104:dev"
+    //compile "codechicken:ForgeMultipart:1.7.10-1.1.1.320:dev"
 
     //and a bit more for FTP
     ftpAntTask module("org.apache.ant:ant-commons-net:1.7.0") {
