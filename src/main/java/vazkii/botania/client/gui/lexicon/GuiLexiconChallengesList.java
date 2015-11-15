@@ -10,6 +10,7 @@
  */
 package vazkii.botania.client.gui.lexicon;
 
+import java.io.IOException;
 import java.util.List;
 
 import net.minecraft.client.gui.GuiButton;
@@ -84,7 +85,7 @@ public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 	}
 
 	@Override
-	protected void mouseClicked(int par1, int par2, int par3) {
+	protected void mouseClicked(int par1, int par2, int par3) throws IOException {
 		super.mouseClicked(par1, par2, par3);
 
 		if(par3 == 1)
@@ -108,7 +109,7 @@ public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 	void back() {
 		if(backButton.enabled) {
 			actionPerformed(backButton);
-			backButton.func_146113_a(mc.getSoundHandler());
+			backButton.playPressSound(mc.getSoundHandler());
 		}
 	}
 

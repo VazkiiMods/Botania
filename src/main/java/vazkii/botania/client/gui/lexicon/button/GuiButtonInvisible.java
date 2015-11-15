@@ -37,8 +37,8 @@ public class GuiButtonInvisible extends GuiButtonLexicon {
 
 	@Override
 	public void drawButton(Minecraft par1Minecraft, int par2, int par3) {
-		field_146123_n = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
-		int k = getHoverState(field_146123_n);
+		hovered = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
+		int k = getHoverState(hovered);
 		boolean showStack = displayStack != null && !displayString.isEmpty();
 
 		if(!displayString.isEmpty() && k == 2) {
@@ -59,7 +59,7 @@ public class GuiButtonInvisible extends GuiButtonLexicon {
 				key = format.charAt(1);
 
 			for(EnumChatFormatting ecf : EnumChatFormatting.class.getEnumConstants())
-				if(ecf.getFormattingCode() == key) {
+				if(ecf.toString().indexOf(ecf.toString().length() - 1) == key) { // todo 1.8 recheck (want last char of code)
 					if(ecf.ordinal() > 15)
 						ecf = EnumChatFormatting.BLACK;
 					color = LibMisc.CONTROL_CODE_COLORS[ecf.ordinal()];
@@ -81,7 +81,7 @@ public class GuiButtonInvisible extends GuiButtonLexicon {
 			GL11.glScalef(0.5F, 0.5F, 0.5F);
 			RenderHelper.enableGUIStandardItemLighting();
 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-			RenderItem.getInstance().renderItemIntoGUI(par1Minecraft.fontRenderer, par1Minecraft.renderEngine, displayStack, xPosition * 2 - 6, yPosition * 2 + 4);
+			par1Minecraft.getRenderItem().renderItemIntoGUI(displayStack, xPosition * 2 - 6, yPosition * 2 + 4);
 			RenderHelper.disableStandardItemLighting();
 			GL11.glEnable(GL11.GL_BLEND);
 		}

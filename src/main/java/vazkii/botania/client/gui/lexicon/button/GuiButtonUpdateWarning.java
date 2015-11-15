@@ -35,8 +35,8 @@ public class GuiButtonUpdateWarning extends GuiButtonLexicon {
 		if(!visible || !enabled)
 			return;
 
-		field_146123_n = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
-		int k = getHoverState(field_146123_n);
+		hovered = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
+		int k = getHoverState(hovered);
 
 		boolean red = k == 2 || ClientTickHandler.ticksInGame % 10 < 5;
 

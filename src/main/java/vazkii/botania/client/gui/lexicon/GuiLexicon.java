@@ -11,6 +11,7 @@
 package vazkii.botania.client.gui.lexicon;
 
 import java.awt.Desktop;
+import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -294,7 +295,7 @@ public class GuiLexicon extends GuiScreen {
 
 	public void drawBookmark(int x, int y, String s, boolean drawLeft, int color) {
 		// This function is called from the buttons so I can't use fontRendererObj
-		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
+		FontRenderer font = Minecraft.getMinecraft().fontRendererObj;
 		boolean unicode = font.getUnicodeFlag();
 		font.setUnicodeFlag(true);
 		int l = font.getStringWidth(s);
@@ -424,7 +425,7 @@ public class GuiLexicon extends GuiScreen {
 
 	public int bookmarkWidth(String b) {
 		if(fontRendererObj == null)
-			fontRendererObj = Minecraft.getMinecraft().fontRenderer;
+			fontRendererObj = Minecraft.getMinecraft().fontRendererObj;
 
 		boolean unicode = fontRendererObj.getUnicodeFlag();
 		fontRendererObj.setUnicodeFlag(true);
@@ -557,7 +558,7 @@ public class GuiLexicon extends GuiScreen {
 	}
 
 	@Override
-	protected void keyTyped(char par1, int par2) {
+	protected void keyTyped(char par1, int par2) throws IOException {
 		handleNoteKey(par1, par2);
 
 		if(!notesEnabled && closeScreenOnInvKey() && mc.gameSettings.keyBindInventory.getKeyCode() == par2) {
@@ -568,7 +569,7 @@ public class GuiLexicon extends GuiScreen {
 		if(par2 == KONAMI_CODE[konamiIndex]) {
 			konamiIndex++;
 			if(konamiIndex >= KONAMI_CODE.length) {
-				mc.getSoundHandler().playSound(PositionedSoundRecord.func_147673_a(new ResourceLocation("botania:way")));
+				mc.getSoundHandler().playSound(PositionedSoundRecord.create(new ResourceLocation("botania:way")));
 				konamiIndex = 0;
 			}
 		} else konamiIndex = 0;

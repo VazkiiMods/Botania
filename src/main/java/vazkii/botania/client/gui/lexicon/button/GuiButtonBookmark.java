@@ -21,8 +21,8 @@ public class GuiButtonBookmark extends GuiButtonLexicon {
 	@Override
 	public void drawButton(Minecraft mc, int par2, int par3) {
 		gui.drawBookmark(xPosition, yPosition, displayString, false);
-		field_146123_n = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
-		int k = getHoverState(field_146123_n);
+		hovered = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
+		int k = getHoverState(hovered);
 
 		List<String> tooltip = new ArrayList();
 		if(displayString.equals("+"))

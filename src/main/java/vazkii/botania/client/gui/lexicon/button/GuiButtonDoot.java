@@ -35,13 +35,13 @@ public class GuiButtonDoot extends GuiButtonLexicon {
 
 	@Override
 	public void drawButton(Minecraft par1Minecraft, int par2, int par3) {
-		field_146123_n = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
-		int k = getHoverState(field_146123_n);
+		hovered = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
+		int k = getHoverState(hovered);
 
-		par1Minecraft.renderEngine.bindTexture(TextureMap.locationItemsTexture);
+		par1Minecraft.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
-		RenderItem.getInstance().renderItemIntoGUI(par1Minecraft.fontRenderer, par1Minecraft.renderEngine, new ItemStack(ModItems.cacophonium), xPosition, yPosition);
-		RenderItem.getInstance().renderItemIntoGUI(par1Minecraft.fontRenderer, par1Minecraft.renderEngine, new ItemStack(Items.fireworks), xPosition + 8, yPosition + 2);
+		par1Minecraft.getRenderItem().renderItemIntoGUI(new ItemStack(ModItems.cacophonium), xPosition, yPosition);
+		par1Minecraft.getRenderItem().renderItemIntoGUI(new ItemStack(Items.fireworks), xPosition + 8, yPosition + 2);
 
 		GL11.glDisable(GL11.GL_LIGHTING);
 

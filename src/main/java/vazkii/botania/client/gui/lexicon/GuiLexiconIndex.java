@@ -10,6 +10,7 @@
  */
 package vazkii.botania.client.gui.lexicon;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -107,7 +108,8 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		buttonList.add(leftButton = new GuiButtonPage(13, left, top + guiHeight - 10, false));
 		buttonList.add(rightButton = new GuiButtonPage(14, left + guiWidth - 18, top + guiHeight - 10, true));
 
-		searchField = new GuiTextField(fontRendererObj, left + guiWidth / 2 + 28, top + guiHeight + 6, 200, 10);
+		// todo 1.8 verify componentID
+		searchField = new GuiTextField(15, fontRendererObj, left + guiWidth / 2 + 28, top + guiHeight + 6, 200, 10);
 		searchField.setCanLoseFocus(false);
 		searchField.setFocused(true);
 		searchField.setEnableBackgroundDrawing(false);
@@ -214,15 +216,15 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 			ItemStack paper = new ItemStack(Items.paper, currentEntry.pages.size());
 
-			RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, paper, 14, -28);
-			RenderItem.getInstance().renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, paper, 14, -28);
+			mc.getRenderItem().renderItemAndEffectIntoGUI(paper, 14, -28);
+			mc.getRenderItem().renderItemOverlayIntoGUI(mc.fontRendererObj, paper, 14, -28, ""); // todo 1.8 text
 			List<ItemStack> stacks = currentEntry.getDisplayedRecipes();
 
 			if(stacks.size() > 0) {
 				int spaceForEach = Math.min(18, (width - 30) / stacks.size());
 				for(int i = 0; i < stacks.size(); i++) {
 					ItemStack stack = stacks.get(i);
-					RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack, 38 + spaceForEach * i, -28);
+					mc.getRenderItem().renderItemAndEffectIntoGUI(stack, 38 + spaceForEach * i, -28);
 				}
 			}
 
@@ -330,7 +332,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 	}
 
 	@Override
-	protected void mouseClicked(int par1, int par2, int par3) {
+	protected void mouseClicked(int par1, int par2, int par3) throws IOException {
 		super.mouseClicked(par1, par2, par3);
 
 		searchField.mouseClicked(par1, par2, par3);
@@ -349,7 +351,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 	}
 
 	@Override
-	public void handleMouseInput() {
+	public void handleMouseInput() throws IOException {
 		super.handleMouseInput();
 
 		if(Mouse.getEventButton() == 0)
@@ -394,21 +396,21 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 	void back() {
 		if(backButton.enabled) {
 			actionPerformed(backButton);
-			backButton.func_146113_a(mc.getSoundHandler());
+			backButton.playPressSound(mc.getSoundHandler());
 		}
 	}
 
 	void nextPage() {
 		if(rightButton.enabled) {
 			actionPerformed(rightButton);
-			rightButton.func_146113_a(mc.getSoundHandler());
+			rightButton.playPressSound(mc.getSoundHandler());
 		}
 	}
 
 	void prevPage() {
 		if(leftButton.enabled) {
 			actionPerformed(leftButton);
-			leftButton.func_146113_a(mc.getSoundHandler());
+			leftButton.playPressSound(mc.getSoundHandler());
 		}
 	}
 

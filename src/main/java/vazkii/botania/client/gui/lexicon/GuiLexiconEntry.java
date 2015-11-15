@@ -11,6 +11,7 @@
 package vazkii.botania.client.gui.lexicon;
 
 import java.awt.Desktop;
+import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 
@@ -272,7 +273,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	}
 
 	@Override
-	protected void mouseClicked(int par1, int par2, int par3) {
+	protected void mouseClicked(int par1, int par2, int par3) throws IOException {
 		super.mouseClicked(par1, par2, par3);
 
 		fx = par1;
@@ -290,7 +291,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	}
 
 	@Override
-	public void handleMouseInput() {
+	public void handleMouseInput() throws IOException {
 		super.handleMouseInput();
 
 		if(Mouse.getEventButton() == 0)
@@ -328,14 +329,14 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	void back() {
 		if(backButton.enabled) {
 			actionPerformed(backButton);
-			backButton.func_146113_a(mc.getSoundHandler());
+			backButton.playPressSound(mc.getSoundHandler());
 		}
 	}
 
 	void nextPage() {
 		if(rightButton.enabled) {
 			actionPerformed(rightButton);
-			rightButton.func_146113_a(mc.getSoundHandler());
+			rightButton.playPressSound(mc.getSoundHandler());
 			updateNote();
 		}
 	}
@@ -343,7 +344,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	void prevPage() {
 		if(leftButton.enabled) {
 			actionPerformed(leftButton);
-			leftButton.func_146113_a(mc.getSoundHandler());
+			leftButton.playPressSound(mc.getSoundHandler());
 			updateNote();
 		}
 	}
@@ -400,7 +401,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 
 	@Override
 	public GuiLexicon copy() {
-		GuiLexiconEntry gui = new GuiLexiconEntry(entry, new GuiScreen());
+		GuiLexiconEntry gui = new GuiLexiconEntry(entry, new GuiScreen() {}); // todo 1.8 check anonymous class
 		gui.page = page;
 		gui.setTitle();
 		return gui;

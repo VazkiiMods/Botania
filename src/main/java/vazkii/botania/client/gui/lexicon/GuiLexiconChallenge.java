@@ -27,6 +27,8 @@ import vazkii.botania.client.core.handler.PersistentVariableHelper;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonBack;
 import vazkii.botania.common.lexicon.page.PageText;
 
+import java.io.IOException;
+
 public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 
 	private static final String TAG_CHALLENGE = "challenge";
@@ -65,7 +67,7 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 
 		RenderHelper.enableGUIStandardItemLighting();
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		RenderItem.getInstance().renderItemIntoGUI(fontRendererObj, mc.renderEngine, challenge.icon, left + 18, top + 15);
+		mc.getRenderItem().renderItemIntoGUI(challenge.icon, left + 18, top + 15);
 		RenderHelper.disableStandardItemLighting();
 		GL11.glEnable(GL11.GL_BLEND);
 
@@ -95,7 +97,7 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 	}
 
 	@Override
-	protected void mouseClicked(int par1, int par2, int par3) {
+	protected void mouseClicked(int par1, int par2, int par3) throws IOException {
 		super.mouseClicked(par1, par2, par3);
 
 		if(par3 == 1)
@@ -124,7 +126,7 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 	void back() {
 		if(backButton.enabled) {
 			actionPerformed(backButton);
-			backButton.func_146113_a(mc.getSoundHandler());
+			backButton.playPressSound(mc.getSoundHandler());
 		}
 	}
 
