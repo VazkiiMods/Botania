@@ -149,51 +149,51 @@ task sort(type: Delete) {
  * This is the upload task from the build.xml
  */
 task upload() << {
-    scp(dir: '/files')
-    scp(dir: '/files') {
+    scp('/files') {
         fileset(file: jar.archivePath)
     }
 	
-	scp(dir: '/files/deobf') {
+	scp('/files/deobf') {
         fileset(file: deobfJar.archivePath)
     }
 
-    scp {
+    scp('/') {
         fileset(file: 'web/changelog.txt')
         fileset(file: 'web/versions.ini')
     }
-}
-
-void scp(String dir = '', Closure antFileset = {}) {
-  ant {
-    taskdef(
-        name: 'scp',
-        classname: 'org.apache.tools.ant.taskdefs.optional.ssh.Scp',
-        classpath: configurations.sshAntTask.asPath)
-
-        String dirstr = priv.scp_dir + dir
-        Map scpArgs = args + [
-           verbose : 'yes',
-           todir  : dirstr,
-           password  : priv.scp_pass,
-        ]
-
-        delegate.scp(scpArgs) {
-            antFileset.delegate = delegate
-            antFileset()
-        }
-  }
 }
 
 /**
  * This is deply_web task
  */
 task deployWeb << {
-    scp(dir: '.') {
+    scp('/') {
         fileset(dir: 'web') //everything from the web directory
     }
 }
 
+def scp(String dir, Closure antFileset = {}) {
+    ant {
+        taskdef(
+            name: 'scp',
+            classname: 'org.apache.tools.ant.taskdefs.optional.ssh.Scp',
+            classpath: configurations.sshAntTask.asPath)
+
+        String dirstr = priv.scp_dir + dir
+        Map scpArgs = [
+           verbose : 'yes',
+           todir  : dirstr,
+           password  : priv.scp_pass,
+           sftp: true,
+           trust: 'yes'
+        ]
+
+        delegate.scp(scpArgs) {
+            antFileset.delegate = delegate
+            antFileset()
+        }
+    }
+}
 
 def parseConfig(File config) {
     config.withReader {
@@ -218,4 +218,4 @@ curse {
     relatedProject 'baubles': 'requiredLibrary'
 }
 
-defaultTasks 'clean', 'build', 'sort', 'forgecraft', 'incrementBuildNumber', 'curse', 'upload'
+defaultTasks 'clean', 'build', 'sort'/*, 'forgecraft'*/, 'incrementBuildNumber'/*, 'curse'*/, 'upload'
