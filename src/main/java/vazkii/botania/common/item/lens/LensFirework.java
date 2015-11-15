@@ -10,8 +10,68 @@
  */
 package vazkii.botania.common.item.lens;
 
+import net.minecraft.entity.item.EntityFireworkRocket;
+import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagByte;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.MovingObjectPosition;
+import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.common.core.helper.ItemNBTHelper;
+
 public class LensFirework extends Lens {
 
-	// TODO
+
+	@Override
+	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+		if(!burst.isFake()) {
+			ChunkCoordinates coords = burst.getBurstSourceChunkCoordinates();
+			if(!entity.worldObj.isRemote && pos.entityHit == null && !isManaBlock && (pos.blockX != coords.posX || pos.blockY != coords.posY || pos.blockZ != coords.posZ)) {
+				ItemStack fireworkStack = generateFirework(burst.getColor());
+				
+	            EntityFireworkRocket rocket = new EntityFireworkRocket(entity.worldObj, entity.posX, entity.posY, entity.posZ, fireworkStack);
+	            entity.worldObj.spawnEntityInWorld(rocket);
+			}
+		} else dead = false;
+
+		return dead;
+	}
 	
+	public ItemStack generateFirework(int color) {
+		ItemStack stack = new ItemStack(Items.fireworks);
+		NBTTagCompound explosion = new NBTTagCompound();
+		explosion.setIntArray("Colors", new int[] { color });
+
+		int type = 0;
+		double rand = Math.random() * 100;
+		if(rand > 50) {
+			if(rand > 15)
+				type = 2;
+			else type = 1;
+		}
+		
+		explosion.setInteger("Type", type);
+		
+		if(Math.random() < 0.05)
+			if(Math.random() < 0.5)
+				explosion.setBoolean("Flicker", true);
+			else explosion.setBoolean("Trail", true);
+		
+		ItemNBTHelper.setCompound(stack, "Explosion", explosion);
+		
+		NBTTagCompound fireworks = new NBTTagCompound();
+		fireworks.setInteger("Flight", ((int) Math.random() * 3) + 2);
+		
+		NBTTagList explosions = new NBTTagList();
+		explosions.appendTag(explosion);
+		fireworks.setTag("Explosions", explosions);
+		
+		ItemNBTHelper.setCompound(stack, "Fireworks", fireworks);
+		
+		return stack;
+	}
+	 
 }

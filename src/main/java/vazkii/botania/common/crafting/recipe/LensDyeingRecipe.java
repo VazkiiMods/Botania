@@ -89,7 +89,7 @@ public class LensDyeingRecipe implements IRecipe {
 		int[] ids = OreDictionary.getOreIDs(stack);
 		for(int i : ids) {
 			int index = DYES.indexOf(OreDictionary.getOreName(i));
-			if(index > 0)
+			if(index >= 0)
 				return index;
 		}
 
