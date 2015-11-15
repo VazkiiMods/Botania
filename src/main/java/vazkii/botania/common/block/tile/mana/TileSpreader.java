@@ -339,7 +339,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 	@Override
 	public boolean canRecieveManaFromBursts() {
-		return !isFull();
+		return true;
 	}
 
 	@Override
