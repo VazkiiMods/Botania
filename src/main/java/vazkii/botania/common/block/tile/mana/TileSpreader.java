@@ -40,6 +40,7 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.IKeyLocked;
 import vazkii.botania.api.mana.ILens;
+import vazkii.botania.api.mana.ILensControl;
 import vazkii.botania.api.mana.ILensEffect;
 import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.IManaPool;
@@ -223,12 +224,24 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 		boolean shouldShoot = !redstone;
 
-		if(isRedstone())
+		boolean isredstone = isRedstone();
+		if(isredstone)
 			shouldShoot = redstone && !redstoneLastTick;
 
 		if(shouldShoot && receiver != null && receiver instanceof IKeyLocked)
 			shouldShoot = ((IKeyLocked) receiver).getInputKey().equals(getOutputKey());
 
+		ItemStack lens = getStackInSlot(0);
+		ILensControl control = getLensController(lens);
+		if(control != null) {
+			if(isredstone) {
+				if(shouldShoot)
+					control.onControlledSpreaderPulse(lens, this, redstone);
+			} else control.onControlledSpreaderTick(lens, this, redstone);
+			
+			shouldShoot &= control.allowBurstShooting(lens, this, redstone);
+		}
+		
 		if(shouldShoot)
 			tryShootBurst();
 
@@ -435,6 +448,11 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	public void checkForReceiver() {
+		ItemStack stack = getStackInSlot(0);
+		ILensControl control = getLensController(stack);
+		if(control != null && !control.allowBurstShooting(stack, this, false))
+			return;
+		
 		EntityManaBurst fakeBurst = getBurst(true);
 		fakeBurst.setScanBeam();
 		TileEntity receiver = fakeBurst.getCollidedTile(true);
@@ -484,6 +502,16 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 			return burst;
 		}
+		return null;
+	}
+	
+	public ILensControl getLensController(ItemStack stack) {
+		if(stack != null && stack.getItem() instanceof ILensControl) {
+			ILensControl control = (ILensControl) stack.getItem();
+			if(control.isControlLens(stack))
+				return control;
+		}
+		
 		return null;
 	}
 

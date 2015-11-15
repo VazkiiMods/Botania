@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.ILens;
+import vazkii.botania.api.mana.ILensControl;
 import vazkii.botania.common.item.ItemManaGun;
 
 public class ManaGunLensRecipe implements IRecipe {
@@ -30,9 +31,12 @@ public class ManaGunLensRecipe implements IRecipe {
 				if(stack.getItem() instanceof ItemManaGun && ItemManaGun.getLens(stack) == null)
 					foundGun = true;
 
-				else if(stack.getItem() instanceof ILens)
-					foundLens = true;
-
+				else if(stack.getItem() instanceof ILens) {
+					if(!(stack.getItem() instanceof ILensControl) || !((ILensControl) stack.getItem()).isControlLens(stack))
+						foundLens = true;
+					else return false;
+				}
+					
 				else return false; // Found an invalid item, breaking the recipe
 			}
 		}

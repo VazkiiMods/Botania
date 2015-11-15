@@ -34,7 +34,6 @@ public class LensRedirect extends Lens {
 			if(tile != null && tile instanceof IRedirectable) {
 				if(!burst.isFake()) {
 					IRedirectable redir = (IRedirectable) tile;
-					System.out.println(redir);
 					Vector3 tileVec = Vector3.fromTileEntityCenter(tile);
 					Vector3 sourceVec = new Vector3(coords.posX + 0.5, coords.posY + 0.5, coords.posZ + 0.5);
 

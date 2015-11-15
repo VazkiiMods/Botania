@@ -29,6 +29,8 @@ import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
+import vazkii.botania.api.mana.ILensControl;
+import vazkii.botania.api.mana.IManaSpreader;
 import vazkii.botania.api.mana.ITinyPlanetExcempt;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
@@ -39,7 +41,7 @@ import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class ItemLens extends ItemMod implements ILens, ITinyPlanetExcempt {
+public class ItemLens extends ItemMod implements ILensControl, ITinyPlanetExcempt {
 
 	public static final int SUBTYPES = 22;
 
@@ -330,5 +332,25 @@ public class ItemLens extends ItemMod implements ILens, ITinyPlanetExcempt {
 	@Override
 	public boolean shouldPull(ItemStack stack) {
 		return stack.getItemDamage() != STORM;
+	}
+
+	@Override
+	public boolean isControlLens(ItemStack stack) {
+		return (props[stack.getItemDamage()] & PROP_CONTROL) != 0;
+	}
+
+	@Override
+	public boolean allowBurstShooting(ItemStack stack, IManaSpreader spreader, boolean redstone) {
+		return lenses[stack.getItemDamage()].allowBurstShooting(stack, spreader, redstone);
+	}
+
+	@Override
+	public void onControlledSpreaderTick(ItemStack stack, IManaSpreader spreader, boolean redstone) {
+		lenses[stack.getItemDamage()].onControlledSpreaderTick(stack, spreader, redstone);
+	}
+
+	@Override
+	public void onControlledSpreaderPulse(ItemStack stack, IManaSpreader spreader, boolean redstone) {
+		lenses[stack.getItemDamage()].onControlledSpreaderPulse(stack, spreader, redstone);
 	}
 }

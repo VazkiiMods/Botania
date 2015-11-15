@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
+import vazkii.botania.api.mana.IManaSpreader;
 
 public class Lens  {
 
@@ -29,5 +30,18 @@ public class Lens  {
 	public void updateBurst(IManaBurst burst, EntityThrowable entity, ItemStack stack) {
 		// NO-OP
 	}
+	
+	public boolean allowBurstShooting(ItemStack stack, IManaSpreader spreader, boolean redstone) {
+		return true;
+	}
+	
+	public void onControlledSpreaderTick(ItemStack stack, IManaSpreader spreader, boolean redstone) {
+		// NO-OP
+	}
+
+	public void onControlledSpreaderPulse(ItemStack stack, IManaSpreader spreader, boolean redstone) {
+		// NO-OP
+	}
+	
 
 }

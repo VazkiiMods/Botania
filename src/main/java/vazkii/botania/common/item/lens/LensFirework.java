@@ -24,7 +24,6 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 public class LensFirework extends Lens {
 
-
 	@Override
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		if(!burst.isFake()) {
@@ -45,12 +44,12 @@ public class LensFirework extends Lens {
 		NBTTagCompound explosion = new NBTTagCompound();
 		explosion.setIntArray("Colors", new int[] { color });
 
-		int type = 0;
-		double rand = Math.random() * 100;
-		if(rand > 50) {
-			if(rand > 15)
+		int type = 1;
+		double rand = Math.random();
+		if(rand > 0.25) {
+			if(rand > 0.9)
 				type = 2;
-			else type = 1;
+			else type = 0;
 		}
 		
 		explosion.setInteger("Type", type);
