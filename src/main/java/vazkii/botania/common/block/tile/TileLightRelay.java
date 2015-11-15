@@ -209,7 +209,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 
 			boolean isItem = riddenByEntity instanceof EntityItem;
 			if(!isItem && ticksExisted % 30 == 0)
-				worldObj.playSoundAtEntity(this, "botania:lightRelay", 0.2F, (float) Math.random() * 0.3F + 0.7F);
+				worldObj.playSoundAtEntity(this, "botania:lightRelay", 0.05F, (float) Math.random() * 0.3F + 0.7F);
 
 			int exitX = getExitX();
 			int exitY = getExitY();
@@ -221,9 +221,6 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 			if(x == exitX && y == exitY && z == exitZ) {
 				TileEntity tile = worldObj.getTileEntity(x, y, z);
 				if(tile != null && tile instanceof TileLightRelay) {
-					if(!isItem)
-						worldObj.playSoundAtEntity(this, "random.orb", 0.2F, (float) Math.random() * 0.3F + 0.7F);
-
 					int meta = worldObj.getBlockMetadata(x, y, z);
 					if(meta > 0) {
 						worldObj.setBlockMetadataWithNotify(x, y, z, meta | 8, 1 | 2);
