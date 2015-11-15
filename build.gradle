@@ -46,29 +46,27 @@ minecraft {
     replaceIn 'LibMisc.java' //I may have missed another file, though I can only find it in here.
 }
 
-//This here is for FTP
+//This here is for SCP
 repositories {
     mavenCentral()
 }
 configurations {
-    ftpAntTask
+    sshAntTask
 }
-//End of the FTP config
+
+//End of the SCP config
+
 dependencies {
     compile files(
-            'Baubles-deobf.jar'
+        'Baubles-deobf.jar'
     )
     compile "codechicken:CodeChickenLib:1.7.10-1.1.1.109:dev"
     compile "codechicken:CodeChickenCore:1.7.10-1.0.2.9:dev"
     compile "codechicken:NotEnoughItems:1.7.10-1.0.2.15:dev"
     compile "codechicken:ForgeMultipart:1.7.10-1.1.1.320:dev"
 
-    //and a bit more for FTP
-    ftpAntTask module("org.apache.ant:ant-commons-net:1.7.0") {
-        module("commons-net:commons-net:1.4.1") {
-            dependencies("oro:oro:2.0.8@jar")
-        }
-    }
+    //and a bit more for SCP
+    sshAntTask "org.apache.ant:ant-jsch:1.7.1", "jsch:jsch:0.1.29"
 }
 
 processResources {
@@ -150,50 +148,52 @@ task sort(type: Delete) {
 /**
  * This is the upload task from the build.xml
  */
-task upload(dependsOn: 'reobf') << {
-    ftp(action: 'mkdir', remotedir: '/files')
-    ftp(action: 'send', remotedir: '/files') {
+task upload() << {
+    scp(dir: '/files')
+    scp(dir: '/files') {
         fileset(file: jar.archivePath)
     }
 	
-	 ftp(action: 'send', remotedir: '/files/deobf') {
+	scp(dir: '/files/deobf') {
         fileset(file: deobfJar.archivePath)
     }
 
-    ftp(action: 'send', remotedir: '.') {
+    scp {
         fileset(file: 'web/changelog.txt')
         fileset(file: 'web/versions.ini')
     }
+}
+
+void scp(String dir = '', Closure antFileset = {}) {
+  ant {
+    taskdef(
+        name: 'scp',
+        classname: 'org.apache.tools.ant.taskdefs.optional.ssh.Scp',
+        classpath: configurations.sshAntTask.asPath)
+
+        String dirstr = priv.scp_dir + dir
+        Map scpArgs = args + [
+           verbose : 'yes',
+           todir  : dirstr,
+           password  : priv.scp_pass,
+        ]
+
+        delegate.scp(scpArgs) {
+            antFileset.delegate = delegate
+            antFileset()
+        }
+  }
 }
 
 /**
  * This is deply_web task
  */
 task deployWeb << {
-    ftp(action: 'send', remotedir: '.') {
+    scp(dir: '.') {
         fileset(dir: 'web') //everything from the web directory
     }
 }
 
-//simple function that we can use
-//Got this from: http://svn.codehaus.org/gradle/website/build.gradle
-void ftp(Map args, Closure antFileset = {}) {
-    ant {
-        taskdef(name: 'ftp',
-                classname: 'org.apache.tools.ant.taskdefs.optional.net.FTP',
-                classpath: configurations.ftpAntTask.asPath)
-        Map ftpArgs = args + [ //some default options
-                               verbose : 'yes',
-                               server  : priv.host,
-                               userid  : priv.user,
-                               password: priv.pass
-        ]
-        delegate.ftp(ftpArgs) {
-            antFileset.delegate = delegate
-            antFileset()
-        }
-    }
-}
 
 def parseConfig(File config) {
     config.withReader {
@@ -218,6 +218,4 @@ curse {
     relatedProject 'baubles': 'requiredLibrary'
 }
 
-//change this so it only increments on upload
-upload.dependsOn tasks.incrementBuildNumber
-defaultTasks 'clean', 'build', 'sort', 'forgecraft', 'curse', 'upload' //remove clean if you want faster builds, this will stop rare inconsistancies. 
+defaultTasks 'clean', 'build', 'sort', 'forgecraft', 'incrementBuildNumber', 'curse', 'upload'
