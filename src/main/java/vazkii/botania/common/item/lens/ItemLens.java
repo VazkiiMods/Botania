@@ -41,7 +41,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ItemLens extends ItemMod implements ILens, ITinyPlanetExcempt {
 
-	public static final int SUBTYPES = 19;
+	public static final int SUBTYPES = 22;
 
 	public static final int NORMAL = 0,
 			SPEED = 1,
@@ -61,7 +61,10 @@ public class ItemLens extends ItemMod implements ILens, ITinyPlanetExcempt {
 			FIRE = 15,
 			PISTON = 16,
 			LIGHT = 17,
-			WARP = 18;
+			WARP = 18,
+			REDIRECT = 19,
+			FIREWORK = 20,
+			FLARE = 21;
 
 	public static final int STORM = 5000;
 
@@ -70,7 +73,8 @@ public class ItemLens extends ItemMod implements ILens, ITinyPlanetExcempt {
 			PROP_ORIENTATION = 1 << 1,
 			PROP_TOUCH = 1 << 2,
 			PROP_INTERACTION = 1 << 3,
-			PROP_DAMAGE = 1 << 4;
+			PROP_DAMAGE = 1 << 4,
+			PROP_CONTROL = 1 << 5;
 
 	private static final int[] props = new int[SUBTYPES];
 	private static final Lens[] lenses = new Lens[SUBTYPES];
@@ -97,6 +101,9 @@ public class ItemLens extends ItemMod implements ILens, ITinyPlanetExcempt {
 		setProps(PISTON, PROP_TOUCH | PROP_INTERACTION);
 		setProps(LIGHT, PROP_TOUCH | PROP_INTERACTION);
 		setProps(WARP, PROP_NONE);
+		setProps(REDIRECT, PROP_TOUCH | PROP_INTERACTION);
+		setProps(FIREWORK, PROP_TOUCH);
+		setProps(FLARE, PROP_CONTROL);
 
 		setLens(NORMAL, fallbackLens);
 		setLens(SPEED, new LensSpeed());
@@ -117,6 +124,9 @@ public class ItemLens extends ItemMod implements ILens, ITinyPlanetExcempt {
 		setLens(PISTON, new LensPiston());
 		setLens(LIGHT, new LensLight());
 		setLens(WARP, new LensWarp());
+		setLens(REDIRECT, new LensRedirect());
+		setLens(FIREWORK, new LensFirework());
+		setLens(FLARE, new LensFlare());
 	}
 
 	private static final String TAG_COLOR = "color";

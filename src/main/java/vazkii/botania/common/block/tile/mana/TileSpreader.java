@@ -45,6 +45,7 @@ import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.mana.IManaSpreader;
+import vazkii.botania.api.mana.IRedirectable;
 import vazkii.botania.api.mana.IThrottledPacket;
 import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.api.wand.IWandBindable;
@@ -59,7 +60,7 @@ import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.entity.EntityManaBurst.PositionProperties;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class TileSpreader extends TileSimpleInventory implements IManaCollector, IWandBindable, IKeyLocked, IThrottledPacket, IManaSpreader {
+public class TileSpreader extends TileSimpleInventory implements IManaCollector, IWandBindable, IKeyLocked, IThrottledPacket, IManaSpreader, IRedirectable {
 
 	private static final int MAX_MANA = 1000;
 	private static final int ULTRA_MAX_MANA = 6400;
@@ -671,6 +672,21 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	@Override
+	public void setRotationX(float rot) {
+		rotationX = rot;
+	}
+
+	@Override
+	public void setRotationY(float rot) {
+		rotationY = rot;
+	}
+	
+	@Override
+	public void commitRedirection() {
+		checkForReceiver();
+	}
+	
+	@Override
 	public void setCanShoot(boolean canShoot) {
 		canShootBurst = canShoot;
 	}
@@ -717,4 +733,5 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	public UUID getIdentifierUnsafe() {
 		return identity;
 	}
+
 }
