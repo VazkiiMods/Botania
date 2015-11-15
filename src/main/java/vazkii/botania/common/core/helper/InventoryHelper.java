@@ -84,7 +84,7 @@ public class InventoryHelper {
 		}
 
 		int i = 0;
-		int[] attemptSlots = new int[0];
+		int[] attemptSlots;
 
 		if(inventory instanceof ISidedInventory && side != ForgeDirection.UNKNOWN) {
 			attemptSlots = ((ISidedInventory)inventory).getAccessibleSlotsFromSide(side.ordinal());
@@ -127,7 +127,7 @@ public class InventoryHelper {
 		inventory.getSizeInventory();
 
 		int itemSizeCounter = item.stackSize;
-		int[] availableSlots = new int[0];
+		int[] availableSlots;
 
 		if(inventory instanceof ISidedInventory)
 			availableSlots = ((ISidedInventory) inventory).getAccessibleSlotsFromSide(side.ordinal());
