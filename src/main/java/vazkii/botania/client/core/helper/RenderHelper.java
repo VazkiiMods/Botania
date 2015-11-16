@@ -59,7 +59,7 @@ public final class RenderHelper {
 			int var5 = 0;
 			int var6;
 			int var7;
-			FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
+			FontRenderer fontRenderer = Minecraft.getMinecraft().fontRendererObj;
 			for (var6 = 0; var6 < tooltipData.size(); ++var6) {
 				var7 = fontRenderer.getStringWidth(tooltipData.get(var6));
 				if (var7 > var5)
@@ -112,13 +112,13 @@ public final class RenderHelper {
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GL11.glShadeModel(GL11.GL_SMOOTH);
 		Tessellator var15 = Tessellator.getInstance();
-		var15.startDrawingQuads();
-		var15.setColorRGBA_F(var8, var9, var10, var7);
-		var15.addVertex(par3, par2, z);
-		var15.addVertex(par1, par2, z);
-		var15.setColorRGBA_F(var12, var13, var14, var11);
-		var15.addVertex(par1, par4, z);
-		var15.addVertex(par3, par4, z);
+		var15.getWorldRenderer().startDrawingQuads();
+		var15.getWorldRenderer().setColorRGBA_F(var8, var9, var10, var7);
+		var15.getWorldRenderer().addVertex(par3, par2, z);
+		var15.getWorldRenderer().addVertex(par1, par2, z);
+		var15.getWorldRenderer().setColorRGBA_F(var12, var13, var14, var11);
+		var15.getWorldRenderer().addVertex(par1, par4, z);
+		var15.getWorldRenderer().addVertex(par3, par4, z);
 		var15.draw();
 		GL11.glShadeModel(GL11.GL_FLAT);
 		GL11.glDisable(GL11.GL_BLEND);
@@ -170,12 +170,12 @@ public final class RenderHelper {
 			GL11.glRotatef(random.nextFloat() * 360F, 1F, 0F, 0F);
 			GL11.glRotatef(random.nextFloat() * 360F, 0F, 1F, 0F);
 			GL11.glRotatef(random.nextFloat() * 360F + f1 * 90F, 0F, 0F, 1F);
-			tessellator.startDrawing(GL11.GL_TRIANGLE_FAN);
+			tessellator.getWorldRenderer().startDrawing(GL11.GL_TRIANGLE_FAN);
 			float f3 = random.nextFloat() * 20F + 5F + f2 * 10F;
 			float f4 = random.nextFloat() * 2F + 1F + f2 * 2F;
-			tessellator.setColorRGBA_I(color, (int) (255F * (1F - f2)));
+			tessellator.getWorldRenderer().setColorRGBA_I(color, (int) (255F * (1F - f2)));
 			tessellator.getWorldRenderer().addVertex(0, 0, 0);
-			tessellator.setColorRGBA_F(0F, 0F, 0F, 0);
+			tessellator.getWorldRenderer().setColorRGBA_F(0F, 0F, 0F, 0);
 			tessellator.getWorldRenderer().addVertex(-0.866D * f4, f3, -0.5F * f4);
 			tessellator.getWorldRenderer().addVertex(0.866D * f4, f3, -0.5F * f4);
 			tessellator.getWorldRenderer().addVertex(0, f3, 1F * f4);
@@ -195,7 +195,7 @@ public final class RenderHelper {
 
 	public static void renderProgressPie(int x, int y, float progress, ItemStack stack) {
 		Minecraft mc = Minecraft.getMinecraft();
-		RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack, x, y);
+		mc.getRenderItem().renderItemAndEffectIntoGUI(stack, x, y);
 
 		GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT);
 		GL11.glEnable(GL11.GL_STENCIL_TEST);
@@ -204,7 +204,7 @@ public final class RenderHelper {
 		GL11.glStencilFunc(GL11.GL_NEVER, 1, 0xFF);
 		GL11.glStencilOp(GL11.GL_REPLACE, GL11.GL_KEEP, GL11.GL_KEEP);
 		GL11.glStencilMask(0xFF);
-		RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack, x, y);
+		mc.getRenderItem().renderItemAndEffectIntoGUI(stack, x, y);
 
 		mc.renderEngine.bindTexture(new ResourceLocation(LibResources.GUI_MANA_HUD));
 		int r = 10;

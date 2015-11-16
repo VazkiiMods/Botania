@@ -16,6 +16,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
@@ -210,7 +211,7 @@ public class CommonProxy {
 		return false;
 	}
 
-	public void playRecordClientSided(World world, int x, int y, int z, ItemRecord record) {
+	public void playRecordClientSided(World world, BlockPos pos, ItemRecord record) {
 		// NO-OP
 	}
 

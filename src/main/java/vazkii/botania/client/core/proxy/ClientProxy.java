@@ -61,26 +61,6 @@ import vazkii.botania.client.gui.lexicon.GuiLexicon;
 import vazkii.botania.client.gui.lexicon.GuiLexiconEntry;
 import vazkii.botania.client.gui.lexicon.GuiLexiconIndex;
 import vazkii.botania.client.integration.nei.NEIGuiHooks;
-import vazkii.botania.client.lib.LibRenderIDs;
-import vazkii.botania.client.render.block.RenderAltar;
-import vazkii.botania.client.render.block.RenderAvatar;
-import vazkii.botania.client.render.block.RenderBellows;
-import vazkii.botania.client.render.block.RenderBrewery;
-import vazkii.botania.client.render.block.RenderCocoon;
-import vazkii.botania.client.render.block.RenderCorporeaCrystalCube;
-import vazkii.botania.client.render.block.RenderCorporeaIndex;
-import vazkii.botania.client.render.block.RenderDoubleFlower;
-import vazkii.botania.client.render.block.RenderFloatingFlower;
-import vazkii.botania.client.render.block.RenderHourglass;
-import vazkii.botania.client.render.block.RenderIncensePlate;
-import vazkii.botania.client.render.block.RenderPool;
-import vazkii.botania.client.render.block.RenderPump;
-import vazkii.botania.client.render.block.RenderPylon;
-import vazkii.botania.client.render.block.RenderSpawnerClaw;
-import vazkii.botania.client.render.block.RenderSpecialFlower;
-import vazkii.botania.client.render.block.RenderSpreader;
-import vazkii.botania.client.render.block.RenderTeruTeruBozu;
-import vazkii.botania.client.render.block.RenderTinyPotato;
 import vazkii.botania.client.render.entity.RenderBabylonWeapon;
 import vazkii.botania.client.render.entity.RenderCorporeaSpark;
 import vazkii.botania.client.render.entity.RenderDoppleganger;
@@ -332,12 +312,12 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySkull.class, new RenderTileSkullOverride());
 
 		RenderingRegistry.registerEntityRenderingHandler(EntityPixie.class, new RenderPixie());
-		RenderingRegistry.registerEntityRenderingHandler(EntityVineBall.class, new RenderSnowball(ModItems.vineBall));
+		RenderingRegistry.registerEntityRenderingHandler(EntityVineBall.class, new RenderSnowball(Minecraft.getMinecraft().getRenderManager(), ModItems.vineBall, Minecraft.getMinecraft().getRenderItem()));
 		RenderingRegistry.registerEntityRenderingHandler(EntityDoppleganger.class, new RenderDoppleganger());
 		RenderingRegistry.registerEntityRenderingHandler(EntitySpark.class, new RenderSpark());
 		RenderingRegistry.registerEntityRenderingHandler(EntityThornChakram.class, new RenderThornChakram());
 		RenderingRegistry.registerEntityRenderingHandler(EntityCorporeaSpark.class, new RenderCorporeaSpark());
-		RenderingRegistry.registerEntityRenderingHandler(EntityEnderAirBottle.class, new RenderSnowball(ModItems.manaResource, 15));
+		RenderingRegistry.registerEntityRenderingHandler(EntityEnderAirBottle.class, new RenderSnowball(Minecraft.getMinecraft().getRenderManager(), ModItems.manaResource, Minecraft.getMinecraft().getRenderItem()));
 		RenderingRegistry.registerEntityRenderingHandler(EntityPoolMinecart.class, new RenderPoolMinecart());
 		RenderingRegistry.registerEntityRenderingHandler(EntityPinkWither.class, new RenderPinkWither());
 		RenderingRegistry.registerEntityRenderingHandler(EntityManaStorm.class, new RenderManaStorm());
@@ -411,12 +391,12 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	@Override
-	public void playRecordClientSided(World world, int x, int y, int z, ItemRecord record) {
+	public void playRecordClientSided(World world, BlockPos pos, ItemRecord record) {
 		Minecraft mc = Minecraft.getMinecraft();
 		if(record == null)
-			world.playAuxSFXAtEntity(null, 1005, x, y, z, 0);
+			world.playAuxSFXAtEntity(null, 1005, pos, 0);
 		else {
-			world.playAuxSFXAtEntity(null, 1005, x, y, z, Item.getIdFromItem(record));
+			world.playAuxSFXAtEntity(null, 1005, pos, Item.getIdFromItem(record));
 			mc.ingameGUI.setRecordPlayingMessage(record.getRecordNameLocal());
 		}
 	}

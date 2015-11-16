@@ -475,7 +475,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	@Override
 	public void setDead() {
 		BlockPos source = getSource();
-		Botania.proxy.playRecordClientSided(worldObj, source.posX, source.posY, source.posZ, null);
+		Botania.proxy.playRecordClientSided(worldObj, , source.posX, null);
 		isPlayingMusic = false;
 		super.setDead();
 	}
@@ -524,7 +524,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		int playerCount = getPlayerCount();
 
 		if(worldObj.isRemote && !isPlayingMusic && !isDead && !players.isEmpty()) {
-			Botania.proxy.playRecordClientSided(worldObj, source.posX, source.posY, source.posZ, (ItemRecord) (hard ? ModItems.recordGaia2 : ModItems.recordGaia1));
+			Botania.proxy.playRecordClientSided(worldObj, , source.posX, (ItemRecord) (hard ? ModItems.recordGaia2 : ModItems.recordGaia1));
 			isPlayingMusic = true;
 		}
 
