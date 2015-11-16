@@ -45,7 +45,7 @@ public class PageRuneRecipe extends PagePetalRecipe<RecipeRuneAltar> {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void renderManaBar(IGuiLexiconEntry gui, RecipeRuneAltar recipe, int mx, int my) {
-		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
+		FontRenderer font = Minecraft.getMinecraft().fontRendererObj;
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		String manaUsage = StatCollector.translateToLocal("botaniamisc.manaUsage");

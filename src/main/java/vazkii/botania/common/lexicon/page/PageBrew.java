@@ -48,7 +48,7 @@ public class PageBrew extends PageRecipe implements ITwoNamedPage {
 		int y = gui.getTop() + 12;
 
 		Brew brew = recipe.getBrew();
-		FontRenderer renderer = Minecraft.getMinecraft().fontRenderer;
+		FontRenderer renderer = Minecraft.getMinecraft().fontRendererObj;
 		boolean unicode = renderer.getUnicodeFlag();
 		renderer.setUnicodeFlag(true);
 		String s = EnumChatFormatting.BOLD + String.format(StatCollector.translateToLocal("botaniamisc.brewOf"), StatCollector.translateToLocal(brew.getUnlocalizedName()));

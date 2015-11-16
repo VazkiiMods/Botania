@@ -85,7 +85,7 @@ public class PageMultiblock extends LexiconPage {
 
 		GL11.glPopMatrix();
 
-		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
+		FontRenderer font = Minecraft.getMinecraft().fontRendererObj;
 		boolean unicode = font.getUnicodeFlag();
 		String s = EnumChatFormatting.BOLD + StatCollector.translateToLocal(getUnlocalizedName());
 		font.setUnicodeFlag(true);
@@ -96,7 +96,7 @@ public class PageMultiblock extends LexiconPage {
 		RenderHelper.enableGUIStandardItemLighting();
 		int x = gui.getLeft() + 15;
 		int y = gui.getTop() + 25;
-		RenderItem.getInstance().renderItemIntoGUI(font, render, new ItemStack(Blocks.stonebrick), x, y);
+		Minecraft.getMinecraft().getRenderItem().renderItemIntoGUI(new ItemStack(Blocks.stonebrick), x, y);
 		RenderHelper.disableStandardItemLighting();
 		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 

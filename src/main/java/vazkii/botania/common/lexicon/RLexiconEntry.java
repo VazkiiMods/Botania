@@ -11,7 +11,7 @@
 package vazkii.botania.common.lexicon;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.stats.Achievement;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconCategory;
@@ -33,7 +33,7 @@ public class RLexiconEntry  extends BLexiconEntry {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public boolean isVisible() {
-		EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
+		EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
 		return a == null || player.capabilities.isCreativeMode || player.getStatFileWriter().hasAchievementUnlocked(a);
 	}
 

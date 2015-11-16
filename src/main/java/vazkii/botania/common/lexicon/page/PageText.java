@@ -51,7 +51,7 @@ public class PageText extends LexiconPage {
 		y += 10;
 		width -= 4;
 
-		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
+		FontRenderer font = Minecraft.getMinecraft().fontRendererObj;
 		boolean unicode = font.getUnicodeFlag();
 		font.setUnicodeFlag(true);
 		String text = StatCollector.translateToLocal(unlocalizedText).replaceAll("&", "\u00a7");

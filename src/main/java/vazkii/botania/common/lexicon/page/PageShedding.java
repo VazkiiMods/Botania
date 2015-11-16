@@ -113,7 +113,7 @@ public class PageShedding extends PageEntity {
 
 	@SideOnly(Side.CLIENT)
 	public void renderItem(IGuiLexiconEntry gui, int xPos, int yPos, ItemStack stack) {
-		RenderItem render = new RenderItem();
+		RenderItem render = Minecraft.getMinecraft().getRenderItem();
 		boolean mouseDown = Mouse.isButtonDown(0);
 
 		GL11.glPushMatrix();
@@ -122,8 +122,8 @@ public class PageShedding extends PageEntity {
 		RenderHelper.enableGUIStandardItemLighting();
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
-		render.renderItemAndEffectIntoGUI(Minecraft.getMinecraft().fontRenderer, Minecraft.getMinecraft().getTextureManager(), stack, xPos, yPos);
-		render.renderItemOverlayIntoGUI(Minecraft.getMinecraft().fontRenderer, Minecraft.getMinecraft().getTextureManager(), stack, xPos, yPos);
+		render.renderItemAndEffectIntoGUI(stack, xPos, yPos);
+		render.renderItemOverlayIntoGUI(Minecraft.getMinecraft().fontRendererObj, stack, xPos, yPos);
 		RenderHelper.disableStandardItemLighting();
 		GL11.glPopMatrix();
 

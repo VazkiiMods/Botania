@@ -136,7 +136,7 @@ public class PageRecipe extends LexiconPage {
 
 	@SideOnly(Side.CLIENT)
 	public void renderItem(IGuiLexiconEntry gui, double xPos, double yPos, ItemStack stack, boolean accountForContainer) {
-		RenderItem render = new RenderItem();
+		RenderItem render = Minecraft.getMinecraft().getRenderManager();
 		boolean mouseDown = Mouse.isButtonDown(0);
 
 		GL11.glPushMatrix();
@@ -147,8 +147,8 @@ public class PageRecipe extends LexiconPage {
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glPushMatrix();
 		GL11.glTranslated(xPos, yPos, 0);
-		render.renderItemAndEffectIntoGUI(Minecraft.getMinecraft().fontRenderer, Minecraft.getMinecraft().getTextureManager(), stack, 0, 0);
-		render.renderItemOverlayIntoGUI(Minecraft.getMinecraft().fontRenderer, Minecraft.getMinecraft().getTextureManager(), stack, 0, 0);
+		render.renderItemAndEffectIntoGUI(stack, 0, 0);
+		render.renderItemOverlayIntoGUI(Minecraft.getMinecraft().fontRendererObj, stack, 0, 0);
 		GL11.glPopMatrix();
 		RenderHelper.disableStandardItemLighting();
 		GL11.glPopMatrix();
