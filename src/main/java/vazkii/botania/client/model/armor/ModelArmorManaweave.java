@@ -59,7 +59,7 @@ public class ModelArmorManaweave extends ModelBiped {
         skirtL.mirror = true;
         skirtL.setRotationPoint(0.0F, 0.0F, 0.0F);
         skirtL.addBox(-2.0F, -2.0F, -3.5F, 5, 13, 7, s);
-        setRotateAngle(skirtL, 0.0F, 0F, 0F);
+        setRotateAngle(skirtL, 0.0F, -0.17453292519943295F, -0.2617993877991494F);
         armR = new ModelRenderer(this, 24, 83);
         armR.setRotationPoint(-5.0F, 2.0F, 0.0F);
         armR.addBox(-3.0F, -1.5F, -2.5F, 4, 10, 5, s);
@@ -83,7 +83,7 @@ public class ModelArmorManaweave extends ModelBiped {
         skirtR = new ModelRenderer(this, 0, 83);
         skirtR.setRotationPoint(0.0F, 0.0F, 0.0F);
         skirtR.addBox(-3.0F, -2.0F, -3.5F, 5, 13, 7, s);
-        setRotateAngle(skirtR, 0.0F, 0F, 0F);
+        setRotateAngle(skirtR, 0.0F, 0.17453292519943295F, 0.2617993877991494F);
         armRpauldron = new ModelRenderer(this, 0, 72);
         armRpauldron.setRotationPoint(0.0F, 0.0F, 0.0F);
         armRpauldron.addBox(-4.0F, -2.0F, -3.0F, 3, 5, 6, s);
