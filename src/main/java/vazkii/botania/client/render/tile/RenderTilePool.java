@@ -40,14 +40,13 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 	private static final ResourceLocation textureDil = new ResourceLocation(LibResources.MODEL_DILUTED_POOL);
 
 	private static final ModelPool model = new ModelPool();
-	RenderItem renderItem = new RenderItem();
 
 	public static int forceMeta = 0;
 	public static boolean forceMana = false;
 	public static int forceManaNumber = -1;
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f) {
+	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f, int digProgress) {
 		TilePool pool = (TilePool) tileentity;
 
 		GL11.glPushMatrix();
@@ -90,7 +89,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 		float w = -v * 3.5F;
 
 		if(pool.getWorld() != null) {
-			Block below = pool.getWorld().getBlock(pool.xCoord, pool.yCoord - 1, pool.zCoord);
+			Block below = pool.getWorld().getBlockState(pool.getPos().down()).getBlock();
 			if(below instanceof IPoolOverlayProvider) {
 				IIcon overlay = ((IPoolOverlayProvider) below).getIcon(pool.getWorld(), pool.xCoord, pool.yCoord - 1, pool.zCoord);
 				if(overlay != null) {
@@ -141,7 +140,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer {
 	public void renderIcon(int par1, int par2, IIcon par3Icon, int par4, int par5, int brightness) {
 		Tessellator tessellator = Tessellator.getInstance();
 		tessellator.getWorldRenderer().startDrawingQuads();
-		tessellator.setBrightness(brightness);
+		tessellator.getWorldRenderer().setBrightness(brightness);
 		tessellator.getWorldRenderer().addVertexWithUV(par1 + 0, par2 + par5, 0, par3Icon.getMinU(), par3Icon.getMaxV());
 		tessellator.getWorldRenderer().addVertexWithUV(par1 + par4, par2 + par5, 0, par3Icon.getMaxU(), par3Icon.getMaxV());
 		tessellator.getWorldRenderer().addVertexWithUV(par1 + par4, par2 + 0, 0, par3Icon.getMaxU(), par3Icon.getMinV());

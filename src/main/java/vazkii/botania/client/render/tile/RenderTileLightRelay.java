@@ -27,7 +27,7 @@ import vazkii.botania.common.block.BlockLightRelay;
 public class RenderTileLightRelay extends TileEntitySpecialRenderer {
 
 	@Override
-	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float pticks) {
+	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float pticks, int digProgress) {
 		Minecraft mc = Minecraft.getMinecraft();
 		IIcon iicon = tile.getBlockMetadata() > 0 ? BlockLightRelay.worldIconRed : BlockLightRelay.worldIcon;
 
@@ -46,9 +46,9 @@ public class RenderTileLightRelay extends TileEntitySpecialRenderer {
 		Tessellator tessellator = Tessellator.getInstance();
 
 		GL11.glPushMatrix();
-		float r = 180.0F - RenderManager.instance.playerViewY;
+		float r = 180.0F - mc.getRenderManager().playerViewY;
 		GL11.glRotatef(r, 0F, 1F, 0F);
-		GL11.glRotatef(-RenderManager.instance.playerViewX, 1F, 0F, 0F);
+		GL11.glRotatef(-mc.getRenderManager().playerViewX, 1F, 0F, 0F);
 
 		float off = 0.25F;
 		GL11.glTranslatef(0F, off, 0F);
@@ -64,6 +64,7 @@ public class RenderTileLightRelay extends TileEntitySpecialRenderer {
 		GL11.glPopMatrix();
 	}
 
+	// todo 1.8 looks like vanilla copypasta, update it
 	private void func_77026_a(Tessellator p_77026_1_, IIcon p_77026_2_) {
 		float f = p_77026_2_.getMinU();
 		float f1 = p_77026_2_.getMaxU();
@@ -73,13 +74,13 @@ public class RenderTileLightRelay extends TileEntitySpecialRenderer {
 		float f5 = 0.5F;
 		float f6 = 0.25F;
 
-		p_77026_1_.startDrawingQuads();
-		p_77026_1_.setNormal(0.0F, 1.0F, 0.0F);
-		p_77026_1_.setBrightness(240);
-		p_77026_1_.addVertexWithUV(0.0F - f5, 0.0F - f6, 0.0D, f, f3);
-		p_77026_1_.addVertexWithUV(f4 - f5, 0.0F - f6, 0.0D, f1, f3);
-		p_77026_1_.addVertexWithUV(f4 - f5, f4 - f6, 0.0D, f1, f2);
-		p_77026_1_.addVertexWithUV(0.0F - f5, f4 - f6, 0.0D, f, f2);
+		p_77026_1_.getWorldRenderer().startDrawingQuads();
+		p_77026_1_.getWorldRenderer().setNormal(0.0F, 1.0F, 0.0F);
+		p_77026_1_.getWorldRenderer().setBrightness(240);
+		p_77026_1_.getWorldRenderer().addVertexWithUV(0.0F - f5, 0.0F - f6, 0.0D, f, f3);
+		p_77026_1_.getWorldRenderer().addVertexWithUV(f4 - f5, 0.0F - f6, 0.0D, f1, f3);
+		p_77026_1_.getWorldRenderer().addVertexWithUV(f4 - f5, f4 - f6, 0.0D, f1, f2);
+		p_77026_1_.getWorldRenderer().addVertexWithUV(0.0F - f5, f4 - f6, 0.0D, f, f2);
 		p_77026_1_.draw();
 
 	}

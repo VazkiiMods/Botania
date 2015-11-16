@@ -42,7 +42,7 @@ public class RenderTileAvatar extends TileEntitySpecialRenderer {
 	private static final ModelAvatar model = new ModelAvatar();
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float pticks) {
+	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float pticks, int digProgress) {
 		TileAvatar avatar = (TileAvatar) tileentity;
 
 		GL11.glPushMatrix();
@@ -61,7 +61,7 @@ public class RenderTileAvatar extends TileEntitySpecialRenderer {
 		ItemStack stack = avatar.getStackInSlot(0);
 		if(stack != null) {
 			GL11.glPushMatrix();
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 			float s = 0.4F;
 			GL11.glScalef(s, s, s);
 			GL11.glRotatef(90F, 0F, 1F, 0F);

@@ -15,7 +15,6 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
 
 import org.lwjgl.opengl.GL11;
 
@@ -26,7 +25,7 @@ import vazkii.botania.common.block.tile.TileAlfPortal;
 public class RenderTileAlfPortal extends TileEntitySpecialRenderer {
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f) {
+	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f, int digProgress) {
 		TileAlfPortal portal = (TileAlfPortal) tileentity;
 		int meta = portal.getBlockMetadata();
 		if(meta == 0)
@@ -70,7 +69,7 @@ public class RenderTileAlfPortal extends TileEntitySpecialRenderer {
 	public void renderIcon(int par1, int par2, IIcon par3Icon, int par4, int par5, int brightness) {
 		Tessellator tessellator = Tessellator.getInstance();
 		tessellator.getWorldRenderer().startDrawingQuads();
-		tessellator.setBrightness(brightness);
+		tessellator.getWorldRenderer().setBrightness(brightness);
 		tessellator.getWorldRenderer().addVertexWithUV(par1 + 0, par2 + par5, 0, par3Icon.getMinU(), par3Icon.getMaxV());
 		tessellator.getWorldRenderer().addVertexWithUV(par1 + par4, par2 + par5, 0, par3Icon.getMaxU(), par3Icon.getMaxV());
 		tessellator.getWorldRenderer().addVertexWithUV(par1 + par4, par2 + 0, 0, par3Icon.getMaxU(), par3Icon.getMinV());

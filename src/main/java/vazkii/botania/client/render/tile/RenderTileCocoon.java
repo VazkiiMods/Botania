@@ -28,7 +28,7 @@ public class RenderTileCocoon extends TileEntitySpecialRenderer {
 	ModelCocoon model = new ModelCocoon();
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f) {
+	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f, int digProgress) {
 		TileCocoon cocoon = (TileCocoon) tileentity;
 
 		float rot = 0F;

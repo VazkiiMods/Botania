@@ -26,7 +26,7 @@ import vazkii.botania.common.block.tile.mana.TilePrism;
 public class RenderTilePrism extends TileEntitySpecialRenderer {
 
 	@Override
-	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float partTicks) {
+	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float partTicks, int digProgress) {
 		TilePrism prism = (TilePrism) tile;
 		GL11.glPushMatrix();
 		GL11.glTranslated(x, y, z);
@@ -35,7 +35,7 @@ public class RenderTilePrism extends TileEntitySpecialRenderer {
 		ItemStack stack = prism.getStackInSlot(0);
 
 		if(stack != null) {
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 			if(stack.getItem() instanceof ILens) {
 				ILens lens = (ILens) stack.getItem();
 				GL11.glPushMatrix();

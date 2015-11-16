@@ -31,7 +31,7 @@ public class RenderTileHourglass extends TileEntitySpecialRenderer {
 	ModelHourglass model = new ModelHourglass();
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float ticks) {
+	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float ticks, int digProgress) {
 		TileHourglass hourglass = (TileHourglass) tileentity;
 
 		GL11.glPushMatrix();
@@ -43,7 +43,7 @@ public class RenderTileHourglass extends TileEntitySpecialRenderer {
 
 		int wtime = tileentity.getWorld() == null ? 0 : ClientTickHandler.ticksInGame;
 		if(wtime != 0)
-			wtime += new Random(tileentity.xCoord ^ tileentity.yCoord ^ tileentity.zCoord).nextInt(360);
+			wtime += new Random(tileentity.getPos().toLong()).nextInt(360);
 
 		float time = wtime == 0 ? 0 : wtime + ticks;
 		float x = 0.5F + (float) Math.cos(time * 0.05F) * 0.025F;

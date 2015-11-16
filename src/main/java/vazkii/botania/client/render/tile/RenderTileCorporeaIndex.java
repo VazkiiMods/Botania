@@ -29,7 +29,7 @@ public class RenderTileCorporeaIndex extends TileEntitySpecialRenderer {
 	public static boolean move = true;
 
 	@Override
-	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float partticks) {
+	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float partticks, int digProgress) {
 		TileCorporeaIndex index = (TileCorporeaIndex) tile;
 
 		GL11.glPushMatrix();
@@ -50,7 +50,7 @@ public class RenderTileCorporeaIndex extends TileEntitySpecialRenderer {
 			double starX = Math.cos(rads) * starRadius;
 			double starZ = Math.sin(rads) * starRadius;
 			int color = 0xFF00FF;
-			int seed = index.xCoord ^ index.yCoord ^ index.zCoord;
+			int seed = index.getPos().getX() ^ index.getPos().getY() ^ index.getPos().getZ();
 
 			GL11.glTranslated(starX, 0.3, starZ);
 			RenderHelper.renderStar(color, starScale, starScale, starScale, seed);

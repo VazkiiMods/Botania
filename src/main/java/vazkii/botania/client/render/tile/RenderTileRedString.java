@@ -18,7 +18,7 @@ import vazkii.botania.common.block.tile.string.TileRedString;
 public class RenderTileRedString extends TileEntitySpecialRenderer {
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double x, double y, double z, float partticks) {
+	public void renderTileEntityAt(TileEntity tileentity, double x, double y, double z, float partticks, int digProgress) {
 		TileRedString trs = (TileRedString) tileentity;
 		RedStringRenderer.redStringTiles.add(trs);
 	}

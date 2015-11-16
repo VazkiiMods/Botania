@@ -36,7 +36,7 @@ public class RenderTileStarfield extends TileEntitySpecialRenderer {
 	private static final Random field_147527_e = new Random(31100L);
 	FloatBuffer field_147528_b = GLAllocation.createDirectFloatBuffer(16);
 	@Override
-	public void renderTileEntityAt(TileEntity p_147500_1_, double p_147500_2_, double p_147500_4_, double p_147500_6_, float p_147500_8_) {
+	public void renderTileEntityAt(TileEntity p_147500_1_, double p_147500_2_, double p_147500_4_, double p_147500_6_, float p_147500_8_, int digProgress) {
 		float f1 = (float)field_147501_a.field_147560_j;
 		float f2 = (float)field_147501_a.field_147561_k;
 		float f3 = (float)field_147501_a.field_147558_l;
@@ -104,7 +104,7 @@ public class RenderTileStarfield extends TileEntitySpecialRenderer {
 			float f12 = color.getGreen() / 255F;
 			float f13 = color.getBlue() / 255F;
 
-			tessellator.setColorRGBA_F(f11 * f7, f12 * f7, f13 * f7, 1.0F);
+			tessellator.getWorldRenderer().setColorRGBA_F(f11 * f7, f12 * f7, f13 * f7, 1.0F);
 			tessellator.getWorldRenderer().addVertex(p_147500_2_, p_147500_4_ + f4, p_147500_6_);
 			tessellator.getWorldRenderer().addVertex(p_147500_2_, p_147500_4_ + f4, p_147500_6_ + 1.0D);
 			tessellator.getWorldRenderer().addVertex(p_147500_2_ + 1.0D, p_147500_4_ + f4, p_147500_6_ + 1.0D);

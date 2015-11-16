@@ -46,7 +46,7 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 	public static boolean pink = false;
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float pticks) {
+	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float pticks, int digProgress) {
 		if(model == null)
 			model = ConfigHandler.oldPylonModel ? new ModelPylonOld() : new ModelPylon();
 
@@ -68,7 +68,7 @@ public class RenderTilePylon extends TileEntitySpecialRenderer {
 			double worldTime = tileentity.getWorld() == null ? 0 : (double) (ClientTickHandler.ticksInGame + pticks);
 
 			if(tileentity != null)
-				worldTime += new Random(tileentity.xCoord ^ tileentity.yCoord ^ tileentity.zCoord).nextInt(360);
+				worldTime += new Random(tileentity.getPos().toLong()).nextInt(360);
 
 			if(ConfigHandler.oldPylonModel) {
 				GL11.glTranslated(d0 + 0.5, d1 + 2.2, d2 + 0.5);

@@ -15,7 +15,6 @@ import java.awt.Color;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -23,7 +22,6 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
 import net.minecraftforge.client.ForgeHooksClient;
 
 import org.lwjgl.opengl.GL11;
@@ -39,7 +37,7 @@ public class RenderTileRuneAltar extends TileEntitySpecialRenderer {
 	RenderBlocks renderBlocks = new RenderBlocks();
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double x, double y, double z, float partticks) {
+	public void renderTileEntityAt(TileEntity tileentity, double x, double y, double z, float partticks, int digProgress) {
 		TileRuneAltar altar = (TileRuneAltar) tileentity;
 
 		GL11.glPushMatrix();
@@ -116,7 +114,7 @@ public class RenderTileRuneAltar extends TileEntitySpecialRenderer {
 		float scale = altar.getTargetMana() == 0 ? 0 : (float) altar.getCurrentMana() / (float) altar.getTargetMana() / 75F;
 
 		if(scale != 0) {
-			int seed = altar.xCoord ^ altar.yCoord ^ altar.zCoord;
+			int seed = altar.getPos().getX() ^ altar.getPos().getY() ^ altar.getPos().getZ();
 			GL11.glTranslatef(0.5F, 0.7F, 0.5F);
 			RenderHelper.renderStar(0x00E4D7, scale, scale, scale, seed);
 		}

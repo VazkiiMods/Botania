@@ -19,7 +19,6 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
 
 import org.lwjgl.opengl.GL11;
 
@@ -32,7 +31,7 @@ public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 	private static final ModelMiniIsland model = new ModelMiniIsland();
 
 	@Override
-	public void renderTileEntityAt(TileEntity tile, double d0, double d1, double d2, float t) {
+	public void renderTileEntityAt(TileEntity tile, double d0, double d1, double d2, float t, int digProgress) {
 		IFloatingFlower flower = (IFloatingFlower) tile;
 		GL11.glPushMatrix();
 		GL11.glColor4f(1F, 1F, 1F, 1F);
@@ -40,7 +39,7 @@ public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 
 		double worldTime = tile.getWorld() == null ? 0 : (double) (ClientTickHandler.ticksInGame + t);
 		if(tile.getWorld() != null)
-			worldTime += new Random(tile.xCoord ^ tile.yCoord ^ tile.zCoord).nextInt(1000);
+			worldTime += new Random(tile.getPos().toLong()).nextInt(1000);
 
 		GL11.glTranslatef(0.5F, 0F, 0.5F);
 		GL11.glRotatef(-((float) worldTime * 0.5F), 0F, 1F, 0F);

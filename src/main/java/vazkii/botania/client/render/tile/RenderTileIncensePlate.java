@@ -19,7 +19,6 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
@@ -39,7 +38,7 @@ public class RenderTileIncensePlate extends TileEntitySpecialRenderer {
 	ModelIncensePlate model = new ModelIncensePlate();
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float ticks) {
+	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float ticks, int digProgress) {
 		TileIncensePlate plate = (TileIncensePlate) tileentity;
 
 		int meta = plate.getWorld() != null ? plate.getBlockMetadata() : 0;
@@ -60,7 +59,7 @@ public class RenderTileIncensePlate extends TileEntitySpecialRenderer {
 		ItemStack stack = plate.getStackInSlot(0);
 		if(stack != null) {
 			GL11.glPushMatrix();
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 			float s = 0.4F;
 			GL11.glTranslatef(0.1F, -1.46F, 0F);
 			GL11.glScalef(s, s, s);

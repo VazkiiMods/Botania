@@ -32,7 +32,7 @@ public class RenderTileTeruTeruBozu extends TileEntitySpecialRenderer {
 	ModelTeruTeruBozu model = new ModelTeruTeruBozu();
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f) {
+	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f, int digProgress) {
 		GL11.glPushMatrix();
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glEnable(GL11.GL_BLEND);
@@ -45,7 +45,7 @@ public class RenderTileTeruTeruBozu extends TileEntitySpecialRenderer {
 		double time = Botania.proxy.getWorldElapsedTicks() + f;
 		boolean hasWorld = tileentity.getWorld() != null;
 		if(hasWorld)
-			time += new Random(tileentity.xCoord ^ tileentity.yCoord ^ tileentity.zCoord).nextInt(1000);
+			time += new Random(tileentity.getPos().toLong()).nextInt(1000);
 
 		GL11.glTranslatef(0.5F, -1.25F + (hasWorld ? (float) Math.sin(time * 0.01F) * 0.05F : 0F), -0.5F);
 		if(hasWorld) {

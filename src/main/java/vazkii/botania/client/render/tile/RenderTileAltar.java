@@ -22,7 +22,6 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
@@ -50,11 +49,10 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 	private static final ResourceLocation textureMossy = new ResourceLocation(LibResources.MODEL_ALTAR_MOSSY);
 
 	ModelAltar model = new ModelAltar();
-	RenderItem renderItem = new RenderItem();
 	public static int forceMeta = -1;
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float pticks) {
+	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float pticks, int digProgress) {
 		TileAltar altar = (TileAltar) tileentity;
 
 		GL11.glPushMatrix();
@@ -120,7 +118,7 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 						GL11.glColor4f(1F, 1F, 1F, 1F);
 
 						ItemStack stack = altar.getStackInSlot(i);
-						Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
+						Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 						IIcon icon = stack.getItem().getIcon(stack, 0);
 						if(icon != null) {
 							Color color = new Color(stack.getItem().getColorFromItemStack(stack, 0));
@@ -171,7 +169,7 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 		Tessellator tessellator = Tessellator.getInstance();
 		tessellator.getWorldRenderer().startDrawingQuads();
 		if(brightness != -1)
-			tessellator.setBrightness(brightness);
+			tessellator.getWorldRenderer().setBrightness(brightness);
 		tessellator.getWorldRenderer().addVertexWithUV(par1 + 0, par2 + par5, 0, par3Icon.getMinU(), par3Icon.getMaxV());
 		tessellator.getWorldRenderer().addVertexWithUV(par1 + par4, par2 + par5, 0, par3Icon.getMaxU(), par3Icon.getMaxV());
 		tessellator.getWorldRenderer().addVertexWithUV(par1 + par4, par2 + 0, 0, par3Icon.getMaxU(), par3Icon.getMinV());

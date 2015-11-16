@@ -27,7 +27,7 @@ public class RenderTileSpawnerClaw extends TileEntitySpecialRenderer {
 	private static final ModelSpawnerClaw model = new ModelSpawnerClaw();
 
 	@Override
-	public void renderTileEntityAt(TileEntity var1, double d0, double d1, double d2, float var8) {
+	public void renderTileEntityAt(TileEntity var1, double d0, double d1, double d2, float var8, int digProgress) {
 		GL11.glPushMatrix();
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glColor4f(1F, 1F, 1F, 1F);

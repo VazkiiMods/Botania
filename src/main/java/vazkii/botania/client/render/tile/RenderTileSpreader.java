@@ -47,7 +47,7 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer {
 	private static final ModelSpreader model = new ModelSpreader();
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float ticks) {
+	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float ticks, int digProgress) {
 		TileSpreader spreader = (TileSpreader) tileentity;
 		GL11.glPushMatrix();
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
@@ -70,7 +70,7 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer {
 		double time = ClientTickHandler.ticksInGame + ticks;
 
 		if(spreader.isULTRA_SPREADER()) {
-			Color color = Color.getHSBColor((float) ((time * 5 + new Random(spreader.xCoord ^ spreader.yCoord ^ spreader.zCoord).nextInt(10000)) % 360) / 360F, 0.4F, 0.9F);
+			Color color = Color.getHSBColor((float) ((time * 5 + new Random(spreader.getPos().toLong()).nextInt(10000)) % 360) / 360F, 0.4F, 0.9F);
 			GL11.glColor3f(color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F);
 		}
 		model.render();
@@ -86,7 +86,7 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer {
 		ItemStack stack = spreader.getStackInSlot(0);
 
 		if(stack != null) {
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 			ILens lens = (ILens) stack.getItem();
 			GL11.glPushMatrix();
 			GL11.glTranslatef(-0.4F, -1.4F, -0.4375F);

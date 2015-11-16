@@ -34,7 +34,7 @@ public class RenderTileSkullOverride extends TileEntitySkullRenderer {
 	public static final ModelSkullOverride modelSkull = new ModelSkullOverride();
 
 	@Override
-	public void renderTileEntityAt(TileEntitySkull p_147500_1_, double p_147500_2_, double p_147500_4_, double p_147500_6_, float p_147500_8_) {
+	public void renderTileEntityAt(TileEntitySkull p_147500_1_, double p_147500_2_, double p_147500_4_, double p_147500_6_, float p_147500_8_, int digProgress) {
 		render(p_147500_1_, (float) p_147500_2_, (float) p_147500_4_, (float) p_147500_6_, p_147500_1_.getBlockMetadata() & 7, p_147500_1_.func_145906_b() * 360 / 16.0F, p_147500_1_.func_145904_a(), p_147500_1_.func_152108_a());
 	}
 

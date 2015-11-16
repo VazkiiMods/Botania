@@ -36,11 +36,11 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer {
 	EntityItem entity = null;
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f) {
+	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f, int digProgress) {
 		TileCorporeaCrystalCube cube = (TileCorporeaCrystalCube) tileentity;
 
 		if(entity == null)
-			entity = new EntityItem(cube.getWorld(), cube.xCoord, cube.yCoord, cube.zCoord, new ItemStack(Blocks.stone));
+			entity = new EntityItem(cube.getWorld(), cube.getPos().getX(), cube.getPos().getY(), cube.getPos().getZ(), new ItemStack(Blocks.stone));
 
 		entity.age = ClientTickHandler.ticksInGame;
 		ItemStack stack = cube.getRequestTarget();
@@ -67,7 +67,7 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer {
 			GL11.glTranslatef(0F, 0.8F, 0F);
 			GL11.glScalef(s, s, s);
 			GL11.glRotatef(180F, 0F, 0F, 1F);
-			((Render) RenderManager.instance.entityRenderMap.get(EntityItem.class)).doRender(entity, 0, 0, 0, 1F, f);
+			((Render) mc.getRenderManager().entityRenderMap.get(EntityItem.class)).doRender(entity, 0, 0, 0, 1F, f);
 			GL11.glPopMatrix();
 			mc.renderEngine.bindTexture(texture);
 		}

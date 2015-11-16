@@ -49,7 +49,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 	private static final ModelTinyPotato model = new ModelTinyPotato();
 
 	@Override
-	public void renderTileEntityAt(TileEntity var1, double d0, double d1, double d2, float var8) {
+	public void renderTileEntityAt(TileEntity var1, double d0, double d1, double d2, float var8, int digProgress) {
 		TileTinyPotato potato = (TileTinyPotato) var1;
 		GL11.glPushMatrix();
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
@@ -127,7 +127,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 
 		if(!name.isEmpty()) {
 			GL11.glPushMatrix();
-			mc.renderEngine.bindTexture(TextureMap.locationItemsTexture);
+			mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 
 			ContributorFancinessHandler.firstStart();
 
@@ -351,7 +351,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 			GL11.glDisable(GL11.GL_TEXTURE_2D);
 			tessellator.getWorldRenderer().startDrawingQuads();
 			int i = mc.fontRendererObj.getStringWidth(potato.name) / 2;
-			tessellator.setColorRGBA_F(0.0F, 0.0F, 0.0F, 0.25F);
+			tessellator.getWorldRenderer().setColorRGBA_F(0.0F, 0.0F, 0.0F, 0.25F);
 			tessellator.getWorldRenderer().addVertex(-i - 1, -1.0D, 0.0D);
 			tessellator.getWorldRenderer().addVertex(-i - 1, 8.0D, 0.0D);
 			tessellator.getWorldRenderer().addVertex(i + 1, 8.0D, 0.0D);
@@ -369,7 +369,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer {
 				GL11.glDisable(GL11.GL_TEXTURE_2D);
 				tessellator.getWorldRenderer().startDrawingQuads();
 				i = mc.fontRendererObj.getStringWidth(s) / 2;
-				tessellator.setColorRGBA_F(0.0F, 0.0F, 0.0F, 0.25F);
+				tessellator.getWorldRenderer().setColorRGBA_F(0.0F, 0.0F, 0.0F, 0.25F);
 				tessellator.getWorldRenderer().addVertex(-i - 1, -1.0D, 0.0D);
 				tessellator.getWorldRenderer().addVertex(-i - 1, 8.0D, 0.0D);
 				tessellator.getWorldRenderer().addVertex(i + 1, 8.0D, 0.0D);

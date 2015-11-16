@@ -19,7 +19,6 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
 
 import org.lwjgl.opengl.GL11;
 
@@ -28,7 +27,7 @@ import vazkii.botania.common.block.tile.TileSparkChanger;
 public class RenderTileSparkChanger extends TileEntitySpecialRenderer {
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float pticks) {
+	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float pticks, int digProgress) {
 		GL11.glPushMatrix();
 		GL11.glTranslated(d0, d1, d2);
 		GL11.glRotated(90F, 1F, 0F, 0F);
@@ -37,7 +36,7 @@ public class RenderTileSparkChanger extends TileEntitySpecialRenderer {
 		ItemStack stack = ((TileSparkChanger) tileentity).getStackInSlot(0);
 		if(stack != null) {
 			GL11.glPushMatrix();
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 			float s = 0.6F;
 			GL11.glScalef(s, s, s);
 			GL11.glRotatef(180F, 0F, 1F, 0F);
