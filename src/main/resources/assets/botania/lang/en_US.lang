@@ -2226,16 +2226,25 @@ botania.page.dreamwoodSpreader1=Better spreaders, that's it
 botania.page.dreamwoodSpreader2=By combining this already powerful spreader with a &1Gaia Spirit&0 and a &1Dragonstone&0 gem, one can create an even more potent variant. The &1Gaia Spreader&0 is within the top percentage of Mana Spreaders, with pretty much upgrades all round.<br>It's to note that these spreaders fire a larger payload at once and thus, might fire less often.
 botania.page.dreamwoodSpreader3=ULTRA_SPREADER
 
-# -- PAINTSLINGER LENS
-botania.entry.paintLens=Paintslinger Lens
-botania.tagline.paintLens=A Mana Lens that can paint wool and others
-botania.page.paintLens0=The &4Elves&0 are one crafty bunch. This lens is somewhat unique in comparison to the other lenses. The &1Paintslinger Lens&0 needs to be dyed one of the 16 colors of the spectrum to function. When it hits a colorable block (&1Wool, Stained Clay or Glass&0...) it'll turn any blocks connected, of the same type and color, into the color of the &4Mana Burst&0 itself. It seems to work with &4Sheep&0 too.
-botania.page.paintLens1=A M'AIDER Stranded Girl
+# -- ELVEN MANA LENSES
+botania.entry.elvenLenses=Elven Mana Lenses
+botania.tagline.elvenLenses=Advanced Mana Lenses with new abilities
+botania.page.elvenLenses0=The knowledge of mana handling methods of alfheim comes, of course, with an array of new &1Mana Lenses&0 that can be experimented with.<br>Unlike common overworld-y lenses, these are a bit more ubiquitous in their uses...
+botania.page.elvenLenses1=First off, the &1Paintslinger Lens&0. This lens needs to be dyed one of the 16 colors of the spectrum to function. When a burst with its effect hits a colorable block (&1Wool, Stained Clay or Glass&0...) it'll turn any blocks connected, of the same type and color, into the color of the &4Mana Burst&0 itself. It seems to work with &4Sheep&0 too.
+botania.page.elvenLenses2=Paintslinger Lens
+botania.page.elvenLenses3=The &1Warp Lens&0 is an interesting one. A burst with its effect, when colliding with a &1Force Relay&0 will teleport to the end position of said &1Force Relay&0, maintaining its momentum. Furthermore, when it's used as a composite material to a &1Bore Lens&0 (the &1Bore Lens&0 must be visible) it'll make the lens not break &1Force Relays&0 or &1Pistons&0, as well as teleport any blocks to the spot where the burst was fired.
+botania.page.elvenLenses4=Warp Lens
+botania.page.elvenLenses5=The &1Redirective Lens&0 will only work when fired from a &1Mana Spreader&0. Any burst with its effect that would collide against a &1Mana Spreader&0, aside from the normal &4Mana&0 transfer interaction, also makes the spreader point towards the one that fired the burst.
+botania.page.elvenLenses6=Redirective Lens
+botania.page.elvenLenses7=The &1Celebratory Lens&0 functions much akin to the common &1Entropic Lens&0, however, instead of exploding, it creates a festive firework dyed the color of the burst.
+botania.page.elvenLenses8=Celebratory Lens
+botania.page.elvenLenses9=The &1Flare Lens&0 takes over a &1Mana Spreader&0's functionality, preventing it from firing any bursts. Instead, the spreader becomes a continuous particle burst of the color the lens is dyed, in the direction the spreader is firing.<br>There's surely plenty of decorative uses for this.
+botania.page.elvenLenses10=Flare Lens
 
 # -- WARP LENS
 botania.entry.warpLens=Warp Lens
 botania.tagline.warpLens=A Mana Lens to combine with the Force Relay for burst teleporting
-botania.page.warpLens0=The &1Mana Lens: Warp&0 is an interesting one. A &4Mana Burst&0 with its effect, when colliding with a &1Force Relay&0 will teleport to the end position of said &1Force Relay&0, maintaining its momentum. Furthermore, when it's used as a composite material to a &1Bore Lens&0 (the &1Bore Lens&0 must be visible) it'll make the lens not break &1Force Relays&0 or &1Pistons&0, as well as teleport any blocks to the spot where the burst was fired.
+botania.page.warpLens0=
 botania.page.warpLens1=Hakase Quarries
 
 # -- MANA PRISM
