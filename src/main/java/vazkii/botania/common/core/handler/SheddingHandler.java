@@ -110,7 +110,7 @@ public final class SheddingHandler {
 		int lexiconSize = 40;
 
 		if(defaultPattern != null) {
-			itemName = Item.itemRegistry.getNameForObject(defaultPattern.getItemStack().getItem());
+			itemName = Item.itemRegistry.getNameForObject(defaultPattern.getItemStack().getItem()).toString();
 			metadata = defaultPattern.getItemStack().getItemDamage();
 			rate = defaultPattern.rate;
 			lexiconSize = defaultPattern.lexiconSize;

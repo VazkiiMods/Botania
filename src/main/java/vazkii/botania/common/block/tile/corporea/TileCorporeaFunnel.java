@@ -89,9 +89,9 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 		if(!(request instanceof ItemStack))
 			return;
 
-		IInventory inv = InventoryHelper.getInventory(worldObj, xCoord, yCoord - 1, zCoord);
+		IInventory inv = InventoryHelper.getInventory(worldObj, , xCoord);
 		if(inv == null)
-			inv = InventoryHelper.getInventory(worldObj, xCoord, yCoord - 2, zCoord);
+			inv = InventoryHelper.getInventory(worldObj, , xCoord);
 
 		List<ItemStack> stacks = CorporeaHelper.requestItem(request, count, spark, true, true);
 		spark.onItemsRequested(stacks);

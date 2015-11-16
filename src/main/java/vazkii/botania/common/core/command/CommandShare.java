@@ -36,7 +36,7 @@ public class CommandShare extends CommandBase {
 		json = json.replaceAll("%entry%", args[0]);
 		json = json.replaceAll("%entryname%", StatCollector.translateToLocal("botania.entry." + args[0]));
 
-		IChatComponent component = IChatComponent.Serializer.func_150699_a(json);
+		IChatComponent component = IChatComponent.Serializer.jsonToComponent(json);
 		MinecraftServer.getServer().getConfigurationManager().sendChatMsg(component);
 	}
 

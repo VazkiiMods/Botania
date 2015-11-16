@@ -181,7 +181,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 		int x = MathHelper.floor_double(posX);
 		int y = MathHelper.floor_double(posY - 1);
 		int z = MathHelper.floor_double(posZ);
-		return InventoryHelper.getInventory(worldObj, x, y, z);
+		return InventoryHelper.getInventory(worldObj, , x);
 	}
 
 	@Override

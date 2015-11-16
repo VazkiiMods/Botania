@@ -61,8 +61,8 @@ import vazkii.botania.common.crafting.ModPureDaisyRecipes;
 import vazkii.botania.common.crafting.ModRuneRecipes;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.entity.ModEntities;
-import vazkii.botania.common.integration.buildcraft.StatementAPIPlugin;
-import vazkii.botania.common.integration.etfuturum.ModBanners;
+//import vazkii.botania.common.integration.buildcraft.StatementAPIPlugin; todo 1.8
+//import vazkii.botania.common.integration.etfuturum.ModBanners;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.network.GuiHandler;
@@ -103,7 +103,7 @@ public class CommonProxy {
 		ModMultiblocks.init();
 
 		if(Botania.etFuturumLoaded)
-			ModBanners.init();
+			// todo 1.8 ModBanners.init();
 
 		ChestGenHandler.init();
 
@@ -128,8 +128,8 @@ public class CommonProxy {
 
 		FMLInterModComms.sendMessage("ProjectE", "interdictionblacklist", EntityManaBurst.class.getCanonicalName());
 
-		if(Botania.bcTriggersLoaded)
-			new StatementAPIPlugin();
+//		if(Botania.bcTriggersLoaded) todo 1.8
+//			new StatementAPIPlugin();
 	}
 
 	public void postInit(FMLPostInitializationEvent event) {

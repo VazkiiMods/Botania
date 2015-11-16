@@ -46,7 +46,7 @@ public class ThreadDownloadMod extends Thread {
 	@Override
 	public void run() {
 		try {
-			IChatComponent component = IChatComponent.Serializer.func_150699_a(String.format(StatCollector.translateToLocal("botania.versioning.startingDownload"), fileName));
+			IChatComponent component = IChatComponent.Serializer.jsonToComponent(String.format(StatCollector.translateToLocal("botania.versioning.startingDownload"), fileName));
 			if(Minecraft.getMinecraft().thePlayer != null)
 				Minecraft.getMinecraft().thePlayer.addChatMessage(component);
 

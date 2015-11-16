@@ -79,7 +79,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 				int y_ = y + dir.offsetY;
 				int z_ = z + dir.offsetZ;
 
-				IInventory inv = InventoryHelper.getInventory(supertile.getWorld(), x_, y_, z_);
+				IInventory inv = InventoryHelper.getInventory(supertile.getWorld(), , x_);
 				if(inv != null) {
 					List<ItemStack> filter = getFilterForInventory(inv, x_, y_, z_, true);
 					boolean canAccept = canAcceptItem(stack, filter, filterType);

@@ -236,7 +236,7 @@ public class InternalMethodHandler extends DummyMethodHandler {
 
 	@Override
 	public void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, BlockPos pos, EnumFacing side) {
-		ItemLokiRing.breakOnAllCursors(player, item, stack, x, y, z, side);
+		ItemLokiRing.breakOnAllCursors(player, item, stack, pos, side);
 	}
 
 	@Override
@@ -246,7 +246,7 @@ public class InternalMethodHandler extends DummyMethodHandler {
 
 	@Override
 	public boolean isBotaniaFlower(World world, BlockPos pos) {
-		Block block = world.getBlock(x, y, z);
+		Block block = world.getBlockState(pos).getBlock();
 		return block == ModBlocks.flower || block == ModBlocks.shinyFlower || block == ModBlocks.specialFlower;
 	}
 

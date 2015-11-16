@@ -37,14 +37,14 @@ public class CommandSkyblockSpread extends CommandBase {
 	}
 
 	@Override
-	public void processCommand(ICommandSender sender, String[] args) {
+	public void processCommand(ICommandSender sender, String[] args) throws CommandException {
 		int maxAllowed = 1000000;
 		int minAllowed = 250;
 		int minDist = 100;
 
 		int maxrange = 200000;
 		if(args.length == 2)
-			maxrange = parseInt(sender, args[1]);
+			maxrange = parseInt(sender, args[1]); // <- todo 1.8 wat
 
 		if(maxrange > maxAllowed)
 			throw new CommandException("botaniamisc.skyblockRangeTooHigh");
@@ -57,11 +57,11 @@ public class CommandSkyblockSpread extends CommandBase {
 			int x, z;
 
 			do {
-				x = player.worldObj.rand.nextInt(maxrange) - maxrange / 2 + spawn.posX;
-				z = player.worldObj.rand.nextInt(maxrange) - maxrange / 2 + spawn.posZ;
-			} while(MathHelper.pointDistancePlane(x, z, spawn.posX, spawn.posZ) < minDist);
+				x = player.worldObj.rand.nextInt(maxrange) - maxrange / 2 + spawn.getX();
+				z = player.worldObj.rand.nextInt(maxrange) - maxrange / 2 + spawn.getZ();
+			} while(MathHelper.pointDistancePlane(x, z, spawn.getX(), spawn.getZ()) < minDist);
 
-			SkyblockWorldEvents.spawnPlayer(player, x, spawn.posY, z, true);
+			SkyblockWorldEvents.spawnPlayer(player, new BlockPos(x, spawn.getY(), z), true);
 		}
 	}
 
