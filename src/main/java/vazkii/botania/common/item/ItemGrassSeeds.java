@@ -113,6 +113,42 @@ public class ItemGrassSeeds extends ItemMod {
 					b = 0.33F;
 					break;
 				}
+				case 3: {
+					r = 0.4F;
+					g = 0.5F;
+					b = 0.05F;
+					break;
+				}
+				case 4: {
+					r = 0.75F;
+					g = 0.7F;
+					b = 0F;
+					break;
+				}
+				case 5: {
+					r = 0F;
+					g = 0.5F;
+					b = 0.1F;
+					break;
+				}
+				case 6: {
+					r = 0.75F;
+					g = 0F;
+					b = 0F;
+					break;
+				}
+				case 7: {
+					r = 0F;
+					g = 0.55F;
+					b = 0.55F;
+					break;
+				}
+				case 8: {
+					r = 0.4F;
+					g = 0.1F;
+					b = 0.4F;
+					break;
+				}
 				}
 
 				float velMul = 0.025F;
