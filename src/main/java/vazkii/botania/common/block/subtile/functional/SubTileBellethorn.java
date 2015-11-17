@@ -15,6 +15,7 @@ import java.util.List;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
@@ -57,7 +58,11 @@ public class SubTileBellethorn extends SubTileFunctional {
 					continue;
 
 				if(entity.hurtTime == 0 && mana >= manaToUse) {
-					entity.attackEntityFrom(DamageSource.magic, 4);
+					int dmg = 4;
+					if(entity instanceof EntityWitch)
+						dmg = 20;
+					
+					entity.attackEntityFrom(DamageSource.magic, dmg);
 					mana -= manaToUse;
 					break;
 				}

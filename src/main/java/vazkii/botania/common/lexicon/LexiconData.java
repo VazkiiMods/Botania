@@ -82,8 +82,7 @@ public final class LexiconData {
 	public static LexiconEntry redstoneSpreader;
 	public static LexiconEntry manastar;
 	public static LexiconEntry dreamwoodSpreader;
-	public static LexiconEntry paintLens;
-	public static LexiconEntry warpLens;
+	public static LexiconEntry elvenLenses;
 	public static LexiconEntry sparks;
 	public static LexiconEntry sparkUpgrades;
 	public static LexiconEntry rfGenerator;
@@ -422,12 +421,10 @@ public final class LexiconData {
 		dreamwoodSpreader = new ALexiconEntry(LibLexicon.MANA_DREAMWOOD_SPREADER, categoryMana);
 		dreamwoodSpreader.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipesDreamwoodSpreader), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipeUltraSpreader));
 
-		paintLens = new ALexiconEntry(LibLexicon.MANA_PAINT_LENS, categoryMana);
-		paintLens.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeLensPaint));
-
-		warpLens = new ALexiconEntry(LibLexicon.MANA_WARP_LENS, categoryMana);
-		warpLens.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeLensWarp));
-
+		elvenLenses = new ALexiconEntry(LibLexicon.MANA_ELVEN_LENSES, categoryMana);
+		elvenLenses.setLexiconPages(new PageText("0"), new PageText("1"), new PageCraftingRecipe("2", ModCraftingRecipes.recipeLensPaint), new PageText("3"), new PageCraftingRecipe("4", ModCraftingRecipes.recipeLensWarp), new PageText("5"), new PageCraftingRecipe("6", ModCraftingRecipes.recipeLensRedirect), 
+				new PageText("7"), new PageCraftingRecipe("8", ModCraftingRecipes.recipeLensFirework), new PageText("9"), new PageCraftingRecipe("10", ModCraftingRecipes.recipeLensFlare));
+		
 		prism = new ALexiconEntry(LibLexicon.MANA_PRISM, categoryMana);
 		prism.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageCraftingRecipe("3", ModCraftingRecipes.recipePrism));
 

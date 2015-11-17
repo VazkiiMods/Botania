@@ -1,3 +1,6 @@
+r1.7 233
+*Fixed items that take damage when used in a crafting recipe taking damage purely by being put in the grid.
+*Fixed the Lexica Botania's main page making the screen dark on lower end (and integrated) graphics cards.
 r1.7 232
 *Added the botania version to the F3 menu next to the network monitors.
 *Changed the way multitexture is handled on graphics cards that don't support OpenGL 1.3 (using ARB instead).

@@ -1,5 +1,4 @@
-host=
-user=
-pass=
+scp_dir=
+scp_pass=
 cfkey=
 dir_forgecraft=../Build Output/Botania/
