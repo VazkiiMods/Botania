@@ -2847,6 +2847,8 @@ botania.page.grassSeeds0=Watching grass spread is seldom a fun activity. By infu
 botania.page.grassSeeds1=&1Pasture Seeds&0 for grass
 botania.page.grassSeeds2=&1Boreal Seeds&0 for podzol
 botania.page.grassSeeds3=&1Infestation Spores&0 for mycelium
+botania.page.grassSeeds4=An aditional six types of &1Pasture Seeds&0 can be created, for alternative grass types with various textures.<br>These spread to dirt like normal and can sustain any plant a block of grass can. Similarly, they may only be picked up with &4Silk Touch&0. However, they do not decay back into dirt if there's a block above them.
+botania.page.grassSeeds5=The alternate &1Pasture Seeds&0
 
 # -- ROD OF THE LANDS
 botania.entry.dirtRod=Rod of the Lands
