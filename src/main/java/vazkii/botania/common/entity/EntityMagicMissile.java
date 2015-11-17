@@ -177,7 +177,7 @@ public class EntityMagicMissile extends EntityThrowable {
 
 	@Override
 	protected void onImpact(MovingObjectPosition pos) {
-		Block block = worldObj.getBlock(pos.blockX, pos.blockY, pos.blockZ);
+		Block block = worldObj.getBlockState(pos.getBlockPos()).getBlock();
 
 		if(!(block instanceof BlockBush) && !(block instanceof BlockLeaves) && (pos.entityHit == null || getTargetEntity() == pos.entityHit))
 			setDead();

@@ -38,7 +38,7 @@ public interface ICorporeaSpark {
 	/**
 	 * Gets the inventory this spark is bound to, generally the one right below it.
 	 */
-	public IInventory getInventory();
+	public IInventory getSparkInventory();
 
 	/**
 	 * Gets the list of sparks this spark is connected to, see registerConnections(). This list

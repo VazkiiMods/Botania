@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.brew.potion;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -28,8 +29,8 @@ public class PotionClear extends PotionMod {
 	}
 
 	@Override
-	public void affectEntity(EntityLivingBase e, EntityLivingBase e1, int t, double d) {
-		e1.curePotionEffects(new ItemStack(Items.milk_bucket));
+	public void affectEntity(Entity e, Entity e1, EntityLivingBase e2, int t, double d) {
+		e2.curePotionEffects(new ItemStack(Items.milk_bucket));
 	}
 
 }

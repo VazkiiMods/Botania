@@ -68,7 +68,7 @@ public final class CorporeaHelper {
 		if(network != null)
 			for(ICorporeaSpark otherSpark : network)
 				if(otherSpark != null) {
-					IInventory inv = otherSpark.getInventory();
+					IInventory inv = otherSpark.getSparkInventory();
 					if(inv != null)
 						inventories.add(inv);
 				}

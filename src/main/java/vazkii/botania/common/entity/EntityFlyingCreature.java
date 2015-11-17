@@ -12,6 +12,7 @@ package vazkii.botania.common.entity;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.passive.EntityAmbientCreature;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
@@ -22,12 +23,12 @@ public class EntityFlyingCreature extends EntityAmbientCreature {
 	}
 
 	@Override
-	protected void fall(float par1) {
+	public void fall(float dist, float damageMult) {
 		// NO-OP
 	}
 
 	@Override
-	protected void updateFallState(double par1, boolean par3) {
+	protected void updateFallState(double y, boolean onGround, Block block, BlockPos pos) {
 		// NO-OP
 	}
 
@@ -50,7 +51,7 @@ public class EntityFlyingCreature extends EntityAmbientCreature {
 
 			if (onGround)  {
 				f2 = 0.54600006F;
-				Block block = worldObj.getBlock(MathHelper.floor_double(posX), MathHelper.floor_double(boundingBox.minY) - 1, MathHelper.floor_double(posZ));
+				Block block = worldObj.getBlockState(new BlockPos(MathHelper.floor_double(posX), MathHelper.floor_double(getEntityBoundingBox().minY) - 1, MathHelper.floor_double(posZ))).getBlock();
 				f2 = block.slipperiness * 0.91F;
 			}
 
@@ -60,7 +61,7 @@ public class EntityFlyingCreature extends EntityAmbientCreature {
 
 			if (onGround) {
 				f2 = 0.54600006F;
-				Block block = worldObj.getBlock(MathHelper.floor_double(posX), MathHelper.floor_double(boundingBox.minY) - 1, MathHelper.floor_double(posZ));
+				Block block = worldObj.getBlockState(new BlockPos(MathHelper.floor_double(posX), MathHelper.floor_double(getEntityBoundingBox().minY) - 1, MathHelper.floor_double(posZ))).getBlock();
 				f2 = block.slipperiness * 0.91F;
 			}
 

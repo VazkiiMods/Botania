@@ -20,6 +20,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import vazkii.botania.api.corporea.ICorporeaSpark;
@@ -67,7 +68,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		IInventory inv = getInventory();
+		IInventory inv = getSparkInventory();
 		if(inv == null) {
 			if(!worldObj.isRemote)
 				setDead();
@@ -177,11 +178,11 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	}
 
 	@Override
-	public IInventory getInventory() {
+	public IInventory getSparkInventory() {
 		int x = MathHelper.floor_double(posX);
 		int y = MathHelper.floor_double(posY - 1);
 		int z = MathHelper.floor_double(posZ);
-		return InventoryHelper.getInventory(worldObj, , x);
+		return InventoryHelper.getInventory(worldObj, new BlockPos(x, y, z));
 	}
 
 	@Override

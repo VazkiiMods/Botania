@@ -26,6 +26,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaItem;
@@ -306,7 +307,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 		int x = MathHelper.floor_double(posX);
 		int y = MathHelper.floor_double(posY) - 1;
 		int z = MathHelper.floor_double(posZ);
-		TileEntity tile = worldObj.getTileEntity(x, y, z);
+		TileEntity tile = worldObj.getTileEntity(new BlockPos(x, y, z));
 		if(tile != null && tile instanceof ISparkAttachable)
 			return (ISparkAttachable) tile;
 

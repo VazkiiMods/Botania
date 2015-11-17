@@ -108,7 +108,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 				MovingObjectPosition lookat = ToolCommons.raytraceFromEntity(worldObj, player, true, 64);
 				if(lookat == null)
 					playerLook = new Vector3(player.getLookVec()).multiply(64).add(Vector3.fromEntity(player));
-				else playerLook = new Vector3(lookat.blockX + 0.5, lookat.blockY + 0.5, lookat.blockZ + 0.5);
+				else playerLook = new Vector3(lookat.getBlockPos().getX() + 0.5, lookat.getBlockPos().getY() + 0.5, lookat.getBlockPos().getZ() + 0.5);
 
 				Vector3 thisVec = Vector3.fromEntityCenter(this);
 				Vector3 motionVec = playerLook.sub(thisVec).normalize().multiply(2);

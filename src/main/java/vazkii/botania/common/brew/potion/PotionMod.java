@@ -23,7 +23,7 @@ public class PotionMod extends Potion {
 	private static final ResourceLocation resource = new ResourceLocation(LibResources.GUI_POTIONS);
 
 	public PotionMod(int id, String name, boolean badEffect, int color, int iconIndex) {
-		super(id, badEffect, color);
+		super(id, new ResourceLocation("botania", name), badEffect, color);
 		setPotionName("botania.potion." + name);
 		setIconIndex(iconIndex % 8, iconIndex / 8);
 	}

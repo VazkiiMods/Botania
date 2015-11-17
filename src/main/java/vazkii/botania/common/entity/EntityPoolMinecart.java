@@ -11,12 +11,15 @@
 package vazkii.botania.common.entity;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -47,8 +50,8 @@ public class EntityPoolMinecart extends EntityMinecart {
 	}
 
 	@Override
-	public Block func_145817_o() {
-		return ModBlocks.pool;
+	public IBlockState getDisplayTile() {
+		return ModBlocks.pool.getDefaultState();
 	}
 
 	@Override
@@ -57,14 +60,14 @@ public class EntityPoolMinecart extends EntityMinecart {
 	}
 
 	@Override
-	public int getMinecartType() {
-		return 0;
+	public EnumMinecartType getMinecartType() {
+		return EnumMinecartType.RIDEABLE; // todo 1.8
 	}
 
 	@Override
 	public void killMinecart(DamageSource p_94095_1_) {
 		super.killMinecart(p_94095_1_);
-		func_145778_a(Item.getItemFromBlock(ModBlocks.pool), 1, 0.0F);
+		dropItemWithOffset(Item.getItemFromBlock(ModBlocks.pool), 1, 0.0F);
 	}
 
 	@Override
@@ -73,24 +76,21 @@ public class EntityPoolMinecart extends EntityMinecart {
 	}
 
 	@Override
-	public void moveMinecartOnRail(int x, int y, int z, double par4) {
-		super.moveMinecartOnRail(x, y, z, par4);
+	public void moveMinecartOnRail(BlockPos pos) {
+		super.moveMinecartOnRail(pos);
 
-		for(ForgeDirection dir : LibMisc.CARDINAL_DIRECTIONS) {
-			int xp = x + dir.offsetX;
-			int zp = z + dir.offsetZ;
-			Block block = worldObj.getBlock(xp, y, zp);
+		for(EnumFacing dir : LibMisc.CARDINAL_DIRECTIONS) {
+			BlockPos posP = pos.offset(dir);
+			Block block = worldObj.getBlockState(posP).getBlock();
 			if(block == ModBlocks.pump) {
-				int xp_ = xp + dir.offsetX;
-				int zp_ = zp + dir.offsetZ;
-				int meta = worldObj.getBlockMetadata(xp, y, zp);
-				TileEntity tile = worldObj.getTileEntity(xp_, y, zp_);
-				TileEntity tile_ = worldObj.getTileEntity(xp, y, zp);
+				BlockPos posP_ = posP.offset(dir);
+				TileEntity tile = worldObj.getTileEntity(posP_);
+				TileEntity tile_ = worldObj.getTileEntity(posP);
 				TilePump pump = (TilePump) tile_;
 
 				if(tile != null && tile instanceof IManaPool && !pump.hasRedstone) {
 					IManaPool pool = (IManaPool) tile;
-					ForgeDirection pumpDir = ForgeDirection.getOrientation(meta);
+					EnumFacing pumpDir = ForgeDirection.getOrientation(meta);
 					boolean did = false;
 					boolean can = false;
 
@@ -119,7 +119,7 @@ public class EntityPoolMinecart extends EntityMinecart {
 					}
 
 					if(did) {
-						VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, , xp_);
+						VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, posP_);
 						pump.hasCart = true;
 						if(!pump.active)
 							pump.setActive(true);

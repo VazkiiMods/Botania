@@ -41,14 +41,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.ChatStyle;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
@@ -142,7 +135,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	public static boolean spawn(EntityPlayer player, ItemStack par1ItemStack, World par3World, int par4, int par5, int par6, boolean hard) {
 		Block block = par3World.getBlock(par4, par5, par6);
 		if(block == Blocks.beacon && isTruePlayer(player) && !par3World.isRemote) {
-			if(par3World.difficultySetting == EnumDifficulty.PEACEFUL) {
+			if(par3World.getDifficulty() == EnumDifficulty.PEACEFUL) {
 				player.addChatMessage(new ChatComponentTranslation("botaniamisc.peacefulNoob").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
 				return false;
 			}
@@ -405,7 +398,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		}
 
 		worldObj.playSoundAtEntity(this, "random.explode", 20F, (1F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
-		worldObj.spawnParticle("hugeexplosion", posX, posY, posZ, 1D, 0D, 0D);
+		worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, posX, posY, posZ, 1D, 0D, 0D);
 	}
 
 	@Override
@@ -475,7 +468,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 	@Override
 	public void setDead() {
 		BlockPos source = getSource();
-		Botania.proxy.playRecordClientSided(worldObj, , source.posX, null);
+		Botania.proxy.playRecordClientSided(worldObj, source, null);
 		isPlayingMusic = false;
 		super.setDead();
 	}
@@ -497,7 +490,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 			ridingEntity = null;
 		}
 
-		boolean peaceful = worldObj.difficultySetting == EnumDifficulty.PEACEFUL;
+		boolean peaceful = worldObj.getDifficulty() == EnumDifficulty.PEACEFUL;
 		if(!worldObj.isRemote && peaceful)
 			setDead();
 
