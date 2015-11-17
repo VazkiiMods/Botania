@@ -16,6 +16,8 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -35,18 +37,18 @@ public class ItemSpark extends ItemMod implements ICraftAchievement {
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float xv, float yv, float zv) {
-		TileEntity tile = world.getTileEntity(x, y, z);
+	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float xv, float yv, float zv) {
+		TileEntity tile = world.getTileEntity(pos);
 		if(tile instanceof ISparkAttachable) {
 			ISparkAttachable attach = (ISparkAttachable) tile;
 			if(attach.canAttachSpark(stack) && attach.getAttachedSpark() == null) {
 				stack.stackSize--;
 				if(!world.isRemote) {
 					EntitySpark spark = new EntitySpark(world);
-					spark.setPosition(x + 0.5, y + 1.5, z + 0.5);
+					spark.setPosition(pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5);
 					world.spawnEntityInWorld(spark);
 					attach.attachSpark(spark);
-					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, , x);
+					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 				}
 				return true;
 			}

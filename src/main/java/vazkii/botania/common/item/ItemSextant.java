@@ -44,7 +44,7 @@ public class ItemSextant extends ItemMod {
 	
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
-		return EnumAction.bow;
+		return EnumAction.BOW;
 	}
 
 	@Override
@@ -95,9 +95,9 @@ public class ItemSextant extends ItemMod {
 			MovingObjectPosition pos = ToolCommons.raytraceFromEntity(par2World, par3EntityPlayer, false, 128);
 			if(pos != null && pos.entityHit == null) {
 				if(!par2World.isRemote) {
-					ItemNBTHelper.setInt(par1ItemStack, TAG_SOURCE_X, pos.blockX);
-					ItemNBTHelper.setInt(par1ItemStack, TAG_SOURCE_Y, pos.blockY);
-					ItemNBTHelper.setInt(par1ItemStack, TAG_SOURCE_Z, pos.blockZ);
+					ItemNBTHelper.setInt(par1ItemStack, TAG_SOURCE_X, pos.getBlockPos().getX());
+					ItemNBTHelper.setInt(par1ItemStack, TAG_SOURCE_Y, pos.getBlockPos().getY());
+					ItemNBTHelper.setInt(par1ItemStack, TAG_SOURCE_Z, pos.getBlockPos().getZ());
 				}
 			} else ItemNBTHelper.setInt(par1ItemStack, TAG_SOURCE_Y, -1);
 			
@@ -134,7 +134,7 @@ public class ItemSextant extends ItemMod {
 		
 		if(onUse == stack && stack.getItem().getMaxItemUseDuration(stack) - time >= 10) {
 			double radius = calculateRadius(stack, player);
-			FontRenderer font = Minecraft.getMinecraft().fontRenderer;
+			FontRenderer font = Minecraft.getMinecraft().fontRendererObj;
 			int x = resolution.getScaledWidth() / 2 + 30;
 			int y = resolution.getScaledHeight() / 2;
 			

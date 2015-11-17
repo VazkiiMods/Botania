@@ -15,6 +15,7 @@ import java.util.List;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -28,11 +29,10 @@ public class Item16Colors extends ItemMod {
 
 	@Override
 	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
-		if(par1ItemStack.getItemDamage() >= EntitySheep.fleeceColorTable.length)
+		if(par1ItemStack.getItemDamage() >= EnumDyeColor.values().length)
 			return 0xFFFFFF;
 
-		float[] color = EntitySheep.fleeceColorTable[par1ItemStack.getItemDamage()];
-		return new Color(color[0], color[1], color[2]).getRGB();
+		return EnumDyeColor.byMetadata(par1ItemStack.getItemDamage()).getMapColor().colorValue;
 	}
 
 	@Override

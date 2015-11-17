@@ -16,6 +16,7 @@ import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import vazkii.botania.common.achievement.ModAchievements;
@@ -45,7 +46,7 @@ public class ItemPinkinator extends ItemMod {
 				}
 				player.addStat(ModAchievements.pinkinator, 1);
 
-				world.spawnParticle("hugeexplosion", wither.posX, wither.posY, wither.posZ, 1D, 0D, 0D);
+				world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, wither.posX, wither.posY, wither.posZ, 1D, 0D, 0D);
 				stack.stackSize--;
 				return stack;
 			}

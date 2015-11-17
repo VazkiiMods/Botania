@@ -28,12 +28,12 @@ public class ItemWorldSeed extends ItemMod {
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
 		BlockPos coords = world.getSpawnPoint();
 
-		if(MathHelper.pointDistanceSpace(coords.posX + 0.5, coords.posY + 0.5, coords.posZ + 0.5, player.posX, player.posY, player.posZ) > 24) {
+		if(MathHelper.pointDistanceSpace(coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5, player.posX, player.posY, player.posZ) > 24) {
 			player.rotationPitch = 0F;
 			player.rotationYaw = 0F;
-			player.setPositionAndUpdate(coords.posX + 0.5, coords.posY + 1.6, coords.posZ + 0.5);
+			player.setPositionAndUpdate(coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5);
 
-			while(!world.getCollidingBoundingBoxes(player, player.boundingBox).isEmpty())
+			while(!world.getCollidingBoundingBoxes(player, player.getBoundingBox()).isEmpty())
 				player.setPositionAndUpdate(player.posX, player.posY + 1, player.posZ);
 
 			world.playSoundAtEntity(player, "mob.endermen.portal", 1F, 1F);

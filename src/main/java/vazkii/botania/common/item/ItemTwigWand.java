@@ -21,15 +21,14 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.*;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -58,6 +57,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 	private static final String TAG_BOUND_TILE_Y = "boundTileY";
 	private static final String TAG_BOUND_TILE_Z = "boundTileZ";
 	private static final String TAG_BIND_MODE = "bindMode";
+	private static final BlockPos UNBOUND_POS = new BlockPos(0, -1, 0);
 
 	public ItemTwigWand() {
 		super(LibItemNames.TWIG_WAND);
@@ -65,41 +65,41 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
-		Block block = par3World.getBlock(par4, par5, par6);
+	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumFacing side, float par8, float par9, float par10) {
+		Block block = par3World.getBlockState(pos).getBlock();
 		BlockPos boundTile = getBoundTile(par1ItemStack);
 
-		if(boundTile.posY != -1 && par2EntityPlayer.isSneaking() && (boundTile.posX != par4 || boundTile.posY != par5 || boundTile.posZ != par6)) {
-			TileEntity tile = par3World.getTileEntity(boundTile.posX, boundTile.posY, boundTile.posZ);
+		if(boundTile.getY() != -1 && par2EntityPlayer.isSneaking() && !pos.equals(boundTile)) {
+			TileEntity tile = par3World.getTileEntity(boundTile);
 			if(tile instanceof IWandBindable) {
-				if(((IWandBindable) tile).bindTo(par2EntityPlayer, par1ItemStack, , par4, , par5)) {
-					Vector3 orig = new Vector3(boundTile.posX + 0.5, boundTile.posY + 0.5, boundTile.posZ + 0.5);
-					Vector3 end = new Vector3(par4 + 0.5, par5 + 0.5, par6 + 0.5);
+				if(((IWandBindable) tile).bindTo(par2EntityPlayer, par1ItemStack, pos, side)) {
+					Vector3 orig = new Vector3(boundTile.getX() + 0.5, boundTile.getY() + 0.5, boundTile.getZ() + 0.5);
+					Vector3 end = new Vector3(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 					doParticleBeam(par3World, orig, end);
 
-					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(par3World, , boundTile.posX);
-					setBoundTile(par1ItemStack, 0, -1, 0);
+					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(par3World, boundTile);
+					setBoundTile(par1ItemStack, UNBOUND_POS);
 				}
 
 				return true;
-			} else setBoundTile(par1ItemStack, 0, -1, 0);
+			} else setBoundTile(par1ItemStack, UNBOUND_POS);
 		} else if(par2EntityPlayer.isSneaking()) {
-			block.rotateBlock(par3World, par4, par5, par6, ForgeDirection.getOrientation(par7));
+			block.rotateBlock(par3World, pos, side);
 			if(par3World.isRemote)
 				par2EntityPlayer.swingItem();
 		}
 
 		if(block == Blocks.lapis_block && ConfigHandler.enchanterEnabled) {
 			int meta = -1;
-			if(TileEnchanter.canEnchanterExist(par3World, par4, par5, par6, 0))
+			if(TileEnchanter.canEnchanterExist(par3World, pos, 0))
 				meta = 0;
-			else if(TileEnchanter.canEnchanterExist(par3World, par4, par5, par6, 1))
+			else if(TileEnchanter.canEnchanterExist(par3World, pos, 1))
 				meta = 1;
 
 			if(meta != -1 && !par3World.isRemote) {
-				par3World.setBlock(par4, par5, par6, ModBlocks.enchanter, meta, 1 | 2);
+				par3World.setBlockState(pos, ModBlocks.enchanter, meta, 1 | 2);
 				par2EntityPlayer.addStat(ModAchievements.enchanterMake, 1);
-				par3World.playSoundEffect(par4, par5, par6, "botania:enchanterBlock", 0.5F, 0.6F);
+				par3World.playSoundEffect(pos.getX(), pos.getY(), pos.getZ(), "botania:enchanterBlock", 0.5F, 0.6F);
 				for(int i = 0; i < 50; i++) {
 					float red = (float) Math.random();
 					float green = (float) Math.random();
@@ -111,18 +111,18 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 
 					float velMul = 0.07F;
 
-					Botania.proxy.wispFX(par3World, par4 + 0.5 + x, par5 + 0.5 + y, par6 + 0.5 + z, red, green, blue, (float) Math.random() * 0.15F + 0.15F, (float) -x * velMul, (float) -y * velMul, (float) -z * velMul);
+					Botania.proxy.wispFX(par3World, pos.getX() + 0.5 + x, pos.getY() + 0.5 + y, pos.getZ() + 0.5 + z, red, green, blue, (float) Math.random() * 0.15F + 0.15F, (float) -x * velMul, (float) -y * velMul, (float) -z * velMul);
 				}
 			}
 		} else if(block instanceof IWandable) {
-			TileEntity tile = par3World.getTileEntity(par4, par5, par6);
+			TileEntity tile = par3World.getTileEntity(pos);
 			boolean bindable = tile instanceof IWandBindable;
 
 			boolean wanded = false;
-			if(getBindMode(par1ItemStack) && bindable && par2EntityPlayer.isSneaking() && ((IWandBindable) tile).canSelect(par2EntityPlayer, par1ItemStack, , par4, , par5)) {
-				if(boundTile.posX == par4 && boundTile.posY == par5 && boundTile.posZ == par6)
-					setBoundTile(par1ItemStack, 0, -1, 0);
-				else setBoundTile(par1ItemStack, par4, par5, par6);
+			if(getBindMode(par1ItemStack) && bindable && par2EntityPlayer.isSneaking() && ((IWandBindable) tile).canSelect(par2EntityPlayer, par1ItemStack, pos, side)) {
+				if(boundTile.equals(pos))
+					setBoundTile(par1ItemStack, UNBOUND_POS);
+				else setBoundTile(par1ItemStack, pos);
 
 				if(par3World.isRemote)
 					par2EntityPlayer.swingItem();
@@ -130,7 +130,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 
 				wanded = true;
 			} else {
-				wanded = ((IWandable) block).onUsedByWand(par2EntityPlayer, par1ItemStack, par3World, , par4, , par5);
+				wanded = ((IWandable) block).onUsedByWand(par2EntityPlayer, par1ItemStack, par3World, pos, side);
 				if(wanded && par3World.isRemote)
 					par2EntityPlayer.swingItem();
 			}
@@ -138,7 +138,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 			return wanded;
 		} else if(BlockPistonRelay.playerPositions.containsKey(par2EntityPlayer.getCommandSenderName()) && !par3World.isRemote) {
 			String bindPos = BlockPistonRelay.playerPositions.get(par2EntityPlayer.getCommandSenderName());
-			String currentPos = BlockPistonRelay.getCoordsAsString(par3World.provider.dimensionId, par4, par5, par6);
+			String currentPos = BlockPistonRelay.getCoordsAsString(par3World.provider.getDimensionId(), pos);
 
 			BlockPistonRelay.playerPositions.remove(par2EntityPlayer.getCommandSenderName());
 			BlockPistonRelay.mappedPositions.put(bindPos, currentPos);
@@ -178,9 +178,9 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 	@Override
 	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
 		BlockPos coords = getBoundTile(par1ItemStack);
-		TileEntity tile = par2World.getTileEntity(coords.posX, coords.posY, coords.posZ);
+		TileEntity tile = par2World.getTileEntity(coords);
 		if(tile == null || !(tile instanceof IWandBindable))
-			setBoundTile(par1ItemStack, 0, -1, 0);
+			setBoundTile(par1ItemStack, UNBOUND_POS);
 	}
 
 	@Override
@@ -218,18 +218,8 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 		if(par2 == 0 || par2 == 3)
 			return 0xFFFFFF;
 
-		float[] color = EntitySheep.fleeceColorTable[par2 == 1 ? getColor1(par1ItemStack) : getColor2(par1ItemStack)];
-		return new Color(color[0], color[1], color[2]).getRGB();
-	}
-
-	@Override
-	public boolean requiresMultipleRenderPasses() {
-		return true;
-	}
-
-	@Override
-	public int getRenderPasses(int metadata) {
-		return 4;
+		EnumDyeColor color = EnumDyeColor.byMetadata(par2 == 1 ? getColor1(par1ItemStack) : getColor2(par1ItemStack));
+		return color.getMapColor().colorValue;
 	}
 
 	@Override
@@ -250,7 +240,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 
 	@Override
 	public EnumRarity getRarity(ItemStack par1ItemStack) {
-		return EnumRarity.rare;
+		return EnumRarity.RARE;
 	}
 
 	public static ItemStack forColors(int color1, int color2) {
@@ -269,10 +259,10 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 		return ItemNBTHelper.getInt(stack, TAG_COLOR2, 0);
 	}
 
-	public static void setBoundTile(ItemStack stack, int x, int y, int z) {
-		ItemNBTHelper.setInt(stack, TAG_BOUND_TILE_X, x);
-		ItemNBTHelper.setInt(stack, TAG_BOUND_TILE_Y, y);
-		ItemNBTHelper.setInt(stack, TAG_BOUND_TILE_Z, z);
+	public static void setBoundTile(ItemStack stack, BlockPos pos) {
+		ItemNBTHelper.setInt(stack, TAG_BOUND_TILE_X, pos.getX());
+		ItemNBTHelper.setInt(stack, TAG_BOUND_TILE_Y, pos.getY());
+		ItemNBTHelper.setInt(stack, TAG_BOUND_TILE_Z, pos.getZ());
 	}
 
 	public static BlockPos getBoundTile(ItemStack stack) {
@@ -297,12 +287,12 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 	@Override
 	public BlockPos getBinding(ItemStack stack) {
 		BlockPos bound = getBoundTile(stack);
-		if(bound.posY != -1)
+		if(bound.getY() != -1)
 			return bound;
 
 		MovingObjectPosition pos = Minecraft.getMinecraft().objectMouseOver;
 		if(pos != null) {
-			TileEntity tile = Minecraft.getMinecraft().theWorld.getTileEntity(pos.blockX, pos.blockY, pos.blockZ);
+			TileEntity tile = Minecraft.getMinecraft().theWorld.getTileEntity(pos.getBlockPos());
 			if(tile != null && tile instanceof ITileBound) {
 				BlockPos coords = ((ITileBound) tile).getBinding();
 				return coords;

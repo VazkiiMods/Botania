@@ -11,8 +11,11 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.common.block.ModBlocks;
@@ -25,15 +28,15 @@ public class ItemOvergrowthSeed extends ItemMod {
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int s, float xs, float ys, float zs) {
-		Block block = world.getBlock(x, y, z);
-		ItemStack blockStack = new ItemStack(block);
+	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float xs, float ys, float zs) {
+		IBlockState state = world.getBlockState(pos);
+		ItemStack blockStack = new ItemStack(state.getBlock());
 		int[] ids = OreDictionary.getOreIDs(blockStack);
 		for(int i : ids) {
 			String name = OreDictionary.getOreName(i);
 			if(name.equals("grass")) {
-				world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block));
-				world.setBlock(x, y, z, ModBlocks.enchantedSoil);
+				world.playAuxSFX(2001, pos, Block.getStateId(state));
+				world.setBlockState(pos, ModBlocks.enchantedSoil.getDefaultState());
 				stack.stackSize--;
 
 				return true;

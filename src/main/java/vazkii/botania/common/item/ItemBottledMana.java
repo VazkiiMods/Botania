@@ -26,11 +26,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.DamageSource;
+import net.minecraft.util.*;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -57,8 +54,8 @@ public class ItemBottledMana extends ItemMod {
 			break;
 		}
 		case 1 : { // Water
-			if(!player.worldObj.isRemote && !player.worldObj.provider.isHellWorld)
-				player.worldObj.setBlock(MathHelper.floor_double(player.posX), MathHelper.floor_double(player.posY), MathHelper.floor_double(player.posZ), Blocks.flowing_water);
+			if(!player.worldObj.isRemote && !player.worldObj.provider.doesWaterVaporize())
+				player.worldObj.setBlockState(new BlockPos(player), Blocks.flowing_water.getDefaultState());
 			break;
 		}
 		case 2 : { // Set on Fire
@@ -72,7 +69,7 @@ public class ItemBottledMana extends ItemMod {
 			break;
 		}
 		case 4 : { // Mega Jump
-			if(!player.worldObj.provider.isHellWorld) {
+			if(!player.worldObj.provider.doesWaterVaporize()) {
 				if(!player.worldObj.isRemote)
 					player.addPotionEffect(new PotionEffect(Potion.resistance.id, 300, 5));
 				player.motionY = 6;
@@ -87,7 +84,7 @@ public class ItemBottledMana extends ItemMod {
 		}
 		case 6 : { // Lots O' Hearts
 			if(!player.worldObj.isRemote)
-				player.addPotionEffect(new PotionEffect(Potion.field_76444_x.id, 20 * 60 * 2, 9));
+				player.addPotionEffect(new PotionEffect(Potion.absorption.id, 20 * 60 * 2, 9));
 			break;
 		}
 		case 7 : { // All your inventory is belong to us
@@ -113,8 +110,8 @@ public class ItemBottledMana extends ItemMod {
 			MathHelper.floor_double(player.posY);
 			int z = MathHelper.floor_double(player.posZ);
 			for(int i = 256; i > 0; i--) {
-				Block block = player.worldObj.getBlock(x, i, z);
-				if(!block.isAir(player.worldObj, x, i, z)) {
+				Block block = player.worldObj.getBlockState(new BlockPos(x, i, z)).getBlock();
+				if(!block.isAir(player.worldObj, new BlockPos(x, i, z))) {
 					if(player instanceof EntityPlayerMP) {
 						EntityPlayerMP mp = (EntityPlayerMP) player;
 						mp.playerNetServerHandler.setPlayerLocation(player.posX, i + 1.6, player.posZ, player.rotationYaw, player.rotationPitch);
@@ -227,7 +224,7 @@ public class ItemBottledMana extends ItemMod {
 	}
 
 	@Override
-	public ItemStack onEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+	public ItemStack onItemUseFinish(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
 		randomEffect(par3EntityPlayer, par1ItemStack);
 		par1ItemStack.setItemDamage(par1ItemStack.getItemDamage() + 1);
 		randomSeed(par1ItemStack);
@@ -244,7 +241,7 @@ public class ItemBottledMana extends ItemMod {
 
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
-		return EnumAction.drink;
+		return EnumAction.DRINK;
 	}
 
 }

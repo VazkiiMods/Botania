@@ -49,7 +49,7 @@ public class ItemSlingshot extends ItemMod {
 	}
 
 	@Override
-	public ItemStack onEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+	public ItemStack onItemUseFinish(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
 		return par1ItemStack;
 	}
 
@@ -60,7 +60,7 @@ public class ItemSlingshot extends ItemMod {
 
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
-		return EnumAction.bow;
+		return EnumAction.BOW;
 	}
 
 	@Override

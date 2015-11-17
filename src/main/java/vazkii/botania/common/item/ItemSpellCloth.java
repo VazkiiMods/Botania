@@ -40,7 +40,7 @@ public class ItemSpellCloth extends ItemMod {
 	}
 
 	@Override
-	public boolean hasContainerItem() {
+	public boolean hasContainerItem(ItemStack stack) {
 		return true;
 	}
 
@@ -49,11 +49,6 @@ public class ItemSpellCloth extends ItemMod {
 		ItemStack stack = itemStack.copy();
 		stack.setItemDamage(stack.getItemDamage() + 1);
 		return stack;
-	}
-
-	@Override
-	public boolean doesContainerItemLeaveCraftingGrid(ItemStack par1ItemStack) {
-		return false;
 	}
 
 }

@@ -42,7 +42,7 @@ public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
 	}
 
 	@Override
-	public boolean hasEffect(ItemStack par1ItemStack, int pass) {
+	public boolean hasEffect(ItemStack par1ItemStack) {
 		return par1ItemStack.getItemDamage() > 0;
 	}
 
@@ -62,7 +62,7 @@ public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
 		if(!item.worldObj.isRemote) {
 			pool.recieveMana(t2 ? MANA_PER_T2 : MANA_PER);
 			stack.stackSize--;
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(item.worldObj, , tile.xCoord);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(item.worldObj, tile.getPos());
 		}
 
 		for(int i = 0; i < 50; i++) {
@@ -76,7 +76,7 @@ public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
 			float my = (float) Math.random() * m;
 			float mz = ((float) Math.random() - 0.5F) * m;
 
-			Botania.proxy.wispFX(item.worldObj, item.posX, tile.yCoord + 0.5F, item.posZ, r, g, b, s, mx, my, mz);
+			Botania.proxy.wispFX(item.worldObj, item.posX, tile.getPos().getY() + 0.5F, item.posZ, r, g, b, s, mx, my, mz);
 		}
 		item.worldObj.playSoundAtEntity(item, "botania:blackLotus", 0.5F, t2 ? 0.1F : 1F);
 	}

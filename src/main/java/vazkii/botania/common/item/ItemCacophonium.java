@@ -114,7 +114,7 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
-		return EnumAction.block;
+		return EnumAction.BLOCK;
 	}
 
 	@Override

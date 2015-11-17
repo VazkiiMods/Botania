@@ -19,6 +19,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -108,22 +109,16 @@ public class ItemSignalFlare extends ItemMod {
 			return 0xFFFFFF;
 
 		int colorv = getColor(par1ItemStack);
-		if(colorv >= EntitySheep.fleeceColorTable.length || colorv < 0)
+		if(colorv >= EnumDyeColor.values().length || colorv < 0)
 			return 0xFFFFFF;
 
-		float[] color = EntitySheep.fleeceColorTable[getColor(par1ItemStack)];
-		return new Color(color[0], color[1], color[2]).getRGB();
+		return EnumDyeColor.byMetadata(getColor(par1ItemStack)).getMapColor().colorValue;
 	}
 
 	@Override
 	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
 		for(int i = 0; i < 16; i++)
 			par3List.add(forColor(i));
-	}
-
-	@Override
-	public boolean requiresMultipleRenderPasses() {
-		return true;
 	}
 
 	@Override

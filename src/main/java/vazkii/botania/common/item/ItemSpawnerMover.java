@@ -20,6 +20,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
@@ -104,22 +106,22 @@ public class ItemSpawnerMover extends ItemMod {
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack itemstack, EntityPlayer player, World world, int x, int y, int z, int side, float xOffset, float yOffset, float zOffset) {
+	public boolean onItemUse(ItemStack itemstack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float xOffset, float yOffset, float zOffset) {
 		if(getEntityId(itemstack) == null) {
-			if(world.getBlock(x, y, z).equals(Blocks.mob_spawner)) {
-				TileEntity te = world.getTileEntity(x, y, z);
+			if(world.getBlockState(pos).getBlock().equals(Blocks.mob_spawner)) {
+				TileEntity te = world.getTileEntity(pos);
 				NBTTagCompound tag = new NBTTagCompound();
 				tag.setTag(TAG_SPAWNER, new NBTTagCompound());
 				te.writeToNBT(tag.getCompoundTag(TAG_SPAWNER));
 				tag.setInteger(TAG_PLACE_DELAY, 20);
 				itemstack.setTagCompound(tag);
-				world.setBlockToAir(x, y, z);
+				world.setBlockToAir(pos);
 				player.renderBrokenItemStack(itemstack);
 				for(int i = 0; i < 50; i++) {
 					float red = (float) Math.random();
 					float green = (float) Math.random();
 					float blue = (float) Math.random();
-					Botania.proxy.wispFX(world, x + 0.5, y + 0.5, z + 0.5, red, green, blue, (float) Math.random() * 0.1F + 0.05F, (float) (Math.random() - 0.5F) * 0.15F, (float) (Math.random() - 0.5F) * 0.15F, (float) (Math.random() - 0.5F) * 0.15F);
+					Botania.proxy.wispFX(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, red, green, blue, (float) Math.random() * 0.1F + 0.05F, (float) (Math.random() - 0.5F) * 0.15F, (float) (Math.random() - 0.5F) * 0.15F, (float) (Math.random() - 0.5F) * 0.15F);
 				}
 				return true;
 			} else return false;
