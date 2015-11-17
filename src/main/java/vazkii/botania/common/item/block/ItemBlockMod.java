@@ -38,12 +38,12 @@ public class ItemBlockMod extends ItemBlock implements IPickupAchievement, ICraf
 
 	@Override
 	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
-		return field_150939_a instanceof ICraftAchievement ? ((ICraftAchievement) field_150939_a).getAchievementOnCraft(stack, player, matrix) : null;
+		return block instanceof ICraftAchievement ? ((ICraftAchievement) block).getAchievementOnCraft(stack, player, matrix) : null;
 	}
 
 	@Override
 	public Achievement getAchievementOnPickup(ItemStack stack, EntityPlayer player, EntityItem item) {
-		return field_150939_a instanceof IPickupAchievement ? ((IPickupAchievement) field_150939_a).getAchievementOnPickup(stack, player, item) : null;
+		return block instanceof IPickupAchievement ? ((IPickupAchievement) block).getAchievementOnPickup(stack, player, item) : null;
 	}
 
 }

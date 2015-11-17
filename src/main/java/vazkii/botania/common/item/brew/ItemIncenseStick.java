@@ -13,7 +13,6 @@ package vazkii.botania.common.item.brew;
 import java.awt.Color;
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -21,7 +20,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
@@ -63,11 +61,6 @@ public class ItemIncenseStick extends ItemMod implements IBrewItem, IBrewContain
 	}
 
 	@Override
-	public boolean requiresMultipleRenderPasses() {
-		return true;
-	}
-
-	@Override
 	public IIcon getIcon(ItemStack stack, int pass) {
 		return icons[pass];
 	}
@@ -103,7 +96,7 @@ public class ItemIncenseStick extends ItemMod implements IBrewItem, IBrewContain
 		for(PotionEffect effect : brew.getPotionEffects(stack)) {
 			Potion potion = Potion.potionTypes[effect.getPotionID()];
 			EnumChatFormatting format = potion.isBadEffect() ? EnumChatFormatting.RED : EnumChatFormatting.GRAY;
-			PotionEffect longEffect = new PotionEffect(effect.getPotionID(), effect.getDuration() * TIME_MULTIPLIER, effect.getAmplifier(), false);
+			PotionEffect longEffect = new PotionEffect(effect.getPotionID(), effect.getDuration() * TIME_MULTIPLIER, effect.getAmplifier(), false, true);
 			addStringToTooltip(" " + format + StatCollector.translateToLocal(effect.getEffectName()) + (effect.getAmplifier() == 0 ? "" : " " + StatCollector.translateToLocal("botania.roman" + (effect.getAmplifier() + 1))) + EnumChatFormatting.GRAY + (potion.isInstant() ? "" : " (" + Potion.getDurationString(longEffect) + ")"), list);
 		}
 	}

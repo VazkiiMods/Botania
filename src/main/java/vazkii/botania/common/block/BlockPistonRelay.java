@@ -81,8 +81,8 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 		mapCoords(par1World.provider.dimensionId, par2, par3, par4, 2);
 	}
 
-	public static String getCoordsAsString(int world, int x, int y, int z) {
-		return world + ":" + x + ":" + y + ":" + z;
+	public static String getCoordsAsString(int world, BlockPos pos) {
+		return world + ":" + pos.getX() + ":" + pos.getY() + ":" + pos.getZ();
 	}
 
 	static void mapCoords(int world, int x, int y, int z, int time) {

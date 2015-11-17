@@ -13,7 +13,6 @@ package vazkii.botania.common.item.brew;
 import java.awt.Color;
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,7 +23,6 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.stats.Achievement;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
@@ -69,7 +67,7 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickup
 
 	@Override
 	public EnumAction getItemUseAction(ItemStack p_77661_1_) {
-		return EnumAction.drink;
+		return EnumAction.DRINK;
 	}
 
 	@Override
@@ -79,13 +77,13 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickup
 	}
 
 	@Override
-	public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) {
+	public ItemStack onItemUseFinish(ItemStack stack, World world, EntityPlayer player) {
 		if(!world.isRemote) {
 			for(PotionEffect effect : getBrew(stack).getPotionEffects(stack)) {
-				PotionEffect newEffect = new PotionEffect(effect.getPotionID(), effect.getDuration(), effect.getAmplifier(), true);
+				PotionEffect newEffect = new PotionEffect(effect.getPotionID(), effect.getDuration(), effect.getAmplifier(), true, true);
 				Potion potion = Potion.potionTypes[newEffect.getPotionID()];
 				if(potion.isInstant())
-					potion.affectEntity(player, player, newEffect.getAmplifier(), 1F);
+					potion.affectEntity(player, player, player, newEffect.getAmplifier(), 1F);
 				else player.addPotionEffect(newEffect);
 			}
 
@@ -125,11 +123,6 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickup
 		icons = new IIcon[swigs];
 		for(int i = 0; i < swigs; i++)
 			icons[i] = IconHelper.forName(par1IconRegister, texName + "1_" + i);
-	}
-
-	@Override
-	public boolean requiresMultipleRenderPasses() {
-		return true;
 	}
 
 	@Override

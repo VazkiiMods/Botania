@@ -15,8 +15,8 @@ import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileIncensePlate;
@@ -26,23 +26,21 @@ public class LensFire extends Lens {
 	@Override
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		BlockPos coords = burst.getBurstSourceBlockPos();
-		if((coords.posX != pos.blockX || coords.posY != pos.blockY || coords.posZ != pos.blockZ) && !burst.isFake() && !isManaBlock) {
-			ForgeDirection dir = ForgeDirection.getOrientation(pos.sideHit);
+		if(!coords.equals(pos.getBlockPos()) && !burst.isFake() && !isManaBlock) {
+			EnumFacing dir = pos.sideHit;
 
-			int x = pos.blockX + dir.offsetX;
-			int y = pos.blockY + dir.offsetY;
-			int z = pos.blockZ + dir.offsetZ;
+			BlockPos pos_ = pos.getBlockPos().offset(dir);
 
-			Block blockAt = entity.worldObj.getBlock(pos.blockX, pos.blockY, pos.blockZ);
-			Block blockAt_ = entity.worldObj.getBlock(x, y, z);
+			Block blockAt = entity.worldObj.getBlockState(pos.getBlockPos()).getBlock();
+			Block blockAt_ = entity.worldObj.getBlockState(pos_).getBlock();
 
 			if(blockAt == Blocks.portal)
-				entity.worldObj.setBlock(pos.blockX, pos.blockY, pos.blockZ, Blocks.air);
+				entity.worldObj.setBlockState(pos.getBlockPos(), Blocks.air.getDefaultState());
 			else if(blockAt == ModBlocks.incensePlate) {
-				TileIncensePlate plate = (TileIncensePlate) entity.worldObj.getTileEntity(pos.blockX, pos.blockY, pos.blockZ);
+				TileIncensePlate plate = (TileIncensePlate) entity.worldObj.getTileEntity(pos.getBlockPos());
 				plate.ignite();
-			} else if(blockAt_.isAir(entity.worldObj, x, y, z))
-				entity.worldObj.setBlock(x, y, z, Blocks.fire);
+			} else if(blockAt_.isAir(entity.worldObj, pos_))
+				entity.worldObj.setBlockState(pos_, Blocks.fire.getDefaultState());
 		}
 
 		return dead;

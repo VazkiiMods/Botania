@@ -23,9 +23,4 @@ public class ItemPestleAndMortar extends ItemMod {
 		setUnlocalizedName(LibItemNames.PESTLE_AND_MORTAR);
 	}
 
-	@Override
-	public boolean doesContainerItemLeaveCraftingGrid(ItemStack par1ItemStack) {
-		return false;
-	}
-
 }

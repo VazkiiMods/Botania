@@ -18,6 +18,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -154,11 +155,6 @@ public class ItemLens extends ItemMod implements ILens, ITinyPlanetExcempt {
 	}
 
 	@Override
-	public boolean requiresMultipleRenderPasses() {
-		return true;
-	}
-
-	@Override
 	public IIcon getIconFromDamageForRenderPass(int par1, int par2) {
 		return par2 == 1 ? ringIcons[Math.min(SUBTYPES - 1, par1)] : iconGlass;
 	}
@@ -249,8 +245,7 @@ public class ItemLens extends ItemMod implements ILens, ITinyPlanetExcempt {
 		if(storedColor == 16)
 			return Color.HSBtoRGB(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 1F, 1F);
 
-		float[] color = EntitySheep.fleeceColorTable[storedColor];
-		return new Color(color[0], color[1], color[2]).getRGB();
+		return EnumDyeColor.byMetadata(storedColor).getMapColor().colorValue;
 	}
 
 	public static int getStoredColor(ItemStack stack) {

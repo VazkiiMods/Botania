@@ -40,7 +40,7 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 
 	@Override
 	public EnumAction getItemUseAction(ItemStack p_77661_1_) {
-		return isBoot(p_77661_1_) ? EnumAction.drink : EnumAction.eat;
+		return isBoot(p_77661_1_) ? EnumAction.DRINK : EnumAction.EAT;
 	}
 
 	@Override

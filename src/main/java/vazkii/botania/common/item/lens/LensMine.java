@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Blocks;
@@ -33,10 +34,8 @@ public class LensMine extends Lens {
 	@Override
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		World world = entity.worldObj;
-		int x = pos.blockX;
-		int y = pos.blockY;
-		int z = pos.blockZ;
-		Block block = world.getBlock(x, y, z);
+		BlockPos pos_ = pos.getBlockPos();
+		Block block = world.getBlockState(pos_).getBlock();
 
 		ItemStack composite = ((ItemLens) ModItems.lens).getCompositeLens(stack);
 		boolean warp = composite != null && composite.getItem() == ModItems.lens && composite.getItemDamage() == ItemLens.WARP;
@@ -44,29 +43,29 @@ public class LensMine extends Lens {
 		if(warp && (block == ModBlocks.pistonRelay || block == Blocks.piston || block == Blocks.piston_extension || block == Blocks.piston_head))
 			return false;
 
-		TileEntity tile = world.getTileEntity(x, y, z);
+		TileEntity tile = world.getTileEntity(pos_);
 
-		int meta = world.getBlockMetadata(x, y, z);
-		float hardness = block.getBlockHardness(world, x, y, z);
+		IBlockState state = world.getBlockState(pos_);
+		float hardness = block.getBlockHardness(world, pos_);
 		int mana = burst.getMana();
 
 		BlockPos coords = burst.getBurstSourceBlockPos();
-		if((coords.posX != x || coords.posY != y || coords.posZ != z) && !(tile instanceof IManaBlock) && block != null && hardness != -1 && hardness < 50F && (burst.isFake() || mana >= 24)) {
+		if(!coords.equals(pos.getBlockPos()) && !(tile instanceof IManaBlock) && block != null && hardness != -1 && hardness < 50F && (burst.isFake() || mana >= 24)) {
 			List<ItemStack> items = new ArrayList();
 
-			items.addAll(block.getDrops(world, x, y, z, meta, 0));
+			items.addAll(block.getDrops(world, pos_, world.getBlockState(pos_), 0));
 
-			if(!burst.hasAlreadyCollidedAt(x)) {
+			if(!burst.hasAlreadyCollidedAt(pos_)) {
 				if(!burst.isFake() && !entity.worldObj.isRemote) {
-					world.setBlockToAir(x, y, z);
+					world.setBlockToAir(pos_);
 					if(ConfigHandler.blockBreakParticles)
-						entity.worldObj.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
+						entity.worldObj.playAuxSFX(2001, pos_, Block.getStateId(state));
 
-					boolean offBounds = coords.posY < 0;
+					boolean offBounds = coords.getY() < 0;
 					boolean doWarp = warp && !offBounds;
-					int dropX = doWarp ? coords.posX : x;
-					int dropY = doWarp ? coords.posY : y;
-					int dropZ = doWarp ? coords.posZ : z;
+					int dropX = doWarp ? coords.getX() : pos_.getX();
+					int dropY = doWarp ? coords.getY() : pos_.getY();
+					int dropZ = doWarp ? coords.getZ() : pos_.getZ();
 
 					for(ItemStack stack_ : items)
 						world.spawnEntityInWorld(new EntityItem(world, dropX + 0.5, dropY + 0.5, dropZ + 0.5, stack_));

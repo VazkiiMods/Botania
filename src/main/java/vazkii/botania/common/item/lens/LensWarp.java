@@ -13,6 +13,7 @@ package vazkii.botania.common.item.lens;
 import net.minecraft.block.Block;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.common.block.BlockPistonRelay;
@@ -25,15 +26,15 @@ public class LensWarp extends Lens {
 		if(burst.isFake())
 			return dead;
 
-		Block block = entity.worldObj.getBlock(pos.blockX, pos.blockY, pos.blockZ);
+		Block block = entity.worldObj.getBlockState(pos.getBlockPos()).getBlock();
 		if(block == ModBlocks.pistonRelay) {
-			String key = BlockPistonRelay.mappedPositions.get(BlockPistonRelay.getCoordsAsString(entity.worldObj.provider.dimensionId, pos.blockX, pos.blockY, pos.blockZ));
+			String key = BlockPistonRelay.mappedPositions.get(BlockPistonRelay.getCoordsAsString(entity.worldObj.provider.getDimensionId(), pos.getBlockPos()));
 			if(key != null) {
 				String[] tokens = key.split(":");
 				int worldId = Integer.parseInt(tokens[0]), x = Integer.parseInt(tokens[1]), y = Integer.parseInt(tokens[2]), z = Integer.parseInt(tokens[3]);
-				if(worldId == entity.worldObj.provider.dimensionId) {
+				if(worldId == entity.worldObj.provider.getDimensionId()) {
 					entity.setPosition(x + 0.5, y + 0.5, z + 0.5);
-					burst.setCollidedAt(x);
+					burst.setCollidedAt(pos.getBlockPos());
 					return false;
 				}
 			}

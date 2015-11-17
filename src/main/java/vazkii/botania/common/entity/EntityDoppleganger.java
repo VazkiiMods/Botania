@@ -132,7 +132,7 @@ public class EntityDoppleganger extends EntityCreature implements IBotaniaBossWi
 		return mb.makeSet();
 	}
 
-	public static boolean spawn(EntityPlayer player, ItemStack par1ItemStack, World par3World, int par4, int par5, int par6, boolean hard) {
+	public static boolean spawn(EntityPlayer player, ItemStack par1ItemStack, World par3World, BlockPos pos, boolean hard) {
 		Block block = par3World.getBlock(par4, par5, par6);
 		if(block == Blocks.beacon && isTruePlayer(player) && !par3World.isRemote) {
 			if(par3World.getDifficulty() == EnumDifficulty.PEACEFUL) {

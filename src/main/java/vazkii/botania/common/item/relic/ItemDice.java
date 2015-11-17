@@ -94,7 +94,7 @@ public class ItemDice extends ItemRelic {
 		Item item = relicStacks[relic].getItem();
 		IRelic irelic = (IRelic) item;
 		Achievement achievement = irelic.getBindAchievement();
-		return mpPlayer.func_147099_x().hasAchievementUnlocked(achievement);
+		return mpPlayer.getStatFile().hasAchievementUnlocked(achievement);
 	}
 
 }

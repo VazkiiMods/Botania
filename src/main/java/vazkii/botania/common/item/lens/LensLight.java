@@ -17,7 +17,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileManaFlame;
@@ -27,21 +26,17 @@ public class LensLight extends Lens {
 	@Override
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		BlockPos coords = burst.getBurstSourceBlockPos();
-		if((coords.posX != pos.blockX || coords.posY != pos.blockY || coords.posZ != pos.blockZ) && !burst.isFake() && !isManaBlock) {
-			ForgeDirection dir = ForgeDirection.getOrientation(pos.sideHit);
+		if(!coords.equals(pos.getBlockPos()) && !burst.isFake() && !isManaBlock) {
+			BlockPos pos_ = pos.getBlockPos().offset(pos.sideHit);
 
-			int x = pos.blockX + dir.offsetX;
-			int y = pos.blockY + dir.offsetY;
-			int z = pos.blockZ + dir.offsetZ;
-
-			Block blockAt = entity.worldObj.getBlock(pos.blockX, pos.blockY, pos.blockZ);
-			Block blockAt_ = entity.worldObj.getBlock(x, y, z);
+			Block blockAt = entity.worldObj.getBlockState(pos.getBlockPos()).getBlock();
+			Block blockAt_ = entity.worldObj.getBlockState(pos_).getBlock();
 
 			if(blockAt == ModBlocks.manaFlame)
-				entity.worldObj.setBlock(pos.blockX, pos.blockY, pos.blockZ, Blocks.air);
-			else if(blockAt_.isAir(entity.worldObj, x, y, z) || blockAt_.isReplaceable(entity.worldObj, x, y, z)) {
-				entity.worldObj.setBlock(x, y, z, ModBlocks.manaFlame);
-				TileEntity tile = entity.worldObj.getTileEntity(x, y, z);
+				entity.worldObj.setBlockState(pos.getBlockPos(), Blocks.air.getDefaultState());
+			else if(blockAt_.isAir(entity.worldObj, pos_) || blockAt_.isReplaceable(entity.worldObj, pos_)) {
+				entity.worldObj.setBlockState(pos_, ModBlocks.manaFlame.getDefaultState());
+				TileEntity tile = entity.worldObj.getTileEntity(pos_);
 
 				if(tile instanceof TileManaFlame)
 					((TileManaFlame) tile).setColor(burst.getColor());

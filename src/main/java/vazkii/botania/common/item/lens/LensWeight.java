@@ -22,14 +22,10 @@ public class LensWeight extends Lens {
 	@Override
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		if(!burst.isFake()) {
-			int x = pos.blockX;
-			int y = pos.blockY;
-			int z = pos.blockZ;
-			Block block = entity.worldObj.getBlock(x, y, z);
-			Block blockBelow = entity.worldObj.getBlock(x, y - 1, z);
-			int meta = entity.worldObj.getBlockMetadata(x, y, z);
-			if(blockBelow.isAir(entity.worldObj, x, y - 1, z) && block.getBlockHardness(entity.worldObj, x, y, z) != -1 && entity.worldObj.getTileEntity(x, y, z) == null && block.canSilkHarvest(entity.worldObj, null, x, y, z, meta)) {
-				EntityFallingBlock falling = new EntityFallingBlock(entity.worldObj, x + 0.5, y + 0.5, z + 0.5, block, meta);
+			Block block = entity.worldObj.getBlockState(pos.getBlockPos()).getBlock();
+			Block blockBelow = entity.worldObj.getBlockState(pos.getBlockPos().down()).getBlock();
+			if(blockBelow.isAir(entity.worldObj, pos.getBlockPos().down()) && block.getBlockHardness(entity.worldObj, pos.getBlockPos()) != -1 && entity.worldObj.getTileEntity(pos.getBlockPos()) == null && block.canSilkHarvest(entity.worldObj, pos.getBlockPos(), entity.worldObj.getBlockState(pos.getBlockPos()), null)) {
+				EntityFallingBlock falling = new EntityFallingBlock(entity.worldObj, pos.getBlockPos().getX() + 0.5, pos.getBlockPos().getY() + 0.5, pos.getBlockPos().getZ() + 0.5, entity.worldObj.getBlockState(pos.getBlockPos()));
 				if(!entity.worldObj.isRemote)
 					entity.worldObj.spawnEntityInWorld(falling);
 			}

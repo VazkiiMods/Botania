@@ -17,6 +17,7 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -38,21 +39,21 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 	private static final String TAG_DIMENSION = "dim";
 
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
 		if(player.isSneaking()) {
 			if(world.isRemote) {
 				player.swingItem();
 				for(int i = 0; i < 10; i++) {
-					float x1 = (float) (x + Math.random());
-					float y1 = y + 1;
-					float z1 = (float) (z + Math.random());
+					float x1 = (float) (pos.getX() + Math.random());
+					float y1 = pos.getY() + 1;
+					float z1 = (float) (pos.getZ() + Math.random());
 					Botania.proxy.wispFX(player.worldObj, x1, y1, z1, (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random() * 0.5F, -0.05F + (float) Math.random() * 0.05F);
 				}
 			} else {
-				ItemNBTHelper.setInt(stack, TAG_X, x);
-				ItemNBTHelper.setInt(stack, TAG_Y, y);
-				ItemNBTHelper.setInt(stack, TAG_Z, z);
-				ItemNBTHelper.setInt(stack, TAG_DIMENSION, world.provider.dimensionId);
+				ItemNBTHelper.setInt(stack, TAG_X, pos.getX());
+				ItemNBTHelper.setInt(stack, TAG_Y, pos.getY());
+				ItemNBTHelper.setInt(stack, TAG_Z, pos.getZ());
+				ItemNBTHelper.setInt(stack, TAG_DIMENSION, world.provider.getDimensionId());
 				world.playSoundAtEntity(player, "mob.endermen.portal", 1F, 5F);
 			}
 		}
@@ -75,7 +76,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 	}
 
 	@Override
-	public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) {
+	public ItemStack onItemUseFinish(ItemStack stack, World world, EntityPlayer player) {
 		int x = ItemNBTHelper.getInt(stack, TAG_X, 0);
 		int y = ItemNBTHelper.getInt(stack, TAG_Y, -1);
 		int z = ItemNBTHelper.getInt(stack, TAG_Z, 0);
@@ -83,7 +84,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 
 		int cost = (int) (MathHelper.pointDistanceSpace(x + 0.5, y + 0.5, z + 0.5, player.posX, player.posY, player.posZ) * 10);
 
-		if(y > -1 && dim == world.provider.dimensionId && ManaItemHandler.requestManaExact(stack, player, cost, true)) {
+		if(y > -1 && dim == world.provider.getDimensionId() && ManaItemHandler.requestManaExact(stack, player, cost, true)) {
 			moveParticlesAndSound(player);
 			if(player instanceof EntityPlayerMP && !world.isRemote)
 				((EntityPlayerMP) player).playerNetServerHandler.setPlayerLocation(x + 0.5, y + 1.6, z + 0.5, player.rotationYaw, player.rotationPitch);
@@ -111,7 +112,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
-		return EnumAction.block;
+		return EnumAction.BLOCK;
 	}
 
 	@Override

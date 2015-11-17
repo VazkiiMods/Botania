@@ -106,7 +106,7 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
-		return EnumAction.bow;
+		return EnumAction.BOW;
 	}
 
 	@Override
