@@ -22,7 +22,12 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.EnumPlantType;
+import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
@@ -70,19 +75,19 @@ public class BlockAltGrass extends BlockMod {
 		return side == 0 || meta >= SUBTYPES ? Blocks.dirt.getIcon(side, meta) : side == 1 ? icons[meta * 2] : icons[meta * 2 + 1];
 	}
 
-	// All from below is from BlockMycelium (adapted a bit)
-	
 	@Override
-	public void updateTick(World p_149674_1_, int p_149674_2_, int p_149674_3_, int p_149674_4_, Random p_149674_5_) {
-		if(!p_149674_1_.isRemote && p_149674_1_.getBlockLightValue(p_149674_2_, p_149674_3_ + 1, p_149674_4_) >= 9) {
+	public void updateTick(World world, int x, int y, int z, Random rand) {
+		if(!world.isRemote && world.getBlockLightValue(x, y + 1, z) >= 9) {
+			int meta = world.getBlockMetadata(x, y, z);
 			for(int l = 0; l < 4; ++l) {
-				int i1 = p_149674_2_ + p_149674_5_.nextInt(3) - 1;
-				int j1 = p_149674_3_ + p_149674_5_.nextInt(5) - 3;
-				int k1 = p_149674_4_ + p_149674_5_.nextInt(3) - 1;
-				Block block = p_149674_1_.getBlock(i1, j1 + 1, k1);
+				int i1 = x + rand.nextInt(3) - 1;
+				int j1 = y + rand.nextInt(5) - 3;
+				int k1 = z + rand.nextInt(3) - 1;
+				
+				Block block = world.getBlock(i1, j1 + 1, k1);
 
-				if(p_149674_1_.getBlock(i1, j1, k1) == Blocks.dirt && p_149674_1_.getBlockMetadata(i1, j1, k1) == 0 && p_149674_1_.getBlockLightValue(i1, j1 + 1, k1) >= 4 && p_149674_1_.getBlockLightOpacity(i1, j1 + 1, k1) <= 2)
-					p_149674_1_.setBlock(i1, j1, k1, this);
+				if(world.getBlock(i1, j1, k1) == Blocks.dirt && world.getBlockMetadata(i1, j1, k1) == 0 && world.getBlockLightValue(i1, j1 + 1, k1) >= 4 && world.getBlockLightOpacity(i1, j1 + 1, k1) <= 2)
+					world.setBlock(i1, j1, k1, this, meta, 1 | 2);
 			}
 		}
 	}
@@ -91,6 +96,16 @@ public class BlockAltGrass extends BlockMod {
     public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
         return Blocks.dirt.getItemDropped(0, p_149650_2_, p_149650_3_);
     }
+	
+	@Override
+	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
+		return new ItemStack(this, 1, world.getBlockMetadata(x, y, z));
+	}
+	
+	@Override
+	public boolean canSustainPlant(IBlockAccess world, int x, int y, int z, ForgeDirection direction, IPlantable plantable) {
+		return plantable.getPlantType(world, x, y - 1, z) == EnumPlantType.Plains;
+	}
 	
 	@Override
 	public void randomDisplayTick(World world, int x, int y, int z, Random r) {

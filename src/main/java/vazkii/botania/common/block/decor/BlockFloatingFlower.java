@@ -133,8 +133,11 @@ public class BlockFloatingFlower extends BlockModContainer implements ILexiconab
 			IslandType type = null;
 			if(stack.getItem() == Items.snowball)
 				type = IslandType.SNOW;
-			else if(stack.getItem() == ModItems.grassSeeds)
-				type = ItemGrassSeeds.getIslandType(stack);
+			else if(stack.getItem() == ModItems.grassSeeds) {
+				IslandType newType =  ItemGrassSeeds.getIslandType(stack);
+				if(newType != null)
+					type = newType;
+			}
 
 			if(type != null && type != flower.getIslandType()) {
 				if(!world.isRemote) {
