@@ -305,6 +305,7 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeTeruTeruBozu;
 	public static IRecipe recipeAvatar;
 	public static IRecipe recipeSextant;
+	public static List<IRecipe> recipesAltGrassSeeds;
 
 	// Garden of Glass
 	public static IRecipe recipeRootToSapling;

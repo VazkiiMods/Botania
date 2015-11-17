@@ -68,7 +68,7 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 
 		List<Object> inputs = recipe.getInputs();
 		int degreePerInput = (int) (360F / inputs.size());
-		float currentDegree = ConfigHandler.lexiconRotatingItems ? (float) (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) : 0;
+		float currentDegree = ConfigHandler.lexiconRotatingItems ? (GuiScreen.isShiftKeyDown() ? ticksElapsed : (float) (ticksElapsed + ClientTickHandler.partialTicks)) : 0;
 
 		for(Object obj : inputs) {
 			Object input = obj;
@@ -95,8 +95,6 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 		return new ItemStack(ModBlocks.altar);
 	}
 
-
-
 	@SideOnly(Side.CLIENT)
 	public void renderManaBar(IGuiLexiconEntry gui, T recipe, int mx, int my) {
 		// NO-OP
@@ -105,6 +103,9 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void updateScreen() {
+		if(GuiScreen.isShiftKeyDown())
+			return;
+		
 		if(ticksElapsed % 20 == 0) {
 			recipeAt++;
 
