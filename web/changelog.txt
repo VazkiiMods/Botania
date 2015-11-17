@@ -1,3 +1,25 @@
+r1.7 234
+*Added 3 new lenses:<ul><li>Mana Lens: Redirectory - Bursts that have this lens fired from a spreader will, when colliding with another spreader, rotate the collided spreader to point towards the one that shot. It also gives bursts the Phantom effect.</li><li>Mana Lens: Celebratory - When it collides with a block it'll make a firework of the color of the burst.</li><li>Mana Lens: Flare - Spreader only. Prevents the spreader from firing any mana bursts. Instead, the spreader fires a continuous beam of particles of the color of the lens. (<a href="https://twitter.com/Vazkii/status/666012115900190720">demo 1</a> | <a href="https://twitter.com/Vazkii/status/666013977089060864">demo 2</a>)</li></ul>
+*Added 6 new types of decorative grass (and six new types of pasture seeds to make them) that don't turn into dirt if there's anything above.
+*Bellethornes now kill Witches properly.
+*Changed armor item icons to match the new armor models.
+*Condensed the Paintslinger Lens and Warp Lens entries as well as the 3 new lenses in this version into an "Elven Lenses" page.
+*Fixed botania Panes having weird lighting in corners.
+*Fixed bursts with the Entropic lens exploding in contact with a full spreader.
+*Fixed the Exoflame not using mana properly on interfaced blocks.
+*Fixed white tinted mana lens not being able to be crafted.
+*Holding shift on a recipe page with multiple recipes will pause the recipe changing. It'll also stop petals/rune pieces from rotating if it's a petal/rune recipe.
+*Luminizers and Agricarnations are now quieter.
+*Pasture Seeds for blocks other than Grass can now be used on Grass.
+*Removed the "lore" pages after some flowers' recipes, as interesting as they are, they served no practical purpose and only confused people.
+*Renamed the Talent Shredder achievement to a much more fitting name.
+*The bottom side of Mana Pools is now solid (so you can put stuff like levers now, if you want to do that for some reason :V)
+*Tweaked armor textures and models a bit.
+*[API] Added IDirectioned and IRedirectable to work with the new lens.
+*[API] Added IFlowerPlaceable for items that can be placed by the Rannuncarpus. 
+*[API] Added ILensControl for lenses that control a spreader's behaviour.
+*[API] Increased version number to 68.
+*[API] Stripped getRotationX() and getRotationY from IManaSpreader and moved it to IDirectioned (which IManaSpreader extends now).
 r1.7 233
 *Fixed items that take damage when used in a crafting recipe taking damage purely by being put in the grid.
 *Fixed the Lexica Botania's main page making the screen dark on lower end (and integrated) graphics cards.
