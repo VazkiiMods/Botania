@@ -21,6 +21,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.item.ModItems;
 
 public class TileCraftCrate extends TileOpenCrate {
@@ -157,6 +158,7 @@ public class TileCraftCrate extends TileOpenCrate {
 			if(stack != null)
 				eject(stack, false);
 			setInventorySlotContents(i, null);
+			markDirty();
 		}
 	}
 
@@ -178,11 +180,18 @@ public class TileCraftCrate extends TileOpenCrate {
 		ejectAll();
 		return true;
 	}
+	
+	@Override
+	public void markDirty() {
+		super.markDirty();
+		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+	}
 
 	@Override
 	public int getSignal() {
 		return signal;
 	}
+	
 	@Override
 	public void onDataPacket(NetworkManager manager, S35PacketUpdateTileEntity packet) {
 		int lastPattern = pattern;
