@@ -17,6 +17,8 @@ import java.util.Map;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDirt;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,6 +26,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -81,15 +84,14 @@ public class ItemGrassSeeds extends ItemMod {
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
-		Block block = par3World.getBlock(par4, par5, par6);
-		int bmeta = par3World.getBlockMetadata(par4, par5, par6);
+	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumFacing side, float par8, float par9, float par10) {
+		IBlockState state = par3World.getBlockState(pos);
 
-		if(block == Blocks.dirt && bmeta == 0) {
+		if(state == Blocks.dirt.getDefaultState()) {
 			int meta = par1ItemStack.getItemDamage();
 
-			BlockSwapper swapper = addBlockSwapper(par3World, par4, par5, par6, meta);
-			par3World.setBlock(par4, par5, par6, swapper.blockToSet, swapper.metaToSet, 1 | 2);
+			BlockSwapper swapper = addBlockSwapper(par3World, pos, meta);
+			par3World.setBlockState(pos, swapper.stateToSet, 1 | 2);
 			for(int i = 0; i < 50; i++) {
 				double x = (Math.random() - 0.5) * 3;
 				double y = Math.random() - 0.5 + 1;
@@ -110,7 +112,7 @@ public class ItemGrassSeeds extends ItemMod {
 
 				float velMul = 0.025F;
 
-				Botania.proxy.wispFX(par3World, par4 + 0.5 + x, par5 + 0.5 + y, par6 + 0.5 + z, r, g, b, (float) Math.random() * 0.15F + 0.15F, (float) -x * velMul, (float) -y * velMul, (float) -z * velMul);
+				Botania.proxy.wispFX(par3World, pos.getX() + 0.5 + x, pos.getY() + 0.5 + y, pos.getZ() + 0.5 + z, r, g, b, (float) Math.random() * 0.15F + 0.15F, (float) -x * velMul, (float) -y * velMul, (float) -z * velMul);
 			}
 
 			par1ItemStack.stackSize--;
@@ -122,7 +124,7 @@ public class ItemGrassSeeds extends ItemMod {
 	@SubscribeEvent
 	public void onTickEnd(TickEvent.WorldTickEvent event) {
 		if(event.phase == Phase.END) {
-			int dim = event.world.provider.dimensionId;
+			int dim = event.world.provider.getDimensionId();
 			if(blockSwappers.containsKey(dim)) {
 				List<BlockSwapper> swappers = blockSwappers.get(dim);
 				List<BlockSwapper> swappersSafe = new ArrayList(swappers);
@@ -133,10 +135,10 @@ public class ItemGrassSeeds extends ItemMod {
 		}
 	}
 
-	private static BlockSwapper addBlockSwapper(World world, int x, int y, int z, int meta) {
-		BlockSwapper swapper = swapperFromMeta(world, x, y, z, meta);
+	private static BlockSwapper addBlockSwapper(World world, BlockPos pos, int meta) {
+		BlockSwapper swapper = swapperFromMeta(world, pos, meta);
 
-		int dim = world.provider.dimensionId;
+		int dim = world.provider.getDimensionId();
 		if(!blockSwappers.containsKey(dim))
 			blockSwappers.put(dim, new ArrayList());
 		blockSwappers.get(dim).add(swapper);
@@ -144,11 +146,11 @@ public class ItemGrassSeeds extends ItemMod {
 		return swapper;
 	}
 
-	private static BlockSwapper swapperFromMeta(World world, int x, int y, int z, int meta) {
+	private static BlockSwapper swapperFromMeta(World world, BlockPos pos, int meta) {
 		switch(meta) {
-		case 1 : return new BlockSwapper(world, new BlockPos(x, y, z),  Blocks.dirt, 2);
-		case 2 : return new BlockSwapper(world, new BlockPos(x, y, z),  Blocks.mycelium, 0);
-		default : return new BlockSwapper(world, new BlockPos(x, y, z),  Blocks.grass, 0);
+		case 1 : return new BlockSwapper(world, pos,  Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.PODZOL));
+		case 2 : return new BlockSwapper(world, pos,  Blocks.mycelium.getDefaultState());
+		default : return new BlockSwapper(world, pos,  Blocks.grass.getDefaultState());
 		}
 	}
 
@@ -156,17 +158,14 @@ public class ItemGrassSeeds extends ItemMod {
 
 		final World world;
 		final Random rand;
-		final Block blockToSet;
-		final int metaToSet;
-
+		final IBlockState stateToSet;
 		BlockPos startCoords;
 		int ticksExisted = 0;
 
-		BlockSwapper(World world, BlockPos coords, Block block, int meta) {
+		BlockSwapper(World world, BlockPos coords, IBlockState state) {
 			this.world = world;
-			blockToSet = block;
-			metaToSet = meta;
-			rand = new Random(coords.posX ^ coords.posY ^ coords.posZ);
+			stateToSet = state;
+			rand = new Random(coords.toLong());
 			startCoords = coords;
 		}
 
@@ -176,28 +175,25 @@ public class ItemGrassSeeds extends ItemMod {
 			int range = 3;
 			for(int i = -range; i < range + 1; i++)
 				for(int j = -range; j < range + 1; j++) {
-					int x = startCoords.posX + i;
-					int y = startCoords.posY;
-					int z = startCoords.posZ + j;
-					Block block = world.getBlock(x, y, z);
-					int meta = world.getBlockMetadata(x, y, z);
+					BlockPos pos = startCoords.add(i, 0, j);
+					IBlockState state = world.getBlockState(pos);
+					Block block = state.getBlock();
 
-					if(block == blockToSet && meta == metaToSet) {
+					if(state == stateToSet) {
 						if(ticksExisted % 20 == 0) {
 							List<BlockPos> validCoords = new ArrayList();
 							for(int k = -1; k < 2; k++)
 								for(int l = -1; l < 2; l++) {
-									int x1 = x + k;
-									int z1 = z + l;
-									Block block1 = world.getBlock(x1, y, z1);
-									int meta1 = world.getBlockMetadata(x1, y, z1);
-									if(block1 == Blocks.dirt && meta1 == 0)
-										validCoords.add(new BlockPos(x1, y, z1));
+									BlockPos pos1 = pos.add(k, 0, l);
+									IBlockState state1 = world.getBlockState(pos1);
+									if(state1.getBlock() == Blocks.dirt
+											&& state1.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT)
+										validCoords.add(pos1);
 								}
 
 							if(!validCoords.isEmpty() && !world.isRemote) {
 								BlockPos coords = validCoords.get(rand.nextInt(validCoords.size()));
-								world.setBlock(coords.posX, coords.posY, coords.posZ, blockToSet, metaToSet, 1 | 2);
+								world.setBlockState(coords, stateToSet, 1 | 2);
 							}
 						}
 					}

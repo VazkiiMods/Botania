@@ -24,6 +24,8 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import vazkii.botania.common.achievement.ICraftAchievement;
@@ -82,7 +84,7 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int s, float xs, float ys, float zs) {
+	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float xs, float ys, float zs) {
 		boolean can = isDOIT(stack);
 		if(!can) {
 			String sound = ItemNBTHelper.getString(stack, TAG_SOUND, "");
@@ -92,10 +94,10 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 		}
 
 		if(can) {
-			Block block = world.getBlock(x, y, z);
+			Block block = world.getBlockState(pos).getBlock();
 			if(block == Blocks.noteblock) {
-				world.setBlock(x, y, z, ModBlocks.cacophonium);
-				((TileCacophonium) world.getTileEntity(x, y, z)).stack = stack.copy();
+				world.setBlockState(pos, ModBlocks.cacophonium.getDefaultState());
+				((TileCacophonium) world.getTileEntity(pos)).stack = stack.copy();
 				stack.stackSize--;
 				return true;
 			}

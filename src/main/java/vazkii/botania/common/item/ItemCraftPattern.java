@@ -18,6 +18,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -35,12 +37,12 @@ public class ItemCraftPattern extends ItemMod {
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer p, World world, int x, int y, int z, int s, float xs, float ys, float zs) {
-		TileEntity tile = world.getTileEntity(x, y, z);
+	public boolean onItemUse(ItemStack stack, EntityPlayer p, World world, BlockPos pos, EnumFacing side, float xs, float ys, float zs) {
+		TileEntity tile = world.getTileEntity(pos);
 		if(tile != null && tile instanceof TileCraftCrate && !world.isRemote) {
 			TileCraftCrate crate = (TileCraftCrate) tile;
 			crate.pattern = stack.getItemDamage();
-			world.markBlockForUpdate(x, y, z);
+			world.markBlockForUpdate(pos);
 		}
 		return false;
 	}

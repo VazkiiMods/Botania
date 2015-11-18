@@ -33,7 +33,7 @@ public class ItemManaCookie extends ItemFood {
 
 	public ItemManaCookie() {
 		super(0, 0.1F, false);
-		setPotionEffect(Potion.field_76443_y.id, 1,  0, 1F);
+		setPotionEffect(Potion.saturation.id, 1,  0, 1F);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setUnlocalizedName(LibItemNames.MANA_COOKIE);
 	}

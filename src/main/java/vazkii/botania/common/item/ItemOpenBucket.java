@@ -10,9 +10,11 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import vazkii.botania.common.lib.LibItemNames;
@@ -32,26 +34,24 @@ public class ItemOpenBucket extends ItemMod {
 			return par1ItemStack;
 		else {
 			if(movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
-				int i = movingobjectposition.blockX;
-				int j = movingobjectposition.blockY;
-				int k = movingobjectposition.blockZ;
+				BlockPos pos = movingobjectposition.getBlockPos();
 
-				if(!par2World.canMineBlock(par3EntityPlayer, i, j, k))
+				if(!par2World.isBlockModifiable(par3EntityPlayer, pos))
 					return par1ItemStack;
 
-				if(!par3EntityPlayer.canPlayerEdit(i, j, k, movingobjectposition.sideHit, par1ItemStack))
+				if(!par3EntityPlayer.canPlayerEdit(pos, movingobjectposition.sideHit, par1ItemStack))
 					return par1ItemStack;
 
-				Material material = par2World.getBlock(i, j, k).getMaterial();
-				int l = par2World.getBlockMetadata(i, j, k);
+				Material material = par2World.getBlockState(pos).getBlock().getMaterial();
+				int l = ((Integer) par2World.getBlockState(pos).getValue(BlockLiquid.LEVEL));
 
 				if(material == Material.water && l == 0) {
-					par2World.setBlockToAir(i, j, k);
+					par2World.setBlockToAir(pos);
 					return par1ItemStack;
 				}
 
 				if(material == Material.lava && l == 0) {
-					par2World.setBlockToAir(i, j, k);
+					par2World.setBlockToAir(pos);
 					return par1ItemStack;
 				}
 			}

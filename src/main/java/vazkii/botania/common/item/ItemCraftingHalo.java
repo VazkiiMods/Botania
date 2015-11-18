@@ -490,20 +490,20 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 			GL11.glDisable(GL11.GL_CULL_FACE);
 			ItemCraftingHalo item = (ItemCraftingHalo) stack.getItem();
 			mc.renderEngine.bindTexture(item.getGlowResource());
-			tess.startDrawingQuads();
+			tess.getWorldRenderer().startDrawingQuads();
 			for(int i = 0; i < segAngles; i++) {
 				float ang = i + seg * segAngles + shift;
 				double xp = Math.cos(ang * Math.PI / 180F) * s;
 				double zp = Math.sin(ang * Math.PI / 180F) * s;
 
-				tess.addVertexWithUV(xp * m, y, zp * m, u, v);
-				tess.addVertexWithUV(xp, y0, zp, u, 0);
+				tess.getWorldRenderer().addVertexWithUV(xp * m, y, zp * m, u, v);
+				tess.getWorldRenderer().addVertexWithUV(xp, y0, zp, u, 0);
 
 				xp = Math.cos((ang + 1) * Math.PI / 180F) * s;
 				zp = Math.sin((ang + 1) * Math.PI / 180F) * s;
 
-				tess.addVertexWithUV(xp, y0, zp, 0, 0);
-				tess.addVertexWithUV(xp * m, y, zp * m, 0, v);
+				tess.getWorldRenderer().addVertexWithUV(xp, y0, zp, 0, 0);
+				tess.getWorldRenderer().addVertexWithUV(xp * m, y, zp * m, 0, v);
 			}
 			y0 = 0;
 			tess.draw();
@@ -535,7 +535,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 			Gui.drawRect(x - 4, y - 4, x + l + 4, y + 35, 0x22000000);
 			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-			RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, craftingTable, resolution.getScaledWidth() / 2 - 8, resolution.getScaledHeight() / 2 - 52);
+			mc.getRenderItem().renderItemAndEffectIntoGUI(craftingTable, resolution.getScaledWidth() / 2 - 8, resolution.getScaledHeight() / 2 - 52);
 			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
 			mc.fontRendererObj.drawStringWithShadow(name, x, y, 0xFFFFFF);
@@ -578,12 +578,12 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 					int ypos = y + i / 3 * 18;
 					Gui.drawRect(xpos, ypos, xpos + 16, ypos + 16, 0x22000000);
 
-					RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack, xpos, ypos);
+					mc.getRenderItem().renderItemAndEffectIntoGUI(stack, xpos, ypos);
 				}
 			}
 
-			RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, recipe[9], x + 72, y + 18);
-			RenderItem.getInstance().renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, recipe[9], x + 72, y + 18);
+			mc.getRenderItem().renderItemAndEffectIntoGUI(recipe[9], x + 72, y + 18);
+			mc.getRenderItem().renderItemOverlayIntoGUI(mc.fontRendererObj, recipe[9], x + 72, y + 18);
 
 			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 		}

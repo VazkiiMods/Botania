@@ -138,17 +138,17 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 	}
 
 	@Override
-	public boolean canHornHarvest(World world, int x, int y, int z, ItemStack stack, EnumHornType hornType) {
+	public boolean canHornHarvest(World world, BlockPos pos, ItemStack stack, EnumHornType hornType) {
 		return false;
 	}
 
 	@Override
-	public boolean hasSpecialHornHarvest(World world, int x, int y, int z, ItemStack stack, EnumHornType hornType) {
+	public boolean hasSpecialHornHarvest(World world, BlockPos pos, ItemStack stack, EnumHornType hornType) {
 		return false;
 	}
 
 	@Override
-	public void harvestByHorn(World world, int x, int y, int z, ItemStack stack, EnumHornType hornType) {
+	public void harvestByHorn(World world, BlockPos pos, ItemStack stack, EnumHornType hornType) {
 		// NO-OP
 	}
 

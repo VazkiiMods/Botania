@@ -17,6 +17,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
@@ -89,7 +90,7 @@ public class ItemGrassHorn extends ItemMod {
 
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
-		return EnumAction.bow;
+		return EnumAction.BOW;
 	}
 
 	@Override
@@ -112,9 +113,9 @@ public class ItemGrassHorn extends ItemMod {
 			player.worldObj.playSoundAtEntity(player, "note.bassattack", 1F, 0.001F);
 	}
 
-	public static void breakGrass(World world, ItemStack stack, int stackDmg, int srcx, int srcy, int srcz) {
+	public static void breakGrass(World world, ItemStack stack, int stackDmg, BlockPos srcPos) {
 		EnumHornType type = EnumHornType.getTypeForMeta(stackDmg);
-		Random rand = new Random(srcx ^ srcy ^ srcz);
+		Random rand = new Random(srcPos.toLong());
 		int range = 12 - stackDmg * 3;
 		int rangeY = 3 + stackDmg * 4;
 		List<BlockPos> coords = new ArrayList();
@@ -122,13 +123,10 @@ public class ItemGrassHorn extends ItemMod {
 		for(int i = -range; i < range + 1; i++)
 			for(int j = -range; j < range + 1; j++)
 				for(int k = -rangeY; k < rangeY + 1; k++) {
-					int x = srcx + i;
-					int y = srcy + k;
-					int z = srcz + j;
-
-					Block block = world.getBlock(x, y, z);
-					if(block instanceof IHornHarvestable ? ((IHornHarvestable) block).canHornHarvest(world, x, y, z, stack, type) : stackDmg == 0 && block instanceof BlockBush && !(block instanceof ISpecialFlower) && (!(block instanceof IGrassHornExcempt) || ((IGrassHornExcempt) block).canUproot(world, x, y, z)) || stackDmg == 1 && block.isLeaves(world, x, y, z) || stackDmg == 2 && block == Blocks.snow_layer)
-						coords.add(new BlockPos(x, y, z));
+					BlockPos pos = srcPos.add(i, k, j);
+					Block block = world.getBlockState(pos).getBlock();
+					if(block instanceof IHornHarvestable ? ((IHornHarvestable) block).canHornHarvest(world, pos, stack, type) : stackDmg == 0 && block instanceof BlockBush && !(block instanceof ISpecialFlower) && (!(block instanceof IGrassHornExcempt) || ((IGrassHornExcempt) block).canUproot(world, x, y, z)) || stackDmg == 1 && block.isLeaves(world, pos) || stackDmg == 2 && block == Blocks.snow_layer)
+						coords.add(pos);
 				}
 
 		Collections.shuffle(coords, rand);
@@ -137,19 +135,19 @@ public class ItemGrassHorn extends ItemMod {
 		for(int i = 0; i < count; i++) {
 			BlockPos currCoords = coords.get(i);
 			List<ItemStack> items = new ArrayList();
-			Block block = world.getBlock(currCoords.posX, currCoords.posY, currCoords.posZ);
-			int meta = world.getBlockMetadata(currCoords.posX, currCoords.posY, currCoords.posZ);
-			items.addAll(block.getDrops(world, currCoords.posX, currCoords.posY, currCoords.posZ, meta, 0));
+			IBlockState state = world.getBlockState(currCoords);
+			Block block = state.getBlock();
+			items.addAll(block.getDrops(world, currCoords, state, 0));
 
-			if(block instanceof IHornHarvestable && ((IHornHarvestable) block).hasSpecialHornHarvest(world, currCoords.posX, currCoords.posY, currCoords.posZ, stack, type))
-				((IHornHarvestable) block).harvestByHorn(world, currCoords.posX, currCoords.posY, currCoords.posZ, stack, type);
+			if(block instanceof IHornHarvestable && ((IHornHarvestable) block).hasSpecialHornHarvest(world, currCoords, stack, type))
+				((IHornHarvestable) block).harvestByHorn(world, currCoords, stack, type);
 			else if(!world.isRemote) {
-				world.setBlockToAir(currCoords.posX, currCoords.posY, currCoords.posZ);
+				world.setBlockToAir(currCoords);
 				if(ConfigHandler.blockBreakParticles)
-					world.playAuxSFX(2001, currCoords.posX, currCoords.posY, currCoords.posZ, Block.getIdFromBlock(block) + (meta << 12));
+					world.playAuxSFX(2001, currCoords, Block.getStateId(state));
 
 				for(ItemStack stack_ : items)
-					world.spawnEntityInWorld(new EntityItem(world, currCoords.posX + 0.5, currCoords.posY + 0.5, currCoords.posZ + 0.5, stack_));
+					world.spawnEntityInWorld(new EntityItem(world, currCoords.getX() + 0.5, currCoords.getY() + 0.5, currCoords.getZ() + 0.5, stack_));
 			}
 		}
 	}

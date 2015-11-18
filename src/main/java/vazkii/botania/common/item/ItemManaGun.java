@@ -179,11 +179,6 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 		return getLens(itemStack);
 	}
 
-	@Override
-	public boolean doesContainerItemLeaveCraftingGrid(ItemStack p_77630_1_) {
-		return false;
-	}
-
 	public EntityManaBurst getBurst(EntityPlayer player, ItemStack stack, boolean request) {
 		EntityManaBurst burst = new EntityManaBurst(player);
 

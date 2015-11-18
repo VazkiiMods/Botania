@@ -21,12 +21,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.ChatStyle;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.StatCollector;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexicon;
@@ -57,13 +52,13 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
+	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumFacing side, float par8, float par9, float par10) {
 		if(par2EntityPlayer.isSneaking()) {
-			Block block = par3World.getBlock(par4, par5, par6);
+			Block block = par3World.getBlockState(pos).getBlock();
 
 			if(block != null) {
 				if(block instanceof ILexiconable) {
-					LexiconEntry entry = ((ILexiconable) block).getEntry(par3World, , par4, par2EntityPlayer, par1ItemStack);
+					LexiconEntry entry = ((ILexiconable) block).getEntry(par3World, pos, par2EntityPlayer, par1ItemStack);
 					if(entry != null && isKnowledgeUnlocked(par1ItemStack, entry.getKnowledgeType())) {
 						Botania.proxy.setEntryToOpen(entry);
 						Botania.proxy.setLexiconStack(par1ItemStack);
@@ -72,8 +67,8 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 						return true;
 					}
 				} else if(par3World.isRemote) {
-					MovingObjectPosition pos = new MovingObjectPosition(par4, par5, par6, par7, new Vec3(par8, par9, par10));
-					return Botania.proxy.openWikiPage(par3World, block, pos);
+					MovingObjectPosition mop = new MovingObjectPosition(new Vec3(par8, par9, par10), side, pos);
+					return Botania.proxy.openWikiPage(par3World, block, mop);
 				}
 			}
 		}
@@ -175,7 +170,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 
 	@Override
 	public EnumRarity getRarity(ItemStack par1ItemStack) {
-		return EnumRarity.uncommon;
+		return EnumRarity.UNCOMMON;
 	}
 
 	@Override

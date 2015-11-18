@@ -74,11 +74,6 @@ public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaP
 	}
 
 	@Override
-	public int getDisplayDamage(ItemStack stack) {
-		return getDamage(stack);
-	}
-
-	@Override
 	public void registerIcons(IIconRegister par1IconRegister) {
 		icons = new IIcon[2];
 		for(int i = 0; i < icons.length; i++)
@@ -94,11 +89,6 @@ public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaP
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
 		if(isStackCreative(par1ItemStack))
 			par3List.add(StatCollector.translateToLocal("botaniamisc.creative"));
-	}
-
-	@Override
-	public boolean requiresMultipleRenderPasses() {
-		return true;
 	}
 
 	@Override

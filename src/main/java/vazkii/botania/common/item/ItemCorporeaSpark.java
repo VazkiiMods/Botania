@@ -19,6 +19,8 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.corporea.CorporeaHelper;
@@ -42,17 +44,17 @@ public class ItemCorporeaSpark extends ItemMod {
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float xv, float yv, float zv) {
-		TileEntity tile = world.getTileEntity(x, y, z);
-		if(tile instanceof IInventory && !CorporeaHelper.doesBlockHaveSpark(world, , x)) {
+	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float xv, float yv, float zv) {
+		TileEntity tile = world.getTileEntity(pos);
+		if(tile instanceof IInventory && !CorporeaHelper.doesBlockHaveSpark(world, pos)) {
 			stack.stackSize--;
 			if(!world.isRemote) {
 				EntityCorporeaSpark spark = new EntityCorporeaSpark(world);
 				if(stack.getItemDamage() == 1)
 					spark.setMaster(true);
-				spark.setPosition(x + 0.5, y + 1.5, z + 0.5);
+				spark.setPosition(pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5);
 				world.spawnEntityInWorld(spark);
-				world.markBlockForUpdate(x, y, z);
+				world.markBlockForUpdate(pos);
 			}
 			return true;
 		}

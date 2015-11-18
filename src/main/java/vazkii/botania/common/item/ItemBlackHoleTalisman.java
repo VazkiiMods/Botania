@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -71,18 +72,17 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 
 	@Override
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumFacing side, float par8, float par9, float par10) {
-		Block block = par3World.getBlock(par4, par5, par6);
-		int meta = par3World.getBlockMetadata(par4, par5, par6);
-		boolean set = setBlock(par1ItemStack, block, meta);
+		IBlockState state = par3World.getBlockState(pos);
+		boolean set = setBlock(par1ItemStack, state.getBlock(), state.getBlock().getMetaFromState(state));
 
 		if(!set) {
 			Block bBlock = getBlock(par1ItemStack);
 			int bmeta = getBlockMeta(par1ItemStack);
 
-			TileEntity tile = par3World.getTileEntity(par4, par5, par6);
+			TileEntity tile = par3World.getTileEntity(pos);
 			if(tile != null && tile instanceof IInventory) {
 				IInventory inv = (IInventory) tile;
-				int[] slots = inv instanceof ISidedInventory ? ((ISidedInventory) inv).getAccessibleSlotsFromSide(par7) : InventoryHelper.buildSlotsForLinearInventory(inv);
+				int[] slots = inv instanceof ISidedInventory ? ((ISidedInventory) inv).getSlotsForFace(side) : InventoryHelper.buildSlotsForLinearInventory(inv);
 				for(int slot : slots) {
 					ItemStack stackInSlot = inv.getStackInSlot(slot);
 					if(stackInSlot == null) {
@@ -90,7 +90,7 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 						int maxSize = stack.getMaxStackSize();
 						stack.stackSize = remove(par1ItemStack, maxSize);
 						if(stack.stackSize != 0) {
-							if(inv.isItemValidForSlot(slot, stack) && (!(inv instanceof ISidedInventory) || ((ISidedInventory) inv).canInsertItem(slot, stack, par7))) {
+							if(inv.isItemValidForSlot(slot, stack) && (!(inv instanceof ISidedInventory) || ((ISidedInventory) inv).canInsertItem(slot, stack, side))) {
 								inv.setInventorySlotContents(slot, stack);
 								inv.markDirty();
 								set = true;
@@ -99,7 +99,7 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 					} else if(stackInSlot.getItem() == Item.getItemFromBlock(bBlock) && stackInSlot.getItemDamage() == bmeta) {
 						int maxSize = stackInSlot.getMaxStackSize();
 						int missing = maxSize - stackInSlot.stackSize;
-						if(inv.isItemValidForSlot(slot, stackInSlot) && (!(inv instanceof ISidedInventory) || ((ISidedInventory) inv).canInsertItem(slot, stackInSlot, par7))) {
+						if(inv.isItemValidForSlot(slot, stackInSlot) && (!(inv instanceof ISidedInventory) || ((ISidedInventory) inv).canInsertItem(slot, stackInSlot, side))) {
 							stackInSlot.stackSize += remove(par1ItemStack, missing);
 							inv.markDirty();
 							set = true;
@@ -107,8 +107,7 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 					}
 				}
 			} else {
-				ForgeDirection dir = ForgeDirection.getOrientation(par7);
-				int entities = par3World.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(par4 + dir.offsetX, par5 + dir.offsetY, par6 + dir.offsetZ, par4 + dir.offsetX + 1, par5 + dir.offsetY + 1, par6 + dir.offsetZ + 1)).size();
+				int entities = par3World.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos.offset(side), pos.offset(side).add(1, 1, 1))).size();
 
 				if(entities == 0) {
 					int remove = par2EntityPlayer.capabilities.isCreativeMode ? 1 : remove(par1ItemStack, 1);
@@ -116,7 +115,7 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 						ItemStack stack = new ItemStack(bBlock, 1, bmeta);
 						ItemsRemainingRenderHandler.set(stack, getBlockCount(par1ItemStack));
 
-						Item.getItemFromBlock(bBlock).onItemUse(stack, par2EntityPlayer, par3World, par4, par5, par6, par7, par8, par9, par10);
+						Item.getItemFromBlock(bBlock).onItemUse(stack, par2EntityPlayer, par3World, pos, side, par8, par9, par10);
 						set = true;
 					}
 				}

@@ -18,6 +18,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -91,11 +93,10 @@ public class ItemFlowerBag extends ItemMod {
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int s, float xs, float ys, float zs) {
-		TileEntity tile = world.getTileEntity(x, y, z);
+	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float xs, float ys, float zs) {
+		TileEntity tile = world.getTileEntity(pos);
 		if(tile != null && tile instanceof IInventory) {
 			if(!world.isRemote) {
-				ForgeDirection side = ForgeDirection.getOrientation(s);
 				IInventory inv = (IInventory) tile;
 				ItemStack[] stacks = loadStacks(stack);
 				ItemStack[] newStacks = new ItemStack[stacks.length];

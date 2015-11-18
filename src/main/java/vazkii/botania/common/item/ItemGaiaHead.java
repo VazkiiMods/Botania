@@ -10,16 +10,25 @@
  */
 package vazkii.botania.common.item;
 
+import com.mojang.authlib.GameProfile;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockSkull;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySkull;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibItemNames;
+
+import java.util.UUID;
 
 public class ItemGaiaHead extends ItemMod {
 
@@ -31,98 +40,94 @@ public class ItemGaiaHead extends ItemMod {
 	//
 	// Deal with it.
 	@Override
-	public boolean onItemUse(ItemStack p_77648_1_, EntityPlayer p_77648_2_, World p_77648_3_, int p_77648_4_, int p_77648_5_, int p_77648_6_, int p_77648_7_, float p_77648_8_, float p_77648_9_, float p_77648_10_)
+	public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
 	{
-		if(p_77648_3_.getBlock(p_77648_4_, p_77648_5_, p_77648_6_).isReplaceable(p_77648_3_, p_77648_4_, p_77648_5_, p_77648_6_) && p_77648_7_ != 0)
+		if (worldIn.getBlockState(pos).getBlock().isReplaceable(worldIn, pos) && side != EnumFacing.DOWN)
 		{
-			p_77648_7_ = 1;
-			p_77648_5_--;
+			side = EnumFacing.UP;
+			pos = pos.down();
 		}
-		if (p_77648_7_ == 0)
-		{
-			return false;
-		}
-		else if (!p_77648_3_.isSideSolid(p_77648_4_, p_77648_5_, p_77648_6_, net.minecraftforge.common.util.ForgeDirection.getOrientation(p_77648_7_)))
+		if (side == EnumFacing.DOWN)
 		{
 			return false;
 		}
 		else
 		{
-			if (p_77648_7_ == 1)
-			{
-				++p_77648_5_;
-			}
+			IBlockState iblockstate = worldIn.getBlockState(pos);
+			Block block = iblockstate.getBlock();
+			boolean flag = block.isReplaceable(worldIn, pos);
 
-			if (p_77648_7_ == 2)
+			if (!flag)
 			{
-				--p_77648_6_;
-			}
-
-			if (p_77648_7_ == 3)
-			{
-				++p_77648_6_;
-			}
-
-			if (p_77648_7_ == 4)
-			{
-				--p_77648_4_;
-			}
-
-			if (p_77648_7_ == 5)
-			{
-				++p_77648_4_;
-			}
-
-		}
-		{
-			if (!p_77648_3_.isRemote)
-			{
-				if (!Blocks.skull.canPlaceBlockOnSide(p_77648_3_, p_77648_4_, p_77648_5_, p_77648_6_, p_77648_7_)) return false;
-				p_77648_3_.setBlock(p_77648_4_, p_77648_5_, p_77648_6_, ModBlocks.gaiaHead, p_77648_7_, 2); // Gaia head instead of skull
-				int i1 = 0;
-
-				if (p_77648_7_ == 1)
+				if (!worldIn.isSideSolid(pos, side, true))
 				{
-					i1 = MathHelper.floor_double(p_77648_2_.rotationYaw * 16.0F / 360.0F + 0.5D) & 15;
+					return false;
 				}
 
-				TileEntity tileentity = p_77648_3_.getTileEntity(p_77648_4_, p_77648_5_, p_77648_6_);
+				pos = pos.offset(side);
+			}
 
-				if (tileentity != null && tileentity instanceof TileEntitySkull)
+			if (!playerIn.canPlayerEdit(pos, side, stack))
+			{
+				return false;
+			}
+			else if (!Blocks.skull.canPlaceBlockAt(worldIn, pos))
+			{
+				return false;
+			}
+			else
+			{
+				if (!worldIn.isRemote)
 				{
-					/*if (p_77648_1_.getItemDamage() == 3)
+					if (!Blocks.skull.canPlaceBlockOnSide(worldIn, pos, side)) return false;
+					worldIn.setBlockState(pos, Blocks.skull.getDefaultState().withProperty(BlockSkull.FACING, side), 3);
+					int i = 0;
+
+					if (side == EnumFacing.UP)
 					{
-						GameProfile gameprofile = null;
+						i = MathHelper.floor_double((double)(playerIn.rotationYaw * 16.0F / 360.0F) + 0.5D) & 15;
+					}
 
-						if (p_77648_1_.hasTagCompound())
+					TileEntity tileentity = worldIn.getTileEntity(pos);
+
+					if (tileentity instanceof TileEntitySkull)
+					{
+						TileEntitySkull tileentityskull = (TileEntitySkull)tileentity;
+
+						if (stack.getMetadata() == 3)
 						{
-							NBTTagCompound nbttagcompound = p_77648_1_.getTagCompound();
-
-							if (nbttagcompound.hasKey("SkullOwner", 10))
-							{
-								gameprofile = NBTUtil.func_152459_a(nbttagcompound.getCompoundTag("SkullOwner"));
-							}
-							else if (nbttagcompound.hasKey("SkullOwner", 8) && nbttagcompound.getString("SkullOwner").length() > 0)
-							{
-								gameprofile = new GameProfile((UUID)null, nbttagcompound.getString("SkullOwner"));
-							}
+//							GameProfile gameprofile = null;
+//
+//							if (stack.hasTagCompound())
+//							{
+//								NBTTagCompound nbttagcompound = stack.getTagCompound();
+//
+//								if (nbttagcompound.hasKey("SkullOwner", 10))
+//								{
+//									gameprofile = NBTUtil.readGameProfileFromNBT(nbttagcompound.getCompoundTag("SkullOwner"));
+//								}
+//								else if (nbttagcompound.hasKey("SkullOwner", 8) && nbttagcompound.getString("SkullOwner").length() > 0)
+//								{
+//									gameprofile = new GameProfile((UUID)null, nbttagcompound.getString("SkullOwner"));
+//								}
+//							}
+//
+//							tileentityskull.setPlayerProfile(gameprofile);
+						}
+						else
+						{
+							tileentityskull.setType(stack.getMetadata());
 						}
 
-						((TileEntitySkull)tileentity).func_152106_a(gameprofile);
+						tileentityskull.setSkullRotation(i);
+						Blocks.skull.checkWitherSpawn(worldIn, pos, tileentityskull);
 					}
-					else
-					{
-						((TileEntitySkull)tileentity).func_152107_a(p_77648_1_.getItemDamage());
-					}*/
 
-					((TileEntitySkull)tileentity).func_145903_a(i1);
-					((BlockSkull)Blocks.skull).func_149965_a(p_77648_3_, p_77648_4_, p_77648_5_, p_77648_6_, (TileEntitySkull)tileentity);
+					--stack.stackSize;
 				}
 
-				--p_77648_1_.stackSize;
+				return true;
 			}
-
-			return true;
 		}
 	}
 

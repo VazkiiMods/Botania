@@ -14,6 +14,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
@@ -21,8 +22,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
@@ -71,10 +71,10 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
-		if(par5 < 160 && !par3World.provider.isHellWorld) {
-			par3World.playSound(par4 + 0.5D, par5 + 0.5D, par6 + 0.5D, "botania:laputaStart", 1.0F + par3World.rand.nextFloat(), par3World.rand.nextFloat() * 0.7F + 1.3F, false);
-			spawnBurstFirst(par3World, par4, par5, par6, par1ItemStack);
+	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumFacing side, float par8, float par9, float par10) {
+		if(pos.getY() < 160 && !par3World.provider.doesWaterVaporize()) {
+			par3World.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, "botania:laputaStart", 1.0F + par3World.rand.nextFloat(), par3World.rand.nextFloat() * 0.7F + 1.3F, false);
+			spawnBurstFirst(par3World, pos, par1ItemStack);
 			par1ItemStack.stackSize--;
 			if(par1ItemStack.getItemDamage() == 19)
 				par2EntityPlayer.addStat(ModAchievements.l20ShardUse, 1);
@@ -83,21 +83,21 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 		return true;
 	}
 
-	public void spawnBurstFirst(World world, int srcx, int srcy, int srcz, ItemStack lens) {
+	public void spawnBurstFirst(World world, BlockPos pos, ItemStack lens) {
 		int range = BASE_RANGE + lens.getItemDamage();
 		boolean pointy = world.rand.nextDouble() < 0.25;
 		double heightscale = (world.rand.nextDouble() + 0.5) * ((double)BASE_RANGE / (double)range);
-		spawnBurst(world, srcx, srcy, srcz, lens, pointy, heightscale);
+		spawnBurst(world, pos, lens, pointy, heightscale);
 	}
 
-	public void spawnBurst(World world, int srcx, int srcy, int srcz, ItemStack lens) {
+	public void spawnBurst(World world, BlockPos pos, ItemStack lens) {
 		boolean pointy = ItemNBTHelper.getBoolean(lens, TAG_POINTY, false);
 		double heightscale = ItemNBTHelper.getDouble(lens, TAG_HEIGHTSCALE, 1);
 
-		spawnBurst(world, srcx, srcy, srcz, lens, pointy, heightscale);
+		spawnBurst(world, pos, lens, pointy, heightscale);
 	}
 
-	public void spawnBurst(World world, int srcx, int srcy, int srcz, ItemStack lens, boolean pointy, double heightscale) {
+	public void spawnBurst(World world, BlockPos pos, ItemStack lens, boolean pointy, double heightscale) {
 		int range = BASE_RANGE + lens.getItemDamage();
 
 		int i = ItemNBTHelper.getInt(lens, TAG_ITERATION_I, 0);
@@ -113,42 +113,40 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 			for(; i < range * 2 + 1; i++) {
 				for(; j > -BASE_RANGE * 2; j--) {
 					for(; k < range * 2 + 1; k++) {
-						int x = srcx - range + i;
-						int y = srcy - BASE_RANGE + j;
-						int z = srcz - range + k;
+						BlockPos pos_ = pos.add(-range + i, -BASE_RANGE + j, -range + k);
 
-						if(inRange(x, y, z, srcx, srcy, srcz, range, heightscale, pointy)) {
-							Block block = world.getBlock(x, y, z);
-							if(!block.isAir(world, x, y, z) && !block.isReplaceable(world, x, y, z) && !(block instanceof BlockFalling) && (!(block instanceof ILaputaImmobile) || ((ILaputaImmobile) block).canMove(world, , x)) && block.getBlockHardness(world, x, y, z) != -1) {
+						if(inRange(pos_, pos, range, heightscale, pointy)) {
+							Block block = world.getBlockState(pos_).getBlock();
+							if(!block.isAir(world, pos_) && !block.isReplaceable(world, pos_) && !(block instanceof BlockFalling) && (!(block instanceof ILaputaImmobile) || ((ILaputaImmobile) block).canMove(world, pos_)) && block.getBlockHardness(world, pos_) != -1) {
 								int id = Block.getIdFromBlock(block);
-								int meta = world.getBlockMetadata(x, y, z);
-								TileEntity tile = world.getTileEntity(x, y, z);
+								IBlockState state = world.getBlockState(pos_);
+								TileEntity tile = world.getTileEntity(pos_);
 
 								if(tile != null) {
-									TileEntity newTile = block.createTileEntity(world, meta);
-									world.setTileEntity(x, y, z, newTile);
+									TileEntity newTile = block.createTileEntity(world, state);
+									world.setTileEntity(pos_, newTile);
 								}
-								world.setBlockToAir(x, y, z);
-								world.playAuxSFX(2001, x, y, z, id + (meta << 12));
+								world.setBlockToAir(pos_);
+								world.playAuxSFX(2001, pos_, Block.getStateId(state));
 
 								ItemStack copyLens = new ItemStack(this, 1, lens.getItemDamage());
 								ItemNBTHelper.setInt(copyLens, TAG_BLOCK, id);
-								ItemNBTHelper.setInt(copyLens, TAG_META, meta);
+								ItemNBTHelper.setInt(copyLens, TAG_META, block.getMetaFromState(state));
 								NBTTagCompound cmp = new NBTTagCompound();
 								if(tile != null)
 									tile.writeToNBT(cmp);
 								ItemNBTHelper.setCompound(copyLens, TAG_TILE, cmp);
-								ItemNBTHelper.setInt(copyLens, TAG_X, srcx);
-								ItemNBTHelper.setInt(copyLens, TAG_Y, srcy);
-								ItemNBTHelper.setInt(copyLens, TAG_Y_START, y);
-								ItemNBTHelper.setInt(copyLens, TAG_Z, srcz);
+								ItemNBTHelper.setInt(copyLens, TAG_X, pos.getX());
+								ItemNBTHelper.setInt(copyLens, TAG_Y, pos.getY());
+								ItemNBTHelper.setInt(copyLens, TAG_Y_START, pos_.getY());
+								ItemNBTHelper.setInt(copyLens, TAG_Z, pos.getZ());
 								ItemNBTHelper.setBoolean(copyLens, TAG_POINTY, pointy);
 								ItemNBTHelper.setDouble(copyLens, TAG_HEIGHTSCALE, heightscale);
 								ItemNBTHelper.setInt(copyLens, TAG_ITERATION_I, i);
 								ItemNBTHelper.setInt(copyLens, TAG_ITERATION_J, j);
 								ItemNBTHelper.setInt(copyLens, TAG_ITERATION_K, k);
 
-								EntityManaBurst burst = getBurst(world, x, y, z, copyLens);
+								EntityManaBurst burst = getBurst(world, pos_, copyLens);
 								world.spawnEntityInWorld(burst);
 								return;
 							}
@@ -169,11 +167,11 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 		else return MathHelper.pointDistanceSpace(x, 0, z, srcx, 0, srcz) < range - (srcy - y) / heightscale;
 	}
 
-	public EntityManaBurst getBurst(World world, int x, int y, int z, ItemStack stack) {
+	public EntityManaBurst getBurst(World world, BlockPos pos, ItemStack stack) {
 		EntityManaBurst burst = new EntityManaBurst(world);
-		burst.posX = x + 0.5;
-		burst.posY = y + 0.5;
-		burst.posZ = z + 0.5;
+		burst.posX = pos.getX() + 0.5;
+		burst.posY = pos.getY() + 0.5;
+		burst.posZ = pos.getZ() + 0.5;
 
 		burst.setColor(0x00EAFF);
 		burst.setMana(1);
@@ -218,13 +216,14 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 				int z = ItemNBTHelper.getInt(lens, TAG_Z, 0);
 
 				if(y != -1)
-					spawnBurst(entity.worldObj, x, y, z, lens);
+					spawnBurst(entity.worldObj, new BlockPos(x, y, z), lens);
 			} else if(burst.getTicksExisted() == placeTicks) {
 				int x = net.minecraft.util.MathHelper.floor_double(entity.posX);
 				int y = ItemNBTHelper.getInt(lens, TAG_Y_START, -1) + targetDistance;
 				int z = net.minecraft.util.MathHelper.floor_double(entity.posZ);
+				BlockPos pos = new BlockPos(x, y, z);
 
-				if(entity.worldObj.isAirBlock(x, y, z)) {
+				if(entity.worldObj.isAirBlock(pos)) {
 					int id = ItemNBTHelper.getInt(lens, TAG_BLOCK, 0);
 					Block block = Block.getBlockById(id);
 					int meta = ItemNBTHelper.getInt(lens, TAG_META, 0);
@@ -234,13 +233,11 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 					if(tilecmp.hasKey("id"))
 						tile = TileEntity.createAndLoadEntity(tilecmp);
 
-					entity.worldObj.setBlock(x, y, z, block, meta, 1 | 2);
-					entity.worldObj.playAuxSFX(2001, x, y, z, id + (meta << 12));
+					entity.worldObj.setBlockState(pos, block.getStateFromMeta(meta), 1 | 2);
+					entity.worldObj.playAuxSFX(2001, pos, Block.getStateId(block.getStateFromMeta(meta)));
 					if(tile != null) {
-						tile.xCoord = x;
-						tile.yCoord = y;
-						tile.zCoord = z;
-						entity.worldObj.setTileEntity(x, y, z, tile);
+						tile.setPos(pos);
+						entity.worldObj.setTileEntity(pos, tile);
 					}
 				}
 
@@ -254,9 +251,9 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 		EntityThrowable entity = (EntityThrowable) burst;
 		ItemStack lens = burst.getSourceLens();
 		int id = ItemNBTHelper.getInt(lens, TAG_BLOCK, 0);
-		Block.getBlockById(id);
+		Block b = Block.getBlockById(id);
 		int meta = ItemNBTHelper.getInt(lens, TAG_META, 0);
-		entity.worldObj.spawnParticle("blockcrack_" + id + "_" + meta, entity.posX, entity.posY, entity.posZ, entity.motionX, entity.motionY, entity.motionZ);
+		entity.worldObj.spawnParticle(EnumParticleTypes.BLOCK_CRACK, entity.posX, entity.posY, entity.posZ, entity.motionX, entity.motionY, entity.motionZ, Block.getStateId(b.getStateFromMeta(meta)));
 
 		return true;
 	}

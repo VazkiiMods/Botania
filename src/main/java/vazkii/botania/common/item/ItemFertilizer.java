@@ -16,6 +16,7 @@ import java.util.List;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
@@ -29,7 +30,7 @@ public class ItemFertilizer extends ItemMod {
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
+	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumFacing side, float par8, float par9, float par10) {
 		final int range = 3;
 		if(!par3World.isRemote) {
 			List<BlockPos> validCoords = new ArrayList();
@@ -37,11 +38,9 @@ public class ItemFertilizer extends ItemMod {
 			for(int i = -range - 1; i < range; i++)
 				for(int j = -range - 1; j < range; j++) {
 					for(int k = 2; k >= -2; k--) {
-						int x = par4 + i + 1;
-						int y = par5 + k + 1;
-						int z = par6 + j + 1;
-						if(par3World.isAirBlock(x, y, z) && (!par3World.provider.hasNoSky || y < 255) && ModBlocks.flower.canBlockStay(par3World, x, y, z))
-							validCoords.add(new BlockPos(x, y, z));
+						BlockPos pos_ = pos.add(i + 1, k + 1, j + 1);
+						if(par3World.isAirBlock(pos_) && (!par3World.provider.getHasNoSky() || pos_.getY() < 255) && ModBlocks.flower.canBlockStay(par3World, pos_))
+							validCoords.add(pos_);
 					}
 				}
 
@@ -49,14 +48,14 @@ public class ItemFertilizer extends ItemMod {
 			for(int i = 0; i < flowerCount; i++) {
 				BlockPos coords = validCoords.get(par3World.rand.nextInt(validCoords.size()));
 				validCoords.remove(coords);
-				par3World.setBlock(coords.posX, coords.posY, coords.posZ, ModBlocks.flower, par3World.rand.nextInt(16), 1 | 2);
+				par3World.setBlockState(coords, ModBlocks.flower, par3World.rand.nextInt(16), 1 | 2);
 			}
 			par1ItemStack.stackSize--;
 		} else {
 			for(int i = 0; i < 15; i++) {
-				double x = par4 - range + par3World.rand.nextInt(range * 2 + 1) + Math.random();
-				double y = par5 + 1;
-				double z = par6 - range + par3World.rand.nextInt(range * 2 + 1) + Math.random();
+				double x = pos.getX() - range + par3World.rand.nextInt(range * 2 + 1) + Math.random();
+				double y = pos.getY() + 1;
+				double z = pos.getZ() - range + par3World.rand.nextInt(range * 2 + 1) + Math.random();
 				float red = (float) Math.random();
 				float green = (float) Math.random();
 				float blue = (float) Math.random();

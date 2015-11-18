@@ -20,6 +20,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaItem;
@@ -66,11 +67,6 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 	}
 
 	@Override
-	public int getDisplayDamage(ItemStack stack) {
-		return getDamage(stack);
-	}
-
-	@Override
 	public void registerIcons(IIconRegister par1IconRegister) {
 		icons = new IIcon[2];
 		for(int i = 0; i < icons.length; i++)
@@ -105,9 +101,9 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
+	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, BlockPos pos, EnumFacing side, float par8, float par9, float par10) {
 		if(par2EntityPlayer.isSneaking() && !par3World.isRemote) {
-			TileEntity tile = par3World.getTileEntity(par4, par5, par6);
+			TileEntity tile = par3World.getTileEntity(pos);
 			if(tile != null && tile instanceof IManaPool) {
 				bindPool(par1ItemStack, tile);
 				par3World.playSoundAtEntity(par2EntityPlayer, "botania:ding", 1F, 1F);
@@ -116,11 +112,6 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 		}
 
 		return false;
-	}
-
-	@Override
-	public boolean requiresMultipleRenderPasses() {
-		return true;
 	}
 
 	/*public int getMana(ItemStack stack) {
@@ -166,10 +157,10 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 	}*/
 
 	public void bindPool(ItemStack stack, TileEntity pool) {
-		ItemNBTHelper.setInt(stack, TAG_POS_X, pool == null ? 0 : pool.xCoord);
-		ItemNBTHelper.setInt(stack, TAG_POS_Y, pool == null ? -1 : pool.yCoord);
-		ItemNBTHelper.setInt(stack, TAG_POS_Z, pool == null ? 0 : pool.zCoord);
-		ItemNBTHelper.setInt(stack, TAG_DIM, pool == null ? 0 : pool.getWorld().provider.dimensionId);
+		ItemNBTHelper.setInt(stack, TAG_POS_X, pool == null ? 0 : pool.getPos().getX());
+		ItemNBTHelper.setInt(stack, TAG_POS_Y, pool == null ? -1 : pool.getPos().getY());
+		ItemNBTHelper.setInt(stack, TAG_POS_Z, pool == null ? 0 : pool.getPos().getZ());
+		ItemNBTHelper.setInt(stack, TAG_DIM, pool == null ? 0 : pool.getWorld().provider.getDimensionId());
 	}
 
 	public BlockPos getPoolCoords(ItemStack stack) {
@@ -189,19 +180,19 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 			return fallbackPool;
 
 		BlockPos coords = getPoolCoords(stack);
-		if(coords.posY == -1)
+		if(coords.getY() == -1)
 			return null;
 
 		int dim = getDimension(stack);
 		World world = null;
 		for(World w : server.worldServers)
-			if(w.provider.dimensionId == dim) {
+			if(w.provider.getDimensionId() == dim) {
 				world = w;
 				break;
 			}
 
 		if(world != null) {
-			TileEntity tile = world.getTileEntity(coords.posX, coords.posY, coords.posZ);
+			TileEntity tile = world.getTileEntity(coords);
 			if(tile != null && tile instanceof IManaPool)
 				return (IManaPool) tile;
 		}
