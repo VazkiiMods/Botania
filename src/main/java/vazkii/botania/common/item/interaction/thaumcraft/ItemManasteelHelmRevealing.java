@@ -14,8 +14,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
-import thaumcraft.api.IGoggles;
-import thaumcraft.api.nodes.IRevealer;
+import thaumcraft.api.items.IGoggles;
+import thaumcraft.api.items.IRevealer;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.crafting.recipe.HelmRevealingRecipe;
@@ -25,8 +25,8 @@ import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @Optional.InterfaceList({
-	@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.IGoggles", striprefs = true),
-	@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.nodes.IRevealer", striprefs = true)})
+	@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.items.IGoggles", striprefs = true),
+	@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.items.IRevealer", striprefs = true)})
 public class ItemManasteelHelmRevealing extends ItemManasteelHelm implements IGoggles, IRevealer {
 
 	public ItemManasteelHelmRevealing() {

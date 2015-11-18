@@ -26,7 +26,7 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
-import thaumcraft.api.IRunicArmor;
+import thaumcraft.api.items.IRunicArmor;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IPhantomInkable;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -44,7 +44,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.IRunicArmor")
+@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.items.IRunicArmor")
 public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IManaUsingItem, IPhantomInkable, IRunicArmor {
 
 	private static final int MANA_PER_DAMAGE = 70;

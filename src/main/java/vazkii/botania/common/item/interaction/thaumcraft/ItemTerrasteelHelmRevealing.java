@@ -12,8 +12,8 @@ package vazkii.botania.common.item.interaction.thaumcraft;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
-import thaumcraft.api.IGoggles;
-import thaumcraft.api.nodes.IRevealer;
+import thaumcraft.api.items.IGoggles;
+import thaumcraft.api.items.IRevealer;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
@@ -21,8 +21,8 @@ import vazkii.botania.common.lib.LibItemNames;
 import net.minecraftforge.fml.common.Optional;
 
 @Optional.InterfaceList({
-	@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.IGoggles", striprefs = true),
-	@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.nodes.IRevealer", striprefs = true)})
+	@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.items.IGoggles", striprefs = true),
+	@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.items.IRevealer", striprefs = true)})
 public class ItemTerrasteelHelmRevealing extends ItemTerrasteelHelm implements IGoggles, IRevealer {
 
 	public ItemTerrasteelHelmRevealing() {
