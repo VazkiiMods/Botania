@@ -75,11 +75,6 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 	}
 
 	@Override
-	public boolean requiresMultipleRenderPasses() {
-		return true;
-	}
-
-	@Override
 	public IIcon getIcon(ItemStack stack, int pass) {
 		return icons[pass];
 	}
@@ -138,7 +133,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 				PotionEffect currentEffect = player.getActivePotionEffect(Potion.potionTypes[effect.getPotionID()]);
 				boolean nightVision = effect.getPotionID() == Potion.nightVision.id;
 				if(currentEffect == null || currentEffect.getDuration() < (nightVision ? 205 : 3)) {
-					PotionEffect applyEffect = new PotionEffect(effect.getPotionID(), nightVision ? 285 : 80, effect.getAmplifier(), true);
+					PotionEffect applyEffect = new PotionEffect(effect.getPotionID(), nightVision ? 285 : 80, effect.getAmplifier(), true, true);
 					player.addPotionEffect(applyEffect);
 				}
 
@@ -185,7 +180,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 	@Override
 	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type) {
 		if(type == RenderType.BODY) {
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 			Helper.rotateIfSneaking(event.entityPlayer);
 			boolean armor = event.entityPlayer.getCurrentArmor(2) != null;
 			GL11.glRotatef(180F, 1F, 0F, 0F);

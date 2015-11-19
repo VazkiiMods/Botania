@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.google.common.base.Predicate;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -49,10 +50,10 @@ public class ItemThunderSword extends ItemManasteelSword implements ICraftAchiev
 			int dmg = 5;
 			long lightningSeed = ItemNBTHelper.getLong(stack, TAG_LIGHTNING_SEED, 0);
 
-			IEntitySelector selector = new IEntitySelector() {
+			Predicate<Entity> selector = new Predicate<Entity>() {
 
 				@Override
-				public boolean isEntityApplicable(Entity e) {
+				public boolean apply(Entity e) {
 					return e instanceof EntityLivingBase && e instanceof IMob && !(e instanceof EntityPlayer) && !alreadyTargetedEntities.contains(e);
 				}
 
@@ -61,7 +62,7 @@ public class ItemThunderSword extends ItemManasteelSword implements ICraftAchiev
 			Random rand = new Random(lightningSeed);
 			EntityLivingBase lightningSource = entity;
 			for(int i = 0; i < 4; i++) {
-				List<EntityLivingBase> entities = entity.worldObj.getEntitiesWithinAABBExcludingEntity(lightningSource, new AxisAlignedBB(lightningSource.posX - range, lightningSource.posY - range, lightningSource.posZ - range, lightningSource.posX + range, lightningSource.posY + range, lightningSource.posZ + range), selector);
+				List<EntityLivingBase> entities = entity.worldObj.getEntitiesInAABBexcluding(lightningSource, new AxisAlignedBB(lightningSource.posX - range, lightningSource.posY - range, lightningSource.posZ - range, lightningSource.posX + range, lightningSource.posY + range, lightningSource.posZ + range), selector);
 				if(entities.isEmpty())
 					break;
 

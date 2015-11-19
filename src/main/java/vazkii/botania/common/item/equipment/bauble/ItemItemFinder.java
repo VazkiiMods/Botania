@@ -30,6 +30,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.village.MerchantRecipe;
@@ -165,20 +166,16 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 
 			if(pstack != null) {
 				range = 12;
-				int x = MathHelper.floor_double(player.posX);
-				int y = MathHelper.floor_double(player.posY);
-				int z = MathHelper.floor_double(player.posZ);
+				BlockPos pos = new BlockPos(player);
 				for(int i = -range; i < range + 1; i++)
 					for(int j = -range; j < range + 1; j++)
 						for(int k = -range; k < range + 1; k++) {
-							int xp = x + i;
-							int yp = y + j;
-							int zp = z + k;
-							TileEntity tile = player.worldObj.getTileEntity(xp, yp, zp);
+							BlockPos pos_ = pos.add(i, j, k);
+							TileEntity tile = player.worldObj.getTileEntity(pos_);
 							if(tile != null && tile instanceof IInventory) {
 								IInventory inv = (IInventory) tile;
 								if(scanInventory(inv, pstack))
-									positionsBuilder.append(xp).append(",").append(yp).append(",").append(zp).append(";");
+									positionsBuilder.append(pos_.getX()).append(",").append(pos_.getY()).append(",").append(pos_.getZ()).append(";");
 							}
 						}
 			}

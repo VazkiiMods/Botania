@@ -18,6 +18,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
@@ -130,10 +131,7 @@ public class ItemMagnetRing extends ItemBauble {
 		if(stack == null || stack.getItem() instanceof IManaItem || stack.getItem() instanceof IRelic || BLACKLIST.contains(itemRegistry.getNameForObject(stack.getItem())))
 			return false;
 
-		int x = net.minecraft.util.MathHelper.floor_double(item.posX);
-		int y = net.minecraft.util.MathHelper.floor_double(item.posY);
-		int z = net.minecraft.util.MathHelper.floor_double(item.posZ);
-		if(item.worldObj.getBlock(x, y, z) == ModBlocks.terraPlate)
+		if(item.worldObj.getBlockState(new BlockPos(item)).getBlock() == ModBlocks.terraPlate)
 			return false;
 
 		return true;

@@ -13,6 +13,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
@@ -33,7 +34,7 @@ public class ItemElementiumShears extends ItemManasteelShears {
 
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
-		return EnumAction.bow;
+		return EnumAction.BOW;
 	}
 
 	@Override
@@ -70,8 +71,8 @@ public class ItemElementiumShears extends ItemManasteelShears {
 			if(sheep.size() > 0) {
 				for(IShearable target : sheep) {
 					Entity entity = (Entity) target;
-					if(target.isShearable(stack, entity.worldObj, (int)entity.posX, (int)entity.posY, (int)entity.posZ)) {
-						ArrayList<ItemStack> drops = target.onSheared(stack, entity.worldObj, (int)entity.posX, (int)entity.posY, (int)entity.posZ, EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, stack));
+					if(target.isShearable(stack, entity.worldObj, new BlockPos(entity))) {
+						List<ItemStack> drops = target.onSheared(stack, entity.worldObj, new BlockPos(entity), EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, stack));
 
 						Random rand = new Random();
 						for(ItemStack drop : drops) {

@@ -12,6 +12,7 @@ package vazkii.botania.common.item.equipment.tool;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -21,6 +22,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
@@ -46,13 +48,12 @@ public final class ToolCommons {
 			stack.damageItem(dmg, entity);
 	}
 
-	public static void removeBlocksInIteration(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int xs, int ys, int zs, int xe, int ye, int ze, Block block, Material[] materialsListing, boolean silk, int fortune, boolean dispose) {
-		float blockHardness = block == null ? 1F : block.getBlockHardness(world, x, y, z);
+	public static void removeBlocksInIteration(EntityPlayer player, ItemStack stack, World world, BlockPos pos, BlockPos posStart, BlockPos posEnd, Block block, Material[] materialsListing, boolean silk, int fortune, boolean dispose) {
+		float blockHardness = block == null ? 1F : block.getBlockHardness(world, pos);
 
-		for(int x1 = xs; x1 < xe; x1++)
-			for(int y1 = ys; y1 < ye; y1++)
-				for(int z1 = zs; z1 < ze; z1++)
-					removeBlockWithDrops(player, stack, world, x1 + x, y1 + y, z1 + z, x, y, z, block, materialsListing, silk, fortune, blockHardness, dispose);
+		for (BlockPos iterPos : ((Iterable<BlockPos>) BlockPos.getAllInBox(posStart, posEnd))) {
+			removeBlockWithDrops(player, stack, world, iterPos, pos, block, materialsListing, silk, fortune, blockHardness, dispose);
+		}
 	}
 
 	public static boolean isRightMaterial(Material material, Material[] materialsListing) {
@@ -63,41 +64,41 @@ public final class ToolCommons {
 		return false;
 	}
 
-	public static void removeBlockWithDrops(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int bx, int by, int bz, Block block, Material[] materialsListing, boolean silk, int fortune, float blockHardness, boolean dispose) {
-		removeBlockWithDrops(player, stack, world, x, y, z, bx, by, bz, block, materialsListing, silk, fortune, blockHardness, dispose, true);
+	public static void removeBlockWithDrops(EntityPlayer player, ItemStack stack, World world, BlockPos pos, BlockPos bPos, Block block, Material[] materialsListing, boolean silk, int fortune, float blockHardness, boolean dispose) {
+		removeBlockWithDrops(player, stack, world, pos, bPos, block, materialsListing, silk, fortune, blockHardness, dispose, true);
 	}
 
-	public static void removeBlockWithDrops(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int bx, int by, int bz, Block block, Material[] materialsListing, boolean silk, int fortune, float blockHardness, boolean dispose, boolean particles) {
-		if(!world.blockExists(x, y, z))
+	public static void removeBlockWithDrops(EntityPlayer player, ItemStack stack, World world, BlockPos pos, BlockPos bPos, Block block, Material[] materialsListing, boolean silk, int fortune, float blockHardness, boolean dispose, boolean particles) {
+		if(!world.isBlockLoaded(pos))
 			return;
 
-		Block blk = world.getBlock(x, y, z);
-		int meta = world.getBlockMetadata(x, y, z);
+		IBlockState state = world.getBlockState(pos);
+		Block blk = state.getBlock();
 
 		if(block != null && blk != block)
 			return;
 
-		Material mat = world.getBlock(x, y, z).getMaterial();
-		if(!world.isRemote && blk != null && !blk.isAir(world, x, y, z) && blk.getPlayerRelativeBlockHardness(player, world, x, y, z) > 0) {
-			if(!blk.canHarvestBlock(player, meta) || !isRightMaterial(mat, materialsListing))
+		Material mat = world.getBlockState(pos).getBlock().getMaterial();
+		if(!world.isRemote && blk != null && !blk.isAir(world, pos) && blk.getPlayerRelativeBlockHardness(player, world, pos) > 0) {
+			if(!blk.canHarvestBlock(player.worldObj, pos, player) || !isRightMaterial(mat, materialsListing))
 				return;
 
 			if(!player.capabilities.isCreativeMode) {
-				int localMeta = world.getBlockMetadata(x, y, z);
-				blk.onBlockHarvested(world, x, y, z, localMeta, player);
+				IBlockState localState = world.getBlockState(pos);
+				blk.onBlockHarvested(world, pos, localState, player);
 
-				if(blk.removedByPlayer(world, player, x, y, z, true)) {
-					blk.onBlockDestroyedByPlayer(world, x, y, z, localMeta);
+				if(blk.removedByPlayer(world, pos, player, true)) {
+					blk.onBlockDestroyedByPlayer(world, pos, state);
 
 					if(!dispose || !ItemElementiumPick.isDisposable(blk))
-						blk.harvestBlock(world, player, x, y, z, localMeta);
+						blk.harvestBlock(world, player, pos, state, world.getTileEntity(pos));
 				}
 
 				damageItem(stack, 1, player, 80);
-			} else world.setBlockToAir(x, y, z);
+			} else world.setBlockToAir(pos);
 
 			if(particles && !world.isRemote && ConfigHandler.blockBreakParticles && ConfigHandler.blockBreakParticlesTool)
-				world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(blk) + (meta << 12));
+				world.playAuxSFX(2001, pos, Block.getStateId(state));
 		}
 	}
 
@@ -110,7 +111,7 @@ public final class ToolCommons {
 			return 0;
 
 		ItemTool tool = (ItemTool) item;
-		ToolMaterial material = tool.func_150913_i();
+		ToolMaterial material = tool.getToolMaterial();
 		int materialLevel = 0;
 		if(material == BotaniaAPI.manasteelToolMaterial)
 			materialLevel = 10;
@@ -136,8 +137,6 @@ public final class ToolCommons {
 		float f2 = player.prevRotationYaw + (player.rotationYaw - player.prevRotationYaw) * f;
 		double d0 = player.prevPosX + (player.posX - player.prevPosX) * f;
 		double d1 = player.prevPosY + (player.posY - player.prevPosY) * f;
-		if (!world.isRemote && player instanceof EntityPlayer)
-			d1 += 1.62D;
 		double d2 = player.prevPosZ + (player.posZ - player.prevPosZ) * f;
 		Vec3 vec3 = new Vec3(d0, d1, d2);
 		float f3 = MathHelper.cos(-f2 * 0.017453292F - (float) Math.PI);

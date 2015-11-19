@@ -44,11 +44,6 @@ public class ItemEnderDagger extends ItemManasteelSword {
 	}
 
 	@Override
-	public boolean requiresMultipleRenderPasses() {
-		return true;
-	}
-
-	@Override
 	public IIcon getIcon(ItemStack stack, int pass) {
 		return pass == 0 ? iconFront : iconOverlay;
 	}
@@ -63,7 +58,7 @@ public class ItemEnderDagger extends ItemManasteelSword {
 
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
-		return EnumAction.none;
+		return EnumAction.NONE;
 	}
 
 	@Override

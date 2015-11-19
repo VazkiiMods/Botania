@@ -174,11 +174,6 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 		return getCosmeticItem(itemStack);
 	}
 
-	@Override
-	public boolean doesContainerItemLeaveCraftingGrid(ItemStack p_77630_1_) {
-		return false;
-	}
-
 	public static UUID getBaubleUUID(ItemStack stack) {
 		long most = ItemNBTHelper.getLong(stack, TAG_BAUBLE_UUID_MOST, 0);
 		if(most == 0) {

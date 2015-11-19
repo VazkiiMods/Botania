@@ -6,6 +6,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -23,9 +24,9 @@ public class ItemElementiumShovel extends ItemManasteelShovel {
 	}
 
 	@Override
-	public boolean onBlockStartBreak(ItemStack stack, int x, int y, int z, EntityPlayer player) {
+	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, EntityPlayer player) {
 		World world = player.worldObj;
-		Material mat = world.getBlock(x, y, z).getMaterial();
+		Material mat = world.getBlockState(pos).getBlock().getMaterial();
 		if (!ToolCommons.isRightMaterial(mat, materialsShovel))
 			return false;
 
@@ -33,11 +34,10 @@ public class ItemElementiumShovel extends ItemManasteelShovel {
 		if (block == null)
 			return false;
 
-		ForgeDirection.getOrientation(block.sideHit);
 		int fortune = EnchantmentHelper.getFortuneModifier(player);
 		boolean silk = EnchantmentHelper.getSilkTouchModifier(player);
 
-		Block blk = world.getBlock(x, y, z);
+		Block blk = world.getBlockState(pos).getBlock();
 		if(blk instanceof BlockFalling)
 			ToolCommons.removeBlocksInIteration(player, stack, world, x, y, z, 0, -12, 0, 1, 12, 1, blk, materialsShovel, silk, fortune, false);
 

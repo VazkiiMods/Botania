@@ -21,6 +21,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISortableTool;
@@ -77,8 +79,8 @@ public class ItemManasteelAxe extends ItemAxe implements IManaUsingItem, ISortab
 	}
 
 	@Override
-	public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int x, int y, int z, EntityLivingBase entity) {
-		if (block.getBlockHardness(world, x, y, z) != 0F)
+	public boolean onBlockDestroyed(ItemStack stack, World world, Block block, BlockPos pos, EntityLivingBase entity) {
+		if (block.getBlockHardness(world, pos) != 0F)
 			ToolCommons.damageItem(stack, 1, entity, getManaPerDamage());
 
 		return true;
@@ -89,11 +91,11 @@ public class ItemManasteelAxe extends ItemAxe implements IManaUsingItem, ISortab
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int s, float sx, float sy, float sz) {
+	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float sx, float sy, float sz) {
 		for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
 			ItemStack stackAt = player.inventory.getStackInSlot(i);
 			if(stackAt != null && SAPLING_PATTERN.matcher(stackAt.getItem().getUnlocalizedName()).find()) {
-				boolean did = stackAt.getItem().onItemUse(stackAt, player, world, x, y, z, s, sx, sy, sz);
+				boolean did = stackAt.getItem().onItemUse(stackAt, player, world, pos, side, sx, sy, sz);
 				if(stackAt.stackSize == 0)
 					player.inventory.setInventorySlotContents(i, null);
 

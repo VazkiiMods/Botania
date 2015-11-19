@@ -57,11 +57,6 @@ public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipD
 	}
 
 	@Override
-	public int getDisplayDamage(ItemStack stack) {
-		return getDamage(stack);
-	}
-
-	@Override
 	public int getEntityLifespan(ItemStack itemStack, World world) {
 		return Integer.MAX_VALUE;
 	}

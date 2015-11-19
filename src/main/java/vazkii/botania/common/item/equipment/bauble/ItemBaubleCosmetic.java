@@ -88,7 +88,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 
 	@Override
 	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type) {
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 		if(type == RenderType.HEAD) {
 			Helper.translateToHeadLevel(event.entityPlayer);
 			switch(stack.getItemDamage()) {

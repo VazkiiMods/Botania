@@ -484,11 +484,11 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 
 		Tessellator tes = Tessellator.getInstance();
 		ShaderHelper.useShader(ShaderHelper.halo);
-		tes.startDrawingQuads();
-		tes.addVertexWithUV(-0.75, 0, -0.75, 0, 0);
-		tes.addVertexWithUV(-0.75, 0, 0.75, 0, 1);
-		tes.addVertexWithUV(0.75, 0, 0.75, 1, 1);
-		tes.addVertexWithUV(0.75, 0, -0.75, 1, 0);
+		tes.getWorldRenderer().startDrawingQuads();
+		tes.getWorldRenderer().addVertexWithUV(-0.75, 0, -0.75, 0, 0);
+		tes.getWorldRenderer().addVertexWithUV(-0.75, 0, 0.75, 0, 1);
+		tes.getWorldRenderer().addVertexWithUV(0.75, 0, 0.75, 1, 1);
+		tes.getWorldRenderer().addVertexWithUV(0.75, 0, -0.75, 1, 0);
 		tes.draw();
 		ShaderHelper.releaseShader();
 

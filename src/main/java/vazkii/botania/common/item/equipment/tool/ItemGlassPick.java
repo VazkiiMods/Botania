@@ -33,8 +33,8 @@ public class ItemGlassPick extends ItemManasteelPick {
 
 	@SubscribeEvent
 	public void onBlockDrops(HarvestDropsEvent event) {
-		if(event.harvester != null && event.block != null && event.drops.isEmpty() && event.harvester.getCurrentEquippedItem() != null && event.harvester.getCurrentEquippedItem().getItem() == this && event.block.getMaterial() == Material.glass && event.block.canSilkHarvest(event.world, event.harvester, event.x, event.y, event.z, event.blockMetadata))
-			event.drops.add(new ItemStack(event.block, 1, event.blockMetadata));
+		if(event.harvester != null && event.state != null && event.drops.isEmpty() && event.harvester.getCurrentEquippedItem() != null && event.harvester.getCurrentEquippedItem().getItem() == this && event.state.getBlock().getMaterial() == Material.glass && event.state.getBlock().canSilkHarvest(event.world, event.pos, event.state, event.harvester))
+			event.drops.add(new ItemStack(event.state.getBlock(), 1, event.state.getBlock().getMetaFromState(event.state)));
 	}
 
 	@Override

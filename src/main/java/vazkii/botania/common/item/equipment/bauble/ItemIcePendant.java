@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -91,8 +92,8 @@ public class ItemIcePendant extends ItemBauble implements IBaubleRender {
 			playerIceBlocks.put(user, new ArrayList());
 
 		List<IceRemover> ice = playerIceBlocks.get(user);
-		if(player.worldObj.getBlock(coords.posX, coords.posY, coords.posZ) == Blocks.water && player.worldObj.getBlockMetadata(coords.posX, coords.posY, coords.posZ) == 0) {
-			player.worldObj.setBlock(coords.posX, coords.posY, coords.posZ, Blocks.ice);
+		if(player.worldObj.getBlockState(coords).getBlock() == Blocks.water && ((Integer) player.worldObj.getBlockState(coords).getValue(BlockLiquid.LEVEL)) == 0) {
+			player.worldObj.setBlockState(coords, Blocks.ice.getDefaultState());
 
 			if(!player.worldObj.isRemote)
 				ice.add(new IceRemover(coords));
@@ -138,9 +139,9 @@ public class ItemIcePendant extends ItemBauble implements IBaubleRender {
 		}
 
 		public void tick(World world, List<IceRemover> list) {
-			if(world.getBlock(coords.posX, coords.posY, coords.posZ) == Blocks.ice) {
+			if(world.getBlockState(coords).getBlock() == Blocks.ice) {
 				if(time-- == 0)
-					world.setBlock(coords.posX, coords.posY, coords.posZ, Blocks.water, 0, 1 | 2);
+					world.setBlockState(coords, Blocks.water.getDefaultState(), 1 | 2);
 				else return;
 				list.remove(this);
 			}

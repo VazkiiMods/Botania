@@ -72,9 +72,9 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 		MovingObjectPosition pos = mc.objectMouseOver;
 		if(pos == null)
 			return;
-		Block block = player.worldObj.getBlock(pos.blockX, pos.blockY, pos.blockZ);
-		int meta = player.worldObj.getBlockMetadata(pos.blockX, pos.blockY, pos.blockZ);
-		player.worldObj.getTileEntity(pos.blockX, pos.blockY, pos.blockZ);
+		Block block = player.worldObj.getBlockState(pos.getBlockPos()).getBlock();
+		int meta = block.getMetaFromState(player.worldObj.getBlockState(pos.getBlockPos())); // todo 1.8 use states
+		player.worldObj.getTileEntity(pos.getBlockPos());
 
 		ItemStack dispStack = null;
 		String text = "";
@@ -97,7 +97,7 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 		int y = resolution.getScaledHeight() / 2 - 8;
 
 		net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
-		RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, dispStack, x, y);
+		mc.getRenderItem().renderItemAndEffectIntoGUI(dispStack, x, y);
 		net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
 		mc.fontRendererObj.drawStringWithShadow(text, x + 20, y + 4, 0xFFFFFF);

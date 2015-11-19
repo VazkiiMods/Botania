@@ -44,7 +44,7 @@ public class ItemSwapRing extends ItemBauble {
 		ToolType typeToFind = null;
 
 		if(player.isSwingInProgress && pos != null) {
-			Block block = entity.worldObj.getBlock(pos.blockX, pos.blockY, pos.blockZ);
+			Block block = entity.worldObj.getBlockState(pos.getBlockPos()).getBlock();
 
 			if(block != null) {
 				Material mat = block.getMaterial();
