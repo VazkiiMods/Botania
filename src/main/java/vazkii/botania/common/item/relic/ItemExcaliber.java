@@ -8,7 +8,7 @@
  * 
  * File Created @ [Mar 29, 2015, 10:12:50 PM (GMT)]
  */
-/*package vazkii.botania.common.item.relic;
+package vazkii.botania.common.item.relic;
 
 import java.util.List;
 
@@ -45,6 +45,7 @@ import vazkii.botania.common.lib.LibItemNames;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
+/*
 public class ItemExcaliber extends ItemManasteelSword implements IRelic, ILensEffect {
 
 	private static final String TAG_ATTACKER_USERNAME = "attackerUsername";
@@ -119,8 +120,8 @@ public class ItemExcaliber extends ItemManasteelSword implements IRelic, ILensEf
 	@Override
 	public Multimap getItemAttributeModifiers() {
 		Multimap multimap = HashMultimap.create();
-		multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Weapon modifier", 10, 0));
-		multimap.put(SharedMonsterAttributes.movementSpeed.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Weapon modifier", 0.3, 1));
+		multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(itemModifierUUID, "Weapon modifier", 10, 0));
+		multimap.put(SharedMonsterAttributes.movementSpeed.getAttributeUnlocalizedName(), new AttributeModifier(itemModifierUUID, "Weapon modifier", 0.3, 1));
 		return multimap;
 	}
 
@@ -220,4 +221,4 @@ public class ItemExcaliber extends ItemManasteelSword implements IRelic, ILensEf
 	}
 
 }
- */
+*/

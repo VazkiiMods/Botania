@@ -22,10 +22,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.*;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.RecipeSorter;
@@ -111,8 +109,8 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int s, float sx, float sy, float sz) {
-		return player.isSneaking() && super.onItemUse(stack, player, world, x, y, z, s, sx, sy, sz);
+	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float sx, float sy, float sz) {
+		return player.isSneaking() && super.onItemUse(stack, player, world, pos, side, sx, sy, sz);
 	}
 
 	@Override
@@ -129,11 +127,11 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	}
 
 	@Override
-	public boolean onBlockStartBreak(ItemStack stack, int x, int y, int z, EntityPlayer player) {
+	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, EntityPlayer player) {
 		MovingObjectPosition raycast = ToolCommons.raytraceFromEntity(player.worldObj, player, true, 10);
 		if(raycast != null) {
-			breakOtherBlock(player, stack, x, y, z, x, y, z, raycast.sideHit);
-			ItemLokiRing.breakOnAllCursors(player, this, stack, x, y, z, raycast.sideHit);
+			breakOtherBlock(player, stack, pos, pos, raycast.sideHit);
+			ItemLokiRing.breakOnAllCursors(player, this, stack, pos, raycast.sideHit);
 			// ^ Doable with API access through the IInternalMethodHandler.
 		}
 
@@ -146,25 +144,24 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	}
 
 	@Override
-	public void breakOtherBlock(EntityPlayer player, ItemStack stack, int x, int y, int z, int originX, int originY, int originZ, int side) {
+	public void breakOtherBlock(EntityPlayer player, ItemStack stack, BlockPos pos, BlockPos originPos, EnumFacing side) {
 		if(!isEnabled(stack))
 			return;
 
 		World world = player.worldObj;
-		Material mat = world.getBlock(x, y, z).getMaterial();
+		Material mat = world.getBlockState(pos).getBlock().getMaterial();
 		if(!ToolCommons.isRightMaterial(mat, MATERIALS))
 			return;
 
-		if(world.isAirBlock(x, y, z))
+		if(world.isAirBlock(pos))
 			return;
 
-		ForgeDirection direction = ForgeDirection.getOrientation(side);
 		int fortune = EnchantmentHelper.getFortuneModifier(player);
 		boolean silk = EnchantmentHelper.getSilkTouchModifier(player);
 		boolean thor = ItemThorRing.getThorRing(player) != null;
-		boolean doX = thor || direction.offsetX == 0;
-		boolean doY = thor || direction.offsetY == 0;
-		boolean doZ = thor || direction.offsetZ == 0;
+		boolean doX = thor || side.getFrontOffsetX() == 0;
+		boolean doY = thor || side.getFrontOffsetY() == 0;
+		boolean doZ = thor || side.getFrontOffsetZ() == 0;
 
 		int origLevel = getLevel(stack);
 		int level = origLevel + (thor ? 1 : 0);
@@ -177,7 +174,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		if(range == 0 && level != 1)
 			return;
 
-		ToolCommons.removeBlocksInIteration(player, stack, world, x, y, z, doX ? -range : 0, doY ? -1 : 0, doZ ? -range : 0, doX ? range + 1 : 1, doY ? rangeY * 2 : 1, doZ ? range + 1 : 1, null, MATERIALS, silk, fortune, isTipped(stack));
+		ToolCommons.removeBlocksInIteration(player, stack, world, pos, new BlockPos(doX ? -range : 0, doY ? -1 : 0, doZ ? -range : 0), new BlockPos(doX ? range + 1 : 1, doY ? rangeY * 2 : 1, doZ ? range + 1 : 1), null, MATERIALS, silk, fortune, isTipped(stack));
 		if(origLevel == 5)
 			player.addStat(ModAchievements.rankSSPick, 1);
 	}
@@ -192,11 +189,6 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		iconTool = IconHelper.forItem(par1IconRegister, this, 0);
 		iconOverlay = IconHelper.forItem(par1IconRegister, this, 1);
 		iconTipped = IconHelper.forItem(par1IconRegister, this, 2);
-	}
-
-	@Override
-	public boolean requiresMultipleRenderPasses() {
-		return true;
 	}
 
 	@Override

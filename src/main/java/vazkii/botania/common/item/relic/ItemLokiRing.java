@@ -25,6 +25,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -90,7 +91,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 		int cost = Math.min(cursorCount, (int) Math.pow(Math.E, cursorCount * 0.25));
 
 		if(heldItemStack == null && event.action == Action.RIGHT_CLICK_BLOCK && player.isSneaking()) {
-			if(originCoords.posY == -1 && lookPos != null) {
+			if(originCoords.getY() == -1 && lookPos != null) {
 				setOriginPos(lokiRing, lookPos.blockX, lookPos.blockY, lookPos.blockZ);
 				setCursorList(lokiRing, null);
 				if(player instanceof EntityPlayerMP)
@@ -138,7 +139,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 		}
 	}
 
-	public static void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, int x, int y, int z, int side) {
+	public static void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, BlockPos pos, EnumFacing side) {
 		ItemStack lokiRing = getLokiRing(player);
 		if(lokiRing == null || player.worldObj.isRemote || !(item instanceof ISequentialBreaker))
 			return;
@@ -152,12 +153,9 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 
 		for(int i = 0; i < cursors.size(); i++) {
 			BlockPos coords = cursors.get(i);
-			int xp = x + coords.posX;
-			int yp = y + coords.posY;
-			int zp = z + coords.posZ;
-			Block block = world.getBlock(xp, yp, zp);
-			breaker.breakOtherBlock(player, stack, xp, yp, zp, x, y, z, side);
-			ToolCommons.removeBlockWithDrops(player, stack, player.worldObj, xp, yp, zp, x, y, z, block, new Material[] { block.getMaterial() }, silk, fortune, block.getBlockHardness(world, xp, yp, zp), dispose);
+			Block block = world.getBlockState(coords).getBlock();
+			breaker.breakOtherBlock(player, stack, coords, coords, side);
+			ToolCommons.removeBlockWithDrops(player, stack, player.worldObj, coords, pos, block, new Material[] { block.getMaterial() }, silk, fortune, block.getBlockHardness(world, coords), dispose);
 		}
 	}
 
@@ -179,11 +177,11 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 
 		MovingObjectPosition lookPos = Minecraft.getMinecraft().objectMouseOver;
 
-		if(lookPos != null && !player.worldObj.isAirBlock(lookPos.blockX, lookPos.blockY, lookPos.blockZ) && lookPos.entityHit == null) {
+		if(lookPos != null && !player.worldObj.isAirBlock(lookPos.getBlockPos()) && lookPos.entityHit == null) {
 			List<BlockPos> list = getCursorList(stack);
 			BlockPos origin = getOriginPos(stack);
 
-			if(origin.posY != -1) {
+			if(origin.getY() != -1) {
 				for(BlockPos coords : list) {
 					coords.posX += origin.posX;
 					coords.posY += origin.posY;
@@ -224,10 +222,10 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 		return new BlockPos(x, y, z);
 	}
 
-	private static void setOriginPos(ItemStack stack, int x, int y, int z) {
-		ItemNBTHelper.setInt(stack, TAG_X_ORIGIN, x);
-		ItemNBTHelper.setInt(stack, TAG_Y_ORIGIN, y);
-		ItemNBTHelper.setInt(stack, TAG_Z_ORIGIN, z);
+	private static void setOriginPos(ItemStack stack, BlockPos pos) {
+		ItemNBTHelper.setInt(stack, TAG_X_ORIGIN, pos.getX());
+		ItemNBTHelper.setInt(stack, TAG_Y_ORIGIN, pos.getY());
+		ItemNBTHelper.setInt(stack, TAG_Z_ORIGIN, pos.getZ());
 	}
 
 	private static List<BlockPos> getCursorList(ItemStack stack) {
@@ -251,7 +249,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 		if(cursors != null) {
 			int i = 0;
 			for(BlockPos cursor : cursors) {
-				NBTTagCompound cursorCmp = cursorToCmp(cursor.posX, cursor.posY, cursor.posZ);
+				NBTTagCompound cursorCmp = cursorToCmp(cursor);
 				cmp.setTag(TAG_CURSOR_PREFIX + i, cursorCmp);
 				i++;
 			}
@@ -261,18 +259,18 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 		ItemNBTHelper.setCompound(stack, TAG_CURSOR_LIST, cmp);
 	}
 
-	private static NBTTagCompound cursorToCmp(int x, int y, int z) {
+	private static NBTTagCompound cursorToCmp(BlockPos pos) {
 		NBTTagCompound cmp = new NBTTagCompound();
-		cmp.setInteger(TAG_X_OFFSET, x);
-		cmp.setInteger(TAG_Y_OFFSET, y);
-		cmp.setInteger(TAG_Z_OFFSET, z);
+		cmp.setInteger(TAG_X_OFFSET, pos.getX());
+		cmp.setInteger(TAG_Y_OFFSET, pos.getY());
+		cmp.setInteger(TAG_Z_OFFSET, pos.getZ());
 		return cmp;
 	}
 
-	private static void addCursor(ItemStack stack, int x, int y, int z) {
+	private static void addCursor(ItemStack stack, BlockPos pos) {
 		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_CURSOR_LIST, false);
 		int count = cmp.getInteger(TAG_CURSOR_COUNT);
-		cmp.setTag(TAG_CURSOR_PREFIX + count, cursorToCmp(x, y, z));
+		cmp.setTag(TAG_CURSOR_PREFIX + count, cursorToCmp(pos));
 		cmp.setInteger(TAG_CURSOR_COUNT, count + 1);
 		ItemNBTHelper.setCompound(stack, TAG_CURSOR_LIST, cmp);
 	}

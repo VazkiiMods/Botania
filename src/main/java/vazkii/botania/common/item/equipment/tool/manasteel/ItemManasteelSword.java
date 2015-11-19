@@ -18,6 +18,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
@@ -86,8 +87,8 @@ public class ItemManasteelSword extends ItemSword implements IManaUsingItem {
 	}
 
 	@Override
-	public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int x, int y, int z, EntityLivingBase entity) {
-		if(usesMana(stack) && block.getBlockHardness(world, x, y, z) != 0F)
+	public boolean onBlockDestroyed(ItemStack stack, World world, Block block, BlockPos pos, EntityLivingBase entity) {
+		if(usesMana(stack) && block.getBlockHardness(world, pos) != 0F)
 			ToolCommons.damageItem(stack, 1, entity, getManaPerDamage());
 
 		return true;

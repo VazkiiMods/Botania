@@ -11,6 +11,7 @@
 package vazkii.botania.common.item.equipment.tool.manasteel;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.Block;
@@ -25,6 +26,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -76,8 +78,8 @@ public class ItemManasteelShears extends ItemShears implements IManaUsingItem {
 
 		if(entity instanceof IShearable) {
 			IShearable target = (IShearable)entity;
-			if(target.isShearable(itemstack, entity.worldObj, (int) entity.posX, (int) entity.posY, (int) entity.posZ)) {
-				ArrayList<ItemStack> drops = target.onSheared(itemstack, entity.worldObj, (int) entity.posX, (int) entity.posY, (int) entity.posZ, EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, itemstack));
+			if(target.isShearable(itemstack, entity.worldObj, new BlockPos(entity))) {
+				List<ItemStack> drops = target.onSheared(itemstack, entity.worldObj, new BlockPos(entity), EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, itemstack));
 
 				Random rand = new Random();
 				for(ItemStack stack : drops) {
@@ -97,15 +99,15 @@ public class ItemManasteelShears extends ItemShears implements IManaUsingItem {
 	}
 
 	@Override
-	public boolean onBlockStartBreak(ItemStack itemstack, int x, int y, int z, EntityPlayer player) {
+	public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
 		if (player.worldObj.isRemote)
 			return false;
 
-		Block block = player.worldObj.getBlock(x, y, z);
+		Block block = player.worldObj.getBlockState(pos).getBlock();
 		if(block instanceof IShearable) {
 			IShearable target = (IShearable)block;
-			if(target.isShearable(itemstack, player.worldObj, x, y, z)) {
-				ArrayList<ItemStack> drops = target.onSheared(itemstack, player.worldObj, x, y, z, EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, itemstack));
+			if(target.isShearable(itemstack, player.worldObj, pos)) {
+				List<ItemStack> drops = target.onSheared(itemstack, player.worldObj, pos, EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, itemstack));
 				Random rand = new Random();
 
 				for(ItemStack stack : drops) {
@@ -114,7 +116,7 @@ public class ItemManasteelShears extends ItemShears implements IManaUsingItem {
 					double d1 = rand.nextFloat() * f + (1D - f) * 0.5;
 					double d2 = rand.nextFloat() * f + (1D - f) * 0.5;
 
-					EntityItem entityitem = new EntityItem(player.worldObj, x + d, y + d1, z + d2, stack);
+					EntityItem entityitem = new EntityItem(player.worldObj, pos.getX() + d, pos.getY() + d1, pos.getZ() + d2, stack);
 					entityitem.delayBeforeCanPickup = 10;
 					player.worldObj.spawnEntityInWorld(entityitem);
 				}
